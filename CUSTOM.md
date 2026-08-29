@@ -25,7 +25,7 @@
 | 构建 | `pnpm build:native` |
 | 测试 | `pnpm run test` |
 | 代码检查 | `pnpm run lint` |
-| 启动/冒烟 | `⟨待确认: SMOKE_CMD⟩` |
+| 启动/冒烟 | `pnpm dsh --profile headless "your prompt"` |
 
 官方开发文档：CONTRIBUTING.md README.md docs/development.md
 

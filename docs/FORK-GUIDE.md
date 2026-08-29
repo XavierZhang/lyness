@@ -23,7 +23,7 @@ origin（你的）          git@github.com:XavierZhang/lyness.git
 ```bash
 cd "/Users/xavierzhang/Documents/projects/ai/lyness"
 pnpm install --filter @deepseek-ai/node-addon-landlock-run-workspace... --frozen-lockfile      # 安装依赖
-⟨待确认: SMOKE_CMD⟩        # 冒烟验证
+pnpm dsh --profile headless "your prompt"        # 冒烟验证
 ```
 
 本地地址：http://127.0.0.1:3080
@@ -93,7 +93,7 @@ git merge upstream/master
 
 pnpm install --filter @deepseek-ai/node-addon-landlock-run-workspace... --frozen-lockfile
 pnpm run test
-⟨待确认: SMOKE_CMD⟩
+pnpm dsh --profile headless "your prompt"
 git push origin custom/main
 git tag -a custom-$(date +%Y%m%d) -m "合并官方后的稳定版" && git push origin --tags
 ```
@@ -130,7 +130,7 @@ git add . && git merge --continue
 - [ ] `CUSTOM.md` 的定制点逐条复查，未被官方覆盖
 - [ ] 品牌、域名、关于页已是 lyness，不冒充官方
 - [ ] 分发包内保留 `LICENSE` 和第三方声明
-- [ ] `pnpm install --filter @deepseek-ai/node-addon-landlock-run-workspace... --frozen-lockfile` / `pnpm build:native` / `pnpm run test` / `⟨待确认: SMOKE_CMD⟩` 全部通过
+- [ ] `pnpm install --filter @deepseek-ai/node-addon-landlock-run-workspace... --frozen-lockfile` / `pnpm build:native` / `pnpm run test` / `pnpm dsh --profile headless "your prompt"` 全部通过
 - [ ] 不占用官方包名、镜像名、域名、Logo
 
 ## 许可证
