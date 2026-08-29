@@ -39,3 +39,16 @@ apps/web/dist/
 worktrees/
 .agents/worktrees/
 .typert-*/
+
+# === fork-init: 二开本地文件，切勿提交 ===
+.env
+.env.*
+!.env.example
+*.local
+*.key
+*.pem
+.fork/
+logs/
+*.log
+*.sqlite
+*.db
