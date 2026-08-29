@@ -22,7 +22,7 @@ origin（你的）          git@github.com:XavierZhang/lyness.git
 
 ```bash
 cd "/Users/xavierzhang/Documents/projects/ai/lyness"
-pnpm install --filter @deepseek-ai/node-addon-landlock-run-workspace... --frozen-lockfile      # 安装依赖
+pnpm install      # 安装依赖
 pnpm dsh --profile headless "your prompt"        # 冒烟验证
 ```
 
@@ -91,7 +91,7 @@ git diff custom/main...upstream/master --stat           # 动了哪些文件 →
 git merge upstream/master
 # 有冲突 → 见下一节 → git add . → git merge --continue
 
-pnpm install --filter @deepseek-ai/node-addon-landlock-run-workspace... --frozen-lockfile
+pnpm install
 pnpm run test
 pnpm dsh --profile headless "your prompt"
 git push origin custom/main
@@ -109,7 +109,7 @@ git tag -a custom-$(date +%Y%m%d) -m "合并官方后的稳定版" && git push o
 | 产品名、Logo、文案 | 保留你的，必要时吸收官方新增文案 |
 | 官方修了 bug，你没动过这段逻辑 | 取官方 |
 | 官方加新功能，你也改了同一处 | 两边都要，手动合成 |
-| 锁文件（lock 文件） | 别手改：`git checkout --theirs <锁文件>` 后重跑 `pnpm install --filter @deepseek-ai/node-addon-landlock-run-workspace... --frozen-lockfile` 重新生成 |
+| 锁文件（lock 文件） | 别手改：`git checkout --theirs <锁文件>` 后重跑 `pnpm install` 重新生成 |
 | 配置 schema / 数据库迁移 | 先读官方变更说明再决定兼容方式 |
 | 完全看不懂 | 先取官方让项目能跑，再把你的定制一点点加回来 |
 
@@ -130,7 +130,7 @@ git add . && git merge --continue
 - [ ] `CUSTOM.md` 的定制点逐条复查，未被官方覆盖
 - [ ] 品牌、域名、关于页已是 lyness，不冒充官方
 - [ ] 分发包内保留 `LICENSE` 和第三方声明
-- [ ] `pnpm install --filter @deepseek-ai/node-addon-landlock-run-workspace... --frozen-lockfile` / `pnpm build:native` / `pnpm run test` / `pnpm dsh --profile headless "your prompt"` 全部通过
+- [ ] `pnpm install` / `pnpm run build` / `pnpm run test` / `pnpm dsh --profile headless "your prompt"` 全部通过
 - [ ] 不占用官方包名、镜像名、域名、Logo
 
 ## 许可证

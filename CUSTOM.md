@@ -21,8 +21,8 @@
 
 | 用途 | 命令 |
 |---|---|
-| 安装依赖 | `pnpm install --filter @deepseek-ai/node-addon-landlock-run-workspace... --frozen-lockfile` |
-| 构建 | `pnpm build:native` |
+| 安装依赖 | `pnpm install` |
+| 构建 | `pnpm run build` |
 | 测试 | `pnpm run test` |
 | 代码检查 | `pnpm run lint` |
 | 启动/冒烟 | `pnpm dsh --profile headless "your prompt"` |

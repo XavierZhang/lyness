@@ -52,3 +52,6 @@ logs/
 *.log
 *.sqlite
 *.db
+
+# 本地 agent 工具状态（二开新增）
+.omc/
