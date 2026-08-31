@@ -36,16 +36,16 @@
 
 | # | 任务 | 状态 |
 |---|---|---|
-| 0.1 | `scripts/rebrand.ts`：token 定界改写 + `EXACT_EDITS` 命中数断言 + `--apply/--check/--reverse` | doing |
-| 0.2 | ⛔ 保护名单：DeepSeek 作为**模型供应商**的一切（`packages/llm/llm-deepseek`、`DeepSeekOnboardingDialog.tsx`、`ui-settings-models`、`api.deepseek.com`）不得改名 | todo |
-| 0.3 | npm scope `@deepseek-ai/dsh-<name>` → `@lyness/<name>`（241 个待发布包） | todo |
-| 0.4 | CLI `dsh` → `lyn`；`~/.dsh` → `~/.lyn`；`DSH_*` → `LYNESS_*` | todo |
-| 0.5 | ⚠️ 系统提示词身份 `packages/core/system-prompt/src/index.ts:412` —— 模型可见，须同步更新 snapshot | todo |
+| 0.1 | `scripts/rebrand.ts`：21 条有序规则 + 保护路径 + 后置断言 + `--apply/--check/--reverse/--only` | done |
+| 0.2 | ⛔ 保护名单：DeepSeek 作为**模型供应商**的一切（`packages/llm/llm-deepseek`、`DeepSeekOnboardingDialog.tsx`、`ui-settings-models`、`api.deepseek.com`）不得改名 | done |
+| 0.3 | npm scope `@deepseek-ai/dsh-<name>` → `@lyness/<name>`（241 个待发布包） | done |
+| 0.4 | CLI `dsh` → `lyn`；`~/.dsh` → `~/.lyn`；`DSH_*` → `LYNESS_*` | done |
+| 0.5 | ⚠️ 系统提示词身份 `packages/core/system-prompt/src/index.ts:412` —— 模型可见，须同步更新 snapshot | done |
 | 0.6 | Web UI 品牌：新增 `ui-brand-lyness` 填 `sidebar.brand.mark` / `sidebar.brand.name` / `conversation.hero.brand.mark`，零官方文件改动 | todo |
 | 0.7 | Logo：`apps/web/public/favicon.svg`（产品本体）、`website/public/{wordmark,favicon}.svg` | todo |
-| 0.8 | 仓库 URL → `https://github.com/XavierZhang/lyness`（仅 URL 类；`.agents/notes/` 官方历史笔记不动） | todo |
+| 0.8 | 仓库 URL → `https://github.com/XavierZhang/lyness`（仅 URL 类；`.agents/notes/` 官方历史笔记不动） | done |
 | 0.9 | 遥测：`packages/bundle/base/cordis.patch.yml:196` 默认端点指向 DeepSeek collector，`FEEDBACK_ONLY` 会外发完整会话内容 | todo |
-| 0.10 | 验证：`typecheck` + `build` + `test` + `test:snapshot` + `hygiene` | todo |
+| 0.10 | 验证：`typecheck` + `build` + `test` + `test:snapshot` + `hygiene` | done |
 
 ## Phase 1 — 多租户与品牌配置（需求 Step 1）
 

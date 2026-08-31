@@ -36,13 +36,18 @@
 
 | 文件/目录 | 改了什么 | 为什么必须改官方文件 | 日期 |
 |---|---|---|---|
-| | | | |
+| 全仓库 6000 个文件 | 品牌改名 | 改名本质上无法用新增文件表达 | 2026-08-31 |
+| `scripts/verify-lyn-package-licenses.ts` | 按 `vendor/` 路径排除而非按名字前缀 | 去掉 `dsh-` 段后，`@lyness/agent` 与 vendored 的 `@lyness/cordis` 名字上无法区分 | 2026-08-31 |
+| `scripts/package-graph.ts` | 同上 | 同上 | 2026-08-31 |
+| `packages/client/ui-settings-plugin-inventory/src/client/PluginInventorySettingsTab.tsx` | 显示名不再剥离已不存在的前缀 | 同上 | 2026-08-31 |
 
 ## 我新增的文件/能力
 
 | 能力 | 位置 | 说明 |
 |---|---|---|
-| | | |
+| 可重放的品牌改名 | `scripts/rebrand.ts` | 21 条有序规则 + 保护路径 + 后置断言 + `--check`。**每次 sync upstream 后必须重跑**，否则上游带回的旧名会残留。设计见 [Agent Note](.agents/notes/implemented/process/2026-08-31-lyness-rebrand-codemod.md) |
+| 二开任务清单 | `.fork/TASKS.md` | 需求拆解、7 处冲突裁决与分阶段计划 |
+| 二开手册 | `.fork/FORK-GUIDE.md` | 原在 `docs/` 下，因受上游双语门禁管辖而迁出 |
 
 ## 我故意删除或禁用的内容 ⚠️ 合并官方后必查
 
@@ -60,14 +65,14 @@
 |---|---|---|---|
 | 产品名（英文） | `DeepSeek Harness`（360 处） | `lyness` | 未决 |
 | 产品名（中文） | 无 | `领驭` | 未决 |
-| 仓库/标识 slug | `deepseek-harness`（587 处） | 待替换 | 仅 GitHub URL 类；`.agents/notes/` 官方笔记不动 |
+| 仓库/标识 slug | `deepseek-harness` | `lyness` | 已完成；归档笔记冻结不动 |
 | CLI 命令名 | `dsh` | `lyn` | `apps/cli/package.json` bin |
-| npm scope | `@deepseek-ai/dsh-<name>` | `@lyness/<name>` | 241 个待发布包 |
+| npm scope | `@deepseek-ai/dsh-<name>` | `@lyness/<name>` | 已完成，241 个包 |
 | 用户数据目录 | `~/.dsh` / `$DSH_HOME` | `~/.lyn` / `$LYNESS_HOME` | `packages/util/home-paths`；目录名与环境变量前缀刻意不成对，用户 2026-08-31 定 |
-| 系统提示词身份 ⚠️ | `You are an AI agent powered by DeepSeek Harness.` | `...powered by lyness.` | `packages/core/system-prompt/src/index.ts:412`（模型可见，改动需更新 snapshot） |
+| 系统提示词身份 ⚠️ | `You are an AI agent powered by DeepSeek Harness.` | `...powered by lyness.`（已完成） | `packages/core/system-prompt/src/index.ts:412`（模型可见，改动需更新 snapshot） |
 | Web UI 品牌插槽 | `@deepseek-ai/dsh-client-ui-brand-official` | 新增 `ui-brand-lyness` | 插槽化，零官方文件改动 |
 | 文档站 | `https://deepseek-harness.github.io` | 保留，是否公开后续定 | `website/` + `.github/workflows/docs-pages.yml` |
-| Logo | `website/public/{wordmark,favicon}.svg`、`apps/web/public/favicon.svg` | 待替换 | 仅 `apps/web/public/favicon.svg` 是产品本体 |
+| Logo | `website/public/{wordmark,favicon}.svg`、`apps/web/public/favicon.svg` | **未做** | 图形资产需人工设计；仅 `apps/web/public/favicon.svg` 是产品本体 |
 | API 端点 ⛔ | `https://api.deepseek.com` | 不改 | 供应商地址，非品牌 |
 | 模型供应商 DeepSeek ⛔ | `packages/llm/llm-deepseek`、`DeepSeekOnboardingDialog.tsx`、`ui-settings-models` | 不改 | 指模型供应商，不是 harness 品牌；全局替换会误伤 |
 | 遥测端点 ⚠️ | `https://harness-telemetry.deepseeksvc.com` | 未决 | 对外分发前必须复查 |
