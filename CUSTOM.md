@@ -12,10 +12,10 @@
 | 官方主分支 | master |
 | 我的仓库 | git@github.com:XavierZhang/lyness.git |
 | 二开主分支 | custom/main |
-| 产品名 | lyness |
+| 产品名 | lyness（中文：领驭） |
 | 官方许可证 | MIT |
 | 主技术栈 | node / pnpm |
-| 是否对外分发 | 待填写（是/否） |
+| 是否对外分发 | 开发阶段暂不发布 npm；品牌先全量替换，发布与否开发完成后再定（2026-08-31） |
 
 ## 源项目的开发方式（探测自源项目，不是我定的）
 
@@ -52,11 +52,25 @@
 
 ## 品牌替换清单 ⚠️ 合并官方后必查
 
+对外产品名：英文 **lyness**，中文 **领驭**。官方中文文档没有中文产品名，直接沿用英文 "DeepSeek Harness"，所以「领驭」是二开新增的，无官方对应值。
+
+下表「我的值」为 `未决` 的行是尚未拍板的品牌面，不是遗漏。官方值一栏的出现次数为 2026-08-31 实测。
+
 | 项 | 官方值 | 我的值 | 所在文件 |
 |---|---|---|---|
-| 产品名 | | lyness | |
-| Logo | | | |
-| 域名/链接 | | | |
+| 产品名（英文） | `DeepSeek Harness`（360 处） | `lyness` | 未决 |
+| 产品名（中文） | 无 | `领驭` | 未决 |
+| 仓库/标识 slug | `deepseek-harness`（587 处） | 待替换 | 仅 GitHub URL 类；`.agents/notes/` 官方笔记不动 |
+| CLI 命令名 | `dsh` | `lyn` | `apps/cli/package.json` bin |
+| npm scope | `@deepseek-ai/dsh-<name>` | `@lyness/<name>` | 241 个待发布包 |
+| 用户数据目录 | `~/.dsh` / `$DSH_HOME` | `~/.lyn` / `$LYNESS_HOME` | `packages/util/home-paths`；目录名与环境变量前缀刻意不成对，用户 2026-08-31 定 |
+| 系统提示词身份 ⚠️ | `You are an AI agent powered by DeepSeek Harness.` | `...powered by lyness.` | `packages/core/system-prompt/src/index.ts:412`（模型可见，改动需更新 snapshot） |
+| Web UI 品牌插槽 | `@deepseek-ai/dsh-client-ui-brand-official` | 新增 `ui-brand-lyness` | 插槽化，零官方文件改动 |
+| 文档站 | `https://deepseek-harness.github.io` | 保留，是否公开后续定 | `website/` + `.github/workflows/docs-pages.yml` |
+| Logo | `website/public/{wordmark,favicon}.svg`、`apps/web/public/favicon.svg` | 待替换 | 仅 `apps/web/public/favicon.svg` 是产品本体 |
+| API 端点 ⛔ | `https://api.deepseek.com` | 不改 | 供应商地址，非品牌 |
+| 模型供应商 DeepSeek ⛔ | `packages/llm/llm-deepseek`、`DeepSeekOnboardingDialog.tsx`、`ui-settings-models` | 不改 | 指模型供应商，不是 harness 品牌；全局替换会误伤 |
+| 遥测端点 ⚠️ | `https://harness-telemetry.deepseeksvc.com` | 未决 | 对外分发前必须复查 |
 
 ## 合并官方记录
 

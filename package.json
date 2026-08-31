@@ -111,6 +111,8 @@
     "verify-cordis-config": "tsx scripts/verify-cordis-config.ts",
     "rescope-vendor": "tsx scripts/rescope-vendor.ts",
     "rescope-vendor:check": "tsx scripts/rescope-vendor.ts --check",
+    "rebrand": "tsx scripts/rebrand.ts",
+    "rebrand:check": "tsx scripts/rebrand.ts --check",
     "verify-client-domain-graph": "tsx scripts/verify-client-domain-graph.ts",
     "gen-tsconfig-paths": "tsx scripts/gen-tsconfig-paths.ts",
     "verify-tsconfig-paths": "tsx scripts/gen-tsconfig-paths.ts --check",

@@ -1,0 +1,95 @@
+# lyness 二开任务清单
+
+需求源：[`lyness-requirements.md`](../lyness-requirements.md)（根目录，二开新增）
+台账：[`CUSTOM.md`](../CUSTOM.md) — 每完成一项定制点在此登记
+冲突裁决规则：**技术路线与官方冲突时以官方为准**，但每处冲突必须在本文件留痕并提醒。
+
+状态：`todo` / `doing` / `done` / `blocked`
+
+---
+
+## 需求文档与仓库实际的 7 处冲突（已裁决）
+
+| # | 文档假设 | 仓库实际 | 裁决 |
+|---|---|---|---|
+| 1 | 事件 `step/finish`、`step/error` | 实际为 `step/end`；`step/error` 不存在。`step/end` 载荷仅 `{turn, step}`，无错误字段。错误表达为 `tool/result.isError` | 采官方事件名；错误从 `tool/result.isError` + `llm/retry` 推导 |
+| 2 | REST `/api/v1/tenant/config` | `packages/api/gateway` 为两端 Typert RPC（Host `ctx.typertGateway` / Client `ctx.remote`） | 采官方：租户配置走 Typert RPC |
+| 3 | 「Monaco/Turborepo」 | 无 `turbo.json`，为 pnpm workspaces（`pnpm@11.7.0`） | 采官方：pnpm workspaces |
+| 4 | `packages/plugin-multi-tenancy` | 布局为 `packages/<组>/<包>/`，无 `packages/plugin-*` 形态 | 采官方布局与命名 |
+| 5 | 自定义 Agent Team 拓扑 + Message Bus | 官方已有 `packages/workflow`（含 worker-thread provider）与 `packages/subagent`（11 包） | 采官方：在 workflow/subagent seam 上做拓扑层 |
+| 6 | 自行落盘 Step 日志汇总指标 | 官方已有 `packages/session/session-stats` projection（turn/step 计数、LLM/tool/首 token/解码耗时，从完整持久日志折叠） | 采官方：复用 `sessionStats`，仅补充其未覆盖的维度 |
+| 7 | Vue 3 + Element Plus 管理后台 | 仓库前端为 React 18（284 `.tsx` / 0 `.vue`） | **例外：采需求文档**。官方无管理后台，不存在官方路线；Vue 3 写在验收标准中。代价：admin-portal 不复用 `packages/client/*`，自建 RPC 封装与 i18n |
+
+### 需求文档未提、但仓库规则强制的约束
+
+- **Model-visible ⟺ logged**：进入模型请求的输入必须能从 session log 重建，并有对应 `SessionEventMap` 事件（成员 required-on-read）。租户配置若影响模型行为（租户级 persona、工具授权），`tenant_id` 必须进 session log —— 须在 Phase 1 设计对，事后补代价极大。
+- **能力缝三角**：Service Definition / Service Provider / Consumer 三角完整，不可只实现其一。
+- **注册即 effect**：所有贡献走 `ctx.effect()` / `ctx.on()`。
+- **非平凡改动须附 Agent Note**（`.agents/notes/`）。
+- **每包 100% 覆盖率**（`pnpm run test:coverage` 是 CI 门禁）。
+
+---
+
+## Phase 0 — 品牌全量替换
+
+先于功能开发，避免新代码带上旧名。做法照搬官方 `scripts/rescope-vendor.ts` 范式：脚本化改名 + `--check` gate + 每次 sync upstream 后重跑。
+
+| # | 任务 | 状态 |
+|---|---|---|
+| 0.1 | `scripts/rebrand.ts`：token 定界改写 + `EXACT_EDITS` 命中数断言 + `--apply/--check/--reverse` | doing |
+| 0.2 | ⛔ 保护名单：DeepSeek 作为**模型供应商**的一切（`packages/llm/llm-deepseek`、`DeepSeekOnboardingDialog.tsx`、`ui-settings-models`、`api.deepseek.com`）不得改名 | todo |
+| 0.3 | npm scope `@deepseek-ai/dsh-<name>` → `@lyness/<name>`（241 个待发布包） | todo |
+| 0.4 | CLI `dsh` → `lyn`；`~/.dsh` → `~/.lyn`；`DSH_*` → `LYNESS_*` | todo |
+| 0.5 | ⚠️ 系统提示词身份 `packages/core/system-prompt/src/index.ts:412` —— 模型可见，须同步更新 snapshot | todo |
+| 0.6 | Web UI 品牌：新增 `ui-brand-lyness` 填 `sidebar.brand.mark` / `sidebar.brand.name` / `conversation.hero.brand.mark`，零官方文件改动 | todo |
+| 0.7 | Logo：`apps/web/public/favicon.svg`（产品本体）、`website/public/{wordmark,favicon}.svg` | todo |
+| 0.8 | 仓库 URL → `https://github.com/XavierZhang/lyness`（仅 URL 类；`.agents/notes/` 官方历史笔记不动） | todo |
+| 0.9 | 遥测：`packages/bundle/base/cordis.patch.yml:196` 默认端点指向 DeepSeek collector，`FEEDBACK_ONLY` 会外发完整会话内容 | todo |
+| 0.10 | 验证：`typecheck` + `build` + `test` + `test:snapshot` + `hygiene` | todo |
+
+## Phase 1 — 多租户与品牌配置（需求 Step 1）
+
+| # | 任务 | 状态 |
+|---|---|---|
+| 1.1 | 租户能力缝：Service Definition + Provider + Consumer 三角 | todo |
+| 1.2 | 租户解析：Domain / Subdomain / `X-Tenant-ID` header | todo |
+| 1.3 | `TenantConfig`：`logoUrl` `appName` `themeColor` `customCss` `allowedFeatures` | todo |
+| 1.4 | 租户配置 Typert RPC（替代文档的 REST 方案，冲突 #2） | todo |
+| 1.5 | ⚠️ `tenant_id` 进 session log：新增 `SessionEventMap` 成员 | todo |
+| 1.6 | 数据隔离：SQLite `SCHEMA_VERSION` 单调递增 | todo |
+
+## Phase 2 — 可观测性与预警（需求 Step 2）
+
+| # | 任务 | 状态 |
+|---|---|---|
+| 2.1 | 订阅 `step/start` / `step/end`（冲突 #1 已裁决的真实事件名） | todo |
+| 2.2 | 错误检测：`tool/result.isError` + `llm/retry` + 超时 | todo |
+| 2.3 | 指标聚合：复用 `sessionStats`，仅补租户维度与错误率（冲突 #6） | todo |
+| 2.4 | 预警管道：钉钉 / 企业微信 / 通用 Webhook，按租户配置路由 | todo |
+
+## Phase 3 — Agent Team 编排（需求 Step 3）
+
+| # | 任务 | 状态 |
+|---|---|---|
+| 3.1 | `AgentTeam` 拓扑 Schema（Nodes + Directed Edges） | todo |
+| 3.2 | 执行层建在 `workflowEngine` + subagent 之上（冲突 #5） | todo |
+| 3.3 | 节点间 I/O Mapping | todo |
+
+## Phase 4 — Vue 3 管理后台（需求 Step 4）
+
+| # | 任务 | 状态 |
+|---|---|---|
+| 4.1 | `apps/admin-portal`：Vite + Vue 3 + TS + Element Plus + pinia + vue-router | todo |
+| 4.2 | Typert `InvocationDescriptor` → Vue 可用的类型化 RPC 客户端 | todo |
+| 4.3 | RBAC 动态路由（基于 pinia 权限过滤菜单） | todo |
+| 4.4 | 数据看板：调用趋势、Token 消耗、错误率 | todo |
+| 4.5 | 租户/OEM 设置：Logo、名称、主题色实时预览（CSS Variables 动态注入） | todo |
+| 4.6 | Agent & 团队管理：授权 + 拓扑可视化搭建 | todo |
+| 4.7 | 日志与预警：Trace 查询、错误栈、预警规则配置 | todo |
+
+## 验收标准（源自需求文档）
+
+- [ ] 原生核心 Trace 格式与 Loop 算法 100% 兼容
+- [ ] 不同租户域名 → 返回对应 Logo、名称与 UI 配置
+- [ ] 管理后台基于 Vue 3 + TS + Element Plus，组件全用 `<script setup lang="ts">`
+- [ ] 数据看板准确反映 observability 记录的指标与 Trace

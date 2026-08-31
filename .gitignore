@@ -47,7 +47,10 @@ worktrees/
 *.local
 *.key
 *.pem
-.fork/
+.fork/*
+# 任务计划是项目产物，必须版本化；.fork/ 其余内容（config.env 等）是本地配置。
+# 用 .fork/* 而非 .fork/：目录级忽略会让 git 不下探，负向规则将失效。
+!.fork/TASKS.md
 logs/
 *.log
 *.sqlite
