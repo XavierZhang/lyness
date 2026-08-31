@@ -1,13 +1,13 @@
 {
-  "name": "@deepseek-ai/dsh-sdk-client",
-  "description": "TypeScript client SDK for driving a DeepSeek Harness runtime subprocess over stdio JSON-RPC: the DeepSeekHarness high-level turns API and the lower-level HarnessClient",
+  "name": "@lyness/sdk-client",
+  "description": "TypeScript client SDK for driving a lyness runtime subprocess over stdio JSON-RPC: the Lyness high-level turns API and the lower-level HarnessClient",
   "version": "0.1.2-alpha.1",
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/sdk/client"
   },
   "type": "module",
@@ -31,20 +31,20 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@deepseek-ai/dsh": "workspace:*"
+    "@lyness/lyn": "workspace:*"
   },
   "peerDependencies": {
-    "@deepseek-ai/dsh-invariants": "workspace:^",
-    "@deepseek-ai/dsh-llm": "workspace:^",
-    "@deepseek-ai/dsh-sdk-protocol": "workspace:^",
-    "@deepseek-ai/dsh-session": "workspace:^",
-    "@deepseek-ai/cordis": "workspace:^"
+    "@lyness/invariants": "workspace:^",
+    "@lyness/llm": "workspace:^",
+    "@lyness/sdk-protocol": "workspace:^",
+    "@lyness/session": "workspace:^",
+    "@lyness/cordis": "workspace:^"
   },
   "devDependencies": {
-    "@deepseek-ai/dsh-invariants": "workspace:^",
-    "@deepseek-ai/dsh-llm": "workspace:^",
-    "@deepseek-ai/dsh-sdk-protocol": "workspace:^",
-    "@deepseek-ai/dsh-session": "workspace:^",
-    "@deepseek-ai/cordis": "workspace:^"
+    "@lyness/invariants": "workspace:^",
+    "@lyness/llm": "workspace:^",
+    "@lyness/sdk-protocol": "workspace:^",
+    "@lyness/session": "workspace:^",
+    "@lyness/cordis": "workspace:^"
   }
 }

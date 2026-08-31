@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-tool-pwsh-persistent",
+  "name": "@lyness/tool-pwsh-persistent",
   "description": "Model-facing owner-scoped persistent PowerShell tool backed by the Harness PTY service",
   "version": "0.1.2-alpha.1",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/shell/tool-pwsh-persistent"
   },
   "type": "module",
@@ -31,32 +31,32 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/dsh-agent": "workspace:^",
-    "@deepseek-ai/dsh-invariants": "workspace:^",
-    "@deepseek-ai/dsh-terminal": "workspace:^",
-    "@deepseek-ai/dsh-timeout": "workspace:^",
-    "@deepseek-ai/dsh-tools": "workspace:^",
-    "@deepseek-ai/cordis": "workspace:^"
+    "@lyness/agent": "workspace:^",
+    "@lyness/invariants": "workspace:^",
+    "@lyness/terminal": "workspace:^",
+    "@lyness/timeout": "workspace:^",
+    "@lyness/tools": "workspace:^",
+    "@lyness/cordis": "workspace:^"
   },
   "dependencies": {
-    "@deepseek-ai/schemastery": "workspace:^"
+    "@lyness/schemastery": "workspace:^"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis-plugin-include": "workspace:^",
-    "@deepseek-ai/cordis-plugin-loader": "workspace:^",
-    "@deepseek-ai/dsh-agent": "workspace:^",
-    "@deepseek-ai/dsh-invariants": "workspace:^",
-    "@deepseek-ai/dsh-llm": "workspace:^",
-    "@deepseek-ai/dsh-terminal": "workspace:^",
-    "@deepseek-ai/dsh-terminal-bash": "workspace:^",
-    "@deepseek-ai/dsh-pwsh-local": "workspace:^",
-    "@deepseek-ai/dsh-sandbox": "workspace:^",
-    "@deepseek-ai/dsh-sandbox-policy": "workspace:^",
-    "@deepseek-ai/dsh-session": "workspace:^",
-    "@deepseek-ai/dsh-subprocess-local": "workspace:^",
-    "@deepseek-ai/dsh-system-prompt": "workspace:^",
-    "@deepseek-ai/dsh-timeout": "workspace:^",
-    "@deepseek-ai/dsh-tools": "workspace:^",
-    "@deepseek-ai/cordis": "workspace:^"
+    "@lyness/cordis-plugin-include": "workspace:^",
+    "@lyness/cordis-plugin-loader": "workspace:^",
+    "@lyness/agent": "workspace:^",
+    "@lyness/invariants": "workspace:^",
+    "@lyness/llm": "workspace:^",
+    "@lyness/terminal": "workspace:^",
+    "@lyness/terminal-bash": "workspace:^",
+    "@lyness/pwsh-local": "workspace:^",
+    "@lyness/sandbox": "workspace:^",
+    "@lyness/sandbox-policy": "workspace:^",
+    "@lyness/session": "workspace:^",
+    "@lyness/subprocess-local": "workspace:^",
+    "@lyness/system-prompt": "workspace:^",
+    "@lyness/timeout": "workspace:^",
+    "@lyness/tools": "workspace:^",
+    "@lyness/cordis": "workspace:^"
   }
 }

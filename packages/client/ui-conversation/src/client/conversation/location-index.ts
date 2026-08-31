@@ -1,7 +1,7 @@
 import {
   type SessionEventLike, type SessionEventLikeEntry,
-} from '@deepseek-ai/dsh-api-session-controller/client'
-import type { SessionEvent } from '@deepseek-ai/dsh-session/types'
+} from '@lyness/api-session-controller/client'
+import type { SessionEvent } from '@lyness/session/types'
 import type {
   ConversationLocation, ConversationLocationData,
   ConversationLocationDataStore, ConversationStepDataMap, ConversationTimelineSnapshot,

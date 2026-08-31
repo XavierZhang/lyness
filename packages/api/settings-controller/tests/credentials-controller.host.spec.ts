@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import type { CredentialInfo } from '@deepseek-ai/dsh-credentials/types'
-import { TypertRemoteFailure, remoteMethods } from '@deepseek-ai/dsh-typert-protocol'
+import { Context } from '@lyness/cordis'
+import type { CredentialInfo } from '@lyness/credentials/types'
+import { TypertRemoteFailure, remoteMethods } from '@lyness/typert-protocol'
 import CredentialsController from '../src/credentials.ts'
 import { MemoryCredentials } from '../../../credentials/credentials/tests/memory.ts'
 
@@ -63,7 +63,7 @@ describe('the credentials Remote namespace a configuration surface calls', () =>
       expect(failure).toBeInstanceOf(TypertRemoteFailure)
       expect((failure as TypertRemoteFailure).failure).toEqual({
         code: 'internal',
-        message: 'credentials service is absent: this deployment does not mount a credential provider (e.g. @deepseek-ai/dsh-credentials-local) in its composition',
+        message: 'credentials service is absent: this deployment does not mount a credential provider (e.g. @lyness/credentials-local) in its composition',
         details: {},
       })
     }

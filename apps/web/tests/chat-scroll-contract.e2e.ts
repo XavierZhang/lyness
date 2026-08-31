@@ -8,10 +8,10 @@ import { join } from 'node:path'
 import type { Browser, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
-import type { StreamChunk } from '@deepseek-ai/dsh-llm'
-import { ToolCallId } from '@deepseek-ai/dsh-llm'
-import type { ReplayEntry, ReplayOverrideDoc } from '@deepseek-ai/dsh-llm-replay'
-import type { SessionEvent } from '@deepseek-ai/dsh-session'
+import type { StreamChunk } from '@lyness/llm'
+import { ToolCallId } from '@lyness/llm'
+import type { ReplayEntry, ReplayOverrideDoc } from '@lyness/llm-replay'
+import type { SessionEvent } from '@lyness/session'
 import { createChatScrollFixture, type ChatScrollFixture } from './chat-scroll-fixture.ts'
 import {
   launchWebScaffold,
@@ -149,7 +149,7 @@ async function launchScrollWorld(options: ScrollWorldOptions): Promise<ScrollWor
   let page: Page | undefined
   try {
     if (options.replay !== undefined) {
-      replayDir = await mkdtemp(join(tmpdir(), 'dsh-chat-scroll-replay-'))
+      replayDir = await mkdtemp(join(tmpdir(), 'lyn-chat-scroll-replay-'))
       const replayOverride = join(replayDir, 'replay.override.json')
       await writeFile(replayOverride, JSON.stringify(options.replay))
       scaffold = await launchWebScaffold({

@@ -1,15 +1,15 @@
 #!/usr/bin/env node
 /**
- * Command-line entry for dsh.
- * @module @deepseek-ai/dsh/bin
+ * Command-line entry for lyn.
+ * @module @lyness/lyn/bin
  */
 
 /* v8 ignore file -- built-bin acceptance exercises this self-executing dispatch. */
 
 import { readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
-import { loadLayeredEnv } from '@deepseek-ai/dsh-app-boot'
-import { parseDshArgs } from './args.ts'
+import { loadLayeredEnv } from '@lyness/app-boot'
+import { parseLynArgs } from './args.ts'
 
 // Both the source tree (apps/cli/src) and the bundled bin (apps/cli/lib) sit
 // one directory under apps/cli, so the checked-in manifest resolves with the
@@ -21,13 +21,13 @@ function readVersion(): string {
   return typeof manifest.version === 'string' ? manifest.version : '0.0.0'
 }
 
-const invocation = parseDshArgs(process.argv.slice(2), readVersion())
+const invocation = parseLynArgs(process.argv.slice(2), readVersion())
 
 switch (invocation.mode) {
   case 'profile': {
     const { runProfile } = await import('./profile-boot.ts')
     await runProfile({
-      environment: loadLayeredEnv('dsh'),
+      environment: loadLayeredEnv('lyn'),
       profile: invocation.profile,
       patchFiles: invocation.patches,
       args: invocation.args,
@@ -46,5 +46,5 @@ switch (invocation.mode) {
   }
   default:
     invocation satisfies never
-    throw new Error(`dsh: unhandled invocation mode ${JSON.stringify(invocation)}`)
+    throw new Error(`lyn: unhandled invocation mode ${JSON.stringify(invocation)}`)
 }

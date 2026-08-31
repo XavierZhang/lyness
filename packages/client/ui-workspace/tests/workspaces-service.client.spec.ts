@@ -1,14 +1,14 @@
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import type {
   ISessions, SessionListState, SessionSummary,
-} from '@deepseek-ai/dsh-api-session-controller/client'
+} from '@lyness/api-session-controller/client'
 import type {
   IWorkspaces, WorkspaceId, WorkspaceSnapshot, WorkspaceView,
-} from '@deepseek-ai/dsh-api-workspace-controller/client'
-import type { ClientRemote, DirectoryListing } from '@deepseek-ai/dsh-api-remotes/client'
-import type { RemoteResult } from '@deepseek-ai/dsh-typert-protocol'
-import { SessionId } from '@deepseek-ai/dsh-session/types'
+} from '@lyness/api-workspace-controller/client'
+import type { ClientRemote, DirectoryListing } from '@lyness/api-remotes/client'
+import type { RemoteResult } from '@lyness/typert-protocol'
+import { SessionId } from '@lyness/session/types'
 import { DirectoryBrowseError, UiWorkspaceService } from '../src/client/navigation.ts'
 
 const sid = (id: string): SessionId => SessionId(id)

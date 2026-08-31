@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-api-workspace-controller",
+  "name": "@lyness/api-workspace-controller",
   "description": "Workspace Remote commands and reconnect-safe state transport",
   "version": "0.1.2-alpha.1",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/api/workspace-controller"
   },
   "type": "module",
@@ -41,14 +41,14 @@
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
-  "dsh": {
+  "lyn": {
     "client": {
       "external": [
-        "@deepseek-ai/dsh-api-gateway/client"
+        "@lyness/api-gateway/client"
       ],
       "inject": [
-        "@deepseek-ai/dsh-api-gateway",
-        "@deepseek-ai/dsh-client-connection"
+        "@lyness/api-gateway",
+        "@lyness/client-connection"
       ],
       "platform": "web"
     }
@@ -73,26 +73,26 @@
     "zod": "^4.4.3"
   },
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:^",
-    "@deepseek-ai/dsh-api-gateway": "workspace:^",
-    "@deepseek-ai/dsh-client-connection": "workspace:^",
-    "@deepseek-ai/dsh-host-directory-picker": "workspace:^",
-    "@deepseek-ai/dsh-invariants": "workspace:^",
-    "@deepseek-ai/dsh-session": "workspace:^",
-    "@deepseek-ai/dsh-storage-domain": "workspace:^",
-    "@deepseek-ai/dsh-typert-protocol": "workspace:^",
-    "@deepseek-ai/dsh-workspace": "workspace:^"
+    "@lyness/cordis": "workspace:^",
+    "@lyness/api-gateway": "workspace:^",
+    "@lyness/client-connection": "workspace:^",
+    "@lyness/host-directory-picker": "workspace:^",
+    "@lyness/invariants": "workspace:^",
+    "@lyness/session": "workspace:^",
+    "@lyness/storage-domain": "workspace:^",
+    "@lyness/typert-protocol": "workspace:^",
+    "@lyness/workspace": "workspace:^"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:^",
-    "@deepseek-ai/dsh-api-gateway": "workspace:^",
-    "@deepseek-ai/dsh-client-connection": "workspace:^",
-    "@deepseek-ai/dsh-client-store": "workspace:^",
-    "@deepseek-ai/dsh-host-directory-picker": "workspace:^",
-    "@deepseek-ai/dsh-invariants": "workspace:^",
-    "@deepseek-ai/dsh-session": "workspace:^",
-    "@deepseek-ai/dsh-storage-domain": "workspace:^",
-    "@deepseek-ai/dsh-typert-protocol": "workspace:^",
-    "@deepseek-ai/dsh-workspace": "workspace:^"
+    "@lyness/cordis": "workspace:^",
+    "@lyness/api-gateway": "workspace:^",
+    "@lyness/client-connection": "workspace:^",
+    "@lyness/client-store": "workspace:^",
+    "@lyness/host-directory-picker": "workspace:^",
+    "@lyness/invariants": "workspace:^",
+    "@lyness/session": "workspace:^",
+    "@lyness/storage-domain": "workspace:^",
+    "@lyness/typert-protocol": "workspace:^",
+    "@lyness/workspace": "workspace:^"
   }
 }

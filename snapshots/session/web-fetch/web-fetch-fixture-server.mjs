@@ -6,7 +6,7 @@
  * external network. The port is fixed because the fetched URL is recorded.
  */
 import { createServer } from 'node:http'
-import { HttpFetchProvider } from '@deepseek-ai/dsh-web-fetch-http'
+import { HttpFetchProvider } from '@lyness/web-fetch-http'
 
 /** Fixed loopback port the scenario prompt points `web_fetch` at. */
 const PORT = 43117
@@ -33,7 +33,7 @@ const LIMITS = {
   maxBodyChars: 100_000,
   timeoutMs: 30_000,
   maxRedirects: 5,
-  userAgent: 'deepseek-harness-snapshot/1.0',
+  userAgent: 'lyness-snapshot/1.0',
 }
 
 /**

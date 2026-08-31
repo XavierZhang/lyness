@@ -1,6 +1,6 @@
 /** In-memory ACP transport fixture over the real agent factory and loop. */
 
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { createHash } from 'node:crypto'
 import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
@@ -18,13 +18,13 @@ import {
   type SessionNotification,
   type Stream,
 } from '@agentclientprotocol/sdk'
-import AttachmentStore, { AttachmentError, AttachmentId } from '@deepseek-ai/dsh-attachment'
-import type { ImageAttachmentLimits, ImageAttachmentRef, SaveImageAttachment, StoredImageAttachment } from '@deepseek-ai/dsh-attachment'
-import { type GenerateOptions, LlmAdapter, ReasoningEffortId, type LlmResolvedModelInfo, type StreamChunk } from '@deepseek-ai/dsh-llm'
-import AgentLoop from '@deepseek-ai/dsh-agent-loop'
-import { mountAgentLoopTestDependencies } from '@deepseek-ai/dsh-agent-loop-testkit'
-import JsonlSessionPersistence from '@deepseek-ai/dsh-session-persistence-jsonl'
-import TokenMeter from '@deepseek-ai/dsh-token-meter'
+import AttachmentStore, { AttachmentError, AttachmentId } from '@lyness/attachment'
+import type { ImageAttachmentLimits, ImageAttachmentRef, SaveImageAttachment, StoredImageAttachment } from '@lyness/attachment'
+import { type GenerateOptions, LlmAdapter, ReasoningEffortId, type LlmResolvedModelInfo, type StreamChunk } from '@lyness/llm'
+import AgentLoop from '@lyness/agent-loop'
+import { mountAgentLoopTestDependencies } from '@lyness/agent-loop-testkit'
+import JsonlSessionPersistence from '@lyness/session-persistence-jsonl'
+import TokenMeter from '@lyness/token-meter'
 import * as AcpPlugin from '../src/index.ts'
 import type { AcpConfig } from '../src/index.ts'
 
@@ -229,7 +229,7 @@ export async function makeBridgeHarness(options: {
   const adapter = new MockAdapter(options.script ?? [], options.imageCapable === true)
   const ctx = new Context()
   const ownsPersistenceRoot = options.persistenceRoot === undefined
-  const persistenceRoot = options.persistenceRoot ?? await mkdtemp(join(tmpdir(), 'dsh-acp-test-'))
+  const persistenceRoot = options.persistenceRoot ?? await mkdtemp(join(tmpdir(), 'lyn-acp-test-'))
   await mountAgentLoopTestDependencies(ctx, { systemPrompt: { persona: options.persona ?? '' } })
   await ctx.plugin(JsonlSessionPersistence, { root: persistenceRoot, compression: 'none' })
   await ctx.plugin(TokenMeter)
@@ -272,7 +272,7 @@ export async function makeBridgeHarness(options: {
     },
   }
 
-  const clientApp = createAcpClientApp({ name: 'dsh-acp-test-client' })
+  const clientApp = createAcpClientApp({ name: 'lyn-acp-test-client' })
     .onNotification(methods.client.session.update, ({ params }) => {
       updates.push(params.update)
       sessionUpdates.push({ sessionId: params.sessionId, update: params.update })

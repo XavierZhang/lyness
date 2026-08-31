@@ -5,10 +5,10 @@
  * operation, so a changed credential reaches the next operation without any
  * plugin restart, and configuration surfaces describe a reference without
  * ever seeing its value.
- * @module @deepseek-ai/dsh-credentials
+ * @module @lyness/credentials
  */
 
-import { Context, Service } from '@deepseek-ai/cordis'
+import { Context, Service } from '@lyness/cordis'
 import type { CredentialInfo, CredentialKey, CredentialRecord, CredentialRef } from './types.ts'
 
 export type {
@@ -144,7 +144,7 @@ export interface CredentialRecordEntry {
   kind: CredentialRecord['kind']
 }
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Context {
     credentials: CredentialProvider
   }

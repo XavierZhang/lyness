@@ -1,4 +1,4 @@
-import { createUserMessage } from '@deepseek-ai/dsh-llm'
+import { createUserMessage } from '@lyness/llm'
 /**
  * Shared write-path orchestration contract for backends using {@link PersistenceCoordinator}.
  * Unlike the public storage-semantics suite in `contract.ts`, it covers SessionStore event wiring,
@@ -7,14 +7,14 @@ import { createUserMessage } from '@deepseek-ai/dsh-llm'
  *
  * Each real backend supplies a shared storage scope and optional torn-tail injector; backend specs
  * retain only storage-mechanics tests, while these scenarios run once per backend.
- * @module @deepseek-ai/dsh-session-persistence/tests/coordinator-contract
+ * @module @lyness/session-persistence/tests/coordinator-contract
  */
 
 import { describe, expect, it, vi } from 'vitest'
-import { Context, type Fiber } from '@deepseek-ai/cordis'
-import { scopeTarget } from '@deepseek-ai/dsh-scope'
-import SessionStore, { SESSION_FORMAT_VERSION, Session, SessionId } from '@deepseek-ai/dsh-session'
-import type { SessionEvent } from '@deepseek-ai/dsh-session'
+import { Context, type Fiber } from '@lyness/cordis'
+import { scopeTarget } from '@lyness/scope'
+import SessionStore, { SESSION_FORMAT_VERSION, Session, SessionId } from '@lyness/session'
+import type { SessionEvent } from '@lyness/session'
 import { meta, oneTurnLog, appendLog } from './contract.ts'
 
 /**

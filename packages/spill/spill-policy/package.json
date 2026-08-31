@@ -1,13 +1,13 @@
 {
-  "name": "@deepseek-ai/dsh-spill-policy",
-  "description": "Tool-result spill policy for the DeepSeek Harness — replaces oversized plain-text tool results with a retained preview plus a spill-file path (no service API)",
+  "name": "@lyness/spill-policy",
+  "description": "Tool-result spill policy for the lyness — replaces oversized plain-text tool results with a retained preview plus a spill-file path (no service API)",
   "version": "0.1.2-alpha.1",
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/spill/spill-policy"
   },
   "type": "module",
@@ -32,26 +32,26 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/dsh-invariants": "workspace:^",
-    "@deepseek-ai/dsh-llm": "workspace:^",
-    "@deepseek-ai/dsh-output-retention": "workspace:^",
-    "@deepseek-ai/dsh-session": "workspace:^",
-    "@deepseek-ai/dsh-spill": "workspace:^",
-    "@deepseek-ai/dsh-tools": "workspace:^",
-    "@deepseek-ai/cordis": "workspace:^"
+    "@lyness/invariants": "workspace:^",
+    "@lyness/llm": "workspace:^",
+    "@lyness/output-retention": "workspace:^",
+    "@lyness/session": "workspace:^",
+    "@lyness/spill": "workspace:^",
+    "@lyness/tools": "workspace:^",
+    "@lyness/cordis": "workspace:^"
   },
   "dependencies": {
-    "@deepseek-ai/schemastery": "workspace:^"
+    "@lyness/schemastery": "workspace:^"
   },
   "devDependencies": {
-    "@deepseek-ai/dsh-agent": "workspace:^",
-    "@deepseek-ai/dsh-code-runtime-worker-thread": "workspace:^",
-    "@deepseek-ai/dsh-invariants": "workspace:^",
-    "@deepseek-ai/dsh-llm": "workspace:^",
-    "@deepseek-ai/dsh-output-retention": "workspace:^",
-    "@deepseek-ai/dsh-session": "workspace:^",
-    "@deepseek-ai/dsh-spill": "workspace:^",
-    "@deepseek-ai/dsh-tools": "workspace:^",
-    "@deepseek-ai/cordis": "workspace:^"
+    "@lyness/agent": "workspace:^",
+    "@lyness/code-runtime-worker-thread": "workspace:^",
+    "@lyness/invariants": "workspace:^",
+    "@lyness/llm": "workspace:^",
+    "@lyness/output-retention": "workspace:^",
+    "@lyness/session": "workspace:^",
+    "@lyness/spill": "workspace:^",
+    "@lyness/tools": "workspace:^",
+    "@lyness/cordis": "workspace:^"
   }
 }

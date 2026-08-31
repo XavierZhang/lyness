@@ -3,13 +3,13 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { act, cleanup, fireEvent, waitFor, within } from '@testing-library/react'
 import { useState } from 'react'
-import { LocaleRuntime } from '@deepseek-ai/dsh-client-locale/client'
-import type { ISession } from '@deepseek-ai/dsh-api-session-controller/client'
-import type { PropsRenderSlots } from '@deepseek-ai/dsh-client-ui-slots'
-import { SlotTestRuntime, usePinnedBrowserLanguages, stubSettingsScope } from '@deepseek-ai/dsh-client-test-runtime'
+import { LocaleRuntime } from '@lyness/client-locale/client'
+import type { ISession } from '@lyness/api-session-controller/client'
+import type { PropsRenderSlots } from '@lyness/client-ui-slots'
+import { SlotTestRuntime, usePinnedBrowserLanguages, stubSettingsScope } from '@lyness/client-test-runtime'
 import { InputHub } from '../src/client/input/hub.ts'
-import { apply, inject, type EmptyWorkspaceOwnerProps } from '@deepseek-ai/dsh-client-ui-conversation/client'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import { apply, inject, type EmptyWorkspaceOwnerProps } from '@lyness/client-ui-conversation/client'
+import type { SessionId } from '@lyness/session/types'
 
 // jsdom implements no Range geometry (Lexical's scroll-into-view measures the
 // caret with one once the surface is genuinely contenteditable).

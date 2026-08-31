@@ -2,5 +2,5 @@
 # side as of the last confirmed-consistent state. Both languages carry equal authority;
 # after editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/testing/2026-08-03-opt-in-reasoning-chunk-browser-stress.md
-2026-08-03-opt-in-reasoning-chunk-browser-stress.md: 70c200c7ade6ef995c68b68ddc21e4c85edf0da8
-2026-08-03-opt-in-reasoning-chunk-browser-stress.zh.md: 9fb4be27369d4489fc90a6151fcbd0861ef83f2c
+2026-08-03-opt-in-reasoning-chunk-browser-stress.md: d67b69baa68da1a886e1369b7f34660112337e75
+2026-08-03-opt-in-reasoning-chunk-browser-stress.zh.md: f10652bd20b3c116c2e61462929c09b34115ebab

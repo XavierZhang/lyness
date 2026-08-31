@@ -1,13 +1,13 @@
 {
-  "name": "@deepseek-ai/dsh-session",
-  "description": "Event-sourced session store for the DeepSeek Harness",
+  "name": "@lyness/session",
+  "description": "Event-sourced session store for the lyness",
   "version": "0.1.2-alpha.1",
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/core/session"
   },
   "type": "module",
@@ -45,20 +45,20 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/dsh-brand": "workspace:^",
-    "@deepseek-ai/dsh-invariants": "workspace:^",
-    "@deepseek-ai/dsh-llm": "workspace:^",
-    "@deepseek-ai/dsh-scope": "workspace:^",
-    "@deepseek-ai/dsh-typert-protocol": "workspace:^",
-    "@deepseek-ai/cordis": "workspace:^"
+    "@lyness/brand": "workspace:^",
+    "@lyness/invariants": "workspace:^",
+    "@lyness/llm": "workspace:^",
+    "@lyness/scope": "workspace:^",
+    "@lyness/typert-protocol": "workspace:^",
+    "@lyness/cordis": "workspace:^"
   },
   "devDependencies": {
-    "@deepseek-ai/dsh-brand": "workspace:^",
-    "@deepseek-ai/dsh-invariants": "workspace:^",
-    "@deepseek-ai/dsh-llm": "workspace:^",
-    "@deepseek-ai/dsh-scope": "workspace:^",
-    "@deepseek-ai/dsh-typert-protocol": "workspace:^",
-    "@deepseek-ai/dsh-typert-registry": "workspace:^",
-    "@deepseek-ai/cordis": "workspace:^"
+    "@lyness/brand": "workspace:^",
+    "@lyness/invariants": "workspace:^",
+    "@lyness/llm": "workspace:^",
+    "@lyness/scope": "workspace:^",
+    "@lyness/typert-protocol": "workspace:^",
+    "@lyness/typert-registry": "workspace:^",
+    "@lyness/cordis": "workspace:^"
   }
 }

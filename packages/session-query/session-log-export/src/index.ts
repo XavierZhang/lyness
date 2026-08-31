@@ -1,11 +1,11 @@
 /** Session-log download command and Host-owned streaming route. */
 
-import type { Context } from '@deepseek-ai/cordis'
-import Schema from '@deepseek-ai/schemastery'
-import type {} from '@deepseek-ai/dsh-attachment'
-import type { CommandResult } from '@deepseek-ai/dsh-commands'
-import { SessionId } from '@deepseek-ai/dsh-session/types'
-import type { SessionRawArtifact } from '@deepseek-ai/dsh-session-persistence'
+import type { Context } from '@lyness/cordis'
+import Schema from '@lyness/schemastery'
+import type {} from '@lyness/attachment'
+import type { CommandResult } from '@lyness/commands'
+import { SessionId } from '@lyness/session/types'
+import type { SessionRawArtifact } from '@lyness/session-persistence'
 import {
   DEFAULT_SESSION_LOG_COMPRESSION_LEVEL,
   flushLiveSessionLog,

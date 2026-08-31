@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-sdk-minimal",
+  "name": "@lyness/sdk-minimal",
   "description": "The standalone minimal SDK profile bundle: JSON-RPC, one DeepSeek adapter, persistent shell, editor, and JSONL sessions",
   "version": "0.1.2-alpha.1",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/bundle/sdk-minimal"
   },
   "type": "module",
@@ -33,36 +33,36 @@
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
-  "dsh": {
+  "lyn": {
     "bundle": {
       "patch": "./cordis.patch.yml"
     }
   },
   "dependencies": {
-    "@deepseek-ai/dsh-agent-spine-demo": "workspace:^",
-    "@deepseek-ai/dsh-deepseek-llm-api-extensions": "workspace:^",
-    "@deepseek-ai/dsh-fs-local": "workspace:^",
-    "@deepseek-ai/dsh-llm-deepseek": "workspace:^",
-    "@deepseek-ai/dsh-plugin-package-inventory-deepseek": "workspace:^",
-    "@deepseek-ai/dsh-sandbox-local": "workspace:^",
-    "@deepseek-ai/dsh-sandbox-policy": "workspace:^",
-    "@deepseek-ai/dsh-sdk-app": "workspace:^",
-    "@deepseek-ai/dsh-sdk-jsonrpc-server": "workspace:^",
-    "@deepseek-ai/dsh-session-log-deepseek": "workspace:^",
-    "@deepseek-ai/dsh-session-persistence-jsonl": "workspace:^",
-    "@deepseek-ai/dsh-subprocess-local": "workspace:^",
-    "@deepseek-ai/dsh-terminal": "workspace:^",
-    "@deepseek-ai/dsh-terminal-bash": "workspace:^",
-    "@deepseek-ai/dsh-tool-bash-persistent": "workspace:^",
-    "@deepseek-ai/dsh-tool-pwsh-persistent": "workspace:^",
-    "@deepseek-ai/dsh-tool-str-replace-editor": "workspace:^"
+    "@lyness/agent-spine-demo": "workspace:^",
+    "@lyness/deepseek-llm-api-extensions": "workspace:^",
+    "@lyness/fs-local": "workspace:^",
+    "@lyness/llm-deepseek": "workspace:^",
+    "@lyness/plugin-package-inventory-deepseek": "workspace:^",
+    "@lyness/sandbox-local": "workspace:^",
+    "@lyness/sandbox-policy": "workspace:^",
+    "@lyness/sdk-app": "workspace:^",
+    "@lyness/sdk-jsonrpc-server": "workspace:^",
+    "@lyness/session-log-deepseek": "workspace:^",
+    "@lyness/session-persistence-jsonl": "workspace:^",
+    "@lyness/subprocess-local": "workspace:^",
+    "@lyness/terminal": "workspace:^",
+    "@lyness/terminal-bash": "workspace:^",
+    "@lyness/tool-bash-persistent": "workspace:^",
+    "@lyness/tool-pwsh-persistent": "workspace:^",
+    "@lyness/tool-str-replace-editor": "workspace:^"
   },
   "peerDependencies": {
-    "@deepseek-ai/dsh-invariants": "workspace:^",
-    "@deepseek-ai/cordis": "workspace:^"
+    "@lyness/invariants": "workspace:^",
+    "@lyness/cordis": "workspace:^"
   },
   "devDependencies": {
-    "@deepseek-ai/dsh-invariants": "workspace:^",
-    "@deepseek-ai/cordis": "workspace:^"
+    "@lyness/invariants": "workspace:^",
+    "@lyness/cordis": "workspace:^"
   }
 }

@@ -2,5 +2,5 @@
 # side as of the last confirmed-consistent state. Both languages carry equal authority;
 # after editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/simplification/2026-08-21-product-subagent-minimal-diagnostics.md
-2026-08-21-product-subagent-minimal-diagnostics.md: b99ed487911a7ac9bf7c0751ea02290ff92cad6a
-2026-08-21-product-subagent-minimal-diagnostics.zh.md: 46f948334df0268a095f8cb34ab1a7707eee811b
+2026-08-21-product-subagent-minimal-diagnostics.md: 61538c6bec8e6dbd475e48c6647010cfb4b7f2c4
+2026-08-21-product-subagent-minimal-diagnostics.zh.md: 90820676731f2d5c41b50cc42fe946160a032103

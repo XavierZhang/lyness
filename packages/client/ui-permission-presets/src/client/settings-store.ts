@@ -6,13 +6,13 @@
  * back into the mirror.
  */
 
-import type { SettingsNamespaceView } from '@deepseek-ai/dsh-api-remotes/client'
+import type { SettingsNamespaceView } from '@lyness/api-remotes/client'
 import {
   createSnapshotStore, type SnapshotStore,
-} from '@deepseek-ai/dsh-client-store'
+} from '@lyness/client-store'
 import type {
   SchemaNode, SettingsDescribeFace, SettingsSchemaService, SettingsWireFace,
-} from '@deepseek-ai/dsh-client-ui-settings/client'
+} from '@lyness/client-ui-settings/client'
 import { displayPermissionPreset } from './presentation.ts'
 
 /** Permission's settings namespace on the host wire. */

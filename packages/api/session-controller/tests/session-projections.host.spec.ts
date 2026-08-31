@@ -8,22 +8,22 @@
  */
 
 import { describe, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { z } from 'zod'
-import AgentRegistry, { Inbox } from '@deepseek-ai/dsh-agent'
-import { AttachmentStore } from '@deepseek-ai/dsh-attachment'
-import { agentPresetProjectionDefinition } from '@deepseek-ai/dsh-agent-presets'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import { createUserMessage } from '@deepseek-ai/dsh-llm'
-import SessionStore, { SessionId } from '@deepseek-ai/dsh-session'
-import type { Session } from '@deepseek-ai/dsh-session'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import type { ProjectionDefinition } from '@deepseek-ai/dsh-session-projection'
-import { SessionControlController } from '@deepseek-ai/dsh-api-session-controller/src/control.ts'
-import type { SessionControlFrame, SessionFollowFrame } from '@deepseek-ai/dsh-api-session-controller/types'
+import AgentRegistry, { Inbox } from '@lyness/agent'
+import { AttachmentStore } from '@lyness/attachment'
+import { agentPresetProjectionDefinition } from '@lyness/agent-presets'
+import type { Agent } from '@lyness/agent'
+import { createUserMessage } from '@lyness/llm'
+import SessionStore, { SessionId } from '@lyness/session'
+import type { Session } from '@lyness/session'
+import SessionProjectionRegistry from '@lyness/session-projection'
+import type { ProjectionDefinition } from '@lyness/session-projection'
+import { SessionControlController } from '@lyness/api-session-controller/src/control.ts'
+import type { SessionControlFrame, SessionFollowFrame } from '@lyness/api-session-controller/types'
 import { createSessionTestRemote, type TestSessionRemote } from './test-remote.ts'
 
-declare module '@deepseek-ai/dsh-session-projection/types' {
+declare module '@lyness/session-projection/types' {
   interface SessionProjectionStateMap {
     'test/last-user': LastUserState
     'test/internal-count': number

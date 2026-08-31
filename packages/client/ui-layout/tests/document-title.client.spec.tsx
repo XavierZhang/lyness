@@ -11,26 +11,26 @@ afterEach(() => {
 
 describe('DocumentTitle', () => {
   it('projects a durable title and restores the product title', () => {
-    vi.stubEnv('DSH_CLIENT_TITLE', 'DeepSeek Harness')
+    vi.stubEnv('LYNESS_CLIENT_TITLE', 'lyness')
     document.title = 'stale title'
-    const mounted = render(<DocumentTitle productTitle="DeepSeek Harness" />)
-    expect(document.title).toBe('DeepSeek Harness')
-    mounted.rerender(<DocumentTitle title="First title" productTitle="DeepSeek Harness" />)
-    expect(document.title).toBe('First title — DeepSeek Harness')
-    mounted.rerender(<DocumentTitle title="Revised title" productTitle="DeepSeek Harness" />)
-    expect(document.title).toBe('Revised title — DeepSeek Harness')
-    mounted.rerender(<DocumentTitle productTitle="DeepSeek Harness" />)
-    expect(document.title).toBe('DeepSeek Harness')
+    const mounted = render(<DocumentTitle productTitle="lyness" />)
+    expect(document.title).toBe('lyness')
+    mounted.rerender(<DocumentTitle title="First title" productTitle="lyness" />)
+    expect(document.title).toBe('First title — lyness')
+    mounted.rerender(<DocumentTitle title="Revised title" productTitle="lyness" />)
+    expect(document.title).toBe('Revised title — lyness')
+    mounted.rerender(<DocumentTitle productTitle="lyness" />)
+    expect(document.title).toBe('lyness')
     mounted.unmount()
-    expect(document.title).toBe('DeepSeek Harness')
+    expect(document.title).toBe('lyness')
   })
 
   it('uses the generic title when the build provides no title', () => {
-    vi.stubEnv('DSH_CLIENT_TITLE', '')
-    delete process.env.DSH_CLIENT_TITLE
-    const mounted = render(<DocumentTitle title="First title" productTitle="DSH Local Build" />)
-    expect(document.title).toBe('First title — DSH Local Build')
+    vi.stubEnv('LYNESS_CLIENT_TITLE', '')
+    delete process.env.LYNESS_CLIENT_TITLE
+    const mounted = render(<DocumentTitle title="First title" productTitle="LYN Local Build" />)
+    expect(document.title).toBe('First title — LYN Local Build')
     mounted.unmount()
-    expect(document.title).toBe('DSH Local Build')
+    expect(document.title).toBe('LYN Local Build')
   })
 })

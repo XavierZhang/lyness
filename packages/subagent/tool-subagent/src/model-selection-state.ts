@@ -1,9 +1,9 @@
 /** Durable per-session state for the user-controlled model-selection opt-in. */
 
-import type { Session } from '@deepseek-ai/dsh-session'
+import type { Session } from '@lyness/session'
 import { assertAllowedModelRoutes, type AllowedModelRoute } from './model-selection.ts'
 
-declare module '@deepseek-ai/dsh-session/types' {
+declare module '@lyness/session/types' {
   interface SessionEventMap {
     /**
      * Records that this session's delegation tool exposes child provider,

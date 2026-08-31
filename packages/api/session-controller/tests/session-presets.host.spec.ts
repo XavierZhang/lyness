@@ -3,12 +3,12 @@
 import { mkdtempSync, realpathSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { Context } from '@deepseek-ai/cordis'
-import AgentRegistry from '@deepseek-ai/dsh-agent'
-import type { Agent, AgentFactory } from '@deepseek-ai/dsh-agent'
-import { agentPresetProjectionDefinition, UnknownPresetError } from '@deepseek-ai/dsh-agent-presets'
-import SessionStore, { SessionId } from '@deepseek-ai/dsh-session'
-import type { Session } from '@deepseek-ai/dsh-session'
+import { Context } from '@lyness/cordis'
+import AgentRegistry from '@lyness/agent'
+import type { Agent, AgentFactory } from '@lyness/agent'
+import { agentPresetProjectionDefinition, UnknownPresetError } from '@lyness/agent-presets'
+import SessionStore, { SessionId } from '@lyness/session'
+import type { Session } from '@lyness/session'
 import { describe, expect, it } from 'vitest'
 import { createSessionTestRemote } from './test-remote.ts'
 
@@ -34,7 +34,7 @@ function roster(ids: readonly string[]): unknown {
 }
 
 async function harness(presets?: readonly string[]) {
-  const cwd = realpathSync(mkdtempSync(join(tmpdir(), 'dsh-session-preset-')))
+  const cwd = realpathSync(mkdtempSync(join(tmpdir(), 'lyn-session-preset-')))
   const ctx = new Context()
   await ctx.plugin(SessionStore)
   await ctx.plugin(AgentRegistry)

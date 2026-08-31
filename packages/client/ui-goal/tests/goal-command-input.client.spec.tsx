@@ -1,19 +1,19 @@
 // @vitest-environment jsdom
 import { cleanup, render, within } from '@testing-library/react'
 import { afterEach, describe, expect, it } from 'vitest'
-import type { SessionLiveEventEntry } from '@deepseek-ai/dsh-api-session-controller/client'
+import type { SessionLiveEventEntry } from '@lyness/api-session-controller/client'
 import type {
   ConversationNodeDefinition, ConversationViewDefinition,
-} from '@deepseek-ai/dsh-client-ui-conversation/client'
-import { ConversationNodeAssembler } from '@deepseek-ai/dsh-client-ui-conversation/client'
+} from '@lyness/client-ui-conversation/client'
+import { ConversationNodeAssembler } from '@lyness/client-ui-conversation/client'
 import type {
   ChatConversationViewNode, ChatSnapshot,
-} from '@deepseek-ai/dsh-client-ui-chat/client'
-import { makeTranslate } from '@deepseek-ai/dsh-client-test-runtime'
-import { zh as commonZh } from '@deepseek-ai/dsh-client-locale/src/locales/zh.ts'
-import type { SessionEvent } from '@deepseek-ai/dsh-session/types'
-import { commandDefinition } from '@deepseek-ai/dsh-client-ui-chat/src/client/conversation-nodes/command.ts'
-import { chatViewDefinition } from '@deepseek-ai/dsh-client-ui-chat/src/client/conversation-nodes/chat-snapshot-builder.ts'
+} from '@lyness/client-ui-chat/client'
+import { makeTranslate } from '@lyness/client-test-runtime'
+import { zh as commonZh } from '@lyness/client-locale/src/locales/zh.ts'
+import type { SessionEvent } from '@lyness/session/types'
+import { commandDefinition } from '@lyness/client-ui-chat/src/client/conversation-nodes/command.ts'
+import { chatViewDefinition } from '@lyness/client-ui-chat/src/client/conversation-nodes/chat-snapshot-builder.ts'
 import { GoalCommandInputView } from '../src/client/GoalCommandInputView.tsx'
 import {
   goalCommandInputDefinition, goalCommandText,

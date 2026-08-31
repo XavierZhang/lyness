@@ -1,13 +1,13 @@
 /**
  * Service Definition for the `ctx.shell` capability seam, covering foreground commands and background process
  * handles. Job ids, ownership, polling, and notices belong to
- * `@deepseek-ai/dsh-jobs`, keeping executors independent of sessions.
- * @module @deepseek-ai/dsh-shell
+ * `@lyness/jobs`, keeping executors independent of sessions.
+ * @module @lyness/shell
  */
 
-import { Context, Service } from '@deepseek-ai/cordis'
-import { settingsNamespace } from '@deepseek-ai/dsh-settings'
-import type { SandboxMode } from '@deepseek-ai/dsh-sandbox'
+import { Context, Service } from '@lyness/cordis'
+import { settingsNamespace } from '@lyness/settings'
+import type { SandboxMode } from '@lyness/sandbox'
 import type { ShellExecRequest, ShellExecSpec, ShellProcess, ShellRunResult } from './types.ts'
 
 /**
@@ -21,7 +21,7 @@ import type { ShellExecRequest, ShellExecSpec, ShellProcess, ShellRunResult } fr
  */
 export const SHELL_SETTINGS_NAMESPACE = settingsNamespace('shell')
 
-export { DSH_ENV_PREFIX } from './types.ts'
+export { LYNESS_ENV_PREFIX } from './types.ts'
 export type {
   ShellExecRequest,
   ShellExecSpec,
@@ -31,13 +31,13 @@ export type {
   ShellRunResult,
   ShellSandboxInfo,
   CollectedOutput,
-  DshEnvironment,
-  DshEnvironmentKey,
+  LynEnvironment,
+  LynEnvironmentKey,
 } from './types.ts'
 export { parseExitStatus } from './render.ts'
 export type { ParsedExitStatus } from './render.ts'
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Context {
     shell: ShellExecutor
   }

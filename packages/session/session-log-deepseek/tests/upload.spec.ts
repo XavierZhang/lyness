@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import SessionStore, { Session, SessionId, type CreateSessionOptions, type SessionEvent } from '@deepseek-ai/dsh-session'
-import DeepSeekLlmApiExtensionRegistry from '@deepseek-ai/dsh-deepseek-llm-api-extensions'
+import { Context } from '@lyness/cordis'
+import SessionStore, { Session, SessionId, type CreateSessionOptions, type SessionEvent } from '@lyness/session'
+import DeepSeekLlmApiExtensionRegistry from '@lyness/deepseek-llm-api-extensions'
 import * as SessionLogDeepSeek from '../src/index.ts'
 
 const contexts: Context[] = []
@@ -46,7 +46,7 @@ describe('incremental DeepSeek session-log upload', () => {
     const prepared = await ctx.deepseekLlmApiExtensions.prepare({
       body: body(), signal: SIGNAL, sessionId: session.id,
     })
-    expect(prepared.fields).not.toHaveProperty('dsh_session_log')
+    expect(prepared.fields).not.toHaveProperty('lyn_session_log')
   })
 
   it('uploads the full first prefix, records acceptance, then sends only the appended suffix', async () => {
@@ -55,7 +55,7 @@ describe('incremental DeepSeek session-log upload', () => {
     session.append('step/start', { turn: 1, step: 1 })
 
     const first = await ctx.deepseekLlmApiExtensions.prepare({ body: body(), signal: SIGNAL, sessionId: session.id })
-    const firstPayload = first.fields.dsh_session_log
+    const firstPayload = first.fields.lyn_session_log
     expect(firstPayload).toMatchObject({ afterSeq: -1, throughSeq: 1 })
     expect(firstPayload?.events).toHaveLength(2)
     await first.accept()
@@ -63,9 +63,9 @@ describe('incremental DeepSeek session-log upload', () => {
 
     session.append('step/end', { turn: 1, step: 1 })
     const second = await ctx.deepseekLlmApiExtensions.prepare({ body: body(), signal: SIGNAL, sessionId: session.id })
-    expect(second.fields.dsh_session_log).toMatchObject({ afterSeq: 1, throughSeq: 3 })
-    expect(second.fields.dsh_session_log?.events).toHaveLength(2)
-    expect(second.fields.dsh_session_log?.events[0]).toMatchObject({
+    expect(second.fields.lyn_session_log).toMatchObject({ afterSeq: 1, throughSeq: 3 })
+    expect(second.fields.lyn_session_log?.events).toHaveLength(2)
+    expect(second.fields.lyn_session_log?.events[0]).toMatchObject({
       type: 'session-log-deepseek/delivery-accepted',
       seq: 2,
     })
@@ -83,12 +83,12 @@ describe('incremental DeepSeek session-log upload', () => {
     const resumedPayload = await resumed.ctx.deepseekLlmApiExtensions.prepare({
       body: body(), signal: SIGNAL, sessionId: resumed.session.id,
     })
-    expect(resumedPayload.fields.dsh_session_log?.afterSeq).toBe(0)
+    expect(resumedPayload.fields.lyn_session_log?.afterSeq).toBe(0)
 
     const fork = await harness('child', seed, { parentSession: first.session.id, seedLength: seed.length })
     expect(SessionLogDeepSeek.acceptedThrough(fork.session)).toBe(-1)
     const forkPayload = await fork.ctx.deepseekLlmApiExtensions.prepare({ body: body(), signal: SIGNAL, sessionId: fork.session.id })
-    expect(forkPayload.fields.dsh_session_log).toMatchObject({ afterSeq: -1, throughSeq: fork.session.seq - 1 })
+    expect(forkPayload.fields.lyn_session_log).toMatchObject({ afterSeq: -1, throughSeq: fork.session.seq - 1 })
   })
 
   it('takes the maximum watermark when concurrent acceptances settle out of order', async () => {
@@ -144,7 +144,7 @@ describe('incremental DeepSeek session-log upload', () => {
     const first = await ctx.deepseekLlmApiExtensions.prepare({ body: body(), signal: SIGNAL, sessionId: session.id })
     await first.accept()
     const current = await ctx.deepseekLlmApiExtensions.prepare({ body: body(), signal: SIGNAL, sessionId: session.id })
-    expect(current.fields.dsh_session_log).toMatchObject({
+    expect(current.fields.lyn_session_log).toMatchObject({
       afterSeq: 0,
       throughSeq: 1,
       events: [{ type: 'session-log-deepseek/delivery-accepted' }],
@@ -155,7 +155,7 @@ describe('incremental DeepSeek session-log upload', () => {
     const { ctx, session } = await harness('direct-events')
     session.append('turn/start', { turn: 1 })
     const prepared = await ctx.deepseekLlmApiExtensions.prepare({ body: {}, signal: SIGNAL, sessionId: session.id })
-    expect(prepared.fields.dsh_session_log?.events).toEqual(session.events)
+    expect(prepared.fields.lyn_session_log?.events).toEqual(session.events)
   })
 
   it('fails closed on a malformed persisted acceptance watermark', async () => {
@@ -173,9 +173,9 @@ describe('incremental DeepSeek session-log upload', () => {
     const { ctx, session, disposeUpload } = await harness('hmr')
     session.append('turn/start', { turn: 1 })
     expect((await ctx.deepseekLlmApiExtensions.prepare({ body: body(), signal: SIGNAL, sessionId: session.id })).fields)
-      .toHaveProperty('dsh_session_log')
+      .toHaveProperty('lyn_session_log')
     await disposeUpload()
     expect((await ctx.deepseekLlmApiExtensions.prepare({ body: body(), signal: SIGNAL, sessionId: session.id })).fields)
-      .not.toHaveProperty('dsh_session_log')
+      .not.toHaveProperty('lyn_session_log')
   })
 })

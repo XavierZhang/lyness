@@ -11,8 +11,8 @@ from .models import JsonObject, Notification
 
 
 @dataclass(slots=True)
-class DeepSeekHarnessConfig:
-    """Configuration for launching the local DeepSeek Harness SDK runtime.
+class LynessConfig:
+    """Configuration for launching the local lyness SDK runtime.
 
     The runtime inherits the caller's environment by default, so existing
     DEEPSEEK_API_KEY and DEEPSEEK_BASE_URL settings keep working. Use ``env`` to
@@ -25,10 +25,10 @@ class DeepSeekHarnessConfig:
     max_tokens: int | None = None
     cwd: str | None = None
     runtime_cwd: str | None = None
-    dsh_bin: str | None = None
+    lyn_bin: str | None = None
     profile: str = "sdk"
     patches: tuple[str, ...] = ()
-    dsh_home: str | None = None
+    lyn_home: str | None = None
     env: dict[str, str] = field(default_factory=dict)
     initialize_timeout_seconds: float = 30.0
     request_timeout_seconds: float | None = None
@@ -46,8 +46,8 @@ class RunResult:
     notifications: list[Notification]
 
 
-class DeepSeekHarness:
-    """Reusable synchronous SDK for running DeepSeek Harness agent turns.
+class Lyness:
+    """Reusable synchronous SDK for running lyness agent turns.
 
     The runtime subprocess starts lazily and remains owned by this instance
     across calls to :meth:`run`. Use the instance as a context manager, or call
@@ -56,14 +56,14 @@ class DeepSeekHarness:
 
     def __init__(
         self,
-        config: DeepSeekHarnessConfig | None = None,
+        config: LynessConfig | None = None,
         *,
         _launch_args: tuple[str, ...] | None = None,
         **kwargs: object,
     ) -> None:
         if config is not None and kwargs:
-            raise TypeError("pass either DeepSeekHarnessConfig or keyword options, not both")
-        self.config = config or DeepSeekHarnessConfig(**kwargs)
+            raise TypeError("pass either LynessConfig or keyword options, not both")
+        self.config = config or LynessConfig(**kwargs)
         cwd = str(Path(self.config.cwd or Path.cwd()).resolve())
         runtime_cwd = str(Path(self.config.runtime_cwd).resolve()) if self.config.runtime_cwd is not None else cwd
         self._cwd = cwd
@@ -75,10 +75,10 @@ class DeepSeekHarness:
 
         self._client = HarnessClient(
             HarnessConfig(
-                dsh_bin=self.config.dsh_bin,
+                lyn_bin=self.config.lyn_bin,
                 profile=self.config.profile,
                 patches=self.config.patches,
-                dsh_home=self.config.dsh_home,
+                lyn_home=self.config.lyn_home,
                 cwd=runtime_cwd,
                 env=env,
                 initialize_timeout_seconds=self.config.initialize_timeout_seconds,
@@ -89,7 +89,7 @@ class DeepSeekHarness:
         )
         self._initialized = False
 
-    def __enter__(self) -> "DeepSeekHarness":
+    def __enter__(self) -> "Lyness":
         self.start()
         return self
 
@@ -132,7 +132,7 @@ class DeepSeekHarness:
 
 
 class Session:
-    def __init__(self, harness: DeepSeekHarness, session_id: str) -> None:
+    def __init__(self, harness: Lyness, session_id: str) -> None:
         self.harness = harness
         self.id = session_id
 

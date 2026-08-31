@@ -2,5 +2,5 @@
 # side as of the last confirmed-consistent state. Both languages carry equal authority;
 # after editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/feature/2026-08-24-route-priced-image-request-pressure.md
-2026-08-24-route-priced-image-request-pressure.md: 45a29211730474369607ed5fb933f380d640bf27
-2026-08-24-route-priced-image-request-pressure.zh.md: cf005a3ee343edf5774d554a4ec78cb876703774
+2026-08-24-route-priced-image-request-pressure.md: f32a94cfb7f02cf7d3c5b37606d9150818add241
+2026-08-24-route-priced-image-request-pressure.zh.md: de022045b1ba44d17a2b084016ad93b57d03c4e6

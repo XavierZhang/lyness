@@ -8,19 +8,19 @@
  * anything, while an in-flight stream keeps the facts it started with. The
  * one registration-captured fact — the retry policy — re-registers the route
  * in place when it changes.
- * @module @deepseek-ai/dsh-llm-deepseek
+ * @module @lyness/llm-deepseek
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
-import { assertUsableApiKey, LlmError, resolveImageAttachmentAccess, resolveRetryPolicy, RetryPolicySchema } from '@deepseek-ai/dsh-llm'
-import type { ModelModality, RetryPolicyConfig } from '@deepseek-ai/dsh-llm'
-import type {} from '@deepseek-ai/dsh-fs'
-import { credentialRef } from '@deepseek-ai/dsh-credentials'
-import { launchEnvironmentOf, type LaunchEnvironmentSnapshot } from '@deepseek-ai/dsh-launch-environment'
-import { deepEqualJson, installSettingsSection, settingsNamespace } from '@deepseek-ai/dsh-settings'
-import { MAX_TIMER_DELAY_MS } from '@deepseek-ai/dsh-timeout'
-import { getOrCreateAnonymousUserId, type AnonymousUserId } from '@deepseek-ai/dsh-anonymous-user-id'
+import type { Context } from '@lyness/cordis'
+import z from '@lyness/schemastery'
+import { assertUsableApiKey, LlmError, resolveImageAttachmentAccess, resolveRetryPolicy, RetryPolicySchema } from '@lyness/llm'
+import type { ModelModality, RetryPolicyConfig } from '@lyness/llm'
+import type {} from '@lyness/fs'
+import { credentialRef } from '@lyness/credentials'
+import { launchEnvironmentOf, type LaunchEnvironmentSnapshot } from '@lyness/launch-environment'
+import { deepEqualJson, installSettingsSection, settingsNamespace } from '@lyness/settings'
+import { MAX_TIMER_DELAY_MS } from '@lyness/timeout'
+import { getOrCreateAnonymousUserId, type AnonymousUserId } from '@lyness/anonymous-user-id'
 import {
   DEFAULT_CONTEXT_WINDOW,
   DEFAULT_FILE_EXPIRY_SECONDS,

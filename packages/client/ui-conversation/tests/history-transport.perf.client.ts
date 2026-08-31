@@ -6,24 +6,24 @@ import { performance } from 'node:perf_hooks'
 import { brotliCompressSync, gzipSync } from 'node:zlib'
 import { expect, it } from 'vitest'
 import { z } from 'zod'
-import { createUserMessage } from '@deepseek-ai/dsh-llm'
-import { isChunkRow, packChunkRuns } from '@deepseek-ai/dsh-session/chunk-rows'
-import type { ChunkRow } from '@deepseek-ai/dsh-session/chunk-rows'
-import type { SessionEvent, SessionEventMap } from '@deepseek-ai/dsh-session/types'
+import { createUserMessage } from '@lyness/llm'
+import { isChunkRow, packChunkRuns } from '@lyness/session/chunk-rows'
+import type { ChunkRow } from '@lyness/session/chunk-rows'
+import type { SessionEvent, SessionEventMap } from '@lyness/session/types'
 import type {
   ChunkRowEvent,
   SessionEventEntry,
   SessionHistoryRecord,
   SessionWireEvent,
-} from '@deepseek-ai/dsh-api-session-controller/types'
-import { historyEntries } from '@deepseek-ai/dsh-api-session-controller/src/client/sessions/history-records.ts'
-import type { SessionEventLikeEntry } from '@deepseek-ai/dsh-api-session-controller/client'
-import { ConversationNodeAssembler } from '@deepseek-ai/dsh-client-ui-conversation/client'
+} from '@lyness/api-session-controller/types'
+import { historyEntries } from '@lyness/api-session-controller/src/client/sessions/history-records.ts'
+import type { SessionEventLikeEntry } from '@lyness/api-session-controller/client'
+import { ConversationNodeAssembler } from '@lyness/client-ui-conversation/client'
 import type {
   ConversationNodeDefinition,
   ConversationViewDefinition,
   ConversationViewNode,
-} from '@deepseek-ai/dsh-client-ui-conversation/client'
+} from '@lyness/client-ui-conversation/client'
 
 const LOGICAL_EVENTS = 416_756
 const DELTA_EVENTS = 416_176

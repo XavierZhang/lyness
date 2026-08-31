@@ -2,9 +2,9 @@ import { mkdir, mkdtemp, readFile, readdir, rename, rm, writeFile } from 'node:f
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterAll, describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import Storage, { storageBackendServiceKey } from '@deepseek-ai/dsh-storage'
-import InvariantRegistry from '@deepseek-ai/dsh-invariants'
+import { Context } from '@lyness/cordis'
+import Storage, { storageBackendServiceKey } from '@lyness/storage'
+import InvariantRegistry from '@lyness/invariants'
 import { runKvBackendContract } from '../../storage/tests/contract.ts'
 import { Config, JsonStorageBackend, apply } from '../src/index.ts'
 import * as InvariantCompanion from '../src/invariant.ts'
@@ -12,7 +12,7 @@ import * as InvariantCompanion from '../src/invariant.ts'
 const roots: string[] = []
 
 async function freshRoot(): Promise<string> {
-  const root = await mkdtemp(join(tmpdir(), 'dsh-storage-json-'))
+  const root = await mkdtemp(join(tmpdir(), 'lyn-storage-json-'))
   roots.push(root)
   return root
 }

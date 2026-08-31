@@ -1,8 +1,8 @@
 // @vitest-environment jsdom
-import { Context } from '@deepseek-ai/cordis'
-import InvariantRegistry from '@deepseek-ai/dsh-invariants'
-import type { ChatSnapshot, UseChat } from '@deepseek-ai/dsh-client-ui-chat/client'
-import type { PropsRuntime } from '@deepseek-ai/dsh-client-ui-slots'
+import { Context } from '@lyness/cordis'
+import InvariantRegistry from '@lyness/invariants'
+import type { ChatSnapshot, UseChat } from '@lyness/client-ui-chat/client'
+import type { PropsRuntime } from '@lyness/client-ui-slots'
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 import { ApprovalCommand, commandOf } from '../src/client/chat/ApprovalCommand.tsx'

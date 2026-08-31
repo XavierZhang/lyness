@@ -1,9 +1,9 @@
 /** Package-owned invariant companion for the Agent Teams Web profile. */
 
-import type { Context } from '@deepseek-ai/cordis'
-import type { InvariantInstaller } from '@deepseek-ai/dsh-invariants'
+import type { Context } from '@lyness/cordis'
+import type { InvariantInstaller } from '@lyness/invariants'
 
-const PACKAGE_NAME = '@deepseek-ai/dsh-experimental-agent-team-web-profile'
+const PACKAGE_NAME = '@lyness/experimental-agent-team-web-profile'
 
 /** Cordis companion plugin name. */
 export const name = 'agent-team-web-profile-invariant'

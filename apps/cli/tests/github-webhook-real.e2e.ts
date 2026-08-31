@@ -11,7 +11,7 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { setTimeout as delay } from 'node:timers/promises'
 import { fileURLToPath } from 'node:url'
-import { decodeStorageRecord } from '@deepseek-ai/dsh-session/chunk-rows'
+import { decodeStorageRecord } from '@lyness/session/chunk-rows'
 import { describe, expect, it } from 'vitest'
 import WebSocket from 'ws'
 
@@ -23,7 +23,7 @@ const OVERLAY = fileURLToPath(new URL(
 ))
 const SECRET = 'github-webhook-real-e2e-secret'
 const DELIVERY = 'github-webhook-real-e2e-delivery'
-const MARKER = 'DSH_GITHUB_WEBHOOK_REAL_E2E_OK'
+const MARKER = 'LYNESS_GITHUB_WEBHOOK_REAL_E2E_OK'
 const TITLE = 'GitHub webhook real e2e'
 const authenticatedCookies = new Map<string, Promise<{ origin: string; cookie: string }>>()
 
@@ -35,7 +35,7 @@ function authenticatedWeb(launchUrl: string): Promise<{ origin: string; cookie: 
     const response = await fetch(launchUrl, { redirect: 'manual' })
     const setCookie = response.headers.get('set-cookie')
     if (response.status !== 303 || setCookie === null) {
-      throw new Error(`dsh web authentication returned HTTP ${String(response.status)}`)
+      throw new Error(`lyn web authentication returned HTTP ${String(response.status)}`)
     }
     return { origin: new URL(launchUrl).origin, cookie: setCookie.split(';', 1)[0]! }
   })()
@@ -97,12 +97,12 @@ function observeProcess(child: ChildProcess): ProcessObservation {
     rejectReady = reject
   })
   const timer = setTimeout(() => {
-    if (!settled) rejectReady(new Error(`dsh web did not become ready within 90s:\n${output}`))
+    if (!settled) rejectReady(new Error(`lyn web did not become ready within 90s:\n${output}`))
   }, 90_000)
   timer.unref()
   const append = (chunk: Buffer | string): void => {
     output = `${output}${String(chunk)}`.slice(-100_000)
-    const match = /dsh web: (http:\/\/[^\s]+)/u.exec(output)
+    const match = /lyn web: (http:\/\/[^\s]+)/u.exec(output)
     if (settled || match?.[1] === undefined) return
     settled = true
     clearTimeout(timer)
@@ -114,7 +114,7 @@ function observeProcess(child: ChildProcess): ProcessObservation {
     if (!settled) rejectReady(error)
   })
   child.once('exit', (code) => {
-    if (!settled) rejectReady(new Error(`dsh web exited before readiness (code ${String(code)}):\n${output}`))
+    if (!settled) rejectReady(new Error(`lyn web exited before readiness (code ${String(code)}):\n${output}`))
   })
   return { ready, text: () => output }
 }
@@ -284,7 +284,7 @@ async function eventually<T>(
   let lastError: unknown
   while (Date.now() < deadline) {
     if (child.exitCode !== null) {
-      throw new Error(`dsh web exited while waiting for ${label} (code ${String(child.exitCode)}):\n${processOutput()}`)
+      throw new Error(`lyn web exited while waiting for ${label} (code ${String(child.exitCode)}):\n${processOutput()}`)
     }
     try {
       lastValue = await probe()
@@ -343,10 +343,10 @@ async function sendGitHubDelivery(origin: string): Promise<Response> {
   const body = JSON.stringify({
     action: 'ready_for_review',
     number: 4242,
-    repository: { full_name: 'deepseek-harness/deepseek-harness' },
+    repository: { full_name: 'lyness/lyness' },
     pull_request: {
       title: 'Real CLI webhook e2e',
-      html_url: 'https://github.com/deepseek-harness/deepseek-harness/pull/4242',
+      html_url: 'https://github.com/XavierZhang/lyness/pull/4242',
       draft: false,
       user: { login: 'octocat' },
       base: { ref: 'master', sha: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' },
@@ -366,10 +366,10 @@ async function sendGitHubDelivery(origin: string): Promise<Response> {
   })
 }
 
-describe.skipIf(!process.env.DEEPSEEK_API_KEY)('GitHub webhook through the real dsh CLI and model', () => {
+describe.skipIf(!process.env.DEEPSEEK_API_KEY)('GitHub webhook through the real lyn CLI and model', () => {
   it('creates, attaches, prompts, and completes a Workspace Session', async () => {
     expect(existsSync(BUILT_BIN), `missing built CLI ${BUILT_BIN}; run pnpm run build:official`).toBe(true)
-    const root = await mkdtemp(join(tmpdir(), 'dsh-github-webhook-real-'))
+    const root = await mkdtemp(join(tmpdir(), 'lyn-github-webhook-real-'))
     const workspacePath = join(root, 'workspace')
     await mkdir(workspacePath)
     const canonicalWorkspacePath = await realpath(workspacePath)
@@ -385,13 +385,13 @@ describe.skipIf(!process.env.DEEPSEEK_API_KEY)('GitHub webhook through the real 
       cwd: root,
       env: {
         ...process.env,
-        DSH_AGENTS_HOME: join(root, '.agents'),
-        DSH_GITHUB_E2E_MARKER: MARKER,
-        DSH_GITHUB_E2E_WORKSPACE: workspacePath,
-        DSH_GITHUB_WEBHOOK_PORT: String(webhookPort),
-        DSH_GITHUB_WEBHOOK_SECRET: SECRET,
-        DSH_HOME: join(root, '.dsh'),
-        DSH_TELEMETRY_DISABLED: '1',
+        LYNESS_AGENTS_HOME: join(root, '.agents'),
+        LYNESS_GITHUB_E2E_MARKER: MARKER,
+        LYNESS_GITHUB_E2E_WORKSPACE: workspacePath,
+        LYNESS_GITHUB_WEBHOOK_PORT: String(webhookPort),
+        LYNESS_GITHUB_WEBHOOK_SECRET: SECRET,
+        LYNESS_HOME: join(root, '.lyn'),
+        LYNESS_TELEMETRY_DISABLED: '1',
       },
       stdio: ['ignore', 'pipe', 'pipe'],
     })

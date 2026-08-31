@@ -1,5 +1,5 @@
-import { Context } from '@deepseek-ai/cordis'
-import InvariantRegistry from '@deepseek-ai/dsh-invariants'
+import { Context } from '@lyness/cordis'
+import InvariantRegistry from '@lyness/invariants'
 import { describe, expect, it } from 'vitest'
 import * as StoreInvariant from '../src/invariant.ts'
 

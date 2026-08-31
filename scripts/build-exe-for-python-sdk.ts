@@ -1,5 +1,5 @@
 /**
- * Build the dsh executables and development Node carrier for the Python runtime wheel. The fixed
+ * Build the lyn executables and development Node carrier for the Python runtime wheel. The fixed
  * `@yao-pkg/pkg --sea` route, deploy flags, and artifact layout are owned by
  * .agents/notes/implemented/architecture/2026-07-10-single-file-executable-sdk-runtime-distribution.md.
  * The staged closure is symlink-free, and whole-tree assets cover Cordis's
@@ -16,11 +16,11 @@ import { resolveLinuxNodePtyAddon, resolveWindowsNodePtyAddons } from './build-e
 const root = resolve(import.meta.dirname, '..')
 
 /** The closure manifest whose dependencies define the executable. */
-const DEPLOY_ROOT_PACKAGE = 'dsh-python-runtime-closure'
+const DEPLOY_ROOT_PACKAGE = 'lyn-python-runtime-closure'
 /** The sole application launcher inside the deployed closure. */
-const ENTRY_BIN = 'node_modules/@deepseek-ai/dsh/lib/bin.js'
+const ENTRY_BIN = 'node_modules/@lyness/lyn/lib/bin.js'
 /** Python-visible executable basename. */
-const OUTPUT_BASENAME = 'deepseek-harness-sdk-runtime'
+const OUTPUT_BASENAME = 'lyness-sdk-runtime'
 /** Default Node major; SEA mode requires at least Node 22. */
 const DEFAULT_NODE_RANGE = 'node24'
 /** Pinned for reproducible builds. */
@@ -58,9 +58,9 @@ const ASSET_GLOBS = [
   'node_modules/**/*.yaml',
   'node_modules/**/*.yml',
   // web-app builds this path dynamically, so pkg cannot discover the static frontend.
-  'node_modules/@deepseek-ai/dsh-web-frontend/dist/**/*',
+  'node_modules/@lyness/web-frontend/dist/**/*',
   // skill-badge resolves both Markdown and image resources through import.meta.url.
-  'node_modules/@deepseek-ai/dsh-skill-badge/assets/**/*',
+  'node_modules/@lyness/skill-badge/assets/**/*',
 ]
 
 const PLATFORMS = ['linux', 'macos', 'win'] as const

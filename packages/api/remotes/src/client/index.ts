@@ -1,52 +1,52 @@
 /** Platform-neutral assembly of generated Host Remote contributions. */
 
-import type { Context } from '@deepseek-ai/cordis'
-import agentPresetsRemote from '@deepseek-ai/dsh-agent-presets/remote'
-import commandsRemote from '@deepseek-ai/dsh-commands/remote'
-import settingsControllerRemote from '@deepseek-ai/dsh-api-settings-controller/remote'
-import goalsRemote from '@deepseek-ai/dsh-goal/remote'
-import llmRemote from '@deepseek-ai/dsh-llm/remote'
-import dynamicRemote from '@deepseek-ai/dsh-cordis-host-runner/remote'
-import pluginInventoryRemote from '@deepseek-ai/dsh-host-plugin-inventory/remote'
-import messageFeedbackRemote from '@deepseek-ai/dsh-message-feedback/remote'
-import sessionReferencesRemote from '@deepseek-ai/dsh-session-reference/remote'
-import subagentsRemote from '@deepseek-ai/dsh-subagent/remote'
-import sessionRemote from '@deepseek-ai/dsh-api-session-controller/remote'
-import workspaceRemote from '@deepseek-ai/dsh-api-workspace-controller/remote'
-import type { ClientRemote } from '@deepseek-ai/dsh-api-gateway/client'
+import type { Context } from '@lyness/cordis'
+import agentPresetsRemote from '@lyness/agent-presets/remote'
+import commandsRemote from '@lyness/commands/remote'
+import settingsControllerRemote from '@lyness/api-settings-controller/remote'
+import goalsRemote from '@lyness/goal/remote'
+import llmRemote from '@lyness/llm/remote'
+import dynamicRemote from '@lyness/cordis-host-runner/remote'
+import pluginInventoryRemote from '@lyness/host-plugin-inventory/remote'
+import messageFeedbackRemote from '@lyness/message-feedback/remote'
+import sessionReferencesRemote from '@lyness/session-reference/remote'
+import subagentsRemote from '@lyness/subagent/remote'
+import sessionRemote from '@lyness/api-session-controller/remote'
+import workspaceRemote from '@lyness/api-workspace-controller/remote'
+import type { ClientRemote } from '@lyness/api-gateway/client'
 
-export type { ClientRemote } from '@deepseek-ai/dsh-api-gateway/client'
-export type { PluginInventorySnapshot } from '@deepseek-ai/dsh-host-plugin-inventory/types'
-export type {} from '@deepseek-ai/dsh-agent-presets/remote'
-export type {} from '@deepseek-ai/dsh-commands/remote'
-export type {} from '@deepseek-ai/dsh-api-settings-controller/remote'
-export type {} from '@deepseek-ai/dsh-goal/remote'
-export type {} from '@deepseek-ai/dsh-llm/remote'
-export type {} from '@deepseek-ai/dsh-host-plugin-inventory/remote'
-export type {} from '@deepseek-ai/dsh-message-feedback/remote'
-export type {} from '@deepseek-ai/dsh-session-reference/remote'
-export type {} from '@deepseek-ai/dsh-subagent/remote'
-export type * from '@deepseek-ai/dsh-subagent/client'
-export type {} from '@deepseek-ai/dsh-api-session-controller/remote'
-export type * from '@deepseek-ai/dsh-api-session-controller/types'
-export type {} from '@deepseek-ai/dsh-api-workspace-controller/remote'
-export type * from '@deepseek-ai/dsh-api-workspace-controller/types'
-export type { SessionJob as JobView } from '@deepseek-ai/dsh-api-session-controller/types'
+export type { ClientRemote } from '@lyness/api-gateway/client'
+export type { PluginInventorySnapshot } from '@lyness/host-plugin-inventory/types'
+export type {} from '@lyness/agent-presets/remote'
+export type {} from '@lyness/commands/remote'
+export type {} from '@lyness/api-settings-controller/remote'
+export type {} from '@lyness/goal/remote'
+export type {} from '@lyness/llm/remote'
+export type {} from '@lyness/host-plugin-inventory/remote'
+export type {} from '@lyness/message-feedback/remote'
+export type {} from '@lyness/session-reference/remote'
+export type {} from '@lyness/subagent/remote'
+export type * from '@lyness/subagent/client'
+export type {} from '@lyness/api-session-controller/remote'
+export type * from '@lyness/api-session-controller/types'
+export type {} from '@lyness/api-workspace-controller/remote'
+export type * from '@lyness/api-workspace-controller/types'
+export type { SessionJob as JobView } from '@lyness/api-session-controller/types'
 // The forwarded-event allowlist's selection seat: without it in the consumer's
 // compilation face `TypertRemoteEvent` is `never` and every `$on` call fails.
 export type { ApiRemoteForwardedEvent } from '../types.ts'
 // The owner packages' client-safe `./types` exports supply the `Events`
 // signatures `$on` hands to a listener, so a consumer reads the very
 // declaration the Host emits rather than a flattened restatement of it.
-export type {} from '@deepseek-ai/dsh-commands/types'
-export type {} from '@deepseek-ai/dsh-cordis-host-runner/types'
-export type {} from '@deepseek-ai/dsh-credentials/types'
-export type {} from '@deepseek-ai/dsh-llm/types'
-export type {} from '@deepseek-ai/dsh-agent-presets/types'
-export type {} from '@deepseek-ai/dsh-settings/types'
-export type {} from '@deepseek-ai/dsh-user-approval/types'
-export type {} from '@deepseek-ai/dsh-user-questions/types'
-export type {} from '@deepseek-ai/dsh-api-session-controller/types'
+export type {} from '@lyness/commands/types'
+export type {} from '@lyness/cordis-host-runner/types'
+export type {} from '@lyness/credentials/types'
+export type {} from '@lyness/llm/types'
+export type {} from '@lyness/agent-presets/types'
+export type {} from '@lyness/settings/types'
+export type {} from '@lyness/user-approval/types'
+export type {} from '@lyness/user-questions/types'
+export type {} from '@lyness/api-session-controller/types'
 
 /**
  * The carrier's Client-facing types, re-exported so a business package names one
@@ -58,9 +58,9 @@ export type {
   MessageId,
   RpcError, RpcId, RpcRequest, RpcResponse, RpcResult, SessionId,
   StreamChunk,
-} from '@deepseek-ai/dsh-client-connection/client'
-export type {} from '@deepseek-ai/dsh-api-gateway/client'
-export type {} from '@deepseek-ai/dsh-cordis-host-runner/remote'
+} from '@lyness/client-connection/client'
+export type {} from '@lyness/api-gateway/client'
+export type {} from '@lyness/cordis-host-runner/remote'
 
 // The payload vocabulary of the selected namespaces, re-exported so a Client
 // contribution can name what it sends and receives without importing a Host
@@ -98,45 +98,45 @@ export type {
   DynamicCordisStopResponse,
   DynamicCordisUndefineReceipt,
   RequestRunOutcome,
-} from '@deepseek-ai/dsh-cordis-host-runner/types'
+} from '@lyness/cordis-host-runner/types'
 // The JSON vocabulary those payloads are built from, re-exported for the same
 // reason: a Client contribution names what it sends without importing a Host
 // package, and this assembly is where both planes legitimately meet.
-export type { JsonValue } from '@deepseek-ai/dsh-session/types'
+export type { JsonValue } from '@lyness/session/types'
 // Credential state vocabulary for the credentials namespace (values never ride it).
-export type { CredentialInfo } from '@deepseek-ai/dsh-credentials/types'
+export type { CredentialInfo } from '@lyness/credentials/types'
 // Redacted namespace vocabulary for the settings namespace (secrets never ride
 // it). It travels with its seam, whose `./types` the Client face already reads.
 export type {
   SettingsDescribeValue, SettingsNamespaceView, SettingsPathOpView, SettingsSecretView,
-} from '@deepseek-ai/dsh-settings/types'
+} from '@lyness/settings/types'
 // Provider registry and discovery vocabulary for the llm namespace.
 export type {
   LlmConfigurableProvider, LlmDiscoveredModel, LlmModelDiscoveryError,
   LlmModelDiscoveryRequest, LlmProviderInfo,
-} from '@deepseek-ai/dsh-llm/types'
+} from '@lyness/llm/types'
 // Reference-discovery result vocabulary for the fileReferences and
 // sessionReferenceResolver namespaces.
-export type { FileReferenceCandidate } from '@deepseek-ai/dsh-file-reference/types'
-export type { SessionReferenceMentionCandidate } from '@deepseek-ai/dsh-session-reference/types'
+export type { FileReferenceCandidate } from '@lyness/file-reference/types'
+export type { SessionReferenceMentionCandidate } from '@lyness/session-reference/types'
 
 /** Failure vocabulary exposed by the assembled Client data layer. */
 export type ClientFailure =
-  | import('@deepseek-ai/dsh-client-connection/client').RpcError
-  | import('@deepseek-ai/dsh-agent-presets/types').AgentPresetError
-  | import('@deepseek-ai/dsh-api-session-controller/types').SessionError
-  | import('@deepseek-ai/dsh-api-settings-controller/types').CredentialError
-  | import('@deepseek-ai/dsh-api-settings-controller/types').SettingsError
-  | import('@deepseek-ai/dsh-llm/types').LlmModelDiscoveryError
-  | import('@deepseek-ai/dsh-subagent/client').SubagentControlError
-  | import('@deepseek-ai/dsh-api-workspace-controller/types').WorkspaceError
+  | import('@lyness/client-connection/client').RpcError
+  | import('@lyness/agent-presets/types').AgentPresetError
+  | import('@lyness/api-session-controller/types').SessionError
+  | import('@lyness/api-settings-controller/types').CredentialError
+  | import('@lyness/api-settings-controller/types').SettingsError
+  | import('@lyness/llm/types').LlmModelDiscoveryError
+  | import('@lyness/subagent/client').SubagentControlError
+  | import('@lyness/api-workspace-controller/types').WorkspaceError
 
 /** Success or failure returned by Client operations spanning both API families. */
 export type ClientResult<T> =
   | { readonly ok: true; readonly value: T }
   | { readonly ok: false; readonly error: ClientFailure }
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Context {
     /** Generated Remote namespaces selected by this Client assembly. */
     remote: ClientRemote

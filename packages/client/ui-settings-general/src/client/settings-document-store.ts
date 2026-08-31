@@ -1,8 +1,8 @@
 /** State owner for the optional local settings-document action. */
 
-import type { ClientRemote } from '@deepseek-ai/dsh-api-remotes/client'
-import { createSnapshotStore, type SnapshotStore } from '@deepseek-ai/dsh-client-store'
-import type { SettingsDescribeFace } from '@deepseek-ai/dsh-client-ui-settings/client'
+import type { ClientRemote } from '@lyness/api-remotes/client'
+import { createSnapshotStore, type SnapshotStore } from '@lyness/client-store'
+import type { SettingsDescribeFace } from '@lyness/client-ui-settings/client'
 
 /** Browser state of the Host-owned settings document. */
 export interface SettingsDocumentState {

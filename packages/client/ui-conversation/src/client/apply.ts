@@ -1,14 +1,14 @@
 /** Registers the target-neutral Conversation assembly, shell, input, and docks. */
-import type { Context } from '@deepseek-ai/cordis'
-import type { ISessions } from '@deepseek-ai/dsh-api-session-controller/client'
-import { createSnapshotStore, type BoundActions } from '@deepseek-ai/dsh-client-store'
-import { resolveSlotLabel } from '@deepseek-ai/dsh-client-ui-slots'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import type { Context } from '@lyness/cordis'
+import type { ISessions } from '@lyness/api-session-controller/client'
+import { createSnapshotStore, type BoundActions } from '@lyness/client-store'
+import { resolveSlotLabel } from '@lyness/client-ui-slots'
+import type { SessionId } from '@lyness/session/types'
 // Type-only service and declaration merges used by this assembly.
-import type {} from '@deepseek-ai/dsh-client-locale/client'
-import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
-import type {} from '@deepseek-ai/dsh-client-ui-session/client'
-import type {} from '@deepseek-ai/dsh-client-ui-settings/client'
+import type {} from '@lyness/client-locale/client'
+import type {} from '@lyness/client-ui-renderer/client'
+import type {} from '@lyness/client-ui-session/client'
+import type {} from '@lyness/client-ui-settings/client'
 import { UiConversation } from './conversation/assembly.ts'
 import type { ViewTab } from './contract/views.ts'
 import type {
@@ -33,7 +33,7 @@ import { todoDockEntry } from './skeleton/TodoPanel.tsx'
 import { en, NS, zh, type ConversationKey } from './locales.ts'
 import { CONVERSATION_SETTINGS_NAMESPACE, type ConversationSettings } from '../submission-settings.ts'
 
-declare module '@deepseek-ai/dsh-client-ui-slots' {
+declare module '@lyness/client-ui-slots' {
   interface LocaleNamespaceMap {
     /** Conversation shell, composer, queue, and dock copy. */
     conversation: ConversationKey

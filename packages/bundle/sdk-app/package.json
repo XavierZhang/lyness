@@ -1,13 +1,13 @@
 {
-  "name": "@deepseek-ai/dsh-sdk-app",
-  "description": "The dsh SDK profile bundle: stdio JSON-RPC serving and process lifecycle over dsh-base",
+  "name": "@lyness/sdk-app",
+  "description": "The lyn SDK profile bundle: stdio JSON-RPC serving and process lifecycle over lyn-base",
   "version": "0.1.2-alpha.1",
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/bundle/sdk-app"
   },
   "type": "module",
@@ -33,24 +33,24 @@
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
-  "dsh": {
+  "lyn": {
     "bundle": {
       "patch": "./cordis.patch.yml"
     }
   },
   "dependencies": {
-    "@deepseek-ai/dsh-cmdline": "workspace:^",
-    "@deepseek-ai/dsh-sdk-jsonrpc-server": "workspace:^",
-    "@deepseek-ai/schemastery": "workspace:^",
+    "@lyness/cmdline": "workspace:^",
+    "@lyness/sdk-jsonrpc-server": "workspace:^",
+    "@lyness/schemastery": "workspace:^",
     "commander": "^15.0.0"
   },
   "peerDependencies": {
-    "@deepseek-ai/dsh-invariants": "workspace:^",
-    "@deepseek-ai/cordis": "workspace:^"
+    "@lyness/invariants": "workspace:^",
+    "@lyness/cordis": "workspace:^"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis-plugin-include": "workspace:^",
-    "@deepseek-ai/dsh-invariants": "workspace:^",
-    "@deepseek-ai/cordis": "workspace:^"
+    "@lyness/cordis-plugin-include": "workspace:^",
+    "@lyness/invariants": "workspace:^",
+    "@lyness/cordis": "workspace:^"
   }
 }

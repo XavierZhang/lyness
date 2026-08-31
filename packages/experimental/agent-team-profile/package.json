@@ -1,11 +1,11 @@
 {
-  "name": "@deepseek-ai/dsh-experimental-agent-team-profile",
-  "description": "Private profile bundle enabling Agent Teams over dsh-base",
+  "name": "@lyness/experimental-agent-team-profile",
+  "description": "Private profile bundle enabling Agent Teams over lyn-base",
   "version": "0.1.2-alpha.1",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/experimental/agent-team-profile"
   },
   "type": "module",
@@ -31,23 +31,23 @@
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
-  "dsh": {
+  "lyn": {
     "bundle": {
       "patch": "./cordis.patch.yml"
     }
   },
   "dependencies": {
-    "@deepseek-ai/dsh-experimental-agent-team": "workspace:^",
-    "@deepseek-ai/dsh-experimental-tool-agent-team": "workspace:^"
+    "@lyness/experimental-agent-team": "workspace:^",
+    "@lyness/experimental-tool-agent-team": "workspace:^"
   },
   "peerDependencies": {
-    "@deepseek-ai/dsh-invariants": "workspace:^",
-    "@deepseek-ai/cordis": "workspace:^"
+    "@lyness/invariants": "workspace:^",
+    "@lyness/cordis": "workspace:^"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis-plugin-include": "workspace:^",
-    "@deepseek-ai/dsh-invariants": "workspace:^",
-    "@deepseek-ai/cordis": "workspace:^",
+    "@lyness/cordis-plugin-include": "workspace:^",
+    "@lyness/invariants": "workspace:^",
+    "@lyness/cordis": "workspace:^",
     "js-yaml": "^4.2.0"
   }
 }

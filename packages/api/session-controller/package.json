@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-api-session-controller",
+  "name": "@lyness/api-session-controller",
   "description": "Session Remote commands, cold reads, and live control transport",
   "version": "0.1.2-alpha.1",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/api/session-controller"
   },
   "type": "module",
@@ -45,13 +45,13 @@
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
-  "dsh": {
+  "lyn": {
     "client": {
       "external": [
-        "@deepseek-ai/dsh-api-gateway/client"
+        "@lyness/api-gateway/client"
       ],
       "inject": [
-        "@deepseek-ai/dsh-api-gateway"
+        "@lyness/api-gateway"
       ],
       "platform": "web"
     }
@@ -73,71 +73,71 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@deepseek-ai/schemastery": "workspace:^",
+    "@lyness/schemastery": "workspace:^",
     "zod": "^4.4.3"
   },
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:^",
-    "@deepseek-ai/dsh-agent": "workspace:^",
-    "@deepseek-ai/dsh-agent-default-model": "workspace:^",
-    "@deepseek-ai/dsh-agent-presets": "workspace:^",
-    "@deepseek-ai/dsh-api-gateway": "workspace:^",
-    "@deepseek-ai/dsh-attachment": "workspace:^",
-    "@deepseek-ai/dsh-brand": "workspace:^",
-    "@deepseek-ai/dsh-client-connection": "workspace:^",
-    "@deepseek-ai/dsh-file-reference": "workspace:^",
-    "@deepseek-ai/dsh-invariants": "workspace:^",
-    "@deepseek-ai/dsh-jobs": "workspace:^",
-    "@deepseek-ai/dsh-llm": "workspace:^",
-    "@deepseek-ai/dsh-native-command": "workspace:^",
-    "@deepseek-ai/dsh-scope": "workspace:^",
-    "@deepseek-ai/dsh-session": "workspace:^",
-    "@deepseek-ai/dsh-session-persistence": "workspace:^",
-    "@deepseek-ai/dsh-session-projection": "workspace:^",
-    "@deepseek-ai/dsh-session-projection-cache": "workspace:^",
-    "@deepseek-ai/dsh-session-query": "workspace:^",
-    "@deepseek-ai/dsh-skill": "workspace:^",
-    "@deepseek-ai/dsh-session-title": "workspace:^",
-    "@deepseek-ai/dsh-subagent": "workspace:^",
-    "@deepseek-ai/dsh-typert-protocol": "workspace:^",
-    "@deepseek-ai/dsh-typert-registry": "workspace:^",
-    "@deepseek-ai/dsh-workspace": "workspace:^",
-    "@deepseek-ai/dsh-util-workspace-path": "workspace:^"
+    "@lyness/cordis": "workspace:^",
+    "@lyness/agent": "workspace:^",
+    "@lyness/agent-default-model": "workspace:^",
+    "@lyness/agent-presets": "workspace:^",
+    "@lyness/api-gateway": "workspace:^",
+    "@lyness/attachment": "workspace:^",
+    "@lyness/brand": "workspace:^",
+    "@lyness/client-connection": "workspace:^",
+    "@lyness/file-reference": "workspace:^",
+    "@lyness/invariants": "workspace:^",
+    "@lyness/jobs": "workspace:^",
+    "@lyness/llm": "workspace:^",
+    "@lyness/native-command": "workspace:^",
+    "@lyness/scope": "workspace:^",
+    "@lyness/session": "workspace:^",
+    "@lyness/session-persistence": "workspace:^",
+    "@lyness/session-projection": "workspace:^",
+    "@lyness/session-projection-cache": "workspace:^",
+    "@lyness/session-query": "workspace:^",
+    "@lyness/skill": "workspace:^",
+    "@lyness/session-title": "workspace:^",
+    "@lyness/subagent": "workspace:^",
+    "@lyness/typert-protocol": "workspace:^",
+    "@lyness/typert-registry": "workspace:^",
+    "@lyness/workspace": "workspace:^",
+    "@lyness/util-workspace-path": "workspace:^"
   },
   "peerDependenciesMeta": {
-    "@deepseek-ai/dsh-jobs": { "optional": true },
-    "@deepseek-ai/dsh-session-persistence": { "optional": true },
-    "@deepseek-ai/dsh-session-projection-cache": { "optional": true }
+    "@lyness/jobs": { "optional": true },
+    "@lyness/session-persistence": { "optional": true },
+    "@lyness/session-projection-cache": { "optional": true }
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:^",
-    "@deepseek-ai/dsh-agent": "workspace:^",
-    "@deepseek-ai/dsh-agent-default-model": "workspace:^",
-    "@deepseek-ai/dsh-agent-presets": "workspace:^",
-    "@deepseek-ai/dsh-api-gateway": "workspace:^",
-    "@deepseek-ai/dsh-attachment": "workspace:^",
-    "@deepseek-ai/dsh-brand": "workspace:^",
-    "@deepseek-ai/dsh-client-connection": "workspace:^",
-    "@deepseek-ai/dsh-client-store": "workspace:^",
-    "@deepseek-ai/dsh-file-reference": "workspace:^",
-    "@deepseek-ai/dsh-invariants": "workspace:^",
-    "@deepseek-ai/dsh-jobs": "workspace:^",
-    "@deepseek-ai/dsh-llm": "workspace:^",
-    "@deepseek-ai/dsh-native-command": "workspace:^",
-    "@deepseek-ai/dsh-permission-presets": "workspace:^",
-    "@deepseek-ai/dsh-scope": "workspace:^",
-    "@deepseek-ai/dsh-session": "workspace:^",
-    "@deepseek-ai/dsh-session-persistence": "workspace:^",
-    "@deepseek-ai/dsh-session-projection": "workspace:^",
-    "@deepseek-ai/dsh-session-projection-cache": "workspace:^",
-    "@deepseek-ai/dsh-session-query": "workspace:^",
-    "@deepseek-ai/dsh-skill": "workspace:^",
-    "@deepseek-ai/dsh-session-title": "workspace:^",
-    "@deepseek-ai/dsh-subagent": "workspace:^",
-    "@deepseek-ai/dsh-typert-protocol": "workspace:^",
-    "@deepseek-ai/dsh-typert-registry": "workspace:^",
-    "@deepseek-ai/dsh-util-crypto": "workspace:^",
-    "@deepseek-ai/dsh-workspace": "workspace:^",
-    "@deepseek-ai/dsh-util-workspace-path": "workspace:^"
+    "@lyness/cordis": "workspace:^",
+    "@lyness/agent": "workspace:^",
+    "@lyness/agent-default-model": "workspace:^",
+    "@lyness/agent-presets": "workspace:^",
+    "@lyness/api-gateway": "workspace:^",
+    "@lyness/attachment": "workspace:^",
+    "@lyness/brand": "workspace:^",
+    "@lyness/client-connection": "workspace:^",
+    "@lyness/client-store": "workspace:^",
+    "@lyness/file-reference": "workspace:^",
+    "@lyness/invariants": "workspace:^",
+    "@lyness/jobs": "workspace:^",
+    "@lyness/llm": "workspace:^",
+    "@lyness/native-command": "workspace:^",
+    "@lyness/permission-presets": "workspace:^",
+    "@lyness/scope": "workspace:^",
+    "@lyness/session": "workspace:^",
+    "@lyness/session-persistence": "workspace:^",
+    "@lyness/session-projection": "workspace:^",
+    "@lyness/session-projection-cache": "workspace:^",
+    "@lyness/session-query": "workspace:^",
+    "@lyness/skill": "workspace:^",
+    "@lyness/session-title": "workspace:^",
+    "@lyness/subagent": "workspace:^",
+    "@lyness/typert-protocol": "workspace:^",
+    "@lyness/typert-registry": "workspace:^",
+    "@lyness/util-crypto": "workspace:^",
+    "@lyness/workspace": "workspace:^",
+    "@lyness/util-workspace-path": "workspace:^"
   }
 }

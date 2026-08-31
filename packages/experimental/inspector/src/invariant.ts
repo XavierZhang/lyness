@@ -1,9 +1,9 @@
 /** Package-owned invariant companion for the experimental Inspector. */
 
-import type { Context } from '@deepseek-ai/cordis'
-import type { InvariantInstaller } from '@deepseek-ai/dsh-invariants'
+import type { Context } from '@lyness/cordis'
+import type { InvariantInstaller } from '@lyness/invariants'
 
-const PACKAGE_NAME = '@deepseek-ai/dsh-experimental-inspector'
+const PACKAGE_NAME = '@lyness/experimental-inspector'
 
 /** Cordis companion plugin name. */
 export const name = 'experimental-inspector-invariant'

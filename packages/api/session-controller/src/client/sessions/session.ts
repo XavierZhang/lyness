@@ -1,11 +1,11 @@
 // Sessions remain resident after creation so their open Remote sources keep running off-screen.
 
-import type { Context } from '@deepseek-ai/cordis'
-import { randomUUID } from '@deepseek-ai/dsh-util-crypto'
-import type { AttachmentIdType, ImageAttachmentRef } from '@deepseek-ai/dsh-attachment'
-import type { SubagentAddress } from '@deepseek-ai/dsh-subagent/client'
-import type { MessageId } from '@deepseek-ai/dsh-llm/brand'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import type { Context } from '@lyness/cordis'
+import { randomUUID } from '@lyness/util-crypto'
+import type { AttachmentIdType, ImageAttachmentRef } from '@lyness/attachment'
+import type { SubagentAddress } from '@lyness/subagent/client'
+import type { MessageId } from '@lyness/llm/brand'
+import type { SessionId } from '@lyness/session/types'
 import {
   SessionEventStream,
   sessionStreamFailure,
@@ -33,7 +33,7 @@ import type {
   SessionEventLikeEntry, SessionLiveEventEntry,
 } from '../contract/events.ts'
 import { Notifier } from './notifier.ts'
-import type { RemoteResult } from '@deepseek-ai/dsh-typert-protocol'
+import type { RemoteResult } from '@lyness/typert-protocol'
 import type { SessionRemotes } from './remotes.ts'
 import { ProjectionValueStore } from './projection-store.ts'
 import type { ProjectionsBaseline } from './projection-store.ts'

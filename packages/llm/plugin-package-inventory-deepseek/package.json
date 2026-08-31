@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-plugin-package-inventory-deepseek",
+  "name": "@lyness/plugin-package-inventory-deepseek",
   "description": "Active Loader-backed plugin package inventory for official DeepSeek LLM API requests",
   "version": "0.1.2-alpha.1",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/llm/plugin-package-inventory-deepseek"
   },
   "type": "module",
@@ -37,31 +37,31 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@deepseek-ai/schemastery": "workspace:^"
+    "@lyness/schemastery": "workspace:^"
   },
   "peerDependencies": {
-    "@deepseek-ai/cordis-plugin-loader": "workspace:^",
-    "@deepseek-ai/dsh-agent": "workspace:^",
-    "@deepseek-ai/dsh-agent-presets": "workspace:^",
-    "@deepseek-ai/dsh-deepseek-llm-api-extensions": "workspace:^",
-    "@deepseek-ai/dsh-invariants": "workspace:^",
-    "@deepseek-ai/dsh-session": "workspace:^",
-    "@deepseek-ai/cordis": "workspace:^"
+    "@lyness/cordis-plugin-loader": "workspace:^",
+    "@lyness/agent": "workspace:^",
+    "@lyness/agent-presets": "workspace:^",
+    "@lyness/deepseek-llm-api-extensions": "workspace:^",
+    "@lyness/invariants": "workspace:^",
+    "@lyness/session": "workspace:^",
+    "@lyness/cordis": "workspace:^"
   },
   "peerDependenciesMeta": {
-    "@deepseek-ai/dsh-agent-presets": {
+    "@lyness/agent-presets": {
       "optional": true
     }
   },
   "devDependencies": {
-    "@deepseek-ai/cordis-plugin-include": "workspace:^",
-    "@deepseek-ai/cordis-plugin-loader": "workspace:^",
-    "@deepseek-ai/dsh-agent": "workspace:^",
-    "@deepseek-ai/dsh-agent-presets": "workspace:^",
-    "@deepseek-ai/dsh-deepseek-llm-api-extensions": "workspace:^",
-    "@deepseek-ai/dsh-invariants": "workspace:^",
-    "@deepseek-ai/dsh-session": "workspace:^",
-    "@deepseek-ai/dsh-scope": "workspace:^",
-    "@deepseek-ai/cordis": "workspace:^"
+    "@lyness/cordis-plugin-include": "workspace:^",
+    "@lyness/cordis-plugin-loader": "workspace:^",
+    "@lyness/agent": "workspace:^",
+    "@lyness/agent-presets": "workspace:^",
+    "@lyness/deepseek-llm-api-extensions": "workspace:^",
+    "@lyness/invariants": "workspace:^",
+    "@lyness/session": "workspace:^",
+    "@lyness/scope": "workspace:^",
+    "@lyness/cordis": "workspace:^"
   }
 }

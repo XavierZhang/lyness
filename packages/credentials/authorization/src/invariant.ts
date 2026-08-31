@@ -1,12 +1,12 @@
 /**
- * Package-owned invariant companion for `@deepseek-ai/dsh-authorization`.
- * @module @deepseek-ai/dsh-authorization/invariant
+ * Package-owned invariant companion for `@lyness/authorization`.
+ * @module @lyness/authorization/invariant
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import type { InvariantFailure, InvariantInstaller } from '@deepseek-ai/dsh-invariants'
+import type { Context } from '@lyness/cordis'
+import type { InvariantFailure, InvariantInstaller } from '@lyness/invariants'
 
-const PACKAGE_NAME = '@deepseek-ai/dsh-authorization'
+const PACKAGE_NAME = '@lyness/authorization'
 
 /** Cordis companion plugin name. */
 export const name = 'authorization-invariant'

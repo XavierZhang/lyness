@@ -1,10 +1,10 @@
-/** Package-owned invariant companion for `@deepseek-ai/dsh-plugin-package-inventory-deepseek`. */
+/** Package-owned invariant companion for `@lyness/plugin-package-inventory-deepseek`. */
 
 /* jscpd:ignore-start */
-import type { Context } from '@deepseek-ai/cordis'
-import type { InvariantInstaller } from '@deepseek-ai/dsh-invariants'
+import type { Context } from '@lyness/cordis'
+import type { InvariantInstaller } from '@lyness/invariants'
 
-const PACKAGE_NAME = '@deepseek-ai/dsh-plugin-package-inventory-deepseek'
+const PACKAGE_NAME = '@lyness/plugin-package-inventory-deepseek'
 
 /** Cordis companion plugin name. */
 export const name = 'plugin-package-inventory-deepseek-invariant'

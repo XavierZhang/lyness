@@ -1,0 +1,68 @@
+# TypeScript SDK snapshot patch for foreground and background LYN SDK failures.
+
+- id: skill-filesystem
+  name: '@lyness/skill-filesystem'
+  config:
+    includeDefaultRoots: false
+
+- id: llm-deepseek
+  name: '@lyness/llm-deepseek'
+  config:
+    thinking: enabled
+    reasoningEffort: max
+
+- id: session-persistence-jsonl
+  name: '@lyness/session-persistence-jsonl'
+  config:
+    root: !!js lynHomePath('sessions')
+    compression: !!js "process.env.LYNESS_SNAPSHOT === undefined ? 'zstd' : 'none'"
+
+- id: session-log-deepseek
+  name: '@lyness/session-log-deepseek'
+  config:
+    enabled: true
+
+- insert:
+    - id: subagent-lyn-sdk-diagnostic
+      name: '@lyness/subagent-lyn-sdk'
+      config:
+        providerName: lyn-sdk-diagnostic
+        profile: sdk
+        patches:
+          - !!js process.env.LYNESS_TEST_CHILD_PATCH
+        lynHome: !!js lynHomePath('children/foreground')
+        provider: mock
+        model: mock-echo
+        env:
+          LYNESS_TELEMETRY_DISABLED: '1'
+          LYNESS_TEST_CHILD_FAILURE: '1'
+    - id: tool-subagent-lyn-sdk-diagnostic
+      name: '@lyness/tool-subagent'
+      config:
+        provider: lyn-sdk-diagnostic
+        toolName: subagent_lyn_sdk
+        backgroundMode: one-shot
+        maxDepth: provider-managed
+    - id: subagent-lyn-sdk-diagnostic-background
+      name: '@lyness/subagent-lyn-sdk'
+      config:
+        providerName: lyn-sdk-diagnostic-background
+        profile: sdk
+        patches:
+          - !!js process.env.LYNESS_TEST_CHILD_PATCH
+        lynHome: !!js lynHomePath('children/background')
+        provider: mock
+        model: mock-echo
+        env:
+          LYNESS_TELEMETRY_DISABLED: '1'
+          LYNESS_TEST_CHILD_FAILURE: '1'
+          FAKE_INIT_GO: .lyn-sdk-background-release
+    - id: tool-subagent-lyn-sdk-diagnostic-background
+      name: '@lyness/tool-subagent'
+      config:
+        provider: lyn-sdk-diagnostic-background
+        toolName: subagent_lyn_sdk_background
+        backgroundMode: one-shot
+        maxDepth: provider-managed
+    - id: release-lyn-sdk-background-on-job-output
+      name: '../../../apps/cli/tests/profiles/sdk/fixtures/subagent-lyn-sdk-release-on-job-output.ts'

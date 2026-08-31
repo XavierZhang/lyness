@@ -1,8 +1,8 @@
-import { Context } from '@deepseek-ai/cordis'
-import AgentRegistry, { Inbox } from '@deepseek-ai/dsh-agent'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import { createUserMessage } from '@deepseek-ai/dsh-llm'
-import SessionStore, { SessionId } from '@deepseek-ai/dsh-session'
+import { Context } from '@lyness/cordis'
+import AgentRegistry, { Inbox } from '@lyness/agent'
+import type { Agent } from '@lyness/agent'
+import { createUserMessage } from '@lyness/llm'
+import SessionStore, { SessionId } from '@lyness/session'
 import { describe, expect, it } from 'vitest'
 import { SessionControlController } from '../src/control.ts'
 

@@ -5,10 +5,10 @@
  * operation and the bearer token through a per-request resolver, so the
  * registering plugin owns validation, layering, and credential policy.
  *
- * @module dsh-llm-deepseek/adapter
+ * @module lyn-llm-deepseek/adapter
  */
 
-import { attributionHeaders, contentHasImage, CONTEXT_WINDOW_EXCEEDED_CODE, isContextWindowExceededError, isQuotaExceededError, LlmAdapter, LlmError, offloadedImageText, offloadRequestImagesWithPolicy, ProviderRequestId, QUOTA_EXCEEDED_CODE, ReasoningEffortId } from '@deepseek-ai/dsh-llm'
+import { attributionHeaders, contentHasImage, CONTEXT_WINDOW_EXCEEDED_CODE, isContextWindowExceededError, isQuotaExceededError, LlmAdapter, LlmError, offloadedImageText, offloadRequestImagesWithPolicy, ProviderRequestId, QUOTA_EXCEEDED_CODE, ReasoningEffortId } from '@lyness/llm'
 import type {
   ContentBlock,
   GenerateOptions,
@@ -20,21 +20,21 @@ import type {
   ModelModality,
   ResolvedRetryPolicy,
   StreamChunk,
-} from '@deepseek-ai/dsh-llm'
+} from '@lyness/llm'
 import type {
   AttachmentId,
   AttachmentStore,
   ImageAttachmentRef,
   RequestImageAttachment,
-} from '@deepseek-ai/dsh-attachment'
-import type { CredentialRef } from '@deepseek-ai/dsh-credentials'
-import { deadline, idleWatchdog, timeoutOf } from '@deepseek-ai/dsh-timeout'
-import type { AnonymousUserId } from '@deepseek-ai/dsh-anonymous-user-id'
+} from '@lyness/attachment'
+import type { CredentialRef } from '@lyness/credentials'
+import { deadline, idleWatchdog, timeoutOf } from '@lyness/timeout'
+import type { AnonymousUserId } from '@lyness/anonymous-user-id'
 import type {
   DeepSeekLlmApiExtensionRequest,
   DeepSeekLlmApiJson,
   PreparedDeepSeekLlmApiExtensions,
-} from '@deepseek-ai/dsh-deepseek-llm-api-extensions'
+} from '@lyness/deepseek-llm-api-extensions'
 import { serializeRequest, serializeRequestWithImages } from './serialize.ts'
 import type { ImageWireLocation, RequestDefaults } from './serialize.ts'
 import { deepSeekImageRequestPricing, resolveRequestImagePolicy } from './request-pricing.ts'
@@ -533,12 +533,12 @@ export class DeepSeekAdapter extends LlmAdapter {
       'content-type': 'application/json',
       'accept': 'text/event-stream',
       ...attributionHeaders(),
-      'x-deepseek-harness-user-id': String(userId),
+      'x-lyness-user-id': String(userId),
       ...options.sessionId !== undefined
-        ? { 'x-deepseek-harness-session-id': String(options.sessionId) }
+        ? { 'x-lyness-session-id': String(options.sessionId) }
         : {},
       ...options.purpose === 'compaction'
-        ? { 'x-deepseek-harness-compact': '1' }
+        ? { 'x-lyness-compact': '1' }
         : {},
     }
 

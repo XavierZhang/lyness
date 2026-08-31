@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-session-projection-cache",
+  "name": "@lyness/session-projection-cache",
   "description": "Persisted projection cache (ctx.sessionProjectionCache): durable per-session checkpoint records on the session_projcache storage domain (per-record layout), throttled write-behind, and the cached listing read",
   "version": "0.1.2-alpha.1",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/session/session-projection-cache"
   },
   "type": "module",
@@ -32,23 +32,23 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@deepseek-ai/schemastery": "workspace:^",
+    "@lyness/schemastery": "workspace:^",
     "zod": "^4.4.3"
   },
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:^",
-    "@deepseek-ai/dsh-invariants": "workspace:^",
-    "@deepseek-ai/dsh-session": "workspace:^",
-    "@deepseek-ai/dsh-session-projection": "workspace:^",
-    "@deepseek-ai/dsh-storage-domain": "workspace:^"
+    "@lyness/cordis": "workspace:^",
+    "@lyness/invariants": "workspace:^",
+    "@lyness/session": "workspace:^",
+    "@lyness/session-projection": "workspace:^",
+    "@lyness/storage-domain": "workspace:^"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:^",
-    "@deepseek-ai/dsh-invariants": "workspace:^",
-    "@deepseek-ai/dsh-session": "workspace:^",
-    "@deepseek-ai/dsh-session-projection": "workspace:^",
-    "@deepseek-ai/dsh-storage": "workspace:^",
-    "@deepseek-ai/dsh-storage-domain": "workspace:^",
-    "@deepseek-ai/dsh-storage-json": "workspace:^"
+    "@lyness/cordis": "workspace:^",
+    "@lyness/invariants": "workspace:^",
+    "@lyness/session": "workspace:^",
+    "@lyness/session-projection": "workspace:^",
+    "@lyness/storage": "workspace:^",
+    "@lyness/storage-domain": "workspace:^",
+    "@lyness/storage-json": "workspace:^"
   }
 }

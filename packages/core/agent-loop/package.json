@@ -1,13 +1,13 @@
 {
-  "name": "@deepseek-ai/dsh-agent-loop",
-  "description": "The concrete agent loop plugin for the DeepSeek Harness",
+  "name": "@lyness/agent-loop",
+  "description": "The concrete agent loop plugin for the lyness",
   "version": "0.1.2-alpha.1",
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/core/agent-loop"
   },
   "type": "module",
@@ -31,31 +31,31 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/dsh-agent": "workspace:^",
-    "@deepseek-ai/dsh-invariants": "workspace:^",
-    "@deepseek-ai/dsh-llm": "workspace:^",
-    "@deepseek-ai/dsh-scope": "workspace:^",
-    "@deepseek-ai/dsh-session": "workspace:^",
-    "@deepseek-ai/dsh-session-persistence": "workspace:^",
-    "@deepseek-ai/dsh-system-prompt": "workspace:^",
-    "@deepseek-ai/dsh-tools": "workspace:^",
-    "@deepseek-ai/cordis": "workspace:^",
-    "@deepseek-ai/dsh-settings": "workspace:^"
+    "@lyness/agent": "workspace:^",
+    "@lyness/invariants": "workspace:^",
+    "@lyness/llm": "workspace:^",
+    "@lyness/scope": "workspace:^",
+    "@lyness/session": "workspace:^",
+    "@lyness/session-persistence": "workspace:^",
+    "@lyness/system-prompt": "workspace:^",
+    "@lyness/tools": "workspace:^",
+    "@lyness/cordis": "workspace:^",
+    "@lyness/settings": "workspace:^"
   },
   "dependencies": {
-    "@deepseek-ai/schemastery": "workspace:^"
+    "@lyness/schemastery": "workspace:^"
   },
   "devDependencies": {
-    "@deepseek-ai/dsh-agent": "workspace:^",
-    "@deepseek-ai/dsh-invariants": "workspace:^",
-    "@deepseek-ai/dsh-llm": "workspace:^",
-    "@deepseek-ai/dsh-scope": "workspace:^",
-    "@deepseek-ai/dsh-session": "workspace:^",
-    "@deepseek-ai/dsh-session-persistence": "workspace:^",
-    "@deepseek-ai/dsh-session-persistence-jsonl": "workspace:^",
-    "@deepseek-ai/dsh-system-prompt": "workspace:^",
-    "@deepseek-ai/dsh-tools": "workspace:^",
-    "@deepseek-ai/cordis": "workspace:^",
-    "@deepseek-ai/dsh-settings": "workspace:^"
+    "@lyness/agent": "workspace:^",
+    "@lyness/invariants": "workspace:^",
+    "@lyness/llm": "workspace:^",
+    "@lyness/scope": "workspace:^",
+    "@lyness/session": "workspace:^",
+    "@lyness/session-persistence": "workspace:^",
+    "@lyness/session-persistence-jsonl": "workspace:^",
+    "@lyness/system-prompt": "workspace:^",
+    "@lyness/tools": "workspace:^",
+    "@lyness/cordis": "workspace:^",
+    "@lyness/settings": "workspace:^"
   }
 }

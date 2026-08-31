@@ -4,12 +4,12 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { randomBytes } from 'node:crypto'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import Loader from '@deepseek-ai/cordis-plugin-loader'
-import AgentRegistry from '@deepseek-ai/dsh-agent'
-import LlmRuntime, { createUserMessage, ToolCallId, ReasoningEffortId, createMessage } from '@deepseek-ai/dsh-llm'
-import type { Message, ToolSchema } from '@deepseek-ai/dsh-llm'
-import AttachmentStore, { AttachmentId, ImageVariantId } from '@deepseek-ai/dsh-attachment'
+import { Context } from '@lyness/cordis'
+import Loader from '@lyness/cordis-plugin-loader'
+import AgentRegistry from '@lyness/agent'
+import LlmRuntime, { createUserMessage, ToolCallId, ReasoningEffortId, createMessage } from '@lyness/llm'
+import type { Message, ToolSchema } from '@lyness/llm'
+import AttachmentStore, { AttachmentId, ImageVariantId } from '@lyness/attachment'
 import type {
   ImageAttachmentLimits,
   ImageAttachmentRef,
@@ -17,14 +17,14 @@ import type {
   RequestImageAttachment,
   SaveImageAttachment,
   StoredImageAttachment,
-} from '@deepseek-ai/dsh-attachment'
-import { LocalCredentialProvider } from '@deepseek-ai/dsh-credentials-local'
-import SessionStore, { SessionId } from '@deepseek-ai/dsh-session'
-import DeepSeekLlmApiExtensionRegistry from '@deepseek-ai/dsh-deepseek-llm-api-extensions'
-import * as PluginPackageInventoryDeepSeek from '@deepseek-ai/dsh-plugin-package-inventory-deepseek'
-import * as SessionLogDeepSeek from '@deepseek-ai/dsh-session-log-deepseek'
-import * as LlmDeepSeek from '@deepseek-ai/dsh-llm-deepseek'
-import type { Config } from '@deepseek-ai/dsh-llm-deepseek'
+} from '@lyness/attachment'
+import { LocalCredentialProvider } from '@lyness/credentials-local'
+import SessionStore, { SessionId } from '@lyness/session'
+import DeepSeekLlmApiExtensionRegistry from '@lyness/deepseek-llm-api-extensions'
+import * as PluginPackageInventoryDeepSeek from '@lyness/plugin-package-inventory-deepseek'
+import * as SessionLogDeepSeek from '@lyness/session-log-deepseek'
+import * as LlmDeepSeek from '@lyness/llm-deepseek'
+import type { Config } from '@lyness/llm-deepseek'
 import { assemble, type AssembledResult } from './assemble.ts'
 
 /**
@@ -96,8 +96,8 @@ class E2eAttachmentStore extends AttachmentStore {
 }
 
 beforeEach(async () => {
-  identityHome = await mkdtemp(join(tmpdir(), 'dsh-e2e-user-id-'))
-  vi.stubEnv('DSH_HOME', identityHome)
+  identityHome = await mkdtemp(join(tmpdir(), 'lyn-e2e-user-id-'))
+  vi.stubEnv('LYNESS_HOME', identityHome)
 })
 
 async function harness(_model: string, config: Partial<Config> = {}) {
@@ -214,7 +214,7 @@ describe.skipIf(!process.env.DEEPSEEK_API_KEY)('llm-deepseek e2e (real API)', ()
   it('serves a real request with the key held only by a credentials-local document', async () => {
     const key = process.env.DEEPSEEK_API_KEY
     if (key === undefined) throw new Error('e2e ran without DEEPSEEK_API_KEY')
-    const dir = await mkdtemp(join(tmpdir(), 'dsh-e2e-credentials-'))
+    const dir = await mkdtemp(join(tmpdir(), 'lyn-e2e-credentials-'))
     try {
       // JSON.stringify quotes the value: YAML is a JSON superset, so a real
       // key survives whatever characters it happens to carry.

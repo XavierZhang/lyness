@@ -17,8 +17,8 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SDK_DISTRIBUTION = "deepseek-harness-sdk"
-RUNTIME_DISTRIBUTION = "deepseek-harness-runtime-bin"
+SDK_DISTRIBUTION = "lyness-sdk"
+RUNTIME_DISTRIBUTION = "lyness-runtime-bin"
 PLATFORM_MANIFEST = ROOT / "python" / "sdk-runtime" / "platforms.json"
 
 
@@ -77,7 +77,7 @@ def main() -> None:
 
     output_dir = args.output_dir.resolve()
     output_dir.mkdir(parents=True, exist_ok=True)
-    with tempfile.TemporaryDirectory(prefix="dsh-python-release-") as temporary:
+    with tempfile.TemporaryDirectory(prefix="lyn-python-release-") as temporary:
         staging = Path(temporary) / args.package
         if args.package == "sdk":
             stage_sdk(staging, wheel_version)
@@ -86,7 +86,7 @@ def main() -> None:
         else:
             platform_tag, executable_name = PLATFORMS[args.platform]
             stage_runtime(staging, wheel_version, args.runtime_exe.resolve(), executable_name)
-            environment = {"DSH_RUNTIME_PLATFORM_TAG": platform_tag}
+            environment = {"LYNESS_RUNTIME_PLATFORM_TAG": platform_tag}
             expected = output_dir / f"deepseek_harness_runtime_bin-{wheel_version}-py3-none-{platform_tag}.whl"
         command = ["uv", "build", "--wheel", "--out-dir", str(output_dir), str(staging)]
         subprocess.run(command, cwd=ROOT, env=None if environment is None else {**os.environ, **environment}, check=True)
@@ -153,7 +153,7 @@ def copy_package(source: Path, destination: Path) -> None:
             "*.pyc",
             "dist",
             "node_modules",
-            "deepseek-harness-sdk-runtime-*",
+            "lyness-sdk-runtime-*",
         ),
     )
 
@@ -197,8 +197,8 @@ def stage_sdk(destination: Path, version: str) -> None:
     pyproject = destination / "pyproject.toml"
     rewrite_version(pyproject, version)
     text, count = re.subn(
-        r'"deepseek-harness-runtime-bin==[^"]+"',
-        f'"deepseek-harness-runtime-bin=={version}"',
+        r'"lyness-runtime-bin==[^"]+"',
+        f'"lyness-runtime-bin=={version}"',
         pyproject.read_text(),
         count=1,
     )
@@ -254,7 +254,7 @@ def verify_wheel(
                 f"{wheel} has license files {license_files}, expected {expected_license_files}"
             )
         runtime_files = [
-            name for name in archive.namelist() if "/runtime/deepseek-harness-sdk-runtime-" in name
+            name for name in archive.namelist() if "/runtime/lyness-sdk-runtime-" in name
         ]
         if package == "runtime":
             assert platform is not None

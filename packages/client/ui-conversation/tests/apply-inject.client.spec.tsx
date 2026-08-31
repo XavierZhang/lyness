@@ -1,18 +1,18 @@
 // @vitest-environment jsdom
 import { describe, expect, it, vi } from 'vitest'
-import type { ISession } from '@deepseek-ai/dsh-api-session-controller/client'
-import { LocaleRuntime } from '@deepseek-ai/dsh-client-locale/client'
-import type { ObservableSnapshot } from '@deepseek-ai/dsh-client-store'
+import type { ISession } from '@lyness/api-session-controller/client'
+import { LocaleRuntime } from '@lyness/client-locale/client'
+import type { ObservableSnapshot } from '@lyness/client-store'
 import {
   SlotTestRuntime, stubSettingsScope, usePinnedBrowserLanguages,
-} from '@deepseek-ai/dsh-client-test-runtime'
-import type { SessionBehaviorOverrides } from '@deepseek-ai/dsh-client-test-runtime'
+} from '@lyness/client-test-runtime'
+import type { SessionBehaviorOverrides } from '@lyness/client-test-runtime'
 import {
   apply, inject, type ComposerBarInjected, type ConversationInjected,
   type ConversationSessionInjected, type ViewTab,
-} from '@deepseek-ai/dsh-client-ui-conversation/client'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
-import type { WorkspaceId } from '@deepseek-ai/dsh-workspace/types'
+} from '@lyness/client-ui-conversation/client'
+import type { SessionId } from '@lyness/session/types'
+import type { WorkspaceId } from '@lyness/workspace/types'
 import { createConversationStore } from '../src/client/stores.ts'
 
 usePinnedBrowserLanguages('zh-CN')

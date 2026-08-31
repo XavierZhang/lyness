@@ -1,8 +1,8 @@
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { describe, expect, it, vi } from 'vitest'
-import type { SettingsNamespaceView } from '@deepseek-ai/dsh-api-remotes/client'
-import { SettingsSchemaService } from '@deepseek-ai/dsh-client-ui-settings/src/client/schema.ts'
-import { SettingsDescribeMirror } from '@deepseek-ai/dsh-client-ui-settings/src/client/settings-mirror.ts'
+import type { SettingsNamespaceView } from '@lyness/api-remotes/client'
+import { SettingsSchemaService } from '@lyness/client-ui-settings/src/client/schema.ts'
+import { SettingsDescribeMirror } from '@lyness/client-ui-settings/src/client/settings-mirror.ts'
 import {
   PermissionPresetSettingsController, permissionDefaultOf,
 } from '../src/client/settings-store.ts'

@@ -1,18 +1,18 @@
 /**
  * Plugin-owned human-command registry shared by interactive UI adapters.
- * @module @deepseek-ai/dsh-commands
+ * @module @lyness/commands
  */
 
-import { Context } from '@deepseek-ai/cordis'
-import { randomUUID } from '@deepseek-ai/dsh-util-crypto'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import { AttachmentError, admitEncodedImages } from '@deepseek-ai/dsh-attachment'
-import type { EncodedImageAttachment } from '@deepseek-ai/dsh-attachment/types'
-import type { ImageBlock } from '@deepseek-ai/dsh-llm'
-import { NamedEntries, ScopedLayers } from '@deepseek-ai/dsh-scope'
-import type { ScopeKey, ScopeLayer } from '@deepseek-ai/dsh-scope'
-import type { Session, SessionEvent, SessionEventMap } from '@deepseek-ai/dsh-session'
-import { TypertRemoteService, Remote } from '@deepseek-ai/dsh-typert-protocol'
+import { Context } from '@lyness/cordis'
+import { randomUUID } from '@lyness/util-crypto'
+import type { Agent } from '@lyness/agent'
+import { AttachmentError, admitEncodedImages } from '@lyness/attachment'
+import type { EncodedImageAttachment } from '@lyness/attachment/types'
+import type { ImageBlock } from '@lyness/llm'
+import { NamedEntries, ScopedLayers } from '@lyness/scope'
+import type { ScopeKey, ScopeLayer } from '@lyness/scope'
+import type { Session, SessionEvent, SessionEventMap } from '@lyness/session'
+import { TypertRemoteService, Remote } from '@lyness/typert-protocol'
 import { CommandId } from './brand.ts'
 import type {
   CommandDescriptor,
@@ -102,7 +102,7 @@ class CommandLayer implements ScopeLayer {
   }
 }
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Context {
     commands: CommandRuntime
   }

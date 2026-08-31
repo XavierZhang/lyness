@@ -38,15 +38,15 @@ FS_SEARCH_TEXT = "filesystem search smoke ok"
 FS_SEARCH_MARKER = "PACKAGED_FS_SEARCH_OK"
 MCP_PROMPT = "Exercise the packaged MCP client with one external stdio server."
 MCP_TEXT = "MCP client smoke ok"
-PROFILE_PLUGIN_PROMPT = "Verify the Python-installed dsh profile plugin."
+PROFILE_PLUGIN_PROMPT = "Verify the Python-installed lyn profile plugin."
 PROFILE_PLUGIN_TEXT = "profile plugin smoke ok"
-PROFILE_PLUGIN_MARKER = "PYTHON_INSTALLED_DSH_PROFILE_PLUGIN"
+PROFILE_PLUGIN_MARKER = "PYTHON_INSTALLED_LYNESS_PROFILE_PLUGIN"
 IS_WINDOWS = sys.platform == "win32"
 MINIMAL_SHELL_TOOL = "pwsh" if IS_WINDOWS else "bash"
 MINIMAL_SHELL_COMMAND = (
-    "$global:dshSdkCounter = [int]$global:dshSdkCounter + 1; "
-    'Write-Output "COUNT=$global:dshSdkCounter CWD=$((Get-Location).Path)"; '
-    "if ($global:dshSdkCounter -eq 1) { Set-Location $env:TEMP }"
+    "$global:lynSdkCounter = [int]$global:lynSdkCounter + 1; "
+    'Write-Output "COUNT=$global:lynSdkCounter CWD=$((Get-Location).Path)"; '
+    "if ($global:lynSdkCounter -eq 1) { Set-Location $env:TEMP }"
     if IS_WINDOWS
     else (
         "counter=$(( ${counter:-0} + 1 )); export counter; "
@@ -208,7 +208,7 @@ def write_profile_patch(
     sessions: Path,
     patches: list[dict[str, object]],
 ) -> Path:
-    """Write one JSON-form dsh profile patch with deterministic persistence."""
+    """Write one JSON-form lyn profile patch with deterministic persistence."""
     path = root / name
     path.write_text(json.dumps([
         {
@@ -244,9 +244,9 @@ def write_advanced_profile_patch(root: Path, name: str, sessions: Path) -> Path:
             },
         },
         {"insert": [
-            {"id": "code-runtime", "name": "@deepseek-ai/dsh-code-runtime-worker-thread"},
-            {"id": "cordis-host-runner", "name": "@deepseek-ai/dsh-cordis-host-runner"},
-            {"id": "cordis-tool", "name": "@deepseek-ai/dsh-tool-cordis"},
+            {"id": "code-runtime", "name": "@lyness/code-runtime-worker-thread"},
+            {"id": "cordis-host-runner", "name": "@lyness/cordis-host-runner"},
+            {"id": "cordis-tool", "name": "@lyness/tool-cordis"},
         ]},
     ])
 
@@ -256,7 +256,7 @@ def write_mcp_patch(root: Path, sessions: Path, server_script: Path) -> Path:
     return write_profile_patch(root, "mcp.patch.yml", sessions, [{
         "insert": [{
             "id": "mcp-fixture",
-            "name": "@deepseek-ai/dsh-mcp-client",
+            "name": "@lyness/mcp-client",
             "config": {
                 "serverName": "fixture",
                 "transport": "stdio",
@@ -779,22 +779,22 @@ def assert_installed_wheel_environment() -> Path:
         raise AssertionError("installed-wheel smoke must run inside a virtual environment")
     if os.environ.get("PYTHONPATH"):
         raise AssertionError("installed-wheel smoke requires PYTHONPATH to be unset")
-    if os.environ.get("DSH_RUNTIME_MODE"):
-        raise AssertionError("installed-wheel smoke requires DSH_RUNTIME_MODE to be unset")
+    if os.environ.get("LYNESS_RUNTIME_MODE"):
+        raise AssertionError("installed-wheel smoke requires LYNESS_RUNTIME_MODE to be unset")
 
     repo_root = Path(__file__).resolve().parent.parent
     cwd = Path.cwd().resolve()
     if cwd.is_relative_to(repo_root):
         raise AssertionError(f"installed-wheel smoke must run outside the repository, got {cwd}")
 
-    sdk_version = importlib.metadata.version("deepseek-harness-sdk")
-    runtime_version = importlib.metadata.version("deepseek-harness-runtime-bin")
+    sdk_version = importlib.metadata.version("lyness-sdk")
+    runtime_version = importlib.metadata.version("lyness-runtime-bin")
     if sdk_version != runtime_version:
         raise AssertionError(
             f"installed SDK/runtime versions differ: {sdk_version} != {runtime_version}"
         )
-    expected_runtime_requirement = f"deepseek-harness-runtime-bin=={sdk_version}"
-    requirements = importlib.metadata.requires("deepseek-harness-sdk") or []
+    expected_runtime_requirement = f"lyness-runtime-bin=={sdk_version}"
+    requirements = importlib.metadata.requires("lyness-sdk") or []
     if expected_runtime_requirement not in requirements:
         raise AssertionError(
             f"installed SDK does not require {expected_runtime_requirement}: {requirements}"
@@ -819,7 +819,7 @@ def assert_installed_wheel_environment() -> Path:
     runtime_package = imported["deepseek_harness_runtime"].parent
     if not executable.is_relative_to(runtime_package):
         raise AssertionError(f"bundled runtime came from outside the installed runtime wheel: {executable}")
-    runtime_files = importlib.metadata.files("deepseek-harness-runtime-bin") or []
+    runtime_files = importlib.metadata.files("lyness-runtime-bin") or []
     if not any(Path(file).name == executable.name for file in runtime_files):
         raise AssertionError(f"runtime executable is absent from installed distribution records: {executable}")
     return executable
@@ -827,7 +827,7 @@ def assert_installed_wheel_environment() -> Path:
 
 def smoke_sdk_live() -> None:
     """Run a real-model, tool-using two-turn task through installed wheels."""
-    from deepseek_harness import DeepSeekHarness
+    from deepseek_harness import Lyness
 
     api_key = os.environ.get("DEEPSEEK_API_KEY")
     base_url = os.environ.get("DEEPSEEK_BASE_URL")
@@ -836,10 +836,10 @@ def smoke_sdk_live() -> None:
     if not base_url:
         raise AssertionError("sdk-live requires an explicit DEEPSEEK_BASE_URL")
 
-    with tempfile.TemporaryDirectory(prefix="dsh-sdk-live-") as temporary:
+    with tempfile.TemporaryDirectory(prefix="lyn-sdk-live-") as temporary:
         root = Path(temporary).resolve()
-        dsh_home = root / "home"
-        sessions = dsh_home / "sessions"
+        lyn_home = root / "home"
+        sessions = lyn_home / "sessions"
         marker = root / "live-api-marker.txt"
         session_id = "installed-wheel-live-api"
         shell_tool = "pwsh" if IS_WINDOWS else "bash"
@@ -851,14 +851,14 @@ def smoke_sdk_live() -> None:
             "Use a tool to read the file created in the previous turn. "
             f"If its only line is {LIVE_API_SENTINEL}, reply with exactly {LIVE_API_SENTINEL}."
         )
-        with DeepSeekHarness(
+        with Lyness(
             provider="deepseek-official",
             model="deepseek-v4-flash",
             cwd=str(root),
-            dsh_home=str(dsh_home),
+            lyn_home=str(lyn_home),
             env={
-                "DSH_PERMISSION_MODE": "danger-full-access",
-                "DSH_TELEMETRY_DISABLED": "1",
+                "LYNESS_PERMISSION_MODE": "danger-full-access",
+                "LYNESS_TELEMETRY_DISABLED": "1",
             },
             api_key=api_key,
             base_url=base_url,
@@ -918,20 +918,20 @@ def safe_turn_end(value: object) -> object:
 
 
 def smoke_sdk_default(base_url: str) -> None:
-    from deepseek_harness import DeepSeekHarness
+    from deepseek_harness import Lyness
 
-    with tempfile.TemporaryDirectory(prefix="dsh-sdk-default-") as temporary:
+    with tempfile.TemporaryDirectory(prefix="lyn-sdk-default-") as temporary:
         root = Path(temporary).resolve()
-        dsh_home = root / "home"
-        sessions = dsh_home / "sessions"
-        with DeepSeekHarness(
+        lyn_home = root / "home"
+        sessions = lyn_home / "sessions"
+        with Lyness(
             provider="deepseek-official",
             model="smoke-model",
             cwd=str(root),
-            dsh_home=str(dsh_home),
+            lyn_home=str(lyn_home),
             env={
-                "DSH_PERMISSION_MODE": "danger-full-access",
-                "DSH_TELEMETRY_DISABLED": "1",
+                "LYNESS_PERMISSION_MODE": "danger-full-access",
+                "LYNESS_TELEMETRY_DISABLED": "1",
             },
             api_key="sk-keyless-smoke",
             base_url=base_url,
@@ -947,23 +947,23 @@ def smoke_sdk_default(base_url: str) -> None:
 
 
 def smoke_sdk_custom(base_url: str, executable: Path) -> None:
-    from deepseek_harness import DeepSeekHarness
+    from deepseek_harness import Lyness
 
-    with tempfile.TemporaryDirectory(prefix="dsh-sdk-custom-") as temporary:
+    with tempfile.TemporaryDirectory(prefix="lyn-sdk-custom-") as temporary:
         root = Path(temporary).resolve()
-        dsh_home = root / "home"
-        sessions = dsh_home / "sessions"
+        lyn_home = root / "home"
+        sessions = lyn_home / "sessions"
         patch = write_advanced_profile_patch(root, "custom.patch.yml", sessions)
-        with DeepSeekHarness(
+        with Lyness(
             provider="deepseek-official",
             model="smoke-model",
             cwd=str(root),
-            dsh_bin=str(executable),
-            dsh_home=str(dsh_home),
+            lyn_bin=str(executable),
+            lyn_home=str(lyn_home),
             patches=(str(patch),),
             env={
-                "DSH_PERMISSION_MODE": "danger-full-access",
-                "DSH_TELEMETRY_DISABLED": "1",
+                "LYNESS_PERMISSION_MODE": "danger-full-access",
+                "LYNESS_TELEMETRY_DISABLED": "1",
             },
             api_key="sk-keyless-smoke",
             base_url=base_url,
@@ -980,22 +980,22 @@ def smoke_sdk_custom(base_url: str, executable: Path) -> None:
 
 def smoke_sdk_minimal(base_url: str, executable: Path, update_snapshots: bool) -> None:
     """Exercise the shipped standalone minimal profile through the packaged executable."""
-    from deepseek_harness import DeepSeekHarness
+    from deepseek_harness import Lyness
 
     # One mock model serves every scenario of a run, so the snapshot takes this turn's slice.
     first_request = len(MockModelHandler.requests)
-    with tempfile.TemporaryDirectory(prefix="dsh-sdk-minimal-") as temporary:
+    with tempfile.TemporaryDirectory(prefix="lyn-sdk-minimal-") as temporary:
         root = Path(temporary).resolve()
         editor_path = root / "created.txt"
         prompt = f"{MINIMAL_PROMPT}\n{MINIMAL_EDITOR_PATH_PREFIX}{editor_path}"
-        dsh_home = root / "home"
-        sessions = dsh_home / "sessions"
-        with DeepSeekHarness(
+        lyn_home = root / "home"
+        sessions = lyn_home / "sessions"
+        with Lyness(
             provider="deepseek-official",
             model="smoke-model",
             cwd=str(root),
-            dsh_bin=str(executable),
-            dsh_home=str(dsh_home),
+            lyn_bin=str(executable),
+            lyn_home=str(lyn_home),
             profile="sdk-minimal",
             api_key="sk-keyless-smoke",
             base_url=base_url,
@@ -1018,27 +1018,27 @@ def smoke_sdk_minimal(base_url: str, executable: Path, update_snapshots: bool) -
 
 def smoke_sdk_fs_search(base_url: str, executable: Path) -> None:
     """Exercise real grep and glob spawns through the packaged executable."""
-    from deepseek_harness import DeepSeekHarness
+    from deepseek_harness import Lyness
 
-    with tempfile.TemporaryDirectory(prefix="dsh-sdk-fs-search-") as temporary:
+    with tempfile.TemporaryDirectory(prefix="lyn-sdk-fs-search-") as temporary:
         root = Path(temporary).resolve()
         (root / "needle.txt").write_text(f"{FS_SEARCH_MARKER}\n")
-        dsh_home = root / "home"
-        sessions = dsh_home / "sessions"
+        lyn_home = root / "home"
+        sessions = lyn_home / "sessions"
         patch = write_profile_patch(root, "fs-search.patch.yml", sessions, [
             {"id": "skill-filesystem", "disabled": True},
             {"id": "tool-fs-search", "config": {"sampleOverCapGlobResults": False}},
         ])
-        with DeepSeekHarness(
+        with Lyness(
             provider="deepseek-official",
             model="smoke-model",
             cwd=str(root),
-            dsh_bin=str(executable),
-            dsh_home=str(dsh_home),
+            lyn_bin=str(executable),
+            lyn_home=str(lyn_home),
             patches=(str(patch),),
             env={
-                "DSH_PERMISSION_MODE": "danger-full-access",
-                "DSH_TELEMETRY_DISABLED": "1",
+                "LYNESS_PERMISSION_MODE": "danger-full-access",
+                "LYNESS_TELEMETRY_DISABLED": "1",
             },
             api_key="sk-keyless-smoke",
             base_url=base_url,
@@ -1052,26 +1052,26 @@ def smoke_sdk_fs_search(base_url: str, executable: Path) -> None:
 
 def smoke_sdk_mcp(base_url: str, executable: Path | None) -> None:
     """Discover and call an external stdio MCP tool through the packaged client."""
-    from deepseek_harness import DeepSeekHarness
+    from deepseek_harness import Lyness
 
-    with tempfile.TemporaryDirectory(prefix="dsh-sdk-mcp-") as temporary:
+    with tempfile.TemporaryDirectory(prefix="lyn-sdk-mcp-") as temporary:
         root = Path(temporary).resolve()
-        dsh_home = root / "home"
-        sessions = dsh_home / "sessions"
+        lyn_home = root / "home"
+        sessions = lyn_home / "sessions"
         server_script = root / "mcp_server.py"
         server_script.write_text(MCP_SERVER_SCRIPT)
         patch = write_mcp_patch(root, sessions, server_script)
         discovery_log = server_script.with_suffix(".log")
-        with DeepSeekHarness(
+        with Lyness(
             provider="deepseek-official",
             model="smoke-model",
             cwd=str(root),
-            dsh_bin=None if executable is None else str(executable),
-            dsh_home=str(dsh_home),
+            lyn_bin=None if executable is None else str(executable),
+            lyn_home=str(lyn_home),
             patches=(str(patch),),
             env={
-                "DSH_PERMISSION_MODE": "danger-full-access",
-                "DSH_TELEMETRY_DISABLED": "1",
+                "LYNESS_PERMISSION_MODE": "danger-full-access",
+                "LYNESS_TELEMETRY_DISABLED": "1",
             },
             api_key="sk-keyless-smoke",
             base_url=base_url,
@@ -1090,25 +1090,25 @@ def smoke_sdk_mcp(base_url: str, executable: Path | None) -> None:
 
 
 def smoke_sdk_profile_plugin(base_url: str) -> None:
-    """Install an external bundle through Python's dsh command and load it in the SDK."""
-    from deepseek_harness import DeepSeekHarness
+    """Install an external bundle through Python's lyn command and load it in the SDK."""
+    from deepseek_harness import Lyness
 
-    with tempfile.TemporaryDirectory(prefix="dsh-sdk-profile-plugin-") as temporary:
+    with tempfile.TemporaryDirectory(prefix="lyn-sdk-profile-plugin-") as temporary:
         root = Path(temporary).resolve()
-        dsh_home = root / "home"
+        lyn_home = root / "home"
         plugin = root / "plugin"
         plugin.mkdir()
         (plugin / "package.json").write_text(json.dumps({
-            "name": "dsh-python-blackbox-plugin",
+            "name": "lyn-python-blackbox-plugin",
             "version": "1.0.0",
             "private": True,
             "type": "module",
             "exports": "./index.js",
-            "peerDependencies": {"@deepseek-ai/cordis": "*"},
-            "dsh": {"bundle": {"patch": "./cordis.patch.yml"}},
+            "peerDependencies": {"@lyness/cordis": "*"},
+            "lyn": {"bundle": {"patch": "./cordis.patch.yml"}},
         }, indent=2))
         (plugin / "index.js").write_text(
-            "import { Context } from '@deepseek-ai/cordis'\n"
+            "import { Context } from '@lyness/cordis'\n"
             "export const name = 'python-sdk-blackbox-plugin'\n"
             "export const inject = ['systemPrompt']\n"
             "export function apply(ctx) {\n"
@@ -1121,13 +1121,13 @@ def smoke_sdk_profile_plugin(base_url: str) -> None:
             "}\n"
         )
         (plugin / "cordis.patch.yml").write_text(json.dumps([{
-            "insert": [{"id": "python-sdk-blackbox-plugin", "name": "dsh-python-blackbox-plugin"}],
+            "insert": [{"id": "python-sdk-blackbox-plugin", "name": "lyn-python-blackbox-plugin"}],
         }], indent=2))
 
-        dsh = Path(sysconfig.get_path("scripts")) / ("dsh.exe" if IS_WINDOWS else "dsh")
-        environment = {**os.environ, "DSH_HOME": str(dsh_home)}
+        lyn = Path(sysconfig.get_path("scripts")) / ("lyn.exe" if IS_WINDOWS else "lyn")
+        environment = {**os.environ, "LYNESS_HOME": str(lyn_home)}
         installed = subprocess.run(
-            [str(dsh), "plugin", "--profile", "sdk", "add", f"file:{plugin}"],
+            [str(lyn), "plugin", "--profile", "sdk", "add", f"file:{plugin}"],
             cwd=root,
             env=environment,
             text=True,
@@ -1136,23 +1136,23 @@ def smoke_sdk_profile_plugin(base_url: str) -> None:
         )
         if installed.returncode != 0:
             raise AssertionError(
-                f"Python-installed dsh could not add the external profile plugin: "
+                f"Python-installed lyn could not add the external profile plugin: "
                 f"stdout={installed.stdout!r} stderr={installed.stderr!r}"
             )
-        manifest = json.loads((dsh_home / "profiles" / "sdk" / "package.json").read_text())
-        if "dsh-python-blackbox-plugin" not in manifest.get("dependencies", {}):
-            raise AssertionError(f"dsh plugin did not record the external dependency: {manifest}")
-        if "dsh-python-blackbox-plugin" not in manifest["dsh"]["profile"]["bundles"]:
-            raise AssertionError(f"dsh plugin did not activate the external bundle: {manifest}")
+        manifest = json.loads((lyn_home / "profiles" / "sdk" / "package.json").read_text())
+        if "lyn-python-blackbox-plugin" not in manifest.get("dependencies", {}):
+            raise AssertionError(f"lyn plugin did not record the external dependency: {manifest}")
+        if "lyn-python-blackbox-plugin" not in manifest["lyn"]["profile"]["bundles"]:
+            raise AssertionError(f"lyn plugin did not activate the external bundle: {manifest}")
 
-        harness = DeepSeekHarness(
+        harness = Lyness(
             provider="deepseek-official",
             model="smoke-model",
             cwd=str(root),
-            dsh_home=str(dsh_home),
+            lyn_home=str(lyn_home),
             env={
-                "DSH_PERMISSION_MODE": "danger-full-access",
-                "DSH_TELEMETRY_DISABLED": "1",
+                "LYNESS_PERMISSION_MODE": "danger-full-access",
+                "LYNESS_TELEMETRY_DISABLED": "1",
             },
             api_key="sk-keyless-smoke",
             base_url=base_url,
@@ -1167,28 +1167,28 @@ def smoke_sdk_profile_plugin(base_url: str) -> None:
             ) from error
 
         assert result.final_response == PROFILE_PLUGIN_TEXT, result.final_response
-        assert_zstd_session_log(dsh_home / "sessions")
+        assert_zstd_session_log(lyn_home / "sessions")
 
 
 def smoke_sdk_snapshot(base_url: str, executable: Path, update_snapshots: bool) -> None:
     """Drive and compare the advanced SDK/executable behavioral snapshot."""
-    from deepseek_harness import DeepSeekHarness
+    from deepseek_harness import Lyness
 
-    with tempfile.TemporaryDirectory(prefix="dsh-sdk-snapshot-") as temporary:
+    with tempfile.TemporaryDirectory(prefix="lyn-sdk-snapshot-") as temporary:
         root = Path(temporary).resolve()
-        dsh_home = root / "home"
-        sessions = dsh_home / "sessions"
+        lyn_home = root / "home"
+        sessions = lyn_home / "sessions"
         patch = write_advanced_profile_patch(root, "snapshot.patch.yml", sessions)
-        with DeepSeekHarness(
+        with Lyness(
             provider="deepseek-official",
             model="smoke-model",
             cwd=str(root),
-            dsh_bin=str(executable),
-            dsh_home=str(dsh_home),
+            lyn_bin=str(executable),
+            lyn_home=str(lyn_home),
             patches=(str(patch),),
             env={
-                "DSH_PERMISSION_MODE": "danger-full-access",
-                "DSH_TELEMETRY_DISABLED": "1",
+                "LYNESS_PERMISSION_MODE": "danger-full-access",
+                "LYNESS_TELEMETRY_DISABLED": "1",
             },
             api_key="sk-keyless-smoke",
             base_url=base_url,
@@ -1221,26 +1221,26 @@ def smoke_sdk_snapshot(base_url: str, executable: Path, update_snapshots: bool) 
 
 def smoke_sdk_restart_snapshot(base_url: str, executable: Path, update_snapshots: bool) -> None:
     """Snapshot two isolated sessions across complete SDK runtime restarts."""
-    from deepseek_harness import DeepSeekHarness
+    from deepseek_harness import Lyness
 
-    with tempfile.TemporaryDirectory(prefix="dsh-sdk-restart-") as temporary:
+    with tempfile.TemporaryDirectory(prefix="lyn-sdk-restart-") as temporary:
         root = Path(temporary).resolve()
-        dsh_home = root / "home"
-        sessions = dsh_home / "sessions"
+        lyn_home = root / "home"
+        sessions = lyn_home / "sessions"
         patch = write_advanced_profile_patch(root, "restart.patch.yml", sessions)
         first_request = len(MockModelHandler.requests)
 
         def run(prompt: str, session_id: str) -> "RunResult":
-            with DeepSeekHarness(
+            with Lyness(
                 provider="deepseek-official",
                 model="smoke-model",
                 cwd=str(root),
-                dsh_bin=str(executable),
-                dsh_home=str(dsh_home),
+                lyn_bin=str(executable),
+                lyn_home=str(lyn_home),
                 patches=(str(patch),),
                 env={
-                    "DSH_PERMISSION_MODE": "danger-full-access",
-                    "DSH_TELEMETRY_DISABLED": "1",
+                    "LYNESS_PERMISSION_MODE": "danger-full-access",
+                    "LYNESS_TELEMETRY_DISABLED": "1",
                 },
                 api_key="sk-keyless-smoke",
                 base_url=base_url,
@@ -1279,16 +1279,16 @@ def smoke_sdk_restart_snapshot(base_url: str, executable: Path, update_snapshots
 
 
 def smoke_direct(base_url: str, executable: Path) -> None:
-    with tempfile.TemporaryDirectory(prefix="dsh-direct-") as temporary:
+    with tempfile.TemporaryDirectory(prefix="lyn-direct-") as temporary:
         root = Path(temporary).resolve()
-        dsh_home = root / "home"
-        sessions = dsh_home / "sessions"
+        lyn_home = root / "home"
+        sessions = lyn_home / "sessions"
         patch = write_profile_patch(root, "direct.patch.yml", sessions, [])
         environment = {
             **os.environ,
-            "DSH_HOME": str(dsh_home),
-            "DSH_PERMISSION_MODE": "danger-full-access",
-            "DSH_TELEMETRY_DISABLED": "1",
+            "LYNESS_HOME": str(lyn_home),
+            "LYNESS_PERMISSION_MODE": "danger-full-access",
+            "LYNESS_TELEMETRY_DISABLED": "1",
             "DEEPSEEK_API_KEY": "sk-keyless-smoke",
             "DEEPSEEK_BASE_URL": base_url,
         }

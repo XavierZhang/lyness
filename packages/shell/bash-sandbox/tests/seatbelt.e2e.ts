@@ -4,18 +4,18 @@ import { mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { homedir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import { LocalSandboxProvider } from '@deepseek-ai/dsh-sandbox-local'
-import { SandboxPolicyService } from '@deepseek-ai/dsh-sandbox-policy'
-import { seatbeltProfileArgs } from '@deepseek-ai/dsh-sandbox-local/src/profiles.ts'
-import { SandboxBashExecutor } from '@deepseek-ai/dsh-bash-sandbox'
-import LocalSubprocessRuntime from '@deepseek-ai/dsh-subprocess-local'
+import { Context } from '@lyness/cordis'
+import { LocalSandboxProvider } from '@lyness/sandbox-local'
+import { SandboxPolicyService } from '@lyness/sandbox-policy'
+import { seatbeltProfileArgs } from '@lyness/sandbox-local/src/profiles.ts'
+import { SandboxBashExecutor } from '@lyness/bash-sandbox'
+import LocalSubprocessRuntime from '@lyness/subprocess-local'
 
 /**
  * Keyless macOS integration of the real provider and executor through public run/start paths.
  * Linux rungs are forced off so Seatbelt is selected. The tests check world effects and stamped
  * facts, including EPERM classification through the wrap-carried dialect; backend-only
- * confinement is covered by `@deepseek-ai/dsh-sandbox-local`. Skips off macOS or when
+ * confinement is covered by `@lyness/sandbox-local`. Skips off macOS or when
  * `sandbox-exec` rejects the profile.
  */
 
@@ -32,7 +32,7 @@ afterEach(async () => {
 })
 
 async function tempDir(base: string): Promise<string> {
-  const dir = await mkdtemp(join(base, 'dsh-seatbelt-e2e-'))
+  const dir = await mkdtemp(join(base, 'lyn-seatbelt-e2e-'))
   tempDirs.push(dir)
   return dir
 }
@@ -83,8 +83,8 @@ describe.skipIf(!seatbeltUsable)('bash-sandbox: real Seatbelt confinement throug
     const insideProbe = join(workdir, 'hook-ran.txt')
     const outsideProbe = join(outside, 'escaped.txt')
     await writeFile(hook, [
-      'printf hook > "$DSH_BASH_ENV_INSIDE"',
-      'printf escaped > "$DSH_BASH_ENV_OUTSIDE"',
+      'printf hook > "$LYNESS_BASH_ENV_INSIDE"',
+      'printf escaped > "$LYNESS_BASH_ENV_OUTSIDE"',
       '',
     ].join('\n'))
     const bash = await sandboxedBash(workdir, 'workspace-write')
@@ -92,9 +92,9 @@ describe.skipIf(!seatbeltUsable)('bash-sandbox: real Seatbelt confinement throug
     await bash.run(bash.resolve({
       command: 'true',
       env: { BASH_ENV: hook },
-      dshEnv: {
-        DSH_BASH_ENV_INSIDE: insideProbe,
-        DSH_BASH_ENV_OUTSIDE: outsideProbe,
+      lynEnv: {
+        LYNESS_BASH_ENV_INSIDE: insideProbe,
+        LYNESS_BASH_ENV_OUTSIDE: outsideProbe,
       },
     }))
 

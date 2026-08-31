@@ -1,11 +1,11 @@
-import type { Context } from '@deepseek-ai/cordis'
-import type { ChunkRowEvent } from '@deepseek-ai/dsh-api-session-controller/types'
+import type { Context } from '@lyness/cordis'
+import type { ChunkRowEvent } from '@lyness/api-session-controller/types'
 import type {
   ConversationLocation, ConversationNodeContext, ConversationNodeDefinition, TurnLocation,
-} from '@deepseek-ai/dsh-client-ui-conversation/client'
-import type {} from '@deepseek-ai/dsh-llm-retry/types'
-import { isAppendSurfaceEvent } from '@deepseek-ai/dsh-session/surface'
-import type {} from '@deepseek-ai/dsh-tools/types'
+} from '@lyness/client-ui-conversation/client'
+import type {} from '@lyness/llm-retry/types'
+import { isAppendSurfaceEvent } from '@lyness/session/surface'
+import type {} from '@lyness/tools/types'
 import { hasAssistantReplyContent } from '../contract/assistant-content.ts'
 import type { AssistantChatData, FinalAssistantChatData } from '../contract/chat-nodes.ts'
 import {
@@ -22,7 +22,7 @@ declare module '../contract/chat-nodes.ts' {
   }
 }
 
-declare module '@deepseek-ai/dsh-client-ui-conversation/client' {
+declare module '@lyness/client-ui-conversation/client' {
   interface ConversationTurnDataMap {
     /** Encoded process range and finalized answer boundary for this Turn. */
     'turn-process': TurnProcessSignature

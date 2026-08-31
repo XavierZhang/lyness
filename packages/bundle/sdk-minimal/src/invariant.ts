@@ -1,12 +1,12 @@
 /**
- * Package-owned invariant companion for `@deepseek-ai/dsh-sdk-minimal`.
- * @module @deepseek-ai/dsh-sdk-minimal/invariant
+ * Package-owned invariant companion for `@lyness/sdk-minimal`.
+ * @module @lyness/sdk-minimal/invariant
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import type { InvariantInstaller } from '@deepseek-ai/dsh-invariants'
+import type { Context } from '@lyness/cordis'
+import type { InvariantInstaller } from '@lyness/invariants'
 
-const PACKAGE_NAME = '@deepseek-ai/dsh-sdk-minimal'
+const PACKAGE_NAME = '@lyness/sdk-minimal'
 
 /** Cordis companion plugin name. */
 export const name = 'sdk-minimal-bundle-invariant'

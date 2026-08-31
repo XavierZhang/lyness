@@ -4,8 +4,8 @@ import {
   RemoteStreamCarrierError,
   RemoteStreamError,
   type RemoteStreamOptions,
-} from '@deepseek-ai/dsh-api-gateway/client'
-import type { RemoteResult } from '@deepseek-ai/dsh-typert-protocol'
+} from '@lyness/api-gateway/client'
+import type { RemoteResult } from '@lyness/typert-protocol'
 import {
   createSessionControlStream,
   SessionEventStream,

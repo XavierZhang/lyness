@@ -1,12 +1,12 @@
 /**
  * Durable storage-domain declaration for lifecycle-bound message feedback.
- * @module @deepseek-ai/dsh-message-feedback/src/spec
+ * @module @lyness/message-feedback/src/spec
  */
 
 import { z } from 'zod'
-import type { MessageId } from '@deepseek-ai/dsh-llm/brand'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
-import { defineDomain, domainTable } from '@deepseek-ai/dsh-storage-domain'
+import type { MessageId } from '@lyness/llm/brand'
+import type { SessionId } from '@lyness/session/types'
+import { defineDomain, domainTable } from '@lyness/storage-domain'
 import type { MessageFeedbackItem, MessageFeedbackRating, MessageFeedbackVersion } from './types.ts'
 
 const nonNegativeSafeInteger = z.number().int().nonnegative().max(Number.MAX_SAFE_INTEGER)

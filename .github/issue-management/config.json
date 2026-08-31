@@ -1,9 +1,9 @@
 {
-  "organization": "deepseek-harness",
-  "repository": "deepseek-harness",
+  "organization": "lyness",
+  "repository": "lyness",
   "projectNumber": 1,
-  "projectTitle": "DSH Issue Management",
-  "lifecycleActor": "dsh-issue-management",
+  "projectTitle": "LYN Issue Management",
+  "lifecycleActor": "lyn-issue-management",
   "priorityField": "Priority",
   "allowUnassignedOwner": true,
   "statuses": [

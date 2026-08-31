@@ -1,16 +1,16 @@
 /** Read-only Host plugin inventory registered into Web Settings. */
 
-import type {} from '@deepseek-ai/dsh-client-locale/client'
-import type { Context as ClientContext } from '@deepseek-ai/cordis'
-import type {} from '@deepseek-ai/dsh-client-ui-settings/client'
-import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
+import type {} from '@lyness/client-locale/client'
+import type { Context as ClientContext } from '@lyness/cordis'
+import type {} from '@lyness/client-ui-settings/client'
+import type {} from '@lyness/client-ui-renderer/client'
 import { PluginInventorySettingsTab, type PluginInventorySettingsTabInjected } from './PluginInventorySettingsTab.tsx'
 import { en, zh, type PluginInventoryLocaleKey } from './locales.ts'
 
 export type { PluginInventorySettingsTabInjected, PluginInventorySettingsTabProps } from './PluginInventorySettingsTab.tsx'
 export type { PluginInventoryLocaleKey } from './locales.ts'
 
-declare module '@deepseek-ai/dsh-client-ui-slots' {
+declare module '@lyness/client-ui-slots' {
   interface LocaleNamespaceMap {
     /** Read-only Host plugin inventory copy. */
     'settings.pluginInventory': PluginInventoryLocaleKey

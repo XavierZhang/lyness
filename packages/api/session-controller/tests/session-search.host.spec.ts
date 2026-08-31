@@ -5,17 +5,17 @@
  */
 
 import { describe, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import AgentRegistry from '@deepseek-ai/dsh-agent'
-import { createUserMessage } from '@deepseek-ai/dsh-llm'
-import SessionStore from '@deepseek-ai/dsh-session'
-import type { SessionHeader, SessionId } from '@deepseek-ai/dsh-session'
+import { Context } from '@lyness/cordis'
+import AgentRegistry from '@lyness/agent'
+import { createUserMessage } from '@lyness/llm'
+import SessionStore from '@lyness/session'
+import type { SessionHeader, SessionId } from '@lyness/session'
 import {
   SessionQueryEngine,
   SessionQueryError,
   type SessionSearchHit,
   type SessionSearchRequest,
-} from '@deepseek-ai/dsh-session-query'
+} from '@lyness/session-query'
 import { createSessionTestRemote } from './test-remote.ts'
 import { ApiSessionList } from '../src/list.ts'
 

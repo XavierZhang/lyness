@@ -1,10 +1,10 @@
-import { Context } from '@deepseek-ai/cordis'
-import AgentRegistry from '@deepseek-ai/dsh-agent'
-import type { Agent, AgentHandle, CreateAgentOptions } from '@deepseek-ai/dsh-agent'
-import { PresetMountError } from '@deepseek-ai/dsh-agent-presets'
-import { createUserMessage } from '@deepseek-ai/dsh-llm'
-import SessionStore, { SessionId } from '@deepseek-ai/dsh-session'
-import type { Workspace, WorkspaceId } from '@deepseek-ai/dsh-workspace'
+import { Context } from '@lyness/cordis'
+import AgentRegistry from '@lyness/agent'
+import type { Agent, AgentHandle, CreateAgentOptions } from '@lyness/agent'
+import { PresetMountError } from '@lyness/agent-presets'
+import { createUserMessage } from '@lyness/llm'
+import SessionStore, { SessionId } from '@lyness/session'
+import type { Workspace, WorkspaceId } from '@lyness/workspace'
 import { describe, expect, it, vi } from 'vitest'
 import {
   ApiSessionAgentController,

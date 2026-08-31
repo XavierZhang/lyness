@@ -1,21 +1,21 @@
 /** Session commands whose activation policy is explicit at each Remote method. */
 
 import { randomUUID } from 'node:crypto'
-import type { Context } from '@deepseek-ai/cordis'
-import type { Agent, ModelSelection as AgentModelSelection } from '@deepseek-ai/dsh-agent'
-import { PresetMountError, UnknownPresetError } from '@deepseek-ai/dsh-agent-presets'
-import { AttachmentError, admitEncodedImages } from '@deepseek-ai/dsh-attachment'
-import type { ImageAttachmentRef } from '@deepseek-ai/dsh-attachment'
+import type { Context } from '@lyness/cordis'
+import type { Agent, ModelSelection as AgentModelSelection } from '@lyness/agent'
+import { PresetMountError, UnknownPresetError } from '@lyness/agent-presets'
+import { AttachmentError, admitEncodedImages } from '@lyness/attachment'
+import type { ImageAttachmentRef } from '@lyness/attachment'
 import {
   ReasoningEffortId, createUserMessage, freezeMessage,
-} from '@deepseek-ai/dsh-llm'
-import type { ContentBlock, MessageSource } from '@deepseek-ai/dsh-llm'
-import { SessionId } from '@deepseek-ai/dsh-session'
-import type { SessionEvent, SessionHeader, UserMessage } from '@deepseek-ai/dsh-session'
-import { SessionQueryError, type SessionObservation } from '@deepseek-ai/dsh-session-query'
-import { SessionTitleInvalidError } from '@deepseek-ai/dsh-session-title'
-import { TypertRemoteFailure } from '@deepseek-ai/dsh-typert-protocol'
-import type { Workspace } from '@deepseek-ai/dsh-workspace'
+} from '@lyness/llm'
+import type { ContentBlock, MessageSource } from '@lyness/llm'
+import { SessionId } from '@lyness/session'
+import type { SessionEvent, SessionHeader, UserMessage } from '@lyness/session'
+import { SessionQueryError, type SessionObservation } from '@lyness/session-query'
+import { SessionTitleInvalidError } from '@lyness/session-title'
+import { TypertRemoteFailure } from '@lyness/typert-protocol'
+import type { Workspace } from '@lyness/workspace'
 import {
   ApiSessionAgentController,
   ApiSessionCwdConflict,

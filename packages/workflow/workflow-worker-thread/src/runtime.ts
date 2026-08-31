@@ -9,21 +9,21 @@
  * per-item nulls. Every returned promise has a rejection consumer so dropped script promises cannot
  * kill the worker. A cancelled script that never settles emits nothing; the host force-settles the
  * run within grace and terminates the thread.
- * @module @deepseek-ai/dsh-workflow-worker-thread/runtime
+ * @module @lyness/workflow-worker-thread/runtime
  */
 
 import * as vm from 'node:vm'
-import type { ContentBlock } from '@deepseek-ai/dsh-llm'
-import { SessionId } from '@deepseek-ai/dsh-session'
-import { assertObjectJsonSchema, JsonSchemaError } from '@deepseek-ai/dsh-tools'
-import type { ObjectJsonSchema } from '@deepseek-ai/dsh-tools'
-import { isFatalWorkflowError, WorkflowError } from '@deepseek-ai/dsh-workflow'
+import type { ContentBlock } from '@lyness/llm'
+import { SessionId } from '@lyness/session'
+import { assertObjectJsonSchema, JsonSchemaError } from '@lyness/tools'
+import type { ObjectJsonSchema } from '@lyness/tools'
+import { isFatalWorkflowError, WorkflowError } from '@lyness/workflow'
 import type {
   WorkflowAgentEndInfo,
   WorkflowAgentInfo,
   WorkflowMeta,
   WorkflowResult,
-} from '@deepseek-ai/dsh-workflow'
+} from '@lyness/workflow'
 import { materializeFromRealm, MaterializeError, renderThrown } from './realm.ts'
 import type { ChildHandle, ChildPort, WorkerLimits } from './types.ts'
 

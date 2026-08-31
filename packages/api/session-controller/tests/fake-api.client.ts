@@ -6,7 +6,7 @@ import type {
   RpcError, RpcResponse, SessionId, SessionSearchItem,
   SubagentCatalog, SubagentInterruptReceipt, SubagentPromptReceipt,
   WorkspaceId, WorkspaceView,
-} from '@deepseek-ai/dsh-api-remotes/client'
+} from '@lyness/api-remotes/client'
 import type {
   SessionAddress,
   SessionControlBaseline,
@@ -18,16 +18,16 @@ import type {
   SessionProjectionBaseline,
   SessionSelectModelRequest,
   SessionSelectModelValue,
-} from '@deepseek-ai/dsh-api-session-controller/types'
-import type { WorkspaceRemote } from '@deepseek-ai/dsh-api-workspace-controller/client'
-import type { WorkspaceFollowFrame } from '@deepseek-ai/dsh-api-workspace-controller/types'
-import type { RemoteFailure, RemoteResult } from '@deepseek-ai/dsh-typert-protocol'
+} from '@lyness/api-session-controller/types'
+import type { WorkspaceRemote } from '@lyness/api-workspace-controller/client'
+import type { WorkspaceFollowFrame } from '@lyness/api-workspace-controller/types'
+import type { RemoteFailure, RemoteResult } from '@lyness/typert-protocol'
 import {
   RemoteStream,
   RemoteStreamError,
   type RemoteStreamOptions,
-} from '@deepseek-ai/dsh-api-gateway/client'
-import { RpcId } from '@deepseek-ai/dsh-client-connection/client'
+} from '@lyness/api-gateway/client'
+import { RpcId } from '@lyness/client-connection/client'
 import type { SessionRemotes } from '../src/client/sessions/remotes.ts'
 import { historyRecordLastSeq } from '../src/client/sessions/history-records.ts'
 

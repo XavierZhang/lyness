@@ -4,8 +4,8 @@ import {
   createAssistantMessage,
   createToolResultMessage,
   createUserMessage,
-} from '@deepseek-ai/dsh-llm/message'
-import { ToolCallId, type MessageId } from '@deepseek-ai/dsh-llm/brand'
+} from '@lyness/llm/message'
+import { ToolCallId, type MessageId } from '@lyness/llm/brand'
 import type {
   AssistantMessage,
   ContentBlock,
@@ -14,25 +14,25 @@ import type {
   TokenUsage,
   ToolResultMessage,
   UserMessage,
-} from '@deepseek-ai/dsh-llm'
-import type { AttachmentIdType, ImageAttachmentRef } from '@deepseek-ai/dsh-attachment'
+} from '@lyness/llm'
+import type { AttachmentIdType, ImageAttachmentRef } from '@lyness/attachment'
 import type {
   JsonValue,
   SessionEvent,
   SessionHeader,
   SessionId,
-} from '@deepseek-ai/dsh-session/types'
-import { isChunkRow, packChunkRuns } from '@deepseek-ai/dsh-session/chunk-rows'
-import type { ChunkRow } from '@deepseek-ai/dsh-session/chunk-rows'
-import type { TodoItem } from '@deepseek-ai/dsh-tool-todo/client'
+} from '@lyness/session/types'
+import { isChunkRow, packChunkRuns } from '@lyness/session/chunk-rows'
+import type { ChunkRow } from '@lyness/session/chunk-rows'
+import type { TodoItem } from '@lyness/tool-todo/client'
 // Type-only: the brand constructor is host-side; the fixture casts at its
 // wire-fabrication boundary (the schema layer's one-cast-point posture).
-import type { CommandId } from '@deepseek-ai/dsh-commands/brand'
-import type { CommandDescriptor, CommandExecution, CommandResult } from '@deepseek-ai/dsh-commands/types'
-import type { CredentialInfo } from '@deepseek-ai/dsh-credentials/types'
-import type { DirectoryListing as FixtureDirectoryListing } from '@deepseek-ai/dsh-host-directory-picker/types'
-import type { SettingsDescribeValue, SettingsNamespaceView } from '@deepseek-ai/dsh-settings/types'
-import { deriveEventMessage, foldSurface } from '@deepseek-ai/dsh-session/surface'
+import type { CommandId } from '@lyness/commands/brand'
+import type { CommandDescriptor, CommandExecution, CommandResult } from '@lyness/commands/types'
+import type { CredentialInfo } from '@lyness/credentials/types'
+import type { DirectoryListing as FixtureDirectoryListing } from '@lyness/host-directory-picker/types'
+import type { SettingsDescribeValue, SettingsNamespaceView } from '@lyness/settings/types'
+import { deriveEventMessage, foldSurface } from '@lyness/session/surface'
 import type { RpcResult } from './api.ts'
 import { randomUuid } from './random-uuid.ts'
 import type {
@@ -515,11 +515,11 @@ const READ_SAMPLE_TEXT = [
  * titled source without a snippet; `truncated` exercises the capped indicator.
  */
 const WEB_SEARCH_META = {
-  answer: 'DeepSeek Harness is a plugin-based agent harness on vendored Cordis where **every capability is a plugin**.',
+  answer: 'lyness is a plugin-based agent harness on vendored Cordis where **every capability is a plugin**.',
   sources: [
     {
-      url: 'https://github.com/deepseek-ai/deepseek-harness',
-      title: 'DeepSeek Harness — plugin-based agent harness',
+      url: 'https://github.com/XavierZhang/lyness',
+      title: 'lyness — plugin-based agent harness',
       snippet: 'Everything is a plugin: session, tools, agent-loop, and LLM adapters all mount on the same Cordis context.',
       publishedAt: '2026-07-01',
     },
@@ -1626,7 +1626,7 @@ function backscanTodos(log: readonly SessionEvent[]): TodoItem[] | undefined {
   return undefined
 }
 
-/** Fixture-local mirror of the goal projection value (dsh-goal's GoalProjection shape). */
+/** Fixture-local mirror of the goal projection value (lyn-goal's GoalProjection shape). */
 interface FxGoalProjection {
   goal: {
     id: string
@@ -1881,9 +1881,9 @@ function createFixtureWorld(options: FixtureOptions): FixtureWorld {
    * roster a GUI journey sees after writing is the text it wrote.
    */
   const fixturePresets = new Map<string, { trust: 'system' | 'user'; content: string }>([
-    ['standard', { trust: 'system', content: "- id: tool-bash\n  name: '@deepseek-ai/dsh-tool-bash'\n" }],
-    ['minimal', { trust: 'system', content: "- id: tool-web-search\n  name: '@deepseek-ai/dsh-tool-web-search'\n" }],
-    ['my-agent', { trust: 'user', content: "- id: tool-read\n  name: '@deepseek-ai/dsh-tool-read'\n" }],
+    ['standard', { trust: 'system', content: "- id: tool-bash\n  name: '@lyness/tool-bash'\n" }],
+    ['minimal', { trust: 'system', content: "- id: tool-web-search\n  name: '@lyness/tool-web-search'\n" }],
+    ['my-agent', { trust: 'user', content: "- id: tool-read\n  name: '@lyness/tool-read'\n" }],
   ])
   let fixtureDefaultPreset = 'standard'
   const nextTurn = new Map<SessionId, number>([[sid('fx-alpha'), 75]])
@@ -1934,7 +1934,7 @@ function createFixtureWorld(options: FixtureOptions): FixtureWorld {
     [FIXTURE_HOME, ['Documents', 'Downloads', '.config']],
     [`${FIXTURE_HOME}/Documents`, [
       'project', 'deepseek-iOS', 'deepseek-android', 'deepseek-platform',
-      'deepseek-web', 'deepseek-harness', 'deepseek-app', 'deepseek-landing-blog',
+      'deepseek-web', 'lyness', 'deepseek-app', 'deepseek-landing-blog',
     ]],
   ])
   const childrenOf = (path: string): string[] | undefined => {
@@ -2250,7 +2250,7 @@ function createFixtureWorld(options: FixtureOptions): FixtureWorld {
             label,
             ...item.cwd === undefined ? {} : { cwd: item.cwd },
             createdAt: item.updatedAt,
-            mention: `@[${label}](dsh-session:${encoded})`,
+            mention: `@[${label}](lyn-session:${encoded})`,
           }
         })
       return { ok: true, value }
@@ -2962,7 +2962,7 @@ function createFixtureWorld(options: FixtureOptions): FixtureWorld {
       })
       // The host echoes the prompt's requestId as the user source's rpcId;
       // the Session object retires its local submission echo on it. The
-      // user-rpc source member is declared by dsh-api-session-controller,
+      // user-rpc source member is declared by lyn-api-session-controller,
       // which this standalone fixture does not import — hence the assertion.
       const promptSource = { kind: 'user', rpcId: request.requestId } as MessageSource
       if (mode === 'steer' && replays.has(id)) {

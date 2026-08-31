@@ -8,20 +8,20 @@ import { mkdir, mkdtemp, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { dirname, join } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
-import { Context } from '@deepseek-ai/cordis'
-import Loader from '@deepseek-ai/cordis-plugin-loader'
-import Include from '@deepseek-ai/cordis-plugin-include'
-import LlmRuntime from '@deepseek-ai/dsh-llm'
-import SessionStore, { SessionId } from '@deepseek-ai/dsh-session'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
-import ToolRuntime from '@deepseek-ai/dsh-tools'
-import AgentRegistry from '@deepseek-ai/dsh-agent'
-import AgentLoop from '@deepseek-ai/dsh-agent-loop'
-import FileSettingsProvider from '@deepseek-ai/dsh-settings-file'
-import { settingsNamespace } from '@deepseek-ai/dsh-settings'
+import { Context } from '@lyness/cordis'
+import Loader from '@lyness/cordis-plugin-loader'
+import Include from '@lyness/cordis-plugin-include'
+import LlmRuntime from '@lyness/llm'
+import SessionStore, { SessionId } from '@lyness/session'
+import SessionProjectionRegistry from '@lyness/session-projection'
+import SystemPrompt from '@lyness/system-prompt'
+import ToolRuntime from '@lyness/tools'
+import AgentRegistry from '@lyness/agent'
+import AgentLoop from '@lyness/agent-loop'
+import FileSettingsProvider from '@lyness/settings-file'
+import { settingsNamespace } from '@lyness/settings'
 import { describe, expect, it } from 'vitest'
-import AgentPresets, { COMPOSITION_FILE, SETTINGS_NAMESPACE } from '@deepseek-ai/dsh-agent-presets'
+import AgentPresets, { COMPOSITION_FILE, SETTINGS_NAMESPACE } from '@lyness/agent-presets'
 
 const FIXTURES = join(dirname(fileURLToPath(import.meta.url)), 'fixtures')
 const ROOTS = [{ path: join(FIXTURES, 'system'), trust: 'system' as const }]
@@ -34,7 +34,7 @@ const NS = settingsNamespace(SETTINGS_NAMESPACE)
 async function harness(
   extraRoots: readonly { path: string; trust: 'system' | 'user' }[] = [],
 ): Promise<{ ctx: Context; settingsFile: string; settingsFiber: { dispose: () => unknown } }> {
-  const home = await mkdtemp(join(tmpdir(), 'dsh-preset-settings-'))
+  const home = await mkdtemp(join(tmpdir(), 'lyn-preset-settings-'))
   const settingsFile = join(home, 'settings.yaml')
   await writeFile(settingsFile, '{}\n')
 
@@ -119,7 +119,7 @@ describe('the default preset as a user setting', () => {
   })
 
   it('clears a user default it has just deleted', async () => {
-    const root = await mkdtemp(join(tmpdir(), 'dsh-preset-authored-'))
+    const root = await mkdtemp(join(tmpdir(), 'lyn-preset-authored-'))
     await mkdir(join(root, 'mine'))
     await writeFile(
       join(root, 'mine', COMPOSITION_FILE),

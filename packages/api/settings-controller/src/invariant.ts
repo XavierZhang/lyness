@@ -1,10 +1,10 @@
-/** Package-owned invariant companion. @module @deepseek-ai/dsh-api-settings-controller/invariant */
+/** Package-owned invariant companion. @module @lyness/api-settings-controller/invariant */
 
 /* jscpd:ignore-start */
-import type { Context } from '@deepseek-ai/cordis'
-import type { InvariantInstaller } from '@deepseek-ai/dsh-invariants'
+import type { Context } from '@lyness/cordis'
+import type { InvariantInstaller } from '@lyness/invariants'
 
-const PACKAGE_NAME = '@deepseek-ai/dsh-api-settings-controller'
+const PACKAGE_NAME = '@lyness/api-settings-controller'
 
 /** Cordis companion plugin name. */
 export const name = 'api-settings-controller-invariant'

@@ -1,13 +1,13 @@
 /**
- * Package-owned invariant companion for `@deepseek-ai/dsh-util-crypto`.
- * @module @deepseek-ai/dsh-util-crypto/invariant
+ * Package-owned invariant companion for `@lyness/util-crypto`.
+ * @module @lyness/util-crypto/invariant
  */
 
 /* jscpd:ignore-start */
-import type { Context } from '@deepseek-ai/cordis'
-import type { InvariantInstaller } from '@deepseek-ai/dsh-invariants'
+import type { Context } from '@lyness/cordis'
+import type { InvariantInstaller } from '@lyness/invariants'
 
-const PACKAGE_NAME = '@deepseek-ai/dsh-util-crypto'
+const PACKAGE_NAME = '@lyness/util-crypto'
 
 /** Cordis companion plugin name. */
 export const name = 'util-crypto-invariant'

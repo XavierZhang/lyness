@@ -1,0 +1,101 @@
+/**
+ * Enforce the MIT license declaration for repository-owned LYN npm packages.
+ * @module scripts/verify-lyn-package-licenses
+ */
+
+import { globSync, readFileSync } from 'node:fs'
+import { resolve, sep } from 'node:path'
+
+const ROOT = resolve(import.meta.dirname, '..')
+const LYNESS_PACKAGE_NAME = /^@lyness\//
+/**
+ * Workspace directory holding pinned third-party source, which the fork
+ * republishes under its own scope but does not own the license of.
+ *
+ * The scope alone no longer separates the two families: the fork's packages
+ * dropped the product-name segment, so `@lyness/agent` and the vendored
+ * `@lyness/cordis` are indistinguishable by name. Location still separates
+ * them, and it is the authoritative signal — a package's license follows who
+ * wrote it, not what it is called.
+ */
+const VENDORED_PREFIX = 'vendor/'
+
+/** Result of checking every LYN package reachable through the root workspace list. */
+export interface LynPackageLicenseReport {
+  /** Number of LYN package manifests checked. */
+  packageCount: number
+  /** Repository-relative diagnostics for non-MIT declarations. */
+  failures: string[]
+}
+
+function readManifest(root: string, file: string): Record<string, unknown> {
+  const parsed: unknown = JSON.parse(readFileSync(resolve(root, file), 'utf8'))
+  if (typeof parsed !== 'object' || parsed === null || Array.isArray(parsed)) {
+    throw new Error(`verify-lyn-package-licenses: ${file} must contain a JSON object.`)
+  }
+  return parsed as Record<string, unknown>
+}
+
+function isStringArray(value: unknown): value is string[] {
+  return Array.isArray(value) && value.every((entry: unknown) => typeof entry === 'string')
+}
+
+function workspaceManifestPaths(root: string): string[] {
+  const rootManifest = readManifest(root, 'package.json')
+  const workspaces = rootManifest.workspaces
+  if (!isStringArray(workspaces)) {
+    throw new Error('verify-lyn-package-licenses: package.json workspaces must be a string array.')
+  }
+
+  const files = new Set(['package.json'])
+  for (const pattern of workspaces) {
+    for (const file of globSync(`${pattern}/package.json`, { cwd: root })) {
+      files.add(file)
+    }
+  }
+  return [...files].sort()
+}
+
+function printable(value: unknown): string {
+  return value === undefined ? 'undefined' : JSON.stringify(value)
+}
+
+/**
+ * Check every LYN npm package declared by the repository workspace.
+ * @param root - absolute repository root containing the workspace package.json.
+ * @returns the checked package count and every non-MIT declaration.
+ */
+export function inspectLynPackageLicenses(root: string): LynPackageLicenseReport {
+  let packageCount = 0
+  const failures: string[] = []
+
+  for (const file of workspaceManifestPaths(root)) {
+    if (file.split(sep).join('/').startsWith(VENDORED_PREFIX)) continue
+    const manifest = readManifest(root, file)
+    const name = manifest.name
+    if (typeof name !== 'string' || !LYNESS_PACKAGE_NAME.test(name)) continue
+
+    packageCount++
+    if (manifest.license !== 'MIT') {
+      const normalizedFile = file.split(sep).join('/')
+      failures.push(
+        `${normalizedFile}: ${name} must declare "license": "MIT"; found ${printable(manifest.license)}.`,
+      )
+    }
+  }
+
+  return { packageCount, failures }
+}
+
+if (process.argv[1] && import.meta.filename === resolve(process.argv[1])) {
+  const report = inspectLynPackageLicenses(ROOT)
+  if (report.failures.length > 0) {
+    process.stderr.write('verify-lyn-package-licenses: non-MIT LYN package declarations found:\n')
+    for (const failure of report.failures) process.stderr.write(`  ${failure}\n`)
+    process.exitCode = 1
+  } else {
+    process.stdout.write(
+      `verify-lyn-package-licenses: ${String(report.packageCount)} LYN package(s) checked; all declare MIT.\n`,
+    )
+  }
+}

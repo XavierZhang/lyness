@@ -1,13 +1,13 @@
 /**
- * Package-owned invariant companion for `@deepseek-ai/dsh-hooks-codex`.
- * @module @deepseek-ai/dsh-hooks-codex/invariant
+ * Package-owned invariant companion for `@lyness/hooks-codex`.
+ * @module @lyness/hooks-codex/invariant
  */
 
 /* jscpd:ignore-start */
-import type { Context } from '@deepseek-ai/cordis'
-import type { InvariantInstaller } from '@deepseek-ai/dsh-invariants'
+import type { Context } from '@lyness/cordis'
+import type { InvariantInstaller } from '@lyness/invariants'
 
-const PACKAGE_NAME = '@deepseek-ai/dsh-hooks-codex'
+const PACKAGE_NAME = '@lyness/hooks-codex'
 
 /** Cordis companion plugin name. */
 export const name = 'hooks-codex-invariant'

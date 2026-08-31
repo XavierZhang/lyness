@@ -2,12 +2,12 @@
  * Public session-reference request, candidate, and preparation records.
  * Imports stay on type-only subpaths so generated Remote clients can consume
  * this module without Host runtime code.
- * @module @deepseek-ai/dsh-session-reference/types
+ * @module @lyness/session-reference/types
  */
 
-import type { UserMessage } from '@deepseek-ai/dsh-llm/message'
-import type { ContentBlock } from '@deepseek-ai/dsh-llm/types'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import type { UserMessage } from '@lyness/llm/message'
+import type { ContentBlock } from '@lyness/llm/types'
+import type { SessionId } from '@lyness/session/types'
 
 /** Durable source session, cited event seqs, and snapshot facts for prepared cross-session context. */
 export interface SessionReferenceSource {
@@ -29,7 +29,7 @@ export interface SessionReferenceSource {
   }[]
 }
 
-declare module '@deepseek-ai/dsh-llm' {
+declare module '@lyness/llm' {
   interface MessageSourceMap {
     'session-reference': SessionReferenceSource
   }
@@ -63,7 +63,7 @@ export interface SessionReferenceCandidate {
 
 /** One discovery candidate carrying its canonical prompt mention. */
 export interface SessionReferenceMentionCandidate extends SessionReferenceCandidate {
-  /** Canonical `@[label](dsh-session:…)` mention serialized into the prompt draft. */
+  /** Canonical `@[label](lyn-session:…)` mention serialized into the prompt draft. */
   mention: string
 }
 

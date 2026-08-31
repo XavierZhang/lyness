@@ -1,9 +1,9 @@
 /** Package-owned invariant companion for the approval presentation plugin. */
 /* jscpd:ignore-start */
-import type { Context } from '@deepseek-ai/cordis'
-import type { InvariantInstaller } from '@deepseek-ai/dsh-invariants'
+import type { Context } from '@lyness/cordis'
+import type { InvariantInstaller } from '@lyness/invariants'
 
-const PACKAGE_NAME = '@deepseek-ai/dsh-client-ui-approval'
+const PACKAGE_NAME = '@lyness/client-ui-approval'
 
 /** Cordis companion plugin name. */
 export const name = 'client-ui-approval-invariant'

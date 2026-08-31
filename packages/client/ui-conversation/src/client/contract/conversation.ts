@@ -1,5 +1,5 @@
-import type { SessionEventLike } from '@deepseek-ai/dsh-api-session-controller/client'
-import type { SessionEvent } from '@deepseek-ai/dsh-session/types'
+import type { SessionEventLike } from '@lyness/api-session-controller/client'
+import type { SessionEvent } from '@lyness/session/types'
 
 /* oxlint-disable typescript/no-duplicate-type-constituents, typescript/no-redundant-type-constituents --
  * The unaugmented declaration-merge maps intentionally resolve to never in the Runtime program;

@@ -1,16 +1,16 @@
 /** Canonical session URI and inline mention encoding. */
 
-import { SessionId, type SessionId as SessionIdType } from '@deepseek-ai/dsh-session'
+import { SessionId, type SessionId as SessionIdType } from '@lyness/session'
 import { SessionReferenceError } from './config.ts'
 import type { SessionReferenceInput } from './types.ts'
 
-/** URI scheme reserved for DeepSeek Harness session snapshots. */
-export const SESSION_REFERENCE_SCHEME = 'dsh-session:'
+/** URI scheme reserved for lyness session snapshots. */
+export const SESSION_REFERENCE_SCHEME = 'lyn-session:'
 
 /**
  * Encode any JavaScript session-id string as a canonical lossless URI.
  * @param sessionId - opaque session id to serialize.
- * @returns canonical `dsh-session:` URI.
+ * @returns canonical `lyn-session:` URI.
  */
 export function encodeSessionReferenceUri(sessionId: SessionIdType): string {
   const payload = Buffer.from(JSON.stringify(sessionId), 'utf8').toString('base64url')
@@ -67,7 +67,7 @@ export interface ParsedSessionReferenceText {
  */
 export function parseSessionReferenceText(text: string): ParsedSessionReferenceText {
   const references: SessionReferenceInput[] = []
-  const pattern = /@\[((?:\\.|[^\\\]])*)\]\((dsh-session:[^\s)]*)\)|(dsh-session:[A-Za-z0-9_-]+)/gu
+  const pattern = /@\[((?:\\.|[^\\\]])*)\]\((lyn-session:[^\s)]*)\)|(lyn-session:[A-Za-z0-9_-]+)/gu
   const rendered = text.replace(pattern, (
     _match,
     rawLabel: string | undefined,

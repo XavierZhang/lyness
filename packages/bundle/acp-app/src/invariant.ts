@@ -1,12 +1,12 @@
 /**
- * Package-owned invariant companion for `@deepseek-ai/dsh-acp-app`.
- * @module @deepseek-ai/dsh-acp-app/invariant
+ * Package-owned invariant companion for `@lyness/acp-app`.
+ * @module @lyness/acp-app/invariant
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import type { InvariantInstaller } from '@deepseek-ai/dsh-invariants'
+import type { Context } from '@lyness/cordis'
+import type { InvariantInstaller } from '@lyness/invariants'
 
-const PACKAGE_NAME = '@deepseek-ai/dsh-acp-app'
+const PACKAGE_NAME = '@lyness/acp-app'
 
 /** Cordis companion plugin name. */
 export const name = 'acp-app-invariant'

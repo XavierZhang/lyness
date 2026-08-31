@@ -12,11 +12,11 @@ import { mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { gunzipSync } from 'node:zlib'
-import { Context } from '@deepseek-ai/cordis'
-import { getOrCreateAnonymousUserId } from '@deepseek-ai/dsh-anonymous-user-id'
-import Loader from '@deepseek-ai/cordis-plugin-loader'
-import { recordFeedback } from '@deepseek-ai/dsh-command-feedback'
-import SessionStore, { SessionId } from '@deepseek-ai/dsh-session'
+import { Context } from '@lyness/cordis'
+import { getOrCreateAnonymousUserId } from '@lyness/anonymous-user-id'
+import Loader from '@lyness/cordis-plugin-loader'
+import { recordFeedback } from '@lyness/command-feedback'
+import SessionStore, { SessionId } from '@lyness/session'
 import OpenTelemetrySessionBackend, { Config, DEFAULT_TELEMETRY_MODE, SessionTelemetryMode } from '../src/index.ts'
 
 interface Capture {
@@ -44,17 +44,17 @@ interface OtlpLogsRequest {
 const servers: Server[] = []
 
 // The backend resolves the harness home's anonymous user id at construction;
-// pin DSH_HOME to a temp dir so the suite never touches the ambient ~/.dsh.
+// pin LYNESS_HOME to a temp dir so the suite never touches the ambient ~/.lyn.
 let tempHome: string
-let previousDshHome: string | undefined
+let previousLynHome: string | undefined
 beforeAll(() => {
-  tempHome = mkdtempSync(join(tmpdir(), 'dsh-otel-home-'))
-  previousDshHome = process.env.DSH_HOME
-  process.env.DSH_HOME = tempHome
+  tempHome = mkdtempSync(join(tmpdir(), 'lyn-otel-home-'))
+  previousLynHome = process.env.LYNESS_HOME
+  process.env.LYNESS_HOME = tempHome
 })
 afterAll(() => {
-  if (previousDshHome === undefined) delete process.env.DSH_HOME
-  else process.env.DSH_HOME = previousDshHome
+  if (previousLynHome === undefined) delete process.env.LYNESS_HOME
+  else process.env.LYNESS_HOME = previousLynHome
   rmSync(tempHome, { recursive: true, force: true })
 })
 
@@ -140,12 +140,12 @@ describe('OpenTelemetrySessionBackend wire', () => {
     expect(authorization).toBe('Bearer test-token')
 
     const resource = first.body.resourceLogs[0]!.resource.attributes
-    expect(resource).toContainEqual({ key: 'service.name', value: { stringValue: 'deepseek-harness' } })
+    expect(resource).toContainEqual({ key: 'service.name', value: { stringValue: 'lyness' } })
     expect(resource).toContainEqual({ key: 'user.id', value: { stringValue: getOrCreateAnonymousUserId() } })
 
     const records = allRecords(captures)
-    const ledger = records.filter(r => r.scope === '@deepseek-ai/dsh-session-telemetry-otel')
-    const ops = records.filter(r => r.scope === '@deepseek-ai/dsh-session-telemetry-otel/ops')
+    const ledger = records.filter(r => r.scope === '@lyness/session-telemetry-otel')
+    const ops = records.filter(r => r.scope === '@lyness/session-telemetry-otel/ops')
 
     const start = ledger.find(r => r.record.attributes?.some(a => a.key === 'event.type' && a.value.stringValue === 'turn/start'))
     expect(start).toBeDefined()
@@ -195,7 +195,7 @@ describe('OpenTelemetrySessionBackend wire', () => {
     gate.resolve(true)
     await disposal
 
-    const ops = allRecords(captures).filter(r => r.scope === '@deepseek-ai/dsh-session-telemetry-otel/ops')
+    const ops = allRecords(captures).filter(r => r.scope === '@lyness/session-telemetry-otel/ops')
     expect(ops).toHaveLength(1)
     expect(ops[0]!.record.attributes).toContainEqual({ key: 'telemetry.op', value: { stringValue: 'shutdown' } })
   })
@@ -490,7 +490,7 @@ describe('OpenTelemetrySessionBackend config fails loud', () => {
   })
 })
 
-describe('dsh-session-telemetry-otel real-load-path guard', () => {
+describe('lyn-session-telemetry-otel real-load-path guard', () => {
   it('keeps the Service class with inject/Config through unwrapExports', async () => {
     const module = await import('../src/index.ts')
     const loader = Object.create(Loader.prototype) as Loader

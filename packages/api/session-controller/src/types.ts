@@ -2,17 +2,17 @@
 
 import type {
   AttachmentIdType, ImageAttachmentLimits, ImageAttachmentRef, ImageMediaType,
-} from '@deepseek-ai/dsh-attachment'
-import type { Branded } from '@deepseek-ai/dsh-brand'
-import type { MessageId } from '@deepseek-ai/dsh-llm/brand'
-import type { ContentBlock } from '@deepseek-ai/dsh-llm/types'
-import type { ChunkRow } from '@deepseek-ai/dsh-session/chunk-rows'
-import type { JsonValue, SessionHeader, SessionId, SurfaceOp } from '@deepseek-ai/dsh-session/types'
-import type { SessionProjectionMap } from '@deepseek-ai/dsh-session-projection/types'
-import type { JobId } from '@deepseek-ai/dsh-jobs/brand'
-import type { WorkspaceId } from '@deepseek-ai/dsh-workspace/types'
+} from '@lyness/attachment'
+import type { Branded } from '@lyness/brand'
+import type { MessageId } from '@lyness/llm/brand'
+import type { ContentBlock } from '@lyness/llm/types'
+import type { ChunkRow } from '@lyness/session/chunk-rows'
+import type { JsonValue, SessionHeader, SessionId, SurfaceOp } from '@lyness/session/types'
+import type { SessionProjectionMap } from '@lyness/session-projection/types'
+import type { JobId } from '@lyness/jobs/brand'
+import type { WorkspaceId } from '@lyness/workspace/types'
 
-declare module '@deepseek-ai/dsh-session-projection/types' {
+declare module '@lyness/session-projection/types' {
   interface SessionProjectionStateMap {
     /** Host state persisted for cold Session list summaries. */
     sessionListMetadata: SessionListMetadata
@@ -31,7 +31,7 @@ declare module '@deepseek-ai/dsh-session-projection/types' {
   }
 }
 
-declare module '@deepseek-ai/dsh-session/types' {
+declare module '@lyness/session/types' {
   interface SessionEventMap {
     /**
      * Complete validated model selection requested for subsequent prompt
@@ -376,7 +376,7 @@ export interface SessionOpenWorkspacePathValue {
 /** Client-minted prompt identity used to reconcile optimistic and durable messages. */
 export type SessionRequestId = Branded<'session-request-id'>
 
-declare module '@deepseek-ai/dsh-llm' {
+declare module '@lyness/llm' {
   interface MessageSourceMap {
     /** Browser prompt correlation and optional Host-validated time zone. */
     'user-rpc': { kind: 'user'; rpcId: SessionRequestId; clientTimeZone?: string }
@@ -507,7 +507,7 @@ export type SessionControlFrame =
   | { readonly type: 'jobs'; readonly sessionId: SessionId; readonly jobs: readonly SessionJob[] }
   | ({ readonly type: 'projection' } & SessionProjectionUpdate)
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Events {
     /**
      * A Session became visible to Session list consumers.

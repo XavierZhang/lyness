@@ -7,10 +7,10 @@
  * namespace's `default` field, which is what the host resolves at creation.
  */
 
-import type { ClientRemote } from '@deepseek-ai/dsh-api-remotes/client'
-import { createSnapshotStore, type SnapshotStore } from '@deepseek-ai/dsh-client-store'
-import type { AgentPresetRoster } from '@deepseek-ai/dsh-agent-presets/types'
-import type { SettingsDescribeFace, SettingsWireFace } from '@deepseek-ai/dsh-client-ui-settings/client'
+import type { ClientRemote } from '@lyness/api-remotes/client'
+import { createSnapshotStore, type SnapshotStore } from '@lyness/client-store'
+import type { AgentPresetRoster } from '@lyness/agent-presets/types'
+import type { SettingsDescribeFace, SettingsWireFace } from '@lyness/client-ui-settings/client'
 
 /** The agent-preset settings namespace on the host wire. */
 export const AGENT_PRESET_SETTINGS_NS = 'agent-presets'

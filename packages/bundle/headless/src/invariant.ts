@@ -1,12 +1,12 @@
 /**
- * Package-owned invariant companion for `@deepseek-ai/dsh-headless`.
- * @module @deepseek-ai/dsh-headless/invariant
+ * Package-owned invariant companion for `@lyness/headless`.
+ * @module @lyness/headless/invariant
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import type { InvariantInstaller } from '@deepseek-ai/dsh-invariants'
+import type { Context } from '@lyness/cordis'
+import type { InvariantInstaller } from '@lyness/invariants'
 
-const PACKAGE_NAME = '@deepseek-ai/dsh-headless'
+const PACKAGE_NAME = '@lyness/headless'
 
 /** Cordis companion plugin name. */
 export const name = 'headless-invariant'

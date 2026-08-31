@@ -1,15 +1,15 @@
 ---
-description: "Shared resolution of the DeepSeek Harness home and user-data paths for packages that need one consistent root, tilde expansion, and stable watch paths."
+description: "Shared resolution of the lyness home and user-data paths for packages that need one consistent root, tilde expansion, and stable watch paths."
 kind: "package-library"
 ---
 
-# @deepseek-ai/dsh-home-paths
+# @lyness/home-paths
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`dsh-home-paths` resolves the single DeepSeek Harness home that all user data lives under, and joins child paths onto it, so every product package agrees on where its files go. Precedence is explicit: a configured path wins, then `$DSH_HOME`, then `~/.dsh`, and an empty or whitespace-only `$DSH_HOME` counts as unset. The package also expands `~`, `~/...`, and `~\...` prefixes against the operating-system home, and canonicalizes a watch target so a native filesystem watcher gets one stable path spelling even when the final components do not exist yet. It is a zero-dependency library that product packages import directly; a `cordis.yml` cannot load it.
+`lyn-home-paths` resolves the single lyness home that all user data lives under, and joins child paths onto it, so every product package agrees on where its files go. Precedence is explicit: a configured path wins, then `$LYNESS_HOME`, then `~/.lyn`, and an empty or whitespace-only `$LYNESS_HOME` counts as unset. The package also expands `~`, `~/...`, and `~\...` prefixes against the operating-system home, and canonicalizes a watch target so a native filesystem watcher gets one stable path spelling even when the final components do not exist yet. It is a zero-dependency library that product packages import directly; a `cordis.yml` cannot load it.
 
 ## Table of Contents
 
@@ -29,17 +29,17 @@ Use these helpers wherever a package must agree with the rest of the harness abo
 ### Resolving the home
 
 ```ts
-import { resolveDshHome, dshHomePath } from '@deepseek-ai/dsh-home-paths'
+import { resolveLynHome, lynHomePath } from '@lyness/home-paths'
 
-const home = resolveDshHome()                // configured path, else $DSH_HOME, else ~/.dsh
-const settings = dshHomePath('settings')     // join one child onto the resolved home
+const home = resolveLynHome()                // configured path, else $LYNESS_HOME, else ~/.lyn
+const settings = lynHomePath('settings')     // join one child onto the resolved home
 ```
 
-An explicit configured path has the highest precedence, then `$DSH_HOME`, then the default `~/.dsh`. An empty or whitespace-only `$DSH_HOME` is treated as unset, so a blank override never resolves the home to the current working directory.
+An explicit configured path has the highest precedence, then `$LYNESS_HOME`, then the default `~/.lyn`. An empty or whitespace-only `$LYNESS_HOME` is treated as unset, so a blank override never resolves the home to the current working directory.
 
 ### Displaying a home
 
-For user-facing paths, render the root symbolically rather than as a machine path: the default home displays as `~/.dsh` and any configured home displays as `$DSH_HOME`. The display form never leaks an absolute machine path.
+For user-facing paths, render the root symbolically rather than as a machine path: the default home displays as `~/.lyn` and any configured home displays as `$LYNESS_HOME`. The display form never leaks an absolute machine path.
 
 ### Expanding user paths
 
@@ -68,7 +68,7 @@ The package is built on one principle: all harness user data lives under one roo
 
 ### Resolution rules
 
-`resolveDshHome` reads the explicit override, then `$DSH_HOME`, then falls back to the operating-system home joined with `.dsh`. The chosen value is tilde-expanded and normalized to an absolute path; `dshHomePath` joins child segments with Node's platform path rules. `dshHomeDisplay` compares the resolved path against the default root and returns the symbolic label, so a configured home never leaks its absolute path.
+`resolveLynHome` reads the explicit override, then `$LYNESS_HOME`, then falls back to the operating-system home joined with `.lyn`. The chosen value is tilde-expanded and normalized to an absolute path; `lynHomePath` joins child segments with Node's platform path rules. `lynHomeDisplay` compares the resolved path against the default root and returns the symbolic label, so a configured home never leaks its absolute path.
 
 ### Canonicalization mechanics
 
@@ -84,7 +84,7 @@ The package is built on one principle: all harness user data lives under one roo
 Read these pages when you need the launcher or the consumers that depend on a single home root.
 
 - [Boot package](../../boot/app-boot/README.md) — the launcher that resolves the home before any plugin mounts.
-- [Shell environment](../../shell/shell-env/README.md) — how `DSH_HOME` reaches model shell calls.
+- [Shell environment](../../shell/shell-env/README.md) — how `LYNESS_HOME` reaches model shell calls.
 - [Anonymous user id](../../identity/anonymous-user-id/README.md) — a stored identity file under the resolved home.
 
 -----

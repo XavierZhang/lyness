@@ -6,11 +6,11 @@
  */
 
 import { describe, expect, it } from 'vitest'
-import type { ClientRemote } from '@deepseek-ai/dsh-api-remotes/client'
-import type { SettingsWireFace } from '@deepseek-ai/dsh-client-ui-settings/client'
-import type { SessionSummary } from '@deepseek-ai/dsh-api-session-controller/client'
-import { SettingsDescribeMirror } from '@deepseek-ai/dsh-client-ui-settings/src/client/settings-mirror.ts'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import type { ClientRemote } from '@lyness/api-remotes/client'
+import type { SettingsWireFace } from '@lyness/client-ui-settings/client'
+import type { SessionSummary } from '@lyness/api-session-controller/client'
+import { SettingsDescribeMirror } from '@lyness/client-ui-settings/src/client/settings-mirror.ts'
+import type { SessionId } from '@lyness/session/types'
 import {
   AGENT_PRESET_SETTINGS_NS, AgentPresetSettingsController, messageOf,
 } from '../src/client/settings-store.ts'

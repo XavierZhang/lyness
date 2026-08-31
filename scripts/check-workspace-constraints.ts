@@ -22,45 +22,45 @@ const workspaceGlobs = [
   { dir: 'apps', depth: 1 },
 ] as const
 const vendoredPackages = new Set([
-  '@deepseek-ai/cordis',
-  '@deepseek-ai/cosmokit',
-  '@deepseek-ai/schemastery',
-  '@deepseek-ai/cordis-plugin-loader',
-  '@deepseek-ai/cordis-plugin-include',
-  '@deepseek-ai/cordis-plugin-group',
-  '@deepseek-ai/cordis-plugin-timer',
-  '@deepseek-ai/cordis-plugin-hmr',
-  '@deepseek-ai/cordis-plugin-logger-console',
+  '@lyness/cordis',
+  '@lyness/cosmokit',
+  '@lyness/schemastery',
+  '@lyness/cordis-plugin-loader',
+  '@lyness/cordis-plugin-include',
+  '@lyness/cordis-plugin-group',
+  '@lyness/cordis-plugin-timer',
+  '@lyness/cordis-plugin-hmr',
+  '@lyness/cordis-plugin-logger-console',
 ])
 const publicLandlockPackages = new Set([
-  '@deepseek-ai/node-addon-landlock-run',
-  '@deepseek-ai/node-addon-landlock-run-linux-arm64',
-  '@deepseek-ai/node-addon-landlock-run-linux-x64',
+  '@lyness/node-addon-landlock-run',
+  '@lyness/node-addon-landlock-run-linux-arm64',
+  '@lyness/node-addon-landlock-run-linux-x64',
 ])
 /** Deliberate source payloads whose exact bytes are part of the package's audit surface. */
 const publicationSourceAllowlist: Readonly<Record<string, readonly string[]>> = {
-  '@deepseek-ai/node-addon-landlock-run': ['src/main.c'],
+  '@lyness/node-addon-landlock-run': ['src/main.c'],
 }
-const repositoryUrl = 'git+https://github.com/deepseek-harness/deepseek-harness.git'
+const repositoryUrl = 'git+https://github.com/XavierZhang/lyness.git'
 /**
  * Source home the published packages point consumers at. It differs from
  * {@link repositoryUrl}, which the Landlock packages keep because npm resolves
  * their trusted publishing against the repository that runs the workflow.
  */
-const publishedRepositoryUrl = 'git+https://github.com/deepseek-ai/deepseek-harness.git'
+const publishedRepositoryUrl = 'git+https://github.com/XavierZhang/lyness.git'
 /** Private packages that participate in workspace checks but not releases. */
 const experimentalPackageDirectory = /^packages\/experimental\/[^/]+$/
 /** npm namespace reserved for private experimental packages. */
-const experimentalPackageNamePrefix = '@deepseek-ai/dsh-experimental-'
+const experimentalPackageNamePrefix = '@lyness/experimental-'
 /** Directories whose packages this repository publishes: one release member each. */
 const releaseMemberDirectory = /^(?:packages\/(?!experimental\/)[^/]+\/[^/]+|apps\/[^/]+|vendor\/[^/]+)$/
 const localArtifactDirs = new Set(['node_modules'])
 const appPackageFiles: Readonly<Record<string, readonly string[]>> = {
-  '@deepseek-ai/dsh': ['lib/*.js'],
+  '@lyness/lyn': ['lib/*.js'],
   // Sourcemaps stay out by payload policy; the worker-preview surface
   // (dist/preview.html and dist/preview/) backs private experimental
   // packages and is not published.
-  '@deepseek-ai/dsh-web-frontend': ['dist', '!dist/**/*.map', '!dist/preview.html', '!dist/preview'],
+  '@lyness/web-frontend': ['dist', '!dist/**/*.map', '!dist/preview.html', '!dist/preview'],
 }
 
 /** The subset of package.json fields this constraint check cares about. */
@@ -89,7 +89,7 @@ export interface PackageManifest {
   devDependencies?: Record<string, string>
   dependencies?: Record<string, string>
   optionalDependencies?: Record<string, string>
-  dsh?: {
+  lyn?: {
     bundle?: {
       patch?: string
     }
@@ -146,40 +146,40 @@ const packageFileExtras: Readonly<Record<string, readonly string[]>> = {
   // them through its own CSS pipeline, so the sheets are published artifacts.
   // The glob covers whichever sheets a package emits; sourcemaps stay
   // unpublished, as everywhere else in the repository.
-  '@deepseek-ai/dsh-client-ui-primitives': ['lib/**/*.css'],
-  '@deepseek-ai/dsh-client-web': ['lib/**/*.css'],
-  '@deepseek-ai/dsh-client-ui-theme': ['lib/styles'],
+  '@lyness/client-ui-primitives': ['lib/**/*.css'],
+  '@lyness/client-web': ['lib/**/*.css'],
+  '@lyness/client-ui-theme': ['lib/styles'],
   // The CPython side ships as source .py files, published as-is rather than built.
-  '@deepseek-ai/dsh-code-runtime-python': ['py/**/*.py'],
+  '@lyness/code-runtime-python': ['py/**/*.py'],
   // The shipped preset compositions travel inside the roster package.
-  '@deepseek-ai/dsh-agent-presets': ['presets'],
+  '@lyness/agent-presets': ['presets'],
   // The Web Host mounts the default-off settings owner independently of each
   // Agent-scoped delegation-tool instance.
-  '@deepseek-ai/dsh-tool-subagent': ['lib/model-selection-settings.js'],
+  '@lyness/tool-subagent': ['lib/model-selection-settings.js'],
   // The argv-prefix runner entry ships beside the lib as its own bundle;
   // sandbox-local resolves it through the package's ./runner export. tsdown
   // also shares its generated FFI code through a hashed runtime chunk.
-  '@deepseek-ai/dsh-sandbox-windows-acl': ['lib/runner.js', 'lib/types-*.js'],
+  '@lyness/sandbox-windows-acl': ['lib/runner.js', 'lib/types-*.js'],
   // SQLite loads its compression dictionary and every statement from immutable
   // package resources at runtime.
-  '@deepseek-ai/dsh-session-persistence-sqlite': [
+  '@lyness/session-persistence-sqlite': [
     'resources/zstd-dictionary.bin',
     'resources/sql/**/*.sql',
   ],
-  '@deepseek-ai/dsh-skill-badge': ['assets'],
+  '@lyness/skill-badge': ['assets'],
   // tsdown shares the repository/pack code between the lib entry and the bin
   // through a hashed chunk. The committed bin.js is the link target pnpm can
   // resolve at install time, before the build produces lib/bin.js.
-  '@deepseek-ai/dsh-experimental-webworker-packer': ['bin.js', 'lib/repository-*.js'],
-  '@deepseek-ai/dsh-subprocess-local': ['scripts/ensure-spawn-helper.mjs'],
+  '@lyness/experimental-webworker-packer': ['bin.js', 'lib/repository-*.js'],
+  '@lyness/subprocess-local': ['scripts/ensure-spawn-helper.mjs'],
 }
 
 function sameStringList(actual: readonly string[] | undefined, expected: readonly string[]): boolean {
   return !!actual && actual.length === expected.length && actual.every((value, index) => value === expected[index])
 }
 
-export function expectedDshPackageFiles(manifest: PackageManifest): readonly string[] {
-  const declaredPatch = manifest.dsh?.bundle?.patch
+export function expectedLynPackageFiles(manifest: PackageManifest): readonly string[] {
+  const declaredPatch = manifest.lyn?.bundle?.patch
   const bundleFiles = declaredPatch === undefined ? [] : [declaredPatch.replace(/^\.\//, '')]
   const extras = [
     ...bundleFiles,
@@ -269,7 +269,7 @@ export function checkExperimentalManifest({ dir, manifest }: WorkspaceManifest):
 }
 
 /**
- * Check one workspace manifest against publication and dsh-package policy.
+ * Check one workspace manifest against publication and lyn-package policy.
  * @param workspace - package directory and parsed manifest.
  * @returns path-qualified policy violations.
  */
@@ -301,7 +301,7 @@ export function checkWorkspaceManifest({ dir, manifest }: WorkspaceManifest): st
     //
     // Access is per release sequence, not per scope: the vendored framework and
     // the Landlock packages publish publicly because outside consumers install
-    // them, while the dsh family stays restricted until its own sequence goes
+    // them, while the lyn family stays restricted until its own sequence goes
     // public. A mixed scope is why no publish path passes `--access` — one flag
     // cannot serve both, so each packed manifest decides
     // ([rationale](../.agents/notes/implemented/process/2026-08-13-public-vendor-and-native-sequences.md)).
@@ -324,7 +324,7 @@ export function checkWorkspaceManifest({ dir, manifest }: WorkspaceManifest): st
     return errors
   }
 
-  if (manifest.name?.startsWith('@deepseek-ai/')) {
+  if (manifest.name?.startsWith('@lyness/')) {
     const allowedSources = publicationSourceAllowlist[manifest.name] ?? []
     for (const file of manifest.files ?? []) {
       if (isForbiddenPublicationFile(file) && !allowedSources.includes(file)) {
@@ -333,7 +333,7 @@ export function checkWorkspaceManifest({ dir, manifest }: WorkspaceManifest): st
     }
   }
 
-  if (dir.startsWith('apps/') && manifest.name?.startsWith('@deepseek-ai/')) {
+  if (dir.startsWith('apps/') && manifest.name?.startsWith('@lyness/')) {
     const expectedFiles = appPackageFiles[manifest.name]
     if (expectedFiles === undefined) {
       errors.push(`${label}: app package has no publication files policy`)
@@ -351,14 +351,14 @@ export function checkWorkspaceManifest({ dir, manifest }: WorkspaceManifest): st
     }
   }
 
-  if (dir.startsWith('packages/') && manifest.name?.startsWith('@deepseek-ai/dsh-')) {
-    const peer = manifest.peerDependencies?.['@deepseek-ai/cordis']
-    const dev = manifest.devDependencies?.['@deepseek-ai/cordis']
+  if (dir.startsWith('packages/') && manifest.name?.startsWith('@lyness/')) {
+    const peer = manifest.peerDependencies?.['@lyness/cordis']
+    const dev = manifest.devDependencies?.['@lyness/cordis']
 
-    if (!peer) errors.push(`${label}: @deepseek-ai/cordis must be a peerDependency`)
-    if (!dev) errors.push(`${label}: @deepseek-ai/cordis must also be a devDependency`)
+    if (!peer) errors.push(`${label}: @lyness/cordis must be a peerDependency`)
+    if (!dev) errors.push(`${label}: @lyness/cordis must also be a devDependency`)
     if (peer && dev && peer !== dev) {
-      errors.push(`${label}: @deepseek-ai/cordis peer (${peer}) and dev (${dev}) ranges must match`)
+      errors.push(`${label}: @lyness/cordis peer (${peer}) and dev (${dev}) ranges must match`)
     }
     if (manifest.version !== repositoryVersion) {
       errors.push(`${label}: package.json version must match root version ${repositoryVersion ?? '(missing)'}`)
@@ -391,7 +391,7 @@ export function checkWorkspaceManifest({ dir, manifest }: WorkspaceManifest): st
     if (invariantExport && (invariantExport.types === undefined || invariantExport.default === undefined)) {
       errors.push(`${label}: package.json exports["./invariant"] must declare both types and default targets`)
     }
-    const expectedFiles = expectedDshPackageFiles(manifest)
+    const expectedFiles = expectedLynPackageFiles(manifest)
     if (!sameStringList(manifest.files, expectedFiles)) {
       errors.push(`${label}: package.json files must be ${JSON.stringify(expectedFiles)}`)
     }
@@ -427,8 +427,8 @@ function checkHierarchyShape(): string[] {
 }
 
 function checkRepositoryVersion(): string[] {
-  // The root carries the dsh release family's version, so a prerelease such as
-  // 0.0.1-rc.1 is a valid state between `release:dsh` and its publication.
+  // The root carries the lyn release family's version, so a prerelease such as
+  // 0.0.1-rc.1 is a valid state between `release:lyn` and its publication.
   if (repositoryVersion && /^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$/.test(repositoryVersion)) return []
   return ['package.json: version must be X.Y.Z with an optional prerelease segment']
 }

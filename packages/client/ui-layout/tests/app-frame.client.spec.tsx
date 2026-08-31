@@ -13,13 +13,13 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { act, cleanup, render } from '@testing-library/react'
 import { useSyncExternalStore } from 'react'
-import { AppFrame } from '@deepseek-ai/dsh-client-ui-layout/src/client/AppFrame.tsx'
-import type { AppFrameProps } from '@deepseek-ai/dsh-client-ui-layout/src/client/AppFrame.tsx'
-import { SIDEBAR_COLLAPSED } from '@deepseek-ai/dsh-client-ui-layout/src/client/columns.ts'
-import { createLayoutStore } from '@deepseek-ai/dsh-client-ui-layout/src/client/stores.ts'
-import type { SessionListState } from '@deepseek-ai/dsh-api-session-controller/client'
-import type { WorkspaceSnapshot } from '@deepseek-ai/dsh-api-workspace-controller/client'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import { AppFrame } from '@lyness/client-ui-layout/src/client/AppFrame.tsx'
+import type { AppFrameProps } from '@lyness/client-ui-layout/src/client/AppFrame.tsx'
+import { SIDEBAR_COLLAPSED } from '@lyness/client-ui-layout/src/client/columns.ts'
+import { createLayoutStore } from '@lyness/client-ui-layout/src/client/stores.ts'
+import type { SessionListState } from '@lyness/api-session-controller/client'
+import type { WorkspaceSnapshot } from '@lyness/api-workspace-controller/client'
+import type { SessionId } from '@lyness/session/types'
 
 // Session selection controls for the SessionProvider and useSessions stubs.
 const selectedSession = { current: 's-test' as SessionId | undefined }
@@ -100,7 +100,7 @@ function mountFrame() {
       useSessionPendingInteraction={useSessionPendingInteraction}
       useWorkspaces={((sel: (s: WorkspaceSnapshot) => unknown) => sel(workspaceState)) as never}
       SessionProvider={SessionProviderStub}
-      t={key => key === 'brand.localBuild' ? 'DSH Local Build' : key}
+      t={key => key === 'brand.localBuild' ? 'LYN Local Build' : key}
     />
   )
   const utils = render(element())
@@ -155,11 +155,11 @@ afterEach(() => {
 describe('AppFrame', () => {
   it('localizes the product title when the build does not supply one', () => {
     mountFrame()
-    expect(document.title).toBe('DSH Local Build')
+    expect(document.title).toBe('LYN Local Build')
   })
 
   it('projects the selected durable Session title', () => {
-    vi.stubEnv('DSH_CLIENT_TITLE', 'Product')
+    vi.stubEnv('LYNESS_CLIENT_TITLE', 'Product')
     selectedSessionTitle.current = 'First'
     const { rerenderFrame } = mountFrame()
     expect(document.title).toBe('First — Product')

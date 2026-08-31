@@ -3,12 +3,12 @@
  * the live Agent registry, one browser zone's validation, and the stable
  * failure codes the Remote surface answers with.
  *
- * @module @deepseek-ai/dsh-subagent
+ * @module @lyness/subagent
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import type { SessionId } from '@deepseek-ai/dsh-session'
-import { TypertRemoteFailure } from '@deepseek-ai/dsh-typert-protocol'
+import type { Context } from '@lyness/cordis'
+import type { SessionId } from '@lyness/session'
+import { TypertRemoteFailure } from '@lyness/typert-protocol'
 import { z } from 'zod'
 import type {
   SubagentCatalog, SubagentControlErrorDetailsMap, SubagentListEntry,
@@ -127,7 +127,7 @@ export function rejectCatalogRead(error: unknown, signal: AbortSignal): never {
   if (error instanceof SubagentError && error.code === 'SUBAGENT_CONTROL_PROJECTIONS_UNAVAILABLE') {
     return rejectControl(
       'subagent-projections-unavailable',
-      'subagent catalog is unavailable: this deployment does not mount the sessionProjections registry (load @deepseek-ai/dsh-session-projection)',
+      'subagent catalog is unavailable: this deployment does not mount the sessionProjections registry (load @lyness/session-projection)',
       {},
     )
   }

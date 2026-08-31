@@ -1,14 +1,14 @@
 import { mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import AgentRegistry from '@deepseek-ai/dsh-agent'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import SessionStore, { SessionId } from '@deepseek-ai/dsh-session'
-import SystemPrompt, { renderPrompt } from '@deepseek-ai/dsh-system-prompt'
-import ToolRegistry, { defineContentToolFixture } from '@deepseek-ai/dsh-tools'
-import { FILE_REFERENCE_PROMPT } from '@deepseek-ai/dsh-file-reference'
+import AgentRegistry from '@lyness/agent'
+import type { Agent } from '@lyness/agent'
+import SessionStore, { SessionId } from '@lyness/session'
+import SystemPrompt, { renderPrompt } from '@lyness/system-prompt'
+import ToolRegistry, { defineContentToolFixture } from '@lyness/tools'
+import { FILE_REFERENCE_PROMPT } from '@lyness/file-reference'
 import LocalFileReferenceService, { WorkspaceFileSearch } from '../src/index.ts'
 
 const roots: string[] = []
@@ -32,7 +32,7 @@ async function stubAgent(
   id = 'file-reference-agent',
   includeCwd = true,
 ): Promise<{ agent: Agent; dispose: () => void }> {
-  const root = await mkdtemp(join(tmpdir(), 'dsh-file-reference-service-'))
+  const root = await mkdtemp(join(tmpdir(), 'lyn-file-reference-service-'))
   roots.push(root)
   await writeFile(join(root, 'README.md'), 'readme')
   const session = ctx.sessions.create(SessionId(id), { meta: includeCwd ? { cwd: root } : {} })

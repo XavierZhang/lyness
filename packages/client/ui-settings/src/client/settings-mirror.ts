@@ -9,8 +9,8 @@
  * through {@link SettingsDescribeMirror.acceptView}.
  */
 
-import type { ClientRemote, SettingsNamespaceView } from '@deepseek-ai/dsh-api-remotes/client'
-import { createSnapshotStore, type SnapshotStore } from '@deepseek-ai/dsh-client-store'
+import type { ClientRemote, SettingsNamespaceView } from '@lyness/api-remotes/client'
+import { createSnapshotStore, type SnapshotStore } from '@lyness/client-store'
 
 /**
  * The settings Remote methods browser configuration surfaces may reach: the

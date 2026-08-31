@@ -7,9 +7,9 @@ import { chromium } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed } from 'vitest'
 import {
   SESSION_FORMAT_VERSION, SessionId as sessionId, type SessionEvent, type SessionHeader, type SessionId,
-} from '@deepseek-ai/dsh-session'
-import type {} from '@deepseek-ai/dsh-agent'
-import { snapshotSubagentDescriptor } from '@deepseek-ai/dsh-subagent'
+} from '@lyness/session'
+import type {} from '@lyness/agent'
+import { snapshotSubagentDescriptor } from '@lyness/subagent'
 import {
   acknowledgeReloadConnectionLoss, captureExpandedTurnProcessAria, captureStableAria,
   compareOrRefreshGolden,
@@ -88,7 +88,7 @@ describe('web e2e: persisted subagent conversation and human continuation', () =
   beforeAll(async () => {
     if (MODE === 'record') throw new Error('subagent conversation is a keyless assembled snapshot')
     const baseFixture = await readFile(BASE_FIXTURE, 'utf8')
-    sidecarRoot = await mkdtemp(join(tmpdir(), 'dsh-web-subagent-'))
+    sidecarRoot = await mkdtemp(join(tmpdir(), 'lyn-web-subagent-'))
     const childFixturePath = join(sidecarRoot, 'child.jsonl')
     await writeFile(childFixturePath, childFixture(baseFixture, 'recorded-subagent', true))
     scaffold = await launchWebScaffold({

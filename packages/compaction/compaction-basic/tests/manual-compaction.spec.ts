@@ -1,37 +1,37 @@
 import { describe, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import AgentLoop from '@deepseek-ai/dsh-agent-loop'
-import { mountAgentLoopTestDependencies } from '@deepseek-ai/dsh-agent-loop-testkit'
-import InvariantRegistry from '@deepseek-ai/dsh-invariants'
-import { CommandId } from '@deepseek-ai/dsh-commands/brand'
-import * as SessionInvariant from '@deepseek-ai/dsh-session/invariant'
-import * as AgentInvariant from '@deepseek-ai/dsh-agent/invariant'
-import * as AgentLoopInvariant from '@deepseek-ai/dsh-agent-loop/invariant'
-import * as CompactionInvariant from '@deepseek-ai/dsh-compaction/invariant'
-import * as CompactionBasicInvariant from '@deepseek-ai/dsh-compaction-basic/invariant'
-import { BasicCompactionEngine } from '@deepseek-ai/dsh-compaction-basic'
-import { CompactionId, isCompactCheckpointSource, ManualCompactionError } from '@deepseek-ai/dsh-compaction'
-import type { CompactionResult } from '@deepseek-ai/dsh-compaction'
+import { Context } from '@lyness/cordis'
+import AgentLoop from '@lyness/agent-loop'
+import { mountAgentLoopTestDependencies } from '@lyness/agent-loop-testkit'
+import InvariantRegistry from '@lyness/invariants'
+import { CommandId } from '@lyness/commands/brand'
+import * as SessionInvariant from '@lyness/session/invariant'
+import * as AgentInvariant from '@lyness/agent/invariant'
+import * as AgentLoopInvariant from '@lyness/agent-loop/invariant'
+import * as CompactionInvariant from '@lyness/compaction/invariant'
+import * as CompactionBasicInvariant from '@lyness/compaction-basic/invariant'
+import { BasicCompactionEngine } from '@lyness/compaction-basic'
+import { CompactionId, isCompactCheckpointSource, ManualCompactionError } from '@lyness/compaction'
+import type { CompactionResult } from '@lyness/compaction'
 import {
   createAssistantMessage,
   createUserMessage,
   LlmAdapter,
-} from '@deepseek-ai/dsh-llm'
+} from '@lyness/llm'
 import type {
   ContentBlock,
   LlmResolvedModelInfo,
   Message,
   StreamChunk,
   TokenUsage,
-} from '@deepseek-ai/dsh-llm'
-import SessionStore, { Session, SessionId, type SessionEvent } from '@deepseek-ai/dsh-session'
-import LlmRuntime from '@deepseek-ai/dsh-llm'
-import TokenMeter from '@deepseek-ai/dsh-token-meter'
-import type { Agent } from '@deepseek-ai/dsh-agent'
+} from '@lyness/llm'
+import SessionStore, { Session, SessionId, type SessionEvent } from '@lyness/session'
+import LlmRuntime from '@lyness/llm'
+import TokenMeter from '@lyness/token-meter'
+import type { Agent } from '@lyness/agent'
 import type {
   SummarizationInput,
   SummaryResult,
-} from '@deepseek-ai/dsh-compaction-basic/src/summarizer.ts'
+} from '@lyness/compaction-basic/src/summarizer.ts'
 
 const MODEL = 'mock'
 const SIGNAL = new AbortController().signal

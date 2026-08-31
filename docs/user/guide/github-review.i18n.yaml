@@ -2,5 +2,5 @@
 # side as of the last confirmed-consistent state. Both languages carry equal authority;
 # after editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write docs/user/guide/github-review.md
-github-review.md: 69c61df95ce7d461b8a120cf6ae4a568ce201f78
-github-review.zh.md: 114aa6546d2366cf34a4a2d3057e9a26e4c43c96
+github-review.md: 26aa3455086c0976fd8d0f8f2f3f45f0941568c9
+github-review.zh.md: 4c8ce2f30b24d814cce5f3dc5969d4008e42ce26

@@ -4,14 +4,14 @@
 // their own specs, so each case scripts them.
 
 import { describe, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import type { MessageId } from '@deepseek-ai/dsh-llm'
-import { SessionId } from '@deepseek-ai/dsh-session'
+import { Context } from '@lyness/cordis'
+import type { MessageId } from '@lyness/llm'
+import { SessionId } from '@lyness/session'
 import SubagentRuntime, {
   SubagentError,
   type SubagentListEntry,
   type SubagentPromptRequestId,
-} from '@deepseek-ai/dsh-subagent'
+} from '@lyness/subagent'
 
 const PARENT = SessionId('parent')
 const CHILD = SessionId('child')

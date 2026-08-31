@@ -1,12 +1,12 @@
 import { createHash } from 'node:crypto'
 import { readFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { describe, expect, it } from 'vitest'
-import SkillRegistry from '@deepseek-ai/dsh-skill'
-import * as SkillBadge from '@deepseek-ai/dsh-skill-badge'
+import SkillRegistry from '@lyness/skill'
+import * as SkillBadge from '@lyness/skill-badge'
 
-describe('dsh-skill-badge', () => {
+describe('lyn-skill-badge', () => {
   it('registers and disposes the bundled badge skill', async () => {
     const ctx = new Context()
     await ctx.plugin(SkillRegistry)
@@ -14,14 +14,14 @@ describe('dsh-skill-badge', () => {
     const resourcePath = fileURLToPath(new URL('../assets/', import.meta.url))
 
     expect(await ctx.skills.list()).toEqual([{
-      name: 'dsh-badge',
-      description: 'Add the official “powered by dsh” badge to documents, pull requests, merge requests, and other content produced with DeepSeek Harness. Use whenever creating a pull request or merge request. Also use when the user asks for a dsh badge, powered-by-dsh attribution, or a reusable dsh badge asset or snippet.',
+      name: 'lyn-badge',
+      description: 'Add the official “powered by lyn” badge to documents, pull requests, merge requests, and other content produced with lyness. Use whenever creating a pull request or merge request. Also use when the user asks for a lyn badge, powered-by-lyn attribution, or a reusable lyn badge asset or snippet.',
       invocation: { modelInvocable: true, userInvocable: true },
-      provider: 'dsh-badge',
+      provider: 'lyn-badge',
       source: 'bundled',
       resourceBase: { kind: 'directory', path: resourcePath },
     }])
-    const loaded = await ctx.skills.get('dsh-badge')
+    const loaded = await ctx.skills.get('lyn-badge')
     expect(loaded?.content).toContain('Preserve the badge\'s 121×20 dimensions')
     expect(loaded?.resourceBase).toEqual({ kind: 'directory', path: resourcePath })
 
@@ -30,7 +30,7 @@ describe('dsh-skill-badge', () => {
   })
 
   it('ships the official 726×120 PNG unchanged', async () => {
-    const image = await readFile(new URL('../assets/dsh-badge.png', import.meta.url))
+    const image = await readFile(new URL('../assets/lyn-badge.png', import.meta.url))
     expect(image.readUInt32BE(16)).toBe(726)
     expect(image.readUInt32BE(20)).toBe(120)
     expect(createHash('sha256').update(image).digest('hex')).toBe(

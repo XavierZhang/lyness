@@ -1,7 +1,7 @@
 /** Shared event metadata and semantic-document projection. */
 
-import { foldSurface } from '@deepseek-ai/dsh-session'
-import type { SessionEvent, SessionId } from '@deepseek-ai/dsh-session'
+import { foldSurface } from '@lyness/session'
+import type { SessionEvent, SessionId } from '@lyness/session'
 import type { SessionEventRecord, SessionEventSearchDocument, SessionEventSurface } from './types.ts'
 import { SessionQueryError } from './config.ts'
 import { extractSessionEventText } from './extraction.ts'

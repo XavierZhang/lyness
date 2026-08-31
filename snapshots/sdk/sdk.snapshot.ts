@@ -1,11 +1,11 @@
 /**
  * Keyless snapshot coverage for the TypeScript SDK path: each scenario spawns
- * the real `dsh --profile sdk` runtime through
- * `@deepseek-ai/dsh-sdk-client`, drives one turn over stdio JSON-RPC,
+ * the real `lyn --profile sdk` runtime through
+ * `@lyness/sdk-client`, drives one turn over stdio JSON-RPC,
  * and pins the SDK `RunResult`, the complete notification stream, and the
  * persisted session logs. Replay serves recorded model
- * responses via `llm-replay` (`cordis.snapshot.yml`); `DSH_SNAPSHOT=record`
- * re-records against the live API; `DSH_SNAPSHOT=refresh` replays committed
+ * responses via `llm-replay` (`cordis.snapshot.yml`); `LYNESS_SNAPSHOT=record`
+ * re-records against the live API; `LYNESS_SNAPSHOT=refresh` replays committed
  * fixtures and rewrites expected outputs.
  */
 
@@ -43,14 +43,14 @@ import {
   type NormalizeContext,
   type SnapshotManifest,
   type WorkspaceSnapshotEntry,
-} from '@deepseek-ai/dsh-session-snapshot'
+} from '@lyness/session-snapshot'
 import {
-  DeepSeekHarness,
+  Lyness,
   type HarnessNotification,
   type NotificationSubscription,
   type RunResult,
   type SdkPromptContentBlock,
-} from '@deepseek-ai/dsh-sdk-client'
+} from '@lyness/sdk-client'
 
 const corpusRoot = fileURLToPath(new URL('../', import.meta.url))
 
@@ -64,23 +64,23 @@ const MINIMAL_BASH_DESCRIPTION = `Run commands in a bash shell
 * Please avoid commands that may produce a very large amount of output.
 * Please run long lived commands in the background, e.g. 'sleep 10 &' or start a server in the background.`
 
-const mode = process.env.DSH_SNAPSHOT ?? 'replay'
+const mode = process.env.LYNESS_SNAPSHOT ?? 'replay'
 const recording = mode === 'record'
 const refreshing = mode === 'refresh'
 const RUNTIME_WORKSPACE_ENTRIES = [
   '.agents',
-  '.child-dsh',
-  '.dsh',
-  '.dsh-sdk-background-release',
+  '.child-lyn',
+  '.lyn',
+  '.lyn-sdk-background-release',
   '.replay-fixtures',
   '.snapshot-patches',
 ] as const
-const dshSdkDiagnosticChildPatch = fileURLToPath(new URL(
-  './subagent-dsh-sdk-diagnostic/child.cordis.yml',
+const lynSdkDiagnosticChildPatch = fileURLToPath(new URL(
+  './subagent-lyn-sdk-diagnostic/child.cordis.yml',
   import.meta.url,
 ))
-const dshSdkChildConfig = fileURLToPath(new URL(
-  '../../packages/subagent/subagent-dsh-sdk/tests/fixtures/loader/child.cordis.yml',
+const lynSdkChildConfig = fileURLToPath(new URL(
+  '../../packages/subagent/subagent-lyn-sdk/tests/fixtures/loader/child.cordis.yml',
   import.meta.url,
 ))
 
@@ -91,8 +91,8 @@ function dirOf(url: string): string {
 interface SdkAssertions {
   /** Environment overrides passed to the runtime subprocess. */
   environment?: Readonly<Record<string, string>>
-  /** A separate DSH SDK child whose persisted session joins the evidence. */
-  dshSdkChild?: {
+  /** A separate LYN SDK child whose persisted session joins the evidence. */
+  lynSdkChild?: {
     /** Profile patch materialized for the child runtime. */
     config: string
     /** Exact request configuration committed by the child runtime. */
@@ -109,23 +109,23 @@ interface SdkAssertions {
 }
 
 const SDK_ASSERTIONS: Readonly<Record<string, SdkAssertions>> = {
-  'subagent-dsh-sdk-diagnostic': {
-    environment: { DSH_TEST_CHILD_PATCH: dshSdkDiagnosticChildPatch },
+  'subagent-lyn-sdk-diagnostic': {
+    environment: { LYNESS_TEST_CHILD_PATCH: lynSdkDiagnosticChildPatch },
   },
   'persistent-tools': {
-    environment: { DSH_SYSTEM_PROMPT: MINIMAL_SYSTEM_PROMPT },
+    environment: { LYNESS_SYSTEM_PROMPT: MINIMAL_SYSTEM_PROMPT },
     expectedTools: { bash: ['command'], str_replace_editor: ['command', 'path'] },
     expectedSystem: MINIMAL_SYSTEM_PROMPT,
     expectedToolDescriptions: { bash: MINIMAL_BASH_DESCRIPTION },
     runtimeContext: {
-      includes: ['Current DSH file policy: danger-full-access', 'Approval prompts are disabled in this session'],
+      includes: ['Current LYN file policy: danger-full-access', 'Approval prompts are disabled in this session'],
       excludes: ['workspace-write'],
     },
   },
-  'subagent-dsh-sdk-dynamic-route': {
-    environment: { DSH_TEST_PARENT_PROVIDER: 'deepseek-official' },
-    dshSdkChild: {
-      config: dshSdkChildConfig,
+  'subagent-lyn-sdk-dynamic-route': {
+    environment: { LYNESS_TEST_PARENT_PROVIDER: 'deepseek-official' },
+    lynSdkChild: {
+      config: lynSdkChildConfig,
       agentConfig: {
         provider: 'mock',
         model: 'mock-routed',
@@ -278,7 +278,7 @@ function assembledRuntimeContexts(log: PersistedLog): string[] {
     }
     if (event.type !== 'user/message'
       || event.data?.source?.kind !== 'plugin'
-      || event.data.source.plugin !== '@deepseek-ai/dsh-system-prompt') return []
+      || event.data.source.plugin !== '@lyness/system-prompt') return []
     return event.data.content?.flatMap(block => block.type === 'text' && typeof block.text === 'string' ? [block.text] : []) ?? []
   })
 }
@@ -473,7 +473,7 @@ function authoredPatches(scenario: CorpusScenario, replaying: boolean): string[]
   ]
 }
 
-/** One SDK-controlled recorded scenario against a fresh `dsh --profile sdk` subprocess. */
+/** One SDK-controlled recorded scenario against a fresh `lyn --profile sdk` subprocess. */
 async function runScenario(scenario: CorpusScenario): Promise<{
   results: RunResult[]
   notifications: HarnessNotification[]
@@ -484,8 +484,8 @@ async function runScenario(scenario: CorpusScenario): Promise<{
   cwd: string
 }> {
   const cwd = await mkdtemp(join(tmpdir(), `sdk-snapshot-${scenario.name}-`))
-  const dshHome = join(cwd, '.dsh')
-  const sessionsRoot = join(dshHome, 'sessions')
+  const lynHome = join(cwd, '.lyn')
+  const sessionsRoot = join(lynHome, 'sessions')
   const replayFixtures = recording ? [] : await hydrateReplayFixtures(scenario, cwd)
   const fixtureContents = await Promise.all((await fixtureFiles(scenario)).map(file => readFile(file, 'utf8')))
   const primaryFixture = fixtureContents[0]
@@ -498,14 +498,14 @@ async function runScenario(scenario: CorpusScenario): Promise<{
   const assertions = SDK_ASSERTIONS[scenario.name] ?? {}
   let childSessionsRoot: string | undefined
   let childEnvironment: Record<string, string> = {}
-  if (assertions.dshSdkChild !== undefined) {
-    const childHome = join(cwd, '.child-dsh')
-    const childPatch = materializeProfilePatch(assertions.dshSdkChild.config, cwd, patchRoot, patches.length)
+  if (assertions.lynSdkChild !== undefined) {
+    const childHome = join(cwd, '.child-lyn')
+    const childPatch = materializeProfilePatch(assertions.lynSdkChild.config, cwd, patchRoot, patches.length)
     await mkdir(childHome, { recursive: true })
     childSessionsRoot = join(childHome, 'sessions')
     childEnvironment = {
-      DSH_TEST_CHILD_PATCHES: JSON.stringify([childPatch]),
-      DSH_TEST_CHILD_HOME: childHome,
+      LYNESS_TEST_CHILD_PATCHES: JSON.stringify([childPatch]),
+      LYNESS_TEST_CHILD_HOME: childHome,
     }
   }
   const workspaceDir = join(scenario.dir, 'workspace')
@@ -520,28 +520,28 @@ async function runScenario(scenario: CorpusScenario): Promise<{
   const [parentFixture, ...childFixtures] = replayFixtures
   const env: Record<string, string> = {
     ...Object.fromEntries(Object.entries(process.env).filter(([, value]) => value !== undefined)) as Record<string, string>,
-    DSH_SNAPSHOT: mode,
-    DSH_SNAPSHOT_PROVIDER: route.provider,
-    DSH_SNAPSHOT_MODEL: route.model,
-    DSH_TELEMETRY_DISABLED: '1',
-    DSH_AGENTS_HOME: join(cwd, '.agents'),
+    LYNESS_SNAPSHOT: mode,
+    LYNESS_SNAPSHOT_PROVIDER: route.provider,
+    LYNESS_SNAPSHOT_MODEL: route.model,
+    LYNESS_TELEMETRY_DISABLED: '1',
+    LYNESS_AGENTS_HOME: join(cwd, '.agents'),
     NODE_OPTIONS: [process.env.NODE_OPTIONS, '--disable-warning=ExperimentalWarning'].filter(Boolean).join(' '),
     ...parentFixture === undefined ? {} : {
-      DSH_SNAPSHOT_FILE: parentFixture,
-      ...childFixtures.length > 0 ? { DSH_SNAPSHOT_CHILD_FILES: childFixtures.join(delimiter) } : {},
+      LYNESS_SNAPSHOT_FILE: parentFixture,
+      ...childFixtures.length > 0 ? { LYNESS_SNAPSHOT_CHILD_FILES: childFixtures.join(delimiter) } : {},
     },
     ...!recording && scenario.manifest.replay?.override === true
-      ? { DSH_SNAPSHOT_OVERRIDE: join(scenario.dir, 'replay.override.json') }
+      ? { LYNESS_SNAPSHOT_OVERRIDE: join(scenario.dir, 'replay.override.json') }
       : {},
     ...scenario.manifest.environment,
     ...assertions.environment,
     ...childEnvironment,
   }
 
-  const harness = new DeepSeekHarness({
+  const harness = new Lyness({
     profile: 'sdk',
     patches,
-    dshHome,
+    lynHome,
     processCwd: cwd,
     env,
     requestTimeoutMs: 110_000,
@@ -612,8 +612,8 @@ async function runScenario(scenario: CorpusScenario): Promise<{
 }
 
 /** Order logs parent-first, children by creation time (fixture layout order). */
-function orderLogs(logs: PersistedLog[], expectedCount: number, separateDshSdkChild: boolean): PersistedLog[] {
-  if (separateDshSdkChild) {
+function orderLogs(logs: PersistedLog[], expectedCount: number, separateLynSdkChild: boolean): PersistedLog[] {
+  if (separateLynSdkChild) {
     expect(logs).toHaveLength(expectedCount)
     return logs
   }
@@ -672,7 +672,7 @@ async function verifyHeaders(
   scenario: CorpusScenario,
   ordered: readonly PersistedLog[],
   ctx: NormalizeContext,
-  dshSdkChildConfig?: Readonly<Record<string, unknown>>,
+  lynSdkChildConfig?: Readonly<Record<string, unknown>>,
 ): Promise<void> {
   const pin = headerPin(scenario)
   const pinFixture = await readFile(join(pin.dir, 'session.jsonl'), 'utf8')
@@ -708,8 +708,8 @@ async function verifyHeaders(
     for (const [index, header] of headers.entries()) {
       const selectedSchemas = childSchemas.get(logIndex)?.[index]
       const base = reconstructed[index] ?? reconstructed[0]
-      const configured = logIndex === 1 && dshSdkChildConfig !== undefined
-        ? { ...base as JsonObject, config: dshSdkChildConfig }
+      const configured = logIndex === 1 && lynSdkChildConfig !== undefined
+        ? { ...base as JsonObject, config: lynSdkChildConfig }
         : base
       const expected = selectedSchemas === undefined
         ? configured
@@ -724,7 +724,7 @@ async function verifyHeaders(
 describe('TypeScript SDK snapshots over the jsonrpc runtime', () => {
   for (const scenario of sdkScenarios) {
     const scenarioTest = recording && scenario.manifest.recording === 'authored' ? it.skip : it
-    scenarioTest(`${mode}s ${scenario.name} through dsh --profile sdk`, async () => {
+    scenarioTest(`${mode}s ${scenario.name} through lyn --profile sdk`, async () => {
       const scenarioDir = scenario.dir
       const notificationsExpectedPath = join(scenarioDir, 'notifications.expected.jsonl')
       const resultExpectedPath = join(scenarioDir, 'result.expected.json')
@@ -736,7 +736,7 @@ describe('TypeScript SDK snapshots over the jsonrpc runtime', () => {
       const ordered = orderLogs(
         logs,
         recording ? logs.length : files.length,
-        assertions.dshSdkChild !== undefined,
+        assertions.lynSdkChild !== undefined,
       )
       const actualContext = contextOf(ordered, cwd)
 
@@ -798,7 +798,7 @@ describe('TypeScript SDK snapshots over the jsonrpc runtime', () => {
       for (const [index, actual] of actualSnapshots.entries()) {
         expect(actual, `${scenario.name}: session ${index}`).toBe(expectedSnapshots[index])
       }
-      await verifyHeaders(scenario, ordered, actualContext, assertions.dshSdkChild?.agentConfig)
+      await verifyHeaders(scenario, ordered, actualContext, assertions.lynSdkChild?.agentConfig)
 
       // Genuine SDK protocol cases retain their secondary wire projections.
       const finalResult = results.at(-1)
@@ -851,7 +851,7 @@ describe('TypeScript SDK snapshots over the jsonrpc runtime', () => {
           for (const clause of assertions.runtimeContext.includes) expect(system).not.toContain(clause)
         }
       }
-      if (ordered.length > 1 && assertions.dshSdkChild === undefined) {
+      if (ordered.length > 1 && assertions.lynSdkChild === undefined) {
         expect(observedMethods.has('subagent.started')).toBe(true)
         expect(observedMethods.has('subagent.finished')).toBe(true)
       }

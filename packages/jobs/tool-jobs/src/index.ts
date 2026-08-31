@@ -4,19 +4,19 @@
  * producers. It also delivers unreported completions to the owning agent:
  * injected into a busy owner's next step, or opening a turn on an idle one
  * under the default `wakeup` delivery, bounded per owner.
- * @module @deepseek-ai/dsh-tool-jobs
+ * @module @lyness/tool-jobs
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
-import { boundContextSummary, createUserMessage, type ContentBlock } from '@deepseek-ai/dsh-llm'
-import { TextRetainer } from '@deepseek-ai/dsh-output-retention'
-import { defineTool } from '@deepseek-ai/dsh-tools'
-import type { GenericCallView, ToolDefinition, ToolExecution } from '@deepseek-ai/dsh-tools'
-import { JobId } from '@deepseek-ai/dsh-jobs'
-import type { JobSnapshot } from '@deepseek-ai/dsh-jobs'
-import { FIRST_PARTY_SECTION_ORDER } from '@deepseek-ai/dsh-system-prompt'
-import type { Agent } from '@deepseek-ai/dsh-agent'
+import type { Context } from '@lyness/cordis'
+import z from '@lyness/schemastery'
+import { boundContextSummary, createUserMessage, type ContentBlock } from '@lyness/llm'
+import { TextRetainer } from '@lyness/output-retention'
+import { defineTool } from '@lyness/tools'
+import type { GenericCallView, ToolDefinition, ToolExecution } from '@lyness/tools'
+import { JobId } from '@lyness/jobs'
+import type { JobSnapshot } from '@lyness/jobs'
+import { FIRST_PARTY_SECTION_ORDER } from '@lyness/system-prompt'
+import type { Agent } from '@lyness/agent'
 
 export const name = 'tool-jobs'
 export const inject = ['tools', 'jobs', 'systemPrompt']

@@ -7,17 +7,17 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { mkdtemp, readFile, realpath, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { Context } from '@deepseek-ai/cordis'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import AgentLoop from '@deepseek-ai/dsh-agent-loop'
-import { mountAgentLoopTestDependencies } from '@deepseek-ai/dsh-agent-loop-testkit'
-import SandboxedFileSystem from '@deepseek-ai/dsh-fs-sandbox'
-import type { ContentBlock } from '@deepseek-ai/dsh-llm'
-import SandboxPolicyService, { setSandboxMode } from '@deepseek-ai/dsh-sandbox-policy'
-import { SessionId, type SessionEvent } from '@deepseek-ai/dsh-session'
-import * as ToolFs from '@deepseek-ai/dsh-tool-fs'
-import ApprovalService from '@deepseek-ai/dsh-user-approval'
-import { snapshotSubagentDescriptor } from '@deepseek-ai/dsh-subagent'
+import { Context } from '@lyness/cordis'
+import type { Agent } from '@lyness/agent'
+import AgentLoop from '@lyness/agent-loop'
+import { mountAgentLoopTestDependencies } from '@lyness/agent-loop-testkit'
+import SandboxedFileSystem from '@lyness/fs-sandbox'
+import type { ContentBlock } from '@lyness/llm'
+import SandboxPolicyService, { setSandboxMode } from '@lyness/sandbox-policy'
+import { SessionId, type SessionEvent } from '@lyness/session'
+import * as ToolFs from '@lyness/tool-fs'
+import ApprovalService from '@lyness/user-approval'
+import { snapshotSubagentDescriptor } from '@lyness/subagent'
 import { MockAdapter, textResponse, toolCallResponse } from '../../../core/agent-loop/tests/mock-adapter.ts'
 import { startInProcessRun } from '../src/index.ts'
 
@@ -28,7 +28,7 @@ const contexts: Context[] = []
 let workspace: string
 
 beforeEach(async () => {
-  workspace = await realpath(await mkdtemp(join(tmpdir(), 'dsh-inherit-')))
+  workspace = await realpath(await mkdtemp(join(tmpdir(), 'lyn-inherit-')))
 })
 
 afterEach(async () => {
@@ -114,7 +114,7 @@ describe('in-process policy inheritance', () => {
       const runtimeContext = child.session.events.find(
         (event): event is SessionEvent<'user/message'> => event.type === 'user/message'
           && event.data.source.kind === 'plugin'
-          && event.data.source.plugin === '@deepseek-ai/dsh-system-prompt',
+          && event.data.source.plugin === '@lyness/system-prompt',
       )
       if (request === undefined || runtimeContext === undefined) throw new Error('child request lacks its runtime policy context')
       expect(runtimeContext.seq).toBeLessThan(request.seq)
@@ -122,7 +122,7 @@ describe('in-process policy inheritance', () => {
         .filter((block): block is Extract<ContentBlock, { type: 'text' }> => block.type === 'text')
         .map(block => block.text)
         .join('\n')
-      expect(contextText).toContain('Current DSH file policy: read-only')
+      expect(contextText).toContain('Current LYN file policy: read-only')
       expect(contextText).toContain('Approval prompts are disabled')
       // The statement rides runtime context; the system prompt stays uniform.
       expect(contextText).toContain('You are a delegated subagent')

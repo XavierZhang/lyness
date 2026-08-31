@@ -18,25 +18,25 @@
  * disposed by then, and the release that wakes the parent's own settlement
  * watcher has already run. See {@link SubagentContinuationManager.notifySettlement}.
  *
- * @module @deepseek-ai/dsh-subagent
+ * @module @lyness/subagent
  */
 
 import { randomUUID } from 'node:crypto'
-import type { Context } from '@deepseek-ai/cordis'
+import type { Context } from '@lyness/cordis'
 import type {
   Agent,
   AgentHandle,
   AgentOptions,
   AgentSetupCommit,
   CreateAgentOptions,
-} from '@deepseek-ai/dsh-agent'
-import { ReasoningEffortId, boundContextSummary, createUserMessage, errorChain } from '@deepseek-ai/dsh-llm'
-import type { ContentBlock, MessageId, MessageSource } from '@deepseek-ai/dsh-llm'
-import { SessionId } from '@deepseek-ai/dsh-session'
-import type { SessionEvent } from '@deepseek-ai/dsh-session'
-import type { SessionPersistence } from '@deepseek-ai/dsh-session-persistence'
-import type { SessionObservation, SessionQueryEngine } from '@deepseek-ai/dsh-session-query'
-import type { ToolRestriction } from '@deepseek-ai/dsh-tools'
+} from '@lyness/agent'
+import { ReasoningEffortId, boundContextSummary, createUserMessage, errorChain } from '@lyness/llm'
+import type { ContentBlock, MessageId, MessageSource } from '@lyness/llm'
+import { SessionId } from '@lyness/session'
+import type { SessionEvent } from '@lyness/session'
+import type { SessionPersistence } from '@lyness/session-persistence'
+import type { SessionObservation, SessionQueryEngine } from '@lyness/session-query'
+import type { ToolRestriction } from '@lyness/tools'
 import { foldSubagentDescriptor, snapshotSubagentDescriptor } from './descriptor.ts'
 import type { SubagentDescriptorData } from './descriptor.ts'
 import {
@@ -90,7 +90,7 @@ export interface SubagentSettledMessageSource {
   readonly senderSessionId: SessionId
 }
 
-declare module '@deepseek-ai/dsh-llm' {
+declare module '@lyness/llm' {
   interface MessageSourceMap {
     coordinator: CoordinatorMessageSource
     'subagent-report': SubagentReportMessageSource
@@ -1544,7 +1544,7 @@ export class SubagentContinuationManager {
     const persistence = this.ctx.get('sessionPersistence')
     if (persistence === undefined) {
       throw new SubagentError(
-        'continuable subagents require session persistence (load a dsh-session-persistence backend)',
+        'continuable subagents require session persistence (load a lyn-session-persistence backend)',
         'PERSISTENCE_UNAVAILABLE',
       )
     }
@@ -1556,7 +1556,7 @@ export class SubagentContinuationManager {
     const query = this.ctx.get('sessionQuery')
     if (query === undefined) {
       throw new SubagentError(
-        'continuable subagents require session query (load @deepseek-ai/dsh-session-query)',
+        'continuable subagents require session query (load @lyness/session-query)',
         'CONTINUATION_UNAVAILABLE',
       )
     }

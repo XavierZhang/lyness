@@ -1,12 +1,12 @@
-import { MessageId, createUserMessage, createMessage } from '@deepseek-ai/dsh-llm'
+import { MessageId, createUserMessage, createMessage } from '@lyness/llm'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { appendFile, mkdtemp, mkdir, rm, readFile, writeFile, readdir, stat, symlink } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { dirname, isAbsolute, join, relative, resolve } from 'node:path'
-import SessionStore, { SessionId } from '@deepseek-ai/dsh-session'
-import type { Session, SessionEvent, SessionHeader } from '@deepseek-ai/dsh-session'
-import JsonlSessionPersistence from '@deepseek-ai/dsh-session-persistence-jsonl'
+import SessionStore, { SessionId } from '@lyness/session'
+import type { Session, SessionEvent, SessionHeader } from '@lyness/session'
+import JsonlSessionPersistence from '@lyness/session-persistence-jsonl'
 import {
   encodeSegment, eventLines, logPath, projectDir, projectKey, scanLog, sessionDir, SessionLogScanner, toHeaderLine,
 } from '../src/format.ts'
@@ -74,7 +74,7 @@ async function expectFlushCode(promise: Promise<unknown>, codes: readonly string
 }
 
 async function freshRoot(): Promise<string> {
-  const dir = await mkdtemp(join(tmpdir(), 'dsh-jsonl-'))
+  const dir = await mkdtemp(join(tmpdir(), 'lyn-jsonl-'))
   dirs.push(dir)
   return dir
 }
@@ -100,7 +100,7 @@ function appendClosedTurn(session: Session): void {
 }
 
 runPersistenceContract('jsonl-none', async () => {
-  const dir = await mkdtemp(join(tmpdir(), 'dsh-jsonl-'))
+  const dir = await mkdtemp(join(tmpdir(), 'lyn-jsonl-'))
   const ctx = new Context()
   await ctx.plugin(SessionStore)
   const fiber = await ctx.plugin(JsonlSessionPersistence, { root: dir, compression: 'none' })
@@ -116,7 +116,7 @@ runPersistenceContract('jsonl-none', async () => {
 // Two mounts share this temp root to exercise reload. `corruptTail` appends a partial,
 // newline-less fragment past the committed region so coordinator repair runs on real file bytes.
 runCoordinatorContract('jsonl-none', async (): Promise<CoordinatorFixture> => {
-  const dir = await mkdtemp(join(tmpdir(), 'dsh-jsonl-coord-'))
+  const dir = await mkdtemp(join(tmpdir(), 'lyn-jsonl-coord-'))
   return {
     mount: async (ctx) => {
       const fiber = await ctx.plugin(JsonlSessionPersistence, { root: dir, compression: 'none' })
@@ -160,7 +160,7 @@ describe('JsonlSessionPersistence: format helpers', () => {
   })
 
   it('projectKey normalizes project paths into bounded readable names', () => {
-    expect(projectKey('/Users/qyj/work/deepseek-harness')).toBe('--Users-qyj-work-deepseek-harness--')
+    expect(projectKey('/Users/qyj/work/lyness')).toBe('--Users-qyj-work-lyness--')
     expect(projectKey('/a/b-c')).toBe(projectKey('/a-b/c'))
     expect(projectKey('C:\\work\\agent')).toBe('--C-work-agent--')
     expect(projectKey('/开发/~agent')).toBe('--~5F00~53D1-~007Eagent--')

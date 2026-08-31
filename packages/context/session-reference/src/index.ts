@@ -2,22 +2,22 @@
  * Cross-session snapshot preparation. Hosts adapt mentions into structured
  * references; this service owns exact reads, projection, budgets, and durable context.
  *
- * @module @deepseek-ai/dsh-session-reference
+ * @module @lyness/session-reference
  */
 
-import { Context } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
-import type { Agent, PreStepDecision } from '@deepseek-ai/dsh-agent'
-import { Remote, TypertRemoteService } from '@deepseek-ai/dsh-typert-protocol'
-import { createUserMessage, freezeMessage } from '@deepseek-ai/dsh-llm'
-import type { ContentBlock, UserMessage } from '@deepseek-ai/dsh-llm'
-import type { SessionId } from '@deepseek-ai/dsh-session'
+import { Context } from '@lyness/cordis'
+import z from '@lyness/schemastery'
+import type { Agent, PreStepDecision } from '@lyness/agent'
+import { Remote, TypertRemoteService } from '@lyness/typert-protocol'
+import { createUserMessage, freezeMessage } from '@lyness/llm'
+import type { ContentBlock, UserMessage } from '@lyness/llm'
+import type { SessionId } from '@lyness/session'
 // Type-only: the `title` projection key plus the live registry and durable
 // cache Context merges — the two projection faces discovery labels from.
-import type { ProjectionSnapshot } from '@deepseek-ai/dsh-session-projection'
-import type {} from '@deepseek-ai/dsh-session-projection-cache'
-import type {} from '@deepseek-ai/dsh-session-title'
-import type { SessionRecord, SessionSurfaceSnapshot } from '@deepseek-ai/dsh-session-query'
+import type { ProjectionSnapshot } from '@lyness/session-projection'
+import type {} from '@lyness/session-projection-cache'
+import type {} from '@lyness/session-title'
+import type { SessionRecord, SessionSurfaceSnapshot } from '@lyness/session-query'
 import {
   DEFAULT_CANDIDATE_LIMIT,
   DEFAULT_MAX_REFERENCE_BYTES,
@@ -60,7 +60,7 @@ user explicitly repeats them.
 `
 const PROMPT_SUFFIX = '\n</referenced-sessions>'
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Context {
     sessionReferenceResolver: SessionReferenceResolver
   }

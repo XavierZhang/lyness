@@ -2,29 +2,29 @@ import { mkdtemp, mkdir, readFile, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import LlmRuntime, { createUserMessage, ToolCallId, HarnessError  } from '@deepseek-ai/dsh-llm'
-import SessionStore, { SessionId } from '@deepseek-ai/dsh-session'
-import type { SessionEvent } from '@deepseek-ai/dsh-session'
-import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
-import ToolRuntime, { RUN_CODE_NAME, defineTool } from '@deepseek-ai/dsh-tools'
-import type { ToolExecutionResult } from '@deepseek-ai/dsh-tools'
-import AgentRegistry, { type Agent } from '@deepseek-ai/dsh-agent'
+import { Context } from '@lyness/cordis'
+import LlmRuntime, { createUserMessage, ToolCallId, HarnessError  } from '@lyness/llm'
+import SessionStore, { SessionId } from '@lyness/session'
+import type { SessionEvent } from '@lyness/session'
+import SystemPrompt from '@lyness/system-prompt'
+import ToolRuntime, { RUN_CODE_NAME, defineTool } from '@lyness/tools'
+import type { ToolExecutionResult } from '@lyness/tools'
+import AgentRegistry, { type Agent } from '@lyness/agent'
 
-import AgentLoop from '@deepseek-ai/dsh-agent-loop'
-import { LocalBashExecutor } from '@deepseek-ai/dsh-bash-local'
-import * as BashEnvPlugin from '@deepseek-ai/dsh-shell-env'
-import LocalSubprocessRuntime from '@deepseek-ai/dsh-subprocess-local'
-import * as ToolBash from '@deepseek-ai/dsh-tool-bash'
-import * as LlmDeepSeek from '@deepseek-ai/dsh-llm-deepseek'
-import { WorkerThreadCodeRuntime } from '@deepseek-ai/dsh-code-runtime-worker-thread'
-import LocalFileSystem from '@deepseek-ai/dsh-fs-local'
-import * as ToolFs from '@deepseek-ai/dsh-tool-fs'
-import * as WorkspaceContext from '@deepseek-ai/dsh-agent-instructions'
-import LocalJobRegistry from '@deepseek-ai/dsh-jobs-local'
-import * as ToolTasks from '@deepseek-ai/dsh-tool-jobs'
-import CordisHostRunner from '@deepseek-ai/dsh-cordis-host-runner'
-import * as ToolCordis from '@deepseek-ai/dsh-tool-cordis'
+import AgentLoop from '@lyness/agent-loop'
+import { LocalBashExecutor } from '@lyness/bash-local'
+import * as BashEnvPlugin from '@lyness/shell-env'
+import LocalSubprocessRuntime from '@lyness/subprocess-local'
+import * as ToolBash from '@lyness/tool-bash'
+import * as LlmDeepSeek from '@lyness/llm-deepseek'
+import { WorkerThreadCodeRuntime } from '@lyness/code-runtime-worker-thread'
+import LocalFileSystem from '@lyness/fs-local'
+import * as ToolFs from '@lyness/tool-fs'
+import * as WorkspaceContext from '@lyness/agent-instructions'
+import LocalJobRegistry from '@lyness/jobs-local'
+import * as ToolTasks from '@lyness/tool-jobs'
+import CordisHostRunner from '@lyness/cordis-host-runner'
+import * as ToolCordis from '@lyness/tool-cordis'
 
 /**
  * With-key PTC mode proof: a real model receives only `run_code`, composes two
@@ -187,7 +187,7 @@ describe('PTC mode typed values: keyless real-worker contracts', () => {
   })
 
   it('returns a background job id, settles the outer run, and polls that id to completion', async () => {
-    workdir = await mkdtemp(join(tmpdir(), 'dsh-ptc-background-'))
+    workdir = await mkdtemp(join(tmpdir(), 'lyn-ptc-background-'))
     ctx = await backgroundPtcModeHarness(workdir)
 
     const jobId = completion(await runCode(ctx, `
@@ -210,7 +210,7 @@ describe('PTC mode typed values: keyless real-worker contracts', () => {
   }, 15_000)
 
   it('pre-abort spawns nothing; post-publication abort leaves job_kill as the cancellation owner', async () => {
-    workdir = await mkdtemp(join(tmpdir(), 'dsh-ptc-task-cancel-'))
+    workdir = await mkdtemp(join(tmpdir(), 'lyn-ptc-task-cancel-'))
     ctx = await backgroundPtcModeHarness(workdir)
 
     const pre = new AbortController()
@@ -247,7 +247,7 @@ describe('PTC mode typed values: keyless real-worker contracts', () => {
   }, 15_000)
 
   it('keeps foreground bash coupled to the outer signal', async () => {
-    workdir = await mkdtemp(join(tmpdir(), 'dsh-ptc-foreground-cancel-'))
+    workdir = await mkdtemp(join(tmpdir(), 'lyn-ptc-foreground-cancel-'))
     ctx = await backgroundPtcModeHarness(workdir)
     const controller = new AbortController()
     const startedAt = Date.now()
@@ -351,7 +351,7 @@ function waitForIdle(harness: Context, agent: Agent): Promise<void> {
 
 describe.skipIf(!process.env.DEEPSEEK_API_KEY)('PTC mode: real model writes a program over real tools', () => {
   it('collapses the wire tool list to [run_code], bridges sub-calls, and returns curated output', async () => {
-    workdir = await mkdtemp(join(tmpdir(), 'dsh-ptc-e2e-'))
+    workdir = await mkdtemp(join(tmpdir(), 'lyn-ptc-e2e-'))
     ctx = await ptcModeHarness(workdir)
     const agent = ctx.agentLoop.create(SessionId('e2e-ptc'), { provider: 'deepseek-official', model: 'deepseek-v4-flash' })
 
@@ -396,7 +396,7 @@ describe.skipIf(!process.env.DEEPSEEK_API_KEY)('PTC mode: real model writes a pr
   }, 180_000)
 
   it('projects nested workspace instructions discovered by an fs sub-call', async () => {
-    workdir = await mkdtemp(join(tmpdir(), 'dsh-ptc-workspace-e2e-'))
+    workdir = await mkdtemp(join(tmpdir(), 'lyn-ptc-workspace-e2e-'))
     await mkdir(join(workdir, '.git'), { recursive: true })
     await mkdir(join(workdir, 'pkg/deep'), { recursive: true })
     await writeFile(join(workdir, 'pkg/AGENTS.md'), `If asked for the PTC mode workspace handshake, reply with exactly ${WORKSPACE_PROBE} and nothing else.\n`)

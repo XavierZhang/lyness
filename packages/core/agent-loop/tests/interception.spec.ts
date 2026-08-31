@@ -1,21 +1,21 @@
 import { describe, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import LlmRuntime, { createUserMessage, ToolCallId  } from '@deepseek-ai/dsh-llm'
+import { Context } from '@lyness/cordis'
+import LlmRuntime, { createUserMessage, ToolCallId  } from '@lyness/llm'
 import SessionStore, {
   SessionId,
   type SessionEvent,
   type TurnEndReason,
   type UserMessage,
-} from '@deepseek-ai/dsh-session'
-import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
-import ToolRuntime, { defineContentToolFixture, type PostToolDecision, type PreToolDecision } from '@deepseek-ai/dsh-tools'
+} from '@lyness/session'
+import SystemPrompt from '@lyness/system-prompt'
+import ToolRuntime, { defineContentToolFixture, type PostToolDecision, type PreToolDecision } from '@lyness/tools'
 import AgentRegistry, {
   type Agent,
   type PreStepDecision,
   type SessionStartSource,
-} from '@deepseek-ai/dsh-agent'
+} from '@lyness/agent'
 
-import AgentLoop from '@deepseek-ai/dsh-agent-loop'
+import AgentLoop from '@lyness/agent-loop'
 import { MockAdapter, textResponse, toolCallResponse } from './mock-adapter.ts'
 
 /**
@@ -717,7 +717,7 @@ describe('tools/pre-execute gate (native-plugin permission pattern, end-to-end t
 })
 
 describe('worked example: a native hook plugin is just a cordis plugin on the seams', () => {
-  // The whole point of the interception taxonomy: a "native hook" needs no dsh-hook-protocol,
+  // The whole point of the interception taxonomy: a "native hook" needs no lyn-hook-protocol,
   // no external command, no hook/* log — it is an ordinary cordis plugin subscribing to the
   // canonical events and returning typed decisions.
   const NativeGuard = {

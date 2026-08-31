@@ -5,16 +5,16 @@ import { createPortal } from 'react-dom'
 import {
   type SessionListState, type SessionProjectionMap, type SessionSummary,
   type SubagentCatalogSnapshot,
-} from '@deepseek-ai/dsh-api-session-controller/client'
-import type { SubagentAddress } from '@deepseek-ai/dsh-subagent/client'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
+} from '@lyness/api-session-controller/client'
+import type { SubagentAddress } from '@lyness/subagent/client'
+import type { SessionId } from '@lyness/session/types'
 import {
   IconChevronDownOutline14, IconChevronRightOutline14, IconRefreshOutline14, StateDot,
-} from '@deepseek-ai/dsh-client-ui-primitives'
-import type { PropsLocale, PropsRuntime, TranslateNS } from '@deepseek-ai/dsh-client-ui-slots'
+} from '@lyness/client-ui-primitives'
+import type { PropsLocale, PropsRuntime, TranslateNS } from '@lyness/client-ui-slots'
 import { NS } from './locales.ts'
-import type {} from '@deepseek-ai/dsh-client-ui-conversation/client'
-import type {} from '@deepseek-ai/dsh-token-meter/client'
+import type {} from '@lyness/client-ui-conversation/client'
+import type {} from '@lyness/token-meter/client'
 import css from './SubagentHeaderLineage.module.css'
 import { indexSubagentDescendants } from './subagent-lineage.ts'
 

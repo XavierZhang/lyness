@@ -1,31 +1,31 @@
 /** Host BFF entry and Loader shell for the Remote contribution assembly. */
 
 import { homedir } from 'node:os'
-import type { Context } from '@deepseek-ai/cordis'
+import type { Context } from '@lyness/cordis'
 import type {
   TypertRemoteEventDispatch,
   TypertRemoteEventInvocation,
   TypertRemoteEventOutcome,
   TypertRemoteEventSource,
-} from '@deepseek-ai/dsh-api-gateway'
-import { carrierKeyOf } from '@deepseek-ai/dsh-scope'
-import { isJsonValue } from '@deepseek-ai/dsh-session'
-import type { JsonValue } from '@deepseek-ai/dsh-session'
+} from '@lyness/api-gateway'
+import { carrierKeyOf } from '@lyness/scope'
+import { isJsonValue } from '@lyness/session'
+import type { JsonValue } from '@lyness/session'
 import { API_REMOTE_FORWARDED_EVENTS } from './remote-events.ts'
 
 // The owner packages' client-safe `./types` exports carry the cordis `Events`
 // declarations for every allowlisted event. Pulling them into this face is what
 // makes the shape assertion below judge real signatures rather than an empty
 // event vocabulary.
-import type {} from '@deepseek-ai/dsh-commands/types'
-import type {} from '@deepseek-ai/dsh-cordis-host-runner/types'
-import type {} from '@deepseek-ai/dsh-credentials/types'
-import type {} from '@deepseek-ai/dsh-llm/types'
-import type {} from '@deepseek-ai/dsh-agent-presets/types'
-import type {} from '@deepseek-ai/dsh-settings/types'
-import type {} from '@deepseek-ai/dsh-user-approval'
-import type {} from '@deepseek-ai/dsh-user-questions'
-export type {} from '@deepseek-ai/dsh-api-session-controller/types'
+import type {} from '@lyness/commands/types'
+import type {} from '@lyness/cordis-host-runner/types'
+import type {} from '@lyness/credentials/types'
+import type {} from '@lyness/llm/types'
+import type {} from '@lyness/agent-presets/types'
+import type {} from '@lyness/settings/types'
+import type {} from '@lyness/user-approval'
+import type {} from '@lyness/user-questions'
+export type {} from '@lyness/api-session-controller/types'
 
 export { API_REMOTE_FORWARDED_EVENTS } from './remote-events.ts'
 export type { ApiRemoteForwardedEvent } from './types.ts'

@@ -1,18 +1,18 @@
 /** Agent activation, composition, and model-selection policy owned by API Session. */
 
 import { mkdir } from 'node:fs/promises'
-import type { Context } from '@deepseek-ai/cordis'
-import { installModelSelection } from '@deepseek-ai/dsh-agent'
+import type { Context } from '@lyness/cordis'
+import { installModelSelection } from '@lyness/agent'
 import type {
   Agent, AgentOptions, AgentSetup, ModelSelection as AgentModelSelection, ModelSelectionRef,
-} from '@deepseek-ai/dsh-agent'
-import type {} from '@deepseek-ai/dsh-agent-default-model'
-import type {} from '@deepseek-ai/dsh-agent-presets'
-import { ReasoningEffortId } from '@deepseek-ai/dsh-llm'
-import type { Session, SessionEvent, SessionHeader, SessionId } from '@deepseek-ai/dsh-session'
-import { SessionQueryError, type SessionObservation } from '@deepseek-ai/dsh-session-query'
-import { TypertLookupFailure } from '@deepseek-ai/dsh-typert-protocol'
-import type {} from '@deepseek-ai/dsh-typert-registry'
+} from '@lyness/agent'
+import type {} from '@lyness/agent-default-model'
+import type {} from '@lyness/agent-presets'
+import { ReasoningEffortId } from '@lyness/llm'
+import type { Session, SessionEvent, SessionHeader, SessionId } from '@lyness/session'
+import { SessionQueryError, type SessionObservation } from '@lyness/session-query'
+import { TypertLookupFailure } from '@lyness/typert-protocol'
+import type {} from '@lyness/typert-registry'
 import type { ModelSelection, SessionError } from './types.ts'
 
 /** Cold Session identity absent from persistence. */

@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-deepseek-llm-api-extensions",
+  "name": "@lyness/deepseek-llm-api-extensions",
   "description": "Additive request-field registry for the official DeepSeek LLM API adapter",
   "version": "0.1.2-alpha.1",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/llm/deepseek-llm-api-extensions"
   },
   "type": "module",
@@ -37,11 +37,11 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/dsh-invariants": "workspace:^",
-    "@deepseek-ai/cordis": "workspace:^"
+    "@lyness/invariants": "workspace:^",
+    "@lyness/cordis": "workspace:^"
   },
   "devDependencies": {
-    "@deepseek-ai/dsh-invariants": "workspace:^",
-    "@deepseek-ai/cordis": "workspace:^"
+    "@lyness/invariants": "workspace:^",
+    "@lyness/cordis": "workspace:^"
   }
 }

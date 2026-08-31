@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-client-ui-approval",
+  "name": "@lyness/client-ui-approval",
   "description": "Approval composer takeover over the scoped Remote Event waterfall",
   "version": "0.1.2-alpha.1",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/client/ui-approval"
   },
   "type": "module",
@@ -29,15 +29,15 @@
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
-  "dsh": {
+  "lyn": {
     "client": {
       "inject": [
-        "@deepseek-ai/dsh-api-remotes",
-        "@deepseek-ai/dsh-api-session-controller",
-        "@deepseek-ai/dsh-client-locale",
-        "@deepseek-ai/dsh-client-ui-conversation",
-        "@deepseek-ai/dsh-client-ui-renderer",
-        "@deepseek-ai/dsh-client-ui-session"
+        "@lyness/api-remotes",
+        "@lyness/api-session-controller",
+        "@lyness/client-locale",
+        "@lyness/client-ui-conversation",
+        "@lyness/client-ui-renderer",
+        "@lyness/client-ui-session"
       ],
       "platform": "web"
     }
@@ -48,32 +48,32 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:^",
-    "@deepseek-ai/dsh-api-remotes": "workspace:^",
-    "@deepseek-ai/dsh-api-session-controller": "workspace:^",
-    "@deepseek-ai/dsh-client-locale": "workspace:^",
-    "@deepseek-ai/dsh-client-ui-conversation": "workspace:^",
-    "@deepseek-ai/dsh-client-ui-renderer": "workspace:^",
-    "@deepseek-ai/dsh-client-ui-session": "workspace:^",
-    "@deepseek-ai/dsh-invariants": "workspace:^",
-    "@deepseek-ai/dsh-llm": "workspace:^",
-    "@deepseek-ai/dsh-session": "workspace:^",
-    "@deepseek-ai/dsh-typert-protocol": "workspace:^"
+    "@lyness/cordis": "workspace:^",
+    "@lyness/api-remotes": "workspace:^",
+    "@lyness/api-session-controller": "workspace:^",
+    "@lyness/client-locale": "workspace:^",
+    "@lyness/client-ui-conversation": "workspace:^",
+    "@lyness/client-ui-renderer": "workspace:^",
+    "@lyness/client-ui-session": "workspace:^",
+    "@lyness/invariants": "workspace:^",
+    "@lyness/llm": "workspace:^",
+    "@lyness/session": "workspace:^",
+    "@lyness/typert-protocol": "workspace:^"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:^",
-    "@deepseek-ai/dsh-api-remotes": "workspace:^",
-    "@deepseek-ai/dsh-api-session-controller": "workspace:^",
-    "@deepseek-ai/dsh-client-locale": "workspace:^",
-    "@deepseek-ai/dsh-client-ui-conversation": "workspace:^",
-    "@deepseek-ai/dsh-client-ui-primitives": "workspace:^",
-    "@deepseek-ai/dsh-client-ui-renderer": "workspace:^",
-    "@deepseek-ai/dsh-client-ui-session": "workspace:^",
-    "@deepseek-ai/dsh-client-ui-slots": "workspace:^",
-    "@deepseek-ai/dsh-invariants": "workspace:^",
-    "@deepseek-ai/dsh-llm": "workspace:^",
-    "@deepseek-ai/dsh-session": "workspace:^",
-    "@deepseek-ai/dsh-typert-protocol": "workspace:^",
+    "@lyness/cordis": "workspace:^",
+    "@lyness/api-remotes": "workspace:^",
+    "@lyness/api-session-controller": "workspace:^",
+    "@lyness/client-locale": "workspace:^",
+    "@lyness/client-ui-conversation": "workspace:^",
+    "@lyness/client-ui-primitives": "workspace:^",
+    "@lyness/client-ui-renderer": "workspace:^",
+    "@lyness/client-ui-session": "workspace:^",
+    "@lyness/client-ui-slots": "workspace:^",
+    "@lyness/invariants": "workspace:^",
+    "@lyness/llm": "workspace:^",
+    "@lyness/session": "workspace:^",
+    "@lyness/typert-protocol": "workspace:^",
     "@types/react": "~18.3.1",
     "react": "^18.2.0"
   },

@@ -2,13 +2,13 @@
  * Incremental session-log contribution for official DeepSeek LLM API requests.
  * Accepted sequence watermarks live in the canonical log, so restart recovery
  * can conservatively resend uncertain tails without maintaining another store.
- * @module @deepseek-ai/dsh-session-log-deepseek
+ * @module @lyness/session-log-deepseek
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
-import type {} from '@deepseek-ai/dsh-deepseek-llm-api-extensions'
-import { SessionId, type Session, type SessionEvent } from '@deepseek-ai/dsh-session'
+import type { Context } from '@lyness/cordis'
+import z from '@lyness/schemastery'
+import type {} from '@lyness/deepseek-llm-api-extensions'
+import { SessionId, type Session, type SessionEvent } from '@lyness/session'
 import type { DeepSeekSessionLogExtension } from './types.ts'
 
 export type * from './types.ts'
@@ -20,7 +20,7 @@ export const inject = ['deepseekLlmApiExtensions', 'sessions']
 
 /** Session-log request contribution configuration. */
 export interface Config {
-  /** Contribute `dsh_session_log` to official DeepSeek requests. Defaults to `false`. */
+  /** Contribute `lyn_session_log` to official DeepSeek requests. Defaults to `false`. */
   enabled?: boolean
 }
 
@@ -62,13 +62,13 @@ export function acceptedThrough(session: Session): number {
 }
 
 /**
- * Register the incremental `dsh_session_log` request contribution when enabled.
+ * Register the incremental `lyn_session_log` request contribution when enabled.
  * @param ctx - plugin context carrying Sessions and the DeepSeek request-extension registry.
  * @param config - validated opt-in configuration.
  */
 export function apply(ctx: Context, config: Config): void {
   if (config.enabled !== true) return
-  ctx.deepseekLlmApiExtensions.register('dsh_session_log', {
+  ctx.deepseekLlmApiExtensions.register('lyn_session_log', {
     prepare: (request) => {
       // TODO: Define an explicit wire result for direct or stale-session calls if they become a supported product path.
       if (request.sessionId === undefined) return undefined

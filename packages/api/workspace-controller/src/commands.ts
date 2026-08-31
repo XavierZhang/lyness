@@ -1,14 +1,14 @@
 /** Workspace command implementation and stable Remote failure mapping. */
 
-import type { Context } from '@deepseek-ai/cordis'
-import type { Workspace } from '@deepseek-ai/dsh-workspace'
+import type { Context } from '@lyness/cordis'
+import type { Workspace } from '@lyness/workspace'
 import {
   WorkspaceId,
   WorkspaceMoveInvalidError,
   WorkspaceOrderInvalidError,
   WorkspaceUnknownSessionError,
-} from '@deepseek-ai/dsh-workspace'
-import { TypertRemoteFailure } from '@deepseek-ai/dsh-typert-protocol'
+} from '@lyness/workspace'
+import { TypertRemoteFailure } from '@lyness/typert-protocol'
 import { workspaceView } from './feed.ts'
 import type {
   WorkspaceArchiveSessionRequest,

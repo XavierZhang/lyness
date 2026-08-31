@@ -1,7 +1,7 @@
 /**
  * Default Agent driver over queued turns and step-boundary input. Every request
  * is derived from the session log.
- * @module dsh-agent-loop/agent
+ * @module lyn-agent-loop/agent
  */
 
 import type {
@@ -14,9 +14,9 @@ import type {
   InboxTarget,
   PreStepDecision,
   RequestErrorAction,
-} from '@deepseek-ai/dsh-agent'
-import { Inbox, agentEvents, assembleContextFor } from '@deepseek-ai/dsh-agent'
-import type { GenerateOptions, LlmCallConfig, Message, PreparedLlmCall } from '@deepseek-ai/dsh-llm'
+} from '@lyness/agent'
+import { Inbox, agentEvents, assembleContextFor } from '@lyness/agent'
+import type { GenerateOptions, LlmCallConfig, Message, PreparedLlmCall } from '@lyness/llm'
 import {
   BlockAssembler,
   LlmError,
@@ -24,14 +24,14 @@ import {
   deepFreeze,
   errorChain,
   markAgentLoopRequest,
-} from '@deepseek-ai/dsh-llm'
-import type { Scope } from '@deepseek-ai/dsh-scope'
-import { createScope } from '@deepseek-ai/dsh-scope'
-import type { EpochHeader, RequestContext, Session, SessionId, TurnEndReason, UserMessage } from '@deepseek-ai/dsh-session'
-import { canonicalHeader, headerEquals } from '@deepseek-ai/dsh-session'
-import { joinContextSections, renderContextSections, renderPrompt } from '@deepseek-ai/dsh-system-prompt'
-import type { PromptAssembly } from '@deepseek-ai/dsh-system-prompt'
-import type { Context } from '@deepseek-ai/cordis'
+} from '@lyness/llm'
+import type { Scope } from '@lyness/scope'
+import { createScope } from '@lyness/scope'
+import type { EpochHeader, RequestContext, Session, SessionId, TurnEndReason, UserMessage } from '@lyness/session'
+import { canonicalHeader, headerEquals } from '@lyness/session'
+import { joinContextSections, renderContextSections, renderPrompt } from '@lyness/system-prompt'
+import type { PromptAssembly } from '@lyness/system-prompt'
+import type { Context } from '@lyness/cordis'
 import { RuntimeContextProjection } from './runtime-context.ts'
 import { executeToolCalls } from './tool-calls.ts'
 

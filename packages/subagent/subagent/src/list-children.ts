@@ -13,14 +13,14 @@
  * error. The module owns no catalog state and does not consult Activation,
  * Agent-registry, continuation-manager, or provider state.
  *
- * @module @deepseek-ai/dsh-subagent
+ * @module @lyness/subagent
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import type { Session, SessionHeader, SessionId } from '@deepseek-ai/dsh-session'
-import type { SessionProjectionRegistry } from '@deepseek-ai/dsh-session-projection'
-import type { SessionProjectionCache } from '@deepseek-ai/dsh-session-projection-cache'
-import type { SessionObservation, SessionQueryEngine } from '@deepseek-ai/dsh-session-query'
+import type { Context } from '@lyness/cordis'
+import type { Session, SessionHeader, SessionId } from '@lyness/session'
+import type { SessionProjectionRegistry } from '@lyness/session-projection'
+import type { SessionProjectionCache } from '@lyness/session-projection-cache'
+import type { SessionObservation, SessionQueryEngine } from '@lyness/session-query'
 import type { SubagentListEntry } from './control-types.ts'
 import { SubagentError } from './error.ts'
 import type { SubagentIdentityProjection } from './projection-types.ts'
@@ -138,7 +138,7 @@ async function prepareListing(
   // deployment configuration error, never an empty success.
   if (projections === undefined) {
     throw new SubagentError(
-      'listing subagents requires the sessionProjections registry (load @deepseek-ai/dsh-session-projection)',
+      'listing subagents requires the sessionProjections registry (load @lyness/session-projection)',
       'SUBAGENT_CONTROL_PROJECTIONS_UNAVAILABLE',
     )
   }
@@ -148,7 +148,7 @@ async function prepareListing(
   const sessions = ctx.get('sessions')
   if (sessions === undefined) {
     throw new SubagentError(
-      'listing subagents requires the session store (load @deepseek-ai/dsh-session)',
+      'listing subagents requires the session store (load @lyness/session)',
       'SUBAGENT_CONTROL_SESSION_STORE_UNAVAILABLE',
     )
   }
@@ -156,7 +156,7 @@ async function prepareListing(
   const query = ctx.get('sessionQuery')
   if (query === undefined) {
     throw new SubagentError(
-      'listing subagents requires the sessionQuery service (load @deepseek-ai/dsh-session-query)',
+      'listing subagents requires the sessionQuery service (load @lyness/session-query)',
       'SUBAGENT_CONTROL_QUERY_UNAVAILABLE',
     )
   }

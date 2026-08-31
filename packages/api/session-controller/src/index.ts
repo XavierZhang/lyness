@@ -1,12 +1,12 @@
 /** Session Remote owner: cold reads, explicit Agent commands, and live control state. */
 
-import { Context } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
-import { errorChain } from '@deepseek-ai/dsh-llm'
-import { canOpenNativePath, openNativePath } from '@deepseek-ai/dsh-native-command'
-import type { SessionEvent, SessionHeader, SessionId } from '@deepseek-ai/dsh-session'
-import type { SessionObservation } from '@deepseek-ai/dsh-session-query'
-import { Remote, TypertRemoteFailure, TypertRemoteService } from '@deepseek-ai/dsh-typert-protocol'
+import { Context } from '@lyness/cordis'
+import z from '@lyness/schemastery'
+import { errorChain } from '@lyness/llm'
+import { canOpenNativePath, openNativePath } from '@lyness/native-command'
+import type { SessionEvent, SessionHeader, SessionId } from '@lyness/session'
+import type { SessionObservation } from '@lyness/session-query'
+import { Remote, TypertRemoteFailure, TypertRemoteService } from '@lyness/typert-protocol'
 import {
   ApiSessionAgentController,
   inspectApiSession,
@@ -56,7 +56,7 @@ export { ApiSessionNotFound } from './agent.ts'
 export { SessionFileReferences } from './file-references.ts'
 export { SessionSkillCatalog } from './skill-catalog.ts'
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Context {
     /** Host Session business API and Remote namespace owner. */
     sessionController: SessionController

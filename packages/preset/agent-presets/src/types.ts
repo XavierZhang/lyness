@@ -1,5 +1,5 @@
 /** Client-safe payloads and event declarations owned by the agent-preset domain. */
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import type { SessionId } from '@lyness/session/types'
 import type { PresetTrust } from './preset.ts'
 
 export type { PresetTrust } from './preset.ts'
@@ -70,7 +70,7 @@ export interface AgentPresetDocument {
   readonly description?: string
 }
 
-declare module '@deepseek-ai/dsh-session-projection/types' {
+declare module '@lyness/session-projection/types' {
   interface SessionProjectionStateMap {
     agentPreset: string | null
   }
@@ -80,7 +80,7 @@ declare module '@deepseek-ai/dsh-session-projection/types' {
   }
 }
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Events {
     /**
      * One session committed a different agent preset to its durable log.

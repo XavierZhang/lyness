@@ -19,8 +19,8 @@ import type {
   WorkspaceId,
   WorkspaceView,
 } from '../src/types.ts'
-import type { RemoteResult } from '@deepseek-ai/dsh-typert-protocol'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import type { RemoteResult } from '@lyness/typert-protocol'
+import type { SessionId } from '@lyness/session/types'
 
 const sid = (id: string): SessionId => id as SessionId
 const wid = (id: string): WorkspaceId => id as WorkspaceId

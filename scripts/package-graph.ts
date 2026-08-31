@@ -8,11 +8,31 @@
 import { globSync, readFileSync } from 'node:fs'
 import { dirname, resolve, sep } from 'node:path'
 
-const SCOPE = '@deepseek-ai/dsh-'
+const SCOPE = '@lyness/'
+
+/**
+ * Names of the pinned third-party packages, which the graph treats as external.
+ *
+ * The scope stopped separating the two families when the fork's packages
+ * dropped the product-name segment: `@lyness/agent` and the vendored
+ * `@lyness/cordis` are now indistinguishable by name. The graph's nodes come
+ * from `packages/`, so a vendored peer would read as an in-repo package that
+ * was never collected. Location is what still separates them.
+ * @param root - absolute repository root.
+ * @returns every package name declared under `vendor/`.
+ */
+function vendoredPackageNames(root: string): ReadonlySet<string> {
+  const names = new Set<string>()
+  for (const rel of globSync('vendor/*/package.json', { cwd: root })) {
+    const { name } = JSON.parse(readFileSync(resolve(root, rel), 'utf8')) as { name?: string }
+    if (name !== undefined) names.add(name)
+  }
+  return names
+}
 
 /** One harness package and its in-repo peer-dependency edges. */
 export interface PackageGraphNode {
-  /** Package name with the `@deepseek-ai/dsh-` prefix removed. */
+  /** Package name with the `@lyness/` prefix removed. */
   short: string
   /** Full npm package name. */
   name: string
@@ -34,6 +54,7 @@ export interface PackageGraphNode {
  */
 export function collectPackageGraph(root: string, groupOrder: readonly string[], gate: string): PackageGraphNode[] {
   const packages: PackageGraphNode[] = []
+  const vendored = vendoredPackageNames(root)
   for (const rel of globSync('packages/*/*/package.json', { cwd: root }).map(path => path.split(sep).join('/')).sort()) {
     const json = JSON.parse(readFileSync(resolve(root, rel), 'utf8')) as {
       name: string
@@ -43,7 +64,7 @@ export function collectPackageGraph(root: string, groupOrder: readonly string[],
     const [, group, leaf] = rel.split('/')
     if (group === undefined || leaf === undefined) throw new Error(`${gate}: unexpected package path ${rel}`)
     const deps = Object.keys(json.peerDependencies ?? {})
-      .filter(dep => dep.startsWith(SCOPE))
+      .filter(dep => dep.startsWith(SCOPE) && !vendored.has(dep))
       .map(dep => dep.slice(SCOPE.length))
       .sort()
     packages.push({

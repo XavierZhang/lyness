@@ -1,8 +1,8 @@
 /** Session-owned observable state excluding Conversation target data. */
-import type { ContentBlock } from '@deepseek-ai/dsh-llm/types'
-import type { MessageId } from '@deepseek-ai/dsh-llm/brand'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
-import type { SubagentAddress } from '@deepseek-ai/dsh-subagent/client'
+import type { ContentBlock } from '@lyness/llm/types'
+import type { MessageId } from '@lyness/llm/brand'
+import type { SessionId } from '@lyness/session/types'
+import type { SubagentAddress } from '@lyness/subagent/client'
 import type { SessionRequestId } from '../../types.ts'
 import type { ClientFailure } from './result.ts'
 

@@ -1,15 +1,15 @@
 import { describe, expect, it, vi } from 'vitest'
 import type {
   SessionEventLike, SessionEventLikeEntry, SessionLiveEventEntry,
-} from '@deepseek-ai/dsh-api-session-controller/client'
-import type { ChunkRowEvent } from '@deepseek-ai/dsh-api-session-controller/types'
-import type { ChunkRow } from '@deepseek-ai/dsh-session/chunk-rows'
-import type { SessionEvent } from '@deepseek-ai/dsh-session/types'
-import { ConversationNodeAssembler } from '@deepseek-ai/dsh-client-ui-conversation/client'
+} from '@lyness/api-session-controller/client'
+import type { ChunkRowEvent } from '@lyness/api-session-controller/types'
+import type { ChunkRow } from '@lyness/session/chunk-rows'
+import type { SessionEvent } from '@lyness/session/types'
+import { ConversationNodeAssembler } from '@lyness/client-ui-conversation/client'
 import type {
   ConversationMatch, ConversationNodeContext,
   ConversationNodeDefinition, ConversationViewDefinition, ConversationViewNode,
-} from '@deepseek-ai/dsh-client-ui-conversation/client'
+} from '@lyness/client-ui-conversation/client'
 
 interface ScopeProbeStepData {
   readonly value: number
@@ -19,7 +19,7 @@ interface ScopeProbeTurnData {
   readonly valueSeenFromStep: number
 }
 
-declare module '@deepseek-ai/dsh-client-ui-conversation/client' {
+declare module '@lyness/client-ui-conversation/client' {
   interface ConversationStepDataMap {
     'scope-probe': ScopeProbeStepData
   }

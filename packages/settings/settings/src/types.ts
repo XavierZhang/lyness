@@ -5,11 +5,11 @@
  * runtime code, and nothing here reaches a Host-only symbol, so a Client
  * compilation face reads exactly the signatures the Host emits.
  *
- * @module @deepseek-ai/dsh-settings/types
+ * @module @lyness/settings/types
  */
 
-import type { Branded } from '@deepseek-ai/dsh-brand'
-import type { JsonValue } from '@deepseek-ai/dsh-session/types'
+import type { Branded } from '@lyness/brand'
+import type { JsonValue } from '@lyness/session/types'
 
 /** Nominal id of one registered settings namespace. */
 export type SettingsNamespace = Branded<'SettingsNamespace'>
@@ -72,7 +72,7 @@ export interface SettingsDescribeValue {
   namespaces: SettingsNamespaceView[]
 }
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Events {
     /**
      * Committed change to one registered namespace's resolved value. Emitted

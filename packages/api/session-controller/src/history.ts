@@ -1,12 +1,12 @@
 /** Cold Session history pagination and live-event source. */
 
-import type { Context } from '@deepseek-ai/cordis'
-import { isAppendSurfaceEvent } from '@deepseek-ai/dsh-session'
-import { isChunkRow, packChunkRuns, type ChunkRow } from '@deepseek-ai/dsh-session/chunk-rows'
-import type { SessionEvent, SessionHeader, SessionId } from '@deepseek-ai/dsh-session'
-import { SessionQueryError, type SessionObservation } from '@deepseek-ai/dsh-session-query'
-import type {} from '@deepseek-ai/dsh-subagent'
-import { TypertRemoteFailure } from '@deepseek-ai/dsh-typert-protocol'
+import type { Context } from '@lyness/cordis'
+import { isAppendSurfaceEvent } from '@lyness/session'
+import { isChunkRow, packChunkRuns, type ChunkRow } from '@lyness/session/chunk-rows'
+import type { SessionEvent, SessionHeader, SessionId } from '@lyness/session'
+import { SessionQueryError, type SessionObservation } from '@lyness/session-query'
+import type {} from '@lyness/subagent'
+import { TypertRemoteFailure } from '@lyness/typert-protocol'
 import type {
   SessionAddress,
   SessionChunkRun,

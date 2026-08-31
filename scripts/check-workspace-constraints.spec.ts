@@ -4,22 +4,22 @@ import { describe, expect, it } from 'vitest'
 import {
   checkExperimentalDependencyIsolation,
   checkExperimentalManifest,
-  expectedDshPackageFiles,
+  expectedLynPackageFiles,
   type WorkspaceManifest,
 } from './check-workspace-constraints.ts'
 
 const experimental: WorkspaceManifest = {
   dir: 'packages/experimental/prototype',
-  manifest: { name: '@deepseek-ai/dsh-experimental-prototype', private: true },
+  manifest: { name: '@lyness/experimental-prototype', private: true },
 }
 
 describe('experimental workspace constraints', () => {
   it('requires the experimental package-name prefix', () => {
     expect(checkExperimentalManifest({
       ...experimental,
-      manifest: { ...experimental.manifest, name: '@deepseek-ai/dsh-prototype' },
+      manifest: { ...experimental.manifest, name: '@lyness/prototype' },
     })).toEqual([
-      '@deepseek-ai/dsh-prototype: experimental package name must start with "@deepseek-ai/dsh-experimental-"',
+      '@lyness/prototype: experimental package name must start with "@lyness/experimental-"',
     ])
   })
 
@@ -29,8 +29,8 @@ describe('experimental workspace constraints', () => {
       ...experimental,
       manifest: { ...experimental.manifest, private: false, publishConfig: { access: 'public' } },
     })).toEqual([
-      '@deepseek-ai/dsh-experimental-prototype: experimental package must set "private": true',
-      '@deepseek-ai/dsh-experimental-prototype: experimental package must omit publishConfig',
+      '@lyness/experimental-prototype: experimental package must set "private": true',
+      '@lyness/experimental-prototype: experimental package must omit publishConfig',
     ])
   })
 
@@ -40,11 +40,11 @@ describe('experimental workspace constraints', () => {
       expect(checkExperimentalDependencyIsolation([experimental, {
         dir: 'packages/core/consumer',
         manifest: {
-          name: '@deepseek-ai/dsh-consumer',
-          [section]: { '@deepseek-ai/dsh-experimental-prototype': 'workspace:^' },
+          name: '@lyness/consumer',
+          [section]: { '@lyness/experimental-prototype': 'workspace:^' },
         },
       }])).toEqual([
-        `@deepseek-ai/dsh-consumer: ${section}.@deepseek-ai/dsh-experimental-prototype must not reference an experimental package`,
+        `@lyness/consumer: ${section}.@lyness/experimental-prototype must not reference an experimental package`,
       ])
     },
   )
@@ -53,34 +53,34 @@ describe('experimental workspace constraints', () => {
     const manifests: WorkspaceManifest[] = [experimental, {
       dir: 'packages/core/test-only',
       manifest: {
-        name: '@deepseek-ai/dsh-test-only',
-        devDependencies: { '@deepseek-ai/dsh-experimental-prototype': 'workspace:^' },
+        name: '@lyness/test-only',
+        devDependencies: { '@lyness/experimental-prototype': 'workspace:^' },
       },
     }, {
       dir: 'packages/experimental/consumer',
       manifest: {
-        name: '@deepseek-ai/dsh-experimental-consumer',
-        dependencies: { '@deepseek-ai/dsh-experimental-prototype': 'workspace:^' },
+        name: '@lyness/experimental-consumer',
+        dependencies: { '@lyness/experimental-prototype': 'workspace:^' },
       },
     }, {
       dir: 'python/sdk-runtime',
       manifest: {
-        name: '@deepseek-ai/dsh-python-runtime',
-        dependencies: { '@deepseek-ai/dsh-experimental-prototype': 'workspace:^' },
+        name: '@lyness/python-runtime',
+        dependencies: { '@lyness/experimental-prototype': 'workspace:^' },
       },
     }]
 
     expect(checkExperimentalDependencyIsolation(manifests)).toEqual([
-      '@deepseek-ai/dsh-python-runtime: dependencies.@deepseek-ai/dsh-experimental-prototype must not reference an experimental package',
+      '@lyness/python-runtime: dependencies.@lyness/experimental-prototype must not reference an experimental package',
     ])
   })
 })
 
 describe('package payload constraints', () => {
   it('includes a declared profile patch without a package-name allowlist', () => {
-    expect(expectedDshPackageFiles({
-      name: '@deepseek-ai/dsh-private-profile',
-      dsh: { bundle: { patch: './cordis.patch.yml' } },
+    expect(expectedLynPackageFiles({
+      name: '@lyness/private-profile',
+      lyn: { bundle: { patch: './cordis.patch.yml' } },
     })).toEqual([
       'lib/index.js',
       'lib/invariant.js',

@@ -41,8 +41,8 @@
     },
     "packages/host/directory-picker-auto": {
       "ignoreDependencies": [
-        "@deepseek-ai/dsh-client-ui-directory-picker-browse",
-        "@deepseek-ai/dsh-client-ui-directory-picker-native"
+        "@lyness/client-ui-directory-picker-browse",
+        "@lyness/client-ui-directory-picker-native"
       ]
     },
     "packages/experimental/inspector": {
@@ -104,17 +104,17 @@
         "tests/**/*.{ts,tsx}"
       ],
       "ignoreDependencies": [
-        "@deepseek-ai/dsh-client-ui-workspace"
+        "@lyness/client-ui-workspace"
       ]
     },
     "packages/client/ui-sidebar": {
       "ignoreDependencies": [
-        "@deepseek-ai/dsh-client-ui-workspace"
+        "@lyness/client-ui-workspace"
       ]
     },
     "packages/client/ui-subagent": {
       "ignoreDependencies": [
-        "@deepseek-ai/dsh-client-ui-input-trigger"
+        "@lyness/client-ui-input-trigger"
       ]
     },
     "packages/client/ui-primitives": {
@@ -221,7 +221,7 @@
       ],
       "ignoreDependencies": [
         "buffer",
-        "@deepseek-ai/dsh-client-modules"
+        "@lyness/client-modules"
       ]
     },
     "packages/typert/generator": {
@@ -277,11 +277,11 @@
         "tests/**/*.ts"
       ],
       "ignoreDependencies": [
-        "@deepseek-ai/dsh-agent-spine-demo",
-        "@deepseek-ai/dsh-bash-local",
-        "@deepseek-ai/dsh-session-checkpoint-policy",
-        "@deepseek-ai/dsh-session-persistence-jsonl",
-        "@deepseek-ai/dsh-subprocess-local"
+        "@lyness/agent-spine-demo",
+        "@lyness/bash-local",
+        "@lyness/session-checkpoint-policy",
+        "@lyness/session-persistence-jsonl",
+        "@lyness/subprocess-local"
       ]
     },
     "packages/lsp/lsp-stdio": {
@@ -319,12 +319,12 @@
         "tests/**/*.ts"
       ],
       "ignoreDependencies": [
-        "@deepseek-ai/cordis-plugin-logger-console",
-        "@deepseek-ai/dsh-agent-spine-demo",
-        "@deepseek-ai/dsh-bash-local",
-        "@deepseek-ai/dsh-session-checkpoint-policy",
-        "@deepseek-ai/dsh-session-persistence-jsonl",
-        "@deepseek-ai/dsh-subprocess-local"
+        "@lyness/cordis-plugin-logger-console",
+        "@lyness/agent-spine-demo",
+        "@lyness/bash-local",
+        "@lyness/session-checkpoint-policy",
+        "@lyness/session-persistence-jsonl",
+        "@lyness/subprocess-local"
       ]
     },
     "packages/util/brand": {
@@ -378,11 +378,11 @@
         "tests/**/*.ts"
       ],
       "ignoreDependencies": [
-        "@deepseek-ai/dsh-agent-spine-demo",
-        "@deepseek-ai/dsh-bash-local",
-        "@deepseek-ai/dsh-session-checkpoint-policy",
-        "@deepseek-ai/dsh-session-persistence-jsonl",
-        "@deepseek-ai/dsh-subprocess-local"
+        "@lyness/agent-spine-demo",
+        "@lyness/bash-local",
+        "@lyness/session-checkpoint-policy",
+        "@lyness/session-persistence-jsonl",
+        "@lyness/subprocess-local"
       ]
     },
     "packages/session-query/session-query-sqlite": {
@@ -569,10 +569,10 @@
         "tests/**/*.ts"
       ],
       "ignoreDependencies": [
-        "@deepseek-ai/dsh-agent-spine-demo",
-        "@deepseek-ai/dsh-session-checkpoint-policy",
-        "@deepseek-ai/dsh-session-persistence-jsonl",
-        "@deepseek-ai/dsh-tool-subagent"
+        "@lyness/agent-spine-demo",
+        "@lyness/session-checkpoint-policy",
+        "@lyness/session-persistence-jsonl",
+        "@lyness/tool-subagent"
       ]
     },
     "packages/subagent/subagent-codex": {
@@ -586,10 +586,10 @@
         "tests/**/*.ts"
       ],
       "ignoreDependencies": [
-        "@deepseek-ai/dsh-agent-spine-demo",
-        "@deepseek-ai/dsh-session-checkpoint-policy",
-        "@deepseek-ai/dsh-session-persistence-jsonl",
-        "@deepseek-ai/dsh-tool-subagent"
+        "@lyness/agent-spine-demo",
+        "@lyness/session-checkpoint-policy",
+        "@lyness/session-persistence-jsonl",
+        "@lyness/tool-subagent"
       ]
     },
     "packages/subagent/subagent-claude-code": {
@@ -603,11 +603,11 @@
         "tests/**/*.ts"
       ],
       "ignoreDependencies": [
-        "@deepseek-ai/dsh-agent-spine-demo",
-        "@deepseek-ai/dsh-session-checkpoint-policy",
-        "@deepseek-ai/dsh-session-persistence-jsonl",
-        "@deepseek-ai/dsh-subagent-codex",
-        "@deepseek-ai/dsh-tool-subagent"
+        "@lyness/agent-spine-demo",
+        "@lyness/session-checkpoint-policy",
+        "@lyness/session-persistence-jsonl",
+        "@lyness/subagent-codex",
+        "@lyness/tool-subagent"
       ]
     },
     "packages/fs/tool-fs": {
@@ -665,9 +665,9 @@
         "tests/**/*.ts"
       ],
       "ignoreDependencies": [
-        "@deepseek-ai/dsh-client-store",
-        "@deepseek-ai/dsh-client-ui-primitives",
-        "@deepseek-ai/dsh-client-ui-slots",
+        "@lyness/client-store",
+        "@lyness/client-ui-primitives",
+        "@lyness/client-ui-slots",
         "@types/react",
         "@types/react-dom",
         "react",
@@ -686,10 +686,10 @@
         "tests/**/*.ts"
       ],
       "ignoreDependencies": [
-        "@deepseek-ai/.+"
+        "@lyness/.+"
       ]
     },
-    "packages/subagent/subagent-dsh-sdk": {
+    "packages/subagent/subagent-lyn-sdk": {
       "entry": [
         "tests/**/*.spec.ts",
         "tests/**/*.e2e.ts",
@@ -700,12 +700,12 @@
         "tests/**/*.ts"
       ],
       "ignoreDependencies": [
-        "@deepseek-ai/dsh-agent-instructions",
-        "@deepseek-ai/dsh-agent-spine-demo",
-        "@deepseek-ai/dsh-llm-deepseek",
-        "@deepseek-ai/dsh-session-checkpoint-policy",
-        "@deepseek-ai/dsh-session-persistence-jsonl",
-        "@deepseek-ai/dsh-skill-filesystem"
+        "@lyness/agent-instructions",
+        "@lyness/agent-spine-demo",
+        "@lyness/llm-deepseek",
+        "@lyness/session-checkpoint-policy",
+        "@lyness/session-persistence-jsonl",
+        "@lyness/skill-filesystem"
       ]
     },
     "packages/shell/tool-pwsh": {
@@ -730,33 +730,33 @@
     },
     "packages/experimental/agent-team-profile": {
       "ignoreDependencies": [
-        "@deepseek-ai/dsh-experimental-agent-team",
-        "@deepseek-ai/dsh-experimental-tool-agent-team"
+        "@lyness/experimental-agent-team",
+        "@lyness/experimental-tool-agent-team"
       ]
     },
     "packages/bundle/base": {
       "ignoreDependencies": [
-        "@deepseek-ai/.+"
+        "@lyness/.+"
       ]
     },
     "packages/bundle/headless": {
       "ignoreDependencies": [
-        "@deepseek-ai/dsh-code-runtime-worker-thread"
+        "@lyness/code-runtime-worker-thread"
       ]
     },
     "packages/bundle/acp-app": {
       "ignoreDependencies": [
-        "@deepseek-ai/dsh-acp"
+        "@lyness/acp"
       ]
     },
     "packages/bundle/sdk-app": {
       "ignoreDependencies": [
-        "@deepseek-ai/dsh-sdk-jsonrpc-server"
+        "@lyness/sdk-jsonrpc-server"
       ]
     },
     "packages/bundle/sdk-minimal": {
       "ignoreDependencies": [
-        "@deepseek-ai/.+"
+        "@lyness/.+"
       ]
     },
     "packages/experimental/agent-team": {
@@ -767,12 +767,12 @@
     },
     "packages/experimental/agent-team-web-profile": {
       "ignoreDependencies": [
-        "@deepseek-ai/dsh-experimental-client-ui-agent-team"
+        "@lyness/experimental-client-ui-agent-team"
       ]
     },
     "packages/bundle/web-app": {
       "ignoreDependencies": [
-        "@deepseek-ai/.+"
+        "@lyness/.+"
       ]
     }
   }

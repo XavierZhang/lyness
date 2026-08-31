@@ -2,20 +2,20 @@
  * Active Loader-backed plugin package inventory for official DeepSeek requests.
  * Host entries and the requesting agent's standing preset are resolved at request time;
  * installed dependencies and plugin fibers without Loader package provenance are excluded.
- * @module @deepseek-ai/dsh-plugin-package-inventory-deepseek
+ * @module @lyness/plugin-package-inventory-deepseek
  */
 
 import { existsSync, readFileSync } from 'node:fs'
 import { createRequire } from 'node:module'
 import { dirname, isAbsolute, join, parse } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
-import { FiberState, type Context } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
-import type { Entry, EntryTree } from '@deepseek-ai/cordis-plugin-loader'
-import type {} from '@deepseek-ai/dsh-agent'
-import type {} from '@deepseek-ai/dsh-deepseek-llm-api-extensions'
-import { SessionId } from '@deepseek-ai/dsh-session'
-import type {} from '@deepseek-ai/dsh-agent-presets'
+import { FiberState, type Context } from '@lyness/cordis'
+import z from '@lyness/schemastery'
+import type { Entry, EntryTree } from '@lyness/cordis-plugin-loader'
+import type {} from '@lyness/agent'
+import type {} from '@lyness/deepseek-llm-api-extensions'
+import { SessionId } from '@lyness/session'
+import type {} from '@lyness/agent-presets'
 import type { DeepSeekPluginPackageIdentity, DeepSeekPluginPackageInventoryExtension } from './types.ts'
 import type {} from './types.ts'
 
@@ -28,7 +28,7 @@ export const inject = ['agents', 'deepseekLlmApiExtensions', 'loader']
 
 /** Plugin-package request contribution configuration. */
 export interface Config {
-  /** Contribute `dsh_plugin_packages` to official DeepSeek requests. Defaults to `true`. */
+  /** Contribute `lyn_plugin_packages` to official DeepSeek requests. Defaults to `true`. */
   enabled?: boolean
 }
 
@@ -159,7 +159,7 @@ async function collectActivePluginPackages(
     if (agent !== undefined) {
       // The optional peer is loaded only when its service is present. Its existing
       // mount query keeps Loader internals off the public AgentPresets service.
-      const { standingMountFor } = await import('@deepseek-ai/dsh-agent-presets')
+      const { standingMountFor } = await import('@lyness/agent-presets')
       const presetTree = standingMountFor(agent.ctx)?.tree
       // PresetTree deliberately resolves its root bare rows from the harness;
       // nested ordinary includes retain their own tree base.
@@ -178,7 +178,7 @@ async function collectActivePluginPackages(
 }
 
 /**
- * Register the complete `dsh_plugin_packages` request contribution when enabled.
+ * Register the complete `lyn_plugin_packages` request contribution when enabled.
  * @param ctx - plugin context carrying Loader provenance and the DeepSeek request-extension registry.
  * @param config - validated default-on configuration.
  */
@@ -186,7 +186,7 @@ export function apply(ctx: Context, config: Config): void {
   if (config.enabled === false) return
   const hostBaseUrl = ctx.baseUrl ?? import.meta.url
   const resolver = new PackageIdentityResolver(hostBaseUrl)
-  ctx.deepseekLlmApiExtensions.register('dsh_plugin_packages', {
+  ctx.deepseekLlmApiExtensions.register('lyn_plugin_packages', {
     prepare: async (request) => {
       const value: DeepSeekPluginPackageInventoryExtension = {
         version: 1,

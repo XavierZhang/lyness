@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-client-ui-settings-plugins",
+  "name": "@lyness/client-ui-settings-plugins",
   "description": "Plugins settings section with feature-owned tabs and configurable host-plane plugin cards",
   "version": "0.1.2-alpha.1",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/client/ui-settings-plugins"
   },
   "type": "module",
@@ -29,13 +29,13 @@
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
-  "dsh": {
+  "lyn": {
     "client": {
       "inject": [
-        "@deepseek-ai/dsh-client-connection",
-        "@deepseek-ai/dsh-client-locale",
-        "@deepseek-ai/dsh-client-ui-settings",
-        "@deepseek-ai/dsh-api-remotes"
+        "@lyness/client-connection",
+        "@lyness/client-locale",
+        "@lyness/client-ui-settings",
+        "@lyness/api-remotes"
       ],
       "platform": "web"
     }
@@ -46,28 +46,28 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:^",
-    "@deepseek-ai/dsh-api-remotes": "workspace:^",
-    "@deepseek-ai/dsh-client-connection": "workspace:^",
-    "@deepseek-ai/dsh-client-locale": "workspace:^",
-    "@deepseek-ai/dsh-client-ui-settings": "workspace:^",
-    "@deepseek-ai/dsh-invariants": "workspace:^",
-    "@deepseek-ai/dsh-client-ui-renderer": "workspace:^"
+    "@lyness/cordis": "workspace:^",
+    "@lyness/api-remotes": "workspace:^",
+    "@lyness/client-connection": "workspace:^",
+    "@lyness/client-locale": "workspace:^",
+    "@lyness/client-ui-settings": "workspace:^",
+    "@lyness/invariants": "workspace:^",
+    "@lyness/client-ui-renderer": "workspace:^"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:^",
-    "@deepseek-ai/dsh-api-remotes": "workspace:^",
-    "@deepseek-ai/dsh-client-connection": "workspace:^",
-    "@deepseek-ai/dsh-client-locale": "workspace:^",
-    "@deepseek-ai/dsh-client-store": "workspace:^",
-    "@deepseek-ai/dsh-client-test-runtime": "workspace:^",
-    "@deepseek-ai/dsh-client-ui-primitives": "workspace:^",
-    "@deepseek-ai/dsh-client-ui-settings": "workspace:^",
-    "@deepseek-ai/dsh-client-ui-slots": "workspace:^",
-    "@deepseek-ai/dsh-invariants": "workspace:^",
+    "@lyness/cordis": "workspace:^",
+    "@lyness/api-remotes": "workspace:^",
+    "@lyness/client-connection": "workspace:^",
+    "@lyness/client-locale": "workspace:^",
+    "@lyness/client-store": "workspace:^",
+    "@lyness/client-test-runtime": "workspace:^",
+    "@lyness/client-ui-primitives": "workspace:^",
+    "@lyness/client-ui-settings": "workspace:^",
+    "@lyness/client-ui-slots": "workspace:^",
+    "@lyness/invariants": "workspace:^",
     "@types/react": "~18.3.1",
     "react": "^18.2.0",
-    "@deepseek-ai/dsh-client-ui-renderer": "workspace:^"
+    "@lyness/client-ui-renderer": "workspace:^"
   },
   "files": [
     "lib/index.js",

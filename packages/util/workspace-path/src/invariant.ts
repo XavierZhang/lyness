@@ -1,13 +1,13 @@
 /**
- * Package-owned invariant companion for `@deepseek-ai/dsh-util-workspace-path`.
- * @module @deepseek-ai/dsh-util-workspace-path/invariant
+ * Package-owned invariant companion for `@lyness/util-workspace-path`.
+ * @module @lyness/util-workspace-path/invariant
  */
 
 /* jscpd:ignore-start */
-import type { Context } from '@deepseek-ai/cordis'
-import type { InvariantInstaller } from '@deepseek-ai/dsh-invariants'
+import type { Context } from '@lyness/cordis'
+import type { InvariantInstaller } from '@lyness/invariants'
 
-const PACKAGE_NAME = '@deepseek-ai/dsh-util-workspace-path'
+const PACKAGE_NAME = '@lyness/util-workspace-path'
 
 /** Cordis companion plugin name. */
 export const name = 'workspace-path-invariant'

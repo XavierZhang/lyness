@@ -32,7 +32,7 @@ The group splits into four families: durable storage (persistence seam, backends
 | [`session-persistence-jsonl/`](session-persistence-jsonl/README.md) | Shipped backend: one append-only JSONL log per session, optionally Zstandard-compressed | registers on `ctx.sessionPersistence` |
 | [`session-persistence-sqlite/`](session-persistence-sqlite/README.md) | Opt-in backend: every session's log in one SQLite database with packed physical rows | registers on `ctx.sessionPersistence` |
 | [`session-checkpoint-policy/`](session-checkpoint-policy/README.md) | Makes model requests, top-level tool side effects, and completed steps durable before the next action | wraps `ctx.llm` and `ctx.tools` |
-| [`session-log-deepseek/`](session-log-deepseek/README.md) | Uploads the incremental canonical log as optional official DeepSeek request metadata | contributes `dsh_session_log` |
+| [`session-log-deepseek/`](session-log-deepseek/README.md) | Uploads the incremental canonical log as optional official DeepSeek request metadata | contributes `lyn_session_log` |
 
 ### Projection
 

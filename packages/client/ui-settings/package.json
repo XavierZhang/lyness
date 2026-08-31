@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-client-ui-settings",
+  "name": "@lyness/client-ui-settings",
   "description": "Settings domain base plugin: the settings-namespace scope service and the canonical settings slot-type contract",
   "version": "0.1.2-alpha.1",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/client/ui-settings"
   },
   "type": "module",
@@ -29,11 +29,11 @@
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
-  "dsh": {
+  "lyn": {
     "client": {
       "inject": [
-        "@deepseek-ai/dsh-client-connection",
-        "@deepseek-ai/dsh-api-remotes"
+        "@lyness/client-connection",
+        "@lyness/api-remotes"
       ],
       "platform": "web"
     }
@@ -44,26 +44,26 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@deepseek-ai/schemastery": "workspace:^"
+    "@lyness/schemastery": "workspace:^"
   },
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:^",
-    "@deepseek-ai/dsh-api-remotes": "workspace:^",
-    "@deepseek-ai/dsh-client-connection": "workspace:^",
-    "@deepseek-ai/dsh-invariants": "workspace:^",
-    "@deepseek-ai/dsh-settings": "workspace:^"
+    "@lyness/cordis": "workspace:^",
+    "@lyness/api-remotes": "workspace:^",
+    "@lyness/client-connection": "workspace:^",
+    "@lyness/invariants": "workspace:^",
+    "@lyness/settings": "workspace:^"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:^",
-    "@deepseek-ai/dsh-api-remotes": "workspace:^",
-    "@deepseek-ai/dsh-client-store": "workspace:^",
-    "@deepseek-ai/dsh-client-test-runtime": "workspace:^",
-    "@deepseek-ai/dsh-client-ui-slots": "workspace:^",
-    "@deepseek-ai/dsh-invariants": "workspace:^",
-    "@deepseek-ai/dsh-settings": "workspace:^",
+    "@lyness/cordis": "workspace:^",
+    "@lyness/api-remotes": "workspace:^",
+    "@lyness/client-store": "workspace:^",
+    "@lyness/client-test-runtime": "workspace:^",
+    "@lyness/client-ui-slots": "workspace:^",
+    "@lyness/invariants": "workspace:^",
+    "@lyness/settings": "workspace:^",
     "@types/react": "~18.3.1",
     "react": "^18.2.0",
-    "@deepseek-ai/dsh-client-connection": "workspace:^"
+    "@lyness/client-connection": "workspace:^"
   },
   "files": [
     "lib/index.js",

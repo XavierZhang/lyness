@@ -1,13 +1,13 @@
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { describe, expect, it, vi } from 'vitest'
 import {
   RemoteStream,
   RemoteStreamCarrierError,
   type RemoteStreamOptions,
-} from '@deepseek-ai/dsh-api-gateway/client'
-import type { ConnectionHandle } from '@deepseek-ai/dsh-client-connection/client'
-import { SessionId } from '@deepseek-ai/dsh-session/types'
-import type { RemoteResult } from '@deepseek-ai/dsh-typert-protocol'
+} from '@lyness/api-gateway/client'
+import type { ConnectionHandle } from '@lyness/client-connection/client'
+import { SessionId } from '@lyness/session/types'
+import type { RemoteResult } from '@lyness/typert-protocol'
 import * as WorkspaceClientPlugin from '../src/client/index.ts'
 import {
   ClientWorkspaceModel,

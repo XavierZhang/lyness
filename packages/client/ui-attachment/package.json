@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-client-ui-attachment",
+  "name": "@lyness/client-ui-attachment",
   "description": "Dynamic attachment presentation plugin for conversation input, message-image, and trajectory image slots",
   "version": "0.1.2-alpha.1",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/client/ui-attachment"
   },
   "type": "module",
@@ -29,13 +29,13 @@
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
-  "dsh": {
+  "lyn": {
     "client": {
       "inject": [
-        "@deepseek-ai/dsh-client-ui-chat",
-        "@deepseek-ai/dsh-client-ui-conversation",
-        "@deepseek-ai/dsh-client-ui-renderer",
-        "@deepseek-ai/dsh-client-ui-trajectory"
+        "@lyness/client-ui-chat",
+        "@lyness/client-ui-conversation",
+        "@lyness/client-ui-renderer",
+        "@lyness/client-ui-trajectory"
       ],
       "platform": "web"
     }
@@ -49,19 +49,19 @@
     "clsx": "^2.0.0"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:^",
-    "@deepseek-ai/dsh-invariants": "workspace:^",
+    "@lyness/cordis": "workspace:^",
+    "@lyness/invariants": "workspace:^",
     "@types/react": "~18.3.1",
     "@types/react-dom": "~18.3.0",
-    "@deepseek-ai/dsh-client-ui-chat": "workspace:^",
-    "@deepseek-ai/dsh-client-ui-conversation": "workspace:^",
-    "@deepseek-ai/dsh-client-ui-trajectory": "workspace:^",
-    "@deepseek-ai/dsh-client-ui-renderer": "workspace:^",
-    "@deepseek-ai/dsh-client-ui-primitives": "workspace:^",
-    "@deepseek-ai/dsh-client-ui-slots": "workspace:^",
+    "@lyness/client-ui-chat": "workspace:^",
+    "@lyness/client-ui-conversation": "workspace:^",
+    "@lyness/client-ui-trajectory": "workspace:^",
+    "@lyness/client-ui-renderer": "workspace:^",
+    "@lyness/client-ui-primitives": "workspace:^",
+    "@lyness/client-ui-slots": "workspace:^",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "@deepseek-ai/dsh-attachment": "workspace:^"
+    "@lyness/attachment": "workspace:^"
   },
   "files": [
     "lib/index.js",
@@ -70,12 +70,12 @@
     "lib/types/**/*.d.ts"
   ],
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:^",
-    "@deepseek-ai/dsh-invariants": "workspace:^",
-    "@deepseek-ai/dsh-client-ui-chat": "workspace:^",
-    "@deepseek-ai/dsh-client-ui-conversation": "workspace:^",
-    "@deepseek-ai/dsh-client-ui-trajectory": "workspace:^",
-    "@deepseek-ai/dsh-client-ui-renderer": "workspace:^",
-    "@deepseek-ai/dsh-attachment": "workspace:^"
+    "@lyness/cordis": "workspace:^",
+    "@lyness/invariants": "workspace:^",
+    "@lyness/client-ui-chat": "workspace:^",
+    "@lyness/client-ui-conversation": "workspace:^",
+    "@lyness/client-ui-trajectory": "workspace:^",
+    "@lyness/client-ui-renderer": "workspace:^",
+    "@lyness/attachment": "workspace:^"
   }
 }

@@ -6,9 +6,9 @@ import {
   type RemoteStreamClientMessage,
   type RemoteStreamServerMessage,
 } from '../stream-protocol.ts'
-import { randomUUID } from '@deepseek-ai/dsh-util-crypto'
+import { randomUUID } from '@lyness/util-crypto'
 
-const INTERNAL_BASE = 'http://dsh.internal'
+const INTERNAL_BASE = 'http://lyn.internal'
 const RECONNECT_BASE_MS = 500
 const RECONNECT_FACTOR = 2
 const RECONNECT_MAX_MS = 10_000

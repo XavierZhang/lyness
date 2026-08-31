@@ -1,0 +1,6 @@
+# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
+# side as of the last confirmed-consistent state. Both languages carry equal authority;
+# after editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-07-29-lyn-source-launch-tsx-esm.md
+2026-07-29-lyn-source-launch-tsx-esm.md: 914d13f5486669478ba36f3a89f7e456d8f678b6
+2026-07-29-lyn-source-launch-tsx-esm.zh.md: 9ef4a9746e33f13ef44a8beee8d99a9b34c3e732

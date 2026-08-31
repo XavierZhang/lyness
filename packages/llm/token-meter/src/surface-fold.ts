@@ -13,13 +13,13 @@
  * Nodes also carry their durable image occurrences and image-free heuristic
  * price, so `measure()` can reprice image content for the routed model.
  *
- * @module @deepseek-ai/dsh-token-meter/surface-fold
+ * @module @lyness/token-meter/surface-fold
  */
 
-import { deriveEventMessage } from '@deepseek-ai/dsh-session'
-import type { SurfaceEvent } from '@deepseek-ai/dsh-session'
-import type { ContentBlock, Message } from '@deepseek-ai/dsh-llm'
-import type { ImageAttachmentRef } from '@deepseek-ai/dsh-attachment'
+import { deriveEventMessage } from '@lyness/session'
+import type { SurfaceEvent } from '@lyness/session'
+import type { ContentBlock, Message } from '@lyness/llm'
+import type { ImageAttachmentRef } from '@lyness/attachment'
 import { estimateMessage, estimateStructuralBlock } from './estimate.ts'
 
 /** One priced surface node with the image occurrences route pricing replaces. */

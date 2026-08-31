@@ -3,7 +3,7 @@
  * MemoryVfs owes its consumers, asserted directly rather than through the
  * `node:fs` bridge.
  *
- * `dsh-fs-local` builds a version token from `dev:ino:size:mtimeNs:ctimeNs` and
+ * `lyn-fs-local` builds a version token from `dev:ino:size:mtimeNs:ctimeNs` and
  * refuses a write whose token moved since it read. Two properties carry that:
  * `ino` identifies the entry at a path, and `mtimeMs` moves on every write. The
  * timestamp cases freeze the clock, because these writes are in memory and two
@@ -27,30 +27,30 @@ afterEach(() => { vi.restoreAllMocks() })
 describe('entry identity', () => {
   it('distinguishes paths and holds each identity across repeated stats', () => {
     const vfs = new MemoryVfs()
-    vfs.seed('/dsh/one.txt', 'one')
-    vfs.seed('/dsh/two.txt', 'two')
-    const first = identity(vfs, '/dsh/one.txt')
-    expect(identity(vfs, '/dsh/two.txt')).not.toBe(first)
-    expect(identity(vfs, '/dsh/one.txt')).toBe(first)
+    vfs.seed('/lyn/one.txt', 'one')
+    vfs.seed('/lyn/two.txt', 'two')
+    const first = identity(vfs, '/lyn/one.txt')
+    expect(identity(vfs, '/lyn/two.txt')).not.toBe(first)
+    expect(identity(vfs, '/lyn/one.txt')).toBe(first)
   })
 
   it('forgets the identities under a directory removed as a subtree', () => {
     const vfs = new MemoryVfs()
-    vfs.seed('/dsh/skills/git/SKILL.md', '# git\n')
-    const before = identity(vfs, '/dsh/skills/git/SKILL.md')
-    vfs.rmSync('/dsh/skills', { recursive: true })
-    vfs.seed('/dsh/skills/git/SKILL.md', '# git rebuilt\n')
-    expect(identity(vfs, '/dsh/skills/git/SKILL.md')).not.toBe(before)
+    vfs.seed('/lyn/skills/git/SKILL.md', '# git\n')
+    const before = identity(vfs, '/lyn/skills/git/SKILL.md')
+    vfs.rmSync('/lyn/skills', { recursive: true })
+    vfs.seed('/lyn/skills/git/SKILL.md', '# git rebuilt\n')
+    expect(identity(vfs, '/lyn/skills/git/SKILL.md')).not.toBe(before)
   })
 
   it('moves the source identity when a file replaces another path', () => {
     const vfs = new MemoryVfs()
-    vfs.seed('/dsh/from.txt', 'moved')
-    vfs.seed('/dsh/to.txt', 'replaced')
-    const [source, destination] = [identity(vfs, '/dsh/from.txt'), identity(vfs, '/dsh/to.txt')]
-    vfs.renameSync('/dsh/from.txt', '/dsh/to.txt')
-    const renamed = identity(vfs, '/dsh/to.txt')
-    expect(vfs.readFileSync('/dsh/to.txt', 'utf8')).toBe('moved')
+    vfs.seed('/lyn/from.txt', 'moved')
+    vfs.seed('/lyn/to.txt', 'replaced')
+    const [source, destination] = [identity(vfs, '/lyn/from.txt'), identity(vfs, '/lyn/to.txt')]
+    vfs.renameSync('/lyn/from.txt', '/lyn/to.txt')
+    const renamed = identity(vfs, '/lyn/to.txt')
+    expect(vfs.readFileSync('/lyn/to.txt', 'utf8')).toBe('moved')
     expect([renamed === source, renamed === destination]).toEqual([true, false])
   })
 })
@@ -58,10 +58,10 @@ describe('entry identity', () => {
 describe('modification time', () => {
   it('hydrates explicit metadata without confusing timestamps with permission bits', () => {
     const vfs = new MemoryVfs()
-    vfs.seed('/dsh/restored', 'value', { mode: 0o600, mtimeMs: 1_600_000_000_000 })
-    vfs.seedDirectory('/dsh/restored-directory', { mode: 0o700, mtimeMs: 1_600_000_000_001 })
-    const stats = vfs.statSync('/dsh/restored') as VfsStats
-    const directory = vfs.statSync('/dsh/restored-directory') as VfsStats
+    vfs.seed('/lyn/restored', 'value', { mode: 0o600, mtimeMs: 1_600_000_000_000 })
+    vfs.seedDirectory('/lyn/restored-directory', { mode: 0o700, mtimeMs: 1_600_000_000_001 })
+    const stats = vfs.statSync('/lyn/restored') as VfsStats
+    const directory = vfs.statSync('/lyn/restored-directory') as VfsStats
     expect([stats.mode & 0o777, stats.mtimeMs]).toEqual([0o600, 1_600_000_000_000])
     expect([directory.mode & 0o777, directory.mtimeMs]).toEqual([0o700, 1_600_000_000_001])
   })
@@ -69,14 +69,14 @@ describe('modification time', () => {
   it('advances on every write even while the clock stands still', () => {
     vi.spyOn(Date, 'now').mockReturnValue(1_700_000_000_000)
     const vfs = new MemoryVfs()
-    vfs.seed('/dsh/log.jsonl', 'first\n')
-    const seeded = modified(vfs, '/dsh/log.jsonl')
-    vfs.writeFileSync('/dsh/log.jsonl', 'second\n')
-    const written = modified(vfs, '/dsh/log.jsonl')
-    vfs.appendFileSync('/dsh/log.jsonl', 'third\n')
-    const appended = modified(vfs, '/dsh/log.jsonl')
-    vfs.truncateSync('/dsh/log.jsonl', 6)
-    const truncated = modified(vfs, '/dsh/log.jsonl')
+    vfs.seed('/lyn/log.jsonl', 'first\n')
+    const seeded = modified(vfs, '/lyn/log.jsonl')
+    vfs.writeFileSync('/lyn/log.jsonl', 'second\n')
+    const written = modified(vfs, '/lyn/log.jsonl')
+    vfs.appendFileSync('/lyn/log.jsonl', 'third\n')
+    const appended = modified(vfs, '/lyn/log.jsonl')
+    vfs.truncateSync('/lyn/log.jsonl', 6)
+    const truncated = modified(vfs, '/lyn/log.jsonl')
     expect([written > seeded, appended > written, truncated > appended]).toEqual([true, true, true])
     // One millisecond per revision: the increment is the minimum that separates
     // two tokens, not a coarser bump that would skew a real timestamp.
@@ -86,33 +86,33 @@ describe('modification time', () => {
   it('takes the clock once the clock has passed the entry', () => {
     const clock = vi.spyOn(Date, 'now').mockReturnValue(1_700_000_000_000)
     const vfs = new MemoryVfs()
-    vfs.seed('/dsh/log.jsonl', 'first\n')
+    vfs.seed('/lyn/log.jsonl', 'first\n')
     clock.mockReturnValue(1_700_000_005_000)
-    vfs.writeFileSync('/dsh/log.jsonl', 'second\n')
-    expect(modified(vfs, '/dsh/log.jsonl')).toBe(1_700_000_005_000)
+    vfs.writeFileSync('/lyn/log.jsonl', 'second\n')
+    expect(modified(vfs, '/lyn/log.jsonl')).toBe(1_700_000_005_000)
   })
 
   it('extends truncation with zero bytes', async () => {
     const vfs = new MemoryVfs()
-    vfs.seed('/dsh/file', new Uint8Array([1, 2]))
-    vfs.truncateSync('/dsh/file', 5)
-    expect([...vfs.readFileSync('/dsh/file') as Uint8Array]).toEqual([1, 2, 0, 0, 0])
-    const handle = vfs.open('/dsh/file', 'r+')
+    vfs.seed('/lyn/file', new Uint8Array([1, 2]))
+    vfs.truncateSync('/lyn/file', 5)
+    expect([...vfs.readFileSync('/lyn/file') as Uint8Array]).toEqual([1, 2, 0, 0, 0])
+    const handle = vfs.open('/lyn/file', 'r+')
     await handle.truncate(7)
-    expect([...vfs.readFileSync('/dsh/file') as Uint8Array]).toEqual([1, 2, 0, 0, 0, 0, 0])
+    expect([...vfs.readFileSync('/lyn/file') as Uint8Array]).toEqual([1, 2, 0, 0, 0, 0, 0])
   })
 
   it('advances a directory only when its immediate entry set changes', () => {
     vi.spyOn(Date, 'now').mockReturnValue(1_700_000_000_000)
     const vfs = new MemoryVfs()
-    vfs.seedDirectory('/dsh/workspace')
-    const empty = modified(vfs, '/dsh/workspace')
-    vfs.writeFileSync('/dsh/workspace/file.txt', 'one')
-    const created = modified(vfs, '/dsh/workspace')
-    vfs.writeFileSync('/dsh/workspace/file.txt', 'two')
-    const rewritten = modified(vfs, '/dsh/workspace')
-    vfs.rmSync('/dsh/workspace/file.txt')
-    const removed = modified(vfs, '/dsh/workspace')
+    vfs.seedDirectory('/lyn/workspace')
+    const empty = modified(vfs, '/lyn/workspace')
+    vfs.writeFileSync('/lyn/workspace/file.txt', 'one')
+    const created = modified(vfs, '/lyn/workspace')
+    vfs.writeFileSync('/lyn/workspace/file.txt', 'two')
+    const rewritten = modified(vfs, '/lyn/workspace')
+    vfs.rmSync('/lyn/workspace/file.txt')
+    const removed = modified(vfs, '/lyn/workspace')
     expect([created > empty, rewritten === created, removed > rewritten]).toEqual([true, true, true])
   })
 })
@@ -122,25 +122,25 @@ describe('mutation publication', () => {
     const vfs = new MemoryVfs()
     const mutations: VfsMutation[] = []
     vfs.subscribe((mutation) => { mutations.push(mutation) })
-    vfs.seed('/dsh/seeded.txt', 'seeded')
+    vfs.seed('/lyn/seeded.txt', 'seeded')
     expect(mutations).toEqual([])
-    vfs.writeFileSync('/dsh/seeded.txt', 'changed')
-    vfs.mkdirSync('/dsh/created')
-    vfs.chmodSync('/dsh/created', 0o700)
-    vfs.renameSync('/dsh/seeded.txt', '/dsh/renamed.txt')
-    vfs.rmSync('/dsh/created', { recursive: true })
+    vfs.writeFileSync('/lyn/seeded.txt', 'changed')
+    vfs.mkdirSync('/lyn/created')
+    vfs.chmodSync('/lyn/created', 0o700)
+    vfs.renameSync('/lyn/seeded.txt', '/lyn/renamed.txt')
+    vfs.rmSync('/lyn/created', { recursive: true })
     expect(mutations.map(mutation => ({
       kind: mutation.kind,
       path: mutation.path,
       ...mutation.kind === 'write' ? { entryChanged: mutation.entryChanged } : {},
       ...mutation.kind === 'chmod' ? { mode: mutation.mode } : {},
     }))).toEqual([
-      { kind: 'write', path: '/dsh/seeded.txt', entryChanged: false },
-      { kind: 'mkdir', path: '/dsh/created' },
-      { kind: 'chmod', path: '/dsh/created', mode: 0o700 },
-      { kind: 'remove', path: '/dsh/seeded.txt' },
-      { kind: 'write', path: '/dsh/renamed.txt', entryChanged: true },
-      { kind: 'remove', path: '/dsh/created' },
+      { kind: 'write', path: '/lyn/seeded.txt', entryChanged: false },
+      { kind: 'mkdir', path: '/lyn/created' },
+      { kind: 'chmod', path: '/lyn/created', mode: 0o700 },
+      { kind: 'remove', path: '/lyn/seeded.txt' },
+      { kind: 'write', path: '/lyn/renamed.txt', entryChanged: true },
+      { kind: 'remove', path: '/lyn/created' },
     ])
     const renamed = mutations[4]
     expect(renamed?.kind === 'write' && new TextDecoder().decode(renamed.bytes)).toBe('changed')
@@ -150,16 +150,16 @@ describe('mutation publication', () => {
 
   it('contains a faulty observer and lets disposal stop later notifications', () => {
     const vfs = new MemoryVfs()
-    vfs.seedDirectory('/dsh')
+    vfs.seedDirectory('/lyn')
     const reported = vi.spyOn(console, 'error').mockImplementation(() => {})
     const first = vfs.subscribe(() => { throw new Error('observer failed') })
     const seen: string[] = []
     const second = vfs.subscribe((mutation) => { seen.push(mutation.path) })
-    vfs.writeFileSync('/dsh/one', '1')
+    vfs.writeFileSync('/lyn/one', '1')
     first()
     second()
-    vfs.writeFileSync('/dsh/two', '2')
-    expect(seen).toEqual(['/dsh/one'])
+    vfs.writeFileSync('/lyn/two', '2')
+    expect(seen).toEqual(['/lyn/one'])
     expect(reported).toHaveBeenCalledOnce()
   })
 
@@ -171,16 +171,16 @@ describe('mutation publication', () => {
       flush: async () => { flushes += 1 },
     }
     const vfs = new MemoryVfs({ sink })
-    vfs.seedDirectory('/dsh')
+    vfs.seedDirectory('/lyn')
     const observed: VfsMutation[] = []
     vfs.subscribe((mutation) => { observed.push(mutation) })
-    vfs.writeFileSync('/dsh/log', 'a')
-    vfs.appendFileSync('/dsh/log', 'bc')
+    vfs.writeFileSync('/lyn/log', 'a')
+    vfs.appendFileSync('/lyn/log', 'bc')
     await vfs.flush()
     expect(observed).toEqual(recorded)
     expect(observed[0]).toBe(recorded[0])
-    expect(recorded[0]).toMatchObject({ kind: 'write', path: '/dsh/log', mode: 0o644, entryChanged: true })
-    expect(recorded[1]).toMatchObject({ kind: 'write', path: '/dsh/log', mode: 0o644, entryChanged: false, appendedFrom: 1 })
+    expect(recorded[0]).toMatchObject({ kind: 'write', path: '/lyn/log', mode: 0o644, entryChanged: true })
+    expect(recorded[1]).toMatchObject({ kind: 'write', path: '/lyn/log', mode: 0o644, entryChanged: false, appendedFrom: 1 })
     expect(recorded[1]?.kind === 'write' && new TextDecoder().decode(recorded[1].bytes)).toBe('abc')
     expect(flushes).toBe(1)
   })
@@ -188,15 +188,15 @@ describe('mutation publication', () => {
   it('publishes descriptor writes at the file identity current path', () => {
     const mutations: VfsMutation[] = []
     const vfs = new MemoryVfs()
-    vfs.seed('/dsh/source', 'old')
-    const descriptor = vfs.openFileSync('/dsh/source', 'r+')
+    vfs.seed('/lyn/source', 'old')
+    const descriptor = vfs.openFileSync('/lyn/source', 'r+')
     vfs.subscribe((mutation) => { mutations.push(mutation) })
-    vfs.renameSync('/dsh/source', '/dsh/destination')
+    vfs.renameSync('/lyn/source', '/lyn/destination')
     mutations.length = 0
     descriptor.write(0, new TextEncoder().encode('new'))
-    expect(mutations.map(mutation => mutation.path)).toEqual(['/dsh/destination'])
-    expect(vfs.readFileSync('/dsh/destination', 'utf8')).toBe('new')
-    vfs.unlinkSync('/dsh/destination')
+    expect(mutations.map(mutation => mutation.path)).toEqual(['/lyn/destination'])
+    expect(vfs.readFileSync('/lyn/destination', 'utf8')).toBe('new')
+    vfs.unlinkSync('/lyn/destination')
     mutations.length = 0
     descriptor.write(0, new TextEncoder().encode('detached'))
     expect(mutations).toEqual([])
@@ -208,15 +208,15 @@ describe('mutation publication', () => {
     const vfs = new MemoryVfs({
       sink: { record: (mutation) => { recorded.push(mutation) }, flush: () => Promise.resolve() },
     })
-    vfs.seedDirectory('/dsh/staging/nested', { mode: 0o700 })
-    vfs.seed('/dsh/staging/nested/file', 'value', { mode: 0o600 })
-    vfs.renameSync('/dsh/staging', '/dsh/published')
+    vfs.seedDirectory('/lyn/staging/nested', { mode: 0o700 })
+    vfs.seed('/lyn/staging/nested/file', 'value', { mode: 0o600 })
+    vfs.renameSync('/lyn/staging', '/lyn/published')
 
     expect(recorded.map(mutation => [mutation.kind, mutation.path])).toEqual([
-      ['remove', '/dsh/staging'],
-      ['mkdir', '/dsh/published'],
-      ['mkdir', '/dsh/published/nested'],
-      ['write', '/dsh/published/nested/file'],
+      ['remove', '/lyn/staging'],
+      ['mkdir', '/lyn/published'],
+      ['mkdir', '/lyn/published/nested'],
+      ['write', '/lyn/published/nested/file'],
     ])
     expect(recorded[3]).toMatchObject({ kind: 'write', mode: 0o600, entryChanged: true })
     expect(recorded[3]?.kind === 'write' && new TextDecoder().decode(recorded[3].bytes)).toBe('value')
@@ -226,122 +226,122 @@ describe('mutation publication', () => {
 describe('directory rename', () => {
   it('rejects file, non-empty directory, and missing-parent destinations before mutation', () => {
     const vfs = new MemoryVfs()
-    vfs.seed('/dsh/source/nested/file', 'source')
-    vfs.seed('/dsh/file', 'destination')
-    vfs.seed('/dsh/non-empty/child', 'destination')
+    vfs.seed('/lyn/source/nested/file', 'source')
+    vfs.seed('/lyn/file', 'destination')
+    vfs.seed('/lyn/non-empty/child', 'destination')
     const mutations: VfsMutation[] = []
     vfs.subscribe((mutation) => { mutations.push(mutation) })
 
-    expect(() => { vfs.renameSync('/dsh/source', '/dsh/file') })
+    expect(() => { vfs.renameSync('/lyn/source', '/lyn/file') })
       .toThrow(expect.objectContaining({ code: 'ENOTDIR' }))
-    expect(() => { vfs.renameSync('/dsh/source', '/dsh/non-empty') })
+    expect(() => { vfs.renameSync('/lyn/source', '/lyn/non-empty') })
       .toThrow(expect.objectContaining({ code: 'ENOTEMPTY' }))
-    expect(() => { vfs.renameSync('/dsh/source', '/missing/destination') })
+    expect(() => { vfs.renameSync('/lyn/source', '/missing/destination') })
       .toThrow(expect.objectContaining({ code: 'ENOENT' }))
 
-    expect(vfs.readFileSync('/dsh/source/nested/file', 'utf8')).toBe('source')
-    expect(vfs.readFileSync('/dsh/file', 'utf8')).toBe('destination')
-    expect(vfs.readFileSync('/dsh/non-empty/child', 'utf8')).toBe('destination')
+    expect(vfs.readFileSync('/lyn/source/nested/file', 'utf8')).toBe('source')
+    expect(vfs.readFileSync('/lyn/file', 'utf8')).toBe('destination')
+    expect(vfs.readFileSync('/lyn/non-empty/child', 'utf8')).toBe('destination')
     expect(mutations).toEqual([])
   })
 
   it('replaces an empty directory with the source subtree', () => {
     const vfs = new MemoryVfs()
-    vfs.seedDirectory('/dsh/source/nested', { mode: 0o700 })
-    vfs.seed('/dsh/source/nested/file', 'source')
-    vfs.seedDirectory('/dsh/destination', { mode: 0o711 })
+    vfs.seedDirectory('/lyn/source/nested', { mode: 0o700 })
+    vfs.seed('/lyn/source/nested/file', 'source')
+    vfs.seedDirectory('/lyn/destination', { mode: 0o711 })
 
-    vfs.renameSync('/dsh/source', '/dsh/destination')
+    vfs.renameSync('/lyn/source', '/lyn/destination')
 
-    expect(vfs.existsSync('/dsh/source')).toBe(false)
-    expect(vfs.readFileSync('/dsh/destination/nested/file', 'utf8')).toBe('source')
-    expect((vfs.statSync('/dsh/destination') as VfsStats).mode & 0o777).toBe(0o755)
-    expect((vfs.statSync('/dsh/destination/nested') as VfsStats).mode & 0o777).toBe(0o700)
+    expect(vfs.existsSync('/lyn/source')).toBe(false)
+    expect(vfs.readFileSync('/lyn/destination/nested/file', 'utf8')).toBe('source')
+    expect((vfs.statSync('/lyn/destination') as VfsStats).mode & 0o777).toBe(0o755)
+    expect((vfs.statSync('/lyn/destination/nested') as VfsStats).mode & 0o777).toBe(0o700)
   })
 })
 
 describe('hard links', () => {
   it('shares identity, bytes, and mode until one name is removed', () => {
     const vfs = new MemoryVfs()
-    vfs.seed('/dsh/session.jsonl', 'committed\n')
-    vfs.linkSync('/dsh/session.jsonl', '/dsh/session-latest.jsonl')
-    vfs.linkSync('/dsh/session-latest.jsonl', '/dsh/session-archive.jsonl')
-    expect(identity(vfs, '/dsh/session-latest.jsonl')).toBe(identity(vfs, '/dsh/session.jsonl'))
-    expect(linkCount(vfs, '/dsh/session.jsonl')).toBe(3n)
-    expect(vfs.readFileSync('/dsh/session-latest.jsonl', 'utf8')).toBe('committed\n')
+    vfs.seed('/lyn/session.jsonl', 'committed\n')
+    vfs.linkSync('/lyn/session.jsonl', '/lyn/session-latest.jsonl')
+    vfs.linkSync('/lyn/session-latest.jsonl', '/lyn/session-archive.jsonl')
+    expect(identity(vfs, '/lyn/session-latest.jsonl')).toBe(identity(vfs, '/lyn/session.jsonl'))
+    expect(linkCount(vfs, '/lyn/session.jsonl')).toBe(3n)
+    expect(vfs.readFileSync('/lyn/session-latest.jsonl', 'utf8')).toBe('committed\n')
     const changedPaths: string[] = []
     vfs.subscribe((mutation) => { changedPaths.push(mutation.path) })
-    vfs.appendFileSync('/dsh/session.jsonl', 'appended\n')
+    vfs.appendFileSync('/lyn/session.jsonl', 'appended\n')
     expect(changedPaths).toEqual([
-      '/dsh/session.jsonl',
-      '/dsh/session-latest.jsonl',
-      '/dsh/session-archive.jsonl',
+      '/lyn/session.jsonl',
+      '/lyn/session-latest.jsonl',
+      '/lyn/session-archive.jsonl',
     ])
-    expect(vfs.readFileSync('/dsh/session.jsonl', 'utf8')).toBe('committed\nappended\n')
-    expect(vfs.readFileSync('/dsh/session-latest.jsonl', 'utf8')).toBe('committed\nappended\n')
-    vfs.chmodSync('/dsh/session-latest.jsonl', 0o600)
-    expect((vfs.statSync('/dsh/session.jsonl') as VfsStats).mode & 0o777).toBe(0o600)
-    vfs.unlinkSync('/dsh/session-latest.jsonl')
-    expect(linkCount(vfs, '/dsh/session.jsonl')).toBe(2n)
-    vfs.unlinkSync('/dsh/session-archive.jsonl')
-    expect(linkCount(vfs, '/dsh/session.jsonl')).toBe(1n)
-    expect(vfs.readFileSync('/dsh/session.jsonl', 'utf8')).toBe('committed\nappended\n')
+    expect(vfs.readFileSync('/lyn/session.jsonl', 'utf8')).toBe('committed\nappended\n')
+    expect(vfs.readFileSync('/lyn/session-latest.jsonl', 'utf8')).toBe('committed\nappended\n')
+    vfs.chmodSync('/lyn/session-latest.jsonl', 0o600)
+    expect((vfs.statSync('/lyn/session.jsonl') as VfsStats).mode & 0o777).toBe(0o600)
+    vfs.unlinkSync('/lyn/session-latest.jsonl')
+    expect(linkCount(vfs, '/lyn/session.jsonl')).toBe(2n)
+    vfs.unlinkSync('/lyn/session-archive.jsonl')
+    expect(linkCount(vfs, '/lyn/session.jsonl')).toBe(1n)
+    expect(vfs.readFileSync('/lyn/session.jsonl', 'utf8')).toBe('committed\nappended\n')
   })
 
   it('treats rename between names of the same node as a no-op', () => {
     const vfs = new MemoryVfs()
-    vfs.seed('/dsh/source', 'value')
-    vfs.linkSync('/dsh/source', '/dsh/alias')
+    vfs.seed('/lyn/source', 'value')
+    vfs.linkSync('/lyn/source', '/lyn/alias')
     const mutations: VfsMutation[] = []
     vfs.subscribe((mutation) => { mutations.push(mutation) })
 
-    vfs.renameSync('/dsh/source', '/dsh/alias')
+    vfs.renameSync('/lyn/source', '/lyn/alias')
 
-    expect(vfs.readFileSync('/dsh/source', 'utf8')).toBe('value')
-    expect(vfs.readFileSync('/dsh/alias', 'utf8')).toBe('value')
-    expect(linkCount(vfs, '/dsh/source')).toBe(2n)
+    expect(vfs.readFileSync('/lyn/source', 'utf8')).toBe('value')
+    expect(vfs.readFileSync('/lyn/alias', 'utf8')).toBe('value')
+    expect(linkCount(vfs, '/lyn/source')).toBe(2n)
     expect(mutations).toEqual([])
   })
 
   it('retargets linked names through file replacement and directory moves', () => {
     const vfs = new MemoryVfs()
-    vfs.seed('/dsh/replacement', 'replacement')
-    vfs.seed('/dsh/target', 'old')
-    vfs.linkSync('/dsh/target', '/dsh/target-alias')
-    const replaced = vfs.openFileSync('/dsh/target', 'r+')
-    vfs.renameSync('/dsh/replacement', '/dsh/target')
+    vfs.seed('/lyn/replacement', 'replacement')
+    vfs.seed('/lyn/target', 'old')
+    vfs.linkSync('/lyn/target', '/lyn/target-alias')
+    const replaced = vfs.openFileSync('/lyn/target', 'r+')
+    vfs.renameSync('/lyn/replacement', '/lyn/target')
     const mutations: VfsMutation[] = []
     vfs.subscribe((mutation) => { mutations.push(mutation) })
 
     replaced.write(0, new TextEncoder().encode('changed'))
-    expect(mutations.map(mutation => mutation.path)).toEqual(['/dsh/target-alias'])
-    expect(vfs.readFileSync('/dsh/target', 'utf8')).toBe('replacement')
-    expect(vfs.readFileSync('/dsh/target-alias', 'utf8')).toBe('changed')
-    expect(linkCount(vfs, '/dsh/target-alias')).toBe(1n)
+    expect(mutations.map(mutation => mutation.path)).toEqual(['/lyn/target-alias'])
+    expect(vfs.readFileSync('/lyn/target', 'utf8')).toBe('replacement')
+    expect(vfs.readFileSync('/lyn/target-alias', 'utf8')).toBe('changed')
+    expect(linkCount(vfs, '/lyn/target-alias')).toBe(1n)
 
-    vfs.seed('/dsh/tree/file', 'tree')
-    vfs.linkSync('/dsh/tree/file', '/dsh/outside')
-    const moved = vfs.openFileSync('/dsh/tree/file', 'r+')
-    vfs.renameSync('/dsh/tree', '/dsh/moved')
+    vfs.seed('/lyn/tree/file', 'tree')
+    vfs.linkSync('/lyn/tree/file', '/lyn/outside')
+    const moved = vfs.openFileSync('/lyn/tree/file', 'r+')
+    vfs.renameSync('/lyn/tree', '/lyn/moved')
     mutations.length = 0
     moved.write(0, new TextEncoder().encode('moved'))
-    expect(mutations.map(mutation => mutation.path)).toEqual(['/dsh/outside', '/dsh/moved/file'])
-    expect(linkCount(vfs, '/dsh/moved/file')).toBe(2n)
+    expect(mutations.map(mutation => mutation.path)).toEqual(['/lyn/outside', '/lyn/moved/file'])
+    expect(linkCount(vfs, '/lyn/moved/file')).toBe(2n)
 
-    vfs.rmSync('/dsh/moved', { recursive: true })
+    vfs.rmSync('/lyn/moved', { recursive: true })
     mutations.length = 0
     moved.write(0, new TextEncoder().encode('kept!'))
-    expect(mutations.map(mutation => mutation.path)).toEqual(['/dsh/outside'])
-    expect(vfs.readFileSync('/dsh/outside', 'utf8')).toBe('kept!')
-    expect(linkCount(vfs, '/dsh/outside')).toBe(1n)
+    expect(mutations.map(mutation => mutation.path)).toEqual(['/lyn/outside'])
+    expect(vfs.readFileSync('/lyn/outside', 'utf8')).toBe('kept!')
+    expect(linkCount(vfs, '/lyn/outside')).toBe(1n)
   })
 
   it('rejects renaming a file over an existing directory', () => {
     const vfs = new MemoryVfs()
-    vfs.seed('/dsh/file', 'value')
-    vfs.seedDirectory('/dsh/directory')
-    expect(() => { vfs.renameSync('/dsh/file', '/dsh/directory') }).toThrow(expect.objectContaining({ code: 'EISDIR' }))
-    expect(vfs.readFileSync('/dsh/file', 'utf8')).toBe('value')
-    expect(vfs.statSync('/dsh/directory').isDirectory()).toBe(true)
+    vfs.seed('/lyn/file', 'value')
+    vfs.seedDirectory('/lyn/directory')
+    expect(() => { vfs.renameSync('/lyn/file', '/lyn/directory') }).toThrow(expect.objectContaining({ code: 'EISDIR' }))
+    expect(vfs.readFileSync('/lyn/file', 'utf8')).toBe('value')
+    expect(vfs.statSync('/lyn/directory').isDirectory()).toBe(true)
   })
 })
