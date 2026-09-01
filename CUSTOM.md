@@ -40,6 +40,7 @@
 | `scripts/verify-lyn-package-licenses.ts` | 按 `vendor/` 路径排除而非按名字前缀 | 去掉 `dsh-` 段后，`@lyness/agent` 与 vendored 的 `@lyness/cordis` 名字上无法区分 | 2026-08-31 |
 | `scripts/package-graph.ts` | 同上 | 同上 | 2026-08-31 |
 | `packages/client/ui-settings-plugin-inventory/src/client/PluginInventorySettingsTab.tsx` | 显示名不再剥离已不存在的前缀 | 同上 | 2026-08-31 |
+| `packages/bundle/base/cordis.patch.yml` | 遥测默认 `DISABLED`、去掉厂商端点 | 上游默认把完整会话记录发往自家 collector；服务他人用户的部署不能默认转发 | 2026-09-01 |
 
 ## 我新增的文件/能力
 
@@ -75,7 +76,7 @@
 | Logo | `website/public/{wordmark,favicon}.svg`、`apps/web/public/favicon.svg` | **未做** | 图形资产需人工设计；仅 `apps/web/public/favicon.svg` 是产品本体 |
 | API 端点 ⛔ | `https://api.deepseek.com` | 不改 | 供应商地址，非品牌 |
 | 模型供应商 DeepSeek ⛔ | `packages/llm/llm-deepseek`、`DeepSeekOnboardingDialog.tsx`、`ui-settings-models` | 不改 | 指模型供应商，不是 harness 品牌；全局替换会误伤 |
-| 遥测端点 ⚠️ | `https://harness-telemetry.deepseeksvc.com` | 未决 | 对外分发前必须复查 |
+| 遥测端点 ⚠️ | `https://harness-telemetry.deepseeksvc.com` | **已移除** | 默认 `DISABLED` 且无端点；启用需显式设两个环境变量 |
 
 ## 合并官方记录
 
