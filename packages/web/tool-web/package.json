@@ -1,7 +1,7 @@
 {
   "name": "@lyness/tool-web",
   "description": "Model-facing web tools (web_search, web_fetch) over the lyness web capability seam (ctx.web)",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -18,36 +18,30 @@
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
     },
-    "./invariant": {
-      "types": "./lib/types/invariant.d.ts",
-      "default": "./lib/invariant.js"
-    },
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
   "files": [
     "lib/index.js",
-    "lib/invariant.js",
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/invariants": "workspace:^",
+    "@lyness/cordis": "workspace:^",
     "@lyness/llm": "workspace:^",
     "@lyness/system-prompt": "workspace:^",
     "@lyness/tools": "workspace:^",
-    "@lyness/web": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/web": "workspace:^"
   },
   "dependencies": {
-    "@joplin/turndown-plugin-gfm": "^1.0.67",
+    "@lyness/util-values": "workspace:^",
     "@lyness/schemastery": "workspace:^",
+    "@joplin/turndown-plugin-gfm": "^1.0.67",
     "turndown": "^7.2.4"
   },
   "devDependencies": {
+    "@lyness/cordis": "workspace:^",
     "@lyness/agent": "workspace:^",
-    "@types/turndown": "^5.0.6",
-    "@lyness/invariants": "workspace:^",
     "@lyness/llm": "workspace:^",
     "@lyness/session": "workspace:^",
     "@lyness/spill-local": "workspace:^",
@@ -58,6 +52,7 @@
     "@lyness/web": "workspace:^",
     "@lyness/web-fetch-http": "workspace:^",
     "@lyness/web-search-exa": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@types/turndown": "^5.0.6",
+    "@lyness/scope": "workspace:^"
   }
 }

@@ -3,9 +3,9 @@
 import type { Context } from '@lyness/cordis'
 import type {
   CordisInspectProviderManifest, CordisInspectQueryRequest, CordisInspectQueryResolution,
-  CordisInspectRequestId, JsonValue,
+  CordisInspectRequestId, SessionId,
 } from '@lyness/api-remotes/client'
-import type { SessionId } from '@lyness/client-connection/client'
+import type { JsonValue } from '@lyness/util-values'
 
 /** Context supplied to a Client inspect provider query. */
 export interface ClientCordisInspectQueryContext {

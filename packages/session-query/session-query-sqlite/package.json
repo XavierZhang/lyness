@@ -1,7 +1,7 @@
 {
   "name": "@lyness/session-query-sqlite",
   "description": "Concrete ctx.sessionQuery backend with SQLite FTS5 search",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -18,21 +18,15 @@
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
     },
-    "./invariant": {
-      "types": "./lib/types/invariant.d.ts",
-      "default": "./lib/invariant.js"
-    },
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
   "files": [
     "lib/index.js",
-    "lib/invariant.js",
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/invariants": "workspace:^",
     "@lyness/session": "workspace:^",
     "@lyness/session-persistence": "workspace:^",
     "@lyness/session-query": "workspace:^",
@@ -48,11 +42,11 @@
   },
   "devDependencies": {
     "@lyness/cordis-plugin-loader": "workspace:^",
-    "@lyness/invariants": "workspace:^",
     "@lyness/session": "workspace:^",
     "@lyness/session-persistence": "workspace:^",
-    "@lyness/session-persistence-sqlite": "workspace:^",
+    "@lyness/session-persistence-jsonl": "workspace:^",
     "@lyness/session-query": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:^",
+    "@lyness/session-projection": "workspace:^"
   }
 }

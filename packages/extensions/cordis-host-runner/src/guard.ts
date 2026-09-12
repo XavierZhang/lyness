@@ -19,7 +19,7 @@ import { scopeOf } from '@lyness/scope'
 import { assertSupportedJsonSchema, defineTool } from '@lyness/tools'
 import type { ToolDefinition } from '@lyness/tools'
 import type { ContentBlock } from '@lyness/llm'
-import type { JsonValue } from '@lyness/session'
+import type { JsonValue } from '@lyness/util-values'
 
 const DYNAMIC_TOOL = Symbol('cordis-host-runner.dynamic-tool')
 const SCHEMA_TYPES = new Set<unknown>(['string', 'number', 'integer', 'boolean', 'null', 'object', 'array', 'json'])

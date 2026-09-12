@@ -1,8 +1,10 @@
 {
   "name": "@lyness/experimental-agent-team-profile",
-  "description": "Private profile bundle enabling Agent Teams over lyn-base",
-  "version": "0.1.2-alpha.1",
-  "private": true,
+  "description": "Experimental profile bundle enabling Agent Teams over lyn-base",
+  "version": "0.1.5-rc.1",
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/XavierZhang/lyness.git",
@@ -16,17 +18,12 @@
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
     },
-    "./invariant": {
-      "types": "./lib/types/invariant.d.ts",
-      "default": "./lib/invariant.js"
-    },
     "./cordis.patch.yml": "./cordis.patch.yml",
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
   "files": [
     "lib/index.js",
-    "lib/invariant.js",
     "cordis.patch.yml",
     "lib/types/**/*.d.ts"
   ],
@@ -41,12 +38,10 @@
     "@lyness/experimental-tool-agent-team": "workspace:^"
   },
   "peerDependencies": {
-    "@lyness/invariants": "workspace:^",
     "@lyness/cordis": "workspace:^"
   },
   "devDependencies": {
     "@lyness/cordis-plugin-include": "workspace:^",
-    "@lyness/invariants": "workspace:^",
     "@lyness/cordis": "workspace:^",
     "js-yaml": "^4.2.0"
   }

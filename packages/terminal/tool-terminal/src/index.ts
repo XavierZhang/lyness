@@ -11,7 +11,6 @@ import type { ContentBlock } from '@lyness/llm'
 import { TerminalSessionId } from '@lyness/terminal'
 import type { TerminalSendResult, TerminalSessionId as TerminalSessionIdType, TerminalSignal } from '@lyness/terminal'
 import type {} from '@lyness/jobs'
-import { FIRST_PARTY_SECTION_ORDER } from '@lyness/system-prompt'
 import { defineTool } from '@lyness/tools'
 import type { ToolDefinition } from '@lyness/tools'
 import { boundTerminalText, renderList, renderRead, renderSend, renderSendRead, renderSpawn } from './render.ts'
@@ -156,7 +155,7 @@ export function apply(ctx: Context, config: Config = {}): void {
   }
   ctx.systemPrompt.section({
     name: 'tool:pty',
-    order: FIRST_PARTY_SECTION_ORDER.TOOL_PTY,
+    order: ctx.systemPrompt.getSectionOrder('TOOL_PTY'),
     text: 'Use a terminal session only when work needs persistent terminal state or interactive stdin; prefer shell/read/write/edit for bounded one-shot operations. Track every terminal session id and close sessions that no longer matter. An inferred_idle or timeout result does not prove the foreground command exited.',
   })
 

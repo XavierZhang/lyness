@@ -48,7 +48,7 @@ interface PlannedVersion {
   readonly tag: string | undefined
 }
 
-/** One private lyn package whose version follows the publishable family. */
+/** One private lyn workspace whose version follows the publishable family. */
 interface PrivateLynVersion {
   /** Repository-relative manifest path. */
   readonly manifestPath: string
@@ -243,13 +243,13 @@ function rootVersion(root: string): string {
 }
 
 /**
- * Discover private package manifests that share the lyn version without joining
- * its publish set.
+ * Discover private package and application manifests that share the lyn version
+ * without joining its publish set.
  * @param root - repository root.
- * @returns Private package manifests sorted by path.
+ * @returns Private workspace manifests sorted by path.
  */
 function privateLynVersions(root: string): PrivateLynVersion[] {
-  return globSync('packages/*/*/package.json', { cwd: root })
+  return globSync(['apps/*/package.json', 'packages/*/*/package.json'], { cwd: root })
     .map(path => path.replaceAll('\\', '/'))
     .sort()
     .flatMap((manifestPath) => {

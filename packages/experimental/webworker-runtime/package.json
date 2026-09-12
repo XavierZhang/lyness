@@ -1,7 +1,7 @@
 {
   "name": "@lyness/experimental-webworker-runtime",
   "description": "Browser-only harness runtime: in-memory VFS, module transform and loader, postMessage tunnel, and the dedicated Web Worker assembly, with the Node-compatibility layer that lets the host tree run unchanged",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "private": true,
   "repository": {
     "type": "git",
@@ -15,10 +15,6 @@
     ".": {
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
-    },
-    "./invariant": {
-      "types": "./lib/types/invariant.d.ts",
-      "default": "./lib/invariant.js"
     },
     "./src/*": "./src/*",
     "./package.json": "./package.json",
@@ -43,8 +39,7 @@
     "@lyness/cordis-plugin-loader": "workspace:^",
     "@lyness/client-connection": "workspace:^",
     "@lyness/client-modules": "workspace:^",
-    "@lyness/host-webserver": "workspace:^",
-    "@lyness/invariants": "workspace:^"
+    "@lyness/host-webserver": "workspace:^"
   },
   "devDependencies": {
     "@lyness/cordis": "workspace:^",
@@ -52,23 +47,23 @@
     "@lyness/api-gateway": "workspace:^",
     "@lyness/bash-sandbox": "workspace:^",
     "@lyness/client-connection": "workspace:^",
+    "@lyness/client-file-upload": "workspace:^",
     "@lyness/client-modules": "workspace:^",
     "@lyness/host-webserver": "workspace:^",
-    "@lyness/invariants": "workspace:^",
     "@lyness/sandbox-local": "workspace:^",
     "@lyness/sandbox-policy": "workspace:^",
     "@lyness/session": "workspace:^",
+    "@lyness/session-projection": "workspace:^",
     "@lyness/session-persistence-jsonl": "workspace:^",
     "@lyness/subagent": "workspace:^",
     "@lyness/subprocess-local": "workspace:^",
-    "@lyness/node-addon-landlock-run": "workspace:^",
+    "@lyness/node-addon-system": "workspace:^",
     "@types/picomatch": "^3.0.2",
     "@types/readable-stream": "^4.0.24",
     "chokidar": "^5.0.0"
   },
   "files": [
     "lib/index.js",
-    "lib/invariant.js",
     "lib/worker.js",
     "lib/client.js",
     "lib/types/**/*.d.ts"

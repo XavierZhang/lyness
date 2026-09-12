@@ -1,7 +1,7 @@
 {
   "name": "@lyness/fs-sandbox",
   "description": "Sandbox-enforcing implementation of the lyness filesystem seam: fences write/edit by the per-call sandbox mode (read-only denies mutation, workspace-write contains it to the workspace + temp roots) while reads pass through",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -18,23 +18,17 @@
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
     },
-    "./invariant": {
-      "types": "./lib/types/invariant.d.ts",
-      "default": "./lib/invariant.js"
-    },
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
   "files": [
     "lib/index.js",
-    "lib/invariant.js",
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
   "peerDependencies": {
     "@lyness/fs": "workspace:^",
     "@lyness/fs-local": "workspace:^",
-    "@lyness/invariants": "workspace:^",
     "@lyness/sandbox": "workspace:^",
     "@lyness/sandbox-policy": "workspace:^",
     "@lyness/cordis": "workspace:^"
@@ -42,9 +36,9 @@
   "devDependencies": {
     "@lyness/fs": "workspace:^",
     "@lyness/fs-local": "workspace:^",
-    "@lyness/invariants": "workspace:^",
     "@lyness/sandbox": "workspace:^",
     "@lyness/sandbox-policy": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:^",
+    "@lyness/session-projection": "workspace:^"
   }
 }

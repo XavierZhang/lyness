@@ -9,6 +9,7 @@ import { pathToFileURL } from 'node:url'
 import LlmRuntime, { createUserMessage, LlmAdapter  } from '@lyness/llm'
 import type { GenerateOptions, StreamChunk } from '@lyness/llm'
 import SessionStore, { SessionId } from '@lyness/session'
+import SessionProjectionRegistry from '@lyness/session-projection'
 import SessionTitleService from '@lyness/session-title'
 import * as providerPlugin from '@lyness/session-title-first-prompt-llm'
 
@@ -38,6 +39,7 @@ async function loadComposition(): Promise<Context> {
   await writeFile(configPath, [
     "- name: '@lyness/llm'",
     "- name: '@lyness/session'",
+    "- name: '@lyness/session-projection'",
     "- name: '@lyness/session-title'",
     '  config:',
     '    fallbackMaxWords: 5',
@@ -62,6 +64,7 @@ async function loadComposition(): Promise<Context> {
   const modules = new Map<string, unknown>([
     ['@lyness/llm', LlmRuntime],
     ['@lyness/session', SessionStore],
+    ['@lyness/session-projection', SessionProjectionRegistry],
     ['@lyness/session-title', SessionTitleService],
     ['@lyness/session-title-first-prompt-llm', providerPlugin],
   ])

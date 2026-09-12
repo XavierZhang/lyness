@@ -1,7 +1,7 @@
 {
   "name": "@lyness/sandbox-policy",
   "description": "Per-call sandbox policy resolver and current model context: deployment fallbacks plus each session's mode and workspace root, shared by every enforcing capability family",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -37,10 +37,12 @@
     "@lyness/sandbox": "workspace:^",
     "@lyness/session": "workspace:^",
     "@lyness/system-prompt": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:^",
+    "@lyness/session-projection": "workspace:^"
   },
   "dependencies": {
-    "@lyness/schemastery": "workspace:^"
+    "@lyness/schemastery": "workspace:^",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@lyness/agent": "workspace:^",
@@ -48,6 +50,7 @@
     "@lyness/sandbox": "workspace:^",
     "@lyness/session": "workspace:^",
     "@lyness/system-prompt": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:^",
+    "@lyness/session-projection": "workspace:^"
   }
 }

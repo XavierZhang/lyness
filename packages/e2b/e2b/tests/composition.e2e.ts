@@ -3,7 +3,6 @@ import { join, posix } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { Context } from '@lyness/cordis'
 import { describe, expect, it } from 'vitest'
-import { Inbox } from '@lyness/agent'
 import type { Agent } from '@lyness/agent'
 import { runLoaderSmoke } from '@lyness/loader-smoke'
 import {
@@ -14,8 +13,10 @@ import {
 import TerminalSessionService, { TerminalSessionId } from '@lyness/terminal'
 import { BashTerminalBackend } from '@lyness/terminal-bash'
 import SandboxPolicyService from '@lyness/sandbox-policy'
+import SessionProjectionRegistry from '@lyness/session-projection'
 import { Session, SessionId } from '@lyness/session'
 import E2BSubprocessRuntime from '@lyness/subprocess-e2b'
+import { unsupportedInbox } from '@lyness/agent-loop-testkit'
 
 const fixtureRoot = fileURLToPath(new URL('./fixtures/composition/', import.meta.url))
 const binScript = join(fixtureRoot, 'bin.ts')
@@ -52,6 +53,7 @@ describe.skipIf(!process.env.E2B_API_KEY)('E2B live Loader composition', () => {
         runtimeRoot: '/home/user/.lyn-e2b',
         getSandbox: async () => sandbox,
       } as never)
+      await ctx.plugin(SessionProjectionRegistry)
       const sandboxPolicyFiber = await ctx.plugin(SandboxPolicyService, {
         mode: 'danger-full-access',
         workspaceRoot: '/home/user',
@@ -85,7 +87,7 @@ describe.skipIf(!process.env.E2B_API_KEY)('E2B live Loader composition', () => {
         id: ownerId,
         options: {},
         session: ownerSession,
-        inbox: new Inbox(ownerSession, { inserted: () => {}, discarded: () => {}, claimed: () => {} }),
+        inbox: unsupportedInbox(),
         status: 'idle',
         ctx,
         send() {},

@@ -2,5 +2,5 @@
 # side as of the last confirmed-consistent state. Both languages carry equal authority;
 # after editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write docs/subsystems/invariants.md
-invariants.md: 8164236bd2899f1180e114f455c1ca41c831ba74
-invariants.zh.md: 8503d09129e2e91932be8da8d66bb9d1f671a480
+invariants.md: 801ca14b5ad15c5bb831e7ed868e4ff99a203369
+invariants.zh.md: 992381b4145223032145648c3c93d96d652cde5d

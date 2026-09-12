@@ -1,12 +1,9 @@
 import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import LlmRuntime from '@lyness/llm'
-import SessionStore, { SessionId } from '@lyness/session'
-import SystemPrompt from '@lyness/system-prompt'
-import ToolRuntime from '@lyness/tools'
-import AgentRegistry from '@lyness/agent'
+import { SessionId } from '@lyness/session'
 
 import AgentLoop from '@lyness/agent-loop'
+import { mountAgentLoopTestDependencies } from '@lyness/agent-loop-testkit'
 import * as LlmDeepSeek from '@lyness/llm-deepseek'
 import SubagentRuntime from '@lyness/subagent'
 import * as Spawn from '@lyness/subagent-spawn-in-process'
@@ -30,11 +27,7 @@ afterEach(async () => {
 
 async function harness(): Promise<Context> {
   const built = new Context()
-  await built.plugin(LlmRuntime)
-  await built.plugin(SessionStore)
-  await built.plugin(SystemPrompt)
-  await built.plugin(ToolRuntime)
-  await built.plugin(AgentRegistry)
+  await mountAgentLoopTestDependencies(built)
   await built.plugin(AgentLoop, { agents: [] })
   await built.plugin(LlmDeepSeek)
   await built.plugin(SubagentRuntime)

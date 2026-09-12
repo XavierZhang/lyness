@@ -8,6 +8,7 @@
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import { join, relative, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
+import { isPublicExperimentalPackageDirectory } from './experimental-package-policy.ts'
 import { hasTypertRemoteNavigation, isForbiddenPublicationFile } from './publication-payload.ts'
 import { collectProjectReferenceFaceViolations } from './project-reference-faces.ts'
 
@@ -18,7 +19,7 @@ const workspaceGlobs = [
   { dir: 'vendor', depth: 1 },
   { dir: 'packages', depth: 2 },
   { dir: 'native', depth: 1 },
-  { dir: 'native/landlock-run/packages', depth: 1 },
+  { dir: 'native/system/packages', depth: 1 },
   { dir: 'apps', depth: 1 },
 ] as const
 const vendoredPackages = new Set([
@@ -32,14 +33,29 @@ const vendoredPackages = new Set([
   '@lyness/cordis-plugin-hmr',
   '@lyness/cordis-plugin-logger-console',
 ])
-const publicLandlockPackages = new Set([
-  '@lyness/node-addon-landlock-run',
-  '@lyness/node-addon-landlock-run-linux-arm64',
-  '@lyness/node-addon-landlock-run-linux-x64',
+const publicNativePackages = new Set([
+  '@lyness/node-addon-system',
+  '@lyness/node-addon-system-darwin-arm64',
+  '@lyness/node-addon-system-darwin-x64',
+  '@lyness/node-addon-system-linux-arm64',
+  '@lyness/node-addon-system-linux-x64',
+])
+/**
+ * Packages that share the fork's scope but keep their own version line.
+ *
+ * Upstream separates them by the product-name segment its own packages carry:
+ * the Landlock addon family tracks its native source, and the documentation
+ * site is a private build. Without that segment the scope alone reads them
+ * into the release family.
+ */
+const foreignVersionLinePackages = new Set([
+  ...publicNativePackages,
+  '@lyness/node-addon-system-workspace',
+  '@lyness/website',
 ])
 /** Deliberate source payloads whose exact bytes are part of the package's audit surface. */
 const publicationSourceAllowlist: Readonly<Record<string, readonly string[]>> = {
-  '@lyness/node-addon-landlock-run': ['src/main.c'],
+  '@lyness/node-addon-system': ['src/main.c', 'src/flock.c'],
 }
 const repositoryUrl = 'git+https://github.com/XavierZhang/lyness.git'
 /**
@@ -48,15 +64,21 @@ const repositoryUrl = 'git+https://github.com/XavierZhang/lyness.git'
  * their trusted publishing against the repository that runs the workflow.
  */
 const publishedRepositoryUrl = 'git+https://github.com/XavierZhang/lyness.git'
-/** Private packages that participate in workspace checks but not releases. */
+/** Packages that participate in the experimental policy. */
 const experimentalPackageDirectory = /^packages\/experimental\/[^/]+$/
-/** npm namespace reserved for private experimental packages. */
+/** npm namespace reserved for experimental packages. */
 const experimentalPackageNamePrefix = '@lyness/experimental-'
-/** Directories whose packages this repository publishes: one release member each. */
-const releaseMemberDirectory = /^(?:packages\/(?!experimental\/)[^/]+\/[^/]+|apps\/[^/]+|vendor\/[^/]+)$/
+/** Ordinary directories whose packages this repository publishes: one release member each. */
+const standardReleaseMemberDirectory = /^(?:packages\/(?!experimental\/)[^/]+\/[^/]+|apps\/(?!desktop(?:-host)?$)[^/]+|vendor\/[^/]+)$/
+/** Installable application assembled by electron-builder rather than published to npm. */
+const desktopApplicationDirectory = 'apps/desktop'
 const localArtifactDirs = new Set(['node_modules'])
 const appPackageFiles: Readonly<Record<string, readonly string[]>> = {
   '@lyness/lyn': ['lib/*.js'],
+  '@lyness/desktop-host': [
+    'lib/index.js',
+    'config/desktop.cordis.patch.yml',
+  ],
   // Sourcemaps stay out by payload policy; the worker-preview surface
   // (dist/preview.html and dist/preview/) backs private experimental
   // packages and is not published.
@@ -108,8 +130,8 @@ function readJson(path: string): PackageManifest {
 
 const rootManifest = readJson(join(root, 'package.json'))
 const repositoryVersion = rootManifest.version
-const landlockWorkspaceManifest = readJson(join(root, 'native/landlock-run/package.json'))
-const landlockVersion = landlockWorkspaceManifest.version
+const nativeWorkspaceManifest = readJson(join(root, 'native/system/package.json'))
+const nativeVersion = nativeWorkspaceManifest.version
 
 /** Repo-relative dirs holding a package.json, walked to the configured depth. */
 function packageDirs(base: string, depth: number): string[] {
@@ -147,31 +169,35 @@ const packageFileExtras: Readonly<Record<string, readonly string[]>> = {
   // The glob covers whichever sheets a package emits; sourcemaps stay
   // unpublished, as everywhere else in the repository.
   '@lyness/client-ui-primitives': ['lib/**/*.css'],
+  '@lyness/client-ui-dockkit': ['lib/**/*.css'],
   '@lyness/client-web': ['lib/**/*.css'],
   '@lyness/client-ui-theme': ['lib/styles'],
   // The CPython side ships as source .py files, published as-is rather than built.
-  '@lyness/code-runtime-python': ['py/**/*.py'],
+  '@lyness/experimental-code-runtime-python': ['py/**/*.py'],
   // The shipped preset compositions travel inside the roster package.
   '@lyness/agent-presets': ['presets'],
   // The Web Host mounts the default-off settings owner independently of each
   // Agent-scoped delegation-tool instance.
   '@lyness/tool-subagent': ['lib/model-selection-settings.js'],
+  // The JSONL backend resolves its private verification Worker relative to
+  // import.meta.url; it is shipped without a public package subpath.
+  '@lyness/session-persistence-jsonl': ['lib/worker.cjs'],
   // The argv-prefix runner entry ships beside the lib as its own bundle;
   // sandbox-local resolves it through the package's ./runner export. tsdown
   // also shares its generated FFI code through a hashed runtime chunk.
   '@lyness/sandbox-windows-acl': ['lib/runner.js', 'lib/types-*.js'],
-  // SQLite loads its compression dictionary and every statement from immutable
-  // package resources at runtime.
-  '@lyness/session-persistence-sqlite': [
-    'resources/zstd-dictionary.bin',
-    'resources/sql/**/*.sql',
-  ],
   '@lyness/skill-badge': ['assets'],
+  // Ordinary native containment ships a path-loaded runner and its shared
+  // runner chunk beside the existing node-pty permission repair.
+  '@lyness/subprocess-local': [
+    'lib/runner.js',
+    'lib/runner-*.js',
+    'scripts/ensure-spawn-helper.mjs',
+  ],
   // tsdown shares the repository/pack code between the lib entry and the bin
   // through a hashed chunk. The committed bin.js is the link target pnpm can
   // resolve at install time, before the build produces lib/bin.js.
   '@lyness/experimental-webworker-packer': ['bin.js', 'lib/repository-*.js'],
-  '@lyness/subprocess-local': ['scripts/ensure-spawn-helper.mjs'],
 }
 
 function sameStringList(actual: readonly string[] | undefined, expected: readonly string[]): boolean {
@@ -187,9 +213,9 @@ export function expectedLynPackageFiles(manifest: PackageManifest): readonly str
   ]
   return [
     'lib/index.js',
-    // Every package publishes its invariant ownership companion as a separate
-    // bundle; the package-invariant gate validates the companion itself.
-    'lib/invariant.js',
+    // Packages with an invariant export publish its runtime as a separate
+    // bundle; the package-invariant gate validates the source/export pairing.
+    ...manifest.exports?.['./invariant'] ? ['lib/invariant.js'] : [],
     ...manifest.bin ? ['lib/bin.js'] : [],
     // Worker-thread packages ship a CJS worker entry; the browser worker
     // bundle is an ES module a page loads with `new Worker(type: 'module')`.
@@ -255,7 +281,7 @@ function usesEmittedTreeDefaults(manifest: PackageManifest): boolean {
     exportDefault(manifest, subpath)?.startsWith('./lib/types/') === true)
 }
 
-/** Experimental manifest requirements enforced independently from release metadata. */
+/** Experimental manifest requirements, including explicit public exceptions. */
 export function checkExperimentalManifest({ dir, manifest }: WorkspaceManifest): string[] {
   if (!experimentalPackageDirectory.test(dir)) return []
   const label = manifest.name ?? dir
@@ -263,9 +289,46 @@ export function checkExperimentalManifest({ dir, manifest }: WorkspaceManifest):
   if (manifest.name?.startsWith(experimentalPackageNamePrefix) !== true) {
     errors.push(`${label}: experimental package name must start with ${JSON.stringify(experimentalPackageNamePrefix)}`)
   }
-  if (manifest.private !== true) errors.push(`${label}: experimental package must set "private": true`)
-  if (manifest.publishConfig !== undefined) errors.push(`${label}: experimental package must omit publishConfig`)
+  if (isPublicExperimentalPackageDirectory(dir)) {
+    if (manifest.private === true) errors.push(`${label}: public experimental package must not set "private": true`)
+    if (manifest.publishConfig?.access !== 'public') {
+      errors.push(`${label}: public experimental package must set publishConfig.access to "public"`)
+    }
+  } else {
+    if (manifest.private !== true) errors.push(`${label}: experimental package must set "private": true`)
+    if (manifest.publishConfig !== undefined) errors.push(`${label}: experimental package must omit publishConfig`)
+  }
   return errors
+}
+
+function isReleaseMemberDirectory(dir: string): boolean {
+  return standardReleaseMemberDirectory.test(dir) || isPublicExperimentalPackageDirectory(dir)
+}
+
+/**
+ * Require a lyn-family manifest to carry the workspace version.
+ *
+ * The lyn release sequence publishes packages/ and apps/ members and every
+ * private lyn package on one shared version, written by `release:lyn` and
+ * shared with the workspace root. This name test is that boundary: it covers
+ * the family wherever the manifest lives, so apps/ members cannot drift with
+ * only the release lane noticing.
+ * @param manifest - the workspace package manifest.
+ * @param expected - the version every lyn-family manifest must carry (the root's).
+ * @returns one violation naming the manifest and the expected version, or
+ * undefined when the manifest is compliant or not in the family.
+ */
+export function checkLynFamilyVersion(manifest: PackageManifest, expected: string | undefined): string | undefined {
+  const name = manifest.name
+  if (name !== '@lyness/lyn' && name?.startsWith('@lyness/') !== true) return undefined
+  // The scope alone no longer names the family: this fork publishes harness
+  // packages as `@lyness/<name>`, the same shape the rescoped vendored and
+  // Landlock packages carry. Those keep their own upstream version lines.
+  if (vendoredPackages.has(name) || foreignVersionLinePackages.has(name)) return undefined
+  if (manifest.version !== expected) {
+    return `${name}: package.json version must match root version ${expected ?? '(missing)'}`
+  }
+  return undefined
 }
 
 /**
@@ -276,12 +339,14 @@ export function checkExperimentalManifest({ dir, manifest }: WorkspaceManifest):
 export function checkWorkspaceManifest({ dir, manifest }: WorkspaceManifest): string[] {
   const errors = checkExperimentalManifest({ dir, manifest })
   const label = manifest.name ?? dir
-  const isLandlockPackageDir = dir.startsWith('native/landlock-run/packages/')
-  const isPublicLandlockPackage = isLandlockPackageDir
+  const familyVersionError = checkLynFamilyVersion(manifest, repositoryVersion)
+  if (familyVersionError !== undefined) errors.push(familyVersionError)
+  const isNativePackageDir = dir.startsWith('native/system/packages/')
+  const isPublicNativePackage = isNativePackageDir
     && manifest.name !== undefined
-    && publicLandlockPackages.has(manifest.name)
+    && publicNativePackages.has(manifest.name)
 
-  if (isPublicLandlockPackage) {
+  if (isPublicNativePackage) {
     if (manifest.private === true) {
       errors.push(`${label}: published Landlock package must not set "private": true`)
     }
@@ -294,17 +359,16 @@ export function checkWorkspaceManifest({ dir, manifest }: WorkspaceManifest): st
       || manifest.repository.directory !== expectedDirectory) {
       errors.push(`${label}: published Landlock package repository must use ${repositoryUrl} with directory ${expectedDirectory} for trusted publishing`)
     }
-  } else if (releaseMemberDirectory.test(dir)) {
+  } else if (isReleaseMemberDirectory(dir)) {
     // Release members state that they are publishable: npm refuses a private
     // package, and the repository field is how a consumer finds the source of
     // the package it installed.
     //
     // Access is per release sequence, not per scope: the vendored framework and
     // the Landlock packages publish publicly because outside consumers install
-    // them, while the lyn family stays restricted until its own sequence goes
-    // public. A mixed scope is why no publish path passes `--access` — one flag
-    // cannot serve both, so each packed manifest decides
-    // ([rationale](../.agents/notes/implemented/process/2026-08-13-public-vendor-and-native-sequences.md)).
+    // them, and the lyn family published publicly with its own sequence on
+    // 2026-08-13. No publish path passes `--access`; each packed manifest declares
+    // it, and this gate requires every release member to be public.
     if (manifest.private === true) {
       errors.push(`${label}: release member must not set "private": true`)
     }
@@ -333,7 +397,7 @@ export function checkWorkspaceManifest({ dir, manifest }: WorkspaceManifest): st
     }
   }
 
-  if (dir.startsWith('apps/') && manifest.name?.startsWith('@lyness/')) {
+  if (dir.startsWith('apps/') && dir !== desktopApplicationDirectory && manifest.name?.startsWith('@lyness/')) {
     const expectedFiles = appPackageFiles[manifest.name]
     if (expectedFiles === undefined) {
       errors.push(`${label}: app package has no publication files policy`)
@@ -342,12 +406,12 @@ export function checkWorkspaceManifest({ dir, manifest }: WorkspaceManifest): st
     }
   }
 
-  if (isLandlockPackageDir) {
-    if (!isPublicLandlockPackage) {
+  if (isNativePackageDir) {
+    if (!isPublicNativePackage) {
       errors.push(`${label}: unexpected package in the public Landlock package family`)
     }
-    if (manifest.version !== landlockVersion) {
-      errors.push(`${label}: package.json version must match Landlock workspace version ${landlockVersion ?? '(missing)'}`)
+    if (manifest.version !== nativeVersion) {
+      errors.push(`${label}: package.json version must match native workspace version ${nativeVersion ?? '(missing)'}`)
     }
   }
 
@@ -359,9 +423,6 @@ export function checkWorkspaceManifest({ dir, manifest }: WorkspaceManifest): st
     if (!dev) errors.push(`${label}: @lyness/cordis must also be a devDependency`)
     if (peer && dev && peer !== dev) {
       errors.push(`${label}: @lyness/cordis peer (${peer}) and dev (${dev}) ranges must match`)
-    }
-    if (manifest.version !== repositoryVersion) {
-      errors.push(`${label}: package.json version must match root version ${repositoryVersion ?? '(missing)'}`)
     }
     if (manifest.type !== 'module') {
       errors.push(`${label}: package.json must set "type": "module"`)
@@ -450,7 +511,7 @@ export function checkExperimentalDependencyIsolation(manifests: readonly Workspa
     .filter(name => name !== undefined))
   const errors: string[] = []
   for (const { dir, manifest } of manifests) {
-    if (!releaseMemberDirectory.test(dir) && dir !== 'python/sdk-runtime') continue
+    if (!standardReleaseMemberDirectory.test(dir) && dir !== 'python/sdk-runtime') continue
     for (const section of runtimeDependencySections) {
       for (const name of Object.keys(manifest[section] ?? {})) {
         if (!experimentalNames.has(name)) continue

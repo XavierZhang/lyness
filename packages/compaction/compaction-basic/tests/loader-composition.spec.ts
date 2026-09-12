@@ -8,6 +8,7 @@ import Loader from '@lyness/cordis-plugin-loader'
 import Include from '@lyness/cordis-plugin-include'
 import LlmRuntime from '@lyness/llm'
 import SessionStore from '@lyness/session'
+import SessionProjectionRegistry from '@lyness/session-projection'
 import TokenMeter from '@lyness/token-meter'
 import BasicCompactionEngine from '@lyness/compaction-basic'
 import ToolResultPruner from '@lyness/compaction-tool-result-pruner'
@@ -34,6 +35,7 @@ async function loadYaml(lines: readonly string[]): Promise<Context> {
   const modules = new Map<string, unknown>([
     ['@lyness/llm', LlmRuntime],
     ['@lyness/session', SessionStore],
+    ['@lyness/session-projection', SessionProjectionRegistry],
     ['@lyness/token-meter', TokenMeter],
     ['@lyness/compaction-tool-result-pruner', ToolResultPruner],
     ['@lyness/compaction-basic', BasicCompactionEngine],
@@ -58,6 +60,7 @@ describe('real Loader composition', () => {
     const loaded = await loadYaml([
       "- name: '@lyness/llm'",
       "- name: '@lyness/session'",
+      "- name: '@lyness/session-projection'",
       "- name: '@lyness/token-meter'",
       "- name: '@lyness/compaction-tool-result-pruner'",
       '  config:',
@@ -86,6 +89,7 @@ describe('real Loader composition', () => {
 
   it('rejects stale token-meter config after Schemastery normalization', async () => {
     context = new Context()
+    await context.plugin(SessionProjectionRegistry)
     await expect(context.plugin(TokenMeter, {
       contextWindow: 4096,
     } as never)).rejects.toThrow(/TokenMeterConfig: unknown key "contextWindow"/)
@@ -95,6 +99,7 @@ describe('real Loader composition', () => {
     context = new Context()
     await context.plugin(LlmRuntime)
     await context.plugin(SessionStore)
+    await context.plugin(SessionProjectionRegistry)
     await context.plugin(TokenMeter)
     await expect(context.plugin(BasicCompactionEngine, {
       models: { legacy: { thresholdRatio: 0.5 } },
@@ -105,6 +110,7 @@ describe('real Loader composition', () => {
     context = new Context()
     await context.plugin(LlmRuntime)
     await context.plugin(SessionStore)
+    await context.plugin(SessionProjectionRegistry)
     await context.plugin(TokenMeter)
     await expect(context.plugin(BasicCompactionEngine, {
       retainRatio: 0.2,
@@ -120,6 +126,7 @@ describe('real Loader composition', () => {
     context = new Context()
     await context.plugin(LlmRuntime)
     await context.plugin(SessionStore)
+    await context.plugin(SessionProjectionRegistry)
     await context.plugin(TokenMeter)
     await expect(context.plugin(BasicCompactionEngine, {
       summarizationProvider: 'default-provider',

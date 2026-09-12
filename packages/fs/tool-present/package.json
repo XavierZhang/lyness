@@ -1,0 +1,60 @@
+{
+  "name": "@lyness/tool-present",
+  "description": "Explicit workspace file delivery declarations for the lyness",
+  "version": "0.1.5-rc.1",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "directory": "packages/fs/tool-present"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./types": {
+      "types": "./lib/types/types.d.ts",
+      "default": "./lib/types/types.js"
+    },
+    "./src/*": "./src/*",
+    "./package.json": "./package.json"
+  },
+  "license": "MIT",
+  "files": [
+    "lib/index.js",
+    "lib/types/**/*.js",
+    "lib/types/**/*.d.ts"
+  ],
+  "dependencies": {
+    "@lyness/schemastery": "workspace:^"
+  },
+  "peerDependencies": {
+    "@lyness/cordis": "workspace:^",
+    "@lyness/agent": "workspace:^",
+    "@lyness/fs": "workspace:^",
+    "@lyness/llm": "workspace:^",
+    "@lyness/session": "workspace:^",
+    "@lyness/session-projection": "workspace:^",
+    "@lyness/tools": "workspace:^"
+  },
+  "devDependencies": {
+    "@lyness/cordis": "workspace:^",
+    "@lyness/agent": "workspace:^",
+    "@lyness/fs": "workspace:^",
+    "@lyness/llm": "workspace:^",
+    "@lyness/session": "workspace:^",
+    "@lyness/session-projection": "workspace:^",
+    "@lyness/tools": "workspace:^",
+    "@lyness/agent-loop": "workspace:^",
+    "@lyness/agent-loop-testkit": "workspace:^",
+    "@lyness/fs-local": "workspace:^",
+    "@lyness/system-prompt": "workspace:^",
+    "@lyness/scope": "workspace:^"
+  }
+}

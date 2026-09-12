@@ -3,8 +3,7 @@
 import { Service } from '@lyness/cordis'
 import type { Context } from '@lyness/cordis'
 import type { Agent } from '@lyness/agent'
-import { snapshotJsonValue } from '@lyness/session'
-import type { JsonValue } from '@lyness/session/types'
+import { snapshotJsonValue, type JsonValue } from '@lyness/util-values'
 import { assertSupportedJsonSchema, validateJsonSchemaValue } from '@lyness/tools'
 import type { JsonSchemaNode } from '@lyness/tools'
 import type {

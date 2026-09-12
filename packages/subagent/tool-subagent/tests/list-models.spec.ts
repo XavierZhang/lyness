@@ -14,6 +14,7 @@ import type {
 import ToolRuntime from '@lyness/tools'
 import SystemPrompt from '@lyness/system-prompt'
 import SubagentRuntime from '@lyness/subagent'
+import SessionProjectionRegistry from '@lyness/session-projection'
 import * as tool from '../src/index.ts'
 import { registerListSubagentModels } from '../src/list-models.ts'
 import { testToolSignal, text } from './harness.ts'
@@ -100,6 +101,7 @@ function call(ctx: Context, args: unknown) {
 describe('list_subagent_models', () => {
   it('is omitted unless its delegation-tool instance owns discovery', async () => {
     const ctx = new Context()
+    await ctx.plugin(SessionProjectionRegistry)
     await ctx.plugin(LlmRuntime)
     await ctx.plugin(SystemPrompt)
     await ctx.plugin(ToolRuntime)

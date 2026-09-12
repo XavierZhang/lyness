@@ -1,7 +1,7 @@
 {
   "name": "@lyness/tool-session-query",
   "description": "Workspace-authorized model-facing session history search, trace, and event read tools",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -18,46 +18,44 @@
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
     },
-    "./invariant": {
-      "types": "./lib/types/invariant.d.ts",
-      "default": "./lib/invariant.js"
-    },
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
   "files": [
     "lib/index.js",
-    "lib/invariant.js",
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/invariants": "workspace:^",
+    "@lyness/cordis": "workspace:^",
+    "@lyness/agent": "workspace:^",
     "@lyness/llm": "workspace:^",
     "@lyness/session": "workspace:^",
+    "@lyness/session-projection": "workspace:^",
     "@lyness/session-query": "workspace:^",
     "@lyness/system-prompt": "workspace:^",
     "@lyness/timeout": "workspace:^",
-    "@lyness/tools": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/tools": "workspace:^"
   },
   "dependencies": {
+    "@lyness/brand": "workspace:^",
     "@lyness/schemastery": "workspace:^"
   },
   "devDependencies": {
+    "@lyness/cordis": "workspace:^",
     "@lyness/agent": "workspace:^",
-    "@lyness/invariants": "workspace:^",
+    "@lyness/agent-loop": "workspace:^",
     "@lyness/llm": "workspace:^",
     "@lyness/session": "workspace:^",
     "@lyness/session-persistence": "workspace:^",
     "@lyness/session-persistence-jsonl": "workspace:^",
+    "@lyness/session-projection": "workspace:^",
     "@lyness/session-query": "workspace:^",
     "@lyness/session-query-sqlite": "workspace:^",
     "@lyness/session-title": "workspace:^",
     "@lyness/system-prompt": "workspace:^",
     "@lyness/timeout": "workspace:^",
     "@lyness/tool-call-timeout-policy": "workspace:^",
-    "@lyness/tools": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/tools": "workspace:^"
   }
 }

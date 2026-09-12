@@ -1,8 +1,8 @@
 import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import { ToolCallId } from '@lyness/llm'
-import { Session, SessionId } from '@lyness/session'
-import AgentRegistry, { Inbox } from '@lyness/agent'
+import { SESSION_FORMAT_VERSION, Session, SessionId } from '@lyness/session'
+import AgentRegistry from '@lyness/agent'
 import type { Agent } from '@lyness/agent'
 import TerminalSessionService from '@lyness/terminal'
 import type {
@@ -18,6 +18,7 @@ import type {
 import SystemPrompt from '@lyness/system-prompt'
 import ToolRegistry from '@lyness/tools'
 import * as ToolPwshPersistent from '@lyness/tool-pwsh-persistent'
+import { unsupportedInbox } from '@lyness/agent-loop-testkit'
 
 const contexts: Context[] = []
 let callNumber = 0
@@ -30,16 +31,17 @@ function agent(ctx: Context, cwd: string | undefined): Agent {
   const id = SessionId(`persistent-pwsh-owner-${callNumber}`)
   const scope = ctx.plugin(() => {})
   const session = Session.create(id, [], {
-    version: 0,
+    version: SESSION_FORMAT_VERSION,
     id,
     createdAt: 0,
+    isSeeded: false,
     ...cwd === undefined ? {} : { cwd },
   })
   const value: Agent = {
     id,
     options: {},
     session,
-    inbox: new Inbox(session, { inserted: () => {}, discarded: () => {}, claimed: () => {} }),
+    inbox: unsupportedInbox(),
     status: 'idle',
     ctx: scope.ctx,
     send: () => {},

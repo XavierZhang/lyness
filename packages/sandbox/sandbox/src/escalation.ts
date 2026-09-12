@@ -16,7 +16,7 @@
  * @module lyn-sandbox/escalation
  */
 
-import { assertNever } from '@lyness/llm'
+import { assertNever } from '@lyness/util-values'
 import type { SandboxMode } from './index.ts'
 
 /**

@@ -2,7 +2,7 @@
 
 import { HarnessError } from '@lyness/llm'
 import type { ContentBlock } from '@lyness/llm'
-import type { JsonValue } from '@lyness/session'
+import type { JsonValue } from '@lyness/util-values'
 import type { ToolDefinition, ToolExecution, ToolExecutionResult, ToolRunContext, ToolResult } from './index.ts'
 import { assertSupportedJsonSchema, isJsonSchemaRecord, isPlainJsonArray, JsonSchemaError, validateJsonSchemaValue } from './json-schema.ts'
 import type { JsonSchemaNode, JsonSchemaScalar, ObjectJsonSchema } from './json-schema.ts'

@@ -1,7 +1,7 @@
 {
   "name": "@lyness/client-ui-skill",
   "description": "Web skill references and the dedicated skill tool row",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -17,10 +17,6 @@
     ".": {
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
-    },
-    "./invariant": {
-      "types": "./lib/types/invariant.d.ts",
-      "default": "./lib/invariant.js"
     },
     "./client": {
       "types": "./lib/types/client/index.d.ts",
@@ -48,15 +44,6 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/api-remotes": "workspace:^",
-    "@lyness/api-session-controller": "workspace:^",
-    "@lyness/client-connection": "workspace:^",
-    "@lyness/client-locale": "workspace:^",
-    "@lyness/client-ui-input-trigger": "workspace:^",
-    "@lyness/client-ui-renderer": "workspace:^",
-    "@lyness/client-ui-tool": "workspace:^",
-    "@lyness/invariants": "workspace:^",
-    "@lyness/session": "workspace:^",
     "@lyness/cordis": "workspace:^"
   },
   "devDependencies": {
@@ -70,7 +57,6 @@
     "@lyness/client-ui-renderer": "workspace:^",
     "@lyness/client-ui-slots": "workspace:^",
     "@lyness/client-ui-tool": "workspace:^",
-    "@lyness/invariants": "workspace:^",
     "@lyness/session": "workspace:^",
     "@testing-library/react": "^16.1.0",
     "@types/react": "~18.3.1",
@@ -80,7 +66,6 @@
   },
   "files": [
     "lib/index.js",
-    "lib/invariant.js",
     "lib/client.js",
     "lib/types/**/*.d.ts"
   ]

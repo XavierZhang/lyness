@@ -1,7 +1,7 @@
 {
   "name": "@lyness/session-reference",
   "description": "Cross-session snapshot references and durable untrusted model context (ctx.sessionReferenceResolver)",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -17,10 +17,6 @@
     ".": {
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
-    },
-    "./invariant": {
-      "types": "./lib/types/invariant.d.ts",
-      "default": "./lib/invariant.js"
     },
     "./types": {
       "types": "./lib/types/types.d.ts",
@@ -39,7 +35,6 @@
   },
   "files": [
     "lib/index.js",
-    "lib/invariant.js",
     "lib/types/**/*.js",
     "lib/types/**/*.d.ts",
     "lib/typert.host.js",
@@ -49,13 +44,15 @@
   ],
   "license": "MIT",
   "dependencies": {
+    "@lyness/brand": "workspace:^",
+    "@lyness/util-values": "workspace:^",
     "@lyness/schemastery": "workspace:^",
     "zod": "^4.4.3"
   },
   "peerDependencies": {
+    "@lyness/cordis": "workspace:^",
     "@lyness/agent": "workspace:^",
     "@lyness/compaction": "workspace:^",
-    "@lyness/invariants": "workspace:^",
     "@lyness/llm": "workspace:^",
     "@lyness/output-retention": "workspace:^",
     "@lyness/session": "workspace:^",
@@ -63,26 +60,38 @@
     "@lyness/session-projection-cache": "workspace:^",
     "@lyness/session-query": "workspace:^",
     "@lyness/session-title": "workspace:^",
-    "@lyness/typert-protocol": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/spill": "workspace:^",
+    "@lyness/system-prompt": "workspace:^",
+    "@lyness/typert-protocol": "workspace:^"
   },
   "peerDependenciesMeta": {
+    "@lyness/spill": {
+      "optional": true
+    },
     "@lyness/session-projection-cache": {
       "optional": true
     }
   },
   "devDependencies": {
+    "@lyness/cordis": "workspace:^",
+    "@lyness/cordis-plugin-include": "workspace:^",
+    "@lyness/cordis-plugin-loader": "workspace:^",
     "@lyness/agent": "workspace:^",
     "@lyness/compaction": "workspace:^",
-    "@lyness/invariants": "workspace:^",
+    "@lyness/fs-local": "workspace:^",
     "@lyness/llm": "workspace:^",
     "@lyness/output-retention": "workspace:^",
     "@lyness/session": "workspace:^",
     "@lyness/session-projection": "workspace:^",
     "@lyness/session-projection-cache": "workspace:^",
     "@lyness/session-query": "workspace:^",
+    "@lyness/session-query-sqlite": "workspace:^",
     "@lyness/session-title": "workspace:^",
-    "@lyness/typert-protocol": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/spill": "workspace:^",
+    "@lyness/spill-local": "workspace:^",
+    "@lyness/system-prompt": "workspace:^",
+    "@lyness/tool-fs": "workspace:^",
+    "@lyness/tools": "workspace:^",
+    "@lyness/typert-protocol": "workspace:^"
   }
 }

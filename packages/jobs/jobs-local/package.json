@@ -1,7 +1,7 @@
 {
   "name": "@lyness/jobs-local",
   "description": "Process-local implementation of the lyness background job registry seam",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -18,22 +18,16 @@
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
     },
-    "./invariant": {
-      "types": "./lib/types/invariant.d.ts",
-      "default": "./lib/invariant.js"
-    },
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
   "files": [
     "lib/index.js",
-    "lib/invariant.js",
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
   "peerDependencies": {
     "@lyness/agent": "workspace:^",
-    "@lyness/invariants": "workspace:^",
     "@lyness/scope": "workspace:^",
     "@lyness/jobs": "workspace:^",
     "@lyness/timeout": "workspace:^",
@@ -46,8 +40,8 @@
     "@lyness/cordis-plugin-include": "workspace:^",
     "@lyness/cordis-plugin-loader": "workspace:^",
     "@lyness/agent": "workspace:^",
+    "@lyness/agent-loop-testkit": "workspace:^",
     "@lyness/brand": "workspace:^",
-    "@lyness/invariants": "workspace:^",
     "@lyness/scope": "workspace:^",
     "@lyness/session": "workspace:^",
     "@lyness/jobs": "workspace:^",

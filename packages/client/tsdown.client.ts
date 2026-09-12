@@ -58,7 +58,7 @@ function styleInjectionModule(
  * Everything else under @lyness/* is either a module-table entry
  * (external) or a leak the purity gate rejects.
  */
-export const INLINE_SAFE = /^(?:@lyness\/(?:file-reference|session|llm|tools|brand|util-crypto|util-workspace-path)(?:\/|$)|@lyness\/token-meter\/client$)/
+export const INLINE_SAFE = /^(?:@lyness\/(?:file-reference|session|llm|tools|brand|deque|output-retention|typert-protocol|util-crypto|util-values|util-workspace-path)(?:\/|$)|@lyness\/token-meter\/client$|@lyness\/host-open-in-app\/shared$|@lyness\/agent-presets\/display$|@lyness\/spill-policy\/notice$)/
 
 /**
  * Vendored framework libraries: rescoped into @lyness, so the gate below

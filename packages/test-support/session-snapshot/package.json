@@ -1,7 +1,7 @@
 {
   "name": "@lyness/session-snapshot",
   "description": "Session-log snapshot core with an ACP protocol adapter, expected-output normalization, and fixture invariants",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -18,36 +18,33 @@
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
     },
-    "./invariant": {
-      "types": "./lib/types/invariant.d.ts",
-      "default": "./lib/invariant.js"
-    },
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
   "files": [
     "lib/index.js",
-    "lib/invariant.js",
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
   "dependencies": {
     "@agentclientprotocol/sdk": "1.4.0",
     "@lyness/cordis-plugin-include": "workspace:*",
+    "@lyness/llm-replay": "workspace:^",
     "@lyness/loader-smoke": "workspace:*",
+    "@lyness/session-format": "workspace:^",
     "js-yaml": "^4.2.0",
     "vitest": "^4.1.8"
   },
   "peerDependencies": {
-    "@lyness/invariants": "workspace:^",
+    "@lyness/cordis": "workspace:^",
     "@lyness/session": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/http-proxy": "workspace:^"
   },
   "devDependencies": {
+    "@lyness/cordis": "workspace:^",
     "@lyness/agent": "workspace:^",
     "@lyness/agent-loop": "workspace:^",
     "@lyness/compaction": "workspace:^",
-    "@lyness/invariants": "workspace:^",
     "@lyness/llm": "workspace:^",
     "@lyness/sandbox": "workspace:^",
     "@lyness/sandbox-policy": "workspace:^",
@@ -55,7 +52,7 @@
     "@lyness/subagent": "workspace:^",
     "@lyness/tools": "workspace:^",
     "@lyness/user-questions": "workspace:^",
-    "@lyness/cordis": "workspace:^",
-    "@types/js-yaml": "^4.0.9"
+    "@types/js-yaml": "^4.0.9",
+    "@lyness/http-proxy": "workspace:^"
   }
 }

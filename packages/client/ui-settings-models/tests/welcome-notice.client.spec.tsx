@@ -1,11 +1,16 @@
 // @vitest-environment jsdom
+import type { GlobalStandardProps } from '@lyness/client-ui-slots'
 import { act, cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { bindSnapshotSelector } from '@lyness/client-test-runtime'
+import { bindSnapshotSelector, RemoteError } from '@lyness/client-test-runtime'
 import { Context } from '@lyness/cordis'
 import { SettingsSchemaService } from '@lyness/client-ui-settings/src/client/schema.ts'
 import { SettingsDescribeMirror } from '@lyness/client-ui-settings/src/client/settings-mirror.ts'
 import { SettingsScopeController } from '@lyness/client-ui-settings/src/client/settings-scope.ts'
+
+// Every fixture carries the resource hook the resources plugin merges into GlobalStandardProps.
+const useResource = (() => ({ status: 'none' as const, value: undefined, failure: undefined, reload: () => {} })) as GlobalStandardProps['useResource']
+const usePanelInfo: GlobalStandardProps['usePanelInfo'] = selector => selector({ activePanelId: null })
 
 /** Stateless schema service for scope construction in this jsdom fixture. */
 const schemaService = new SettingsSchemaService(new Context())
@@ -70,9 +75,10 @@ function mount(
       mutate,
     },
   }
-  const mirror = new SettingsDescribeMirror(api as never)
+  const ctx = { remote: api } as never
+  const mirror = new SettingsDescribeMirror(ctx)
   const scope = new SettingsScopeController<WelcomeSection>(
-    api as never,
+    ctx,
     { namespace: WELCOME_NOTICE_SETTINGS_NAMESPACE, decode: decodeWelcomeSection },
     mirror,
     'host',
@@ -88,6 +94,7 @@ function mount(
     openSection: vi.fn(),
     useSessions: unusedHook,
     useSessionPendingInteraction,
+    usePanelInfo, useResource,
     useWorkspaces: unusedHook,
     controller,
     useWelcome: bindSnapshotSelector(controller.store),
@@ -153,15 +160,8 @@ describe('WelcomeNotice', () => {
     fireEvent.click(action)
     expect(action.disabled).toBe(true)
     resolveWrite({
-      rpcId: 'welcome-refused' as never,
-      result: {
-        ok: false,
-        error: {
-          code: 'settings-rejected',
-          message: 'read only',
-          details: { ns: WELCOME_NOTICE_SETTINGS_NAMESPACE },
-        },
-      },
+      ok: false,
+      error: new RemoteError('settings/rejected', 'read only', { ns: WELCOME_NOTICE_SETTINGS_NAMESPACE }),
     })
     expect((await screen.findByRole('alert')).textContent).toBe(zh.welcomeError)
     expect(h.complete).not.toHaveBeenCalled()

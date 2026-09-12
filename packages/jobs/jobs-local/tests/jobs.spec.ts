@@ -1,13 +1,14 @@
 import { describe, expect, expectTypeOf, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
 import { Session, SessionId } from '@lyness/session'
-import AgentRegistry, { Inbox } from '@lyness/agent'
+import AgentRegistry from '@lyness/agent'
 import type { Agent } from '@lyness/agent'
 import { bindScopeParent, createScope, scopeOf } from '@lyness/scope'
 import type { ScopeKey } from '@lyness/scope'
 import { JobId } from '@lyness/jobs'
 import type { JobHooks, JobKind, JobOutcome, JobSnapshot, JobStart } from '@lyness/jobs'
 import LocalJobRegistry, { type Config as JobsConfig } from '@lyness/jobs-local'
+import { unsupportedInbox } from '@lyness/agent-loop-testkit'
 
 declare module '@lyness/jobs' {
   interface JobKindMap {
@@ -34,7 +35,7 @@ function stubAgent(ctx: Context, rawId: string, presetScope?: ScopeKey): Agent {
     id,
     options: {},
     session,
-    inbox: new Inbox(session, { inserted: () => {}, discarded: () => {}, claimed: () => {} }),
+    inbox: unsupportedInbox(),
     status: 'idle' as const,
     ctx: agentCtx,
     send: () => {},
@@ -44,7 +45,7 @@ function stubAgent(ctx: Context, rawId: string, presetScope?: ScopeKey): Agent {
     cancel() {},
     runMaintenance: <T>(job: (signal: AbortSignal) => Promise<T>) => job(new AbortController().signal),
     whenIdle() { return Promise.resolve() },
-  }
+  } satisfies Agent
   agentScopeDisposers.set(agent, async () => { await scopeFiber.dispose() })
   return agent
 }

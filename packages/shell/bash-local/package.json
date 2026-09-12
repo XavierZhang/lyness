@@ -1,7 +1,7 @@
 {
   "name": "@lyness/bash-local",
   "description": "Local-subprocess implementation of the lyness bash executor seam",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -18,22 +18,16 @@
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
     },
-    "./invariant": {
-      "types": "./lib/types/invariant.d.ts",
-      "default": "./lib/invariant.js"
-    },
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
   "files": [
     "lib/index.js",
-    "lib/invariant.js",
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
   "peerDependencies": {
     "@lyness/shell": "workspace:^",
-    "@lyness/invariants": "workspace:^",
     "@lyness/subprocess": "workspace:^",
     "@lyness/timeout": "workspace:^",
     "@lyness/cordis": "workspace:^",
@@ -44,7 +38,6 @@
   },
   "devDependencies": {
     "@lyness/shell": "workspace:^",
-    "@lyness/invariants": "workspace:^",
     "@lyness/subprocess": "workspace:^",
     "@lyness/subprocess-local": "workspace:^",
     "@lyness/timeout": "workspace:^",

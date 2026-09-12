@@ -1,15 +1,19 @@
 import { describe, expect, expectTypeOf, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { createUserMessage, ToolCallId, HarnessError, type ContentBlock  } from '@lyness/llm'
+import LlmRuntime, { createUserMessage, ToolCallId, HarnessError, type ContentBlock  } from '@lyness/llm'
+import SessionStore, { Session, SessionId } from '@lyness/session'
+import SessionProjectionRegistry from '@lyness/session-projection'
 import SystemPrompt from '@lyness/system-prompt'
-import type { Agent } from '@lyness/agent'
+import AgentRegistry, { type Agent } from '@lyness/agent'
+import AgentLoop from '@lyness/agent-loop'
 import ApprovalService, { type ApprovalOutcome, type ApprovalRequest } from '@lyness/user-approval'
 import ToolRuntime, {
   defineContentToolFixture, defineTool, JsonSchemaError, parameterSchemaSpecToJsonSchema, validateArgs, ToolArgsError, ToolNotFoundError,
   TOOL_ABORTED, TOOL_ABORTED_BEFORE_DISPATCH,
-  type InferArgs, type JsonValue, type ParameterSchemaSpec, type PreToolDecision, type PostToolDecision,
+  type InferArgs, type ParameterSchemaSpec, type PreToolDecision, type PostToolDecision,
   type JsonSchemaNode, type ToolDefinition, type ToolDispatchExecution, type ToolExecutionResult, type ToolExecutionToken,
 } from '@lyness/tools'
+import type { JsonValue } from '@lyness/util-values'
 
 const testToolSignal = new AbortController().signal
 
@@ -718,19 +722,21 @@ describe('ToolRuntime', () => {
   })
 
   describe('ask routing through ctx.approval', () => {
-    /**
-     * A minimal Agent stand-in — the approval seam reaches
-     * `agent.session.append` and folds `.events`; the seeded open turn
-     * satisfies request()'s enclosure precondition.
-     */
     function fakeAgent(): Agent {
-      return {
-        session: { events: [{ type: 'turn/start' }], append: () => ({}) },
-      } as unknown as Agent
+      const session = Session.create(SessionId('approval-fake-agent'))
+      session.append('turn/start', { turn: 1 })
+      return { session } as unknown as Agent
     }
 
     async function approvalSetup() {
-      const ctx = await setup()
+      const ctx = new Context()
+      await ctx.plugin(LlmRuntime)
+      await ctx.plugin(SessionStore)
+      await ctx.plugin(SessionProjectionRegistry)
+      await ctx.plugin(SystemPrompt)
+      await ctx.plugin(ToolRuntime)
+      await ctx.plugin(AgentRegistry)
+      await ctx.plugin(AgentLoop, { agents: [] })
       await ctx.plugin(ApprovalService)
       ctx.tools.register(echoTool)
       return ctx

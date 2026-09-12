@@ -1,7 +1,7 @@
 {
   "name": "@lyness/webhook",
   "description": "Fire-and-forget webhook rule runtime that creates Workspace-backed lyness Sessions",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -41,7 +41,6 @@
     "@lyness/agent": "workspace:^",
     "@lyness/agent-default-model": "workspace:^",
     "@lyness/agent-presets": "workspace:^",
-    "@lyness/brand": "workspace:^",
     "@lyness/invariants": "workspace:^",
     "@lyness/llm": "workspace:^",
     "@lyness/permission-presets": "workspace:^",
@@ -56,12 +55,15 @@
     "@lyness/agent": "workspace:^",
     "@lyness/agent-default-model": "workspace:^",
     "@lyness/agent-presets": "workspace:^",
-    "@lyness/brand": "workspace:^",
     "@lyness/invariants": "workspace:^",
     "@lyness/llm": "workspace:^",
     "@lyness/permission-presets": "workspace:^",
     "@lyness/session": "workspace:^",
     "@lyness/session-title": "workspace:^",
     "@lyness/workspace": "workspace:^"
+  },
+  "dependencies": {
+    "@lyness/brand": "workspace:^",
+    "@lyness/util-values": "workspace:^"
   }
 }

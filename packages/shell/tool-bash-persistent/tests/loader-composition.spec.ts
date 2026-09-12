@@ -7,18 +7,20 @@ import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
 import Include from '@lyness/cordis-plugin-include'
 import { ToolCallId } from '@lyness/llm'
-import { Session, SessionId } from '@lyness/session'
-import AgentRegistry, { Inbox } from '@lyness/agent'
+import { SESSION_FORMAT_VERSION, Session, SessionId } from '@lyness/session'
+import AgentRegistry from '@lyness/agent'
 import type { Agent } from '@lyness/agent'
 import TerminalSessionService from '@lyness/terminal'
 import * as TerminalLocal from '@lyness/terminal-bash'
 import SandboxProvider from '@lyness/sandbox'
 import type { ConfinedArgv, SandboxPolicy } from '@lyness/sandbox'
 import SandboxPolicyService from '@lyness/sandbox-policy'
+import SessionProjectionRegistry from '@lyness/session-projection'
 import LocalSubprocessRuntime from '@lyness/subprocess-local'
 import SystemPrompt from '@lyness/system-prompt'
 import ToolRuntime from '@lyness/tools'
 import * as ToolBashPersistent from '@lyness/tool-bash-persistent'
+import { unsupportedInbox } from '@lyness/agent-loop-testkit'
 
 let root: string | undefined
 let context: Context | undefined
@@ -39,12 +41,14 @@ class PassthroughSandbox extends SandboxProvider {
 function agent(ctx: Context, cwd: string): Agent {
   const id = SessionId('persistent-bash-loader-agent')
   const scope = ctx.plugin(() => {})
-  const session = Session.create(id, [], { version: 0, id, createdAt: 0, cwd })
+  const session = Session.create(id, [], {
+    version: SESSION_FORMAT_VERSION, id, createdAt: 0, cwd, isSeeded: false,
+  })
   const value: Agent = {
     id,
     options: {},
     session,
-    inbox: new Inbox(session, { inserted: () => {}, discarded: () => {}, claimed: () => {} }),
+    inbox: unsupportedInbox(),
     status: 'idle',
     ctx: scope.ctx,
     send: () => {},
@@ -75,6 +79,7 @@ suite('persistent Bash through a real cordis.yml Loader composition', () => {
       "- name: '@lyness/tools'",
       "- name: '@lyness/terminal'",
       "- name: '@lyness/test-sandbox'",
+      "- name: '@lyness/session-projection'",
       "- name: '@lyness/sandbox-policy'",
       '  config:',
       '    mode: danger-full-access',
@@ -108,6 +113,7 @@ suite('persistent Bash through a real cordis.yml Loader composition', () => {
       ['@lyness/tools', ToolRuntime],
       ['@lyness/terminal', TerminalSessionService],
       ['@lyness/test-sandbox', PassthroughSandbox],
+      ['@lyness/session-projection', SessionProjectionRegistry],
       ['@lyness/sandbox-policy', SandboxPolicyService],
       ['@lyness/subprocess-local', LocalSubprocessRuntime],
       ['@lyness/terminal-bash', TerminalLocal],
@@ -143,20 +149,26 @@ suite('persistent Bash through a real cordis.yml Loader composition', () => {
       'multiline',
       'value="line one"\nprintf "%s:%s\\n" "$value" "it\'s fine"',
     ))
-    expect(multiline).toBe("line one:it's fine")
+    expect(multiline).toBe("line one:it's fine\n[Command finished with exit code 0]")
     expect(multiline).not.toContain('LYNESS_PERSISTENT_BASH')
 
     const heredoc = text(await execute(
       'heredoc',
       "cat <<'EOF'\nalpha\nbeta\nEOF",
     ))
-    expect(heredoc).toBe('alpha\nbeta')
+    expect(heredoc).toBe('alpha\nbeta\n[Command finished with exit code 0]')
 
     const pipeline = text(await execute(
       'pipeline',
       '{ sleep 0.1; printf "delayed\\n"; } | cat',
     ))
-    expect(pipeline).toBe('delayed')
+    expect(pipeline).toBe('delayed\n[Command finished with exit code 0]')
+
+    // Every trailing newline is dropped before the status trailer.
+    const trailing = text(await execute('trailing-newlines', 'printf "tail\\n\\n\\n"'))
+    expect(trailing).toBe('tail\n[Command finished with exit code 0]')
+    expect(text(await execute('nonzero', 'exit_code() { return 3; }; exit_code')))
+      .toBe('[Command finished with exit code 3]')
 
     const large = text(await execute('large-output', 'seq 1 12050'))
     expect(large.startsWith('1\n2\n3\n')).toBe(true)
@@ -171,6 +183,6 @@ suite('persistent Bash through a real cordis.yml Loader composition', () => {
 
     const exited = text(await execute('exit', 'exit'))
     expect(exited).toContain('next bash call starts from the workspace')
-    expect(text(await execute('after-exit', 'printf "%s\\n" "$PWD"'))).toBe(root)
+    expect(text(await execute('after-exit', 'printf "%s\\n" "$PWD"'))).toBe(`${root}\n[Command finished with exit code 0]`)
   }, 20_000)
 })

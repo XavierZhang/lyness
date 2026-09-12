@@ -1,7 +1,7 @@
 {
   "name": "@lyness/subagent-codex",
   "description": "One-shot Codex subagent provider over the official app-server protocol",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -18,16 +18,11 @@
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
     },
-    "./invariant": {
-      "types": "./lib/types/invariant.d.ts",
-      "default": "./lib/invariant.js"
-    },
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
   "files": [
     "lib/index.js",
-    "lib/invariant.js",
     "cordis.patch.yml",
     "lib/types/**/*.d.ts"
   ],
@@ -38,36 +33,36 @@
     }
   },
   "peerDependencies": {
-    "@lyness/invariants": "workspace:^",
+    "@lyness/cordis": "workspace:^",
     "@lyness/llm": "workspace:^",
     "@lyness/session": "workspace:^",
     "@lyness/subagent": "workspace:^",
     "@lyness/subprocess": "workspace:^",
-    "@lyness/timeout": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/timeout": "workspace:^"
   },
   "dependencies": {
+    "@lyness/brand": "workspace:^",
     "@lyness/sdk-protocol": "workspace:^",
     "@lyness/schemastery": "workspace:^",
-    "@openai/codex": "0.149.1"
+    "@openai/codex": "0.153.4"
   },
   "devDependencies": {
+    "@lyness/cordis": "workspace:^",
     "@lyness/cordis-plugin-loader": "workspace:^",
     "@lyness/agent": "workspace:^",
-    "@lyness/agent-spine-demo": "workspace:^",
     "@lyness/app-boot": "workspace:^",
-    "@lyness/invariants": "workspace:^",
     "@lyness/llm": "workspace:^",
     "@lyness/loader-smoke": "workspace:^",
     "@lyness/session": "workspace:^",
     "@lyness/session-checkpoint-policy": "workspace:^",
     "@lyness/session-persistence-jsonl": "workspace:^",
+    "@lyness/session-projection": "workspace:^",
     "@lyness/subagent": "workspace:^",
     "@lyness/subprocess": "workspace:^",
     "@lyness/subprocess-local": "workspace:^",
     "@lyness/timeout": "workspace:^",
+    "@lyness/tool-jobs": "workspace:^",
     "@lyness/tool-subagent": "workspace:^",
-    "@lyness/tools": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/tools": "workspace:^"
   }
 }

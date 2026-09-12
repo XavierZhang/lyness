@@ -2,15 +2,16 @@
 
 import { homedir } from 'node:os'
 import type { Context } from '@lyness/cordis'
+import type { Agent } from '@lyness/agent'
 import type {
   TypertRemoteEventDispatch,
   TypertRemoteEventInvocation,
   TypertRemoteEventOutcome,
   TypertRemoteEventSource,
 } from '@lyness/api-gateway'
+import { Deque } from '@lyness/deque'
 import { carrierKeyOf } from '@lyness/scope'
-import { isJsonValue } from '@lyness/session'
-import type { JsonValue } from '@lyness/session'
+import { isJsonValue, type JsonValue } from '@lyness/util-values'
 import { API_REMOTE_FORWARDED_EVENTS } from './remote-events.ts'
 
 // The owner packages' client-safe `./types` exports carry the cordis `Events`
@@ -20,6 +21,7 @@ import { API_REMOTE_FORWARDED_EVENTS } from './remote-events.ts'
 import type {} from '@lyness/commands/types'
 import type {} from '@lyness/cordis-host-runner/types'
 import type {} from '@lyness/credentials/types'
+import type {} from '@lyness/goal/types'
 import type {} from '@lyness/llm/types'
 import type {} from '@lyness/agent-presets/types'
 import type {} from '@lyness/settings/types'
@@ -56,17 +58,17 @@ function remoteEventSource(ctx: Context): TypertRemoteEventSource {
         request: object,
         next: () => unknown,
       ) {
-        const subject = carrierKeyOf(this)
-        if (subject === undefined) return next()
-        const value = Reflect.get(subject, 'ctx') as unknown
-        if (typeof value !== 'object' || value === null) {
-          throw new TypeError(`forwarded scoped event ${JSON.stringify(event)} has no live Context`)
+        const carrierAgent = carrierKeyOf(this)
+        if (carrierAgent === undefined) return next()
+        const agent = (request as { readonly agent?: Agent }).agent
+        if (agent === undefined || agent !== carrierAgent) {
+          throw new TypeError(`forwarded scoped event ${JSON.stringify(event)} must carry its Agent directly`)
         }
         return forwardWaterfall(
           queue,
           event,
           request,
-          { value: value as Context, subject },
+          { value: agent.ctx, subject: agent, agentId: agent.id },
           next,
         )
       }) as never)
@@ -79,13 +81,13 @@ function remoteEventSource(ctx: Context): TypertRemoteEventSource {
 
 /** One pull-driven queue bridging synchronous Cordis listeners to an AsyncIterable. */
 class RemoteEventQueue {
-  private readonly buffer: TypertRemoteEventDispatch[] = []
+  private readonly buffer = new Deque<TypertRemoteEventDispatch>()
   private waiter: (() => void) | undefined
   private done = false
 
   push(frame: TypertRemoteEventDispatch): boolean {
     if (this.done) return false
-    this.buffer.push(frame)
+    this.buffer.pushBack(frame)
     this.waiter?.()
     return true
   }
@@ -93,8 +95,8 @@ class RemoteEventQueue {
   private end(reason: unknown): void {
     if (this.done) return
     this.done = true
-    const buffered = this.buffer.splice(0)
-    for (const dispatch of buffered) {
+    while (this.buffer.size > 0) {
+      const dispatch = this.buffer.popFront() as TypertRemoteEventDispatch
       if ('context' in dispatch) dispatch.reject(reason)
     }
     this.waiter?.()
@@ -106,7 +108,7 @@ class RemoteEventQueue {
     try {
       while (true) {
         if (this.done || signal.aborted) return
-        while (this.buffer.length > 0) yield this.buffer.shift() as TypertRemoteEventDispatch
+        while (this.buffer.size > 0) yield this.buffer.popFront() as TypertRemoteEventDispatch
         await new Promise<void>((resolve) => { this.waiter = resolve })
         this.waiter = undefined
       }

@@ -1,7 +1,7 @@
 {
   "name": "@lyness/tool-ralph",
   "description": "Model-facing fresh-agent Ralph loop over the workflow and subagent seams",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -18,22 +18,16 @@
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
     },
-    "./invariant": {
-      "types": "./lib/types/invariant.d.ts",
-      "default": "./lib/invariant.js"
-    },
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
   "files": [
     "lib/index.js",
-    "lib/invariant.js",
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
   "peerDependencies": {
     "@lyness/agent": "workspace:^",
-    "@lyness/invariants": "workspace:^",
     "@lyness/llm": "workspace:^",
     "@lyness/subagent": "workspace:^",
     "@lyness/system-prompt": "workspace:^",
@@ -49,7 +43,6 @@
     "@lyness/agent": "workspace:^",
     "@lyness/agent-loop": "workspace:^",
     "@lyness/agent-loop-testkit": "workspace:^",
-    "@lyness/invariants": "workspace:^",
     "@lyness/llm": "workspace:^",
     "@lyness/session": "workspace:^",
     "@lyness/subagent": "workspace:^",
@@ -59,6 +52,7 @@
     "@lyness/tools": "workspace:^",
     "@lyness/workflow": "workspace:^",
     "@lyness/workflow-worker-thread": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:^",
+    "@lyness/session-projection": "workspace:^"
   }
 }

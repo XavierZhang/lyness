@@ -5,6 +5,7 @@ import Loader from '@lyness/cordis-plugin-loader'
 import Include from '@lyness/cordis-plugin-include'
 import LlmRuntime from '@lyness/llm'
 import SessionStore, { SessionId } from '@lyness/session'
+import SessionProjectionRegistry from '@lyness/session-projection'
 import SystemPrompt from '@lyness/system-prompt'
 import ToolRuntime from '@lyness/tools'
 import AgentRegistry, { assembleContextFor } from '@lyness/agent'
@@ -27,7 +28,8 @@ async function harness(roster: Partial<Config> = {}): Promise<Context> {
   ctx.loader.builtins.include = Include
   await ctx.plugin(LlmRuntime)
   await ctx.plugin(SessionStore)
-  await ctx.plugin(SystemPrompt, { persona: '' })
+  await ctx.plugin(SessionProjectionRegistry)
+  await ctx.plugin(SystemPrompt, { personaPrefix: '' })
   await ctx.plugin(ToolRuntime)
   await ctx.plugin(AgentRegistry)
   await ctx.plugin(AgentLoop, { agents: [] })

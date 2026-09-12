@@ -1,7 +1,7 @@
 {
   "name": "@lyness/pwsh-sandbox",
   "description": "Sandbox-consuming implementation of the lyness PowerShell executor seam (confines every command via ctx.sandbox, reports denial/enforcement result facts)",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -18,22 +18,16 @@
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
     },
-    "./invariant": {
-      "types": "./lib/types/invariant.d.ts",
-      "default": "./lib/invariant.js"
-    },
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
   "files": [
     "lib/index.js",
-    "lib/invariant.js",
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
   "peerDependencies": {
     "@lyness/shell": "workspace:^",
-    "@lyness/invariants": "workspace:^",
     "@lyness/pwsh-local": "workspace:^",
     "@lyness/sandbox": "workspace:^",
     "@lyness/sandbox-policy": "workspace:^",
@@ -41,11 +35,11 @@
   },
   "devDependencies": {
     "@lyness/shell": "workspace:^",
-    "@lyness/invariants": "workspace:^",
     "@lyness/pwsh-local": "workspace:^",
     "@lyness/sandbox": "workspace:^",
     "@lyness/sandbox-local": "workspace:^",
     "@lyness/sandbox-policy": "workspace:^",
+    "@lyness/session-projection": "workspace:^",
     "@lyness/subprocess-local": "workspace:^",
     "@lyness/cordis": "workspace:^"
   }

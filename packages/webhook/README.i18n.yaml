@@ -3,4 +3,4 @@
 # after editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/webhook/README.md
 README.md: 6ccd4b8aee1d0b21b38ae2865c94fdad5a673558
-README.zh.md: 91eda7f9379701bc4e66731f62385cc313c58723
+README.zh.md: 9f0618273c0b8faa4648214895ca1877fbc64df9

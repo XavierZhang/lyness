@@ -12,7 +12,7 @@ import type {
   LspRange,
 } from '@lyness/lsp'
 import { LspError } from '@lyness/lsp'
-import { assertNever } from '@lyness/llm'
+import { assertNever } from '@lyness/util-values'
 import type {
   WireHover,
   WireLocation,

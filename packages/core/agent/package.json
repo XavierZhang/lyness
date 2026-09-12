@@ -1,7 +1,7 @@
 {
   "name": "@lyness/agent",
   "description": "Agent interface, registry, initiator scope, and event vocabulary for the lyness",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -41,8 +41,10 @@
     "@lyness/llm": "workspace:^",
     "@lyness/scope": "workspace:^",
     "@lyness/session": "workspace:^",
+    "@lyness/session-projection": "workspace:^",
     "@lyness/system-prompt": "workspace:^",
     "@lyness/typert-protocol": "workspace:^",
+    "@lyness/util-values": "workspace:^",
     "@lyness/cordis": "workspace:^"
   },
   "devDependencies": {
@@ -50,9 +52,11 @@
     "@lyness/llm": "workspace:^",
     "@lyness/scope": "workspace:^",
     "@lyness/session": "workspace:^",
+    "@lyness/session-projection": "workspace:^",
     "@lyness/system-prompt": "workspace:^",
     "@lyness/typert-protocol": "workspace:^",
     "@lyness/typert-registry": "workspace:^",
+    "@lyness/util-values": "workspace:^",
     "@lyness/cordis": "workspace:^"
   }
 }

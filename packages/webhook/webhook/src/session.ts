@@ -3,12 +3,13 @@
 import type { Context } from '@lyness/cordis'
 import { randomUUID } from 'node:crypto'
 import { isAbsolute } from 'node:path'
+import { brandString } from '@lyness/brand'
 import type { ModelSelection } from '@lyness/agent'
 import type {} from '@lyness/agent-default-model'
 import type {} from '@lyness/agent-presets'
 import { boundContextSummary, createUserMessage, errorChain, type LlmCallConfig } from '@lyness/llm'
 import type {} from '@lyness/permission-presets'
-import { SessionId } from '@lyness/session'
+import type { SessionId } from '@lyness/session'
 import type {} from '@lyness/session-title'
 import type {} from '@lyness/workspace'
 import type { WebhookRuleId } from './brand.ts'
@@ -89,11 +90,8 @@ function reportRollbackFailure(ctx: Context, subject: string, error: unknown): v
 
 /** Apply the creation-time selection until its first durable request header exists. */
 function installInitialModelSelection(agentCtx: Context, selection: ModelSelection): void {
-  agentCtx.on('agent/request', async (_payload, next): Promise<LlmCallConfig> => {
+  agentCtx.on('agent/request', async ({ agent }, next): Promise<LlmCallConfig> => {
     const resolved = await next()
-    const agent = agentCtx.agent
-    /* v8 ignore next -- AgentRegistry setup always provides the unpublished scoped Agent. */
-    if (agent === undefined) throw new Error('webhook Session setup has no scoped Agent')
     if (agent.session.requestHeader() !== undefined
       || resolved.provider !== selection.provider
       || resolved.model !== selection.model) return resolved
@@ -131,7 +129,7 @@ export async function createWebhookSession(
 
   const workspace = await ctx.workspaceRegistry.create(resolved.workspacePath)
   signal.throwIfAborted()
-  const sessionId = SessionId(`webhook-${randomUUID()}`)
+  const sessionId = brandString<SessionId>(`webhook-${randomUUID()}`)
   const handle = await ctx.agents.create({
     sessionId,
     signal,

@@ -1,8 +1,7 @@
 import { readFile } from 'node:fs/promises'
 import { resolve } from 'node:path'
 import { boot } from '@lyness/app-boot'
-import { Inbox } from '@lyness/agent'
-import type { Agent } from '@lyness/agent'
+import { type Agent } from '@lyness/agent'
 import { Session, SessionId } from '@lyness/session'
 import type {} from '@lyness/fs-e2b'
 import type {} from '@lyness/bash-local'
@@ -16,11 +15,23 @@ const ctx = await boot('e2b-composition', resolve(configPath))
 const ownerFiber = ctx.plugin(() => {})
 const ownerId = SessionId('e2b-live-owner')
 const session = Session.create(ownerId)
+const unsupportedInboxMutation = (): never => {
+  throw new Error('the E2B composition owner does not support Inbox mutations')
+}
 const owner: Agent = {
   id: ownerId,
   options: {},
   session,
-  inbox: new Inbox(session, { inserted: () => {}, discarded: () => {}, claimed: () => {} }),
+  inbox: {
+    nextTurn: [],
+    nextStep: [],
+    clear: unsupportedInboxMutation,
+    append: unsupportedInboxMutation,
+    prepend: unsupportedInboxMutation,
+    replace: unsupportedInboxMutation,
+    remove: unsupportedInboxMutation,
+    splice: unsupportedInboxMutation,
+  },
   status: 'idle',
   ctx: ownerFiber.ctx,
   send() {},

@@ -10,11 +10,10 @@ import {
 } from '@lyness/cordis-host-runner'
 import type { DynamicCordisReference } from '@lyness/cordis-host-runner'
 import { createUserMessage } from '@lyness/llm'
-import type { JsonValue } from '@lyness/session'
+import type { JsonValue } from '@lyness/util-values'
 import type { UserMessage } from '@lyness/session'
 import { defineTool } from '@lyness/tools'
 import type { ToolExecution } from '@lyness/tools'
-import { FIRST_PARTY_SECTION_ORDER } from '@lyness/system-prompt'
 import { missingServices, providedServices } from './inspect.ts'
 import {
   presentDefineCall, presentInspectListCall, presentInspectQueryCall, presentInspectSelfCall, presentRunCall,
@@ -35,7 +34,7 @@ function requireAgent(exec: ToolExecution): Agent {
 export function apply(ctx: Context): void {
   ctx.systemPrompt.section({
     name: 'tool:cordis',
-    order: FIRST_PARTY_SECTION_ORDER.TOOL_CORDIS,
+    order: ctx.systemPrompt.getSectionOrder('TOOL_CORDIS'),
     text: CORDIS_SYSTEM_PROMPT,
   })
   for (const provider of hostInspectProviders(ctx)) {

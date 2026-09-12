@@ -7,7 +7,7 @@
 
 import type { UserMessage } from '@lyness/llm/message'
 import type { ContentBlock } from '@lyness/llm/types'
-import type { SessionId } from '@lyness/session/types'
+import type { OptionalSessionSeq, SessionId } from '@lyness/session/types'
 
 /** Durable source session, cited event seqs, and snapshot facts for prepared cross-session context. */
 export interface SessionReferenceSource {
@@ -18,7 +18,9 @@ export interface SessionReferenceSource {
   references: {
     sessionId: string
     label: string
-    capturedThroughSeq: number | null
+    /** Source Session format generation; absence identifies version 0. */
+    capturedFormatVersion?: number
+    capturedThroughSeq: OptionalSessionSeq
     compacted: boolean
     originalMessages: number
     retainedMessages: number

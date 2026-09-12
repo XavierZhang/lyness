@@ -1,6 +1,0 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
-#   pnpm run verify-translation-pairing --write .agents/notes/proposed/simplification/2026-07-04-prune-dead-core-spine-api.md
-2026-07-04-prune-dead-core-spine-api.md: dbed4a96f6195ce0c425824f9c90429ce9f9e548
-2026-07-04-prune-dead-core-spine-api.zh.md: 7a3ac1098a8015e4b10b00f0f22be58c5b8b7c1f

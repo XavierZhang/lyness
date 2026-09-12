@@ -11,6 +11,7 @@
  */
 
 import { randomUUID } from 'node:crypto'
+import { brandString } from '@lyness/brand'
 import {
   Lyness,
   type LynessOptions,
@@ -20,7 +21,7 @@ import {
   TransportClosedError,
 } from '@lyness/sdk-client'
 import type { ContentBlock, ReasoningEffortId } from '@lyness/llm'
-import { SessionId, type SessionEvent, type TurnEndReason } from '@lyness/session'
+import type { SessionEvent, SessionId, TurnEndReason } from '@lyness/session'
 import type { SubagentResult, SubagentRun, SubagentStartRequest, SubagentStopReason } from '@lyness/subagent'
 import { AssistantOutputFold, settleRunResult, subprocessRunHandle } from '@lyness/subagent'
 import { scrubbedParentEnv } from '@lyness/subprocess'
@@ -233,7 +234,7 @@ export async function startSdkRun(request: SubagentStartRequest, spec: SdkRunSpe
   if (request.signal.aborted) throw new Error('subagent request was aborted before the SDK child started')
   // The run id lives in the parent namespace; the child runtime's session id
   // (minted below, private to the wire) exists only inside the child process.
-  const id = SessionId(randomUUID())
+  const id = brandString<SessionId>(randomUUID())
 
   const harness = internals.createHarness({
     ...spec.lynBin === undefined ? {} : { lynBin: spec.lynBin },

@@ -91,12 +91,23 @@ describe('client bundle purity gate', () => {
     expect(() => resolveId('@lyness/client-web-react/store')).toThrow(/purity/)
   })
 
-  it('lets inline-safe wire layers inline', () => {
+  it('lets inline-safe libraries inline', () => {
     expect(resolveId('@lyness/session/surface')).toBeNull()
     expect(resolveId('@lyness/brand')).toBeNull()
+    expect(resolveId('@lyness/deque')).toBeNull()
+    expect(resolveId('@lyness/util-values')).toBeNull()
     expect(resolveId('@lyness/token-meter/client')).toBeNull()
     expect(() => resolveId('@lyness/token-meter')).toThrow(/purity/)
     expect(() => resolveId('@lyness/token-meter/client/internal')).toThrow(/purity/)
+    expect(resolveId('@lyness/host-open-in-app/shared')).toBeNull()
+    expect(() => resolveId('@lyness/host-open-in-app')).toThrow(/purity/)
+  })
+
+  it('admits only the pure spill notice entry, not its Host policy', () => {
+    expect(resolveId('@lyness/spill-policy/notice')).toBeNull()
+    expect(resolveId('@lyness/output-retention')).toBeNull()
+    expect(() => resolveId('@lyness/spill-policy')).toThrow(/purity/)
+    expect(() => resolveId('@lyness/spill-policy/notice/internal')).toThrow(/purity/)
   })
 
   it('lets exact generated Remote contributions inline without admitting their package implementation', () => {

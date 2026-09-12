@@ -11,7 +11,8 @@
  */
 
 import { Context, Service } from '@lyness/cordis'
-import { assertNever } from '@lyness/llm'
+import type {} from '@lyness/llm'
+import { assertNever } from '@lyness/util-values'
 import { NamedEntries, ScopedLayers, scopeChainOf, scopeOf } from '@lyness/scope'
 import type { ScopeKey, ScopeLayer } from '@lyness/scope'
 import z from '@lyness/schemastery'

@@ -28,7 +28,7 @@ function createWorkspace(): string {
 }
 
 describe('LYN package license gate', () => {
-  it('checks root and every scoped package outside vendor/, whose licenses the fork does not own', () => {
+  it('checks root, unhyphenated CLI, and lyn-prefixed package names while ignoring other families', () => {
     const root = createWorkspace()
     writeManifest(root, 'apps/cli/package.json', { name: '@lyness/lyn', license: 'MIT' })
     writeManifest(root, 'packages/core/agent/package.json', {

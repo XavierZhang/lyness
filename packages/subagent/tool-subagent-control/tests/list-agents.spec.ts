@@ -8,7 +8,6 @@ import AgentLoop from '@lyness/agent-loop'
 import { mountAgentLoopTestDependencies } from '@lyness/agent-loop-testkit'
 import { SessionId } from '@lyness/session'
 import JsonlSessionPersistence from '@lyness/session-persistence-jsonl'
-import SessionProjectionRegistry from '@lyness/session-projection'
 import SubagentRuntime from '@lyness/subagent'
 import type { SubagentListEntry } from '@lyness/subagent'
 import * as SubagentSpawn from '@lyness/subagent-spawn-in-process'
@@ -60,12 +59,11 @@ async function setupWith(adapter: MockAdapter | GatedAdapter) {
   await ctx.plugin(JsonlSessionPersistence, { root })
   await ctx.plugin(TestSessionQuery)
   await ctx.plugin(AgentLoop, { agents: [] })
-  await ctx.plugin(SessionProjectionRegistry)
   await ctx.plugin(SubagentRuntime)
   await ctx.plugin(SubagentSpawn, { providerName: 'spawn' })
   await ctx.plugin(tool)
   ctx.llm.registerAdapter(['mock'], adapter)
-  const parent = ctx.agentLoop.create(SessionId('parent'), { provider: 'mock', model: 'mock' })
+  const parent = await ctx.agentLoop.create(SessionId('parent'), { provider: 'mock', model: 'mock' })
   parkParent(ctx, parent)
   return { ctx, parent, adapter }
 }
@@ -115,6 +113,8 @@ describe('lyn-tool-subagent-control/list-agents', () => {
     expect(parameters.properties?.scope?.enum).toEqual(['children', 'descendants'])
     expect(parameters.required ?? []).toEqual([])
     expect(schemas[0]!.description).toContain('send_message')
+    expect(schemas[0]!.description).toContain('steers a running child at its nearest step boundary')
+    expect(schemas[0]!.description).not.toContain('send_message` starts a new turn')
     expect(schemas[0]!.description).toContain('interrupt_agent')
   })
 

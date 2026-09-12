@@ -1,7 +1,7 @@
 {
   "name": "@lyness/session-title",
   "description": "Log-backed session title service and provider registry for the lyness",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -41,25 +41,28 @@
   ],
   "license": "MIT",
   "peerDependencies": {
+    "@lyness/cordis": "workspace:^",
+    "@lyness/agent": "workspace:^",
     "@lyness/brand": "workspace:^",
     "@lyness/invariants": "workspace:^",
     "@lyness/llm": "workspace:^",
     "@lyness/session": "workspace:^",
-    "@lyness/session-projection": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/session-projection": "workspace:^"
   },
   "dependencies": {
+    "@lyness/util-values": "workspace:^",
     "@lyness/schemastery": "workspace:^",
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@lyness/cordis": "workspace:^",
+    "@lyness/agent": "workspace:^",
+    "@lyness/agent-loop": "workspace:^",
     "@lyness/brand": "workspace:^",
     "@lyness/invariants": "workspace:^",
     "@lyness/llm": "workspace:^",
     "@lyness/session": "workspace:^",
     "@lyness/session-persistence-jsonl": "workspace:^",
-    "@lyness/session-persistence-sqlite": "workspace:^",
-    "@lyness/session-projection": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/session-projection": "workspace:^"
   }
 }

@@ -1,7 +1,7 @@
 {
   "name": "@lyness/web-frontend",
   "description": "Web application entry: vite build over the @lyness/client-web shell library; dist/ served by apps/cli's lyn web",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -33,6 +33,7 @@
     "@lyness/cordis-plugin-group": "workspace:^",
     "@lyness/client-modules": "workspace:^",
     "@lyness/client-store": "workspace:^",
+    "@lyness/client-ui-dockkit": "workspace:^",
     "@lyness/client-ui-primitives": "workspace:^",
     "@lyness/client-ui-slots": "workspace:^",
     "@lyness/client-web": "workspace:^",
@@ -53,6 +54,7 @@
     "typescript": "^6.0.3",
     "vite": "^6.0.0",
     "vitest": "^4.1.8",
-    "ws": "8.21.0"
+    "ws": "8.21.0",
+    "@lyness/launch-environment": "workspace:^"
   }
 }

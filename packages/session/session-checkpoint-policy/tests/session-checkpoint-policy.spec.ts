@@ -4,34 +4,21 @@ import Loader from '@lyness/cordis-plugin-loader'
 import { agentEvents, type Agent } from '@lyness/agent'
 import LlmRuntime, { ToolCallId, type GenerateOptions, LlmAdapter, type StreamChunk } from '@lyness/llm'
 import SessionStore, { SessionId } from '@lyness/session'
-import type { SessionEvent, SessionHeader } from '@lyness/session'
-import SessionPersistence from '@lyness/session-persistence'
+import SessionPersistence, { type SessionHandle, type SessionPersistenceSnapshot } from '@lyness/session-persistence'
 import SystemPrompt from '@lyness/system-prompt'
 import ToolRuntime, { TOOL_ABORTED_BEFORE_DISPATCH } from '@lyness/tools'
 import * as checkpointPolicy from '../src/index.ts'
 
 const contexts: Context[] = []
 
+// The policy only requires the service's presence; it flushes through
+// `ctx.sessions`, so no handle is ever opened in these tests.
 class TestPersistence extends SessionPersistence {
-  override readonly supportsRawArtifacts = false
-
-  locate(_meta: SessionHeader): undefined { return undefined }
-  create(_meta: SessionHeader): Promise<void> { return Promise.resolve() }
-  append(_id: SessionId, _events: readonly SessionEvent[]): Promise<void> { return Promise.resolve() }
-  load(_id: SessionId): Promise<{ meta: SessionHeader; events: SessionEvent[] }> {
-    return Promise.reject(new Error('not used'))
-  }
-  inspect(_id: SessionId): Promise<{ meta: SessionHeader; events: SessionEvent[] }> {
-    return Promise.reject(new Error('not used'))
-  }
-  borrowSession(_id: SessionId, _signal?: AbortSignal): ReturnType<SessionPersistence['borrowSession']> {
-    return Promise.reject(new Error('not used'))
-  }
-  readFrom(_id: SessionId, _fromSeq: number): Promise<{ meta: SessionHeader; events: SessionEvent[] }> {
-    return Promise.reject(new Error('not used'))
-  }
-  list(): Promise<SessionHeader[]> { return Promise.resolve([]) }
-  listSnapshots(): Promise<never[]> { return Promise.resolve([]) }
+  create(): Promise<SessionHandle> { return Promise.reject(new Error('not used')) }
+  open(): Promise<SessionHandle> { return Promise.reject(new Error('not used')) }
+  flush(): Promise<void> { return Promise.resolve() }
+  stat(): Promise<SessionPersistenceSnapshot | undefined> { return Promise.resolve(undefined) }
+  list(): Promise<readonly SessionPersistenceSnapshot[]> { return Promise.resolve([]) }
 }
 
 class RecordingAdapter extends LlmAdapter {

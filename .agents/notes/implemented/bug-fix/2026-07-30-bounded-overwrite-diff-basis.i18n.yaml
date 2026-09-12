@@ -1,6 +1,0 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
-#   pnpm run verify-translation-pairing --write .agents/notes/implemented/bug-fix/2026-07-30-bounded-overwrite-diff-basis.md
-2026-07-30-bounded-overwrite-diff-basis.md: f9c9fcf537881c19d5e88e635951a0b6ad9c2f62
-2026-07-30-bounded-overwrite-diff-basis.zh.md: 95938b67fb5238b231b9a8e6635cdd09548c7a4c

@@ -1,9 +1,8 @@
 import type { Context } from '@lyness/cordis'
 import type {
-  ConversationMatch, ConversationNodeContext, ConversationNodeDefinition,
+  CompactionSummaryNode, ConversationMatch, ConversationNodeContext, ConversationNodeDefinition,
 } from '@lyness/client-ui-conversation/client'
 import type {} from '@lyness/compaction/types'
-import type { CompactionSummaryNode } from '../contract/snapshot.ts'
 import { chatNode } from './common.ts'
 import { compactSource, compactSummary, updateCompactionState } from './command.ts'
 

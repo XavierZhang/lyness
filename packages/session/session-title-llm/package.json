@@ -1,7 +1,7 @@
 {
   "name": "@lyness/session-title-llm",
   "description": "Shared LLM generation policy for lyness session-title providers",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -18,36 +18,30 @@
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
     },
-    "./invariant": {
-      "types": "./lib/types/invariant.d.ts",
-      "default": "./lib/invariant.js"
-    },
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
   "files": [
     "lib/index.js",
-    "lib/invariant.js",
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/invariants": "workspace:^",
+    "@lyness/cordis": "workspace:^",
     "@lyness/llm": "workspace:^",
     "@lyness/session": "workspace:^",
     "@lyness/session-title": "workspace:^",
-    "@lyness/timeout": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/timeout": "workspace:^"
   },
   "dependencies": {
+    "@lyness/util-values": "workspace:^",
     "@lyness/schemastery": "workspace:^"
   },
   "devDependencies": {
-    "@lyness/invariants": "workspace:^",
+    "@lyness/cordis": "workspace:^",
     "@lyness/llm": "workspace:^",
     "@lyness/session": "workspace:^",
     "@lyness/session-title": "workspace:^",
-    "@lyness/timeout": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/timeout": "workspace:^"
   }
 }

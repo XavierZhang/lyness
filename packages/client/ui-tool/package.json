@@ -1,7 +1,7 @@
 {
   "name": "@lyness/client-ui-tool",
   "description": "Client Tool call-tree renderer and keyed per-tool presentation slot",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -17,10 +17,6 @@
     ".": {
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
-    },
-    "./invariant": {
-      "types": "./lib/types/invariant.d.ts",
-      "default": "./lib/invariant.js"
     },
     "./client": {
       "types": "./lib/types/client/index.d.ts",
@@ -45,23 +41,18 @@
     "watch": "tsdown --watch"
   },
   "license": "MIT",
-  "dependencies": {
-    "clsx": "^2.0.0"
-  },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/api-remotes": "workspace:^",
-    "@lyness/client-connection": "workspace:^",
-    "@lyness/client-locale": "workspace:^",
-    "@lyness/client-ui-conversation": "workspace:^",
-    "@lyness/invariants": "workspace:^",
-    "@lyness/api-workspace-controller": "workspace:^",
-    "@lyness/client-ui-chat": "workspace:^",
-    "@lyness/client-ui-renderer": "workspace:^",
-    "@lyness/client-ui-session": "workspace:^",
-    "@lyness/util-workspace-path": "workspace:^"
+    "@lyness/cordis": "workspace:^"
   },
   "devDependencies": {
+    "@lyness/spill-policy": "workspace:^",
+    "@lyness/agent": "workspace:^",
+    "@lyness/llm": "workspace:^",
+    "@lyness/session": "workspace:^",
+    "@lyness/system-prompt": "workspace:^",
+    "@lyness/tools": "workspace:^",
+    "@lyness/spill": "workspace:^",
+    "@lyness/code-runtime-worker-thread": "workspace:^",
     "@lyness/cordis": "workspace:^",
     "@lyness/api-remotes": "workspace:^",
     "@lyness/client-connection": "workspace:^",
@@ -70,7 +61,6 @@
     "@lyness/client-ui-conversation": "workspace:^",
     "@lyness/client-ui-primitives": "workspace:^",
     "@lyness/client-ui-slots": "workspace:^",
-    "@lyness/invariants": "workspace:^",
     "@testing-library/react": "^16.1.0",
     "@types/react": "~18.3.1",
     "react": "^18.2.0",
@@ -79,11 +69,12 @@
     "@lyness/client-ui-chat": "workspace:^",
     "@lyness/client-ui-renderer": "workspace:^",
     "@lyness/client-ui-session": "workspace:^",
-    "@lyness/util-workspace-path": "workspace:^"
+    "@lyness/util-workspace-path": "workspace:^",
+    "@lyness/attachment": "workspace:^",
+    "clsx": "^2.0.0"
   },
   "files": [
     "lib/index.js",
-    "lib/invariant.js",
     "lib/client.js",
     "lib/types/**/*.d.ts"
   ]

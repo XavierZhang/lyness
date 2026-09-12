@@ -4,7 +4,8 @@
  */
 
 import type { Branded } from '@lyness/brand'
-import type { JsonValue, SessionId } from '@lyness/session/types'
+import type { SessionId } from '@lyness/session/types'
+import type { JsonValue } from '@lyness/util-values'
 
 /** Stable identity of one dynamic plugin instance. */
 export type CordisDynamicPluginId = Branded<'CordisDynamicPluginId'>

@@ -7,7 +7,8 @@ import { PassThrough, Writable } from 'node:stream'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
-import * as agentCore from '@lyness/agent-spine-demo'
+import AgentLoop from '@lyness/agent-loop'
+import { mountAgentLoopTestDependencies } from '@lyness/agent-loop-testkit'
 import { LlmAdapter } from '@lyness/llm'
 import type { GenerateOptions, StreamChunk } from '@lyness/llm'
 import JsonlSessionPersistence from '@lyness/session-persistence-jsonl'
@@ -74,7 +75,8 @@ async function mountPlugin(
   } = {},
 ): Promise<ApplyHarness> {
   const ctx = new Context()
-  await ctx.plugin(agentCore, { workspaceContext: false })
+  await mountAgentLoopTestDependencies(ctx)
+  await ctx.plugin(AgentLoop, { agents: [] })
   await ctx.plugin(JsonlSessionPersistence, { root: storageDir })
   await new Promise(resolve => setTimeout(resolve, 50))
   await options.beforeServer?.(ctx)

@@ -1,7 +1,7 @@
 /** Built-in Client inspect providers over live Client-owned services. */
 
 import type { Context } from '@lyness/cordis'
-import type { JsonValue } from '@lyness/api-remotes/client'
+import type { JsonValue } from '@lyness/util-values'
 import type { SlotRegistry } from '@lyness/client-ui-renderer/client'
 import type {} from '@lyness/client-ui-theme/client'
 import { queryEventApi, queryServiceApi } from './api-catalog.ts'

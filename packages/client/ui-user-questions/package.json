@@ -1,7 +1,7 @@
 {
   "name": "@lyness/client-ui-user-questions",
   "description": "Web ask_user_question composer takeover and plan-review presentation UI",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -17,10 +17,6 @@
     ".": {
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
-    },
-    "./invariant": {
-      "types": "./lib/types/invariant.d.ts",
-      "default": "./lib/invariant.js"
     },
     "./client": {
       "types": "./lib/types/client/index.d.ts",
@@ -47,21 +43,8 @@
     "watch": "tsdown --watch"
   },
   "license": "MIT",
-  "dependencies": {
-    "clsx": "^2.0.0"
-  },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/api-remotes": "workspace:^",
-    "@lyness/api-session-controller": "workspace:^",
-    "@lyness/client-locale": "workspace:^",
-    "@lyness/invariants": "workspace:^",
-    "@lyness/client-ui-conversation": "workspace:^",
-    "@lyness/client-ui-renderer": "workspace:^",
-    "@lyness/client-ui-session": "workspace:^",
-    "@lyness/session": "workspace:^",
-    "@lyness/typert-protocol": "workspace:^",
-    "@lyness/user-questions": "workspace:^"
+    "@lyness/cordis": "workspace:^"
   },
   "devDependencies": {
     "@lyness/cordis": "workspace:^",
@@ -70,7 +53,6 @@
     "@lyness/api-session-controller": "workspace:^",
     "@lyness/client-locale": "workspace:^",
     "@lyness/client-store": "workspace:^",
-    "@lyness/invariants": "workspace:^",
     "@lyness/system-prompt": "workspace:^",
     "@lyness/tools": "workspace:^",
     "@lyness/user-questions": "workspace:^",
@@ -83,11 +65,11 @@
     "react": "^18.2.0",
     "@lyness/client-ui-conversation": "workspace:^",
     "@lyness/client-connection": "workspace:^",
-    "@lyness/session": "workspace:^"
+    "@lyness/session": "workspace:^",
+    "clsx": "^2.0.0"
   },
   "files": [
     "lib/index.js",
-    "lib/invariant.js",
     "lib/client.js",
     "lib/types/**/*.d.ts"
   ]

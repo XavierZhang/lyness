@@ -32,3 +32,13 @@
   name: '@lyness/session-log-deepseek'
   config:
     enabled: true
+
+- insert:
+    - id: snapshot-message-feedback
+      name: '@lyness/message-feedback'
+      disabled: !!js "process.env.LYNESS_SNAPSHOT_FEEDBACK !== '1'"
+      config:
+        maxNoteBytes: 1024
+    - id: snapshot-feedback-producer
+      name: './feedback-producer.mjs'
+      disabled: !!js "process.env.LYNESS_SNAPSHOT_FEEDBACK !== '1'"

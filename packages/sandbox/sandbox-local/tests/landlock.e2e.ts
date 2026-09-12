@@ -6,7 +6,7 @@ import { join } from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import type { SandboxPolicy } from '@lyness/sandbox'
-import { launcherPath } from '@lyness/node-addon-landlock-run'
+import { launcherPath } from '@lyness/node-addon-system/landlock-run'
 import { LocalSandboxProvider } from '@lyness/sandbox-local'
 
 /**

@@ -9,10 +9,13 @@ import llmRemote from '@lyness/llm/remote'
 import dynamicRemote from '@lyness/cordis-host-runner/remote'
 import pluginInventoryRemote from '@lyness/host-plugin-inventory/remote'
 import messageFeedbackRemote from '@lyness/message-feedback/remote'
+import sessionFeedbackRemote from '@lyness/command-feedback/remote'
+import fileUploadsRemote from '@lyness/client-file-upload/remote'
 import sessionReferencesRemote from '@lyness/session-reference/remote'
 import subagentsRemote from '@lyness/subagent/remote'
 import sessionRemote from '@lyness/api-session-controller/remote'
 import workspaceRemote from '@lyness/api-workspace-controller/remote'
+import workspaceFilesRemote from '@lyness/api-workspace-files/remote'
 import type { ClientRemote } from '@lyness/api-gateway/client'
 
 export type { ClientRemote } from '@lyness/api-gateway/client'
@@ -24,6 +27,8 @@ export type {} from '@lyness/goal/remote'
 export type {} from '@lyness/llm/remote'
 export type {} from '@lyness/host-plugin-inventory/remote'
 export type {} from '@lyness/message-feedback/remote'
+export type {} from '@lyness/command-feedback/remote'
+export type {} from '@lyness/client-file-upload/remote'
 export type {} from '@lyness/session-reference/remote'
 export type {} from '@lyness/subagent/remote'
 export type * from '@lyness/subagent/client'
@@ -31,6 +36,8 @@ export type {} from '@lyness/api-session-controller/remote'
 export type * from '@lyness/api-session-controller/types'
 export type {} from '@lyness/api-workspace-controller/remote'
 export type * from '@lyness/api-workspace-controller/types'
+export type {} from '@lyness/api-workspace-files/remote'
+export type * from '@lyness/api-workspace-files/types'
 export type { SessionJob as JobView } from '@lyness/api-session-controller/types'
 // The forwarded-event allowlist's selection seat: without it in the consumer's
 // compilation face `TypertRemoteEvent` is `never` and every `$on` call fails.
@@ -56,7 +63,7 @@ export type {} from '@lyness/api-session-controller/types'
 export type {
   ConnectionHandle, ConnectionSinks, ContentBlock,
   MessageId,
-  RpcError, RpcId, RpcRequest, RpcResponse, RpcResult, SessionId,
+  RpcId, RpcRequest, RpcResponse, RpcResult, SessionId,
   StreamChunk,
 } from '@lyness/client-connection/client'
 export type {} from '@lyness/api-gateway/client'
@@ -99,10 +106,6 @@ export type {
   DynamicCordisUndefineReceipt,
   RequestRunOutcome,
 } from '@lyness/cordis-host-runner/types'
-// The JSON vocabulary those payloads are built from, re-exported for the same
-// reason: a Client contribution names what it sends without importing a Host
-// package, and this assembly is where both planes legitimately meet.
-export type { JsonValue } from '@lyness/session/types'
 // Credential state vocabulary for the credentials namespace (values never ride it).
 export type { CredentialInfo } from '@lyness/credentials/types'
 // Redacted namespace vocabulary for the settings namespace (secrets never ride
@@ -112,7 +115,7 @@ export type {
 } from '@lyness/settings/types'
 // Provider registry and discovery vocabulary for the llm namespace.
 export type {
-  LlmConfigurableProvider, LlmDiscoveredModel, LlmModelDiscoveryError,
+  LlmConfigurableProvider, LlmDiscoveredModel,
   LlmModelDiscoveryRequest, LlmProviderInfo,
 } from '@lyness/llm/types'
 // Reference-discovery result vocabulary for the fileReferences and
@@ -120,21 +123,14 @@ export type {
 export type { FileReferenceCandidate } from '@lyness/file-reference/types'
 export type { SessionReferenceMentionCandidate } from '@lyness/session-reference/types'
 
-/** Failure vocabulary exposed by the assembled Client data layer. */
-export type ClientFailure =
-  | import('@lyness/client-connection/client').RpcError
-  | import('@lyness/agent-presets/types').AgentPresetError
-  | import('@lyness/api-session-controller/types').SessionError
-  | import('@lyness/api-settings-controller/types').CredentialError
-  | import('@lyness/api-settings-controller/types').SettingsError
-  | import('@lyness/llm/types').LlmModelDiscoveryError
-  | import('@lyness/subagent/client').SubagentControlError
-  | import('@lyness/api-workspace-controller/types').WorkspaceError
-
-/** Success or failure returned by Client operations spanning both API families. */
-export type ClientResult<T> =
-  | { readonly ok: true; readonly value: T }
-  | { readonly ok: false; readonly error: ClientFailure }
+// The Remote failure vocabulary, re-exported so business packages keep naming
+// this assembly alone. Types only: a value export would make spec imports load
+// this module's owner /remote artifacts; specs take RemoteError from
+// lyn-client-test-runtime instead.
+export type {
+  RemoteErrorCode, RemoteErrorDetailsMap, RemoteFailure, RemoteResult,
+} from '@lyness/typert-protocol'
+export type { RemoteHostFacts } from '@lyness/api-gateway/client'
 
 declare module '@lyness/cordis' {
   interface Context {
@@ -156,8 +152,8 @@ export async function apply(ctx: Context): Promise<() => Promise<void>> {
   try {
     for (const contribution of [
       agentPresetsRemote, commandsRemote, settingsControllerRemote, goalsRemote, llmRemote, dynamicRemote,
-      pluginInventoryRemote, messageFeedbackRemote, sessionReferencesRemote,
-      subagentsRemote, sessionRemote, workspaceRemote,
+      pluginInventoryRemote, messageFeedbackRemote, sessionFeedbackRemote, fileUploadsRemote, sessionReferencesRemote,
+      subagentsRemote, sessionRemote, workspaceRemote, workspaceFilesRemote,
     ]) {
       disposers.push(await ctx.remote.$mount(contribution))
     }

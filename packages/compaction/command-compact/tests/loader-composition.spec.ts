@@ -17,18 +17,18 @@ import {
   type ManualCompactAgentContext,
 } from '@lyness/compaction'
 import * as commandCompact from '@lyness/command-compact'
-import { Session, SessionId } from '@lyness/session'
+import { Session, SessionId, SessionSeq } from '@lyness/session'
 
 const COMPACTION_ID = CompactionId('loader-command-compact-test')
 
 const RESULT: CompactionResult = {
   compactionId: COMPACTION_ID,
-  startSeq: 1,
-  summarySeq: 2,
-  endSeq: 3,
+  startSeq: SessionSeq(1),
+  summarySeq: SessionSeq(2),
+  endSeq: SessionSeq(3),
   summary: [{ type: 'text', text: 'loader summary' }],
-  shadowedRange: { start: 3, end: 8 },
-  shadowedSeqs: [3, 5, 8],
+  shadowedRange: { start: SessionSeq(3), end: SessionSeq(8) },
+  shadowedSeqs: [SessionSeq(3), SessionSeq(5), SessionSeq(8)],
   shadowedTokenCount: 99,
 }
 
@@ -130,7 +130,7 @@ describe('command-compact real Loader composition', () => {
       text: 'Compacted 3 history items (~99 tokens).',
       sourceEventSeq: RESULT.summarySeq,
     })
-    expect(session.events.map(event => ({ type: event.type, data: event.data }))).toEqual([
+    expect(session.snapshotEvents().map(event => ({ type: event.type, data: event.data }))).toEqual([
       {
         type: 'command/run',
         data: {

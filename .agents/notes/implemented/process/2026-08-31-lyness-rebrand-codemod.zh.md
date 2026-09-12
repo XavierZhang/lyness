@@ -36,6 +36,16 @@ Status: implemented
 
 `vendor/README.md` 仅豁免于 URL 规则。它记录每份固定拷贝来自哪个上游仓库与提交；改写这些 URL 等于声称该框架 vendored 自本二开仓库。
 
+## Alternatives considered
+
+**手工改一次名。** 这是拿到改名后代码树最快的路，它落选的理由就写在上面的 Problem 里：上游一直在动，每次同步都会在它碰过的地方重新引入上游名字。一次无法重放的改名，是每次合并都要重付的成本，且随间隔增长。
+
+**一次无序的全局查找替换。** `DeepSeek` 既指 harness，也指模型供应商。无序的替换会波及 `llm-deepseek`、`api.deepseek.com` 与供应商引导文案，破坏产品调用模型的能力，却能通过所有类型、lint 与构建门禁——一种不可见的失败。给规则定序、并要求每条规则都包含 `Harness`、`-harness` 或 scope 的结尾斜杠，才使供应商不可达。
+
+**按扩展名决定改写哪些文件。** 允许名单易读，也会静默跳过它遗漏的一切。这些名字出现在样式表、JSON Lines 夹具、web manifest 和一个依赖补丁里，与出现在 TypeScript 中一样频繁。改为读取内容，就不会遗漏任何人没预料到的文件类型。
+
+**把所有标识符字符都当作词边界。** 它保护了 `handshake`——正是这个例子促成了词边界的存在。但它同时拒绝 `dshHome`、`dsh_home`、`__dsh_main__` 和 `subagent_dsh_sdk`，而这些都带着品牌、必须跟随改名。只有小写字母才延续一个词；大小写变化、下划线、连字符与数字都是边界。
+
 ## Consequences
 
 从包名中去掉产品段，代价是丢失了仓库依赖的一个区分。`@deepseek-ai/dsh-*` 曾把 harness 包与 vendored 的 `@deepseek-ai/cordis` 家族分开；`@lyness/agent` 与 `@lyness/cordis` 在名字上已无法区分。三处按名字前缀的判断改用位置：许可证门禁与包依赖图排除 `vendor/`，插件清单显示名不再剥离一个不可能出现的前缀。位置是更好的信号——包的许可证取决于谁写的，不取决于它叫什么。

@@ -7,6 +7,7 @@ import type { Agent } from '@lyness/agent'
 import SubagentRuntime from '@lyness/subagent'
 import type { SubagentStartRequest } from '@lyness/subagent'
 import { Session, SessionId } from '@lyness/session'
+import SessionProjectionRegistry from '@lyness/session-projection'
 import { MockAdapter } from '../../../core/agent-loop/tests/mock-adapter.ts'
 import * as mock from './scripted-provider.ts'
 import * as tool from '../src/index.ts'
@@ -388,6 +389,7 @@ describe('lyn-tool-subagent model selection', () => {
 
   it('rejects selected routes or configured efforts when the LLM service is absent', async () => {
     const ctx = new Context()
+    await ctx.plugin(SessionProjectionRegistry)
     await ctx.plugin(SystemPrompt)
     await ctx.plugin(ToolRuntime)
     await ctx.plugin(SubagentRuntime)
@@ -410,6 +412,7 @@ describe('lyn-tool-subagent model selection', () => {
   it('keeps pure inherited routing usable without an LLM service lookup', async () => {
     let starts = 0
     const ctx = new Context()
+    await ctx.plugin(SessionProjectionRegistry)
     await ctx.plugin(SystemPrompt)
     await ctx.plugin(ToolRuntime)
     await ctx.plugin(SubagentRuntime)

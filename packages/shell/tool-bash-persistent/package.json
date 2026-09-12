@@ -1,7 +1,7 @@
 {
   "name": "@lyness/tool-bash-persistent",
   "description": "Model-facing owner-scoped persistent Bash tool backed by the Harness PTY service",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -18,21 +18,15 @@
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
     },
-    "./invariant": {
-      "types": "./lib/types/invariant.d.ts",
-      "default": "./lib/invariant.js"
-    },
     "./package.json": "./package.json"
   },
   "files": [
     "lib/index.js",
-    "lib/invariant.js",
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
   "peerDependencies": {
     "@lyness/agent": "workspace:^",
-    "@lyness/invariants": "workspace:^",
     "@lyness/terminal": "workspace:^",
     "@lyness/timeout": "workspace:^",
     "@lyness/tools": "workspace:^",
@@ -45,7 +39,7 @@
     "@lyness/cordis-plugin-include": "workspace:^",
     "@lyness/cordis-plugin-loader": "workspace:^",
     "@lyness/agent": "workspace:^",
-    "@lyness/invariants": "workspace:^",
+    "@lyness/agent-loop-testkit": "workspace:^",
     "@lyness/llm": "workspace:^",
     "@lyness/terminal": "workspace:^",
     "@lyness/terminal-bash": "workspace:^",
@@ -56,6 +50,7 @@
     "@lyness/system-prompt": "workspace:^",
     "@lyness/timeout": "workspace:^",
     "@lyness/tools": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:^",
+    "@lyness/session-projection": "workspace:^"
   }
 }

@@ -10,9 +10,13 @@ import type {
 } from '@lyness/subagent'
 import * as SubagentInvariant from '@lyness/subagent/invariant'
 import InvariantRegistry from '@lyness/invariants'
+import SessionProjectionRegistry from '@lyness/session-projection'
 
 async function setup(): Promise<Context> {
   const ctx = new Context()
+  // The registry is a required injection of SubagentRuntime (its projection
+  // units register in the constructor).
+  await ctx.plugin(SessionProjectionRegistry)
   await ctx.plugin(SubagentRuntime)
   await ctx.plugin(InvariantRegistry)
   await ctx.plugin(SubagentInvariant)

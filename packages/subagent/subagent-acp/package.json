@@ -1,7 +1,7 @@
 {
   "name": "@lyness/subagent-acp",
   "description": "Out-of-process ACP subagent backend: drives a child agent in a spawned subprocess over the Agent Client Protocol",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -18,49 +18,43 @@
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
     },
-    "./invariant": {
-      "types": "./lib/types/invariant.d.ts",
-      "default": "./lib/invariant.js"
-    },
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
   "files": [
     "lib/index.js",
-    "lib/invariant.js",
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
   "peerDependencies": {
+    "@lyness/cordis": "workspace:^",
     "@lyness/agent": "workspace:^",
-    "@lyness/invariants": "workspace:^",
     "@lyness/llm": "workspace:^",
     "@lyness/session": "workspace:^",
     "@lyness/subagent": "workspace:^",
     "@lyness/subprocess": "workspace:^",
-    "@lyness/timeout": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/timeout": "workspace:^"
   },
   "dependencies": {
     "@agentclientprotocol/sdk": "1.4.0",
+    "@lyness/brand": "workspace:^",
     "@lyness/schemastery": "workspace:^"
   },
   "devDependencies": {
+    "@lyness/cordis": "workspace:^",
     "@lyness/cordis-plugin-loader": "workspace:^",
     "@lyness/agent": "workspace:^",
-    "@lyness/agent-spine-demo": "workspace:^",
     "@lyness/app-boot": "workspace:^",
-    "@lyness/invariants": "workspace:^",
     "@lyness/llm": "workspace:^",
     "@lyness/loader-smoke": "workspace:^",
     "@lyness/session": "workspace:^",
     "@lyness/session-checkpoint-policy": "workspace:^",
     "@lyness/session-persistence-jsonl": "workspace:^",
+    "@lyness/session-projection": "workspace:^",
     "@lyness/subagent": "workspace:^",
     "@lyness/subprocess": "workspace:^",
     "@lyness/subprocess-local": "workspace:^",
     "@lyness/timeout": "workspace:^",
-    "@lyness/tool-subagent": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/tool-subagent": "workspace:^"
   }
 }

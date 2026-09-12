@@ -7,6 +7,7 @@ import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import { LocalSandboxProvider } from '@lyness/sandbox-local'
 import { SandboxPolicyService } from '@lyness/sandbox-policy'
+import SessionProjectionRegistry from '@lyness/session-projection'
 import { seatbeltProfileArgs } from '@lyness/sandbox-local/src/profiles.ts'
 import { SandboxBashExecutor } from '@lyness/bash-sandbox'
 import LocalSubprocessRuntime from '@lyness/subprocess-local'
@@ -41,6 +42,7 @@ async function sandboxedBash(workspace: string, mode: 'read-only' | 'workspace-w
   ctx = new Context()
   await ctx.plugin(LocalSandboxProvider, {})
   ;(ctx.sandbox as LocalSandboxProvider).internals = { probeBwrap: () => false, probeLandlock: () => 'unusable' }
+  await ctx.plugin(SessionProjectionRegistry)
   await ctx.plugin(SandboxPolicyService, { mode, workspaceRoot: workspace })
   await ctx.plugin(LocalSubprocessRuntime)
   await ctx.plugin(SandboxBashExecutor, { cwd: workspace, timeoutMs: 30_000 })

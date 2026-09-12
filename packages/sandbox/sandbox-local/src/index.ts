@@ -30,14 +30,14 @@ import {
   LAUNCHER_FAILURE_EXIT,
   launcherPath as landlockLauncherPath,
   probe as defaultProbeLandlock,
-} from '@lyness/node-addon-landlock-run'
+} from '@lyness/node-addon-system/landlock-run'
 import { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import { assertNever } from '@lyness/llm'
 import { SandboxProvider, SandboxUnavailableError } from '@lyness/sandbox'
 import type { ConfinedArgv, ConfinedSandboxMode, RunnerFailureRule, SandboxEnforcement, SandboxPolicy } from '@lyness/sandbox'
 import type { SessionId } from '@lyness/session'
 import { AclWriteGrant, assertTempRootOutsideWorkspace, tempWriteSid, workspaceWriteSid } from '@lyness/sandbox-windows-acl'
+import { assertNever } from '@lyness/util-values'
 import { bwrapProfileArgs, landlockProfileArgs, seatbeltProfileArgs } from './profiles.ts'
 
 /** Plugin config. All optional — `static Config` supplies the defaults. */

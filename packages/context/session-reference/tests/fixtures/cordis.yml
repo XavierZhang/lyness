@@ -1,0 +1,17 @@
+- name: '@lyness/session'
+- name: '@lyness/system-prompt'
+- name: '@lyness/tools'
+- name: '@lyness/fs-local'
+- name: '@lyness/tool-fs'
+- name: '@lyness/session-query-sqlite'
+  config:
+    path: ':memory:'
+    openAt: never
+- name: '@lyness/session-reference'
+  config:
+    maxReferenceBytes: 360
+- name: './source-session.ts'
+- name: '@lyness/spill-local'
+  config:
+    root: '{{spillRoot}}'
+    cleanupPeriodDays: 0

@@ -1,7 +1,7 @@
 {
   "name": "@lyness/time-context",
   "description": "Opt-in durable per-step context with the current time and elapsed time",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -32,20 +32,23 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@lyness/schemastery": "workspace:^"
+    "@lyness/util-values": "workspace:^",
+    "@lyness/schemastery": "workspace:^",
+    "zod": "^4.4.3"
   },
   "peerDependencies": {
+    "@lyness/cordis": "workspace:^",
     "@lyness/agent": "workspace:^",
     "@lyness/invariants": "workspace:^",
     "@lyness/llm": "workspace:^",
     "@lyness/session": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/session-projection": "workspace:^"
   },
   "devDependencies": {
+    "@lyness/cordis": "workspace:^",
     "@lyness/agent": "workspace:^",
     "@lyness/agent-loop": "workspace:^",
     "@lyness/agent-loop-testkit": "workspace:^",
-    "@lyness/agent-spine-demo": "workspace:^",
     "@lyness/app-boot": "workspace:^",
     "@lyness/bash-local": "workspace:^",
     "@lyness/invariants": "workspace:^",
@@ -54,9 +57,9 @@
     "@lyness/session": "workspace:^",
     "@lyness/session-checkpoint-policy": "workspace:^",
     "@lyness/session-persistence-jsonl": "workspace:^",
+    "@lyness/session-projection": "workspace:^",
     "@lyness/subprocess-local": "workspace:^",
     "@lyness/system-prompt": "workspace:^",
-    "@lyness/tools": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/tools": "workspace:^"
   }
 }

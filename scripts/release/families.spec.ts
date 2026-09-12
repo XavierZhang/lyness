@@ -42,17 +42,35 @@ afterEach(() => {
 })
 
 describe('release families', () => {
-  it('excludes private experimental packages from the lyn release', () => {
+  it('publishes Agent Teams while excluding private experimental packages', () => {
     const members = releaseFamily('lyn').members(resolve(import.meta.dirname, '../..'))
 
-    expect(members.some(member => member.directory.startsWith('packages/experimental/'))).toBe(false)
-    expect(members.map(member => member.name)).not.toContain('@lyness/experimental-agent-team')
+    expect(members
+      .filter(member => member.directory.startsWith('packages/experimental/'))
+      .map(member => member.name)).toEqual([
+      '@lyness/experimental-agent-team-profile',
+      '@lyness/experimental-agent-team-web-profile',
+      '@lyness/experimental-agent-team',
+      '@lyness/experimental-client-ui-agent-team',
+      '@lyness/experimental-tool-agent-team',
+    ])
+    expect(members.map(member => member.name)).not.toContain('@lyness/experimental-inspector')
   })
 
-  it('bumps private lyn packages without adding release tags', () => {
+  it('excludes private applications from the publish set', () => {
+    const root = mkdtempSync(join(tmpdir(), 'lyn-release-private-'))
+    roots.push(root)
+    write(join(root, 'apps/public/package.json'), '{"name":"@lyness/public","version":"0.0.1"}\n')
+    write(join(root, 'apps/private/package.json'), '{"name":"@lyness/private","version":"0.0.1","private":true}\n')
+
+    expect(releaseFamily('lyn').members(root).map(entry => entry.name)).toEqual(['@lyness/public'])
+  })
+
+  it('bumps private lyn workspaces without adding release tags', () => {
     const root = mkdtempSync(join(tmpdir(), 'lyn-release-version-'))
     roots.push(root)
     write(join(root, 'package.json'), '{"version":"0.0.1"}\n')
+    write(join(root, 'apps/desktop/package.json'), '{"version":"0.0.1","private":true}\n')
     write(join(root, 'packages/experimental/prototype/package.json'), '{"version":"0.0.1","private":true}\n')
     write(join(root, 'packages/core/unselected/package.json'), '{"version":"0.0.1"}\n')
 
@@ -63,9 +81,26 @@ describe('release families', () => {
     expect(planned.map(entry => ({ path: entry.manifestPath, tag: entry.tag }))).toEqual([
       { path: 'package.json', tag: undefined },
       { path: 'packages/core/published/package.json', tag: 'lyn-v0.0.2' },
+      { path: 'apps/desktop/package.json', tag: undefined },
       { path: 'packages/experimental/prototype/package.json', tag: undefined },
     ])
   })
+
+  it.each(['0.0.2-alpha.1', '0.0.2-canary.1', '0.0.2-rc.1'])(
+    'accepts the explicit lyn prerelease version %s',
+    (version) => {
+      const root = mkdtempSync(join(tmpdir(), 'lyn-release-prerelease-'))
+      roots.push(root)
+      write(join(root, 'package.json'), '{"version":"0.0.1"}\n')
+
+      const lyn = releaseFamily('lyn')
+      const published = member('packages/core/published', '@lyness/published')
+      const plan = planShared(lyn, root, [published], version)
+
+      expect(plan.version).toBe(version)
+      expect(plan.planned[1]?.tag).toBe(`lyn-v${version}`)
+    },
+  )
 
   it('names one tag for the whole lyn family and one per vendored package', () => {
     const lyn = releaseFamily('lyn')
@@ -79,6 +114,18 @@ describe('release families', () => {
     // hyphen would defeat any suffix-stripping.
     expect(vendor.tagPrefixFor({ ...cordis, version: '4.0.0-rc.7' })).toBe('vendor-cordis-v')
     expect(vendor.tagFor({ ...cordis, version: '4.0.0-rc.7' })).toBe('vendor-cordis-v4.0.0-rc.7')
+  })
+
+  it('assigns alpha and canary dist-tags only to lyn releases', () => {
+    const lyn = releaseFamily('lyn')
+    const vendor = releaseFamily('vendor')
+
+    expect(lyn.distTagForVersion('0.0.2-alpha.1')).toBe('alpha')
+    expect(lyn.distTagForVersion('0.0.2-canary.1')).toBe('canary')
+    expect(lyn.distTagForVersion('0.0.2-rc.1')).toBe('next')
+    expect(lyn.distTagForVersion('0.0.2')).toBeUndefined()
+    expect(vendor.distTagForVersion('4.0.1-alpha.1')).toBe('next')
+    expect(vendor.distTagForVersion('4.0.1-canary.1')).toBe('next')
   })
 
   it('rejects a family whose members disagree on the shared version', () => {
@@ -277,6 +324,12 @@ describe('vendored version baseline', () => {
 })
 
 describe('version precedence', () => {
+  it('orders alpha, canary, and release-candidate versions by semver precedence', () => {
+    expect(compareVersions('4.0.1-alpha.1', '4.0.1-canary.1')).toBeLessThan(0)
+    expect(compareVersions('4.0.1-canary.1', '4.0.1-rc.1')).toBeLessThan(0)
+    expect(compareVersions('4.0.1-rc.1', '4.0.1')).toBeLessThan(0)
+  })
+
   it('ranks a release above the prerelease it follows', () => {
     // git --sort=v:refname disagrees, placing 4.0.1-rc.1 above 4.0.1, which is
     // why the newest published version is chosen here rather than by git.

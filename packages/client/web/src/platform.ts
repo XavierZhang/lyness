@@ -10,6 +10,7 @@ export const PLATFORM_MODULES = [
   '@lyness/client-store',
   '@lyness/client-ui-slots',
   '@lyness/client-ui-primitives',
+  '@lyness/client-ui-dockkit',
 ] as const
 
 /** Client-bundle specifiers whose factories the parser preloads before the shell starts. */

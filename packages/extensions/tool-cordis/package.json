@@ -1,7 +1,7 @@
 {
   "name": "@lyness/tool-cordis",
   "description": "Self-referential cordis toolset: inspect the live runtime, mount and dispose model-written plugins",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -18,23 +18,17 @@
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
     },
-    "./invariant": {
-      "types": "./lib/types/invariant.d.ts",
-      "default": "./lib/invariant.js"
-    },
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
   "files": [
     "lib/index.js",
-    "lib/invariant.js",
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
   "peerDependencies": {
     "@lyness/agent": "workspace:^",
     "@lyness/cordis-host-runner": "workspace:^",
-    "@lyness/invariants": "workspace:^",
     "@lyness/llm": "workspace:^",
     "@lyness/scope": "workspace:^",
     "@lyness/session": "workspace:^",
@@ -46,7 +40,6 @@
     "@lyness/cordis-plugin-loader": "workspace:^",
     "@lyness/agent": "workspace:^",
     "@lyness/cordis-host-runner": "workspace:^",
-    "@lyness/invariants": "workspace:^",
     "@lyness/llm": "workspace:^",
     "@lyness/scope": "workspace:^",
     "@lyness/session": "workspace:^",

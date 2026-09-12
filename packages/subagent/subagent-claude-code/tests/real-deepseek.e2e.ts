@@ -14,12 +14,14 @@ import { Context } from '@lyness/cordis'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import type { Agent } from '@lyness/agent'
 import SubagentRuntime from '@lyness/subagent'
+import SessionProjectionRegistry from '@lyness/session-projection'
 import type { SubprocessHandle } from '@lyness/subprocess'
 import LocalSubprocessRuntime from '@lyness/subprocess-local'
 import * as claudeCode from '../src/index.ts'
 
 const execFileAsync = promisify(execFile)
 const OFFICIAL_DEEPSEEK_BASE_URL = 'https://api.deepseek.com'
+const DEEPSEEK_MODEL = 'deepseek-v4-flash'
 const sdkRoot = dirname(fileURLToPath(
   import.meta.resolve('@anthropic-ai/claude-agent-sdk'),
 ))
@@ -89,11 +91,11 @@ describe.skipIf(!process.env.DEEPSEEK_API_KEY)(
       const env = {
         ANTHROPIC_AUTH_TOKEN: apiKey,
         ANTHROPIC_BASE_URL: `${deepSeekBaseUrl()}/anthropic`,
-        ANTHROPIC_MODEL: 'deepseek-v4-pro[1m]',
-        ANTHROPIC_DEFAULT_OPUS_MODEL: 'deepseek-v4-pro[1m]',
-        ANTHROPIC_DEFAULT_SONNET_MODEL: 'deepseek-v4-pro[1m]',
-        ANTHROPIC_DEFAULT_HAIKU_MODEL: 'deepseek-v4-flash',
-        CLAUDE_CODE_SUBAGENT_MODEL: 'deepseek-v4-flash',
+        ANTHROPIC_MODEL: DEEPSEEK_MODEL,
+        ANTHROPIC_DEFAULT_OPUS_MODEL: DEEPSEEK_MODEL,
+        ANTHROPIC_DEFAULT_SONNET_MODEL: DEEPSEEK_MODEL,
+        ANTHROPIC_DEFAULT_HAIKU_MODEL: DEEPSEEK_MODEL,
+        CLAUDE_CODE_SUBAGENT_MODEL: DEEPSEEK_MODEL,
         CLAUDE_CODE_EFFORT_LEVEL: 'max',
         CLAUDE_CONFIG_DIR: claudeConfig,
         HOME: root,
@@ -112,6 +114,7 @@ describe.skipIf(!process.env.DEEPSEEK_API_KEY)(
       }
       const ctx = new Context()
       contexts.push(ctx)
+      await ctx.plugin(SessionProjectionRegistry)
       await ctx.plugin(SubagentRuntime)
       await ctx.plugin(LocalSubprocessRuntime)
       const handles: SubprocessHandle[] = []
@@ -123,13 +126,13 @@ describe.skipIf(!process.env.DEEPSEEK_API_KEY)(
       })
       await ctx.plugin(claudeCode, { env, disposeGraceMs: 3_000 })
 
-      expect(sdkPackage.version).toBe('0.3.241')
-      expect(sdkPackage.claudeCodeVersion).toBe('2.1.241')
-      expect(sdkPackage.optionalDependencies[platformPackage]).toBe('0.3.241')
+      expect(sdkPackage.version).toBe('0.3.263')
+      expect(sdkPackage.claudeCodeVersion).toBe('2.1.263')
+      expect(sdkPackage.optionalDependencies[platformPackage]).toBe('0.3.263')
       const version = await execFileAsync(claudeBin, ['--version'], {
         env: { ...process.env, ...env },
       })
-      expect(version.stdout.trim()).toBe('2.1.241 (Claude Code)')
+      expect(version.stdout.trim()).toBe('2.1.263 (Claude Code)')
 
       const nonce = `LYNESS_CLAUDE_DEEPSEEK_${randomUUID()}`
       const parent = {

@@ -14,6 +14,7 @@ import * as Cordis from '@lyness/cordis'
 import * as ClientStore from '@lyness/client-store'
 import * as UiSlots from '@lyness/client-ui-slots'
 import * as UiPrimitives from '@lyness/client-ui-primitives'
+import * as UiDockkit from '@lyness/client-ui-dockkit'
 import type { PlatformModule } from './platform.ts'
 
 /**
@@ -33,5 +34,6 @@ export function getStaticModules(): Record<string, unknown> {
     '@lyness/client-store': ClientStore,
     '@lyness/client-ui-slots': UiSlots,
     '@lyness/client-ui-primitives': UiPrimitives,
+    '@lyness/client-ui-dockkit': UiDockkit,
   } satisfies Record<PlatformModule, unknown>
 }

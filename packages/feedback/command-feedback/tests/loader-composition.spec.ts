@@ -6,12 +6,13 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
 import Include from '@lyness/cordis-plugin-include'
-import AgentRegistry, { Inbox } from '@lyness/agent'
+import AgentRegistry from '@lyness/agent'
 import type { Agent, AgentStatus } from '@lyness/agent'
 import CommandRuntime from '@lyness/commands'
 import SessionStore, { SessionId } from '@lyness/session'
 import * as CommandFeedback from '@lyness/command-feedback'
 import { getOrCreateAnonymousUserId } from '@lyness/anonymous-user-id'
+import { unsupportedInbox } from '@lyness/agent-loop-testkit'
 
 let root: string | undefined
 let context: Context | undefined
@@ -29,13 +30,12 @@ function agent(ctx: Context): Agent {
   const scope = ctx.plugin(() => {})
   const id = SessionId('feedback-loader-agent')
   const session = ctx.sessions.create(id)
-  const inbox = new Inbox(session, { inserted: () => {}, discarded: () => {}, claimed: () => {} })
   let status: AgentStatus = 'idle'
   const value: Agent = {
     id,
     options: {},
     session,
-    inbox,
+    inbox: unsupportedInbox(),
     ctx: scope.ctx,
     get status() { return status },
     send: () => {},
@@ -93,7 +93,7 @@ describe('/feedback real Loader composition through cordis.yml', () => {
     const userId = getOrCreateAnonymousUserId({ env: { LYNESS_HOME: root } })
     expect(accepted?.result).toEqual({
       kind: 'success',
-      text: `Feedback recorded for session feedback-loader-agent\nAnonymous user: ${userId}. Session sharing is not configured.`,
+      text: `Feedback recorded for session feedback-loader-agent\nAnonymous user: ${userId}.`,
     })
     const rejected = await context.commands.execute(owner, '/feedback', [], signal)
     expect(rejected?.result).toEqual({
@@ -102,13 +102,13 @@ describe('/feedback real Loader composition through cordis.yml', () => {
     })
 
     // The domain event owns the payload; generic command bookkeeping omits it.
-    expect(owner.session.events.map(event => event.type))
+    expect(owner.session.snapshotEvents().map(event => event.type))
       .toEqual(['command/run', 'feedback/record', 'command/done', 'command/run', 'command/done'])
-    const run = owner.session.events.find(event => event.type === 'command/run')
+    const run = owner.session.snapshotEvents().find(event => event.type === 'command/run')
     expect(run?.type === 'command/run' && Object.hasOwn(run.data, 'args')).toBe(false)
-    const feedback = owner.session.events.find(event => event.type === 'feedback/record')
+    const feedback = owner.session.snapshotEvents().find(event => event.type === 'feedback/record')
     expect(feedback?.type === 'feedback/record' && feedback.data.text).toBe('the diff view is unreadable')
-    expect(JSON.stringify(owner.session.events).match(/the diff view is unreadable/gu)).toHaveLength(1)
+    expect(JSON.stringify(owner.session.snapshotEvents()).match(/the diff view is unreadable/gu)).toHaveLength(1)
 
     // Nothing reached the model.
     expect(owner.session.deriveMessages()).toEqual([])

@@ -1,7 +1,7 @@
 {
   "name": "@lyness/tool-subagent",
   "description": "Model-facing subagent delegation tool over the ctx.subagents seam",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -41,6 +41,7 @@
     "@lyness/invariants": "workspace:^",
     "@lyness/llm": "workspace:^",
     "@lyness/session": "workspace:^",
+    "@lyness/session-projection": "workspace:^",
     "@lyness/scope": "workspace:^",
     "@lyness/settings": "workspace:^",
     "@lyness/subagent": "workspace:^",
@@ -50,7 +51,8 @@
     "@lyness/cordis": "workspace:^"
   },
   "dependencies": {
-    "@lyness/schemastery": "workspace:^"
+    "@lyness/schemastery": "workspace:^",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@lyness/cordis-plugin-loader": "workspace:^",
@@ -69,6 +71,7 @@
     "@lyness/jobs-local": "workspace:^",
     "@lyness/tool-jobs": "workspace:^",
     "@lyness/tools": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:^",
+    "@lyness/session-projection": "workspace:^"
   }
 }

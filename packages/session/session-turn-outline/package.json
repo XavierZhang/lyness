@@ -1,0 +1,55 @@
+{
+  "name": "@lyness/session-turn-outline",
+  "description": "Whole-log turn outline projection (turnOutline) for the lyness",
+  "version": "0.1.5-rc.1",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "directory": "packages/session/session-turn-outline"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./types": {
+      "types": "./lib/types/types.d.ts",
+      "default": "./lib/types/types.js"
+    },
+    "./client": {
+      "types": "./lib/types/client.d.ts",
+      "default": "./lib/types/client.js"
+    },
+    "./src/*": "./src/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib/index.js",
+    "lib/types/**/*.js",
+    "lib/types/**/*.d.ts"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "@lyness/cordis": "workspace:^",
+    "@lyness/llm": "workspace:^",
+    "@lyness/session": "workspace:^",
+    "@lyness/session-projection": "workspace:^"
+  },
+  "dependencies": {
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@lyness/cordis": "workspace:^",
+    "@lyness/cordis-plugin-include": "workspace:^",
+    "@lyness/cordis-plugin-loader": "workspace:^",
+    "@lyness/llm": "workspace:^",
+    "@lyness/session": "workspace:^",
+    "@lyness/session-projection": "workspace:^"
+  }
+}

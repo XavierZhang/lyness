@@ -1,7 +1,7 @@
 {
   "name": "@lyness/api-remotes",
   "description": "Remote BFF assembly for application-selected Host capabilities",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -17,10 +17,6 @@
     ".": {
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
-    },
-    "./invariant": {
-      "types": "./lib/types/invariant.d.ts",
-      "default": "./lib/invariant.js"
     },
     "./client": {
       "types": "./lib/types/client/index.d.ts",
@@ -49,43 +45,24 @@
   "license": "MIT",
   "files": [
     "lib/index.js",
-    "lib/invariant.js",
     "lib/client.js",
     "lib/types/**/*.js",
     "lib/types/**/*.d.ts"
   ],
   "dependencies": {
-    "@lyness/scope": "workspace:^",
-    "@lyness/typert-protocol": "workspace:^"
+    "@lyness/deque": "workspace:^",
+    "@lyness/session": "workspace:^",
+    "@lyness/util-values": "workspace:^"
   },
   "peerDependencies": {
     "@lyness/cordis": "workspace:^",
-    "@lyness/agent-presets": "workspace:^",
-    "@lyness/api-gateway": "workspace:^",
-    "@lyness/api-session-controller": "workspace:^",
-    "@lyness/api-settings-controller": "workspace:^",
-    "@lyness/api-workspace-controller": "workspace:^",
-    "@lyness/commands": "workspace:^",
-    "@lyness/cordis-host-runner": "workspace:^",
-    "@lyness/credentials": "workspace:^",
-    "@lyness/file-reference": "workspace:^",
-    "@lyness/goal": "workspace:^",
-    "@lyness/host-plugin-inventory": "workspace:^",
-    "@lyness/invariants": "workspace:^",
-    "@lyness/llm": "workspace:^",
-    "@lyness/message-feedback": "workspace:^",
-    "@lyness/session": "workspace:^",
-    "@lyness/session-reference": "workspace:^",
-    "@lyness/settings": "workspace:^",
-    "@lyness/subagent": "workspace:^",
-    "@lyness/user-approval": "workspace:^",
-    "@lyness/user-questions": "workspace:^"
+    "@lyness/scope": "workspace:^"
   },
   "devDependencies": {
     "@lyness/cordis": "workspace:^",
+    "@lyness/agent": "workspace:^",
     "@lyness/agent-presets": "workspace:^",
     "@lyness/api-gateway": "workspace:^",
-    "@lyness/api-session-controller": "workspace:^",
     "@lyness/api-settings-controller": "workspace:^",
     "@lyness/api-workspace-controller": "workspace:^",
     "@lyness/commands": "workspace:^",
@@ -94,14 +71,20 @@
     "@lyness/file-reference": "workspace:^",
     "@lyness/goal": "workspace:^",
     "@lyness/host-plugin-inventory": "workspace:^",
-    "@lyness/invariants": "workspace:^",
     "@lyness/llm": "workspace:^",
     "@lyness/message-feedback": "workspace:^",
-    "@lyness/session": "workspace:^",
     "@lyness/session-reference": "workspace:^",
     "@lyness/settings": "workspace:^",
     "@lyness/subagent": "workspace:^",
     "@lyness/user-approval": "workspace:^",
-    "@lyness/user-questions": "workspace:^"
+    "@lyness/user-questions": "workspace:^",
+    "@lyness/client-connection": "workspace:^",
+    "@lyness/client-file-upload": "workspace:^",
+    "@lyness/typert-protocol": "workspace:^",
+    "@lyness/scope": "workspace:^",
+    "@lyness/api-session-controller": "workspace:^",
+    "@lyness/api-workspace-files": "workspace:^",
+    "zod": "^4.4.3",
+    "@lyness/command-feedback": "workspace:^"
   }
 }

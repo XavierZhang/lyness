@@ -1,6 +1,6 @@
 /** Injected faces and the Package-owned `tool.view.cordis` slot declaration. */
 
-import type { SessionId } from '@lyness/client-connection/client'
+import type { SessionId } from '@lyness/api-remotes/client'
 import type { HostObservable } from '@lyness/client-ui-slots'
 import type {
   CordisRunActivity, CordisRunFailure, CordisUserRunRequest, DynamicCordisLivePackage,

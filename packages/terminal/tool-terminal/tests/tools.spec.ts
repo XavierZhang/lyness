@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import { ToolCallId } from '@lyness/llm'
 import { Session, SessionId } from '@lyness/session'
-import AgentRegistry, { Inbox } from '@lyness/agent'
+import AgentRegistry from '@lyness/agent'
 import type { Agent } from '@lyness/agent'
 import SystemPrompt from '@lyness/system-prompt'
 import ToolRuntime, { renderToolsSdk } from '@lyness/tools'
@@ -12,13 +12,14 @@ import type { TerminalBackend, TerminalBackendSession, TerminalSendOperation, Te
 import LocalJobRegistry from '@lyness/jobs-local'
 import * as ToolTasks from '@lyness/tool-jobs'
 import * as ToolPty from '@lyness/tool-terminal'
+import { unsupportedInbox } from '@lyness/agent-loop-testkit'
 
 function fakeAgent(ctx: Context, rawId: string): Agent {
   const scope = ctx.plugin(() => {})
   const id = SessionId(rawId)
   const session = Session.create(id)
   const agent: Agent = {
-    id, options: {}, session, inbox: new Inbox(session, { inserted: () => {}, discarded: () => {}, claimed: () => {} }),
+    id, options: {}, session, inbox: unsupportedInbox(),
     status: 'idle',
     ctx: scope.ctx,
     send: () => {},

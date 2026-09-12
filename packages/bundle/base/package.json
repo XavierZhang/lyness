@@ -1,7 +1,7 @@
 {
   "name": "@lyness/base",
   "description": "The shared lyn core as a profile bundle: the first patch layer of base-backed profiles, inserting core rows over the empty profile root",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -18,17 +18,12 @@
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
     },
-    "./invariant": {
-      "types": "./lib/types/invariant.d.ts",
-      "default": "./lib/invariant.js"
-    },
     "./cordis.patch.yml": "./cordis.patch.yml",
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
   "files": [
     "lib/index.js",
-    "lib/invariant.js",
     "cordis.patch.yml",
     "lib/types/**/*.d.ts"
   ],
@@ -100,16 +95,15 @@
     "@lyness/tool-call-timeout-policy": "workspace:^",
     "@lyness/token-meter": "workspace:^",
     "@lyness/tool-bash": "workspace:^",
+    "@lyness/tool-present": "workspace:^",
     "@lyness/tool-fs": "workspace:^",
     "@lyness/tool-fs-search": "workspace:^",
     "@lyness/tool-goal": "workspace:^",
     "@lyness/tool-pwsh": "workspace:^",
     "@lyness/tool-ralph": "workspace:^",
     "@lyness/tool-skill": "workspace:^",
-    "@lyness/tool-str-replace-editor": "workspace:^",
     "@lyness/tool-subagent": "workspace:^",
     "@lyness/tool-subagent-control": "workspace:^",
-    "@lyness/tool-subagent-report": "workspace:^",
     "@lyness/tool-jobs": "workspace:^",
     "@lyness/tool-todo": "workspace:^",
     "@lyness/tool-web": "workspace:^",
@@ -126,11 +120,9 @@
     "@lyness/agent-instructions": "workspace:^"
   },
   "peerDependencies": {
-    "@lyness/invariants": "workspace:^",
     "@lyness/cordis": "workspace:^"
   },
   "devDependencies": {
-    "@lyness/invariants": "workspace:^",
     "@lyness/cordis": "workspace:^"
   }
 }

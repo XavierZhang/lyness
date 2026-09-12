@@ -15,9 +15,8 @@ import { Context } from '@lyness/cordis'
 import type { Loader } from '@lyness/cordis-plugin-loader'
 import { describe, expect, it, vi } from 'vitest'
 import type {
-  CordisDynamicPackageId, CordisDynamicPluginId, CordisDynamicPluginRunId,
+  CordisDynamicPackageId, CordisDynamicPluginId, CordisDynamicPluginRunId, SessionId,
 } from '@lyness/api-remotes/client'
-import type { SessionId } from '@lyness/client-connection/client'
 import type { ClientModuleSystem } from '@lyness/client-modules/client'
 import { SlotRegistry } from '@lyness/client-ui-renderer/client'
 import { DYNAMIC_CLIENT_REDIRECTS } from '../src/client/evaluator.ts'

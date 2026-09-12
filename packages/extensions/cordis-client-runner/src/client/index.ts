@@ -12,11 +12,12 @@
 
 import type { Context } from '@lyness/cordis'
 import type {
-  ApprovalRequestId, CordisDynamicPluginId, DynamicCordisInvokeResult, JsonValue,
+  ApprovalRequestId, CordisDynamicPluginId, DynamicCordisInvokeResult,
   DynamicCordisInventoryRow,
 } from '@lyness/api-remotes/client'
 import type { ClientModuleSystem } from '@lyness/client-modules/client'
 import type { SlotRegistry } from '@lyness/client-ui-renderer/client'
+import type { JsonValue } from '@lyness/util-values'
 // The Client Remote assembly is the one place the two planes meet: it mounts the
 // `dynamicCordisRunner` namespace and re-exports its payload vocabulary, so this
 // package names what it sends without importing a Host package.

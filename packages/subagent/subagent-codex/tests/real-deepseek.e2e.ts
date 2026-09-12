@@ -15,6 +15,7 @@ import { Context } from '@lyness/cordis'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import type { Agent } from '@lyness/agent'
 import SubagentRuntime from '@lyness/subagent'
+import SessionProjectionRegistry from '@lyness/session-projection'
 import type { SubprocessHandle } from '@lyness/subprocess'
 import LocalSubprocessRuntime from '@lyness/subprocess-local'
 import * as codex from '../src/index.ts'
@@ -96,6 +97,7 @@ describe.skipIf(!process.env.DEEPSEEK_API_KEY)(
       }
       const ctx = new Context()
       contexts.push(ctx)
+      await ctx.plugin(SessionProjectionRegistry)
       await ctx.plugin(SubagentRuntime)
       await ctx.plugin(LocalSubprocessRuntime)
       const handles: SubprocessHandle[] = []
@@ -109,8 +111,8 @@ describe.skipIf(!process.env.DEEPSEEK_API_KEY)(
       const version = await execFileAsync(process.execPath, [codexEntry, '--version'], {
         env: { ...process.env, ...env },
       })
-      expect(codexPackage.version).toBe('0.149.1')
-      expect(version.stdout.trim()).toBe('codex-cli 0.149.1')
+      expect(codexPackage.version).toBe('0.153.4')
+      expect(version.stdout.trim()).toBe('codex-cli 0.153.4')
 
       const parent = {
         id: 'deepseek-e2e-parent',

@@ -8,8 +8,9 @@ import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
 import Include from '@lyness/cordis-plugin-include'
 import { ToolCallId } from '@lyness/llm'
-import { Session, SessionId } from '@lyness/session'
-import AgentRegistry, { Inbox } from '@lyness/agent'
+import { SESSION_FORMAT_VERSION, Session, SessionId } from '@lyness/session'
+import AgentRegistry from '@lyness/agent'
+import SessionProjectionRegistry from '@lyness/session-projection'
 import type { Agent } from '@lyness/agent'
 import TerminalSessionService from '@lyness/terminal'
 import * as TerminalBash from '@lyness/terminal-bash'
@@ -21,6 +22,7 @@ import { resolvePwshPath } from '@lyness/pwsh-local/src/resolve.ts'
 import SystemPrompt from '@lyness/system-prompt'
 import ToolRegistry from '@lyness/tools'
 import * as ToolPwshPersistent from '@lyness/tool-pwsh-persistent'
+import { unsupportedInbox } from '@lyness/agent-loop-testkit'
 
 const hasPwsh = spawnSync(
   resolvePwshPath(), ['-NoLogo', '-NoProfile', '-NonInteractive', '-Command', '$true'],
@@ -46,12 +48,14 @@ class PassthroughSandbox extends SandboxProvider {
 function agent(ctx: Context, cwd: string): Agent {
   const id = SessionId('persistent-pwsh-loader-agent')
   const scope = ctx.plugin(() => {})
-  const session = Session.create(id, [], { version: 0, id, createdAt: 0, cwd })
+  const session = Session.create(id, [], {
+    version: SESSION_FORMAT_VERSION, id, createdAt: 0, cwd, isSeeded: false,
+  })
   const value: Agent = {
     id,
     options: {},
     session,
-    inbox: new Inbox(session, { inserted: () => {}, discarded: () => {}, claimed: () => {} }),
+    inbox: unsupportedInbox(),
     status: 'idle',
     ctx: scope.ctx,
     send: () => {},
@@ -80,6 +84,7 @@ describe.skipIf(!hasPwsh)('persistent pwsh through a real cordis.yml Loader comp
       "- name: '@lyness/tools'",
       "- name: '@lyness/terminal'",
       "- name: '@lyness/test-sandbox'",
+      "- name: '@lyness/session-projection'",
       "- name: '@lyness/sandbox-policy'",
       '  config:',
       '    mode: danger-full-access',
@@ -93,11 +98,19 @@ describe.skipIf(!hasPwsh)('persistent pwsh through a real cordis.yml Loader comp
       '    idleSilenceMs: 300',
       '    handoffGraceMs: 300',
       '    scrollbackLines: 20000',
-      '    timeoutMs: 60000',
+      // The first call pays the full pwsh cold-start latency (spawn + .NET +
+      // PSReadLine + Defender) inside the tool deadline; a 60s bound on the
+      // fully loaded self-hosted Windows pool is exceeded often enough to
+      // reset the session mid-test (2026-09-01, two runs ~62s each). 300s
+      // matches the lyn-tool-pwsh-persistent product default; the
+      // lyn-terminal-bash value bounds one send plus the complete startup
+      // sequence, so it covers the same cold start (its 30s product default
+      // would not).
+      '    timeoutMs: 300000',
       '    disposeGraceMs: 500',
       "- name: '@lyness/tool-pwsh-persistent'",
       '  config:',
-      '    timeoutMs: 60000',
+      '    timeoutMs: 300000',
       '',
     ].join('\n'))
 
@@ -111,6 +124,7 @@ describe.skipIf(!hasPwsh)('persistent pwsh through a real cordis.yml Loader comp
       ['@lyness/tools', ToolRegistry],
       ['@lyness/terminal', TerminalSessionService],
       ['@lyness/test-sandbox', PassthroughSandbox],
+      ['@lyness/session-projection', SessionProjectionRegistry],
       ['@lyness/sandbox-policy', SandboxPolicyService],
       ['@lyness/subprocess-local', LocalSubprocessService],
       ['@lyness/terminal-bash', TerminalBash],

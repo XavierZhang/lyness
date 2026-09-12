@@ -5,7 +5,8 @@
   "projectTitle": "LYN Issue Management",
   "lifecycleActor": "lyn-issue-management",
   "priorityField": "Priority",
-  "allowUnassignedOwner": true,
+  "startDateField": "Start Date",
+  "projectTimeZone": "Asia/Shanghai",
   "statuses": [
     "Inbox",
     "Backlog",

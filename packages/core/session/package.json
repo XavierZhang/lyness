@@ -1,7 +1,7 @@
 {
   "name": "@lyness/session",
   "description": "Event-sourced session store for the lyness",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -26,10 +26,6 @@
       "types": "./lib/types/types.d.ts",
       "default": "./lib/types/types.js"
     },
-    "./chunk-rows": {
-      "types": "./lib/types/chunk-rows.d.ts",
-      "default": "./lib/types/chunk-rows.js"
-    },
     "./src/*": "./src/*",
     "./package.json": "./package.json",
     "./surface": {
@@ -45,20 +41,19 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/brand": "workspace:^",
-    "@lyness/invariants": "workspace:^",
-    "@lyness/llm": "workspace:^",
     "@lyness/scope": "workspace:^",
-    "@lyness/typert-protocol": "workspace:^",
     "@lyness/cordis": "workspace:^"
   },
   "devDependencies": {
-    "@lyness/brand": "workspace:^",
     "@lyness/invariants": "workspace:^",
-    "@lyness/llm": "workspace:^",
     "@lyness/scope": "workspace:^",
     "@lyness/typert-protocol": "workspace:^",
     "@lyness/typert-registry": "workspace:^",
     "@lyness/cordis": "workspace:^"
+  },
+  "dependencies": {
+    "@lyness/llm": "workspace:^",
+    "@lyness/brand": "workspace:^",
+    "@lyness/util-values": "workspace:^"
   }
 }

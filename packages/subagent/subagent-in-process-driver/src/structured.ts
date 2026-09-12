@@ -12,7 +12,6 @@
 
 import type { Context } from '@lyness/cordis'
 import type { ToolSchema } from '@lyness/llm'
-import { FIRST_PARTY_SECTION_ORDER } from '@lyness/system-prompt'
 import type { ToolExecution, ToolRunContext } from '@lyness/tools'
 import { ToolArgsError, validateJsonSchemaValue, type ObjectJsonSchema } from '@lyness/tools'
 
@@ -99,7 +98,7 @@ export function attachStructuredRuntime(childCtx: Context, schema: ObjectJsonSch
 
   childCtx.systemPrompt.section({
     name: `tool:${STRUCTURED_OUTPUT_TOOL}`,
-    order: FIRST_PARTY_SECTION_ORDER.STRUCTURED_OUTPUT,
+    order: childCtx.systemPrompt.getSectionOrder('STRUCTURED_OUTPUT'),
     text: STRUCTURED_OUTPUT_INSTRUCTION,
   })
 

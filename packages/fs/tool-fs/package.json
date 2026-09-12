@@ -1,7 +1,7 @@
 {
   "name": "@lyness/tool-fs",
   "description": "Model-facing filesystem tools (read, write, edit) over the lyness filesystem seam (ctx.fs)",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -18,16 +18,11 @@
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
     },
-    "./invariant": {
-      "types": "./lib/types/invariant.d.ts",
-      "default": "./lib/invariant.js"
-    },
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
   "files": [
     "lib/index.js",
-    "lib/invariant.js",
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
@@ -38,7 +33,6 @@
   "peerDependencies": {
     "@lyness/attachment": "workspace:^",
     "@lyness/fs": "workspace:^",
-    "@lyness/invariants": "workspace:^",
     "@lyness/llm": "workspace:^",
     "@lyness/sandbox": "workspace:^",
     "@lyness/sandbox-policy": "workspace:^",
@@ -56,7 +50,6 @@
     "@lyness/fs": "workspace:^",
     "@lyness/fs-local": "workspace:^",
     "@lyness/fs-observation-policy": "workspace:^",
-    "@lyness/invariants": "workspace:^",
     "@lyness/llm": "workspace:^",
     "@lyness/llm-deepseek": "workspace:^",
     "@lyness/sandbox": "workspace:^",
@@ -65,6 +58,9 @@
     "@lyness/system-prompt": "workspace:^",
     "@lyness/tools": "workspace:^",
     "@lyness/user-approval": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:^",
+    "@lyness/session-projection": "workspace:^",
+    "@lyness/scope": "workspace:^",
+    "@lyness/code-runtime": "workspace:^"
   }
 }

@@ -2,5 +2,5 @@
 # side as of the last confirmed-consistent state. Both languages carry equal authority;
 # after editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-08-22-single-lyn-application-launcher.md
-2026-08-22-single-lyn-application-launcher.md: 79e6922055d635196ebb5e22bcf3965477b110d8
-2026-08-22-single-lyn-application-launcher.zh.md: 4f835db8ef764189e62f4e6d770c9c01e6c8026f
+2026-08-22-single-lyn-application-launcher.md: caafc5eda4c56c92b3c3c8bca639e529a6c1a6c4
+2026-08-22-single-lyn-application-launcher.zh.md: 8484ba5ae3ac90e5af35f317ab5bcce7d2bfb56a

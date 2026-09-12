@@ -219,3 +219,10 @@ declare module '@lyness/session/types' {
     'schedule/change': ScheduleChange
   }
 }
+
+declare module '@lyness/session-projection/types' {
+  interface SessionProjectionMap {
+    /** Complete active reminders owned by this Session's post-fork suffix. */
+    schedule: readonly ScheduleRecord[]
+  }
+}

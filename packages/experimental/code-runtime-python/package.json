@@ -1,0 +1,42 @@
+{
+  "name": "@lyness/experimental-code-runtime-python",
+  "description": "CPython subprocess implementation of the lyness code-execution seam",
+  "version": "0.1.5-rc.1",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "directory": "packages/experimental/code-runtime-python"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib/index.js",
+    "py/**/*.py",
+    "lib/types/**/*.d.ts"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "@lyness/code-runtime": "workspace:^",
+    "@lyness/timeout": "workspace:^",
+    "@lyness/cordis": "workspace:^",
+    "@lyness/util-values": "workspace:^"
+  },
+  "devDependencies": {
+    "@lyness/code-runtime": "workspace:^",
+    "@lyness/timeout": "workspace:^",
+    "@lyness/cordis": "workspace:^",
+    "@lyness/util-values": "workspace:^"
+  },
+  "dependencies": {
+    "@lyness/schemastery": "workspace:^"
+  },
+  "private": true
+}

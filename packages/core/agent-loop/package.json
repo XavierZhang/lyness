@@ -1,7 +1,7 @@
 {
   "name": "@lyness/agent-loop",
   "description": "The concrete agent loop plugin for the lyness",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -31,21 +31,27 @@
   ],
   "license": "MIT",
   "peerDependencies": {
+    "@lyness/cordis": "workspace:^",
     "@lyness/agent": "workspace:^",
     "@lyness/invariants": "workspace:^",
     "@lyness/llm": "workspace:^",
     "@lyness/scope": "workspace:^",
     "@lyness/session": "workspace:^",
     "@lyness/session-persistence": "workspace:^",
+    "@lyness/session-projection": "workspace:^",
+    "@lyness/settings": "workspace:^",
     "@lyness/system-prompt": "workspace:^",
-    "@lyness/tools": "workspace:^",
-    "@lyness/cordis": "workspace:^",
-    "@lyness/settings": "workspace:^"
+    "@lyness/tools": "workspace:^"
   },
   "dependencies": {
-    "@lyness/schemastery": "workspace:^"
+    "@lyness/brand": "workspace:^",
+    "@lyness/util-values": "workspace:^",
+    "@lyness/schemastery": "workspace:^",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@lyness/cordis": "workspace:^",
+    "@lyness/llm-pi-ai": "workspace:^",
     "@lyness/agent": "workspace:^",
     "@lyness/invariants": "workspace:^",
     "@lyness/llm": "workspace:^",
@@ -53,9 +59,9 @@
     "@lyness/session": "workspace:^",
     "@lyness/session-persistence": "workspace:^",
     "@lyness/session-persistence-jsonl": "workspace:^",
+    "@lyness/session-projection": "workspace:^",
+    "@lyness/settings": "workspace:^",
     "@lyness/system-prompt": "workspace:^",
-    "@lyness/tools": "workspace:^",
-    "@lyness/cordis": "workspace:^",
-    "@lyness/settings": "workspace:^"
+    "@lyness/tools": "workspace:^"
   }
 }

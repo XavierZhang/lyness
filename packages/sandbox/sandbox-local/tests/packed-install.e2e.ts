@@ -22,11 +22,11 @@ import { packedWorkspaceClosure, readWorkspacePackages } from './packed-workspac
 
 const packageDir = fileURLToPath(new URL('..', import.meta.url))
 const repoRoot = fileURLToPath(new URL('../../../..', import.meta.url))
-const nativeDir = join(repoRoot, 'native/landlock-run')
+const nativeDir = join(repoRoot, 'native/system')
 const sourceLauncher = join(nativeDir, 'packages', `linux-${process.arch}`, 'bin', 'landlock-run')
-const platformPackageName = `@lyness/node-addon-landlock-run-linux-${process.arch}`
+const platformPackageName = `@lyness/node-addon-system-linux-${process.arch}`
 
-const NATIVE_PACKAGE_PREFIX = '@lyness/node-addon-landlock-run'
+const NATIVE_PACKAGE_PREFIX = '@lyness/node-addon-system'
 
 /** ELF `e_machine` (offset 18, LE) for this host: x86-64 = 62, AArch64 = 183. */
 const E_MACHINE = { x64: 62, arm64: 183 }[process.arch as 'x64' | 'arm64']
@@ -109,7 +109,7 @@ describe.skipIf(!packable)('sandbox-local: packed-tarball distribution (publish-
       import { spawnSync } from 'node:child_process'
       import { existsSync } from 'node:fs'
       import { Context } from '@lyness/cordis'
-      import { launcherPath } from '@lyness/node-addon-landlock-run'
+      import { launcherPath } from '@lyness/node-addon-system/landlock-run'
       import { LocalSandboxProvider } from '@lyness/sandbox-local'
       const ctx = new Context()
       await ctx.plugin(LocalSandboxProvider, {})

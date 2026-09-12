@@ -7,7 +7,7 @@
 
 import { describe, expect, it } from 'vitest'
 import fc from 'fast-check'
-import { isJsonValue } from '@lyness/session'
+import { isJsonValue } from '@lyness/util-values'
 import { parameterSchemaSpecToJsonSchema, validateArgs } from '@lyness/tools'
 import type { ParameterPropertySpec, ParameterSchemaSpec, ValueSchemaSpec } from '@lyness/tools'
 

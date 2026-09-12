@@ -22,13 +22,13 @@
  * and a hole has exactly one declaring entry — they carry the same owner
  * contract and the same occupant.
  */
-import type { ConnectionGenerationState } from '@lyness/client-connection/client'
 import type { HostObservable, PropsHooks, PropsLocale, PropsRenderSlots, PropsRuntime, PropsStore } from '@lyness/client-ui-slots'
 // Type-only: pull the owner SlotMap merges into programs that resolve the
 // runtime shares below.
 import type {} from '@lyness/client-ui-sidebar/client'
 import type {} from '@lyness/client-ui-conversation/client'
 import type { SessionSearchResultItem } from '@lyness/api-session-controller/client'
+import type { RemoteHostFacts } from '@lyness/api-remotes/client'
 import type { WorkspaceId, WorkspaceView } from '@lyness/api-workspace-controller/client'
 import type { SessionId } from '@lyness/session/types'
 import type { createWorkspaceViewStore } from '../stores.ts'
@@ -89,8 +89,13 @@ export type DirectoryPickingHooks = PropsHooks<DirectoryPickingInjected['hooks']
  */
 export type WorkspaceBrowserInjected = {
   hooks: DirectoryPickingInjected['hooks'] & {
-    /** Current generation's Host description, bound by the slot renderer. */
-    connectionGeneration: ConnectionGenerationState
+    /**
+     * Fixed Host facts, reached through a hook rather than injected as values:
+     * the renderer memoizes an entry's inject result for the registration's
+     * lifetime, so facts read there would freeze at whatever the first render
+     * saw. Select the field the surface needs (`info => info.home`).
+     */
+    hostInfo: HostObservable<RemoteHostFacts>
   }
   /**
    * Start a New Session in a Workspace: reuse-or-create its blank session and

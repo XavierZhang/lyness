@@ -2,5 +2,5 @@
 # side as of the last confirmed-consistent state. Both languages carry equal authority;
 # after editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-06-11-dev-invariants-over-deep-readonly.md
-2026-06-11-dev-invariants-over-deep-readonly.md: 15db14cb35827c6320a3984a2fc4924bc4e3a279
-2026-06-11-dev-invariants-over-deep-readonly.zh.md: 98419cd7afbf11fec9fe76032068924b04c94cd2
+2026-06-11-dev-invariants-over-deep-readonly.md: b2c4f1ac45826d89ebcfe8f024a75e8b21de81cf
+2026-06-11-dev-invariants-over-deep-readonly.zh.md: ea235fe476ab6a56d08c77024b562c1034fbd6cc

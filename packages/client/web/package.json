@@ -1,7 +1,7 @@
 {
   "name": "@lyness/client-web",
   "description": "Web boot kernel: static module table, Cordis loader, framework-free boot page, and UI-renderer handoff",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -18,10 +18,6 @@
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
     },
-    "./invariant": {
-      "types": "./lib/types/invariant.d.ts",
-      "default": "./lib/invariant.js"
-    },
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
@@ -30,10 +26,10 @@
     "@lyness/cordis-plugin-loader": "workspace:^",
     "@lyness/client-modules": "workspace:^",
     "@lyness/client-store": "workspace:^",
+    "@lyness/client-ui-dockkit": "workspace:^",
     "@lyness/client-ui-renderer": "workspace:^",
     "@lyness/client-ui-primitives": "workspace:^",
     "@lyness/client-ui-slots": "workspace:^",
-    "@lyness/invariants": "workspace:^",
     "@types/react": "~18.3.1",
     "@types/react-dom": "~18.3.0",
     "@lyness/cordis": "workspace:^",
@@ -42,12 +38,10 @@
     "typescript": "^6.0.3"
   },
   "peerDependencies": {
-    "@lyness/invariants": "workspace:^",
     "@lyness/cordis": "workspace:^"
   },
   "files": [
     "lib/index.js",
-    "lib/invariant.js",
     "lib/**/*.css",
     "lib/types/**/*.d.ts"
   ]

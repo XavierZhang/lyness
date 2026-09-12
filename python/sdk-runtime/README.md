@@ -8,7 +8,7 @@ Platform runtime wheel for the lyness Python SDK. It packages the normal `lyn` C
 
 The wheel installs a `lyn` console command and the `deepseek_harness_runtime` Python module. `lyn` forwards its arguments to the bundled executable and requires a non-empty `LYNESS_HOME`; it never falls back to `~/.lyn`.
 
-Production executables are named `lyness-sdk-runtime-<platform>-<arch>` under the module's `runtime/` directory; Windows uses the `.exe` suffix. Linux and macOS wheels include a target-native `-rg` sidecar, Windows includes `-rg.exe`, and macOS also includes `-spawn-helper` for `node-pty`. Published targets are Linux x64, Linux arm64, macOS arm64, and Windows x64. The wheel tag and payload must match exactly; no Windows arm64 wheel is published.
+Production executables are named `lyness-sdk-runtime-<platform>-<arch>` under the module's `runtime/` directory; Windows uses the `.exe` suffix. Linux and macOS wheels include a target-native `-rg` sidecar, Windows includes `-rg.exe`, and macOS also includes `-spawn-helper` for `node-pty`. Published targets are Linux x64, Linux arm64, macOS arm64, macOS x64, and Windows x64. The wheel tag and payload must match exactly; no Windows arm64 wheel is published.
 
 Repository builds also materialize a dev-only `runtime/node/` carrier. It runs `node runtime/node/node_modules/@lyness/lyn/lib/bin.js` on system Node 22.19 or newer. It is never selected automatically and is excluded from wheels and sdists.
 
@@ -19,7 +19,7 @@ Both carriers execute the same `lyn` grammar and shipped profiles, including the
 - `bundled_package_dir() -> Path` returns the installed module-data root and verifies its release metadata.
 - `bundled_runtime_path() -> Path` returns the current platform executable and verifies required sidecars.
 - `resolve_bundled_launch_args(mode=None) -> tuple[str, ...]` returns the executable argv by default. Explicit `mode="node"` or `LYNESS_RUNTIME_MODE=node` selects the repo-only Node carrier.
-- `main()` implements the installed `lyn` console command and rejects an absent or blank `LYNESS_HOME` before replacing the Python process.
+- `main()` implements the installed `lyn` console command and rejects an absent or blank `LYNESS_HOME`. On Windows it waits for the bundled process with inherited standard streams and forwards its exit status; on POSIX it replaces the Python process.
 
 Unsupported platforms and missing executables or sidecars raise `FileNotFoundError` with the build and installation routes. Unknown runtime modes raise `ValueError`.
 

@@ -1,7 +1,7 @@
 {
   "name": "@lyness/terminal-bash",
   "description": "Persistent shell PTY backend over the lyness subprocess terminal primitive",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -18,28 +18,23 @@
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
     },
-    "./invariant": {
-      "types": "./lib/types/invariant.d.ts",
-      "default": "./lib/invariant.js"
-    },
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
   "files": [
     "lib/index.js",
-    "lib/invariant.js",
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
   "peerDependencies": {
     "@lyness/agent": "workspace:^",
-    "@lyness/invariants": "workspace:^",
     "@lyness/terminal": "workspace:^",
     "@lyness/sandbox": "workspace:^",
     "@lyness/sandbox-policy": "workspace:^",
     "@lyness/session": "workspace:^",
     "@lyness/subprocess": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:^",
+    "@lyness/session-projection": "workspace:^"
   },
   "dependencies": {
     "@lyness/pwsh-local": "workspace:^",
@@ -48,7 +43,7 @@
   },
   "devDependencies": {
     "@lyness/agent": "workspace:^",
-    "@lyness/invariants": "workspace:^",
+    "@lyness/agent-loop-testkit": "workspace:^",
     "@lyness/terminal": "workspace:^",
     "@lyness/sandbox": "workspace:^",
     "@lyness/sandbox-policy": "workspace:^",

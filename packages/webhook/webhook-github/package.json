@@ -1,7 +1,7 @@
 {
   "name": "@lyness/webhook-github",
   "description": "Signed GitHub HTTP webhook adapter for the lyness webhook runtime",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -22,16 +22,11 @@
       "types": "./lib/types/types.d.ts",
       "default": "./lib/types/types.js"
     },
-    "./invariant": {
-      "types": "./lib/types/invariant.d.ts",
-      "default": "./lib/invariant.js"
-    },
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
   "files": [
     "lib/index.js",
-    "lib/invariant.js",
     "lib/types/**/*.js",
     "lib/types/**/*.d.ts"
   ],
@@ -40,11 +35,11 @@
     "@lyness/cordis": "workspace:^",
     "@lyness/credentials": "workspace:^",
     "@lyness/host-webserver": "workspace:^",
-    "@lyness/invariants": "workspace:^",
     "@lyness/session": "workspace:^",
     "@lyness/webhook": "workspace:^"
   },
   "dependencies": {
+    "@lyness/util-values": "workspace:^",
     "@lyness/schemastery": "workspace:^",
     "@octokit/webhooks": "^14.2.0"
   },
@@ -54,7 +49,6 @@
     "@lyness/cordis-plugin-loader": "workspace:^",
     "@lyness/credentials": "workspace:^",
     "@lyness/host-webserver": "workspace:^",
-    "@lyness/invariants": "workspace:^",
     "@lyness/session": "workspace:^",
     "@lyness/webhook": "workspace:^"
   }

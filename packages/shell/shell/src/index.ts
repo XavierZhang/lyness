@@ -6,7 +6,6 @@
  */
 
 import { Context, Service } from '@lyness/cordis'
-import { settingsNamespace } from '@lyness/settings'
 import type { SandboxMode } from '@lyness/sandbox'
 import type { ShellExecRequest, ShellExecSpec, ShellProcess, ShellRunResult } from './types.ts'
 
@@ -19,7 +18,7 @@ import type { ShellExecRequest, ShellExecSpec, ShellProcess, ShellRunResult } fr
  * registering it twice, and a settings document carried between platforms
  * keeps resolving on both.
  */
-export const SHELL_SETTINGS_NAMESPACE = settingsNamespace('shell')
+export const SHELL_SETTINGS_NAMESPACE = 'shell'
 
 export { LYNESS_ENV_PREFIX } from './types.ts'
 export type {

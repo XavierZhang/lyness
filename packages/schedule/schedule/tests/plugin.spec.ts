@@ -1,16 +1,74 @@
 import { describe, expect, it } from 'vitest'
-import { Context, Service } from '@lyness/cordis'
+import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
 import { agentEvents } from '@lyness/agent'
 import AgentLoop from '@lyness/agent-loop'
 import { mountAgentLoopTestDependencies } from '@lyness/agent-loop-testkit'
 import { ToolCallId } from '@lyness/llm'
-import { SessionId } from '@lyness/session'
+import { SessionLogOffset, SessionId } from '@lyness/session'
+import type { SessionEvent, SessionHeader } from '@lyness/session'
+import {
+  SessionPersistence,
+  SessionPersistenceNotFoundError,
+  SessionPersistenceRevision,
+} from '@lyness/session-persistence'
+import type { SessionAccess, SessionHandle, SessionPersistenceSnapshot } from '@lyness/session-persistence'
 import * as toolSchedule from '../src/index.ts'
 
-class PersistenceProbe extends Service {
-  constructor(ctx: Context) {
-    super(ctx, 'sessionPersistence')
+interface StoredProbeSession {
+  readonly header: SessionHeader
+  readonly events: SessionEvent[]
+}
+
+/** In-memory handle-based persistence, just enough for agent-loop's write path. */
+class PersistenceProbe extends SessionPersistence {
+  private readonly stored = new Map<string, StoredProbeSession>()
+
+  override async create(header: SessionHeader): Promise<SessionHandle> {
+    const entry: StoredProbeSession = { header, events: [] }
+    this.stored.set(header.id, entry)
+    return this.handle(entry, 'write')
+  }
+
+  // Appends are durable on resolution here; nothing buffers, so the service-wide flush is a no-op.
+  override async flush(): Promise<void> {}
+
+  override async open(id: SessionId, access: SessionAccess): Promise<SessionHandle> {
+    const entry = this.stored.get(id)
+    if (entry === undefined) throw new SessionPersistenceNotFoundError(id)
+    return this.handle(entry, access)
+  }
+
+  override async stat(id: SessionId): Promise<SessionPersistenceSnapshot | undefined> {
+    const entry = this.stored.get(id)
+    return entry === undefined ? undefined : this.snapshot(entry)
+  }
+
+  override async list(): Promise<SessionPersistenceSnapshot[]> {
+    return [...this.stored.values()].map(entry => this.snapshot(entry))
+  }
+
+  private snapshot(entry: StoredProbeSession): SessionPersistenceSnapshot {
+    return {
+      header: entry.header,
+      revision: SessionPersistenceRevision(`probe-${entry.header.id}-${entry.events.length}`),
+      eventCount: entry.events.length,
+    }
+  }
+
+  private handle(entry: StoredProbeSession, access: SessionAccess): SessionHandle {
+    return {
+      id: entry.header.id,
+      header: entry.header,
+      inheritedEventCount: SessionLogOffset(0),
+      access,
+      read: async (offset = 0, length = Number.MAX_SAFE_INTEGER) =>
+        ({ eventState: 'detached', events: structuredClone(entry.events.slice(offset, offset + length)) }),
+      append: async (events) => { entry.events.push(...events) },
+      flush: async () => {},
+      close: async () => {},
+      [Symbol.asyncDispose]: async () => {},
+    }
   }
 }
 
@@ -62,7 +120,10 @@ describe('Schedule plugin composition', () => {
     agentEvents(ctx, root.agent).emit('agent/status', { status: 'running' })
     agentEvents(ctx, root.agent).emit('agent/status', { status: 'idle' })
 
-    const child = await root.agent.ctx.agents.create({ sessionId: SessionId('schedule-child') })
+    const child = await root.agent.ctx.agents.create({
+      sessionId: SessionId('schedule-child'),
+      parentAgent: root.agent,
+    })
     expect(ctx.agents.roots()).toEqual([existing.agent, root.agent])
     expect(ctx.tools.get('schedule_create', child.agent)).toBeUndefined()
 

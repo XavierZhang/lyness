@@ -11,6 +11,7 @@ examples/*/*.jsonl
 .sessions/
 examples/*/.sessions/
 coverage/
+.coverage-times.json
 .doc-typecheck-*/
 .node-next-types-*/
 .oxlint-contract-*/
@@ -26,10 +27,13 @@ tmp/
 .idea
 mise.toml
 dist-exe/
+/dist/
+apps/desktop/.desktop-build/
 python/sdk-runtime/src/deepseek_harness_runtime/runtime/lyness-sdk-runtime-*
 python/sdk-runtime/src/deepseek_harness_runtime/runtime/node/
 python/**/__pycache__/
 python/**/.pytest_cache/
+packages/**/__pycache__/
 apps/web/dist/
 .artifacts/
 .lyn-build/
@@ -39,6 +43,7 @@ apps/web/dist/
 worktrees/
 .agents/worktrees/
 .typert-*/
+native/system/test/bin/
 
 # === fork-init: 二开本地文件，切勿提交 ===
 .env
@@ -48,10 +53,11 @@ worktrees/
 *.key
 *.pem
 .fork/*
-# 任务计划是项目产物，必须版本化；.fork/ 其余内容（config.env 等）是本地配置。
+# 任务计划与设计文档是项目产物，必须版本化；.fork/ 其余内容（config.env 等）是本地配置。
 # 用 .fork/* 而非 .fork/：目录级忽略会让 git 不下探，负向规则将失效。
 !.fork/TASKS.md
 !.fork/FORK-GUIDE.md
+!.fork/BRAND-CONFIG.md
 logs/
 *.log
 *.sqlite

@@ -5,8 +5,8 @@
  * @module @lyness/api-session-controller/client/sessions/remotes
  */
 
-import type { EncodedImageAttachment } from '@lyness/attachment/types'
 import type { ClientRemote } from '@lyness/api-gateway/client'
+import type { CommandSubmitAttachment } from '@lyness/commands/types'
 import type { SessionId } from '@lyness/session/types'
 import type {
   SubagentCatalog, SubagentInterruptReceipt, SubagentPromptReceipt, SubagentPromptRequest,
@@ -19,7 +19,7 @@ export interface SessionCommandsRemote {
   execute(
     agentId: SessionId,
     line: string,
-    images: readonly EncodedImageAttachment[],
+    attachments: readonly CommandSubmitAttachment[],
     signal?: AbortSignal,
   ): Promise<RemoteResult<object | undefined>>
 }

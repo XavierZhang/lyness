@@ -6,9 +6,11 @@
 
 import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import { createUserMessage, BlockAssembler, deepFreeze } from '@lyness/llm'
+import { createUserMessage, BlockAssembler } from '@lyness/llm'
 import type { FinishReason, GenerateOptions, Message } from '@lyness/llm'
 import { deadline, MAX_TIMER_DELAY_MS } from '@lyness/timeout'
+import { deepFreeze } from '@lyness/util-values'
+import type { SessionSeq } from '@lyness/session'
 import {
   normalizeSessionTitle,
   SessionTitleProviderId,
@@ -26,7 +28,7 @@ export interface SessionTitleLlmRequestEventData {
   /** Registered title-provider identity responsible for the request. */
   readonly titleProvider: SessionTitleProviderId
   /** Exact human `user/message` seqs represented in `messages`. */
-  readonly messageSeqs: number[]
+  readonly messageSeqs: SessionSeq[]
   /** Exact auxiliary LLM route. */
   readonly route: SessionTitleModelProvenance
   /** Exact auxiliary system prompt. */

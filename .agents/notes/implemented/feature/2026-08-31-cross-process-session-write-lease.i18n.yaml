@@ -1,0 +1,6 @@
+# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
+# side as of the last confirmed-consistent state. Both languages carry equal authority;
+# after editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write .agents/notes/implemented/feature/2026-08-31-cross-process-session-write-lease.md
+2026-08-31-cross-process-session-write-lease.md: edb4b6d69dd0ac594b9bbefb801251937bbc1349
+2026-08-31-cross-process-session-write-lease.zh.md: 70ded26efb7df536978cf5ad49babb826b000357

@@ -1,7 +1,7 @@
 {
   "name": "@lyness/llm-retry",
   "description": "Provider-routed LLM request retry policy for the lyness",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -42,10 +42,12 @@
     "@lyness/llm": "workspace:^",
     "@lyness/session": "workspace:^",
     "@lyness/timeout": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:^",
+    "@lyness/session-projection": "workspace:^"
   },
   "dependencies": {
-    "@lyness/schemastery": "workspace:^"
+    "@lyness/schemastery": "workspace:^",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@lyness/brand": "workspace:^",
@@ -59,11 +61,12 @@
     "@lyness/llm-deepseek": "workspace:^",
     "@lyness/llm-mock-server": "workspace:^",
     "@lyness/session": "workspace:^",
+    "@lyness/session-projection": "workspace:^",
     "@lyness/session-persistence-jsonl": "workspace:^",
-    "@lyness/session-persistence-sqlite": "workspace:^",
     "@lyness/system-prompt": "workspace:^",
     "@lyness/timeout": "workspace:^",
     "@lyness/tools": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:^",
+    "@lyness/session-projection": "workspace:^"
   }
 }

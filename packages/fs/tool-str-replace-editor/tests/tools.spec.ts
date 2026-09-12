@@ -5,16 +5,18 @@ import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import { FsVersion } from '@lyness/fs'
 import { ToolCallId } from '@lyness/llm'
-import { Session, SessionId } from '@lyness/session'
-import AgentRegistry, { Inbox } from '@lyness/agent'
+import { SESSION_FORMAT_VERSION, Session, SessionId } from '@lyness/session'
+import AgentRegistry from '@lyness/agent'
 import type { Agent } from '@lyness/agent'
 import LocalFileSystem from '@lyness/fs-local'
 import * as FsPolicy from '@lyness/fs-observation-policy'
 import SandboxedFileSystem from '@lyness/fs-sandbox'
 import SandboxPolicy from '@lyness/sandbox-policy'
+import SessionProjectionRegistry from '@lyness/session-projection'
 import SystemPrompt from '@lyness/system-prompt'
 import ToolRuntime from '@lyness/tools'
 import * as ToolStrReplaceEditor from '@lyness/tool-str-replace-editor'
+import { unsupportedInbox } from '@lyness/agent-loop-testkit'
 
 const contexts: Context[] = []
 const roots: string[] = []
@@ -28,12 +30,14 @@ afterEach(async () => {
 function agent(ctx: Context, cwd: string): Agent {
   const id = SessionId(`str-replace-editor-owner-${callNumber}`)
   const scope = ctx.plugin(() => {})
-  const session = Session.create(id, [], { version: 0, id, createdAt: 0, cwd })
+  const session = Session.create(id, [], {
+    version: SESSION_FORMAT_VERSION, id, createdAt: 0, cwd, isSeeded: false,
+  })
   const value: Agent = {
     id,
     options: {},
     session,
-    inbox: new Inbox(session, { inserted: () => {}, discarded: () => {}, claimed: () => {} }),
+    inbox: unsupportedInbox(),
     status: 'idle',
     ctx: scope.ctx,
     send: () => {},
@@ -76,6 +80,9 @@ async function setup(
   if (options.sandboxMode === undefined) {
     await ctx.plugin(LocalFileSystem, { cwd: root })
   } else {
+    // SandboxPolicy declares the registry as a required injection; mount it
+    // before the policy activates.
+    await ctx.plugin(SessionProjectionRegistry)
     await ctx.plugin(SandboxPolicy, { mode: options.sandboxMode, workspaceRoot: root })
     await ctx.plugin(SandboxedFileSystem, { cwd: root })
   }

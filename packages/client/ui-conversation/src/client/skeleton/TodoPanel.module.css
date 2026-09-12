@@ -19,7 +19,7 @@
     var(--lyn-composer-dock-inset) -
     var(--lyn-composer-dock-inset)
   );
-  border: 1px solid var(--dsw-alias-border-l1);
+  border: 0.5px solid var(--dsw-alias-border-l1);
   border-radius: 12px;
   background: var(--dsw-specific-tip);
   /* Elevated surface: `--dsw-specific-tip` is the same dark rung as the menu

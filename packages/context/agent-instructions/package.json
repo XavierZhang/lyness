@@ -1,7 +1,7 @@
 {
   "name": "@lyness/agent-instructions",
   "description": "Workspace context loader for AGENTS.md/CLAUDE.md instruction files",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -18,46 +18,43 @@
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
     },
-    "./invariant": {
-      "types": "./lib/types/invariant.d.ts",
-      "default": "./lib/invariant.js"
-    },
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
   "files": [
     "lib/index.js",
-    "lib/invariant.js",
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
   "peerDependencies": {
+    "@lyness/cordis": "workspace:^",
     "@lyness/agent": "workspace:^",
     "@lyness/fs": "workspace:^",
-    "@lyness/invariants": "workspace:^",
-    "@lyness/llm": "workspace:^",
     "@lyness/home-paths": "workspace:^",
+    "@lyness/llm": "workspace:^",
     "@lyness/session": "workspace:^",
-    "@lyness/tools": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/session-projection": "workspace:^",
+    "@lyness/tools": "workspace:^"
   },
   "dependencies": {
+    "@lyness/util-values": "workspace:^",
     "@lyness/schemastery": "workspace:^"
   },
   "devDependencies": {
+    "@lyness/cordis": "workspace:^",
     "@lyness/cordis-plugin-loader": "workspace:^",
     "@lyness/agent": "workspace:^",
     "@lyness/agent-loop": "workspace:^",
+    "@lyness/agent-loop-testkit": "workspace:^",
     "@lyness/fs": "workspace:^",
     "@lyness/fs-local": "workspace:^",
-    "@lyness/invariants": "workspace:^",
+    "@lyness/home-paths": "workspace:^",
     "@lyness/llm": "workspace:^",
     "@lyness/llm-deepseek": "workspace:^",
-    "@lyness/home-paths": "workspace:^",
     "@lyness/session": "workspace:^",
+    "@lyness/session-projection": "workspace:^",
     "@lyness/system-prompt": "workspace:^",
     "@lyness/tool-fs": "workspace:^",
-    "@lyness/tools": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/tools": "workspace:^"
   }
 }

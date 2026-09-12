@@ -1,11 +1,11 @@
 import { fileURLToPath } from 'node:url'
-import { Context } from '@lyness/cordis'
-import { agentEvents, Inbox, type Agent } from '@lyness/agent'
+import { agentEvents, type Agent } from '@lyness/agent'
 import { ToolCallId } from '@lyness/llm'
 import { boot, loadOverlayPatches } from '@lyness/app-boot'
 import { SessionId } from '@lyness/session'
 import type {} from '@lyness/skill'
 import type {} from '@lyness/tools'
+import { unsupportedInbox } from '@lyness/agent-loop-testkit'
 
 const overlayPath = process.argv[2]
 if (overlayPath === undefined) throw new Error('lyn-badge snapshot requires an overlay path')
@@ -20,11 +20,11 @@ try {
   const agentId = SessionId('lyn-badge-snapshot')
   const session = ctx.sessions.create(agentId, { meta: { cwd: process.cwd() } })
   const agent: Agent = {
-    ctx: new Context(),
+    ctx,
     id: agentId,
     options: {},
     session,
-    inbox: new Inbox(session, { inserted: () => {}, discarded: () => {}, claimed: () => {} }),
+    inbox: unsupportedInbox(),
     status: 'idle',
     send: () => {},
     followup: () => {},

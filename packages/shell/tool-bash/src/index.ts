@@ -15,7 +15,6 @@ import { defineTool, TOOL_ABORTED } from '@lyness/tools'
 import type { GenericCallView, TerminalCallView, ToolExecution, ToolResult, ToolResultView } from '@lyness/tools'
 import { HarnessError } from '@lyness/llm'
 import type { Agent } from '@lyness/agent'
-import { FIRST_PARTY_SECTION_ORDER } from '@lyness/system-prompt'
 import type {} from '@lyness/jobs'
 import type {} from '@lyness/user-approval'
 import type {} from '@lyness/shell-env'
@@ -235,7 +234,7 @@ export function apply(ctx: Context, config: Config = {}): void {
   // Cross-call guidance belongs in the prompt rather than one-call schema prose.
   ctx.systemPrompt.section({
     name: 'tool:bash',
-    order: FIRST_PARTY_SECTION_ORDER.TOOL_BASH,
+    order: ctx.systemPrompt.getSectionOrder('TOOL_BASH'),
     text: 'Check the [exit code: N] marker on every bash result; investigate failures before moving on.',
   })
 

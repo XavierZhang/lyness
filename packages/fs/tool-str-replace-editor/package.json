@@ -1,7 +1,7 @@
 {
   "name": "@lyness/tool-str-replace-editor",
   "description": "Model-facing view, create, literal replace, and line insert tool over the Harness filesystem service",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -18,21 +18,15 @@
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
     },
-    "./invariant": {
-      "types": "./lib/types/invariant.d.ts",
-      "default": "./lib/invariant.js"
-    },
     "./package.json": "./package.json"
   },
   "files": [
     "lib/index.js",
-    "lib/invariant.js",
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
   "peerDependencies": {
     "@lyness/fs": "workspace:^",
-    "@lyness/invariants": "workspace:^",
     "@lyness/sandbox": "workspace:^",
     "@lyness/sandbox-policy": "workspace:^",
     "@lyness/tools": "workspace:^",
@@ -43,17 +37,18 @@
   },
   "devDependencies": {
     "@lyness/agent": "workspace:^",
+    "@lyness/agent-loop-testkit": "workspace:^",
     "@lyness/fs": "workspace:^",
     "@lyness/fs-local": "workspace:^",
     "@lyness/fs-observation-policy": "workspace:^",
     "@lyness/fs-sandbox": "workspace:^",
-    "@lyness/invariants": "workspace:^",
     "@lyness/llm": "workspace:^",
     "@lyness/sandbox": "workspace:^",
     "@lyness/sandbox-policy": "workspace:^",
     "@lyness/session": "workspace:^",
     "@lyness/system-prompt": "workspace:^",
     "@lyness/tools": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:^",
+    "@lyness/session-projection": "workspace:^"
   }
 }

@@ -8,6 +8,7 @@ import SessionStore from '@lyness/session'
 import SystemPrompt from '@lyness/system-prompt'
 import ToolRuntime from '@lyness/tools'
 import AgentRegistry from '@lyness/agent'
+import SessionProjectionRegistry from '@lyness/session-projection'
 import { SettingsProvider } from '@lyness/settings'
 import type { SettingsNamespace } from '@lyness/settings'
 import AgentLoop, { AGENT_LOOP_SETTINGS_NAMESPACE } from '@lyness/agent-loop'
@@ -34,6 +35,7 @@ async function boot(): Promise<{ ctx: Context; settingsFiber: Fiber; loopFiber: 
   const ctx = new Context()
   await ctx.plugin(LlmRuntime)
   await ctx.plugin(SessionStore)
+  await ctx.plugin(SessionProjectionRegistry)
   await ctx.plugin(SystemPrompt)
   await ctx.plugin(ToolRuntime)
   await ctx.plugin(AgentRegistry)

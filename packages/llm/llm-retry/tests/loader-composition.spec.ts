@@ -11,6 +11,7 @@ import AgentLoop from '@lyness/agent-loop'
 import LlmRuntime, { createUserMessage, LlmAdapter, LlmError, resolveRetryPolicy  } from '@lyness/llm'
 import type { GenerateOptions, ResolvedRetryPolicy, StreamChunk } from '@lyness/llm'
 import SessionStore, { SessionId } from '@lyness/session'
+import SessionProjectionRegistry from '@lyness/session-projection'
 import SystemPrompt from '@lyness/system-prompt'
 import ToolRuntime from '@lyness/tools'
 import * as retry from '../src/index.ts'
@@ -60,6 +61,7 @@ async function loadYaml(lines: readonly string[]): Promise<Context> {
   const modules = new Map<string, unknown>([
     ['@lyness/llm', LlmRuntime],
     ['@lyness/session', SessionStore],
+    ['@lyness/session-projection', SessionProjectionRegistry],
     ['@lyness/system-prompt', SystemPrompt],
     ['@lyness/tools', ToolRuntime],
     ['@lyness/agent', AgentRegistry],
@@ -89,6 +91,7 @@ describe('real Loader composition', () => {
     const loaded = await loadYaml([
       "- name: '@lyness/llm'",
       "- name: '@lyness/session'",
+      "- name: '@lyness/session-projection'",
       "- name: '@lyness/system-prompt'",
       "- name: '@lyness/tools'",
       "- name: '@lyness/agent'",
@@ -104,12 +107,12 @@ describe('real Loader composition', () => {
 
     const adapter = new TransientOnceAdapter()
     loaded.llm.registerAdapter(['mock'], adapter)
-    const agent = loaded.agentLoop.create(SessionId('loader-retry'), { provider: 'mock', model: 'mock' })
+    const agent = await loaded.agentLoop.create(SessionId('loader-retry'), { provider: 'mock', model: 'mock' })
     agent.followup(createUserMessage({ content: [{ type: 'text', text: 'recover' }], source: { kind: 'user' } }))
     await agent.whenIdle()
 
     expect(adapter.requests).toBe(2)
-    expect(agent.session.events.filter(event => event.type === 'llm/retry')).toHaveLength(1)
+    expect(agent.session.snapshotEvents().filter(event => event.type === 'llm/retry')).toHaveLength(1)
     expect(agent.session.deriveMessages().at(-1)).toMatchObject({
       role: 'assistant',
       content: [{ type: 'text', text: 'recovered' }],

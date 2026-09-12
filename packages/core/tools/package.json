@@ -1,7 +1,7 @@
 {
   "name": "@lyness/tools",
   "description": "Tool registry and execution pipeline for the lyness",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -41,6 +41,7 @@
   ],
   "license": "MIT",
   "peerDependencies": {
+    "@lyness/cordis": "workspace:^",
     "@lyness/agent": "workspace:^",
     "@lyness/code-runtime": "workspace:^",
     "@lyness/invariants": "workspace:^",
@@ -48,21 +49,23 @@
     "@lyness/scope": "workspace:^",
     "@lyness/session": "workspace:^",
     "@lyness/system-prompt": "workspace:^",
-    "@lyness/user-approval": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/user-approval": "workspace:^"
   },
   "dependencies": {
+    "@lyness/brand": "workspace:^",
+    "@lyness/util-values": "workspace:^",
     "@lyness/schemastery": "workspace:^"
   },
   "devDependencies": {
+    "@lyness/cordis": "workspace:^",
     "@lyness/agent": "workspace:^",
     "@lyness/code-runtime": "workspace:^",
     "@lyness/invariants": "workspace:^",
     "@lyness/llm": "workspace:^",
     "@lyness/scope": "workspace:^",
     "@lyness/session": "workspace:^",
+    "@lyness/session-projection": "workspace:^",
     "@lyness/system-prompt": "workspace:^",
-    "@lyness/user-approval": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/user-approval": "workspace:^"
   }
 }

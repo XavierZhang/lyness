@@ -1,13 +1,15 @@
 import { Context } from '@lyness/cordis'
-import AgentRegistry, { Inbox } from '@lyness/agent'
+import AgentRegistry from '@lyness/agent'
 import type { Agent } from '@lyness/agent'
 import type { JobOutcome } from '@lyness/jobs'
 import LocalJobRegistry from '@lyness/jobs-local'
-import SessionStore, { SessionId } from '@lyness/session'
+import SessionStore, { SESSION_FORMAT_VERSION, SessionId } from '@lyness/session'
 import type { Session } from '@lyness/session'
+import SessionProjectionRegistry from '@lyness/session-projection'
 import { describe, expect, it } from 'vitest'
 import { SessionControlController } from '../src/control.ts'
 import type { SessionControlFrame } from '../src/types.ts'
+import { unsupportedInbox } from '@lyness/agent-loop-testkit'
 
 type BaselineFrame = Extract<SessionControlFrame, { type: 'baseline' }>
 type JobFrame = Extract<SessionControlFrame, { type: 'jobs' }>
@@ -27,7 +29,7 @@ function producer(label = 'sleep 60') {
   return { spec, reads, settle: (outcome: JobOutcome) => { settle(outcome) } }
 }
 
-async function harness(withRegistry: boolean): Promise<{
+async function harness(withJobs: boolean): Promise<{
   ctx: Context
   session: Session
   agent: Agent
@@ -35,19 +37,28 @@ async function harness(withRegistry: boolean): Promise<{
 }> {
   const ctx = new Context()
   await ctx.plugin(SessionStore)
+  await ctx.plugin(SessionProjectionRegistry)
   await ctx.plugin(AgentRegistry)
-  if (withRegistry) {
+  if (withJobs) {
     await ctx.plugin(LocalJobRegistry)
     ctx.jobs.attachController('session-controller-test')
   }
   const session = ctx.sessions.create()
-  const agent = {
+  const agent: Agent = {
     id: session.id,
+    options: {},
     session,
-    inbox: new Inbox(session, { inserted: () => {}, discarded: () => {}, claimed: () => {} }),
+    inbox: unsupportedInbox(),
     status: 'idle',
     ctx,
-  } as Agent
+    send: () => {},
+    followup: () => {},
+    steer: () => {},
+    inject: () => {},
+    cancel: () => {},
+    runMaintenance: task => task(new AbortController().signal),
+    whenIdle: () => Promise.resolve(),
+  }
   ctx.agents.register(agent)
   const control = new SessionControlController(ctx)
   await new Promise(resolve => setTimeout(resolve, 0))
@@ -179,7 +190,7 @@ describe('Session control jobs updates', () => {
     const coldId = SessionId('session-cold-tasks')
     let loaded = false
     ctx.provide('sessionPersistence', {
-      list: async () => [{ version: 0, id: coldId, createdAt: 5, cwd: '/tmp' }],
+      list: async () => [{ version: SESSION_FORMAT_VERSION, id: coldId, createdAt: 5, cwd: '/tmp' }],
       locate: () => undefined,
       load: () => { loaded = true; throw new Error('job projection must not load a cold log') },
     } as never)

@@ -11,7 +11,7 @@
 - id: system-prompt
   name: '@lyness/system-prompt'
   config:
-    persona: 'Return the scripted LYN SDK failure.'
+    personaPrefix: 'Return the scripted LYN SDK failure.'
 
 - insert:
     - id: child-mock-llm

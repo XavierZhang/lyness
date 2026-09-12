@@ -1,7 +1,7 @@
 /** Host registration for the browser locale preference. */
 
 import type { Context } from '@lyness/cordis'
-import { settingsNamespace } from '@lyness/settings'
+import type {} from '@lyness/settings'
 import { LOCALE_SETTINGS_NAMESPACE, LocaleSettingsSchema } from './locale-settings.ts'
 
 export {
@@ -16,7 +16,7 @@ export {
 export function apply(ctx: Context): void {
   ctx.inject(['settings'], (settingsCtx) => {
     settingsCtx.settings.register(
-      settingsNamespace(LOCALE_SETTINGS_NAMESPACE),
+      LOCALE_SETTINGS_NAMESPACE,
       LocaleSettingsSchema,
     )
   })

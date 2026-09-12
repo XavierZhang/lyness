@@ -1,6 +1,6 @@
 /** GitHub event values projected after signature verification. */
 
-import type { JsonValue } from '@lyness/session'
+import type { JsonValue } from '@lyness/util-values'
 
 /** Signed GitHub JSON object. Event-specific field validation belongs to each rule. */
 export type GitHubJsonObject = { readonly [key: string]: JsonValue }

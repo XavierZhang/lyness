@@ -21,7 +21,6 @@ import AgentRegistry from '@lyness/agent'
 import SessionStore, { SessionId } from '@lyness/session'
 import { credentialRef } from '@lyness/credentials'
 import LocalCredentialProvider from '@lyness/credentials-local'
-import { settingsNamespace } from '@lyness/settings'
 import FileSettingsProvider from '@lyness/settings-file'
 import { getOrCreateAnonymousUserId } from '@lyness/anonymous-user-id'
 import DeepSeekLlmApiExtensionRegistry from '@lyness/deepseek-llm-api-extensions'
@@ -31,7 +30,7 @@ import * as LlmDeepSeek from '@lyness/llm-deepseek'
 import { assemble } from './assemble.ts'
 import { closeMockServers, mockServer, textEvents } from './mock-server.ts'
 
-const NS = settingsNamespace('llm-deepseek')
+const NS = 'llm-deepseek'
 const KEY_REF = credentialRef('DEEPSEEK_API_KEY')
 
 let root: string | undefined

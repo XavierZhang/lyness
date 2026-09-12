@@ -6,10 +6,9 @@
  */
 import { act, cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { bindSnapshotSelector } from '@lyness/client-test-runtime'
+import { bindSnapshotSelector, makeTranslate } from '@lyness/client-test-runtime'
 import { createSnapshotStore } from '@lyness/client-store'
 import type { TodoItem } from '@lyness/tool-todo/client'
-import { makeTranslate } from '@lyness/client-test-runtime'
 import { zh as commonZh } from '@lyness/client-locale/src/locales/zh.ts'
 import type { TodoDockProps } from '../src/client/skeleton/TodoPanel.tsx'
 import { TodoDock, TodoPanel, todoDockEntry } from '../src/client/skeleton/TodoPanel.tsx'

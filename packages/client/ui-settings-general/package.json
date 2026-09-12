@@ -1,7 +1,7 @@
 {
   "name": "@lyness/client-ui-settings-general",
   "description": "Settings ownerless-copy and product onboarding plugin: the General section, shell trigger/header chrome content, settings dictionaries, and the versioned welcome notice",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -17,10 +17,6 @@
     ".": {
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
-    },
-    "./invariant": {
-      "types": "./lib/types/invariant.d.ts",
-      "default": "./lib/invariant.js"
     },
     "./client": {
       "types": "./lib/types/client/index.d.ts",
@@ -47,20 +43,10 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@lyness/schemastery": "workspace:^",
-    "clsx": "^2.0.0"
+    "@lyness/schemastery": "workspace:^"
   },
   "peerDependencies": {
-    "@lyness/api-remotes": "workspace:^",
-    "@lyness/client-connection": "workspace:^",
-    "@lyness/client-locale": "workspace:^",
-    "@lyness/client-ui-settings": "workspace:^",
-    "@lyness/client-ui-sidebar": "workspace:^",
-    "@lyness/invariants": "workspace:^",
-    "@lyness/cordis": "workspace:^",
-    "@lyness/settings": "workspace:^",
-    "@lyness/client-ui-renderer": "workspace:^",
-    "@lyness/client-ui-session": "workspace:^"
+    "@lyness/cordis": "workspace:^"
   },
   "devDependencies": {
     "@lyness/api-remotes": "workspace:^",
@@ -72,17 +58,16 @@
     "@lyness/client-ui-settings": "workspace:^",
     "@lyness/client-ui-sidebar": "workspace:^",
     "@lyness/client-ui-slots": "workspace:^",
-    "@lyness/invariants": "workspace:^",
     "@lyness/cordis": "workspace:^",
     "@types/react": "~18.3.1",
     "react": "^18.2.0",
-    "@lyness/settings": "workspace:^",
     "@lyness/client-ui-renderer": "workspace:^",
-    "@lyness/client-ui-session": "workspace:^"
+    "@lyness/client-ui-session": "workspace:^",
+    "@lyness/settings": "workspace:^",
+    "clsx": "^2.0.0"
   },
   "files": [
     "lib/index.js",
-    "lib/invariant.js",
     "lib/client.js",
     "lib/types/**/*.d.ts"
   ]

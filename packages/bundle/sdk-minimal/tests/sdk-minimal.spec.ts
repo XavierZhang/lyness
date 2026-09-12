@@ -7,6 +7,10 @@ import * as yaml from 'js-yaml'
 import { describe, expect, it } from 'vitest'
 import { entryListSchema } from '@lyness/cordis-plugin-include'
 
+function packageName(specifier: string): string {
+  return specifier.startsWith('@') ? specifier.split('/').slice(0, 2).join('/') : specifier.split('/')[0]!
+}
+
 describe('lyn-sdk-minimal bundle', () => {
   it('declares one standalone allowlisted tree with every row dependency', () => {
     const root = fileURLToPath(new URL('..', import.meta.url))
@@ -29,16 +33,29 @@ describe('lyn-sdk-minimal bundle', () => {
       ['plugin-package-inventory-deepseek', '@lyness/plugin-package-inventory-deepseek'],
       ['llm-deepseek', '@lyness/llm-deepseek'],
       ['sandbox', '@lyness/sandbox-local'],
+      ['session-projection', '@lyness/session-projection'],
       ['sandbox-policy', '@lyness/sandbox-policy'],
       ['subprocess', '@lyness/subprocess-local'],
       ['pty', '@lyness/terminal'],
       ['terminal-bash', '@lyness/terminal-bash'],
       ['terminal-pwsh', '@lyness/terminal-bash'],
-      ['fs-local', '@lyness/fs-local'],
-      ['agent-spine', '@lyness/agent-spine-demo'],
+      ['timer', '@lyness/cordis-plugin-timer'],
+      ['llm', '@lyness/llm'],
+      ['session', '@lyness/session'],
+      ['session-title', '@lyness/session-title'],
+      ['system-prompt', '@lyness/system-prompt'],
+      ['tools', '@lyness/tools'],
+      ['agent', '@lyness/agent'],
+      ['llm-retry', '@lyness/llm-retry'],
+      ['jobs', '@lyness/jobs-local'],
+      ['invariants', '@lyness/invariants'],
+      ['session-invariant', '@lyness/session/invariant'],
+      ['agent-invariant', '@lyness/agent/invariant'],
+      ['scope-invariant', '@lyness/scope/invariant'],
+      ['agent-loop-invariant', '@lyness/agent-loop/invariant'],
+      ['agent-loop', '@lyness/agent-loop'],
       ['persistent-bash', '@lyness/tool-bash-persistent'],
       ['persistent-pwsh', '@lyness/tool-pwsh-persistent'],
-      ['str-replace-editor', '@lyness/tool-str-replace-editor'],
       ['sessions', '@lyness/session-persistence-jsonl'],
     ])
     expect(rows.find(row => row.id === 'sdk-app-startup')?.config).toEqual({ profile: 'sdk-minimal' })
@@ -51,14 +68,12 @@ describe('lyn-sdk-minimal bundle', () => {
       defaultContextWindow: { __jsExpr: 'Number(process.env.LYNESS_CONTEXT_WINDOW ?? 1000000)' },
       streamIdleTimeoutMs: 172800000,
     })
-    expect(rows.find(row => row.id === 'agent-spine')?.config).toMatchObject({
+    expect(rows.find(row => row.id === 'system-prompt')?.config).toEqual({
       includeHarnessIdentity: false,
       includeRuntimeContext: false,
-      workspaceContext: false,
-      skills: { enabled: false },
-      toolBash: false,
-      toolJobs: false,
+      personaPrefix: { __jsExpr: "process.env.LYNESS_SYSTEM_PROMPT ?? 'You are a helpful software engineer assistant.'" },
     })
+    expect(rows.find(row => row.id === 'agent-loop')?.config).toEqual({ agents: [] })
     expect(rows.find(row => row.id === 'terminal-bash')).toMatchObject({
       disabled: { __jsExpr: "process.platform === 'win32'" },
     })
@@ -67,7 +82,7 @@ describe('lyn-sdk-minimal bundle', () => {
       config: { shellDialect: 'pwsh', timeoutMs: 300000 },
     })
     expect(Object.keys(manifest.dependencies ?? {}).sort()).toEqual(
-      [...new Set(rows.map(row => row.name).filter((name): name is string => name !== undefined))].sort(),
+      [...new Set(rows.map(row => row.name).filter((name): name is string => name !== undefined).map(packageName))].sort(),
     )
   })
 })

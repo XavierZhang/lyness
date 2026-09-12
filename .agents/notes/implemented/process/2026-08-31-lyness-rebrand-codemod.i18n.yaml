@@ -2,5 +2,5 @@
 # side as of the last confirmed-consistent state. Both languages carry equal authority;
 # after editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/process/2026-08-31-lyness-rebrand-codemod.md
-2026-08-31-lyness-rebrand-codemod.md: 8aa59645011b1e889dd96ad7d556ee07f6e07765
-2026-08-31-lyness-rebrand-codemod.zh.md: dc29fbe58f93368159bb7b60be44261c9836edac
+2026-08-31-lyness-rebrand-codemod.md: 3659c47d32cde2c9632c6565fbd80cfa2b4fb1bb
+2026-08-31-lyness-rebrand-codemod.zh.md: d74f69f2098bb8d44357fe909a6082742c6c10fa

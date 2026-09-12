@@ -15,7 +15,8 @@ import { dirname, extname, join, resolve } from 'node:path'
 import { Document, parseDocument } from 'yaml'
 import { withFileLock, writeFileAtomic } from '@lyness/atomic-write'
 import { canonicalizeWatchPath, resolveLynHome } from '@lyness/home-paths'
-import { SettingsProvider, deepEqualJson, type SettingsNamespace } from '@lyness/settings'
+import { SettingsProvider, type SettingsNamespace } from '@lyness/settings'
+import { deepEqualJson } from '@lyness/util-values'
 
 /** Plugin config: file location and hot-reload behavior. */
 export interface Config {

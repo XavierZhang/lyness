@@ -31,7 +31,7 @@ The boot group provides what every lyn app bin needs to start: `app-boot` turns 
 - [lyn app](../../apps/cli/README.md) — the `lyn` bin that consumes these helpers for its boot sequence.
 - [Profile bundles](../bundle/README.md) — installable patch layers that `lyn --profile` compositions mount.
 - [lyn-home-paths](../util/home-paths/README.md) — the harness-home resolver both packages build on.
-- [App-owned command-line decision](../../.agents/notes/implemented/architecture/2026-08-06-app-owned-command-line.md) — why an app owns its flag family instead of the launcher.
+- [lyn-cmdline](cmdline/README.md) — how an app owns its flag family instead of the launcher.
 
 <a id="dev-note"></a>
 ## Dev Note

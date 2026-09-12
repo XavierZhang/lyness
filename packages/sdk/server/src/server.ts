@@ -7,11 +7,12 @@
 
 import type { Context } from '@lyness/cordis'
 import { resolve } from 'node:path'
+import { brandString } from '@lyness/brand'
 import type { Agent, AgentHandle } from '@lyness/agent'
 import { admitEncodedImages, type EncodedImageAttachment, type ImageAttachmentRef } from '@lyness/attachment'
 import { createUserMessage, ReasoningEffortId, type ContentBlock, type LlmRuntime } from '@lyness/llm'
 import { carrierKeyOf, type Scoped } from '@lyness/scope'
-import { SessionId } from '@lyness/session'
+import type { SessionId } from '@lyness/session'
 import type SubagentRuntime from '@lyness/subagent'
 import type { SubagentRunEndInfo } from '@lyness/subagent'
 import * as LlmDeepSeek from '@lyness/llm-deepseek'
@@ -276,7 +277,7 @@ export class HarnessSdkJsonRpcServer {
     // deployment that configures a roster has to join one here first
     // (@lyness/agent-presets README, "Composing a child agent").
     const handle = await this.ctx.agents.create({
-      sessionId: SessionId(sessionId),
+      sessionId: brandString<SessionId>(sessionId),
       meta: { cwd: this.cwd },
       agentOptions: {
         provider: this.provider,

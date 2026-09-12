@@ -1,0 +1,50 @@
+.icon {
+  /* The design platform has no violet token matching the supplied image/video artwork. */
+  --lyn-file-type-violet: rgb(139, 118, 246);
+
+  color: var(--lyn-file-type-icon-color, var(--lyn-file-type-default-color));
+}
+
+.code {
+  --lyn-file-type-default-color: var(--dsw-static-deepseek-500);
+}
+
+.excel {
+  --lyn-file-type-default-color: var(--dsw-static-green-500);
+}
+
+.folder {
+  --lyn-file-type-default-color: var(--dsw-static-amber-400);
+}
+
+.html {
+  --lyn-file-type-default-color: var(--dsw-static-deepseek-500);
+}
+
+.image {
+  --lyn-file-type-default-color: var(--lyn-file-type-violet);
+}
+
+.markdown {
+  --lyn-file-type-default-color: var(--dsw-static-deepseek-500);
+}
+
+.other {
+  --lyn-file-type-default-color: var(--dsw-static-neutral-bluish-300);
+}
+
+.pdf {
+  --lyn-file-type-default-color: var(--dsw-static-red-600);
+}
+
+.ppt {
+  --lyn-file-type-default-color: var(--dsw-static-amber-500);
+}
+
+.video {
+  --lyn-file-type-default-color: var(--lyn-file-type-violet);
+}
+
+.word {
+  --lyn-file-type-default-color: var(--dsw-static-deepseek-450);
+}

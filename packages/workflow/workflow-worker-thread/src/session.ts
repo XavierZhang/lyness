@@ -12,7 +12,7 @@
  */
 
 import type { MessagePort } from 'node:worker_threads'
-import { assertNever } from '@lyness/llm'
+import { assertNever } from '@lyness/util-values'
 import { HostToWorkerType, WorkerToHostType } from './protocol.ts'
 import type { HostToWorkerMessage, WorkerToHostPayloads } from './protocol.ts'
 import { renderThrown } from './realm.ts'

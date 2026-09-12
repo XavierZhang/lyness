@@ -1,7 +1,7 @@
 {
   "name": "@lyness/client-ui-attachment",
   "description": "Dynamic attachment presentation plugin for conversation input, message-image, and trajectory image slots",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -18,10 +18,6 @@
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
     },
-    "./invariant": {
-      "types": "./lib/types/invariant.d.ts",
-      "default": "./lib/invariant.js"
-    },
     "./client": {
       "types": "./lib/types/client/index.d.ts",
       "default": "./lib/client.js"
@@ -35,7 +31,8 @@
         "@lyness/client-ui-chat",
         "@lyness/client-ui-conversation",
         "@lyness/client-ui-renderer",
-        "@lyness/client-ui-trajectory"
+        "@lyness/client-ui-trajectory",
+        "@lyness/client-ui-tool"
       ],
       "platform": "web"
     }
@@ -45,12 +42,8 @@
     "watch": "tsdown --watch"
   },
   "license": "MIT",
-  "dependencies": {
-    "clsx": "^2.0.0"
-  },
   "devDependencies": {
     "@lyness/cordis": "workspace:^",
-    "@lyness/invariants": "workspace:^",
     "@types/react": "~18.3.1",
     "@types/react-dom": "~18.3.0",
     "@lyness/client-ui-chat": "workspace:^",
@@ -61,21 +54,16 @@
     "@lyness/client-ui-slots": "workspace:^",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "@lyness/attachment": "workspace:^"
+    "@lyness/attachment": "workspace:^",
+    "@lyness/client-ui-tool": "workspace:^",
+    "clsx": "^2.0.0"
   },
   "files": [
     "lib/index.js",
-    "lib/invariant.js",
     "lib/client.js",
     "lib/types/**/*.d.ts"
   ],
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/invariants": "workspace:^",
-    "@lyness/client-ui-chat": "workspace:^",
-    "@lyness/client-ui-conversation": "workspace:^",
-    "@lyness/client-ui-trajectory": "workspace:^",
-    "@lyness/client-ui-renderer": "workspace:^",
-    "@lyness/attachment": "workspace:^"
+    "@lyness/cordis": "workspace:^"
   }
 }

@@ -11,12 +11,14 @@
 import { randomUUID } from 'node:crypto'
 import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
+import { brandString } from '@lyness/brand'
 import { installModelSelection } from '@lyness/agent'
 import type { Agent, ModelSelectionRef } from '@lyness/agent'
 import type {} from '@lyness/agent-default-model'
-import { assertNever, createUserMessage } from '@lyness/llm'
-import { SessionId } from '@lyness/session'
-import type { SessionEvent } from '@lyness/session'
+import { createUserMessage } from '@lyness/llm'
+import { assertNever } from '@lyness/util-values'
+import { SessionSeq } from '@lyness/session'
+import type { Session, SessionEvent, SessionId, SessionLogOffset } from '@lyness/session'
 // Empty type imports carry the loader Context merge for the settlement await
 // and the cmdline Context merge for the appExit host value.
 import type {} from '@lyness/cordis-plugin-loader'
@@ -59,12 +61,16 @@ export const internals: { stdout: HeadlessIo['stdout']; stderr: HeadlessIo['stde
 }
 
 /** Aggregate the last assistant text and turn outcome in one owned interval. */
-function summarize(events: readonly SessionEvent[], firstSeq: number): RunOutcome {
+function summarize(session: Session, firstSeq: SessionLogOffset): RunOutcome {
   let started = false
   let text = ''
   let reason: SessionEvent<'turn/end'>['data']['reason'] | undefined
-  for (const event of events) {
-    if (event.seq < firstSeq) continue
+  const length = session.seq
+  for (let seq = firstSeq; seq < length; seq++) {
+    const event = session.eventAt(SessionSeq(seq))
+    if (event === undefined) {
+      throw new Error(`headless summary cannot read seq ${String(seq)} below captured length ${String(length)}`)
+    }
     if (event.type === 'turn/start') {
       started = true
       continue
@@ -84,8 +90,8 @@ function summarize(events: readonly SessionEvent[], firstSeq: number): RunOutcom
 
 /**
  * Project provider-reported reasoning from one owned run to stderr as it is
- * appended, while keeping final outcome derivation on the durable log.
- * @param ctx - plugin context carrying the Session event feed.
+ * streamed, while keeping final outcome derivation on the durable log.
+ * @param ctx - plugin context carrying the live Assistant frame feed.
  * @param agent - the exact Agent whose reasoning belongs to this invocation.
  * @param stderr - progress output sink.
  * @returns a disposer that also terminates an unterminated reasoning line.
@@ -95,7 +101,6 @@ function streamReasoning(
   agent: Agent,
   stderr: HeadlessIo['stderr'],
 ): () => void {
-  let started = false
   let open = false
   let endsWithNewline = true
   const close = (): void => {
@@ -104,15 +109,17 @@ function streamReasoning(
     open = false
     endsWithNewline = true
   }
-  const dispose = ctx.on('session/event', (session, event) => {
-    if (session !== agent.session) return
-    if (event.type === 'turn/start') {
+  const dispose = ctx.on('agent/assistant-stream', ({ agent: subject, frame }) => {
+    if (subject !== agent) return
+    if (frame.type === 'start') {
       close()
-      started = true
       return
     }
-    if (!started || event.type !== 'assistant/chunk') return
-    const chunk = event.data.chunk
+    if (frame.type === 'end') {
+      close()
+      return
+    }
+    const chunk = frame.chunk
     switch (chunk.type) {
       case 'reasoning-delta':
         if (chunk.text === '') return
@@ -175,7 +182,7 @@ async function run(ctx: Context, task: string, io: HeadlessIo): Promise<void> {
   // that DOES configure one has to join it here first
   // (@lyness/agent-presets README, "Composing a child agent").
   const { agent } = await agents.create({
-    sessionId: SessionId(`session-${randomUUID()}`),
+    sessionId: brandString<SessionId>(`session-${randomUUID()}`),
     meta: { cwd: process.cwd() },
     agentOptions: { provider: selection.provider, model: selection.model },
     setup: (agentCtx) => {
@@ -196,7 +203,7 @@ async function run(ctx: Context, task: string, io: HeadlessIo): Promise<void> {
     stopReasoning()
   }
   await sessions.flush(agent.session)
-  const outcome = summarize(agent.session.events, firstSeq)
+  const outcome = summarize(agent.session, firstSeq)
   io.stdout.write(outcome.text + '\n')
   if (outcome.reason?.kind === 'error') {
     io.stderr.write(`lyn: ${outcome.reason.error.code}: ${outcome.reason.error.message}\n`)

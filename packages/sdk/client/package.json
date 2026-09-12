@@ -1,7 +1,7 @@
 {
   "name": "@lyness/sdk-client",
   "description": "TypeScript client SDK for driving a lyness runtime subprocess over stdio JSON-RPC: the Lyness high-level turns API and the lower-level HarnessClient",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -18,15 +18,10 @@
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
     },
-    "./invariant": {
-      "types": "./lib/types/invariant.d.ts",
-      "default": "./lib/invariant.js"
-    },
     "./package.json": "./package.json"
   },
   "files": [
     "lib/index.js",
-    "lib/invariant.js",
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
@@ -34,14 +29,12 @@
     "@lyness/lyn": "workspace:*"
   },
   "peerDependencies": {
-    "@lyness/invariants": "workspace:^",
     "@lyness/llm": "workspace:^",
     "@lyness/sdk-protocol": "workspace:^",
     "@lyness/session": "workspace:^",
     "@lyness/cordis": "workspace:^"
   },
   "devDependencies": {
-    "@lyness/invariants": "workspace:^",
     "@lyness/llm": "workspace:^",
     "@lyness/sdk-protocol": "workspace:^",
     "@lyness/session": "workspace:^",

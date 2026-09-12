@@ -1,6 +1,0 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
-#   pnpm run verify-translation-pairing --write .agents/notes/implemented/feature/2026-07-26-ptc-dispatch-ui-foundation.md
-2026-07-26-ptc-dispatch-ui-foundation.md: 19543ee71f94d3e2e8d4e213ae0f8b6538ea83af
-2026-07-26-ptc-dispatch-ui-foundation.zh.md: f97fb31e7c7024a2a3915915071f5c82394a2c08

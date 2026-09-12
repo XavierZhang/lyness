@@ -1,7 +1,7 @@
 {
   "name": "@lyness/command-compact",
   "description": "Human-facing slash command for explicit session compaction",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -18,23 +18,17 @@
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
     },
-    "./invariant": {
-      "types": "./lib/types/invariant.d.ts",
-      "default": "./lib/invariant.js"
-    },
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
   "files": [
     "lib/index.js",
-    "lib/invariant.js",
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
   "peerDependencies": {
     "@lyness/commands": "workspace:^",
     "@lyness/compaction": "workspace:^",
-    "@lyness/invariants": "workspace:^",
     "@lyness/cordis": "workspace:^"
   },
   "devDependencies": {
@@ -43,7 +37,6 @@
     "@lyness/agent": "workspace:^",
     "@lyness/commands": "workspace:^",
     "@lyness/compaction": "workspace:^",
-    "@lyness/invariants": "workspace:^",
     "@lyness/llm": "workspace:^",
     "@lyness/session": "workspace:^",
     "@lyness/cordis": "workspace:^"

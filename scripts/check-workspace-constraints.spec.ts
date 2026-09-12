@@ -2,6 +2,7 @@
 
 import { describe, expect, it } from 'vitest'
 import {
+  checkLynFamilyVersion,
   checkExperimentalDependencyIsolation,
   checkExperimentalManifest,
   expectedLynPackageFiles,
@@ -11,6 +12,14 @@ import {
 const experimental: WorkspaceManifest = {
   dir: 'packages/experimental/prototype',
   manifest: { name: '@lyness/experimental-prototype', private: true },
+}
+
+const publicExperimental: WorkspaceManifest = {
+  dir: 'packages/experimental/agent-team',
+  manifest: {
+    name: '@lyness/experimental-agent-team',
+    publishConfig: { access: 'public' },
+  },
 }
 
 describe('experimental workspace constraints', () => {
@@ -31,6 +40,20 @@ describe('experimental workspace constraints', () => {
     })).toEqual([
       '@lyness/experimental-prototype: experimental package must set "private": true',
       '@lyness/experimental-prototype: experimental package must omit publishConfig',
+    ])
+  })
+
+  it('requires public metadata only for the Agent Teams exceptions', () => {
+    expect(checkExperimentalManifest(publicExperimental)).toEqual([])
+    expect(checkExperimentalManifest({
+      ...publicExperimental,
+      manifest: {
+        name: '@lyness/experimental-agent-team',
+        private: true,
+      },
+    })).toEqual([
+      '@lyness/experimental-agent-team: public experimental package must not set "private": true',
+      '@lyness/experimental-agent-team: public experimental package must set publishConfig.access to "public"',
     ])
   })
 
@@ -76,6 +99,38 @@ describe('experimental workspace constraints', () => {
   })
 })
 
+describe('lyn family version coherence', () => {
+  it('rejects a package carrying a stale shared version', () => {
+    expect(checkLynFamilyVersion(
+      { name: '@lyness/http-proxy', version: '0.1.2-alpha.5' },
+      '0.1.2-rc.1',
+    )).toBe('@lyness/http-proxy: package.json version must match root version 0.1.2-rc.1')
+  })
+
+  it('rejects the root-named CLI app on a stale shared version', () => {
+    expect(checkLynFamilyVersion(
+      { name: '@lyness/lyn', version: '0.1.2-alpha.5' },
+      '0.1.2-rc.1',
+    )).toBe('@lyness/lyn: package.json version must match root version 0.1.2-rc.1')
+  })
+
+  it('accepts a manifest carrying the shared version', () => {
+    expect(checkLynFamilyVersion(
+      { name: '@lyness/http-proxy', version: '0.1.2-rc.1' },
+      '0.1.2-rc.1',
+    )).toBeUndefined()
+  })
+
+  it('leaves other sequences to their own version lines', () => {
+    expect(checkLynFamilyVersion({ name: '@lyness/cordis', version: '4.0.1' }, '0.1.2-rc.1')).toBeUndefined()
+    expect(checkLynFamilyVersion(
+      { name: '@lyness/node-addon-system', version: '0.1.1' },
+      '0.1.2-rc.1',
+    )).toBeUndefined()
+    expect(checkLynFamilyVersion({ version: '0.1.2-alpha.5' }, '0.1.2-rc.1')).toBeUndefined()
+  })
+})
+
 describe('package payload constraints', () => {
   it('includes a declared profile patch without a package-name allowlist', () => {
     expect(expectedLynPackageFiles({
@@ -83,7 +138,6 @@ describe('package payload constraints', () => {
       lyn: { bundle: { patch: './cordis.patch.yml' } },
     })).toEqual([
       'lib/index.js',
-      'lib/invariant.js',
       'cordis.patch.yml',
       'lib/types/**/*.d.ts',
     ])

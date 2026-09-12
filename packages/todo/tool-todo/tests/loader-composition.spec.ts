@@ -11,11 +11,13 @@ import Loader from '@lyness/cordis-plugin-loader'
 import Include from '@lyness/cordis-plugin-include'
 import { ToolCallId } from '@lyness/llm'
 import { Session, SessionId } from '@lyness/session'
-import AgentRegistry, { Inbox } from '@lyness/agent'
+import AgentRegistry from '@lyness/agent'
 import type { Agent } from '@lyness/agent'
 import SystemPrompt from '@lyness/system-prompt'
 import ToolRuntime from '@lyness/tools'
+import SessionProjectionRegistry from '@lyness/session-projection'
 import * as ToolTodo from '@lyness/tool-todo'
+import { unsupportedInbox } from '@lyness/agent-loop-testkit'
 
 let root: string | undefined
 let context: Context | undefined
@@ -32,7 +34,7 @@ function agent(ctx: Context): Agent {
   const id = SessionId('todo-loader-agent')
   const session = Session.create(id)
   const value: Agent = {
-    id, options: {}, session, inbox: new Inbox(session, { inserted: () => {}, discarded: () => {}, claimed: () => {} }),
+    id, options: {}, session, inbox: unsupportedInbox(),
     status: 'idle', ctx: scope.ctx,
     followup: () => {}, steer: () => {}, inject: () => {}, send: () => {}, cancel() {},
     runMaintenance: task => task(new AbortController().signal),
@@ -58,6 +60,7 @@ async function boot(configLines: readonly string[]): Promise<Context> {
     "- name: '@lyness/agent'",
     "- name: '@lyness/system-prompt'",
     "- name: '@lyness/tools'",
+    "- name: '@lyness/session-projection'",
     "- name: '@lyness/tool-todo'",
     ...configLines.length > 0 ? ['  config:', ...configLines] : [],
     '',
@@ -72,6 +75,7 @@ async function boot(configLines: readonly string[]): Promise<Context> {
     ['@lyness/agent', AgentRegistry],
     ['@lyness/system-prompt', SystemPrompt],
     ['@lyness/tools', ToolRuntime],
+    ['@lyness/session-projection', SessionProjectionRegistry],
     ['@lyness/tool-todo', ToolTodo],
   ])
   ctx.loader.internal = {
@@ -108,7 +112,7 @@ describe('tool-todo real Loader composition through cordis.yml', () => {
     })
     expect(result.isError).toBe(true)
     expect(resultText(result)).toContain('at most one task may be in_progress')
-    expect(owner.session.events.some(e => e.type === 'todo/write')).toBe(false)
+    expect(owner.session.snapshotEvents().some(e => e.type === 'todo/write')).toBe(false)
   }, 30_000)
 
   it('allowParallelInProgress: true permits a parallel write end to end', async () => {
@@ -125,7 +129,7 @@ describe('tool-todo real Loader composition through cordis.yml', () => {
       agent: owner,
     })
     expect(result.isError).toBe(false)
-    expect(owner.session.events.findLast(e => e.type === 'todo/write')?.data.todos).toEqual(PARALLEL_TODOS)
+    expect(owner.session.snapshotEvents().findLast(e => e.type === 'todo/write')?.data.todos).toEqual(PARALLEL_TODOS)
   }, 30_000)
 
   it.each([

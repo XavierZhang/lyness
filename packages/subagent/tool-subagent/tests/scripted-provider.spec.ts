@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import { type Agent } from '@lyness/agent'
 import SubagentRuntime, { type SubagentStartRequest } from '@lyness/subagent'
+import SessionProjectionRegistry from '@lyness/session-projection'
 import { SessionId } from '@lyness/session'
 import * as scripted from './scripted-provider.ts'
 
@@ -21,6 +22,7 @@ function baseRequest(over: Partial<SubagentStartRequest> = {}): SubagentStartReq
 
 async function mount(config: Partial<scripted.Config> = {}): Promise<Context> {
   const ctx = new Context()
+  await ctx.plugin(SessionProjectionRegistry)
   await ctx.plugin(SubagentRuntime)
   await scripted.mountScriptedProvider(ctx, { name: 'mock', ...config })
   return ctx
@@ -89,6 +91,7 @@ describe('scripted subagent provider fixture', () => {
 
   it('unregisters with its owning fixture fiber', async () => {
     const ctx = new Context()
+    await ctx.plugin(SessionProjectionRegistry)
     await ctx.plugin(SubagentRuntime)
     const fiber = await scripted.mountScriptedProvider(ctx, { name: 'mock' })
     expect(ctx.subagents.list()).toEqual(['mock'])

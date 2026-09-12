@@ -136,8 +136,6 @@ flowchart LR
   cfg --> plugin_lyn_base_tool_subagent
   plugin_lyn_base_tool_subagent_fork["tool-subagent-fork<br/>@lyness/tool-subagent"]
   cfg --> plugin_lyn_base_tool_subagent_fork
-  plugin_lyn_base_tool_subagent_report["tool-subagent-report<br/>@lyness/tool-subagent-report"]
-  cfg --> plugin_lyn_base_tool_subagent_report
   plugin_lyn_base_workflow_worker_thread["workflow-worker-thread<br/>@lyness/workflow-worker-thread"]
   cfg --> plugin_lyn_base_workflow_worker_thread
   plugin_lyn_base_tool_workflow["tool-workflow<br/>@lyness/tool-workflow"]
@@ -158,8 +156,6 @@ flowchart LR
   cfg --> plugin_lyn_base_tool_goal
   plugin_lyn_base_tool_ralph["tool-ralph<br/>@lyness/tool-ralph"]
   cfg --> plugin_lyn_base_tool_ralph
-  plugin_lyn_base_tool_str_replace_editor["tool-str-replace-editor<br/>@lyness/tool-str-replace-editor"]
-  cfg --> plugin_lyn_base_tool_str_replace_editor
   plugin_lyn_base_repeat_tool_reminder["repeat-tool-reminder<br/>@lyness/repeat-tool-reminder"]
   cfg --> plugin_lyn_base_repeat_tool_reminder
   plugin_lyn_base_web["web<br/>@lyness/web"]
@@ -248,7 +244,6 @@ flowchart LR
 | `tool-subagent-list-agents` | `@lyness/tool-subagent-control/list-agents` |
 | `tool-subagent` | `@lyness/tool-subagent` |
 | `tool-subagent-fork` | `@lyness/tool-subagent` |
-| `tool-subagent-report` | `@lyness/tool-subagent-report` |
 | `workflow-worker-thread` | `@lyness/workflow-worker-thread` |
 | `tool-workflow` | `@lyness/tool-workflow` |
 | `timeout-policy` | `@lyness/tool-call-timeout-policy` |
@@ -259,7 +254,6 @@ flowchart LR
 | `tool-todo` | `@lyness/tool-todo` |
 | `tool-goal` | `@lyness/tool-goal` |
 | `tool-ralph` | `@lyness/tool-ralph` |
-| `tool-str-replace-editor` | `@lyness/tool-str-replace-editor` |
 | `repeat-tool-reminder` | `@lyness/repeat-tool-reminder` |
 | `web` | `@lyness/web` |
 | `web-search-deepseek` | `@lyness/web-search-deepseek` |

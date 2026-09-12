@@ -1,7 +1,7 @@
 {
   "name": "@lyness/spill-policy",
   "description": "Tool-result spill policy for the lyness — replaces oversized plain-text tool results with a retained preview plus a spill-file path (no service API)",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -18,21 +18,20 @@
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
     },
-    "./invariant": {
-      "types": "./lib/types/invariant.d.ts",
-      "default": "./lib/invariant.js"
+    "./notice": {
+      "types": "./lib/types/notice.d.ts",
+      "default": "./lib/types/notice.js"
     },
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
   "files": [
     "lib/index.js",
-    "lib/invariant.js",
+    "lib/types/**/*.js",
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/invariants": "workspace:^",
     "@lyness/llm": "workspace:^",
     "@lyness/output-retention": "workspace:^",
     "@lyness/session": "workspace:^",
@@ -46,7 +45,6 @@
   "devDependencies": {
     "@lyness/agent": "workspace:^",
     "@lyness/code-runtime-worker-thread": "workspace:^",
-    "@lyness/invariants": "workspace:^",
     "@lyness/llm": "workspace:^",
     "@lyness/output-retention": "workspace:^",
     "@lyness/session": "workspace:^",

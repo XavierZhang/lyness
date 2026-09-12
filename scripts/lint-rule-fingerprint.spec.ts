@@ -16,6 +16,11 @@ interface Profile {
 // mapped @typescript-eslint/* to typescript/* and four extension rules to their
 // Oxlint core equivalents. These fingerprints pin the resulting repository
 // snapshot; they do not re-evaluate that deleted baseline or track its preset.
+//
+// The hashes differ from upstream's by one `no-restricted-properties` message
+// that names the crypto package, which the rebrand codemod rescopes. The rule
+// counts below are upstream's unchanged, which is what shows the rule set is
+// identical and only that string moved.
 const profiles = {
   source: {
     count: 89,

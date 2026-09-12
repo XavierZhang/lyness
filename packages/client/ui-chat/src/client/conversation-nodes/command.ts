@@ -1,13 +1,12 @@
 import type { Context } from '@lyness/cordis'
 import type {
-  ConversationMatch, ConversationNodeContext, ConversationNodeDefinition,
+  CommandNode, CompactionSummaryNode, ConversationMatch, ConversationNodeContext, ConversationNodeDefinition,
 } from '@lyness/client-ui-conversation/client'
 import type { CompactionCheckpointSource } from '@lyness/compaction/checkpoint'
 import type {} from '@lyness/compaction/types'
 import type {} from '@lyness/commands/types'
 import { isReplacementSurfaceEvent } from '@lyness/session/surface'
 import type { ManualCompactionChatData } from '../contract/chat-nodes.ts'
-import type { CommandNode, CompactionSummaryNode } from '../contract/snapshot.ts'
 import { chatNode } from './common.ts'
 
 declare module '../contract/chat-nodes.ts' {

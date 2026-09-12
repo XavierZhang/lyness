@@ -1,7 +1,7 @@
 {
   "name": "@lyness/subagent",
   "description": "Abstract subagent seam (ctx.subagents): named-provider registry for delegating to child agents",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -17,6 +17,10 @@
     ".": {
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
+    },
+    "./internal": {
+      "types": "./lib/types/internal.d.ts",
+      "default": "./lib/types/internal.js"
     },
     "./invariant": {
       "types": "./lib/types/invariant.d.ts",
@@ -49,28 +53,32 @@
   ],
   "license": "MIT",
   "dependencies": {
+    "@lyness/brand": "workspace:^",
+    "@lyness/chunked-list": "workspace:^",
+    "@lyness/util-values": "workspace:^",
     "zod": "^4.4.3"
   },
   "peerDependencies": {
+    "@lyness/cordis": "workspace:^",
     "@lyness/agent": "workspace:^",
     "@lyness/agent-presets": "workspace:^",
-    "@lyness/brand": "workspace:^",
+    "@lyness/attachment": "workspace:^",
     "@lyness/invariants": "workspace:^",
+    "@lyness/jobs": "workspace:^",
     "@lyness/llm": "workspace:^",
     "@lyness/sandbox": "workspace:^",
     "@lyness/sandbox-policy": "workspace:^",
     "@lyness/scope": "workspace:^",
-    "@lyness/system-prompt": "workspace:^",
     "@lyness/session": "workspace:^",
     "@lyness/session-persistence": "workspace:^",
     "@lyness/session-projection": "workspace:^",
     "@lyness/session-projection-cache": "workspace:^",
     "@lyness/session-query": "workspace:^",
-    "@lyness/jobs": "workspace:^",
+    "@lyness/system-prompt": "workspace:^",
     "@lyness/tools": "workspace:^",
     "@lyness/typert-protocol": "workspace:^",
     "@lyness/user-approval": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/util-time": "workspace:^"
   },
   "peerDependenciesMeta": {
     "@lyness/agent-presets": {
@@ -102,15 +110,17 @@
     }
   },
   "devDependencies": {
+    "@lyness/cordis": "workspace:^",
     "@lyness/agent": "workspace:^",
     "@lyness/agent-presets": "workspace:^",
-    "@lyness/brand": "workspace:^",
+    "@lyness/attachment": "workspace:^",
     "@lyness/invariants": "workspace:^",
+    "@lyness/jobs": "workspace:^",
     "@lyness/llm": "workspace:^",
     "@lyness/sandbox": "workspace:^",
     "@lyness/sandbox-policy": "workspace:^",
+    "@lyness/schedule": "workspace:^",
     "@lyness/scope": "workspace:^",
-    "@lyness/system-prompt": "workspace:^",
     "@lyness/session": "workspace:^",
     "@lyness/session-persistence": "workspace:^",
     "@lyness/session-projection": "workspace:^",
@@ -119,10 +129,10 @@
     "@lyness/storage": "workspace:^",
     "@lyness/storage-domain": "workspace:^",
     "@lyness/storage-json": "workspace:^",
-    "@lyness/jobs": "workspace:^",
+    "@lyness/system-prompt": "workspace:^",
     "@lyness/tools": "workspace:^",
     "@lyness/typert-protocol": "workspace:^",
     "@lyness/user-approval": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/util-time": "workspace:^"
   }
 }

@@ -1,0 +1,74 @@
+{
+  "name": "@lyness/client-ui-sidebar-files",
+  "description": "Workspace file tree tab type for the right Sidebar: lazy directory listing over the workspaceFiles Remote namespace, opening files into the Sidebar",
+  "version": "0.1.5-rc.1",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "directory": "packages/client/ui-sidebar-files"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./client": {
+      "types": "./lib/types/client/index.d.ts",
+      "default": "./lib/client.js"
+    },
+    "./src/*": "./src/*",
+    "./package.json": "./package.json"
+  },
+  "lyn": {
+    "client": {
+      "inject": [
+        "@lyness/api-workspace-files",
+        "@lyness/client-ui-sidebar-right",
+        "@lyness/client-ui-session",
+        "@lyness/api-remotes"
+      ],
+      "platform": "web"
+    }
+  },
+  "scripts": {
+    "bundle": "tsdown",
+    "watch": "tsdown --watch"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "@lyness/cordis": "workspace:^"
+  },
+  "devDependencies": {
+    "@lyness/cordis": "workspace:^",
+    "@lyness/api-remotes": "workspace:^",
+    "@lyness/api-workspace-files": "workspace:^",
+    "@lyness/client-locale": "workspace:^",
+    "@lyness/client-store": "workspace:^",
+    "@lyness/client-test-runtime": "workspace:^",
+    "@lyness/client-ui-dockkit": "workspace:^",
+    "@lyness/client-ui-primitives": "workspace:^",
+    "@lyness/client-ui-renderer": "workspace:^",
+    "@lyness/client-ui-session": "workspace:^",
+    "@lyness/client-ui-sidebar-right": "workspace:^",
+    "@lyness/client-ui-slots": "workspace:^",
+    "@lyness/session": "workspace:^",
+    "@lyness/util-workspace-path": "workspace:^",
+    "@testing-library/react": "^16.1.0",
+    "@types/react": "~18.3.1",
+    "@types/react-dom": "~18.3.0",
+    "react": "^18.2.0",
+    "clsx": "^2.0.0",
+    "react-dom": "^18.2.0"
+  },
+  "files": [
+    "lib/index.js",
+    "lib/client.js",
+    "lib/types/**/*.d.ts"
+  ]
+}

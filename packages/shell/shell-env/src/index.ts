@@ -14,7 +14,6 @@ import { LYNESS_ENV_PREFIX } from '@lyness/shell'
 import type { LynEnvironment, LynEnvironmentKey } from '@lyness/shell'
 import { LYNESS_HOME_ENV, resolveLynHome } from '@lyness/home-paths'
 import type { ToolExecution } from '@lyness/tools'
-import type {} from '@lyness/session-persistence'
 
 declare module '@lyness/cordis' {
   interface Context {
@@ -70,7 +69,6 @@ export interface BashEnvVariableInfo extends BashEnvVariable {
 
 const LYNESS_SHELL_KEY = `${LYNESS_ENV_PREFIX}SHELL` as const
 const LYNESS_SESSION_ID_KEY = `${LYNESS_ENV_PREFIX}SESSION_ID` as const
-const LYNESS_SESSION_JSONL_KEY = `${LYNESS_ENV_PREFIX}SESSION_JSONL` as const
 const RESERVED_BASH_ENV_KEYS = new Set<LynEnvironmentKey>([
   LYNESS_HOME_ENV,
   LYNESS_SHELL_KEY,
@@ -193,25 +191,10 @@ export class ShellEnvRegistry extends Service {
 }
 
 /**
- * Load the shell-env plugin: register the `ctx.shellEnv` service and the
- * shell-agnostic persistence contributor (`LYNESS_SESSION_JSONL`).
+ * Load the shell-env plugin: register the `ctx.shellEnv` registry service.
  * @param ctx - Cordis context that owns the service and registrations.
  * @param config - home-directory configuration for the built-in variables.
  */
 export function apply(ctx: Context, config: Config = {}): void {
-  const registry = new ShellEnvRegistry(ctx, config)
-  registry.register({
-    name: 'session-persistence',
-    variables: {
-      [LYNESS_SESSION_JSONL_KEY]: {
-        description: 'Absolute target path of the current session JSONL when the active persistence backend provides one.',
-      },
-    },
-    resolve(execution) {
-      const agent = execution.agent
-      if (agent === undefined) return {}
-      const location = ctx.get('sessionPersistence')?.locate(agent.session.header)
-      return location?.kind === 'jsonl' ? { [LYNESS_SESSION_JSONL_KEY]: location.path } : {}
-    },
-  })
+  new ShellEnvRegistry(ctx, config)
 }

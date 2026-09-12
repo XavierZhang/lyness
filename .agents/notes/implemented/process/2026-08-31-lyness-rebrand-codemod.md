@@ -36,6 +36,16 @@ Configuration and documentation address workspace directories and Agent Notes by
 
 `vendor/README.md` is exempt from the URL rules alone. It records which upstream repository and commit each pinned copy came from; rewriting those URLs would claim the framework was vendored from this fork.
 
+## Alternatives considered
+
+**Rename by hand, once.** The fastest route to a renamed tree, and the reason it loses is in the Problem above: upstream keeps moving, and every sync reintroduces its names in whatever it touched. A rename that cannot be replayed is a cost paid again at every merge, growing with the interval.
+
+**One unordered pass of find-and-replace.** `DeepSeek` names the harness and the model vendor. An unordered pass reaches `llm-deepseek`, `api.deepseek.com`, and the provider onboarding copy, breaking the product's ability to call a model while passing every type, lint, and build gate — an invisible failure. Ordering the rules and requiring `Harness`, `-harness`, or the scope's trailing slash in each is what makes the vendor unreachable.
+
+**Choose the files to rewrite by extension.** An allowlist is easy to read and silently skips whatever it forgot. These names turn up in stylesheets, JSON Lines fixtures, web manifests, and a dependency patch as readily as in TypeScript. Reading the content instead cannot forget a file type nobody anticipated.
+
+**Treat every identifier character as a word boundary.** It protects `handshake`, which is the case that motivates a boundary at all. It also refuses `dshHome`, `dsh_home`, `__dsh_main__`, and `subagent_dsh_sdk`, all of which carry the brand and must follow the rename. Only a lowercase letter continues a word; case changes, underscores, hyphens, and digits are boundaries.
+
 ## Consequences
 
 Dropping the product segment from package names cost a distinction the repository relied on. `@deepseek-ai/dsh-*` separated harness packages from the vendored `@deepseek-ai/cordis` family; `@lyness/agent` and `@lyness/cordis` are indistinguishable by name. Three name-prefix checks now use location instead: the license gate and the package-dependency graph exclude `vendor/`, and the plugin-inventory display no longer strips a prefix that cannot occur. Location is the better signal — a package's license follows who wrote it, not what it is called.

@@ -1,7 +1,7 @@
 {
   "name": "@lyness/compaction-basic",
   "description": "Token-meter-driven compaction policy and LLM summarization backend for the lyness",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -18,29 +18,23 @@
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
     },
-    "./invariant": {
-      "types": "./lib/types/invariant.d.ts",
-      "default": "./lib/invariant.js"
-    },
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
   "files": [
     "lib/index.js",
-    "lib/invariant.js",
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
   "peerDependencies": {
+    "@lyness/cordis": "workspace:^",
     "@lyness/agent": "workspace:^",
-    "@lyness/compaction": "workspace:^",
     "@lyness/commands": "workspace:^",
-    "@lyness/invariants": "workspace:^",
+    "@lyness/compaction": "workspace:^",
+    "@lyness/compaction-tool-result-pruner": "workspace:^",
     "@lyness/llm": "workspace:^",
     "@lyness/session": "workspace:^",
-    "@lyness/token-meter": "workspace:^",
-    "@lyness/compaction-tool-result-pruner": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/token-meter": "workspace:^"
   },
   "peerDependenciesMeta": {
     "@lyness/compaction-tool-result-pruner": {
@@ -48,23 +42,25 @@
     }
   },
   "dependencies": {
+    "@lyness/util-values": "workspace:^",
     "@lyness/schemastery": "workspace:^"
   },
   "devDependencies": {
+    "@lyness/cordis": "workspace:^",
     "@lyness/cordis-plugin-include": "workspace:^",
     "@lyness/cordis-plugin-loader": "workspace:^",
     "@lyness/agent": "workspace:^",
     "@lyness/agent-loop": "workspace:^",
     "@lyness/agent-loop-testkit": "workspace:^",
-    "@lyness/compaction": "workspace:^",
     "@lyness/commands": "workspace:^",
+    "@lyness/compaction": "workspace:^",
+    "@lyness/compaction-tool-result-pruner": "workspace:^",
     "@lyness/invariants": "workspace:^",
     "@lyness/llm": "workspace:^",
     "@lyness/llm-retry": "workspace:^",
     "@lyness/session": "workspace:^",
+    "@lyness/session-projection": "workspace:^",
     "@lyness/token-meter": "workspace:^",
-    "@lyness/compaction-tool-result-pruner": "workspace:^",
-    "@lyness/tools": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/tools": "workspace:^"
   }
 }

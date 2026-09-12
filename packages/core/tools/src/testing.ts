@@ -1,7 +1,7 @@
 /** Canonical tool-definition fixtures for repository tests. @module lyn-tools/testing */
 
 import type { ContentBlock } from '@lyness/llm'
-import type { JsonValue } from '@lyness/session'
+import type { JsonValue } from '@lyness/util-values'
 import { defineTool } from './schema.ts'
 import type { DefineToolOptions, ParameterSchemaSpec } from './schema.ts'
 import type { ToolDefinition, ToolRunContext } from './index.ts'

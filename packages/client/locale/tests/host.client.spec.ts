@@ -1,6 +1,6 @@
 import { Context } from '@lyness/cordis'
 import { describe, expect, it } from 'vitest'
-import { SettingsProvider, settingsNamespace, type SettingsNamespace } from '@lyness/settings'
+import { SettingsProvider, type SettingsNamespace } from '@lyness/settings'
 import {
   LOCALE_SETTINGS_NAMESPACE, apply,
 } from '@lyness/client-locale'
@@ -19,7 +19,7 @@ describe('locale host', () => {
     await ctx.plugin(MemorySettings).await()
     const fiber = ctx.plugin({ apply })
     await fiber.await()
-    const ns = settingsNamespace(LOCALE_SETTINGS_NAMESPACE)
+    const ns = LOCALE_SETTINGS_NAMESPACE
     expect(ctx.settings.get(ns)).toEqual({})
     await ctx.settings.update(ns, { preference: 'en' })
     expect(ctx.settings.get(ns)).toEqual({ preference: 'en' })

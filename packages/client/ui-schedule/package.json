@@ -1,0 +1,69 @@
+{
+  "name": "@lyness/client-ui-schedule",
+  "description": "Read-only active Schedule catalog in the Web Session header",
+  "version": "0.1.5-rc.1",
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./client": {
+      "types": "./lib/types/client/index.d.ts",
+      "default": "./lib/client.js"
+    },
+    "./src/*": "./src/*",
+    "./package.json": "./package.json"
+  },
+  "lyn": {
+    "client": {
+      "inject": [
+        "@lyness/client-locale",
+        "@lyness/client-ui-conversation",
+        "@lyness/client-ui-primitives"
+      ],
+      "platform": "web"
+    }
+  },
+  "scripts": {
+    "bundle": "tsdown",
+    "watch": "tsdown --watch"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "directory": "packages/client/ui-schedule"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "@lyness/cordis": "workspace:^"
+  },
+  "devDependencies": {
+    "@lyness/api-session-controller": "workspace:^",
+    "@lyness/client-locale": "workspace:^",
+    "@lyness/client-test-runtime": "workspace:^",
+    "@lyness/client-ui-conversation": "workspace:^",
+    "@lyness/client-ui-primitives": "workspace:^",
+    "@lyness/client-ui-renderer": "workspace:^",
+    "@lyness/client-ui-session": "workspace:^",
+    "@lyness/client-ui-slots": "workspace:^",
+    "@lyness/schedule": "workspace:^",
+    "@lyness/session": "workspace:^",
+    "@testing-library/react": "^16.1.0",
+    "@types/react": "~18.3.1",
+    "@types/react-dom": "~18.3.0",
+    "@lyness/cordis": "workspace:^",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "files": [
+    "lib/index.js",
+    "lib/client.js",
+    "lib/types/**/*.d.ts"
+  ]
+}

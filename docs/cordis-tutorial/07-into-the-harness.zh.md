@@ -10,8 +10,9 @@
 
 ```ts
 import type { Context } from '@lyness/cordis'
+import { brandString } from '@lyness/brand'
 import { defineTool } from '@lyness/tools'
-import { ToolCallId } from '@lyness/llm'
+import type { ToolCallId } from '@lyness/llm'
 
 export const name = 'greet-tool'
 export const inject = ['tools']
@@ -36,7 +37,7 @@ export function apply(ctx: Context) {
   // the model. ToolCallId brands the correlation id a provider would issue.
   void (async () => {
     const result = await ctx.tools.execute({
-      callId: ToolCallId('demo-1'),
+      callId: brandString<ToolCallId>('demo-1'),
       name: 'greet',
       arguments: { name: 'Cordis' },
       signal: new AbortController().signal,

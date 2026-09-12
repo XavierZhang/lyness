@@ -7,6 +7,7 @@ import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import { LocalSandboxProvider } from '@lyness/sandbox-local'
 import { SandboxPolicyService } from '@lyness/sandbox-policy'
+import SessionProjectionRegistry from '@lyness/session-projection'
 import { bwrapProfileArgs } from '@lyness/sandbox-local/src/profiles.ts'
 import { SandboxBashExecutor } from '@lyness/bash-sandbox'
 import LocalSubprocessRuntime from '@lyness/subprocess-local'
@@ -42,6 +43,7 @@ async function tempDir(base: string): Promise<string> {
 async function sandboxedBash(workspace: string, mode: 'read-only' | 'workspace-write'): Promise<SandboxBashExecutor> {
   ctx = new Context()
   await ctx.plugin(LocalSandboxProvider, {})
+  await ctx.plugin(SessionProjectionRegistry)
   await ctx.plugin(SandboxPolicyService, { mode, workspaceRoot: workspace })
   await ctx.plugin(LocalSubprocessRuntime)
   await ctx.plugin(SandboxBashExecutor, { cwd: workspace, timeoutMs: 30_000 })

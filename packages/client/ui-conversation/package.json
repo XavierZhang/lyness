@@ -1,7 +1,7 @@
 {
   "name": "@lyness/client-ui-conversation",
   "description": "Target-neutral Conversation assembly, shell, composer, queue, and view navigation",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -18,10 +18,6 @@
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
     },
-    "./invariant": {
-      "types": "./lib/types/invariant.d.ts",
-      "default": "./lib/invariant.js"
-    },
     "./client": {
       "types": "./lib/types/client/index.d.ts",
       "default": "./lib/client.js"
@@ -33,6 +29,7 @@
     "client": {
       "inject": [
         "@lyness/api-session-controller",
+        "@lyness/client-file-upload",
         "@lyness/client-locale",
         "@lyness/client-ui-layout",
         "@lyness/client-ui-renderer",
@@ -49,41 +46,10 @@
   },
   "license": "MIT",
   "dependencies": {
-    "clsx": "^2.0.0",
-    "@lyness/schemastery": "workspace:^",
-    "@lexical/history": "^0.49.0",
-    "@lexical/plain-text": "^0.49.0",
-    "@lexical/text": "^0.49.0",
-    "@lexical/utils": "^0.49.0",
-    "lexical": "^0.49.0"
+    "@lyness/schemastery": "workspace:^"
   },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/api-remotes": "workspace:^",
-    "@lyness/api-session-controller": "workspace:^",
-    "@lyness/api-workspace-controller": "workspace:^",
-    "@lyness/attachment": "workspace:^",
-    "@lyness/brand": "workspace:^",
-    "@lyness/client-locale": "workspace:^",
-    "@lyness/client-ui-layout": "workspace:^",
-    "@lyness/client-ui-renderer": "workspace:^",
-    "@lyness/client-ui-session": "workspace:^",
-    "@lyness/client-ui-settings": "workspace:^",
-    "@lyness/client-ui-workspace": "workspace:^",
-    "@lyness/commands": "workspace:^",
-    "@lyness/goal": "workspace:^",
-    "@lyness/invariants": "workspace:^",
-    "@lyness/llm": "workspace:^",
-    "@lyness/llm-retry": "workspace:^",
-    "@lyness/permission-presets": "workspace:^",
-    "@lyness/plan-mode": "workspace:^",
-    "@lyness/session": "workspace:^",
-    "@lyness/settings": "workspace:^",
-    "@lyness/token-meter": "workspace:^",
-    "@lyness/tool-todo": "workspace:^",
-    "@lyness/util-crypto": "workspace:^",
-    "@lyness/workspace": "workspace:^",
-    "@lyness/util-workspace-path": "workspace:^"
+    "@lyness/cordis": "workspace:^"
   },
   "devDependencies": {
     "@lyness/cordis": "workspace:^",
@@ -93,6 +59,7 @@
     "@lyness/attachment": "workspace:^",
     "@lyness/brand": "workspace:^",
     "@lyness/client-locale": "workspace:^",
+    "@lyness/client-file-upload": "workspace:^",
     "@lyness/client-store": "workspace:^",
     "@lyness/client-test-runtime": "workspace:^",
     "@lyness/client-ui-layout": "workspace:^",
@@ -104,13 +71,11 @@
     "@lyness/client-ui-slots": "workspace:^",
     "@lyness/commands": "workspace:^",
     "@lyness/goal": "workspace:^",
-    "@lyness/invariants": "workspace:^",
     "@lyness/llm": "workspace:^",
     "@lyness/llm-retry": "workspace:^",
     "@lyness/permission-presets": "workspace:^",
     "@lyness/plan-mode": "workspace:^",
     "@lyness/session": "workspace:^",
-    "@lyness/settings": "workspace:^",
     "@lyness/token-meter": "workspace:^",
     "@lyness/tool-todo": "workspace:^",
     "@lyness/util-crypto": "workspace:^",
@@ -121,11 +86,17 @@
     "@lexical/headless": "^0.49.0",
     "react-dom": "^18.2.0",
     "@types/react-dom": "~18.3.0",
-    "zod": "^4.4.3"
+    "zod": "^4.4.3",
+    "@lyness/settings": "workspace:^",
+    "lexical": "^0.49.0",
+    "clsx": "^2.0.0",
+    "@lexical/utils": "^0.49.0",
+    "@lexical/text": "^0.49.0",
+    "@lexical/plain-text": "^0.49.0",
+    "@lexical/history": "^0.49.0"
   },
   "files": [
     "lib/index.js",
-    "lib/invariant.js",
     "lib/client.js",
     "lib/types/**/*.d.ts"
   ]

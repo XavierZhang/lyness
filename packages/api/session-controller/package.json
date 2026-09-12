@@ -1,7 +1,7 @@
 {
   "name": "@lyness/api-session-controller",
   "description": "Session Remote commands, cold reads, and live control transport",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -17,10 +17,6 @@
     ".": {
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
-    },
-    "./invariant": {
-      "types": "./lib/types/invariant.d.ts",
-      "default": "./lib/invariant.js"
     },
     "./types": {
       "types": "./lib/types/types.d.ts",
@@ -62,7 +58,6 @@
   },
   "files": [
     "lib/index.js",
-    "lib/invariant.js",
     "lib/client.js",
     "lib/types/**/*.js",
     "lib/types/**/*.d.ts",
@@ -73,7 +68,10 @@
   ],
   "license": "MIT",
   "dependencies": {
+    "@lyness/brand": "workspace:^",
+    "@lyness/deque": "workspace:^",
     "@lyness/schemastery": "workspace:^",
+    "mime-types": "^3.0.2",
     "zod": "^4.4.3"
   },
   "peerDependencies": {
@@ -83,10 +81,11 @@
     "@lyness/agent-presets": "workspace:^",
     "@lyness/api-gateway": "workspace:^",
     "@lyness/attachment": "workspace:^",
-    "@lyness/brand": "workspace:^",
     "@lyness/client-connection": "workspace:^",
+    "@lyness/client-file-upload": "workspace:^",
+    "@lyness/commands": "workspace:^",
     "@lyness/file-reference": "workspace:^",
-    "@lyness/invariants": "workspace:^",
+    "@lyness/fs": "workspace:^",
     "@lyness/jobs": "workspace:^",
     "@lyness/llm": "workspace:^",
     "@lyness/native-command": "workspace:^",
@@ -96,31 +95,43 @@
     "@lyness/session-projection": "workspace:^",
     "@lyness/session-projection-cache": "workspace:^",
     "@lyness/session-query": "workspace:^",
-    "@lyness/skill": "workspace:^",
     "@lyness/session-title": "workspace:^",
+    "@lyness/skill": "workspace:^",
     "@lyness/subagent": "workspace:^",
     "@lyness/typert-protocol": "workspace:^",
     "@lyness/typert-registry": "workspace:^",
-    "@lyness/workspace": "workspace:^",
-    "@lyness/util-workspace-path": "workspace:^"
+    "@lyness/util-time": "workspace:^",
+    "@lyness/util-values": "workspace:^",
+    "@lyness/util-workspace-path": "workspace:^",
+    "@lyness/workspace": "workspace:^"
   },
   "peerDependenciesMeta": {
-    "@lyness/jobs": { "optional": true },
-    "@lyness/session-persistence": { "optional": true },
-    "@lyness/session-projection-cache": { "optional": true }
+    "@lyness/jobs": {
+      "optional": true
+    },
+    "@lyness/session-persistence": {
+      "optional": true
+    },
+    "@lyness/session-projection-cache": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@lyness/cordis": "workspace:^",
     "@lyness/agent": "workspace:^",
     "@lyness/agent-default-model": "workspace:^",
+    "@lyness/agent-loop": "workspace:^",
+    "@lyness/agent-loop-testkit": "workspace:^",
     "@lyness/agent-presets": "workspace:^",
     "@lyness/api-gateway": "workspace:^",
     "@lyness/attachment": "workspace:^",
-    "@lyness/brand": "workspace:^",
     "@lyness/client-connection": "workspace:^",
+    "@lyness/client-file-upload": "workspace:^",
     "@lyness/client-store": "workspace:^",
+    "@lyness/commands": "workspace:^",
     "@lyness/file-reference": "workspace:^",
-    "@lyness/invariants": "workspace:^",
+    "@lyness/fs": "workspace:^",
+    "@lyness/fs-local": "workspace:^",
     "@lyness/jobs": "workspace:^",
     "@lyness/llm": "workspace:^",
     "@lyness/native-command": "workspace:^",
@@ -131,13 +142,19 @@
     "@lyness/session-projection": "workspace:^",
     "@lyness/session-projection-cache": "workspace:^",
     "@lyness/session-query": "workspace:^",
-    "@lyness/skill": "workspace:^",
     "@lyness/session-title": "workspace:^",
+    "@lyness/skill": "workspace:^",
+    "@lyness/storage": "workspace:^",
+    "@lyness/storage-domain": "workspace:^",
+    "@lyness/storage-json": "workspace:^",
     "@lyness/subagent": "workspace:^",
     "@lyness/typert-protocol": "workspace:^",
     "@lyness/typert-registry": "workspace:^",
     "@lyness/util-crypto": "workspace:^",
+    "@lyness/util-time": "workspace:^",
+    "@lyness/util-values": "workspace:^",
+    "@lyness/util-workspace-path": "workspace:^",
     "@lyness/workspace": "workspace:^",
-    "@lyness/util-workspace-path": "workspace:^"
+    "@types/mime-types": "^3.0.1"
   }
 }

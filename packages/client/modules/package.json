@@ -1,7 +1,7 @@
 {
   "name": "@lyness/client-modules",
   "description": "Client module system, dual-face: node half composes the __LYNESS_BOOT__ entry graph (incremental lyn.client scan, bundle route, index tap, webPlugins service); browser half is the lazy-CJS module table the vendored cordis Loader consumes as its internal seam",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -45,7 +45,8 @@
     "@lyness/cordis-plugin-loader": "workspace:^",
     "@lyness/host-webserver": "workspace:^",
     "@lyness/invariants": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:^",
+    "@lyness/package-manifest": "workspace:^"
   },
   "files": [
     "lib/index.js",
@@ -54,9 +55,6 @@
     "lib/types/**/*.d.ts"
   ],
   "peerDependencies": {
-    "@lyness/invariants": "workspace:^",
-    "@lyness/cordis": "workspace:^",
-    "@lyness/cordis-plugin-loader": "workspace:^",
-    "@lyness/host-webserver": "workspace:^"
+    "@lyness/cordis": "workspace:^"
   }
 }

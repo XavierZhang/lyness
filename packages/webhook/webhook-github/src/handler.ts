@@ -4,7 +4,7 @@ import type { Context } from '@lyness/cordis'
 import type { IncomingMessage, ServerResponse } from 'node:http'
 import { Webhooks } from '@octokit/webhooks'
 import type { CredentialRef } from '@lyness/credentials'
-import { snapshotJsonValue } from '@lyness/session'
+import { snapshotJsonValue } from '@lyness/util-values'
 import {
   WebhookDeliveryId,
   WebhookSourceId,

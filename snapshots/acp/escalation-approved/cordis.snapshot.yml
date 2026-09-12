@@ -42,3 +42,11 @@
 
     - id: subagent-settlement-marker
       name: './subagent-settlement-marker.ts'
+
+- insert:
+    - id: snapshot-shell-path
+      name: ../../../scripts/snapshot-shell-path.ts
+      config:
+        command: "printf 'escalated\\n' > /tmp/lyn-escalated.txt && cat /tmp/lyn-escalated.txt && rm /tmp/lyn-escalated.txt"
+        recordedPath: /tmp/lyn-escalated.txt
+        livePath: !!js process.env.LYNESS_SNAPSHOT_SPILL_ROOT + '/lyn-escalated.txt'

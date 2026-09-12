@@ -1,7 +1,7 @@
 {
   "name": "@lyness/session-log-deepseek",
   "description": "Incremental lossless session-log request extension for the official DeepSeek LLM API",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -37,18 +37,28 @@
   ],
   "license": "MIT",
   "dependencies": {
+    "@lyness/brand": "workspace:^",
+    "@lyness/util-values": "workspace:^",
     "@lyness/schemastery": "workspace:^"
   },
   "peerDependencies": {
+    "@lyness/cordis": "workspace:^",
     "@lyness/deepseek-llm-api-extensions": "workspace:^",
     "@lyness/invariants": "workspace:^",
-    "@lyness/session": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/session": "workspace:^"
   },
   "devDependencies": {
+    "@lyness/cordis": "workspace:^",
+    "@lyness/cordis-plugin-include": "workspace:^",
+    "@lyness/cordis-plugin-loader": "workspace:^",
+    "@lyness/command-feedback": "workspace:^",
     "@lyness/deepseek-llm-api-extensions": "workspace:^",
     "@lyness/invariants": "workspace:^",
+    "@lyness/llm": "workspace:^",
+    "@lyness/llm-deepseek": "workspace:^",
+    "@lyness/llm-mock-server": "workspace:^",
+    "@lyness/message-feedback": "workspace:^",
     "@lyness/session": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/session-persistence-jsonl": "workspace:^"
   }
 }

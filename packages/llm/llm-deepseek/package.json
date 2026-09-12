@@ -1,7 +1,7 @@
 {
   "name": "@lyness/llm-deepseek",
   "description": "DeepSeek chat-completions adapter for the lyness LLM seam",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -18,57 +18,52 @@
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
     },
-    "./invariant": {
-      "types": "./lib/types/invariant.d.ts",
-      "default": "./lib/invariant.js"
-    },
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
   "files": [
     "lib/index.js",
-    "lib/invariant.js",
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/attachment": "workspace:^",
+    "@lyness/cordis": "workspace:^",
+    "@lyness/anonymous-user-id": "workspace:^",
     "@lyness/atomic-write": "workspace:^",
-    "@lyness/brand": "workspace:^",
+    "@lyness/attachment": "workspace:^",
     "@lyness/credentials": "workspace:^",
     "@lyness/deepseek-llm-api-extensions": "workspace:^",
     "@lyness/fs": "workspace:^",
-    "@lyness/launch-environment": "workspace:^",
-    "@lyness/invariants": "workspace:^",
-    "@lyness/llm": "workspace:^",
     "@lyness/home-paths": "workspace:^",
+    "@lyness/launch-environment": "workspace:^",
+    "@lyness/llm": "workspace:^",
     "@lyness/settings": "workspace:^",
-    "@lyness/timeout": "workspace:^",
-    "@lyness/anonymous-user-id": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/timeout": "workspace:^"
   },
   "dependencies": {
-    "eventsource-parser": "^3.1.0",
-    "@lyness/schemastery": "workspace:^"
+    "@lyness/brand": "workspace:^",
+    "@lyness/util-values": "workspace:^",
+    "@lyness/schemastery": "workspace:^",
+    "eventsource-parser": "^3.1.0"
   },
   "devDependencies": {
+    "@lyness/cordis": "workspace:^",
     "@lyness/agent": "workspace:^",
-    "@lyness/attachment": "workspace:^",
+    "@lyness/anonymous-user-id": "workspace:^",
     "@lyness/atomic-write": "workspace:^",
-    "@lyness/brand": "workspace:^",
+    "@lyness/attachment": "workspace:^",
+    "@lyness/attachment-local": "workspace:^",
     "@lyness/credentials": "workspace:^",
     "@lyness/deepseek-llm-api-extensions": "workspace:^",
     "@lyness/fs": "workspace:^",
-    "@lyness/plugin-package-inventory-deepseek": "workspace:^",
-    "@lyness/launch-environment": "workspace:^",
-    "@lyness/invariants": "workspace:^",
-    "@lyness/llm": "workspace:^",
     "@lyness/home-paths": "workspace:^",
-    "@lyness/settings": "workspace:^",
+    "@lyness/launch-environment": "workspace:^",
+    "@lyness/llm": "workspace:^",
+    "@lyness/plugin-package-inventory-deepseek": "workspace:^",
     "@lyness/session": "workspace:^",
     "@lyness/session-log-deepseek": "workspace:^",
+    "@lyness/settings": "workspace:^",
     "@lyness/timeout": "workspace:^",
-    "@lyness/anonymous-user-id": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/http-proxy": "workspace:^"
   }
 }

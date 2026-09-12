@@ -9,7 +9,7 @@ import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
 import type {} from '@lyness/agent'
 import { credentialRef } from '@lyness/credentials'
-import { installSettingsSection, settingsNamespace } from '@lyness/settings'
+import type {} from '@lyness/settings'
 import { launchEnvironmentOf } from '@lyness/launch-environment'
 import type {} from '@lyness/session'
 import type {} from '@lyness/web'
@@ -82,7 +82,7 @@ export const Config: z<Config> = z.object({
 const SEARCH_BASE_URL_ENV = 'DEEPSEEK_SEARCH_BASE_URL'
 
 /** Settings namespace carrying this provider's endpoint, model, and key reference. */
-export const WEB_SEARCH_DEEPSEEK_SETTINGS_NAMESPACE = settingsNamespace('web-search-deepseek')
+export const WEB_SEARCH_DEEPSEEK_SETTINGS_NAMESPACE = 'web-search-deepseek'
 
 /**
  * Project one resolved section into the options the provider serves its next
@@ -126,13 +126,15 @@ function resolveOptions(ctx: Context, config: Config): DeepSeekSearchProviderOpt
 /** Register the DeepSeek search provider with `ctx.web`. */
 export function apply(ctx: Context, config: Config): void {
   let current: () => Config = () => config
-  installSettingsSection(ctx, WEB_SEARCH_DEEPSEEK_SETTINGS_NAMESPACE, Config, config, {
-    setSource: (source) => {
-      current = source
-    },
-    // The registration carries no resolved value: the provider projects the
-    // section per search, so a committed change needs no re-registration.
-    onChange: () => {},
+  ctx.inject(['settings'], (settingsCtx) => {
+    settingsCtx.settings.installSection(ctx, WEB_SEARCH_DEEPSEEK_SETTINGS_NAMESPACE, Config, config, {
+      setSource: (source) => {
+        current = source
+      },
+      // The registration carries no resolved value: the provider projects the
+      // section per search, so a committed change needs no re-registration.
+      onChange: () => {},
+    })
   })
   ctx.web.registerSearchProvider(new DeepSeekSearchProvider(() => resolveOptions(ctx, current())))
 }

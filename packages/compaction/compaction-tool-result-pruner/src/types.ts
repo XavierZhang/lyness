@@ -1,4 +1,5 @@
 import type { ToolCallId } from '@lyness/llm'
+import type { SessionSeq } from '@lyness/session/types'
 
 /** Character-budget policy for deterministic tool-result pruning. */
 export interface ToolResultPruneConfig {
@@ -20,9 +21,9 @@ export interface ResolvedConfig {
 /** Cited source event and size accounting for one landed surface replacement. */
 export interface PrunedEntry {
   /** Full-fidelity tool-result event shadowed by the replacement. */
-  readonly originalSeq: number
+  readonly originalSeq: SessionSeq
   /** Newly appended pruned tool-result event. */
-  readonly replacementSeq: number
+  readonly replacementSeq: SessionSeq
   /** Tool call shared by the original and replacement. */
   readonly callId: ToolCallId
   /** Original text size in Unicode code points. */

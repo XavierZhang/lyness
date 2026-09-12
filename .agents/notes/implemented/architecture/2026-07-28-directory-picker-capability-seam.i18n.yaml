@@ -1,6 +1,0 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
-#   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-07-28-directory-picker-capability-seam.md
-2026-07-28-directory-picker-capability-seam.md: 0539ea7c5001efaefedccd22c50660dead454876
-2026-07-28-directory-picker-capability-seam.zh.md: fa527cf6e6778d7f86858b724f3d9fc23ce46ac9

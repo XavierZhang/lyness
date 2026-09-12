@@ -4,6 +4,7 @@ import Loader from '@lyness/cordis-plugin-loader'
 import type { Agent } from '@lyness/agent'
 import { ToolCallId } from '@lyness/llm'
 import { SessionId } from '@lyness/session'
+import SessionProjectionRegistry from '@lyness/session-projection'
 import SubagentRuntime from '@lyness/subagent'
 import type { SubagentCapabilities, SubagentProvider, SubagentRun, SubagentStartRequest } from '@lyness/subagent'
 import SystemPrompt from '@lyness/system-prompt'
@@ -79,6 +80,7 @@ async function setup(options?: SetupOptions) {
   const ctx = new Context()
   await ctx.plugin(SystemPrompt)
   await ctx.plugin(ToolRuntime)
+  await ctx.plugin(SessionProjectionRegistry)
   await ctx.plugin(SubagentRuntime)
   const provider = options?.provider === false ? undefined : options?.provider ?? new StubProvider()
   if (provider !== undefined) ctx.subagents.registerProvider(provider)

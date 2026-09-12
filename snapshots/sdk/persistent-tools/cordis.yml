@@ -2,6 +2,12 @@
 # editor as model-facing tools, with process-local providers and an explicit
 # danger-full-access / never-ask policy.
 
+- insert:
+    - id: tool-str-replace-editor
+      name: '@lyness/tool-str-replace-editor'
+      config:
+        maxOutputChars: 16000
+
 - id: llm-deepseek
   name: '@lyness/llm-deepseek'
   config:
@@ -90,10 +96,6 @@
   name: '@lyness/tool-subagent'
   disabled: true
 
-- id: tool-subagent-report
-  name: '@lyness/tool-subagent-report'
-  disabled: true
-
 - id: tool-workflow
   name: '@lyness/tool-workflow'
   disabled: true
@@ -122,7 +124,7 @@
   name: '@lyness/system-prompt'
   config:
     includeHarnessIdentity: false
-    persona: !!js process.env.LYNESS_SYSTEM_PROMPT ?? 'You are a helpful software engineer assistant.'
+    personaPrefix: !!js process.env.LYNESS_SYSTEM_PROMPT ?? 'You are a helpful software engineer assistant.'
 
 - id: session-persistence-jsonl
   name: '@lyness/session-persistence-jsonl'

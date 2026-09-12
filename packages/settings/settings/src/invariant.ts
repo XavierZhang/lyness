@@ -5,7 +5,7 @@
 
 import type { Context } from '@lyness/cordis'
 import type { InvariantFailure, InvariantInstaller } from '@lyness/invariants'
-import { deepEqualJson } from './index.ts'
+import { deepEqualJson } from '@lyness/util-values'
 
 const PACKAGE_NAME = '@lyness/settings'
 

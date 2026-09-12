@@ -1,7 +1,7 @@
 {
   "name": "@lyness/llm",
   "description": "Provider-neutral LLM service interface for the lyness",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -34,6 +34,10 @@
       "types": "./lib/types/message.d.ts",
       "default": "./lib/types/message.js"
     },
+    "./assistant-stream": {
+      "types": "./lib/types/assistant-stream.d.ts",
+      "default": "./lib/types/assistant-stream.js"
+    },
     "./typert": {
       "types": "./lib/typert.host.d.ts",
       "default": "./lib/typert.host.js"
@@ -57,24 +61,20 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/attachment": "workspace:^",
-    "@lyness/brand": "workspace:^",
-    "@lyness/invariants": "workspace:^",
-    "@lyness/timeout": "workspace:^",
-    "@lyness/typert-protocol": "workspace:^",
     "@lyness/cordis": "workspace:^"
   },
   "dependencies": {
     "@lyness/util-crypto": "workspace:^",
     "@lyness/schemastery": "workspace:^",
-    "zod": "^4.4.3"
+    "zod": "^4.4.3",
+    "@lyness/timeout": "workspace:^",
+    "@lyness/brand": "workspace:^",
+    "@lyness/util-values": "workspace:^",
+    "@lyness/typert-protocol": "workspace:^"
   },
   "devDependencies": {
     "@lyness/attachment": "workspace:^",
-    "@lyness/brand": "workspace:^",
     "@lyness/invariants": "workspace:^",
-    "@lyness/timeout": "workspace:^",
-    "@lyness/typert-protocol": "workspace:^",
     "@lyness/cordis": "workspace:^"
   }
 }

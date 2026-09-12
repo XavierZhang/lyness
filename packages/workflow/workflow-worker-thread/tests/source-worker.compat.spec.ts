@@ -9,6 +9,7 @@ import { Context } from '@lyness/cordis'
 import type { Agent } from '@lyness/agent'
 import SubagentRuntime from '@lyness/subagent'
 import type { SubagentProvider } from '@lyness/subagent'
+import SessionProjectionRegistry from '@lyness/session-projection'
 import WorkerThreadWorkflowEngine from '../src/index.ts'
 import { SessionId } from '@lyness/session'
 
@@ -18,6 +19,7 @@ vi.setConfig({ testTimeout: 30_000 })
 
 it('runs the default config through the source worker', async () => {
   const ctx = new Context()
+  await ctx.plugin(SessionProjectionRegistry)
   const subagents = await ctx.plugin(SubagentRuntime)
   const provider: SubagentProvider = {
     name: 'spawn',

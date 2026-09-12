@@ -1,7 +1,7 @@
 {
   "name": "@lyness/web-search-deepseek",
   "description": "DeepSeek-backed search provider (native web_search via the Anthropic-compatible API) for the lyness web capability seam (ctx.web)",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -18,16 +18,11 @@
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
     },
-    "./invariant": {
-      "types": "./lib/types/invariant.d.ts",
-      "default": "./lib/invariant.js"
-    },
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
   "files": [
     "lib/index.js",
-    "lib/invariant.js",
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
@@ -35,7 +30,6 @@
     "@lyness/agent": "workspace:^",
     "@lyness/credentials": "workspace:^",
     "@lyness/launch-environment": "workspace:^",
-    "@lyness/invariants": "workspace:^",
     "@lyness/session": "workspace:^",
     "@lyness/web": "workspace:^",
     "@lyness/cordis": "workspace:^",
@@ -49,10 +43,10 @@
     "@lyness/credentials": "workspace:^",
     "@lyness/credentials-local": "workspace:^",
     "@lyness/launch-environment": "workspace:^",
-    "@lyness/invariants": "workspace:^",
     "@lyness/session": "workspace:^",
     "@lyness/web": "workspace:^",
     "@lyness/cordis": "workspace:^",
-    "@lyness/settings": "workspace:^"
+    "@lyness/settings": "workspace:^",
+    "@lyness/http-proxy": "workspace:^"
   }
 }

@@ -56,6 +56,18 @@ Start with the [development guide](docs/development.md) and [architecture docume
 
 For agents, follow [AGENTS.md](AGENTS.md).
 
+## Citation
+
+```bibtex
+@misc{lyness2026,
+  title={lyness: Everything is a Plugin},
+  author={DeepSeek-AI},
+  year={2026},
+  publisher={GitHub},
+  howpublished={\url{https://github.com/XavierZhang/lyness}},
+}
+```
+
 ## License
 
 [MIT](LICENSE)

@@ -4,8 +4,8 @@
  * @module @lyness/compaction-basic/config
  */
 
-import { deepFreeze } from '@lyness/llm'
 import type { LlmCallConfig } from '@lyness/llm'
+import { deepFreeze } from '@lyness/util-values'
 import type {
   BasicCompactionConfig,
   CompactionPolicyConfig,

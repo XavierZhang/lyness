@@ -8,6 +8,7 @@ import Loader from '@lyness/cordis-plugin-loader'
 import Include from '@lyness/cordis-plugin-include'
 import AgentRegistry, { type Agent } from '@lyness/agent'
 import { SessionId } from '@lyness/session'
+import SessionProjectionRegistry from '@lyness/session-projection'
 import { createScope } from '@lyness/scope'
 import AgentPresets, { mountPreset } from '@lyness/agent-presets'
 import DeepSeekLlmApiExtensionRegistry from '@lyness/deepseek-llm-api-extensions'
@@ -44,6 +45,7 @@ async function harness(enabled?: boolean): Promise<{ ctx: Context; root: string;
   await ctx.plugin(Loader)
   ctx.loader.builtins.include = Include
   await ctx.plugin(AgentRegistry)
+  await ctx.plugin(SessionProjectionRegistry)
   await ctx.plugin(AgentPresets, { default: 'fixture', roots: [], includeShippedRoot: false, includeUserRoot: false })
   await ctx.plugin(DeepSeekLlmApiExtensionRegistry)
   const inventory = enabled === undefined

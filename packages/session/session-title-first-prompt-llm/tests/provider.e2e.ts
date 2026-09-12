@@ -5,6 +5,7 @@ import LlmRuntime from '@lyness/llm'
 import * as LlmDeepSeek from '@lyness/llm-deepseek'
 import SessionStore, { SessionId } from '@lyness/session'
 import SessionTitleService from '@lyness/session-title'
+import SessionProjectionRegistry from '@lyness/session-projection'
 import * as FirstMessageTitleProvider from '@lyness/session-title-first-prompt-llm'
 
 const contexts: Context[] = []
@@ -20,6 +21,7 @@ describe.skipIf(!process.env.DEEPSEEK_API_KEY)('first-prompt title provider with
     await ctx.plugin(LlmRuntime)
     await ctx.plugin(LlmDeepSeek, { thinking: 'disabled' })
     await ctx.plugin(SessionStore)
+    await ctx.plugin(SessionProjectionRegistry)
     await ctx.plugin(SessionTitleService, {
       fallbackMaxWords: 5,
       fallbackMaxBytes: 40,

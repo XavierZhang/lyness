@@ -9,7 +9,7 @@ import {
 import type { InjectFace, PropsLocale, PropsRuntime } from '@lyness/client-ui-slots'
 import type {} from '@lyness/client-ui-sidebar/client'
 import type { CordisRunActivity } from '@lyness/cordis-client-runner/client'
-import type { SessionId } from '@lyness/client-connection/client'
+import type { SessionId } from '@lyness/api-remotes/client'
 import type { CordisInventoryRow } from './dynamic-port.ts'
 import type { CordisPanelFace } from './slots.ts'
 import type { CordisKey } from './locales.ts'

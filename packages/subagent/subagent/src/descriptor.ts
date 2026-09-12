@@ -21,7 +21,7 @@
  * @module @lyness/subagent/descriptor
  */
 
-import { snapshotJsonValue } from '@lyness/session'
+import { snapshotJsonValue } from '@lyness/util-values'
 import type { SessionEvent } from '@lyness/session'
 import type { ReasoningEffortId } from '@lyness/llm'
 import type { ToolRestriction } from '@lyness/tools'

@@ -1,7 +1,7 @@
 {
   "name": "@lyness/tool-pwsh",
   "description": "Model-facing pwsh tool over the bash executor seam",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -18,54 +18,49 @@
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
     },
-    "./invariant": {
-      "types": "./lib/types/invariant.d.ts",
-      "default": "./lib/invariant.js"
-    },
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
   "files": [
     "lib/index.js",
-    "lib/invariant.js",
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
   "peerDependencies": {
+    "@lyness/cordis": "workspace:^",
     "@lyness/agent": "workspace:^",
-    "@lyness/shell": "workspace:^",
-    "@lyness/shell-env": "workspace:^",
-    "@lyness/invariants": "workspace:^",
+    "@lyness/jobs": "workspace:^",
     "@lyness/llm": "workspace:^",
     "@lyness/sandbox": "workspace:^",
     "@lyness/sandbox-policy": "workspace:^",
+    "@lyness/shell": "workspace:^",
+    "@lyness/shell-env": "workspace:^",
     "@lyness/system-prompt": "workspace:^",
-    "@lyness/jobs": "workspace:^",
     "@lyness/tools": "workspace:^",
-    "@lyness/user-approval": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/user-approval": "workspace:^"
   },
   "dependencies": {
     "@lyness/schemastery": "workspace:^"
   },
   "devDependencies": {
+    "@lyness/cordis": "workspace:^",
     "@lyness/agent": "workspace:^",
+    "@lyness/agent-loop": "workspace:^",
     "@lyness/app-boot": "workspace:^",
-    "@lyness/shell": "workspace:^",
-    "@lyness/shell-env": "workspace:^",
-    "@lyness/invariants": "workspace:^",
+    "@lyness/jobs": "workspace:^",
+    "@lyness/jobs-local": "workspace:^",
     "@lyness/llm": "workspace:^",
     "@lyness/loader-smoke": "workspace:^",
     "@lyness/pwsh-local": "workspace:^",
     "@lyness/sandbox": "workspace:^",
     "@lyness/sandbox-policy": "workspace:^",
+    "@lyness/session-projection": "workspace:^",
+    "@lyness/shell": "workspace:^",
+    "@lyness/shell-env": "workspace:^",
     "@lyness/subprocess-local": "workspace:^",
     "@lyness/system-prompt": "workspace:^",
-    "@lyness/jobs": "workspace:^",
-    "@lyness/jobs-local": "workspace:^",
     "@lyness/tool-jobs": "workspace:^",
     "@lyness/tools": "workspace:^",
-    "@lyness/user-approval": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/user-approval": "workspace:^"
   }
 }

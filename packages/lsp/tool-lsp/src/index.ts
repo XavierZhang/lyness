@@ -13,11 +13,10 @@
 import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
 import { defineTool } from '@lyness/tools'
-import { assertNever } from '@lyness/llm'
 import { LspError } from '@lyness/lsp'
 import type {} from '@lyness/lsp'
-import { FIRST_PARTY_SECTION_ORDER } from '@lyness/system-prompt'
 import { MAX_TIMER_DELAY_MS } from '@lyness/timeout'
+import { assertNever } from '@lyness/util-values'
 import {
   DEFAULT_MAX_LOCATIONS,
   DEFAULT_MAX_RESULT_CHARS,
@@ -103,7 +102,7 @@ export function apply(ctx: Context, config: Config): void {
 
   ctx.systemPrompt.section({
     name: 'tool:lsp',
-    order: FIRST_PARTY_SECTION_ORDER.TOOL_LSP,
+    order: ctx.systemPrompt.getSectionOrder('TOOL_LSP'),
     text: LSP_PROMPT_TEXT,
   })
 

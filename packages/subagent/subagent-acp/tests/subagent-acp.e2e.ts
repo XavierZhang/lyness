@@ -6,6 +6,7 @@ import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import type { Agent } from '@lyness/agent'
 import SubagentRuntime from '@lyness/subagent'
+import SessionProjectionRegistry from '@lyness/session-projection'
 import LocalSubprocessRuntime from '@lyness/subprocess-local'
 import { resolveExampleLaunch } from '@lyness/loader-smoke'
 import * as acp from '../src/index.ts'
@@ -57,6 +58,7 @@ describe.skipIf(!process.env.DEEPSEEK_API_KEY)('ACP backend with-key e2e (drive 
     workdir = await mkdtemp(join(tmpdir(), 'lyn-subagent-acp-e2e-'))
     const childLaunch = resolveChildLaunch(join(workdir, '.lyn-child'))
     ctx = new Context()
+    await ctx.plugin(SessionProjectionRegistry)
     await ctx.plugin(SubagentRuntime)
     await ctx.plugin(LocalSubprocessRuntime)
     await ctx.plugin(acp, {
@@ -88,6 +90,7 @@ describe.skipIf(!process.env.DEEPSEEK_API_KEY)('ACP backend with-key e2e (drive 
     workdir = await mkdtemp(join(tmpdir(), 'lyn-subagent-acp-e2e-'))
     const childLaunch = resolveChildLaunch(join(workdir, '.lyn-child'))
     ctx = new Context()
+    await ctx.plugin(SessionProjectionRegistry)
     await ctx.plugin(SubagentRuntime)
     await ctx.plugin(LocalSubprocessRuntime)
     await ctx.plugin(acp, {

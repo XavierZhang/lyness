@@ -8,9 +8,9 @@ import { createUserMessage } from '@lyness/llm'
 import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
-import { SESSION_FORMAT_VERSION, SessionId } from '@lyness/session'
-import SessionStore from '@lyness/session'
-import SqliteSessionPersistence from '@lyness/session-persistence-sqlite'
+import SessionStore, { SessionSeq, SESSION_FORMAT_VERSION, SessionId } from '@lyness/session'
+import SessionProjectionRegistry from '@lyness/session-projection'
+import JsonlSessionPersistence from '@lyness/session-persistence-jsonl'
 import SqliteSessionQueryEngine, * as queryModule from '@lyness/session-query-sqlite'
 import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
@@ -32,11 +32,15 @@ async function temporaryPath(name: string): Promise<string> {
 
 describe('lyn-session-query-sqlite real Loader path', () => {
   it('unwraps, mounts, and searches the real persistence backend', async () => {
-    const persistencePath = await temporaryPath('canonical.db')
+    const persistenceRoot = await temporaryPath('canonical')
     const searchPath = await temporaryPath('derived.db')
     const ctx = new Context()
+    await ctx.plugin(SessionProjectionRegistry)
     await ctx.plugin(SessionStore)
-    const persistence = await ctx.plugin(SqliteSessionPersistence, { path: persistencePath })
+    const persistence = await ctx.plugin(JsonlSessionPersistence, {
+      root: persistenceRoot,
+      compression: 'none',
+    })
 
     const loader = Object.create(Loader.prototype) as Loader
     const unwrapped = loader.unwrapExports(queryModule) as Parameters<Context['plugin']>[0]
@@ -44,16 +48,17 @@ describe('lyn-session-query-sqlite real Loader path', () => {
     const query = await ctx.plugin(unwrapped, { path: searchPath })
 
     const id = SessionId('loader-path')
-    await ctx.sessionPersistence.create({ version: SESSION_FORMAT_VERSION, id, createdAt: 10 })
-    await ctx.sessionPersistence.append(id, [{
+    const writer = await ctx.sessionPersistence.create({ version: SESSION_FORMAT_VERSION, id, createdAt: 10, isSeeded: false })
+    await writer.append([{
       type: 'user/message',
-      seq: 0,
+      seq: SessionSeq(0),
       time: 10,
       data: createUserMessage({
         content: [{ type: 'text', text: 'real Loader needle' }], source: { kind: 'user' },
       }),
       surfaceOp: 'append',
     }])
+    await writer.close()
 
     await expect(ctx.sessionQuery.searchSessions({ query: 'Loader needle' }))
       .resolves.toMatchObject({ items: [{ header: { id }, persisted: true, live: false }] })

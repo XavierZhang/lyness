@@ -13,8 +13,9 @@
  */
 
 import * as vm from 'node:vm'
+import { brandString } from '@lyness/brand'
 import type { ContentBlock } from '@lyness/llm'
-import { SessionId } from '@lyness/session'
+import type { SessionId } from '@lyness/session'
 import { assertObjectJsonSchema, JsonSchemaError } from '@lyness/tools'
 import type { ObjectJsonSchema } from '@lyness/tools'
 import { isFatalWorkflowError, WorkflowError } from '@lyness/workflow'
@@ -295,7 +296,7 @@ export class WorkflowExecution {
         await run.dispose()
         throw this.cancelledError()
       }
-      const info: WorkflowAgentInfo = { seq, label, ...phase !== undefined ? { phase } : {}, childId: SessionId(run.id) }
+      const info: WorkflowAgentInfo = { seq, label, ...phase !== undefined ? { phase } : {}, childId: brandString<SessionId>(run.id) }
       this.observer.agentStart(info)
       try {
         let result

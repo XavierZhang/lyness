@@ -21,6 +21,9 @@
 - id: agents
   name: '@lyness/agent'
 
+- id: session-projection
+  name: '@lyness/session-projection'
+
 - id: sandbox-policy
   name: '@lyness/sandbox-policy'
   config:

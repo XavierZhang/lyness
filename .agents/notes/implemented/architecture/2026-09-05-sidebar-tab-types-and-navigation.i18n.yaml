@@ -1,0 +1,6 @@
+# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
+# side as of the last confirmed-consistent state. Both languages carry equal authority;
+# after editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-09-05-sidebar-tab-types-and-navigation.md
+2026-09-05-sidebar-tab-types-and-navigation.md: 45005e60cde69a85489128f30b7e8198a5adffba
+2026-09-05-sidebar-tab-types-and-navigation.zh.md: ba83c270cbd5bcf9da51c21f528cb03a5b0a01af

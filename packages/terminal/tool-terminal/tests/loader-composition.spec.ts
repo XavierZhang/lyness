@@ -8,7 +8,7 @@ import Loader from '@lyness/cordis-plugin-loader'
 import Include from '@lyness/cordis-plugin-include'
 import { ToolCallId } from '@lyness/llm'
 import { Session, SessionId } from '@lyness/session'
-import AgentRegistry, { Inbox } from '@lyness/agent'
+import AgentRegistry from '@lyness/agent'
 import type { Agent } from '@lyness/agent'
 import SystemPrompt from '@lyness/system-prompt'
 import ToolRuntime from '@lyness/tools'
@@ -16,9 +16,11 @@ import TerminalSessionService from '@lyness/terminal'
 import SandboxProvider from '@lyness/sandbox'
 import type { ConfinedArgv, SandboxPolicy } from '@lyness/sandbox'
 import SandboxPolicyService from '@lyness/sandbox-policy'
+import SessionProjectionRegistry from '@lyness/session-projection'
 import LocalSubprocessRuntime from '@lyness/subprocess-local'
 import * as TerminalLocal from '@lyness/terminal-bash'
 import * as ToolPty from '@lyness/tool-terminal'
+import { unsupportedInbox } from '@lyness/agent-loop-testkit'
 
 let root: string | undefined
 let context: Context | undefined
@@ -41,7 +43,7 @@ function agent(ctx: Context): Agent {
   const id = SessionId('pty-loader-agent')
   const session = Session.create(id)
   const value: Agent = {
-    id, options: {}, session, inbox: new Inbox(session, { inserted: () => {}, discarded: () => {}, claimed: () => {} }),
+    id, options: {}, session, inbox: unsupportedInbox(),
     status: 'idle',
     ctx: scope.ctx,
     send: () => {},
@@ -69,6 +71,7 @@ suite('terminal real Loader composition through cordis.yml', () => {
       "- name: '@lyness/tools'",
       "- name: '@lyness/terminal'",
       "- name: '@lyness/test-sandbox'",
+      "- name: '@lyness/session-projection'",
       "- name: '@lyness/sandbox-policy'",
       '  config:',
       '    mode: danger-full-access',
@@ -96,6 +99,7 @@ suite('terminal real Loader composition through cordis.yml', () => {
       ['@lyness/tools', ToolRuntime],
       ['@lyness/terminal', TerminalSessionService],
       ['@lyness/test-sandbox', PassthroughSandbox],
+      ['@lyness/session-projection', SessionProjectionRegistry],
       ['@lyness/sandbox-policy', SandboxPolicyService],
       ['@lyness/subprocess-local', LocalSubprocessRuntime],
       ['@lyness/terminal-bash', TerminalLocal],

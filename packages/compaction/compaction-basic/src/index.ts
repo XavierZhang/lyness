@@ -9,9 +9,10 @@ import z from '@lyness/schemastery'
 import { CompactionEngine, ManualCompactionError } from '@lyness/compaction'
 import type { CompactionResult, CompactionTrigger } from '@lyness/compaction'
 import type { TokenMeter } from '@lyness/token-meter'
-import type { Session } from '@lyness/session'
-import { CONTEXT_WINDOW_EXCEEDED_CODE, assertNever } from '@lyness/llm'
+import type { Session, SessionSeq } from '@lyness/session'
+import { CONTEXT_WINDOW_EXCEEDED_CODE } from '@lyness/llm'
 import type { LlmCallConfig } from '@lyness/llm'
+import { assertNever } from '@lyness/util-values'
 import type { Agent, PreStepDecision } from '@lyness/agent'
 import type { CommandId } from '@lyness/commands/brand'
 // Type-only: makes the optional sibling service available to `ctx.get()`.
@@ -341,8 +342,8 @@ export class BasicCompactionEngine extends CompactionEngine {
    * @returns the successful durable compaction result.
    */
   override async compactRegion(
-    start: number,
-    end: number,
+    start: SessionSeq,
+    end: SessionSeq,
     agent: Agent,
     signal?: AbortSignal,
   ): Promise<CompactionResult> {

@@ -31,8 +31,10 @@ describe('repository link policy', () => {
   })
 
   it('preserves frozen archived Agent Notes', () => {
-    // Spelled in parts, as the gate itself does, so neither file contains the literal it forbids.
-    const unavailableRepository = [['deepseek', 'ai'].join('-'), ['deepseek', 'harness', 'sdk'].join('-')].join('/')
+    // Built from fragments for the same reason the gate's own module is: a
+    // literal would be rewritten by the rebrand codemod, and the gate would
+    // then check a repository nothing ever linked to.
+    const unavailableRepository = `${['deepseek', 'ai'].join('-')}/${['deepseek', 'harness', 'sdk'].join('-')}`
 
     expect(findUnavailableRepositoryReferences(
       '.agents/notes/archived/process/historical-record.md',

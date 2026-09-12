@@ -1,7 +1,7 @@
 {
   "name": "@lyness/client-ui-settings-plugins",
   "description": "Plugins settings section with feature-owned tabs and configurable host-plane plugin cards",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -18,10 +18,6 @@
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
     },
-    "./invariant": {
-      "types": "./lib/types/invariant.d.ts",
-      "default": "./lib/invariant.js"
-    },
     "./client": {
       "types": "./lib/types/client/index.d.ts",
       "default": "./lib/client.js"
@@ -32,7 +28,6 @@
   "lyn": {
     "client": {
       "inject": [
-        "@lyness/client-connection",
         "@lyness/client-locale",
         "@lyness/client-ui-settings",
         "@lyness/api-remotes"
@@ -46,36 +41,25 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/api-remotes": "workspace:^",
-    "@lyness/client-connection": "workspace:^",
-    "@lyness/client-locale": "workspace:^",
-    "@lyness/client-ui-settings": "workspace:^",
-    "@lyness/invariants": "workspace:^",
-    "@lyness/client-ui-renderer": "workspace:^"
+    "@lyness/cordis": "workspace:^"
   },
   "devDependencies": {
     "@lyness/cordis": "workspace:^",
     "@lyness/api-remotes": "workspace:^",
-    "@lyness/client-connection": "workspace:^",
     "@lyness/client-locale": "workspace:^",
     "@lyness/client-store": "workspace:^",
     "@lyness/client-test-runtime": "workspace:^",
     "@lyness/client-ui-primitives": "workspace:^",
     "@lyness/client-ui-settings": "workspace:^",
     "@lyness/client-ui-slots": "workspace:^",
-    "@lyness/invariants": "workspace:^",
     "@types/react": "~18.3.1",
     "react": "^18.2.0",
-    "@lyness/client-ui-renderer": "workspace:^"
+    "@lyness/client-ui-renderer": "workspace:^",
+    "clsx": "^2.0.0"
   },
   "files": [
     "lib/index.js",
-    "lib/invariant.js",
     "lib/client.js",
     "lib/types/**/*.d.ts"
-  ],
-  "dependencies": {
-    "clsx": "^2.0.0"
-  }
+  ]
 }

@@ -7,3 +7,6 @@
 
     - id: schedule
       name: '@lyness/schedule'
+
+- id: ui-schedule
+  disabled: false

@@ -115,6 +115,13 @@ check('rmSync removes', fs.existsSync('/lyn/renamed.txt'), false)
 fs.writeFileSync('/lyn/log-handle.jsonl', 'header\n')
 const appendHandle = await fsp.open('/lyn/log-handle.jsonl', 'a')
 check('append handle sees the existing size', (await appendHandle.stat()).size, 7)
+const appendHandleStats = await appendHandle.stat({ bigint: true }) as VfsBigIntStats
+const appendPathStats = await fsp.stat('/lyn/log-handle.jsonl', { bigint: true }) as VfsBigIntStats
+check('bigint handle stat matches the path identity', [
+  typeof appendHandleStats.ino,
+  appendHandleStats.ino === appendPathStats.ino,
+  appendHandleStats.dev === appendPathStats.dev,
+], ['bigint', true, true])
 await appendHandle.writeFile('batch-1\n')
 await appendHandle.sync()
 check('handle.sync flushes the active VFS', flushes, 1)
@@ -205,6 +212,10 @@ fs.renameSync('/lyn/secrets.tmp', '/lyn/secrets.yaml')
 check('a wx write with mode 600 stats as 600 after rename', plainMode('/lyn/secrets.yaml'), 0o600)
 fs.writeFileSync('/lyn/secrets.yaml', 'k: w\n')
 check('a rewrite keeps the creation bits', plainMode('/lyn/secrets.yaml'), 0o600)
+const chmodHandle = await fsp.open('/lyn/secrets.yaml', 'r+')
+await chmodHandle.chmod(0o640)
+await chmodHandle.close()
+check('FileHandle.chmod updates the opened file', plainMode('/lyn/secrets.yaml'), 0o640)
 fs.chmodSync('/lyn/secrets.yaml', 0o640)
 check('chmod reads back exactly what was set', plainMode('/lyn/secrets.yaml'), 0o640)
 await fsp.chmod('/lyn/secrets.yaml', 0o600)

@@ -1,7 +1,7 @@
 {
   "name": "@lyness/client-ui-plan",
   "description": "Plan-mode composer control: the conversation.input.plan seat over the plan projection and the /plan command channel",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -17,10 +17,6 @@
     ".": {
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
-    },
-    "./invariant": {
-      "types": "./lib/types/invariant.d.ts",
-      "default": "./lib/invariant.js"
     },
     "./client": {
       "types": "./lib/types/client/index.d.ts",
@@ -45,15 +41,7 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/api-remotes": "workspace:^",
-    "@lyness/client-locale": "workspace:^",
-    "@lyness/client-ui-conversation": "workspace:^",
-    "@lyness/invariants": "workspace:^",
-    "@lyness/plan-mode": "workspace:^",
-    "@lyness/cordis": "workspace:^",
-    "@lyness/session": "workspace:^",
-    "@lyness/client-ui-renderer": "workspace:^",
-    "@lyness/client-ui-session": "workspace:^"
+    "@lyness/cordis": "workspace:^"
   },
   "devDependencies": {
     "@lyness/api-remotes": "workspace:^",
@@ -62,7 +50,6 @@
     "@lyness/client-ui-conversation": "workspace:^",
     "@lyness/client-ui-primitives": "workspace:^",
     "@lyness/client-ui-slots": "workspace:^",
-    "@lyness/invariants": "workspace:^",
     "@lyness/plan-mode": "workspace:^",
     "@types/react": "~18.3.1",
     "@lyness/cordis": "workspace:^",
@@ -73,7 +60,6 @@
   },
   "files": [
     "lib/index.js",
-    "lib/invariant.js",
     "lib/client.js",
     "lib/types/**/*.d.ts"
   ]

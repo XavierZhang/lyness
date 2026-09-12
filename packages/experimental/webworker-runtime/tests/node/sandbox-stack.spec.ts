@@ -4,6 +4,7 @@ import { Context } from '@lyness/cordis'
 import { SandboxBashExecutor } from '@lyness/bash-sandbox'
 import LocalSandboxProvider from '@lyness/sandbox-local'
 import { SandboxPolicyService } from '@lyness/sandbox-policy'
+import SessionProjectionRegistry from '@lyness/session-projection'
 import LocalSubprocessRuntime from '@lyness/subprocess-local'
 import { MemoryVfs } from '../../src/storage/memory.ts'
 import { setActiveVfs } from '../../src/storage/active.ts'
@@ -44,6 +45,7 @@ async function setup(mode: 'read-only' | 'workspace-write' | 'danger-full-access
   const ctx = new Context()
   contexts.push(ctx)
   await ctx.plugin(LocalSandboxProvider)
+  await ctx.plugin(SessionProjectionRegistry)
   await ctx.plugin(SandboxPolicyService, { mode, workspaceRoot: WORKSPACE })
   await ctx.plugin(LocalSubprocessRuntime)
   await ctx.plugin(SandboxBashExecutor, { cwd: WORKSPACE })

@@ -6,12 +6,11 @@
  * @module @lyness/tools/src/ptc
  */
 
-import { ToolCallId, createUserMessage, HarnessError } from '@lyness/llm'
-import type { ContentBlock } from '@lyness/llm'
+import { brandString } from '@lyness/brand'
+import { createUserMessage, HarnessError } from '@lyness/llm'
+import type { ContentBlock, ToolCallId } from '@lyness/llm'
 import type { CodeBindingFunction, CodeRunResult, CodeRuntime } from '@lyness/code-runtime'
-import { snapshotJsonValue } from '@lyness/session'
-import type { JsonValue } from '@lyness/session'
-import { FIRST_PARTY_SECTION_ORDER } from '@lyness/system-prompt'
+import { snapshotJsonValue, type JsonValue } from '@lyness/util-values'
 import { defineTool, parameterSchemaSpecToJsonSchema } from './schema.ts'
 import { TOOL_RUNTIME_SCHEDULER } from './index.ts'
 import type { PtcDispatchLog, ToolDefinition, ToolExecutionResult, ToolRuntime, ToolRunContext } from './index.ts'
@@ -19,9 +18,6 @@ import type {} from './types.ts'
 
 /** The model-facing name of the PTC mode tool. */
 export const RUN_CODE_NAME = 'run_code'
-
-/** The `tools:sdk` section order, after per-tool guidance sections. */
-export const SDK_SECTION_ORDER = FIRST_PARTY_SECTION_ORDER.TOOLS_SDK
 
 /**
  * The language-specific `run_code` schema text: the tool `description` and its
@@ -470,7 +466,7 @@ export function createRunCodeTool(registry: ToolRuntime, options: RunCodeBridgeO
         }
         const normalized = jsonNormalizeArgs(rawArgs)
         const n = ++dispatches
-        const subCallId = ToolCallId(`${String(exec.callId)}:code:${n}`)
+        const subCallId = brandString<ToolCallId>(`${String(exec.callId)}:ptc:${n}`)
         const input = {
           callId: subCallId,
           rootCallId: exec.rootCallId,
@@ -510,7 +506,7 @@ export function createRunCodeTool(registry: ToolRuntime, options: RunCodeBridgeO
                 // the log stays detached.
                 content: result.content,
               })
-              agent.session.append('tool/code-dispatch', {
+              agent.session.append('tool/ptc-dispatch', {
                 rootCallId: exec.rootCallId,
                 parentCallId: exec.callId,
                 subCallId,
@@ -535,7 +531,7 @@ export function createRunCodeTool(registry: ToolRuntime, options: RunCodeBridgeO
               reject(new Error(`run_code run is over (${String(runController.signal.reason)}); ${name} tool call abandoned`))
             },
             async start(): Promise<void> {
-              exec.agent?.session.append('tool/code-dispatch-start', {
+              exec.agent?.session.append('tool/ptc-dispatch-start', {
                 rootCallId: exec.rootCallId,
                 parentCallId: exec.callId,
                 subCallId,
@@ -565,7 +561,7 @@ export function createRunCodeTool(registry: ToolRuntime, options: RunCodeBridgeO
               if (!result.isError && result.content.some(block => block.type === 'image')) {
                 exec.deferContext(createUserMessage({
                   content: result.content,
-                  source: { kind: 'plugin', plugin: 'tools-code-mode' },
+                  source: { kind: 'plugin', plugin: 'tools-ptc' },
                 }))
               }
               for (const context of result.additionalContexts ?? []) {

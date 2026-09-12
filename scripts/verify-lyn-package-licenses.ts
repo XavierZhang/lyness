@@ -19,6 +19,15 @@ const LYNESS_PACKAGE_NAME = /^@lyness\//
  * wrote it, not what it is called.
  */
 const VENDORED_PREFIX = 'vendor/'
+/**
+ * Directories whose packages share the fork's scope but not its license line.
+ *
+ * Upstream separates them by the product-name segment its own packages carry;
+ * without it they read as LYN packages here. `native/` republishes the
+ * Landlock addon family under its own BSD-3-Clause terms, and `website/` is a
+ * private documentation build that declares no license at all.
+ */
+const NON_LYN_PREFIXES = ['native/', 'website/'] as const
 
 /** Result of checking every LYN package reachable through the root workspace list. */
 export interface LynPackageLicenseReport {
@@ -70,7 +79,9 @@ export function inspectLynPackageLicenses(root: string): LynPackageLicenseReport
   const failures: string[] = []
 
   for (const file of workspaceManifestPaths(root)) {
-    if (file.split(sep).join('/').startsWith(VENDORED_PREFIX)) continue
+    const posixPath = file.split(sep).join('/')
+    if (posixPath.startsWith(VENDORED_PREFIX)) continue
+    if (NON_LYN_PREFIXES.some(prefix => posixPath.startsWith(prefix))) continue
     const manifest = readManifest(root, file)
     const name = manifest.name
     if (typeof name !== 'string' || !LYNESS_PACKAGE_NAME.test(name)) continue

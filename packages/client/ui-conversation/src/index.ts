@@ -1,7 +1,7 @@
 /** Host registration for browser conversation preferences. */
 
 import type { Context } from '@lyness/cordis'
-import { settingsNamespace } from '@lyness/settings'
+import type {} from '@lyness/settings'
 import { CONVERSATION_SETTINGS_NAMESPACE, ConversationSettingsSchema } from './submission-settings.ts'
 
 export {
@@ -16,7 +16,7 @@ export {
 export function apply(ctx: Context): void {
   ctx.inject(['settings'], (settingsCtx) => {
     settingsCtx.settings.register(
-      settingsNamespace(CONVERSATION_SETTINGS_NAMESPACE),
+      CONVERSATION_SETTINGS_NAMESPACE,
       ConversationSettingsSchema,
     )
   })

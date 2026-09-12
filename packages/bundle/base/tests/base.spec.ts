@@ -32,8 +32,18 @@ describe('lyn-base bundle', () => {
     )
     expect(rows.length).toBeGreaterThan(50)
     expect(rows.some(row => row.id === 'agent-loop')).toBe(true)
+    expect(rows.find(row => row.id === 'session-telemetry-otel')?.disabled).toBeUndefined()
+    // This fork ships the row mounted but inert: no mode and no endpoint, so a
+    // deployment serving other people's users forwards nothing until an
+    // operator sets both variables. Upstream defaults to FEEDBACK_ONLY against
+    // its own collector, so an upstream sync that reinstates either value fails
+    // here rather than silently restoring the upload.
     expect(rows.find(row => row.id === 'session-telemetry-otel')?.config?.['mode']).toEqual({
-      __jsExpr: "process.env.LYNESS_TELEMETRY_MODE || 'FEEDBACK_ONLY'",
+      __jsExpr: "process.env.LYNESS_TELEMETRY_MODE || 'DISABLED'",
+    })
+    expect((rows.find(row => row.id === 'session-telemetry-otel')?.config?.['exporter'] as
+      { url?: unknown } | undefined)?.url).toEqual({
+      __jsExpr: "process.env.LYNESS_TELEMETRY_OTLP_URL ?? ''",
     })
     expect(rows.find(row => row.id === 'hmr')).toMatchObject({
       disabled: true,
@@ -43,7 +53,7 @@ describe('lyn-base bundle', () => {
     expect(rows.filter(row => row.id === 'subagent-claude-code')).toHaveLength(0)
     expect(rows.find(row => row.id === 'web')?.config).toMatchObject({ fetchProvider: 'http' })
     expect(rows.find(row => row.id === 'web-fetch-http')).toBeDefined()
-    expect(rows.find(row => row.id === 'tool-web')?.config).toMatchObject({ fetch: false })
+    expect(rows.find(row => row.id === 'tool-web')?.config).toMatchObject({ fetch: true })
     expect(manifest.dependencies).not.toHaveProperty('@lyness/subagent-codex')
     expect(manifest.dependencies).not.toHaveProperty('@lyness/subagent-claude-code')
     expect(manifest.dependencies).toHaveProperty('@lyness/web-fetch-http')

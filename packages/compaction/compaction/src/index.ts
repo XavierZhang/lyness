@@ -8,7 +8,7 @@
  */
 
 import { Context, Service } from '@lyness/cordis'
-import type { Session } from '@lyness/session'
+import type { Session, SessionSeq } from '@lyness/session'
 import type { CommandId } from '@lyness/commands/brand'
 import type { CompactionResult } from './types.ts'
 
@@ -162,8 +162,8 @@ export abstract class CompactionEngine extends Service {
    * @returns the appended event seqs, summary, replaced range, and token accounting.
    */
   abstract compactRegion(
-    start: number,
-    end: number,
+    start: SessionSeq,
+    end: SessionSeq,
     agent: CompactionAgentContext,
     signal?: AbortSignal,
   ): Promise<CompactionResult>

@@ -1,7 +1,7 @@
 {
   "name": "@lyness/client-ui-deliverables",
   "description": "Produced-files turn tail and clickable final-response file references for Web",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
   },
@@ -18,10 +18,6 @@
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
     },
-    "./invariant": {
-      "types": "./lib/types/invariant.d.ts",
-      "default": "./lib/invariant.js"
-    },
     "./client": {
       "types": "./lib/types/client/index.d.ts",
       "default": "./lib/client.js"
@@ -37,7 +33,8 @@
         "@lyness/client-locale",
         "@lyness/client-ui-chat",
         "@lyness/client-ui-conversation",
-        "@lyness/client-ui-renderer"
+        "@lyness/client-ui-renderer",
+        "@lyness/client-ui-tool"
       ],
       "platform": "web"
     }
@@ -48,16 +45,7 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/api-remotes": "workspace:^",
-    "@lyness/client-connection": "workspace:^",
-    "@lyness/client-locale": "workspace:^",
-    "@lyness/client-ui-chat": "workspace:^",
-    "@lyness/client-ui-conversation": "workspace:^",
-    "@lyness/client-ui-renderer": "workspace:^",
-    "@lyness/invariants": "workspace:^",
-    "@lyness/system-prompt": "workspace:^",
-    "@lyness/cordis": "workspace:^",
-    "@lyness/session": "workspace:^"
+    "@lyness/cordis": "workspace:^"
   },
   "devDependencies": {
     "@lyness/api-remotes": "workspace:^",
@@ -69,18 +57,30 @@
     "@lyness/client-ui-conversation": "workspace:^",
     "@lyness/client-ui-renderer": "workspace:^",
     "@lyness/client-ui-slots": "workspace:^",
-    "@lyness/invariants": "workspace:^",
-    "@lyness/system-prompt": "workspace:^",
     "@types/react": "~18.3.1",
     "@lyness/cordis": "workspace:^",
     "react": "^18.2.0",
     "@lyness/client-ui-primitives": "workspace:^",
-    "@lyness/session": "workspace:^"
+    "@lyness/session": "workspace:^",
+    "@lyness/system-prompt": "workspace:^",
+    "@lyness/session-query": "workspace:^",
+    "@lyness/llm": "workspace:^",
+    "@lyness/client-ui-tool": "workspace:^",
+    "@lyness/tool-present": "workspace:^",
+    "@lyness/api-session-controller": "workspace:^",
+    "@lyness/util-workspace-path": "workspace:^",
+    "@lyness/api-workspace-files": "workspace:^",
+    "@lyness/fs": "workspace:^",
+    "@lyness/fs-local": "workspace:^",
+    "@lyness/agent": "workspace:^",
+    "@lyness/sandbox-policy": "workspace:^"
   },
   "files": [
     "lib/index.js",
-    "lib/invariant.js",
     "lib/client.js",
     "lib/types/**/*.d.ts"
-  ]
+  ],
+  "dependencies": {
+    "@lyness/typert-protocol": "workspace:^"
+  }
 }

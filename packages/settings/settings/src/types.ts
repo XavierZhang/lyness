@@ -9,7 +9,7 @@
  */
 
 import type { Branded } from '@lyness/brand'
-import type { JsonValue } from '@lyness/session/types'
+import type { JsonValue } from '@lyness/util-values'
 
 /** Nominal id of one registered settings namespace. */
 export type SettingsNamespace = Branded<'SettingsNamespace'>

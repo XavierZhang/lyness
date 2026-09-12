@@ -4,7 +4,7 @@
  * @module @lyness/sandbox-local/profiles
  */
 
-import { grantArgs as landlockGrantArgs } from '@lyness/node-addon-landlock-run'
+import { grantArgs as landlockGrantArgs } from '@lyness/node-addon-system/landlock-run'
 import { writableRoots } from '@lyness/sandbox'
 import type { SandboxPolicy } from '@lyness/sandbox'
 

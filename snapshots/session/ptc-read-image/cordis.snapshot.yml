@@ -5,6 +5,9 @@
   name: '@lyness/llm-deepseek'
   disabled: true
 
+- id: plugin-package-inventory-deepseek
+  disabled: true
+
 - id: agent-default-model
   name: '@lyness/agent-default-model'
   config:
@@ -30,7 +33,7 @@
 - id: system-prompt
   name: '@lyness/system-prompt'
   config:
-    persona: |
+    personaPrefix: |
       You are a coding assistant powered by the {{model}} model. Your working directory is {{cwd}}.
 
       Verify your work by running the code or tests. Keep answers brief and factual.

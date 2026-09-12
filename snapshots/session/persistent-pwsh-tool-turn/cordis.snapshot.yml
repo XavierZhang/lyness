@@ -52,7 +52,7 @@
 - id: system-prompt
   name: '@lyness/system-prompt'
   config:
-    persona: You are a concise snapshot agent working in {{cwd}}.
+    personaPrefix: You are a concise snapshot agent working in {{cwd}}.
 
 - id: tool-jobs
   name: '@lyness/tool-jobs'

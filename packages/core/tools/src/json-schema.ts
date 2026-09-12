@@ -11,8 +11,8 @@
  * @module lyn-tools/json-schema
  */
 
-import { assertNever, HarnessError } from '@lyness/llm'
-import { isJsonValue, type JsonValue } from '@lyness/session'
+import { HarnessError } from '@lyness/llm'
+import { assertNever, isJsonValue, type JsonValue } from '@lyness/util-values'
 
 /** Scalar JSON values supported by `enum` and `const`. */
 export type JsonSchemaScalar = string | number | boolean | null

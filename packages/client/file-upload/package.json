@@ -1,0 +1,84 @@
+{
+  "name": "@lyness/client-file-upload",
+  "description": "Agent-scoped browser file upload, streaming intake, and staged receipt service",
+  "version": "0.1.5-rc.1",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "directory": "packages/client/file-upload"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./client": {
+      "types": "./lib/types/client/index.d.ts",
+      "default": "./lib/client.js"
+    },
+    "./types": {
+      "types": "./lib/types/types.d.ts",
+      "default": "./lib/types/types.js"
+    },
+    "./typert": {
+      "types": "./lib/typert.host.d.ts",
+      "default": "./lib/typert.host.js"
+    },
+    "./remote": {
+      "types": "./lib/typert.remote-client.d.ts",
+      "default": "./lib/typert.remote-client.js"
+    },
+    "./src/*": "./src/*",
+    "./package.json": "./package.json"
+  },
+  "lyn": {
+    "client": {
+      "inject": [
+        "@lyness/api-remotes"
+      ],
+      "platform": "web",
+      "immediately": true
+    }
+  },
+  "scripts": {
+    "bundle": "tsdown",
+    "watch": "tsdown --watch"
+  },
+  "license": "MIT",
+  "files": [
+    "lib/index.js",
+    "lib/client.js",
+    "lib/types/**/*.js",
+    "lib/types/**/*.d.ts",
+    "lib/typert.host.js",
+    "lib/typert.host.d.ts",
+    "lib/typert.remote-client.js",
+    "lib/typert.remote-client.d.ts"
+  ],
+  "dependencies": {
+    "zod": "^4.4.3",
+    "@lyness/typert-protocol": "workspace:^",
+    "@lyness/brand": "workspace:^"
+  },
+  "peerDependencies": {
+    "@lyness/cordis": "workspace:^",
+    "@lyness/scope": "workspace:^"
+  },
+  "devDependencies": {
+    "@lyness/cordis": "workspace:^",
+    "@lyness/agent": "workspace:^",
+    "@lyness/client-connection": "workspace:^",
+    "@lyness/commands": "workspace:^",
+    "@lyness/scope": "workspace:^",
+    "@lyness/util-crypto": "workspace:^",
+    "@lyness/api-remotes": "workspace:^",
+    "@lyness/session": "workspace:^",
+    "@lyness/attachment": "workspace:^"
+  }
+}
