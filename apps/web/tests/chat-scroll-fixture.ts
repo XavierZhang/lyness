@@ -8,14 +8,14 @@ import {
   createSystemMessage,
   createToolResultMessage,
   createUserMessage,
-} from '@lyness/llm'
+} from '@lyness/lyn-llm'
 import {
   SESSION_FORMAT_VERSION,
   Session,
   SessionId,
-} from '@lyness/session'
+} from '@lyness/lyn-session'
 // Carries the session/title event declaration into this fixture builder.
-import type {} from '@lyness/session-title'
+import type {} from '@lyness/lyn-session-title'
 
 /** Options for one deterministic long-chat fixture. */
 export interface ChatScrollFixtureOptions {
@@ -71,7 +71,7 @@ function appendSystemPrompt(session: Session, turn: number, step: number): void 
     step,
     message: createSystemMessage(
       'Synthetic chat-scroll system prompt.',
-      '@lyness/system-prompt',
+      '@lyness/lyn-system-prompt',
     ),
   }, { surfaceOp: 'append' })
 }

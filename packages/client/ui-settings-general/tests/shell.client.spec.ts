@@ -1,9 +1,9 @@
 /** Settings shell registration: slot declaration injection, the ledger projections, and HMR recovery. */
 import { Context } from '@lyness/cordis'
 import { describe, expect, it, vi } from 'vitest'
-import { SlotRegistry } from '@lyness/client-ui-renderer/client'
-import { RemoteError } from '@lyness/client-test-runtime'
-import { apply as settingsApply, inject as settingsInject } from '@lyness/client-ui-settings/client'
+import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
+import { RemoteError } from '@lyness/lyn-client-test-runtime'
+import { apply as settingsApply, inject as settingsInject } from '@lyness/lyn-client-ui-settings/client'
 import { apply, inject } from '../src/client/index.ts'
 import type { SettingsRootInjected } from '../src/client/shell-contract.ts'
 import { SettingsRoot } from '../src/client/SettingsRoot.tsx'

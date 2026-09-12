@@ -2,7 +2,7 @@
  * Fresh-process ACP subagent client. Drives one child session and owns cancellation and
  * quiescent disposal.
  *
- * @module @lyness/subagent-acp/run
+ * @module @lyness/lyn-subagent-acp/run
  */
 
 import { randomUUID } from 'node:crypto'
@@ -16,12 +16,12 @@ import {
   type StopReason,
   type ToolKind,
 } from '@agentclientprotocol/sdk'
-import type { ContentBlock } from '@lyness/llm'
-import { brandString } from '@lyness/brand'
-import type { SessionId } from '@lyness/session'
-import { AssistantOutputFold, settleRunResult, subprocessRunHandle } from '@lyness/subagent'
-import type { SubagentResult, SubagentRun, SubagentStartRequest, SubagentStopReason } from '@lyness/subagent'
-import type { SubprocessHandle, SubprocessOutcome, SubprocessSpawnSpec } from '@lyness/subprocess'
+import type { ContentBlock } from '@lyness/lyn-llm'
+import { brandString } from '@lyness/lyn-brand'
+import type { SessionId } from '@lyness/lyn-session'
+import { AssistantOutputFold, settleRunResult, subprocessRunHandle } from '@lyness/lyn-subagent'
+import type { SubagentResult, SubagentRun, SubagentStartRequest, SubagentStopReason } from '@lyness/lyn-subagent'
+import type { SubprocessHandle, SubprocessOutcome, SubprocessSpawnSpec } from '@lyness/lyn-subprocess'
 
 /** Fixed response to child permission requests: reject by default, or select the first allow option. */
 export type PermissionPolicy = 'allow' | 'reject'

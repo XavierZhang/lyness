@@ -1,7 +1,7 @@
 import type { Context } from '@lyness/cordis'
 import type {
   ConversationNodeDefinition, RequestPromptInspector, SystemPromptState, SystemPromptInspector,
-} from '@lyness/client-ui-conversation/client'
+} from '@lyness/lyn-client-ui-conversation/client'
 import { trajectoryNode } from './trajectory-definition-common.ts'
 import type { TrajectoryRequestHeaderState } from './trajectory-contract.ts'
 

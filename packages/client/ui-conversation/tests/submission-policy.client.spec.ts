@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { describe, expect, it, vi } from 'vitest'
-import { stubSettingsScope } from '@lyness/client-test-runtime'
+import { stubSettingsScope } from '@lyness/lyn-client-test-runtime'
 import {
   ComposerSubmissionPolicy, DEFAULT_BUSY_ENTER_BEHAVIOR, resolveSubmitMode,
 } from '../src/client/input/submission-policy.ts'

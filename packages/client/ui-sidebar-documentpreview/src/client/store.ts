@@ -12,10 +12,10 @@
  * one listener on the owner's `signal` that forgets the bucket when the record
  * ends, and a tab that never read has no bucket to forget.
  */
-import type { RemoteFailure } from '@lyness/api-remotes/client'
-import { defineStore, type EngineStoreHandle } from '@lyness/client-store'
-import type { TabId } from '@lyness/client-ui-dockkit'
-import type { WorkspaceFileText } from '@lyness/api-workspace-files/types'
+import type { RemoteFailure } from '@lyness/lyn-api-remotes/client'
+import { defineStore, type EngineStoreHandle } from '@lyness/lyn-client-store'
+import type { TabId } from '@lyness/lyn-client-ui-dockkit'
+import type { WorkspaceFileText } from '@lyness/lyn-api-workspace-files/types'
 import type { DocumentFileBytes } from './rpc.ts'
 import type { DocumentLoadMode } from './document/registry.ts'
 

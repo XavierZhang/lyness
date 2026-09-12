@@ -1,13 +1,13 @@
 import { describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { createScope, type Scope } from '@lyness/scope'
+import { createScope, type Scope } from '@lyness/lyn-scope'
 import TurndownService from 'turndown'
-import { ToolCallId } from '@lyness/llm'
-import SystemPrompt, { renderPrompt } from '@lyness/system-prompt'
-import ToolRuntime, { type ToolExecutionResult } from '@lyness/tools'
-import WebRuntime from '@lyness/web'
-import type { WebSearchProvider, WebSearchResult } from '@lyness/web'
-import * as ToolWeb from '@lyness/tool-web'
+import { ToolCallId } from '@lyness/lyn-llm'
+import SystemPrompt, { renderPrompt } from '@lyness/lyn-system-prompt'
+import ToolRuntime, { type ToolExecutionResult } from '@lyness/lyn-tools'
+import WebRuntime from '@lyness/lyn-web'
+import type { WebSearchProvider, WebSearchResult } from '@lyness/lyn-web'
+import * as ToolWeb from '@lyness/lyn-tool-web'
 import {
   formatSearchOutput,
   formatFetchOutput,
@@ -22,9 +22,9 @@ import {
   fetchMetaFromResult,
   WEB_SEARCH_MAX_QUERIES,
   WEB_SEARCH_MAX_RESULTS,
-} from '@lyness/tool-web'
-import type { ContentBlock } from '@lyness/llm'
-import type { ToolResult } from '@lyness/tools'
+} from '@lyness/lyn-tool-web'
+import type { ContentBlock } from '@lyness/lyn-llm'
+import type { ToolResult } from '@lyness/lyn-tools'
 import { parseSearchArgs } from '../src/search.ts'
 
 const testToolSignal = new AbortController().signal
@@ -40,7 +40,7 @@ async function mountTools(opts: {
   config?: ToolWeb.Config
   webConfig?: ConstructorParameters<typeof WebRuntime>[1]
   search?: WebSearchProvider
-  fetchProvider?: import('@lyness/web').WebFetchProvider
+  fetchProvider?: import('@lyness/lyn-web').WebFetchProvider
 } = {}): Promise<{ ctx: Context; fiber: Awaited<ReturnType<Context['plugin']>>; call: (name: string, args: unknown) => Promise<ToolExecutionResult> }> {
   const ctx = new Context()
   await ctx.plugin(SystemPrompt)

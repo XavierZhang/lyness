@@ -3,21 +3,21 @@
  * QueueDock rendering and operations: authoritative rows, inline editing,
  * collapse state, removal, QueueDock Steer, failure notices, and live retirement.
  */
-import type { GlobalStandardProps } from '@lyness/client-ui-slots'
+import type { GlobalStandardProps } from '@lyness/lyn-client-ui-slots'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { act, cleanup, fireEvent, render, waitFor } from '@testing-library/react'
 import { useSyncExternalStore } from 'react'
 import type {
   QueuedMessage, SessionListState, SessionSnapshot,
-} from '@lyness/api-session-controller/client'
-import type { SessionId } from '@lyness/session/types'
-import type { SnapshotSelectorHook } from '@lyness/client-ui-slots'
-import { createSnapshotStore } from '@lyness/client-store'
+} from '@lyness/lyn-api-session-controller/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { SnapshotSelectorHook } from '@lyness/lyn-client-ui-slots'
+import { createSnapshotStore } from '@lyness/lyn-client-store'
 import {
   bindSnapshotSelector, conversationSnapshot, makeTranslate,
-} from '@lyness/client-test-runtime'
-import type { SessionPendingInteractionSnapshot } from '@lyness/client-ui-session/client'
-import { zh as commonZh } from '@lyness/client-locale/src/locales/zh.ts'
+} from '@lyness/lyn-client-test-runtime'
+import type { SessionPendingInteractionSnapshot } from '@lyness/lyn-client-ui-session/client'
+import { zh as commonZh } from '@lyness/lyn-client-locale/src/locales/zh.ts'
 import type { QueueItemId } from '../src/client/contract/queue.ts'
 import type { InputState } from '../src/client/contract/input.ts'
 import { zh } from '../src/client/locales.ts'

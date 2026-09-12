@@ -2,39 +2,39 @@
 # e2b.cwd and sandbox-policy.workspaceRoot must name the same remote directory,
 # which is also bash-local's implicit default workdir.
 - id: e2b
-  name: '@lyness/e2b'
+  name: '@lyness/lyn-e2b'
   config:
     cwd: !!js process.cwd()
     timeoutMs: 180000
 
 - id: subprocess-e2b
-  name: '@lyness/subprocess-e2b'
+  name: '@lyness/lyn-subprocess-e2b'
 
 - id: bash
-  name: '@lyness/bash-local'
+  name: '@lyness/lyn-bash-local'
   config:
     timeoutMs: 30000
 
 - id: fs-e2b
-  name: '@lyness/fs-e2b'
+  name: '@lyness/lyn-fs-e2b'
 
 - id: agents
-  name: '@lyness/agent'
+  name: '@lyness/lyn-agent'
 
 - id: session-projection
-  name: '@lyness/session-projection'
+  name: '@lyness/lyn-session-projection'
 
 - id: sandbox-policy
-  name: '@lyness/sandbox-policy'
+  name: '@lyness/lyn-sandbox-policy'
   config:
     mode: danger-full-access
     workspaceRoot: !!js process.cwd()
 
 - id: pty
-  name: '@lyness/terminal'
+  name: '@lyness/lyn-terminal'
 
 - id: terminal-bash
-  name: '@lyness/terminal-bash'
+  name: '@lyness/lyn-terminal-bash'
   config:
     pollIntervalMs: 25
     exactProbeAfterMs: 150
@@ -44,10 +44,10 @@
     disposeGraceMs: 1000
 
 - id: lsp
-  name: '@lyness/lsp'
+  name: '@lyness/lyn-lsp'
 
 - id: lsp-stdio
-  name: '@lyness/lsp-stdio'
+  name: '@lyness/lyn-lsp-stdio'
   config:
     servers:
       fixture:

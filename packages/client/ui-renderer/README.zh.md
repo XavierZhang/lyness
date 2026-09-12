@@ -3,7 +3,7 @@ description: "浏览器 UI 渲染器：React slot 绑定、ctx.uiRenderer 与 ly
 kind: "package-reference"
 ---
 
-# @lyness/client-ui-renderer
+# @lyness/lyn-client-ui-renderer
 
 [English](README.md) | 中文
 

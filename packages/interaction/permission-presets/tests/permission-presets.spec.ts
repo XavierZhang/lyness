@@ -1,15 +1,15 @@
 import { describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import SessionStore, { Session, SessionId } from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import type { SandboxMode } from '@lyness/sandbox'
-import type { ApprovalPolicy } from '@lyness/user-approval'
+import SessionStore, { Session, SessionId } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import type { SandboxMode } from '@lyness/lyn-sandbox'
+import type { ApprovalPolicy } from '@lyness/lyn-user-approval'
 import PermissionPresetService, {
   CUSTOM_PRESET, PERMISSION_SETTINGS_NAMESPACE,
-} from '@lyness/permission-presets'
-import type { Config } from '@lyness/permission-presets'
-import { SettingsProvider } from '@lyness/settings'
-import type { SettingsNamespace } from '@lyness/settings'
+} from '@lyness/lyn-permission-presets'
+import type { Config } from '@lyness/lyn-permission-presets'
+import { SettingsProvider } from '@lyness/lyn-settings'
+import type { SettingsNamespace } from '@lyness/lyn-settings'
 
 /** Writable memory provider for the permission/settings lifecycle specs. */
 class MemorySettings extends SettingsProvider {

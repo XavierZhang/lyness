@@ -4,7 +4,7 @@ import {
   Remote,
   RemoteScope,
   remoteMethods,
-} from '@lyness/typert-protocol'
+} from '@lyness/lyn-typert-protocol'
 
 class Goals extends TypertRemoteService {
   constructor(ctx: Context) {

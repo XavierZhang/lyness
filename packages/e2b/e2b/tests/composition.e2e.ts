@@ -3,20 +3,20 @@ import { join, posix } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { Context } from '@lyness/cordis'
 import { describe, expect, it } from 'vitest'
-import type { Agent } from '@lyness/agent'
-import { runLoaderSmoke } from '@lyness/loader-smoke'
+import type { Agent } from '@lyness/lyn-agent'
+import { runLoaderSmoke } from '@lyness/lyn-loader-smoke'
 import {
   FileNotFoundError,
   Sandbox,
   SandboxNotFoundError,
-} from '@lyness/e2b'
-import TerminalSessionService, { TerminalSessionId } from '@lyness/terminal'
-import { BashTerminalBackend } from '@lyness/terminal-bash'
-import SandboxPolicyService from '@lyness/sandbox-policy'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import { Session, SessionId } from '@lyness/session'
-import E2BSubprocessRuntime from '@lyness/subprocess-e2b'
-import { unsupportedInbox } from '@lyness/agent-loop-testkit'
+} from '@lyness/lyn-e2b'
+import TerminalSessionService, { TerminalSessionId } from '@lyness/lyn-terminal'
+import { BashTerminalBackend } from '@lyness/lyn-terminal-bash'
+import SandboxPolicyService from '@lyness/lyn-sandbox-policy'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import { Session, SessionId } from '@lyness/lyn-session'
+import E2BSubprocessRuntime from '@lyness/lyn-subprocess-e2b'
+import { unsupportedInbox } from '@lyness/lyn-agent-loop-testkit'
 
 const fixtureRoot = fileURLToPath(new URL('./fixtures/composition/', import.meta.url))
 const binScript = join(fixtureRoot, 'bin.ts')

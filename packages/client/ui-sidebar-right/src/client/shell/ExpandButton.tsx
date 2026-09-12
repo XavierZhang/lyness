@@ -14,9 +14,9 @@
  * on the other edge.
  */
 import type { ReactNode } from 'react'
-import { IconPanelLeftOutline16, Tooltip } from '@lyness/client-ui-primitives'
-import type { PropsLocale, PropsRuntime, PropsStore } from '@lyness/client-ui-slots'
-import type {} from '@lyness/client-ui-conversation/client'
+import { IconPanelLeftOutline16, Tooltip } from '@lyness/lyn-client-ui-primitives'
+import type { PropsLocale, PropsRuntime, PropsStore } from '@lyness/lyn-client-ui-slots'
+import type {} from '@lyness/lyn-client-ui-conversation/client'
 import type { createSidebarRightStore } from '../stores.ts'
 import css from './ExpandButton.module.css'
 

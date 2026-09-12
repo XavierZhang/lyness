@@ -11,8 +11,8 @@ import type {
   RequestView,
   ToolCallBlock,
   ToolResultNode,
-} from '@lyness/client-ui-conversation/client'
-import type { ImageAttachmentRef } from '@lyness/attachment'
+} from '@lyness/lyn-client-ui-conversation/client'
+import type { ImageAttachmentRef } from '@lyness/lyn-attachment'
 import type {
   TrajectoryCellProps,
   TrajectorySourceBlock,

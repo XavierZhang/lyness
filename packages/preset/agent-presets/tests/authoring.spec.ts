@@ -14,11 +14,11 @@ import { fileURLToPath, pathToFileURL } from 'node:url'
 import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
 import Include from '@lyness/cordis-plugin-include'
-import SessionProjectionRegistry from '@lyness/session-projection'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import AgentPresets, {
   COMPOSITION_FILE, copyComposition, METADATA_FILE, type Config,
-} from '@lyness/agent-presets'
+} from '@lyness/lyn-agent-presets'
 
 const FIXTURES = join(dirname(fileURLToPath(import.meta.url)), 'fixtures')
 const VALID = '- id: tool-alpha\n  name: ../../plugins/contribute.js\n  config:\n    tool: alpha\n'

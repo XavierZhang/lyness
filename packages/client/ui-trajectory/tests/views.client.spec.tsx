@@ -7,41 +7,41 @@
  * event ledger with its timing overview, and fiber disposal removes the tab.
  * Timeline projection and inclusive focus edge cases ride along.
  */
-import type { GlobalStandardProps } from '@lyness/client-ui-slots'
+import type { GlobalStandardProps } from '@lyness/lyn-client-ui-slots'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { act, cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { createElement, type ComponentProps, type FC, type ReactNode } from 'react'
-import { bindSnapshotSelector, SlotTestRuntime, stubSettingsScope } from '@lyness/client-test-runtime'
-import { resolveSlotLabel } from '@lyness/client-ui-slots'
+import { bindSnapshotSelector, SlotTestRuntime, stubSettingsScope } from '@lyness/lyn-client-test-runtime'
+import { resolveSlotLabel } from '@lyness/lyn-client-ui-slots'
 import {
   EMPTY_CONVERSATION_SNAPSHOT, UiConversation,
-} from '@lyness/client-ui-conversation/client'
+} from '@lyness/lyn-client-ui-conversation/client'
 import type {
   ConversationBinding, ConversationSnapshot, ConversationViewSnapshotMap, ConvViewProps,
   InputActions, InputState, RequestView, ViewTab,
-} from '@lyness/client-ui-conversation/client'
-import { EMPTY_CHAT_SNAPSHOT } from '@lyness/client-ui-chat/client'
+} from '@lyness/lyn-client-ui-conversation/client'
+import { EMPTY_CHAT_SNAPSHOT } from '@lyness/lyn-client-ui-chat/client'
 import type {
   ChatSnapshot, LegacyConversationSlice,
-} from '@lyness/client-ui-chat/client'
-import { SlotRegistry } from '@lyness/client-ui-renderer/client'
-import { createSnapshotStore } from '@lyness/client-store'
-import type { ObservableSnapshot } from '@lyness/client-store'
+} from '@lyness/lyn-client-ui-chat/client'
+import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
+import { createSnapshotStore } from '@lyness/lyn-client-store'
+import type { ObservableSnapshot } from '@lyness/lyn-client-store'
 import type {
   SessionBinding, SessionListState, SessionProjectionMap, SessionSnapshot, UseProjection,
-} from '@lyness/api-session-controller/client'
-import type { WorkspaceSnapshot } from '@lyness/api-workspace-controller/client'
-import type { SessionId } from '@lyness/session/types'
-import type { SessionPendingInteractionSnapshot } from '@lyness/client-ui-session/client'
+} from '@lyness/lyn-api-session-controller/client'
+import type { WorkspaceSnapshot } from '@lyness/lyn-api-workspace-controller/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { SessionPendingInteractionSnapshot } from '@lyness/lyn-client-ui-session/client'
 import {
   ConversationSession, ConversationSessionHeader,
   type ConversationSessionHeaderProps, type ConversationSessionProps,
-} from '@lyness/client-ui-conversation/src/client/skeleton/ConversationSession.tsx'
-import { createConversationStore } from '@lyness/client-ui-conversation/src/client/stores.ts'
-import { zh as conversationZh } from '@lyness/client-ui-conversation/src/client/locales.ts'
-import { apply as localeApply, inject as localeInject } from '@lyness/client-locale/client'
-import { apply, inject } from '@lyness/client-ui-trajectory/client'
-import { apply as nodeApply } from '@lyness/client-ui-trajectory'
+} from '@lyness/lyn-client-ui-conversation/src/client/skeleton/ConversationSession.tsx'
+import { createConversationStore } from '@lyness/lyn-client-ui-conversation/src/client/stores.ts'
+import { zh as conversationZh } from '@lyness/lyn-client-ui-conversation/src/client/locales.ts'
+import { apply as localeApply, inject as localeInject } from '@lyness/lyn-client-locale/client'
+import { apply, inject } from '@lyness/lyn-client-ui-trajectory/client'
+import { apply as nodeApply } from '@lyness/lyn-client-ui-trajectory'
 import type { TrajectoryTurnModel } from '../src/client/layout.ts'
 import { TrajectoryTimeline as LocalizedTrajectoryTimeline } from '../src/client/TrajectoryTimeline.tsx'
 import {

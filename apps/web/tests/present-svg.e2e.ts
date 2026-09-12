@@ -5,8 +5,8 @@ import { join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { chromium, type Browser, type Page } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
-import type {} from '@lyness/tool-present/types'
-import { deriveReplayScript, parseSessionLog } from '@lyness/llm-replay'
+import type {} from '@lyness/lyn-tool-present/types'
+import { deriveReplayScript, parseSessionLog } from '@lyness/lyn-llm-replay'
 import {
   assertFinalWorkspaceSnapshot, captureExpandedTurnProcessAria, compareOrRefreshGolden,
   fixtureUserPrompts, launchWebScaffold, recordFixture, watchConsole,

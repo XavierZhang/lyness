@@ -1,6 +1,6 @@
 import { describe, expect, expectTypeOf, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { createSystemMessage, createUserMessage, ToolCallId, createMessage, createToolResultMessage, MessageId, ReasoningEffortId } from '@lyness/llm'
+import { createSystemMessage, createUserMessage, ToolCallId, createMessage, createToolResultMessage, MessageId, ReasoningEffortId } from '@lyness/lyn-llm'
 import SessionStore, {
   adoptSessionEvent,
   SESSION_FORMAT_VERSION,
@@ -10,8 +10,8 @@ import SessionStore, {
   SessionLogOffset,
   SessionSeq,
   snapshotSessionEvent,
-} from '@lyness/session'
-import type { CreateSessionOptions, SessionEventType, SessionHeader, SessionSurface } from '@lyness/session'
+} from '@lyness/lyn-session'
+import type { CreateSessionOptions, SessionEventType, SessionHeader, SessionSurface } from '@lyness/lyn-session'
 
 describe('Session', () => {
   it('exposes one stable readonly surface view', () => {
@@ -479,7 +479,7 @@ describe('Session', () => {
       data: {
         turn: 1,
         step: 1,
-        message: createSystemMessage('You are terse.', '@lyness/system-prompt'),
+        message: createSystemMessage('You are terse.', '@lyness/lyn-system-prompt'),
       },
     } as unknown as SessionEvent
     const adopted = adoptSessionEvent(event)

@@ -15,7 +15,7 @@ describe('lyn-sdk-app bundle', () => {
       lyn?: { bundle?: { patch?: string } }
     }
     expect(manifest.lyn?.bundle?.patch).toBe('./cordis.patch.yml')
-    expect(manifest.dependencies).toHaveProperty('@lyness/sdk-jsonrpc-server')
+    expect(manifest.dependencies).toHaveProperty('@lyness/lyn-sdk-jsonrpc-server')
     const patches = yaml.load(
       readFileSync(resolve(root, manifest.lyn!.bundle!.patch!), 'utf8'),
       { schema: entryListSchema },
@@ -23,7 +23,7 @@ describe('lyn-sdk-app bundle', () => {
     expect(patches.find(patch => patch.id === 'hmr')).toBeUndefined()
     expect(patches.find(patch => patch.id === 'session-title-llm')).toMatchObject({ disabled: true })
     const rows = patches.flatMap(patch => patch.insert ?? [])
-    expect(rows.find(row => row.id === 'sdk-app-startup')?.name).toBe('@lyness/sdk-app')
+    expect(rows.find(row => row.id === 'sdk-app-startup')?.name).toBe('@lyness/lyn-sdk-app')
     expect(rows.find(row => row.id === 'sdk-jsonrpc-server')?.inject).toEqual(['sdkAppStartup', 'loader'])
   })
 })

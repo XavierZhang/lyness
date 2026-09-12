@@ -3,17 +3,17 @@
  * every backend uses for its replacement user message, plus the predicate that
  * recognizes persisted checkpoints.
  *
- * The seam itself lives in `@lyness/compaction`, which re-exports these
+ * The seam itself lives in `@lyness/lyn-compaction`, which re-exports these
  * contracts; this module is a pure type/value/predicate outlet (no cordis
  * imports, no module augmentation) so client and wire programs can name the
  * checkpoint source without loading the host plugin's Context merges — the
  * `lyn-commands/brand` shape.
  *
- * @module @lyness/compaction/checkpoint
+ * @module @lyness/lyn-compaction/checkpoint
  */
 
-import type { MessageSource } from '@lyness/llm/message'
-import type { CommandId } from '@lyness/commands/brand'
+import type { MessageSource } from '@lyness/lyn-llm/message'
+import type { CommandId } from '@lyness/lyn-commands/brand'
 import type { CompactionId } from './brand.ts'
 
 const COMPACT_CHECKPOINT_MARKER = Object.freeze({ kind: 'plugin', plugin: 'compact' } as const)

@@ -1,10 +1,10 @@
 /**
  * Generic-task adaptation for background bash process handles.
  *
- * @module @lyness/tool-bash/background
+ * @module @lyness/lyn-tool-bash/background
  */
 
-import type { ShellProcess } from '@lyness/shell'
+import type { ShellProcess } from '@lyness/lyn-shell'
 
 /**
  * Map a settled background process onto the generic task-outcome vocabulary:

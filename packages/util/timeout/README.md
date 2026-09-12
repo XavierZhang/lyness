@@ -3,7 +3,7 @@ description: "Shared timeout arithmetic, deadline fusion, and timeout-versus-can
 kind: "package-library"
 ---
 
-# @lyness/timeout
+# @lyness/lyn-timeout
 
 English | [中文](README.zh.md)
 
@@ -30,7 +30,7 @@ Use `deadline` when a capability runs one unit of work under a caller-visible ti
 ### Clamping a timeout hint
 
 ```ts
-import { clampTimeout } from '@lyness/timeout'
+import { clampTimeout } from '@lyness/lyn-timeout'
 
 declare const requested: number | undefined
 declare const DEFAULT_TIMEOUT_MS: number
@@ -44,7 +44,7 @@ const timeoutMs = clampTimeout(requested, DEFAULT_TIMEOUT_MS, MAX_TIMEOUT_MS, 'b
 ### Running work under a deadline
 
 ```text
-import { deadline, timeoutOf } from '@lyness/timeout'
+import { deadline, timeoutOf } from '@lyness/lyn-timeout'
 
 using d = deadline(upstream, timeoutMs, 'BASH_TIMEOUT')
 const outcome = await runWork({ signal: d.signal })   // work listens on d.signal and terminates itself
@@ -61,7 +61,7 @@ The signal only notifies: the caller must attach its own termination — hand `d
 ### Streaming with an idle watchdog
 
 ```ts
-import { idleWatchdog } from '@lyness/timeout'
+import { idleWatchdog } from '@lyness/lyn-timeout'
 
 declare const upstream: AbortSignal | undefined
 declare const idleMs: number

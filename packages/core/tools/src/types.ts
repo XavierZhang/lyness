@@ -1,11 +1,11 @@
 /**
  * Durable Tool event vocabulary shared with type-only consumers.
  *
- * @module @lyness/tools/types
+ * @module @lyness/lyn-tools/types
  */
 
-import type { ToolCallId } from '@lyness/llm/brand'
-import type { ContentBlock } from '@lyness/llm/types'
+import type { ToolCallId } from '@lyness/lyn-llm/brand'
+import type { ContentBlock } from '@lyness/lyn-llm/types'
 
 /** Payload recorded when one nested PTC mode Tool dispatch starts. */
 export interface PtcDispatchStartEventData {
@@ -22,7 +22,7 @@ export interface PtcDispatchEventData extends PtcDispatchStartEventData {
   content: ContentBlock[]
 }
 
-declare module '@lyness/session/types' {
+declare module '@lyness/lyn-session/types' {
   interface SessionEventMap {
     /**
      * One sub-dispatch STARTING inside a `run_code` program: the parent

@@ -3,7 +3,7 @@ import { Context, Service } from '@lyness/cordis'
 import InvariantRegistry, {
   InvariantError,
   type Config,
-} from '@lyness/invariants'
+} from '@lyness/lyn-invariants'
 
 declare module '@lyness/cordis' {
   interface Context {
@@ -58,7 +58,7 @@ describe('InvariantRegistry selection', () => {
     const ctx = new Context()
     const service = new InvariantRegistry(ctx)
     const probe = vi.fn()
-    const registration = runtimeRegistration(service.register('@lyness/session', (child) => {
+    const registration = runtimeRegistration(service.register('@lyness/lyn-session', (child) => {
       child.on('invariants-test/ping', probe, { global: true })
     }))
     await registration
@@ -71,7 +71,7 @@ describe('InvariantRegistry selection', () => {
     for (const config of [{}, { package_allowlist: [], package_blocklist: [] }]) {
       const { ctx } = await setup(config)
       const probe = vi.fn()
-      await registerProbe(ctx, '@lyness/session', probe)
+      await registerProbe(ctx, '@lyness/lyn-session', probe)
       ctx.emit('invariants-test/ping')
       expect(probe).toHaveBeenCalledOnce()
     }
@@ -80,8 +80,8 @@ describe('InvariantRegistry selection', () => {
   it('disables every installer while still reserving package ownership', async () => {
     const { ctx } = await setup({ enabled: false })
     const probe = vi.fn()
-    const registration = await registerProbe(ctx, '@lyness/session', probe)
-    expect(() => ctx.invariants.register('@lyness/session', () => {}))
+    const registration = await registerProbe(ctx, '@lyness/lyn-session', probe)
+    expect(() => ctx.invariants.register('@lyness/lyn-session', () => {}))
       .toThrow(/already registered/)
     ctx.emit('invariants-test/ping')
     expect(probe).not.toHaveBeenCalled()
@@ -91,32 +91,32 @@ describe('InvariantRegistry selection', () => {
   it('uses unanchored, case-sensitive JavaScript regex sources', async () => {
     const unanchored = await setup({ package_allowlist: ['session'] })
     const unanchoredProbe = vi.fn()
-    await registerProbe(unanchored.ctx, '@lyness/session-extra', unanchoredProbe)
+    await registerProbe(unanchored.ctx, '@lyness/lyn-session-extra', unanchoredProbe)
     unanchored.ctx.emit('invariants-test/ping')
     expect(unanchoredProbe).toHaveBeenCalledOnce()
 
-    const anchored = await setup({ package_allowlist: ['^@lyness/session$'] })
+    const anchored = await setup({ package_allowlist: ['^@lyness/lyn-session$'] })
     const anchoredProbe = vi.fn()
-    await registerProbe(anchored.ctx, '@lyness/session-extra', anchoredProbe)
+    await registerProbe(anchored.ctx, '@lyness/lyn-session-extra', anchoredProbe)
     anchored.ctx.emit('invariants-test/ping')
     expect(anchoredProbe).not.toHaveBeenCalled()
 
     const caseSensitive = await setup({ package_allowlist: ['Session'] })
     const caseProbe = vi.fn()
-    await registerProbe(caseSensitive.ctx, '@lyness/session', caseProbe)
+    await registerProbe(caseSensitive.ctx, '@lyness/lyn-session', caseProbe)
     caseSensitive.ctx.emit('invariants-test/ping')
     expect(caseProbe).not.toHaveBeenCalled()
   })
 
   it('lets the blocklist override an allowlist match', async () => {
     const { ctx } = await setup({
-      package_allowlist: ['^@lyness/'],
+      package_allowlist: ['^@lyness/lyn-'],
       package_blocklist: ['session'],
     })
     const sessionProbe = vi.fn()
     const agentProbe = vi.fn()
-    await registerProbe(ctx, '@lyness/session', sessionProbe)
-    await registerProbe(ctx, '@lyness/agent', agentProbe)
+    await registerProbe(ctx, '@lyness/lyn-session', sessionProbe)
+    await registerProbe(ctx, '@lyness/lyn-agent', agentProbe)
     ctx.emit('invariants-test/ping')
     expect(sessionProbe).not.toHaveBeenCalled()
     expect(agentProbe).toHaveBeenCalledOnce()
@@ -126,7 +126,7 @@ describe('InvariantRegistry selection', () => {
     const { ctx } = await setup({ package_allowlist: ['^@later/invariants$'] })
     const now = vi.fn()
     const later = vi.fn()
-    await registerProbe(ctx, '@lyness/session', now)
+    await registerProbe(ctx, '@lyness/lyn-session', now)
     await registerProbe(ctx, '@later/invariants', later)
     ctx.emit('invariants-test/ping')
     expect(now).not.toHaveBeenCalled()
@@ -136,7 +136,7 @@ describe('InvariantRegistry selection', () => {
   it('allows the same source in both lists and applies blocklist precedence', async () => {
     const { ctx } = await setup({ package_allowlist: ['agent'], package_blocklist: ['agent'] })
     const probe = vi.fn()
-    await registerProbe(ctx, '@lyness/agent', probe)
+    await registerProbe(ctx, '@lyness/lyn-agent', probe)
     ctx.emit('invariants-test/ping')
     expect(probe).not.toHaveBeenCalled()
   })
@@ -179,7 +179,7 @@ describe('InvariantRegistry lifecycle', () => {
           expect(installerCtx.invariantProbe).toBeInstanceOf(InvariantProbeService)
         }, { inject: ['invariantProbe'] })
         expect(installer.inject).toEqual(['invariantProbe'])
-        registration = runtimeRegistration(child.invariants.register('@lyness/probe', installer))
+        registration = runtimeRegistration(child.invariants.register('@lyness/lyn-probe', installer))
         return Promise.resolve(registration)
       },
     })
@@ -188,7 +188,7 @@ describe('InvariantRegistry lifecycle', () => {
 
   it('attributes failures to the registering package with the stable code', async () => {
     const { ctx } = await setup()
-    const registration = runtimeRegistration(ctx.invariants.register('@lyness/session', (child, fail) => {
+    const registration = runtimeRegistration(ctx.invariants.register('@lyness/lyn-session', (child, fail) => {
       child.on('invariants-test/ping', () => fail('seq must strictly increase'), { global: true })
     }))
     await registration
@@ -202,22 +202,22 @@ describe('InvariantRegistry lifecycle', () => {
     expect(caught).toMatchObject({
       name: 'InvariantError',
       code: 'INVARIANT',
-      packageName: '@lyness/session',
-      message: 'invariant violated by "@lyness/session": seq must strictly increase',
+      packageName: '@lyness/lyn-session',
+      message: 'invariant violated by "@lyness/lyn-session": seq must strictly increase',
     })
   })
 
   it('disposes the child fiber completely and permits HMR re-registration', async () => {
     const { ctx } = await setup()
     const first = vi.fn()
-    const firstRegistration = await registerProbe(ctx, '@lyness/session', first)
+    const firstRegistration = await registerProbe(ctx, '@lyness/lyn-session', first)
     ctx.emit('invariants-test/ping')
     await firstRegistration.dispose()
     ctx.emit('invariants-test/ping')
     expect(first).toHaveBeenCalledOnce()
 
     const second = vi.fn()
-    await registerProbe(ctx, '@lyness/session', second)
+    await registerProbe(ctx, '@lyness/lyn-session', second)
     ctx.emit('invariants-test/ping')
     expect(first).toHaveBeenCalledOnce()
     expect(second).toHaveBeenCalledOnce()
@@ -227,18 +227,18 @@ describe('InvariantRegistry lifecycle', () => {
     const { ctx } = await setup()
     let finishDisposal!: () => void
     const disposalBarrier = new Promise<void>((resolve) => { finishDisposal = resolve })
-    const registration = runtimeRegistration(ctx.invariants.register('@lyness/session', (child) => {
+    const registration = runtimeRegistration(ctx.invariants.register('@lyness/lyn-session', (child) => {
       child.effect(() => async () => { await disposalBarrier })
     }))
     await registration
 
     const disposing = registration()
-    expect(() => ctx.invariants.register('@lyness/session', () => {}))
+    expect(() => ctx.invariants.register('@lyness/lyn-session', () => {}))
       .toThrow(/already registered/)
     finishDisposal()
     await disposing
 
-    const replacement = runtimeRegistration(ctx.invariants.register('@lyness/session', () => {}))
+    const replacement = runtimeRegistration(ctx.invariants.register('@lyness/lyn-session', () => {}))
     await replacement
     await replacement()
   })
@@ -246,7 +246,7 @@ describe('InvariantRegistry lifecycle', () => {
   it('rolls back listeners and ownership atomically when an installer fails', async () => {
     const { ctx } = await setup()
     const leaked = vi.fn()
-    const failed = runtimeRegistration(ctx.invariants.register('@lyness/session', (child) => {
+    const failed = runtimeRegistration(ctx.invariants.register('@lyness/lyn-session', (child) => {
       child.on('invariants-test/ping', leaked, { global: true })
       throw new Error('installer failed')
     }))
@@ -255,7 +255,7 @@ describe('InvariantRegistry lifecycle', () => {
     expect(leaked).not.toHaveBeenCalled()
 
     const retry = vi.fn()
-    await registerProbe(ctx, '@lyness/session', retry)
+    await registerProbe(ctx, '@lyness/lyn-session', retry)
     ctx.emit('invariants-test/ping')
     expect(retry).toHaveBeenCalledOnce()
   })
@@ -271,13 +271,13 @@ describe('InvariantRegistry lifecycle', () => {
       throw new Error('publication failed')
     })
 
-    const failed = runtimeRegistration(ctx.invariants.register('@lyness/publication-probe', () => {}))
+    const failed = runtimeRegistration(ctx.invariants.register('@lyness/lyn-publication-probe', () => {}))
     await expect(Promise.resolve(failed)).rejects.toThrow('publication failed')
     ctx.emit('invariants-test/ping')
     expect(leaked).not.toHaveBeenCalled()
     stopRejecting()
 
-    const retry = runtimeRegistration(ctx.invariants.register('@lyness/publication-probe', () => {}))
+    const retry = runtimeRegistration(ctx.invariants.register('@lyness/lyn-publication-probe', () => {}))
     await retry
     await retry()
   })
@@ -285,7 +285,7 @@ describe('InvariantRegistry lifecycle', () => {
   it('joins asynchronous checks and rolls back their effects on failure', async () => {
     const { ctx } = await setup()
     const leaked = vi.fn()
-    const failed = runtimeRegistration(ctx.invariants.register('@lyness/async-probe', async (child, fail) => {
+    const failed = runtimeRegistration(ctx.invariants.register('@lyness/lyn-async-probe', async (child, fail) => {
       child.on('invariants-test/ping', leaked, { global: true })
       await Promise.resolve()
       fail('asynchronous check failed')
@@ -294,7 +294,7 @@ describe('InvariantRegistry lifecycle', () => {
     ctx.emit('invariants-test/ping')
     expect(leaked).not.toHaveBeenCalled()
 
-    const retry = runtimeRegistration(ctx.invariants.register('@lyness/async-probe', async () => {
+    const retry = runtimeRegistration(ctx.invariants.register('@lyness/lyn-async-probe', async () => {
       await Promise.resolve()
     }))
     await retry
@@ -305,6 +305,6 @@ describe('InvariantRegistry lifecycle', () => {
     const { ctx, fiber } = await setup()
     const service = ctx.invariants
     await fiber.dispose()
-    expect(() => service.register('@lyness/session', () => {})).toThrow(/inactive/i)
+    expect(() => service.register('@lyness/lyn-session', () => {})).toThrow(/inactive/i)
   })
 })

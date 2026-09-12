@@ -5,12 +5,12 @@
  */
 
 import { Service } from '@lyness/cordis'
-import { RemoteError, remoteErrorOf } from '@lyness/typert-protocol'
+import { RemoteError, remoteErrorOf } from '@lyness/lyn-typert-protocol'
 export type { TypertGatewayFaultDetails } from '../remote-error-codes.ts'
 import type { Context } from '@lyness/cordis'
 import type {
   ConnectionHandle,
-} from '@lyness/client-connection/client'
+} from '@lyness/lyn-client-connection/client'
 import type {
   InvocationDescriptor,
   TypertClientEventListener,
@@ -21,7 +21,7 @@ import type {
   TypertDisposer,
   TypertRemoteContribution,
   TypertRemoteEvent,
-} from '@lyness/typert-protocol'
+} from '@lyness/lyn-typert-protocol'
 import {
   RemoteStreamCarrierError,
   RemoteStreamMuxClient,

@@ -1,5 +1,5 @@
-import { SessionFormatError, isSessionFormatJsonObject } from '@lyness/session-format'
-import type { SessionFormatJsonValue } from '@lyness/session-format'
+import { SessionFormatError, isSessionFormatJsonObject } from '@lyness/lyn-session-format'
+import type { SessionFormatJsonValue } from '@lyness/lyn-session-format'
 
 /**
  * Require one plain JSON object.

@@ -6,7 +6,7 @@ type SessionControllerRemoteEvent =
   | 'api-session/removed'
   | 'api-session/status'
 
-declare module '@lyness/typert-protocol' {
+declare module '@lyness/lyn-typert-protocol' {
   interface TypertRemoteEventSelection extends
     Record<SessionControllerRemoteEvent, true> {}
 }

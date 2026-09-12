@@ -3,7 +3,7 @@ description: "面向以子进程方式启动 lyness 运行时、并通过 stdio 
 kind: "package-library"
 ---
 
-# @lyness/sdk-client
+# @lyness/lyn-sdk-client
 
 [English](README.md) | 中文
 
@@ -30,8 +30,8 @@ kind: "package-library"
 ### 用 Lyness 运行 agent 轮次
 
 ```ts
-import { Lyness } from '@lyness/sdk-client'
-import { ReasoningEffortId } from '@lyness/llm'
+import { Lyness } from '@lyness/lyn-sdk-client'
+import { ReasoningEffortId } from '@lyness/lyn-llm'
 
 await using harness = new Lyness({
   profile: 'sdk',

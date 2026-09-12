@@ -1,8 +1,8 @@
 /** PDF page presentation; binary content and tab information come from the document owner. */
 import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
-import { Button } from '@lyness/client-ui-primitives'
-import type { PropsLocale, PropsStore } from '@lyness/client-ui-slots'
-import type { TabId } from '@lyness/client-ui-dockkit'
+import { Button } from '@lyness/lyn-client-ui-primitives'
+import type { PropsLocale, PropsStore } from '@lyness/lyn-client-ui-slots'
+import type { TabId } from '@lyness/lyn-client-ui-dockkit'
 import type { DocumentPreviewProps } from '../document/contract.ts'
 import { LoadingIndicator } from '../LoadingIndicator.tsx'
 import { DEFAULT_PDF_VIEW, type PdfStore } from './store.ts'

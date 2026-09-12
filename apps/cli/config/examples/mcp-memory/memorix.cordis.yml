@@ -2,7 +2,7 @@
 # first; LYN starts it but does not run a package manager.
 - insert:
     - id: memory-memorix
-      name: '@lyness/mcp-client'
+      name: '@lyness/lyn-mcp-client'
       config:
         serverName: memorix
         transport: stdio

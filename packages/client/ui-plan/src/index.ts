@@ -3,7 +3,7 @@
  * the plugin appears in the host cordis.yml / Loader; the browser half ships
  * via exports["./client"], discovered through the package.json lyn.client
  * declaration. Plan behavior itself (the /plan command, the plan projection
- * unit, the policy section) is owned by `@lyness/plan-mode`,
+ * unit, the policy section) is owned by `@lyness/lyn-plan-mode`,
  * composed independently on the host roster.
  */
 

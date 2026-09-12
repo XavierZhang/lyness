@@ -4,7 +4,7 @@ import type { Context } from '@lyness/cordis'
 // Value re-export for spec-side failure construction: the api-remotes facade
 // cannot carry it — its src top-level imports owner /remote lib artifacts, so a
 // value import from a spec would load the unbuilt assembly chain.
-export { RemoteError } from '@lyness/typert-protocol'
+export { RemoteError } from '@lyness/lyn-typert-protocol'
 
 /**
  * Remote service test double for the forwarded-event path. Feature specs need

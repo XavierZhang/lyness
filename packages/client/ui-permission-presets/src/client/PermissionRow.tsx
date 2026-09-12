@@ -5,11 +5,11 @@
  */
 
 import { useEffect, useState } from 'react'
-import type { SnapshotStore } from '@lyness/client-store'
-import type { InjectFace, PropsLocale, PropsRuntime } from '@lyness/client-ui-slots'
+import type { SnapshotStore } from '@lyness/lyn-client-store'
+import type { InjectFace, PropsLocale, PropsRuntime } from '@lyness/lyn-client-ui-slots'
 import {
   IconChevronDownOutline14, Menu, RiskConfirmation,
-} from '@lyness/client-ui-primitives'
+} from '@lyness/lyn-client-ui-primitives'
 import type { PermissionSettingsState } from './settings-store.ts'
 import type { PermissionSettingsKey } from './locales.ts'
 import { displayPermissionPreset, FULL_ACCESS_PRESET } from './presentation.ts'
@@ -127,7 +127,7 @@ export function PermissionRow({ load, select, usePermission, t }: PermissionRowP
   )
 }
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface LocaleNamespaceMap {
     /** Permission row copy. */
     'settings.permission': PermissionSettingsKey

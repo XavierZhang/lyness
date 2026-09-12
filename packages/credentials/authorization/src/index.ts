@@ -23,12 +23,12 @@
  * })
  * ```
  *
- * @module @lyness/authorization
+ * @module @lyness/lyn-authorization
  */
 
 import { Context, Service } from '@lyness/cordis'
-import type { CredentialKey } from '@lyness/credentials'
-import { HarnessError } from '@lyness/llm'
+import type { CredentialKey } from '@lyness/lyn-credentials'
+import { HarnessError } from '@lyness/lyn-llm'
 
 import type {
   AuthorizationEntry, AuthorizationMethod, AuthorizationNotice, AuthorizationOutcome, AuthorizationPrompt,

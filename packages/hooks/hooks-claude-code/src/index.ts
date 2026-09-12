@@ -5,18 +5,18 @@
  * mapping; shared execution and parsing live in `lyn-hook-protocol`.
  * `updatedInput` is logged and warned but not honored. Bespoke behavior should
  * use typed native plugins on the same extension points.
- * @module @lyness/hooks-claude-code
+ * @module @lyness/lyn-hooks-claude-code
  */
 
 import { readFileSync } from 'node:fs'
 import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import type { Agent, PreStepDecision, TurnBoundaryProjection } from '@lyness/agent'
-import type {} from '@lyness/session-projection'
-import { createUserMessage } from '@lyness/llm'
-import type { ContentBlock, MessageSource } from '@lyness/llm'
-import type { UserMessage } from '@lyness/session'
-import type { PostToolDecision, PreToolDecision, ToolExecution, ToolExecutionResult } from '@lyness/tools'
+import type { Agent, PreStepDecision, TurnBoundaryProjection } from '@lyness/lyn-agent'
+import type {} from '@lyness/lyn-session-projection'
+import { createUserMessage } from '@lyness/lyn-llm'
+import type { ContentBlock, MessageSource } from '@lyness/lyn-llm'
+import type { UserMessage } from '@lyness/lyn-session'
+import type { PostToolDecision, PreToolDecision, ToolExecution, ToolExecutionResult } from '@lyness/lyn-tools'
 import {
   appendHookInvoked,
   appendHookResult,
@@ -29,10 +29,10 @@ import {
   type HookOutput,
   type MatcherGroup,
   type MergedHookOutcome,
-} from '@lyness/hook-protocol'
+} from '@lyness/lyn-hook-protocol'
 // Pulls in the declaration-merged subagent events and the identity pairing their
 // start/end edges.
-import type { SubagentRunId } from '@lyness/subagent'
+import type { SubagentRunId } from '@lyness/lyn-subagent'
 import { parseClaudeCodeConfig, type ClaudeCodeHookConfig } from './config.ts'
 
 export const name = 'hooks-claude-code'

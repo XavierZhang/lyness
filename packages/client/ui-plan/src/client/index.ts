@@ -7,23 +7,23 @@
  * projection pair through the standard-kit `useProjection`; zero client-side
  * plan state.
  */
-import type {} from '@lyness/api-remotes/client'
+import type {} from '@lyness/lyn-api-remotes/client'
 import type { Context as ClientContext } from '@lyness/cordis'
-import type { SessionId } from '@lyness/session/types'
+import type { SessionId } from '@lyness/lyn-session/types'
 // Type-only: pulls the ui-conversation SlotMap merge (the input.plan seat).
-import type {} from '@lyness/client-ui-conversation/client'
+import type {} from '@lyness/lyn-client-ui-conversation/client'
 // Type-only: pulls the locale plugin's Context merge (ctx.locale).
-import type {} from '@lyness/client-locale/client'
+import type {} from '@lyness/lyn-client-locale/client'
 // Type-only: pulls the `plan` SessionProjectionMap merge for useProjection.
-import type {} from '@lyness/plan-mode/client'
-import type {} from '@lyness/client-ui-renderer/client'
-import type {} from '@lyness/client-ui-session/client'
+import type {} from '@lyness/lyn-plan-mode/client'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
+import type {} from '@lyness/lyn-client-ui-session/client'
 import { PlanChip } from './PlanModeControl.tsx'
 import { en, zh, type PlanKey } from './locales.ts'
 
 export type { PlanKey } from './locales.ts'
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface LocaleNamespaceMap {
     /** The composer plan chip's copy. */
     plan: PlanKey

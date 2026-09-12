@@ -16,8 +16,8 @@
 
 import { useState } from 'react'
 import type { ReactNode } from 'react'
-import type { LlmDiscoveredModel } from '@lyness/api-remotes/client'
-import { Button, Modal } from '@lyness/client-ui-primitives'
+import type { LlmDiscoveredModel } from '@lyness/lyn-api-remotes/client'
+import { Button, Modal } from '@lyness/lyn-client-ui-primitives'
 import { formatCapacity, parseCapacity } from './DeepSeekModelsEditor.tsx'
 import type { ModelsOperations } from './operations.ts'
 import type { DeepSeekModelDraft } from './DeepSeekModelsEditor.tsx'

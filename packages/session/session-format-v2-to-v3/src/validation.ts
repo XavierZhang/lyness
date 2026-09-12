@@ -1,8 +1,8 @@
 /** Native V3 system-head validation with a private view for frozen non-system relationships. */
 
-import { SessionFormatError, SessionFormatUnsupportedMigrationError } from '@lyness/session-format'
-import type { SessionFormatArtifact, SessionFormatEvent, SessionFormatHeader } from '@lyness/session-format'
-import { assertReleasedV2Header, restoreReleasedV2Artifact } from '@lyness/session-format-v1-to-v2'
+import { SessionFormatError, SessionFormatUnsupportedMigrationError } from '@lyness/lyn-session-format'
+import type { SessionFormatArtifact, SessionFormatEvent, SessionFormatHeader } from '@lyness/lyn-session-format'
+import { assertReleasedV2Header, restoreReleasedV2Artifact } from '@lyness/lyn-session-format-v1-to-v2'
 import { assertV3Event, isRepairIdentity, record, SURFACE_TYPES } from './payload.ts'
 
 /**

@@ -4,7 +4,7 @@ import { dirname, join } from 'node:path'
 import type { UserConfig } from 'tsdown'
 import { clientBundle } from '../tsdown.client.ts'
 
-const bundle = clientBundle('@lyness/client-ui-sidebar-documentpreview', ['lib/types/index.js'])
+const bundle = clientBundle('@lyness/lyn-client-ui-sidebar-documentpreview', ['lib/types/index.js'])
 const require = createRequire(import.meta.url)
 const workerSpecifier = 'pdfjs-dist/build/pdf.worker.min.mjs?raw'
 const workerModule = '\0lyn-pdf-worker.mjs'

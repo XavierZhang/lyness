@@ -3,7 +3,7 @@ description: "Browser half of dynamic Cordis packages for users and maintainers 
 kind: "package-reference"
 ---
 
-# @lyness/cordis-client-runner
+# @lyness/lyn-cordis-client-runner
 
 English | [中文](README.zh.md)
 

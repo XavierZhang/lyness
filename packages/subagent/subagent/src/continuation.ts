@@ -10,19 +10,19 @@
  * execution. No continuable path creates a Task or an intermediate
  * result-bearing wrapper.
  *
- * @module @lyness/subagent
+ * @module @lyness/lyn-subagent
  */
 
 import { randomUUID } from 'node:crypto'
 import type { Context } from '@lyness/cordis'
-import type { Agent } from '@lyness/agent'
-import { brandString } from '@lyness/brand'
-import { ReasoningEffortId, contentHasImage, createUserMessage } from '@lyness/llm'
-import type { ContentBlock, MessageId, MessageSource } from '@lyness/llm'
-import { SessionLogOffset } from '@lyness/session'
-import type { SessionId } from '@lyness/session'
-import type { SessionPersistence } from '@lyness/session-persistence'
-import type { SessionObservation, SessionQueryEngine } from '@lyness/session-query'
+import type { Agent } from '@lyness/lyn-agent'
+import { brandString } from '@lyness/lyn-brand'
+import { ReasoningEffortId, contentHasImage, createUserMessage } from '@lyness/lyn-llm'
+import type { ContentBlock, MessageId, MessageSource } from '@lyness/lyn-llm'
+import { SessionLogOffset } from '@lyness/lyn-session'
+import type { SessionId } from '@lyness/lyn-session'
+import type { SessionPersistence } from '@lyness/lyn-session-persistence'
+import type { SessionObservation, SessionQueryEngine } from '@lyness/lyn-session-query'
 import {
   childSessionMeta,
   captureDelegatedPolicyOverrides,
@@ -539,7 +539,7 @@ export class SubagentContinuationManager {
     const query = this.ctx.get('sessionQuery')
     if (query === undefined) {
       throw new SubagentError(
-        'continuable subagents require session query (load @lyness/session-query)',
+        'continuable subagents require session query (load @lyness/lyn-session-query)',
         'CONTINUATION_UNAVAILABLE',
       )
     }

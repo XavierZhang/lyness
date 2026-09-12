@@ -1,13 +1,13 @@
 /**
  * Browser-safe failure vocabulary of the configuration surfaces this package
  * serves. The redacted views themselves live with their seam in
- * `@lyness/settings/types`, whose Cordis event declarations already
+ * `@lyness/lyn-settings/types`, whose Cordis event declarations already
  * register that file for the Client compilation face.
  *
- * @module @lyness/api-settings-controller/types
+ * @module @lyness/lyn-api-settings-controller/types
  */
 
-declare module '@lyness/typert-protocol' {
+declare module '@lyness/lyn-typert-protocol' {
   interface RemoteErrorDetailsMap {
     /**
      * Every seam refusal that is not a stale write: an unregistered or malformed

@@ -1,12 +1,12 @@
 /**
- * Package-owned invariant companion for `@lyness/credentials`.
- * @module @lyness/credentials/invariant
+ * Package-owned invariant companion for `@lyness/lyn-credentials`.
+ * @module @lyness/lyn-credentials/invariant
  */
 
 import type { Context } from '@lyness/cordis'
-import type { InvariantFailure, InvariantInstaller } from '@lyness/invariants'
+import type { InvariantFailure, InvariantInstaller } from '@lyness/lyn-invariants'
 
-const PACKAGE_NAME = '@lyness/credentials'
+const PACKAGE_NAME = '@lyness/lyn-credentials'
 
 /** Cordis companion plugin name. */
 export const name = 'credentials-invariant'

@@ -1,9 +1,9 @@
 /** Scoped Remote Event wiring for the browser question consumer. */
 import { Context } from '@lyness/cordis'
 import { describe, expect, it, vi } from 'vitest'
-import { SlotRegistry } from '@lyness/client-ui-renderer/client'
-import { LocaleRuntime } from '@lyness/client-locale/client'
-import type { SessionId } from '@lyness/session/types'
+import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
+import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
+import type { SessionId } from '@lyness/lyn-session/types'
 import { QuestionComposer } from '../src/client/QuestionComposer.tsx'
 import { PendingQuestion } from '../src/client/contract/slots.ts'
 import { createQuestionDraftStore } from '../src/client/draft-store.ts'

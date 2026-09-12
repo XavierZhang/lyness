@@ -2,14 +2,14 @@ import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import {
   LlmRuntime, LlmAdapter, createMessage, createUserMessage, projectFilesToText,
-} from '@lyness/llm'
-import type { GenerateOptions, LlmImageRequestPricing, Message, StreamChunk, TokenUsage, UserMessage } from '@lyness/llm'
-import { AttachmentId } from '@lyness/attachment'
-import type { FileAttachmentRef, ImageAttachmentRef } from '@lyness/attachment'
-import { Session, SessionId, canonicalHeader } from '@lyness/session'
-import type { EpochHeader } from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import TokenMeter from '@lyness/token-meter'
+} from '@lyness/lyn-llm'
+import type { GenerateOptions, LlmImageRequestPricing, Message, StreamChunk, TokenUsage, UserMessage } from '@lyness/lyn-llm'
+import { AttachmentId } from '@lyness/lyn-attachment'
+import type { FileAttachmentRef, ImageAttachmentRef } from '@lyness/lyn-attachment'
+import { Session, SessionId, canonicalHeader } from '@lyness/lyn-session'
+import type { EpochHeader } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import TokenMeter from '@lyness/lyn-token-meter'
 import { estimateContent, estimateMessage } from '../src/estimate.ts'
 
 /** Adapter double declaring fixed per-occurrence image prices for one route. */

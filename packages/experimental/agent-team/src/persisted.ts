@@ -1,7 +1,7 @@
 /** Short-lived read-handle access to persisted Team member Sessions. */
 
-import type { SessionEvent, SessionHeader, SessionId , SessionLogOffset } from '@lyness/session'
-import type { SessionPersistence } from '@lyness/session-persistence'
+import type { SessionEvent, SessionHeader, SessionId , SessionLogOffset } from '@lyness/lyn-session'
+import type { SessionPersistence } from '@lyness/lyn-session-persistence'
 
 /** One persisted Session's detached header and complete committed event log. */
 export interface PersistedSessionView {

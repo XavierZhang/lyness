@@ -1,19 +1,19 @@
 /**
  * Model-facing Cordis runtime/package inspection, define, run, stop, and remove tools.
- * @module @lyness/tool-cordis
+ * @module @lyness/lyn-tool-cordis
  */
 
 import type { Context } from '@lyness/cordis'
-import type { Agent, PreStepDecision } from '@lyness/agent'
+import type { Agent, PreStepDecision } from '@lyness/lyn-agent'
 import {
   CordisDynamicPackageId, CordisDynamicPluginId,
-} from '@lyness/cordis-host-runner'
-import type { DynamicCordisReference } from '@lyness/cordis-host-runner'
-import { createUserMessage } from '@lyness/llm'
-import type { JsonValue } from '@lyness/util-values'
-import type { UserMessage } from '@lyness/session'
-import { defineTool } from '@lyness/tools'
-import type { ToolExecution } from '@lyness/tools'
+} from '@lyness/lyn-cordis-host-runner'
+import type { DynamicCordisReference } from '@lyness/lyn-cordis-host-runner'
+import { createUserMessage } from '@lyness/lyn-llm'
+import type { JsonValue } from '@lyness/lyn-util-values'
+import type { UserMessage } from '@lyness/lyn-session'
+import { defineTool } from '@lyness/lyn-tools'
+import type { ToolExecution } from '@lyness/lyn-tools'
 import { missingServices, providedServices } from './inspect.ts'
 import {
   presentDefineCall, presentInspectListCall, presentInspectQueryCall, presentInspectSelfCall, presentRunCall,

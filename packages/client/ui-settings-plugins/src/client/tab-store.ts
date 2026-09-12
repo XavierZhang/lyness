@@ -10,9 +10,9 @@
  * trace and does not count toward the empty line.
  */
 
-import type { SettingsDescribeFace } from '@lyness/client-ui-settings/client'
-import type { StoredEntry } from '@lyness/client-ui-slots'
-import { createSnapshotStore, type SnapshotStore } from '@lyness/client-store'
+import type { SettingsDescribeFace } from '@lyness/lyn-client-ui-settings/client'
+import type { StoredEntry } from '@lyness/lyn-client-ui-slots'
+import { createSnapshotStore, type SnapshotStore } from '@lyness/lyn-client-store'
 
 /** What the section renders. */
 export interface ConfigurablePluginsTabState {

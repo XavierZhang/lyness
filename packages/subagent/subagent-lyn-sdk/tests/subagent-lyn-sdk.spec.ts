@@ -12,19 +12,19 @@ import { existsSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, relative } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import SubagentRuntime from '@lyness/subagent'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import type { Agent, AgentOptions } from '@lyness/agent'
+import SubagentRuntime from '@lyness/lyn-subagent'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import type { Agent, AgentOptions } from '@lyness/lyn-agent'
 import {
   Lyness,
   HarnessClient,
   HarnessSession,
   SdkProtocolError,
-} from '@lyness/sdk-client'
+} from '@lyness/lyn-sdk-client'
 import { createProcessLyness } from '../../../sdk/client/src/api.ts'
 import type { RuntimeProcessOptions } from '../../../sdk/client/src/launch.ts'
-import type { LynessOptions } from '@lyness/sdk-client'
-import { ReasoningEffortId } from '@lyness/llm'
+import type { LynessOptions } from '@lyness/lyn-sdk-client'
+import { ReasoningEffortId } from '@lyness/lyn-llm'
 import * as sdk from '../src/index.ts'
 import {
   DEFAULT_DISPOSE_EOF_GRACE_MS,
@@ -155,7 +155,7 @@ describe('sdkChildOutcome', () => {
 describe('lyn-subagent-lyn-sdk provider', () => {
   it('constructs the production lyn-backed harness lazily', async () => {
     const harness = defaultCreateHarness({})
-    expect(harness).toBeInstanceOf((await import('@lyness/sdk-client')).Lyness)
+    expect(harness).toBeInstanceOf((await import('@lyness/lyn-sdk-client')).Lyness)
     await harness.close()
   })
 

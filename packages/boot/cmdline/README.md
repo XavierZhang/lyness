@@ -3,7 +3,7 @@ description: "App-owned command lines for lyn app bins: your app parses its own 
 kind: "package-library"
 ---
 
-# @lyness/cmdline
+# @lyness/lyn-cmdline
 
 English | [中文](README.zh.md)
 
@@ -45,14 +45,14 @@ You bring your own commander program: declare your flags and your actions, and t
 
 ```yaml
 - id: web-startup
-  name: '@lyness/web-app/startup'
+  name: '@lyness/lyn-web-app/startup'
 ```
 
 Rows configured from the parsed values inject the published service and read it directly in their config:
 
 ```yaml
 - id: webserver
-  name: '@lyness/host-webserver'
+  name: '@lyness/lyn-host-webserver'
   inject: [webStartup]
   config:
     host: !!js ctx.webStartup.host ?? '127.0.0.1'

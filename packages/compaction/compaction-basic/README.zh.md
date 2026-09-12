@@ -3,7 +3,7 @@ description: "面向部署场景的自动会话压缩（compaction）：用于�
 kind: "package-reference"
 ---
 
-# @lyness/compaction-basic
+# @lyness/lyn-compaction-basic
 
 [English](README.md) | 中文
 
@@ -36,17 +36,17 @@ kind: "package-reference"
 挂载会话存储、token 测量、可选修剪器、本后端，以及可选的按需命令：
 
 ```yaml
-- name: '@lyness/session'
-- name: '@lyness/token-meter'
-- name: '@lyness/compaction-tool-result-pruner'
-- name: '@lyness/compaction-basic'
-- name: '@lyness/command-compact'
+- name: '@lyness/lyn-session'
+- name: '@lyness/lyn-token-meter'
+- name: '@lyness/lyn-compaction-tool-result-pruner'
+- name: '@lyness/lyn-compaction-basic'
+- name: '@lyness/lyn-command-compact'
 ```
 
 你可以通过观察会话越过本来会溢出的位置继续工作、以及运行 `/compact` 立即压缩一次来确认成功。如果组合缺少 LLM、会话存储或 token 测量，插件会加载失败。同一个后端可以服务上下文大小不同的模型；用按模型覆盖为每条路由设置各自的阈值与保留：
 
 ```yaml
-- name: '@lyness/compaction-basic'
+- name: '@lyness/lyn-compaction-basic'
   config:
     thresholdRatio: 0.8
     retainRatio: 0.16
@@ -59,7 +59,7 @@ kind: "package-reference"
 
 ### 调整压缩开始的时机
 
-所有设置都可选。默认在已路由模型上下文窗口的 80% 处开始压缩，并逐字保留最新的 16%；下表是完整的策略面，生成的[配置目录](../../../docs/config-catalog.zh.md#lynesscompaction-basic)是穷尽式真源。
+所有设置都可选。默认在已路由模型上下文窗口的 80% 处开始压缩，并逐字保留最新的 16%；下表是完整的策略面，生成的[配置目录](../../../docs/config-catalog.zh.md#lynesslyn-compaction-basic)是穷尽式真源。
 
 | 字段 | 默认值 | 含义 |
 |---|---|---|
@@ -150,7 +150,7 @@ kind: "package-reference"
 - [工具结果修剪器](../compaction-tool-result-pruner/README.zh.md)——先修剪超大工具输出的可选配套工具。
 - [人类 /compact 命令](../command-compact/README.zh.md)——无需等待压力的按需压缩。
 - [Token meter](../../llm/token-meter/README.zh.md)——决定何时压缩的测量服务。
-- [生成配置目录](../../../docs/config-catalog.zh.md#lynesscompaction-basic)——每个受支持配置字段及其源声明。
+- [生成配置目录](../../../docs/config-catalog.zh.md#lynesslyn-compaction-basic)——每个受支持配置字段及其源声明。
 
 -----
 

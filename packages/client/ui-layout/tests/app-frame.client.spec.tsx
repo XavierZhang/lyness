@@ -1,15 +1,15 @@
 // @vitest-environment jsdom
 /** Frame interactions with a real store and explicitly driven browser measurements. */
-import type { GlobalStandardProps, RenderOpts } from '@lyness/client-ui-slots'
-import { bindSnapshotSelector } from '@lyness/client-test-runtime'
+import type { GlobalStandardProps, RenderOpts } from '@lyness/lyn-client-ui-slots'
+import { bindSnapshotSelector } from '@lyness/lyn-client-test-runtime'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { act, cleanup, render } from '@testing-library/react'
 import { AppFrame } from '../src/client/AppFrame.tsx'
 import type { AppFrameProps } from '../src/client/AppFrame.tsx'
 import type { MainPanelId, RightbarOwnerProps, SidebarOwnerProps } from '../src/client/index.ts'
 import { createLayoutStore } from '../src/client/stores.ts'
-import type { WorkspaceSnapshot } from '@lyness/api-workspace-controller/client'
-import type { SessionId } from '@lyness/session/types'
+import type { WorkspaceSnapshot } from '@lyness/lyn-api-workspace-controller/client'
+import type { SessionId } from '@lyness/lyn-session/types'
 
 const useResource = (() => ({ status: 'none' as const, value: undefined, failure: undefined })) as GlobalStandardProps['useResource']
 let selectedSession: SessionId | undefined

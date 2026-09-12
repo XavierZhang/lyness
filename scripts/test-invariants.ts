@@ -9,7 +9,7 @@
 import { expect } from 'vitest'
 import { FiberState, Inject, RegistryService, ValidationError } from '@lyness/cordis'
 import type { Context, Plugin } from '@lyness/cordis'
-import InvariantRegistry from '@lyness/invariants'
+import InvariantRegistry from '@lyness/lyn-invariants'
 
 declare global {
   interface ImportMeta {

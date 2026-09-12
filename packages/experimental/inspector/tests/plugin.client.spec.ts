@@ -365,8 +365,8 @@ describe('experimental Inspector Client plugin', () => {
     Reflect.set(globalThis, '__LYNESS_BOOT__', {
       rev: 'graph',
       entries: [{
-        id: '@lyness/experimental-inspector',
-        url: '/plugins/@lyness/experimental-inspector/client.js?rev=bundle-rev',
+        id: '@lyness/lyn-experimental-inspector',
+        url: '/plugins/@lyness/lyn-experimental-inspector/client.js?rev=bundle-rev',
         rev: 'bundle-rev',
       }],
     })
@@ -409,9 +409,9 @@ describe('experimental Inspector Client plugin', () => {
         outcome?: { result?: { scripts?: Array<{ scriptKey: string; url: string; sourceMapUrl: string }> } }
       }).find(frame => frame.requestId === 'source-request-1')
       const script = response?.outcome?.result?.scripts?.[0]
-      expect(script?.url).toContain('/plugins/@lyness/experimental-inspector/client.js?rev=bundle-rev')
+      expect(script?.url).toContain('/plugins/@lyness/lyn-experimental-inspector/client.js?rev=bundle-rev')
       expect(script?.sourceMapUrl)
-        .toContain('/plugins/@lyness/experimental-inspector/client.js.map?rev=bundle-rev')
+        .toContain('/plugins/@lyness/lyn-experimental-inspector/client.js.map?rev=bundle-rev')
       scriptKey = script?.scriptKey
     })
     socket.receive({

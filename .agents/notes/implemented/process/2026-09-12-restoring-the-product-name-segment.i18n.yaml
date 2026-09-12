@@ -1,0 +1,6 @@
+# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
+# side as of the last confirmed-consistent state. Both languages carry equal authority;
+# after editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write .agents/notes/implemented/process/2026-09-12-restoring-the-product-name-segment.md
+2026-09-12-restoring-the-product-name-segment.md: 5bedf91b6574db7e408aec54864b4f5f6029b14b
+2026-09-12-restoring-the-product-name-segment.zh.md: 0c9841afd2bbffd2997c6d100679c51007572602

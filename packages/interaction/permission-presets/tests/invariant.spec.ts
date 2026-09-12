@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import { Context, Service } from '@lyness/cordis'
-import SessionStore, { SessionSeq, type Session, type SessionEvent } from '@lyness/session'
-import * as PermissionInvariant from '@lyness/permission-presets/invariant'
-import InvariantRegistry from '@lyness/invariants'
+import SessionStore, { SessionSeq, type Session, type SessionEvent } from '@lyness/lyn-session'
+import * as PermissionInvariant from '@lyness/lyn-permission-presets/invariant'
+import InvariantRegistry from '@lyness/lyn-invariants'
 
 class PermissionProbe extends Service {
   readonly names = ['safe', 'trusted']

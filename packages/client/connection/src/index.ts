@@ -1,10 +1,10 @@
 /** Host HTTP bridge for browser-client RPC. */
 import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import type {} from '@lyness/attachment'
-import type {} from '@lyness/credentials'
+import type {} from '@lyness/lyn-attachment'
+import type {} from '@lyness/lyn-credentials'
 // Activates the webServer Context merge used below.
-import type { WebRoute } from '@lyness/host-webserver'
+import type { WebRoute } from '@lyness/lyn-host-webserver'
 import { API_PATH } from './api-path.ts'
 import { bridge, DEFAULT_MAX_REQUEST_BODY_BYTES } from './http-bridge.ts'
 import { assertTrustedAuthority } from './api-request-trust.ts'

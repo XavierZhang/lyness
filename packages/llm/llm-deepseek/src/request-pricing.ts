@@ -9,10 +9,10 @@
  * @module lyn-llm-deepseek/request-pricing
  */
 
-import { offloadedImageText, offloadedImagePrefixCount, requestImageHandleText, textOnlyImageText } from '@lyness/llm'
-import type { ImageAttachmentAccessResolver, LlmImageRequestPrice, LlmImageRequestPricing } from '@lyness/llm'
-import { requestImageDimensions } from '@lyness/attachment'
-import type { ImageAttachmentRef, ImageRequestPolicy } from '@lyness/attachment'
+import { offloadedImageText, offloadedImagePrefixCount, requestImageHandleText, textOnlyImageText } from '@lyness/lyn-llm'
+import type { ImageAttachmentAccessResolver, LlmImageRequestPrice, LlmImageRequestPricing } from '@lyness/lyn-llm'
+import { requestImageDimensions } from '@lyness/lyn-attachment'
+import type { ImageAttachmentRef, ImageRequestPolicy } from '@lyness/lyn-attachment'
 import { deepSeekImageTokens } from './image-tokens.ts'
 import type { DeepSeekCatalogModel, DeepSeekConnectionOptions } from './adapter.ts'
 

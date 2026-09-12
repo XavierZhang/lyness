@@ -2,15 +2,15 @@ import type { Context } from '@lyness/cordis'
 import { describe, expect, it } from 'vitest'
 import type {
   SessionEventLikeEntry, SessionLiveEventEntry,
-} from '@lyness/api-session-controller/client'
+} from '@lyness/lyn-api-session-controller/client'
 import type {
   ConversationNodeDefinition, ConversationViewDefinition,
-} from '@lyness/client-ui-conversation/client'
-import { ConversationNodeAssembler, inspectRequestPrompt } from '@lyness/client-ui-conversation/client'
-import type { SessionEvent } from '@lyness/session/types'
+} from '@lyness/lyn-client-ui-conversation/client'
+import { ConversationNodeAssembler, inspectRequestPrompt } from '@lyness/lyn-client-ui-conversation/client'
+import type { SessionEvent } from '@lyness/lyn-session/types'
 import { inspectSystemPrompt } from '../../ui-conversation/src/client/contract/system-prompt.ts'
-import { AssistantStreamAccumulator } from '@lyness/llm/assistant-stream'
-import type { StreamChunk } from '@lyness/llm'
+import { AssistantStreamAccumulator } from '@lyness/lyn-llm/assistant-stream'
+import type { StreamChunk } from '@lyness/lyn-llm'
 import { registerTrajectoryAssistantDefinition } from '../src/client/trajectory-assistant-definition.ts'
 import { registerTrajectoryCompactionDefinitions } from '../src/client/trajectory-compaction-definition.ts'
 import type { TrajectorySnapshot } from '../src/client/trajectory-contract.ts'
@@ -167,7 +167,7 @@ function systemMessage(text: string) {
     id: `system-${text}`,
     role: 'system',
     content: [{ type: 'text', text }],
-    source: { kind: 'plugin', plugin: '@lyness/system-prompt' },
+    source: { kind: 'plugin', plugin: '@lyness/lyn-system-prompt' },
   }
 }
 

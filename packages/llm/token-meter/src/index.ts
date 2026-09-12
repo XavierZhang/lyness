@@ -1,29 +1,29 @@
 /**
  * Single replay-aware token-meter service for request and surface pressure.
  *
- * @module @lyness/token-meter
+ * @module @lyness/lyn-token-meter
  */
 
 import { Context, Service } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import { assembleAssistantStream } from '@lyness/llm'
-import type { LlmImageRequestPricing, LlmRuntime, Message, TokenUsage } from '@lyness/llm'
-import { deepFreeze } from '@lyness/util-values'
+import { assembleAssistantStream } from '@lyness/lyn-llm'
+import type { LlmImageRequestPricing, LlmRuntime, Message, TokenUsage } from '@lyness/lyn-llm'
+import { deepFreeze } from '@lyness/lyn-util-values'
 import type {
   EpochHeader,
   Session,
   SessionEvent,
   SessionLogOffset as SessionLogOffsetType,
-} from '@lyness/session'
+} from '@lyness/lyn-session'
 import {
   canonicalHeader,
   headerEquals,
   isSurfaceEvent,
   SessionLogOffset,
   SessionSeq,
-} from '@lyness/session'
+} from '@lyness/lyn-session'
 // Type-only: activates the `ctx.sessionProjections` Context declaration.
-import type {} from '@lyness/session-projection'
+import type {} from '@lyness/lyn-session-projection'
 import type {
   TokenMeasurement,
   TokenMeasurementBaseline,

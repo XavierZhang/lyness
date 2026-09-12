@@ -5,24 +5,24 @@
  *
  * TODO(permissions): deployment policy belongs in `tools/pre-execute` and
  * sandboxing executors; see docs/architecture.md § Where new behavior goes.
- * @module @lyness/tool-bash
+ * @module @lyness/lyn-tool-bash
  */
 
 import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
 import { isAbsolute, resolve as resolvePath } from 'node:path'
-import { defineTool, TOOL_ABORTED } from '@lyness/tools'
-import type { GenericCallView, TerminalCallView, ToolExecution, ToolResult, ToolResultView } from '@lyness/tools'
-import { HarnessError } from '@lyness/llm'
-import type { Agent } from '@lyness/agent'
-import type {} from '@lyness/jobs'
-import type {} from '@lyness/user-approval'
-import type {} from '@lyness/shell-env'
-import type { SandboxExecutionPolicy, SandboxMode } from '@lyness/sandbox'
-import { ESCALATION_TARGETS, approveEscalation, canonicalPath, validateEscalationArgs } from '@lyness/sandbox'
-import type { SandboxPolicyService } from '@lyness/sandbox-policy'
-import { LYNESS_ENV_PREFIX } from '@lyness/shell'
-import type { ShellRunResult } from '@lyness/shell'
+import { defineTool, TOOL_ABORTED } from '@lyness/lyn-tools'
+import type { GenericCallView, TerminalCallView, ToolExecution, ToolResult, ToolResultView } from '@lyness/lyn-tools'
+import { HarnessError } from '@lyness/lyn-llm'
+import type { Agent } from '@lyness/lyn-agent'
+import type {} from '@lyness/lyn-jobs'
+import type {} from '@lyness/lyn-user-approval'
+import type {} from '@lyness/lyn-shell-env'
+import type { SandboxExecutionPolicy, SandboxMode } from '@lyness/lyn-sandbox'
+import { ESCALATION_TARGETS, approveEscalation, canonicalPath, validateEscalationArgs } from '@lyness/lyn-sandbox'
+import type { SandboxPolicyService } from '@lyness/lyn-sandbox-policy'
+import { LYNESS_ENV_PREFIX } from '@lyness/lyn-shell'
+import type { ShellRunResult } from '@lyness/lyn-shell'
 import { processOutcome } from './background.ts'
 import { parseExitStatus, renderProcessRead, renderResult } from './render.ts'
 
@@ -352,7 +352,7 @@ export function apply(ctx: Context, config: Config = {}): void {
         }
         const jobs = ctx.get('jobs')
         if (jobs === undefined) {
-          throw new Error('background jobs unavailable: load @lyness/jobs and @lyness/tool-jobs')
+          throw new Error('background jobs unavailable: load @lyness/lyn-jobs and @lyness/lyn-tool-jobs')
         }
         // The caller owns cancellation until ctx.jobs commits detached ownership.
         if (exec.signal.aborted) {

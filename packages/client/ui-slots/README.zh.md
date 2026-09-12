@@ -3,7 +3,7 @@ description: "lyn Web 客户端的 slot 注册表纯核心：SlotMap 声明合�
 kind: "package-library"
 ---
 
-# @lyness/client-ui-slots
+# @lyness/lyn-client-ui-slots
 
 [English](README.md) | 中文
 

@@ -8,11 +8,11 @@
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { act, cleanup, fireEvent, screen } from '@testing-library/react'
-import type { WorkspaceId } from '@lyness/api-workspace-controller/client'
-import type { PropsRenderSlots } from '@lyness/client-ui-slots'
-import { SlotTestRuntime, TestRemote, usePinnedBrowserLanguages } from '@lyness/client-test-runtime'
-import { LocaleRuntime } from '@lyness/client-locale/client'
-import { apply, inject } from '@lyness/client-ui-workspace/client'
+import type { WorkspaceId } from '@lyness/lyn-api-workspace-controller/client'
+import type { PropsRenderSlots } from '@lyness/lyn-client-ui-slots'
+import { SlotTestRuntime, TestRemote, usePinnedBrowserLanguages } from '@lyness/lyn-client-test-runtime'
+import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
+import { apply, inject } from '@lyness/lyn-client-ui-workspace/client'
 
 usePinnedBrowserLanguages('zh-CN')
 

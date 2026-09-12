@@ -6,16 +6,16 @@
  * classification, the model-friendly terminal environment, and the model-facing
  * stdout/stderr merge for background reads. Execution policy belongs in
  * `tools/pre-execute` or a sandboxing executor.
- * @module @lyness/bash-local
+ * @module @lyness/lyn-bash-local
  */
 
 import { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import { SHELL_SETTINGS_NAMESPACE, ShellExecutor } from '@lyness/shell'
-import type { ShellExecRequest, ShellExecSpec, ShellProcess, ShellProcessRead, ShellRunResult, CollectedOutput } from '@lyness/shell'
-import type { SubprocessCollect, SubprocessHandle, SubprocessOutputReader, SubprocessSpawnSpec } from '@lyness/subprocess'
-import type {} from '@lyness/settings'
-import { clampTimeout, deadline, MAX_TIMER_DELAY_MS, timeoutOf } from '@lyness/timeout'
+import { SHELL_SETTINGS_NAMESPACE, ShellExecutor } from '@lyness/lyn-shell'
+import type { ShellExecRequest, ShellExecSpec, ShellProcess, ShellProcessRead, ShellRunResult, CollectedOutput } from '@lyness/lyn-shell'
+import type { SubprocessCollect, SubprocessHandle, SubprocessOutputReader, SubprocessSpawnSpec } from '@lyness/lyn-subprocess'
+import type {} from '@lyness/lyn-settings'
+import { clampTimeout, deadline, MAX_TIMER_DELAY_MS, timeoutOf } from '@lyness/lyn-timeout'
 
 /**
  * Model-friendly environment overrides: disable colors, pagers, and

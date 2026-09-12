@@ -18,7 +18,7 @@ export type {
   ChainRenderOpts, HostObservable, RenderOpts, SnapshotSelectorHook, SlotRenderer,
   ScopedStandardSourceBinding, SlotRendererHost, SlotScopeAdapter,
   StandardSourceBinding, StoreInstanceLike,
-} from '@lyness/client-ui-slots'
+} from '@lyness/lyn-client-ui-slots'
 
 /** Mount operation exposed to the framework-free boot kernel. */
 export interface UiRendererService {

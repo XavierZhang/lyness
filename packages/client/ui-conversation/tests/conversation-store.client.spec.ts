@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { beforeEach, describe, expect, it } from 'vitest'
-import type { SessionId } from '@lyness/session/types'
+import type { SessionId } from '@lyness/lyn-session/types'
 import { createConversationStore, readConversationViewPreference } from '../src/client/stores.ts'
 
 const KEY = 'lyn.conversation'

@@ -14,9 +14,9 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import {
   Button, IconBrowseOutline16, IconCopyOutline16, IconFolderOpenOutline16, IconPlusOutline16, IconTrashOutline16, Modal, Tag, Tooltip,
-} from '@lyness/client-ui-primitives'
-import type { SnapshotStore } from '@lyness/client-store'
-import type { InjectFace, PropsLocale, PropsRuntime } from '@lyness/client-ui-slots'
+} from '@lyness/lyn-client-ui-primitives'
+import type { SnapshotStore } from '@lyness/lyn-client-store'
+import type { InjectFace, PropsLocale, PropsRuntime } from '@lyness/lyn-client-ui-slots'
 import { draftBlocker, type AgentPresetSectionState } from './section-store.ts'
 import { presetDisplayText, type AgentPresetSettingsKey } from './locales.ts'
 import css from './AgentPresetSection.module.css'

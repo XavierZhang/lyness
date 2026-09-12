@@ -3,11 +3,11 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
 import type { Fiber } from '@lyness/cordis'
-import { SettingsProvider } from '@lyness/settings'
-import type { SettingsNamespace } from '@lyness/settings'
-import WebRuntime from '@lyness/web'
-import * as deepseekPlugin from '@lyness/web-search-deepseek'
-import { WEB_SEARCH_DEEPSEEK_SETTINGS_NAMESPACE } from '@lyness/web-search-deepseek'
+import { SettingsProvider } from '@lyness/lyn-settings'
+import type { SettingsNamespace } from '@lyness/lyn-settings'
+import WebRuntime from '@lyness/lyn-web'
+import * as deepseekPlugin from '@lyness/lyn-web-search-deepseek'
+import { WEB_SEARCH_DEEPSEEK_SETTINGS_NAMESPACE } from '@lyness/lyn-web-search-deepseek'
 
 /** The smallest real provider: one in-memory document, always writable. */
 class MemorySettings extends SettingsProvider {

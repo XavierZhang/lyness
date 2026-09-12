@@ -2,12 +2,12 @@
  * Public type vocabulary of the workspace entity: the `WorkspaceId` brand and
  * the `Workspace` consumer interface. Types only — the `WorkspaceId` factory
  * lives in `index.ts` (this file carries no runtime code).
- * @module @lyness/workspace/src/types
+ * @module @lyness/lyn-workspace/src/types
  */
 
-import type { Branded } from '@lyness/brand'
-import type { SessionId } from '@lyness/session/types'
-import type {} from '@lyness/typert-protocol'
+import type { Branded } from '@lyness/lyn-brand'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type {} from '@lyness/lyn-typert-protocol'
 
 /**
  * Identifies one workspace record. A generated uuid, never the path: path
@@ -15,7 +15,7 @@ import type {} from '@lyness/typert-protocol'
  */
 export type WorkspaceId = Branded<'WorkspaceId'>
 
-declare module '@lyness/typert-protocol' {
+declare module '@lyness/lyn-typert-protocol' {
   interface RemoteErrorDetailsMap {
     /** No registration carries that Workspace identity. */
     'workspace/not-found': { readonly workspaceId: WorkspaceId }

@@ -21,24 +21,24 @@ import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
 import { FiberState } from '@lyness/cordis'
-import { createNodeBuiltins, REPLACED_PREFIXES } from '@lyness/experimental-webworker-runtime/src/node/builtins.ts'
+import { createNodeBuiltins, REPLACED_PREFIXES } from '@lyness/lyn-experimental-webworker-runtime/src/node/builtins.ts'
 import {
   setActiveModuleLoader, WorkerModuleLoader,
-} from '@lyness/experimental-webworker-runtime/src/module-system/module-loader.ts'
-import { inflateImage } from '@lyness/experimental-webworker-runtime/src/storage/image-gzip.ts'
-import { loadVfsImage } from '@lyness/experimental-webworker-runtime/src/storage/memory.ts'
-import { setActiveVfs } from '@lyness/experimental-webworker-runtime/src/storage/active.ts'
+} from '@lyness/lyn-experimental-webworker-runtime/src/module-system/module-loader.ts'
+import { inflateImage } from '@lyness/lyn-experimental-webworker-runtime/src/storage/image-gzip.ts'
+import { loadVfsImage } from '@lyness/lyn-experimental-webworker-runtime/src/storage/memory.ts'
+import { setActiveVfs } from '@lyness/lyn-experimental-webworker-runtime/src/storage/active.ts'
 import { indexWorkspacePackages, previewFixtures } from '../src/repository.ts'
 import { DEFAULT_ROOT, MANIFEST_PATH, packVfsImage, packVfsOverlay } from '../src/pack.ts'
 
 const repoRoot = fileURLToPath(new URL('../../../../', import.meta.url))
 
 /** A leaf workspace package: real build output, no dependencies to drag in. */
-const SUBJECT = '@lyness/timeout'
+const SUBJECT = '@lyness/lyn-timeout'
 const LANDLOCK = '@lyness/node-addon-system'
 const LANDLOCK_ENTRY = `${LANDLOCK}/landlock-run`
-const PLUGIN_INVENTORY = '@lyness/plugin-package-inventory-deepseek'
-const WEB_SERVER = '@lyness/host-webserver'
+const PLUGIN_INVENTORY = '@lyness/lyn-plugin-package-inventory-deepseek'
+const WEB_SERVER = '@lyness/lyn-host-webserver'
 
 const workspaces = indexWorkspacePackages(repoRoot)
 

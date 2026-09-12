@@ -5,11 +5,11 @@
  * restated: a browser consumer reads the very declaration the backend answers.
  */
 
-import type { SessionId } from '@lyness/session/types'
-import type { WorkspaceId } from '@lyness/workspace/types'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { WorkspaceId } from '@lyness/lyn-workspace/types'
 
-export type { WorkspaceId } from '@lyness/workspace/types'
-export type { DirectoryEntry, DirectoryListing } from '@lyness/host-directory-picker/types'
+export type { WorkspaceId } from '@lyness/lyn-workspace/types'
+export type { DirectoryEntry, DirectoryListing } from '@lyness/lyn-host-directory-picker/types'
 
 /** One durable Workspace projected for browser consumers. */
 export interface WorkspaceView {
@@ -26,7 +26,7 @@ export interface WorkspaceView {
   readonly updatedAt: string
 }
 
-declare module '@lyness/typert-protocol' {
+declare module '@lyness/lyn-typert-protocol' {
   interface RemoteErrorDetailsMap {
     /** The requested directory cannot back a Workspace. */
     'workspace/invalid-path': { readonly path: string }

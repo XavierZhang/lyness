@@ -1,10 +1,10 @@
 import { writeFile } from 'node:fs/promises'
 import { Context } from '@lyness/cordis'
-import AgentLoop from '@lyness/agent-loop'
-import { mountAgentLoopTestDependencies } from '@lyness/agent-loop-testkit'
-import { createUserMessage, ToolCallId, type GenerateOptions, LlmAdapter, type StreamChunk  } from '@lyness/llm'
-import { SessionId } from '@lyness/session'
-import JsonlSessionPersistence from '@lyness/session-persistence-jsonl'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import { mountAgentLoopTestDependencies } from '@lyness/lyn-agent-loop-testkit'
+import { createUserMessage, ToolCallId, type GenerateOptions, LlmAdapter, type StreamChunk  } from '@lyness/lyn-llm'
+import { SessionId } from '@lyness/lyn-session'
+import JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
 import * as checkpointPolicy from '../../src/index.ts'
 
 function waitForCrash(): Promise<never> {

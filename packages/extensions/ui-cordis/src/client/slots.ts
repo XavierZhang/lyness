@@ -1,11 +1,11 @@
 /** Injected faces and the Package-owned `tool.view.cordis` slot declaration. */
 
-import type { SessionId } from '@lyness/api-remotes/client'
-import type { HostObservable } from '@lyness/client-ui-slots'
+import type { SessionId } from '@lyness/lyn-api-remotes/client'
+import type { HostObservable } from '@lyness/lyn-client-ui-slots'
 import type {
   CordisRunActivity, CordisRunFailure, CordisUserRunRequest, DynamicCordisLivePackage,
   DynamicCordisRenderFailure,
-} from '@lyness/cordis-client-runner/client'
+} from '@lyness/lyn-cordis-client-runner/client'
 import type { CordisActionResult } from './dynamic-port.ts'
 import type { CordisInventory } from './inventory.ts'
 import type { CordisRunCardPointer, CordisRunCardStore } from './run-card-index.ts'
@@ -20,7 +20,7 @@ export interface CordisToolViewOwnerProps {
   readonly pluginRunId: CordisDynamicPluginRunId
 }
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface SlotMap {
     /**
      * Interactive Package-owned region rendered inside the latest eligible

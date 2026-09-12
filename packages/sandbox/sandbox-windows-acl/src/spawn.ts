@@ -4,15 +4,15 @@ import {
   spawnInheritedJobProcess,
   spawnPipedProcess,
   waitForProcessExit,
-} from '@lyness/win32-process'
+} from '@lyness/lyn-win32-process'
 import type {
   NativePtr,
   SpawnedJobProcess,
   SpawnedPipedProcess,
-} from '@lyness/win32-process'
+} from '@lyness/lyn-win32-process'
 import type { Win32Bindings } from './ffi.ts'
 
-export { drainPipe } from '@lyness/win32-process'
+export { drainPipe } from '@lyness/lyn-win32-process'
 
 /** Restricted-token child with piped stdio resources. */
 export interface SpawnedNative extends SpawnedPipedProcess {}

@@ -9,9 +9,9 @@ import { join } from 'node:path'
 import type { Browser, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed } from 'vitest'
-import { ToolCallId, expandAssistantStream, type StreamChunk } from '@lyness/llm'
-import type { ReplayEntry, ReplayOverrideDoc } from '@lyness/llm-replay'
-import type { SessionEvent, SessionId } from '@lyness/session'
+import { ToolCallId, expandAssistantStream, type StreamChunk } from '@lyness/lyn-llm'
+import type { ReplayEntry, ReplayOverrideDoc } from '@lyness/lyn-llm-replay'
+import type { SessionEvent, SessionId } from '@lyness/lyn-session'
 import {
   launchWebScaffold,
   watchConsole,

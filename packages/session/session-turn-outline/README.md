@@ -3,7 +3,7 @@ description: "Whole-log turn outline for clients and maintainers composing or de
 kind: "package-reference"
 ---
 
-# @lyness/session-turn-outline
+# @lyness/lyn-session-turn-outline
 
 English | [中文](README.zh.md)
 
@@ -30,9 +30,9 @@ Mount the plugin beside the session store and the projection registry when clien
 ### Composition
 
 ```yaml
-- name: '@lyness/session'
-- name: '@lyness/session-projection'
-- name: '@lyness/session-turn-outline'
+- name: '@lyness/lyn-session'
+- name: '@lyness/lyn-session-projection'
+- name: '@lyness/lyn-session-turn-outline'
 ```
 
 ### What an entry means

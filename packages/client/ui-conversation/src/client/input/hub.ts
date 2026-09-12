@@ -10,9 +10,9 @@
 import type { Context } from '@lyness/cordis'
 import type {
   ISessions, SessionBinding, SessionFace,
-} from '@lyness/api-session-controller/client'
-import type { SessionId } from '@lyness/session/types'
-import type { TranslateNS } from '@lyness/client-locale/client'
+} from '@lyness/lyn-api-session-controller/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { TranslateNS } from '@lyness/lyn-client-locale/client'
 import { queueReadFaceOf } from './queue-store.ts'
 import type {
   ComposerKeyboard, DraftAttachmentId, DraftAttachmentSerializationResult, InputTriggerController,

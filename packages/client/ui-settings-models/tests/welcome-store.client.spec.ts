@@ -1,9 +1,9 @@
 import { describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { SettingsSchemaService } from '@lyness/client-ui-settings/src/client/schema.ts'
-import { SettingsDescribeMirror } from '@lyness/client-ui-settings/src/client/settings-mirror.ts'
-import { SettingsScopeController } from '@lyness/client-ui-settings/src/client/settings-scope.ts'
-import { RemoteError } from '@lyness/client-test-runtime'
+import { SettingsSchemaService } from '@lyness/lyn-client-ui-settings/src/client/schema.ts'
+import { SettingsDescribeMirror } from '@lyness/lyn-client-ui-settings/src/client/settings-mirror.ts'
+import { SettingsScopeController } from '@lyness/lyn-client-ui-settings/src/client/settings-scope.ts'
+import { RemoteError } from '@lyness/lyn-client-test-runtime'
 import { decodeWelcomeSection, WelcomeNoticeStore } from '../src/client/welcome-store.ts'
 import {
   WELCOME_NOTICE_ACK_FIELD, WELCOME_NOTICE_SETTINGS_NAMESPACE, WELCOME_NOTICE_VERSION,

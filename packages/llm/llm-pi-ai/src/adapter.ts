@@ -44,7 +44,7 @@ import {
   LlmAdapter,
   LlmError,
   ReasoningEffortId,
-} from '@lyness/llm'
+} from '@lyness/lyn-llm'
 import type {
   GenerateOptions,
   ImageAttachmentAccess,
@@ -55,9 +55,9 @@ import type {
   ReasoningEffortId as ReasoningEffortIdType,
   ResolvedRetryPolicy,
   StreamChunk,
-} from '@lyness/llm'
-import type { AttachmentStore, ImageAttachmentRef } from '@lyness/attachment'
-import { idleWatchdog, timeoutOf } from '@lyness/timeout'
+} from '@lyness/lyn-llm'
+import type { AttachmentStore, ImageAttachmentRef } from '@lyness/lyn-attachment'
+import { idleWatchdog, timeoutOf } from '@lyness/lyn-timeout'
 import type { ResolvedPiAiProviderProfile } from './config.ts'
 import { toPiContext } from './context.ts'
 import { toStreamChunks } from './stream.ts'

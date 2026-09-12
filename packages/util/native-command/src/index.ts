@@ -1,6 +1,6 @@
 /**
  * Host-native command execution and path-opening utilities.
- * @module @lyness/native-command
+ * @module @lyness/lyn-native-command
  */
 
 export { runNativeCommand } from './runner.ts'

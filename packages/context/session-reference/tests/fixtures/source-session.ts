@@ -1,8 +1,8 @@
 /** Deterministic projected source shared by reference snapshot and Loader tests. */
 
 import type { Context } from '@lyness/cordis'
-import { createMessage, createUserMessage } from '@lyness/llm'
-import { Session, SessionId } from '@lyness/session'
+import { createMessage, createUserMessage } from '@lyness/lyn-llm'
+import { Session, SessionId } from '@lyness/lyn-session'
 
 export const name = 'session-reference-source-fixture'
 export const inject = ['sessions']

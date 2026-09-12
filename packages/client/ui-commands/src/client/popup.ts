@@ -9,9 +9,9 @@
  * Input side owns the span/bare-token CAS guard) and focuses the composer;
  * the controller never touches the input machine.
  */
-import { createSnapshotStore } from '@lyness/client-store'
-import type { SnapshotStore } from '@lyness/client-store'
-import type { TokenSpan } from '@lyness/client-ui-input-trigger/client'
+import { createSnapshotStore } from '@lyness/lyn-client-store'
+import type { SnapshotStore } from '@lyness/lyn-client-store'
+import type { TokenSpan } from '@lyness/lyn-client-ui-input-trigger/client'
 import type { SelectOption } from './contract.ts'
 
 /**

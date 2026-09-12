@@ -14,6 +14,6 @@
 
 - insert:
     - id: cordis-host-runner
-      name: '@lyness/cordis-host-runner'
+      name: '@lyness/lyn-cordis-host-runner'
     - id: tool-cordis
-      name: '@lyness/tool-cordis'
+      name: '@lyness/lyn-tool-cordis'

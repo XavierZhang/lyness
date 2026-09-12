@@ -1,8 +1,8 @@
 /** Deterministic provider-independent image normalization. */
 
 import sharp, { type Sharp } from 'sharp'
-import { AttachmentError, requestImageDimensions } from '@lyness/attachment'
-import type { ImageMediaType } from '@lyness/attachment'
+import { AttachmentError, requestImageDimensions } from '@lyness/lyn-attachment'
+import type { ImageMediaType } from '@lyness/lyn-attachment'
 import { encodeFirstWithinLimit, encodingLadder, isExhaustedEncoding } from './encoding.ts'
 import { detectImage, encodedAlphaIsCompatible } from './image.ts'
 import type { DetectedImage } from './image.ts'

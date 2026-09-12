@@ -3,12 +3,12 @@
  * The direct imports make historical readability independent of mounted plugins.
  */
 
-import { KNOWN_SESSION_EVENT_TYPES } from '@lyness/session'
-import { createSessionFormatCatalog } from '@lyness/session-format'
+import { KNOWN_SESSION_EVENT_TYPES } from '@lyness/lyn-session'
+import { createSessionFormatCatalog } from '@lyness/lyn-session-format'
 import { validateInstalledCurrentSessionArtifact, validateInstalledCurrentSessionHeader } from './current.ts'
-import { releasedV0SessionFormatCodec, releasedV1SessionFormatCodec, sessionFormatV0ToV1 } from '@lyness/session-format-v0-to-v1'
-import { releasedV2SessionFormatCodec, sessionFormatV1ToV2 } from '@lyness/session-format-v1-to-v2'
-import { assertReleasedV3Header, releasedV3SessionFormatCodec, restoreReleasedV3Artifact, sessionFormatV2ToV3 } from '@lyness/session-format-v2-to-v3'
+import { releasedV0SessionFormatCodec, releasedV1SessionFormatCodec, sessionFormatV0ToV1 } from '@lyness/lyn-session-format-v0-to-v1'
+import { releasedV2SessionFormatCodec, sessionFormatV1ToV2 } from '@lyness/lyn-session-format-v1-to-v2'
+import { assertReleasedV3Header, releasedV3SessionFormatCodec, restoreReleasedV3Artifact, sessionFormatV2ToV3 } from '@lyness/lyn-session-format-v2-to-v3'
 
 /** Physical codec dispatch and complete adjacent chain, independent of mounted plugins. */
 export const sessionFormatCatalog = createSessionFormatCatalog({

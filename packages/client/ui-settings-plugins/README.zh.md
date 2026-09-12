@@ -3,7 +3,7 @@ description: "lyn Web 客户端的「插件」设置分区：功能自有的标�
 kind: "package-reference"
 ---
 
-# @lyness/client-ui-settings-plugins
+# @lyness/lyn-client-ui-settings-plugins
 
 [English](README.md) | 中文
 

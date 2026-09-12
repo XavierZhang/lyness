@@ -1,15 +1,15 @@
 import { describe, expect, expectTypeOf, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
 import type { Events } from '@lyness/cordis'
-import { bindScopeParent, createScope } from '@lyness/scope'
-import type { Scope } from '@lyness/scope'
-import SystemPrompt from '@lyness/system-prompt'
-import ToolRuntime from '@lyness/tools'
-import type { PreToolDecision, ToolDefinition, ToolExecution, ToolExecutionInput, ToolExecutionToken } from '@lyness/tools'
-import type { Agent } from '@lyness/agent'
+import { bindScopeParent, createScope } from '@lyness/lyn-scope'
+import type { Scope } from '@lyness/lyn-scope'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime from '@lyness/lyn-tools'
+import type { PreToolDecision, ToolDefinition, ToolExecution, ToolExecutionInput, ToolExecutionToken } from '@lyness/lyn-tools'
+import type { Agent } from '@lyness/lyn-agent'
 
-import { ToolCallId } from '@lyness/llm'
-import type { SessionId } from '@lyness/session'
+import { ToolCallId } from '@lyness/lyn-llm'
+import type { SessionId } from '@lyness/lyn-session'
 
 const testToolSignal = new AbortController().signal
 

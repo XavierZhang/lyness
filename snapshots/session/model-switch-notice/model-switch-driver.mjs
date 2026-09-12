@@ -1,6 +1,6 @@
 /** Test-only driver that selects another model after the first step's tool call. */
 
-import { installModelSelection } from '@lyness/agent'
+import { installModelSelection } from '@lyness/lyn-agent'
 
 const SELECTED = { provider: 'deepseek-official', model: 'deepseek-v4-pro' }
 const selections = new WeakMap()

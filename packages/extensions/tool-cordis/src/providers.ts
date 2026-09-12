@@ -1,9 +1,9 @@
 /** First-party Host inspect providers registered by the Cordis tool package. */
 
 import type { Context } from '@lyness/cordis'
-import { HOST_BUILTIN_INSPECTION } from '@lyness/cordis-host-runner'
-import type { HostCordisInspectProviderRegistration } from '@lyness/cordis-host-runner'
-import type { JsonValue } from '@lyness/util-values'
+import { HOST_BUILTIN_INSPECTION } from '@lyness/lyn-cordis-host-runner'
+import type { HostCordisInspectProviderRegistration } from '@lyness/lyn-cordis-host-runner'
+import type { JsonValue } from '@lyness/lyn-util-values'
 import { EVENT_API, queryEventApi, queryServiceApi } from './api-catalog.ts'
 
 const EMPTY_INPUT = { type: 'object', properties: {}, additionalProperties: false } as const

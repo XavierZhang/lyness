@@ -1,8 +1,8 @@
 /** Signed GitHub HTTP adapter for the provider-neutral webhook runtime. */
 
 import type { Context } from '@lyness/cordis'
-import { credentialRef } from '@lyness/credentials'
-import type {} from '@lyness/host-webserver'
+import { credentialRef } from '@lyness/lyn-credentials'
+import type {} from '@lyness/lyn-host-webserver'
 import z from '@lyness/schemastery'
 import { createGitHubWebhookHandler } from './handler.ts'
 

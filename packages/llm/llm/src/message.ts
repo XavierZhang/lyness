@@ -1,8 +1,8 @@
 /** Message value types, identity, and immutable construction helpers. */
 
-import { randomUUID } from '@lyness/util-crypto'
-import { brandString } from '@lyness/brand'
-import { deepFreeze } from '@lyness/util-values'
+import { randomUUID } from '@lyness/lyn-util-crypto'
+import { brandString } from '@lyness/lyn-brand'
+import { deepFreeze } from '@lyness/lyn-util-values'
 import type { MessageId, ToolCallId } from './brand.ts'
 import type { ContentBlock, ToolResultBlock } from './types.ts'
 

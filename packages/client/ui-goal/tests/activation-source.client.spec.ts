@@ -1,8 +1,8 @@
 import { describe, expect, it, vi } from 'vitest'
-import { createSnapshotStore } from '@lyness/client-store'
-import type { RemoteResult } from '@lyness/api-remotes/client'
-import type { GoalActivationChanged, GoalId, GoalProjection, GoalView } from '@lyness/goal/client'
-import { RemoteError } from '@lyness/client-test-runtime'
+import { createSnapshotStore } from '@lyness/lyn-client-store'
+import type { RemoteResult } from '@lyness/lyn-api-remotes/client'
+import type { GoalActivationChanged, GoalId, GoalProjection, GoalView } from '@lyness/lyn-goal/client'
+import { RemoteError } from '@lyness/lyn-client-test-runtime'
 import { createGoalActivationSource } from '../src/client/activation-source.ts'
 
 const GOAL_ID = 'g-1' as GoalId

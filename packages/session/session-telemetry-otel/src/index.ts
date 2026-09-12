@@ -9,15 +9,15 @@
  * capture mode and an outer shutdown deadline: the SDK's export timeout does
  * not bound its preceding `forceFlush()` wait.
  *
- * @module @lyness/session-telemetry-otel
+ * @module @lyness/lyn-session-telemetry-otel
  */
 
 import { createRequire } from 'node:module'
 import z from '@lyness/schemastery'
 import type { Context } from '@lyness/cordis'
-import type {} from '@lyness/command-feedback'
-import type {} from '@lyness/message-feedback'
-import { Session, type SessionEvent } from '@lyness/session'
+import type {} from '@lyness/lyn-command-feedback'
+import type {} from '@lyness/lyn-message-feedback'
+import { Session, type SessionEvent } from '@lyness/lyn-session'
 import {
   SessionTelemetryBackend,
   SessionTelemetryCoordinator,
@@ -25,9 +25,9 @@ import {
   type SessionTelemetryRecord,
   type SessionTelemetrySeverity,
   type SessionTelemetrySharingStatus,
-} from '@lyness/session-telemetry'
-import { APP_IDENTITY } from '@lyness/llm'
-import { getOrCreateAnonymousUserId } from '@lyness/anonymous-user-id'
+} from '@lyness/lyn-session-telemetry'
+import { APP_IDENTITY } from '@lyness/lyn-llm'
+import { getOrCreateAnonymousUserId } from '@lyness/lyn-anonymous-user-id'
 import {
   BatchLogRecordProcessor,
   LoggerProvider,
@@ -223,7 +223,7 @@ export class OpenTelemetrySessionBackend extends SessionTelemetryBackend {
         }),
       ],
     })
-    const ledger = this.provider.getLogger('@lyness/session-telemetry-otel', version)
+    const ledger = this.provider.getLogger('@lyness/lyn-session-telemetry-otel', version)
     const enqueue: SessionTelemetrySink['emit'] = (record) => {
       ledger.emit({
         timestamp: record.time,

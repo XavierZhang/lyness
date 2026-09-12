@@ -7,13 +7,13 @@
 
 import { Context } from '@lyness/cordis'
 import { describe, expect, it, vi } from 'vitest'
-import { resolveSlotLabel } from '@lyness/client-ui-slots'
-import { SlotRegistry } from '@lyness/client-ui-renderer/client'
-import { LocaleRuntime } from '@lyness/client-locale/client'
-import { RemoteError, TestRemote } from '@lyness/client-test-runtime'
-import { SessionId } from '@lyness/session'
-import { apply as settingsApply, inject as settingsInject } from '@lyness/client-ui-settings/client'
-import { apply, inject } from '@lyness/client-ui-agent-preset/client'
+import { resolveSlotLabel } from '@lyness/lyn-client-ui-slots'
+import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
+import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
+import { RemoteError, TestRemote } from '@lyness/lyn-client-test-runtime'
+import { SessionId } from '@lyness/lyn-session'
+import { apply as settingsApply, inject as settingsInject } from '@lyness/lyn-client-ui-settings/client'
+import { apply, inject } from '@lyness/lyn-client-ui-agent-preset/client'
 import { AgentPresetLabel } from '../src/client/AgentPresetLabel.tsx'
 import type { AgentPresetLabelInjected } from '../src/client/AgentPresetLabel.tsx'
 import { AgentPresetSection } from '../src/client/AgentPresetSection.tsx'
@@ -603,7 +603,7 @@ describe('AgentPresetSeatController reconciliation', () => {
   })
 
   it('keeps the bare cause of a mount failure, not the frame that names the preset again', async () => {
-    const reason = 'failed to import loader entry ctx (@lyness/gone): Cannot find package'
+    const reason = 'failed to import loader entry ctx (@lyness/lyn-gone): Cannot find package'
     const controller = new AgentPresetSeatController({
       remote: {
         agentPresets: {

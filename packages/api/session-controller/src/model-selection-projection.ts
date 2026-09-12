@@ -1,8 +1,8 @@
 /** Durable model-selection intent and request-use projection. */
 
 import type { Context } from '@lyness/cordis'
-import type { SessionEvent } from '@lyness/session'
-import type { ProjectionDefinition } from '@lyness/session-projection'
+import type { SessionEvent } from '@lyness/lyn-session'
+import type { ProjectionDefinition } from '@lyness/lyn-session-projection'
 import { z } from 'zod'
 import type {
   ModelSelection,

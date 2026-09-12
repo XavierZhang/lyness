@@ -264,9 +264,9 @@ def write_advanced_profile_patch(root: Path, name: str, sessions: Path) -> Path:
             },
         },
         {"insert": [
-            {"id": "code-runtime", "name": "@lyness/code-runtime-worker-thread"},
-            {"id": "cordis-host-runner", "name": "@lyness/cordis-host-runner"},
-            {"id": "cordis-tool", "name": "@lyness/tool-cordis"},
+            {"id": "code-runtime", "name": "@lyness/lyn-code-runtime-worker-thread"},
+            {"id": "cordis-host-runner", "name": "@lyness/lyn-cordis-host-runner"},
+            {"id": "cordis-tool", "name": "@lyness/lyn-tool-cordis"},
         ]},
     ])
 
@@ -276,7 +276,7 @@ def write_mcp_patch(root: Path, sessions: Path, server_script: Path) -> Path:
     return write_profile_patch(root, "mcp.patch.yml", sessions, [{
         "insert": [{
             "id": "mcp-fixture",
-            "name": "@lyness/mcp-client",
+            "name": "@lyness/lyn-mcp-client",
             "config": {
                 "serverName": "fixture",
                 "transport": "stdio",
@@ -1295,7 +1295,7 @@ def smoke_sdk_snapshot(base_url: str, executable: Path, update_snapshots: bool) 
             ).as_uri(), "config": {
                 "parentSessionId": SNAPSHOT_SESSION_ID, "prompt": SNAPSHOT_WORKFLOW_CHILD_PROMPT,
             }},
-            {"id": "snapshot-message-feedback", "name": "@lyness/message-feedback",
+            {"id": "snapshot-message-feedback", "name": "@lyness/lyn-message-feedback",
              "config": {"maxNoteBytes": 1024}},
             {"id": "snapshot-feedback-producer", "name": (
                 Path(__file__).resolve().parent.parent / "snapshots/sdk/text-turn/feedback-producer.mjs"

@@ -1,13 +1,13 @@
 // @vitest-environment jsdom
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import type { ModelSelection } from '@lyness/api-remotes/client'
-import { createSnapshotStore } from '@lyness/client-store'
+import type { ModelSelection } from '@lyness/lyn-api-remotes/client'
+import { createSnapshotStore } from '@lyness/lyn-client-store'
 import type { ComponentProps } from 'react'
 import type { ModelDirectoryState } from '../src/client/directory.ts'
 import { ModelSelect } from '../src/client/ModelSelect.tsx'
 import { zh } from '../src/client/locales.ts'
-import { zh as commonZh } from '@lyness/client-locale/src/locales/zh.ts'
+import { zh as commonZh } from '@lyness/lyn-client-locale/src/locales/zh.ts'
 
 // The seat's key domain is model ∪ common; the stub mirrors the real lookup
 // chain: package dictionary, then common vocabulary, then the key.

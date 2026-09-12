@@ -1,10 +1,10 @@
 import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { ToolCallId } from '@lyness/llm'
-import { SESSION_FORMAT_VERSION, Session, SessionId } from '@lyness/session'
-import AgentRegistry from '@lyness/agent'
-import type { Agent } from '@lyness/agent'
-import TerminalSessionService from '@lyness/terminal'
+import { ToolCallId } from '@lyness/lyn-llm'
+import { SESSION_FORMAT_VERSION, Session, SessionId } from '@lyness/lyn-session'
+import AgentRegistry from '@lyness/lyn-agent'
+import type { Agent } from '@lyness/lyn-agent'
+import TerminalSessionService from '@lyness/lyn-terminal'
 import type {
   TerminalBackend,
   TerminalBackendSession,
@@ -14,11 +14,11 @@ import type {
   TerminalSessionStatus,
   TerminalSignal,
   TerminalWaitReason,
-} from '@lyness/terminal'
-import SystemPrompt from '@lyness/system-prompt'
-import ToolRuntime from '@lyness/tools'
-import * as ToolBashPersistent from '@lyness/tool-bash-persistent'
-import { unsupportedInbox } from '@lyness/agent-loop-testkit'
+} from '@lyness/lyn-terminal'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime from '@lyness/lyn-tools'
+import * as ToolBashPersistent from '@lyness/lyn-tool-bash-persistent'
+import { unsupportedInbox } from '@lyness/lyn-agent-loop-testkit'
 
 const contexts: Context[] = []
 let callNumber = 0

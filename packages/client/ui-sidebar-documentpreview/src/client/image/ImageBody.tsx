@@ -1,7 +1,7 @@
 /** Complete image bytes rendered at their intrinsic CSS-pixel dimensions. */
 import { useEffect, useMemo, useState, type ReactNode } from 'react'
-import type { PropsLocale } from '@lyness/client-ui-slots'
-import { pathPartsOf } from '@lyness/util-workspace-path'
+import type { PropsLocale } from '@lyness/lyn-client-ui-slots'
+import { pathPartsOf } from '@lyness/lyn-util-workspace-path'
 import type { DocumentPreviewProps } from '../document/contract.ts'
 import { LoadingIndicator } from '../LoadingIndicator.tsx'
 import { hostFileOf } from '../rpc.ts'

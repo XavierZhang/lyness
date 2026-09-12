@@ -3,7 +3,7 @@
  * Every workspace package registers checks from a `./invariant` companion;
  * ordinary package entrypoints stay independent of diagnostics.
  *
- * @module @lyness/invariants
+ * @module @lyness/lyn-invariants
  */
 
 import { Context, Service } from '@lyness/cordis'

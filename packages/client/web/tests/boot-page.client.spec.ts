@@ -35,11 +35,11 @@ describe('BootPage', () => {
 
   it('lists failed entries', () => {
     const { el, page } = mount()
-    page.setState('@lyness/client-ui-layout', 'failed')
+    page.setState('@lyness/lyn-client-ui-layout', 'failed')
     page.setState('ok', 'active')
-    page.setState('@lyness/client-ui-tool', 'failed')
-    expect(el.textContent).toContain('@lyness/client-ui-layout')
-    expect(el.textContent).toContain('@lyness/client-ui-tool')
+    page.setState('@lyness/lyn-client-ui-tool', 'failed')
+    expect(el.textContent).toContain('@lyness/lyn-client-ui-layout')
+    expect(el.textContent).toContain('@lyness/lyn-client-ui-tool')
     expect(el.textContent).not.toContain('ok')
     expect(el.textContent).not.toContain('Loading plugins…')
   })

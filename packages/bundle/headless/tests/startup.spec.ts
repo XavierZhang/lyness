@@ -11,7 +11,7 @@ import { pathToFileURL } from 'node:url'
 import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
 import Include from '@lyness/cordis-plugin-include'
-import { internals, provideCmdline } from '@lyness/cmdline'
+import { internals, provideCmdline } from '@lyness/lyn-cmdline'
 import { afterEach, describe, expect, it } from 'vitest'
 import { apply, HEADLESS_STARTUP_SERVICE, type HeadlessStartupValues } from '../src/startup.ts'
 

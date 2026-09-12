@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/client-ui-primitives",
+  "name": "@lyness/lyn-client-ui-primitives",
   "description": "Pure React atoms for the lyn web UI: controls, icons, markdown, and JSON inspectors (zero cordis)",
   "version": "0.1.5-rc.1",
   "publishConfig": {

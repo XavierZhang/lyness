@@ -8,8 +8,8 @@
  * @module lyn-llm-pi-ai/replay
  */
 
-import { LlmError } from '@lyness/llm'
-import type { Message, ModelMessageSource, ReplayEnvelope } from '@lyness/llm'
+import { LlmError } from '@lyness/lyn-llm'
+import type { Message, ModelMessageSource, ReplayEnvelope } from '@lyness/lyn-llm'
 import type { Api, AssistantMessage, Usage as PiUsage } from '@earendil-works/pi-ai'
 
 /** Per-block half of the pi-ai replay envelope, one entry per content block. */

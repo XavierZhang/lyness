@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/client-ui-trajectory",
+  "name": "@lyness/lyn-client-ui-trajectory",
   "description": "Trajectory event ledger with an interactive timing overview: pure-consumer plugin registering into the conversation ViewMap (no service)",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -28,11 +28,11 @@
   "lyn": {
     "client": {
       "inject": [
-        "@lyness/api-session-controller",
-        "@lyness/client-locale",
-        "@lyness/client-ui-conversation",
-        "@lyness/client-ui-renderer",
-        "@lyness/client-ui-session"
+        "@lyness/lyn-api-session-controller",
+        "@lyness/lyn-client-locale",
+        "@lyness/lyn-client-ui-conversation",
+        "@lyness/lyn-client-ui-renderer",
+        "@lyness/lyn-client-ui-session"
       ],
       "platform": "web"
     }
@@ -46,27 +46,27 @@
     "@lyness/cordis": "workspace:^"
   },
   "devDependencies": {
-    "@lyness/agent": "workspace:^",
-    "@lyness/client-locale": "workspace:^",
-    "@lyness/client-test-runtime": "workspace:^",
-    "@lyness/client-ui-primitives": "workspace:^",
-    "@lyness/client-ui-conversation": "workspace:^",
-    "@lyness/client-ui-slots": "workspace:^",
-    "@lyness/compaction": "workspace:^",
-    "@lyness/tools": "workspace:^",
+    "@lyness/lyn-agent": "workspace:^",
+    "@lyness/lyn-client-locale": "workspace:^",
+    "@lyness/lyn-client-test-runtime": "workspace:^",
+    "@lyness/lyn-client-ui-primitives": "workspace:^",
+    "@lyness/lyn-client-ui-conversation": "workspace:^",
+    "@lyness/lyn-client-ui-slots": "workspace:^",
+    "@lyness/lyn-compaction": "workspace:^",
+    "@lyness/lyn-tools": "workspace:^",
     "@types/react": "~18.3.1",
     "@types/react-dom": "~18.3.0",
     "@lyness/cordis": "workspace:^",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "@lyness/client-store": "workspace:^",
-    "@lyness/client-ui-chat": "workspace:^",
-    "@lyness/session": "workspace:^",
-    "@lyness/api-session-controller": "workspace:^",
-    "@lyness/client-ui-renderer": "workspace:^",
-    "@lyness/client-ui-session": "workspace:^",
-    "@lyness/llm": "workspace:^",
-    "@lyness/attachment": "workspace:^",
+    "@lyness/lyn-client-store": "workspace:^",
+    "@lyness/lyn-client-ui-chat": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
+    "@lyness/lyn-api-session-controller": "workspace:^",
+    "@lyness/lyn-client-ui-renderer": "workspace:^",
+    "@lyness/lyn-client-ui-session": "workspace:^",
+    "@lyness/lyn-llm": "workspace:^",
+    "@lyness/lyn-attachment": "workspace:^",
     "@tanstack/react-virtual": "^3.14.9",
     "diff": "^9.0.0"
   },

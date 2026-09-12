@@ -3,7 +3,7 @@ description: "Trajectory view for the lyn web client: a turn-aware event ledger 
 kind: "package-reference"
 ---
 
-# @lyness/client-ui-trajectory
+# @lyness/lyn-client-ui-trajectory
 
 English | [中文](README.zh.md)
 

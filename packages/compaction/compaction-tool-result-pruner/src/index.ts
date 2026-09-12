@@ -1,18 +1,18 @@
 /**
  * Replay-safe, model-free tool-result pruning service.
  *
- * @module @lyness/compaction-tool-result-pruner
+ * @module @lyness/lyn-compaction-tool-result-pruner
  */
 
 import { Context, Service } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import { freezeMessage } from '@lyness/llm'
-import type { ContentBlock } from '@lyness/llm'
-import type { Session, SessionEvent, SessionSeq, ToolResultMessage } from '@lyness/session'
+import { freezeMessage } from '@lyness/lyn-llm'
+import type { ContentBlock } from '@lyness/lyn-llm'
+import type { Session, SessionEvent, SessionSeq, ToolResultMessage } from '@lyness/lyn-session'
 // Type-only: the `compaction/*` SessionEventMap merges (the shadow-price event).
-import type {} from '@lyness/compaction'
+import type {} from '@lyness/lyn-compaction'
 // Type-only: the `ctx.tokenMeter` Context merge for the declared injection.
-import type {} from '@lyness/token-meter'
+import type {} from '@lyness/lyn-token-meter'
 import { codePointLength, DEFAULTS, PRUNE_MARKER, resolveConfig } from './config.ts'
 import type {
   PrunedEntry,

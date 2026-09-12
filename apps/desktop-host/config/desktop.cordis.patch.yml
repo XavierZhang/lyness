@@ -28,7 +28,7 @@
 
 - insert:
     - id: directory-picker-native
-      name: '@lyness/host-directory-picker-native'
+      name: '@lyness/lyn-host-directory-picker-native'
 
     - id: ui-directory-picker-native
-      name: '@lyness/client-ui-directory-picker-native'
+      name: '@lyness/lyn-client-ui-directory-picker-native'

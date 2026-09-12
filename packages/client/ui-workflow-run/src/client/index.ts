@@ -1,17 +1,17 @@
 /** Browser plugin for durable workflow-run Conversation Nodes. */
 
 import type { Context as ClientContext } from '@lyness/cordis'
-import type { SessionId } from '@lyness/session/types'
-import type {} from '@lyness/client-locale/client'
-import type {} from '@lyness/client-ui-chat/client'
-import type {} from '@lyness/client-ui-conversation/client'
-import type {} from '@lyness/client-ui-renderer/client'
-import type {} from '@lyness/client-ui-session/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type {} from '@lyness/lyn-client-locale/client'
+import type {} from '@lyness/lyn-client-ui-chat/client'
+import type {} from '@lyness/lyn-client-ui-conversation/client'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
+import type {} from '@lyness/lyn-client-ui-session/client'
 import { WorkflowRunPanel, type WorkflowRunInjected } from './WorkflowRunPanel.tsx'
 import { en, NS, type WorkflowRunKey, zh } from './locales.ts'
 import { workflowRunDefinition } from './workflow-definition.ts'
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface LocaleNamespaceMap {
     /** Durable workflow-run node copy. */
     workflowRun: WorkflowRunKey

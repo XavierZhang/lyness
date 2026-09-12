@@ -6,13 +6,13 @@
       name: './web-fetch-fixture-server.mjs'
 
 - id: web
-  name: '@lyness/web'
+  name: '@lyness/lyn-web'
 
 - id: web-fetch-http
-  name: '@lyness/web-fetch-http'
+  name: '@lyness/lyn-web-fetch-http'
   disabled: true
 
 - id: tool-web
-  name: '@lyness/tool-web'
+  name: '@lyness/lyn-tool-web'
   config:
     search: false

@@ -2,12 +2,12 @@
 
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
-import type { SessionId } from '@lyness/session/types'
+import type { SessionId } from '@lyness/lyn-session/types'
 import type {
   TeamTaskId, TeamTaskView as TeamTask, TeamView,
-} from '@lyness/experimental-agent-team/client'
-import { makeTranslate, RemoteError } from '@lyness/client-test-runtime'
-import { zh as commonZh } from '@lyness/client-locale/src/locales/zh.ts'
+} from '@lyness/lyn-experimental-agent-team/client'
+import { makeTranslate, RemoteError } from '@lyness/lyn-client-test-runtime'
+import { zh as commonZh } from '@lyness/lyn-client-locale/src/locales/zh.ts'
 import {
   TeamAction, type TeamActionInjected, type TeamActionProps, type TeamActionResult,
   type TeamTaskActionResult,

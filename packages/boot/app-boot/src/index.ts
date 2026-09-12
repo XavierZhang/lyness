@@ -3,7 +3,7 @@
  * `.env`, install the fail-loud Loader guards, resolve the config path (snapshot-aware), load the
  * optional user patch layers from the Harness home (`~/.lyn`), expose its path resolver to
  * config expressions, and drive the Cordis Loader against a leaf `cordis.yml` until the tree settles.
- * @module @lyness/app-boot
+ * @module @lyness/lyn-app-boot
  */
 
 import { pathToFileURL } from 'node:url'
@@ -15,10 +15,10 @@ import { Context, type FiberState } from '@lyness/cordis'
 import Loader, { type Entry, type EntryOptions } from '@lyness/cordis-plugin-loader'
 import Include, { applyEntryPatches, entryListSchema, type PatchOptions } from '@lyness/cordis-plugin-include'
 import Group from '@lyness/cordis-plugin-group'
-import { lynHomePath, resolveLynHome } from '@lyness/home-paths'
-import { createLaunchEnvironmentSnapshot, type LaunchEnvironmentSnapshot } from '@lyness/launch-environment'
+import { lynHomePath, resolveLynHome } from '@lyness/lyn-home-paths'
+import { createLaunchEnvironmentSnapshot, type LaunchEnvironmentSnapshot } from '@lyness/lyn-launch-environment'
 import type {} from '@lyness/cordis-plugin-hmr'
-import type {} from '@lyness/system-prompt'
+import type {} from '@lyness/lyn-system-prompt'
 
 declare module '@lyness/cordis' {
   interface Context {

@@ -1,11 +1,11 @@
 import { fileURLToPath } from 'node:url'
-import { agentEvents, type Agent } from '@lyness/agent'
-import { ToolCallId } from '@lyness/llm'
-import { boot, loadOverlayPatches } from '@lyness/app-boot'
-import { SessionId } from '@lyness/session'
-import type {} from '@lyness/skill'
-import type {} from '@lyness/tools'
-import { unsupportedInbox } from '@lyness/agent-loop-testkit'
+import { agentEvents, type Agent } from '@lyness/lyn-agent'
+import { ToolCallId } from '@lyness/lyn-llm'
+import { boot, loadOverlayPatches } from '@lyness/lyn-app-boot'
+import { SessionId } from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-skill'
+import type {} from '@lyness/lyn-tools'
+import { unsupportedInbox } from '@lyness/lyn-agent-loop-testkit'
 
 const overlayPath = process.argv[2]
 if (overlayPath === undefined) throw new Error('lyn-badge snapshot requires an overlay path')

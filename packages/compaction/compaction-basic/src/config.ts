@@ -1,11 +1,11 @@
 /**
  * Load-time validation and routed-model policy resolution for compaction-basic.
  *
- * @module @lyness/compaction-basic/config
+ * @module @lyness/lyn-compaction-basic/config
  */
 
-import type { LlmCallConfig } from '@lyness/llm'
-import { deepFreeze } from '@lyness/util-values'
+import type { LlmCallConfig } from '@lyness/lyn-llm'
+import { deepFreeze } from '@lyness/lyn-util-values'
 import type {
   BasicCompactionConfig,
   CompactionPolicyConfig,

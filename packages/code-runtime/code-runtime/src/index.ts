@@ -1,7 +1,7 @@
 /**
  * Service Definition for the code-execution capability seam that runs one model-written program against host async bindings.
  * Runtimes know nothing about tools or sessions; consumers own those concerns.
- * @module @lyness/code-runtime
+ * @module @lyness/lyn-code-runtime
  */
 
 import { Context, Service } from '@lyness/cordis'

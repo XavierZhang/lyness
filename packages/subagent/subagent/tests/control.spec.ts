@@ -5,15 +5,15 @@
 
 import { describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import AttachmentStore, { AttachmentError } from '@lyness/attachment'
-import type { MessageId } from '@lyness/llm'
-import { SessionId } from '@lyness/session'
+import AttachmentStore, { AttachmentError } from '@lyness/lyn-attachment'
+import type { MessageId } from '@lyness/lyn-llm'
+import { SessionId } from '@lyness/lyn-session'
 import SubagentRuntime, {
   SubagentError,
   type SubagentListEntry,
   type SubagentPromptRequestId,
-} from '@lyness/subagent'
-import { deliverSubagentPrompt, type HostPromptDeliverer } from '@lyness/subagent/internal'
+} from '@lyness/lyn-subagent'
+import { deliverSubagentPrompt, type HostPromptDeliverer } from '@lyness/lyn-subagent/internal'
 
 const PARENT = SessionId('parent')
 const CHILD = SessionId('child')

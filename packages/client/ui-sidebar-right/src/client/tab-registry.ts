@@ -26,8 +26,8 @@
  */
 import type { ComponentType } from 'react'
 import type { Context } from '@lyness/cordis'
-import type { IconProps } from '@lyness/client-ui-primitives'
-import { notifySubscribers } from '@lyness/client-store'
+import type { IconProps } from '@lyness/lyn-client-ui-primitives'
+import { notifySubscribers } from '@lyness/lyn-client-store'
 // The POSIX build: the browser bundle must not reach for node's `path`, and
 // addresses are `/`-separated regardless of the host platform.
 import picomatch from 'picomatch/posix'

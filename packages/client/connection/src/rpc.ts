@@ -1,6 +1,6 @@
 /** Generic unary RPC contracts shared by the Host and Client Connection halves. */
 
-import type { Branded } from '@lyness/brand'
+import type { Branded } from '@lyness/lyn-brand'
 
 /** Correlation id minted by a caller and echoed by the Connection response. */
 export type RpcId = Branded<'rpc-id'>

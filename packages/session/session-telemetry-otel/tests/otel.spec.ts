@@ -13,13 +13,13 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { gunzipSync } from 'node:zlib'
 import { Context } from '@lyness/cordis'
-import { getOrCreateAnonymousUserId } from '@lyness/anonymous-user-id'
+import { getOrCreateAnonymousUserId } from '@lyness/lyn-anonymous-user-id'
 import Loader from '@lyness/cordis-plugin-loader'
-import { recordFeedback } from '@lyness/command-feedback'
-import { createAssistantMessage } from '@lyness/llm'
-import SessionStore, { SESSION_FORMAT_VERSION, Session, SessionId, SessionLogOffset, SessionSeq } from '@lyness/session'
-import MessageFeedbackService from '@lyness/message-feedback'
-import JsonlPersistence from '@lyness/session-persistence-jsonl'
+import { recordFeedback } from '@lyness/lyn-command-feedback'
+import { createAssistantMessage } from '@lyness/lyn-llm'
+import SessionStore, { SESSION_FORMAT_VERSION, Session, SessionId, SessionLogOffset, SessionSeq } from '@lyness/lyn-session'
+import MessageFeedbackService from '@lyness/lyn-message-feedback'
+import JsonlPersistence from '@lyness/lyn-session-persistence-jsonl'
 import OpenTelemetrySessionBackend, { Config, DEFAULT_TELEMETRY_MODE, SessionTelemetryMode } from '../src/index.ts'
 
 interface Capture {
@@ -169,8 +169,8 @@ describe('OpenTelemetrySessionBackend wire', () => {
     expect(resource).toContainEqual({ key: 'user.id', value: { stringValue: getOrCreateAnonymousUserId() } })
 
     const records = allRecords(captures)
-    const ledger = records.filter(r => r.scope === '@lyness/session-telemetry-otel')
-    const ops = records.filter(r => r.scope === '@lyness/session-telemetry-otel/ops')
+    const ledger = records.filter(r => r.scope === '@lyness/lyn-session-telemetry-otel')
+    const ops = records.filter(r => r.scope === '@lyness/lyn-session-telemetry-otel/ops')
 
     const start = ledger.find(r => r.record.attributes?.some(a => a.key === 'event.type' && a.value.stringValue === 'turn/start'))
     expect(start).toBeDefined()

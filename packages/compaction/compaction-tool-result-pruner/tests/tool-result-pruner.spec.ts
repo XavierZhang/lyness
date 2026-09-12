@@ -1,23 +1,23 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { ToolCallId , createMessage, createToolResultMessage } from '@lyness/llm'
-import type { ContentBlock } from '@lyness/llm'
+import { ToolCallId , createMessage, createToolResultMessage } from '@lyness/lyn-llm'
+import type { ContentBlock } from '@lyness/lyn-llm'
 import SessionStore, {
   Session,
   SessionId,
-} from '@lyness/session'
-import type { SurfaceEvent } from '@lyness/session'
-import * as SessionInvariant from '@lyness/session/invariant'
-import InvariantRegistry from '@lyness/invariants'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import TokenMeter from '@lyness/token-meter'
+} from '@lyness/lyn-session'
+import type { SurfaceEvent } from '@lyness/lyn-session'
+import * as SessionInvariant from '@lyness/lyn-session/invariant'
+import InvariantRegistry from '@lyness/lyn-invariants'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import TokenMeter from '@lyness/lyn-token-meter'
 import ToolResultPruner, {
   codePointLength,
   DEFAULTS,
   PRUNE_MARKER,
   resolveConfig,
-} from '@lyness/compaction-tool-result-pruner'
-import type { ToolResultPruneConfig } from '@lyness/compaction-tool-result-pruner'
+} from '@lyness/lyn-compaction-tool-result-pruner'
+import type { ToolResultPruneConfig } from '@lyness/lyn-compaction-tool-result-pruner'
 
 const MODEL = 'test-model'
 const SMALL: ToolResultPruneConfig = {

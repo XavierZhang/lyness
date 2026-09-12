@@ -4,8 +4,8 @@
  */
 
 import type { Context } from '@lyness/cordis'
-import type {} from '@lyness/agent-loop'
-import type {} from '@lyness/subagent'
+import type {} from '@lyness/lyn-agent-loop'
+import type {} from '@lyness/lyn-subagent'
 
 /** Fixture plugin name. */
 export const name = 'subagent-settlement-fence'

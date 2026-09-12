@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
-import { ReasoningEffortId, type LlmRuntime } from '@lyness/llm'
+import { ReasoningEffortId, type LlmRuntime } from '@lyness/lyn-llm'
 import { AcpModelControl } from '../src/model-control.ts'
 
 /** Minimal LLM catalog/runtime double for pure standard-option tests. */

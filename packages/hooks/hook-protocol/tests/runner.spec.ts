@@ -1,7 +1,7 @@
 import { describe, expect, expectTypeOf, it } from 'vitest'
-import type { ShellExecRequest, ShellExecSpec, ShellExecutor, ShellRunResult } from '@lyness/shell'
-import { DEFAULT_HOOK_TIMEOUT_MS, runHook } from '@lyness/hook-protocol'
-import type { RunHookOptions } from '@lyness/hook-protocol'
+import type { ShellExecRequest, ShellExecSpec, ShellExecutor, ShellRunResult } from '@lyness/lyn-shell'
+import { DEFAULT_HOOK_TIMEOUT_MS, runHook } from '@lyness/lyn-hook-protocol'
+import type { RunHookOptions } from '@lyness/lyn-hook-protocol'
 
 /**
  * A minimal stand-in for the bits of {@link ShellExecutor} that {@link runHook}

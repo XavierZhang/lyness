@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/util-values",
+  "name": "@lyness/lyn-util-values",
   "description": "Duplicate-install-safe value primitives for the lyness",
   "version": "0.1.5-rc.1",
   "publishConfig": {

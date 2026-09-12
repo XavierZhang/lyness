@@ -12,7 +12,7 @@
  */
 
 import { EventSourceParserStream } from 'eventsource-parser/stream'
-import { LlmError } from '@lyness/llm'
+import { LlmError } from '@lyness/lyn-llm'
 
 /** The terminal payload DeepSeek (and OpenAI) send after the last chunk. */
 export const DONE = '[DONE]'

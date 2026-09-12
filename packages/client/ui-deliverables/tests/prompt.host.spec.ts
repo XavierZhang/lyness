@@ -2,7 +2,7 @@
 
 import { Context } from '@lyness/cordis'
 import { afterEach, describe, expect, it } from 'vitest'
-import SystemPrompt from '@lyness/system-prompt'
+import SystemPrompt from '@lyness/lyn-system-prompt'
 import { apply, inject } from '../src/index.ts'
 
 let ctx: Context | undefined

@@ -3,7 +3,7 @@ description: "lyn Web 客户端的持久化工作流运行 Conversation Node：�
 kind: "package-reference"
 ---
 
-# @lyness/client-ui-workflow-run
+# @lyness/lyn-client-ui-workflow-run
 
 [English](README.md) | 中文
 

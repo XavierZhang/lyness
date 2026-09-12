@@ -1,4 +1,4 @@
-import type { ConversationNodeContext } from '@lyness/client-ui-conversation/client'
+import type { ConversationNodeContext } from '@lyness/lyn-client-ui-conversation/client'
 import type {
   TrajectoryContribution, TrajectoryConversationViewNode,
 } from './trajectory-contract.ts'

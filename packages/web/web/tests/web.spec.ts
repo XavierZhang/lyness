@@ -7,7 +7,7 @@ import WebRuntime, {
   type WebSearchProvider,
   type WebSearchRequest,
   type WebSearchResult,
-} from '@lyness/web'
+} from '@lyness/lyn-web'
 
 /** A scripted search provider for contract tests. */
 function makeSearchProvider(

@@ -1,4 +1,4 @@
-/** Durable attachment vocabulary. @module @lyness/attachment/types */
+/** Durable attachment vocabulary. @module @lyness/lyn-attachment/types */
 
 import type { AttachmentId, ImageVariantId } from './brand.ts'
 

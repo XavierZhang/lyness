@@ -1,5 +1,5 @@
 import type { Context } from '@lyness/cordis'
-import type { SessionEvent } from '@lyness/session'
+import type { SessionEvent } from '@lyness/lyn-session'
 import { describe, expect, it, vi } from 'vitest'
 import { runFixtureTurn } from '../src/agent-turn.ts'
 

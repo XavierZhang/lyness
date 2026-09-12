@@ -5,10 +5,10 @@
  * here reaches a Host-only symbol, so a Client compilation face reads exactly
  * the signature the Host emits.
  *
- * @module @lyness/credentials/types
+ * @module @lyness/lyn-credentials/types
  */
 
-import type { Branded } from '@lyness/brand'
+import type { Branded } from '@lyness/lyn-brand'
 
 /** Nominal reference to one credential: a POSIX-style environment-variable name. */
 export type CredentialRef = Branded<'CredentialRef'>

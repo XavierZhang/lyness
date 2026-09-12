@@ -1,7 +1,7 @@
-import { lastAssistantStreamChunk } from '@lyness/llm/assistant-stream'
-import type { AssistantMessage, TokenUsage } from '@lyness/llm/types'
-import type {} from '@lyness/llm-retry/types'
-import type { SessionEvent } from '@lyness/session/types'
+import { lastAssistantStreamChunk } from '@lyness/lyn-llm/assistant-stream'
+import type { AssistantMessage, TokenUsage } from '@lyness/lyn-llm/types'
+import type {} from '@lyness/lyn-llm-retry/types'
+import type { SessionEvent } from '@lyness/lyn-session/types'
 
 /** One provider/model route that contributed a billed request attempt. */
 export interface TurnTokenUsageRoute {

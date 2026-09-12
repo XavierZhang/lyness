@@ -29,13 +29,13 @@ import {
 import { createJsonlGenerationTestRuntime } from '../src/testing/generation.ts'
 import { compressZstdFrame, decompressZstdFrame, scanZstdFrames } from '../src/zstd.ts'
 import type { JsonlCompression } from '../src/format.ts'
-import { sessionFormatCatalog } from '@lyness/session-format-catalog'
+import { sessionFormatCatalog } from '@lyness/lyn-session-format-catalog'
 import type {
   SessionFormatArtifact,
   SessionFormatEvent,
   SessionFormatJsonValue,
   SessionFormatRestore,
-} from '@lyness/session-format'
+} from '@lyness/lyn-session-format'
 
 const roots: string[] = []
 

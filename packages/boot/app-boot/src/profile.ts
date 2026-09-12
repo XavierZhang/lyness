@@ -20,7 +20,7 @@
  * dependency closure through Node's ordinary parent-walk. Plain Node uses
  * symlinks for that shared fallback; packaged executables use ESM proxies so
  * external plugins retain the installation's module instances.
- * @module @lyness/app-boot/profile
+ * @module @lyness/lyn-app-boot/profile
  */
 
 import { createRequire } from 'node:module'
@@ -30,11 +30,11 @@ import {
 } from 'node:fs'
 import { basename, dirname, join, relative, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
-import { withFileLock } from '@lyness/atomic-write'
+import { withFileLock } from '@lyness/lyn-atomic-write'
 import type { EntryOptions } from '@lyness/cordis-plugin-loader'
 import { applyEntryPatches, type PatchOptions } from '@lyness/cordis-plugin-include'
-import { resolveLynHome } from '@lyness/home-paths'
-import type { LynManifest, LynModuleFallbackManifest, ProfilePatchReload } from '@lyness/package-manifest'
+import { resolveLynHome } from '@lyness/lyn-home-paths'
+import type { LynManifest, LynModuleFallbackManifest, ProfilePatchReload } from '@lyness/lyn-package-manifest'
 import { resolve as resolvePackage, type Package as ResolvePackageManifest } from 'resolve.exports'
 import { loadOverlayPatches } from './index.ts'
 
@@ -109,34 +109,34 @@ export function resolveProfileDir(name: string, home: string = resolveLynHome())
 /** The shipped profile templates auto-initialized on first use, by name. */
 export const PROFILE_TEMPLATES: Record<string, ProfileTemplate> = {
   acp: {
-    bundles: ['@lyness/base', '@lyness/acp-app'],
+    bundles: ['@lyness/lyn-base', '@lyness/lyn-acp-app'],
     patchReload: 'startup',
   },
   web: {
-    bundles: ['@lyness/base', '@lyness/web-app'],
+    bundles: ['@lyness/lyn-base', '@lyness/lyn-web-app'],
     patchReload: 'live',
   },
   headless: {
-    bundles: ['@lyness/base', '@lyness/headless'],
+    bundles: ['@lyness/lyn-base', '@lyness/lyn-headless'],
     patchReload: 'startup',
   },
   sdk: {
-    bundles: ['@lyness/base', '@lyness/sdk-app'],
+    bundles: ['@lyness/lyn-base', '@lyness/lyn-sdk-app'],
     patchReload: 'startup',
   },
   'sdk-minimal': {
-    bundles: ['@lyness/sdk-minimal'],
+    bundles: ['@lyness/lyn-sdk-minimal'],
     patchReload: 'startup',
   },
 }
 
 /** Installation-owned bundle tuples normalized to the shipped template. */
 const INSTALLATION_OWNED_PROFILE_TUPLES: Record<string, readonly string[]> = {
-  headless: ['@lyness/base', '@lyness/web-app', '@lyness/headless'],
+  headless: ['@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-headless'],
 }
 
 /** The bundle list a `lyn plugin` init uses for a name with no shipped template. */
-export const DEFAULT_PROFILE_BUNDLES: readonly string[] = ['@lyness/base']
+export const DEFAULT_PROFILE_BUNDLES: readonly string[] = ['@lyness/lyn-base']
 
 /** Custom profiles retain the historical live patch-file behavior. */
 export const DEFAULT_PROFILE_PATCH_RELOAD: ProfilePatchReload = 'live'
@@ -739,7 +739,7 @@ function packageDirFromAnchor(
 /**
  * Resolve one bundle package's directory: installation anchor first, then the
  * profile directory. The installation-first order is the contract that
- * `@lyness/base` (and every other in-box bundle) always comes from
+ * `@lyness/lyn-base` (and every other in-box bundle) always comes from
  * the same installation as the running lyn, never from a profile-local copy.
  * Resolution does not require the package to export `./package.json`.
  * @param binName - the diagnostic prefix on the thrown error.

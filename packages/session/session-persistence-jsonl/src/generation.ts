@@ -4,7 +4,7 @@
  * Format packages transform parsed JSON values. This module owns the physical
  * encoding, exact source identity, immutable generation files, and exclusive
  * current-generation publication for both configured JSONL suffixes.
- * @module @lyness/session-persistence-jsonl/generation
+ * @module @lyness/lyn-session-persistence-jsonl/generation
  */
 
 import { createHash, randomBytes } from 'node:crypto'
@@ -24,15 +24,15 @@ import { pipeline, Readable } from 'node:stream'
 import { scheduler } from 'node:timers/promises'
 import { isDeepStrictEqual } from 'node:util'
 import { constants, createZstdCompress } from 'node:zlib'
-import { Session } from '@lyness/session'
-import type { SessionEvent } from '@lyness/session'
-import { BlockAssembler, expandAssistantStream } from '@lyness/llm'
+import { Session } from '@lyness/lyn-session'
+import type { SessionEvent } from '@lyness/lyn-session'
+import { BlockAssembler, expandAssistantStream } from '@lyness/lyn-llm'
 import type {
   SessionFormatArtifact,
   SessionFormatJsonValue,
   SessionFormatRestore,
-} from '@lyness/session-format'
-import { validateStoredEvents } from '@lyness/session-persistence'
+} from '@lyness/lyn-session-format'
+import { validateStoredEvents } from '@lyness/lyn-session-persistence'
 import type { JsonlCompression } from './format.ts'
 import { generationLogFilename, logSuffix, SessionLogScanner } from './format.ts'
 import { publishNewFileWin32 } from './win32.ts'

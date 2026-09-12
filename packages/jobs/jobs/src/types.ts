@@ -1,11 +1,11 @@
 /**
  * Types shared by job producers, the registry, and controllers. The
  * service implementation lives in `./index.ts`.
- * @module @lyness/jobs/types
+ * @module @lyness/lyn-jobs/types
  */
 
-import type { Agent } from '@lyness/agent'
-import type { SessionId } from '@lyness/session'
+import type { Agent } from '@lyness/lyn-agent'
+import type { SessionId } from '@lyness/lyn-session'
 import type { JobId } from './brand.ts'
 
 export { JobId } from './brand.ts'

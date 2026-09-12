@@ -1,7 +1,7 @@
 /** Full projected transcripts and model-visible spill outcomes for bounded reference previews. */
 
-import type { SessionId } from '@lyness/session'
-import type { SaveTextSpill, SpillRef, SpillStore } from '@lyness/spill'
+import type { SessionId } from '@lyness/lyn-session'
+import type { SaveTextSpill, SpillRef, SpillStore } from '@lyness/lyn-spill'
 import type { ReferencedSessionData, ReferenceRetentionStats } from './projection.ts'
 
 /** Warning shared by inline previews and retrievable full transcripts. */

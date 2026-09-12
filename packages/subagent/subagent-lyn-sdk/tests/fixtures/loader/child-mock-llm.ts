@@ -1,8 +1,8 @@
 import type { Context } from '@lyness/cordis'
 import { existsSync, writeFileSync } from 'node:fs'
 import { setTimeout } from 'node:timers/promises'
-import type { GenerateOptions, LlmResolvedModelInfo, StreamChunk } from '@lyness/llm'
-import { LlmAdapter, ReasoningEffortId } from '@lyness/llm'
+import type { GenerateOptions, LlmResolvedModelInfo, StreamChunk } from '@lyness/lyn-llm'
+import { LlmAdapter, ReasoningEffortId } from '@lyness/lyn-llm'
 
 /**
  * Scripted model for the CHILD runtime: validates either the routed success

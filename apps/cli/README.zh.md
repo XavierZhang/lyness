@@ -41,7 +41,7 @@ profile 目录包含一个 `package.json`，其中记录树外插件依赖，以
 - profile 自身的 `cordis.patch.yml`，然后是 home 级的 `$LYNESS_HOME/cordis.patch.yml`
 - `--patch` 指定的覆盖层
 
-`lyn.profile.bundles` 中列出的组合包先从 lyn 安装目录解析（`@lyness/base`、`@lyness/web-app`、`@lyness/headless`、`@lyness/sdk-app`、`@lyness/sdk-minimal`、`@lyness/acp-app`），再从 profile 自身的 `node_modules` 解析；pnpm 会将树外插件安装到该目录。
+`lyn.profile.bundles` 中列出的组合包先从 lyn 安装目录解析（`@lyness/lyn-base`、`@lyness/lyn-web-app`、`@lyness/lyn-headless`、`@lyness/lyn-sdk-app`、`@lyness/lyn-sdk-minimal`、`@lyness/lyn-acp-app`），再从 profile 自身的 `node_modules` 解析；pnpm 会将树外插件安装到该目录。
 
 使用 `--dump-default-config` 和 `--dump-config` 可在不启动的情况下检查组合后的配置树。
 

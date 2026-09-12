@@ -1,7 +1,7 @@
 /** Locale-owned code renderer name and CodeBlock controls. */
-import type {} from '@lyness/client-ui-slots'
+import type {} from '@lyness/lyn-client-ui-slots'
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface LocaleNamespaceMap {
     /** Code document implementation name and copy controls. */
     sidebarCodePreview: keyof typeof zh

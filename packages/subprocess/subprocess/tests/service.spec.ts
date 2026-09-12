@@ -1,14 +1,14 @@
 import { describe, expect, it } from 'vitest'
 import { PassThrough } from 'node:stream'
 import { Context } from '@lyness/cordis'
-import { scrubbedParentEnv, SubprocessRuntime } from '@lyness/subprocess'
+import { scrubbedParentEnv, SubprocessRuntime } from '@lyness/lyn-subprocess'
 import type {
   SubprocessHandle,
   SubprocessOutputRead,
   SubprocessSpawnSpec,
   SubprocessTerminalHandle,
   SubprocessTerminalSpawnSpec,
-} from '@lyness/subprocess'
+} from '@lyness/lyn-subprocess'
 
 /**
  * Minimal concrete service: a hand-built handle. The seam is spawn-only —

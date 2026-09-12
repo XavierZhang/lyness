@@ -1,7 +1,7 @@
 /** Enforced current-writer majority and retained migration coverage. */
 
-import { SESSION_FORMAT_VERSION } from '@lyness/session'
-import type { SnapshotSessionFormatManifest } from '@lyness/session-snapshot'
+import { SESSION_FORMAT_VERSION } from '@lyness/lyn-session'
+import type { SnapshotSessionFormatManifest } from '@lyness/lyn-session-snapshot'
 
 /** One owning scenario's selected parent and child generations. */
 export interface SnapshotCorpusScenarioGenerations {

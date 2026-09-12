@@ -3,7 +3,7 @@ description: "The read-only Web catalog for active Schedule reminders, for users
 kind: "package-reference"
 ---
 
-# @lyness/client-ui-schedule
+# @lyness/lyn-client-ui-schedule
 
 English | [中文](README.zh.md)
 
@@ -31,7 +31,7 @@ Enable the Schedule overlay before starting the Web Session that should expose r
 lyn web --patch apps/cli/config/examples/schedule/cordis.yml
 ```
 
-The shipped Web graph already resolves `@lyness/client-ui-schedule` through a disabled `ui-schedule` row; the overlay enables that row together with `@lyness/schedule`. The trigger appears only while the Session is successfully open and the projection contains at least one active record. Opening it shows overdue rows first, then future rows by target time, with exact ties preserving the projection's creation order.
+The shipped Web graph already resolves `@lyness/lyn-client-ui-schedule` through a disabled `ui-schedule` row; the overlay enables that row together with `@lyness/lyn-schedule`. The trigger appears only while the Session is successfully open and the projection contains at least one active record. Opening it shows overdue rows first, then future rows by target time, with exact ties preserving the projection's creation order.
 
 ### Read and dismiss the catalog
 

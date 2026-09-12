@@ -18,9 +18,9 @@ A thin spill storage seam plus a default spill policy plugin, in a new `packages
 
 | Package | Role |
 |---|---|
-| `@lyness/spill` | Interface: `ctx.spillStore`, vocabulary types, no storage implementation. |
-| `@lyness/spill-local` | Local backend: private, session-scoped file storage on the host filesystem. |
-| `@lyness/spill-policy` | Tool-result policy plugin: wraps final text results after dispatch and replaces oversized results with a retained preview plus a spill locator. |
+| `@lyness/lyn-spill` | Interface: `ctx.spillStore`, vocabulary types, no storage implementation. |
+| `@lyness/lyn-spill-local` | Local backend: private, session-scoped file storage on the host filesystem. |
+| `@lyness/lyn-spill-policy` | Tool-result policy plugin: wraps final text results after dispatch and replaces oversized results with a retained preview plus a spill locator. |
 
 The tool-result Consumer is `lyn-spill-policy`, which consumes final tool results through the `tools/post-execute` waterfall. The model follows the backend-supplied retrieval hint for the returned locator. [Session-reference spill reuse](../bug-fix/2026-09-05-session-reference-spill-reuse.md) adds a direct storage consumer with separate preview, provenance, and failure semantics; it does not change the tool-result policy.
 
@@ -119,15 +119,15 @@ With `lyn-spill-policy` configured, a large formatted fetch result is automatica
 
 ```yaml
 - id: web-fetch-http
-  name: '@lyness/web-fetch-http'
+  name: '@lyness/lyn-web-fetch-http'
   config:
     maxBodyChars: 500000
 
 - id: spill-local
-  name: '@lyness/spill-local'
+  name: '@lyness/lyn-spill-local'
 
 - id: spill-policy
-  name: '@lyness/spill-policy'
+  name: '@lyness/lyn-spill-policy'
   config:
     maxInlineBytes: 50000
 ```
@@ -138,9 +138,9 @@ This separation is important. `web-fetch-http` still owns resource caps (`maxRes
 
 Retention is separate from spill storage:
 
-- `@lyness/output-retention` owns preview mechanics (`TextRetainer`, `ItemRetainer`, and omitted metadata).
-- `@lyness/spill` owns saving final text and returning a locator plus retrieval hint.
-- `@lyness/spill-policy` applies the default final-result policy in the tool pipeline, composing the two.
+- `@lyness/lyn-output-retention` owns preview mechanics (`TextRetainer`, `ItemRetainer`, and omitted metadata).
+- `@lyness/lyn-spill` owns saving final text and returning a locator plus retrieval hint.
+- `@lyness/lyn-spill-policy` applies the default final-result policy in the tool pipeline, composing the two.
 
 The final-result policy cannot replace tool-owned early spill. Some useful content is not present in final `ToolExecutionResult.content`:
 

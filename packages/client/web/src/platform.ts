@@ -1,16 +1,16 @@
 /**
  * Shared browser platform modules. Seeding, bundling externals, and Vite
  * aliases consume this list so their module identities cannot drift.
- * @module @lyness/client-web/src/platform
+ * @module @lyness/lyn-client-web/src/platform
  */
 
 /** The module specifiers the shell shares into the frozen module table. */
 export const PLATFORM_MODULES = [
   'react', 'react/jsx-runtime', 'react-dom', 'react-dom/client', '@lyness/cordis',
-  '@lyness/client-store',
-  '@lyness/client-ui-slots',
-  '@lyness/client-ui-primitives',
-  '@lyness/client-ui-dockkit',
+  '@lyness/lyn-client-store',
+  '@lyness/lyn-client-ui-slots',
+  '@lyness/lyn-client-ui-primitives',
+  '@lyness/lyn-client-ui-dockkit',
 ] as const
 
 /** Client-bundle specifiers whose factories the parser preloads before the shell starts. */

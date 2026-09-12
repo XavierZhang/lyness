@@ -1,17 +1,17 @@
 /**
  * Local-filesystem implementation of `ctx.fileReferences`.
  *
- * @module @lyness/file-reference-local
+ * @module @lyness/lyn-file-reference-local
  */
 
 import { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import type { Agent } from '@lyness/agent'
+import type { Agent } from '@lyness/lyn-agent'
 import FileReferenceService, {
   FILE_REFERENCE_PROMPT,
   type FileReferenceCandidate,
-} from '@lyness/file-reference'
-import type {} from '@lyness/tools'
+} from '@lyness/lyn-file-reference'
+import type {} from '@lyness/lyn-tools'
 import {
   DEFAULT_FILE_SEARCH_EXCLUDED_DIRECTORIES,
   DEFAULT_FILE_SEARCH_MAX_ENTRIES,
@@ -27,8 +27,8 @@ export {
   WorkspaceFileSearch,
 } from './search.ts'
 export type { FileSearchConfig } from './search.ts'
-export { FILE_REFERENCE_PROMPT } from '@lyness/file-reference'
-export { activeAtToken, formatFileMention } from '@lyness/file-reference/grammar'
+export { FILE_REFERENCE_PROMPT } from '@lyness/lyn-file-reference'
+export { activeAtToken, formatFileMention } from '@lyness/lyn-file-reference/grammar'
 
 /** Local file-reference discovery configuration. */
 export interface Config {

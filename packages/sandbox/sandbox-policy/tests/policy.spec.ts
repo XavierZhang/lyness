@@ -9,11 +9,11 @@ import { tmpdir } from 'node:os'
 import { join, resolve, sep } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import type { Agent } from '@lyness/agent'
-import { SESSION_FORMAT_VERSION, Session, SessionId } from '@lyness/session'
-import SandboxPolicyService, { SANDBOX_MODES, setSandboxMode } from '@lyness/sandbox-policy'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import SystemPrompt, { renderContextSnapshot, renderPrompt } from '@lyness/system-prompt'
+import type { Agent } from '@lyness/lyn-agent'
+import { SESSION_FORMAT_VERSION, Session, SessionId } from '@lyness/lyn-session'
+import SandboxPolicyService, { SANDBOX_MODES, setSandboxMode } from '@lyness/lyn-sandbox-policy'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import SystemPrompt, { renderContextSnapshot, renderPrompt } from '@lyness/lyn-system-prompt'
 
 async function mounted(config: { mode?: 'read-only' | 'workspace-write' | 'danger-full-access'; workspaceRoot?: string } = {}) {
   const ctx = new Context()

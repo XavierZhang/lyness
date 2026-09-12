@@ -9,7 +9,7 @@ import { performance } from 'node:perf_hooks'
 import type { Browser, CDPSession, Locator, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
-import type { StreamChunk } from '@lyness/llm'
+import type { StreamChunk } from '@lyness/lyn-llm'
 import {
   ToolCallId,
   createAssistantMessage,
@@ -17,16 +17,16 @@ import {
   createToolResultMessage,
   createUserMessage,
   expandAssistantStream,
-} from '@lyness/llm'
-import type { ReplayEntry, ReplayOverrideDoc } from '@lyness/llm-replay'
-import type { SessionEvent, SessionSeq } from '@lyness/session'
+} from '@lyness/lyn-llm'
+import type { ReplayEntry, ReplayOverrideDoc } from '@lyness/lyn-llm-replay'
+import type { SessionEvent, SessionSeq } from '@lyness/lyn-session'
 import {
   SESSION_FORMAT_VERSION,
   Session,
   SessionId,
-} from '@lyness/session'
+} from '@lyness/lyn-session'
 // Carries the session/title event declaration into the fixture builder.
-import type {} from '@lyness/session-title'
+import type {} from '@lyness/lyn-session-title'
 import {
   launchWebScaffold,
   seedSession,
@@ -203,7 +203,7 @@ function appendSystemPrompt(session: Session, turn: number, step: number): void 
     step,
     message: createSystemMessage(
       'Synthetic performance system prompt.',
-      '@lyness/system-prompt',
+      '@lyness/lyn-system-prompt',
     ),
   }, { surfaceOp: 'append' })
 }

@@ -7,7 +7,7 @@ import Lsp, {
   type LspProvider,
   type LspProviderQuery,
   type LspQueryResult,
-} from '@lyness/lsp'
+} from '@lyness/lyn-lsp'
 
 /** A scripted provider that records the queries it receives. */
 function makeProvider(

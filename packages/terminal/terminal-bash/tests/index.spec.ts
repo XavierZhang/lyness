@@ -3,27 +3,27 @@ import { PassThrough } from 'node:stream'
 import { resolve } from 'node:path'
 import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
-import SessionStore, { SESSION_FORMAT_VERSION, Session, SessionId } from '@lyness/session'
-import AgentRegistry, { type Agent } from '@lyness/agent'
-import SandboxProvider from '@lyness/sandbox'
-import type { ConfinedArgv, SandboxPolicy } from '@lyness/sandbox'
-import SandboxPolicyService, { setSandboxMode } from '@lyness/sandbox-policy'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import TerminalSessionService, { TerminalBackendCleanupError, TerminalSessionId } from '@lyness/terminal'
-import type { TerminalSendRequest, TerminalWaitReason } from '@lyness/terminal'
-import { BashTerminalBackend, PWSH_PROMPT_SETUP } from '@lyness/terminal-bash'
-import { ENCODING_PREAMBLE } from '@lyness/pwsh-local'
-import * as ptyLocal from '@lyness/terminal-bash'
-import type { ResolvedConfig } from '@lyness/terminal-bash/src/config.ts'
-import type { LocalPtySession } from '@lyness/terminal-bash/src/session.ts'
-import { SubprocessRuntime } from '@lyness/subprocess'
+import SessionStore, { SESSION_FORMAT_VERSION, Session, SessionId } from '@lyness/lyn-session'
+import AgentRegistry, { type Agent } from '@lyness/lyn-agent'
+import SandboxProvider from '@lyness/lyn-sandbox'
+import type { ConfinedArgv, SandboxPolicy } from '@lyness/lyn-sandbox'
+import SandboxPolicyService, { setSandboxMode } from '@lyness/lyn-sandbox-policy'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import TerminalSessionService, { TerminalBackendCleanupError, TerminalSessionId } from '@lyness/lyn-terminal'
+import type { TerminalSendRequest, TerminalWaitReason } from '@lyness/lyn-terminal'
+import { BashTerminalBackend, PWSH_PROMPT_SETUP } from '@lyness/lyn-terminal-bash'
+import { ENCODING_PREAMBLE } from '@lyness/lyn-pwsh-local'
+import * as ptyLocal from '@lyness/lyn-terminal-bash'
+import type { ResolvedConfig } from '@lyness/lyn-terminal-bash/src/config.ts'
+import type { LocalPtySession } from '@lyness/lyn-terminal-bash/src/session.ts'
+import { SubprocessRuntime } from '@lyness/lyn-subprocess'
 import type {
   SubprocessHandle,
   SubprocessSpawnSpec,
   SubprocessTerminalHandle,
   SubprocessTerminalSpawnSpec,
-} from '@lyness/subprocess'
-import { unsupportedInbox } from '@lyness/agent-loop-testkit'
+} from '@lyness/lyn-subprocess'
+import { unsupportedInbox } from '@lyness/lyn-agent-loop-testkit'
 
 class EmptySandbox extends SandboxProvider {
   confine(_argv: readonly string[], _policy: SandboxPolicy): ConfinedArgv {

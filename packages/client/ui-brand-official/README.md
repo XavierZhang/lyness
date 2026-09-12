@@ -3,7 +3,7 @@ description: "Official lyness brand occupants for the sidebar, active only in of
 kind: "package-reference"
 ---
 
-# @lyness/client-ui-brand-official
+# @lyness/lyn-client-ui-brand-official
 
 English | [中文](README.zh.md)
 

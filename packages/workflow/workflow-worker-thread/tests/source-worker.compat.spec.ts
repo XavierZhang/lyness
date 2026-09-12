@@ -6,12 +6,12 @@
 
 import { expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import type { Agent } from '@lyness/agent'
-import SubagentRuntime from '@lyness/subagent'
-import type { SubagentProvider } from '@lyness/subagent'
-import SessionProjectionRegistry from '@lyness/session-projection'
+import type { Agent } from '@lyness/lyn-agent'
+import SubagentRuntime from '@lyness/lyn-subagent'
+import type { SubagentProvider } from '@lyness/lyn-subagent'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 import WorkerThreadWorkflowEngine from '../src/index.ts'
-import { SessionId } from '@lyness/session'
+import { SessionId } from '@lyness/lyn-session'
 
 // A fresh thread compiles the source runtime. Leave contention headroom on
 // shared CI runners without weakening any engine-level timeout assertion.

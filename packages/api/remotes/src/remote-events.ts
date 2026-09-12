@@ -6,8 +6,8 @@
  * type-only.
  */
 
-import type {} from '@lyness/api-session-controller/remote-events'
-import type { TypertForwardableEventEntry } from '@lyness/typert-protocol'
+import type {} from '@lyness/lyn-api-session-controller/remote-events'
+import type { TypertForwardableEventEntry } from '@lyness/lyn-typert-protocol'
 
 /**
  * Host events this application forwards without renaming. The explicit mode is

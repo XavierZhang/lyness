@@ -1,5 +1,5 @@
-import type { ModelCatalog } from '@lyness/api-remotes/client'
-import { RemoteError } from '@lyness/client-test-runtime'
+import type { ModelCatalog } from '@lyness/lyn-api-remotes/client'
+import { RemoteError } from '@lyness/lyn-client-test-runtime'
 import { describe, expect, it, vi } from 'vitest'
 import { ModelCatalogDirectory } from '../src/client/catalog.ts'
 

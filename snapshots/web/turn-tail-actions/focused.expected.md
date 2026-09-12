@@ -20,10 +20,10 @@
 - button "1 tool call · 1 message" [expanded]:
   - text: 1 tool call · 1 message
   - img
-- button "Context injection @lyness/system-prompt":
+- button "Context injection @lyness/lyn-system-prompt":
   - img
   - img
-  - text: Context injection @lyness/system-prompt
+  - text: Context injection @lyness/lyn-system-prompt
 - button "Think The user wants me to begin with \"Reading the workspace now.\" and call bash with \"echo alpha\" in the same message. Then after the tool result, reply with the single word DONE and stop.":
   - img
   - img

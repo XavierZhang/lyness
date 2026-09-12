@@ -6,8 +6,8 @@
  * stream, and this module only wires them into `ctx.resources`.
  */
 import type { Context as ClientContext } from '@lyness/cordis'
-import type {} from '@lyness/api-gateway/client'
-import type {} from '@lyness/client-resources/client'
+import type {} from '@lyness/lyn-api-gateway/client'
+import type {} from '@lyness/lyn-client-resources/client'
 import { ChangeFeed } from './change-feed.ts'
 import { createFileResourceProvider } from './provider.ts'
 

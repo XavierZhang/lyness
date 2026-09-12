@@ -8,18 +8,18 @@ import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
 import Include from '@lyness/cordis-plugin-include'
-import { agentEvents, type Agent } from '@lyness/agent'
-import { createUserMessage, ToolCallId } from '@lyness/llm'
-import * as systemPromptPlugin from '@lyness/system-prompt'
-import * as toolsPlugin from '@lyness/tools'
-import * as fsPlugin from '@lyness/fs-local'
-import * as toolFsPlugin from '@lyness/tool-fs'
-import * as sessionPlugin from '@lyness/session'
-import { Session, SessionId } from '@lyness/session'
-import * as queryPlugin from '@lyness/session-query-sqlite'
-import * as referencePlugin from '@lyness/session-reference'
-import * as spillPlugin from '@lyness/spill-local'
-import { sessionDir } from '@lyness/spill-local'
+import { agentEvents, type Agent } from '@lyness/lyn-agent'
+import { createUserMessage, ToolCallId } from '@lyness/lyn-llm'
+import * as systemPromptPlugin from '@lyness/lyn-system-prompt'
+import * as toolsPlugin from '@lyness/lyn-tools'
+import * as fsPlugin from '@lyness/lyn-fs-local'
+import * as toolFsPlugin from '@lyness/lyn-tool-fs'
+import * as sessionPlugin from '@lyness/lyn-session'
+import { Session, SessionId } from '@lyness/lyn-session'
+import * as queryPlugin from '@lyness/lyn-session-query-sqlite'
+import * as referencePlugin from '@lyness/lyn-session-reference'
+import * as spillPlugin from '@lyness/lyn-spill-local'
+import { sessionDir } from '@lyness/lyn-spill-local'
 import * as sourcePlugin from './fixtures/source-session.ts'
 
 let context: Context | undefined
@@ -44,14 +44,14 @@ describe('session-reference real Loader composition', () => {
     await ctx.plugin(Loader)
     ctx.loader.builtins.include = Include
     const modules = new Map<string, unknown>([
-      ['@lyness/session', sessionPlugin],
-      ['@lyness/system-prompt', systemPromptPlugin],
-      ['@lyness/tools', toolsPlugin],
-      ['@lyness/fs-local', fsPlugin],
-      ['@lyness/tool-fs', toolFsPlugin],
-      ['@lyness/session-query-sqlite', queryPlugin],
-      ['@lyness/session-reference', referencePlugin],
-      ['@lyness/spill-local', spillPlugin],
+      ['@lyness/lyn-session', sessionPlugin],
+      ['@lyness/lyn-system-prompt', systemPromptPlugin],
+      ['@lyness/lyn-tools', toolsPlugin],
+      ['@lyness/lyn-fs-local', fsPlugin],
+      ['@lyness/lyn-tool-fs', toolFsPlugin],
+      ['@lyness/lyn-session-query-sqlite', queryPlugin],
+      ['@lyness/lyn-session-reference', referencePlugin],
+      ['@lyness/lyn-spill-local', spillPlugin],
       ['./source-session.ts', sourcePlugin],
     ])
     ctx.loader.internal = {

@@ -8,9 +8,9 @@
 
 import { describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { ToolCallId } from '@lyness/llm'
-import type { ToolExecution } from '@lyness/tools'
-import { resolveRgPath, runRipgrep } from '@lyness/tool-fs-search'
+import { ToolCallId } from '@lyness/lyn-llm'
+import type { ToolExecution } from '@lyness/lyn-tools'
+import { resolveRgPath, runRipgrep } from '@lyness/lyn-tool-fs-search'
 
 // Any access to the mocked module's surface throws — the shape a missing
 // platform package produces at module evaluation.

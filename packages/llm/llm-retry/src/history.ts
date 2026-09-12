@@ -1,6 +1,6 @@
-/** Durable request-route lookup for one open model step. @module @lyness/llm-retry/history */
+/** Durable request-route lookup for one open model step. @module @lyness/lyn-llm-retry/history */
 
-import type { SessionEvent } from '@lyness/session'
+import type { SessionEvent } from '@lyness/lyn-session'
 
 /**
  * Find the provider in force for one currently open step.

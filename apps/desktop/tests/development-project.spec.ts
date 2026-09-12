@@ -39,7 +39,7 @@ describe('desktop development project', () => {
     mkdirSync(join(dependencies, '@scope'), { recursive: true })
     mkdirSync(join(dependencies, '@lyness', 'lyn'), { recursive: true })
     writeFileSync(join(cli, 'package.json'), '{"name":"@lyness/lyn","version":"1.2.3"}\n')
-    writeFileSync(join(host, 'package.json'), '{"name":"@lyness/desktop-host","version":"1.2.3"}\n')
+    writeFileSync(join(host, 'package.json'), '{"name":"@lyness/lyn-desktop-host","version":"1.2.3"}\n')
     writeFileSync(join(host, 'lib', 'index.js'), '')
     writeFileSync(join(dependencies, '@lyness', 'lyn', 'package.json'), '{}\n')
     mkdirSync(join(dependencies, 'plain-dependency'))
@@ -55,7 +55,7 @@ describe('desktop development project', () => {
       release: release(),
     })
     expect(realpathSync(join(project, 'node_modules', '@lyness', 'lyn'))).toBe(realpathSync(cli))
-    expect(realpathSync(join(project, 'node_modules', '@lyness', 'desktop-host'))).toBe(realpathSync(host))
+    expect(realpathSync(join(project, 'node_modules', '@lyness', 'lyn-desktop-host'))).toBe(realpathSync(host))
     expect(realpathSync(join(project, 'node_modules', 'plain-dependency')))
       .toBe(realpathSync(join(dependencies, 'plain-dependency')))
     expect(realpathSync(join(project, 'node_modules', '@scope', 'dependency')))
@@ -64,7 +64,7 @@ describe('desktop development project', () => {
       dependencies: Record<string, string>
     }
     expect(manifest.dependencies['@lyness/lyn']).toBe('1.2.3')
-    expect(manifest.dependencies['@lyness/desktop-host']).toBe('1.2.3')
+    expect(manifest.dependencies['@lyness/lyn-desktop-host']).toBe('1.2.3')
   })
 
   it('rejects a CLI package from another release', () => {
@@ -76,7 +76,7 @@ describe('desktop development project', () => {
     mkdirSync(join(host, 'lib'), { recursive: true })
     mkdirSync(dependencies, { recursive: true })
     writeFileSync(join(cli, 'package.json'), '{"name":"@lyness/lyn","version":"2.0.0"}\n')
-    writeFileSync(join(host, 'package.json'), '{"name":"@lyness/desktop-host","version":"1.2.3"}\n')
+    writeFileSync(join(host, 'package.json'), '{"name":"@lyness/lyn-desktop-host","version":"1.2.3"}\n')
     writeFileSync(join(host, 'lib', 'index.js'), '')
     expect(() => prepareDevelopmentProject({
       projectDir: join(root, 'development'),

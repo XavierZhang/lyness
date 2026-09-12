@@ -1,4 +1,4 @@
-import SessionQueryEngine from '@lyness/session-query'
+import SessionQueryEngine from '@lyness/lyn-session-query'
 import type {
   SessionEventSearchPage,
   SessionEventSearchRequest,
@@ -6,7 +6,7 @@ import type {
   SessionSearchHit,
   SessionSearchPage,
   SessionSearchRequest,
-} from '@lyness/session-query'
+} from '@lyness/lyn-session-query'
 
 /** Test-only concrete query service for backend-independent behavior. */
 export class TestSessionQueryEngine extends SessionQueryEngine {

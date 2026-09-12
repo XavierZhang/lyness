@@ -3,14 +3,14 @@
 import type { Context } from '@lyness/cordis'
 import type { IncomingMessage, ServerResponse } from 'node:http'
 import { Webhooks } from '@octokit/webhooks'
-import type { CredentialRef } from '@lyness/credentials'
-import { snapshotJsonValue } from '@lyness/util-values'
+import type { CredentialRef } from '@lyness/lyn-credentials'
+import { snapshotJsonValue } from '@lyness/lyn-util-values'
 import {
   WebhookDeliveryId,
   WebhookSourceId,
   type VerifiedWebhookDelivery,
-} from '@lyness/webhook'
-import type { WebRoute } from '@lyness/host-webserver'
+} from '@lyness/lyn-webhook'
+import type { WebRoute } from '@lyness/lyn-host-webserver'
 import { readBoundedUtf8Body, WebhookHttpError } from './body.ts'
 import type { GitHubJsonObject } from './types.ts'
 

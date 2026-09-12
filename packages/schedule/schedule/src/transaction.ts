@@ -1,6 +1,6 @@
 /** Agent-scoped serialization for Schedule reads and durable mutations. */
 
-import type { Agent } from '@lyness/agent'
+import type { Agent } from '@lyness/lyn-agent'
 
 const tails = new WeakMap<Agent, Promise<void>>()
 

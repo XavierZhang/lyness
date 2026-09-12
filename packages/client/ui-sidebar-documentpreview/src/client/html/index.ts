@@ -8,7 +8,7 @@ import type { HtmlBodyProps } from './HtmlBody.tsx'
 import { en, zh } from './locales.ts'
 
 /** HTML implementation identity, shared by metadata and the keyed slot. */
-export const HTML_BODY_ID = '@lyness/client-ui-sidebar-documentpreview/html'
+export const HTML_BODY_ID = '@lyness/lyn-client-ui-sidebar-documentpreview/html'
 
 /**
  * Describe the builtin HTML renderer's file types and loading mode.

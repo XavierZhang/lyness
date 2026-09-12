@@ -1,11 +1,11 @@
 /**
  * Owner-scoped persistent PTY registry. Backends own terminal mechanics while
  * this service owns ids, publication, authorization, and awaited cleanup.
- * @module @lyness/terminal
+ * @module @lyness/lyn-terminal
  */
 
 import { Context, Service } from '@lyness/cordis'
-import type { Agent } from '@lyness/agent'
+import type { Agent } from '@lyness/lyn-agent'
 import { TerminalBackendCleanupError } from './types.ts'
 import type {
   TerminalBackend,

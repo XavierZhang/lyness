@@ -1,9 +1,9 @@
 import { useState, type KeyboardEvent, type ReactNode } from 'react'
 import {
   IconChevronDownOutline14, IconInspectOutline12, IconSkillOutline16, StateDot,
-} from '@lyness/client-ui-primitives'
-import type { ToolCallViewProps } from '@lyness/client-ui-tool/client'
-import type { PropsLocale } from '@lyness/client-ui-slots'
+} from '@lyness/lyn-client-ui-primitives'
+import type { ToolCallViewProps } from '@lyness/lyn-client-ui-tool/client'
+import type { PropsLocale } from '@lyness/lyn-client-ui-slots'
 import css from './SkillRow.module.css'
 
 /** Skill row lifecycle derived solely from the durable call slice. */

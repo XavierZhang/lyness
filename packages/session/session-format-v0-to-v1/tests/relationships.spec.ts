@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { SessionFormatUnsupportedMigrationError } from '@lyness/session-format'
+import { SessionFormatUnsupportedMigrationError } from '@lyness/lyn-session-format'
 import {
   assertReleasedArtifactRelationships,
 } from '../src/index.ts'

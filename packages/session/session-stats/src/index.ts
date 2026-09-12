@@ -6,7 +6,7 @@
  * compaction cannot change. The plugin owns only the fold; delivery is the
  * seam's.
  *
- * @module @lyness/session-stats
+ * @module @lyness/lyn-session-stats
  */
 
 import type { Context } from '@lyness/cordis'

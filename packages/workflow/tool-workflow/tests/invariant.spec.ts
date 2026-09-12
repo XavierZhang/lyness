@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import InvariantRegistry, { InvariantError } from '@lyness/invariants'
-import SessionStore, { SessionId, type Session } from '@lyness/session'
-import { WorkflowRunId, type WorkflowRunId as WorkflowRunIdType } from '@lyness/workflow/types'
+import InvariantRegistry, { InvariantError } from '@lyness/lyn-invariants'
+import SessionStore, { SessionId, type Session } from '@lyness/lyn-session'
+import { WorkflowRunId, type WorkflowRunId as WorkflowRunIdType } from '@lyness/lyn-workflow/types'
 import * as ToolWorkflowInvariant from '../src/invariant.ts'
 import type {} from '../src/types.ts'
 
@@ -53,7 +53,7 @@ describe('durable workflow-record invariants', () => {
       runId, seq: 1, outcome: 'completed',
     })).toThrow(expect.objectContaining<Partial<InvariantError>>({
       code: 'INVARIANT',
-      packageName: '@lyness/tool-workflow',
+      packageName: '@lyness/lyn-tool-workflow',
     }))
     expect(session.seq).toBe(before)
     expect(() => session.append('tool-workflow/run-end', {

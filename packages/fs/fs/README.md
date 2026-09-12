@@ -3,7 +3,7 @@ description: "The ctx.fs filesystem service contract for deployments choosing or
 kind: "package-reference"
 ---
 
-# @lyness/fs
+# @lyness/lyn-fs
 
 English | [中文](README.zh.md)
 

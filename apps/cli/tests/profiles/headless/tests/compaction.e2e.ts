@@ -1,11 +1,11 @@
-import { createUserMessage } from '@lyness/llm'
+import { createUserMessage } from '@lyness/lyn-llm'
 import { mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
 import type { Context } from '@lyness/cordis'
 import { codingHarness, finalText, SYSTEM_PROMPT, waitForIdle } from './harness.ts'
-import { SessionId } from '@lyness/session'
+import { SessionId } from '@lyness/lyn-session'
 
 /**
  * Key-gated smoke for mid-session compaction. It verifies the compact event

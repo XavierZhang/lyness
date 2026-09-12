@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import type { ReactNode } from 'react'
-import { IconDownloadOutline16, IconEllipsisOutline16, Menu } from '@lyness/client-ui-primitives'
+import { IconDownloadOutline16, IconEllipsisOutline16, Menu } from '@lyness/lyn-client-ui-primitives'
 import { SessionLogDownloadDialog, type SessionLogDownloadDialogProps } from './Dialog.tsx'
 import css from './HeaderAction.module.css'
 

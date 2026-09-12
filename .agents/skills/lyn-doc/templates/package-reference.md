@@ -14,7 +14,7 @@ kind: "package-reference"
 ## Skeleton
 
 ```markdown
-# @lyness/<name>
+# @lyness/lyn-<name>
 
 English | [中文](README.zh.md)
 
@@ -50,7 +50,7 @@ The smallest mount that works, as a `cordis.yml` snippet, plus the config table:
 |---|---|---|
 | `<field>` | `<default>` or `required` | One-line meaning |
 
-The generated [configuration catalog](../../../docs/config-catalog.md#lyness<name>) is the exhaustive source for every accepted field.
+The generated [configuration catalog](../../../docs/config-catalog.md#lynesslyn-<name>) is the exhaustive source for every accepted field.
 
 -----
 

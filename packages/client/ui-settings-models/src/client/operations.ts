@@ -9,7 +9,7 @@ import type { Context as ClientContext } from '@lyness/cordis'
 import type {
   CredentialInfo, LlmDiscoveredModel, LlmModelDiscoveryRequest,
   SettingsNamespaceView, SettingsPathOpView,
-} from '@lyness/api-remotes/client'
+} from '@lyness/lyn-api-remotes/client'
 
 /** What one namespace write answered. */
 export type SettingsWriteOutcome =

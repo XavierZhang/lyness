@@ -9,22 +9,22 @@
 # the composition must boot the pwsh executor, so the lane skips on hosts
 # without a usable `pwsh`.
 - id: bash-sandbox
-  name: '@lyness/bash-sandbox'
+  name: '@lyness/lyn-bash-sandbox'
   disabled: true
 - id: pwsh-sandbox
-  name: '@lyness/pwsh-sandbox'
+  name: '@lyness/lyn-pwsh-sandbox'
   disabled: true
 - id: permission
-  name: '@lyness/permission-presets'
+  name: '@lyness/lyn-permission-presets'
   disabled: true
 - insert:
     - id: pwsh-local
-      name: '@lyness/pwsh-local'
+      name: '@lyness/lyn-pwsh-local'
 
 # tool-pwsh already exists in the shipped composition: the base bundle declares
 # it platform-gated on every platform, and the web-app overlay disables it for
 # surfaces that use presets. So this lane enables it by id rather than
 # inserting a second row to the same id.
 - id: tool-pwsh
-  name: '@lyness/tool-pwsh'
+  name: '@lyness/lyn-tool-pwsh'
   disabled: false

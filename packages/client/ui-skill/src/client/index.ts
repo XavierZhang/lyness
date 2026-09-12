@@ -31,19 +31,19 @@
  */
 // Type-only: the carrier types, the forwarded Host-event face and the ctx.remote merge.
 import type { Context as ClientContext } from '@lyness/cordis'
-import type { SkillEntry } from '@lyness/api-remotes/client'
-import type {} from '@lyness/api-session-controller/client'
-import type { SessionId } from '@lyness/session/types'
-import type { InputTriggerServiceContract, InputTriggerSource } from '@lyness/client-ui-input-trigger/client'
-import { rankByName } from '@lyness/client-ui-primitives'
+import type { SkillEntry } from '@lyness/lyn-api-remotes/client'
+import type {} from '@lyness/lyn-api-session-controller/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { InputTriggerServiceContract, InputTriggerSource } from '@lyness/lyn-client-ui-input-trigger/client'
+import { rankByName } from '@lyness/lyn-client-ui-primitives'
 // Type-only: pulls the locale plugin's Context merge (ctx.locale).
-import type {} from '@lyness/client-locale/client'
+import type {} from '@lyness/lyn-client-locale/client'
 // Type-only: pulls the SlotRegistry service merge (ctx.slots).
-import type {} from '@lyness/client-ui-renderer/client'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
 import { SkillRow } from './SkillRow.tsx'
 import { en, NS, zh, type SkillKey } from './locales.ts'
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface LocaleNamespaceMap {
     /** The dedicated skill tool row's copy. */
     skill: SkillKey

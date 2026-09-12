@@ -3,7 +3,7 @@ description: "The shipped JSONL session-persistence backend for deployments and 
 kind: "package-reference"
 ---
 
-# @lyness/session-persistence-jsonl
+# @lyness/lyn-session-persistence-jsonl
 
 English | [中文](README.zh.md)
 
@@ -34,8 +34,8 @@ Choose this backend when consumers benefit from one artifact per session — nav
 ### Minimal configuration
 
 ```yaml
-- name: '@lyness/session'
-- name: '@lyness/session-persistence-jsonl'
+- name: '@lyness/lyn-session'
+- name: '@lyness/lyn-session-persistence-jsonl'
   config:
     root: /absolute/path/to/session-logs
 ```
@@ -49,7 +49,7 @@ Choose this backend when consumers benefit from one artifact per session — nav
 
 Live-event write batching is not configuration: the batching window is the seam's internal scheduling policy inside each write handle.
 
-The generated [configuration catalog](../../../docs/config-catalog.md#lynesssession-persistence-jsonl) is the exhaustive source for every accepted field and its JSDoc.
+The generated [configuration catalog](../../../docs/config-catalog.md#lynesslyn-session-persistence-jsonl) is the exhaustive source for every accepted field and its JSDoc.
 
 ### On-disk layout
 

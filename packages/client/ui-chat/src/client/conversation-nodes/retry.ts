@@ -1,8 +1,8 @@
 import type { Context } from '@lyness/cordis'
 import type {
   ConversationLocation, ConversationMatch, ConversationNodeDefinition, ModelRetryNode,
-} from '@lyness/client-ui-conversation/client'
-import type {} from '@lyness/llm-retry/types'
+} from '@lyness/lyn-client-ui-conversation/client'
+import type {} from '@lyness/lyn-llm-retry/types'
 import type { RetryChatData } from '../contract/chat-nodes.ts'
 import { chatNode } from './common.ts'
 

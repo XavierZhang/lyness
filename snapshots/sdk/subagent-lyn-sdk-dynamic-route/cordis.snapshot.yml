@@ -2,7 +2,7 @@
 
 - insert:
     - id: llm-replay
-      name: '@lyness/llm-replay'
+      name: '@lyness/lyn-llm-replay'
       config:
         providers:
           - id: deepseek-official
@@ -16,7 +16,7 @@
                 reasoningEfforts: [max]
 
     - id: sdk-jsonrpc-server-dynamic-replay
-      name: '@lyness/sdk-jsonrpc-server'
+      name: '@lyness/lyn-sdk-jsonrpc-server'
       inject: [sdkAppStartup, loader]
       config:
         maxTokensAsSuccess: true

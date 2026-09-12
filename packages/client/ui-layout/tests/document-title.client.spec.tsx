@@ -1,10 +1,10 @@
 // @vitest-environment jsdom
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { act, cleanup, render } from '@testing-library/react'
-import { createSnapshotStore } from '@lyness/client-store'
-import { bindSnapshotSelector } from '@lyness/client-test-runtime'
-import type { SessionListState } from '@lyness/api-session-controller/client'
-import type { SessionId } from '@lyness/session/types'
+import { createSnapshotStore } from '@lyness/lyn-client-store'
+import { bindSnapshotSelector } from '@lyness/lyn-client-test-runtime'
+import type { SessionListState } from '@lyness/lyn-api-session-controller/client'
+import type { SessionId } from '@lyness/lyn-session/types'
 import { DocumentTitle } from '../src/client/DocumentTitle.tsx'
 import type { MainPanelId, PanelInfo } from '../src/client/service.ts'
 

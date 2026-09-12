@@ -15,14 +15,14 @@
  * This row therefore waits for it rather than assuming it: a preset selecting
  * PTC mode against a deployment that composes no runtime fails at mount, named
  * in the preset's own activation audit, instead of at the first prompt.
- * @module @lyness/agent-tool-presentation
+ * @module @lyness/lyn-agent-tool-presentation
  */
 
 import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import type { ToolPresentationMode } from '@lyness/tools'
+import type { ToolPresentationMode } from '@lyness/lyn-tools'
 // Type-only: brings the `ctx.tools` Context merge into this program.
-import type {} from '@lyness/tools'
+import type {} from '@lyness/lyn-tools'
 
 /** Cordis plugin name. */
 export const name = 'tool-presentation'

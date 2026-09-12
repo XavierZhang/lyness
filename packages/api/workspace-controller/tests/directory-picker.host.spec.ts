@@ -1,8 +1,8 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { DirectoryPicker, DirectoryPickerError } from '@lyness/host-directory-picker'
-import type { DirectoryPickerCapability } from '@lyness/host-directory-picker'
-import { remoteErrorOf } from '@lyness/typert-protocol'
+import { DirectoryPicker, DirectoryPickerError } from '@lyness/lyn-host-directory-picker'
+import type { DirectoryPickerCapability } from '@lyness/lyn-host-directory-picker'
+import { remoteErrorOf } from '@lyness/lyn-typert-protocol'
 import { DirectoryPickerController } from '../src/directory-picker.ts'
 
 const roots: Context[] = []

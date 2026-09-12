@@ -5,18 +5,18 @@ import { homedir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { LocalSandboxProvider } from '@lyness/sandbox-local'
-import { SandboxPolicyService } from '@lyness/sandbox-policy'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import { bwrapProfileArgs } from '@lyness/sandbox-local/src/profiles.ts'
-import { SandboxBashExecutor } from '@lyness/bash-sandbox'
-import LocalSubprocessRuntime from '@lyness/subprocess-local'
+import { LocalSandboxProvider } from '@lyness/lyn-sandbox-local'
+import { SandboxPolicyService } from '@lyness/lyn-sandbox-policy'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import { bwrapProfileArgs } from '@lyness/lyn-sandbox-local/src/profiles.ts'
+import { SandboxBashExecutor } from '@lyness/lyn-bash-sandbox'
+import LocalSubprocessRuntime from '@lyness/lyn-subprocess-local'
 
 /**
  * Keyless integration of the real provider and executor through public run/start paths. With
  * no rung forced, a passing bwrap probe selects the ladder's first rung. The tests check world
  * effects and stamped facts, including EROFS classification through the wrap-carried dialect;
- * backend-only confinement is covered by `@lyness/sandbox-local`.
+ * backend-only confinement is covered by `@lyness/lyn-sandbox-local`.
  *
  * Skips when bwrap or unprivileged user namespaces are unavailable. HOME-based paths are
  * intentional because bwrap replaces `/tmp`, which cannot prove the workspace-root boundary.

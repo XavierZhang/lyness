@@ -1,5 +1,5 @@
-import { BrandWordmark, FishLogo } from '@lyness/client-ui-primitives'
-import type { SidebarBrandMarkOwnerProps } from '@lyness/client-ui-sidebar/client'
+import { BrandWordmark, FishLogo } from '@lyness/lyn-client-ui-primitives'
+import type { SidebarBrandMarkOwnerProps } from '@lyness/lyn-client-ui-sidebar/client'
 
 /**
  * Render the official mark with the presentation requested by its host surface.

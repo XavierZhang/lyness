@@ -3,10 +3,10 @@
  * vocabulary remains in `./types` so Client programs never import Agent or
  * host Cordis context declarations.
  *
- * @module @lyness/workflow
+ * @module @lyness/lyn-workflow
  */
 
-import type { Agent } from '@lyness/agent'
+import type { Agent } from '@lyness/lyn-agent'
 import type {
   WorkflowMeta, WorkflowResult, WorkflowRunId,
 } from './types.ts'

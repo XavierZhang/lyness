@@ -6,10 +6,10 @@
  */
 import { describe, expect, it, vi, beforeEach } from 'vitest'
 import { Context } from '@lyness/cordis'
-import SystemPrompt from '@lyness/system-prompt'
-import ToolRuntime from '@lyness/tools'
-import { ToolCallId } from '@lyness/llm'
-import type { Config } from '@lyness/mcp-client'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime from '@lyness/lyn-tools'
+import { ToolCallId } from '@lyness/lyn-llm'
+import type { Config } from '@lyness/lyn-mcp-client'
 
 // ---- Mock MCP SDK ----
 
@@ -58,8 +58,8 @@ vi.mock('@modelcontextprotocol/sdk/client/streamableHttp.js', () => ({
 
 // vi.mock is hoisted above static imports, so the modules under test see the
 // mocked SDK even through a static import.
-import { apply } from '@lyness/mcp-client/src/index.ts'
-import { RECONNECT_DEFAULTS, resolveReconnectPolicy, startConnection } from '@lyness/mcp-client/src/connection.ts'
+import { apply } from '@lyness/lyn-mcp-client/src/index.ts'
+import { RECONNECT_DEFAULTS, resolveReconnectPolicy, startConnection } from '@lyness/lyn-mcp-client/src/connection.ts'
 
 // ---- Helpers ----
 

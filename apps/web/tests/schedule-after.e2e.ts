@@ -6,18 +6,18 @@ import { fileURLToPath } from 'node:url'
 import type { Browser, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed } from 'vitest'
-import type { Agent, AgentHandle } from '@lyness/agent'
-import { composeEntries, loadOverlayPatches } from '@lyness/app-boot'
-import { ToolCallId, createUserMessage, LlmAdapter } from '@lyness/llm'
-import type { GenerateOptions, StreamChunk } from '@lyness/llm'
-import { SessionId, type SessionEvent } from '@lyness/session'
+import type { Agent, AgentHandle } from '@lyness/lyn-agent'
+import { composeEntries, loadOverlayPatches } from '@lyness/lyn-app-boot'
+import { ToolCallId, createUserMessage, LlmAdapter } from '@lyness/lyn-llm'
+import type { GenerateOptions, StreamChunk } from '@lyness/lyn-llm'
+import { SessionId, type SessionEvent } from '@lyness/lyn-session'
 import {
   ScheduleId,
   createEveryScheduleRecord,
   foldScheduleEvents,
   resolveEveryOccurrence,
   type EveryScheduleRecord,
-} from '@lyness/schedule'
+} from '@lyness/lyn-schedule'
 import {
   assertFixtureInventory,
   captureStableAria,
@@ -669,11 +669,11 @@ describe.skipIf(MODE === 'record')('web e2e: active Schedule catalog', () => {
       loadOverlayPatches('Schedule catalog overlay roster', OVERLAY),
     ])
     expect(base.find(entry => entry.id === 'ui-schedule')).toMatchObject({
-      name: '@lyness/client-ui-schedule',
+      name: '@lyness/lyn-client-ui-schedule',
       disabled: true,
     })
     expect(scheduled.find(entry => entry.id === 'ui-schedule')).toMatchObject({
-      name: '@lyness/client-ui-schedule',
+      name: '@lyness/lyn-client-ui-schedule',
       disabled: false,
     })
 

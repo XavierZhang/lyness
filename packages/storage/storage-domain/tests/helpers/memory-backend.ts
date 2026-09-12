@@ -15,8 +15,8 @@
  * @module
  */
 
-import { StorageError } from '@lyness/storage'
-import type { KvFacet, KvUnit, KvUnitDescriptor, StorageBackend } from '@lyness/storage'
+import { StorageError } from '@lyness/lyn-storage'
+import type { KvFacet, KvUnit, KvUnitDescriptor, StorageBackend } from '@lyness/lyn-storage'
 
 /** One unit's medium: tables of records plus the global slot (`null` = never written). */
 export interface MemoryMedium {

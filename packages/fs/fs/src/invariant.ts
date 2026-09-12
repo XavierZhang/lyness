@@ -1,10 +1,10 @@
-/** Package-owned filesystem event-data invariants. @module @lyness/fs/invariant */
+/** Package-owned filesystem event-data invariants. @module @lyness/lyn-fs/invariant */
 
 import type { Context } from '@lyness/cordis'
-import type { InvariantInstaller } from '@lyness/invariants'
+import type { InvariantInstaller } from '@lyness/lyn-invariants'
 import type { FsObservation, FsTarget } from './types.ts'
 
-const PACKAGE_NAME = '@lyness/fs'
+const PACKAGE_NAME = '@lyness/lyn-fs'
 
 /** Cordis companion plugin name. */
 export const name = 'fs-invariant'

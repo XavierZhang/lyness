@@ -5,8 +5,8 @@ import z from '@lyness/schemastery'
 import {
   registerSessionTitleLlmProvider,
   SessionTitleLlmConfigFields,
-} from '@lyness/session-title-llm'
-import type { SessionTitleLlmConfig } from '@lyness/session-title-llm'
+} from '@lyness/lyn-session-title-llm'
+import type { SessionTitleLlmConfig } from '@lyness/lyn-session-title-llm'
 
 export const name = 'session-title-first-prompt-llm'
 export const inject = ['sessionTitle', 'llm', 'sessions']

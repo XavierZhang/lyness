@@ -1,7 +1,7 @@
 /** Host registration for the browser locale preference. */
 
 import type { Context } from '@lyness/cordis'
-import type {} from '@lyness/settings'
+import type {} from '@lyness/lyn-settings'
 import { LOCALE_SETTINGS_NAMESPACE, LocaleSettingsSchema } from './locale-settings.ts'
 
 export {

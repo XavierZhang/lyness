@@ -6,12 +6,12 @@
  */
 import type { Context as ClientContext } from '@lyness/cordis'
 import { JobListAction } from './JobListAction.tsx'
-import type {} from '@lyness/client-locale/client'
-import type {} from '@lyness/client-ui-renderer/client'
-import type {} from '@lyness/client-ui-session/client'
+import type {} from '@lyness/lyn-client-locale/client'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
+import type {} from '@lyness/lyn-client-ui-session/client'
 import { en, NS, zh, type JobKey } from './locales.ts'
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface LocaleNamespaceMap {
     /** Background-job list copy. */
     'job': JobKey

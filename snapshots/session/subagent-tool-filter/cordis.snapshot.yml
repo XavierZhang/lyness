@@ -2,7 +2,7 @@
 # script comes from the scenario's committed session JSONL.
 
 - id: llm-deepseek
-  name: '@lyness/llm-deepseek'
+  name: '@lyness/lyn-llm-deepseek'
   disabled: true
 
 - id: plugin-package-inventory-deepseek
@@ -12,13 +12,13 @@
   disabled: true
 
 - id: session-persistence-jsonl
-  name: '@lyness/session-persistence-jsonl'
+  name: '@lyness/lyn-session-persistence-jsonl'
   config:
     root: !!js lynHomePath('sessions')
     compression: none
 
 - id: sandbox
-  name: '@lyness/sandbox-local'
+  name: '@lyness/lyn-sandbox-local'
   config:
     runnerCommand:
       - bash
@@ -30,7 +30,7 @@
 
 - insert:
     - id: llm-replay
-      name: '@lyness/llm-replay'
+      name: '@lyness/lyn-llm-replay'
       config:
         providers:
           - id: deepseek-official
@@ -41,7 +41,7 @@
 
 # Restrict inherited capabilities before the child assembles its first request.
 - id: tool-subagent
-  name: '@lyness/tool-subagent'
+  name: '@lyness/lyn-tool-subagent'
   config:
     provider: spawn
     toolName: subagent

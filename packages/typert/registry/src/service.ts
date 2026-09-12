@@ -2,7 +2,7 @@
  * Runtime registry for generated Typert reflection, Remote invocations, and
  * dependency-inverted lookup/Context providers. It performs no TypeScript
  * analysis or schema generation.
- * @module @lyness/typert-registry
+ * @module @lyness/lyn-typert-registry
  */
 
 import { Context, Service } from '@lyness/cordis'
@@ -29,7 +29,7 @@ import type {
   TypertRegistryChange,
   TypertRegistryListener,
   TypertRegistryContract,
-} from '@lyness/typert-protocol'
+} from '@lyness/lyn-typert-protocol'
 import type {
   TypertContribution,
   TypertFace,

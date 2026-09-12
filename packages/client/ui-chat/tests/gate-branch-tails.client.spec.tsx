@@ -2,8 +2,8 @@
 
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { cleanup, render } from '@testing-library/react'
-import { bindSnapshotSelector, makeTranslate } from '@lyness/client-test-runtime'
-import { zh as commonZh } from '@lyness/client-locale/src/locales/zh.ts'
+import { bindSnapshotSelector, makeTranslate } from '@lyness/lyn-client-test-runtime'
+import { zh as commonZh } from '@lyness/lyn-client-locale/src/locales/zh.ts'
 import { AssistantMarkdown, type AssistantMarkdownProps } from '../src/client/chat/AssistantMarkdown.tsx'
 import { StatsPills } from '../src/client/chat/StatsPills.tsx'
 import { zh } from '../src/client/locale.ts'

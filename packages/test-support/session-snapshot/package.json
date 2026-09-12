@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/session-snapshot",
+  "name": "@lyness/lyn-session-snapshot",
   "description": "Session-log snapshot core with an ACP protocol adapter, expected-output normalization, and fixture invariants",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -29,30 +29,30 @@
   "dependencies": {
     "@agentclientprotocol/sdk": "1.4.0",
     "@lyness/cordis-plugin-include": "workspace:*",
-    "@lyness/llm-replay": "workspace:^",
-    "@lyness/loader-smoke": "workspace:*",
-    "@lyness/session-format": "workspace:^",
+    "@lyness/lyn-llm-replay": "workspace:^",
+    "@lyness/lyn-loader-smoke": "workspace:*",
+    "@lyness/lyn-session-format": "workspace:^",
     "js-yaml": "^4.2.0",
     "vitest": "^4.1.8"
   },
   "peerDependencies": {
     "@lyness/cordis": "workspace:^",
-    "@lyness/session": "workspace:^",
-    "@lyness/http-proxy": "workspace:^"
+    "@lyness/lyn-session": "workspace:^",
+    "@lyness/lyn-http-proxy": "workspace:^"
   },
   "devDependencies": {
     "@lyness/cordis": "workspace:^",
-    "@lyness/agent": "workspace:^",
-    "@lyness/agent-loop": "workspace:^",
-    "@lyness/compaction": "workspace:^",
-    "@lyness/llm": "workspace:^",
-    "@lyness/sandbox": "workspace:^",
-    "@lyness/sandbox-policy": "workspace:^",
-    "@lyness/session": "workspace:^",
-    "@lyness/subagent": "workspace:^",
-    "@lyness/tools": "workspace:^",
-    "@lyness/user-questions": "workspace:^",
+    "@lyness/lyn-agent": "workspace:^",
+    "@lyness/lyn-agent-loop": "workspace:^",
+    "@lyness/lyn-compaction": "workspace:^",
+    "@lyness/lyn-llm": "workspace:^",
+    "@lyness/lyn-sandbox": "workspace:^",
+    "@lyness/lyn-sandbox-policy": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
+    "@lyness/lyn-subagent": "workspace:^",
+    "@lyness/lyn-tools": "workspace:^",
+    "@lyness/lyn-user-questions": "workspace:^",
     "@types/js-yaml": "^4.0.9",
-    "@lyness/http-proxy": "workspace:^"
+    "@lyness/lyn-http-proxy": "workspace:^"
   }
 }

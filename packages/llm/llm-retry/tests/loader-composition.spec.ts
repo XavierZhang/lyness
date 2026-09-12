@@ -6,14 +6,14 @@ import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
 import Include from '@lyness/cordis-plugin-include'
-import AgentRegistry from '@lyness/agent'
-import AgentLoop from '@lyness/agent-loop'
-import LlmRuntime, { createUserMessage, LlmAdapter, LlmError, resolveRetryPolicy  } from '@lyness/llm'
-import type { GenerateOptions, ResolvedRetryPolicy, StreamChunk } from '@lyness/llm'
-import SessionStore, { SessionId } from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import SystemPrompt from '@lyness/system-prompt'
-import ToolRuntime from '@lyness/tools'
+import AgentRegistry from '@lyness/lyn-agent'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import LlmRuntime, { createUserMessage, LlmAdapter, LlmError, resolveRetryPolicy  } from '@lyness/lyn-llm'
+import type { GenerateOptions, ResolvedRetryPolicy, StreamChunk } from '@lyness/lyn-llm'
+import SessionStore, { SessionId } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime from '@lyness/lyn-tools'
 import * as retry from '../src/index.ts'
 
 let root: string | undefined
@@ -59,14 +59,14 @@ async function loadYaml(lines: readonly string[]): Promise<Context> {
   await context.plugin(Loader)
   context.loader.builtins.include = Include
   const modules = new Map<string, unknown>([
-    ['@lyness/llm', LlmRuntime],
-    ['@lyness/session', SessionStore],
-    ['@lyness/session-projection', SessionProjectionRegistry],
-    ['@lyness/system-prompt', SystemPrompt],
-    ['@lyness/tools', ToolRuntime],
-    ['@lyness/agent', AgentRegistry],
-    ['@lyness/llm-retry', retry],
-    ['@lyness/agent-loop', AgentLoop],
+    ['@lyness/lyn-llm', LlmRuntime],
+    ['@lyness/lyn-session', SessionStore],
+    ['@lyness/lyn-session-projection', SessionProjectionRegistry],
+    ['@lyness/lyn-system-prompt', SystemPrompt],
+    ['@lyness/lyn-tools', ToolRuntime],
+    ['@lyness/lyn-agent', AgentRegistry],
+    ['@lyness/lyn-llm-retry', retry],
+    ['@lyness/lyn-agent-loop', AgentLoop],
   ])
   context.loader.internal = {
     version: 'v2',
@@ -89,14 +89,14 @@ describe('real Loader composition', () => {
   // to trip the default 5s budget on cold caches.
   it('loads provider-supplied policy and records recovery through the shipping loop', { timeout: 60_000 }, async () => {
     const loaded = await loadYaml([
-      "- name: '@lyness/llm'",
-      "- name: '@lyness/session'",
-      "- name: '@lyness/session-projection'",
-      "- name: '@lyness/system-prompt'",
-      "- name: '@lyness/tools'",
-      "- name: '@lyness/agent'",
-      "- name: '@lyness/llm-retry'",
-      "- name: '@lyness/agent-loop'",
+      "- name: '@lyness/lyn-llm'",
+      "- name: '@lyness/lyn-session'",
+      "- name: '@lyness/lyn-session-projection'",
+      "- name: '@lyness/lyn-system-prompt'",
+      "- name: '@lyness/lyn-tools'",
+      "- name: '@lyness/lyn-agent'",
+      "- name: '@lyness/lyn-llm-retry'",
+      "- name: '@lyness/lyn-agent-loop'",
     ])
 
     const unloaded = [...loaded.loader.entries()]

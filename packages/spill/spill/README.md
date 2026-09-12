@@ -3,7 +3,7 @@ description: "The spill storage service: save oversized tool text or captured se
 kind: "package-reference"
 ---
 
-# @lyness/spill
+# @lyness/lyn-spill
 
 English | [中文](README.zh.md)
 
@@ -36,8 +36,8 @@ Choose spill storage when a deployment needs to keep full text retrievable after
 Mount a backend and the policy together; with `maxInlineBytes` set, any oversized plain-text tool result becomes a preview plus a locator automatically.
 
 ```yaml
-- name: '@lyness/spill-local'
-- name: '@lyness/spill-policy'
+- name: '@lyness/lyn-spill-local'
+- name: '@lyness/lyn-spill-policy'
   config:
     maxInlineBytes: 50000
 ```

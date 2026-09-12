@@ -20,7 +20,7 @@
 
 - insert:
     - id: replay
-      name: '@lyness/llm-replay'
+      name: '@lyness/lyn-llm-replay'
       config:
         file: !!js process.env.LYNESS_SNAPSHOT_FILE
         overrideFile: !!js process.env.LYNESS_SNAPSHOT_OVERRIDE

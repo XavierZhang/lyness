@@ -2,24 +2,24 @@
  * Cross-session snapshot preparation. Hosts adapt mentions into structured
  * references; this service owns exact reads, projection, budgets, and durable context.
  *
- * @module @lyness/session-reference
+ * @module @lyness/lyn-session-reference
  */
 
 import { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import type { Agent, PreStepDecision } from '@lyness/agent'
-import { Remote, TypertRemoteService } from '@lyness/typert-protocol'
-import { createUserMessage, freezeMessage, LlmError } from '@lyness/llm'
-import type { ContentBlock, LlmResolvedModelInfo, UserMessage } from '@lyness/llm'
-import { SessionLogOffset } from '@lyness/session'
-import type { SessionId } from '@lyness/session'
+import type { Agent, PreStepDecision } from '@lyness/lyn-agent'
+import { Remote, TypertRemoteService } from '@lyness/lyn-typert-protocol'
+import { createUserMessage, freezeMessage, LlmError } from '@lyness/lyn-llm'
+import type { ContentBlock, LlmResolvedModelInfo, UserMessage } from '@lyness/lyn-llm'
+import { SessionLogOffset } from '@lyness/lyn-session'
+import type { SessionId } from '@lyness/lyn-session'
 // Type-only: the `title` projection key plus the live registry and durable
 // cache Context merges — the two projection faces discovery labels from.
-import type { ProjectionSnapshot } from '@lyness/session-projection'
-import type {} from '@lyness/session-projection-cache'
-import type {} from '@lyness/session-title'
-import type {} from '@lyness/system-prompt'
-import type { SessionRecord, SessionSurfaceSnapshot } from '@lyness/session-query'
+import type { ProjectionSnapshot } from '@lyness/lyn-session-projection'
+import type {} from '@lyness/lyn-session-projection-cache'
+import type {} from '@lyness/lyn-session-title'
+import type {} from '@lyness/lyn-system-prompt'
+import type { SessionRecord, SessionSurfaceSnapshot } from '@lyness/lyn-session-query'
 import { prepareReferenceOmission, REFERENCE_WARNING } from './spill.ts'
 import {
   DEFAULT_CANDIDATE_LIMIT,

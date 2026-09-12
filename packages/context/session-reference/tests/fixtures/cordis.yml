@@ -1,17 +1,17 @@
-- name: '@lyness/session'
-- name: '@lyness/system-prompt'
-- name: '@lyness/tools'
-- name: '@lyness/fs-local'
-- name: '@lyness/tool-fs'
-- name: '@lyness/session-query-sqlite'
+- name: '@lyness/lyn-session'
+- name: '@lyness/lyn-system-prompt'
+- name: '@lyness/lyn-tools'
+- name: '@lyness/lyn-fs-local'
+- name: '@lyness/lyn-tool-fs'
+- name: '@lyness/lyn-session-query-sqlite'
   config:
     path: ':memory:'
     openAt: never
-- name: '@lyness/session-reference'
+- name: '@lyness/lyn-session-reference'
   config:
     maxReferenceBytes: 360
 - name: './source-session.ts'
-- name: '@lyness/spill-local'
+- name: '@lyness/lyn-spill-local'
   config:
     root: '{{spillRoot}}'
     cleanupPeriodDays: 0

@@ -13,11 +13,11 @@ import {
   normalizeSessionSnapshot,
   normalizeSessionSnapshots,
   type NormalizeContext,
-} from '@lyness/session-snapshot'
-import { LOADER_SMOKE_TEST_TIMEOUT_MS, runLoaderSmoke } from '@lyness/loader-smoke'
-import { createMessage, createUserMessage } from '@lyness/llm'
-import { SessionSeq, SESSION_FORMAT_VERSION, SessionId, type SessionEvent, type SessionHeader } from '@lyness/session'
-import JsonlSessionPersistence from '@lyness/session-persistence-jsonl'
+} from '@lyness/lyn-session-snapshot'
+import { LOADER_SMOKE_TEST_TIMEOUT_MS, runLoaderSmoke } from '@lyness/lyn-loader-smoke'
+import { createMessage, createUserMessage } from '@lyness/lyn-llm'
+import { SessionSeq, SESSION_FORMAT_VERSION, SessionId, type SessionEvent, type SessionHeader } from '@lyness/lyn-session'
+import JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
 import { describe, expect, it } from 'vitest'
 
 const fixtureDir = fileURLToPath(new URL('./expected/subagent-diagnostic', import.meta.url))
@@ -62,7 +62,7 @@ async function seedDescriptorlessChild(root: string, cwd: string): Promise<void>
     { type: 'step/start', seq: SessionSeq(1), time: 11, data: { turn: 1, step: 1 } },
     {
       type: 'system/message', seq: SessionSeq(2), time: 12,
-      data: { turn: 1, step: 1, message: createMessage({ role: 'system', content: [], source: { kind: 'plugin', plugin: '@lyness/system-prompt' } }) },
+      data: { turn: 1, step: 1, message: createMessage({ role: 'system', content: [], source: { kind: 'plugin', plugin: '@lyness/lyn-system-prompt' } }) },
       surfaceOp: 'append',
     },
     { type: 'user/message', seq: SessionSeq(3), time: 13, data: createUserMessage({ content: [{ type: 'text', text: 'Start a background job.' }], source: { kind: 'user' } }), surfaceOp: 'append' },

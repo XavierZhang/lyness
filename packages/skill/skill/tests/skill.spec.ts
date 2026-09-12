@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { bindScopeParent, createScope, scopeOf } from '@lyness/scope'
+import { bindScopeParent, createScope, scopeOf } from '@lyness/lyn-scope'
 import SkillRegistry, {
   isModelInvocable,
   isUserInvocable,
@@ -11,7 +11,7 @@ import SkillRegistry, {
   type SkillLookupOptions,
   type SkillProvider,
   type SkillProviderObservation,
-} from '@lyness/skill'
+} from '@lyness/lyn-skill'
 
 function memorySkill(name: string, description: string, rank: number, body = `${name} body.`): SkillCandidate {
   return {

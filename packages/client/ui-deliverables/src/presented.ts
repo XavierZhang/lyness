@@ -1,7 +1,7 @@
 /** Validate declared workspace paths and address their native-open actions. */
-import type { PresentedFile } from '@lyness/tool-present/types'
-import type { SessionId } from '@lyness/session/types'
-import type { ToolCallId } from '@lyness/llm/brand'
+import type { PresentedFile } from '@lyness/lyn-tool-present/types'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { ToolCallId } from '@lyness/lyn-llm/brand'
 
 /** Authenticated POST route for opening a workspace file on the Host desktop. */
 export const PRESENT_OPEN_PATH = '/api/present.open'

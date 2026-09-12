@@ -3,12 +3,12 @@
  * dialog controller, plus the routing between them. A message target puts a
  * negative judgment through the message controller; the Session target
  * records through the `sessionFeedback` Remote.
- * @module @lyness/client-ui-message-feedback/client/surface
+ * @module @lyness/lyn-client-ui-message-feedback/client/surface
  */
 
 import type { Context as ClientContext } from '@lyness/cordis'
-import type { SessionId } from '@lyness/session/types'
-import type { FeedbackRecord } from '@lyness/command-feedback/types'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { FeedbackRecord } from '@lyness/lyn-command-feedback/types'
 import { MessageFeedbackController, describe, type MessageFeedbackActionResult } from './controller.ts'
 import { FeedbackDialogController } from './dialog.ts'
 

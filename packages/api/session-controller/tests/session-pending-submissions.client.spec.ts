@@ -1,10 +1,10 @@
 /** Local submission echoes: synchronous insertion, observed/failed retirement, and settlement callbacks. */
 
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { createUserMessage } from '@lyness/llm'
-import type { FileAttachmentRef, ImageAttachmentRef } from '@lyness/attachment'
-import { SessionSeq, type SessionEvent, type SessionId } from '@lyness/session/types'
-import { RemoteError } from '@lyness/typert-protocol'
+import { createUserMessage } from '@lyness/lyn-llm'
+import type { FileAttachmentRef, ImageAttachmentRef } from '@lyness/lyn-attachment'
+import { SessionSeq, type SessionEvent, type SessionId } from '@lyness/lyn-session/types'
+import { RemoteError } from '@lyness/lyn-typert-protocol'
 import { Session } from '../src/client/sessions/session.ts'
 import type { PendingSubmissionRetirement } from '../src/client/contract/session.ts'
 import type { SessionQueuedItem, SessionRequestId } from '../src/types.ts'

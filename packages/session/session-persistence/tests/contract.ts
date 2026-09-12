@@ -8,13 +8,13 @@
  * vocabulary, freshness, and torn-tail repair. Backend-specific behavior
  * (file layout, encodings, artifact export) stays in each backend's own spec.
  *
- * @module @lyness/session-persistence/tests/contract
+ * @module @lyness/lyn-session-persistence/tests/contract
  */
 
 import { describe, expect, it } from 'vitest'
-import { SessionSeq, SESSION_FORMAT_VERSION, SessionId } from '@lyness/session'
-import type { SessionEvent, SessionHeader } from '@lyness/session'
-import { MessageId, freezeMessage } from '@lyness/llm'
+import { SessionSeq, SESSION_FORMAT_VERSION, SessionId } from '@lyness/lyn-session'
+import type { SessionEvent, SessionHeader } from '@lyness/lyn-session'
+import { MessageId, freezeMessage } from '@lyness/lyn-llm'
 import {
   SessionAlreadyExistsError,
   SessionAlreadyOwnedError,

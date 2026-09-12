@@ -1,15 +1,15 @@
 /** ui-subagent browser half: catalog actions and read-only composer routing. */
 import { Context } from '@lyness/cordis'
-import { stubSettingsScope } from '@lyness/client-test-runtime'
+import { stubSettingsScope } from '@lyness/lyn-client-test-runtime'
 import { describe, expect, it } from 'vitest'
 import type {
   SessionListState, SessionSnapshot, SessionSummary,
-} from '@lyness/api-session-controller/client'
-import type { SubagentAddress } from '@lyness/subagent/client'
-import { SlotRegistry } from '@lyness/client-ui-renderer/client'
-import type { SessionId } from '@lyness/session/types'
-import type { ComposerChainProps } from '@lyness/client-ui-conversation/client'
-import { apply as applyLocale, inject as localeInject } from '@lyness/client-locale/client'
+} from '@lyness/lyn-api-session-controller/client'
+import type { SubagentAddress } from '@lyness/lyn-subagent/client'
+import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { ComposerChainProps } from '@lyness/lyn-client-ui-conversation/client'
+import { apply as applyLocale, inject as localeInject } from '@lyness/lyn-client-locale/client'
 import {
   SubagentHeaderLineage, type SubagentCatalogInjected,
 } from '../src/client/SubagentHeaderLineage.tsx'

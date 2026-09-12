@@ -1,13 +1,13 @@
 import { Context } from '@lyness/cordis'
-import { createUserMessage } from '@lyness/llm'
-import SessionStore, { SessionLogOffset, SessionSeq, SESSION_FORMAT_VERSION, SessionId } from '@lyness/session'
-import type { SessionEvent, SessionHeader, SessionId as SessionIdType } from '@lyness/session'
+import { createUserMessage } from '@lyness/lyn-llm'
+import SessionStore, { SessionLogOffset, SessionSeq, SESSION_FORMAT_VERSION, SessionId } from '@lyness/lyn-session'
+import type { SessionEvent, SessionHeader, SessionId as SessionIdType } from '@lyness/lyn-session'
 import SessionPersistence, {
   SessionPersistenceCorruptionError,
   SessionPersistenceNotFoundError,
   SessionPersistenceRevision,
   SessionReadOnlyError,
-} from '@lyness/session-persistence'
+} from '@lyness/lyn-session-persistence'
 import type {
   SessionAccess,
   SessionHandle,
@@ -15,8 +15,8 @@ import type {
   SessionHandleReadResult,
   SessionPersistenceSnapshot,
   SessionPersistenceStatOptions,
-} from '@lyness/session-persistence'
-import SessionProjectionRegistry from '@lyness/session-projection'
+} from '@lyness/lyn-session-persistence'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 import { describe, expect, it, vi } from 'vitest'
 import { SessionObservationReader } from '../src/observation.ts'
 

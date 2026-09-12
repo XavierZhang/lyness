@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { createUserMessage } from '@lyness/llm'
-import SessionStore, { SessionId } from '@lyness/session'
+import { createUserMessage } from '@lyness/lyn-llm'
+import SessionStore, { SessionId } from '@lyness/lyn-session'
 import { RuntimeContextProjection } from '../src/runtime-context.ts'
 
-const SOURCE = '@lyness/system-prompt'
+const SOURCE = '@lyness/lyn-system-prompt'
 
 function contextMessage(text: string) {
   return createUserMessage({

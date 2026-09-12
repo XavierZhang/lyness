@@ -16,12 +16,12 @@ import SessionStore, {
   SessionId,
   SessionLogOffset,
   SessionSeq,
-} from '@lyness/session'
-import type { SessionEvent, SessionHeader } from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import type { ProjectionDefinition } from '@lyness/session-projection'
+} from '@lyness/lyn-session'
+import type { SessionEvent, SessionHeader } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import type { ProjectionDefinition } from '@lyness/lyn-session-projection'
 
-declare module '@lyness/session-projection/types' {
+declare module '@lyness/lyn-session-projection/types' {
   interface SessionProjectionStateMap {
     'test/marks': MarksState
     'test/count': number
@@ -35,7 +35,7 @@ declare module '@lyness/session-projection/types' {
   }
 }
 
-declare module '@lyness/session/types' {
+declare module '@lyness/lyn-session/types' {
   interface SessionEventMap {
     'test/mark': { marks: string[] }
   }

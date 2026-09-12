@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, expectTypeOf, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
 import type { Fiber } from '@lyness/cordis'
-import LlmRuntime, { createUserMessage, ToolCallId, EMPTY_RESPONSE_CODE, LlmAdapter, LlmError, expandAssistantStream, resolveRetryPolicy  } from '@lyness/llm'
+import LlmRuntime, { createUserMessage, ToolCallId, EMPTY_RESPONSE_CODE, LlmAdapter, LlmError, expandAssistantStream, resolveRetryPolicy  } from '@lyness/lyn-llm'
 import type {
   AlwaysRetryPolicyConfig,
   BackoffConfig,
@@ -10,16 +10,16 @@ import type {
   ResolvedRetryPolicy,
   RetryPolicyConfig,
   StreamChunk,
-} from '@lyness/llm'
-import SessionStore, { SessionId } from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import type { SessionEvent, SessionEventMap } from '@lyness/session'
-import type { LlmRetryEventData } from '@lyness/llm-retry/types'
-import SystemPrompt from '@lyness/system-prompt'
-import ToolRuntime, { defineContentToolFixture } from '@lyness/tools'
-import AgentRegistry from '@lyness/agent'
-import type { Agent, RequestErrorAction } from '@lyness/agent'
-import AgentLoop from '@lyness/agent-loop'
+} from '@lyness/lyn-llm'
+import SessionStore, { SessionId } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import type { SessionEvent, SessionEventMap } from '@lyness/lyn-session'
+import type { LlmRetryEventData } from '@lyness/lyn-llm-retry/types'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime, { defineContentToolFixture } from '@lyness/lyn-tools'
+import AgentRegistry from '@lyness/lyn-agent'
+import type { Agent, RequestErrorAction } from '@lyness/lyn-agent'
+import AgentLoop from '@lyness/lyn-agent-loop'
 import * as retry from '../src/index.ts'
 
 type ScriptEntry = Error | Iterable<StreamChunk> | AsyncIterable<StreamChunk>

@@ -6,17 +6,17 @@
 
 import { describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import AgentRegistry from '@lyness/agent'
-import { createUserMessage } from '@lyness/llm'
-import SessionStore, { SESSION_FORMAT_VERSION, SessionSeq } from '@lyness/session'
-import type { SessionHeader, SessionId } from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
+import AgentRegistry from '@lyness/lyn-agent'
+import { createUserMessage } from '@lyness/lyn-llm'
+import SessionStore, { SESSION_FORMAT_VERSION, SessionSeq } from '@lyness/lyn-session'
+import type { SessionHeader, SessionId } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 import {
   SessionQueryEngine,
   SessionQueryError,
   type SessionSearchHit,
   type SessionSearchRequest,
-} from '@lyness/session-query'
+} from '@lyness/lyn-session-query'
 import { createSessionTestRemote, testSessionPersistence } from './test-remote.ts'
 import { ApiSessionList } from '../src/list.ts'
 

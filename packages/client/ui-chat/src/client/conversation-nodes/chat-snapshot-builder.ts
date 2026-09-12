@@ -1,9 +1,9 @@
 import type { Context } from '@lyness/cordis'
-import { notifySubscribers } from '@lyness/client-store'
+import { notifySubscribers } from '@lyness/lyn-client-store'
 import type {
   ConversationLocation, ConversationNode, ConversationTimelineSnapshot, ConversationViewBuilder,
   ConversationViewDefinition, PartialAssistant, RunningToolCall,
-} from '@lyness/client-ui-conversation/client'
+} from '@lyness/lyn-client-ui-conversation/client'
 import type { ChatConversationViewNode, ChatNode } from '../contract/chat-nodes.ts'
 import { isRunningTool } from '../contract/chat-nodes.ts'
 import type {

@@ -3,7 +3,7 @@
  * and bridges bindings over its message port. This is containment, not a security boundary:
  * model code has bash-equivalent trust despite an empty environment, a heap cap, measured
  * event-loop busy-time and wall-time budgets, and termination that also stops synchronous loops.
- * @module @lyness/code-runtime-worker-thread
+ * @module @lyness/lyn-code-runtime-worker-thread
  */
 
 import { Worker } from 'node:worker_threads'
@@ -12,10 +12,10 @@ import type { Readable } from 'node:stream'
 import { fileURLToPath } from 'node:url'
 import { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import { MAX_TIMER_DELAY_MS } from '@lyness/timeout'
-import { CodeRuntime, DUNDER_MEMBER, PORTABLE_RESERVED_WORDS, RESERVED_BINDING_GLOBALS, RESERVED_ERROR_MEMBERS } from '@lyness/code-runtime'
-import type { CodeBindingNamespace, CodeJsonValue, CodeRunFailure, CodeRunRequest, CodeRunResult } from '@lyness/code-runtime'
-import { snapshotJsonValue } from '@lyness/util-values'
+import { MAX_TIMER_DELAY_MS } from '@lyness/lyn-timeout'
+import { CodeRuntime, DUNDER_MEMBER, PORTABLE_RESERVED_WORDS, RESERVED_BINDING_GLOBALS, RESERVED_ERROR_MEMBERS } from '@lyness/lyn-code-runtime'
+import type { CodeBindingNamespace, CodeJsonValue, CodeRunFailure, CodeRunRequest, CodeRunResult } from '@lyness/lyn-code-runtime'
+import { snapshotJsonValue } from '@lyness/lyn-util-values'
 import type { ReplyMessage, WorkerBootData, WorkerToHost } from './protocol.ts'
 import { jsonStringBytesUpTo, jsonValueBytesUpTo, truncateJsonStringBytes } from './output-json.ts'
 import { decodeWorkerJson, encodeWorkerJson } from './worker-json.ts'

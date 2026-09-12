@@ -3,11 +3,11 @@
  * model-free: the vocabulary comes from successful first-party mutation
  * calls, never presentation data or the closing prose.
  */
-import { isAppendSurfaceEvent } from '@lyness/session/surface'
-import type { TurnTailOwnerProps } from '@lyness/client-ui-chat/client'
-import type { ConversationNodeDefinition } from '@lyness/client-ui-conversation/client'
-import type { MarkdownFileMentions } from '@lyness/client-ui-primitives'
-import type { PresentedFile } from '@lyness/tool-present/types'
+import { isAppendSurfaceEvent } from '@lyness/lyn-session/surface'
+import type { TurnTailOwnerProps } from '@lyness/lyn-client-ui-chat/client'
+import type { ConversationNodeDefinition } from '@lyness/lyn-client-ui-conversation/client'
+import type { MarkdownFileMentions } from '@lyness/lyn-client-ui-primitives'
+import type { PresentedFile } from '@lyness/lyn-tool-present/types'
 import { basename, isPresentedData, isPresentedFile } from '../presented.ts'
 
 /** A declared file with its authorized open coordinates. */
@@ -27,7 +27,7 @@ export interface DeliverablesTurnData {
   readonly presented?: readonly PresentedPath[]
 }
 
-declare module '@lyness/client-ui-conversation/client' {
+declare module '@lyness/lyn-client-ui-conversation/client' {
   interface ConversationTurnDataMap {
     /** Successful mutation paths accumulated in this Turn. */
     deliverables: DeliverablesTurnData

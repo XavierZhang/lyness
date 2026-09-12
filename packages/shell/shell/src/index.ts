@@ -1,12 +1,12 @@
 /**
  * Service Definition for the `ctx.shell` capability seam, covering foreground commands and background process
  * handles. Job ids, ownership, polling, and notices belong to
- * `@lyness/jobs`, keeping executors independent of sessions.
- * @module @lyness/shell
+ * `@lyness/lyn-jobs`, keeping executors independent of sessions.
+ * @module @lyness/lyn-shell
  */
 
 import { Context, Service } from '@lyness/cordis'
-import type { SandboxMode } from '@lyness/sandbox'
+import type { SandboxMode } from '@lyness/lyn-sandbox'
 import type { ShellExecRequest, ShellExecSpec, ShellProcess, ShellRunResult } from './types.ts'
 
 /**

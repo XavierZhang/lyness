@@ -18,7 +18,7 @@ The implementing PR should update the [capability seams](../../implemented/archi
 
 ## Acceptance criteria
 
-- `@lyness/session-persistence` is removed as a package.
+- `@lyness/lyn-session-persistence` is removed as a package.
 - `lyn-session` exports the persistence service type, coordinator, and contract helpers.
 - JSONL and SQLite backend packages depend on `lyn-session` directly.
 - `agent-loop` resume uses the session-owned service key.

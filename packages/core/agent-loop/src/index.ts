@@ -2,15 +2,15 @@
  * Concrete agent-loop plugin: creates scoped ReactLoopAgents, publishes them
  * through the agent/session registries, and owns their ordered teardown.
  *
- * @module @lyness/agent-loop
+ * @module @lyness/lyn-agent-loop
  */
 
 import { Context, FiberState, Service } from '@lyness/cordis'
 import { randomUUID } from 'node:crypto'
 import z from '@lyness/schemastery'
 import { z as zod } from 'zod'
-import { brandString } from '@lyness/brand'
-import { emitAgentEvent } from '@lyness/agent'
+import { brandString } from '@lyness/lyn-brand'
+import { emitAgentEvent } from '@lyness/lyn-agent'
 import type {
   Agent,
   AgentFactory,
@@ -21,17 +21,17 @@ import type {
   ResumeAgentOptions,
   SessionStartSource,
   TurnBoundaryProjection,
-} from '@lyness/agent'
-import { errorChain, ReasoningEffortId } from '@lyness/llm'
-import type {} from '@lyness/settings'
-import { interruptedTurnClosers, SessionLogOffset, SessionPreparation, SessionSeq } from '@lyness/session'
-import type { Session, SessionHeader, SessionId } from '@lyness/session'
-import type {} from '@lyness/system-prompt'
-import type {} from '@lyness/tools'
-import type {} from '@lyness/session-projection'
-import type { ProjectionDefinition } from '@lyness/session-projection'
-import { SessionPersistenceNotFoundError } from '@lyness/session-persistence'
-import type { SessionHandle, SessionPersistence } from '@lyness/session-persistence'
+} from '@lyness/lyn-agent'
+import { errorChain, ReasoningEffortId } from '@lyness/lyn-llm'
+import type {} from '@lyness/lyn-settings'
+import { interruptedTurnClosers, SessionLogOffset, SessionPreparation, SessionSeq } from '@lyness/lyn-session'
+import type { Session, SessionHeader, SessionId } from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-system-prompt'
+import type {} from '@lyness/lyn-tools'
+import type {} from '@lyness/lyn-session-projection'
+import type { ProjectionDefinition } from '@lyness/lyn-session-projection'
+import { SessionPersistenceNotFoundError } from '@lyness/lyn-session-persistence'
+import type { SessionHandle, SessionPersistence } from '@lyness/lyn-session-persistence'
 import { ReactLoopAgent } from './agent.ts'
 import { DEFAULT_MAX_PARALLEL_TOOL_CALLS } from './constants.ts'
 

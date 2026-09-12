@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { runNativeCommand } from '@lyness/native-command'
+import { runNativeCommand } from '@lyness/lyn-native-command'
 
 const node = process.execPath
 

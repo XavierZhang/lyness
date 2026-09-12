@@ -1,13 +1,13 @@
 import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import InvariantRegistry, { InvariantError } from '@lyness/invariants'
+import InvariantRegistry, { InvariantError } from '@lyness/lyn-invariants'
 import SessionStore, {
   SESSION_FORMAT_VERSION,
   SessionId,
   SessionLogOffset,
   SessionSeq,
   type Session,
-} from '@lyness/session'
+} from '@lyness/lyn-session'
 import * as SessionLogInvariant from '../src/invariant.ts'
 import type {} from '../src/types.ts'
 
@@ -59,7 +59,7 @@ describe('DeepSeek session-log acceptance invariant', () => {
       sessionFormatVersion,
     })).toThrow(expect.objectContaining<Partial<InvariantError>>({
       code: 'INVARIANT',
-      packageName: '@lyness/session-log-deepseek',
+      packageName: '@lyness/lyn-session-log-deepseek',
     }))
   })
 
@@ -82,7 +82,7 @@ describe('DeepSeek session-log acceptance invariant', () => {
 
     await expect(ctx.plugin(SessionLogInvariant)).rejects.toMatchObject({
       code: 'INVARIANT',
-      packageName: '@lyness/session-log-deepseek',
+      packageName: '@lyness/lyn-session-log-deepseek',
     })
   })
 
@@ -96,7 +96,7 @@ describe('DeepSeek session-log acceptance invariant', () => {
       sessionFormatVersion: SESSION_FORMAT_VERSION,
     })).toThrow(expect.objectContaining<Partial<InvariantError>>({
       code: 'INVARIANT',
-      packageName: '@lyness/session-log-deepseek',
+      packageName: '@lyness/lyn-session-log-deepseek',
     }))
 
     const wrongSeq = ctx.sessions.create(SessionId('wrong-seq'))
@@ -107,7 +107,7 @@ describe('DeepSeek session-log acceptance invariant', () => {
       sessionFormatVersion: SESSION_FORMAT_VERSION,
     })).toThrow(expect.objectContaining<Partial<InvariantError>>({
       code: 'INVARIANT',
-      packageName: '@lyness/session-log-deepseek',
+      packageName: '@lyness/lyn-session-log-deepseek',
     }))
 
     const invalidSeq = ctx.sessions.create(SessionId('invalid-seq'))
@@ -118,7 +118,7 @@ describe('DeepSeek session-log acceptance invariant', () => {
       sessionFormatVersion: SESSION_FORMAT_VERSION,
     })).toThrow(expect.objectContaining<Partial<InvariantError>>({
       code: 'INVARIANT',
-      packageName: '@lyness/session-log-deepseek',
+      packageName: '@lyness/lyn-session-log-deepseek',
     }))
     expect(() => wrongSeq.append('session-log-deepseek/delivery-accepted', {
       sessionId: wrongSeq.id,
@@ -154,7 +154,7 @@ describe('DeepSeek session-log acceptance invariant', () => {
     }
     expect(failure).toMatchObject<Partial<InvariantError>>({
       code: 'INVARIANT',
-      packageName: '@lyness/session-log-deepseek',
+      packageName: '@lyness/lyn-session-log-deepseek',
     })
   })
 

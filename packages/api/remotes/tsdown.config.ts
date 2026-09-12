@@ -1,7 +1,7 @@
 import { clientBundle } from '../../client/tsdown.client.ts'
 
 export default clientBundle(
-  '@lyness/api-remotes',
+  '@lyness/lyn-api-remotes',
   ['lib/types/index.js'],
   { hostPhase: true },
 )

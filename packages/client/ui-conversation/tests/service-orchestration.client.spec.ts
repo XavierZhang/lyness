@@ -5,11 +5,11 @@
 // tag probe).
 import { Context } from '@lyness/cordis'
 import { describe, expect, it, vi } from 'vitest'
-import { makeTranslate, RemoteError, SlotTestRuntime } from '@lyness/client-test-runtime'
+import { makeTranslate, RemoteError, SlotTestRuntime } from '@lyness/lyn-client-test-runtime'
 import type {
   BeginSubmissionInput, PendingSubmissionRetirement, QueuedMessage,
-} from '@lyness/api-session-controller/client'
-import type { SessionId } from '@lyness/session/types'
+} from '@lyness/lyn-api-session-controller/client'
+import type { SessionId } from '@lyness/lyn-session/types'
 import { ComposerBlockRegistry } from '../src/client/input/blocks.ts'
 import { InputHub } from '../src/client/input/hub.ts'
 import { ConversationController } from '../src/client/service.ts'

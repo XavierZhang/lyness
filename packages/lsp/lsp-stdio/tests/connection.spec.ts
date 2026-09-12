@@ -1,9 +1,9 @@
 import { afterEach, describe, expect, it } from 'vitest'
 import { fileURLToPath } from 'node:url'
-import { LspConnection } from '@lyness/lsp-stdio'
-import type { ConnectionWriter } from '@lyness/lsp-stdio/src/connection.ts'
-import { scrubbedParentEnv } from '@lyness/subprocess'
-import { spawnSubprocess } from '@lyness/subprocess-local/src/spawn.ts'
+import { LspConnection } from '@lyness/lyn-lsp-stdio'
+import type { ConnectionWriter } from '@lyness/lyn-lsp-stdio/src/connection.ts'
+import { scrubbedParentEnv } from '@lyness/lyn-subprocess'
+import { spawnSubprocess } from '@lyness/lyn-subprocess-local/src/spawn.ts'
 
 const fixtureServer = fileURLToPath(new URL('./fixture-server.ts', import.meta.url))
 

@@ -4,7 +4,7 @@
  * through the seam, and every write re-reads the document under a
  * cross-process writer lock before patching it as a comment-preserving
  * leaf-level diff.
- * @module @lyness/settings-file
+ * @module @lyness/lyn-settings-file
  */
 
 import { Context, Service } from '@lyness/cordis'
@@ -13,10 +13,10 @@ import { watch as chokidarWatch } from 'chokidar'
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { dirname, extname, join, resolve } from 'node:path'
 import { Document, parseDocument } from 'yaml'
-import { withFileLock, writeFileAtomic } from '@lyness/atomic-write'
-import { canonicalizeWatchPath, resolveLynHome } from '@lyness/home-paths'
-import { SettingsProvider, type SettingsNamespace } from '@lyness/settings'
-import { deepEqualJson } from '@lyness/util-values'
+import { withFileLock, writeFileAtomic } from '@lyness/lyn-atomic-write'
+import { canonicalizeWatchPath, resolveLynHome } from '@lyness/lyn-home-paths'
+import { SettingsProvider, type SettingsNamespace } from '@lyness/lyn-settings'
+import { deepEqualJson } from '@lyness/lyn-util-values'
 
 /** Plugin config: file location and hot-reload behavior. */
 export interface Config {

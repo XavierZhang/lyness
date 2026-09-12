@@ -16,9 +16,9 @@
  * ended, and a settlement arriving after the record is gone has nothing left to
  * write to. A tab that never read has no bucket to forget.
  */
-import type { BoundActions } from '@lyness/client-store'
-import type { TabId } from '@lyness/client-ui-dockkit'
-import type { SessionId } from '@lyness/session/types'
+import type { BoundActions } from '@lyness/lyn-client-store'
+import type { TabId } from '@lyness/lyn-client-ui-dockkit'
+import type { SessionId } from '@lyness/lyn-session/types'
 import type { ReadDocumentBytes, ReadWorkspaceFilePage, SessionFile } from './rpc.ts'
 import { documentFileBytes } from './rpc.ts'
 import type { TextStore } from './store.ts'

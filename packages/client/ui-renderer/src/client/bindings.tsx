@@ -7,7 +7,7 @@ import type {
   SlotRendererHost,
   SnapshotSelectorHook,
   StandardSourceBinding,
-} from '@lyness/client-ui-slots'
+} from '@lyness/lyn-client-ui-slots'
 import { bindSnapshotSelector } from './bind.ts'
 
 /** Missing renderer assembly dependency. */

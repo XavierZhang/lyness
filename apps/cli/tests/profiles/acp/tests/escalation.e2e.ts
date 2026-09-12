@@ -12,8 +12,8 @@ import {
   launchAcpTestAgent,
   type AgentUnderTest,
   type LaunchedAcpTestAgent,
-} from '@lyness/session-snapshot'
-import { bwrapProfileArgs } from '@lyness/sandbox-local/src/profiles.ts'
+} from '@lyness/lyn-session-snapshot'
+import { bwrapProfileArgs } from '@lyness/lyn-sandbox-local/src/profiles.ts'
 import { cleanupAcpExampleTest } from './cleanup.ts'
 
 /**

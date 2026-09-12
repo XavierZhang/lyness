@@ -22,17 +22,17 @@ import {
   type Mock,
   vi,
 } from 'vitest'
-import type { Agent } from '@lyness/agent'
-import type { ContentBlock } from '@lyness/llm'
-import SubagentRuntime from '@lyness/subagent'
-import SessionProjectionRegistry from '@lyness/session-projection'
+import type { Agent } from '@lyness/lyn-agent'
+import type { ContentBlock } from '@lyness/lyn-llm'
+import SubagentRuntime from '@lyness/lyn-subagent'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 import type {
   SubprocessHandle,
   SubprocessOutcome,
   SubprocessSpawnSpec,
-} from '@lyness/subprocess'
-import LocalSubprocessRuntime from '@lyness/subprocess-local'
-import { MAX_TIMER_DELAY_MS } from '@lyness/timeout'
+} from '@lyness/lyn-subprocess'
+import LocalSubprocessRuntime from '@lyness/lyn-subprocess-local'
+import { MAX_TIMER_DELAY_MS } from '@lyness/lyn-timeout'
 import * as claudeCode from '../src/index.ts'
 import {
   claudeSpawnSpec,
@@ -357,7 +357,7 @@ describe('task admission and package contracts', () => {
       '^1.29.0',
     )
     expect(manifest.dependencies).toHaveProperty('zod', '^4.4.3')
-    expect(manifest.dependencies).not.toHaveProperty('@lyness/subagent-codex')
+    expect(manifest.dependencies).not.toHaveProperty('@lyness/lyn-subagent-codex')
 
     const sdkRoot = dirname(fileURLToPath(
       import.meta.resolve('@anthropic-ai/claude-agent-sdk'),
@@ -394,7 +394,7 @@ describe('task admission and package contracts', () => {
       : []
     expect(rows).toEqual([{
       id: 'subagent-claude-code',
-      name: '@lyness/subagent-claude-code',
+      name: '@lyness/lyn-subagent-claude-code',
     }])
     expect(JSON.stringify(rows)).not.toContain('tool-subagent')
   })

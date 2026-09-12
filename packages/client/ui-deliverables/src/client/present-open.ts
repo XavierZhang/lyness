@@ -1,6 +1,6 @@
 /** Shared native-open status for delivery cards and closing-message file mentions. */
-import { createSnapshotStore } from '@lyness/client-store'
-import type { SessionId } from '@lyness/session/types'
+import { createSnapshotStore } from '@lyness/lyn-client-store'
+import type { SessionId } from '@lyness/lyn-session/types'
 import { presentedFileUrl, PRESENT_HOST_PATH, isPresentedHost, type PresentedAction, type PresentedHost } from '../presented.ts'
 
 /** State of the latest explicit open gesture for one saved file. */

@@ -3,9 +3,9 @@ import type { AddressInfo } from 'node:net'
 import { describe, expect, it } from 'vitest'
 import { Context, Service, symbols } from '@lyness/cordis'
 import { z } from 'zod'
-import { apply as applyConnection, inject as connectionInject } from '@lyness/client-connection'
-import type { HostConnectionHandle } from '@lyness/client-connection'
-import type { WebServer, WebRoute } from '@lyness/host-webserver'
+import { apply as applyConnection, inject as connectionInject } from '@lyness/lyn-client-connection'
+import type { HostConnectionHandle } from '@lyness/lyn-client-connection'
+import type { WebServer, WebRoute } from '@lyness/lyn-host-webserver'
 import {
   bindTypertRemote,
   Remote,
@@ -15,9 +15,9 @@ import {
   type TypertContext,
   type TypertLookup,
   type TypertLookupProvider,
-} from '@lyness/typert-protocol'
-import TypertRegistry, { type TypertContribution } from '@lyness/typert-registry'
-import TypertGatewayService, { TypertGatewayError } from '@lyness/api-gateway'
+} from '@lyness/lyn-typert-protocol'
+import TypertRegistry, { type TypertContribution } from '@lyness/lyn-typert-registry'
+import TypertGatewayService, { TypertGatewayError } from '@lyness/lyn-api-gateway'
 import { provideBrowserCredentials } from './browser-credentials.ts'
 
 interface FixtureAgent {
@@ -28,7 +28,7 @@ interface MarkedContext extends Context {
   readonly fixtureScope?: string
 }
 
-declare module '@lyness/typert-protocol' {
+declare module '@lyness/lyn-typert-protocol' {
   interface TypertLookupMap {
     gatewayFixture: TypertLookup<FixtureAgent, string>
     gatewayFixtureAlias: TypertLookup<FixtureAgent, string>

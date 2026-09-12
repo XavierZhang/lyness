@@ -1,7 +1,7 @@
-/** Package-owned workflow lifecycle invariants. @module @lyness/workflow/invariant */
+/** Package-owned workflow lifecycle invariants. @module @lyness/lyn-workflow/invariant */
 
 import type { Context } from '@lyness/cordis'
-import type { InvariantFailure, InvariantInstaller } from '@lyness/invariants'
+import type { InvariantFailure, InvariantInstaller } from '@lyness/lyn-invariants'
 import type {
   WorkflowAgentEndInfo,
   WorkflowAgentInfo,
@@ -9,7 +9,7 @@ import type {
   WorkflowRunInfo,
 } from './types.ts'
 
-const PACKAGE_NAME = '@lyness/workflow'
+const PACKAGE_NAME = '@lyness/lyn-workflow'
 
 /** Cordis companion plugin name. */
 export const name = 'workflow-invariant'

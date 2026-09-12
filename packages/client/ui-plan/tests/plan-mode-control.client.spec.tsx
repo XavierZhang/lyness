@@ -7,11 +7,11 @@
  */
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
-import { createSnapshotStore } from '@lyness/client-store'
-import { bindSnapshotSelector, makeTranslate } from '@lyness/client-test-runtime'
-import type { PlanProjection } from '@lyness/plan-mode/client'
+import { createSnapshotStore } from '@lyness/lyn-client-store'
+import { bindSnapshotSelector, makeTranslate } from '@lyness/lyn-client-test-runtime'
+import type { PlanProjection } from '@lyness/lyn-plan-mode/client'
 import { PlanChip, type PlanChipProps } from '../src/client/PlanModeControl.tsx'
-import { zh as commonZh } from '@lyness/client-locale/src/locales/zh.ts'
+import { zh as commonZh } from '@lyness/lyn-client-locale/src/locales/zh.ts'
 import { zh } from '../src/client/locales.ts'
 
 afterEach(cleanup)

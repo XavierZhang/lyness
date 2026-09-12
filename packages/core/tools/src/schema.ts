@@ -1,8 +1,8 @@
 /** Unified JSON-value schema DSL, inference, compilation, and typed tool helper. @module lyn-tools/schema */
 
-import { HarnessError } from '@lyness/llm'
-import type { ContentBlock } from '@lyness/llm'
-import type { JsonValue } from '@lyness/util-values'
+import { HarnessError } from '@lyness/lyn-llm'
+import type { ContentBlock } from '@lyness/lyn-llm'
+import type { JsonValue } from '@lyness/lyn-util-values'
 import type { ToolDefinition, ToolExecution, ToolExecutionResult, ToolRunContext, ToolResult } from './index.ts'
 import { assertSupportedJsonSchema, isJsonSchemaRecord, isPlainJsonArray, JsonSchemaError, validateJsonSchemaValue } from './json-schema.ts'
 import type { JsonSchemaNode, JsonSchemaScalar, ObjectJsonSchema } from './json-schema.ts'

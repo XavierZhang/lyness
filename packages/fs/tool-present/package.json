@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/tool-present",
+  "name": "@lyness/lyn-tool-present",
   "description": "Explicit workspace file delivery declarations for the lyness",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -36,25 +36,25 @@
   },
   "peerDependencies": {
     "@lyness/cordis": "workspace:^",
-    "@lyness/agent": "workspace:^",
-    "@lyness/fs": "workspace:^",
-    "@lyness/llm": "workspace:^",
-    "@lyness/session": "workspace:^",
-    "@lyness/session-projection": "workspace:^",
-    "@lyness/tools": "workspace:^"
+    "@lyness/lyn-agent": "workspace:^",
+    "@lyness/lyn-fs": "workspace:^",
+    "@lyness/lyn-llm": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
+    "@lyness/lyn-session-projection": "workspace:^",
+    "@lyness/lyn-tools": "workspace:^"
   },
   "devDependencies": {
     "@lyness/cordis": "workspace:^",
-    "@lyness/agent": "workspace:^",
-    "@lyness/fs": "workspace:^",
-    "@lyness/llm": "workspace:^",
-    "@lyness/session": "workspace:^",
-    "@lyness/session-projection": "workspace:^",
-    "@lyness/tools": "workspace:^",
-    "@lyness/agent-loop": "workspace:^",
-    "@lyness/agent-loop-testkit": "workspace:^",
-    "@lyness/fs-local": "workspace:^",
-    "@lyness/system-prompt": "workspace:^",
-    "@lyness/scope": "workspace:^"
+    "@lyness/lyn-agent": "workspace:^",
+    "@lyness/lyn-fs": "workspace:^",
+    "@lyness/lyn-llm": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
+    "@lyness/lyn-session-projection": "workspace:^",
+    "@lyness/lyn-tools": "workspace:^",
+    "@lyness/lyn-agent-loop": "workspace:^",
+    "@lyness/lyn-agent-loop-testkit": "workspace:^",
+    "@lyness/lyn-fs-local": "workspace:^",
+    "@lyness/lyn-system-prompt": "workspace:^",
+    "@lyness/lyn-scope": "workspace:^"
   }
 }

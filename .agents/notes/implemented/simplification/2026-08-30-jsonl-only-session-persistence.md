@@ -12,9 +12,9 @@ The SQLite full-text Session-query provider is not an alternative authoritative 
 
 ## Decision
 
-`@lyness/session-persistence-jsonl` is the sole first-party implementation of `ctx.sessionPersistence`. The abstract Service Definition remains backend-neutral so an out-of-tree provider can implement the same service, but the repository owns and tests one authoritative physical Session format.
+`@lyness/lyn-session-persistence-jsonl` is the sole first-party implementation of `ctx.sessionPersistence`. The abstract Service Definition remains backend-neutral so an out-of-tree provider can implement the same service, but the repository owns and tests one authoritative physical Session format.
 
-The `@lyness/session-persistence-sqlite` package, its schema resources, backend-specific tests, configuration surface, and Windows differential lane are absent. Cross-package persistence tests use the real JSONL provider or an owner-local fake. `@lyness/session-query-sqlite` remains the optional FTS5 query provider over a separate rebuildable database, and `@lyness/storage-sqlite` remains the generic domain-KV provider.
+The `@lyness/lyn-session-persistence-sqlite` package, its schema resources, backend-specific tests, configuration surface, and Windows differential lane are absent. Cross-package persistence tests use the real JSONL provider or an owner-local fake. `@lyness/lyn-session-query-sqlite` remains the optional FTS5 query provider over a separate rebuildable database, and `@lyness/lyn-storage-sqlite` remains the generic domain-KV provider.
 
 Existing databases written by the removed provider are not opened or migrated by the current build. An operator who needs their contents must use a build that still contains that provider and export the logical Session before upgrading.
 

@@ -1,29 +1,29 @@
 # Add PTC mode and Cordis tools to the base spawn/workflow stack, exercising
 # all four boundaries in one ACP snapshot.
 - id: agent-default-model
-  name: '@lyness/agent-default-model'
+  name: '@lyness/lyn-agent-default-model'
   config:
     provider: deepseek-official
     model: deepseek-v4-pro
 
 - id: session-persistence-jsonl
-  name: '@lyness/session-persistence-jsonl'
+  name: '@lyness/lyn-session-persistence-jsonl'
   config:
     root: !!js lynHomePath('sessions')
     compression: !!js 'process.env.LYNESS_SNAPSHOT === undefined ? ''zstd'' : ''none'''
 
 - id: agent-instructions
-  name: '@lyness/agent-instructions'
+  name: '@lyness/lyn-agent-instructions'
   config:
     maxBytes: 65536
 
 - id: tools
-  name: '@lyness/tools'
+  name: '@lyness/lyn-tools'
   config:
     mode: both
 
 - id: system-prompt
-  name: '@lyness/system-prompt'
+  name: '@lyness/lyn-system-prompt'
   config:
     personaPrefix: |
       You are a coding assistant powered by the {{model}} model. Your working directory is {{cwd}}.
@@ -32,6 +32,6 @@
 
 - insert:
     - id: cordis-host-runner
-      name: '@lyness/cordis-host-runner'
+      name: '@lyness/lyn-cordis-host-runner'
     - id: tool-cordis
-      name: '@lyness/tool-cordis'
+      name: '@lyness/lyn-tool-cordis'

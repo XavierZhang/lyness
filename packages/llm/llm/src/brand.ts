@@ -3,14 +3,14 @@
  * diagnostics.
  *
  * The `Branded<B>` primitive and stateless constructor live in
- * `@lyness/brand` so every owner of a cross-boundary id can brand it
+ * `@lyness/lyn-brand` so every owner of a cross-boundary id can brand it
  * without depending on lyn-llm; see that package's README for the
  * nominal-typing policy.
  *
- * @module @lyness/llm/brand
+ * @module @lyness/lyn-llm/brand
  */
 
-import { brandString, type Branded } from '@lyness/brand'
+import { brandString, type Branded } from '@lyness/lyn-brand'
 
 /** Stable identity carried by one message across inbox, log, and model-request boundaries. */
 export type MessageId = Branded<'MessageId'>

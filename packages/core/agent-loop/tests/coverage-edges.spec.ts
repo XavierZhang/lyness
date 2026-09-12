@@ -1,14 +1,14 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import LlmRuntime, { createUserMessage, ToolCallId, LlmError, StreamChunk, errorChain  } from '@lyness/llm'
-import SessionStore, { SessionId, TurnEndReason } from '@lyness/session'
-import type { SessionEvent } from '@lyness/session'
-import SystemPrompt from '@lyness/system-prompt'
-import ToolRuntime, { defineContentToolFixture } from '@lyness/tools'
-import AgentRegistry, { type Agent } from '@lyness/agent'
+import LlmRuntime, { createUserMessage, ToolCallId, LlmError, StreamChunk, errorChain  } from '@lyness/lyn-llm'
+import SessionStore, { SessionId, TurnEndReason } from '@lyness/lyn-session'
+import type { SessionEvent } from '@lyness/lyn-session'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime, { defineContentToolFixture } from '@lyness/lyn-tools'
+import AgentRegistry, { type Agent } from '@lyness/lyn-agent'
 
-import AgentLoop from '@lyness/agent-loop'
-import SessionProjectionRegistry from '@lyness/session-projection'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 import { MockAdapter, textResponse, toolCallResponse } from './mock-adapter.ts'
 
 function driverDone(agent: Agent): Promise<void> {
@@ -215,7 +215,7 @@ describe('disposed vs aborted branching', () => {
 
 describe('structured tool error propagation (the runtime-validation Agent Note, part 2)', () => {
   it('forwards a tool HarnessError onto the tool/result session event', async () => {
-    const { HarnessError } = await import('@lyness/llm')
+    const { HarnessError } = await import('@lyness/lyn-llm')
     // First model turn calls the tool; second turn (after the tool result is
     // fed back) ends with plain text so the loop settles.
     const adapter = new MockAdapter([
@@ -245,7 +245,7 @@ describe('structured tool error propagation (the runtime-validation Agent Note, 
 
 describe('request-error action edges', () => {
   it('ignores a retry action returned after the turn was aborted', async () => {
-    const { LlmError } = await import('@lyness/llm')
+    const { LlmError } = await import('@lyness/lyn-llm')
     const adapter = new MockAdapter([
       () => { throw new LlmError('busy', 'RATE_LIMIT') },
       textResponse('never used'),
@@ -267,7 +267,7 @@ describe('request-error action edges', () => {
   })
 
   it('completed recovery does not retry when cancellation raced the waterfall', async () => {
-    const { LlmError } = await import('@lyness/llm')
+    const { LlmError } = await import('@lyness/lyn-llm')
     const adapter = new MockAdapter([
       () => { throw new LlmError('busy', 'RATE_LIMIT') },
     ])
@@ -364,7 +364,7 @@ describe('persistent step-close rejection', () => {
 
 describe('tool result meta persistence', () => {
   it('records a presentationMeta payload on the tool/result event', async () => {
-    const { defineTool } = await import('@lyness/tools')
+    const { defineTool } = await import('@lyness/lyn-tools')
     const adapter = new MockAdapter([
       toolCallResponse('c1', 'meta-tool', {}),
       textResponse('done'),
@@ -422,7 +422,7 @@ describe('turn close failure containment', () => {
 
 describe('recovery without a retry action', () => {
   it('a completed recovery that returns no action leaves the failed turn terminal', async () => {
-    const { LlmError } = await import('@lyness/llm')
+    const { LlmError } = await import('@lyness/lyn-llm')
     const adapter = new MockAdapter([
       () => { throw new LlmError('down', 'SERVICE_UNAVAILABLE') },
     ])
@@ -443,7 +443,7 @@ describe('recovery without a retry action', () => {
 
 describe('unrenderable failure settlement', () => {
   it('drops the rendered message when the error chain cannot be rendered', async () => {
-    const { LlmError } = await import('@lyness/llm')
+    const { LlmError } = await import('@lyness/lyn-llm')
     const adapter = new MockAdapter([
       () => {
         const error = new LlmError('will become hostile', 'SERVER')
@@ -507,7 +507,7 @@ describe('driver bookkeeping edges', () => {
   })
 
   it('a request failure that concludes recovery after step/end closed keeps the boundary balanced', async () => {
-    const { LlmError } = await import('@lyness/llm')
+    const { LlmError } = await import('@lyness/lyn-llm')
     // The failure finish-chunk path returns request-failed AFTER step() has
     // already appended step/end, so the request-failed branch's own
     // step-close guard must see stepOpen === false and skip the append.

@@ -8,11 +8,11 @@
  * disposes it with the scope fiber.
  */
 import type { Context as ClientContext } from '@lyness/cordis'
-import { createSnapshotStore, type SnapshotStore } from '@lyness/client-store'
+import { createSnapshotStore, type SnapshotStore } from '@lyness/lyn-client-store'
 import type {
   ArbitrateKey, ArbitrateOutcome, PickOutcome,
-} from '@lyness/client-ui-conversation/client'
-import type { SessionId } from '@lyness/session/types'
+} from '@lyness/lyn-client-ui-conversation/client'
+import type { SessionId } from '@lyness/lyn-session/types'
 import { detectTrigger } from '../core/detect.ts'
 import { MENU_CLOSED, menuReduce, seedGroups } from '../core/menu.ts'
 import type { MenuEvent, MenuState, TriggerHit } from '../core/contract.ts'

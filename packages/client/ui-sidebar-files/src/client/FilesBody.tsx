@@ -13,13 +13,13 @@
 import { useEffect, useLayoutEffect, useRef } from 'react'
 import type { ReactNode, RefObject } from 'react'
 import clsx from 'clsx'
-import type { RemoteFailure } from '@lyness/api-remotes/client'
-import type { PropsLocale, PropsRuntime, PropsStore, TranslateNS } from '@lyness/client-ui-slots'
+import type { RemoteFailure } from '@lyness/lyn-api-remotes/client'
+import type { PropsLocale, PropsRuntime, PropsStore, TranslateNS } from '@lyness/lyn-client-ui-slots'
 import {
   FileTypeIcon, IconFolderClose16, IconFolderOpen16, IconRefreshOutline16, classifyFileType,
-} from '@lyness/client-ui-primitives'
-import { fileAddressFor, pathPartsOf } from '@lyness/util-workspace-path'
-import type { WorkspaceDirectoryEntry } from '@lyness/api-workspace-files/types'
+} from '@lyness/lyn-client-ui-primitives'
+import { fileAddressFor, pathPartsOf } from '@lyness/lyn-util-workspace-path'
+import type { WorkspaceDirectoryEntry } from '@lyness/lyn-api-workspace-files/types'
 import { childPath } from './face.ts'
 import type { FilesInjected } from './face.ts'
 import type {} from './locales.ts'

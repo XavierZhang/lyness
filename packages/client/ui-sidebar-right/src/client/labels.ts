@@ -5,8 +5,8 @@
  * handed over from here. This is a projection of the dictionary, not a second
  * home for copy: the strings live in `locales.ts`.
  */
-import type { DockLabels } from '@lyness/client-ui-dockkit'
-import type { TranslateNS } from '@lyness/client-locale/client'
+import type { DockLabels } from '@lyness/lyn-client-ui-dockkit'
+import type { TranslateNS } from '@lyness/lyn-client-locale/client'
 
 /**
  * Project the dictionary into the kit's label contract.

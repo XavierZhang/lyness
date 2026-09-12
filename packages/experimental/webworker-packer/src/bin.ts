@@ -5,7 +5,7 @@
  *
  * Usage: lyn-pack-vfs-image --out <file> [--profile web] [--root /lyn]
  *        node --import tsx/esm src/bin.ts --out ../../apps/web/dist/preview/vfs-image.tar.gz
- * @module @lyness/experimental-webworker-packer/src/bin
+ * @module @lyness/lyn-experimental-webworker-packer/src/bin
  */
 import { mkdirSync, writeFileSync } from 'node:fs'
 import { dirname, isAbsolute, join, resolve } from 'node:path'
@@ -13,7 +13,7 @@ import { fileURLToPath } from 'node:url'
 import {
   PREVIEW_FIXTURE_MANIFEST_FILE, PREVIEW_FIXTURE_MANIFEST_VERSION,
   type PreviewFixtureManifest,
-} from '@lyness/experimental-webworker-runtime'
+} from '@lyness/lyn-experimental-webworker-runtime'
 import { packVfsImage, packVfsOverlay } from './pack.ts'
 import {
   composeProfile, configTrees, describePack, indexWorkspacePackages, previewFixtures,

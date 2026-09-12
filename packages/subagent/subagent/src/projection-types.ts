@@ -1,10 +1,10 @@
 /**
  * Pure client-safe subagent projection vocabulary.
  *
- * @module @lyness/subagent/projection-types
+ * @module @lyness/lyn-subagent/projection-types
  */
 
-import type { SessionId, SessionSeq } from '@lyness/session/types'
+import type { SessionId, SessionSeq } from '@lyness/lyn-session/types'
 
 /** One current direct-child discovery row materialized from parent facts. */
 export type SubagentCatalogEntry =
@@ -59,7 +59,7 @@ export type SubagentIdentityProjection =
     seq: SessionSeq
   }
 
-declare module '@lyness/session-projection/types' {
+declare module '@lyness/lyn-session-projection/types' {
   interface SessionProjectionMap {
     /** Direct children in parent catalog event order, excluding fork-inherited facts. */
     subagentCatalog: SubagentCatalogEntry[]

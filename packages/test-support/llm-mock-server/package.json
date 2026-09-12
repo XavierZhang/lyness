@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/llm-mock-server",
+  "name": "@lyness/lyn-llm-mock-server",
   "description": "Scriptable OpenAI-compatible HTTP/SSE fault server for LLM recovery tests",
   "version": "0.1.5-rc.1",
   "publishConfig": {

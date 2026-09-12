@@ -1,15 +1,15 @@
 /**
  * Model-facing persistent `bash` tool over the owner-scoped PTY seam.
- * @module @lyness/tool-bash-persistent
+ * @module @lyness/lyn-tool-bash-persistent
  */
 
 import { randomUUID } from 'node:crypto'
 import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import type { Agent } from '@lyness/agent'
-import type { TerminalReadResult, TerminalSessionId } from '@lyness/terminal'
-import { deadline, timeoutOf } from '@lyness/timeout'
-import { defineTool } from '@lyness/tools'
+import type { Agent } from '@lyness/lyn-agent'
+import type { TerminalReadResult, TerminalSessionId } from '@lyness/lyn-terminal'
+import { deadline, timeoutOf } from '@lyness/lyn-timeout'
+import { defineTool } from '@lyness/lyn-tools'
 
 // TODO: Replace the file-search advice; arbitrary command output need not come from a searchable file.
 const TRUNCATED_MESSAGE = '<response clipped><NOTE>To save on context only part of this file has been shown to you. You should retry this tool after you have searched inside the file with `grep -n` in order to find the line numbers of what you are looking for.</NOTE>'

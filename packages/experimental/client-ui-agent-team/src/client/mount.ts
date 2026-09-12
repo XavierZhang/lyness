@@ -3,22 +3,22 @@
 import type {
   TeamMemberView as TeamRosterMember,
   TeamView,
-} from '@lyness/experimental-agent-team/client'
-import type {} from '@lyness/experimental-agent-team/remote'
+} from '@lyness/lyn-experimental-agent-team/client'
+import type {} from '@lyness/lyn-experimental-agent-team/remote'
 import type { Context as ClientContext } from '@lyness/cordis'
-import type {} from '@lyness/api-remotes/client'
-import type {} from '@lyness/api-session-controller/client'
-import type { SessionId } from '@lyness/session/types'
-import type {} from '@lyness/client-ui-conversation/client'
-import type {} from '@lyness/client-locale/client'
-import type {} from '@lyness/client-ui-renderer/client'
-import type { TypertRemoteContribution } from '@lyness/typert-protocol'
+import type {} from '@lyness/lyn-api-remotes/client'
+import type {} from '@lyness/lyn-api-session-controller/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type {} from '@lyness/lyn-client-ui-conversation/client'
+import type {} from '@lyness/lyn-client-locale/client'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
+import type { TypertRemoteContribution } from '@lyness/lyn-typert-protocol'
 import {
   TeamAction, type TeamActionInjected, type TeamActionResult, type TeamTaskActionResult,
 } from './TeamAction.tsx'
 import { en, NS, zh, type TeamKey } from './locales.ts'
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface LocaleNamespaceMap {
     /** Agent Teams roster and task-board copy. */
     'agent-team': TeamKey

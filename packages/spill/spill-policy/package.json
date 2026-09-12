@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/spill-policy",
+  "name": "@lyness/lyn-spill-policy",
   "description": "Tool-result spill policy for the lyness — replaces oversized plain-text tool results with a retained preview plus a spill-file path (no service API)",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -32,24 +32,24 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/llm": "workspace:^",
-    "@lyness/output-retention": "workspace:^",
-    "@lyness/session": "workspace:^",
-    "@lyness/spill": "workspace:^",
-    "@lyness/tools": "workspace:^",
+    "@lyness/lyn-llm": "workspace:^",
+    "@lyness/lyn-output-retention": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
+    "@lyness/lyn-spill": "workspace:^",
+    "@lyness/lyn-tools": "workspace:^",
     "@lyness/cordis": "workspace:^"
   },
   "dependencies": {
     "@lyness/schemastery": "workspace:^"
   },
   "devDependencies": {
-    "@lyness/agent": "workspace:^",
-    "@lyness/code-runtime-worker-thread": "workspace:^",
-    "@lyness/llm": "workspace:^",
-    "@lyness/output-retention": "workspace:^",
-    "@lyness/session": "workspace:^",
-    "@lyness/spill": "workspace:^",
-    "@lyness/tools": "workspace:^",
+    "@lyness/lyn-agent": "workspace:^",
+    "@lyness/lyn-code-runtime-worker-thread": "workspace:^",
+    "@lyness/lyn-llm": "workspace:^",
+    "@lyness/lyn-output-retention": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
+    "@lyness/lyn-spill": "workspace:^",
+    "@lyness/lyn-tools": "workspace:^",
     "@lyness/cordis": "workspace:^"
   }
 }

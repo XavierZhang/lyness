@@ -1,5 +1,5 @@
 /** Root-scoped controller for the right Sidebar's Session content. */
-import type { PropsRenderSlots, PropsRuntime } from '@lyness/client-ui-slots'
+import type { PropsRenderSlots, PropsRuntime } from '@lyness/lyn-client-ui-slots'
 import type {} from '../contract/slots.ts'
 
 /**

@@ -12,8 +12,8 @@ import {
   taskkillProcessTree,
   validateSubprocessSpec,
 } from '../src/spawn.ts'
-import type { SubprocessHandle, SubprocessOutputReader } from '@lyness/subprocess'
-import { MAX_TIMER_DELAY_MS } from '@lyness/timeout'
+import type { SubprocessHandle, SubprocessOutputReader } from '@lyness/lyn-subprocess'
+import { MAX_TIMER_DELAY_MS } from '@lyness/lyn-timeout'
 import { waitWithAbort } from '../src/managed-owner.ts'
 
 vi.mock('node:child_process', async (importOriginal) => {
@@ -812,7 +812,7 @@ describe.skipIf(process.platform === 'win32')('tree-survivor escalation (termina
 
   it('service teardown awaits tree survivors, not just handle settlement', async () => {
     const { Context } = await import('@lyness/cordis')
-    const { default: LocalSubprocessRuntime } = await import('@lyness/subprocess-local')
+    const { default: LocalSubprocessRuntime } = await import('@lyness/lyn-subprocess-local')
     const ctx = new Context()
     const fiber = await ctx.plugin(LocalSubprocessRuntime)
     ;(ctx.subprocess as InstanceType<typeof LocalSubprocessRuntime>).internals = { spillDir }

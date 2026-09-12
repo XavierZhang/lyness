@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
 import DeepSeekLlmApiExtensionRegistry from '../src/index.ts'
 
-declare module '@lyness/deepseek-llm-api-extensions/types' {
+declare module '@lyness/lyn-deepseek-llm-api-extensions/types' {
   interface DeepSeekLlmApiExtensionMap {
     test_alpha: { readonly value: string }
     test_beta: readonly number[]

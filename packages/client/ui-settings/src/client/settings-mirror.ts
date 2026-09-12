@@ -10,8 +10,8 @@
  */
 
 import type { Context as ClientContext } from '@lyness/cordis'
-import type { SettingsNamespaceView } from '@lyness/api-remotes/client'
-import { createSnapshotStore, type SnapshotStore } from '@lyness/client-store'
+import type { SettingsNamespaceView } from '@lyness/lyn-api-remotes/client'
+import { createSnapshotStore, type SnapshotStore } from '@lyness/lyn-client-store'
 
 /** The full `settings.describe` answer the mirror serves. */
 export interface SettingsDescribeView {

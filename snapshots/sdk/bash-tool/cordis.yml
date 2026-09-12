@@ -1,24 +1,24 @@
 # SDK snapshot-record composition without provider-specific upload metadata.
 
 - id: skill-filesystem
-  name: '@lyness/skill-filesystem'
+  name: '@lyness/lyn-skill-filesystem'
   config:
     includeDefaultRoots: false
 
 - id: llm-deepseek
-  name: '@lyness/llm-deepseek'
+  name: '@lyness/lyn-llm-deepseek'
   config:
     thinking: enabled
     reasoningEffort: max
 
 - id: session-persistence-jsonl
-  name: '@lyness/session-persistence-jsonl'
+  name: '@lyness/lyn-session-persistence-jsonl'
   config:
     root: !!js lynHomePath('sessions')
     compression: !!js "process.env.LYNESS_SNAPSHOT === undefined ? 'zstd' : 'none'"
 
 - id: tool-subagent
-  name: '@lyness/tool-subagent'
+  name: '@lyness/lyn-tool-subagent'
   config:
     provider: spawn
     toolName: subagent

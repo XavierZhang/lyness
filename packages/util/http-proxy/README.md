@@ -3,7 +3,7 @@ description: "Outbound HTTP proxy support for the harness: how one policy resolv
 kind: "package-reference"
 ---
 
-# @lyness/http-proxy
+# @lyness/lyn-http-proxy
 
 English | [中文](README.zh.md)
 

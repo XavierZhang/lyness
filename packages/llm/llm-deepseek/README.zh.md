@@ -3,7 +3,7 @@ description: "面向用户与维护者的 DeepSeek chat-completions 适配器说
 kind: "package-reference"
 ---
 
-# @lyness/llm-deepseek
+# @lyness/lyn-llm-deepseek
 
 [English](README.md) | 中文
 
@@ -34,7 +34,7 @@ kind: "package-reference"
 ### 最小配置
 
 ```yaml
-- name: '@lyness/llm-deepseek'
+- name: '@lyness/lyn-llm-deepseek'
   config:
     apiKeyEnv: DEEPSEEK_API_KEY  # credential reference, resolved per request
     baseURL: https://api.deepseek.com # optional; $DEEPSEEK_BASE_URL then this default
@@ -70,7 +70,7 @@ kind: "package-reference"
 | `fileQuotaCleanupBatch` | `100` | 配额重试前删除的、归 harness 所有的最旧文件数 |
 | `retryPolicy` | normal，5 次重试 | 由 `lyn-llm-retry` 执行的提供方自有重试策略 |
 
-生成的[配置目录](../../../docs/config-catalog.zh.md#lynessllm-deepseek)是每个受支持字段及其 JSDoc 的穷尽式真源。
+生成的[配置目录](../../../docs/config-catalog.zh.md#lynesslyn-llm-deepseek)是每个受支持字段及其 JSDoc 的穷尽式真源。
 
 ### 带 thinking 与图片的流式调用
 

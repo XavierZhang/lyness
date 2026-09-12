@@ -6,18 +6,18 @@
  * 404, missing descendant → errored stream).
  */
 
-import { SESSION_FORMAT_VERSION, SessionSeq } from '@lyness/session'
+import { SESSION_FORMAT_VERSION, SessionSeq } from '@lyness/lyn-session'
 import { randomBytes } from 'node:crypto'
 import { describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
 import { unzipSync, strFromU8 } from 'fflate'
-import type { FileAttachmentRef, ImageAttachmentRef } from '@lyness/attachment'
-import type { SessionEvent, SessionHeader, SessionId } from '@lyness/session'
-import type { SessionLineageNode } from '@lyness/session-query'
-import { SessionPersistenceNotFoundError } from '@lyness/session-persistence'
-import type { SessionAccess, SessionHandle } from '@lyness/session-persistence'
-import { HostConnectionService } from '@lyness/client-connection'
-import type { BrowserAuth } from '@lyness/client-connection/src/browser-auth.ts'
+import type { FileAttachmentRef, ImageAttachmentRef } from '@lyness/lyn-attachment'
+import type { SessionEvent, SessionHeader, SessionId } from '@lyness/lyn-session'
+import type { SessionLineageNode } from '@lyness/lyn-session-query'
+import { SessionPersistenceNotFoundError } from '@lyness/lyn-session-persistence'
+import type { SessionAccess, SessionHandle } from '@lyness/lyn-session-persistence'
+import { HostConnectionService } from '@lyness/lyn-client-connection'
+import type { BrowserAuth } from '@lyness/lyn-client-connection/src/browser-auth.ts'
 import * as SessionLogExport from '../src/index.ts'
 
 const sid = (id: string): SessionId => id as SessionId

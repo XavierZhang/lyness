@@ -1,7 +1,7 @@
 /** Package-private continuation owners used to place deterministic lifecycle races. */
 
 import type { Context } from '@lyness/cordis'
-import type { SessionId } from '@lyness/session'
+import type { SessionId } from '@lyness/lyn-session'
 import type { Activation, ContinuableActivationRegistry } from '../src/continuation-activation.ts'
 import type SubagentContinuationManager from '../src/continuation.ts'
 

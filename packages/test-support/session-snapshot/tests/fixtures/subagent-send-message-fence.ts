@@ -5,7 +5,7 @@
  */
 
 import type { Context } from '@lyness/cordis'
-import type {} from '@lyness/agent-loop'
+import type {} from '@lyness/lyn-agent-loop'
 
 /** Fixture plugin name. */
 export const name = 'subagent-send-message-fence'

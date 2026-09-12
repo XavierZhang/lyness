@@ -3,7 +3,7 @@ description: "编辑前读取的文件系统策略插件：面向选择或排查
 kind: "package-reference"
 ---
 
-# @lyness/fs-observation-policy
+# @lyness/lyn-fs-observation-policy
 
 [English](README.md) | 中文
 
@@ -32,9 +32,9 @@ kind: "package-reference"
 先加载后端，再加载本插件，最后加载工具。策略监听器应当是 `fs/*` 意图 slot 上第一个注册的决策器。
 
 ```yaml
-- name: '@lyness/fs-local'
-- name: '@lyness/fs-observation-policy'
-- name: '@lyness/tool-fs'
+- name: '@lyness/lyn-fs-local'
+- name: '@lyness/lyn-fs-observation-policy'
+- name: '@lyness/lyn-tool-fs'
 ```
 
 ### 对模型而言的变化

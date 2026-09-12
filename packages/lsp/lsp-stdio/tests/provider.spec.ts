@@ -3,12 +3,12 @@ import { chmod, mkdtemp, mkdir, rm, writeFile, realpath } from 'node:fs/promises
 import { tmpdir } from 'node:os'
 import { delimiter, join } from 'node:path'
 import { Context } from '@lyness/cordis'
-import LocalSubprocessRuntime from '@lyness/subprocess-local'
-import LocalFileSystem from '@lyness/fs-local'
-import Lsp, { type LspQueryRequest } from '@lyness/lsp'
-import * as LspLocal from '@lyness/lsp-stdio'
-import type { Config, LspLocalServerConfig } from '@lyness/lsp-stdio'
-import { MAX_TIMER_DELAY_MS } from '@lyness/timeout'
+import LocalSubprocessRuntime from '@lyness/lyn-subprocess-local'
+import LocalFileSystem from '@lyness/lyn-fs-local'
+import Lsp, { type LspQueryRequest } from '@lyness/lyn-lsp'
+import * as LspLocal from '@lyness/lyn-lsp-stdio'
+import type { Config, LspLocalServerConfig } from '@lyness/lyn-lsp-stdio'
+import { MAX_TIMER_DELAY_MS } from '@lyness/lyn-timeout'
 
 let root: string
 let ws: string

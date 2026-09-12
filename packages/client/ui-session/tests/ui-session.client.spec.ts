@@ -5,11 +5,11 @@ import type {
   SessionBinding,
   SessionListState,
   SessionSnapshot,
-} from '@lyness/api-session-controller/client'
-import { MutableSessionEventSource } from '@lyness/api-session-controller/client'
-import { createSnapshotStore } from '@lyness/client-store'
-import type { HostObservable } from '@lyness/client-ui-slots'
-import type { SessionId } from '@lyness/session/types'
+} from '@lyness/lyn-api-session-controller/client'
+import { MutableSessionEventSource } from '@lyness/lyn-api-session-controller/client'
+import { createSnapshotStore } from '@lyness/lyn-client-store'
+import type { HostObservable } from '@lyness/lyn-client-ui-slots'
+import type { SessionId } from '@lyness/lyn-session/types'
 import { Fragment } from 'react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import {

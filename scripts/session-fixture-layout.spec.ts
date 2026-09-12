@@ -1,8 +1,8 @@
 import { resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
-import { createAssistantMessage } from '@lyness/llm'
-import { SESSION_FORMAT_VERSION, SessionSeq, type SessionEvent } from '@lyness/session'
-import { parseSessionLog } from '@lyness/llm-replay'
+import { createAssistantMessage } from '@lyness/lyn-llm'
+import { SESSION_FORMAT_VERSION, SessionSeq, type SessionEvent } from '@lyness/lyn-session'
+import { parseSessionLog } from '@lyness/lyn-llm-replay'
 import {
   canonicalSessionFixture,
   inspectSessionFixtureLayouts,

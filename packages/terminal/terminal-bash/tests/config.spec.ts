@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import type { Config } from '@lyness/terminal-bash/src/config.ts'
-import { resolveConfig, validateConfig } from '@lyness/terminal-bash/src/config.ts'
+import type { Config } from '@lyness/lyn-terminal-bash/src/config.ts'
+import { resolveConfig, validateConfig } from '@lyness/lyn-terminal-bash/src/config.ts'
 
 function config(overrides: Partial<Config> = {}): Config {
   return {

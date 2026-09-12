@@ -15,10 +15,10 @@ import type { AuthContext, Credential, CredentialInfo, CredentialStore } from '@
 import type { Context } from '@lyness/cordis'
 import {
   credentialKey, credentialKeyId, credentialKeyScope, credentialRef, isCredentialKeySegment, isCredentialRefName,
-} from '@lyness/credentials'
-import type { CredentialKey, CredentialProvider, CredentialRecord } from '@lyness/credentials'
-import { launchEnvironmentOf } from '@lyness/launch-environment'
-import { LlmError } from '@lyness/llm'
+} from '@lyness/lyn-credentials'
+import type { CredentialKey, CredentialProvider, CredentialRecord } from '@lyness/lyn-credentials'
+import { launchEnvironmentOf } from '@lyness/lyn-launch-environment'
+import { LlmError } from '@lyness/lyn-llm'
 
 /**
  * The record scope every credential this adapter family stores is written

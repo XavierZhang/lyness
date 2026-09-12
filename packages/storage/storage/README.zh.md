@@ -3,7 +3,7 @@ description: "存储枢纽（ctx.storage）：面向选择、挂载或排查具�
 kind: "package-reference"
 ---
 
-# @lyness/storage
+# @lyness/lyn-storage
 
 [English](README.md) | 中文
 
@@ -34,11 +34,11 @@ kind: "package-reference"
 ### 最小组合
 
 ```yaml
-- name: '@lyness/storage'
-- name: '@lyness/storage-json'
+- name: '@lyness/lyn-storage'
+- name: '@lyness/lyn-storage-json'
   config:
     root: /var/lib/lyn/data
-- name: '@lyness/storage-domain'
+- name: '@lyness/lyn-storage-domain'
   config:
     backend: json
 ```

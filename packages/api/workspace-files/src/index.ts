@@ -22,13 +22,13 @@
 import { posix, win32 } from 'node:path'
 import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import type {} from '@lyness/fs'
-import type { FsDirEntry, FsInfo, FsPathInfo, FsTarget } from '@lyness/fs'
-import type {} from '@lyness/sandbox-policy'
-import type {} from '@lyness/session'
-import type {} from '@lyness/session-persistence'
-import type { SessionId } from '@lyness/session/types'
-import { Remote, RemoteError, TypertRemoteService, type TypertLookup } from '@lyness/typert-protocol'
+import type {} from '@lyness/lyn-fs'
+import type { FsDirEntry, FsInfo, FsPathInfo, FsTarget } from '@lyness/lyn-fs'
+import type {} from '@lyness/lyn-sandbox-policy'
+import type {} from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-session-persistence'
+import type { SessionId } from '@lyness/lyn-session/types'
+import { Remote, RemoteError, TypertRemoteService, type TypertLookup } from '@lyness/lyn-typert-protocol'
 import { WorkspaceChangeFeed } from './changes.ts'
 import type {
   WorkspaceByteRange,
@@ -58,7 +58,7 @@ export interface WorkspaceFileScope {
   readonly workspaceRoot: string
 }
 
-declare module '@lyness/typert-protocol' {
+declare module '@lyness/lyn-typert-protocol' {
   interface TypertLookupMap {
     /** Resolve a Session id to its workspace root without loading its event body or activating an Agent. */
     workspaceFileScope: TypertLookup<WorkspaceFileScope, SessionId>
@@ -202,8 +202,8 @@ export class WorkspaceFiles extends TypertRemoteService {
       scope.typert.lookups.register('workspaceFileScope', {
         parameter: 'workspaceFileScope',
         wire: 'workspaceFileScopeId',
-        hostTypeSymbol: '@lyness/api-workspace-files#WorkspaceFileScope',
-        wireTypeSymbol: '@lyness/session/types#SessionId',
+        hostTypeSymbol: '@lyness/lyn-api-workspace-files#WorkspaceFileScope',
+        wireTypeSymbol: '@lyness/lyn-session/types#SessionId',
         resolve: async (sessionId) => {
           const live = scope.sessions.get(sessionId)?.header
           const stored = live === undefined

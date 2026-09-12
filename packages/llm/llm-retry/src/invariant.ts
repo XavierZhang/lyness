@@ -1,14 +1,14 @@
-/** Package-owned durable retry-event invariants. @module @lyness/llm-retry/invariant */
+/** Package-owned durable retry-event invariants. @module @lyness/lyn-llm-retry/invariant */
 
 import type { Context } from '@lyness/cordis'
-import type { Session, SessionEvent } from '@lyness/session'
-import type { LlmFailure } from '@lyness/llm'
-import { MAX_TIMER_DELAY_MS } from '@lyness/timeout'
-import type { InvariantFailure, InvariantInstaller } from '@lyness/invariants'
+import type { Session, SessionEvent } from '@lyness/lyn-session'
+import type { LlmFailure } from '@lyness/lyn-llm'
+import { MAX_TIMER_DELAY_MS } from '@lyness/lyn-timeout'
+import type { InvariantFailure, InvariantInstaller } from '@lyness/lyn-invariants'
 import { providerForOpenStep } from './history.ts'
 import type {} from './index.ts'
 
-const PACKAGE_NAME = '@lyness/llm-retry'
+const PACKAGE_NAME = '@lyness/lyn-llm-retry'
 
 /** Cordis companion plugin name. */
 export const name = 'llm-retry-invariant'

@@ -5,7 +5,7 @@
  */
 
 import type { Context } from '@lyness/cordis'
-import type { SessionId } from '@lyness/session'
+import type { SessionId } from '@lyness/lyn-session'
 
 /**
  * Reject every step of the stand-in parent. Each child settlement wakes its

@@ -7,10 +7,10 @@
  * must be the same copy of `src/storage/memory.ts`.
  */
 import { beforeEach, describe, expect, it } from 'vitest'
-import { MemoryVfs } from '@lyness/experimental-webworker-runtime/src/storage/memory.ts'
-import { setActiveVfs } from '@lyness/experimental-webworker-runtime/src/storage/active.ts'
-import { runShellCommand } from '@lyness/experimental-webworker-runtime/src/shell/interpret.ts'
-import type { ShellRunOutcome } from '@lyness/experimental-webworker-runtime/src/shell/types.ts'
+import { MemoryVfs } from '@lyness/lyn-experimental-webworker-runtime/src/storage/memory.ts'
+import { setActiveVfs } from '@lyness/lyn-experimental-webworker-runtime/src/storage/active.ts'
+import { runShellCommand } from '@lyness/lyn-experimental-webworker-runtime/src/shell/interpret.ts'
+import type { ShellRunOutcome } from '@lyness/lyn-experimental-webworker-runtime/src/shell/types.ts'
 
 const WORKSPACE = '/lyn/workspace'
 

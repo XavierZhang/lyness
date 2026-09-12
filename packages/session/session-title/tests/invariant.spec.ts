@@ -2,10 +2,10 @@
 // — the durable relationship every appended session/title event must keep.
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import * as SessionTitleInvariantCompanion from '@lyness/session-title/invariant'
-import InvariantRegistry, { InvariantError } from '@lyness/invariants'
-import SessionStore, { SessionId, SessionSeq } from '@lyness/session'
-import { createUserMessage } from '@lyness/llm'
+import * as SessionTitleInvariantCompanion from '@lyness/lyn-session-title/invariant'
+import InvariantRegistry, { InvariantError } from '@lyness/lyn-invariants'
+import SessionStore, { SessionId, SessionSeq } from '@lyness/lyn-session'
+import { createUserMessage } from '@lyness/lyn-llm'
 
 async function setup(): Promise<Context> {
   const ctx = new Context()
@@ -38,13 +38,13 @@ describe('session-title source invariant', () => {
       session.append('session/title', { title: 'auto', messageSeqs: [], source: { kind: 'fallback' } })
     }).toThrow(expect.objectContaining<Partial<InvariantError>>({
       code: 'INVARIANT',
-      packageName: '@lyness/session-title',
+      packageName: '@lyness/lyn-session-title',
     }))
     expect(() => {
       session.append('session/title', { title: 'named', messageSeqs: [source.seq], source: { kind: 'user' } })
     }).toThrow(expect.objectContaining<Partial<InvariantError>>({
       code: 'INVARIANT',
-      packageName: '@lyness/session-title',
+      packageName: '@lyness/lyn-session-title',
     }))
     expect(session.seq).toBe(1)
   })

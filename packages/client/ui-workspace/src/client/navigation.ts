@@ -1,16 +1,16 @@
 /** Workspace archive and directory UI capability. */
 
 import { Service, type Context } from '@lyness/cordis'
-import type { ClientRemote, DirectoryListing, RemoteFailure } from '@lyness/api-remotes/client'
+import type { ClientRemote, DirectoryListing, RemoteFailure } from '@lyness/lyn-api-remotes/client'
 import type {
   ISessions,
   SessionListState,
-} from '@lyness/api-session-controller/client'
+} from '@lyness/lyn-api-session-controller/client'
 import type {
   IWorkspaces, WorkspaceId, WorkspaceView,
-} from '@lyness/api-workspace-controller/client'
-import type { SessionId } from '@lyness/session/types'
-import type {} from '@lyness/client-ui-layout/client'
+} from '@lyness/lyn-api-workspace-controller/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type {} from '@lyness/lyn-client-ui-layout/client'
 
 /** Workspace archive and directory operations consumed by Client UI domains. */
 export interface UiWorkspace {

@@ -8,16 +8,16 @@
  * is the session's workspace cwd. This plugin uses named
  * exports only; a default would hide its loader metadata (see
  * `docs/postmortem/0001-acp-default-export-drops-inject.md`).
- * @module @lyness/subagent-lyn-sdk
+ * @module @lyness/lyn-subagent-lyn-sdk
  */
 
 import type { Context } from '@lyness/cordis'
 import { statSync } from 'node:fs'
 import { isAbsolute, resolve } from 'node:path'
 import z from '@lyness/schemastery'
-import type { AgentOptions } from '@lyness/agent'
-import type { SubagentCapabilities, SubagentProvider, SubagentStartRequest } from '@lyness/subagent'
-import { assertPositiveFinite, NO_START_CAPABILITIES, resolveChildCwd, validateConfiguredCwd } from '@lyness/subagent'
+import type { AgentOptions } from '@lyness/lyn-agent'
+import type { SubagentCapabilities, SubagentProvider, SubagentStartRequest } from '@lyness/lyn-subagent'
+import { assertPositiveFinite, NO_START_CAPABILITIES, resolveChildCwd, validateConfiguredCwd } from '@lyness/lyn-subagent'
 import {
   DEFAULT_DISPOSE_EOF_GRACE_MS,
   DEFAULT_DISPOSE_GRACE_MS,

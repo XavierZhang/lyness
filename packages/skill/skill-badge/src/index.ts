@@ -1,7 +1,7 @@
 /**
  * Bundled `lyn-badge` skill provider.
  *
- * @module @lyness/skill-badge
+ * @module @lyness/lyn-skill-badge
  */
 
 import { readFile } from 'node:fs/promises'
@@ -12,7 +12,7 @@ import {
   type SkillCandidate,
   type SkillDefinition,
   type SkillProvider,
-} from '@lyness/skill'
+} from '@lyness/lyn-skill'
 
 const PROVIDER_NAME = 'lyn-badge'
 const SKILL_BODY_URL = new URL('../assets/lyn-badge.md', import.meta.url)

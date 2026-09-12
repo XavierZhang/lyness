@@ -1,10 +1,10 @@
-/** Package-owned prompt-assembly invariants. @module @lyness/system-prompt/invariant */
+/** Package-owned prompt-assembly invariants. @module @lyness/lyn-system-prompt/invariant */
 
 import type { Context } from '@lyness/cordis'
-import type { InvariantFailure, InvariantInstaller } from '@lyness/invariants'
+import type { InvariantFailure, InvariantInstaller } from '@lyness/lyn-invariants'
 import type { PromptAssembly } from './index.ts'
 
-const PACKAGE_NAME = '@lyness/system-prompt'
+const PACKAGE_NAME = '@lyness/lyn-system-prompt'
 const VARIABLE_NAME = /^[a-z][a-z0-9_]*$/
 
 /** Cordis companion plugin name. */

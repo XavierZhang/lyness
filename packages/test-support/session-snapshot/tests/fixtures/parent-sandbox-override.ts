@@ -1,6 +1,6 @@
 import type { Context } from '@lyness/cordis'
-import { setSandboxMode } from '@lyness/sandbox-policy'
-import type {} from '@lyness/agent'
+import { setSandboxMode } from '@lyness/lyn-sandbox-policy'
+import type {} from '@lyness/lyn-agent'
 
 export const name = 'parent-sandbox-override'
 

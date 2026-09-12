@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import SessionStore, { SessionId, SessionSeq } from '@lyness/session'
-import ToolRuntime from '@lyness/tools'
-import * as ToolTodo from '@lyness/tool-todo'
-import * as TodoInvariant from '@lyness/tool-todo/invariant'
-import InvariantRegistry from '@lyness/invariants'
+import SessionStore, { SessionId, SessionSeq } from '@lyness/lyn-session'
+import ToolRuntime from '@lyness/lyn-tools'
+import * as ToolTodo from '@lyness/lyn-tool-todo'
+import * as TodoInvariant from '@lyness/lyn-tool-todo/invariant'
+import InvariantRegistry from '@lyness/lyn-invariants'
 
 async function setup(): Promise<Context> {
   const ctx = new Context()

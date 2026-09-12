@@ -5,10 +5,10 @@
  * capacity. */
 
 import { useEffect, useRef, useState } from 'react'
-import type { UseProjection } from '@lyness/api-session-controller/client'
+import type { UseProjection } from '@lyness/lyn-api-session-controller/client'
 // Type-only: the `contextPressure` / `contextBreakdown` projection key merges.
-import type {} from '@lyness/token-meter/client'
-import { Tooltip } from '@lyness/client-ui-primitives'
+import type {} from '@lyness/lyn-token-meter/client'
+import { Tooltip } from '@lyness/lyn-client-ui-primitives'
 import type { ComposerBarProps } from '../contract/slots.ts'
 import { contextOccupancy } from '../context-occupancy.ts'
 import css from './ContextMeter.module.css'

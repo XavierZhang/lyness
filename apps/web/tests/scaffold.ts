@@ -31,7 +31,7 @@ import { pathToFileURL } from 'node:url'
 import type { Page } from 'playwright'
 import { expect } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { LYNESS_LAUNCH_ENVIRONMENT_KEY, type LaunchEnvironmentSnapshot } from '@lyness/launch-environment'
+import { LYNESS_LAUNCH_ENVIRONMENT_KEY, type LaunchEnvironmentSnapshot } from '@lyness/lyn-launch-environment'
 import Loader from '@lyness/cordis-plugin-loader'
 import Include, { type PatchOptions } from '@lyness/cordis-plugin-include'
 import Group from '@lyness/cordis-plugin-group'
@@ -55,39 +55,39 @@ import {
   stabilizeRefreshLog,
   writesCurrentSessionFixtures,
   type NormalizeContext,
-} from '@lyness/session-snapshot'
+} from '@lyness/lyn-session-snapshot'
 import {
   assertEntriesLoaded,
   composeEntries,
   healProfilesModuleFallback,
   loadOverlayPatches,
   type Profile,
-} from '@lyness/app-boot'
-import { lynHomePath } from '@lyness/home-paths'
-import { LlmAdapter } from '@lyness/llm'
+} from '@lyness/lyn-app-boot'
+import { lynHomePath } from '@lyness/lyn-home-paths'
+import { LlmAdapter } from '@lyness/lyn-llm'
 import type {
   LlmModelInfo, LlmProviderInfo, LlmResolvedModelInfo, RetryPolicyConfig, StreamChunk,
-} from '@lyness/llm'
-import type { ReplayHandle, ReplayProviderConfig } from '@lyness/llm-replay'
+} from '@lyness/lyn-llm'
+import type { ReplayHandle, ReplayProviderConfig } from '@lyness/lyn-llm-replay'
 import {
   installLlmReplay,
   parseSessionLog,
   prepareSessionSnapshotFixtureForComparison,
-} from '@lyness/llm-replay'
-import type { SessionFormatEvent } from '@lyness/session-format'
-import { sessionFormatCatalog } from '@lyness/session-format-catalog'
+} from '@lyness/lyn-llm-replay'
+import type { SessionFormatEvent } from '@lyness/lyn-session-format'
+import { sessionFormatCatalog } from '@lyness/lyn-session-format-catalog'
 import {
   SESSION_FORMAT_VERSION,
   SessionId,
   type Session,
   type SessionEvent,
   type SessionHeader,
-} from '@lyness/session'
-import JsonlSessionPersistence from '@lyness/session-persistence-jsonl'
+} from '@lyness/lyn-session'
+import JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
 // Empty type imports carry the webServer/agents/sessionPersistence Context merges.
-import type {} from '@lyness/host-webserver'
-import type {} from '@lyness/agent'
-import { provideCmdline } from '@lyness/cmdline'
+import type {} from '@lyness/lyn-host-webserver'
+import type {} from '@lyness/lyn-agent'
+import { provideCmdline } from '@lyness/lyn-cmdline'
 import { REPO_ROOT, requireDist } from './support.ts'
 
 // Host-side web e2e cannot import a browser package: doing so would pull that
@@ -97,7 +97,7 @@ import { REPO_ROOT, requireDist } from './support.ts'
 // import {
 //   WELCOME_NOTICE_ACK_FIELD, WELCOME_NOTICE_SETTINGS_NAMESPACE,
 //   WELCOME_NOTICE_VERSION, WELCOME_NOTICE_COPY,
-// } from '@lyness/client-ui-settings-models'
+// } from '@lyness/lyn-client-ui-settings-models'
 export const WELCOME_NOTICE_SETTINGS_NAMESPACE = 'ui-onboarding'
 export const WELCOME_NOTICE_ACK_FIELD = 'welcomeNoticeVersion'
 export const WELCOME_NOTICE_VERSION = '2026-08-13.1'
@@ -586,7 +586,7 @@ export async function launchWebScaffold(options: LaunchOptions = {}): Promise<We
       },
     },
     // The bundle's web-runtime row resolves the same built dist under test
-    // (apps/web IS @lyness/web-frontend); native browser opening and the
+    // (apps/web IS @lyness/lyn-web-frontend); native browser opening and the
     // URL line are disabled because this scaffold owns its Playwright browser.
     // Preserve the composed surface-context choice because a patch replaces
     // the row's complete config.
@@ -604,8 +604,8 @@ export async function launchWebScaffold(options: LaunchOptions = {}): Promise<We
     // disable+insert pair.
     { id: 'directory-picker', disabled: true },
     { insert: [
-      { id: 'directory-picker-browse', name: '@lyness/host-directory-picker-browse' },
-      { id: 'ui-directory-picker-browse', name: '@lyness/client-ui-directory-picker-browse' },
+      { id: 'directory-picker-browse', name: '@lyness/lyn-host-directory-picker-browse' },
+      { id: 'ui-directory-picker-browse', name: '@lyness/lyn-client-ui-directory-picker-browse' },
     ] },
     // Ordinary scenarios exclude host-dependent application discovery. The
     // Open In scenario supplies launch facts that suppress every native probe.
@@ -621,7 +621,7 @@ export async function launchWebScaffold(options: LaunchOptions = {}): Promise<We
     // scenario adds only the model-facing tools that exercise those services.
     ...options.cordisTools === true
       ? [{ insert: [
-        { id: 'tool-cordis', name: '@lyness/tool-cordis' },
+        { id: 'tool-cordis', name: '@lyness/lyn-tool-cordis' },
       ] }]
       : [],
     ...options.deepSeekSearch === undefined

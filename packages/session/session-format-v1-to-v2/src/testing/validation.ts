@@ -1,20 +1,20 @@
-import { BlockAssembler, expandAssistantStream } from '@lyness/llm'
-import { deepEqualJson } from '@lyness/util-values'
+import { BlockAssembler, expandAssistantStream } from '@lyness/lyn-llm'
+import { deepEqualJson } from '@lyness/lyn-util-values'
 import {
   SessionFormatError,
   SessionFormatUnsupportedMigrationError,
   sessionFormatCount,
   snapshotSessionFormatJson,
-} from '@lyness/session-format'
+} from '@lyness/lyn-session-format'
 import type {
   SessionFormatArtifact,
   SessionFormatEvent,
   SessionFormatJsonValue,
-} from '@lyness/session-format'
+} from '@lyness/lyn-session-format'
 import {
   assertReleasedPayloadSemantics,
   assertReleasedSurfaceMetadata,
-} from '@lyness/session-format-v0-to-v1'
+} from '@lyness/lyn-session-format-v0-to-v1'
 import { RELEASED_V2_EVENT_DISPOSITIONS, RELEASED_V2_EVENT_TYPES } from '../dispositions.ts'
 import {
   assertReleasedV2Keys,

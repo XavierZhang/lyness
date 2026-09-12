@@ -8,7 +8,7 @@ import {
   type Scope,
   type ScopeKey,
   type ScopeLayer,
-} from '@lyness/scope'
+} from '@lyness/lyn-scope'
 
 class TestLayer implements ScopeLayer {
   readonly named: NamedEntries<number>

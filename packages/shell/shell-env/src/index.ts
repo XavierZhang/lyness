@@ -5,15 +5,15 @@
  * the registry itself while plugins can register additional, enumerable facts
  * with effect-scoped disposal.
  *
- * @module @lyness/shell-env
+ * @module @lyness/lyn-shell-env
  */
 
 import { Service, type Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import { LYNESS_ENV_PREFIX } from '@lyness/shell'
-import type { LynEnvironment, LynEnvironmentKey } from '@lyness/shell'
-import { LYNESS_HOME_ENV, resolveLynHome } from '@lyness/home-paths'
-import type { ToolExecution } from '@lyness/tools'
+import { LYNESS_ENV_PREFIX } from '@lyness/lyn-shell'
+import type { LynEnvironment, LynEnvironmentKey } from '@lyness/lyn-shell'
+import { LYNESS_HOME_ENV, resolveLynHome } from '@lyness/lyn-home-paths'
+import type { ToolExecution } from '@lyness/lyn-tools'
 
 declare module '@lyness/cordis' {
   interface Context {

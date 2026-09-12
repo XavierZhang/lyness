@@ -10,9 +10,9 @@ import { writeFile } from 'node:fs/promises'
 import { createServer } from 'node:http'
 import { once } from 'node:events'
 import { gunzipSync } from 'node:zlib'
-import { resolveConfigPath } from '@lyness/app-boot'
-import { recordFeedback } from '@lyness/command-feedback'
-import { runFixtureTurn } from '@lyness/loader-smoke'
+import { resolveConfigPath } from '@lyness/lyn-app-boot'
+import { recordFeedback } from '@lyness/lyn-command-feedback'
+import { runFixtureTurn } from '@lyness/lyn-loader-smoke'
 import { bootProductionProfile } from '../../../../test-support/loader-smoke/tests/fixtures/production-profile.ts'
 
 const configPath = process.argv[2]

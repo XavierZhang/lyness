@@ -3,9 +3,9 @@ import { mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { Context } from '@lyness/cordis'
-import { AttachmentId, ImageVariantId } from '@lyness/attachment'
-import type { AttachmentStore, ImageAttachmentRef, RequestImageAttachment } from '@lyness/attachment'
-import { createLaunchEnvironmentSnapshot } from '@lyness/launch-environment'
+import { AttachmentId, ImageVariantId } from '@lyness/lyn-attachment'
+import type { AttachmentStore, ImageAttachmentRef, RequestImageAttachment } from '@lyness/lyn-attachment'
+import { createLaunchEnvironmentSnapshot } from '@lyness/lyn-launch-environment'
 import LlmRuntime, { ToolCallId, createUserMessage,
   CONTEXT_WINDOW_EXCEEDED_CODE,
   LlmError,
@@ -13,14 +13,14 @@ import LlmRuntime, { ToolCallId, createUserMessage,
   QUOTA_EXCEEDED_CODE,
   ReasoningEffortId,
   userAgent,
-} from '@lyness/llm'
-import { MAX_TIMER_DELAY_MS } from '@lyness/timeout'
-import { getOrCreateAnonymousUserId, type AnonymousUserId } from '@lyness/anonymous-user-id'
-import { SessionId } from '@lyness/session'
-import DeepSeekLlmApiExtensionRegistry from '@lyness/deepseek-llm-api-extensions'
-import type { PreparedDeepSeekLlmApiExtensions } from '@lyness/deepseek-llm-api-extensions'
-import * as LlmDeepSeek from '@lyness/llm-deepseek'
-import { DeepSeekAdapter, resolveAdapterOptions } from '@lyness/llm-deepseek'
+} from '@lyness/lyn-llm'
+import { MAX_TIMER_DELAY_MS } from '@lyness/lyn-timeout'
+import { getOrCreateAnonymousUserId, type AnonymousUserId } from '@lyness/lyn-anonymous-user-id'
+import { SessionId } from '@lyness/lyn-session'
+import DeepSeekLlmApiExtensionRegistry from '@lyness/lyn-deepseek-llm-api-extensions'
+import type { PreparedDeepSeekLlmApiExtensions } from '@lyness/lyn-deepseek-llm-api-extensions'
+import * as LlmDeepSeek from '@lyness/lyn-llm-deepseek'
+import { DeepSeekAdapter, resolveAdapterOptions } from '@lyness/lyn-llm-deepseek'
 import { httpErrorCode } from '../src/adapter.ts'
 import { resolveRequestImagePolicy } from '../src/request-pricing.ts'
 import { assemble } from './assemble.ts'

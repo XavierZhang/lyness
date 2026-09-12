@@ -18,11 +18,11 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
 import Include from '@lyness/cordis-plugin-include'
-import WebServer from '@lyness/host-webserver'
-import type { NativeCommandRunner } from '@lyness/native-command'
+import WebServer from '@lyness/lyn-host-webserver'
+import type { NativeCommandRunner } from '@lyness/lyn-native-command'
 import {
   createLaunchEnvironmentSnapshot, LYNESS_LAUNCH_ENVIRONMENT_KEY, type LaunchEnvironmentLayerInput,
-} from '@lyness/launch-environment'
+} from '@lyness/lyn-launch-environment'
 import * as OpenInApp from '../src/index.ts'
 import { internals } from '../src/internals.ts'
 import type { OpenInAppLauncher } from '../src/resolver.ts'
@@ -53,11 +53,11 @@ async function boot(layers: readonly LaunchEnvironmentLayerInput[] = []): Promis
   root = await mkdtemp(join(tmpdir(), 'lyn-open-in-app-loader-'))
   const configPath = join(root, 'cordis.yml')
   await writeFile(configPath, [
-    "- name: '@lyness/host-webserver'",
+    "- name: '@lyness/lyn-host-webserver'",
     '  config:',
     "    host: '127.0.0.1'",
     '    port: 0',
-    "- name: '@lyness/host-open-in-app'",
+    "- name: '@lyness/lyn-host-open-in-app'",
     '  config:',
     '    probeTimeoutMs: 5000',
     '    iconTimeoutMs: 5000',
@@ -77,8 +77,8 @@ async function boot(layers: readonly LaunchEnvironmentLayerInput[] = []): Promis
   await context.plugin(Loader)
   context.loader.builtins.include = Include
   const modules = new Map<string, unknown>([
-    ['@lyness/host-webserver', WebServer],
-    ['@lyness/host-open-in-app', OpenInApp],
+    ['@lyness/lyn-host-webserver', WebServer],
+    ['@lyness/lyn-host-open-in-app', OpenInApp],
   ])
   context.loader.internal = {
     version: 'v2',
@@ -482,7 +482,7 @@ describe('open-in-app host routes (real Loader composition)', () => {
     const base = await boot()
     expect((await fetch(`${base}/open-in-app/apps`)).status).toBe(200)
     const entry = [...(context as Context).loader.entries()]
-      .find(candidate => candidate.options.name === '@lyness/host-open-in-app')
+      .find(candidate => candidate.options.name === '@lyness/lyn-host-open-in-app')
     await entry?.fiber?.dispose()
     // The webserver survives; the routes are gone (its 404 fallback answers).
     expect((await fetch(`${base}/open-in-app/apps`)).status).toBe(404)

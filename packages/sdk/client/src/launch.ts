@@ -1,6 +1,6 @@
 /**
  * Resolve the public SDK launch configuration to one lyn subprocess.
- * @module @lyness/sdk-client/launch
+ * @module @lyness/lyn-sdk-client/launch
  */
 
 import { existsSync, readFileSync } from 'node:fs'

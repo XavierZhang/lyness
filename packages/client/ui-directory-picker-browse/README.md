@@ -3,7 +3,7 @@ description: "In-app directory-browsing surface: the Miller-column Select Worksp
 kind: "package-reference"
 ---
 
-# @lyness/client-ui-directory-picker-browse
+# @lyness/lyn-client-ui-directory-picker-browse
 
 English | [中文](README.zh.md)
 

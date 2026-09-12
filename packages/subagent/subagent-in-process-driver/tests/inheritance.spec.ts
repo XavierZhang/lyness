@@ -8,16 +8,16 @@ import { mkdtemp, readFile, realpath, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { Context } from '@lyness/cordis'
-import type { Agent } from '@lyness/agent'
-import AgentLoop from '@lyness/agent-loop'
-import { mountAgentLoopTestDependencies } from '@lyness/agent-loop-testkit'
-import SandboxedFileSystem from '@lyness/fs-sandbox'
-import type { ContentBlock } from '@lyness/llm'
-import SandboxPolicyService, { setSandboxMode } from '@lyness/sandbox-policy'
-import { SessionId, type SessionEvent } from '@lyness/session'
-import * as ToolFs from '@lyness/tool-fs'
-import ApprovalService from '@lyness/user-approval'
-import { snapshotSubagentDescriptor } from '@lyness/subagent'
+import type { Agent } from '@lyness/lyn-agent'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import { mountAgentLoopTestDependencies } from '@lyness/lyn-agent-loop-testkit'
+import SandboxedFileSystem from '@lyness/lyn-fs-sandbox'
+import type { ContentBlock } from '@lyness/lyn-llm'
+import SandboxPolicyService, { setSandboxMode } from '@lyness/lyn-sandbox-policy'
+import { SessionId, type SessionEvent } from '@lyness/lyn-session'
+import * as ToolFs from '@lyness/lyn-tool-fs'
+import ApprovalService from '@lyness/lyn-user-approval'
+import { snapshotSubagentDescriptor } from '@lyness/lyn-subagent'
 import { MockAdapter, textResponse, toolCallResponse } from '../../../core/agent-loop/tests/mock-adapter.ts'
 import { startInProcessRun } from '../src/index.ts'
 
@@ -118,7 +118,7 @@ describe('in-process policy inheritance', () => {
       const runtimeContext = child.session.snapshotEvents().find(
         (event): event is SessionEvent<'user/message'> => event.type === 'user/message'
           && event.data.source.kind === 'plugin'
-          && event.data.source.plugin === '@lyness/system-prompt',
+          && event.data.source.plugin === '@lyness/lyn-system-prompt',
       )
       if (request === undefined || systemNode === undefined || runtimeContext === undefined) {
         throw new Error('child request lacks its system node or runtime policy context')

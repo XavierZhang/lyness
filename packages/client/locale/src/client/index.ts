@@ -7,13 +7,13 @@
 import type { Context as ClientContext } from '@lyness/cordis'
 import {
   type BoundActions, type LocaleDictOf, type LocaleNamespaceMap, type Translate, type TranslateNS,
-} from '@lyness/client-ui-slots'
+} from '@lyness/lyn-client-ui-slots'
 // Type-only: the ctx.settingsScope Context merge and the settings slot types.
 // Cross-plugin collaboration goes through the service, never a value import
 // (client bundle purity gate).
-import type { SettingsScope } from '@lyness/client-ui-settings/client'
+import type { SettingsScope } from '@lyness/lyn-client-ui-settings/client'
 // Type-only: pulls the SlotRegistry service merge (ctx.slots).
-import type {} from '@lyness/client-ui-renderer/client'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
 import {
   LOCALE_ID_PATTERN, LOCALE_IDS, LOCALE_PREFERENCE_FIELD, LOCALE_SETTINGS_NAMESPACE,
   type BuiltInLocaleId, type LocaleId, type LocaleSettings,
@@ -34,9 +34,9 @@ export type { BuiltInLocaleId, LocaleId, LocaleSettings } from '../locale-settin
 // The translate currency lives in ui-slots (the render machinery synthesizes
 // the seat); re-exported here so dictionary owners import one package.
 // TranslateNS<'model'> is the namespace-addressed developer-facing form.
-export type { Translate, TranslateNS } from '@lyness/client-ui-slots'
+export type { Translate, TranslateNS } from '@lyness/lyn-client-ui-slots'
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface LocaleNamespaceMap {
     /** Shared cross-feature vocabulary, consulted by the lookup chain after the entry's own namespace misses. */
     common: CommonKey

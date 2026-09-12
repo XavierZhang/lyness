@@ -18,9 +18,9 @@ function fixture(packages: Readonly<Record<string, readonly string[]>>): string 
     const directory = join(root, 'packages', 'client', name)
     mkdirSync(directory, { recursive: true })
     writeFileSync(join(directory, 'package.json'), `${JSON.stringify({
-      name: `@lyness/${name}`,
+      name: `@lyness/lyn-${name}`,
       peerDependencies: Object.fromEntries(dependencies.map(dependency => [
-        `@lyness/${dependency}`,
+        `@lyness/lyn-${dependency}`,
         'workspace:^',
       ])),
     }, null, 2)}\n`)
@@ -47,15 +47,15 @@ describe('collectPackageGraph', () => {
     const root = fixture({ consumer: ['missing'] })
 
     expect(() => collectPackageGraph(root, ['client'], 'fixture'))
-      .toThrow('fixture: @lyness/consumer references missing in-repo peer @lyness/missing')
+      .toThrow('fixture: @lyness/lyn-consumer references missing in-repo peer @lyness/lyn-missing')
   })
 })
 
 describe('renderModuleGraph', () => {
   it('renders the same peer edge in both generated languages', () => {
     const packages = [
-      { short: 'provider', name: '@lyness/provider', group: 'core', rel: 'packages/core/provider', deps: [] },
-      { short: 'consumer', name: '@lyness/consumer', group: 'core', rel: 'packages/core/consumer', deps: ['provider'] },
+      { short: 'provider', name: '@lyness/lyn-provider', group: 'core', rel: 'packages/core/provider', deps: [] },
+      { short: 'consumer', name: '@lyness/lyn-consumer', group: 'core', rel: 'packages/core/consumer', deps: ['provider'] },
     ]
 
     const english = renderModuleGraph(packages, 'en')

@@ -13,25 +13,25 @@ function validLayout(): NpmPackageLock {
       'node_modules/@lyness/cordis': { version: '4.0.1' },
       'node_modules/@lyness/lyn': {
         version: '0.2.0',
-        dependencies: { '@lyness/child': '^0.2.0' },
+        dependencies: { '@lyness/lyn-child': '^0.2.0' },
         peerDependencies: { '@lyness/cordis': '^4.0.1' },
       },
-      'node_modules/@lyness/child': {
+      'node_modules/@lyness/lyn-child': {
         version: '0.2.0',
-        dependencies: { '@lyness/leaf': '^0.2.0' },
+        dependencies: { '@lyness/lyn-leaf': '^0.2.0' },
       },
-      'node_modules/@lyness/leaf': { version: '0.2.0' },
+      'node_modules/@lyness/lyn-leaf': { version: '0.2.0' },
       'node_modules/lyn-previous': {
         name: '@lyness/lyn',
         version: '0.1.0',
-        dependencies: { '@lyness/child': '^0.1.0' },
+        dependencies: { '@lyness/lyn-child': '^0.1.0' },
         peerDependencies: { '@lyness/cordis': '^4.0.1' },
       },
-      'node_modules/lyn-previous/node_modules/@lyness/child': {
+      'node_modules/lyn-previous/node_modules/@lyness/lyn-child': {
         version: '0.1.0',
-        dependencies: { '@lyness/leaf': '^0.1.0' },
+        dependencies: { '@lyness/lyn-leaf': '^0.1.0' },
       },
-      'node_modules/lyn-previous/node_modules/@lyness/leaf': { version: '0.1.0' },
+      'node_modules/lyn-previous/node_modules/@lyness/lyn-leaf': { version: '0.1.0' },
     },
   }
 }
@@ -42,11 +42,11 @@ describe('npm install layout verifier', () => {
       ['@lyness/lyn', new Map([['0.1.1-rc.2', {
         name: '@lyness/lyn',
         version: '0.1.1-rc.2',
-        dependencies: { '@lyness/child': '^0.1.1-rc.2' },
+        dependencies: { '@lyness/lyn-child': '^0.1.1-rc.2' },
         peerDependencies: { '@lyness/cordis': '^4.0.1' },
       }]])],
-      ['@lyness/child', new Map([['0.1.1-rc.2', {
-        name: '@lyness/child',
+      ['@lyness/lyn-child', new Map([['0.1.1-rc.2', {
+        name: '@lyness/lyn-child',
         version: '0.1.1-rc.2',
       }]])],
       ['@lyness/cordis', new Map([['4.0.1', {
@@ -60,12 +60,12 @@ describe('npm install layout verifier', () => {
     expect([...dual.get('@lyness/lyn')?.keys() ?? []]).toEqual(['0.1.0', '0.2.0'])
     expect(dual.get('@lyness/lyn')?.get('0.1.0')).toMatchObject({
       version: '0.1.0',
-      dependencies: { '@lyness/child': '^0.1.0' },
+      dependencies: { '@lyness/lyn-child': '^0.1.0' },
       peerDependencies: { '@lyness/cordis': '^4.0.1' },
     })
     expect(dual.get('@lyness/lyn')?.get('0.2.0')).toMatchObject({
       version: '0.2.0',
-      dependencies: { '@lyness/child': '^0.2.0' },
+      dependencies: { '@lyness/lyn-child': '^0.2.0' },
     })
     expect(dual.get('@lyness/cordis')).toBe(index.get('@lyness/cordis'))
   })
@@ -93,11 +93,11 @@ describe('npm install layout verifier', () => {
   it('rejects an internal edge that crosses release versions', () => {
     const layout = validLayout()
     const packages = { ...layout.packages }
-    Reflect.deleteProperty(packages, 'node_modules/lyn-previous/node_modules/@lyness/leaf')
+    Reflect.deleteProperty(packages, 'node_modules/lyn-previous/node_modules/@lyness/lyn-leaf')
 
     expect(() => assertDualLynInstallLayout({ ...layout, packages })).toThrow(
-      'node_modules/lyn-previous/node_modules/@lyness/child: dependencies '
-      + '@lyness/leaf resolves to node_modules/@lyness/leaf@0.2.0, expected 0.1.0',
+      'node_modules/lyn-previous/node_modules/@lyness/lyn-child: dependencies '
+      + '@lyness/lyn-leaf resolves to node_modules/@lyness/lyn-leaf@0.2.0, expected 0.1.0',
     )
   })
 

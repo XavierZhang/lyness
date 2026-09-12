@@ -17,7 +17,7 @@ export const en = {
   failed: 'This HTML document could not be previewed.',
 } satisfies Record<HtmlPreviewKey, string>
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface LocaleNamespaceMap {
     /** HTML preview selection and status text. */
     documentHtml: HtmlPreviewKey

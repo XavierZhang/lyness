@@ -10,9 +10,9 @@ import {
   type SessionNotification,
   type StopReason,
 } from '@agentclientprotocol/sdk'
-import type { Agent, AgentHandle, AgentOptions, ModelSelection } from '@lyness/agent'
-import { createUserMessage, errorChain, type UserMessage } from '@lyness/llm'
-import { type Session, type SessionEvent, type SessionId, type TurnEndReason } from '@lyness/session'
+import type { Agent, AgentHandle, AgentOptions, ModelSelection } from '@lyness/lyn-agent'
+import { createUserMessage, errorChain, type UserMessage } from '@lyness/lyn-llm'
+import { type Session, type SessionEvent, type SessionId, type TurnEndReason } from '@lyness/lyn-session'
 import { AcpContentError, admitAcpPrompt } from './content.ts'
 import { turnEndToStopReason } from './codec.ts'
 import { mountAcpMcpServers } from './mcp.ts'

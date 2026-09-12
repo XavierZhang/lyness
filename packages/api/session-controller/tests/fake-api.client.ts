@@ -6,7 +6,7 @@ import type {
   SessionId, SessionSearchItem,
   SubagentCatalog, SubagentInterruptReceipt, SubagentPromptReceipt,
   WorkspaceId, WorkspaceView,
-} from '@lyness/api-remotes/client'
+} from '@lyness/lyn-api-remotes/client'
 import type {
   SessionAddress,
   SessionAssistantStreamBaseline,
@@ -19,16 +19,16 @@ import type {
   SessionProjectionBaseline,
   SessionSelectModelRequest,
   SessionSelectModelValue,
-} from '@lyness/api-session-controller/types'
-import type { WorkspaceRemote } from '@lyness/api-workspace-controller/client'
-import type { WorkspaceFollowFrame } from '@lyness/api-workspace-controller/types'
-import type { RemoteFailure, RemoteResult } from '@lyness/typert-protocol'
+} from '@lyness/lyn-api-session-controller/types'
+import type { WorkspaceRemote } from '@lyness/lyn-api-workspace-controller/client'
+import type { WorkspaceFollowFrame } from '@lyness/lyn-api-workspace-controller/types'
+import type { RemoteFailure, RemoteResult } from '@lyness/lyn-typert-protocol'
 import {
   RemoteStream,
   type RemoteStreamOptions,
-} from '@lyness/api-gateway/client'
+} from '@lyness/lyn-api-gateway/client'
 import type { SessionRemotes } from '../src/client/sessions/remotes.ts'
-import { SESSION_FORMAT_VERSION } from '@lyness/session/types'
+import { SESSION_FORMAT_VERSION } from '@lyness/lyn-session/types'
 import { historyRecordLastSeq } from '../src/client/sessions/history-records.ts'
 
 const AVAILABLE_STREAM_CONNECTION = {

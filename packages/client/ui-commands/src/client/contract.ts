@@ -4,7 +4,7 @@
  * consume `register` alone.
  */
 import type { Context as ClientContext } from '@lyness/cordis'
-import type { ClientSessionContext } from '@lyness/client-ui-input-trigger/client'
+import type { ClientSessionContext } from '@lyness/lyn-client-ui-input-trigger/client'
 
 /** Copy for an option that must be acknowledged before onSelect can run. */
 export interface SelectConfirmation {

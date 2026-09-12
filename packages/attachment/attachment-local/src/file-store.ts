@@ -1,12 +1,12 @@
-/** Verbatim content-addressed local file storage. @module @lyness/attachment-local/file-store */
+/** Verbatim content-addressed local file storage. @module @lyness/lyn-attachment-local/file-store */
 
 import { createHash } from 'node:crypto'
 import { createReadStream } from 'node:fs'
 import { join } from 'node:path'
-import { AttachmentError, AttachmentId } from '@lyness/attachment'
+import { AttachmentError, AttachmentId } from '@lyness/lyn-attachment'
 import type {
   FileAttachmentRef, SaveFileAttachment, SaveFileStreamAttachment,
-} from '@lyness/attachment'
+} from '@lyness/lyn-attachment'
 import {
   publishImmutableAlias, publishImmutableObject, publishImmutableObjectStream,
 } from './store.ts'

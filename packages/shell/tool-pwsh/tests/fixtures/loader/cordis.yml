@@ -1,27 +1,27 @@
 # Minimal tool-pwsh composition: real app boot path, real pwsh executor, real
 # foreground + background tool calls; driven by the package's loader.spec.ts.
 - id: system-prompt
-  name: '@lyness/system-prompt'
+  name: '@lyness/lyn-system-prompt'
 
 - id: tools
-  name: '@lyness/tools'
+  name: '@lyness/lyn-tools'
 
 - id: subprocess
-  name: '@lyness/subprocess-local'
+  name: '@lyness/lyn-subprocess-local'
 
 - id: bash
-  name: '@lyness/pwsh-local'
+  name: '@lyness/lyn-pwsh-local'
   config:
     graceMs: 200
 
 - id: shell-env
-  name: '@lyness/shell-env'
+  name: '@lyness/lyn-shell-env'
 
 - id: tasks
-  name: '@lyness/jobs-local'
+  name: '@lyness/lyn-jobs-local'
 
 - id: tool-jobs
-  name: '@lyness/tool-jobs'
+  name: '@lyness/lyn-tool-jobs'
 
 - id: tool-pwsh
-  name: '@lyness/tool-pwsh'
+  name: '@lyness/lyn-tool-pwsh'

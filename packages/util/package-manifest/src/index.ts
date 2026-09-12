@@ -1,6 +1,6 @@
 /**
  * Public package manifest types, with no runtime exports.
- * @module @lyness/package-manifest
+ * @module @lyness/lyn-package-manifest
  */
 
 export type {

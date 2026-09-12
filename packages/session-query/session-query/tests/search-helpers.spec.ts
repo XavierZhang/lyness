@@ -1,13 +1,13 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { createUserMessage, ToolCallId , createMessage, createToolResultMessage } from '@lyness/llm'
+import { createUserMessage, ToolCallId , createMessage, createToolResultMessage } from '@lyness/lyn-llm'
 import SessionStore, {
   SESSION_FORMAT_VERSION,
   SessionId,
   SessionSeq,
-} from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import type { SessionEvent, SessionHeader } from '@lyness/session'
+} from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import type { SessionEvent, SessionHeader } from '@lyness/lyn-session'
 import {
   buildSessionEventRecords,
   buildSessionEventSearchDocuments,
@@ -18,7 +18,7 @@ import {
   materializeSessionEventResultFilters,
   materializeSessionResultFilters,
   type SessionQueryErrorCode,
-} from '@lyness/session-query'
+} from '@lyness/lyn-session-query'
 import { TestSessionQueryEngine } from './test-service.ts'
 
 const id = SessionId('session')

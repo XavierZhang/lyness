@@ -5,7 +5,7 @@
  * for. Stopping needs no helper — a host half unwinds through an ordinary
  * awaited `fiber.dispose()`, because everything the plugin registered is an
  * effect on its fiber.
- * @module @lyness/cordis-host-runner/lifecycle
+ * @module @lyness/lyn-cordis-host-runner/lifecycle
  */
 
 import type { Context, Fiber, Plugin } from '@lyness/cordis'

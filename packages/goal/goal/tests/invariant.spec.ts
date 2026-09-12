@@ -1,13 +1,13 @@
-import { createUserMessage } from '@lyness/llm'
+import { createUserMessage } from '@lyness/lyn-llm'
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import {
   GoalId,
   type GoalSnapshotChangeMeta,
-} from '@lyness/goal'
-import * as GoalInvariantCompanion from '@lyness/goal/invariant'
-import InvariantRegistry, { InvariantError } from '@lyness/invariants'
-import SessionStore, { SessionId } from '@lyness/session'
+} from '@lyness/lyn-goal'
+import * as GoalInvariantCompanion from '@lyness/lyn-goal/invariant'
+import InvariantRegistry, { InvariantError } from '@lyness/lyn-invariants'
+import SessionStore, { SessionId } from '@lyness/lyn-session'
 
 const change: GoalSnapshotChangeMeta = {
   kind: 'goal/change',
@@ -54,7 +54,7 @@ describe('goal stream invariants', () => {
       session.append('goal/change', { ...change, extra: true } as never)
     }).toThrow(expect.objectContaining<Partial<InvariantError>>({
       code: 'INVARIANT',
-      packageName: '@lyness/goal',
+      packageName: '@lyness/lyn-goal',
     }))
     expect(session.seq).toBe(0)
     expect(() => {

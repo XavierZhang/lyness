@@ -1,14 +1,14 @@
 /**
- * Package-owned invariant companion for `@lyness/commands`:
+ * Package-owned invariant companion for `@lyness/lyn-commands`:
  * command lifecycle events pair by commandId within one session log.
- * @module @lyness/commands/invariant
+ * @module @lyness/lyn-commands/invariant
  */
 
 import type { Context } from '@lyness/cordis'
-import type { Session, SessionEvent } from '@lyness/session'
-import type { InvariantFailure, InvariantInstaller } from '@lyness/invariants'
+import type { Session, SessionEvent } from '@lyness/lyn-session'
+import type { InvariantFailure, InvariantInstaller } from '@lyness/lyn-invariants'
 
-const PACKAGE_NAME = '@lyness/commands'
+const PACKAGE_NAME = '@lyness/lyn-commands'
 
 /** Cordis companion plugin name. */
 export const name = 'commands-invariant'

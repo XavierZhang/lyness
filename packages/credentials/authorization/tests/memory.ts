@@ -1,4 +1,4 @@
-import { CredentialProvider } from '@lyness/credentials'
+import { CredentialProvider } from '@lyness/lyn-credentials'
 import type {
   CredentialInfo,
   CredentialKey,
@@ -7,7 +7,7 @@ import type {
   CredentialRecordInfo,
   CredentialRef,
   ResolvedCredential,
-} from '@lyness/credentials'
+} from '@lyness/lyn-credentials'
 
 /**
  * In-memory credentials provider for the authorization suite. Only the record

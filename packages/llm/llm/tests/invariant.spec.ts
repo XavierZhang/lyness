@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import LlmRuntime, { ToolCallId, LlmAdapter } from '@lyness/llm'
-import type { GenerateOptions, StreamChunk } from '@lyness/llm'
-import * as LlmInvariant from '@lyness/llm/invariant'
-import InvariantRegistry from '@lyness/invariants'
+import LlmRuntime, { ToolCallId, LlmAdapter } from '@lyness/lyn-llm'
+import type { GenerateOptions, StreamChunk } from '@lyness/lyn-llm'
+import * as LlmInvariant from '@lyness/lyn-llm/invariant'
+import InvariantRegistry from '@lyness/lyn-invariants'
 
 async function setup(): Promise<Context> {
   const ctx = new Context()

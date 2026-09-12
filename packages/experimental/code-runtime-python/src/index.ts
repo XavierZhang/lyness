@@ -7,7 +7,7 @@
  *
  * The package also owns the versionless fd-3 wire protocol itself; its host-side codec and
  * hostile-frame validators are re-exported so every consumer of the wire shares one vocabulary.
- * @module @lyness/experimental-code-runtime-python
+ * @module @lyness/lyn-experimental-code-runtime-python
  */
 
 import { execFileSync, spawn, type ChildProcessWithoutNullStreams } from 'node:child_process'
@@ -19,10 +19,10 @@ import { getHeapStatistics } from 'node:v8'
 import type { Duplex } from 'node:stream'
 import { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import { CodeRuntime, DUNDER_MEMBER, PORTABLE_RESERVED_WORDS, RESERVED_BINDING_GLOBALS, RESERVED_ERROR_MEMBERS } from '@lyness/code-runtime'
-import type { CodeBindingErrorClass, CodeBindingFunction, CodeJsonValue, CodeRunFailure, CodeRunRequest, CodeRunResult } from '@lyness/code-runtime'
-import { snapshotJsonValue } from '@lyness/util-values'
-import { MAX_TIMER_DELAY_MS } from '@lyness/timeout'
+import { CodeRuntime, DUNDER_MEMBER, PORTABLE_RESERVED_WORDS, RESERVED_BINDING_GLOBALS, RESERVED_ERROR_MEMBERS } from '@lyness/lyn-code-runtime'
+import type { CodeBindingErrorClass, CodeBindingFunction, CodeJsonValue, CodeRunFailure, CodeRunRequest, CodeRunResult } from '@lyness/lyn-code-runtime'
+import { snapshotJsonValue } from '@lyness/lyn-util-values'
+import { MAX_TIMER_DELAY_MS } from '@lyness/lyn-timeout'
 import type { BootMessage, ChildToHost, ReplyMessage } from './protocol.ts'
 import { checkDoneValue, encodeJsonPlain, hasUnsafeIntegerToken, logTruncationMarker, validateChildFrame } from './protocol.ts'
 

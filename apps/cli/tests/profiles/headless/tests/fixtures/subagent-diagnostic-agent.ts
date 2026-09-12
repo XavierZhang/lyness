@@ -5,7 +5,7 @@
  */
 
 import type { Context } from '@lyness/cordis'
-import type { SessionId } from '@lyness/session'
+import type { SessionId } from '@lyness/lyn-session'
 
 /** Fixture plugin name. */
 export const name = 'subagent-diagnostic-agent'

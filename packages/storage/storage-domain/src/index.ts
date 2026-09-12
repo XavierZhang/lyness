@@ -4,12 +4,12 @@
  * layer — consumers depend on this package and never touch backends directly.
  * Plugin `Config` is schemastery; record schemas inside domain specs are zod
  * (see `src/spec.ts` for the split rationale).
- * @module @lyness/storage-domain
+ * @module @lyness/lyn-storage-domain
  */
 
 import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import { storageBackendServiceKey } from '@lyness/storage'
+import { storageBackendServiceKey } from '@lyness/lyn-storage'
 import { DomainError } from './error.ts'
 import { descriptorOf } from './spec.ts'
 import type { DomainSpec } from './spec.ts'
@@ -26,7 +26,7 @@ export type {
 export type { DomainChanged } from './events.ts'
 export type { Domain, DomainGlobal, DomainGlobalHandleOf, KvTable } from './domain.ts'
 
-declare module '@lyness/storage' {
+declare module '@lyness/lyn-storage' {
   interface StorageForms {
     domain: DomainFacility
   }

@@ -3,7 +3,7 @@ description: "面向部署方的 OpenTelemetry 会话遥测后端说明，用于
 kind: "package-reference"
 ---
 
-# @lyness/session-telemetry-otel
+# @lyness/lyn-session-telemetry-otel
 
 [English](README.md) | 中文
 
@@ -42,7 +42,7 @@ kind: "package-reference"
 
 ```yaml
 - id: sessionTelemetry-otel
-  name: '@lyness/session-telemetry-otel'
+  name: '@lyness/lyn-session-telemetry-otel'
   config:
     mode: FEEDBACK_ONLY       # optional; defaults to FEEDBACK_ONLY
     shutdownTimeoutMillis: 3000 # optional; defaults to 3000
@@ -84,7 +84,7 @@ kind: "package-reference"
 
 ### 设计理念
 
-后端是对 OTel JS SDK 的薄适配层：它拥有反馈授权、资源身份与外层关闭截止时间。权威 ledger 记录使用 `@lyness/session-telemetry-otel` 插桩作用域；此后端不捕获运维记录。资源身份携带 `service.name`/`service.version`（来自 `lyn-llm` 的 `APP_IDENTITY`）以及匿名 `user.id`（来自 `$LYNESS_HOME/.anonymous-user-id`），按导出批次携带一次，而非逐条记录。
+后端是对 OTel JS SDK 的薄适配层：它拥有反馈授权、资源身份与外层关闭截止时间。权威 ledger 记录使用 `@lyness/lyn-session-telemetry-otel` 插桩作用域；此后端不捕获运维记录。资源身份携带 `service.name`/`service.version`（来自 `lyn-llm` 的 `APP_IDENTITY`）以及匿名 `user.id`（来自 `$LYNESS_HOME/.anonymous-user-id`），按导出批次携带一次，而非逐条记录。
 
 ### 源码地图
 
@@ -112,7 +112,7 @@ kind: "package-reference"
 - [会话遥测 seam](../session-telemetry/README.zh.md)——捕获约定、记录词汇与脱敏 waterfall。
 - [会话遥测子系统](../../../docs/subsystems/session-telemetry.zh.md)——能力拆分与类型声明。
 - [匿名用户身份](../../identity/anonymous-user-id/README.zh.md)——作为 OTel Resource `user.id` 上报的 id。
-- [生成配置目录](../../../docs/config-catalog.zh.md#lynesssession-telemetry-otel)——每个受支持配置字段及其源声明。
+- [生成配置目录](../../../docs/config-catalog.zh.md#lynesslyn-session-telemetry-otel)——每个受支持配置字段及其源声明。
 
 -----
 

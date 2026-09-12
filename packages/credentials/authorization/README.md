@@ -3,7 +3,7 @@ description: "The authorization flow registry for users and maintainers who obta
 kind: "package-reference"
 ---
 
-# @lyness/authorization
+# @lyness/lyn-authorization
 
 English | [中文](README.zh.md)
 
@@ -37,8 +37,8 @@ Your plugin declares one flow per credential it holds, keyed by the `<scope>/<id
 
 ```ts
 import type { Context } from '@lyness/cordis'
-import type { AuthorizationSession } from '@lyness/authorization'
-import { credentialKey } from '@lyness/credentials'
+import type { AuthorizationSession } from '@lyness/lyn-authorization'
+import { credentialKey } from '@lyness/lyn-credentials'
 
 declare const ctx: Context
 declare const exchangeCode: (code: string, signal: AbortSignal) => Promise<{ token: string }>

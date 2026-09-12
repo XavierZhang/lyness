@@ -1,14 +1,14 @@
 /**
  * Package-owned request-reconstruction invariant for loop-built LLM calls.
- * @module @lyness/agent-loop/invariant
+ * @module @lyness/lyn-agent-loop/invariant
  */
 
 import type { Context } from '@lyness/cordis'
-import { isAgentLoopRequest, type GenerateOptions } from '@lyness/llm'
-import type { InvariantFailure, InvariantInstaller } from '@lyness/invariants'
-import { foldRequestHeader } from '@lyness/session'
+import { isAgentLoopRequest, type GenerateOptions } from '@lyness/lyn-llm'
+import type { InvariantFailure, InvariantInstaller } from '@lyness/lyn-invariants'
+import { foldRequestHeader } from '@lyness/lyn-session'
 
-const PACKAGE_NAME = '@lyness/agent-loop'
+const PACKAGE_NAME = '@lyness/lyn-agent-loop'
 
 /** Cordis companion plugin name. */
 export const name = 'agent-loop-invariant'

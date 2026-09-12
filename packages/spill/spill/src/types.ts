@@ -1,14 +1,14 @@
 /**
  * Vocabulary for the spill storage Service Definition. Types only — the abstract service
  * lives in `./index.ts`, implementations in sibling packages
- * (`@lyness/spill-local` first).
+ * (`@lyness/lyn-spill-local` first).
  *
- * @module @lyness/spill/types
+ * @module @lyness/lyn-spill/types
  */
 
-import type { Branded } from '@lyness/brand'
-import type { ToolCallId } from '@lyness/llm'
-import type { SessionId } from '@lyness/session'
+import type { Branded } from '@lyness/lyn-brand'
+import type { ToolCallId } from '@lyness/lyn-llm'
+import type { SessionId } from '@lyness/lyn-session'
 
 /**
  * Opaque model-facing handle for one spilled artifact. A local backend may use a

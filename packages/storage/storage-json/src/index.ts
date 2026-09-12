@@ -3,14 +3,14 @@
  * configured root — a whole-unit file (`single` layout) or one document per
  * record (`per-record` layout), published by atomic rewrite. Registers as
  * backend `json` on the storage hub.
- * @module @lyness/storage-json
+ * @module @lyness/lyn-storage-json
  */
 
 import { mkdir } from 'node:fs/promises'
 import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import { StorageError, UNIT_NAME_RE, storageBackendServiceKey } from '@lyness/storage'
-import type { KvFacet, KvUnit, KvUnitDescriptor, StorageBackend } from '@lyness/storage'
+import { StorageError, UNIT_NAME_RE, storageBackendServiceKey } from '@lyness/lyn-storage'
+import type { KvFacet, KvUnit, KvUnitDescriptor, StorageBackend } from '@lyness/lyn-storage'
 import { openSingleUnit } from './single-unit.ts'
 import { openPerRecordUnit } from './per-record-unit.ts'
 

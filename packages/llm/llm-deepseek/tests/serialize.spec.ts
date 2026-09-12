@@ -1,8 +1,8 @@
 import { describe, expect, it, vi } from 'vitest'
-import { AttachmentId, ImageVariantId } from '@lyness/attachment'
-import type { ImageAttachmentRef, ImageMediaType, RequestImageAttachment } from '@lyness/attachment'
-import { createUserMessage, ToolCallId, ReasoningEffortId, createMessage } from '@lyness/llm'
-import type { ContentBlock, GenerateOptions, Message } from '@lyness/llm'
+import { AttachmentId, ImageVariantId } from '@lyness/lyn-attachment'
+import type { ImageAttachmentRef, ImageMediaType, RequestImageAttachment } from '@lyness/lyn-attachment'
+import { createUserMessage, ToolCallId, ReasoningEffortId, createMessage } from '@lyness/lyn-llm'
+import type { ContentBlock, GenerateOptions, Message } from '@lyness/lyn-llm'
 import {
   serializeMessages,
   serializeMessagesWithImages,
@@ -253,7 +253,7 @@ describe('serializeRequest', () => {
     const systemMessage = createMessage({
       role: 'system',
       content: [{ type: 'text', text: 'be helpful' }],
-      source: { kind: 'plugin', plugin: '@lyness/system-prompt' },
+      source: { kind: 'plugin', plugin: '@lyness/lyn-system-prompt' },
     })
     const tools = [{ name: 'f', description: 'F', parameters: { type: 'object', properties: {} } }]
     const fromHistory = serializeRequest(request({ messages: [systemMessage, ...history], tools }))

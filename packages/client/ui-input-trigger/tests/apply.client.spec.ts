@@ -6,12 +6,12 @@
  */
 import { Context } from '@lyness/cordis'
 import { describe, expect, it } from 'vitest'
-import { LocaleRuntime } from '@lyness/client-locale/client'
-import { createScope, scopeOf } from '@lyness/api-session-controller/client'
-import { SlotRegistry } from '@lyness/client-ui-renderer/client'
-import type { SessionId } from '@lyness/session/types'
-import { apply, inject, InputTriggerService } from '@lyness/client-ui-input-trigger/client'
-import type { MenuViewInjected } from '@lyness/client-ui-input-trigger/client'
+import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
+import { createScope, scopeOf } from '@lyness/lyn-api-session-controller/client'
+import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import { apply, inject, InputTriggerService } from '@lyness/lyn-client-ui-input-trigger/client'
+import type { MenuViewInjected } from '@lyness/lyn-client-ui-input-trigger/client'
 
 const sid = (k: string): SessionId => k as SessionId
 

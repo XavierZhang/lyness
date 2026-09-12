@@ -31,11 +31,11 @@ import {
   resolveProfileDir,
   watchUserPatches,
   type Profile,
-} from '@lyness/app-boot'
-import { resolveLynHome } from '@lyness/home-paths'
-import { installProxyFromEnvironment } from '@lyness/http-proxy'
-import { LYNESS_LAUNCH_ENVIRONMENT_KEY, type LaunchEnvironmentSnapshot } from '@lyness/launch-environment'
-import { provideCmdline, type AppReady } from '@lyness/cmdline'
+} from '@lyness/lyn-app-boot'
+import { resolveLynHome } from '@lyness/lyn-home-paths'
+import { installProxyFromEnvironment } from '@lyness/lyn-http-proxy'
+import { LYNESS_LAUNCH_ENVIRONMENT_KEY, type LaunchEnvironmentSnapshot } from '@lyness/lyn-launch-environment'
+import { provideCmdline, type AppReady } from '@lyness/lyn-cmdline'
 import { createProcessShutdown, type ProcessShutdown } from './process-shutdown.ts'
 
 const NAME = 'lyn'

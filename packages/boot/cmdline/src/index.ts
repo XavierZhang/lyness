@@ -1,5 +1,5 @@
 /**
- * @lyness/cmdline — the command line a lyn launcher hands to the app
+ * @lyness/lyn-cmdline — the command line a lyn launcher hands to the app
  * it boots.
  *
  * The launcher parses only its own flags (`--profile`, `--patch`, the config
@@ -13,7 +13,7 @@
  * can inject that service and read it from lazily resolved config —
  * `port: !!js ctx.webStartup.port ?? 3080` — so a flag beats the value written
  * beside it. No row has launcher-level command-line status.
- * @module @lyness/cmdline
+ * @module @lyness/lyn-cmdline
  */
 
 import type { Command } from 'commander'

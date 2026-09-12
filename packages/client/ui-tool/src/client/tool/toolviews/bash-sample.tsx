@@ -3,8 +3,8 @@ import type { Context } from '@lyness/cordis'
 import clsx from 'clsx'
 import {
   IconApiOutline14, IconChevronDownOutline14, IconInspectOutline12, StateDot, TerminalBlock,
-} from '@lyness/client-ui-primitives'
-import type { PropsLocale } from '@lyness/client-ui-slots'
+} from '@lyness/lyn-client-ui-primitives'
+import type { PropsLocale } from '@lyness/lyn-client-ui-slots'
 import type { ToolCallViewProps } from '../../contract/slots.ts'
 import {
   isSettledPersistentShellCall,

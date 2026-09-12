@@ -68,7 +68,7 @@ The `FsWriteIntent` union itself does not change — the third "unconditional" s
 
 ## Event vocabulary (owned by `lyn-fs`)
 
-The events live in `@lyness/fs`, not in `lyn-fs-observation-policy`. This is forced by the decoupling contract: `lyn-tool-fs` is the emitter, so it must reference the event types, and it must keep compiling even though `lyn-fs-observation-policy` no longer provides a method service. `lyn-fs` is the package both `lyn-tool-fs` and `lyn-fs-observation-policy` already depend on, so it is the only home that lets the emitter and the policy listener share a vocabulary without the emitter depending on the policy plugin.
+The events live in `@lyness/lyn-fs`, not in `lyn-fs-observation-policy`. This is forced by the decoupling contract: `lyn-tool-fs` is the emitter, so it must reference the event types, and it must keep compiling even though `lyn-fs-observation-policy` no longer provides a method service. `lyn-fs` is the package both `lyn-tool-fs` and `lyn-fs-observation-policy` already depend on, so it is the only home that lets the emitter and the policy listener share a vocabulary without the emitter depending on the policy plugin.
 
 These events carry existing `lyn-fs` vocabulary (`FsTarget`, `FsVersion`, `FsObservation`, `FsWriteIntent`) plus an opaque actor — not model-facing concepts (no line windows, numbered lines, or rendered footers leak down).
 
@@ -77,7 +77,7 @@ These events carry existing `lyn-fs` vocabulary (`FsTarget`, `FsVersion`, `FsObs
 The actor is typed `object` in `lyn-fs` — a pure opaque carrier the provider contract never reads or narrows. The owner-derivation (`actor.agent?.session`) and the `{ agent?: { session? } }` structural shape stay entirely inside `lyn-fs-observation-policy`, which narrows the `object` actor to that shape in its listeners. `lyn-fs` owns the event names and the fs vocabulary; it does NOT own the policy layer's runtime owner structure.
 
 ```ts
-import type { FsObservation, FsTarget, FsVersion, FsWriteIntent } from '@lyness/fs'
+import type { FsObservation, FsTarget, FsVersion, FsWriteIntent } from '@lyness/lyn-fs'
 
 interface Events {
   /**

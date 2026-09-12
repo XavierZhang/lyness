@@ -1,7 +1,7 @@
 /**
  * Shared insertion-ordered storage and effect ownership for scope-aware registries.
  *
- * @module @lyness/scope
+ * @module @lyness/lyn-scope
  */
 
 import type { Context } from '@lyness/cordis'

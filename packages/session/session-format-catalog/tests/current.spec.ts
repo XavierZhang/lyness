@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import type { SessionFormatArtifact, SessionFormatHeader } from '@lyness/session-format'
+import type { SessionFormatArtifact, SessionFormatHeader } from '@lyness/lyn-session-format'
 import {
   validateInstalledCurrentSessionArtifact,
   validateInstalledCurrentSessionHeader,

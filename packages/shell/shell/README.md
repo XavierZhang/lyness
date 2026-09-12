@@ -3,7 +3,7 @@ description: "The shell executor seam for developers and maintainers choosing, c
 kind: "package-reference"
 ---
 
-# @lyness/shell
+# @lyness/lyn-shell
 
 English | [中文](README.zh.md)
 
@@ -50,7 +50,7 @@ The seam is not an executor: mount exactly one provider per composition, and the
 
 ```yaml
 - id: bash
-  name: '@lyness/bash-local'
+  name: '@lyness/lyn-bash-local'
   config:
     cwd: /path/to/workspace
 ```

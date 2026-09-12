@@ -4,7 +4,7 @@ import {
   LlmAdapter,
   LlmError,
   resolveRetryPolicy,
-} from '@lyness/llm'
+} from '@lyness/lyn-llm'
 
 class RetrySnapshotAdapter extends LlmAdapter {
   requests = 0

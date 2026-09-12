@@ -16,11 +16,11 @@ import {
   SlotOwnershipError, StaleAuthorizationError,
   type ActionsDecl, type SessionProviderComponent, type SlotEntryDef,
   type SlotSpec, type StoreHandle, type StoredEntry,
-} from '@lyness/client-ui-slots'
+} from '@lyness/lyn-client-ui-slots'
 import type {
   RenderOpts, ScopedStandardSourceBinding, SlotRendererHost, SlotScopeAdapter,
   StandardSourceBinding, StoreInstanceLike,
-} from '@lyness/client-ui-renderer/client'
+} from '@lyness/lyn-client-ui-renderer/client'
 import { createSlotRenderer } from '../src/client/scoped-slots.tsx'
 
 type AnyProps = Record<string, unknown>

@@ -12,10 +12,10 @@
  */
 
 import type { Context } from '@lyness/cordis'
-import { createToolResultMessage, type ToolCallBlock } from '@lyness/llm'
-import type { Session, SessionSeq, UserMessage } from '@lyness/session'
-import { TOOL_ABORTED_BEFORE_DISPATCH, TOOL_RUNTIME_SCHEDULER, type ToolExecutionInput, type ToolExecutionMode, type ToolExecutionResult, type ToolRunContext } from '@lyness/tools'
-import { assertNever } from '@lyness/util-values'
+import { createToolResultMessage, type ToolCallBlock } from '@lyness/lyn-llm'
+import type { Session, SessionSeq, UserMessage } from '@lyness/lyn-session'
+import { TOOL_ABORTED_BEFORE_DISPATCH, TOOL_RUNTIME_SCHEDULER, type ToolExecutionInput, type ToolExecutionMode, type ToolExecutionResult, type ToolRunContext } from '@lyness/lyn-tools'
+import { assertNever } from '@lyness/lyn-util-values'
 
 /** One tool call after argument parsing, ready to schedule. */
 interface PlannedCall {

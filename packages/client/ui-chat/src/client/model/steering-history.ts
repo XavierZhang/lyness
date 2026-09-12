@@ -1,7 +1,7 @@
 /** Reconstruct durable steering identity from the event-sourced agent inbox. */
 
-import type { SessionEvent } from '@lyness/session/types'
-import type { InboxTarget } from '@lyness/agent/types'
+import type { SessionEvent } from '@lyness/lyn-session/types'
+import type { InboxTarget } from '@lyness/lyn-agent/types'
 
 /** Minimal pending identity retained while replaying durable inbox splices. */
 interface PendingIdentity {

@@ -3,7 +3,7 @@ import { cleanup, render } from '@testing-library/react'
 import { afterEach, describe, expect, it } from 'vitest'
 import {
   classifyFileType, FileTypeIcon, type CodeFileType, type FileTypeProjectContext,
-} from '@lyness/client-ui-primitives'
+} from '@lyness/lyn-client-ui-primitives'
 import { CODE_FILE_TYPES } from '../src/code-file-types.ts'
 
 afterEach(cleanup)

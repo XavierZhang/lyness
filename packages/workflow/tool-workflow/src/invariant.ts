@@ -1,11 +1,11 @@
-/** Package-owned durable workflow-record invariants. @module @lyness/tool-workflow/invariant */
+/** Package-owned durable workflow-record invariants. @module @lyness/lyn-tool-workflow/invariant */
 
 import type { Context } from '@lyness/cordis'
-import type { Session, SessionEvent } from '@lyness/session'
-import type { InvariantFailure, InvariantInstaller } from '@lyness/invariants'
+import type { Session, SessionEvent } from '@lyness/lyn-session'
+import type { InvariantFailure, InvariantInstaller } from '@lyness/lyn-invariants'
 import type {} from './types.ts'
 
-const PACKAGE_NAME = '@lyness/tool-workflow'
+const PACKAGE_NAME = '@lyness/lyn-tool-workflow'
 
 /** Cordis companion plugin name. */
 export const name = 'tool-workflow-invariant'

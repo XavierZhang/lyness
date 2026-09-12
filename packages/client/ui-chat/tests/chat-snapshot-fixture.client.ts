@@ -3,10 +3,10 @@ import type {
   ChatLocationNodeIndex, ChatNodeProcessSource, ChatNodeSource, ChatNodeStore,
   ChatTurnProcessPresentation, CompactionSummaryNode, FinalAssistantChatData, LegacyConversationSlice,
   PartialAssistant, RunningToolCall, ToolCallBlock, TurnNavigationItem,
-} from '@lyness/client-ui-chat/client'
+} from '@lyness/lyn-client-ui-chat/client'
 import type {
   ConversationLocationDataSource, ConversationLocationDataStore, ConversationTurnDataMap, TurnLocation,
-} from '@lyness/client-ui-conversation/client'
+} from '@lyness/lyn-client-ui-conversation/client'
 import type { TurnTokenUsage } from '../src/client/contract/chat-nodes.ts'
 import { deriveTurnMetrics } from '../src/client/contract/turn-metrics.ts'
 import {

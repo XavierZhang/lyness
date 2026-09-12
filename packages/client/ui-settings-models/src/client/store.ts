@@ -10,10 +10,10 @@
 import type { Context as ClientContext } from '@lyness/cordis'
 import type {
   CredentialInfo, LlmConfigurableProvider, LlmProviderInfo, SettingsNamespaceView,
-} from '@lyness/api-remotes/client'
-import type { SnapshotStore } from '@lyness/client-store'
-import { createSnapshotStore } from '@lyness/client-store'
-import type { SettingsDescribeFace } from '@lyness/client-ui-settings/client'
+} from '@lyness/lyn-api-remotes/client'
+import type { SnapshotStore } from '@lyness/lyn-client-store'
+import { createSnapshotStore } from '@lyness/lyn-client-store'
+import type { SettingsDescribeFace } from '@lyness/lyn-client-ui-settings/client'
 import type { SettingsSchemaOperations } from './schema-operations.ts'
 
 /**

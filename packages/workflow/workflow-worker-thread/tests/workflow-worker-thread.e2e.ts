@@ -1,12 +1,12 @@
 import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { SessionId } from '@lyness/session'
+import { SessionId } from '@lyness/lyn-session'
 
-import AgentLoop from '@lyness/agent-loop'
-import { mountAgentLoopTestDependencies } from '@lyness/agent-loop-testkit'
-import * as LlmDeepSeek from '@lyness/llm-deepseek'
-import SubagentRuntime from '@lyness/subagent'
-import * as Spawn from '@lyness/subagent-spawn-in-process'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import { mountAgentLoopTestDependencies } from '@lyness/lyn-agent-loop-testkit'
+import * as LlmDeepSeek from '@lyness/lyn-llm-deepseek'
+import SubagentRuntime from '@lyness/lyn-subagent'
+import * as Spawn from '@lyness/lyn-subagent-spawn-in-process'
 import WorkerThreadWorkflowEngine from '../src/index.ts'
 
 /**

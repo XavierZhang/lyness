@@ -1,11 +1,11 @@
 import type { Context } from '@lyness/cordis'
 import type {
   ConversationMatch, ConversationNodeContext, ConversationNodeDefinition, TurnLocation,
-} from '@lyness/client-ui-conversation/client'
-import type {} from '@lyness/llm-retry/types'
-import type { StreamChunk } from '@lyness/llm'
-import type { SessionEvent } from '@lyness/session/types'
-import { deriveTurnTokenUsage } from '@lyness/token-meter/client'
+} from '@lyness/lyn-client-ui-conversation/client'
+import type {} from '@lyness/lyn-llm-retry/types'
+import type { StreamChunk } from '@lyness/lyn-llm'
+import type { SessionEvent } from '@lyness/lyn-session/types'
+import { deriveTurnTokenUsage } from '@lyness/lyn-token-meter/client'
 import type {
   AssistantChatData, FinalAssistantChatData, TurnTailChatData,
 } from '../contract/chat-nodes.ts'
@@ -20,7 +20,7 @@ declare module '../contract/chat-nodes.ts' {
   }
 }
 
-declare module '@lyness/client-ui-conversation/client' {
+declare module '@lyness/lyn-client-ui-conversation/client' {
   interface ConversationTurnDataMap {
     /** Closing Assistant and footer facts derived for this completed Turn. */
     'turn-tail': TurnTailChatData

@@ -8,14 +8,14 @@ English | [中文](2026-07-24-single-harness-home-resolver.zh.md)
 
 The harness had two inconsistent conventions for "where does lyness user data live":
 
-- `@lyness/home` resolved `configured ?? $LYNESS_HOME ?? ~/.lyn`.
-- `@lyness/home-paths` shipped a **second** `resolveLynHome` with the same precedence plus tilde expansion — a near-duplicate of `lyn-home` that no gate flagged because the two lived in different packages and had already drifted (only one expanded tildes).
+- `@lyness/lyn-home` resolved `configured ?? $LYNESS_HOME ?? ~/.lyn`.
+- `@lyness/lyn-home-paths` shipped a **second** `resolveLynHome` with the same precedence plus tilde expansion — a near-duplicate of `lyn-home` that no gate flagged because the two lived in different packages and had already drifted (only one expanded tildes).
 
 Two resolvers for the same cross-cutting fact meant there was no single home policy.
 
 ## Decision
 
-One resolver owns the harness home, in `@lyness/home-paths`, single-root:
+One resolver owns the harness home, in `@lyness/lyn-home-paths`, single-root:
 
 ```
 explicit configured path  >  $LYNESS_HOME  >  ~/.lyn
@@ -23,7 +23,7 @@ explicit configured path  >  $LYNESS_HOME  >  ~/.lyn
 
 An empty or whitespace-only `$LYNESS_HOME` is treated as unset; otherwise `resolve('')` would silently place the home at the current working directory. The harness keeps all user data under one root; there is no XDG config/data/cache split. `lynHomePath(...segments)` joins deployment-owned children onto that root, and `lyn-app-boot` exposes it to Loader `!!js` config expressions before mounting entries, so shipped compositions derive `sessions` and `storages` without copying the resolver. `lynHomeDisplay()` names a resolved root symbolically for user-facing paths — `~/.lyn` for the default home, `$LYNESS_HOME` for any configured home — so the user-global `AGENTS.md` label never leaks an absolute machine path. It replaces agent-instructions's bespoke default-vs-`$LYNESS_HOME` check.
 
-`@lyness/home` is deleted. Home-owning providers and boot packages import `resolveLynHome` from `lyn-home-paths`; composition bundles contain only the resolved configuration rows.
+`@lyness/lyn-home` is deleted. Home-owning providers and boot packages import `resolveLynHome` from `lyn-home-paths`; composition bundles contain only the resolved configuration rows.
 
 `lyn-telemetry` and its separate home policy are absent under the [SDK project toolchain removal](../../archived/simplification/2026-08-11-remove-sdk-project-toolchain.md), leaving this resolver as the sole home policy.
 

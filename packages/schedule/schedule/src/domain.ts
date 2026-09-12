@@ -1,10 +1,10 @@
 /**
  * Strict Schedule decoding, replay, time validation, and framing.
- * @module @lyness/schedule
+ * @module @lyness/lyn-schedule
  */
 
-import { SessionLogOffset } from '@lyness/session'
-import type { SessionEvent, SessionLogOffset as SessionLogOffsetType } from '@lyness/session'
+import { SessionLogOffset } from '@lyness/lyn-session'
+import type { SessionEvent, SessionLogOffset as SessionLogOffsetType } from '@lyness/lyn-session'
 import type {
   AfterScheduleRecord,
   AtInput,

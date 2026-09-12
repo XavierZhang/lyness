@@ -1,8 +1,8 @@
-import type { SessionEvent } from '@lyness/session/types'
-import type {} from '@lyness/tools/types'
+import type { SessionEvent } from '@lyness/lyn-session/types'
+import type {} from '@lyness/lyn-tools/types'
 import type {
   ConversationNode, RunningToolCall, ToolCallBlock, ToolResultNode,
-} from '@lyness/client-ui-conversation/client'
+} from '@lyness/lyn-client-ui-conversation/client'
 
 interface ProjectedBlock {
   source: ToolCallBlock

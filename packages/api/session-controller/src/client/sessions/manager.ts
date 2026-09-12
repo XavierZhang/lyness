@@ -2,9 +2,9 @@
 // dispatch entry + list state, constructed and held by ClientSessions (one per browser client).
 // List data never enters zustand; React connects via subscribe/getListSnapshot.
 
-import type { SubagentAddress, SubagentCatalog } from '@lyness/subagent/client'
-import { SessionSeq, type SessionId, type SessionSeqCursor } from '@lyness/session/types'
-import type { WorkspaceId } from '@lyness/workspace/types'
+import type { SubagentAddress, SubagentCatalog } from '@lyness/lyn-subagent/client'
+import { SessionSeq, type SessionId, type SessionSeqCursor } from '@lyness/lyn-session/types'
+import type { WorkspaceId } from '@lyness/lyn-workspace/types'
 import type {
   SessionControlBaseline,
   SessionControlFrame,
@@ -13,14 +13,14 @@ import type {
   SessionJob as JobView,
 } from '../../types.ts'
 import { mergeOrderedBaseline } from '../ordered-baseline.ts'
-import { isRemoteFailure } from '@lyness/api-gateway/client'
-import type { RemoteFailure, RemoteResult } from '@lyness/typert-protocol'
+import { isRemoteFailure } from '@lyness/lyn-api-gateway/client'
+import type { RemoteFailure, RemoteResult } from '@lyness/lyn-typert-protocol'
 import type { SessionListEntry, TitledSessionSummary } from './lineage.ts'
 import { flattenLineage } from './lineage.ts'
 // Type-only merge edge: the title domain's client-namespace outlet declares
 // the 'title' projection key this manager projects into list rows (and any
 // useProjection('title') consumer reads). Zero value imports by construction.
-import type {} from '@lyness/session-title/client'
+import type {} from '@lyness/lyn-session-title/client'
 import { Notifier } from './notifier.ts'
 import { ProjectionValueStore } from './projection-store.ts'
 import { Session } from './session.ts'

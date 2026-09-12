@@ -1,14 +1,14 @@
 // @vitest-environment jsdom
 import type { Context } from '@lyness/cordis'
-import * as modulesClient from '@lyness/client-modules/client'
+import * as modulesClient from '@lyness/lyn-client-modules/client'
 import type {
   ClientBundleRegistration, ClientModuleCreateOptions, ClientModuleLoaderTarget, LynWindow,
   WebBootEntry,
-} from '@lyness/client-modules/client'
+} from '@lyness/lyn-client-modules/client'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { AppWebEntry } from '../src/boot.ts'
 
-const MODULES_ID = '@lyness/client-modules'
+const MODULES_ID = '@lyness/lyn-client-modules'
 const PROVIDER_CLIENT_ID = 'provider/client'
 const RUNTIME_CLIENT_ID = 'runtime/client'
 const win = globalThis as LynWindow

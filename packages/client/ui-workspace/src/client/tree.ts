@@ -5,14 +5,14 @@
  */
 import {
   type SessionListState, type SessionSearchResultItem, type SessionSummary,
-} from '@lyness/api-session-controller/client'
-import type { WorkspaceId, WorkspaceView } from '@lyness/api-workspace-controller/client'
+} from '@lyness/lyn-api-session-controller/client'
+import type { WorkspaceId, WorkspaceView } from '@lyness/lyn-api-workspace-controller/client'
 import type {
   SessionPendingInteractionBase,
-} from '@lyness/client-ui-session/client'
-import type {} from '@lyness/schedule/client'
-import type { SessionId } from '@lyness/session/types'
-import { workspaceTitleOf } from '@lyness/util-workspace-path'
+} from '@lyness/lyn-client-ui-session/client'
+import type {} from '@lyness/lyn-schedule/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import { workspaceTitleOf } from '@lyness/lyn-util-workspace-path'
 import {
   indexSubagentDescendants, type SubagentDescendantSummary,
 } from './subagent-lineage.ts'

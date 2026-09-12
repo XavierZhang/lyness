@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import type { SessionEvent } from '@lyness/session/types'
+import type { SessionEvent } from '@lyness/lyn-session/types'
 import { inspectSystemPrompt, type SystemPromptState } from '../src/client/contract/system-prompt.ts'
 
 function system(seq: number, text: string, replaces?: number): SessionEvent {

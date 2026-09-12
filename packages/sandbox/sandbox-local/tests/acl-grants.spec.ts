@@ -10,9 +10,9 @@ import { tmpdir } from 'node:os'
 import { basename, join } from 'node:path'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import type { SandboxPolicy } from '@lyness/sandbox'
-import { SessionId } from '@lyness/session'
-import { LocalSandboxProvider } from '@lyness/sandbox-local'
+import type { SandboxPolicy } from '@lyness/lyn-sandbox'
+import { SessionId } from '@lyness/lyn-session'
+import { LocalSandboxProvider } from '@lyness/lyn-sandbox-local'
 
 /** Cross-file state shared with the vi.mock factory (hoisting contract). */
 const mockState = vi.hoisted(() => ({
@@ -24,7 +24,7 @@ const mockState = vi.hoisted(() => ({
   disposeFailure: undefined as Error | undefined,
 }))
 
-vi.mock('@lyness/sandbox-windows-acl', () => {
+vi.mock('@lyness/lyn-sandbox-windows-acl', () => {
   class MockAclWriteGrant {
     readonly writeSid: string
     readonly added: Array<{ path: string; standing: boolean }> = []

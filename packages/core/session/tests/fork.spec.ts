@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { createUserMessage, ToolCallId , createMessage } from '@lyness/llm'
-import SessionStore, { Session, SessionForkError, SessionId, SessionLogOffset, SessionSeq } from '@lyness/session'
-import type { SessionEvent, TurnEndReason } from '@lyness/session'
+import { createUserMessage, ToolCallId , createMessage } from '@lyness/lyn-llm'
+import SessionStore, { Session, SessionForkError, SessionId, SessionLogOffset, SessionSeq } from '@lyness/lyn-session'
+import type { SessionEvent, TurnEndReason } from '@lyness/lyn-session'
 
-declare module '@lyness/session/types' {
+declare module '@lyness/lyn-session/types' {
   interface SessionEventMap {
     'test/log-only': { value: string }
     /** Stands in for a plugin's open/close bracket (`compaction/start`). */

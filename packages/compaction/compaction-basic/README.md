@@ -3,7 +3,7 @@ description: "Automatic conversation condensation for deployments choosing, tuni
 kind: "package-reference"
 ---
 
-# @lyness/compaction-basic
+# @lyness/lyn-compaction-basic
 
 English | [中文](README.zh.md)
 
@@ -36,17 +36,17 @@ With the default settings you get four behaviors: automatic condensation as the 
 Mount session storage, token measurement, the optional pruner, this backend, and optionally the on-demand command:
 
 ```yaml
-- name: '@lyness/session'
-- name: '@lyness/token-meter'
-- name: '@lyness/compaction-tool-result-pruner'
-- name: '@lyness/compaction-basic'
-- name: '@lyness/command-compact'
+- name: '@lyness/lyn-session'
+- name: '@lyness/lyn-token-meter'
+- name: '@lyness/lyn-compaction-tool-result-pruner'
+- name: '@lyness/lyn-compaction-basic'
+- name: '@lyness/lyn-command-compact'
 ```
 
 You can verify success by watching the conversation continue past the point where it would otherwise overflow, and by running `/compact` for an immediate condensation. If the composition lacks an LLM, session storage, or token measurement, the plugin fails to load. One backend can serve models with different context sizes; give each route its own threshold and retention with a per-model override:
 
 ```yaml
-- name: '@lyness/compaction-basic'
+- name: '@lyness/lyn-compaction-basic'
   config:
     thresholdRatio: 0.8
     retainRatio: 0.16
@@ -59,7 +59,7 @@ You can verify success by watching the conversation continue past the point wher
 
 ### Tuning when condensation starts
 
-All settings are optional. The defaults start condensing at 80% of the routed model's context window and keep the newest 16% verbatim; the table below is the complete policy surface, and the generated [configuration catalog](../../../docs/config-catalog.md#lynesscompaction-basic) is the exhaustive source.
+All settings are optional. The defaults start condensing at 80% of the routed model's context window and keep the newest 16% verbatim; the table below is the complete policy surface, and the generated [configuration catalog](../../../docs/config-catalog.md#lynesslyn-compaction-basic) is the exhaustive source.
 
 | Field | Default | Meaning |
 |---|---|---|
@@ -150,7 +150,7 @@ Read these pages when the package-level contract is not enough; they move from t
 - [Tool-result pruner](../compaction-tool-result-pruner/README.md) — the optional companion that trims oversized tool outputs first.
 - [Human /compact command](../command-compact/README.md) — on-demand condensation without waiting for pressure.
 - [Token meter](../../llm/token-meter/README.md) — the measurement service that decides when to condense.
-- [Generated configuration catalog](../../../docs/config-catalog.md#lynesscompaction-basic) — every accepted config field and its source declaration.
+- [Generated configuration catalog](../../../docs/config-catalog.md#lynesslyn-compaction-basic) — every accepted config field and its source declaration.
 
 -----
 

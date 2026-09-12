@@ -1,9 +1,9 @@
 /** Client-side Workspace state model shared by Remote transport and UI projection. */
 
-import { notifySubscribers } from '@lyness/client-store'
-import type {} from '@lyness/api-workspace-controller/remote'
-import { isRemoteFailure } from '@lyness/api-gateway/client'
-import type { RemoteFailure, RemoteResult, TypertClientRemote } from '@lyness/typert-protocol'
+import { notifySubscribers } from '@lyness/lyn-client-store'
+import type {} from '@lyness/lyn-api-workspace-controller/remote'
+import { isRemoteFailure } from '@lyness/lyn-api-gateway/client'
+import type { RemoteFailure, RemoteResult, TypertClientRemote } from '@lyness/lyn-typert-protocol'
 import type {
   WorkspaceArchiveSessionRequest,
   WorkspaceArchiveValue,

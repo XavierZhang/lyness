@@ -9,9 +9,9 @@
  * `TranslateNS<'sidebarFiles'>` or `PropsLocale<'sidebarFiles'>` needs only this
  * file, whichever entry a program loads first.
  */
-import type {} from '@lyness/client-ui-slots'
+import type {} from '@lyness/lyn-client-ui-slots'
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface LocaleNamespaceMap {
     /** File-tree type name, guide entry, row states, and failure lines. */
     sidebarFiles: SidebarFilesKey

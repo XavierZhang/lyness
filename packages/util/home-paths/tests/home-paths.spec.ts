@@ -11,7 +11,7 @@ import {
   lynHomePath,
   expandHomePath,
   resolveLynHome,
-} from '@lyness/home-paths'
+} from '@lyness/lyn-home-paths'
 
 afterEach(() => {
   vi.unstubAllEnvs()

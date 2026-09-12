@@ -10,10 +10,10 @@
  * Writers run between `start` and `forget`: the owner's `signal` is what ends a
  * bucket's life, and the face stops dispatching once it aborts.
  */
-import { defineStore, type EngineStoreHandle } from '@lyness/client-store'
-import type { RemoteFailure } from '@lyness/api-remotes/client'
-import type { TabId } from '@lyness/client-ui-dockkit'
-import type { WorkspaceDirectoryEntry } from '@lyness/api-workspace-files/types'
+import { defineStore, type EngineStoreHandle } from '@lyness/lyn-client-store'
+import type { RemoteFailure } from '@lyness/lyn-api-remotes/client'
+import type { TabId } from '@lyness/lyn-client-ui-dockkit'
+import type { WorkspaceDirectoryEntry } from '@lyness/lyn-api-workspace-files/types'
 
 /**
  * One directory's contents, as one expanded level of the tree.

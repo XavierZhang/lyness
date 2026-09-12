@@ -1,6 +1,6 @@
 /**
  * Browser-only host runtime: the harness Cordis tree inside a dedicated Web Worker.
- * @module @lyness/experimental-webworker-runtime
+ * @module @lyness/lyn-experimental-webworker-runtime
  */
 export {
   createAlsRuntime,

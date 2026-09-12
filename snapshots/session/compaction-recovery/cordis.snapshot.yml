@@ -1,17 +1,17 @@
 # Keyless context-overflow replay composition.
 
 - id: llm-deepseek
-  name: '@lyness/llm-deepseek'
+  name: '@lyness/lyn-llm-deepseek'
   disabled: true
 
 - id: session-persistence-jsonl
-  name: '@lyness/session-persistence-jsonl'
+  name: '@lyness/lyn-session-persistence-jsonl'
   config:
     root: !!js lynHomePath('sessions')
     compression: none
 
 - id: compaction-basic
-  name: '@lyness/compaction-basic'
+  name: '@lyness/lyn-compaction-basic'
   config:
     thresholdRatio: 0.99
     retainTokens: 20
@@ -19,7 +19,7 @@
 
 - insert:
     - id: llm-replay
-      name: '@lyness/llm-replay'
+      name: '@lyness/lyn-llm-replay'
       config:
         providers:
           - id: deepseek-official

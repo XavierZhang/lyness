@@ -8,18 +8,18 @@
  *
  * Namespace plugin (named exports, no default export). Lifecycle is effect-scoped: disposal
  * unregisters from `ctx.lsp` and tears down every live server.
- * @module @lyness/lsp-stdio
+ * @module @lyness/lyn-lsp-stdio
  */
 
 import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import { LspError, LspProviderId } from '@lyness/lsp'
+import { LspError, LspProviderId } from '@lyness/lyn-lsp'
 import type {
   LspProvider,
   LspProviderQuery,
   LspQueryResult,
-} from '@lyness/lsp'
-import { MAX_TIMER_DELAY_MS } from '@lyness/timeout'
+} from '@lyness/lyn-lsp'
+import { MAX_TIMER_DELAY_MS } from '@lyness/lyn-timeout'
 import { abortable, abortError } from './abort.ts'
 import { canonicalizeWorkspace, readHostSource } from './host.ts'
 import type { HostWorkspace } from './host.ts'

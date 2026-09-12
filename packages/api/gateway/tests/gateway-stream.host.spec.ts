@@ -3,9 +3,9 @@ import { once } from 'node:events'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import WebSocket, { type RawData } from 'ws'
 import { Context, Service, symbols } from '@lyness/cordis'
-import { apply as applyConnection, inject as connectionInject } from '@lyness/client-connection'
-import WebServer from '@lyness/host-webserver'
-import { MAX_TIMER_DELAY_MS } from '@lyness/timeout'
+import { apply as applyConnection, inject as connectionInject } from '@lyness/lyn-client-connection'
+import WebServer from '@lyness/lyn-host-webserver'
+import { MAX_TIMER_DELAY_MS } from '@lyness/lyn-timeout'
 import {
   bindTypertRemote,
   Remote,
@@ -13,10 +13,10 @@ import {
   type TypertContextMap,
   type TypertContextWire,
   RemoteError,
-} from '@lyness/typert-protocol'
-import TypertRegistry from '@lyness/typert-registry'
+} from '@lyness/lyn-typert-protocol'
+import TypertRegistry from '@lyness/lyn-typert-registry'
 
-declare module '@lyness/typert-protocol' {
+declare module '@lyness/lyn-typert-protocol' {
   interface RemoteErrorDetailsMap {
     'fixture/rejected': { readonly retryable: boolean }
     'fixture/broken': { readonly count: bigint }
@@ -29,7 +29,7 @@ import TypertGatewayService, {
   type TypertRemoteEventDispatch,
   type TypertRemoteEventInvocation,
   type TypertRemoteEventOutcome,
-} from '@lyness/api-gateway'
+} from '@lyness/lyn-api-gateway'
 import { z } from 'zod'
 import type {
   RemoteEventClientId,

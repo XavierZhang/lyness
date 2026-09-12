@@ -1,11 +1,11 @@
 /** Scoped tool that declares filesystem deliveries in their owning Session. */
 import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import { FsError } from '@lyness/fs'
-import { defineTool, type ToolExecution } from '@lyness/tools'
-import type {} from '@lyness/agent'
-import type {} from '@lyness/session-projection'
-import type { Session } from '@lyness/session'
+import { FsError } from '@lyness/lyn-fs'
+import { defineTool, type ToolExecution } from '@lyness/lyn-tools'
+import type {} from '@lyness/lyn-agent'
+import type {} from '@lyness/lyn-session-projection'
+import type { Session } from '@lyness/lyn-session'
 import type { PresentedFile } from './types.ts'
 
 /** Stable Loader identity. */

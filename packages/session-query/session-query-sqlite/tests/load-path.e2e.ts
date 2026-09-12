@@ -1,17 +1,17 @@
-import { createUserMessage } from '@lyness/llm'
+import { createUserMessage } from '@lyness/lyn-llm'
 /**
  * Keyless real-Loader-path smoke for the combined SQLite session-query service.
  *
- * @module @lyness/session-query-sqlite/tests/load-path
+ * @module @lyness/lyn-session-query-sqlite/tests/load-path
  */
 
 import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
-import SessionStore, { SessionSeq, SESSION_FORMAT_VERSION, SessionId } from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import JsonlSessionPersistence from '@lyness/session-persistence-jsonl'
-import SqliteSessionQueryEngine, * as queryModule from '@lyness/session-query-sqlite'
+import SessionStore, { SessionSeq, SESSION_FORMAT_VERSION, SessionId } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
+import SqliteSessionQueryEngine, * as queryModule from '@lyness/lyn-session-query-sqlite'
 import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'

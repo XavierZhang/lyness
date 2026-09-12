@@ -1,10 +1,10 @@
 /** V2 content admission refuses entire generations without publishing a valid prefix. */
 
 import { Context } from '@lyness/cordis'
-import { SessionId } from '@lyness/session'
-import type { SessionFormatJsonObject } from '@lyness/session-format'
-import { SessionFormatUnsupportedError } from '@lyness/session-persistence'
-import JsonlSessionPersistence from '@lyness/session-persistence-jsonl'
+import { SessionId } from '@lyness/lyn-session'
+import type { SessionFormatJsonObject } from '@lyness/lyn-session-format'
+import { SessionFormatUnsupportedError } from '@lyness/lyn-session-persistence'
+import JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
 import { mkdir, mkdtemp, readFile, readdir, rm, stat, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { basename, dirname, join } from 'node:path'

@@ -5,10 +5,10 @@ import {
   RemoteStreamCarrierError,
   type ClientRemote,
   type RemoteStreamOptions,
-} from '@lyness/api-gateway/client'
-import type { ConnectionHandle } from '@lyness/client-connection/client'
-import { SessionId } from '@lyness/session/types'
-import { RemoteError, type RemoteFailure, type RemoteResult } from '@lyness/typert-protocol'
+} from '@lyness/lyn-api-gateway/client'
+import type { ConnectionHandle } from '@lyness/lyn-client-connection/client'
+import { SessionId } from '@lyness/lyn-session/types'
+import { RemoteError, type RemoteFailure, type RemoteResult } from '@lyness/lyn-typert-protocol'
 import * as WorkspaceClientPlugin from '../src/client/index.ts'
 import {
   ClientWorkspaceModel,

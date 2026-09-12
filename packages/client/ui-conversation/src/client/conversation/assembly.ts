@@ -1,13 +1,13 @@
 /** Per-Session target-neutral Conversation assembly. */
 import { Service, type Context } from '@lyness/cordis'
-import type { ImageAttachmentRef } from '@lyness/attachment'
+import type { ImageAttachmentRef } from '@lyness/lyn-attachment'
 import type {
   ISessions, SessionBinding, SessionEventSource, SessionEventWindow,
-} from '@lyness/api-session-controller/client'
-import type { SessionEvent, SessionId } from '@lyness/session/types'
+} from '@lyness/lyn-api-session-controller/client'
+import type { SessionEvent, SessionId } from '@lyness/lyn-session/types'
 import {
   createSnapshotStore, type ObservableSnapshot, type SnapshotStore,
-} from '@lyness/client-store'
+} from '@lyness/lyn-client-store'
 import type {
   ConversationPublication, ConversationViewSnapshotMap,
   ConversationViewSnapshotStore,

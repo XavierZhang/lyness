@@ -10,9 +10,9 @@ import {
   type ReplayEnvelope,
   type StreamChunk,
   type TokenUsage,
-} from '@lyness/llm'
-import type { AssistantStreamFrame } from '@lyness/agent'
-import type { SessionEventMap, SessionId, SessionSeq } from '@lyness/session'
+} from '@lyness/lyn-llm'
+import type { AssistantStreamFrame } from '@lyness/lyn-agent'
+import type { SessionEventMap, SessionId, SessionSeq } from '@lyness/lyn-session'
 
 /** Folds one model attempt into one compact stream plus ordered transient frames. */
 export class AssistantStreamAttempt {

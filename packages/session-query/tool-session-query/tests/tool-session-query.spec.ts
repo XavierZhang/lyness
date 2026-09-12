@@ -1,9 +1,9 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { Context, type Fiber } from '@lyness/cordis'
-import type { Agent } from '@lyness/agent'
-import { createUserMessage, ToolCallId, HarnessError , createMessage } from '@lyness/llm'
-import { MAX_TIMER_DELAY_MS, TimeoutReason } from '@lyness/timeout'
-import * as TimeoutPolicy from '@lyness/tool-call-timeout-policy'
+import type { Agent } from '@lyness/lyn-agent'
+import { createUserMessage, ToolCallId, HarnessError , createMessage } from '@lyness/lyn-llm'
+import { MAX_TIMER_DELAY_MS, TimeoutReason } from '@lyness/lyn-timeout'
+import * as TimeoutPolicy from '@lyness/lyn-tool-call-timeout-policy'
 import SessionStore, {
   SESSION_FORMAT_VERSION,
   SessionId,
@@ -12,9 +12,9 @@ import SessionStore, {
   type SessionEvent,
   type SessionHeader,
   type SessionId as SessionIdValue,
-} from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import { turnBoundaryProjectionDefinition } from '@lyness/agent-loop'
+} from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import { turnBoundaryProjectionDefinition } from '@lyness/lyn-agent-loop'
 import SessionQueryEngine, {
   SessionQueryError,
   SessionSearchCursor,
@@ -27,10 +27,10 @@ import SessionQueryEngine, {
   type SessionSearchPage,
   type SessionSearchRequest,
   type SessionTitleObservationResult,
-} from '@lyness/session-query'
-import SystemPrompt from '@lyness/system-prompt'
-import ToolRuntime, { type ToolExecutionResult } from '@lyness/tools'
-import * as ToolSessionQuery from '@lyness/tool-session-query'
+} from '@lyness/lyn-session-query'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime, { type ToolExecutionResult } from '@lyness/lyn-tools'
+import * as ToolSessionQuery from '@lyness/lyn-tool-session-query'
 
 const activeContexts: Context[] = []
 

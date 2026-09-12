@@ -2,12 +2,12 @@
  * Non-protocol wire vocabulary for the worker-thread engine: the `workerData` init payload and
  * the child-port interfaces the worker-side runtime consumes. Host/worker messages are defined in
  * `./protocol.ts`; transported child requests and results are plain JSON for structured clone.
- * @module @lyness/workflow-worker-thread/types
+ * @module @lyness/lyn-workflow-worker-thread/types
  */
 
-import type { ContentBlock } from '@lyness/llm'
-import type { ObjectJsonSchema } from '@lyness/tools'
-import type { WorkflowMeta } from '@lyness/workflow'
+import type { ContentBlock } from '@lyness/lyn-llm'
+import type { ObjectJsonSchema } from '@lyness/lyn-tools'
+import type { WorkflowMeta } from '@lyness/lyn-workflow'
 
 /**
  * The per-run limits the worker-side runtime enforces. The host keeps the

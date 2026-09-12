@@ -9,8 +9,8 @@ import { fileURLToPath } from 'node:url'
 import type { Browser, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed } from 'vitest'
-import { canonicalPath } from '@lyness/sandbox'
-import type { SessionEvent } from '@lyness/session'
+import { canonicalPath } from '@lyness/lyn-sandbox'
+import type { SessionEvent } from '@lyness/lyn-session'
 import {
   assertFinalWorkspaceSnapshot, assertFixtureInventory, fixtureUserPrompts, launchWebScaffold, recordFixture,
   watchConsole, webSnapshotMode, type WebScaffold,
@@ -41,7 +41,7 @@ function runtimeContexts(events: readonly SessionEvent[]): string[] {
   return events.flatMap((event) => {
     if (event.type !== 'user/message'
       || event.data.source.kind !== 'plugin'
-      || event.data.source.plugin !== '@lyness/system-prompt') return []
+      || event.data.source.plugin !== '@lyness/lyn-system-prompt') return []
     return event.data.content.flatMap(block => block.type === 'text' ? [block.text] : [])
   })
 }

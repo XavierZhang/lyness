@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/invariants",
+  "name": "@lyness/lyn-invariants",
   "description": "Registry service for package-owned lyness runtime invariants",
   "version": "0.1.5-rc.1",
   "publishConfig": {

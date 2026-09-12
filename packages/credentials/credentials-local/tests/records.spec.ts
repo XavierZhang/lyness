@@ -7,8 +7,8 @@ import { Context } from '@lyness/cordis'
 import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { credentialKey, credentialKeyScope, credentialRef, parseCredentialKey } from '@lyness/credentials'
-import type { CredentialKey, CredentialRecord } from '@lyness/credentials'
+import { credentialKey, credentialKeyScope, credentialRef, parseCredentialKey } from '@lyness/lyn-credentials'
+import type { CredentialKey, CredentialRecord } from '@lyness/lyn-credentials'
 import { LocalCredentialProvider } from '../src/index.ts'
 
 /** Credential documents are seeded owner-only, exactly as the provider creates them. */

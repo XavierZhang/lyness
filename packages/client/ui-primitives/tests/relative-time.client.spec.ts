@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { relativeTime } from '@lyness/client-ui-primitives'
+import { relativeTime } from '@lyness/lyn-client-ui-primitives'
 
 const MIN = 60_000
 const HOUR = 3_600_000

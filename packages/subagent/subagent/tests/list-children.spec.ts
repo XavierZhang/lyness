@@ -4,30 +4,30 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { z } from 'zod'
 import { Context } from '@lyness/cordis'
-import { createUserMessage } from '@lyness/llm'
-import AgentLoop from '@lyness/agent-loop'
-import type { Agent } from '@lyness/agent'
-import { mountAgentLoopTestDependencies } from '@lyness/agent-loop-testkit'
-import SessionStore, { SessionLogOffset, SessionSeq, SESSION_FORMAT_VERSION, SessionId } from '@lyness/session'
-import type { SessionEvent, SessionHeader } from '@lyness/session'
-import type { SessionObservation } from '@lyness/session-query'
-import JsonlSessionPersistence from '@lyness/session-persistence-jsonl'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import type { ProjectionDefinition } from '@lyness/session-projection'
-import SessionProjectionCache from '@lyness/session-projection-cache'
-import Storage from '@lyness/storage'
+import { createUserMessage } from '@lyness/lyn-llm'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import type { Agent } from '@lyness/lyn-agent'
+import { mountAgentLoopTestDependencies } from '@lyness/lyn-agent-loop-testkit'
+import SessionStore, { SessionLogOffset, SessionSeq, SESSION_FORMAT_VERSION, SessionId } from '@lyness/lyn-session'
+import type { SessionEvent, SessionHeader } from '@lyness/lyn-session'
+import type { SessionObservation } from '@lyness/lyn-session-query'
+import JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import type { ProjectionDefinition } from '@lyness/lyn-session-projection'
+import SessionProjectionCache from '@lyness/lyn-session-projection-cache'
+import Storage from '@lyness/lyn-storage'
 import {
   apply as storageJsonApply, Config as storageJsonConfig, inject as storageJsonInject, name as storageJsonName,
-} from '@lyness/storage-json'
+} from '@lyness/lyn-storage-json'
 import {
   apply as storageDomainApply, Config as storageDomainConfig, inject as storageDomainInject, name as storageDomainName,
-} from '@lyness/storage-domain'
+} from '@lyness/lyn-storage-domain'
 import SubagentRuntime, {
   SUBAGENT_DESCRIPTOR_VERSION,
   SubagentError,
-} from '@lyness/subagent'
-import * as SubagentSpawn from '@lyness/subagent-spawn-in-process'
-import * as SubagentFork from '@lyness/subagent-fork-in-process'
+} from '@lyness/lyn-subagent'
+import * as SubagentSpawn from '@lyness/lyn-subagent-spawn-in-process'
+import * as SubagentFork from '@lyness/lyn-subagent-fork-in-process'
 import { MockAdapter, textResponse } from '../../../core/agent-loop/tests/mock-adapter.ts'
 import { TestSessionQuery } from './test-session-query.ts'
 import { seedStoredSession } from './persistence-helpers.ts'
@@ -187,7 +187,7 @@ function descriptorPayload(label: string, version = SUBAGENT_DESCRIPTOR_VERSION)
   return { version, mode: 'continuable' as const, provider: 'spawn', label }
 }
 
-declare module '@lyness/session-projection/types' {
+declare module '@lyness/lyn-session-projection/types' {
   interface SessionProjectionStateMap {
     subagentListHostileProbe: { poisoned?: boolean | undefined }
   }

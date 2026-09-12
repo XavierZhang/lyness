@@ -5,9 +5,9 @@ import {
   createSystemMessage,
   createToolResultMessage,
   createUserMessage,
-} from '@lyness/llm/message'
-import { brandString } from '@lyness/brand'
-import type { MessageId, ToolCallId } from '@lyness/llm/brand'
+} from '@lyness/lyn-llm/message'
+import { brandString } from '@lyness/lyn-brand'
+import type { MessageId, ToolCallId } from '@lyness/lyn-llm/brand'
 import type {
   AssistantMessage,
   ContentBlock,
@@ -16,30 +16,30 @@ import type {
   TokenUsage,
   ToolResultMessage,
   UserMessage,
-} from '@lyness/llm'
-import { LlmAttemptId } from '@lyness/llm/brand'
+} from '@lyness/lyn-llm'
+import { LlmAttemptId } from '@lyness/lyn-llm/brand'
 import {
   AssistantStreamAccumulator,
   expandAssistantStream,
   type AssistantStreamRecord,
-} from '@lyness/llm/assistant-stream'
-import type { AttachmentIdType, ImageAttachmentRef } from '@lyness/attachment'
+} from '@lyness/lyn-llm/assistant-stream'
+import type { AttachmentIdType, ImageAttachmentRef } from '@lyness/lyn-attachment'
 import type {
   SessionEvent,
   SessionId,
   SessionSeqCursor,
-} from '@lyness/session/types'
-import { SESSION_FORMAT_VERSION, SessionSeq } from '@lyness/session/types'
-import type { JsonValue } from '@lyness/util-values'
-import type { TodoItem } from '@lyness/tool-todo/client'
+} from '@lyness/lyn-session/types'
+import { SESSION_FORMAT_VERSION, SessionSeq } from '@lyness/lyn-session/types'
+import type { JsonValue } from '@lyness/lyn-util-values'
+import type { TodoItem } from '@lyness/lyn-tool-todo/client'
 // Type-only: the brand constructor is host-side; the fixture casts at its
 // wire-fabrication boundary (the schema layer's one-cast-point posture).
-import type { CommandId } from '@lyness/commands/brand'
-import type { CommandDescriptor, CommandExecution, CommandResult } from '@lyness/commands/types'
-import type { CredentialInfo } from '@lyness/credentials/types'
-import type { DirectoryListing as FixtureDirectoryListing } from '@lyness/host-directory-picker/types'
-import type { SettingsDescribeValue, SettingsNamespaceView } from '@lyness/settings/types'
-import { deriveEventMessage, foldSurface } from '@lyness/session/surface'
+import type { CommandId } from '@lyness/lyn-commands/brand'
+import type { CommandDescriptor, CommandExecution, CommandResult } from '@lyness/lyn-commands/types'
+import type { CredentialInfo } from '@lyness/lyn-credentials/types'
+import type { DirectoryListing as FixtureDirectoryListing } from '@lyness/lyn-host-directory-picker/types'
+import type { SettingsDescribeValue, SettingsNamespaceView } from '@lyness/lyn-settings/types'
+import { deriveEventMessage, foldSurface } from '@lyness/lyn-session/surface'
 import type { RpcResult } from './api.ts'
 import { randomUuid } from './random-uuid.ts'
 import type {
@@ -727,7 +727,7 @@ function buildAlphaLog(): SessionEvent[] {
     if (turn === 0) {
       push({
         type: 'system/message', surfaceOp: 'append',
-        data: { turn, step: 0, message: createSystemMessage(FIXTURE_SYSTEM_PROMPT, '@lyness/system-prompt') },
+        data: { turn, step: 0, message: createSystemMessage(FIXTURE_SYSTEM_PROMPT, '@lyness/lyn-system-prompt') },
       })
     }
     const userSeq = push({
@@ -1971,9 +1971,9 @@ function createFixtureWorld(options: FixtureOptions): FixtureWorld {
    * roster a GUI journey sees after writing is the text it wrote.
    */
   const fixturePresets = new Map<string, { trust: 'system' | 'user'; content: string }>([
-    ['standard', { trust: 'system', content: "- id: tool-bash\n  name: '@lyness/tool-bash'\n" }],
-    ['minimal', { trust: 'system', content: "- id: tool-web-search\n  name: '@lyness/tool-web-search'\n" }],
-    ['my-agent', { trust: 'user', content: "- id: tool-read\n  name: '@lyness/tool-read'\n" }],
+    ['standard', { trust: 'system', content: "- id: tool-bash\n  name: '@lyness/lyn-tool-bash'\n" }],
+    ['minimal', { trust: 'system', content: "- id: tool-web-search\n  name: '@lyness/lyn-tool-web-search'\n" }],
+    ['my-agent', { trust: 'user', content: "- id: tool-read\n  name: '@lyness/lyn-tool-read'\n" }],
   ])
   let fixtureDefaultPreset = 'standard'
   const nextTurn = new Map<SessionId, number>([[sid('fx-alpha'), 75]])

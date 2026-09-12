@@ -3,7 +3,7 @@ description: "Session feedback: the `/feedback` command, the `sessionFeedback` H
 kind: "package-reference"
 ---
 
-# @lyness/command-feedback
+# @lyness/lyn-command-feedback
 
 English | [中文](README.zh.md)
 
@@ -61,11 +61,11 @@ Feedback does not have to come from the slash command or the dialog: any UI, hoo
 
 ```yaml
 - id: session
-  name: '@lyness/session'
+  name: '@lyness/lyn-session'
 - id: commands
-  name: '@lyness/commands'
+  name: '@lyness/lyn-commands'
 - id: command-feedback
-  name: '@lyness/command-feedback'
+  name: '@lyness/lyn-command-feedback'
 ```
 
 The Web client ships the command. Headless mode, ACP automation, and JSON-RPC provide no slash commands, so `/feedback` is unavailable there.

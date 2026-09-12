@@ -3,7 +3,7 @@ description: "spill 存储服务：保存超大工具文本或已捕获的会话
 kind: "package-reference"
 ---
 
-# @lyness/spill
+# @lyness/lyn-spill
 
 [English](README.md) | 中文
 
@@ -36,8 +36,8 @@ kind: "package-reference"
 把后端与策略一起挂载；设置 `maxInlineBytes` 后，任何过大的纯文本工具结果都会自动变成预览加定位信息。
 
 ```yaml
-- name: '@lyness/spill-local'
-- name: '@lyness/spill-policy'
+- name: '@lyness/lyn-spill-local'
+- name: '@lyness/lyn-spill-policy'
   config:
     maxInlineBytes: 50000
 ```

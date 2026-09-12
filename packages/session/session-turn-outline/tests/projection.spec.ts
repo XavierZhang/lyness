@@ -11,13 +11,13 @@
 
 import { describe, expect, expectTypeOf, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { createAssistantMessage, createUserMessage } from '@lyness/llm'
-import SessionStore, { SessionId, SessionLogOffset, SessionSeq } from '@lyness/session'
-import type { Session, SessionEvent } from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import * as SessionTurnOutlinePlugin from '@lyness/session-turn-outline'
-import { turnOutlineProjectionDefinition } from '@lyness/session-turn-outline/src/projection.ts'
-import type { TurnOutlineEntry, TurnOutlineState } from '@lyness/session-turn-outline/types'
+import { createAssistantMessage, createUserMessage } from '@lyness/lyn-llm'
+import SessionStore, { SessionId, SessionLogOffset, SessionSeq } from '@lyness/lyn-session'
+import type { Session, SessionEvent } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import * as SessionTurnOutlinePlugin from '@lyness/lyn-session-turn-outline'
+import { turnOutlineProjectionDefinition } from '@lyness/lyn-session-turn-outline/src/projection.ts'
+import type { TurnOutlineEntry, TurnOutlineState } from '@lyness/lyn-session-turn-outline/types'
 
 async function harness(withOutlinePlugin: boolean): Promise<{ ctx: Context; session: Session }> {
   const ctx = new Context()

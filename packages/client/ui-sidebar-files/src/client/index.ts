@@ -11,10 +11,10 @@
  * and this module, which only wires them together.
  */
 import type { Context as ClientContext } from '@lyness/cordis'
-import type {} from '@lyness/api-remotes/client'
-import type {} from '@lyness/client-ui-renderer/client'
-import type {} from '@lyness/client-ui-session/client'
-import type {} from '@lyness/client-ui-sidebar-right/client'
+import type {} from '@lyness/lyn-api-remotes/client'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
+import type {} from '@lyness/lyn-client-ui-session/client'
+import type {} from '@lyness/lyn-client-ui-sidebar-right/client'
 import { FILES_ID, filesDefinition } from './definition.tsx'
 import { createList, filesFace } from './face.ts'
 import { FilesBody } from './FilesBody.tsx'

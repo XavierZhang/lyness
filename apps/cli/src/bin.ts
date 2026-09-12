@@ -8,7 +8,7 @@
 
 import { readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
-import { loadLayeredEnv } from '@lyness/app-boot'
+import { loadLayeredEnv } from '@lyness/lyn-app-boot'
 import { parseLynArgs } from './args.ts'
 
 // Both the source tree (apps/cli/src) and the bundled bin (apps/cli/lib) sit

@@ -1,15 +1,15 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import type { IDisposable, IPty } from 'node-pty'
-import { LocalTerminalHandle } from '@lyness/subprocess-local/src/terminal.ts'
-import { createProcessInspector } from '@lyness/subprocess-local/src/process-inspector.ts'
+import { LocalTerminalHandle } from '@lyness/lyn-subprocess-local/src/terminal.ts'
+import { createProcessInspector } from '@lyness/lyn-subprocess-local/src/process-inspector.ts'
 import type {
   ProcessIdentity,
   ProcessInspector,
   ProcessInspectorInternals,
   ProcessSnapshot,
-} from '@lyness/subprocess-local/src/process-inspector.ts'
-import type { BoundProcessOwner } from '@lyness/subprocess-local/src/managed-owner.ts'
-import type { SubprocessTerminalSignal } from '@lyness/subprocess'
+} from '@lyness/lyn-subprocess-local/src/process-inspector.ts'
+import type { BoundProcessOwner } from '@lyness/lyn-subprocess-local/src/managed-owner.ts'
+import type { SubprocessTerminalSignal } from '@lyness/lyn-subprocess'
 
 class FakePty {
   pid = 123

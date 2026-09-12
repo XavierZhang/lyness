@@ -18,16 +18,16 @@ import type { ChangeEvent, CSSProperties, KeyboardEvent, MouseEvent, ReactNode }
 import clsx from 'clsx'
 import {
   IconPaperclipOutline16, IconPlusOutline16, IconWarningOutline16, Toast, Tooltip,
-} from '@lyness/client-ui-primitives'
+} from '@lyness/lyn-client-ui-primitives'
 // Type-only: the `plan` projection key merge (the TodoDock posture — the
 // composer reads a host-computed value; the domain owns the key).
-import type {} from '@lyness/plan-mode/client'
+import type {} from '@lyness/lyn-plan-mode/client'
 // Type-only: the `goal` projection key merge (hint disambiguation).
-import type {} from '@lyness/goal/client'
+import type {} from '@lyness/lyn-goal/client'
 // The `imageLimits` projection key merge (intake pre-check) arrives with the
 // wire types: apiproxy's sessions contract declares it, and client-runtime's
 // api-remotes import already places it in every client program.
-import type { Translate } from '@lyness/client-ui-slots'
+import type { Translate } from '@lyness/lyn-client-ui-slots'
 import type { ComposerBarProps } from '../contract/slots.ts'
 import { ComposerContentEditable } from '../input/editor/ComposerContentEditable.tsx'
 import { DecoratorPortals } from '../input/editor/DecoratorPortals.tsx'

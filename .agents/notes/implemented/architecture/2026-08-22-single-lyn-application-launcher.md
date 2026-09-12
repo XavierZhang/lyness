@@ -20,7 +20,7 @@ Vendor CLIs, build-only and test-only executables, direct in-process plugin moun
 
 ### Profile applications
 
-`@lyness/sdk-app` and `@lyness/acp-app` compose the full protocol applications over `@lyness/base`. The SDK bundle adds the JSON-RPC server plus app-owned help and stdio lifetime; the ACP bundle adds the automation-only ACP server plus the same application responsibilities. Both adopt the base model, tools, persistence, settings, credentials, policy, and environment behavior. The [standalone sdk-minimal profile](../../archived/architecture/2026-08-24-standalone-sdk-minimal-profile.md) reuses SDK startup and JSON-RPC serving but deliberately owns a complete explicit tree without `lyn-base`.
+`@lyness/lyn-sdk-app` and `@lyness/lyn-acp-app` compose the full protocol applications over `@lyness/lyn-base`. The SDK bundle adds the JSON-RPC server plus app-owned help and stdio lifetime; the ACP bundle adds the automation-only ACP server plus the same application responsibilities. Both adopt the base model, tools, persistence, settings, credentials, policy, and environment behavior. The [standalone sdk-minimal profile](../../archived/architecture/2026-08-24-standalone-sdk-minimal-profile.md) reuses SDK startup and JSON-RPC serving but deliberately owns a complete explicit tree without `lyn-base`.
 
 Profile manifests own patch reload:
 
@@ -38,9 +38,9 @@ The shipped protocol profiles reserve stdout for protocol frames, expose help wi
 
 ### TypeScript SDK customization
 
-`@lyness/sdk-client` depends on the same-version `@lyness/lyn` package, resolves its installed CLI module, runs it through the current Node executable, and selects `sdk` by default. Both client layers expose `lynBin`, `profile`, ordered `patches`, `lynHome`, process cwd, environment, and timeouts; arbitrary command/argv launch remains an internal fake-runtime adapter.
+`@lyness/lyn-sdk-client` depends on the same-version `@lyness/lyn` package, resolves its installed CLI module, runs it through the current Node executable, and selects `sdk` by default. Both client layers expose `lynBin`, `profile`, ordered `patches`, `lynHome`, process cwd, environment, and timeouts; arbitrary command/argv launch remains an internal fake-runtime adapter.
 
-SDK users customize plugins through profiles. `lyn plugin --profile <name> ...` manages persistent dependencies and bundle order, the profile's `cordis.patch.yml` owns persistent row changes, and launch `patches` supply ordered ephemeral overrides. A custom profile must retain `@lyness/sdk-app` or another SDK server row. Relative CLI-module, patch, explicit home, and process-cwd paths become absolute before spawn, and initialization has a finite bound whose diagnostic names the selected profile.
+SDK users customize plugins through profiles. `lyn plugin --profile <name> ...` manages persistent dependencies and bundle order, the profile's `cordis.patch.yml` owns persistent row changes, and launch `patches` supply ordered ephemeral overrides. A custom profile must retain `@lyness/lyn-sdk-app` or another SDK server row. Relative CLI-module, patch, explicit home, and process-cwd paths become absolute before spawn, and initialization has a finite bound whose diagnostic names the selected profile.
 
 Direct SDK use follows normal Harness-home resolution: explicit `lynHome`, inherited `LYNESS_HOME`, then `~/.lyn`. `subagent-lyn-sdk` instead requires an explicit absolute home, so a nested runtime cannot discover a person's profiles, installed plugins, credentials, or sessions through the operating-system home. LYN-specific ACP child examples also pass an isolated home; the ACP backend itself remains generic for non-LYN agents.
 
@@ -48,7 +48,7 @@ Direct SDK use follows normal Harness-home resolution: explicit `lynHome`, inher
 
 The Python runtime wheel stages [`python/sdk-runtime/runtime-bootstrap.mjs`](../../../../python/sdk-runtime/runtime-bootstrap.mjs) as the `lyn-python-runtime-closure` entry. Its ordinary branch calls the public CLI export; a provider-private selector dispatches to the internal subprocess runner before CLI parsing and is not an application entry point. The [native-containment decision](2026-08-28-subprocess-native-containment.md) owns that private dispatch. The Python client selects `lyn --profile sdk` by default, ordered patch files, and an explicit Harness home; the runnable example under `python/sdk/examples` selects `sdk-minimal`. The installed `lyn` console command exposes the same profile grammar and the separately packaged `web` application.
 
-The executable family is `lyness-sdk-runtime-<platform>-<arch>`. The SDK wire, wheel and import distribution names, sidecar names, and wire identity `lyness-sdk-runtime` remain stable. The SDK package family is `@lyness/sdk-client`, `@lyness/sdk-protocol`, and `@lyness/sdk-jsonrpc-server`; `@lyness/acp` remains the ACP protocol plugin. There is no Python-specific Node application, checked-in complete config, compatibility package, forwarding executable, fallback parser, or SDK/ACP launcher alias. [docs/architecture.md](../../../../docs/architecture.md) owns this launch, and the [`python/sdk-runtime` README](../../../../python/sdk-runtime/README.md) owns the Windows carrier.
+The executable family is `lyness-sdk-runtime-<platform>-<arch>`. The SDK wire, wheel and import distribution names, sidecar names, and wire identity `lyness-sdk-runtime` remain stable. The SDK package family is `@lyness/lyn-sdk-client`, `@lyness/lyn-sdk-protocol`, and `@lyness/lyn-sdk-jsonrpc-server`; `@lyness/lyn-acp` remains the ACP protocol plugin. There is no Python-specific Node application, checked-in complete config, compatibility package, forwarding executable, fallback parser, or SDK/ACP launcher alias. [docs/architecture.md](../../../../docs/architecture.md) owns this launch, and the [`python/sdk-runtime` README](../../../../python/sdk-runtime/README.md) owns the Windows carrier.
 
 ### Enforcement
 

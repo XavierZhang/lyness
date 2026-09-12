@@ -1,17 +1,17 @@
 /**
  * Execution types for the bash executor seam. Background job semantics belong
- * to `@lyness/jobs`; this seam exposes only process handles. The
+ * to `@lyness/lyn-jobs`; this seam exposes only process handles. The
  * managed-environment and captured-output vocabulary is owned by the
  * subprocess seam and re-exported here so bash consumers keep one import
  * root.
  * @module lyn-shell/types
  */
 
-import type { SandboxEnforcement, SandboxExecutionPolicy, SandboxMode } from '@lyness/sandbox'
-import type { CollectedOutput, LynEnvironment } from '@lyness/subprocess'
+import type { SandboxEnforcement, SandboxExecutionPolicy, SandboxMode } from '@lyness/lyn-sandbox'
+import type { CollectedOutput, LynEnvironment } from '@lyness/lyn-subprocess'
 
-export { LYNESS_ENV_PREFIX } from '@lyness/subprocess'
-export type { CollectedOutput, LynEnvironment, LynEnvironmentKey } from '@lyness/subprocess'
+export { LYNESS_ENV_PREFIX } from '@lyness/lyn-subprocess'
+export type { CollectedOutput, LynEnvironment, LynEnvironmentKey } from '@lyness/lyn-subprocess'
 
 /**
  * Sandbox facts for one run, present iff a sandboxing executor handled it.

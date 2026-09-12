@@ -10,8 +10,8 @@ owner 是一个 Host 侧 Cordis 服务：继承 `TypertRemoteService` 把 servic
 
 ```ts
 import type { Context } from '@lyness/cordis'
-import type { Agent } from '@lyness/agent'
-import { Remote, TypertRemoteService } from '@lyness/typert-protocol'
+import type { Agent } from '@lyness/lyn-agent'
+import { Remote, TypertRemoteService } from '@lyness/lyn-typert-protocol'
 
 /** One stored note as a Client reads it. */
 export interface NoteRow {
@@ -60,9 +60,9 @@ Remote 失败只有一个类 `RemoteError`：域码经 declaration merging 进 `
 - 不上 wire 的本地失败不进码表，用调用方自己的类型表达。
 
 ```ts
-import { RemoteError } from '@lyness/typert-protocol'
+import { RemoteError } from '@lyness/lyn-typert-protocol'
 
-declare module '@lyness/typert-protocol' {
+declare module '@lyness/lyn-typert-protocol' {
   interface RemoteErrorDetailsMap {
     /** No stored note carries that id. */
     'note/not-found': { readonly noteId: string }
@@ -89,7 +89,7 @@ export async function rename(noteId: string, title: string): Promise<void> {
 
 ## 3. 在包上注册
 
-`@Remote` 必须落在一个 Loader entry 插件包里；owner 是抽象 seam 时把控制器放进 `packages/api/` 下的对应包。包清单要补两个生成入口与 protocol 的 peer 依赖，Client 侧则由 `@lyness/api-remotes` 的 assembly 挂载该贡献并按需转口类型词汇。两个入口分别指向哪个生成产物、生成管线如何排序，见 [API Gateway 参考](../api-gateway.zh.md)。
+`@Remote` 必须落在一个 Loader entry 插件包里；owner 是抽象 seam 时把控制器放进 `packages/api/` 下的对应包。包清单要补两个生成入口与 protocol 的 peer 依赖，Client 侧则由 `@lyness/lyn-api-remotes` 的 assembly 挂载该贡献并按需转口类型词汇。两个入口分别指向哪个生成产物、生成管线如何排序，见 [API Gateway 参考](../api-gateway.zh.md)。
 
 ```json
 {
@@ -97,8 +97,8 @@ export async function rename(noteId: string, title: string): Promise<void> {
     "./typert": { "types": "./lib/typert.host.d.ts", "default": "./lib/typert.host.js" },
     "./remote": { "types": "./lib/typert.remote-client.d.ts", "default": "./lib/typert.remote-client.js" }
   },
-  "peerDependencies": { "@lyness/typert-protocol": "workspace:^" },
-  "devDependencies": { "@lyness/typert-protocol": "workspace:^" }
+  "peerDependencies": { "@lyness/lyn-typert-protocol": "workspace:^" },
+  "devDependencies": { "@lyness/lyn-typert-protocol": "workspace:^" }
 }
 ```
 
@@ -112,8 +112,8 @@ Host 的固定事实读 `ctx.remote.$host`：`home` 与 `isLoopback` 是普通�
 
 ```ts ignore-check
 import type { Context } from '@lyness/cordis'
-import { isRemoteFailure } from '@lyness/api-gateway/client'
-import type {} from '@lyness/api-remotes/client'
+import { isRemoteFailure } from '@lyness/lyn-api-gateway/client'
+import type {} from '@lyness/lyn-api-remotes/client'
 
 export const inject = ['remote', 'remote.notes']
 
@@ -151,7 +151,7 @@ export function hostLabel(): string {
 owner 侧断言抛出的码：捕获后用 `remoteErrorOf` 取出失败，再用 `toMatchObject` 比对 `code` 与需要的 `details` 字段——不要用 `toEqual` 深比对错误对象，也不要断言 `instanceof`。
 
 ```ts
-import { remoteErrorOf } from '@lyness/typert-protocol'
+import { remoteErrorOf } from '@lyness/lyn-typert-protocol'
 import { expect, it } from 'vitest'
 
 declare function rename(noteId: string, title: string): Promise<void>
@@ -166,11 +166,11 @@ it('refuses an unknown note before writing', async () => {
 })
 ```
 
-Client 侧的替身返回真实例：`RemoteError` 与 `TestRemote` 的值 import 一律取自 `@lyness/client-test-runtime`，因为从 `api-remotes` facade 值 import 会拉起尚未构建的装配链。`TestRemote.$host` 是普通字段，spec 直接赋值即可。
+Client 侧的替身返回真实例：`RemoteError` 与 `TestRemote` 的值 import 一律取自 `@lyness/lyn-client-test-runtime`，因为从 `api-remotes` facade 值 import 会拉起尚未构建的装配链。`TestRemote.$host` 是普通字段，spec 直接赋值即可。
 
 ```ts ignore-check
 import { Context } from '@lyness/cordis'
-import { RemoteError, TestRemote } from '@lyness/client-test-runtime'
+import { RemoteError, TestRemote } from '@lyness/lyn-client-test-runtime'
 import { expect, it } from 'vitest'
 
 it('renders the failure code the Host reported', async () => {

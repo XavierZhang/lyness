@@ -1,6 +1,6 @@
 import { join } from 'node:path'
-import type { ConfinedArgv, SandboxPolicy } from '@lyness/sandbox'
-import { SandboxProvider } from '@lyness/sandbox'
+import type { ConfinedArgv, SandboxPolicy } from '@lyness/lyn-sandbox'
+import { SandboxProvider } from '@lyness/lyn-sandbox'
 
 const NOTICE = 'landlock-run: partial enforcement (older Landlock ABI)'
 const MISSING_RUNNER_ENV = 'LYNESS_SNAPSHOT_MISSING_SANDBOX_RUNNER'

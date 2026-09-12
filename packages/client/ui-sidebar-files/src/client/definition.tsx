@@ -5,16 +5,16 @@
  * it as an entry box, and the tree opens files through `tabActions.openResource`
  * for the `lyn-resource://file` viewers to claim.
  */
-import type { SidebarRightTabDefinition } from '@lyness/client-ui-sidebar-right/client'
-import type { TranslateNS } from '@lyness/client-locale/client'
+import type { SidebarRightTabDefinition } from '@lyness/lyn-client-ui-sidebar-right/client'
+import type { TranslateNS } from '@lyness/lyn-client-locale/client'
 import type {} from './locales.ts'
-import { FileTypeIcon, type IconProps } from '@lyness/client-ui-primitives'
+import { FileTypeIcon, type IconProps } from '@lyness/lyn-client-ui-primitives'
 
 /** The tab kind this package owns. */
 export const FILES_KIND = 'files'
 
 /** This implementation's identity in the tab system, and the key its body registers under. */
-export const FILES_ID = '@lyness/client-ui-sidebar-files'
+export const FILES_ID = '@lyness/lyn-client-ui-sidebar-files'
 
 /** The type's coloured folder sheet at the guide capsule's glyph size, as the chip title draws it. */
 function FolderSheetGlyph({ size, className }: IconProps) {

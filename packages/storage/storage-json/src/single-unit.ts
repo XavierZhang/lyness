@@ -6,13 +6,13 @@
  * caller (the domain layer's write chain); this unit only guarantees that
  * each single call publishes a complete, durable file. The `per-record`
  * layout is a separate unit class in `per-record-unit.ts`.
- * @module @lyness/storage-json/src/single-unit
+ * @module @lyness/lyn-storage-json/src/single-unit
  */
 
 import { readFile } from 'node:fs/promises'
 import { join } from 'node:path'
-import { StorageError } from '@lyness/storage'
-import type { KvUnit, KvUnitDescriptor } from '@lyness/storage'
+import { StorageError } from '@lyness/lyn-storage'
+import type { KvUnit, KvUnitDescriptor } from '@lyness/lyn-storage'
 import { writeAtomic } from './atomic.ts'
 import { parse, serialize } from './format.ts'
 import type { UnitState } from './format.ts'

@@ -1,16 +1,16 @@
 /**
  * Safe HTTP(S) retrieval for `ctx.web`: validates and pins public IP destinations, follows
  * only same-origin redirects, enforces time and size limits, classifies and decodes text,
- * and leaves presentation to `@lyness/tool-web`. Requests carry no browser cookies
+ * and leaves presentation to `@lyness/lyn-tool-web`. Requests carry no browser cookies
  * or ambient credentials.
- * @module @lyness/web-fetch-http/provider
+ * @module @lyness/lyn-web-fetch-http/provider
  */
 
-import { WebError } from '@lyness/web'
-import type { WebFetchBody, WebFetchProvider, WebFetchRequest, WebFetchResult } from '@lyness/web'
-import { deadline, timeoutOf } from '@lyness/timeout'
+import { WebError } from '@lyness/lyn-web'
+import type { WebFetchBody, WebFetchProvider, WebFetchRequest, WebFetchResult } from '@lyness/lyn-web'
+import { deadline, timeoutOf } from '@lyness/lyn-timeout'
 import type { Response } from 'undici'
-import { proxyRouteFor } from '@lyness/http-proxy'
+import { proxyRouteFor } from '@lyness/lyn-http-proxy'
 import { isNonPublicIpLiteral, publicHttpNetwork } from './network.ts'
 import type { PublicAddress } from './network.ts'
 import { classifyContentType, decoderForCharset, isSameOrigin, parseCharset, validateFetchUrl } from './policy.ts'

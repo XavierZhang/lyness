@@ -1,5 +1,5 @@
 import { runInNewContext } from 'node:vm'
-import { RemoteError } from '@lyness/typert-protocol'
+import { RemoteError } from '@lyness/lyn-typert-protocol'
 import { describe, expect, it, vi } from 'vitest'
 import type { Mock } from 'vitest'
 import { handleFileUploadHttp } from '../src/http-route.ts'

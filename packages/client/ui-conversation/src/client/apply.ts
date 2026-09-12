@@ -1,15 +1,15 @@
 /** Registers the target-neutral Conversation assembly, shell, input, and docks. */
 import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import type { ISessions } from '@lyness/api-session-controller/client'
-import { createSnapshotStore, type BoundActions } from '@lyness/client-store'
-import { resolveSlotLabel } from '@lyness/client-ui-slots'
-import type { SessionId } from '@lyness/session/types'
+import type { ISessions } from '@lyness/lyn-api-session-controller/client'
+import { createSnapshotStore, type BoundActions } from '@lyness/lyn-client-store'
+import { resolveSlotLabel } from '@lyness/lyn-client-ui-slots'
+import type { SessionId } from '@lyness/lyn-session/types'
 // Type-only service and declaration merges used by this assembly.
-import type {} from '@lyness/client-locale/client'
-import type {} from '@lyness/client-ui-renderer/client'
-import type {} from '@lyness/client-ui-session/client'
-import type {} from '@lyness/client-ui-settings/client'
+import type {} from '@lyness/lyn-client-locale/client'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
+import type {} from '@lyness/lyn-client-ui-session/client'
+import type {} from '@lyness/lyn-client-ui-settings/client'
 import { UiConversation } from './conversation/assembly.ts'
 import type { ViewTab } from './contract/views.ts'
 import type {
@@ -36,7 +36,7 @@ import { resolveActiveView } from './view-selection.ts'
 import { en, NS, zh, type ConversationKey } from './locales.ts'
 import { CONVERSATION_SETTINGS_NAMESPACE, type ConversationSettings } from '../submission-settings.ts'
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface LocaleNamespaceMap {
     /** Conversation shell, composer, queue, and dock copy. */
     conversation: ConversationKey

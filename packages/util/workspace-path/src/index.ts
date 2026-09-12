@@ -1,6 +1,6 @@
 /**
  * Browser-safe Workspace path and display helpers.
- * @module @lyness/util-workspace-path
+ * @module @lyness/lyn-util-workspace-path
  */
 import { sessionFileAddress } from './file-address.ts'
 

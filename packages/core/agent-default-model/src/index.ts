@@ -1,14 +1,14 @@
 /**
  * Default model selection for an Agent without a session-specific selection.
  *
- * @module @lyness/agent-default-model
+ * @module @lyness/lyn-agent-default-model
  */
 
 import { Context, Service } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import type { ModelSelection } from '@lyness/agent'
-import { ReasoningEffortId } from '@lyness/llm'
-import type {} from '@lyness/settings'
+import type { ModelSelection } from '@lyness/lyn-agent'
+import { ReasoningEffortId } from '@lyness/lyn-llm'
+import type {} from '@lyness/lyn-settings'
 
 declare module '@lyness/cordis' {
   interface Context {

@@ -1,11 +1,11 @@
 import { Context } from '@lyness/cordis'
-import AgentRegistry from '@lyness/agent'
-import type { Agent, AgentHandle, CreateAgentOptions } from '@lyness/agent'
-import type {} from '@lyness/agent-presets'
-import { createUserMessage } from '@lyness/llm'
-import SessionStore, { SessionId } from '@lyness/session'
-import { RemoteError } from '@lyness/typert-protocol'
-import type { Workspace, WorkspaceId } from '@lyness/workspace'
+import AgentRegistry from '@lyness/lyn-agent'
+import type { Agent, AgentHandle, CreateAgentOptions } from '@lyness/lyn-agent'
+import type {} from '@lyness/lyn-agent-presets'
+import { createUserMessage } from '@lyness/lyn-llm'
+import SessionStore, { SessionId } from '@lyness/lyn-session'
+import { RemoteError } from '@lyness/lyn-typert-protocol'
+import type { Workspace, WorkspaceId } from '@lyness/lyn-workspace'
 import { describe, expect, it, vi } from 'vitest'
 import {
   ApiSessionAgentController,

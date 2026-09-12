@@ -5,11 +5,11 @@ import {
 import {
   DisclosureRow, IconChevronRightOutline14, StateDot,
   type DisclosureRowProps, type StateDotState,
-} from '@lyness/client-ui-primitives'
-import type { PropsLocale, PropsRuntime } from '@lyness/client-ui-slots'
-import type { SessionListState } from '@lyness/api-session-controller/client'
-import { shallowEqual } from '@lyness/client-store'
-import type { SessionId } from '@lyness/session/types'
+} from '@lyness/lyn-client-ui-primitives'
+import type { PropsLocale, PropsRuntime } from '@lyness/lyn-client-ui-slots'
+import type { SessionListState } from '@lyness/lyn-api-session-controller/client'
+import { shallowEqual } from '@lyness/lyn-client-store'
+import type { SessionId } from '@lyness/lyn-session/types'
 import type { WorkflowRunKey } from './locales.ts'
 import type {
   WorkflowRunMemberData, WorkflowRunPhaseData, WorkflowRunStatus,

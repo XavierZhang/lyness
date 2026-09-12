@@ -6,11 +6,11 @@
  * with one version-stamped document per record (`<table>/<key>.json`) plus a
  * `global.json` for the global slot, so a write rewrites one record instead
  * of the whole unit.
- * @module @lyness/storage-json/src/format
+ * @module @lyness/lyn-storage-json/src/format
  */
 
-import { StorageError } from '@lyness/storage'
-import type { KvUnitDescriptor } from '@lyness/storage'
+import { StorageError } from '@lyness/lyn-storage'
+import type { KvUnitDescriptor } from '@lyness/lyn-storage'
 
 /** In-memory authoritative state of one unit; the file is its projection. `global` is `null` until first written. */
 export interface UnitState {

@@ -1,19 +1,19 @@
 /**
  * Persistent shell PTY backend over the subprocess terminal primitive, shared
  * sandbox policy, bounded output, and provider-owned session cleanup.
- * @module @lyness/terminal-bash
+ * @module @lyness/lyn-terminal-bash
  */
 
 import { Context } from '@lyness/cordis'
-import type { Agent } from '@lyness/agent'
-import type { Session, SessionEvent } from '@lyness/session'
-import { TerminalBackendCleanupError } from '@lyness/terminal'
-import type { TerminalBackend, TerminalBackendSpawnSpec, TerminalSendOperation } from '@lyness/terminal'
-import type { SubprocessTerminalHandle, SubprocessTerminalSpawnSpec } from '@lyness/subprocess'
-import type { SandboxExecutionPolicy } from '@lyness/sandbox'
-import type {} from '@lyness/sandbox-policy'
-import type {} from '@lyness/session-projection'
-import { ENCODING_PREAMBLE } from '@lyness/pwsh-local'
+import type { Agent } from '@lyness/lyn-agent'
+import type { Session, SessionEvent } from '@lyness/lyn-session'
+import { TerminalBackendCleanupError } from '@lyness/lyn-terminal'
+import type { TerminalBackend, TerminalBackendSpawnSpec, TerminalSendOperation } from '@lyness/lyn-terminal'
+import type { SubprocessTerminalHandle, SubprocessTerminalSpawnSpec } from '@lyness/lyn-subprocess'
+import type { SandboxExecutionPolicy } from '@lyness/lyn-sandbox'
+import type {} from '@lyness/lyn-sandbox-policy'
+import type {} from '@lyness/lyn-session-projection'
+import { ENCODING_PREAMBLE } from '@lyness/lyn-pwsh-local'
 import { type Config, type ResolvedConfig, resolveConfig, type ShellDialect, validateConfig } from './config.ts'
 import { LocalPtySession } from './session.ts'
 import { CONTROLLED_PROMPT } from './sanitize.ts'

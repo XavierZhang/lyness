@@ -14,12 +14,12 @@ import clsx from 'clsx'
 import {
   Button, IconCloseFill14, IconPersonalizationOutline16,
   IconProjectAddOutline16, IconSearchOutline16, Menu, Modal, Tooltip,
-} from '@lyness/client-ui-primitives'
+} from '@lyness/lyn-client-ui-primitives'
 import type {
   SessionListState, SessionSearchResultItem,
-} from '@lyness/api-session-controller/client'
-import type { WorkspaceId, WorkspaceView } from '@lyness/api-workspace-controller/client'
-import type { SessionId } from '@lyness/session/types'
+} from '@lyness/lyn-api-session-controller/client'
+import type { WorkspaceId, WorkspaceView } from '@lyness/lyn-api-workspace-controller/client'
+import type { SessionId } from '@lyness/lyn-session/types'
 import type { WorkspaceBrowserProps } from '../contract/slots.ts'
 import type { SessionNode, SessionOrderBy } from '../tree.ts'
 import {

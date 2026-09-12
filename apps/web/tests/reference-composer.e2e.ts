@@ -8,16 +8,16 @@ import { join } from 'node:path'
 import type { Browser, Locator, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed } from 'vitest'
-import { createUserMessage } from '@lyness/llm'
-import { abbreviateHomePath } from '@lyness/util-workspace-path'
+import { createUserMessage } from '@lyness/lyn-llm'
+import { abbreviateHomePath } from '@lyness/lyn-util-workspace-path'
 import {
   SESSION_FORMAT_VERSION,
   Session,
   SessionId,
   SessionSeq,
-} from '@lyness/session'
-import type {} from '@lyness/session-reference/types'
-import type {} from '@lyness/session-title'
+} from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-session-reference/types'
+import type {} from '@lyness/lyn-session-title'
 import {
   assertFixtureInventory,
   captureStableAria,

@@ -3,7 +3,7 @@ description: "Web GUI 的产出文件与可点击文件引用：已完成轮次�
 kind: "package-reference"
 ---
 
-# @lyness/client-ui-deliverables
+# @lyness/lyn-client-ui-deliverables
 
 [English](README.md) | 中文
 

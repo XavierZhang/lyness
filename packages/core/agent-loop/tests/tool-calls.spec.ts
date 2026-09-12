@@ -5,17 +5,17 @@
 
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { createUserMessage, ToolCallId, StreamChunk  } from '@lyness/llm'
-import SessionStore, { SessionEvent, SessionId } from '@lyness/session'
-import SystemPrompt from '@lyness/system-prompt'
-import LlmRuntime from '@lyness/llm'
-import ToolRuntime, { defineContentToolFixture, TOOL_ABORTED_BEFORE_DISPATCH, TOOL_RUNTIME_SCHEDULER, type PostToolDecision, type PreToolDecision } from '@lyness/tools'
-import AgentRegistry, { type Agent } from '@lyness/agent'
-import AgentLoop, { DEFAULT_MAX_PARALLEL_TOOL_CALLS } from '@lyness/agent-loop'
-import SessionProjectionRegistry from '@lyness/session-projection'
+import { createUserMessage, ToolCallId, StreamChunk  } from '@lyness/lyn-llm'
+import SessionStore, { SessionEvent, SessionId } from '@lyness/lyn-session'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import LlmRuntime from '@lyness/lyn-llm'
+import ToolRuntime, { defineContentToolFixture, TOOL_ABORTED_BEFORE_DISPATCH, TOOL_RUNTIME_SCHEDULER, type PostToolDecision, type PreToolDecision } from '@lyness/lyn-tools'
+import AgentRegistry, { type Agent } from '@lyness/lyn-agent'
+import AgentLoop, { DEFAULT_MAX_PARALLEL_TOOL_CALLS } from '@lyness/lyn-agent-loop'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 import { MockAdapter, textResponse } from './mock-adapter.ts'
-import { CodeRuntime } from '@lyness/code-runtime'
-import type { CodeRunRequest, CodeRunResult } from '@lyness/code-runtime'
+import { CodeRuntime } from '@lyness/lyn-code-runtime'
+import type { CodeRunRequest, CodeRunResult } from '@lyness/lyn-code-runtime'
 
 async function harness(adapter: MockAdapter, maxParallelToolCalls?: number) {
   const ctx = new Context()

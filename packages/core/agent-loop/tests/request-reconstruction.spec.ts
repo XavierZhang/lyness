@@ -7,15 +7,15 @@
 
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import LlmRuntime, { createUserMessage, LlmError, ReasoningEffortId  } from '@lyness/llm'
-import type { GenerateOptions, LlmModelReasoningInfo, LlmResolvedModelInfo, StreamChunk } from '@lyness/llm'
-import SessionStore, { Session, SessionId, foldRequestHeader } from '@lyness/session'
-import SystemPrompt from '@lyness/system-prompt'
-import ToolRuntime, { defineContentToolFixture } from '@lyness/tools'
-import AgentRegistry, { type Agent } from '@lyness/agent'
+import LlmRuntime, { createUserMessage, LlmError, ReasoningEffortId  } from '@lyness/lyn-llm'
+import type { GenerateOptions, LlmModelReasoningInfo, LlmResolvedModelInfo, StreamChunk } from '@lyness/lyn-llm'
+import SessionStore, { Session, SessionId, foldRequestHeader } from '@lyness/lyn-session'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime, { defineContentToolFixture } from '@lyness/lyn-tools'
+import AgentRegistry, { type Agent } from '@lyness/lyn-agent'
 
-import AgentLoop from '@lyness/agent-loop'
-import SessionProjectionRegistry from '@lyness/session-projection'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 import { MockAdapter, textResponse, toolCallResponse } from './mock-adapter.ts'
 
 async function harness(adapter: MockAdapter, persona = 'stable base') {

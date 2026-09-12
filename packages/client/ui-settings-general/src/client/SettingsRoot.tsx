@@ -16,8 +16,8 @@ import {
   ConnectionIndicator,
   IconAgentPresetOutline16, IconCloseOutline16, IconDataOutline16,
   IconPersonalizationOutline16, IconSettingsOutline16,
-} from '@lyness/client-ui-primitives'
-import type { ConnectionIndicatorState } from '@lyness/client-ui-primitives'
+} from '@lyness/lyn-client-ui-primitives'
+import type { ConnectionIndicatorState } from '@lyness/lyn-client-ui-primitives'
 import type { SettingsRootComponentProps, SettingsSectionRow } from './shell-contract.ts'
 import css from './SettingsRoot.module.css'
 

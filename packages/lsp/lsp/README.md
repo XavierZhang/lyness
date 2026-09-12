@@ -3,7 +3,7 @@ description: "The LSP capability seam (ctx.lsp): provider selection by file exte
 kind: "package-reference"
 ---
 
-# @lyness/lsp
+# @lyness/lyn-lsp
 
 English | [中文](README.zh.md)
 
@@ -36,11 +36,11 @@ Choose this service when a deployment wants model-visible code navigation backed
 The seam needs a provider and a consumer to do anything. A minimal composition mounts the service, a stdio provider, and the tool:
 
 ```yaml
-- name: '@lyness/fs-local'
-- name: '@lyness/subprocess-local'
-- name: '@lyness/lsp'
-- name: '@lyness/lsp-stdio'
-- name: '@lyness/tool-lsp'
+- name: '@lyness/lyn-fs-local'
+- name: '@lyness/lyn-subprocess-local'
+- name: '@lyness/lyn-lsp'
+- name: '@lyness/lyn-lsp-stdio'
+- name: '@lyness/lyn-tool-lsp'
 ```
 
 Server commands, extension mappings, and the filesystem/subprocess pairing are configured in the provider and tool packages; see [lyn-lsp-stdio](../lsp-stdio/README.md) and [lyn-tool-lsp](../tool-lsp/README.md).

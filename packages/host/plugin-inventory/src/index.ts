@@ -3,8 +3,8 @@
 import type { Context, FiberState } from '@lyness/cordis'
 import type {} from '@lyness/cordis-plugin-loader'
 // Type-only: the optional agent-preset roster resolved through `ctx.get`.
-import type {} from '@lyness/agent-presets'
-import { TypertRemoteService, Remote } from '@lyness/typert-protocol'
+import type {} from '@lyness/lyn-agent-presets'
+import { TypertRemoteService, Remote } from '@lyness/lyn-typert-protocol'
 // Typert-generated ./typert and ./remote artifacts import Zod at runtime.
 import type {} from 'zod'
 import type {

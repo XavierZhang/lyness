@@ -2,10 +2,10 @@
  * Vocabulary for the web capability seam (`ctx.web`). Search and fetch deliberately share one
  * seam so provider selection, cancellation, errors, and product configuration have one owner,
  * while retaining separate request and result types.
- * @module @lyness/web/types
+ * @module @lyness/lyn-web/types
  */
 
-import { HarnessError } from '@lyness/llm'
+import { HarnessError } from '@lyness/lyn-llm'
 
 /**
  * What one search-capable backend is asked to search. Each request carries one

@@ -5,7 +5,7 @@
  *
  * Nothing here imports `undici`, so the module stays loadable in the browser-worker runtime that
  * evaluates `lyn-web-fetch-http` without a Node transport.
- * @module @lyness/http-proxy/policy
+ * @module @lyness/lyn-http-proxy/policy
  */
 
 /**

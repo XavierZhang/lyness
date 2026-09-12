@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
-import type { Agent } from '@lyness/agent'
-import CommandRuntime, { type CommandResult } from '@lyness/commands'
+import type { Agent } from '@lyness/lyn-agent'
+import CommandRuntime, { type CommandResult } from '@lyness/lyn-commands'
 import {
   CompactionId,
   CompactionEngine,
@@ -11,9 +11,9 @@ import {
   type CompactionResult,
   type CompactionTrigger,
   type ManualCompactAgentContext,
-} from '@lyness/compaction'
-import { Session, SessionId, SessionSeq } from '@lyness/session'
-import * as commandCompact from '@lyness/command-compact'
+} from '@lyness/lyn-compaction'
+import { Session, SessionId, SessionSeq } from '@lyness/lyn-session'
+import * as commandCompact from '@lyness/lyn-command-compact'
 
 const COMPACTION_ID = CompactionId('command-compact-test')
 
@@ -153,7 +153,7 @@ function expectLastLifecycle(
   return runEvent.data.commandId
 }
 
-describe('@lyness/command-compact registration', () => {
+describe('@lyness/lyn-command-compact registration', () => {
   it('registers one argument-free command with Loader-safe exports and disposes it', async () => {
     const test = await harness()
     expect(commandCompact.name).toBe('command-compact')

@@ -4,12 +4,12 @@
  * guards from that state, and the provider performs the atomic freshness/no-clobber check. Without
  * this plugin, tools retain the bare provider's unconditional mutation behavior. See the package
  * README for composition rules.
- * @module @lyness/fs-observation-policy
+ * @module @lyness/lyn-fs-observation-policy
  */
 
 import type { Context } from '@lyness/cordis'
-import { FsError } from '@lyness/fs'
-import type { FsObservation, FsTarget, FsVersion, FsWriteIntent } from '@lyness/fs'
+import { FsError } from '@lyness/lyn-fs'
+import type { FsObservation, FsTarget, FsVersion, FsWriteIntent } from '@lyness/lyn-fs'
 import type { FsObservationActor } from './types.ts'
 
 export type { FsObservationActor } from './types.ts'

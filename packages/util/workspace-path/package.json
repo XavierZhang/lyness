@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/util-workspace-path",
+  "name": "@lyness/lyn-util-workspace-path",
   "description": "Browser-safe Workspace path and display helpers",
   "version": "0.1.5-rc.1",
   "publishConfig": {

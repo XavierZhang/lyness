@@ -1,8 +1,8 @@
 import type { Context } from '@lyness/cordis'
 import type {
   ContextMessageNode, ConversationNodeDefinition, SteeringMessageNode, UserMessageNode,
-} from '@lyness/client-ui-conversation/client'
-import { isAppendSurfaceEvent, isReplacementSurfaceEvent } from '@lyness/session/surface'
+} from '@lyness/lyn-client-ui-conversation/client'
+import { isAppendSurfaceEvent, isReplacementSurfaceEvent } from '@lyness/lyn-session/surface'
 import type { InboxState } from './inbox.ts'
 import { chatNode } from './common.ts'
 import { contextForm, contextProvenance } from './event-projection.ts'

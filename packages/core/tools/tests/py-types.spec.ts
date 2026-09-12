@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
-import { jsonSchemaToPy, renderToolsSdkPy } from '@lyness/tools/src/py-types.ts'
-import { parameterSchemaSpecToJsonSchema } from '@lyness/tools'
-import type { ToolSdkSchema } from '@lyness/tools/src/ts-types.ts'
+import { jsonSchemaToPy, renderToolsSdkPy } from '@lyness/lyn-tools/src/py-types.ts'
+import { parameterSchemaSpecToJsonSchema } from '@lyness/lyn-tools'
+import type { ToolSdkSchema } from '@lyness/lyn-tools/src/ts-types.ts'
 
 describe('jsonSchemaToPy', () => {
   it('maps the defineTool DSL subset', () => {

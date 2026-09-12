@@ -2,8 +2,8 @@ import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import SystemPrompt, {
   AssembleContext, PromptAssembly, renderContextSnapshot, renderPrompt,
-} from '@lyness/system-prompt'
-import type { PromptContextOrderName, PromptSectionOrderName } from '@lyness/system-prompt'
+} from '@lyness/lyn-system-prompt'
+import type { PromptContextOrderName, PromptSectionOrderName } from '@lyness/lyn-system-prompt'
 
 /**
  * Every assembly carries the plugin's own built-ins — `harness:identity`

@@ -1,8 +1,8 @@
 /** Live/persisted logical-corpus resolution for session-query. */
 
 import type { Context, Fiber } from '@lyness/cordis'
-import type { Session, SessionEvent, SessionHeader, SessionId , SessionLogOffset } from '@lyness/session'
-import type SessionPersistence from '@lyness/session-persistence'
+import type { Session, SessionEvent, SessionHeader, SessionId , SessionLogOffset } from '@lyness/lyn-session'
+import type SessionPersistence from '@lyness/lyn-session-persistence'
 import type { SessionRecord } from './types.ts'
 import { SessionQueryError } from './config.ts'
 import { readColdSessionLog, type ColdSessionLog } from './cold-read.ts'

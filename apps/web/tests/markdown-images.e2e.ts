@@ -6,13 +6,13 @@ import { fileURLToPath } from 'node:url'
 import type { Browser, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed } from 'vitest'
-import { createMessage, createUserMessage } from '@lyness/llm'
+import { createMessage, createUserMessage } from '@lyness/lyn-llm'
 import {
   SESSION_FORMAT_VERSION,
   Session,
   SessionId,
-} from '@lyness/session'
-import type {} from '@lyness/session-title'
+} from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-session-title'
 import {
   assertFixtureInventory,
   captureStableAria,

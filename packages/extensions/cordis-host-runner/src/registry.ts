@@ -1,10 +1,10 @@
 /**
  * Process-local dynamic Plugin registry and its opaque identity mints.
- * @module @lyness/cordis-host-runner/registry
+ * @module @lyness/lyn-cordis-host-runner/registry
  */
 
 import type { Fiber } from '@lyness/cordis'
-import type { SessionId } from '@lyness/session/types'
+import type { SessionId } from '@lyness/lyn-session/types'
 import type {
   ApprovalRequestId, CordisDynamicPackageId, CordisDynamicPluginId, CordisDynamicPluginRunId,
   CordisDynamicRunMode, DynamicCordisRenderFailure, DynamicCordisRunAttempt,

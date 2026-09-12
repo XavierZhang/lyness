@@ -1,7 +1,7 @@
 /** Host Workspace Remote owner: explicit commands and reconnect-safe state. */
 
 import { Context } from '@lyness/cordis'
-import { Remote, TypertRemoteService } from '@lyness/typert-protocol'
+import { Remote, TypertRemoteService } from '@lyness/lyn-typert-protocol'
 import { WorkspaceCommands } from './commands.ts'
 import { DirectoryPickerController } from './directory-picker.ts'
 import { WorkspaceFeed } from './feed.ts'

@@ -6,16 +6,16 @@
  * runs under the session the file names, not the one the face was injected for.
  */
 import { describe, expect, it, onTestFinished, vi } from 'vitest'
-import type { RemoteResult } from '@lyness/api-remotes/client'
-import type { SessionId } from '@lyness/session/types'
-import { sessionFileAddress } from '@lyness/util-workspace-path'
-import type { WorkspaceFileBytes, WorkspaceFileText } from '@lyness/api-workspace-files/types'
+import type { RemoteResult } from '@lyness/lyn-api-remotes/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import { sessionFileAddress } from '@lyness/lyn-util-workspace-path'
+import type { WorkspaceFileBytes, WorkspaceFileText } from '@lyness/lyn-api-workspace-files/types'
 import { textFace } from '../src/client/face.ts'
 import type { DocumentFileBytes, ReadDocumentBytes, ReadWorkspaceFilePage } from '../src/client/rpc.ts'
 import { hostFileOf } from '../src/client/rpc.ts'
 import { createTextStore } from '../src/client/store.ts'
 import { ABSOLUTE_PATH, FILE, PATH, SESSION, failure, page } from './fixtures.client.ts'
-import type { TabId } from '@lyness/client-ui-dockkit'
+import type { TabId } from '@lyness/lyn-client-ui-dockkit'
 
 const TAB_1 = 'tab-1' as TabId
 

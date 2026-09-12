@@ -1,12 +1,12 @@
 /** Execution-time authority checks for the model-facing goal tools. */
 
 import type { Context } from '@lyness/cordis'
-import type { Agent } from '@lyness/agent'
-import type { GoalView } from '@lyness/goal'
-import { HarnessError } from '@lyness/llm'
-import type { SessionEvent, SessionSeq } from '@lyness/session'
-import type { ToolRunContext } from '@lyness/tools'
-import type {} from '@lyness/session-projection'
+import type { Agent } from '@lyness/lyn-agent'
+import type { GoalView } from '@lyness/lyn-goal'
+import { HarnessError } from '@lyness/lyn-llm'
+import type { SessionEvent, SessionSeq } from '@lyness/lyn-session'
+import type { ToolRunContext } from '@lyness/lyn-tools'
+import type {} from '@lyness/lyn-session-projection'
 
 /** The calling agent plus the immutable event cut and open-turn start seq used for authority checks. */
 export interface GoalToolExecution {

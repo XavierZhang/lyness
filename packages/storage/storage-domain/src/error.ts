@@ -1,6 +1,6 @@
 /**
  * Error vocabulary of the domain data form.
- * @module @lyness/storage-domain/src/error
+ * @module @lyness/lyn-storage-domain/src/error
  */
 
 /** Discriminant codes carried by every {@link DomainError}. */

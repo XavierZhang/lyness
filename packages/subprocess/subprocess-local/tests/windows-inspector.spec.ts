@@ -5,13 +5,13 @@ import {
   isInvalidHandle,
   windowsProcessTree,
   WindowsProcessInspector,
-} from '@lyness/subprocess-local/src/windows-inspector.ts'
+} from '@lyness/lyn-subprocess-local/src/windows-inspector.ts'
 import type {
   NativePtr,
   ProcessEntry,
   WindowsProcessInspectorInternals,
   WindowsProcessState,
-} from '@lyness/subprocess-local/src/windows-inspector.ts'
+} from '@lyness/lyn-subprocess-local/src/windows-inspector.ts'
 
 vi.mock('node:child_process', async (importOriginal) => {
   const actual = await importOriginal<typeof import('node:child_process')>()

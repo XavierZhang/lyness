@@ -3,28 +3,28 @@ import { describe, expect, it, vi } from 'vitest'
 import { act, render } from '@testing-library/react'
 import {
   SlotTestRuntime, TestRemote, stubSettingsScope, usePinnedBrowserLanguages,
-} from '@lyness/client-test-runtime'
-import { LocaleRuntime } from '@lyness/client-locale/client'
-import { resolveSlotLabel } from '@lyness/client-ui-slots'
-import type { ObservableSnapshot } from '@lyness/client-store'
-import type { SessionBinding } from '@lyness/api-session-controller/client'
-import type { SessionId } from '@lyness/session/types'
-import type { WorkspaceId } from '@lyness/workspace/types'
+} from '@lyness/lyn-client-test-runtime'
+import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
+import { resolveSlotLabel } from '@lyness/lyn-client-ui-slots'
+import type { ObservableSnapshot } from '@lyness/lyn-client-store'
+import type { SessionBinding } from '@lyness/lyn-api-session-controller/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { WorkspaceId } from '@lyness/lyn-workspace/types'
 import {
   apply as applyConversation, inject as injectConversation,
-} from '@lyness/client-ui-conversation/client'
+} from '@lyness/lyn-client-ui-conversation/client'
 import type {
   ConversationLocationDataSource, ConversationLocationDataStore, ConversationTurnDataMap,
-} from '@lyness/client-ui-conversation/client'
+} from '@lyness/lyn-client-ui-conversation/client'
 import {
   apply as applyChat, EMPTY_CHAT_SNAPSHOT, inject as injectChat,
-} from '@lyness/client-ui-chat/client'
+} from '@lyness/lyn-client-ui-chat/client'
 import type {
   ChatNodeTurnDataInjected, ChatSnapshot, TranscriptViewRowInjected, UseChatNodeTurnData,
-} from '@lyness/client-ui-chat/client'
+} from '@lyness/lyn-client-ui-chat/client'
 import { CHAT_SETTINGS_NAMESPACE, type ChatSettings } from '../src/chat-settings.ts'
 
-declare module '@lyness/client-ui-conversation/client' {
+declare module '@lyness/lyn-client-ui-conversation/client' {
   interface ConversationTurnDataMap {
     metric: number
   }

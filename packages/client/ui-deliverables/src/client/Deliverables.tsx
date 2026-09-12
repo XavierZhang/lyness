@@ -1,9 +1,9 @@
 /** Existing changed-file chips and explicitly declared files for a closing turn. */
 import { useEffect, useState } from 'react'
-import type { TurnTailOwnerProps } from '@lyness/client-ui-chat/client'
-import { Button, IconChevronDownOutline14, IconChevronUpOutline14 } from '@lyness/client-ui-primitives'
-import type { GlobalStandardProps, InjectFace, PropsLocale, SessionStandardProps } from '@lyness/client-ui-slots'
-import type { ObservableSnapshot } from '@lyness/client-store'
+import type { TurnTailOwnerProps } from '@lyness/lyn-client-ui-chat/client'
+import { Button, IconChevronDownOutline14, IconChevronUpOutline14 } from '@lyness/lyn-client-ui-primitives'
+import type { GlobalStandardProps, InjectFace, PropsLocale, SessionStandardProps } from '@lyness/lyn-client-ui-slots'
+import type { ObservableSnapshot } from '@lyness/lyn-client-store'
 import type { PresentedOpenController } from './present-open.ts'
 import { ProducedFiles } from './ProducedFiles.tsx'
 import { presentedForClosing, selectProducedFiles, type PresentedPath } from './turn-deliverables.ts'

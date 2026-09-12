@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/experimental-agent-team-web-profile",
+  "name": "@lyness/lyn-experimental-agent-team-web-profile",
   "description": "Experimental Web profile layer for Agent Teams Remote and UI plugins",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -34,7 +34,7 @@
     }
   },
   "dependencies": {
-    "@lyness/experimental-client-ui-agent-team": "workspace:^"
+    "@lyness/lyn-experimental-client-ui-agent-team": "workspace:^"
   },
   "peerDependencies": {
     "@lyness/cordis": "workspace:^"

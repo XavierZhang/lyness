@@ -1,22 +1,22 @@
 // @vitest-environment jsdom
 /** Chat inject factories exercised over independently mounted Conversation and Chat plugins. */
 import { describe, expect, it, vi } from 'vitest'
-import { AttachmentId } from '@lyness/attachment'
-import type { ISession } from '@lyness/api-session-controller/client'
-import { LocaleRuntime } from '@lyness/client-locale/client'
+import { AttachmentId } from '@lyness/lyn-attachment'
+import type { ISession } from '@lyness/lyn-api-session-controller/client'
+import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
 import {
   SlotTestRuntime, TestRemote, stubSettingsScope, usePinnedBrowserLanguages,
-} from '@lyness/client-test-runtime'
-import type { SessionBehaviorOverrides } from '@lyness/client-test-runtime'
-import type { ClientRemote } from '@lyness/api-remotes/client'
+} from '@lyness/lyn-client-test-runtime'
+import type { SessionBehaviorOverrides } from '@lyness/lyn-client-test-runtime'
+import type { ClientRemote } from '@lyness/lyn-api-remotes/client'
 import {
   apply as applyConversation, inject as injectConversation,
-} from '@lyness/client-ui-conversation/client'
+} from '@lyness/lyn-client-ui-conversation/client'
 import {
   apply as applyChat, inject as injectChat, type ChatViewInjected,
-} from '@lyness/client-ui-chat/client'
-import { SessionSeq, type SessionId } from '@lyness/session/types'
-import type { WorkspaceId } from '@lyness/workspace/types'
+} from '@lyness/lyn-client-ui-chat/client'
+import { SessionSeq, type SessionId } from '@lyness/lyn-session/types'
+import type { WorkspaceId } from '@lyness/lyn-workspace/types'
 import { createChatStore } from '../src/client/stores.ts'
 
 usePinnedBrowserLanguages('zh-CN')

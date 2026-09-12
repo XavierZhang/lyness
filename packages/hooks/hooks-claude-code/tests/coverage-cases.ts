@@ -1,20 +1,20 @@
-import { createUserMessage } from '@lyness/llm'
+import { createUserMessage } from '@lyness/lyn-llm'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { mkdtempSync, rmSync, writeFileSync, chmodSync, existsSync, readFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { Context } from '@lyness/cordis'
-import { SessionId, type SessionEvent } from '@lyness/session'
-import JsonlSessionPersistence from '@lyness/session-persistence-jsonl'
-import { defineContentToolFixture } from '@lyness/tools'
-import type { Agent } from '@lyness/agent'
-import AgentLoop from '@lyness/agent-loop'
-import { mountAgentLoopTestDependencies } from '@lyness/agent-loop-testkit'
-import { LocalBashExecutor } from '@lyness/bash-local'
-import LocalSubprocessRuntime from '@lyness/subprocess-local'
-import { scopeTarget } from '@lyness/scope'
-import SubagentRuntime, { SubagentRunId } from '@lyness/subagent'
-import * as HooksClaude from '@lyness/hooks-claude-code'
+import { SessionId, type SessionEvent } from '@lyness/lyn-session'
+import JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
+import { defineContentToolFixture } from '@lyness/lyn-tools'
+import type { Agent } from '@lyness/lyn-agent'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import { mountAgentLoopTestDependencies } from '@lyness/lyn-agent-loop-testkit'
+import { LocalBashExecutor } from '@lyness/lyn-bash-local'
+import LocalSubprocessRuntime from '@lyness/lyn-subprocess-local'
+import { scopeTarget } from '@lyness/lyn-scope'
+import SubagentRuntime, { SubagentRunId } from '@lyness/lyn-subagent'
+import * as HooksClaude from '@lyness/lyn-hooks-claude-code'
 import { MockAdapter, textResponse, toolCallResponse } from '../../../core/agent-loop/tests/mock-adapter.ts'
 
 const testToolSignal = new AbortController().signal
@@ -146,7 +146,7 @@ export function defineCoverageCases(group: CoverageGroup): void {
       const ctx = await harness(path, new MockAdapter([]))
       let ran = false
       ctx.tools.register(defineContentToolFixture({ name: 'echo', description: 'e', parameters: {}, async execute() { ran = true; return [{ type: 'text', text: 'x' }] } }))
-      const { ToolCallId } = await import('@lyness/llm')
+      const { ToolCallId } = await import('@lyness/lyn-llm')
       const result = await ctx.tools.execute({ signal: testToolSignal, callId: ToolCallId('c1'), name: 'echo', arguments: {} })
       expect(ran).toBe(false)
       expect(result.isError).toBe(true)
@@ -472,7 +472,7 @@ export function defineCoverageCases(group: CoverageGroup): void {
       const adapter = new MockAdapter([textResponse('ran')])
       const ctx = await harness(path, adapter) // NB: no projectDir
       // The factory create() path honors meta.cwd (the plain agentLoop.create() does not).
-      const { SessionId } = await import('@lyness/session')
+      const { SessionId } = await import('@lyness/lyn-session')
       const handle = await ctx.agents.create({ sessionId: SessionId('s1'), meta: { cwd: workspace }, agentOptions: { provider: 'mock', model: 'mock' } })
       handle.agent.followup(createUserMessage({ content: [{ type: 'text', text: 'go' }], source: { kind: 'user' } }))
       await waitForIdle(ctx, handle.agent)
@@ -668,7 +668,7 @@ export function defineCoverageCases(group: CoverageGroup): void {
       ctx.llm.registerAdapter(['mock'], adapter)
       ctx.tools.register(defineContentToolFixture({ name: 'echo', description: 'e', parameters: {}, async execute() { return [{ type: 'text', text: 'ok' }] } }))
 
-      const { SessionId } = await import('@lyness/session')
+      const { SessionId } = await import('@lyness/lyn-session')
       const handle = await ctx.agents.create({ sessionId: SessionId('s1'), meta: { cwd: sessionDir }, agentOptions: { provider: 'mock', model: 'mock' } })
       handle.agent.followup(createUserMessage({ content: [{ type: 'text', text: 'go' }], source: { kind: 'user' } }))
       await waitForIdle(ctx, handle.agent)
@@ -696,7 +696,7 @@ export function defineCoverageCases(group: CoverageGroup): void {
       await ctx.plugin(HooksClaude, { configPath: join(serverDir, 'hooks.json') })
       ctx.llm.registerAdapter(['mock'], new MockAdapter([]))
 
-      const { SessionId } = await import('@lyness/session')
+      const { SessionId } = await import('@lyness/lyn-session')
       const childHandle = await ctx.agents.create({ sessionId: SessionId('child-stop-session'), meta: { cwd: childDir }, agentOptions: { provider: 'mock', model: 'mock' } })
       const runId = SubagentRunId('run-stop')
       const identity = { runId, provider: 'inproc', id: childHandle.agent.id, local: true }

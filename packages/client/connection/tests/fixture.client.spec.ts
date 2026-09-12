@@ -17,10 +17,10 @@ import {
 import type {
   ClientConnectionRpc, ConnectionRpcResult,
 } from '../src/rpc.ts'
-import type { DirectoryListing } from '@lyness/host-directory-picker/types'
+import type { DirectoryListing } from '@lyness/lyn-host-directory-picker/types'
 import type {
   ModelCatalog, ModelSelection, SessionAssistantStreamFrame,
-} from '@lyness/api-session-controller/types'
+} from '@lyness/lyn-api-session-controller/types'
 
 const sid = (id: string): SessionId => id as SessionId
 type WorkspaceId = string & { readonly __fixtureWorkspaceId: 'WorkspaceId' }

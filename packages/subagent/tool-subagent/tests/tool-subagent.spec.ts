@@ -4,25 +4,25 @@ import { tmpdir } from 'node:os'
 import path from 'node:path'
 import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
-import { ToolCallId, ReasoningEffortId } from '@lyness/llm'
-import SystemPrompt from '@lyness/system-prompt'
-import ToolRuntime, { TOOL_ABORTED_BEFORE_DISPATCH } from '@lyness/tools'
-import { assembleContextFor, type Agent } from '@lyness/agent'
-import AgentRegistry from '@lyness/agent'
-import AgentLoop from '@lyness/agent-loop'
-import { mountAgentLoopTestDependencies } from '@lyness/agent-loop-testkit'
-import JsonlSessionPersistence from '@lyness/session-persistence-jsonl'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import SubagentRuntime from '@lyness/subagent'
-import type { SubagentStartRequest } from '@lyness/subagent'
-import LocalJobRegistry from '@lyness/jobs-local'
-import * as SubagentSpawn from '@lyness/subagent-spawn-in-process'
-import * as ToolTasks from '@lyness/tool-jobs'
+import { ToolCallId, ReasoningEffortId } from '@lyness/lyn-llm'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime, { TOOL_ABORTED_BEFORE_DISPATCH } from '@lyness/lyn-tools'
+import { assembleContextFor, type Agent } from '@lyness/lyn-agent'
+import AgentRegistry from '@lyness/lyn-agent'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import { mountAgentLoopTestDependencies } from '@lyness/lyn-agent-loop-testkit'
+import JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import SubagentRuntime from '@lyness/lyn-subagent'
+import type { SubagentStartRequest } from '@lyness/lyn-subagent'
+import LocalJobRegistry from '@lyness/lyn-jobs-local'
+import * as SubagentSpawn from '@lyness/lyn-subagent-spawn-in-process'
+import * as ToolTasks from '@lyness/lyn-tool-jobs'
 import { MockAdapter, textResponse } from '../../../core/agent-loop/tests/mock-adapter.ts'
 import { loadStoredSession } from '../../subagent/tests/persistence-helpers.ts'
 import * as mock from './scripted-provider.ts'
 import * as tool from '../src/index.ts'
-import { Session, SessionId } from '@lyness/session'
+import { Session, SessionId } from '@lyness/lyn-session'
 import {
   callSubagent,
   disposeSetupProvider,
@@ -928,7 +928,7 @@ describe('lyn-tool-subagent background mode', () => {
     const ctx = await setup({ provider: 'mock' })
     const result = await callSubagent(ctx, { description: 'd', prompt: 'p', run_in_background: true })
     expect(result.isError).toBe(true)
-    expect(text(result)).toContain('background jobs unavailable: load @lyness/jobs')
+    expect(text(result)).toContain('background jobs unavailable: load @lyness/lyn-jobs')
   })
 
   it('skips background startup when the tool signal is already aborted', async () => {

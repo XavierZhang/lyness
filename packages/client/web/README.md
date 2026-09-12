@@ -3,7 +3,7 @@ description: "Web boot kernel for the web GUI: two-stage boot of the client plug
 kind: "package-library"
 ---
 
-# @lyness/client-web
+# @lyness/lyn-client-web
 
 English | [中文](README.zh.md)
 

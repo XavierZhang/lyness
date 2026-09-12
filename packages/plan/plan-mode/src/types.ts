@@ -5,10 +5,10 @@
  * host consumers and `./client` for client aggregates — with zero content
  * duplication.
  *
- * @module @lyness/plan-mode/types
+ * @module @lyness/lyn-plan-mode/types
  */
 
-import type { CommandId } from '@lyness/commands/brand'
+import type { CommandId } from '@lyness/lyn-commands/brand'
 
 /**
  * The plan projection's wire value. `active` is the logged state in force
@@ -35,7 +35,7 @@ export interface PlanUnitState {
   activeAtLastHeader: boolean | null
 }
 
-declare module '@lyness/session-projection/types' {
+declare module '@lyness/lyn-session-projection/types' {
   interface SessionProjectionStateMap {
     /** Host plan-mode fold state. */
     plan: PlanUnitState

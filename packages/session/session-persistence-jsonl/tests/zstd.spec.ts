@@ -5,10 +5,10 @@ import type { FileHandle } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { performance } from 'node:perf_hooks'
-import { SessionSeq, SessionId } from '@lyness/session'
-import type { SessionEvent, SessionHeader } from '@lyness/session'
-import type { SessionPersistence } from '@lyness/session-persistence'
-import JsonlSessionPersistence from '@lyness/session-persistence-jsonl'
+import { SessionSeq, SessionId } from '@lyness/lyn-session'
+import type { SessionEvent, SessionHeader } from '@lyness/lyn-session'
+import type { SessionPersistence } from '@lyness/lyn-session-persistence'
+import JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
 import {
   generationLogPath, logPath, scanLog, sessionDir, toHeaderLine, type JsonlCompression,
 } from '../src/format.ts'
@@ -440,7 +440,7 @@ describe('JsonlSessionPersistence: default Zstandard encoding', () => {
             turn: 1, step: 1,
             message: {
               id: 'v2-to-v3-system-fc06c3f7720f3bc94ea7a2b7fadde6a5b100c6ab6ca342d2222bd017184a0b67',
-              role: 'system', source: { kind: 'plugin', plugin: '@lyness/system-prompt' }, content: [],
+              role: 'system', source: { kind: 'plugin', plugin: '@lyness/lyn-system-prompt' }, content: [],
             },
           },
         },

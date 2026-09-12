@@ -1,15 +1,15 @@
-import { createUserMessage } from '@lyness/llm'
+import { createUserMessage } from '@lyness/lyn-llm'
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import {
   GoalId,
   type GoalSnapshotChangeMeta,
   type GoalView,
-} from '@lyness/goal'
-import * as GoalSessionInvariant from '@lyness/goal-round-driver/invariant'
-import { renderGoalRoundPrompt } from '@lyness/goal-round-driver'
-import InvariantRegistry, { InvariantError } from '@lyness/invariants'
-import SessionStore, { SessionId, type Session } from '@lyness/session'
+} from '@lyness/lyn-goal'
+import * as GoalSessionInvariant from '@lyness/lyn-goal-round-driver/invariant'
+import { renderGoalRoundPrompt } from '@lyness/lyn-goal-round-driver'
+import InvariantRegistry, { InvariantError } from '@lyness/lyn-invariants'
+import SessionStore, { SessionId, type Session } from '@lyness/lyn-session'
 
 const change: GoalSnapshotChangeMeta = {
   kind: 'goal/change',
@@ -95,7 +95,7 @@ describe('goal-round-driver prompt invariants', () => {
       appendRound(session, 2, [{ type: 'text', text: 'counterfeit continuation' }])
     }).toThrow(expect.objectContaining<Partial<InvariantError>>({
       code: 'INVARIANT',
-      packageName: '@lyness/goal-round-driver',
+      packageName: '@lyness/lyn-goal-round-driver',
     }))
   })
 
@@ -110,7 +110,7 @@ describe('goal-round-driver prompt invariants', () => {
         source,
       }), { surfaceOp: 'append' })
     }).toThrow(expect.objectContaining<Partial<InvariantError>>({
-      packageName: '@lyness/goal-round-driver',
+      packageName: '@lyness/lyn-goal-round-driver',
     }))
   })
 
@@ -122,7 +122,7 @@ describe('goal-round-driver prompt invariants', () => {
 
     await expect(ctx.plugin(GoalSessionInvariant)).rejects.toMatchObject({
       code: 'INVARIANT',
-      packageName: '@lyness/goal-round-driver',
+      packageName: '@lyness/lyn-goal-round-driver',
     })
   })
 })

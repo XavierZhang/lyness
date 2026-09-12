@@ -14,7 +14,7 @@ This permission gate is one example of a hook plugin. It returns a typed decisio
 
 ```ts
 import type { Context } from '@lyness/cordis'
-import type { PreToolDecision, ToolExecution } from '@lyness/tools'
+import type { PreToolDecision, ToolExecution } from '@lyness/lyn-tools'
 
 declare function isAllowed(exec: ToolExecution): Promise<boolean>
 
@@ -38,9 +38,9 @@ A UI plugin combines durable `session/event` records (Assistant settlements, tur
 
 ```ts
 import type { Context } from '@lyness/cordis'
-import { brandString } from '@lyness/brand'
-import { createUserMessage } from '@lyness/llm'
-import type { SessionId } from '@lyness/session'
+import { brandString } from '@lyness/lyn-brand'
+import { createUserMessage } from '@lyness/lyn-llm'
+import type { SessionId } from '@lyness/lyn-session'
 
 declare function render(text: string): void
 declare function onUserInput(handler: (text: string) => void): void
@@ -69,7 +69,7 @@ A *protocol driver* adapts a wire peer to `ctx.agents`; it may serve a UI or an 
 
 ```ts
 import type { Context } from '@lyness/cordis'
-import { expandAssistantStream } from '@lyness/llm'
+import { expandAssistantStream } from '@lyness/lyn-llm'
 
 export const name = 'my-protocol-bridge'
 export const inject = ['agents', 'sessions', 'sessionPersistence']
@@ -119,7 +119,7 @@ Every product feature maps to a listener on a documented extension point — the
 | Monotonic terminal turn policy | call `ToolExecution.concludeTurn()` from the successful terminal tool; later tool calls in the same response remain guardable, and the loop stops after the step |
 | Subprocess sandbox (landlock / sandbox-exec) | use a `ctx.sandbox` backend through `lyn-bash-sandbox`; use `tools/pre-execute` for capability-level denial |
 | Permission system / AskUserQuestion | return `ask` from `tools/pre-execute` and answer through `ctx.approval`; register a separate model-facing ask tool for ordinary user questions |
-| Plan mode | [`@lyness/plan-mode`](../../packages/plan/plan-mode/README.md) — logged `plan/mode` state, the `plan:policy` guidance section, `/plan [message]` entry, `/plan off` direct exit, and the user-reviewed `exit_plan_mode` exit; enforcement stays on the independent sandbox/approval axes |
+| Plan mode | [`@lyness/lyn-plan-mode`](../../packages/plan/plan-mode/README.md) — logged `plan/mode` state, the `plan:policy` guidance section, `/plan [message]` entry, `/plan off` direct exit, and the user-reviewed `exit_plan_mode` exit; enforcement stays on the independent sandbox/approval axes |
 | Sub-agent delegation | the `ctx.subagents` provider registry (`lyn-subagent-spawn-in-process`/`lyn-subagent-fork-in-process`/`lyn-subagent-acp`/`lyn-subagent-codex`/`lyn-subagent-claude-code`/`lyn-subagent-lyn-sdk`) + `lyn-tool-subagent` exposing one configured provider to the model |
 | MCP | one plugin per server: discover tools → `ctx.tools.register()` |
 | Skills | section + tool registration; `inject()` skill content on invocation |

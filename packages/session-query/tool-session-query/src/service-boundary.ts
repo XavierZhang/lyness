@@ -1,15 +1,15 @@
 /**
  * Session-query service error containment and model-safe translation.
  *
- * @module @lyness/tool-session-query/service-boundary
+ * @module @lyness/lyn-tool-session-query/service-boundary
  */
 
 import type { Context } from '@lyness/cordis'
-import { HarnessError } from '@lyness/llm'
+import { HarnessError } from '@lyness/lyn-llm'
 import {
   SessionQueryError,
   type SessionQueryErrorCode,
-} from '@lyness/session-query'
+} from '@lyness/lyn-session-query'
 
 interface ModelSafeServiceFailure {
   readonly code: SessionQueryErrorCode | 'SESSION_QUERY_TOOL_FAILED'

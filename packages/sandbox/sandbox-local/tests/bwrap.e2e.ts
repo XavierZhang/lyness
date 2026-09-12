@@ -5,8 +5,8 @@ import { homedir, tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import type { SandboxPolicy } from '@lyness/sandbox'
-import { LocalSandboxProvider } from '@lyness/sandbox-local'
+import type { SandboxPolicy } from '@lyness/lyn-sandbox'
+import { LocalSandboxProvider } from '@lyness/lyn-sandbox-local'
 import { bwrapProfileArgs } from '../src/profiles.ts'
 
 /**

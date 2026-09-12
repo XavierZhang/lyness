@@ -1,10 +1,10 @@
-/** Package-owned subagent registry and lifecycle invariants. @module @lyness/subagent/invariant */
+/** Package-owned subagent registry and lifecycle invariants. @module @lyness/lyn-subagent/invariant */
 
 import type { Context } from '@lyness/cordis'
-import type { InvariantFailure, InvariantInstaller } from '@lyness/invariants'
+import type { InvariantFailure, InvariantInstaller } from '@lyness/lyn-invariants'
 import type { SubagentProvider, SubagentRunEndInfo, SubagentRunInfo } from './types.ts'
 
-const PACKAGE_NAME = '@lyness/subagent'
+const PACKAGE_NAME = '@lyness/lyn-subagent'
 
 /** Cordis companion plugin name. */
 export const name = 'subagent-invariant'

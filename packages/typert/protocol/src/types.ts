@@ -1,7 +1,7 @@
 /**
  * Compiler-independent Typert protocol shared by business packages, generated
  * Remote artifacts, the Host Gateway, and Client API implementations.
- * @module @lyness/typert-protocol/types
+ * @module @lyness/lyn-typert-protocol/types
  */
 
 import type { Context, Events } from '@lyness/cordis'

@@ -3,7 +3,7 @@ description: "Shared Loader boot support for lyn profiles and the temporary Pyth
 kind: "package-library"
 ---
 
-# @lyness/app-boot
+# @lyness/lyn-app-boot
 
 English | [中文](README.zh.md)
 
@@ -45,7 +45,7 @@ With that entry point, success looks like a running app with every plugin active
 <a id="profiles"></a>
 ### Profiles
 
-Import profile and bundle declaration types from [`@lyness/package-manifest`](../../util/package-manifest/README.md). App-boot owns profile loading, JSON validation, and resolved runtime data.
+Import profile and bundle declaration types from [`@lyness/lyn-package-manifest`](../../util/package-manifest/README.md). App-boot owns profile loading, JSON validation, and resolved runtime data.
 
 A profile is how one lyn installation ships different app surfaces: `web`, `headless`, `acp`, `sdk`, and `sdk-minimal` start distinct compositions from the same launcher. A profile lives at `$LYNESS_HOME/profiles/<name>` and combines installable bundles, its own `cordis.patch.yml`, and `patchReload: live | startup`; omitted reload policy keeps the historical `live` default for custom profiles. The shipped `web` template uses live reload, while the other shipped templates apply patches only at startup. `sdk-minimal` names only its standalone bundle; the other templates retain base-plus-mode stacks. `lyn --profile <name> --from-default-profile <template>` creates a custom profile at a new non-shipped name from one shipped template, while `lyn plugin` initializes a base-backed profile and manages its installed bundles. A missing bundle or one without a patch declaration fails startup loudly. Application-owned npm projects, such as Electron's reserved Desktop profile, use `loadProfileDirectory` to load an already initialized directory without exposing it through CLI profile lookup.
 

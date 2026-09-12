@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { AttachmentId, ImageVariantId } from '@lyness/attachment'
-import type { AttachmentStore, ImageMediaType } from '@lyness/attachment'
+import { AttachmentId, ImageVariantId } from '@lyness/lyn-attachment'
+import type { AttachmentStore, ImageMediaType } from '@lyness/lyn-attachment'
 import {
   ToolCallId,
   contentHasFile,

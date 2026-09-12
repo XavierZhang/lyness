@@ -1,8 +1,8 @@
 /** Compiled synthetic model for the shipped sdk-minimal profile; tools remain production plugins. */
 
 import type { Context } from '@lyness/cordis'
-import { LlmAdapter, ToolCallId } from '@lyness/llm'
-import type { GenerateOptions, LlmResolvedModelInfo, StreamChunk } from '@lyness/llm'
+import { LlmAdapter, ToolCallId } from '@lyness/lyn-llm'
+import type { GenerateOptions, LlmResolvedModelInfo, StreamChunk } from '@lyness/lyn-llm'
 import { response, WORKLOAD } from './workload.ts'
 
 class ProfileAdapter extends LlmAdapter {

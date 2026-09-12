@@ -9,13 +9,13 @@
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { act, cleanup, fireEvent, render, screen } from '@testing-library/react'
-import { createSnapshotStore } from '@lyness/client-store'
-import { makeTranslate } from '@lyness/client-test-runtime'
-import { zh as commonZh } from '@lyness/client-locale/src/locales/zh.ts'
+import { createSnapshotStore } from '@lyness/lyn-client-store'
+import { makeTranslate } from '@lyness/lyn-client-test-runtime'
+import { zh as commonZh } from '@lyness/lyn-client-locale/src/locales/zh.ts'
 import { zh } from '../src/client/locales.ts'
 import type {
   InputTriggerCrumb, MenuState, TriggerHit,
-} from '@lyness/client-ui-input-trigger/client'
+} from '@lyness/lyn-client-ui-input-trigger/client'
 import { MenuView } from '../src/client/MenuView.tsx'
 
 const hit: TriggerHit = {

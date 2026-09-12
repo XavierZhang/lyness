@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/client-ui-brand-official",
+  "name": "@lyness/lyn-client-ui-brand-official",
   "description": "Official lyness brand occupants for the Web client's sidebar slots",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -28,8 +28,8 @@
   "lyn": {
     "client": {
       "inject": [
-        "@lyness/client-ui-renderer",
-        "@lyness/client-ui-sidebar"
+        "@lyness/lyn-client-ui-renderer",
+        "@lyness/lyn-client-ui-sidebar"
       ],
       "platform": "web"
     }
@@ -43,9 +43,9 @@
     "@lyness/cordis": "workspace:^"
   },
   "devDependencies": {
-    "@lyness/client-ui-primitives": "workspace:^",
-    "@lyness/client-ui-renderer": "workspace:^",
-    "@lyness/client-ui-sidebar": "workspace:^",
+    "@lyness/lyn-client-ui-primitives": "workspace:^",
+    "@lyness/lyn-client-ui-renderer": "workspace:^",
+    "@lyness/lyn-client-ui-sidebar": "workspace:^",
     "@lyness/cordis": "workspace:^",
     "@testing-library/react": "^16.1.0",
     "@types/react": "~18.3.1",

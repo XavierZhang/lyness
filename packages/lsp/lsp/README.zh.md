@@ -3,7 +3,7 @@ description: "LSP 能力 seam（ctx.lsp）：按文件扩展名选择提供方�
 kind: "package-reference"
 ---
 
-# @lyness/lsp
+# @lyness/lyn-lsp
 
 [English](README.md) | 中文
 
@@ -36,11 +36,11 @@ kind: "package-reference"
 seam 需要提供方与消费方才能发挥作用。最小组合挂载服务、stdio 提供方与工具：
 
 ```yaml
-- name: '@lyness/fs-local'
-- name: '@lyness/subprocess-local'
-- name: '@lyness/lsp'
-- name: '@lyness/lsp-stdio'
-- name: '@lyness/tool-lsp'
+- name: '@lyness/lyn-fs-local'
+- name: '@lyness/lyn-subprocess-local'
+- name: '@lyness/lyn-lsp'
+- name: '@lyness/lyn-lsp-stdio'
+- name: '@lyness/lyn-tool-lsp'
 ```
 
 服务器命令、扩展名映射与文件系统／子进程配对在提供方与工具包中配置；见 [lyn-lsp-stdio](../lsp-stdio/README.zh.md) 与 [lyn-tool-lsp](../tool-lsp/README.zh.md)。

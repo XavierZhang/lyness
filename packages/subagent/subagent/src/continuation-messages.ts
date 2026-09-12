@@ -1,13 +1,13 @@
 /**
  * Model-visible messages owned by continuable-subagent orchestration.
  *
- * @module @lyness/subagent/continuation-messages
+ * @module @lyness/lyn-subagent/continuation-messages
  */
 
-import type { Agent } from '@lyness/agent'
-import { boundContextSummary, createUserMessage } from '@lyness/llm'
-import type { ContentBlock } from '@lyness/llm'
-import type { SessionId } from '@lyness/session'
+import type { Agent } from '@lyness/lyn-agent'
+import { boundContextSummary, createUserMessage } from '@lyness/lyn-llm'
+import type { ContentBlock } from '@lyness/lyn-llm'
+import type { SessionId } from '@lyness/lyn-session'
 import type { ActivationTerminal } from './lifecycle.ts'
 import type { SubagentResult } from './types.ts'
 
@@ -37,7 +37,7 @@ export interface SubagentSettledMessageSource {
   readonly senderSessionId: SessionId
 }
 
-declare module '@lyness/llm' {
+declare module '@lyness/lyn-llm' {
   interface MessageSourceMap {
     'agent-message': AgentMessageSource
     'subagent-settled': SubagentSettledMessageSource

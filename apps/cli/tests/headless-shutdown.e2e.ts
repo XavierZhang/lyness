@@ -4,7 +4,7 @@ import { join } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { execa } from 'execa'
 import { describe, expect, it } from 'vitest'
-import { LOADER_SMOKE_TEST_TIMEOUT_MS, resolveExampleLaunch } from '@lyness/loader-smoke'
+import { LOADER_SMOKE_TEST_TIMEOUT_MS, resolveExampleLaunch } from '@lyness/lyn-loader-smoke'
 
 const lynBinScript = fileURLToPath(new URL('../src/bin.ts', import.meta.url))
 const tsconfigPath = fileURLToPath(new URL('../../../tsconfig.json', import.meta.url))
@@ -73,7 +73,7 @@ async function runHeadlessPtySmoke(): Promise<string> {
       name: 'lyn-profile-headless',
       private: true,
       dependencies: {},
-      lyn: { profile: { bundles: ['@lyness/base', '@lyness/headless'] } },
+      lyn: { profile: { bundles: ['@lyness/lyn-base', '@lyness/lyn-headless'] } },
     }, undefined, 2))
     await writeFile(join(profileDir, 'cordis.patch.yml'), [
       '- insert:',

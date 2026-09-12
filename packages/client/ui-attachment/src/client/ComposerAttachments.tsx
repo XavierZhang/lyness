@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type {
   ComposerAttachment, ComposerAttachmentsProps, ComposerImageAttachment,
-} from '@lyness/client-ui-conversation/client'
-import { IconCloseFill14 } from '@lyness/client-ui-primitives'
+} from '@lyness/lyn-client-ui-conversation/client'
+import { IconCloseFill14 } from '@lyness/lyn-client-ui-primitives'
 import { AttachmentRail } from '../AttachmentRail.tsx'
 import type { AttachmentRailItem } from '../AttachmentRail.tsx'
 import { DropOverlay } from '../DropOverlay.tsx'

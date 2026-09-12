@@ -1,7 +1,7 @@
 /**
  * E2B Service Provider for the subprocess capability seam. Each handle starts through the
  * shared sandbox and retains command output/status paths in that remote world.
- * @module @lyness/subprocess-e2b
+ * @module @lyness/lyn-subprocess-e2b
  */
 
 import { randomUUID } from 'node:crypto'
@@ -9,15 +9,15 @@ import { posix } from 'node:path'
 import { inspect } from 'node:util'
 import { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import { SubprocessRuntime } from '@lyness/subprocess'
-import { MAX_TIMER_DELAY_MS } from '@lyness/timeout'
+import { SubprocessRuntime } from '@lyness/lyn-subprocess'
+import { MAX_TIMER_DELAY_MS } from '@lyness/lyn-timeout'
 import type {
   SubprocessHandle,
   SubprocessSpawnSpec,
   SubprocessTerminalHandle,
   SubprocessTerminalSpawnSpec,
-} from '@lyness/subprocess'
-import { e2bControlEnvs, quoteE2BShellArg } from '@lyness/e2b'
+} from '@lyness/lyn-subprocess'
+import { e2bControlEnvs, quoteE2BShellArg } from '@lyness/lyn-e2b'
 import { E2BSubprocessHandle } from './process.ts'
 import { asError, signalOpts } from './remote.ts'
 import { spawnE2BTerminal } from './terminal.ts'

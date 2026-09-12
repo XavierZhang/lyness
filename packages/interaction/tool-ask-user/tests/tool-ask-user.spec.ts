@@ -1,14 +1,14 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { ToolCallId } from '@lyness/llm'
-import AgentRegistry, { type Agent } from '@lyness/agent'
-import SystemPrompt from '@lyness/system-prompt'
-import ToolRuntime from '@lyness/tools'
+import { ToolCallId } from '@lyness/lyn-llm'
+import AgentRegistry, { type Agent } from '@lyness/lyn-agent'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime from '@lyness/lyn-tools'
 import UserQuestionService, {
   type AskUserQuestionAnswer,
   type AskUserQuestionRequest,
-} from '@lyness/user-questions'
-import * as toolAskUser from '@lyness/tool-ask-user'
+} from '@lyness/lyn-user-questions'
+import * as toolAskUser from '@lyness/lyn-tool-ask-user'
 
 const testToolSignal = new AbortController().signal
 

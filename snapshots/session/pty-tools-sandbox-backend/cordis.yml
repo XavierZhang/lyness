@@ -2,9 +2,9 @@
 # deployment already owns the shared sandbox provider and policy.
 - insert:
     - id: pty
-      name: '@lyness/terminal'
+      name: '@lyness/lyn-terminal'
     - id: terminal-bash
-      name: '@lyness/terminal-bash'
+      name: '@lyness/lyn-terminal-bash'
       config:
         pollIntervalMs: 10
         exactProbeAfterMs: 20
@@ -13,4 +13,4 @@
         timeoutMs: 2000
         disposeGraceMs: 500
     - id: tool-terminal
-      name: '@lyness/tool-terminal'
+      name: '@lyness/lyn-tool-terminal'

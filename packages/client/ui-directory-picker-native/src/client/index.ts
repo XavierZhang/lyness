@@ -9,9 +9,9 @@
  */
 import type { Context as ClientContext } from '@lyness/cordis'
 // Type-only: pulls the SlotMap merge declaring the directory-flow holes.
-import type {} from '@lyness/client-ui-workspace/client'
+import type {} from '@lyness/lyn-client-ui-workspace/client'
 // Type-only: pulls the SlotRegistry service merge (ctx.slots).
-import type {} from '@lyness/client-ui-renderer/client'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
 import type { NativeFlowInjected } from './flow.ts'
 import { NativeDirectoryFlow } from './flow.ts'
 

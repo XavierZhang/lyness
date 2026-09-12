@@ -5,36 +5,36 @@ const CLIENT_FACE_INCLUDE: readonly string[] = []
 
 /** Packages exempted from automatic Client/Host treatment despite declaring `lyn.client`. */
 const CLIENT_FACE_EXCLUDE: readonly string[] = [
-  '@lyness/api-session-controller',
-  '@lyness/api-workspace-controller',
+  '@lyness/lyn-api-session-controller',
+  '@lyness/lyn-api-workspace-controller',
 ]
 
 /** Host-only packages whose peer relays are deliberately flattened. */
 const HOST_DEPENDENCY_PACKAGES: readonly string[] = [
-  '@lyness/llm',
-  '@lyness/session',
+  '@lyness/lyn-llm',
+  '@lyness/lyn-session',
 ]
 
 /** Development-only package relationships not represented by source imports. */
 const CONFIGURATION_ONLY_DEV_DEPENDENCIES = {
-  '@lyness/client-locale': ['@lyness/api-remotes'],
-  '@lyness/client-ui-conversation': [
-    '@lyness/api-remotes',
-    '@lyness/client-ui-workspace',
+  '@lyness/lyn-client-locale': ['@lyness/lyn-api-remotes'],
+  '@lyness/lyn-client-ui-conversation': [
+    '@lyness/lyn-api-remotes',
+    '@lyness/lyn-client-ui-workspace',
   ],
-  '@lyness/client-ui-model-selection': ['@lyness/client-ui-input-trigger'],
-  '@lyness/client-ui-sidebar': ['@lyness/client-ui-workspace'],
-  '@lyness/client-ui-subagent': ['@lyness/client-ui-input-trigger'],
-  '@lyness/client-ui-theme': ['@lyness/api-remotes'],
-  '@lyness/client-ui-tool': ['@lyness/api-remotes'],
+  '@lyness/lyn-client-ui-model-selection': ['@lyness/lyn-client-ui-input-trigger'],
+  '@lyness/lyn-client-ui-sidebar': ['@lyness/lyn-client-ui-workspace'],
+  '@lyness/lyn-client-ui-subagent': ['@lyness/lyn-client-ui-input-trigger'],
+  '@lyness/lyn-client-ui-theme': ['@lyness/lyn-api-remotes'],
+  '@lyness/lyn-client-ui-tool': ['@lyness/lyn-api-remotes'],
 } as const satisfies Readonly<Record<string, readonly string[]>>
 
 /** Workspace packages whose complete runtime surface is safe across duplicate installations. */
 const DUPLICATE_SAFE_PACKAGES: readonly string[] = [
-  '@lyness/brand',
-  '@lyness/typert-protocol',
-  '@lyness/util-crypto',
-  '@lyness/util-values',
+  '@lyness/lyn-brand',
+  '@lyness/lyn-typert-protocol',
+  '@lyness/lyn-util-crypto',
+  '@lyness/lyn-util-values',
 ]
 
 /**
@@ -44,19 +44,19 @@ const DUPLICATE_SAFE_PACKAGES: readonly string[] = [
  * prominent heading in the pull request description.
  */
 const SAFE_HOST_DEPENDENCY_EXPORTS = {
-  '@lyness/credentials': ['credentialKey'],
-  '@lyness/deque': ['Deque'],
-  '@lyness/llm': ['callConfigEquals'],
-  '@lyness/session-format': ['sessionFormatLogFilename'],
-  '@lyness/timeout': ['MAX_TIMER_DELAY_MS'],
+  '@lyness/lyn-credentials': ['credentialKey'],
+  '@lyness/lyn-deque': ['Deque'],
+  '@lyness/lyn-llm': ['callConfigEquals'],
+  '@lyness/lyn-session-format': ['sessionFormatLogFilename'],
+  '@lyness/lyn-timeout': ['MAX_TIMER_DELAY_MS'],
   '@lyness/schemastery': ['default'],
 } as const satisfies HostDependencyExports
 
 /** Runtime exports that require every consumer to resolve the provider's shared peer instance. */
 const PEER_REQUIRED_HOST_EXPORTS = {
-  '@lyness/scope': ['carrierKeyOf', 'scopeOf', 'scopeTarget'],
-  '@lyness/session': ['SESSION_FORMAT_VERSION'],
-  '@lyness/session-persistence': ['SessionPersistenceNotFoundError'],
+  '@lyness/lyn-scope': ['carrierKeyOf', 'scopeOf', 'scopeTarget'],
+  '@lyness/lyn-session': ['SESSION_FORMAT_VERSION'],
+  '@lyness/lyn-session-persistence': ['SessionPersistenceNotFoundError'],
 } as const satisfies HostDependencyExports
 
 /** Exact import specifier to reviewed runtime exports. */

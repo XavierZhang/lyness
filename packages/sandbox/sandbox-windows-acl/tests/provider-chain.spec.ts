@@ -10,8 +10,8 @@
 import { tmpdir } from 'node:os'
 import { describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import type { SandboxPolicy } from '@lyness/sandbox'
-import { LocalSandboxProvider } from '@lyness/sandbox-local'
+import type { SandboxPolicy } from '@lyness/lyn-sandbox'
+import { LocalSandboxProvider } from '@lyness/lyn-sandbox-local'
 
 const RO: SandboxPolicy = { mode: 'read-only', workspaceRoot: '/ws' }
 const WW: SandboxPolicy = { mode: 'workspace-write', workspaceRoot: '/ws' }

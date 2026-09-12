@@ -3,13 +3,13 @@ description: "Shared resolution of the lyness home and user-data paths for packa
 kind: "package-library"
 ---
 
-# @lyness/home-paths
+# @lyness/lyn-home-paths
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`@lyness/home-paths` lets package authors resolve one lyness data root and derive child paths from it. An explicit path wins over `$LYNESS_HOME`, which wins over `~/.lyn`; blank environment values are ignored. Its public helpers can render the root without revealing an absolute machine path, expand only bare or current-user tilde forms, and canonicalize watch targets whose final components do not yet exist. Use it as a direct library dependency, not through `cordis.yml`.
+`@lyness/lyn-home-paths` lets package authors resolve one lyness data root and derive child paths from it. An explicit path wins over `$LYNESS_HOME`, which wins over `~/.lyn`; blank environment values are ignored. Its public helpers can render the root without revealing an absolute machine path, expand only bare or current-user tilde forms, and canonicalize watch targets whose final components do not yet exist. Use it as a direct library dependency, not through `cordis.yml`.
 
 ## Table of Contents
 
@@ -29,7 +29,7 @@ Use these helpers wherever a package must agree with the rest of the harness abo
 ### Resolving the home
 
 ```ts
-import { resolveLynHome, lynHomePath } from '@lyness/home-paths'
+import { resolveLynHome, lynHomePath } from '@lyness/lyn-home-paths'
 
 const home = resolveLynHome()                // configured path, else $LYNESS_HOME, else ~/.lyn
 const settings = lynHomePath('settings')     // join one child onto the resolved home

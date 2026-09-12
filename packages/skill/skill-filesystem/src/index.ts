@@ -6,7 +6,7 @@
  * user roots, parses YAML frontmatter, and loads bodies through `ctx.fs` when a
  * filesystem service is present.
  *
- * @module @lyness/skill-filesystem
+ * @module @lyness/lyn-skill-filesystem
  */
 
 import { access, lstat, readdir, readFile, stat } from 'node:fs/promises'
@@ -18,8 +18,8 @@ import chokidar from 'chokidar'
 import z from '@lyness/schemastery'
 import type Schema from '@lyness/schemastery'
 import { parse as parseYaml } from 'yaml'
-import type { FileSystem, FsDirEntry, FsTarget } from '@lyness/fs'
-import { canonicalizeWatchPath, resolveLynHome } from '@lyness/home-paths'
+import type { FileSystem, FsDirEntry, FsTarget } from '@lyness/lyn-fs'
+import { canonicalizeWatchPath, resolveLynHome } from '@lyness/lyn-home-paths'
 import {
   BUNDLED_SKILL_RANK,
   isSkillName,
@@ -31,7 +31,7 @@ import {
   type SkillProviderControl,
   type SkillProviderObservation,
   type SkillSource,
-} from '@lyness/skill'
+} from '@lyness/lyn-skill'
 
 const PROJECT_LYNESS_RANK = 100
 const PROJECT_AGENTS_RANK = 200

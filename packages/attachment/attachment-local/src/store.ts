@@ -7,13 +7,13 @@ import { dirname, join, parse, resolve } from 'node:path'
 import {
   AttachmentError,
   AttachmentId,
-} from '@lyness/attachment'
+} from '@lyness/lyn-attachment'
 import type {
   ImageAttachmentLimits,
   ImageAttachmentRef,
   SaveImageAttachment,
   StoredImageAttachment,
-} from '@lyness/attachment'
+} from '@lyness/lyn-attachment'
 import { normalizeImage } from './normalization.ts'
 import type { NormalizationPolicy } from './normalization.ts'
 import { detectImage, probeImage } from './image.ts'

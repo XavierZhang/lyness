@@ -1,7 +1,7 @@
 /** Explicit local-coordinate remapping; captured generations and owner-local counters remain opaque. */
 
-import { SessionFormatError, sessionFormatCount } from '@lyness/session-format'
-import type { SessionFormatEvent, SessionFormatJsonObject, SessionFormatJsonValue } from '@lyness/session-format'
+import { SessionFormatError, sessionFormatCount } from '@lyness/lyn-session-format'
+import type { SessionFormatEvent, SessionFormatJsonObject, SessionFormatJsonValue } from '@lyness/lyn-session-format'
 import { record } from './payload.ts'
 
 /**

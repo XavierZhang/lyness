@@ -23,7 +23,7 @@
 
 import { useState } from 'react'
 import type { ReactNode } from 'react'
-import type { JsonValue } from '@lyness/util-values'
+import type { JsonValue } from '@lyness/lyn-util-values'
 import { apiKeyFailure } from './apiKey.ts'
 import { EditorFooter } from './EditorFooter.tsx'
 import { validateDeepSeekModels } from './DeepSeekModelsEditor.tsx'

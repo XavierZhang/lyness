@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { Button, IconEditOutline16, MarkdownText } from '@lyness/client-ui-primitives'
+import { Button, IconEditOutline16, MarkdownText } from '@lyness/lyn-client-ui-primitives'
 import type { PendingQuestion, PlanReview, QuestionComposerProps } from './contract/slots.ts'
 import css from './PlanReviewPanel.module.css'
 

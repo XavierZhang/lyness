@@ -1,14 +1,14 @@
 import { describe, expect, it } from 'vitest'
-import { SessionFormatEventCollector } from '@lyness/session-format'
+import { SessionFormatEventCollector } from '@lyness/lyn-session-format'
 import type {
   SessionFormatArtifact,
   SessionFormatArtifactDecoder,
   SessionFormatEvent,
   SessionFormatJsonObject,
   SessionFormatRecovery,
-} from '@lyness/session-format'
-import { decodeSeqRanges as decodeCurrentSeqRanges } from '@lyness/session'
-import { releasedV2SessionFormatCodec } from '@lyness/session-format-v1-to-v2'
+} from '@lyness/lyn-session-format'
+import { decodeSeqRanges as decodeCurrentSeqRanges } from '@lyness/lyn-session'
+import { releasedV2SessionFormatCodec } from '@lyness/lyn-session-format-v1-to-v2'
 
 const minimalPhysicalHeader = {
   type: 'session', version: 2, id: 'codec', createdAt: 1, isSeeded: false, delegationDepth: 0,

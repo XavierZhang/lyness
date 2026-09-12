@@ -2,12 +2,12 @@
  * Anonymous public HTTP(S) `WebFetchProvider` plugin. It contributes to the
  * `ctx.web` registry without owning the service.
  *
- * @module @lyness/web-fetch-http
+ * @module @lyness/lyn-web-fetch-http
  */
 
 import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import type {} from '@lyness/web'
+import type {} from '@lyness/lyn-web'
 import { HttpFetchProvider } from './provider.ts'
 import type { HttpFetchLimits } from './provider.ts'
 

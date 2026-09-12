@@ -7,12 +7,12 @@
  * infrastructure failures (spawn errors, aborts) surface as isError
  * results.
  *
- * @module @lyness/tool-pwsh/render
+ * @module @lyness/lyn-tool-pwsh/render
  */
 
-import type { ShellProcessRead, ShellSandboxInfo, CollectedOutput } from '@lyness/shell'
-import type { SandboxMode } from '@lyness/sandbox'
-import { escalationHintMarker, sandboxDenialMarker } from '@lyness/sandbox'
+import type { ShellProcessRead, ShellSandboxInfo, CollectedOutput } from '@lyness/lyn-shell'
+import type { SandboxMode } from '@lyness/lyn-sandbox'
+import { escalationHintMarker, sandboxDenialMarker } from '@lyness/lyn-sandbox'
 
 /* jscpd:ignore-start -- deliberate twin of lyn-tool-bash/render.ts (Agent Note). */
 

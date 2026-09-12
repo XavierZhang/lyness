@@ -2,26 +2,26 @@
 
 import { randomUUID } from 'node:crypto'
 import type { Context } from '@lyness/cordis'
-import { brandString } from '@lyness/brand'
-import type { Agent, ModelSelection as AgentModelSelection } from '@lyness/agent'
-import { AttachmentError } from '@lyness/attachment'
+import { brandString } from '@lyness/lyn-brand'
+import type { Agent, ModelSelection as AgentModelSelection } from '@lyness/lyn-agent'
+import { AttachmentError } from '@lyness/lyn-attachment'
 import type {
   AttachmentAdmissionPart, FileAttachmentRef, ImageAttachmentRef,
-} from '@lyness/attachment'
-import type { FileUploadReceiptId } from '@lyness/client-file-upload/types'
-import type {} from '@lyness/client-file-upload'
+} from '@lyness/lyn-attachment'
+import type { FileUploadReceiptId } from '@lyness/lyn-client-file-upload/types'
+import type {} from '@lyness/lyn-client-file-upload'
 import {
   ReasoningEffortId, assistantStreamChunks, createUserMessage, freezeMessage,
-} from '@lyness/llm'
-import type { MessageSource } from '@lyness/llm'
-import { SessionLogOffset, SessionSeq } from '@lyness/session'
-import type { SessionEvent, SessionHeader, SessionId, UserMessage } from '@lyness/session'
-import { SessionQueryError, type SessionObservation } from '@lyness/session-query'
-import { SessionTitleInvalidError } from '@lyness/session-title'
-import { canonicalClientTimeZone } from '@lyness/util-time'
-import { assertNever } from '@lyness/util-values'
-import { RemoteError, remoteErrorOf } from '@lyness/typert-protocol'
-import type { Workspace } from '@lyness/workspace'
+} from '@lyness/lyn-llm'
+import type { MessageSource } from '@lyness/lyn-llm'
+import { SessionLogOffset, SessionSeq } from '@lyness/lyn-session'
+import type { SessionEvent, SessionHeader, SessionId, UserMessage } from '@lyness/lyn-session'
+import { SessionQueryError, type SessionObservation } from '@lyness/lyn-session-query'
+import { SessionTitleInvalidError } from '@lyness/lyn-session-title'
+import { canonicalClientTimeZone } from '@lyness/lyn-util-time'
+import { assertNever } from '@lyness/lyn-util-values'
+import { RemoteError, remoteErrorOf } from '@lyness/lyn-typert-protocol'
+import type { Workspace } from '@lyness/lyn-workspace'
 import {
   ApiSessionAgentController,
   ApiSessionCwdConflict,

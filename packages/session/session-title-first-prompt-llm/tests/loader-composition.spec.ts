@@ -6,12 +6,12 @@ import { mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
-import LlmRuntime, { createUserMessage, LlmAdapter  } from '@lyness/llm'
-import type { GenerateOptions, StreamChunk } from '@lyness/llm'
-import SessionStore, { SessionId } from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import SessionTitleService from '@lyness/session-title'
-import * as providerPlugin from '@lyness/session-title-first-prompt-llm'
+import LlmRuntime, { createUserMessage, LlmAdapter  } from '@lyness/lyn-llm'
+import type { GenerateOptions, StreamChunk } from '@lyness/lyn-llm'
+import SessionStore, { SessionId } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import SessionTitleService from '@lyness/lyn-session-title'
+import * as providerPlugin from '@lyness/lyn-session-title-first-prompt-llm'
 
 let root: string | undefined
 let context: Context | undefined
@@ -37,15 +37,15 @@ async function loadComposition(): Promise<Context> {
   root = await mkdtemp(join(tmpdir(), 'lyn-title-loader-'))
   const configPath = join(root, 'cordis.yml')
   await writeFile(configPath, [
-    "- name: '@lyness/llm'",
-    "- name: '@lyness/session'",
-    "- name: '@lyness/session-projection'",
-    "- name: '@lyness/session-title'",
+    "- name: '@lyness/lyn-llm'",
+    "- name: '@lyness/lyn-session'",
+    "- name: '@lyness/lyn-session-projection'",
+    "- name: '@lyness/lyn-session-title'",
     '  config:',
     '    fallbackMaxWords: 5',
     '    fallbackMaxBytes: 40',
     '    maxTitleBytes: 80',
-    "- name: '@lyness/session-title-first-prompt-llm'",
+    "- name: '@lyness/lyn-session-title-first-prompt-llm'",
     '  config:',
     '    targetWords: 5',
     '    targetCjkCharacters: 10',
@@ -62,11 +62,11 @@ async function loadComposition(): Promise<Context> {
   await context.plugin(Loader)
   context.loader.builtins.include = Include
   const modules = new Map<string, unknown>([
-    ['@lyness/llm', LlmRuntime],
-    ['@lyness/session', SessionStore],
-    ['@lyness/session-projection', SessionProjectionRegistry],
-    ['@lyness/session-title', SessionTitleService],
-    ['@lyness/session-title-first-prompt-llm', providerPlugin],
+    ['@lyness/lyn-llm', LlmRuntime],
+    ['@lyness/lyn-session', SessionStore],
+    ['@lyness/lyn-session-projection', SessionProjectionRegistry],
+    ['@lyness/lyn-session-title', SessionTitleService],
+    ['@lyness/lyn-session-title-first-prompt-llm', providerPlugin],
   ])
   context.loader.internal = {
     version: 'v2',

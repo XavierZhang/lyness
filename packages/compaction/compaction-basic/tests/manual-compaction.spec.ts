@@ -1,37 +1,37 @@
 import { describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import AgentLoop from '@lyness/agent-loop'
-import { mountAgentLoopTestDependencies } from '@lyness/agent-loop-testkit'
-import InvariantRegistry from '@lyness/invariants'
-import { CommandId } from '@lyness/commands/brand'
-import * as SessionInvariant from '@lyness/session/invariant'
-import * as AgentInvariant from '@lyness/agent/invariant'
-import * as AgentLoopInvariant from '@lyness/agent-loop/invariant'
-import * as CompactionInvariant from '@lyness/compaction/invariant'
-import { BasicCompactionEngine } from '@lyness/compaction-basic'
-import { CompactionId, isCompactCheckpointSource, ManualCompactionError } from '@lyness/compaction'
-import type { CompactionResult } from '@lyness/compaction'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import { mountAgentLoopTestDependencies } from '@lyness/lyn-agent-loop-testkit'
+import InvariantRegistry from '@lyness/lyn-invariants'
+import { CommandId } from '@lyness/lyn-commands/brand'
+import * as SessionInvariant from '@lyness/lyn-session/invariant'
+import * as AgentInvariant from '@lyness/lyn-agent/invariant'
+import * as AgentLoopInvariant from '@lyness/lyn-agent-loop/invariant'
+import * as CompactionInvariant from '@lyness/lyn-compaction/invariant'
+import { BasicCompactionEngine } from '@lyness/lyn-compaction-basic'
+import { CompactionId, isCompactCheckpointSource, ManualCompactionError } from '@lyness/lyn-compaction'
+import type { CompactionResult } from '@lyness/lyn-compaction'
 import {
   createAssistantMessage,
   createUserMessage,
   LlmAdapter,
-} from '@lyness/llm'
+} from '@lyness/lyn-llm'
 import type {
   ContentBlock,
   LlmResolvedModelInfo,
   Message,
   StreamChunk,
   TokenUsage,
-} from '@lyness/llm'
-import SessionStore, { Session, SessionId, type SessionEvent } from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import LlmRuntime from '@lyness/llm'
-import TokenMeter from '@lyness/token-meter'
-import type { Agent } from '@lyness/agent'
+} from '@lyness/lyn-llm'
+import SessionStore, { Session, SessionId, type SessionEvent } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import LlmRuntime from '@lyness/lyn-llm'
+import TokenMeter from '@lyness/lyn-token-meter'
+import type { Agent } from '@lyness/lyn-agent'
 import type {
   SummarizationInput,
   SummaryResult,
-} from '@lyness/compaction-basic/src/summarizer.ts'
+} from '@lyness/lyn-compaction-basic/src/summarizer.ts'
 
 const MODEL = 'mock'
 const SIGNAL = new AbortController().signal

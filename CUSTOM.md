@@ -37,14 +37,8 @@
 | 文件/目录 | 改了什么 | 为什么必须改官方文件 | 日期 |
 |---|---|---|---|
 | 全仓库 6000 个文件 | 品牌改名 | 改名本质上无法用新增文件表达 | 2026-08-31 |
-| `scripts/verify-lyn-package-licenses.ts` | 按 `vendor/` 路径排除而非按名字前缀 | 去掉 `dsh-` 段后，`@lyness/agent` 与 vendored 的 `@lyness/cordis` 名字上无法区分 | 2026-08-31 |
-| `scripts/package-graph.ts` | 同上 | 同上 | 2026-08-31 |
-| ~~`packages/client/ui-settings-plugin-inventory/.../PluginInventorySettingsTab.tsx`~~ | 显示名不再剥离已不存在的前缀 | 已收编为 codemod 的 `display-prefix-strip` 规则，不再是手工改动 | 2026-09-10 |
-| `scripts/check-workspace-constraints.ts` | `checkLynFamilyVersion` 排除 vendored 与 Landlock 包 | 同「scope 判别符丢失」，见下节 | 2026-09-12 |
-| `scripts/verify-npm-install-layout.ts` | `isLynPackage` 改为「scope 内 + 排除 vendored」 | 同上 | 2026-09-12 |
 | `scripts/verify-public-repository-links.spec.ts` | 失效仓库名改为片段拼接 | 整串字面量被 `slug` 规则改写，门禁会去查一个从未被链接过的仓库 | 2026-09-12 |
 | `scripts/lint-rule-fingerprint.spec.ts` | 三条 sha256 指纹 | `.oxlintrc.json` 有一句规则提示文案含包名，被改名后哈希变化；规则数 89/88/84 与上游一致，可证规则集未变 | 2026-09-12 |
-| `apps/desktop/tests/{core-package-set,prepare-package-set,project-manager}.spec.ts` | 夹具按 `@lyness/*` 重排 | 排序断言把旧名的字典序写进了数据，见下节 | 2026-09-12 |
 | `packages/bundle/base/tests/base.spec.ts` | 遥测默认值断言改为 `DISABLED` + 空端点 | 上游 0.1.5 新增此测试钉住自己的默认值；改为钉住本 fork 的，它就成了遥测守卫 | 2026-09-12 |
 | `packages/bundle/base/cordis.patch.yml` | 遥测默认 `DISABLED`、去掉厂商端点 | 上游默认把完整会话记录发往自家 collector；服务他人用户的部署不能默认转发 | 2026-09-01 |
 
@@ -66,43 +60,27 @@ codemod 只改文本和路径。下面这些是它改完之后必然过期、必
 第 5、6 项没有门禁能自动修，只能靠失败信息定位。它们全都源于同一件事：
 **`@lyness/*` 的字典序与 `@deepseek-ai/dsh-*` 不同。**
 
-## ⚠️ 结构性问题：`@lyness/<name>` 丢掉了 scope 判别符
+## 包名判别符（已解决）
 
-**这是本二开最大的长期成本来源，需要你决策。**
+上游用包名中的 `dsh-` 段区分两类包。改名最初去掉了这一段，导致所有「按名字前缀识别自家包」的门禁失效，
+且有两种失效方式——其中一种是**静默**的：用常量拼出的前缀（`` `${LYNESS_PACKAGE}-` `` → `@lyness/lyn-`）
+不匹配任何包，检查通过却什么都没验证。累计 6 处门禁需要手工排除，一次上游同步就新带来 3 处。
 
-上游用包名中的 `dsh-` 段作为判别符：
+2026-09-12 改为**保留产品段**：
 
 | | 上游 | 本 fork |
 |---|---|---|
-| harness 包 | `@deepseek-ai/dsh-agent` | `@lyness/agent` |
+| harness 包 | `@deepseek-ai/dsh-agent` | `@lyness/lyn-agent` |
 | vendored 包 | `@deepseek-ai/cordis` | `@lyness/cordis` |
 
-上游靠 `startsWith('@deepseek-ai/dsh-')` 就能一句话区分两类包。我们把 `dsh-` 去掉后，
-**凡是「按名字前缀识别自家包」的门禁全部失效**，而且有两种失效方式：
+结构与上游同形，只换了名字。收益：
 
-1. 前缀变得过宽——`startsWith('@lyness/')` 把 vendored 包也算进自家包族；
-2. 前缀变成空集——`` `${LYNESS_PACKAGE}-` `` 变成 `@lyness/lyn-`，没有任何包匹配。
+- 6 处门禁排除**全部回退**，上游检查逐字生效，`hygiene` 对它们零改动通过
+- codemod 从 21 条规则减到 18 条——被删的三条只为掩盖去掉产品段的后果而存在
+- desktop 的 package-set 夹具排序回退（`lyn` < `lyn-base` < `lyn-desktop-host`，与 `dsh` 时一致）
 
-第二种更危险：它不报错，只是静默地什么都不检查。
-
-排序断言也受影响：`@lyness/base` < `@lyness/lyn`，而旧名下 `dsh` < `dsh-base`，
-凡是把包名字典序写进数据的夹具都要重排。
-
-### 已付成本
-
-累计 6 处门禁需要手工改写（见上表）。**每次合并上游都可能新增同类门禁**——
-本次 2151 个提交就新带来了 `verify-npm-install-layout`、family version coherence、
-desktop package set 三处。
-
-### 两个选项
-
-| | 做法 | 代价 |
-|---|---|---|
-| **A（现状）** | 保持 `@lyness/<name>`，逐个门禁按 `vendor/` 路径或名字集合排除 | 每次合并都要复查同类门禁；漏一个就是静默失效 |
-| **B（建议）** | 恢复判别段：harness 包改为 `@lyness/lyn-<name>`，vendored 保持 `@lyness/<name>` | 一次性改 codemod 一条规则（`@deepseek-ai/dsh-` → `@lyness/lyn-`）并重跑；之后上游所有同类门禁**逐字生效，零手工补丁** |
-
-B 的结构与上游完全同形，只是换了名字，所以上游怎么写门禁我们都不用管。
-代价是包名长一点（`@lyness/lyn-agent`）。A 的代价随时间累积且不封顶。
+代价：包名变长，`@lyness/lyn-agent` 读起来冗余——而门禁依赖的正是这份冗余。
+理由与被否方案见 [Agent Note](.agents/notes/implemented/process/2026-09-12-restoring-the-product-name-segment.md)。
 
 ## 我新增的文件/能力
 
@@ -140,7 +118,7 @@ B 的结构与上游完全同形，只是换了名字，所以上游怎么写门
 | 产品名（中文） | 无 | `领驭` | 未决 |
 | 仓库/标识 slug | `deepseek-harness` | `lyness` | 已完成；归档笔记冻结不动 |
 | CLI 命令名 | `dsh` | `lyn` | `apps/cli/package.json` bin |
-| npm scope | `@deepseek-ai/dsh-<name>` | `@lyness/<name>` | 已完成，241 个包 |
+| npm scope | `@deepseek-ai/dsh-<name>` | `@lyness/lyn-<name>`（harness）／`@lyness/<name>`（vendored） | 已完成。产品段**保留**——上游靠它区分两类包，去掉后 6 处门禁失效且其中一处静默失效（[记录](.agents/notes/implemented/process/2026-09-12-restoring-the-product-name-segment.md)） |
 | 用户数据目录 | `~/.dsh` / `$DSH_HOME` | `~/.lyn` / `$LYNESS_HOME` | `packages/util/home-paths`；目录名与环境变量前缀刻意不成对，用户 2026-08-31 定 |
 | 系统提示词身份 ⚠️ | `You are an AI agent powered by DeepSeek Harness.` | `...powered by lyness.`（已完成） | `packages/core/system-prompt/src/index.ts:412`（模型可见，改动需更新 snapshot） |
 | Web UI 品牌插槽 | `@deepseek-ai/dsh-client-ui-brand-official` | 新增 `ui-brand-lyness` | 插槽化，零官方文件改动 |

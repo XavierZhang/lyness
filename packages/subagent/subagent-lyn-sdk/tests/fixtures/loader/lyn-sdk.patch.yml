@@ -27,7 +27,7 @@
       name: './mock-delegating-llm.ts'
 
     - id: subagent-model-selection-settings
-      name: '@lyness/tool-subagent/model-selection-settings'
+      name: '@lyness/lyn-tool-subagent/model-selection-settings'
       config:
         enabled: true
         allowedModels:
@@ -45,7 +45,7 @@
 
     # providerName is omitted to exercise the shipped `lyn-sdk` default.
     - id: subagent-lyn-sdk
-      name: '@lyness/subagent-lyn-sdk'
+      name: '@lyness/lyn-subagent-lyn-sdk'
       config:
         profile: sdk
         patches: !!js JSON.parse(process.env.LYNESS_TEST_CHILD_PATCHES ?? '[]')

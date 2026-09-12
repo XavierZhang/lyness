@@ -1,6 +1,6 @@
 import { clientLibrary } from '../../client/tsdown.client.ts'
 
 export default clientLibrary(
-  '@lyness/client-test-runtime',
+  '@lyness/lyn-client-test-runtime',
   ['lib/types/index.js'],
 )

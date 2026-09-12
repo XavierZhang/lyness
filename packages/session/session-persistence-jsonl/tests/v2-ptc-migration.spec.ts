@@ -1,9 +1,9 @@
 /** Real JSONL publication and provider-neutral message preservation across the V2 PTC rename. */
 
 import { Context } from '@lyness/cordis'
-import { Session, SessionId } from '@lyness/session'
-import type { SessionFormatEvent } from '@lyness/session-format'
-import JsonlSessionPersistence from '@lyness/session-persistence-jsonl'
+import { Session, SessionId } from '@lyness/lyn-session'
+import type { SessionFormatEvent } from '@lyness/lyn-session-format'
+import JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
 import { createHash } from 'node:crypto'
 import { mkdir, mkdtemp, readFile, readdir, rm, stat, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
@@ -167,7 +167,7 @@ describe('JSONL V2 PTC publication and restore', () => {
     const systemMessage = {
       id: 'v2-to-v3-system-' + createHash('sha256')
         .update(JSON.stringify(['session-format-v2-to-v3', id, 1, 'step/start'])).digest('hex'),
-      role: 'system', source: { kind: 'plugin', plugin: '@lyness/system-prompt' }, content: [],
+      role: 'system', source: { kind: 'plugin', plugin: '@lyness/lyn-system-prompt' }, content: [],
     }
     expectedEvents.splice(2, 0, {
       type: 'system/message', seq: 2, time: 1002, surfaceOp: 'append',

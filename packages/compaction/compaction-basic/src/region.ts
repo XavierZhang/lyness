@@ -2,7 +2,7 @@
  * Surface retention selection and the shared log-recorded compaction
  * transaction for automatic open-turn and manual idle-session compaction.
  *
- * @module @lyness/compaction-basic/region
+ * @module @lyness/lyn-compaction-basic/region
  */
 
 import { randomUUID } from 'node:crypto'
@@ -13,14 +13,14 @@ import {
   compactCheckpointSource,
   toolPairingBalancedAfter,
   toolPairingBalancedBefore,
-} from '@lyness/compaction'
-import type { CompactionResult } from '@lyness/compaction'
-import type { CommandId } from '@lyness/commands/brand'
-import { createUserMessage, errorChain } from '@lyness/llm'
-import type { Message, UserMessage } from '@lyness/llm'
-import type { TokenMeasurement, TokenMeter } from '@lyness/token-meter'
-import { SessionSeq, type Session, type SessionEvent } from '@lyness/session'
-import type { Agent } from '@lyness/agent'
+} from '@lyness/lyn-compaction'
+import type { CompactionResult } from '@lyness/lyn-compaction'
+import type { CommandId } from '@lyness/lyn-commands/brand'
+import { createUserMessage, errorChain } from '@lyness/lyn-llm'
+import type { Message, UserMessage } from '@lyness/lyn-llm'
+import type { TokenMeasurement, TokenMeter } from '@lyness/lyn-token-meter'
+import { SessionSeq, type Session, type SessionEvent } from '@lyness/lyn-session'
+import type { Agent } from '@lyness/lyn-agent'
 import { frameSummary } from './summarizer.ts'
 import type { SummarizationInput, SummaryResult } from './summarizer.ts'
 

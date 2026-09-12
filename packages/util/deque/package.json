@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/deque",
+  "name": "@lyness/lyn-deque",
   "description": "Zero-dependency circular deque with amortized constant-time end operations and bounded vacant storage",
   "version": "0.1.5-rc.1",
   "publishConfig": {

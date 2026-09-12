@@ -1,4 +1,4 @@
-import type { TypertContext, TypertLookup } from '@lyness/typert-protocol'
+import type { TypertContext, TypertLookup } from '@lyness/lyn-typert-protocol'
 import type { AgentId } from './types.ts'
 
 /** Host-only live Agent object. */
@@ -6,7 +6,7 @@ export class Agent {
   constructor(readonly id: AgentId) {}
 }
 
-declare module '@lyness/typert-protocol' {
+declare module '@lyness/lyn-typert-protocol' {
   interface TypertLookupMap {
     agent: TypertLookup<Agent, AgentId>
   }

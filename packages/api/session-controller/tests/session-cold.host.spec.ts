@@ -4,25 +4,25 @@
  * isolation, and prompt failure mapping.
  */
 
-import { SESSION_FORMAT_VERSION, SessionLogOffset, SessionSeq } from '@lyness/session'
+import { SESSION_FORMAT_VERSION, SessionLogOffset, SessionSeq } from '@lyness/lyn-session'
 import { describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import SessionStore from '@lyness/session'
-import AgentRegistry from '@lyness/agent'
-import { SessionHistoryController } from '@lyness/api-session-controller/src/history.ts'
-import { subagentIdentityProjectionDefinition } from '@lyness/subagent/src/projection.ts'
-import TypertRegistry from '@lyness/typert-registry'
-import { createUserMessage, MessageId } from '@lyness/llm'
-import { snapshotSubagentDescriptor } from '@lyness/subagent'
-import { createInboxStub } from '@lyness/agent-loop-testkit'
-import type { Agent, Inbox } from '@lyness/agent'
-import type { SessionEvent, SessionHeader, SessionId } from '@lyness/session'
-import AttachmentStore from '@lyness/attachment'
+import SessionStore from '@lyness/lyn-session'
+import AgentRegistry from '@lyness/lyn-agent'
+import { SessionHistoryController } from '@lyness/lyn-api-session-controller/src/history.ts'
+import { subagentIdentityProjectionDefinition } from '@lyness/lyn-subagent/src/projection.ts'
+import TypertRegistry from '@lyness/lyn-typert-registry'
+import { createUserMessage, MessageId } from '@lyness/lyn-llm'
+import { snapshotSubagentDescriptor } from '@lyness/lyn-subagent'
+import { createInboxStub } from '@lyness/lyn-agent-loop-testkit'
+import type { Agent, Inbox } from '@lyness/lyn-agent'
+import type { SessionEvent, SessionHeader, SessionId } from '@lyness/lyn-session'
+import AttachmentStore from '@lyness/lyn-attachment'
 import type { SessionPromptRequest, SessionRequestId } from '../src/types.ts'
 import {
   SessionPersistenceRevision,
   type SessionPersistenceSnapshot,
-} from '@lyness/session-persistence'
+} from '@lyness/lyn-session-persistence'
 import {
   createSessionTestRemote,
   testSessionPersistence,
@@ -283,7 +283,7 @@ describe('Remote Agent and Session lookup policy', () => {
       list: () => Promise.resolve([meta]),
       inspect,
     })
-    const resumedSession = { id: sessionId, header: meta, events: [] } as unknown as import('@lyness/session').Session
+    const resumedSession = { id: sessionId, header: meta, events: [] } as unknown as import('@lyness/lyn-session').Session
     const resumedAgent = { id: sessionId, session: resumedSession, status: 'idle', ctx } as Agent
     const release = Promise.withResolvers<undefined>()
     const resume = vi.spyOn(ctx.agents, 'resume').mockImplementation(async () => {

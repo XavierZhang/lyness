@@ -4,8 +4,8 @@
  * the ordinary-process and terminal teardown ladders.
  */
 
-import { CommandExitError, e2bControlEnvs, SandboxNotFoundError } from '@lyness/e2b'
-import type { Sandbox } from '@lyness/e2b'
+import { CommandExitError, e2bControlEnvs, SandboxNotFoundError } from '@lyness/lyn-e2b'
+import type { Sandbox } from '@lyness/lyn-e2b'
 
 /**
  * Normalize an unknown rejection into an Error.

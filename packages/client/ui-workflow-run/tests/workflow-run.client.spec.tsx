@@ -1,26 +1,26 @@
 // @vitest-environment jsdom
-import type { GlobalStandardProps } from '@lyness/client-ui-slots'
+import type { GlobalStandardProps } from '@lyness/lyn-client-ui-slots'
 import { Context, Service } from '@lyness/cordis'
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import {
   ConversationNodeAssembler, UiConversation,
-} from '@lyness/client-ui-conversation/client'
+} from '@lyness/lyn-client-ui-conversation/client'
 import type {
   ConversationMatch, ConversationNodeDefinition, ConversationStartMatch,
   ConversationViewDefinition,
-} from '@lyness/client-ui-conversation/client'
-import type { ChatConversationViewNode } from '@lyness/client-ui-chat/client'
-import { SlotRegistry } from '@lyness/client-ui-renderer/client'
+} from '@lyness/lyn-client-ui-conversation/client'
+import type { ChatConversationViewNode } from '@lyness/lyn-client-ui-chat/client'
+import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
 import type {
   SessionListState, SessionLiveEventEntry,
-} from '@lyness/api-session-controller/client'
-import type { SessionEvent, SessionId } from '@lyness/session/types'
-import { apply as applyLocale, inject as localeInject } from '@lyness/client-locale/client'
+} from '@lyness/lyn-api-session-controller/client'
+import type { SessionEvent, SessionId } from '@lyness/lyn-session/types'
+import { apply as applyLocale, inject as localeInject } from '@lyness/lyn-client-locale/client'
 import {
   chatSnapshot as emptyChatSnapshot, conversationSnapshot, makeTranslate, sessionSnapshot,
   stubSettingsScope, workspaceSnapshot,
-} from '@lyness/client-test-runtime'
+} from '@lyness/lyn-client-test-runtime'
 import {
   WorkflowRunPanel, type WorkflowRunInjected, type WorkflowRunPanelProps,
 } from '../src/client/WorkflowRunPanel.tsx'

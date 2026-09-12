@@ -1,7 +1,7 @@
 /**
  * Shared ownership of one E2B sandbox. Capability adapters await the same SDK
  * handle, so filesystem and process operations inhabit one remote Linux world.
- * @module @lyness/e2b
+ * @module @lyness/lyn-e2b
  */
 
 import { randomUUID } from 'node:crypto'
@@ -9,7 +9,7 @@ import { posix } from 'node:path'
 import { Context, Service } from '@lyness/cordis'
 import z from '@lyness/schemastery'
 import { FileType, Sandbox, SandboxNotFoundError } from 'e2b'
-import { proxyRouteFor } from '@lyness/http-proxy'
+import { proxyRouteFor } from '@lyness/lyn-http-proxy'
 import { e2bApiUrl } from './api-url.ts'
 
 export {

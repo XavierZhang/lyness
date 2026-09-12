@@ -3,21 +3,21 @@ import {
   assertReleasedV2Header,
   releasedV2SessionFormatCodec,
   sessionFormatV1ToV2,
-} from '@lyness/session-format-v1-to-v2'
+} from '@lyness/lyn-session-format-v1-to-v2'
 import { assertReleasedV2Artifact } from '../src/testing/validation.ts'
 import {
   releasedV0SessionFormatCodec,
   releasedV1SessionFormatCodec,
   sessionFormatV0ToV1,
-} from '@lyness/session-format-v0-to-v1'
+} from '@lyness/lyn-session-format-v0-to-v1'
 import type {
   SessionFormatArtifact,
   SessionFormatEvent,
   SessionFormatEventRun,
   SessionFormatHeader,
   SessionFormatJsonObject,
-} from '@lyness/session-format'
-import { createSessionFormatCatalog, SessionFormatEventCollector } from '@lyness/session-format'
+} from '@lyness/lyn-session-format'
+import { createSessionFormatCatalog, SessionFormatEventCollector } from '@lyness/lyn-session-format'
 
 const message = {
   id: 'assistant-1',

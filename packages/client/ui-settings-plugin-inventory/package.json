@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/client-ui-settings-plugin-inventory",
+  "name": "@lyness/lyn-client-ui-settings-plugin-inventory",
   "description": "Read-only Cordis Loader inventory tab in Web Plugins settings",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -28,10 +28,10 @@
   "lyn": {
     "client": {
       "inject": [
-        "@lyness/api-remotes",
-        "@lyness/client-ui-settings",
-        "@lyness/client-locale",
-        "@lyness/client-ui-agent-preset"
+        "@lyness/lyn-api-remotes",
+        "@lyness/lyn-client-ui-settings",
+        "@lyness/lyn-client-locale",
+        "@lyness/lyn-client-ui-agent-preset"
       ],
       "platform": "web"
     }
@@ -45,20 +45,20 @@
     "@lyness/cordis": "workspace:^"
   },
   "devDependencies": {
-    "@lyness/api-remotes": "workspace:^",
-    "@lyness/client-locale": "workspace:^",
-    "@lyness/client-test-runtime": "workspace:^",
-    "@lyness/client-ui-agent-preset": "workspace:^",
-    "@lyness/client-ui-primitives": "workspace:^",
-    "@lyness/client-ui-settings": "workspace:^",
-    "@lyness/client-ui-slots": "workspace:^",
+    "@lyness/lyn-api-remotes": "workspace:^",
+    "@lyness/lyn-client-locale": "workspace:^",
+    "@lyness/lyn-client-test-runtime": "workspace:^",
+    "@lyness/lyn-client-ui-agent-preset": "workspace:^",
+    "@lyness/lyn-client-ui-primitives": "workspace:^",
+    "@lyness/lyn-client-ui-settings": "workspace:^",
+    "@lyness/lyn-client-ui-slots": "workspace:^",
     "@testing-library/react": "^16.1.0",
     "@types/react": "~18.3.1",
     "@lyness/cordis": "workspace:^",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "@lyness/client-ui-renderer": "workspace:^",
-    "@lyness/agent-presets": "workspace:^"
+    "@lyness/lyn-client-ui-renderer": "workspace:^",
+    "@lyness/lyn-agent-presets": "workspace:^"
   },
   "files": [
     "lib/index.js",

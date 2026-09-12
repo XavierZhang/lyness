@@ -12,23 +12,23 @@ import { isAbsolute, join } from 'node:path'
 import {
   SESSION_FORMAT_VERSION,
   SessionLogOffset,
-} from '@lyness/session'
+} from '@lyness/lyn-session'
 import type {
   SessionEvent,
   SessionHeader,
   SessionId,
   SessionLogOffset as SessionLogOffsetType,
-} from '@lyness/session'
-import { parseSessionFormatLogFilename, sessionFormatLogFilename, SessionFormatUnsupportedMigrationError } from '@lyness/session-format'
-import type { SessionFormatEvent } from '@lyness/session-format'
-import type { SessionFormatRecovery, SessionFormatRestore } from '@lyness/session-format'
-import { sessionFormatCatalog } from '@lyness/session-format-catalog'
-import { assertV3RowAdmission } from '@lyness/session-format-v2-to-v3'
+} from '@lyness/lyn-session'
+import { parseSessionFormatLogFilename, sessionFormatLogFilename, SessionFormatUnsupportedMigrationError } from '@lyness/lyn-session-format'
+import type { SessionFormatEvent } from '@lyness/lyn-session-format'
+import type { SessionFormatRecovery, SessionFormatRestore } from '@lyness/lyn-session-format'
+import { sessionFormatCatalog } from '@lyness/lyn-session-format-catalog'
+import { assertV3RowAdmission } from '@lyness/lyn-session-format-v2-to-v3'
 import {
   SessionFormatUnsupportedError,
   sessionFormatVersionRefusal,
   type SessionStorageMetadata,
-} from '@lyness/session-persistence'
+} from '@lyness/lyn-session-persistence'
 
 /** Physical encoding selected for JSONL session artifacts. */
 export type JsonlCompression = 'zstd' | 'none'

@@ -4,10 +4,10 @@
  * chooser; the unchanged Host connector then owns the Worker handshake.
  * Everything after those calls is the served startup chain verbatim.
  */
-import LynWorker from '@lyness/experimental-webworker-runtime/worker?worker'
+import LynWorker from '@lyness/lyn-experimental-webworker-runtime/worker?worker'
 import {
   chooseWorkerHostSource, connectWorkerHost, IMAGE_FILE_NAME,
-} from '@lyness/experimental-webworker-runtime/client'
+} from '@lyness/lyn-experimental-webworker-runtime/client'
 
 const image = `preview/${IMAGE_FILE_NAME}`
 const source = await chooseWorkerHostSource({ image })

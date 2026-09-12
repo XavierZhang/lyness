@@ -3,7 +3,7 @@ description: "Plugins settings section for the lyn web client: feature-owned tab
 kind: "package-reference"
 ---
 
-# @lyness/client-ui-settings-plugins
+# @lyness/lyn-client-ui-settings-plugins
 
 English | [中文](README.zh.md)
 

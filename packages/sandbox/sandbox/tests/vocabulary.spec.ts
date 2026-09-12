@@ -7,7 +7,7 @@
  */
 
 import { describe, expect, it } from 'vitest'
-import { SANDBOX_UNAVAILABLE, SandboxUnavailableError } from '@lyness/sandbox'
+import { SANDBOX_UNAVAILABLE, SandboxUnavailableError } from '@lyness/lyn-sandbox'
 
 describe('SandboxUnavailableError', () => {
   it('carries the structured { name, code } identity consumers key on', () => {

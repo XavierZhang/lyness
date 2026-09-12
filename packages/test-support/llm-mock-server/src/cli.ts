@@ -1,6 +1,6 @@
 /**
  * Dependency-free CLI parsing for the standalone mock LLM server.
- * @module @lyness/llm-mock-server/cli
+ * @module @lyness/lyn-llm-mock-server/cli
  */
 
 import { parseArgs } from 'node:util'

@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import { cleanup, render } from '@testing-library/react'
 import { afterEach, describe, expect, it } from 'vitest'
-import { LinkIcon, classifyLinkPath, type LinkIconKind } from '@lyness/client-ui-primitives'
+import { LinkIcon, classifyLinkPath, type LinkIconKind } from '@lyness/lyn-client-ui-primitives'
 
 afterEach(cleanup)
 

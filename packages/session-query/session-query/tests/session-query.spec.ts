@@ -1,28 +1,28 @@
-import { createUserMessage, createMessage } from '@lyness/llm'
+import { createUserMessage, createMessage } from '@lyness/lyn-llm'
 import { describe, expect, it, vi } from 'vitest'
 import { Context, type Fiber } from '@lyness/cordis'
-import SessionStore, { SessionLogOffset, SessionSeq, SESSION_FORMAT_VERSION, SessionId } from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import type { SessionEvent, SessionHeader, SessionId as SessionIdType } from '@lyness/session'
+import SessionStore, { SessionLogOffset, SessionSeq, SESSION_FORMAT_VERSION, SessionId } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import type { SessionEvent, SessionHeader, SessionId as SessionIdType } from '@lyness/lyn-session'
 import SessionPersistence, {
   SessionPersistenceCorruptionError,
   SessionPersistenceNotFoundError,
   SessionPersistenceRevision,
   SessionReadOnlyError,
-} from '@lyness/session-persistence'
+} from '@lyness/lyn-session-persistence'
 import type {
   SessionAccess,
   SessionHandle,
   SessionHandleReadOptions,
   SessionHandleReadResult,
   SessionPersistenceSnapshot,
-} from '@lyness/session-persistence'
+} from '@lyness/lyn-session-persistence'
 import SessionQueryEngine, {
   SESSION_QUERY_DEFAULT_PERSISTED_INSPECT_CONCURRENCY,
   type SessionEventSurface,
   type SessionQueryErrorCode,
-} from '@lyness/session-query'
-import { SessionTitleProviderId, SessionTitleService } from '@lyness/session-title'
+} from '@lyness/lyn-session-query'
+import { SessionTitleProviderId, SessionTitleService } from '@lyness/lyn-session-title'
 import { TestSessionQueryEngine } from './test-service.ts'
 
 const TITLE_SERVICE_CONFIG = { fallbackMaxWords: 8, fallbackMaxBytes: 64, maxTitleBytes: 256 }

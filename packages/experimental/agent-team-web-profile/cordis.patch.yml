@@ -3,4 +3,4 @@
 
 - insert:
     - id: ui-agent-team
-      name: '@lyness/experimental-client-ui-agent-team'
+      name: '@lyness/lyn-experimental-client-ui-agent-team'

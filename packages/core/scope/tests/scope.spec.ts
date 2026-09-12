@@ -1,7 +1,7 @@
 import { describe, expect, expectTypeOf, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { bindScopeParent, carrierKeyOf, createScope, isScopeCarrier, scopeChainOf, scopeOf, scopeParentOf, scopeTarget } from '@lyness/scope'
-import type { Scope, Scoped } from '@lyness/scope'
+import { bindScopeParent, carrierKeyOf, createScope, isScopeCarrier, scopeChainOf, scopeOf, scopeParentOf, scopeTarget } from '@lyness/lyn-scope'
+import type { Scope, Scoped } from '@lyness/lyn-scope'
 
 declare module '@lyness/cordis' {
   interface Events {

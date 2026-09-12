@@ -1,4 +1,4 @@
-import { createUserMessage } from '@lyness/llm'
+import { createUserMessage } from '@lyness/lyn-llm'
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import {
@@ -6,12 +6,12 @@ import {
   CompactionEngine,
   compactCheckpointSource,
   isCompactCheckpointSource,
-} from '@lyness/compaction'
-import type { CompactionResult, CompactionTrigger } from '@lyness/compaction'
-import { Session, SessionId } from '@lyness/session'
-import type { SessionSeq } from '@lyness/session'
-import type { CompactionAgentContext } from '@lyness/compaction'
-import type { ManualCompactAgentContext } from '@lyness/compaction'
+} from '@lyness/lyn-compaction'
+import type { CompactionResult, CompactionTrigger } from '@lyness/lyn-compaction'
+import { Session, SessionId } from '@lyness/lyn-session'
+import type { SessionSeq } from '@lyness/lyn-session'
+import type { CompactionAgentContext } from '@lyness/lyn-compaction'
+import type { ManualCompactAgentContext } from '@lyness/lyn-compaction'
 
 /**
  * A trivial concrete CompactionEngine implementing the abstract contract. The

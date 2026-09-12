@@ -3,7 +3,7 @@ description: "Permission preset surfaces for the Web GUI: the General settings d
 kind: "package-reference"
 ---
 
-# @lyness/client-ui-permission-presets
+# @lyness/lyn-client-ui-permission-presets
 
 English | [中文](README.zh.md)
 

@@ -2,14 +2,14 @@
  * Host owner of the `credentials` Remote namespace: the reference half of
  * `ctx.credentials` as a browser configuration page reads and writes it.
  *
- * @module @lyness/api-settings-controller/src/credentials.ts
+ * @module @lyness/lyn-api-settings-controller/src/credentials.ts
  */
 
 import { Context } from '@lyness/cordis'
-import { credentialRef } from '@lyness/credentials'
-import type { CredentialProvider } from '@lyness/credentials'
-import type { CredentialInfo } from '@lyness/credentials/types'
-import { Remote, RemoteError, TypertRemoteService } from '@lyness/typert-protocol'
+import { credentialRef } from '@lyness/lyn-credentials'
+import type { CredentialProvider } from '@lyness/lyn-credentials'
+import type { CredentialInfo } from '@lyness/lyn-credentials/types'
+import { Remote, RemoteError, TypertRemoteService } from '@lyness/lyn-typert-protocol'
 import { z } from 'zod'
 
 /**
@@ -123,7 +123,7 @@ export class CredentialsController extends TypertRemoteService {
     if (credentials === undefined) {
       throw new RemoteError(
         'gateway/internal',
-        'credentials service is absent: this deployment does not mount a credential provider (e.g. @lyness/credentials-local) in its composition',
+        'credentials service is absent: this deployment does not mount a credential provider (e.g. @lyness/lyn-credentials-local) in its composition',
         {},
       )
     }

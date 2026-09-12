@@ -1,9 +1,9 @@
 import { describe, expect, expectTypeOf, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { Session, SessionId } from '@lyness/session'
-import AgentRegistry from '@lyness/agent'
-import type { Agent } from '@lyness/agent'
-import TerminalSessionService, { TerminalBackendCleanupError, TerminalError, TerminalSessionId } from '@lyness/terminal'
+import { Session, SessionId } from '@lyness/lyn-session'
+import AgentRegistry from '@lyness/lyn-agent'
+import type { Agent } from '@lyness/lyn-agent'
+import TerminalSessionService, { TerminalBackendCleanupError, TerminalError, TerminalSessionId } from '@lyness/lyn-terminal'
 import type {
   TerminalBackend,
   TerminalBackendSession,
@@ -13,8 +13,8 @@ import type {
   TerminalSessionId as TerminalSessionIdType,
   TerminalSessionStatus,
   TerminalSignal,
-} from '@lyness/terminal'
-import { unsupportedInbox } from '@lyness/agent-loop-testkit'
+} from '@lyness/lyn-terminal'
+import { unsupportedInbox } from '@lyness/lyn-agent-loop-testkit'
 
 const agentScopeDisposers = new WeakMap<Agent, () => Promise<void>>()
 const ptyServiceDisposers = new WeakMap<Context, () => Promise<void>>()

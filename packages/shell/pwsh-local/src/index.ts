@@ -10,18 +10,18 @@
  * shell-quoting layer to escape (the `bash -c` string domain has no
  * equivalent here). Native Win32 paths (`C:\...`) pass through unchanged.
  *
- * @module @lyness/pwsh-local
+ * @module @lyness/lyn-pwsh-local
  */
 
 /* jscpd:ignore-start -- this executor mirrors lyn-bash-local call-for-call by
    design (see this package's README), so the two import the same seam surface */
 import { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import { SHELL_SETTINGS_NAMESPACE, ShellExecutor } from '@lyness/shell'
-import type { ShellExecRequest, ShellExecSpec, ShellProcess, ShellProcessRead, ShellRunResult, CollectedOutput } from '@lyness/shell'
-import type { SubprocessCollect, SubprocessHandle, SubprocessOutputReader, SubprocessSpawnSpec } from '@lyness/subprocess'
-import type {} from '@lyness/settings'
-import { clampTimeout, deadline, MAX_TIMER_DELAY_MS, timeoutOf } from '@lyness/timeout'
+import { SHELL_SETTINGS_NAMESPACE, ShellExecutor } from '@lyness/lyn-shell'
+import type { ShellExecRequest, ShellExecSpec, ShellProcess, ShellProcessRead, ShellRunResult, CollectedOutput } from '@lyness/lyn-shell'
+import type { SubprocessCollect, SubprocessHandle, SubprocessOutputReader, SubprocessSpawnSpec } from '@lyness/lyn-subprocess'
+import type {} from '@lyness/lyn-settings'
+import { clampTimeout, deadline, MAX_TIMER_DELAY_MS, timeoutOf } from '@lyness/lyn-timeout'
 /* jscpd:ignore-end */
 import { resolvePwshPath } from './resolve.ts'
 
@@ -214,7 +214,7 @@ export class PwshLocalExecutor extends ShellExecutor {
    * The pwsh invocation argv for one resolved spec — the argv-level seam a
    * confining subclass wraps through `ctx.sandbox.confine` (the pwsh twin of
    * `lyn-bash-local`'s `runArgv`/`startArgv` hooks; see
-   * `@lyness/pwsh-sandbox`).
+   * `@lyness/lyn-pwsh-sandbox`).
    */
   protected argv(spec: ShellExecSpec): string[] {
     return [this.pwshPath, '-NoLogo', '-NoProfile', '-NonInteractive', '-Command', `${ENCODING_PREAMBLE}${spec.command}`]
@@ -359,7 +359,7 @@ export class PwshLocalExecutor extends ShellExecutor {
    * Settlement hook for subclasses that attach execution facts to a process.
    * The base implementation is intentionally empty. Mirrored from
    * `lyn-bash-local` (whose sandboxing subclass consumes the same hook); the
-   * pwsh-confining consumer is `@lyness/pwsh-sandbox`.
+   * pwsh-confining consumer is `@lyness/lyn-pwsh-sandbox`.
    * @param _proc - the settled process handle.
    * @param _stderr - the process's retained stderr tail used by subclasses for settlement classification.
    * @param _providerRejected - whether the subprocess promise rejected without a direct outcome.

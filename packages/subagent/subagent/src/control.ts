@@ -3,13 +3,13 @@
  * the live Agent registry, one browser zone's validation, and the stable
  * failure codes the Remote surface answers with.
  *
- * @module @lyness/subagent
+ * @module @lyness/lyn-subagent
  */
 
 import type { Context } from '@lyness/cordis'
-import { AttachmentError } from '@lyness/attachment'
-import type { SessionId } from '@lyness/session'
-import { RemoteError } from '@lyness/typert-protocol'
+import { AttachmentError } from '@lyness/lyn-attachment'
+import type { SessionId } from '@lyness/lyn-session'
+import { RemoteError } from '@lyness/lyn-typert-protocol'
 import { z } from 'zod'
 import type { SubagentCatalog, SubagentListEntry } from './control-types.ts'
 import { SubagentError } from './error.ts'
@@ -86,7 +86,7 @@ export function rejectCatalogRead(error: unknown, signal: AbortSignal): never {
   if (error instanceof SubagentError && error.code === 'SUBAGENT_CONTROL_PROJECTIONS_UNAVAILABLE') {
     throw new RemoteError(
       'subagent/projections-unavailable',
-      'subagent catalog is unavailable: this deployment does not mount the sessionProjections registry (load @lyness/session-projection)',
+      'subagent catalog is unavailable: this deployment does not mount the sessionProjections registry (load @lyness/lyn-session-projection)',
       {},
       { cause: error },
     )

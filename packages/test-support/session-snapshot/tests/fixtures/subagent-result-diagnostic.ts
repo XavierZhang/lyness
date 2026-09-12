@@ -5,8 +5,8 @@ import {
   NO_START_CAPABILITIES,
   type ResolvedSubagentStartRequest,
   type SubagentProvider,
-} from '@lyness/subagent'
-import { SessionId } from '@lyness/session'
+} from '@lyness/lyn-subagent'
+import { SessionId } from '@lyness/lyn-session'
 
 export const name = 'subagent-result-diagnostic'
 export const inject = ['subagents']

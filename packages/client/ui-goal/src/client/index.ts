@@ -7,24 +7,24 @@
  * This plugin does not create goals; deployments may expose /goal separately.
  */
 import type { Context as ClientContext } from '@lyness/cordis'
-import type { SessionId } from '@lyness/session/types'
-import type { HostObservable } from '@lyness/client-ui-slots'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { HostObservable } from '@lyness/lyn-client-ui-slots'
 // Type-only: pulls the generated Remote API and ctx.remote merge through the Client assembly boundary.
-import type {} from '@lyness/api-remotes/client'
+import type {} from '@lyness/lyn-api-remotes/client'
 // Type-only: pulls the Session Controller service used for projected goal state.
-import type {} from '@lyness/api-session-controller/client'
+import type {} from '@lyness/lyn-api-session-controller/client'
 // Type-only: pulls the Chat node slot and its keyed data map.
-import type {} from '@lyness/client-ui-chat/client'
+import type {} from '@lyness/lyn-client-ui-chat/client'
 // Type-only: pulls the Conversation service and input-dock slot.
-import type {} from '@lyness/client-ui-conversation/client'
+import type {} from '@lyness/lyn-client-ui-conversation/client'
 // Type-only: pulls the locale plugin's Context merge (ctx.locale).
-import type {} from '@lyness/client-locale/client'
+import type {} from '@lyness/lyn-client-locale/client'
 // Type-only: pulls the renderer-owned slots service.
-import type {} from '@lyness/client-ui-renderer/client'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
 // Type-only: pulls the Session standard useProjection seat.
-import type {} from '@lyness/client-ui-session/client'
+import type {} from '@lyness/lyn-client-ui-session/client'
 // Type-only: the `goal` SessionProjectionMap key merge (single source, the domain's pure outlet).
-import type { GoalProjection, GoalRef } from '@lyness/goal/client'
+import type { GoalProjection, GoalRef } from '@lyness/lyn-goal/client'
 import type { GoalActionResult, GoalBarInjected } from './slots.ts'
 import { createGoalActivationSource } from './activation-source.ts'
 import { GoalDock } from './GoalBar.tsx'
@@ -38,7 +38,7 @@ export type {
 } from './slots.ts'
 export type { GoalKey } from './locales.ts'
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface LocaleNamespaceMap {
     /** The goal strip's copy. */
     goal: GoalKey

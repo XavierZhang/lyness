@@ -2,16 +2,16 @@
  * Agent service: live registry, factory delegation, and process-local
  * initiator scope. Concrete creation and driving belong to the loop.
  *
- * @module @lyness/agent
+ * @module @lyness/lyn-agent
  */
 
 import { Context, FiberState, getTraceable, Service, symbols } from '@lyness/cordis'
 import type { Fiber } from '@lyness/cordis'
 import { AsyncLocalStorage } from 'node:async_hooks'
 import { isPromise } from 'node:util/types'
-import { scopeTarget } from '@lyness/scope'
-import type { Scoped } from '@lyness/scope'
-import type { SessionEvent, SessionId, SessionLogOffset } from '@lyness/session'
+import { scopeTarget } from '@lyness/lyn-scope'
+import type { Scoped } from '@lyness/lyn-scope'
+import type { SessionEvent, SessionId, SessionLogOffset } from '@lyness/lyn-session'
 import type { Agent } from './types.ts'
 import type { AgentOptions } from './runtime-types.ts'
 
@@ -234,7 +234,7 @@ interface FactorySlot {
  * Agent service (`ctx.agents`): tracks live agents and carries the initiating
  * Agent through one process-local asynchronous driver chain. Agent *creation*
  * is provided by whichever plugin implements the {@link AgentFactory}
- * (`@lyness/agent-loop`), registered via {@link setFactory}.
+ * (`@lyness/lyn-agent-loop`), registered via {@link setFactory}.
  *
  * Initiator methods provide same-process causal attribution only. Ambient
  * presence is neither liveness proof nor authorization; subjects and owners
@@ -258,13 +258,13 @@ export class AgentRegistry extends Service {
       typeCtx.typert.lookups.register('agent', {
         parameter: 'agent',
         wire: 'agentId',
-        hostTypeSymbol: '@lyness/agent#Agent',
-        wireTypeSymbol: '@lyness/session/types#SessionId',
+        hostTypeSymbol: '@lyness/lyn-agent#Agent',
+        wireTypeSymbol: '@lyness/lyn-session/types#SessionId',
         resolve: sessionId => this.get(sessionId),
       })
       typeCtx.typert.contexts.registerHost('agent', {
         wire: 'agentId',
-        wireTypeSymbol: '@lyness/session/types#SessionId',
+        wireTypeSymbol: '@lyness/lyn-session/types#SessionId',
         resolve: sessionId => this.get(sessionId)?.ctx,
       })
     })

@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/permission-presets",
+  "name": "@lyness/lyn-permission-presets",
   "description": "User-facing permission presets (ctx.permissionPresets) for the lyness: one product-level Permissions select bundling the sandbox-mode and approval-policy knobs, written through to their own session events",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -41,15 +41,15 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/shell": "workspace:^",
-    "@lyness/commands": "workspace:^",
-    "@lyness/invariants": "workspace:^",
-    "@lyness/sandbox": "workspace:^",
-    "@lyness/sandbox-policy": "workspace:^",
-    "@lyness/session": "workspace:^",
-    "@lyness/session-projection": "workspace:^",
-    "@lyness/settings": "workspace:^",
-    "@lyness/user-approval": "workspace:^",
+    "@lyness/lyn-shell": "workspace:^",
+    "@lyness/lyn-commands": "workspace:^",
+    "@lyness/lyn-invariants": "workspace:^",
+    "@lyness/lyn-sandbox": "workspace:^",
+    "@lyness/lyn-sandbox-policy": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
+    "@lyness/lyn-session-projection": "workspace:^",
+    "@lyness/lyn-settings": "workspace:^",
+    "@lyness/lyn-user-approval": "workspace:^",
     "@lyness/cordis": "workspace:^"
   },
   "dependencies": {
@@ -57,15 +57,15 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@lyness/shell": "workspace:^",
-    "@lyness/commands": "workspace:^",
-    "@lyness/invariants": "workspace:^",
-    "@lyness/sandbox": "workspace:^",
-    "@lyness/sandbox-policy": "workspace:^",
-    "@lyness/session": "workspace:^",
-    "@lyness/session-projection": "workspace:^",
-    "@lyness/settings": "workspace:^",
-    "@lyness/user-approval": "workspace:^",
+    "@lyness/lyn-shell": "workspace:^",
+    "@lyness/lyn-commands": "workspace:^",
+    "@lyness/lyn-invariants": "workspace:^",
+    "@lyness/lyn-sandbox": "workspace:^",
+    "@lyness/lyn-sandbox-policy": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
+    "@lyness/lyn-session-projection": "workspace:^",
+    "@lyness/lyn-settings": "workspace:^",
+    "@lyness/lyn-user-approval": "workspace:^",
     "@lyness/cordis": "workspace:^"
   }
 }

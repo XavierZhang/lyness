@@ -8,20 +8,20 @@
  * anything, while an in-flight stream keeps the facts it started with. The
  * one registration-captured fact — the retry policy — re-registers the route
  * in place when it changes.
- * @module @lyness/llm-deepseek
+ * @module @lyness/lyn-llm-deepseek
  */
 
 import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import { assertUsableApiKey, LlmError, resolveImageAttachmentAccess, resolveRetryPolicy, RetryPolicySchema } from '@lyness/llm'
-import type { ModelModality, RetryPolicyConfig } from '@lyness/llm'
-import type {} from '@lyness/fs'
-import { credentialRef } from '@lyness/credentials'
-import { launchEnvironmentOf, type LaunchEnvironmentSnapshot } from '@lyness/launch-environment'
-import type {} from '@lyness/settings'
-import { MAX_TIMER_DELAY_MS } from '@lyness/timeout'
-import { deepEqualJson } from '@lyness/util-values'
-import { getOrCreateAnonymousUserId, type AnonymousUserId } from '@lyness/anonymous-user-id'
+import { assertUsableApiKey, LlmError, resolveImageAttachmentAccess, resolveRetryPolicy, RetryPolicySchema } from '@lyness/lyn-llm'
+import type { ModelModality, RetryPolicyConfig } from '@lyness/lyn-llm'
+import type {} from '@lyness/lyn-fs'
+import { credentialRef } from '@lyness/lyn-credentials'
+import { launchEnvironmentOf, type LaunchEnvironmentSnapshot } from '@lyness/lyn-launch-environment'
+import type {} from '@lyness/lyn-settings'
+import { MAX_TIMER_DELAY_MS } from '@lyness/lyn-timeout'
+import { deepEqualJson } from '@lyness/lyn-util-values'
+import { getOrCreateAnonymousUserId, type AnonymousUserId } from '@lyness/lyn-anonymous-user-id'
 import {
   DEFAULT_CONTEXT_WINDOW,
   DEFAULT_FILE_EXPIRY_SECONDS,

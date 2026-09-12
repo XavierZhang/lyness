@@ -3,7 +3,7 @@ description: "Browser UI renderer: React slot bindings, ctx.uiRenderer, and the 
 kind: "package-reference"
 ---
 
-# @lyness/client-ui-renderer
+# @lyness/lyn-client-ui-renderer
 
 English | [中文](README.zh.md)
 

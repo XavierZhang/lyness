@@ -26,8 +26,8 @@ import {
   renderPageRegion,
   REGION_BEGIN,
   REGION_END,
-} from '@lyness/typert-generator'
-import type { CordisCatalogPolicy } from '@lyness/typert-generator'
+} from '@lyness/lyn-typert-generator'
+import type { CordisCatalogPolicy } from '@lyness/lyn-typert-generator'
 import { renderCordisCoreApiPages } from './cordis-core-api.ts'
 import { contextKeyMap, contextMergeFiles, eventNameList } from './cordis-walk.ts'
 import {

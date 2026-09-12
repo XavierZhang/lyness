@@ -1,8 +1,8 @@
 /** Pure terminal-card derivation from raw Tool call and result fields. @module */
-import type { TerminalBlockLabels, TerminalBlockProps } from '@lyness/client-ui-primitives'
-import type { TranslateNS } from '@lyness/client-ui-slots'
-import { resolveWorkspacePath } from '@lyness/util-workspace-path'
-import { hasSpillNotice } from '@lyness/spill-policy/notice'
+import type { TerminalBlockLabels, TerminalBlockProps } from '@lyness/lyn-client-ui-primitives'
+import type { TranslateNS } from '@lyness/lyn-client-ui-slots'
+import { resolveWorkspacePath } from '@lyness/lyn-util-workspace-path'
+import { hasSpillNotice } from '@lyness/lyn-spill-policy/notice'
 import type { ToolCallBlock } from './tool-call-model.ts'
 import { parsedToolCall, singleResultText, validEscalationFields } from './raw-tool-call.ts'
 
@@ -257,7 +257,7 @@ function terminalSendCall(name: string, args: Record<string, unknown>): Terminal
 }
 
 /**
- * Parse the marker literals owned by `@lyness/shell/render` without
+ * Parse the marker literals owned by `@lyness/lyn-shell/render` without
  * importing that Host-only package into the Client dependency graph.
  * @param text - rendered shell result text.
  * @returns output with a trailing exit-code or signal marker extracted.

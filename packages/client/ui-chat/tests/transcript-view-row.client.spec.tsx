@@ -1,12 +1,12 @@
 // @vitest-environment jsdom
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
-import type { SessionListState } from '@lyness/api-session-controller/client'
-import type { WorkspaceSnapshot } from '@lyness/api-workspace-controller/client'
-import type { SessionPendingInteractionSnapshot } from '@lyness/client-ui-session/client'
-import type { GlobalStandardProps } from '@lyness/client-ui-slots'
-import { createSnapshotStore } from '@lyness/client-store'
-import { bindSnapshotSelector, makeTranslate } from '@lyness/client-test-runtime'
+import type { SessionListState } from '@lyness/lyn-api-session-controller/client'
+import type { WorkspaceSnapshot } from '@lyness/lyn-api-workspace-controller/client'
+import type { SessionPendingInteractionSnapshot } from '@lyness/lyn-client-ui-session/client'
+import type { GlobalStandardProps } from '@lyness/lyn-client-ui-slots'
+import { createSnapshotStore } from '@lyness/lyn-client-store'
+import { bindSnapshotSelector, makeTranslate } from '@lyness/lyn-client-test-runtime'
 import { TranscriptViewRow, type TranscriptViewRowProps } from '../src/client/settings/TranscriptViewRow.tsx'
 import { en, zh } from '../src/client/locale.ts'
 

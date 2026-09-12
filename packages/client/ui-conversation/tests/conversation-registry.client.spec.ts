@@ -1,21 +1,21 @@
 import { Context } from '@lyness/cordis'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { SessionSeq } from '@lyness/session/types'
-import type { SessionId } from '@lyness/session/types'
-import { createAssistantMessage, LlmAttemptId } from '@lyness/llm'
-import { createSnapshotStore } from '@lyness/client-store'
+import { SessionSeq } from '@lyness/lyn-session/types'
+import type { SessionId } from '@lyness/lyn-session/types'
+import { createAssistantMessage, LlmAttemptId } from '@lyness/lyn-llm'
+import { createSnapshotStore } from '@lyness/lyn-client-store'
 import {
   createScope, MutableSessionEventSource,
-} from '@lyness/api-session-controller/client'
+} from '@lyness/lyn-api-session-controller/client'
 import type {
   ISessions, SessionBinding, SessionEventLike, SessionFace, SessionListState, SessionSnapshot,
-} from '@lyness/api-session-controller/client'
+} from '@lyness/lyn-api-session-controller/client'
 import {
   ConversationEventRegistry, ConversationNodeAssembler, ConversationViewRegistry, UiConversation,
-} from '@lyness/client-ui-conversation/client'
+} from '@lyness/lyn-client-ui-conversation/client'
 import type {
   ConversationNodeDefinition, ConversationViewDefinition, ConversationViewNode,
-} from '@lyness/client-ui-conversation/client'
+} from '@lyness/lyn-client-ui-conversation/client'
 
 const SESSION_ID = 'resident' as SessionId
 

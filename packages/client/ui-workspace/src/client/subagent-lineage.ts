@@ -1,6 +1,6 @@
 /** UI Workspace-owned projection of descendant counts from Session summaries. */
 
-import type { SessionId } from '@lyness/session/types'
+import type { SessionId } from '@lyness/lyn-session/types'
 
 interface LineageEntry {
   readonly id: SessionId

@@ -13,23 +13,23 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { Context } from '@lyness/cordis'
 import { z } from 'zod'
-import AgentRegistry from '@lyness/agent'
-import { AttachmentStore } from '@lyness/attachment'
-import { agentPresetProjectionDefinition } from '@lyness/agent-presets'
-import { createUserMessage } from '@lyness/llm'
-import SessionStore, { SESSION_FORMAT_VERSION, SessionId, SessionLogOffset, SessionSeq } from '@lyness/session'
-import type { Session, SessionEvent, SessionHeader, UserMessage } from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import type { ProjectionDefinition } from '@lyness/session-projection'
-import SessionProjectionCache, { projectionCacheDomainSpec } from '@lyness/session-projection-cache'
-import Storage from '@lyness/storage'
-import * as StorageDomain from '@lyness/storage-domain'
-import * as StorageJson from '@lyness/storage-json'
-import type { SessionControlFrame, SessionFollowFrame } from '@lyness/api-session-controller/types'
+import AgentRegistry from '@lyness/lyn-agent'
+import { AttachmentStore } from '@lyness/lyn-attachment'
+import { agentPresetProjectionDefinition } from '@lyness/lyn-agent-presets'
+import { createUserMessage } from '@lyness/lyn-llm'
+import SessionStore, { SESSION_FORMAT_VERSION, SessionId, SessionLogOffset, SessionSeq } from '@lyness/lyn-session'
+import type { Session, SessionEvent, SessionHeader, UserMessage } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import type { ProjectionDefinition } from '@lyness/lyn-session-projection'
+import SessionProjectionCache, { projectionCacheDomainSpec } from '@lyness/lyn-session-projection-cache'
+import Storage from '@lyness/lyn-storage'
+import * as StorageDomain from '@lyness/lyn-storage-domain'
+import * as StorageJson from '@lyness/lyn-storage-json'
+import type { SessionControlFrame, SessionFollowFrame } from '@lyness/lyn-api-session-controller/types'
 import {
   mountAgentLoopTestDependencies,
   mountAgentLoopTestHarness,
-} from '@lyness/agent-loop-testkit'
+} from '@lyness/lyn-agent-loop-testkit'
 import { createSessionTestRemote, testSessionPersistence, type TestSessionRemote } from './test-remote.ts'
 
 const ownedContexts = new Set<Context>()
@@ -39,7 +39,7 @@ afterEach(async () => {
 })
 let nextHarnessSession = 1
 
-declare module '@lyness/session-projection/types' {
+declare module '@lyness/lyn-session-projection/types' {
   interface SessionProjectionStateMap {
     'test/last-user': LastUserState
     'test/internal-count': number

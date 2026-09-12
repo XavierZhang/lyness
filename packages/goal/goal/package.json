@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/goal",
+  "name": "@lyness/lyn-goal",
   "description": "Event-sourced same-session goal state and lifecycle service for the lyness",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -53,14 +53,14 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/agent": "workspace:^",
-    "@lyness/session-projection": "workspace:^",
-    "@lyness/brand": "workspace:^",
-    "@lyness/invariants": "workspace:^",
-    "@lyness/llm": "workspace:^",
-    "@lyness/scope": "workspace:^",
-    "@lyness/session": "workspace:^",
-    "@lyness/typert-protocol": "workspace:^",
+    "@lyness/lyn-agent": "workspace:^",
+    "@lyness/lyn-session-projection": "workspace:^",
+    "@lyness/lyn-brand": "workspace:^",
+    "@lyness/lyn-invariants": "workspace:^",
+    "@lyness/lyn-llm": "workspace:^",
+    "@lyness/lyn-scope": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
+    "@lyness/lyn-typert-protocol": "workspace:^",
     "@lyness/cordis": "workspace:^"
   },
   "dependencies": {
@@ -68,21 +68,21 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@lyness/agent": "workspace:^",
-    "@lyness/agent-loop": "workspace:^",
-    "@lyness/agent-loop-testkit": "workspace:^",
-    "@lyness/bash-local": "workspace:^",
-    "@lyness/session-projection": "workspace:^",
-    "@lyness/brand": "workspace:^",
-    "@lyness/invariants": "workspace:^",
-    "@lyness/llm": "workspace:^",
-    "@lyness/loader-smoke": "workspace:^",
-    "@lyness/scope": "workspace:^",
-    "@lyness/session": "workspace:^",
-    "@lyness/session-checkpoint-policy": "workspace:^",
-    "@lyness/session-persistence-jsonl": "workspace:^",
-    "@lyness/subprocess-local": "workspace:^",
-    "@lyness/typert-protocol": "workspace:^",
+    "@lyness/lyn-agent": "workspace:^",
+    "@lyness/lyn-agent-loop": "workspace:^",
+    "@lyness/lyn-agent-loop-testkit": "workspace:^",
+    "@lyness/lyn-bash-local": "workspace:^",
+    "@lyness/lyn-session-projection": "workspace:^",
+    "@lyness/lyn-brand": "workspace:^",
+    "@lyness/lyn-invariants": "workspace:^",
+    "@lyness/lyn-llm": "workspace:^",
+    "@lyness/lyn-loader-smoke": "workspace:^",
+    "@lyness/lyn-scope": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
+    "@lyness/lyn-session-checkpoint-policy": "workspace:^",
+    "@lyness/lyn-session-persistence-jsonl": "workspace:^",
+    "@lyness/lyn-subprocess-local": "workspace:^",
+    "@lyness/lyn-typert-protocol": "workspace:^",
     "@lyness/cordis": "workspace:^"
   }
 }

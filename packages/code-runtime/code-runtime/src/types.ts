@@ -3,7 +3,7 @@
  * {@link ../index.ts | CodeRuntime} and what it gets back. Pure types — no
  * runtime code lives here.
  *
- * @module @lyness/code-runtime/src/types
+ * @module @lyness/lyn-code-runtime/src/types
  */
 
 /**

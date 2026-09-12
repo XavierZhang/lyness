@@ -17,10 +17,10 @@
  * the declaration. The types therefore live with their declarer.
  */
 
-import type {} from '@lyness/client-ui-slots'
+import type {} from '@lyness/lyn-client-ui-slots'
 import type { ProviderDirectoryEntry } from './store.ts'
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface SlotMap {
     /**
      * One provider card's adapter extension area, dispatched with

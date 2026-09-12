@@ -3,7 +3,7 @@ description: "The credential seam for users and maintainers resolving, describin
 kind: "package-reference"
 ---
 
-# @lyness/credentials
+# @lyness/lyn-credentials
 
 English | [中文](README.zh.md)
 
@@ -36,18 +36,18 @@ Use a credential store whenever configuration must stay free of secret values: s
 Load the local store package with a document path:
 
 ```yaml
-- name: '@lyness/credentials-local'
+- name: '@lyness/lyn-credentials-local'
   config:
     path: /absolute/path/to/.credentials.yaml
 ```
 
-The local store README owns the full configuration surface; the generated [configuration catalog](../../../docs/config-catalog.md#lynesscredentials-local) is the exhaustive field list.
+The local store README owns the full configuration surface; the generated [configuration catalog](../../../docs/config-catalog.md#lynesslyn-credentials-local) is the exhaustive field list.
 
 ### Storing, checking, and removing keys
 
 ```ts
 import type { Context } from '@lyness/cordis'
-import { credentialRef } from '@lyness/credentials'
+import { credentialRef } from '@lyness/lyn-credentials'
 
 declare const ctx: Context
 
@@ -66,7 +66,7 @@ A plugin addresses each record by `<scope>/<id>` — its own registered name plu
 
 ```ts
 import type { Context } from '@lyness/cordis'
-import { credentialKey } from '@lyness/credentials'
+import { credentialKey } from '@lyness/lyn-credentials'
 
 declare const ctx: Context
 

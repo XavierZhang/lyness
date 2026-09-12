@@ -1,15 +1,15 @@
 /**
- * Package-owned invariant companion for `@lyness/session-title`.
- * @module @lyness/session-title/invariant
+ * Package-owned invariant companion for `@lyness/lyn-session-title`.
+ * @module @lyness/lyn-session-title/invariant
  */
 
 /* jscpd:ignore-start */
 import type { Context } from '@lyness/cordis'
-import type { InvariantFailure, InvariantInstaller } from '@lyness/invariants'
-import { SessionSeq } from '@lyness/session'
-import type { Session, SessionEvent } from '@lyness/session'
+import type { InvariantFailure, InvariantInstaller } from '@lyness/lyn-invariants'
+import { SessionSeq } from '@lyness/lyn-session'
+import type { Session, SessionEvent } from '@lyness/lyn-session'
 
-const PACKAGE_NAME = '@lyness/session-title'
+const PACKAGE_NAME = '@lyness/lyn-session-title'
 
 /** Cordis companion plugin name. */
 export const name = 'session-title-invariant'

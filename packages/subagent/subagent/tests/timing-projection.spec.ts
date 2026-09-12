@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import SessionStore from '@lyness/session'
-import type { SessionEvent } from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
+import SessionStore from '@lyness/lyn-session'
+import type { SessionEvent } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 import SubagentRuntime from '../src/index.ts'
 import { subagentTimingProjectionDefinition, type TimingState } from '../src/projection.ts'
 

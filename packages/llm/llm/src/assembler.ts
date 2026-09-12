@@ -3,11 +3,11 @@
  * algorithm used by the agent loop to build an assistant message from a chunk
  * stream while logging the raw chunks for replay fidelity.
  *
- * @module @lyness/llm/assembler
+ * @module @lyness/lyn-llm/assembler
  */
 
-import { brandString } from '@lyness/brand'
-import { assertNever } from '@lyness/util-values'
+import { brandString } from '@lyness/lyn-brand'
+import { assertNever } from '@lyness/lyn-util-values'
 import type { ToolCallId } from './brand.ts'
 import { createMessage } from './message.ts'
 import type { Message, MessageSource } from './message.ts'

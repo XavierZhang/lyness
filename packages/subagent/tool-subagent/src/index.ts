@@ -5,26 +5,26 @@
  * Background policy is selected by this plugin's configuration: one-shot
  * calls own a plain Task, while continuable calls use
  * `ctx.subagents.startContinuable()`.
- * @module @lyness/tool-subagent
+ * @module @lyness/lyn-tool-subagent
  */
 
 import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import { scopeChainOf, scopeOf } from '@lyness/scope'
-import { defineTool } from '@lyness/tools'
-import type { Agent, AgentOptions } from '@lyness/agent'
-import { ReasoningEffortId } from '@lyness/llm'
-import type { ContentBlock } from '@lyness/llm'
-import type { JsonValue } from '@lyness/util-values'
-import { SessionSeq } from '@lyness/session'
-import type { Session } from '@lyness/session'
+import { scopeChainOf, scopeOf } from '@lyness/lyn-scope'
+import { defineTool } from '@lyness/lyn-tools'
+import type { Agent, AgentOptions } from '@lyness/lyn-agent'
+import { ReasoningEffortId } from '@lyness/lyn-llm'
+import type { ContentBlock } from '@lyness/lyn-llm'
+import type { JsonValue } from '@lyness/lyn-util-values'
+import { SessionSeq } from '@lyness/lyn-session'
+import type { Session } from '@lyness/lyn-session'
 import {
   assertSubagentMaxDepth,
   parentAgentOptionsForDelegation,
   settleRun,
-} from '@lyness/subagent'
-import type { SubagentProvider, SubagentResult, SubagentRun } from '@lyness/subagent'
-import type { JobOutcome } from '@lyness/jobs'
+} from '@lyness/lyn-subagent'
+import type { SubagentProvider, SubagentResult, SubagentRun } from '@lyness/lyn-subagent'
+import type { JobOutcome } from '@lyness/lyn-jobs'
 import {
   assertAllowedModelSelection,
   hasConfiguredLlmSelection,
@@ -537,7 +537,7 @@ export function apply(ctx: Context, config: Config, session?: Session): void {
             }
             const jobs = runtimeCtx.get('jobs')
             if (jobs === undefined) {
-              throw new Error('background jobs unavailable: load @lyness/jobs and @lyness/tool-jobs')
+              throw new Error('background jobs unavailable: load @lyness/lyn-jobs and @lyness/lyn-tool-jobs')
             }
             // One-shot background child: job preflight finishes before the
             // starter can spawn, and the task-owned signal covers startup.
@@ -614,7 +614,7 @@ export function apply(ctx: Context, config: Config, session?: Session): void {
   if (settings === undefined) {
     throw new Error(
       'tool-subagent: `modelSelectionSettings` requires '
-      + '@lyness/tool-subagent/model-selection-settings in the Host scope',
+      + '@lyness/lyn-tool-subagent/model-selection-settings in the Host scope',
     )
   }
   const selectForSession = (target: Session): ModelSelectionPolicy | undefined => {

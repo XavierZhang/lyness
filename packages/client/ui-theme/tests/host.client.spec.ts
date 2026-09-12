@@ -1,10 +1,10 @@
 import { Context } from '@lyness/cordis'
 import { describe, expect, it } from 'vitest'
-import type { IndexInjection } from '@lyness/host-webserver'
-import { SettingsProvider, type SettingsNamespace } from '@lyness/settings'
+import type { IndexInjection } from '@lyness/lyn-host-webserver'
+import { SettingsProvider, type SettingsNamespace } from '@lyness/lyn-settings'
 import {
   DEFAULT_PREFERENCE, THEME_SETTINGS_NAMESPACE, apply,
-} from '@lyness/client-ui-theme'
+} from '@lyness/lyn-client-ui-theme'
 
 class MemorySettings extends SettingsProvider {
   readonly writable = true

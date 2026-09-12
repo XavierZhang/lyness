@@ -3,14 +3,14 @@
 
 import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { createMessage, createSystemMessage, createUserMessage } from '@lyness/llm'
-import type { ContentBlock, ToolSchema } from '@lyness/llm'
-import SessionStore, { SessionLogOffset, SessionSeq } from '@lyness/session'
-import type { Session, SessionEvent, SessionSeq as SessionSeqType } from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import TokenMeter from '@lyness/token-meter'
-import type { ContextBreakdownProjection } from '@lyness/token-meter/client'
-import { CompactionId } from '@lyness/compaction'
+import { createMessage, createSystemMessage, createUserMessage } from '@lyness/lyn-llm'
+import type { ContentBlock, ToolSchema } from '@lyness/lyn-llm'
+import SessionStore, { SessionLogOffset, SessionSeq } from '@lyness/lyn-session'
+import type { Session, SessionEvent, SessionSeq as SessionSeqType } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import TokenMeter from '@lyness/lyn-token-meter'
+import type { ContextBreakdownProjection } from '@lyness/lyn-token-meter/client'
+import { CompactionId } from '@lyness/lyn-compaction'
 import { contextBreakdownProjectionDefinition } from '../src/breakdown-projection.ts'
 import {
   estimateContent,
@@ -54,7 +54,7 @@ function appendUser(session: Session, text: string): SessionSeqType {
   }), { surfaceOp: 'append' }).seq
 }
 
-const SYSTEM_PLUGIN = '@lyness/system-prompt'
+const SYSTEM_PLUGIN = '@lyness/lyn-system-prompt'
 
 /** Append the rendered system prompt as surface node 0, the way the loop does before the first user message. */
 function appendSystem(session: Session, text: string): SessionSeqType {

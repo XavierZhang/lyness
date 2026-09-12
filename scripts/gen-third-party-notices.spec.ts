@@ -81,12 +81,12 @@ describe('tierExternalDeps', () => {
     const { manifests, names } = workspace({
       // Root tooling and test infrastructure never ship, whichever section declares them.
       'package.json': { dependencies: { 'root-runtime-looking': '^1' }, devDependencies: { 'lint-tool': '^1' } },
-      'packages/test-support/loader-smoke/package.json': { name: '@lyness/loader-smoke', dependencies: { 'smoke-helper': '^1' } },
-      'packages/test-support/client-runtime/package.json': { name: '@lyness/client-test-runtime', dependencies: { 'test-lib': '^1' } },
+      'packages/test-support/loader-smoke/package.json': { name: '@lyness/lyn-loader-smoke', dependencies: { 'smoke-helper': '^1' } },
+      'packages/test-support/client-runtime/package.json': { name: '@lyness/lyn-client-test-runtime', dependencies: { 'test-lib': '^1' } },
       'website/package.json': { devDependencies: { 'site-tool': '^1' } },
       // A plugin package's runtime dependency ships even when no app mounts it by default.
-      'packages/mcp/mcp-client/package.json': { name: '@lyness/mcp-client', dependencies: { 'protocol-sdk': '^1' }, devDependencies: { 'protocol-fixture-server': '^1' } },
-      'apps/cli/package.json': { name: '@lyness/cli', dependencies: { 'cli-lib': '^1', '@lyness/mcp-client': 'workspace:^' } },
+      'packages/mcp/mcp-client/package.json': { name: '@lyness/lyn-mcp-client', dependencies: { 'protocol-sdk': '^1' }, devDependencies: { 'protocol-fixture-server': '^1' } },
+      'apps/cli/package.json': { name: '@lyness/lyn-cli', dependencies: { 'cli-lib': '^1', '@lyness/lyn-mcp-client': 'workspace:^' } },
     })
 
     expect(tierExternalDeps(manifests, names)).toEqual(new Map([
@@ -105,12 +105,12 @@ describe('tierExternalDeps', () => {
   it('keeps a package runtime when any shipping area declares it, and excludes workspace links', () => {
     const { manifests, names } = workspace({
       'package.json': { devDependencies: { shared: '^1' } },
-      'packages/interaction/tui/package.json': { name: '@lyness/tui', dependencies: { shared: '^1', '@lyness/cli': 'workspace:^' } },
-      'apps/cli/package.json': { name: '@lyness/cli' },
+      'packages/interaction/tui/package.json': { name: '@lyness/lyn-tui', dependencies: { shared: '^1', '@lyness/lyn-cli': 'workspace:^' } },
+      'apps/cli/package.json': { name: '@lyness/lyn-cli' },
     })
 
     expect(tierExternalDeps(manifests, names).get('shared')).toBe(true)
-    expect(tierExternalDeps(manifests, names).has('@lyness/cli')).toBe(false)
+    expect(tierExternalDeps(manifests, names).has('@lyness/lyn-cli')).toBe(false)
   })
 })
 

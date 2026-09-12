@@ -5,14 +5,14 @@
  */
 import { Context, Service } from '@lyness/cordis'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { LocaleRuntime } from '@lyness/client-locale/client'
-import type { SessionId } from '@lyness/session/types'
-import { RemoteError } from '@lyness/client-test-runtime'
+import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import { RemoteError } from '@lyness/lyn-client-test-runtime'
 import type {
   CandidateRequest, ClientSessionContext, InputTriggerCandidate, InputTriggerSource,
-} from '@lyness/client-ui-input-trigger/client'
-import type { FileReferenceCandidate } from '@lyness/file-reference/types'
-import type { SessionReferenceMentionCandidate } from '@lyness/session-reference/types'
+} from '@lyness/lyn-client-ui-input-trigger/client'
+import type { FileReferenceCandidate } from '@lyness/lyn-file-reference/types'
+import type { SessionReferenceMentionCandidate } from '@lyness/lyn-session-reference/types'
 import { apply, inject } from '../src/client/index.ts'
 import { apply as nodeApply } from '../src/index.ts'
 

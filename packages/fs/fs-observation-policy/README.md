@@ -3,7 +3,7 @@ description: "The read-before-edit filesystem policy plugin for deployments and 
 kind: "package-reference"
 ---
 
-# @lyness/fs-observation-policy
+# @lyness/lyn-fs-observation-policy
 
 English | [中文](README.zh.md)
 
@@ -32,9 +32,9 @@ Load this plugin alongside a `ctx.fs` backend and the `lyn-tool-fs` tools when a
 Load a backend, then this plugin, then the tools. The policy listener should be the first decider registered for the `fs/*`-intent slots.
 
 ```yaml
-- name: '@lyness/fs-local'
-- name: '@lyness/fs-observation-policy'
-- name: '@lyness/tool-fs'
+- name: '@lyness/lyn-fs-local'
+- name: '@lyness/lyn-fs-observation-policy'
+- name: '@lyness/lyn-tool-fs'
 ```
 
 ### What changes for the model

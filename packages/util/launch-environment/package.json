@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/launch-environment",
+  "name": "@lyness/lyn-launch-environment",
   "description": "Immutable lyness launch environment that records which layer supplied each value",
   "version": "0.1.5-rc.1",
   "publishConfig": {

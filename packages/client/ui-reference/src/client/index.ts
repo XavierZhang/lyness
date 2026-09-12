@@ -9,22 +9,22 @@
  * workspace is not the current one. A session is dated from the Host session
  * list, so the `@` menu and the session list never disagree about its age.
  *
- * @module @lyness/client-ui-reference/client
+ * @module @lyness/lyn-client-ui-reference/client
  */
 // Type-only: pulls the generated Remote API and ctx.remote merge through the Client assembly boundary.
-import type {} from '@lyness/api-remotes/client'
+import type {} from '@lyness/lyn-api-remotes/client'
 // Type-only: pulls the locale plugin's Context merge (ctx.locale).
-import type {} from '@lyness/client-locale/client'
+import type {} from '@lyness/lyn-client-locale/client'
 import type { Context as ClientContext } from '@lyness/cordis'
-import type { ISessions } from '@lyness/api-session-controller/client'
-import { relativeTime } from '@lyness/client-ui-primitives'
+import type { ISessions } from '@lyness/lyn-api-session-controller/client'
+import { relativeTime } from '@lyness/lyn-client-ui-primitives'
 import type {
   ClientSessionContext, InputTriggerCrumb, InputTriggerServiceContract, InputTriggerSource,
-} from '@lyness/client-ui-input-trigger/client'
-import { formatFileMention } from '@lyness/file-reference/grammar'
-import type { FileReferenceCandidate } from '@lyness/file-reference/types'
-import type { SessionReferenceMentionCandidate } from '@lyness/session-reference/types'
-import { abbreviateHomePath } from '@lyness/util-workspace-path'
+} from '@lyness/lyn-client-ui-input-trigger/client'
+import { formatFileMention } from '@lyness/lyn-file-reference/grammar'
+import type { FileReferenceCandidate } from '@lyness/lyn-file-reference/types'
+import type { SessionReferenceMentionCandidate } from '@lyness/lyn-session-reference/types'
+import { abbreviateHomePath } from '@lyness/lyn-util-workspace-path'
 import { en, NS, zh, type ReferenceKey } from './locales.ts'
 
 /** Required services: the trigger registry, the Remote namespaces, and the copy. */

@@ -1,6 +1,6 @@
-import { IconQuestionOutline14 } from '@lyness/client-ui-primitives'
+import { IconQuestionOutline14 } from '@lyness/lyn-client-ui-primitives'
 import type { Context } from '@lyness/cordis'
-import type { PropsLocale } from '@lyness/client-ui-slots'
+import type { PropsLocale } from '@lyness/lyn-client-ui-slots'
 import type { ToolCallViewProps } from '../../contract/slots.ts'
 import type { AskQuestionCardModel } from '../models/ask-question-card-model.ts'
 import { singleResultText } from '../models/raw-tool-call.ts'

@@ -1,7 +1,7 @@
 /**
  * Client-namespace projection of token-meter's browser-safe contracts and folds.
  *
- * @module @lyness/token-meter/client
+ * @module @lyness/lyn-token-meter/client
  */
 
 export type * from './projection.ts'

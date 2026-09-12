@@ -10,11 +10,11 @@
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { act, cleanup, waitFor } from '@testing-library/react'
-import { SlotTestRuntime, usePinnedBrowserLanguages } from '@lyness/client-test-runtime'
-import { LocaleRuntime } from '@lyness/client-locale/client'
-import { en as commonEn } from '@lyness/client-locale/src/locales/en.ts'
-import { zh as commonZh } from '@lyness/client-locale/src/locales/zh.ts'
-import { apply, inject } from '@lyness/client-ui-sidebar/client'
+import { SlotTestRuntime, usePinnedBrowserLanguages } from '@lyness/lyn-client-test-runtime'
+import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
+import { en as commonEn } from '@lyness/lyn-client-locale/src/locales/en.ts'
+import { zh as commonZh } from '@lyness/lyn-client-locale/src/locales/zh.ts'
+import { apply, inject } from '@lyness/lyn-client-ui-sidebar/client'
 
 // The service reads its initial locale from the browser; these specs assert
 // the shipped Chinese copy, so they state the browser they assume.

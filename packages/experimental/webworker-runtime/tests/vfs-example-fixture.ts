@@ -10,12 +10,12 @@ import {
   type SessionHeader,
   type SessionLogOffset as SessionLogOffsetType,
   type SessionSeq as SessionSeqType,
-} from '@lyness/session'
+} from '@lyness/lyn-session'
 import {
   eventLines, generationLogFilename, projectKey, toHeaderLine,
-} from '@lyness/session-persistence-jsonl/src/format.ts'
-import { projectionCacheDomainSpec } from '@lyness/session-projection-cache'
-import { snapshotSubagentDescriptor } from '@lyness/subagent'
+} from '@lyness/lyn-session-persistence-jsonl/src/format.ts'
+import { projectionCacheDomainSpec } from '@lyness/lyn-session-projection-cache'
+import { snapshotSubagentDescriptor } from '@lyness/lyn-subagent'
 
 /** Root copied by the preview image's repository adapter. */
 export const VFS_EXAMPLE_ROOT = fileURLToPath(new URL('./fixtures/vfs-example', import.meta.url))

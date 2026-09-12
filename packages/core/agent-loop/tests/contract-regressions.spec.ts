@@ -1,16 +1,16 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import LlmRuntime, { createUserMessage, ToolCallId, LlmError, MessageSource, ProviderRequestId, StreamChunk  } from '@lyness/llm'
-import SessionStore, { Session, SessionEvent, SessionId, TurnEndReason, type UserMessage } from '@lyness/session'
-import SystemPrompt from '@lyness/system-prompt'
-import ToolRuntime, { defineContentToolFixture, type PostToolDecision } from '@lyness/tools'
-import AgentRegistry, { type Agent } from '@lyness/agent'
-import AgentLoop from '@lyness/agent-loop'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import InvariantRegistry from '@lyness/invariants'
-import * as SessionInvariant from '@lyness/session/invariant'
-import * as AgentInvariant from '@lyness/agent/invariant'
-import * as AgentLoopInvariant from '@lyness/agent-loop/invariant'
+import LlmRuntime, { createUserMessage, ToolCallId, LlmError, MessageSource, ProviderRequestId, StreamChunk  } from '@lyness/lyn-llm'
+import SessionStore, { Session, SessionEvent, SessionId, TurnEndReason, type UserMessage } from '@lyness/lyn-session'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime, { defineContentToolFixture, type PostToolDecision } from '@lyness/lyn-tools'
+import AgentRegistry, { type Agent } from '@lyness/lyn-agent'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import InvariantRegistry from '@lyness/lyn-invariants'
+import * as SessionInvariant from '@lyness/lyn-session/invariant'
+import * as AgentInvariant from '@lyness/lyn-agent/invariant'
+import * as AgentLoopInvariant from '@lyness/lyn-agent-loop/invariant'
 import { MockAdapter, textResponse, toolCallResponse } from './mock-adapter.ts'
 
 async function mountInvariants(ctx: Context): Promise<void> {
@@ -867,7 +867,7 @@ describe('turn and step boundary recovery', () => {
     expect(adapter.requests).toHaveLength(1)
     expect(errors.map(error => error.message)).toEqual([
       'reject first step-end',
-      'invariant violated by "@lyness/session": turn/end 1 while step 1 is still open',
+      'invariant violated by "@lyness/lyn-session": turn/end 1 while step 1 is still open',
     ])
     expect(boundaryCounts(agent)).toMatchObject({
       turnStart: 1,

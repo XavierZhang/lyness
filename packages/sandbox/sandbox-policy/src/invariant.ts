@@ -1,11 +1,11 @@
-/** Package-owned session-event invariants for sandbox policy. @module @lyness/sandbox-policy/invariant */
+/** Package-owned session-event invariants for sandbox policy. @module @lyness/lyn-sandbox-policy/invariant */
 
 import type { Context } from '@lyness/cordis'
-import type { Session, SessionEvent } from '@lyness/session'
-import type { InvariantFailure, InvariantInstaller } from '@lyness/invariants'
+import type { Session, SessionEvent } from '@lyness/lyn-session'
+import type { InvariantFailure, InvariantInstaller } from '@lyness/lyn-invariants'
 import { SANDBOX_MODES } from './session-mode.ts'
 
-const PACKAGE_NAME = '@lyness/sandbox-policy'
+const PACKAGE_NAME = '@lyness/lyn-sandbox-policy'
 
 /** Cordis companion plugin name. */
 export const name = 'sandbox-policy-invariant'

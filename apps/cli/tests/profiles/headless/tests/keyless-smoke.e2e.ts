@@ -3,9 +3,9 @@ import { zstdDecompressSync } from 'node:zlib'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
-import { runLoaderSmoke } from '@lyness/loader-smoke'
-import type { SessionEvent } from '@lyness/session'
-import { scanZstdFrames } from '@lyness/session-persistence-jsonl/src/zstd.js'
+import { runLoaderSmoke } from '@lyness/lyn-loader-smoke'
+import type { SessionEvent } from '@lyness/lyn-session'
+import { scanZstdFrames } from '@lyness/lyn-session-persistence-jsonl/src/zstd.js'
 
 const PRODUCTION_PROFILE_PROCESS_TIMEOUT_MS = 60_000
 const PRODUCTION_PROFILE_TEST_TIMEOUT_MS = PRODUCTION_PROFILE_PROCESS_TIMEOUT_MS + 15_000

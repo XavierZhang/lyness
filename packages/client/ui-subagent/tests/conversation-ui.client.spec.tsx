@@ -1,11 +1,11 @@
 // @vitest-environment jsdom
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { act, cleanup, fireEvent, render, screen, within } from '@testing-library/react'
-import { makeTranslate, RemoteError } from '@lyness/client-test-runtime'
+import { makeTranslate, RemoteError } from '@lyness/lyn-client-test-runtime'
 import type {
   SessionListState, SessionSummary, SubagentCatalogSnapshot,
-} from '@lyness/api-session-controller/client'
-import type { SessionId } from '@lyness/session/types'
+} from '@lyness/lyn-api-session-controller/client'
+import type { SessionId } from '@lyness/lyn-session/types'
 import {
   SubagentHeaderLineage, type SubagentHeaderLineageProps,
 } from '../src/client/SubagentHeaderLineage.tsx'

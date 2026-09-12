@@ -1,11 +1,11 @@
-/** Package-owned scoped-dispatch invariants. @module @lyness/scope/invariant */
+/** Package-owned scoped-dispatch invariants. @module @lyness/lyn-scope/invariant */
 
 import type { Context } from '@lyness/cordis'
-import type { InvariantInstaller } from '@lyness/invariants'
-import { carrierKeyOf, isScopeCarrier } from '@lyness/scope'
+import type { InvariantInstaller } from '@lyness/lyn-invariants'
+import { carrierKeyOf, isScopeCarrier } from '@lyness/lyn-scope'
 import { scopedSubjectResolverFor } from './scoped-events.generated.ts'
 
-const PACKAGE_NAME = '@lyness/scope'
+const PACKAGE_NAME = '@lyness/lyn-scope'
 
 /** Cordis companion plugin name. */
 export const name = 'scope-invariant'

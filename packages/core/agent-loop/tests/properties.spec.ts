@@ -11,16 +11,16 @@
 
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import LlmRuntime from '@lyness/llm'
-import { createUserMessage, LlmAdapter } from '@lyness/llm'
-import type { GenerateOptions, StreamChunk } from '@lyness/llm'
-import SessionStore, { SessionId } from '@lyness/session'
-import SystemPrompt from '@lyness/system-prompt'
-import ToolRuntime from '@lyness/tools'
-import AgentRegistry, { type Agent } from '@lyness/agent'
+import LlmRuntime from '@lyness/lyn-llm'
+import { createUserMessage, LlmAdapter } from '@lyness/lyn-llm'
+import type { GenerateOptions, StreamChunk } from '@lyness/lyn-llm'
+import SessionStore, { SessionId } from '@lyness/lyn-session'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime from '@lyness/lyn-tools'
+import AgentRegistry, { type Agent } from '@lyness/lyn-agent'
 
-import AgentLoop from '@lyness/agent-loop'
-import SessionProjectionRegistry from '@lyness/session-projection'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 import fc from 'fast-check'
 
 /** A never-exhausting adapter: every model call returns the same short reply. */

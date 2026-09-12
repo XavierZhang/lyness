@@ -1,15 +1,15 @@
-import { createUserMessage } from '@lyness/llm'
+import { createUserMessage } from '@lyness/lyn-llm'
 import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import LlmRuntime from '@lyness/llm'
-import SessionStore, { SessionId } from '@lyness/session'
-import SystemPrompt from '@lyness/system-prompt'
-import ToolRuntime, { defineContentToolFixture } from '@lyness/tools'
-import AgentRegistry, { type Agent } from '@lyness/agent'
+import LlmRuntime from '@lyness/lyn-llm'
+import SessionStore, { SessionId } from '@lyness/lyn-session'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime, { defineContentToolFixture } from '@lyness/lyn-tools'
+import AgentRegistry, { type Agent } from '@lyness/lyn-agent'
 
-import AgentLoop from '@lyness/agent-loop'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import * as LlmDeepSeek from '@lyness/llm-deepseek'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import * as LlmDeepSeek from '@lyness/lyn-llm-deepseek'
 
 /**
  * With-key proof that log-derived requests translate into real provider cache hits: a

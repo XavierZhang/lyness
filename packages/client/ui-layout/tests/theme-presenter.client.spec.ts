@@ -1,8 +1,8 @@
 // @vitest-environment jsdom
 
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
-import type { ThemeSnapshot } from '@lyness/client-ui-theme/client'
-import { DARK_ATTRIBUTE, ThemePresenter } from '@lyness/client-ui-layout/src/client/theme-presenter.ts'
+import type { ThemeSnapshot } from '@lyness/lyn-client-ui-theme/client'
+import { DARK_ATTRIBUTE, ThemePresenter } from '@lyness/lyn-client-ui-layout/src/client/theme-presenter.ts'
 
 const LIGHT_THEME_COLOR = 'rgb(255, 255, 255)'
 const DARK_THEME_COLOR = 'rgb(21, 21, 23)'

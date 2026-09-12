@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/workspace",
+  "name": "@lyness/lyn-workspace",
   "description": "Workspace entity registry (ctx.workspaceRegistry): durable workspace records with validated session attachment over the domain data form for the lyness",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -38,24 +38,24 @@
   "license": "MIT",
   "peerDependencies": {
     "@lyness/cordis": "workspace:^",
-    "@lyness/invariants": "workspace:^",
-    "@lyness/session": "workspace:^",
-    "@lyness/session-persistence": "workspace:^",
-    "@lyness/storage": "workspace:^",
-    "@lyness/storage-domain": "workspace:^",
-    "@lyness/typert-protocol": "workspace:^"
+    "@lyness/lyn-invariants": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
+    "@lyness/lyn-session-persistence": "workspace:^",
+    "@lyness/lyn-storage": "workspace:^",
+    "@lyness/lyn-storage-domain": "workspace:^",
+    "@lyness/lyn-typert-protocol": "workspace:^"
   },
   "dependencies": {
-    "@lyness/brand": "workspace:^",
+    "@lyness/lyn-brand": "workspace:^",
     "zod": "^4.4.3"
   },
   "devDependencies": {
     "@lyness/cordis": "workspace:^",
-    "@lyness/invariants": "workspace:^",
-    "@lyness/session": "workspace:^",
-    "@lyness/session-persistence": "workspace:^",
-    "@lyness/storage": "workspace:^",
-    "@lyness/storage-domain": "workspace:^",
-    "@lyness/typert-protocol": "workspace:^"
+    "@lyness/lyn-invariants": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
+    "@lyness/lyn-session-persistence": "workspace:^",
+    "@lyness/lyn-storage": "workspace:^",
+    "@lyness/lyn-storage-domain": "workspace:^",
+    "@lyness/lyn-typert-protocol": "workspace:^"
   }
 }

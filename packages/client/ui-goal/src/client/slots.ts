@@ -7,9 +7,9 @@
  * activation hook source.
  */
 
-import type { RemoteResult } from '@lyness/api-remotes/client'
-import type { HostObservable } from '@lyness/client-ui-slots'
-import type { GoalActivation, GoalId } from '@lyness/goal/client'
+import type { RemoteResult } from '@lyness/lyn-api-remotes/client'
+import type { HostObservable } from '@lyness/lyn-client-ui-slots'
+import type { GoalActivation, GoalId } from '@lyness/lyn-goal/client'
 
 /**
  * The one failure the strip reports without a wire call: the session projects

@@ -1,12 +1,12 @@
 /** Sidebar shell slot registration and its Session/layout callbacks. */
 import { Context, type Fiber } from '@lyness/cordis'
 import { afterEach, describe, expect, expectTypeOf, it, vi } from 'vitest'
-import { SlotRegistry } from '@lyness/client-ui-renderer/client'
-import type { PropsRenderSlots } from '@lyness/client-ui-slots'
-import { LocaleRuntime } from '@lyness/client-locale/client'
-import { apply, inject } from '@lyness/client-ui-sidebar/client'
-import type { SidebarRootInjected } from '@lyness/client-ui-sidebar/client'
-import type { MainPanelId } from '@lyness/client-ui-layout/client'
+import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
+import type { PropsRenderSlots } from '@lyness/lyn-client-ui-slots'
+import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
+import { apply, inject } from '@lyness/lyn-client-ui-sidebar/client'
+import type { SidebarRootInjected } from '@lyness/lyn-client-ui-sidebar/client'
+import type { MainPanelId } from '@lyness/lyn-client-ui-layout/client'
 import { apply as hostApply } from '../src/index.ts'
 
 const owners = new Set<Fiber>()

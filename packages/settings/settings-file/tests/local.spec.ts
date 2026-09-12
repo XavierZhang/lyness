@@ -4,7 +4,7 @@ import z from '@lyness/schemastery'
 import { chmod, lstat, mkdir, mkdtemp, readFile, readdir, rename, rm, stat, symlink, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { writeFileAtomic } from '@lyness/atomic-write'
+import { writeFileAtomic } from '@lyness/lyn-atomic-write'
 import { FileSettingsProvider, resolveSpec } from '../src/index.ts'
 
 interface ThemeConfig {

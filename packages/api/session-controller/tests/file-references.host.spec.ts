@@ -1,6 +1,6 @@
 import { Context } from '@lyness/cordis'
-import type { Agent } from '@lyness/agent'
-import type { FileReferenceCandidate } from '@lyness/file-reference/types'
+import type { Agent } from '@lyness/lyn-agent'
+import type { FileReferenceCandidate } from '@lyness/lyn-file-reference/types'
 import { describe, expect, it, vi } from 'vitest'
 import { SessionFileReferences } from '../src/file-references.ts'
 

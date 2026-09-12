@@ -2,8 +2,8 @@ import type {
   AssistantMessageNode, ConversationLocation, ConversationNode, ConversationPromptSnapshot,
   ConversationViewNode, MessageImagesOwnerProps, PartialAssistant, RequestPromptChange,
   RequestView, RunningToolCall, SystemPromptNode, ToolCallBlock,
-} from '@lyness/client-ui-conversation/client'
-import type { SnapshotSelectorHook } from '@lyness/client-ui-slots'
+} from '@lyness/lyn-client-ui-conversation/client'
+import type { SnapshotSelectorHook } from '@lyness/lyn-client-ui-slots'
 
 /** Request-header facts retained by the Trajectory target. */
 export interface TrajectoryRequestHeaderState {
@@ -75,14 +75,14 @@ export interface TrajectorySnapshot {
 /** Selector hook over the current Conversation binding's Trajectory target. */
 export type UseTrajectory = SnapshotSelectorHook<TrajectorySnapshot>
 
-declare module '@lyness/client-ui-conversation/client' {
+declare module '@lyness/lyn-client-ui-conversation/client' {
   interface ConversationViewSnapshotMap {
     /** Independently assembled data consumed by the Trajectory view. */
     trajectory: TrajectorySnapshot
   }
 }
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface SessionStandardProps {
     /** Selector hook over the current Conversation binding's Trajectory target. */
     useTrajectory: UseTrajectory

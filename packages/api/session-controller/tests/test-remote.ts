@@ -1,14 +1,14 @@
 /** Test-only direct Remote face over the Session Controller's internal controllers. */
 
-import { SessionLogOffset } from '@lyness/session'
+import { SessionLogOffset } from '@lyness/lyn-session'
 import type { Context } from '@lyness/cordis'
-import type { ModelSelection as AgentModelSelection } from '@lyness/agent'
+import type { ModelSelection as AgentModelSelection } from '@lyness/lyn-agent'
 import type {
   AdmittedPromptContentPart,
   AttachmentAdmissionPart,
   ImageAttachmentLimits,
-} from '@lyness/attachment'
-import type { SessionEvent, SessionHeader, SessionId } from '@lyness/session'
+} from '@lyness/lyn-attachment'
+import type { SessionEvent, SessionHeader, SessionId } from '@lyness/lyn-session'
 import {
   SessionPersistenceNotFoundError,
   SessionPersistenceRevision,
@@ -20,15 +20,15 @@ import {
   type SessionPersistenceOpenOptions,
   type SessionPersistenceSnapshot,
   type SessionPersistenceStatOptions,
-} from '@lyness/session-persistence'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import SessionQueryEngine from '@lyness/session-query'
+} from '@lyness/lyn-session-persistence'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import SessionQueryEngine from '@lyness/lyn-session-query'
 import { vi } from 'vitest'
 import {
   RemoteError,
   remoteErrorOf,
   type RemoteResult,
-} from '@lyness/typert-protocol'
+} from '@lyness/lyn-typert-protocol'
 import SessionController from '../src/index.ts'
 import type {
   ModelCatalog,

@@ -17,18 +17,18 @@
  * reads session state once at each operation boundary; executors and providers
  * remain session-free.
  *
- * @module @lyness/sandbox-policy
+ * @module @lyness/lyn-sandbox-policy
  */
 
 import { resolve as resolvePath } from 'node:path'
 import { Context, Service } from '@lyness/cordis'
 import { z as zod } from 'zod'
 import z from '@lyness/schemastery'
-import type {} from '@lyness/agent'
-import { canonicalPath, type SandboxExecutionPolicy, type SandboxMode } from '@lyness/sandbox'
-import type { Session } from '@lyness/session'
-import type {} from '@lyness/session-projection'
-import type {} from '@lyness/system-prompt'
+import type {} from '@lyness/lyn-agent'
+import { canonicalPath, type SandboxExecutionPolicy, type SandboxMode } from '@lyness/lyn-sandbox'
+import type { Session } from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-session-projection'
+import type {} from '@lyness/lyn-system-prompt'
 
 export { SANDBOX_MODES, setSandboxMode } from './session-mode.ts'
 
@@ -93,7 +93,7 @@ const sandboxModeStateSchema = zod.union([
 ]).nullable()
 
 type SandboxModeState = zod.infer<typeof sandboxModeStateSchema>
-declare module '@lyness/session-projection/types' {
+declare module '@lyness/lyn-session-projection/types' {
   interface SessionProjectionStateMap {
     /** Last logged sandbox-mode override, or null before one (deployment default applies at resolve time). */
     sandboxMode: SandboxModeState

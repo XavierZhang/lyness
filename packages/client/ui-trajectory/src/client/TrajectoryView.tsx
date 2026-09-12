@@ -4,9 +4,9 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type {
   AssistantBlock, AssistantMessageNode, ConvViewProps, MessageImageLoader, RenderMessageImages,
   ToolCallBlock,
-} from '@lyness/client-ui-conversation/client'
-import type { InjectFace, PropsLocale, PropsRenderSlots } from '@lyness/client-ui-slots'
-import type { SnapshotStore } from '@lyness/client-store'
+} from '@lyness/lyn-client-ui-conversation/client'
+import type { InjectFace, PropsLocale, PropsRenderSlots } from '@lyness/lyn-client-ui-slots'
+import type { SnapshotStore } from '@lyness/lyn-client-store'
 import {
   TrajectoryTable,
   type TrajectoryRequestNumber,

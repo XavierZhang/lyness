@@ -1,12 +1,12 @@
 /** One-shot session-lineage and event-relationship tracing helpers. */
 
-import { foldSurface, isSurfaceEvent, snapshotSessionEvent } from '@lyness/session'
+import { foldSurface, isSurfaceEvent, snapshotSessionEvent } from '@lyness/lyn-session'
 import type {
   SessionEvent,
   SessionId,
   SessionSeq,
   SurfaceEvent,
-} from '@lyness/session'
+} from '@lyness/lyn-session'
 import { SessionQueryError } from './config.ts'
 import type {
   SessionEventRecord,

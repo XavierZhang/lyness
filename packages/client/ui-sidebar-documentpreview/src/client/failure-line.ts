@@ -5,8 +5,8 @@
  * this reader does not name fall to the generic line carrying the carrier's
  * message.
  */
-import type { RemoteFailure } from '@lyness/api-remotes/client'
-import type { TranslateNS } from '@lyness/client-locale/client'
+import type { RemoteFailure } from '@lyness/lyn-api-remotes/client'
+import type { TranslateNS } from '@lyness/lyn-client-locale/client'
 
 /** Render a byte count the way a person reads one. */
 function humanBytes(bytes: number): string {

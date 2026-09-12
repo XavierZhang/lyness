@@ -12,16 +12,16 @@ import { fileURLToPath, pathToFileURL } from 'node:url'
 import { Context, FiberState } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
 import Include from '@lyness/cordis-plugin-include'
-import LlmRuntime from '@lyness/llm'
-import SessionStore, { SessionId } from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import SystemPrompt from '@lyness/system-prompt'
-import ToolRuntime from '@lyness/tools'
-import AgentRegistry from '@lyness/agent'
-import AgentLoop from '@lyness/agent-loop'
+import LlmRuntime from '@lyness/lyn-llm'
+import SessionStore, { SessionId } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime from '@lyness/lyn-tools'
+import AgentRegistry from '@lyness/lyn-agent'
+import AgentLoop from '@lyness/lyn-agent-loop'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import AgentPresets, { COMPOSITION_FILE, METADATA_FILE } from '@lyness/agent-presets'
-import type { Config } from '@lyness/agent-presets'
+import AgentPresets, { COMPOSITION_FILE, METADATA_FILE } from '@lyness/lyn-agent-presets'
+import type { Config } from '@lyness/lyn-agent-presets'
 import { evaluate } from '@lyness/cordis-plugin-loader'
 import { fileComposition, mountedCompositionRows } from '../src/composition-inventory.ts'
 import { livePresetMounts } from '../src/mount.ts'
@@ -29,7 +29,7 @@ import { livePresetMounts } from '../src/mount.ts'
 const FIXTURES = join(dirname(fileURLToPath(import.meta.url)), 'fixtures')
 const SYSTEM_ROOT = { path: join(FIXTURES, 'system'), trust: 'system' as const }
 // A row naming a package installed beside the harness, the way authored rows do.
-const VALID = '- id: prompt\n  name: \'@lyness/system-prompt\'\n'
+const VALID = '- id: prompt\n  name: \'@lyness/lyn-system-prompt\'\n'
 
 const contexts: Context[] = []
 
@@ -213,10 +213,10 @@ describe('AgentPresets.compositionInventory', () => {
     await writeFile(join(userRoot, 'documented', COMPOSITION_FILE), [
       VALID.trimEnd(),
       '- id: gated',
-      '  name: \'@lyness/system-prompt\'',
+      '  name: \'@lyness/lyn-system-prompt\'',
       '  disabled: !!js 1 === 1',
       '- id: undecidable',
-      '  name: \'@lyness/system-prompt\'',
+      '  name: \'@lyness/lyn-system-prompt\'',
       '  disabled: !!js nothing.here',
     ].join('\n'))
     await writeFile(join(userRoot, 'documented', METADATA_FILE), 'name: 我的模式\n')
@@ -249,14 +249,14 @@ describe('AgentPresets.compositionInventory', () => {
         name: '我的模式',
         isDefault: false,
         rows: [
-          { entryId: 'prompt', moduleName: '@lyness/system-prompt', enabled: true },
+          { entryId: 'prompt', moduleName: '@lyness/lyn-system-prompt', enabled: true },
           // The platform-gate shape: the service evaluates it with the
           // Loader's own scope, so the file answer matches a mount's.
-          { entryId: 'gated', moduleName: '@lyness/system-prompt', enabled: false, condition: '1 === 1' },
+          { entryId: 'gated', moduleName: '@lyness/lyn-system-prompt', enabled: false, condition: '1 === 1' },
           // An expression the evaluator refuses stays a mount's decision.
           {
             entryId: 'undecidable',
-            moduleName: '@lyness/system-prompt',
+            moduleName: '@lyness/lyn-system-prompt',
             enabled: 'conditional',
             condition: 'nothing.here',
           },

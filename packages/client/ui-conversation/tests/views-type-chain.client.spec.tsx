@@ -2,7 +2,7 @@
 import { Context } from '@lyness/cordis'
 import { describe, expect, it } from 'vitest'
 import type { ReactNode } from 'react'
-import { SlotRegistry } from '@lyness/client-ui-renderer/client'
+import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
 import type { ConvViewProps } from '../src/client/contract/slots.ts'
 
 describe('view-ring type negatives (compile-time; body never runs)', () => {

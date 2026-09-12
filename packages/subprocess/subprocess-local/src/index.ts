@@ -5,7 +5,7 @@
  * phase force-stops any ranges the service still owns. It has no config: every
  * disposition and limit arrives on the spec, so deployment-varying choices
  * stay with the caller's config (the bash executor's, the LSP host's, …).
- * @module @lyness/subprocess-local
+ * @module @lyness/lyn-subprocess-local
  */
 
 import { constants } from 'node:fs'
@@ -14,13 +14,13 @@ import { delimiter, extname, isAbsolute, resolve } from 'node:path'
 import { Context } from '@lyness/cordis'
 import * as nodePty from 'node-pty'
 import type { IPtyForkOptions } from 'node-pty'
-import { SubprocessRuntime } from '@lyness/subprocess'
+import { SubprocessRuntime } from '@lyness/lyn-subprocess'
 import type {
   SubprocessHandle,
   SubprocessSpawnSpec,
   SubprocessTerminalHandle,
   SubprocessTerminalSpawnSpec,
-} from '@lyness/subprocess'
+} from '@lyness/lyn-subprocess'
 import {
   bindManagedProcess,
   childEnv,

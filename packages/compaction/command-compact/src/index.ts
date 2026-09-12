@@ -1,11 +1,11 @@
 /**
  * Human-facing `/compact` command over the backend-independent compaction seam.
- * @module @lyness/command-compact
+ * @module @lyness/lyn-command-compact
  */
 
 import type { Context } from '@lyness/cordis'
-import { ManualCompactionError } from '@lyness/compaction'
-import type { CommandInvocation, CommandResult } from '@lyness/commands'
+import { ManualCompactionError } from '@lyness/lyn-compaction'
+import type { CommandInvocation, CommandResult } from '@lyness/lyn-commands'
 
 export const name = 'command-compact'
 export const inject = ['commands', 'compaction']

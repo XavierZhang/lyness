@@ -21,8 +21,8 @@ describe('Python runtime executable assets', () => {
     })
 
     expect(result.status).toBe(0)
-    expect(result.stdout).toContain('node_modules/@lyness/web-frontend/dist/**/*')
-    expect(result.stdout).toContain('node_modules/@lyness/skill-badge/assets/**/*')
+    expect(result.stdout).toContain('node_modules/@lyness/lyn-web-frontend/dist/**/*')
+    expect(result.stdout).toContain('node_modules/@lyness/lyn-skill-badge/assets/**/*')
     expect(result.stdout).not.toContain('node_modules/**/*.py')
   })
 })

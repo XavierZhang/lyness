@@ -1,15 +1,15 @@
-import { createUserMessage } from '@lyness/llm'
+import { createUserMessage } from '@lyness/lyn-llm'
 import { Context } from '@lyness/cordis'
 import { describe, expect, it } from 'vitest'
-import SessionStore, { Session, SessionId, SessionSeq } from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
+import SessionStore, { Session, SessionId, SessionSeq } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 import SessionTitleService, {
   SessionTitleProviderId,
   fallbackSessionTitle,
   foldSessionTitle,
   normalizeSessionTitle,
   truncateTitleUtf8,
-} from '@lyness/session-title'
+} from '@lyness/lyn-session-title'
 
 const CONFIG = {
   fallbackMaxWords: 5,

@@ -11,7 +11,7 @@
  *
  * ```yaml
  * - id: llm
- *   name: '@lyness/llm-pi-ai'
+ *   name: '@lyness/lyn-llm-pi-ai'
  *   config:
  *     providers:
  *       # Catalog route: everything but the credential comes from pi-ai.
@@ -52,16 +52,16 @@
  *               max: ultra
  * ```
  *
- * @module @lyness/llm-pi-ai
+ * @module @lyness/lyn-llm-pi-ai
  */
 
 import type { Context } from '@lyness/cordis'
-import { launchEnvironmentOf } from '@lyness/launch-environment'
-import { assertUsableApiKey, LlmError, resolveImageAttachmentAccess } from '@lyness/llm'
-import type { AdapterRegistrationHandle, DirectoryRegistrationHandle, LlmConfigurableProvider } from '@lyness/llm'
-import type {} from '@lyness/fs'
-import type {} from '@lyness/settings'
-import { deepEqualJson } from '@lyness/util-values'
+import { launchEnvironmentOf } from '@lyness/lyn-launch-environment'
+import { assertUsableApiKey, LlmError, resolveImageAttachmentAccess } from '@lyness/lyn-llm'
+import type { AdapterRegistrationHandle, DirectoryRegistrationHandle, LlmConfigurableProvider } from '@lyness/lyn-llm'
+import type {} from '@lyness/lyn-fs'
+import type {} from '@lyness/lyn-settings'
+import { deepEqualJson } from '@lyness/lyn-util-values'
 import { PiAiAdapter } from './adapter.ts'
 import { authContextFrom, credentialStoreFrom } from './auth.ts'
 import { catalogProviderIds } from './catalog.ts'

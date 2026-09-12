@@ -11,13 +11,13 @@ import {
 
 const experimental: WorkspaceManifest = {
   dir: 'packages/experimental/prototype',
-  manifest: { name: '@lyness/experimental-prototype', private: true },
+  manifest: { name: '@lyness/lyn-experimental-prototype', private: true },
 }
 
 const publicExperimental: WorkspaceManifest = {
   dir: 'packages/experimental/agent-team',
   manifest: {
-    name: '@lyness/experimental-agent-team',
+    name: '@lyness/lyn-experimental-agent-team',
     publishConfig: { access: 'public' },
   },
 }
@@ -26,9 +26,9 @@ describe('experimental workspace constraints', () => {
   it('requires the experimental package-name prefix', () => {
     expect(checkExperimentalManifest({
       ...experimental,
-      manifest: { ...experimental.manifest, name: '@lyness/prototype' },
+      manifest: { ...experimental.manifest, name: '@lyness/lyn-prototype' },
     })).toEqual([
-      '@lyness/prototype: experimental package name must start with "@lyness/experimental-"',
+      '@lyness/lyn-prototype: experimental package name must start with "@lyness/lyn-experimental-"',
     ])
   })
 
@@ -38,8 +38,8 @@ describe('experimental workspace constraints', () => {
       ...experimental,
       manifest: { ...experimental.manifest, private: false, publishConfig: { access: 'public' } },
     })).toEqual([
-      '@lyness/experimental-prototype: experimental package must set "private": true',
-      '@lyness/experimental-prototype: experimental package must omit publishConfig',
+      '@lyness/lyn-experimental-prototype: experimental package must set "private": true',
+      '@lyness/lyn-experimental-prototype: experimental package must omit publishConfig',
     ])
   })
 
@@ -48,12 +48,12 @@ describe('experimental workspace constraints', () => {
     expect(checkExperimentalManifest({
       ...publicExperimental,
       manifest: {
-        name: '@lyness/experimental-agent-team',
+        name: '@lyness/lyn-experimental-agent-team',
         private: true,
       },
     })).toEqual([
-      '@lyness/experimental-agent-team: public experimental package must not set "private": true',
-      '@lyness/experimental-agent-team: public experimental package must set publishConfig.access to "public"',
+      '@lyness/lyn-experimental-agent-team: public experimental package must not set "private": true',
+      '@lyness/lyn-experimental-agent-team: public experimental package must set publishConfig.access to "public"',
     ])
   })
 
@@ -63,11 +63,11 @@ describe('experimental workspace constraints', () => {
       expect(checkExperimentalDependencyIsolation([experimental, {
         dir: 'packages/core/consumer',
         manifest: {
-          name: '@lyness/consumer',
-          [section]: { '@lyness/experimental-prototype': 'workspace:^' },
+          name: '@lyness/lyn-consumer',
+          [section]: { '@lyness/lyn-experimental-prototype': 'workspace:^' },
         },
       }])).toEqual([
-        `@lyness/consumer: ${section}.@lyness/experimental-prototype must not reference an experimental package`,
+        `@lyness/lyn-consumer: ${section}.@lyness/lyn-experimental-prototype must not reference an experimental package`,
       ])
     },
   )
@@ -76,25 +76,25 @@ describe('experimental workspace constraints', () => {
     const manifests: WorkspaceManifest[] = [experimental, {
       dir: 'packages/core/test-only',
       manifest: {
-        name: '@lyness/test-only',
-        devDependencies: { '@lyness/experimental-prototype': 'workspace:^' },
+        name: '@lyness/lyn-test-only',
+        devDependencies: { '@lyness/lyn-experimental-prototype': 'workspace:^' },
       },
     }, {
       dir: 'packages/experimental/consumer',
       manifest: {
-        name: '@lyness/experimental-consumer',
-        dependencies: { '@lyness/experimental-prototype': 'workspace:^' },
+        name: '@lyness/lyn-experimental-consumer',
+        dependencies: { '@lyness/lyn-experimental-prototype': 'workspace:^' },
       },
     }, {
       dir: 'python/sdk-runtime',
       manifest: {
-        name: '@lyness/python-runtime',
-        dependencies: { '@lyness/experimental-prototype': 'workspace:^' },
+        name: '@lyness/lyn-python-runtime',
+        dependencies: { '@lyness/lyn-experimental-prototype': 'workspace:^' },
       },
     }]
 
     expect(checkExperimentalDependencyIsolation(manifests)).toEqual([
-      '@lyness/python-runtime: dependencies.@lyness/experimental-prototype must not reference an experimental package',
+      '@lyness/lyn-python-runtime: dependencies.@lyness/lyn-experimental-prototype must not reference an experimental package',
     ])
   })
 })
@@ -102,9 +102,9 @@ describe('experimental workspace constraints', () => {
 describe('lyn family version coherence', () => {
   it('rejects a package carrying a stale shared version', () => {
     expect(checkLynFamilyVersion(
-      { name: '@lyness/http-proxy', version: '0.1.2-alpha.5' },
+      { name: '@lyness/lyn-http-proxy', version: '0.1.2-alpha.5' },
       '0.1.2-rc.1',
-    )).toBe('@lyness/http-proxy: package.json version must match root version 0.1.2-rc.1')
+    )).toBe('@lyness/lyn-http-proxy: package.json version must match root version 0.1.2-rc.1')
   })
 
   it('rejects the root-named CLI app on a stale shared version', () => {
@@ -116,7 +116,7 @@ describe('lyn family version coherence', () => {
 
   it('accepts a manifest carrying the shared version', () => {
     expect(checkLynFamilyVersion(
-      { name: '@lyness/http-proxy', version: '0.1.2-rc.1' },
+      { name: '@lyness/lyn-http-proxy', version: '0.1.2-rc.1' },
       '0.1.2-rc.1',
     )).toBeUndefined()
   })
@@ -134,7 +134,7 @@ describe('lyn family version coherence', () => {
 describe('package payload constraints', () => {
   it('includes a declared profile patch without a package-name allowlist', () => {
     expect(expectedLynPackageFiles({
-      name: '@lyness/private-profile',
+      name: '@lyness/lyn-private-profile',
       lyn: { bundle: { patch: './cordis.patch.yml' } },
     })).toEqual([
       'lib/index.js',

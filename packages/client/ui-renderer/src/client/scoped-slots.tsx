@@ -9,7 +9,7 @@ import {
   type ScopedStandardSourceBinding, type SessionAreaProps, type SessionProviderComponent, type SlotRenderer,
   type SlotRendererHost, type SlotScope, type SlotScopeAdapter, type StandardSourceBinding,
   type StoredEntry, type Translate,
-} from '@lyness/client-ui-slots'
+} from '@lyness/lyn-client-ui-slots'
 import {
   HostContext, RootStandardProvider, ScopeProvider, SlotAssemblyError,
   keyedObservableHook, maybeObservableHook, observableHook, useHost, useRootBinding,

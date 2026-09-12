@@ -3,7 +3,7 @@
 import { globSync, readFileSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
-import type { LynSessionFormatMigrationManifest } from '@lyness/package-manifest'
+import type { LynSessionFormatMigrationManifest } from '@lyness/lyn-package-manifest'
 
 const root = resolve(import.meta.dirname, '..')
 const OUT = 'packages/session/session-format-catalog/src/generated.ts'
@@ -82,7 +82,7 @@ export function collectSessionFormatMigrations(
     const from = safeVersion(metadata['from'], `${rel} from`)
     const to = safeVersion(metadata['to'], `${rel} to`)
     if (to !== from + 1) throw new Error(`gen-session-format-catalog: ${rel} must declare adjacent v${from}->v${from + 1}`)
-    const expectedPackageName = `@lyness/session-format-v${from}-to-v${to}`
+    const expectedPackageName = `@lyness/lyn-session-format-v${from}-to-v${to}`
     if (packageName !== expectedPackageName) {
       throw new Error(`gen-session-format-catalog: ${rel} name must be ${expectedPackageName}`)
     }
@@ -115,11 +115,11 @@ export function collectSessionFormatMigrations(
     throw new Error(`gen-session-format-catalog: migration inventory does not end exactly at current v${currentVersion}`)
   }
   const catalog = readJson(resolve(scanRoot, 'packages/session/session-format-catalog/package.json'))
-  if (catalog.dependencies?.['@lyness/session'] !== undefined
-    || catalog.peerDependencies?.['@lyness/session'] === undefined
-    || catalog.devDependencies?.['@lyness/session'] === undefined) {
+  if (catalog.dependencies?.['@lyness/lyn-session'] !== undefined
+    || catalog.peerDependencies?.['@lyness/lyn-session'] === undefined
+    || catalog.devDependencies?.['@lyness/lyn-session'] === undefined) {
     throw new Error(
-      'gen-session-format-catalog: catalog must share @lyness/session through peer + dev dependencies',
+      'gen-session-format-catalog: catalog must share @lyness/lyn-session through peer + dev dependencies',
     )
   }
   for (const [index, declaration] of declarations.entries()) {
@@ -182,8 +182,8 @@ export function renderSessionFormatCatalog(
     ' * The direct imports make historical readability independent of mounted plugins.',
     ' */',
     '',
-    "import { KNOWN_SESSION_EVENT_TYPES } from '@lyness/session'",
-    "import { createSessionFormatCatalog } from '@lyness/session-format'",
+    "import { KNOWN_SESSION_EVENT_TYPES } from '@lyness/lyn-session'",
+    "import { createSessionFormatCatalog } from '@lyness/lyn-session-format'",
     "import { validateInstalledCurrentSessionArtifact, validateInstalledCurrentSessionHeader } from './current.ts'",
     ...imports,
     '',

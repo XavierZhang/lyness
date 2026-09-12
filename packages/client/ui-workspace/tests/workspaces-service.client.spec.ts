@@ -2,16 +2,16 @@ import { Context } from '@lyness/cordis'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import type {
   ISessions, SessionListState, SessionSummary,
-} from '@lyness/api-session-controller/client'
+} from '@lyness/lyn-api-session-controller/client'
 import type {
   IWorkspaces, WorkspaceId, WorkspaceSnapshot, WorkspaceView,
-} from '@lyness/api-workspace-controller/client'
-import type { ClientRemote, DirectoryListing } from '@lyness/api-remotes/client'
-import { RemoteError } from '@lyness/client-test-runtime'
-import type { RemoteResult } from '@lyness/api-remotes/client'
-import { SessionId } from '@lyness/session/types'
-import { LayoutController } from '@lyness/client-ui-layout/client'
-import type { MainPanelId } from '@lyness/client-ui-layout/client'
+} from '@lyness/lyn-api-workspace-controller/client'
+import type { ClientRemote, DirectoryListing } from '@lyness/lyn-api-remotes/client'
+import { RemoteError } from '@lyness/lyn-client-test-runtime'
+import type { RemoteResult } from '@lyness/lyn-api-remotes/client'
+import { SessionId } from '@lyness/lyn-session/types'
+import { LayoutController } from '@lyness/lyn-client-ui-layout/client'
+import type { MainPanelId } from '@lyness/lyn-client-ui-layout/client'
 import { DirectoryBrowseError, UiWorkspaceService } from '../src/client/navigation.ts'
 
 const sid = (id: string): SessionId => SessionId(id)

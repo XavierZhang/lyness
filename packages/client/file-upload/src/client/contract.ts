@@ -1,5 +1,5 @@
-import type { SessionId } from '@lyness/session/types'
-import type { RemoteResult } from '@lyness/typert-protocol'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { RemoteResult } from '@lyness/lyn-typert-protocol'
 import type { FileUploadValue } from '../types.ts'
 
 /** Browser request body accepted by the background file-upload service. */

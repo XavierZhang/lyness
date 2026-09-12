@@ -3,25 +3,25 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterAll, describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { ToolCallId } from '@lyness/llm'
-import { ShellExecutor } from '@lyness/shell'
-import type { ShellExecRequest, ShellExecSpec, ShellProcess, ShellProcessRead, ShellRunResult } from '@lyness/shell'
-import SystemPrompt from '@lyness/system-prompt'
-import ToolRuntime, { TOOL_ABORTED, TOOL_ABORTED_BEFORE_DISPATCH } from '@lyness/tools'
-import AgentRegistry from '@lyness/agent'
-import type { Agent } from '@lyness/agent'
-import { turnBoundaryProjectionDefinition } from '@lyness/agent-loop'
-import { SessionId } from '@lyness/session'
-import LocalJobRegistry from '@lyness/jobs-local'
-import * as ToolTasks from '@lyness/tool-jobs'
-import ApprovalService from '@lyness/user-approval'
-import type { ApprovalOutcome } from '@lyness/user-approval'
-import { LocalBashExecutor } from '@lyness/bash-local'
-import LocalSubprocessRuntime from '@lyness/subprocess-local'
-import SandboxPolicyService from '@lyness/sandbox-policy'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import * as ToolBash from '@lyness/tool-bash'
-import * as BashEnvPlugin from '@lyness/shell-env'
+import { ToolCallId } from '@lyness/lyn-llm'
+import { ShellExecutor } from '@lyness/lyn-shell'
+import type { ShellExecRequest, ShellExecSpec, ShellProcess, ShellProcessRead, ShellRunResult } from '@lyness/lyn-shell'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime, { TOOL_ABORTED, TOOL_ABORTED_BEFORE_DISPATCH } from '@lyness/lyn-tools'
+import AgentRegistry from '@lyness/lyn-agent'
+import type { Agent } from '@lyness/lyn-agent'
+import { turnBoundaryProjectionDefinition } from '@lyness/lyn-agent-loop'
+import { SessionId } from '@lyness/lyn-session'
+import LocalJobRegistry from '@lyness/lyn-jobs-local'
+import * as ToolTasks from '@lyness/lyn-tool-jobs'
+import ApprovalService from '@lyness/lyn-user-approval'
+import type { ApprovalOutcome } from '@lyness/lyn-user-approval'
+import { LocalBashExecutor } from '@lyness/lyn-bash-local'
+import LocalSubprocessRuntime from '@lyness/lyn-subprocess-local'
+import SandboxPolicyService from '@lyness/lyn-sandbox-policy'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import * as ToolBash from '@lyness/lyn-tool-bash'
+import * as BashEnvPlugin from '@lyness/lyn-shell-env'
 import { processOutcome } from '../src/background.ts'
 import { renderProcessRead, renderResult } from '../src/render.ts'
 
@@ -510,7 +510,7 @@ describe('background execution through the job runtime', () => {
     const ctx = await setup() // no LocalJobRegistry / ToolTasks
     const result = await call(ctx, 'bash', { command: 'sleep 60', description: 'test command', run_in_background: true })
     expect(result.isError).toBe(true)
-    expect(text(result)).toContain('background jobs unavailable: load @lyness/jobs and @lyness/tool-jobs')
+    expect(text(result)).toContain('background jobs unavailable: load @lyness/lyn-jobs and @lyness/lyn-tool-jobs')
   })
 
   it('a pre-aborted call is skipped before the process starts', async () => {

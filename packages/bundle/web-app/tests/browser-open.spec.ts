@@ -8,7 +8,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
 import Include from '@lyness/cordis-plugin-include'
 import Loader from '@lyness/cordis-plugin-loader'
-import WebServer from '@lyness/host-webserver'
+import WebServer from '@lyness/lyn-host-webserver'
 import { apply, internals } from '../src/index.ts'
 
 const contexts: Context[] = []

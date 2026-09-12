@@ -1,7 +1,7 @@
 /** Schedule-owned use of the shared session durability barrier. */
 
 import type { Context } from '@lyness/cordis'
-import type { Session } from '@lyness/session'
+import type { Session } from '@lyness/lyn-session'
 
 /** Failure to prove that the current live prefix reached a persistence listener. */
 export class SchedulePersistenceError extends Error {

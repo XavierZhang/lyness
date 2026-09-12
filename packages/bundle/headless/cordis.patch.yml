@@ -18,14 +18,14 @@
 - insert:
     # PTC mode is a core execution capability, not a Web component.
     - id: code-runtime
-      name: '@lyness/code-runtime-worker-thread'
+      name: '@lyness/lyn-code-runtime-worker-thread'
 
     - id: headless-startup
-      name: '@lyness/headless/startup'
+      name: '@lyness/lyn-headless/startup'
 
     # Reads its task from the ordinary headlessStartup provider.
     - id: headless-runner
-      name: '@lyness/headless'
+      name: '@lyness/lyn-headless'
       inject: [headlessStartup]
       config:
         task: !!js ctx.headlessStartup.task

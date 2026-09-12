@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/client-ui-permission-presets",
+  "name": "@lyness/lyn-client-ui-permission-presets",
   "description": "Permission surfaces: a new-session default in General settings and a current-session /permission popup over the permissions projection",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -28,11 +28,11 @@
   "lyn": {
     "client": {
       "inject": [
-        "@lyness/api-session-controller",
-        "@lyness/client-locale",
-        "@lyness/client-ui-commands",
-        "@lyness/api-remotes",
-        "@lyness/client-ui-settings"
+        "@lyness/lyn-api-session-controller",
+        "@lyness/lyn-client-locale",
+        "@lyness/lyn-client-ui-commands",
+        "@lyness/lyn-api-remotes",
+        "@lyness/lyn-client-ui-settings"
       ],
       "platform": "web"
     }
@@ -47,21 +47,21 @@
   },
   "devDependencies": {
     "@lyness/cordis": "workspace:^",
-    "@lyness/api-remotes": "workspace:^",
-    "@lyness/api-session-controller": "workspace:^",
-    "@lyness/client-locale": "workspace:^",
-    "@lyness/client-store": "workspace:^",
-    "@lyness/client-test-runtime": "workspace:^",
-    "@lyness/client-ui-commands": "workspace:^",
-    "@lyness/client-ui-primitives": "workspace:^",
-    "@lyness/client-ui-settings": "workspace:^",
-    "@lyness/client-ui-input-trigger": "workspace:^",
-    "@lyness/client-ui-slots": "workspace:^",
-    "@lyness/permission-presets": "workspace:^",
+    "@lyness/lyn-api-remotes": "workspace:^",
+    "@lyness/lyn-api-session-controller": "workspace:^",
+    "@lyness/lyn-client-locale": "workspace:^",
+    "@lyness/lyn-client-store": "workspace:^",
+    "@lyness/lyn-client-test-runtime": "workspace:^",
+    "@lyness/lyn-client-ui-commands": "workspace:^",
+    "@lyness/lyn-client-ui-primitives": "workspace:^",
+    "@lyness/lyn-client-ui-settings": "workspace:^",
+    "@lyness/lyn-client-ui-input-trigger": "workspace:^",
+    "@lyness/lyn-client-ui-slots": "workspace:^",
+    "@lyness/lyn-permission-presets": "workspace:^",
     "@types/react": "~18.3.1",
     "react": "^18.2.0",
-    "@lyness/client-ui-renderer": "workspace:^",
-    "@lyness/client-ui-session": "workspace:^"
+    "@lyness/lyn-client-ui-renderer": "workspace:^",
+    "@lyness/lyn-client-ui-session": "workspace:^"
   },
   "files": [
     "lib/index.js",

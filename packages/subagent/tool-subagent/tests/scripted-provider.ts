@@ -1,8 +1,8 @@
 /** Package-local scripted child boundary for deterministic tool-subagent tests. */
 
 import type { Context } from '@lyness/cordis'
-import type { ContentBlock } from '@lyness/llm'
-import { SessionId } from '@lyness/session'
+import type { ContentBlock } from '@lyness/lyn-llm'
+import { SessionId } from '@lyness/lyn-session'
 import type {
   SubagentCapabilities,
   SubagentProvider,
@@ -10,7 +10,7 @@ import type {
   SubagentRun,
   SubagentStartRequest,
   SubagentStopReason,
-} from '@lyness/subagent'
+} from '@lyness/lyn-subagent'
 
 const DEFAULT_CAPABILITIES: SubagentCapabilities = {
   agentOptions: true,

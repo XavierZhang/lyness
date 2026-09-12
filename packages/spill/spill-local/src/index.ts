@@ -1,20 +1,20 @@
 /**
  * `LocalSpillStore`: the host-filesystem implementation of the
- * `@lyness/spill` storage seam. Persists oversized text to a
+ * `@lyness/lyn-spill` storage seam. Persists oversized text to a
  * private, session-scoped file (see `./store.ts` for the traversal-safe naming
  * and exclusive owner-only write) and returns a path locator plus local
  * read/grep retrieval guidance. After activation it runs one best-effort
  * startup sweep that reclaims spill files older than `cleanupPeriodDays`.
  *
- * @module @lyness/spill-local
+ * @module @lyness/lyn-spill-local
  */
 
 import { Context } from '@lyness/cordis'
 import { resolve } from 'node:path'
 import { tmpdir } from 'node:os'
 import z from '@lyness/schemastery'
-import { SpillLocator, SpillStore } from '@lyness/spill'
-import type { SaveTextSpill, SpillRef } from '@lyness/spill'
+import { SpillLocator, SpillStore } from '@lyness/lyn-spill'
+import type { SaveTextSpill, SpillRef } from '@lyness/lyn-spill'
 import { gatherSweepRoots, sweepSpillRoots } from './cleanup.ts'
 import type { SweepRoot, WarnFn } from './cleanup.ts'
 import { privateRoot, saveTextFile } from './store.ts'

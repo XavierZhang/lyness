@@ -4,12 +4,12 @@
  * reaches a Host-only symbol, so a Client compilation face reads the same
  * `commands/change` signature the Host emits.
  *
- * @module @lyness/commands/types
+ * @module @lyness/lyn-commands/types
  */
 
-import type { SessionSeq } from '@lyness/session/types'
+import type { SessionSeq } from '@lyness/lyn-session/types'
 import type { CommandId } from './brand.ts'
-import type { EncodedImageAttachment } from '@lyness/attachment/types'
+import type { EncodedImageAttachment } from '@lyness/lyn-attachment/types'
 
 /** One browser-submitted command attachment: encoded image input or a staged file receipt. */
 export type CommandSubmitAttachment =
@@ -88,7 +88,7 @@ declare module '@lyness/cordis' {
   }
 }
 
-declare module '@lyness/session/types' {
+declare module '@lyness/lyn-session/types' {
   interface SessionEventMap {
     /**
      * A resolved slash command entered its handler. Log-only (never model
@@ -111,7 +111,7 @@ declare module '@lyness/session/types' {
       commandId: CommandId
       kind: 'success' | 'error'
       text?: string
-      sourceEventSeq?: import('@lyness/session/types').SessionSeq
+      sourceEventSeq?: import('@lyness/lyn-session/types').SessionSeq
     }
   }
 }

@@ -1,10 +1,10 @@
-/** Package-owned durable todo-snapshot invariants. @module @lyness/tool-todo/invariant */
+/** Package-owned durable todo-snapshot invariants. @module @lyness/lyn-tool-todo/invariant */
 
 import type { Context } from '@lyness/cordis'
-import type { Session, SessionEvent } from '@lyness/session'
-import type { InvariantFailure, InvariantInstaller } from '@lyness/invariants'
+import type { Session, SessionEvent } from '@lyness/lyn-session'
+import type { InvariantFailure, InvariantInstaller } from '@lyness/lyn-invariants'
 
-const PACKAGE_NAME = '@lyness/tool-todo'
+const PACKAGE_NAME = '@lyness/lyn-tool-todo'
 const TODO_STATUSES = new Set(['pending', 'in_progress', 'completed'])
 
 /** Cordis companion plugin name. */

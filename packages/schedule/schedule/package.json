@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/schedule",
+  "name": "@lyness/lyn-schedule",
   "description": "Agent-scoped durable after, at, and fixed-rate reminders over the session event log",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -37,14 +37,14 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/agent": "workspace:^",
-    "@lyness/brand": "workspace:^",
-    "@lyness/invariants": "workspace:^",
-    "@lyness/llm": "workspace:^",
-    "@lyness/session": "workspace:^",
-    "@lyness/session-persistence": "workspace:^",
-    "@lyness/session-projection": "workspace:^",
-    "@lyness/tools": "workspace:^",
+    "@lyness/lyn-agent": "workspace:^",
+    "@lyness/lyn-brand": "workspace:^",
+    "@lyness/lyn-invariants": "workspace:^",
+    "@lyness/lyn-llm": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
+    "@lyness/lyn-session-persistence": "workspace:^",
+    "@lyness/lyn-session-projection": "workspace:^",
+    "@lyness/lyn-tools": "workspace:^",
     "@lyness/cordis": "workspace:^"
   },
   "dependencies": {
@@ -52,18 +52,18 @@
   },
   "devDependencies": {
     "@lyness/cordis-plugin-loader": "workspace:^",
-    "@lyness/agent": "workspace:^",
-    "@lyness/agent-loop": "workspace:^",
-    "@lyness/agent-loop-testkit": "workspace:^",
-    "@lyness/brand": "workspace:^",
-    "@lyness/invariants": "workspace:^",
-    "@lyness/llm": "workspace:^",
-    "@lyness/session": "workspace:^",
-    "@lyness/session-persistence": "workspace:^",
-    "@lyness/session-persistence-jsonl": "workspace:^",
-    "@lyness/session-projection": "workspace:^",
-    "@lyness/system-prompt": "workspace:^",
-    "@lyness/tools": "workspace:^",
+    "@lyness/lyn-agent": "workspace:^",
+    "@lyness/lyn-agent-loop": "workspace:^",
+    "@lyness/lyn-agent-loop-testkit": "workspace:^",
+    "@lyness/lyn-brand": "workspace:^",
+    "@lyness/lyn-invariants": "workspace:^",
+    "@lyness/lyn-llm": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
+    "@lyness/lyn-session-persistence": "workspace:^",
+    "@lyness/lyn-session-persistence-jsonl": "workspace:^",
+    "@lyness/lyn-session-projection": "workspace:^",
+    "@lyness/lyn-system-prompt": "workspace:^",
+    "@lyness/lyn-tools": "workspace:^",
     "@lyness/cordis": "workspace:^"
   }
 }

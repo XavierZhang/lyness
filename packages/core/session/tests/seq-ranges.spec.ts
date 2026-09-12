@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { decodeSeqRanges, encodeSeqRanges, SessionSeq } from '@lyness/session'
+import { decodeSeqRanges, encodeSeqRanges, SessionSeq } from '@lyness/lyn-session'
 
 const seqs = (values: readonly number[]) => values.map(SessionSeq)
 

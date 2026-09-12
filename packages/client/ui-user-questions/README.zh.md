@@ -3,7 +3,7 @@ description: "lyn Web 客户端的 ask_user_question 功能：接管编辑器的
 kind: "package-reference"
 ---
 
-# @lyness/client-ui-user-questions
+# @lyness/lyn-client-ui-user-questions
 
 [English](README.md) | 中文
 

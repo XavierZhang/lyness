@@ -1,7 +1,7 @@
 /**
  * Windows security-descriptor helpers for atomic local-file replacement. Koffi loads lazily so
  * non-Windows processes never open Win32 libraries.
- * @module @lyness/fs-local/win32
+ * @module @lyness/lyn-fs-local/win32
  */
 
 import { toNamespacedPath } from 'node:path'

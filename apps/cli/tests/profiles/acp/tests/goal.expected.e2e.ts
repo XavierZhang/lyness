@@ -10,9 +10,9 @@ import {
   type AgentUnderTest,
   type InputScript,
   type NormalizeContext,
-} from '@lyness/session-snapshot'
-import { foldGoal } from '@lyness/goal'
-import type { SessionEvent } from '@lyness/session'
+} from '@lyness/lyn-session-snapshot'
+import { foldGoal } from '@lyness/lyn-goal'
+import type { SessionEvent } from '@lyness/lyn-session'
 import { describe, expect, it } from 'vitest'
 
 // This lifecycle proof has goal-specific timestamp normalization and semantic

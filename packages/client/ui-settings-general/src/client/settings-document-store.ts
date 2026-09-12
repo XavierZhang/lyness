@@ -2,9 +2,9 @@
 
 import type { Context as ClientContext } from '@lyness/cordis'
 // Type-only: pulls the ctx.remote merge into this program.
-import type {} from '@lyness/api-remotes/client'
-import { createSnapshotStore, type SnapshotStore } from '@lyness/client-store'
-import type { SettingsDescribeFace } from '@lyness/client-ui-settings/client'
+import type {} from '@lyness/lyn-api-remotes/client'
+import { createSnapshotStore, type SnapshotStore } from '@lyness/lyn-client-store'
+import type { SettingsDescribeFace } from '@lyness/lyn-client-ui-settings/client'
 
 /** Browser state of the Host-owned settings document. */
 export interface SettingsDocumentState {

@@ -11,10 +11,10 @@
 
 - insert:
     - id: acp-app-startup
-      name: '@lyness/acp-app'
+      name: '@lyness/lyn-acp-app'
 
     - id: acp
-      name: '@lyness/acp'
+      name: '@lyness/lyn-acp'
       inject: [acpAppStartup]
       config:
         provider: deepseek-official

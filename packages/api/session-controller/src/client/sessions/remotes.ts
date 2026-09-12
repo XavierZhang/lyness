@@ -2,16 +2,16 @@
  * Remote namespaces the Session cluster calls. One parameter for one concept:
  * the generated surface a Session and its manager reach the Host through.
  *
- * @module @lyness/api-session-controller/client/sessions/remotes
+ * @module @lyness/lyn-api-session-controller/client/sessions/remotes
  */
 
-import type { ClientRemote } from '@lyness/api-gateway/client'
-import type { CommandSubmitAttachment } from '@lyness/commands/types'
-import type { SessionId } from '@lyness/session/types'
+import type { ClientRemote } from '@lyness/lyn-api-gateway/client'
+import type { CommandSubmitAttachment } from '@lyness/lyn-commands/types'
+import type { SessionId } from '@lyness/lyn-session/types'
 import type {
   SubagentCatalog, SubagentInterruptReceipt, SubagentPromptReceipt, SubagentPromptRequest,
-} from '@lyness/subagent/client'
-import type { RemoteResult } from '@lyness/typert-protocol'
+} from '@lyness/lyn-subagent/client'
+import type { RemoteResult } from '@lyness/lyn-typert-protocol'
 import type { SessionRemote } from '../transport.ts'
 
 /** Narrow Commands namespace consumed by a Client Session. */

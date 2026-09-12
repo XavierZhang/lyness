@@ -1,6 +1,6 @@
 /** Pure read-card derivation from raw result content and metadata. @module */
-import type { ReadBlockLine, ReadBlockProps } from '@lyness/client-ui-primitives'
-import { abbreviateHomePath, relativizeToCwd } from '@lyness/util-workspace-path'
+import type { ReadBlockLine, ReadBlockProps } from '@lyness/lyn-client-ui-primitives'
+import { abbreviateHomePath, relativizeToCwd } from '@lyness/lyn-util-workspace-path'
 import type { ToolCallBlock } from './tool-call-model.ts'
 import { parsedToolCall, singleResultText } from './raw-tool-call.ts'
 

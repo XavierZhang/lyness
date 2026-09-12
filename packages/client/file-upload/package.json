@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/client-file-upload",
+  "name": "@lyness/lyn-client-file-upload",
   "description": "Agent-scoped browser file upload, streaming intake, and staged receipt service",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -40,7 +40,7 @@
   "lyn": {
     "client": {
       "inject": [
-        "@lyness/api-remotes"
+        "@lyness/lyn-api-remotes"
       ],
       "platform": "web",
       "immediately": true
@@ -63,22 +63,22 @@
   ],
   "dependencies": {
     "zod": "^4.4.3",
-    "@lyness/typert-protocol": "workspace:^",
-    "@lyness/brand": "workspace:^"
+    "@lyness/lyn-typert-protocol": "workspace:^",
+    "@lyness/lyn-brand": "workspace:^"
   },
   "peerDependencies": {
     "@lyness/cordis": "workspace:^",
-    "@lyness/scope": "workspace:^"
+    "@lyness/lyn-scope": "workspace:^"
   },
   "devDependencies": {
     "@lyness/cordis": "workspace:^",
-    "@lyness/agent": "workspace:^",
-    "@lyness/client-connection": "workspace:^",
-    "@lyness/commands": "workspace:^",
-    "@lyness/scope": "workspace:^",
-    "@lyness/util-crypto": "workspace:^",
-    "@lyness/api-remotes": "workspace:^",
-    "@lyness/session": "workspace:^",
-    "@lyness/attachment": "workspace:^"
+    "@lyness/lyn-agent": "workspace:^",
+    "@lyness/lyn-client-connection": "workspace:^",
+    "@lyness/lyn-commands": "workspace:^",
+    "@lyness/lyn-scope": "workspace:^",
+    "@lyness/lyn-util-crypto": "workspace:^",
+    "@lyness/lyn-api-remotes": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
+    "@lyness/lyn-attachment": "workspace:^"
   }
 }

@@ -1,13 +1,13 @@
 /**
  * E2B provider for the filesystem capability seam. Paths, contents, and
  * atomic staging files remain inside the shared remote sandbox.
- * @module @lyness/fs-e2b
+ * @module @lyness/lyn-fs-e2b
  */
 
 import { createHash, randomUUID } from 'node:crypto'
 import { Buffer } from 'node:buffer'
 import { posix } from 'node:path'
-import { FileSystem, FsError, FsTargetKey, FsVersion } from '@lyness/fs'
+import { FileSystem, FsError, FsTargetKey, FsVersion } from '@lyness/lyn-fs'
 import type {
   FsDirEntry,
   FsEditOutcome,
@@ -17,15 +17,15 @@ import type {
   FsTarget,
   FsWriteIntent,
   FsWriteOutcome,
-} from '@lyness/fs'
+} from '@lyness/lyn-fs'
 import {
   CommandExitError,
   e2bControlEnvs,
   FileNotFoundError,
   FileType,
   quoteE2BShellArg,
-} from '@lyness/e2b'
-import type { EntryInfo, Sandbox } from '@lyness/e2b'
+} from '@lyness/lyn-e2b'
+import type { EntryInfo, Sandbox } from '@lyness/lyn-e2b'
 
 const VERSION_METADATA_KEY = 'lyn-version'
 const BINARY_SAMPLE_BYTES = 8192

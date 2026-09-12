@@ -1,12 +1,12 @@
 /**
- * Package-owned invariant companion for `@lyness/authorization`.
- * @module @lyness/authorization/invariant
+ * Package-owned invariant companion for `@lyness/lyn-authorization`.
+ * @module @lyness/lyn-authorization/invariant
  */
 
 import type { Context } from '@lyness/cordis'
-import type { InvariantFailure, InvariantInstaller } from '@lyness/invariants'
+import type { InvariantFailure, InvariantInstaller } from '@lyness/lyn-invariants'
 
-const PACKAGE_NAME = '@lyness/authorization'
+const PACKAGE_NAME = '@lyness/lyn-authorization'
 
 /** Cordis companion plugin name. */
 export const name = 'authorization-invariant'

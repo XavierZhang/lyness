@@ -3,7 +3,7 @@ description: "The persisted session-projection cache for deployments and maintai
 kind: "package-reference"
 ---
 
-# @lyness/session-projection-cache
+# @lyness/lyn-session-projection-cache
 
 English | [中文](README.zh.md)
 
@@ -39,7 +39,7 @@ The cache opens its domain through the storage stack, so base mounts `storage`, 
 
 ```yaml
 - id: session-projection-cache
-  name: '@lyness/session-projection-cache'
+  name: '@lyness/lyn-session-projection-cache'
   config:
     writeEveryEvents: 200
     writeIntervalMs: 5000
@@ -50,7 +50,7 @@ The cache opens its domain through the storage stack, so base mounts `storage`, 
 | `writeEveryEvents` | required | Committed events per session that force a durable checkpoint write between mandatory points |
 | `writeIntervalMs` | required | Longest time a dirty checkpoint may stay unwritten between mandatory points |
 
-The plugin injects `storageDomain`, `sessionProjections`, and `sessions`. The generated [configuration catalog](../../../docs/config-catalog.md#lynesssession-projection-cache) is the exhaustive source for every accepted field and its JSDoc.
+The plugin injects `storageDomain`, `sessionProjections`, and `sessions`. The generated [configuration catalog](../../../docs/config-catalog.md#lynesslyn-session-projection-cache) is the exhaustive source for every accepted field and its JSDoc.
 
 ### How checkpoints are written
 

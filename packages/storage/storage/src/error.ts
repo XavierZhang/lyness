@@ -1,6 +1,6 @@
 /**
  * Error vocabulary for the storage hub and its backends.
- * @module @lyness/storage/src/error
+ * @module @lyness/lyn-storage/src/error
  */
 
 /** Discriminant codes carried by every {@link StorageError}. */

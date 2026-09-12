@@ -2,14 +2,14 @@
  * Authenticated GET/HEAD /api/file reads bounded file responses through
  * the composed filesystem provider. Paths and MIME types do not restrict access;
  * the connection service authenticates requests before this handler.
- * @module @lyness/api-session-controller/media-references
+ * @module @lyness/lyn-api-session-controller/media-references
  */
 
 import { isAbsolute } from 'node:path'
 import type { Context } from '@lyness/cordis'
-import type {} from '@lyness/client-connection'
-import type {} from '@lyness/attachment'
-import { FsError, type FileSystem } from '@lyness/fs'
+import type {} from '@lyness/lyn-client-connection'
+import type {} from '@lyness/lyn-attachment'
+import { FsError, type FileSystem } from '@lyness/lyn-fs'
 import mime from 'mime-types'
 
 const BASE_HEADERS = {

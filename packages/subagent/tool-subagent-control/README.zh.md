@@ -3,7 +3,7 @@ description: "供用户与维护者在组合或调试可继续子级控制功能
 kind: "package-reference"
 ---
 
-# @lyness/tool-subagent-control
+# @lyness/lyn-tool-subagent-control
 
 [English](README.md) | 中文
 
@@ -32,14 +32,14 @@ kind: "package-reference"
 先加载 subagent 服务、一个后端、委派工具与本包。加上独立的列表插件即可公开全部三个工具：
 
 ```yaml
-- name: '@lyness/subagent'
-- name: '@lyness/subagent-spawn-in-process'
-- name: '@lyness/tool-subagent'
+- name: '@lyness/lyn-subagent'
+- name: '@lyness/lyn-subagent-spawn-in-process'
+- name: '@lyness/lyn-tool-subagent'
   config:
     provider: spawn
     backgroundMode: continuable
-- name: '@lyness/tool-subagent-control'
-- name: '@lyness/tool-subagent-control/list-agents'
+- name: '@lyness/lyn-tool-subagent-control'
+- name: '@lyness/lyn-tool-subagent-control/list-agents'
 ```
 
 本包不接收任何配置：根插件提供 `send_message` 与 `interrupt_agent`，列表插件提供 `list_agents`。
@@ -97,7 +97,7 @@ kind: "package-reference"
 
 - [Subagent 子系统](../../../docs/subsystems/subagent.zh.md)——可继续子级、Activation、inbox、中断与后续消息权限。
 - [lyn-tool-subagent](../tool-subagent/README.zh.md)——启动可继续子级的委派工具。
-- [生成工具目录](../../../docs/tool-catalog.zh.md#lynesstool-subagent-control)——三个工具的 schema。
+- [生成工具目录](../../../docs/tool-catalog.zh.md#lynesslyn-tool-subagent-control)——三个工具的 schema。
 
 -----
 
@@ -108,7 +108,7 @@ kind: "package-reference"
 
 #### 模型看到什么
 
-已生成的 [schema](../../../docs/tool-catalog.zh.md#lynesstool-subagent-control)：`send_message` 接受 `agent_id` 与 `message`；`interrupt_agent` 接受 `agent_id`；`list_agents` 接受可选的 `scope` 枚举。
+已生成的 [schema](../../../docs/tool-catalog.zh.md#lynesslyn-tool-subagent-control)：`send_message` 接受 `agent_id` 与 `message`；`interrupt_agent` 接受 `agent_id`；`list_agents` 接受可选的 `scope` 枚举。
 
 #### Token 影响
 

@@ -3,7 +3,7 @@ description: "The standalone str_replace_editor tool over ctx.fs for users and m
 kind: "package-reference"
 ---
 
-# @lyness/tool-str-replace-editor
+# @lyness/lyn-tool-str-replace-editor
 
 English | [中文](README.zh.md)
 
@@ -32,9 +32,9 @@ Mount the tool alongside a `ctx.fs` backend (and, for guarded mutations, the pol
 A backend, optionally the policy plugin, then the tool; the editor composes with any terminal surface.
 
 ```yaml
-- name: '@lyness/fs-local'
-- name: '@lyness/fs-observation-policy'
-- name: '@lyness/tool-str-replace-editor'
+- name: '@lyness/lyn-fs-local'
+- name: '@lyness/lyn-fs-observation-policy'
+- name: '@lyness/lyn-tool-str-replace-editor'
 ```
 
 ### Configuration
@@ -90,7 +90,7 @@ Read these pages when the package-level contract is not enough. They move from t
 - [tool-fs](../tool-fs/README.md) — the alternative `read`/`write`/`edit` tool suite.
 - [fs-observation-policy](../fs-observation-policy/README.md) — the policy plugin that guards mutations through the `fs/*` events.
 - [fs-sandbox](../fs-sandbox/README.md) — the sandbox-enforcing backend that fences mutations.
-- [Generated tool catalog](../../../docs/tool-catalog.md#lynesstool-str-replace-editor) — the exhaustive schema this package registers.
+- [Generated tool catalog](../../../docs/tool-catalog.md#lynesslyn-tool-str-replace-editor) — the exhaustive schema this package registers.
 
 -----
 
@@ -101,7 +101,7 @@ Read these pages when the package-level contract is not enough. They move from t
 
 #### What the model sees
 
-The generated [`str_replace_editor` schema](../../../docs/tool-catalog.md#lynesstool-str-replace-editor), including the configured `description`. The plugin contributes no standalone system-prompt section.
+The generated [`str_replace_editor` schema](../../../docs/tool-catalog.md#lynesslyn-tool-str-replace-editor), including the configured `description`. The plugin contributes no standalone system-prompt section.
 
 #### Token effect
 

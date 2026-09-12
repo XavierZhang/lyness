@@ -3,13 +3,13 @@
  * row both the listing and the browser catalog answer with, plus the
  * browser-facing control surface's prompt, receipts, and failures.
  *
- * @module @lyness/subagent/control-types
+ * @module @lyness/lyn-subagent/control-types
  */
 
-import type { PromptContentPart } from '@lyness/attachment/types'
-import type { Branded } from '@lyness/brand'
-import type { MessageId } from '@lyness/llm/brand'
-import type { SessionId } from '@lyness/session/types'
+import type { PromptContentPart } from '@lyness/lyn-attachment/types'
+import type { Branded } from '@lyness/lyn-brand'
+import type { MessageId } from '@lyness/lyn-llm/brand'
+import type { SessionId } from '@lyness/lyn-session/types'
 
 /**
  * Client-minted identity of one browser prompt, persisted on the exact accepted
@@ -128,7 +128,7 @@ export interface SubagentInterruptReceipt {
  * Failure details the control surface answers with. Catalog reads, prompts,
  * and interrupts share this vocabulary with the Client Remote result.
  */
-declare module '@lyness/typert-protocol' {
+declare module '@lyness/lyn-typert-protocol' {
   interface RemoteErrorDetailsMap {
     /** A browser-supplied zone is neither UTC nor a canonical IANA name. */
     'subagent/invalid-time-zone': { readonly value: string }

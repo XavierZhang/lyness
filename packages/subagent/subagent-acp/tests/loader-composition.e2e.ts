@@ -3,8 +3,8 @@ import { readFile, readdir } from 'node:fs/promises'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
-import { type SessionEvent } from '@lyness/session'
-import { LOADER_SMOKE_TEST_TIMEOUT_MS, runLoaderSmoke } from '@lyness/loader-smoke'
+import { type SessionEvent } from '@lyness/lyn-session'
+import { LOADER_SMOKE_TEST_TIMEOUT_MS, runLoaderSmoke } from '@lyness/lyn-loader-smoke'
 
 /**
  * Keyless REAL-composition coverage for the ACP provider through a test-only

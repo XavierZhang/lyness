@@ -1,6 +1,6 @@
 import type {
   ConversationLocation, ConversationNodeContext,
-} from '@lyness/client-ui-conversation/client'
+} from '@lyness/lyn-client-ui-conversation/client'
 import type {
   ChatNode, ChatNodeDataMap, ChatNodeKind,
 } from '../contract/chat-nodes.ts'

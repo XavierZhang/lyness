@@ -7,7 +7,7 @@
 
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { FileSystem, FsError, FsTargetKey, FsVersion } from '@lyness/fs'
+import { FileSystem, FsError, FsTargetKey, FsVersion } from '@lyness/lyn-fs'
 import type {
   FsDirEntry,
   FsEditOutcome,
@@ -17,7 +17,7 @@ import type {
   FsTarget,
   FsWriteIntent,
   FsWriteOutcome,
-} from '@lyness/fs'
+} from '@lyness/lyn-fs'
 
 /** A minimal in-memory fake implementing the provider primitives. */
 class FakeFileSystem extends FileSystem {

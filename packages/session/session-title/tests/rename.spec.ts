@@ -3,14 +3,14 @@
 // revision; explicit refresh stays the unpin).
 import { Context } from '@lyness/cordis'
 import { describe, expect, it, vi } from 'vitest'
-import { createUserMessage } from '@lyness/llm'
-import SessionStore, { Session, SessionId } from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
+import { createUserMessage } from '@lyness/lyn-llm'
+import SessionStore, { Session, SessionId } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 import SessionTitleService, {
   SessionTitleProviderId,
   foldSessionTitle,
   type SessionTitleProviderRequest,
-} from '@lyness/session-title'
+} from '@lyness/lyn-session-title'
 
 const CONFIG = {
   fallbackMaxWords: 5,

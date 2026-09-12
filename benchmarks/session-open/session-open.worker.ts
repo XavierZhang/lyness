@@ -3,19 +3,19 @@
 import { performance } from 'node:perf_hooks'
 import { scheduler } from 'node:timers/promises'
 import { Context } from '@lyness/cordis'
-import AgentLoop, { turnBoundaryProjectionDefinition } from '@lyness/agent-loop'
-import { mountAgentLoopTestDependencies } from '@lyness/agent-loop-testkit'
-import { agentPresetProjectionDefinition } from '@lyness/agent-presets'
+import AgentLoop, { turnBoundaryProjectionDefinition } from '@lyness/lyn-agent-loop'
+import { mountAgentLoopTestDependencies } from '@lyness/lyn-agent-loop-testkit'
+import { agentPresetProjectionDefinition } from '@lyness/lyn-agent-presets'
 import SessionStore, {
   interruptedTurnClosers,
   SessionId,
   SessionLogOffset,
   SessionPreparation,
-} from '@lyness/session'
-import type { AgentHandle } from '@lyness/agent'
-import JsonlSessionPersistence from '@lyness/session-persistence-jsonl'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import SessionQueryEngine from '@lyness/session-query'
+} from '@lyness/lyn-session'
+import type { AgentHandle } from '@lyness/lyn-agent'
+import JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import SessionQueryEngine from '@lyness/lyn-session-query'
 import type {
   SessionEventSearchPage,
   SessionEventSearchRequest,
@@ -23,11 +23,11 @@ import type {
   SessionSearchHit,
   SessionSearchPage,
   SessionSearchRequest,
-} from '@lyness/session-query'
-import * as SessionStatsPlugin from '@lyness/session-stats'
-import SessionTitleService from '@lyness/session-title'
-import * as SessionTurnOutlinePlugin from '@lyness/session-turn-outline'
-import TokenMeter from '@lyness/token-meter'
+} from '@lyness/lyn-session-query'
+import * as SessionStatsPlugin from '@lyness/lyn-session-stats'
+import SessionTitleService from '@lyness/lyn-session-title'
+import * as SessionTurnOutlinePlugin from '@lyness/lyn-session-turn-outline'
+import TokenMeter from '@lyness/lyn-token-meter'
 // These Host-only adapters have no public Node export and are compiled into the benchmark worker.
 import { SessionHistoryController } from '../../packages/api/session-controller/src/history.ts'
 import { installModelSelectionProjection } from '../../packages/api/session-controller/src/model-selection-projection.ts'
@@ -291,7 +291,7 @@ class SessionBenchmarkHost {
 }
 
 assertBuiltBenchmarkRuntime(import.meta.url, {
-  '@lyness/session-persistence-jsonl': import.meta.resolve('@lyness/session-persistence-jsonl'),
+  '@lyness/lyn-session-persistence-jsonl': import.meta.resolve('@lyness/lyn-session-persistence-jsonl'),
 })
 
 const [root, scenarioValue] = process.argv.slice(2)

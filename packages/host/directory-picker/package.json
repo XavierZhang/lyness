@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/host-directory-picker",
+  "name": "@lyness/lyn-host-directory-picker",
   "description": "Abstract workspace-directory picking seam (ctx.directoryPicker) for the lyness web GUI host",
   "version": "0.1.5-rc.1",
   "publishConfig": {

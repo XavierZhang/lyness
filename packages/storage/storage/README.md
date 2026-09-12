@@ -3,7 +3,7 @@ description: "Storage hub (ctx.storage) for compositions and maintainers choosin
 kind: "package-reference"
 ---
 
-# @lyness/storage
+# @lyness/lyn-storage
 
 English | [中文](README.zh.md)
 
@@ -34,11 +34,11 @@ Mount the hub whenever any package in the composition persists data that is not 
 ### A minimal composition
 
 ```yaml
-- name: '@lyness/storage'
-- name: '@lyness/storage-json'
+- name: '@lyness/lyn-storage'
+- name: '@lyness/lyn-storage-json'
   config:
     root: /var/lib/lyn/data
-- name: '@lyness/storage-domain'
+- name: '@lyness/lyn-storage-domain'
   config:
     backend: json
 ```

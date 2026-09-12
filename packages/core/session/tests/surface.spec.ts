@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import type { SessionEvent, SurfaceEvent, SurfaceEventType } from '@lyness/session'
+import type { SessionEvent, SurfaceEvent, SurfaceEventType } from '@lyness/lyn-session'
 import {
   Session,
   SessionId,
@@ -10,8 +10,8 @@ import {
   isReplacementSurfaceEvent,
   isSurfaceEligibleType,
   isSurfaceEvent,
-} from '@lyness/session'
-import { SurfaceManager } from '@lyness/session/surface'
+} from '@lyness/lyn-session'
+import { SurfaceManager } from '@lyness/lyn-session/surface'
 import {
   createMessage,
   createSystemMessage,
@@ -20,7 +20,7 @@ import {
   freezeMessage,
   ToolCallId,
   MessageId,
-} from '@lyness/llm'
+} from '@lyness/lyn-llm'
 
 type TestSurfaceOp = 'append' | { op: 'replace'; startSeq: number; endSeq: number }
 

@@ -2,13 +2,13 @@
  * Public request, value, and failure vocabulary for per-message feedback.
  * This module contains types only so generated Remote clients can consume it
  * without importing Host runtime code.
- * @module @lyness/message-feedback/types
+ * @module @lyness/lyn-message-feedback/types
  */
 
-import type { Branded } from '@lyness/brand'
-import type { MessageId } from '@lyness/llm/brand'
-import type { SessionId } from '@lyness/session/types'
-import type { FeedbackCategory } from '@lyness/command-feedback/types'
+import type { Branded } from '@lyness/lyn-brand'
+import type { MessageId } from '@lyness/lyn-llm/brand'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { FeedbackCategory } from '@lyness/lyn-command-feedback/types'
 
 /** Opaque compare-and-set token for one exact feedback item revision. */
 export type MessageFeedbackVersion = Branded<'MessageFeedbackVersion'>
@@ -50,7 +50,7 @@ export interface MessageFeedbackDelete {
   readonly messageId: MessageId
 }
 
-declare module '@lyness/session/types' {
+declare module '@lyness/lyn-session/types' {
   interface SessionEventMap {
     /** Log-only human feedback; never enters model history. */
     'feedback/message-put': MessageFeedbackPut

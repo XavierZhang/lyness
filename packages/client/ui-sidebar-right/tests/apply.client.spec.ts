@@ -10,8 +10,8 @@
  */
 import { describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import type { SlotRegistry } from '@lyness/client-ui-renderer/client'
-import type { SessionId } from '@lyness/session/types'
+import type { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
+import type { SessionId } from '@lyness/lyn-session/types'
 import { apply, inject } from '../src/client/index.ts'
 import type { GuideInjected, SidebarRightInjected } from '../src/client/index.ts'
 import { apply as hostApply } from '../src/index.ts'

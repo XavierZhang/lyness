@@ -1,13 +1,13 @@
-import { createUserMessage } from '@lyness/llm'
+import { createUserMessage } from '@lyness/lyn-llm'
 import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import SessionStore, { SessionId } from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import JsonlSessionPersistence from '@lyness/session-persistence-jsonl'
-import SessionTitleService, { foldSessionTitle } from '@lyness/session-title'
+import SessionStore, { SessionId } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
+import SessionTitleService, { foldSessionTitle } from '@lyness/lyn-session-title'
 
 const CONFIG = {
   fallbackMaxWords: 5,

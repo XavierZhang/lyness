@@ -40,9 +40,9 @@ describe.skipIf(!requiredArtifacts)('Agent Teams built LIB service', () => {
     expect(output).toEqual({
       className: 'TeamService',
       methods: [
-        '@lyness/experimental-agent-team#agentTeams/createTask',
-        '@lyness/experimental-agent-team#agentTeams/updateTask',
-        '@lyness/experimental-agent-team#agentTeams/view',
+        '@lyness/lyn-experimental-agent-team#agentTeams/createTask',
+        '@lyness/lyn-experimental-agent-team#agentTeams/updateTask',
+        '@lyness/lyn-experimental-agent-team#agentTeams/view',
       ],
     })
   })

@@ -1,10 +1,10 @@
 /** Goal activation observable that orders Remote reads and live activation events. */
 
-import type { RemoteResult } from '@lyness/api-remotes/client'
-import type { HostObservable } from '@lyness/client-ui-slots'
+import type { RemoteResult } from '@lyness/lyn-api-remotes/client'
+import type { HostObservable } from '@lyness/lyn-client-ui-slots'
 import type {
   GoalActivationChanged, GoalProjection, GoalRef, GoalView,
-} from '@lyness/goal/client'
+} from '@lyness/lyn-goal/client'
 import type { GoalActivationSnapshot } from './slots.ts'
 
 /** Live inputs for one Session's goal activation source. */

@@ -10,16 +10,16 @@
  * VM-realm schemas and canonical values are rebuilt as host objects, while rendered content and
  * presentation metadata are shape-checked before entering the registry. Common JSON-Schema spellings are normalized when they
  * have one meaning; invalid vocabulary fails during registration with a teaching error.
- * @module @lyness/cordis-host-runner/guard
+ * @module @lyness/lyn-cordis-host-runner/guard
  */
 
 import { Context } from '@lyness/cordis'
 import type { Plugin } from '@lyness/cordis'
-import { scopeOf } from '@lyness/scope'
-import { assertSupportedJsonSchema, defineTool } from '@lyness/tools'
-import type { ToolDefinition } from '@lyness/tools'
-import type { ContentBlock } from '@lyness/llm'
-import type { JsonValue } from '@lyness/util-values'
+import { scopeOf } from '@lyness/lyn-scope'
+import { assertSupportedJsonSchema, defineTool } from '@lyness/lyn-tools'
+import type { ToolDefinition } from '@lyness/lyn-tools'
+import type { ContentBlock } from '@lyness/lyn-llm'
+import type { JsonValue } from '@lyness/lyn-util-values'
 
 const DYNAMIC_TOOL = Symbol('cordis-host-runner.dynamic-tool')
 const SCHEMA_TYPES = new Set<unknown>(['string', 'number', 'integer', 'boolean', 'null', 'object', 'array', 'json'])
@@ -744,7 +744,7 @@ function sandboxContext(ctx: Context, reportFailure: (error: Error) => void): Co
   }
   const get = (name: string): unknown => readService(name, false)
   // The browser half builds the same façade over its own Context
-  // (`@lyness/cordis-client-runner`, whose CTX_VERBS names this one its
+  // (`@lyness/lyn-cordis-client-runner`, whose CTX_VERBS names this one its
   // twin), and the sameness is the point: a package author meets ONE contract on
   // both halves. Folding them together is not available — the two halves compile
   // in separate programs where `Context` merges different service keys — so the

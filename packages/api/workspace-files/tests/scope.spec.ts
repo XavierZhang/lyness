@@ -1,7 +1,7 @@
 import { resolve } from 'node:path'
 import { Context } from '@lyness/cordis'
-import SessionStore, { SESSION_FORMAT_VERSION, SessionId, type SessionHeader } from '@lyness/session'
-import TypertRegistry from '@lyness/typert-registry'
+import SessionStore, { SESSION_FORMAT_VERSION, SessionId, type SessionHeader } from '@lyness/lyn-session'
+import TypertRegistry from '@lyness/lyn-typert-registry'
 import { describe, expect, it, vi } from 'vitest'
 import WorkspaceFiles from '../src/index.ts'
 
@@ -52,8 +52,8 @@ describe('Workspace Files Session scope lookup', () => {
       expect(lookup).toMatchObject({
         parameter: 'workspaceFileScope',
         wire: 'workspaceFileScopeId',
-        hostTypeSymbol: '@lyness/api-workspace-files#WorkspaceFileScope',
-        wireTypeSymbol: '@lyness/session/types#SessionId',
+        hostTypeSymbol: '@lyness/lyn-api-workspace-files#WorkspaceFileScope',
+        wireTypeSymbol: '@lyness/lyn-session/types#SessionId',
       })
       if (lookup === undefined) throw new Error('workspaceFileScope lookup did not register')
 

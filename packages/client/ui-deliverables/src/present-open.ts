@@ -1,13 +1,13 @@
 /** Open declared source files verified by the viewed Session's filesystem. */
 import type { Context } from '@lyness/cordis'
-import type {} from '@lyness/api-session-controller'
-import type {} from '@lyness/api-workspace-files'
-import type {} from '@lyness/fs'
-import type {} from '@lyness/sandbox-policy'
-import { remoteErrorOf } from '@lyness/typert-protocol'
-import type {} from '@lyness/client-connection'
-import type {} from '@lyness/session-query'
-import type { SessionId, SessionSeq } from '@lyness/session'
+import type {} from '@lyness/lyn-api-session-controller'
+import type {} from '@lyness/lyn-api-workspace-files'
+import type {} from '@lyness/lyn-fs'
+import type {} from '@lyness/lyn-sandbox-policy'
+import { remoteErrorOf } from '@lyness/lyn-typert-protocol'
+import type {} from '@lyness/lyn-client-connection'
+import type {} from '@lyness/lyn-session-query'
+import type { SessionId, SessionSeq } from '@lyness/lyn-session'
 import { isPresentedData, isPresentedFile, PRESENT_OPEN_PATH, PRESENT_HOST_PATH, type PresentedHost } from './presented.ts'
 
 /**

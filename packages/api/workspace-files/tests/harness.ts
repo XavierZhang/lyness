@@ -12,9 +12,9 @@ import { mkdir, mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { Context } from '@lyness/cordis'
-import { LocalFileSystem } from '@lyness/fs-local'
-import { SessionId } from '@lyness/session/types'
-import { remoteErrorOf } from '@lyness/typert-protocol'
+import { LocalFileSystem } from '@lyness/lyn-fs-local'
+import { SessionId } from '@lyness/lyn-session/types'
+import { remoteErrorOf } from '@lyness/lyn-typert-protocol'
 import { WorkspaceFiles, type Config, type WorkspaceFileScope } from '../src/index.ts'
 
 /** Build the header-derived scope that direct service calls receive after Typert lookup. */

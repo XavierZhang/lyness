@@ -1,25 +1,25 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
-import AgentRegistry, { agentEvents } from '@lyness/agent'
-import type { Agent, AgentStatus, Inbox } from '@lyness/agent'
-import { turnBoundaryProjectionDefinition } from '@lyness/agent-loop'
-import GoalService, { GoalId } from '@lyness/goal'
-import type { GoalRef } from '@lyness/goal'
-import { createUserMessage, ToolCallId } from '@lyness/llm'
-import type { MessageSource } from '@lyness/llm'
+import AgentRegistry, { agentEvents } from '@lyness/lyn-agent'
+import type { Agent, AgentStatus, Inbox } from '@lyness/lyn-agent'
+import { turnBoundaryProjectionDefinition } from '@lyness/lyn-agent-loop'
+import GoalService, { GoalId } from '@lyness/lyn-goal'
+import type { GoalRef } from '@lyness/lyn-goal'
+import { createUserMessage, ToolCallId } from '@lyness/lyn-llm'
+import type { MessageSource } from '@lyness/lyn-llm'
 import SessionStore, {
   SESSION_FORMAT_VERSION,
   Session,
   SessionId,
   SessionLogOffset,
-} from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import SystemPrompt from '@lyness/system-prompt'
-import ToolRuntime from '@lyness/tools'
-import type { ToolExecutionResult } from '@lyness/tools'
-import * as toolGoal from '@lyness/tool-goal'
-import { createInboxStub } from '@lyness/agent-loop-testkit'
+} from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime from '@lyness/lyn-tools'
+import type { ToolExecutionResult } from '@lyness/lyn-tools'
+import * as toolGoal from '@lyness/lyn-tool-goal'
+import { createInboxStub } from '@lyness/lyn-agent-loop-testkit'
 
 const testToolSignal = new AbortController().signal
 

@@ -7,7 +7,7 @@
 # absent.
 
 - id: persona
-  name: '@lyness/persona'
+  name: '@lyness/lyn-persona'
   config:
     prefix: You are a helpful software engineer assistant.
     complete: true
@@ -25,16 +25,16 @@
     terminals: true
   config:
     - id: pty
-      name: '@lyness/terminal'
+      name: '@lyness/lyn-terminal'
 
     - id: terminal-bash
-      name: '@lyness/terminal-bash'
+      name: '@lyness/lyn-terminal-bash'
       disabled: !!js process.platform === 'win32'
       config:
         timeoutMs: 300000
 
     - id: persistent-bash
-      name: '@lyness/tool-bash-persistent'
+      name: '@lyness/lyn-tool-bash-persistent'
       disabled: !!js process.platform === 'win32'
       config:
         timeoutMs: 300000
@@ -48,14 +48,14 @@
           * Please run long lived commands in the background, e.g. 'sleep 10 &' or start a server in the background.
 
     - id: terminal-pwsh
-      name: '@lyness/terminal-bash'
+      name: '@lyness/lyn-terminal-bash'
       disabled: !!js process.platform !== 'win32'
       config:
         shellDialect: pwsh
         timeoutMs: 300000
 
     - id: persistent-pwsh
-      name: '@lyness/tool-pwsh-persistent'
+      name: '@lyness/lyn-tool-pwsh-persistent'
       disabled: !!js process.platform !== 'win32'
       config:
         timeoutMs: 300000

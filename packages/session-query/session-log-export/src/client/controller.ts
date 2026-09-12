@@ -1,7 +1,7 @@
 /** Browser download state shared by the Session Header button and `/export`. */
 
-import { createSnapshotStore, type SnapshotStore } from '@lyness/client-store'
-import type { SessionId } from '@lyness/session/types'
+import { createSnapshotStore, type SnapshotStore } from '@lyness/lyn-client-store'
+import type { SessionId } from '@lyness/lyn-session/types'
 
 /** Download phases presented by the shared modal. */
 export type SessionLogDownloadStatus = 'downloading' | 'success' | 'error'

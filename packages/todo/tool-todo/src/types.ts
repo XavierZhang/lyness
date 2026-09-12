@@ -5,7 +5,7 @@
  * for host consumers, `./client/types` (the browser half-entry's re-export)
  * for client aggregates — with zero content duplication.
  *
- * @module @lyness/tool-todo/types
+ * @module @lyness/lyn-tool-todo/types
  */
 
 /**
@@ -25,14 +25,14 @@ export interface TodoItem {
   status: 'pending' | 'in_progress' | 'completed'
 }
 
-declare module '@lyness/session/types' {
+declare module '@lyness/lyn-session/types' {
   interface SessionEventMap {
     /** Whole-list snapshot; latest write wins on replay. Log-only UI state; never derived history. */
     'todo/write': { todos: TodoItem[] }
   }
 }
 
-declare module '@lyness/session-projection/types' {
+declare module '@lyness/lyn-session-projection/types' {
   interface SessionProjectionStateMap {
     todos: TodoItem[] | null
   }

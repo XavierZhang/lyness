@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/client-ui-directory-picker-browse",
+  "name": "@lyness/lyn-client-ui-directory-picker-browse",
   "description": "In-app directory browsing surface: the workspace directory-flow owner rendering the host's listing and creation primitives",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -28,10 +28,10 @@
   "lyn": {
     "client": {
       "inject": [
-        "@lyness/api-remotes",
-        "@lyness/client-ui-renderer",
-        "@lyness/client-ui-workspace",
-        "@lyness/client-locale"
+        "@lyness/lyn-api-remotes",
+        "@lyness/lyn-client-ui-renderer",
+        "@lyness/lyn-client-ui-workspace",
+        "@lyness/lyn-client-locale"
       ],
       "platform": "web"
     }
@@ -45,13 +45,13 @@
     "@lyness/cordis": "workspace:^"
   },
   "devDependencies": {
-    "@lyness/api-remotes": "workspace:^",
-    "@lyness/client-locale": "workspace:^",
-    "@lyness/client-test-runtime": "workspace:^",
-    "@lyness/client-ui-primitives": "workspace:^",
-    "@lyness/client-ui-renderer": "workspace:^",
-    "@lyness/client-ui-slots": "workspace:^",
-    "@lyness/client-ui-workspace": "workspace:^",
+    "@lyness/lyn-api-remotes": "workspace:^",
+    "@lyness/lyn-client-locale": "workspace:^",
+    "@lyness/lyn-client-test-runtime": "workspace:^",
+    "@lyness/lyn-client-ui-primitives": "workspace:^",
+    "@lyness/lyn-client-ui-renderer": "workspace:^",
+    "@lyness/lyn-client-ui-slots": "workspace:^",
+    "@lyness/lyn-client-ui-workspace": "workspace:^",
     "@testing-library/react": "^16.1.0",
     "@types/react": "~18.3.1",
     "@lyness/cordis": "workspace:^",

@@ -3,7 +3,7 @@
  * cancellation-grace expiry owns settlement and closes message admission.
  * Pending starts share one abort signal; published children share idempotent
  * cleanup, and quiescence waits for both while synthesizing any missing end events.
- * @module @lyness/workflow-worker-thread/host
+ * @module @lyness/lyn-workflow-worker-thread/host
  */
 
 import { tmpdir } from 'node:os'
@@ -11,11 +11,11 @@ import { Worker } from 'node:worker_threads'
 import type { WorkerOptions } from 'node:worker_threads'
 import { fileURLToPath } from 'node:url'
 import type { Context } from '@lyness/cordis'
-import type { Agent } from '@lyness/agent'
-import { assertNever, snapshotJsonValue } from '@lyness/util-values'
-import type SubagentRuntime from '@lyness/subagent'
-import type { SubagentRun } from '@lyness/subagent'
-import type { WorkflowAgentEndInfo, WorkflowAgentInfo, WorkflowMeta, WorkflowResult, WorkflowRun, WorkflowRunId } from '@lyness/workflow'
+import type { Agent } from '@lyness/lyn-agent'
+import { assertNever, snapshotJsonValue } from '@lyness/lyn-util-values'
+import type SubagentRuntime from '@lyness/lyn-subagent'
+import type { SubagentRun } from '@lyness/lyn-subagent'
+import type { WorkflowAgentEndInfo, WorkflowAgentInfo, WorkflowMeta, WorkflowResult, WorkflowRun, WorkflowRunId } from '@lyness/lyn-workflow'
 import { renderThrown } from './realm.ts'
 import type { ExecutionObserver } from './runtime.ts'
 import { HostToWorkerType, WorkerToHostType } from './protocol.ts'

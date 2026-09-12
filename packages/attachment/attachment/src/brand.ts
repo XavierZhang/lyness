@@ -1,6 +1,6 @@
-/** Attachment identifier brand. @module @lyness/attachment/brand */
+/** Attachment identifier brand. @module @lyness/lyn-attachment/brand */
 
-import type { Branded } from '@lyness/brand'
+import type { Branded } from '@lyness/lyn-brand'
 
 /** Opaque content-addressed identifier for one immutable attachment object. */
 export type AttachmentId = Branded<'AttachmentId'>

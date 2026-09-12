@@ -1,8 +1,8 @@
 /** Host registration for the browser theme preference and pre-plugin palette. */
 
 import type { Context } from '@lyness/cordis'
-import type {} from '@lyness/host-webserver'
-import type {} from '@lyness/settings'
+import type {} from '@lyness/lyn-host-webserver'
+import type {} from '@lyness/lyn-settings'
 import { bootThemeInjection } from './boot-theme.ts'
 import {
   DEFAULT_FONT_SIZE, DEFAULT_PREFERENCE, THEME_SETTINGS_NAMESPACE, ThemeSettingsSchema,

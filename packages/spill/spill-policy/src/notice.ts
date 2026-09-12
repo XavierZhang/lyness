@@ -1,6 +1,6 @@
 /** Browser-safe formatting and recognition of persisted spill-policy notices. */
-import { describeOmitted, type Omitted } from '@lyness/output-retention'
-import type { SpillRef } from '@lyness/spill'
+import { describeOmitted, type Omitted } from '@lyness/lyn-output-retention'
+import type { SpillRef } from '@lyness/lyn-spill'
 
 const OPEN = '('
 const CLOSE = ')'

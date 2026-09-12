@@ -26,15 +26,15 @@
  * into the pane's own — the arriving tab closes and the pane's own is focused.
  * The kit plans none of this; it is decided here before its planners run.
  */
-import { defineStore, type EngineStoreHandle } from '@lyness/client-store'
+import { defineStore, type EngineStoreHandle } from '@lyness/lyn-client-store'
 import type {
   DockMode, DockZone, FloatRect, History, LayoutOp, LayoutState, Mint, PaneId, SplitId, TabId, TabRecord,
-} from '@lyness/client-ui-dockkit'
+} from '@lyness/lyn-client-ui-dockkit'
 import {
   activeDockPaneId, createInitialState, dockPaneIds, EMPTY_HISTORY, findPaneContentTab, findTabPane, getPane,
   planDropTab, planDuplicateTab, planFloatTab, planOpenContent, planPlaceTab, planResizeSplit, planSetExpanded,
   planSetMode, planSettle, planSplitPane, planUnfloatPane, record, replay, stepBack, stepForward,
-} from '@lyness/client-ui-dockkit'
+} from '@lyness/lyn-client-ui-dockkit'
 import { GUIDE_KIND, pageAddress, type SidebarRightSeed } from './contract/seed.ts'
 
 /** One session's docking surface: the layout, its sequence, and the id counter. */

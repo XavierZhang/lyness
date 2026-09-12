@@ -1,7 +1,7 @@
 /**
  * Pure client-safe token-projection vocabulary.
  *
- * @module @lyness/token-meter/projection
+ * @module @lyness/lyn-token-meter/projection
  */
 
 /**
@@ -65,7 +65,7 @@ export interface ContextBreakdownProjection {
   messageTokens: number
 }
 
-declare module '@lyness/session-projection/types' {
+declare module '@lyness/lyn-session-projection/types' {
   interface SessionProjectionMap {
     /** Provider-reported usage accumulated across the complete durable log. */
     tokenUsage: TokenUsageProjection

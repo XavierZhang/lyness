@@ -21,11 +21,11 @@ Create the `packages/storage/` group — the `ctx.storage` hub (backend registry
 
 | Package | Path | ctx surface | This phase |
 | --- | --- | --- | --- |
-| `@lyness/storage` | `packages/storage/storage/` | `ctx.storage` (the hub) | ✓ |
-| `@lyness/storage-json` | `packages/storage/storage-json/` | registers backend `json` | ✓ |
-| `@lyness/storage-sqlite` | `packages/storage/storage-sqlite/` | registers backend `sqlite` | ✓ |
-| `@lyness/storage-domain` | `packages/storage/storage-domain/` | mounts `ctx.storage.domain` | ✓ |
-| `@lyness/workspace` | `packages/workspace/workspace/` | `ctx.workspaceRegistry` | ✓ |
+| `@lyness/lyn-storage` | `packages/storage/storage/` | `ctx.storage` (the hub) | ✓ |
+| `@lyness/lyn-storage-json` | `packages/storage/storage-json/` | registers backend `json` | ✓ |
+| `@lyness/lyn-storage-sqlite` | `packages/storage/storage-sqlite/` | registers backend `sqlite` | ✓ |
+| `@lyness/lyn-storage-domain` | `packages/storage/storage-domain/` | mounts `ctx.storage.domain` | ✓ |
+| `@lyness/lyn-workspace` | `packages/workspace/workspace/` | `ctx.workspaceRegistry` | ✓ |
 | `SessionPersistence.delete` extension + cascade orchestration | `packages/session/session-persistence*` | new method on the existing seam | ✗ future work (session side untouched this phase) |
 | `workspace.*` / `session.delete` RPC, GUI wiring, boot assembly | — | — | ✗ next phase |
 

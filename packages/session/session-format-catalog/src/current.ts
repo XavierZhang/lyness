@@ -5,9 +5,9 @@ import {
   Session,
   SessionId,
   SessionLogOffset,
-} from '@lyness/session'
-import type { SessionEvent, SessionHeader } from '@lyness/session'
-import type { SessionFormatArtifact, SessionFormatHeader } from '@lyness/session-format'
+} from '@lyness/lyn-session'
+import type { SessionEvent, SessionHeader } from '@lyness/lyn-session'
+import type { SessionFormatArtifact, SessionFormatHeader } from '@lyness/lyn-session-format'
 
 /**
  * Validate current logical metadata through the installed Session package.

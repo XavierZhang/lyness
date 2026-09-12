@@ -1,14 +1,14 @@
 /**
- * Package-owned invariant companion for `@lyness/tool-subagent`.
- * @module @lyness/tool-subagent/invariant
+ * Package-owned invariant companion for `@lyness/lyn-tool-subagent`.
+ * @module @lyness/lyn-tool-subagent/invariant
  */
 
 /* jscpd:ignore-start */
 import type { Context } from '@lyness/cordis'
-import type { InvariantFailure, InvariantInstaller } from '@lyness/invariants'
+import type { InvariantFailure, InvariantInstaller } from '@lyness/lyn-invariants'
 import { subagentModelSelectionPolicy } from './model-selection-state.ts'
 
-const PACKAGE_NAME = '@lyness/tool-subagent'
+const PACKAGE_NAME = '@lyness/lyn-tool-subagent'
 
 /** Cordis companion plugin name. */
 export const name = 'tool-subagent-invariant'

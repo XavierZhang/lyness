@@ -7,22 +7,22 @@
 
 import { describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import AgentRegistry, { agentEvents } from '@lyness/agent'
-import type { Agent } from '@lyness/agent'
-import AttachmentStore from '@lyness/attachment'
-import LlmRuntime, { LlmAdapter, ReasoningEffortId } from '@lyness/llm'
+import AgentRegistry, { agentEvents } from '@lyness/lyn-agent'
+import type { Agent } from '@lyness/lyn-agent'
+import AttachmentStore from '@lyness/lyn-attachment'
+import LlmRuntime, { LlmAdapter, ReasoningEffortId } from '@lyness/lyn-llm'
 import type {
   GenerateOptions, LlmCallConfig, LlmCallConfigAdapterDefaults, LlmModelInfo,
   LlmModelReasoningInfo, LlmProviderInfo, LlmResolvedModelInfo, StreamChunk,
   UserMessage,
-} from '@lyness/llm'
-import SessionStore from '@lyness/session'
-import type { SessionId } from '@lyness/session'
+} from '@lyness/lyn-llm'
+import SessionStore from '@lyness/lyn-session'
+import type { SessionId } from '@lyness/lyn-session'
 import type { SessionPromptRequest, SessionRequestId } from '../src/types.ts'
 import { ApiSessionAgentController } from '../src/agent.ts'
 import { buildModelCatalog } from '../src/catalog.ts'
-import SystemPrompt from '@lyness/system-prompt'
-import { RemoteError } from '@lyness/typert-protocol'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import { RemoteError } from '@lyness/lyn-typert-protocol'
 import { createSessionTestRemote } from './test-remote.ts'
 
 function request<P>(payload: P): P {

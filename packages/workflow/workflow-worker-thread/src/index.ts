@@ -3,7 +3,7 @@
  * an escapable vm context on a fresh worker and bridges `agent()` calls to host
  * subagents. The thread prevents synchronous script work from blocking the host
  * and permits forced termination, but it is containment rather than a security boundary.
- * @module @lyness/workflow-worker-thread
+ * @module @lyness/lyn-workflow-worker-thread
  */
 
 import { randomUUID } from 'node:crypto'
@@ -11,8 +11,8 @@ import { availableParallelism } from 'node:os'
 import * as vm from 'node:vm'
 import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import WorkflowEngine, { WorkflowError, WorkflowRunId } from '@lyness/workflow'
-import type { WorkflowRun, WorkflowRunInfo, WorkflowStartRequest } from '@lyness/workflow'
+import WorkflowEngine, { WorkflowError, WorkflowRunId } from '@lyness/lyn-workflow'
+import type { WorkflowRun, WorkflowRunInfo, WorkflowStartRequest } from '@lyness/lyn-workflow'
 import { WorkerRun } from './host.ts'
 import { validateMeta } from './meta.ts'
 import type { WorkerInit, WorkerLimits } from './types.ts'

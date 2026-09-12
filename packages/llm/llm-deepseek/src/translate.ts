@@ -8,9 +8,9 @@
  * @module lyn-llm-deepseek/translate
  */
 
-import { brandString } from '@lyness/brand'
-import { EMPTY_RESPONSE_CODE, LlmError } from '@lyness/llm'
-import type { ContentBlock, FinishReason, StreamChunk, TokenUsage, ToolCallId } from '@lyness/llm'
+import { brandString } from '@lyness/lyn-brand'
+import { EMPTY_RESPONSE_CODE, LlmError } from '@lyness/lyn-llm'
+import type { ContentBlock, FinishReason, StreamChunk, TokenUsage, ToolCallId } from '@lyness/lyn-llm'
 import { DONE } from './sse.ts'
 import type { WireChunk, WireUsage } from './types.ts'
 

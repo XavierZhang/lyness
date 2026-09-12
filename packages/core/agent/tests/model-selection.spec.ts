@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import SystemPrompt from '@lyness/system-prompt'
+import SystemPrompt from '@lyness/lyn-system-prompt'
 import {
   agentEvents,
   installModelSelection,
@@ -13,8 +13,8 @@ import {
   ReasoningEffortId,
   type LlmCallConfig,
   type UserMessage,
-} from '@lyness/llm'
-import { Session, SessionId } from '@lyness/session'
+} from '@lyness/lyn-llm'
+import { Session, SessionId } from '@lyness/lyn-session'
 
 const SIGNAL = new AbortController().signal
 const INPUT = createUserMessage({

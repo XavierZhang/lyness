@@ -3,12 +3,12 @@
  * API. Exports the `LlmRuntime` default, the abstract `LlmAdapter` for
  * provider backends, and `BlockAssembler` for chunk assembly.
  *
- * @module @lyness/llm
+ * @module @lyness/lyn-llm
  */
 
 import { Context } from '@lyness/cordis'
-import { Remote, RemoteError, TypertRemoteService } from '@lyness/typert-protocol'
-import { deepFreeze } from '@lyness/util-values'
+import { Remote, RemoteError, TypertRemoteService } from '@lyness/lyn-typert-protocol'
+import { deepFreeze } from '@lyness/lyn-util-values'
 import type {
   GenerateOptions,
   LlmConfigurableProvider,
@@ -36,7 +36,7 @@ import { normalizeApiKey } from './api-key.ts'
 import {
   contentHasFile, contentHasImage, fileHandleText, projectFilesToText, projectImagesForTextModel,
 } from './content.ts'
-import type { FileAttachmentRef } from '@lyness/attachment'
+import type { FileAttachmentRef } from '@lyness/lyn-attachment'
 
 export * from './attribution.ts'
 export * from './brand.ts'

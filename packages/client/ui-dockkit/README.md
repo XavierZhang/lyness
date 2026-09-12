@@ -3,7 +3,7 @@ description: "Docking layout kit for the lyn web client: a split tree of tabbed 
 kind: "package-reference"
 ---
 
-# @lyness/client-ui-dockkit
+# @lyness/lyn-client-ui-dockkit
 
 English | [中文](README.zh.md)
 

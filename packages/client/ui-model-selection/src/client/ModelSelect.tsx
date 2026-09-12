@@ -17,12 +17,12 @@ import {
 } from 'react'
 import { createPortal } from 'react-dom'
 import clsx from 'clsx'
-import type { ModelReasoningEffort, ModelSelection } from '@lyness/api-remotes/client'
+import type { ModelReasoningEffort, ModelSelection } from '@lyness/lyn-api-remotes/client'
 import {
   IconCheckOutline16, IconChevronDownOutline14, IconChevronRightOutline14,
   IconDataOutline16, IconWarningOutline16, Toast,
-} from '@lyness/client-ui-primitives'
-import type { PropsLocale } from '@lyness/client-ui-slots'
+} from '@lyness/lyn-client-ui-primitives'
+import type { PropsLocale } from '@lyness/lyn-client-ui-slots'
 import type { ModelSelectInjected } from './slots.ts'
 import css from './ModelSelect.module.css'
 

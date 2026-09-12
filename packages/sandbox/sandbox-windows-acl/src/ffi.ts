@@ -7,8 +7,8 @@ import {
   extendWin32ProcessBindings,
   isNullPtr,
   throwLastError,
-} from '@lyness/win32-process'
-import type { NativePtr, Win32ProcessBindings } from '@lyness/win32-process'
+} from '@lyness/lyn-win32-process'
+import type { NativePtr, Win32ProcessBindings } from '@lyness/lyn-win32-process'
 import * as abi from './win32-abi.ts'
 
 export {
@@ -19,8 +19,8 @@ export {
   isNullPtr,
   throwLastError,
   throwWin32,
-} from '@lyness/win32-process'
-export type { NativePtr } from '@lyness/win32-process'
+} from '@lyness/lyn-win32-process'
+export type { NativePtr } from '@lyness/lyn-win32-process'
 
 type Ptr = ReturnType<typeof koffi.pointer>
 const PVOID: Ptr = koffi.pointer('void')

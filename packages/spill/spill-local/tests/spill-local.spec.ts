@@ -15,9 +15,9 @@ import { chmodSync, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, st
 import { realpath } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { basename, dirname, isAbsolute, join, normalize } from 'node:path'
-import { ToolCallId } from '@lyness/llm'
-import { SessionId } from '@lyness/session'
-import type { SaveTextSpill } from '@lyness/spill'
+import { ToolCallId } from '@lyness/lyn-llm'
+import { SessionId } from '@lyness/lyn-session'
+import type { SaveTextSpill } from '@lyness/lyn-spill'
 import LocalSpillStore, {
   DEFAULT_ROOT_PREFIX,
   discoverDefaultRoots,
@@ -27,8 +27,8 @@ import LocalSpillStore, {
   saveTextFile,
   sessionDir,
   sweepSpillRoots,
-} from '@lyness/spill-local'
-import type { SweepRoot } from '@lyness/spill-local'
+} from '@lyness/lyn-spill-local'
+import type { SweepRoot } from '@lyness/lyn-spill-local'
 import { gatherSweepRoots } from '../src/cleanup.ts'
 
 const DAY_MS = 24 * 60 * 60 * 1000

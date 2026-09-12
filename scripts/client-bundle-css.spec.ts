@@ -16,7 +16,7 @@ interface CssPlugin {
 
 function cssPlugin(name: 'lyn-css-modules-inline' | 'lyn-css-global-inline' | 'lyn-css-text-inline'): CssPlugin {
   const configs = clientBundle(
-    '@lyness/client-test',
+    '@lyness/lyn-client-test',
     ['lib/types/index.js', 'lib/types/invariant.js'],
   )({ env: { LYNESS_BUILD_FACE: 'client' } })
   const client = configs.find(config => config.platform === 'browser')

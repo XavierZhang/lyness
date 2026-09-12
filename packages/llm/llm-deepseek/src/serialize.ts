@@ -6,9 +6,9 @@
  * @module lyn-llm-deepseek/serialize
  */
 
-import { contentHasImage, LlmError, offloadedImageText, offloadRequestImagesWithPolicy, requestImageHandleText } from '@lyness/llm'
-import type { ContentBlock, GenerateOptions, ImageAttachmentAccessResolver, Message } from '@lyness/llm'
-import type { ImageAttachmentRef, RequestImageAttachment } from '@lyness/attachment'
+import { contentHasImage, LlmError, offloadedImageText, offloadRequestImagesWithPolicy, requestImageHandleText } from '@lyness/lyn-llm'
+import type { ContentBlock, GenerateOptions, ImageAttachmentAccessResolver, Message } from '@lyness/lyn-llm'
+import type { ImageAttachmentRef, RequestImageAttachment } from '@lyness/lyn-attachment'
 import type {
   WireImageContentPart,
   WireMessage,

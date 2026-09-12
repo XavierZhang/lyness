@@ -1,9 +1,9 @@
-import { SessionFormatError, sessionFormatCount, sessionFormatSafeInteger } from '@lyness/session-format'
-import { deepEqualJson } from '@lyness/util-values'
+import { SessionFormatError, sessionFormatCount, sessionFormatSafeInteger } from '@lyness/lyn-session-format'
+import { deepEqualJson } from '@lyness/lyn-util-values'
 import type {
   SessionFormatEvent,
   SessionFormatJsonValue,
-} from '@lyness/session-format'
+} from '@lyness/lyn-session-format'
 import { assertReleasedV0Keys, releasedV0Record } from './validation-helpers.ts'
 
 type JsonRecord = Record<string, SessionFormatJsonValue>

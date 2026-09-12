@@ -1,4 +1,4 @@
-import type { Branded } from '@lyness/brand'
+import type { Branded } from '@lyness/lyn-brand'
 
 /** Stable Loader-tree identity of one configured plugin entry. */
 export type PluginEntryId = Branded<'PluginEntryId'>

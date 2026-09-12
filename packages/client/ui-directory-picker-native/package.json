@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/client-ui-directory-picker-native",
+  "name": "@lyness/lyn-client-ui-directory-picker-native",
   "description": "Native directory-picker surface: the renderless workspace directory-flow occupant driving the host's OS chooser",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -28,8 +28,8 @@
   "lyn": {
     "client": {
       "inject": [
-        "@lyness/client-ui-renderer",
-        "@lyness/client-ui-workspace"
+        "@lyness/lyn-client-ui-renderer",
+        "@lyness/lyn-client-ui-workspace"
       ],
       "platform": "web"
     }
@@ -43,8 +43,8 @@
     "@lyness/cordis": "workspace:^"
   },
   "devDependencies": {
-    "@lyness/client-ui-renderer": "workspace:^",
-    "@lyness/client-ui-workspace": "workspace:^",
+    "@lyness/lyn-client-ui-renderer": "workspace:^",
+    "@lyness/lyn-client-ui-workspace": "workspace:^",
     "@testing-library/react": "^16.1.0",
     "@types/react": "~18.3.1",
     "@lyness/cordis": "workspace:^",

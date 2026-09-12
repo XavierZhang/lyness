@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
-import { createUserMessage, ToolCallId , createMessage, createToolResultMessage } from '@lyness/llm'
-import { toolPairingBalancedAfter, toolPairingBalancedBefore } from '@lyness/compaction'
-import { Session, SessionId, SessionSeq } from '@lyness/session'
-import type { SessionEvent, SessionSeq as SessionSeqType } from '@lyness/session'
+import { createUserMessage, ToolCallId , createMessage, createToolResultMessage } from '@lyness/lyn-llm'
+import { toolPairingBalancedAfter, toolPairingBalancedBefore } from '@lyness/lyn-compaction'
+import { Session, SessionId, SessionSeq } from '@lyness/lyn-session'
+import type { SessionEvent, SessionSeq as SessionSeqType } from '@lyness/lyn-session'
 
 const SURFACE = { surfaceOp: 'append' as const }
 

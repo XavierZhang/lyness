@@ -3,7 +3,7 @@ description: "Abstract code-execution seam (`ctx.codeRuntime`) for users and mai
 kind: "package-reference"
 ---
 
-# @lyness/code-runtime
+# @lyness/lyn-code-runtime
 
 English | [中文](README.zh.md)
 

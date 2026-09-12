@@ -17,7 +17,7 @@
  * stops managing DACLs itself. The rung reports partial enforcement because
  * WRITE_RESTRICTED must retain Everyone in its
  * restricting list and NTFS hard links alias one file object across paths.
- * @module @lyness/sandbox-local
+ * @module @lyness/lyn-sandbox-local
  */
 
 import { spawnSync } from 'node:child_process'
@@ -33,11 +33,11 @@ import {
 } from '@lyness/node-addon-system/landlock-run'
 import { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import { SandboxProvider, SandboxUnavailableError } from '@lyness/sandbox'
-import type { ConfinedArgv, ConfinedSandboxMode, RunnerFailureRule, SandboxEnforcement, SandboxPolicy } from '@lyness/sandbox'
-import type { SessionId } from '@lyness/session'
-import { AclWriteGrant, assertTempRootOutsideWorkspace, tempWriteSid, workspaceWriteSid } from '@lyness/sandbox-windows-acl'
-import { assertNever } from '@lyness/util-values'
+import { SandboxProvider, SandboxUnavailableError } from '@lyness/lyn-sandbox'
+import type { ConfinedArgv, ConfinedSandboxMode, RunnerFailureRule, SandboxEnforcement, SandboxPolicy } from '@lyness/lyn-sandbox'
+import type { SessionId } from '@lyness/lyn-session'
+import { AclWriteGrant, assertTempRootOutsideWorkspace, tempWriteSid, workspaceWriteSid } from '@lyness/lyn-sandbox-windows-acl'
+import { assertNever } from '@lyness/lyn-util-values'
 import { bwrapProfileArgs, landlockProfileArgs, seatbeltProfileArgs } from './profiles.ts'
 
 /** Plugin config. All optional — `static Config` supplies the defaults. */
@@ -159,7 +159,7 @@ interface AclTempCapability {
 const PLATFORM_CHAINS: Record<string, readonly SelectedRunner['runner'][]> = {
   linux: ['bwrap', 'landlock'],
   darwin: ['seatbelt'],
-  // The Windows restricted-token runner (@lyness/sandbox-windows-acl):
+  // The Windows restricted-token runner (@lyness/lyn-sandbox-windows-acl):
   // a sole candidate, selected without a probe — its execution-time refusal
   // fails closed through its stderr signature (windows-acl-run:) and exit 127.
   win32: ['windows-acl'],
@@ -557,9 +557,9 @@ export class LocalSandboxProvider extends SandboxProvider {
   private windowsAclRunnerInvocation(): string[] {
     const override = this.internals.windowsAclRunnerArgs
     if (override !== undefined) return override
-    const builtEntry = this.internals.windowsAclRunnerEntry ?? fileURLToPath(import.meta.resolve('@lyness/sandbox-windows-acl/runner'))
+    const builtEntry = this.internals.windowsAclRunnerEntry ?? fileURLToPath(import.meta.resolve('@lyness/lyn-sandbox-windows-acl/runner'))
     if (existsSync(builtEntry)) return [process.execPath, builtEntry]
-    const sourceEntry = fileURLToPath(import.meta.resolve('@lyness/sandbox-windows-acl/src/runner.ts'))
+    const sourceEntry = fileURLToPath(import.meta.resolve('@lyness/lyn-sandbox-windows-acl/src/runner.ts'))
     return [process.execPath, '--import', 'tsx/esm', sourceEntry]
   }
 }

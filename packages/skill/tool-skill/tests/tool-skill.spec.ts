@@ -3,18 +3,18 @@ import { mkdir, rm, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { tmpdir } from 'node:os'
 import { Context } from '@lyness/cordis'
-import { createUserMessage, ToolCallId, type Message } from '@lyness/llm'
-import { createScope, type Scope } from '@lyness/scope'
+import { createUserMessage, ToolCallId, type Message } from '@lyness/lyn-llm'
+import { createScope, type Scope } from '@lyness/lyn-scope'
 import {
   SESSION_FORMAT_VERSION, Session, SessionId, type SessionEvent, type UserMessage,
-} from '@lyness/session'
-import SystemPrompt, { renderPrompt } from '@lyness/system-prompt'
-import ToolRuntime, { defineContentToolFixture } from '@lyness/tools'
-import AgentRegistry, { agentEvents, type Agent, type PreStepDecision } from '@lyness/agent'
-import SkillRegistry from '@lyness/skill'
-import * as SkillFileSystem from '@lyness/skill-filesystem'
-import * as toolSkill from '@lyness/tool-skill'
-import { unsupportedInbox } from '@lyness/agent-loop-testkit'
+} from '@lyness/lyn-session'
+import SystemPrompt, { renderPrompt } from '@lyness/lyn-system-prompt'
+import ToolRuntime, { defineContentToolFixture } from '@lyness/lyn-tools'
+import AgentRegistry, { agentEvents, type Agent, type PreStepDecision } from '@lyness/lyn-agent'
+import SkillRegistry from '@lyness/lyn-skill'
+import * as SkillFileSystem from '@lyness/lyn-skill-filesystem'
+import * as toolSkill from '@lyness/lyn-tool-skill'
+import { unsupportedInbox } from '@lyness/lyn-agent-loop-testkit'
 
 const testToolSignal = new AbortController().signal
 

@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/jobs",
+  "name": "@lyness/lyn-jobs",
   "description": "Background job registry (ctx.jobs) for the lyness — shared ids, owner isolation, polling, cancellation, and completion listeners for long-running tool work",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -37,17 +37,17 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/agent": "workspace:^",
-    "@lyness/brand": "workspace:^",
-    "@lyness/invariants": "workspace:^",
-    "@lyness/session": "workspace:^",
+    "@lyness/lyn-agent": "workspace:^",
+    "@lyness/lyn-brand": "workspace:^",
+    "@lyness/lyn-invariants": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
     "@lyness/cordis": "workspace:^"
   },
   "devDependencies": {
-    "@lyness/agent": "workspace:^",
-    "@lyness/brand": "workspace:^",
-    "@lyness/invariants": "workspace:^",
-    "@lyness/session": "workspace:^",
+    "@lyness/lyn-agent": "workspace:^",
+    "@lyness/lyn-brand": "workspace:^",
+    "@lyness/lyn-invariants": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
     "@lyness/cordis": "workspace:^"
   }
 }

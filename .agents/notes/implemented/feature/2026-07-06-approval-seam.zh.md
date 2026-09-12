@@ -20,7 +20,7 @@ Status: implemented
 
 ```yaml
 - id: approval
-  name: '@lyness/user-approval'
+  name: '@lyness/lyn-user-approval'
   # config:
   #   policy: never   # deployment default for sessions without an override; 'ask' when omitted
 ```

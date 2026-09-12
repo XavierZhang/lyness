@@ -5,16 +5,16 @@
 
 import { describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { CodeRuntime } from '@lyness/code-runtime'
-import { createScope, type Scope } from '@lyness/scope'
+import { CodeRuntime } from '@lyness/lyn-code-runtime'
+import { createScope, type Scope } from '@lyness/lyn-scope'
 import { mkdirSync, mkdtempSync, realpathSync, rmSync, symlinkSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, resolve, sep } from 'node:path'
-import { turnBoundaryProjectionDefinition } from '@lyness/agent-loop'
-import { ToolCallId } from '@lyness/llm'
-import SystemPrompt, { renderPrompt } from '@lyness/system-prompt'
-import ToolRuntime, { type ToolResult } from '@lyness/tools'
-import { FileSystem, FsError, FsTargetKey, FsVersion } from '@lyness/fs'
+import { turnBoundaryProjectionDefinition } from '@lyness/lyn-agent-loop'
+import { ToolCallId } from '@lyness/lyn-llm'
+import SystemPrompt, { renderPrompt } from '@lyness/lyn-system-prompt'
+import ToolRuntime, { type ToolResult } from '@lyness/lyn-tools'
+import { FileSystem, FsError, FsTargetKey, FsVersion } from '@lyness/lyn-fs'
 import type {
   FsDirEntry,
   FsEditOutcome,
@@ -24,18 +24,18 @@ import type {
   FsTarget,
   FsWriteIntent,
   FsWriteOutcome,
-} from '@lyness/fs'
-import * as FsPolicy from '@lyness/fs-observation-policy'
-import * as ToolFs from '@lyness/tool-fs'
+} from '@lyness/lyn-fs'
+import * as FsPolicy from '@lyness/lyn-fs-observation-policy'
+import * as ToolFs from '@lyness/lyn-tool-fs'
 import { STREAM_MIN_SIZE } from '../src/read.ts'
 import { formatReadOutput } from '../src/read-render.ts'
 import type { FileReadOutcome } from '../src/read-render.ts'
 import { sessionCwd } from '../src/session-cwd.ts'
-import ApprovalService from '@lyness/user-approval'
-import type { SandboxExecutionPolicy, SandboxMode } from '@lyness/sandbox'
-import SandboxPolicyService from '@lyness/sandbox-policy'
-import { SessionId, SessionLogOffset, SessionSeq } from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
+import ApprovalService from '@lyness/lyn-user-approval'
+import type { SandboxExecutionPolicy, SandboxMode } from '@lyness/lyn-sandbox'
+import SandboxPolicyService from '@lyness/lyn-sandbox-policy'
+import { SessionId, SessionLogOffset, SessionSeq } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 
 const testToolSignal = new AbortController().signal
 

@@ -13,9 +13,9 @@ import { join } from 'node:path'
 import { PassThrough } from 'node:stream'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { createLaunchEnvironmentSnapshot, LYNESS_LAUNCH_ENVIRONMENT_KEY } from '@lyness/launch-environment'
-import SystemPrompt from '@lyness/system-prompt'
-import type { WebServer } from '@lyness/host-webserver'
+import { createLaunchEnvironmentSnapshot, LYNESS_LAUNCH_ENVIRONMENT_KEY } from '@lyness/lyn-launch-environment'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import type { WebServer } from '@lyness/lyn-host-webserver'
 import { apply, Config, internals } from '../src/index.ts'
 
 vi.mock('node:child_process', async importOriginal => ({

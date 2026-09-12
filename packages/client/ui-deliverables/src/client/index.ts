@@ -8,12 +8,12 @@
  * the owning view renders an empty chain and inert prose at zero cost.
  */
 import type { Context as ClientContext } from '@lyness/cordis'
-import type {} from '@lyness/api-remotes/client'
-import type {} from '@lyness/client-connection/client'
-import type { ChatFileMentions } from '@lyness/client-ui-chat/client'
-import type {} from '@lyness/client-locale/client'
-import type {} from '@lyness/client-ui-conversation/client'
-import type {} from '@lyness/client-ui-renderer/client'
+import type {} from '@lyness/lyn-api-remotes/client'
+import type {} from '@lyness/lyn-client-connection/client'
+import type { ChatFileMentions } from '@lyness/lyn-client-ui-chat/client'
+import type {} from '@lyness/lyn-client-locale/client'
+import type {} from '@lyness/lyn-client-ui-conversation/client'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
 import { PresentedOpenController } from './present-open.ts'
 import { PresentRow } from './PresentRow.tsx'
 import { Deliverables, selectDeliverables, type DeliverablesInjected } from './Deliverables.tsx'
@@ -22,7 +22,7 @@ import {
   deliverablesDefinition, presentedForClosing, producedFileMentions, selectProducedFiles,
 } from './turn-deliverables.ts'
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface LocaleNamespaceMap {
     /** Produced-files row copy. */
     'deliverables': DeliverablesKey

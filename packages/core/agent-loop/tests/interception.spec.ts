@@ -1,22 +1,22 @@
 import { describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import LlmRuntime, { createUserMessage, ToolCallId  } from '@lyness/llm'
+import LlmRuntime, { createUserMessage, ToolCallId  } from '@lyness/lyn-llm'
 import SessionStore, {
   SessionId,
   type SessionEvent,
   type TurnEndReason,
   type UserMessage,
-} from '@lyness/session'
-import SystemPrompt from '@lyness/system-prompt'
-import ToolRuntime, { defineContentToolFixture, type PostToolDecision, type PreToolDecision } from '@lyness/tools'
+} from '@lyness/lyn-session'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime, { defineContentToolFixture, type PostToolDecision, type PreToolDecision } from '@lyness/lyn-tools'
 import AgentRegistry, {
   type Agent,
   type PreStepDecision,
   type SessionStartSource,
-} from '@lyness/agent'
+} from '@lyness/lyn-agent'
 
-import AgentLoop from '@lyness/agent-loop'
-import SessionProjectionRegistry from '@lyness/session-projection'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 import { MockAdapter, textResponse, toolCallResponse } from './mock-adapter.ts'
 
 /**

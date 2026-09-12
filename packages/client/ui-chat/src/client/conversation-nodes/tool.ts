@@ -2,9 +2,9 @@ import type { Context } from '@lyness/cordis'
 import type {
   ConversationMatch, ConversationNodeContext, ConversationNodeDefinition, RunningToolCall,
   ToolCallBlock, ToolResultNode,
-} from '@lyness/client-ui-conversation/client'
-import { isAppendSurfaceEvent } from '@lyness/session/surface'
-import type {} from '@lyness/tools/types'
+} from '@lyness/lyn-client-ui-conversation/client'
+import { isAppendSurfaceEvent } from '@lyness/lyn-session/surface'
+import type {} from '@lyness/lyn-tools/types'
 import type { ToolChatData } from '../contract/chat-nodes.ts'
 import { CHAT_SYNTHETIC_SEQ_OFFSETS, chatNode } from './common.ts'
 

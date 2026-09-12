@@ -3,9 +3,9 @@
 import { useId, useState, type ReactNode } from 'react'
 import {
   CodeBlock, DisclosureRow, IconCodeOutline16, IconInspectOutline12, StateDot,
-} from '@lyness/client-ui-primitives'
-import type { InjectFace, PropsLocale } from '@lyness/client-ui-slots'
-import type { ToolCallViewProps } from '@lyness/client-ui-tool/client'
+} from '@lyness/lyn-client-ui-primitives'
+import type { InjectFace, PropsLocale } from '@lyness/lyn-client-ui-slots'
+import type { ToolCallViewProps } from '@lyness/lyn-client-ui-tool/client'
 import { cordisDefineCard, type CordisToolState } from './card-model.ts'
 import type { CordisCardFace } from './slots.ts'
 import { cordisVisibleStatus, type CordisVisibleStatus } from './status.ts'

@@ -3,11 +3,11 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import type { Fiber } from '@lyness/cordis'
-import { SettingsProvider } from '@lyness/settings'
-import type { SettingsNamespace } from '@lyness/settings'
-import { SHELL_SETTINGS_NAMESPACE } from '@lyness/shell'
-import LocalSubprocessRuntime from '@lyness/subprocess-local'
-import { PwshLocalExecutor } from '@lyness/pwsh-local'
+import { SettingsProvider } from '@lyness/lyn-settings'
+import type { SettingsNamespace } from '@lyness/lyn-settings'
+import { SHELL_SETTINGS_NAMESPACE } from '@lyness/lyn-shell'
+import LocalSubprocessRuntime from '@lyness/lyn-subprocess-local'
+import { PwshLocalExecutor } from '@lyness/lyn-pwsh-local'
 
 /** The smallest real provider: one in-memory document, always writable. */
 class MemorySettings extends SettingsProvider {

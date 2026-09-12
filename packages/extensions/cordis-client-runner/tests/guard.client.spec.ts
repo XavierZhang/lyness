@@ -15,8 +15,8 @@ import type {
   CordisDynamicPluginId,
   CordisDynamicPluginRunId,
   DynamicCordisPackage,
-} from '@lyness/api-remotes/client'
-import { SlotRegistry } from '@lyness/client-ui-renderer/client'
+} from '@lyness/lyn-api-remotes/client'
+import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
 import { dynamicCordisContext } from '../src/client/guard.ts'
 import type { DynamicCordisSlotLedgerRow } from '../src/client/guard.ts'
 

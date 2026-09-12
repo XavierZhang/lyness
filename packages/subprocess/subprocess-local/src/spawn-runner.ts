@@ -9,11 +9,11 @@ import {
   spawnCurrentTokenJobProcess,
   terminateJob,
   Win32Error,
-} from '@lyness/win32-process'
+} from '@lyness/lyn-win32-process'
 import type {
   CurrentTokenProcessBindings,
   NativePtr,
-} from '@lyness/win32-process'
+} from '@lyness/lyn-win32-process'
 import { loadLinuxExecve } from './linux-execve.ts'
 import {
   consumeLinuxLaunchRequest,

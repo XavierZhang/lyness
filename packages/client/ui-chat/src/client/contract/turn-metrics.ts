@@ -2,7 +2,7 @@
 
 import type {
   AssistantMessageNode, ConversationNode,
-} from '@lyness/client-ui-conversation/client'
+} from '@lyness/lyn-client-ui-conversation/client'
 
 /** Latency and decode-throughput readings for one turn's footer. */
 export interface TurnMetrics {

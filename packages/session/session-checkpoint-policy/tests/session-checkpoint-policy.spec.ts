@@ -1,12 +1,12 @@
 import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
-import { agentEvents, type Agent } from '@lyness/agent'
-import LlmRuntime, { ToolCallId, type GenerateOptions, LlmAdapter, type StreamChunk } from '@lyness/llm'
-import SessionStore, { SessionId } from '@lyness/session'
-import SessionPersistence, { type SessionHandle, type SessionPersistenceSnapshot } from '@lyness/session-persistence'
-import SystemPrompt from '@lyness/system-prompt'
-import ToolRuntime, { TOOL_ABORTED_BEFORE_DISPATCH } from '@lyness/tools'
+import { agentEvents, type Agent } from '@lyness/lyn-agent'
+import LlmRuntime, { ToolCallId, type GenerateOptions, LlmAdapter, type StreamChunk } from '@lyness/lyn-llm'
+import SessionStore, { SessionId } from '@lyness/lyn-session'
+import SessionPersistence, { type SessionHandle, type SessionPersistenceSnapshot } from '@lyness/lyn-session-persistence'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime, { TOOL_ABORTED_BEFORE_DISPATCH } from '@lyness/lyn-tools'
 import * as checkpointPolicy from '../src/index.ts'
 
 const contexts: Context[] = []

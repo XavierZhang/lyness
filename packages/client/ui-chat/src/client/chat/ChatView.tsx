@@ -4,9 +4,9 @@
 import { memo, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type ComponentProps } from 'react'
 import type {
   ConversationTimelineSnapshot, RenderMessageImages,
-} from '@lyness/client-ui-conversation/client'
-import type { SessionSeq } from '@lyness/session/types'
-import { Button, IconChevronDownOutline14, Modal } from '@lyness/client-ui-primitives'
+} from '@lyness/lyn-client-ui-conversation/client'
+import type { SessionSeq } from '@lyness/lyn-session/types'
+import { Button, IconChevronDownOutline14, Modal } from '@lyness/lyn-client-ui-primitives'
 import type { ChatViewSlotProps, OpenFileOptions } from '../contract/slots.ts'
 import type { ChatSnapshot } from '../contract/snapshot.ts'
 import { PendingSteeringBubble, PendingSubmissionBubble } from './MessageItem.tsx'

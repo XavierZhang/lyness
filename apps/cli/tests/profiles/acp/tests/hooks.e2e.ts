@@ -8,7 +8,7 @@ import {
   launchAcpTestAgent,
   type AgentUnderTest,
   type LaunchedAcpTestAgent,
-} from '@lyness/session-snapshot'
+} from '@lyness/lyn-session-snapshot'
 import { cleanupAcpExampleTest } from './cleanup.ts'
 
 /**

@@ -3,7 +3,7 @@ description: "Claude Code 与 Codex 桥接背后的共享钩子规则——钩�
 kind: "package-library"
 ---
 
-# @lyness/hook-protocol
+# @lyness/lyn-hook-protocol
 
 [English](README.md) | 中文
 

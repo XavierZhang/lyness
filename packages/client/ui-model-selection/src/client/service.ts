@@ -14,8 +14,8 @@
  */
 import { Service } from '@lyness/cordis'
 import type { Context } from '@lyness/cordis'
-import type {} from '@lyness/api-session-controller/client'
-import type { SessionId } from '@lyness/session/types'
+import type {} from '@lyness/lyn-api-session-controller/client'
+import type { SessionId } from '@lyness/lyn-session/types'
 import { ModelCatalogDirectory } from './catalog.ts'
 import { ModelDirectory } from './directory.ts'
 

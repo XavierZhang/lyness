@@ -23,4 +23,4 @@
 
 - insert:
     - id: llm-replay
-      name: '@lyness/llm-replay'
+      name: '@lyness/lyn-llm-replay'

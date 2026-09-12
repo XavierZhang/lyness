@@ -3,7 +3,7 @@ description: "Workspace entity registry (ctx.workspaceRegistry) for hosts choosi
 kind: "package-reference"
 ---
 
-# @lyness/workspace
+# @lyness/lyn-workspace
 
 English | [中文](README.zh.md)
 
@@ -36,14 +36,14 @@ Use it when the product shows a persistent workspace surface — a sidebar, sess
 The package takes no configuration of its own; it needs a session store, a session persistence backend, and the storage rows that keep its records. A minimal composition:
 
 ```yaml
-- name: '@lyness/session'
-- name: '@lyness/session-persistence-jsonl'
-- name: '@lyness/storage'
-- name: '@lyness/storage-json'
-- name: '@lyness/storage-domain'
+- name: '@lyness/lyn-session'
+- name: '@lyness/lyn-session-persistence-jsonl'
+- name: '@lyness/lyn-storage'
+- name: '@lyness/lyn-storage-json'
+- name: '@lyness/lyn-storage-domain'
   config:
     backend: json
-- name: '@lyness/workspace'
+- name: '@lyness/lyn-workspace'
 ```
 
 With these rows mounted, creating a project shows up in the list immediately and survives a restart; the first start also groups existing sessions by the directory they ran in. If a required peer is missing, the workspace feature stays unavailable until it is mounted.

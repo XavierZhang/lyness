@@ -7,8 +7,8 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { Context } from '@lyness/cordis'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import type { ClientArtifactBaseline, ClientModuleRegistry, WebBootGraph } from '@lyness/client-modules'
-import type { WebRoute, WebServer } from '@lyness/host-webserver'
+import type { ClientArtifactBaseline, ClientModuleRegistry, WebBootGraph } from '@lyness/lyn-client-modules'
+import type { WebRoute, WebServer } from '@lyness/lyn-host-webserver'
 import { apply, Config, EVENTS_ENDPOINT, inject } from '../src/index.ts'
 
 const POLL_MS = 20

@@ -1,16 +1,16 @@
 /**
  * Dynamic Cordis Plugin service: immutable package definitions, one active run
  * per Plugin, human-approved Client activation, and Host/Client invocation.
- * @module @lyness/cordis-host-runner
+ * @module @lyness/lyn-cordis-host-runner
  */
 
 import { Context } from '@lyness/cordis'
 import type { Fiber } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import type { Agent } from '@lyness/agent'
-import { createUserMessage } from '@lyness/llm'
-import { TypertRemoteService, Remote } from '@lyness/typert-protocol'
-import type { JsonValue } from '@lyness/util-values'
+import type { Agent } from '@lyness/lyn-agent'
+import { createUserMessage } from '@lyness/lyn-llm'
+import { TypertRemoteService, Remote } from '@lyness/lyn-typert-protocol'
+import type { JsonValue } from '@lyness/lyn-util-values'
 import { isPlugin, normalizeHandler } from './guard.ts'
 import { CordisInspectRegistryService } from './inspect-registry.ts'
 import { missingServices, startHostHalf } from './lifecycle.ts'

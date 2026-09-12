@@ -3,8 +3,8 @@
  * fiber's lifetime, reading through `ctx.remote` in the Session each address names.
  */
 import { Context } from '@lyness/cordis'
-import type { ResourceProvider } from '@lyness/client-resources/client'
-import { sessionFileAddress } from '@lyness/util-workspace-path'
+import type { ResourceProvider } from '@lyness/lyn-client-resources/client'
+import { sessionFileAddress } from '@lyness/lyn-util-workspace-path'
 import { describe, expect, it, onTestFinished } from 'vitest'
 import { apply, inject } from '../src/client/index.ts'
 import { FakeRemote, settle } from './fake-remote.client.ts'

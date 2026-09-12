@@ -1,5 +1,5 @@
 import type { Context } from '@lyness/cordis'
-import type { PropsLocale } from '@lyness/client-ui-slots'
+import type { PropsLocale } from '@lyness/lyn-client-ui-slots'
 import type { ToolCallViewProps } from '../../contract/slots.ts'
 import { readCallLine, readCardModel } from '../models/read-card-model.ts'
 import { readFamilyRow } from './read-family-row.tsx'

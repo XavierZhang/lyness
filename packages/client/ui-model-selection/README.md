@@ -3,7 +3,7 @@ description: "Model selection for the Web GUI: the /model popup and the composer
 kind: "package-reference"
 ---
 
-# @lyness/client-ui-model-selection
+# @lyness/lyn-client-ui-model-selection
 
 English | [中文](README.zh.md)
 

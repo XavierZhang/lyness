@@ -16,7 +16,7 @@ describe.skipIf(!built)('built migration verifier (plain node)', () => {
       import { join } from 'node:path'
       import { Worker } from 'node:worker_threads'
       import { Context } from '@lyness/cordis'
-      import JsonlSessionPersistence from '@lyness/session-persistence-jsonl'
+      import JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
 
       const root = await mkdtemp(join(tmpdir(), 'lyn-built-migration-'))
       const id = 'built-migration-worker'

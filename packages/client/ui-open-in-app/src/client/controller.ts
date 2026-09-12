@@ -1,10 +1,10 @@
 /** Browser availability/choice state and the launch carrier for the split button. */
 
-import { createSnapshotStore, type SnapshotStore } from '@lyness/client-store'
+import { createSnapshotStore, type SnapshotStore } from '@lyness/lyn-client-store'
 import {
   OPEN_IN_APP_APPS_ROUTE, OPEN_IN_APP_OPEN_ROUTE,
   type OpenInAppAppsPayload, type OpenInAppOpenPayload,
-} from '@lyness/host-open-in-app/shared'
+} from '@lyness/lyn-host-open-in-app/shared'
 
 type Fetch = (input: string | URL, init?: RequestInit) => Promise<Response>
 

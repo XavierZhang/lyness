@@ -3,7 +3,7 @@ description: "The model-facing persistent bash tool for users and maintainers ch
 kind: "package-reference"
 ---
 
-# @lyness/tool-bash-persistent
+# @lyness/lyn-tool-bash-persistent
 
 English | [中文](README.zh.md)
 
@@ -36,9 +36,9 @@ Choose the persistent tool when work depends on cross-call state: a one-shot `ly
 The default `shell` backend starts an interactive bash through `lyn-terminal-bash`; deployments may register another PTY backend and select it by name.
 
 ```yaml
-- name: '@lyness/terminal'
-- name: '@lyness/terminal-bash'
-- name: '@lyness/tool-bash-persistent'
+- name: '@lyness/lyn-terminal'
+- name: '@lyness/lyn-terminal-bash'
+- name: '@lyness/lyn-tool-bash-persistent'
 ```
 
 | Field | Default | Meaning |
@@ -48,7 +48,7 @@ The default `shell` backend starts an interactive bash through `lyn-terminal-bas
 | `maxOutputChars` | `16,000` | Maximum retained command-output characters; fixed diagnostics are added afterward |
 | `description` | `Run commands in a persistent bash shell. State, including the current directory and exported environment variables, persists across calls for this agent.` | Model-facing environment contract; deployments may describe their environment |
 
-The generated [configuration catalog](../../../docs/config-catalog.md#lynesstool-bash-persistent) is the exhaustive source for every accepted field and its JSDoc.
+The generated [configuration catalog](../../../docs/config-catalog.md#lynesslyn-tool-bash-persistent) is the exhaustive source for every accepted field and its JSDoc.
 
 ### What the agent can rely on
 
@@ -100,8 +100,8 @@ Read these pages when the package-level contract is not enough. They move from t
 - [terminal-bash backend](../../terminal/terminal-bash/README.md) — the default `shell` backend.
 - [tool-terminal](../../terminal/tool-terminal/README.md) — six model-facing terminal tools for interactive work.
 - [Persistent PTY sessions Agent Note](../../../.agents/notes/implemented/feature/2026-07-16-persistent-pty-sessions.md) — the owner-scoped session design and its rationale.
-- [Generated tool catalog](../../../docs/tool-catalog.md#lynesstool-bash-persistent) — the exact `bash` argument schema.
-- [Generated configuration catalog](../../../docs/config-catalog.md#lynesstool-bash-persistent) — every accepted config field and its source declaration.
+- [Generated tool catalog](../../../docs/tool-catalog.md#lynesslyn-tool-bash-persistent) — the exact `bash` argument schema.
+- [Generated configuration catalog](../../../docs/config-catalog.md#lynesslyn-tool-bash-persistent) — every accepted config field and its source declaration.
 
 -----
 
@@ -112,7 +112,7 @@ Read these pages when the package-level contract is not enough. They move from t
 
 #### What the model sees
 
-The generated [`bash` schema](../../../docs/tool-catalog.md#lynesstool-bash-persistent), including the configured `description`. The plugin contributes no standalone system-prompt section; the deployment owns persona and environment guidance.
+The generated [`bash` schema](../../../docs/tool-catalog.md#lynesslyn-tool-bash-persistent), including the configured `description`. The plugin contributes no standalone system-prompt section; the deployment owns persona and environment guidance.
 
 #### Token effect
 

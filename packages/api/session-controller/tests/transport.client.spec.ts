@@ -3,11 +3,11 @@ import {
   RemoteStream,
   RemoteStreamCarrierError,
   type RemoteStreamOptions,
-} from '@lyness/api-gateway/client'
-import { RemoteError } from '@lyness/typert-protocol'
-import { LlmAttemptId } from '@lyness/llm'
-import { SESSION_FORMAT_VERSION } from '@lyness/session/types'
-import type { RemoteResult } from '@lyness/typert-protocol'
+} from '@lyness/lyn-api-gateway/client'
+import { RemoteError } from '@lyness/lyn-typert-protocol'
+import { LlmAttemptId } from '@lyness/lyn-llm'
+import { SESSION_FORMAT_VERSION } from '@lyness/lyn-session/types'
+import type { RemoteResult } from '@lyness/lyn-typert-protocol'
 import {
   createSessionControlStream,
   SessionEventStream,

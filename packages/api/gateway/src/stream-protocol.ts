@@ -1,6 +1,6 @@
 /** Wire messages for Gateway-owned Remote streams and event-result RPCs. */
 
-import type { Branded } from '@lyness/brand'
+import type { Branded } from '@lyness/lyn-brand'
 
 /** Exact WebSocket route carrying every Typert Remote stream. */
 export const REMOTE_STREAM_MUX_PATH = '/api/remote.mux'

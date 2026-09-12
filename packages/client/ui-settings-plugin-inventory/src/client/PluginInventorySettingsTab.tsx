@@ -1,14 +1,14 @@
 import { useEffect, useId, useMemo, useState, type ReactNode } from 'react'
-import type { PluginInventorySnapshot } from '@lyness/api-remotes/client'
+import type { PluginInventorySnapshot } from '@lyness/lyn-api-remotes/client'
 import {
   IconChevronDownOutline14,
   IconSearchOutline16,
   Menu,
   StateDot,
   Tag,
-} from '@lyness/client-ui-primitives'
-import type { StateDotState, TagTone } from '@lyness/client-ui-primitives'
-import type { InjectFace, PropsLocale, PropsRuntime } from '@lyness/client-ui-slots'
+} from '@lyness/lyn-client-ui-primitives'
+import type { StateDotState, TagTone } from '@lyness/lyn-client-ui-primitives'
+import type { InjectFace, PropsLocale, PropsRuntime } from '@lyness/lyn-client-ui-slots'
 import type { PluginInventoryLocaleKey } from './locales.ts'
 import css from './PluginInventorySettingsTab.module.css'
 
@@ -60,7 +60,7 @@ function moduleShortName(moduleName: string): string {
   return unscoped
     .replace(/^cordis:/, '')
     .replace(/^cordis-plugin-/, '')
-    .replace(/^(?:host-|client-)?/, '')
+    .replace(/^lyn-(?:host-|client-)?/, '')
 }
 
 /** Display an entry identity without the composition-only `include:` marker. */

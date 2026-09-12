@@ -19,9 +19,9 @@ import type { Loader } from '@lyness/cordis-plugin-loader'
 import type {
   CordisDynamicPackageId, CordisDynamicPluginId, CordisDynamicPluginRunId, DynamicCordisPackage,
   SessionId,
-} from '@lyness/api-remotes/client'
-import type { ClientModuleSystem } from '@lyness/client-modules/client'
-import type { SlotRegistry } from '@lyness/client-ui-renderer/client'
+} from '@lyness/lyn-api-remotes/client'
+import type { ClientModuleSystem } from '@lyness/lyn-client-modules/client'
+import type { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
 import { DynamicCordisStyles, evaluateClientHalf, DYNAMIC_CLIENT_REDIRECTS } from './evaluator.ts'
 import type { DynamicCordisEvaluatedPlugin } from './evaluator.ts'
 import { dynamicCordisContext } from './guard.ts'

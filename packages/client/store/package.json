@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/client-store",
+  "name": "@lyness/lyn-client-store",
   "description": "React-free observable and snapshot-store contracts with the shared Zustand/Immer engine",
   "version": "0.1.5-rc.1",
   "publishConfig": {

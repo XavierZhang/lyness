@@ -1,4 +1,4 @@
-import type { PropsLocale, PropsRuntime } from '@lyness/client-ui-slots'
+import type { PropsLocale, PropsRuntime } from '@lyness/lyn-client-ui-slots'
 import { NS } from './locales.ts'
 import css from './SubagentReadOnlyComposer.module.css'
 

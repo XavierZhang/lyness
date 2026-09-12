@@ -4,19 +4,19 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
-import { credentialRef } from '@lyness/credentials'
-import LocalCredentialProvider from '@lyness/credentials-local'
-import WebRuntime, { WebError } from '@lyness/web'
+import { credentialRef } from '@lyness/lyn-credentials'
+import LocalCredentialProvider from '@lyness/lyn-credentials-local'
+import WebRuntime, { WebError } from '@lyness/lyn-web'
 import {
   DeepSeekSearchProvider,
   DEEPSEEK_PROVIDER_ID,
-} from '@lyness/web-search-deepseek'
-import * as deepseekPlugin from '@lyness/web-search-deepseek'
+} from '@lyness/lyn-web-search-deepseek'
+import * as deepseekPlugin from '@lyness/lyn-web-search-deepseek'
 import { citationSnippets, mapAnthropicResponse } from '../src/provider.ts'
-import type { AnthropicResponse } from '@lyness/web-search-deepseek/src/types.ts'
+import type { AnthropicResponse } from '@lyness/lyn-web-search-deepseek/src/types.ts'
 
 /** Construct the provider over a fixed options value; production passes a live thunk. */
-import type { DeepSeekSearchProviderOptions } from '@lyness/web-search-deepseek'
+import type { DeepSeekSearchProviderOptions } from '@lyness/lyn-web-search-deepseek'
 
 const searchProvider = (options: DeepSeekSearchProviderOptions): DeepSeekSearchProvider =>
   new DeepSeekSearchProvider(() => options)

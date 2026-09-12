@@ -27,7 +27,7 @@ export const en = {
   retry: 'Retry',
 } satisfies Record<PdfLocaleKey, string>
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface LocaleNamespaceMap {
     /** PDF page, loading, and failure messages. */
     sidebarPdf: PdfLocaleKey

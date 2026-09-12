@@ -7,8 +7,8 @@ import { Context } from '@lyness/cordis'
 import { mkdtemp, readFile, rm, stat } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { credentialRef } from '@lyness/credentials'
-import { withFileLock, writeFileAtomic } from '@lyness/atomic-write'
+import { credentialRef } from '@lyness/lyn-credentials'
+import { withFileLock, writeFileAtomic } from '@lyness/lyn-atomic-write'
 import { LocalCredentialProvider, renderFlatLayoutMigration } from '../src/index.ts'
 
 /** Credential documents are seeded owner-only, exactly as the provider creates them. */

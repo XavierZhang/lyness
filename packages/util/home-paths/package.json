@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/home-paths",
+  "name": "@lyness/lyn-home-paths",
   "description": "Shared filesystem path helpers for the lyness",
   "version": "0.1.5-rc.1",
   "publishConfig": {

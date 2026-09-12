@@ -1,13 +1,13 @@
 /** Tool UI slot declarations and their composed component props. */
 import type {
   HostObservable, InjectFace, PropsLocale, PropsRenderSlots, PropsRuntime,
-} from '@lyness/client-ui-slots'
-import type { RemoteHostFacts } from '@lyness/api-remotes/client'
-import type { OpenFileOptions, ToolCallBlock } from '@lyness/client-ui-chat/client'
-import type { MessageImageLoader, MessageImageSource } from '@lyness/client-ui-conversation/client'
-import type {} from '@lyness/client-locale/client'
+} from '@lyness/lyn-client-ui-slots'
+import type { RemoteHostFacts } from '@lyness/lyn-api-remotes/client'
+import type { OpenFileOptions, ToolCallBlock } from '@lyness/lyn-client-ui-chat/client'
+import type { MessageImageLoader, MessageImageSource } from '@lyness/lyn-client-ui-conversation/client'
+import type {} from '@lyness/lyn-client-locale/client'
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface SlotMap {
     /**
      * Keyed atomic Tool call view, dispatched by the wire Tool name. Register

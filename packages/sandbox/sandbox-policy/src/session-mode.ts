@@ -18,10 +18,10 @@
  * @module lyn-sandbox-policy/session-mode
  */
 
-import type { Session } from '@lyness/session'
-import type { SandboxMode } from '@lyness/sandbox'
+import type { Session } from '@lyness/lyn-session'
+import type { SandboxMode } from '@lyness/lyn-sandbox'
 
-declare module '@lyness/session/types' {
+declare module '@lyness/lyn-session/types' {
   interface SessionEventMap {
     /**
      * The session's sandbox mode was switched — log-only (like `approval/*`;

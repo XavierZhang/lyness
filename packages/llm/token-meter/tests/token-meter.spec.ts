@@ -1,12 +1,12 @@
 import { describe, expect, expectTypeOf, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { AssistantStreamAccumulator, createUserMessage, createSystemMessage, ToolCallId, createMessage } from '@lyness/llm'
-import type { ContentBlock, Message, TokenUsage } from '@lyness/llm'
-import SessionStore, { Session, SessionId, SessionSeq, canonicalHeader } from '@lyness/session'
-import type { EpochHeader, SessionEvent, SessionSeq as SessionSeqType } from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import TokenMeter from '@lyness/token-meter'
-import type { TokenMeasurement, TokenMeterConfig } from '@lyness/token-meter'
+import { AssistantStreamAccumulator, createUserMessage, createSystemMessage, ToolCallId, createMessage } from '@lyness/lyn-llm'
+import type { ContentBlock, Message, TokenUsage } from '@lyness/lyn-llm'
+import SessionStore, { Session, SessionId, SessionSeq, canonicalHeader } from '@lyness/lyn-session'
+import type { EpochHeader, SessionEvent, SessionSeq as SessionSeqType } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import TokenMeter from '@lyness/lyn-token-meter'
+import type { TokenMeasurement, TokenMeterConfig } from '@lyness/lyn-token-meter'
 
 function header(model: string, extras: Omit<EpochHeader, 'config'> = {}): EpochHeader {
   return canonicalHeader({ config: { provider: 'mock', model }, ...extras })
@@ -26,7 +26,7 @@ function appendHeader(session: Session, value: EpochHeader): void {
   session.append('request/header', { header: value, reason: 'initial' })
 }
 
-const SYSTEM_PLUGIN = '@lyness/system-prompt'
+const SYSTEM_PLUGIN = '@lyness/lyn-system-prompt'
 
 /** Append the rendered system prompt as surface node 0, the way the loop does. */
 function appendSystem(session: Session, text: string): SessionSeqType {

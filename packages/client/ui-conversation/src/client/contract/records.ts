@@ -2,12 +2,12 @@
 // substructure references. Stable node and location stores make old snapshots
 // live readers rather than time-point views.
 
-import type { CommandId } from '@lyness/commands/brand'
-import type { MessageId } from '@lyness/llm/brand'
-import type { ContentBlock } from '@lyness/llm/types'
-import type { ImageAttachmentRef } from '@lyness/attachment'
-import type { LlmRetryEventData } from '@lyness/llm-retry/types'
-import type { TodoItem } from '@lyness/tool-todo/client'
+import type { CommandId } from '@lyness/lyn-commands/brand'
+import type { MessageId } from '@lyness/lyn-llm/brand'
+import type { ContentBlock } from '@lyness/lyn-llm/types'
+import type { ImageAttachmentRef } from '@lyness/lyn-attachment'
+import type { LlmRetryEventData } from '@lyness/lyn-llm-retry/types'
+import type { TodoItem } from '@lyness/lyn-tool-todo/client'
 import type { ContextProvenanceView, KnownContextForm } from './context-provenance.ts'
 export type { TodoItem }
 

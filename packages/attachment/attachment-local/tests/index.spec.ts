@@ -1,5 +1,5 @@
 import { Context } from '@lyness/cordis'
-import { AttachmentId } from '@lyness/attachment'
+import { AttachmentId } from '@lyness/lyn-attachment'
 import { existsSync } from 'node:fs'
 import { mkdtemp, readFile, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'

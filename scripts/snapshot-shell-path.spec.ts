@@ -1,6 +1,6 @@
 import { Context } from '@lyness/cordis'
-import LocalSubprocessRuntime from '@lyness/subprocess-local'
-import { LocalBashExecutor } from '@lyness/bash-local'
+import LocalSubprocessRuntime from '@lyness/lyn-subprocess-local'
+import { LocalBashExecutor } from '@lyness/lyn-bash-local'
 import { mkdtemp, readFile, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'

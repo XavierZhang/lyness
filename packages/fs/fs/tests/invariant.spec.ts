@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { FsTargetKey, FsVersion } from '@lyness/fs'
-import type { FsTarget } from '@lyness/fs'
-import * as FsInvariant from '@lyness/fs/invariant'
-import InvariantRegistry from '@lyness/invariants'
+import { FsTargetKey, FsVersion } from '@lyness/lyn-fs'
+import type { FsTarget } from '@lyness/lyn-fs'
+import * as FsInvariant from '@lyness/lyn-fs/invariant'
+import InvariantRegistry from '@lyness/lyn-invariants'
 
 async function setup(): Promise<Context> {
   const ctx = new Context()

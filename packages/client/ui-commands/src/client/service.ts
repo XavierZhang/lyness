@@ -12,17 +12,17 @@ import { Service } from '@lyness/cordis'
 import type { Context } from '@lyness/cordis'
 // Type-only: pulls the ctx.remote merge and the forwarded-event key face
 // (`commands/change` rides the allowlist) into this program.
-import type {} from '@lyness/api-remotes/client'
-import type { CommandResult } from '@lyness/commands/types'
+import type {} from '@lyness/lyn-api-remotes/client'
+import type { CommandResult } from '@lyness/lyn-commands/types'
 import type { Context as ClientContext } from '@lyness/cordis'
-import type { ISessions } from '@lyness/api-session-controller/client'
-import type { SessionId } from '@lyness/session/types'
-import type { TranslateNS } from '@lyness/client-locale/client'
-import { rankByName } from '@lyness/client-ui-primitives'
+import type { ISessions } from '@lyness/lyn-api-session-controller/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { TranslateNS } from '@lyness/lyn-client-locale/client'
+import { rankByName } from '@lyness/lyn-client-ui-primitives'
 import type {
   CandidateRequest, ClientSessionContext, CommandClaim, PickOutcome, InputTriggerCandidate, InputTriggerPick,
   SubmitAttachment, SubmitEnvelope, SubmitOutcome,
-} from '@lyness/client-ui-input-trigger/client'
+} from '@lyness/lyn-client-ui-input-trigger/client'
 import type { CommandContribution, CommandDecoration, CommandUiContract } from './contract.ts'
 import type { CommandDescriptor } from './directory.ts'
 import { CommandDirectory } from './directory.ts'

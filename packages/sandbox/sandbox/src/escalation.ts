@@ -1,6 +1,6 @@
 /**
  * The escalation vocabulary and choreography shared by every sandbox-enforcing
- * tool family (`@lyness/tool-bash`, `@lyness/tool-fs`): the
+ * tool family (`@lyness/lyn-tool-bash`, `@lyness/lyn-tool-fs`): the
  * strictly-wider ladder, the argument-pairing validation, the model-facing
  * denial/hint markers, and {@link approveEscalation} — the ordered fail-closed
  * sequence that resolves a `sandbox_permissions` request through a
@@ -16,7 +16,7 @@
  * @module lyn-sandbox/escalation
  */
 
-import { assertNever } from '@lyness/util-values'
+import { assertNever } from '@lyness/lyn-util-values'
 import type { SandboxMode } from './index.ts'
 
 /**

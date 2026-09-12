@@ -1,9 +1,9 @@
 /** Staged editor for the Host-owned subagent model allowlist. */
 
 import type { Context as ClientContext } from '@lyness/cordis'
-import type { ModelProviderGroup } from '@lyness/api-remotes/client'
-import { createSnapshotStore, type SnapshotStore } from '@lyness/client-store'
-import type { SettingsScope } from '@lyness/client-ui-settings/client'
+import type { ModelProviderGroup } from '@lyness/lyn-api-remotes/client'
+import { createSnapshotStore, type SnapshotStore } from '@lyness/lyn-client-store'
+import type { SettingsScope } from '@lyness/lyn-client-ui-settings/client'
 import type { CardShell } from './card-form.ts'
 
 /** Namespace of the Host-owned subagent model-selection preference. */

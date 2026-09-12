@@ -1,13 +1,13 @@
 /**
  * Model-facing, workspace-authorized session-history search and read tools.
  *
- * @module @lyness/tool-session-query
+ * @module @lyness/lyn-tool-session-query
  */
 
 import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import { MAX_TIMER_DELAY_MS } from '@lyness/timeout'
-import { defineTool } from '@lyness/tools'
+import { MAX_TIMER_DELAY_MS } from '@lyness/lyn-timeout'
+import { defineTool } from '@lyness/lyn-tools'
 import { toolInput } from './input.ts'
 import { operations } from './operations.ts'
 import { presentation } from './presentation.ts'

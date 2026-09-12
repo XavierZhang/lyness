@@ -16,13 +16,13 @@
  * identity, so the identity-gated change feed pushes at most three times per
  * turn (boundary, prompt, response).
  *
- * @module @lyness/session-turn-outline/projection
+ * @module @lyness/lyn-session-turn-outline/projection
  */
 
 import { z } from 'zod'
 import type { ZodType } from 'zod'
-import { SessionSeq, type SessionEvent } from '@lyness/session'
-import type { ProjectionDefinition } from '@lyness/session-projection'
+import { SessionSeq, type SessionEvent } from '@lyness/lyn-session'
+import type { ProjectionDefinition } from '@lyness/lyn-session-projection'
 import type { TurnOutlineEntry, TurnOutlineState } from './types.ts'
 
 /** Prompt budget: one rail-card line (13px over ~276px), ASCII worst case included. */

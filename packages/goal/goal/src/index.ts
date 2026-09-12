@@ -1,7 +1,7 @@
 /**
  * Same-session goal domain: event-sourced state, compare-and-set mutations,
  * and process-local continuation activation.
- * @module @lyness/goal
+ * @module @lyness/lyn-goal
  */
 
 import { randomUUID } from 'node:crypto'
@@ -9,13 +9,13 @@ import { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
 import { z as zod } from 'zod'
 import type { ZodType } from 'zod'
-import { agentEvents } from '@lyness/agent'
-import type { Agent } from '@lyness/agent'
-import { SessionSeq } from '@lyness/session'
-import type { Session, SessionEvent, SessionLogOffset } from '@lyness/session'
-import { TypertRemoteService, Remote } from '@lyness/typert-protocol'
-import type {} from '@lyness/session-projection'
-import type { ProjectionDefinition } from '@lyness/session-projection'
+import { agentEvents } from '@lyness/lyn-agent'
+import type { Agent } from '@lyness/lyn-agent'
+import { SessionSeq } from '@lyness/lyn-session'
+import type { Session, SessionEvent, SessionLogOffset } from '@lyness/lyn-session'
+import { TypertRemoteService, Remote } from '@lyness/lyn-typert-protocol'
+import type {} from '@lyness/lyn-session-projection'
+import type { ProjectionDefinition } from '@lyness/lyn-session-projection'
 import {
   applyGoalEvent,
   goalChangeRef,

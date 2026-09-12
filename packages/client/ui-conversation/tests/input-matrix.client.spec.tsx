@@ -5,20 +5,20 @@
  * hint / pending), edit freedom, and the published currency's claim seat.
  * React over jsdom per the client testing discipline; the machine is real.
  */
-import type { GlobalStandardProps } from '@lyness/client-ui-slots'
+import type { GlobalStandardProps } from '@lyness/lyn-client-ui-slots'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { act, cleanup, fireEvent, render } from '@testing-library/react'
 import type { Context } from '@lyness/cordis'
-import type { SessionSnapshot } from '@lyness/api-session-controller/client'
-import { createSnapshotStore } from '@lyness/client-store'
+import type { SessionSnapshot } from '@lyness/lyn-api-session-controller/client'
+import { createSnapshotStore } from '@lyness/lyn-client-store'
 import {
   bindSnapshotSelector, conversationSnapshot, sessionSnapshot,
-} from '@lyness/client-test-runtime'
-import type { SessionPendingInteractionSnapshot } from '@lyness/client-ui-session/client'
-import type { SessionId } from '@lyness/session/types'
+} from '@lyness/lyn-client-test-runtime'
+import type { SessionPendingInteractionSnapshot } from '@lyness/lyn-client-ui-session/client'
+import type { SessionId } from '@lyness/lyn-session/types'
 import type { SubmitAttachment, SubmitOutcome } from '../src/client/contract/input.ts'
-import { makeTranslate } from '@lyness/client-test-runtime'
-import { zh as commonZh } from '@lyness/client-locale/src/locales/zh.ts'
+import { makeTranslate } from '@lyness/lyn-client-test-runtime'
+import { zh as commonZh } from '@lyness/lyn-client-locale/src/locales/zh.ts'
 import type { DraftAttachmentId } from '../src/client/contract/input.ts'
 import { SessionInputShell } from '../src/client/input/facade.ts'
 import { InputBar } from '../src/client/skeleton/InputBar.tsx'

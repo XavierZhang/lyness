@@ -12,14 +12,14 @@
 
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { createMessage, ToolCallId } from '@lyness/llm'
-import type { StreamChunk, TokenUsage } from '@lyness/llm'
-import SessionStore, { SessionId } from '@lyness/session'
-import type { Session, SessionEvent } from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import * as SessionStatsPlugin from '@lyness/session-stats'
-import { sessionStatsProjectionDefinition } from '@lyness/session-stats/src/projection.ts'
-import type { SessionStatsProjection } from '@lyness/session-stats/types'
+import { createMessage, ToolCallId } from '@lyness/lyn-llm'
+import type { StreamChunk, TokenUsage } from '@lyness/lyn-llm'
+import SessionStore, { SessionId } from '@lyness/lyn-session'
+import type { Session, SessionEvent } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import * as SessionStatsPlugin from '@lyness/lyn-session-stats'
+import { sessionStatsProjectionDefinition } from '@lyness/lyn-session-stats/src/projection.ts'
+import type { SessionStatsProjection } from '@lyness/lyn-session-stats/types'
 
 async function harness(withStatsPlugin: boolean): Promise<{ ctx: Context; session: Session }> {
   const ctx = new Context()

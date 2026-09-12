@@ -7,11 +7,11 @@
  * select the accumulated assistant text. Selection is independent of the
  * run's stop reason.
  *
- * @module @lyness/subagent/assistant-output
+ * @module @lyness/lyn-subagent/assistant-output
  */
 
-import { joinAssistantStreamText, type ContentBlock } from '@lyness/llm'
-import type { SessionEvent } from '@lyness/session'
+import { joinAssistantStreamText, type ContentBlock } from '@lyness/lyn-llm'
+import type { SessionEvent } from '@lyness/lyn-session'
 
 /**
  * Incremental fold of the selection rule, for backends that observe a child's

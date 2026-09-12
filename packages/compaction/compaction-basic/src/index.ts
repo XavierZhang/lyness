@@ -1,22 +1,22 @@
 /**
  * Basic replay-aware compaction backend.
  *
- * @module @lyness/compaction-basic
+ * @module @lyness/lyn-compaction-basic
  */
 
 import { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import { CompactionEngine, ManualCompactionError } from '@lyness/compaction'
-import type { CompactionResult, CompactionTrigger } from '@lyness/compaction'
-import type { TokenMeter } from '@lyness/token-meter'
-import type { Session, SessionSeq } from '@lyness/session'
-import { CONTEXT_WINDOW_EXCEEDED_CODE } from '@lyness/llm'
-import type { LlmCallConfig } from '@lyness/llm'
-import { assertNever } from '@lyness/util-values'
-import type { Agent, PreStepDecision } from '@lyness/agent'
-import type { CommandId } from '@lyness/commands/brand'
+import { CompactionEngine, ManualCompactionError } from '@lyness/lyn-compaction'
+import type { CompactionResult, CompactionTrigger } from '@lyness/lyn-compaction'
+import type { TokenMeter } from '@lyness/lyn-token-meter'
+import type { Session, SessionSeq } from '@lyness/lyn-session'
+import { CONTEXT_WINDOW_EXCEEDED_CODE } from '@lyness/lyn-llm'
+import type { LlmCallConfig } from '@lyness/lyn-llm'
+import { assertNever } from '@lyness/lyn-util-values'
+import type { Agent, PreStepDecision } from '@lyness/lyn-agent'
+import type { CommandId } from '@lyness/lyn-commands/brand'
 // Type-only: makes the optional sibling service available to `ctx.get()`.
-import type {} from '@lyness/compaction-tool-result-pruner'
+import type {} from '@lyness/lyn-compaction-tool-result-pruner'
 import {
   resolveCompactSpec,
   resolveConfig,

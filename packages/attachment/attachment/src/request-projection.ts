@@ -1,6 +1,6 @@
 /**
  * Pure request-projection geometry shared by attachment providers and
- * provider-side request pricing. @module @lyness/attachment/request-projection
+ * provider-side request pricing. @module @lyness/lyn-attachment/request-projection
  */
 
 /**

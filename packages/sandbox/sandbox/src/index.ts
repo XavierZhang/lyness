@@ -2,12 +2,12 @@
  * Service Definition for the same-world process-confinement capability seam: wrap exact subprocess argv under a
  * host-path file policy. Containers, microVMs, and remote execution replace the
  * surrounding capability seam instead; this service shares the host kernel and filesystem.
- * @module @lyness/sandbox
+ * @module @lyness/lyn-sandbox
  */
 
 import { Context, Service } from '@lyness/cordis'
-import { HarnessError } from '@lyness/llm'
-import type { SessionId } from '@lyness/session'
+import { HarnessError } from '@lyness/lyn-llm'
+import type { SessionId } from '@lyness/lyn-session'
 
 export {
   ESCALATION_TARGETS,

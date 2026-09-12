@@ -1,4 +1,4 @@
-import { deepFreeze, snapshotJsonValue } from '@lyness/util-values'
+import { deepFreeze, snapshotJsonValue } from '@lyness/lyn-util-values'
 import { SessionFormatError } from './error.ts'
 import type {
   SessionFormatHeader,

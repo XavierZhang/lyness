@@ -2,17 +2,17 @@
  * Register a DeepSeek-backed provider in `ctx.web`. It calls the Anthropic-compatible Messages API
  * with native `web_search_20250305`. The provider reuses `DEEPSEEK_API_KEY` but not
  * `DEEPSEEK_BASE_URL`, because search and chat-completions use different bases.
- * @module @lyness/web-search-deepseek
+ * @module @lyness/lyn-web-search-deepseek
  */
 
 import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import type {} from '@lyness/agent'
-import { credentialRef } from '@lyness/credentials'
-import type {} from '@lyness/settings'
-import { launchEnvironmentOf } from '@lyness/launch-environment'
-import type {} from '@lyness/session'
-import type {} from '@lyness/web'
+import type {} from '@lyness/lyn-agent'
+import { credentialRef } from '@lyness/lyn-credentials'
+import type {} from '@lyness/lyn-settings'
+import { launchEnvironmentOf } from '@lyness/lyn-launch-environment'
+import type {} from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-web'
 import {
   DeepSeekSearchProvider,
   DEEPSEEK_DEFAULT_API_VERSION,

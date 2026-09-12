@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/desktop-host",
+  "name": "@lyness/lyn-desktop-host",
   "description": "Private upstream-Node host process for the Electron desktop application",
   "version": "0.1.5-rc.1",
   "private": true,
@@ -14,15 +14,15 @@
     "@lyness/cordis": "workspace:^",
     "@lyness/cordis-plugin-include": "workspace:^",
     "@lyness/lyn": "workspace:^",
-    "@lyness/api-gateway": "workspace:^",
-    "@lyness/app-boot": "workspace:^",
-    "@lyness/client-connection": "workspace:^",
-    "@lyness/client-modules": "workspace:^",
-    "@lyness/client-ui-directory-picker-native": "workspace:^",
-    "@lyness/cmdline": "workspace:^",
-    "@lyness/host-directory-picker-native": "workspace:^",
-    "@lyness/host-webserver": "workspace:^",
-    "@lyness/launch-environment": "workspace:^",
-    "@lyness/web-frontend": "workspace:^"
+    "@lyness/lyn-api-gateway": "workspace:^",
+    "@lyness/lyn-app-boot": "workspace:^",
+    "@lyness/lyn-client-connection": "workspace:^",
+    "@lyness/lyn-client-modules": "workspace:^",
+    "@lyness/lyn-client-ui-directory-picker-native": "workspace:^",
+    "@lyness/lyn-cmdline": "workspace:^",
+    "@lyness/lyn-host-directory-picker-native": "workspace:^",
+    "@lyness/lyn-host-webserver": "workspace:^",
+    "@lyness/lyn-launch-environment": "workspace:^",
+    "@lyness/lyn-web-frontend": "workspace:^"
   }
 }

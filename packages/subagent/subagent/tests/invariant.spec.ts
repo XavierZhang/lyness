@@ -1,16 +1,16 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { scopeTarget } from '@lyness/scope'
-import { SessionId } from '@lyness/session'
-import SubagentRuntime, { SubagentRunId } from '@lyness/subagent'
+import { scopeTarget } from '@lyness/lyn-scope'
+import { SessionId } from '@lyness/lyn-session'
+import SubagentRuntime, { SubagentRunId } from '@lyness/lyn-subagent'
 import type {
   SubagentProvider,
   SubagentRunEndInfo,
   SubagentRunInfo,
-} from '@lyness/subagent'
-import * as SubagentInvariant from '@lyness/subagent/invariant'
-import InvariantRegistry from '@lyness/invariants'
-import SessionProjectionRegistry from '@lyness/session-projection'
+} from '@lyness/lyn-subagent'
+import * as SubagentInvariant from '@lyness/lyn-subagent/invariant'
+import InvariantRegistry from '@lyness/lyn-invariants'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 
 async function setup(): Promise<Context> {
   const ctx = new Context()

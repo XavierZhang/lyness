@@ -2,7 +2,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { mkdir, symlink, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
-import { FsVersion } from '@lyness/fs'
+import { FsVersion } from '@lyness/lyn-fs'
 import { failureOf, openWorkspace, signal, type Harness } from './harness.ts'
 
 let harness: Harness

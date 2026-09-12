@@ -1,7 +1,7 @@
 /**
  * Model-facing PowerShell Consumer of the `ctx.shell` capability seam. Intended for
  * Windows compositions where a PowerShell executor (e.g.
- * `@lyness/pwsh-local`) backs `ctx.shell`; the tool contract is
+ * `@lyness/lyn-pwsh-local`) backs `ctx.shell`; the tool contract is
  * PowerShell-dialect: native `C:\...` paths and `$env:NAME` variables.
  *
  * Behavior mirrors `lyn-tool-bash` call-for-call: foreground and
@@ -14,31 +14,31 @@
  * `ctx.approval`), and the bash marker/truncation rendering story. UI
  * presentation mirrors the bash tool's too: a completed foreground call is
  * a terminal card with the parsed exit-status pill, using the shared
- * exit-status parse from `@lyness/shell`.
+ * exit-status parse from `@lyness/lyn-shell`.
  *
- * @module @lyness/tool-pwsh
+ * @module @lyness/lyn-tool-pwsh
  */
 
 import { isAbsolute, resolve as resolvePath } from 'node:path'
 import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import { defineTool, TOOL_ABORTED } from '@lyness/tools'
-import type { GenericCallView, TerminalCallView, ToolExecution, ToolResult, ToolResultView } from '@lyness/tools'
-import { HarnessError } from '@lyness/llm'
-import type { Agent } from '@lyness/agent'
-import type {} from '@lyness/jobs'
-import type {} from '@lyness/shell-env'
-import type {} from '@lyness/user-approval'
-import type { SandboxExecutionPolicy, SandboxMode } from '@lyness/sandbox'
-import { ESCALATION_TARGETS, approveEscalation, validateEscalationArgs } from '@lyness/sandbox'
-import type { SandboxPolicyService } from '@lyness/sandbox-policy'
-import type { ShellRunResult } from '@lyness/shell'
-import { parseExitStatus } from '@lyness/shell'
+import { defineTool, TOOL_ABORTED } from '@lyness/lyn-tools'
+import type { GenericCallView, TerminalCallView, ToolExecution, ToolResult, ToolResultView } from '@lyness/lyn-tools'
+import { HarnessError } from '@lyness/lyn-llm'
+import type { Agent } from '@lyness/lyn-agent'
+import type {} from '@lyness/lyn-jobs'
+import type {} from '@lyness/lyn-shell-env'
+import type {} from '@lyness/lyn-user-approval'
+import type { SandboxExecutionPolicy, SandboxMode } from '@lyness/lyn-sandbox'
+import { ESCALATION_TARGETS, approveEscalation, validateEscalationArgs } from '@lyness/lyn-sandbox'
+import type { SandboxPolicyService } from '@lyness/lyn-sandbox-policy'
+import type { ShellRunResult } from '@lyness/lyn-shell'
+import { parseExitStatus } from '@lyness/lyn-shell'
 import { processOutcome } from './background.ts'
 import { renderPwshProcessRead, renderPwshResult } from './render.ts'
 import type { RenderablePwshResult } from './render.ts'
 
-declare module '@lyness/jobs' {
+declare module '@lyness/lyn-jobs' {
   interface JobKindMap {
     pwsh: 'pwsh'
   }
@@ -368,7 +368,7 @@ export function apply(ctx: Context, config: Config = {}): void {
         }
         const jobs = ctx.get('jobs')
         if (jobs === undefined) {
-          throw new Error('background jobs unavailable: load @lyness/jobs and @lyness/tool-jobs')
+          throw new Error('background jobs unavailable: load @lyness/lyn-jobs and @lyness/lyn-tool-jobs')
         }
         // The caller owns cancellation until ctx.jobs commits detached ownership.
         if (exec.signal.aborted) {

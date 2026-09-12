@@ -1,4 +1,4 @@
-import { createUserMessage } from '@lyness/llm'
+import { createUserMessage } from '@lyness/lyn-llm'
 /**
  * The `session-telemetry/record` waterfall contract: pass-through when no listener is
  * mounted, listener stacking and replacement, ops-record coverage, the
@@ -7,7 +7,7 @@ import { createUserMessage } from '@lyness/llm'
 
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import SessionStore, { SessionId } from '@lyness/session'
+import SessionStore, { SessionId } from '@lyness/lyn-session'
 import {
   SessionTelemetryCoordinator,
   type SessionTelemetrySink,

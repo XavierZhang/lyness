@@ -8,7 +8,7 @@
  * Not part of the product plugin graph (no `lyn.client`); feature packages
  * depend on it in devDependencies only. It copies no SlotCore/renderer/store
  * machinery — everything mounts the production implementations.
- * @module @lyness/client-test-runtime
+ * @module @lyness/lyn-client-test-runtime
  */
 /* oxlint-disable typescript/no-redundant-type-constituents --
  * `keyof SlotMap & string` is the declare-merge key pattern (see ui-slots):
@@ -22,25 +22,25 @@ import { act, render, within } from '@testing-library/react'
 import type { RenderResult } from '@testing-library/react'
 import type { queries } from '@testing-library/dom'
 import type { BoundFunctions } from '@testing-library/dom'
-import { SlotRegistry } from '@lyness/client-ui-renderer/client'
-import { bindSnapshotSelector as bindRendererSnapshotSelector } from '@lyness/client-ui-renderer/src/client/bind.ts'
-import { createSlotRenderer as createRenderer } from '@lyness/client-ui-renderer/src/client/scoped-slots.tsx'
+import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
+import { bindSnapshotSelector as bindRendererSnapshotSelector } from '@lyness/lyn-client-ui-renderer/src/client/bind.ts'
+import { createSlotRenderer as createRenderer } from '@lyness/lyn-client-ui-renderer/src/client/scoped-slots.tsx'
 import {
   apply as applyUiSession, inject as uiSessionInject,
-} from '@lyness/client-ui-session/client'
-import type { SessionId } from '@lyness/session/types'
-import { createSnapshotStore } from '@lyness/client-store'
-import type { PanelInfo } from '@lyness/client-ui-layout/client'
+} from '@lyness/lyn-client-ui-session/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import { createSnapshotStore } from '@lyness/lyn-client-store'
+import type { PanelInfo } from '@lyness/lyn-client-ui-layout/client'
 import type {
   ChildrenDecl, ComposedProps, HostObservable, OwnerOf, RenderOpts, SlotComponent, SlotMap, SlotRenderer,
   SlotRendererHost, SnapshotSelectorHook, StoreInstanceLike,
-} from '@lyness/client-ui-slots'
+} from '@lyness/lyn-client-ui-slots'
 import { registerDomSnapshotSerializer } from './snapshot.ts'
 import { TestSessions } from './sessions.ts'
 import { TestWorkspaces } from './workspaces.ts'
 import type { Stabilizer } from './fixtures.ts'
 
-export type { UseSession } from '@lyness/client-ui-session/client'
+export type { UseSession } from '@lyness/lyn-client-ui-session/client'
 export { domSnapshotSerializer, registerDomSnapshotSerializer } from './snapshot.ts'
 export { FixtureSession, TestSessions } from './sessions.ts'
 export { stubSettingsScope } from './settings-scope.ts'

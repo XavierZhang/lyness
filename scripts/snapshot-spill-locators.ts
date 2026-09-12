@@ -1,8 +1,8 @@
 /** Fixture-only logical locators over real local spill files; preview budgets retain recorded path lengths. */
 import type { Context } from '@lyness/cordis'
 import { join, relative, resolve, sep } from 'node:path'
-import type { SpillLocator } from '@lyness/spill'
-import type {} from '@lyness/fs'
+import type { SpillLocator } from '@lyness/lyn-spill'
+import type {} from '@lyness/lyn-fs'
 
 export const name = 'snapshot-spill-locators'
 export const inject = ['spillStore', 'fs']

@@ -2,9 +2,9 @@
 
 import { Buffer } from 'node:buffer'
 import { posix } from 'node:path'
-import { e2bControlEnvs } from '@lyness/e2b'
-import type { Sandbox } from '@lyness/e2b'
-import { SENSITIVE_ENV_PATTERN } from '@lyness/subprocess'
+import { e2bControlEnvs } from '@lyness/lyn-e2b'
+import type { Sandbox } from '@lyness/lyn-e2b'
+import { SENSITIVE_ENV_PATTERN } from '@lyness/lyn-subprocess'
 
 const BASE64 = /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/
 

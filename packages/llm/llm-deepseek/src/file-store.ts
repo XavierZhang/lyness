@@ -1,7 +1,7 @@
 /** DeepSeek Files API upload reuse, invalidation, and quota recovery. @module lyn-llm-deepseek/file-store */
 
-import type { RequestImageAttachment } from '@lyness/attachment'
-import { LlmError } from '@lyness/llm'
+import type { RequestImageAttachment } from '@lyness/lyn-attachment'
+import { LlmError } from '@lyness/lyn-llm'
 import { DeepSeekFilesClient, isFilesQuotaError } from './files-api.ts'
 import type { DeepSeekFileId } from './file-id.ts'
 import { deepSeekFileScope, DeepSeekUploadIndex } from './upload-index.ts'

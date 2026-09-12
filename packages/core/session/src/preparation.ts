@@ -1,6 +1,6 @@
 /**
  * Ownership of one unpublished Session before registry publication.
- * @module @lyness/session/preparation
+ * @module @lyness/lyn-session/preparation
  */
 
 import type { Session } from './index.ts'

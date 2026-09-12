@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest'
-import { SessionFormatEventCollector } from '@lyness/session-format'
+import { SessionFormatEventCollector } from '@lyness/lyn-session-format'
 import type {
   SessionFormatEvent,
   SessionFormatEventRun,
-} from '@lyness/session-format'
+} from '@lyness/lyn-session-format'
 import {
   RELEASED_V0_EVENT_TYPES,
   releasedV1SessionFormatCodec,

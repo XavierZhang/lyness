@@ -18,10 +18,10 @@ import { join } from 'node:path'
 import type { Browser, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { afterEach, describe, expect, it, onTestFailed } from 'vitest'
-import type { RetryPolicyConfig } from '@lyness/llm'
-import { deriveReplayScript, parseSessionLog } from '@lyness/llm-replay'
-import type { ReplayEntry, ReplayOverrideDoc } from '@lyness/llm-replay'
-import type { SessionEvent } from '@lyness/session'
+import type { RetryPolicyConfig } from '@lyness/lyn-llm'
+import { deriveReplayScript, parseSessionLog } from '@lyness/lyn-llm-replay'
+import type { ReplayEntry, ReplayOverrideDoc } from '@lyness/lyn-llm-replay'
+import type { SessionEvent } from '@lyness/lyn-session'
 import {
   assertFixtureInventory, captureExpandedTurnProcessAria, captureStableAria,
   compareOrRefreshGolden, fixtureUserPrompts,

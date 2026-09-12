@@ -17,9 +17,9 @@
  */
 import { Context as CordisContext } from '@lyness/cordis'
 import type { Context, Fiber } from '@lyness/cordis'
-import type { ClientRemote } from '@lyness/api-gateway/client'
-import type { SessionId } from '@lyness/session/types'
-import type { TypertRemoteScopeApi } from '@lyness/typert-protocol'
+import type { ClientRemote } from '@lyness/lyn-api-gateway/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { TypertRemoteScopeApi } from '@lyness/lyn-typert-protocol'
 
 /** Client Cordis Context carrying one Agent identity and its scoped Remote namespaces. */
 export type AgentContext = Omit<Context, 'remote'> & {

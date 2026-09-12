@@ -24,13 +24,13 @@ describe('desktop package-set selection', () => {
   it('includes only the available internal production closure', () => {
     const available = new Map<string, PackedDesktopPackage>([
       ['@lyness/lyn', packed('@lyness/lyn', {
-        dependencies: { '@lyness/base': '^1.0.0', external: '^2.0.0' },
+        dependencies: { '@lyness/lyn-base': '^1.0.0', external: '^2.0.0' },
         optionalDependencies: { '@lyness/platform-package': '1.0.0', '@lyness/missing-platform': '1.0.0' },
       })],
-      ['@lyness/desktop-host', packed('@lyness/desktop-host', {
+      ['@lyness/lyn-desktop-host', packed('@lyness/lyn-desktop-host', {
         dependencies: { '@lyness/lyn': '^1.0.0' },
       })],
-      ['@lyness/base', packed('@lyness/base', {
+      ['@lyness/lyn-base', packed('@lyness/lyn-base', {
         peerDependencies: { '@lyness/cordis': '^1.0.0' },
       })],
       ['@lyness/cordis', packed('@lyness/cordis')],
@@ -38,10 +38,10 @@ describe('desktop package-set selection', () => {
       ['@lyness/unused', packed('@lyness/unused')],
     ])
     expect(selectDesktopPackageClosure(available).map(entry => entry.manifest.name)).toEqual([
-      '@lyness/base',
       '@lyness/cordis',
-      '@lyness/desktop-host',
       '@lyness/lyn',
+      '@lyness/lyn-base',
+      '@lyness/lyn-desktop-host',
       '@lyness/platform-package',
     ])
   })
@@ -49,16 +49,16 @@ describe('desktop package-set selection', () => {
   it('rejects a required internal package absent from the packed release inputs', () => {
     const available = new Map<string, PackedDesktopPackage>([
       ['@lyness/lyn', packed('@lyness/lyn', {
-        dependencies: { '@lyness/base': '^1.0.0' },
+        dependencies: { '@lyness/lyn-base': '^1.0.0' },
       })],
-      ['@lyness/desktop-host', packed('@lyness/desktop-host', {
+      ['@lyness/lyn-desktop-host', packed('@lyness/lyn-desktop-host', {
         dependencies: { '@lyness/lyn': '^1.0.0' },
       })],
     ])
     expect(() => selectDesktopPackageClosure(available)).toThrow(/unpacked internal package/u)
     expect(() => selectDesktopPackageClosure(new Map([
       ['@lyness/lyn', packed('@lyness/lyn')],
-    ]))).toThrow(/omit @lyness\/desktop-host/u)
+    ]))).toThrow(/omit @lyness\/lyn-desktop-host/u)
   })
 
   it('requires the Desktop Host entry and its packaged overlay', () => {

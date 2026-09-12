@@ -1,15 +1,15 @@
-/** Package-owned durable clock-context invariants. @module @lyness/time-context/invariant */
+/** Package-owned durable clock-context invariants. @module @lyness/lyn-time-context/invariant */
 
 import type { Context } from '@lyness/cordis'
-import type { Session, SessionEvent } from '@lyness/session'
-import type { InvariantFailure, InvariantInstaller } from '@lyness/invariants'
+import type { Session, SessionEvent } from '@lyness/lyn-session'
+import type { InvariantFailure, InvariantInstaller } from '@lyness/lyn-invariants'
 import {
   deriveBrowserTimeZoneContext,
   renderBrowserTimeZoneContext,
 } from './request-zone.ts'
 import { createTimestampFormatter, formatTimestamp } from './timestamp.ts'
 
-const PACKAGE_NAME = '@lyness/time-context'
+const PACKAGE_NAME = '@lyness/lyn-time-context'
 const SOURCE_NAME = 'time-context'
 const READING = new RegExp(
   '^Time sampled while preparing turn (\\d+), step (\\d+): '

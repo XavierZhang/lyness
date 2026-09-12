@@ -7,7 +7,7 @@ import {
   type ClientModuleLoader, type ClientModuleLoaderTarget, type LynWindow,
 } from '../src/client/index.ts'
 
-const MODULES_ID = '@lyness/client-modules'
+const MODULES_ID = '@lyness/lyn-client-modules'
 
 const comboUrl = (ids: readonly string[], rev: string): string =>
   `/plugins/??${ids.map(id => `${id}/client.js`).join(',')}&rev=${rev}`

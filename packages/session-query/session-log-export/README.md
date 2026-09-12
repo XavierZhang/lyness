@@ -3,7 +3,7 @@ description: "Web Session-log ZIP export: Host streaming, the authenticated down
 kind: "package-reference"
 ---
 
-# @lyness/session-log-export
+# @lyness/lyn-session-log-export
 
 English | [中文](README.zh.md)
 
@@ -35,7 +35,7 @@ Choose it for a Web deployment that needs user-facing session export with a visi
 
 ```yaml
 - id: session-log-download
-  name: '@lyness/session-log-export'
+  name: '@lyness/lyn-session-log-export'
 ```
 
 The Web bundle mounts the package with Connection, `lyn-commands`, `lyn-client-ui-commands`, and `lyn-client-ui-conversation`.

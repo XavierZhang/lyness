@@ -1,15 +1,15 @@
 import { Context } from '@lyness/cordis'
-import AgentRegistry from '@lyness/agent'
-import type { Agent } from '@lyness/agent'
-import type { JobOutcome } from '@lyness/jobs'
-import LocalJobRegistry from '@lyness/jobs-local'
-import SessionStore, { SESSION_FORMAT_VERSION, SessionId } from '@lyness/session'
-import type { Session } from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
+import AgentRegistry from '@lyness/lyn-agent'
+import type { Agent } from '@lyness/lyn-agent'
+import type { JobOutcome } from '@lyness/lyn-jobs'
+import LocalJobRegistry from '@lyness/lyn-jobs-local'
+import SessionStore, { SESSION_FORMAT_VERSION, SessionId } from '@lyness/lyn-session'
+import type { Session } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 import { describe, expect, it } from 'vitest'
 import { SessionControlController } from '../src/control.ts'
 import type { SessionControlFrame } from '../src/types.ts'
-import { unsupportedInbox } from '@lyness/agent-loop-testkit'
+import { unsupportedInbox } from '@lyness/lyn-agent-loop-testkit'
 
 type BaselineFrame = Extract<SessionControlFrame, { type: 'baseline' }>
 type JobFrame = Extract<SessionControlFrame, { type: 'jobs' }>

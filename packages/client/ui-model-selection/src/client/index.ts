@@ -11,17 +11,17 @@
  * history outside the direct-parent continuation path.
  */
 // Type-only: the carrier types, the forwarded Host-event face and the ctx.remote merge.
-import type { ModelSelection } from '@lyness/api-session-controller/types'
-import type {} from '@lyness/api-session-controller/client'
+import type { ModelSelection } from '@lyness/lyn-api-session-controller/types'
+import type {} from '@lyness/lyn-api-session-controller/client'
 import type { Context as ClientContext } from '@lyness/cordis'
-import type { CommandUiContract, SelectOption } from '@lyness/client-ui-commands/client'
+import type { CommandUiContract, SelectOption } from '@lyness/lyn-client-ui-commands/client'
 // Type-only: pulls the ui-conversation SlotMap merge (the input.model seat).
-import type {} from '@lyness/client-ui-conversation/client'
+import type {} from '@lyness/lyn-client-ui-conversation/client'
 // Type-only: pulls the locale plugin's Context merge (ctx.locale).
-import type {} from '@lyness/client-locale/client'
-import type {} from '@lyness/client-ui-renderer/client'
-import type {} from '@lyness/client-ui-session/client'
-import type { TranslateNS } from '@lyness/client-ui-slots'
+import type {} from '@lyness/lyn-client-locale/client'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
+import type {} from '@lyness/lyn-client-ui-session/client'
+import type { TranslateNS } from '@lyness/lyn-client-ui-slots'
 import type { ModelDirectoryState } from './directory.ts'
 import { ModelDirectoryResolver } from './service.ts'
 import type { ModelSelectInjected } from './slots.ts'
@@ -34,7 +34,7 @@ export { ModelDirectoryResolver } from './service.ts'
 export type { ModelSelectInjected } from './slots.ts'
 export type { ModelKey } from './locales.ts'
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface LocaleNamespaceMap {
     /** The model selection surfaces' copy (/model popup + composer seat). */
     model: ModelKey

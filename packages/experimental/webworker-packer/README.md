@@ -3,7 +3,7 @@ description: "Browser-worker VFS image packaging for maintainers building or deb
 kind: "package-library"
 ---
 
-# `@lyness/experimental-webworker-packer`
+# `@lyness/lyn-experimental-webworker-packer`
 
 English | [中文](README.zh.md)
 

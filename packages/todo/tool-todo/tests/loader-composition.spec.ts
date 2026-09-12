@@ -9,15 +9,15 @@ import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
 import Include from '@lyness/cordis-plugin-include'
-import { ToolCallId } from '@lyness/llm'
-import { Session, SessionId } from '@lyness/session'
-import AgentRegistry from '@lyness/agent'
-import type { Agent } from '@lyness/agent'
-import SystemPrompt from '@lyness/system-prompt'
-import ToolRuntime from '@lyness/tools'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import * as ToolTodo from '@lyness/tool-todo'
-import { unsupportedInbox } from '@lyness/agent-loop-testkit'
+import { ToolCallId } from '@lyness/lyn-llm'
+import { Session, SessionId } from '@lyness/lyn-session'
+import AgentRegistry from '@lyness/lyn-agent'
+import type { Agent } from '@lyness/lyn-agent'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime from '@lyness/lyn-tools'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import * as ToolTodo from '@lyness/lyn-tool-todo'
+import { unsupportedInbox } from '@lyness/lyn-agent-loop-testkit'
 
 let root: string | undefined
 let context: Context | undefined
@@ -57,11 +57,11 @@ async function boot(configLines: readonly string[]): Promise<Context> {
   root = await mkdtemp(join(tmpdir(), 'lyn-todo-loader-'))
   const configPath = join(root, 'cordis.yml')
   await writeFile(configPath, [
-    "- name: '@lyness/agent'",
-    "- name: '@lyness/system-prompt'",
-    "- name: '@lyness/tools'",
-    "- name: '@lyness/session-projection'",
-    "- name: '@lyness/tool-todo'",
+    "- name: '@lyness/lyn-agent'",
+    "- name: '@lyness/lyn-system-prompt'",
+    "- name: '@lyness/lyn-tools'",
+    "- name: '@lyness/lyn-session-projection'",
+    "- name: '@lyness/lyn-tool-todo'",
     ...configLines.length > 0 ? ['  config:', ...configLines] : [],
     '',
   ].join('\n'))
@@ -72,11 +72,11 @@ async function boot(configLines: readonly string[]): Promise<Context> {
   await ctx.plugin(Loader)
   ctx.loader.builtins.include = Include
   const modules = new Map<string, unknown>([
-    ['@lyness/agent', AgentRegistry],
-    ['@lyness/system-prompt', SystemPrompt],
-    ['@lyness/tools', ToolRuntime],
-    ['@lyness/session-projection', SessionProjectionRegistry],
-    ['@lyness/tool-todo', ToolTodo],
+    ['@lyness/lyn-agent', AgentRegistry],
+    ['@lyness/lyn-system-prompt', SystemPrompt],
+    ['@lyness/lyn-tools', ToolRuntime],
+    ['@lyness/lyn-session-projection', SessionProjectionRegistry],
+    ['@lyness/lyn-tool-todo', ToolTodo],
   ])
   ctx.loader.internal = {
     version: 'v2',

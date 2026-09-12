@@ -4,14 +4,14 @@ import {
   SessionFormatUnsupportedMigrationError,
   sessionFormatCount,
   sessionFormatSafeInteger,
-} from '@lyness/session-format'
-import { isJsonValue } from '@lyness/util-values'
+} from '@lyness/lyn-session-format'
+import { isJsonValue } from '@lyness/lyn-util-values'
 import type {
   SessionFormatArtifact,
   SessionFormatEvent,
   SessionFormatHeader,
   SessionFormatJsonValue,
-} from '@lyness/session-format'
+} from '@lyness/lyn-session-format'
 import { RELEASED_V0_EVENT_DISPOSITIONS } from './dispositions.ts'
 import { assertReleasedPayloadSemantics } from './payload-validation.ts'
 import { assertReleasedV0Keys, releasedV0Record } from './validation-helpers.ts'

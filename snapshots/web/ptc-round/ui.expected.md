@@ -20,10 +20,10 @@
 - button "1 tool call" [expanded]:
   - text: 1 tool call
   - img
-- button "Context injection @lyness/system-prompt":
+- button "Context injection @lyness/lyn-system-prompt":
   - img
   - img
-  - text: Context injection @lyness/system-prompt
+  - text: Context injection @lyness/lyn-system-prompt
 - 'button "Think The user wants me to write a single `run_code` program that:"':
   - img
   - img

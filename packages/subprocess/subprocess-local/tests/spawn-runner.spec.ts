@@ -14,11 +14,11 @@ import {
 import { tmpdir } from 'node:os'
 import { join, posix, resolve } from 'node:path'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { Win32Error } from '@lyness/win32-process'
+import { Win32Error } from '@lyness/lyn-win32-process'
 import type {
   CurrentTokenProcessBindings,
   NativePtr,
-} from '@lyness/win32-process'
+} from '@lyness/lyn-win32-process'
 import {
   cleanupLinuxLaunchFiles,
   consumeLinuxLaunchRequest,

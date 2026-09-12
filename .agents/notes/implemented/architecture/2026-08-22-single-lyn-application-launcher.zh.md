@@ -20,7 +20,7 @@ Vendor CLI、仅用于构建和测试的可执行文件、进程内直接挂载�
 
 ### Profile 应用
 
-`@lyness/sdk-app` 与 `@lyness/acp-app` 在 `@lyness/base` 之上组合完整协议应用。SDK 组合包增加 JSON-RPC 服务器、应用自有帮助和 stdio 生命周期；ACP 组合包增加仅用于自动化的 ACP 服务器与相同的应用职责。两者都采用 base 层的模型、工具、持久化、settings、credentials、策略和环境行为。[独立 sdk-minimal profile](../../archived/architecture/2026-08-24-standalone-sdk-minimal-profile.md)复用 SDK 启动与 JSON-RPC 服务，但刻意拥有不含 `lyn-base` 的完整显式配置树。
+`@lyness/lyn-sdk-app` 与 `@lyness/lyn-acp-app` 在 `@lyness/lyn-base` 之上组合完整协议应用。SDK 组合包增加 JSON-RPC 服务器、应用自有帮助和 stdio 生命周期；ACP 组合包增加仅用于自动化的 ACP 服务器与相同的应用职责。两者都采用 base 层的模型、工具、持久化、settings、credentials、策略和环境行为。[独立 sdk-minimal profile](../../archived/architecture/2026-08-24-standalone-sdk-minimal-profile.md)复用 SDK 启动与 JSON-RPC 服务，但刻意拥有不含 `lyn-base` 的完整显式配置树。
 
 Profile manifest 负责 patch 重载：
 
@@ -38,9 +38,9 @@ Profile manifest 负责 patch 重载：
 
 ### TypeScript SDK 自定义
 
-`@lyness/sdk-client` 依赖同版本的 `@lyness/lyn` 包，解析其已安装 CLI 模块，通过当前 Node 可执行文件运行该模块，并默认选择 `sdk`。两层客户端都暴露 `lynBin`、`profile`、有序 `patches`、`lynHome`、进程 cwd、环境和超时；任意 command/argv 启动只保留为 fake-runtime 测试的内部适配器。
+`@lyness/lyn-sdk-client` 依赖同版本的 `@lyness/lyn` 包，解析其已安装 CLI 模块，通过当前 Node 可执行文件运行该模块，并默认选择 `sdk`。两层客户端都暴露 `lynBin`、`profile`、有序 `patches`、`lynHome`、进程 cwd、环境和超时；任意 command/argv 启动只保留为 fake-runtime 测试的内部适配器。
 
-SDK 用户通过 profile 自定义插件。`lyn plugin --profile <name> ...` 管理持久依赖与组合包顺序，profile 的 `cordis.patch.yml` 负责持久配置项变更，启动时 `patches` 提供有序临时覆盖。自定义 profile 必须保留 `@lyness/sdk-app` 或另一个 SDK 服务器配置项。相对 CLI 模块、patch、显式 home 与进程 cwd 路径会在 spawn 前变为绝对路径；初始化具有有限时限，诊断会写明所选 profile。
+SDK 用户通过 profile 自定义插件。`lyn plugin --profile <name> ...` 管理持久依赖与组合包顺序，profile 的 `cordis.patch.yml` 负责持久配置项变更，启动时 `patches` 提供有序临时覆盖。自定义 profile 必须保留 `@lyness/lyn-sdk-app` 或另一个 SDK 服务器配置项。相对 CLI 模块、patch、显式 home 与进程 cwd 路径会在 spawn 前变为绝对路径；初始化具有有限时限，诊断会写明所选 profile。
 
 直接使用 SDK 时遵循普通 Harness home 解析：显式 `lynHome`、继承的 `LYNESS_HOME`，最后是 `~/.lyn`。`subagent-lyn-sdk` 则要求显式绝对 home，因此嵌套运行时不会通过操作系统 home 发现个人 profile、已安装插件、凭据或会话。LYN 专用 ACP 子进程示例同样传入隔离 home；ACP 后端自身继续适用于非 LYN agent。
 
@@ -48,7 +48,7 @@ SDK 用户通过 profile 自定义插件。`lyn plugin --profile <name> ...` 管
 
 Python 运行时 wheel 将 [`python/sdk-runtime/runtime-bootstrap.mjs`](../../../../python/sdk-runtime/runtime-bootstrap.mjs) 暂存为 `lyn-python-runtime-closure` 入口。其普通分支调用公开 CLI export；提供方私有选择会在 CLI 解析前分派到内部子进程 runner，而不是应用入口。[原生 containment 决策](2026-08-28-subprocess-native-containment.zh.md)负责该私有分派。Python 客户端默认选择 `lyn --profile sdk`、有序 patch 文件与显式 Harness home；`python/sdk/examples` 下的可运行示例选择 `sdk-minimal`。安装的 `lyn` 控制台命令暴露相同 profile 语法与单独打包的 `web` 应用。
 
-可执行文件族是 `lyness-sdk-runtime-<platform>-<arch>`。SDK 协议格式、wheel 与 import 分发名称、伴随文件名称，以及协议 identity `lyness-sdk-runtime` 保持稳定。SDK 包族是 `@lyness/sdk-client`、`@lyness/sdk-protocol` 与 `@lyness/sdk-jsonrpc-server`；`@lyness/acp` 继续作为 ACP 协议插件。仓库不保留 Python 专用 Node 应用、检入的完整配置、兼容包、转发可执行文件、后备解析器或 SDK／ACP 启动别名。[docs/architecture.md](../../../../docs/architecture.zh.md)负责该启动方式，[`python/sdk-runtime` README](../../../../python/sdk-runtime/README.zh.md)负责 Windows 载体。
+可执行文件族是 `lyness-sdk-runtime-<platform>-<arch>`。SDK 协议格式、wheel 与 import 分发名称、伴随文件名称，以及协议 identity `lyness-sdk-runtime` 保持稳定。SDK 包族是 `@lyness/lyn-sdk-client`、`@lyness/lyn-sdk-protocol` 与 `@lyness/lyn-sdk-jsonrpc-server`；`@lyness/lyn-acp` 继续作为 ACP 协议插件。仓库不保留 Python 专用 Node 应用、检入的完整配置、兼容包、转发可执行文件、后备解析器或 SDK／ACP 启动别名。[docs/architecture.md](../../../../docs/architecture.zh.md)负责该启动方式，[`python/sdk-runtime` README](../../../../python/sdk-runtime/README.zh.md)负责 Windows 载体。
 
 ### 强制校验
 

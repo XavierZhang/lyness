@@ -2,9 +2,9 @@
 /** Markdown metadata, deferred slot registration, localization, and unload through the real renderer. */
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { act } from '@testing-library/react'
-import { SlotTestRuntime } from '@lyness/client-test-runtime'
-import { LocaleRuntime } from '@lyness/client-locale/client'
-import type { UseSidebarRightTabInfo } from '@lyness/client-ui-sidebar-right/client'
+import { SlotTestRuntime } from '@lyness/lyn-client-test-runtime'
+import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
+import type { UseSidebarRightTabInfo } from '@lyness/lyn-client-ui-sidebar-right/client'
 import { DocumentPreviewRegistry } from '../src/client/document/registry.ts'
 import { documentTabInfoFactory } from '../src/client/document/contract.ts'
 import { apply, MARKDOWN_BODY_ID, markdownDefinition } from '../src/client/markdown/index.ts'

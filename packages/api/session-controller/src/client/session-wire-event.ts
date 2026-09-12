@@ -1,7 +1,7 @@
 /** Event-local acceptance for raw Session journal responses; payloads remain owner-defined JSON. */
 
-import { validateSessionEventData, validateSurfaceMetadata } from '@lyness/session/surface'
-import type { SessionEvent } from '@lyness/session/types'
+import { validateSessionEventData, validateSurfaceMetadata } from '@lyness/lyn-session/surface'
+import type { SessionEvent } from '@lyness/lyn-session/types'
 import type { SessionWireEvent } from '../types.ts'
 
 /**

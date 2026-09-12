@@ -5,11 +5,11 @@
  * contract in ./contract.ts; sources register through ctx.inputTriggers alone.
  */
 // Type-only: pulls the locale plugin's Context merge (ctx.locale).
-import type {} from '@lyness/client-locale/client'
+import type {} from '@lyness/lyn-client-locale/client'
 import type { Context as ClientContext } from '@lyness/cordis'
-import type {} from '@lyness/api-session-controller/client'
-import type {} from '@lyness/client-ui-renderer/client'
-import type {} from '@lyness/client-ui-session/client'
+import type {} from '@lyness/lyn-api-session-controller/client'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
+import type {} from '@lyness/lyn-client-ui-session/client'
 import { InputTriggerService } from './service.ts'
 import type { MenuViewInjected } from './slots.ts'
 import { MenuView } from './MenuView.tsx'
@@ -38,7 +38,7 @@ declare module '@lyness/cordis' {
   }
 }
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface LocaleNamespaceMap {
     /** The candidate menu's copy: group titles keyed by source name, the pending row, and the listbox aria. */
     'slash.menu': MenuKey

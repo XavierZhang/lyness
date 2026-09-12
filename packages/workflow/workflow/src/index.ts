@@ -1,11 +1,11 @@
 /**
  * Service Definition for the workflow capability seam. Service Providers execute orchestration scripts;
  * observe-only lifecycle events never expose run control.
- * @module @lyness/workflow
+ * @module @lyness/lyn-workflow
  */
 
 import { Context, Service } from '@lyness/cordis'
-import { HarnessError } from '@lyness/llm'
+import { HarnessError } from '@lyness/lyn-llm'
 import type {
   WorkflowAgentEndInfo,
   WorkflowAgentInfo,

@@ -9,20 +9,20 @@
  * packages/client/AGENTS.md.
  */
 import type { Context } from '@lyness/cordis'
-import type { RemoteHostFacts } from '@lyness/api-remotes/client'
-import type { ISessions } from '@lyness/api-session-controller/client'
-import type { IWorkspaces, WorkspaceSnapshot } from '@lyness/api-workspace-controller/client'
-import type { HostObservable, SnapshotSelectorHook } from '@lyness/client-ui-slots'
+import type { RemoteHostFacts } from '@lyness/lyn-api-remotes/client'
+import type { ISessions } from '@lyness/lyn-api-session-controller/client'
+import type { IWorkspaces, WorkspaceSnapshot } from '@lyness/lyn-api-workspace-controller/client'
+import type { HostObservable, SnapshotSelectorHook } from '@lyness/lyn-client-ui-slots'
 // Type-only: pulls the Controller service merges.
-import type {} from '@lyness/api-session-controller/client'
-import type {} from '@lyness/api-workspace-controller/client'
+import type {} from '@lyness/lyn-api-session-controller/client'
+import type {} from '@lyness/lyn-api-workspace-controller/client'
 // Type-only: pulls the locale plugin's Context merge (ctx.locale).
-import type {} from '@lyness/client-locale/client'
+import type {} from '@lyness/lyn-client-locale/client'
 // Type-only: pulls the SlotRegistry service merge (ctx.slots).
-import type {} from '@lyness/client-ui-renderer/client'
-import type {} from '@lyness/client-ui-layout/client'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
+import type {} from '@lyness/lyn-client-ui-layout/client'
 // Type-only: pulls the Session root standard-hook merge.
-import type {} from '@lyness/client-ui-session/client'
+import type {} from '@lyness/lyn-client-ui-session/client'
 import type { WorkspaceBrowserInjected, WorkspacePickerInjected } from './contract/slots.ts'
 import { UiWorkspaceService } from './navigation.ts'
 import { createWorkspaceViewStore } from './stores.ts'
@@ -37,7 +37,7 @@ export type {
 } from './contract/slots.ts'
 export type { WorkspaceKey } from './locales.ts'
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface GlobalStandardProps {
     /** Selector hook over the pure Workspace Controller snapshot. */
     useWorkspaces: SnapshotSelectorHook<WorkspaceSnapshot>

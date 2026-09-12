@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { SESSION_FORMAT_VERSION, SessionId, SessionSeq } from '@lyness/session'
-import type { SessionEvent, SessionEventMap, SessionEventType } from '@lyness/session'
+import { SESSION_FORMAT_VERSION, SessionId, SessionSeq } from '@lyness/lyn-session'
+import type { SessionEvent, SessionEventMap, SessionEventType } from '@lyness/lyn-session'
 import { teamProjectionDefinition } from '../src/projection.ts'
 import type { TeamProjectionState, TeamState } from '../src/projection.ts'
 import { TeamId, TeamMessageId, TeamTaskId } from '../src/types.ts'

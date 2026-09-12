@@ -1,11 +1,11 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import SessionStore, { Session, SessionId, SessionSeq } from '@lyness/session'
-import { createUserMessage } from '@lyness/llm'
-import { CompactionId, compactCheckpointSource } from '@lyness/compaction'
-import * as CompactionInvariant from '@lyness/compaction/invariant'
-import { CommandId } from '@lyness/commands/brand'
-import InvariantRegistry from '@lyness/invariants'
+import SessionStore, { Session, SessionId, SessionSeq } from '@lyness/lyn-session'
+import { createUserMessage } from '@lyness/lyn-llm'
+import { CompactionId, compactCheckpointSource } from '@lyness/lyn-compaction'
+import * as CompactionInvariant from '@lyness/lyn-compaction/invariant'
+import { CommandId } from '@lyness/lyn-commands/brand'
+import InvariantRegistry from '@lyness/lyn-invariants'
 
 async function setup(): Promise<Context> {
   const ctx = new Context()

@@ -10,7 +10,7 @@ External packages need Harness manifest types without depending on boot or clien
 
 ## Decision
 
-[`@lyness/package-manifest`](../../../../packages/util/package-manifest/README.md) owns `LynManifest` and its member declarations in one type-only file. The package belongs to the existing utility group and exports no runtime values. Author declarations and launcher-generated module fallback metadata are explicitly distinguished.
+[`@lyness/lyn-package-manifest`](../../../../packages/util/package-manifest/README.md) owns `LynManifest` and its member declarations in one type-only file. The package belongs to the existing utility group and exports no runtime values. Author declarations and launcher-generated module fallback metadata are explicitly distinguished.
 
 Readers import the shared declarations directly. Boot retains profile loading, raw JSON checks, defaults, and resolved runtime data. Client modules retain their normalized boot graph. The image packer resolves declared paths into directories. The Session catalog generator derives a read-only validated entry with a resolved import path; raw inputs and discovery rules remain local.
 

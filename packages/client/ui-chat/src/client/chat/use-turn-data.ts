@@ -1,7 +1,7 @@
 import { useSyncExternalStore } from 'react'
 import type {
   ConversationLocationDataSource, ConversationLocationDataStore, ConversationTurnDataMap,
-} from '@lyness/client-ui-conversation/client'
+} from '@lyness/lyn-client-ui-conversation/client'
 
 const EMPTY_SOURCE: ConversationLocationDataSource<undefined> = {
   getSnapshot: () => undefined,

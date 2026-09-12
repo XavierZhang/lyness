@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 
-import type { GlobalStandardProps } from '@lyness/client-ui-slots'
+import type { GlobalStandardProps } from '@lyness/lyn-client-ui-slots'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { act, cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import { useEffect } from 'react'
@@ -10,21 +10,21 @@ import type {
   LegacyConversationSlice, ModelRetryNode, RunningToolCall, SteeringMessageNode,
   ToolCallBlock, ToolResultNode, TurnErrorNode, TurnMaxTokensNode, UseChatNodeTurnData,
   TranscriptViewMode, UserMessageNode,
-} from '@lyness/client-ui-chat/client'
+} from '@lyness/lyn-client-ui-chat/client'
 import type {
   SessionListState, SessionSnapshot,
-} from '@lyness/api-session-controller/client'
+} from '@lyness/lyn-api-session-controller/client'
 import type {
   ConversationLocationDataStore, ConversationTurnDataMap,
-} from '@lyness/client-ui-conversation/client'
-import type { WorkspaceSnapshot } from '@lyness/api-workspace-controller/client'
-import type { SessionId } from '@lyness/session/types'
-import type { SessionPendingInteractionSnapshot } from '@lyness/client-ui-session/client'
-import type { KeyedSnapshotSelectorHook, SnapshotSelectorHook } from '@lyness/client-ui-slots'
-import { bindSnapshotSelector, makeTranslate } from '@lyness/client-test-runtime'
-import { createSnapshotStore, type ObservableSnapshot } from '@lyness/client-store'
-import { EMPTY_CONVERSATION_SNAPSHOT } from '@lyness/client-ui-conversation/client'
-import { zh as commonZh } from '@lyness/client-locale/src/locales/zh.ts'
+} from '@lyness/lyn-client-ui-conversation/client'
+import type { WorkspaceSnapshot } from '@lyness/lyn-api-workspace-controller/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { SessionPendingInteractionSnapshot } from '@lyness/lyn-client-ui-session/client'
+import type { KeyedSnapshotSelectorHook, SnapshotSelectorHook } from '@lyness/lyn-client-ui-slots'
+import { bindSnapshotSelector, makeTranslate } from '@lyness/lyn-client-test-runtime'
+import { createSnapshotStore, type ObservableSnapshot } from '@lyness/lyn-client-store'
+import { EMPTY_CONVERSATION_SNAPSHOT } from '@lyness/lyn-client-ui-conversation/client'
+import { zh as commonZh } from '@lyness/lyn-client-locale/src/locales/zh.ts'
 import { createChatStore } from '../src/client/stores.ts'
 import { ChatView } from '../src/client/chat/ChatView.tsx'
 import { ChatNodeSeat } from '../src/client/chat/ChatNodeSeat.tsx'

@@ -1,13 +1,13 @@
 /** Question composer props and one pending Remote waterfall response. */
-import type { PropsLocale, PropsRuntime, PropsStore } from '@lyness/client-ui-slots'
+import type { PropsLocale, PropsRuntime, PropsStore } from '@lyness/lyn-client-ui-slots'
 // The client module declares the conversation.composer SlotMap entry required by PropsRuntime.
-import type { SessionId } from '@lyness/session/types'
+import type { SessionId } from '@lyness/lyn-session/types'
 import type {
   AskUserQuestionAnswer, AskUserQuestionItem,
-} from '@lyness/user-questions'
+} from '@lyness/lyn-user-questions'
 import type { createQuestionDraftStore } from '../draft-store.ts'
 
-declare module '@lyness/client-ui-session/client' {
+declare module '@lyness/lyn-client-ui-session/client' {
   interface SessionPendingInteractionMap {
     /** Pending question or plan-review request. */
     question: PendingQuestion

@@ -1,10 +1,10 @@
 /** Request-header canonicalization, equality, and snapshot folding. */
 
 import { describe, expect, it } from 'vitest'
-import { Session, SessionId, SessionSeq, canonicalHeader, foldRequestHeader, headerEquals } from '@lyness/session'
-import type { EpochHeader, SessionEvent } from '@lyness/session'
-import { createUserMessage, ReasoningEffortId } from '@lyness/llm'
-import type { ToolSchema } from '@lyness/llm'
+import { Session, SessionId, SessionSeq, canonicalHeader, foldRequestHeader, headerEquals } from '@lyness/lyn-session'
+import type { EpochHeader, SessionEvent } from '@lyness/lyn-session'
+import { createUserMessage, ReasoningEffortId } from '@lyness/lyn-llm'
+import type { ToolSchema } from '@lyness/lyn-llm'
 
 const CONFIG = { provider: 'mock', model: 'm' }
 

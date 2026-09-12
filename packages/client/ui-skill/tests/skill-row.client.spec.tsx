@@ -2,9 +2,9 @@
 
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import type { RunningToolCall, ToolResultNode } from '@lyness/client-ui-chat/client'
-import { makeTranslate } from '@lyness/client-test-runtime'
-import { zh as commonZh } from '@lyness/client-locale/src/locales/zh.ts'
+import type { RunningToolCall, ToolResultNode } from '@lyness/lyn-client-ui-chat/client'
+import { makeTranslate } from '@lyness/lyn-client-test-runtime'
+import { zh as commonZh } from '@lyness/lyn-client-locale/src/locales/zh.ts'
 import { SkillRow } from '../src/client/SkillRow.tsx'
 import { zh } from '../src/client/locales.ts'
 

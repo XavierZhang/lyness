@@ -3,7 +3,7 @@ description: "Semantic session durability checkpoints for users and maintainers 
 kind: "package-reference"
 ---
 
-# @lyness/session-checkpoint-policy
+# @lyness/lyn-session-checkpoint-policy
 
 English | [中文](README.zh.md)
 
@@ -37,10 +37,10 @@ No configuration fields exist; the plugin is a single load beside one persistenc
 
 ```yaml
 - id: session-persistence
-  name: '@lyness/session-persistence-jsonl'
+  name: '@lyness/lyn-session-persistence-jsonl'
 
 - id: session-checkpoints
-  name: '@lyness/session-checkpoint-policy'
+  name: '@lyness/lyn-session-checkpoint-policy'
 ```
 
 ### What becomes durable

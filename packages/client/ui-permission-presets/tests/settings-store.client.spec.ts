@@ -1,9 +1,9 @@
 import { Context } from '@lyness/cordis'
 import { describe, expect, it, vi } from 'vitest'
-import type { SettingsNamespaceView } from '@lyness/api-remotes/client'
-import { SettingsSchemaService } from '@lyness/client-ui-settings/src/client/schema.ts'
-import { SettingsDescribeMirror } from '@lyness/client-ui-settings/src/client/settings-mirror.ts'
-import { RemoteError } from '@lyness/client-test-runtime'
+import type { SettingsNamespaceView } from '@lyness/lyn-api-remotes/client'
+import { SettingsSchemaService } from '@lyness/lyn-client-ui-settings/src/client/schema.ts'
+import { SettingsDescribeMirror } from '@lyness/lyn-client-ui-settings/src/client/settings-mirror.ts'
+import { RemoteError } from '@lyness/lyn-client-test-runtime'
 import {
   PermissionPresetSettingsController, permissionDefaultOf,
 } from '../src/client/settings-store.ts'

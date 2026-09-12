@@ -1,12 +1,12 @@
 - id: spill-local
-  name: '@lyness/spill-local'
+  name: '@lyness/lyn-spill-local'
   config:
     root: !!js process.env.LYNESS_SNAPSHOT_SPILL_ROOT ?? './.spill'
     cleanupPeriodDays: 0
 
 - insert:
     - id: session-reference
-      name: '@lyness/session-reference'
+      name: '@lyness/lyn-session-reference'
       config:
         maxReferenceBytes: 360
     - id: reference-source-fixture

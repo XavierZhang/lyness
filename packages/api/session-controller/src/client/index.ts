@@ -1,9 +1,9 @@
 /** Client Session object layer, Agent scopes, and Remote lifecycle wiring. */
 
 import type { Context } from '@lyness/cordis'
-import type {} from '@lyness/agent/types'
-import type {} from '@lyness/client-connection/client'
-import type {} from '@lyness/client-file-upload/client'
+import type {} from '@lyness/lyn-agent/types'
+import type {} from '@lyness/lyn-client-connection/client'
+import type {} from '@lyness/lyn-client-file-upload/client'
 import { createSessionControlStream } from './transport.ts'
 import { ClientSessions } from './sessions/service.ts'
 import type { SessionRemotes } from './sessions/remotes.ts'

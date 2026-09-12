@@ -10,8 +10,8 @@ import {
   parseLspArgs,
   presentLspCall,
   renderUri,
-} from '@lyness/tool-lsp'
-import type { LspLocation } from '@lyness/lsp'
+} from '@lyness/lyn-tool-lsp'
+import type { LspLocation } from '@lyness/lyn-lsp'
 
 const WS = resolve('/home/u/proj')
 const WS_URI = pathToFileURL(WS).href

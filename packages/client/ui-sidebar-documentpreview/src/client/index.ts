@@ -11,15 +11,15 @@
  * client plugin is a type.
  */
 import type { Context as ClientContext } from '@lyness/cordis'
-import type {} from '@lyness/api-remotes/client'
-import type {} from '@lyness/client-locale/client'
-import type {} from '@lyness/client-resources/client'
-import type {} from '@lyness/client-ui-renderer/client'
-import type {} from '@lyness/client-ui-session/client'
-import type {} from '@lyness/client-ui-sidebar-right/client'
-import type {} from '@lyness/api-gateway/client'
-import type {} from '@lyness/api-workspace-files/remote'
-import type { WorkspaceFileParams } from '@lyness/api-workspace-files/client'
+import type {} from '@lyness/lyn-api-remotes/client'
+import type {} from '@lyness/lyn-client-locale/client'
+import type {} from '@lyness/lyn-client-resources/client'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
+import type {} from '@lyness/lyn-client-ui-session/client'
+import type {} from '@lyness/lyn-client-ui-sidebar-right/client'
+import type {} from '@lyness/lyn-api-gateway/client'
+import type {} from '@lyness/lyn-api-workspace-files/remote'
+import type { WorkspaceFileParams } from '@lyness/lyn-api-workspace-files/client'
 import { TextPreview } from './TextPreview.tsx'
 import type { TextPreviewInjected } from './TextPreview.tsx'
 import { TextTitle } from './TextTitle.tsx'
@@ -58,14 +58,14 @@ declare module '@lyness/cordis' {
 /** This package's copy namespace. */
 const NS = 'sidebarDocumentPreview'
 
-declare module '@lyness/client-ui-sidebar-right/client' {
+declare module '@lyness/lyn-client-ui-sidebar-right/client' {
   interface SidebarRightResourceParamsMap {
     /** File line navigation supported by the text preview. */
     file: WorkspaceFileParams
   }
 }
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface LocaleNamespaceMap {
     /** Text-preview progress, paging, change, control, and failure lines. */
     sidebarDocumentPreview: import('./locales.ts').SidebarDocumentPreviewKey

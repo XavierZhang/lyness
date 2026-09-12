@@ -1,9 +1,9 @@
 /** Chat-owned conversion from durable Session events to Chat view data. */
 
-import type { ContentBlock, StreamChunk } from '@lyness/llm/types'
+import type { ContentBlock, StreamChunk } from '@lyness/lyn-llm/types'
 import type {
   AssistantBlock, ContextProvenanceView, KnownContextForm,
-} from '@lyness/client-ui-conversation/client'
+} from '@lyness/lyn-client-ui-conversation/client'
 
 /* jscpd:ignore-start -- Chat and Trajectory own independent event-to-view projections. */
 

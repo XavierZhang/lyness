@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { WorkflowError } from '@lyness/workflow'
+import { WorkflowError } from '@lyness/lyn-workflow'
 import { validateMeta } from '../src/meta.ts'
 
 /** Assert a META_INVALID throw whose message matches every given fragment. */

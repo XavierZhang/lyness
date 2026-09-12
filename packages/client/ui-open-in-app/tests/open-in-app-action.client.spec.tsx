@@ -1,10 +1,10 @@
 // @vitest-environment jsdom
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { cleanup, fireEvent, render, screen, waitFor, act } from '@testing-library/react'
-import { makeTranslate } from '@lyness/client-test-runtime'
-import { createSnapshotStore } from '@lyness/client-store'
-import type { SessionListState } from '@lyness/api-session-controller/client'
-import type { SessionId } from '@lyness/session/types'
+import { makeTranslate } from '@lyness/lyn-client-test-runtime'
+import { createSnapshotStore } from '@lyness/lyn-client-store'
+import type { SessionListState } from '@lyness/lyn-api-session-controller/client'
+import type { SessionId } from '@lyness/lyn-session/types'
 import { OpenInAppAction, type OpenInAppActionProps } from '../src/client/OpenInAppAction.tsx'
 import { zh } from '../src/client/locales.ts'
 

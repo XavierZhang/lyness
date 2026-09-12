@@ -20,7 +20,7 @@
  * the browser module; distinct active Loader sources for that package are a
  * composition error. Bundle content changes reach the graph only through
  * {@link ClientModuleRegistry.rebuilt}.
- * @module @lyness/client-modules
+ * @module @lyness/lyn-client-modules
  */
 
 import { createHash, randomBytes } from 'node:crypto'
@@ -32,8 +32,8 @@ import { fileURLToPath, pathToFileURL } from 'node:url'
 import { Service } from '@lyness/cordis'
 import type { Context } from '@lyness/cordis'
 import type { Entry } from '@lyness/cordis-plugin-loader'
-import type { IndexInjection } from '@lyness/host-webserver'
-import type { LynClientManifest } from '@lyness/package-manifest'
+import type { IndexInjection } from '@lyness/lyn-host-webserver'
+import type { LynClientManifest } from '@lyness/lyn-package-manifest'
 import { optionalStringArray, stripClientSuffix } from './client/manifest.ts'
 import type { WebBootBatch, WebBootBatchPhase, WebBootEntry, WebBootGraph } from './client/manifest.ts'
 
@@ -455,7 +455,7 @@ export function orderByModuleGraph(entries: readonly WebBootEntry[]): WebBootEnt
 }
 
 /** Bootstrap package whose ordinary client bundle supplies the module-system implementation. */
-const CLIENT_MODULES_ID = '@lyness/client-modules'
+const CLIENT_MODULES_ID = '@lyness/lyn-client-modules'
 
 /** Dynamic bundles grouped into the parser bootstrap batch before the Vite shell. */
 const PARSER_PRELOAD_IDS = [CLIENT_MODULES_ID] as const

@@ -1,7 +1,7 @@
 /** Complete HTML rendered in a script-enabled opaque iframe, without parent application access. */
 import { useEffect, useMemo, useState } from 'react'
 import type { ReactNode } from 'react'
-import type { PropsLocale } from '@lyness/client-ui-slots'
+import type { PropsLocale } from '@lyness/lyn-client-ui-slots'
 import type { DocumentPreviewProps } from '../document/contract.ts'
 import { LoadingIndicator } from '../LoadingIndicator.tsx'
 import { createHtmlDocument } from './bootstrap.ts'

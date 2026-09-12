@@ -1,18 +1,18 @@
 /**
  * Package-owned relational invariants for the session event log. Load this
- * companion beside `@lyness/invariants` to enable the checks.
+ * companion beside `@lyness/lyn-invariants` to enable the checks.
  *
- * @module @lyness/session/invariant
+ * @module @lyness/lyn-session/invariant
  */
 
 import type { Context } from '@lyness/cordis'
-import type { ToolCallId } from '@lyness/llm'
-import type { InvariantFailure, InvariantInstaller } from '@lyness/invariants'
-import type { Session, SessionEvent, SessionSeqCursor } from '@lyness/session'
-import { assertNever } from '@lyness/util-values'
+import type { ToolCallId } from '@lyness/lyn-llm'
+import type { InvariantFailure, InvariantInstaller } from '@lyness/lyn-invariants'
+import type { Session, SessionEvent, SessionSeqCursor } from '@lyness/lyn-session'
+import { assertNever } from '@lyness/lyn-util-values'
 import { TOOL_NOT_STARTED } from './repair.ts'
 
-const PACKAGE_NAME = '@lyness/session'
+const PACKAGE_NAME = '@lyness/lyn-session'
 
 /** Cordis companion plugin name. */
 export const name = 'session-invariant'

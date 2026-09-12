@@ -6,7 +6,7 @@ import { pathToFileURL } from 'node:url'
 import { Context } from '@lyness/cordis'
 import Include from '@lyness/cordis-plugin-include'
 import Loader from '@lyness/cordis-plugin-loader'
-import WebServer from '@lyness/host-webserver'
+import WebServer from '@lyness/lyn-host-webserver'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import * as GitHubAdapter from '../src/index.ts'
 
@@ -26,11 +26,11 @@ describe('real Loader composition', () => {
     const configPath = join(root, 'cordis.yml')
     await writeFile(configPath, [
       '- name: fixture-dependencies',
-      "- name: '@lyness/host-webserver'",
+      "- name: '@lyness/lyn-host-webserver'",
       '  config:',
       "    host: '127.0.0.1'",
       '    port: 0',
-      "- name: '@lyness/webhook-github'",
+      "- name: '@lyness/lyn-webhook-github'",
       '  config:',
       '    source: loader',
       '    path: /github',
@@ -55,8 +55,8 @@ describe('real Loader composition', () => {
     context.loader.builtins.include = Include
     const modules = new Map<string, unknown>([
       ['fixture-dependencies', dependencies],
-      ['@lyness/host-webserver', WebServer],
-      ['@lyness/webhook-github', GitHubAdapter],
+      ['@lyness/lyn-host-webserver', WebServer],
+      ['@lyness/lyn-webhook-github', GitHubAdapter],
     ])
     context.loader.internal = {
       version: 'v2',

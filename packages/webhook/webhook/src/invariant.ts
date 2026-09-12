@@ -1,13 +1,13 @@
 /** Package-owned relationship invariant for webhook-origin prompt admission. */
 
 import type { Context } from '@lyness/cordis'
-import type {} from '@lyness/agent'
-import type { InvariantFailure, InvariantInstaller } from '@lyness/invariants'
-import type { Session, SessionEvent } from '@lyness/session'
-import type {} from '@lyness/workspace'
+import type {} from '@lyness/lyn-agent'
+import type { InvariantFailure, InvariantInstaller } from '@lyness/lyn-invariants'
+import type { Session, SessionEvent } from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-workspace'
 import type {} from './types.ts'
 
-const PACKAGE_NAME = '@lyness/webhook'
+const PACKAGE_NAME = '@lyness/lyn-webhook'
 
 /** Cordis invariant-companion plugin name. */
 export const name = 'webhook-invariant'

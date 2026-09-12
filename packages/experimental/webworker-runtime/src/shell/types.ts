@@ -3,7 +3,7 @@
  * face a program reads and writes, and the program signature the command table
  * stores. A browser worker has no processes, so a "program" is a JavaScript
  * function over the VFS and the state below is the whole machine.
- * @module @lyness/experimental-webworker-runtime/src/shell/types
+ * @module @lyness/lyn-experimental-webworker-runtime/src/shell/types
  */
 
 /**

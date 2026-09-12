@@ -4,13 +4,13 @@
  * product methods, current thread/turn association, unattended approval
  * responses, and terminal-answer selection.
  *
- * @module @lyness/subagent-codex/wire
+ * @module @lyness/lyn-subagent-codex/wire
  */
 
 import type { Readable, Writable } from 'node:stream'
-import type { ContentBlock } from '@lyness/llm'
-import type { SubagentResult } from '@lyness/subagent'
-import { JsonRpcLineTransport } from '@lyness/sdk-protocol'
+import type { ContentBlock } from '@lyness/lyn-llm'
+import type { SubagentResult } from '@lyness/lyn-subagent'
+import { JsonRpcLineTransport } from '@lyness/lyn-sdk-protocol'
 import type { CodexPermissionMode } from './run.ts'
 
 type JsonObject = Record<string, unknown>

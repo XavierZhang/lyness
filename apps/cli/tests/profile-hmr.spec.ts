@@ -3,7 +3,7 @@
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
-import { composeEntries, loadOverlayPatches } from '@lyness/app-boot'
+import { composeEntries, loadOverlayPatches } from '@lyness/lyn-app-boot'
 import type { PatchOptions } from '@lyness/cordis-plugin-include'
 
 const REPOSITORY_ROOT = fileURLToPath(new URL('../../../', import.meta.url))

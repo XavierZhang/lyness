@@ -6,7 +6,7 @@
  * Node ≥ 19). One implementation here replaces per-caller polyfills; the
  * `no-restricted-properties` lint rule points `crypto.randomUUID` callers at
  * this module.
- * @module @lyness/util-crypto
+ * @module @lyness/lyn-util-crypto
  */
 
 /** RFC 9562 UUID string, the shape `crypto.randomUUID` declares. */

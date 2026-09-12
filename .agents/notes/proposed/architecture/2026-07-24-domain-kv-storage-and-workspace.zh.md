@@ -21,11 +21,11 @@ host 侧唯一的持久化面是 session 事件日志（`packages/session/sessio
 
 | 包 | 路径 | ctx 面 | 本期 |
 | --- | --- | --- | --- |
-| `@lyness/storage` | `packages/storage/storage/` | `ctx.storage`（枢纽） | ✓ |
-| `@lyness/storage-json` | `packages/storage/storage-json/` | 注册后端 `json` | ✓ |
-| `@lyness/storage-sqlite` | `packages/storage/storage-sqlite/` | 注册后端 `sqlite` | ✓ |
-| `@lyness/storage-domain` | `packages/storage/storage-domain/` | 挂载 `ctx.storage.domain` | ✓ |
-| `@lyness/workspace` | `packages/workspace/workspace/` | `ctx.workspaceRegistry` | ✓ |
+| `@lyness/lyn-storage` | `packages/storage/storage/` | `ctx.storage`（枢纽） | ✓ |
+| `@lyness/lyn-storage-json` | `packages/storage/storage-json/` | 注册后端 `json` | ✓ |
+| `@lyness/lyn-storage-sqlite` | `packages/storage/storage-sqlite/` | 注册后端 `sqlite` | ✓ |
+| `@lyness/lyn-storage-domain` | `packages/storage/storage-domain/` | 挂载 `ctx.storage.domain` | ✓ |
+| `@lyness/lyn-workspace` | `packages/workspace/workspace/` | `ctx.workspaceRegistry` | ✓ |
 | `SessionPersistence.delete` 扩面 + 级联删编排 | `packages/session/*` | 既有 seam 新方法 | ✗ future work（本期不动 session 侧） |
 | `workspace.*` / `session.delete` RPC、GUI 接线、boot 组装 | — | — | ✗ 下期 |
 

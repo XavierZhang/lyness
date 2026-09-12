@@ -56,7 +56,7 @@ describe('Python SDK lyn profile keyless smoke', () => {
     if (editorEnabled) await writeFile(editorPatch, [
       '- insert:',
       '    - id: tool-str-replace-editor',
-      "      name: '@lyness/tool-str-replace-editor'",
+      "      name: '@lyness/lyn-tool-str-replace-editor'",
       '',
     ].join('\n'))
     const modelRequests: Record<string, unknown>[] = []
@@ -295,7 +295,7 @@ describe('Python SDK lyn profile keyless smoke', () => {
         await readFile(join(root, '.lyn', 'profiles', 'sdk-minimal', 'package.json'), 'utf8'),
       ) as { lyn?: { profile?: { bundles?: string[]; patchReload?: string } } }
       expect(profile.lyn?.profile).toEqual({
-        bundles: ['@lyness/sdk-minimal'],
+        bundles: ['@lyness/lyn-sdk-minimal'],
         patchReload: 'startup',
       })
       expect(modelRequests[0]?.tools).toEqual(expect.any(Array))
@@ -355,7 +355,7 @@ describe('Python SDK lyn profile keyless smoke', () => {
       expect(exitCode, stderr).toBe(1)
       expect(stdout).toBe('')
       expect(stderr).toContain('plugin tree failed to load')
-      expect(stderr).toContain('failed to apply loader entry sdk-jsonrpc-server (@lyness/sdk-jsonrpc-server)')
+      expect(stderr).toContain('failed to apply loader entry sdk-jsonrpc-server (@lyness/lyn-sdk-jsonrpc-server)')
       expect(stderr).toContain('sometimes')
     } finally {
       await rm(root, { recursive: true, force: true })

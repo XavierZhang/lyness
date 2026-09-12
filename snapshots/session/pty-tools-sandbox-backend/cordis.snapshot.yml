@@ -1,19 +1,19 @@
 # Keyless replay counterpart to pty.cordis.yml.
 - id: llm-deepseek
-  name: '@lyness/llm-deepseek'
+  name: '@lyness/lyn-llm-deepseek'
   disabled: true
 
 - insert:
     - id: pty
-      name: '@lyness/terminal'
+      name: '@lyness/lyn-terminal'
     - id: pty-snapshot-backend
       name: './pty-snapshot-backend.mjs'
     - id: tool-terminal
-      name: '@lyness/tool-terminal'
+      name: '@lyness/lyn-tool-terminal'
       config:
         maxResultBytes: 64
     - id: llm-replay
-      name: '@lyness/llm-replay'
+      name: '@lyness/lyn-llm-replay'
       config:
         providers:
           - id: deepseek-official

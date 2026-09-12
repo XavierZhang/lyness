@@ -4,10 +4,10 @@
  */
 // Bring the base `ResourceProtocolMap` declaration into this program so the
 // augmentation below merges into it instead of declaring a second interface.
-import type {} from '@lyness/client-resources/client'
+import type {} from '@lyness/lyn-client-resources/client'
 import type { WorkspaceFileStat } from '../types.ts'
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface ResourceProtocolMap {
     /**
      * One workspace file's metadata, addressed as
@@ -23,7 +23,7 @@ export interface WorkspaceFileParams {
   readonly line?: number
 }
 
-declare module '@lyness/typert-protocol' {
+declare module '@lyness/lyn-typert-protocol' {
   interface RemoteErrorDetailsMap {
     /**
      * The address is not a `lyn-resource://file/` address in a scope the

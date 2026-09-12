@@ -1,7 +1,7 @@
 /** Observable contiguous Session event window consumed by domain assemblers. */
-import { notifySubscribers, type ObservableSnapshot } from '@lyness/client-store'
-import type { LlmAttemptId, StreamChunk } from '@lyness/llm'
-import type { SessionEvent } from '@lyness/session/types'
+import { notifySubscribers, type ObservableSnapshot } from '@lyness/lyn-client-store'
+import type { LlmAttemptId, StreamChunk } from '@lyness/lyn-llm'
+import type { SessionEvent } from '@lyness/lyn-session/types'
 
 /** Client-only live chunk presentation; `seq` orders the transient row between durable Session seqs. */
 export interface AssistantLiveChunkEvent {

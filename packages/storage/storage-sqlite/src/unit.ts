@@ -4,12 +4,12 @@
  * `unit_globals` table. Each primitive is a single statement, so atomicity
  * comes from SQLite itself — no explicit transactions, and no write queue
  * (write ordering is the caller's responsibility per the KV contract).
- * @module @lyness/storage-sqlite/unit
+ * @module @lyness/lyn-storage-sqlite/unit
  */
 
 import type { DatabaseSync, StatementSync } from 'node:sqlite'
-import { StorageError } from '@lyness/storage'
-import type { KvUnit, KvUnitDescriptor } from '@lyness/storage'
+import { StorageError } from '@lyness/lyn-storage'
+import type { KvUnit, KvUnitDescriptor } from '@lyness/lyn-storage'
 import { recordTableName } from './schema.ts'
 
 /** Prepared statements for one declared table. */

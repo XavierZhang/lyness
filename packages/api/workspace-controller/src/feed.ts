@@ -1,14 +1,14 @@
 /** Reconnect-safe Workspace baseline and increment producer. */
 
 import type { Context } from '@lyness/cordis'
-import { Deque } from '@lyness/deque'
-import type { DomainChanged } from '@lyness/storage-domain'
-import type { Workspace, WorkspaceRecord } from '@lyness/workspace'
+import { Deque } from '@lyness/lyn-deque'
+import type { DomainChanged } from '@lyness/lyn-storage-domain'
+import type { Workspace, WorkspaceRecord } from '@lyness/lyn-workspace'
 import {
   workspaceDomainState,
   workspaceRecord,
   WorkspaceId,
-} from '@lyness/workspace'
+} from '@lyness/lyn-workspace'
 import type {
   WorkspaceBaseline,
   WorkspaceFollowFrame,

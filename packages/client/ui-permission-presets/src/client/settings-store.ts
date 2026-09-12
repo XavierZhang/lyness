@@ -7,13 +7,13 @@
  */
 
 import type { Context as ClientContext } from '@lyness/cordis'
-import type { SettingsNamespaceView } from '@lyness/api-remotes/client'
+import type { SettingsNamespaceView } from '@lyness/lyn-api-remotes/client'
 import {
   createSnapshotStore, type SnapshotStore,
-} from '@lyness/client-store'
+} from '@lyness/lyn-client-store'
 import type {
   SchemaNode, SettingsDescribeFace, SettingsSchemaService,
-} from '@lyness/client-ui-settings/client'
+} from '@lyness/lyn-client-ui-settings/client'
 import { displayPermissionPreset } from './presentation.ts'
 
 /** Permission's settings namespace on the host wire. */

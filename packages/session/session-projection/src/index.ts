@@ -14,18 +14,18 @@
  * carry the complete post-change state, never a bare delta — it keeps every
  * unit's transition trivially cheap and every served value self-describing.
  *
- * @module @lyness/session-projection
+ * @module @lyness/lyn-session-projection
  */
 
 import { Context, Service } from '@lyness/cordis'
 import type { ZodType } from 'zod'
-import { SessionLogOffset, SessionSeq } from '@lyness/session'
+import { SessionLogOffset, SessionSeq } from '@lyness/lyn-session'
 import type {
   Session,
   SessionEvent,
   SessionHeader,
   SessionSeqCursor,
-} from '@lyness/session'
+} from '@lyness/lyn-session'
 
 declare module '@lyness/cordis' {
   interface Context {

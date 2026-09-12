@@ -1,12 +1,12 @@
 /**
  * Strict Session projection of the Schedule domain's active reminder set.
- * @module @lyness/schedule/projection
+ * @module @lyness/lyn-schedule/projection
  */
 
 import { z } from 'zod'
-import { SessionLogOffset } from '@lyness/session'
-import type { SessionLogOffset as SessionLogOffsetType } from '@lyness/session'
-import type { ProjectionDefinition } from '@lyness/session-projection'
+import { SessionLogOffset } from '@lyness/lyn-session'
+import type { SessionLogOffset as SessionLogOffsetType } from '@lyness/lyn-session'
+import type { ProjectionDefinition } from '@lyness/lyn-session-projection'
 import { applyScheduleChanges, decodeScheduleChange } from './domain.ts'
 import type { FoldedSchedules } from './domain.ts'
 import type { ScheduleChange, ScheduleId, ScheduleRecord } from './types.ts'
@@ -84,7 +84,7 @@ export const scheduleProjectionDefinition = {
   stateVersion: 2,
 } satisfies ProjectionDefinition<'schedule', ScheduleProjectionState>
 
-declare module '@lyness/session-projection/types' {
+declare module '@lyness/lyn-session-projection/types' {
   interface SessionProjectionStateMap {
     schedule: ScheduleProjectionState
   }

@@ -1,12 +1,12 @@
 // @vitest-environment jsdom
 import { act, cleanup, renderHook } from '@testing-library/react'
-import type { SessionLiveEventEntry } from '@lyness/api-session-controller/client'
-import { createSnapshotStore } from '@lyness/client-store'
-import { EMPTY_CHAT_SNAPSHOT } from '@lyness/client-ui-chat/client'
-import { EMPTY_CONVERSATION_SNAPSHOT } from '@lyness/client-ui-conversation/client'
-import type { SessionId } from '@lyness/session/types'
-import type { MainPanelId, PanelInfo } from '@lyness/client-ui-layout/client'
-import type { PropsRuntime } from '@lyness/client-ui-slots'
+import type { SessionLiveEventEntry } from '@lyness/lyn-api-session-controller/client'
+import { createSnapshotStore } from '@lyness/lyn-client-store'
+import { EMPTY_CHAT_SNAPSHOT } from '@lyness/lyn-client-ui-chat/client'
+import { EMPTY_CONVERSATION_SNAPSHOT } from '@lyness/lyn-client-ui-conversation/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { MainPanelId, PanelInfo } from '@lyness/lyn-client-ui-layout/client'
+import type { PropsRuntime } from '@lyness/lyn-client-ui-slots'
 import { afterAll, afterEach, describe, expect, it, vi } from 'vitest'
 import {
   bindSnapshotSelector,
@@ -19,7 +19,7 @@ import {
 const originalLanguages = [...navigator.languages]
 const originalLanguage = navigator.language
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface SlotMap {
     'trt.panel-info': { kind: 'keyed'; scope: 'root'; owner: { label: string } }
   }

@@ -8,7 +8,7 @@ import {
   parseSnapshotManifest,
   type Scenario,
   type SnapshotSuiteOptions,
-} from '@lyness/session-snapshot'
+} from '@lyness/lyn-session-snapshot'
 
 const corpusDir = fileURLToPath(new URL('./', import.meta.url))
 

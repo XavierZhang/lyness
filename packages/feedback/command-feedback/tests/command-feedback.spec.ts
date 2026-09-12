@@ -1,21 +1,21 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
-import AgentRegistry from '@lyness/agent'
-import type { Agent, AgentStatus } from '@lyness/agent'
-import CommandRuntime from '@lyness/commands'
-import SessionStore, { foldSurface, Session, SessionId } from '@lyness/session'
-import * as commandFeedback from '@lyness/command-feedback'
-import type { FeedbackRecord } from '@lyness/command-feedback/types'
-import { remoteMethods } from '@lyness/typert-protocol'
-import { unsupportedInbox } from '@lyness/agent-loop-testkit'
+import AgentRegistry from '@lyness/lyn-agent'
+import type { Agent, AgentStatus } from '@lyness/lyn-agent'
+import CommandRuntime from '@lyness/lyn-commands'
+import SessionStore, { foldSurface, Session, SessionId } from '@lyness/lyn-session'
+import * as commandFeedback from '@lyness/lyn-command-feedback'
+import type { FeedbackRecord } from '@lyness/lyn-command-feedback/types'
+import { remoteMethods } from '@lyness/lyn-typert-protocol'
+import { unsupportedInbox } from '@lyness/lyn-agent-loop-testkit'
 
 const { USER_ID, getOrCreateAnonymousUserId } = vi.hoisted(() => {
   const USER_ID = '01234567-89ab-4cde-8f01-23456789abcd'
   return { USER_ID, getOrCreateAnonymousUserId: vi.fn(() => USER_ID) }
 })
 
-vi.mock('@lyness/anonymous-user-id', () => ({
+vi.mock('@lyness/lyn-anonymous-user-id', () => ({
   getOrCreateAnonymousUserId,
 }))
 
@@ -85,7 +85,7 @@ function feedbackTexts(session: Session): (string | undefined)[] {
   return feedbackRecords(session).map(record => record.text)
 }
 
-describe('@lyness/command-feedback registration', () => {
+describe('@lyness/lyn-command-feedback registration', () => {
   it('registers one global command with Loader-safe exports and disposes it', async () => {
     const test = await harness()
     expect(commandFeedback.name).toBe('command-feedback')

@@ -1,7 +1,7 @@
 /** Host-backed completed-Turn transcript presentation policy. */
 
-import { createSnapshotStore, type SnapshotStore } from '@lyness/client-store'
-import type { SettingsScope } from '@lyness/client-ui-settings/client'
+import { createSnapshotStore, type SnapshotStore } from '@lyness/lyn-client-store'
+import type { SettingsScope } from '@lyness/lyn-client-ui-settings/client'
 import {
   DEFAULT_TRANSCRIPT_VIEW_MODE, TRANSCRIPT_VIEW_FIELD,
   type ChatSettings, type TranscriptViewMode,

@@ -1,6 +1,6 @@
 /** Per-session Conversation store shared by the shell body and header. */
-import { defineStore, type EngineStoreHandle } from '@lyness/client-store'
-import type { SessionId } from '@lyness/session/types'
+import { defineStore, type EngineStoreHandle } from '@lyness/lyn-client-store'
+import type { SessionId } from '@lyness/lyn-session/types'
 import type { ConversationStoreState } from './contract/views.ts'
 
 const CONVERSATION_STORE_KEY = 'lyn.conversation'

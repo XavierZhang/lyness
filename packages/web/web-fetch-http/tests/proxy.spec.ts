@@ -1,9 +1,9 @@
 import { createServer, type IncomingMessage, type Server, type ServerResponse } from 'node:http'
 import type { AddressInfo } from 'node:net'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { installProxyFromEnvironment } from '@lyness/http-proxy'
-import { HttpFetchProvider } from '@lyness/web-fetch-http'
-import type { HttpFetchLimits } from '@lyness/web-fetch-http'
+import { installProxyFromEnvironment } from '@lyness/lyn-http-proxy'
+import { HttpFetchProvider } from '@lyness/lyn-web-fetch-http'
+import type { HttpFetchLimits } from '@lyness/lyn-web-fetch-http'
 import { isNonPublicIpLiteral, publicHttpNetwork } from '../src/network.ts'
 
 const limits: HttpFetchLimits = {

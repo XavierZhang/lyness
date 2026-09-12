@@ -265,7 +265,7 @@ class WorkspacePackageSet {
       if (!name.startsWith('@lyness/')) {
         throw new Error(`${manifestPath} must name an @lyness package`)
       }
-      if (name === '@lyness/root') {
+      if (name === '@lyness/lyn-root') {
         throw new Error(`${manifestPath} unexpectedly selected the workspace root`)
       }
       if (names.has(name)) throw new Error(`duplicate package name: ${name}`)
@@ -807,7 +807,7 @@ function parsePackedPackage(value: unknown, index: number): PackedPackage {
   if (origin !== 'harness' && origin !== 'vendor') {
     throw new Error(`invalid package origin in release manifest: ${JSON.stringify(origin)}`)
   }
-  if (origin === 'harness' && (!name.startsWith('@lyness/') || name === '@lyness/root')) {
+  if (origin === 'harness' && (!name.startsWith('@lyness/') || name === '@lyness/lyn-root')) {
     throw new Error(`invalid package name in release manifest: ${name}`)
   }
   return {

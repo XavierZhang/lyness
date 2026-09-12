@@ -1,6 +1,6 @@
 /** Minimal concrete Session query for continuation and catalog integration tests. */
 
-import SessionQueryEngine from '@lyness/session-query'
+import SessionQueryEngine from '@lyness/lyn-session-query'
 
 /** Session query implementation whose search faces are outside these tests. */
 export class TestSessionQuery extends SessionQueryEngine {

@@ -11,15 +11,15 @@
 
 import { describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import SessionStore, { SessionId } from '@lyness/session'
-import type { Session } from '@lyness/session'
-import type { Agent } from '@lyness/agent'
-import { createScope } from '@lyness/scope'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import CommandRuntime from '@lyness/commands'
-import PermissionPresetService from '@lyness/permission-presets'
-import type { Config } from '@lyness/permission-presets'
-import ApprovalService from '@lyness/user-approval'
+import SessionStore, { SessionId } from '@lyness/lyn-session'
+import type { Session } from '@lyness/lyn-session'
+import type { Agent } from '@lyness/lyn-agent'
+import { createScope } from '@lyness/lyn-scope'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import CommandRuntime from '@lyness/lyn-commands'
+import PermissionPresetService from '@lyness/lyn-permission-presets'
+import type { Config } from '@lyness/lyn-permission-presets'
+import ApprovalService from '@lyness/lyn-user-approval'
 
 async function harness(options: { withPermission?: boolean; config?: Config } = {}): Promise<{ ctx: Context; session: Session }> {
   const ctx = new Context()

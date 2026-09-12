@@ -8,17 +8,17 @@
  * image-reading tool is useful only when the exact calling route can inspect
  * its result, so unknown capability refuses instead of relying on an adapter
  * failure after filesystem and attachment work.
- * @module @lyness/tool-fs/src/read-image
+ * @module @lyness/lyn-tool-fs/src/read-image
  */
 
 import { basename, extname } from 'node:path'
 import type { Context } from '@lyness/cordis'
-import { AttachmentError, AttachmentId } from '@lyness/attachment'
-import type { AttachmentStore, ImageAttachmentRef, ImageMediaType } from '@lyness/attachment'
-import type { ContentBlock } from '@lyness/llm'
-import { defineTool } from '@lyness/tools'
-import type { GenericCallView, ToolExecution } from '@lyness/tools'
-import type {} from '@lyness/fs'
+import { AttachmentError, AttachmentId } from '@lyness/lyn-attachment'
+import type { AttachmentStore, ImageAttachmentRef, ImageMediaType } from '@lyness/lyn-attachment'
+import type { ContentBlock } from '@lyness/lyn-llm'
+import { defineTool } from '@lyness/lyn-tools'
+import type { GenericCallView, ToolExecution } from '@lyness/lyn-tools'
+import type {} from '@lyness/lyn-fs'
 import { resolveRegularReadTarget } from './read-target.ts'
 
 /** Extensions `read_image` accepts; magic-byte validation at the attachment service stays authoritative. */

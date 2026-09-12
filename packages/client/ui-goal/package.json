@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/client-ui-goal",
+  "name": "@lyness/lyn-client-ui-goal",
   "description": "Session goal surface: GoalBar docked above the composer, read from the goal session projection",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -28,13 +28,13 @@
   "lyn": {
     "client": {
       "inject": [
-        "@lyness/api-remotes",
-        "@lyness/api-session-controller",
-        "@lyness/client-locale",
-        "@lyness/client-ui-chat",
-        "@lyness/client-ui-conversation",
-        "@lyness/client-ui-renderer",
-        "@lyness/client-ui-session"
+        "@lyness/lyn-api-remotes",
+        "@lyness/lyn-api-session-controller",
+        "@lyness/lyn-client-locale",
+        "@lyness/lyn-client-ui-chat",
+        "@lyness/lyn-client-ui-conversation",
+        "@lyness/lyn-client-ui-renderer",
+        "@lyness/lyn-client-ui-session"
       ],
       "platform": "web"
     }
@@ -48,25 +48,25 @@
     "@lyness/cordis": "workspace:^"
   },
   "devDependencies": {
-    "@lyness/api-remotes": "workspace:^",
-    "@lyness/api-session-controller": "workspace:^",
-    "@lyness/client-locale": "workspace:^",
-    "@lyness/client-test-runtime": "workspace:^",
-    "@lyness/client-ui-chat": "workspace:^",
-    "@lyness/client-ui-conversation": "workspace:^",
-    "@lyness/client-ui-primitives": "workspace:^",
-    "@lyness/client-ui-slots": "workspace:^",
-    "@lyness/client-ui-renderer": "workspace:^",
-    "@lyness/client-ui-session": "workspace:^",
-    "@lyness/commands": "workspace:^",
-    "@lyness/goal": "workspace:^",
+    "@lyness/lyn-api-remotes": "workspace:^",
+    "@lyness/lyn-api-session-controller": "workspace:^",
+    "@lyness/lyn-client-locale": "workspace:^",
+    "@lyness/lyn-client-test-runtime": "workspace:^",
+    "@lyness/lyn-client-ui-chat": "workspace:^",
+    "@lyness/lyn-client-ui-conversation": "workspace:^",
+    "@lyness/lyn-client-ui-primitives": "workspace:^",
+    "@lyness/lyn-client-ui-slots": "workspace:^",
+    "@lyness/lyn-client-ui-renderer": "workspace:^",
+    "@lyness/lyn-client-ui-session": "workspace:^",
+    "@lyness/lyn-commands": "workspace:^",
+    "@lyness/lyn-goal": "workspace:^",
     "@testing-library/react": "^16.1.0",
     "@types/react": "~18.3.1",
     "@lyness/cordis": "workspace:^",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "@lyness/session": "workspace:^",
-    "@lyness/typert-protocol": "workspace:^"
+    "@lyness/lyn-session": "workspace:^",
+    "@lyness/lyn-typert-protocol": "workspace:^"
   },
   "files": [
     "lib/index.js",

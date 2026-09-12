@@ -1,4 +1,4 @@
-import { fileExtension, FileTypeIcon, fileSizeText, IconCloseFill14 } from '@lyness/client-ui-primitives'
+import { fileExtension, FileTypeIcon, fileSizeText, IconCloseFill14 } from '@lyness/lyn-client-ui-primitives'
 import css from './FileCard.module.css'
 
 /** Localized strings consumed by one pending-file card. */

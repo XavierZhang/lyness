@@ -9,8 +9,8 @@
  * default page arrives with the expansion that would otherwise show nothing.
  */
 import { describe, expect, it, vi } from 'vitest'
-import type { LayoutState, PaneId, TabId } from '@lyness/client-ui-dockkit'
-import { dockPaneIds, findTabPane, getPane, getSplit } from '@lyness/client-ui-dockkit'
+import type { LayoutState, PaneId, TabId } from '@lyness/lyn-client-ui-dockkit'
+import { dockPaneIds, findTabPane, getPane, getSplit } from '@lyness/lyn-client-ui-dockkit'
 import { createSidebarRightStore } from '../src/client/stores.ts'
 import { pageAddress } from '../src/client/contract/seed.ts'
 

@@ -1,13 +1,13 @@
 /** Live Session queue, jobs, and projection state with reconnect baselines. */
 
 import type { Context } from '@lyness/cordis'
-import type { Agent, InboxState } from '@lyness/agent'
-import { Deque } from '@lyness/deque'
-import type { JobSnapshot } from '@lyness/jobs'
+import type { Agent, InboxState } from '@lyness/lyn-agent'
+import { Deque } from '@lyness/lyn-deque'
+import type { JobSnapshot } from '@lyness/lyn-jobs'
 import type {
   Session, SessionId, UserMessage,
-} from '@lyness/session'
-import type { JsonValue } from '@lyness/util-values'
+} from '@lyness/lyn-session'
+import type { JsonValue } from '@lyness/lyn-util-values'
 import type {
   SessionControlBaseline,
   SessionControlFrame,

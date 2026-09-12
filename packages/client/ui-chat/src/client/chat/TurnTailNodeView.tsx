@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import type { PropsRenderSlots } from '@lyness/client-ui-slots'
+import type { PropsRenderSlots } from '@lyness/lyn-client-ui-slots'
 import type { ChatNodeViewProps, TurnTailOwnerProps } from '../contract/slots.ts'
 import { MessageIconActions } from './MessageIconActions.tsx'
 import { TurnTimePanel, TurnUsagePanel } from './TurnUsagePanel.tsx'

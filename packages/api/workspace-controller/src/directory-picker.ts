@@ -5,15 +5,15 @@
 
 import { Context } from '@lyness/cordis'
 import { z } from 'zod'
-import { DirectoryPickerError } from '@lyness/host-directory-picker'
+import { DirectoryPickerError } from '@lyness/lyn-host-directory-picker'
 import type {
   DirectoryPickerCapabilities, DirectoryPickerErrorCode,
-} from '@lyness/host-directory-picker'
+} from '@lyness/lyn-host-directory-picker'
 // The seam owns the listing declaration; the generator requires the reference
 // site to name that package rather than this package's re-export of it.
-import type { DirectoryListing } from '@lyness/host-directory-picker/types'
-import { Remote, RemoteError, TypertRemoteService } from '@lyness/typert-protocol'
-import type { RemoteErrorCode } from '@lyness/typert-protocol'
+import type { DirectoryListing } from '@lyness/lyn-host-directory-picker/types'
+import { Remote, RemoteError, TypertRemoteService } from '@lyness/lyn-typert-protocol'
+import type { RemoteErrorCode } from '@lyness/lyn-typert-protocol'
 
 const createDirectoryRequestSchema = z.object({
   path: z.string(),

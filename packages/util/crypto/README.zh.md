@@ -32,7 +32,7 @@ kind: "package-library"
 ## API
 
 ```ts
-import { bytesToBase64, randomUUID, type Uuid } from '@lyness/util-crypto'
+import { bytesToBase64, randomUUID, type Uuid } from '@lyness/lyn-util-crypto'
 ```
 
 | 导出 | 角色 |

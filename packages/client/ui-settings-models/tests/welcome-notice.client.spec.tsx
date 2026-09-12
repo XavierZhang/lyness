@@ -1,12 +1,12 @@
 // @vitest-environment jsdom
-import type { GlobalStandardProps } from '@lyness/client-ui-slots'
+import type { GlobalStandardProps } from '@lyness/lyn-client-ui-slots'
 import { act, cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { bindSnapshotSelector, RemoteError } from '@lyness/client-test-runtime'
+import { bindSnapshotSelector, RemoteError } from '@lyness/lyn-client-test-runtime'
 import { Context } from '@lyness/cordis'
-import { SettingsSchemaService } from '@lyness/client-ui-settings/src/client/schema.ts'
-import { SettingsDescribeMirror } from '@lyness/client-ui-settings/src/client/settings-mirror.ts'
-import { SettingsScopeController } from '@lyness/client-ui-settings/src/client/settings-scope.ts'
+import { SettingsSchemaService } from '@lyness/lyn-client-ui-settings/src/client/schema.ts'
+import { SettingsDescribeMirror } from '@lyness/lyn-client-ui-settings/src/client/settings-mirror.ts'
+import { SettingsScopeController } from '@lyness/lyn-client-ui-settings/src/client/settings-scope.ts'
 
 // Every fixture carries the resource hook the resources plugin merges into GlobalStandardProps.
 const useResource = (() => ({ status: 'none' as const, value: undefined, failure: undefined, reload: () => {} })) as GlobalStandardProps['useResource']

@@ -1,7 +1,7 @@
 /**
  * Shared filesystem path helpers for lyness user data.
  *
- * @module @lyness/home-paths
+ * @module @lyness/lyn-home-paths
  */
 
 import { opendir, realpath } from 'node:fs/promises'

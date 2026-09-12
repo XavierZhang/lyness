@@ -1,7 +1,7 @@
-import { createUserMessage, type StreamChunk } from '@lyness/llm'
+import { createUserMessage, type StreamChunk } from '@lyness/lyn-llm'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { PROTOCOL_VERSION } from '@agentclientprotocol/sdk'
-import { SessionId } from '@lyness/session'
+import { SessionId } from '@lyness/lyn-session'
 import {
   errorResponse,
   makeBridgeHarness,

@@ -5,7 +5,7 @@
  * or command substitution, and no pre-tool approval or rewrite path; only
  * blocking decisions are honored. Shared execution and parsing live in
  * `lyn-hook-protocol`.
- * @module @lyness/hooks-codex
+ * @module @lyness/lyn-hooks-codex
  */
 
 // Each dialect bridge keeps its complete dependency list visible at the entry
@@ -14,12 +14,12 @@
 import { readFileSync } from 'node:fs'
 import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import type { Agent, PreStepDecision } from '@lyness/agent'
-import type {} from '@lyness/session-projection'
-import { createUserMessage } from '@lyness/llm'
-import type { ContentBlock, MessageSource } from '@lyness/llm'
-import type { UserMessage } from '@lyness/session'
-import type { PostToolDecision, PreToolDecision, ToolExecution, ToolExecutionResult } from '@lyness/tools'
+import type { Agent, PreStepDecision } from '@lyness/lyn-agent'
+import type {} from '@lyness/lyn-session-projection'
+import { createUserMessage } from '@lyness/lyn-llm'
+import type { ContentBlock, MessageSource } from '@lyness/lyn-llm'
+import type { UserMessage } from '@lyness/lyn-session'
+import type { PostToolDecision, PreToolDecision, ToolExecution, ToolExecutionResult } from '@lyness/lyn-tools'
 import {
   appendHookInvoked,
   appendHookResult,
@@ -32,7 +32,7 @@ import {
   type HookOutput,
   type MatcherGroup,
   type MergedHookOutcome,
-} from '@lyness/hook-protocol'
+} from '@lyness/lyn-hook-protocol'
 import { parseCodexConfig, type CodexHookConfig } from './config.ts'
 /* jscpd:ignore-end */
 

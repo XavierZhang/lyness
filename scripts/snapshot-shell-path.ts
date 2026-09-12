@@ -1,6 +1,6 @@
 /** Exact recorded shell-command path translation; execution and reported outcomes remain real. */
 import type { Context } from '@lyness/cordis'
-import type {} from '@lyness/shell'
+import type {} from '@lyness/lyn-shell'
 
 export const name = 'snapshot-shell-path'
 export const inject = ['shell']

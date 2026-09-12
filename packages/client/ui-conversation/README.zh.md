@@ -3,7 +3,7 @@ description: "Target-neutral 对话装配与浏览器 shell：事件和视图注
 kind: "package-reference"
 ---
 
-# @lyness/client-ui-conversation
+# @lyness/lyn-client-ui-conversation
 
 [English](README.md) | 中文
 
@@ -72,9 +72,9 @@ interface ComposerChainProps {
 业务包仅可在一个 Remote waterfall request pending 期间安装 entry：
 
 ```tsx
-import type { ComposerChainProps } from '@lyness/client-ui-conversation/client'
-import type { ChainSelect, PropsRuntime } from '@lyness/client-ui-slots'
-import type { SessionId } from '@lyness/session/types'
+import type { ComposerChainProps } from '@lyness/lyn-client-ui-conversation/client'
+import type { ChainSelect, PropsRuntime } from '@lyness/lyn-client-ui-slots'
+import type { SessionId } from '@lyness/lyn-session/types'
 
 interface Request {
   readonly sessionId: SessionId

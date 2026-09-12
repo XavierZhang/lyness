@@ -1,10 +1,10 @@
 /** Session Controller adapter for Agent-scoped file-reference discovery. */
 
 import type { Context } from '@lyness/cordis'
-import type { Agent } from '@lyness/agent'
-import type {} from '@lyness/file-reference'
-import type { FileReferenceCandidate } from '@lyness/file-reference/types'
-import { Remote, TypertRemoteService } from '@lyness/typert-protocol'
+import type { Agent } from '@lyness/lyn-agent'
+import type {} from '@lyness/lyn-file-reference'
+import type { FileReferenceCandidate } from '@lyness/lyn-file-reference/types'
+import { Remote, TypertRemoteService } from '@lyness/lyn-typert-protocol'
 
 declare module '@lyness/cordis' {
   interface Context {

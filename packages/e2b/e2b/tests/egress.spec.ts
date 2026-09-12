@@ -1,7 +1,7 @@
 import { createServer, type Server } from 'node:http'
 import type { AddressInfo } from 'node:net'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
-import { installProxyFromEnvironment } from '@lyness/http-proxy'
+import { installProxyFromEnvironment } from '@lyness/lyn-http-proxy'
 
 let seen: string[] = []
 let proxy: Server
@@ -58,8 +58,8 @@ describe('e2b control-plane URL', () => {
 
   it('keeps the loopback debug plane direct instead of sending its API key to a proxy', async () => {
     const { e2bApiUrl } = await import('../src/api-url.ts')
-    const { proxyRouteFor } = await import('@lyness/http-proxy')
-    const { createLaunchEnvironmentSnapshot } = await import('@lyness/launch-environment')
+    const { proxyRouteFor } = await import('@lyness/lyn-http-proxy')
+    const { createLaunchEnvironmentSnapshot } = await import('@lyness/lyn-launch-environment')
     // A real launch installs from the environment, and the resolved policy always bypasses loopback.
     const dispose = await installProxyFromEnvironment(
       createLaunchEnvironmentSnapshot([{ source: 'process', values: { HTTP_PROXY: proxyUrl } }]),

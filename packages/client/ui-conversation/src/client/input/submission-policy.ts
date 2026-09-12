@@ -5,8 +5,8 @@
  */
 import {
   createSnapshotStore, type SnapshotStore,
-} from '@lyness/client-store'
-import type { SettingsScope } from '@lyness/client-ui-settings/client'
+} from '@lyness/lyn-client-store'
+import type { SettingsScope } from '@lyness/lyn-client-ui-settings/client'
 import type {
   BusyEnterBehavior, ComposerSubmitGesture, InputSubmitMode,
 } from '../contract/composer-submission.ts'

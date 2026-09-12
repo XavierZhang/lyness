@@ -4,10 +4,10 @@
  * (zod, the projection definition). Host consumers import `./types`; client
  * aggregates import `./client`, which re-exports this module.
  *
- * @module @lyness/session-turn-outline/types
+ * @module @lyness/lyn-session-turn-outline/types
  */
 
-import type { SessionSeq } from '@lyness/session/types'
+import type { SessionSeq } from '@lyness/lyn-session/types'
 
 export {}
 
@@ -37,7 +37,7 @@ export interface TurnOutlineState {
   readonly draft: string
 }
 
-declare module '@lyness/session-projection/types' {
+declare module '@lyness/lyn-session-projection/types' {
   interface SessionProjectionStateMap {
     /** Whole-log turn outline fold state (entries plus the open turn's response draft). */
     turnOutline: TurnOutlineState

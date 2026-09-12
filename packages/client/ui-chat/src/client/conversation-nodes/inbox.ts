@@ -1,7 +1,7 @@
 import type { Context } from '@lyness/cordis'
 import type {
   ConversationNodeDefinition, ConversationPreviousContext,
-} from '@lyness/client-ui-conversation/client'
+} from '@lyness/lyn-client-ui-conversation/client'
 
 interface InboxIdentity {
   readonly id: string

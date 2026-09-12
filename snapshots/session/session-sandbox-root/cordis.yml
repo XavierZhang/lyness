@@ -3,7 +3,7 @@
 # /tmp. A workspace-write mutation can therefore succeed only when the calling
 # session's cwd replaces the process-level fallback root.
 - id: sandbox-policy
-  name: '@lyness/sandbox-policy'
+  name: '@lyness/lyn-sandbox-policy'
   config:
     mode: !!js "process.env.LYNESS_PERMISSION_MODE ?? (process.env.LYNESS_SNAPSHOT === undefined ? 'workspace-write' : 'danger-full-access')"
     workspaceRoot: /tmp

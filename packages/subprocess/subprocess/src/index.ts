@@ -4,12 +4,12 @@
  * collected stdio, and one terminal-process primitive. Command defaulting,
  * shell semantics, deadlines, protocol framing, terminal readiness, and
  * presentation belong to consumers. The local implementation lives in
- * `@lyness/subprocess-local`.
- * @module @lyness/subprocess
+ * `@lyness/lyn-subprocess-local`.
+ * @module @lyness/lyn-subprocess
  */
 
 import { Context, Service } from '@lyness/cordis'
-import { proxyEnvironmentForChild } from '@lyness/http-proxy'
+import { proxyEnvironmentForChild } from '@lyness/lyn-http-proxy'
 import { LYNESS_ENV_PREFIX } from './types.ts'
 import type { SubprocessHandle, SubprocessSpawnSpec } from './types.ts'
 import type { SubprocessTerminalHandle, SubprocessTerminalSpawnSpec } from './types.ts'

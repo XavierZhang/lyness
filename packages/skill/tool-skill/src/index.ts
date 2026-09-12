@@ -1,16 +1,16 @@
 /**
  * Durable session skill catalog and model-facing `skill` loader tool.
  *
- * @module @lyness/tool-skill
+ * @module @lyness/lyn-tool-skill
  */
 
 import { createHash } from 'node:crypto'
 import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import type { Agent, PreStepDecision } from '@lyness/agent'
-import { defineTool } from '@lyness/tools'
-import { createUserMessage } from '@lyness/llm'
-import { SessionSeq, type UserMessage } from '@lyness/session'
+import type { Agent, PreStepDecision } from '@lyness/lyn-agent'
+import { defineTool } from '@lyness/lyn-tools'
+import { createUserMessage } from '@lyness/lyn-llm'
+import { SessionSeq, type UserMessage } from '@lyness/lyn-session'
 import {
   escapeText,
   isModelInvocable,
@@ -19,7 +19,7 @@ import {
   renderSkillContent,
   type SkillInvocationSource,
   type SkillSummary,
-} from '@lyness/skill'
+} from '@lyness/lyn-skill'
 
 export const name = 'tool-skill'
 export const inject = ['agents', 'tools', 'skills']
@@ -40,7 +40,7 @@ export interface SkillCatalogSource {
   readonly entries: readonly { readonly name: string; readonly description: string }[]
 }
 
-declare module '@lyness/llm' {
+declare module '@lyness/lyn-llm' {
   interface MessageSourceMap {
     'skill-catalog': SkillCatalogSource
   }

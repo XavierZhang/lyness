@@ -3,7 +3,7 @@ description: "面向用户与维护者的语义会话持久性检查点说明，
 kind: "package-reference"
 ---
 
-# @lyness/session-checkpoint-policy
+# @lyness/lyn-session-checkpoint-policy
 
 [English](README.md) | 中文
 
@@ -37,10 +37,10 @@ kind: "package-reference"
 
 ```yaml
 - id: session-persistence
-  name: '@lyness/session-persistence-jsonl'
+  name: '@lyness/lyn-session-persistence-jsonl'
 
 - id: session-checkpoints
-  name: '@lyness/session-checkpoint-policy'
+  name: '@lyness/lyn-session-checkpoint-policy'
 ```
 
 ### 什么会变得持久

@@ -4,11 +4,11 @@
  * Adapters expose one resolved policy per registered provider route; the
  * optional lyn-llm-retry plugin executes it on the agent's failed-step extension point.
  *
- * @module @lyness/llm/retry-policy
+ * @module @lyness/lyn-llm/retry-policy
  */
 
 import z from '@lyness/schemastery'
-import { MAX_TIMER_DELAY_MS } from '@lyness/timeout'
+import { MAX_TIMER_DELAY_MS } from '@lyness/lyn-timeout'
 import { EMPTY_RESPONSE_CODE } from './error.ts'
 
 const DEFAULT_MAX_RETRIES = 5

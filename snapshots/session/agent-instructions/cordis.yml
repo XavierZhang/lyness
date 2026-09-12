@@ -1,19 +1,19 @@
 # Workspace-context snapshot patch: keep project-root and user-global
 # discovery inside the scenario's temporary cwd.
 - id: agent-default-model
-  name: '@lyness/agent-default-model'
+  name: '@lyness/lyn-agent-default-model'
   config:
     provider: deepseek-official
     model: deepseek-v4-pro
 
 - id: session-persistence-jsonl
-  name: '@lyness/session-persistence-jsonl'
+  name: '@lyness/lyn-session-persistence-jsonl'
   config:
     root: !!js lynHomePath('sessions')
     compression: !!js 'process.env.LYNESS_SNAPSHOT === undefined ? ''zstd'' : ''none'''
 
 - id: agent-instructions
-  name: '@lyness/agent-instructions'
+  name: '@lyness/lyn-agent-instructions'
   config:
     maxBytes: 65536
     lynHome: !!js process.cwd() + '/.lyn'
@@ -21,7 +21,7 @@
       - .lyn-project
 
 - id: system-prompt
-  name: '@lyness/system-prompt'
+  name: '@lyness/lyn-system-prompt'
   config:
     personaPrefix: |
       You are a coding assistant powered by the {{model}} model. Your working directory is {{cwd}}.

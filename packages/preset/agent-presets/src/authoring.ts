@@ -9,14 +9,14 @@
  * No caller supplies composition text: the inputs are ids the host resolves
  * against its own roots plus an optional display name, so authoring grants no
  * capability the copied preset did not already carry.
- * @module @lyness/agent-presets/authoring
+ * @module @lyness/lyn-agent-presets/authoring
  */
 
 import { chmod, cp, readdir, readFile, rm, stat } from 'node:fs/promises'
 import { dirname, isAbsolute, join, resolve } from 'node:path'
-import { writeFileAtomic } from '@lyness/atomic-write'
-import { expandHomePath } from '@lyness/home-paths'
-import { RemoteError } from '@lyness/typert-protocol'
+import { writeFileAtomic } from '@lyness/lyn-atomic-write'
+import { expandHomePath } from '@lyness/lyn-home-paths'
+import { RemoteError } from '@lyness/lyn-typert-protocol'
 import { METADATA_FILE, renderPresetMetadata } from './metadata.ts'
 import { PRESET_ID, type AgentPreset, type PresetRoot } from './preset.ts'
 

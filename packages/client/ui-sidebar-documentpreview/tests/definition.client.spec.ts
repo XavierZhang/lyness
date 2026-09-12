@@ -9,8 +9,8 @@
  */
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { sessionFileAddress } from '@lyness/util-workspace-path'
-import { SidebarRightTabRegistry } from '@lyness/client-ui-sidebar-right/src/client/tab-registry.ts'
+import { sessionFileAddress } from '@lyness/lyn-util-workspace-path'
+import { SidebarRightTabRegistry } from '@lyness/lyn-client-ui-sidebar-right/src/client/tab-registry.ts'
 import { TEXTPREVIEW_ID, TEXTPREVIEW_KIND, basenameOf, textDefinition } from '../src/client/definition.ts'
 
 describe('basenameOf', () => {

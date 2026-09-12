@@ -1,8 +1,8 @@
 /** The Session projection that records which preset a Session runs. */
 
 import { describe, expect, it } from 'vitest'
-import { SESSION_FORMAT_VERSION, SessionId, SessionSeq } from '@lyness/session'
-import type { SessionEvent, SessionHeader } from '@lyness/session'
+import { SESSION_FORMAT_VERSION, SessionId, SessionSeq } from '@lyness/lyn-session'
+import type { SessionEvent, SessionHeader } from '@lyness/lyn-session'
 import { agentPresetProjectionDefinition } from '../src/session.ts'
 
 /** A header carrying the creation-time preset, if any. */

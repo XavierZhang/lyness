@@ -1,16 +1,16 @@
 /**
  * Service Definition for the user-questions capability seam (`ctx.userQuestions`): a UI-backed service for
  * pausing an agent tool call until the human answers a question. The model-
- * facing tool lives in `@lyness/tool-ask-user`; UI packages compose
+ * facing tool lives in `@lyness/lyn-tool-ask-user`; UI packages compose
  * answerers on the Agent-scoped Cordis waterfall.
  *
- * @module @lyness/user-questions
+ * @module @lyness/lyn-user-questions
  */
 
 import { Context, Service } from '@lyness/cordis'
-import type {} from '@lyness/agent'
-import { HarnessError } from '@lyness/llm'
-import { scopeTarget } from '@lyness/scope'
+import type {} from '@lyness/lyn-agent'
+import { HarnessError } from '@lyness/lyn-llm'
+import { scopeTarget } from '@lyness/lyn-scope'
 
 declare module '@lyness/cordis' {
   interface Context {

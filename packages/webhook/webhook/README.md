@@ -3,7 +3,7 @@ description: "Webhook rule runtime for maintainers registering trusted external-
 kind: "package-reference"
 ---
 
-# @lyness/webhook
+# @lyness/lyn-webhook
 
 English | [中文](README.zh.md)
 

@@ -7,8 +7,8 @@
  * @module lyn-session/request-header
  */
 
-import { callConfigEquals } from '@lyness/llm'
-import type { ToolSchema } from '@lyness/llm'
+import { callConfigEquals } from '@lyness/lyn-llm'
+import type { ToolSchema } from '@lyness/lyn-llm'
 import type { EpochHeader, SessionEvent } from './types.ts'
 
 /**

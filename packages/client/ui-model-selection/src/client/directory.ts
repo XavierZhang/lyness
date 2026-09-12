@@ -6,11 +6,11 @@
  */
 import type {
   ModelCatalogFailure, ModelProviderGroup, ModelSelection, ModelSelectionProjection,
-} from '@lyness/api-session-controller/types'
-import type { SessionId } from '@lyness/api-remotes/client'
-import type { TypertClientRemote } from '@lyness/typert-protocol'
-import type { ObservableSnapshot, SnapshotStore } from '@lyness/client-store'
-import { createSnapshotStore } from '@lyness/client-store'
+} from '@lyness/lyn-api-session-controller/types'
+import type { SessionId } from '@lyness/lyn-api-remotes/client'
+import type { TypertClientRemote } from '@lyness/lyn-typert-protocol'
+import type { ObservableSnapshot, SnapshotStore } from '@lyness/lyn-client-store'
+import { createSnapshotStore } from '@lyness/lyn-client-store'
 import type { ModelCatalogDirectory } from './catalog.ts'
 
 /** Directory snapshot both entries render from. */

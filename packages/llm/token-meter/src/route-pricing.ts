@@ -2,10 +2,10 @@
  * Request-projected surface pricing: replaces attachment-block heuristics with
  * the image and file representations sent to the routed model.
  *
- * @module @lyness/token-meter/route-pricing
+ * @module @lyness/lyn-token-meter/route-pricing
  */
 
-import type { ContentBlock, LlmImageRequestPricing } from '@lyness/llm'
+import type { ContentBlock, LlmImageRequestPricing } from '@lyness/lyn-llm'
 import { estimateContent } from './estimate.ts'
 import type { MeterSurfaceNode } from './surface-fold.ts'
 import type { TokenSurfaceNode } from './types.ts'

@@ -2,7 +2,7 @@
  * Active Loader-backed plugin package inventory for official DeepSeek requests.
  * Host entries and the requesting agent's standing preset are resolved at request time;
  * installed dependencies and plugin fibers without Loader package provenance are excluded.
- * @module @lyness/plugin-package-inventory-deepseek
+ * @module @lyness/lyn-plugin-package-inventory-deepseek
  */
 
 import { existsSync, readFileSync } from 'node:fs'
@@ -11,12 +11,12 @@ import { dirname, isAbsolute, join, parse } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { FiberState, type Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import { brandString } from '@lyness/brand'
+import { brandString } from '@lyness/lyn-brand'
 import type { Entry, EntryTree } from '@lyness/cordis-plugin-loader'
-import type {} from '@lyness/agent'
-import type {} from '@lyness/deepseek-llm-api-extensions'
-import type { SessionId } from '@lyness/session'
-import type {} from '@lyness/agent-presets'
+import type {} from '@lyness/lyn-agent'
+import type {} from '@lyness/lyn-deepseek-llm-api-extensions'
+import type { SessionId } from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-agent-presets'
 import type { DeepSeekPluginPackageIdentity, DeepSeekPluginPackageInventoryExtension } from './types.ts'
 import type {} from './types.ts'
 
@@ -160,7 +160,7 @@ async function collectActivePluginPackages(
     if (agent !== undefined) {
       // The optional peer is loaded only when its service is present. Its existing
       // mount query keeps Loader internals off the public AgentPresets service.
-      const { standingMountFor } = await import('@lyness/agent-presets')
+      const { standingMountFor } = await import('@lyness/lyn-agent-presets')
       const presetTree = standingMountFor(agent.ctx)?.tree
       // PresetTree deliberately resolves its root bare rows from the harness;
       // nested ordinary includes retain their own tree base.

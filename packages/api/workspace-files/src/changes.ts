@@ -8,8 +8,8 @@
  */
 
 import type { Context } from '@lyness/cordis'
-import { Deque } from '@lyness/deque'
-import type { FsObservation, FsTarget } from '@lyness/fs'
+import { Deque } from '@lyness/lyn-deque'
+import type { FsObservation, FsTarget } from '@lyness/lyn-fs'
 import type { WorkspaceFileWatchFrame } from './types.ts'
 
 /** One `fs/observed` emission as received, before any generation filters it. */

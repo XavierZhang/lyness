@@ -9,8 +9,8 @@
  * recreated record would make every render resubscribe and restart the stream.
  */
 import type { Context } from '@lyness/cordis'
-import type { RemoteResult } from '@lyness/typert-protocol'
-import { createSnapshotStore, type ObservableSnapshot, type SnapshotStore } from '@lyness/client-store'
+import type { RemoteResult } from '@lyness/lyn-typert-protocol'
+import { createSnapshotStore, type ObservableSnapshot, type SnapshotStore } from '@lyness/lyn-client-store'
 import type {
   ResourceOpenContext,
   ResourceProtocol,

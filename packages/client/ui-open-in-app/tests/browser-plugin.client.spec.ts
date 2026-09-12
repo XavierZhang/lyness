@@ -6,9 +6,9 @@
 
 import { Context } from '@lyness/cordis'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { SlotRegistry } from '@lyness/client-ui-renderer/client'
-import { LocaleRuntime } from '@lyness/client-locale/client'
-import type {} from '@lyness/client-ui-conversation/client'
+import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
+import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
+import type {} from '@lyness/lyn-client-ui-conversation/client'
 import { apply, inject, type OpenInAppActionInjected } from '../src/client/index.ts'
 import { apply as nodeApply } from '../src/index.ts'
 import { OpenInAppAction } from '../src/client/OpenInAppAction.tsx'

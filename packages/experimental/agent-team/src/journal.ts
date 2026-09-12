@@ -1,8 +1,8 @@
 /** Serialized Team transactions over the exact live Lead Session log. */
 
-import type { Agent } from '@lyness/agent'
+import type { Agent } from '@lyness/lyn-agent'
 import type { Context } from '@lyness/cordis'
-import type { SessionEventMap, SessionId } from '@lyness/session'
+import type { SessionEventMap, SessionId } from '@lyness/lyn-session'
 import type { TeamEventType, TeamState } from './projection.ts'
 
 type AppendTeamEvent = <T extends TeamEventType>(type: T, data: SessionEventMap[T]) => void

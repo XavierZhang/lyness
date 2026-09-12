@@ -1,19 +1,19 @@
 import { describe, expect, expectTypeOf, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { AttachmentId } from '@lyness/attachment'
-import BasicCompactionEngine from '@lyness/compaction-basic'
-import type { BasicCompactionConfig } from '@lyness/compaction-basic'
-import { selectCompactableRange } from '@lyness/compaction-basic/src/region.ts'
-import { frameSummary } from '@lyness/compaction-basic/src/summarizer.ts'
-import type { SummarizationInput, SummaryResult } from '@lyness/compaction-basic/src/summarizer.ts'
-import { CompactionId, toolPairingBalancedAfter, toolPairingBalancedBefore } from '@lyness/compaction'
+import { AttachmentId } from '@lyness/lyn-attachment'
+import BasicCompactionEngine from '@lyness/lyn-compaction-basic'
+import type { BasicCompactionConfig } from '@lyness/lyn-compaction-basic'
+import { selectCompactableRange } from '@lyness/lyn-compaction-basic/src/region.ts'
+import { frameSummary } from '@lyness/lyn-compaction-basic/src/summarizer.ts'
+import type { SummarizationInput, SummaryResult } from '@lyness/lyn-compaction-basic/src/summarizer.ts'
+import { CompactionId, toolPairingBalancedAfter, toolPairingBalancedBefore } from '@lyness/lyn-compaction'
 import {
   resolveCompactSpec,
   resolveConfig,
   resolveTargetPolicy,
-} from '@lyness/compaction-basic/src/config.ts'
-import type { CompactionResult } from '@lyness/compaction'
-import LlmRuntime, { createUserMessage, ToolCallId, CONTEXT_WINDOW_EXCEEDED_CODE, createSystemMessage, createToolResultMessage, LlmAdapter , createMessage } from '@lyness/llm'
+} from '@lyness/lyn-compaction-basic/src/config.ts'
+import type { CompactionResult } from '@lyness/lyn-compaction'
+import LlmRuntime, { createUserMessage, ToolCallId, CONTEXT_WINDOW_EXCEEDED_CODE, createSystemMessage, createToolResultMessage, LlmAdapter , createMessage } from '@lyness/lyn-llm'
 import type {
   ContentBlock,
   GenerateOptions,
@@ -22,12 +22,12 @@ import type {
   Message,
   StreamChunk,
   TokenUsage,
-} from '@lyness/llm'
-import SessionStore, { Session, SessionId, SessionSeq } from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import TokenMeter from '@lyness/token-meter'
-import { agentEvents, type Agent, type RequestErrorAction } from '@lyness/agent'
-import ToolResultPruner from '@lyness/compaction-tool-result-pruner'
+} from '@lyness/lyn-llm'
+import SessionStore, { Session, SessionId, SessionSeq } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import TokenMeter from '@lyness/lyn-token-meter'
+import { agentEvents, type Agent, type RequestErrorAction } from '@lyness/lyn-agent'
+import ToolResultPruner from '@lyness/lyn-compaction-tool-result-pruner'
 
 const SIGNAL = new AbortController().signal
 const MODEL = 'test-model'
@@ -107,7 +107,7 @@ function promptInput(text: string): SummarizationInput {
   })] }
 }
 
-const SYSTEM_PROMPT_PLUGIN = '@lyness/system-prompt'
+const SYSTEM_PROMPT_PLUGIN = '@lyness/lyn-system-prompt'
 
 /**
  * Closed two-message turns followed by one open turn for durable compaction events.

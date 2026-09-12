@@ -1,15 +1,15 @@
 /** Shared live/prepared observations for Session page and lifecycle consumers. */
 
 import type { Context } from '@lyness/cordis'
-import { SessionLogOffset, SessionSeq } from '@lyness/session'
-import type { Session, SessionEvent, SessionHeader, SessionId , SessionLogOffset as SessionLogOffsetType , SessionSeqCursor } from '@lyness/session'
-import type SessionPersistence from '@lyness/session-persistence'
+import { SessionLogOffset, SessionSeq } from '@lyness/lyn-session'
+import type { Session, SessionEvent, SessionHeader, SessionId , SessionLogOffset as SessionLogOffsetType , SessionSeqCursor } from '@lyness/lyn-session'
+import type SessionPersistence from '@lyness/lyn-session-persistence'
 import type {
   SessionPersistenceRevision,
   SessionPersistenceSnapshot,
-} from '@lyness/session-persistence'
-import type { ProjectionSnapshot } from '@lyness/session-projection'
-import type {} from '@lyness/session-projection-cache'
+} from '@lyness/lyn-session-persistence'
+import type { ProjectionSnapshot } from '@lyness/lyn-session-projection'
+import type {} from '@lyness/lyn-session-projection-cache'
 import { SESSION_QUERY_DEFAULT_PREPARED_SESSION_CACHE_SIZE, SessionQueryError } from './config.ts'
 import { readColdSessionLog, type ColdSessionLog } from './cold-read.ts'
 

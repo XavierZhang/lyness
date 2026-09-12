@@ -1,9 +1,9 @@
 import { afterEach, describe, expect, it } from 'vitest'
 import { PROTOCOL_VERSION } from '@agentclientprotocol/sdk'
-import { ToolCallId } from '@lyness/llm'
-import type { Agent } from '@lyness/agent'
-import { SessionId } from '@lyness/session'
-import ApprovalService, { type ApprovalRequest } from '@lyness/user-approval'
+import { ToolCallId } from '@lyness/lyn-llm'
+import type { Agent } from '@lyness/lyn-agent'
+import { SessionId } from '@lyness/lyn-session'
+import ApprovalService, { type ApprovalRequest } from '@lyness/lyn-user-approval'
 import { makeBridgeHarness, type BridgeHarness } from './harness.ts'
 
 describe('ACP machine permission policy', () => {

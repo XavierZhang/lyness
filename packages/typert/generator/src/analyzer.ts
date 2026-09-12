@@ -2,7 +2,7 @@
  * TypeScript project analyzer for the compiler-independent Typert model.
  * Programs, symbols, and syntax nodes remain extraction-only implementation
  * details; callers receive only the model declared in {@link ./model.ts}.
- * @module @lyness/typert-generator/analyzer
+ * @module @lyness/lyn-typert-generator/analyzer
  */
 
 import { existsSync, readFileSync, realpathSync, writeFileSync } from 'node:fs'
@@ -48,7 +48,7 @@ type WithoutId<T> = T extends { readonly id: TypeNodeId } ? Omit<T, 'id'> : neve
 type TypeNodeInput = WithoutId<TypeNodeModel>
 
 const PUBLIC_REMOTE_TYPE_ROOTS = new Set([
-  '@lyness/util-values',
+  '@lyness/lyn-util-values',
 ])
 
 /** Analysis failure with a source-oriented diagnostic. */
@@ -1467,7 +1467,7 @@ class FaceAnalyzer {
       for (const statement of sourceFile.statements) {
         if (!ts.isModuleDeclaration(statement)
           || !ts.isStringLiteral(statement.name)
-          || statement.name.text !== '@lyness/typert-protocol'
+          || statement.name.text !== '@lyness/lyn-typert-protocol'
           || statement.body === undefined
           || !ts.isModuleBlock(statement.body)) continue
         for (const nested of statement.body.statements) {
@@ -1930,11 +1930,11 @@ class FaceAnalyzer {
     const declaration = preferredDeclaration(resolved)
     if (declaration === undefined) return false
     const registration = this.registrationForFile(declaration.getSourceFile().fileName)
-    if (registration?.name === '@lyness/typert-protocol') return true
+    if (registration?.name === '@lyness/lyn-typert-protocol') return true
     for (let current: ts.Node | undefined = declaration; current !== undefined; current = optionalParent(current)) {
       if (ts.isModuleDeclaration(current)
         && ts.isStringLiteral(current.name)
-        && current.name.text === '@lyness/typert-protocol') return true
+        && current.name.text === '@lyness/lyn-typert-protocol') return true
     }
     return false
   }

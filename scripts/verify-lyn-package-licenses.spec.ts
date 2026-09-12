@@ -20,7 +20,7 @@ function createWorkspace(): string {
   const root = mkdtempSync(join(tmpdir(), 'lyn-package-licenses-'))
   roots.push(root)
   writeManifest(root, 'package.json', {
-    name: '@lyness/root',
+    name: '@lyness/lyn-root',
     license: 'MIT',
     workspaces: ['apps/*', 'packages/*/*', 'vendor/*'],
   })
@@ -32,7 +32,7 @@ describe('LYN package license gate', () => {
     const root = createWorkspace()
     writeManifest(root, 'apps/cli/package.json', { name: '@lyness/lyn', license: 'MIT' })
     writeManifest(root, 'packages/core/agent/package.json', {
-      name: '@lyness/agent',
+      name: '@lyness/lyn-agent',
       license: 'BSD-3-Clause',
     })
     writeManifest(root, 'vendor/cordis/package.json', {
@@ -43,17 +43,17 @@ describe('LYN package license gate', () => {
     expect(inspectLynPackageLicenses(root)).toEqual({
       packageCount: 3,
       failures: [
-        'packages/core/agent/package.json: @lyness/agent must declare "license": "MIT"; found "BSD-3-Clause".',
+        'packages/core/agent/package.json: @lyness/lyn-agent must declare "license": "MIT"; found "BSD-3-Clause".',
       ],
     })
   })
 
   it('rejects a missing license declaration', () => {
     const root = createWorkspace()
-    writeManifest(root, 'packages/core/agent/package.json', { name: '@lyness/agent' })
+    writeManifest(root, 'packages/core/agent/package.json', { name: '@lyness/lyn-agent' })
 
     expect(inspectLynPackageLicenses(root).failures).toEqual([
-      'packages/core/agent/package.json: @lyness/agent must declare "license": "MIT"; found undefined.',
+      'packages/core/agent/package.json: @lyness/lyn-agent must declare "license": "MIT"; found undefined.',
     ])
   })
 })

@@ -8,7 +8,7 @@
  * @module lyn-llm-deepseek/adapter
  */
 
-import { attributionHeaders, contentHasImage, CONTEXT_WINDOW_EXCEEDED_CODE, isContextWindowExceededError, isQuotaExceededError, LlmAdapter, LlmError, offloadedImageText, offloadRequestImagesWithPolicy, ProviderRequestId, QUOTA_EXCEEDED_CODE, ReasoningEffortId } from '@lyness/llm'
+import { attributionHeaders, contentHasImage, CONTEXT_WINDOW_EXCEEDED_CODE, isContextWindowExceededError, isQuotaExceededError, LlmAdapter, LlmError, offloadedImageText, offloadRequestImagesWithPolicy, ProviderRequestId, QUOTA_EXCEEDED_CODE, ReasoningEffortId } from '@lyness/lyn-llm'
 import type {
   ContentBlock,
   GenerateOptions,
@@ -21,21 +21,21 @@ import type {
   ResolvedRetryPolicy,
   StreamChunk,
   SystemPromptUpdate,
-} from '@lyness/llm'
+} from '@lyness/lyn-llm'
 import type {
   AttachmentId,
   AttachmentStore,
   ImageAttachmentRef,
   RequestImageAttachment,
-} from '@lyness/attachment'
-import type { CredentialRef } from '@lyness/credentials'
-import { deadline, idleWatchdog, timeoutOf } from '@lyness/timeout'
-import type { AnonymousUserId } from '@lyness/anonymous-user-id'
+} from '@lyness/lyn-attachment'
+import type { CredentialRef } from '@lyness/lyn-credentials'
+import { deadline, idleWatchdog, timeoutOf } from '@lyness/lyn-timeout'
+import type { AnonymousUserId } from '@lyness/lyn-anonymous-user-id'
 import type {
   DeepSeekLlmApiExtensionRequest,
   DeepSeekLlmApiJson,
   PreparedDeepSeekLlmApiExtensions,
-} from '@lyness/deepseek-llm-api-extensions'
+} from '@lyness/lyn-deepseek-llm-api-extensions'
 import { serializeRequest, serializeRequestWithImages } from './serialize.ts'
 import type { ImageWireLocation, RequestDefaults } from './serialize.ts'
 import { deepSeekImageRequestPricing, resolveRequestImagePolicy } from './request-pricing.ts'

@@ -8,19 +8,19 @@
 import { Context } from '@lyness/cordis'
 import { cleanup, fireEvent, render, within } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import type { SessionLiveEventEntry, SessionListState } from '@lyness/api-session-controller/client'
+import type { SessionLiveEventEntry, SessionListState } from '@lyness/lyn-api-session-controller/client'
 import {
   ConversationNodeAssembler, UiConversation,
-} from '@lyness/client-ui-conversation/client'
+} from '@lyness/lyn-client-ui-conversation/client'
 import type {
   ConversationLocationDataSource, ConversationLocationDataStore, ConversationMatch, ConversationNodeDefinition,
   ConversationStartMatch, ConversationTimelineSnapshot, ConversationTurnDataMap, ConversationViewDefinition,
   ConversationViewNode, TurnLocation,
-} from '@lyness/client-ui-conversation/client'
-import { SlotRegistry } from '@lyness/client-ui-renderer/client'
-import { apply as applyLocale, inject as localeInject } from '@lyness/client-locale/client'
-import type { ChatFileMentions, TurnTailOwnerProps } from '@lyness/client-ui-chat/client'
-import { makeTranslate, stubSettingsScope } from '@lyness/client-test-runtime'
+} from '@lyness/lyn-client-ui-conversation/client'
+import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
+import { apply as applyLocale, inject as localeInject } from '@lyness/lyn-client-locale/client'
+import type { ChatFileMentions, TurnTailOwnerProps } from '@lyness/lyn-client-ui-chat/client'
+import { makeTranslate, stubSettingsScope } from '@lyness/lyn-client-test-runtime'
 import { Deliverables, selectDeliverables, type DeliverablesInjected } from '../src/client/Deliverables.tsx'
 import { PresentedOpenController } from '../src/client/present-open.ts'
 import { ProducedFiles } from '../src/client/ProducedFiles.tsx'
@@ -30,8 +30,8 @@ import {
 } from '../src/client/turn-deliverables.ts'
 import { apply, inject } from '../src/client/index.ts'
 import { en, zh } from '../src/client/locales.ts'
-import { SessionId } from '@lyness/session/types'
-import type { SessionEvent } from '@lyness/session/types'
+import { SessionId } from '@lyness/lyn-session/types'
+import type { SessionEvent } from '@lyness/lyn-session/types'
 
 function openProps(controller = new PresentedOpenController()) {
   controller.host.set({ name: 'desktop', available: true, fileManager: 'finder' })

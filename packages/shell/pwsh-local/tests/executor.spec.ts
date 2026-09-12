@@ -1,5 +1,5 @@
 /**
- * Real-process tests for `@lyness/pwsh-local`: the LOCAL subprocess
+ * Real-process tests for `@lyness/lyn-pwsh-local`: the LOCAL subprocess
  * service plus a REAL pwsh executable, exercised through the executor seam
  * (`resolve` → `run`/`start`). These verify the world — actual PowerShell
  * runs, output capture, truncation and spill, deadlines, kill escalation, and
@@ -15,12 +15,12 @@ import { join } from 'node:path'
 import { spawnSync } from 'node:child_process'
 import { afterAll, afterEach, describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { PwshLocalExecutor, ENCODING_PREAMBLE, candidatePwshPaths, resolvePwshPath } from '@lyness/pwsh-local'
-import LocalSubprocessRuntime from '@lyness/subprocess-local'
-import SubprocessRuntime from '@lyness/subprocess'
-import type { SubprocessHandle, SubprocessOutcome, SubprocessOutputReader, SubprocessSpawnSpec } from '@lyness/subprocess'
-import { MAX_TIMER_DELAY_MS } from '@lyness/timeout'
-import type { ShellProcess } from '@lyness/shell'
+import { PwshLocalExecutor, ENCODING_PREAMBLE, candidatePwshPaths, resolvePwshPath } from '@lyness/lyn-pwsh-local'
+import LocalSubprocessRuntime from '@lyness/lyn-subprocess-local'
+import SubprocessRuntime from '@lyness/lyn-subprocess'
+import type { SubprocessHandle, SubprocessOutcome, SubprocessOutputReader, SubprocessSpawnSpec } from '@lyness/lyn-subprocess'
+import { MAX_TIMER_DELAY_MS } from '@lyness/lyn-timeout'
+import type { ShellProcess } from '@lyness/lyn-shell'
 
 const spillDir = mkdtempSync(join(tmpdir(), 'lyn-pwsh-exec-spec-'))
 

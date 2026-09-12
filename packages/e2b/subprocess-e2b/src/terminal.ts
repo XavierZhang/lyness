@@ -10,16 +10,16 @@ import {
   FileNotFoundError,
   SandboxNotFoundError,
   quoteE2BShellArg,
-} from '@lyness/e2b'
-import type { CommandHandle, CommandResult, Sandbox } from '@lyness/e2b'
+} from '@lyness/lyn-e2b'
+import type { CommandHandle, CommandResult, Sandbox } from '@lyness/lyn-e2b'
 import type {
   SubprocessOutcome,
   SubprocessTerminalForeground,
   SubprocessTerminalHandle,
   SubprocessTerminalSignal,
   SubprocessTerminalSpawnSpec,
-} from '@lyness/subprocess'
-import type E2BRuntime from '@lyness/e2b'
+} from '@lyness/lyn-subprocess'
+import type E2BRuntime from '@lyness/lyn-e2b'
 import {
   bootstrapEnvironment,
   readRemoteEnvironment,

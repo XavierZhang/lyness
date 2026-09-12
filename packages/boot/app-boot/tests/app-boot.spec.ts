@@ -4,7 +4,7 @@ import { join, resolve, sep } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { afterAll, describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import SystemPrompt, { renderPrompt } from '@lyness/system-prompt'
+import SystemPrompt, { renderPrompt } from '@lyness/lyn-system-prompt'
 import {
   addHarnessSourceSection, assertEntriesActivated, assertEntriesLoaded, boot,
   FAIL_LOUD_RELEASE_TIMEOUT_MS, HARNESS_SOURCE_SECTION,
@@ -649,12 +649,12 @@ describe('boot', () => {
     const dir = tmp()
     const harness = tmp()
     const absolutePlugin = join(dir, 'absolute.mjs')
-    const shadow = join(dir, 'node_modules', '@lyness', 'system-prompt')
-    const harnessPlugin = join(harness, 'node_modules', '@lyness', 'system-prompt')
+    const shadow = join(dir, 'node_modules', '@lyness', 'lyn-system-prompt')
+    const harnessPlugin = join(harness, 'node_modules', '@lyness', 'lyn-system-prompt')
     mkdirSync(shadow, { recursive: true })
     mkdirSync(harnessPlugin, { recursive: true })
     writeFileSync(join(shadow, 'package.json'), JSON.stringify({
-      name: '@lyness/system-prompt',
+      name: '@lyness/lyn-system-prompt',
       type: 'module',
       exports: './index.mjs',
     }))
@@ -665,7 +665,7 @@ describe('boot', () => {
       '',
     ].join('\n'))
     writeFileSync(join(harnessPlugin, 'package.json'), JSON.stringify({
-      name: '@lyness/system-prompt',
+      name: '@lyness/lyn-system-prompt',
       type: 'module',
       exports: './index.mjs',
     }))
@@ -679,7 +679,7 @@ describe('boot', () => {
     writeFileSync(absolutePlugin, 'export function apply(ctx) { ctx.provide("absolutePluginLoaded", true) }\n')
     const entries = [
       '- id: prompt',
-      "  name: '@lyness/system-prompt'",
+      "  name: '@lyness/lyn-system-prompt'",
       '- id: relative',
       "  name: './relative.mjs'",
     ]

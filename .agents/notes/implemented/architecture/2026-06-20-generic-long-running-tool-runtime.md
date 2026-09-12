@@ -14,12 +14,12 @@ The job registry, control tools, and completion notices form one harness capabil
 
 The `jobs/` package group owns background-job semantics:
 
-- `@lyness/jobs` registers running work as `ctx.jobs` and owns job ids, authorization, snapshots, reads, cancellation, waiting, completion listeners, and cleanup.
-- `@lyness/tool-jobs` exposes `job_output`, `job_list`, and `job_kill`, injects completion notices, and supplies the background-job system-prompt guidance.
+- `@lyness/lyn-jobs` registers running work as `ctx.jobs` and owns job ids, authorization, snapshots, reads, cancellation, waiting, completion listeners, and cleanup.
+- `@lyness/lyn-tool-jobs` exposes `job_output`, `job_list`, and `job_kill`, injects completion notices, and supplies the background-job system-prompt guidance.
 
 Long-running tools are producers. `lyn-tool-bash` adapts a `ShellProcess` into incremental output and process cancellation; `lyn-tool-subagent` adapts a child run into final output and child disposal. The bash and subagent capability seams remain independent of sessions and the job registry.
 
-`JobRegistry` is the Service Definition in `@lyness/jobs`; the process-local provider is `LocalJobRegistry` in `@lyness/jobs-local` (the [task-registry contract Agent Note](../../archived/architecture/2026-07-26-job-registry-seam.md) records that split).
+`JobRegistry` is the Service Definition in `@lyness/lyn-jobs`; the process-local provider is `LocalJobRegistry` in `@lyness/lyn-jobs-local` (the [task-registry contract Agent Note](../../archived/architecture/2026-07-26-job-registry-seam.md) records that split).
 
 ## Runtime contract
 

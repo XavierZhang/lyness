@@ -3,7 +3,7 @@ description: "SQLite storage backend for hosts and maintainers choosing, configu
 kind: "package-reference"
 ---
 
-# @lyness/storage-sqlite
+# @lyness/lyn-storage-sqlite
 
 English | [中文](README.zh.md)
 
@@ -36,11 +36,11 @@ Choose it when writes are frequent and point-sized — each key maps to exactly 
 Two fields: the database path and the journal mode. `:memory:` opens an in-process database whose contents disappear with the process.
 
 ```yaml
-- name: '@lyness/storage'
-- name: '@lyness/storage-sqlite'
+- name: '@lyness/lyn-storage'
+- name: '@lyness/lyn-storage-sqlite'
   config:
     path: /var/lib/lyn/data.db
-- name: '@lyness/storage-domain'
+- name: '@lyness/lyn-storage-domain'
   config:
     backend: sqlite
 ```
@@ -50,7 +50,7 @@ Two fields: the database path and the journal mode. `:memory:` opens an in-proce
 | `path` | required | SQLite database file path, or `:memory:` |
 | `journalMode` | `wal` | Journal mode: `wal`, `delete`, `truncate`, or `persist` |
 
-`wal` suits local disks; a rollback-journal mode (`delete`/`truncate`/`persist`) fits filesystems where WAL's shared-memory files do not work, such as network mounts. The generated [configuration catalog](../../../docs/config-catalog.md#lynessstorage-sqlite) is the exhaustive source for every accepted field and its JSDoc.
+`wal` suits local disks; a rollback-journal mode (`delete`/`truncate`/`persist`) fits filesystems where WAL's shared-memory files do not work, such as network mounts. The generated [configuration catalog](../../../docs/config-catalog.md#lynesslyn-storage-sqlite) is the exhaustive source for every accepted field and its JSDoc.
 
 ### Observable behavior
 

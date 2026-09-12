@@ -437,9 +437,9 @@ describe('docsPages locale routes', () => {
 
   it('places the shared todo fragment alias on the translated todo section', () => {
     const catalog = readFileSync(resolve(repositoryRoot, 'docs/tool-catalog.zh.md'), 'utf8')
-    expect(catalog.match(/<a id="lynesstool-todo"><\/a>/g)).toHaveLength(1)
+    expect(catalog.match(/<a id="lynesslyn-tool-todo"><\/a>/g)).toHaveLength(1)
     expect(catalog).toContain(
-      '<a id="lynesstool-todo"></a>\n\n## `@lyness/tool-todo`',
+      '<a id="lynesslyn-tool-todo"></a>\n\n## `@lyness/lyn-tool-todo`',
     )
   })
 

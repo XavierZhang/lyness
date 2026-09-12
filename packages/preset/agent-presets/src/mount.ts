@@ -11,15 +11,15 @@
  * published a service into the ROOT realm is rejected, because such a service
  * is process-global rather than per-session and the second session mounting the
  * same preset collides with the first.
- * @module @lyness/agent-presets/mount
+ * @module @lyness/lyn-agent-presets/mount
  */
 
 import { pathToFileURL } from 'node:url'
 import { Context, type Fiber } from '@lyness/cordis'
 import { Include } from '@lyness/cordis-plugin-include'
 import type { EntryTree } from '@lyness/cordis-plugin-loader'
-import { scopeOf, scopeParentOf, type ScopeKey } from '@lyness/scope'
-import { RemoteError } from '@lyness/typert-protocol'
+import { scopeOf, scopeParentOf, type ScopeKey } from '@lyness/lyn-scope'
+import { RemoteError } from '@lyness/lyn-typert-protocol'
 import type { AgentPreset } from './preset.ts'
 import { classifyRowSpecifier } from './specifier.ts'
 
@@ -77,7 +77,7 @@ class PresetTree extends Include {
    * relative specifier — a preset's own files travel with it — and wrong for
    * a package name: a locally authored preset lives under the user's home,
    * where Node's upward `node_modules` walk never reaches the harness's own
-   * dependencies, so every `@lyness/*` row would fail to import. The
+   * dependencies, so every `@lyness/lyn-*` row would fail to import. The
    * mount records the host composition's base instead, which is inside the
    * installed harness, and bare names resolve from there. An absolute
    * filesystem path names neither base and becomes a file URL before Node's

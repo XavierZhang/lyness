@@ -3,7 +3,7 @@ description: "Produced-files and clickable file references for the Web GUI: the 
 kind: "package-reference"
 ---
 
-# @lyness/client-ui-deliverables
+# @lyness/lyn-client-ui-deliverables
 
 English | [中文](README.zh.md)
 

@@ -1,18 +1,18 @@
-import { createAssistantMessage, createUserMessage } from '@lyness/llm'
+import { createAssistantMessage, createUserMessage } from '@lyness/lyn-llm'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { Context, type Fiber } from '@lyness/cordis'
 import { DatabaseSync } from 'node:sqlite'
 import { chmod, mkdtemp, rm, stat, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { dirname, join } from 'node:path'
-import SessionStore, { SessionLogOffset, SessionSeq, SESSION_FORMAT_VERSION, SessionId } from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import type { SessionEvent, SessionHeader, SessionId as SessionIdType } from '@lyness/session'
+import SessionStore, { SessionLogOffset, SessionSeq, SESSION_FORMAT_VERSION, SessionId } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import type { SessionEvent, SessionHeader, SessionId as SessionIdType } from '@lyness/lyn-session'
 import SessionPersistence, {
   SessionPersistenceNotFoundError,
   SessionPersistenceRevision,
   SessionReadOnlyError,
-} from '@lyness/session-persistence'
+} from '@lyness/lyn-session-persistence'
 import type {
   SessionAccess,
   SessionHandle,
@@ -20,11 +20,11 @@ import type {
   SessionHandleReadResult,
   SessionPersistenceListOptions,
   SessionPersistenceSnapshot,
-} from '@lyness/session-persistence'
-import JsonlSessionPersistence from '@lyness/session-persistence-jsonl'
+} from '@lyness/lyn-session-persistence'
+import JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
 import SqliteSessionQueryEngine, {
   SESSION_QUERY_SQLITE_SCHEMA_VERSION,
-} from '@lyness/session-query-sqlite'
+} from '@lyness/lyn-session-query-sqlite'
 import {
   SESSION_QUERY_DEFAULT_PERSISTED_INSPECT_CONCURRENCY,
   SessionQueryError,
@@ -32,7 +32,7 @@ import {
   type SessionAvailability,
   type SessionQueryErrorCode,
   type SessionSearchRequest,
-} from '@lyness/session-query'
+} from '@lyness/lyn-session-query'
 
 const temporaryDirectories: string[] = []
 

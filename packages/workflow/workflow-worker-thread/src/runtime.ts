@@ -9,22 +9,22 @@
  * per-item nulls. Every returned promise has a rejection consumer so dropped script promises cannot
  * kill the worker. A cancelled script that never settles emits nothing; the host force-settles the
  * run within grace and terminates the thread.
- * @module @lyness/workflow-worker-thread/runtime
+ * @module @lyness/lyn-workflow-worker-thread/runtime
  */
 
 import * as vm from 'node:vm'
-import { brandString } from '@lyness/brand'
-import type { ContentBlock } from '@lyness/llm'
-import type { SessionId } from '@lyness/session'
-import { assertObjectJsonSchema, JsonSchemaError } from '@lyness/tools'
-import type { ObjectJsonSchema } from '@lyness/tools'
-import { isFatalWorkflowError, WorkflowError } from '@lyness/workflow'
+import { brandString } from '@lyness/lyn-brand'
+import type { ContentBlock } from '@lyness/lyn-llm'
+import type { SessionId } from '@lyness/lyn-session'
+import { assertObjectJsonSchema, JsonSchemaError } from '@lyness/lyn-tools'
+import type { ObjectJsonSchema } from '@lyness/lyn-tools'
+import { isFatalWorkflowError, WorkflowError } from '@lyness/lyn-workflow'
 import type {
   WorkflowAgentEndInfo,
   WorkflowAgentInfo,
   WorkflowMeta,
   WorkflowResult,
-} from '@lyness/workflow'
+} from '@lyness/lyn-workflow'
 import { materializeFromRealm, MaterializeError, renderThrown } from './realm.ts'
 import type { ChildHandle, ChildPort, WorkerLimits } from './types.ts'
 

@@ -13,8 +13,8 @@ import type { Browser, Page, Response } from 'playwright'
 import { chromium } from 'playwright'
 import { strFromU8, unzipSync } from 'fflate'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, onTestFailed } from 'vitest'
-import { parseSessionLog } from '@lyness/llm-replay'
-import { SESSION_FORMAT_VERSION, type SessionEvent } from '@lyness/session'
+import { parseSessionLog } from '@lyness/lyn-llm-replay'
+import { SESSION_FORMAT_VERSION, type SessionEvent } from '@lyness/lyn-session'
 import {
   assertFixtureInventory, captureStableAria, compareOrRefreshGolden, fixtureUserPrompts,
   launchWebScaffold, recordFixture, seedSession, watchConsole, webSnapshotMode, type WebScaffold,

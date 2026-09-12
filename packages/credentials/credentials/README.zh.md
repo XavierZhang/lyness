@@ -3,7 +3,7 @@ description: "面向用户与维护者的凭据 seam：在不把机密值写进�
 kind: "package-reference"
 ---
 
-# @lyness/credentials
+# @lyness/lyn-credentials
 
 [English](README.md) | 中文
 
@@ -36,18 +36,18 @@ kind: "package-reference"
 加载本地存储包并给出文档路径：
 
 ```yaml
-- name: '@lyness/credentials-local'
+- name: '@lyness/lyn-credentials-local'
   config:
     path: /absolute/path/to/.credentials.yaml
 ```
 
-本地存储 README 拥有完整配置面；生成的[配置目录](../../../docs/config-catalog.zh.md#lynesscredentials-local)是穷尽式字段清单。
+本地存储 README 拥有完整配置面；生成的[配置目录](../../../docs/config-catalog.zh.md#lynesslyn-credentials-local)是穷尽式字段清单。
 
 ### 存储、检查与移除密钥
 
 ```ts
 import type { Context } from '@lyness/cordis'
-import { credentialRef } from '@lyness/credentials'
+import { credentialRef } from '@lyness/lyn-credentials'
 
 declare const ctx: Context
 
@@ -66,7 +66,7 @@ await ctx.credentials.unset(ref)                       // no-op when absent; sam
 
 ```ts
 import type { Context } from '@lyness/cordis'
-import { credentialKey } from '@lyness/credentials'
+import { credentialKey } from '@lyness/lyn-credentials'
 
 declare const ctx: Context
 

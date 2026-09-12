@@ -14,19 +14,19 @@
  * created later through the host Settings API.
  */
 import type { Context as ClientContext } from '@lyness/cordis'
-import type { SessionFace } from '@lyness/api-session-controller/client'
+import type { SessionFace } from '@lyness/lyn-api-session-controller/client'
 // Type-only: pulls the locale plugin's Context merge (ctx.locale).
-import type {} from '@lyness/client-locale/client'
+import type {} from '@lyness/lyn-client-locale/client'
 // Type-only: the settings slot types (this package registers a General row).
-import type {} from '@lyness/client-ui-settings/client'
-import type {} from '@lyness/client-ui-renderer/client'
-import type {} from '@lyness/client-ui-session/client'
+import type {} from '@lyness/lyn-client-ui-settings/client'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
+import type {} from '@lyness/lyn-client-ui-session/client'
 // Type-only: pulls the ctx.remote merge and the forwarded-event key face
 // (the settings invalidation rides the allowlist) into this program.
-import type {} from '@lyness/api-remotes/client'
-import type { CommandUiContract, SelectOption } from '@lyness/client-ui-commands/client'
-import type { ClientSessionContext } from '@lyness/client-ui-input-trigger/client'
-import type { PermissionSelect } from '@lyness/permission-presets/client'
+import type {} from '@lyness/lyn-api-remotes/client'
+import type { CommandUiContract, SelectOption } from '@lyness/lyn-client-ui-commands/client'
+import type { ClientSessionContext } from '@lyness/lyn-client-ui-input-trigger/client'
+import type { PermissionSelect } from '@lyness/lyn-permission-presets/client'
 import { PermissionRow } from './PermissionRow.tsx'
 import type { PermissionRowInjected } from './PermissionRow.tsx'
 import {

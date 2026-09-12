@@ -3,11 +3,11 @@
  * consumes and produces, plus the fields in the `workflow/*` event payloads.
  * Types only (plus the id-brand factory), per the package convention.
  *
- * @module @lyness/workflow/types
+ * @module @lyness/lyn-workflow/types
  */
 
-import type { Branded } from '@lyness/brand'
-import type { SessionId } from '@lyness/session/types'
+import type { Branded } from '@lyness/lyn-brand'
+import type { SessionId } from '@lyness/lyn-session/types'
 
 /** Identifies one workflow run. */
 export type WorkflowRunId = Branded<'WorkflowRunId'>

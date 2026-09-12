@@ -3,7 +3,7 @@ description: "Whole-log conversation counts and wall times for clients and maint
 kind: "package-reference"
 ---
 
-# @lyness/session-stats
+# @lyness/lyn-session-stats
 
 English | [中文](README.zh.md)
 
@@ -30,9 +30,9 @@ Mount the plugin beside the session store and the projection registry when clien
 ### Composition
 
 ```yaml
-- name: '@lyness/session'
-- name: '@lyness/session-projection'
-- name: '@lyness/session-stats'
+- name: '@lyness/lyn-session'
+- name: '@lyness/lyn-session-projection'
+- name: '@lyness/lyn-session-stats'
 ```
 
 ### What the figures mean

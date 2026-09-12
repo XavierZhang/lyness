@@ -36,7 +36,7 @@ kind: "package-library"
 ## API
 
 ```ts
-import { canonicalClientTimeZone } from '@lyness/util-time'
+import { canonicalClientTimeZone } from '@lyness/lyn-util-time'
 ```
 
 | 导出 | 职责 |

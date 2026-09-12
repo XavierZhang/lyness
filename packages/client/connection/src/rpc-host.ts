@@ -1,7 +1,7 @@
 /** Host registry and HTTP adapter for generic Connection RPC channels. */
 
 import { Context, Service } from '@lyness/cordis'
-import type { WebRoute } from '@lyness/host-webserver'
+import type { WebRoute } from '@lyness/lyn-host-webserver'
 import {
   RpcId,
   type ClientRequest,

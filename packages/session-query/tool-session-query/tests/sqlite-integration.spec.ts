@@ -3,21 +3,21 @@ import { Context } from '@lyness/cordis'
 import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import type { Agent } from '@lyness/agent'
-import { createUserMessage, ToolCallId  } from '@lyness/llm'
+import type { Agent } from '@lyness/lyn-agent'
+import { createUserMessage, ToolCallId  } from '@lyness/lyn-llm'
 import SessionStore, {
   SESSION_FORMAT_VERSION,
   SessionId,
   SessionSeq,
   type Session,
-} from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import { turnBoundaryProjectionDefinition } from '@lyness/agent-loop'
-import JsonlSessionPersistence from '@lyness/session-persistence-jsonl'
-import SqliteSessionQueryEngine from '@lyness/session-query-sqlite'
-import SystemPrompt from '@lyness/system-prompt'
-import ToolRuntime from '@lyness/tools'
-import * as ToolSessionQuery from '@lyness/tool-session-query'
+} from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import { turnBoundaryProjectionDefinition } from '@lyness/lyn-agent-loop'
+import JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
+import SqliteSessionQueryEngine from '@lyness/lyn-session-query-sqlite'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime from '@lyness/lyn-tools'
+import * as ToolSessionQuery from '@lyness/lyn-tool-session-query'
 
 const temporaryDirectories: string[] = []
 const contexts: Context[] = []

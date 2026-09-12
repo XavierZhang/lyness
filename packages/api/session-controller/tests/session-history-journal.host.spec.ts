@@ -2,12 +2,12 @@
 
 import { describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import AgentRegistry, { type Agent, type AssistantStreamFrame } from '@lyness/agent'
-import SessionStore from '@lyness/session'
-import { LlmAttemptId, ToolCallId, createMessage, createToolResultMessage, createUserMessage } from '@lyness/llm'
-import type { Session, SessionEvent, SessionId } from '@lyness/session'
-import { SessionHistoryController } from '@lyness/api-session-controller/src/history.ts'
-import type { SessionFollowFrame, SessionPage, SessionWireEvent } from '@lyness/api-session-controller/types'
+import AgentRegistry, { type Agent, type AssistantStreamFrame } from '@lyness/lyn-agent'
+import SessionStore from '@lyness/lyn-session'
+import { LlmAttemptId, ToolCallId, createMessage, createToolResultMessage, createUserMessage } from '@lyness/lyn-llm'
+import type { Session, SessionEvent, SessionId } from '@lyness/lyn-session'
+import { SessionHistoryController } from '@lyness/lyn-api-session-controller/src/history.ts'
+import type { SessionFollowFrame, SessionPage, SessionWireEvent } from '@lyness/lyn-api-session-controller/types'
 import { createSessionTestRemote, installSessionReadTestServices } from './test-remote.ts'
 
 /** Append a production-shaped human prompt to the session surface. */

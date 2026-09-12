@@ -2,13 +2,13 @@
  * Pure session projections for subagent identity (mode/label) and active-turn
  * duration.
  *
- * @module @lyness/subagent/projection
+ * @module @lyness/lyn-subagent/projection
  */
 
 import { z } from 'zod'
-import { SessionSeq } from '@lyness/session'
-import type { ProjectionDefinition } from '@lyness/session-projection'
-import type { SessionEvent } from '@lyness/session'
+import { SessionSeq } from '@lyness/lyn-session'
+import type { ProjectionDefinition } from '@lyness/lyn-session-projection'
+import type { SessionEvent } from '@lyness/lyn-session'
 import { foldSubagentDescriptor } from './descriptor.ts'
 import type { SubagentDescriptorData } from './descriptor.ts'
 import type { SubagentIdentityProjection, SubagentTimingProjection } from './projection-types.ts'
@@ -45,7 +45,7 @@ const timingStateSchema: z.ZodType<TimingState> = z.object({
   descriptorSeen: z.boolean(),
 }).strict()
 
-declare module '@lyness/session-projection/types' {
+declare module '@lyness/lyn-session-projection/types' {
   interface SessionProjectionStateMap {
     subagentTiming: TimingState
     subagent: IdentityState

@@ -15,8 +15,8 @@ Business services use `@Remote` or `@RemoteScope` to select the methods exposed 
 Services normally extend `TypertRemoteService` so the constructor explicitly binds the Cordis service key and default Remote namespace. A service that already has another base class can instead declare `readonly typertRemote = bindTypertRemote(this, serviceKey)`; both forms leave an inspectable public binding and do not depend on the compiler injecting a symbol into the constructor.
 
 ```ts
-import type { Agent } from '@lyness/agent'
-import { TypertRemoteService, Remote, RemoteScope } from '@lyness/typert-protocol'
+import type { Agent } from '@lyness/lyn-agent'
+import { TypertRemoteService, Remote, RemoteScope } from '@lyness/lyn-typert-protocol'
 import type { Context } from '@lyness/cordis'
 
 export interface CreateGoalRequest {
@@ -58,10 +58,10 @@ Remote methods may return a value synchronously or return a Promise. For coopera
 The Client uses concrete functions on ordinary objects, not a JavaScript Proxy. Direct and scoped calls appear under `ctx.remote.<namespace>` and `agentCtx.remote.<namespace>`. Each namespace is a traced Cordis child Service registered as `remote.<namespace>`; the Client assembly mounts contributions through `ctx.remote.$mount()`, and the namespace unloads after its last method is withdrawn. Dependency declarations belong to the actual caller: only a business package that reads `ctx.remote.<namespace>` or `agentCtx.remote.<namespace>` declares both `remote` and `remote.<namespace>` in its own `inject`; assemblies that only mount contributions and higher-level runtimes that do not call that namespace do not declare the namespace dependency on the business package's behalf. When an `@Remote` method has exactly one lookup parameter and a same-named `TypertContextMap` uses the same wire identity, the generated scoped signature omits that identity parameter. `@RemoteScope` generates only the scoped invocation interface.
 
 ```ts ignore-check
-import type { SessionId } from '@lyness/session/types'
-import type { AgentContext } from '@lyness/api-session-controller/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { AgentContext } from '@lyness/lyn-api-session-controller/client'
 import type { Context } from '@lyness/cordis'
-import type {} from '@lyness/api-remotes/client'
+import type {} from '@lyness/lyn-api-remotes/client'
 
 export const inject = ['remote', 'remote.goals']
 
@@ -73,7 +73,7 @@ await ctx.remote.goals.create(agentId, { objective: 'ship it' })
 await agentCtx.remote.goals.create({ objective: 'ship it' })
 ```
 
-Client applications assemble only `@lyness/api-remotes`. That package imports the `/remote` subpaths of selected business packages as runtime values, mounts their contributions through `ctx.remote.$mount()`, and re-exports the declaration merges from the same files. Adding a Host Remote package is an explicit choice by the Client composition owner; business components do not need to load the Typert Gateway or the business package's Remote JS separately.
+Client applications assemble only `@lyness/lyn-api-remotes`. That package imports the `/remote` subpaths of selected business packages as runtime values, mounts their contributions through `ctx.remote.$mount()`, and re-exports the declaration merges from the same files. Adding a Host Remote package is an explicit choice by the Client composition owner; business components do not need to load the Typert Gateway or the business package's Remote JS separately.
 
 The `api-remotes` assembly and the `ctx.remote` contract are React-independent; the Host methods visible to any Client assembly are limited to the Remote methods selected at generation time.
 
@@ -81,14 +81,14 @@ The `api-remotes` assembly and the `ctx.remote` contract are React-independent; 
 
 | Location | Package or entry | Responsibility |
 |---|---|---|
-| Shared | `@lyness/typert-protocol` | Declares decorators, Gateway bindings, merge-extensible protocol maps, invocation descriptors, and provider types; starts no TypeScript analysis and registers no Cordis services |
-| Build | `@lyness/typert-generator` | Strictly analyzes Remote signatures, the type graph, lookups, Contexts, and source locations from the Host `ts.Program`, then generates Host and Host-for-Client artifacts |
-| Host | `@lyness/typert-registry` and Loader | Places generated Host descriptors, schemas, and business-package registrations in `ctx.typert`, and holds lookup and Context providers |
-| Host | `@lyness/api-session-controller` | Owns the application Agent/Session identity policy and configures the corresponding Typert lookups |
-| Host | `@lyness/api-gateway` | Provides `ctx.typertGateway`, claims Remote endpoints, resolves objects or Contexts, invokes live Cordis services, and validates request and return values |
-| Client | `@lyness/api-gateway/client` | Provides `ctx.remote` and `remote.<namespace>` child Services, mounts generated descriptors as concrete methods, and initiates, validates, and cancels calls through the Connection |
-| Client | `@lyness/api-remotes/client` | Explicitly selects and mounts the `/remote` contributions allowed by the application and brings the corresponding declaration merges into business code |
-| Both | `@lyness/client-connection` | Provides the RPC carrier, request correlation, trust boundary, cancellation, response envelope, and the `/api` HTTP bridge |
+| Shared | `@lyness/lyn-typert-protocol` | Declares decorators, Gateway bindings, merge-extensible protocol maps, invocation descriptors, and provider types; starts no TypeScript analysis and registers no Cordis services |
+| Build | `@lyness/lyn-typert-generator` | Strictly analyzes Remote signatures, the type graph, lookups, Contexts, and source locations from the Host `ts.Program`, then generates Host and Host-for-Client artifacts |
+| Host | `@lyness/lyn-typert-registry` and Loader | Places generated Host descriptors, schemas, and business-package registrations in `ctx.typert`, and holds lookup and Context providers |
+| Host | `@lyness/lyn-api-session-controller` | Owns the application Agent/Session identity policy and configures the corresponding Typert lookups |
+| Host | `@lyness/lyn-api-gateway` | Provides `ctx.typertGateway`, claims Remote endpoints, resolves objects or Contexts, invokes live Cordis services, and validates request and return values |
+| Client | `@lyness/lyn-api-gateway/client` | Provides `ctx.remote` and `remote.<namespace>` child Services, mounts generated descriptors as concrete methods, and initiates, validates, and cancels calls through the Connection |
+| Client | `@lyness/lyn-api-remotes/client` | Explicitly selects and mounts the `/remote` contributions allowed by the application and brings the corresponding declaration merges into business code |
+| Both | `@lyness/lyn-client-connection` | Provides the RPC carrier, request correlation, trust boundary, cancellation, response envelope, and the `/api` HTTP bridge |
 
 The API Gateway package owns the Host dispatcher and Client Remote endpoint as peer entries, but the two builds never enter the same `ts.Program`. The Host entry does not import the Client Cordis `Context` merge, and the Client entry does not import the Host Gateway service.
 
@@ -98,7 +98,7 @@ The root build runs `build:lib:host`, `build:lib:client`, and `build:web` in ord
 
 Both tsdown passes receive the complete workspace and bundle only JavaScript emitted to `lib/types` by the corresponding tsc phase. The root config does not scan Client artifacts, classify package names, or pass a maintained filter to tsdown; package-local configs return entries for the current phase based on `LYNESS_BUILD_FACE`. An ordinary Client plugin produces both its Node loader entry and browser bundle during the Client phase.
 
-`api/remotes`, `api/gateway`, `api/session-controller`, and `api/workspace-controller` (plus `client/connection`) split TypeScript faces. `api/remotes`' Client project depends on `/remote` declarations generated for business packages during Host tsdown; root aggregates and direct consumers must reference each split package's `tsconfig.host.json` or `tsconfig.client.json` respectively. `api-remotes`' `clientBundle(..., { hostPhase: true })` produces its Host entry during Host tsdown and leaves only the browser entry for Client tsdown. The Agent/Session lookup policy lives in `@lyness/api-session-controller`, not in `api-remotes`.
+`api/remotes`, `api/gateway`, `api/session-controller`, and `api/workspace-controller` (plus `client/connection`) split TypeScript faces. `api/remotes`' Client project depends on `/remote` declarations generated for business packages during Host tsdown; root aggregates and direct consumers must reference each split package's `tsconfig.host.json` or `tsconfig.client.json` respectively. `api-remotes`' `clientBundle(..., { hostPhase: true })` produces its Host entry during Host tsdown and leaves only the browser entry for Client tsdown. The Agent/Session lookup policy lives in `@lyness/lyn-api-session-controller`, not in `api-remotes`.
 
 Each contributing business package writes generated files to its own `lib/` directory, not to its source directory:
 

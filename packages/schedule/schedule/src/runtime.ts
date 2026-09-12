@@ -1,11 +1,11 @@
 /**
  * Disposable live timer projection for one exact root agent.
- * @module @lyness/schedule
+ * @module @lyness/lyn-schedule
  */
 
 import type { Context } from '@lyness/cordis'
-import type { Agent } from '@lyness/agent'
-import { createUserMessage } from '@lyness/llm'
+import type { Agent } from '@lyness/lyn-agent'
+import { createUserMessage } from '@lyness/lyn-llm'
 import type { EveryScheduleRecord, OneShotScheduleRecord } from './types.ts'
 import {
   foldScheduleEvents,

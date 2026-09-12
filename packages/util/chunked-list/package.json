@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/chunked-list",
+  "name": "@lyness/lyn-chunked-list",
   "description": "Persistent append-only chunked lists with bounded copying and JSON checkpoint validation",
   "version": "0.1.5-rc.1",
   "publishConfig": {

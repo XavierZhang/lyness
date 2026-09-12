@@ -1,5 +1,5 @@
 import type { Context } from '@lyness/cordis'
-import { LlmAdapter, type StreamChunk } from '@lyness/llm'
+import { LlmAdapter, type StreamChunk } from '@lyness/lyn-llm'
 
 /** Deterministic one-step adapter for the time-context Loader fixture. */
 class TimeContextMockAdapter extends LlmAdapter {

@@ -2,9 +2,9 @@ import { describe, expect, it } from 'vitest'
 import {
   resolveRetryPolicy,
   RetryPolicySchema,
-} from '@lyness/llm'
-import type { RetryPolicyConfig } from '@lyness/llm'
-import { MAX_TIMER_DELAY_MS } from '@lyness/timeout'
+} from '@lyness/lyn-llm'
+import type { RetryPolicyConfig } from '@lyness/lyn-llm'
+import { MAX_TIMER_DELAY_MS } from '@lyness/lyn-timeout'
 
 describe('provider retry policy', () => {
   it('resolves immutable normal defaults', () => {

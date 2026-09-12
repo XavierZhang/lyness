@@ -1,9 +1,9 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import AgentRegistry from '@lyness/agent'
-import type { Agent, AgentCancelCause, InboxTarget } from '@lyness/agent'
-import type { UserMessage } from '@lyness/llm'
-import SessionStore, { SessionId } from '@lyness/session'
+import AgentRegistry from '@lyness/lyn-agent'
+import type { Agent, AgentCancelCause, InboxTarget } from '@lyness/lyn-agent'
+import type { UserMessage } from '@lyness/lyn-llm'
+import SessionStore, { SessionId } from '@lyness/lyn-session'
 import {
   ScheduleId,
   createAfterScheduleRecord,
@@ -11,7 +11,7 @@ import {
   foldScheduleEvents,
 } from '../src/domain.ts'
 import { MAX_TIMER_DELAY_MS, ScheduleRuntime } from '../src/runtime.ts'
-import { unsupportedInbox } from '@lyness/agent-loop-testkit'
+import { unsupportedInbox } from '@lyness/lyn-agent-loop-testkit'
 
 const contexts: Context[] = []
 const runtimes: ScheduleRuntime[] = []

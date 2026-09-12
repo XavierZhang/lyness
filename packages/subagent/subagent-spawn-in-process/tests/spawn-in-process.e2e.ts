@@ -1,11 +1,11 @@
-import { createUserMessage } from '@lyness/llm'
+import { createUserMessage } from '@lyness/lyn-llm'
 import { mkdtemp, readFile, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
 import type { Context } from '@lyness/cordis'
 import { spawnHarness, waitForIdle } from './harness.ts'
-import { SessionId } from '@lyness/session'
+import { SessionId } from '@lyness/lyn-session'
 
 /** Key-gated smoke for a real parent delegating filesystem work to a real child. */
 

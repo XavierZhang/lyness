@@ -18,10 +18,10 @@
  * record goes away the bucket and the tab's listing bookkeeping are forgotten,
  * so no later settlement writes to it.
  */
-import type { ClientRemote, RemoteResult } from '@lyness/api-remotes/client'
-import type { BoundActions } from '@lyness/client-store'
-import type { TabId } from '@lyness/client-ui-dockkit'
-import type { SessionId } from '@lyness/session/types'
+import type { ClientRemote, RemoteResult } from '@lyness/lyn-api-remotes/client'
+import type { BoundActions } from '@lyness/lyn-client-store'
+import type { TabId } from '@lyness/lyn-client-ui-dockkit'
+import type { SessionId } from '@lyness/lyn-session/types'
 import type { DirLevel, createFilesStore } from './store.ts'
 
 /**

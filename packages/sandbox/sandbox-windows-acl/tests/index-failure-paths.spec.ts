@@ -11,9 +11,9 @@
 import { mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
-import { Win32Error } from '@lyness/win32-process'
-import { ERROR_BROKEN_PIPE } from '@lyness/win32-process/src/abi.ts'
-import { PROCESS_INFORMATION } from '@lyness/win32-process/src/ffi.ts'
+import { Win32Error } from '@lyness/lyn-win32-process'
+import { ERROR_BROKEN_PIPE } from '@lyness/lyn-win32-process/src/abi.ts'
+import { PROCESS_INFORMATION } from '@lyness/lyn-win32-process/src/ffi.ts'
 import { afterAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import koffi from 'koffi'
 

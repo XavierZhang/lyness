@@ -1,8 +1,8 @@
 import { Context } from '@lyness/cordis'
 import { afterEach, describe, expect, it } from 'vitest'
-import ToolRuntime from '@lyness/tools'
-import SystemPrompt from '@lyness/system-prompt'
-import UserQuestionService from '@lyness/user-questions'
+import ToolRuntime from '@lyness/lyn-tools'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import UserQuestionService from '@lyness/lyn-user-questions'
 import { apply } from '../src/index.ts'
 
 let ctx: Context | undefined

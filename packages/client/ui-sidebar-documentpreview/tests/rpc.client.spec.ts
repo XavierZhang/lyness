@@ -5,7 +5,7 @@
  * An address without a Session fails loud.
  */
 import { describe, expect, it, vi } from 'vitest'
-import { sessionFileAddress } from '@lyness/util-workspace-path'
+import { sessionFileAddress } from '@lyness/lyn-util-workspace-path'
 import { createReadPage, documentFileBytes, hostFileOf } from '../src/client/rpc.ts'
 import type { ReadWorkspaceFilePage, WorkspaceFilesReadRemote } from '../src/client/index.ts'
 import { ADDRESS, FILE, PATH, SESSION, page } from './fixtures.client.ts'

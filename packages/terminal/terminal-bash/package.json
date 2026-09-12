@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/terminal-bash",
+  "name": "@lyness/lyn-terminal-bash",
   "description": "Persistent shell PTY backend over the lyness subprocess terminal primitive",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -27,29 +27,29 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/agent": "workspace:^",
-    "@lyness/terminal": "workspace:^",
-    "@lyness/sandbox": "workspace:^",
-    "@lyness/sandbox-policy": "workspace:^",
-    "@lyness/session": "workspace:^",
-    "@lyness/subprocess": "workspace:^",
+    "@lyness/lyn-agent": "workspace:^",
+    "@lyness/lyn-terminal": "workspace:^",
+    "@lyness/lyn-sandbox": "workspace:^",
+    "@lyness/lyn-sandbox-policy": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
+    "@lyness/lyn-subprocess": "workspace:^",
     "@lyness/cordis": "workspace:^",
-    "@lyness/session-projection": "workspace:^"
+    "@lyness/lyn-session-projection": "workspace:^"
   },
   "dependencies": {
-    "@lyness/pwsh-local": "workspace:^",
+    "@lyness/lyn-pwsh-local": "workspace:^",
     "@lyness/schemastery": "workspace:^",
     "@xterm/headless": "^6.0.0"
   },
   "devDependencies": {
-    "@lyness/agent": "workspace:^",
-    "@lyness/agent-loop-testkit": "workspace:^",
-    "@lyness/terminal": "workspace:^",
-    "@lyness/sandbox": "workspace:^",
-    "@lyness/sandbox-policy": "workspace:^",
-    "@lyness/session": "workspace:^",
-    "@lyness/subprocess": "workspace:^",
-    "@lyness/subprocess-local": "workspace:^",
+    "@lyness/lyn-agent": "workspace:^",
+    "@lyness/lyn-agent-loop-testkit": "workspace:^",
+    "@lyness/lyn-terminal": "workspace:^",
+    "@lyness/lyn-sandbox": "workspace:^",
+    "@lyness/lyn-sandbox-policy": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
+    "@lyness/lyn-subprocess": "workspace:^",
+    "@lyness/lyn-subprocess-local": "workspace:^",
     "@lyness/cordis": "workspace:^"
   }
 }

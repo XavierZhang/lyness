@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { SessionSeq } from '@lyness/session/types'
-import type { SessionEvent } from '@lyness/session/types'
+import { SessionSeq } from '@lyness/lyn-session/types'
+import type { SessionEvent } from '@lyness/lyn-session/types'
 import type { SystemPromptNode } from '../src/client/contract/request-inspection.ts'
 import { inspectRequestPrompt } from '../src/client/contract/request-inspection.ts'
 

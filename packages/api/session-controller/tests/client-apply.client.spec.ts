@@ -3,14 +3,14 @@ import type { Fiber } from '@lyness/cordis'
 import type {
   ConnectionGeneration,
   ConnectionHandle,
-} from '@lyness/client-connection/client'
+} from '@lyness/lyn-client-connection/client'
 import {
   RemoteStreamCarrierError,
   RemoteStream,
   type RemoteStreamOptions,
-} from '@lyness/api-gateway/client'
-import type { SessionId } from '@lyness/session/types'
-import TypertRegistry from '@lyness/typert-registry'
+} from '@lyness/lyn-api-gateway/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import TypertRegistry from '@lyness/lyn-typert-registry'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import * as SessionClient from '../src/client/index.ts'
 import { ClientSessions } from '../src/client/sessions/service.ts'

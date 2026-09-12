@@ -1,19 +1,19 @@
 import { describe, expect, expectTypeOf, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import LlmRuntime, { createUserMessage, ToolCallId, HarnessError, type ContentBlock  } from '@lyness/llm'
-import SessionStore, { Session, SessionId } from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import SystemPrompt from '@lyness/system-prompt'
-import AgentRegistry, { type Agent } from '@lyness/agent'
-import AgentLoop from '@lyness/agent-loop'
-import ApprovalService, { type ApprovalOutcome, type ApprovalRequest } from '@lyness/user-approval'
+import LlmRuntime, { createUserMessage, ToolCallId, HarnessError, type ContentBlock  } from '@lyness/lyn-llm'
+import SessionStore, { Session, SessionId } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import AgentRegistry, { type Agent } from '@lyness/lyn-agent'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import ApprovalService, { type ApprovalOutcome, type ApprovalRequest } from '@lyness/lyn-user-approval'
 import ToolRuntime, {
   defineContentToolFixture, defineTool, JsonSchemaError, parameterSchemaSpecToJsonSchema, validateArgs, ToolArgsError, ToolNotFoundError,
   TOOL_ABORTED, TOOL_ABORTED_BEFORE_DISPATCH,
   type InferArgs, type ParameterSchemaSpec, type PreToolDecision, type PostToolDecision,
   type JsonSchemaNode, type ToolDefinition, type ToolDispatchExecution, type ToolExecutionResult, type ToolExecutionToken,
-} from '@lyness/tools'
-import type { JsonValue } from '@lyness/util-values'
+} from '@lyness/lyn-tools'
+import type { JsonValue } from '@lyness/lyn-util-values'
 
 const testToolSignal = new AbortController().signal
 
@@ -669,7 +669,7 @@ describe('ToolRuntime', () => {
   })
 
   it('ToolNotFoundError carries a stable message and code', async () => {
-    const { HarnessError } = await import('@lyness/llm')
+    const { HarnessError } = await import('@lyness/lyn-llm')
     const err = new ToolNotFoundError('ghost')
     expect(err).toBeInstanceOf(HarnessError)
     expect(err.name).toBe('ToolNotFoundError')
@@ -2637,7 +2637,7 @@ describe('defineTool validation (the runtime-validation Agent Note, part 1)', ()
   })
 
   it('a tool throwing a HarnessError surfaces its name and code', async () => {
-    const { HarnessError } = await import('@lyness/llm')
+    const { HarnessError } = await import('@lyness/lyn-llm')
     const ctx = await setup()
     ctx.tools.register({
       ...echoTool,

@@ -11,15 +11,15 @@
  * not, and a failure passes through untouched.
  */
 import { describe, expect, it, vi } from 'vitest'
-import { RemoteError } from '@lyness/client-test-runtime'
-import type { SessionId } from '@lyness/session/types'
-import type { WorkspaceDirectoryListing } from '@lyness/api-workspace-files/types'
+import { RemoteError } from '@lyness/lyn-client-test-runtime'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { WorkspaceDirectoryListing } from '@lyness/lyn-api-workspace-files/types'
 import { childPath, createList, filesFace } from '../src/client/face.ts'
 import type { WorkspaceFilesListRemote } from '../src/client/face.ts'
 import { createFilesStore } from '../src/client/store.ts'
 import type { DirLevel } from '../src/client/store.ts'
 import { scriptedList } from './scripted-list.client.ts'
-import type { TabId } from '@lyness/client-ui-dockkit'
+import type { TabId } from '@lyness/lyn-client-ui-dockkit'
 
 const SESSION = 's-1' as SessionId
 const ROOT = '/work/app'

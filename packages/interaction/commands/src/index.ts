@@ -1,19 +1,19 @@
 /**
  * Plugin-owned human-command registry shared by interactive UI adapters.
- * @module @lyness/commands
+ * @module @lyness/lyn-commands
  */
 
 import { Context } from '@lyness/cordis'
-import { randomUUID } from '@lyness/util-crypto'
-import type { Agent } from '@lyness/agent'
-import { AttachmentError, admitEncodedImages } from '@lyness/attachment'
-import type { EncodedImageAttachment, FileAttachmentRef, ImageAttachmentRef } from '@lyness/attachment/types'
-import type { FileBlock, ImageBlock } from '@lyness/llm'
-import { NamedEntries, ScopedLayers } from '@lyness/scope'
-import type { ScopeKey, ScopeLayer } from '@lyness/scope'
-import { SessionSeq } from '@lyness/session'
-import type { Session, SessionEvent, SessionEventMap } from '@lyness/session'
-import { TypertRemoteService, Remote } from '@lyness/typert-protocol'
+import { randomUUID } from '@lyness/lyn-util-crypto'
+import type { Agent } from '@lyness/lyn-agent'
+import { AttachmentError, admitEncodedImages } from '@lyness/lyn-attachment'
+import type { EncodedImageAttachment, FileAttachmentRef, ImageAttachmentRef } from '@lyness/lyn-attachment/types'
+import type { FileBlock, ImageBlock } from '@lyness/lyn-llm'
+import { NamedEntries, ScopedLayers } from '@lyness/lyn-scope'
+import type { ScopeKey, ScopeLayer } from '@lyness/lyn-scope'
+import { SessionSeq } from '@lyness/lyn-session'
+import type { Session, SessionEvent, SessionEventMap } from '@lyness/lyn-session'
+import { TypertRemoteService, Remote } from '@lyness/lyn-typert-protocol'
 import { CommandId } from './brand.ts'
 import type {
   CommandDescriptor,

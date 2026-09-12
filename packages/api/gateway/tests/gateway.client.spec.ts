@@ -1,4 +1,4 @@
-import { RemoteError } from '@lyness/typert-protocol'
+import { RemoteError } from '@lyness/lyn-typert-protocol'
 import { Context, Service } from '@lyness/cordis'
 import type { Fiber } from '@lyness/cordis'
 import { describe, expect, expectTypeOf, it, vi } from 'vitest'
@@ -8,7 +8,7 @@ import {
   type ConnectionGeneration,
   type ConnectionGenerationSource,
   type ConnectionHandle,
-} from '@lyness/client-connection/client'
+} from '@lyness/lyn-client-connection/client'
 import type {
   InvocationDescriptor,
   RemoteResult,
@@ -18,8 +18,8 @@ import type {
   TypertLookup,
   TypertRemoteScopeApi,
   TypertRemoteNamespace,
-} from '@lyness/typert-protocol'
-import TypertRegistry from '@lyness/typert-registry'
+} from '@lyness/lyn-typert-protocol'
+import TypertRegistry from '@lyness/lyn-typert-registry'
 import type { ClientRemote } from '../src/client/index.ts'
 import { apply, inject, RemoteStream } from '../src/client/index.ts'
 import {
@@ -71,7 +71,7 @@ declare module '@lyness/cordis' {
   }
 }
 
-declare module '@lyness/typert-protocol' {
+declare module '@lyness/lyn-typert-protocol' {
   interface TypertRemoteEventSelection extends
     Record<'fixture/changed' | 'fixture/idle' | 'fixture/approval', true> {}
 

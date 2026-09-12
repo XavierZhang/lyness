@@ -1,12 +1,12 @@
 import { Context, Service } from '@lyness/cordis'
 import { describe, expect, it, vi } from 'vitest'
-import type { SessionId } from '@lyness/session/types'
-import { LocaleRuntime } from '@lyness/client-locale/client'
-import { SlotRegistry } from '@lyness/client-ui-renderer/client'
-import type { TeamMemberView as TeamRosterMember, TeamTaskId } from '@lyness/experimental-agent-team/client'
-import type {} from '@lyness/experimental-agent-team/remote'
-import { RemoteError } from '@lyness/client-test-runtime'
-import type { TypertRemoteContribution } from '@lyness/typert-protocol'
+import type { SessionId } from '@lyness/lyn-session/types'
+import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
+import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
+import type { TeamMemberView as TeamRosterMember, TeamTaskId } from '@lyness/lyn-experimental-agent-team/client'
+import type {} from '@lyness/lyn-experimental-agent-team/remote'
+import { RemoteError } from '@lyness/lyn-client-test-runtime'
+import type { TypertRemoteContribution } from '@lyness/lyn-typert-protocol'
 import { TeamAction, type TeamActionInjected } from '../src/client/TeamAction.tsx'
 import { inject, mountAgentTeamUi } from '../src/client/mount.ts'
 import { apply as nodeApply } from '../src/index.ts'
@@ -15,7 +15,7 @@ const SESSION = 'team-session' as SessionId
 const CHILD = 'team-child' as SessionId
 const TASK_ID = 'task-1' as TeamTaskId
 const REMOTE: TypertRemoteContribution = {
-  package: '@lyness/experimental-agent-team',
+  package: '@lyness/lyn-experimental-agent-team',
   descriptors: [],
 }
 

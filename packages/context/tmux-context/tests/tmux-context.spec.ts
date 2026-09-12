@@ -1,14 +1,14 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { Session, SessionId } from '@lyness/session'
-import AgentRegistry, { agentEvents, type Agent } from '@lyness/agent'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import { createUserMessage } from '@lyness/llm'
-import { ShellExecutor } from '@lyness/shell'
-import type { ShellExecRequest, ShellExecSpec, ShellProcess, ShellRunResult } from '@lyness/shell'
-import * as tmuxContext from '@lyness/tmux-context'
-import type { Config } from '@lyness/tmux-context'
-import { unsupportedInbox } from '@lyness/agent-loop-testkit'
+import { Session, SessionId } from '@lyness/lyn-session'
+import AgentRegistry, { agentEvents, type Agent } from '@lyness/lyn-agent'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import { createUserMessage } from '@lyness/lyn-llm'
+import { ShellExecutor } from '@lyness/lyn-shell'
+import type { ShellExecRequest, ShellExecSpec, ShellProcess, ShellRunResult } from '@lyness/lyn-shell'
+import * as tmuxContext from '@lyness/lyn-tmux-context'
+import type { Config } from '@lyness/lyn-tmux-context'
+import { unsupportedInbox } from '@lyness/lyn-agent-loop-testkit'
 
 const SIGNAL = new AbortController().signal
 

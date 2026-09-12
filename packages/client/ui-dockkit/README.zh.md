@@ -3,7 +3,7 @@ description: "lyn Web 客户端的停靠布局套件：带可逆操作的标签�
 kind: "package-reference"
 ---
 
-# @lyness/client-ui-dockkit
+# @lyness/lyn-client-ui-dockkit
 
 [English](README.md) | 中文
 

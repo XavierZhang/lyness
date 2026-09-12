@@ -3,7 +3,7 @@ description: "Experimental Chrome DevTools inspection for Host and browser Clien
 kind: "package-reference"
 ---
 
-# @lyness/experimental-inspector
+# @lyness/lyn-experimental-inspector
 
 English | [中文](README.zh.md)
 
@@ -72,7 +72,7 @@ The Host plugin injects `webServer` and accepts these fields:
 | `maxCordisNodes` | `2048` | Context and Fiber nodes admitted from one realm snapshot before truncation |
 | `maxDisconnectedCordisTrees` | `8` | Last disconnected realm trees retained as non-live snapshots |
 
-The generated [configuration catalog](../../../docs/config-catalog.md#lynessexperimental-inspector) is the exhaustive source for accepted fields and their declarations.
+The generated [configuration catalog](../../../docs/config-catalog.md#lynesslyn-experimental-inspector) is the exhaustive source for accepted fields and their declarations.
 
 The Host logs a `devtools://` URL after the Worker listens. The same Worker serves `/json`, `/json/list`, `/json/version`, the target WebSocket under `/devtools/page/<id>`, and the Client source at `/ingest`.
 
@@ -83,7 +83,7 @@ Both plugin faces provide the same service:
 
 ```ts
 import type { Context } from '@lyness/cordis'
-import type { InspectorJsonValue } from '@lyness/experimental-inspector'
+import type { InspectorJsonValue } from '@lyness/lyn-experimental-inspector'
 
 declare const ctx: Context
 declare const topic: string

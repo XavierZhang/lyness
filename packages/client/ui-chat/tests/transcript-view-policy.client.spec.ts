@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { describe, expect, it } from 'vitest'
-import { stubSettingsScope } from '@lyness/client-test-runtime'
+import { stubSettingsScope } from '@lyness/lyn-client-test-runtime'
 import type { ChatSettings } from '../src/chat-settings.ts'
 import { TranscriptViewPolicy } from '../src/client/transcript-view.ts'
 

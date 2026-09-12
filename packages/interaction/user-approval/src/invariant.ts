@@ -1,12 +1,12 @@
-/** Package-owned approval audit-stream invariants. @module @lyness/user-approval/invariant */
+/** Package-owned approval audit-stream invariants. @module @lyness/lyn-user-approval/invariant */
 
 import type { Context } from '@lyness/cordis'
-import type { Session, SessionEvent } from '@lyness/session'
-import type { InvariantFailure, InvariantInstaller } from '@lyness/invariants'
+import type { Session, SessionEvent } from '@lyness/lyn-session'
+import type { InvariantFailure, InvariantInstaller } from '@lyness/lyn-invariants'
 import type { ApprovalRequestId } from './index.ts'
 import { APPROVAL_POLICIES } from './index.ts'
 
-const PACKAGE_NAME = '@lyness/user-approval'
+const PACKAGE_NAME = '@lyness/lyn-user-approval'
 const APPROVAL_OUTCOMES = ['allowed-once', 'rejected', 'cancelled', 'unavailable'] as const
 
 /** Cordis companion plugin name. */

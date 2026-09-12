@@ -13,10 +13,10 @@ import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
 import Include from '@lyness/cordis-plugin-include'
-import { createAssistantMessage, createUserMessage } from '@lyness/llm'
-import SessionStore, { SessionId } from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import * as SessionTurnOutlinePlugin from '@lyness/session-turn-outline'
+import { createAssistantMessage, createUserMessage } from '@lyness/lyn-llm'
+import SessionStore, { SessionId } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import * as SessionTurnOutlinePlugin from '@lyness/lyn-session-turn-outline'
 
 let root: string | undefined
 let context: Context | undefined
@@ -38,9 +38,9 @@ async function loadYaml(lines: readonly string[]): Promise<Context> {
   await context.plugin(Loader)
   context.loader.builtins.include = Include
   const modules = new Map<string, unknown>([
-    ['@lyness/session', SessionStore],
-    ['@lyness/session-projection', SessionProjectionRegistry],
-    ['@lyness/session-turn-outline', SessionTurnOutlinePlugin],
+    ['@lyness/lyn-session', SessionStore],
+    ['@lyness/lyn-session-projection', SessionProjectionRegistry],
+    ['@lyness/lyn-session-turn-outline', SessionTurnOutlinePlugin],
   ])
   context.loader.internal = {
     version: 'v2',
@@ -60,9 +60,9 @@ async function loadYaml(lines: readonly string[]): Promise<Context> {
 describe('real Loader composition', () => {
   it('loads the shipped session-turn-outline YAML shape and serves the outline', async () => {
     const loaded = await loadYaml([
-      "- name: '@lyness/session'",
-      "- name: '@lyness/session-projection'",
-      "- name: '@lyness/session-turn-outline'",
+      "- name: '@lyness/lyn-session'",
+      "- name: '@lyness/lyn-session-projection'",
+      "- name: '@lyness/lyn-session-turn-outline'",
     ])
 
     const unloaded = [...loaded.loader.entries()]

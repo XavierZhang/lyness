@@ -17,10 +17,10 @@
 - text: Use the ask_user_question tool to ask me exactly one question with id "checkpoint", question "Ready to continue?", header "Checkpoint", and options labeled "Yes" and "No". After I answer, reply with one short sentence acknowledging my answer and stop. {{clock}}
 - button "Copy":
   - img
-- button "Context injection @lyness/system-prompt":
+- button "Context injection @lyness/lyn-system-prompt":
   - img
   - img
-  - text: Context injection @lyness/system-prompt
+  - text: Context injection @lyness/lyn-system-prompt
 - text: Running
 - button "Ask question waiting":
   - img

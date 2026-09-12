@@ -6,12 +6,12 @@ import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
 import Include from '@lyness/cordis-plugin-include'
-import LlmRuntime from '@lyness/llm'
-import SessionStore from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import TokenMeter from '@lyness/token-meter'
-import BasicCompactionEngine from '@lyness/compaction-basic'
-import ToolResultPruner from '@lyness/compaction-tool-result-pruner'
+import LlmRuntime from '@lyness/lyn-llm'
+import SessionStore from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import TokenMeter from '@lyness/lyn-token-meter'
+import BasicCompactionEngine from '@lyness/lyn-compaction-basic'
+import ToolResultPruner from '@lyness/lyn-compaction-tool-result-pruner'
 
 let root: string | undefined
 let context: Context | undefined
@@ -33,12 +33,12 @@ async function loadYaml(lines: readonly string[]): Promise<Context> {
   await context.plugin(Loader)
   context.loader.builtins.include = Include
   const modules = new Map<string, unknown>([
-    ['@lyness/llm', LlmRuntime],
-    ['@lyness/session', SessionStore],
-    ['@lyness/session-projection', SessionProjectionRegistry],
-    ['@lyness/token-meter', TokenMeter],
-    ['@lyness/compaction-tool-result-pruner', ToolResultPruner],
-    ['@lyness/compaction-basic', BasicCompactionEngine],
+    ['@lyness/lyn-llm', LlmRuntime],
+    ['@lyness/lyn-session', SessionStore],
+    ['@lyness/lyn-session-projection', SessionProjectionRegistry],
+    ['@lyness/lyn-token-meter', TokenMeter],
+    ['@lyness/lyn-compaction-tool-result-pruner', ToolResultPruner],
+    ['@lyness/lyn-compaction-basic', BasicCompactionEngine],
   ])
   context.loader.internal = {
     version: 'v2',
@@ -58,16 +58,16 @@ async function loadYaml(lines: readonly string[]): Promise<Context> {
 describe('real Loader composition', () => {
   it('loads the shipped token-meter, pruning, and compaction-basic YAML order', async () => {
     const loaded = await loadYaml([
-      "- name: '@lyness/llm'",
-      "- name: '@lyness/session'",
-      "- name: '@lyness/session-projection'",
-      "- name: '@lyness/token-meter'",
-      "- name: '@lyness/compaction-tool-result-pruner'",
+      "- name: '@lyness/lyn-llm'",
+      "- name: '@lyness/lyn-session'",
+      "- name: '@lyness/lyn-session-projection'",
+      "- name: '@lyness/lyn-token-meter'",
+      "- name: '@lyness/lyn-compaction-tool-result-pruner'",
       '  config:',
       '    thresholdChars: 100',
       '    headChars: 20',
       '    tailChars: 10',
-      "- name: '@lyness/compaction-basic'",
+      "- name: '@lyness/lyn-compaction-basic'",
       '  config:',
       '    thresholdRatio: 0.5',
       '    retainRatio: 0.125',

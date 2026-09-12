@@ -4,10 +4,10 @@
  */
 import { describe, expect, it, vi, beforeEach } from 'vitest'
 import { Context } from '@lyness/cordis'
-import SystemPrompt from '@lyness/system-prompt'
-import ToolRuntime from '@lyness/tools'
-import { createScope } from '@lyness/scope'
-import type { Config } from '@lyness/mcp-client'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime from '@lyness/lyn-tools'
+import { createScope } from '@lyness/lyn-scope'
+import type { Config } from '@lyness/lyn-mcp-client'
 
 // ---- Mock MCP SDK ----
 
@@ -55,7 +55,7 @@ vi.mock('@modelcontextprotocol/sdk/client/streamableHttp.js', () => ({
 
 // vi.mock is hoisted above static imports, so the module under test sees the
 // mocked SDK even through a static import.
-import { apply, name, inject, Config as ConfigSchema } from '@lyness/mcp-client/src/index.ts'
+import { apply, name, inject, Config as ConfigSchema } from '@lyness/lyn-mcp-client/src/index.ts'
 
 // ---- Helpers ----
 

@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest'
-import type { SessionListState, SessionSummary } from '@lyness/api-session-controller/client'
-import type { WorkspaceId, WorkspaceView } from '@lyness/api-workspace-controller/client'
-import type { SessionPendingInteractionBase } from '@lyness/client-ui-session/client'
-import type { ScheduleId, ScheduleRecord } from '@lyness/schedule/client'
-import type { SessionId } from '@lyness/session/types'
+import type { SessionListState, SessionSummary } from '@lyness/lyn-api-session-controller/client'
+import type { WorkspaceId, WorkspaceView } from '@lyness/lyn-api-workspace-controller/client'
+import type { SessionPendingInteractionBase } from '@lyness/lyn-client-ui-session/client'
+import type { ScheduleId, ScheduleRecord } from '@lyness/lyn-schedule/client'
+import type { SessionId } from '@lyness/lyn-session/types'
 import {
   deriveFlat, deriveGroups, deriveSearchResults, owningGroupKey, workspaceLabel,
   UNGROUPED_KEY,

@@ -1,16 +1,16 @@
 import { describe, expect, expectTypeOf, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { Session, SessionId } from '@lyness/session'
-import AgentRegistry from '@lyness/agent'
-import type { Agent } from '@lyness/agent'
-import { bindScopeParent, createScope, scopeOf } from '@lyness/scope'
-import type { ScopeKey } from '@lyness/scope'
-import { JobId } from '@lyness/jobs'
-import type { JobHooks, JobKind, JobOutcome, JobSnapshot, JobStart } from '@lyness/jobs'
-import LocalJobRegistry, { type Config as JobsConfig } from '@lyness/jobs-local'
-import { unsupportedInbox } from '@lyness/agent-loop-testkit'
+import { Session, SessionId } from '@lyness/lyn-session'
+import AgentRegistry from '@lyness/lyn-agent'
+import type { Agent } from '@lyness/lyn-agent'
+import { bindScopeParent, createScope, scopeOf } from '@lyness/lyn-scope'
+import type { ScopeKey } from '@lyness/lyn-scope'
+import { JobId } from '@lyness/lyn-jobs'
+import type { JobHooks, JobKind, JobOutcome, JobSnapshot, JobStart } from '@lyness/lyn-jobs'
+import LocalJobRegistry, { type Config as JobsConfig } from '@lyness/lyn-jobs-local'
+import { unsupportedInbox } from '@lyness/lyn-agent-loop-testkit'
 
-declare module '@lyness/jobs' {
+declare module '@lyness/lyn-jobs' {
   interface JobKindMap {
     workflow: 'workflow'
   }
@@ -120,7 +120,7 @@ describe('LocalJobRegistry.start', () => {
     const ctx = new Context()
     await ctx.plugin(LocalJobRegistry)
     expect(() => ctx.jobs.start(producer().spec))
-      .toThrow('background jobs unavailable: no job controller serves this agent (load @lyness/tool-jobs in its composition)')
+      .toThrow('background jobs unavailable: no job controller serves this agent (load @lyness/lyn-tool-jobs in its composition)')
   })
 
   it('refuses an owner whose own composition attaches no controller', async () => {

@@ -1,9 +1,9 @@
 /** Mount the SDK delegation tool in each fixture Agent's scope. */
 
 import type { Context } from '@lyness/cordis'
-import type { Agent } from '@lyness/agent'
-import * as ToolSubagent from '@lyness/tool-subagent'
-import type { Config } from '@lyness/tool-subagent'
+import type { Agent } from '@lyness/lyn-agent'
+import * as ToolSubagent from '@lyness/lyn-tool-subagent'
+import type { Config } from '@lyness/lyn-tool-subagent'
 
 export const name = 'scoped-tool-subagent'
 export const inject = ['agents', 'subagentModelSelection']

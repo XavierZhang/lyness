@@ -6,7 +6,7 @@
  * turn of a session and target history paging at exact seqs without holding
  * the events. The plugin owns only the fold; delivery is the seam's.
  *
- * @module @lyness/session-turn-outline
+ * @module @lyness/lyn-session-turn-outline
  */
 
 import type { Context } from '@lyness/cordis'

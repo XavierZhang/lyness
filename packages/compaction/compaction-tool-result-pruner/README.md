@@ -3,7 +3,7 @@ description: "Tool-output trimming for deployments composing compaction: choosin
 kind: "package-reference"
 ---
 
-# @lyness/compaction-tool-result-pruner
+# @lyness/lyn-compaction-tool-result-pruner
 
 English | [中文](README.zh.md)
 
@@ -32,9 +32,9 @@ Mount this package next to `lyn-compaction-basic` when tool output regularly dom
 Mount token measurement, this package, and the backend in this order:
 
 ```yaml
-- name: '@lyness/token-meter'
-- name: '@lyness/compaction-tool-result-pruner'
-- name: '@lyness/compaction-basic'
+- name: '@lyness/lyn-token-meter'
+- name: '@lyness/lyn-compaction-tool-result-pruner'
+- name: '@lyness/lyn-compaction-basic'
 ```
 
 With these rows, oversized tool results are trimmed automatically as part of condensation. You can verify success by checking that future requests show the trimmed results; the full originals remain in the session log.
@@ -45,7 +45,7 @@ Every tool result whose text exceeds the threshold is replaced by a trimmed vers
 
 ### Setting the size limits
 
-All settings are optional; the defaults trim any result with more than 8,192 text characters to its first 4,096 plus its last 1,024, joined by the marker. The generated [configuration catalog](../../../docs/config-catalog.md#lynesscompaction-tool-result-pruner) is the exhaustive source.
+All settings are optional; the defaults trim any result with more than 8,192 text characters to its first 4,096 plus its last 1,024, joined by the marker. The generated [configuration catalog](../../../docs/config-catalog.md#lynesslyn-compaction-tool-result-pruner) is the exhaustive source.
 
 | Field | Default | Meaning |
 |---|---|---|
@@ -103,7 +103,7 @@ Read these pages when the package-level contract is not enough; they move from t
 - [Compaction seam](../compaction/README.md) — the condensation contract this package plugs into.
 - [Compaction subsystem reference](../../../docs/subsystems/compaction.md) — the condensation vocabulary, results, and service behavior.
 - [Token meter](../../llm/token-meter/README.md) — the measurement service that decides whether trimming relieved pressure.
-- [Generated configuration catalog](../../../docs/config-catalog.md#lynesscompaction-tool-result-pruner) — every accepted config field and its source declaration.
+- [Generated configuration catalog](../../../docs/config-catalog.md#lynesslyn-compaction-tool-result-pruner) — every accepted config field and its source declaration.
 
 -----
 

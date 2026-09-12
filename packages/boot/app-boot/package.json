@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/app-boot",
+  "name": "@lyness/lyn-app-boot",
   "description": "Shared boot glue for the app bins: .env loading, fail-loud Loader guards, snapshot-aware config resolution, and the Loader boot sequence",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -27,8 +27,8 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@lyness/atomic-write": "workspace:^",
-    "@lyness/package-manifest": "workspace:^",
+    "@lyness/lyn-atomic-write": "workspace:^",
+    "@lyness/lyn-package-manifest": "workspace:^",
     "js-yaml": "^4.2.0",
     "resolve.exports": "^2.0.3"
   },
@@ -37,9 +37,9 @@
     "@lyness/cordis-plugin-hmr": "workspace:^",
     "@lyness/cordis-plugin-include": "workspace:^",
     "@lyness/cordis-plugin-loader": "workspace:^",
-    "@lyness/launch-environment": "workspace:^",
-    "@lyness/home-paths": "workspace:^",
-    "@lyness/system-prompt": "workspace:^",
+    "@lyness/lyn-launch-environment": "workspace:^",
+    "@lyness/lyn-home-paths": "workspace:^",
+    "@lyness/lyn-system-prompt": "workspace:^",
     "@lyness/cordis": "workspace:^"
   },
   "peerDependenciesMeta": {
@@ -53,9 +53,9 @@
     "@lyness/cordis-plugin-include": "workspace:^",
     "@lyness/cordis-plugin-loader": "workspace:^",
     "@lyness/cordis-plugin-timer": "workspace:^",
-    "@lyness/launch-environment": "workspace:^",
-    "@lyness/home-paths": "workspace:^",
-    "@lyness/system-prompt": "workspace:^",
+    "@lyness/lyn-launch-environment": "workspace:^",
+    "@lyness/lyn-home-paths": "workspace:^",
+    "@lyness/lyn-system-prompt": "workspace:^",
     "@types/js-yaml": "^4.0.9",
     "@lyness/cordis": "workspace:^",
     "chokidar": "4.0.3"

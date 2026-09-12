@@ -32,7 +32,7 @@
  * as the user's environment layer; a store that doubled as the environment
  * layer would shadow non-secret entries behind its precedence, making them
  * silently unreachable.
- * @module @lyness/credentials-local
+ * @module @lyness/lyn-credentials-local
  */
 
 import { Context, Service } from '@lyness/cordis'
@@ -41,10 +41,10 @@ import { watch as chokidarWatch } from 'chokidar'
 import { mkdir, readFile, stat } from 'node:fs/promises'
 import { dirname, join, resolve } from 'node:path'
 import { Document, isMap, isScalar, parseDocument, type YAMLError } from 'yaml'
-import { withFileLock, writeFileAtomic } from '@lyness/atomic-write'
-import { canonicalizeWatchPath, resolveLynHome } from '@lyness/home-paths'
-import { launchEnvironmentOf } from '@lyness/launch-environment'
-import { CredentialProvider, credentialRef, parseCredentialKey } from '@lyness/credentials'
+import { withFileLock, writeFileAtomic } from '@lyness/lyn-atomic-write'
+import { canonicalizeWatchPath, resolveLynHome } from '@lyness/lyn-home-paths'
+import { launchEnvironmentOf } from '@lyness/lyn-launch-environment'
+import { CredentialProvider, credentialRef, parseCredentialKey } from '@lyness/lyn-credentials'
 import type {
   ApiKeyRecord,
   CredentialInfo,
@@ -54,8 +54,8 @@ import type {
   CredentialRecordInfo,
   CredentialRef,
   ResolvedCredential,
-} from '@lyness/credentials'
-import type { LaunchEnvironmentEntry } from '@lyness/launch-environment'
+} from '@lyness/lyn-credentials'
+import type { LaunchEnvironmentEntry } from '@lyness/lyn-launch-environment'
 
 /** Basename of the credentials document inside the harness home. */
 export const CREDENTIALS_FILENAME = '.credentials.yaml'

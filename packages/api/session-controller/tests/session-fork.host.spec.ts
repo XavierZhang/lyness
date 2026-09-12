@@ -2,14 +2,14 @@
 
 import { describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import AgentRegistry, { agentEvents } from '@lyness/agent'
-import type { Agent, AgentHandle, CreateAgentOptions } from '@lyness/agent'
-import { createUserMessage, ReasoningEffortId } from '@lyness/llm'
-import type { LlmCallConfig } from '@lyness/llm'
-import SessionStore, { SESSION_FORMAT_VERSION, SessionLogOffset, SessionSeq } from '@lyness/session'
-import type { Session, SessionEvent, SessionHeader, SessionId } from '@lyness/session'
-import SystemPrompt from '@lyness/system-prompt'
-import type { Workspace } from '@lyness/workspace'
+import AgentRegistry, { agentEvents } from '@lyness/lyn-agent'
+import type { Agent, AgentHandle, CreateAgentOptions } from '@lyness/lyn-agent'
+import { createUserMessage, ReasoningEffortId } from '@lyness/lyn-llm'
+import type { LlmCallConfig } from '@lyness/lyn-llm'
+import SessionStore, { SESSION_FORMAT_VERSION, SessionLogOffset, SessionSeq } from '@lyness/lyn-session'
+import type { Session, SessionEvent, SessionHeader, SessionId } from '@lyness/lyn-session'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import type { Workspace } from '@lyness/lyn-workspace'
 import {
   createSessionTestRemote, installSessionReadTestServices, testSessionPersistence,
 } from './test-remote.ts'

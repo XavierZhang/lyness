@@ -5,16 +5,16 @@ import { createPortal } from 'react-dom'
 import {
   type SessionListState, type SessionProjectionMap, type SessionSummary,
   type SubagentCatalogSnapshot,
-} from '@lyness/api-session-controller/client'
-import type { SubagentAddress } from '@lyness/subagent/client'
-import type { SessionId } from '@lyness/session/types'
+} from '@lyness/lyn-api-session-controller/client'
+import type { SubagentAddress } from '@lyness/lyn-subagent/client'
+import type { SessionId } from '@lyness/lyn-session/types'
 import {
   IconChevronDownOutline14, IconChevronRightOutline14, IconRefreshOutline14, StateDot,
-} from '@lyness/client-ui-primitives'
-import type { PropsLocale, PropsRuntime, TranslateNS } from '@lyness/client-ui-slots'
+} from '@lyness/lyn-client-ui-primitives'
+import type { PropsLocale, PropsRuntime, TranslateNS } from '@lyness/lyn-client-ui-slots'
 import { NS } from './locales.ts'
-import type {} from '@lyness/client-ui-conversation/client'
-import type {} from '@lyness/token-meter/client'
+import type {} from '@lyness/lyn-client-ui-conversation/client'
+import type {} from '@lyness/lyn-token-meter/client'
 import css from './SubagentHeaderLineage.module.css'
 import { indexSubagentDescendants } from './subagent-lineage.ts'
 

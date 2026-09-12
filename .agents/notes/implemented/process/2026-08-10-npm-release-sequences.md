@@ -80,7 +80,7 @@ Two registry behaviours shape how a publish is attempted. Writes are spaced by a
 
 Every reference to a workspace member uses `workspace:^`, so `pnpm pack` substitutes a range matching the target version: sibling `peerDependencies` follow the family version, and a reference to a vendored package follows that package's own line. The Landlock platform packages keep `workspace:*`, which publishes the exact version, because a platform package and its entry must agree exactly.
 
-`scripts/check-workspace-constraints.ts` requires the protocol, so a new package cannot reintroduce a hand-written range; the invariant-companion rule requires `workspace:^` for `@lyness/invariants` for the same reason.
+`scripts/check-workspace-constraints.ts` requires the protocol, so a new package cannot reintroduce a hand-written range; the invariant-companion rule requires `workspace:^` for `@lyness/lyn-invariants` for the same reason.
 
 ### Published dependency faces use an explicit policy
 
@@ -156,7 +156,7 @@ This Agent Note replaces the version scheme and the release-set boundary in [art
 
 **Verifying only the packed install, with no local registry.** The reference flow unpacks tarballs into a tree and drives it with plain Node, which bypasses version-range resolution. Running a local registry in CI to cover that layer was rejected: artifact correctness is covered by existing tests, the publication path is exercised by the master rehearsal, and a pull request only needs to prove the release set packs. Installing from `file:` specifiers still exercises range resolution for every internal dependency.
 
-**Selecting a subset by entry closure.** Crawling `dependencies` from `@lyness/lyn` and `@lyness/web-frontend` yields 156 packages, 61 fewer than the whole set. But this repository's plugins are mounted by name from `cordis.yml` rather than imported: `vendor/cordis-plugin-group` and `vendor/cordis-plugin-logger-console` fall outside the dependency closure while being required at runtime. Selecting by code dependency fails as "the consumer installs it and it will not start", and it would need a standing proof that no mounted package was missed. Under a private scope the extra packages are invisible outside the organization. `python/`, `docs/`, and `website/` are not release-family members.
+**Selecting a subset by entry closure.** Crawling `dependencies` from `@lyness/lyn` and `@lyness/lyn-web-frontend` yields 156 packages, 61 fewer than the whole set. But this repository's plugins are mounted by name from `cordis.yml` rather than imported: `vendor/cordis-plugin-group` and `vendor/cordis-plugin-logger-console` fall outside the dependency closure while being required at runtime. Selecting by code dependency fails as "the consumer installs it and it will not start", and it would need a standing proof that no mounted package was missed. Under a private scope the extra packages are invisible outside the organization. `python/`, `docs/`, and `website/` are not release-family members.
 
 **Extending `scripts/publish-npm-baseline.ts`.** It is a local publication script that packs and publishes in one process, the opposite of separating credential-free packing from protected publication. Its verified parts — payload validation and installed-artifact probes — are reused so `pnpm run duplication` does not report clones.
 

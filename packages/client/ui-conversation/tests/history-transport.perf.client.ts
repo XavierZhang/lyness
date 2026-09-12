@@ -10,23 +10,23 @@ import {
   createAssistantMessage,
   createUserMessage,
   expandAssistantStream,
-} from '@lyness/llm'
-import type { AssistantStreamRecord } from '@lyness/llm'
-import { SessionSeq } from '@lyness/session/types'
-import type { SessionEvent, SessionEventMap } from '@lyness/session/types'
+} from '@lyness/lyn-llm'
+import type { AssistantStreamRecord } from '@lyness/lyn-llm'
+import { SessionSeq } from '@lyness/lyn-session/types'
+import type { SessionEvent, SessionEventMap } from '@lyness/lyn-session/types'
 import type {
   SessionEventEntry,
   SessionHistoryRecord,
   SessionWireEvent,
-} from '@lyness/api-session-controller/types'
-import { historyEntries } from '@lyness/api-session-controller/src/client/sessions/history-records.ts'
-import type { SessionEventLikeEntry } from '@lyness/api-session-controller/client'
-import { ConversationNodeAssembler } from '@lyness/client-ui-conversation/client'
+} from '@lyness/lyn-api-session-controller/types'
+import { historyEntries } from '@lyness/lyn-api-session-controller/src/client/sessions/history-records.ts'
+import type { SessionEventLikeEntry } from '@lyness/lyn-api-session-controller/client'
+import { ConversationNodeAssembler } from '@lyness/lyn-client-ui-conversation/client'
 import type {
   ConversationNodeDefinition,
   ConversationViewDefinition,
   ConversationViewNode,
-} from '@lyness/client-ui-conversation/client'
+} from '@lyness/lyn-client-ui-conversation/client'
 
 const LOGICAL_ITEMS = 416_756
 const STREAM_MEMBERS = 416_176

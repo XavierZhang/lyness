@@ -3,7 +3,7 @@ description: "Native-OS-chooser backend of the directory-picker seam: opens one 
 kind: "package-reference"
 ---
 
-# @lyness/host-directory-picker-native
+# @lyness/lyn-host-directory-picker-native
 
 English | [中文](README.zh.md)
 

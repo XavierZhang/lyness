@@ -1,7 +1,7 @@
 /** HTML metadata and keyed slot contributions share one identity and unwind with their fiber. */
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { sessionFileAddress } from '@lyness/util-workspace-path'
+import { sessionFileAddress } from '@lyness/lyn-util-workspace-path'
 import { DocumentPreviewRegistry } from '../src/client/document/registry.ts'
 import { apply, HTML_BODY_ID, htmlBodyDefinition } from '../src/client/html/index.ts'
 import { HtmlBody } from '../src/client/html/HtmlBody.tsx'

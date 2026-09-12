@@ -9,9 +9,9 @@
  * ui-settings-general too.
  */
 
-import type {} from '@lyness/client-ui-slots'
+import type {} from '@lyness/lyn-client-ui-slots'
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface SlotMap {
     /**
      * The sidebar-foot trigger row content: icon + label, supplied as slot

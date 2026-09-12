@@ -13,7 +13,7 @@ import {
   loadOverlayPatches,
   renderConfigDump,
   type ConfigDumpLayer,
-} from '@lyness/app-boot'
+} from '@lyness/lyn-app-boot'
 import { homePatchPath, prepareProfile, PROFILE_ROOT_FILENAME } from './profile-boot.ts'
 
 const NAME = 'lyn'

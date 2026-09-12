@@ -1,5 +1,5 @@
 /**
- * Registry tests for `@lyness/shell-env`: built-in facts, contributor
+ * Registry tests for `@lyness/lyn-shell-env`: built-in facts, contributor
  * ownership and validation, collection ordering, effect-scoped disposal, and
  * the explicit disposer contract.
  */
@@ -8,12 +8,12 @@ import { homedir } from 'node:os'
 import { join, resolve } from 'node:path'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { ToolCallId } from '@lyness/llm'
-import type { Agent } from '@lyness/agent'
-import { SESSION_FORMAT_VERSION } from '@lyness/session'
-import type { ToolExecution } from '@lyness/tools'
-import { ShellEnvRegistry } from '@lyness/shell-env'
-import * as BashEnvPlugin from '@lyness/shell-env'
+import { ToolCallId } from '@lyness/lyn-llm'
+import type { Agent } from '@lyness/lyn-agent'
+import { SESSION_FORMAT_VERSION } from '@lyness/lyn-session'
+import type { ToolExecution } from '@lyness/lyn-tools'
+import { ShellEnvRegistry } from '@lyness/lyn-shell-env'
+import * as BashEnvPlugin from '@lyness/lyn-shell-env'
 
 const testToolSignal = new AbortController().signal
 

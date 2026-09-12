@@ -1,21 +1,21 @@
-import { createUserMessage, createMessage } from '@lyness/llm'
+import { createUserMessage, createMessage } from '@lyness/lyn-llm'
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import SessionStore, { SessionLogOffset, SessionSeq, SESSION_FORMAT_VERSION, SessionId } from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import type { Session, SessionEvent, SessionHeader, SessionId as SessionIdType } from '@lyness/session'
+import SessionStore, { SessionLogOffset, SessionSeq, SESSION_FORMAT_VERSION, SessionId } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import type { Session, SessionEvent, SessionHeader, SessionId as SessionIdType } from '@lyness/lyn-session'
 import SessionPersistence, {
   SessionPersistenceNotFoundError,
   SessionPersistenceRevision,
   SessionReadOnlyError,
-} from '@lyness/session-persistence'
+} from '@lyness/lyn-session-persistence'
 import type {
   SessionAccess,
   SessionHandle,
   SessionHandleReadResult,
   SessionPersistenceSnapshot,
-} from '@lyness/session-persistence'
-import { type SessionQueryErrorCode } from '@lyness/session-query'
+} from '@lyness/lyn-session-persistence'
+import { type SessionQueryErrorCode } from '@lyness/lyn-session-query'
 import { TestSessionQueryEngine } from './test-service.ts'
 
 type MutableSessionHeader = { -readonly [K in keyof SessionHeader]: SessionHeader[K] }

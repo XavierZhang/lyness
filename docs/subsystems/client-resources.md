@@ -24,12 +24,12 @@ The owner of a protocol declares its value type on `ResourceProtocolMap` and reg
 
 ```ts ignore-check
 import type { Context } from '@lyness/cordis'
-import type { RemoteResult } from '@lyness/typert-protocol'
-import type {} from '@lyness/client-resources/client'
+import type { RemoteResult } from '@lyness/lyn-typert-protocol'
+import type {} from '@lyness/lyn-client-resources/client'
 
 interface NoteView { readonly title: string; readonly updatedAt: string }
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface ResourceProtocolMap { note: NoteView }
 }
 
@@ -61,8 +61,8 @@ Every slot component receives `useResource` in its props, whatever its scope ([S
 | `failed` | The latest frame reported a failure | the last `ok` value, kept | the frame's `RemoteFailure` |
 
 ```tsx ignore-check
-import type { PropsRuntime } from '@lyness/client-ui-slots'
-import type {} from '@lyness/api-workspace-files/client'
+import type { PropsRuntime } from '@lyness/lyn-client-ui-slots'
+import type {} from '@lyness/lyn-api-workspace-files/client'
 
 type Props = PropsRuntime<'sidebar.right.pane.tab'>
 

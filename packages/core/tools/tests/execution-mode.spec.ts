@@ -2,14 +2,14 @@
 
 import { describe, expect, expectTypeOf, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { ToolCallId } from '@lyness/llm'
-import SystemPrompt from '@lyness/system-prompt'
+import { ToolCallId } from '@lyness/lyn-llm'
+import SystemPrompt from '@lyness/lyn-system-prompt'
 import ToolRuntime, {
   defineContentToolFixture,
   type ToolDefinition,
   type ToolExecutionInput,
   type ToolExecutionMode,
-} from '@lyness/tools'
+} from '@lyness/lyn-tools'
 
 const testToolSignal = new AbortController().signal
 

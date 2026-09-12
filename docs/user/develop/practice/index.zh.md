@@ -34,7 +34,7 @@
 
 ```yaml
 # Local execution
-- name: '@lyness/bash-local'
+- name: '@lyness/lyn-bash-local'
 
 # Replace this row with another package that provides the same service.
 ```
@@ -92,7 +92,7 @@ export interface MyCapResult {
 ```ts ignore-check
 // packages/my-cap/my-cap-local/src/index.ts
 import type { Context } from '@lyness/cordis'
-import { MyCapService, type MyCapRequest, type MyCapResult } from '@lyness/my-cap'
+import { MyCapService, type MyCapRequest, type MyCapResult } from '@lyness/lyn-my-cap'
 
 class MyCapLocal extends MyCapService {
   async execute(request: MyCapRequest): Promise<MyCapResult> {
@@ -113,7 +113,7 @@ export function apply(ctx: Context) {
 ```ts ignore-check
 // packages/my-cap/tool-my-cap/src/index.ts
 import type { Context } from '@lyness/cordis'
-import { defineTool } from '@lyness/tools'
+import { defineTool } from '@lyness/lyn-tools'
 
 export const name = 'tool-my-cap'
 export const inject = ['tools', 'myCap']
@@ -140,8 +140,8 @@ export function apply(ctx: Context) {
 ### 在 cordis.yml 中组合
 
 ```yaml
-- name: '@lyness/my-cap-local'
-- name: '@lyness/tool-my-cap'
+- name: '@lyness/lyn-my-cap-local'
+- name: '@lyness/lyn-tool-my-cap'
 ```
 
 ## 设计要点

@@ -6,15 +6,15 @@
  * per-session resolution.
  */
 import type { Context as ClientContext } from '@lyness/cordis'
-import type { ISessions } from '@lyness/api-session-controller/client'
+import type { ISessions } from '@lyness/lyn-api-session-controller/client'
 // Type-only: pulls the 'conversation.input.overlay' SlotMap declaration (the
 // key's owner) into this program so the overlay registration below typechecks
 // against the real declaration — no runtime edge to ui-conversation.
-import type {} from '@lyness/client-ui-conversation/client'
+import type {} from '@lyness/lyn-client-ui-conversation/client'
 // Type-only: pulls the locale plugin's Context merge (ctx.locale).
-import type {} from '@lyness/client-locale/client'
-import type {} from '@lyness/client-ui-renderer/client'
-import type {} from '@lyness/client-ui-session/client'
+import type {} from '@lyness/lyn-client-locale/client'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
+import type {} from '@lyness/lyn-client-ui-session/client'
 import { CommandUiRuntime } from './service.ts'
 import type { PopupSelectInjected } from './PopupSelectView.tsx'
 import { PopupSelectView } from './PopupSelectView.tsx'
@@ -38,7 +38,7 @@ declare module '@lyness/cordis' {
   }
 }
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface LocaleNamespaceMap {
     /** The popupSelect shell's copy. */
     command: CommandKey

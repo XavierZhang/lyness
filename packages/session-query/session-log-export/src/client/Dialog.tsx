@@ -1,7 +1,7 @@
-import type { ObservableSnapshot } from '@lyness/client-store'
-import type { SessionId } from '@lyness/session/types'
-import { Button, Modal } from '@lyness/client-ui-primitives'
-import type { InjectFace, PropsLocale, PropsRuntime } from '@lyness/client-ui-slots'
+import type { ObservableSnapshot } from '@lyness/lyn-client-store'
+import type { SessionId } from '@lyness/lyn-session/types'
+import { Button, Modal } from '@lyness/lyn-client-ui-primitives'
+import type { InjectFace, PropsLocale, PropsRuntime } from '@lyness/lyn-client-ui-slots'
 import type { SessionLogDownloadState } from './controller.ts'
 import { NS } from './locales.ts'
 

@@ -8,7 +8,7 @@
  * can reach). Consumers switch on `capability().kind`; the union is
  * merge-extensible, and the documented default for an unknown kind is to
  * hide the picking affordance rather than fail.
- * @module @lyness/host-directory-picker
+ * @module @lyness/lyn-host-directory-picker
  */
 
 import { Context, Service } from '@lyness/cordis'

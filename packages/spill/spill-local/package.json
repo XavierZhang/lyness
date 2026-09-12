@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/spill-local",
+  "name": "@lyness/lyn-spill-local",
   "description": "Local-filesystem implementation of the lyness spill storage seam (private session-scoped files)",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -27,7 +27,7 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/spill": "workspace:^",
+    "@lyness/lyn-spill": "workspace:^",
     "@lyness/cordis": "workspace:^"
   },
   "dependencies": {
@@ -36,10 +36,10 @@
   "devDependencies": {
     "@lyness/cordis-plugin-include": "workspace:^",
     "@lyness/cordis-plugin-loader": "workspace:^",
-    "@lyness/brand": "workspace:^",
-    "@lyness/llm": "workspace:^",
-    "@lyness/session": "workspace:^",
-    "@lyness/spill": "workspace:^",
+    "@lyness/lyn-brand": "workspace:^",
+    "@lyness/lyn-llm": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
+    "@lyness/lyn-spill": "workspace:^",
     "@lyness/cordis": "workspace:^"
   }
 }

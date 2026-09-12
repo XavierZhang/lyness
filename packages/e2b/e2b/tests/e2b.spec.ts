@@ -7,7 +7,7 @@ import E2BRuntime, {
   FileType,
   SandboxNotFoundError,
   quoteE2BShellArg,
-} from '@lyness/e2b'
+} from '@lyness/lyn-e2b'
 
 const sdk = vi.hoisted(() => ({
   create: vi.fn(),

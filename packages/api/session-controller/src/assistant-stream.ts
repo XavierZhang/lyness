@@ -1,9 +1,9 @@
 /** Process-local assistant state retained for reconnecting Web followers. */
 
-import type { AssistantStreamFrame } from '@lyness/agent'
-import { AssistantStreamAccumulator } from '@lyness/llm'
-import type { SessionSeqCursor } from '@lyness/session'
-import type { JsonValue } from '@lyness/util-values'
+import type { AssistantStreamFrame } from '@lyness/lyn-agent'
+import { AssistantStreamAccumulator } from '@lyness/lyn-llm'
+import type { SessionSeqCursor } from '@lyness/lyn-session'
+import type { JsonValue } from '@lyness/lyn-util-values'
 import type {
   SessionAssistantStreamAttempt,
   SessionAssistantStreamBaseline,

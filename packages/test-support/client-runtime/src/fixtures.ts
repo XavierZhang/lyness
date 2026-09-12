@@ -1,17 +1,17 @@
 /** Controller and UI-domain fixture shapes for the client test runtime. */
 import type {
   ISession, SessionEventLikeEntry, SessionSnapshot, SessionSummary,
-} from '@lyness/api-session-controller/client'
-import type { WorkspaceSnapshot } from '@lyness/api-workspace-controller/client'
-import type { SessionId } from '@lyness/session/types'
+} from '@lyness/lyn-api-session-controller/client'
+import type { WorkspaceSnapshot } from '@lyness/lyn-api-workspace-controller/client'
+import type { SessionId } from '@lyness/lyn-session/types'
 import {
   EMPTY_CONVERSATION_SNAPSHOT,
   type ConversationSnapshot,
-} from '@lyness/client-ui-conversation/client'
+} from '@lyness/lyn-client-ui-conversation/client'
 import {
   EMPTY_CHAT_SNAPSHOT,
   type ChatSnapshot,
-} from '@lyness/client-ui-chat/client'
+} from '@lyness/lyn-client-ui-chat/client'
 
 /**
  * Fixture overrides for the session behavior face: any subset of the

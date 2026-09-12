@@ -19,7 +19,7 @@ import {
 describe('verify-cordis-config metadata expressions', () => {
   it('accepts a disabled !!js expression', () => {
     const problems = metadataExpressionErrors(
-      { id: 'tool-bash', name: '@lyness/tool-bash', disabled: { __jsExpr: "process.platform === 'win32'" } },
+      { id: 'tool-bash', name: '@lyness/lyn-tool-bash', disabled: { __jsExpr: "process.platform === 'win32'" } },
       '[0]',
     )
     expect(problems).toEqual([])
@@ -56,11 +56,11 @@ describe('workspace Bundle discovery and product dependency closures', () => {
       mkdirSync(bundleDir, { recursive: true })
       mkdirSync(plainDir, { recursive: true })
       writeFileSync(join(bundleDir, 'package.json'), JSON.stringify({
-        name: '@lyness/subagent-example',
+        name: '@lyness/lyn-subagent-example',
         lyn: { bundle: { patch: './cordis.patch.yml' } },
       }))
       writeFileSync(join(plainDir, 'package.json'), JSON.stringify({
-        name: '@lyness/plain',
+        name: '@lyness/lyn-plain',
       }))
 
       expect(bundleManifestPaths(fixture)).toEqual([
@@ -75,16 +75,16 @@ describe('workspace Bundle discovery and product dependency closures', () => {
     const manifestPath = 'packages/subagent/example/package.json'
     const file = 'packages/subagent/example/cordis.patch.yml'
     const manifest = {
-      name: '@lyness/subagent-example',
+      name: '@lyness/lyn-subagent-example',
       dependencies: {},
     }
-    const self = { file, name: '@lyness/subagent-example' }
+    const self = { file, name: '@lyness/lyn-subagent-example' }
     expect(bundlePluginDependencyErrors(manifestPath, manifest, [self])).toEqual([])
     expect(bundlePluginDependencyErrors(manifestPath, manifest, [
       self,
-      { file, name: '@lyness/missing-plugin' },
+      { file, name: '@lyness/lyn-missing-plugin' },
     ])).toEqual([
-      `${file}: @lyness/missing-plugin must be declared in ${manifestPath} dependencies`,
+      `${file}: @lyness/lyn-missing-plugin must be declared in ${manifestPath} dependencies`,
     ])
   })
 })
@@ -94,18 +94,18 @@ describe('package-owned Loader test dependency closures', () => {
     const manifestPath = 'packages/example/owner/package.json'
     const file = 'packages/example/owner/tests/fixtures/cordis.yml'
     const manifest = {
-      name: '@lyness/owner',
+      name: '@lyness/lyn-owner',
       dependencies: {},
       devDependencies: {
-        '@lyness/declared': 'workspace:^',
+        '@lyness/lyn-declared': 'workspace:^',
       },
     }
     expect(packageTestPluginDependencyErrors(manifestPath, manifest, [
-      { file, name: '@lyness/owner' },
-      { file, name: '@lyness/declared' },
-      { file, name: '@lyness/missing' },
+      { file, name: '@lyness/lyn-owner' },
+      { file, name: '@lyness/lyn-declared' },
+      { file, name: '@lyness/lyn-missing' },
     ])).toEqual([
-      `${file}: @lyness/missing must be declared in ${manifestPath} dependencies or devDependencies`,
+      `${file}: @lyness/lyn-missing must be declared in ${manifestPath} dependencies or devDependencies`,
     ])
   })
 
@@ -116,25 +116,25 @@ describe('package-owned Loader test dependency closures', () => {
       const driverDir = join(packageDir, 'tests/fixtures/loader')
       mkdirSync(driverDir, { recursive: true })
       writeFileSync(join(packageDir, 'package.json'), JSON.stringify({
-        name: '@lyness/owner',
+        name: '@lyness/lyn-owner',
         devDependencies: {
-          '@lyness/declared': 'workspace:^',
+          '@lyness/lyn-declared': 'workspace:^',
         },
       }))
       writeFileSync(join(driverDir, 'driver.ts'), [
-        "import '@lyness/owner'",
-        "import '@lyness/declared'",
-        "import '@lyness/missing'",
+        "import '@lyness/lyn-owner'",
+        "import '@lyness/lyn-declared'",
+        "import '@lyness/lyn-missing'",
       ].join('\n'))
       writeFileSync(join(driverDir, 'cordis.yml'), '[]\n')
-      writeFileSync(join(driverDir, 'fixture.mjs'), "import '@lyness/declared'\n")
+      writeFileSync(join(driverDir, 'fixture.mjs'), "import '@lyness/lyn-declared'\n")
       const unrelatedDir = join(packageDir, 'tests/fixtures/unrelated')
       mkdirSync(unrelatedDir, { recursive: true })
-      writeFileSync(join(unrelatedDir, 'driver.ts'), "import '@lyness/unrelated'\n")
+      writeFileSync(join(unrelatedDir, 'driver.ts'), "import '@lyness/lyn-unrelated'\n")
 
       expect(packageTestFixtureDependencyErrors(fixture)).toEqual([
         'packages/example/owner/tests/fixtures/loader/driver.ts: '
-        + '@lyness/missing must be declared in '
+        + '@lyness/lyn-missing must be declared in '
         + 'packages/example/owner/package.json dependencies or devDependencies',
       ])
     } finally {

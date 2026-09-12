@@ -1,19 +1,19 @@
 /** Test-owned Session Controller faces over declarative fixtures. */
 import type { Context } from '@lyness/cordis'
-import type { AttachmentIdType } from '@lyness/attachment'
+import type { AttachmentIdType } from '@lyness/lyn-attachment'
 import {
   createScope, MutableSessionEventSource, scopeOf, SESSION_SEARCH_RESULT_LIMIT,
-} from '@lyness/api-session-controller/client'
+} from '@lyness/lyn-api-session-controller/client'
 import type {
   AgentContext, ISessions, ProjectionsFace, SessionBinding, SessionFace, SessionListState,
   SessionEventLikeEntry, SessionLiveEventEntry, SessionSearchResultItem,
   SessionSnapshot, SessionSummary, SubmissionHandle,
-} from '@lyness/api-session-controller/client'
-import type { SessionRequestId } from '@lyness/api-session-controller/types'
-import type { SubagentAddress } from '@lyness/subagent/client'
-import { createSnapshotStore } from '@lyness/client-store'
-import type { ObservableSnapshot, SnapshotStore } from '@lyness/client-store'
-import type { SessionId } from '@lyness/session/types'
+} from '@lyness/lyn-api-session-controller/client'
+import type { SessionRequestId } from '@lyness/lyn-api-session-controller/types'
+import type { SubagentAddress } from '@lyness/lyn-subagent/client'
+import { createSnapshotStore } from '@lyness/lyn-client-store'
+import type { ObservableSnapshot, SnapshotStore } from '@lyness/lyn-client-store'
+import type { SessionId } from '@lyness/lyn-session/types'
 import { sessionSnapshot } from './fixtures.ts'
 import type {
   SessionFixture, SessionFixtureSnapshot, Stabilizer,

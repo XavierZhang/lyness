@@ -1,6 +1,6 @@
 import {
   createSnapshotStore, type SnapshotStore,
-} from '@lyness/client-store'
+} from '@lyness/lyn-client-store'
 
 /**
  * Create the browser-wide trajectory duration preference source.

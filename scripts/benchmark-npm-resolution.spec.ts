@@ -71,11 +71,11 @@ describe('npm resolution benchmark', () => {
     writeJson(root, 'apps/cli/package.json', {
       name: '@lyness/lyn',
       version: '0.1.0',
-      dependencies: { '@lyness/child': 'workspace:^', external: '^2.0.0' },
+      dependencies: { '@lyness/lyn-child': 'workspace:^', external: '^2.0.0' },
       devDependencies: { ignored: 'workspace:^' },
     })
     writeJson(root, 'packages/core/child/package.json', {
-      name: '@lyness/child',
+      name: '@lyness/lyn-child',
       version: '0.1.0',
     })
 
@@ -85,7 +85,7 @@ describe('npm resolution benchmark', () => {
     expect(index.get('@lyness/lyn')?.get('0.1.0')).toEqual({
       name: '@lyness/lyn',
       version: '0.1.0',
-      dependencies: { '@lyness/child': '^0.1.0', external: '^2.0.0' },
+      dependencies: { '@lyness/lyn-child': '^0.1.0', external: '^2.0.0' },
     })
   })
 
@@ -142,10 +142,10 @@ describe('npm resolution benchmark', () => {
         ['@lyness/lyn', new Map([['0.1.0', {
           name: '@lyness/lyn',
           version: '0.1.0',
-          peerDependencies: { '@lyness/peer': '1.0.0' },
+          peerDependencies: { '@lyness/lyn-peer': '1.0.0' },
         }]])],
-        ['@lyness/peer', new Map([['1.0.0', {
-          name: '@lyness/peer',
+        ['@lyness/lyn-peer', new Map([['1.0.0', {
+          name: '@lyness/lyn-peer',
           version: '1.0.0',
         }]])],
       ])
@@ -153,7 +153,7 @@ describe('npm resolution benchmark', () => {
       const result = await resolveNpmPackageLock(index, { '@lyness/lyn': '0.1.0' }, 10_000)
 
       expect(result.archiveRequests).toBe(0)
-      expect(result.packageLock.packages['node_modules/@lyness/peer']?.version).toBe('1.0.0')
+      expect(result.packageLock.packages['node_modules/@lyness/lyn-peer']?.version).toBe('1.0.0')
     } finally {
       if (previous.userConfig === undefined) delete process.env.npm_config_userconfig
       else process.env.npm_config_userconfig = previous.userConfig

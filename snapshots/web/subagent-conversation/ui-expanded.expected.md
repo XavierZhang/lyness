@@ -28,10 +28,10 @@
 - button "Thought for a while" [expanded]:
   - text: Thought for a while
   - img
-- button "Context injection @lyness/system-prompt":
+- button "Context injection @lyness/lyn-system-prompt":
   - img
   - img
-  - text: Context injection @lyness/system-prompt
+  - text: Context injection @lyness/lyn-system-prompt
 - button "Think The user is asking for a one-sentence description of event sourcing. This is a straightforward knowledge question that doesn't require any skill loading or tool calls.":
   - img
   - img

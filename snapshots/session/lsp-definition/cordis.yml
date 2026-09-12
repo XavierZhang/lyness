@@ -2,9 +2,9 @@
 # The scenario workspace supplies the deterministic stdio server used by this test composition.
 - insert:
     - id: lsp
-      name: '@lyness/lsp'
+      name: '@lyness/lyn-lsp'
     - id: lsp-stdio
-      name: '@lyness/lsp-stdio'
+      name: '@lyness/lyn-lsp-stdio'
       config:
         servers:
           fixture:
@@ -13,9 +13,9 @@
             extensionToLanguage:
               '.ts': typescript
     - id: tool-lsp
-      name: '@lyness/tool-lsp'
+      name: '@lyness/lyn-tool-lsp'
       config:
         maxLocations: 1
 
 - id: timeout-policy
-  name: '@lyness/tool-call-timeout-policy'
+  name: '@lyness/lyn-tool-call-timeout-policy'

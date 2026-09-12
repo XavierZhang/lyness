@@ -6,17 +6,17 @@ import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
 import * as yaml from 'js-yaml'
 import { describe, expect, it, vi } from 'vitest'
-import type { Agent } from '@lyness/agent'
-import type { ContentBlock } from '@lyness/llm'
-import SubagentRuntime from '@lyness/subagent'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import { MAX_TIMER_DELAY_MS } from '@lyness/timeout'
+import type { Agent } from '@lyness/lyn-agent'
+import type { ContentBlock } from '@lyness/lyn-llm'
+import SubagentRuntime from '@lyness/lyn-subagent'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import { MAX_TIMER_DELAY_MS } from '@lyness/lyn-timeout'
 import type {
   SubprocessHandle,
   SubprocessOutcome,
   SubprocessSpawnSpec,
-} from '@lyness/subprocess'
-import LocalSubprocessRuntime from '@lyness/subprocess-local'
+} from '@lyness/lyn-subprocess'
+import LocalSubprocessRuntime from '@lyness/lyn-subprocess-local'
 import * as codex from '../src/index.ts'
 import {
   CODEX_PERMISSION_MODES,
@@ -365,11 +365,11 @@ describe('task admission and package contracts', () => {
     expect(manifest.lyn?.bundle?.patch).toBe('./cordis.patch.yml')
     expect(manifest.files).toContain('cordis.patch.yml')
     expect(manifest.dependencies).toHaveProperty(
-      '@lyness/sdk-protocol',
+      '@lyness/lyn-sdk-protocol',
       'workspace:^',
     )
     expect(manifest.dependencies).toHaveProperty('@openai/codex', CODEX_VERSION)
-    expect(manifest.dependencies).not.toHaveProperty('@lyness/subagent-claude-code')
+    expect(manifest.dependencies).not.toHaveProperty('@lyness/lyn-subagent-claude-code')
 
     const codexPackageJson = fileURLToPath(import.meta.resolve('@openai/codex/package.json'))
     const codexManifest = JSON.parse(readFileSync(codexPackageJson, 'utf8')) as {
@@ -407,7 +407,7 @@ describe('task admission and package contracts', () => {
       : []
     expect(rows).toEqual([{
       id: 'subagent-codex',
-      name: '@lyness/subagent-codex',
+      name: '@lyness/lyn-subagent-codex',
     }])
     expect(JSON.stringify(rows)).not.toContain('tool-subagent')
   })

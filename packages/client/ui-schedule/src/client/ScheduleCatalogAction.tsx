@@ -2,15 +2,15 @@ import {
   useEffect, useMemo, useRef, useState, type CSSProperties, type KeyboardEvent,
 } from 'react'
 import { createPortal } from 'react-dom'
-import type { ScheduleRecord } from '@lyness/schedule/client'
+import type { ScheduleRecord } from '@lyness/lyn-schedule/client'
 import {
   IconAlarmClockOutline16,
   IconChevronDownOutline14,
   useAnchoredPosition,
   useDismissOnOutsidePointer,
-} from '@lyness/client-ui-primitives'
-import type { PropsLocale, PropsRuntime, TranslateNS } from '@lyness/client-ui-slots'
-import type {} from '@lyness/client-ui-conversation/client'
+} from '@lyness/lyn-client-ui-primitives'
+import type { PropsLocale, PropsRuntime, TranslateNS } from '@lyness/lyn-client-ui-slots'
+import type {} from '@lyness/lyn-client-ui-conversation/client'
 import { NS } from './locales.ts'
 import css from './ScheduleCatalogAction.module.css'
 

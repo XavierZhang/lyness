@@ -1,12 +1,12 @@
 /**
  * Model-facing result rendering for the bash tool.
  *
- * @module @lyness/tool-bash/render
+ * @module @lyness/lyn-tool-bash/render
  */
 
-import type { ShellProcessRead, ShellRunResult, ShellSandboxInfo, CollectedOutput } from '@lyness/shell'
-import type { SandboxMode } from '@lyness/sandbox'
-import { escalationHintMarker, sandboxDenialMarker } from '@lyness/sandbox'
+import type { ShellProcessRead, ShellRunResult, ShellSandboxInfo, CollectedOutput } from '@lyness/lyn-shell'
+import type { SandboxMode } from '@lyness/lyn-sandbox'
+import { escalationHintMarker, sandboxDenialMarker } from '@lyness/lyn-sandbox'
 
 /** Append the truncation notice (with the full-output spill path) to a stream's text. */
 function streamText(output: CollectedOutput): string {
@@ -96,8 +96,8 @@ export function renderProcessRead(
 
 /**
  * The exit-status parse is the shared marker-contract half of the shell-tool
- * rendering story, owned by `@lyness/shell` so `lyn-tool-pwsh` reuses
+ * rendering story, owned by `@lyness/lyn-shell` so `lyn-tool-pwsh` reuses
  * it (its renderer emits the same markers). Re-exported here to keep
  * `../src/render.ts` a single import root for bash-tool consumers.
  */
-export { parseExitStatus, type ParsedExitStatus } from '@lyness/shell'
+export { parseExitStatus, type ParsedExitStatus } from '@lyness/lyn-shell'

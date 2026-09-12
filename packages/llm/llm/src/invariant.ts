@@ -1,10 +1,10 @@
-/** Package-owned LLM stream-protocol invariants. @module @lyness/llm/invariant */
+/** Package-owned LLM stream-protocol invariants. @module @lyness/lyn-llm/invariant */
 
 import type { Context } from '@lyness/cordis'
-import type { InvariantFailure, InvariantInstaller } from '@lyness/invariants'
+import type { InvariantFailure, InvariantInstaller } from '@lyness/lyn-invariants'
 import type { ContentBlockType, StreamChunk } from './types.ts'
 
-const PACKAGE_NAME = '@lyness/llm'
+const PACKAGE_NAME = '@lyness/lyn-llm'
 
 /** Cordis companion plugin name. */
 export const name = 'llm-invariant'

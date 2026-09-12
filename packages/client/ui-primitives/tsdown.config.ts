@@ -1,6 +1,6 @@
 import { staticLinked } from '../tsdown.client.ts'
 
 export default staticLinked(
-  '@lyness/client-ui-primitives',
+  '@lyness/lyn-client-ui-primitives',
   ['lib/types/index.js'],
 )

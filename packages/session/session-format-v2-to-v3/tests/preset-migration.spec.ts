@@ -1,8 +1,8 @@
 /** Released preset references change after strict source admission without rewriting opaque ids. */
 
 import { describe, expect, it } from 'vitest'
-import { SessionFormatError, SessionFormatEventCollector, SessionFormatUnsupportedMigrationError } from '@lyness/session-format'
-import type { SessionFormatEvent, SessionFormatJsonValue } from '@lyness/session-format'
+import { SessionFormatError, SessionFormatEventCollector, SessionFormatUnsupportedMigrationError } from '@lyness/lyn-session-format'
+import type { SessionFormatEvent, SessionFormatJsonValue } from '@lyness/lyn-session-format'
 import { sessionFormatV2ToV3 } from '../src/index.ts'
 
 const header = Object.freeze({

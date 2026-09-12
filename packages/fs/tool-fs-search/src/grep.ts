@@ -8,14 +8,14 @@
  * `--json` record parsing, per-line preview retention, match retention,
  * grouping, and formatting; process concerns stay behind `ctx.subprocess`.
  *
- * @module @lyness/tool-fs-search/grep
+ * @module @lyness/lyn-tool-fs-search/grep
  */
 
 import type { Context } from '@lyness/cordis'
-import { defineTool } from '@lyness/tools'
-import type { GenericCallView, SearchResultView, ToolResult } from '@lyness/tools'
-import type { RetainedItems } from '@lyness/output-retention'
-import type { SpillRef } from '@lyness/spill'
+import { defineTool } from '@lyness/lyn-tools'
+import type { GenericCallView, SearchResultView, ToolResult } from '@lyness/lyn-tools'
+import type { RetainedItems } from '@lyness/lyn-output-retention'
+import type { SpillRef } from '@lyness/lyn-spill'
 import type { GrepMatch } from './search-core.ts'
 import { SearchError, previewLine, retainGrepMatches, runRipgrep, toWorkdirRelative, trySaveFormattedResult } from './search-core.ts'
 import { grepSearchMeta, searchViewFromMeta } from './presentation.ts'

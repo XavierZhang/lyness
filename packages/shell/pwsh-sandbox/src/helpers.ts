@@ -1,15 +1,15 @@
 /**
  * Internal sandbox-result classification helpers — deliberate call-for-call
- * mirror of `@lyness/bash-sandbox/src/helpers.ts` (the pwsh twin of
+ * mirror of `@lyness/lyn-bash-sandbox/src/helpers.ts` (the pwsh twin of
  * the bash consumer shares the identical classification dialect).
  *
- * @module @lyness/pwsh-sandbox/helpers
+ * @module @lyness/lyn-pwsh-sandbox/helpers
  */
 
 /* jscpd:ignore-start */
 import { accessSync, constants, statSync } from 'node:fs'
-import type { ShellRunResult } from '@lyness/shell'
-import type { RunnerFailureRule } from '@lyness/sandbox'
+import type { ShellRunResult } from '@lyness/lyn-shell'
+import type { RunnerFailureRule } from '@lyness/lyn-sandbox'
 
 /** Node-local spawn codes proven to identify executable resolution or permission failure. */
 const EXECUTABLE_SPAWN_CODES = new Set(['EACCES', 'ENOENT'])

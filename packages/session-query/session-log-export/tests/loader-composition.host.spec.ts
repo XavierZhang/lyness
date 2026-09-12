@@ -6,10 +6,10 @@ import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
 import Include from '@lyness/cordis-plugin-include'
-import type { Agent } from '@lyness/agent'
-import CommandRuntime from '@lyness/commands'
-import SessionStore, { SessionId } from '@lyness/session'
-import * as SessionLogDownload from '@lyness/session-log-export'
+import type { Agent } from '@lyness/lyn-agent'
+import CommandRuntime from '@lyness/lyn-commands'
+import SessionStore, { SessionId } from '@lyness/lyn-session'
+import * as SessionLogDownload from '@lyness/lyn-session-log-export'
 
 let root: string | undefined
 let context: Context | undefined
@@ -26,9 +26,9 @@ describe('session-log-download real Loader composition', () => {
     root = await mkdtemp(join(tmpdir(), 'lyn-session-export-loader-'))
     const configPath = join(root, 'cordis.yml')
     await writeFile(configPath, [
-      "- name: '@lyness/session'",
-      "- name: '@lyness/commands'",
-      "- name: '@lyness/session-log-export'",
+      "- name: '@lyness/lyn-session'",
+      "- name: '@lyness/lyn-commands'",
+      "- name: '@lyness/lyn-session-log-export'",
       '',
     ].join('\n'))
 
@@ -40,9 +40,9 @@ describe('session-log-download real Loader composition', () => {
     await context.plugin(Loader)
     context.loader.builtins.include = Include
     const modules = new Map<string, unknown>([
-      ['@lyness/session', SessionStore],
-      ['@lyness/commands', CommandRuntime],
-      ['@lyness/session-log-export', SessionLogDownload],
+      ['@lyness/lyn-session', SessionStore],
+      ['@lyness/lyn-commands', CommandRuntime],
+      ['@lyness/lyn-session-log-export', SessionLogDownload],
     ])
     context.loader.internal = {
       version: 'v2',

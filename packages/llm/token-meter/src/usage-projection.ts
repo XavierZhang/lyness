@@ -3,11 +3,11 @@
  */
 
 import { z } from 'zod'
-import { lastAssistantStreamChunk, type TokenUsage } from '@lyness/llm'
-import type {} from '@lyness/llm-retry/types'
-import { SessionSeq } from '@lyness/session'
-import type { SessionEvent } from '@lyness/session'
-import type { ProjectionDefinition } from '@lyness/session-projection'
+import { lastAssistantStreamChunk, type TokenUsage } from '@lyness/lyn-llm'
+import type {} from '@lyness/lyn-llm-retry/types'
+import { SessionSeq } from '@lyness/lyn-session'
+import type { SessionEvent } from '@lyness/lyn-session'
+import type { ProjectionDefinition } from '@lyness/lyn-session-projection'
 import type { ContextPressureProjection, TokenUsageProjection } from './projection.ts'
 import { foldSurfaceProjection } from './surface-projection.ts'
 
@@ -85,7 +85,7 @@ function usageOf(event: SessionEvent): TokenUsage | undefined {
   return lastAssistantStreamChunk(event.data.stream, 'usage')?.usage
 }
 
-declare module '@lyness/session-projection/types' {
+declare module '@lyness/lyn-session-projection/types' {
   interface SessionProjectionStateMap {
     tokenUsage: TokenUsageState
     contextPressure: ContextPressureState

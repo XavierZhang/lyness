@@ -1,7 +1,7 @@
 /**
  * Browser-safe `@file` token grammar shared by terminal and web clients.
  *
- * @module @lyness/file-reference/grammar
+ * @module @lyness/lyn-file-reference/grammar
  */
 
 import type { FileReferenceCandidate } from './types.ts'

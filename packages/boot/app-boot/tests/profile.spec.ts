@@ -10,7 +10,7 @@ import {
 } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { withFileLock } from '@lyness/atomic-write'
+import { withFileLock } from '@lyness/lyn-atomic-write'
 import { afterAll, describe, expect, it } from 'vitest'
 import {
   composeEntries,
@@ -103,16 +103,16 @@ describe('initProfile', () => {
   it('creates manifest, user patch layer, and pnpm workspace once, never overwriting', () => {
     const home = tmp()
     const dir = resolveProfileDir('tui', home)
-    initProfile(dir, ['@lyness/base'])
+    initProfile(dir, ['@lyness/lyn-base'])
     const manifest = readProfileManifest('t', dir)
-    expect(manifest.lyn?.profile?.bundles).toEqual(['@lyness/base'])
+    expect(manifest.lyn?.profile?.bundles).toEqual(['@lyness/lyn-base'])
     expect(manifest.lyn?.profile?.patchReload).toBe('live')
     expect(readFileSync(join(dir, PROFILE_PATCH_FILENAME), 'utf8')).toContain('[]')
     expect(readFileSync(join(dir, 'pnpm-workspace.yaml'), 'utf8')).toContain('nodeLinker: hoisted')
     // Re-init keeps user edits.
     writeFileSync(join(dir, PROFILE_PATCH_FILENAME), '- id: x\n  config: {}\n')
     initProfile(dir, ['other'], 'startup')
-    expect(readProfileManifest('t', dir).lyn?.profile?.bundles).toEqual(['@lyness/base'])
+    expect(readProfileManifest('t', dir).lyn?.profile?.bundles).toEqual(['@lyness/lyn-base'])
     expect(readProfileManifest('t', dir).lyn?.profile?.patchReload).toBe('live')
     expect(readFileSync(join(dir, PROFILE_PATCH_FILENAME), 'utf8')).toContain('- id: x')
   })
@@ -209,19 +209,19 @@ describe('loadProfile', () => {
     // The web template auto-initializes on first load. Bundle resolution
     // cannot be asserted to fail here: the source-plane test runner resolves
     // @lyness/* through tsconfig paths regardless of the staged anchor.
-    expect(PROFILE_TEMPLATES.web?.bundles).toContain('@lyness/base')
+    expect(PROFILE_TEMPLATES.web?.bundles).toContain('@lyness/lyn-base')
     expect(PROFILE_TEMPLATES.web?.patchReload).toBe('live')
     expect(PROFILE_TEMPLATES.headless?.patchReload).toBe('startup')
     expect(PROFILE_TEMPLATES.acp).toEqual({
-      bundles: ['@lyness/base', '@lyness/acp-app'],
+      bundles: ['@lyness/lyn-base', '@lyness/lyn-acp-app'],
       patchReload: 'startup',
     })
     expect(PROFILE_TEMPLATES.sdk).toEqual({
-      bundles: ['@lyness/base', '@lyness/sdk-app'],
+      bundles: ['@lyness/lyn-base', '@lyness/lyn-sdk-app'],
       patchReload: 'startup',
     })
     expect(PROFILE_TEMPLATES['sdk-minimal']).toEqual({
-      bundles: ['@lyness/sdk-minimal'],
+      bundles: ['@lyness/lyn-sdk-minimal'],
       patchReload: 'startup',
     })
     try {
@@ -237,40 +237,40 @@ describe('loadProfile', () => {
 
   it('normalizes only the exact installation-owned headless bundle tuple', () => {
     const anchor = stageInstallation({
-      '@lyness/base': { patch: '[]\n' },
-      '@lyness/web-app': { patch: '[]\n' },
-      '@lyness/headless': { patch: '[]\n' },
+      '@lyness/lyn-base': { patch: '[]\n' },
+      '@lyness/lyn-web-app': { patch: '[]\n' },
+      '@lyness/lyn-headless': { patch: '[]\n' },
       'custom-bundle': { patch: '[]\n' },
     })
     const home = tmp()
     const stock = resolveProfileDir('headless', home)
     initProfile(stock, [
-      '@lyness/base', '@lyness/web-app', '@lyness/headless',
+      '@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-headless',
     ])
     const retiredManifest = readProfileManifest('t', stock)
     delete retiredManifest.lyn!.profile!.patchReload
     writeProfileManifest(stock, retiredManifest)
     loadProfile('t', 'headless', anchor, home)
     expect(readProfileManifest('t', stock).lyn?.profile).toEqual({
-      bundles: ['@lyness/base', '@lyness/headless'],
+      bundles: ['@lyness/lyn-base', '@lyness/lyn-headless'],
       patchReload: 'startup',
     })
 
     const customHome = tmp()
     const custom = resolveProfileDir('headless', customHome)
     initProfile(custom, [
-      '@lyness/base', '@lyness/web-app', '@lyness/headless', 'custom-bundle',
+      '@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-headless', 'custom-bundle',
     ])
     loadProfile('t', 'headless', anchor, customHome)
     expect(readProfileManifest('t', custom).lyn?.profile?.bundles).toEqual([
-      '@lyness/base', '@lyness/web-app', '@lyness/headless', 'custom-bundle',
+      '@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-headless', 'custom-bundle',
     ])
   })
 
   it('adds a shipped reload default only to an exact stock tuple and preserves explicit choices', () => {
     const anchor = stageInstallation({
-      '@lyness/base': { patch: '[]\n' },
-      '@lyness/web-app': { patch: '[]\n' },
+      '@lyness/lyn-base': { patch: '[]\n' },
+      '@lyness/lyn-web-app': { patch: '[]\n' },
     })
     const stockHome = tmp()
     const stock = resolveProfileDir('web', stockHome)

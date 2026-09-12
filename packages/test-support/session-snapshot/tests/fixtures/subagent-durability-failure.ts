@@ -1,6 +1,6 @@
 import type { Context } from '@lyness/cordis'
-import { SessionId } from '@lyness/session'
-import type { SubagentPromptRequestId } from '@lyness/subagent'
+import { SessionId } from '@lyness/lyn-session'
+import type { SubagentPromptRequestId } from '@lyness/lyn-subagent'
 
 export const name = 'subagent-durability-failure'
 export const inject = ['agents', 'sessionPersistence', 'subagents']

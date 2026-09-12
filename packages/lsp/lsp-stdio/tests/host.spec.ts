@@ -7,9 +7,9 @@ import { execFile } from 'node:child_process'
 import { pathToFileURL } from 'node:url'
 import { promisify } from 'node:util'
 import { Context } from '@lyness/cordis'
-import LocalFileSystem from '@lyness/fs-local'
-import { deadline } from '@lyness/timeout'
-import { canonicalizeWorkspace, readHostSource } from '@lyness/lsp-stdio'
+import LocalFileSystem from '@lyness/lyn-fs-local'
+import { deadline } from '@lyness/lyn-timeout'
+import { canonicalizeWorkspace, readHostSource } from '@lyness/lyn-lsp-stdio'
 
 const execFileAsync = promisify(execFile)
 

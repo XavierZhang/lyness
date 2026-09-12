@@ -1,20 +1,20 @@
 /**
  * Driver-owned durable agent inbox projection and command facade.
  *
- * @module @lyness/agent-loop/inbox
+ * @module @lyness/lyn-agent-loop/inbox
  */
 
-import type { MessageId } from '@lyness/llm'
-import type { ProjectionDefinition } from '@lyness/session-projection'
-import type SessionProjectionRegistry from '@lyness/session-projection'
-import type { Session, SessionEventMap, UserMessage } from '@lyness/session'
+import type { MessageId } from '@lyness/lyn-llm'
+import type { ProjectionDefinition } from '@lyness/lyn-session-projection'
+import type SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import type { Session, SessionEventMap, UserMessage } from '@lyness/lyn-session'
 import type {
   AgentEventDispatch,
   Inbox as InboxContract,
   InboxState,
   InboxTarget,
   InboxWireState,
-} from '@lyness/agent'
+} from '@lyness/lyn-agent'
 import { z } from 'zod'
 
 /** Wire validation for pending agent input reconstructed from durable inbox splices. */

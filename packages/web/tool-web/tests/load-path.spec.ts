@@ -8,10 +8,10 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
-import SystemPrompt from '@lyness/system-prompt'
-import ToolRuntime from '@lyness/tools'
-import WebRuntime from '@lyness/web'
-import * as toolWeb from '@lyness/tool-web'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime from '@lyness/lyn-tools'
+import WebRuntime from '@lyness/lyn-web'
+import * as toolWeb from '@lyness/lyn-tool-web'
 
 describe('lyn-tool-web real-load-path guard', () => {
   it('has no default export and keeps name/inject/Config through unwrapExports', () => {

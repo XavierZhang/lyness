@@ -3,7 +3,7 @@ description: "The anonymous public HTTP(S) fetch backend for ctx.web: how deploy
 kind: "package-reference"
 ---
 
-# @lyness/web-fetch-http
+# @lyness/lyn-web-fetch-http
 
 English | [中文](README.zh.md)
 
@@ -36,8 +36,8 @@ Choose this backend when a deployment must fetch public pages with bounded outpu
 Load the web service and the provider; configurable limits have safe defaults and validate at plugin construction, so an invalid value fails loudly instead of building a provider with nonsensical caps. The URL security limit is fixed at 2,048 characters.
 
 ```yaml
-- name: '@lyness/web'
-- name: '@lyness/web-fetch-http'
+- name: '@lyness/lyn-web'
+- name: '@lyness/lyn-web-fetch-http'
 ```
 
 | Field | Default | Meaning |
@@ -48,7 +48,7 @@ Load the web service and the provider; configurable limits have safe defaults an
 | `maxRedirects` | `5` | Maximum same-origin redirect hops (`0` follows none) |
 | `userAgent` | `lyness/…` | `User-Agent` header sent on every request |
 
-The generated [configuration catalog](../../../docs/config-catalog.md#lynessweb-fetch-http) is the exhaustive source for every accepted field and its JSDoc.
+The generated [configuration catalog](../../../docs/config-catalog.md#lynesslyn-web-fetch-http) is the exhaustive source for every accepted field and its JSDoc.
 
 ### What a fetch returns
 
@@ -111,7 +111,7 @@ Read these pages when the package-level contract is not enough. They move from t
 - [Web package map](../README.md) — the six-package family and each role.
 - [lyn-web](../web/README.md) — the web service this provider registers into.
 - [lyn-tool-web](../tool-web/README.md) — the model-facing `web_fetch` tool that renders this provider's bodies.
-- [Generated configuration catalog](../../../docs/config-catalog.md#lynessweb-fetch-http) — every accepted config field and its source declaration.
+- [Generated configuration catalog](../../../docs/config-catalog.md#lynesslyn-web-fetch-http) — every accepted config field and its source declaration.
 - [Web capability seam decision](../../../.agents/notes/implemented/architecture/2026-06-24-web-capability-seam.md) — why search and fetch share one provider-selection service.
 
 -----

@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/tool-workflow",
+  "name": "@lyness/lyn-tool-workflow",
   "description": "Model-facing workflow tool: run a JavaScript orchestration script over ctx.workflowEngine",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -37,29 +37,29 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/agent": "workspace:^",
-    "@lyness/invariants": "workspace:^",
-    "@lyness/llm": "workspace:^",
-    "@lyness/session": "workspace:^",
-    "@lyness/system-prompt": "workspace:^",
-    "@lyness/tools": "workspace:^",
-    "@lyness/workflow": "workspace:^",
+    "@lyness/lyn-agent": "workspace:^",
+    "@lyness/lyn-invariants": "workspace:^",
+    "@lyness/lyn-llm": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
+    "@lyness/lyn-system-prompt": "workspace:^",
+    "@lyness/lyn-tools": "workspace:^",
+    "@lyness/lyn-workflow": "workspace:^",
     "@lyness/cordis": "workspace:^"
   },
   "dependencies": {
     "@lyness/schemastery": "workspace:^"
   },
   "devDependencies": {
-    "@lyness/agent": "workspace:^",
-    "@lyness/invariants": "workspace:^",
-    "@lyness/llm": "workspace:^",
-    "@lyness/session": "workspace:^",
-    "@lyness/subagent": "workspace:^",
-    "@lyness/system-prompt": "workspace:^",
-    "@lyness/tools": "workspace:^",
-    "@lyness/workflow": "workspace:^",
-    "@lyness/workflow-worker-thread": "workspace:^",
+    "@lyness/lyn-agent": "workspace:^",
+    "@lyness/lyn-invariants": "workspace:^",
+    "@lyness/lyn-llm": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
+    "@lyness/lyn-subagent": "workspace:^",
+    "@lyness/lyn-system-prompt": "workspace:^",
+    "@lyness/lyn-tools": "workspace:^",
+    "@lyness/lyn-workflow": "workspace:^",
+    "@lyness/lyn-workflow-worker-thread": "workspace:^",
     "@lyness/cordis": "workspace:^",
-    "@lyness/session-projection": "workspace:^"
+    "@lyness/lyn-session-projection": "workspace:^"
   }
 }

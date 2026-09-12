@@ -8,8 +8,8 @@
 
 import { useEffect } from 'react'
 import type { ReactNode } from 'react'
-import type { SnapshotStore } from '@lyness/client-store'
-import type { InjectFace, PropsRuntime } from '@lyness/client-ui-slots'
+import type { SnapshotStore } from '@lyness/lyn-client-store'
+import type { InjectFace, PropsRuntime } from '@lyness/lyn-client-ui-slots'
 import type { ModelsSettingsState, ModelsSettingsStore } from './store.ts'
 import { onboardingReadiness } from './store.ts'
 import type { ModelsOperations } from './operations.ts'

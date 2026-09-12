@@ -3,7 +3,7 @@ description: "Agent-preset surfaces for the Web GUI: the default-preset setting,
 kind: "package-reference"
 ---
 
-# @lyness/client-ui-agent-preset
+# @lyness/lyn-client-ui-agent-preset
 
 English | [中文](README.zh.md)
 

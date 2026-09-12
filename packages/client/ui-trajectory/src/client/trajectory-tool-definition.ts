@@ -2,8 +2,8 @@ import type { Context } from '@lyness/cordis'
 import type {
   ConversationMatch, ConversationNodeContext, ConversationNodeDefinition, RunningToolCall,
   ToolCallBlock, ToolResultNode,
-} from '@lyness/client-ui-conversation/client'
-import type {} from '@lyness/tools/types'
+} from '@lyness/lyn-client-ui-conversation/client'
+import type {} from '@lyness/lyn-tools/types'
 import { trajectoryNode } from './trajectory-definition-common.ts'
 
 /* jscpd:ignore-start -- Target-owned Definitions intentionally keep their event

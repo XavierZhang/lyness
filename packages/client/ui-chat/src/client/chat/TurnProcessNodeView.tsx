@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import { IconChevronDownOutline14 } from '@lyness/client-ui-primitives'
+import { IconChevronDownOutline14 } from '@lyness/lyn-client-ui-primitives'
 import type { ChatNodeViewProps } from '../contract/slots.ts'
 import css from './TurnProcessNodeView.module.css'
 

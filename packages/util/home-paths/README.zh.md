@@ -3,13 +3,13 @@ description: "lyness 主目录与用户数据路径的共享解析，供需要�
 kind: "package-library"
 ---
 
-# @lyness/home-paths
+# @lyness/lyn-home-paths
 
 [English](README.md) | 中文
 
 ## 概述
 
-`@lyness/home-paths` 让包作者能够解析统一的 lyness 数据根目录，并由它派生子路径。显式路径优先于 `$LYNESS_HOME`，后者优先于 `~/.lyn`；空白环境变量会被忽略。其公开辅助函数可以在不暴露机器绝对路径的情况下显示根目录，仅展开单独或当前用户的波浪号形式，并规范化最终路径段尚不存在的监听目标。请把它作为库依赖直接使用，不要通过 `cordis.yml` 加载。
+`@lyness/lyn-home-paths` 让包作者能够解析统一的 lyness 数据根目录，并由它派生子路径。显式路径优先于 `$LYNESS_HOME`，后者优先于 `~/.lyn`；空白环境变量会被忽略。其公开辅助函数可以在不暴露机器绝对路径的情况下显示根目录，仅展开单独或当前用户的波浪号形式，并规范化最终路径段尚不存在的监听目标。请把它作为库依赖直接使用，不要通过 `cordis.yml` 加载。
 
 ## 目录
 
@@ -29,7 +29,7 @@ kind: "package-library"
 ### 解析主目录
 
 ```ts
-import { resolveLynHome, lynHomePath } from '@lyness/home-paths'
+import { resolveLynHome, lynHomePath } from '@lyness/lyn-home-paths'
 
 const home = resolveLynHome()                // configured path, else $LYNESS_HOME, else ~/.lyn
 const settings = lynHomePath('settings')     // join one child onto the resolved home

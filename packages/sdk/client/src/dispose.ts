@@ -5,7 +5,7 @@
  * cannot ride the `lyn-subprocess` service — this module is the seam's
  * documented exception for SDK-managed transports.
  *
- * @module @lyness/sdk-client/dispose
+ * @module @lyness/lyn-sdk-client/dispose
  */
 
 import type { ChildProcess } from 'node:child_process'

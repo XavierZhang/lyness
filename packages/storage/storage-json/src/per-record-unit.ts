@@ -23,14 +23,14 @@
  * as the empty unit. Any new document path, including one whose contents are
  * unreadable or stale, suppresses the bootstrap for the whole unit. The
  * legacy file is never changed or deleted.
- * @module @lyness/storage-json/src/per-record-unit
+ * @module @lyness/lyn-storage-json/src/per-record-unit
  */
 
 import { mkdir, readFile, readdir, rename, rm } from 'node:fs/promises'
 import { dirname, join } from 'node:path'
 import type { Dirent } from 'node:fs'
-import { StorageError } from '@lyness/storage'
-import type { KvUnit, KvUnitDescriptor } from '@lyness/storage'
+import { StorageError } from '@lyness/lyn-storage'
+import type { KvUnit, KvUnitDescriptor } from '@lyness/lyn-storage'
 import { writeAtomic } from './atomic.ts'
 import { parseRecord, serializeRecord } from './format.ts'
 import type { UnitState } from './format.ts'

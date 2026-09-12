@@ -1,21 +1,21 @@
 import { describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
-import SystemPrompt from '@lyness/system-prompt'
-import ToolRuntime, { TOOL_ABORTED_BEFORE_DISPATCH } from '@lyness/tools'
-import type { ToolExecutionResult, ToolExecutionToken } from '@lyness/tools'
-import type { Agent } from '@lyness/agent'
-import { WorkflowRunId, WorkflowEngine } from '@lyness/workflow'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime, { TOOL_ABORTED_BEFORE_DISPATCH } from '@lyness/lyn-tools'
+import type { ToolExecutionResult, ToolExecutionToken } from '@lyness/lyn-tools'
+import type { Agent } from '@lyness/lyn-agent'
+import { WorkflowRunId, WorkflowEngine } from '@lyness/lyn-workflow'
 import type {
   WorkflowAgentEndInfo, WorkflowAgentInfo, WorkflowResult, WorkflowRun,
   WorkflowRunId as WorkflowRunIdType, WorkflowStartRequest,
-} from '@lyness/workflow'
-import { ToolCallId } from '@lyness/llm'
-import SubagentRuntime from '@lyness/subagent'
-import WorkerThreadWorkflowEngine from '@lyness/workflow-worker-thread'
+} from '@lyness/lyn-workflow'
+import { ToolCallId } from '@lyness/lyn-llm'
+import SubagentRuntime from '@lyness/lyn-subagent'
+import WorkerThreadWorkflowEngine from '@lyness/lyn-workflow-worker-thread'
 import * as toolWorkflow from '../src/index.ts'
-import { Session, SessionId } from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
+import { Session, SessionId } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 
 const testToolSignal = new AbortController().signal
 

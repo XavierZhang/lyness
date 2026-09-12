@@ -1,4 +1,4 @@
-/** Durable attachment storage seam (`ctx.attachments`). @module @lyness/attachment */
+/** Durable attachment storage seam (`ctx.attachments`). @module @lyness/lyn-attachment */
 
 import { Context, Service } from '@lyness/cordis'
 import { admitEncodedFile as admitFileInput, admitEncodedImages } from './admission.ts'

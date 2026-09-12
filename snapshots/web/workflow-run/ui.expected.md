@@ -8,10 +8,10 @@
 - button "1 tool call" [expanded]:
   - text: 1 tool call
   - img
-- button "Context injection @lyness/system-prompt":
+- button "Context injection @lyness/lyn-system-prompt":
   - img
   - img
-  - text: Context injection @lyness/system-prompt
+  - text: Context injection @lyness/lyn-system-prompt
 - button "Think The user wants me to use the workflow tool exactly once with specific parameters. Let me carefully follow the instructions:":
   - img
   - img

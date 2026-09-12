@@ -10,9 +10,9 @@
 
 ```ts
 import type { Context } from '@lyness/cordis'
-import { brandString } from '@lyness/brand'
-import { defineTool } from '@lyness/tools'
-import type { ToolCallId } from '@lyness/llm'
+import { brandString } from '@lyness/lyn-brand'
+import { defineTool } from '@lyness/lyn-tools'
+import type { ToolCallId } from '@lyness/lyn-llm'
 
 export const name = 'greet-tool'
 export const inject = ['tools']
@@ -55,7 +55,7 @@ export function apply(ctx: Context) {
 
 ```ts
 import type { Context } from '@lyness/cordis'
-import type {} from '@lyness/tools'
+import type {} from '@lyness/lyn-tools'
 
 export const name = 'tool-logger'
 export const inject = ['tools']
@@ -70,18 +70,18 @@ export function apply(ctx: Context) {
 }
 ```
 
-`import type {} from '@lyness/tools'` 行会引入该包的声明合并，使 `'tools/result'` 及其 payload 具有类型。这与第 4 章导入 `stats.ts` 的做法相同，只是扩展到了包级别。
+`import type {} from '@lyness/lyn-tools'` 行会引入该包的声明合并，使 `'tools/result'` 及其 payload 具有类型。这与第 4 章导入 `stats.ts` 的做法相同，只是扩展到了包级别。
 
 ## 组合并运行
 
 ```yaml
-- name: '@lyness/system-prompt'
-- name: '@lyness/tools'
+- name: '@lyness/lyn-system-prompt'
+- name: '@lyness/lyn-tools'
 - name: './tool-logger.ts'
 - name: './greet-tool.ts'
 ```
 
-`@lyness/tools` 会注入 `systemPrompt` 服务，因为工具需要向系统提示词贡献 schema，所以组合中也要列出该服务的提供方。缺少提供方时，工具插件会像[第 6 章](06-composition-and-hmr.zh.md)所述那样保持 PENDING。
+`@lyness/lyn-tools` 会注入 `systemPrompt` 服务，因为工具需要向系统提示词贡献 schema，所以组合中也要列出该服务的提供方。缺少提供方时，工具插件会像[第 6 章](06-composition-and-hmr.zh.md)所述那样保持 PENDING。
 
 ```sh
 node --import tsx ../../vendor/cordis/bin.js

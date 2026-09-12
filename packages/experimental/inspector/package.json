@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/experimental-inspector",
+  "name": "@lyness/lyn-experimental-inspector",
   "description": "Experimental cross-realm CDP hub for Host debugging and Client Runtime inspection",
   "version": "0.1.5-rc.1",
   "private": true,
@@ -37,22 +37,22 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@lyness/brand": "workspace:^",
-    "@lyness/util-crypto": "workspace:^",
+    "@lyness/lyn-brand": "workspace:^",
+    "@lyness/lyn-util-crypto": "workspace:^",
     "@lyness/schemastery": "workspace:^",
     "ws": "^8.21.0"
   },
   "peerDependencies": {
     "@lyness/cordis": "workspace:^",
     "@lyness/cordis-plugin-loader": "workspace:^",
-    "@lyness/client-modules": "workspace:^",
-    "@lyness/host-webserver": "workspace:^"
+    "@lyness/lyn-client-modules": "workspace:^",
+    "@lyness/lyn-host-webserver": "workspace:^"
   },
   "devDependencies": {
     "@lyness/cordis": "workspace:^",
     "@lyness/cordis-plugin-include": "workspace:^",
     "@lyness/cordis-plugin-loader": "workspace:^",
-    "@lyness/host-webserver": "workspace:^",
+    "@lyness/lyn-host-webserver": "workspace:^",
     "@types/ws": "^8.18.1",
     "playwright": "^1.49.0",
     "tsx": "^4.19.2"

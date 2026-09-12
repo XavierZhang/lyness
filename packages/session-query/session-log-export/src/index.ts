@@ -2,10 +2,10 @@
 
 import type { Context } from '@lyness/cordis'
 import Schema from '@lyness/schemastery'
-import { brandString } from '@lyness/brand'
-import type {} from '@lyness/attachment'
-import type { CommandResult } from '@lyness/commands'
-import type { SessionId } from '@lyness/session/types'
+import { brandString } from '@lyness/lyn-brand'
+import type {} from '@lyness/lyn-attachment'
+import type { CommandResult } from '@lyness/lyn-commands'
+import type { SessionId } from '@lyness/lyn-session/types'
 import {
   DEFAULT_SESSION_LOG_COMPRESSION_LEVEL,
   flushLiveSessionLog,

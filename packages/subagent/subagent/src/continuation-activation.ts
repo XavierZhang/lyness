@@ -6,7 +6,7 @@
  * every mutable residency decision to this registry, so delivery and teardown
  * share one child lock and one Activation map.
  *
- * @module @lyness/subagent/continuation-activation
+ * @module @lyness/lyn-subagent/continuation-activation
  */
 
 import type { Context } from '@lyness/cordis'
@@ -15,16 +15,16 @@ import type {
   AgentHandle,
   AgentOptions,
   CreateAgentOptions,
-} from '@lyness/agent'
-import { errorChain } from '@lyness/llm'
-import type { MessageId } from '@lyness/llm'
+} from '@lyness/lyn-agent'
+import { errorChain } from '@lyness/lyn-llm'
+import type { MessageId } from '@lyness/lyn-llm'
 import type {
   SessionEvent,
   SessionId,
   SessionLogOffset as SessionLogOffsetType,
   UserMessage,
-} from '@lyness/session'
-import type { ToolRestriction } from '@lyness/tools'
+} from '@lyness/lyn-session'
+import type { ToolRestriction } from '@lyness/lyn-tools'
 import {
   appendDelegatedPolicyOverrides,
   applyChildComposition,

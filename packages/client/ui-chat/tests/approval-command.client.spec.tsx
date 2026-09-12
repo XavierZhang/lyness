@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import { Context } from '@lyness/cordis'
-import type { ChatSnapshot, UseChat } from '@lyness/client-ui-chat/client'
-import type { PropsRuntime } from '@lyness/client-ui-slots'
+import type { ChatSnapshot, UseChat } from '@lyness/lyn-client-ui-chat/client'
+import type { PropsRuntime } from '@lyness/lyn-client-ui-slots'
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 import { ApprovalCommand, commandOf } from '../src/client/chat/ApprovalCommand.tsx'

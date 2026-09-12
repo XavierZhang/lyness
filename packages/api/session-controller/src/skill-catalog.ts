@@ -1,12 +1,12 @@
 /** Session-addressed, cold-readable skill catalog Remote. */
 
 import type { Context } from '@lyness/cordis'
-import type {} from '@lyness/agent-presets/types'
-import type { SessionId } from '@lyness/session'
-import { SessionQueryError } from '@lyness/session-query'
-import { isUserInvocable } from '@lyness/skill'
-import type { ScopeKey } from '@lyness/scope'
-import { Remote, RemoteError, TypertRemoteService } from '@lyness/typert-protocol'
+import type {} from '@lyness/lyn-agent-presets/types'
+import type { SessionId } from '@lyness/lyn-session'
+import { SessionQueryError } from '@lyness/lyn-session-query'
+import { isUserInvocable } from '@lyness/lyn-skill'
+import type { ScopeKey } from '@lyness/lyn-scope'
+import { Remote, RemoteError, TypertRemoteService } from '@lyness/lyn-typert-protocol'
 import type { SkillListRequest, SkillListValue } from './types.ts'
 
 declare module '@lyness/cordis' {
@@ -67,7 +67,7 @@ export class SessionSkillCatalog extends TypertRemoteService {
     if (skillRegistry === undefined) {
       throw new RemoteError(
         'gateway/internal',
-        'skill registry is absent: neither this session\'s agent preset nor the host composition mounts @lyness/skill',
+        'skill registry is absent: neither this session\'s agent preset nor the host composition mounts @lyness/lyn-skill',
         {},
       )
     }

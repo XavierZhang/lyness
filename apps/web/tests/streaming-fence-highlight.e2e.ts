@@ -4,9 +4,9 @@ import { fileURLToPath } from 'node:url'
 import type { Browser, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed } from 'vitest'
-import type { GenerateOptions, StreamChunk } from '@lyness/llm'
-import { LlmAdapter } from '@lyness/llm'
-import type {} from '@lyness/agent-default-model'
+import type { GenerateOptions, StreamChunk } from '@lyness/lyn-llm'
+import { LlmAdapter } from '@lyness/lyn-llm'
+import type {} from '@lyness/lyn-agent-default-model'
 import {
   assertFixtureInventory,
   captureStableAria,

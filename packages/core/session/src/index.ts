@@ -3,18 +3,18 @@
  * the derived LLM message history. Persistence is a plugin concern (subscribe
  * to `session/event`, drain on `session/flush`).
  *
- * @module @lyness/session
+ * @module @lyness/lyn-session
  */
 
 import { Context, Service } from '@lyness/cordis'
 import { isAbsolute } from 'node:path'
-import { brandString } from '@lyness/brand'
-import { assertNever, deepFreeze, snapshotJsonValue } from '@lyness/util-values'
-import { scopeOf, scopeTarget } from '@lyness/scope'
-import type { Scoped } from '@lyness/scope'
-import type { Message } from '@lyness/llm'
+import { brandString } from '@lyness/lyn-brand'
+import { assertNever, deepFreeze, snapshotJsonValue } from '@lyness/lyn-util-values'
+import { scopeOf, scopeTarget } from '@lyness/lyn-scope'
+import type { Scoped } from '@lyness/lyn-scope'
+import type { Message } from '@lyness/lyn-llm'
 import { SESSION_FORMAT_VERSION, SessionLogOffset, SessionSeq } from './types.ts'
-import type { TypertLookup } from '@lyness/typert-protocol'
+import type { TypertLookup } from '@lyness/lyn-typert-protocol'
 import type { CreateSessionOptions, EpochHeader, PrepareSessionOptions, RequestContext, SessionEvent, SessionEventMap, SessionEventType, SessionHeader, SessionId, SessionSeedEventState, SurfaceIntent, SurfaceEventType } from './types.ts'
 import { deriveEventMessage, SurfaceManager, validateSessionEventData, validateSurfaceMetadata } from './surface.ts'
 import type { SessionSurface } from './surface.ts'
@@ -23,7 +23,7 @@ import { foldRequestHeader } from './request-header.ts'
 export * from './types.ts'
 export { SessionPreparation } from './preparation.ts'
 export type { SessionPreparationOptions } from './preparation.ts'
-export type { AssistantMessage, SystemMessage, ToolResultMessage, UserMessage } from '@lyness/llm'
+export type { AssistantMessage, SystemMessage, ToolResultMessage, UserMessage } from '@lyness/lyn-llm'
 export { interruptedTurnClosers, TOOL_NOT_STARTED, TOOL_OUTCOME_UNKNOWN } from './repair.ts'
 export type { SessionSurface, SurfaceFoldReplacement, SurfaceFoldResult } from './surface.ts'
 export { deriveEventMessage, foldSurface, isAppendSurfaceEvent, isReplacementSurfaceEvent, isSurfaceEvent, isSurfaceEligibleType } from './surface.ts'
@@ -41,7 +41,7 @@ declare module '@lyness/cordis' {
      * back with a paired disposal; detach requested during dispatch is deferred.
      * A returned-promise rejection is logged but cannot retroactively veto this
      * synchronous boundary.
-     * Scope-filtered dispatch (`@lyness/scope`): agent-scoped listeners
+     * Scope-filtered dispatch (`@lyness/lyn-scope`): agent-scoped listeners
      * receive only sessions entered through that agent's context.
      * @param session - the session just entered and announced.
      * @lynScopeScan unsupported
@@ -52,7 +52,7 @@ declare module '@lyness/cordis' {
      * Emitted once when an announced session leaves the store, including
      * publication rollback, but never for an entry whose creation announcement
      * did not begin. Listener failures are logged and contained.
-     * Scope-filtered dispatch (`@lyness/scope`) reuses the owner scope.
+     * Scope-filtered dispatch (`@lyness/lyn-scope`) reuses the owner scope.
      * @param session - the session that is no longer live in the store.
      * @lynScopeScan unsupported
      * @mode emit
@@ -62,7 +62,7 @@ declare module '@lyness/cordis' {
      * Post-commit, fire-and-forget append feed. The listener snapshot resolves
      * before the log push, but callbacks run after it; observer failures are
      * logged and contained without making the committed append fail.
-     * Scope-filtered dispatch (`@lyness/scope`): agent-scoped listeners
+     * Scope-filtered dispatch (`@lyness/lyn-scope`): agent-scoped listeners
      * receive only events from sessions entered through that agent's context.
      * @param session - the session whose log grew.
      * @param event - the appended event, exactly as recorded.
@@ -73,7 +73,7 @@ declare module '@lyness/cordis' {
     /**
      * Awaited parallel durability checkpoint: every listener runs and the
      * caller awaits all of them, with no waterfall veto. Scope-filtered dispatch
-     * (`@lyness/scope`) reuses the session's owner scope.
+     * (`@lyness/lyn-scope`) reuses the session's owner scope.
      * @param session - the session whose buffered events must reach durable storage.
      * @lynScopeScan unsupported
      * @mode parallel
@@ -82,7 +82,7 @@ declare module '@lyness/cordis' {
   }
 }
 
-declare module '@lyness/typert-protocol' {
+declare module '@lyness/lyn-typert-protocol' {
   interface TypertLookupMap {
     session: TypertLookup<Session, SessionId>
   }
@@ -899,8 +899,8 @@ export class SessionStore extends Service {
       typeCtx.typert.lookups.register('session', {
         parameter: 'session',
         wire: 'sessionId',
-        hostTypeSymbol: '@lyness/session#Session',
-        wireTypeSymbol: '@lyness/session/types#SessionId',
+        hostTypeSymbol: '@lyness/lyn-session#Session',
+        wireTypeSymbol: '@lyness/lyn-session/types#SessionId',
         resolve: sessionId => this.get(sessionId),
       })
     })

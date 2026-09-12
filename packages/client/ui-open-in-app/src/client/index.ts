@@ -7,15 +7,15 @@
  */
 
 import type { Context as ClientContext } from '@lyness/cordis'
-import type {} from '@lyness/client-locale/client'
-import type {} from '@lyness/client-ui-renderer/client'
-import type {} from '@lyness/client-ui-session/client'
-import { OPEN_IN_APP_ICON_PREFIX } from '@lyness/host-open-in-app/shared'
+import type {} from '@lyness/lyn-client-locale/client'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
+import type {} from '@lyness/lyn-client-ui-session/client'
+import { OPEN_IN_APP_ICON_PREFIX } from '@lyness/lyn-host-open-in-app/shared'
 import { OpenInAppController } from './controller.ts'
 import { OpenInAppAction, type OpenInAppActionInjected } from './OpenInAppAction.tsx'
 import { en, NS, zh, type OpenInAppKey } from './locales.ts'
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface LocaleNamespaceMap {
     /** Session-header "open workspace in application" copy. */
     'open-in-app': OpenInAppKey

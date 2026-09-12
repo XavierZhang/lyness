@@ -95,9 +95,9 @@ export function prepareDevelopmentProject(options: DevelopmentProjectOptions): s
     throw new Error('desktop development: workspace dependency links are missing; run pnpm install')
   }
   const hostManifest = readManifest(join(options.hostDir, 'package.json'))
-  if (hostManifest.name !== '@lyness/desktop-host' || hostManifest.version !== options.release.version) {
+  if (hostManifest.name !== '@lyness/lyn-desktop-host' || hostManifest.version !== options.release.version) {
     throw new Error(
-      `desktop development: apps/desktop-host must be @lyness/desktop-host@${options.release.version}, found `
+      `desktop development: apps/desktop-host must be @lyness/lyn-desktop-host@${options.release.version}, found `
       + `${String(hostManifest.name)}@${String(hostManifest.version)}`,
     )
   }
@@ -113,7 +113,7 @@ export function prepareDevelopmentProject(options: DevelopmentProjectOptions): s
   const lynLink = join(destinationModules, '@lyness', 'lyn')
   removeOwnedPath(lynLink)
   linkDirectory(options.cliDir, lynLink)
-  const hostLink = join(destinationModules, '@lyness', 'desktop-host')
+  const hostLink = join(destinationModules, '@lyness', 'lyn-desktop-host')
   removeOwnedPath(hostLink)
   linkDirectory(options.hostDir, hostLink)
   return options.projectDir

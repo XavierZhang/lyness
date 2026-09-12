@@ -5,8 +5,8 @@ import { useState } from 'react'
 import type { ReactNode, RefObject } from 'react'
 import {
   FISH_LOGO_PATH, FISH_LOGO_VIEWBOX, IconChevronDownOutline14, IconFolderClose16, IconFolderOpen16,
-} from '@lyness/client-ui-primitives'
-import { workspaceTitleOf } from '@lyness/util-workspace-path'
+} from '@lyness/lyn-client-ui-primitives'
+import { workspaceTitleOf } from '@lyness/lyn-util-workspace-path'
 import type { ConversationSlotProps } from '../contract/slots.ts'
 import css from './HeroShell.module.css'
 

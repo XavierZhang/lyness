@@ -6,8 +6,8 @@ import { chromium, type Browser, type Page } from 'playwright'
 import { unzipSync, strFromU8 } from 'fflate'
 import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
 import { tmpdir, release } from 'node:os'
-import type { SessionEvent, SessionId } from '@lyness/session'
-import type {} from '@lyness/tool-present/types'
+import type { SessionEvent, SessionId } from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-tool-present/types'
 import {
   acknowledgeReloadConnectionLoss, assertFinalWorkspaceSnapshot, captureExpandedTurnProcessAria,
   compareOrRefreshGolden, fixtureUserPrompts, launchWebScaffold, recordFixture,

@@ -3,7 +3,7 @@ description: "Read-only projection of the current Cordis Loader plugin state wit
 kind: "package-reference"
 ---
 
-# @lyness/host-plugin-inventory
+# @lyness/lyn-host-plugin-inventory
 
 English | [中文](README.zh.md)
 

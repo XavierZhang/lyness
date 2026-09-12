@@ -3,7 +3,7 @@ description: "Standalone single-tool SDK profile for users who need a minimal cr
 kind: "package-bundle"
 ---
 
-# `@lyness/sdk-minimal`
+# `@lyness/lyn-sdk-minimal`
 
 English | [中文](README.zh.md)
 

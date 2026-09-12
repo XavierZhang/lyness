@@ -3,24 +3,24 @@
 # The fixture corpus must not depend on the developer's personal skill roots.
 # Ordinary product launches retain the sdk profile's default skill discovery.
 - id: skill-filesystem
-  name: '@lyness/skill-filesystem'
+  name: '@lyness/lyn-skill-filesystem'
   config:
     includeDefaultRoots: false
 
 - id: llm-deepseek
-  name: '@lyness/llm-deepseek'
+  name: '@lyness/lyn-llm-deepseek'
   config:
     thinking: enabled
     reasoningEffort: max
 
 - id: session-persistence-jsonl
-  name: '@lyness/session-persistence-jsonl'
+  name: '@lyness/lyn-session-persistence-jsonl'
   config:
     root: !!js lynHomePath('sessions')
     compression: !!js "process.env.LYNESS_SNAPSHOT === undefined ? 'zstd' : 'none'"
 
 - id: tool-subagent
-  name: '@lyness/tool-subagent'
+  name: '@lyness/lyn-tool-subagent'
   config:
     provider: spawn
     toolName: subagent
@@ -29,13 +29,13 @@
     maxDepth: 1
 
 - id: session-log-deepseek
-  name: '@lyness/session-log-deepseek'
+  name: '@lyness/lyn-session-log-deepseek'
   config:
     enabled: true
 
 - insert:
     - id: snapshot-message-feedback
-      name: '@lyness/message-feedback'
+      name: '@lyness/lyn-message-feedback'
       disabled: !!js "process.env.LYNESS_SNAPSHOT_FEEDBACK !== '1'"
       config:
         maxNoteBytes: 1024

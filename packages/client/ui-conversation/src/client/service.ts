@@ -9,18 +9,18 @@
  */
 import { Service } from '@lyness/cordis'
 import type { Context } from '@lyness/cordis'
-import { randomUUID } from '@lyness/util-crypto'
+import { randomUUID } from '@lyness/lyn-util-crypto'
 // Type-only imports: a plugin-to-plugin value import is a bundle purity
 // error, so scope resolution goes through the sessions service (scopeOf
 // method) instead of the standalone helper.
 import type {
   ISessions, PendingSubmissionRetirement, SessionFace,
-} from '@lyness/api-session-controller/client'
-import type {} from '@lyness/client-file-upload/client'
-import type { SessionId } from '@lyness/session/types'
-import type { ImageMediaType } from '@lyness/attachment'
-import { createSnapshotStore } from '@lyness/client-store'
-import type { SnapshotStore } from '@lyness/client-store'
+} from '@lyness/lyn-api-session-controller/client'
+import type {} from '@lyness/lyn-client-file-upload/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { ImageMediaType } from '@lyness/lyn-attachment'
+import { createSnapshotStore } from '@lyness/lyn-client-store'
+import type { SnapshotStore } from '@lyness/lyn-client-store'
 import type {
   ComposerAttachment, ComposerFileAttachment, ComposerImageAttachment, DraftFileUpload,
 } from './contract/slots.ts'

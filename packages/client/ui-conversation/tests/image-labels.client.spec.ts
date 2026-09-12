@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { makeTranslate } from '@lyness/client-test-runtime'
-import { zh as commonZh } from '@lyness/client-locale/src/locales/zh.ts'
+import { makeTranslate } from '@lyness/lyn-client-test-runtime'
+import { zh as commonZh } from '@lyness/lyn-client-locale/src/locales/zh.ts'
 import { attachmentErrorText, imageSizeText } from '../src/client/image-labels.ts'
 import { en, zh } from '../src/client/locales.ts'
 

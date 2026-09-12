@@ -7,9 +7,9 @@ import { fileURLToPath } from 'node:url'
 import type { Browser, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed } from 'vitest'
-import { ToolCallId, createAssistantMessage, createToolResultMessage, createUserMessage } from '@lyness/llm'
-import { SESSION_FORMAT_VERSION, Session, SessionId } from '@lyness/session'
-import type {} from '@lyness/session-title'
+import { ToolCallId, createAssistantMessage, createToolResultMessage, createUserMessage } from '@lyness/lyn-llm'
+import { SESSION_FORMAT_VERSION, Session, SessionId } from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-session-title'
 import {
   launchWebScaffold, seedSession, watchConsole, webSnapshotMode, type WebScaffold,
 } from './scaffold.ts'

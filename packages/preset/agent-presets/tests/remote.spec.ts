@@ -11,18 +11,18 @@ import { fileURLToPath, pathToFileURL } from 'node:url'
 import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
 import Include from '@lyness/cordis-plugin-include'
-import LlmRuntime from '@lyness/llm'
-import SessionStore, { SessionId } from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import SystemPrompt from '@lyness/system-prompt'
-import ToolRuntime from '@lyness/tools'
-import AgentRegistry, { type Agent } from '@lyness/agent'
-import AgentLoop from '@lyness/agent-loop'
-import { remoteErrorOf, type RemoteFailure } from '@lyness/typert-protocol'
+import LlmRuntime from '@lyness/lyn-llm'
+import SessionStore, { SessionId } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime from '@lyness/lyn-tools'
+import AgentRegistry, { type Agent } from '@lyness/lyn-agent'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import { remoteErrorOf, type RemoteFailure } from '@lyness/lyn-typert-protocol'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import AgentPresets, { COMPOSITION_FILE, METADATA_FILE } from '@lyness/agent-presets'
-import type { Config } from '@lyness/agent-presets'
-import type {} from '@lyness/agent-presets/types'
+import AgentPresets, { COMPOSITION_FILE, METADATA_FILE } from '@lyness/lyn-agent-presets'
+import type { Config } from '@lyness/lyn-agent-presets'
+import type {} from '@lyness/lyn-agent-presets/types'
 
 const FIXTURES = join(dirname(fileURLToPath(import.meta.url)), 'fixtures')
 const ROOTS = [
@@ -32,7 +32,7 @@ const ROOTS = [
 // A row naming a package, the way an authored preset's rows do. Health
 // resolves every row it can prove will start, so a path reaching outside the
 // temp preset directory these tests seed would report the composition broken.
-const VALID = '- id: prompt\n  name: \'@lyness/system-prompt\'\n'
+const VALID = '- id: prompt\n  name: \'@lyness/lyn-system-prompt\'\n'
 
 /** Every temp preset root created by this file, removed after each test. */
 const roots: string[] = []

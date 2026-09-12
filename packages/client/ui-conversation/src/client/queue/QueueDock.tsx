@@ -1,13 +1,13 @@
 import type { Context } from '@lyness/cordis'
 import { useEffect, useId, useMemo, useState } from 'react'
-import type { FileAttachmentRef, ImageAttachmentRef } from '@lyness/attachment'
-import type { PropsLocale, PropsRuntime } from '@lyness/client-ui-slots'
-import type { SessionId } from '@lyness/session/types'
+import type { FileAttachmentRef, ImageAttachmentRef } from '@lyness/lyn-attachment'
+import type { PropsLocale, PropsRuntime } from '@lyness/lyn-client-ui-slots'
+import type { SessionId } from '@lyness/lyn-session/types'
 import {
   IconCheckOutline16, IconChevronDownOutline14, IconChevronUpOutline14, IconCloseOutline16,
   FileTypeIcon, fileSizeText, IconEditOutline16, IconQueueOutline14, IconSendOutline14,
   IconTrashOutline16, projectUserText, Tooltip,
-} from '@lyness/client-ui-primitives'
+} from '@lyness/lyn-client-ui-primitives'
 import type { QueueAction, QueueItemId, QueueRow } from '../contract/queue.ts'
 import { NS } from '../locales.ts'
 import css from './QueueDock.module.css'

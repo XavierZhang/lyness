@@ -3,7 +3,7 @@ description: "Web GUI 的 agent（智能体） preset 界面：默认 preset 设
 kind: "package-reference"
 ---
 
-# @lyness/client-ui-agent-preset
+# @lyness/lyn-client-ui-agent-preset
 
 [English](README.md) | 中文
 

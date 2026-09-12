@@ -1,7 +1,7 @@
 /** Trajectory toolbar: timeline and ledger fold controls. */
 
-import type { TranslateNS } from '@lyness/client-ui-slots'
-import { IconSearchOutline16 } from '@lyness/client-ui-primitives'
+import type { TranslateNS } from '@lyness/lyn-client-ui-slots'
+import { IconSearchOutline16 } from '@lyness/lyn-client-ui-primitives'
 import type { NS } from './locales.ts'
 import css from './TrajectoryToolbar.module.css'
 

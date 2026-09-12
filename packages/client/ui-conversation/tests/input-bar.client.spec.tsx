@@ -8,19 +8,19 @@
 // root listener routes them through the keymap commands); draft writes drive
 // the shell (jsdom's beforeinput lacks the ranges Lexical needs).
 
-import type { GlobalStandardProps } from '@lyness/client-ui-slots'
+import type { GlobalStandardProps } from '@lyness/lyn-client-ui-slots'
 import { afterEach, describe, expect, it, onTestFinished, vi } from 'vitest'
 import { act, cleanup, fireEvent, render } from '@testing-library/react'
 import { $getRoot, $isTextNode } from 'lexical'
 import {
   bindSnapshotSelector, conversationSnapshot as conversationFixture, makeTranslate, RemoteError,
   sessionSnapshot as sessionFixture,
-} from '@lyness/client-test-runtime'
-import { createSnapshotStore } from '@lyness/client-store'
-import type { SessionListState, SessionSnapshot } from '@lyness/api-session-controller/client'
-import { zh as commonZh } from '@lyness/client-locale/src/locales/zh.ts'
+} from '@lyness/lyn-client-test-runtime'
+import { createSnapshotStore } from '@lyness/lyn-client-store'
+import type { SessionListState, SessionSnapshot } from '@lyness/lyn-api-session-controller/client'
+import { zh as commonZh } from '@lyness/lyn-client-locale/src/locales/zh.ts'
 import type { Context } from '@lyness/cordis'
-import type { SessionId } from '@lyness/session/types'
+import type { SessionId } from '@lyness/lyn-session/types'
 import type { SubmitOutcome } from '../src/client/contract/input.ts'
 import { SessionInputShell } from '../src/client/input/facade.ts'
 import { $replaceDetectSpanWithText, $selectDetectSpan } from '../src/client/input/editor/span-map.ts'

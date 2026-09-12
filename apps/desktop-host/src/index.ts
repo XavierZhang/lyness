@@ -1,7 +1,7 @@
 /**
  * Electron child-process entry: boots the desktop project without a listening
  * socket and carries API plus validated Web assets over framed byte pipes.
- * @module @lyness/desktop-host
+ * @module @lyness/lyn-desktop-host
  */
 
 import { createRequire } from 'node:module'
@@ -18,13 +18,13 @@ import {
   loadLayeredEnv,
   loadProfileDirectory,
   loadOverlayPatches,
-} from '@lyness/app-boot'
-import { provideCmdline } from '@lyness/cmdline'
-import { LYNESS_LAUNCH_ENVIRONMENT_KEY } from '@lyness/launch-environment'
-import type {} from '@lyness/api-gateway'
-import type { ConnectionFetchHandler } from '@lyness/client-connection'
-import type {} from '@lyness/client-modules'
-import { renderIndexInjections, type IndexInjection } from '@lyness/host-webserver'
+} from '@lyness/lyn-app-boot'
+import { provideCmdline } from '@lyness/lyn-cmdline'
+import { LYNESS_LAUNCH_ENVIRONMENT_KEY } from '@lyness/lyn-launch-environment'
+import type {} from '@lyness/lyn-api-gateway'
+import type { ConnectionFetchHandler } from '@lyness/lyn-client-connection'
+import type {} from '@lyness/lyn-client-modules'
+import { renderIndexInjections, type IndexInjection } from '@lyness/lyn-host-webserver'
 import {
   DESKTOP_HOST_PROTOCOL_VERSION,
   DESKTOP_PIPE_CHUNK_BYTES,
@@ -184,7 +184,7 @@ function lynVersion(projectDir: string): string {
 
 function assetHandler(ctx: Context, projectDir: string): ConnectionFetchHandler {
   const require = createRequire(join(projectDir, 'package.json'))
-  const distIndex = require.resolve('@lyness/web-frontend/dist/index.html')
+  const distIndex = require.resolve('@lyness/lyn-web-frontend/dist/index.html')
   const distRoot = realpathSync(dirname(distIndex))
   const renderIndex = async (): Promise<Response> => {
     const rows: IndexInjection[] = [{ kind: 'script', placement: 'head', text: DESKTOP_TRANSPORT_SCRIPT }]

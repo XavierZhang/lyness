@@ -1,10 +1,10 @@
 /** Durable EOF refusals preserve historical generations and never fall back from native V3. */
 
 import { Context } from '@lyness/cordis'
-import { SessionId } from '@lyness/session'
-import type { SessionFormatJsonObject } from '@lyness/session-format'
-import { SessionFormatUnsupportedError } from '@lyness/session-persistence'
-import JsonlSessionPersistence from '@lyness/session-persistence-jsonl'
+import { SessionId } from '@lyness/lyn-session'
+import type { SessionFormatJsonObject } from '@lyness/lyn-session-format'
+import { SessionFormatUnsupportedError } from '@lyness/lyn-session-persistence'
+import JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
 import { createHash } from 'node:crypto'
 import { mkdir, mkdtemp, readFile, readdir, rm, stat, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
@@ -33,7 +33,7 @@ const nativePrefix: readonly SessionFormatJsonObject[] = [
   ...prefix.slice(0, 2),
   { type: 'system/message', surfaceOp: 'append', data: {
     turn: 1, step: 1, message: {
-      id: 'native-system', role: 'system', source: { kind: 'plugin', plugin: '@lyness/system-prompt' },
+      id: 'native-system', role: 'system', source: { kind: 'plugin', plugin: '@lyness/lyn-system-prompt' },
       content: [{ type: 'text', text: 'Inspect the durable audit.' }],
     },
   } },
@@ -58,7 +58,7 @@ const migrationRefusals = [
     tail: { type: 'session-log-deepseek/delivery-accepted', data: {
       sessionId: id, throughSeq: prefix.length - 1, sessionFormatVersion: 3,
     } },
-    diagnostic: '@lyness/session-format-v2-to-v3 refuses this format v2 Session: format v2 delivery marker claims target format v3',
+    diagnostic: '@lyness/lyn-session-format-v2-to-v3 refuses this format v2 Session: format v2 delivery marker claims target format v3',
   },
   {
     name: 'source message colliding with the generated system ID',

@@ -3,7 +3,7 @@ description: "The Agent handle, live registry, process-local initiator scope, an
 kind: "package-reference"
 ---
 
-# @lyness/agent
+# @lyness/lyn-agent
 
 English | [中文](README.zh.md)
 

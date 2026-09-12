@@ -1,5 +1,5 @@
-import type { SnapshotStore } from '@lyness/client-store'
-import type { SessionId } from '@lyness/session/types'
+import type { SnapshotStore } from '@lyness/lyn-client-store'
+import type { SessionId } from '@lyness/lyn-session/types'
 
 /** Why one session's composer is inert. */
 export interface ComposerBlock {

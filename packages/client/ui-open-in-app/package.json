@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/client-ui-open-in-app",
+  "name": "@lyness/lyn-client-ui-open-in-app",
   "description": "Web Session-header \"Open In...\" split button opening the session workspace directory in a locally installed application",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -38,10 +38,10 @@
   "lyn": {
     "client": {
       "inject": [
-        "@lyness/client-locale",
-        "@lyness/client-ui-conversation",
-        "@lyness/client-ui-renderer",
-        "@lyness/client-ui-session"
+        "@lyness/lyn-client-locale",
+        "@lyness/lyn-client-ui-conversation",
+        "@lyness/lyn-client-ui-renderer",
+        "@lyness/lyn-client-ui-session"
       ],
       "platform": "web"
     }
@@ -51,17 +51,17 @@
   },
   "devDependencies": {
     "@lyness/cordis": "workspace:^",
-    "@lyness/api-session-controller": "workspace:^",
-    "@lyness/client-locale": "workspace:^",
-    "@lyness/client-store": "workspace:^",
-    "@lyness/client-test-runtime": "workspace:^",
-    "@lyness/client-ui-conversation": "workspace:^",
-    "@lyness/client-ui-primitives": "workspace:^",
-    "@lyness/client-ui-renderer": "workspace:^",
-    "@lyness/client-ui-session": "workspace:^",
-    "@lyness/client-ui-slots": "workspace:^",
-    "@lyness/host-open-in-app": "workspace:^",
-    "@lyness/session": "workspace:^",
+    "@lyness/lyn-api-session-controller": "workspace:^",
+    "@lyness/lyn-client-locale": "workspace:^",
+    "@lyness/lyn-client-store": "workspace:^",
+    "@lyness/lyn-client-test-runtime": "workspace:^",
+    "@lyness/lyn-client-ui-conversation": "workspace:^",
+    "@lyness/lyn-client-ui-primitives": "workspace:^",
+    "@lyness/lyn-client-ui-renderer": "workspace:^",
+    "@lyness/lyn-client-ui-session": "workspace:^",
+    "@lyness/lyn-client-ui-slots": "workspace:^",
+    "@lyness/lyn-host-open-in-app": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
     "@types/react": "~18.3.1",
     "react": "^18.2.0"
   }

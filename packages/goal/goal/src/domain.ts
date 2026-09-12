@@ -4,10 +4,10 @@
  * event. Kept separate from ./types.ts (the pure client-safe outlet) because
  * these declarations pull lyn-agent, lyn-llm, and cordis into the program —
  * the one-program-per-side layout forbids that on client aggregates.
- * @module @lyness/goal
+ * @module @lyness/lyn-goal
  */
 
-import type { Agent } from '@lyness/agent'
+import type { Agent } from '@lyness/lyn-agent'
 import type { GoalId, GoalRef, GoalSnapshot, GoalView } from './types.ts'
 
 /** Goal state-changing verbs recorded in the durable source change. */
@@ -52,13 +52,13 @@ export interface GoalMessageSource {
   readonly round: number
 }
 
-declare module '@lyness/llm' {
+declare module '@lyness/lyn-llm' {
   interface MessageSourceMap {
     goal: GoalMessageSource
   }
 }
 
-declare module '@lyness/session/types' {
+declare module '@lyness/lyn-session/types' {
   interface SessionEventMap {
     /**
      * Complete post-mutation goal state or clear tombstone.
@@ -106,11 +106,11 @@ declare module '@lyness/cordis' {
     /**
      * Goal mutation accepted by one live agent. The matching `goal/change`
      * session event has already committed. Listener failures are contained.
-     * Scope-filtered dispatch (`@lyness/scope`): agent-scoped listeners receive only that agent.
+     * Scope-filtered dispatch (`@lyness/lyn-scope`): agent-scoped listeners receive only that agent.
      * @param payload.agent - agent whose session owns the goal.
      * @param payload.change - fresh current projection or clear tombstone.
      * @mode emit
      */
-    'goal/changed'(this: import('@lyness/scope').Scoped<Agent>, payload: { agent: Agent; change: GoalChanged }): void
+    'goal/changed'(this: import('@lyness/lyn-scope').Scoped<Agent>, payload: { agent: Agent; change: GoalChanged }): void
   }
 }

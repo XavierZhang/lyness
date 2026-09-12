@@ -1,15 +1,15 @@
-import { createUserMessage } from '@lyness/llm'
+import { createUserMessage } from '@lyness/lyn-llm'
 import { Context, type Fiber } from '@lyness/cordis'
 import { describe, expect, it, vi } from 'vitest'
-import SessionStore, { Session, SessionId, SessionSeq } from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
+import SessionStore, { Session, SessionId, SessionSeq } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 import SessionTitleService, {
   SessionTitleProviderId,
   type Config,
   type SessionTitleProvider,
   type SessionTitleProviderRequest,
   type SessionTitleProviderResult,
-} from '@lyness/session-title'
+} from '@lyness/lyn-session-title'
 
 const CONFIG = {
   fallbackMaxWords: 5,

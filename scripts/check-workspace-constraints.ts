@@ -40,19 +40,6 @@ const publicNativePackages = new Set([
   '@lyness/node-addon-system-linux-arm64',
   '@lyness/node-addon-system-linux-x64',
 ])
-/**
- * Packages that share the fork's scope but keep their own version line.
- *
- * Upstream separates them by the product-name segment its own packages carry:
- * the Landlock addon family tracks its native source, and the documentation
- * site is a private build. Without that segment the scope alone reads them
- * into the release family.
- */
-const foreignVersionLinePackages = new Set([
-  ...publicNativePackages,
-  '@lyness/node-addon-system-workspace',
-  '@lyness/website',
-])
 /** Deliberate source payloads whose exact bytes are part of the package's audit surface. */
 const publicationSourceAllowlist: Readonly<Record<string, readonly string[]>> = {
   '@lyness/node-addon-system': ['src/main.c', 'src/flock.c'],
@@ -67,7 +54,7 @@ const publishedRepositoryUrl = 'git+https://github.com/XavierZhang/lyness.git'
 /** Packages that participate in the experimental policy. */
 const experimentalPackageDirectory = /^packages\/experimental\/[^/]+$/
 /** npm namespace reserved for experimental packages. */
-const experimentalPackageNamePrefix = '@lyness/experimental-'
+const experimentalPackageNamePrefix = '@lyness/lyn-experimental-'
 /** Ordinary directories whose packages this repository publishes: one release member each. */
 const standardReleaseMemberDirectory = /^(?:packages\/(?!experimental\/)[^/]+\/[^/]+|apps\/(?!desktop(?:-host)?$)[^/]+|vendor\/[^/]+)$/
 /** Installable application assembled by electron-builder rather than published to npm. */
@@ -75,14 +62,14 @@ const desktopApplicationDirectory = 'apps/desktop'
 const localArtifactDirs = new Set(['node_modules'])
 const appPackageFiles: Readonly<Record<string, readonly string[]>> = {
   '@lyness/lyn': ['lib/*.js'],
-  '@lyness/desktop-host': [
+  '@lyness/lyn-desktop-host': [
     'lib/index.js',
     'config/desktop.cordis.patch.yml',
   ],
   // Sourcemaps stay out by payload policy; the worker-preview surface
   // (dist/preview.html and dist/preview/) backs private experimental
   // packages and is not published.
-  '@lyness/web-frontend': ['dist', '!dist/**/*.map', '!dist/preview.html', '!dist/preview'],
+  '@lyness/lyn-web-frontend': ['dist', '!dist/**/*.map', '!dist/preview.html', '!dist/preview'],
 }
 
 /** The subset of package.json fields this constraint check cares about. */
@@ -168,28 +155,28 @@ const packageFileExtras: Readonly<Record<string, readonly string[]>> = {
   // them through its own CSS pipeline, so the sheets are published artifacts.
   // The glob covers whichever sheets a package emits; sourcemaps stay
   // unpublished, as everywhere else in the repository.
-  '@lyness/client-ui-primitives': ['lib/**/*.css'],
-  '@lyness/client-ui-dockkit': ['lib/**/*.css'],
-  '@lyness/client-web': ['lib/**/*.css'],
-  '@lyness/client-ui-theme': ['lib/styles'],
+  '@lyness/lyn-client-ui-primitives': ['lib/**/*.css'],
+  '@lyness/lyn-client-ui-dockkit': ['lib/**/*.css'],
+  '@lyness/lyn-client-web': ['lib/**/*.css'],
+  '@lyness/lyn-client-ui-theme': ['lib/styles'],
   // The CPython side ships as source .py files, published as-is rather than built.
-  '@lyness/experimental-code-runtime-python': ['py/**/*.py'],
+  '@lyness/lyn-experimental-code-runtime-python': ['py/**/*.py'],
   // The shipped preset compositions travel inside the roster package.
-  '@lyness/agent-presets': ['presets'],
+  '@lyness/lyn-agent-presets': ['presets'],
   // The Web Host mounts the default-off settings owner independently of each
   // Agent-scoped delegation-tool instance.
-  '@lyness/tool-subagent': ['lib/model-selection-settings.js'],
+  '@lyness/lyn-tool-subagent': ['lib/model-selection-settings.js'],
   // The JSONL backend resolves its private verification Worker relative to
   // import.meta.url; it is shipped without a public package subpath.
-  '@lyness/session-persistence-jsonl': ['lib/worker.cjs'],
+  '@lyness/lyn-session-persistence-jsonl': ['lib/worker.cjs'],
   // The argv-prefix runner entry ships beside the lib as its own bundle;
   // sandbox-local resolves it through the package's ./runner export. tsdown
   // also shares its generated FFI code through a hashed runtime chunk.
-  '@lyness/sandbox-windows-acl': ['lib/runner.js', 'lib/types-*.js'],
-  '@lyness/skill-badge': ['assets'],
+  '@lyness/lyn-sandbox-windows-acl': ['lib/runner.js', 'lib/types-*.js'],
+  '@lyness/lyn-skill-badge': ['assets'],
   // Ordinary native containment ships a path-loaded runner and its shared
   // runner chunk beside the existing node-pty permission repair.
-  '@lyness/subprocess-local': [
+  '@lyness/lyn-subprocess-local': [
     'lib/runner.js',
     'lib/runner-*.js',
     'scripts/ensure-spawn-helper.mjs',
@@ -197,7 +184,7 @@ const packageFileExtras: Readonly<Record<string, readonly string[]>> = {
   // tsdown shares the repository/pack code between the lib entry and the bin
   // through a hashed chunk. The committed bin.js is the link target pnpm can
   // resolve at install time, before the build produces lib/bin.js.
-  '@lyness/experimental-webworker-packer': ['bin.js', 'lib/repository-*.js'],
+  '@lyness/lyn-experimental-webworker-packer': ['bin.js', 'lib/repository-*.js'],
 }
 
 function sameStringList(actual: readonly string[] | undefined, expected: readonly string[]): boolean {
@@ -320,11 +307,7 @@ function isReleaseMemberDirectory(dir: string): boolean {
  */
 export function checkLynFamilyVersion(manifest: PackageManifest, expected: string | undefined): string | undefined {
   const name = manifest.name
-  if (name !== '@lyness/lyn' && name?.startsWith('@lyness/') !== true) return undefined
-  // The scope alone no longer names the family: this fork publishes harness
-  // packages as `@lyness/<name>`, the same shape the rescoped vendored and
-  // Landlock packages carry. Those keep their own upstream version lines.
-  if (vendoredPackages.has(name) || foreignVersionLinePackages.has(name)) return undefined
+  if (name !== '@lyness/lyn' && name?.startsWith('@lyness/lyn-') !== true) return undefined
   if (manifest.version !== expected) {
     return `${name}: package.json version must match root version ${expected ?? '(missing)'}`
   }
@@ -415,7 +398,7 @@ export function checkWorkspaceManifest({ dir, manifest }: WorkspaceManifest): st
     }
   }
 
-  if (dir.startsWith('packages/') && manifest.name?.startsWith('@lyness/')) {
+  if (dir.startsWith('packages/') && manifest.name?.startsWith('@lyness/lyn-')) {
     const peer = manifest.peerDependencies?.['@lyness/cordis']
     const dev = manifest.devDependencies?.['@lyness/cordis']
 

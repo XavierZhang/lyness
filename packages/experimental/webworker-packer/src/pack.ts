@@ -10,7 +10,7 @@
  * This module holds no repository knowledge: paths, globs, and the composition come
  * in as parameters, so the same library packs a different tree by being called
  * differently. Locating those inputs is the CLI's job.
- * @module @lyness/experimental-webworker-packer/src/pack
+ * @module @lyness/lyn-experimental-webworker-packer/src/pack
  */
 import { existsSync, readFileSync, readdirSync, realpathSync } from 'node:fs'
 import { dirname, join, relative } from 'node:path'
@@ -20,16 +20,16 @@ import {
   lowerModuleSource, MemoryVfs, packTar, WorkerModuleLoader,
   DEFAULT_ROOT, IMAGE_CONFIG_PATH, IMAGE_EMPTY_DIRECTORIES, IMAGE_MANIFEST_PATH,
   IMAGE_OVERLAY_DIRECTORIES,
-} from '@lyness/experimental-webworker-runtime'
+} from '@lyness/lyn-experimental-webworker-runtime'
 import picomatch from 'picomatch'
 import yaml from 'js-yaml'
 import { entryListSchema } from '@lyness/cordis-plugin-include'
-import { REPLACED_EXTERNAL_PACKAGES } from '@lyness/experimental-webworker-runtime/src/node/external_packages/replaced-externals.ts'
-import { MODULE_PROXIES, MODULE_PROXY_PREFIXES } from '@lyness/experimental-webworker-runtime/src/module-proxies.ts'
+import { REPLACED_EXTERNAL_PACKAGES } from '@lyness/lyn-experimental-webworker-runtime/src/node/external_packages/replaced-externals.ts'
+import { MODULE_PROXIES, MODULE_PROXY_PREFIXES } from '@lyness/lyn-experimental-webworker-runtime/src/module-proxies.ts'
 import { WRAPPER_CONTRACT, type ImageFiles, type TransformOutcome } from './transform-image.ts'
 import { EXCLUDE, EXCLUDE_WORKSPACE, IMAGE_ENTRY_SEEDS, PAGE_ASSETS } from './rules.ts'
 
-export { DEFAULT_ROOT } from '@lyness/experimental-webworker-runtime'
+export { DEFAULT_ROOT } from '@lyness/lyn-experimental-webworker-runtime'
 
 /** Image path of the manifest; the layout contract's name, re-exported for callers. */
 export const MANIFEST_PATH: string = IMAGE_MANIFEST_PATH

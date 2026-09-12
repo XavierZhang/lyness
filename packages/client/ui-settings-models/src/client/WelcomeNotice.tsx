@@ -2,9 +2,9 @@
 
 import { useCallback, useEffect, useRef } from 'react'
 import type { ReactNode } from 'react'
-import type { SnapshotStore } from '@lyness/client-store'
-import type { InjectFace, PropsRuntime } from '@lyness/client-ui-slots'
-import { Button } from '@lyness/client-ui-primitives'
+import type { SnapshotStore } from '@lyness/lyn-client-store'
+import type { InjectFace, PropsRuntime } from '@lyness/lyn-client-ui-slots'
+import { Button } from '@lyness/lyn-client-ui-primitives'
 import type { WelcomeNoticeState, WelcomeNoticeStore } from './welcome-store.ts'
 import type { en } from './locales.ts'
 import { OnboardingModal } from './OnboardingModal.tsx'

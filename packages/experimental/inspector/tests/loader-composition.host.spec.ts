@@ -7,7 +7,7 @@ import { pathToFileURL } from 'node:url'
 import { Context } from '@lyness/cordis'
 import Include from '@lyness/cordis-plugin-include'
 import Loader from '@lyness/cordis-plugin-loader'
-import WebServer from '@lyness/host-webserver'
+import WebServer from '@lyness/lyn-host-webserver'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import * as Inspector from '../src/index.ts'
 
@@ -26,11 +26,11 @@ describe('experimental Inspector through a real Loader composition', () => {
     root = await mkdtemp(join(tmpdir(), 'lyn-inspector-loader-'))
     const configPath = join(root, 'cordis.yml')
     await writeFile(configPath, [
-      "- name: '@lyness/host-webserver'",
+      "- name: '@lyness/lyn-host-webserver'",
       '  config:',
       "    host: '127.0.0.1'",
       '    port: 0',
-      "- name: '@lyness/experimental-inspector'",
+      "- name: '@lyness/lyn-experimental-inspector'",
       '  config:',
       '    port: 0',
       '    captureFetch: false',
@@ -50,8 +50,8 @@ describe('experimental Inspector through a real Loader composition', () => {
     })
     context.loader.builtins.include = Include
     const modules = new Map<string, unknown>([
-      ['@lyness/host-webserver', WebServer],
-      ['@lyness/experimental-inspector', Inspector],
+      ['@lyness/lyn-host-webserver', WebServer],
+      ['@lyness/lyn-experimental-inspector', Inspector],
     ])
     context.loader.internal = {
       version: 'v2',
@@ -74,7 +74,7 @@ describe('experimental Inspector through a real Loader composition', () => {
     })
 
     const inspectorEntry = [...context.loader.entries()]
-      .find(entry => entry.options.name === '@lyness/experimental-inspector')
+      .find(entry => entry.options.name === '@lyness/lyn-experimental-inspector')
     expect(inspectorEntry?.fiber).toBeDefined()
     await inspectorEntry!.fiber!.dispose()
     expect(context.get('inspector')).toBeUndefined()

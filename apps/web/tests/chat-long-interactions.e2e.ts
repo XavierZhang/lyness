@@ -8,9 +8,9 @@ import { join } from 'node:path'
 import type { Browser, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed } from 'vitest'
-import type { StreamChunk } from '@lyness/llm'
-import type { ReplayEntry, ReplayOverrideDoc } from '@lyness/llm-replay'
-import { SessionId, type SessionEvent } from '@lyness/session'
+import type { StreamChunk } from '@lyness/lyn-llm'
+import type { ReplayEntry, ReplayOverrideDoc } from '@lyness/lyn-llm-replay'
+import { SessionId, type SessionEvent } from '@lyness/lyn-session'
 import { createChatScrollFixture } from './chat-scroll-fixture.ts'
 import {
   launchWebScaffold,

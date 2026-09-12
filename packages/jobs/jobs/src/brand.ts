@@ -5,12 +5,12 @@
  * It lives in its own leaf because the package root and `./types` both reach
  * `lyn-agent` through the owner and listener signatures, which a Client program
  * cannot resolve even as a type. A browser-safe consumer imports the id here;
- * `Branded<B>` itself comes from the zero-dependency `@lyness/brand`.
+ * `Branded<B>` itself comes from the zero-dependency `@lyness/lyn-brand`.
  *
- * @module @lyness/jobs/brand
+ * @module @lyness/lyn-jobs/brand
  */
 
-import type { Branded } from '@lyness/brand'
+import type { Branded } from '@lyness/lyn-brand'
 
 /**
  * Identifies a background job. The registry generates `<kind>-N`; predictable

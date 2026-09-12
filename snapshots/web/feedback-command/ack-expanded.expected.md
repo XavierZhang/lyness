@@ -20,10 +20,10 @@
 - button "Thought for a while" [expanded]:
   - text: Thought for a while
   - img
-- button "Context injection @lyness/system-prompt":
+- button "Context injection @lyness/lyn-system-prompt":
   - img
   - img
-  - text: Context injection @lyness/system-prompt
+  - text: Context injection @lyness/lyn-system-prompt
 - button "Think The user wants me to reply with a single word. Let me comply.":
   - img
   - img

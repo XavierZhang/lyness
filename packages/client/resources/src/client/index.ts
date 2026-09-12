@@ -4,8 +4,8 @@
  */
 import type { Context as ClientContext } from '@lyness/cordis'
 // Type-only service merge for ctx.slots.
-import type {} from '@lyness/client-ui-renderer/client'
-import type { RootStandardSourceContribution } from '@lyness/client-ui-slots'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
+import type { RootStandardSourceContribution } from '@lyness/lyn-client-ui-slots'
 import { ResourceRegistry } from './resources.ts'
 
 export type {
@@ -17,7 +17,7 @@ export type {
   ResourceStatus,
   UseResource,
 } from './contract.ts'
-export type { ResourceProtocolMap } from '@lyness/client-ui-slots'
+export type { ResourceProtocolMap } from '@lyness/lyn-client-ui-slots'
 
 /** Required browser services. */
 export const inject = ['slots']

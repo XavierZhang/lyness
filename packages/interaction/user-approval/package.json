@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/user-approval",
+  "name": "@lyness/lyn-user-approval",
   "description": "User-approval seam (ctx.approval) for the lyness: one-shot permission decisions dispatched to composed answerers over the approval/request waterfall, fail-closed by default",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -37,26 +37,26 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/agent": "workspace:^",
-    "@lyness/brand": "workspace:^",
-    "@lyness/invariants": "workspace:^",
-    "@lyness/llm": "workspace:^",
-    "@lyness/scope": "workspace:^",
-    "@lyness/session": "workspace:^",
-    "@lyness/system-prompt": "workspace:^",
+    "@lyness/lyn-agent": "workspace:^",
+    "@lyness/lyn-brand": "workspace:^",
+    "@lyness/lyn-invariants": "workspace:^",
+    "@lyness/lyn-llm": "workspace:^",
+    "@lyness/lyn-scope": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
+    "@lyness/lyn-system-prompt": "workspace:^",
     "@lyness/cordis": "workspace:^"
   },
   "dependencies": {
     "@lyness/schemastery": "workspace:^"
   },
   "devDependencies": {
-    "@lyness/agent": "workspace:^",
-    "@lyness/brand": "workspace:^",
-    "@lyness/invariants": "workspace:^",
-    "@lyness/llm": "workspace:^",
-    "@lyness/scope": "workspace:^",
-    "@lyness/session": "workspace:^",
-    "@lyness/system-prompt": "workspace:^",
+    "@lyness/lyn-agent": "workspace:^",
+    "@lyness/lyn-brand": "workspace:^",
+    "@lyness/lyn-invariants": "workspace:^",
+    "@lyness/lyn-llm": "workspace:^",
+    "@lyness/lyn-scope": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
+    "@lyness/lyn-system-prompt": "workspace:^",
     "@lyness/cordis": "workspace:^"
   }
 }

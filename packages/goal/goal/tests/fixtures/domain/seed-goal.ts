@@ -1,7 +1,7 @@
 /** Test-only Loader plugin that creates a goal at the first real step edge. */
 
 import type { Context } from '@lyness/cordis'
-import type {} from '@lyness/goal'
+import type {} from '@lyness/lyn-goal'
 
 export const name = 'seed-goal'
 export const inject = ['goals']

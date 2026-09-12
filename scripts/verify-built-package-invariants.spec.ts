@@ -24,7 +24,7 @@ function fixture(options: {
   mkdirSync(join(packageDir, 'lib'), { recursive: true })
   const companion = options.companion ?? true
   writeFileSync(join(packageDir, 'package.json'), `${JSON.stringify({
-    name: '@lyness/probe',
+    name: '@lyness/lyn-probe',
     type: 'module',
     files: companion ? ['lib/invariant.js'] : [],
     exports: companion ? {
@@ -88,7 +88,7 @@ describe('built package invariant verifier', () => {
     const brokenExport = fixture({ invariantExport: './lib/missing.js' })
     const exportResult = verify(brokenExport.root, brokenExport.loaderUrl, task.timeout)
     expect(exportResult.status).toBe(1)
-    expect(exportResult.stderr).toContain('@lyness/probe')
+    expect(exportResult.stderr).toContain('@lyness/lyn-probe')
   })
 
   it('rejects an invariant bundle that needs an unstaged runtime chunk', ({ task }) => {

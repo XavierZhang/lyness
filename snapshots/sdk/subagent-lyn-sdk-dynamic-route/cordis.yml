@@ -2,19 +2,19 @@
 # a separate SDK child runtime. Both runtimes persist their request headers.
 
 - id: llm-deepseek
-  name: '@lyness/llm-deepseek'
+  name: '@lyness/lyn-llm-deepseek'
   disabled: true
 
 - id: tool-subagent
-  name: '@lyness/tool-subagent'
+  name: '@lyness/lyn-tool-subagent'
   disabled: true
 
 - id: sdk-jsonrpc-server
-  name: '@lyness/sdk-jsonrpc-server'
+  name: '@lyness/lyn-sdk-jsonrpc-server'
   disabled: true
 
 - id: session-persistence-jsonl
-  name: '@lyness/session-persistence-jsonl'
+  name: '@lyness/lyn-session-persistence-jsonl'
   config:
     root: !!js lynHomePath('sessions')
     compression: none
@@ -25,7 +25,7 @@
       disabled: !!js process.env.LYNESS_SNAPSHOT !== 'record'
 
     - id: subagent-lyn-sdk
-      name: '@lyness/subagent-lyn-sdk'
+      name: '@lyness/lyn-subagent-lyn-sdk'
       config:
         profile: sdk
         patches: !!js JSON.parse(process.env.LYNESS_TEST_CHILD_PATCHES ?? '[]')
@@ -36,7 +36,7 @@
           LYNESS_TELEMETRY_DISABLED: '1'
 
     - id: subagent-model-selection-settings
-      name: '@lyness/tool-subagent/model-selection-settings'
+      name: '@lyness/lyn-tool-subagent/model-selection-settings'
       config:
         enabled: true
         allowedModels:
@@ -54,7 +54,7 @@
         maxDepth: 'provider-managed'
 
     - id: sdk-jsonrpc-server-dynamic-live
-      name: '@lyness/sdk-jsonrpc-server'
+      name: '@lyness/lyn-sdk-jsonrpc-server'
       inject: [sdkAppStartup, loader]
       disabled: !!js process.env.LYNESS_SNAPSHOT !== 'record'
       config:

@@ -2,13 +2,13 @@
  * Browser-safe durable workflow-record events written by the model-facing
  * workflow tool into its calling parent Session.
  *
- * @module @lyness/tool-workflow/types
+ * @module @lyness/lyn-tool-workflow/types
  */
 
-import type { SessionId } from '@lyness/session/types'
+import type { SessionId } from '@lyness/lyn-session/types'
 import type {
   WorkflowAgentOutcome, WorkflowRunId, WorkflowStopReason,
-} from '@lyness/workflow/types'
+} from '@lyness/lyn-workflow/types'
 
 /** Opens one durable top-level workflow run record. */
 export interface ToolWorkflowRunStartData {
@@ -38,7 +38,7 @@ export interface ToolWorkflowRunEndData {
   readonly stopReason: WorkflowStopReason
 }
 
-declare module '@lyness/session/types' {
+declare module '@lyness/lyn-session/types' {
   interface SessionEventMap {
     /**
      * Opens one top-level workflow record.

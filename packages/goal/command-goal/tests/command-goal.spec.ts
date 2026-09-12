@@ -1,15 +1,15 @@
 import { describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
-import AgentRegistry from '@lyness/agent'
-import type { Agent, AgentStatus } from '@lyness/agent'
-import CommandRuntime from '@lyness/commands'
-import GoalService from '@lyness/goal'
-import type { GoalRef } from '@lyness/goal'
-import SessionStore, { Session, SessionId, type SessionEvent } from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import * as commandGoal from '@lyness/command-goal'
-import { createInboxStub } from '@lyness/agent-loop-testkit'
+import AgentRegistry from '@lyness/lyn-agent'
+import type { Agent, AgentStatus } from '@lyness/lyn-agent'
+import CommandRuntime from '@lyness/lyn-commands'
+import GoalService from '@lyness/lyn-goal'
+import type { GoalRef } from '@lyness/lyn-goal'
+import SessionStore, { Session, SessionId, type SessionEvent } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import * as commandGoal from '@lyness/lyn-command-goal'
+import { createInboxStub } from '@lyness/lyn-agent-loop-testkit'
 
 interface Harness {
   readonly ctx: Context
@@ -88,7 +88,7 @@ function ref(goal: NonNullable<ReturnType<GoalService['get']>>): GoalRef {
   return { id: goal.id, revision: goal.revision }
 }
 
-describe('@lyness/command-goal registration', () => {
+describe('@lyness/lyn-command-goal registration', () => {
   it('registers one global command with Loader-safe exports and disposes it', async () => {
     const test = await harness()
     expect(commandGoal.name).toBe('command-goal')

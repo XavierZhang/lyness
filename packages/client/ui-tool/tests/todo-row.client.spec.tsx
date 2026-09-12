@@ -2,14 +2,14 @@
 /** todo_write atomic Tool presentation and its plan-summary model. */
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import type { TodoItem } from '@lyness/client-ui-conversation/client'
-import type { ToolResultNode } from '@lyness/client-ui-chat/client'
-import { makeTranslate } from '@lyness/client-test-runtime'
-import { zh as commonZh } from '@lyness/client-locale/src/locales/zh.ts'
+import type { TodoItem } from '@lyness/lyn-client-ui-conversation/client'
+import type { ToolResultNode } from '@lyness/lyn-client-ui-chat/client'
+import { makeTranslate } from '@lyness/lyn-client-test-runtime'
+import { zh as commonZh } from '@lyness/lyn-client-locale/src/locales/zh.ts'
 import { TodoRow, todoToolview } from '../src/client/tool/toolviews/todo-row.tsx'
 import { planSummary } from '../src/client/tool/toolviews/plan-summary.ts'
 import { CONVERSATION_NS as NS } from '../src/client/locale.ts'
-import { zh } from '@lyness/client-ui-conversation/src/client/locales.ts'
+import { zh } from '@lyness/lyn-client-ui-conversation/src/client/locales.ts'
 
 type TodoRowProps = Parameters<typeof TodoRow>[0]
 

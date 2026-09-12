@@ -3,7 +3,7 @@ description: "Web ask_user_question feature for the lyn web client: the composer
 kind: "package-reference"
 ---
 
-# @lyness/client-ui-user-questions
+# @lyness/lyn-client-ui-user-questions
 
 English | [中文](README.zh.md)
 

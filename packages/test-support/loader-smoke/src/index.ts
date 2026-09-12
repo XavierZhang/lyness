@@ -4,14 +4,14 @@
  *
  * It also owns the mode-aware launch resolver every example subprocess harness shares
  * ({@link resolveExampleLaunch}): booting an example bin from TypeScript source under `tsx` (the
- * zero-build dev path, resolving `@lyness/*` / `@cordisjs/*` through the tsconfig `paths`
+ * zero-build dev path, resolving `@lyness/lyn-*` / `@cordisjs/*` through the tsconfig `paths`
  * map) or from built `lib/` under plain Node (resolving bare packages through real `exports`, as an
  * installed consumer does, while Node type-strips relative example-local TypeScript plugins).
  *
- * @module @lyness/loader-smoke
+ * @module @lyness/lyn-loader-smoke
  */
 
-import { clearedProxyEnv } from '@lyness/http-proxy'
+import { clearedProxyEnv } from '@lyness/lyn-http-proxy'
 import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'

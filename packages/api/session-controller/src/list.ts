@@ -1,14 +1,14 @@
 /** Cold-safe Session list and search projection. */
 
 import type { Context } from '@lyness/cordis'
-import type {} from '@lyness/agent-presets'
-import type { ImageAttachmentLimits } from '@lyness/attachment'
-import { SessionLogOffset } from '@lyness/session'
-import type { Session, SessionEvent, SessionHeader, SessionId } from '@lyness/session'
-import type {} from '@lyness/session-projection'
-import type {} from '@lyness/session-projection-cache'
-import { SessionQueryError, type SessionSearchCursor } from '@lyness/session-query'
-import { RemoteError } from '@lyness/typert-protocol'
+import type {} from '@lyness/lyn-agent-presets'
+import type { ImageAttachmentLimits } from '@lyness/lyn-attachment'
+import { SessionLogOffset } from '@lyness/lyn-session'
+import type { Session, SessionEvent, SessionHeader, SessionId } from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-session-projection'
+import type {} from '@lyness/lyn-session-projection-cache'
+import { SessionQueryError, type SessionSearchCursor } from '@lyness/lyn-session-query'
+import { RemoteError } from '@lyness/lyn-typert-protocol'
 import { z } from 'zod'
 import {
   SESSION_SEARCH_RESULT_LIMIT,
@@ -170,7 +170,7 @@ export class ApiSessionList {
     if (provider === undefined) {
       throw new RemoteError(
         'gateway/internal',
-        'session search is unavailable: this deployment does not mount @lyness/session-query',
+        'session search is unavailable: this deployment does not mount @lyness/lyn-session-query',
         {},
       )
     }

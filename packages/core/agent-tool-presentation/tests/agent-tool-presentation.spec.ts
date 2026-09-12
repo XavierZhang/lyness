@@ -8,14 +8,14 @@
 
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { createScope } from '@lyness/scope'
-import SystemPrompt from '@lyness/system-prompt'
-import { CodeRuntime } from '@lyness/code-runtime'
-import type { CodeRunRequest, CodeRunResult } from '@lyness/code-runtime'
-import ToolRuntime, { RUN_CODE_NAME, defineTool } from '@lyness/tools'
-import type { Agent } from '@lyness/agent'
-import { SessionId } from '@lyness/session'
-import { apply, Config, inject, name } from '@lyness/agent-tool-presentation'
+import { createScope } from '@lyness/lyn-scope'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import { CodeRuntime } from '@lyness/lyn-code-runtime'
+import type { CodeRunRequest, CodeRunResult } from '@lyness/lyn-code-runtime'
+import ToolRuntime, { RUN_CODE_NAME, defineTool } from '@lyness/lyn-tools'
+import type { Agent } from '@lyness/lyn-agent'
+import { SessionId } from '@lyness/lyn-session'
+import { apply, Config, inject, name } from '@lyness/lyn-agent-tool-presentation'
 
 /** A runtime that never runs anything: presentation never dispatches. */
 class StubRuntime extends CodeRuntime {

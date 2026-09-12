@@ -16,9 +16,9 @@ describe('generated tsconfig package aliases', () => {
   it('maps each package to its own source directory', () => {
     const aliases = collectPackageAliases()
     expect(aliases.length).toBeGreaterThan(100)
-    const session = aliases.find(alias => alias.specifier === '@lyness/session')
+    const session = aliases.find(alias => alias.specifier === '@lyness/lyn-session')
     expect(session).toEqual({
-      specifier: '@lyness/session',
+      specifier: '@lyness/lyn-session',
       source: './packages/core/session/src',
       hasInvariant: true,
     })
@@ -26,20 +26,20 @@ describe('generated tsconfig package aliases', () => {
     expect([...aliases].sort((a, b) => a.specifier.localeCompare(b.specifier))).toEqual(aliases)
     // Only packages named after their directory: the rest carry hand-written
     // aliases, because the removed wildcards could never have resolved them.
-    expect(aliases.some(alias => alias.specifier === '@lyness/typert-protocol')).toBe(false)
+    expect(aliases.some(alias => alias.specifier === '@lyness/lyn-typert-protocol')).toBe(false)
   })
 
   it('yields to a hand-written alias and closes without a trailing comma', () => {
     const aliases = [
-      { specifier: '@lyness/a', source: './packages/g/a/src', hasInvariant: true },
-      { specifier: '@lyness/b', source: './packages/g/b/src', hasInvariant: false },
+      { specifier: '@lyness/lyn-a', source: './packages/g/a/src', hasInvariant: true },
+      { specifier: '@lyness/lyn-b', source: './packages/g/b/src', hasInvariant: false },
     ]
-    const body = renderAliases(aliases, new Set(['@lyness/a']))
+    const body = renderAliases(aliases, new Set(['@lyness/lyn-a']))
 
     // The hand-written bare alias is skipped; its /invariant sibling is not.
     expect(body).toBe([
-      '      "@lyness/a/invariant": ["./packages/g/a/src/invariant.ts"]',
-      '      "@lyness/b": ["./packages/g/b/src"]',
+      '      "@lyness/lyn-a/invariant": ["./packages/g/a/src/invariant.ts"]',
+      '      "@lyness/lyn-b": ["./packages/g/b/src"]',
     ].join(',\n'))
     expect(body.endsWith(',')).toBe(false)
   })
@@ -71,11 +71,11 @@ describe('generated tsconfig package aliases', () => {
     // directory is skipped by the generator, so without this check it would
     // resolve through the workspace symlink to built lib/types instead.
     expect(uncoveredPackages(
-      ['@lyness/a', '@lyness/b'],
-      new Set(['@lyness/a', '@lyness/a/invariant']),
-    )).toEqual(['@lyness/b'])
+      ['@lyness/lyn-a', '@lyness/lyn-b'],
+      new Set(['@lyness/lyn-a', '@lyness/lyn-a/invariant']),
+    )).toEqual(['@lyness/lyn-b'])
 
-    expect(uncoveredPackages(['@lyness/a'], new Set(['@lyness/a']))).toEqual([])
+    expect(uncoveredPackages(['@lyness/lyn-a'], new Set(['@lyness/lyn-a']))).toEqual([])
   })
 
   it('covers every workspace package in the committed config', () => {
@@ -83,7 +83,7 @@ describe('generated tsconfig package aliases', () => {
     // Includes the packages the generator skips because their name does not
     // match their directory: those carry hand-written aliases.
     const names = collectPackageNames()
-    expect(names).toContain('@lyness/typert-protocol')
+    expect(names).toContain('@lyness/lyn-typert-protocol')
     expect(uncoveredPackages(names, mappedSpecifiers(config))).toEqual([])
   })
 
@@ -92,7 +92,7 @@ describe('generated tsconfig package aliases', () => {
     // These two listed one candidate per group, so resolving a package late in
     // the list cost a filesystem probe — and under tsx a decorated module
     // error — for every group before it.
-    expect(config).not.toContain('"@lyness/*":')
-    expect(config).not.toContain('"@lyness/*/invariant":')
+    expect(config).not.toContain('"@lyness/lyn-*":')
+    expect(config).not.toContain('"@lyness/lyn-*/invariant":')
   })
 })

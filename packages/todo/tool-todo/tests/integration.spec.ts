@@ -1,11 +1,11 @@
-import { createUserMessage } from '@lyness/llm'
+import { createUserMessage } from '@lyness/lyn-llm'
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { SessionId, type SessionEvent } from '@lyness/session'
-import type { Agent } from '@lyness/agent'
-import AgentLoop from '@lyness/agent-loop'
-import { mountAgentLoopTestDependencies } from '@lyness/agent-loop-testkit'
-import * as ToolTodo from '@lyness/tool-todo'
+import { SessionId, type SessionEvent } from '@lyness/lyn-session'
+import type { Agent } from '@lyness/lyn-agent'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import { mountAgentLoopTestDependencies } from '@lyness/lyn-agent-loop-testkit'
+import * as ToolTodo from '@lyness/lyn-tool-todo'
 import { MockAdapter, textResponse, toolCallResponse } from '../../../core/agent-loop/tests/mock-adapter.ts'
 
 /**

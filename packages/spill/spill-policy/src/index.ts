@@ -7,7 +7,7 @@
  * locator and retrieval guidance.
  *
  * It registers NO service and owns NO storage or preview mechanics: preview is
- * `@lyness/output-retention` (`TextRetainer`), storage is `ctx.spillStore`.
+ * `@lyness/lyn-output-retention` (`TextRetainer`), storage is `ctx.spillStore`.
  * The policy only decides WHEN to spill and composes the notice.
  *
  * A second arm applies the SAME cap to the durable log: the
@@ -40,18 +40,18 @@
  * replaced content still has its replacement bounded, and value replacements
  * and `block` decisions pass through unchanged.
  *
- * @module @lyness/spill-policy
+ * @module @lyness/lyn-spill-policy
  */
 
 import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import type { ContentBlock } from '@lyness/llm'
-import { TextRetainer } from '@lyness/output-retention'
-import type { Omitted } from '@lyness/output-retention'
-import type { SaveTextSpill, SpillRef } from '@lyness/spill'
-import type { SessionId } from '@lyness/session'
-import type { ToolCallId } from '@lyness/llm'
-import type { PostToolDecision, ToolExecution } from '@lyness/tools'
+import type { ContentBlock } from '@lyness/lyn-llm'
+import { TextRetainer } from '@lyness/lyn-output-retention'
+import type { Omitted } from '@lyness/lyn-output-retention'
+import type { SaveTextSpill, SpillRef } from '@lyness/lyn-spill'
+import type { SessionId } from '@lyness/lyn-session'
+import type { ToolCallId } from '@lyness/lyn-llm'
+import type { PostToolDecision, ToolExecution } from '@lyness/lyn-tools'
 import type { SpillPolicyExec } from './types.ts'
 import { formatSpillNotice } from './notice.ts'
 

@@ -1,6 +1,6 @@
 import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
-import { LOADER_SMOKE_TEST_TIMEOUT_MS, runLoaderSmoke } from '@lyness/loader-smoke'
+import { LOADER_SMOKE_TEST_TIMEOUT_MS, runLoaderSmoke } from '@lyness/lyn-loader-smoke'
 const binScript = fileURLToPath(new URL('./fixtures/lyn-badge/snapshot.ts', import.meta.url))
 const configPath = fileURLToPath(new URL('./fixtures/lyn-badge/cordis.yml', import.meta.url))
 const defaultConfigPath = fileURLToPath(new URL('./fixtures/lyn-badge/default.cordis.yml', import.meta.url))

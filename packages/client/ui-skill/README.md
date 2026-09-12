@@ -3,7 +3,7 @@ description: "Web skill references and the dedicated skill tool row for the lyn 
 kind: "package-reference"
 ---
 
-# @lyness/client-ui-skill
+# @lyness/lyn-client-ui-skill
 
 English | [中文](README.zh.md)
 

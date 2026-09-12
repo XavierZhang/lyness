@@ -1,10 +1,10 @@
-import { freezeMessage, MessageId } from '@lyness/llm'
+import { freezeMessage, MessageId } from '@lyness/lyn-llm'
 import { Context } from '@lyness/cordis'
-import { Session, SessionId, SessionLogOffset, SessionSeq } from '@lyness/session'
-import type { SessionEvent } from '@lyness/session'
-import { SessionFormatUnsupportedError } from '@lyness/session-persistence'
-import type { SessionHandle } from '@lyness/session-persistence'
-import JsonlSessionPersistence from '@lyness/session-persistence-jsonl'
+import { Session, SessionId, SessionLogOffset, SessionSeq } from '@lyness/lyn-session'
+import type { SessionEvent } from '@lyness/lyn-session'
+import { SessionFormatUnsupportedError } from '@lyness/lyn-session-persistence'
+import type { SessionHandle } from '@lyness/lyn-session-persistence'
+import JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
 import { mkdir, mkdtemp, readFile, readdir, rm, stat, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { dirname, join } from 'node:path'
@@ -223,7 +223,7 @@ describe('V2 system prompts through current Session and JSONL persistence', () =
       session.append('step/start', { turn: 2, step: 1 })
       session.append('system/message', {
         turn: 2, step: 1,
-        message: freezeMessage({ role: 'system', id: MessageId('resumed-system'), content: [{ type: 'text', text: 'resumed prompt' }], source: { kind: 'plugin', plugin: '@lyness/system-prompt' } }),
+        message: freezeMessage({ role: 'system', id: MessageId('resumed-system'), content: [{ type: 'text', text: 'resumed prompt' }], source: { kind: 'plugin', plugin: '@lyness/lyn-system-prompt' } }),
       }, { surfaceOp: { op: 'replace', startSeq: SessionSeq(4), endSeq: SessionSeq(4) }, sourceEventSeqs: [SessionSeq(4)] })
       session.append('step/end', { turn: 2, step: 1 })
       session.append('turn/end', { turn: 2, reason: { kind: 'completed' } })
@@ -277,7 +277,7 @@ describe('V2 system prompts through current Session and JSONL persistence', () =
       session.append('step/start', { turn: 1, step: 1 })
       session.append('system/message', {
         turn: 1, step: 1,
-        message: freezeMessage({ role: 'system', id: MessageId('head'), content: [{ type: 'text', text: 'head prompt' }], source: { kind: 'plugin', plugin: '@lyness/system-prompt' } }),
+        message: freezeMessage({ role: 'system', id: MessageId('head'), content: [{ type: 'text', text: 'head prompt' }], source: { kind: 'plugin', plugin: '@lyness/lyn-system-prompt' } }),
       }, { surfaceOp: 'append' })
       session.append('user/message', freezeMessage({ role: 'user', id: MessageId('question'), content: human.content, source: { kind: 'user' } }), { surfaceOp: 'append' })
       session.append('system/message', {

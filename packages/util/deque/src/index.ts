@@ -1,6 +1,6 @@
 /**
  * Zero-dependency circular deque for queues that retain entries across asynchronous work.
- * @module @lyness/deque
+ * @module @lyness/lyn-deque
  */
 
 const MIN_CAPACITY = 16

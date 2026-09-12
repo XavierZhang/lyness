@@ -2,17 +2,17 @@
  * Opt-in request clock context. Eligible steps add durable,
  * source-attributed time readings to the request history.
  *
- * @module @lyness/time-context
+ * @module @lyness/lyn-time-context
  */
 
 import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
 import { z as zod } from 'zod'
-import type { Agent, PreStepDecision } from '@lyness/agent'
-import { createUserMessage } from '@lyness/llm'
-import type { UserMessage } from '@lyness/llm'
-import { SessionSeq } from '@lyness/session'
-import type {} from '@lyness/session-projection'
+import type { Agent, PreStepDecision } from '@lyness/lyn-agent'
+import { createUserMessage } from '@lyness/lyn-llm'
+import type { UserMessage } from '@lyness/lyn-llm'
+import { SessionSeq } from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-session-projection'
 import {
   deriveBrowserTimeZoneContext,
   renderBrowserTimeZoneContext,
@@ -23,7 +23,7 @@ import { createTimestampFormatter, formatTimestamp } from './timestamp.ts'
 /** Cordis plugin name used by loader diagnostics. */
 export const name = 'time-context'
 
-declare module '@lyness/session-projection/types' {
+declare module '@lyness/lyn-session-projection/types' {
   interface SessionProjectionStateMap {
     /** Latest time-context readings. */
     timeContext: TimeContextProjection

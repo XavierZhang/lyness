@@ -1,12 +1,12 @@
 /**
  * Shared path resolution and regular-file validation for model-facing read tools.
- * @module @lyness/tool-fs/src/read-target
+ * @module @lyness/lyn-tool-fs/src/read-target
  */
 
 import type { Context } from '@lyness/cordis'
-import { FsError } from '@lyness/fs'
-import type { FsInfo, FsTarget } from '@lyness/fs'
-import type { ToolExecution } from '@lyness/tools'
+import { FsError } from '@lyness/lyn-fs'
+import type { FsInfo, FsTarget } from '@lyness/lyn-fs'
+import type { ToolExecution } from '@lyness/lyn-tools'
 import { sessionResolveOptions } from './session-cwd.ts'
 
 /**

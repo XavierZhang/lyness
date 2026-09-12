@@ -3,7 +3,7 @@ description: "lyn Web 客户端设置中按作用域分组的只读插件清单�
 kind: "package-reference"
 ---
 
-# @lyness/client-ui-settings-plugin-inventory
+# @lyness/lyn-client-ui-settings-plugin-inventory
 
 [English](README.md) | 中文
 

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import type { ContentBlock } from '@lyness/llm/types'
+import type { ContentBlock } from '@lyness/lyn-llm/types'
 import {
   contextForm, contextProvenance, displayFailure, emptyAssistantBlock, isTokenDelta,
   toAssistantBlock, toAssistantBlocks,

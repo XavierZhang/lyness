@@ -1,12 +1,12 @@
 /**
  * Internal sandbox-result classification helpers.
  *
- * @module @lyness/bash-sandbox/helpers
+ * @module @lyness/lyn-bash-sandbox/helpers
  */
 
 import { accessSync, constants, statSync } from 'node:fs'
-import type { ShellRunResult } from '@lyness/shell'
-import type { RunnerFailureRule } from '@lyness/sandbox'
+import type { ShellRunResult } from '@lyness/lyn-shell'
+import type { RunnerFailureRule } from '@lyness/lyn-sandbox'
 
 /** Node-local spawn codes proven to identify executable resolution or permission failure. */
 const EXECUTABLE_SPAWN_CODES = new Set(['EACCES', 'ENOENT'])

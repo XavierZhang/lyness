@@ -1,13 +1,13 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { agentEvents, installModelSelection, type Agent, type ModelSelectionRef } from '@lyness/agent'
-import { CompactionId, compactCheckpointSource } from '@lyness/compaction'
-import LlmRuntime, { createMessage, createSystemMessage, createToolResultMessage, createUserMessage, LlmError, ToolCallId } from '@lyness/llm'
-import SessionStore, { Session, SessionId, SessionSeq } from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import SessionQueryEngine from '@lyness/session-query'
-import SessionTitleService from '@lyness/session-title'
-import SystemPrompt from '@lyness/system-prompt'
+import { agentEvents, installModelSelection, type Agent, type ModelSelectionRef } from '@lyness/lyn-agent'
+import { CompactionId, compactCheckpointSource } from '@lyness/lyn-compaction'
+import LlmRuntime, { createMessage, createSystemMessage, createToolResultMessage, createUserMessage, LlmError, ToolCallId } from '@lyness/lyn-llm'
+import SessionStore, { Session, SessionId, SessionSeq } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import SessionQueryEngine from '@lyness/lyn-session-query'
+import SessionTitleService from '@lyness/lyn-session-title'
+import SystemPrompt from '@lyness/lyn-system-prompt'
 import SessionReferenceResolver, {
   decodeSessionReferenceUri,
   encodeSessionReferenceUri,
@@ -15,9 +15,9 @@ import SessionReferenceResolver, {
   parseSessionReferenceText,
   type Config,
   type SessionReferenceErrorCode,
-} from '@lyness/session-reference'
+} from '@lyness/lyn-session-reference'
 import { stringifyTagSafeJson } from '../src/serialization.ts'
-import { SpillLocator, SpillStore, type SaveTextSpill, type SpillRef } from '@lyness/spill'
+import { SpillLocator, SpillStore, type SaveTextSpill, type SpillRef } from '@lyness/lyn-spill'
 
 class TestSessionQueryEngine extends SessionQueryEngine {
   override searchSessions(

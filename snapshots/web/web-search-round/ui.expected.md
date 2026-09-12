@@ -20,10 +20,10 @@
 - button "1 tool call" [expanded]:
   - text: 1 tool call
   - img
-- button "Context injection @lyness/system-prompt":
+- button "Context injection @lyness/lyn-system-prompt":
   - img
   - img
-  - text: Context injection @lyness/system-prompt
+  - text: Context injection @lyness/lyn-system-prompt
 - button "Search lyness snapshot search, lyness multi-query search":
   - img
   - img

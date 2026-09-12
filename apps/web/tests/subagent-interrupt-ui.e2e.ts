@@ -18,9 +18,9 @@ import { fileURLToPath } from 'node:url'
 import type { Browser, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed } from 'vitest'
-import type { SessionEvent, SessionId } from '@lyness/session'
-import type { Agent } from '@lyness/agent'
-import type { SubagentPromptRequestId } from '@lyness/subagent'
+import type { SessionEvent, SessionId } from '@lyness/lyn-session'
+import type { Agent } from '@lyness/lyn-agent'
+import type { SubagentPromptRequestId } from '@lyness/lyn-subagent'
 import {
   acknowledgeReloadConnectionLoss, assertFixtureInventory, captureStableAria, compareOrRefreshGolden,
   launchWebScaffold, readPersistedEvents, watchConsole, webSnapshotMode, type WebScaffold,

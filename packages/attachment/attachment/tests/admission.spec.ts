@@ -1,8 +1,8 @@
 import { describe, expect, it, vi } from 'vitest'
-import AttachmentStore, { admitEncodedFile, admitEncodedImages } from '@lyness/attachment'
+import AttachmentStore, { admitEncodedFile, admitEncodedImages } from '@lyness/lyn-attachment'
 import type {
   FileAttachmentRef, ImageAttachmentRef, SaveImageAttachment,
-} from '@lyness/attachment/types'
+} from '@lyness/lyn-attachment/types'
 
 const PNG = 'AAAA' // canonical base64, 3 bytes
 const FILE_REF: FileAttachmentRef = {

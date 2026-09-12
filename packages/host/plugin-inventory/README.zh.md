@@ -3,7 +3,7 @@ description: "当前 Cordis Loader 插件状态的只读投影，并附带每个
 kind: "package-reference"
 ---
 
-# @lyness/host-plugin-inventory
+# @lyness/lyn-host-plugin-inventory
 
 [English](README.md) | 中文
 

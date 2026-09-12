@@ -1,6 +1,6 @@
 import { Context } from '@lyness/cordis'
 import { describe, expect, it, vi } from 'vitest'
-import { TestRemote } from '@lyness/client-test-runtime'
+import { TestRemote } from '@lyness/lyn-client-test-runtime'
 import { apply, inject } from '../src/client/index.ts'
 import { SettingsSchemaService } from '../src/client/schema.ts'
 import { SettingsScopeBinder } from '../src/client/settings-scope.ts'

@@ -1,8 +1,8 @@
 import { describe, expect, it, onTestFinished } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { WorkerThreadCodeRuntime } from '@lyness/code-runtime-worker-thread'
-import type { Config } from '@lyness/code-runtime-worker-thread'
-import type { CodeBindingFunction, CodeBindingNamespace, CodeRunResult } from '@lyness/code-runtime'
+import { WorkerThreadCodeRuntime } from '@lyness/lyn-code-runtime-worker-thread'
+import type { Config } from '@lyness/lyn-code-runtime-worker-thread'
+import type { CodeBindingFunction, CodeBindingNamespace, CodeRunResult } from '@lyness/lyn-code-runtime'
 
 /**
  * Integration suite over REAL worker threads (no mocks — workers are cheap

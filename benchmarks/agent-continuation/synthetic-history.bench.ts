@@ -1,8 +1,8 @@
 /** Current-generation benchmark seeds retain the system head across continuation. */
 import { expect, it } from 'vitest'
-import { createSystemMessage } from '@lyness/llm'
-import { parseSessionLog } from '@lyness/llm-replay'
-import { Session, SessionId, SESSION_FORMAT_VERSION } from '@lyness/session'
+import { createSystemMessage } from '@lyness/lyn-llm'
+import { parseSessionLog } from '@lyness/lyn-llm-replay'
+import { Session, SessionId, SESSION_FORMAT_VERSION } from '@lyness/lyn-session'
 import { syntheticHistory as browserHistory } from '../long-session-browser/synthetic-history.ts'
 import { syntheticHistory } from './workload.ts'
 
@@ -23,7 +23,7 @@ for (const [name, generate] of [
     session.append('turn/start', { turn })
     session.append('step/start', { turn, step: 1 })
     const replacement = session.append('system/message', {
-      turn, step: 1, message: createSystemMessage('Next synthetic prompt', '@lyness/system-prompt'),
+      turn, step: 1, message: createSystemMessage('Next synthetic prompt', '@lyness/lyn-system-prompt'),
     }, { surfaceOp: { op: 'replace', startSeq: head, endSeq: head }, sourceEventSeqs: [head] })
     const restored = Session.create(SessionId(header.id), parseSessionLog([
       JSON.stringify(header), ...session.snapshotEvents().map(event => JSON.stringify(event)),

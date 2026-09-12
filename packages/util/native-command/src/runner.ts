@@ -1,6 +1,6 @@
 /**
  * Shared no-shell `execFile` runner for host-native OS integrations.
- * @module @lyness/native-command/runner
+ * @module @lyness/lyn-native-command/runner
  */
 
 import { execFile } from 'node:child_process'

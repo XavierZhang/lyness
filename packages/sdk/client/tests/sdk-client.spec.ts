@@ -10,7 +10,7 @@ import { tmpdir } from 'node:os'
 import { isAbsolute, join, relative, resolve as resolvePath } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { ReasoningEffortId } from '@lyness/llm'
+import { ReasoningEffortId } from '@lyness/lyn-llm'
 import {
   Lyness,
   HarnessClient,

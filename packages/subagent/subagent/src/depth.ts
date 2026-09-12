@@ -3,12 +3,12 @@
  * children. Kept apart from the service so composition helpers can read it
  * without importing the registry.
  *
- * @module @lyness/subagent/depth
+ * @module @lyness/lyn-subagent/depth
  */
 
-import type { Agent } from '@lyness/agent'
+import type { Agent } from '@lyness/lyn-agent'
 
-declare module '@lyness/agent' {
+declare module '@lyness/lyn-agent' {
   interface AgentOptions {
     /** Delegation depth: zero for a top-level agent and parent depth + 1 for a child. */
     subagentDepth?: number

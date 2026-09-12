@@ -6,7 +6,7 @@
 
 - insert:
     - id: mcp-pagination-cycle
-      name: '@lyness/mcp-client'
+      name: '@lyness/lyn-mcp-client'
       config:
         transport: stdio
         serverName: pagination-cycle

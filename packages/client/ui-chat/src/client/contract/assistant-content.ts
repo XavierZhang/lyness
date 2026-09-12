@@ -1,4 +1,4 @@
-import type { AssistantBlock } from '@lyness/client-ui-conversation/client'
+import type { AssistantBlock } from '@lyness/lyn-client-ui-conversation/client'
 
 /**
  * Test whether Assistant blocks contain a user-facing reply rather than only

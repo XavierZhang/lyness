@@ -1,16 +1,16 @@
 /** Durable composition of historical chunk collapse and V3 system/reference migration. */
 
 import { Context } from '@lyness/cordis'
-import { Session, SessionId, SessionLogOffset, SessionSeq } from '@lyness/session'
-import type { SessionEvent, SessionHeader } from '@lyness/session'
-import { createSessionFormatCatalog } from '@lyness/session-format'
-import { releasedV0SessionFormatCodec, releasedV1SessionFormatCodec, sessionFormatV0ToV1 } from '@lyness/session-format-v0-to-v1'
+import { Session, SessionId, SessionLogOffset, SessionSeq } from '@lyness/lyn-session'
+import type { SessionEvent, SessionHeader } from '@lyness/lyn-session'
+import { createSessionFormatCatalog } from '@lyness/lyn-session-format'
+import { releasedV0SessionFormatCodec, releasedV1SessionFormatCodec, sessionFormatV0ToV1 } from '@lyness/lyn-session-format-v0-to-v1'
 import {
   assertReleasedV2Header, RELEASED_V2_EVENT_TYPES, releasedV2SessionFormatCodec,
   restoreReleasedV2Artifact, sessionFormatV1ToV2,
-} from '@lyness/session-format-v1-to-v2'
-import { SessionFormatUnsupportedError } from '@lyness/session-persistence'
-import JsonlSessionPersistence from '@lyness/session-persistence-jsonl'
+} from '@lyness/lyn-session-format-v1-to-v2'
+import { SessionFormatUnsupportedError } from '@lyness/lyn-session-persistence'
+import JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
 import { appendFile, mkdir, mkdtemp, readFile, readdir, rm, stat, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { basename, dirname, join } from 'node:path'

@@ -1,7 +1,7 @@
 /** Browser-zone derivation and model-facing policy text for one open request turn. */
 
-import type { UserMessage } from '@lyness/llm'
-import { assertNever } from '@lyness/util-values'
+import type { UserMessage } from '@lyness/lyn-llm'
+import { assertNever } from '@lyness/lyn-util-values'
 
 const IANA_TIME_ZONE = /^[A-Za-z][A-Za-z0-9_+.-]*(?:\/[A-Za-z0-9_+.-]+)+$/
 

@@ -1,11 +1,11 @@
 /** File identity and explicit default-app or file-manager actions for one delivery. */
 import { useRef, useState } from 'react'
-import { resolveWorkspacePath } from '@lyness/util-workspace-path'
+import { resolveWorkspacePath } from '@lyness/lyn-util-workspace-path'
 import {
   Menu, FileTypeIcon, fileExtension, IconRightUpOutline16,
   IconChevronDownOutline14, IconFolderOpenOutline16,
-} from '@lyness/client-ui-primitives'
-import type { PropsLocale } from '@lyness/client-ui-slots'
+} from '@lyness/lyn-client-ui-primitives'
+import type { PropsLocale } from '@lyness/lyn-client-ui-slots'
 import type { PresentedAction, PresentedHost } from '../presented.ts'
 import type { PresentedOpenPhase } from './present-open.ts'
 import { basename, type PresentedPath } from './turn-deliverables.ts'

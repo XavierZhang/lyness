@@ -5,12 +5,12 @@ import type {
   SessionFormatHeader,
   SessionFormatJsonObject,
   SessionFormatJsonValue,
-} from '@lyness/session-format'
+} from '@lyness/lyn-session-format'
 import {
   RELEASED_V2_EVENT_TYPES,
   assertReleasedV2Header,
   restoreReleasedV2Artifact,
-} from '@lyness/session-format-v1-to-v2'
+} from '@lyness/lyn-session-format-v1-to-v2'
 import { assertReleasedV2Artifact } from '../src/testing/validation.ts'
 
 const textBlock = { type: 'text', text: 'hello' } as const

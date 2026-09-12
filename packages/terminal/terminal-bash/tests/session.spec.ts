@@ -1,18 +1,18 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { PassThrough } from 'node:stream'
-import { LocalPtySession } from '@lyness/terminal-bash/src/session.ts'
-import type { ResolvedConfig } from '@lyness/terminal-bash/src/config.ts'
-import type { TerminalSendOperation, TerminalSessionStatus, TerminalSignal } from '@lyness/terminal'
+import { LocalPtySession } from '@lyness/lyn-terminal-bash/src/session.ts'
+import type { ResolvedConfig } from '@lyness/lyn-terminal-bash/src/config.ts'
+import type { TerminalSendOperation, TerminalSessionStatus, TerminalSignal } from '@lyness/lyn-terminal'
 import type {
   SubprocessOutcome,
   SubprocessTerminalHandle,
   SubprocessTerminalSignal,
-} from '@lyness/subprocess'
-import { TerminalError } from '@lyness/terminal'
+} from '@lyness/lyn-subprocess'
+import { TerminalError } from '@lyness/lyn-terminal'
 import type {
   ProcessIdentity,
   ProcessInspector,
-} from '@lyness/subprocess-local/src/process-inspector.ts'
+} from '@lyness/lyn-subprocess-local/src/process-inspector.ts'
 
 class FakeInspector implements ProcessInspector {
   pgid: number | undefined = 456

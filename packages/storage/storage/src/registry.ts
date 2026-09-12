@@ -1,6 +1,6 @@
 /**
  * Named backend registry of the storage hub.
- * @module @lyness/storage/src/registry
+ * @module @lyness/lyn-storage/src/registry
  */
 
 import type { StorageBackend } from './backend.ts'

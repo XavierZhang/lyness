@@ -1,6 +1,6 @@
 /** Document renderer slot: the owner supplies shared file state, renderers own their presentation. */
-import type { PropsRuntime, SlotHookFactory } from '@lyness/client-ui-slots'
-import type { UseSidebarRightTabInfo } from '@lyness/client-ui-sidebar-right/client'
+import type { PropsRuntime, SlotHookFactory } from '@lyness/lyn-client-ui-slots'
+import type { UseSidebarRightTabInfo } from '@lyness/lyn-client-ui-sidebar-right/client'
 import type { RefCallback } from 'react'
 
 /** One loaded text window, retaining source line positions. */
@@ -18,7 +18,7 @@ export type DocumentContent =
   | { readonly kind: 'text'; readonly text: string; readonly pages: readonly DocumentTextPage[]; readonly eof: boolean }
   | { readonly kind: 'bytes'; readonly data: Uint8Array<ArrayBuffer> }
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface SlotMap {
     /** Document body selected by a registered implementation id. */
     'sidebar.right.tab.document': {

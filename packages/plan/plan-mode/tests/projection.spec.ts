@@ -2,16 +2,16 @@
 
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import AgentRegistry from '@lyness/agent'
-import type { Agent } from '@lyness/agent'
-import SessionStore from '@lyness/session'
-import type { Session } from '@lyness/session'
-import SystemPrompt from '@lyness/system-prompt'
-import ToolRuntime from '@lyness/tools'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import UserQuestionService from '@lyness/user-questions'
-import { CommandId } from '@lyness/commands/brand'
-import PlanModeController from '@lyness/plan-mode'
+import AgentRegistry from '@lyness/lyn-agent'
+import type { Agent } from '@lyness/lyn-agent'
+import SessionStore from '@lyness/lyn-session'
+import type { Session } from '@lyness/lyn-session'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime from '@lyness/lyn-tools'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import UserQuestionService from '@lyness/lyn-user-questions'
+import { CommandId } from '@lyness/lyn-commands/brand'
+import PlanModeController from '@lyness/lyn-plan-mode'
 
 interface Bench {
   ctx: Context

@@ -1,18 +1,18 @@
 /**
  * Model-facing `str_replace_editor` over the Harness filesystem seam.
- * @module @lyness/tool-str-replace-editor
+ * @module @lyness/lyn-tool-str-replace-editor
  */
 
 import { isAbsolute } from 'node:path'
 import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import { FsError } from '@lyness/fs'
-import type { FsInfo, FsTarget, FsWriteIntent } from '@lyness/fs'
-import { sandboxDenialMarker } from '@lyness/sandbox'
-import type { SandboxExecutionPolicy } from '@lyness/sandbox'
-import type { SandboxPolicyService } from '@lyness/sandbox-policy'
-import { defineTool } from '@lyness/tools'
-import type { ToolCallView, ToolRunContext } from '@lyness/tools'
+import { FsError } from '@lyness/lyn-fs'
+import type { FsInfo, FsTarget, FsWriteIntent } from '@lyness/lyn-fs'
+import { sandboxDenialMarker } from '@lyness/lyn-sandbox'
+import type { SandboxExecutionPolicy } from '@lyness/lyn-sandbox'
+import type { SandboxPolicyService } from '@lyness/lyn-sandbox-policy'
+import { defineTool } from '@lyness/lyn-tools'
+import type { ToolCallView, ToolRunContext } from '@lyness/lyn-tools'
 
 const TRUNCATED_MESSAGE = '<response clipped><NOTE>To save on context only part of this file has been shown to you. You should retry this tool after you have searched inside the file with `grep -n` in order to find the line numbers of what you are looking for.</NOTE>'
 

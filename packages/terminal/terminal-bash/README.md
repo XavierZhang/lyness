@@ -3,7 +3,7 @@ description: "The shipped shell backend for persistent terminal sessions: intera
 kind: "package-reference"
 ---
 
-# @lyness/terminal-bash
+# @lyness/lyn-terminal-bash
 
 English | [中文](README.zh.md)
 
@@ -25,7 +25,7 @@ English | [中文](README.zh.md)
 <a id="use-this-package"></a>
 ## Use this package
 
-Mount this backend when a composition needs persistent shell sessions — state such as cwd, exported variables, functions, or running interactive children must survive across tool calls. It is the default `shell` type: a composition that mounts `@lyness/terminal` without it has no sessions to open.
+Mount this backend when a composition needs persistent shell sessions — state such as cwd, exported variables, functions, or running interactive children must survive across tool calls. It is the default `shell` type: a composition that mounts `@lyness/lyn-terminal` without it has no sessions to open.
 
 ### When to choose it
 
@@ -36,12 +36,12 @@ Choose this backend when work needs an interactive shell or REPL whose state per
 Mount the terminal service, a subprocess provider, the sandbox and policy services, this backend, and a tool package:
 
 ```yaml
-- name: '@lyness/terminal'
-- name: '@lyness/subprocess-local'
-- name: '@lyness/sandbox-local'
-- name: '@lyness/sandbox-policy'
-- name: '@lyness/terminal-bash'
-- name: '@lyness/tool-terminal'
+- name: '@lyness/lyn-terminal'
+- name: '@lyness/lyn-subprocess-local'
+- name: '@lyness/lyn-sandbox-local'
+- name: '@lyness/lyn-sandbox-policy'
+- name: '@lyness/lyn-terminal-bash'
+- name: '@lyness/lyn-tool-terminal'
 ```
 
 `danger-full-access` starts the shell directly. Confined modes require a same-world `ctx.sandbox` provider: without one, the spawn fails before the shell starts.
@@ -57,7 +57,7 @@ Mount the terminal service, a subprocess provider, the sandbox and policy servic
 | `timeoutMs` | `30000` | Absolute bound on one send wait |
 | `disposeGraceMs` | `3000` | Grace before teardown escalates to `SIGKILL` |
 
-The generated [configuration catalog](../../../docs/config-catalog.md#lynessterminal-bash) is the exhaustive source for every field, including the readiness timings (`pollIntervalMs`, `exactProbeAfterMs`, `idleSilenceMs`, `handoffGraceMs`), terminal size (`rows`, `cols`), and scrollback bounds (`scrollbackLines`, `scrollbackMaxBytes`).
+The generated [configuration catalog](../../../docs/config-catalog.md#lynesslyn-terminal-bash) is the exhaustive source for every field, including the readiness timings (`pollIntervalMs`, `exactProbeAfterMs`, `idleSilenceMs`, `handoffGraceMs`), terminal size (`rows`, `cols`), and scrollback bounds (`scrollbackLines`, `scrollbackMaxBytes`).
 
 ### Shell dialects and readiness
 
@@ -131,7 +131,7 @@ Read these pages when the package-level contract is not enough. They move from t
 
 #### What the model sees
 
-This package registers no prompt or tool. Through `@lyness/tool-terminal` or another PTY consumer, the model may receive bounded startup output, send deltas, scrollback pages, readiness reasons, and cleanup errors.
+This package registers no prompt or tool. Through `@lyness/lyn-tool-terminal` or another PTY consumer, the model may receive bounded startup output, send deltas, scrollback pages, readiness reasons, and cleanup errors.
 
 #### Token effect
 

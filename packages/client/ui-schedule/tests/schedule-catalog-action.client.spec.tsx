@@ -1,11 +1,11 @@
 // @vitest-environment jsdom
 import { act, cleanup, fireEvent, render, screen, within } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { makeTranslate } from '@lyness/client-test-runtime'
-import type { SessionSnapshot, UseProjection } from '@lyness/api-session-controller/client'
-import type { ScheduleRecord } from '@lyness/schedule/client'
-import { ScheduleId } from '@lyness/schedule'
-import type { SessionId } from '@lyness/session/types'
+import { makeTranslate } from '@lyness/lyn-client-test-runtime'
+import type { SessionSnapshot, UseProjection } from '@lyness/lyn-api-session-controller/client'
+import type { ScheduleRecord } from '@lyness/lyn-schedule/client'
+import { ScheduleId } from '@lyness/lyn-schedule'
+import type { SessionId } from '@lyness/lyn-session/types'
 import {
   formatScheduleFrequency,
   formatScheduleLocalTime,

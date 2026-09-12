@@ -3,7 +3,7 @@ description: "Shell layout for the Web GUI: the three-column AppFrame whose righ
 kind: "package-reference"
 ---
 
-# @lyness/client-ui-layout
+# @lyness/lyn-client-ui-layout
 
 English | [中文](README.zh.md)
 

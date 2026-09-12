@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { createUserMessage } from '@lyness/llm'
-import SessionStore, { SessionId, SessionLogOffset, SessionSeq } from '@lyness/session'
-import type { Session, SessionSeq as SessionSeqType } from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import SessionTitleService from '@lyness/session-title'
+import { createUserMessage } from '@lyness/lyn-llm'
+import SessionStore, { SessionId, SessionLogOffset, SessionSeq } from '@lyness/lyn-session'
+import type { Session, SessionSeq as SessionSeqType } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import SessionTitleService from '@lyness/lyn-session-title'
 
 const CONFIG = { fallbackMaxWords: 8, fallbackMaxBytes: 64, maxTitleBytes: 256 }
 

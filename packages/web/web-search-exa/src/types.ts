@@ -4,7 +4,7 @@
  * URL, optional title, optional `publishedDate`, and (when highlights are
  * requested) a `highlights[]` array of salient sentences.
  *
- * @module @lyness/web-search-exa/types
+ * @module @lyness/lyn-web-search-exa/types
  */
 
 /** Request body sent to Exa's search endpoint. */

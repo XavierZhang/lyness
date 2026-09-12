@@ -20,12 +20,12 @@
  * time stays uncounted in every time figure — matching the window, which
  * renders it as an untimed interrupted node.
  *
- * @module @lyness/session-stats/projection
+ * @module @lyness/lyn-session-stats/projection
  */
 
 import { z } from 'zod'
-import { assistantStreamFirstTokenTime } from '@lyness/llm'
-import type { ProjectionDefinition } from '@lyness/session-projection'
+import { assistantStreamFirstTokenTime } from '@lyness/lyn-llm'
+import type { ProjectionDefinition } from '@lyness/lyn-session-projection'
 
 
 /** Accumulated whole-log figures (the view is exactly these totals). */
@@ -63,7 +63,7 @@ interface SessionStatsState extends SessionStatsTotals {
   pendingCalls: Record<string, number>
 }
 
-declare module '@lyness/session-projection/types' {
+declare module '@lyness/lyn-session-projection/types' {
   interface SessionProjectionStateMap {
     sessionStats: SessionStatsState
   }

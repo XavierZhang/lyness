@@ -14,9 +14,9 @@ import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
 import Include from '@lyness/cordis-plugin-include'
-import * as Connection from '@lyness/client-connection'
-import LocalCredentials from '@lyness/credentials-local'
-import HttpServer from '@lyness/host-webserver'
+import * as Connection from '@lyness/lyn-client-connection'
+import LocalCredentials from '@lyness/lyn-credentials-local'
+import HttpServer from '@lyness/lyn-host-webserver'
 import * as FrontendStatic from '../src/index.ts'
 
 let root: string | undefined
@@ -42,17 +42,17 @@ async function loadComposition(): Promise<Context> {
   await mkdir(join(dist, 'empty'))
   const configPath = join(root, 'cordis.yml')
   await writeFile(configPath, [
-    "- name: '@lyness/credentials-local'",
+    "- name: '@lyness/lyn-credentials-local'",
     '  config:',
     `    path: '${join(root, '.credentials.yaml')}'`,
     '    watch: false',
-    "- name: '@lyness/host-webserver'",
+    "- name: '@lyness/lyn-host-webserver'",
     '  config:',
     "    host: '127.0.0.1'",
     '    port: 0',
-    "- name: '@lyness/client-connection'",
+    "- name: '@lyness/lyn-client-connection'",
     '- id: frontend',
-    "  name: '@lyness/host-frontend-static'",
+    "  name: '@lyness/lyn-host-frontend-static'",
     '  config:',
     `    distIndex: '${distIndex}'`,
     '',
@@ -63,10 +63,10 @@ async function loadComposition(): Promise<Context> {
   await context.plugin(Loader)
   context.loader.builtins.include = Include
   const modules = new Map<string, unknown>([
-    ['@lyness/credentials-local', LocalCredentials],
-    ['@lyness/host-webserver', HttpServer],
-    ['@lyness/client-connection', Connection],
-    ['@lyness/host-frontend-static', FrontendStatic],
+    ['@lyness/lyn-credentials-local', LocalCredentials],
+    ['@lyness/lyn-host-webserver', HttpServer],
+    ['@lyness/lyn-client-connection', Connection],
+    ['@lyness/lyn-host-frontend-static', FrontendStatic],
   ])
   context.loader.internal = {
     version: 'v2',

@@ -3,7 +3,7 @@ description: "原生目录选择表面：驱动 Host 操作系统选择器的浏
 kind: "package-reference"
 ---
 
-# @lyness/client-ui-directory-picker-native
+# @lyness/lyn-client-ui-directory-picker-native
 
 [English](README.md) | 中文
 

@@ -40,14 +40,14 @@ function packageSetProject(): {
   const baseBody = Buffer.from('base')
   const hostBody = Buffer.from('host')
   const lyn = record('@lyness/lyn', 'lyn.tgz', lynBody)
-  const base = record('@lyness/base', 'lyn-base.tgz', baseBody)
-  const host = record('@lyness/desktop-host', 'lyn-desktop-host.tgz', hostBody)
+  const base = record('@lyness/lyn-base', 'lyn-base.tgz', baseBody)
+  const host = record('@lyness/lyn-desktop-host', 'lyn-desktop-host.tgz', hostBody)
   writeFileSync(join(packageDir, lyn.file), lynBody)
   writeFileSync(join(packageDir, base.file), baseBody)
   writeFileSync(join(packageDir, host.file), hostBody)
   writeFileSync(join(root, DESKTOP_PACKAGE_SET_FILE), `${JSON.stringify({
     schemaVersion: 1,
-    packages: [base, host, lyn],
+    packages: [lyn, base, host],
   })}\n`)
   return { root, lyn, base, host }
 }
@@ -63,8 +63,8 @@ describe('desktop core package set', () => {
     expect(desktopLynPackageSpec(packageSet)).toBe('file:./desktop-packages/lyn.tgz')
     expect(desktopCorePackageOverrides(packageSet)).toEqual({
       '@lyness/lyn': 'file:./desktop-packages/lyn.tgz',
-      '@lyness/base': 'file:./desktop-packages/lyn-base.tgz',
-      '@lyness/desktop-host': 'file:./desktop-packages/lyn-desktop-host.tgz',
+      '@lyness/lyn-base': 'file:./desktop-packages/lyn-base.tgz',
+      '@lyness/lyn-desktop-host': 'file:./desktop-packages/lyn-desktop-host.tgz',
     })
   })
 
@@ -73,8 +73,8 @@ describe('desktop core package set', () => {
     expect(() => verifyDesktopCorePackageSet(root, '2.0.0')).toThrow(/does not match Desktop/u)
     expect(() => parseDesktopCorePackageSet({
       schemaVersion: 1,
-      packages: [base, { ...host, version: '2.0.0' }, lyn],
-    }, '1.2.3')).toThrow(/@lyness\/desktop-host@2\.0\.0 does not match Desktop 1\.2\.3/u)
+      packages: [lyn, base, { ...host, version: '2.0.0' }],
+    }, '1.2.3')).toThrow(/lyn-desktop-host@2\.0\.0 does not match Desktop 1\.2\.3/u)
     expect(() => parseDesktopCorePackageSet({ schemaVersion: 1, packages: [base, lyn, host] }))
       .toThrow(/sorted by name/u)
     writeFileSync(join(root, DESKTOP_PACKAGES_DIR, lyn.file), 'changed')
@@ -85,8 +85,8 @@ describe('desktop core package set', () => {
 
   it('rejects registry resolutions for names supplied by the local package set', () => {
     const lyn = record('@lyness/lyn', 'lyn.tgz', Buffer.from('lyn'))
-    const host = record('@lyness/desktop-host', 'host.tgz', Buffer.from('host'))
-    const packageSet = parseDesktopCorePackageSet({ schemaVersion: 1, packages: [host, lyn] })
+    const host = record('@lyness/lyn-desktop-host', 'host.tgz', Buffer.from('host'))
+    const packageSet = parseDesktopCorePackageSet({ schemaVersion: 1, packages: [lyn, host] })
     expect(() => {
       verifyDesktopCoreLockfile(
         "packages:\n  '@lyness/lyn@file:desktop-packages/lyn.tgz':\n    resolution: {}\n",

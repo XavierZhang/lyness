@@ -39,9 +39,9 @@ import clsx from 'clsx'
 import {
   Button, IconCheckOutline16, IconChevronRightOutline14, IconEditOutline16, IconFolderClose16, IconFolderOpen16,
   IconPlusOutline16, Modal,
-} from '@lyness/client-ui-primitives'
-import type { DirectoryEntry, DirectoryListing } from '@lyness/api-remotes/client'
-import type { Translate } from '@lyness/client-locale/client'
+} from '@lyness/lyn-client-ui-primitives'
+import type { DirectoryEntry, DirectoryListing } from '@lyness/lyn-api-remotes/client'
+import type { Translate } from '@lyness/lyn-client-locale/client'
 import css from './DirectoryBrowser.module.css'
 
 /** Owner-supplied browser props: browse calls, pick semantics, and copy. */

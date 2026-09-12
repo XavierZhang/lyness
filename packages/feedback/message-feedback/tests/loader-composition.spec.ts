@@ -6,9 +6,9 @@ import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import Include from '@lyness/cordis-plugin-include'
 import Loader from '@lyness/cordis-plugin-loader'
-import SessionStore, { SessionId } from '@lyness/session'
-import JsonlSessionPersistence from '@lyness/session-persistence-jsonl'
-import { remoteMethods } from '@lyness/typert-protocol'
+import SessionStore, { SessionId } from '@lyness/lyn-session'
+import JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
+import { remoteMethods } from '@lyness/lyn-typert-protocol'
 import MessageFeedbackService from '../src/index.ts'
 import { appendMessageFixture } from './helpers.ts'
 
@@ -27,9 +27,9 @@ async function loadComposition(configPath: string): Promise<Context> {
   await ctx.plugin(Loader)
   ctx.loader.builtins.include = Include
   const modules = new Map<string, unknown>([
-    ['@lyness/session', SessionStore],
-    ['@lyness/session-persistence-jsonl', JsonlSessionPersistence],
-    ['@lyness/message-feedback', MessageFeedbackService],
+    ['@lyness/lyn-session', SessionStore],
+    ['@lyness/lyn-session-persistence-jsonl', JsonlSessionPersistence],
+    ['@lyness/lyn-message-feedback', MessageFeedbackService],
   ])
   ctx.loader.internal = {
     version: 'v2',
@@ -55,12 +55,12 @@ describe('message feedback through a real Loader composition', () => {
     root = await mkdtemp(join(tmpdir(), 'lyn-message-feedback-loader-'))
     const configPath = join(root, 'cordis.yml')
     await writeFile(configPath, [
-      "- name: '@lyness/session'",
-      "- name: '@lyness/session-persistence-jsonl'",
+      "- name: '@lyness/lyn-session'",
+      "- name: '@lyness/lyn-session-persistence-jsonl'",
       '  config:',
       `    root: ${JSON.stringify(join(root, 'sessions'))}`,
       '    compression: none',
-      "- name: '@lyness/message-feedback'",
+      "- name: '@lyness/lyn-message-feedback'",
       '  config:',
       '    maxNoteBytes: 32',
       '',

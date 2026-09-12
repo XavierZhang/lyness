@@ -5,10 +5,10 @@
  */
 import { createElement } from 'react'
 import type { ReactElement } from 'react'
-import type { DirectoryListing } from '@lyness/api-remotes/client'
-import type { Translate } from '@lyness/client-locale/client'
+import type { DirectoryListing } from '@lyness/lyn-api-remotes/client'
+import type { Translate } from '@lyness/lyn-client-locale/client'
 // Type-only: the owner contract of the directory-flow holes.
-import type { DirectoryFlowOwnerProps } from '@lyness/client-ui-workspace/client'
+import type { DirectoryFlowOwnerProps } from '@lyness/lyn-client-ui-workspace/client'
 import { DirectoryBrowser } from './DirectoryBrowser.tsx'
 
 /** Injected face: the browse wire calls and copy the dialog drives (bound in apply's closure). */

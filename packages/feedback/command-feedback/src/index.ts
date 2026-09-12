@@ -5,14 +5,14 @@
  * authoritative log-only event and does not start model work. The append is
  * eager but unflushed, so acknowledgement reports that the entry is logged,
  * not that it reached disk.
- * @module @lyness/command-feedback
+ * @module @lyness/lyn-command-feedback
  */
 
 import type { Context } from '@lyness/cordis'
-import type { CommandInvocation, CommandResult } from '@lyness/commands'
-import type { Session } from '@lyness/session'
-import { getOrCreateAnonymousUserId } from '@lyness/anonymous-user-id'
-import { TypertRemoteService, Remote } from '@lyness/typert-protocol'
+import type { CommandInvocation, CommandResult } from '@lyness/lyn-commands'
+import type { Session } from '@lyness/lyn-session'
+import { getOrCreateAnonymousUserId } from '@lyness/lyn-anonymous-user-id'
+import { TypertRemoteService, Remote } from '@lyness/lyn-typert-protocol'
 import type {
   FeedbackCategory,
   FeedbackRecord,

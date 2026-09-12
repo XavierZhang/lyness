@@ -3,12 +3,12 @@
  * runtime subprocess across many sessions; `HarnessSession.run` sends a
  * prompt and settles when the whole agent next becomes idle.
  *
- * @module @lyness/sdk-client/api
+ * @module @lyness/lyn-sdk-client/api
  */
 
 import { randomUUID } from 'node:crypto'
 import { resolve } from 'node:path'
-import type { SessionEvent, TurnEndReason } from '@lyness/session'
+import type { SessionEvent, TurnEndReason } from '@lyness/lyn-session'
 import { createProcessHarnessClient, HarnessClient, isRecord, SdkProtocolError } from './client.ts'
 import type { RuntimeProcessOptions } from './launch.ts'
 import type { ContentBlock, LynessOptions, HarnessNotification, RunResult, SdkPromptContentBlock } from './types.ts'

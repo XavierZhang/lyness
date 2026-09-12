@@ -8,9 +8,9 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, relative, resolve } from 'node:path'
 import ts from 'typescript'
-import { projectCordisCatalog } from '@lyness/typert-generator'
+import { projectCordisCatalog } from '@lyness/lyn-typert-generator'
 import { CORDIS_CATALOG_POLICY } from './gen-cordis-catalog.ts'
-import type { EventEntry, ServiceEntry } from '@lyness/typert-generator'
+import type { EventEntry, ServiceEntry } from '@lyness/lyn-typert-generator'
 import {
   collectPackageGraph,
   escapeMermaidLabel as escLabel,

@@ -1,20 +1,20 @@
 /**
- * Package-owned invariant companion for `@lyness/agent-presets`.
- * @module @lyness/agent-presets/invariant
+ * Package-owned invariant companion for `@lyness/lyn-agent-presets`.
+ * @module @lyness/lyn-agent-presets/invariant
  */
 
 import type { Context } from '@lyness/cordis'
-import type { InvariantInstaller } from '@lyness/invariants'
+import type { InvariantInstaller } from '@lyness/lyn-invariants'
 // Type-only: resolves the `system-prompt/assemble` waterfall this companion
 // joins, and the `agent` field `lyn-agent` merges into its context.
-import type {} from '@lyness/system-prompt'
-import type {} from '@lyness/agent'
+import type {} from '@lyness/lyn-system-prompt'
+import type {} from '@lyness/lyn-agent'
 // Imported through the package name, not `./mount.ts`: a module shared between
 // the two build entry points becomes a third chunk that the published `files`
 // list does not carry, which `verify-built-package-invariants` rejects.
-import { leakedServices, livePresetMounts } from '@lyness/agent-presets'
+import { leakedServices, livePresetMounts } from '@lyness/lyn-agent-presets'
 
-const PACKAGE_NAME = '@lyness/agent-presets'
+const PACKAGE_NAME = '@lyness/lyn-agent-presets'
 
 /** Cordis companion plugin name. */
 export const name = 'agent-presets-invariant'

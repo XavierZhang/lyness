@@ -1,10 +1,10 @@
 /** Host-only Team state projected incrementally from committed Session events. */
 
 import { z } from 'zod'
-import { brandString } from '@lyness/brand'
-import type { ContentBlock } from '@lyness/llm'
-import type { SessionEvent, SessionEventMap, SessionId } from '@lyness/session'
-import type { ProjectionDefinition } from '@lyness/session-projection'
+import { brandString } from '@lyness/lyn-brand'
+import type { ContentBlock } from '@lyness/lyn-llm'
+import type { SessionEvent, SessionEventMap, SessionId } from '@lyness/lyn-session'
+import type { ProjectionDefinition } from '@lyness/lyn-session-projection'
 import type {
   TeamId,
   TeamMemberSnapshot,
@@ -154,7 +154,7 @@ export interface TeamProjectionState extends TeamState {
   failure?: string
 }
 
-declare module '@lyness/session-projection/types' {
+declare module '@lyness/lyn-session-projection/types' {
   interface SessionProjectionStateMap {
     agentTeam: TeamProjectionState
   }

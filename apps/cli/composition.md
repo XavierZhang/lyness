@@ -12,169 +12,169 @@ flowchart LR
   cfg --> plugin_lyn_base_timer
   plugin_lyn_base_hmr["hmr<br/>@lyness/cordis-plugin-hmr"]
   cfg --> plugin_lyn_base_hmr
-  plugin_lyn_base_llm["llm<br/>@lyness/llm"]
+  plugin_lyn_base_llm["llm<br/>@lyness/lyn-llm"]
   cfg --> plugin_lyn_base_llm
-  plugin_lyn_base_deepseek_llm_api_extensions["deepseek-llm-api-extensions<br/>@lyness/deepseek-llm-api-extensions"]
+  plugin_lyn_base_deepseek_llm_api_extensions["deepseek-llm-api-extensions<br/>@lyness/lyn-deepseek-llm-api-extensions"]
   cfg --> plugin_lyn_base_deepseek_llm_api_extensions
-  plugin_lyn_base_session["session<br/>@lyness/session"]
+  plugin_lyn_base_session["session<br/>@lyness/lyn-session"]
   cfg --> plugin_lyn_base_session
-  plugin_lyn_base_session_log_deepseek["session-log-deepseek<br/>@lyness/session-log-deepseek"]
+  plugin_lyn_base_session_log_deepseek["session-log-deepseek<br/>@lyness/lyn-session-log-deepseek"]
   cfg --> plugin_lyn_base_session_log_deepseek
-  plugin_lyn_base_typert["typert<br/>@lyness/typert-registry"]
+  plugin_lyn_base_typert["typert<br/>@lyness/lyn-typert-registry"]
   cfg --> plugin_lyn_base_typert
-  plugin_lyn_base_typert_loader["typert-loader<br/>@lyness/typert-loader"]
+  plugin_lyn_base_typert_loader["typert-loader<br/>@lyness/lyn-typert-loader"]
   cfg --> plugin_lyn_base_typert_loader
-  plugin_lyn_base_typert_gateway["typert-gateway<br/>@lyness/api-gateway"]
+  plugin_lyn_base_typert_gateway["typert-gateway<br/>@lyness/lyn-api-gateway"]
   cfg --> plugin_lyn_base_typert_gateway
-  plugin_lyn_base_session_title["session-title<br/>@lyness/session-title"]
+  plugin_lyn_base_session_title["session-title<br/>@lyness/lyn-session-title"]
   cfg --> plugin_lyn_base_session_title
-  plugin_lyn_base_session_title_llm["session-title-llm<br/>@lyness/session-title-first-prompt-llm"]
+  plugin_lyn_base_session_title_llm["session-title-llm<br/>@lyness/lyn-session-title-first-prompt-llm"]
   cfg --> plugin_lyn_base_session_title_llm
-  plugin_lyn_base_user_questions["user-questions<br/>@lyness/user-questions"]
+  plugin_lyn_base_user_questions["user-questions<br/>@lyness/lyn-user-questions"]
   cfg --> plugin_lyn_base_user_questions
-  plugin_lyn_base_agent["agent<br/>@lyness/agent"]
+  plugin_lyn_base_agent["agent<br/>@lyness/lyn-agent"]
   cfg --> plugin_lyn_base_agent
-  plugin_lyn_base_plugin_package_inventory_deepseek["plugin-package-inventory-deepseek<br/>@lyness/plugin-package-inventory-deepseek"]
+  plugin_lyn_base_plugin_package_inventory_deepseek["plugin-package-inventory-deepseek<br/>@lyness/lyn-plugin-package-inventory-deepseek"]
   cfg --> plugin_lyn_base_plugin_package_inventory_deepseek
-  plugin_lyn_base_agent_default_model["agent-default-model<br/>@lyness/agent-default-model"]
+  plugin_lyn_base_agent_default_model["agent-default-model<br/>@lyness/lyn-agent-default-model"]
   cfg --> plugin_lyn_base_agent_default_model
-  plugin_lyn_base_jobs["jobs<br/>@lyness/jobs-local"]
+  plugin_lyn_base_jobs["jobs<br/>@lyness/lyn-jobs-local"]
   cfg --> plugin_lyn_base_jobs
-  plugin_lyn_base_llm_retry["llm-retry<br/>@lyness/llm-retry"]
+  plugin_lyn_base_llm_retry["llm-retry<br/>@lyness/lyn-llm-retry"]
   cfg --> plugin_lyn_base_llm_retry
-  plugin_lyn_base_settings["settings<br/>@lyness/settings-file"]
+  plugin_lyn_base_settings["settings<br/>@lyness/lyn-settings-file"]
   cfg --> plugin_lyn_base_settings
-  plugin_lyn_base_credentials["credentials<br/>@lyness/credentials-local"]
+  plugin_lyn_base_credentials["credentials<br/>@lyness/lyn-credentials-local"]
   cfg --> plugin_lyn_base_credentials
-  plugin_lyn_base_llm_pi_ai["llm-pi-ai<br/>@lyness/llm-pi-ai"]
+  plugin_lyn_base_llm_pi_ai["llm-pi-ai<br/>@lyness/lyn-llm-pi-ai"]
   cfg --> plugin_lyn_base_llm_pi_ai
-  plugin_lyn_base_session_persistence_jsonl["session-persistence-jsonl<br/>@lyness/session-persistence-jsonl"]
+  plugin_lyn_base_session_persistence_jsonl["session-persistence-jsonl<br/>@lyness/lyn-session-persistence-jsonl"]
   cfg --> plugin_lyn_base_session_persistence_jsonl
-  plugin_lyn_base_attachment_local["attachment-local<br/>@lyness/attachment-local"]
+  plugin_lyn_base_attachment_local["attachment-local<br/>@lyness/lyn-attachment-local"]
   cfg --> plugin_lyn_base_attachment_local
-  plugin_lyn_base_session_query_sqlite["session-query-sqlite<br/>@lyness/session-query-sqlite"]
+  plugin_lyn_base_session_query_sqlite["session-query-sqlite<br/>@lyness/lyn-session-query-sqlite"]
   cfg --> plugin_lyn_base_session_query_sqlite
-  plugin_lyn_base_session_projection["session-projection<br/>@lyness/session-projection"]
+  plugin_lyn_base_session_projection["session-projection<br/>@lyness/lyn-session-projection"]
   cfg --> plugin_lyn_base_session_projection
-  plugin_lyn_base_storage["storage<br/>@lyness/storage"]
+  plugin_lyn_base_storage["storage<br/>@lyness/lyn-storage"]
   cfg --> plugin_lyn_base_storage
-  plugin_lyn_base_storage_json["storage-json<br/>@lyness/storage-json"]
+  plugin_lyn_base_storage_json["storage-json<br/>@lyness/lyn-storage-json"]
   cfg --> plugin_lyn_base_storage_json
-  plugin_lyn_base_storage_domain["storage-domain<br/>@lyness/storage-domain"]
+  plugin_lyn_base_storage_domain["storage-domain<br/>@lyness/lyn-storage-domain"]
   cfg --> plugin_lyn_base_storage_domain
-  plugin_lyn_base_session_projection_cache["session-projection-cache<br/>@lyness/session-projection-cache"]
+  plugin_lyn_base_session_projection_cache["session-projection-cache<br/>@lyness/lyn-session-projection-cache"]
   cfg --> plugin_lyn_base_session_projection_cache
-  plugin_lyn_base_session_telemetry_otel["session-telemetry-otel<br/>@lyness/session-telemetry-otel"]
+  plugin_lyn_base_session_telemetry_otel["session-telemetry-otel<br/>@lyness/lyn-session-telemetry-otel"]
   cfg --> plugin_lyn_base_session_telemetry_otel
-  plugin_lyn_base_subprocess["subprocess<br/>@lyness/subprocess-local"]
+  plugin_lyn_base_subprocess["subprocess<br/>@lyness/lyn-subprocess-local"]
   cfg --> plugin_lyn_base_subprocess
-  plugin_lyn_base_sandbox["sandbox<br/>@lyness/sandbox-local"]
+  plugin_lyn_base_sandbox["sandbox<br/>@lyness/lyn-sandbox-local"]
   cfg --> plugin_lyn_base_sandbox
-  plugin_lyn_base_sandbox_policy["sandbox-policy<br/>@lyness/sandbox-policy"]
+  plugin_lyn_base_sandbox_policy["sandbox-policy<br/>@lyness/lyn-sandbox-policy"]
   cfg --> plugin_lyn_base_sandbox_policy
-  plugin_lyn_base_bash_sandbox["bash-sandbox<br/>@lyness/bash-sandbox"]
+  plugin_lyn_base_bash_sandbox["bash-sandbox<br/>@lyness/lyn-bash-sandbox"]
   cfg --> plugin_lyn_base_bash_sandbox
-  plugin_lyn_base_pwsh_sandbox["pwsh-sandbox<br/>@lyness/pwsh-sandbox"]
+  plugin_lyn_base_pwsh_sandbox["pwsh-sandbox<br/>@lyness/lyn-pwsh-sandbox"]
   cfg --> plugin_lyn_base_pwsh_sandbox
-  plugin_lyn_base_approval["approval<br/>@lyness/user-approval"]
+  plugin_lyn_base_approval["approval<br/>@lyness/lyn-user-approval"]
   cfg --> plugin_lyn_base_approval
-  plugin_lyn_base_permission["permission<br/>@lyness/permission-presets"]
+  plugin_lyn_base_permission["permission<br/>@lyness/lyn-permission-presets"]
   cfg --> plugin_lyn_base_permission
-  plugin_lyn_base_shell_env["shell-env<br/>@lyness/shell-env"]
+  plugin_lyn_base_shell_env["shell-env<br/>@lyness/lyn-shell-env"]
   cfg --> plugin_lyn_base_shell_env
-  plugin_lyn_base_tool_bash["tool-bash<br/>@lyness/tool-bash"]
+  plugin_lyn_base_tool_bash["tool-bash<br/>@lyness/lyn-tool-bash"]
   cfg --> plugin_lyn_base_tool_bash
-  plugin_lyn_base_tool_pwsh["tool-pwsh<br/>@lyness/tool-pwsh"]
+  plugin_lyn_base_tool_pwsh["tool-pwsh<br/>@lyness/lyn-tool-pwsh"]
   cfg --> plugin_lyn_base_tool_pwsh
-  plugin_lyn_base_tool_jobs["tool-jobs<br/>@lyness/tool-jobs"]
+  plugin_lyn_base_tool_jobs["tool-jobs<br/>@lyness/lyn-tool-jobs"]
   cfg --> plugin_lyn_base_tool_jobs
-  plugin_lyn_base_fs_observation_policy["fs-observation-policy<br/>@lyness/fs-observation-policy"]
+  plugin_lyn_base_fs_observation_policy["fs-observation-policy<br/>@lyness/lyn-fs-observation-policy"]
   cfg --> plugin_lyn_base_fs_observation_policy
-  plugin_lyn_base_tool_fs["tool-fs<br/>@lyness/tool-fs"]
+  plugin_lyn_base_tool_fs["tool-fs<br/>@lyness/lyn-tool-fs"]
   cfg --> plugin_lyn_base_tool_fs
-  plugin_lyn_base_tool_fs_search["tool-fs-search<br/>@lyness/tool-fs-search"]
+  plugin_lyn_base_tool_fs_search["tool-fs-search<br/>@lyness/lyn-tool-fs-search"]
   cfg --> plugin_lyn_base_tool_fs_search
-  plugin_lyn_base_agent_instructions["agent-instructions<br/>@lyness/agent-instructions"]
+  plugin_lyn_base_agent_instructions["agent-instructions<br/>@lyness/lyn-agent-instructions"]
   cfg --> plugin_lyn_base_agent_instructions
-  plugin_lyn_base_skill["skill<br/>@lyness/skill"]
+  plugin_lyn_base_skill["skill<br/>@lyness/lyn-skill"]
   cfg --> plugin_lyn_base_skill
-  plugin_lyn_base_skill_filesystem["skill-filesystem<br/>@lyness/skill-filesystem"]
+  plugin_lyn_base_skill_filesystem["skill-filesystem<br/>@lyness/lyn-skill-filesystem"]
   cfg --> plugin_lyn_base_skill_filesystem
-  plugin_lyn_base_skill_badge["skill-badge<br/>@lyness/skill-badge"]
+  plugin_lyn_base_skill_badge["skill-badge<br/>@lyness/lyn-skill-badge"]
   cfg --> plugin_lyn_base_skill_badge
-  plugin_lyn_base_tool_skill["tool-skill<br/>@lyness/tool-skill"]
+  plugin_lyn_base_tool_skill["tool-skill<br/>@lyness/lyn-tool-skill"]
   cfg --> plugin_lyn_base_tool_skill
-  plugin_lyn_base_commands["commands<br/>@lyness/commands"]
+  plugin_lyn_base_commands["commands<br/>@lyness/lyn-commands"]
   cfg --> plugin_lyn_base_commands
-  plugin_lyn_base_command_feedback["command-feedback<br/>@lyness/command-feedback"]
+  plugin_lyn_base_command_feedback["command-feedback<br/>@lyness/lyn-command-feedback"]
   cfg --> plugin_lyn_base_command_feedback
-  plugin_lyn_base_goal["goal<br/>@lyness/goal"]
+  plugin_lyn_base_goal["goal<br/>@lyness/lyn-goal"]
   cfg --> plugin_lyn_base_goal
-  plugin_lyn_base_goal_round_driver["goal-round-driver<br/>@lyness/goal-round-driver"]
+  plugin_lyn_base_goal_round_driver["goal-round-driver<br/>@lyness/lyn-goal-round-driver"]
   cfg --> plugin_lyn_base_goal_round_driver
-  plugin_lyn_base_command_goal["command-goal<br/>@lyness/command-goal"]
+  plugin_lyn_base_command_goal["command-goal<br/>@lyness/lyn-command-goal"]
   cfg --> plugin_lyn_base_command_goal
-  plugin_lyn_base_plan_mode["plan-mode<br/>@lyness/plan-mode"]
+  plugin_lyn_base_plan_mode["plan-mode<br/>@lyness/lyn-plan-mode"]
   cfg --> plugin_lyn_base_plan_mode
-  plugin_lyn_base_token_meter["token-meter<br/>@lyness/token-meter"]
+  plugin_lyn_base_token_meter["token-meter<br/>@lyness/lyn-token-meter"]
   cfg --> plugin_lyn_base_token_meter
-  plugin_lyn_base_compaction_basic["compaction-basic<br/>@lyness/compaction-basic"]
+  plugin_lyn_base_compaction_basic["compaction-basic<br/>@lyness/lyn-compaction-basic"]
   cfg --> plugin_lyn_base_compaction_basic
-  plugin_lyn_base_command_compact["command-compact<br/>@lyness/command-compact"]
+  plugin_lyn_base_command_compact["command-compact<br/>@lyness/lyn-command-compact"]
   cfg --> plugin_lyn_base_command_compact
-  plugin_lyn_base_subagent["subagent<br/>@lyness/subagent"]
+  plugin_lyn_base_subagent["subagent<br/>@lyness/lyn-subagent"]
   cfg --> plugin_lyn_base_subagent
-  plugin_lyn_base_subagent_spawn_in_process["subagent-spawn-in-process<br/>@lyness/subagent-spawn-in-process"]
+  plugin_lyn_base_subagent_spawn_in_process["subagent-spawn-in-process<br/>@lyness/lyn-subagent-spawn-in-process"]
   cfg --> plugin_lyn_base_subagent_spawn_in_process
-  plugin_lyn_base_subagent_fork_in_process["subagent-fork-in-process<br/>@lyness/subagent-fork-in-process"]
+  plugin_lyn_base_subagent_fork_in_process["subagent-fork-in-process<br/>@lyness/lyn-subagent-fork-in-process"]
   cfg --> plugin_lyn_base_subagent_fork_in_process
-  plugin_lyn_base_tool_subagent_control["tool-subagent-control<br/>@lyness/tool-subagent-control"]
+  plugin_lyn_base_tool_subagent_control["tool-subagent-control<br/>@lyness/lyn-tool-subagent-control"]
   cfg --> plugin_lyn_base_tool_subagent_control
-  plugin_lyn_base_tool_subagent_list_agents["tool-subagent-list-agents<br/>@lyness/tool-subagent-control/list-agents"]
+  plugin_lyn_base_tool_subagent_list_agents["tool-subagent-list-agents<br/>@lyness/lyn-tool-subagent-control/list-agents"]
   cfg --> plugin_lyn_base_tool_subagent_list_agents
-  plugin_lyn_base_tool_subagent["tool-subagent<br/>@lyness/tool-subagent"]
+  plugin_lyn_base_tool_subagent["tool-subagent<br/>@lyness/lyn-tool-subagent"]
   cfg --> plugin_lyn_base_tool_subagent
-  plugin_lyn_base_tool_subagent_fork["tool-subagent-fork<br/>@lyness/tool-subagent"]
+  plugin_lyn_base_tool_subagent_fork["tool-subagent-fork<br/>@lyness/lyn-tool-subagent"]
   cfg --> plugin_lyn_base_tool_subagent_fork
-  plugin_lyn_base_workflow_worker_thread["workflow-worker-thread<br/>@lyness/workflow-worker-thread"]
+  plugin_lyn_base_workflow_worker_thread["workflow-worker-thread<br/>@lyness/lyn-workflow-worker-thread"]
   cfg --> plugin_lyn_base_workflow_worker_thread
-  plugin_lyn_base_tool_workflow["tool-workflow<br/>@lyness/tool-workflow"]
+  plugin_lyn_base_tool_workflow["tool-workflow<br/>@lyness/lyn-tool-workflow"]
   cfg --> plugin_lyn_base_tool_workflow
-  plugin_lyn_base_timeout_policy["timeout-policy<br/>@lyness/tool-call-timeout-policy"]
+  plugin_lyn_base_timeout_policy["timeout-policy<br/>@lyness/lyn-tool-call-timeout-policy"]
   cfg --> plugin_lyn_base_timeout_policy
-  plugin_lyn_base_spill_local["spill-local<br/>@lyness/spill-local"]
+  plugin_lyn_base_spill_local["spill-local<br/>@lyness/lyn-spill-local"]
   cfg --> plugin_lyn_base_spill_local
-  plugin_lyn_base_spill_policy["spill-policy<br/>@lyness/spill-policy"]
+  plugin_lyn_base_spill_policy["spill-policy<br/>@lyness/lyn-spill-policy"]
   cfg --> plugin_lyn_base_spill_policy
-  plugin_lyn_base_session_checkpoint_policy["session-checkpoint-policy<br/>@lyness/session-checkpoint-policy"]
+  plugin_lyn_base_session_checkpoint_policy["session-checkpoint-policy<br/>@lyness/lyn-session-checkpoint-policy"]
   cfg --> plugin_lyn_base_session_checkpoint_policy
-  plugin_lyn_base_tool_result_pruner["tool-result-pruner<br/>@lyness/compaction-tool-result-pruner"]
+  plugin_lyn_base_tool_result_pruner["tool-result-pruner<br/>@lyness/lyn-compaction-tool-result-pruner"]
   cfg --> plugin_lyn_base_tool_result_pruner
-  plugin_lyn_base_tool_todo["tool-todo<br/>@lyness/tool-todo"]
+  plugin_lyn_base_tool_todo["tool-todo<br/>@lyness/lyn-tool-todo"]
   cfg --> plugin_lyn_base_tool_todo
-  plugin_lyn_base_tool_goal["tool-goal<br/>@lyness/tool-goal"]
+  plugin_lyn_base_tool_goal["tool-goal<br/>@lyness/lyn-tool-goal"]
   cfg --> plugin_lyn_base_tool_goal
-  plugin_lyn_base_tool_ralph["tool-ralph<br/>@lyness/tool-ralph"]
+  plugin_lyn_base_tool_ralph["tool-ralph<br/>@lyness/lyn-tool-ralph"]
   cfg --> plugin_lyn_base_tool_ralph
-  plugin_lyn_base_repeat_tool_reminder["repeat-tool-reminder<br/>@lyness/repeat-tool-reminder"]
+  plugin_lyn_base_repeat_tool_reminder["repeat-tool-reminder<br/>@lyness/lyn-repeat-tool-reminder"]
   cfg --> plugin_lyn_base_repeat_tool_reminder
-  plugin_lyn_base_web["web<br/>@lyness/web"]
+  plugin_lyn_base_web["web<br/>@lyness/lyn-web"]
   cfg --> plugin_lyn_base_web
-  plugin_lyn_base_web_search_deepseek["web-search-deepseek<br/>@lyness/web-search-deepseek"]
+  plugin_lyn_base_web_search_deepseek["web-search-deepseek<br/>@lyness/lyn-web-search-deepseek"]
   cfg --> plugin_lyn_base_web_search_deepseek
-  plugin_lyn_base_web_fetch_http["web-fetch-http<br/>@lyness/web-fetch-http"]
+  plugin_lyn_base_web_fetch_http["web-fetch-http<br/>@lyness/lyn-web-fetch-http"]
   cfg --> plugin_lyn_base_web_fetch_http
-  plugin_lyn_base_tool_web["tool-web<br/>@lyness/tool-web"]
+  plugin_lyn_base_tool_web["tool-web<br/>@lyness/lyn-tool-web"]
   cfg --> plugin_lyn_base_tool_web
-  plugin_lyn_base_tools["tools<br/>@lyness/tools"]
+  plugin_lyn_base_tools["tools<br/>@lyness/lyn-tools"]
   cfg --> plugin_lyn_base_tools
-  plugin_lyn_base_system_prompt["system-prompt<br/>@lyness/system-prompt"]
+  plugin_lyn_base_system_prompt["system-prompt<br/>@lyness/lyn-system-prompt"]
   cfg --> plugin_lyn_base_system_prompt
-  plugin_lyn_base_agent_loop["agent-loop<br/>@lyness/agent-loop"]
+  plugin_lyn_base_agent_loop["agent-loop<br/>@lyness/lyn-agent-loop"]
   cfg --> plugin_lyn_base_agent_loop
-  plugin_lyn_base_fs_sandbox["fs-sandbox<br/>@lyness/fs-sandbox"]
+  plugin_lyn_base_fs_sandbox["fs-sandbox<br/>@lyness/lyn-fs-sandbox"]
   cfg --> plugin_lyn_base_fs_sandbox
-  plugin_lyn_base_llm_deepseek["llm-deepseek<br/>@lyness/llm-deepseek"]
+  plugin_lyn_base_llm_deepseek["llm-deepseek<br/>@lyness/lyn-llm-deepseek"]
   cfg --> plugin_lyn_base_llm_deepseek
 ```
 
@@ -182,88 +182,88 @@ flowchart LR
 | --- | --- |
 | `timer` | `@lyness/cordis-plugin-timer` |
 | `hmr` | `@lyness/cordis-plugin-hmr` |
-| `llm` | `@lyness/llm` |
-| `deepseek-llm-api-extensions` | `@lyness/deepseek-llm-api-extensions` |
-| `session` | `@lyness/session` |
-| `session-log-deepseek` | `@lyness/session-log-deepseek` |
-| `typert` | `@lyness/typert-registry` |
-| `typert-loader` | `@lyness/typert-loader` |
-| `typert-gateway` | `@lyness/api-gateway` |
-| `session-title` | `@lyness/session-title` |
-| `session-title-llm` | `@lyness/session-title-first-prompt-llm` |
-| `user-questions` | `@lyness/user-questions` |
-| `agent` | `@lyness/agent` |
-| `plugin-package-inventory-deepseek` | `@lyness/plugin-package-inventory-deepseek` |
-| `agent-default-model` | `@lyness/agent-default-model` |
-| `jobs` | `@lyness/jobs-local` |
-| `llm-retry` | `@lyness/llm-retry` |
-| `settings` | `@lyness/settings-file` |
-| `credentials` | `@lyness/credentials-local` |
-| `llm-pi-ai` | `@lyness/llm-pi-ai` |
-| `session-persistence-jsonl` | `@lyness/session-persistence-jsonl` |
-| `attachment-local` | `@lyness/attachment-local` |
-| `session-query-sqlite` | `@lyness/session-query-sqlite` |
-| `session-projection` | `@lyness/session-projection` |
-| `storage` | `@lyness/storage` |
-| `storage-json` | `@lyness/storage-json` |
-| `storage-domain` | `@lyness/storage-domain` |
-| `session-projection-cache` | `@lyness/session-projection-cache` |
-| `session-telemetry-otel` | `@lyness/session-telemetry-otel` |
-| `subprocess` | `@lyness/subprocess-local` |
-| `sandbox` | `@lyness/sandbox-local` |
-| `sandbox-policy` | `@lyness/sandbox-policy` |
-| `bash-sandbox` | `@lyness/bash-sandbox` |
-| `pwsh-sandbox` | `@lyness/pwsh-sandbox` |
-| `approval` | `@lyness/user-approval` |
-| `permission` | `@lyness/permission-presets` |
-| `shell-env` | `@lyness/shell-env` |
-| `tool-bash` | `@lyness/tool-bash` |
-| `tool-pwsh` | `@lyness/tool-pwsh` |
-| `tool-jobs` | `@lyness/tool-jobs` |
-| `fs-observation-policy` | `@lyness/fs-observation-policy` |
-| `tool-fs` | `@lyness/tool-fs` |
-| `tool-fs-search` | `@lyness/tool-fs-search` |
-| `agent-instructions` | `@lyness/agent-instructions` |
-| `skill` | `@lyness/skill` |
-| `skill-filesystem` | `@lyness/skill-filesystem` |
-| `skill-badge` | `@lyness/skill-badge` |
-| `tool-skill` | `@lyness/tool-skill` |
-| `commands` | `@lyness/commands` |
-| `command-feedback` | `@lyness/command-feedback` |
-| `goal` | `@lyness/goal` |
-| `goal-round-driver` | `@lyness/goal-round-driver` |
-| `command-goal` | `@lyness/command-goal` |
-| `plan-mode` | `@lyness/plan-mode` |
-| `token-meter` | `@lyness/token-meter` |
-| `compaction-basic` | `@lyness/compaction-basic` |
-| `command-compact` | `@lyness/command-compact` |
-| `subagent` | `@lyness/subagent` |
-| `subagent-spawn-in-process` | `@lyness/subagent-spawn-in-process` |
-| `subagent-fork-in-process` | `@lyness/subagent-fork-in-process` |
-| `tool-subagent-control` | `@lyness/tool-subagent-control` |
-| `tool-subagent-list-agents` | `@lyness/tool-subagent-control/list-agents` |
-| `tool-subagent` | `@lyness/tool-subagent` |
-| `tool-subagent-fork` | `@lyness/tool-subagent` |
-| `workflow-worker-thread` | `@lyness/workflow-worker-thread` |
-| `tool-workflow` | `@lyness/tool-workflow` |
-| `timeout-policy` | `@lyness/tool-call-timeout-policy` |
-| `spill-local` | `@lyness/spill-local` |
-| `spill-policy` | `@lyness/spill-policy` |
-| `session-checkpoint-policy` | `@lyness/session-checkpoint-policy` |
-| `tool-result-pruner` | `@lyness/compaction-tool-result-pruner` |
-| `tool-todo` | `@lyness/tool-todo` |
-| `tool-goal` | `@lyness/tool-goal` |
-| `tool-ralph` | `@lyness/tool-ralph` |
-| `repeat-tool-reminder` | `@lyness/repeat-tool-reminder` |
-| `web` | `@lyness/web` |
-| `web-search-deepseek` | `@lyness/web-search-deepseek` |
-| `web-fetch-http` | `@lyness/web-fetch-http` |
-| `tool-web` | `@lyness/tool-web` |
-| `tools` | `@lyness/tools` |
-| `system-prompt` | `@lyness/system-prompt` |
-| `agent-loop` | `@lyness/agent-loop` |
-| `fs-sandbox` | `@lyness/fs-sandbox` |
-| `llm-deepseek` | `@lyness/llm-deepseek` |
+| `llm` | `@lyness/lyn-llm` |
+| `deepseek-llm-api-extensions` | `@lyness/lyn-deepseek-llm-api-extensions` |
+| `session` | `@lyness/lyn-session` |
+| `session-log-deepseek` | `@lyness/lyn-session-log-deepseek` |
+| `typert` | `@lyness/lyn-typert-registry` |
+| `typert-loader` | `@lyness/lyn-typert-loader` |
+| `typert-gateway` | `@lyness/lyn-api-gateway` |
+| `session-title` | `@lyness/lyn-session-title` |
+| `session-title-llm` | `@lyness/lyn-session-title-first-prompt-llm` |
+| `user-questions` | `@lyness/lyn-user-questions` |
+| `agent` | `@lyness/lyn-agent` |
+| `plugin-package-inventory-deepseek` | `@lyness/lyn-plugin-package-inventory-deepseek` |
+| `agent-default-model` | `@lyness/lyn-agent-default-model` |
+| `jobs` | `@lyness/lyn-jobs-local` |
+| `llm-retry` | `@lyness/lyn-llm-retry` |
+| `settings` | `@lyness/lyn-settings-file` |
+| `credentials` | `@lyness/lyn-credentials-local` |
+| `llm-pi-ai` | `@lyness/lyn-llm-pi-ai` |
+| `session-persistence-jsonl` | `@lyness/lyn-session-persistence-jsonl` |
+| `attachment-local` | `@lyness/lyn-attachment-local` |
+| `session-query-sqlite` | `@lyness/lyn-session-query-sqlite` |
+| `session-projection` | `@lyness/lyn-session-projection` |
+| `storage` | `@lyness/lyn-storage` |
+| `storage-json` | `@lyness/lyn-storage-json` |
+| `storage-domain` | `@lyness/lyn-storage-domain` |
+| `session-projection-cache` | `@lyness/lyn-session-projection-cache` |
+| `session-telemetry-otel` | `@lyness/lyn-session-telemetry-otel` |
+| `subprocess` | `@lyness/lyn-subprocess-local` |
+| `sandbox` | `@lyness/lyn-sandbox-local` |
+| `sandbox-policy` | `@lyness/lyn-sandbox-policy` |
+| `bash-sandbox` | `@lyness/lyn-bash-sandbox` |
+| `pwsh-sandbox` | `@lyness/lyn-pwsh-sandbox` |
+| `approval` | `@lyness/lyn-user-approval` |
+| `permission` | `@lyness/lyn-permission-presets` |
+| `shell-env` | `@lyness/lyn-shell-env` |
+| `tool-bash` | `@lyness/lyn-tool-bash` |
+| `tool-pwsh` | `@lyness/lyn-tool-pwsh` |
+| `tool-jobs` | `@lyness/lyn-tool-jobs` |
+| `fs-observation-policy` | `@lyness/lyn-fs-observation-policy` |
+| `tool-fs` | `@lyness/lyn-tool-fs` |
+| `tool-fs-search` | `@lyness/lyn-tool-fs-search` |
+| `agent-instructions` | `@lyness/lyn-agent-instructions` |
+| `skill` | `@lyness/lyn-skill` |
+| `skill-filesystem` | `@lyness/lyn-skill-filesystem` |
+| `skill-badge` | `@lyness/lyn-skill-badge` |
+| `tool-skill` | `@lyness/lyn-tool-skill` |
+| `commands` | `@lyness/lyn-commands` |
+| `command-feedback` | `@lyness/lyn-command-feedback` |
+| `goal` | `@lyness/lyn-goal` |
+| `goal-round-driver` | `@lyness/lyn-goal-round-driver` |
+| `command-goal` | `@lyness/lyn-command-goal` |
+| `plan-mode` | `@lyness/lyn-plan-mode` |
+| `token-meter` | `@lyness/lyn-token-meter` |
+| `compaction-basic` | `@lyness/lyn-compaction-basic` |
+| `command-compact` | `@lyness/lyn-command-compact` |
+| `subagent` | `@lyness/lyn-subagent` |
+| `subagent-spawn-in-process` | `@lyness/lyn-subagent-spawn-in-process` |
+| `subagent-fork-in-process` | `@lyness/lyn-subagent-fork-in-process` |
+| `tool-subagent-control` | `@lyness/lyn-tool-subagent-control` |
+| `tool-subagent-list-agents` | `@lyness/lyn-tool-subagent-control/list-agents` |
+| `tool-subagent` | `@lyness/lyn-tool-subagent` |
+| `tool-subagent-fork` | `@lyness/lyn-tool-subagent` |
+| `workflow-worker-thread` | `@lyness/lyn-workflow-worker-thread` |
+| `tool-workflow` | `@lyness/lyn-tool-workflow` |
+| `timeout-policy` | `@lyness/lyn-tool-call-timeout-policy` |
+| `spill-local` | `@lyness/lyn-spill-local` |
+| `spill-policy` | `@lyness/lyn-spill-policy` |
+| `session-checkpoint-policy` | `@lyness/lyn-session-checkpoint-policy` |
+| `tool-result-pruner` | `@lyness/lyn-compaction-tool-result-pruner` |
+| `tool-todo` | `@lyness/lyn-tool-todo` |
+| `tool-goal` | `@lyness/lyn-tool-goal` |
+| `tool-ralph` | `@lyness/lyn-tool-ralph` |
+| `repeat-tool-reminder` | `@lyness/lyn-repeat-tool-reminder` |
+| `web` | `@lyness/lyn-web` |
+| `web-search-deepseek` | `@lyness/lyn-web-search-deepseek` |
+| `web-fetch-http` | `@lyness/lyn-web-fetch-http` |
+| `tool-web` | `@lyness/lyn-tool-web` |
+| `tools` | `@lyness/lyn-tools` |
+| `system-prompt` | `@lyness/lyn-system-prompt` |
+| `agent-loop` | `@lyness/lyn-agent-loop` |
+| `fs-sandbox` | `@lyness/lyn-fs-sandbox` |
+| `llm-deepseek` | `@lyness/lyn-llm-deepseek` |
 
 Source config: [`packages/bundle/base/cordis.patch.yml`](../../packages/bundle/base/cordis.patch.yml).
 

@@ -1,12 +1,12 @@
 # Keyless parent-model overlay for the LYN SDK diagnostic snapshot.
 
 - id: llm-deepseek
-  name: '@lyness/llm-deepseek'
+  name: '@lyness/lyn-llm-deepseek'
   disabled: true
 
 - insert:
     - id: llm-replay
-      name: '@lyness/llm-replay'
+      name: '@lyness/lyn-llm-replay'
       config:
         providers:
           - id: deepseek-official

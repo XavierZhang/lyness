@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { parseCodexConfig, CODEX_EVENTS } from '@lyness/hooks-codex/src/config.ts'
+import { parseCodexConfig, CODEX_EVENTS } from '@lyness/lyn-hooks-codex/src/config.ts'
 
 describe('parseCodexConfig', () => {
   it('honors only the five bridge-supported Codex events, dropping the rest', () => {

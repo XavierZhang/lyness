@@ -1,8 +1,8 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import type { Context } from '@lyness/cordis'
-import { AttachmentError, AttachmentId } from '@lyness/attachment'
-import type { ImageAttachmentRef, SaveImageAttachment } from '@lyness/attachment'
-import type { ModelSelection } from '@lyness/agent'
+import { AttachmentError, AttachmentId } from '@lyness/lyn-attachment'
+import type { ImageAttachmentRef, SaveImageAttachment } from '@lyness/lyn-attachment'
+import type { ModelSelection } from '@lyness/lyn-agent'
 import {
   AcpContentError,
   admitAcpPrompt,

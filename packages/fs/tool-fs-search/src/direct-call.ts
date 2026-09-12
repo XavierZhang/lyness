@@ -1,8 +1,8 @@
 /** Shared top-level-call post-policy selection for search result spill. @module lyn-tool-fs-search/direct-call */
 
 import type { Context } from '@lyness/cordis'
-import type { PostToolDecision, ToolDefinition, ToolExecution, ToolExecutionResult } from '@lyness/tools'
-import type { JsonValue } from '@lyness/util-values'
+import type { PostToolDecision, ToolDefinition, ToolExecution, ToolExecutionResult } from '@lyness/lyn-tools'
+import type { JsonValue } from '@lyness/lyn-util-values'
 
 /**
  * Return the accepted canonical value only when this tool still owns a direct

@@ -7,12 +7,12 @@
  * `sidebar.settings` registrant's (ui-settings), followed by optional footer
  * actions in `sidebar.footer.action`.
  */
-import type { InjectFace, PropsLocale, PropsRenderSlots, PropsRuntime } from '@lyness/client-ui-slots'
-import type { ObservableSnapshot } from '@lyness/client-store'
-import type { WorkspaceId } from '@lyness/api-workspace-controller/client'
-import type { MainPanelId } from '@lyness/client-ui-layout/client'
+import type { InjectFace, PropsLocale, PropsRenderSlots, PropsRuntime } from '@lyness/lyn-client-ui-slots'
+import type { ObservableSnapshot } from '@lyness/lyn-client-store'
+import type { WorkspaceId } from '@lyness/lyn-api-workspace-controller/client'
+import type { MainPanelId } from '@lyness/lyn-client-ui-layout/client'
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface SlotMap {
     /**
      * Brand mark rendered in the expanded brand row and collapsed rail.

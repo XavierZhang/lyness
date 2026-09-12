@@ -1,16 +1,16 @@
 /**
  * Same-session goal-round driver over public agent, session, and goal services.
- * @module @lyness/goal-round-driver
+ * @module @lyness/lyn-goal-round-driver
  */
 
 import { isDeepStrictEqual } from 'node:util'
 import { FiberState } from '@lyness/cordis'
 import type { Context } from '@lyness/cordis'
-import type { Agent, PreStepDecision } from '@lyness/agent'
-import type { GoalMessageSource, GoalRef, GoalView } from '@lyness/goal'
-import { createUserMessage } from '@lyness/llm'
-import type { ContentBlock, MessageId, MessageSource } from '@lyness/llm'
-import type { Session, SessionEvent, UserMessage } from '@lyness/session'
+import type { Agent, PreStepDecision } from '@lyness/lyn-agent'
+import type { GoalMessageSource, GoalRef, GoalView } from '@lyness/lyn-goal'
+import { createUserMessage } from '@lyness/lyn-llm'
+import type { ContentBlock, MessageId, MessageSource } from '@lyness/lyn-llm'
+import type { Session, SessionEvent, UserMessage } from '@lyness/lyn-session'
 import { renderGoalRoundPrompt } from './prompt.ts'
 
 export { renderGoalRoundPrompt } from './prompt.ts'

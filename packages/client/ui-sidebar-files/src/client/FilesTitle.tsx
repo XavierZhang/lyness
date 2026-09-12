@@ -5,8 +5,8 @@
  * this one.
  */
 import type { ReactNode } from 'react'
-import { FileTypeIcon } from '@lyness/client-ui-primitives'
-import type { PropsRuntime } from '@lyness/client-ui-slots'
+import { FileTypeIcon } from '@lyness/lyn-client-ui-primitives'
+import type { PropsRuntime } from '@lyness/lyn-client-ui-slots'
 import css from './FilesBody.module.css'
 
 /**

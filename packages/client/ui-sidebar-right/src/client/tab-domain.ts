@@ -16,10 +16,10 @@
  * aborted on that commit. The slot framework binds the navigation sources for
  * each record's `useTabInfo` reader.
  */
-import type { LayoutState, PaneId, TabId, TabRecord } from '@lyness/client-ui-dockkit'
-import { findTabPane } from '@lyness/client-ui-dockkit'
-import { createSnapshotStore, type SnapshotStore } from '@lyness/client-store'
-import type { SessionId } from '@lyness/session/types'
+import type { LayoutState, PaneId, TabId, TabRecord } from '@lyness/lyn-client-ui-dockkit'
+import { findTabPane } from '@lyness/lyn-client-ui-dockkit'
+import { createSnapshotStore, type SnapshotStore } from '@lyness/lyn-client-store'
+import type { SessionId } from '@lyness/lyn-session/types'
 import type { SidebarRightNavigationParams } from './contract/params.ts'
 import type { SidebarRightTabActions, SidebarRightTabNavigation, SidebarRightTabPlacement } from './contract/slots.ts'
 import type { SidebarRightOpenResourceOptions, SidebarRightOpenTabOptions, SidebarRightPlacement } from './service.ts'

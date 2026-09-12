@@ -2,13 +2,13 @@
  * Wire-safe approval identifiers and outcome vocabulary, free of
  * cordis/service imports so browser type chains can
  * consume them without loading this package's Context augmentation.
- * @module @lyness/user-approval/types
+ * @module @lyness/lyn-user-approval/types
  */
 
-import type { Branded } from '@lyness/brand'
-import type { Scoped } from '@lyness/scope'
-import type { Agent } from '@lyness/agent/types'
-import type { ToolCallId } from '@lyness/llm/brand'
+import type { Branded } from '@lyness/lyn-brand'
+import type { Scoped } from '@lyness/lyn-scope'
+import type { Agent } from '@lyness/lyn-agent/types'
+import type { ToolCallId } from '@lyness/lyn-llm/brand'
 
 /**
  * Pairs one `approval/asked` audit event with its `approval/decided`.
@@ -31,7 +31,7 @@ export function ApprovalRequestId(id: string): ApprovalRequestId {
  */
 export type ApprovalOutcome = 'allowed-once' | 'rejected' | 'cancelled' | 'unavailable'
 
-declare module '@lyness/session/types' {
+declare module '@lyness/lyn-session/types' {
   interface SessionEventMap {
     /**
      * An approval question was put to the answerer chain — log-only audit
@@ -78,7 +78,7 @@ declare module '@lyness/cordis' {
     /**
      * Ask composed answerers for one decision. Return an outcome to claim the
      * request or call `next()` to delegate. Scope-filtered dispatch
-     * (`@lyness/scope`): agent-scoped listeners receive only that agent.
+     * (`@lyness/lyn-scope`): agent-scoped listeners receive only that agent.
      * @param req - pending approval request.
      * @mode waterfall
      */

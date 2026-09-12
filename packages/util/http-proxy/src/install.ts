@@ -4,7 +4,7 @@
  *
  * `undici` is imported dynamically so the pure {@link ProxyPolicy} half stays loadable where no Node
  * transport exists, matching how `lyn-web-fetch-http` defers its own transport import.
- * @module @lyness/http-proxy/install
+ * @module @lyness/lyn-http-proxy/install
  */
 
 import type { Dispatcher, Pool } from 'undici'

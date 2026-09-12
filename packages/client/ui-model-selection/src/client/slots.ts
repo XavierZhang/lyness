@@ -4,8 +4,8 @@
  * entry; this package only contributes the single occupant, so no SlotMap
  * merge lives here.
  */
-import type { ModelSelection } from '@lyness/api-remotes/client'
-import type { SnapshotStore } from '@lyness/client-store'
+import type { ModelSelection } from '@lyness/lyn-api-remotes/client'
+import type { SnapshotStore } from '@lyness/lyn-client-store'
 import type { ModelDirectoryState } from './directory.ts'
 
 /** Injected business face of the composer model seat. */

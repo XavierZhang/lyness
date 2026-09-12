@@ -4,16 +4,16 @@
  * creation, flatten post-publication failures, and dispose to whole-range
  * quiescence.
  *
- * @module @lyness/subagent-codex/run
+ * @module @lyness/lyn-subagent-codex/run
  */
 
 import { randomUUID } from 'node:crypto'
 import { readFileSync, writeFileSync } from 'node:fs'
 import { createRequire } from 'node:module'
 import { dirname, resolve } from 'node:path'
-import { brandString } from '@lyness/brand'
-import type { ContentBlock } from '@lyness/llm'
-import type { SessionId } from '@lyness/session'
+import { brandString } from '@lyness/lyn-brand'
+import type { ContentBlock } from '@lyness/lyn-llm'
+import type { SessionId } from '@lyness/lyn-session'
 import {
   settleRunResult,
   subprocessRunHandle,
@@ -21,12 +21,12 @@ import {
   type SubagentRun,
   type SubagentStartRequest,
   type SubagentStopReason,
-} from '@lyness/subagent'
+} from '@lyness/lyn-subagent'
 import type {
   SubprocessHandle,
   SubprocessOutcome,
   SubprocessSpawnSpec,
-} from '@lyness/subprocess'
+} from '@lyness/lyn-subprocess'
 import {
   CodexAppServerWire,
   type CodexWireFailureFacts,

@@ -6,7 +6,7 @@
  * browser half-entry's re-export) for client aggregates — with zero content
  * duplication.
  *
- * @module @lyness/permission-presets/types
+ * @module @lyness/lyn-permission-presets/types
  */
 
 /** The select-option shape a presentation layer advertises for one preset (or for the derived `custom` state). */
@@ -31,7 +31,7 @@ export interface PermissionSelect {
   currentValue: string
 }
 
-declare module '@lyness/session-projection/types' {
+declare module '@lyness/lyn-session-projection/types' {
   interface SessionProjectionMap {
     /**
      * The session's permission select, folded from the three whole-value

@@ -4,16 +4,16 @@
  * instance owns one `(provider id, canonical workspace)` process. Queries serialize through a single
  * queue so a cancellation that fails to stop the server can terminate it without killing unrelated
  * work; distinct instances run in parallel.
- * @module @lyness/lsp-stdio/instance
+ * @module @lyness/lyn-lsp-stdio/instance
  */
 
-import { LspError } from '@lyness/lsp'
+import { LspError } from '@lyness/lyn-lsp'
 import type {
   LspOperation,
   LspProviderQuery,
   LspQueryResult,
-} from '@lyness/lsp'
-import { deadline } from '@lyness/timeout'
+} from '@lyness/lyn-lsp'
+import { deadline } from '@lyness/lyn-timeout'
 import { abortable, abortError } from './abort.ts'
 import { LspConnection } from './connection.ts'
 import type { ConnectionSpawner, ConnectionSpec, ConnectionWriter } from './connection.ts'

@@ -4,16 +4,16 @@
  * @module lyn-llm-pi-ai/context
  */
 
-import { brandString } from '@lyness/brand'
-import { contentHasImage, LlmError, offloadedImageText, offloadRequestImagesWithPolicy, requestImageHandleText } from '@lyness/llm'
-import type { ContentBlock, GenerateOptions, ImageAttachmentAccessResolver, Message, ToolCallId } from '@lyness/llm'
+import { brandString } from '@lyness/lyn-brand'
+import { contentHasImage, LlmError, offloadedImageText, offloadRequestImagesWithPolicy, requestImageHandleText } from '@lyness/lyn-llm'
+import type { ContentBlock, GenerateOptions, ImageAttachmentAccessResolver, Message, ToolCallId } from '@lyness/lyn-llm'
 import type {
   AttachmentId,
   AttachmentStore,
   ImageAttachmentRef,
   ImageRequestPolicy,
   RequestImageAttachment,
-} from '@lyness/attachment'
+} from '@lyness/lyn-attachment'
 import type { Context as PiContext, ImageContent, Message as PiMessage, TextContent, Tool as PiTool } from '@earendil-works/pi-ai'
 import { toPiAssistant } from './replay.ts'
 import { DEFAULT_REQUEST_IMAGE_MAX_BYTES, DEFAULT_REQUEST_IMAGE_PIXEL_BUDGET } from './config.ts'

@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/client-ui-jobs",
+  "name": "@lyness/lyn-client-ui-jobs",
   "description": "Session-header background-job list: live registry state mirrored from session/jobs frames",
   "version": "0.1.5-rc.1",
   "type": "module",
@@ -20,9 +20,9 @@
   "lyn": {
     "client": {
       "inject": [
-        "@lyness/client-locale",
-        "@lyness/client-ui-conversation",
-        "@lyness/client-ui-primitives"
+        "@lyness/lyn-client-locale",
+        "@lyness/lyn-client-ui-conversation",
+        "@lyness/lyn-client-ui-primitives"
       ],
       "platform": "web"
     }
@@ -44,17 +44,17 @@
     "@lyness/cordis": "workspace:^"
   },
   "devDependencies": {
-    "@lyness/client-locale": "workspace:^",
-    "@lyness/client-test-runtime": "workspace:^",
-    "@lyness/client-ui-conversation": "workspace:^",
-    "@lyness/client-ui-primitives": "workspace:^",
-    "@lyness/client-ui-slots": "workspace:^",
+    "@lyness/lyn-client-locale": "workspace:^",
+    "@lyness/lyn-client-test-runtime": "workspace:^",
+    "@lyness/lyn-client-ui-conversation": "workspace:^",
+    "@lyness/lyn-client-ui-primitives": "workspace:^",
+    "@lyness/lyn-client-ui-slots": "workspace:^",
     "@types/react": "~18.3.1",
     "@lyness/cordis": "workspace:^",
     "react": "^18.2.0",
-    "@lyness/api-session-controller": "workspace:^",
-    "@lyness/client-ui-renderer": "workspace:^",
-    "@lyness/client-ui-session": "workspace:^"
+    "@lyness/lyn-api-session-controller": "workspace:^",
+    "@lyness/lyn-client-ui-renderer": "workspace:^",
+    "@lyness/lyn-client-ui-session": "workspace:^"
   },
   "files": [
     "lib/index.js",

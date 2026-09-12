@@ -4,23 +4,23 @@
  * acknowledgement toast in conversation.input.overlay, and the `/feedback`
  * decoration that opens the dialog from the composer menu or a bare typed
  * command. One FeedbackSurface per Session backs every entry in that Session.
- * @module @lyness/client-ui-message-feedback/client
+ * @module @lyness/lyn-client-ui-message-feedback/client
  */
 
 import type { Context as ClientContext } from '@lyness/cordis'
-import type { SessionId } from '@lyness/session/types'
+import type { SessionId } from '@lyness/lyn-session/types'
 // Type-only: pulls the generated Remote API and ctx.remote merge through the Client assembly boundary.
-import type {} from '@lyness/api-remotes/client'
+import type {} from '@lyness/lyn-api-remotes/client'
 // Type-only: pulls the ui-conversation SlotMap merge (the assistant-actions and overlay entries).
-import type {} from '@lyness/client-ui-conversation/client'
+import type {} from '@lyness/lyn-client-ui-conversation/client'
 // Type-only: pulls the command UI's Context merge (ctx.commandUi).
-import type {} from '@lyness/client-ui-commands/client'
+import type {} from '@lyness/lyn-client-ui-commands/client'
 // Type-only: pulls the locale plugin's Context merge (ctx.locale).
-import type {} from '@lyness/client-locale/client'
+import type {} from '@lyness/lyn-client-locale/client'
 // Type-only: pulls the SlotRegistry service merge (ctx.slots).
-import type {} from '@lyness/client-ui-renderer/client'
-import type {} from '@lyness/client-ui-chat/client'
-import type {} from '@lyness/client-ui-session/client'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
+import type {} from '@lyness/lyn-client-ui-chat/client'
+import type {} from '@lyness/lyn-client-ui-session/client'
 import { FeedbackDialog } from './FeedbackDialog.tsx'
 import { MessageFeedbackActions } from './MessageFeedbackActions.tsx'
 import type { FeedbackDialogInjected, MessageFeedbackInjected } from './slots.ts'

@@ -1,8 +1,8 @@
 /** Child LLM route selection for the subagent tool. */
 
-import { ReasoningEffortId } from '@lyness/llm'
-import type { LlmRuntime } from '@lyness/llm'
-import type { AgentOptions } from '@lyness/agent'
+import { ReasoningEffortId } from '@lyness/lyn-llm'
+import type { LlmRuntime } from '@lyness/lyn-llm'
+import type { AgentOptions } from '@lyness/lyn-agent'
 import z from '@lyness/schemastery'
 
 /** One exact child LLM route authorized by a user setting. */

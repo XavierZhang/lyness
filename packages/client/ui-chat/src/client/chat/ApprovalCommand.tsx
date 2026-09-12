@@ -1,6 +1,6 @@
 /** Chat-owned approval detail resolving a correlated Tool call's command. */
-import type { PropsRuntime } from '@lyness/client-ui-slots'
-import type {} from '@lyness/client-ui-approval/client'
+import type { PropsRuntime } from '@lyness/lyn-client-ui-slots'
+import type {} from '@lyness/lyn-client-ui-approval/client'
 import type { ChatNode } from '../contract/chat-nodes.ts'
 
 interface ApprovalToolCall {

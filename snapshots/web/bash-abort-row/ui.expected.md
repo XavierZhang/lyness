@@ -15,10 +15,10 @@
 - text: "Run two shell commands: wait for cancellation, then write skipped.txt. {{clock}}"
 - button "Copy":
   - img
-- button "Context injection @lyness/system-prompt":
+- button "Context injection @lyness/lyn-system-prompt":
   - img
   - img
-  - text: Context injection @lyness/system-prompt
+  - text: Context injection @lyness/lyn-system-prompt
 - 'button "Failed Bash Error: tool call aborted" [expanded]':
   - img
   - text: "Failed Bash Error: tool call aborted"

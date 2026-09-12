@@ -1,20 +1,20 @@
 /**
  * Concrete session-query service with SQLite FTS5 over the live-preferred corpus.
  *
- * @module @lyness/session-query-sqlite
+ * @module @lyness/lyn-session-query-sqlite
  */
 
 import { createHash, randomUUID } from 'node:crypto'
-import { SESSION_FORMAT_VERSION, SessionSeq } from '@lyness/session'
+import { SESSION_FORMAT_VERSION, SessionSeq } from '@lyness/lyn-session'
 import type { DatabaseSync } from 'node:sqlite'
 import { Context, Service, type Fiber } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import type { Session, SessionEvent, SessionHeader, SessionId, SessionLogOffset } from '@lyness/session'
-import type SessionPersistence from '@lyness/session-persistence'
+import type { Session, SessionEvent, SessionHeader, SessionId, SessionLogOffset } from '@lyness/lyn-session'
+import type SessionPersistence from '@lyness/lyn-session-persistence'
 import type {
   SessionPersistenceRevision,
   SessionPersistenceSnapshot,
-} from '@lyness/session-persistence'
+} from '@lyness/lyn-session-persistence'
 import SessionQueryEngine, {
   SESSION_QUERY_DEFAULT_PERSISTED_INSPECT_CONCURRENCY,
   SESSION_QUERY_DEFAULT_PREPARED_SESSION_CACHE_SIZE,
@@ -24,7 +24,7 @@ import SessionQueryEngine, {
   assertSessionHeadersCompatible,
   buildSessionEventSearchDocuments,
   readColdSessionLog,
-} from '@lyness/session-query'
+} from '@lyness/lyn-session-query'
 import type {
   Config as SessionQueryConfig,
   SessionEventSearchDocument,
@@ -36,7 +36,7 @@ import type {
   SessionSearchCursor as SessionSearchCursorValue,
   SessionSearchPage,
   SessionSearchRequest,
-} from '@lyness/session-query'
+} from '@lyness/lyn-session-query'
 import {
   type JournalMode,
   openSearchDatabase,

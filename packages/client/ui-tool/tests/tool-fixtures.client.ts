@@ -1,10 +1,10 @@
 /** Shared Chat-slice and Session-event fixtures for Tool row tests. */
-import type { SessionLiveEventEntry } from '@lyness/api-session-controller/client'
-import { SessionSeq } from '@lyness/session/types'
-import { isJsonValue, type JsonValue } from '@lyness/util-values'
+import type { SessionLiveEventEntry } from '@lyness/lyn-api-session-controller/client'
+import { SessionSeq } from '@lyness/lyn-session/types'
+import { isJsonValue, type JsonValue } from '@lyness/lyn-util-values'
 import type {
   ChatConversationViewNode, ChatSnapshot, ConversationNode, RunningToolCall, ToolResultNode,
-} from '@lyness/client-ui-chat/client'
+} from '@lyness/lyn-client-ui-chat/client'
 
 function jsonFixture(value: unknown): JsonValue {
   if (!isJsonValue(value)) throw new Error('tool event fixture must be lossless JSON')

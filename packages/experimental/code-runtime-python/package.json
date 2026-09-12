@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/experimental-code-runtime-python",
+  "name": "@lyness/lyn-experimental-code-runtime-python",
   "description": "CPython subprocess implementation of the lyness code-execution seam",
   "version": "0.1.5-rc.1",
   "repository": {
@@ -24,16 +24,16 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/code-runtime": "workspace:^",
-    "@lyness/timeout": "workspace:^",
+    "@lyness/lyn-code-runtime": "workspace:^",
+    "@lyness/lyn-timeout": "workspace:^",
     "@lyness/cordis": "workspace:^",
-    "@lyness/util-values": "workspace:^"
+    "@lyness/lyn-util-values": "workspace:^"
   },
   "devDependencies": {
-    "@lyness/code-runtime": "workspace:^",
-    "@lyness/timeout": "workspace:^",
+    "@lyness/lyn-code-runtime": "workspace:^",
+    "@lyness/lyn-timeout": "workspace:^",
     "@lyness/cordis": "workspace:^",
-    "@lyness/util-values": "workspace:^"
+    "@lyness/lyn-util-values": "workspace:^"
   },
   "dependencies": {
     "@lyness/schemastery": "workspace:^"

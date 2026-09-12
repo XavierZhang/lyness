@@ -4,20 +4,20 @@
  * compaction calls, then binds fresh live sessions to parent/child scripts by
  * first-call order. Throw and hang cases require an explicit override because
  * a session log cannot reconstruct them alone.
- * @module @lyness/llm-replay
+ * @module @lyness/lyn-llm-replay
  */
 
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import { delimiter as pathDelimiter } from 'node:path'
 import type { Context } from '@lyness/cordis'
-import type {} from '@lyness/compaction'
-import type {} from '@lyness/deepseek-llm-api-extensions'
-import { SESSION_FORMAT_VERSION, SessionLogOffset, type SessionEvent } from '@lyness/session'
-import type { SessionLogOffset as SessionLogOffsetType } from '@lyness/session'
+import type {} from '@lyness/lyn-compaction'
+import type {} from '@lyness/lyn-deepseek-llm-api-extensions'
+import { SESSION_FORMAT_VERSION, SessionLogOffset, type SessionEvent } from '@lyness/lyn-session'
+import type { SessionLogOffset as SessionLogOffsetType } from '@lyness/lyn-session'
 import {
   SessionFormatUnsupportedMigrationError,
   sessionFormatCatalog,
-} from '@lyness/session-format-catalog'
+} from '@lyness/lyn-session-format-catalog'
 import type {
   ContentBlock,
   GenerateOptions,
@@ -31,9 +31,9 @@ import type {
   StreamChunk,
   SystemPromptUpdate,
   TokenUsage,
-} from '@lyness/llm'
-import { LlmAdapter, LlmError, ReasoningEffortId, expandAssistantStream, requestImageHandleText, resolveRetryPolicy } from '@lyness/llm'
-import { assertNever } from '@lyness/util-values'
+} from '@lyness/lyn-llm'
+import { LlmAdapter, LlmError, ReasoningEffortId, expandAssistantStream, requestImageHandleText, resolveRetryPolicy } from '@lyness/lyn-llm'
+import { assertNever } from '@lyness/lyn-util-values'
 
 const PACKED_CHUNK_ROW_TYPES = new Set(['text-chunks', 'reasoning-chunks', 'tool-call-chunks'])
 

@@ -8,7 +8,7 @@ import { chromium } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed } from 'vitest'
 import * as yaml from 'js-yaml'
 import { entryListSchema } from '@lyness/cordis-plugin-include'
-import { createMessage, createUserMessage } from '@lyness/llm'
+import { createMessage, createUserMessage } from '@lyness/lyn-llm'
 import {
   assertFixtureInventory, captureStableAria, compareOrRefreshGolden,
   launchWebScaffold, watchConsole, webSnapshotMode, type WebScaffold,

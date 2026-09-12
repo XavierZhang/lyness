@@ -122,7 +122,7 @@ export function apply(ctx: Context) {
 
 ```ts
 import type { Context } from '@lyness/cordis'
-import '@lyness/tools'
+import '@lyness/lyn-tools'
 
 export const name = 'tool-logger'
 

@@ -6,14 +6,14 @@ import { afterEach, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
 import Include from '@lyness/cordis-plugin-include'
-import SessionStore, { SessionId } from '@lyness/session'
-import JsonlSessionPersistence from '@lyness/session-persistence-jsonl'
-import MessageFeedback from '@lyness/message-feedback'
-import { recordFeedback } from '@lyness/command-feedback'
-import LlmRuntime, { createAssistantMessage, createUserMessage } from '@lyness/llm'
-import * as LlmDeepSeek from '@lyness/llm-deepseek'
-import DeepSeekLlmApiExtensions from '@lyness/deepseek-llm-api-extensions'
-import { startMockLlmServer, type MockLlmServer } from '@lyness/llm-mock-server'
+import SessionStore, { SessionId } from '@lyness/lyn-session'
+import JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
+import MessageFeedback from '@lyness/lyn-message-feedback'
+import { recordFeedback } from '@lyness/lyn-command-feedback'
+import LlmRuntime, { createAssistantMessage, createUserMessage } from '@lyness/lyn-llm'
+import * as LlmDeepSeek from '@lyness/lyn-llm-deepseek'
+import DeepSeekLlmApiExtensions from '@lyness/lyn-deepseek-llm-api-extensions'
+import { startMockLlmServer, type MockLlmServer } from '@lyness/lyn-llm-mock-server'
 import * as SessionLogDeepSeek from '../src/index.ts'
 import type { DeepSeekSessionLogExtension } from '../src/types.ts'
 
@@ -37,24 +37,24 @@ it('uploads freeform feedback and message put/edit/delete through the unchanged 
   vi.stubEnv('DEEPSEEK_API_KEY', 'feedback-test-key')
   server = await startMockLlmServer({ sequence: ['invalid_request', 'success', 'success'] })
   const modules = new Map<string, unknown>([
-    ['@lyness/session', SessionStore],
-    ['@lyness/session-persistence-jsonl', JsonlSessionPersistence],
-    ['@lyness/message-feedback', MessageFeedback],
-    ['@lyness/llm', LlmRuntime],
-    ['@lyness/llm-deepseek', LlmDeepSeek],
-    ['@lyness/deepseek-llm-api-extensions', DeepSeekLlmApiExtensions],
-    ['@lyness/session-log-deepseek', SessionLogDeepSeek],
+    ['@lyness/lyn-session', SessionStore],
+    ['@lyness/lyn-session-persistence-jsonl', JsonlSessionPersistence],
+    ['@lyness/lyn-message-feedback', MessageFeedback],
+    ['@lyness/lyn-llm', LlmRuntime],
+    ['@lyness/lyn-llm-deepseek', LlmDeepSeek],
+    ['@lyness/lyn-deepseek-llm-api-extensions', DeepSeekLlmApiExtensions],
+    ['@lyness/lyn-session-log-deepseek', SessionLogDeepSeek],
   ])
   const config = join(root, 'cordis.yml')
   await writeFile(config, JSON.stringify([...modules.keys()].map(name => ({
     name,
-    ...name === '@lyness/session-persistence-jsonl'
+    ...name === '@lyness/lyn-session-persistence-jsonl'
       ? { config: { root: join(root!, 'sessions'), compression: 'none' } }
-      : name === '@lyness/message-feedback'
+      : name === '@lyness/lyn-message-feedback'
         ? { config: { maxNoteBytes: 1024 } }
-        : name === '@lyness/llm-deepseek'
+        : name === '@lyness/lyn-llm-deepseek'
           ? { config: { baseURL: server!.baseURL } }
-          : name === '@lyness/session-log-deepseek'
+          : name === '@lyness/lyn-session-log-deepseek'
             ? { config: { enabled: true } }
             : {},
   }))))

@@ -4,13 +4,13 @@ import { tmpdir } from 'node:os'
 import { afterAll, describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
-import * as workspaceContext from '@lyness/agent-instructions'
-import LlmRuntime, { createUserMessage, ToolCallId, type Message, type StreamChunk } from '@lyness/llm'
-import SessionStore, { SessionId, SessionSeq, type SessionEvent, type SurfaceIntent, type UserMessage } from '@lyness/session'
-import AgentRegistry, { agentEvents, type Agent } from '@lyness/agent'
-import AgentLoop, { turnBoundaryProjectionDefinition } from '@lyness/agent-loop'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import { FileSystem, FsTargetKey, FsVersion } from '@lyness/fs'
+import * as workspaceContext from '@lyness/lyn-agent-instructions'
+import LlmRuntime, { createUserMessage, ToolCallId, type Message, type StreamChunk } from '@lyness/lyn-llm'
+import SessionStore, { SessionId, SessionSeq, type SessionEvent, type SurfaceIntent, type UserMessage } from '@lyness/lyn-session'
+import AgentRegistry, { agentEvents, type Agent } from '@lyness/lyn-agent'
+import AgentLoop, { turnBoundaryProjectionDefinition } from '@lyness/lyn-agent-loop'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import { FileSystem, FsTargetKey, FsVersion } from '@lyness/lyn-fs'
 import type {
   FsDirEntry,
   FsEditOutcome,
@@ -20,20 +20,20 @@ import type {
   FsTarget,
   FsWriteIntent,
   FsWriteOutcome,
-} from '@lyness/fs'
-import LocalFileSystem from '@lyness/fs-local'
-import SystemPrompt from '@lyness/system-prompt'
-import ToolRuntime, { defineContentToolFixture } from '@lyness/tools'
+} from '@lyness/lyn-fs'
+import LocalFileSystem from '@lyness/lyn-fs-local'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime, { defineContentToolFixture } from '@lyness/lyn-tools'
 import type {
   ToolExecution,
   ToolExecutionToken,
-} from '@lyness/tools'
-import * as ToolFs from '@lyness/tool-fs'
+} from '@lyness/lyn-tools'
+import * as ToolFs from '@lyness/lyn-tool-fs'
 import {
   discoverBaselineInstructionFiles,
   loadBaselineInstructions,
   renderWorkspaceContext,
-} from '@lyness/agent-instructions'
+} from '@lyness/lyn-agent-instructions'
 import {
   applyInstructionVersionUpdates,
   baselineInstructionState,
@@ -46,7 +46,7 @@ import { MockAdapter, textResponse, toolCallResponse } from '../../../core/agent
 import {
   mountAgentLoopTestDependencies,
   mountAgentLoopTestHarness,
-} from '@lyness/agent-loop-testkit'
+} from '@lyness/lyn-agent-loop-testkit'
 
 /** Per-candidate reconciliation scope key: directory paired with the file name. */
 const sk = (directory: string, candidateName: string): string => candidateScopeKey(directory, candidateName)
@@ -667,7 +667,7 @@ describe('workspace context instruction discovery', () => {
       vi.stubEnv('LYNESS_HOME', '')
       vi.resetModules()
       vi.doMock('node:os', () => ({ homedir: () => home }))
-      const isolated = await import('@lyness/agent-instructions')
+      const isolated = await import('@lyness/lyn-agent-instructions')
       const files = await isolated.discoverBaselineInstructionFiles({ cwd: root })
 
       expect(files.map(file => file.displayPath)).toEqual(['~/.lyn/AGENTS.md'])
@@ -688,7 +688,7 @@ describe('workspace context instruction discovery', () => {
 
       vi.resetModules()
       vi.doMock('node:os', () => ({ homedir: () => home }))
-      const isolated = await import('@lyness/agent-instructions')
+      const isolated = await import('@lyness/lyn-agent-instructions')
       const files = await isolated.discoverBaselineInstructionFiles({ cwd: root, lynHome: '~/.lyn' })
 
       expect(files).toEqual([{ absolutePath: join(home, '.lyn/AGENTS.md'), displayPath: '~/.lyn/AGENTS.md' }])
@@ -2524,7 +2524,7 @@ describe('workspace context request injection', () => {
           },
         }
       })
-      const isolated = await import('@lyness/agent-instructions')
+      const isolated = await import('@lyness/lyn-agent-instructions')
       await isolated.loadBaselineInstructions({ cwd: root, lynHome: home, maxBytes: 65536 })
       observedStats.clear()
       await isolated.loadBaselineInstructions({ cwd: root, lynHome: home, maxBytes: 65536 })
@@ -2557,7 +2557,7 @@ describe('workspace context request injection', () => {
           },
         }
       })
-      const isolated = await import('@lyness/agent-instructions')
+      const isolated = await import('@lyness/lyn-agent-instructions')
 
       const rendered = await isolated.loadBaselineInstructions({ cwd: root, lynHome: home, maxBytes: 65536 })
 
@@ -2594,7 +2594,7 @@ describe('workspace context request injection', () => {
           },
         }
       })
-      const isolated = await import('@lyness/agent-instructions')
+      const isolated = await import('@lyness/lyn-agent-instructions')
 
       await expect(isolated.loadBaselineInstructions({ cwd, lynHome: home, maxBytes: 65536 }))
         .rejects.toBe(failure)

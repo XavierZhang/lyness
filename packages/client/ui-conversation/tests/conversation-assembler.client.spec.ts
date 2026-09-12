@@ -1,19 +1,19 @@
 import { describe, expect, it, vi } from 'vitest'
 import type {
   SessionEventLike, SessionEventLikeEntry, SessionLiveEventEntry,
-} from '@lyness/api-session-controller/client'
-import { LlmAttemptId } from '@lyness/llm/brand'
-import type { StreamChunk } from '@lyness/llm'
-import { SessionSeq } from '@lyness/session/types'
-import type { SessionEvent } from '@lyness/session/types'
+} from '@lyness/lyn-api-session-controller/client'
+import { LlmAttemptId } from '@lyness/lyn-llm/brand'
+import type { StreamChunk } from '@lyness/lyn-llm'
+import { SessionSeq } from '@lyness/lyn-session/types'
+import type { SessionEvent } from '@lyness/lyn-session/types'
 import {
   ConversationLocationIndex,
   ConversationNodeAssembler as RuntimeConversationNodeAssembler,
-} from '@lyness/client-ui-conversation/client'
+} from '@lyness/lyn-client-ui-conversation/client'
 import type {
   ConversationMatch, ConversationNodeContext,
   ConversationNodeDefinition, ConversationViewDefinition, ConversationViewNode,
-} from '@lyness/client-ui-conversation/client'
+} from '@lyness/lyn-client-ui-conversation/client'
 
 interface ScopeProbeStepData {
   readonly value: number
@@ -23,7 +23,7 @@ interface ScopeProbeTurnData {
   readonly valueSeenFromStep: number
 }
 
-declare module '@lyness/client-ui-conversation/client' {
+declare module '@lyness/lyn-client-ui-conversation/client' {
   interface ConversationStepDataMap {
     'scope-probe': ScopeProbeStepData
   }

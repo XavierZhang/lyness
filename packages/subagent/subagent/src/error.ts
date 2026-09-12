@@ -1,10 +1,10 @@
 /**
  * Typed failures shared by subagent service and provider operations.
  *
- * @module @lyness/subagent
+ * @module @lyness/lyn-subagent
  */
 
-import { HarnessError } from '@lyness/llm'
+import { HarnessError } from '@lyness/lyn-llm'
 
 /** Typed failure for the subagent seam. */
 export class SubagentError extends HarnessError {

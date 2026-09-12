@@ -1,8 +1,8 @@
 /** Browser-session authentication for the Host Connection carrier. */
 
 import { createHash, createHmac, randomBytes, timingSafeEqual } from 'node:crypto'
-import { credentialKey } from '@lyness/credentials'
-import type { CredentialProvider, CredentialRecord } from '@lyness/credentials'
+import { credentialKey } from '@lyness/lyn-credentials'
+import type { CredentialProvider, CredentialRecord } from '@lyness/lyn-credentials'
 import type {
   ConnectionIndexRequest,
   ConnectionIndexResponse,

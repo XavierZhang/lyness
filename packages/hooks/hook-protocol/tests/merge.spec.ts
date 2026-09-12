@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { mergeHookOutputs } from '@lyness/hook-protocol'
-import type { HookOutput } from '@lyness/hook-protocol'
+import { mergeHookOutputs } from '@lyness/lyn-hook-protocol'
+import type { HookOutput } from '@lyness/lyn-hook-protocol'
 
 function out(over: Partial<HookOutput> = {}): HookOutput {
   return { exitCode: 0, stderr: '', stdout: '', ...over }

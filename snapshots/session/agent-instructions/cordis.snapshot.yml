@@ -1,23 +1,23 @@
 # Keyless replay counterpart of agent-instructions.cordis.yml: apply the
 # scenario values and model swap to the ACP profile.
 - id: llm-deepseek
-  name: '@lyness/llm-deepseek'
+  name: '@lyness/lyn-llm-deepseek'
   disabled: true
 
 - id: agent-default-model
-  name: '@lyness/agent-default-model'
+  name: '@lyness/lyn-agent-default-model'
   config:
     provider: deepseek-official
     model: deepseek-v4-flash
 
 - id: session-persistence-jsonl
-  name: '@lyness/session-persistence-jsonl'
+  name: '@lyness/lyn-session-persistence-jsonl'
   config:
     root: !!js lynHomePath('sessions')
     compression: none
 
 - id: agent-instructions
-  name: '@lyness/agent-instructions'
+  name: '@lyness/lyn-agent-instructions'
   config:
     maxBytes: 65536
     lynHome: !!js process.cwd() + '/.lyn'
@@ -25,7 +25,7 @@
       - .lyn-project
 
 - id: system-prompt
-  name: '@lyness/system-prompt'
+  name: '@lyness/lyn-system-prompt'
   config:
     personaPrefix: |
       You are a coding assistant powered by the {{model}} model. Your working directory is {{cwd}}.
@@ -34,7 +34,7 @@
 
 - insert:
     - id: llm-replay
-      name: '@lyness/llm-replay'
+      name: '@lyness/lyn-llm-replay'
       config:
         providers:
           - id: deepseek-official

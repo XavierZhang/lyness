@@ -13,8 +13,8 @@
  * override equal to the composition default is still an override.
  */
 
-import { createSnapshotStore, type SnapshotStore } from '@lyness/client-store'
-import type { SettingsScope, SettingsScopeSnapshot } from '@lyness/client-ui-settings/client'
+import { createSnapshotStore, type SnapshotStore } from '@lyness/lyn-client-store'
+import type { SettingsScope, SettingsScopeSnapshot } from '@lyness/lyn-client-ui-settings/client'
 
 /** The write one field's staged text performs when the card is saved. */
 export type FieldWrite =

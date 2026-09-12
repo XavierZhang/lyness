@@ -1,7 +1,7 @@
 /** React-free contracts between the slot host and an installed renderer. */
 import type { Context } from '@lyness/cordis'
 import type { ReactNode } from 'react'
-import type { ObservableSnapshot } from '@lyness/client-store'
+import type { ObservableSnapshot } from '@lyness/lyn-client-store'
 import type {
   SessionAreaProps, SlotEntryDef, SlotScope, SlotSpec, StoredEntry, Translate,
 } from './index.ts'

@@ -1,9 +1,9 @@
 /** Minimal concrete Session query for Agent Team continuation tests. */
 
-import { SessionLogOffset } from '@lyness/session'
-import type { SessionEvent, SessionHeader, SessionId } from '@lyness/session'
-import SessionQueryEngine from '@lyness/session-query'
-import type { SessionObservation, SessionObservationOptions } from '@lyness/session-query'
+import { SessionLogOffset } from '@lyness/lyn-session'
+import type { SessionEvent, SessionHeader, SessionId } from '@lyness/lyn-session'
+import SessionQueryEngine from '@lyness/lyn-session-query'
+import type { SessionObservation, SessionObservationOptions } from '@lyness/lyn-session-query'
 
 /** Undisposable immutable cut over one session's header and events. */
 function cut(

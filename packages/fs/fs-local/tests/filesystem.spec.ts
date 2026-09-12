@@ -13,9 +13,9 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { Context } from '@lyness/cordis'
-import { LocalFileSystem } from '@lyness/fs-local'
-import { FsVersion } from '@lyness/fs'
-import type { FsTarget } from '@lyness/fs'
+import { LocalFileSystem } from '@lyness/lyn-fs-local'
+import { FsVersion } from '@lyness/lyn-fs'
+import type { FsTarget } from '@lyness/lyn-fs'
 
 let dir: string
 let ctx: Context

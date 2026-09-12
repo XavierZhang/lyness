@@ -1,10 +1,10 @@
 /**
  * Durable and model-facing Schedule value types.
- * @module @lyness/schedule
+ * @module @lyness/lyn-schedule
  */
 
-import type { Branded } from '@lyness/brand'
-import type {} from '@lyness/session/types'
+import type { Branded } from '@lyness/lyn-brand'
+import type {} from '@lyness/lyn-session/types'
 
 /** Stable reminder identity that is unique and never reused within one session. */
 export type ScheduleId = Branded<'ScheduleId'>
@@ -210,7 +210,7 @@ export type ScheduleDeleteResult =
 /** Canonical `schedule_delete` value. */
 export type ScheduleDeleteValue = ScheduleDeleteResult | ScheduleToolError
 
-declare module '@lyness/session/types' {
+declare module '@lyness/lyn-session/types' {
   interface SessionEventMap {
     /**
      * Versioned Schedule mutation. The owning package validates the complete
@@ -220,7 +220,7 @@ declare module '@lyness/session/types' {
   }
 }
 
-declare module '@lyness/session-projection/types' {
+declare module '@lyness/lyn-session-projection/types' {
   interface SessionProjectionMap {
     /** Complete active reminders owned by this Session's post-fork suffix. */
     schedule: readonly ScheduleRecord[]

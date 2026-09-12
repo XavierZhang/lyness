@@ -1,5 +1,5 @@
-import type { ToolCallId } from '@lyness/llm'
-import type { SessionSeq } from '@lyness/session/types'
+import type { ToolCallId } from '@lyness/lyn-llm'
+import type { SessionSeq } from '@lyness/lyn-session/types'
 
 /** Character-budget policy for deterministic tool-result pruning. */
 export interface ToolResultPruneConfig {

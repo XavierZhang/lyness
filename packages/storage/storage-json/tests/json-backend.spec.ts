@@ -3,7 +3,7 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterAll, describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import Storage, { storageBackendServiceKey } from '@lyness/storage'
+import Storage, { storageBackendServiceKey } from '@lyness/lyn-storage'
 import { runKvBackendContract } from '../../storage/tests/contract.ts'
 import { Config, JsonStorageBackend, apply } from '../src/index.ts'
 

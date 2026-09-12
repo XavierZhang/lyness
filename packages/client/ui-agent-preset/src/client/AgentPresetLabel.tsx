@@ -9,12 +9,12 @@
  */
 
 import { useEffect } from 'react'
-import type { SnapshotStore } from '@lyness/client-store'
-import type { InjectFace, PropsLocale, PropsRuntime } from '@lyness/client-ui-slots'
-import { IconAgentPresetOutline16 } from '@lyness/client-ui-primitives'
+import type { SnapshotStore } from '@lyness/lyn-client-store'
+import type { InjectFace, PropsLocale, PropsRuntime } from '@lyness/lyn-client-ui-slots'
+import { IconAgentPresetOutline16 } from '@lyness/lyn-client-ui-primitives'
 // Type-only: pulls the ui-conversation SlotMap merge (the header actions).
-import type {} from '@lyness/client-ui-conversation/client'
-import type {} from '@lyness/agent-presets/types'
+import type {} from '@lyness/lyn-client-ui-conversation/client'
+import type {} from '@lyness/lyn-agent-presets/types'
 import type { AgentPresetSettingsState } from './settings-store.ts'
 import { presetDisplayText } from './locales.ts'
 import css from './AgentPresetLabel.module.css'

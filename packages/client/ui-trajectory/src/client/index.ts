@@ -3,17 +3,17 @@
  * slot without defining a service.
  */
 import type { Context } from '@lyness/cordis'
-import type { ImageAttachmentRef } from '@lyness/attachment'
-import type { SessionBinding } from '@lyness/api-session-controller/client'
-import type { ObservableSnapshot } from '@lyness/client-store'
-import type { SessionId } from '@lyness/session/types'
+import type { ImageAttachmentRef } from '@lyness/lyn-attachment'
+import type { SessionBinding } from '@lyness/lyn-api-session-controller/client'
+import type { ObservableSnapshot } from '@lyness/lyn-client-store'
+import type { SessionId } from '@lyness/lyn-session/types'
 // Type-only: pulls the locale plugin's Context merge (ctx.locale).
-import type {} from '@lyness/client-locale/client'
+import type {} from '@lyness/lyn-client-locale/client'
 // Type-only: the 'conversation.view' SlotMap row (declared by the slot's
 // owning package) must be in the program for the register calls to type.
-import type {} from '@lyness/client-ui-conversation/client'
-import type {} from '@lyness/client-ui-renderer/client'
-import type {} from '@lyness/client-ui-session/client'
+import type {} from '@lyness/lyn-client-ui-conversation/client'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
+import type {} from '@lyness/lyn-client-ui-session/client'
 import { createTrajectoryDurationStore } from './duration-store.ts'
 import { en, NS, zh } from './locales.ts'
 import { registerTrajectoryAssistantDefinition } from './trajectory-assistant-definition.ts'

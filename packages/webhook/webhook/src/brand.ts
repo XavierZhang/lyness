@@ -1,6 +1,6 @@
 /** Opaque webhook identities shared by adapters, rules, and Session provenance. */
 
-import type { Branded } from '@lyness/brand'
+import type { Branded } from '@lyness/lyn-brand'
 
 /** Identifies one programmatic webhook rule. */
 export type WebhookRuleId = Branded<'WebhookRuleId'>

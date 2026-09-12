@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/plan-mode",
+  "name": "@lyness/lyn-plan-mode",
   "description": "Logged per-agent plan mode with deployment guidance, a direct slash command, and a user-reviewed exit",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -41,19 +41,19 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/agent": "workspace:^",
-    "@lyness/commands": "workspace:^",
-    "@lyness/invariants": "workspace:^",
-    "@lyness/llm": "workspace:^",
-    "@lyness/session": "workspace:^",
-    "@lyness/session-projection": "workspace:^",
-    "@lyness/system-prompt": "workspace:^",
-    "@lyness/tools": "workspace:^",
-    "@lyness/user-questions": "workspace:^",
+    "@lyness/lyn-agent": "workspace:^",
+    "@lyness/lyn-commands": "workspace:^",
+    "@lyness/lyn-invariants": "workspace:^",
+    "@lyness/lyn-llm": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
+    "@lyness/lyn-session-projection": "workspace:^",
+    "@lyness/lyn-system-prompt": "workspace:^",
+    "@lyness/lyn-tools": "workspace:^",
+    "@lyness/lyn-user-questions": "workspace:^",
     "@lyness/cordis": "workspace:^"
   },
   "peerDependenciesMeta": {
-    "@lyness/commands": {
+    "@lyness/lyn-commands": {
       "optional": true
     }
   },
@@ -61,17 +61,17 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@lyness/agent": "workspace:^",
-    "@lyness/agent-loop": "workspace:^",
-    "@lyness/code-runtime": "workspace:^",
-    "@lyness/commands": "workspace:^",
-    "@lyness/invariants": "workspace:^",
-    "@lyness/llm": "workspace:^",
-    "@lyness/session": "workspace:^",
-    "@lyness/session-projection": "workspace:^",
-    "@lyness/system-prompt": "workspace:^",
-    "@lyness/tools": "workspace:^",
-    "@lyness/user-questions": "workspace:^",
+    "@lyness/lyn-agent": "workspace:^",
+    "@lyness/lyn-agent-loop": "workspace:^",
+    "@lyness/lyn-code-runtime": "workspace:^",
+    "@lyness/lyn-commands": "workspace:^",
+    "@lyness/lyn-invariants": "workspace:^",
+    "@lyness/lyn-llm": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
+    "@lyness/lyn-session-projection": "workspace:^",
+    "@lyness/lyn-system-prompt": "workspace:^",
+    "@lyness/lyn-tools": "workspace:^",
+    "@lyness/lyn-user-questions": "workspace:^",
     "@lyness/cordis": "workspace:^"
   }
 }

@@ -7,9 +7,9 @@
  * records are left alone, and a tab's own actions name the tab's session and land where the tab is now.
  */
 import { describe, expect, it, vi } from 'vitest'
-import type { SessionId } from '@lyness/session/types'
-import type { LayoutState, TabId } from '@lyness/client-ui-dockkit'
-import { DockController, getPane } from '@lyness/client-ui-dockkit'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { LayoutState, TabId } from '@lyness/lyn-client-ui-dockkit'
+import { DockController, getPane } from '@lyness/lyn-client-ui-dockkit'
 import { TabDomain } from '../src/client/tab-domain.ts'
 import type { SidebarRightNavigator } from '../src/client/tab-domain.ts'
 

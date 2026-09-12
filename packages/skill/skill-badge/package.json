@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/skill-badge",
+  "name": "@lyness/lyn-skill-badge",
   "description": "Bundled lyn badge skill provider for lyness",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -27,11 +27,11 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/skill": "workspace:^",
+    "@lyness/lyn-skill": "workspace:^",
     "@lyness/cordis": "workspace:^"
   },
   "devDependencies": {
-    "@lyness/skill": "workspace:^",
+    "@lyness/lyn-skill": "workspace:^",
     "@lyness/cordis": "workspace:^"
   }
 }

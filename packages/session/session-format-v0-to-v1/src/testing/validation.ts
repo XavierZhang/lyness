@@ -1,4 +1,4 @@
-import type { SessionFormatArtifact } from '@lyness/session-format'
+import type { SessionFormatArtifact } from '@lyness/lyn-session-format'
 import { RELEASED_V0_EVENT_DISPOSITIONS } from '../dispositions.ts'
 import { assertReleasedArtifactRelationships } from '../relationships.ts'
 import {

@@ -3,7 +3,7 @@ description: "The local host provider for the subprocess service: run OS-owned m
 kind: "package-reference"
 ---
 
-# @lyness/subprocess-local
+# @lyness/lyn-subprocess-local
 
 English | [中文](README.zh.md)
 
@@ -32,8 +32,8 @@ Mount the provider beside its consumers and start processes exactly as the subpr
 Load the provider in the same composition as its consumers. It has no config fields: every choice arrives on the spawn request, so deployment-varying decisions stay with the caller's configuration.
 
 ```yaml
-- name: '@lyness/subprocess-local'
-- name: '@lyness/bash-local'
+- name: '@lyness/lyn-subprocess-local'
+- name: '@lyness/lyn-bash-local'
 ```
 
 ### Resolving executables

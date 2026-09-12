@@ -1,7 +1,7 @@
 /**
  * Browser-safe subagent projection and control vocabulary.
  *
- * @module @lyness/subagent/client
+ * @module @lyness/lyn-subagent/client
  */
 
 export type * from './control-types.ts'

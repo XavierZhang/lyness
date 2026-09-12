@@ -6,7 +6,7 @@
 # adapter fields around `retryPolicy`, while the app patch re-pins the recorded
 # flash model and restates its base fields.
 - id: llm-deepseek
-  name: '@lyness/llm-deepseek'
+  name: '@lyness/lyn-llm-deepseek'
   config:
     thinking: enabled
     reasoningEffort: max
@@ -22,24 +22,24 @@
       - id: deepseek-v4-pro
 
 - id: agent-default-model
-  name: '@lyness/agent-default-model'
+  name: '@lyness/lyn-agent-default-model'
   config:
     provider: deepseek-official
     model: deepseek-v4-flash
 
 - id: session-persistence-jsonl
-  name: '@lyness/session-persistence-jsonl'
+  name: '@lyness/lyn-session-persistence-jsonl'
   config:
     root: !!js lynHomePath('sessions')
     compression: !!js 'process.env.LYNESS_SNAPSHOT === undefined ? ''zstd'' : ''none'''
 
 - id: agent-instructions
-  name: '@lyness/agent-instructions'
+  name: '@lyness/lyn-agent-instructions'
   config:
     maxBytes: 65536
 
 - id: system-prompt
-  name: '@lyness/system-prompt'
+  name: '@lyness/lyn-system-prompt'
   config:
     personaPrefix: |
       You are a coding assistant powered by the {{model}} model. Your working directory is {{cwd}}. Your bash tool runs under a file sandbox — a `[sandbox: file access denied …]` result is policy, not a command bug.

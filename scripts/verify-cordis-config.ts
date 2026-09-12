@@ -39,7 +39,7 @@ const appOverlayFiles = new Set([
 const metadataFields = ['id', 'name', 'group', 'inject', 'intercept', 'isolate'] as const
 
 /** The adaptive directory-picker chooser package (mounts a backend row at boot). */
-const CHOOSER_PACKAGE = '@lyness/host-directory-picker-auto'
+const CHOOSER_PACKAGE = '@lyness/lyn-host-directory-picker-auto'
 
 /**
  * The packages the chooser mounts by runtime string (mirror of its exported
@@ -49,10 +49,10 @@ const CHOOSER_PACKAGE = '@lyness/host-directory-picker-auto'
  * until a macOS boot.
  */
 const CHOOSER_BACKEND_PACKAGES = [
-  '@lyness/host-directory-picker-native',
-  '@lyness/host-directory-picker-browse',
-  '@lyness/client-ui-directory-picker-browse',
-  '@lyness/client-ui-directory-picker-native',
+  '@lyness/lyn-host-directory-picker-native',
+  '@lyness/lyn-host-directory-picker-browse',
+  '@lyness/lyn-client-ui-directory-picker-browse',
+  '@lyness/lyn-client-ui-directory-picker-native',
 ]
 const errors: string[] = []
 const pluginReferences: PluginReference[] = []

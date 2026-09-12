@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { TerminalSessionId } from '@lyness/terminal'
-import { boundTerminalText, renderList, renderRead, renderSend, renderSendRead, renderSpawn } from '@lyness/tool-terminal/src/render.ts'
+import { TerminalSessionId } from '@lyness/lyn-terminal'
+import { boundTerminalText, renderList, renderRead, renderSend, renderSendRead, renderSpawn } from '@lyness/lyn-tool-terminal/src/render.ts'
 
 describe('tool-terminal rendering', () => {
   it('renders spawn with and without names or MOTD', () => {

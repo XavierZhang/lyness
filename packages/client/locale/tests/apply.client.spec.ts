@@ -3,13 +3,13 @@
  * recovery after an HMR collapse of the declaring entry. */
 import { Context } from '@lyness/cordis'
 import { describe, expect, it, vi } from 'vitest'
-import { SlotRegistry } from '@lyness/client-ui-renderer/client'
-import { apply as settingsApply, inject as settingsInject } from '@lyness/client-ui-settings/client'
-import { TestRemote } from '@lyness/client-test-runtime'
+import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
+import { apply as settingsApply, inject as settingsInject } from '@lyness/lyn-client-ui-settings/client'
+import { TestRemote } from '@lyness/lyn-client-test-runtime'
 import {
   apply, inject, SETTINGS_NS,
-} from '@lyness/client-locale/client'
-import type { LanguageRowInjected, LocaleRuntime } from '@lyness/client-locale/client'
+} from '@lyness/lyn-client-locale/client'
+import type { LanguageRowInjected, LocaleRuntime } from '@lyness/lyn-client-locale/client'
 import { LOCALE_SETTINGS_NAMESPACE, LocaleSettingsSchema } from '../src/locale-settings.ts'
 import { LanguageRow } from '../src/client/LanguageRow.tsx'
 import type { createLanguageRowStore } from '../src/client/settings-store.ts'

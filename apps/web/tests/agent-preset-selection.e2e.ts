@@ -17,9 +17,9 @@ import { chromium } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed } from 'vitest'
 import {
   SESSION_FORMAT_VERSION, SessionId as sessionId, type SessionEvent, type SessionHeader, type SessionId,
-} from '@lyness/session'
-import { snapshotSubagentDescriptor } from '@lyness/subagent'
-import { createSystemMessage, createUserMessage } from '@lyness/llm'
+} from '@lyness/lyn-session'
+import { snapshotSubagentDescriptor } from '@lyness/lyn-subagent'
+import { createSystemMessage, createUserMessage } from '@lyness/lyn-llm'
 import {
   captureStableAria, compareOrRefreshGolden, launchWebScaffold, seedSession, watchConsole,
   webSnapshotMode, type WebScaffold,
@@ -99,7 +99,7 @@ function seedLog(): string {
     at(1, { type: 'step/start', data: { turn: 1, step: 1 } }),
     at(2, {
       type: 'system/message',
-      data: { turn: 1, step: 1, message: createSystemMessage('', '@lyness/system-prompt') },
+      data: { turn: 1, step: 1, message: createSystemMessage('', '@lyness/lyn-system-prompt') },
       surfaceOp: 'append',
     }),
     at(3, {

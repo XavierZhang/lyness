@@ -26,9 +26,9 @@
 import { expect, test } from 'vitest'
 import {
   AsyncLocalStorage, __restoreAll, __snapshotAll, alsCausality, runAtAsyncContextRoot,
-} from '@lyness/experimental-webworker-runtime/src/node/builtin_modules/implemented/async_hooks.ts'
-import { installAsyncContextHooks } from '@lyness/experimental-webworker-runtime/src/polyfill/async-context/async-context-hooks.ts'
-import { installTimerGlobals } from '@lyness/experimental-webworker-runtime/src/node/globals/timers.ts'
+} from '@lyness/lyn-experimental-webworker-runtime/src/node/builtin_modules/implemented/async_hooks.ts'
+import { installAsyncContextHooks } from '@lyness/lyn-experimental-webworker-runtime/src/polyfill/async-context/async-context-hooks.ts'
+import { installTimerGlobals } from '@lyness/lyn-experimental-webworker-runtime/src/node/globals/timers.ts'
 
 // Same order the worker entry uses: patch the platform, then wrap the timers over
 // the patched platform. The folding cases below must hold with both in place.

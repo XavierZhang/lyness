@@ -100,38 +100,20 @@ const RULES: readonly Rule[] = [
   {
     id: 'doc-anchor',
     from: 'deepseek-aidsh-',
-    to: 'lyness',
-    note: 'Markdown anchors in the generated catalogs drop the `@` and `/` from a package name, so `@deepseek-ai/dsh-acp` anchors as `deepseek-aidsh-acp` and the renamed `@lyness/acp` anchors as `lynessacp`. The generators rewrite their own headings; this rule carries the hand-written links that point at them.',
-  },
-  {
-    id: 'display-prefix-strip',
-    from: '^dsh-(?:host-|client-)?',
-    to: '^(?:host-|client-)?',
-    note: 'A regex that trims the product segment off a package name for display. The fork scope carries the product name, so packages no longer have that segment and the anchor must drop with it; a token rule would leave an alternation matching a prefix that cannot occur.',
-  },
-  {
-    id: 'scoped-directory-fragment',
-    from: "'@deepseek-ai', 'dsh-",
-    to: "'@lyness', '",
-    note: 'A node_modules directory built from path fragments, which must spell the same name the manifest beside it declares. The scope rule drops the product segment from the name but cannot see it split across two string arguments, leaving the directory and the manifest naming different packages. Ordered ahead of every scope rule: `scope-bare` rewrites the first fragment on its own, after which this rule no longer matches and `dsh-token` renames the second fragment to a package that does not exist.',
-  },
-  {
-    id: 'pkg-scope-escaped-bare',
-    from: '@deepseek-ai\\/dsh(?:-|$)',
-    to: '@lyness\\/',
-    note: 'A regex that matched both the unhyphenated CLI package and the hyphenated family. The fork scope alone identifies its packages, so the alternation goes with the dropped prefix segment; a token rule cannot express a match that deletes neighbouring syntax.',
+    to: 'lynesslyn-',
+    note: 'Markdown anchors in the generated catalogs drop the `@` and `/` from a package name, so `@deepseek-ai/dsh-acp` anchors as `deepseek-aidsh-acp` and the renamed `@lyness/lyn-acp` anchors as `lynesslyn-acp`. The generators rewrite their own headings; this rule carries the hand-written links that point at them.',
   },
   {
     id: 'pkg-scope-escaped',
     from: '@deepseek-ai\\/dsh-',
-    to: '@lyness\\/',
-    note: 'The package prefix as a REGEX literal writes its separator escaped, so the plain `pkg-scope` literal cannot see it. Without this rule the scope and token rules each rewrite half, producing `@lyness\\/lyn-` — a prefix no package carries. Runs first so the escaped form is consumed before any other rule reaches it.',
+    to: '@lyness\\/lyn-',
+    note: 'The package prefix as a REGEX literal writes its separator escaped, so the plain `pkg-scope` literal cannot see it. Stated explicitly rather than left to `scope-bare` plus `dsh-token`, so the escaped form does not depend on their relative order.',
   },
   {
     id: 'pkg-scope',
     from: '@deepseek-ai/dsh-',
-    to: '@lyness/',
-    note: 'The harness package prefix. The scope already carries the product name, so the redundant `dsh-` segment drops. Runs before `vendor-scope` so `dsh-tool-cordis` is not mistaken for a vendored package.',
+    to: '@lyness/lyn-',
+    note: 'The harness package prefix. The product segment is KEPT: upstream uses it to tell its own packages from the rescoped vendored ones, and every gate that classifies a package by name prefix depends on that distinction. Dropping it made `@lyness/agent` and `@lyness/cordis` indistinguishable and each such gate needed excluding by hand ([record](../.agents/notes/implemented/process/2026-09-12-restoring-the-product-name-segment.md)). Runs before `vendor-scope` so `dsh-tool-cordis` is not mistaken for a vendored package.',
   },
   {
     id: 'vendor-scope',
@@ -275,6 +257,10 @@ const PROTECTED: readonly Protection[] = [
     prefix: '.agents/notes/implemented/process/2026-08-31-lyness-rebrand-codemod',
     why: 'The record of this rename. Quoting the upstream spelling is what it is for, so rewriting it turns every rule it documents into `X becomes X`.',
   },
+  {
+    prefix: '.agents/notes/implemented/process/2026-09-12-restoring-the-product-name-segment',
+    why: 'Records why harness package names keep the product segment, which it can only state by naming both spellings.',
+  },
 ]
 
 /** A string that must appear exactly `count` times once the rebrand has run. */
@@ -294,7 +280,10 @@ interface PostCondition {
  */
 const POSTCONDITIONS: readonly PostCondition[] = [
   { file: 'apps/cli/package.json', text: '"lyn": "lib/bin.js"', count: 1 },
-  { file: 'packages/llm/llm-deepseek/package.json', text: '"name": "@lyness/llm-deepseek"', count: 1 },
+  // This pair IS the discriminator: a harness package carries the product
+  // segment, a rescoped vendored one does not. Every gate that classifies a
+  // package by name prefix reads that difference.
+  { file: 'packages/llm/llm-deepseek/package.json', text: '"name": "@lyness/lyn-llm-deepseek"', count: 1 },
   { file: 'vendor/cordis/package.json', text: '"name": "@lyness/cordis"', count: 1 },
   // Vendoring provenance: the upstream repositories the pinned source was copied from.
   { file: 'vendor/README.md', text: 'github.com/deepseek-harness/cosmokit', count: 1 },

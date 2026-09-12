@@ -80,7 +80,7 @@ You never write a profile manifest by hand: `lyn --profile <name> --from-default
 lyn plugin --profile demo add ./hello-plugin
 ```
 
-The first use initializes the profile (with `@lyness/base` as its first bundle), pnpm links the checkout, and `lyn` appends the bundle to `lyn.profile.bundles` because the package declares `lyn.bundle`:
+The first use initializes the profile (with `@lyness/lyn-base` as its first bundle), pnpm links the checkout, and `lyn` appends the bundle to `lyn.profile.bundles` because the package declares `lyn.bundle`:
 
 ```json
 {
@@ -92,7 +92,7 @@ The first use initializes the profile (with `@lyness/base` as its first bundle),
   "lyn": {
     "profile": {
       "bundles": [
-        "@lyness/base",
+        "@lyness/lyn-base",
         "lyn-hello-plugin"
       ]
     }
@@ -113,7 +113,7 @@ lyn --profile demo
 
 The effective configuration composes over an empty root by applying, in order:
 
-1. Each bundle patch named in the profile's `lyn.profile.bundles` list, in list order — `@lyness/base` first, then each installed bundle in the order it was added.
+1. Each bundle patch named in the profile's `lyn.profile.bundles` list, in list order — `@lyness/lyn-base` first, then each installed bundle in the order it was added.
 2. The profile's own `cordis.patch.yml`.
 3. The home-level `$LYNESS_HOME/cordis.patch.yml` — machine-local preferences shared by every profile.
 4. Each `--patch <path>` overlay, in argv order.
@@ -125,7 +125,7 @@ Later layers win per row, and a patch replaces a row's entire `config` value rat
 - Your patch can override rows from earlier layers by `id` — the same way [the `lyn-web-app` bundle](../../../../packages/bundle/web-app/cordis.patch.yml) overrides `lyn-base` rows — but must restate every key the row needs, not just the changed one.
 - Users can override your rows in their profile's `cordis.patch.yml` without touching your package, so prefer configuration defaults users are likely to keep and let the schema carry the rest.
 
-In-box bundle names always resolve from the lyn installation itself; pnpm manages only out-of-tree packages, so your bundle can rely on `@lyness/base` being present and current.
+In-box bundle names always resolve from the lyn installation itself; pnpm manages only out-of-tree packages, so your bundle can rely on `@lyness/lyn-base` being present and current.
 
 ## Give a surface bundle its own command line
 
@@ -136,7 +136,7 @@ A bundle that defines a runnable app mounts an ordinary provider plugin:
   name: 'lyn-hello-plugin/startup'
 ```
 
-The plugin exports `inject = ['cmdlineArgs']`, calls `parseCmdline` from [`@lyness/cmdline`](../../../../packages/boot/cmdline/README.md) with its own commander program, and provides its app-owned service from the program's action. The launcher hands every plugin the same immutable arguments after launcher flags, so app-specific flags need no launcher change and multiple plugins may parse the snapshot. The Loader row needs no launcher marker or special kind.
+The plugin exports `inject = ['cmdlineArgs']`, calls `parseCmdline` from [`@lyness/lyn-cmdline`](../../../../packages/boot/cmdline/README.md) with its own commander program, and provides its app-owned service from the program's action. The launcher hands every plugin the same immutable arguments after launcher flags, so app-specific flags need no launcher change and multiple plugins may parse the snapshot. The Loader row needs no launcher marker or special kind.
 
 Rows configured by those arguments inject the provider's service and read it from their own `!!js` options, with the deployment value beside it as the fallback:
 

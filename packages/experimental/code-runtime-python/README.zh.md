@@ -3,7 +3,7 @@ description: "CPython 子进程代码 runtime：为 Python 模型代码实现 ly
 kind: "package-reference"
 ---
 
-# @lyness/experimental-code-runtime-python
+# @lyness/lyn-experimental-code-runtime-python
 
 [English](README.md) | 中文
 

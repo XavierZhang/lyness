@@ -3,7 +3,7 @@ description: "Web 会话日志 ZIP 导出：Host 流式传输、认证下载路�
 kind: "package-reference"
 ---
 
-# @lyness/session-log-export
+# @lyness/lyn-session-log-export
 
 [English](README.md) | 中文
 
@@ -35,7 +35,7 @@ kind: "package-reference"
 
 ```yaml
 - id: session-log-download
-  name: '@lyness/session-log-export'
+  name: '@lyness/lyn-session-log-export'
 ```
 
 Web bundle 将本包与 Connection、`lyn-commands`、`lyn-client-ui-commands` 和 `lyn-client-ui-conversation` 一起挂载。

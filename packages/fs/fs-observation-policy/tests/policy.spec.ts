@@ -2,10 +2,10 @@
 
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { FsTargetKey, FsVersion } from '@lyness/fs'
-import type { FsObservation, FsTarget, FsWriteIntent } from '@lyness/fs'
-import * as FsPolicy from '@lyness/fs-observation-policy'
-import type { FsObservationActor } from '@lyness/fs-observation-policy'
+import { FsTargetKey, FsVersion } from '@lyness/lyn-fs'
+import type { FsObservation, FsTarget, FsWriteIntent } from '@lyness/lyn-fs'
+import * as FsPolicy from '@lyness/lyn-fs-observation-policy'
+import type { FsObservationActor } from '@lyness/lyn-fs-observation-policy'
 
 function target(path: string): FsTarget {
   return { targetKey: FsTargetKey(path), displayPath: path }

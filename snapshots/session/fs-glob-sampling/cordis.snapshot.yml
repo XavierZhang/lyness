@@ -1,11 +1,11 @@
 # Minimal keyless composition: real app, bash, and search tool; replayed model.
 - id: llm-deepseek
-  name: '@lyness/llm-deepseek'
+  name: '@lyness/lyn-llm-deepseek'
   disabled: true
 
 - insert:
     - id: llm-replay
-      name: '@lyness/llm-replay'
+      name: '@lyness/lyn-llm-replay'
       config:
         providers:
           - id: deepseek-official
@@ -14,69 +14,69 @@
               - id: deepseek-v4-pro
 
 - id: subprocess
-  name: '@lyness/subprocess-local'
+  name: '@lyness/lyn-subprocess-local'
 
 - id: agent-default-model
-  name: '@lyness/agent-default-model'
+  name: '@lyness/lyn-agent-default-model'
   config:
     provider: deepseek-official
     model: deepseek-v4-pro
 
 - id: session-persistence-jsonl
-  name: '@lyness/session-persistence-jsonl'
+  name: '@lyness/lyn-session-persistence-jsonl'
   config:
     root: !!js lynHomePath('sessions')
     compression: none
 
 - id: agent-instructions
-  name: '@lyness/agent-instructions'
+  name: '@lyness/lyn-agent-instructions'
   disabled: true
 
 - id: system-prompt
-  name: '@lyness/system-prompt'
+  name: '@lyness/lyn-system-prompt'
   config:
     personaPrefix: You are a concise snapshot agent working in {{cwd}}.
 
 - id: tool-jobs
-  name: '@lyness/tool-jobs'
+  name: '@lyness/lyn-tool-jobs'
   disabled: true
 
 - id: goal
-  name: '@lyness/goal'
+  name: '@lyness/lyn-goal'
   disabled: true
 
 - id: goal-round-driver
-  name: '@lyness/goal-round-driver'
+  name: '@lyness/lyn-goal-round-driver'
   disabled: true
 
 - id: command-goal
-  name: '@lyness/command-goal'
+  name: '@lyness/lyn-command-goal'
   disabled: true
 
 - id: tool-goal
-  name: '@lyness/tool-goal'
+  name: '@lyness/lyn-tool-goal'
   disabled: true
 
 - id: skill
-  name: '@lyness/skill'
+  name: '@lyness/lyn-skill'
   disabled: true
 
 - id: skill-filesystem
-  name: '@lyness/skill-filesystem'
+  name: '@lyness/lyn-skill-filesystem'
   disabled: true
 
 - id: tool-skill
-  name: '@lyness/tool-skill'
+  name: '@lyness/lyn-tool-skill'
   disabled: true
 
 - id: tool-fs-search
-  name: '@lyness/tool-fs-search'
+  name: '@lyness/lyn-tool-fs-search'
   config:
     sampleOverCapGlobResults: true
     globMaxResults: 4
 
 - id: spill-local
-  name: '@lyness/spill-local'
+  name: '@lyness/lyn-spill-local'
   config:
     root: !!js process.env.LYNESS_SNAPSHOT_SPILL_ROOT ?? './.spill'
 

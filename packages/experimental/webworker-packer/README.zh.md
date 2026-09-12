@@ -3,7 +3,7 @@ description: "面向构建或排查实验性预览部署的维护者，说明浏
 kind: "package-library"
 ---
 
-# `@lyness/experimental-webworker-packer`
+# `@lyness/lyn-experimental-webworker-packer`
 
 [English](README.md) | 中文
 

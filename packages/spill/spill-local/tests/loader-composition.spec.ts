@@ -12,7 +12,7 @@ import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
 import Include from '@lyness/cordis-plugin-include'
-import LocalSpillStore, { sessionDir } from '@lyness/spill-local'
+import LocalSpillStore, { sessionDir } from '@lyness/lyn-spill-local'
 
 const DAY_MS = 24 * 60 * 60 * 1000
 
@@ -43,7 +43,7 @@ describe('spill-local real Loader composition through cordis.yml', () => {
 
     const configPath = join(root, 'cordis.yml')
     await writeFile(configPath, [
-      "- name: '@lyness/spill-local'",
+      "- name: '@lyness/lyn-spill-local'",
       '  config:',
       `    root: ${JSON.stringify(root)}`,
       '    cleanupPeriodDays: 30',
@@ -57,7 +57,7 @@ describe('spill-local real Loader composition through cordis.yml', () => {
     context.loader.internal = {
       version: 'v2',
       async import(specifier: string) {
-        if (specifier !== '@lyness/spill-local') throw new Error(`unexpected Loader import: ${specifier}`)
+        if (specifier !== '@lyness/lyn-spill-local') throw new Error(`unexpected Loader import: ${specifier}`)
         return LocalSpillStore
       },
     } as unknown as NonNullable<typeof context.loader.internal>

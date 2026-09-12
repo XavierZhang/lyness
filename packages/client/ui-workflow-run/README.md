@@ -3,7 +3,7 @@ description: "Durable workflow-run Conversation Node for the lyn web client: rec
 kind: "package-reference"
 ---
 
-# @lyness/client-ui-workflow-run
+# @lyness/lyn-client-ui-workflow-run
 
 English | [中文](README.zh.md)
 

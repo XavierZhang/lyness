@@ -1,7 +1,7 @@
 /**
  * Shared declarations for `package.json.lyn`.
  * Each reader owns JSON validation and resolved defaults.
- * @module @lyness/package-manifest/types
+ * @module @lyness/lyn-package-manifest/types
  */
 
 /** The `lyn` property of an npm manifest; a package may declare several roles. */

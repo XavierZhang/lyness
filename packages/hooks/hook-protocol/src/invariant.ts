@@ -1,11 +1,11 @@
-/** Package-owned hook invocation/result stream invariants. @module @lyness/hook-protocol/invariant */
+/** Package-owned hook invocation/result stream invariants. @module @lyness/lyn-hook-protocol/invariant */
 
 import type { Context } from '@lyness/cordis'
-import type { Session, SessionEvent } from '@lyness/session'
-import type { InvariantFailure, InvariantInstaller } from '@lyness/invariants'
+import type { Session, SessionEvent } from '@lyness/lyn-session'
+import type { InvariantFailure, InvariantInstaller } from '@lyness/lyn-invariants'
 import type {} from './types.ts'
 
-const PACKAGE_NAME = '@lyness/hook-protocol'
+const PACKAGE_NAME = '@lyness/lyn-hook-protocol'
 
 /** Cordis companion plugin name. */
 export const name = 'hook-protocol-invariant'

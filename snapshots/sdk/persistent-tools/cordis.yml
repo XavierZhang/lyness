@@ -4,12 +4,12 @@
 
 - insert:
     - id: tool-str-replace-editor
-      name: '@lyness/tool-str-replace-editor'
+      name: '@lyness/lyn-tool-str-replace-editor'
       config:
         maxOutputChars: 16000
 
 - id: llm-deepseek
-  name: '@lyness/llm-deepseek'
+  name: '@lyness/lyn-llm-deepseek'
   config:
     apiKeyEnv: DEEPSEEK_API_KEY
     streamIdleTimeoutMs: 172800000
@@ -18,139 +18,139 @@
         contextWindow: !!js Number(process.env.LYNESS_CONTEXT_WINDOW ?? 1000000)
 
 - id: sandbox-policy
-  name: '@lyness/sandbox-policy'
+  name: '@lyness/lyn-sandbox-policy'
   config:
     mode: danger-full-access
     workspaceRoot: !!js process.cwd()
 
 - id: approval
-  name: '@lyness/user-approval'
+  name: '@lyness/lyn-user-approval'
   config:
     policy: never
 
 - id: permission
-  name: '@lyness/permission-presets'
+  name: '@lyness/lyn-permission-presets'
   disabled: true
 
 - id: bash-sandbox
-  name: '@lyness/bash-sandbox'
+  name: '@lyness/lyn-bash-sandbox'
   disabled: true
 
 - id: pwsh-sandbox
-  name: '@lyness/pwsh-sandbox'
+  name: '@lyness/lyn-pwsh-sandbox'
   disabled: true
 
 - id: fs-sandbox
-  name: '@lyness/fs-sandbox'
+  name: '@lyness/lyn-fs-sandbox'
   disabled: true
 
 - id: tool-bash
-  name: '@lyness/tool-bash'
+  name: '@lyness/lyn-tool-bash'
   disabled: true
 
 - id: tool-pwsh
-  name: '@lyness/tool-pwsh'
+  name: '@lyness/lyn-tool-pwsh'
   disabled: true
 
 - id: agent-instructions
-  name: '@lyness/agent-instructions'
+  name: '@lyness/lyn-agent-instructions'
   disabled: true
 
 - id: skill
-  name: '@lyness/skill'
+  name: '@lyness/lyn-skill'
   disabled: true
 
 - id: skill-filesystem
-  name: '@lyness/skill-filesystem'
+  name: '@lyness/lyn-skill-filesystem'
   disabled: true
 
 - id: tool-skill
-  name: '@lyness/tool-skill'
+  name: '@lyness/lyn-tool-skill'
   disabled: true
 
 - id: tool-jobs
-  name: '@lyness/tool-jobs'
+  name: '@lyness/lyn-tool-jobs'
   disabled: true
 
 - id: tool-fs
-  name: '@lyness/tool-fs'
+  name: '@lyness/lyn-tool-fs'
   disabled: true
 
 - id: tool-fs-search
-  name: '@lyness/tool-fs-search'
+  name: '@lyness/lyn-tool-fs-search'
   disabled: true
 
 - id: tool-subagent-control
-  name: '@lyness/tool-subagent-control'
+  name: '@lyness/lyn-tool-subagent-control'
   disabled: true
 
 - id: tool-subagent-list-agents
-  name: '@lyness/tool-subagent-control/list-agents'
+  name: '@lyness/lyn-tool-subagent-control/list-agents'
   disabled: true
 
 - id: tool-subagent
-  name: '@lyness/tool-subagent'
+  name: '@lyness/lyn-tool-subagent'
   disabled: true
 
 - id: tool-subagent-fork
-  name: '@lyness/tool-subagent'
+  name: '@lyness/lyn-tool-subagent'
   disabled: true
 
 - id: tool-workflow
-  name: '@lyness/tool-workflow'
+  name: '@lyness/lyn-tool-workflow'
   disabled: true
 
 - id: tool-todo
-  name: '@lyness/tool-todo'
+  name: '@lyness/lyn-tool-todo'
   disabled: true
 
 - id: tool-goal
-  name: '@lyness/tool-goal'
+  name: '@lyness/lyn-tool-goal'
   disabled: true
 
 - id: tool-ralph
-  name: '@lyness/tool-ralph'
+  name: '@lyness/lyn-tool-ralph'
   disabled: true
 
 - id: tool-web
-  name: '@lyness/tool-web'
+  name: '@lyness/lyn-tool-web'
   disabled: true
 
 - id: plan-mode
-  name: '@lyness/plan-mode'
+  name: '@lyness/lyn-plan-mode'
   disabled: true
 
 - id: system-prompt
-  name: '@lyness/system-prompt'
+  name: '@lyness/lyn-system-prompt'
   config:
     includeHarnessIdentity: false
     personaPrefix: !!js process.env.LYNESS_SYSTEM_PROMPT ?? 'You are a helpful software engineer assistant.'
 
 - id: session-persistence-jsonl
-  name: '@lyness/session-persistence-jsonl'
+  name: '@lyness/lyn-session-persistence-jsonl'
   config:
     root: !!js lynHomePath('sessions')
     compression: none
 
 - insert:
     - id: bash-local
-      name: '@lyness/bash-local'
+      name: '@lyness/lyn-bash-local'
 
     - id: fs-local
-      name: '@lyness/fs-local'
+      name: '@lyness/lyn-fs-local'
       config:
         cwd: !!js process.cwd()
 
     - id: terminal
-      name: '@lyness/terminal'
+      name: '@lyness/lyn-terminal'
 
     - id: terminal-bash
-      name: '@lyness/terminal-bash'
+      name: '@lyness/lyn-terminal-bash'
       config:
         timeoutMs: 300000
 
     - id: persistent-bash
-      name: '@lyness/tool-bash-persistent'
+      name: '@lyness/lyn-tool-bash-persistent'
       config:
         timeoutMs: 300000
         description: |-

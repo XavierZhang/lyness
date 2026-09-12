@@ -7,10 +7,10 @@ import {
   type CommandHandle,
   type CommandResult,
   type Sandbox,
-} from '@lyness/e2b'
-import type E2BRuntime from '@lyness/e2b'
-import type { SubprocessSpawnSpec } from '@lyness/subprocess'
-import E2BSubprocessRuntime from '@lyness/subprocess-e2b'
+} from '@lyness/lyn-e2b'
+import type E2BRuntime from '@lyness/lyn-e2b'
+import type { SubprocessSpawnSpec } from '@lyness/lyn-subprocess'
+import E2BSubprocessRuntime from '@lyness/lyn-subprocess-e2b'
 import { E2BBase64Decoder, E2B_OUTPUT_COMPLETE_FRAME, E2BOutputReader } from '../src/output.ts'
 import { E2BSubprocessHandle } from '../src/process.ts'
 import { describe, expect, it, vi } from 'vitest'

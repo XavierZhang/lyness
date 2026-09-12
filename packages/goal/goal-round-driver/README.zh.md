@@ -3,7 +3,7 @@ description: "面向选择、组合或排查自动 Goal Round 的用户与维护
 kind: "package-reference"
 ---
 
-# @lyness/goal-round-driver
+# @lyness/lyn-goal-round-driver
 
 [English](README.md) | 中文
 
@@ -33,13 +33,13 @@ kind: "package-reference"
 
 ```yaml
 - id: goal
-  name: '@lyness/goal'
+  name: '@lyness/lyn-goal'
 
 - id: tool-goal
-  name: '@lyness/tool-goal'
+  name: '@lyness/lyn-tool-goal'
 
 - id: goal-round-driver
-  name: '@lyness/goal-round-driver'
+  name: '@lyness/lyn-goal-round-driver'
 ```
 
 `maxGoalRounds` 属于 goal 定义，面向模型的阻塞阈值属于 `lyn-tool-goal`；在驱动器中重复任一数值都可能产生分歧策略。

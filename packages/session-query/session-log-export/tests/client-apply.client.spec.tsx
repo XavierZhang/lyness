@@ -1,9 +1,9 @@
 import { Context } from '@lyness/cordis'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { SlotRegistry } from '@lyness/client-ui-renderer/client'
-import type { SessionId } from '@lyness/session/types'
-import { LocaleRuntime } from '@lyness/client-locale/client'
-import type {} from '@lyness/client-ui-conversation/client'
+import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
+import type {} from '@lyness/lyn-client-ui-conversation/client'
 import { SessionLogDownloadHeaderAction } from '../src/client/HeaderAction.tsx'
 import { apply, inject } from '../src/client/index.ts'
 

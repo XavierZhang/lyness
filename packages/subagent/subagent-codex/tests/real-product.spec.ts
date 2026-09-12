@@ -14,15 +14,15 @@ import { fileURLToPath } from 'node:url'
 import { promisify } from 'node:util'
 import { Context } from '@lyness/cordis'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import type { Agent } from '@lyness/agent'
-import SubagentRuntime from '@lyness/subagent'
-import SessionProjectionRegistry from '@lyness/session-projection'
+import type { Agent } from '@lyness/lyn-agent'
+import SubagentRuntime from '@lyness/lyn-subagent'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 import type {
   SubprocessHandle,
   SubprocessOutcome,
   SubprocessSpawnSpec,
-} from '@lyness/subprocess'
-import LocalSubprocessRuntime from '@lyness/subprocess-local'
+} from '@lyness/lyn-subprocess'
+import LocalSubprocessRuntime from '@lyness/lyn-subprocess-local'
 import * as codex from '../src/index.ts'
 import type { CodexPermissionMode } from '../src/run.ts'
 import {

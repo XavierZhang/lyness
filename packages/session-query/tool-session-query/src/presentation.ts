@@ -1,7 +1,7 @@
 /**
  * Model text rendering and generic tool-call presentation.
  *
- * @module @lyness/tool-session-query/presentation
+ * @module @lyness/lyn-tool-session-query/presentation
  */
 
 import {
@@ -12,12 +12,12 @@ import {
   type SessionLineageTrace,
   type SessionRecord,
   type SessionSearchHit,
-} from '@lyness/session-query'
+} from '@lyness/lyn-session-query'
 import type {
   SessionEvent,
   SessionId,
-} from '@lyness/session'
-import type { GenericCallView } from '@lyness/tools'
+} from '@lyness/lyn-session'
+import type { GenericCallView } from '@lyness/lyn-tools'
 import { workspaceAccess } from './workspace-access.ts'
 
 type TitleView = Awaited<ReturnType<typeof workspaceAccess.readTitle>>

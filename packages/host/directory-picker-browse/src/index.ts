@@ -6,7 +6,7 @@
  * serves remote clients the dialog backend cannot. Policy decisions (hidden
  * entries flagged but returned, symlinks followed, whole-filesystem scope) are
  * recorded in the directory-picker seam Agent Note.
- * @module @lyness/host-directory-picker-browse
+ * @module @lyness/lyn-host-directory-picker-browse
  */
 
 import { mkdir, opendir, stat } from 'node:fs/promises'
@@ -16,10 +16,10 @@ import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
 import {
   DirectoryPicker, DirectoryPickerError,
-} from '@lyness/host-directory-picker'
+} from '@lyness/lyn-host-directory-picker'
 import type {
   DirectoryEntry, DirectoryListing, DirectoryPickerCapability,
-} from '@lyness/host-directory-picker'
+} from '@lyness/lyn-host-directory-picker'
 
 /**
  * Ancestor chain from the filesystem root to `target` inclusive — the

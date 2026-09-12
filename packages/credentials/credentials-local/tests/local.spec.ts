@@ -3,9 +3,9 @@ import { Context } from '@lyness/cordis'
 import { mkdir, mkdtemp, readFile, rm, stat, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
-import { credentialRef } from '@lyness/credentials'
-import { createLaunchEnvironmentSnapshot, LYNESS_LAUNCH_ENVIRONMENT_KEY } from '@lyness/launch-environment'
-import type { CredentialRef } from '@lyness/credentials'
+import { credentialRef } from '@lyness/lyn-credentials'
+import { createLaunchEnvironmentSnapshot, LYNESS_LAUNCH_ENVIRONMENT_KEY } from '@lyness/lyn-launch-environment'
+import type { CredentialRef } from '@lyness/lyn-credentials'
 import { LocalCredentialProvider, resolveSpec } from '../src/index.ts'
 
 function writeCredentials(file: string, text: string): Promise<void> {

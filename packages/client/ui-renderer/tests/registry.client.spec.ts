@@ -8,11 +8,11 @@
 import { Context } from '@lyness/cordis'
 import { describe, expect, it, vi } from 'vitest'
 import type { FC } from 'react'
-import type { ScopedStandardSourceBinding, SlotRendererHost } from '@lyness/client-ui-slots'
+import type { ScopedStandardSourceBinding, SlotRendererHost } from '@lyness/lyn-client-ui-slots'
 import { SlotRegistry } from '../src/client/registry.ts'
 
 // Test-only slot keys (merged so the typed entries/spec faces accept them).
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface SlotMap {
     't.host': { kind: 'single'; scope: 'root' }
     't.maybe': { kind: 'single'; scope: 'session-maybe' }

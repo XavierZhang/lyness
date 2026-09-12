@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/compaction-basic",
+  "name": "@lyness/lyn-compaction-basic",
   "description": "Token-meter-driven compaction policy and LLM summarization backend for the lyness",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -28,39 +28,39 @@
   "license": "MIT",
   "peerDependencies": {
     "@lyness/cordis": "workspace:^",
-    "@lyness/agent": "workspace:^",
-    "@lyness/commands": "workspace:^",
-    "@lyness/compaction": "workspace:^",
-    "@lyness/compaction-tool-result-pruner": "workspace:^",
-    "@lyness/llm": "workspace:^",
-    "@lyness/session": "workspace:^",
-    "@lyness/token-meter": "workspace:^"
+    "@lyness/lyn-agent": "workspace:^",
+    "@lyness/lyn-commands": "workspace:^",
+    "@lyness/lyn-compaction": "workspace:^",
+    "@lyness/lyn-compaction-tool-result-pruner": "workspace:^",
+    "@lyness/lyn-llm": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
+    "@lyness/lyn-token-meter": "workspace:^"
   },
   "peerDependenciesMeta": {
-    "@lyness/compaction-tool-result-pruner": {
+    "@lyness/lyn-compaction-tool-result-pruner": {
       "optional": true
     }
   },
   "dependencies": {
-    "@lyness/util-values": "workspace:^",
+    "@lyness/lyn-util-values": "workspace:^",
     "@lyness/schemastery": "workspace:^"
   },
   "devDependencies": {
     "@lyness/cordis": "workspace:^",
     "@lyness/cordis-plugin-include": "workspace:^",
     "@lyness/cordis-plugin-loader": "workspace:^",
-    "@lyness/agent": "workspace:^",
-    "@lyness/agent-loop": "workspace:^",
-    "@lyness/agent-loop-testkit": "workspace:^",
-    "@lyness/commands": "workspace:^",
-    "@lyness/compaction": "workspace:^",
-    "@lyness/compaction-tool-result-pruner": "workspace:^",
-    "@lyness/invariants": "workspace:^",
-    "@lyness/llm": "workspace:^",
-    "@lyness/llm-retry": "workspace:^",
-    "@lyness/session": "workspace:^",
-    "@lyness/session-projection": "workspace:^",
-    "@lyness/token-meter": "workspace:^",
-    "@lyness/tools": "workspace:^"
+    "@lyness/lyn-agent": "workspace:^",
+    "@lyness/lyn-agent-loop": "workspace:^",
+    "@lyness/lyn-agent-loop-testkit": "workspace:^",
+    "@lyness/lyn-commands": "workspace:^",
+    "@lyness/lyn-compaction": "workspace:^",
+    "@lyness/lyn-compaction-tool-result-pruner": "workspace:^",
+    "@lyness/lyn-invariants": "workspace:^",
+    "@lyness/lyn-llm": "workspace:^",
+    "@lyness/lyn-llm-retry": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
+    "@lyness/lyn-session-projection": "workspace:^",
+    "@lyness/lyn-token-meter": "workspace:^",
+    "@lyness/lyn-tools": "workspace:^"
   }
 }

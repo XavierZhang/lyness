@@ -1,9 +1,9 @@
 import { Context } from '@lyness/cordis'
 import { describe, expect, it } from 'vitest'
-import { SettingsProvider, type SettingsNamespace } from '@lyness/settings'
+import { SettingsProvider, type SettingsNamespace } from '@lyness/lyn-settings'
 import {
   CONVERSATION_SETTINGS_NAMESPACE, DEFAULT_BUSY_ENTER_BEHAVIOR, apply,
-} from '@lyness/client-ui-conversation'
+} from '@lyness/lyn-client-ui-conversation'
 
 class MemorySettings extends SettingsProvider {
   readonly writable = true

@@ -1,5 +1,5 @@
 import { Context } from '@lyness/cordis'
-import { createMessage, createSystemMessage, createToolResultMessage, createUserMessage, ToolCallId } from '@lyness/llm'
+import { createMessage, createSystemMessage, createToolResultMessage, createUserMessage, ToolCallId } from '@lyness/lyn-llm'
 import { describe, expect, expectTypeOf, it, vi } from 'vitest'
 import SessionStore, {
   adoptSessionEvent,
@@ -14,7 +14,7 @@ import SessionStore, {
   type SurfaceEventType,
   type SurfaceIntent,
   type SurfaceOp,
-} from '@lyness/session'
+} from '@lyness/lyn-session'
 
 const id = SessionId('canonical-envelopes')
 const header = { version: SESSION_FORMAT_VERSION, id, createdAt: 1, isSeeded: false } as const

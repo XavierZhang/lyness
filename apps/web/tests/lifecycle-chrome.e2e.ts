@@ -16,7 +16,7 @@ import { join } from 'node:path'
 import type { Browser, Page, WebSocketRoute } from 'playwright'
 import { chromium } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed, onTestFinished } from 'vitest'
-import type { SessionEvent } from '@lyness/session'
+import type { SessionEvent } from '@lyness/lyn-session'
 import {
   acknowledgeReloadConnectionLoss, assertFixtureInventory, captureExpandedTurnProcessAria,
   captureStableAria, compareOrRefreshGolden, fixtureUserPrompts,

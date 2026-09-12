@@ -14,9 +14,9 @@
  */
 
 import { Context } from '@lyness/cordis'
-import type { DynamicCordisPackage } from '@lyness/api-remotes/client'
-import type { SlotRegistry } from '@lyness/client-ui-renderer/client'
-import type { ThemeRuntime } from '@lyness/client-ui-theme/client'
+import type { DynamicCordisPackage } from '@lyness/lyn-api-remotes/client'
+import type { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
+import type { ThemeRuntime } from '@lyness/lyn-client-ui-theme/client'
 
 /** Facade verbs beyond declared services (host CTX_VERBS twin). */
 const CTX_VERBS = new Set([

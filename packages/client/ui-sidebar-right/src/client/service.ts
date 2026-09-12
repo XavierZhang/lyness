@@ -27,10 +27,10 @@
  * The registration adopts Session stores and injects the mounted seat binding;
  * callers use the service's navigation methods.
  */
-import type { FloatRect, PaneId, TabId, TabRecord } from '@lyness/client-ui-dockkit'
-import { activeDockPaneId, canSplit, dockPaneIds, findTabPane, getPane } from '@lyness/client-ui-dockkit'
-import type { BoundActions } from '@lyness/client-ui-slots'
-import type { SessionId } from '@lyness/session/types'
+import type { FloatRect, PaneId, TabId, TabRecord } from '@lyness/lyn-client-ui-dockkit'
+import { activeDockPaneId, canSplit, dockPaneIds, findTabPane, getPane } from '@lyness/lyn-client-ui-dockkit'
+import type { BoundActions } from '@lyness/lyn-client-ui-slots'
+import type { SessionId } from '@lyness/lyn-session/types'
 import type { SidebarRightNavigationParams, SidebarRightResourceParams, SidebarRightTabParamsFor } from './contract/params.ts'
 import { pageAddress } from './contract/seed.ts'
 import type { SidebarRightTabClaim, SidebarRightTabRegistry } from './tab-registry.ts'

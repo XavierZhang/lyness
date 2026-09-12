@@ -1,5 +1,5 @@
 /**
- * Integration tests: the REAL `@lyness/pwsh-local` executor plus the
+ * Integration tests: the REAL `@lyness/lyn-pwsh-local` executor plus the
  * `pwsh` tool, exercised through `ctx.tools.execute()` with a real PowerShell
  * process. These verify the world — actual commands run, stdout/stderr come
  * back, exit codes render, timeouts abort, background jobs settle through the
@@ -15,15 +15,15 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { spawnSync } from 'node:child_process'
 import { Context } from '@lyness/cordis'
-import { ToolCallId } from '@lyness/llm'
-import SystemPrompt from '@lyness/system-prompt'
-import ToolRuntime, { TOOL_ABORTED } from '@lyness/tools'
-import LocalJobRegistry from '@lyness/jobs-local'
-import * as ToolTasks from '@lyness/tool-jobs'
-import LocalSubprocessRuntime from '@lyness/subprocess-local'
-import { PwshLocalExecutor, resolvePwshPath } from '@lyness/pwsh-local'
-import * as ToolPwsh from '@lyness/tool-pwsh'
-import * as BashEnvPlugin from '@lyness/shell-env'
+import { ToolCallId } from '@lyness/lyn-llm'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime, { TOOL_ABORTED } from '@lyness/lyn-tools'
+import LocalJobRegistry from '@lyness/lyn-jobs-local'
+import * as ToolTasks from '@lyness/lyn-tool-jobs'
+import LocalSubprocessRuntime from '@lyness/lyn-subprocess-local'
+import { PwshLocalExecutor, resolvePwshPath } from '@lyness/lyn-pwsh-local'
+import * as ToolPwsh from '@lyness/lyn-tool-pwsh'
+import * as BashEnvPlugin from '@lyness/lyn-shell-env'
 
 const testToolSignal = new AbortController().signal
 

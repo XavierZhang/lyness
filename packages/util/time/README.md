@@ -36,7 +36,7 @@ Call it at the boundary that receives the zone, before the value reaches anythin
 ## API
 
 ```ts
-import { canonicalClientTimeZone } from '@lyness/util-time'
+import { canonicalClientTimeZone } from '@lyness/lyn-util-time'
 ```
 
 | Export | Role |

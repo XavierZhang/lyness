@@ -9,10 +9,10 @@ import {
   type CommandHandle,
   type CommandResult,
   type Sandbox,
-} from '@lyness/e2b'
-import type E2BRuntime from '@lyness/e2b'
-import type { SubprocessTerminalSpawnSpec } from '@lyness/subprocess'
-import E2BSubprocessRuntime from '@lyness/subprocess-e2b'
+} from '@lyness/lyn-e2b'
+import type E2BRuntime from '@lyness/lyn-e2b'
+import type { SubprocessTerminalSpawnSpec } from '@lyness/lyn-subprocess'
+import E2BSubprocessRuntime from '@lyness/lyn-subprocess-e2b'
 import { spawnE2BTerminal } from '../src/terminal.ts'
 
 function commandError(exitCode: number): CommandExitError {

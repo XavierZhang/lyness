@@ -1,9 +1,9 @@
 // Dynamic-key escape hatches and untouched-key behavior of the terminal core.
 import { describe, expect, it } from 'vitest'
-import type { SlotComponent } from '@lyness/client-ui-slots'
-import { SlotCore } from '@lyness/client-ui-slots'
+import type { SlotComponent } from '@lyness/lyn-client-ui-slots'
+import { SlotCore } from '@lyness/lyn-client-ui-slots'
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface SlotMap {
     'dynamic.a': { kind: 'single'; scope: 'root' }
     'dynamic.b': { kind: 'single'; scope: 'root' }

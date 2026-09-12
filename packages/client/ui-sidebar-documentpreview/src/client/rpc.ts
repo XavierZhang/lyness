@@ -6,10 +6,10 @@
  * session and a workspace path while a tab carries a `lyn-resource://file/`
  * session address, so this module also owns that translation.
  */
-import type { RemoteResult } from '@lyness/api-remotes/client'
-import type { SessionId } from '@lyness/session/types'
-import type { WorkspaceFileBytes, WorkspaceFileRange, WorkspaceFileText } from '@lyness/api-workspace-files/types'
-import { parseFileAddress } from '@lyness/util-workspace-path'
+import type { RemoteResult } from '@lyness/lyn-api-remotes/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { WorkspaceFileBytes, WorkspaceFileRange, WorkspaceFileText } from '@lyness/lyn-api-workspace-files/types'
+import { parseFileAddress } from '@lyness/lyn-util-workspace-path'
 
 /** The slice of the Client Remote this package calls. */
 export interface WorkspaceFilesReadRemote {

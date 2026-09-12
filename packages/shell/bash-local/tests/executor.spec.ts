@@ -3,11 +3,11 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterAll, describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { LocalBashExecutor } from '@lyness/bash-local'
-import LocalSubprocessRuntime from '@lyness/subprocess-local'
-import type { SubprocessHandle, SubprocessOutputReader } from '@lyness/subprocess'
-import { MAX_TIMER_DELAY_MS } from '@lyness/timeout'
-import type { ShellProcess } from '@lyness/shell'
+import { LocalBashExecutor } from '@lyness/lyn-bash-local'
+import LocalSubprocessRuntime from '@lyness/lyn-subprocess-local'
+import type { SubprocessHandle, SubprocessOutputReader } from '@lyness/lyn-subprocess'
+import { MAX_TIMER_DELAY_MS } from '@lyness/lyn-timeout'
+import type { ShellProcess } from '@lyness/lyn-shell'
 
 const spillDir = mkdtempSync(join(tmpdir(), 'lyn-bash-exec-spec-'))
 

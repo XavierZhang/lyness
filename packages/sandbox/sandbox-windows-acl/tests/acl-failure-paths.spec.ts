@@ -9,7 +9,7 @@
  */
 
 import { tmpdir } from 'node:os'
-import { Win32Error } from '@lyness/win32-process'
+import { Win32Error } from '@lyness/lyn-win32-process'
 import { describe, expect, it, vi } from 'vitest'
 import koffi from 'koffi'
 

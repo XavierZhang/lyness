@@ -14,23 +14,23 @@ import type {
   InboxTarget,
   PreStepDecision,
   RequestErrorAction,
-} from '@lyness/agent'
-import { agentEvents, assembleContextFor } from '@lyness/agent'
-import type { GenerateOptions, LlmCallConfig, Message, PreparedLlmCall } from '@lyness/llm'
+} from '@lyness/lyn-agent'
+import { agentEvents, assembleContextFor } from '@lyness/lyn-agent'
+import type { GenerateOptions, LlmCallConfig, Message, PreparedLlmCall } from '@lyness/lyn-llm'
 import {
   LlmError,
   createAssistantMessage,
   errorChain,
   markAgentLoopRequest,
-} from '@lyness/llm'
-import { deepFreeze } from '@lyness/util-values'
-import type { Scope } from '@lyness/scope'
-import { createScope } from '@lyness/scope'
-import type { EpochHeader, RequestContext, Session, SessionId, TurnEndReason, UserMessage } from '@lyness/session'
-import { canonicalHeader, headerEquals } from '@lyness/session'
-import { joinContextSections, renderContextSections, renderPrompt } from '@lyness/system-prompt'
-import type { PromptAssembly } from '@lyness/system-prompt'
-import type {} from '@lyness/session-projection'
+} from '@lyness/lyn-llm'
+import { deepFreeze } from '@lyness/lyn-util-values'
+import type { Scope } from '@lyness/lyn-scope'
+import { createScope } from '@lyness/lyn-scope'
+import type { EpochHeader, RequestContext, Session, SessionId, TurnEndReason, UserMessage } from '@lyness/lyn-session'
+import { canonicalHeader, headerEquals } from '@lyness/lyn-session'
+import { joinContextSections, renderContextSections, renderPrompt } from '@lyness/lyn-system-prompt'
+import type { PromptAssembly } from '@lyness/lyn-system-prompt'
+import type {} from '@lyness/lyn-session-projection'
 import type { Context } from '@lyness/cordis'
 import { ReactLoopInbox } from './inbox.ts'
 import { RuntimeContextProjection } from './runtime-context.ts'

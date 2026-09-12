@@ -1,10 +1,10 @@
 /**
  * Configuration vocabulary for the replay-aware basic compaction backend.
  *
- * @module @lyness/compaction-basic/types
+ * @module @lyness/lyn-compaction-basic/types
  */
 
-import type { LlmCallConfig } from '@lyness/llm'
+import type { LlmCallConfig } from '@lyness/lyn-llm'
 
 /** Policy fields shared by the default policy and exact model overrides. */
 export interface CompactionPolicyConfig {

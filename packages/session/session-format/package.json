@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/session-format",
+  "name": "@lyness/lyn-session-format",
   "description": "Streaming adjacent Session format migration machinery",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -27,7 +27,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@lyness/util-values": "workspace:^"
+    "@lyness/lyn-util-values": "workspace:^"
   },
   "peerDependencies": {
     "@lyness/cordis": "workspace:^"

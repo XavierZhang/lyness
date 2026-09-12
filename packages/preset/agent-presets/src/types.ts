@@ -1,5 +1,5 @@
 /** Client-safe payloads and event declarations owned by the agent-preset domain. */
-import type { SessionId } from '@lyness/session/types'
+import type { SessionId } from '@lyness/lyn-session/types'
 import type { PresetTrust } from './preset.ts'
 
 export type { PresetTrust } from './preset.ts'
@@ -31,7 +31,7 @@ export interface AgentPresetRoster {
   readonly authorable: boolean
 }
 
-declare module '@lyness/typert-protocol' {
+declare module '@lyness/lyn-typert-protocol' {
   interface RemoteErrorDetailsMap {
     /** No configured root supplies the requested id. */
     'agent-preset/not-found': { readonly agentPreset: string; readonly available: readonly string[] }
@@ -58,7 +58,7 @@ export interface AgentPresetDocument {
   readonly description?: string
 }
 
-declare module '@lyness/session-projection/types' {
+declare module '@lyness/lyn-session-projection/types' {
   interface SessionProjectionStateMap {
     agentPreset: string | null
   }

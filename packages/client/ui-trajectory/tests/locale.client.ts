@@ -1,5 +1,5 @@
-import { en as commonEn } from '@lyness/client-locale/src/locales/en.ts'
-import { zh as commonZh } from '@lyness/client-locale/src/locales/zh.ts'
+import { en as commonEn } from '@lyness/lyn-client-locale/src/locales/en.ts'
+import { zh as commonZh } from '@lyness/lyn-client-locale/src/locales/zh.ts'
 import { en, zh, type TrajectoryTranslate } from '../src/client/locales.ts'
 
 function translator(dictionary: Record<string, string>): TrajectoryTranslate {

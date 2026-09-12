@@ -7,12 +7,12 @@
 
 import { memo, useMemo, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { IconDatabaseOutline16, IconGaugeOutline16 } from '@lyness/client-ui-primitives'
-import type { UseProjection } from '@lyness/api-session-controller/client'
-import type { SnapshotSelectorHook } from '@lyness/client-ui-slots'
+import { IconDatabaseOutline16, IconGaugeOutline16 } from '@lyness/lyn-client-ui-primitives'
+import type { UseProjection } from '@lyness/lyn-api-session-controller/client'
+import type { SnapshotSelectorHook } from '@lyness/lyn-client-ui-slots'
 // Type-only: merges the sessionStats key into SessionProjectionMap for useProjection.
-import type {} from '@lyness/session-stats/client'
-import type { TokenUsageProjection } from '@lyness/token-meter/client'
+import type {} from '@lyness/lyn-session-stats/client'
+import type { TokenUsageProjection } from '@lyness/lyn-token-meter/client'
 import type { ChatViewSlotProps } from '../contract/slots.ts'
 import type { ChatSnapshot } from '../contract/snapshot.ts'
 import { formatTokensPerSecond } from './message-chrome.ts'

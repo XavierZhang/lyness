@@ -3,16 +3,16 @@
  * {@link SessionEvent}s as the event-sourced log and carry non-replayable
  * {@link SessionHeader} metadata separately; callers address one stored
  * session through a {@link SessionHandle} obtained from `create`/`open`.
- * @module @lyness/session-persistence
+ * @module @lyness/lyn-session-persistence
  */
 
 import { Context, Service } from '@lyness/cordis'
-import type { SessionEvent, SessionHeader, SessionId, SessionLogOffset } from '@lyness/session'
+import type { SessionEvent, SessionHeader, SessionId, SessionLogOffset } from '@lyness/lyn-session'
 import type { SessionHandle, SessionAccess } from './handle.ts'
 import type { SessionPersistenceRevision } from './revision.ts'
 
 // Re-export the metadata vocabulary so Consumers import it from the Service Definition.
-export type { SessionHeader } from '@lyness/session'
+export type { SessionHeader } from '@lyness/lyn-session'
 export { SessionPersistenceRevision } from './revision.ts'
 export type {
   SessionAccess,

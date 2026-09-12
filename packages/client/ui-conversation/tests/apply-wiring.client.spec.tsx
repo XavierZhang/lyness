@@ -2,11 +2,11 @@
 import { describe, expect, it, vi } from 'vitest'
 import {
   SlotTestRuntime, stubSettingsScope, usePinnedBrowserLanguages,
-} from '@lyness/client-test-runtime'
-import { LocaleRuntime } from '@lyness/client-locale/client'
-import type { ObservableSnapshot } from '@lyness/client-store'
-import type { SessionId } from '@lyness/session/types'
-import { apply, inject, type ViewTab } from '@lyness/client-ui-conversation/client'
+} from '@lyness/lyn-client-test-runtime'
+import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
+import type { ObservableSnapshot } from '@lyness/lyn-client-store'
+import type { SessionId } from '@lyness/lyn-session/types'
+import { apply, inject, type ViewTab } from '@lyness/lyn-client-ui-conversation/client'
 
 usePinnedBrowserLanguages('zh-CN')
 

@@ -1,6 +1,6 @@
 /**
  * Model-visible labeling shared by web tools.
- * @module @lyness/tool-web/trust
+ * @module @lyness/lyn-tool-web/trust
  */
 
 /** Prefix that keeps provider-controlled text visibly outside agent instructions. */

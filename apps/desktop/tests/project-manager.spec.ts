@@ -56,12 +56,12 @@ function archiveStore(seed: string): void {
 
 function writeCorePackageSet(seed: string, version: string): void {
   const packages = [
+    { name: '@lyness/lyn', file: `deepseek-ai-lyn-${version}.tgz`, body: Buffer.from(`lyn-${version}`) },
     {
-      name: '@lyness/desktop-host',
-      file: `lyness-desktop-host-${version}.tgz`,
+      name: '@lyness/lyn-desktop-host',
+      file: `deepseek-ai-lyn-desktop-host-${version}.tgz`,
       body: Buffer.from(`desktop-host-${version}`),
     },
-    { name: '@lyness/lyn', file: `lyness-lyn-${version}.tgz`, body: Buffer.from(`lyn-${version}`) },
   ]
   mkdirSync(join(seed, DESKTOP_PACKAGES_DIR), { recursive: true })
   for (const entry of packages) writeFileSync(join(seed, DESKTOP_PACKAGES_DIR, entry.file), entry.body)
@@ -110,7 +110,7 @@ rmSync(join(project, 'node_modules'), { recursive: true, force: true })
 for (const [name, version] of Object.entries(manifest.dependencies)) {
   const packageRoot = join(project, 'node_modules', ...name.split('/'))
   mkdirSync(packageRoot, { recursive: true })
-  const core = name === '@lyness/lyn' || name === '@lyness/desktop-host'
+  const core = name === '@lyness/lyn' || name === '@lyness/lyn-desktop-host'
   const plugin = !core
   const installedVersion = plugin
     ? version
@@ -120,7 +120,7 @@ for (const [name, version] of Object.entries(manifest.dependencies)) {
     ...(plugin ? { lyn: { bundle: { patch: './bundle.yml' } } } : {}),
   }))
   if (plugin) writeFileSync(join(packageRoot, 'bundle.yml'), '[]\n')
-  else if (name === '@lyness/desktop-host') {
+  else if (name === '@lyness/lyn-desktop-host') {
     mkdirSync(join(packageRoot, 'lib'), { recursive: true })
     writeFileSync(join(packageRoot, 'lib', 'index.js'), '')
   }
@@ -213,8 +213,8 @@ describe('desktop project transactions', () => {
       await expect(manager.applyRelease(seed, '2.0.0', hooks())).rejects.toThrow(/does not match Electron/u)
       await manager.applyRelease(seed, '1.0.0', hooks())
       writeFileSync(
-        join(paths.profile, 'node_modules', '@lyness', 'desktop-host', 'package.json'),
-        '{"name":"@lyness/desktop-host","version":"0.9.0"}\n',
+        join(paths.profile, 'node_modules', '@lyness', 'lyn-desktop-host', 'package.json'),
+        '{"name":"@lyness/lyn-desktop-host","version":"0.9.0"}\n',
       )
       await expect(manager.applyRelease(seed, '1.0.0', hooks())).resolves.toBe(true)
     } finally {
@@ -228,7 +228,7 @@ describe('desktop project transactions', () => {
     expect(paths.profile).toBe(join(root, '.lyn', 'profiles', 'desktop'))
     expect(existsSync(join(paths.profile, 'node_modules', '@lyness', 'lyn'))).toBe(true)
     const installedHost = JSON.parse(readFileSync(
-      join(paths.profile, 'node_modules', '@lyness', 'desktop-host', 'package.json'),
+      join(paths.profile, 'node_modules', '@lyness', 'lyn-desktop-host', 'package.json'),
       'utf8',
     )) as { version: string }
     expect(installedHost.version).toBe('1.0.0')
@@ -399,8 +399,8 @@ describe('desktop project transactions', () => {
       lyn: { profile: { bundles: string[] } }
     }
     expect(profile.lyn.profile.bundles).toEqual([
-      '@lyness/base',
-      '@lyness/web-app',
+      '@lyness/lyn-base',
+      '@lyness/lyn-web-app',
       '@scope/plugin',
     ])
     expect(readFileSync(join(paths.pnpm.store, 'release-1'), 'utf8')).toBe('one')

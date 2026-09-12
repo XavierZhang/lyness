@@ -1,9 +1,9 @@
 /** Session-scoped durable image URL cache shared by Conversation targets. */
 import type { Context } from '@lyness/cordis'
-import type { ImageAttachmentRef } from '@lyness/attachment'
-import type { ISessions } from '@lyness/api-session-controller/client'
-import type { SessionId } from '@lyness/session/types'
-import { bytesToBase64 } from '@lyness/util-crypto'
+import type { ImageAttachmentRef } from '@lyness/lyn-attachment'
+import type { ISessions } from '@lyness/lyn-api-session-controller/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import { bytesToBase64 } from '@lyness/lyn-util-crypto'
 
 interface ImageUrlEntry {
   readonly sessionId: SessionId

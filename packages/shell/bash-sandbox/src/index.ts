@@ -6,12 +6,12 @@
  * `SANDBOX_UNAVAILABLE`, while background processes carry `runnerFailed`;
  * other provider rejections retain stage-neutral local-executor semantics. The
  * tool owns approval and passes a complete per-call policy.
- * @module @lyness/bash-sandbox
+ * @module @lyness/lyn-bash-sandbox
  */
 
 import { Context } from '@lyness/cordis'
-import type { ShellExecRequest, ShellExecSpec, ShellProcess, ShellRunResult } from '@lyness/shell'
-import { SandboxUnavailableError } from '@lyness/sandbox'
+import type { ShellExecRequest, ShellExecSpec, ShellProcess, ShellRunResult } from '@lyness/lyn-shell'
+import { SandboxUnavailableError } from '@lyness/lyn-sandbox'
 import type {
   ConfinedArgv,
   ConfinedSandboxMode,
@@ -20,16 +20,16 @@ import type {
   SandboxExecutionPolicy,
   SandboxMode,
   SandboxPolicy,
-} from '@lyness/sandbox'
-import type {} from '@lyness/sandbox-policy'
-import { LocalBashExecutor } from '@lyness/bash-local'
-import type { Config as LocalConfig } from '@lyness/bash-local'
+} from '@lyness/lyn-sandbox'
+import type {} from '@lyness/lyn-sandbox-policy'
+import { LocalBashExecutor } from '@lyness/lyn-bash-local'
+import type { Config as LocalConfig } from '@lyness/lyn-bash-local'
 import { classifyDenial, classifyRunnerFailure, isRunnerSpawnFailure, matchesSignature } from './helpers.ts'
 
 /**
  * Plugin config: the local executor's knobs, verbatim. The sandbox policy —
  * the default mode and fallback `workspace-write` root — is NOT here: it lives
- * on `ctx.sandboxPolicy` (`@lyness/sandbox-policy`), which resolves
+ * on `ctx.sandboxPolicy` (`@lyness/lyn-sandbox-policy`), which resolves
  * each calling session's mode and cwd for every enforcing capability. The runner
  * choice is likewise the `ctx.sandbox` provider's config, not this executor's.
  */

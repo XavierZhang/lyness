@@ -6,9 +6,9 @@ import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
 import Include from '@lyness/cordis-plugin-include'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import TokenMeter from '@lyness/token-meter'
-import ToolResultPruner from '@lyness/compaction-tool-result-pruner'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import TokenMeter from '@lyness/lyn-token-meter'
+import ToolResultPruner from '@lyness/lyn-compaction-tool-result-pruner'
 
 let root: string | undefined
 let context: Context | undefined
@@ -25,9 +25,9 @@ describe('compaction-tool-result-pruner real Loader composition', () => {
     root = await mkdtemp(join(tmpdir(), 'lyn-compact-tool-result-prune-loader-'))
     const configPath = join(root, 'cordis.yml')
     await writeFile(configPath, [
-      "- name: '@lyness/session-projection'",
-      "- name: '@lyness/token-meter'",
-      "- name: '@lyness/compaction-tool-result-pruner'",
+      "- name: '@lyness/lyn-session-projection'",
+      "- name: '@lyness/lyn-token-meter'",
+      "- name: '@lyness/lyn-compaction-tool-result-pruner'",
       '  config:',
       '    thresholdChars: 100',
       '    headChars: 20',
@@ -42,9 +42,9 @@ describe('compaction-tool-result-pruner real Loader composition', () => {
     context.loader.internal = {
       version: 'v2',
       async import(specifier: string) {
-        if (specifier === '@lyness/session-projection') return SessionProjectionRegistry
-        if (specifier === '@lyness/token-meter') return TokenMeter
-        if (specifier === '@lyness/compaction-tool-result-pruner') return ToolResultPruner
+        if (specifier === '@lyness/lyn-session-projection') return SessionProjectionRegistry
+        if (specifier === '@lyness/lyn-token-meter') return TokenMeter
+        if (specifier === '@lyness/lyn-compaction-tool-result-pruner') return ToolResultPruner
         throw new Error(`unexpected Loader import: ${specifier}`)
       },
     } as unknown as NonNullable<typeof context.loader.internal>

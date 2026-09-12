@@ -5,9 +5,9 @@
  * one-shot convenience method.
  */
 
-import { BlockAssembler } from '@lyness/llm'
+import { BlockAssembler } from '@lyness/lyn-llm'
 import type { Context } from '@lyness/cordis'
-import type { FinishReason, GenerateOptions, Message, TokenUsage } from '@lyness/llm'
+import type { FinishReason, GenerateOptions, Message, TokenUsage } from '@lyness/lyn-llm'
 
 export interface AssembledResult {
   message: Message

@@ -3,19 +3,19 @@
 # first read, so the second step appends a `system/message` after the cached
 # history instead of replacing node 0.
 - id: llm-deepseek
-  name: '@lyness/llm-deepseek'
+  name: '@lyness/lyn-llm-deepseek'
   config:
     thinking: enabled
     reasoningEffort: max
 
 - id: agent-default-model
-  name: '@lyness/agent-default-model'
+  name: '@lyness/lyn-agent-default-model'
   config:
     provider: deepseek-official
     model: deepseek-flash
 
 - id: session-persistence-jsonl
-  name: '@lyness/session-persistence-jsonl'
+  name: '@lyness/lyn-session-persistence-jsonl'
   config:
     root: !!js lynHomePath('sessions')
     compression: !!js 'process.env.LYNESS_SNAPSHOT === undefined ? ''zstd'' : ''none'''

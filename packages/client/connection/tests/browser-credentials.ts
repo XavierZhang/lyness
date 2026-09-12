@@ -1,5 +1,5 @@
 import type { Context } from '@lyness/cordis'
-import type { CredentialProvider, CredentialRecord } from '@lyness/credentials'
+import type { CredentialProvider, CredentialRecord } from '@lyness/lyn-credentials'
 
 /** Mutable credential-record double for Connection authentication tests. */
 export class RecordCredentials {

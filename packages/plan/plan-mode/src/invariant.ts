@@ -1,10 +1,10 @@
-/** Package-owned durable plan-mode invariants. @module @lyness/plan-mode/invariant */
+/** Package-owned durable plan-mode invariants. @module @lyness/lyn-plan-mode/invariant */
 
 import type { Context } from '@lyness/cordis'
-import type { Session, SessionEvent } from '@lyness/session'
-import type { InvariantFailure, InvariantInstaller } from '@lyness/invariants'
+import type { Session, SessionEvent } from '@lyness/lyn-session'
+import type { InvariantFailure, InvariantInstaller } from '@lyness/lyn-invariants'
 
-const PACKAGE_NAME = '@lyness/plan-mode'
+const PACKAGE_NAME = '@lyness/lyn-plan-mode'
 
 /** Cordis companion plugin name. */
 export const name = 'plan-mode-invariant'

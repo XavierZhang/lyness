@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import InvariantRegistry from '@lyness/invariants'
-import type { DomainChanged } from '@lyness/storage-domain'
+import InvariantRegistry from '@lyness/lyn-invariants'
+import type { DomainChanged } from '@lyness/lyn-storage-domain'
 import * as WorkspaceInvariant from '../src/invariant.ts'
 import { WorkspaceId } from '../src/index.ts'
 

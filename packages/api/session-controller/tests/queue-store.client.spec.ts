@@ -4,11 +4,11 @@
  * projection, and snapshot reference stability.
  */
 import { describe, expect, it, vi } from 'vitest'
-import { createUserMessage } from '@lyness/llm'
-import type { ContentBlock, UserMessage } from '@lyness/llm/types'
-import { SessionSeq, type SessionEvent } from '@lyness/session/types'
-import type { MessageId, RpcId, SessionId } from '@lyness/api-remotes/client'
-import type { SessionControlFrame } from '@lyness/api-session-controller/types'
+import { createUserMessage } from '@lyness/lyn-llm'
+import type { ContentBlock, UserMessage } from '@lyness/lyn-llm/types'
+import { SessionSeq, type SessionEvent } from '@lyness/lyn-session/types'
+import type { MessageId, RpcId, SessionId } from '@lyness/lyn-api-remotes/client'
+import type { SessionControlFrame } from '@lyness/lyn-api-session-controller/types'
 import { Session } from '../src/client/sessions/session.ts'
 import { SessionManager } from '../src/client/sessions/manager.ts'
 import { FakeApiClient, fakeRemote } from './fake-api.client.ts'

@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/client-ui-plan",
+  "name": "@lyness/lyn-client-ui-plan",
   "description": "Plan-mode composer control: the conversation.input.plan seat over the plan projection and the /plan command channel",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -28,9 +28,9 @@
   "lyn": {
     "client": {
       "inject": [
-        "@lyness/api-remotes",
-        "@lyness/client-locale",
-        "@lyness/client-ui-conversation"
+        "@lyness/lyn-api-remotes",
+        "@lyness/lyn-client-locale",
+        "@lyness/lyn-client-ui-conversation"
       ],
       "platform": "web"
     }
@@ -44,19 +44,19 @@
     "@lyness/cordis": "workspace:^"
   },
   "devDependencies": {
-    "@lyness/api-remotes": "workspace:^",
-    "@lyness/client-locale": "workspace:^",
-    "@lyness/client-test-runtime": "workspace:^",
-    "@lyness/client-ui-conversation": "workspace:^",
-    "@lyness/client-ui-primitives": "workspace:^",
-    "@lyness/client-ui-slots": "workspace:^",
-    "@lyness/plan-mode": "workspace:^",
+    "@lyness/lyn-api-remotes": "workspace:^",
+    "@lyness/lyn-client-locale": "workspace:^",
+    "@lyness/lyn-client-test-runtime": "workspace:^",
+    "@lyness/lyn-client-ui-conversation": "workspace:^",
+    "@lyness/lyn-client-ui-primitives": "workspace:^",
+    "@lyness/lyn-client-ui-slots": "workspace:^",
+    "@lyness/lyn-plan-mode": "workspace:^",
     "@types/react": "~18.3.1",
     "@lyness/cordis": "workspace:^",
     "react": "^18.2.0",
-    "@lyness/session": "workspace:^",
-    "@lyness/client-ui-renderer": "workspace:^",
-    "@lyness/client-ui-session": "workspace:^"
+    "@lyness/lyn-session": "workspace:^",
+    "@lyness/lyn-client-ui-renderer": "workspace:^",
+    "@lyness/lyn-client-ui-session": "workspace:^"
   },
   "files": [
     "lib/index.js",

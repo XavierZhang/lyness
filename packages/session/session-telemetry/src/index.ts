@@ -11,7 +11,7 @@
  * design and its trade-offs are pinned in
  * .agents/notes/implemented/feature/2026-07-23-session-telemetry-otel-revival.md.
  *
- * @module @lyness/session-telemetry
+ * @module @lyness/lyn-session-telemetry
  */
 
 import { Context, Service } from '@lyness/cordis'

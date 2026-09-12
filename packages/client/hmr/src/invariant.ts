@@ -1,12 +1,12 @@
 /**
- * Package-owned invariant companion for `@lyness/client-hmr`.
- * @module @lyness/client-hmr/invariant
+ * Package-owned invariant companion for `@lyness/lyn-client-hmr`.
+ * @module @lyness/lyn-client-hmr/invariant
  */
 
 import type { Context, Fiber } from '@lyness/cordis'
-import type { InvariantInstaller } from '@lyness/invariants'
+import type { InvariantInstaller } from '@lyness/lyn-invariants'
 
-const PACKAGE_NAME = '@lyness/client-hmr'
+const PACKAGE_NAME = '@lyness/lyn-client-hmr'
 
 /** Cordis companion plugin name. */
 export const name = 'client-hmr-invariant'

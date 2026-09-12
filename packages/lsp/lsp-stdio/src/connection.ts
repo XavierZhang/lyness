@@ -7,11 +7,11 @@
  * fatal close, and exposes managed-range termination through the handle so the
  * instance owns teardown; platform mechanics live in the subprocess
  * Service Provider.
- * @module @lyness/lsp-stdio/connection
+ * @module @lyness/lyn-lsp-stdio/connection
  */
 
 import type { Writable } from 'node:stream'
-import type { SubprocessHandle, SubprocessSpawnSpec } from '@lyness/subprocess'
+import type { SubprocessHandle, SubprocessSpawnSpec } from '@lyness/lyn-subprocess'
 import { encodeMessage, MessageDecoder } from './framing.ts'
 
 /** How to launch the server and answer its config requests. */

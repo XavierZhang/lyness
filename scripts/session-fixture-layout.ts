@@ -8,12 +8,12 @@ import {
   decodeSeqRanges,
   SessionLogOffset,
   type SessionEvent,
-} from '@lyness/session'
-import type { SessionLogOffset as SessionLogOffsetType } from '@lyness/session'
-import { sessionFormatCatalog } from '@lyness/session-format-catalog'
-import { SessionFormatEventCollector, type SessionFormatArtifactDecoder, type SessionFormatCodec } from '@lyness/session-format'
-import { releasedV0SessionFormatCodec, releasedV1SessionFormatCodec } from '@lyness/session-format-v0-to-v1'
-import { releasedV2SessionFormatCodec } from '@lyness/session-format-v1-to-v2'
+} from '@lyness/lyn-session'
+import type { SessionLogOffset as SessionLogOffsetType } from '@lyness/lyn-session'
+import { sessionFormatCatalog } from '@lyness/lyn-session-format-catalog'
+import { SessionFormatEventCollector, type SessionFormatArtifactDecoder, type SessionFormatCodec } from '@lyness/lyn-session-format'
+import { releasedV0SessionFormatCodec, releasedV1SessionFormatCodec } from '@lyness/lyn-session-format-v0-to-v1'
+import { releasedV2SessionFormatCodec } from '@lyness/lyn-session-format-v1-to-v2'
 
 const historicalCodecs: readonly SessionFormatCodec[] = [
   releasedV0SessionFormatCodec, releasedV1SessionFormatCodec, releasedV2SessionFormatCodec,

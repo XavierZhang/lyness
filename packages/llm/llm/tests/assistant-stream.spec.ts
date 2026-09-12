@@ -16,8 +16,8 @@ import {
   lastAssistantStreamChunk,
   runFirstTokenTime,
   runFirstVisibleTime,
-} from '@lyness/llm'
-import type { AssistantStreamRecord, AssistantStreamRun, StreamChunk, TimedStreamChunk } from '@lyness/llm'
+} from '@lyness/lyn-llm'
+import type { AssistantStreamRecord, AssistantStreamRun, StreamChunk, TimedStreamChunk } from '@lyness/lyn-llm'
 
 describe('AssistantStreamAccumulator', () => {
   it('keeps delta boundaries and timestamps while compacting one attempt', () => {

@@ -1,6 +1,6 @@
 /**
- * Package-owned invariant companion for `@lyness/client-ui-renderer`.
- * @module @lyness/client-ui-renderer/invariant
+ * Package-owned invariant companion for `@lyness/lyn-client-ui-renderer`.
+ * @module @lyness/lyn-client-ui-renderer/invariant
  */
 
 /* jscpd:ignore-start */
@@ -8,10 +8,10 @@
  * `keyof SlotMap & string` is the declaration-merge key pattern: SlotMap is
  * empty in this compilation unit but consumers merge concrete keys into it. */
 import type { Context } from '@lyness/cordis'
-import type { SlotMap } from '@lyness/client-ui-slots'
-import type { InvariantInstaller } from '@lyness/invariants'
+import type { SlotMap } from '@lyness/lyn-client-ui-slots'
+import type { InvariantInstaller } from '@lyness/lyn-invariants'
 
-const PACKAGE_NAME = '@lyness/client-ui-renderer'
+const PACKAGE_NAME = '@lyness/lyn-client-ui-renderer'
 
 /** Cordis companion plugin name. */
 export const name = 'client-ui-renderer-invariant'

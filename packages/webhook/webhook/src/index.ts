@@ -1,8 +1,8 @@
 /** Fire-and-forget webhook rule registry and Workspace-backed Session runtime. */
 
 import { Context, Service } from '@lyness/cordis'
-import { errorChain } from '@lyness/llm'
-import { deepFreeze, snapshotJsonValue } from '@lyness/util-values'
+import { errorChain } from '@lyness/lyn-llm'
+import { deepFreeze, snapshotJsonValue } from '@lyness/lyn-util-values'
 import type { WebhookRuleId } from './brand.ts'
 import { createWebhookSession } from './session.ts'
 import type { VerifiedWebhookDelivery, WebhookRule, WebhookSessionRequest } from './types.ts'

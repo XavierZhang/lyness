@@ -3,7 +3,7 @@ description: "面向客户端与维护者的全日志会话计数与墙钟时间
 kind: "package-reference"
 ---
 
-# @lyness/session-stats
+# @lyness/lyn-session-stats
 
 [English](README.md) | 中文
 
@@ -30,9 +30,9 @@ kind: "package-reference"
 ### 组合
 
 ```yaml
-- name: '@lyness/session'
-- name: '@lyness/session-projection'
-- name: '@lyness/session-stats'
+- name: '@lyness/lyn-session'
+- name: '@lyness/lyn-session-projection'
+- name: '@lyness/lyn-session-stats'
 ```
 
 ### 各字段含义

@@ -54,9 +54,9 @@ describe('lyn-base bundle', () => {
     expect(rows.find(row => row.id === 'web')?.config).toMatchObject({ fetchProvider: 'http' })
     expect(rows.find(row => row.id === 'web-fetch-http')).toBeDefined()
     expect(rows.find(row => row.id === 'tool-web')?.config).toMatchObject({ fetch: true })
-    expect(manifest.dependencies).not.toHaveProperty('@lyness/subagent-codex')
-    expect(manifest.dependencies).not.toHaveProperty('@lyness/subagent-claude-code')
-    expect(manifest.dependencies).toHaveProperty('@lyness/web-fetch-http')
+    expect(manifest.dependencies).not.toHaveProperty('@lyness/lyn-subagent-codex')
+    expect(manifest.dependencies).not.toHaveProperty('@lyness/lyn-subagent-claude-code')
+    expect(manifest.dependencies).toHaveProperty('@lyness/lyn-web-fetch-http')
   })
 
   it('gates each shell stack by platform with a symmetric disabled expression', () => {

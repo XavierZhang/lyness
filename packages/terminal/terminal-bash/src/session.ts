@@ -7,8 +7,8 @@ import type {
   SubprocessOutcome,
   SubprocessTerminalForeground,
   SubprocessTerminalHandle,
-} from '@lyness/subprocess'
-import { TerminalError } from '@lyness/terminal'
+} from '@lyness/lyn-subprocess'
+import { TerminalError } from '@lyness/lyn-terminal'
 import type {
   TerminalBackendSession,
   TerminalReadRequest,
@@ -21,7 +21,7 @@ import type {
   TerminalSignal,
   TerminalSignalResult,
   TerminalWaitReason,
-} from '@lyness/terminal'
+} from '@lyness/lyn-terminal'
 import type { ResolvedConfig } from './config.ts'
 import { CONTROLLED_PROMPT, TerminalSanitizer } from './sanitize.ts'
 

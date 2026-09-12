@@ -20,7 +20,7 @@ describe('Agent Teams Web profile bundle', () => {
     expect(manifest.publishConfig?.access).toBe('public')
     expect(manifest.lyn?.bundle?.patch).toBe('./cordis.patch.yml')
     expect(manifest.dependencies).toEqual({
-      '@lyness/experimental-client-ui-agent-team': 'workspace:^',
+      '@lyness/lyn-experimental-client-ui-agent-team': 'workspace:^',
     })
 
     const parsed = yaml.load(
@@ -28,7 +28,7 @@ describe('Agent Teams Web profile bundle', () => {
       { schema: entryListSchema },
     ) as { insert?: { id?: string; name?: string }[] }[]
     expect(parsed.flatMap(patch => patch.insert ?? [])).toEqual([
-      { id: 'ui-agent-team', name: '@lyness/experimental-client-ui-agent-team' },
+      { id: 'ui-agent-team', name: '@lyness/lyn-experimental-client-ui-agent-team' },
     ])
   })
 })

@@ -1,6 +1,6 @@
 /**
  * Canonical Session-log feedback for finalized assistant messages.
- * @module @lyness/message-feedback
+ * @module @lyness/lyn-message-feedback
  */
 
 import { Buffer } from 'node:buffer'
@@ -9,13 +9,13 @@ import { isDeepStrictEqual } from 'node:util'
 import { Context, Service } from '@lyness/cordis'
 import s from '@lyness/schemastery'
 import { z } from 'zod'
-import { FEEDBACK_CATEGORIES } from '@lyness/command-feedback'
-import { SessionSeq } from '@lyness/session/types'
-import { deriveEventMessage, isAppendSurfaceEvent } from '@lyness/session/surface'
-import type { SessionEvent, SessionId } from '@lyness/session/types'
-import type {} from '@lyness/session'
-import type { SessionInspection } from '@lyness/session-persistence'
-import { TypertRemoteService, Remote } from '@lyness/typert-protocol'
+import { FEEDBACK_CATEGORIES } from '@lyness/lyn-command-feedback'
+import { SessionSeq } from '@lyness/lyn-session/types'
+import { deriveEventMessage, isAppendSurfaceEvent } from '@lyness/lyn-session/surface'
+import type { SessionEvent, SessionId } from '@lyness/lyn-session/types'
+import type {} from '@lyness/lyn-session'
+import type { SessionInspection } from '@lyness/lyn-session-persistence'
+import { TypertRemoteService, Remote } from '@lyness/lyn-typert-protocol'
 import type {
   MessageFeedbackDeleteRequest,
   MessageFeedbackDeleteResult,

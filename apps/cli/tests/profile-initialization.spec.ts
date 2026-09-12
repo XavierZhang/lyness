@@ -11,7 +11,7 @@ import {
   readProfileManifest,
   resolveProfileDir,
   writeProfileManifest,
-} from '@lyness/app-boot'
+} from '@lyness/lyn-app-boot'
 import { describe, expect, it } from 'vitest'
 import { execa } from 'execa'
 import { initializeProfileFromDefault } from '../src/profile-boot.ts'

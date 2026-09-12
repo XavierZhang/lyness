@@ -9,13 +9,13 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { stubSettingsScope } from '../src/settings-scope.ts'
 import { cleanup } from '@testing-library/react'
-import { defineStore } from '@lyness/client-store'
-import type { WorkspaceId } from '@lyness/api-workspace-controller/client'
-import type { SessionId } from '@lyness/session/types'
-import type { PropsRenderSlots, SessionStandardProps } from '@lyness/client-ui-slots'
-import { SlotTestRuntime } from '@lyness/client-test-runtime'
+import { defineStore } from '@lyness/lyn-client-store'
+import type { WorkspaceId } from '@lyness/lyn-api-workspace-controller/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { PropsRenderSlots, SessionStandardProps } from '@lyness/lyn-client-ui-slots'
+import { SlotTestRuntime } from '@lyness/lyn-client-test-runtime'
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface SlotMap {
     'trt.panel': { kind: 'single'; scope: 'root'; owner: { label?: string } }
     'trt.chat': { kind: 'single'; scope: 'session' }

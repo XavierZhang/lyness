@@ -1,6 +1,6 @@
 /**
  * Sandbox-consuming PowerShell executor — the pwsh twin of
- * `@lyness/bash-sandbox`. It wraps the exact local pwsh argv through
+ * `@lyness/lyn-bash-sandbox`. It wraps the exact local pwsh argv through
  * `ctx.sandbox` (which on Windows resolves to the ACL restricted-token runner
  * chain), inherits local process mechanics, and reports the selected mode,
  * enforcement, and denial facts. Positive runner-executable evidence
@@ -9,12 +9,12 @@
  * other provider rejections retain stage-neutral local-executor semantics. The
  * tool layer owns the escalation approval flow through `ctx.approval`; this
  * executor reports the sandbox facts the tool renders.
- * @module @lyness/pwsh-sandbox
+ * @module @lyness/lyn-pwsh-sandbox
  */
 
 import { Context } from '@lyness/cordis'
-import type { ShellExecRequest, ShellExecSpec, ShellProcess, ShellRunResult } from '@lyness/shell'
-import { SandboxUnavailableError } from '@lyness/sandbox'
+import type { ShellExecRequest, ShellExecSpec, ShellProcess, ShellRunResult } from '@lyness/lyn-shell'
+import { SandboxUnavailableError } from '@lyness/lyn-sandbox'
 import type {
   ConfinedArgv,
   ConfinedSandboxMode,
@@ -23,16 +23,16 @@ import type {
   SandboxExecutionPolicy,
   SandboxMode,
   SandboxPolicy,
-} from '@lyness/sandbox'
-import type {} from '@lyness/sandbox-policy'
-import { PwshLocalExecutor } from '@lyness/pwsh-local'
-import type { Config as LocalConfig } from '@lyness/pwsh-local'
+} from '@lyness/lyn-sandbox'
+import type {} from '@lyness/lyn-sandbox-policy'
+import { PwshLocalExecutor } from '@lyness/lyn-pwsh-local'
+import type { Config as LocalConfig } from '@lyness/lyn-pwsh-local'
 import { classifyDenial, classifyRunnerFailure, isRunnerSpawnFailure, matchesSignature } from './helpers.ts'
 
 /**
  * Plugin config: the local executor's knobs, verbatim. The sandbox policy —
  * the default mode and fallback `workspace-write` root — is NOT here: it lives
- * on `ctx.sandboxPolicy` (`@lyness/sandbox-policy`), which resolves
+ * on `ctx.sandboxPolicy` (`@lyness/lyn-sandbox-policy`), which resolves
  * each calling session's mode and cwd for every enforcing capability. The
  * runner choice is likewise the `ctx.sandbox` provider's config, not this
  * executor's.

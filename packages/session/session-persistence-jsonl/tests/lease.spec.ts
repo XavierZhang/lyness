@@ -17,14 +17,14 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { SESSION_FORMAT_VERSION, SessionId, SessionSeq } from '@lyness/session'
-import type { SessionHeader } from '@lyness/session'
+import { SESSION_FORMAT_VERSION, SessionId, SessionSeq } from '@lyness/lyn-session'
+import type { SessionHeader } from '@lyness/lyn-session'
 import {
   SessionAlreadyExistsError,
   SessionAlreadyOwnedError,
   SessionPersistenceNotFoundError,
-} from '@lyness/session-persistence'
-import type { SessionPersistence } from '@lyness/session-persistence'
+} from '@lyness/lyn-session-persistence'
+import type { SessionPersistence } from '@lyness/lyn-session-persistence'
 import JsonlSessionPersistence from '../src/index.ts'
 import { LEASE_FILENAME, SessionWriteLease } from '../src/lease.ts'
 import type { JsonlSessionHandle } from '../src/storage.ts'

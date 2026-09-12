@@ -2,14 +2,14 @@
  * Web boot kernel. It owns only the module system, Cordis loader, and a
  * framework-free boot page. The dynamic UI renderer receives the mount
  * point after every client entry activates.
- * @module @lyness/client-web/src/boot
+ * @module @lyness/lyn-client-web/src/boot
  */
 import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
 import type {
   BootManifest, ClientModuleCreateOptions, ClientModuleSystem, LynWindow,
-} from '@lyness/client-modules/client'
-import type {} from '@lyness/client-ui-renderer/client'
+} from '@lyness/lyn-client-modules/client'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
 import { BootPage } from './boot-page.ts'
 import { getStaticModules } from './seed.ts'
 import { STATE_LABELS } from './loader-status.ts'
@@ -59,7 +59,7 @@ export class AppWebEntry {
       }
       // A pre-injected transport (the worker preview page) owns bundle bytes;
       // its loadBundle is the default and explicit seams still win. The global
-      // is `ClientTransportHooks`, owned by @lyness/client-connection;
+      // is `ClientTransportHooks`, owned by @lyness/lyn-client-connection;
       // this structural slice reads one optional member without adding a
       // package edge.
       const transport = (globalThis as {

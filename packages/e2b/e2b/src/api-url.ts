@@ -1,6 +1,6 @@
 /**
  * The E2B control-plane URL, derived the way the SDK derives it.
- * @module @lyness/e2b/src/api-url.ts
+ * @module @lyness/lyn-e2b/src/api-url.ts
  */
 
 /** The SDK's own default control-plane domain; `E2B_DOMAIN` overrides it there and here alike. */

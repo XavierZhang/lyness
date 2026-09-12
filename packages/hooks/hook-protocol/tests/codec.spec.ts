@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { parseHookOutput } from '@lyness/hook-protocol'
+import { parseHookOutput } from '@lyness/lyn-hook-protocol'
 
 describe('parseHookOutput — exit code semantics', () => {
   it('exit 0 with no stdout is a neutral success', () => {

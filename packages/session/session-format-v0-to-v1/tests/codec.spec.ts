@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { SessionFormatEventCollector } from '@lyness/session-format'
+import { SessionFormatEventCollector } from '@lyness/lyn-session-format'
 import type {
   SessionFormatArtifact,
   SessionFormatArtifactDecoder,
@@ -8,7 +8,7 @@ import type {
   SessionFormatJsonValue,
   SessionFormatMigrationContext,
   SessionFormatRecovery,
-} from '@lyness/session-format'
+} from '@lyness/lyn-session-format'
 import {
   releasedV0SessionFormatCodec,
   releasedV1SessionFormatCodec,

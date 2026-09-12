@@ -1,10 +1,10 @@
 import { describe, expect, it, vi } from 'vitest'
-import type { SlotComponent, StoreHandle } from '@lyness/client-ui-slots'
-import { SlotCore } from '@lyness/client-ui-slots'
+import type { SlotComponent, StoreHandle } from '@lyness/lyn-client-ui-slots'
+import { SlotCore } from '@lyness/lyn-client-ui-slots'
 
 // 'root' is NOT merged here: ui-renderer owns the built-in row, and
 // the client aggregate program would see both merges collide.
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface SlotMap {
     'test.single': { kind: 'single'; scope: 'root' }
     'test.session': { kind: 'single'; scope: 'session' }

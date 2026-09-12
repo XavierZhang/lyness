@@ -13,13 +13,13 @@
  */
 
 import { useEffect, useRef, useState } from 'react'
-import type { SnapshotStore } from '@lyness/client-store'
-import type { InjectFace, PropsLocale, PropsRuntime } from '@lyness/client-ui-slots'
+import type { SnapshotStore } from '@lyness/lyn-client-store'
+import type { InjectFace, PropsLocale, PropsRuntime } from '@lyness/lyn-client-ui-slots'
 import {
   IconAgentPresetOutline16, IconChevronDownOutline14, IconWarningOutline16, Menu, Toast,
-} from '@lyness/client-ui-primitives'
+} from '@lyness/lyn-client-ui-primitives'
 // Type-only: pulls the ui-conversation SlotMap merge (the hero seat).
-import type {} from '@lyness/client-ui-conversation/client'
+import type {} from '@lyness/lyn-client-ui-conversation/client'
 import type { AgentPresetSeatState } from './seat-store.ts'
 import { presetDisplayText } from './locales.ts'
 import css from './AgentPresetSeat.module.css'

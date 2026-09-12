@@ -2,19 +2,19 @@
 
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { cleanup, fireEvent } from '@testing-library/react'
-import { createSnapshotStore } from '@lyness/client-store'
+import { createSnapshotStore } from '@lyness/lyn-client-store'
 import type {
   ChatSnapshot, RunningToolCall, ToolCallBlock, ToolResultNode,
-} from '@lyness/client-ui-chat/client'
-import type { SessionId } from '@lyness/session/types'
-import { SlotTestRuntime, TestRemote, stubSettingsScope } from '@lyness/client-test-runtime'
-import { LocaleRuntime } from '@lyness/client-locale/client'
-import type { PropsRenderSlots } from '@lyness/client-ui-slots'
+} from '@lyness/lyn-client-ui-chat/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import { SlotTestRuntime, TestRemote, stubSettingsScope } from '@lyness/lyn-client-test-runtime'
+import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
+import type { PropsRenderSlots } from '@lyness/lyn-client-ui-slots'
 import {
   ConversationEventRegistry, ConversationViewRegistry, type ConvViewOwnerProps,
-} from '@lyness/client-ui-conversation/client'
-import { en as conversationEn, NS as CONVERSATION_NS, zh as conversationZh } from '@lyness/client-ui-conversation/src/client/locales.ts'
-import { apply as applyChat, inject as injectChat } from '@lyness/client-ui-chat/client'
+} from '@lyness/lyn-client-ui-conversation/client'
+import { en as conversationEn, NS as CONVERSATION_NS, zh as conversationZh } from '@lyness/lyn-client-ui-conversation/src/client/locales.ts'
+import { apply as applyChat, inject as injectChat } from '@lyness/lyn-client-ui-chat/client'
 import { apply as applyTool, inject as injectTool } from '../src/client/apply.ts'
 import { toolChatSnapshot } from './tool-fixtures.client.ts'
 

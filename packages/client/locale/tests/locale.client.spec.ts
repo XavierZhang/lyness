@@ -1,9 +1,9 @@
 // @vitest-environment jsdom
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { stubSettingsScope, type StubSettingsScope } from '@lyness/client-test-runtime'
-import type { LocaleSettings, LocaleSnapshot } from '@lyness/client-locale/client'
-import { FALLBACK_LOCALE, LocaleRuntime } from '@lyness/client-locale/client'
+import { stubSettingsScope, type StubSettingsScope } from '@lyness/lyn-client-test-runtime'
+import type { LocaleSettings, LocaleSnapshot } from '@lyness/lyn-client-locale/client'
+import { FALLBACK_LOCALE, LocaleRuntime } from '@lyness/lyn-client-locale/client'
 const make = (host?: StubSettingsScope<LocaleSettings>): {
   ctx: Context
   svc: LocaleRuntime

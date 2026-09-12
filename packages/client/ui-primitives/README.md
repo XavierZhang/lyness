@@ -3,7 +3,7 @@ description: "Shared React UI atoms for the lyn web client: controls, icons, mar
 kind: "package-library"
 ---
 
-# @lyness/client-ui-primitives
+# @lyness/lyn-client-ui-primitives
 
 English | [中文](README.zh.md)
 

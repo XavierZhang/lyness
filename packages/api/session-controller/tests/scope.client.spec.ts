@@ -8,7 +8,7 @@
  */
 import { Context } from '@lyness/cordis'
 import { describe, expect, it } from 'vitest'
-import type { SessionId } from '@lyness/api-remotes/client'
+import type { SessionId } from '@lyness/lyn-api-remotes/client'
 import { createScope, scopeOf } from '../src/client/scope.ts'
 
 const sid = (k: string): SessionId => k as SessionId

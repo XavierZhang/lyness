@@ -3,7 +3,7 @@
 import { EventEmitter } from 'node:events'
 import { Context } from '@lyness/cordis'
 import { afterEach, describe, expect, it } from 'vitest'
-import { internals, provideCmdline } from '@lyness/cmdline'
+import { internals, provideCmdline } from '@lyness/lyn-cmdline'
 import { ACP_APP_STARTUP_SERVICE, apply } from '../src/index.ts'
 
 /** Controllable stdin for one startup invocation. */

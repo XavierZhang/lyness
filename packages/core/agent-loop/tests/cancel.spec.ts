@@ -1,4 +1,4 @@
-import { ToolCallId, createUserMessage, expandAssistantStream } from '@lyness/llm'
+import { ToolCallId, createUserMessage, expandAssistantStream } from '@lyness/lyn-llm'
 /**
  * Tests for the queue-aware `Agent.cancel()` primitive. The default clears
  * queued and steering work, while `keepInbox` preserves pending input for a
@@ -9,13 +9,13 @@ import { ToolCallId, createUserMessage, expandAssistantStream } from '@lyness/ll
 
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import LlmRuntime from '@lyness/llm'
-import SessionStore, { Session, SessionId, SessionLogOffset, TurnEndReason } from '@lyness/session'
-import SystemPrompt from '@lyness/system-prompt'
-import ToolRuntime, { defineContentToolFixture, TOOL_ABORTED_BEFORE_DISPATCH } from '@lyness/tools'
-import AgentRegistry, { type Agent } from '@lyness/agent'
-import AgentLoop from '@lyness/agent-loop'
-import SessionProjectionRegistry from '@lyness/session-projection'
+import LlmRuntime from '@lyness/lyn-llm'
+import SessionStore, { Session, SessionId, SessionLogOffset, TurnEndReason } from '@lyness/lyn-session'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime, { defineContentToolFixture, TOOL_ABORTED_BEFORE_DISPATCH } from '@lyness/lyn-tools'
+import AgentRegistry, { type Agent } from '@lyness/lyn-agent'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 import { MockAdapter, textResponse, toolCallResponse } from './mock-adapter.ts'
 
 function driverDone(agent: Agent): Promise<void> {

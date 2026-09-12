@@ -2,10 +2,10 @@
  * Model-facing diagnostics for guarded-mutation failures. Providers and
  * policies retain operation-specific causes, while this package owns the
  * stable message shown to the model.
- * @module @lyness/tool-fs/src/error
+ * @module @lyness/lyn-tool-fs/src/error
  */
 
-import { FsError } from '@lyness/fs'
+import { FsError } from '@lyness/lyn-fs'
 
 /**
  * Render the stable model-facing diagnostic for a guarded-mutation failure.

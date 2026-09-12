@@ -2,15 +2,15 @@
 
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { cleanup, fireEvent, render } from '@testing-library/react'
-import type { RunningToolCall, ToolResultNode } from '@lyness/client-ui-chat/client'
-import type { ToolCallOwnerProps } from '@lyness/client-ui-tool/client'
-import { IconGlobeOutline14 } from '@lyness/client-ui-primitives'
+import type { RunningToolCall, ToolResultNode } from '@lyness/lyn-client-ui-chat/client'
+import type { ToolCallOwnerProps } from '@lyness/lyn-client-ui-tool/client'
+import { IconGlobeOutline14 } from '@lyness/lyn-client-ui-primitives'
 import { webCardModel } from '../src/client/tool/models/web-card-model.ts'
 import { GenericToolCard } from '../src/client/tool/toolviews/GenericToolCard.tsx'
 import { WebRow, webToolview } from '../src/client/tool/toolviews/web-row.tsx'
-import { makeTranslate } from '@lyness/client-test-runtime'
-import { zh as commonZh } from '@lyness/client-locale/src/locales/zh.ts'
-import { zh } from '@lyness/client-ui-conversation/src/client/locales.ts'
+import { makeTranslate } from '@lyness/lyn-client-test-runtime'
+import { zh as commonZh } from '@lyness/lyn-client-locale/src/locales/zh.ts'
+import { zh } from '@lyness/lyn-client-ui-conversation/src/client/locales.ts'
 
 afterEach(cleanup)
 

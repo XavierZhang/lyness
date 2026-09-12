@@ -8,6 +8,6 @@
   disabled: true
 - insert:
     - id: directory-picker-browse
-      name: '@lyness/host-directory-picker-browse'
+      name: '@lyness/lyn-host-directory-picker-browse'
     - id: ui-directory-picker-browse
-      name: '@lyness/client-ui-directory-picker-browse'
+      name: '@lyness/lyn-client-ui-directory-picker-browse'

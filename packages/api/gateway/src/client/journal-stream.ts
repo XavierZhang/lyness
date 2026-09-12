@@ -1,6 +1,6 @@
 /** Cursor, page, and live-tail coordination over a reconnecting Remote stream. */
 
-import { RemoteError } from '@lyness/typert-protocol'
+import { RemoteError } from '@lyness/lyn-typert-protocol'
 import { RemoteStreamCarrierError } from './stream-client.ts'
 import type {
   RemoteStream,

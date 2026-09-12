@@ -8,8 +8,8 @@
 
 import { act, cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { bindSnapshotSelector } from '@lyness/client-test-runtime'
-import { createSnapshotStore } from '@lyness/client-store'
+import { bindSnapshotSelector } from '@lyness/lyn-client-test-runtime'
+import { createSnapshotStore } from '@lyness/lyn-client-store'
 import { AgentPresetSection } from '../src/client/AgentPresetSection.tsx'
 import type { AgentPresetSectionProps } from '../src/client/AgentPresetSection.tsx'
 import type { AgentPresetSectionState, CopyDraft } from '../src/client/section-store.ts'

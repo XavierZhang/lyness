@@ -5,10 +5,10 @@
  * / epoch-guard behavior of the original global cache; the session-key axis
  * is the only extra dimension.
  */
-import type { CommandDescriptor } from '@lyness/commands/types'
-import type { SessionId } from '@lyness/session/types'
+import type { CommandDescriptor } from '@lyness/lyn-commands/types'
+import type { SessionId } from '@lyness/lyn-session/types'
 
-export type { CommandDescriptor } from '@lyness/commands/types'
+export type { CommandDescriptor } from '@lyness/lyn-commands/types'
 
 /**
  * cold = never pulled; pending = pull in flight with nothing servable;

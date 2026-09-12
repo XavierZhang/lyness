@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
-import type { SettingsNamespaceView } from '@lyness/api-remotes/client'
-import { RemoteError } from '@lyness/client-test-runtime'
+import type { SettingsNamespaceView } from '@lyness/lyn-api-remotes/client'
+import { RemoteError } from '@lyness/lyn-client-test-runtime'
 import { SettingsDescribeMirror, type SettingsDescribeView } from '../src/client/settings-mirror.ts'
 
 /** What a Remote call answers with: no carrier envelope, and a typed failure. */

@@ -11,10 +11,10 @@ import * as ReactJsxRuntime from 'react/jsx-runtime'
 import * as ReactDom from 'react-dom'
 import * as ReactDomClient from 'react-dom/client'
 import * as Cordis from '@lyness/cordis'
-import * as ClientStore from '@lyness/client-store'
-import * as UiSlots from '@lyness/client-ui-slots'
-import * as UiPrimitives from '@lyness/client-ui-primitives'
-import * as UiDockkit from '@lyness/client-ui-dockkit'
+import * as ClientStore from '@lyness/lyn-client-store'
+import * as UiSlots from '@lyness/lyn-client-ui-slots'
+import * as UiPrimitives from '@lyness/lyn-client-ui-primitives'
+import * as UiDockkit from '@lyness/lyn-client-ui-dockkit'
 import type { PlatformModule } from './platform.ts'
 
 /**
@@ -31,9 +31,9 @@ export function getStaticModules(): Record<string, unknown> {
     'react-dom': ReactDom,
     'react-dom/client': ReactDomClient,
     '@lyness/cordis': Cordis,
-    '@lyness/client-store': ClientStore,
-    '@lyness/client-ui-slots': UiSlots,
-    '@lyness/client-ui-primitives': UiPrimitives,
-    '@lyness/client-ui-dockkit': UiDockkit,
+    '@lyness/lyn-client-store': ClientStore,
+    '@lyness/lyn-client-ui-slots': UiSlots,
+    '@lyness/lyn-client-ui-primitives': UiPrimitives,
+    '@lyness/lyn-client-ui-dockkit': UiDockkit,
   } satisfies Record<PlatformModule, unknown>
 }

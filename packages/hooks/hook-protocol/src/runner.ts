@@ -3,10 +3,10 @@
  * process-group cancellation, and timeout machinery. The bridge supplies the
  * trusted stdin payload and dialect environment, then this module decodes the
  * captured outcome.
- * @module @lyness/hook-protocol/runner
+ * @module @lyness/lyn-hook-protocol/runner
  */
 
-import type { ShellExecutor } from '@lyness/shell'
+import type { ShellExecutor } from '@lyness/lyn-shell'
 import { parseHookOutput } from './codec.ts'
 import type { CommandHook, HookOutput } from './types.ts'
 

@@ -7,16 +7,16 @@
  * imports no provider.
  *
  * Namespace plugin (named exports, no default export).
- * @module @lyness/tool-lsp
+ * @module @lyness/lyn-tool-lsp
  */
 
 import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import { defineTool } from '@lyness/tools'
-import { LspError } from '@lyness/lsp'
-import type {} from '@lyness/lsp'
-import { MAX_TIMER_DELAY_MS } from '@lyness/timeout'
-import { assertNever } from '@lyness/util-values'
+import { defineTool } from '@lyness/lyn-tools'
+import { LspError } from '@lyness/lyn-lsp'
+import type {} from '@lyness/lyn-lsp'
+import { MAX_TIMER_DELAY_MS } from '@lyness/lyn-timeout'
+import { assertNever } from '@lyness/lyn-util-values'
 import {
   DEFAULT_MAX_LOCATIONS,
   DEFAULT_MAX_RESULT_CHARS,

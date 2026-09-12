@@ -10,12 +10,12 @@ import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { Context } from '@lyness/cordis'
-import { ToolCallId } from '@lyness/llm'
-import SystemPrompt from '@lyness/system-prompt'
-import ToolRuntime, { TOOL_ABORTED_BEFORE_DISPATCH } from '@lyness/tools'
-import { LocalFileSystem } from '@lyness/fs-local'
-import * as FsPolicy from '@lyness/fs-observation-policy'
-import * as ToolFs from '@lyness/tool-fs'
+import { ToolCallId } from '@lyness/lyn-llm'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime, { TOOL_ABORTED_BEFORE_DISPATCH } from '@lyness/lyn-tools'
+import { LocalFileSystem } from '@lyness/lyn-fs-local'
+import * as FsPolicy from '@lyness/lyn-fs-observation-policy'
+import * as ToolFs from '@lyness/lyn-tool-fs'
 
 const testToolSignal = new AbortController().signal
 

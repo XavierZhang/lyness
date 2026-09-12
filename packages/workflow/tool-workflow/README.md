@@ -3,7 +3,7 @@ description: "The model-facing workflow tool: run a JavaScript orchestration scr
 kind: "package-reference"
 ---
 
-# @lyness/tool-workflow
+# @lyness/lyn-tool-workflow
 
 English | [中文](README.zh.md)
 
@@ -44,7 +44,7 @@ While the script runs, the parent turn waits: the tool starts the run, awaits it
 | `toolName` | `workflow` | The model-facing tool name to register. |
 | `maxResultChars` | `50000` | Rendered-result ceiling; longer JSON is truncated with a notice. |
 
-The generated [configuration catalog](../../../docs/config-catalog.md#lynesstool-workflow) is the exhaustive source for every accepted field.
+The generated [configuration catalog](../../../docs/config-catalog.md#lynesslyn-tool-workflow) is the exhaustive source for every accepted field.
 
 -----
 
@@ -125,7 +125,7 @@ Prefix-stable while the plugin scope and guidance text are unchanged. Activation
 
 #### What the model sees
 
-When visible, the generated default [`workflow` schema](../../../docs/tool-catalog.md#lynesstool-workflow) carries the complete JavaScript hook and metadata contract; `toolName` can rename the definition, and the model submits script, metadata, and optional args.
+When visible, the generated default [`workflow` schema](../../../docs/tool-catalog.md#lynesslyn-tool-workflow) carries the complete JavaScript hook and metadata contract; `toolName` can rename the definition, and the model submits script, metadata, and optional args.
 
 #### Token effect
 

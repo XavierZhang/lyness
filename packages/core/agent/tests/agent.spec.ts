@@ -1,8 +1,8 @@
 import { describe, expect, expectTypeOf, it } from 'vitest'
 import { Context, Service, symbols } from '@lyness/cordis'
-import { Session, SessionId } from '@lyness/session'
-import AgentRegistry, { agentEvents } from '@lyness/agent'
-import TypertRegistry from '@lyness/typert-registry'
+import { Session, SessionId } from '@lyness/lyn-session'
+import AgentRegistry, { agentEvents } from '@lyness/lyn-agent'
+import TypertRegistry from '@lyness/lyn-typert-registry'
 
 import type {
   Agent,
@@ -11,7 +11,7 @@ import type {
   AgentStatus,
   CreateAgentOptions,
   ResumeAgentOptions,
-} from '@lyness/agent'
+} from '@lyness/lyn-agent'
 
 function stubAgent(rawId: string, overrides: Partial<Agent> = {}): Agent {
   const id = SessionId(rawId)
@@ -51,8 +51,8 @@ describe('AgentRegistry', () => {
     expect(lookup).toMatchObject({
       parameter: 'agent',
       wire: 'agentId',
-      hostTypeSymbol: '@lyness/agent#Agent',
-      wireTypeSymbol: '@lyness/session/types#SessionId',
+      hostTypeSymbol: '@lyness/lyn-agent#Agent',
+      wireTypeSymbol: '@lyness/lyn-session/types#SessionId',
     })
     expect(lookup?.resolve(agent.id)).toBe(agent)
     const context = ctx.typert.contexts.getHost('agent')

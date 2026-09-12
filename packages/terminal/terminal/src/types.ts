@@ -1,11 +1,11 @@
 /**
  * Types shared by PTY backends, the owner-scoped registry, and tool consumers.
  * Runtime service code lives in `./index.ts`.
- * @module @lyness/terminal/types
+ * @module @lyness/lyn-terminal/types
  */
 
-import type { Branded } from '@lyness/brand'
-import type { Agent } from '@lyness/agent'
+import type { Branded } from '@lyness/lyn-brand'
+import type { Agent } from '@lyness/lyn-agent'
 
 /** Internal exported basis for the public `TerminalSessionId` type/value pair. */
 export type TerminalSessionIdValue = Branded<'TerminalSessionId'>
@@ -31,7 +31,7 @@ export type TerminalWaitReason = 'stdin_read' | 'inferred_idle' | 'timeout' | 's
 /**
  * Signals the model-facing PTY surface permits for foreground process groups.
  * Kept member-identical to `SubprocessTerminalSignal` in
- * `@lyness/subprocess` without a cross-seam dependency; change both together.
+ * `@lyness/lyn-subprocess` without a cross-seam dependency; change both together.
  */
 export type TerminalSignal = 'SIGINT' | 'SIGTERM' | 'SIGKILL' | 'SIGTSTP' | 'SIGHUP'
 

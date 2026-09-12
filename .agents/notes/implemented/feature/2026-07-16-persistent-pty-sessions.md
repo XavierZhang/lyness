@@ -104,14 +104,14 @@ The example composition remains opt-in and safe by default:
 
 ```yaml
 plugins:
-  '@lyness/sandbox-local':
-  '@lyness/sandbox-policy':
+  '@lyness/lyn-sandbox-local':
+  '@lyness/lyn-sandbox-policy':
     config:
       mode: workspace-write
       workspaceRoot: .
-  '@lyness/terminal':
-  '@lyness/subprocess-local':
-  '@lyness/terminal-bash':
+  '@lyness/lyn-terminal':
+  '@lyness/lyn-subprocess-local':
+  '@lyness/lyn-terminal-bash':
     config:
       scrollbackLines: 10000
       scrollbackMaxBytes: 4194304
@@ -122,7 +122,7 @@ plugins:
       handoffGraceMs: 500
       timeoutMs: 30000
       disposeGraceMs: 3000
-  '@lyness/tool-terminal':
+  '@lyness/lyn-tool-terminal':
     config:
       enableRunInBackground: true
       maxResultBytes: 262144

@@ -3,7 +3,7 @@
  * plugin's apply-world change listener is the only writer; the row component
  * reads via props.useStore.
  */
-import { defineStore, type EngineStoreHandle } from '@lyness/client-store'
+import { defineStore, type EngineStoreHandle } from '@lyness/lyn-client-store'
 
 /** One selectable locale row (id + self-described label). */
 export interface LanguageOptionRow {

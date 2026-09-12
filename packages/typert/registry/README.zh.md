@@ -3,7 +3,7 @@ description: "运行时 Typert 注册表：保存生成的包反射、实时 Zod
 kind: "package-reference"
 ---
 
-# @lyness/typert-registry
+# @lyness/lyn-typert-registry
 
 [English](README.md) | 中文
 
@@ -32,7 +32,7 @@ kind: "package-reference"
 加载注册表插件；Client face 由 Client 运行时自身的元数据以同样方式安装，两个 face 运行同一实现：
 
 ```yaml
-- name: '@lyness/typert-registry'
+- name: '@lyness/lyn-typert-registry'
 ```
 
 ### 查询 schema 与反射

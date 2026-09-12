@@ -1,19 +1,19 @@
 /**
- * Package-owned invariant companion for `@lyness/storage-domain`: every
+ * Package-owned invariant companion for `@lyness/lyn-storage-domain`: every
  * `domain/changed` event must agree with the emitting domain's authoritative
  * in-memory state (the owned event-stream ↔ mutable-data relationship of this
  * package). Writes emit strictly after mutating memory and the write chain
  * serializes them, so at emission time the event's snapshot equals the
  * current read — any divergence means a write path skipped the chain or
  * emitted a stale value.
- * @module @lyness/storage-domain/invariant
+ * @module @lyness/lyn-storage-domain/invariant
  */
 
 import type { Context } from '@lyness/cordis'
-import type { InvariantFailure, InvariantInstaller } from '@lyness/invariants'
+import type { InvariantFailure, InvariantInstaller } from '@lyness/lyn-invariants'
 import type { DomainChanged } from './events.ts'
 
-const PACKAGE_NAME = '@lyness/storage-domain'
+const PACKAGE_NAME = '@lyness/lyn-storage-domain'
 
 /** Cordis companion plugin name. */
 export const name = 'storage-domain-invariant'

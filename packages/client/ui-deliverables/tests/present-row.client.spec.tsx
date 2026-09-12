@@ -2,8 +2,8 @@
 /** Present UI derives statuses and details from durable tool records. */
 import { cleanup, fireEvent, render } from '@testing-library/react'
 import { afterEach, expect, it, vi } from 'vitest'
-import type { RunningToolCall, ToolResultNode } from '@lyness/client-ui-chat/client'
-import { makeTranslate } from '@lyness/client-test-runtime'
+import type { RunningToolCall, ToolResultNode } from '@lyness/lyn-client-ui-chat/client'
+import { makeTranslate } from '@lyness/lyn-client-test-runtime'
 import { PresentRow } from '../src/client/PresentRow.tsx'
 import { en } from '../src/client/locales.ts'
 

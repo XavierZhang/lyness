@@ -1,13 +1,13 @@
 // @vitest-environment jsdom
 /** FontSizeRow behavior: value display, arrow clicks drive setFontSize,
  * bound-value arrows disable, display follows the store mirror. */
-import type { GlobalStandardProps } from '@lyness/client-ui-slots'
+import type { GlobalStandardProps } from '@lyness/lyn-client-ui-slots'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { act, cleanup, fireEvent, render, screen } from '@testing-library/react'
-import type { SessionListState } from '@lyness/api-session-controller/client'
-import type { WorkspaceSnapshot } from '@lyness/api-workspace-controller/client'
-import { createSnapshotStore } from '@lyness/client-store'
-import { bindSnapshotSelector } from '@lyness/client-test-runtime'
+import type { SessionListState } from '@lyness/lyn-api-session-controller/client'
+import type { WorkspaceSnapshot } from '@lyness/lyn-api-workspace-controller/client'
+import { createSnapshotStore } from '@lyness/lyn-client-store'
+import { bindSnapshotSelector } from '@lyness/lyn-client-test-runtime'
 import { FontSizeRow } from '../src/client/FontSizeRow.tsx'
 import type { FontSizeRowComponentProps } from '../src/client/FontSizeRow.tsx'
 import { createFontSizeRowStore } from '../src/client/settings-store.ts'

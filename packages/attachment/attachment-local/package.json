@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/attachment-local",
+  "name": "@lyness/lyn-attachment-local",
   "description": "Private content-addressed LYNESS_HOME attachment storage",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -21,8 +21,8 @@
   "files": ["lib/index.js", "lib/types/**/*.d.ts"],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/attachment": "workspace:^",
-    "@lyness/home-paths": "workspace:^",
+    "@lyness/lyn-attachment": "workspace:^",
+    "@lyness/lyn-home-paths": "workspace:^",
     "@lyness/cordis": "workspace:^"
   },
   "dependencies": {
@@ -30,8 +30,8 @@
     "sharp": "^0.35.3"
   },
   "devDependencies": {
-    "@lyness/attachment": "workspace:^",
-    "@lyness/home-paths": "workspace:^",
+    "@lyness/lyn-attachment": "workspace:^",
+    "@lyness/lyn-home-paths": "workspace:^",
     "@lyness/cordis": "workspace:^"
   }
 }

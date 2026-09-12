@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/client-ui-message-feedback",
+  "name": "@lyness/lyn-client-ui-message-feedback",
   "description": "The Web feedback surface: per-message Like/Dislike in the assistant-message action strip and the feedback dialog behind Dislike and /feedback, backed by the messageFeedback and sessionFeedback Host Remotes",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -28,11 +28,11 @@
   "lyn": {
     "client": {
       "inject": [
-        "@lyness/api-remotes",
-        "@lyness/client-locale",
-        "@lyness/client-ui-conversation",
-        "@lyness/client-ui-renderer",
-        "@lyness/client-ui-commands"
+        "@lyness/lyn-api-remotes",
+        "@lyness/lyn-client-locale",
+        "@lyness/lyn-client-ui-conversation",
+        "@lyness/lyn-client-ui-renderer",
+        "@lyness/lyn-client-ui-commands"
       ],
       "platform": "web"
     }
@@ -46,28 +46,28 @@
     "@lyness/cordis": "workspace:^"
   },
   "devDependencies": {
-    "@lyness/api-remotes": "workspace:^",
-    "@lyness/client-connection": "workspace:^",
-    "@lyness/client-locale": "workspace:^",
-    "@lyness/client-test-runtime": "workspace:^",
-    "@lyness/client-ui-conversation": "workspace:^",
-    "@lyness/client-ui-primitives": "workspace:^",
-    "@lyness/client-ui-renderer": "workspace:^",
-    "@lyness/client-ui-slots": "workspace:^",
-    "@lyness/message-feedback": "workspace:^",
-    "@lyness/session": "workspace:^",
-    "@lyness/typert-protocol": "workspace:^",
+    "@lyness/lyn-api-remotes": "workspace:^",
+    "@lyness/lyn-client-connection": "workspace:^",
+    "@lyness/lyn-client-locale": "workspace:^",
+    "@lyness/lyn-client-test-runtime": "workspace:^",
+    "@lyness/lyn-client-ui-conversation": "workspace:^",
+    "@lyness/lyn-client-ui-primitives": "workspace:^",
+    "@lyness/lyn-client-ui-renderer": "workspace:^",
+    "@lyness/lyn-client-ui-slots": "workspace:^",
+    "@lyness/lyn-message-feedback": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
+    "@lyness/lyn-typert-protocol": "workspace:^",
     "@lyness/cordis": "workspace:^",
     "@testing-library/react": "^16.1.0",
     "@types/react": "~18.3.1",
     "@types/react-dom": "~18.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "@lyness/client-ui-chat": "workspace:^",
-    "@lyness/client-ui-session": "workspace:^",
-    "@lyness/client-ui-commands": "workspace:^",
-    "@lyness/command-feedback": "workspace:^",
-    "@lyness/client-store": "workspace:^"
+    "@lyness/lyn-client-ui-chat": "workspace:^",
+    "@lyness/lyn-client-ui-session": "workspace:^",
+    "@lyness/lyn-client-ui-commands": "workspace:^",
+    "@lyness/lyn-command-feedback": "workspace:^",
+    "@lyness/lyn-client-store": "workspace:^"
   },
   "files": [
     "lib/index.js",

@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/storage-domain",
+  "name": "@lyness/lyn-storage-domain",
   "description": "Domain data form (ctx.storage.domain): schema-validated, event-emitting KV domains over storage backends for the lyness",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -32,8 +32,8 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/invariants": "workspace:^",
-    "@lyness/storage": "workspace:^",
+    "@lyness/lyn-invariants": "workspace:^",
+    "@lyness/lyn-storage": "workspace:^",
     "@lyness/cordis": "workspace:^"
   },
   "dependencies": {
@@ -41,8 +41,8 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@lyness/invariants": "workspace:^",
-    "@lyness/storage": "workspace:^",
+    "@lyness/lyn-invariants": "workspace:^",
+    "@lyness/lyn-storage": "workspace:^",
     "@lyness/cordis": "workspace:^"
   }
 }

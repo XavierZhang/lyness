@@ -2,15 +2,15 @@
  * Live Typert Remote dispatch over Cordis Services and registered providers.
  * Unary transport and response envelopes belong to Connection; live Remote
  * streams use the Gateway-owned WebSocket mux.
- * @module @lyness/api-gateway
+ * @module @lyness/lyn-api-gateway
  */
 
 import { randomUUID } from 'node:crypto'
 import { Context, Service, symbols } from '@lyness/cordis'
-import type { ConnectionRpcHandler } from '@lyness/client-connection'
-import { Deque } from '@lyness/deque'
-import type { WebUpgradeRoute } from '@lyness/host-webserver'
-import { MAX_TIMER_DELAY_MS } from '@lyness/timeout'
+import type { ConnectionRpcHandler } from '@lyness/lyn-client-connection'
+import { Deque } from '@lyness/lyn-deque'
+import type { WebUpgradeRoute } from '@lyness/lyn-host-webserver'
+import { MAX_TIMER_DELAY_MS } from '@lyness/lyn-timeout'
 import z from '@lyness/schemastery'
 export type { TypertGatewayFaultDetails } from './remote-error-codes.ts'
 import {
@@ -21,7 +21,7 @@ import {
   type InvocationParameterDescriptor,
   type TypertCodec,
   type TypertGatewayBinding,
-} from '@lyness/typert-protocol'
+} from '@lyness/lyn-typert-protocol'
 import type {
   InvokeRemoteRequest,
   TypertGateway,

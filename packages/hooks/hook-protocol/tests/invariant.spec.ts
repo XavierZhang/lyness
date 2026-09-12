@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import SessionStore, { Session, SessionId, SessionSeq } from '@lyness/session'
-import * as HookInvariant from '@lyness/hook-protocol/invariant'
-import InvariantRegistry from '@lyness/invariants'
+import SessionStore, { Session, SessionId, SessionSeq } from '@lyness/lyn-session'
+import * as HookInvariant from '@lyness/lyn-hook-protocol/invariant'
+import InvariantRegistry from '@lyness/lyn-invariants'
 
 async function setup(): Promise<Context> {
   const ctx = new Context()

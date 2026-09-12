@@ -22,15 +22,15 @@
  * and a hole has exactly one declaring entry — they carry the same owner
  * contract and the same occupant.
  */
-import type { HostObservable, PropsHooks, PropsLocale, PropsRenderSlots, PropsRuntime, PropsStore } from '@lyness/client-ui-slots'
+import type { HostObservable, PropsHooks, PropsLocale, PropsRenderSlots, PropsRuntime, PropsStore } from '@lyness/lyn-client-ui-slots'
 // Type-only: pull the owner SlotMap merges into programs that resolve the
 // runtime shares below.
-import type {} from '@lyness/client-ui-sidebar/client'
-import type {} from '@lyness/client-ui-conversation/client'
-import type { SessionSearchResultItem } from '@lyness/api-session-controller/client'
-import type { RemoteHostFacts } from '@lyness/api-remotes/client'
-import type { WorkspaceId, WorkspaceView } from '@lyness/api-workspace-controller/client'
-import type { SessionId } from '@lyness/session/types'
+import type {} from '@lyness/lyn-client-ui-sidebar/client'
+import type {} from '@lyness/lyn-client-ui-conversation/client'
+import type { SessionSearchResultItem } from '@lyness/lyn-api-session-controller/client'
+import type { RemoteHostFacts } from '@lyness/lyn-api-remotes/client'
+import type { WorkspaceId, WorkspaceView } from '@lyness/lyn-api-workspace-controller/client'
+import type { SessionId } from '@lyness/lyn-session/types'
 import type { createWorkspaceViewStore } from '../stores.ts'
 
 /**
@@ -51,7 +51,7 @@ export interface DirectoryFlowOwnerProps {
   onError: (message: string) => void
 }
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface SlotMap {
     /** Directory-flow hole under the conversation empty-state picker (declared by the WorkspacePicker entry). */
     'conversation.hero.workspace.directoryFlow': { kind: 'single'; scope: 'root'; owner: DirectoryFlowOwnerProps }

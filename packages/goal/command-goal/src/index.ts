@@ -1,13 +1,13 @@
 /**
  * Human-facing `/goal` command over the persisted same-session goal domain.
- * @module @lyness/command-goal
+ * @module @lyness/lyn-command-goal
  */
 
 import type { Context } from '@lyness/cordis'
-import type { CommandInvocation, CommandResult } from '@lyness/commands'
-import { GoalError } from '@lyness/goal'
-import type { GoalPhase, GoalRef, GoalView } from '@lyness/goal'
-import { createUserMessage } from '@lyness/llm'
+import type { CommandInvocation, CommandResult } from '@lyness/lyn-commands'
+import { GoalError } from '@lyness/lyn-goal'
+import type { GoalPhase, GoalRef, GoalView } from '@lyness/lyn-goal'
+import { createUserMessage } from '@lyness/lyn-llm'
 
 export const name = 'command-goal'
 export const inject = ['commands', 'goals']

@@ -3,7 +3,7 @@ description: "Subagent conversation catalog, continuation routing UI, and '@' re
 kind: "package-reference"
 ---
 
-# @lyness/client-ui-subagent
+# @lyness/lyn-client-ui-subagent
 
 English | [中文](README.zh.md)
 

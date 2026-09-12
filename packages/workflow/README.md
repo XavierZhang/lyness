@@ -35,9 +35,9 @@ The workflow group lets an agent run a model-authored orchestration script that 
 ## Related documentation
 
 - [Workflow subsystem](../../docs/subsystems/workflow.md) — the seam's types, start request, and `workflow/*` events.
-- [Generated tool catalog](../../docs/tool-catalog.md#lynesstool-workflow) — the `workflow` tool schema the model receives.
-- [Generated tool catalog](../../docs/tool-catalog.md#lynesstool-ralph) — the `ralph` tool schema the model receives.
-- [Generated configuration catalog](../../docs/config-catalog.md#lynessworkflow-worker-thread) — every accepted engine config field.
+- [Generated tool catalog](../../docs/tool-catalog.md#lynesslyn-tool-workflow) — the `workflow` tool schema the model receives.
+- [Generated tool catalog](../../docs/tool-catalog.md#lynesslyn-tool-ralph) — the `ralph` tool schema the model receives.
+- [Generated configuration catalog](../../docs/config-catalog.md#lynesslyn-workflow-worker-thread) — every accepted engine config field.
 - [Dynamic workflows Agent Note](../../.agents/notes/implemented/feature/2026-07-05-dynamic-workflows.md) — the seam design and its decisions.
 - [Harness-level goal-based execution Agent Note](../../.agents/notes/implemented/feature/2026-07-16-harness-level-loop.md) — the fixed fresh-agent loop design and deferred work.
 

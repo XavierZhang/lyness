@@ -1,12 +1,12 @@
 /** Package-owned invariants for DeepSeek session-log acceptance watermarks. */
 
 import type { Context } from '@lyness/cordis'
-import { SessionSeq } from '@lyness/session'
-import type { Session, SessionEvent } from '@lyness/session'
-import type { InvariantFailure, InvariantInstaller } from '@lyness/invariants'
+import { SessionSeq } from '@lyness/lyn-session'
+import type { Session, SessionEvent } from '@lyness/lyn-session'
+import type { InvariantFailure, InvariantInstaller } from '@lyness/lyn-invariants'
 import type {} from './types.ts'
 
-const PACKAGE_NAME = '@lyness/session-log-deepseek'
+const PACKAGE_NAME = '@lyness/lyn-session-log-deepseek'
 
 /** Cordis companion plugin name. */
 export const name = 'session-log-deepseek-invariant'

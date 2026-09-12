@@ -1,6 +1,6 @@
 /** Pure image-card derivation from raw result content and metadata. @module */
-import type { AttachmentId, ImageAttachmentRef, ImageMediaType } from '@lyness/attachment'
-import { abbreviateHomePath, relativizeToCwd } from '@lyness/util-workspace-path'
+import type { AttachmentId, ImageAttachmentRef, ImageMediaType } from '@lyness/lyn-attachment'
+import { abbreviateHomePath, relativizeToCwd } from '@lyness/lyn-util-workspace-path'
 import type { ToolCallBlock } from './tool-call-model.ts'
 import { parsedToolCall } from './raw-tool-call.ts'
 

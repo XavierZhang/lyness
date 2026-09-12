@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/win32-process",
+  "name": "@lyness/lyn-win32-process",
   "description": "Shared low-level Win32 process, stdio, and Job Object primitives",
   "version": "0.1.5-rc.1",
   "publishConfig": {

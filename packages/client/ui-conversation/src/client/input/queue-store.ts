@@ -5,8 +5,8 @@
  * reference-stable across unrelated snapshot swaps, so this is a pure
  * projection — no second store, no copy.
  */
-import type { SessionFace } from '@lyness/api-session-controller/client'
-import type { ObservableSnapshot } from '@lyness/client-store'
+import type { SessionFace } from '@lyness/lyn-api-session-controller/client'
+import type { ObservableSnapshot } from '@lyness/lyn-client-store'
 import type { QueuedMessage } from '../contract/input.ts'
 
 /**

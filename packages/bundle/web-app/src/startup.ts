@@ -3,12 +3,12 @@
  * family (`--host`, `--port`, `--trusted-host`, `--no-open`) and its `--help`
  * text, then provides the immutable values as {@link WEB_STARTUP_SERVICE}.
  * Ordinary rows inject that service before reading it from lazy config.
- * @module @lyness/web-app/startup
+ * @module @lyness/lyn-web-app/startup
  */
 
 import { Command } from 'commander'
 import type { Context } from '@lyness/cordis'
-import { parseCmdline } from '@lyness/cmdline'
+import { parseCmdline } from '@lyness/lyn-cmdline'
 
 /** Stable Cordis plugin name. */
 export const name = 'web-startup'

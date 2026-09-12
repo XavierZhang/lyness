@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { Context, Service } from '@lyness/cordis'
-import { AttachmentId, AttachmentStore, ImageVariantId } from '@lyness/attachment'
+import { AttachmentId, AttachmentStore, ImageVariantId } from '@lyness/lyn-attachment'
 import type {
   ImageAttachmentLimits,
   ImageAttachmentRef,
@@ -8,11 +8,11 @@ import type {
   RequestImageAttachment,
   SaveImageAttachment,
   StoredImageAttachment,
-} from '@lyness/attachment'
-import LlmRuntime, { createUserMessage, CONTEXT_WINDOW_EXCEEDED_CODE, LlmError, ReasoningEffortId, userAgent } from '@lyness/llm'
-import * as LlmPiAi from '@lyness/llm-pi-ai'
-import { PiAiAdapter } from '@lyness/llm-pi-ai'
-import { MAX_TIMER_DELAY_MS } from '@lyness/timeout'
+} from '@lyness/lyn-attachment'
+import LlmRuntime, { createUserMessage, CONTEXT_WINDOW_EXCEEDED_CODE, LlmError, ReasoningEffortId, userAgent } from '@lyness/lyn-llm'
+import * as LlmPiAi from '@lyness/lyn-llm-pi-ai'
+import { PiAiAdapter } from '@lyness/lyn-llm-pi-ai'
+import { MAX_TIMER_DELAY_MS } from '@lyness/lyn-timeout'
 import { getBuiltinModels } from '@earendil-works/pi-ai/providers/all'
 import { DEFAULT_MAX_REQUEST_IMAGE_BYTES, resolveProfiles } from '../src/config.ts'
 import { memoryAuth } from './auth-double.ts'

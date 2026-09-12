@@ -8,7 +8,7 @@ import { once } from 'node:events'
 import { gunzipSync } from 'node:zlib'
 import type { Browser, Page } from 'playwright'
 import { chromium } from 'playwright'
-import type { SessionEvent, SessionId } from '@lyness/session'
+import type { SessionEvent, SessionId } from '@lyness/lyn-session'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed } from 'vitest'
 import {
   acknowledgeReloadConnectionLoss, assertFixtureInventory, captureExpandedTurnProcessAria, captureStableAria,

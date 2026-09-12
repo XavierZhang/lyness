@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
 import { z } from 'zod'
-import Storage, { storageBackendServiceKey } from '@lyness/storage'
+import Storage, { storageBackendServiceKey } from '@lyness/lyn-storage'
 import { apply, defineDomain, descriptorOf, DomainFacility, domainTable } from '../src/index.ts'
 import type { Config } from '../src/index.ts'
 import type { DomainChanged } from '../src/events.ts'

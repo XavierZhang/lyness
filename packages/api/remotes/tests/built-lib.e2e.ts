@@ -164,10 +164,10 @@ describe.skipIf(!requiredArtifacts)('Goal Remote built LIB chain', () => {
       }
       const client = new Context()
       for (const id of [
-        '@lyness/typert-registry',
-        '@lyness/client-connection',
-        '@lyness/api-gateway',
-        '@lyness/api-remotes',
+        '@lyness/lyn-typert-registry',
+        '@lyness/lyn-client-connection',
+        '@lyness/lyn-api-gateway',
+        '@lyness/lyn-api-remotes',
       ]) {
         const plugin = instantiate(id)
         await client.plugin({ inject: plugin.inject, apply: plugin.apply })

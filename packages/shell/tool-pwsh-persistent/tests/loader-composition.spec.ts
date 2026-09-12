@@ -7,22 +7,22 @@ import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
 import Include from '@lyness/cordis-plugin-include'
-import { ToolCallId } from '@lyness/llm'
-import { SESSION_FORMAT_VERSION, Session, SessionId } from '@lyness/session'
-import AgentRegistry from '@lyness/agent'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import type { Agent } from '@lyness/agent'
-import TerminalSessionService from '@lyness/terminal'
-import * as TerminalBash from '@lyness/terminal-bash'
-import SandboxProvider from '@lyness/sandbox'
-import type { ConfinedArgv, SandboxPolicy } from '@lyness/sandbox'
-import SandboxPolicyService from '@lyness/sandbox-policy'
-import LocalSubprocessService from '@lyness/subprocess-local'
-import { resolvePwshPath } from '@lyness/pwsh-local/src/resolve.ts'
-import SystemPrompt from '@lyness/system-prompt'
-import ToolRegistry from '@lyness/tools'
-import * as ToolPwshPersistent from '@lyness/tool-pwsh-persistent'
-import { unsupportedInbox } from '@lyness/agent-loop-testkit'
+import { ToolCallId } from '@lyness/lyn-llm'
+import { SESSION_FORMAT_VERSION, Session, SessionId } from '@lyness/lyn-session'
+import AgentRegistry from '@lyness/lyn-agent'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import type { Agent } from '@lyness/lyn-agent'
+import TerminalSessionService from '@lyness/lyn-terminal'
+import * as TerminalBash from '@lyness/lyn-terminal-bash'
+import SandboxProvider from '@lyness/lyn-sandbox'
+import type { ConfinedArgv, SandboxPolicy } from '@lyness/lyn-sandbox'
+import SandboxPolicyService from '@lyness/lyn-sandbox-policy'
+import LocalSubprocessService from '@lyness/lyn-subprocess-local'
+import { resolvePwshPath } from '@lyness/lyn-pwsh-local/src/resolve.ts'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRegistry from '@lyness/lyn-tools'
+import * as ToolPwshPersistent from '@lyness/lyn-tool-pwsh-persistent'
+import { unsupportedInbox } from '@lyness/lyn-agent-loop-testkit'
 
 const hasPwsh = spawnSync(
   resolvePwshPath(), ['-NoLogo', '-NoProfile', '-NonInteractive', '-Command', '$true'],
@@ -79,18 +79,18 @@ describe.skipIf(!hasPwsh)('persistent pwsh through a real cordis.yml Loader comp
     root = await realpath(await mkdtemp(join(tmpdir(), 'lyn-persistent-pwsh-loader-')))
     const configPath = join(root, 'cordis.yml')
     await writeFile(configPath, [
-      "- name: '@lyness/agent'",
-      "- name: '@lyness/system-prompt'",
-      "- name: '@lyness/tools'",
-      "- name: '@lyness/terminal'",
-      "- name: '@lyness/test-sandbox'",
-      "- name: '@lyness/session-projection'",
-      "- name: '@lyness/sandbox-policy'",
+      "- name: '@lyness/lyn-agent'",
+      "- name: '@lyness/lyn-system-prompt'",
+      "- name: '@lyness/lyn-tools'",
+      "- name: '@lyness/lyn-terminal'",
+      "- name: '@lyness/lyn-test-sandbox'",
+      "- name: '@lyness/lyn-session-projection'",
+      "- name: '@lyness/lyn-sandbox-policy'",
       '  config:',
       '    mode: danger-full-access',
       `    workspaceRoot: ${JSON.stringify(root)}`,
-      "- name: '@lyness/subprocess-local'",
-      "- name: '@lyness/terminal-bash'",
+      "- name: '@lyness/lyn-subprocess-local'",
+      "- name: '@lyness/lyn-terminal-bash'",
       '  config:',
       '    shellDialect: pwsh',
       '    pollIntervalMs: 10',
@@ -108,7 +108,7 @@ describe.skipIf(!hasPwsh)('persistent pwsh through a real cordis.yml Loader comp
       // would not).
       '    timeoutMs: 300000',
       '    disposeGraceMs: 500',
-      "- name: '@lyness/tool-pwsh-persistent'",
+      "- name: '@lyness/lyn-tool-pwsh-persistent'",
       '  config:',
       '    timeoutMs: 300000',
       '',
@@ -119,16 +119,16 @@ describe.skipIf(!hasPwsh)('persistent pwsh through a real cordis.yml Loader comp
     await context.plugin(Loader)
     context.loader.builtins.include = Include
     const modules = new Map<string, unknown>([
-      ['@lyness/agent', AgentRegistry],
-      ['@lyness/system-prompt', SystemPrompt],
-      ['@lyness/tools', ToolRegistry],
-      ['@lyness/terminal', TerminalSessionService],
-      ['@lyness/test-sandbox', PassthroughSandbox],
-      ['@lyness/session-projection', SessionProjectionRegistry],
-      ['@lyness/sandbox-policy', SandboxPolicyService],
-      ['@lyness/subprocess-local', LocalSubprocessService],
-      ['@lyness/terminal-bash', TerminalBash],
-      ['@lyness/tool-pwsh-persistent', ToolPwshPersistent],
+      ['@lyness/lyn-agent', AgentRegistry],
+      ['@lyness/lyn-system-prompt', SystemPrompt],
+      ['@lyness/lyn-tools', ToolRegistry],
+      ['@lyness/lyn-terminal', TerminalSessionService],
+      ['@lyness/lyn-test-sandbox', PassthroughSandbox],
+      ['@lyness/lyn-session-projection', SessionProjectionRegistry],
+      ['@lyness/lyn-sandbox-policy', SandboxPolicyService],
+      ['@lyness/lyn-subprocess-local', LocalSubprocessService],
+      ['@lyness/lyn-terminal-bash', TerminalBash],
+      ['@lyness/lyn-tool-pwsh-persistent', ToolPwshPersistent],
     ])
     context.loader.internal = {
       version: 'v2',

@@ -3,7 +3,7 @@ description: "Scriptable OpenAI-compatible fault server for testing LLM adapters
 kind: "package-library"
 ---
 
-# @lyness/llm-mock-server
+# @lyness/lyn-llm-mock-server
 
 English | [中文](README.zh.md)
 

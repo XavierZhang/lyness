@@ -12,7 +12,7 @@ export interface DeepSeekPluginPackageInventoryExtension {
   readonly packages: readonly DeepSeekPluginPackageIdentity[]
 }
 
-declare module '@lyness/deepseek-llm-api-extensions/types' {
+declare module '@lyness/lyn-deepseek-llm-api-extensions/types' {
   interface DeepSeekLlmApiExtensionMap {
     lyn_plugin_packages: DeepSeekPluginPackageInventoryExtension
   }

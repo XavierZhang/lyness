@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import SessionStore, { SessionId } from '@lyness/session'
-import InvariantRegistry from '@lyness/invariants'
-import * as AgentLoopInvariant from '@lyness/agent-loop/invariant'
-import { createUserMessage, markAgentLoopRequest, type GenerateOptions  } from '@lyness/llm'
+import SessionStore, { SessionId } from '@lyness/lyn-session'
+import InvariantRegistry from '@lyness/lyn-invariants'
+import * as AgentLoopInvariant from '@lyness/lyn-agent-loop/invariant'
+import { createUserMessage, markAgentLoopRequest, type GenerateOptions  } from '@lyness/lyn-llm'
 
 async function setup(): Promise<Context> {
   const ctx = new Context()

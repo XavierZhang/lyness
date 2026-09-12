@@ -3,7 +3,7 @@
  * real CLI process under the shared subprocess owner, map only strict SDK
  * success to completion, and dispose to whole-range quiescence.
  *
- * @module @lyness/subagent-claude-code/run
+ * @module @lyness/lyn-subagent-claude-code/run
  */
 
 import { randomUUID } from 'node:crypto'
@@ -15,9 +15,9 @@ import {
   type SDKResultMessage,
   type SpawnOptions,
 } from '@anthropic-ai/claude-agent-sdk'
-import type { ContentBlock } from '@lyness/llm'
-import { brandString } from '@lyness/brand'
-import type { SessionId } from '@lyness/session'
+import type { ContentBlock } from '@lyness/lyn-llm'
+import { brandString } from '@lyness/lyn-brand'
+import type { SessionId } from '@lyness/lyn-session'
 import {
   settleRunResult,
   subprocessRunHandle,
@@ -25,13 +25,13 @@ import {
   type SubagentRun,
   type SubagentStartRequest,
   type SubagentStopReason,
-} from '@lyness/subagent'
+} from '@lyness/lyn-subagent'
 import {
   scrubbedParentEnv,
   type SubprocessHandle,
   type SubprocessOutcome,
   type SubprocessSpawnSpec,
-} from '@lyness/subprocess'
+} from '@lyness/lyn-subprocess'
 import {
   claudeSpawnSpec,
   ManagedClaudeCodeProcess,

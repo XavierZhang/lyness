@@ -1,5 +1,5 @@
 /**
- * @lyness/host-webserver — node:http route registration with optional
+ * @lyness/lyn-host-webserver — node:http route registration with optional
  * gzip, index injection, and one fallback seat. It knows no harness concepts
  * and serves no files; the composing application owns dist serving. Electron
  * uses file:// plus IPC instead, and this package never prints the URL.

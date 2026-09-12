@@ -1,15 +1,15 @@
 /** Agent Teams runtime invariant companion. */
 
 import type { Context } from '@lyness/cordis'
-import type { InvariantFailure, InvariantInstaller } from '@lyness/invariants'
-import type { Session, SessionEvent } from '@lyness/session'
+import type { InvariantFailure, InvariantInstaller } from '@lyness/lyn-invariants'
+import type { Session, SessionEvent } from '@lyness/lyn-session'
 import {
   isTeamEvent,
   teamProjectionDefinition,
   type TeamProjectionState,
 } from './projection.ts'
 
-const PACKAGE_NAME = '@lyness/experimental-agent-team'
+const PACKAGE_NAME = '@lyness/lyn-experimental-agent-team'
 
 /** Cordis companion plugin name. */
 export const name = 'team-invariant'

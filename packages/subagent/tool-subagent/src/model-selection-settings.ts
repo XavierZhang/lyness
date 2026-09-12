@@ -2,7 +2,7 @@
 
 import { Context, Service } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import type {} from '@lyness/settings'
+import type {} from '@lyness/lyn-settings'
 import {
   AllowedModelRouteSchema,
   assertAllowedModelRoutes,

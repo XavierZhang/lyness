@@ -2,10 +2,10 @@
 
 import { afterEach, describe, expect, it } from 'vitest'
 import { cleanup, render } from '@testing-library/react'
-import { AttachmentId } from '@lyness/attachment'
-import { makeTranslate } from '@lyness/client-test-runtime'
-import { zh as commonZh } from '@lyness/client-locale/src/locales/zh.ts'
-import type { RenderMessageImages } from '@lyness/client-ui-conversation/client'
+import { AttachmentId } from '@lyness/lyn-attachment'
+import { makeTranslate } from '@lyness/lyn-client-test-runtime'
+import { zh as commonZh } from '@lyness/lyn-client-locale/src/locales/zh.ts'
+import type { RenderMessageImages } from '@lyness/lyn-client-ui-conversation/client'
 import { AssistantMarkdown } from '../src/client/chat/AssistantMarkdown.tsx'
 import { zh } from '../src/client/locale.ts'
 

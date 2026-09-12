@@ -25,8 +25,8 @@ import { useEffect, useMemo, useState } from 'react'
 import type { ReactNode } from 'react'
 import type {
   CredentialInfo, SettingsNamespaceView, SettingsPathOpView,
-} from '@lyness/api-remotes/client'
-import type { JsonValue } from '@lyness/util-values'
+} from '@lyness/lyn-api-remotes/client'
+import type { JsonValue } from '@lyness/lyn-util-values'
 import {
   DeepSeekModelsEditor, modelDrafts, validateDeepSeekModels,
 } from './DeepSeekModelsEditor.tsx'

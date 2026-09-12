@@ -3,7 +3,7 @@ description: "The background-job registry contract for users and maintainers com
 kind: "package-reference"
 ---
 
-# @lyness/jobs
+# @lyness/lyn-jobs
 
 English | [中文](README.zh.md)
 
@@ -42,8 +42,8 @@ A producer can start work only while a controller that serves the owner is attac
 ### Smallest working composition
 
 ```yaml
-- name: '@lyness/jobs-local'
-- name: '@lyness/tool-jobs'
+- name: '@lyness/lyn-jobs-local'
+- name: '@lyness/lyn-tool-jobs'
 ```
 
 Loading these two plugins on a harness base that already provides the agent, tools, and system-prompt services gives the full feature: `lyn-jobs-local` provides the in-process background-job registry, and `lyn-tool-jobs` provides the `job_output`, `job_list`, and `job_kill` tools plus completion-notice delivery.

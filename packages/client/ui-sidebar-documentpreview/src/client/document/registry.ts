@@ -1,5 +1,5 @@
 /** File-extension preview registrations; component dispatch belongs to the keyed document slot. */
-import { notifySubscribers } from '@lyness/client-store'
+import { notifySubscribers } from '@lyness/lyn-client-store'
 
 /** How the document owner delivers file contents to a renderer. */
 export type DocumentLoadMode = 'text-pages' | 'bytes-complete'

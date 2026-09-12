@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/storage",
+  "name": "@lyness/lyn-storage",
   "description": "Storage hub (ctx.storage): named backend registry plus mounted data-form facilities for the lyness",
   "version": "0.1.5-rc.1",
   "publishConfig": {

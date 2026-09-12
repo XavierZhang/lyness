@@ -10,15 +10,15 @@
 
 import { describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import AgentRegistry, { agentEvents } from '@lyness/agent'
-import type { Agent, AgentStatus } from '@lyness/agent'
-import { createUserMessage } from '@lyness/llm'
-import SessionStore from '@lyness/session'
-import type { Session } from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import GoalService, { GoalId, applyGoalProjection, foldGoal, goalProjectionDefinition } from '@lyness/goal'
-import type { GoalProjection, GoalProjectionState, GoalRef } from '@lyness/goal'
-import { unsupportedInbox } from '@lyness/agent-loop-testkit'
+import AgentRegistry, { agentEvents } from '@lyness/lyn-agent'
+import type { Agent, AgentStatus } from '@lyness/lyn-agent'
+import { createUserMessage } from '@lyness/lyn-llm'
+import SessionStore from '@lyness/lyn-session'
+import type { Session } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import GoalService, { GoalId, applyGoalProjection, foldGoal, goalProjectionDefinition } from '@lyness/lyn-goal'
+import type { GoalProjection, GoalProjectionState, GoalRef } from '@lyness/lyn-goal'
+import { unsupportedInbox } from '@lyness/lyn-agent-loop-testkit'
 
 interface Bench {
   ctx: Context

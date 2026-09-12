@@ -1,11 +1,11 @@
 /**
  * File-reference discovery seam shared by host-backed user interfaces.
  *
- * @module @lyness/file-reference
+ * @module @lyness/lyn-file-reference
  */
 
 import { Service, type Context } from '@lyness/cordis'
-import type { Agent } from '@lyness/agent'
+import type { Agent } from '@lyness/lyn-agent'
 
 import type { FileReferenceCandidate } from './types.ts'
 

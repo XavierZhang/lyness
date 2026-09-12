@@ -1,24 +1,24 @@
 /** Cold Session history pagination and live-event source. */
 
 import type { Context } from '@lyness/cordis'
-import { Deque } from '@lyness/deque'
-import type { AssistantStreamFrame } from '@lyness/agent'
+import { Deque } from '@lyness/lyn-deque'
+import type { AssistantStreamFrame } from '@lyness/lyn-agent'
 import {
   isAppendSurfaceEvent,
   SessionLogOffset,
   SessionSeq,
-} from '@lyness/session'
+} from '@lyness/lyn-session'
 import type {
   SessionEvent,
   SessionHeader,
   SessionId,
   SessionLogOffset as SessionLogOffsetType,
   SessionSeqCursor,
-} from '@lyness/session'
-import { SessionQueryError, type SessionObservation } from '@lyness/session-query'
-import type {} from '@lyness/subagent'
-import { RemoteError } from '@lyness/typert-protocol'
-import type { JsonValue } from '@lyness/util-values'
+} from '@lyness/lyn-session'
+import { SessionQueryError, type SessionObservation } from '@lyness/lyn-session-query'
+import type {} from '@lyness/lyn-subagent'
+import { RemoteError } from '@lyness/lyn-typert-protocol'
+import type { JsonValue } from '@lyness/lyn-util-values'
 import type {
   SessionAddress,
   SessionAssistantStreamFrame,

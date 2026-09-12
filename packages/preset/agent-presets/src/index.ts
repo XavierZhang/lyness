@@ -18,25 +18,25 @@
  * agent factory's `setup(agentCtx)` hook is the one supported call site,
  * because only there is the join installed while the agent is still
  * unpublished, so a rejected composition rolls the whole creation back.
- * @module @lyness/agent-presets
+ * @module @lyness/lyn-agent-presets
  */
 
 import { stat } from 'node:fs/promises'
 import { Context } from '@lyness/cordis'
 import { evaluate } from '@lyness/cordis-plugin-loader'
 import z from '@lyness/schemastery'
-import { Remote, RemoteError, TypertRemoteService } from '@lyness/typert-protocol'
-import { bindScopeParent, createScope, scopeOf, type Scope, type ScopeKey, type ScopeParentBinding } from '@lyness/scope'
+import { Remote, RemoteError, TypertRemoteService } from '@lyness/lyn-typert-protocol'
+import { bindScopeParent, createScope, scopeOf, type Scope, type ScopeKey, type ScopeParentBinding } from '@lyness/lyn-scope'
 // Type-only: resolves the `agent/created` lifecycle event this service watches.
-import type {} from '@lyness/agent'
-import type { Agent } from '@lyness/agent'
+import type {} from '@lyness/lyn-agent'
+import type { Agent } from '@lyness/lyn-agent'
 import type { AgentPresetDocument, AgentPresetRoster } from './types.ts'
-import type {} from '@lyness/session-projection'
+import type {} from '@lyness/lyn-session-projection'
 // Type-only: resolves the registry notification emitted after scope reparenting.
-import type {} from '@lyness/tools'
-import type SettingsService from '@lyness/settings'
-import type { SettingsScope } from '@lyness/settings'
-import { lynHomePath } from '@lyness/home-paths'
+import type {} from '@lyness/lyn-tools'
+import type SettingsService from '@lyness/lyn-settings'
+import type { SettingsScope } from '@lyness/lyn-settings'
+import { lynHomePath } from '@lyness/lyn-home-paths'
 import { discoverPresets, SHIPPED_PRESET_ROOT, USER_PRESET_DIR } from './discovery.ts'
 import { copyComposition, deleteComposition, presetExists, readComposition } from './authoring.ts'
 import { livePresetMounts, mountPreset, serviceForAgent, standingMountFor } from './mount.ts'

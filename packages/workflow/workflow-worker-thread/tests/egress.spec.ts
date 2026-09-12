@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { clearedProxyEnv, installProxyFromEnvironment } from '@lyness/http-proxy'
+import { clearedProxyEnv, installProxyFromEnvironment } from '@lyness/lyn-http-proxy'
 import { workerSpawnEnv } from '../src/host.ts'
 
 /** A proxy URL carrying credentials, the shape that must never reach model-authored code. */

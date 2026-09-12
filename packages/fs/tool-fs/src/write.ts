@@ -2,14 +2,14 @@
  * Model-facing full-file write. It obtains an optional intent from the single policy slot, calls
  * `ctx.fs.writeText` without a stat, then records the resulting version; no policy means an
  * unconditional atomic create-or-overwrite.
- * @module @lyness/tool-fs/src/write
+ * @module @lyness/lyn-tool-fs/src/write
  */
 
 import type { Context } from '@lyness/cordis'
-import { defineTool } from '@lyness/tools'
-import type { DiffCallView, DiffResultView, ToolResult } from '@lyness/tools'
-import type { FsWriteOutcome } from '@lyness/fs'
-import type {} from '@lyness/fs'
+import { defineTool } from '@lyness/lyn-tools'
+import type { DiffCallView, DiffResultView, ToolResult } from '@lyness/lyn-tools'
+import type { FsWriteOutcome } from '@lyness/lyn-fs'
+import type {} from '@lyness/lyn-fs'
 import { computeHunkDiffs, diffsFromMeta } from './diff.ts'
 import { remediateFsError } from './error.ts'
 import { sessionResolveOptions } from './session-cwd.ts'

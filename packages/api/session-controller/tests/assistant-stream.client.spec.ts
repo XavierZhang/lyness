@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { LlmAttemptId, createAssistantMessage } from '@lyness/llm'
-import { SessionSeq, type SessionEvent } from '@lyness/session'
+import { LlmAttemptId, createAssistantMessage } from '@lyness/lyn-llm'
+import { SessionSeq, type SessionEvent } from '@lyness/lyn-session'
 import type {
   SessionAssistantStreamBaseline,
   SessionAssistantStreamFrame,

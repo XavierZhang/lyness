@@ -3,7 +3,7 @@ description: "面向启用官方 DeepSeek 请求元数据的部署，增量上�
 kind: "package-reference"
 ---
 
-# @lyness/session-log-deepseek
+# @lyness/lyn-session-log-deepseek
 
 [English](README.md) | 中文
 

@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import type { PromptAssembly } from '@lyness/system-prompt'
-import * as SystemPromptInvariant from '@lyness/system-prompt/invariant'
-import InvariantRegistry from '@lyness/invariants'
+import type { PromptAssembly } from '@lyness/lyn-system-prompt'
+import * as SystemPromptInvariant from '@lyness/lyn-system-prompt/invariant'
+import InvariantRegistry from '@lyness/lyn-invariants'
 
 async function setup(): Promise<Context> {
   const ctx = new Context()

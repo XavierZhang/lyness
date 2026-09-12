@@ -1,6 +1,6 @@
 import type { Context } from '@lyness/cordis'
-import { IconBrowseOutline16, IconGlobeOutline14 } from '@lyness/client-ui-primitives'
-import type { PropsLocale } from '@lyness/client-ui-slots'
+import { IconBrowseOutline16, IconGlobeOutline14 } from '@lyness/lyn-client-ui-primitives'
+import type { PropsLocale } from '@lyness/lyn-client-ui-slots'
 import type { ToolCallViewProps } from '../../contract/slots.ts'
 import { webCardModel } from '../models/web-card-model.ts'
 import { toolRowModel } from '../models/tool-call-model.ts'

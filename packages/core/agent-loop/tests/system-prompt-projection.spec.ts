@@ -1,12 +1,12 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { createSystemMessage, createUserMessage } from '@lyness/llm'
-import SessionStore, { SessionId, SessionSeq } from '@lyness/session'
-import type { Session, SurfaceIntent } from '@lyness/session'
+import { createSystemMessage, createUserMessage } from '@lyness/lyn-llm'
+import SessionStore, { SessionId, SessionSeq } from '@lyness/lyn-session'
+import type { Session, SurfaceIntent } from '@lyness/lyn-session'
 import { SystemPromptProjection } from '../src/runtime-context.ts'
 import type { SystemPromptCommit, SystemPromptDecisionInput } from '../src/runtime-context.ts'
 
-const SOURCE = '@lyness/system-prompt'
+const SOURCE = '@lyness/lyn-system-prompt'
 const REPLACING: SystemPromptDecisionInput = { inHistory: false, startsSeries: false }
 const CONTINUING: SystemPromptDecisionInput = { inHistory: true, startsSeries: false }
 const NEW_SERIES: SystemPromptDecisionInput = { inHistory: true, startsSeries: true }

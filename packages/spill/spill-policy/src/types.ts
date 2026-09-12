@@ -2,15 +2,15 @@
  * Vocabulary for the spill-policy plugin: the minimal structural view of a tool
  * execution the policy needs to derive the owning session for a spill artifact.
  *
- * `@lyness/tools`' `ToolExecution` satisfies this shape, so the policy
+ * `@lyness/lyn-tools`' `ToolExecution` satisfies this shape, so the policy
  * reads `exec` straight through without importing `lyn-tools` or `lyn-agent`.
  * Only the session HEADER id is read — the same identity every other subsystem
  * keys off (see `lyn-tool-bash`'s owner derivation).
  *
- * @module @lyness/spill-policy/types
+ * @module @lyness/lyn-spill-policy/types
  */
 
-import type { SessionId } from '@lyness/session'
+import type { SessionId } from '@lyness/lyn-session'
 
 /** Minimal structural view of a tool execution: the owning session's header id, when present. */
 export interface SpillPolicyExec {

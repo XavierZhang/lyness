@@ -1,7 +1,7 @@
-import * as nativeCommand from '@lyness/native-command'
+import * as nativeCommand from '@lyness/lyn-native-command'
 import { Context } from '@lyness/cordis'
-import AgentRegistry from '@lyness/agent'
-import SessionStore from '@lyness/session'
+import AgentRegistry from '@lyness/lyn-agent'
+import SessionStore from '@lyness/lyn-session'
 import { describe, expect, it, vi } from 'vitest'
 import {
   createSessionTestController,

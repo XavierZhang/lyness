@@ -2,7 +2,7 @@
 
 import { createHmac } from 'node:crypto'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import type { CredentialProvider } from '@lyness/credentials'
+import type { CredentialProvider } from '@lyness/lyn-credentials'
 import { BrowserAuth } from '../src/browser-auth.ts'
 import type { ConnectionIndexRequest, ConnectionIndexResponse } from '../src/rpc.ts'
 import { RecordCredentials } from './browser-credentials.ts'

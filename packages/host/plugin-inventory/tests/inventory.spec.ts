@@ -1,8 +1,8 @@
 import { afterEach, describe, expect, it } from 'vitest'
 import { Context, FiberState, type Plugin } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
-import { remoteMethods } from '@lyness/typert-protocol'
-import type { AgentPresets } from '@lyness/agent-presets'
+import { remoteMethods } from '@lyness/lyn-typert-protocol'
+import type { AgentPresets } from '@lyness/lyn-agent-presets'
 import PluginInventoryGateway from '../src/index.ts'
 
 const contexts: Context[] = []

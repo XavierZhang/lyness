@@ -1,6 +1,6 @@
 /** Browser entry binding the generated Team Remote artifact to its Client UI. */
 
-import agentTeamsRemote from '@lyness/experimental-agent-team/remote'
+import agentTeamsRemote from '@lyness/lyn-experimental-agent-team/remote'
 import type { Context as ClientContext } from '@lyness/cordis'
 import { mountAgentTeamUi } from './mount.ts'
 

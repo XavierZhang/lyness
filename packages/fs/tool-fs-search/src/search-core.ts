@@ -16,18 +16,18 @@
  * artifact is the formatted result saved through `ctx.spillStore.saveText()`
  * ({@link trySaveFormattedResult}).
  *
- * @module @lyness/tool-fs-search/search-core
+ * @module @lyness/lyn-tool-fs-search/search-core
  */
 
 import { existsSync } from 'node:fs'
 import { isAbsolute, join, parse, relative, sep } from 'node:path'
 import type { Context } from '@lyness/cordis'
-import { HarnessError } from '@lyness/llm'
-import { ItemRetainer, TextRetainer } from '@lyness/output-retention'
-import type { RetainedItems } from '@lyness/output-retention'
-import type { SubprocessHandle, SubprocessOutcome, SubprocessOutputRead, SubprocessSpawnSpec } from '@lyness/subprocess'
-import type { SaveTextSpill, SpillRef } from '@lyness/spill'
-import type { ToolExecution } from '@lyness/tools'
+import { HarnessError } from '@lyness/lyn-llm'
+import { ItemRetainer, TextRetainer } from '@lyness/lyn-output-retention'
+import type { RetainedItems } from '@lyness/lyn-output-retention'
+import type { SubprocessHandle, SubprocessOutcome, SubprocessOutputRead, SubprocessSpawnSpec } from '@lyness/lyn-subprocess'
+import type { SaveTextSpill, SpillRef } from '@lyness/lyn-spill'
+import type { ToolExecution } from '@lyness/lyn-tools'
 
 /**
  * Default cap on the complete raw `rg` stdout the tools will parse (the
@@ -38,7 +38,7 @@ export const RAW_OUTPUT_MAX_BYTES = 20_000_000
 /**
  * Default cooperative tool-call timeout budget in milliseconds (the `timeoutMs`
  * config), attached to both tool definitions for
- * `@lyness/tool-call-timeout-policy` to enforce through `exec.signal`.
+ * `@lyness/lyn-tool-call-timeout-policy` to enforce through `exec.signal`.
  */
 export const SEARCH_TIMEOUT_MS = 30_000
 
@@ -185,7 +185,7 @@ export function resolveRgPath(): Promise<string> {
  * complete raw stdout. The working directory is the calling agent's session
  * cwd (`exec.agent.session.header.cwd`) when available, else
  * `process.cwd()`. `exec.signal` is forwarded so the cooperative tool timeout
- * (`@lyness/tool-call-timeout-policy`) and caller cancellation terminate the
+ * (`@lyness/lyn-tool-call-timeout-policy`) and caller cancellation terminate the
  * process tree.
  *
  * The spawn is unconfined (a plain `ctx.subprocess` call), so `--no-config`
@@ -328,9 +328,9 @@ export function previewLine(line: string, maxBytes: number): string {
 /**
  * Apply the shared inline cap to a canonical `grep` match list: preview each
  * retained line to `maxLineBytes` and keep the first `maxMatches`. The single
- * retention pass both the model-facing render ({@link module:@lyness/tool-fs-search/grep}
+ * retention pass both the model-facing render ({@link module:@lyness/lyn-tool-fs-search/grep}
  * `formatGrepOutput`) and the search-card projection
- * ({@link module:@lyness/tool-fs-search/presentation} `grepSearchMeta`)
+ * ({@link module:@lyness/lyn-tool-fs-search/presentation} `grepSearchMeta`)
  * consume, so text and card never disagree about which matches survived.
  *
  * @param matches - every match the search parsed (the canonical value's matches).

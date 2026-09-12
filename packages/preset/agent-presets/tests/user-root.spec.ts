@@ -18,9 +18,9 @@ import { fileURLToPath, pathToFileURL } from 'node:url'
 import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
 import Include from '@lyness/cordis-plugin-include'
-import SessionProjectionRegistry from '@lyness/session-projection'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
-import AgentPresets, { COMPOSITION_FILE, type Config } from '@lyness/agent-presets'
+import AgentPresets, { COMPOSITION_FILE, type Config } from '@lyness/lyn-agent-presets'
 
 const FIXTURES = join(dirname(fileURLToPath(import.meta.url)), 'fixtures')
 const SYSTEM_ROOT = join(FIXTURES, 'system')

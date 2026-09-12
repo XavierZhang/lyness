@@ -2,12 +2,12 @@
  * Public session-reference request, candidate, and preparation records.
  * Imports stay on type-only subpaths so generated Remote clients can consume
  * this module without Host runtime code.
- * @module @lyness/session-reference/types
+ * @module @lyness/lyn-session-reference/types
  */
 
-import type { UserMessage } from '@lyness/llm/message'
-import type { ContentBlock } from '@lyness/llm/types'
-import type { OptionalSessionSeq, SessionId } from '@lyness/session/types'
+import type { UserMessage } from '@lyness/lyn-llm/message'
+import type { ContentBlock } from '@lyness/lyn-llm/types'
+import type { OptionalSessionSeq, SessionId } from '@lyness/lyn-session/types'
 
 /** Durable source session, cited event seqs, and snapshot facts for prepared cross-session context. */
 export interface SessionReferenceSource {
@@ -31,7 +31,7 @@ export interface SessionReferenceSource {
   }[]
 }
 
-declare module '@lyness/llm' {
+declare module '@lyness/lyn-llm' {
   interface MessageSourceMap {
     'session-reference': SessionReferenceSource
   }

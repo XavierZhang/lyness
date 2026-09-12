@@ -13,14 +13,14 @@
  * touches the disk once, and a file deleted mid-run keeps the process's id
  * until the next launch.
  *
- * @module @lyness/anonymous-user-id
+ * @module @lyness/lyn-anonymous-user-id
  */
 
 import { randomUUID } from 'node:crypto'
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
-import type { Branded } from '@lyness/brand'
-import { resolveLynHome } from '@lyness/home-paths'
+import type { Branded } from '@lyness/lyn-brand'
+import { resolveLynHome } from '@lyness/lyn-home-paths'
 
 /** A harness-home-scoped anonymous user id (random UUID v4). */
 export type AnonymousUserId = Branded<'AnonymousUserId'>

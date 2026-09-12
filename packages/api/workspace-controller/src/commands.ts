@@ -1,14 +1,14 @@
 /** Workspace command implementation and stable Remote failure mapping. */
 
 import type { Context } from '@lyness/cordis'
-import type { Workspace } from '@lyness/workspace'
+import type { Workspace } from '@lyness/lyn-workspace'
 import {
   WorkspaceId,
   WorkspaceMoveInvalidError,
   WorkspaceOrderInvalidError,
   WorkspaceUnknownSessionError,
-} from '@lyness/workspace'
-import { RemoteError, remoteErrorOf } from '@lyness/typert-protocol'
+} from '@lyness/lyn-workspace'
+import { RemoteError, remoteErrorOf } from '@lyness/lyn-typert-protocol'
 import { workspaceView } from './feed.ts'
 import type {
   WorkspaceArchiveSessionRequest,

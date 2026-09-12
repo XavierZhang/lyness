@@ -2,7 +2,7 @@
  * Host half of open-in-app: three routes on the composition's `webServer`
  * serving the resolved application catalog, per-application icons, and the
  * launch endpoint the browser split button
- * (`@lyness/client-ui-open-in-app`) posts to.
+ * (`@lyness/lyn-client-ui-open-in-app`) posts to.
  *
  * Security has one home, here. Every route asks the composition's
  * `connection` service for a rejection first (`requestRejection`): its
@@ -24,9 +24,9 @@ import type { IncomingMessage, ServerResponse } from 'node:http'
 import { isAbsolute } from 'node:path'
 import { stat } from 'node:fs/promises'
 import type { Context } from '@lyness/cordis'
-import type {} from '@lyness/host-webserver'
-import type {} from '@lyness/subprocess'
-import { launchedThroughSsh, launchEnvironmentOf } from '@lyness/launch-environment'
+import type {} from '@lyness/lyn-host-webserver'
+import type {} from '@lyness/lyn-subprocess'
+import { launchedThroughSsh, launchEnvironmentOf } from '@lyness/lyn-launch-environment'
 import z from '@lyness/schemastery'
 import { OPEN_IN_APP_CATALOG, type OpenInAppApp } from './catalog.ts'
 import {

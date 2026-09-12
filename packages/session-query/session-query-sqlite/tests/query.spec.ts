@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { SessionId } from '@lyness/session'
-import { SessionSearchCursor, type SessionQueryErrorCode } from '@lyness/session-query'
+import { SessionId } from '@lyness/lyn-session'
+import { SessionSearchCursor, type SessionQueryErrorCode } from '@lyness/lyn-session-query'
 import {
   buildEventWhere,
   buildSessionWhere,

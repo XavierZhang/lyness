@@ -1,7 +1,7 @@
 /** Validated configuration for the local PTY backend. */
 
 import z from '@lyness/schemastery'
-import { resolvePwshPath } from '@lyness/pwsh-local'
+import { resolvePwshPath } from '@lyness/lyn-pwsh-local'
 
 /** One supported interactive shell dialect. */
 export type ShellDialect = 'bash' | 'pwsh'

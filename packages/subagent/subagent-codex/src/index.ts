@@ -3,12 +3,12 @@
  * fresh official package-local Codex wrapper with `app-server --stdio` in the
  * delegating Session's workspace and publishes only after an ephemeral thread exists.
  *
- * @module @lyness/subagent-codex
+ * @module @lyness/lyn-subagent-codex
  */
 
 import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import { MAX_TIMER_DELAY_MS } from '@lyness/timeout'
+import { MAX_TIMER_DELAY_MS } from '@lyness/lyn-timeout'
 import {
   assertPositiveFinite,
   NO_START_CAPABILITIES,
@@ -16,7 +16,7 @@ import {
   type ResolvedSubagentStartRequest,
   type SubagentCapabilities,
   type SubagentProvider,
-} from '@lyness/subagent'
+} from '@lyness/lyn-subagent'
 import {
   CODEX_PERMISSION_MODES,
   DEFAULT_CODEX_PERMISSION_MODE,

@@ -3,7 +3,7 @@ description: "lyn 的一次性任务模式：从命令行运行单个任务并�
 kind: "package-bundle"
 ---
 
-# @lyness/headless
+# @lyness/lyn-headless
 
 [English](README.md) | 中文
 
@@ -39,7 +39,7 @@ agent 会完成该任务，把提供方的每个非空推理（reasoning）增�
 |---|---|---|
 | `task` | 必填 | 单次运行的任务文本 |
 
-生成的[配置目录](../../../docs/config-catalog.zh.md#lynessheadless)是所有受支持字段及其 JSDoc 的完整真源。
+生成的[配置目录](../../../docs/config-catalog.zh.md#lynesslyn-headless)是所有受支持字段及其 JSDoc 的完整真源。
 
 ### 何时使用
 
@@ -99,7 +99,7 @@ patch 叠加在 `lyn-base` 之上：继承投影缓存，在基础 `system-promp
 - [lyn-base](../base/README.zh.md)——headless 运行其上的共享核心。
 - [lyn-web-app](../web-app/README.zh.md)——用于多轮工作的同级交互式浏览器入口。
 - [lyn-cmdline](../../boot/cmdline/README.zh.md)——启动器如何把命令行交给应用。
-- [生成配置目录](../../../docs/config-catalog.zh.md#lynessheadless)——每个受支持配置字段及其源声明。
+- [生成配置目录](../../../docs/config-catalog.zh.md#lynesslyn-headless)——每个受支持配置字段及其源声明。
 
 -----
 

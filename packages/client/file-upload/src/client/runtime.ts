@@ -1,10 +1,10 @@
 /** Background browser upload implementation for Blob and byte-stream bodies. */
 
 import { Service, type Context } from '@lyness/cordis'
-import { bytesToBase64 } from '@lyness/util-crypto'
-import { RemoteError } from '@lyness/typert-protocol'
-import type { RemoteResult } from '@lyness/typert-protocol'
-import type { SessionId } from '@lyness/session/types'
+import { bytesToBase64 } from '@lyness/lyn-util-crypto'
+import { RemoteError } from '@lyness/lyn-typert-protocol'
+import type { RemoteResult } from '@lyness/lyn-typert-protocol'
+import type { SessionId } from '@lyness/lyn-session/types'
 import { FILE_UPLOAD_PATH } from '../protocol.ts'
 import type {
   ClientFileUploadHooks, EncodedFileUploadRequest, FileUploadFetch, FileUploadValue,

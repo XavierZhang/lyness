@@ -2,16 +2,16 @@
  * Durable projection state for the two loop-owned surface messages the system
  * prompt plugin forms: the system prompt (surface node 0 and any in-history
  * replacement) and the dynamic runtime-context snapshot.
- * @module @lyness/agent-loop/runtime-context
+ * @module @lyness/lyn-agent-loop/runtime-context
  */
 
-import { createSystemMessage, createUserMessage } from '@lyness/llm'
-import type { ContextSnapshotSection, Message } from '@lyness/llm'
-import type { Session, SessionEvent, SessionSeq, SurfaceIntent, SystemMessage, UserMessage } from '@lyness/session'
-import { isReplacementSurfaceEvent } from '@lyness/session'
+import { createSystemMessage, createUserMessage } from '@lyness/lyn-llm'
+import type { ContextSnapshotSection, Message } from '@lyness/lyn-llm'
+import type { Session, SessionEvent, SessionSeq, SurfaceIntent, SystemMessage, UserMessage } from '@lyness/lyn-session'
+import { isReplacementSurfaceEvent } from '@lyness/lyn-session'
 import type { Context } from '@lyness/cordis'
 
-const SOURCE = '@lyness/system-prompt'
+const SOURCE = '@lyness/lyn-system-prompt'
 const CLEARED = 'Current runtime context: none. Earlier runtime-context snapshots no longer apply.'
 
 function isOwned(message: UserMessage): boolean {

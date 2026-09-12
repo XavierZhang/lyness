@@ -2,8 +2,8 @@
 
 import type { Context } from '@lyness/cordis'
 import type { SessionConfigOption, SessionConfigValueId } from '@agentclientprotocol/sdk'
-import { installModelSelection, type ModelSelection, type ModelSelectionRef } from '@lyness/agent'
-import { ReasoningEffortId, type LlmCallConfig, type LlmRuntime } from '@lyness/llm'
+import { installModelSelection, type ModelSelection, type ModelSelectionRef } from '@lyness/lyn-agent'
+import { ReasoningEffortId, type LlmCallConfig, type LlmRuntime } from '@lyness/lyn-llm'
 
 const MODEL_CONFIG_ID = 'model'
 const REASONING_CONFIG_ID = 'reasoning_effort'

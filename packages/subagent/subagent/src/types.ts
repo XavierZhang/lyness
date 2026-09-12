@@ -6,14 +6,14 @@
  * continuation host in `./continuation.ts` — so this module stays the published
  * surface rather than a bag of everything type-shaped.
  *
- * @module @lyness/subagent/types
+ * @module @lyness/lyn-subagent/types
  */
 
-import type { Agent, AgentOptions } from '@lyness/agent'
-import type { Branded } from '@lyness/brand'
-import type { ContentBlock, MessageId } from '@lyness/llm'
-import type { SessionEvent, SessionId } from '@lyness/session'
-import type { ObjectJsonSchema, ToolRestriction } from '@lyness/tools'
+import type { Agent, AgentOptions } from '@lyness/lyn-agent'
+import type { Branded } from '@lyness/lyn-brand'
+import type { ContentBlock, MessageId } from '@lyness/lyn-llm'
+import type { SessionEvent, SessionId } from '@lyness/lyn-session'
+import type { ObjectJsonSchema, ToolRestriction } from '@lyness/lyn-tools'
 import type { SubagentDescriptorData } from './descriptor.ts'
 
 /** Identifies one accepted subagent run across its lifecycle event pair. */

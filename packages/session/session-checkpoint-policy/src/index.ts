@@ -1,15 +1,15 @@
 /**
  * Semantic durability checkpoints for model requests, top-level tool dispatch,
  * and completed agent steps.
- * @module @lyness/session-checkpoint-policy
+ * @module @lyness/lyn-session-checkpoint-policy
  */
 
 import type { Context } from '@lyness/cordis'
-import type { Session } from '@lyness/session'
-import type { StreamChunk } from '@lyness/llm'
-import { TOOL_ABORTED_BEFORE_DISPATCH, type ToolExecutionResult } from '@lyness/tools'
-import type { PreStepDecision } from '@lyness/agent'
-import type {} from '@lyness/session-persistence'
+import type { Session } from '@lyness/lyn-session'
+import type { StreamChunk } from '@lyness/lyn-llm'
+import { TOOL_ABORTED_BEFORE_DISPATCH, type ToolExecutionResult } from '@lyness/lyn-tools'
+import type { PreStepDecision } from '@lyness/lyn-agent'
+import type {} from '@lyness/lyn-session-persistence'
 
 /** Cordis plugin name used by Loader diagnostics. */
 export const name = 'session-checkpoint-policy'

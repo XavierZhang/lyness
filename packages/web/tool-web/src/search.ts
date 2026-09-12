@@ -6,10 +6,10 @@
  */
 
 import type { Context } from '@lyness/cordis'
-import { defineTool } from '@lyness/tools'
-import type { GenericCallView, ToolResult, WebSearchResultView, WebSource } from '@lyness/tools'
-import type { JsonValue } from '@lyness/util-values'
-import type { WebSearchResult, WebSearchSource } from '@lyness/web'
+import { defineTool } from '@lyness/lyn-tools'
+import type { GenericCallView, ToolResult, WebSearchResultView, WebSource } from '@lyness/lyn-tools'
+import type { JsonValue } from '@lyness/lyn-util-values'
+import type { WebSearchResult, WebSearchSource } from '@lyness/lyn-web'
 import { EXTERNAL_WEB_CONTENT_NOTICE } from './trust.ts'
 
 /**
@@ -301,7 +301,7 @@ function mergeSearchResults(
  *   request's `maxResults`.
  * @param maxQueries - the deployment's query cap enforced before provider calls.
  * @param timeoutMs - the cooperative tool-call budget (ms) attached as the tool's
- *   `ToolDefinition.timeoutMs` for `@lyness/tool-call-timeout-policy` to enforce.
+ *   `ToolDefinition.timeoutMs` for `@lyness/lyn-tool-call-timeout-policy` to enforce.
  * @param fetchEnabled - whether the same composition exposes `web_fetch`, which
  *   permits recommending that follow-up tool when it is also visible at assembly.
  */

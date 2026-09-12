@@ -1,9 +1,9 @@
 import { Context } from '@lyness/cordis'
 import { describe, expect, it } from 'vitest'
-import { SettingsProvider, type SettingsNamespace } from '@lyness/settings'
+import { SettingsProvider, type SettingsNamespace } from '@lyness/lyn-settings'
 import {
   LOCALE_SETTINGS_NAMESPACE, apply,
-} from '@lyness/client-locale'
+} from '@lyness/lyn-client-locale'
 
 class MemorySettings extends SettingsProvider {
   readonly writable = true

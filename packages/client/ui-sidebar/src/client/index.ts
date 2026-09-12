@@ -1,14 +1,14 @@
 /** Registers the sidebar shell and global panel navigation. */
 import type { Context as ClientContext } from '@lyness/cordis'
-import { createSnapshotStore } from '@lyness/client-store'
-import { resolveSlotLabel } from '@lyness/client-ui-slots'
-import type { MainPanelId } from '@lyness/client-ui-layout/client'
+import { createSnapshotStore } from '@lyness/lyn-client-store'
+import { resolveSlotLabel } from '@lyness/lyn-client-ui-slots'
+import type { MainPanelId } from '@lyness/lyn-client-ui-layout/client'
 // Type-only: pulls the locale plugin's Context merge (ctx.locale).
-import type {} from '@lyness/client-locale/client'
+import type {} from '@lyness/lyn-client-locale/client'
 // Type-only: pulls the SlotRegistry service merge (ctx.slots).
-import type {} from '@lyness/client-ui-renderer/client'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
 // Type-only: pulls the Session root standard-props merge.
-import type {} from '@lyness/client-ui-session/client'
+import type {} from '@lyness/lyn-client-ui-session/client'
 import type { SidebarPanelMetadata, SidebarRootInjected } from './contract/slots.ts'
 import { SidebarRoot } from './SidebarRoot.tsx'
 import { en, zh, type SidebarKey } from './locales.ts'
@@ -20,7 +20,7 @@ export type {
 } from './contract/slots.ts'
 export type { SidebarKey } from './locales.ts'
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface LocaleNamespaceMap {
     /** Sidebar controls and global panel copy. */
     sidebar: SidebarKey

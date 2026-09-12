@@ -1,8 +1,8 @@
 // @vitest-environment jsdom
 import { describe, expect, it, vi } from 'vitest'
-import { AttachmentId } from '@lyness/attachment'
-import type { SessionFace } from '@lyness/api-session-controller/client'
-import { RemoteError, SlotTestRuntime } from '@lyness/client-test-runtime'
+import { AttachmentId } from '@lyness/lyn-attachment'
+import type { SessionFace } from '@lyness/lyn-api-session-controller/client'
+import { RemoteError, SlotTestRuntime } from '@lyness/lyn-client-test-runtime'
 import { HistoricalImageCache } from '../src/client/conversation/historical-images.ts'
 
 describe('HistoricalImageCache', () => {

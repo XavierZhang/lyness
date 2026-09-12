@@ -4,14 +4,14 @@ import {
   SessionFormatUnsupportedMigrationError,
   sessionFormatCount,
   sessionFormatSafeInteger,
-} from '@lyness/session-format'
+} from '@lyness/lyn-session-format'
 import type {
   SessionFormatArtifact,
   SessionFormatHeader,
   SessionFormatJsonObject,
   SessionFormatJsonValue,
-} from '@lyness/session-format'
-import { assertReleasedArtifactRelationships } from '@lyness/session-format-v0-to-v1'
+} from '@lyness/lyn-session-format'
+import { assertReleasedArtifactRelationships } from '@lyness/lyn-session-format-v0-to-v1'
 import { RELEASED_V2_EVENT_DISPOSITIONS } from './dispositions.ts'
 
 const HEADER_REQUIRED = ['version', 'id', 'createdAt', 'isSeeded', 'delegationDepth'] as const

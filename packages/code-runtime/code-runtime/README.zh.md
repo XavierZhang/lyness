@@ -3,7 +3,7 @@ description: "抽象代码执行 seam（`ctx.codeRuntime`），供用户与维�
 kind: "package-reference"
 ---
 
-# @lyness/code-runtime
+# @lyness/lyn-code-runtime
 
 [English](README.md) | 中文
 

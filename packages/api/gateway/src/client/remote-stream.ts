@@ -1,7 +1,7 @@
 /** Reconnecting lifecycle for one single-consumer Remote stream. */
 
-import { RemoteError, remoteErrorOf } from '@lyness/typert-protocol'
-import type { ConnectionHandle } from '@lyness/client-connection/client'
+import { RemoteError, remoteErrorOf } from '@lyness/lyn-typert-protocol'
+import type { ConnectionHandle } from '@lyness/lyn-client-connection/client'
 import { RemoteStreamCarrierError } from './stream-client.ts'
 
 /** One item annotated with the physical Remote-stream generation that delivered it. */

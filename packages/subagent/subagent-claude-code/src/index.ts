@@ -3,12 +3,12 @@
  * invokes the official Agent SDK in the delegating Session's workspace and
  * places the SDK-spawned real CLI under the shared subprocess owner.
  *
- * @module @lyness/subagent-claude-code
+ * @module @lyness/lyn-subagent-claude-code
  */
 
 import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import { MAX_TIMER_DELAY_MS } from '@lyness/timeout'
+import { MAX_TIMER_DELAY_MS } from '@lyness/lyn-timeout'
 import {
   assertPositiveFinite,
   NO_START_CAPABILITIES,
@@ -16,7 +16,7 @@ import {
   type ResolvedSubagentStartRequest,
   type SubagentCapabilities,
   type SubagentProvider,
-} from '@lyness/subagent'
+} from '@lyness/lyn-subagent'
 import {
   CLAUDE_CODE_PERMISSION_MODES,
   DEFAULT_CLAUDE_CODE_PERMISSION_MODE,

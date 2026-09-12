@@ -1,7 +1,7 @@
 /**
  * Model-facing workspace instruction rendering within an explicit byte budget.
  *
- * @module @lyness/agent-instructions/render
+ * @module @lyness/lyn-agent-instructions/render
  */
 
 import { basename, dirname } from 'node:path'

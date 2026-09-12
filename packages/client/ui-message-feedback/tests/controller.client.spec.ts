@@ -7,11 +7,11 @@
  */
 import { describe, expect, it, vi } from 'vitest'
 import type { Context as ClientContext } from '@lyness/cordis'
-import type { MessageId, SessionId } from '@lyness/api-remotes/client'
-import { RemoteError } from '@lyness/client-test-runtime'
+import type { MessageId, SessionId } from '@lyness/lyn-api-remotes/client'
+import { RemoteError } from '@lyness/lyn-client-test-runtime'
 import type {
   MessageFeedbackItem, MessageFeedbackVersion,
-} from '@lyness/message-feedback/types'
+} from '@lyness/lyn-message-feedback/types'
 import { MessageFeedbackController } from '../src/client/controller.ts'
 
 const SESSION = 's-1' as SessionId

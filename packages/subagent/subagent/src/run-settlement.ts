@@ -3,11 +3,11 @@
  * the one-shot background path uses Jobs; continuable children have no Task,
  * no per-message result, and no Task cancellation.
  *
- * @module @lyness/subagent/run-settlement
+ * @module @lyness/lyn-subagent/run-settlement
  */
 
-import type { ContentBlock } from '@lyness/llm'
-import type { JobOutcome } from '@lyness/jobs'
+import type { ContentBlock } from '@lyness/lyn-llm'
+import type { JobOutcome } from '@lyness/lyn-jobs'
 import type { SubagentResult, SubagentRun } from './types.ts'
 
 /** Flatten a child's final output blocks to the task's final text. */

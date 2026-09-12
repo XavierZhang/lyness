@@ -9,14 +9,14 @@
 
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import AgentRegistry from '@lyness/agent'
-import type { Agent } from '@lyness/agent'
-import SessionStore from '@lyness/session'
-import type { Session } from '@lyness/session'
-import { CommandId } from '@lyness/commands/brand'
+import AgentRegistry from '@lyness/lyn-agent'
+import type { Agent } from '@lyness/lyn-agent'
+import SessionStore from '@lyness/lyn-session'
+import type { Session } from '@lyness/lyn-session'
+import { CommandId } from '@lyness/lyn-commands/brand'
 // Side-effect type imports: the configuration-event SessionEventMap merges.
-import type {} from '@lyness/permission-presets'
-import type {} from '@lyness/sandbox-policy'
+import type {} from '@lyness/lyn-permission-presets'
+import type {} from '@lyness/lyn-sandbox-policy'
 import { createSessionTestRemote, type TestSessionRemote } from './test-remote.ts'
 
 async function harness(): Promise<{ ctx: Context; remote: TestSessionRemote; attach: (session: Session) => void }> {

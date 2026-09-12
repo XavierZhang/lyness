@@ -7,11 +7,11 @@
  * must stub); implementation-internal entry points (history staging, wire-frame
  * dispatch) stay on the class, invisible out here.
  */
-import type { AttachmentIdType, FileAttachmentRef, ImageAttachmentRef } from '@lyness/attachment'
-import type { MessageId } from '@lyness/llm/brand'
-import type { SessionId, SessionSeq } from '@lyness/session/types'
-import type { RemoteResult } from '@lyness/typert-protocol'
-import type { ObservableSnapshot } from '@lyness/client-store'
+import type { AttachmentIdType, FileAttachmentRef, ImageAttachmentRef } from '@lyness/lyn-attachment'
+import type { MessageId } from '@lyness/lyn-llm/brand'
+import type { SessionId, SessionSeq } from '@lyness/lyn-session/types'
+import type { RemoteResult } from '@lyness/lyn-typert-protocol'
+import type { ObservableSnapshot } from '@lyness/lyn-client-store'
 import type { PromptContentPart, QueueAction, SessionRequestId } from '../../types.ts'
 import type { PendingSubmissionAttachment, SessionSnapshot } from './snapshot.ts'
 

@@ -1,12 +1,12 @@
 import { readFile } from 'node:fs/promises'
 import { resolve } from 'node:path'
-import { boot } from '@lyness/app-boot'
-import { type Agent } from '@lyness/agent'
-import { Session, SessionId } from '@lyness/session'
-import type {} from '@lyness/fs-e2b'
-import type {} from '@lyness/bash-local'
-import type {} from '@lyness/lsp-stdio'
-import type {} from '@lyness/terminal-bash'
+import { boot } from '@lyness/lyn-app-boot'
+import { type Agent } from '@lyness/lyn-agent'
+import { Session, SessionId } from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-fs-e2b'
+import type {} from '@lyness/lyn-bash-local'
+import type {} from '@lyness/lyn-lsp-stdio'
+import type {} from '@lyness/lyn-terminal-bash'
 
 const configPath = process.argv[2]
 if (configPath === undefined) throw new Error('usage: bin.ts <cordis.yml>')

@@ -6,7 +6,7 @@ import {
   type GenerateOptions,
   type LlmResolvedModelInfo,
   type StreamChunk,
-} from '@lyness/llm'
+} from '@lyness/lyn-llm'
 
 const HIGH = ReasoningEffortId('high')
 const OFF = ReasoningEffortId('off')

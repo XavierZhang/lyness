@@ -3,16 +3,16 @@
 import type { Context } from '@lyness/cordis'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { act, cleanup, fireEvent, waitFor, within } from '@testing-library/react'
-import { SlotTestRuntime } from '@lyness/client-test-runtime'
-import { LocaleRuntime } from '@lyness/client-locale/client'
-import { en as commonEn } from '@lyness/client-locale/src/locales/en.ts'
-import { zh as commonZh } from '@lyness/client-locale/src/locales/zh.ts'
-import { IconGlobeOutline14 } from '@lyness/client-ui-primitives'
-import type { ILayout, MainPanelId } from '@lyness/client-ui-layout/client'
-import type { PropsRenderSlots, PropsRuntime, SlotLabel } from '@lyness/client-ui-slots'
+import { SlotTestRuntime } from '@lyness/lyn-client-test-runtime'
+import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
+import { en as commonEn } from '@lyness/lyn-client-locale/src/locales/en.ts'
+import { zh as commonZh } from '@lyness/lyn-client-locale/src/locales/zh.ts'
+import { IconGlobeOutline14 } from '@lyness/lyn-client-ui-primitives'
+import type { ILayout, MainPanelId } from '@lyness/lyn-client-ui-layout/client'
+import type { PropsRenderSlots, PropsRuntime, SlotLabel } from '@lyness/lyn-client-ui-slots'
 import { apply, inject } from '../src/client/index.ts'
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface LocaleNamespaceMap {
     'sidebar-panel-test': 'alpha'
   }

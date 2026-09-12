@@ -1,8 +1,8 @@
 // @vitest-environment jsdom
 import { Context } from '@lyness/cordis'
-import { createScope, scopeOf } from '@lyness/api-session-controller/client'
-import type { ToolCallId } from '@lyness/llm'
-import type { SessionId } from '@lyness/session/types'
+import { createScope, scopeOf } from '@lyness/lyn-api-session-controller/client'
+import type { ToolCallId } from '@lyness/lyn-llm'
+import type { SessionId } from '@lyness/lyn-session/types'
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { ApprovalPanel } from '../src/client/ApprovalPanel.tsx'

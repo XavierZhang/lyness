@@ -1,7 +1,7 @@
 /**
  * Low-level JSON-RPC client for a lyness SDK runtime subprocess.
  * {@link HarnessClient} owns the child process: it spawns the runtime, speaks
- * the `@lyness/sdk-protocol` wire over the child's stdio, fans
+ * the `@lyness/lyn-sdk-protocol` wire over the child's stdio, fans
  * server notifications out to subscriptions, and tears the child down to
  * quiescence through a private EOF → SIGTERM → SIGKILL ladder. The design
  * twin is the Python SDK's `HarnessClient` (`python/sdk`); both drive the
@@ -9,7 +9,7 @@
  * spawns directly rather than through the `lyn-subprocess` service — the
  * seam's documented exception for SDK-managed transports.
  *
- * @module @lyness/sdk-client/client
+ * @module @lyness/lyn-sdk-client/client
  */
 
 import { spawn, type ChildProcess } from 'node:child_process'
@@ -20,7 +20,7 @@ import {
   type InitializeResult,
   type SessionPromptParams,
   type SdkPromptContentBlock,
-} from '@lyness/sdk-protocol'
+} from '@lyness/lyn-sdk-protocol'
 import { disposeRuntimeProcess } from './dispose.ts'
 import { resolveLynLaunch, type RuntimeProcessOptions } from './launch.ts'
 import type { HarnessClientOptions, HarnessNotification, NotificationFilter } from './types.ts'

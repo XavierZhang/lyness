@@ -3,11 +3,11 @@
  * contract and rejects every violation by name. Meta arrives as schema-checked
  * JSON data, never evaluated script text; evaluating it on the host could run getters outside the
  * worker timeout that exists to isolate model-written code.
- * @module @lyness/workflow-worker-thread/meta
+ * @module @lyness/lyn-workflow-worker-thread/meta
  */
 
-import { WorkflowError } from '@lyness/workflow'
-import type { WorkflowMeta, WorkflowPhase } from '@lyness/workflow'
+import { WorkflowError } from '@lyness/lyn-workflow'
+import type { WorkflowMeta, WorkflowPhase } from '@lyness/lyn-workflow'
 
 /** Collect shape violations for a meta value (plain JSON data by the seam contract). */
 function validateMetaShape(meta: unknown): { meta?: WorkflowMeta; violations: string[] } {

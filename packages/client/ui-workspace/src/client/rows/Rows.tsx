@@ -12,9 +12,9 @@ import {
   IconEditOutline16, IconEllipsisOutline16, IconFolderClose16, IconFolderOpen16,
   IconPlusOutline16, IconTrashOutline16, IconTriangleRightFill14, Menu, relativeTime,
   StateDot,
-} from '@lyness/client-ui-primitives'
-import type { StateDotState } from '@lyness/client-ui-primitives'
-import { abbreviateHomePath } from '@lyness/util-workspace-path'
+} from '@lyness/lyn-client-ui-primitives'
+import type { StateDotState } from '@lyness/lyn-client-ui-primitives'
+import { abbreviateHomePath } from '@lyness/lyn-util-workspace-path'
 import type { WorkspaceBrowserProps } from '../contract/slots.ts'
 import type { GroupNode, SearchResultNode, SessionNode } from '../tree.ts'
 import css from './Rows.module.css'

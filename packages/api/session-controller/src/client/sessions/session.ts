@@ -1,11 +1,11 @@
 // Sessions remain resident after creation so their open Remote sources keep running off-screen.
 
 import type { Context } from '@lyness/cordis'
-import { randomUUID } from '@lyness/util-crypto'
-import type { AttachmentIdType, FileAttachmentRef, ImageAttachmentRef } from '@lyness/attachment'
-import type { SubagentAddress } from '@lyness/subagent/client'
-import type { MessageId } from '@lyness/llm/brand'
-import { SessionLogOffset, SessionSeq, type SessionId } from '@lyness/session/types'
+import { randomUUID } from '@lyness/lyn-util-crypto'
+import type { AttachmentIdType, FileAttachmentRef, ImageAttachmentRef } from '@lyness/lyn-attachment'
+import type { SubagentAddress } from '@lyness/lyn-subagent/client'
+import type { MessageId } from '@lyness/lyn-llm/brand'
+import { SessionLogOffset, SessionSeq, type SessionId } from '@lyness/lyn-session/types'
 import { SessionEventStream } from '../transport.ts'
 import type { SessionJournalChange } from '../transport.ts'
 import type {
@@ -29,9 +29,9 @@ import type {
   SessionEventLikeEntry, SessionLiveEventEntry,
 } from '../contract/events.ts'
 import { Notifier } from './notifier.ts'
-import { isRemoteFailure } from '@lyness/api-gateway/client'
-import { RemoteError } from '@lyness/typert-protocol'
-import type { RemoteFailure, RemoteResult } from '@lyness/typert-protocol'
+import { isRemoteFailure } from '@lyness/lyn-api-gateway/client'
+import { RemoteError } from '@lyness/lyn-typert-protocol'
+import type { RemoteFailure, RemoteResult } from '@lyness/lyn-typert-protocol'
 import type { SessionRemotes } from './remotes.ts'
 import { ProjectionValueStore } from './projection-store.ts'
 import type { ProjectionsBaseline } from './projection-store.ts'

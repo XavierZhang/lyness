@@ -6,7 +6,7 @@
  * committed semantic updates, cancellation, and one-shot permission decisions;
  * presentation and human-interaction features stay with the harness's UI modules.
  *
- * @module @lyness/acp
+ * @module @lyness/lyn-acp
  */
 
 import type { Context } from '@lyness/cordis'
@@ -16,8 +16,8 @@ import { realpath } from 'node:fs/promises'
 import { isAbsolute, resolve } from 'node:path'
 import { Readable, Writable } from 'node:stream'
 import Schema from '@lyness/schemastery'
-import { brandString } from '@lyness/brand'
-import { errorChain } from '@lyness/llm'
+import { brandString } from '@lyness/lyn-brand'
+import { errorChain } from '@lyness/lyn-llm'
 import {
   agent as createAcpAgentApp,
   methods,
@@ -45,11 +45,11 @@ import {
   type SessionNotification,
   type Stream,
 } from '@agentclientprotocol/sdk'
-import type { ModelSelection } from '@lyness/agent'
-import type { SessionId } from '@lyness/session'
-import type {} from '@lyness/session-persistence'
+import type { ModelSelection } from '@lyness/lyn-agent'
+import type { SessionId } from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-session-persistence'
 // Side-effect type import: declaration-merges the approval waterfall answered below.
-import type {} from '@lyness/user-approval'
+import type {} from '@lyness/lyn-user-approval'
 import { supportsAcpImagePrompts } from './content.ts'
 import { AcpMcpConfigError } from './mcp.ts'
 import { AcpModelConfigError } from './model-control.ts'
@@ -200,7 +200,7 @@ export function apply(ctx: Context, config: AcpConfig): void {
       // No preset composition: the ACP bundle keeps the model-facing rows in
       // the host plane, so this agent reads them from the global layer. A
       // deployment that configures a roster has to join one here first
-      // (@lyness/agent-presets README, "Composing a child agent").
+      // (@lyness/lyn-agent-presets README, "Composing a child agent").
       let record: AcpSession
       try {
         record = await AcpSession.create(ctx, {

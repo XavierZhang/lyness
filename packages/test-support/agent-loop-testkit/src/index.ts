@@ -2,21 +2,21 @@
  * Shared service mounting, real AgentLoop drivers, and structural Inbox stubs
  * for agent-loop tests. Callers retain ownership of their contexts, adapters,
  * optional plugins, agents, and teardown.
- * @module @lyness/agent-loop-testkit
+ * @module @lyness/lyn-agent-loop-testkit
  */
 
 import type { Context } from '@lyness/cordis'
-import AgentRegistry from '@lyness/agent'
-import type { Agent, AgentOptions, Inbox, InboxTarget } from '@lyness/agent'
-import AgentLoop from '@lyness/agent-loop'
-import LlmRuntime from '@lyness/llm'
-import SessionStore from '@lyness/session'
-import type { SessionHeader, SessionId, UserMessage } from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import SystemPrompt from '@lyness/system-prompt'
-import type { Config as SystemPromptConfig } from '@lyness/system-prompt'
-import ToolRuntime from '@lyness/tools'
-import type { Config as ToolRuntimeConfig } from '@lyness/tools'
+import AgentRegistry from '@lyness/lyn-agent'
+import type { Agent, AgentOptions, Inbox, InboxTarget } from '@lyness/lyn-agent'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import LlmRuntime from '@lyness/lyn-llm'
+import SessionStore from '@lyness/lyn-session'
+import type { SessionHeader, SessionId, UserMessage } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import type { Config as SystemPromptConfig } from '@lyness/lyn-system-prompt'
+import ToolRuntime from '@lyness/lyn-tools'
+import type { Config as ToolRuntimeConfig } from '@lyness/lyn-tools'
 
 export { createInboxStub, unsupportedInbox } from './inbox.ts'
 

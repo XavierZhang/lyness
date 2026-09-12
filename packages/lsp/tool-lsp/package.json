@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/tool-lsp",
+  "name": "@lyness/lyn-tool-lsp",
   "description": "Model-facing lsp tool over the lyness LSP capability seam (ctx.lsp) — one read-only tool with goToDefinition/findReferences/goToImplementation/hover operations, one-based UTF-16 cursor coordinates, bounded location rendering, and hover normalization",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -28,28 +28,28 @@
   "license": "MIT",
   "peerDependencies": {
     "@lyness/cordis": "workspace:^",
-    "@lyness/llm": "workspace:^",
-    "@lyness/lsp": "workspace:^",
-    "@lyness/system-prompt": "workspace:^",
-    "@lyness/timeout": "workspace:^",
-    "@lyness/tools": "workspace:^"
+    "@lyness/lyn-llm": "workspace:^",
+    "@lyness/lyn-lsp": "workspace:^",
+    "@lyness/lyn-system-prompt": "workspace:^",
+    "@lyness/lyn-timeout": "workspace:^",
+    "@lyness/lyn-tools": "workspace:^"
   },
   "dependencies": {
-    "@lyness/util-values": "workspace:^",
+    "@lyness/lyn-util-values": "workspace:^",
     "@lyness/schemastery": "workspace:^"
   },
   "devDependencies": {
     "@lyness/cordis": "workspace:^",
-    "@lyness/agent": "workspace:^",
-    "@lyness/fs-local": "workspace:^",
-    "@lyness/llm": "workspace:^",
-    "@lyness/lsp": "workspace:^",
-    "@lyness/lsp-stdio": "workspace:^",
-    "@lyness/session": "workspace:^",
-    "@lyness/subprocess-local": "workspace:^",
-    "@lyness/system-prompt": "workspace:^",
-    "@lyness/timeout": "workspace:^",
-    "@lyness/tool-call-timeout-policy": "workspace:^",
-    "@lyness/tools": "workspace:^"
+    "@lyness/lyn-agent": "workspace:^",
+    "@lyness/lyn-fs-local": "workspace:^",
+    "@lyness/lyn-llm": "workspace:^",
+    "@lyness/lyn-lsp": "workspace:^",
+    "@lyness/lyn-lsp-stdio": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
+    "@lyness/lyn-subprocess-local": "workspace:^",
+    "@lyness/lyn-system-prompt": "workspace:^",
+    "@lyness/lyn-timeout": "workspace:^",
+    "@lyness/lyn-tool-call-timeout-policy": "workspace:^",
+    "@lyness/lyn-tools": "workspace:^"
   }
 }

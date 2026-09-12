@@ -10,7 +10,7 @@
 
 ```ts
 import type { Context } from '@lyness/cordis'
-import { defineTool } from '@lyness/tools'
+import { defineTool } from '@lyness/lyn-tools'
 
 export const name = 'greet-tool'
 export const inject = ['tools']

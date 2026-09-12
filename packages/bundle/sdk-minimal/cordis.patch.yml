@@ -4,60 +4,60 @@
 
 - insert:
     - id: sdk-app-startup
-      name: '@lyness/sdk-app'
+      name: '@lyness/lyn-sdk-app'
       config:
         profile: sdk-minimal
 
     - id: sdk-jsonrpc-server
-      name: '@lyness/sdk-jsonrpc-server'
+      name: '@lyness/lyn-sdk-jsonrpc-server'
       inject: [sdkAppStartup, loader]
       config:
         maxTokensAsSuccess: false
 
     - id: deepseek-llm-api-extensions
-      name: '@lyness/deepseek-llm-api-extensions'
+      name: '@lyness/lyn-deepseek-llm-api-extensions'
 
     - id: session-log-deepseek
-      name: '@lyness/session-log-deepseek'
+      name: '@lyness/lyn-session-log-deepseek'
 
     - id: plugin-package-inventory-deepseek
-      name: '@lyness/plugin-package-inventory-deepseek'
+      name: '@lyness/lyn-plugin-package-inventory-deepseek'
 
     - id: llm-deepseek
-      name: '@lyness/llm-deepseek'
+      name: '@lyness/lyn-llm-deepseek'
       config:
         apiKeyEnv: DEEPSEEK_API_KEY
         defaultContextWindow: !!js Number(process.env.LYNESS_CONTEXT_WINDOW ?? 1000000)
         streamIdleTimeoutMs: 172800000
 
     - id: sandbox
-      name: '@lyness/sandbox-local'
+      name: '@lyness/lyn-sandbox-local'
 
     # Shared projection registry: sandbox-policy and terminal-bash fold
     # sandbox-mode state through its units and require it as a hard injection.
     - id: session-projection
-      name: '@lyness/session-projection'
+      name: '@lyness/lyn-session-projection'
 
     - id: sandbox-policy
-      name: '@lyness/sandbox-policy'
+      name: '@lyness/lyn-sandbox-policy'
       config:
         mode: danger-full-access
         workspaceRoot: !!js process.cwd()
 
     - id: subprocess
-      name: '@lyness/subprocess-local'
+      name: '@lyness/lyn-subprocess-local'
 
     - id: pty
-      name: '@lyness/terminal'
+      name: '@lyness/lyn-terminal'
 
     - id: terminal-bash
-      name: '@lyness/terminal-bash'
+      name: '@lyness/lyn-terminal-bash'
       disabled: !!js process.platform === 'win32'
       config:
         timeoutMs: 300000
 
     - id: terminal-pwsh
-      name: '@lyness/terminal-bash'
+      name: '@lyness/lyn-terminal-bash'
       disabled: !!js process.platform !== 'win32'
       config:
         shellDialect: pwsh
@@ -69,59 +69,59 @@
       name: '@lyness/cordis-plugin-timer'
 
     - id: llm
-      name: '@lyness/llm'
+      name: '@lyness/lyn-llm'
 
     - id: session
-      name: '@lyness/session'
+      name: '@lyness/lyn-session'
 
     - id: session-title
-      name: '@lyness/session-title'
+      name: '@lyness/lyn-session-title'
       config:
         fallbackMaxWords: 5
         fallbackMaxBytes: 40
         maxTitleBytes: 80
 
     - id: system-prompt
-      name: '@lyness/system-prompt'
+      name: '@lyness/lyn-system-prompt'
       config:
         includeHarnessIdentity: false
         includeRuntimeContext: false
         personaPrefix: !!js process.env.LYNESS_SYSTEM_PROMPT ?? 'You are a helpful software engineer assistant.'
 
     - id: tools
-      name: '@lyness/tools'
+      name: '@lyness/lyn-tools'
 
     - id: agent
-      name: '@lyness/agent'
+      name: '@lyness/lyn-agent'
 
     - id: llm-retry
-      name: '@lyness/llm-retry'
+      name: '@lyness/lyn-llm-retry'
 
     - id: jobs
-      name: '@lyness/jobs-local'
+      name: '@lyness/lyn-jobs-local'
 
     - id: invariants
-      name: '@lyness/invariants'
+      name: '@lyness/lyn-invariants'
 
     - id: session-invariant
-      name: '@lyness/session/invariant'
+      name: '@lyness/lyn-session/invariant'
 
     - id: agent-invariant
-      name: '@lyness/agent/invariant'
+      name: '@lyness/lyn-agent/invariant'
 
     - id: scope-invariant
-      name: '@lyness/scope/invariant'
+      name: '@lyness/lyn-scope/invariant'
 
     - id: agent-loop-invariant
-      name: '@lyness/agent-loop/invariant'
+      name: '@lyness/lyn-agent-loop/invariant'
 
     - id: agent-loop
-      name: '@lyness/agent-loop'
+      name: '@lyness/lyn-agent-loop'
       config:
         agents: []
 
     - id: persistent-bash
-      name: '@lyness/tool-bash-persistent'
+      name: '@lyness/lyn-tool-bash-persistent'
       disabled: !!js process.platform === 'win32'
       config:
         timeoutMs: 300000
@@ -135,7 +135,7 @@
           * Please run long lived commands in the background, e.g. 'sleep 10 &' or start a server in the background.
 
     - id: persistent-pwsh
-      name: '@lyness/tool-pwsh-persistent'
+      name: '@lyness/lyn-tool-pwsh-persistent'
       disabled: !!js process.platform !== 'win32'
       config:
         timeoutMs: 300000
@@ -149,7 +149,7 @@
           * Please run long lived commands in the background, e.g. 'Start-Job' or start a server with Start-Process.
 
     - id: sessions
-      name: '@lyness/session-persistence-jsonl'
+      name: '@lyness/lyn-session-persistence-jsonl'
       config:
         root: !!js lynHomePath('sessions')
         compression: none

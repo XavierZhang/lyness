@@ -1,9 +1,9 @@
 // @vitest-environment jsdom
-import type { GlobalStandardProps } from '@lyness/client-ui-slots'
+import type { GlobalStandardProps } from '@lyness/lyn-client-ui-slots'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { useEffect, useState } from 'react'
 import { act, cleanup, fireEvent, render, screen } from '@testing-library/react'
-import { makeTranslate } from '@lyness/client-test-runtime'
+import { makeTranslate } from '@lyness/lyn-client-test-runtime'
 import type { SettingsRootComponentProps } from '../src/client/shell-contract.ts'
 import { SettingsRoot } from '../src/client/SettingsRoot.tsx'
 import { en, zh } from '../src/client/locales.ts'

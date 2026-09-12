@@ -1,6 +1,6 @@
 /**
  * `SandboxedFileSystem`: the sandbox-enforcing implementation of the
- * `@lyness/fs` Service Definition. It extends `LocalFileSystem` so all
+ * `@lyness/lyn-fs` Service Definition. It extends `LocalFileSystem` so all
  * text-storage mechanics — resolve, stat, read/stream, list, the atomic
  * write and the read-match-write edit critical section — are the local
  * implementation's, verbatim; this package adds only the per-call POLICY fence
@@ -12,7 +12,7 @@
  * and only the target path is untrusted, so canonicalize-then-contain is the
  * complete answer to this surface. This is containment, not a security
  * boundary; kernel-grade isolation of untrusted CODE stays `ctx.shell`'s job
- * (`@lyness/bash-sandbox`). The residual
+ * (`@lyness/lyn-bash-sandbox`). The residual
  * TOCTOU (an ancestor symlink swapped between the containment re-check and the
  * syscall) is narrowed by re-canonicalizing immediately before delegating and
  * is accepted for this threat model.
@@ -23,17 +23,17 @@
  * `danger-full-access` delegates unfenced. A denial throws the structured
  * `FS_SANDBOX_DENIED`.
  *
- * @module @lyness/fs-sandbox
+ * @module @lyness/lyn-fs-sandbox
  */
 
 import { Context } from '@lyness/cordis'
-import { LocalFileSystem } from '@lyness/fs-local'
-import type { Config as LocalConfig } from '@lyness/fs-local'
-import { FsError } from '@lyness/fs'
-import type { FsEditOutcome, FsEditRequest, FsTarget, FsVersion, FsWriteIntent, FsWriteOutcome } from '@lyness/fs'
-import { writableRoots } from '@lyness/sandbox'
-import type { SandboxExecutionPolicy, SandboxMode } from '@lyness/sandbox'
-import type {} from '@lyness/sandbox-policy'
+import { LocalFileSystem } from '@lyness/lyn-fs-local'
+import type { Config as LocalConfig } from '@lyness/lyn-fs-local'
+import { FsError } from '@lyness/lyn-fs'
+import type { FsEditOutcome, FsEditRequest, FsTarget, FsVersion, FsWriteIntent, FsWriteOutcome } from '@lyness/lyn-fs'
+import { writableRoots } from '@lyness/lyn-sandbox'
+import type { SandboxExecutionPolicy, SandboxMode } from '@lyness/lyn-sandbox'
+import type {} from '@lyness/lyn-sandbox-policy'
 import { isPathUnder } from './containment.ts'
 
 /**

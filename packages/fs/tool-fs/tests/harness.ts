@@ -1,11 +1,11 @@
 import { Context } from '@lyness/cordis'
-import type { Agent } from '@lyness/agent'
-import AgentLoop from '@lyness/agent-loop'
-import { mountAgentLoopTestDependencies } from '@lyness/agent-loop-testkit'
-import LocalFileSystem from '@lyness/fs-local'
-import * as FsPolicy from '@lyness/fs-observation-policy'
-import * as ToolFs from '@lyness/tool-fs'
-import * as LlmDeepSeek from '@lyness/llm-deepseek'
+import type { Agent } from '@lyness/lyn-agent'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import { mountAgentLoopTestDependencies } from '@lyness/lyn-agent-loop-testkit'
+import LocalFileSystem from '@lyness/lyn-fs-local'
+import * as FsPolicy from '@lyness/lyn-fs-observation-policy'
+import * as ToolFs from '@lyness/lyn-tool-fs'
+import * as LlmDeepSeek from '@lyness/lyn-llm-deepseek'
 
 /**
  * Build the real fs-tool stack for with-key e2e tests. Agents have no session

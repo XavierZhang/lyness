@@ -1,6 +1,6 @@
 import type {
   SettingsSchemaService,
-} from '@lyness/client-ui-settings/client'
+} from '@lyness/lyn-client-ui-settings/client'
 
 /** Plain schema callbacks exposed to Models stores and presentation components. */
 export type SettingsSchemaOperations = Pick<

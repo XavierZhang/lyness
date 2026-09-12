@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/session-query-sqlite",
+  "name": "@lyness/lyn-session-query-sqlite",
   "description": "Concrete ctx.sessionQuery backend with SQLite FTS5 search",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -27,13 +27,13 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/session": "workspace:^",
-    "@lyness/session-persistence": "workspace:^",
-    "@lyness/session-query": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
+    "@lyness/lyn-session-persistence": "workspace:^",
+    "@lyness/lyn-session-query": "workspace:^",
     "@lyness/cordis": "workspace:^"
   },
   "peerDependenciesMeta": {
-    "@lyness/session-persistence": {
+    "@lyness/lyn-session-persistence": {
       "optional": true
     }
   },
@@ -42,11 +42,11 @@
   },
   "devDependencies": {
     "@lyness/cordis-plugin-loader": "workspace:^",
-    "@lyness/session": "workspace:^",
-    "@lyness/session-persistence": "workspace:^",
-    "@lyness/session-persistence-jsonl": "workspace:^",
-    "@lyness/session-query": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
+    "@lyness/lyn-session-persistence": "workspace:^",
+    "@lyness/lyn-session-persistence-jsonl": "workspace:^",
+    "@lyness/lyn-session-query": "workspace:^",
     "@lyness/cordis": "workspace:^",
-    "@lyness/session-projection": "workspace:^"
+    "@lyness/lyn-session-projection": "workspace:^"
   }
 }

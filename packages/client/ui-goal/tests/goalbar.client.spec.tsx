@@ -2,9 +2,9 @@
 
 import { act, cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import type { GoalSnapshot } from '@lyness/goal/client'
-import { makeTranslate, RemoteError } from '@lyness/client-test-runtime'
-import { zh as commonZh } from '@lyness/client-locale/src/locales/zh.ts'
+import type { GoalSnapshot } from '@lyness/lyn-goal/client'
+import { makeTranslate, RemoteError } from '@lyness/lyn-client-test-runtime'
+import { zh as commonZh } from '@lyness/lyn-client-locale/src/locales/zh.ts'
 import { GoalBar } from '../src/client/GoalBar.tsx'
 import type { GoalActionResult, GoalBarActions } from '../src/client/slots.ts'
 import { zh } from '../src/client/locales.ts'

@@ -1,12 +1,12 @@
 # Keyless replay counterpart: deterministic HTTP remains real; only the model
 # adapter is replaced by replay.
 - id: llm-deepseek
-  name: '@lyness/llm-deepseek'
+  name: '@lyness/lyn-llm-deepseek'
   disabled: true
 
 - insert:
     - id: llm-replay
-      name: '@lyness/llm-replay'
+      name: '@lyness/lyn-llm-replay'
       config:
         providers:
           - id: deepseek-official
@@ -19,13 +19,13 @@
       name: './web-fetch-fixture-server.mjs'
 
 - id: web
-  name: '@lyness/web'
+  name: '@lyness/lyn-web'
 
 - id: web-fetch-http
-  name: '@lyness/web-fetch-http'
+  name: '@lyness/lyn-web-fetch-http'
   disabled: true
 
 - id: tool-web
-  name: '@lyness/tool-web'
+  name: '@lyness/lyn-tool-web'
   config:
     search: false

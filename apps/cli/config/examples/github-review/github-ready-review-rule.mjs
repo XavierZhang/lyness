@@ -1,5 +1,5 @@
 import z from '@lyness/schemastery'
-import { WebhookRuleId } from '@lyness/webhook'
+import { WebhookRuleId } from '@lyness/lyn-webhook'
 
 export const name = 'github-ready-review-rule'
 export const inject = ['webhookRuntime']

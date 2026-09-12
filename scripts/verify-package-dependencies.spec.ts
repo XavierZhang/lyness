@@ -63,26 +63,26 @@ function facts(manifest: PackageDependencyManifest): PackageDependencyFacts {
     manifest,
     workspaceNames: new Set([
       CORDIS,
-      '@lyness/runtime',
-      '@lyness/types',
-      '@lyness/stale',
+      '@lyness/lyn-runtime',
+      '@lyness/lyn-types',
+      '@lyness/lyn-stale',
       '@lyness/schemastery',
     ]),
     allSourceUses: new Map([
-      ['@lyness/runtime', ['packages/core/probe/src/index.ts']],
-      ['@lyness/types', ['packages/core/probe/src/types.ts']],
+      ['@lyness/lyn-runtime', ['packages/core/probe/src/index.ts']],
+      ['@lyness/lyn-types', ['packages/core/probe/src/types.ts']],
     ]),
     hostRuntimeSourceUses: new Map([
-      ['@lyness/runtime', ['packages/core/probe/src/index.ts']],
+      ['@lyness/lyn-runtime', ['packages/core/probe/src/index.ts']],
     ]),
     hostRuntimeExportUses: [{
-      packageName: '@lyness/runtime',
-      specifier: '@lyness/runtime',
+      packageName: '@lyness/lyn-runtime',
+      specifier: '@lyness/lyn-runtime',
       exportName: 'runtimeValue',
       sourcePath: 'packages/core/probe/src/index.ts',
       line: 1,
       column: 10,
-      sourceLine: "import { runtimeValue } from '@lyness/runtime'",
+      sourceLine: "import { runtimeValue } from '@lyness/lyn-runtime'",
     }],
     peerRequiredHostDependencies: new Set(),
     configurationOnlyDevDependencies: new Set(),
@@ -183,39 +183,39 @@ function hostRuntimeFixture(): {
 describe('package dependency scope', () => {
   it('keeps the measured Host relay roster explicit', () => {
     expect(PACKAGE_DEPENDENCY_POLICY.clientFaceExclude).toEqual([
-      '@lyness/api-session-controller',
-      '@lyness/api-workspace-controller',
+      '@lyness/lyn-api-session-controller',
+      '@lyness/lyn-api-workspace-controller',
     ])
     expect(PACKAGE_DEPENDENCY_POLICY.hostPackages).toEqual([
-      '@lyness/llm',
-      '@lyness/session',
+      '@lyness/lyn-llm',
+      '@lyness/lyn-session',
     ])
     expect(PACKAGE_DEPENDENCY_POLICY.configurationOnlyDevDependencies).toEqual({
-      '@lyness/client-locale': ['@lyness/api-remotes'],
-      '@lyness/client-ui-conversation': [
-        '@lyness/api-remotes',
-        '@lyness/client-ui-workspace',
+      '@lyness/lyn-client-locale': ['@lyness/lyn-api-remotes'],
+      '@lyness/lyn-client-ui-conversation': [
+        '@lyness/lyn-api-remotes',
+        '@lyness/lyn-client-ui-workspace',
       ],
-      '@lyness/client-ui-model-selection': ['@lyness/client-ui-input-trigger'],
-      '@lyness/client-ui-sidebar': ['@lyness/client-ui-workspace'],
-      '@lyness/client-ui-subagent': ['@lyness/client-ui-input-trigger'],
-      '@lyness/client-ui-theme': ['@lyness/api-remotes'],
-      '@lyness/client-ui-tool': ['@lyness/api-remotes'],
+      '@lyness/lyn-client-ui-model-selection': ['@lyness/lyn-client-ui-input-trigger'],
+      '@lyness/lyn-client-ui-sidebar': ['@lyness/lyn-client-ui-workspace'],
+      '@lyness/lyn-client-ui-subagent': ['@lyness/lyn-client-ui-input-trigger'],
+      '@lyness/lyn-client-ui-theme': ['@lyness/lyn-api-remotes'],
+      '@lyness/lyn-client-ui-tool': ['@lyness/lyn-api-remotes'],
     })
     expect(PACKAGE_DEPENDENCY_POLICY.duplicateSafePackages).toEqual([
-      '@lyness/brand',
-      '@lyness/typert-protocol',
-      '@lyness/util-crypto',
-      '@lyness/util-values',
+      '@lyness/lyn-brand',
+      '@lyness/lyn-typert-protocol',
+      '@lyness/lyn-util-crypto',
+      '@lyness/lyn-util-values',
     ])
-    expect(PACKAGE_DEPENDENCY_POLICY.safeHostDependencyExports['@lyness/deque']).toEqual(['Deque'])
+    expect(PACKAGE_DEPENDENCY_POLICY.safeHostDependencyExports['@lyness/lyn-deque']).toEqual(['Deque'])
     expect(PACKAGE_DEPENDENCY_POLICY.safeHostDependencyExports['@lyness/schemastery']).toEqual(['default'])
-    expect(PACKAGE_DEPENDENCY_POLICY.safeHostDependencyExports['@lyness/session/types']).toBeUndefined()
-    expect(PACKAGE_DEPENDENCY_POLICY.safeHostDependencyExports['@lyness/typert-protocol']).toBeUndefined()
-    expect(PACKAGE_DEPENDENCY_POLICY.peerRequiredHostExports['@lyness/scope']).toEqual([
+    expect(PACKAGE_DEPENDENCY_POLICY.safeHostDependencyExports['@lyness/lyn-session/types']).toBeUndefined()
+    expect(PACKAGE_DEPENDENCY_POLICY.safeHostDependencyExports['@lyness/lyn-typert-protocol']).toBeUndefined()
+    expect(PACKAGE_DEPENDENCY_POLICY.peerRequiredHostExports['@lyness/lyn-scope']).toEqual([
       'carrierKeyOf', 'scopeOf', 'scopeTarget',
     ])
-    expect(PACKAGE_DEPENDENCY_POLICY.peerRequiredHostExports['@lyness/typert-protocol']).toBeUndefined()
+    expect(PACKAGE_DEPENDENCY_POLICY.peerRequiredHostExports['@lyness/lyn-typert-protocol']).toBeUndefined()
   })
 
   it('discovers the Client directory, lyn.client declarations, and configured Host packages', () => {
@@ -710,8 +710,8 @@ describe('dependency sections', () => {
   it('validates every third-party range before writing any manifest in a repair batch', () => {
     const root = mkdtempSync(join(tmpdir(), 'lyn-dependency-batch-'))
     roots.push(root)
-    const valid = { ...facts({ name: '@lyness/first' }), manifestPath: 'first.json' }
-    const base = facts({ name: '@lyness/second' })
+    const valid = { ...facts({ name: '@lyness/lyn-first' }), manifestPath: 'first.json' }
+    const base = facts({ name: '@lyness/lyn-second' })
     const invalid: PackageDependencyFacts = {
       ...base,
       manifestPath: 'second.json',
@@ -734,9 +734,9 @@ describe('dependency sections', () => {
 
   it('moves browser-only third-party imports to development dependencies without changing their ranges', () => {
     const manifest: PackageDependencyManifest = {
-      name: '@lyness/probe',
-      dependencies: { '@lyness/runtime': 'workspace:^', external: '^1.2.3' },
-      devDependencies: { [CORDIS]: 'workspace:^', '@lyness/types': 'workspace:^' },
+      name: '@lyness/lyn-probe',
+      dependencies: { '@lyness/lyn-runtime': 'workspace:^', external: '^1.2.3' },
+      devDependencies: { [CORDIS]: 'workspace:^', '@lyness/lyn-types': 'workspace:^' },
       peerDependencies: { [CORDIS]: 'workspace:^' },
     }
     const base = facts(manifest)
@@ -761,15 +761,15 @@ describe('dependency sections', () => {
 
   it('does not leak repository configuration into captured dependency facts', () => {
     const manifest: PackageDependencyManifest = {
-      name: '@lyness/client-locale',
-      dependencies: { '@lyness/runtime': 'workspace:^' },
-      devDependencies: { [CORDIS]: 'workspace:^', '@lyness/types': 'workspace:^' },
+      name: '@lyness/lyn-client-locale',
+      dependencies: { '@lyness/lyn-runtime': 'workspace:^' },
+      devDependencies: { [CORDIS]: 'workspace:^', '@lyness/lyn-types': 'workspace:^' },
       peerDependencies: { [CORDIS]: 'workspace:^' },
     }
     const base = facts(manifest)
     const subject: PackageDependencyFacts = {
       ...base,
-      workspaceNames: new Set([...base.workspaceNames, '@lyness/api-remotes']),
+      workspaceNames: new Set([...base.workspaceNames, '@lyness/lyn-api-remotes']),
     }
 
     expect(collectPackageDependencyViolations({
@@ -779,15 +779,15 @@ describe('dependency sections', () => {
 
   it('requires non-workspace Host runtime imports in dependencies', () => {
     const manifest: PackageDependencyManifest = {
-      name: '@lyness/probe',
-      dependencies: { '@lyness/runtime': 'workspace:^' },
-      devDependencies: { [CORDIS]: 'workspace:^', '@lyness/types': 'workspace:^', external: '^1.0.0' },
+      name: '@lyness/lyn-probe',
+      dependencies: { '@lyness/lyn-runtime': 'workspace:^' },
+      devDependencies: { [CORDIS]: 'workspace:^', '@lyness/lyn-types': 'workspace:^', external: '^1.0.0' },
       peerDependencies: { [CORDIS]: 'workspace:^' },
     }
     const subject: PackageDependencyFacts = {
       ...facts(manifest),
       hostRuntimeSourceUses: new Map([
-        ['@lyness/runtime', ['packages/core/probe/src/index.ts']],
+        ['@lyness/lyn-runtime', ['packages/core/probe/src/index.ts']],
         ['external', ['packages/core/probe/src/index.ts']],
       ]),
       allSourceUses: new Map([
@@ -819,14 +819,14 @@ describe('dependency sections', () => {
 
   it('accepts Host dependencies, development-only inputs, and shared Cordis', () => {
     const manifest: PackageDependencyManifest = {
-      name: '@lyness/probe',
+      name: '@lyness/lyn-probe',
       dependencies: {
-        '@lyness/runtime': 'workspace:^',
+        '@lyness/lyn-runtime': 'workspace:^',
         '@lyness/schemastery': 'workspace:^',
         external: '^1.0.0',
       },
       devDependencies: {
-        '@lyness/types': 'workspace:^',
+        '@lyness/lyn-types': 'workspace:^',
         [CORDIS]: 'workspace:^',
       },
       peerDependencies: { [CORDIS]: 'workspace:^' },
@@ -837,20 +837,20 @@ describe('dependency sections', () => {
   })
 
   it('lists managed Host runtime dependencies for fix review', () => {
-    const subject = facts({ name: '@lyness/probe' })
+    const subject = facts({ name: '@lyness/lyn-probe' })
     expect(formatManagedRuntimeDependencies({
       facts: [subject], packages: [], policyViolations: [], workspaceNames: subject.workspaceNames,
     })).toEqual([
       'verify-package-dependencies: 1 managed Host runtime edge(s) remain in dependencies across 1 package(s):',
-      '  @lyness/probe -> @lyness/runtime: @lyness/runtime#runtimeValue',
+      '  @lyness/lyn-probe -> @lyness/lyn-runtime: @lyness/lyn-runtime#runtimeValue',
     ])
   })
 
   it('reports an unapproved Host runtime export without rewriting its dependency section', () => {
     const manifest: PackageDependencyManifest = {
-      name: '@lyness/probe',
-      dependencies: { '@lyness/runtime': 'workspace:^' },
-      devDependencies: { [CORDIS]: 'workspace:^', '@lyness/types': 'workspace:^' },
+      name: '@lyness/lyn-probe',
+      dependencies: { '@lyness/lyn-runtime': 'workspace:^' },
+      devDependencies: { [CORDIS]: 'workspace:^', '@lyness/lyn-types': 'workspace:^' },
       peerDependencies: { [CORDIS]: 'workspace:^' },
     }
     const subject = facts(manifest)
@@ -864,23 +864,23 @@ describe('dependency sections', () => {
     }
 
     expect(safetyViolations).toEqual([
-      'packages/core/probe/src/index.ts:1:10: @lyness/runtime#runtimeValue is not classified as '
-      + 'safe or peer-required — import { runtimeValue } from \'@lyness/runtime\'',
+      'packages/core/probe/src/index.ts:1:10: @lyness/lyn-runtime#runtimeValue is not classified as '
+      + 'safe or peer-required — import { runtimeValue } from \'@lyness/lyn-runtime\'',
     ])
     expect(fixPackageDependencies('/unused', state)).toEqual([])
-    expect(manifest.dependencies).toEqual({ '@lyness/runtime': 'workspace:^' })
+    expect(manifest.dependencies).toEqual({ '@lyness/lyn-runtime': 'workspace:^' })
   })
 
   it('keeps an edge as a peer when one imported export requires shared identity', () => {
     const manifest: PackageDependencyManifest = {
-      name: '@lyness/probe',
-      dependencies: { '@lyness/runtime': 'workspace:^' },
-      devDependencies: { [CORDIS]: 'workspace:^', '@lyness/types': 'workspace:^' },
+      name: '@lyness/lyn-probe',
+      dependencies: { '@lyness/lyn-runtime': 'workspace:^' },
+      devDependencies: { [CORDIS]: 'workspace:^', '@lyness/lyn-types': 'workspace:^' },
       peerDependencies: { [CORDIS]: 'workspace:^' },
     }
     const subject: PackageDependencyFacts = {
       ...facts(manifest),
-      peerRequiredHostDependencies: new Set(['@lyness/runtime']),
+      peerRequiredHostDependencies: new Set(['@lyness/lyn-runtime']),
     }
     expect(collectHostDependencyExportPolicyViolations(
       [subject],
@@ -888,7 +888,7 @@ describe('dependency sections', () => {
       {
         safeHostDependencyExports: {},
         peerRequiredHostExports: {
-          '@lyness/runtime': ['runtimeValue'],
+          '@lyness/lyn-runtime': ['runtimeValue'],
         },
       },
     )).toEqual([])
@@ -897,38 +897,38 @@ describe('dependency sections', () => {
     expect(manifest.dependencies).toBeUndefined()
     expect(manifest.peerDependencies).toMatchObject({
       [CORDIS]: 'workspace:^',
-      '@lyness/runtime': 'workspace:^',
+      '@lyness/lyn-runtime': 'workspace:^',
     })
     expect(manifest.devDependencies).toMatchObject({
       [CORDIS]: 'workspace:^',
-      '@lyness/runtime': 'workspace:^',
+      '@lyness/lyn-runtime': 'workspace:^',
     })
     expect(formatPeerRequiredRuntimeDependencies({
       facts: [subject], packages: [], policyViolations: [], workspaceNames: subject.workspaceNames,
     })).toEqual([
       'verify-package-dependencies: 1 Host runtime edge(s) remain in peerDependencies because their exports require shared identity across 1 package(s):',
-      '  @lyness/probe -> @lyness/runtime: @lyness/runtime#runtimeValue',
+      '  @lyness/lyn-probe -> @lyness/lyn-runtime: @lyness/lyn-runtime#runtimeValue',
     ])
   })
 
   it('reports wrong sections, workspace ranges, and stale peer metadata', () => {
     const manifest: PackageDependencyManifest = {
-      name: '@lyness/probe',
-      dependencies: { '@lyness/types': 'workspace:*' },
-      devDependencies: { [CORDIS]: 'workspace:^', '@lyness/runtime': 'workspace:^' },
-      peerDependencies: { [CORDIS]: 'workspace:*', '@lyness/runtime': 'workspace:^' },
-      peerDependenciesMeta: { '@lyness/missing': { optional: true } },
+      name: '@lyness/lyn-probe',
+      dependencies: { '@lyness/lyn-types': 'workspace:*' },
+      devDependencies: { [CORDIS]: 'workspace:^', '@lyness/lyn-runtime': 'workspace:^' },
+      peerDependencies: { [CORDIS]: 'workspace:*', '@lyness/lyn-runtime': 'workspace:^' },
+      peerDependenciesMeta: { '@lyness/lyn-missing': { optional: true } },
     }
     const state = {
       facts: [facts(manifest)], packages: [], policyViolations: [], workspaceNames: facts(manifest).workspaceNames,
     }
     const violations = collectPackageDependencyViolations(state)
     expect(violations).toEqual(expect.arrayContaining([
-      expect.stringContaining('@lyness/runtime'),
-      expect.stringContaining('@lyness/types'),
+      expect.stringContaining('@lyness/lyn-runtime'),
+      expect.stringContaining('@lyness/lyn-types'),
       expect.stringContaining(`${CORDIS} must be matching peerDependencies + devDependencies`),
-      expect.stringContaining('dependencies.@lyness/types must use workspace:^'),
-      expect.stringContaining('peerDependenciesMeta.@lyness/missing has no matching'),
+      expect.stringContaining('dependencies.@lyness/lyn-types must use workspace:^'),
+      expect.stringContaining('peerDependenciesMeta.@lyness/lyn-missing has no matching'),
     ]))
   })
 
@@ -937,15 +937,15 @@ describe('dependency sections', () => {
     roots.push(root)
     const manifestPath = 'package.json'
     const manifest: PackageDependencyManifest = {
-      name: '@lyness/probe',
+      name: '@lyness/lyn-probe',
       dependencies: { '@lyness/schemastery': 'workspace:*', external: '^1.0.0' },
-      devDependencies: { [CORDIS]: 'workspace:^', '@lyness/runtime': 'workspace:^' },
+      devDependencies: { [CORDIS]: 'workspace:^', '@lyness/lyn-runtime': 'workspace:^' },
       peerDependencies: {
         [CORDIS]: 'workspace:^',
-        '@lyness/runtime': 'workspace:^',
-        '@lyness/stale': 'workspace:^',
+        '@lyness/lyn-runtime': 'workspace:^',
+        '@lyness/lyn-stale': 'workspace:^',
       },
-      peerDependenciesMeta: { '@lyness/stale': { optional: true } },
+      peerDependenciesMeta: { '@lyness/lyn-stale': { optional: true } },
     }
     writeFileSync(join(root, manifestPath), `${JSON.stringify(manifest, null, 2)}\n`)
     const subject = { ...facts(manifest), manifestPath }
@@ -956,12 +956,12 @@ describe('dependency sections', () => {
     expect(fixed.dependencies).toEqual({
       '@lyness/schemastery': 'workspace:^',
       external: '^1.0.0',
-      '@lyness/runtime': 'workspace:^',
+      '@lyness/lyn-runtime': 'workspace:^',
     })
     expect(fixed.devDependencies).toEqual({
       [CORDIS]: 'workspace:^',
-      '@lyness/types': 'workspace:^',
-      '@lyness/stale': 'workspace:^',
+      '@lyness/lyn-types': 'workspace:^',
+      '@lyness/lyn-stale': 'workspace:^',
     })
     expect(fixed.peerDependencies).toEqual({ [CORDIS]: 'workspace:^' })
     expect(fixed.peerDependenciesMeta).toBeUndefined()
@@ -969,12 +969,12 @@ describe('dependency sections', () => {
 
   it('repairs an in-memory manifest for benchmark simulation', () => {
     const manifest: PackageDependencyManifest = {
-      name: '@lyness/probe',
-      peerDependencies: { [CORDIS]: 'workspace:^', '@lyness/runtime': 'workspace:^' },
-      devDependencies: { [CORDIS]: 'workspace:^', '@lyness/runtime': 'workspace:^' },
+      name: '@lyness/lyn-probe',
+      peerDependencies: { [CORDIS]: 'workspace:^', '@lyness/lyn-runtime': 'workspace:^' },
+      devDependencies: { [CORDIS]: 'workspace:^', '@lyness/lyn-runtime': 'workspace:^' },
     }
     repairPackageDependencyManifest(facts(manifest))
-    expect(manifest.dependencies).toEqual({ '@lyness/runtime': 'workspace:^' })
+    expect(manifest.dependencies).toEqual({ '@lyness/lyn-runtime': 'workspace:^' })
     expect(manifest.peerDependencies).toEqual({ [CORDIS]: 'workspace:^' })
   })
 })

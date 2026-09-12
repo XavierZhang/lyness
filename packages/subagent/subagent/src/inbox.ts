@@ -1,11 +1,11 @@
 /**
  * Activation-local admission around one continuable subagent's Agent inbox.
  *
- * @module @lyness/subagent/inbox
+ * @module @lyness/lyn-subagent/inbox
  */
 
-import type { Agent } from '@lyness/agent'
-import type { UserMessage } from '@lyness/session'
+import type { Agent } from '@lyness/lyn-agent'
+import type { UserMessage } from '@lyness/lyn-session'
 import type { SubagentPromptRequest } from './control-types.ts'
 import { SubagentError } from './error.ts'
 

@@ -2,10 +2,10 @@
 
 import { Service } from '@lyness/cordis'
 import type { Context } from '@lyness/cordis'
-import type { Agent } from '@lyness/agent'
-import { snapshotJsonValue, type JsonValue } from '@lyness/util-values'
-import { assertSupportedJsonSchema, validateJsonSchemaValue } from '@lyness/tools'
-import type { JsonSchemaNode } from '@lyness/tools'
+import type { Agent } from '@lyness/lyn-agent'
+import { snapshotJsonValue, type JsonValue } from '@lyness/lyn-util-values'
+import { assertSupportedJsonSchema, validateJsonSchemaValue } from '@lyness/lyn-tools'
+import type { JsonSchemaNode } from '@lyness/lyn-tools'
 import type {
   CordisInspectMethodManifest, CordisInspectPlatform, CordisInspectProviderManifest,
   CordisInspectProviderView, CordisInspectQueryRequest, CordisInspectQueryResolution,

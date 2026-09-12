@@ -10,12 +10,12 @@
 import { useSyncExternalStore } from 'react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { cleanup, fireEvent, render, waitFor } from '@testing-library/react'
-import { makeTranslate } from '@lyness/client-test-runtime'
-import { zh as commonZh } from '@lyness/client-locale/src/locales/zh.ts'
-import type { MessageId } from '@lyness/api-remotes/client'
+import { makeTranslate } from '@lyness/lyn-client-test-runtime'
+import { zh as commonZh } from '@lyness/lyn-client-locale/src/locales/zh.ts'
+import type { MessageId } from '@lyness/lyn-api-remotes/client'
 import type {
   MessageFeedbackItem, MessageFeedbackRating, MessageFeedbackVersion,
-} from '@lyness/message-feedback/types'
+} from '@lyness/lyn-message-feedback/types'
 import { MessageFeedbackActions } from '../src/client/MessageFeedbackActions.tsx'
 import type {
   MessageFeedbackActionResult, MessageFeedbackToggleResult, MessageFeedbackView,

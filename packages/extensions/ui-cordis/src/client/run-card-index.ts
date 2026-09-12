@@ -1,7 +1,7 @@
 /** Session-local ownership index for Package business views on `cordis_run` cards. */
 
-import type { SessionId } from '@lyness/api-remotes/client'
-import type { HostObservable } from '@lyness/client-ui-slots'
+import type { SessionId } from '@lyness/lyn-api-remotes/client'
+import type { HostObservable } from '@lyness/lyn-client-ui-slots'
 import type {
   CordisDynamicPackageId, CordisDynamicPluginId, CordisDynamicPluginRunId,
 } from './events.ts'

@@ -15,11 +15,11 @@ import { mkdir, mkdtemp, rm, utimes, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { Context } from '@lyness/cordis'
-import { ToolCallId } from '@lyness/llm'
-import SystemPrompt from '@lyness/system-prompt'
-import ToolRuntime, { TOOL_ABORTED_BEFORE_DISPATCH } from '@lyness/tools'
-import LocalSubprocessRuntime from '@lyness/subprocess-local'
-import * as ToolFsSearch from '@lyness/tool-fs-search'
+import { ToolCallId } from '@lyness/lyn-llm'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime, { TOOL_ABORTED_BEFORE_DISPATCH } from '@lyness/lyn-tools'
+import LocalSubprocessRuntime from '@lyness/lyn-subprocess-local'
+import * as ToolFsSearch from '@lyness/lyn-tool-fs-search'
 
 const testToolSignal = new AbortController().signal
 

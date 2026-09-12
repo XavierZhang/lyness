@@ -6,10 +6,10 @@ import type {
   SessionListState,
   SessionSnapshot,
   UseProjection,
-} from '@lyness/api-session-controller/client'
-import type { SessionId } from '@lyness/session/types'
-import { notifySubscribers } from '@lyness/client-store'
-import { standardHookPropName } from '@lyness/client-ui-slots'
+} from '@lyness/lyn-api-session-controller/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import { notifySubscribers } from '@lyness/lyn-client-store'
+import { standardHookPropName } from '@lyness/lyn-client-ui-slots'
 import type {
   HostObservable,
   KeyedStandardSource,
@@ -19,9 +19,9 @@ import type {
   SlotScopeAdapter,
   SnapshotSelectorHook,
   StandardSourceBinding,
-} from '@lyness/client-ui-slots'
+} from '@lyness/lyn-client-ui-slots'
 // Type-only service merge for ctx.slots.
-import type {} from '@lyness/client-ui-renderer/client'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
 import { renderSessionArea } from './session-provider.tsx'
 
 /** Selector hook over the Session Controller list and current selection. */
@@ -101,7 +101,7 @@ class PendingInteractionDomain<T extends SessionPendingInteractionBase> {
   }
 }
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface GlobalStandardProps {
     /** Session list and current selection. */
     useSessions: UseSessions

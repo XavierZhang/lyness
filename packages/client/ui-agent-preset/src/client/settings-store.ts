@@ -8,9 +8,9 @@
 
 import type { Context as ClientContext } from '@lyness/cordis'
 // Type-only: pulls the ctx.remote merge into this program.
-import type {} from '@lyness/api-remotes/client'
-import { createSnapshotStore, type SnapshotStore } from '@lyness/client-store'
-import type { AgentPresetRoster } from '@lyness/agent-presets/types'
+import type {} from '@lyness/lyn-api-remotes/client'
+import { createSnapshotStore, type SnapshotStore } from '@lyness/lyn-client-store'
+import type { AgentPresetRoster } from '@lyness/lyn-agent-presets/types'
 
 /** The agent-preset settings namespace on the host wire. */
 export const AGENT_PRESET_SETTINGS_NS = 'agent-presets'

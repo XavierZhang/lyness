@@ -4,12 +4,12 @@
  * and one assistant message (Dislike). The overlay view renders from the
  * store; the message controls raise the toast after a Like through
  * {@link FeedbackDialogController.acknowledge}.
- * @module @lyness/client-ui-message-feedback/client/dialog
+ * @module @lyness/lyn-client-ui-message-feedback/client/dialog
  */
 
-import { createSnapshotStore, type SnapshotStore } from '@lyness/client-store'
-import type { MessageId } from '@lyness/api-remotes/client'
-import type { FeedbackCategory, FeedbackRecord } from '@lyness/command-feedback/types'
+import { createSnapshotStore, type SnapshotStore } from '@lyness/lyn-client-store'
+import type { MessageId } from '@lyness/lyn-api-remotes/client'
+import type { FeedbackCategory, FeedbackRecord } from '@lyness/lyn-command-feedback/types'
 import type { MessageFeedbackActionResult } from './controller.ts'
 
 /** What one open dialog submits to. */

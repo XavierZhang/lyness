@@ -3,7 +3,7 @@ description: "The TypeScript SDK client for callers that spawn a lyness runtime 
 kind: "package-library"
 ---
 
-# @lyness/sdk-client
+# @lyness/lyn-sdk-client
 
 English | [中文](README.zh.md)
 
@@ -30,8 +30,8 @@ Use this client when TypeScript code must drive a complete Harness runtime from 
 ### Running agent turns with Lyness
 
 ```ts
-import { Lyness } from '@lyness/sdk-client'
-import { ReasoningEffortId } from '@lyness/llm'
+import { Lyness } from '@lyness/lyn-sdk-client'
+import { ReasoningEffortId } from '@lyness/lyn-llm'
 
 await using harness = new Lyness({
   profile: 'sdk',

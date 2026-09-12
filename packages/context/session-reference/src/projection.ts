@@ -1,11 +1,11 @@
 /** Current-surface projection and byte-bounded rendering. */
 
-import { isCompactCheckpointSource } from '@lyness/compaction'
-import type { SessionSurfaceSnapshot } from '@lyness/session-query'
-import { TextRetainer } from '@lyness/output-retention'
-import { assertNever } from '@lyness/util-values'
-import { SessionSeq } from '@lyness/session'
-import type { OptionalSessionSeq, SessionId } from '@lyness/session'
+import { isCompactCheckpointSource } from '@lyness/lyn-compaction'
+import type { SessionSurfaceSnapshot } from '@lyness/lyn-session-query'
+import { TextRetainer } from '@lyness/lyn-output-retention'
+import { assertNever } from '@lyness/lyn-util-values'
+import { SessionSeq } from '@lyness/lyn-session'
+import type { OptionalSessionSeq, SessionId } from '@lyness/lyn-session'
 import { stringifyTagSafeJson } from './serialization.ts'
 import type { ReferencedConversationItem } from './types.ts'
 

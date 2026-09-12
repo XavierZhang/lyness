@@ -9,9 +9,9 @@ import { fileURLToPath } from 'node:url'
 import type { Browser, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed } from 'vitest'
-import { credentialRef } from '@lyness/credentials'
-import type { SessionEvent } from '@lyness/session'
-import { WEB_SEARCH_MAX_RESULTS } from '@lyness/tool-web'
+import { credentialRef } from '@lyness/lyn-credentials'
+import type { SessionEvent } from '@lyness/lyn-session'
+import { WEB_SEARCH_MAX_RESULTS } from '@lyness/lyn-tool-web'
 import {
   assertFixtureInventory, captureStableAria, compareOrRefreshGolden, fixtureUserPrompts,
   launchWebScaffold, recordFixture, watchConsole, webSnapshotMode, type WebScaffold,

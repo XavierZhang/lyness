@@ -5,10 +5,10 @@
  * Browser-safe: web clients consume this subpath export, so it must stay free
  * of `node:` imports (they break the vite bundle).
  *
- * @module @lyness/session/surface
+ * @module @lyness/lyn-session/surface
  */
 
-import type { Message } from '@lyness/llm'
+import type { Message } from '@lyness/lyn-llm'
 import { SessionLogOffset, SessionSeq } from './types.ts'
 import { KNOWN_SESSION_EVENT_TYPES } from './known-event-types.ts'
 import type {

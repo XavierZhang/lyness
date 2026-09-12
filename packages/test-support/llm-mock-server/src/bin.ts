@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Standalone process wrapper for the scriptable mock LLM server.
- * @module @lyness/llm-mock-server/src/bin
+ * @module @lyness/lyn-llm-mock-server/src/bin
  */
 
 import { setTimeout as delay } from 'node:timers/promises'

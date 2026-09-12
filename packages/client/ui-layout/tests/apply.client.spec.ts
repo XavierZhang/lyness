@@ -1,14 +1,14 @@
 // @vitest-environment jsdom
 
 import { Context, type Fiber } from '@lyness/cordis'
-import { stubSettingsScope } from '@lyness/client-test-runtime'
+import { stubSettingsScope } from '@lyness/lyn-client-test-runtime'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { SlotRegistry } from '@lyness/client-ui-renderer/client'
-import type { SlotRendererHost } from '@lyness/client-ui-slots'
-import { LocaleRuntime } from '@lyness/client-locale/client'
-import { apply as themeApply, inject as themeInject, ThemeRuntime } from '@lyness/client-ui-theme/client'
-import { apply, inject, LayoutController } from '@lyness/client-ui-layout/client'
-import { apply as nodeApply } from '@lyness/client-ui-layout'
+import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
+import type { SlotRendererHost } from '@lyness/lyn-client-ui-slots'
+import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
+import { apply as themeApply, inject as themeInject, ThemeRuntime } from '@lyness/lyn-client-ui-theme/client'
+import { apply, inject, LayoutController } from '@lyness/lyn-client-ui-layout/client'
+import { apply as nodeApply } from '@lyness/lyn-client-ui-layout'
 import type { MainPanelId } from '../src/client/service.ts'
 import type { createLayoutStore } from '../src/client/stores.ts'
 

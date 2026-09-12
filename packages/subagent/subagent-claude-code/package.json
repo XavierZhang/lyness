@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/subagent-claude-code",
+  "name": "@lyness/lyn-subagent-claude-code",
   "description": "One-shot Claude Code subagent provider over the official Agent SDK",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -34,37 +34,37 @@
   },
   "peerDependencies": {
     "@lyness/cordis": "workspace:^",
-    "@lyness/llm": "workspace:^",
-    "@lyness/session": "workspace:^",
-    "@lyness/subagent": "workspace:^",
-    "@lyness/subprocess": "workspace:^",
-    "@lyness/timeout": "workspace:^"
+    "@lyness/lyn-llm": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
+    "@lyness/lyn-subagent": "workspace:^",
+    "@lyness/lyn-subprocess": "workspace:^",
+    "@lyness/lyn-timeout": "workspace:^"
   },
   "dependencies": {
     "@anthropic-ai/claude-agent-sdk": "0.3.263",
     "@anthropic-ai/sdk": "0.93.0",
-    "@lyness/brand": "workspace:^",
+    "@lyness/lyn-brand": "workspace:^",
     "@lyness/schemastery": "workspace:^",
     "@modelcontextprotocol/sdk": "^1.29.0",
     "zod": "^4.4.3"
   },
   "devDependencies": {
     "@lyness/cordis": "workspace:^",
-    "@lyness/agent": "workspace:^",
-    "@lyness/app-boot": "workspace:^",
-    "@lyness/llm": "workspace:^",
-    "@lyness/loader-smoke": "workspace:^",
-    "@lyness/session": "workspace:^",
-    "@lyness/session-checkpoint-policy": "workspace:^",
-    "@lyness/session-persistence-jsonl": "workspace:^",
-    "@lyness/session-projection": "workspace:^",
-    "@lyness/subagent": "workspace:^",
-    "@lyness/subagent-codex": "workspace:^",
-    "@lyness/subprocess": "workspace:^",
-    "@lyness/subprocess-local": "workspace:^",
-    "@lyness/timeout": "workspace:^",
-    "@lyness/tool-jobs": "workspace:^",
-    "@lyness/tool-subagent": "workspace:^",
-    "@lyness/tools": "workspace:^"
+    "@lyness/lyn-agent": "workspace:^",
+    "@lyness/lyn-app-boot": "workspace:^",
+    "@lyness/lyn-llm": "workspace:^",
+    "@lyness/lyn-loader-smoke": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
+    "@lyness/lyn-session-checkpoint-policy": "workspace:^",
+    "@lyness/lyn-session-persistence-jsonl": "workspace:^",
+    "@lyness/lyn-session-projection": "workspace:^",
+    "@lyness/lyn-subagent": "workspace:^",
+    "@lyness/lyn-subagent-codex": "workspace:^",
+    "@lyness/lyn-subprocess": "workspace:^",
+    "@lyness/lyn-subprocess-local": "workspace:^",
+    "@lyness/lyn-timeout": "workspace:^",
+    "@lyness/lyn-tool-jobs": "workspace:^",
+    "@lyness/lyn-tool-subagent": "workspace:^",
+    "@lyness/lyn-tools": "workspace:^"
   }
 }

@@ -1,6 +1,6 @@
-import { IconChecklistOutline14 } from '@lyness/client-ui-primitives'
+import { IconChecklistOutline14 } from '@lyness/lyn-client-ui-primitives'
 import type { Context } from '@lyness/cordis'
-import type { PropsLocale } from '@lyness/client-ui-slots'
+import type { PropsLocale } from '@lyness/lyn-client-ui-slots'
 import type { ToolCallViewProps } from '../../contract/slots.ts'
 import { toolRowModel } from '../models/tool-call-model.ts'
 import { ToolRow } from '../components/ToolRow.tsx'

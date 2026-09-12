@@ -1,13 +1,13 @@
 import { describe, expect, it, vi } from 'vitest'
-import { AttachmentId, ImageVariantId } from '@lyness/attachment'
+import { AttachmentId, ImageVariantId } from '@lyness/lyn-attachment'
 import type {
   AttachmentStore,
   ImageAttachmentRef,
   ImageRequestPolicy,
   RequestImageAttachment,
-} from '@lyness/attachment'
-import { ToolCallId, createMessage, createUserMessage, offloadedImageText } from '@lyness/llm'
-import type { ContentBlock, GenerateOptions, Message } from '@lyness/llm'
+} from '@lyness/lyn-attachment'
+import { ToolCallId, createMessage, createUserMessage, offloadedImageText } from '@lyness/lyn-llm'
+import type { ContentBlock, GenerateOptions, Message } from '@lyness/lyn-llm'
 import { toPiContext } from '../src/context.ts'
 import type { PiImageRequestContext } from '../src/context.ts'
 import { toPiAssistant } from '../src/replay.ts'

@@ -1,7 +1,7 @@
-import type { StreamChunk } from '@lyness/llm/types'
+import type { StreamChunk } from '@lyness/lyn-llm/types'
 import type {
   AssistantBlock, PartialAssistant,
-} from '@lyness/client-ui-conversation/client'
+} from '@lyness/lyn-client-ui-conversation/client'
 import { emptyAssistantBlock, toAssistantBlock } from './event-projection.ts'
 
 /**

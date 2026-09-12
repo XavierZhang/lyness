@@ -4,22 +4,22 @@ import { tmpdir } from 'node:os'
 import { fileURLToPath } from 'node:url'
 import { dirname, join } from 'node:path'
 import { Context } from '@lyness/cordis'
-import { boot, healProfilesModuleFallback, loadOverlayPatches, loadProfile } from '@lyness/app-boot'
-import { provideCmdline } from '@lyness/cmdline'
-import { SessionId, SessionLogOffset } from '@lyness/session'
-import type { Agent } from '@lyness/agent'
+import { boot, healProfilesModuleFallback, loadOverlayPatches, loadProfile } from '@lyness/lyn-app-boot'
+import { provideCmdline } from '@lyness/lyn-cmdline'
+import { SessionId, SessionLogOffset } from '@lyness/lyn-session'
+import type { Agent } from '@lyness/lyn-agent'
 import type { PatchOptions } from '@lyness/cordis-plugin-include'
 import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
-import { SUBAGENT_MODEL_SELECTION_SETTINGS_NAMESPACE } from '@lyness/tool-subagent/model-selection-settings'
-import { SETTINGS_NAMESPACE, SHIPPED_PRESET_ROOT } from '@lyness/agent-presets'
-import { applyChildComposition, childSessionMeta } from '@lyness/subagent'
-import { ToolCallId } from '@lyness/llm'
-import type {} from '@lyness/compaction-basic'
-import type {} from '@lyness/skill'
-import type {} from '@lyness/tools'
+import { SUBAGENT_MODEL_SELECTION_SETTINGS_NAMESPACE } from '@lyness/lyn-tool-subagent/model-selection-settings'
+import { SETTINGS_NAMESPACE, SHIPPED_PRESET_ROOT } from '@lyness/lyn-agent-presets'
+import { applyChildComposition, childSessionMeta } from '@lyness/lyn-subagent'
+import { ToolCallId } from '@lyness/lyn-llm'
+import type {} from '@lyness/lyn-compaction-basic'
+import type {} from '@lyness/lyn-skill'
+import type {} from '@lyness/lyn-tools'
 // Type-only: resolves `ctx.get('sessionProjections')` and `ctx.get('tokenMeter')`.
-import type {} from '@lyness/session-projection'
-import type {} from '@lyness/token-meter'
+import type {} from '@lyness/lyn-session-projection'
+import type {} from '@lyness/lyn-token-meter'
 
 const REPO_ROOT = fileURLToPath(new URL('../../..', import.meta.url))
 /** The shipped Web surface: the lyn-base and lyn-web-app bundle patches over an empty preset root. */
@@ -101,8 +101,8 @@ async function bootWeb(
     // supplies `directoryPicker` without one.
     { id: 'directory-picker', disabled: true },
     { insert: [
-      { id: 'directory-picker-browse', name: '@lyness/host-directory-picker-browse' },
-      { id: 'ui-directory-picker-browse', name: '@lyness/client-ui-directory-picker-browse' },
+      { id: 'directory-picker-browse', name: '@lyness/lyn-host-directory-picker-browse' },
+      { id: 'ui-directory-picker-browse', name: '@lyness/lyn-client-ui-directory-picker-browse' },
     ] },
     // Pin the roster away from the developer's machine: `includeUserRoot`
     // false keeps `~/.lyn/.agent-presets` from changing a test's outcome.
@@ -529,8 +529,8 @@ describe('product Bundle and user-preset intersection', () => {
     )
     const packageName = (product: Product): string => (
       product === 'codex'
-        ? '@lyness/subagent-codex'
-        : '@lyness/subagent-claude-code'
+        ? '@lyness/lyn-subagent-codex'
+        : '@lyness/lyn-subagent-claude-code'
     )
     return await bootWeb(settingsFile, [
       {
@@ -543,8 +543,8 @@ describe('product Bundle and user-preset intersection', () => {
         },
       },
     ], installed.map(packageDir), [
-      '@lyness/base',
-      '@lyness/web-app',
+      '@lyness/lyn-base',
+      '@lyness/lyn-web-app',
       ...installed.map(packageName),
     ])
   }
@@ -758,7 +758,7 @@ describe('a launcher that configures no writable root', () => {
     await mkdir(join(home, '.agent-presets', 'derived-mine'), { recursive: true })
     await writeFile(
       join(home, '.agent-presets', 'derived-mine', 'agent.cordis.yml'),
-      '- id: tool-todo\n  name: \'@lyness/tool-todo\'\n  config:\n    allowParallelInProgress: true\n',
+      '- id: tool-todo\n  name: \'@lyness/lyn-tool-todo\'\n  config:\n    allowParallelInProgress: true\n',
     )
     const settingsFile = join(await mkdtemp(join(tmpdir(), 'lyn-preset-derived-settings-')), 'settings.yaml')
     await writeFile(settingsFile, '{}\n')

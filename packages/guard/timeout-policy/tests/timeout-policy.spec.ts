@@ -1,5 +1,5 @@
 /**
- * Unit + real-load-path coverage for @lyness/tool-call-timeout-policy. The
+ * Unit + real-load-path coverage for @lyness/lyn-tool-call-timeout-policy. The
  * timeout-wins cases drive the deadline under fake timers (deterministic — no
  * wall-clock race) and use a COOPERATIVE tool that settles only when its
  * `exec.signal` aborts, mirroring how a real capability forwards the signal and
@@ -9,11 +9,11 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
-import { ToolCallId, HarnessError } from '@lyness/llm'
-import SystemPrompt from '@lyness/system-prompt'
-import ToolRuntime, { defineContentToolFixture, TOOL_ABORTED, type ToolExecutionInput, type PostToolDecision } from '@lyness/tools'
-import * as timeoutPolicy from '@lyness/tool-call-timeout-policy'
-import { TOOL_TIMEOUT } from '@lyness/tool-call-timeout-policy'
+import { ToolCallId, HarnessError } from '@lyness/lyn-llm'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime, { defineContentToolFixture, TOOL_ABORTED, type ToolExecutionInput, type PostToolDecision } from '@lyness/lyn-tools'
+import * as timeoutPolicy from '@lyness/lyn-tool-call-timeout-policy'
+import { TOOL_TIMEOUT } from '@lyness/lyn-tool-call-timeout-policy'
 
 const testToolSignal = new AbortController().signal
 

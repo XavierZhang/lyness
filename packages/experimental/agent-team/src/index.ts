@@ -2,9 +2,9 @@
 
 import { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import type { Agent } from '@lyness/agent'
-import type {} from '@lyness/session-persistence'
-import { Remote, TypertRemoteService } from '@lyness/typert-protocol'
+import type { Agent } from '@lyness/lyn-agent'
+import type {} from '@lyness/lyn-session-persistence'
+import { Remote, TypertRemoteService } from '@lyness/lyn-typert-protocol'
 import { TeamActivity } from './activity.ts'
 import { errorMessage, TeamError } from './error.ts'
 import { TeamJournal } from './journal.ts'

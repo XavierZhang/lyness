@@ -1,22 +1,22 @@
 /** Register the Chat Conversation target, renderers, stats, and details surface. */
 import type { Context } from '@lyness/cordis'
-import type { ImageAttachmentRef } from '@lyness/attachment'
-import type {} from '@lyness/api-remotes/client'
-import type { SessionBinding } from '@lyness/api-session-controller/client'
-import type { ObservableSnapshot } from '@lyness/client-store'
-import type { SessionId } from '@lyness/session/types'
-import type {} from '@lyness/client-ui-sidebar-right/client'
+import type { ImageAttachmentRef } from '@lyness/lyn-attachment'
+import type {} from '@lyness/lyn-api-remotes/client'
+import type { SessionBinding } from '@lyness/lyn-api-session-controller/client'
+import type { ObservableSnapshot } from '@lyness/lyn-client-store'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type {} from '@lyness/lyn-client-ui-sidebar-right/client'
 // The `file` entry of `SidebarRightResourceParamsMap`, which types `{ params: { line } }` below.
-import type {} from '@lyness/client-ui-sidebar-documentpreview/client'
-import { fileAddressFor } from '@lyness/util-workspace-path'
+import type {} from '@lyness/lyn-client-ui-sidebar-documentpreview/client'
+import { fileAddressFor } from '@lyness/lyn-util-workspace-path'
 // Type-only service and declaration merges used by the apply world.
-import type {} from '@lyness/client-locale/client'
-import type {} from '@lyness/client-ui-conversation/client'
-import type {} from '@lyness/client-ui-layout/client'
-import type {} from '@lyness/client-ui-renderer/client'
-import type {} from '@lyness/client-ui-session/client'
-import type {} from '@lyness/client-ui-settings/client'
-import type {} from '@lyness/client-ui-workspace/client'
+import type {} from '@lyness/lyn-client-locale/client'
+import type {} from '@lyness/lyn-client-ui-conversation/client'
+import type {} from '@lyness/lyn-client-ui-layout/client'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
+import type {} from '@lyness/lyn-client-ui-session/client'
+import type {} from '@lyness/lyn-client-ui-settings/client'
+import type {} from '@lyness/lyn-client-ui-workspace/client'
 import type {
   ChatNodeTurnDataInjected, ChatScrollPosition, ChatViewInjected,
   TurnTailOwnerProps,

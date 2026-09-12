@@ -4,7 +4,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import clsx from 'clsx'
-import type { WorkspaceId } from '@lyness/workspace/types'
+import type { WorkspaceId } from '@lyness/lyn-workspace/types'
 import type { ConversationSlotProps, InputZone } from '../contract/slots.ts'
 import { conversationPhase } from '../contract/snapshot.ts'
 import { HeroShell, WorkspaceChip, workspaceLabel } from './EmptyHero.tsx'

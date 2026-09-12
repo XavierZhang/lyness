@@ -1,9 +1,9 @@
 /** PDF metadata, keyed slot, dictionary, and tab-view lifetime registration. */
 import { Context } from '@lyness/cordis'
 import { describe, expect, it, vi } from 'vitest'
-import type { SessionId } from '@lyness/session/types'
-import type { TabId } from '@lyness/client-ui-dockkit'
-import { makeTranslate } from '@lyness/client-test-runtime'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { TabId } from '@lyness/lyn-client-ui-dockkit'
+import { makeTranslate } from '@lyness/lyn-client-test-runtime'
 import { DocumentPreviewRegistry } from '../src/client/document/registry.ts'
 import { createPdfStore } from '../src/client/pdf/store.ts'
 import type { PdfBodyInjected } from '../src/client/pdf/PdfBody.tsx'

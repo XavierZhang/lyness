@@ -1,15 +1,15 @@
 /** Browser half of the read-only Schedule catalog. */
 
 import type { Context as ClientContext } from '@lyness/cordis'
-import type {} from '@lyness/client-locale/client'
-import type {} from '@lyness/client-ui-conversation/client'
-import type {} from '@lyness/client-ui-renderer/client'
-import type {} from '@lyness/client-ui-session/client'
-import type {} from '@lyness/schedule/client'
+import type {} from '@lyness/lyn-client-locale/client'
+import type {} from '@lyness/lyn-client-ui-conversation/client'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
+import type {} from '@lyness/lyn-client-ui-session/client'
+import type {} from '@lyness/lyn-schedule/client'
 import { ScheduleCatalogAction } from './ScheduleCatalogAction.tsx'
 import { en, NS, zh, type ScheduleCatalogKey } from './locales.ts'
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface LocaleNamespaceMap {
     /** Read-only active Schedule catalog copy. */
     'schedule.catalog': ScheduleCatalogKey

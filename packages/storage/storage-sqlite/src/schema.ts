@@ -3,13 +3,13 @@
  * layout version, the database open/configure sequence (permissions, pragmas,
  * version stamp/reject), and the unit metadata tables. Unit record tables are
  * created per descriptor in `unit.ts`.
- * @module @lyness/storage-sqlite/schema
+ * @module @lyness/lyn-storage-sqlite/schema
  */
 
 import { DatabaseSync } from 'node:sqlite'
 import { mkdir, open } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
-import { StorageError } from '@lyness/storage'
+import { StorageError } from '@lyness/lyn-storage'
 
 /**
  * The on-disk physical layout version, stored in `PRAGMA user_version`.

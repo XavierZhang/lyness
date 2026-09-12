@@ -3,9 +3,9 @@ import { join, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import TypertRegistry from '@lyness/typert-registry'
-import type { TypertContribution } from '@lyness/typert-registry/types'
-import { EVENT_API, SERVICE_API, TYPE_API } from '@lyness/tool-cordis/src/api-catalog.ts'
+import TypertRegistry from '@lyness/lyn-typert-registry'
+import type { TypertContribution } from '@lyness/lyn-typert-registry/types'
+import { EVENT_API, SERVICE_API, TYPE_API } from '@lyness/lyn-tool-cordis/src/api-catalog.ts'
 import { WorkspaceAnalyzer } from '../src/analyzer.ts'
 import { FaceModelEmitter } from '../src/emitter.ts'
 
@@ -21,11 +21,11 @@ describe('model-driven lyn-tools generation', () => {
     const workspace = new WorkspaceAnalyzer({
       root: workspaceRoot,
       faces: ['host'],
-      packages: ['@lyness/tools'],
+      packages: ['@lyness/lyn-tools'],
     }).analyze()
     const host = workspace.faces.find(candidate => candidate.face === 'host')
     if (host === undefined) throw new Error('lyn-tools has no analyzed host face')
-    const artifact = new FaceModelEmitter(host).emit('@lyness/tools')
+    const artifact = new FaceModelEmitter(host).emit('@lyness/lyn-tools')
 
     const root = mkdtempSync(join(import.meta.dirname, '.generated-tools-'))
     temporaryRoots.push(root)
@@ -38,7 +38,7 @@ describe('model-driven lyn-tools generation', () => {
     const ctx = new Context()
     await ctx.plugin(TypertRegistry)
     const dispose = ctx.typert.register(generated.TYPERT)
-    const record = ctx.typert.getPackage('@lyness/tools', 'host')
+    const record = ctx.typert.getPackage('@lyness/lyn-tools', 'host')
     const service = record?.model.services.find(candidate => candidate.key === 'tools')
     expect(service).toBeDefined()
     expect({
@@ -71,6 +71,6 @@ describe('model-driven lyn-tools generation', () => {
     )
 
     await dispose()
-    expect(ctx.typert.getPackage('@lyness/tools', 'host')).toBeUndefined()
+    expect(ctx.typert.getPackage('@lyness/lyn-tools', 'host')).toBeUndefined()
   })
 })

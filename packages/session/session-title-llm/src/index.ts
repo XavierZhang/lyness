@@ -1,27 +1,27 @@
 /**
  * Shared route, framing, timeout, assembly, and validation policy for
  * model-backed session-title providers.
- * @module @lyness/session-title-llm
+ * @module @lyness/lyn-session-title-llm
  */
 
 import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import { createUserMessage, BlockAssembler } from '@lyness/llm'
-import type { FinishReason, GenerateOptions, Message } from '@lyness/llm'
-import { deadline, MAX_TIMER_DELAY_MS } from '@lyness/timeout'
-import { deepFreeze } from '@lyness/util-values'
-import type { SessionSeq } from '@lyness/session'
+import { createUserMessage, BlockAssembler } from '@lyness/lyn-llm'
+import type { FinishReason, GenerateOptions, Message } from '@lyness/lyn-llm'
+import { deadline, MAX_TIMER_DELAY_MS } from '@lyness/lyn-timeout'
+import { deepFreeze } from '@lyness/lyn-util-values'
+import type { SessionSeq } from '@lyness/lyn-session'
 import {
   normalizeSessionTitle,
   SessionTitleProviderId,
-} from '@lyness/session-title'
+} from '@lyness/lyn-session-title'
 import type {
   SessionTitleAutomaticMode,
   SessionTitleModelProvenance,
   SessionTitleProviderRequest,
   SessionTitleProviderResult,
   SessionTitleUserMessage,
-} from '@lyness/session-title'
+} from '@lyness/lyn-session-title'
 
 /** Exact model-visible request recorded before one auxiliary title dispatch. */
 export interface SessionTitleLlmRequestEventData {
@@ -39,7 +39,7 @@ export interface SessionTitleLlmRequestEventData {
   readonly maxTokens: number
 }
 
-declare module '@lyness/session/types' {
+declare module '@lyness/lyn-session/types' {
   interface SessionEventMap {
     /** Log-only pre-dispatch record of one session-title model request. */
     'session/title-llm-request': SessionTitleLlmRequestEventData

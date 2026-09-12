@@ -3,7 +3,7 @@ description: "Sidebar shell plugin for the lyn web client: brand row, New Sessio
 kind: "package-reference"
 ---
 
-# @lyness/client-ui-sidebar
+# @lyness/lyn-client-ui-sidebar
 
 English | [中文](README.zh.md)
 

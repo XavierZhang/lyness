@@ -4,25 +4,25 @@
  * `ctx.settings`, owned by the class below; and `credentials`, mounted from
  * here as its own plugin.
  *
- * @module @lyness/api-settings-controller
+ * @module @lyness/lyn-api-settings-controller
  */
 
 import { dirname } from 'node:path'
 import { Context } from '@lyness/cordis'
 import Schema from '@lyness/schemastery'
 // Type-only: resolves the `agentPresets` Context augmentation this controller reads.
-import type {} from '@lyness/agent-presets'
+import type {} from '@lyness/lyn-agent-presets'
 import {
   canOpenNativePath,
   openNativePath,
   openNativeTextFile,
-} from '@lyness/native-command'
-import type { SettingsDescriptor, SettingsPathOp, SettingsProvider } from '@lyness/settings'
+} from '@lyness/lyn-native-command'
+import type { SettingsDescriptor, SettingsPathOp, SettingsProvider } from '@lyness/lyn-settings'
 import type {
   SettingsDescribeValue, SettingsNamespaceView, SettingsPathOpView,
-} from '@lyness/settings/types'
-import { Remote, RemoteError, TypertRemoteService } from '@lyness/typert-protocol'
-import type { JsonValue } from '@lyness/util-values'
+} from '@lyness/lyn-settings/types'
+import { Remote, RemoteError, TypertRemoteService } from '@lyness/lyn-typert-protocol'
+import type { JsonValue } from '@lyness/lyn-util-values'
 import { z } from 'zod'
 import { CredentialsController } from './credentials.ts'
 import type { AgentPresetDirectoryOpenValue, SettingsDocumentOpenValue } from './types.ts'
@@ -291,7 +291,7 @@ export class SettingsController extends TypertRemoteService {
     if (settings === undefined) {
       throw new RemoteError(
         'gateway/internal',
-        'settings service is absent: this deployment does not mount a settings provider (e.g. @lyness/settings-file) in its composition',
+        'settings service is absent: this deployment does not mount a settings provider (e.g. @lyness/lyn-settings-file) in its composition',
         {},
       )
     }

@@ -1,10 +1,10 @@
 /** Session-owned observable state excluding Conversation target data. */
-import type { ContentBlock } from '@lyness/llm/types'
-import type { FileAttachmentRef } from '@lyness/attachment'
-import type { MessageId } from '@lyness/llm/brand'
-import type { SessionId } from '@lyness/session/types'
-import type { SubagentAddress } from '@lyness/subagent/client'
-import type { RemoteFailure } from '@lyness/typert-protocol'
+import type { ContentBlock } from '@lyness/lyn-llm/types'
+import type { FileAttachmentRef } from '@lyness/lyn-attachment'
+import type { MessageId } from '@lyness/lyn-llm/brand'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { SubagentAddress } from '@lyness/lyn-subagent/client'
+import type { RemoteFailure } from '@lyness/lyn-typert-protocol'
 import type { SessionRequestId } from '../../types.ts'
 
 /** One transient inbox occurrence from the authoritative queue snapshot. */

@@ -1,15 +1,15 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { SessionId } from '@lyness/session'
-import { WorkflowRunId } from '@lyness/workflow'
+import { SessionId } from '@lyness/lyn-session'
+import { WorkflowRunId } from '@lyness/lyn-workflow'
 import type {
   WorkflowAgentEndInfo,
   WorkflowAgentInfo,
   WorkflowResultInfo,
   WorkflowRunInfo,
-} from '@lyness/workflow'
-import * as WorkflowInvariant from '@lyness/workflow/invariant'
-import InvariantRegistry from '@lyness/invariants'
+} from '@lyness/lyn-workflow'
+import * as WorkflowInvariant from '@lyness/lyn-workflow/invariant'
+import InvariantRegistry from '@lyness/lyn-invariants'
 
 async function setup(): Promise<Context> {
   const ctx = new Context()

@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/experimental-webworker-packer",
+  "name": "@lyness/lyn-experimental-webworker-packer",
   "description": "Build-time packer for the browser runtime's base VFS image and ordered data-overlay archives",
   "version": "0.1.5-rc.1",
   "private": true,
@@ -32,8 +32,8 @@
   "license": "MIT",
   "dependencies": {
     "@lyness/cordis-plugin-include": "workspace:^",
-    "@lyness/experimental-webworker-runtime": "workspace:^",
-    "@lyness/home-paths": "workspace:^",
+    "@lyness/lyn-experimental-webworker-runtime": "workspace:^",
+    "@lyness/lyn-home-paths": "workspace:^",
     "js-yaml": "^4.2.0",
     "picomatch": "^4.0.4"
   },
@@ -41,7 +41,7 @@
     "@lyness/cordis": "workspace:^",
     "@types/js-yaml": "^4.0.9",
     "@types/picomatch": "^3.0.2",
-    "@lyness/package-manifest": "workspace:^"
+    "@lyness/lyn-package-manifest": "workspace:^"
   },
   "peerDependencies": {
     "@lyness/cordis": "workspace:^"

@@ -1,12 +1,12 @@
 /** Durable per-session state for the user-controlled model-selection opt-in. */
 
 import { z as zod } from 'zod'
-import type { Session } from '@lyness/session'
-import type SessionProjectionRegistry from '@lyness/session-projection'
-import type { ProjectionDefinition } from '@lyness/session-projection'
+import type { Session } from '@lyness/lyn-session'
+import type SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import type { ProjectionDefinition } from '@lyness/lyn-session-projection'
 import { assertAllowedModelRoutes, type AllowedModelRoute } from './model-selection.ts'
 
-declare module '@lyness/session/types' {
+declare module '@lyness/lyn-session/types' {
   interface SessionEventMap {
     /**
      * Records that this session's delegation tool exposes child provider,
@@ -21,7 +21,7 @@ declare module '@lyness/session/types' {
   }
 }
 
-declare module '@lyness/session-projection/types' {
+declare module '@lyness/lyn-session-projection/types' {
   interface SessionProjectionStateMap {
     /** Exact routes authorized for child LLM selection, or null when disabled. */
     subagentModelSelectionPolicy: AllowedModelRoute[] | null

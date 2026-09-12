@@ -3,7 +3,7 @@
  * `lyn-tool-pwsh`): the exit-status marker contract the tools' renderers emit,
  * Host `presentResult` implementations parse here, and the Web terminal card
  * model mirrors without importing Host code.
- * @module @lyness/shell/render
+ * @module @lyness/lyn-shell/render
  */
 
 /**

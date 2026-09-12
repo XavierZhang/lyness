@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { SpillLocator } from '@lyness/spill'
+import { SpillLocator } from '@lyness/lyn-spill'
 import { formatSpillNotice, hasSpillNotice } from '../src/notice.ts'
 
 const ref = { locator: SpillLocator('/spill/output.txt'), retrievalHint: 'Read the file.' }

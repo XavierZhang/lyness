@@ -13,18 +13,18 @@
 import { Context, Service } from '@lyness/cordis'
 import z from '@lyness/schemastery'
 import { z as zod } from 'zod'
-import type { Session, SessionEvent } from '@lyness/session'
-import type { SandboxMode } from '@lyness/sandbox'
-import { SANDBOX_MODES, setSandboxMode } from '@lyness/sandbox-policy'
+import type { Session, SessionEvent } from '@lyness/lyn-session'
+import type { SandboxMode } from '@lyness/lyn-sandbox'
+import { SANDBOX_MODES, setSandboxMode } from '@lyness/lyn-sandbox-policy'
 // Side-effect type import: declaration-merges `ctx.shell` (the capability fact
 // `sandboxMode` this service reads), without a value dependency on the seam.
-import type {} from '@lyness/shell'
-import type { ApprovalPolicy } from '@lyness/user-approval'
-import { APPROVAL_POLICIES, setApprovalPolicy } from '@lyness/user-approval'
-import type {} from '@lyness/settings'
+import type {} from '@lyness/lyn-shell'
+import type { ApprovalPolicy } from '@lyness/lyn-user-approval'
+import { APPROVAL_POLICIES, setApprovalPolicy } from '@lyness/lyn-user-approval'
+import type {} from '@lyness/lyn-settings'
 // Type-only: resolves the optional projection and command children.
-import type {} from '@lyness/session-projection'
-import type {} from '@lyness/commands'
+import type {} from '@lyness/lyn-session-projection'
+import type {} from '@lyness/lyn-commands'
 import type { PermissionSelect, PresetOption } from './types.ts'
 
 export type * from './types.ts'
@@ -35,14 +35,14 @@ declare module '@lyness/cordis' {
   }
 }
 
-declare module '@lyness/session-projection/types' {
+declare module '@lyness/lyn-session-projection/types' {
   interface SessionProjectionStateMap {
     /** Latest logged permission overrides and constructor-seed provenance. */
     permissions: PermissionProjectionState
   }
 }
 
-declare module '@lyness/session/types' {
+declare module '@lyness/lyn-session/types' {
   interface SessionEventMap {
     /**
      * Records the selected preset as durable, log-only user intent. The knob

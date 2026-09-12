@@ -5,10 +5,10 @@ import { describe, expect, it, vi } from 'vitest'
 import { act, render } from '@testing-library/react'
 import type {
   SessionProviderComponent, StoredEntry,
-} from '@lyness/client-ui-slots'
+} from '@lyness/lyn-client-ui-slots'
 import type {
   ScopedStandardSourceBinding, SlotRendererHost, SlotScopeAdapter, StandardSourceBinding,
-} from '@lyness/client-ui-renderer/client'
+} from '@lyness/lyn-client-ui-renderer/client'
 import { createSlotRenderer } from '../src/client/scoped-slots.tsx'
 
 type SessionBinding = ScopedStandardSourceBinding

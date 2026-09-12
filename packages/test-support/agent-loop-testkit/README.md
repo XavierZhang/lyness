@@ -3,7 +3,7 @@ description: "Prerequisite mounting, production AgentLoop drivers, and explicit 
 kind: "package-library"
 ---
 
-# @lyness/agent-loop-testkit
+# @lyness/lyn-agent-loop-testkit
 
 English | [中文](README.zh.md)
 
@@ -33,11 +33,11 @@ Use `mountAgentLoopTestHarness()` when the test covers durable Inbox events, pro
 
 ```ts
 import { Context } from '@lyness/cordis'
-import { SessionId, type UserMessage } from '@lyness/session'
+import { SessionId, type UserMessage } from '@lyness/lyn-session'
 import {
   mountAgentLoopTestDependencies,
   mountAgentLoopTestHarness,
-} from '@lyness/agent-loop-testkit'
+} from '@lyness/lyn-agent-loop-testkit'
 
 const ctx = new Context()
 
@@ -58,7 +58,7 @@ The dependency helper forwards system-prompt and tool-registry configuration thr
 Use `createInboxStub()` when the test subject needs mutable pending lists but does not exercise durability, projection validation, live Inbox notifications, or the driver's claim policy. The stub implements the public queue operations with two process-local arrays and never writes to a Session. Use `unsupportedInbox()` when the test subject must not touch pending input; every mutation throws at the first unexpected dependency.
 
 ```ts
-import { createInboxStub } from '@lyness/agent-loop-testkit'
+import { createInboxStub } from '@lyness/lyn-agent-loop-testkit'
 
 const agent = {
   // ...

@@ -13,8 +13,8 @@ import type { ServerResponse } from 'node:http'
 import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
 // Empty type imports carry the clientModuleHost/webServer Context merges.
-import type { ClientArtifactBaseline } from '@lyness/client-modules'
-import type {} from '@lyness/host-webserver'
+import type { ClientArtifactBaseline } from '@lyness/lyn-client-modules'
+import type {} from '@lyness/lyn-host-webserver'
 import type { PluginsEventFrame } from './events.ts'
 import { EVENTS_ENDPOINT } from './events.ts'
 

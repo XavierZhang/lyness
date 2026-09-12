@@ -1,6 +1,6 @@
 /**
  * Carrier-independent Typert Gateway request, service, and error contracts.
- * @module @lyness/api-gateway/types
+ * @module @lyness/lyn-api-gateway/types
  */
 
 import type { Context } from '@lyness/cordis'

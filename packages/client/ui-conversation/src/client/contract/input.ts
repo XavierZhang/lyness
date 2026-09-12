@@ -7,8 +7,8 @@
  * here is the submit plane (phase, claim, attempt) alone.
  */
 import type { Context } from '@lyness/cordis'
-import type { ObservableSnapshot, SnapshotStore } from '@lyness/client-store'
-import type { Branded } from '@lyness/brand'
+import type { ObservableSnapshot, SnapshotStore } from '@lyness/lyn-client-store'
+import type { Branded } from '@lyness/lyn-brand'
 import type { LexicalEditor } from 'lexical'
 import type { QueueRow } from './queue.ts'
 import type { InputSubmitMode } from './composer-submission.ts'

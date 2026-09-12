@@ -10,11 +10,11 @@
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { SlotRegistry } from '@lyness/client-ui-renderer/client'
-import { apply as settingsApply, inject as settingsInject } from '@lyness/client-ui-settings/client'
-import { TestRemote } from '@lyness/client-test-runtime'
-import { apply, inject } from '@lyness/client-locale/client'
-import type { LocaleRuntime } from '@lyness/client-locale/client'
+import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
+import { apply as settingsApply, inject as settingsInject } from '@lyness/lyn-client-ui-settings/client'
+import { TestRemote } from '@lyness/lyn-client-test-runtime'
+import { apply, inject } from '@lyness/lyn-client-locale/client'
+import type { LocaleRuntime } from '@lyness/lyn-client-locale/client'
 import { LOCALE_SETTINGS_NAMESPACE, LocaleSettingsSchema } from '../src/locale-settings.ts'
 
 /** Boot the plugin over a stub Host settings document. */

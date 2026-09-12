@@ -1,13 +1,13 @@
 /**
  * Durable agent session-event vocabulary shared with type-only consumers.
  *
- * @module @lyness/agent/types
+ * @module @lyness/lyn-agent/types
  */
 
-import type { UserMessage } from '@lyness/llm/types'
-import type { OptionalSessionSeq, SessionId, SessionSeq } from '@lyness/session/types'
-import type { TypertContext, TypertLookup } from '@lyness/typert-protocol'
-import type { JsonValue } from '@lyness/util-values'
+import type { UserMessage } from '@lyness/lyn-llm/types'
+import type { OptionalSessionSeq, SessionId, SessionSeq } from '@lyness/lyn-session/types'
+import type { TypertContext, TypertLookup } from '@lyness/lyn-typert-protocol'
+import type { JsonValue } from '@lyness/lyn-util-values'
 
 /** Public live-agent handle; the runtime face augments its live capabilities. */
 export interface Agent {
@@ -15,7 +15,7 @@ export interface Agent {
   readonly id: SessionId
 }
 
-declare module '@lyness/typert-protocol' {
+declare module '@lyness/lyn-typert-protocol' {
   interface TypertLookupMap {
     agent: TypertLookup<Agent, SessionId>
   }
@@ -46,7 +46,7 @@ export interface InboxWireState {
   readonly 'next-step': readonly JsonValue[]
 }
 
-declare module '@lyness/session-projection/types' {
+declare module '@lyness/lyn-session-projection/types' {
   interface SessionProjectionStateMap {
     /** Pending agent input reconstructed from durable inbox splices. */
     inbox: InboxState
@@ -77,7 +77,7 @@ export interface TurnBoundaryProjection {
   readonly lastTurn: number
 }
 
-declare module '@lyness/session/types' {
+declare module '@lyness/lyn-session/types' {
   interface SessionEventMap {
     /**
      * One normalized mutation of an agent's durable pending-message lists.

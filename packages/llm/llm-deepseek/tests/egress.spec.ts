@@ -1,7 +1,7 @@
 import { createServer, type Server } from 'node:http'
 import type { AddressInfo } from 'node:net'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
-import { installProxyFromEnvironment } from '@lyness/http-proxy'
+import { installProxyFromEnvironment } from '@lyness/lyn-http-proxy'
 
 let seen: string[] = []
 let proxy: Server
@@ -36,8 +36,8 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import LlmRuntime from '@lyness/llm'
-import DeepSeekLlmApiExtensionRegistry from '@lyness/deepseek-llm-api-extensions'
+import LlmRuntime from '@lyness/lyn-llm'
+import DeepSeekLlmApiExtensionRegistry from '@lyness/lyn-deepseek-llm-api-extensions'
 import * as LlmDeepSeek from '../src/index.ts'
 
 let home: string

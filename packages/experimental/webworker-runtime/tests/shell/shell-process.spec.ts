@@ -9,12 +9,12 @@
  * `Worker` to cross. The real browser Worker boundary is not exercised here.
  */
 import { afterEach, beforeEach, expect, it, vi } from 'vitest'
-import { MemoryVfs } from '@lyness/experimental-webworker-runtime/src/storage/memory.ts'
-import { setActiveVfs } from '@lyness/experimental-webworker-runtime/src/storage/active.ts'
-import { startProcess } from '@lyness/experimental-webworker-runtime/src/shell/process/host.ts'
-import { runShellProcess } from '@lyness/experimental-webworker-runtime/src/shell/process/child.ts'
-import { isShellStartFrame } from '@lyness/experimental-webworker-runtime/src/shell/process/protocol.ts'
-import type { FromProcessFrame, ToProcessFrame } from '@lyness/experimental-webworker-runtime/src/shell/process/protocol.ts'
+import { MemoryVfs } from '@lyness/lyn-experimental-webworker-runtime/src/storage/memory.ts'
+import { setActiveVfs } from '@lyness/lyn-experimental-webworker-runtime/src/storage/active.ts'
+import { startProcess } from '@lyness/lyn-experimental-webworker-runtime/src/shell/process/host.ts'
+import { runShellProcess } from '@lyness/lyn-experimental-webworker-runtime/src/shell/process/child.ts'
+import { isShellStartFrame } from '@lyness/lyn-experimental-webworker-runtime/src/shell/process/protocol.ts'
+import type { FromProcessFrame, ToProcessFrame } from '@lyness/lyn-experimental-webworker-runtime/src/shell/process/protocol.ts'
 
 const WORKSPACE = '/lyn/workspace'
 const WORKER_URL = 'https://example.test/assets/worker.js'

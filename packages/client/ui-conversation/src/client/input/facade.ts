@@ -11,7 +11,7 @@
 import type { Context } from '@lyness/cordis'
 import {
   createSnapshotStore, type ObservableSnapshot, type SnapshotStore,
-} from '@lyness/client-store'
+} from '@lyness/lyn-client-store'
 import type { LexicalEditor, NodeKey } from 'lexical'
 import {
   $addUpdateTag, $createParagraphNode, $createTextNode, $getRoot, $getSelection, $isRangeSelection,

@@ -3,7 +3,7 @@ description: "The browser GUI for lyn: interactive chat, model and settings mana
 kind: "package-bundle"
 ---
 
-# @lyness/web-app
+# @lyness/lyn-web-app
 
 English | [中文](README.zh.md)
 
@@ -47,7 +47,7 @@ Most users never set these; the command-line flags feed the four settings below 
 | `surfaceContext` | `true` | Give the agent GUI-orientation context and expose `LYNESS_WEB_URL` to its shell commands |
 | `trustedHosts` | `[]` | Extra hosts allowed to reach the GUI from the network |
 
-The generated [configuration catalog](../../../docs/config-catalog.md#lynessweb-app) is the exhaustive source for every accepted field and its JSDoc.
+The generated [configuration catalog](../../../docs/config-catalog.md#lynesslyn-web-app) is the exhaustive source for every accepted field and its JSDoc.
 
 ### LAN access and trusted hosts
 
@@ -113,7 +113,7 @@ Read these pages when you want to go deeper into the shared core, the browser re
 - [lyn-base](../base/README.md) — the shared core the GUI runs on.
 - [lyn-client-hmr](../../client/hmr/README.md) — how client-plugin changes reload during development.
 - [frontend-static](../../host/frontend-static/README.md) — how the built frontend is served.
-- [Generated configuration catalog](../../../docs/config-catalog.md#lynessweb-app) — every accepted config field and its source declaration.
+- [Generated configuration catalog](../../../docs/config-catalog.md#lynesslyn-web-app) — every accepted config field and its source declaration.
 
 -----
 

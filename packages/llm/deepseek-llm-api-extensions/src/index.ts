@@ -1,7 +1,7 @@
 /**
  * DeepSeek LLM API extension registry: plugins own independent top-level request
  * fields while the official adapter performs one preparation and acceptance transaction.
- * @module @lyness/deepseek-llm-api-extensions
+ * @module @lyness/lyn-deepseek-llm-api-extensions
  */
 
 import { Context, Service } from '@lyness/cordis'

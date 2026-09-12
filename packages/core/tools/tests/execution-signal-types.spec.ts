@@ -1,13 +1,13 @@
 import { describe, expectTypeOf, it } from 'vitest'
 import type { Context } from '@lyness/cordis'
-import { ToolCallId } from '@lyness/llm'
-import { defineTool } from '@lyness/tools'
+import { ToolCallId } from '@lyness/lyn-llm'
+import { defineTool } from '@lyness/lyn-tools'
 import type {
   ToolDispatchExecution,
   ToolExecution,
   ToolExecutionInput,
   ToolRunContext,
-} from '@lyness/tools'
+} from '@lyness/lyn-tools'
 
 function inputAndExecutionContracts(
   input: ToolExecutionInput,

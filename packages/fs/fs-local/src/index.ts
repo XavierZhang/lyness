@@ -1,7 +1,7 @@
 /**
  * Host-filesystem implementation of `ctx.fs`. Realpath-derived target identity makes aliases
  * share stale guards, and writes through a symlink update its target without replacing the link.
- * @module @lyness/fs-local
+ * @module @lyness/lyn-fs-local
  */
 
 import { Context } from '@lyness/cordis'
@@ -9,7 +9,7 @@ import { constants as bufferConstants } from 'node:buffer'
 import { isAbsolute, relative, resolve, sep } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import z from '@lyness/schemastery'
-import { FileSystem, FsError, FsVersion } from '@lyness/fs'
+import { FileSystem, FsError, FsVersion } from '@lyness/lyn-fs'
 import type {
   FsDirEntry,
   FsEditOutcome,
@@ -19,7 +19,7 @@ import type {
   FsTarget,
   FsWriteIntent,
   FsWriteOutcome,
-} from '@lyness/fs'
+} from '@lyness/lyn-fs'
 import {
   applyLiteralEdit,
   listDirectory,

@@ -11,23 +11,7 @@ import {
 } from './benchmark-npm-resolution.ts'
 
 const LYNESS_PACKAGE = '@lyness/lyn'
-const LYNESS_SCOPE = '@lyness/'
 const CORDIS_PACKAGE = '@lyness/cordis'
-/**
- * Rescoped packages that share the harness scope but keep their own upstream
- * version lines, so they are not part of the release family this layout checks.
- */
-const RESCOPED_NON_HARNESS = new Set([
-  CORDIS_PACKAGE,
-  '@lyness/cosmokit',
-  '@lyness/schemastery',
-  '@lyness/cordis-plugin-loader',
-  '@lyness/cordis-plugin-include',
-  '@lyness/cordis-plugin-group',
-  '@lyness/cordis-plugin-timer',
-  '@lyness/cordis-plugin-hmr',
-  '@lyness/cordis-plugin-logger-console',
-])
 const NESTED_LYNESS_ALIAS = 'lyn-previous'
 const NESTED_LYNESS_PATH = `node_modules/${NESTED_LYNESS_ALIAS}`
 const DEPENDENCY_FIELDS = ['dependencies', 'optionalDependencies', 'peerDependencies'] as const
@@ -51,19 +35,8 @@ export interface LynInstallLayoutSummary {
   readonly checkedLynEdges: number
 }
 
-/**
- * True for a package in the lyn release family.
- *
- * The scope alone cannot answer this. Upstream's package names carried a
- * product segment that separated harness packages from the rescoped vendored
- * ones; this fork's `@lyness/<name>` drops it, so the vendored names are
- * excluded here by name.
- * @param name - the package name to classify.
- * @returns Whether the package belongs to the lyn release family.
- */
 function isLynPackage(name: string): boolean {
-  if (RESCOPED_NON_HARNESS.has(name)) return false
-  return name === LYNESS_PACKAGE || name.startsWith(LYNESS_SCOPE)
+  return name === LYNESS_PACKAGE || name.startsWith(`${LYNESS_PACKAGE}-`)
 }
 
 function cloneForVersion(manifest: object, version: string): MutableRegistryManifest {

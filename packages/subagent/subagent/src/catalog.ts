@@ -1,20 +1,20 @@
 /**
  * Parent-owned durable subagent catalog events and their chunked projection.
  *
- * @module @lyness/subagent/catalog
+ * @module @lyness/lyn-subagent/catalog
  */
 
 import { z } from 'zod'
-import { appendChunkedList, chunkedListSchema, iterateChunkedList } from '@lyness/chunked-list'
-import type { ChunkedList } from '@lyness/chunked-list'
+import { appendChunkedList, chunkedListSchema, iterateChunkedList } from '@lyness/lyn-chunked-list'
+import type { ChunkedList } from '@lyness/lyn-chunked-list'
 import type {
   Session,
   SessionEvent,
   SessionHeader,
   SessionId,
   SessionLogOffset,
-} from '@lyness/session'
-import type { ProjectionDefinition } from '@lyness/session-projection'
+} from '@lyness/lyn-session'
+import type { ProjectionDefinition } from '@lyness/lyn-session-projection'
 import type { SubagentCatalogEntry } from './projection-types.ts'
 
 /** Current payload version for `subagent/catalog` events. */
@@ -31,7 +31,7 @@ export type SubagentCatalogEvent =
     | { readonly mode: 'continuable'; readonly label: string }
   )
 
-declare module '@lyness/session/types' {
+declare module '@lyness/lyn-session/types' {
   interface SessionEventMap {
     /**
      * A direct child's complete discovery fact.
@@ -81,7 +81,7 @@ const stateSchema: z.ZodType<SubagentCatalogState> = z.object({
   head: chunkedListSchema(eventDataSchema).optional(),
 }).strict()
 
-declare module '@lyness/session-projection/types' {
+declare module '@lyness/lyn-session-projection/types' {
   interface SessionProjectionStateMap {
     subagentCatalog: SubagentCatalogState
   }

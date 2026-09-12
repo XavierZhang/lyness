@@ -3,7 +3,7 @@ description: "面向用户与维护者的 subagent 委派 seam，用于选择提
 kind: "package-reference"
 ---
 
-# @lyness/subagent
+# @lyness/lyn-subagent
 
 [English](README.md) | 中文
 
@@ -32,9 +32,9 @@ kind: "package-reference"
 把服务与一个提供方和委派工具一起挂载。提供方以你配置的名称注册（进程内 spawn 后端默认为 `spawn`）；工具行指名该提供方，让模型看到一个静态工具。一个最小的一次性配置：
 
 ```yaml
-- name: '@lyness/subagent'
-- name: '@lyness/subagent-spawn-in-process'
-- name: '@lyness/tool-subagent'
+- name: '@lyness/lyn-subagent'
+- name: '@lyness/lyn-subagent-spawn-in-process'
+- name: '@lyness/lyn-tool-subagent'
   config:
     provider: spawn
     toolName: subagent

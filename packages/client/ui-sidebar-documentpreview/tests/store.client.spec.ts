@@ -4,10 +4,10 @@
  * `forget` so a closed tab leaves nothing behind.
  */
 import { describe, expect, it } from 'vitest'
-import type { RemoteFailure } from '@lyness/api-remotes/client'
+import type { RemoteFailure } from '@lyness/lyn-api-remotes/client'
 import { createTextStore, fresh } from '../src/client/store.ts'
 import { page } from './fixtures.client.ts'
-import type { TabId } from '@lyness/client-ui-dockkit'
+import type { TabId } from '@lyness/lyn-client-ui-dockkit'
 
 const TAB_1 = 'tab-1' as TabId
 const TAB_2 = 'tab-2' as TabId

@@ -2,8 +2,8 @@ import type { Context } from '@lyness/cordis'
 import type {
   ContextMessageNode, ConversationNodeDefinition, ConversationPreviousContext,
   SteeringMessageNode, UserMessageNode,
-} from '@lyness/client-ui-conversation/client'
-import type {} from '@lyness/agent/types'
+} from '@lyness/lyn-client-ui-conversation/client'
+import type {} from '@lyness/lyn-agent/types'
 import { trajectoryNode } from './trajectory-definition-common.ts'
 import { contextForm, contextProvenance } from './trajectory-event-projection.ts'
 

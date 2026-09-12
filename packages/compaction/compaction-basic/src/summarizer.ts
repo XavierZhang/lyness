@@ -1,15 +1,15 @@
 /**
  * Default one-shot summarization and durable checkpoint framing.
  *
- * @module @lyness/compaction-basic/summarizer
+ * @module @lyness/lyn-compaction-basic/summarizer
  */
 
 import type { Context } from '@lyness/cordis'
-import { contentHasImage, createUserMessage, BlockAssembler, LlmError } from '@lyness/llm'
+import { contentHasImage, createUserMessage, BlockAssembler, LlmError } from '@lyness/lyn-llm'
 import type {
   ContentBlock, FinishReason, GenerateOptions, Message, TokenUsage, ToolSchema,
-} from '@lyness/llm'
-import type { Agent } from '@lyness/agent'
+} from '@lyness/lyn-llm'
+import type { Agent } from '@lyness/lyn-agent'
 
 interface SummaryConfig {
   readonly summarizationProvider: string

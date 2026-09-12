@@ -8,13 +8,13 @@
  */
 import { Context } from '@lyness/cordis'
 import { describe, expect, it } from 'vitest'
-import { createScope, scopeOf } from '@lyness/api-session-controller/client'
-import { SlotRegistry } from '@lyness/client-ui-renderer/client'
-import type { SessionId } from '@lyness/session/types'
-import type { InputTriggerSource } from '@lyness/client-ui-input-trigger/client'
+import { createScope, scopeOf } from '@lyness/lyn-api-session-controller/client'
+import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { InputTriggerSource } from '@lyness/lyn-client-ui-input-trigger/client'
 import type { CommandUiContract } from '../src/client/contract.ts'
 import type { PopupSelectInjected } from '../src/client/PopupSelectView.tsx'
-import { LocaleRuntime } from '@lyness/client-locale/client'
+import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
 import { apply, CommandUiRuntime, inject } from '../src/client/index.ts'
 
 const sid = (k: string): SessionId => k as SessionId

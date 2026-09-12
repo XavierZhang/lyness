@@ -2,7 +2,7 @@
 description: "Browser Chat target that renders Session conversation nodes, historical images, actions, localization, and scroll state."
 kind: "package-reference"
 ---
-# @lyness/client-ui-chat
+# @lyness/lyn-client-ui-chat
 
 English | [中文](README.zh.md)
 

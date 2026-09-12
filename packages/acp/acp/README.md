@@ -3,7 +3,7 @@ description: "Automation-only ACP (Agent Client Protocol) server for programmati
 kind: "package-reference"
 ---
 
-# @lyness/acp
+# @lyness/lyn-acp
 
 English | [中文](README.zh.md)
 
@@ -36,7 +36,7 @@ Choose it when automation should own the interaction: an out-of-process subagent
 Every session the server creates uses the provider and model configured here. Both fields are optional so another agent or request listener can supply them; the runnable demo composition sets both. Stdout carries only protocol traffic, so keep logging off it.
 
 ```yaml
-- name: '@lyness/acp'
+- name: '@lyness/lyn-acp'
   config:
     provider: deepseek-official
     model: deepseek-v4-pro
@@ -48,11 +48,11 @@ Every session the server creates uses the provider and model configured here. Bo
 | `model` | — | Model for every session's agent |
 | `sessionListPageSize` | `100` | Maximum summaries returned in one `session/list` page |
 
-The generated [configuration catalog](../../../docs/config-catalog.md#lynessacp) is the exhaustive source for every accepted field and its JSDoc.
+The generated [configuration catalog](../../../docs/config-catalog.md#lynesslyn-acp) is the exhaustive source for every accepted field and its JSDoc.
 
 ### Start a server
 
-`pnpm lyn --profile acp` starts the shipped stdio server. The `acp` profile mounts session persistence, so clients can list, resume, and close persistent sessions. [`@lyness/subagent-acp`](../../subagent/subagent-acp/README.md) starts the same profile for out-of-process delegation.
+`pnpm lyn --profile acp` starts the shipped stdio server. The `acp` profile mounts session persistence, so clients can list, resume, and close persistent sessions. [`@lyness/lyn-subagent-acp`](../../subagent/subagent-acp/README.md) starts the same profile for out-of-process delegation.
 
 <a id="protocol-contract"></a><a id="standard-acp-v1-surface"></a>
 ### Protocol contract

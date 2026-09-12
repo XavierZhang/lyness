@@ -2,7 +2,7 @@ import {
   RELEASED_V0_EVENT_DISPOSITIONS,
   defineReleasedPayloadDisposition,
   type ReleasedV0PayloadDisposition,
-} from '@lyness/session-format-v0-to-v1'
+} from '@lyness/lyn-session-format-v0-to-v1'
 
 const retained = Object.fromEntries(
   Object.entries(RELEASED_V0_EVENT_DISPOSITIONS).filter(([type]) => (

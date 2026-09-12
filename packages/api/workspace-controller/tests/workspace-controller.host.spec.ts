@@ -3,18 +3,18 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import SessionStore, { SessionId } from '@lyness/session'
-import Storage from '@lyness/storage'
-import { DomainFacility } from '@lyness/storage-domain'
-import { RemoteError } from '@lyness/typert-protocol'
-import WorkspaceRegistry from '@lyness/workspace'
-import type { WorkspaceId } from '@lyness/workspace/types'
+import SessionStore, { SessionId } from '@lyness/lyn-session'
+import Storage from '@lyness/lyn-storage'
+import { DomainFacility } from '@lyness/lyn-storage-domain'
+import { RemoteError } from '@lyness/lyn-typert-protocol'
+import WorkspaceRegistry from '@lyness/lyn-workspace'
+import type { WorkspaceId } from '@lyness/lyn-workspace/types'
 import WorkspaceController from '../src/index.ts'
 import { WorkspaceFeed } from '../src/feed.ts'
 import type { WorkspaceFollowFrame } from '../src/types.ts'
 import { MemoryStorageBackend } from '../../../storage/storage-domain/tests/helpers/memory-backend.ts'
 
-declare module '@lyness/typert-protocol' {
+declare module '@lyness/lyn-typert-protocol' {
   interface RemoteErrorDetailsMap {
     'fixture/failure': {}
   }

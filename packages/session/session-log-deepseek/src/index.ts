@@ -2,14 +2,14 @@
  * Incremental session-log contribution for official DeepSeek LLM API requests.
  * Accepted sequence watermarks live in the canonical log, so restart recovery
  * can conservatively resend uncertain tails without maintaining another store.
- * @module @lyness/session-log-deepseek
+ * @module @lyness/lyn-session-log-deepseek
  */
 
 import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import { brandString } from '@lyness/brand'
-import type {} from '@lyness/deepseek-llm-api-extensions'
-import { KNOWN_SESSION_EVENT_TYPES, SessionLogOffset, SessionSeq } from '@lyness/session'
+import { brandString } from '@lyness/lyn-brand'
+import type {} from '@lyness/lyn-deepseek-llm-api-extensions'
+import { KNOWN_SESSION_EVENT_TYPES, SessionLogOffset, SessionSeq } from '@lyness/lyn-session'
 import type {
   Session,
   SessionEvent,
@@ -18,8 +18,8 @@ import type {
   SessionSeq as SessionSeqType,
   SessionSeqCursor,
   SurfaceOp,
-} from '@lyness/session'
-import type { JsonValue } from '@lyness/util-values'
+} from '@lyness/lyn-session'
+import type { JsonValue } from '@lyness/lyn-util-values'
 import type {
   DeepSeekSessionLogExtension,
   DeepSeekSessionLogWireEvent,

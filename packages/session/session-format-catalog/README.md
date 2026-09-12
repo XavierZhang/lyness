@@ -3,7 +3,7 @@ description: "Build-static first-party Session format codec and adjacent migrati
 kind: "package-library"
 ---
 
-# @lyness/session-format-catalog
+# @lyness/lyn-session-format-catalog
 
 English | [中文](README.zh.md)
 

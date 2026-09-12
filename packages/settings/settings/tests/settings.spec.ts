@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
 import { SettingsProvider, SettingsConflictError, type SettingsNamespace, type SettingsScope, type SettingsUpdateSource } from '../src/index.ts'
-import { deepEqualJson } from '@lyness/util-values'
+import { deepEqualJson } from '@lyness/lyn-util-values'
 import { MemorySettings } from './memory.ts'
 
 /** A provider implementing only the three primitives: the Service Definition owns initialization. */

@@ -1,8 +1,8 @@
 import { describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import type { SettingsDescriptor } from '@lyness/settings'
-import { RemoteError, remoteErrorOf, remoteMethods } from '@lyness/typert-protocol'
+import type { SettingsDescriptor } from '@lyness/lyn-settings'
+import { RemoteError, remoteErrorOf, remoteMethods } from '@lyness/lyn-typert-protocol'
 import SettingsController from '../src/index.ts'
 import { MemorySettings } from '../../../settings/settings/tests/memory.ts'
 
@@ -99,7 +99,7 @@ describe('the settings Remote namespace a configuration page calls', () => {
       const failure = await Promise.resolve().then(call).catch((error: unknown) => error)
       expect(remoteErrorOf(failure)).toMatchObject({
         code: 'gateway/internal',
-        message: 'settings service is absent: this deployment does not mount a settings provider (e.g. @lyness/settings-file) in its composition',
+        message: 'settings service is absent: this deployment does not mount a settings provider (e.g. @lyness/lyn-settings-file) in its composition',
         details: {},
       })
     }

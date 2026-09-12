@@ -6,13 +6,13 @@
  * owns EOF and signal exits. Keep named plugin exports with no default export so
  * Loader `unwrapExports` preserves `name`, `inject`, `Config`, and `apply`.
  *
- * @module @lyness/sdk-jsonrpc-server
+ * @module @lyness/lyn-sdk-jsonrpc-server
  */
 
 import type { Context } from '@lyness/cordis'
 import type { Readable, Writable } from 'node:stream'
 import Schema from '@lyness/schemastery'
-import { JsonRpcLineTransport } from '@lyness/sdk-protocol'
+import { JsonRpcLineTransport } from '@lyness/lyn-sdk-protocol'
 import { HarnessSdkJsonRpcServer } from './server.ts'
 
 export * from './server.ts'

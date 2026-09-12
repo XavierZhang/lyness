@@ -1,14 +1,14 @@
 /**
  * Session-visible workspace instruction state and dynamic reconciliation.
  *
- * @module @lyness/agent-instructions/state
+ * @module @lyness/lyn-agent-instructions/state
  */
 
-import type { Agent } from '@lyness/agent'
-import { createUserMessage } from '@lyness/llm'
-import type { Message } from '@lyness/llm'
-import type { Session, UserMessage } from '@lyness/session'
-import type { FileSystem, FsVersion } from '@lyness/fs'
+import type { Agent } from '@lyness/lyn-agent'
+import { createUserMessage } from '@lyness/lyn-llm'
+import type { Message } from '@lyness/lyn-llm'
+import type { Session, UserMessage } from '@lyness/lyn-session'
+import type { FileSystem, FsVersion } from '@lyness/lyn-fs'
 import type { ResolvedConfig } from './config.ts'
 import { instructionContentSha1, trimmedInstructionDigest } from './digest.ts'
 import {
@@ -45,7 +45,7 @@ export interface AgentInstructionSource {
   changes: AgentInstructionChange[]
 }
 
-declare module '@lyness/llm' {
+declare module '@lyness/lyn-llm' {
   interface MessageSourceMap {
     'agent-instructions': AgentInstructionSource
   }

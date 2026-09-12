@@ -3,15 +3,15 @@
  * spill backend does — persist oversized text and return a model-facing
  * locator plus retrieval guidance — without saying HOW. Implementations
  * subclass {@link SpillStore} and register as the `spillStore` service;
- * `@lyness/spill-local` (host filesystem) is the first.
+ * `@lyness/lyn-spill-local` (host filesystem) is the first.
  *
  * The Service Definition is deliberately minimal: `saveText` and nothing else. It owns NO
- * retention policy (that is `@lyness/output-retention`), NO tool-result
- * replacement (that is `@lyness/spill-policy`), and NO retrieval or
+ * retention policy (that is `@lyness/lyn-output-retention`), NO tool-result
+ * replacement (that is `@lyness/lyn-spill-policy`), and NO retrieval or
  * search API. The backend supplies the locator and retrieval hint appropriate
  * for its storage substrate.
  *
- * @module @lyness/spill
+ * @module @lyness/lyn-spill
  */
 
 import { Context, Service } from '@lyness/cordis'

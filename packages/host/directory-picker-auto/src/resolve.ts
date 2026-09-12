@@ -3,10 +3,10 @@
  * one pure decision from sampled host facts to a concrete backend kind. The
  * caller samples exactly once per boot, so the mounted capability stays
  * stable for the service lifetime as the seam requires.
- * @module @lyness/host-directory-picker-auto/resolve
+ * @module @lyness/lyn-host-directory-picker-auto/resolve
  */
 
-import type { Config as HttpServerConfig } from '@lyness/host-webserver'
+import type { Config as HttpServerConfig } from '@lyness/lyn-host-webserver'
 
 /** Concrete interaction backend the resolver chooses between. */
 export type DirectoryPickerBackendKind = 'native' | 'browse'

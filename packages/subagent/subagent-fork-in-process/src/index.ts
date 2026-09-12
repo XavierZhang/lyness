@@ -4,21 +4,21 @@
  * parent's session log — so the child inherits the parent's conversation context instead of
  * starting fresh. The seed ends at the last `turn/end`: the current tool-call turn is
  * unbalanced and cannot be replayed as a valid child session.
- * @module @lyness/subagent-fork-in-process
+ * @module @lyness/lyn-subagent-fork-in-process
  */
 
 import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import type { SessionEvent } from '@lyness/session'
-import type { Agent } from '@lyness/agent'
+import type { SessionEvent } from '@lyness/lyn-session'
+import type { Agent } from '@lyness/lyn-agent'
 import type {
   ContinuableCreateRequest,
   ContinuableCreateSpec,
   ResolvedSubagentStartRequest,
   SubagentCapabilities,
   SubagentProvider,
-} from '@lyness/subagent'
-import { startInProcessRun } from '@lyness/subagent-in-process-driver'
+} from '@lyness/lyn-subagent'
+import { startInProcessRun } from '@lyness/lyn-subagent-in-process-driver'
 
 export const name = 'subagent-fork-in-process'
 // `tools` is deliberately NOT injected — same rationale as subagent-spawn-in-process: the

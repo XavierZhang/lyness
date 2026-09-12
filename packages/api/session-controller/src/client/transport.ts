@@ -1,7 +1,7 @@
 /** Session-specific adapters for Gateway-owned Remote stream lifecycles. */
 
-import type {} from '@lyness/api-session-controller/remote'
-import { RemoteError } from '@lyness/typert-protocol'
+import type {} from '@lyness/lyn-api-session-controller/remote'
+import { RemoteError } from '@lyness/lyn-typert-protocol'
 import {
   RemoteJournalStream,
   RemoteSnapshotStream,
@@ -9,7 +9,7 @@ import {
   type ClientRemote,
   type RemoteJournalChange,
   type RemoteJournalFrame,
-} from '@lyness/api-gateway/client'
+} from '@lyness/lyn-api-gateway/client'
 import type {
   SessionAddress,
   SessionAssistantStreamBaseline,

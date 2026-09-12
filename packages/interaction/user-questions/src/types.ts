@@ -1,7 +1,7 @@
-/** Client-safe question, answer, and event types. @module @lyness/user-questions/types */
+/** Client-safe question, answer, and event types. @module @lyness/lyn-user-questions/types */
 
-import type { Scoped } from '@lyness/scope'
-import type { Agent } from '@lyness/agent/types'
+import type { Scoped } from '@lyness/lyn-scope'
+import type { Agent } from '@lyness/lyn-agent/types'
 
 /** One selectable answer offered to the user. */
 export interface AskUserQuestionOption {
@@ -78,7 +78,7 @@ declare module '@lyness/cordis' {
     /**
      * Ask composed answerers for structured user input. Return an answer to
      * claim the request or call `next()` to delegate. Scope-filtered dispatch
-     * (`@lyness/scope`): agent-scoped listeners receive only that agent.
+     * (`@lyness/lyn-scope`): agent-scoped listeners receive only that agent.
      * @param request - pending user-question request.
      * @mode waterfall
      */

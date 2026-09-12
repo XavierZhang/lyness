@@ -2,19 +2,19 @@ import { PassThrough } from 'node:stream'
 import { describe, expect, it, vi } from 'vitest'
 import { basename, dirname, relative, resolve } from 'node:path'
 import { Context } from '@lyness/cordis'
-import LocalSubprocessRuntime from '@lyness/subprocess-local'
-import type { SubprocessSpawnSpec, SubprocessTerminalHandle, SubprocessTerminalSpawnSpec } from '@lyness/subprocess'
+import LocalSubprocessRuntime from '@lyness/lyn-subprocess-local'
+import type { SubprocessSpawnSpec, SubprocessTerminalHandle, SubprocessTerminalSpawnSpec } from '@lyness/lyn-subprocess'
 import { childEnv } from '../src/spawn.ts'
 
 function mockWin32ForIsolatedRuntime(): void {
-  vi.doMock('@lyness/win32-process', () => ({
+  vi.doMock('@lyness/lyn-win32-process', () => ({
     loadWin32ProcessBindings: vi.fn(),
     probeCurrentTokenJobSupport: vi.fn(),
   }))
 }
 
 function unmockWin32ForIsolatedRuntime(): void {
-  vi.doUnmock('@lyness/win32-process')
+  vi.doUnmock('@lyness/lyn-win32-process')
 }
 
 function spec(command: string, overrides: Partial<SubprocessSpawnSpec> = {}): SubprocessSpawnSpec {

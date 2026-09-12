@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import type { ImageAttachmentRef } from '@lyness/attachment'
+import type { ImageAttachmentRef } from '@lyness/lyn-attachment'
 import { ImageLightbox } from './ImageLightbox.tsx'
 import type { ImageLightboxLabels } from './ImageLightbox.tsx'
 import css from './MessageImage.module.css'

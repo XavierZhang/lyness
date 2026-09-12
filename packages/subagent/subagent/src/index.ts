@@ -8,8 +8,8 @@
  * select one by name.
  *
  * This package owns the Service Definition role of the capability seam. Service Providers
- * (`@lyness/subagent-spawn-in-process`, `-fork`, `-acp`) and the model-facing
- * consumer (`@lyness/tool-subagent`) are separate packages.
+ * (`@lyness/lyn-subagent-spawn-in-process`, `-fork`, `-acp`) and the model-facing
+ * consumer (`@lyness/lyn-tool-subagent`) are separate packages.
  *
  * Public operations express caller intent: `start` returns one published owned
  * one-shot run, `startContinuable` establishes a durable continuable child, and
@@ -26,19 +26,19 @@
  * serialization and hostile-input validation belong at real process, worker,
  * persistence, and model boundaries.
  *
- * @module @lyness/subagent
+ * @module @lyness/lyn-subagent
  */
 
 import { Context } from '@lyness/cordis'
-import type {} from '@lyness/attachment'
-import { scopeTarget } from '@lyness/scope'
-import type { Scoped } from '@lyness/scope'
-import { assertObjectJsonSchema } from '@lyness/tools'
-import type { ContentBlock, MessageId, MessageSource } from '@lyness/llm'
-import type { Agent } from '@lyness/agent'
-import type { SessionId } from '@lyness/session'
-import { canonicalClientTimeZone } from '@lyness/util-time'
-import { Remote, RemoteError, TypertRemoteService } from '@lyness/typert-protocol'
+import type {} from '@lyness/lyn-attachment'
+import { scopeTarget } from '@lyness/lyn-scope'
+import type { Scoped } from '@lyness/lyn-scope'
+import { assertObjectJsonSchema } from '@lyness/lyn-tools'
+import type { ContentBlock, MessageId, MessageSource } from '@lyness/lyn-llm'
+import type { Agent } from '@lyness/lyn-agent'
+import type { SessionId } from '@lyness/lyn-session'
+import { canonicalClientTimeZone } from '@lyness/lyn-util-time'
+import { Remote, RemoteError, TypertRemoteService } from '@lyness/lyn-typert-protocol'
 import {
   catalogView, rejectCatalogRead, rejectPrompt, validateControlRequest,
 } from './control.ts'

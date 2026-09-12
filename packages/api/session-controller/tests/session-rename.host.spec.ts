@@ -9,13 +9,13 @@
 
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import SessionStore from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import AgentRegistry from '@lyness/agent'
-import type { Agent, AgentHandle, CreateAgentOptions } from '@lyness/agent'
-import { createUserMessage } from '@lyness/llm'
-import SessionTitleService from '@lyness/session-title'
-import type { Session, SessionId } from '@lyness/session'
+import SessionStore from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import AgentRegistry from '@lyness/lyn-agent'
+import type { Agent, AgentHandle, CreateAgentOptions } from '@lyness/lyn-agent'
+import { createUserMessage } from '@lyness/lyn-llm'
+import SessionTitleService from '@lyness/lyn-session-title'
+import type { Session, SessionId } from '@lyness/lyn-session'
 import { createSessionTestRemote } from './test-remote.ts'
 
 const sid = (id: string): SessionId => id as SessionId

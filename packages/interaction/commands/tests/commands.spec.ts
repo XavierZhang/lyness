@@ -1,11 +1,11 @@
 import { describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { createScope } from '@lyness/scope'
-import type { Scope } from '@lyness/scope'
-import type { Agent } from '@lyness/agent'
-import SessionStore, { SessionId } from '@lyness/session'
-import CommandRuntime, { parseCommand, type CommandDefinition } from '@lyness/commands'
-import { AttachmentStore } from '@lyness/attachment'
+import { createScope } from '@lyness/lyn-scope'
+import type { Scope } from '@lyness/lyn-scope'
+import type { Agent } from '@lyness/lyn-agent'
+import SessionStore, { SessionId } from '@lyness/lyn-session'
+import CommandRuntime, { parseCommand, type CommandDefinition } from '@lyness/lyn-commands'
+import { AttachmentStore } from '@lyness/lyn-attachment'
 
 function command(name: string, text = `ran:${name}`): CommandDefinition {
   return {

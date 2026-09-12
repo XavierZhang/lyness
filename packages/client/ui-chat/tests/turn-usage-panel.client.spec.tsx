@@ -2,8 +2,8 @@
 
 import { afterEach, describe, expect, it } from 'vitest'
 import { cleanup, fireEvent, render } from '@testing-library/react'
-import { makeTranslate } from '@lyness/client-test-runtime'
-import { en as commonEn } from '@lyness/client-locale/src/locales/en.ts'
+import { makeTranslate } from '@lyness/lyn-client-test-runtime'
+import { en as commonEn } from '@lyness/lyn-client-locale/src/locales/en.ts'
 import { TurnTimePanel, TurnUsagePanel } from '../src/client/chat/TurnUsagePanel.tsx'
 import type { TurnTokenUsage } from '../src/client/contract/chat-nodes.ts'
 import { en } from '../src/client/locale.ts'

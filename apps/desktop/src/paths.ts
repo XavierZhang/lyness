@@ -1,7 +1,7 @@
 /** Filesystem ownership for the Electron-managed desktop installation. */
 
 import { join } from 'node:path'
-import { resolveLynHome } from '@lyness/home-paths'
+import { resolveLynHome } from '@lyness/lyn-home-paths'
 
 /** Stable desktop installation paths under the shared Harness home. */
 export interface DesktopPaths {

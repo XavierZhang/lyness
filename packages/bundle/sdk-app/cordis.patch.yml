@@ -11,12 +11,12 @@
 
 - insert:
     - id: sdk-app-startup
-      name: '@lyness/sdk-app'
+      name: '@lyness/lyn-sdk-app'
       config:
         profile: sdk
 
     - id: sdk-jsonrpc-server
-      name: '@lyness/sdk-jsonrpc-server'
+      name: '@lyness/lyn-sdk-jsonrpc-server'
       inject: [sdkAppStartup, loader]
       config:
         maxTokensAsSuccess: !!js "process.env.LYNESS_MAX_TOKENS_AS_SUCCESS === undefined ? true : JSON.parse(process.env.LYNESS_MAX_TOKENS_AS_SUCCESS)"

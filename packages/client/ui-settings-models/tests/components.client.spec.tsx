@@ -3,11 +3,11 @@
 import { act, cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import Schema from '@lyness/schemastery'
-import { bindSnapshotSelector, RemoteError } from '@lyness/client-test-runtime'
+import { bindSnapshotSelector, RemoteError } from '@lyness/lyn-client-test-runtime'
 import type {
   CredentialInfo, RemoteResult, SettingsNamespaceView,
-} from '@lyness/api-remotes/client'
-import type { JsonValue } from '@lyness/util-values'
+} from '@lyness/lyn-api-remotes/client'
+import type { JsonValue } from '@lyness/lyn-util-values'
 import {
   ModelsSection, needsSetup, providerCopy, providerTargetLabel, removeProviderProfile,
 } from '../src/client/ModelsSection.tsx'
@@ -17,7 +17,7 @@ import {
   DeepSeekModelsEditor, formatCapacity, modelDrafts, parseCapacity, validateDeepSeekModels,
 } from '../src/client/DeepSeekModelsEditor.tsx'
 import { apiKeyFailure } from '../src/client/apiKey.ts'
-import { SettingsDescribeMirror } from '@lyness/client-ui-settings/src/client/settings-mirror.ts'
+import { SettingsDescribeMirror } from '@lyness/lyn-client-ui-settings/src/client/settings-mirror.ts'
 import { deriveKeyRef, ModelsSettingsStore } from '../src/client/store.ts'
 import { createModelsOperations } from '../src/client/operations.ts'
 import type { ModelsOperations } from '../src/client/operations.ts'

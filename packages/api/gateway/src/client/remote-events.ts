@@ -5,12 +5,12 @@ import type {
   ConnectionGenerationSource,
   ConnectionHostInfo,
   ConnectionHandle,
-} from '@lyness/client-connection/client'
+} from '@lyness/lyn-client-connection/client'
 import type {
   TypertClientEventListener,
   TypertRemoteEvent,
-} from '@lyness/typert-protocol'
-import { randomUUID } from '@lyness/util-crypto'
+} from '@lyness/lyn-typert-protocol'
+import { randomUUID } from '@lyness/lyn-util-crypto'
 import {
   REMOTE_EVENT_RESULT_ENDPOINT,
   REMOTE_EVENT_STREAM_ENDPOINT,

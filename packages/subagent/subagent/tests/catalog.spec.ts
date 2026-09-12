@@ -1,15 +1,15 @@
 import { describe, expect, it, vi } from 'vitest'
 import { z } from 'zod'
 import { Context } from '@lyness/cordis'
-import SessionStore from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
+import SessionStore from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 import {
   SessionLogOffset,
   SessionSeq,
   SESSION_FORMAT_VERSION,
   SessionId,
-} from '@lyness/session'
-import type { SessionEvent, SessionHeader } from '@lyness/session'
+} from '@lyness/lyn-session'
+import type { SessionEvent, SessionHeader } from '@lyness/lyn-session'
 import {
   subagentCatalogProjectionDefinition,
 } from '../src/catalog.ts'

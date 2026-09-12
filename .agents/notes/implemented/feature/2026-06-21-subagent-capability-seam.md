@@ -31,13 +31,13 @@ A new package group `packages/subagent/`:
 
 | Package | Role |
 |---|---|
-| `@lyness/subagent` | interface: `SubagentRuntime` (`ctx.subagents`), `SubagentProvider`, `SubagentRun`, the request/result/capability vocabulary, the `subagent/*` events |
-| `@lyness/subagent-spawn-in-process` | implementation: a fresh in-process child via `ctx.agents.create` |
-| `@lyness/subagent-fork-in-process` | implementation: an in-process child seeded with a snapshot of the parent's log |
-| `@lyness/subagent-acp` | implementation: an ACP client driving a configured child process |
-| `@lyness/subagent-codex` | implementation: a one-shot official Codex app-server process |
-| `@lyness/subagent-claude-code` | implementation: a one-shot official Claude Code process through the Agent SDK |
-| `@lyness/tool-subagent` | consumer: the model-facing `subagent` tool over `ctx.subagents` |
+| `@lyness/lyn-subagent` | interface: `SubagentRuntime` (`ctx.subagents`), `SubagentProvider`, `SubagentRun`, the request/result/capability vocabulary, the `subagent/*` events |
+| `@lyness/lyn-subagent-spawn-in-process` | implementation: a fresh in-process child via `ctx.agents.create` |
+| `@lyness/lyn-subagent-fork-in-process` | implementation: an in-process child seeded with a snapshot of the parent's log |
+| `@lyness/lyn-subagent-acp` | implementation: an ACP client driving a configured child process |
+| `@lyness/lyn-subagent-codex` | implementation: a one-shot official Codex app-server process |
+| `@lyness/lyn-subagent-claude-code` | implementation: a one-shot official Claude Code process through the Agent SDK |
+| `@lyness/lyn-tool-subagent` | consumer: the model-facing `subagent` tool over `ctx.subagents` |
 
 ### The primitive: async `start → SubagentRun`
 

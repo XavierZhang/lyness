@@ -4,8 +4,8 @@ import type {
   RemoteEventHostInfo,
   TypertRemoteEventInvocation,
   TypertRemoteEventSource,
-} from '@lyness/api-gateway'
-import { scopeTarget } from '@lyness/scope'
+} from '@lyness/lyn-api-gateway'
+import { scopeTarget } from '@lyness/lyn-scope'
 import { describe, expect, it } from 'vitest'
 import { apply, inject } from '../src/index.ts'
 

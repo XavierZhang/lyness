@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import { runInNewContext } from 'node:vm'
-import AgentRegistry from '@lyness/agent'
-import type { Agent } from '@lyness/agent'
-import { SessionId } from '@lyness/session'
+import AgentRegistry from '@lyness/lyn-agent'
+import type { Agent } from '@lyness/lyn-agent'
+import { SessionId } from '@lyness/lyn-session'
 
 function agent(id: string): Agent {
   return { id: SessionId(id) } as Agent

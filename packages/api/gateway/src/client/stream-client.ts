@@ -1,4 +1,4 @@
-import { RemoteError } from '@lyness/typert-protocol'
+import { RemoteError } from '@lyness/lyn-typert-protocol'
 /** Browser owner for the Gateway multiplexed Remote stream socket. */
 
 import {
@@ -7,8 +7,8 @@ import {
   type RemoteStreamClientMessage,
   type RemoteStreamServerMessage,
 } from '../stream-protocol.ts'
-import { Deque } from '@lyness/deque'
-import { randomUUID } from '@lyness/util-crypto'
+import { Deque } from '@lyness/lyn-deque'
+import { randomUUID } from '@lyness/lyn-util-crypto'
 
 const INTERNAL_BASE = 'http://lyn.internal'
 

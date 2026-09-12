@@ -3,7 +3,7 @@ description: "面向侧栏的官方 lyness 品牌填充，仅在官方构建中�
 kind: "package-reference"
 ---
 
-# @lyness/client-ui-brand-official
+# @lyness/lyn-client-ui-brand-official
 
 [English](README.md) | 中文
 

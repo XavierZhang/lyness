@@ -1,5 +1,5 @@
-import type { GenerateOptions, LlmModelReasoningInfo, LlmResolvedModelInfo, StreamChunk, SystemPromptUpdate } from '@lyness/llm'
-import { ToolCallId, LlmAdapter } from '@lyness/llm'
+import type { GenerateOptions, LlmModelReasoningInfo, LlmResolvedModelInfo, StreamChunk, SystemPromptUpdate } from '@lyness/lyn-llm'
+import { ToolCallId, LlmAdapter } from '@lyness/lyn-llm'
 
 /** Helpers to write scripted responses tersely. */
 export function textResponse(text: string): StreamChunk[] {

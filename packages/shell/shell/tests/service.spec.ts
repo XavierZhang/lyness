@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { ShellExecutor } from '@lyness/shell'
-import type { ShellExecRequest, ShellExecSpec, ShellProcess, ShellProcessRead, ShellRunResult } from '@lyness/shell'
+import { ShellExecutor } from '@lyness/lyn-shell'
+import type { ShellExecRequest, ShellExecSpec, ShellProcess, ShellProcessRead, ShellRunResult } from '@lyness/lyn-shell'
 
 /**
  * Minimal concrete executor: canned foreground results, a hand-built process

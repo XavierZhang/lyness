@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 /** Inspect the public Codex provider composition without invoking the product. */
 
-import { resolveConfigPath } from '@lyness/app-boot'
-import type {} from '@lyness/subagent'
-import type {} from '@lyness/tools'
+import { resolveConfigPath } from '@lyness/lyn-app-boot'
+import type {} from '@lyness/lyn-subagent'
+import type {} from '@lyness/lyn-tools'
 import { bootProductionProfile } from '../../../../../test-support/loader-smoke/tests/fixtures/production-profile.ts'
 
 const configPath = process.argv[2]

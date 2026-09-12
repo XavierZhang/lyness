@@ -2,12 +2,12 @@
  * Crash-recovery repair for an interrupted session log. It preserves a fully
  * written final turn and supplies the missing tool, step, and turn boundaries
  * needed to resume with a provider-valid transcript.
- * @module @lyness/session/repair
+ * @module @lyness/lyn-session/repair
  */
 
-import { brandString } from '@lyness/brand'
-import type { MessageId, ToolCallId, ToolResultMessage } from '@lyness/llm'
-import { deepFreeze } from '@lyness/util-values'
+import { brandString } from '@lyness/lyn-brand'
+import type { MessageId, ToolCallId, ToolResultMessage } from '@lyness/lyn-llm'
+import { deepFreeze } from '@lyness/lyn-util-values'
 import { SessionSeq } from './types.ts'
 import type { SessionEvent, SessionSeq as SessionSeqType } from './types.ts'
 

@@ -1,13 +1,13 @@
 /**
  * Agent-scoped Schedule management tools over the durable session fold.
- * @module @lyness/schedule
+ * @module @lyness/lyn-schedule
  */
 
 import type { Context } from '@lyness/cordis'
-import type { Agent } from '@lyness/agent'
-import type { ContentBlock } from '@lyness/llm'
-import { defineTool } from '@lyness/tools'
-import type { GenericCallView } from '@lyness/tools'
+import type { Agent } from '@lyness/lyn-agent'
+import type { ContentBlock } from '@lyness/lyn-llm'
+import { defineTool } from '@lyness/lyn-tools'
+import type { GenericCallView } from '@lyness/lyn-tools'
 import {
   allocateScheduleId,
   createAfterScheduleRecord,

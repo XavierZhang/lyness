@@ -5,7 +5,7 @@
  */
 import { Context } from '@lyness/cordis'
 import { describe, expect, it } from 'vitest'
-import InvariantRegistry from '@lyness/invariants'
+import InvariantRegistry from '@lyness/lyn-invariants'
 import * as RendererInvariant from '../src/invariant.ts'
 import { SlotRegistry } from '../src/client/registry.ts'
 

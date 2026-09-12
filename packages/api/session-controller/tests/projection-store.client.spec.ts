@@ -8,8 +8,8 @@
  * list rows' title projection).
  */
 import { describe, expect, it } from 'vitest'
-import type { SessionId } from '@lyness/api-remotes/client'
-import { SessionSeq } from '@lyness/session/types'
+import type { SessionId } from '@lyness/lyn-api-remotes/client'
+import { SessionSeq } from '@lyness/lyn-session/types'
 import { ProjectionValueStore } from '../src/client/sessions/projection-store.ts'
 import { Session } from '../src/client/sessions/session.ts'
 import { SessionManager } from '../src/client/sessions/manager.ts'
@@ -18,7 +18,7 @@ import { entries, plainTurn } from './event-script.client.ts'
 
 // Test-domain keys merged into the projection map (the Service Definition package's
 // pure-type outlet), the same way domain host plugins merge theirs.
-declare module '@lyness/session-projection/types' {
+declare module '@lyness/lyn-session-projection/types' {
   interface SessionProjectionMap {
     'test/marks': { marks: string[] }
   }

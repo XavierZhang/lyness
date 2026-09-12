@@ -1,8 +1,8 @@
 import { describe, expect, it, vi } from 'vitest'
 import type {
   ChatConversationViewNode, ChatNodeSource,
-} from '@lyness/client-ui-chat/client'
-import type { ConversationTimelineSnapshot } from '@lyness/client-ui-conversation/client'
+} from '@lyness/lyn-client-ui-chat/client'
+import type { ConversationTimelineSnapshot } from '@lyness/lyn-client-ui-conversation/client'
 import { ChatSnapshotBuilder } from '../src/client/conversation-nodes/chat-snapshot-builder.ts'
 
 const timeline: ConversationTimelineSnapshot = { turnOrder: [], turns: new Map() }

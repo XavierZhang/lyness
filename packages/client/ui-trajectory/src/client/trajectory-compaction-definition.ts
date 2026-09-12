@@ -1,8 +1,8 @@
 import type { Context } from '@lyness/cordis'
 import type {
   ConversationMatch, ConversationNodeDefinition, RequestView,
-} from '@lyness/client-ui-conversation/client'
-import type {} from '@lyness/compaction/types'
+} from '@lyness/lyn-client-ui-conversation/client'
+import type {} from '@lyness/lyn-compaction/types'
 import { trajectoryNode } from './trajectory-definition-common.ts'
 
 interface CompactionState {

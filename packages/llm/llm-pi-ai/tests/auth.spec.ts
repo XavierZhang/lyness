@@ -3,8 +3,8 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import LocalCredentialProvider from '@lyness/credentials-local'
-import { credentialKey, credentialRef } from '@lyness/credentials'
+import LocalCredentialProvider from '@lyness/lyn-credentials-local'
+import { credentialKey, credentialRef } from '@lyness/lyn-credentials'
 import { authContextFrom, credentialStoreFrom, recordKeyFor } from '../src/auth.ts'
 
 const CODEX = recordKeyFor('openai-codex')

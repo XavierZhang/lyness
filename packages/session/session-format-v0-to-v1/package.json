@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/session-format-v0-to-v1",
+  "name": "@lyness/lyn-session-format-v0-to-v1",
   "description": "Frozen released-v0 Session codec and identity migration to v1",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -39,14 +39,14 @@
     }
   },
   "dependencies": {
-    "@lyness/session-format": "workspace:^",
-    "@lyness/util-values": "workspace:^"
+    "@lyness/lyn-session-format": "workspace:^",
+    "@lyness/lyn-util-values": "workspace:^"
   },
   "peerDependencies": {
     "@lyness/cordis": "workspace:^"
   },
   "devDependencies": {
     "@lyness/cordis": "workspace:^",
-    "@lyness/session": "workspace:^"
+    "@lyness/lyn-session": "workspace:^"
   }
 }

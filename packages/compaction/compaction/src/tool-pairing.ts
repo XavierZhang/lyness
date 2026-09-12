@@ -2,10 +2,10 @@
  * Tool-pairing balance over a session surface. Compaction changes surface
  * positions, so safe cuts are derived from tool-call/result content in current
  * surface order rather than step markers.
- * @module @lyness/compaction/tool-pairing
+ * @module @lyness/lyn-compaction/tool-pairing
  */
 
-import type { Session, SessionEvent, SessionSeq } from '@lyness/session'
+import type { Session, SessionEvent, SessionSeq } from '@lyness/lyn-session'
 
 /** Incremental balance state for one session surface generation. */
 interface BalanceCache {

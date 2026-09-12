@@ -18,8 +18,8 @@
  * open.
  */
 import type { ReactNode } from 'react'
-import type { ObservableSnapshot } from '@lyness/client-store'
-import type { ChainRenderOpts, HookContextOf, InjectFace, PropsRenderSlots, PropsRuntime } from '@lyness/client-ui-slots'
+import type { ObservableSnapshot } from '@lyness/lyn-client-store'
+import type { ChainRenderOpts, HookContextOf, InjectFace, PropsRenderSlots, PropsRuntime } from '@lyness/lyn-client-ui-slots'
 import type { SidebarRightGuideBox } from '../../tab-registry.ts'
 import { CompassGlyph, CubeGlyph } from './GuideTitle.tsx'
 import css from './GuideBody.module.css'

@@ -3,7 +3,7 @@ import { Context } from '@lyness/cordis'
 import { mkdtemp, readFile, rm, stat, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { credentialKey, credentialRef } from '@lyness/credentials'
+import { credentialKey, credentialRef } from '@lyness/lyn-credentials'
 import { LocalCredentialProvider } from '../src/index.ts'
 
 function writeCredentials(file: string, text: string): Promise<void> {

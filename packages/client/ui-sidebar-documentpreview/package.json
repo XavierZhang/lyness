@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/client-ui-sidebar-documentpreview",
+  "name": "@lyness/lyn-client-ui-sidebar-documentpreview",
   "description": "Extensible document previews for Sidebar files: Markdown, highlighted code, images, PDF, HTML, and plain text",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -28,11 +28,11 @@
   "lyn": {
     "client": {
       "inject": [
-        "@lyness/api-gateway",
-        "@lyness/api-workspace-files",
-        "@lyness/client-ui-sidebar-right",
-        "@lyness/client-ui-session",
-        "@lyness/api-remotes"
+        "@lyness/lyn-api-gateway",
+        "@lyness/lyn-api-workspace-files",
+        "@lyness/lyn-client-ui-sidebar-right",
+        "@lyness/lyn-client-ui-session",
+        "@lyness/lyn-api-remotes"
       ],
       "platform": "web"
     }
@@ -47,21 +47,21 @@
   },
   "devDependencies": {
     "@lyness/cordis": "workspace:^",
-    "@lyness/api-gateway": "workspace:^",
-    "@lyness/api-remotes": "workspace:^",
-    "@lyness/api-workspace-files": "workspace:^",
-    "@lyness/client-locale": "workspace:^",
-    "@lyness/client-resources": "workspace:^",
-    "@lyness/client-store": "workspace:^",
-    "@lyness/client-test-runtime": "workspace:^",
-    "@lyness/client-ui-dockkit": "workspace:^",
-    "@lyness/client-ui-primitives": "workspace:^",
-    "@lyness/client-ui-renderer": "workspace:^",
-    "@lyness/client-ui-session": "workspace:^",
-    "@lyness/client-ui-sidebar-right": "workspace:^",
-    "@lyness/client-ui-slots": "workspace:^",
-    "@lyness/session": "workspace:^",
-    "@lyness/util-workspace-path": "workspace:^",
+    "@lyness/lyn-api-gateway": "workspace:^",
+    "@lyness/lyn-api-remotes": "workspace:^",
+    "@lyness/lyn-api-workspace-files": "workspace:^",
+    "@lyness/lyn-client-locale": "workspace:^",
+    "@lyness/lyn-client-resources": "workspace:^",
+    "@lyness/lyn-client-store": "workspace:^",
+    "@lyness/lyn-client-test-runtime": "workspace:^",
+    "@lyness/lyn-client-ui-dockkit": "workspace:^",
+    "@lyness/lyn-client-ui-primitives": "workspace:^",
+    "@lyness/lyn-client-ui-renderer": "workspace:^",
+    "@lyness/lyn-client-ui-session": "workspace:^",
+    "@lyness/lyn-client-ui-sidebar-right": "workspace:^",
+    "@lyness/lyn-client-ui-slots": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
+    "@lyness/lyn-util-workspace-path": "workspace:^",
     "@testing-library/react": "^16.1.0",
     "@types/react": "~18.3.1",
     "@types/react-dom": "~18.3.0",

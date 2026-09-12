@@ -1,8 +1,8 @@
 /** Slot-owned tab information derived from framework-bound store and navigation hooks. */
 import { useMemo } from 'react'
-import { findTabPane } from '@lyness/client-ui-dockkit'
-import type { TabId } from '@lyness/client-ui-dockkit'
-import type { KeyedSnapshotSelectorHook, PropsStore, SlotHookFactory } from '@lyness/client-ui-slots'
+import { findTabPane } from '@lyness/lyn-client-ui-dockkit'
+import type { TabId } from '@lyness/lyn-client-ui-dockkit'
+import type { KeyedSnapshotSelectorHook, PropsStore, SlotHookFactory } from '@lyness/lyn-client-ui-slots'
 import type { SidebarRightTabActions, SidebarRightTabNavigation, UseSidebarRightTabInfo } from './contract/slots.ts'
 import type { createSidebarRightStore } from './stores.ts'
 

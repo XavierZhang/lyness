@@ -10,17 +10,17 @@
  * disposing the old instance and creating a new one; identical `serverName`
  * reproduces identical public tool names.
  *
- * @module @lyness/mcp-client
+ * @module @lyness/lyn-mcp-client
  */
 
 import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import { scopeOf } from '@lyness/scope'
-import { MAX_TIMER_DELAY_MS } from '@lyness/timeout'
+import { scopeOf } from '@lyness/lyn-scope'
+import { MAX_TIMER_DELAY_MS } from '@lyness/lyn-timeout'
 import { RECONNECT_DEFAULTS, resolveReconnectPolicy, startConnection } from './connection.ts'
 import type { ReconnectConfig } from './connection.ts'
 // Side-effect type import: declaration-merges `ctx.tools` onto Context.
-import type {} from '@lyness/tools'
+import type {} from '@lyness/lyn-tools'
 
 export type { McpResult } from './tools.ts'
 export type { ReconnectConfig, ResolvedReconnectPolicy } from './connection.ts'

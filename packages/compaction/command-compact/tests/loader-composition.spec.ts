@@ -6,8 +6,8 @@ import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
 import Include from '@lyness/cordis-plugin-include'
-import type { Agent } from '@lyness/agent'
-import CommandRuntime from '@lyness/commands'
+import type { Agent } from '@lyness/lyn-agent'
+import CommandRuntime from '@lyness/lyn-commands'
 import {
   CompactionId,
   CompactionEngine,
@@ -15,9 +15,9 @@ import {
   type CompactionResult,
   type CompactionTrigger,
   type ManualCompactAgentContext,
-} from '@lyness/compaction'
-import * as commandCompact from '@lyness/command-compact'
-import { Session, SessionId, SessionSeq } from '@lyness/session'
+} from '@lyness/lyn-compaction'
+import * as commandCompact from '@lyness/lyn-command-compact'
+import { Session, SessionId, SessionSeq } from '@lyness/lyn-session'
 
 const COMPACTION_ID = CompactionId('loader-command-compact-test')
 
@@ -84,9 +84,9 @@ describe('command-compact real Loader composition', () => {
     root = await mkdtemp(join(tmpdir(), 'lyn-command-compact-loader-'))
     const configPath = join(root, 'cordis.yml')
     await writeFile(configPath, [
-      "- name: '@lyness/commands'",
+      "- name: '@lyness/lyn-commands'",
       "- name: '@test/compact-backend'",
-      "- name: '@lyness/command-compact'",
+      "- name: '@lyness/lyn-command-compact'",
       '',
     ].join('\n'))
 
@@ -95,9 +95,9 @@ describe('command-compact real Loader composition', () => {
     await context.plugin(Loader)
     context.loader.builtins.include = Include
     const modules = new Map<string, unknown>([
-      ['@lyness/commands', CommandRuntime],
+      ['@lyness/lyn-commands', CommandRuntime],
       ['@test/compact-backend', LoaderCompactionEngine],
-      ['@lyness/command-compact', commandCompact],
+      ['@lyness/lyn-command-compact', commandCompact],
     ])
     context.loader.internal = {
       version: 'v2',

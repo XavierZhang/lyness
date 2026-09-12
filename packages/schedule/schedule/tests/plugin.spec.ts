@@ -1,18 +1,18 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
-import { agentEvents } from '@lyness/agent'
-import AgentLoop from '@lyness/agent-loop'
-import { mountAgentLoopTestDependencies } from '@lyness/agent-loop-testkit'
-import { ToolCallId } from '@lyness/llm'
-import { SessionLogOffset, SessionId } from '@lyness/session'
-import type { SessionEvent, SessionHeader } from '@lyness/session'
+import { agentEvents } from '@lyness/lyn-agent'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import { mountAgentLoopTestDependencies } from '@lyness/lyn-agent-loop-testkit'
+import { ToolCallId } from '@lyness/lyn-llm'
+import { SessionLogOffset, SessionId } from '@lyness/lyn-session'
+import type { SessionEvent, SessionHeader } from '@lyness/lyn-session'
 import {
   SessionPersistence,
   SessionPersistenceNotFoundError,
   SessionPersistenceRevision,
-} from '@lyness/session-persistence'
-import type { SessionAccess, SessionHandle, SessionPersistenceSnapshot } from '@lyness/session-persistence'
+} from '@lyness/lyn-session-persistence'
+import type { SessionAccess, SessionHandle, SessionPersistenceSnapshot } from '@lyness/lyn-session-persistence'
 import * as toolSchedule from '../src/index.ts'
 
 interface StoredProbeSession {

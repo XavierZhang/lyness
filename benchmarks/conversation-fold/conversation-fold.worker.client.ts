@@ -1,11 +1,11 @@
 /** Compiled worker for the cold Client conversation-fold benchmark. */
 
 import { performance } from 'node:perf_hooks'
-import { AssistantStreamAccumulator } from '@lyness/llm/assistant-stream'
-import type { StreamChunk } from '@lyness/llm'
-import type { SessionEvent } from '@lyness/session/types'
-import type { ChatSnapshot } from '@lyness/client-ui-chat/client'
-import type { SessionEventLikeEntry } from '@lyness/api-session-controller/client'
+import { AssistantStreamAccumulator } from '@lyness/lyn-llm/assistant-stream'
+import type { StreamChunk } from '@lyness/lyn-llm'
+import type { SessionEvent } from '@lyness/lyn-session/types'
+import type { ChatSnapshot } from '@lyness/lyn-client-ui-chat/client'
+import type { SessionEventLikeEntry } from '@lyness/lyn-api-session-controller/client'
 // These Client-only fold modules have no plain-Node package export and are compiled into this worker.
 import { ConversationNodeAssembler } from '../../packages/client/ui-conversation/src/client/conversation/assembler.ts'
 import { inspectRequestPrompt } from '../../packages/client/ui-conversation/src/client/contract/request-inspection.ts'
@@ -174,10 +174,10 @@ function positiveInteger(value: string | undefined, label: string): number {
 }
 
 assertBuiltBenchmarkRuntime(import.meta.url, {
-  '@lyness/client-store': import.meta.resolve('@lyness/client-store'),
-  '@lyness/llm/assistant-stream': import.meta.resolve('@lyness/llm/assistant-stream'),
-  '@lyness/session/surface': import.meta.resolve('@lyness/session/surface'),
-  '@lyness/token-meter/client': import.meta.resolve('@lyness/token-meter/client'),
+  '@lyness/lyn-client-store': import.meta.resolve('@lyness/lyn-client-store'),
+  '@lyness/lyn-llm/assistant-stream': import.meta.resolve('@lyness/lyn-llm/assistant-stream'),
+  '@lyness/lyn-session/surface': import.meta.resolve('@lyness/lyn-session/surface'),
+  '@lyness/lyn-token-meter/client': import.meta.resolve('@lyness/lyn-token-meter/client'),
 })
 const [turnsValue, smallDeltasValue, largeDeltasValue, attemptsValue] = process.argv.slice(2)
 const turns = positiveInteger(turnsValue, 'turns')

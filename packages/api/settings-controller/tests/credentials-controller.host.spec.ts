@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import type { CredentialInfo } from '@lyness/credentials/types'
-import { remoteErrorOf, remoteMethods } from '@lyness/typert-protocol'
+import type { CredentialInfo } from '@lyness/lyn-credentials/types'
+import { remoteErrorOf, remoteMethods } from '@lyness/lyn-typert-protocol'
 import CredentialsController from '../src/credentials.ts'
 import { MemoryCredentials } from '../../../credentials/credentials/tests/memory.ts'
 
@@ -62,7 +62,7 @@ describe('the credentials Remote namespace a configuration surface calls', () =>
       const failure = await call().catch((error: unknown) => error)
       expect(remoteErrorOf(failure)).toMatchObject({
         code: 'gateway/internal',
-        message: 'credentials service is absent: this deployment does not mount a credential provider (e.g. @lyness/credentials-local) in its composition',
+        message: 'credentials service is absent: this deployment does not mount a credential provider (e.g. @lyness/lyn-credentials-local) in its composition',
         details: {},
       })
     }

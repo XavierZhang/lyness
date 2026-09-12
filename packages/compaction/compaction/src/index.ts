@@ -4,12 +4,12 @@
  * {@link CompactionEngine}. This interface necessarily depends on session and LLM
  * vocabulary; the rationale is in the
  * [compaction Agent Note](../../../../.agents/notes/implemented/feature/2026-06-18-compaction-capability-seam.md).
- * @module @lyness/compaction
+ * @module @lyness/lyn-compaction
  */
 
 import { Context, Service } from '@lyness/cordis'
-import type { Session, SessionSeq } from '@lyness/session'
-import type { CommandId } from '@lyness/commands/brand'
+import type { Session, SessionSeq } from '@lyness/lyn-session'
+import type { CommandId } from '@lyness/lyn-commands/brand'
 import type { CompactionResult } from './types.ts'
 
 export type { CompactionResult } from './types.ts'

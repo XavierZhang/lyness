@@ -1,7 +1,7 @@
 /** The abstract service preserves the provider's discovery contract. */
 import { Context } from '@lyness/cordis'
 import { describe, expect, it, vi } from 'vitest'
-import type { Agent } from '@lyness/agent'
+import type { Agent } from '@lyness/lyn-agent'
 import { FileReferenceService } from '../src/index.ts'
 import type { FileReferenceCandidate } from '../src/types.ts'
 

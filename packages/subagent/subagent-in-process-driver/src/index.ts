@@ -8,17 +8,17 @@
  * composes and drives them directly, so this driver owns exactly one turn with
  * one result.
  *
- * @module @lyness/subagent-in-process-driver
+ * @module @lyness/lyn-subagent-in-process-driver
  */
 
 import { randomUUID } from 'node:crypto'
 import type { Context } from '@lyness/cordis'
-import { brandString } from '@lyness/brand'
-import { foldConsumedWork } from '@lyness/agent'
-import type { Agent, AgentHandle } from '@lyness/agent'
-import { SessionLogOffset } from '@lyness/session'
-import type { SessionEvent, SessionId, SessionLogOffset as SessionLogOffsetType, TurnEndReason } from '@lyness/session'
-import { createUserMessage, type ContentBlock } from '@lyness/llm'
+import { brandString } from '@lyness/lyn-brand'
+import { foldConsumedWork } from '@lyness/lyn-agent'
+import type { Agent, AgentHandle } from '@lyness/lyn-agent'
+import { SessionLogOffset } from '@lyness/lyn-session'
+import type { SessionEvent, SessionId, SessionLogOffset as SessionLogOffsetType, TurnEndReason } from '@lyness/lyn-session'
+import { createUserMessage, type ContentBlock } from '@lyness/lyn-llm'
 import {
   appendDelegatedPolicyOverrides,
   applyChildComposition,
@@ -28,14 +28,14 @@ import {
   finalAssistantOutput,
   resolveChildAgentOptions,
   resolveChildDepth,
-} from '@lyness/subagent'
+} from '@lyness/lyn-subagent'
 import type {
   ResolvedSubagentStartRequest,
   SubagentDescriptorData,
   SubagentResult,
   SubagentRun,
   SubagentStopReason,
-} from '@lyness/subagent'
+} from '@lyness/lyn-subagent'
 import {
   attachStructuredRuntime,
   type StructuredAttachment,

@@ -1,10 +1,10 @@
 import type { Context } from '@lyness/cordis'
 import type {
   ConversationLocation, ConversationNodeContext, ConversationNodeDefinition, TurnLocation,
-} from '@lyness/client-ui-conversation/client'
-import type {} from '@lyness/llm-retry/types'
-import type { StreamChunk } from '@lyness/llm'
-import type {} from '@lyness/tools/types'
+} from '@lyness/lyn-client-ui-conversation/client'
+import type {} from '@lyness/lyn-llm-retry/types'
+import type { StreamChunk } from '@lyness/lyn-llm'
+import type {} from '@lyness/lyn-tools/types'
 import { hasAssistantReplyContent } from '../contract/assistant-content.ts'
 import type { AssistantChatData, ChatNode, FinalAssistantChatData } from '../contract/chat-nodes.ts'
 import {
@@ -20,7 +20,7 @@ declare module '../contract/chat-nodes.ts' {
   }
 }
 
-declare module '@lyness/client-ui-conversation/client' {
+declare module '@lyness/lyn-client-ui-conversation/client' {
   interface ConversationTurnDataMap {
     /** Process range and finalized answer boundary for this Turn. */
     'turn-process': TurnProcessSpec

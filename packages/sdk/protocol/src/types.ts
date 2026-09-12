@@ -2,15 +2,15 @@
  * Named wire types for the lyness SDK runtime protocol: the three
  * request/result pairs and the four server-to-client notification payloads
  * exchanged over the newline-delimited JSON-RPC stdio transport. The server
- * plugin (`@lyness/sdk-jsonrpc-server`) and SDK clients share these shapes;
+ * plugin (`@lyness/lyn-sdk-jsonrpc-server`) and SDK clients share these shapes;
  * `serverInfo.name` stays the wire-stable `lyness-sdk-runtime`.
  *
- * @module @lyness/sdk-protocol/types
+ * @module @lyness/lyn-sdk-protocol/types
  */
 
-import type { ContentBlock, ReasoningEffortId } from '@lyness/llm'
-import type { SessionEvent } from '@lyness/session'
-import type { SubagentStopReason } from '@lyness/subagent'
+import type { ContentBlock, ReasoningEffortId } from '@lyness/lyn-llm'
+import type { SessionEvent } from '@lyness/lyn-session'
+import type { SubagentStopReason } from '@lyness/lyn-subagent'
 
 /** Parameters for the process-wide SDK handshake. */
 export interface InitializeParams {

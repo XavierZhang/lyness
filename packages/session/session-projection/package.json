@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/session-projection",
+  "name": "@lyness/lyn-session-projection",
   "description": "Session-projection seam: the merge-extensible projection type table, the provider contract, and the ctx.sessionProjections registry serving whole current values of log-derived per-session state",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -35,11 +35,11 @@
     "zod": "^4.4.3"
   },
   "peerDependencies": {
-    "@lyness/session": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
     "@lyness/cordis": "workspace:^"
   },
   "devDependencies": {
-    "@lyness/session": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
     "@lyness/cordis": "workspace:^"
   }
 }

@@ -13,15 +13,15 @@
  * choice lives inside this entry — see QuestionComposer.
  */
 import type { Context as ClientContext } from '@lyness/cordis'
-import type {} from '@lyness/api-remotes/client'
-import type { ISessions } from '@lyness/api-session-controller/client'
-import type { ComposerChainProps } from '@lyness/client-ui-conversation/client'
-import type {} from '@lyness/client-ui-renderer/client'
-import type { PendingInteractionPublisher } from '@lyness/client-ui-session/client'
-import type { TypertClientEventListener } from '@lyness/typert-protocol'
+import type {} from '@lyness/lyn-api-remotes/client'
+import type { ISessions } from '@lyness/lyn-api-session-controller/client'
+import type { ComposerChainProps } from '@lyness/lyn-client-ui-conversation/client'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
+import type { PendingInteractionPublisher } from '@lyness/lyn-client-ui-session/client'
+import type { TypertClientEventListener } from '@lyness/lyn-typert-protocol'
 // Type-only: pulls the locale plugin's Context merge (ctx.locale).
-import type {} from '@lyness/client-locale/client'
-import type {} from '@lyness/api-session-controller/client'
+import type {} from '@lyness/lyn-client-locale/client'
+import type {} from '@lyness/lyn-api-session-controller/client'
 import { PendingQuestion } from './contract/slots.ts'
 import { createQuestionDraftStore } from './draft-store.ts'
 import { QuestionComposer } from './QuestionComposer.tsx'
@@ -32,7 +32,7 @@ export type {
 } from './contract/slots.ts'
 export type { QuestionKey } from './locales.ts'
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface LocaleNamespaceMap {
     /** The question composer's copy. */
     question: QuestionKey

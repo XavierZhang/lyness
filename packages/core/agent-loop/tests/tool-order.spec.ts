@@ -1,4 +1,4 @@
-import { createUserMessage } from '@lyness/llm'
+import { createUserMessage } from '@lyness/lyn-llm'
 /**
  * Loop-level tool-order determinism: the request/header event — and therefore the frozen
  * request the adapter receives — carries the assembly's canonical tool order (system-prompt's
@@ -9,15 +9,15 @@ import { createUserMessage } from '@lyness/llm'
 
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import LlmRuntime from '@lyness/llm'
-import SessionStore, { SessionId, foldRequestHeader } from '@lyness/session'
-import SystemPrompt, { TOOL_ORDER_REST } from '@lyness/system-prompt'
-import type { Config as SystemPromptConfig } from '@lyness/system-prompt'
-import ToolRuntime, { defineContentToolFixture } from '@lyness/tools'
-import AgentRegistry, { type Agent } from '@lyness/agent'
+import LlmRuntime from '@lyness/lyn-llm'
+import SessionStore, { SessionId, foldRequestHeader } from '@lyness/lyn-session'
+import SystemPrompt, { TOOL_ORDER_REST } from '@lyness/lyn-system-prompt'
+import type { Config as SystemPromptConfig } from '@lyness/lyn-system-prompt'
+import ToolRuntime, { defineContentToolFixture } from '@lyness/lyn-tools'
+import AgentRegistry, { type Agent } from '@lyness/lyn-agent'
 
-import AgentLoop from '@lyness/agent-loop'
-import SessionProjectionRegistry from '@lyness/session-projection'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 import { MockAdapter, textResponse } from './mock-adapter.ts'
 
 async function harness(adapter: MockAdapter, toolOrder?: SystemPromptConfig['toolOrder']) {

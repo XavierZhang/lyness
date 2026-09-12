@@ -63,8 +63,8 @@ export const PAGE_ASSETS: readonly string[] = [
  * `worker-host.ts`.
  */
 export const IMAGE_ENTRY_SEEDS: readonly string[] = [
-  '@lyness/app-boot',
-  '@lyness/cmdline',
+  '@lyness/lyn-app-boot',
+  '@lyness/lyn-cmdline',
   '@lyness/cordis',
   '@lyness/cordis-plugin-include',
   'js-yaml',

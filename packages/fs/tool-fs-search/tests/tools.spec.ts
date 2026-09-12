@@ -12,18 +12,18 @@
 
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { createScope, type Scope } from '@lyness/scope'
+import { createScope, type Scope } from '@lyness/lyn-scope'
 import { join, sep } from 'node:path'
-import { createUserMessage, ToolCallId } from '@lyness/llm'
-import SystemPrompt, { renderPrompt } from '@lyness/system-prompt'
-import ToolRuntime, { TOOL_ABORTED_BEFORE_DISPATCH, type ToolExecution, type ToolExecutionToken } from '@lyness/tools'
-import { SubprocessRuntime } from '@lyness/subprocess'
-import type { SubprocessCollectedOutputs, SubprocessHandle, SubprocessOutcome, SubprocessOutputRead, SubprocessOutputReader, SubprocessSpawnSpec } from '@lyness/subprocess'
-import { MAX_TIMER_DELAY_MS } from '@lyness/timeout'
+import { createUserMessage, ToolCallId } from '@lyness/lyn-llm'
+import SystemPrompt, { renderPrompt } from '@lyness/lyn-system-prompt'
+import ToolRuntime, { TOOL_ABORTED_BEFORE_DISPATCH, type ToolExecution, type ToolExecutionToken } from '@lyness/lyn-tools'
+import { SubprocessRuntime } from '@lyness/lyn-subprocess'
+import type { SubprocessCollectedOutputs, SubprocessHandle, SubprocessOutcome, SubprocessOutputRead, SubprocessOutputReader, SubprocessSpawnSpec } from '@lyness/lyn-subprocess'
+import { MAX_TIMER_DELAY_MS } from '@lyness/lyn-timeout'
 import { rgPath } from '@vscode/ripgrep'
-import { SpillLocator, SpillStore } from '@lyness/spill'
-import type { SaveTextSpill, SpillRef } from '@lyness/spill'
-import * as ToolFsSearch from '@lyness/tool-fs-search'
+import { SpillLocator, SpillStore } from '@lyness/lyn-spill'
+import type { SaveTextSpill, SpillRef } from '@lyness/lyn-spill'
+import * as ToolFsSearch from '@lyness/lyn-tool-fs-search'
 import {
   buildGlobCommand,
   buildGrepCommand,
@@ -38,7 +38,7 @@ import {
   runRipgrep,
   sampleAcrossTopLevel,
   toWorkdirRelative,
-} from '@lyness/tool-fs-search'
+} from '@lyness/lyn-tool-fs-search'
 
 const testToolSignal = new AbortController().signal
 

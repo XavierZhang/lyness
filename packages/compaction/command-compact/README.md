@@ -3,7 +3,7 @@ description: "The on-demand /compact command for interactive compositions: what 
 kind: "package-reference"
 ---
 
-# @lyness/command-compact
+# @lyness/lyn-command-compact
 
 English | [中文](README.zh.md)
 
@@ -55,11 +55,11 @@ Mount the command registry, one condensation backend, and this plugin:
 
 ```yaml
 - id: commands
-  name: '@lyness/commands'
+  name: '@lyness/lyn-commands'
 - id: compaction-basic
-  name: '@lyness/compaction-basic'
+  name: '@lyness/lyn-compaction-basic'
 - id: command-compact
-  name: '@lyness/command-compact'
+  name: '@lyness/lyn-command-compact'
 ```
 
 The shipped `lyn` base mounts it beside the default backend, and the Web client provides the command adapter. Automation surfaces that compose no command adapter keep automatic condensation only.

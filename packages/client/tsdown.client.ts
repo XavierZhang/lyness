@@ -58,7 +58,7 @@ function styleInjectionModule(
  * Everything else under @lyness/* is either a module-table entry
  * (external) or a leak the purity gate rejects.
  */
-export const INLINE_SAFE = /^(?:@lyness\/(?:file-reference|session|llm|tools|brand|deque|output-retention|typert-protocol|util-crypto|util-values|util-workspace-path)(?:\/|$)|@lyness\/token-meter\/client$|@lyness\/host-open-in-app\/shared$|@lyness\/agent-presets\/display$|@lyness\/spill-policy\/notice$)/
+export const INLINE_SAFE = /^(?:@lyness\/lyn-(?:file-reference|session|llm|tools|brand|deque|output-retention|typert-protocol|util-crypto|util-values|util-workspace-path)(?:\/|$)|@lyness\/lyn-token-meter\/client$|@lyness\/lyn-host-open-in-app\/shared$|@lyness\/lyn-agent-presets\/display$|@lyness\/lyn-spill-policy\/notice$)/
 
 /**
  * Vendored framework libraries: rescoped into @lyness, so the gate below
@@ -69,7 +69,7 @@ export const INLINE_SAFE = /^(?:@lyness\/(?:file-reference|session|llm|tools|bra
 const VENDORED_LIBRARY = /^@lyness\/(cosmokit|schemastery)(\/|$)/
 
 /** Generated descriptor/codec contribution with no shared runtime identity. */
-const GENERATED_REMOTE = /^@lyness\/[a-z0-9]+(?:-[a-z0-9]+)*\/remote$/
+const GENERATED_REMOTE = /^@lyness\/lyn-[a-z0-9]+(?:-[a-z0-9]+)*\/remote$/
 
 /**
  * Workspace mode replaces an empty config array with the root defaults. A

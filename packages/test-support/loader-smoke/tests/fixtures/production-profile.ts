@@ -13,7 +13,7 @@ import {
   loadOverlayPatches,
   loadProfile,
   type ProfileLayer,
-} from '@lyness/app-boot'
+} from '@lyness/lyn-app-boot'
 
 const installAnchor = fileURLToPath(new URL('../../../../../apps/cli/package.json', import.meta.url))
 

@@ -3,9 +3,9 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import AgentDefaultModelConfig, { AGENT_DEFAULT_MODEL_SETTINGS_NAMESPACE } from '../src/index.ts'
-import { SettingsProvider } from '@lyness/settings'
-import type { SettingsNamespace } from '@lyness/settings'
-import { ReasoningEffortId } from '@lyness/llm'
+import { SettingsProvider } from '@lyness/lyn-settings'
+import type { SettingsNamespace } from '@lyness/lyn-settings'
+import { ReasoningEffortId } from '@lyness/lyn-llm'
 
 /** The smallest real provider: one in-memory document, always writable. */
 class MemorySettings extends SettingsProvider {

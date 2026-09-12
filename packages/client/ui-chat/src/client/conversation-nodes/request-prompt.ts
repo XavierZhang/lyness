@@ -2,7 +2,7 @@ import type { Context } from '@lyness/cordis'
 import type {
   ConversationMatch, ConversationNodeContext, ConversationNodeDefinition, RequestPromptInspector,
   SystemPromptState, SystemPromptInspector,
-} from '@lyness/client-ui-conversation/client'
+} from '@lyness/lyn-client-ui-conversation/client'
 import type { ChatNode } from '../contract/chat-nodes.ts'
 import { chatNode } from './common.ts'
 

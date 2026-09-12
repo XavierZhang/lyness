@@ -3,7 +3,7 @@ description: "面向部署方与维护者的随产品交付 JSONL 会话持久�
 kind: "package-reference"
 ---
 
-# @lyness/session-persistence-jsonl
+# @lyness/lyn-session-persistence-jsonl
 
 [English](README.md) | 中文
 
@@ -34,8 +34,8 @@ kind: "package-reference"
 ### 最小配置
 
 ```yaml
-- name: '@lyness/session'
-- name: '@lyness/session-persistence-jsonl'
+- name: '@lyness/lyn-session'
+- name: '@lyness/lyn-session-persistence-jsonl'
   config:
     root: /absolute/path/to/session-logs
 ```
@@ -49,7 +49,7 @@ kind: "package-reference"
 
 实时事件的写入批处理不是配置：批处理窗口是该 seam 在每个写句柄内部的调度策略。
 
-生成的[配置目录](../../../docs/config-catalog.zh.md#lynesssession-persistence-jsonl)是每个受支持字段及其 JSDoc 的穷尽式真源。
+生成的[配置目录](../../../docs/config-catalog.zh.md#lynesslyn-session-persistence-jsonl)是每个受支持字段及其 JSDoc 的穷尽式真源。
 
 ### 磁盘布局
 

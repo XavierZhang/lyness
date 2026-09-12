@@ -2,17 +2,17 @@
 
 import type {
   AttachmentIdType, ImageAttachmentLimits, ImageAttachmentRef, ImageMediaType,
-} from '@lyness/attachment'
-import type { Branded } from '@lyness/brand'
-import type { LlmAttemptId, MessageId } from '@lyness/llm/brand'
-import type { ContentBlock } from '@lyness/llm'
-import type { SessionId, SessionSeqCursor } from '@lyness/session/types'
-import type { SessionProjectionMap } from '@lyness/session-projection/types'
-import type { JobId } from '@lyness/jobs/brand'
-import type { JsonValue } from '@lyness/util-values'
-import type { WorkspaceId } from '@lyness/workspace/types'
+} from '@lyness/lyn-attachment'
+import type { Branded } from '@lyness/lyn-brand'
+import type { LlmAttemptId, MessageId } from '@lyness/lyn-llm/brand'
+import type { ContentBlock } from '@lyness/lyn-llm'
+import type { SessionId, SessionSeqCursor } from '@lyness/lyn-session/types'
+import type { SessionProjectionMap } from '@lyness/lyn-session-projection/types'
+import type { JobId } from '@lyness/lyn-jobs/brand'
+import type { JsonValue } from '@lyness/lyn-util-values'
+import type { WorkspaceId } from '@lyness/lyn-workspace/types'
 
-declare module '@lyness/session-projection/types' {
+declare module '@lyness/lyn-session-projection/types' {
   interface SessionProjectionStateMap {
     /** Host state persisted for cold Session list summaries. */
     sessionListMetadata: SessionListMetadata
@@ -31,7 +31,7 @@ declare module '@lyness/session-projection/types' {
   }
 }
 
-declare module '@lyness/session/types' {
+declare module '@lyness/lyn-session/types' {
   interface SessionEventMap {
     /**
      * Complete validated model selection requested for subsequent prompt
@@ -183,7 +183,7 @@ export const SESSION_SEARCH_RESULT_LIMIT = 20
 /** Maximum search snippet length in Unicode code points. */
 export const SESSION_SEARCH_SNIPPET_MAX_CODE_POINTS = 240
 
-declare module '@lyness/typert-protocol' {
+declare module '@lyness/lyn-typert-protocol' {
   interface RemoteErrorDetailsMap {
     'session/model-unavailable': { readonly provider: string; readonly model: string }
     'session/conflict': {
@@ -372,7 +372,7 @@ export interface SessionOpenWorkspacePathValue {
 /** Client-minted prompt identity used to reconcile optimistic and durable messages. */
 export type SessionRequestId = Branded<'session-request-id'>
 
-declare module '@lyness/llm' {
+declare module '@lyness/lyn-llm' {
   interface MessageSourceMap {
     /** Browser prompt correlation and optional Host-validated time zone. */
     'user-rpc': { kind: 'user'; rpcId: SessionRequestId; clientTimeZone?: string }

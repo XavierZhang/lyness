@@ -6,11 +6,11 @@
  * backend write leaves memory untouched (no divergence between reads and the
  * medium), and events carry values that equal the in-memory state at
  * emission, in write order.
- * @module @lyness/storage-domain/src/domain
+ * @module @lyness/lyn-storage-domain/src/domain
  */
 
 import type { Context } from '@lyness/cordis'
-import type { KvUnit } from '@lyness/storage'
+import type { KvUnit } from '@lyness/lyn-storage'
 import { DomainError } from './error.ts'
 import type { DomainSpec, DomainGlobalSpec, TableKeyOf, TableValueOf } from './spec.ts'
 import type { DomainChanged } from './events.ts'

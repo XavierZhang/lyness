@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises'
 import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { AttachmentId, AttachmentStore, ImageVariantId } from '@lyness/attachment'
+import { AttachmentId, AttachmentStore, ImageVariantId } from '@lyness/lyn-attachment'
 import type {
   ImageAttachmentLimits,
   ImageAttachmentRef,
@@ -9,10 +9,10 @@ import type {
   RequestImageAttachment,
   SaveImageAttachment,
   StoredImageAttachment,
-} from '@lyness/attachment'
-import LlmRuntime, { createUserMessage, ToolCallId } from '@lyness/llm'
-import type { Message, ToolSchema } from '@lyness/llm'
-import * as LlmPiAi from '@lyness/llm-pi-ai'
+} from '@lyness/lyn-attachment'
+import LlmRuntime, { createUserMessage, ToolCallId } from '@lyness/lyn-llm'
+import type { Message, ToolSchema } from '@lyness/lyn-llm'
+import * as LlmPiAi from '@lyness/lyn-llm-pi-ai'
 import type { PiAiReplayResponse } from '../src/replay.ts'
 import { assemble, type AssembledResult } from './assemble.ts'
 

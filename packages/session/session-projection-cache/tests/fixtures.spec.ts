@@ -19,23 +19,23 @@ import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { Context } from '@lyness/cordis'
 import { z } from 'zod'
-import SessionStore, { SESSION_FORMAT_VERSION, SessionId, SessionLogOffset } from '@lyness/session'
-import type { SessionHeader } from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import type { ProjectionDefinition } from '@lyness/session-projection'
-import Storage from '@lyness/storage'
+import SessionStore, { SESSION_FORMAT_VERSION, SessionId, SessionLogOffset } from '@lyness/lyn-session'
+import type { SessionHeader } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import type { ProjectionDefinition } from '@lyness/lyn-session-projection'
+import Storage from '@lyness/lyn-storage'
 import {
   apply as storageJsonApply, Config as storageJsonConfig, inject as storageJsonInject, name as storageJsonName,
-} from '@lyness/storage-json'
+} from '@lyness/lyn-storage-json'
 import {
   apply as storageDomainApply, Config as storageDomainConfig, inject as storageDomainInject, name as storageDomainName,
-} from '@lyness/storage-domain'
+} from '@lyness/lyn-storage-domain'
 import SessionProjectionCache from '../src/index.ts'
 import { projectionCacheDomainSpec } from '../src/spec.ts'
 
 // Declarations must match the shipped title unit's exactly (the repo-wide
 // compile face sees both).
-declare module '@lyness/session-projection/types' {
+declare module '@lyness/lyn-session-projection/types' {
   interface SessionProjectionStateMap {
     title: string | null
   }
@@ -44,7 +44,7 @@ declare module '@lyness/session-projection/types' {
   }
 }
 
-declare module '@lyness/session/types' {
+declare module '@lyness/lyn-session/types' {
   interface SessionEventMap {
     'fixtures-test/set-title': { title: string }
   }

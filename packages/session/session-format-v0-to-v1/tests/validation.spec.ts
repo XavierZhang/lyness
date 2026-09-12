@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import type { SessionFormatEvent, SessionFormatJsonValue } from '@lyness/session-format'
-import { KNOWN_SESSION_EVENT_TYPES } from '@lyness/session'
+import type { SessionFormatEvent, SessionFormatJsonValue } from '@lyness/lyn-session-format'
+import { KNOWN_SESSION_EVENT_TYPES } from '@lyness/lyn-session'
 import {
   RELEASED_V0_EVENT_TYPES,
   RELEASED_V0_EVENT_DISPOSITIONS,

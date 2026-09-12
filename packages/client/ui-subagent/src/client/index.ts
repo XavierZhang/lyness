@@ -1,18 +1,18 @@
 /** Web subagent catalog, navigation, and addressed-session composer owner. */
 import type { Context as ClientContext } from '@lyness/cordis'
-import type { SubagentAddress } from '@lyness/subagent/client'
-import type { SessionId } from '@lyness/session/types'
-import type { ComposerChainProps } from '@lyness/client-ui-conversation/client'
+import type { SubagentAddress } from '@lyness/lyn-subagent/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { ComposerChainProps } from '@lyness/lyn-client-ui-conversation/client'
 import { SubagentHeaderLineage, type SubagentCatalogInjected } from './SubagentHeaderLineage.tsx'
 import {
   SubagentReadOnlyComposer, type SubagentReadOnlyMatch,
 } from './SubagentReadOnlyComposer.tsx'
-import type {} from '@lyness/client-locale/client'
-import type {} from '@lyness/client-ui-renderer/client'
-import type {} from '@lyness/client-ui-session/client'
+import type {} from '@lyness/lyn-client-locale/client'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
+import type {} from '@lyness/lyn-client-ui-session/client'
 import { en, NS, zh, type SubagentKey } from './locales.ts'
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface LocaleNamespaceMap {
     /** Subagent catalog and read-only composer copy. */
     'subagent': SubagentKey

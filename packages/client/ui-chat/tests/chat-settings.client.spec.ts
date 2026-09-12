@@ -1,6 +1,6 @@
 import { Context } from '@lyness/cordis'
 import { describe, expect, it } from 'vitest'
-import { SettingsProvider, type SettingsNamespace } from '@lyness/settings'
+import { SettingsProvider, type SettingsNamespace } from '@lyness/lyn-settings'
 import {
   CHAT_SETTINGS_NAMESPACE, DEFAULT_TRANSCRIPT_VIEW_MODE, apply,
 } from '../src/index.ts'

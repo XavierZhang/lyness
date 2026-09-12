@@ -1,10 +1,10 @@
 /** Reviewed synthetic tool history shared by continuation and child-catalog measurements. */
 
-import { AssistantStreamAccumulator } from '@lyness/llm/assistant-stream'
-import { MessageId, ToolCallId } from '@lyness/llm'
-import type { ContentBlock, StreamChunk } from '@lyness/llm'
-import { Session, SessionId } from '@lyness/session'
-import type { SessionEvent } from '@lyness/session'
+import { AssistantStreamAccumulator } from '@lyness/lyn-llm/assistant-stream'
+import { MessageId, ToolCallId } from '@lyness/lyn-llm'
+import type { ContentBlock, StreamChunk } from '@lyness/lyn-llm'
+import { Session, SessionId } from '@lyness/lyn-session'
+import type { SessionEvent } from '@lyness/lyn-session'
 
 /** Workload dimensions, independent of environment and recorded user material. */
 export const WORKLOAD = {
@@ -69,7 +69,7 @@ export function syntheticHistory(turns: number): SessionEvent[] {
     session.append('turn/start', { turn })
     session.append('step/start', { turn, step: 1 })
     if (turn === 1) session.append('system/message', {
-      turn, step: 1, message: { id: MessageId('system-head'), role: 'system', content: [], source: { kind: 'plugin', plugin: '@lyness/system-prompt' } },
+      turn, step: 1, message: { id: MessageId('system-head'), role: 'system', content: [], source: { kind: 'plugin', plugin: '@lyness/lyn-system-prompt' } },
     }, { surfaceOp: 'append' })
     session.append('user/message', {
       id: MessageId('prompt-' + String(turn)), role: 'user',

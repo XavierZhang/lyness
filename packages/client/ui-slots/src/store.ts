@@ -14,4 +14,4 @@ export type {
   StoreHandle,
   StoreInstance,
   StoreSpec,
-} from '@lyness/client-store'
+} from '@lyness/lyn-client-store'

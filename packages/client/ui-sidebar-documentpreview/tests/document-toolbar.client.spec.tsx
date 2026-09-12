@@ -1,8 +1,8 @@
 // @vitest-environment jsdom
 import { afterEach, describe, expect, it, onTestFinished, vi } from 'vitest'
 import { act, cleanup, fireEvent, render, screen } from '@testing-library/react'
-import { RemoteError } from '@lyness/client-test-runtime'
-import type { OwnerOf } from '@lyness/client-ui-slots'
+import { RemoteError } from '@lyness/lyn-client-test-runtime'
+import type { OwnerOf } from '@lyness/lyn-client-ui-slots'
 import { TextPreview } from '../src/client/TextPreview.tsx'
 import type { TextPreviewProps } from '../src/client/TextPreview.tsx'
 import type { DocumentPreviewDefinition } from '../src/client/document/registry.ts'

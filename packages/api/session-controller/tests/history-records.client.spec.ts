@@ -1,7 +1,7 @@
 /** V2 history records become one event-shaped Client value per wire record. */
 
 import { describe, expect, it } from 'vitest'
-import { ToolCallId } from '@lyness/llm/brand'
+import { ToolCallId } from '@lyness/lyn-llm/brand'
 import type { SessionHistoryRecord } from '../src/types.ts'
 import {
   historyEntries,

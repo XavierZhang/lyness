@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/client-resources",
+  "name": "@lyness/lyn-client-resources",
   "description": "Unified client resource model: protocol-registered providers turn URL addresses into live values, consumed through the useResource global standard hook",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -28,7 +28,7 @@
   "lyn": {
     "client": {
       "inject": [
-        "@lyness/client-ui-renderer"
+        "@lyness/lyn-client-ui-renderer"
       ],
       "platform": "web"
     }
@@ -43,11 +43,11 @@
   },
   "devDependencies": {
     "@lyness/cordis": "workspace:^",
-    "@lyness/client-store": "workspace:^",
-    "@lyness/client-test-runtime": "workspace:^",
-    "@lyness/client-ui-renderer": "workspace:^",
-    "@lyness/client-ui-slots": "workspace:^",
-    "@lyness/typert-protocol": "workspace:^"
+    "@lyness/lyn-client-store": "workspace:^",
+    "@lyness/lyn-client-test-runtime": "workspace:^",
+    "@lyness/lyn-client-ui-renderer": "workspace:^",
+    "@lyness/lyn-client-ui-slots": "workspace:^",
+    "@lyness/lyn-typert-protocol": "workspace:^"
   },
   "files": [
     "lib/index.js",

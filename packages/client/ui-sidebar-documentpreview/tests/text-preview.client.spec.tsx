@@ -11,9 +11,9 @@
  */
 import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from 'vitest'
 import { act, cleanup, fireEvent, render, waitFor } from '@testing-library/react'
-import { RemoteError } from '@lyness/client-test-runtime'
-import type { TabId } from '@lyness/client-ui-dockkit'
-import type { OwnerOf } from '@lyness/client-ui-slots'
+import { RemoteError } from '@lyness/lyn-client-test-runtime'
+import type { TabId } from '@lyness/lyn-client-ui-dockkit'
+import type { OwnerOf } from '@lyness/lyn-client-ui-slots'
 import { TextPreview } from '../src/client/TextPreview.tsx'
 import type { TextPreviewProps } from '../src/client/TextPreview.tsx'
 import { CodeBody } from '../src/client/code/CodeBody.tsx'

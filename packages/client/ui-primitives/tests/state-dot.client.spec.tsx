@@ -1,8 +1,8 @@
 // @vitest-environment jsdom
 import { cleanup, render } from '@testing-library/react'
 import { afterEach, describe, expect, it } from 'vitest'
-import { StateDot } from '@lyness/client-ui-primitives'
-import type { StateDotState } from '@lyness/client-ui-primitives'
+import { StateDot } from '@lyness/lyn-client-ui-primitives'
+import type { StateDotState } from '@lyness/lyn-client-ui-primitives'
 
 afterEach(cleanup)
 

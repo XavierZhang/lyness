@@ -1,7 +1,7 @@
 /** Host-resolved file identities across pending stats, retries, and disposal. */
-import type { SessionId } from '@lyness/session/types'
-import { RemoteError } from '@lyness/typert-protocol'
-import { sessionFileAddress } from '@lyness/util-workspace-path'
+import type { SessionId } from '@lyness/lyn-session/types'
+import { RemoteError } from '@lyness/lyn-typert-protocol'
+import { sessionFileAddress } from '@lyness/lyn-util-workspace-path'
 import { describe, expect, it, onTestFinished } from 'vitest'
 import { ChangeFeed } from '../src/client/change-feed.ts'
 import { createFileResourceProvider } from '../src/client/provider.ts'

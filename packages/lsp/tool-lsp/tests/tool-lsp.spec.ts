@@ -2,12 +2,12 @@ import { describe, expect, it } from 'vitest'
 import { join, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { Context } from '@lyness/cordis'
-import SystemPrompt from '@lyness/system-prompt'
-import ToolRuntime from '@lyness/tools'
-import Lsp, { LspProviderId, type LspProvider, type LspProviderQuery, type LspQueryResult } from '@lyness/lsp'
-import * as ToolLsp from '@lyness/tool-lsp'
-import { DEFAULT_LSP_TOOL_TIMEOUT_MS, LSP_PROMPT_TEXT } from '@lyness/tool-lsp'
-import { MAX_TIMER_DELAY_MS } from '@lyness/timeout'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime from '@lyness/lyn-tools'
+import Lsp, { LspProviderId, type LspProvider, type LspProviderQuery, type LspQueryResult } from '@lyness/lyn-lsp'
+import * as ToolLsp from '@lyness/lyn-tool-lsp'
+import { DEFAULT_LSP_TOOL_TIMEOUT_MS, LSP_PROMPT_TEXT } from '@lyness/lyn-tool-lsp'
+import { MAX_TIMER_DELAY_MS } from '@lyness/lyn-timeout'
 
 /** A scripted provider recording queries; `respond` yields the result or throws. */
 function stubProvider(

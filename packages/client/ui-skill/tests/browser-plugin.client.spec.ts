@@ -15,12 +15,12 @@
  */
 import { Context } from '@lyness/cordis'
 import { describe, expect, it, vi } from 'vitest'
-import type { SessionId } from '@lyness/session/types'
-import { SlotRegistry } from '@lyness/client-ui-renderer/client'
-import { InputTriggerService } from '@lyness/client-ui-input-trigger/client'
-import { RemoteError, TestRemote } from '@lyness/client-test-runtime'
-import type { RemoteFailure } from '@lyness/api-remotes/client'
-import type { ClientSessionContext, InputTriggerSource } from '@lyness/client-ui-input-trigger/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
+import { InputTriggerService } from '@lyness/lyn-client-ui-input-trigger/client'
+import { RemoteError, TestRemote } from '@lyness/lyn-client-test-runtime'
+import type { RemoteFailure } from '@lyness/lyn-api-remotes/client'
+import type { ClientSessionContext, InputTriggerSource } from '@lyness/lyn-client-ui-input-trigger/client'
 import { apply, inject } from '../src/client/index.ts'
 import { SkillRow as SkillToolRow } from '../src/client/SkillRow.tsx'
 

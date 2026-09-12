@@ -1,7 +1,7 @@
 /** Durable Session-message acceptance checks shared by provisioning and mailbox recovery. */
 
-import type { UserMessage } from '@lyness/llm'
-import type { SessionEvent } from '@lyness/session'
+import type { UserMessage } from '@lyness/lyn-llm'
+import type { SessionEvent } from '@lyness/lyn-session'
 
 type InboxProjection = Record<'next-turn' | 'next-step', UserMessage[]>
 

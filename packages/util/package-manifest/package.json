@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/package-manifest",
+  "name": "@lyness/lyn-package-manifest",
   "description": "Shared type declarations for package.json.lyn configuration fields",
   "version": "0.1.5-rc.1",
   "publishConfig": {

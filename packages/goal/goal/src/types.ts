@@ -7,11 +7,11 @@
  * aggregates — with zero content duplication. Host-coupled domain
  * vocabulary (message sources, events, fold shapes) lives in ./domain.ts.
  *
- * @module @lyness/goal/types
+ * @module @lyness/lyn-goal/types
  */
 
-import type { Branded } from '@lyness/brand'
-import type { SessionId } from '@lyness/session/types'
+import type { Branded } from '@lyness/lyn-brand'
+import type { SessionId } from '@lyness/lyn-session/types'
 
 /** Identifies one goal across its durable revisions. */
 export type GoalId = Branded<'GoalId'>
@@ -125,7 +125,7 @@ export interface GoalProjectionState {
   readonly failure: string | null
 }
 
-declare module '@lyness/session-projection/types' {
+declare module '@lyness/lyn-session-projection/types' {
   interface SessionProjectionStateMap {
     goal: GoalProjectionState
   }

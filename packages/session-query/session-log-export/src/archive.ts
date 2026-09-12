@@ -25,13 +25,13 @@ import { Zip, ZipDeflate } from 'fflate'
 import type { Context } from '@lyness/cordis'
 import type {
   AttachmentStore, FileAttachmentRef, ImageAttachmentRef,
-} from '@lyness/attachment'
-import type { SessionLineageNode, SessionQueryEngine } from '@lyness/session-query'
-import { SESSION_FORMAT_VERSION } from '@lyness/session'
-import { sessionFormatLogFilename } from '@lyness/session-format'
-import type { SessionEvent, SessionHeader, SessionId, SessionStore } from '@lyness/session'
-import type { SessionHandle, SessionPersistence } from '@lyness/session-persistence'
-import { SessionPersistenceNotFoundError } from '@lyness/session-persistence'
+} from '@lyness/lyn-attachment'
+import type { SessionLineageNode, SessionQueryEngine } from '@lyness/lyn-session-query'
+import { SESSION_FORMAT_VERSION } from '@lyness/lyn-session'
+import { sessionFormatLogFilename } from '@lyness/lyn-session-format'
+import type { SessionEvent, SessionHeader, SessionId, SessionStore } from '@lyness/lyn-session'
+import type { SessionHandle, SessionPersistence } from '@lyness/lyn-session-persistence'
+import { SessionPersistenceNotFoundError } from '@lyness/lyn-session-persistence'
 
 /** Valid fflate DEFLATE levels accepted by session-log export. */
 export type SessionLogCompressionLevel = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9

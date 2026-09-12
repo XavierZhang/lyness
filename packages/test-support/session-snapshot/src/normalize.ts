@@ -3,13 +3,13 @@
  * timestamps, goal lifecycle clocks, and hook duration while preserving semantic payload values.
  * The prompt-text and tool-schema scrubbers stay composable so one scenario per header class can
  * pin prompt and tool-schema sidecars.
- * @module @lyness/session-snapshot/normalize
+ * @module @lyness/lyn-session-snapshot/normalize
  */
 
 import {
   decodeSeqRanges,
-} from '@lyness/session'
-import { prepareSessionSnapshotFixtureForComparison } from '@lyness/llm-replay'
+} from '@lyness/lyn-session'
+import { prepareSessionSnapshotFixtureForComparison } from '@lyness/lyn-llm-replay'
 import { redactSessionSnapshotIds } from './identity.ts'
 
 const SESSION_ID = '{{sessionId}}'

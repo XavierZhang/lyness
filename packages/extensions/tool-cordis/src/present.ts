@@ -1,6 +1,6 @@
 /** Pure replay-safe render intents for Cordis tools. */
 
-import type { GenericCallView } from '@lyness/tools'
+import type { GenericCallView } from '@lyness/lyn-tools'
 
 /**
  * Render a runtime-inspection call.

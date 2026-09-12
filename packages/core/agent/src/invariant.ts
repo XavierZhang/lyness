@@ -1,10 +1,10 @@
-/** Package-owned agent lifecycle invariants. @module @lyness/agent/invariant */
+/** Package-owned agent lifecycle invariants. @module @lyness/lyn-agent/invariant */
 
 import type { Context } from '@lyness/cordis'
-import type { InvariantInstaller } from '@lyness/invariants'
-import type { Agent, AgentStatus } from '@lyness/agent'
+import type { InvariantInstaller } from '@lyness/lyn-invariants'
+import type { Agent, AgentStatus } from '@lyness/lyn-agent'
 
-const PACKAGE_NAME = '@lyness/agent'
+const PACKAGE_NAME = '@lyness/lyn-agent'
 
 /** Cordis companion plugin name. */
 export const name = 'agent-invariant'

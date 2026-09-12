@@ -5,8 +5,8 @@ import { fileURLToPath } from 'node:url'
 import type { Browser, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed } from 'vitest'
-import type { SessionEvent } from '@lyness/session/types'
-import type {} from '@lyness/commands/types'
+import type { SessionEvent } from '@lyness/lyn-session/types'
+import type {} from '@lyness/lyn-commands/types'
 import {
   acknowledgeReloadConnectionLoss, assertFixtureInventory, captureStableAria,
   compareOrRefreshGolden, launchWebScaffold, watchConsole, webSnapshotMode,

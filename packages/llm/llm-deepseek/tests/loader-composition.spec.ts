@@ -16,17 +16,17 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
 import Include from '@lyness/cordis-plugin-include'
-import LlmRuntime from '@lyness/llm'
-import AgentRegistry from '@lyness/agent'
-import SessionStore, { SessionId } from '@lyness/session'
-import { credentialRef } from '@lyness/credentials'
-import LocalCredentialProvider from '@lyness/credentials-local'
-import FileSettingsProvider from '@lyness/settings-file'
-import { getOrCreateAnonymousUserId } from '@lyness/anonymous-user-id'
-import DeepSeekLlmApiExtensionRegistry from '@lyness/deepseek-llm-api-extensions'
-import * as SessionLogDeepSeek from '@lyness/session-log-deepseek'
-import * as DeepSeekPluginPackageInventory from '@lyness/plugin-package-inventory-deepseek'
-import * as LlmDeepSeek from '@lyness/llm-deepseek'
+import LlmRuntime from '@lyness/lyn-llm'
+import AgentRegistry from '@lyness/lyn-agent'
+import SessionStore, { SessionId } from '@lyness/lyn-session'
+import { credentialRef } from '@lyness/lyn-credentials'
+import LocalCredentialProvider from '@lyness/lyn-credentials-local'
+import FileSettingsProvider from '@lyness/lyn-settings-file'
+import { getOrCreateAnonymousUserId } from '@lyness/lyn-anonymous-user-id'
+import DeepSeekLlmApiExtensionRegistry from '@lyness/lyn-deepseek-llm-api-extensions'
+import * as SessionLogDeepSeek from '@lyness/lyn-session-log-deepseek'
+import * as DeepSeekPluginPackageInventory from '@lyness/lyn-plugin-package-inventory-deepseek'
+import * as LlmDeepSeek from '@lyness/lyn-llm-deepseek'
 import { assemble } from './assemble.ts'
 import { closeMockServers, mockServer, textEvents } from './mock-server.ts'
 
@@ -63,36 +63,36 @@ async function loadComposition(
   const configPath = join(root, 'cordis.yml')
   await writeFile(configPath, [
     '- id: llm',
-    "  name: '@lyness/llm'",
+    "  name: '@lyness/lyn-llm'",
     '- id: session',
-    "  name: '@lyness/session'",
+    "  name: '@lyness/lyn-session'",
     '- id: agents',
-    "  name: '@lyness/agent'",
+    "  name: '@lyness/lyn-agent'",
     '- id: deepseek-llm-api-extensions',
-    "  name: '@lyness/deepseek-llm-api-extensions'",
+    "  name: '@lyness/lyn-deepseek-llm-api-extensions'",
     '- id: session-log-deepseek',
-    "  name: '@lyness/session-log-deepseek'",
+    "  name: '@lyness/lyn-session-log-deepseek'",
     ...options.enableSessionLog === true
       ? ['  config:', '    enabled: true']
       : [],
     '- id: plugin-package-inventory-deepseek',
-    "  name: '@lyness/plugin-package-inventory-deepseek'",
+    "  name: '@lyness/lyn-plugin-package-inventory-deepseek'",
     ...options.withDynamic
       ? [
         '- id: settings',
-        "  name: '@lyness/settings-file'",
+        "  name: '@lyness/lyn-settings-file'",
         '  config:',
         `    path: ${JSON.stringify(settingsPath)}`,
         '    debounceMs: 10',
         '- id: credentials',
-        "  name: '@lyness/credentials-local'",
+        "  name: '@lyness/lyn-credentials-local'",
         '  config:',
         `    path: ${JSON.stringify(credentialsPath)}`,
         '    debounceMs: 10',
       ]
       : [],
     '- id: llm-deepseek',
-    "  name: '@lyness/llm-deepseek'",
+    "  name: '@lyness/lyn-llm-deepseek'",
     '  config:',
     `    baseURL: ${JSON.stringify(options.baseURL)}`,
     '',
@@ -104,15 +104,15 @@ async function loadComposition(
   await ctx.plugin(Loader)
   ctx.loader.builtins.include = Include
   const modules = new Map<string, unknown>([
-    ['@lyness/llm', LlmRuntime],
-    ['@lyness/session', SessionStore],
-    ['@lyness/agent', AgentRegistry],
-    ['@lyness/deepseek-llm-api-extensions', DeepSeekLlmApiExtensionRegistry],
-    ['@lyness/session-log-deepseek', SessionLogDeepSeek],
-    ['@lyness/plugin-package-inventory-deepseek', DeepSeekPluginPackageInventory],
-    ['@lyness/settings-file', FileSettingsProvider],
-    ['@lyness/credentials-local', LocalCredentialProvider],
-    ['@lyness/llm-deepseek', LlmDeepSeek],
+    ['@lyness/lyn-llm', LlmRuntime],
+    ['@lyness/lyn-session', SessionStore],
+    ['@lyness/lyn-agent', AgentRegistry],
+    ['@lyness/lyn-deepseek-llm-api-extensions', DeepSeekLlmApiExtensionRegistry],
+    ['@lyness/lyn-session-log-deepseek', SessionLogDeepSeek],
+    ['@lyness/lyn-plugin-package-inventory-deepseek', DeepSeekPluginPackageInventory],
+    ['@lyness/lyn-settings-file', FileSettingsProvider],
+    ['@lyness/lyn-credentials-local', LocalCredentialProvider],
+    ['@lyness/lyn-llm-deepseek', LlmDeepSeek],
   ])
   // The custom importer bypasses Node resolution; mirror the package manifests
   // a deployed cordis.yml has beside its declared dependencies.
@@ -152,9 +152,9 @@ describe('llm-deepseek real dynamic composition', () => {
     const request = server.requests[0] as { lyn_plugin_packages: { version: number; packages: unknown[] } }
     expect(request).not.toHaveProperty('lyn_session_log')
     expect(request.lyn_plugin_packages.packages).toEqual(expect.arrayContaining([
-      { name: '@lyness/deepseek-llm-api-extensions', version: '0.1.0-rc.8' },
-      { name: '@lyness/llm-deepseek', version: '0.1.0-rc.8' },
-      { name: '@lyness/session-log-deepseek', version: '0.1.0-rc.8' },
+      { name: '@lyness/lyn-deepseek-llm-api-extensions', version: '0.1.0-rc.8' },
+      { name: '@lyness/lyn-llm-deepseek', version: '0.1.0-rc.8' },
+      { name: '@lyness/lyn-session-log-deepseek', version: '0.1.0-rc.8' },
     ]))
     expect(request.lyn_plugin_packages.version).toBe(1)
     expect(SessionLogDeepSeek.acceptedThrough(session)).toBe(-1)

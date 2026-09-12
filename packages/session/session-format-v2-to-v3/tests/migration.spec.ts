@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
-import { createSessionFormatCatalog, SessionFormatEventCollector } from '@lyness/session-format'
-import type { SessionFormatArtifact, SessionFormatEvent, SessionFormatHeader, SessionFormatJsonObject } from '@lyness/session-format'
-import { releasedV0SessionFormatCodec, releasedV1SessionFormatCodec, sessionFormatV0ToV1 } from '@lyness/session-format-v0-to-v1'
-import { sessionFormatV1ToV2 } from '@lyness/session-format-v1-to-v2'
+import { createSessionFormatCatalog, SessionFormatEventCollector } from '@lyness/lyn-session-format'
+import type { SessionFormatArtifact, SessionFormatEvent, SessionFormatHeader, SessionFormatJsonObject } from '@lyness/lyn-session-format'
+import { releasedV0SessionFormatCodec, releasedV1SessionFormatCodec, sessionFormatV0ToV1 } from '@lyness/lyn-session-format-v0-to-v1'
+import { sessionFormatV1ToV2 } from '@lyness/lyn-session-format-v1-to-v2'
 import { assertReleasedV3Header, releasedV2SessionFormatCodec, releasedV3SessionFormatCodec, restoreReleasedV3Artifact, sessionFormatV2ToV3 } from '../src/index.ts'
 
 function deepFreeze<T>(value: T): T {

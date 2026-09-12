@@ -4,7 +4,7 @@
  * stdout tee, SDK client, update collection, permission fallback, and process
  * shutdown so e2e and snapshot suites do not each reconstruct that boundary.
  *
- * @module @lyness/session-snapshot/launcher
+ * @module @lyness/lyn-session-snapshot/launcher
  */
 
 import { spawn, type ChildProcessWithoutNullStreams } from 'node:child_process'
@@ -38,7 +38,7 @@ import {
   type SessionNotification,
 } from '@agentclientprotocol/sdk'
 import { entryListSchema, type PatchOptions } from '@lyness/cordis-plugin-include'
-import { resolveExampleLaunch } from '@lyness/loader-smoke'
+import { resolveExampleLaunch } from '@lyness/lyn-loader-smoke'
 
 const EXIT_MARKER_GRACE_MS = 250
 

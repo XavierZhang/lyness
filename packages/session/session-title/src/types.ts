@@ -5,13 +5,13 @@
  * `./types` for host consumers and `./client/types` for client aggregates —
  * with zero content duplication.
  *
- * @module @lyness/session-title/types
+ * @module @lyness/lyn-session-title/types
  */
 
 export {}
 
-import type { Branded } from '@lyness/brand'
-import type { OptionalSessionSeq, SessionSeq } from '@lyness/session/types'
+import type { Branded } from '@lyness/lyn-brand'
+import type { OptionalSessionSeq, SessionSeq } from '@lyness/lyn-session/types'
 
 /** Identifies one session-title provider registration. */
 export type SessionTitleProviderId = Branded<'SessionTitleProviderId'>
@@ -76,7 +76,7 @@ export interface TitleInputState {
   readonly lastSeq: OptionalSessionSeq
 }
 
-declare module '@lyness/session-projection/types' {
+declare module '@lyness/lyn-session-projection/types' {
   interface SessionProjectionStateMap {
     /** Latest logged title text, or null. */
     title: string | null

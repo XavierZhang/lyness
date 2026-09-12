@@ -5,8 +5,8 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { Session, SessionId, SESSION_FORMAT_VERSION } from '@lyness/session'
-import JsonlSessionPersistence from '@lyness/session-persistence-jsonl'
+import { Session, SessionId, SESSION_FORMAT_VERSION } from '@lyness/lyn-session'
+import JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
 import {
   runBuiltBenchmarkWorker,
   type BuiltBenchmarkWorkerRun,

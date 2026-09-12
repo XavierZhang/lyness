@@ -14,8 +14,8 @@ import {
   escalationHintMarker,
   sandboxDenialMarker,
   validateEscalationArgs,
-} from '@lyness/sandbox'
-import type { EscalationApprover, EscalationOutcome } from '@lyness/sandbox'
+} from '@lyness/lyn-sandbox'
+import type { EscalationApprover, EscalationOutcome } from '@lyness/lyn-sandbox'
 
 describe('the strictly-wider ladder', () => {
   it('read-only escalates to either wider mode; workspace-write only to full access', () => {

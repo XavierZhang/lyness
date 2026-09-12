@@ -1,7 +1,7 @@
 import { createServer, type Server } from 'node:http'
 import type { AddressInfo } from 'node:net'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
-import { installProxyFromEnvironment } from '@lyness/http-proxy'
+import { installProxyFromEnvironment } from '@lyness/lyn-http-proxy'
 
 let seen: string[] = []
 let proxy: Server
@@ -33,7 +33,7 @@ async function observe(run: () => Promise<unknown>): Promise<string[]> {
 }
 import { vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import LlmRuntime from '@lyness/llm'
+import LlmRuntime from '@lyness/lyn-llm'
 import * as LlmPiAi from '../src/index.ts'
 import { discoverModels } from '../src/discovery.ts'
 

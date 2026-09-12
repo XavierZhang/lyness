@@ -1,24 +1,24 @@
 /**
  * Log-backed session title service, deterministic fallback, and provider contract.
- * @module @lyness/session-title
+ * @module @lyness/lyn-session-title
  */
 
 import { Context, FiberState, Service, type Fiber } from '@lyness/cordis'
 import z from '@lyness/schemastery'
 import { z as zod } from 'zod'
 import type { ZodType } from 'zod'
-import type { Branded } from '@lyness/brand'
-import { isAgentLoopRequest } from '@lyness/llm'
-import type { GenerateOptions } from '@lyness/llm'
-import { assertNever, deepFreeze } from '@lyness/util-values'
+import type { Branded } from '@lyness/lyn-brand'
+import { isAgentLoopRequest } from '@lyness/lyn-llm'
+import type { GenerateOptions } from '@lyness/lyn-llm'
+import { assertNever, deepFreeze } from '@lyness/lyn-util-values'
 import type {
   Session,
   SessionEvent,
-} from '@lyness/session'
-import { SessionSeq } from '@lyness/session'
-import type {} from '@lyness/session-projection'
-import type { ProjectionDefinition } from '@lyness/session-projection'
-import type {} from '@lyness/agent'
+} from '@lyness/lyn-session'
+import { SessionSeq } from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-session-projection'
+import type { ProjectionDefinition } from '@lyness/lyn-session-projection'
+import type {} from '@lyness/lyn-agent'
 export type {
   SessionTitleEventData,
   SessionTitleModelProvenance,
@@ -68,7 +68,7 @@ declare module '@lyness/cordis' {
   }
 }
 
-declare module '@lyness/session/types' {
+declare module '@lyness/lyn-session/types' {
   interface SessionEventMap {
     /**
      * Latest-wins session title snapshot. Log-only: it never enters the model

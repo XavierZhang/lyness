@@ -5,12 +5,12 @@ import { join } from 'node:path'
 import type { Browser, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed } from 'vitest'
-import { prepareSessionSnapshotFixtureForComparison } from '@lyness/llm-replay'
+import { prepareSessionSnapshotFixtureForComparison } from '@lyness/lyn-llm-replay'
 import {
   SESSION_FORMAT_VERSION, SessionId as sessionId, SessionLogOffset, type SessionEvent, type SessionHeader, type SessionId,
-} from '@lyness/session'
-import type {} from '@lyness/agent'
-import { snapshotSubagentDescriptor } from '@lyness/subagent'
+} from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-agent'
+import { snapshotSubagentDescriptor } from '@lyness/lyn-subagent'
 import {
   acknowledgeReloadConnectionLoss, captureExpandedTurnProcessAria, captureStableAria,
   compareOrRefreshGolden,

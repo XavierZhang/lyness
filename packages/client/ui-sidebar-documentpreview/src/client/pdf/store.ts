@@ -1,6 +1,6 @@
 /** Restorable PDF viewing preferences; document objects and canvases remain component-local. */
-import { defineStore, type EngineStoreHandle } from '@lyness/client-store'
-import type { TabId } from '@lyness/client-ui-dockkit'
+import { defineStore, type EngineStoreHandle } from '@lyness/lyn-client-store'
+import type { TabId } from '@lyness/lyn-client-ui-dockkit'
 
 /** One tab's last visible page. */
 export interface PdfView {

@@ -5,13 +5,13 @@
  * feedback dialog, whose submission records the negative judgment with its
  * category and text. Clicking the recorded rating retracts it. A recorded
  * rating shows the filled glyph so the signal survives a pointer leaving the row.
- * @module @lyness/client-ui-message-feedback/client/MessageFeedbackActions
+ * @module @lyness/lyn-client-ui-message-feedback/client/MessageFeedbackActions
  */
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import {
   IconDislikeFill16, IconDislikeOutline16, IconLikeFill16, IconLikeOutline16, Tooltip,
-} from '@lyness/client-ui-primitives'
+} from '@lyness/lyn-client-ui-primitives'
 import type { MessageFeedbackActionFailure } from './controller.ts'
 import type { MessageFeedbackActionProps } from './slots.ts'
 import css from './MessageFeedbackActions.module.css'

@@ -1,8 +1,8 @@
 /** Present call status and expandable durable result text. */
 import { useState } from 'react'
-import { DisclosureRow, StateDot } from '@lyness/client-ui-primitives'
-import type { ToolCallViewProps } from '@lyness/client-ui-tool/client'
-import type { PropsLocale } from '@lyness/client-ui-slots'
+import { DisclosureRow, StateDot } from '@lyness/lyn-client-ui-primitives'
+import type { ToolCallViewProps } from '@lyness/lyn-client-ui-tool/client'
+import type { PropsLocale } from '@lyness/lyn-client-ui-slots'
 import type { NS } from './locales.ts'
 import css from './PresentRow.module.css'
 

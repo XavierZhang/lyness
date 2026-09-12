@@ -11,13 +11,13 @@
  * Nodes also carry durable attachment occurrences and their structural prices,
  * so `measure()` can price the request representation sent to the model.
  *
- * @module @lyness/token-meter/surface-fold
+ * @module @lyness/lyn-token-meter/surface-fold
  */
 
-import { deriveEventMessage } from '@lyness/session'
-import type { SessionSeq, SurfaceEvent } from '@lyness/session'
-import type { ContentBlock, Message } from '@lyness/llm'
-import type { ImageAttachmentRef } from '@lyness/attachment'
+import { deriveEventMessage } from '@lyness/lyn-session'
+import type { SessionSeq, SurfaceEvent } from '@lyness/lyn-session'
+import type { ContentBlock, Message } from '@lyness/lyn-llm'
+import type { ImageAttachmentRef } from '@lyness/lyn-attachment'
 import { estimateMessage, estimateStructuralBlock } from './estimate.ts'
 
 type FileAttachmentRef = Extract<ContentBlock, { type: 'file' }>['attachment']

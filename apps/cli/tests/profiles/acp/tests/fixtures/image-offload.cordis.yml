@@ -2,7 +2,7 @@
 # local provider endpoint is supplied by the snapshot test; the real attachment
 # store and ACP bridge carry two uploaded images into one model request.
 - id: llm-deepseek
-  name: '@lyness/llm-deepseek'
+  name: '@lyness/lyn-llm-deepseek'
   config:
     apiKeyEnv: LYNESS_SNAPSHOT_API_KEY
     baseURL: !!js process.env.LYNESS_SNAPSHOT_BASE_URL
@@ -16,24 +16,24 @@
         inputModalities: [text, image]
 
 - id: acp
-  name: '@lyness/acp'
+  name: '@lyness/lyn-acp'
   config:
     provider: deepseek-official
     model: deepseek-v4-flash-vision-exp
 
 - id: session-persistence-jsonl
-  name: '@lyness/session-persistence-jsonl'
+  name: '@lyness/lyn-session-persistence-jsonl'
   config:
     root: !!js process.env.LYNESS_SNAPSHOT_SESSIONS_ROOT ?? './.sessions'
     compression: none
 
 - id: agent-instructions
-  name: '@lyness/agent-instructions'
+  name: '@lyness/lyn-agent-instructions'
   config:
     maxBytes: 65536
 
 - id: system-prompt
-  name: '@lyness/system-prompt'
+  name: '@lyness/lyn-system-prompt'
   config:
     personaPrefix: |
       You are a coding assistant powered by the {{model}} model. Your working directory is {{cwd}}.
@@ -41,4 +41,4 @@
       Keep answers brief and factual.
 
 - id: attachment-local
-  name: '@lyness/attachment-local'
+  name: '@lyness/lyn-attachment-local'

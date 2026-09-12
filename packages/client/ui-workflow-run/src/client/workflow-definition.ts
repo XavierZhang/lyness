@@ -1,12 +1,12 @@
 import type {
   ConversationLocation, ConversationNodeContext, ConversationNodeDefinition,
-} from '@lyness/client-ui-conversation/client'
-import type { ChatConversationViewNode } from '@lyness/client-ui-chat/client'
-import type { SessionId } from '@lyness/session/types'
+} from '@lyness/lyn-client-ui-conversation/client'
+import type { ChatConversationViewNode } from '@lyness/lyn-client-ui-chat/client'
+import type { SessionId } from '@lyness/lyn-session/types'
 import type {
   ToolWorkflowAgentEndData, ToolWorkflowAgentStartData,
-} from '@lyness/tool-workflow/types'
-import type { WorkflowAgentOutcome, WorkflowStopReason } from '@lyness/workflow/types'
+} from '@lyness/lyn-tool-workflow/types'
+import type { WorkflowAgentOutcome, WorkflowStopReason } from '@lyness/lyn-workflow/types'
 
 /** Status shown for a workflow, phase, or member. */
 export type WorkflowRunStatus = 'running' | 'completed' | 'failed' | 'cancelled' | 'interrupted'
@@ -34,7 +34,7 @@ export interface WorkflowRunChatData {
   readonly phases: readonly WorkflowRunPhaseData[]
 }
 
-declare module '@lyness/client-ui-chat/client' {
+declare module '@lyness/lyn-client-ui-chat/client' {
   interface ChatNodeDataMap {
     /** Durable top-level workflow run and all members that actually started. */
     'workflow-run': WorkflowRunChatData

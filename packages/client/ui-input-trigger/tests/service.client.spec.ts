@@ -9,14 +9,14 @@
  */
 import { Context } from '@lyness/cordis'
 import { describe, expect, it, vi } from 'vitest'
-import { createScope, scopeOf } from '@lyness/api-session-controller/client'
-import type { LocaleSnapshot } from '@lyness/client-locale/client'
-import type { SessionId } from '@lyness/session/types'
-import { InputTriggerController, InputTriggerService } from '@lyness/client-ui-input-trigger/client'
+import { createScope, scopeOf } from '@lyness/lyn-api-session-controller/client'
+import type { LocaleSnapshot } from '@lyness/lyn-client-locale/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import { InputTriggerController, InputTriggerService } from '@lyness/lyn-client-ui-input-trigger/client'
 import type {
   BeginCommandRequest, ClientSessionContext, CommandClaim, InsertReferenceRequest, PickOutcome,
   ReferenceInsert, InputTriggerCandidate, InputTriggerPick, InputTriggerSource, SourceRoster, TriggerChar,
-} from '@lyness/client-ui-input-trigger/client'
+} from '@lyness/lyn-client-ui-input-trigger/client'
 
 const sid = (k: string): SessionId => k as SessionId
 

@@ -2,20 +2,20 @@
  * JSON-RPC methods and notifications for out-of-process harness SDKs.
  * The surrounding context owns plugins, persistence, and configured adapters.
  *
- * @module @lyness/sdk-jsonrpc-server/server
+ * @module @lyness/lyn-sdk-jsonrpc-server/server
  */
 
 import type { Context } from '@lyness/cordis'
 import { resolve } from 'node:path'
-import { brandString } from '@lyness/brand'
-import type { Agent, AgentHandle } from '@lyness/agent'
-import { admitEncodedImages, type EncodedImageAttachment, type ImageAttachmentRef } from '@lyness/attachment'
-import { createUserMessage, ReasoningEffortId, type ContentBlock, type LlmRuntime } from '@lyness/llm'
-import { carrierKeyOf, type Scoped } from '@lyness/scope'
-import type { SessionId } from '@lyness/session'
-import type SubagentRuntime from '@lyness/subagent'
-import type { SubagentRunEndInfo } from '@lyness/subagent'
-import * as LlmDeepSeek from '@lyness/llm-deepseek'
+import { brandString } from '@lyness/lyn-brand'
+import type { Agent, AgentHandle } from '@lyness/lyn-agent'
+import { admitEncodedImages, type EncodedImageAttachment, type ImageAttachmentRef } from '@lyness/lyn-attachment'
+import { createUserMessage, ReasoningEffortId, type ContentBlock, type LlmRuntime } from '@lyness/lyn-llm'
+import { carrierKeyOf, type Scoped } from '@lyness/lyn-scope'
+import type { SessionId } from '@lyness/lyn-session'
+import type SubagentRuntime from '@lyness/lyn-subagent'
+import type { SubagentRunEndInfo } from '@lyness/lyn-subagent'
+import * as LlmDeepSeek from '@lyness/lyn-llm-deepseek'
 import type {
   InitializeParams,
   InitializeResult,
@@ -26,7 +26,7 @@ import type {
   SdkEncodedImageBlock,
   SubagentFinishedNotification,
   SubagentStartedNotification,
-} from '@lyness/sdk-protocol'
+} from '@lyness/lyn-sdk-protocol'
 
 interface SessionRecord {
   handle: AgentHandle
@@ -275,7 +275,7 @@ export class HarnessSdkJsonRpcServer {
     // No preset composition: this server's compositions keep the model-facing
     // rows in the host plane, so this agent reads them from the global layer. A
     // deployment that configures a roster has to join one here first
-    // (@lyness/agent-presets README, "Composing a child agent").
+    // (@lyness/lyn-agent-presets README, "Composing a child agent").
     const handle = await this.ctx.agents.create({
       sessionId: brandString<SessionId>(sessionId),
       meta: { cwd: this.cwd },

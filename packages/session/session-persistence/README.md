@@ -3,7 +3,7 @@ description: "The durable session-storage seam for users and maintainers choosin
 kind: "package-reference"
 ---
 
-# @lyness/session-persistence
+# @lyness/lyn-session-persistence
 
 English | [中文](README.zh.md)
 

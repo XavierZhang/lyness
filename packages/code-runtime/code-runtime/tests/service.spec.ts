@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { CodeRuntime } from '@lyness/code-runtime'
-import type { CodeRunRequest, CodeRunResult } from '@lyness/code-runtime'
+import { CodeRuntime } from '@lyness/lyn-code-runtime'
+import type { CodeRunRequest, CodeRunResult } from '@lyness/lyn-code-runtime'
 
 /**
  * Minimal concrete runtime: records requests, "executes" by invoking every

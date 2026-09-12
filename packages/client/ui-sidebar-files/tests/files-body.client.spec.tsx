@@ -11,9 +11,9 @@
  */
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { act, cleanup, fireEvent } from '@testing-library/react'
-import { makeTranslate, RemoteError } from '@lyness/client-test-runtime'
-import type { RemoteFailure } from '@lyness/api-remotes/client'
-import { fileAddressFor } from '@lyness/util-workspace-path'
+import { makeTranslate, RemoteError } from '@lyness/lyn-client-test-runtime'
+import type { RemoteFailure } from '@lyness/lyn-api-remotes/client'
+import { fileAddressFor } from '@lyness/lyn-util-workspace-path'
 import { failureLine, orderEntries } from '../src/client/FilesBody.tsx'
 import type { DirLevel } from '../src/client/store.ts'
 import { zh } from '../src/client/locales.ts'

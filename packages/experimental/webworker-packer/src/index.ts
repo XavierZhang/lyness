@@ -1,6 +1,6 @@
 /**
  * Build-time packer for the browser runtime's VFS image.
- * @module @lyness/experimental-webworker-packer
+ * @module @lyness/lyn-experimental-webworker-packer
  */
 export {
   WRAPPER_CONTRACT,

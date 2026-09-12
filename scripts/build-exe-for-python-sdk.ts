@@ -56,9 +56,9 @@ const ASSET_GLOBS = [
   'node_modules/**/*.yaml',
   'node_modules/**/*.yml',
   // web-app builds this path dynamically, so pkg cannot discover the static frontend.
-  'node_modules/@lyness/web-frontend/dist/**/*',
+  'node_modules/@lyness/lyn-web-frontend/dist/**/*',
   // skill-badge resolves both Markdown and image resources through import.meta.url.
-  'node_modules/@lyness/skill-badge/assets/**/*',
+  'node_modules/@lyness/lyn-skill-badge/assets/**/*',
 ]
 
 const PLATFORMS = ['linux', 'macos', 'win'] as const

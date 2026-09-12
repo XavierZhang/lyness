@@ -2,11 +2,11 @@
 
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { act, cleanup, fireEvent, render, screen } from '@testing-library/react'
-import { bindSnapshotSelector, makeTranslate } from '@lyness/client-test-runtime'
-import { zh as commonZh } from '@lyness/client-locale/src/locales/zh.ts'
+import { bindSnapshotSelector, makeTranslate } from '@lyness/lyn-client-test-runtime'
+import { zh as commonZh } from '@lyness/lyn-client-locale/src/locales/zh.ts'
 import type {
   ChatConversationViewNode, ConversationNode,
-} from '@lyness/client-ui-chat/client'
+} from '@lyness/lyn-client-ui-chat/client'
 import type { ChatNodeViewProps } from '../src/client/contract/slots.ts'
 import {
   formatMessageClock, msUntilNextLocalMidnight, startOfLocalDay,
@@ -667,16 +667,16 @@ describe('MessageItem arms', () => {
         content: [{ type: 'text', text: 'Current runtime context.\n\nsandbox\n\nworkspace' }],
         source: {
           kind: 'plugin',
-          plugin: '@lyness/system-prompt',
+          plugin: '@lyness/lyn-system-prompt',
           form: 'snapshot',
           sections: [{ name: 'sandbox:policy', text: 'workspace-write' }, { name: 'workspace', text: '/repo' }],
         },
-        provenance: { role: 'inject', label: '@lyness/system-prompt' },
+        provenance: { role: 'inject', label: '@lyness/lyn-system-prompt' },
         form: 'snapshot',
       } as never}
       />,
     )
-    fireEvent.click(view.getByRole('button', { name: /^上下文注入\s*@lyness\/system-prompt$/ }))
+    fireEvent.click(view.getByRole('button', { name: /^上下文注入\s*@lyness\/lyn-system-prompt$/ }))
     const rows = [...view.container.querySelectorAll('[data-context-sections] div')].map(node => node.textContent)
     expect(rows).toEqual(['sandbox:policyworkspace-write', 'workspace/repo'])
   })

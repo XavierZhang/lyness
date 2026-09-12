@@ -1,8 +1,8 @@
 import {
   type AssistantLiveChunkEvent, type SessionEventLike, type SessionEventLikeEntry,
-} from '@lyness/api-session-controller/client'
-import { notifySubscribers } from '@lyness/client-store'
-import type { SessionEvent } from '@lyness/session/types'
+} from '@lyness/lyn-api-session-controller/client'
+import { notifySubscribers } from '@lyness/lyn-client-store'
+import type { SessionEvent } from '@lyness/lyn-session/types'
 import type {
   ConversationLocation, ConversationLocationData,
   ConversationLocationDataSource, ConversationLocationDataStore, ConversationStepDataMap,

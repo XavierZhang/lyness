@@ -4,10 +4,10 @@
  * carries no content, the disappearance that stats again, failures
  * as frames, and the life bounded by the signal.
  */
-import { RemoteError } from '@lyness/client-test-runtime'
-import type { SessionId } from '@lyness/session/types'
-import type { RemoteFailure } from '@lyness/typert-protocol'
-import { absoluteFileAddress, sessionFileAddress } from '@lyness/util-workspace-path'
+import { RemoteError } from '@lyness/lyn-client-test-runtime'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { RemoteFailure } from '@lyness/lyn-typert-protocol'
+import { absoluteFileAddress, sessionFileAddress } from '@lyness/lyn-util-workspace-path'
 import type { WorkspaceFileStat } from '../src/types.ts'
 import { describe, expect, it, onTestFinished } from 'vitest'
 import { ChangeFeed } from '../src/client/change-feed.ts'

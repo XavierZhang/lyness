@@ -2,32 +2,32 @@
 
 import { homedir } from 'node:os'
 import type { Context } from '@lyness/cordis'
-import type { Agent } from '@lyness/agent'
+import type { Agent } from '@lyness/lyn-agent'
 import type {
   TypertRemoteEventDispatch,
   TypertRemoteEventInvocation,
   TypertRemoteEventOutcome,
   TypertRemoteEventSource,
-} from '@lyness/api-gateway'
-import { Deque } from '@lyness/deque'
-import { carrierKeyOf } from '@lyness/scope'
-import { isJsonValue, type JsonValue } from '@lyness/util-values'
+} from '@lyness/lyn-api-gateway'
+import { Deque } from '@lyness/lyn-deque'
+import { carrierKeyOf } from '@lyness/lyn-scope'
+import { isJsonValue, type JsonValue } from '@lyness/lyn-util-values'
 import { API_REMOTE_FORWARDED_EVENTS } from './remote-events.ts'
 
 // The owner packages' client-safe `./types` exports carry the cordis `Events`
 // declarations for every allowlisted event. Pulling them into this face is what
 // makes the shape assertion below judge real signatures rather than an empty
 // event vocabulary.
-import type {} from '@lyness/commands/types'
-import type {} from '@lyness/cordis-host-runner/types'
-import type {} from '@lyness/credentials/types'
-import type {} from '@lyness/goal/types'
-import type {} from '@lyness/llm/types'
-import type {} from '@lyness/agent-presets/types'
-import type {} from '@lyness/settings/types'
-import type {} from '@lyness/user-approval'
-import type {} from '@lyness/user-questions'
-export type {} from '@lyness/api-session-controller/types'
+import type {} from '@lyness/lyn-commands/types'
+import type {} from '@lyness/lyn-cordis-host-runner/types'
+import type {} from '@lyness/lyn-credentials/types'
+import type {} from '@lyness/lyn-goal/types'
+import type {} from '@lyness/lyn-llm/types'
+import type {} from '@lyness/lyn-agent-presets/types'
+import type {} from '@lyness/lyn-settings/types'
+import type {} from '@lyness/lyn-user-approval'
+import type {} from '@lyness/lyn-user-questions'
+export type {} from '@lyness/lyn-api-session-controller/types'
 
 export { API_REMOTE_FORWARDED_EVENTS } from './remote-events.ts'
 export type { ApiRemoteForwardedEvent } from './types.ts'

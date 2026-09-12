@@ -3,23 +3,23 @@
 # raw for fixture harvesting.
 
 - id: llm-deepseek
-  name: '@lyness/llm-deepseek'
+  name: '@lyness/lyn-llm-deepseek'
   disabled: true
 
 - id: acp
-  name: '@lyness/acp'
+  name: '@lyness/lyn-acp'
   config:
     provider: deepseek-official
     model: deepseek-v4-flash
 
 - id: session-persistence-jsonl
-  name: '@lyness/session-persistence-jsonl'
+  name: '@lyness/lyn-session-persistence-jsonl'
   config:
     root: !!js process.env.LYNESS_SNAPSHOT_SESSIONS_ROOT ?? lynHomePath('sessions')
     compression: none
 
 - id: sandbox
-  name: '@lyness/sandbox-local'
+  name: '@lyness/lyn-sandbox-local'
   config:
     runnerCommand:
       - bash
@@ -31,7 +31,7 @@
 
 - insert:
     - id: llm-replay
-      name: '@lyness/llm-replay'
+      name: '@lyness/lyn-llm-replay'
       config:
         providers:
           - id: deepseek-official

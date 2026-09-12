@@ -15,12 +15,12 @@
 
 import type { CacheRetention, ChatTemplateKwargValue, ModelThinkingLevel, Provider, ThinkingBudgets, Transport } from '@earendil-works/pi-ai'
 import z from '@lyness/schemastery'
-import { credentialRef } from '@lyness/credentials'
-import type { CredentialRef } from '@lyness/credentials'
-import { MAX_TIMER_DELAY_MS } from '@lyness/timeout'
-import { resolveRetryPolicy, RetryPolicySchema } from '@lyness/llm'
-import type { ResolvedRetryPolicy, RetryPolicyConfig } from '@lyness/llm'
-import { deepEqualJson } from '@lyness/util-values'
+import { credentialRef } from '@lyness/lyn-credentials'
+import type { CredentialRef } from '@lyness/lyn-credentials'
+import { MAX_TIMER_DELAY_MS } from '@lyness/lyn-timeout'
+import { resolveRetryPolicy, RetryPolicySchema } from '@lyness/lyn-llm'
+import type { ResolvedRetryPolicy, RetryPolicyConfig } from '@lyness/lyn-llm'
+import { deepEqualJson } from '@lyness/lyn-util-values'
 import {
   CACHE_CONTROL_FORMATS,
   CHAT_TEMPLATE_VARS,

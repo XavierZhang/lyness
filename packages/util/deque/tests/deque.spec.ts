@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { Deque } from '@lyness/deque'
+import { Deque } from '@lyness/lyn-deque'
 
 function backingStorage<T>(deque: Deque<T>): readonly (T | undefined)[] {
   // Storage retention is the behavior under test and has no public query API.

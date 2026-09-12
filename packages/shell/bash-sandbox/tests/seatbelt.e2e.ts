@@ -5,18 +5,18 @@ import { homedir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { LocalSandboxProvider } from '@lyness/sandbox-local'
-import { SandboxPolicyService } from '@lyness/sandbox-policy'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import { seatbeltProfileArgs } from '@lyness/sandbox-local/src/profiles.ts'
-import { SandboxBashExecutor } from '@lyness/bash-sandbox'
-import LocalSubprocessRuntime from '@lyness/subprocess-local'
+import { LocalSandboxProvider } from '@lyness/lyn-sandbox-local'
+import { SandboxPolicyService } from '@lyness/lyn-sandbox-policy'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import { seatbeltProfileArgs } from '@lyness/lyn-sandbox-local/src/profiles.ts'
+import { SandboxBashExecutor } from '@lyness/lyn-bash-sandbox'
+import LocalSubprocessRuntime from '@lyness/lyn-subprocess-local'
 
 /**
  * Keyless macOS integration of the real provider and executor through public run/start paths.
  * Linux rungs are forced off so Seatbelt is selected. The tests check world effects and stamped
  * facts, including EPERM classification through the wrap-carried dialect; backend-only
- * confinement is covered by `@lyness/sandbox-local`. Skips off macOS or when
+ * confinement is covered by `@lyness/lyn-sandbox-local`. Skips off macOS or when
  * `sandbox-exec` rejects the profile.
  */
 

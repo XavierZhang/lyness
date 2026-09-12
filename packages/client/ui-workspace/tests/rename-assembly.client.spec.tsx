@@ -13,13 +13,13 @@
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { cleanup, fireEvent, waitFor, within } from '@testing-library/react'
-import type { ISession } from '@lyness/api-session-controller/client'
-import type { WorkspaceId } from '@lyness/api-workspace-controller/client'
-import { SessionSeq, type SessionId } from '@lyness/session/types'
-import type { PropsRenderSlots } from '@lyness/client-ui-slots'
-import { RemoteError, SlotTestRuntime, TestRemote, usePinnedBrowserLanguages } from '@lyness/client-test-runtime'
-import { LocaleRuntime } from '@lyness/client-locale/client'
-import { apply, inject } from '@lyness/client-ui-workspace/client'
+import type { ISession } from '@lyness/lyn-api-session-controller/client'
+import type { WorkspaceId } from '@lyness/lyn-api-workspace-controller/client'
+import { SessionSeq, type SessionId } from '@lyness/lyn-session/types'
+import type { PropsRenderSlots } from '@lyness/lyn-client-ui-slots'
+import { RemoteError, SlotTestRuntime, TestRemote, usePinnedBrowserLanguages } from '@lyness/lyn-client-test-runtime'
+import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
+import { apply, inject } from '@lyness/lyn-client-ui-workspace/client'
 
 // The service reads its initial locale from the browser; these specs assert
 // the shipped Chinese copy, so they state the browser they assume.

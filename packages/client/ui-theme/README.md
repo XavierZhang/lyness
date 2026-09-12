@@ -3,7 +3,7 @@ description: "Theme and content-font-size settings for the lyn web client: --dsw
 kind: "package-reference"
 ---
 
-# @lyness/client-ui-theme
+# @lyness/lyn-client-ui-theme
 
 English | [中文](README.zh.md)
 

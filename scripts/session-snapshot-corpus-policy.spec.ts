@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { SESSION_FORMAT_VERSION } from '@lyness/session'
+import { SESSION_FORMAT_VERSION } from '@lyness/lyn-session'
 import { assertSnapshotCorpusPolicy } from './session-snapshot-corpus-policy.ts'
 
 const completeV0 = {

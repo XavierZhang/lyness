@@ -1,5 +1,5 @@
 import { Service, type Context } from '@lyness/cordis'
-import { notifySubscribers } from '@lyness/client-store'
+import { notifySubscribers } from '@lyness/lyn-client-store'
 
 /** Shared lifecycle and stable-entry storage for one Conversation Definition registry. */
 export abstract class ConversationDefinitionRegistry<Definition> {

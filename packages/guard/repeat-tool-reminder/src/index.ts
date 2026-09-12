@@ -3,16 +3,16 @@
  * with logged model context without vetoing or rewriting calls. Configuration
  * and chain semantics live in the package README; rationale lives in the
  * repeat-tool-reminder Agent Note.
- * @module @lyness/repeat-tool-reminder
+ * @module @lyness/lyn-repeat-tool-reminder
  */
 
 import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import type { Agent, PreStepDecision } from '@lyness/agent'
-import { createUserMessage } from '@lyness/llm'
-import type { MessageSource } from '@lyness/llm'
-import type { UserMessage } from '@lyness/session'
-import type { PostToolDecision, ToolExecution } from '@lyness/tools'
+import type { Agent, PreStepDecision } from '@lyness/lyn-agent'
+import { createUserMessage } from '@lyness/lyn-llm'
+import type { MessageSource } from '@lyness/lyn-llm'
+import type { UserMessage } from '@lyness/lyn-session'
+import type { PostToolDecision, ToolExecution } from '@lyness/lyn-tools'
 
 export const name = 'repeat-tool-reminder'
 

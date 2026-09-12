@@ -13,7 +13,7 @@
  *
  * A boot failure rejects the whole queue with 503 rather than leaving the page
  * waiting.
- * @module @lyness/experimental-webworker-runtime/src/transport/tunnel
+ * @module @lyness/lyn-experimental-webworker-runtime/src/transport/tunnel
  */
 import {
   parseInboundFrame, type TunnelOutboundFrame, type TunnelRequestFrame, type TunnelRequestId,

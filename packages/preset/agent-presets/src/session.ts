@@ -11,13 +11,13 @@
  *
  * Reconstruction reads the `agentPreset` Session projection, never the header
  * alone.
- * @module @lyness/agent-presets/session
+ * @module @lyness/lyn-agent-presets/session
  */
 
-import type { ProjectionDefinition } from '@lyness/session-projection'
+import type { ProjectionDefinition } from '@lyness/lyn-session-projection'
 import { z } from 'zod'
 
-declare module '@lyness/session/types' {
+declare module '@lyness/lyn-session/types' {
   interface SessionEventMap {
     /**
      * The session's agent preset was chosen after creation, while the session

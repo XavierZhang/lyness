@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/session-format-v2-to-v3",
+  "name": "@lyness/lyn-session-format-v2-to-v3",
   "description": "Streaming system-prompt, canonical-envelope and PTC migration into V3",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -39,9 +39,9 @@
     }
   },
   "dependencies": {
-    "@lyness/session-format": "workspace:^",
-    "@lyness/session-format-v0-to-v1": "workspace:^",
-    "@lyness/session-format-v1-to-v2": "workspace:^"
+    "@lyness/lyn-session-format": "workspace:^",
+    "@lyness/lyn-session-format-v0-to-v1": "workspace:^",
+    "@lyness/lyn-session-format-v1-to-v2": "workspace:^"
   },
   "peerDependencies": {
     "@lyness/cordis": "workspace:^"

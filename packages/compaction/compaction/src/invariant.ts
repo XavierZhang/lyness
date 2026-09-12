@@ -1,16 +1,16 @@
-/** Package-owned compaction log-stream invariants. @module @lyness/compaction/invariant */
+/** Package-owned compaction log-stream invariants. @module @lyness/lyn-compaction/invariant */
 
 import type { Context } from '@lyness/cordis'
-import { isReplacementSurfaceEvent, SessionSeq } from '@lyness/session'
-import type { Session, SessionEvent } from '@lyness/session'
-import { SurfaceManager } from '@lyness/session/surface'
-import type { InvariantFailure, InvariantInstaller } from '@lyness/invariants'
+import { isReplacementSurfaceEvent, SessionSeq } from '@lyness/lyn-session'
+import type { Session, SessionEvent } from '@lyness/lyn-session'
+import { SurfaceManager } from '@lyness/lyn-session/surface'
+import type { InvariantFailure, InvariantInstaller } from '@lyness/lyn-invariants'
 import type { CompactionId } from './brand.ts'
 import { isCompactCheckpointSource } from './checkpoint.ts'
 import type { CompactionCheckpointSource } from './checkpoint.ts'
 import type {} from './types.ts'
 
-const PACKAGE_NAME = '@lyness/compaction'
+const PACKAGE_NAME = '@lyness/lyn-compaction'
 
 /** Cordis companion plugin name. */
 export const name = 'compaction-invariant'

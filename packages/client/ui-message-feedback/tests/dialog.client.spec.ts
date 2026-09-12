@@ -5,7 +5,7 @@
  * retires only the toast the view finished showing.
  */
 import { describe, expect, it, vi } from 'vitest'
-import type { MessageId } from '@lyness/api-remotes/client'
+import type { MessageId } from '@lyness/lyn-api-remotes/client'
 import type { MessageFeedbackActionResult } from '../src/client/controller.ts'
 import { FeedbackDialogController, type FeedbackSubmit } from '../src/client/dialog.ts'
 

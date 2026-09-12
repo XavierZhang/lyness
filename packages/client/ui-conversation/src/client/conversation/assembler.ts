@@ -1,7 +1,7 @@
 import type {
   SessionAssistantSettlementEntry, SessionEventLikeEntry, SessionTransientEventEntry,
-} from '@lyness/api-session-controller/client'
-import type { LlmAttemptId } from '@lyness/llm/brand'
+} from '@lyness/lyn-api-session-controller/client'
+import type { LlmAttemptId } from '@lyness/lyn-llm/brand'
 import type {
   ConversationContextReader, ConversationLocationData, ConversationMatch,
   ConversationNodeContext, ConversationNodeDefinition, ConversationPreviousContext,

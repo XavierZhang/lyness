@@ -1,17 +1,17 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { createUserMessage, ToolCallId  } from '@lyness/llm'
-import { createScope } from '@lyness/scope'
-import type { Scope } from '@lyness/scope'
-import SystemPrompt from '@lyness/system-prompt'
-import { CodeRuntime } from '@lyness/code-runtime'
-import type { CodeRunRequest, CodeRunResult } from '@lyness/code-runtime'
-import ToolRuntime, { CodeRunFailedError, RUN_CODE_NAME, TOOL_ABORTED_BEFORE_DISPATCH, defineContentToolFixture, defineTool } from '@lyness/tools'
-import type { Config, JsonSchemaNode, PostToolDecision, ToolExecutionResult } from '@lyness/tools'
-import type { Agent } from '@lyness/agent'
-import { Session, SessionId } from '@lyness/session'
-import type { SessionEventMap } from '@lyness/session'
-import type { JsonValue } from '@lyness/util-values'
+import { createUserMessage, ToolCallId  } from '@lyness/lyn-llm'
+import { createScope } from '@lyness/lyn-scope'
+import type { Scope } from '@lyness/lyn-scope'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import { CodeRuntime } from '@lyness/lyn-code-runtime'
+import type { CodeRunRequest, CodeRunResult } from '@lyness/lyn-code-runtime'
+import ToolRuntime, { CodeRunFailedError, RUN_CODE_NAME, TOOL_ABORTED_BEFORE_DISPATCH, defineContentToolFixture, defineTool } from '@lyness/lyn-tools'
+import type { Config, JsonSchemaNode, PostToolDecision, ToolExecutionResult } from '@lyness/lyn-tools'
+import type { Agent } from '@lyness/lyn-agent'
+import { Session, SessionId } from '@lyness/lyn-session'
+import type { SessionEventMap } from '@lyness/lyn-session'
+import type { JsonValue } from '@lyness/lyn-util-values'
 
 const testToolSignal = new AbortController().signal
 
@@ -1749,7 +1749,7 @@ describe('per-agent presentation', () => {
   })
 
   it('inherits a STANDING preset scope\'s mode down the chain, agents beside it unaffected', async () => {
-    const { bindScopeParent } = await import('@lyness/scope')
+    const { bindScopeParent } = await import('@lyness/lyn-scope')
     const { ctx, systemPrompt } = await setup({ mode: 'native' })
     const calls = registerEcho(ctx)
     // The preset's standing scope declares once; the agent only PARENTS to it

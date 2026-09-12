@@ -16,10 +16,10 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
 import Include from '@lyness/cordis-plugin-include'
-import LlmRuntime, { createMessage, createUserMessage, userAgent } from '@lyness/llm'
-import LocalCredentialProvider from '@lyness/credentials-local'
-import FileSettingsProvider from '@lyness/settings-file'
-import * as LlmPiAi from '@lyness/llm-pi-ai'
+import LlmRuntime, { createMessage, createUserMessage, userAgent } from '@lyness/lyn-llm'
+import LocalCredentialProvider from '@lyness/lyn-credentials-local'
+import FileSettingsProvider from '@lyness/lyn-settings-file'
+import * as LlmPiAi from '@lyness/lyn-llm-pi-ai'
 import { assemble } from './assemble.ts'
 import { closeMockServers, mockServer, textEvents } from './mock-server.ts'
 
@@ -56,17 +56,17 @@ async function loadComposition(): Promise<{ ctx: Context; settingsPath: string }
     '- id: llm',
     "  name: 'test-llm-service'",
     '- id: settings',
-    "  name: '@lyness/settings-file'",
+    "  name: '@lyness/lyn-settings-file'",
     '  config:',
     `    path: ${JSON.stringify(settingsPath)}`,
     '    debounceMs: 10',
     '- id: credentials',
-    "  name: '@lyness/credentials-local'",
+    "  name: '@lyness/lyn-credentials-local'",
     '  config:',
     `    path: ${JSON.stringify(join(root, '.credentials.yaml'))}`,
     '    debounceMs: 10',
     '- id: llm-pi-ai',
-    "  name: '@lyness/llm-pi-ai'",
+    "  name: '@lyness/lyn-llm-pi-ai'",
     '',
   ].join('\n'))
 
@@ -77,9 +77,9 @@ async function loadComposition(): Promise<{ ctx: Context; settingsPath: string }
   ctx.loader.builtins.include = Include
   const modules = new Map<string, unknown>([
     ['test-llm-service', LlmRuntime],
-    ['@lyness/settings-file', FileSettingsProvider],
-    ['@lyness/credentials-local', LocalCredentialProvider],
-    ['@lyness/llm-pi-ai', LlmPiAi],
+    ['@lyness/lyn-settings-file', FileSettingsProvider],
+    ['@lyness/lyn-credentials-local', LocalCredentialProvider],
+    ['@lyness/lyn-llm-pi-ai', LlmPiAi],
   ])
   ctx.loader.internal = {
     version: 'v2',

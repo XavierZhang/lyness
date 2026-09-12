@@ -4,18 +4,18 @@
  * producers. It also delivers unreported completions to the owning agent:
  * injected into a busy owner's next step, or opening a turn on an idle one
  * under the default `wakeup` delivery, bounded per owner.
- * @module @lyness/tool-jobs
+ * @module @lyness/lyn-tool-jobs
  */
 
 import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import { boundContextSummary, createUserMessage, type ContentBlock } from '@lyness/llm'
-import { TextRetainer } from '@lyness/output-retention'
-import { defineTool } from '@lyness/tools'
-import type { GenericCallView, ToolDefinition, ToolExecution } from '@lyness/tools'
-import { JobId } from '@lyness/jobs'
-import type { JobSnapshot } from '@lyness/jobs'
-import type { Agent } from '@lyness/agent'
+import { boundContextSummary, createUserMessage, type ContentBlock } from '@lyness/lyn-llm'
+import { TextRetainer } from '@lyness/lyn-output-retention'
+import { defineTool } from '@lyness/lyn-tools'
+import type { GenericCallView, ToolDefinition, ToolExecution } from '@lyness/lyn-tools'
+import { JobId } from '@lyness/lyn-jobs'
+import type { JobSnapshot } from '@lyness/lyn-jobs'
+import type { Agent } from '@lyness/lyn-agent'
 
 export const name = 'tool-jobs'
 export const inject = ['tools', 'jobs', 'systemPrompt']

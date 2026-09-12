@@ -22,9 +22,9 @@
  * @module lyn-llm-pi-ai/discovery
  */
 
-import { INVALID_CREDENTIAL_CODE, LlmError, normalizeApiKey } from '@lyness/llm'
-import type { LlmDiscoveredModel, LlmModelDiscoveryOperation } from '@lyness/llm'
-import { attributionHeaders } from '@lyness/llm'
+import { INVALID_CREDENTIAL_CODE, LlmError, normalizeApiKey } from '@lyness/lyn-llm'
+import type { LlmDiscoveredModel, LlmModelDiscoveryOperation } from '@lyness/lyn-llm'
+import { attributionHeaders } from '@lyness/lyn-llm'
 import { catalogModels } from './catalog.ts'
 
 /**

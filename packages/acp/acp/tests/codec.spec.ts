@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import type { TurnEndReason } from '@lyness/session'
+import type { TurnEndReason } from '@lyness/lyn-session'
 import { turnEndToStopReason } from '../src/codec.ts'
 
 describe('ACP codec', () => {

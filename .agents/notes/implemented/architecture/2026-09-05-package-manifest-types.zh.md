@@ -10,7 +10,7 @@ Status: implemented
 
 ## 决策
 
-[`@lyness/package-manifest`](../../../../packages/util/package-manifest/README.zh.md) 在一个纯类型文件中拥有 `LynManifest` 及其成员声明。本包属于现有工具库分组，不导出运行时值。作者声明与启动器生成的模块后备元数据有明确区分。
+[`@lyness/lyn-package-manifest`](../../../../packages/util/package-manifest/README.zh.md) 在一个纯类型文件中拥有 `LynManifest` 及其成员声明。本包属于现有工具库分组，不导出运行时值。作者声明与启动器生成的模块后备元数据有明确区分。
 
 各读取方直接导入共享声明。启动器保留 profile 加载、原始 JSON 检查、默认值和解析后的运行时数据。客户端模块保留归一化的启动图。镜像打包器将声明路径解析为目录。Session 目录生成器派生带有已解析导入路径的只读校验结果；原始输入和发现规则仍由本地负责。
 

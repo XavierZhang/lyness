@@ -10,8 +10,8 @@ import { join } from 'node:path'
 import type { Browser, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { afterEach, describe, expect, it, onTestFailed, vi } from 'vitest'
-import { deriveReplayScript, parseSessionLog, type ReplayEntry } from '@lyness/llm-replay'
-import type { SessionEvent } from '@lyness/session'
+import { deriveReplayScript, parseSessionLog, type ReplayEntry } from '@lyness/lyn-llm-replay'
+import type { SessionEvent } from '@lyness/lyn-session'
 import {
   assertFixtureInventory, captureExpandedTurnProcessAria, captureStableAria, compareOrRefreshGolden,
   launchWebScaffold, watchConsole, webSnapshotMode, type WebScaffold,

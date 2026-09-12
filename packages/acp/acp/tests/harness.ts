@@ -18,13 +18,13 @@ import {
   type SessionNotification,
   type Stream,
 } from '@agentclientprotocol/sdk'
-import AttachmentStore, { AttachmentError, AttachmentId } from '@lyness/attachment'
-import type { ImageAttachmentLimits, ImageAttachmentRef, SaveImageAttachment, StoredImageAttachment } from '@lyness/attachment'
-import { type GenerateOptions, LlmAdapter, ReasoningEffortId, type LlmResolvedModelInfo, type StreamChunk } from '@lyness/llm'
-import AgentLoop from '@lyness/agent-loop'
-import { mountAgentLoopTestDependencies } from '@lyness/agent-loop-testkit'
-import JsonlSessionPersistence from '@lyness/session-persistence-jsonl'
-import TokenMeter from '@lyness/token-meter'
+import AttachmentStore, { AttachmentError, AttachmentId } from '@lyness/lyn-attachment'
+import type { ImageAttachmentLimits, ImageAttachmentRef, SaveImageAttachment, StoredImageAttachment } from '@lyness/lyn-attachment'
+import { type GenerateOptions, LlmAdapter, ReasoningEffortId, type LlmResolvedModelInfo, type StreamChunk } from '@lyness/lyn-llm'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import { mountAgentLoopTestDependencies } from '@lyness/lyn-agent-loop-testkit'
+import JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
+import TokenMeter from '@lyness/lyn-token-meter'
 import * as AcpPlugin from '../src/index.ts'
 import type { AcpConfig } from '../src/index.ts'
 

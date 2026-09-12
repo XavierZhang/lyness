@@ -1,6 +1,6 @@
 /** DeepSeek Files API identifiers. @module lyn-llm-deepseek/file-id */
 
-import type { Branded } from '@lyness/brand'
+import type { Branded } from '@lyness/lyn-brand'
 
 /** Opaque identifier returned by the DeepSeek Files API. */
 export type DeepSeekFileId = Branded<'DeepSeekFileId'>

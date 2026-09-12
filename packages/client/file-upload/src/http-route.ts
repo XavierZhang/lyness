@@ -1,8 +1,8 @@
 /** Authenticated raw-byte upload route registered on the Connection fetch registry. */
 
-import { brandString } from '@lyness/brand'
-import type { SessionId } from '@lyness/session'
-import { remoteErrorOf } from '@lyness/typert-protocol'
+import { brandString } from '@lyness/lyn-brand'
+import type { SessionId } from '@lyness/lyn-session'
+import { remoteErrorOf } from '@lyness/lyn-typert-protocol'
 import type { FileUploads } from './index.ts'
 import type { FileUploadValue } from './types.ts'
 

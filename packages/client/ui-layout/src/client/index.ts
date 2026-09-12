@@ -8,11 +8,11 @@
  * presenter, which projects ctx.theme snapshots onto document.body.
  */
 import type { Context as ClientContext } from '@lyness/cordis'
-import type {} from '@lyness/client-locale/client'
-import type {} from '@lyness/client-ui-renderer/client'
-import type {} from '@lyness/client-ui-session/client'
-import type {} from '@lyness/client-ui-theme/client'
-import type { HostObservable, SnapshotSelectorHook } from '@lyness/client-ui-slots'
+import type {} from '@lyness/lyn-client-locale/client'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
+import type {} from '@lyness/lyn-client-ui-session/client'
+import type {} from '@lyness/lyn-client-ui-theme/client'
+import type { HostObservable, SnapshotSelectorHook } from '@lyness/lyn-client-ui-slots'
 import type { PanelInfo } from './service.ts'
 import { AppFrame } from './AppFrame.tsx'
 import { createLayoutStore } from './stores.ts'
@@ -37,7 +37,7 @@ declare module '@lyness/cordis' {
   }
 }
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface GlobalStandardProps {
     /** Subscribe to the selected main panel independently of parent renders. */
     usePanelInfo: UsePanelInfo

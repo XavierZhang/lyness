@@ -1,13 +1,13 @@
 import { readFileSync, readdirSync } from 'node:fs'
 import { join, relative } from 'node:path'
 import { describe, expect, it } from 'vitest'
-import { SESSION_FORMAT_VERSION, Session, SessionId, type SessionEvent } from '@lyness/session'
+import { SESSION_FORMAT_VERSION, Session, SessionId, type SessionEvent } from '@lyness/lyn-session'
 import {
   generationLogFilename,
   scanLog,
-} from '@lyness/session-persistence-jsonl/src/format.ts'
-import { foldSubagentDescriptor } from '@lyness/subagent'
-import { projectionCacheDomainSpec } from '@lyness/session-projection-cache'
+} from '@lyness/lyn-session-persistence-jsonl/src/format.ts'
+import { foldSubagentDescriptor } from '@lyness/lyn-subagent'
+import { projectionCacheDomainSpec } from '@lyness/lyn-session-projection-cache'
 import {
   buildVfsExampleFiles,
   VFS_EXAMPLE_OLDEST_MESSAGE,

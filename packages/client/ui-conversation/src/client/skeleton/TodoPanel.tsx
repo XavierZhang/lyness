@@ -1,12 +1,12 @@
 import { useId, useState } from 'react'
 import type { Context } from '@lyness/cordis'
-import type { PropsLocale, PropsRuntime } from '@lyness/client-ui-slots'
+import type { PropsLocale, PropsRuntime } from '@lyness/lyn-client-ui-slots'
 // The domain's client-namespace pure-type outlet: one import edge delivers
 // the `todos` projection-key merge (single source, no consumer-side restated
 // declare) and the payload type. Type-only by construction — the outlet is
 // free of host value imports, so no host Context merge enters this program.
-import type { TodoItem } from '@lyness/tool-todo/client'
-import { IconChecklistOutline14, IconChevronDownOutline14, IconChevronUpOutline14 } from '@lyness/client-ui-primitives'
+import type { TodoItem } from '@lyness/lyn-tool-todo/client'
+import { IconChecklistOutline14, IconChevronDownOutline14, IconChevronUpOutline14 } from '@lyness/lyn-client-ui-primitives'
 import { NS } from '../locales.ts'
 import css from './TodoPanel.module.css'
 

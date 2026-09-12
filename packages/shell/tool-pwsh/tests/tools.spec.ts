@@ -15,24 +15,24 @@ import { Context } from '@lyness/cordis'
 import { mkdtempSync, realpathSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, resolve as resolvePath } from 'node:path'
-import { ToolCallId } from '@lyness/llm'
-import SystemPrompt, { renderPrompt } from '@lyness/system-prompt'
-import ToolRuntime, { TOOL_ABORTED, TOOL_ABORTED_BEFORE_DISPATCH } from '@lyness/tools'
-import LocalJobRegistry from '@lyness/jobs-local'
-import * as ToolTasks from '@lyness/tool-jobs'
-import AgentRegistry from '@lyness/agent'
-import type { Agent } from '@lyness/agent'
-import { SESSION_FORMAT_VERSION, SessionId, SessionLogOffset, SessionSeq } from '@lyness/session'
-import ApprovalService from '@lyness/user-approval'
-import type { ApprovalOutcome } from '@lyness/user-approval'
-import { ShellExecutor } from '@lyness/shell'
-import type { ShellExecRequest, ShellExecSpec, ShellProcess, ShellRunResult } from '@lyness/shell'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import { turnBoundaryProjectionDefinition } from '@lyness/agent-loop'
-import SandboxPolicyService from '@lyness/sandbox-policy'
-import * as ToolPwsh from '@lyness/tool-pwsh'
-import * as BashEnvPlugin from '@lyness/shell-env'
-import type { ShellProcessRead } from '@lyness/shell'
+import { ToolCallId } from '@lyness/lyn-llm'
+import SystemPrompt, { renderPrompt } from '@lyness/lyn-system-prompt'
+import ToolRuntime, { TOOL_ABORTED, TOOL_ABORTED_BEFORE_DISPATCH } from '@lyness/lyn-tools'
+import LocalJobRegistry from '@lyness/lyn-jobs-local'
+import * as ToolTasks from '@lyness/lyn-tool-jobs'
+import AgentRegistry from '@lyness/lyn-agent'
+import type { Agent } from '@lyness/lyn-agent'
+import { SESSION_FORMAT_VERSION, SessionId, SessionLogOffset, SessionSeq } from '@lyness/lyn-session'
+import ApprovalService from '@lyness/lyn-user-approval'
+import type { ApprovalOutcome } from '@lyness/lyn-user-approval'
+import { ShellExecutor } from '@lyness/lyn-shell'
+import type { ShellExecRequest, ShellExecSpec, ShellProcess, ShellRunResult } from '@lyness/lyn-shell'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import { turnBoundaryProjectionDefinition } from '@lyness/lyn-agent-loop'
+import SandboxPolicyService from '@lyness/lyn-sandbox-policy'
+import * as ToolPwsh from '@lyness/lyn-tool-pwsh'
+import * as BashEnvPlugin from '@lyness/lyn-shell-env'
+import type { ShellProcessRead } from '@lyness/lyn-shell'
 import { processOutcome } from '../src/background.ts'
 import { renderPwshProcessRead, renderPwshResult } from '../src/render.ts'
 
@@ -788,7 +788,7 @@ describe('background execution through the job runtime', () => {
     const { ctx } = await setup() // no LocalJobRegistry / ToolTasks
     const result = await call(ctx, 'pwsh', { command: 'Start-Sleep -Seconds 60', description: 'test command', run_in_background: true })
     expect(result.isError).toBe(true)
-    expect(text(result)).toContain('background jobs unavailable: load @lyness/jobs and @lyness/tool-jobs')
+    expect(text(result)).toContain('background jobs unavailable: load @lyness/lyn-jobs and @lyness/lyn-tool-jobs')
   })
 
   it('a pre-aborted call is skipped before the process starts', async () => {

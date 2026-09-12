@@ -41,7 +41,7 @@ The tree composes over an empty root:
 - then the profile's `cordis.patch.yml`, then the home-level `$LYNESS_HOME/cordis.patch.yml`
 - then `--patch` overlays
 
-Bundles named in `lyn.profile.bundles` resolve from the lyn installation first (`@lyness/base`, `@lyness/web-app`, `@lyness/headless`, `@lyness/sdk-app`, `@lyness/sdk-minimal`, `@lyness/acp-app`), then from the profile's own `node_modules`, where pnpm installs out-of-tree plugins.
+Bundles named in `lyn.profile.bundles` resolve from the lyn installation first (`@lyness/lyn-base`, `@lyness/lyn-web-app`, `@lyness/lyn-headless`, `@lyness/lyn-sdk-app`, `@lyness/lyn-sdk-minimal`, `@lyness/lyn-acp-app`), then from the profile's own `node_modules`, where pnpm installs out-of-tree plugins.
 
 Use `--dump-default-config` and `--dump-config` to inspect the composed tree without booting it.
 

@@ -1,11 +1,11 @@
-import { freezeMessage, MessageId } from '@lyness/llm'
+import { freezeMessage, MessageId } from '@lyness/lyn-llm'
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import type { Events } from '@lyness/cordis'
-import type { Agent } from '@lyness/agent'
-import { scopeTarget } from '@lyness/scope'
-import * as ScopeInvariant from '@lyness/scope/invariant'
-import InvariantRegistry from '@lyness/invariants'
+import type { Agent } from '@lyness/lyn-agent'
+import { scopeTarget } from '@lyness/lyn-scope'
+import * as ScopeInvariant from '@lyness/lyn-scope/invariant'
+import InvariantRegistry from '@lyness/lyn-invariants'
 
 async function setup(): Promise<Context> {
   const ctx = new Context()

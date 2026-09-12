@@ -2,7 +2,7 @@
 import { Context } from '@lyness/cordis'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { cleanup, render } from '@testing-library/react'
-import { SlotRegistry } from '@lyness/client-ui-renderer/client'
+import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
 import { apply, inject } from '../src/client/index.ts'
 import { OfficialBrandMark, OfficialBrandName } from '../src/client/Brand.tsx'
 import { apply as hostApply } from '../src/index.ts'

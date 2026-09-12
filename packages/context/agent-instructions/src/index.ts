@@ -6,16 +6,16 @@
  * Plugin lifecycle reads use the optional `ctx.fs` provider, so providerless products
  * mount it as a no-op.
  *
- * @module @lyness/agent-instructions
+ * @module @lyness/lyn-agent-instructions
  */
 
 import type { Context } from '@lyness/cordis'
 import { isDeepStrictEqual } from 'node:util'
-import type { Agent, PreStepDecision } from '@lyness/agent'
-import { createUserMessage } from '@lyness/llm'
-import type { Session, UserMessage } from '@lyness/session'
-import type {} from '@lyness/session-projection'
-import type { ToolExecution, ToolExecutionResult, ToolExecutionToken } from '@lyness/tools'
+import type { Agent, PreStepDecision } from '@lyness/lyn-agent'
+import { createUserMessage } from '@lyness/lyn-llm'
+import type { Session, UserMessage } from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-session-projection'
+import type { ToolExecution, ToolExecutionResult, ToolExecutionToken } from '@lyness/lyn-tools'
 import { Config, resolveConfig, workspaceBaselineIdentity, type ResolvedConfig } from './config.ts'
 import { findProjectRoot, loadBaselineInstructionSet } from './files.ts'
 import {

@@ -1,13 +1,13 @@
 import { describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import type { Agent } from '@lyness/agent'
-import { ToolCallId } from '@lyness/llm'
-import { carrierKeyOf, createScope } from '@lyness/scope'
-import type { Scope } from '@lyness/scope'
-import SessionStore, { Session, SessionId } from '@lyness/session'
-import type { SessionEvent } from '@lyness/session'
-import SystemPrompt from '@lyness/system-prompt'
-import ApprovalService, { ApprovalOutcome, ApprovalRequest, setApprovalPolicy } from '@lyness/user-approval'
+import type { Agent } from '@lyness/lyn-agent'
+import { ToolCallId } from '@lyness/lyn-llm'
+import { carrierKeyOf, createScope } from '@lyness/lyn-scope'
+import type { Scope } from '@lyness/lyn-scope'
+import SessionStore, { Session, SessionId } from '@lyness/lyn-session'
+import type { SessionEvent } from '@lyness/lyn-session'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ApprovalService, { ApprovalOutcome, ApprovalRequest, setApprovalPolicy } from '@lyness/lyn-user-approval'
 
 /**
  * A minimal Agent stand-in — the service only reaches `agent.session.append`

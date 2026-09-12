@@ -1,14 +1,14 @@
 import { describe, expect, it } from 'vitest'
-import { createSessionFormatCatalog, SessionFormatEventCollector } from '@lyness/session-format'
+import { createSessionFormatCatalog, SessionFormatEventCollector } from '@lyness/lyn-session-format'
 import type {
   SessionFormatArtifact,
   SessionFormatEvent,
   SessionFormatHeader,
   SessionFormatJsonObject,
   SessionFormatJsonValue,
-} from '@lyness/session-format'
-import { releasedV0SessionFormatCodec, releasedV1SessionFormatCodec, sessionFormatV0ToV1 } from '@lyness/session-format-v0-to-v1'
-import { releasedV2SessionFormatCodec, sessionFormatV1ToV2 } from '@lyness/session-format-v1-to-v2'
+} from '@lyness/lyn-session-format'
+import { releasedV0SessionFormatCodec, releasedV1SessionFormatCodec, sessionFormatV0ToV1 } from '@lyness/lyn-session-format-v0-to-v1'
+import { releasedV2SessionFormatCodec, sessionFormatV1ToV2 } from '@lyness/lyn-session-format-v1-to-v2'
 import { assertReleasedV3Header, releasedV3SessionFormatCodec, restoreReleasedV3Artifact, sessionFormatV2ToV3 } from '../src/index.ts'
 import { canonicalizeTransformedEvent } from '../src/payload.ts'
 

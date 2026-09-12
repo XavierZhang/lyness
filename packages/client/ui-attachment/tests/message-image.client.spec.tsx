@@ -1,11 +1,11 @@
 // @vitest-environment jsdom
 
-import type { GlobalStandardProps } from '@lyness/client-ui-slots'
+import type { GlobalStandardProps } from '@lyness/lyn-client-ui-slots'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { cleanup, fireEvent, render, waitFor } from '@testing-library/react'
-import { AttachmentId } from '@lyness/attachment'
-import { EMPTY_CHAT_SNAPSHOT, type MessageImagesProps } from '@lyness/client-ui-chat/client'
-import { EMPTY_CONVERSATION_SNAPSHOT } from '@lyness/client-ui-conversation/client'
+import { AttachmentId } from '@lyness/lyn-attachment'
+import { EMPTY_CHAT_SNAPSHOT, type MessageImagesProps } from '@lyness/lyn-client-ui-chat/client'
+import { EMPTY_CONVERSATION_SNAPSHOT } from '@lyness/lyn-client-ui-conversation/client'
 import { ImageGallery, MessageImage } from '../src/MessageImage.tsx'
 import type { MessageImageLabels } from '../src/MessageImage.tsx'
 import { MessageImages } from '../src/client/MessageImages.tsx'

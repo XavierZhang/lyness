@@ -1,6 +1,6 @@
-import { deepEqualJson } from '@lyness/util-values'
-import { SessionFormatError } from '@lyness/session-format'
-import type { SessionFormatArtifact, SessionFormatEvent, SessionFormatJsonValue } from '@lyness/session-format'
+import { deepEqualJson } from '@lyness/lyn-util-values'
+import { SessionFormatError } from '@lyness/lyn-session-format'
+import type { SessionFormatArtifact, SessionFormatEvent, SessionFormatJsonValue } from '@lyness/lyn-session-format'
 import { releasedV0Record } from './validation-helpers.ts'
 import { RELEASED_V0_EVENT_DISPOSITIONS } from './dispositions.ts'
 

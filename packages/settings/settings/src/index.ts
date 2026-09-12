@@ -3,12 +3,12 @@
  * per-namespace sections; plugins register a namespace schema and read the
  * resolved value, which layers schema defaults, the registrant's composition
  * `base`, and the user document section, in that order.
- * @module @lyness/settings
+ * @module @lyness/lyn-settings
  */
 
 import { Context, Service } from '@lyness/cordis'
 import type z from '@lyness/schemastery'
-import { deepEqualJson, deepFreeze } from '@lyness/util-values'
+import { deepEqualJson, deepFreeze } from '@lyness/lyn-util-values'
 import { redactSecrets } from './redact.ts'
 import type { RedactedSecret } from './redact.ts'
 import type { SettingsNamespace, SettingsUpdateSource } from './types.ts'

@@ -1,6 +1,6 @@
 import type { Context } from '@lyness/cordis'
-import type {} from '@lyness/system-prompt'
-import type {} from '@lyness/tools'
+import type {} from '@lyness/lyn-system-prompt'
+import type {} from '@lyness/lyn-tools'
 
 export const name = 'in-history-prompt-update'
 export const inject = ['systemPrompt']

@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/shell-env",
+  "name": "@lyness/lyn-shell-env",
   "description": "Tool-independent managed LYNESS_* shell environment registry",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -27,20 +27,20 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/shell": "workspace:^",
-    "@lyness/home-paths": "workspace:^",
-    "@lyness/tools": "workspace:^",
+    "@lyness/lyn-shell": "workspace:^",
+    "@lyness/lyn-home-paths": "workspace:^",
+    "@lyness/lyn-tools": "workspace:^",
     "@lyness/cordis": "workspace:^"
   },
   "dependencies": {
     "@lyness/schemastery": "workspace:^"
   },
   "devDependencies": {
-    "@lyness/agent": "workspace:^",
-    "@lyness/shell": "workspace:^",
-    "@lyness/llm": "workspace:^",
-    "@lyness/home-paths": "workspace:^",
-    "@lyness/tools": "workspace:^",
+    "@lyness/lyn-agent": "workspace:^",
+    "@lyness/lyn-shell": "workspace:^",
+    "@lyness/lyn-llm": "workspace:^",
+    "@lyness/lyn-home-paths": "workspace:^",
+    "@lyness/lyn-tools": "workspace:^",
     "@lyness/cordis": "workspace:^"
   }
 }

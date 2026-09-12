@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/host-directory-picker-auto",
+  "name": "@lyness/lyn-host-directory-picker-auto",
   "description": "Adaptive chooser of the directory-picker seam: resolves the host situation at boot and mounts the native or browse backend for the lyness web GUI host",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -29,24 +29,24 @@
   "peerDependencies": {
     "@lyness/cordis": "workspace:^",
     "@lyness/cordis-plugin-loader": "workspace:^",
-    "@lyness/client-ui-directory-picker-browse": "workspace:^",
-    "@lyness/client-ui-directory-picker-native": "workspace:^",
-    "@lyness/host-directory-picker-browse": "workspace:^",
-    "@lyness/host-directory-picker-native": "workspace:^",
-    "@lyness/host-webserver": "workspace:^"
+    "@lyness/lyn-client-ui-directory-picker-browse": "workspace:^",
+    "@lyness/lyn-client-ui-directory-picker-native": "workspace:^",
+    "@lyness/lyn-host-directory-picker-browse": "workspace:^",
+    "@lyness/lyn-host-directory-picker-native": "workspace:^",
+    "@lyness/lyn-host-webserver": "workspace:^"
   },
   "devDependencies": {
     "@lyness/cordis": "workspace:^",
     "@lyness/cordis-plugin-include": "workspace:^",
     "@lyness/cordis-plugin-loader": "workspace:^",
-    "@lyness/client-ui-directory-picker-browse": "workspace:^",
-    "@lyness/client-ui-directory-picker-native": "workspace:^",
-    "@lyness/host-directory-picker": "workspace:^",
-    "@lyness/host-directory-picker-browse": "workspace:^",
-    "@lyness/host-directory-picker-native": "workspace:^",
-    "@lyness/host-webserver": "workspace:^"
+    "@lyness/lyn-client-ui-directory-picker-browse": "workspace:^",
+    "@lyness/lyn-client-ui-directory-picker-native": "workspace:^",
+    "@lyness/lyn-host-directory-picker": "workspace:^",
+    "@lyness/lyn-host-directory-picker-browse": "workspace:^",
+    "@lyness/lyn-host-directory-picker-native": "workspace:^",
+    "@lyness/lyn-host-webserver": "workspace:^"
   },
   "dependencies": {
-    "@lyness/launch-environment": "workspace:^"
+    "@lyness/lyn-launch-environment": "workspace:^"
   }
 }

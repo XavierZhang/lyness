@@ -1,6 +1,6 @@
 import { memo, useCallback, useMemo } from 'react'
-import { JsonBlock } from '@lyness/client-ui-primitives'
-import type { ConversationLocationDataStore, ConversationTurnDataMap } from '@lyness/client-ui-conversation/client'
+import { JsonBlock } from '@lyness/lyn-client-ui-primitives'
+import type { ConversationLocationDataStore, ConversationTurnDataMap } from '@lyness/lyn-client-ui-conversation/client'
 import type { ChatNodeOwnerProps, ChatViewSlotProps } from '../contract/slots.ts'
 import type { ChatNode } from '../contract/chat-nodes.ts'
 import { TURN_PROCESS_INDEPENDENT_KINDS } from '../contract/turn-process.ts'

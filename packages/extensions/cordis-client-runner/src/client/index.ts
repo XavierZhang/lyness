@@ -14,10 +14,10 @@ import type { Context } from '@lyness/cordis'
 import type {
   ApprovalRequestId, CordisDynamicPluginId, DynamicCordisInvokeResult,
   DynamicCordisInventoryRow,
-} from '@lyness/api-remotes/client'
-import type { ClientModuleSystem } from '@lyness/client-modules/client'
-import type { SlotRegistry } from '@lyness/client-ui-renderer/client'
-import type { JsonValue } from '@lyness/util-values'
+} from '@lyness/lyn-api-remotes/client'
+import type { ClientModuleSystem } from '@lyness/lyn-client-modules/client'
+import type { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
+import type { JsonValue } from '@lyness/lyn-util-values'
 // The Client Remote assembly is the one place the two planes meet: it mounts the
 // `dynamicCordisRunner` namespace and re-exports its payload vocabulary, so this
 // package names what it sends without importing a Host package.
@@ -55,7 +55,7 @@ export { ClientTimerService } from './timer.ts'
 export type {
   ApprovalRequestId, CordisDynamicPackageId, CordisDynamicPluginId, CordisDynamicPluginRunId,
   DynamicCordisPackage,
-} from '@lyness/api-remotes/client'
+} from '@lyness/lyn-api-remotes/client'
 
 
 /**

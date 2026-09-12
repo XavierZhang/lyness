@@ -13,17 +13,17 @@
  */
 
 // Type-only: pulls the Session Controller service merge (ctx.sessions).
-import type {} from '@lyness/api-session-controller/client'
+import type {} from '@lyness/lyn-api-session-controller/client'
 // Type-only: pulls the locale plugin's Context merge (ctx.locale).
-import type {} from '@lyness/client-locale/client'
+import type {} from '@lyness/lyn-client-locale/client'
 // Type-only: pulls the ctx.remote merge and the forwarded-event key face
 // (the settings invalidation rides the allowlist) into this program.
-import type {} from '@lyness/api-remotes/client'
+import type {} from '@lyness/lyn-api-remotes/client'
 // Type-only: pulls the settings shell's SlotMap merge (the 'settings.section' entry).
-import type {} from '@lyness/client-ui-settings/client'
-import type {} from '@lyness/client-ui-renderer/client'
+import type {} from '@lyness/lyn-client-ui-settings/client'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
 // Type-only: pulls the Workspace UI navigation service merge (ctx.uiWorkspace).
-import type {} from '@lyness/client-ui-workspace/client'
+import type {} from '@lyness/lyn-client-ui-workspace/client'
 import type { Context as ClientContext } from '@lyness/cordis'
 import { AgentPresetLabel } from './AgentPresetLabel.tsx'
 import type { AgentPresetLabelInjected } from './AgentPresetLabel.tsx'
@@ -36,7 +36,7 @@ import { AgentPresetSectionController } from './section-store.ts'
 import { en, zh, type AgentPresetSettingsKey } from './locales.ts'
 import { AGENT_PRESET_SETTINGS_NS, AgentPresetSettingsController } from './settings-store.ts'
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface LocaleNamespaceMap {
     /** Agent-preset surface copy. */
     'settings.agentPreset': AgentPresetSettingsKey

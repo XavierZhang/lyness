@@ -2,7 +2,7 @@
 
 import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import type {} from '@lyness/settings'
+import type {} from '@lyness/lyn-settings'
 
 /** Durable settings namespace for product-wide GUI onboarding facts. */
 const ONBOARDING_SETTINGS_NAMESPACE = 'ui-onboarding'

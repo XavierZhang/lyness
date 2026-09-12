@@ -2,8 +2,8 @@ import { describe, expect, it, vi } from 'vitest'
 import { Context, FiberState, Service, ValidationError } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
 import z from '@lyness/schemastery'
-import InvariantRegistry from '@lyness/invariants'
-import type { InvariantInstaller } from '@lyness/invariants'
+import InvariantRegistry from '@lyness/lyn-invariants'
+import type { InvariantInstaller } from '@lyness/lyn-invariants'
 import { packageInvariantOwners } from './package-invariants.ts'
 import {
   TEST_INVARIANT_READY_SERVICE,

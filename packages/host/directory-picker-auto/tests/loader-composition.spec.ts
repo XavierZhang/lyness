@@ -16,13 +16,13 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
 import Include from '@lyness/cordis-plugin-include'
-import HttpServer from '@lyness/host-webserver'
-import type { DirectoryPicker } from '@lyness/host-directory-picker'
-import BrowseDirectoryPicker from '@lyness/host-directory-picker-browse'
-import NativeDirectoryPicker from '@lyness/host-directory-picker-native'
+import HttpServer from '@lyness/lyn-host-webserver'
+import type { DirectoryPicker } from '@lyness/lyn-host-directory-picker'
+import BrowseDirectoryPicker from '@lyness/lyn-host-directory-picker-browse'
+import NativeDirectoryPicker from '@lyness/lyn-host-directory-picker-native'
 import {
   createLaunchEnvironmentSnapshot, LYNESS_LAUNCH_ENVIRONMENT_KEY, type LaunchEnvironmentSnapshot,
-} from '@lyness/launch-environment'
+} from '@lyness/lyn-launch-environment'
 import * as DirectoryPickerAuto from '../src/index.ts'
 
 const renameControl = vi.hoisted(() => ({
@@ -48,11 +48,11 @@ vi.mock('node:fs/promises', async (importOriginal) => {
   }
 })
 
-const AUTO = '@lyness/host-directory-picker-auto'
-const NATIVE = '@lyness/host-directory-picker-native'
-const BROWSE = '@lyness/host-directory-picker-browse'
-const NATIVE_SURFACE = '@lyness/client-ui-directory-picker-native'
-const BROWSE_SURFACE = '@lyness/client-ui-directory-picker-browse'
+const AUTO = '@lyness/lyn-host-directory-picker-auto'
+const NATIVE = '@lyness/lyn-host-directory-picker-native'
+const BROWSE = '@lyness/lyn-host-directory-picker-browse'
+const NATIVE_SURFACE = '@lyness/lyn-client-ui-directory-picker-native'
+const BROWSE_SURFACE = '@lyness/lyn-client-ui-directory-picker-browse'
 
 /**
  * Loader-visible stand-in for a client surface package: the surfaces belong to
@@ -98,7 +98,7 @@ async function loadComposition(
   root = await mkdtemp(join(tmpdir(), 'lyn-directory-picker-auto-'))
   const configPath = join(root, 'cordis.yml')
   await writeFile(configPath, [
-    "- name: '@lyness/host-webserver'",
+    "- name: '@lyness/lyn-host-webserver'",
     '  config:',
     `    host: '${bindHost}'`,
     '    port: 0',
@@ -112,7 +112,7 @@ async function loadComposition(
   await context.plugin(Loader)
   context.loader.builtins.include = Include
   const modules = new Map<string, unknown>([
-    ['@lyness/host-webserver', HttpServer],
+    ['@lyness/lyn-host-webserver', HttpServer],
     [AUTO, DirectoryPickerAuto],
     [NATIVE, NativeDirectoryPicker],
     [BROWSE, BrowseDirectoryPicker],

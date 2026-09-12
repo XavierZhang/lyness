@@ -6,8 +6,8 @@
  */
 
 import { Context } from '@lyness/cordis'
-import { SESSION_FORMAT_VERSION } from '@lyness/session'
-import JsonlSessionPersistence from '@lyness/session-persistence-jsonl'
+import { SESSION_FORMAT_VERSION } from '@lyness/lyn-session'
+import JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
 
 const [root, sessionId] = process.argv.slice(2)
 const ctx = new Context()

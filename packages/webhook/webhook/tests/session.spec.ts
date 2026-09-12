@@ -1,5 +1,5 @@
 import type { Context } from '@lyness/cordis'
-import { ReasoningEffortId, type LlmCallConfig } from '@lyness/llm'
+import { ReasoningEffortId, type LlmCallConfig } from '@lyness/lyn-llm'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import {
   WebhookDeliveryId,

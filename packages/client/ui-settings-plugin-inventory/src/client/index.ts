@@ -1,21 +1,21 @@
 /** Read-only Host plugin inventory registered into Web Settings. */
 
-import type {} from '@lyness/client-locale/client'
+import type {} from '@lyness/lyn-client-locale/client'
 import type { Context as ClientContext } from '@lyness/cordis'
-import type {} from '@lyness/client-ui-settings/client'
-import type {} from '@lyness/client-ui-renderer/client'
+import type {} from '@lyness/lyn-client-ui-settings/client'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
 // Type-only: pulls the 'settings.agentPreset' LocaleNamespaceMap merge, whose
 // dictionaries the shipped-preset name resolution below reads.
-import type {} from '@lyness/client-ui-agent-preset/client'
+import type {} from '@lyness/lyn-client-ui-agent-preset/client'
 // Inline-safe shared fold: shipped ids map to dictionary keys in one home.
-import { presetDisplayText } from '@lyness/agent-presets/display'
+import { presetDisplayText } from '@lyness/lyn-agent-presets/display'
 import { PluginInventorySettingsTab, type PluginInventorySettingsTabInjected } from './PluginInventorySettingsTab.tsx'
 import { en, zh, type PluginInventoryLocaleKey } from './locales.ts'
 
 export type { PluginInventorySettingsTabInjected, PluginInventorySettingsTabProps } from './PluginInventorySettingsTab.tsx'
 export type { PluginInventoryLocaleKey } from './locales.ts'
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface LocaleNamespaceMap {
     /** Read-only Host plugin inventory copy. */
     'settings.pluginInventory': PluginInventoryLocaleKey

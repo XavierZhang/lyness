@@ -3,7 +3,7 @@
  * fetch. Duplicate ids are rejected. At execution time, a configured provider must exist and
  * be usable; without one, exactly one usable provider is required, so selection never depends
  * on registration order.
- * @module @lyness/web
+ * @module @lyness/lyn-web
  */
 
 import { Context, Service } from '@lyness/cordis'

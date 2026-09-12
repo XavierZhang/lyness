@@ -1,4 +1,4 @@
-declare module '@lyness/typert-protocol' {
+declare module '@lyness/lyn-typert-protocol' {
   export interface TypertLookup<Host, Wire> {
     readonly host: Host
     readonly wire: Wire

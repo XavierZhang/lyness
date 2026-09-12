@@ -5,11 +5,11 @@
  * operation, so a changed credential reaches the next operation without any
  * plugin restart, and configuration surfaces describe a reference without
  * ever seeing its value.
- * @module @lyness/credentials
+ * @module @lyness/lyn-credentials
  */
 
 import { Context, Service } from '@lyness/cordis'
-import { brandString } from '@lyness/brand'
+import { brandString } from '@lyness/lyn-brand'
 import type { CredentialInfo, CredentialKey, CredentialRecord, CredentialRef } from './types.ts'
 
 export type {

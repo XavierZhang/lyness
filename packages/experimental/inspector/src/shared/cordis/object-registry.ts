@@ -1,6 +1,6 @@
 /** Realm-local retention and identity for live objects referenced by Inspector snapshots. */
 
-import { randomUUID } from '@lyness/util-crypto'
+import { randomUUID } from '@lyness/lyn-util-crypto'
 import { inspectorId } from '../identity.ts'
 import {
   type InspectorObjectHandle,

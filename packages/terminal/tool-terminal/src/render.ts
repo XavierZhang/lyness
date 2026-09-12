@@ -1,6 +1,6 @@
 /** Model and UI rendering for persistent terminal tool results. */
 
-import { TextRetainer } from '@lyness/output-retention'
+import { TextRetainer } from '@lyness/lyn-output-retention'
 
 interface RenderedSessionStatusRunning {
   kind: 'running'

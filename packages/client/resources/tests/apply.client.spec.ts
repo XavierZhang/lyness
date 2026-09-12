@@ -6,15 +6,15 @@
  */
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { act } from '@testing-library/react'
-import { SlotTestRuntime } from '@lyness/client-test-runtime'
-import type { PropsRuntime } from '@lyness/client-ui-slots'
-import type { RemoteResult } from '@lyness/typert-protocol'
+import { SlotTestRuntime } from '@lyness/lyn-client-test-runtime'
+import type { PropsRuntime } from '@lyness/lyn-client-ui-slots'
+import type { RemoteResult } from '@lyness/lyn-typert-protocol'
 import { apply, inject, type ResourceSnapshot, type UseResource } from '../src/client/index.ts'
 import { apply as hostApply } from '../src/index.ts'
 import { ResourceRegistry } from '../src/client/resources.ts'
 import type { ResourceProvider } from '../src/client/contract.ts'
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface SlotMap {
     'resources.probe': { kind: 'single'; scope: 'root' }
     'resources.sessionProbe': { kind: 'single'; scope: 'session' }

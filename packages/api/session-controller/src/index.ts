@@ -3,13 +3,13 @@
 import { hostname } from 'node:os'
 import { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import { errorChain } from '@lyness/llm'
-import type {} from '@lyness/client-file-upload'
-import { canOpenNativePath, nativeFileManager, openNativePath, revealNativePath } from '@lyness/native-command'
-import type { SessionId } from '@lyness/session'
-import type { SessionInspection } from '@lyness/session-persistence'
-import type { SessionObservation } from '@lyness/session-query'
-import { Remote, RemoteError, TypertRemoteService } from '@lyness/typert-protocol'
+import { errorChain } from '@lyness/lyn-llm'
+import type {} from '@lyness/lyn-client-file-upload'
+import { canOpenNativePath, nativeFileManager, openNativePath, revealNativePath } from '@lyness/lyn-native-command'
+import type { SessionId } from '@lyness/lyn-session'
+import type { SessionInspection } from '@lyness/lyn-session-persistence'
+import type { SessionObservation } from '@lyness/lyn-session-query'
+import { Remote, RemoteError, TypertRemoteService } from '@lyness/lyn-typert-protocol'
 import {
   ApiSessionAgentController,
   inspectApiSession,

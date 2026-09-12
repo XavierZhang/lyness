@@ -1,9 +1,9 @@
 /** Synthetic current-generation history and paced reply for browser measurements. */
-import { createAssistantMessage, createSystemMessage, createUserMessage, createToolResultMessage, ToolCallId } from '@lyness/llm'
-import type { StreamChunk } from '@lyness/llm'
-import { AssistantStreamAccumulator } from '@lyness/llm/assistant-stream'
-import { Session, SessionId, SESSION_FORMAT_VERSION } from '@lyness/session'
-import type {} from '@lyness/session-title'
+import { createAssistantMessage, createSystemMessage, createUserMessage, createToolResultMessage, ToolCallId } from '@lyness/lyn-llm'
+import type { StreamChunk } from '@lyness/lyn-llm'
+import { AssistantStreamAccumulator } from '@lyness/lyn-llm/assistant-stream'
+import { Session, SessionId, SESSION_FORMAT_VERSION } from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-session-title'
 
 /** Closed turns in the browser history workload. */
 export const HISTORY_TURNS = 240
@@ -28,7 +28,7 @@ export function syntheticHistory(): string {
     session.append('turn/start', { turn })
     session.append('step/start', { turn, step: 1 })
     if (turn === 1) session.append('system/message', {
-      turn, step: 1, message: createSystemMessage('', '@lyness/system-prompt'),
+      turn, step: 1, message: createSystemMessage('', '@lyness/lyn-system-prompt'),
     }, { surfaceOp: 'append' })
     const user = session.append('user/message', createUserMessage({
       content: [{ type: 'text', text: 'Review synthetic change ' + String(turn) + ': 检查增量渲染。 '.repeat(30) }],

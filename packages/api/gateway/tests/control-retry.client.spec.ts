@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
-import { RemoteError } from '@lyness/typert-protocol'
-import type { ConnectionHandle } from '@lyness/api-remotes/client'
+import { RemoteError } from '@lyness/lyn-typert-protocol'
+import type { ConnectionHandle } from '@lyness/lyn-api-remotes/client'
 import {
   RemoteStreamCarrierError,
   RemoteStream,

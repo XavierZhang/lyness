@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/sandbox-local",
+  "name": "@lyness/lyn-sandbox-local",
   "description": "Local process-sandbox backends for the lyness sandbox seam: bwrap, the npm-distributed landlock-run launcher, macOS Seatbelt, or the Windows ACL restricted-token runner — functionally probed, fail-closed",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -28,20 +28,20 @@
   "license": "MIT",
   "peerDependencies": {
     "@lyness/cordis": "workspace:^",
-    "@lyness/llm": "workspace:^",
-    "@lyness/sandbox": "workspace:^",
-    "@lyness/session": "workspace:^"
+    "@lyness/lyn-llm": "workspace:^",
+    "@lyness/lyn-sandbox": "workspace:^",
+    "@lyness/lyn-session": "workspace:^"
   },
   "dependencies": {
-    "@lyness/sandbox-windows-acl": "workspace:^",
-    "@lyness/util-values": "workspace:^",
+    "@lyness/lyn-sandbox-windows-acl": "workspace:^",
+    "@lyness/lyn-util-values": "workspace:^",
     "@lyness/node-addon-system": "workspace:^",
     "@lyness/schemastery": "workspace:^"
   },
   "devDependencies": {
     "@lyness/cordis": "workspace:^",
-    "@lyness/llm": "workspace:^",
-    "@lyness/sandbox": "workspace:^",
-    "@lyness/session": "workspace:^"
+    "@lyness/lyn-llm": "workspace:^",
+    "@lyness/lyn-sandbox": "workspace:^",
+    "@lyness/lyn-session": "workspace:^"
   }
 }

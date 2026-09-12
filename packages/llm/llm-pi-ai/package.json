@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/llm-pi-ai",
+  "name": "@lyness/lyn-llm-pi-ai",
   "description": "pi-ai-backed DeepSeek adapter for the lyness LLM seam (design-verification twin of lyn-llm-deepseek)",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -28,32 +28,32 @@
   "license": "MIT",
   "peerDependencies": {
     "@lyness/cordis": "workspace:^",
-    "@lyness/attachment": "workspace:^",
-    "@lyness/authorization": "workspace:^",
-    "@lyness/credentials": "workspace:^",
-    "@lyness/fs": "workspace:^",
-    "@lyness/launch-environment": "workspace:^",
-    "@lyness/llm": "workspace:^",
-    "@lyness/settings": "workspace:^",
-    "@lyness/timeout": "workspace:^"
+    "@lyness/lyn-attachment": "workspace:^",
+    "@lyness/lyn-authorization": "workspace:^",
+    "@lyness/lyn-credentials": "workspace:^",
+    "@lyness/lyn-fs": "workspace:^",
+    "@lyness/lyn-launch-environment": "workspace:^",
+    "@lyness/lyn-llm": "workspace:^",
+    "@lyness/lyn-settings": "workspace:^",
+    "@lyness/lyn-timeout": "workspace:^"
   },
   "dependencies": {
-    "@lyness/brand": "workspace:^",
-    "@lyness/util-values": "workspace:^",
+    "@lyness/lyn-brand": "workspace:^",
+    "@lyness/lyn-util-values": "workspace:^",
     "@lyness/schemastery": "workspace:^",
     "@earendil-works/pi-ai": "^0.85.1"
   },
   "devDependencies": {
     "@lyness/cordis": "workspace:^",
-    "@lyness/attachment": "workspace:^",
-    "@lyness/authorization": "workspace:^",
-    "@lyness/credentials": "workspace:^",
-    "@lyness/fs": "workspace:^",
-    "@lyness/launch-environment": "workspace:^",
-    "@lyness/llm": "workspace:^",
-    "@lyness/llm-deepseek": "workspace:^",
-    "@lyness/settings": "workspace:^",
-    "@lyness/timeout": "workspace:^",
-    "@lyness/http-proxy": "workspace:^"
+    "@lyness/lyn-attachment": "workspace:^",
+    "@lyness/lyn-authorization": "workspace:^",
+    "@lyness/lyn-credentials": "workspace:^",
+    "@lyness/lyn-fs": "workspace:^",
+    "@lyness/lyn-launch-environment": "workspace:^",
+    "@lyness/lyn-llm": "workspace:^",
+    "@lyness/lyn-llm-deepseek": "workspace:^",
+    "@lyness/lyn-settings": "workspace:^",
+    "@lyness/lyn-timeout": "workspace:^",
+    "@lyness/lyn-http-proxy": "workspace:^"
   }
 }

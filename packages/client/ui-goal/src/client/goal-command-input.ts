@@ -1,9 +1,9 @@
-import type { SessionEvent } from '@lyness/session/types'
-import type { CommandId } from '@lyness/commands/brand'
-import type {} from '@lyness/commands/types'
+import type { SessionEvent } from '@lyness/lyn-session/types'
+import type { CommandId } from '@lyness/lyn-commands/brand'
+import type {} from '@lyness/lyn-commands/types'
 import type {
   ConversationNodeDefinition,
-} from '@lyness/client-ui-conversation/client'
+} from '@lyness/lyn-client-ui-conversation/client'
 
 /** The command name whose runs this projection owns. */
 export const GOAL_COMMAND = 'goal'
@@ -15,7 +15,7 @@ export interface GoalCommandInputData {
   readonly time: number
 }
 
-declare module '@lyness/client-ui-chat/client' {
+declare module '@lyness/lyn-client-ui-chat/client' {
   interface ChatNodeDataMap {
     /** Human-entered `/goal` command input. */
     'command-input': GoalCommandInputData

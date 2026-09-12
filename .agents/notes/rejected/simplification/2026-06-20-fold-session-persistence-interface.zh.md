@@ -18,7 +18,7 @@ Status: rejected — 独立的持久化 Service Definition 包是持久化能力
 
 ## 验收标准
 
-- `@lyness/session-persistence` 作为包被移除。
+- `@lyness/lyn-session-persistence` 作为包被移除。
 - `lyn-session` 导出持久化服务类型、协调器和约定辅助工具。
 - JSONL 和 SQLite 后端包直接依赖 `lyn-session`。
 - `agent-loop` 的恢复功能使用会话包拥有的服务键。

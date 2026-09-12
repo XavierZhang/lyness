@@ -22,7 +22,7 @@ import {
   resolveProfileDir,
   writeProfileManifest,
   type ProfileManifest,
-} from '@lyness/app-boot'
+} from '@lyness/lyn-app-boot'
 import { INSTALL_ANCHOR } from './profile-boot.ts'
 
 const NAME = 'lyn'

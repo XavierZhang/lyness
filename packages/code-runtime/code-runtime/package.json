@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/code-runtime",
+  "name": "@lyness/lyn-code-runtime",
   "description": "Abstract code-execution seam (ctx.codeRuntime) for the lyness",
   "version": "0.1.5-rc.1",
   "publishConfig": {

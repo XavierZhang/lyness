@@ -13,25 +13,25 @@
  * next cold read) and a `ver` mismatch discards the row instead of migrating
  * it. Design authority: the session-projection RFC
  * (.agents/notes/proposed/architecture/2026-07-27-session-projection-and-command-log.md).
- * @module @lyness/session-projection-cache
+ * @module @lyness/lyn-session-projection-cache
  */
 
 import { Context, Service } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import { snapshotJsonValue } from '@lyness/util-values'
-import { SessionLogOffset } from '@lyness/session'
+import { snapshotJsonValue } from '@lyness/lyn-util-values'
+import { SessionLogOffset } from '@lyness/lyn-session'
 import type {
   Session,
   SessionEvent,
   SessionHeader,
   SessionId,
-} from '@lyness/session'
+} from '@lyness/lyn-session'
 import type {
   ProjectionCheckpoint,
   ProjectionSnapshot,
   SessionProjectionMap,
-} from '@lyness/session-projection'
-import type { KvTable } from '@lyness/storage-domain'
+} from '@lyness/lyn-session-projection'
+import type { KvTable } from '@lyness/lyn-storage-domain'
 import { projectionCacheDomainSpec } from './spec.ts'
 import type { CheckpointIdentity, CheckpointRecord } from './spec.ts'
 

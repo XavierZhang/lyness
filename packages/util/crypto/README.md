@@ -32,7 +32,7 @@ It is a **library, not a service or plugin**: no `ctx`, registers nothing, holds
 ## API
 
 ```ts
-import { bytesToBase64, randomUUID, type Uuid } from '@lyness/util-crypto'
+import { bytesToBase64, randomUUID, type Uuid } from '@lyness/lyn-util-crypto'
 ```
 
 | Export | Role |

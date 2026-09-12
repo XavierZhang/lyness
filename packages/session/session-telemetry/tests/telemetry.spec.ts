@@ -1,4 +1,4 @@
-import { createAssistantMessage, createToolResultMessage, createUserMessage } from '@lyness/llm'
+import { createAssistantMessage, createToolResultMessage, createUserMessage } from '@lyness/lyn-llm'
 /**
  * Coordinator semantics against a bare fake backend — the RFC's named unit
  * tier for the seam: adoption (fresh, seeded, re-adoption via the handoff
@@ -14,8 +14,8 @@ import SessionStore, {
   SessionId,
   SessionLogOffset,
   type SessionEvent,
-} from '@lyness/session'
-import type { Agent } from '@lyness/agent'
+} from '@lyness/lyn-session'
+import type { Agent } from '@lyness/lyn-agent'
 import {
   SessionTelemetryCoordinator,
   type SessionTelemetrySink,
@@ -23,7 +23,7 @@ import {
   type SessionTelemetryRecord,
 } from '../src/index.ts'
 
-declare module '@lyness/session/types' {
+declare module '@lyness/lyn-session/types' {
   interface SessionEventMap {
     /**
      * Test-only merged event proving unknown types flow through unchanged.

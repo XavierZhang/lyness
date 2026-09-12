@@ -4,11 +4,11 @@
  */
 
 import { describe, expect, it, vi } from 'vitest'
-import type { SessionId } from '@lyness/api-remotes/client'
-import { SessionSeq } from '@lyness/session/types'
-import { RemoteError } from '@lyness/typert-protocol'
-import type { SessionControlFrame } from '@lyness/api-session-controller/types'
-import type {} from '@lyness/session-title/client'
+import type { SessionId } from '@lyness/lyn-api-remotes/client'
+import { SessionSeq } from '@lyness/lyn-session/types'
+import { RemoteError } from '@lyness/lyn-typert-protocol'
+import type { SessionControlFrame } from '@lyness/lyn-api-session-controller/types'
+import type {} from '@lyness/lyn-session-title/client'
 import { SessionManager } from '../src/client/sessions/manager.ts'
 import { FakeApiClient, deferred, err, fakeRemote, ok } from './fake-api.client.ts'
 import { entries, plainTurn } from './event-script.client.ts'

@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/api-gateway",
+  "name": "@lyness/lyn-api-gateway",
   "description": "Typert Remote Host dispatcher and Client API endpoint",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -32,8 +32,8 @@
   "lyn": {
     "client": {
       "inject": [
-        "@lyness/typert-registry",
-        "@lyness/client-connection"
+        "@lyness/lyn-typert-registry",
+        "@lyness/lyn-client-connection"
       ],
       "platform": "web",
       "immediately": true
@@ -51,21 +51,21 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@lyness/deque": "workspace:^",
-    "@lyness/timeout": "workspace:^",
+    "@lyness/lyn-deque": "workspace:^",
+    "@lyness/lyn-timeout": "workspace:^",
     "@lyness/schemastery": "workspace:^",
     "ws": "^8.21.0",
-    "@lyness/typert-protocol": "workspace:^"
+    "@lyness/lyn-typert-protocol": "workspace:^"
   },
   "peerDependencies": {
     "@lyness/cordis": "workspace:^"
   },
   "devDependencies": {
-    "@lyness/brand": "workspace:^",
-    "@lyness/client-connection": "workspace:^",
-    "@lyness/host-webserver": "workspace:^",
-    "@lyness/typert-registry": "workspace:^",
-    "@lyness/util-crypto": "workspace:^",
+    "@lyness/lyn-brand": "workspace:^",
+    "@lyness/lyn-client-connection": "workspace:^",
+    "@lyness/lyn-host-webserver": "workspace:^",
+    "@lyness/lyn-typert-registry": "workspace:^",
+    "@lyness/lyn-util-crypto": "workspace:^",
     "@types/ws": "^8.18.1",
     "@lyness/cordis": "workspace:^",
     "zod": "^4.4.3"

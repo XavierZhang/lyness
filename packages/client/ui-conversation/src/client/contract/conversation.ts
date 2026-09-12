@@ -1,5 +1,5 @@
-import type { SessionEventLike } from '@lyness/api-session-controller/client'
-import type { SessionEvent } from '@lyness/session/types'
+import type { SessionEventLike } from '@lyness/lyn-api-session-controller/client'
+import type { SessionEvent } from '@lyness/lyn-session/types'
 
 /** Definition-local identity and lifecycle role extracted from one event. */
 export interface ConversationMatchResult {

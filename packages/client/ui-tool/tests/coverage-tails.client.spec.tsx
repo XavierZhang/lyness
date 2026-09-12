@@ -2,16 +2,16 @@
 
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { cleanup, render } from '@testing-library/react'
-import { createSnapshotStore } from '@lyness/client-store'
-import { bindSnapshotSelector, makeTranslate } from '@lyness/client-test-runtime'
-import type { SessionListState } from '@lyness/api-session-controller/client'
-import type { RunningToolCall, ToolResultNode } from '@lyness/client-ui-chat/client'
-import type { SessionId } from '@lyness/session/types'
-import { zh as commonZh } from '@lyness/client-locale/src/locales/zh.ts'
+import { createSnapshotStore } from '@lyness/lyn-client-store'
+import { bindSnapshotSelector, makeTranslate } from '@lyness/lyn-client-test-runtime'
+import type { SessionListState } from '@lyness/lyn-api-session-controller/client'
+import type { RunningToolCall, ToolResultNode } from '@lyness/lyn-client-ui-chat/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import { zh as commonZh } from '@lyness/lyn-client-locale/src/locales/zh.ts'
 import { GenericToolCard, type GenericToolCardProps } from '../src/client/tool/toolviews/GenericToolCard.tsx'
 import { ToolRow } from '../src/client/tool/components/ToolRow.tsx'
 import { BashRow } from '../src/client/tool/toolviews/bash-sample.tsx'
-import { zh } from '@lyness/client-ui-conversation/src/client/locales.ts'
+import { zh } from '@lyness/lyn-client-ui-conversation/src/client/locales.ts'
 
 type BashRowProps = Parameters<typeof BashRow>[0]
 

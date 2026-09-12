@@ -8,7 +8,7 @@
  * its bootstrap export, which constructs the system and retains the same
  * exports for this package's graph row. The plugin face only enrolls that
  * pre-existing instance by providing it as `ctx.modules`.
- * @module @lyness/client-modules/client
+ * @module @lyness/lyn-client-modules/client
  */
 import type { Context } from '@lyness/cordis'
 import { ClientModuleSystem } from './system.ts'

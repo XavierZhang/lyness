@@ -6,11 +6,11 @@ import { randomBytes } from 'node:crypto'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
-import AgentRegistry from '@lyness/agent'
-import LlmRuntime, { createUserMessage, ToolCallId, ReasoningEffortId, createMessage, createSystemMessage } from '@lyness/llm'
-import type { Message, ToolSchema } from '@lyness/llm'
-import AttachmentStore, { AttachmentId, ImageVariantId } from '@lyness/attachment'
-import LocalAttachments from '@lyness/attachment-local'
+import AgentRegistry from '@lyness/lyn-agent'
+import LlmRuntime, { createUserMessage, ToolCallId, ReasoningEffortId, createMessage, createSystemMessage } from '@lyness/lyn-llm'
+import type { Message, ToolSchema } from '@lyness/lyn-llm'
+import AttachmentStore, { AttachmentId, ImageVariantId } from '@lyness/lyn-attachment'
+import LocalAttachments from '@lyness/lyn-attachment-local'
 import type {
   ImageAttachmentLimits,
   ImageAttachmentRef,
@@ -18,14 +18,14 @@ import type {
   RequestImageAttachment,
   SaveImageAttachment,
   StoredImageAttachment,
-} from '@lyness/attachment'
-import { LocalCredentialProvider } from '@lyness/credentials-local'
-import SessionStore, { SessionId } from '@lyness/session'
-import DeepSeekLlmApiExtensionRegistry from '@lyness/deepseek-llm-api-extensions'
-import * as PluginPackageInventoryDeepSeek from '@lyness/plugin-package-inventory-deepseek'
-import * as SessionLogDeepSeek from '@lyness/session-log-deepseek'
-import * as LlmDeepSeek from '@lyness/llm-deepseek'
-import type { Config } from '@lyness/llm-deepseek'
+} from '@lyness/lyn-attachment'
+import { LocalCredentialProvider } from '@lyness/lyn-credentials-local'
+import SessionStore, { SessionId } from '@lyness/lyn-session'
+import DeepSeekLlmApiExtensionRegistry from '@lyness/lyn-deepseek-llm-api-extensions'
+import * as PluginPackageInventoryDeepSeek from '@lyness/lyn-plugin-package-inventory-deepseek'
+import * as SessionLogDeepSeek from '@lyness/lyn-session-log-deepseek'
+import * as LlmDeepSeek from '@lyness/lyn-llm-deepseek'
+import type { Config } from '@lyness/lyn-llm-deepseek'
 import type { WireMessage, WireRequest } from '../src/types.ts'
 import { assemble, type AssembledResult } from './assemble.ts'
 

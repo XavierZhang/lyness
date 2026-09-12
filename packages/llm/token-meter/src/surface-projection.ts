@@ -12,13 +12,13 @@
  * armed claim folds with zero delta because bounded state cannot reconstruct
  * the replaced range; this preserves replay at the cost of possible drift.
  *
- * @module @lyness/token-meter/surface-projection
+ * @module @lyness/lyn-token-meter/surface-projection
  */
 
-import { deriveEventMessage, isSurfaceEvent, SessionSeq } from '@lyness/session'
-import type { SessionEvent } from '@lyness/session'
+import { deriveEventMessage, isSurfaceEvent, SessionSeq } from '@lyness/lyn-session'
+import type { SessionEvent } from '@lyness/lyn-session'
 // Type-only: the `compaction/*` SessionEventMap merges (shadow-price events).
-import type {} from '@lyness/compaction'
+import type {} from '@lyness/lyn-compaction'
 import { estimateMessage } from './estimate.ts'
 
 /**

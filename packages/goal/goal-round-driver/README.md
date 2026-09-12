@@ -3,7 +3,7 @@ description: "The same-session continuation driver for users and maintainers cho
 kind: "package-reference"
 ---
 
-# @lyness/goal-round-driver
+# @lyness/lyn-goal-round-driver
 
 English | [中文](README.zh.md)
 
@@ -33,13 +33,13 @@ Mount the driver beside the goal service and the goal tools; the driver itself t
 
 ```yaml
 - id: goal
-  name: '@lyness/goal'
+  name: '@lyness/lyn-goal'
 
 - id: tool-goal
-  name: '@lyness/tool-goal'
+  name: '@lyness/lyn-tool-goal'
 
 - id: goal-round-driver
-  name: '@lyness/goal-round-driver'
+  name: '@lyness/lyn-goal-round-driver'
 ```
 
 `maxGoalRounds` belongs to the goal definition, while the model-facing blocked threshold belongs to `lyn-tool-goal`; duplicating either value in the driver could produce divergent policy.

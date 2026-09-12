@@ -1,13 +1,13 @@
-/** Package-owned goal-round prompt invariants. @module @lyness/goal-round-driver/invariant */
+/** Package-owned goal-round prompt invariants. @module @lyness/lyn-goal-round-driver/invariant */
 
 import { isDeepStrictEqual } from 'node:util'
 import type { Context } from '@lyness/cordis'
-import { foldGoal, type FoldedGoal, type GoalMessageSource, type GoalView } from '@lyness/goal'
-import type { InvariantFailure, InvariantInstaller } from '@lyness/invariants'
-import type { Session, SessionEvent } from '@lyness/session'
+import { foldGoal, type FoldedGoal, type GoalMessageSource, type GoalView } from '@lyness/lyn-goal'
+import type { InvariantFailure, InvariantInstaller } from '@lyness/lyn-invariants'
+import type { Session, SessionEvent } from '@lyness/lyn-session'
 import { renderGoalRoundPrompt } from './prompt.ts'
 
-const PACKAGE_NAME = '@lyness/goal-round-driver'
+const PACKAGE_NAME = '@lyness/lyn-goal-round-driver'
 
 /** Cordis companion plugin name. */
 export const name = 'goal-round-driver-invariant'

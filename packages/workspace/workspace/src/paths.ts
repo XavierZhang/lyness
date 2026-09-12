@@ -1,6 +1,6 @@
 /**
  * Path canonicalization for workspace identity.
- * @module @lyness/workspace/src/paths
+ * @module @lyness/lyn-workspace/src/paths
  */
 
 import { realpath } from 'node:fs/promises'

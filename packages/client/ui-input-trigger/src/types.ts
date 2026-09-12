@@ -9,14 +9,14 @@
  */
 import type {
   PickOutcome, TokenSpan,
-} from '@lyness/client-ui-conversation/client'
-import type { SessionId } from '@lyness/session/types'
+} from '@lyness/lyn-client-ui-conversation/client'
+import type { SessionId } from '@lyness/lyn-session/types'
 
 export type {
   ArbitrateKey, ArbitrateOutcome, BeginCommandRequest, CommandClaim, ConsumeTokenRequest,
   InsertReferenceRequest, InsertTextRequest, PickOutcome, ReferenceInsert, SubmitAttachment,
   SubmitOutcome, TokenSpan,
-} from '@lyness/client-ui-conversation/client'
+} from '@lyness/lyn-client-ui-conversation/client'
 
 /**
  * The provider-facing projection of one client session. It carries stable

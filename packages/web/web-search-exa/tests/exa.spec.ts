@@ -1,8 +1,8 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import WebRuntime from '@lyness/web'
-import { ExaSearchProvider, EXA_PROVIDER_ID } from '@lyness/web-search-exa'
-import * as exaPlugin from '@lyness/web-search-exa'
+import WebRuntime from '@lyness/lyn-web'
+import { ExaSearchProvider, EXA_PROVIDER_ID } from '@lyness/lyn-web-search-exa'
+import * as exaPlugin from '@lyness/lyn-web-search-exa'
 import { mapExaResponse, mapExaResult } from '../src/provider.ts'
 
 const options = { apiKey: 'exa-key', baseURL: 'https://api.exa.test', searchType: 'auto' as const, highlightsPerResult: 1 }

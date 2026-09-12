@@ -2,7 +2,7 @@
 # selection in session JSONL instead of duplicating it across manifests.
 
 - id: agent-default-model
-  name: '@lyness/agent-default-model'
+  name: '@lyness/lyn-agent-default-model'
   config:
     provider: !!js process.env.LYNESS_SNAPSHOT_PROVIDER
     model: !!js process.env.LYNESS_SNAPSHOT_MODEL

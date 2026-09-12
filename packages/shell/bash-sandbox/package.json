@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/bash-sandbox",
+  "name": "@lyness/lyn-bash-sandbox",
   "description": "Sandbox-consuming implementation of the lyness bash executor seam (confines every command via ctx.sandbox, reports denial/enforcement result facts)",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -27,21 +27,21 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/shell": "workspace:^",
-    "@lyness/bash-local": "workspace:^",
-    "@lyness/sandbox": "workspace:^",
-    "@lyness/sandbox-policy": "workspace:^",
+    "@lyness/lyn-shell": "workspace:^",
+    "@lyness/lyn-bash-local": "workspace:^",
+    "@lyness/lyn-sandbox": "workspace:^",
+    "@lyness/lyn-sandbox-policy": "workspace:^",
     "@lyness/cordis": "workspace:^"
   },
   "devDependencies": {
-    "@lyness/shell": "workspace:^",
-    "@lyness/bash-local": "workspace:^",
-    "@lyness/subprocess-local": "workspace:^",
-    "@lyness/sandbox": "workspace:^",
-    "@lyness/sandbox-local": "workspace:^",
-    "@lyness/sandbox-policy": "workspace:^",
+    "@lyness/lyn-shell": "workspace:^",
+    "@lyness/lyn-bash-local": "workspace:^",
+    "@lyness/lyn-subprocess-local": "workspace:^",
+    "@lyness/lyn-sandbox": "workspace:^",
+    "@lyness/lyn-sandbox-local": "workspace:^",
+    "@lyness/lyn-sandbox-policy": "workspace:^",
     "@lyness/cordis": "workspace:^",
     "@lyness/node-addon-system": "workspace:^",
-    "@lyness/session-projection": "workspace:^"
+    "@lyness/lyn-session-projection": "workspace:^"
   }
 }

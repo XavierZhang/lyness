@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 /** Test driver that sends two turns through one Headless Loader composition. */
 
-import { resolveConfigPath } from '@lyness/app-boot'
-import { runFixtureTurn } from '@lyness/loader-smoke'
+import { resolveConfigPath } from '@lyness/lyn-app-boot'
+import { runFixtureTurn } from '@lyness/lyn-loader-smoke'
 import { bootProductionProfile } from '../../../../test-support/loader-smoke/tests/fixtures/production-profile.ts'
 
 const configPath = process.argv[2]

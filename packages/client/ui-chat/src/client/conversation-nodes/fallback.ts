@@ -1,8 +1,8 @@
 import type { Context } from '@lyness/cordis'
 import type {
   ConversationNodeDefinition, UnknownSurfaceNode,
-} from '@lyness/client-ui-conversation/client'
-import { isAppendSurfaceEvent } from '@lyness/session/surface'
+} from '@lyness/lyn-client-ui-conversation/client'
+import { isAppendSurfaceEvent } from '@lyness/lyn-session/surface'
 import { chatNode } from './common.ts'
 
 declare module '../contract/chat-nodes.ts' {

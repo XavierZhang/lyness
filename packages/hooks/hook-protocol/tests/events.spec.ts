@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { Session, SessionId } from '@lyness/session'
-import { appendHookInvoked, appendHookResult, summarizeStderr, type HookOutput } from '@lyness/hook-protocol'
+import { Session, SessionId } from '@lyness/lyn-session'
+import { appendHookInvoked, appendHookResult, summarizeStderr, type HookOutput } from '@lyness/lyn-hook-protocol'
 
 /** A {@link HookOutput} with the required stream fields defaulted. */
 function output(over: Partial<HookOutput> = {}): HookOutput {

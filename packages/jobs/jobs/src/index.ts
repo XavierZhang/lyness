@@ -2,12 +2,12 @@
  * The background-job Service Definition (`ctx.jobs`). It owns the contract for
  * job ids, session-scoped access, lifecycle state, completion listeners, and
  * owner cleanup while producers retain their execution resources. The
- * process-local registry lives in `@lyness/jobs-local`.
- * @module @lyness/jobs
+ * process-local registry lives in `@lyness/lyn-jobs-local`.
+ * @module @lyness/lyn-jobs
  */
 
 import { Context, Service } from '@lyness/cordis'
-import type { Agent } from '@lyness/agent'
+import type { Agent } from '@lyness/lyn-agent'
 import type {
   JobDoneListener, JobId, JobRead, JobSnapshot, JobStart, JobsChangedListener,
 } from './types.ts'
@@ -65,7 +65,7 @@ export abstract class JobRegistry extends Service {
     // would register a ctx.jobs with no method implementations and fail far
     // from the misconfiguration. Fail loud at load instead.
     if (new.target === JobRegistry) {
-      throw new Error('@lyness/jobs is the abstract job registry seam; load an implementation such as @lyness/jobs-local instead')
+      throw new Error('@lyness/lyn-jobs is the abstract job registry seam; load an implementation such as @lyness/lyn-jobs-local instead')
     }
     super(ctx, 'jobs')
   }

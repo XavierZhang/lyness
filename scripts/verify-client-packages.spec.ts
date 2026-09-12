@@ -29,7 +29,7 @@ function declaration(
   fields: Partial<Omit<ClientDeclaration, 'name' | 'manifest'>> = {},
 ): ClientDeclaration {
   return {
-    name: short.startsWith('@') ? short : '@lyness/client-' + short,
+    name: short.startsWith('@') ? short : '@lyness/lyn-client-' + short,
     manifest: 'packages/client/' + short.replace(/^.*\//, '') + '/package.json',
     dynamic: true,
     external: [],
@@ -77,34 +77,34 @@ function facts(
 describe('source package uses', () => {
   it('counts type imports, module augmentations, dynamic imports, and JSX', () => {
     const uses = collectSourcePackageUses('feature.tsx', [
-      "import type { A } from '@lyness/a/subpath'",
-      "declare module '@lyness/client-ui-slots' {}",
-      "const load = () => import('@lyness/b/remote')",
+      "import type { A } from '@lyness/lyn-a/subpath'",
+      "declare module '@lyness/lyn-client-ui-slots' {}",
+      "const load = () => import('@lyness/lyn-b/remote')",
       'export const view = <div />',
       "export type { Local } from './local.ts'",
     ].join('\n'))
 
     expect([...uses].sort()).toEqual([
-      '@lyness/a',
-      '@lyness/b',
-      '@lyness/client-ui-slots',
+      '@lyness/lyn-a',
+      '@lyness/lyn-b',
+      '@lyness/lyn-client-ui-slots',
       'react',
     ])
     expect([...collectRuntimeSourcePackageUses('feature.tsx', [
-      "import type { A } from '@lyness/a/subpath'",
-      "declare module '@lyness/client-ui-slots' {}",
-      "const load = () => import('@lyness/b')",
+      "import type { A } from '@lyness/lyn-a/subpath'",
+      "declare module '@lyness/lyn-client-ui-slots' {}",
+      "const load = () => import('@lyness/lyn-b')",
       'export const view = <div />',
     ].join('\n'))].sort()).toEqual([
-      '@lyness/b',
+      '@lyness/lyn-b',
       'react',
     ])
     expect([...collectRuntimeSourceSpecifiers('feature.tsx', [
-      "import type { A } from '@lyness/a/subpath'",
-      "const load = () => import('@lyness/b/remote')",
+      "import type { A } from '@lyness/lyn-a/subpath'",
+      "const load = () => import('@lyness/lyn-b/remote')",
       'export const view = <div />',
     ].join('\n'))].sort()).toEqual([
-      '@lyness/b/remote',
+      '@lyness/lyn-b/remote',
       'react',
     ])
     expect([...collectLocalSourceSpecifiers('feature.ts', [
@@ -113,7 +113,7 @@ describe('source package uses', () => {
       "const load = () => import('./lazy.ts')",
       "const legacy = require('./legacy.ts')",
       "declare module './augmentation.ts' {}",
-      "import '@lyness/a'",
+      "import '@lyness/lyn-a'",
     ].join('\n'))].sort()).toEqual([
       './lazy.ts',
       './legacy.ts',
@@ -160,7 +160,7 @@ describe('package modes', () => {
       parserPreloadIds: [],
     }))).toEqual([
       'packages/client/web/src/platform.ts: parser-preloaded external '
-      + '"@lyness/client-bootstrap/client" has no matching PARSER_PRELOAD_IDS row in '
+      + '"@lyness/lyn-client-bootstrap/client" has no matching PARSER_PRELOAD_IDS row in '
       + 'packages/client/modules/src/index.ts',
     ])
   })
@@ -169,57 +169,57 @@ describe('package modes', () => {
 describe('module requests', () => {
   it('rejects runtime requests from one client feature package to another dynamic row', () => {
     const ui = declaration('ui', {
-      external: ['@lyness/client-slots/client'],
+      external: ['@lyness/lyn-client-slots/client'],
       runtimeSourceUses: {
-        '@lyness/client-slots': ['packages/client/ui/src/client/index.ts'],
+        '@lyness/lyn-client-slots': ['packages/client/ui/src/client/index.ts'],
       },
     })
     const slots = declaration('slots')
     expect(collectClientPackageViolations(facts([], { declarations: [ui, slots] }))).toEqual([
       ui.manifest + ': client feature package requests runtime external '
-      + '"@lyness/client-slots/client"; import shared types only or call an injected Cordis service',
+      + '"@lyness/lyn-client-slots/client"; import shared types only or call an injected Cordis service',
     ])
   })
 
   it('rejects stale externals and accepts a runtime import outside client feature packages', () => {
     const gateway = {
-      ...declaration('@lyness/api-gateway'), manifest: 'packages/api/gateway/package.json',
+      ...declaration('@lyness/lyn-api-gateway'), manifest: 'packages/api/gateway/package.json',
     }
-    const stale = { ...declaration('@lyness/api-stale', {
-      external: ['@lyness/api-gateway/client'],
+    const stale = { ...declaration('@lyness/lyn-api-stale', {
+      external: ['@lyness/lyn-api-gateway/client'],
     }), manifest: 'packages/api/stale/package.json' }
-    const live = { ...declaration('@lyness/api-live', {
-      external: ['@lyness/api-gateway/client'],
+    const live = { ...declaration('@lyness/lyn-api-live', {
+      external: ['@lyness/lyn-api-gateway/client'],
       runtimeSourceUses: {
-        '@lyness/api-gateway': ['packages/api/live/src/client/index.ts'],
+        '@lyness/lyn-api-gateway': ['packages/api/live/src/client/index.ts'],
       },
       runtimeSourceSpecifiers: {
-        '@lyness/api-gateway/client': ['packages/api/live/src/client/index.ts'],
+        '@lyness/lyn-api-gateway/client': ['packages/api/live/src/client/index.ts'],
       },
     }), manifest: 'packages/api/live/package.json' }
     expect(collectClientPackageViolations(facts([], {
       declarations: [gateway, stale, live],
     }))).toEqual([
-      stale.manifest + ': lyn.client.external "@lyness/api-gateway/client"'
+      stale.manifest + ': lyn.client.external "@lyness/lyn-api-gateway/client"'
       + ' has no runtime import or re-export in production source; remove the stale declaration',
     ])
   })
 
   it('requires the exact external subpath to be imported at runtime', () => {
     const gateway = {
-      ...declaration('@lyness/api-gateway'), manifest: 'packages/api/gateway/package.json',
+      ...declaration('@lyness/lyn-api-gateway'), manifest: 'packages/api/gateway/package.json',
     }
-    const subject = { ...declaration('@lyness/api-session-controller', {
-      external: ['@lyness/api-gateway/client'],
+    const subject = { ...declaration('@lyness/lyn-api-session-controller', {
+      external: ['@lyness/lyn-api-gateway/client'],
       runtimeSourceUses: {
-        '@lyness/api-gateway': ['packages/api/session-controller/src/client/index.ts'],
+        '@lyness/lyn-api-gateway': ['packages/api/session-controller/src/client/index.ts'],
       },
       runtimeSourceSpecifiers: {
-        '@lyness/api-gateway/remote': ['packages/api/session-controller/src/client/index.ts'],
+        '@lyness/lyn-api-gateway/remote': ['packages/api/session-controller/src/client/index.ts'],
       },
     }), manifest: 'packages/api/session-controller/package.json' }
     expect(collectClientPackageViolations(facts([], { declarations: [gateway, subject] }))).toEqual([
-      subject.manifest + ': lyn.client.external "@lyness/api-gateway/client"'
+      subject.manifest + ': lyn.client.external "@lyness/lyn-api-gateway/client"'
       + ' has no runtime import or re-export in production source; remove the stale declaration',
     ])
   })
@@ -236,8 +236,8 @@ describe('module requests', () => {
 
   it('rejects duplicates, empty values, self-requests, and missing suppliers', () => {
     const ui = declaration('ui', {
-      external: ['', '@lyness/client-ui', '@lyness/missing', '@lyness/missing'],
-      inject: ['', '@lyness/a', '@lyness/a'],
+      external: ['', '@lyness/lyn-client-ui', '@lyness/lyn-missing', '@lyness/lyn-missing'],
+      inject: ['', '@lyness/lyn-a', '@lyness/lyn-a'],
     })
     const found = collectClientPackageViolations(facts([], { declarations: [ui] }))
     expect(found).toHaveLength(6)
@@ -248,17 +248,17 @@ describe('module requests', () => {
   })
 
   it('rejects synchronous module-request cycles but ignores inject cycles', () => {
-    const a = { ...declaration('@lyness/api-a', {
-      external: ['@lyness/api-b'],
-      inject: ['@lyness/api-b'],
-      runtimeSourceUses: { '@lyness/api-b': ['packages/api/a/src/client.ts'] },
-      runtimeSourceSpecifiers: { '@lyness/api-b': ['packages/api/a/src/client.ts'] },
+    const a = { ...declaration('@lyness/lyn-api-a', {
+      external: ['@lyness/lyn-api-b'],
+      inject: ['@lyness/lyn-api-b'],
+      runtimeSourceUses: { '@lyness/lyn-api-b': ['packages/api/a/src/client.ts'] },
+      runtimeSourceSpecifiers: { '@lyness/lyn-api-b': ['packages/api/a/src/client.ts'] },
     }), manifest: 'packages/api/a/package.json' }
-    const b = { ...declaration('@lyness/api-b', {
-      external: ['@lyness/api-a'],
-      inject: ['@lyness/api-a'],
-      runtimeSourceUses: { '@lyness/api-a': ['packages/client/b/src/client.ts'] },
-      runtimeSourceSpecifiers: { '@lyness/api-a': ['packages/client/b/src/client.ts'] },
+    const b = { ...declaration('@lyness/lyn-api-b', {
+      external: ['@lyness/lyn-api-a'],
+      inject: ['@lyness/lyn-api-a'],
+      runtimeSourceUses: { '@lyness/lyn-api-a': ['packages/client/b/src/client.ts'] },
+      runtimeSourceSpecifiers: { '@lyness/lyn-api-a': ['packages/client/b/src/client.ts'] },
     }), manifest: 'packages/api/b/package.json' }
     const found = collectClientPackageViolations(facts([], { declarations: [a, b] }))
     expect(found).toHaveLength(1)
@@ -293,18 +293,18 @@ describe('manifest declarations', () => {
     const root = mkdtempSync(join(tmpdir(), 'client-packages-fix-'))
     roots.push(root)
     const subject = pkg('feature', {
-      external: ['', 'react', '@lyness/client-feature', '@lyness/missing'],
-      inject: ['', '@lyness/agent', '@lyness/agent'],
+      external: ['', 'react', '@lyness/lyn-client-feature', '@lyness/lyn-missing'],
+      inject: ['', '@lyness/lyn-agent', '@lyness/lyn-agent'],
       sourceUses: {
-        '@lyness/agent': ['packages/client/feature/src/index.ts'],
-        '@lyness/client-ui-slots': ['packages/client/feature/src/view.tsx'],
+        '@lyness/lyn-agent': ['packages/client/feature/src/index.ts'],
+        '@lyness/lyn-client-ui-slots': ['packages/client/feature/src/view.tsx'],
       },
       dependencies: {
         [CORDIS]: 'workspace:^',
-        '@lyness/agent': 'workspace:*',
+        '@lyness/lyn-agent': 'workspace:*',
       },
       peerDependencies: {
-        '@lyness/client-ui-slots': 'workspace:^',
+        '@lyness/lyn-client-ui-slots': 'workspace:^',
         '@lyness/cordis-plugin-loader': 'workspace:^',
       },
       devDependencies: {},
@@ -334,8 +334,8 @@ describe('manifest declarations', () => {
       devDependencies: Record<string, string>
     }
     expect(fixed.lyn.client).toMatchObject({
-      external: ['@lyness/missing'],
-      inject: ['@lyness/agent'],
+      external: ['@lyness/lyn-missing'],
+      inject: ['@lyness/lyn-agent'],
     })
     expect(fixed.dependencies).toEqual(subject.dependencies)
     expect(fixed.peerDependencies).toEqual(subject.peerDependencies)

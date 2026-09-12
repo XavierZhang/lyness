@@ -10,12 +10,12 @@ import {
   normalizeStdout,
   scrubModelRequestBulk,
   type NormalizeContext,
-} from '@lyness/session-snapshot'
-import { LOADER_SMOKE_TEST_TIMEOUT_MS, runLoaderSmoke } from '@lyness/loader-smoke'
+} from '@lyness/lyn-session-snapshot'
+import { LOADER_SMOKE_TEST_TIMEOUT_MS, runLoaderSmoke } from '@lyness/lyn-loader-smoke'
 import {
   decompressZstdFrame,
   scanZstdFrames,
-} from '@lyness/session-persistence-jsonl/src/zstd.ts'
+} from '@lyness/lyn-session-persistence-jsonl/src/zstd.ts'
 import { describe, expect, it } from 'vitest'
 
 const goldensDir = fileURLToPath(new URL('./expected/', import.meta.url))

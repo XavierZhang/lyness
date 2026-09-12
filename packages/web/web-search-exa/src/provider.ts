@@ -3,16 +3,16 @@
  * highlight contents). It maps the first non-blank highlight to `snippet`, maps
  * `publishedDate` to `publishedAt`, drops entries without a snippet, and omits `content`
  * because Exa returns no generated answer.
- * @module @lyness/web-search-exa/provider
+ * @module @lyness/lyn-web-search-exa/provider
  */
 
-import { WebError } from '@lyness/web'
+import { WebError } from '@lyness/lyn-web'
 import type {
   WebSearchProvider,
   WebSearchRequest,
   WebSearchResult,
   WebSearchSource,
-} from '@lyness/web'
+} from '@lyness/lyn-web'
 import type { ExaError, ExaResult, ExaSearchResponse } from './types.ts'
 
 /** Stable id this provider registers under. */

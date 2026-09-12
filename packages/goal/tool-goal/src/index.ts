@@ -1,16 +1,16 @@
 /**
  * Model-facing `get_goal`, `create_goal`, and `update_goal` tools over the
  * persisted same-session goal domain.
- * @module @lyness/tool-goal
+ * @module @lyness/lyn-tool-goal
  */
 
 import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import { GoalId } from '@lyness/goal'
-import type { GoalRef, GoalView } from '@lyness/goal'
-import { boundContextSummary, createUserMessage, HarnessError } from '@lyness/llm'
-import { defineTool } from '@lyness/tools'
-import type { GenericCallView } from '@lyness/tools'
+import { GoalId } from '@lyness/lyn-goal'
+import type { GoalRef, GoalView } from '@lyness/lyn-goal'
+import { boundContextSummary, createUserMessage, HarnessError } from '@lyness/lyn-llm'
+import { defineTool } from '@lyness/lyn-tools'
+import type { GenericCallView } from '@lyness/lyn-tools'
 import {
   completionAuthority,
   goalToolExecution,

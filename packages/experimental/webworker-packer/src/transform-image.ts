@@ -7,9 +7,9 @@
  * the contract version it was lowered against. Bodies emitted against a
  * different wrapper contract are refused at mount time rather than
  * half-working at run time.
- * @module @lyness/experimental-webworker-packer/src/transform-image
+ * @module @lyness/lyn-experimental-webworker-packer/src/transform-image
  */
-import { LOWERING_VERSION } from '@lyness/experimental-webworker-runtime'
+import { LOWERING_VERSION } from '@lyness/lyn-experimental-webworker-runtime'
 
 /** Image entries, keyed by their path relative to the virtual root. */
 export type ImageFiles = Record<string, Uint8Array>

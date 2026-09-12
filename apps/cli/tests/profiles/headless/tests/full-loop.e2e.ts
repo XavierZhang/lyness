@@ -1,11 +1,11 @@
-import { createUserMessage } from '@lyness/llm'
+import { createUserMessage } from '@lyness/lyn-llm'
 import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
 import type { Context } from '@lyness/cordis'
 import { codingHarness, finalText, SYSTEM_PROMPT, waitForIdle } from './harness.ts'
-import { SessionId } from '@lyness/session'
+import { SessionId } from '@lyness/lyn-session'
 
 /**
  * The first place a REAL model meets the REAL bash tool: the cheap canary

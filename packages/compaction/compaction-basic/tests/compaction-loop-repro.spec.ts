@@ -1,21 +1,21 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { toolPairingBalancedAfter, toolPairingBalancedBefore } from '@lyness/compaction'
-import { createUserMessage, createSystemMessage, CONTEXT_WINDOW_EXCEEDED_CODE, LlmError, resolveRetryPolicy , createMessage } from '@lyness/llm'
-import type { ContentBlock, GenerateOptions, LlmResolvedModelInfo, ResolvedRetryPolicy, StreamChunk } from '@lyness/llm'
-import { ToolCallId, LlmAdapter } from '@lyness/llm'
-import { defineContentToolFixture } from '@lyness/tools'
-import type { Agent } from '@lyness/agent'
-import AgentLoop from '@lyness/agent-loop'
-import { mountAgentLoopTestDependencies } from '@lyness/agent-loop-testkit'
-import InvariantRegistry from '@lyness/invariants'
-import * as SessionInvariant from '@lyness/session/invariant'
-import * as AgentInvariant from '@lyness/agent/invariant'
-import * as AgentLoopInvariant from '@lyness/agent-loop/invariant'
-import { BasicCompactionEngine } from '@lyness/compaction-basic'
-import TokenMeter from '@lyness/token-meter'
-import * as LlmRetry from '@lyness/llm-retry'
-import { Session, SessionId, type SessionEvent, type SurfaceEvent } from '@lyness/session'
+import { toolPairingBalancedAfter, toolPairingBalancedBefore } from '@lyness/lyn-compaction'
+import { createUserMessage, createSystemMessage, CONTEXT_WINDOW_EXCEEDED_CODE, LlmError, resolveRetryPolicy , createMessage } from '@lyness/lyn-llm'
+import type { ContentBlock, GenerateOptions, LlmResolvedModelInfo, ResolvedRetryPolicy, StreamChunk } from '@lyness/lyn-llm'
+import { ToolCallId, LlmAdapter } from '@lyness/lyn-llm'
+import { defineContentToolFixture } from '@lyness/lyn-tools'
+import type { Agent } from '@lyness/lyn-agent'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import { mountAgentLoopTestDependencies } from '@lyness/lyn-agent-loop-testkit'
+import InvariantRegistry from '@lyness/lyn-invariants'
+import * as SessionInvariant from '@lyness/lyn-session/invariant'
+import * as AgentInvariant from '@lyness/lyn-agent/invariant'
+import * as AgentLoopInvariant from '@lyness/lyn-agent-loop/invariant'
+import { BasicCompactionEngine } from '@lyness/lyn-compaction-basic'
+import TokenMeter from '@lyness/lyn-token-meter'
+import * as LlmRetry from '@lyness/lyn-llm-retry'
+import { Session, SessionId, type SessionEvent, type SurfaceEvent } from '@lyness/lyn-session'
 
 /**
  * CBR-001 regression through the real loop. A replacement checkpoint has a high
@@ -336,7 +336,7 @@ describe('token pressure after loop-admitted system prompts', () => {
         agent.session.append('system/message', {
           turn,
           step,
-          message: createSystemMessage('retry guidance', '@lyness/system-prompt'),
+          message: createSystemMessage('retry guidance', '@lyness/lyn-system-prompt'),
         }, { surfaceOp: { op: 'replace', startSeq: node, endSeq: node }, sourceEventSeqs: [node] })
         return { kind: 'retry' }
       })

@@ -3,7 +3,7 @@ description: "Shared in-process subagent run driver for maintainers and backend 
 kind: "package-library"
 ---
 
-# @lyness/subagent-in-process-driver
+# @lyness/lyn-subagent-in-process-driver
 
 English | [中文](README.zh.md)
 

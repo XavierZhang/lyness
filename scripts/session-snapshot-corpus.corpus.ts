@@ -16,7 +16,7 @@ import {
   sessionFixtureFiles,
   sessionFixtureNames,
   type SnapshotManifest,
-} from '@lyness/session-snapshot'
+} from '@lyness/lyn-session-snapshot'
 import { assertSnapshotCorpusPolicy } from './session-snapshot-corpus-policy.ts'
 
 const repoRoot = resolve(import.meta.dirname, '..')

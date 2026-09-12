@@ -1,6 +1,6 @@
 import { memo } from 'react'
-import { projectUserText } from '@lyness/client-ui-primitives'
-import type { PropsLocale, PropsRuntime } from '@lyness/client-ui-slots'
+import { projectUserText } from '@lyness/lyn-client-ui-primitives'
+import type { PropsLocale, PropsRuntime } from '@lyness/lyn-client-ui-slots'
 import { GOAL_COMMAND, type GoalCommandInputData } from './goal-command-input.ts'
 import css from './GoalCommandInputView.module.css'
 

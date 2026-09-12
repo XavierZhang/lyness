@@ -63,9 +63,9 @@ process.on('message', message => {
 function projectWithHost(source: string): string {
   const project = mkdtempSync(join(tmpdir(), 'lyn-desktop-host-test-'))
   roots.push(project)
-  const packageRoot = join(project, 'node_modules', '@lyness', 'desktop-host')
+  const packageRoot = join(project, 'node_modules', '@lyness', 'lyn-desktop-host')
   mkdirSync(join(packageRoot, 'lib'), { recursive: true })
-  writeFileSync(join(packageRoot, 'package.json'), '{"name":"@lyness/desktop-host","type":"module"}\n')
+  writeFileSync(join(packageRoot, 'package.json'), '{"name":"@lyness/lyn-desktop-host","type":"module"}\n')
   writeFileSync(join(packageRoot, 'lib', 'index.js'), `${HOST_WIRE}\n${source}`)
   return project
 }

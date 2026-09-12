@@ -3,7 +3,7 @@ description: "The sandbox-enforcing ctx.fs backend for deployments and maintaine
 kind: "package-reference"
 ---
 
-# @lyness/fs-sandbox
+# @lyness/lyn-fs-sandbox
 
 English | [中文](README.zh.md)
 
@@ -32,14 +32,14 @@ Mount this backend instead of `fs-local` when the model's file writes and edits 
 Load the shared policy service, then this backend, then the tools; the read-before-edit policy plugin stays optional.
 
 ```yaml
-- name: '@lyness/sandbox-policy'
-- name: '@lyness/fs-sandbox'
+- name: '@lyness/lyn-sandbox-policy'
+- name: '@lyness/lyn-fs-sandbox'
   config:
     cwd: /absolute/path/to/workspace
-- name: '@lyness/tool-fs'
+- name: '@lyness/lyn-tool-fs'
 ```
 
-The backend's config is unchanged from the local backend's (`cwd` resolution default and `diffBasisMaxBytes` overwrite bound); the [configuration catalog](../../../docs/config-catalog.md#lynessfs-sandbox) is the exhaustive source.
+The backend's config is unchanged from the local backend's (`cwd` resolution default and `diffBasisMaxBytes` overwrite bound); the [configuration catalog](../../../docs/config-catalog.md#lynesslyn-fs-sandbox) is the exhaustive source.
 
 ### How the fence behaves
 

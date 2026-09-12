@@ -29,11 +29,11 @@ import { expect, it } from 'vitest'
 import {
   composeProfile, configTrees, indexWorkspacePackages, packVfsImage, packVfsOverlay,
   previewFixtures, WRAPPER_CONTRACT,
-} from '@lyness/experimental-webworker-packer'
+} from '@lyness/lyn-experimental-webworker-packer'
 import {
   IMAGE_FILE_NAME, PREVIEW_FIXTURE_MANIFEST_FILE, PREVIEW_FIXTURE_MANIFEST_VERSION,
   type PreviewFixtureManifest,
-} from '@lyness/experimental-webworker-runtime'
+} from '@lyness/lyn-experimental-webworker-runtime'
 import {
   VFS_EXAMPLE_SESSION_IDS,
   buildVfsExampleFiles,

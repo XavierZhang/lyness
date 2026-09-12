@@ -1,4 +1,4 @@
-import type { Branded } from '@lyness/brand'
+import type { Branded } from '@lyness/lyn-brand'
 
 /** Stable identity shared by one compact start/summary/checkpoint/end transaction. */
 export type CompactionId = Branded<'CompactionId'>

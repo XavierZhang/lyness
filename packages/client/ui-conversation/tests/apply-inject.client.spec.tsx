@@ -1,20 +1,20 @@
 // @vitest-environment jsdom
 import { describe, expect, it, vi } from 'vitest'
-import type { ISession } from '@lyness/api-session-controller/client'
-import { LocaleRuntime } from '@lyness/client-locale/client'
-import type { ObservableSnapshot } from '@lyness/client-store'
+import type { ISession } from '@lyness/lyn-api-session-controller/client'
+import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
+import type { ObservableSnapshot } from '@lyness/lyn-client-store'
 import {
   SlotTestRuntime, stubSettingsScope, usePinnedBrowserLanguages,
-} from '@lyness/client-test-runtime'
-import type { SessionBehaviorOverrides } from '@lyness/client-test-runtime'
+} from '@lyness/lyn-client-test-runtime'
+import type { SessionBehaviorOverrides } from '@lyness/lyn-client-test-runtime'
 import {
   apply, inject, type ComposerBarInjected, type ConversationInjected,
   type ConversationSessionHeaderInjected, type ConversationSessionInjected, type ViewTab,
-} from '@lyness/client-ui-conversation/client'
-import type { SessionId } from '@lyness/session/types'
-import type { WorkspaceId } from '@lyness/workspace/types'
+} from '@lyness/lyn-client-ui-conversation/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { WorkspaceId } from '@lyness/lyn-workspace/types'
 import { createConversationStore } from '../src/client/stores.ts'
-import { RemoteError } from '@lyness/client-test-runtime'
+import { RemoteError } from '@lyness/lyn-client-test-runtime'
 
 usePinnedBrowserLanguages('zh-CN')
 

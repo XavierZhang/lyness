@@ -3,7 +3,7 @@ description: "The subagent delegation seam for users and maintainers choosing a 
 kind: "package-reference"
 ---
 
-# @lyness/subagent
+# @lyness/lyn-subagent
 
 English | [中文](README.zh.md)
 
@@ -32,9 +32,9 @@ This package is the contract every delegation setup shares. You enable it by mou
 Mount the service with a provider and the delegation tool. The provider registers under the name you configure (the in-process spawn backend defaults to `spawn`); the tool row names that provider so the model sees a static tool. A minimal one-shot setup:
 
 ```yaml
-- name: '@lyness/subagent'
-- name: '@lyness/subagent-spawn-in-process'
-- name: '@lyness/tool-subagent'
+- name: '@lyness/lyn-subagent'
+- name: '@lyness/lyn-subagent-spawn-in-process'
+- name: '@lyness/lyn-tool-subagent'
   config:
     provider: spawn
     toolName: subagent

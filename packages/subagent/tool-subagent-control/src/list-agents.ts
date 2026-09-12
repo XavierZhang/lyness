@@ -4,15 +4,15 @@
  * `descendants` scope, `ctx.subagents.listDescendants()`. It stays separately
  * loadable from the root `send_message` plugin so a deployment can register
  * continuation delivery without exposing discovery.
- * @module @lyness/tool-subagent-control/list-agents
+ * @module @lyness/lyn-tool-subagent-control/list-agents
  */
 
 import type { Context } from '@lyness/cordis'
-import { defineTool } from '@lyness/tools'
-import type { Agent } from '@lyness/agent'
-import type { SessionId } from '@lyness/session'
-import type { SubagentDescendantListEntry, SubagentListEntry } from '@lyness/subagent'
-import { assertNever } from '@lyness/util-values'
+import { defineTool } from '@lyness/lyn-tools'
+import type { Agent } from '@lyness/lyn-agent'
+import type { SessionId } from '@lyness/lyn-session'
+import type { SubagentDescendantListEntry, SubagentListEntry } from '@lyness/lyn-subagent'
+import { assertNever } from '@lyness/lyn-util-values'
 
 export const name = 'tool-subagent-list-agents'
 export const inject = ['tools', 'subagents', 'agents']

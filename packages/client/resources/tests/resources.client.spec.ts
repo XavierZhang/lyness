@@ -6,12 +6,12 @@
  */
 import { describe, expect, it, onTestFinished, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import type { RemoteFailure, RemoteResult } from '@lyness/typert-protocol'
-import { RemoteError } from '@lyness/client-test-runtime'
+import type { RemoteFailure, RemoteResult } from '@lyness/lyn-typert-protocol'
+import { RemoteError } from '@lyness/lyn-client-test-runtime'
 import { protocolOf, RESOURCE_SCHEME, ResourceRegistry } from '../src/client/resources.ts'
 import type { ResourceOpenContext, ResourceProvider } from '../src/client/contract.ts'
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface ResourceProtocolMap {
     feed: string
     counter: number

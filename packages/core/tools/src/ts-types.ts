@@ -3,10 +3,10 @@
  * text the model programs against (the `tools:sdk` prompt section). Sibling of
  * `json-schema.ts` — `schemas()` (native function calling) and this module (the generated
  * `declare const tools` API) are two projections of the same store.
- * @module @lyness/tools/src/ts-types
+ * @module @lyness/lyn-tools/src/ts-types
  */
 
-import type { ToolSchema } from '@lyness/llm'
+import type { ToolSchema } from '@lyness/lyn-llm'
 import { assertSupportedJsonSchema } from './json-schema.ts'
 import type { JsonSchemaNode, JsonSchemaScalar } from './json-schema.ts'
 /** Internal PTC mode projection: the model-facing schema plus the canonical output schema. */

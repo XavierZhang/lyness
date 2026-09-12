@@ -2,29 +2,29 @@
 # store so a nested read_image result can cross the generic rich-result bridge.
 # The live config selects the shipped vision route for manual use.
 - id: agent-default-model
-  name: '@lyness/agent-default-model'
+  name: '@lyness/lyn-agent-default-model'
   config:
     provider: deepseek-official
     model: deepseek-v4-flash-vision-exp
 
 - id: session-persistence-jsonl
-  name: '@lyness/session-persistence-jsonl'
+  name: '@lyness/lyn-session-persistence-jsonl'
   config:
     root: !!js lynHomePath('sessions')
     compression: !!js 'process.env.LYNESS_SNAPSHOT === undefined ? ''zstd'' : ''none'''
 
 - id: agent-instructions
-  name: '@lyness/agent-instructions'
+  name: '@lyness/lyn-agent-instructions'
   config:
     maxBytes: 65536
 
 - id: tools
-  name: '@lyness/tools'
+  name: '@lyness/lyn-tools'
   config:
     mode: ptc
 
 - id: system-prompt
-  name: '@lyness/system-prompt'
+  name: '@lyness/lyn-system-prompt'
   config:
     personaPrefix: |
       You are a coding assistant powered by the {{model}} model. Your working directory is {{cwd}}.
@@ -32,4 +32,4 @@
       Verify your work by running the code or tests. Keep answers brief and factual.
 
 - id: attachment-local
-  name: '@lyness/attachment-local'
+  name: '@lyness/lyn-attachment-local'

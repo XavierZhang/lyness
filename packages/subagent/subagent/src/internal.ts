@@ -1,13 +1,13 @@
 /**
  * Continuation integration markers and host adapters outside the public
  * Service Definition and model-facing Agent messaging contract.
- * @module @lyness/subagent/internal
+ * @module @lyness/lyn-subagent/internal
  */
 
-import type { Agent } from '@lyness/agent'
-import type { ContentBlock, MessageId, MessageSource } from '@lyness/llm'
-import type { SessionId } from '@lyness/session'
-import type { ToolDefinition } from '@lyness/tools'
+import type { Agent } from '@lyness/lyn-agent'
+import type { ContentBlock, MessageId, MessageSource } from '@lyness/lyn-llm'
+import type { SessionId } from '@lyness/lyn-session'
+import type { ToolDefinition } from '@lyness/lyn-tools'
 import type SubagentRuntime from './index.ts'
 import type { SubagentDelivery } from './inbox.ts'
 

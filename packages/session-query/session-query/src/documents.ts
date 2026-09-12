@@ -1,7 +1,7 @@
 /** Shared event metadata and semantic-document projection. */
 
-import { foldSurface } from '@lyness/session'
-import type { SessionEvent, SessionId, SessionSeq } from '@lyness/session'
+import { foldSurface } from '@lyness/lyn-session'
+import type { SessionEvent, SessionId, SessionSeq } from '@lyness/lyn-session'
 import type { SessionEventRecord, SessionEventSearchDocument, SessionEventSurface } from './types.ts'
 import { SessionQueryError } from './config.ts'
 import { extractSessionEventText } from './extraction.ts'

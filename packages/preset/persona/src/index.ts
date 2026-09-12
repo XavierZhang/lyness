@@ -10,13 +10,13 @@
  * That constraint is the reason the row exists. An agent preset cannot mount
  * the prompt registry itself, so without a row of its own a preset could
  * change an agent's tools but never its identity.
- * @module @lyness/persona
+ * @module @lyness/lyn-persona
  */
 
 import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import type {} from '@lyness/system-prompt'
-import { PERSONA_PREFIX_SECTION, PERSONA_SUFFIX_SECTION } from '@lyness/system-prompt'
+import type {} from '@lyness/lyn-system-prompt'
+import { PERSONA_PREFIX_SECTION, PERSONA_SUFFIX_SECTION } from '@lyness/lyn-system-prompt'
 
 export { PERSONA_PREFIX_SECTION, PERSONA_SUFFIX_SECTION }
 

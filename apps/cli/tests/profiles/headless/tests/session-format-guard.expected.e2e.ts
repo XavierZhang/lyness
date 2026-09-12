@@ -9,15 +9,15 @@ import { join, dirname } from 'node:path'
 import { mkdir, readFile, readdir, stat, writeFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import { Context } from '@lyness/cordis'
-import { LOADER_SMOKE_TEST_TIMEOUT_MS, runLoaderSmoke } from '@lyness/loader-smoke'
+import { LOADER_SMOKE_TEST_TIMEOUT_MS, runLoaderSmoke } from '@lyness/lyn-loader-smoke'
 import {
   SESSION_FORMAT_VERSION,
   SessionId,
   SessionSeq,
   type SessionEvent,
   type SessionHeader,
-} from '@lyness/session'
-import JsonlSessionPersistence from '@lyness/session-persistence-jsonl'
+} from '@lyness/lyn-session'
+import JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
 import {
   generationLogFilename,
   generationLogPath,

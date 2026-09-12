@@ -1,4 +1,4 @@
-import { notifySubscribers } from '@lyness/client-store'
+import { notifySubscribers } from '@lyness/lyn-client-store'
 
 /**
  * Batches structural updates in microtasks and stream updates by animation

@@ -5,14 +5,14 @@
  * The library half takes all of this as parameters. Keeping the lookup here is what
  * lets the same library pack a different tree, and what keeps `pack.ts` free of
  * assumptions about pnpm workspaces or the `lyn` CLI.
- * @module @lyness/experimental-webworker-packer/src/repository
+ * @module @lyness/lyn-experimental-webworker-packer/src/repository
  */
 import { execFileSync } from 'node:child_process'
 import { existsSync, mkdtempSync, readFileSync, readdirSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, relative } from 'node:path'
-import { LYNESS_HOME_ENV } from '@lyness/home-paths'
-import type { LynConfigTreeDeclaration } from '@lyness/package-manifest'
+import { LYNESS_HOME_ENV } from '@lyness/lyn-home-paths'
+import type { LynConfigTreeDeclaration } from '@lyness/lyn-package-manifest'
 import type { ConfigTree, ImageTree, PackResult } from './pack.ts'
 
 /**

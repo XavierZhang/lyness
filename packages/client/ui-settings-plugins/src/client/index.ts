@@ -10,16 +10,16 @@
  */
 
 // Type-only: pulls the locale plugin's Context merge (ctx.locale).
-import type {} from '@lyness/client-locale/client'
+import type {} from '@lyness/lyn-client-locale/client'
 // Type-only: the settings shell's SlotMap merge (the 'settings.section' entry)
 // and the ctx.settingsScope Context merge. Cross-plugin collaboration goes
 // through the service, never a value import (client bundle purity gate).
-import type {} from '@lyness/client-ui-settings/client'
-import type {} from '@lyness/client-ui-renderer/client'
+import type {} from '@lyness/lyn-client-ui-settings/client'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
 import type { Context as ClientContext } from '@lyness/cordis'
-import { resolveSlotLabel } from '@lyness/client-ui-slots'
+import { resolveSlotLabel } from '@lyness/lyn-client-ui-slots'
 // Type-only: the ctx.remote Context merge and the forwarded-event key face.
-import type {} from '@lyness/api-remotes/client'
+import type {} from '@lyness/lyn-api-remotes/client'
 import { AgentLoopCard } from './AgentLoopCard.tsx'
 import { BashCard } from './BashCard.tsx'
 import { ConfigurablePluginsTab } from './ConfigurablePluginsTab.tsx'

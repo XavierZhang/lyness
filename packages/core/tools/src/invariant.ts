@@ -1,11 +1,11 @@
-/** Package-owned tool-pipeline invariants. @module @lyness/tools/invariant */
+/** Package-owned tool-pipeline invariants. @module @lyness/lyn-tools/invariant */
 
 import type { Context } from '@lyness/cordis'
-import type { Session, SessionEvent } from '@lyness/session'
-import type { InvariantFailure, InvariantInstaller } from '@lyness/invariants'
+import type { Session, SessionEvent } from '@lyness/lyn-session'
+import type { InvariantFailure, InvariantInstaller } from '@lyness/lyn-invariants'
 import type { ToolExecution, ToolExecutionResult } from './index.ts'
 
-const PACKAGE_NAME = '@lyness/tools'
+const PACKAGE_NAME = '@lyness/lyn-tools'
 
 /** Cordis companion plugin name. */
 export const name = 'tools-invariant'

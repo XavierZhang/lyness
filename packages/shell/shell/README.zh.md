@@ -3,7 +3,7 @@ description: "面向开发者与维护者的 shell 执行器 seam 说明，用�
 kind: "package-reference"
 ---
 
-# @lyness/shell
+# @lyness/lyn-shell
 
 [English](README.md) | 中文
 
@@ -50,7 +50,7 @@ seam 本身不是执行器：每个组合只挂载一个提供方，工具即可
 
 ```yaml
 - id: bash
-  name: '@lyness/bash-local'
+  name: '@lyness/lyn-bash-local'
   config:
     cwd: /path/to/workspace
 ```

@@ -7,9 +7,9 @@
 
 import { describe, expect, it } from 'vitest'
 import fc from 'fast-check'
-import { isJsonValue } from '@lyness/util-values'
-import { parameterSchemaSpecToJsonSchema, validateArgs } from '@lyness/tools'
-import type { ParameterPropertySpec, ParameterSchemaSpec, ValueSchemaSpec } from '@lyness/tools'
+import { isJsonValue } from '@lyness/lyn-util-values'
+import { parameterSchemaSpecToJsonSchema, validateArgs } from '@lyness/lyn-tools'
+import type { ParameterPropertySpec, ParameterSchemaSpec, ValueSchemaSpec } from '@lyness/lyn-tools'
 
 /** Remove parameter-only requiredness before nesting a schema as an array item. */
 function asValueSchema(prop: ParameterPropertySpec): ValueSchemaSpec {

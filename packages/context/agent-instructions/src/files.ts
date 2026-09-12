@@ -1,15 +1,15 @@
 /**
  * Instruction-file discovery and bounded, abort-aware provider reads.
  *
- * @module @lyness/agent-instructions/files
+ * @module @lyness/lyn-agent-instructions/files
  */
 
 import { createReadStream } from 'node:fs'
 import { stat } from 'node:fs/promises'
 import { dirname, isAbsolute, join, relative, resolve } from 'node:path'
-import type { FileSystem, FsInfo, FsTarget, FsVersion } from '@lyness/fs'
-import { lynHomeDisplay } from '@lyness/home-paths'
-import { assertNever } from '@lyness/util-values'
+import type { FileSystem, FsInfo, FsTarget, FsVersion } from '@lyness/lyn-fs'
+import { lynHomeDisplay } from '@lyness/lyn-home-paths'
+import { assertNever } from '@lyness/lyn-util-values'
 import { resolveConfig, resolveDiscoveryConfig, type ResolvedConfig } from './config.ts'
 import { trimmedInstructionDigest } from './digest.ts'
 import {

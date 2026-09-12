@@ -3,10 +3,10 @@
 
 - insert:
     - id: time-context
-      name: '@lyness/time-context'
+      name: '@lyness/lyn-time-context'
 
     - id: schedule
-      name: '@lyness/schedule'
+      name: '@lyness/lyn-schedule'
 
 - id: ui-schedule
   disabled: false

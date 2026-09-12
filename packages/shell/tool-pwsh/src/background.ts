@@ -2,10 +2,10 @@
  * Generic-task adaptation for background pwsh process handles — the shell-agnostic
  * twin of `lyn-tool-bash`'s background adaptation.
  *
- * @module @lyness/tool-pwsh/background
+ * @module @lyness/lyn-tool-pwsh/background
  */
 
-import type { ShellProcess } from '@lyness/shell'
+import type { ShellProcess } from '@lyness/lyn-shell'
 
 /* jscpd:ignore-start -- deliberate twin of lyn-tool-bash/background.ts (Agent Note). */
 

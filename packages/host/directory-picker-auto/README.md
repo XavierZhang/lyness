@@ -3,7 +3,7 @@ description: "Adaptive chooser of the directory-picker seam: resolves the web GU
 kind: "package-reference"
 ---
 
-# @lyness/host-directory-picker-auto
+# @lyness/lyn-host-directory-picker-auto
 
 English | [中文](README.zh.md)
 

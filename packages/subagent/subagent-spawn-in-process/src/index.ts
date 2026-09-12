@@ -3,7 +3,7 @@
  * `ctx.subagents` that runs each child as a fresh child {@link Agent} on the same cordis
  * context (its own session, own system prompt, zero parent context). The cheapest transport,
  * reusing the agent factory's quiescent teardown.
- * @module @lyness/subagent-spawn-in-process
+ * @module @lyness/lyn-subagent-spawn-in-process
  */
 
 import type { Context } from '@lyness/cordis'
@@ -13,8 +13,8 @@ import type {
   ResolvedSubagentStartRequest,
   SubagentCapabilities,
   SubagentProvider,
-} from '@lyness/subagent'
-import { startInProcessRun } from '@lyness/subagent-in-process-driver'
+} from '@lyness/lyn-subagent'
+import { startInProcessRun } from '@lyness/lyn-subagent-in-process-driver'
 
 export const name = 'subagent-spawn-in-process'
 // `tools` is deliberately not injected: the child factory already provides it during setup,

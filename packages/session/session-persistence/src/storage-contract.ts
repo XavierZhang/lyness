@@ -2,16 +2,16 @@
  * Backend-shared storage validation: the version gate, the fail-closed event
  * vocabulary, append-batch materialization, and contiguity — one place so
  * every backend refuses the same inputs identically.
- * @module @lyness/session-persistence/storage-contract
+ * @module @lyness/lyn-session-persistence/storage-contract
  */
 
 import {
   adoptSessionEvent,
   KNOWN_SESSION_EVENT_TYPES,
   SESSION_FORMAT_VERSION,
-} from '@lyness/session'
-import { snapshotJsonValue } from '@lyness/util-values'
-import type { SessionEvent, SessionHeader, SessionId } from '@lyness/session'
+} from '@lyness/lyn-session'
+import { snapshotJsonValue } from '@lyness/lyn-util-values'
+import type { SessionEvent, SessionHeader, SessionId } from '@lyness/lyn-session'
 import {
   SessionFormatUnsupportedError,
   SessionPersistenceCorruptionError,

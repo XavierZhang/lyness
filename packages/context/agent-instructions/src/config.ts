@@ -1,12 +1,12 @@
 /**
  * Configuration normalization for workspace instruction discovery and rendering.
  *
- * @module @lyness/agent-instructions/config
+ * @module @lyness/lyn-agent-instructions/config
  */
 
 import { relative } from 'node:path'
 import z from '@lyness/schemastery'
-import { resolveLynHome } from '@lyness/home-paths'
+import { resolveLynHome } from '@lyness/lyn-home-paths'
 
 const DEFAULT_PROJECT_ROOT_MARKERS = ['.git'] as const
 const DEFAULT_INSTRUCTION_FILE_CANDIDATES = ['AGENTS.md', 'CLAUDE.md'] as const

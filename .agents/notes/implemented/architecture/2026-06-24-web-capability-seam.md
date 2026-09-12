@@ -18,9 +18,9 @@ There is also a provider-selection question. Existing `tool-bash` and `tool-fs` 
 
 Web access is a first-class capability seam following [the capability-seam Agent Note](2026-06-13-capability-seams.md):
 
-1. `@lyness/web` (`packages/web/web`) owns `ctx.web`, provider registration, provider selection, shared request/result vocabulary, and web-specific errors.
-2. Provider packages implement concrete backends and register capabilities with `ctx.web`, for example `@lyness/web-search-exa`, `@lyness/web-search-perplexity`, `@lyness/web-search-deepseek`, and `@lyness/web-fetch-http`.
-3. `@lyness/tool-web` (`packages/web/tool-web`) owns the model-facing `web_search` and `web_fetch` tool schemas, prompt sections, argument validation, result formatting, and tool-owned presentation over `ctx.web`.
+1. `@lyness/lyn-web` (`packages/web/web`) owns `ctx.web`, provider registration, provider selection, shared request/result vocabulary, and web-specific errors.
+2. Provider packages implement concrete backends and register capabilities with `ctx.web`, for example `@lyness/lyn-web-search-exa`, `@lyness/lyn-web-search-perplexity`, `@lyness/lyn-web-search-deepseek`, and `@lyness/lyn-web-fetch-http`.
+3. `@lyness/lyn-tool-web` (`packages/web/tool-web`) owns the model-facing `web_search` and `web_fetch` tool schemas, prompt sections, argument validation, result formatting, and tool-owned presentation over `ctx.web`.
 
 Providers do not register tools. Providers register capabilities. `lyn-tool-web` is the only owner of model-facing names, descriptions, prompt guidance, JSON schemas, and presentation.
 
@@ -43,13 +43,13 @@ The three-package Service Definition / Service Provider / Consumer split follows
 The dependency direction mirrors bash and filesystem:
 
 ```text
-@lyness/tool-web  --depends on-->  @lyness/web  <--depends on--  @lyness/web-search-exa
+@lyness/lyn-tool-web  --depends on-->  @lyness/lyn-web  <--depends on--  @lyness/lyn-web-search-exa
         consumer                                 interface                       implementation
-                                                                 <--depends on--  @lyness/web-search-perplexity
+                                                                 <--depends on--  @lyness/lyn-web-search-perplexity
                                                                                   implementation
-                                                                 <--depends on--  @lyness/web-search-deepseek
+                                                                 <--depends on--  @lyness/lyn-web-search-deepseek
                                                                                   implementation
-                                                                 <--depends on--  @lyness/web-fetch-http
+                                                                 <--depends on--  @lyness/lyn-web-fetch-http
                                                                                   implementation
 ```
 
@@ -57,27 +57,27 @@ At runtime, provider packages register capabilities with `ctx.web`; `tool-web` r
 
 ```mermaid
 flowchart LR
-  exa["@lyness/web-search-exa"] -->|registerSearchProvider| web["@lyness/web / ctx.web"]
-  perplexity["@lyness/web-search-perplexity"] -->|registerSearchProvider| web
-  deepseek["@lyness/web-search-deepseek"] -->|registerSearchProvider| web
-  fetchLocal["@lyness/web-fetch-http"] -->|registerFetchProvider| web
-  toolWeb["@lyness/tool-web"] -->|search/fetch| web
+  exa["@lyness/lyn-web-search-exa"] -->|registerSearchProvider| web["@lyness/lyn-web / ctx.web"]
+  perplexity["@lyness/lyn-web-search-perplexity"] -->|registerSearchProvider| web
+  deepseek["@lyness/lyn-web-search-deepseek"] -->|registerSearchProvider| web
+  fetchLocal["@lyness/lyn-web-fetch-http"] -->|registerFetchProvider| web
+  toolWeb["@lyness/lyn-tool-web"] -->|search/fetch| web
   toolWeb -->|ctx.tools.register| webSearch["tool: web_search"]
   toolWeb -->|ctx.tools.register| webFetch["tool: web_fetch"]
 ```
 
-`@lyness/web` depends only on Cordis and low-level harness support. It declares `ctx.web`, provider interfaces, request/result types, the provider availability contract, and error codes. It does not import tool, agent, session, LLM, or provider packages.
+`@lyness/lyn-web` depends only on Cordis and low-level harness support. It declares `ctx.web`, provider interfaces, request/result types, the provider availability contract, and error codes. It does not import tool, agent, session, LLM, or provider packages.
 
 Provider packages depend only on `lyn-web` and Cordis. They own credentials, endpoints, wire mapping, parsing, and `WebError` translation, using platform `fetch`. Each provider injects the shared service and registers a backend; only `lyn-web` owns the `ctx.web` key. Provider-private protocol shapes do not create dependencies on `ctx.llm` or a Cordis HTTP service.
 
-`@lyness/tool-web` depends on `@lyness/web`, `@lyness/tools`, `@lyness/system-prompt`, and Cordis. It never imports concrete provider packages.
+`@lyness/lyn-tool-web` depends on `@lyness/lyn-web`, `@lyness/lyn-tools`, `@lyness/lyn-system-prompt`, and Cordis. It never imports concrete provider packages.
 
 ## `ctx.web` contract
 
 `ctx.web` is a provider registry plus a provider-selecting execution API. The registry half stays close to `LlmRuntime`: a `Map<id, provider>` per capability kind, `registerSearchProvider` / `registerFetchProvider` methods that return disposers, duplicate ids that throw `WebError`, and execution-time resolution that throws when the selected provider is absent or unusable. The authoritative signatures live in `packages/web/web/src/types.ts`; the seam's shape:
 
 ```ts
-import type { WebFetchRequest, WebFetchResult, WebSearchRequest, WebSearchResult } from '@lyness/web'
+import type { WebFetchRequest, WebFetchResult, WebSearchRequest, WebSearchResult } from '@lyness/lyn-web'
 
 interface WebSearchProvider {
   readonly id: string
@@ -128,25 +128,25 @@ The "single provider auto-selects" rule is for tests, demos, and simple deployme
 
 ```yaml
 - id: web
-  name: '@lyness/web'
+  name: '@lyness/lyn-web'
   config:
     searchProvider: exa
     fetchProvider: http
 
 - id: web-search-exa
-  name: '@lyness/web-search-exa'
+  name: '@lyness/lyn-web-search-exa'
 
 - id: web-search-perplexity
-  name: '@lyness/web-search-perplexity'
+  name: '@lyness/lyn-web-search-perplexity'
 
 - id: web-search-deepseek
-  name: '@lyness/web-search-deepseek'
+  name: '@lyness/lyn-web-search-deepseek'
 
 - id: web-fetch-http
-  name: '@lyness/web-fetch-http'
+  name: '@lyness/lyn-web-fetch-http'
 
 - id: tool-web
-  name: '@lyness/tool-web'
+  name: '@lyness/lyn-tool-web'
 ```
 
 Operational overrides feed the same explicit selection path: `LYNESS_WEB_SEARCH_PROVIDER=perplexity` is equivalent to config `searchProvider: perplexity`, not a hidden priority chain inside `lyn-tool-web`.

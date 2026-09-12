@@ -1,11 +1,11 @@
 import { describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import AgentRegistry, { type Agent } from '@lyness/agent'
+import AgentRegistry, { type Agent } from '@lyness/lyn-agent'
 import UserQuestionService, {
   UserQuestionError,
   type AskUserQuestionAnswer,
   type AskUserQuestionRequest,
-} from '@lyness/user-questions'
+} from '@lyness/lyn-user-questions'
 
 interface QuestionAnswerer {
   ask(request: AskUserQuestionRequest): Promise<AskUserQuestionAnswer>

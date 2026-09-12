@@ -1,17 +1,17 @@
 # Keyless generic ACP v1 control-surface patch over `lyn --profile acp`.
 
 - id: llm-deepseek
-  name: '@lyness/llm-deepseek'
+  name: '@lyness/lyn-llm-deepseek'
   disabled: true
 
 - id: acp
-  name: '@lyness/acp'
+  name: '@lyness/lyn-acp'
   config:
     provider: control-fixture
     model: alpha
 
 - id: session-persistence-jsonl
-  name: '@lyness/session-persistence-jsonl'
+  name: '@lyness/lyn-session-persistence-jsonl'
   config:
     root: !!js process.env.LYNESS_CONFORMANCE_PERSISTENCE_ROOT
     compression: none

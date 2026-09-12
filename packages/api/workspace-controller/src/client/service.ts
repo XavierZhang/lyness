@@ -1,9 +1,9 @@
 /** React-free Client Workspace service and command facade. */
 
 import { Service, type Context } from '@lyness/cordis'
-import type { SessionId } from '@lyness/session/types'
-import type { RemoteFailure } from '@lyness/typert-protocol'
-import type { WorkspaceId } from '@lyness/workspace/types'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { RemoteFailure } from '@lyness/lyn-typert-protocol'
+import type { WorkspaceId } from '@lyness/lyn-workspace/types'
 import type { WorkspaceView } from '../types.ts'
 import type { ClientWorkspaceModel, WorkspaceSnapshot } from './model.ts'
 

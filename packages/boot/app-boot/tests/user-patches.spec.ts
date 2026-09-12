@@ -71,12 +71,12 @@ describe('loadOptionalPatches', () => {
     const dir = tmp()
     writeFileSync(join(dir, PROFILE_PATCH_FILENAME), [
       '- id: agent-loop',
-      "  name: '@lyness/agent-loop'",
+      "  name: '@lyness/lyn-agent-loop'",
       '  config:',
       '    model: !!js process.env.LYNESS_SPEC_MODEL',
       '- insert:',
       '    - id: llm',
-      "      name: '@lyness/llm-pi-ai'",
+      "      name: '@lyness/lyn-llm-pi-ai'",
       '',
     ].join('\n'))
     const patches = loadOptionalPatches(NAME, join(dir, PROFILE_PATCH_FILENAME))
@@ -102,7 +102,7 @@ describe('loadOptionalPatches', () => {
       { insert: [
         { id: 'absolute', name: pluginPath },
         { id: 'url', name: pluginUrl },
-        { id: 'bare', name: '@lyness/system-prompt' },
+        { id: 'bare', name: '@lyness/lyn-system-prompt' },
         { id: 'nested', name: 'cordis:group', group: true, config: [
           { id: 'child', name: pluginPath },
         ] },
@@ -111,7 +111,7 @@ describe('loadOptionalPatches', () => {
     const patches = load(NAME, patchPath)!
     expect(patches[0]?.name).toBe(pluginPath)
     expect(patches[1]?.insert?.map(entry => entry.name)).toEqual([
-      pluginUrl, pluginUrl, '@lyness/system-prompt', 'cordis:group',
+      pluginUrl, pluginUrl, '@lyness/lyn-system-prompt', 'cordis:group',
     ])
     expect((patches[1]?.insert?.[3]?.config as { name: string }[])[0]?.name).toBe(pluginUrl)
 

@@ -1,5 +1,5 @@
 /**
- * @lyness/web-app — the browser-surface bundle's runtime glue plugin
+ * @lyness/lyn-web-app — the browser-surface bundle's runtime glue plugin
  * plus the bundle patch (`cordis.patch.yml`, declared by the `lyn.bundle.patch`
  * manifest field). The plugin owns the browser-surface glue: it resolves
  * the built frontend dist (workspace knowledge of this bundle, never user
@@ -8,7 +8,7 @@
  * variable, the process-token URL line, and the default-browser handoff. The
  * model and shell retain the clean URL. App command-line values arrive through
  * the `webStartup` service expressions in the bundle patch.
- * @module @lyness/web-app
+ * @module @lyness/lyn-web-app
  */
 
 import { spawn, type ChildProcess } from 'node:child_process'
@@ -18,14 +18,14 @@ import { networkInterfaces } from 'node:os'
 import { fileURLToPath } from 'node:url'
 import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import { addHarnessSourceSection } from '@lyness/app-boot'
-import type {} from '@lyness/client-connection'
-import * as FrontendStatic from '@lyness/host-frontend-static'
-import { launchedThroughSsh, launchEnvironmentOf } from '@lyness/launch-environment'
-import { scrubbedParentEnv } from '@lyness/subprocess'
+import { addHarnessSourceSection } from '@lyness/lyn-app-boot'
+import type {} from '@lyness/lyn-client-connection'
+import * as FrontendStatic from '@lyness/lyn-host-frontend-static'
+import { launchedThroughSsh, launchEnvironmentOf } from '@lyness/lyn-launch-environment'
+import { scrubbedParentEnv } from '@lyness/lyn-subprocess'
 import type {} from '@lyness/cordis-plugin-loader'
-import type {} from '@lyness/host-webserver'
-import type {} from '@lyness/shell-env'
+import type {} from '@lyness/lyn-host-webserver'
+import type {} from '@lyness/lyn-shell-env'
 
 /** Stable Cordis plugin name. */
 export const name = 'web-app'
@@ -162,10 +162,10 @@ function localWebUrl(ctx: Context): string {
 function resolveDistIndex(): string {
   const require = createRequire(import.meta.url)
   try {
-    return join(dirname(require.resolve('@lyness/web-frontend/package.json')), 'dist', 'index.html')
+    return join(dirname(require.resolve('@lyness/lyn-web-frontend/package.json')), 'dist', 'index.html')
   } catch {
     /* v8 ignore next 2 -- reachable only when the frontend package is absent from the checkout */
-    throw new Error('web-app: @lyness/web-frontend is not resolvable from this composition')
+    throw new Error('web-app: @lyness/lyn-web-frontend is not resolvable from this composition')
   }
 }
 

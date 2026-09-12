@@ -1,9 +1,9 @@
 import { randomUUID } from 'node:crypto'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import type { MessageId } from '@lyness/llm/brand'
-import { Session, SessionId, SessionLogOffset, SessionSeq, type SessionEvent } from '@lyness/session'
-import { remoteMethods } from '@lyness/typert-protocol'
+import type { MessageId } from '@lyness/lyn-llm/brand'
+import { Session, SessionId, SessionLogOffset, SessionSeq, type SessionEvent } from '@lyness/lyn-session'
+import { remoteMethods } from '@lyness/lyn-typert-protocol'
 import MessageFeedbackService from '../src/index.ts'
 import type {
   MessageFeedbackItem,

@@ -2,10 +2,10 @@
  * Derive the workspace root an `lsp` call resolves against from the calling
  * agent's session. A missing cwd fails as `LSP_WORKSPACE_REQUIRED` because the
  * local provider must canonicalize a real workspace before starting a server.
- * @module @lyness/tool-lsp/session-cwd
+ * @module @lyness/lyn-tool-lsp/session-cwd
  */
 
-import type { ToolExecution } from '@lyness/tools'
+import type { ToolExecution } from '@lyness/lyn-tools'
 
 /**
  * The session workspace cwd for this call, or `undefined` when none applies.

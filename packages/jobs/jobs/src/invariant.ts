@@ -1,11 +1,11 @@
-/** Package-owned background-job snapshot invariants. @module @lyness/jobs/invariant */
+/** Package-owned background-job snapshot invariants. @module @lyness/lyn-jobs/invariant */
 
 import type { Context } from '@lyness/cordis'
-import type { Agent } from '@lyness/agent'
-import type { InvariantFailure, InvariantInstaller } from '@lyness/invariants'
+import type { Agent } from '@lyness/lyn-agent'
+import type { InvariantFailure, InvariantInstaller } from '@lyness/lyn-invariants'
 import type { JobSnapshot } from './types.ts'
 
-const PACKAGE_NAME = '@lyness/jobs'
+const PACKAGE_NAME = '@lyness/lyn-jobs'
 const TERMINAL_STATUSES = new Set(['completed', 'killed', 'failed'])
 
 /** Cordis companion plugin name. */

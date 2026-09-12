@@ -16,7 +16,7 @@ kind: "package-library"
 ## Skeleton
 
 ```markdown
-# @lyness/<name>
+# @lyness/lyn-<name>
 
 English | [中文](README.zh.md)
 

@@ -3,14 +3,14 @@
 import { performance } from 'node:perf_hooks'
 import { scheduler } from 'node:timers/promises'
 import { Context } from '@lyness/cordis'
-import AgentLoop from '@lyness/agent-loop'
-import type { Agent, AgentHandle } from '@lyness/agent'
-import { mountAgentLoopTestDependencies } from '@lyness/agent-loop-testkit'
-import { createUserMessage, LlmAdapter } from '@lyness/llm'
-import type { GenerateOptions, LlmResolvedModelInfo, StreamChunk } from '@lyness/llm'
-import { SESSION_FORMAT_VERSION } from '@lyness/session'
-import JsonlSessionPersistence from '@lyness/session-persistence-jsonl'
-import { defineContentToolFixture } from '@lyness/tools'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import type { Agent, AgentHandle } from '@lyness/lyn-agent'
+import { mountAgentLoopTestDependencies } from '@lyness/lyn-agent-loop-testkit'
+import { createUserMessage, LlmAdapter } from '@lyness/lyn-llm'
+import type { GenerateOptions, LlmResolvedModelInfo, StreamChunk } from '@lyness/lyn-llm'
+import { SESSION_FORMAT_VERSION } from '@lyness/lyn-session'
+import JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
+import { defineContentToolFixture } from '@lyness/lyn-tools'
 import { assertBuiltBenchmarkRuntime } from '../support/built-worker.ts'
 import { PARENT_ID, response, resultText, syntheticHistory, TIME_ZERO, WORKLOAD } from './workload.ts'
 
@@ -127,8 +127,8 @@ async function measure(root: string, scenario: string): Promise<ContinuationRepo
 }
 
 assertBuiltBenchmarkRuntime(import.meta.url, Object.fromEntries([
-  '@lyness/agent-loop', '@lyness/session', '@lyness/llm',
-  '@lyness/tools', '@lyness/session-persistence-jsonl',
+  '@lyness/lyn-agent-loop', '@lyness/lyn-session', '@lyness/lyn-llm',
+  '@lyness/lyn-tools', '@lyness/lyn-session-persistence-jsonl',
 ].map(name => [name, import.meta.resolve(name)])))
 const [root, scenario] = process.argv.slice(2)
 if (root === undefined || scenario === undefined || !['seed', 'request-history', 'tool-continuation'].includes(scenario)) {

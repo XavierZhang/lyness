@@ -1,7 +1,7 @@
 /** Canonical session URI and inline mention encoding. */
 
-import { brandString } from '@lyness/brand'
-import type { SessionId as SessionIdType } from '@lyness/session'
+import { brandString } from '@lyness/lyn-brand'
+import type { SessionId as SessionIdType } from '@lyness/lyn-session'
 import { SessionReferenceError } from './config.ts'
 import type { SessionReferenceInput } from './types.ts'
 

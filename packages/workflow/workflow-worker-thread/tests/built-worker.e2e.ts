@@ -22,9 +22,9 @@ describe.skipIf(!existsSync(builtIndex) || !existsSync(builtWorker))('built work
     try {
       await writeFile(driver, `
 import { Context } from '@lyness/cordis'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import SubagentRuntime from '@lyness/subagent'
-import WorkerThreadWorkflowEngine from '@lyness/workflow-worker-thread'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import SubagentRuntime from '@lyness/lyn-subagent'
+import WorkerThreadWorkflowEngine from '@lyness/lyn-workflow-worker-thread'
 
 const ctx = new Context()
 await ctx.plugin(SessionProjectionRegistry)

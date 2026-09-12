@@ -1,28 +1,28 @@
 /**
- * @lyness/headless — one-shot direct Agent driver. The bundle patch
+ * @lyness/lyn-headless — one-shot direct Agent driver. The bundle patch
  * rides over lyn-base without Host, HTTP, or browser plugins; this runner
  * creates one Agent through the core registry, drives the task to quiescence,
  * streams provider reasoning to stderr, flushes its Session, prints the final
  * assistant text to stdout, and exits.
  *
- * @module @lyness/headless
+ * @module @lyness/lyn-headless
  */
 
 import { randomUUID } from 'node:crypto'
 import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import { brandString } from '@lyness/brand'
-import { installModelSelection } from '@lyness/agent'
-import type { Agent, ModelSelectionRef } from '@lyness/agent'
-import type {} from '@lyness/agent-default-model'
-import { createUserMessage } from '@lyness/llm'
-import { assertNever } from '@lyness/util-values'
-import { SessionSeq } from '@lyness/session'
-import type { Session, SessionEvent, SessionId, SessionLogOffset } from '@lyness/session'
+import { brandString } from '@lyness/lyn-brand'
+import { installModelSelection } from '@lyness/lyn-agent'
+import type { Agent, ModelSelectionRef } from '@lyness/lyn-agent'
+import type {} from '@lyness/lyn-agent-default-model'
+import { createUserMessage } from '@lyness/lyn-llm'
+import { assertNever } from '@lyness/lyn-util-values'
+import { SessionSeq } from '@lyness/lyn-session'
+import type { Session, SessionEvent, SessionId, SessionLogOffset } from '@lyness/lyn-session'
 // Empty type imports carry the loader Context merge for the settlement await
 // and the cmdline Context merge for the appExit host value.
 import type {} from '@lyness/cordis-plugin-loader'
-import type {} from '@lyness/cmdline'
+import type {} from '@lyness/lyn-cmdline'
 
 /** Stable Cordis plugin name. */
 export const name = 'headless-runner'
@@ -180,7 +180,7 @@ async function run(ctx: Context, task: string, io: HeadlessIo): Promise<void> {
   // This bundle composes no preset roster, so the model-facing rows sit in the
   // host plane and the agent reads them from the global layer. A deployment
   // that DOES configure one has to join it here first
-  // (@lyness/agent-presets README, "Composing a child agent").
+  // (@lyness/lyn-agent-presets README, "Composing a child agent").
   const { agent } = await agents.create({
     sessionId: brandString<SessionId>(`session-${randomUUID()}`),
     meta: { cwd: process.cwd() },

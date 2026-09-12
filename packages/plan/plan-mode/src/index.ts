@@ -19,24 +19,24 @@
  * Agent Note:
  * - .agents/notes/implemented/simplification/2026-07-22-plan-specific-collaboration-state.md
  *
- * @module @lyness/plan-mode
+ * @module @lyness/lyn-plan-mode
  */
 
 import { Context, Service } from '@lyness/cordis'
 import { z as zod } from 'zod'
 import type { ZodType } from 'zod'
-import type { Agent, PreStepDecision } from '@lyness/agent'
-import { createUserMessage } from '@lyness/llm'
-import type { Session, UserMessage } from '@lyness/session'
-import { defineTool } from '@lyness/tools'
-import { UserQuestionError } from '@lyness/user-questions'
-import type { CommandId } from '@lyness/commands'
-import type {} from '@lyness/session-projection'
-import type { ProjectionDefinition } from '@lyness/session-projection'
+import type { Agent, PreStepDecision } from '@lyness/lyn-agent'
+import { createUserMessage } from '@lyness/lyn-llm'
+import type { Session, UserMessage } from '@lyness/lyn-session'
+import { defineTool } from '@lyness/lyn-tools'
+import { UserQuestionError } from '@lyness/lyn-user-questions'
+import type { CommandId } from '@lyness/lyn-commands'
+import type {} from '@lyness/lyn-session-projection'
+import type { ProjectionDefinition } from '@lyness/lyn-session-projection'
 import type { PlanProjection, PlanUnitState } from './types.ts'
 export type * from './types.ts'
 
-declare module '@lyness/session/types' {
+declare module '@lyness/lyn-session/types' {
   interface SessionEventMap {
     /**
      * Whether plan mode is in force from this point on: log-only, non-surface,

@@ -1,9 +1,9 @@
 import { describe, expect, expectTypeOf, it, onTestFinished, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { type Agent } from '@lyness/agent'
+import { type Agent } from '@lyness/lyn-agent'
 
-import { HarnessError, ReasoningEffortId } from '@lyness/llm'
-import { carrierKeyOf } from '@lyness/scope'
+import { HarnessError, ReasoningEffortId } from '@lyness/lyn-llm'
+import { carrierKeyOf } from '@lyness/lyn-scope'
 import SubagentRuntime, {
   foldSubagentDescriptor,
   snapshotSubagentDescriptor,
@@ -17,9 +17,9 @@ import SubagentRuntime, {
   type SubagentRun,
   type SubagentRunEndInfo,
   type SubagentStartRequest,
-} from '@lyness/subagent'
-import { Session, SessionId, type SessionEvent } from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
+} from '@lyness/lyn-subagent'
+import { Session, SessionId, type SessionEvent } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 
 function fakeParent(id = 'parent-1'): Agent {
   return { id: SessionId(id) } as unknown as Agent

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import type { ContentBlock } from '@lyness/llm'
-import type { SessionEvent } from '@lyness/session'
+import type { ContentBlock } from '@lyness/lyn-llm'
+import type { SessionEvent } from '@lyness/lyn-session'
 import { AssistantOutputFold, finalAssistantOutput } from '../src/assistant-output.ts'
 
 function message(content: ContentBlock[]): SessionEvent {

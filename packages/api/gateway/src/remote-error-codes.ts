@@ -12,7 +12,7 @@ export interface TypertGatewayFaultDetails {
   readonly field?: string
 }
 
-declare module '@lyness/typert-protocol' {
+declare module '@lyness/lyn-typert-protocol' {
   interface RemoteErrorDetailsMap {
     'gateway/ambiguous-endpoint': TypertGatewayFaultDetails
     'gateway/arguments-invalid': TypertGatewayFaultDetails

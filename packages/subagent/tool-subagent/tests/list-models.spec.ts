@@ -4,17 +4,17 @@ import LlmRuntime, {
   ToolCallId,
   LlmAdapter,
   ReasoningEffortId,
-} from '@lyness/llm'
+} from '@lyness/lyn-llm'
 import type {
   GenerateOptions,
   LlmModelInfo,
   LlmResolvedModelInfo,
   StreamChunk,
-} from '@lyness/llm'
-import ToolRuntime from '@lyness/tools'
-import SystemPrompt from '@lyness/system-prompt'
-import SubagentRuntime from '@lyness/subagent'
-import SessionProjectionRegistry from '@lyness/session-projection'
+} from '@lyness/lyn-llm'
+import ToolRuntime from '@lyness/lyn-tools'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import SubagentRuntime from '@lyness/lyn-subagent'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 import * as tool from '../src/index.ts'
 import { registerListSubagentModels } from '../src/list-models.ts'
 import { testToolSignal, text } from './harness.ts'

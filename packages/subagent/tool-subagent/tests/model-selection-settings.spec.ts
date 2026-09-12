@@ -2,18 +2,18 @@
 
 import { describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { ToolCallId } from '@lyness/llm'
-import { Session, SESSION_FORMAT_VERSION, SessionId } from '@lyness/session'
-import type { SessionEvent } from '@lyness/session'
-import { bindScopeParent, createScope, scopeOf, scopeTarget } from '@lyness/scope'
-import { SettingsProvider } from '@lyness/settings'
-import type { SettingsNamespace } from '@lyness/settings'
-import InvariantRegistry from '@lyness/invariants'
-import AgentLoop from '@lyness/agent-loop'
-import { mountAgentLoopTestDependencies } from '@lyness/agent-loop-testkit'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import SubagentRuntime from '@lyness/subagent'
-import * as SubagentSpawn from '@lyness/subagent-spawn-in-process'
+import { ToolCallId } from '@lyness/lyn-llm'
+import { Session, SESSION_FORMAT_VERSION, SessionId } from '@lyness/lyn-session'
+import type { SessionEvent } from '@lyness/lyn-session'
+import { bindScopeParent, createScope, scopeOf, scopeTarget } from '@lyness/lyn-scope'
+import { SettingsProvider } from '@lyness/lyn-settings'
+import type { SettingsNamespace } from '@lyness/lyn-settings'
+import InvariantRegistry from '@lyness/lyn-invariants'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import { mountAgentLoopTestDependencies } from '@lyness/lyn-agent-loop-testkit'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import SubagentRuntime from '@lyness/lyn-subagent'
+import * as SubagentSpawn from '@lyness/lyn-subagent-spawn-in-process'
 import * as tool from '../src/index.ts'
 import * as ToolInvariant from '../src/invariant.ts'
 import SubagentModelSelectionConfig, {
@@ -375,7 +375,7 @@ describe('SubagentModelSelectionConfig', () => {
         modelSelectionSettings: true,
         maxDepth: 'provider-managed',
       })
-    }).toThrow('requires @lyness/tool-subagent/model-selection-settings')
+    }).toThrow('requires @lyness/lyn-tool-subagent/model-selection-settings')
     await withoutSettings.fiber.dispose()
 
     const withoutAgent = await boot(false)

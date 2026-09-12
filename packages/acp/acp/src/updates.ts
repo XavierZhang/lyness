@@ -2,8 +2,8 @@
 
 import type { Context } from '@lyness/cordis'
 import type { SessionUpdate, ToolCallContent } from '@agentclientprotocol/sdk'
-import type { Session, SessionEvent } from '@lyness/session'
-import type {} from '@lyness/token-meter'
+import type { Session, SessionEvent } from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-token-meter'
 import { assistantBlockToAcp } from './content.ts'
 
 /**

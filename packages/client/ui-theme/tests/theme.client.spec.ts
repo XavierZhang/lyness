@@ -1,13 +1,13 @@
 // @vitest-environment jsdom
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { stubSettingsScope, type StubSettingsScope } from '@lyness/client-test-runtime'
+import { stubSettingsScope, type StubSettingsScope } from '@lyness/lyn-client-test-runtime'
 import type {
   ThemeSettings,
   ThemeSnapshot,
   ThemeTokenOverrides,
-} from '@lyness/client-ui-theme/client'
-import { ThemeRuntime } from '@lyness/client-ui-theme/client'
+} from '@lyness/lyn-client-ui-theme/client'
+import { ThemeRuntime } from '@lyness/lyn-client-ui-theme/client'
 
 const make = (host = stubSettingsScope<ThemeSettings>()): {
   ctx: Context

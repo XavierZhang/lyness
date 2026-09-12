@@ -23,10 +23,10 @@
   - img
   - img
   - text: Context injection goal
-- button "Context injection @lyness/system-prompt":
+- button "Context injection @lyness/lyn-system-prompt":
   - img
   - img
-  - text: Context injection @lyness/system-prompt
+  - text: Context injection @lyness/lyn-system-prompt
 - paragraph: partial
 - status: Deep diving...
 - region "To-dos":

@@ -5,7 +5,7 @@ import type { DocumentPreviewDefinition } from '../document/registry.ts'
 import { TextBody } from './TextBody.tsx'
 
 /** Stable plain-text implementation identity within this package. */
-export const PLAIN_BODY_ID = '@lyness/client-ui-sidebar-documentpreview/text'
+export const PLAIN_BODY_ID = '@lyness/lyn-client-ui-sidebar-documentpreview/text'
 
 /**
  * Describe the plain-text fallback.

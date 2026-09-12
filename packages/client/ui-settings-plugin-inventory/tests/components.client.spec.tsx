@@ -35,8 +35,8 @@ const SNAPSHOT = {
     { entryId: 'timer', moduleName: 'cordis:timer', enabled: true, fiberPhase: 'active' },
     { entryId: '8a1b2c3d', moduleName: '@lyness/cordis-plugin-hmr', enabled: true, fiberPhase: 'active' },
     { entryId: 'unobserved', moduleName: '@fixture/unobserved-name', enabled: true, fiberPhase: null },
-    { entryId: 'bash-host', moduleName: '@lyness/tool-bash', enabled: false, fiberPhase: null },
-    { entryId: 'fs-host', moduleName: '@lyness/tool-fs', enabled: false, fiberPhase: null },
+    { entryId: 'bash-host', moduleName: '@lyness/lyn-tool-bash', enabled: false, fiberPhase: null },
+    { entryId: 'fs-host', moduleName: '@lyness/lyn-tool-fs', enabled: false, fiberPhase: null },
     { entryId: 'dormant', moduleName: '@fixture/dormant', enabled: false, fiberPhase: null },
   ],
   agentPresets: [
@@ -46,8 +46,8 @@ const SNAPSHOT = {
       name: '标准模式',
       isDefault: true,
       rows: [
-        { entryId: 'bash', moduleName: '@lyness/tool-bash', enabled: true, fiberPhase: 'active' },
-        { entryId: 'fs', moduleName: '@lyness/tool-fs', enabled: true, fiberPhase: null },
+        { entryId: 'bash', moduleName: '@lyness/lyn-tool-bash', enabled: true, fiberPhase: 'active' },
+        { entryId: 'fs', moduleName: '@lyness/lyn-tool-fs', enabled: true, fiberPhase: null },
         {
           entryId: 'pwsh',
           moduleName: '@fixture/pwsh',
@@ -65,9 +65,9 @@ const SNAPSHOT = {
       trust: 'system',
       isDefault: false,
       rows: [
-        { entryId: 'bash', moduleName: '@lyness/tool-bash', enabled: true, fiberPhase: null },
-        { entryId: 'bash-fork', moduleName: '@lyness/tool-bash', enabled: true, fiberPhase: null },
-        { entryId: 'fs', moduleName: '@lyness/tool-fs', enabled: 'conditional', fiberPhase: null },
+        { entryId: 'bash', moduleName: '@lyness/lyn-tool-bash', enabled: true, fiberPhase: null },
+        { entryId: 'bash-fork', moduleName: '@lyness/lyn-tool-bash', enabled: true, fiberPhase: null },
+        { entryId: 'fs', moduleName: '@lyness/lyn-tool-fs', enabled: 'conditional', fiberPhase: null },
       ],
     },
     { id: 'shattered', trust: 'user', name: '坏预设', isDefault: false, broken: 'the composition file is missing', rows: [] },
@@ -144,8 +144,8 @@ describe('PluginInventorySettingsTab', () => {
         trust: 'user',
         isDefault: true,
         rows: [
-          { entryId: 'tool-subagent-primary', moduleName: '@lyness/tool-subagent', enabled: true, fiberPhase: null },
-          { entryId: longId, moduleName: '@lyness/tool-subagent', enabled: false, fiberPhase: null },
+          { entryId: 'tool-subagent-primary', moduleName: '@lyness/lyn-tool-subagent', enabled: true, fiberPhase: null },
+          { entryId: longId, moduleName: '@lyness/lyn-tool-subagent', enabled: false, fiberPhase: null },
         ],
       }],
     })

@@ -1,12 +1,12 @@
 /**
  * Test-only direct-agent turn driver shared by assembled Loader fixtures.
- * @module @lyness/loader-smoke/agent-turn
+ * @module @lyness/lyn-loader-smoke/agent-turn
  */
 
 import type { Context } from '@lyness/cordis'
-import type { Agent } from '@lyness/agent'
-import { createUserMessage, expandAssistantStream, type TokenUsage } from '@lyness/llm'
-import type { SessionEvent } from '@lyness/session'
+import type { Agent } from '@lyness/lyn-agent'
+import { createUserMessage, expandAssistantStream, type TokenUsage } from '@lyness/lyn-llm'
+import type { SessionEvent } from '@lyness/lyn-session'
 
 /** Result envelope consumed only by snapshot and composition tests. */
 export interface FixtureTurnResult {

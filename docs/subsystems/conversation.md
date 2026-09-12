@@ -51,12 +51,12 @@ The example keeps the producer declarations and client contribution in one block
 ```ts ignore-check
 import { createElement } from 'react'
 import type { Context as ClientContext } from '@lyness/cordis'
-import type { Branded } from '@lyness/brand'
+import type { Branded } from '@lyness/lyn-brand'
 import type {
   ConversationLocation, ConversationNodeContext,
   ConversationNodeDefinition,
-} from '@lyness/client-ui-conversation/client'
-import type { ChatNodeViewProps } from '@lyness/client-ui-chat/client'
+} from '@lyness/lyn-client-ui-conversation/client'
+import type { ChatNodeViewProps } from '@lyness/lyn-client-ui-chat/client'
 
 type ReviewId = Branded<'ReviewId'>
 
@@ -81,7 +81,7 @@ interface ReviewEndData {
   readonly summary: string
 }
 
-declare module '@lyness/session/types' {
+declare module '@lyness/lyn-session/types' {
   interface SessionEventMap {
     /**
      * Opens one durable review job.
@@ -111,13 +111,13 @@ interface ReviewChatData {
   readonly summary?: string
 }
 
-declare module '@lyness/client-ui-chat/client' {
+declare module '@lyness/lyn-client-ui-chat/client' {
   interface ChatNodeDataMap {
     'review-job': ReviewChatData
   }
 }
 
-declare module '@lyness/client-ui-conversation/client' {
+declare module '@lyness/lyn-client-ui-conversation/client' {
   interface ConversationStepDataMap {
     'review-job': ReviewChatData
   }

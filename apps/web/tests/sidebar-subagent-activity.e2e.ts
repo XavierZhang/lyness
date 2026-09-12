@@ -4,12 +4,12 @@ import { fileURLToPath } from 'node:url'
 import type { Browser, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed } from 'vitest'
-import type { AgentHandle } from '@lyness/agent'
-import { createUserMessage, LlmAdapter } from '@lyness/llm'
-import type { GenerateOptions, StreamChunk } from '@lyness/llm'
-import { SessionId, type SessionId as SessionIdValue } from '@lyness/session'
-import type {} from '@lyness/subagent'
-import type {} from '@lyness/workspace'
+import type { AgentHandle } from '@lyness/lyn-agent'
+import { createUserMessage, LlmAdapter } from '@lyness/lyn-llm'
+import type { GenerateOptions, StreamChunk } from '@lyness/lyn-llm'
+import { SessionId, type SessionId as SessionIdValue } from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-subagent'
+import type {} from '@lyness/lyn-workspace'
 import {
   assertFixtureInventory,
   captureStableAria,

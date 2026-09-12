@@ -8,9 +8,9 @@ import { basename, delimiter, dirname, join, relative, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
 import ts from 'typescript'
-import { SESSION_FORMAT_VERSION } from '@lyness/session'
-import { releasedV0SessionFormatCodec } from '@lyness/session-format-v0-to-v1'
-import type { SessionFormatEvent, SessionFormatMigrationContext } from '@lyness/session-format'
+import { SESSION_FORMAT_VERSION } from '@lyness/lyn-session'
+import { releasedV0SessionFormatCodec } from '@lyness/lyn-session-format-v0-to-v1'
+import type { SessionFormatEvent, SessionFormatMigrationContext } from '@lyness/lyn-session-format'
 import { assertWorkspaceOutsideTemp, outsideTempWorkspaceParent } from '../../scripts/snapshot-workspace-parent.ts'
 import {
   assertPersistedSessionVersion,
@@ -48,10 +48,10 @@ import {
   type NormalizeContext,
   type SnapshotManifest,
   type WorkspaceSnapshotEntry,
-} from '@lyness/session-snapshot'
-import { LOADER_SMOKE_TEST_TIMEOUT_MS, runLoaderSmoke } from '@lyness/loader-smoke'
-import { resolvePwshPath } from '@lyness/pwsh-local'
-import { parseSessionLog, prepareSessionSnapshotFixtureForComparison } from '@lyness/llm-replay'
+} from '@lyness/lyn-session-snapshot'
+import { LOADER_SMOKE_TEST_TIMEOUT_MS, runLoaderSmoke } from '@lyness/lyn-loader-smoke'
+import { resolvePwshPath } from '@lyness/lyn-pwsh-local'
+import { parseSessionLog, prepareSessionSnapshotFixtureForComparison } from '@lyness/lyn-llm-replay'
 
 const repoRoot = fileURLToPath(new URL('../../', import.meta.url))
 const snapshotsRoot = fileURLToPath(new URL('./', import.meta.url))
@@ -835,7 +835,7 @@ describe('headless recorded-session snapshots', () => {
         { type: 'system/message', seq: 2, time: 3, data: {
           turn: 1, step: 1,
           message: { role: 'system', content: [{ type: 'text', text: 'fresh system prompt' }],
-            source: { kind: 'plugin', plugin: '@lyness/system-prompt' }, id: 'fresh-msg' },
+            source: { kind: 'plugin', plugin: '@lyness/lyn-system-prompt' }, id: 'fresh-msg' },
         }, surfaceOp: 'append' },
         {
           type: 'request/header',

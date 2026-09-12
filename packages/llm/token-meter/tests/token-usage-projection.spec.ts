@@ -1,14 +1,14 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { createMessage, createUserMessage } from '@lyness/llm'
-import type { TokenUsage } from '@lyness/llm'
-import SessionStore from '@lyness/session'
-import type { Session, SessionSeq } from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import TokenMeter from '@lyness/token-meter'
-import type { ContextPressureProjection, TokenUsageProjection } from '@lyness/token-meter/client'
-import { RetryId } from '@lyness/llm-retry'
-import { CompactionId } from '@lyness/compaction'
+import { createMessage, createUserMessage } from '@lyness/lyn-llm'
+import type { TokenUsage } from '@lyness/lyn-llm'
+import SessionStore from '@lyness/lyn-session'
+import type { Session, SessionSeq } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import TokenMeter from '@lyness/lyn-token-meter'
+import type { ContextPressureProjection, TokenUsageProjection } from '@lyness/lyn-token-meter/client'
+import { RetryId } from '@lyness/lyn-llm-retry'
+import { CompactionId } from '@lyness/lyn-compaction'
 
 const ZERO: TokenUsageProjection = {
   uncachedInputTokens: 0,

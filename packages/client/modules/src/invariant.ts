@@ -1,13 +1,13 @@
 /**
- * Package-owned invariant companion for `@lyness/client-modules`.
- * @module @lyness/client-modules/invariant
+ * Package-owned invariant companion for `@lyness/lyn-client-modules`.
+ * @module @lyness/lyn-client-modules/invariant
  */
 
 /* jscpd:ignore-start */
 import type { Context } from '@lyness/cordis'
-import type { InvariantInstaller } from '@lyness/invariants'
+import type { InvariantInstaller } from '@lyness/lyn-invariants'
 
-const PACKAGE_NAME = '@lyness/client-modules'
+const PACKAGE_NAME = '@lyness/lyn-client-modules'
 
 /** Cordis companion plugin name. */
 export const name = 'client-modules-invariant'

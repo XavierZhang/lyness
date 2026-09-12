@@ -24,4 +24,4 @@
       name: './mock-llm.ts'
 
     - id: time-context
-      name: '@lyness/time-context'
+      name: '@lyness/lyn-time-context'

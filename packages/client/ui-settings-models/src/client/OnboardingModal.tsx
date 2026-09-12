@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 import type { ReactNode } from 'react'
-import { Modal } from '@lyness/client-ui-primitives'
+import { Modal } from '@lyness/lyn-client-ui-primitives'
 import css from './OnboardingModal.module.css'
 
 const ignoreImplicitDismiss = (): void => {}

@@ -3,7 +3,7 @@ description: "Slot registry pure core for the lyn web client: SlotMap declaratio
 kind: "package-library"
 ---
 
-# @lyness/client-ui-slots
+# @lyness/lyn-client-ui-slots
 
 English | [中文](README.zh.md)
 

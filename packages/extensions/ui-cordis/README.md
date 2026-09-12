@@ -3,7 +3,7 @@ description: "Cordis dynamic-plugin browser surfaces for users and maintainers c
 kind: "package-reference"
 ---
 
-# @lyness/client-ui-cordis
+# @lyness/lyn-client-ui-cordis
 
 English | [中文](README.zh.md)
 

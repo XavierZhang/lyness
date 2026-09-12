@@ -12,8 +12,8 @@
  */
 import { Fragment, useEffect, useRef, useSyncExternalStore } from 'react'
 import clsx from 'clsx'
-import { IconChevronRightOutline14, ReferenceIcon, useAnchoredMaxHeight } from '@lyness/client-ui-primitives'
-import type { PropsLocale } from '@lyness/client-ui-slots'
+import { IconChevronRightOutline14, ReferenceIcon, useAnchoredMaxHeight } from '@lyness/lyn-client-ui-primitives'
+import type { PropsLocale } from '@lyness/lyn-client-ui-slots'
 import css from './MenuView.module.css'
 import type { MenuViewInjected } from './slots.ts'
 import type { MenuKey } from './locales.ts'

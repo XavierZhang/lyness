@@ -2,8 +2,8 @@
 // The input order is authoritative; lineage only makes each child adjacent to its parent.
 // Orphaned lineage degrades to root level; cycles fail soft and emit as roots.
 
-import type { SessionId } from '@lyness/session/types'
-import type { SessionProjectionMap } from '@lyness/session-projection/types'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { SessionProjectionMap } from '@lyness/lyn-session-projection/types'
 import type { SessionSummary } from '../../types.ts'
 
 /** Host list summary enriched with the latest Session Controller title projection. */

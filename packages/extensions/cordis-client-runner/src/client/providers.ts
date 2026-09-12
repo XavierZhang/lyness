@@ -1,9 +1,9 @@
 /** Built-in Client inspect providers over live Client-owned services. */
 
 import type { Context } from '@lyness/cordis'
-import type { JsonValue } from '@lyness/util-values'
-import type { SlotRegistry } from '@lyness/client-ui-renderer/client'
-import type {} from '@lyness/client-ui-theme/client'
+import type { JsonValue } from '@lyness/lyn-util-values'
+import type { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
+import type {} from '@lyness/lyn-client-ui-theme/client'
 import { queryEventApi, queryServiceApi } from './api-catalog.ts'
 import type { ClientCordisInspectProviderRegistration } from './inspect-registry.ts'
 import { CLIENT_SLOT_API } from './slot-catalog.ts'

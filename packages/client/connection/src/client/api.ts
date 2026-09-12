@@ -9,9 +9,9 @@ export type {
   ServerResponse,
 } from '../rpc.ts'
 export { RpcId, transportError } from '../rpc.ts'
-export type { SessionId, SessionEvent } from '@lyness/session/types'
-export type { MessageId } from '@lyness/llm/brand'
-export type { ContentBlock, StreamChunk } from '@lyness/llm/types'
+export type { SessionId, SessionEvent } from '@lyness/lyn-session/types'
+export type { MessageId } from '@lyness/lyn-llm/brand'
+export type { ContentBlock, StreamChunk } from '@lyness/lyn-llm/types'
 
 import type { RpcResponse, RpcResult } from '../rpc.ts'
 

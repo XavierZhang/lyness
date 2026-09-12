@@ -3,12 +3,12 @@
  * The tool pauses until a UI provider returns a human answer, then feeds that
  * answer back into the agent loop as an ordinary tool result.
  *
- * @module @lyness/tool-ask-user
+ * @module @lyness/lyn-tool-ask-user
  */
 
 import type { Context } from '@lyness/cordis'
-import { defineTool } from '@lyness/tools'
-import '@lyness/user-questions'
+import { defineTool } from '@lyness/lyn-tools'
+import '@lyness/lyn-user-questions'
 
 export const name = 'tool-ask-user'
 export const inject = ['tools', 'userQuestions']

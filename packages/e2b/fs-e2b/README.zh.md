@@ -3,7 +3,7 @@ description: "共享远程沙箱内的文件操作：agent（智能体）可以�
 kind: "package-reference"
 ---
 
-# @lyness/fs-e2b
+# @lyness/lyn-fs-e2b
 
 [English](README.md) | 中文
 
@@ -36,8 +36,8 @@ kind: "package-reference"
 先加载沙箱所有者，再加载本包；之后文件功能就会作用于沙箱：
 
 ```yaml
-- name: '@lyness/e2b'
-- name: '@lyness/fs-e2b'
+- name: '@lyness/lyn-e2b'
+- name: '@lyness/lyn-fs-e2b'
 ```
 
 挂载它不会复制或镜像你的本地文件——沙箱的工作目录从空开始，并随 agent 的工作逐渐被填充。

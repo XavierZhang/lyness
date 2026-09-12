@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { createUserMessage } from '@lyness/llm'
-import type { UserMessage } from '@lyness/llm'
+import { createUserMessage } from '@lyness/lyn-llm'
+import type { UserMessage } from '@lyness/lyn-llm'
 import {
   deriveBrowserTimeZoneContext,
   renderBrowserTimeZoneContext,

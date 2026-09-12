@@ -1,19 +1,19 @@
 /** Target-neutral Conversation slot declarations and composed component props. */
 import type { ReactNode, RefObject } from 'react'
-import type { FileAttachmentRef, ImageAttachmentRef } from '@lyness/attachment'
-import type { SessionSnapshot } from '@lyness/api-session-controller/client'
-import type { FileUploadReceiptId } from '@lyness/client-file-upload/client'
-import type { WorkspaceSnapshot } from '@lyness/api-workspace-controller/client'
+import type { FileAttachmentRef, ImageAttachmentRef } from '@lyness/lyn-attachment'
+import type { SessionSnapshot } from '@lyness/lyn-api-session-controller/client'
+import type { FileUploadReceiptId } from '@lyness/lyn-client-file-upload/client'
+import type { WorkspaceSnapshot } from '@lyness/lyn-api-workspace-controller/client'
 import type {
   MaybeSnapshotSelectorHook, ObservableSnapshot, SnapshotSelectorHook,
-} from '@lyness/client-store'
+} from '@lyness/lyn-client-store'
 import type {
   InjectFace, PropsLocale, PropsRenderSlots, PropsRuntime, PropsStore,
-} from '@lyness/client-ui-slots'
-import type { SessionPendingInteraction } from '@lyness/client-ui-session/client'
-import type {} from '@lyness/client-ui-layout/client'
-import type { SessionId } from '@lyness/session/types'
-import type { WorkspaceId } from '@lyness/workspace/types'
+} from '@lyness/lyn-client-ui-slots'
+import type { SessionPendingInteraction } from '@lyness/lyn-client-ui-session/client'
+import type {} from '@lyness/lyn-client-ui-layout/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { WorkspaceId } from '@lyness/lyn-workspace/types'
 import type { ComposerBlock } from './composer-blocks.ts'
 import type {
   ComposerKeyboard, DraftAttachmentId, EditSelection, InputActions, InputNotice, InputState,
@@ -115,7 +115,7 @@ export type UseConversation = SnapshotSelectorHook<ConversationSnapshot>
 /** Selector hook over the registered Conversation View roster. */
 export type UseConversationViews = SnapshotSelectorHook<readonly ViewTab[]>
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface SlotMap {
     /** Conversation shell beneath its root-scoped main-panel entry. */
     'main.conversation': { kind: 'single'; scope: 'session-maybe' }

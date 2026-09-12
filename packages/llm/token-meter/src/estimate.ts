@@ -3,11 +3,11 @@
  * pure context-breakdown projection, so both surfaces price identical content
  * to identical numbers.
  *
- * @module @lyness/token-meter/estimate
+ * @module @lyness/lyn-token-meter/estimate
  */
 
-import type { ContentBlock, Message } from '@lyness/llm'
-import type { EpochHeader } from '@lyness/session'
+import type { ContentBlock, Message } from '@lyness/lyn-llm'
+import type { EpochHeader } from '@lyness/lyn-session'
 
 /** Fixed text-density estimate used until exact tokenization is needed. */
 const CHARS_PER_TOKEN = 4

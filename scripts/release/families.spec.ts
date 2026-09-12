@@ -48,22 +48,22 @@ describe('release families', () => {
     expect(members
       .filter(member => member.directory.startsWith('packages/experimental/'))
       .map(member => member.name)).toEqual([
-      '@lyness/experimental-agent-team-profile',
-      '@lyness/experimental-agent-team-web-profile',
-      '@lyness/experimental-agent-team',
-      '@lyness/experimental-client-ui-agent-team',
-      '@lyness/experimental-tool-agent-team',
+      '@lyness/lyn-experimental-agent-team-profile',
+      '@lyness/lyn-experimental-agent-team-web-profile',
+      '@lyness/lyn-experimental-agent-team',
+      '@lyness/lyn-experimental-client-ui-agent-team',
+      '@lyness/lyn-experimental-tool-agent-team',
     ])
-    expect(members.map(member => member.name)).not.toContain('@lyness/experimental-inspector')
+    expect(members.map(member => member.name)).not.toContain('@lyness/lyn-experimental-inspector')
   })
 
   it('excludes private applications from the publish set', () => {
     const root = mkdtempSync(join(tmpdir(), 'lyn-release-private-'))
     roots.push(root)
-    write(join(root, 'apps/public/package.json'), '{"name":"@lyness/public","version":"0.0.1"}\n')
-    write(join(root, 'apps/private/package.json'), '{"name":"@lyness/private","version":"0.0.1","private":true}\n')
+    write(join(root, 'apps/public/package.json'), '{"name":"@lyness/lyn-public","version":"0.0.1"}\n')
+    write(join(root, 'apps/private/package.json'), '{"name":"@lyness/lyn-private","version":"0.0.1","private":true}\n')
 
-    expect(releaseFamily('lyn').members(root).map(entry => entry.name)).toEqual(['@lyness/public'])
+    expect(releaseFamily('lyn').members(root).map(entry => entry.name)).toEqual(['@lyness/lyn-public'])
   })
 
   it('bumps private lyn workspaces without adding release tags', () => {
@@ -75,7 +75,7 @@ describe('release families', () => {
     write(join(root, 'packages/core/unselected/package.json'), '{"version":"0.0.1"}\n')
 
     const lyn = releaseFamily('lyn')
-    const published = member('packages/core/published', '@lyness/published')
+    const published = member('packages/core/published', '@lyness/lyn-published')
     const { planned } = planShared(lyn, root, [published], '0.0.2')
 
     expect(planned.map(entry => ({ path: entry.manifestPath, tag: entry.tag }))).toEqual([
@@ -94,7 +94,7 @@ describe('release families', () => {
       write(join(root, 'package.json'), '{"version":"0.0.1"}\n')
 
       const lyn = releaseFamily('lyn')
-      const published = member('packages/core/published', '@lyness/published')
+      const published = member('packages/core/published', '@lyness/lyn-published')
       const plan = planShared(lyn, root, [published], version)
 
       expect(plan.version).toBe(version)
@@ -130,7 +130,7 @@ describe('release families', () => {
 
   it('rejects a family whose members disagree on the shared version', () => {
     const lyn = releaseFamily('lyn')
-    const members = [member('apps/cli', '@lyness/lyn'), { ...member('apps/web', '@lyness/web-frontend'), version: '0.0.2' }]
+    const members = [member('apps/cli', '@lyness/lyn'), { ...member('apps/web', '@lyness/lyn-web-frontend'), version: '0.0.2' }]
 
     expect(() => { lyn.verifyVersions(members) }).toThrow(/must share one version/)
     expect(() => { lyn.verifyVersions([members[0]!]) }).not.toThrow()
@@ -169,23 +169,23 @@ describe('release families', () => {
   it('publishes a dependency before its consumer, and orders ties by name', () => {
     const lyn = releaseFamily('lyn')
     const members = [
-      member('packages/a/consumer', '@lyness/consumer', { dependencies: { '@lyness/library': 'workspace:^' } }),
-      member('packages/a/library', '@lyness/library'),
-      member('packages/a/zebra', '@lyness/zebra'),
+      member('packages/a/consumer', '@lyness/lyn-consumer', { dependencies: { '@lyness/lyn-library': 'workspace:^' } }),
+      member('packages/a/library', '@lyness/lyn-library'),
+      member('packages/a/zebra', '@lyness/lyn-zebra'),
     ]
 
     expect(lyn.publishOrder(members).order.map(entry => entry.name)).toEqual([
-      '@lyness/library',
-      '@lyness/consumer',
-      '@lyness/zebra',
+      '@lyness/lyn-library',
+      '@lyness/lyn-consumer',
+      '@lyness/lyn-zebra',
     ])
   })
 
   it('reports a runtime dependency cycle instead of emitting an arbitrary order', () => {
     const lyn = releaseFamily('lyn')
     const members = [
-      member('packages/a/left', '@lyness/left', { dependencies: { '@lyness/right': 'workspace:^' } }),
-      member('packages/a/right', '@lyness/right', { dependencies: { '@lyness/left': 'workspace:^' } }),
+      member('packages/a/left', '@lyness/lyn-left', { dependencies: { '@lyness/lyn-right': 'workspace:^' } }),
+      member('packages/a/right', '@lyness/lyn-right', { dependencies: { '@lyness/lyn-left': 'workspace:^' } }),
     ]
 
     expect(() => { lyn.publishOrder(members) }).toThrow(/dependency cycle/)
@@ -194,44 +194,44 @@ describe('release families', () => {
   it('publishes a peer before its consumer', () => {
     const lyn = releaseFamily('lyn')
     const members = [
-      member('packages/a/consumer', '@lyness/consumer', { peerDependencies: { '@lyness/zebra': 'workspace:^' } }),
-      member('packages/a/zebra', '@lyness/zebra'),
+      member('packages/a/consumer', '@lyness/lyn-consumer', { peerDependencies: { '@lyness/lyn-zebra': 'workspace:^' } }),
+      member('packages/a/zebra', '@lyness/lyn-zebra'),
     ]
 
     // Name order alone would place the consumer first; the peer edge moves it.
     expect(lyn.publishOrder(members).order.map(entry => entry.name)).toEqual([
-      '@lyness/zebra',
-      '@lyness/consumer',
+      '@lyness/lyn-zebra',
+      '@lyness/lyn-consumer',
     ])
   })
 
   it('orders around a peer cycle rather than refusing to publish, and reports the edge it dropped', () => {
     const lyn = releaseFamily('lyn')
     const members = [
-      member('packages/a/left', '@lyness/left', { peerDependencies: { '@lyness/right': 'workspace:^' } }),
-      member('packages/a/right', '@lyness/right', { peerDependencies: { '@lyness/left': 'workspace:^' } }),
+      member('packages/a/left', '@lyness/lyn-left', { peerDependencies: { '@lyness/lyn-right': 'workspace:^' } }),
+      member('packages/a/right', '@lyness/lyn-right', { peerDependencies: { '@lyness/lyn-left': 'workspace:^' } }),
     ]
 
     // Sibling packages declare each other as peers, and npm treats an unmet peer
     // as a warning, so this pair has to publish rather than fail the release.
     const plan = lyn.publishOrder(members)
     expect(plan.order.map(entry => entry.name)).toEqual([
-      '@lyness/right',
-      '@lyness/left',
+      '@lyness/lyn-right',
+      '@lyness/lyn-left',
     ])
     // One of the two edges has to give, and which one it is belongs in the log.
     expect(plan.droppedPeerEdges).toEqual([
-      { consumer: '@lyness/right', peer: '@lyness/left' },
+      { consumer: '@lyness/lyn-right', peer: '@lyness/lyn-left' },
     ])
   })
 
   it('honours an install edge even when a peer cycle surrounds it', () => {
     const lyn = releaseFamily('lyn')
     const members = [
-      member('packages/a/base', '@lyness/base', { peerDependencies: { '@lyness/consumer': 'workspace:^' } }),
-      member('packages/a/consumer', '@lyness/consumer', {
-        dependencies: { '@lyness/base': 'workspace:^' },
-        peerDependencies: { '@lyness/base': 'workspace:^' },
+      member('packages/a/base', '@lyness/lyn-base', { peerDependencies: { '@lyness/lyn-consumer': 'workspace:^' } }),
+      member('packages/a/consumer', '@lyness/lyn-consumer', {
+        dependencies: { '@lyness/lyn-base': 'workspace:^' },
+        peerDependencies: { '@lyness/lyn-base': 'workspace:^' },
       }),
     ]
 
@@ -239,48 +239,48 @@ describe('release families', () => {
     // would reverse it is the one dropped.
     const plan = lyn.publishOrder(members)
     expect(plan.order.map(entry => entry.name)).toEqual([
-      '@lyness/base',
-      '@lyness/consumer',
+      '@lyness/lyn-base',
+      '@lyness/lyn-consumer',
     ])
     expect(plan.droppedPeerEdges).toEqual([
-      { consumer: '@lyness/base', peer: '@lyness/consumer' },
+      { consumer: '@lyness/lyn-base', peer: '@lyness/lyn-consumer' },
     ])
   })
 
   it('refuses an order that would publish a consumer before a dependency it installs', () => {
     const lyn = releaseFamily('lyn')
     const members = [
-      member('packages/a/alpha', '@lyness/alpha', { peerDependencies: { '@lyness/bravo': 'workspace:^' } }),
-      member('packages/a/bravo', '@lyness/bravo', { peerDependencies: { '@lyness/charlie': 'workspace:^' } }),
-      member('packages/a/charlie', '@lyness/charlie', { dependencies: { '@lyness/alpha': 'workspace:^' } }),
+      member('packages/a/alpha', '@lyness/lyn-alpha', { peerDependencies: { '@lyness/lyn-bravo': 'workspace:^' } }),
+      member('packages/a/bravo', '@lyness/lyn-bravo', { peerDependencies: { '@lyness/lyn-charlie': 'workspace:^' } }),
+      member('packages/a/charlie', '@lyness/lyn-charlie', { dependencies: { '@lyness/lyn-alpha': 'workspace:^' } }),
     ]
 
     // A cycle of two peer edges closed by one install edge: dropping a peer edge
     // would order this, and the traversal drops the install edge instead. That
     // order would publish charlie before the alpha it installs, so it is refused
     // here rather than published.
-    expect(() => { lyn.publishOrder(members) }).toThrow(/no publish order honours @lyness\/charlie -> @lyness\/alpha/)
+    expect(() => { lyn.publishOrder(members) }).toThrow(/no publish order honours @lyness\/lyn-charlie -> @lyness\/lyn-alpha/)
   })
 
   it('ignores devDependencies when ordering', () => {
     const lyn = releaseFamily('lyn')
     const members = [
-      member('packages/a/alpha', '@lyness/alpha', { devDependencies: { '@lyness/zebra': 'workspace:^' } }),
-      member('packages/a/zebra', '@lyness/zebra'),
+      member('packages/a/alpha', '@lyness/lyn-alpha', { devDependencies: { '@lyness/lyn-zebra': 'workspace:^' } }),
+      member('packages/a/zebra', '@lyness/lyn-zebra'),
     ]
 
     // A dev dependency is absent from the published package, so it must not move
     // the consumer behind it.
     expect(lyn.publishOrder(members).order.map(entry => entry.name)).toEqual([
-      '@lyness/alpha',
-      '@lyness/zebra',
+      '@lyness/lyn-alpha',
+      '@lyness/lyn-zebra',
     ])
   })
 
   it('applies the harness payload policy to lyn and keeps upstream payloads for vendored packages', () => {
     const lyn = releaseFamily('lyn')
     const vendor = releaseFamily('vendor')
-    const harness = member('packages/a/library', '@lyness/library')
+    const harness = member('packages/a/library', '@lyness/lyn-library')
     const vendored = member('vendor/cordis', '@lyness/cordis')
 
     expect(() => { lyn.validatePayload(harness, ['package/lib/index.js', 'package/src/index.ts']) })
@@ -379,7 +379,7 @@ describe('payload change judgement', () => {
     // unnecessary patch bump, while under-reporting fails the next publish on a
     // version whose bytes moved.
     expect(reachesPayload(sourceShipping, 'vendor/cosmokit/README.i18n.yaml')).toBe(true)
-    expect(reachesPayload(member('packages/a/library', '@lyness/library', { files: ['lib/index.js'] }),
+    expect(reachesPayload(member('packages/a/library', '@lyness/lyn-library', { files: ['lib/index.js'] }),
       'packages/a/library/tests/library.spec.ts')).toBe(false)
   })
 })

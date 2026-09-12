@@ -8,7 +8,7 @@
 
 ---
 
-## 需求文档与仓库实际的 10 处冲突（9 已裁决，1 待决策）
+## 需求文档与仓库实际的 10 处冲突（已裁决）
 
 | # | 文档假设 | 仓库实际 | 裁决 |
 |---|---|---|---|
@@ -20,7 +20,7 @@
 | 6 | 自行落盘 Step 日志汇总指标 | 官方已有 `packages/session/session-stats` projection（turn/step 计数、LLM/tool/首 token/解码耗时，从完整持久日志折叠） | 采官方：复用 `sessionStats`，仅补充其未覆盖的维度 |
 | 8 | 多租户可配 Logo／域名等品牌标识 | 与私有化／SaaS 两层划分冲突：SaaS 下租户不改品牌资产（[理由](BRAND-CONFIG.md)） | **采两层划分**，SaaS 的 OEM 收窄为文案与身份 |
 | 9 | 用户登录时不默认 DeepSeek，供应商由用户选 | 上游 0.1.5 的 `bc5fd3b8dc` 把 Chat Completions **默认路由**设为 DeepSeek V41 Flash（`441385fe38` 保留 V4 系列，`0729dbec66` 恢复 Vision Exp 目录项） | 采官方默认路由（那是模型能力选择，不是登录流程）；**登录时的供应商选择仍按需求文档做**，在 1.3 的供应商白名单上实现。两者不在同一层，可共存 |
-| 10 | （无对应假设；改名决策的后果） | 上游用包名中的 `dsh-` 段区分 harness 包与 vendored 包，本 fork 的 `@lyness/<name>` 去掉了该段 | **待你决策**，见任务 0.13。当前按选项 A 逐个门禁打补丁 |
+| 10 | （无对应假设；改名决策的后果） | 上游用包名中的 `dsh-` 段区分 harness 包与 vendored 包 | **已裁决：保留该段**（`@lyness/lyn-<name>`），与上游同形。见任务 0.13 |
 | 7 | Vue 3 + Element Plus 管理后台 | 仓库前端为 React 18（284 `.tsx` / 0 `.vue`） | **例外：采需求文档**。官方无管理后台，不存在官方路线；Vue 3 写在验收标准中。代价：admin-portal 不复用 `packages/client/*`，自建 RPC 封装与 i18n |
 
 ### 需求文档未提、但仓库规则强制的约束
@@ -51,7 +51,7 @@
 | 0.10 | 验证：`typecheck` + `build` + `test` + `test:snapshot` + `hygiene` | done |
 | 0.11 | Python 包名残留 `deepseek_harness` → 新增下划线规则 + 目录改名 + `pyproject.toml` 与 CI 工作流同步（[残留表](../CUSTOM.md#已知残留codemod-未覆盖非本次合并引入)） | todo |
 | 0.12 | 遥测守卫测试 | done（长在上游自己的 `packages/bundle/base/tests/base.spec.ts` 里：上游 0.1.5 新增该测试钉住自家默认值，改为钉住本 fork 的 `DISABLED` + 空端点。上游将来改默认值会在此直接冲突） |
-| 0.13 | **⚠️ 待你决策**：`@lyness/<name>` 丢掉了 scope 判别符，已累计 6 处门禁手工改写且每次合并可能新增（[分析与两个选项](../CUSTOM.md)） | 待决策 |
+| 0.13 | 恢复包名判别符：harness 包改为 `@lyness/lyn-<name>`，vendored 保持 `@lyness/<name>` | done（6 处门禁排除全部回退，上游检查逐字生效；codemod 21→18 条规则。[记录](../.agents/notes/implemented/process/2026-09-12-restoring-the-product-name-segment.md)） |
 
 ## Phase 1 — 多租户与品牌配置（需求 Step 1）
 

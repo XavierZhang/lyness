@@ -1,9 +1,9 @@
 /** One-shot cold session read through the handle-based persistence seam. */
 
-import { interruptedTurnClosers } from '@lyness/session'
-import type { SessionEvent, SessionHeader, SessionId, SessionLogOffset, SessionSeedEventState } from '@lyness/session'
-import type SessionPersistence from '@lyness/session-persistence'
-import type { SessionHandleReadResult } from '@lyness/session-persistence'
+import { interruptedTurnClosers } from '@lyness/lyn-session'
+import type { SessionEvent, SessionHeader, SessionId, SessionLogOffset, SessionSeedEventState } from '@lyness/lyn-session'
+import type SessionPersistence from '@lyness/lyn-session-persistence'
+import type { SessionHandleReadResult } from '@lyness/lyn-session-persistence'
 
 /** A stored session log balanced for read-only viewing. */
 export interface ColdSessionLog {

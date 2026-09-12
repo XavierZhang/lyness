@@ -9,8 +9,8 @@
 import { fileURLToPath } from 'node:url'
 import type { Browser, Page } from 'playwright'
 import { chromium } from 'playwright'
-import { createSystemMessage } from '@lyness/llm'
-import { SESSION_FORMAT_VERSION } from '@lyness/session'
+import { createSystemMessage } from '@lyness/lyn-llm'
+import { SESSION_FORMAT_VERSION } from '@lyness/lyn-session'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed } from 'vitest'
 import {
   assertFixtureInventory, captureStableAria, compareOrRefreshGolden,
@@ -50,7 +50,7 @@ function buildSeed(turns: number): string {
     if (turn === 1) {
       at({
         type: 'system/message',
-        data: { turn, step: 1, message: createSystemMessage('', '@lyness/system-prompt') },
+        data: { turn, step: 1, message: createSystemMessage('', '@lyness/lyn-system-prompt') },
         surfaceOp: 'append',
       })
     }

@@ -15,16 +15,16 @@
  * absent `ctx.shell`, or a failed query is a no-op, never an error: an executor
  * rejection is contained and logged as a warning so the turn continues.
  *
- * @module @lyness/tmux-context
+ * @module @lyness/lyn-tmux-context
  */
 
 import type { Context, LoggerService } from '@lyness/cordis'
 import z from '@lyness/schemastery'
 import { z as zod } from 'zod'
-import type { PreStepDecision } from '@lyness/agent'
-import type {} from '@lyness/session-projection'
-import type { ShellExecutor, ShellRunResult } from '@lyness/shell'
-import { createUserMessage } from '@lyness/llm'
+import type { PreStepDecision } from '@lyness/lyn-agent'
+import type {} from '@lyness/lyn-session-projection'
+import type { ShellExecutor, ShellRunResult } from '@lyness/lyn-shell'
+import { createUserMessage } from '@lyness/lyn-llm'
 
 /** Cordis plugin name used by loader diagnostics. */
 export const name = 'tmux-context'
@@ -205,7 +205,7 @@ type TmuxContextState = zod.infer<typeof tmuxContextStateSchema>
  * @param config - durable refresh scheduling configuration.
  * @throws when the refresh interval is invalid.
  */
-declare module '@lyness/session-projection/types' {
+declare module '@lyness/lyn-session-projection/types' {
   interface SessionProjectionStateMap {
     /** The stable state block of this plugin's latest durable injection, or null. */
     tmuxContext: TmuxContextState

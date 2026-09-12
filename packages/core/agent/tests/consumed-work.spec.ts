@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
-import { createUserMessage } from '@lyness/llm'
-import { Session, SessionId } from '@lyness/session'
-import type { TurnEndReason } from '@lyness/session'
-import { foldConsumedWork } from '@lyness/agent'
+import { createUserMessage } from '@lyness/lyn-llm'
+import { Session, SessionId } from '@lyness/lyn-session'
+import type { TurnEndReason } from '@lyness/lyn-session'
+import { foldConsumedWork } from '@lyness/lyn-agent'
 
 /** One pending message, as the inbox records it. */
 function message(text: string) {

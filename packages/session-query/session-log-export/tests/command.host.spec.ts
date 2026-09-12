@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import type { CommandDefinition, CommandInvocation } from '@lyness/commands'
+import type { CommandDefinition, CommandInvocation } from '@lyness/lyn-commands'
 import * as SessionLogDownload from '../src/index.ts'
 
 describe('/export Web download command', () => {

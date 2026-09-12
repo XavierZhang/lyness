@@ -10,13 +10,13 @@
  */
 import { Context } from '@lyness/cordis'
 import { describe, expect, it } from 'vitest'
-import { SlotRegistry } from '@lyness/client-ui-renderer/client'
-import type { SessionId } from '@lyness/session/types'
-import { LocaleRuntime } from '@lyness/client-locale/client'
-import { TestRemote, scriptedSettingsRemote } from '@lyness/client-test-runtime'
-import { apply as settingsApply, inject as settingsInject } from '@lyness/client-ui-settings/client'
-import type { CommandDecoration, PopupSelectSpec } from '@lyness/client-ui-commands/client'
-import type { PermissionSelect } from '@lyness/permission-presets/client'
+import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
+import { TestRemote, scriptedSettingsRemote } from '@lyness/lyn-client-test-runtime'
+import { apply as settingsApply, inject as settingsInject } from '@lyness/lyn-client-ui-settings/client'
+import type { CommandDecoration, PopupSelectSpec } from '@lyness/lyn-client-ui-commands/client'
+import type { PermissionSelect } from '@lyness/lyn-permission-presets/client'
 import {
   PermissionRow, type PermissionRowInjected,
 } from '../src/client/PermissionRow.tsx'

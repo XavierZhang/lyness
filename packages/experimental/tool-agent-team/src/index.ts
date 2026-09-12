@@ -2,11 +2,11 @@
 
 import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import type { Agent } from '@lyness/agent'
-import { TeamTaskId } from '@lyness/experimental-agent-team'
-import type { TeamMemberView } from '@lyness/experimental-agent-team'
-import { defineTool } from '@lyness/tools'
-import type { InferValue, ValueSchemaSpec } from '@lyness/tools'
+import type { Agent } from '@lyness/lyn-agent'
+import { TeamTaskId } from '@lyness/lyn-experimental-agent-team'
+import type { TeamMemberView } from '@lyness/lyn-experimental-agent-team'
+import { defineTool } from '@lyness/lyn-tools'
+import type { InferValue, ValueSchemaSpec } from '@lyness/lyn-tools'
 
 /** Cordis plugin name. */
 export const name = 'tool-agent-team'

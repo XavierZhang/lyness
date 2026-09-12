@@ -1,14 +1,14 @@
 import { Context } from '@lyness/cordis'
-import type { Agent, Inbox } from '@lyness/agent'
-import { createUserMessage } from '@lyness/llm'
-import { SessionId } from '@lyness/session'
+import type { Agent, Inbox } from '@lyness/lyn-agent'
+import { createUserMessage } from '@lyness/lyn-llm'
+import { SessionId } from '@lyness/lyn-session'
 import { afterEach, describe, expect, it } from 'vitest'
 import { SessionControlController } from '../src/control.ts'
 import type { SessionControlFrame } from '../src/types.ts'
 import {
   mountAgentLoopTestDependencies,
   mountAgentLoopTestHarness,
-} from '@lyness/agent-loop-testkit'
+} from '@lyness/lyn-agent-loop-testkit'
 
 const ownedContexts = new Set<Context>()
 afterEach(async () => {

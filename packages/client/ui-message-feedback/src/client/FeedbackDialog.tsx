@@ -4,12 +4,12 @@
  * The Modal and the Toast both portal to `document.body`; the overlay slot
  * only supplies the per-session controller and the composer card the toast
  * centers over.
- * @module @lyness/client-ui-message-feedback/client/FeedbackDialog
+ * @module @lyness/lyn-client-ui-message-feedback/client/FeedbackDialog
  */
 
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { Button, IconCheckOutline16, Modal, Toast } from '@lyness/client-ui-primitives'
-import type { FeedbackCategory } from '@lyness/command-feedback/types'
+import { Button, IconCheckOutline16, Modal, Toast } from '@lyness/lyn-client-ui-primitives'
+import type { FeedbackCategory } from '@lyness/lyn-command-feedback/types'
 import type { FeedbackDialogProps } from './slots.ts'
 import css from './FeedbackDialog.module.css'
 

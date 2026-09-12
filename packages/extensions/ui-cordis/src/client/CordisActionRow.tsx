@@ -2,9 +2,9 @@
 
 import {
   IconInspectOutline12, IconStopFill16, IconTrashOutline16, StateDot,
-} from '@lyness/client-ui-primitives'
-import type { PropsLocale } from '@lyness/client-ui-slots'
-import type { ToolCallViewProps } from '@lyness/client-ui-tool/client'
+} from '@lyness/lyn-client-ui-primitives'
+import type { PropsLocale } from '@lyness/lyn-client-ui-slots'
+import type { ToolCallViewProps } from '@lyness/lyn-client-ui-tool/client'
 import { cordisActionCard } from './card-model.ts'
 import css from './CordisRunRow.module.css'
 

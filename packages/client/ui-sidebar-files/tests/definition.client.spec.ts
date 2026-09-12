@@ -8,9 +8,9 @@ import { afterEach, describe, expect, it } from 'vitest'
 import { createElement } from 'react'
 import { cleanup, render } from '@testing-library/react'
 import { Context } from '@lyness/cordis'
-import { makeTranslate } from '@lyness/client-test-runtime'
-import { SidebarRightTabRegistry } from '@lyness/client-ui-sidebar-right/src/client/tab-registry.ts'
-import { sessionFileAddress } from '@lyness/util-workspace-path'
+import { makeTranslate } from '@lyness/lyn-client-test-runtime'
+import { SidebarRightTabRegistry } from '@lyness/lyn-client-ui-sidebar-right/src/client/tab-registry.ts'
+import { sessionFileAddress } from '@lyness/lyn-util-workspace-path'
 import {
   FILES_ID, FILES_KIND, filesDefinition,
 } from '../src/client/definition.tsx'

@@ -18,9 +18,9 @@ Registrations and declarations follow Cordis effect lifetimes. Disposing an entr
 
 ```tsx ignore-check
 import type { Context } from '@lyness/cordis'
-import type {} from '@lyness/client-ui-conversation/client'
-import type {} from '@lyness/client-ui-session/client'
-import type { PropsRuntime } from '@lyness/client-ui-slots'
+import type {} from '@lyness/lyn-client-ui-conversation/client'
+import type {} from '@lyness/lyn-client-ui-session/client'
+import type { PropsRuntime } from '@lyness/lyn-client-ui-slots'
 
 type HeaderActionProps = PropsRuntime<'conversation.session.header.actions'>
 

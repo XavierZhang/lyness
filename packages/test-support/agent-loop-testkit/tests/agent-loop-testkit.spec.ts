@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { createUserMessage } from '@lyness/llm'
-import { Session, SessionId, SessionSeq } from '@lyness/session'
-import { renderPrompt } from '@lyness/system-prompt'
+import { createUserMessage } from '@lyness/lyn-llm'
+import { Session, SessionId, SessionSeq } from '@lyness/lyn-session'
+import { renderPrompt } from '@lyness/lyn-system-prompt'
 import {
   createInboxStub,
   mountAgentLoopTestDependencies,

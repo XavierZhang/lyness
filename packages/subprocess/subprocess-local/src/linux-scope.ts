@@ -8,7 +8,7 @@ import type {
   SubprocessOutcome,
   SubprocessSpawnSpec,
   SubprocessTerminalSpawnSpec,
-} from '@lyness/subprocess'
+} from '@lyness/lyn-subprocess'
 import { loadLinuxExecve } from './linux-execve.ts'
 import type { BoundProcessOwner, ManagedProcessLaunch } from './managed-owner.ts'
 import {

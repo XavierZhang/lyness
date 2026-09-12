@@ -1,21 +1,21 @@
 /**
  * Tool operation orchestration over session-query service capabilities.
  *
- * @module @lyness/tool-session-query/operations
+ * @module @lyness/lyn-tool-session-query/operations
  */
 
 import type { Context } from '@lyness/cordis'
-import { HarnessError } from '@lyness/llm'
-import { SessionSeq } from '@lyness/session'
-import type { SessionId } from '@lyness/session'
+import { HarnessError } from '@lyness/lyn-llm'
+import { SessionSeq } from '@lyness/lyn-session'
+import type { SessionId } from '@lyness/lyn-session'
 import {
   SessionQueryError,
   type SessionEventSearchPage,
   type SessionEventSurface,
   type SessionRecord,
   type SessionSearchCursor,
-} from '@lyness/session-query'
-import type { ToolRunContext } from '@lyness/tools'
+} from '@lyness/lyn-session-query'
+import type { ToolRunContext } from '@lyness/lyn-tools'
 import { toolInput } from './input.ts'
 import { presentation } from './presentation.ts'
 import { serviceBoundary } from './service-boundary.ts'

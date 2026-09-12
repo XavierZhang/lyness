@@ -2,7 +2,7 @@
  * Remote decorators and explicit Gateway bindings backed by versioned
  * descriptors carried on decorated class prototypes. Strict reflection
  * remains a Typert compiler responsibility.
- * @module @lyness/typert-protocol
+ * @module @lyness/lyn-typert-protocol
  */
 
 import { Service, type Context } from '@lyness/cordis'
@@ -129,7 +129,7 @@ interface RemoteMethodDescriptorV1 {
   readonly methods: readonly StoredRemoteMethod[]
 }
 
-const REMOTE_METHOD_DESCRIPTOR = '@lyness/typert-protocol/remote-methods'
+const REMOTE_METHOD_DESCRIPTOR = '@lyness/lyn-typert-protocol/remote-methods'
 
 /**
  * Bind one visible Service field to a Cordis key and Remote namespace.

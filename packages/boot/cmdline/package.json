@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/cmdline",
+  "name": "@lyness/lyn-cmdline",
   "description": "Immutable command-line handoff from a lyn launcher to any app plugin that injects cmdlineArgs",
   "version": "0.1.5-rc.1",
   "publishConfig": {

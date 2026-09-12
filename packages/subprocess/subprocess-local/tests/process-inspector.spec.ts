@@ -3,9 +3,9 @@ import {
   createProcessInspector,
   linuxProcessGroupHasLiveMembers,
   parseProcStat,
-} from '@lyness/subprocess-local/src/process-inspector.ts'
-import type { ProcessInspectorInternals } from '@lyness/subprocess-local/src/process-inspector.ts'
-import { WindowsProcessInspector } from '@lyness/subprocess-local/src/windows-inspector.ts'
+} from '@lyness/lyn-subprocess-local/src/process-inspector.ts'
+import type { ProcessInspectorInternals } from '@lyness/lyn-subprocess-local/src/process-inspector.ts'
+import { WindowsProcessInspector } from '@lyness/lyn-subprocess-local/src/windows-inspector.ts'
 
 function stat(
   pid: number,

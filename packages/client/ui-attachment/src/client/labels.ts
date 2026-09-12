@@ -1,4 +1,4 @@
-import type { TranslateNS } from '@lyness/client-ui-slots'
+import type { TranslateNS } from '@lyness/lyn-client-ui-slots'
 import type { AttachmentRailLabels } from '../AttachmentRail.tsx'
 import type { DropOverlayLabels } from '../DropOverlay.tsx'
 import type { FileCardLabels } from '../FileCard.tsx'

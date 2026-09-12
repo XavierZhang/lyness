@@ -13,20 +13,20 @@ import {
   normalizeSessionSnapshot,
   normalizeSessionSnapshots,
   type NormalizeContext,
-} from '@lyness/session-snapshot'
-import { LOADER_SMOKE_TEST_TIMEOUT_MS, runLoaderSmoke } from '@lyness/loader-smoke'
-import { createMessage, createUserMessage } from '@lyness/llm'
+} from '@lyness/lyn-session-snapshot'
+import { LOADER_SMOKE_TEST_TIMEOUT_MS, runLoaderSmoke } from '@lyness/lyn-loader-smoke'
+import { createMessage, createUserMessage } from '@lyness/lyn-llm'
 import {
   SESSION_FORMAT_VERSION,
   SessionId,
   SessionSeq,
   type SessionEvent,
   type SessionHeader,
-} from '@lyness/session'
-import JsonlSessionPersistence from '@lyness/session-persistence-jsonl'
+} from '@lyness/lyn-session'
+import JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
 import { logPath } from '../../../../../../packages/session/session-persistence-jsonl/src/format.ts'
-import { renderWorkspaceContext } from '@lyness/agent-instructions'
-import { resolveConfig, workspaceBaselineIdentity } from '@lyness/agent-instructions/src/config.ts'
+import { renderWorkspaceContext } from '@lyness/lyn-agent-instructions'
+import { resolveConfig, workspaceBaselineIdentity } from '@lyness/lyn-agent-instructions/src/config.ts'
 import { describe, expect, it } from 'vitest'
 
 const fixtureDir = join(dirname(fileURLToPath(import.meta.url)), 'expected/workspace-context-resume/offline-edit')
@@ -90,7 +90,7 @@ async function seedVisibleBaseline(
     { type: 'step/start', seq: SessionSeq(1), time: 11, data: { turn: 1, step: 1 } },
     {
       type: 'system/message', seq: SessionSeq(2), time: 12,
-      data: { turn: 1, step: 1, message: createMessage({ role: 'system', content: [], source: { kind: 'plugin', plugin: '@lyness/system-prompt' } }) },
+      data: { turn: 1, step: 1, message: createMessage({ role: 'system', content: [], source: { kind: 'plugin', plugin: '@lyness/lyn-system-prompt' } }) },
       surfaceOp: 'append',
     },
     {

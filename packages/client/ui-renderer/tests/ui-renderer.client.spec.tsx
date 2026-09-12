@@ -4,7 +4,7 @@ import { act, cleanup } from '@testing-library/react'
 import { Context } from '@lyness/cordis'
 import { SlotRegistry } from '../src/client/registry.ts'
 import type { SlotScopeAdapter, StandardSourceBinding } from '../src/client/index.ts'
-import { apply as nodeApply } from '@lyness/client-ui-renderer'
+import { apply as nodeApply } from '@lyness/lyn-client-ui-renderer'
 import * as UiRenderer from '../src/client/index.ts'
 
 const mounted: (() => void)[] = []

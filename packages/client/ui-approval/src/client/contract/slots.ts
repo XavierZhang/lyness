@@ -1,9 +1,9 @@
 /** Approval composer and optional correlated-detail contracts. */
-import type { ToolCallId } from '@lyness/llm'
-import type { SessionId } from '@lyness/session/types'
+import type { ToolCallId } from '@lyness/lyn-llm'
+import type { SessionId } from '@lyness/lyn-session/types'
 import type {
   PropsLocale, PropsRenderSlots, PropsRuntime,
-} from '@lyness/client-ui-slots'
+} from '@lyness/lyn-client-ui-slots'
 import type { ApprovalKey } from '../locales.ts'
 
 /* jscpd:ignore-start -- Approval and Question intentionally own independent pending-settlement lifecycles. */
@@ -19,14 +19,14 @@ function settlePendingComposer(settle: () => void, failureMessage: string): Prom
 }
 /* jscpd:ignore-end */
 
-declare module '@lyness/client-ui-session/client' {
+declare module '@lyness/lyn-client-ui-session/client' {
   interface SessionPendingInteractionMap {
     /** Pending approval request. */
     approval: PendingApproval
   }
 }
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface LocaleNamespaceMap {
     /** Approval prompt copy. */
     approval: ApprovalKey

@@ -1,7 +1,7 @@
 /** Official lyness occupants for the generic browser-brand slots. */
 import type { Context as ClientContext } from '@lyness/cordis'
-import type {} from '@lyness/client-ui-renderer/client'
-import type {} from '@lyness/client-ui-sidebar/client'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
+import type {} from '@lyness/lyn-client-ui-sidebar/client'
 import { OfficialBrandMark, OfficialBrandName } from './Brand.tsx'
 
 /** Required service: the UI slot registry. */

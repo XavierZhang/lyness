@@ -10,8 +10,8 @@
  */
 
 import type { Context } from '@lyness/cordis'
-import { errorChain } from '@lyness/llm'
-import type { Session, SessionEvent, SessionHeader, SessionId, SessionLogOffset } from '@lyness/session'
+import { errorChain } from '@lyness/lyn-llm'
+import type { Session, SessionEvent, SessionHeader, SessionId, SessionLogOffset } from '@lyness/lyn-session'
 import {
   assertContiguous,
   SessionAlreadyExistsError,
@@ -21,7 +21,7 @@ import {
   SessionPersistenceNotFoundError,
   SessionPersistenceRevision,
   SessionReadOnlyError,
-} from '@lyness/session-persistence'
+} from '@lyness/lyn-session-persistence'
 import type {
   SessionAccess,
   SessionHandle,
@@ -29,7 +29,7 @@ import type {
   SessionHandleFlushOptions,
   SessionHandleReadOptions,
   SessionHandleReadResult,
-} from '@lyness/session-persistence'
+} from '@lyness/lyn-session-persistence'
 import type { SessionWriteLease } from './lease.ts'
 
 /** Maximum intentional wait before a routed live session batch starts writing. */

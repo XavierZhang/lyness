@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/util-time",
+  "name": "@lyness/lyn-util-time",
   "description": "Zero-dependency time vocabulary shared by wire boundaries: canonicalClientTimeZone (IANA zone validation and canonicalization only, no formatting)",
   "version": "0.1.5-rc.1",
   "publishConfig": {

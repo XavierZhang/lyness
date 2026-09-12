@@ -8,24 +8,24 @@
  * itself is not a dependency of this package; the source below is the
  * decision-table contract at the `InputTriggerSource` boundary.
  */
-import type { GlobalStandardProps } from '@lyness/client-ui-slots'
+import type { GlobalStandardProps } from '@lyness/lyn-client-ui-slots'
 import { afterEach, describe, expect, it, onTestFinished, vi } from 'vitest'
 import { act, cleanup, fireEvent, render } from '@testing-library/react'
-import type { SessionSnapshot } from '@lyness/api-session-controller/client'
-import { createSnapshotStore } from '@lyness/client-store'
-import { InputTriggerService } from '@lyness/client-ui-input-trigger/client'
+import type { SessionSnapshot } from '@lyness/lyn-api-session-controller/client'
+import { createSnapshotStore } from '@lyness/lyn-client-store'
+import { InputTriggerService } from '@lyness/lyn-client-ui-input-trigger/client'
 import type {
   ClientSessionContext, SubmitEnvelope,
-} from '@lyness/client-ui-input-trigger/client'
+} from '@lyness/lyn-client-ui-input-trigger/client'
 import type {
   CommandClaim, PickOutcome, SubmitAttachment, SubmitOutcome,
 } from '../src/client/contract/input.ts'
 import {
   bindSnapshotSelector, conversationSnapshot, makeTranslate, sessionSnapshot, SlotTestRuntime,
-} from '@lyness/client-test-runtime'
-import type { SessionPendingInteractionSnapshot } from '@lyness/client-ui-session/client'
-import type { SessionId } from '@lyness/session/types'
-import { zh as commonZh } from '@lyness/client-locale/src/locales/zh.ts'
+} from '@lyness/lyn-client-test-runtime'
+import type { SessionPendingInteractionSnapshot } from '@lyness/lyn-client-ui-session/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import { zh as commonZh } from '@lyness/lyn-client-locale/src/locales/zh.ts'
 import type { DraftAttachmentId } from '../src/client/contract/input.ts'
 import { SessionInputShell } from '../src/client/input/facade.ts'
 import { InputBar } from '../src/client/skeleton/InputBar.tsx'

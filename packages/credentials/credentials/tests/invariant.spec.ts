@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import InvariantRegistry from '@lyness/invariants'
+import InvariantRegistry from '@lyness/lyn-invariants'
 import { credentialRef } from '../src/index.ts'
 import * as CredentialsInvariant from '../src/invariant.ts'
 import { MemoryCredentials } from './memory.ts'
@@ -22,7 +22,7 @@ describe('credentials invariant companion', () => {
     await ctx.plugin(InvariantRegistry)
     await ctx.plugin(CredentialsInvariant)
 
-    expect(() => { ctx.emit('credentials/reference-updated', REF) }).toThrow(/invariant violated by "@lyness\/credentials"/)
+    expect(() => { ctx.emit('credentials/reference-updated', REF) }).toThrow(/invariant violated by "@lyness\/lyn-credentials"/)
   })
 
   it('reserves the package name against duplicate registration', async () => {
@@ -31,7 +31,7 @@ describe('credentials invariant companion', () => {
     await ctx.plugin(CredentialsInvariant)
 
     expect(() => {
-      ctx.invariants.register('@lyness/credentials', () => {})
+      ctx.invariants.register('@lyness/lyn-credentials', () => {})
     }).toThrow(/already registered/)
   })
 })

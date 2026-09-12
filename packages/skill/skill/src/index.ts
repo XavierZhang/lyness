@@ -3,18 +3,18 @@
  *
  * This package owns the Service Definition role of the skill capability seam.
  * Concrete
- * providers such as `@lyness/skill-filesystem` decide where skills come
+ * providers such as `@lyness/lyn-skill-filesystem` decide where skills come
  * from; this service only merges provider catalogs, resolves the winning skill
  * for a name, and exposes the winning summaries and definitions to consumers.
  *
- * @module @lyness/skill
+ * @module @lyness/lyn-skill
  */
 
 import { Context, Service } from '@lyness/cordis'
-import type {} from '@lyness/llm'
-import { assertNever } from '@lyness/util-values'
-import { NamedEntries, ScopedLayers, scopeChainOf, scopeOf } from '@lyness/scope'
-import type { ScopeKey, ScopeLayer } from '@lyness/scope'
+import type {} from '@lyness/lyn-llm'
+import { assertNever } from '@lyness/lyn-util-values'
+import { NamedEntries, ScopedLayers, scopeChainOf, scopeOf } from '@lyness/lyn-scope'
+import type { ScopeKey, ScopeLayer } from '@lyness/lyn-scope'
 import z from '@lyness/schemastery'
 import type Schema from '@lyness/schemastery'
 
@@ -153,7 +153,7 @@ export interface SkillInvocationSource {
   readonly form: 'instructions'
 }
 
-declare module '@lyness/llm' {
+declare module '@lyness/lyn-llm' {
   interface MessageSourceMap {
     /** A user-explicit skill invocation injected by the host. */
     'skill-invocation': SkillInvocationSource

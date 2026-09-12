@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import * as CommandInvariant from '@lyness/commands/invariant'
-import InvariantRegistry, { InvariantError } from '@lyness/invariants'
-import SessionStore, { SessionId, SessionSeq, type Session } from '@lyness/session'
-import { CommandId } from '@lyness/commands'
+import * as CommandInvariant from '@lyness/lyn-commands/invariant'
+import InvariantRegistry, { InvariantError } from '@lyness/lyn-invariants'
+import SessionStore, { SessionId, SessionSeq, type Session } from '@lyness/lyn-session'
+import { CommandId } from '@lyness/lyn-commands'
 
 async function mount(installCompanion = true): Promise<{ ctx: Context; session: Session }> {
   const ctx = new Context()
@@ -50,7 +50,7 @@ describe('command lifecycle invariants', () => {
       })
     }).toThrow(expect.objectContaining<Partial<InvariantError>>({
       code: 'INVARIANT',
-      packageName: '@lyness/commands',
+      packageName: '@lyness/lyn-commands',
     }))
   })
 
@@ -68,7 +68,7 @@ describe('command lifecycle invariants', () => {
       })
     }).toThrow(expect.objectContaining<Partial<InvariantError>>({
       code: 'INVARIANT',
-      packageName: '@lyness/commands',
+      packageName: '@lyness/lyn-commands',
     }))
   })
 
@@ -83,7 +83,7 @@ describe('command lifecycle invariants', () => {
 
     await expect(ctx.plugin(CommandInvariant)).rejects.toMatchObject({
       code: 'INVARIANT',
-      packageName: '@lyness/commands',
+      packageName: '@lyness/lyn-commands',
     })
   })
 })

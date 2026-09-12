@@ -5,9 +5,9 @@
  */
 import { Context } from '@lyness/cordis'
 import { describe, expect, it } from 'vitest'
-import { SlotRegistry } from '@lyness/client-ui-renderer/client'
-import { stubSettingsScope } from '@lyness/client-test-runtime'
-import { apply as applyLocale, inject as localeInject } from '@lyness/client-locale/client'
+import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
+import { stubSettingsScope } from '@lyness/lyn-client-test-runtime'
+import { apply as applyLocale, inject as localeInject } from '@lyness/lyn-client-locale/client'
 import { apply, inject } from '../src/client/index.ts'
 import { apply as applyNode } from '../src/index.ts'
 import { en, NS, zh } from '../src/client/locales.ts'

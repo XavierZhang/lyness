@@ -1,4 +1,4 @@
-import { TypertRemoteService, Remote, RemoteScope } from '@lyness/typert-protocol'
+import { TypertRemoteService, Remote, RemoteScope } from '@lyness/lyn-typert-protocol'
 import type { Agent } from '@fixture/domain'
 import type {
   CreateGoalRequest,

@@ -1,8 +1,8 @@
 /** Chat-owned event-to-view projection. */
 
 import { describe, expect, it } from 'vitest'
-import { AttachmentId } from '@lyness/attachment'
-import type { ContentBlock } from '@lyness/api-remotes/client'
+import { AttachmentId } from '@lyness/lyn-attachment'
+import type { ContentBlock } from '@lyness/lyn-api-remotes/client'
 import {
   displayFailure, emptyAssistantBlock, toAssistantBlock, toAssistantBlocks,
   isTokenDelta,

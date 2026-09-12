@@ -20,8 +20,8 @@ describe('Agent Teams profile bundle', () => {
     expect(manifest.publishConfig?.access).toBe('public')
     expect(manifest.lyn?.bundle?.patch).toBe('./cordis.patch.yml')
     expect(manifest.dependencies).toMatchObject({
-      '@lyness/experimental-agent-team': 'workspace:^',
-      '@lyness/experimental-tool-agent-team': 'workspace:^',
+      '@lyness/lyn-experimental-agent-team': 'workspace:^',
+      '@lyness/lyn-experimental-tool-agent-team': 'workspace:^',
     })
 
     const parsed = yaml.load(
@@ -41,11 +41,11 @@ describe('Agent Teams profile bundle', () => {
     expect(patches.find(patch => patch.id === 'tool-subagent-fork')?.config).toMatchObject({ backgroundMode: 'one-shot' })
     const inserted = patches.flatMap(patch => patch.insert ?? [])
     expect(inserted.find(entry => entry.id === 'agent-team')).toMatchObject({
-      name: '@lyness/experimental-agent-team',
+      name: '@lyness/lyn-experimental-agent-team',
       config: { maxMembers: 8 },
     })
     expect(inserted.find(entry => entry.id === 'tool-agent-team')).toMatchObject({
-      name: '@lyness/experimental-tool-agent-team',
+      name: '@lyness/lyn-experimental-tool-agent-team',
       config: { freshProvider: 'spawn', forkProvider: 'fork' },
     })
   })

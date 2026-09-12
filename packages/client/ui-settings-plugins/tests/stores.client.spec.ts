@@ -4,14 +4,14 @@
  */
 
 import { describe, expect, it, vi } from 'vitest'
-import type { SettingsPathOpView } from '@lyness/api-remotes/client'
-import { RemoteError, stubSettingsScope, type StubSettingsScope } from '@lyness/client-test-runtime'
+import type { SettingsPathOpView } from '@lyness/lyn-api-remotes/client'
+import { RemoteError, stubSettingsScope, type StubSettingsScope } from '@lyness/lyn-client-test-runtime'
 import { CardForm, numberField, textField } from '../src/client/card-form.ts'
 import { AgentLoopCardController, type AgentLoopSettings } from '../src/client/agent-loop-card-controller.ts'
 import { BashCardController, type BashSettings } from '../src/client/bash-card-controller.ts'
 import {
   SettingsDescribeMirror, type SettingsMirrorSnapshot,
-} from '@lyness/client-ui-settings/src/client/settings-mirror.ts'
+} from '@lyness/lyn-client-ui-settings/src/client/settings-mirror.ts'
 import { ConfigurablePluginsTabController } from '../src/client/tab-store.ts'
 import {
   SubagentModelSelectionCardController,

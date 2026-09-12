@@ -3,8 +3,8 @@ import { Context, Service } from '@lyness/cordis'
 import { access, mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import LlmRuntime, { createUserMessage, INVALID_CREDENTIAL_CODE } from '@lyness/llm'
-import AttachmentStore, { AttachmentId, ImageVariantId } from '@lyness/attachment'
+import LlmRuntime, { createUserMessage, INVALID_CREDENTIAL_CODE } from '@lyness/lyn-llm'
+import AttachmentStore, { AttachmentId, ImageVariantId } from '@lyness/lyn-attachment'
 import type {
   ImageAttachmentLimits,
   ImageAttachmentRef,
@@ -12,11 +12,11 @@ import type {
   RequestImageAttachment,
   SaveImageAttachment,
   StoredImageAttachment,
-} from '@lyness/attachment'
-import { credentialRef } from '@lyness/credentials'
-import { LocalCredentialProvider } from '@lyness/credentials-local'
-import { FileSettingsProvider } from '@lyness/settings-file'
-import * as LlmDeepSeek from '@lyness/llm-deepseek'
+} from '@lyness/lyn-attachment'
+import { credentialRef } from '@lyness/lyn-credentials'
+import { LocalCredentialProvider } from '@lyness/lyn-credentials-local'
+import { FileSettingsProvider } from '@lyness/lyn-settings-file'
+import * as LlmDeepSeek from '@lyness/lyn-llm-deepseek'
 import { assemble } from './assemble.ts'
 import { closeMockServers, mockServer, textEvents } from './mock-server.ts'
 

@@ -16,7 +16,7 @@ kind: "package-bundle"
 ## Skeleton
 
 ```markdown
-# @lyness/<name>
+# @lyness/lyn-<name>
 
 English | [中文](README.zh.md)
 
@@ -43,8 +43,8 @@ Three to five sentences and at most 100 `wc -w`-style words: what a profile gain
 The verified install path — run it against the current checkout before writing:
 
 ```text
-lyn plugin --profile <name> add @lyness/<name>
-lyn plugin --profile <name> remove @lyness/<name>
+lyn plugin --profile <name> add @lyness/lyn-<name>
+lyn plugin --profile <name> remove @lyness/lyn-<name>
 ```
 
 State where in-box bundles resolve from, what the reconcile step activates, and what fails when the patch declaration is missing.

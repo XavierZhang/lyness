@@ -19,7 +19,7 @@ export const en = {
   unsupported: 'Image preview requires the complete file contents.',
 } satisfies Record<ImagePreviewKey, string>
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface LocaleNamespaceMap {
     /** Image preview selection, accessible name, and status text. */
     sidebarImage: ImagePreviewKey

@@ -5,15 +5,15 @@
  * only contributes entries, so no SlotMap merge lives here. Live state
  * arrives through the `hooks` compartment (the framework standard kit binds
  * `feedback` into `useFeedback` and `dialog` into `useDialog`).
- * @module @lyness/client-ui-message-feedback/client/slots
+ * @module @lyness/lyn-client-ui-message-feedback/client/slots
  */
 
 import type {
   HostObservable, InjectFace, PropsLocale, PropsRuntime,
-} from '@lyness/client-ui-slots'
-import type {} from '@lyness/client-ui-conversation/client'
-import type { MessageId } from '@lyness/api-remotes/client'
-import type { MessageFeedbackItem, MessageFeedbackRating } from '@lyness/message-feedback/types'
+} from '@lyness/lyn-client-ui-slots'
+import type {} from '@lyness/lyn-client-ui-conversation/client'
+import type { MessageId } from '@lyness/lyn-api-remotes/client'
+import type { MessageFeedbackItem, MessageFeedbackRating } from '@lyness/lyn-message-feedback/types'
 // Type-only: pulls this package's LocaleNamespaceMap merge (the 'feedback' seat).
 import type {} from './locales.ts'
 import type { MessageFeedbackActionResult, MessageFeedbackToggleResult, MessageFeedbackView } from './controller.ts'

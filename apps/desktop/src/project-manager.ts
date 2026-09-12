@@ -99,10 +99,10 @@ interface DesktopSeedIntegrityRecord {
   readonly sha256: string
 }
 
-const PROJECT_NAME = '@lyness/desktop-runtime'
+const PROJECT_NAME = '@lyness/lyn-desktop-runtime'
 const LYNESS_PACKAGE = '@lyness/lyn'
-const CORE_BUILD_PACKAGE = '@lyness/subprocess-local'
-const DESKTOP_PROFILE_BUNDLES = ['@lyness/base', '@lyness/web-app'] as const
+const CORE_BUILD_PACKAGE = '@lyness/lyn-subprocess-local'
+const DESKTOP_PROFILE_BUNDLES = ['@lyness/lyn-base', '@lyness/lyn-web-app'] as const
 const WORKSPACE_SETTINGS = 'nodeLinker: hoisted\nautoInstallPeers: false\nstrictDepBuilds: true\n'
 const PACKAGE_NAME_PATTERN = /^(?:@[a-z0-9][a-z0-9._~-]*\/[a-z0-9][a-z0-9._~-]*|[a-z0-9][a-z0-9._~-]*)$/u
 const VERSION_PATTERN = /^[0-9A-Za-z][0-9A-Za-z.+_-]*$/u

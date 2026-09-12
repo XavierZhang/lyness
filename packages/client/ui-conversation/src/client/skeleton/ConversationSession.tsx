@@ -2,8 +2,8 @@
 
 import { useEffect } from 'react'
 import clsx from 'clsx'
-import type { SessionListState, SessionSummary } from '@lyness/api-session-controller/client'
-import type { SessionId } from '@lyness/session/types'
+import type { SessionListState, SessionSummary } from '@lyness/lyn-api-session-controller/client'
+import type { SessionId } from '@lyness/lyn-session/types'
 import type {
   ConversationSessionHeaderSlotProps, ConversationSessionSlotProps,
 } from '../contract/slots.ts'

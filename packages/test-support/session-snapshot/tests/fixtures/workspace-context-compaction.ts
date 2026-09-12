@@ -1,8 +1,8 @@
 import type { Context } from '@lyness/cordis'
-import type {} from '@lyness/agent'
-import { CompactionId, compactCheckpointSource } from '@lyness/compaction'
-import { createUserMessage } from '@lyness/llm'
-import type {} from '@lyness/tools'
+import type {} from '@lyness/lyn-agent'
+import { CompactionId, compactCheckpointSource } from '@lyness/lyn-compaction'
+import { createUserMessage } from '@lyness/lyn-llm'
+import type {} from '@lyness/lyn-tools'
 
 export const name = 'workspace-context-compaction'
 

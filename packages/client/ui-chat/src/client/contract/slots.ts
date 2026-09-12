@@ -1,17 +1,17 @@
 /** Chat-owned Slot declarations and composed component props. */
-import type { MessageId } from '@lyness/llm/brand'
-import type { SessionId, SessionSeq } from '@lyness/session/types'
+import type { MessageId } from '@lyness/lyn-llm/brand'
+import type { SessionId, SessionSeq } from '@lyness/lyn-session/types'
 import type {
   CommandNode, CompactionSummaryNode, ConversationLocationDataStore, ConversationTurnDataMap,
   MessageImageLoader, MessageImagesOwnerProps, RenderMessageImages, TurnLocation,
-} from '@lyness/client-ui-conversation/client'
+} from '@lyness/lyn-client-ui-conversation/client'
 import type {
   InjectFace, KeyedSnapshotSelectorHook, PropsLocale, PropsRenderSlots, PropsRuntime, PropsStore,
   SlotHookFactory, SnapshotSelectorHook,
-} from '@lyness/client-ui-slots'
-import type { SnapshotStore } from '@lyness/client-store'
-import type { MarkdownFileMentions } from '@lyness/client-ui-primitives'
-import type {} from '@lyness/client-ui-layout/client'
+} from '@lyness/lyn-client-ui-slots'
+import type { SnapshotStore } from '@lyness/lyn-client-store'
+import type { MarkdownFileMentions } from '@lyness/lyn-client-ui-primitives'
+import type {} from '@lyness/lyn-client-ui-layout/client'
 import type { createChatStore } from '../stores.ts'
 import type { ToolCallId } from './store.ts'
 import type { ChatConversationViewNode, ChatNode, ChatNodeKind } from './chat-nodes.ts'
@@ -162,7 +162,7 @@ export type ChatViewSlotProps =
 /** Full props of the durable-message image renderer. */
 export type MessageImagesProps = PropsRuntime<'conversation.message.images'> & PropsLocale<'conversation'>
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface SessionStandardProps {
     /** Selector hook over the current Conversation binding's Chat target. */
     useChat: UseChat

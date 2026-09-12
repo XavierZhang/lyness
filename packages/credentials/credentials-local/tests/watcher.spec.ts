@@ -3,7 +3,7 @@ import { Context } from '@lyness/cordis'
 import { chmod, mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { credentialRef } from '@lyness/credentials'
+import { credentialRef } from '@lyness/lyn-credentials'
 import { LocalCredentialProvider } from '../src/index.ts'
 
 const fsHarness = vi.hoisted(() => ({

@@ -7,10 +7,10 @@ import {
   FileType,
   type EntryInfo,
   type Sandbox,
-} from '@lyness/e2b'
-import type E2BRuntime from '@lyness/e2b'
-import { FsTargetKey, FsVersion } from '@lyness/fs'
-import E2BFileSystem from '@lyness/fs-e2b'
+} from '@lyness/lyn-e2b'
+import type E2BRuntime from '@lyness/lyn-e2b'
+import { FsTargetKey, FsVersion } from '@lyness/lyn-fs'
+import E2BFileSystem from '@lyness/lyn-fs-e2b'
 import { describe, expect, it, vi } from 'vitest'
 
 interface RemoteNode {

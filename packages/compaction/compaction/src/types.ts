@@ -4,17 +4,17 @@
  * surface events; a separate replacement `user/message` carries the summary.
  * Backend packages own configuration and retention policy; see
  * `.agents/notes/implemented/feature/2026-06-18-compaction-capability-seam.md`.
- * @module @lyness/compaction/types
+ * @module @lyness/lyn-compaction/types
  */
 
-import type { ContentBlock, TokenUsage } from '@lyness/llm'
-import type { CommandId } from '@lyness/commands/brand'
-import type { SessionSeq } from '@lyness/session/types'
+import type { ContentBlock, TokenUsage } from '@lyness/lyn-llm'
+import type { CommandId } from '@lyness/lyn-commands/brand'
+import type { SessionSeq } from '@lyness/lyn-session/types'
 import type { CompactionId } from './brand.ts'
 
 export type { CompactionId }
 
-declare module '@lyness/session/types' {
+declare module '@lyness/lyn-session/types' {
   interface SessionEventMap {
     /**
      * Marks the start of a compaction — log-only, holds the lock until

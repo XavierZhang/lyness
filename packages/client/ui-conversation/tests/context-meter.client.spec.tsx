@@ -2,8 +2,8 @@
 
 import { afterEach, describe, expect, it } from 'vitest'
 import { cleanup, fireEvent, render } from '@testing-library/react'
-import { makeTranslate } from '@lyness/client-test-runtime'
-import { en as commonEn, zh as commonZh } from '@lyness/client-locale/src/locales/index.ts'
+import { makeTranslate } from '@lyness/lyn-client-test-runtime'
+import { en as commonEn, zh as commonZh } from '@lyness/lyn-client-locale/src/locales/index.ts'
 import { ContextMeter, type ContextMeterProps } from '../src/client/skeleton/ContextMeter.tsx'
 import { contextOccupancy } from '../src/client/context-occupancy.ts'
 import css from '../src/client/skeleton/ContextMeter.module.css'

@@ -2,13 +2,13 @@
  * Perplexity-backed `WebSearchProvider` plugin. It contributes to the
  * `ctx.web` registry without owning the service.
  *
- * @module @lyness/web-search-perplexity
+ * @module @lyness/lyn-web-search-perplexity
  */
 
 import type { Context } from '@lyness/cordis'
-import { launchEnvironmentOf } from '@lyness/launch-environment'
+import { launchEnvironmentOf } from '@lyness/lyn-launch-environment'
 import z from '@lyness/schemastery'
-import type {} from '@lyness/web'
+import type {} from '@lyness/lyn-web'
 import { PerplexitySearchProvider, PERPLEXITY_DEFAULT_BASE_URL, PERPLEXITY_DEFAULT_MAX_TOKENS, PERPLEXITY_DEFAULT_MODEL } from './provider.ts'
 
 export {

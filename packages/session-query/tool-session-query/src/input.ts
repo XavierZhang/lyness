@@ -1,21 +1,21 @@
 /**
  * Model argument schemas, normalization, and filter construction.
  *
- * @module @lyness/tool-session-query/input
+ * @module @lyness/lyn-tool-session-query/input
  */
 
 import {
   type SessionEventType,
   type SessionId as SessionIdValue,
-} from '@lyness/session'
-import { brandString } from '@lyness/brand'
+} from '@lyness/lyn-session'
+import { brandString } from '@lyness/lyn-brand'
 import {
   SessionQueryError,
   type SessionAvailability,
   type SessionEventMetadataFilter,
   type SessionEventSurface,
   type SessionResultFilter,
-} from '@lyness/session-query'
+} from '@lyness/lyn-session-query'
 
 interface SessionSearchArgs {
   query: string

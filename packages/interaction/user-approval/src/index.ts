@@ -1,18 +1,18 @@
 /**
  * Service Definition for the approval capability seam, covering requests, cancellation, audit, and per-session policy. Missing
  * answerers fail closed; grants apply only to the requested action.
- * @module @lyness/user-approval
+ * @module @lyness/lyn-user-approval
  */
 
 import { randomUUID } from 'node:crypto'
 import { Context, Service } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import type { Agent } from '@lyness/agent'
-import { createUserMessage, type ToolCallId } from '@lyness/llm'
-import { scopeTarget } from '@lyness/scope'
-import type { Session } from '@lyness/session'
-import { SessionSeq } from '@lyness/session'
-import type {} from '@lyness/system-prompt'
+import type { Agent } from '@lyness/lyn-agent'
+import { createUserMessage, type ToolCallId } from '@lyness/lyn-llm'
+import { scopeTarget } from '@lyness/lyn-scope'
+import type { Session } from '@lyness/lyn-session'
+import { SessionSeq } from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-system-prompt'
 
 declare module '@lyness/cordis' {
   interface Context {
@@ -20,7 +20,7 @@ declare module '@lyness/cordis' {
   }
 }
 
-declare module '@lyness/session/types' {
+declare module '@lyness/lyn-session/types' {
   interface SessionEventMap {
     /**
      * The session's approval policy was switched — log-only, durable,

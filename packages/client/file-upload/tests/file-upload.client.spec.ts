@@ -1,5 +1,5 @@
 import { Context } from '@lyness/cordis'
-import type { SessionId } from '@lyness/session/types'
+import type { SessionId } from '@lyness/lyn-session/types'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { apply } from '../src/client/index.ts'
 import { fileUploadWorker, FileUploadRuntime } from '../src/client/runtime.ts'

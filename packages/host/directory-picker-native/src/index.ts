@@ -8,11 +8,11 @@
  * background host spawned the child). Only viable when
  * the operator sits at the host's screen; remote deployments compose the
  * browse backend instead.
- * @module @lyness/host-directory-picker-native
+ * @module @lyness/lyn-host-directory-picker-native
  */
 
-import { DirectoryPicker } from '@lyness/host-directory-picker'
-import type { DirectoryPickerCapability } from '@lyness/host-directory-picker'
+import { DirectoryPicker } from '@lyness/lyn-host-directory-picker'
+import type { DirectoryPickerCapability } from '@lyness/lyn-host-directory-picker'
 import { pickNativeDirectory } from './native-picker.ts'
 
 export type { DirectoryPickerInternals, DirectoryPickerRunner } from './native-picker.ts'

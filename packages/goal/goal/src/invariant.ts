@@ -1,12 +1,12 @@
-/** Package-owned durable goal-stream invariants. @module @lyness/goal/invariant */
+/** Package-owned durable goal-stream invariants. @module @lyness/lyn-goal/invariant */
 
 import type { Context } from '@lyness/cordis'
-import type { InvariantFailure, InvariantInstaller } from '@lyness/invariants'
-import type { Session, SessionEvent } from '@lyness/session'
+import type { InvariantFailure, InvariantInstaller } from '@lyness/lyn-invariants'
+import type { Session, SessionEvent } from '@lyness/lyn-session'
 import { applyGoalEvent, emptyGoalFoldState } from './fold.ts'
 import type { GoalFoldState } from './fold.ts'
 
-const PACKAGE_NAME = '@lyness/goal'
+const PACKAGE_NAME = '@lyness/lyn-goal'
 
 /** Cordis companion plugin name. */
 export const name = 'goal-invariant'

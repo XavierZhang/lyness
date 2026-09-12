@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/llm-replay",
+  "name": "@lyness/lyn-llm-replay",
   "description": "Replay LLM plugin: short-circuits llm/stream with model chunks reconstructed from a recorded session JSONL (keyless snapshot tests)",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -28,25 +28,25 @@
   "license": "MIT",
   "peerDependencies": {
     "@lyness/cordis": "workspace:^",
-    "@lyness/compaction": "workspace:^",
-    "@lyness/deepseek-llm-api-extensions": "workspace:^",
-    "@lyness/llm": "workspace:^",
-    "@lyness/session": "workspace:^"
+    "@lyness/lyn-compaction": "workspace:^",
+    "@lyness/lyn-deepseek-llm-api-extensions": "workspace:^",
+    "@lyness/lyn-llm": "workspace:^",
+    "@lyness/lyn-session": "workspace:^"
   },
   "peerDependenciesMeta": {
-    "@lyness/deepseek-llm-api-extensions": {
+    "@lyness/lyn-deepseek-llm-api-extensions": {
       "optional": true
     }
   },
   "devDependencies": {
     "@lyness/cordis": "workspace:^",
-    "@lyness/compaction": "workspace:^",
-    "@lyness/deepseek-llm-api-extensions": "workspace:^",
-    "@lyness/llm": "workspace:^",
-    "@lyness/session": "workspace:^"
+    "@lyness/lyn-compaction": "workspace:^",
+    "@lyness/lyn-deepseek-llm-api-extensions": "workspace:^",
+    "@lyness/lyn-llm": "workspace:^",
+    "@lyness/lyn-session": "workspace:^"
   },
   "dependencies": {
-    "@lyness/session-format-catalog": "workspace:^",
-    "@lyness/util-values": "workspace:^"
+    "@lyness/lyn-session-format-catalog": "workspace:^",
+    "@lyness/lyn-util-values": "workspace:^"
   }
 }

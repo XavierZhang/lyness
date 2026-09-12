@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/settings-file",
+  "name": "@lyness/lyn-settings-file",
   "description": "File-backed settings provider (settings.yaml) for the lyness",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -28,20 +28,20 @@
   "license": "MIT",
   "peerDependencies": {
     "@lyness/cordis": "workspace:^",
-    "@lyness/atomic-write": "workspace:^",
-    "@lyness/home-paths": "workspace:^",
-    "@lyness/settings": "workspace:^"
+    "@lyness/lyn-atomic-write": "workspace:^",
+    "@lyness/lyn-home-paths": "workspace:^",
+    "@lyness/lyn-settings": "workspace:^"
   },
   "dependencies": {
-    "@lyness/util-values": "workspace:^",
+    "@lyness/lyn-util-values": "workspace:^",
     "@lyness/schemastery": "workspace:^",
     "chokidar": "^4.0.3",
     "yaml": "^2.9.0"
   },
   "devDependencies": {
     "@lyness/cordis": "workspace:^",
-    "@lyness/atomic-write": "workspace:^",
-    "@lyness/home-paths": "workspace:^",
-    "@lyness/settings": "workspace:^"
+    "@lyness/lyn-atomic-write": "workspace:^",
+    "@lyness/lyn-home-paths": "workspace:^",
+    "@lyness/lyn-settings": "workspace:^"
   }
 }

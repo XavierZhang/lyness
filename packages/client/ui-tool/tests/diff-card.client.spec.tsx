@@ -2,17 +2,17 @@
 
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { cleanup, fireEvent, render } from '@testing-library/react'
-import { bindSnapshotSelector } from '@lyness/client-test-runtime'
-import { createSnapshotStore } from '@lyness/client-store'
-import type { RunningToolCall, ToolResultNode } from '@lyness/client-ui-chat/client'
-import type { SessionListState } from '@lyness/api-session-controller/client'
-import type { SessionId } from '@lyness/session/types'
-import { makeTranslate } from '@lyness/client-test-runtime'
-import { zh as commonZh } from '@lyness/client-locale/src/locales/zh.ts'
+import { bindSnapshotSelector } from '@lyness/lyn-client-test-runtime'
+import { createSnapshotStore } from '@lyness/lyn-client-store'
+import type { RunningToolCall, ToolResultNode } from '@lyness/lyn-client-ui-chat/client'
+import type { SessionListState } from '@lyness/lyn-api-session-controller/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import { makeTranslate } from '@lyness/lyn-client-test-runtime'
+import { zh as commonZh } from '@lyness/lyn-client-locale/src/locales/zh.ts'
 import { CHAT_DIFF_MAX_LINES, diffCardModel } from '../src/client/tool/models/diff-card-model.ts'
 import { GenericToolCard, type GenericToolCardProps } from '../src/client/tool/toolviews/GenericToolCard.tsx'
 import { FileMutationRow, fileMutationToolview } from '../src/client/tool/toolviews/file-mutation-row.tsx'
-import { zh } from '@lyness/client-ui-conversation/src/client/locales.ts'
+import { zh } from '@lyness/lyn-client-ui-conversation/src/client/locales.ts'
 
 afterEach(cleanup)
 

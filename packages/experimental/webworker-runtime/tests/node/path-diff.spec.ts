@@ -14,13 +14,13 @@
  */
 import { expect, test } from 'vitest'
 import { posix as nodePosix } from 'node:path'
-import * as shim from '@lyness/experimental-webworker-runtime/src/node/builtin_modules/implemented/path.ts'
+import * as shim from '@lyness/lyn-experimental-webworker-runtime/src/node/builtin_modules/implemented/path.ts'
 
 const CASES = [
   '', '.', '..', '/', '//', '///', 'a', '/a', 'a/', '/a/', 'a/b', '/a/b/c', 'a//b', '/a//b/',
   './a', '../a', 'a/./b', 'a/../b', '/a/../..', '/../a', 'a/b/../../c', '.hidden', 'a.b.c',
   '/a/b/c.txt', 'c.txt', '.txt', 'a/.txt', 'a/b.', '/a/b/.', '/a/b/..', 'foo/bar/../baz/./qux',
-  '/lyn/node_modules/@lyness/session/lib/index.js', 'node_modules/.bin/x',
+  '/lyn/node_modules/@lyness/lyn-session/lib/index.js', 'node_modules/.bin/x',
 ]
 
 const JOINS: string[][] = [

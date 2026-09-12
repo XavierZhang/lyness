@@ -1,14 +1,14 @@
 /**
- * Package-owned invariant companion for `@lyness/workspace`.
- * @module @lyness/workspace/invariant
+ * Package-owned invariant companion for `@lyness/lyn-workspace`.
+ * @module @lyness/lyn-workspace/invariant
  */
 
 import type { Context } from '@lyness/cordis'
-import type { InvariantInstaller } from '@lyness/invariants'
-import type { DomainChanged } from '@lyness/storage-domain'
-import { WorkspaceId } from '@lyness/workspace'
+import type { InvariantInstaller } from '@lyness/lyn-invariants'
+import type { DomainChanged } from '@lyness/lyn-storage-domain'
+import { WorkspaceId } from '@lyness/lyn-workspace'
 
-const PACKAGE_NAME = '@lyness/workspace'
+const PACKAGE_NAME = '@lyness/lyn-workspace'
 
 /** Cordis companion plugin name. */
 export const name = 'workspace-invariant'

@@ -3,7 +3,7 @@
  * program receives in its argv. Covers the segment kinds the grammar produces
  * — literal text, variables (with `:-` / `:+` forms), command substitution,
  * arithmetic, and globs matched against the VFS.
- * @module @lyness/experimental-webworker-runtime/src/shell/expand
+ * @module @lyness/lyn-experimental-webworker-runtime/src/shell/expand
  */
 
 import picomatch from 'picomatch'

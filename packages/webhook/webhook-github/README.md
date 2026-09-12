@@ -3,7 +3,7 @@ description: "Signed GitHub webhook adapter for deployments routing authenticate
 kind: "package-reference"
 ---
 
-# @lyness/webhook-github
+# @lyness/lyn-webhook-github
 
 English | [中文](README.zh.md)
 

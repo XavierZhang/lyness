@@ -1,9 +1,9 @@
-/** Local durable attachment backend rooted below `LYNESS_HOME`. @module @lyness/attachment-local */
+/** Local durable attachment backend rooted below `LYNESS_HOME`. @module @lyness/lyn-attachment-local */
 
 import { join, resolve } from 'node:path'
 import { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import { AttachmentStore } from '@lyness/attachment'
+import { AttachmentStore } from '@lyness/lyn-attachment'
 import type {
   FileAttachmentRef,
   ImageAttachmentLimits,
@@ -14,8 +14,8 @@ import type {
   SaveFileStreamAttachment,
   SaveImageAttachment,
   StoredImageAttachment,
-} from '@lyness/attachment'
-import { resolveLynHome } from '@lyness/home-paths'
+} from '@lyness/lyn-attachment'
+import { resolveLynHome } from '@lyness/lyn-home-paths'
 import type { NormalizationPolicy } from './normalization.ts'
 import { CompressionLimiter, compressionFailure } from './compression-limiter.ts'
 import { commitPreparedImageFile, normalizedImagePath, prepareImageFile, readImageFile, validateImageFile } from './store.ts'

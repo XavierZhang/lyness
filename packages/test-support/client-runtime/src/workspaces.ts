@@ -1,10 +1,10 @@
 /** Test-owned workspaces face: the renderer standard-kit observable plus recorded actions. */
-import { createSnapshotStore } from '@lyness/client-store'
+import { createSnapshotStore } from '@lyness/lyn-client-store'
 import type {
   IWorkspaces, WorkspaceId, WorkspaceSnapshot, WorkspaceView,
-} from '@lyness/api-workspace-controller/client'
-import type { SessionId } from '@lyness/session/types'
-import type { SnapshotStore } from '@lyness/client-store'
+} from '@lyness/lyn-api-workspace-controller/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { SnapshotStore } from '@lyness/lyn-client-store'
 import { workspaceSnapshot } from './fixtures.ts'
 import type { FixtureSnapshot, Stabilizer } from './fixtures.ts'
 

@@ -4,7 +4,7 @@
  * (repo discipline), so `./client` projects the same single-source content
  * `./types` serves to host consumers — zero duplication.
  *
- * @module @lyness/goal/client
+ * @module @lyness/lyn-goal/client
  */
 
 export type * from './types.ts'

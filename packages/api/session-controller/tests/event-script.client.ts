@@ -1,11 +1,11 @@
 import {
   ToolCallId, createMessage, createToolResultMessage, createUserMessage,
-} from '@lyness/llm'
-import { SessionSeq } from '@lyness/session/types'
+} from '@lyness/lyn-llm'
+import { SessionSeq } from '@lyness/lyn-session/types'
 // Minimal SessionEvent builders for orchestration tests (shape mirrors what the
 // host emits; only the fields the object layer reads).
-import type { ContentBlock } from '@lyness/llm/types'
-import type { SessionEvent } from '@lyness/session/types'
+import type { ContentBlock } from '@lyness/lyn-llm/types'
+import type { SessionEvent } from '@lyness/lyn-session/types'
 import type {
   SessionEventEntry,
   SessionPage,

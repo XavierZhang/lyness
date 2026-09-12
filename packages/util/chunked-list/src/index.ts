@@ -1,6 +1,6 @@
 /**
  * Persistent append-only lists with bounded copying and JSON checkpoint validation.
- * @module @lyness/chunked-list
+ * @module @lyness/lyn-chunked-list
  */
 
 import { z } from 'zod'

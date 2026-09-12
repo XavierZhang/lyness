@@ -7,7 +7,7 @@
 import { describe, expect, it } from 'vitest'
 import { act, cleanup, fireEvent, render } from '@testing-library/react'
 import { useSyncExternalStore } from 'react'
-import type { SessionId } from '@lyness/session/types'
+import type { SessionId } from '@lyness/lyn-session/types'
 import { ExpandButton } from '../src/client/shell/ExpandButton.tsx'
 import type { ExpandButtonProps } from '../src/client/shell/ExpandButton.tsx'
 import { createSidebarRightStore } from '../src/client/stores.ts'

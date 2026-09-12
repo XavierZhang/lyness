@@ -4,7 +4,7 @@ import { join } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { execa } from 'execa'
 import { describe, expect, it } from 'vitest'
-import { resolveExampleLaunch } from '@lyness/loader-smoke'
+import { resolveExampleLaunch } from '@lyness/lyn-loader-smoke'
 
 const lynBinScript = fileURLToPath(new URL('../src/bin.ts', import.meta.url))
 const tsconfigPath = fileURLToPath(new URL('../../../tsconfig.json', import.meta.url))
@@ -28,14 +28,14 @@ describe('lyn run with Agent Teams enabled', () => {
         name: 'lyn-profile-headless',
         private: true,
         dependencies: {
-          '@lyness/experimental-agent-team-profile': 'workspace:^',
+          '@lyness/lyn-experimental-agent-team-profile': 'workspace:^',
         },
         lyn: {
           profile: {
             bundles: [
-              '@lyness/base',
-              '@lyness/headless',
-              '@lyness/experimental-agent-team-profile',
+              '@lyness/lyn-base',
+              '@lyness/lyn-headless',
+              '@lyness/lyn-experimental-agent-team-profile',
             ],
           },
         },

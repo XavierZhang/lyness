@@ -2,18 +2,18 @@
 
 import { mkdir } from 'node:fs/promises'
 import type { Context } from '@lyness/cordis'
-import { installModelSelection } from '@lyness/agent'
+import { installModelSelection } from '@lyness/lyn-agent'
 import type {
   Agent, AgentOptions, AgentSetup, ModelSelection as AgentModelSelection, ModelSelectionRef,
-} from '@lyness/agent'
-import type {} from '@lyness/agent-default-model'
-import type {} from '@lyness/agent-presets'
-import { ReasoningEffortId } from '@lyness/llm'
-import type { Session, SessionId } from '@lyness/session'
-import type { SessionInspection } from '@lyness/session-persistence'
-import { SessionQueryError, type SessionObservation } from '@lyness/session-query'
-import { RemoteError } from '@lyness/typert-protocol'
-import type {} from '@lyness/typert-registry'
+} from '@lyness/lyn-agent'
+import type {} from '@lyness/lyn-agent-default-model'
+import type {} from '@lyness/lyn-agent-presets'
+import { ReasoningEffortId } from '@lyness/lyn-llm'
+import type { Session, SessionId } from '@lyness/lyn-session'
+import type { SessionInspection } from '@lyness/lyn-session-persistence'
+import { SessionQueryError, type SessionObservation } from '@lyness/lyn-session-query'
+import { RemoteError } from '@lyness/lyn-typert-protocol'
+import type {} from '@lyness/lyn-typert-registry'
 import type { ModelSelection } from './types.ts'
 
 /** Cold Session identity absent from persistence. */

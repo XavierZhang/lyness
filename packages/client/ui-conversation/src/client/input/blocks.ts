@@ -12,8 +12,8 @@
  * route regardless of what any client disables.
  */
 
-import { createSnapshotStore, type SnapshotStore } from '@lyness/client-store'
-import type { SessionId } from '@lyness/session/types'
+import { createSnapshotStore, type SnapshotStore } from '@lyness/lyn-client-store'
+import type { SessionId } from '@lyness/lyn-session/types'
 import type { ComposerBlock, ComposerBlocks } from '../contract/composer-blocks.ts'
 
 /** The per-session composer-block registry (one instance per plugin fiber). */

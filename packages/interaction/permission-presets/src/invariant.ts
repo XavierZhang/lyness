@@ -1,10 +1,10 @@
-/** Package-owned permission-preset event invariants. @module @lyness/permission-presets/invariant */
+/** Package-owned permission-preset event invariants. @module @lyness/lyn-permission-presets/invariant */
 
 import type { Context } from '@lyness/cordis'
-import type { Session, SessionEvent } from '@lyness/session'
-import type { InvariantFailure, InvariantInstaller } from '@lyness/invariants'
+import type { Session, SessionEvent } from '@lyness/lyn-session'
+import type { InvariantFailure, InvariantInstaller } from '@lyness/lyn-invariants'
 
-const PACKAGE_NAME = '@lyness/permission-presets'
+const PACKAGE_NAME = '@lyness/lyn-permission-presets'
 
 /** Cordis companion plugin name. */
 export const name = 'permission-presets-invariant'

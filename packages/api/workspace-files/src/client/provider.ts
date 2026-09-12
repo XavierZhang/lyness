@@ -21,11 +21,11 @@
  * the stream: the next write stats again. One {@link ChangeFeed}
  * serves every open file of the Client.
  */
-import type { ResourceProvider } from '@lyness/client-resources/client'
-import type { SessionId } from '@lyness/session/types'
-import { RemoteError } from '@lyness/typert-protocol'
-import type { RemoteResult } from '@lyness/typert-protocol'
-import { parseFileAddress } from '@lyness/util-workspace-path'
+import type { ResourceProvider } from '@lyness/lyn-client-resources/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import { RemoteError } from '@lyness/lyn-typert-protocol'
+import type { RemoteResult } from '@lyness/lyn-typert-protocol'
+import { parseFileAddress } from '@lyness/lyn-util-workspace-path'
 import type { WorkspaceFileStat } from '../types.ts'
 import type { ChangeFeed } from './change-feed.ts'
 import type { WorkspaceFilesRemote } from './remote.ts'

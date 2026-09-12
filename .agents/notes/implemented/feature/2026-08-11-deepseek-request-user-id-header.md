@@ -12,7 +12,7 @@ The user id is transport metadata, not model input. It must not enter the reques
 
 ## Decision
 
-`lyn-llm-deepseek` sends `x-lyness-user-id` on every provider request sent after successful credential resolution. The value comes from `@lyness/anonymous-user-id` and therefore matches the OpenTelemetry Resource `user.id` and `/feedback` acknowledgement for the same `$LYNESS_HOME`. The adapter continues to send `x-lyness-session-id` only when `GenerateOptions.sessionId` is present; the agent loop supplies the current durable `Session.id` for ordinary agent, title-generation, and compaction requests.
+`lyn-llm-deepseek` sends `x-lyness-user-id` on every provider request sent after successful credential resolution. The value comes from `@lyness/lyn-anonymous-user-id` and therefore matches the OpenTelemetry Resource `user.id` and `/feedback` acknowledgement for the same `$LYNESS_HOME`. The adapter continues to send `x-lyness-session-id` only when `GenerateOptions.sessionId` is present; the agent loop supplies the current durable `Session.id` for ordinary agent, title-generation, and compaction requests.
 
 The plugin resolves the user id lazily after credentials succeed and memoizes it for that plugin instance. A missing credential therefore does not create `.anonymous-user-id`, while the first authorized provider request can create it even when `LYNESS_TELEMETRY_DISABLED` is set. The direct adapter constructor accepts a `resolveUserId` dependency so wire behavior remains deterministic in unit tests.
 

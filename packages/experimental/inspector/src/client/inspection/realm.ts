@@ -1,6 +1,6 @@
 /** Stable Client source identity with a fresh descriptor for each WebSocket generation. */
 
-import { randomUUID } from '@lyness/util-crypto'
+import { randomUUID } from '@lyness/lyn-util-crypto'
 import { inspectorId } from '../../shared/identity.ts'
 import type { InspectorSourceDescriptor } from '../../shared/bridge/messages/observation.ts'
 import { bridgeCapabilities } from '../cdp/index.ts'

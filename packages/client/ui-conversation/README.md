@@ -3,7 +3,7 @@ description: "Target-neutral conversation assembly and browser shell: event and 
 kind: "package-reference"
 ---
 
-# @lyness/client-ui-conversation
+# @lyness/lyn-client-ui-conversation
 
 English | [中文](README.zh.md)
 
@@ -72,9 +72,9 @@ interface ComposerChainProps {
 A business package may install one entry only while a Remote waterfall request is pending:
 
 ```tsx
-import type { ComposerChainProps } from '@lyness/client-ui-conversation/client'
-import type { ChainSelect, PropsRuntime } from '@lyness/client-ui-slots'
-import type { SessionId } from '@lyness/session/types'
+import type { ComposerChainProps } from '@lyness/lyn-client-ui-conversation/client'
+import type { ChainSelect, PropsRuntime } from '@lyness/lyn-client-ui-slots'
+import type { SessionId } from '@lyness/lyn-session/types'
 
 interface Request {
   readonly sessionId: SessionId

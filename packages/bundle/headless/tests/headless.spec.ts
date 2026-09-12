@@ -2,14 +2,14 @@
 
 import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import AgentRegistry from '@lyness/agent'
-import type { Agent, AgentHandle, AssistantStreamFrame, CreateAgentOptions } from '@lyness/agent'
-import AgentDefaultModelConfig from '@lyness/agent-default-model'
-import { LlmAttemptId, createAssistantMessage, type StreamChunk } from '@lyness/llm'
-import SessionStore from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import type { Session, UserMessage } from '@lyness/session'
-import { createInboxStub } from '@lyness/agent-loop-testkit'
+import AgentRegistry from '@lyness/lyn-agent'
+import type { Agent, AgentHandle, AssistantStreamFrame, CreateAgentOptions } from '@lyness/lyn-agent'
+import AgentDefaultModelConfig from '@lyness/lyn-agent-default-model'
+import { LlmAttemptId, createAssistantMessage, type StreamChunk } from '@lyness/lyn-llm'
+import SessionStore from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import type { Session, UserMessage } from '@lyness/lyn-session'
+import { createInboxStub } from '@lyness/lyn-agent-loop-testkit'
 import { apply, Config, internals } from '../src/index.ts'
 
 const originalInternals = { ...internals }

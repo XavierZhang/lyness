@@ -6,14 +6,14 @@
  * argument validation, argv construction, result parsing, inline sampling,
  * and formatting; process concerns (spawn execution, tree termination,
  * environment scrubbing, output capture) stay behind `ctx.subprocess`.
- * @module @lyness/tool-fs-search/glob
+ * @module @lyness/lyn-tool-fs-search/glob
  */
 
 import type { Context } from '@lyness/cordis'
 import { sep } from 'node:path'
-import { defineTool } from '@lyness/tools'
-import type { GenericCallView, SearchResultView, ToolResult } from '@lyness/tools'
-import type { SpillRef } from '@lyness/spill'
+import { defineTool } from '@lyness/lyn-tools'
+import type { GenericCallView, SearchResultView, ToolResult } from '@lyness/lyn-tools'
+import type { SpillRef } from '@lyness/lyn-spill'
 import { runRipgrep, toWorkdirRelative, trySaveFormattedResult } from './search-core.ts'
 import { globSearchMeta, searchViewFromMeta } from './presentation.ts'
 import { acceptedDirectCallValue } from './direct-call.ts'

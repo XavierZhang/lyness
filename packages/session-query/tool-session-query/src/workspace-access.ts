@@ -1,23 +1,23 @@
 /**
  * Caller identity, workspace authorization, and visible lineage projection.
  *
- * @module @lyness/tool-session-query/workspace-access
+ * @module @lyness/lyn-tool-session-query/workspace-access
  */
 
 import type { Context } from '@lyness/cordis'
-import { brandString } from '@lyness/brand'
-import { HarnessError } from '@lyness/llm'
+import { brandString } from '@lyness/lyn-brand'
+import { HarnessError } from '@lyness/lyn-llm'
 import {
   type SessionHeader,
   type SessionId as SessionIdValue,
-} from '@lyness/session'
-import type { TurnBoundaryProjection } from '@lyness/agent'
+} from '@lyness/lyn-session'
+import type { TurnBoundaryProjection } from '@lyness/lyn-agent'
 import type {
   SessionLineageNode,
   SessionRecord,
-} from '@lyness/session-query'
-import type { ToolRunContext } from '@lyness/tools'
-import type {} from '@lyness/session-projection'
+} from '@lyness/lyn-session-query'
+import type { ToolRunContext } from '@lyness/lyn-tools'
+import type {} from '@lyness/lyn-session-projection'
 import { serviceBoundary } from './service-boundary.ts'
 
 interface Caller {

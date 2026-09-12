@@ -4,18 +4,18 @@
  * version this controller last observed, and a `version-conflict` reply carries
  * the authoritative item, so a lost race reconciles from the reply itself
  * instead of refetching the whole Session.
- * @module @lyness/client-ui-message-feedback/client/controller
+ * @module @lyness/lyn-client-ui-message-feedback/client/controller
  */
 
 import type { Context as ClientContext } from '@lyness/cordis'
-import type { HostObservable } from '@lyness/client-ui-slots'
-import type { MessageId } from '@lyness/api-remotes/client'
-import type { SessionId } from '@lyness/session/types'
-import type { FeedbackRecord } from '@lyness/command-feedback/types'
+import type { HostObservable } from '@lyness/lyn-client-ui-slots'
+import type { MessageId } from '@lyness/lyn-api-remotes/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { FeedbackRecord } from '@lyness/lyn-command-feedback/types'
 import type {
   MessageFeedbackItem,
   MessageFeedbackRating,
-} from '@lyness/message-feedback/types'
+} from '@lyness/lyn-message-feedback/types'
 
 /** Load state of the one list read that seeds every per-message control. */
 export type MessageFeedbackStatus = 'cold' | 'loading' | 'ready' | 'error'

@@ -3,7 +3,7 @@ description: "lyn Web 客户端的设置外壳、无特定功能归属文案与�
 kind: "package-reference"
 ---
 
-# @lyness/client-ui-settings-general
+# @lyness/lyn-client-ui-settings-general
 
 [English](README.md) | 中文
 

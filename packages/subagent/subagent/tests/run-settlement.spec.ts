@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { SessionId } from '@lyness/session'
+import { SessionId } from '@lyness/lyn-session'
 import {
   settleRun,
   settleRunResult,

@@ -14,8 +14,8 @@ import { fileURLToPath } from 'node:url'
 import type { Browser, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed } from 'vitest'
-import { ToolCallId, expandAssistantStream } from '@lyness/llm'
-import type { Session, SessionEvent, SessionId } from '@lyness/session'
+import { ToolCallId, expandAssistantStream } from '@lyness/lyn-llm'
+import type { Session, SessionEvent, SessionId } from '@lyness/lyn-session'
 import {
   assertFixtureInventory, captureExpandedTurnProcessAria, captureStableAria,
   compareOrRefreshGolden, fixtureUserPrompts,

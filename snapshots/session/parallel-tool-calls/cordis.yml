@@ -3,12 +3,12 @@
 # storage those scenarios exercise.
 
 - id: spill-local
-  name: '@lyness/spill-local'
+  name: '@lyness/lyn-spill-local'
   config:
     root: !!js process.env.LYNESS_SNAPSHOT_SPILL_ROOT ?? './.spill'
 
 - id: spill-policy
-  name: '@lyness/spill-policy'
+  name: '@lyness/lyn-spill-policy'
   config:
     maxInlineBytes: !!js process.env.LYNESS_SNAPSHOT && 800 || 50000
 

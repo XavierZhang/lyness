@@ -3,7 +3,7 @@ description: "Input trigger pipeline for the Web GUI: / and @ detection under th
 kind: "package-reference"
 ---
 
-# @lyness/client-ui-input-trigger
+# @lyness/lyn-client-ui-input-trigger
 
 English | [中文](README.zh.md)
 

@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/tool-cordis",
+  "name": "@lyness/lyn-tool-cordis",
   "description": "Self-referential cordis toolset: inspect the live runtime, mount and dispose model-written plugins",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -27,24 +27,24 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/agent": "workspace:^",
-    "@lyness/cordis-host-runner": "workspace:^",
-    "@lyness/llm": "workspace:^",
-    "@lyness/scope": "workspace:^",
-    "@lyness/session": "workspace:^",
-    "@lyness/system-prompt": "workspace:^",
-    "@lyness/tools": "workspace:^",
+    "@lyness/lyn-agent": "workspace:^",
+    "@lyness/lyn-cordis-host-runner": "workspace:^",
+    "@lyness/lyn-llm": "workspace:^",
+    "@lyness/lyn-scope": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
+    "@lyness/lyn-system-prompt": "workspace:^",
+    "@lyness/lyn-tools": "workspace:^",
     "@lyness/cordis": "workspace:^"
   },
   "devDependencies": {
     "@lyness/cordis-plugin-loader": "workspace:^",
-    "@lyness/agent": "workspace:^",
-    "@lyness/cordis-host-runner": "workspace:^",
-    "@lyness/llm": "workspace:^",
-    "@lyness/scope": "workspace:^",
-    "@lyness/session": "workspace:^",
-    "@lyness/system-prompt": "workspace:^",
-    "@lyness/tools": "workspace:^",
+    "@lyness/lyn-agent": "workspace:^",
+    "@lyness/lyn-cordis-host-runner": "workspace:^",
+    "@lyness/lyn-llm": "workspace:^",
+    "@lyness/lyn-scope": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
+    "@lyness/lyn-system-prompt": "workspace:^",
+    "@lyness/lyn-tools": "workspace:^",
     "@lyness/cordis": "workspace:^"
   }
 }

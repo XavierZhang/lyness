@@ -3,7 +3,7 @@ description: "lyn Web 客户端的主题与正文字号设置：--dsw-* token �
 kind: "package-reference"
 ---
 
-# @lyness/client-ui-theme
+# @lyness/lyn-client-ui-theme
 
 [English](README.md) | 中文
 

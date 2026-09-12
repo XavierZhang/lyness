@@ -18,15 +18,15 @@
  * durable descriptor, so it neither restores the prior budget nor inherits
  * the parent's current one; the resumed route's defaults apply instead.
  *
- * @module @lyness/subagent/descriptor
+ * @module @lyness/lyn-subagent/descriptor
  */
 
-import { snapshotJsonValue } from '@lyness/util-values'
-import type { SessionEvent } from '@lyness/session'
-import type { ReasoningEffortId } from '@lyness/llm'
-import type { ToolRestriction } from '@lyness/tools'
+import { snapshotJsonValue } from '@lyness/lyn-util-values'
+import type { SessionEvent } from '@lyness/lyn-session'
+import type { ReasoningEffortId } from '@lyness/lyn-llm'
+import type { ToolRestriction } from '@lyness/lyn-tools'
 
-declare module '@lyness/session/types' {
+declare module '@lyness/lyn-session/types' {
   interface SessionEventMap {
     /**
      * Durable identity and lifecycle mode of a session-backed subagent child,

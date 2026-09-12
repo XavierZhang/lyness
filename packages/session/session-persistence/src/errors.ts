@@ -3,11 +3,11 @@
  * including the format refusals shared by every backend: a stored log this
  * build cannot faithfully interpret is refused, never misread, and the
  * refusal points at the raw artifact when the backend keeps one per session.
- * @module @lyness/session-persistence/errors
+ * @module @lyness/lyn-session-persistence/errors
  */
 
-import { SESSION_FORMAT_VERSION } from '@lyness/session'
-import type { SessionId } from '@lyness/session'
+import { SESSION_FORMAT_VERSION } from '@lyness/lyn-session'
+import type { SessionId } from '@lyness/lyn-session'
 
 /** The requested Session identity has no durable log visible to this caller. */
 export class SessionPersistenceNotFoundError extends Error {

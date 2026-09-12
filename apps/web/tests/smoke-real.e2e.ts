@@ -347,7 +347,7 @@ describe('lyn web keyless CLI smoke', () => {
         /^\/plugins\/\?\?.+\/client\.js,.+\/client\.js&rev=[a-f\d]{12}$/,
       ))
       expect(batchPaths).toContainEqual(expect.stringMatching(
-        /^\/plugins\/\?\?@lyness\/client-modules\/client\.js&rev=[a-f\d]{12}$/,
+        /^\/plugins\/\?\?@lyness\/lyn-client-modules\/client\.js&rev=[a-f\d]{12}$/,
       ))
       const readyOrigin = new URL(readyUrl).origin
       expect([...cacheHeaders.values()]).toEqual([

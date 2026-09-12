@@ -7,27 +7,7 @@ import { globSync, readFileSync } from 'node:fs'
 import { resolve, sep } from 'node:path'
 
 const ROOT = resolve(import.meta.dirname, '..')
-const LYNESS_PACKAGE_NAME = /^@lyness\//
-/**
- * Workspace directory holding pinned third-party source, which the fork
- * republishes under its own scope but does not own the license of.
- *
- * The scope alone no longer separates the two families: the fork's packages
- * dropped the product-name segment, so `@lyness/agent` and the vendored
- * `@lyness/cordis` are indistinguishable by name. Location still separates
- * them, and it is the authoritative signal — a package's license follows who
- * wrote it, not what it is called.
- */
-const VENDORED_PREFIX = 'vendor/'
-/**
- * Directories whose packages share the fork's scope but not its license line.
- *
- * Upstream separates them by the product-name segment its own packages carry;
- * without it they read as LYN packages here. `native/` republishes the
- * Landlock addon family under its own BSD-3-Clause terms, and `website/` is a
- * private documentation build that declares no license at all.
- */
-const NON_LYN_PREFIXES = ['native/', 'website/'] as const
+const LYNESS_PACKAGE_NAME = /^@lyness\/lyn(?:-|$)/
 
 /** Result of checking every LYN package reachable through the root workspace list. */
 export interface LynPackageLicenseReport {
@@ -79,9 +59,6 @@ export function inspectLynPackageLicenses(root: string): LynPackageLicenseReport
   const failures: string[] = []
 
   for (const file of workspaceManifestPaths(root)) {
-    const posixPath = file.split(sep).join('/')
-    if (posixPath.startsWith(VENDORED_PREFIX)) continue
-    if (NON_LYN_PREFIXES.some(prefix => posixPath.startsWith(prefix))) continue
     const manifest = readManifest(root, file)
     const name = manifest.name
     if (typeof name !== 'string' || !LYNESS_PACKAGE_NAME.test(name)) continue

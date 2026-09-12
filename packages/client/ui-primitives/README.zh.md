@@ -3,7 +3,7 @@ description: "lyn Web 客户端共享的 React UI 原子组件：控件、图标
 kind: "package-library"
 ---
 
-# @lyness/client-ui-primitives
+# @lyness/lyn-client-ui-primitives
 
 [English](README.md) | 中文
 

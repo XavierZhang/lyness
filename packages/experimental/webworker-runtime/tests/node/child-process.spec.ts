@@ -13,21 +13,21 @@
  * liveness through it, and on a test host those pids belong to real processes.
  */
 import { afterEach, beforeEach, expect, it, vi } from 'vitest'
-import { MemoryVfs } from '@lyness/experimental-webworker-runtime/src/storage/memory.ts'
-import { setActiveVfs } from '@lyness/experimental-webworker-runtime/src/storage/active.ts'
-import { spawn, spawnSync } from '@lyness/experimental-webworker-runtime/src/node/builtin_modules/implemented/child_process.ts'
+import { MemoryVfs } from '@lyness/lyn-experimental-webworker-runtime/src/storage/memory.ts'
+import { setActiveVfs } from '@lyness/lyn-experimental-webworker-runtime/src/storage/active.ts'
+import { spawn, spawnSync } from '@lyness/lyn-experimental-webworker-runtime/src/node/builtin_modules/implemented/child_process.ts'
 import {
   LAUNCHER_FAILURE_EXIT, grantArgs, launcherPath, probe,
 } from '@lyness/node-addon-system/landlock-run'
-import { processAlive, signalProcess } from '@lyness/experimental-webworker-runtime/src/node/process-table.ts'
-import { hostFileSystem } from '@lyness/experimental-webworker-runtime/src/shell/fs-access.ts'
+import { processAlive, signalProcess } from '@lyness/lyn-experimental-webworker-runtime/src/node/process-table.ts'
+import { hostFileSystem } from '@lyness/lyn-experimental-webworker-runtime/src/shell/fs-access.ts'
 import {
   LANDLOCK_EXECUTABLE, landlockFileSystem, parseLandlockArguments,
-} from '@lyness/experimental-webworker-runtime/src/shell/process/landlock.ts'
-import { spawnSubprocess } from '@lyness/subprocess-local/src/spawn.ts'
+} from '@lyness/lyn-experimental-webworker-runtime/src/shell/process/landlock.ts'
+import { spawnSubprocess } from '@lyness/lyn-subprocess-local/src/spawn.ts'
 
 vi.mock('node:child_process', async () =>
-  await import('@lyness/experimental-webworker-runtime/src/node/builtin_modules/implemented/child_process.ts'))
+  await import('@lyness/lyn-experimental-webworker-runtime/src/node/builtin_modules/implemented/child_process.ts'))
 
 const WORKSPACE = '/lyn/workspace'
 const HOME = '/lyn/home'

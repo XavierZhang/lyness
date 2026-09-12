@@ -1,13 +1,13 @@
 /**
- * Package-owned invariant companion for `@lyness/settings`.
- * @module @lyness/settings/invariant
+ * Package-owned invariant companion for `@lyness/lyn-settings`.
+ * @module @lyness/lyn-settings/invariant
  */
 
 import type { Context } from '@lyness/cordis'
-import type { InvariantFailure, InvariantInstaller } from '@lyness/invariants'
-import { deepEqualJson } from '@lyness/util-values'
+import type { InvariantFailure, InvariantInstaller } from '@lyness/lyn-invariants'
+import { deepEqualJson } from '@lyness/lyn-util-values'
 
-const PACKAGE_NAME = '@lyness/settings'
+const PACKAGE_NAME = '@lyness/lyn-settings'
 
 /** Cordis companion plugin name. */
 export const name = 'settings-invariant'

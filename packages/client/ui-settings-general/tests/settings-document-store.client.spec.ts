@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest'
-import { RemoteError } from '@lyness/client-test-runtime'
-import type { RemoteResult } from '@lyness/api-remotes/client'
-import { SettingsDescribeMirror } from '@lyness/client-ui-settings/src/client/settings-mirror.ts'
+import { RemoteError } from '@lyness/lyn-client-test-runtime'
+import type { RemoteResult } from '@lyness/lyn-api-remotes/client'
+import { SettingsDescribeMirror } from '@lyness/lyn-client-ui-settings/src/client/settings-mirror.ts'
 import { SettingsDocumentStore } from '../src/client/settings-document-store.ts'
 
 /** Store over a real mirror derived from the same scripted context. */

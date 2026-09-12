@@ -11,16 +11,16 @@
  * between this module and one in-package caller, not something a plugin may
  * depend on.
  *
- * @module @lyness/subagent/lifecycle
+ * @module @lyness/lyn-subagent/lifecycle
  */
 
 import { randomUUID } from 'node:crypto'
 import type { Context } from '@lyness/cordis'
-import type { Agent } from '@lyness/agent'
-import type { ContentBlock } from '@lyness/llm'
-import { foldConsumedWork } from '@lyness/agent'
-import { SessionLogOffset } from '@lyness/session'
-import type { SessionEvent, SessionId, SessionLogOffset as SessionLogOffsetType } from '@lyness/session'
+import type { Agent } from '@lyness/lyn-agent'
+import type { ContentBlock } from '@lyness/lyn-llm'
+import { foldConsumedWork } from '@lyness/lyn-agent'
+import { SessionLogOffset } from '@lyness/lyn-session'
+import type { SessionEvent, SessionId, SessionLogOffset as SessionLogOffsetType } from '@lyness/lyn-session'
 import { finalAssistantOutput } from './assistant-output.ts'
 import { SubagentRunId } from './types.ts'
 import type { SubagentResult, SubagentRun, SubagentRunEndInfo, SubagentRunInfo } from './types.ts'

@@ -1,13 +1,13 @@
 /**
  * Agent-scoped durable one-shot and fixed-rate reminders over the session event log.
- * @module @lyness/schedule
+ * @module @lyness/lyn-schedule
  */
 
 import type { Context } from '@lyness/cordis'
-import type { Agent } from '@lyness/agent'
-import type {} from '@lyness/session-persistence'
+import type { Agent } from '@lyness/lyn-agent'
+import type {} from '@lyness/lyn-session-persistence'
 // Type-only: resolves ctx.sessionProjections for the optional projection child.
-import type {} from '@lyness/session-projection'
+import type {} from '@lyness/lyn-session-projection'
 import { scheduleProjectionDefinition } from './projection.ts'
 import { ScheduleRuntime } from './runtime.ts'
 import { registerScheduleTools } from './tools.ts'

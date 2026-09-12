@@ -2,15 +2,15 @@
  * Workspace entity registry (`ctx.workspaceRegistry`): durable workspace records,
  * stable registry order, and header-validated session membership over the
  * domain data form.
- * @module @lyness/workspace
+ * @module @lyness/lyn-workspace
  */
 
 import { randomUUID } from 'node:crypto'
 import { stat } from 'node:fs/promises'
 import { Context, Service } from '@lyness/cordis'
-import type { SessionHeader, SessionId } from '@lyness/session'
-import type {} from '@lyness/session-persistence'
-import type { DomainGlobal, KvTable } from '@lyness/storage-domain'
+import type { SessionHeader, SessionId } from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-session-persistence'
+import type { DomainGlobal, KvTable } from '@lyness/lyn-storage-domain'
 import { WorkspaceEntity } from './entity.ts'
 import type { WorkspaceEntityHost } from './entity.ts'
 

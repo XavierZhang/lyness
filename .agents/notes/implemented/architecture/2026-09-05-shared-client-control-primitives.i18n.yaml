@@ -2,5 +2,5 @@
 # side as of the last confirmed-consistent state. Both languages carry equal authority;
 # after editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-09-05-shared-client-control-primitives.md
-2026-09-05-shared-client-control-primitives.md: 1fe0fa4956a6df121c1902728ec61107ee8107f7
-2026-09-05-shared-client-control-primitives.zh.md: 6efcc9540f1bbfb5c01e2bc16e67208b89a4d613
+2026-09-05-shared-client-control-primitives.md: 4c72d5337e9a828298fd36fffe26c3f899a7bc28
+2026-09-05-shared-client-control-primitives.zh.md: 1d1a3258052851ac3444479b3e56e3f8da219b6c

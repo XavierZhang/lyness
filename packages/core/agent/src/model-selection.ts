@@ -1,6 +1,6 @@
 /**
  * Agent-scoped model selection shared by runtime entry points.
- * @module @lyness/agent/model-selection
+ * @module @lyness/lyn-agent/model-selection
  */
 
 import type { Context } from '@lyness/cordis'
@@ -9,7 +9,7 @@ import {
   createUserMessage,
   type LlmCallConfig,
   type ReasoningEffortId,
-} from '@lyness/llm'
+} from '@lyness/lyn-llm'
 import type { PreStepDecision } from './runtime-types.ts'
 
 /** Complete provider, model, and optional reasoning effort selected for one live Agent. */

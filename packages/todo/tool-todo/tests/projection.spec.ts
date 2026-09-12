@@ -9,17 +9,17 @@
 
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import AgentRegistry from '@lyness/agent'
-import type { Agent } from '@lyness/agent'
-import { createUserMessage } from '@lyness/llm'
-import SessionStore from '@lyness/session'
-import type { Session } from '@lyness/session'
-import type { TodoItem } from '@lyness/tool-todo'
-import SystemPrompt from '@lyness/system-prompt'
-import ToolRuntime from '@lyness/tools'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import UserQuestionService from '@lyness/user-questions'
-import * as ToolTodo from '@lyness/tool-todo'
+import AgentRegistry from '@lyness/lyn-agent'
+import type { Agent } from '@lyness/lyn-agent'
+import { createUserMessage } from '@lyness/lyn-llm'
+import SessionStore from '@lyness/lyn-session'
+import type { Session } from '@lyness/lyn-session'
+import type { TodoItem } from '@lyness/lyn-tool-todo'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime from '@lyness/lyn-tools'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import UserQuestionService from '@lyness/lyn-user-questions'
+import * as ToolTodo from '@lyness/lyn-tool-todo'
 
 interface Bench {
   ctx: Context

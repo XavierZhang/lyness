@@ -4,12 +4,12 @@ import { fileURLToPath } from 'node:url'
 import type { Browser, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed } from 'vitest'
-import type { AgentHandle } from '@lyness/agent'
-import { ToolCallId, createUserMessage } from '@lyness/llm'
-import { SessionId } from '@lyness/session'
-import type { Session } from '@lyness/session'
-import type {} from '@lyness/agent-presets'
-import type {} from '@lyness/system-prompt'
+import type { AgentHandle } from '@lyness/lyn-agent'
+import { ToolCallId, createUserMessage } from '@lyness/lyn-llm'
+import { SessionId } from '@lyness/lyn-session'
+import type { Session } from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-agent-presets'
+import type {} from '@lyness/lyn-system-prompt'
 import {
   assertFixtureInventory,
   captureStableAria,
@@ -83,7 +83,7 @@ describe('minimal agent preset', () => {
     if (systemPrompt === undefined) throw new Error('the minimal agent issued no system prompt')
     expect(agentHandle.agent.session.snapshotEvents().some(event => event.type === 'user/message'
       && event.data.source.kind === 'plugin'
-      && event.data.source.plugin === '@lyness/system-prompt')).toBe(false)
+      && event.data.source.plugin === '@lyness/lyn-system-prompt')).toBe(false)
     expect(scaffold.ctx.agentPresets.serviceFor(agentHandle.agent, 'fs')).toBeUndefined()
     expect(scaffold.ctx.agentPresets.serviceFor(agentHandle.agent, 'compaction')).toBeUndefined()
 

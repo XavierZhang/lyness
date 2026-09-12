@@ -15,7 +15,7 @@ import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
 import Include from '@lyness/cordis-plugin-include'
 import z from '@lyness/schemastery'
-import { type SettingsScope } from '@lyness/settings'
+import { type SettingsScope } from '@lyness/lyn-settings'
 import FileSettingsProvider from '../src/index.ts'
 
 interface ThemeConfig {
@@ -79,7 +79,7 @@ async function loadComposition(
     ...withSettings
       ? [
         '- id: settings',
-        "  name: '@lyness/settings-file'",
+        "  name: '@lyness/lyn-settings-file'",
         '  config:',
         `    path: ${JSON.stringify(settingsPath)}`,
         '    debounceMs: 10',
@@ -96,7 +96,7 @@ async function loadComposition(
   await ctx.plugin(Loader)
   ctx.loader.builtins.include = Include
   const modules = new Map<string, unknown>([
-    ['@lyness/settings-file', FileSettingsProvider],
+    ['@lyness/lyn-settings-file', FileSettingsProvider],
     ['test-settings-consumer', consumer],
   ])
   ctx.loader.internal = {

@@ -3,7 +3,7 @@ description: "lyn Web 客户端的侧边栏外壳插件：品牌行、New Sessio
 kind: "package-reference"
 ---
 
-# @lyness/client-ui-sidebar
+# @lyness/lyn-client-ui-sidebar
 
 [English](README.md) | 中文
 

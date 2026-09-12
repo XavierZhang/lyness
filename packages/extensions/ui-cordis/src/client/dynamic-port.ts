@@ -1,6 +1,6 @@
 /** Host operations used directly by the frame-wide Cordis panel. */
 
-import type { SessionId } from '@lyness/api-remotes/client'
+import type { SessionId } from '@lyness/lyn-api-remotes/client'
 import type {
   CordisDynamicPluginId, DynamicCordisInventoryRow,
 } from './events.ts'

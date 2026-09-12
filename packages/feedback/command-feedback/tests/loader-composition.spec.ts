@@ -6,13 +6,13 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
 import Include from '@lyness/cordis-plugin-include'
-import AgentRegistry from '@lyness/agent'
-import type { Agent, AgentStatus } from '@lyness/agent'
-import CommandRuntime from '@lyness/commands'
-import SessionStore, { SessionId } from '@lyness/session'
-import * as CommandFeedback from '@lyness/command-feedback'
-import { getOrCreateAnonymousUserId } from '@lyness/anonymous-user-id'
-import { unsupportedInbox } from '@lyness/agent-loop-testkit'
+import AgentRegistry from '@lyness/lyn-agent'
+import type { Agent, AgentStatus } from '@lyness/lyn-agent'
+import CommandRuntime from '@lyness/lyn-commands'
+import SessionStore, { SessionId } from '@lyness/lyn-session'
+import * as CommandFeedback from '@lyness/lyn-command-feedback'
+import { getOrCreateAnonymousUserId } from '@lyness/lyn-anonymous-user-id'
+import { unsupportedInbox } from '@lyness/lyn-agent-loop-testkit'
 
 let root: string | undefined
 let context: Context | undefined
@@ -56,10 +56,10 @@ describe('/feedback real Loader composition through cordis.yml', () => {
     vi.stubEnv('LYNESS_HOME', root)
     const configPath = join(root, 'cordis.yml')
     await writeFile(configPath, [
-      "- name: '@lyness/agent'",
-      "- name: '@lyness/session'",
-      "- name: '@lyness/commands'",
-      "- name: '@lyness/command-feedback'",
+      "- name: '@lyness/lyn-agent'",
+      "- name: '@lyness/lyn-session'",
+      "- name: '@lyness/lyn-commands'",
+      "- name: '@lyness/lyn-command-feedback'",
       '',
     ].join('\n'))
 
@@ -68,10 +68,10 @@ describe('/feedback real Loader composition through cordis.yml', () => {
     await context.plugin(Loader)
     context.loader.builtins.include = Include
     const modules = new Map<string, unknown>([
-      ['@lyness/agent', AgentRegistry],
-      ['@lyness/session', SessionStore],
-      ['@lyness/commands', CommandRuntime],
-      ['@lyness/command-feedback', CommandFeedback],
+      ['@lyness/lyn-agent', AgentRegistry],
+      ['@lyness/lyn-session', SessionStore],
+      ['@lyness/lyn-commands', CommandRuntime],
+      ['@lyness/lyn-command-feedback', CommandFeedback],
     ])
     context.loader.internal = {
       version: 'v2',

@@ -1,7 +1,7 @@
 /**
  * Service Definition for combined session-history reads, traces, filters, and full-text search.
  *
- * @module @lyness/session-query
+ * @module @lyness/lyn-session-query
  */
 
 import { Context, Service } from '@lyness/cordis'
@@ -11,9 +11,9 @@ import {
   snapshotSessionEvent,
   type SessionId,
   type SessionSeq as SessionSeqType,
-} from '@lyness/session'
-import { foldSessionTitle } from '@lyness/session-title'
-import type { SessionTitleSnapshot } from '@lyness/session-title'
+} from '@lyness/lyn-session'
+import { foldSessionTitle } from '@lyness/lyn-session-title'
+import type { SessionTitleSnapshot } from '@lyness/lyn-session-title'
 import type {
   SessionEventResultFilter,
   SessionEventSearchPage,

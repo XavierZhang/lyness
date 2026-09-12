@@ -4,18 +4,18 @@
  * `ctx.subagents.interrupt()`. They perform no lifecycle routing of their own —
  * residency, cold resume, and interrupt authorization belong to the subagent
  * service — and they live apart from the provider-bound
- * `@lyness/tool-subagent` instances so multiple delegation tools share
+ * `@lyness/lyn-tool-subagent` instances so multiple delegation tools share
  * one control API.
- * @module @lyness/tool-subagent-control
+ * @module @lyness/lyn-tool-subagent-control
  */
 
 import type { Context } from '@lyness/cordis'
-import { brandString } from '@lyness/brand'
-import { defineTool } from '@lyness/tools'
-import type { ContentBlock } from '@lyness/llm'
-import type { SessionId } from '@lyness/session'
-import type {} from '@lyness/subagent'
-import { markAdjacentAgentSendMessageTool } from '@lyness/subagent/internal'
+import { brandString } from '@lyness/lyn-brand'
+import { defineTool } from '@lyness/lyn-tools'
+import type { ContentBlock } from '@lyness/lyn-llm'
+import type { SessionId } from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-subagent'
+import { markAdjacentAgentSendMessageTool } from '@lyness/lyn-subagent/internal'
 
 export const name = 'tool-subagent-control'
 export const inject = ['tools', 'subagents']

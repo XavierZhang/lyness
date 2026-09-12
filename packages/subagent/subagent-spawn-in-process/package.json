@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/subagent-spawn-in-process",
+  "name": "@lyness/lyn-subagent-spawn-in-process",
   "description": "In-process spawn subagent backend: runs a fresh child agent on ctx.agents",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -27,8 +27,8 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/subagent": "workspace:^",
-    "@lyness/subagent-in-process-driver": "workspace:^",
+    "@lyness/lyn-subagent": "workspace:^",
+    "@lyness/lyn-subagent-in-process-driver": "workspace:^",
     "@lyness/cordis": "workspace:^"
   },
   "dependencies": {
@@ -36,20 +36,20 @@
   },
   "devDependencies": {
     "@lyness/cordis-plugin-loader": "workspace:^",
-    "@lyness/agent": "workspace:^",
-    "@lyness/agent-loop": "workspace:^",
-    "@lyness/agent-loop-testkit": "workspace:^",
-    "@lyness/bash-local": "workspace:^",
-    "@lyness/subprocess-local": "workspace:^",
-    "@lyness/invariants": "workspace:^",
-    "@lyness/llm": "workspace:^",
-    "@lyness/llm-deepseek": "workspace:^",
-    "@lyness/session": "workspace:^",
-    "@lyness/subagent": "workspace:^",
-    "@lyness/subagent-in-process-driver": "workspace:^",
-    "@lyness/tool-bash": "workspace:^",
-    "@lyness/tool-subagent": "workspace:^",
+    "@lyness/lyn-agent": "workspace:^",
+    "@lyness/lyn-agent-loop": "workspace:^",
+    "@lyness/lyn-agent-loop-testkit": "workspace:^",
+    "@lyness/lyn-bash-local": "workspace:^",
+    "@lyness/lyn-subprocess-local": "workspace:^",
+    "@lyness/lyn-invariants": "workspace:^",
+    "@lyness/lyn-llm": "workspace:^",
+    "@lyness/lyn-llm-deepseek": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
+    "@lyness/lyn-subagent": "workspace:^",
+    "@lyness/lyn-subagent-in-process-driver": "workspace:^",
+    "@lyness/lyn-tool-bash": "workspace:^",
+    "@lyness/lyn-tool-subagent": "workspace:^",
     "@lyness/cordis": "workspace:^",
-    "@lyness/session-projection": "workspace:^"
+    "@lyness/lyn-session-projection": "workspace:^"
   }
 }

@@ -3,10 +3,10 @@ import clsx from 'clsx'
 import {
   CodeBlock, DiffBlock, DisclosureRow, IconInspectOutline12, ReadBlock, SearchBlock, StateDot, TerminalBlock, WebBlock,
   diffTotals,
-} from '@lyness/client-ui-primitives'
-import type { PropsRenderSlots, TranslateNS } from '@lyness/client-ui-slots'
-import type { OpenFileOptions } from '@lyness/client-ui-chat/client'
-import type { MessageImageLoader } from '@lyness/client-ui-conversation/client'
+} from '@lyness/lyn-client-ui-primitives'
+import type { PropsRenderSlots, TranslateNS } from '@lyness/lyn-client-ui-slots'
+import type { OpenFileOptions } from '@lyness/lyn-client-ui-chat/client'
+import type { MessageImageLoader } from '@lyness/lyn-client-ui-conversation/client'
 import { CHAT_DIFF_MAX_LINES, type DiffCardModel } from '../models/diff-card-model.ts'
 import { CHAT_READ_MAX_LINES, type ReadCardModel } from '../models/read-card-model.ts'
 import type { ImageCardModel } from '../models/image-card-model.ts'

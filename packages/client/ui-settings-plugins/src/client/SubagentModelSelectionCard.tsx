@@ -1,7 +1,7 @@
 /** User control for model-selectable subagent delegation in new sessions. */
 
-import { Switch } from '@lyness/client-ui-primitives'
-import type { InjectFace, PropsLocale, PropsRuntime } from '@lyness/client-ui-slots'
+import { Switch } from '@lyness/lyn-client-ui-primitives'
+import type { InjectFace, PropsLocale, PropsRuntime } from '@lyness/lyn-client-ui-slots'
 import type {
   SubagentModelCandidate,
   SubagentModelSelectionCardFace,

@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/command-compact",
+  "name": "@lyness/lyn-command-compact",
   "description": "Human-facing slash command for explicit session compaction",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -27,18 +27,18 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/commands": "workspace:^",
-    "@lyness/compaction": "workspace:^",
+    "@lyness/lyn-commands": "workspace:^",
+    "@lyness/lyn-compaction": "workspace:^",
     "@lyness/cordis": "workspace:^"
   },
   "devDependencies": {
     "@lyness/cordis-plugin-include": "workspace:^",
     "@lyness/cordis-plugin-loader": "workspace:^",
-    "@lyness/agent": "workspace:^",
-    "@lyness/commands": "workspace:^",
-    "@lyness/compaction": "workspace:^",
-    "@lyness/llm": "workspace:^",
-    "@lyness/session": "workspace:^",
+    "@lyness/lyn-agent": "workspace:^",
+    "@lyness/lyn-commands": "workspace:^",
+    "@lyness/lyn-compaction": "workspace:^",
+    "@lyness/lyn-llm": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
     "@lyness/cordis": "workspace:^"
   }
 }

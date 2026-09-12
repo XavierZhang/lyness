@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/persona",
+  "name": "@lyness/lyn-persona",
   "description": "Composition-authored deployment persona section for the lyness",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -27,15 +27,15 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/system-prompt": "workspace:^",
+    "@lyness/lyn-system-prompt": "workspace:^",
     "@lyness/cordis": "workspace:^"
   },
   "dependencies": {
     "@lyness/schemastery": "workspace:^"
   },
   "devDependencies": {
-    "@lyness/scope": "workspace:^",
-    "@lyness/system-prompt": "workspace:^",
+    "@lyness/lyn-scope": "workspace:^",
+    "@lyness/lyn-system-prompt": "workspace:^",
     "@lyness/cordis": "workspace:^"
   }
 }

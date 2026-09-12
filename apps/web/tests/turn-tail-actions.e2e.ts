@@ -14,8 +14,8 @@ import { join } from 'node:path'
 import type { Browser, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { afterEach, describe, expect, it, onTestFailed } from 'vitest'
-import type { ReplayOverrideDoc } from '@lyness/llm-replay'
-import type { SessionEvent } from '@lyness/session'
+import type { ReplayOverrideDoc } from '@lyness/lyn-llm-replay'
+import type { SessionEvent } from '@lyness/lyn-session'
 import {
   assertFixtureInventory, captureStableAria, compareOrRefreshGolden, fixtureUserPrompts,
   launchWebScaffold, recordFixture, watchConsole, webSnapshotMode, type WebScaffold,

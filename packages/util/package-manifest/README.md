@@ -3,7 +3,7 @@ description: "Shared TypeScript declarations for package.json.lyn metadata, usab
 kind: "package-library"
 ---
 
-# @lyness/package-manifest
+# @lyness/lyn-package-manifest
 
 English | [中文](README.zh.md)
 
@@ -28,7 +28,7 @@ Use `LynManifest` to type a package's Harness metadata, or a member type such as
 Import from the package root. Use a development dependency when only checking your own source; use a production dependency if your published declarations reference these types.
 
 ```ts
-import type { LynClientManifest, LynManifest } from '@lyness/package-manifest'
+import type { LynClientManifest, LynManifest } from '@lyness/lyn-package-manifest'
 
 const client: LynClientManifest = { platform: 'web' }
 const lyn: LynManifest = {

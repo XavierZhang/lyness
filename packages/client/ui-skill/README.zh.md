@@ -3,7 +3,7 @@ description: "lyn Web 客户端的 skill 引用与专属 skill 工具行：/ 触
 kind: "package-reference"
 ---
 
-# @lyness/client-ui-skill
+# @lyness/lyn-client-ui-skill
 
 [English](README.md) | 中文
 

@@ -14,11 +14,11 @@
  * consumer names the protocol as a type argument and receives the owner's value
  * type without importing the owner's runtime.
  */
-import type { RemoteFailure, RemoteResult } from '@lyness/typert-protocol'
-import type { ObservableSnapshot } from '@lyness/client-store'
-import type { ResourceProtocolMap } from '@lyness/client-ui-slots'
+import type { RemoteFailure, RemoteResult } from '@lyness/lyn-typert-protocol'
+import type { ObservableSnapshot } from '@lyness/lyn-client-store'
+import type { ResourceProtocolMap } from '@lyness/lyn-client-ui-slots'
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface GlobalStandardProps {
     /** Live value of one address, resolved through the provider registered for its protocol. */
     useResource: UseResource

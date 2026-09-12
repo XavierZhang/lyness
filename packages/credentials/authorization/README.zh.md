@@ -3,7 +3,7 @@ description: "面向用户与维护者的授权 flow 注册表：获取配置无
 kind: "package-reference"
 ---
 
-# @lyness/authorization
+# @lyness/lyn-authorization
 
 [English](README.md) | 中文
 
@@ -37,8 +37,8 @@ kind: "package-reference"
 
 ```ts
 import type { Context } from '@lyness/cordis'
-import type { AuthorizationSession } from '@lyness/authorization'
-import { credentialKey } from '@lyness/credentials'
+import type { AuthorizationSession } from '@lyness/lyn-authorization'
+import { credentialKey } from '@lyness/lyn-credentials'
 
 declare const ctx: Context
 declare const exchangeCode: (code: string, signal: AbortSignal) => Promise<{ token: string }>

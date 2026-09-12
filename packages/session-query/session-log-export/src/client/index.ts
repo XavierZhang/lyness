@@ -1,12 +1,12 @@
 /** Browser plugin owning Session export download state and its shared modal. */
 
 import type { Context as ClientContext } from '@lyness/cordis'
-import type { SessionId } from '@lyness/session/types'
-import type {} from '@lyness/client-locale/client'
-import type {} from '@lyness/client-ui-commands/client'
-import type {} from '@lyness/client-ui-conversation/client'
-import type {} from '@lyness/client-ui-renderer/client'
-import type {} from '@lyness/client-ui-session/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type {} from '@lyness/lyn-client-locale/client'
+import type {} from '@lyness/lyn-client-ui-commands/client'
+import type {} from '@lyness/lyn-client-ui-conversation/client'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
+import type {} from '@lyness/lyn-client-ui-session/client'
 import { SessionLogDownloadController } from './controller.ts'
 import type { SessionLogDownloadDialogInjected } from './Dialog.tsx'
 import { SessionLogDownloadHeaderAction } from './HeaderAction.tsx'
@@ -18,7 +18,7 @@ declare module '@lyness/cordis' {
   }
 }
 
-declare module '@lyness/client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface LocaleNamespaceMap {
     'session-log-download': SessionLogDownloadKey
   }

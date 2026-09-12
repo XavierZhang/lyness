@@ -1,10 +1,10 @@
-import { createUserMessage } from '@lyness/llm'
+import { createUserMessage } from '@lyness/lyn-llm'
 import { describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import type { ContentBlock } from '@lyness/llm'
-import SessionStore, { Session, SessionId, SessionSeq, type SessionEvent } from '@lyness/session'
-import * as TimeInvariant from '@lyness/time-context/invariant'
-import InvariantRegistry from '@lyness/invariants'
+import type { ContentBlock } from '@lyness/lyn-llm'
+import SessionStore, { Session, SessionId, SessionSeq, type SessionEvent } from '@lyness/lyn-session'
+import * as TimeInvariant from '@lyness/lyn-time-context/invariant'
+import InvariantRegistry from '@lyness/lyn-invariants'
 
 const SECOND = Date.parse('2026-07-14T00:00:00Z')
 

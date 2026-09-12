@@ -2,11 +2,11 @@
 # seam, model-facing tool, and tripwire provider while replacing DeepSeek with
 # per-session replay.
 - id: llm-deepseek
-  name: '@lyness/llm-deepseek'
+  name: '@lyness/lyn-llm-deepseek'
   disabled: true
 
 - id: sandbox
-  name: '@lyness/sandbox-local'
+  name: '@lyness/lyn-sandbox-local'
   config:
     runnerCommand:
       - bash
@@ -17,24 +17,24 @@
       - 'passthrough-runner: profile rejected'
 
 - id: agent-default-model
-  name: '@lyness/agent-default-model'
+  name: '@lyness/lyn-agent-default-model'
   config:
     provider: deepseek-official
     model: deepseek-v4-flash
 
 - id: session-persistence-jsonl
-  name: '@lyness/session-persistence-jsonl'
+  name: '@lyness/lyn-session-persistence-jsonl'
   config:
     root: !!js lynHomePath('sessions')
     compression: none
 
 - id: agent-instructions
-  name: '@lyness/agent-instructions'
+  name: '@lyness/lyn-agent-instructions'
   config:
     maxBytes: 65536
 
 - id: system-prompt
-  name: '@lyness/system-prompt'
+  name: '@lyness/lyn-system-prompt'
   config:
     personaPrefix: |
       You are a coding assistant powered by the {{model}} model. Your working directory is {{cwd}}. Your bash tool runs under a file sandbox — a `[sandbox: file access denied …]` result is policy, not a command bug.
@@ -43,7 +43,7 @@
 
 - insert:
     - id: llm-replay
-      name: '@lyness/llm-replay'
+      name: '@lyness/lyn-llm-replay'
       config:
         providers:
           - id: deepseek-official
@@ -52,9 +52,9 @@
               - id: deepseek-v4-flash
               - id: deepseek-v4-pro
     - id: tool-ask-user
-      name: '@lyness/tool-ask-user'
+      name: '@lyness/lyn-tool-ask-user'
     - id: child-question-tripwire
       name: '../../../packages/test-support/session-snapshot/tests/fixtures/child-question-tripwire.ts'
 
 - id: user-questions
-  name: '@lyness/user-questions'
+  name: '@lyness/lyn-user-questions'

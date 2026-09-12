@@ -11,9 +11,9 @@
 
 import type { Context as ClientContext } from '@lyness/cordis'
 // Type-only: pulls the ctx.remote merge into this program.
-import type {} from '@lyness/api-remotes/client'
-import type { SnapshotStore } from '@lyness/client-store'
-import type { SettingsScope, SettingsScopeSnapshot } from '@lyness/client-ui-settings/client'
+import type {} from '@lyness/lyn-api-remotes/client'
+import type { SnapshotStore } from '@lyness/lyn-client-store'
+import type { SettingsScope, SettingsScopeSnapshot } from '@lyness/lyn-client-ui-settings/client'
 import {
   CardForm, numberField, textField,
   type CardActions, type CardFieldState, type CardShell,

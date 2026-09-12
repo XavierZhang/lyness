@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { createScope, scopeTarget } from '@lyness/scope'
-import { createSystemMessage, createUserMessage, ToolCallId, createMessage, createToolResultMessage, freezeMessage } from '@lyness/llm'
-import SessionStore, { SessionId, SessionSeq, TOOL_NOT_STARTED } from '@lyness/session'
-import * as SessionInvariant from '@lyness/session/invariant'
-import InvariantRegistry, { InvariantError } from '@lyness/invariants'
+import { createScope, scopeTarget } from '@lyness/lyn-scope'
+import { createSystemMessage, createUserMessage, ToolCallId, createMessage, createToolResultMessage, freezeMessage } from '@lyness/lyn-llm'
+import SessionStore, { SessionId, SessionSeq, TOOL_NOT_STARTED } from '@lyness/lyn-session'
+import * as SessionInvariant from '@lyness/lyn-session/invariant'
+import InvariantRegistry, { InvariantError } from '@lyness/lyn-invariants'
 
 async function setup(): Promise<{ ctx: Context; fiber: Awaited<ReturnType<Context['plugin']>> }> {
   const ctx = new Context()
@@ -237,7 +237,7 @@ describe('session-log invariants', () => {
   it('requires a system/message to name the open step', async () => {
     const session = (await setup()).ctx.sessions.create()
     session.append('turn/start', { turn: 1 })
-    const message = createSystemMessage('You are terse.', '@lyness/system-prompt')
+    const message = createSystemMessage('You are terse.', '@lyness/lyn-system-prompt')
     expect(() => session.append('system/message', { turn: 1, step: 1, message }, { surfaceOp: 'append' }))
       .toThrow(/open is turn 1\/step null/)
     session.append('step/start', { turn: 1, step: 1 })

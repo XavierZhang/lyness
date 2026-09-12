@@ -4,15 +4,15 @@
  * actor the `fs/*` events carry.
  *
  * The provider vocabulary (`FsTarget`, `FsVersion`, write/edit request types) is
- * re-used from `@lyness/fs`; this package owns only the observed-state
+ * re-used from `@lyness/lyn-fs`; this package owns only the observed-state
  * owner structure on top of it.
  *
- * @module @lyness/fs-observation-policy/types
+ * @module @lyness/lyn-fs-observation-policy/types
  */
 
 /**
  * Minimal structural view of a tool execution the policy plugin needs to derive
- * an observed-state owner. `@lyness/tools`' `ToolExecution` contains
+ * an observed-state owner. `@lyness/lyn-tools`' `ToolExecution` contains
  * these fields, so the tool passes its `exec` straight through as the opaque
  * `object` actor on the `fs/*` events; this plugin narrows that actor to
  * `FsObservationActor` without importing `lyn-tools`, `lyn-agent`, or `lyn-session`.

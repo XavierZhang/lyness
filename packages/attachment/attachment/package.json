@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/attachment",
+  "name": "@lyness/lyn-attachment",
   "description": "Durable immutable attachment storage seam for the lyness",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -22,11 +22,11 @@
   "files": ["lib/index.js", "lib/types/**/*.js", "lib/types/**/*.d.ts"],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/brand": "workspace:^",
+    "@lyness/lyn-brand": "workspace:^",
     "@lyness/cordis": "workspace:^"
   },
   "devDependencies": {
-    "@lyness/brand": "workspace:^",
+    "@lyness/lyn-brand": "workspace:^",
     "@lyness/cordis": "workspace:^"
   }
 }

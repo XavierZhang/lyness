@@ -1,18 +1,18 @@
 import { describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import AgentRegistry, { agentEvents } from '@lyness/agent'
-import type { Agent } from '@lyness/agent'
-import { createUserMessage, HarnessError } from '@lyness/llm'
-import SessionStore, { Session, SessionId, type UserMessage } from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
+import AgentRegistry, { agentEvents } from '@lyness/lyn-agent'
+import type { Agent } from '@lyness/lyn-agent'
+import { createUserMessage, HarnessError } from '@lyness/lyn-llm'
+import SessionStore, { Session, SessionId, type UserMessage } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 import GoalService, {
   GoalError,
   GoalId,
   decodeGoalChange,
   foldGoal,
-} from '@lyness/goal'
-import type { GoalChangeMeta, GoalRef, GoalSnapshotChangeMeta } from '@lyness/goal'
-import { createInboxStub } from '@lyness/agent-loop-testkit'
+} from '@lyness/lyn-goal'
+import type { GoalChangeMeta, GoalRef, GoalSnapshotChangeMeta } from '@lyness/lyn-goal'
+import { createInboxStub } from '@lyness/lyn-agent-loop-testkit'
 
 interface StubAgent {
   agent: Agent
@@ -71,7 +71,7 @@ function stubAgentForSession(session: Session, suppliedCtx?: Context): StubAgent
 /** Build a registry-compatible agent around a fresh session. */
 function stubAgent(
   rawId: string,
-  seed?: readonly import('@lyness/session').SessionEvent[],
+  seed?: readonly import('@lyness/lyn-session').SessionEvent[],
   ctx?: Context,
 ): StubAgent {
   const session = ctx === undefined

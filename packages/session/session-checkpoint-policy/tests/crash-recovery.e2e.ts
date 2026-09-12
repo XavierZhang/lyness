@@ -8,8 +8,8 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import SessionStore, {
   SessionId, TOOL_OUTCOME_UNKNOWN, interruptedTurnClosers,
   type SessionEvent,
-} from '@lyness/session'
-import JsonlSessionPersistence from '@lyness/session-persistence-jsonl'
+} from '@lyness/lyn-session'
+import JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
 
 const repoRoot = fileURLToPath(new URL('../../../../', import.meta.url))
 const childScript = fileURLToPath(new URL('./fixtures/crash-child.ts', import.meta.url))

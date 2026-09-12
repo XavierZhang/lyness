@@ -11,13 +11,13 @@ import {
   JsonTree,
   MarkdownText,
   Tooltip,
-} from '@lyness/client-ui-primitives'
-import type { JsonTreeLabels, MarkdownLabels } from '@lyness/client-ui-primitives'
+} from '@lyness/lyn-client-ui-primitives'
+import type { JsonTreeLabels, MarkdownLabels } from '@lyness/lyn-client-ui-primitives'
 import { structuredPatch } from 'diff'
-import type { ImageAttachmentRef } from '@lyness/attachment'
+import type { ImageAttachmentRef } from '@lyness/lyn-attachment'
 import type {
   AssistantRequestConfig, ConversationPromptSnapshot, RenderMessageImages,
-} from '@lyness/client-ui-conversation/client'
+} from '@lyness/lyn-client-ui-conversation/client'
 import type {
   AssistantMetricDetail, TrajectoryCellKind, TrajectoryCellProps, TrajectorySourceBlock,
 } from './trajectory-record.ts'

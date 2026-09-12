@@ -1,13 +1,13 @@
 /**
  * Model-facing UTF-8 read. It performs one provider stat for type, routing, and observed version,
  * streams large or size-unknown files, renders a bounded window, then emits the observation.
- * @module @lyness/tool-fs/src/read
+ * @module @lyness/lyn-tool-fs/src/read
  */
 
 import type { Context } from '@lyness/cordis'
-import { defineTool } from '@lyness/tools'
-import type { GenericCallView, ReadResultView, ToolResult } from '@lyness/tools'
-import type {} from '@lyness/fs'
+import { defineTool } from '@lyness/lyn-tools'
+import type { GenericCallView, ReadResultView, ToolResult } from '@lyness/lyn-tools'
+import type {} from '@lyness/lyn-fs'
 import { buildWindow, formatReadOutput, langFromPath, readMetaFromMeta } from './read-render.ts'
 import { resolveRegularReadTarget } from './read-target.ts'
 

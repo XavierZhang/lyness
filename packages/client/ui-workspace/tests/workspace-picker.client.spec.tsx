@@ -1,15 +1,15 @@
 // @vitest-environment jsdom
-import type { GlobalStandardProps } from '@lyness/client-ui-slots'
+import type { GlobalStandardProps } from '@lyness/lyn-client-ui-slots'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { act, cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
-import type { SessionListState } from '@lyness/api-session-controller/client'
+import type { SessionListState } from '@lyness/lyn-api-session-controller/client'
 import type {
   WorkspaceId, WorkspaceSnapshot, WorkspaceView,
-} from '@lyness/api-workspace-controller/client'
-import type {} from '@lyness/client-locale/client'
-import { bindSnapshotSelector, makeTranslate } from '@lyness/client-test-runtime'
-import { zh as commonZh } from '@lyness/client-locale/src/locales/zh.ts'
-import type { SessionPendingInteractionSnapshot } from '@lyness/client-ui-session/client'
+} from '@lyness/lyn-api-workspace-controller/client'
+import type {} from '@lyness/lyn-client-locale/client'
+import { bindSnapshotSelector, makeTranslate } from '@lyness/lyn-client-test-runtime'
+import { zh as commonZh } from '@lyness/lyn-client-locale/src/locales/zh.ts'
+import type { SessionPendingInteractionSnapshot } from '@lyness/lyn-client-ui-session/client'
 import type { DirectoryFlowOwnerProps, WorkspacePickerProps } from '../src/client/contract/slots.ts'
 import { WorkspacePicker } from '../src/client/WorkspacePicker.tsx'
 import { zh } from '../src/client/locales.ts'

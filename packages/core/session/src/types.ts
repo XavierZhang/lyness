@@ -1,4 +1,4 @@
-import { brandNumber, brandString, type Branded, type BrandedNumber } from '@lyness/brand'
+import { brandNumber, brandString, type Branded, type BrandedNumber } from '@lyness/lyn-brand'
 import type {
   AssistantMessage,
   AssistantStreamRecord,
@@ -12,8 +12,8 @@ import type {
   ToolResultMessage,
   ToolSchema,
   UserMessage,
-} from '@lyness/llm'
-import type { JsonValue } from '@lyness/util-values'
+} from '@lyness/lyn-llm'
+import type { JsonValue } from '@lyness/lyn-util-values'
 
 /** Identifies one session in the store (and its persistence artifacts). */
 export type SessionId = Branded<'SessionId'>
@@ -487,7 +487,7 @@ export type SessionEvent<T extends SessionEventType = SessionEventType> = {
   })
 }[T]
 
-declare module '@lyness/typert-protocol' {
+declare module '@lyness/lyn-typert-protocol' {
   interface RemoteErrorDetailsMap {
     /** The named Session does not exist; produced by every layer that resolves a SessionId. */
     'session/not-found': { readonly sessionId: SessionId }

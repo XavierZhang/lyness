@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import { type Agent } from '@lyness/agent'
-import SubagentRuntime, { type SubagentStartRequest } from '@lyness/subagent'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import { SessionId } from '@lyness/session'
+import { type Agent } from '@lyness/lyn-agent'
+import SubagentRuntime, { type SubagentStartRequest } from '@lyness/lyn-subagent'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import { SessionId } from '@lyness/lyn-session'
 import * as scripted from './scripted-provider.ts'
 
 /** A minimal parent; the scripted provider only reads its id. */

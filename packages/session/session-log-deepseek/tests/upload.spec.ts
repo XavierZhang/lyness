@@ -8,10 +8,10 @@ import SessionStore, {
   SessionSeq,
   type CreateSessionOptions,
   type SessionEvent,
-} from '@lyness/session'
-import DeepSeekLlmApiExtensionRegistry from '@lyness/deepseek-llm-api-extensions'
-import { createAssistantMessage, createSystemMessage, createUserMessage } from '@lyness/llm'
-import type { JsonValue } from '@lyness/util-values'
+} from '@lyness/lyn-session'
+import DeepSeekLlmApiExtensionRegistry from '@lyness/lyn-deepseek-llm-api-extensions'
+import { createAssistantMessage, createSystemMessage, createUserMessage } from '@lyness/lyn-llm'
+import type { JsonValue } from '@lyness/lyn-util-values'
 import * as SessionLogDeepSeek from '../src/index.ts'
 import type { DeepSeekSessionLogExtension, DeepSeekSessionLogWireEvent, DeepSeekSessionLogWireSurfaceOp } from '../src/types.ts'
 

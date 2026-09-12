@@ -14,9 +14,9 @@ import {
   type TypertForwardableEventEntry,
   type TypertLookup,
   type TypertRemoteEvent,
-} from '@lyness/typert-protocol'
+} from '@lyness/lyn-typert-protocol'
 
-const REMOTE_METHOD_DESCRIPTOR_KEY = '@lyness/typert-protocol/remote-methods'
+const REMOTE_METHOD_DESCRIPTOR_KEY = '@lyness/lyn-typert-protocol/remote-methods'
 
 interface MetaFixtureSubject {
   readonly subjectId: string
@@ -61,7 +61,7 @@ declare module '@lyness/cordis' {
   }
 }
 
-declare module '@lyness/typert-protocol' {
+declare module '@lyness/lyn-typert-protocol' {
   interface TypertLookupMap {
     metaFixture: TypertLookup<MetaFixtureSubject, string>
   }

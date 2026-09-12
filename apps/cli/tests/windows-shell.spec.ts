@@ -18,8 +18,8 @@ import { fileURLToPath } from 'node:url'
 import yaml from 'js-yaml'
 import { entryListSchema } from '@lyness/cordis-plugin-include'
 import { evaluate } from '@lyness/cordis-plugin-loader'
-import { SHIPPED_PRESET_ROOT } from '@lyness/agent-presets'
-import { composeEntries, initProfile, loadProfile, PROFILES_DIR } from '@lyness/app-boot'
+import { SHIPPED_PRESET_ROOT } from '@lyness/lyn-agent-presets'
+import { composeEntries, initProfile, loadProfile, PROFILES_DIR } from '@lyness/lyn-app-boot'
 
 /**
  * The effective disabled state of one row on one platform: a `!!js` expression
@@ -43,7 +43,7 @@ describe('the shipped shell composition (real bundle layers)', () => {
 
   it('composes the confined pwsh roster on win32 and the bash roster on POSIX from the same rows', () => {
     home = mkdtempSync(join(tmpdir(), 'lyn-windows-home-'))
-    initProfile(join(home, PROFILES_DIR, 'web'), ['@lyness/base', '@lyness/web-app'])
+    initProfile(join(home, PROFILES_DIR, 'web'), ['@lyness/lyn-base', '@lyness/lyn-web-app'])
     const profile = loadProfile('lyn', 'web', anchor, home)
     const warnings: string[] = []
     const rows = composeEntries(
@@ -73,7 +73,7 @@ describe('the shipped shell composition (real bundle layers)', () => {
     // dependency closure into the profile's node_modules, so every bare
     // plugin name in the base patch must resolve from there.
     const cliManifest = JSON.parse(readFileSync(anchor, 'utf8')) as { dependencies?: Record<string, string> }
-    for (const name of ['@lyness/pwsh-sandbox', '@lyness/tool-pwsh']) {
+    for (const name of ['@lyness/lyn-pwsh-sandbox', '@lyness/lyn-tool-pwsh']) {
       expect(cliManifest.dependencies?.[name], `cold-start closure must reach ${name}`).toBeDefined()
     }
     expect(warnings).toEqual([])
@@ -81,7 +81,7 @@ describe('the shipped shell composition (real bundle layers)', () => {
 
   it('base-only profiles carry both stacks with the same platform gating', () => {
     home = mkdtempSync(join(tmpdir(), 'lyn-windows-home-'))
-    initProfile(join(home, PROFILES_DIR, 'base-only'), ['@lyness/base'])
+    initProfile(join(home, PROFILES_DIR, 'base-only'), ['@lyness/lyn-base'])
     const profile = loadProfile('lyn', 'base-only', anchor, home)
     const warnings: string[] = []
     const rows = composeEntries(

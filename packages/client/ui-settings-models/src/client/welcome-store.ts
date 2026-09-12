@@ -5,8 +5,8 @@
  * stays process-local here.
  */
 
-import { createSnapshotStore, type SnapshotStore } from '@lyness/client-store'
-import type { SettingsScope } from '@lyness/client-ui-settings/client'
+import { createSnapshotStore, type SnapshotStore } from '@lyness/lyn-client-store'
+import type { SettingsScope } from '@lyness/lyn-client-ui-settings/client'
 import {
   WELCOME_NOTICE_ACK_FIELD, WELCOME_NOTICE_VERSION,
 } from '../onboarding-copy.ts'

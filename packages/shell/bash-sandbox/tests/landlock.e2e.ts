@@ -6,11 +6,11 @@ import { join } from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import { launcherPath } from '@lyness/node-addon-system/landlock-run'
-import { LocalSandboxProvider } from '@lyness/sandbox-local'
-import { SandboxPolicyService } from '@lyness/sandbox-policy'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import { SandboxBashExecutor } from '@lyness/bash-sandbox'
-import LocalSubprocessRuntime from '@lyness/subprocess-local'
+import { LocalSandboxProvider } from '@lyness/lyn-sandbox-local'
+import { SandboxPolicyService } from '@lyness/lyn-sandbox-policy'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import { SandboxBashExecutor } from '@lyness/lyn-bash-sandbox'
+import LocalSubprocessRuntime from '@lyness/lyn-subprocess-local'
 
 /**
  * KEYLESS consumer-integration proof: the REAL `LocalSandboxProvider` (bwrap
@@ -18,7 +18,7 @@ import LocalSubprocessRuntime from '@lyness/subprocess-local'
  * REAL `SandboxBashExecutor`, driven through the executor's public run/start
  * paths. Verifies the WORLD (files exist or don't) plus the stamped result
  * facts; the backend-only confinement proofs live with
- * `@lyness/sandbox-local`.
+ * `@lyness/lyn-sandbox-local`.
  *
  * Self-skips when the running kernel does not enforce Landlock. CI builds the launcher from
  * `native/system` before running this file.

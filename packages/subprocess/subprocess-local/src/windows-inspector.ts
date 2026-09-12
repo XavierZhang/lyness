@@ -11,7 +11,7 @@
 
 import { spawnSync } from 'node:child_process'
 import koffi from 'koffi'
-import type { SubprocessTerminalSignal } from '@lyness/subprocess'
+import type { SubprocessTerminalSignal } from '@lyness/lyn-subprocess'
 import type { ProcessIdentity, ProcessInspector, ProcessSnapshot } from './process-inspector.ts'
 
 /** One Toolhelp32 process-table row. */

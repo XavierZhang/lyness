@@ -1,8 +1,8 @@
 /** Shared trajectory record data and formatting contracts. */
 
 import type { HTMLAttributes } from 'react'
-import type { ImageAttachmentRef } from '@lyness/attachment'
-import type { ConversationPromptSnapshot } from '@lyness/client-ui-conversation/client'
+import type { ImageAttachmentRef } from '@lyness/lyn-attachment'
+import type { ConversationPromptSnapshot } from '@lyness/lyn-client-ui-conversation/client'
 import type { TrajectoryTranslate } from './locales.ts'
 
 /** Closed set of trajectory record kinds. */

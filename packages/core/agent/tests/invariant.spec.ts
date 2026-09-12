@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import type { Agent } from '@lyness/agent'
-import * as AgentInvariant from '@lyness/agent/invariant'
-import { scopeTarget } from '@lyness/scope'
-import InvariantRegistry from '@lyness/invariants'
+import type { Agent } from '@lyness/lyn-agent'
+import * as AgentInvariant from '@lyness/lyn-agent/invariant'
+import { scopeTarget } from '@lyness/lyn-scope'
+import InvariantRegistry from '@lyness/lyn-invariants'
 
 async function setup(): Promise<Context> {
   const ctx = new Context()

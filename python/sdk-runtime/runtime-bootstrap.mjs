@@ -9,6 +9,6 @@ if (selection === undefined) {
   await runCli()
 } else {
   Reflect.deleteProperty(process.env, selectorName)
-  const { runSelectedSubprocessRunner } = await import('@lyness/subprocess-local/runner')
+  const { runSelectedSubprocessRunner } = await import('@lyness/lyn-subprocess-local/runner')
   await runSelectedSubprocessRunner(selection)
 }

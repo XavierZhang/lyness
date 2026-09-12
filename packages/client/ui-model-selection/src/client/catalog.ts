@@ -1,8 +1,8 @@
 /** One Host-generation model catalog shared by every Session selector. */
 
 import type { Context as ClientContext } from '@lyness/cordis'
-import type { ModelCatalog } from '@lyness/api-remotes/client'
-import { createSnapshotStore, type SnapshotStore } from '@lyness/client-store'
+import type { ModelCatalog } from '@lyness/lyn-api-remotes/client'
+import { createSnapshotStore, type SnapshotStore } from '@lyness/lyn-client-store'
 
 /** Observable lifecycle of the shared model catalog. */
 export interface ModelCatalogState {

@@ -3,7 +3,7 @@ description: "Replay-aware token and context-pressure measurement for users and 
 kind: "package-reference"
 ---
 
-# @lyness/token-meter
+# @lyness/lyn-token-meter
 
 English | [中文](README.zh.md)
 
@@ -55,8 +55,8 @@ When the composition provides `ctx.sessionProjections`, token-meter registers th
 ### Composition
 
 ```yaml
-- name: '@lyness/token-meter'
-- name: '@lyness/compaction-basic'
+- name: '@lyness/lyn-token-meter'
+- name: '@lyness/lyn-compaction-basic'
 ```
 
 Both plugins have usable defaults. The meter consumes only the optional `llm` service, and only to resolve route-declared request-image pricing; compaction remains optional. A deployment configures capacity and image pricing on its LLM adapter and compaction policy on `lyn-compaction-basic`.

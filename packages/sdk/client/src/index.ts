@@ -6,7 +6,7 @@
  * registers nothing on a Cordis context; named profiles and ordered patch
  * files customize the runtime process it spawns.
  *
- * @module @lyness/sdk-client
+ * @module @lyness/lyn-sdk-client
  */
 
 export { Lyness, HarnessSession } from './api.ts'
@@ -18,7 +18,7 @@ export {
   TransportClosedError,
 } from './client.ts'
 export type { NotificationSubscription } from './client.ts'
-export { JsonRpcResponseError } from '@lyness/sdk-protocol'
+export { JsonRpcResponseError } from '@lyness/lyn-sdk-protocol'
 export type {
   ContentBlock,
   SdkPromptContentBlock,

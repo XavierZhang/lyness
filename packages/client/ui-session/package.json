@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/client-ui-session",
+  "name": "@lyness/lyn-client-ui-session",
   "description": "Session Controller adapter for React and session-scoped slots",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -28,8 +28,8 @@
   "lyn": {
     "client": {
       "inject": [
-        "@lyness/api-session-controller",
-        "@lyness/client-ui-renderer"
+        "@lyness/lyn-api-session-controller",
+        "@lyness/lyn-client-ui-renderer"
       ],
       "platform": "web"
     }
@@ -44,11 +44,11 @@
   },
   "devDependencies": {
     "@lyness/cordis": "workspace:^",
-    "@lyness/api-session-controller": "workspace:^",
-    "@lyness/client-store": "workspace:^",
-    "@lyness/client-ui-renderer": "workspace:^",
-    "@lyness/client-ui-slots": "workspace:^",
-    "@lyness/session": "workspace:^",
+    "@lyness/lyn-api-session-controller": "workspace:^",
+    "@lyness/lyn-client-store": "workspace:^",
+    "@lyness/lyn-client-ui-renderer": "workspace:^",
+    "@lyness/lyn-client-ui-slots": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
     "@types/react": "~18.3.1",
     "react": "^18.2.0"
   },

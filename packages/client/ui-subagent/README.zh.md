@@ -3,7 +3,7 @@ description: "lyn Web 客户端的 subagent 对话目录、续接路由 UI 与 '
 kind: "package-reference"
 ---
 
-# @lyness/client-ui-subagent
+# @lyness/lyn-client-ui-subagent
 
 [English](README.md) | 中文
 

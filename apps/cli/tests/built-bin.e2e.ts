@@ -11,7 +11,7 @@ import {
   PROTOCOL_VERSION,
   type SessionNotification,
 } from '@agentclientprotocol/sdk'
-import { startMockLlmServer } from '@lyness/llm-mock-server'
+import { startMockLlmServer } from '@lyness/lyn-llm-mock-server'
 import { entryListSchema } from '@lyness/cordis-plugin-include'
 import { execa } from 'execa'
 import * as yaml from 'js-yaml'
@@ -203,7 +203,7 @@ function createEnvironmentProbeProfile(home: string, project: string): void {
     name: 'lyn-profile-environment-probe',
     private: true,
     dependencies: {},
-    lyn: { profile: { bundles: ['@lyness/base'] } },
+    lyn: { profile: { bundles: ['@lyness/lyn-base'] } },
   }, undefined, 2))
   writeFileSync(join(profileDir, 'cordis.patch.yml'), [
     '- insert:',
@@ -226,7 +226,7 @@ interface StartupFixture {
  * A custom profile whose ordinary provider plugin injects `cmdlineArgs`, plus
  * a row that reads its app-owned service through a `!!js` config expression.
  * Both plugin modules resolve
- * `@lyness/cmdline` and `commander` through the profile module
+ * `@lyness/lyn-cmdline` and `commander` through the profile module
  * fallback, exactly as an installed out-of-tree bundle does.
  */
 function createStartupFixture(): StartupFixture {
@@ -239,7 +239,7 @@ function createStartupFixture(): StartupFixture {
   mkdirSync(bundleDir, { recursive: true })
   writeFileSync(join(bundleDir, 'startup.mjs'), [
     "import { Command } from 'commander'",
-    "import { parseCmdline } from '@lyness/cmdline'",
+    "import { parseCmdline } from '@lyness/lyn-cmdline'",
     "export const name = 'fixture-startup'",
     "export const inject = ['cmdlineArgs']",
     'export function apply(ctx) {',
@@ -406,7 +406,7 @@ describe.skipIf(!existsSync(lynBin))('lyn BUILT bin (node lib/bin.js, no tsx)', 
     writeFileSync(patch, [
       '- insert:',
       '    - id: missing-sdk-startup-plugin',
-      '      name: "@lyness/missing-sdk-startup-plugin"',
+      '      name: "@lyness/lyn-missing-sdk-startup-plugin"',
       '',
     ].join('\n'))
     try {
@@ -418,7 +418,7 @@ describe.skipIf(!existsSync(lynBin))('lyn BUILT bin (node lib/bin.js, no tsx)', 
       expect(result.code).toBe(1)
       expect(result.stdout).toBe('')
       expect(result.stderr).toContain('plugin tree failed to load')
-      expect(result.stderr).toContain('@lyness/missing-sdk-startup-plugin')
+      expect(result.stderr).toContain('@lyness/lyn-missing-sdk-startup-plugin')
     } finally {
       rmSync(home, { recursive: true, force: true })
     }
@@ -666,7 +666,7 @@ describe.skipIf(!existsSync(lynBin))('lyn BUILT bin (node lib/bin.js, no tsx)', 
       }
       expect(manifest.dependencies).toEqual({})
       expect(manifest.lyn.profile).toEqual({
-        bundles: ['@lyness/base', '@lyness/web-app'],
+        bundles: ['@lyness/lyn-base', '@lyness/lyn-web-app'],
         patchReload: 'live',
       })
       expect(readFileSync(join(dir, 'cordis.patch.yml'), 'utf8')).toContain('[]')
@@ -984,7 +984,7 @@ describe.skipIf(!existsSync(lynBin))('lyn BUILT bin (node lib/bin.js, no tsx)', 
         name: 'lyn-profile-up',
         private: true,
         dependencies: { 'late-bundle': 'file:./late-bundle' },
-        lyn: { profile: { bundles: ['@lyness/base'] } },
+        lyn: { profile: { bundles: ['@lyness/lyn-base'] } },
       }))
       writeFileSync(join(profileDir, 'cordis.patch.yml'), '[]\n')
       // v1: no lyn manifest — a plain dependency.
@@ -992,7 +992,7 @@ describe.skipIf(!existsSync(lynBin))('lyn BUILT bin (node lib/bin.js, no tsx)', 
       const first = await runBuiltBin(['plugin', '--profile', 'up', 'root'], { LYNESS_HOME: home })
       expect(first.code).toBe(0)
       let manifest = JSON.parse(readFileSync(join(profileDir, 'package.json'), 'utf8')) as { lyn: { profile: { bundles: string[] } } }
-      expect(manifest.lyn.profile.bundles).toEqual(['@lyness/base'])
+      expect(manifest.lyn.profile.bundles).toEqual(['@lyness/lyn-base'])
       // v2: the installed package now declares lyn.bundle (an update landed).
       writeFileSync(join(installed, 'package.json'), JSON.stringify({
         name: 'late-bundle', version: '2.0.0', lyn: { bundle: { patch: './cordis.patch.yml' } },
@@ -1001,7 +1001,7 @@ describe.skipIf(!existsSync(lynBin))('lyn BUILT bin (node lib/bin.js, no tsx)', 
       const second = await runBuiltBin(['plugin', '--profile', 'up', 'root'], { LYNESS_HOME: home })
       expect(second.code).toBe(0)
       manifest = JSON.parse(readFileSync(join(profileDir, 'package.json'), 'utf8')) as { lyn: { profile: { bundles: string[] } } }
-      expect(manifest.lyn.profile.bundles).toEqual(['@lyness/base', 'late-bundle'])
+      expect(manifest.lyn.profile.bundles).toEqual(['@lyness/lyn-base', 'late-bundle'])
     } finally {
       rmSync(home, { recursive: true, force: true })
     }
@@ -1016,10 +1016,10 @@ describe.skipIf(!existsSync(lynBin))('lyn BUILT bin (node lib/bin.js, no tsx)', 
       const { stdout, code, stderr } = await runBuiltBin(['--profile', 'web', '--dump-default-config'], { LYNESS_HOME: home })
       expect(code).toBe(0)
       expect(stderr).toBe('')
-      expect(stdout).toContain("name: '@lyness/agent-loop'")
+      expect(stdout).toContain("name: '@lyness/lyn-agent-loop'")
       expect(stdout).toContain('agents: []')
-      expect(stdout).toContain('# == @lyness/base')
-      expect(stdout).toContain("name: '@lyness/host-webserver'")
+      expect(stdout).toContain('# == @lyness/lyn-base')
+      expect(stdout).toContain("name: '@lyness/lyn-host-webserver'")
       expect(existsSync(join(home, 'profiles', 'node_modules'))).toBe(false)
     }, SPAWN_TIMEOUT_MS + 30_000)
 
@@ -1030,7 +1030,7 @@ describe.skipIf(!existsSync(lynBin))('lyn BUILT bin (node lib/bin.js, no tsx)', 
       )
       expect(code).toBe(0)
       expect(stderr).toBe('')
-      expect(stdout).toContain('# == @lyness/web-app')
+      expect(stdout).toContain('# == @lyness/lyn-web-app')
       expect(existsSync(join(home, 'profiles', 'rescue', 'package.json'))).toBe(true)
     }, SPAWN_TIMEOUT_MS + 30_000)
 
@@ -1053,10 +1053,10 @@ describe.skipIf(!existsSync(lynBin))('lyn BUILT bin (node lib/bin.js, no tsx)', 
       )
       expect(code).toBe(0)
       expect(stderr).toBe('')
-      expect(stdout).toContain("name: '@lyness/headless'")
-      expect(stdout).not.toMatch(/name: '@lyness\/host-/)
-      expect(stdout).not.toContain("name: '@lyness/web-app'")
-      expect(stdout).not.toMatch(/name: '@lyness\/client-/)
+      expect(stdout).toContain("name: '@lyness/lyn-headless'")
+      expect(stdout).not.toMatch(/name: '@lyness\/lyn-host-/)
+      expect(stdout).not.toContain("name: '@lyness/lyn-web-app'")
+      expect(stdout).not.toMatch(/name: '@lyness\/lyn-client-/)
     }, SPAWN_TIMEOUT_MS + 30_000)
 
     it('prints the exact standalone sdk-minimal tree without lyn-base', async () => {
@@ -1068,41 +1068,41 @@ describe.skipIf(!existsSync(lynBin))('lyn BUILT bin (node lib/bin.js, no tsx)', 
       expect(stderr).toBe('')
       const rows = yaml.load(stdout, { schema: entryListSchema }) as Array<{ id?: string; name?: string }>
       expect(rows.map(row => [row.id, row.name])).toEqual([
-        ['sdk-app-startup', '@lyness/sdk-app'],
-        ['sdk-jsonrpc-server', '@lyness/sdk-jsonrpc-server'],
-        ['deepseek-llm-api-extensions', '@lyness/deepseek-llm-api-extensions'],
-        ['session-log-deepseek', '@lyness/session-log-deepseek'],
-        ['plugin-package-inventory-deepseek', '@lyness/plugin-package-inventory-deepseek'],
-        ['llm-deepseek', '@lyness/llm-deepseek'],
-        ['sandbox', '@lyness/sandbox-local'],
-        ['session-projection', '@lyness/session-projection'],
-        ['sandbox-policy', '@lyness/sandbox-policy'],
-        ['subprocess', '@lyness/subprocess-local'],
-        ['pty', '@lyness/terminal'],
-        ['terminal-bash', '@lyness/terminal-bash'],
-        ['terminal-pwsh', '@lyness/terminal-bash'],
+        ['sdk-app-startup', '@lyness/lyn-sdk-app'],
+        ['sdk-jsonrpc-server', '@lyness/lyn-sdk-jsonrpc-server'],
+        ['deepseek-llm-api-extensions', '@lyness/lyn-deepseek-llm-api-extensions'],
+        ['session-log-deepseek', '@lyness/lyn-session-log-deepseek'],
+        ['plugin-package-inventory-deepseek', '@lyness/lyn-plugin-package-inventory-deepseek'],
+        ['llm-deepseek', '@lyness/lyn-llm-deepseek'],
+        ['sandbox', '@lyness/lyn-sandbox-local'],
+        ['session-projection', '@lyness/lyn-session-projection'],
+        ['sandbox-policy', '@lyness/lyn-sandbox-policy'],
+        ['subprocess', '@lyness/lyn-subprocess-local'],
+        ['pty', '@lyness/lyn-terminal'],
+        ['terminal-bash', '@lyness/lyn-terminal-bash'],
+        ['terminal-pwsh', '@lyness/lyn-terminal-bash'],
         ['timer', '@lyness/cordis-plugin-timer'],
-        ['llm', '@lyness/llm'],
-        ['session', '@lyness/session'],
-        ['session-title', '@lyness/session-title'],
-        ['system-prompt', '@lyness/system-prompt'],
-        ['tools', '@lyness/tools'],
-        ['agent', '@lyness/agent'],
-        ['llm-retry', '@lyness/llm-retry'],
-        ['jobs', '@lyness/jobs-local'],
-        ['invariants', '@lyness/invariants'],
-        ['session-invariant', '@lyness/session/invariant'],
-        ['agent-invariant', '@lyness/agent/invariant'],
-        ['scope-invariant', '@lyness/scope/invariant'],
-        ['agent-loop-invariant', '@lyness/agent-loop/invariant'],
-        ['agent-loop', '@lyness/agent-loop'],
-        ['persistent-bash', '@lyness/tool-bash-persistent'],
-        ['persistent-pwsh', '@lyness/tool-pwsh-persistent'],
-        ['sessions', '@lyness/session-persistence-jsonl'],
+        ['llm', '@lyness/lyn-llm'],
+        ['session', '@lyness/lyn-session'],
+        ['session-title', '@lyness/lyn-session-title'],
+        ['system-prompt', '@lyness/lyn-system-prompt'],
+        ['tools', '@lyness/lyn-tools'],
+        ['agent', '@lyness/lyn-agent'],
+        ['llm-retry', '@lyness/lyn-llm-retry'],
+        ['jobs', '@lyness/lyn-jobs-local'],
+        ['invariants', '@lyness/lyn-invariants'],
+        ['session-invariant', '@lyness/lyn-session/invariant'],
+        ['agent-invariant', '@lyness/lyn-agent/invariant'],
+        ['scope-invariant', '@lyness/lyn-scope/invariant'],
+        ['agent-loop-invariant', '@lyness/lyn-agent-loop/invariant'],
+        ['agent-loop', '@lyness/lyn-agent-loop'],
+        ['persistent-bash', '@lyness/lyn-tool-bash-persistent'],
+        ['persistent-pwsh', '@lyness/lyn-tool-pwsh-persistent'],
+        ['sessions', '@lyness/lyn-session-persistence-jsonl'],
       ])
-      expect(stdout).toContain('# == @lyness/sdk-minimal')
-      expect(stdout).not.toContain('@lyness/base')
-      expect(stdout).not.toContain('@lyness/web-app')
+      expect(stdout).toContain('# == @lyness/lyn-sdk-minimal')
+      expect(stdout).not.toContain('@lyness/lyn-base')
+      expect(stdout).not.toContain('@lyness/lyn-web-app')
     }, SPAWN_TIMEOUT_MS * 2 + 30_000)
 
     it('composes the profile user layer and a --patch overlay in order', async () => {

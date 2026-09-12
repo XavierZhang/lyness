@@ -1,14 +1,14 @@
 /**
  * Package-owned strict Schedule stream invariant.
- * @module @lyness/schedule/invariant
+ * @module @lyness/lyn-schedule/invariant
  */
 
 import type { Context } from '@lyness/cordis'
-import type { Session, SessionEvent } from '@lyness/session'
-import type { InvariantFailure, InvariantInstaller } from '@lyness/invariants'
+import type { Session, SessionEvent } from '@lyness/lyn-session'
+import type { InvariantFailure, InvariantInstaller } from '@lyness/lyn-invariants'
 import { foldScheduleEvents, ScheduleLogError } from './domain.ts'
 
-const PACKAGE_NAME = '@lyness/schedule'
+const PACKAGE_NAME = '@lyness/lyn-schedule'
 
 /** Cordis invariant-companion plugin name. */
 export const name = 'tool-schedule-invariant'

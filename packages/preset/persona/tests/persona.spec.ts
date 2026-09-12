@@ -1,9 +1,9 @@
 import { Context } from '@lyness/cordis'
-import SystemPrompt, { renderPrompt } from '@lyness/system-prompt'
-import { createScope, type ScopeKey } from '@lyness/scope'
+import SystemPrompt, { renderPrompt } from '@lyness/lyn-system-prompt'
+import { createScope, type ScopeKey } from '@lyness/lyn-scope'
 import { describe, expect, it } from 'vitest'
-import * as Persona from '@lyness/persona'
-import { PERSONA_SUFFIX_SECTION, PERSONA_PREFIX_SECTION } from '@lyness/persona'
+import * as Persona from '@lyness/lyn-persona'
+import { PERSONA_SUFFIX_SECTION, PERSONA_PREFIX_SECTION } from '@lyness/lyn-persona'
 
 async function harness(deploymentPersona: string): Promise<Context> {
   const ctx = new Context()

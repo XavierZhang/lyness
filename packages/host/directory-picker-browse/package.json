@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/host-directory-picker-browse",
+  "name": "@lyness/lyn-host-directory-picker-browse",
   "description": "In-app browsing backend of the directory-picker seam (listing/creation primitives over the host filesystem)",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -27,7 +27,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@lyness/host-directory-picker": "workspace:^",
+    "@lyness/lyn-host-directory-picker": "workspace:^",
     "@lyness/schemastery": "workspace:^"
   },
   "peerDependencies": {

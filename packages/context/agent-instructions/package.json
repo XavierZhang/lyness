@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/agent-instructions",
+  "name": "@lyness/lyn-agent-instructions",
   "description": "Workspace context loader for AGENTS.md/CLAUDE.md instruction files",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -28,33 +28,33 @@
   "license": "MIT",
   "peerDependencies": {
     "@lyness/cordis": "workspace:^",
-    "@lyness/agent": "workspace:^",
-    "@lyness/fs": "workspace:^",
-    "@lyness/home-paths": "workspace:^",
-    "@lyness/llm": "workspace:^",
-    "@lyness/session": "workspace:^",
-    "@lyness/session-projection": "workspace:^",
-    "@lyness/tools": "workspace:^"
+    "@lyness/lyn-agent": "workspace:^",
+    "@lyness/lyn-fs": "workspace:^",
+    "@lyness/lyn-home-paths": "workspace:^",
+    "@lyness/lyn-llm": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
+    "@lyness/lyn-session-projection": "workspace:^",
+    "@lyness/lyn-tools": "workspace:^"
   },
   "dependencies": {
-    "@lyness/util-values": "workspace:^",
+    "@lyness/lyn-util-values": "workspace:^",
     "@lyness/schemastery": "workspace:^"
   },
   "devDependencies": {
     "@lyness/cordis": "workspace:^",
     "@lyness/cordis-plugin-loader": "workspace:^",
-    "@lyness/agent": "workspace:^",
-    "@lyness/agent-loop": "workspace:^",
-    "@lyness/agent-loop-testkit": "workspace:^",
-    "@lyness/fs": "workspace:^",
-    "@lyness/fs-local": "workspace:^",
-    "@lyness/home-paths": "workspace:^",
-    "@lyness/llm": "workspace:^",
-    "@lyness/llm-deepseek": "workspace:^",
-    "@lyness/session": "workspace:^",
-    "@lyness/session-projection": "workspace:^",
-    "@lyness/system-prompt": "workspace:^",
-    "@lyness/tool-fs": "workspace:^",
-    "@lyness/tools": "workspace:^"
+    "@lyness/lyn-agent": "workspace:^",
+    "@lyness/lyn-agent-loop": "workspace:^",
+    "@lyness/lyn-agent-loop-testkit": "workspace:^",
+    "@lyness/lyn-fs": "workspace:^",
+    "@lyness/lyn-fs-local": "workspace:^",
+    "@lyness/lyn-home-paths": "workspace:^",
+    "@lyness/lyn-llm": "workspace:^",
+    "@lyness/lyn-llm-deepseek": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
+    "@lyness/lyn-session-projection": "workspace:^",
+    "@lyness/lyn-system-prompt": "workspace:^",
+    "@lyness/lyn-tool-fs": "workspace:^",
+    "@lyness/lyn-tools": "workspace:^"
   }
 }

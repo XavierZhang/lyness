@@ -2,7 +2,7 @@
 
 import { mkdir, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
-import { SESSION_FORMAT_VERSION } from '@lyness/session'
+import { SESSION_FORMAT_VERSION } from '@lyness/lyn-session'
 import { generationLogFilename } from '../../packages/session/session-persistence-jsonl/src/format.ts'
 import { compressZstdFrame } from '../../packages/session/session-persistence-jsonl/src/zstd.ts'
 import {

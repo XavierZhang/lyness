@@ -3,7 +3,7 @@ description: "CPython-subprocess code runtime: the lyn-code-runtime seam impleme
 kind: "package-reference"
 ---
 
-# @lyness/experimental-code-runtime-python
+# @lyness/lyn-experimental-code-runtime-python
 
 English | [中文](README.zh.md)
 

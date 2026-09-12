@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
-import { SessionFormatEventCollector } from '@lyness/session-format'
-import type { SessionFormatEvent, SessionFormatJsonObject, SessionFormatJsonValue } from '@lyness/session-format'
-import { sessionFormatCatalog } from '@lyness/session-format-catalog'
+import { SessionFormatEventCollector } from '@lyness/lyn-session-format'
+import type { SessionFormatEvent, SessionFormatJsonObject, SessionFormatJsonValue } from '@lyness/lyn-session-format'
+import { sessionFormatCatalog } from '@lyness/lyn-session-format-catalog'
 import { restoreReleasedV3Artifact, sessionFormatV2ToV3 } from '../src/index.ts'
 
 const header = { version: 2, id: 'content-admission', createdAt: 1, isSeeded: false, delegationDepth: 0 }

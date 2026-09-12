@@ -1,16 +1,16 @@
 import { Context } from '@lyness/cordis'
 import { describe, expect, it, vi } from 'vitest'
-import LlmRuntime, { createUserMessage, markAgentLoopRequest } from '@lyness/llm'
-import { deepFreeze } from '@lyness/util-values'
-import SessionStore, { SessionId, SessionSeq } from '@lyness/session'
-import SessionProjectionRegistry from '@lyness/session-projection'
-import { turnBoundaryProjectionDefinition } from '@lyness/agent-loop'
+import LlmRuntime, { createUserMessage, markAgentLoopRequest } from '@lyness/lyn-llm'
+import { deepFreeze } from '@lyness/lyn-util-values'
+import SessionStore, { SessionId, SessionSeq } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import { turnBoundaryProjectionDefinition } from '@lyness/lyn-agent-loop'
 import SessionTitleService, {
   SessionTitleProviderId,
   type SessionTitleProvider,
   type SessionTitleProviderRequest,
   type SessionTitleProviderResult,
-} from '@lyness/session-title'
+} from '@lyness/lyn-session-title'
 
 const CONFIG = {
   fallbackMaxWords: 5,

@@ -3,7 +3,7 @@ description: "SPA dist server for the Web shell: claims the webserver fallback s
 kind: "package-reference"
 ---
 
-# @lyness/host-frontend-static
+# @lyness/lyn-host-frontend-static
 
 English | [中文](README.zh.md)
 
@@ -30,7 +30,7 @@ Compose this plugin in a browser-facing host that serves the built Web shell: it
 ### Minimal configuration
 
 ```yaml
-- name: '@lyness/host-frontend-static'
+- name: '@lyness/lyn-host-frontend-static'
   config:
     distIndex: /absolute/path/to/dist/index.html
 ```
@@ -81,7 +81,7 @@ Read these when the serving contract is not enough: the seat owner's contract, t
 - [Webserver](../webserver/README.md) — the fallback seat this plugin claims and the index taps it runs.
 - [lyn-web-app bundle](../../bundle/web-app/README.md) — the application that resolves `distIndex` and mounts this plugin.
 - [HTTP server subsystem](../../../docs/subsystems/web-server.md) — how the fallback seat fits the route tables.
-- [Generated configuration catalog](../../../docs/config-catalog.md#lynesshost-frontend-static) — every accepted config field and its source declaration.
+- [Generated configuration catalog](../../../docs/config-catalog.md#lynesslyn-host-frontend-static) — every accepted config field and its source declaration.
 
 -----
 

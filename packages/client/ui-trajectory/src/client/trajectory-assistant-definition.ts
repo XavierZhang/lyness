@@ -3,9 +3,9 @@ import type {
   AssistantBlock, AssistantMessageNode, ConversationLocation,
   ConversationMatch, ConversationNodeContext, ConversationNodeDefinition,
   PartialAssistant, RequestView,
-} from '@lyness/client-ui-conversation/client'
-import type { StreamChunk } from '@lyness/llm'
-import type { SessionEvent } from '@lyness/session/types'
+} from '@lyness/lyn-client-ui-conversation/client'
+import type { StreamChunk } from '@lyness/lyn-llm'
+import type { SessionEvent } from '@lyness/lyn-session/types'
 import { trajectoryNode } from './trajectory-definition-common.ts'
 import {
   displayFailure, emptyAssistantBlock, isTokenDelta, toAssistantBlock, toAssistantBlocks,

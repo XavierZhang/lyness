@@ -5,15 +5,15 @@
  * explicit act of widening what features may do to the sessions domain.
  */
 import type { Context } from '@lyness/cordis'
-import type { SubagentAddress } from '@lyness/subagent/client'
-import type { SessionId } from '@lyness/session/types'
-import type { WorkspaceId } from '@lyness/workspace/types'
-import type { RemoteResult } from '@lyness/typert-protocol'
+import type { SubagentAddress } from '@lyness/lyn-subagent/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { WorkspaceId } from '@lyness/lyn-workspace/types'
+import type { RemoteResult } from '@lyness/lyn-typert-protocol'
 import type { AgentContext } from '../scope.ts'
 import type { SessionSearchResultItem } from '../sessions/manager.ts'
 import type { SessionBinding, SessionListState } from '../sessions/service.ts'
 import type { SessionFace } from './session.ts'
-import type { ObservableSnapshot } from '@lyness/client-store'
+import type { ObservableSnapshot } from '@lyness/lyn-client-store'
 
 export type { AgentContext } from '../scope.ts'
 

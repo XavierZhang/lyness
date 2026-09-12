@@ -11,7 +11,7 @@
  * stop-on-throw) or touch the agent loop. Composed by a backend in its
  * constructor.
  *
- * @module @lyness/session-telemetry/coordinator
+ * @module @lyness/lyn-session-telemetry/coordinator
  */
 
 import type { Context } from '@lyness/cordis'
@@ -22,8 +22,8 @@ import {
   type SessionEvent,
   type SessionSeq as SessionSeqType,
   type SessionSeqCursor,
-} from '@lyness/session'
-import type { Agent } from '@lyness/agent'
+} from '@lyness/lyn-session'
+import type { Agent } from '@lyness/lyn-agent'
 import type { SessionTelemetrySink, SessionTelemetryRecord, SessionTelemetrySeverity } from './index.ts'
 
 /** Whether capture follows live events or reads the canonical log only when requested. */

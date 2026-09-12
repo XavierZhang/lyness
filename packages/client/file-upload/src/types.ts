@@ -1,7 +1,7 @@
 /** Browser-safe request and receipt types for staged file uploads. */
 
-import type { FileAttachmentRef } from '@lyness/attachment/types'
-import type { Branded } from '@lyness/brand'
+import type { FileAttachmentRef } from '@lyness/lyn-attachment/types'
+import type { Branded } from '@lyness/lyn-brand'
 
 /** Canonical encoded upload accepted by the Remote fallback. */
 export interface EncodedFileUploadRequest {

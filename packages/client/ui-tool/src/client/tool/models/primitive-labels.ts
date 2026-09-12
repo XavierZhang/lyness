@@ -6,8 +6,8 @@ import type {
   ReadBlockLabels,
   SearchBlockLabels,
   WebBlockLabels,
-} from '@lyness/client-ui-primitives'
-import type { TranslateNS } from '@lyness/client-ui-slots'
+} from '@lyness/lyn-client-ui-primitives'
+import type { TranslateNS } from '@lyness/lyn-client-ui-slots'
 
 type T = TranslateNS<'conversation'>
 

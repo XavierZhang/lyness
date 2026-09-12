@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/tool-pwsh-persistent",
+  "name": "@lyness/lyn-tool-pwsh-persistent",
   "description": "Model-facing owner-scoped persistent PowerShell tool backed by the Harness PTY service",
   "version": "0.1.5-rc.1",
   "publishConfig": {
@@ -26,10 +26,10 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/agent": "workspace:^",
-    "@lyness/terminal": "workspace:^",
-    "@lyness/timeout": "workspace:^",
-    "@lyness/tools": "workspace:^",
+    "@lyness/lyn-agent": "workspace:^",
+    "@lyness/lyn-terminal": "workspace:^",
+    "@lyness/lyn-timeout": "workspace:^",
+    "@lyness/lyn-tools": "workspace:^",
     "@lyness/cordis": "workspace:^"
   },
   "dependencies": {
@@ -38,20 +38,20 @@
   "devDependencies": {
     "@lyness/cordis-plugin-include": "workspace:^",
     "@lyness/cordis-plugin-loader": "workspace:^",
-    "@lyness/agent": "workspace:^",
-    "@lyness/agent-loop-testkit": "workspace:^",
-    "@lyness/llm": "workspace:^",
-    "@lyness/terminal": "workspace:^",
-    "@lyness/terminal-bash": "workspace:^",
-    "@lyness/pwsh-local": "workspace:^",
-    "@lyness/sandbox": "workspace:^",
-    "@lyness/sandbox-policy": "workspace:^",
-    "@lyness/session": "workspace:^",
-    "@lyness/session-projection": "workspace:^",
-    "@lyness/subprocess-local": "workspace:^",
-    "@lyness/system-prompt": "workspace:^",
-    "@lyness/timeout": "workspace:^",
-    "@lyness/tools": "workspace:^",
+    "@lyness/lyn-agent": "workspace:^",
+    "@lyness/lyn-agent-loop-testkit": "workspace:^",
+    "@lyness/lyn-llm": "workspace:^",
+    "@lyness/lyn-terminal": "workspace:^",
+    "@lyness/lyn-terminal-bash": "workspace:^",
+    "@lyness/lyn-pwsh-local": "workspace:^",
+    "@lyness/lyn-sandbox": "workspace:^",
+    "@lyness/lyn-sandbox-policy": "workspace:^",
+    "@lyness/lyn-session": "workspace:^",
+    "@lyness/lyn-session-projection": "workspace:^",
+    "@lyness/lyn-subprocess-local": "workspace:^",
+    "@lyness/lyn-system-prompt": "workspace:^",
+    "@lyness/lyn-timeout": "workspace:^",
+    "@lyness/lyn-tools": "workspace:^",
     "@lyness/cordis": "workspace:^"
   }
 }

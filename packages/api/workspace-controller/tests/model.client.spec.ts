@@ -18,8 +18,8 @@ import type {
   WorkspaceId,
   WorkspaceView,
 } from '../src/types.ts'
-import { RemoteError, type RemoteFailure, type RemoteResult } from '@lyness/typert-protocol'
-import type { SessionId } from '@lyness/session/types'
+import { RemoteError, type RemoteFailure, type RemoteResult } from '@lyness/lyn-typert-protocol'
+import type { SessionId } from '@lyness/lyn-session/types'
 
 const sid = (id: string): SessionId => id as SessionId
 const wid = (id: string): WorkspaceId => id as WorkspaceId

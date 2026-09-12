@@ -1,14 +1,14 @@
 import { describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
-import LlmRuntime, { createUserMessage, ToolCallId, LlmError, ReasoningEffortId, StreamChunk, expandAssistantStream } from '@lyness/llm'
-import type { GenerateOptions } from '@lyness/llm'
-import SessionStore, { SessionId, TurnEndReason } from '@lyness/session'
-import SystemPrompt from '@lyness/system-prompt'
-import ToolRuntime, { defineContentToolFixture } from '@lyness/tools'
-import AgentRegistry, { type Agent, type AssistantStreamFrame } from '@lyness/agent'
+import LlmRuntime, { createUserMessage, ToolCallId, LlmError, ReasoningEffortId, StreamChunk, expandAssistantStream } from '@lyness/lyn-llm'
+import type { GenerateOptions } from '@lyness/lyn-llm'
+import SessionStore, { SessionId, TurnEndReason } from '@lyness/lyn-session'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime, { defineContentToolFixture } from '@lyness/lyn-tools'
+import AgentRegistry, { type Agent, type AssistantStreamFrame } from '@lyness/lyn-agent'
 
-import AgentLoop from '@lyness/agent-loop'
-import SessionProjectionRegistry from '@lyness/session-projection'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 import { MockAdapter, maxTokensResponse, textResponse, toolCallResponse } from './mock-adapter.ts'
 
 function driverDone(agent: Agent): Promise<void> {
@@ -684,7 +684,7 @@ describe('agent loop', () => {
     const contextEvents = () => agent.session.snapshotEvents().flatMap(event =>
       event.type === 'user/message'
         && event.data.source.kind === 'plugin'
-        && event.data.source.plugin === '@lyness/system-prompt'
+        && event.data.source.plugin === '@lyness/lyn-system-prompt'
         ? [event]
         : [])
 
@@ -738,7 +738,7 @@ describe('agent loop', () => {
     const contextEvent = agent.session.snapshotEvents().find(event =>
       event.type === 'user/message'
       && event.data.source.kind === 'plugin'
-      && event.data.source.plugin === '@lyness/system-prompt')
+      && event.data.source.plugin === '@lyness/lyn-system-prompt')
     if (contextEvent?.type !== 'user/message') throw new Error('first turn did not materialize runtime context')
     agent.session.append('user/message', createUserMessage({
       content: [{ type: 'text', text: 'compacted summary' }],
@@ -753,13 +753,13 @@ describe('agent loop', () => {
     const runtimeContexts = agent.session.snapshotEvents().flatMap(event =>
       event.type === 'user/message'
         && event.data.source.kind === 'plugin'
-        && event.data.source.plugin === '@lyness/system-prompt'
+        && event.data.source.plugin === '@lyness/lyn-system-prompt'
         ? [event]
         : [])
     expect(runtimeContexts).toHaveLength(2)
     expect(adapter.requests[1]?.messages.some(message =>
       message.source.kind === 'plugin'
-      && message.source.plugin === '@lyness/system-prompt')).toBe(true)
+      && message.source.plugin === '@lyness/lyn-system-prompt')).toBe(true)
   })
 
   it('clears compacted runtime context after the active set becomes empty', async () => {
@@ -773,7 +773,7 @@ describe('agent loop', () => {
     const contextEvent = agent.session.snapshotEvents().find(event =>
       event.type === 'user/message'
       && event.data.source.kind === 'plugin'
-      && event.data.source.plugin === '@lyness/system-prompt')
+      && event.data.source.plugin === '@lyness/lyn-system-prompt')
     if (contextEvent?.type !== 'user/message') throw new Error('first turn did not materialize runtime context')
     agent.session.append('user/message', createUserMessage({
       content: [{ type: 'text', text: 'summary retaining old mode: read-only' }],
@@ -789,7 +789,7 @@ describe('agent loop', () => {
     const clearing = adapter.requests[1]?.messages.find(message =>
       message.role === 'user'
       && message.source.kind === 'plugin'
-      && message.source.plugin === '@lyness/system-prompt')
+      && message.source.plugin === '@lyness/lyn-system-prompt')
     expect(clearing?.content).toEqual([{
       type: 'text',
       text: 'Current runtime context: none. Earlier runtime-context snapshots no longer apply.',
@@ -817,7 +817,7 @@ describe('agent loop', () => {
     expect(adapter.requests[0]?.messages.some(message =>
       message.role === 'user'
       && message.source.kind === 'plugin'
-      && message.source.plugin === '@lyness/system-prompt')).toBe(false)
+      && message.source.plugin === '@lyness/lyn-system-prompt')).toBe(false)
   })
 
   it('replaces a malformed retained runtime-context message with the current complete snapshot', async () => {
@@ -827,7 +827,7 @@ describe('agent loop', () => {
     const agent = await ctx.agentLoop.create(SessionId('a-runtime-context-malformed'), { provider: 'mock', model: 'mock' })
     agent.session.append('user/message', createUserMessage({
       content: [{ type: 'text', text: 'broken' }, { type: 'text', text: 'snapshot' }],
-      source: { kind: 'plugin', plugin: '@lyness/system-prompt' },
+      source: { kind: 'plugin', plugin: '@lyness/lyn-system-prompt' },
     }), { surfaceOp: 'append' })
 
     send(agent, 'repair context')
@@ -835,7 +835,7 @@ describe('agent loop', () => {
     const runtimeContexts = agent.session.snapshotEvents().flatMap(event =>
       event.type === 'user/message'
         && event.data.source.kind === 'plugin'
-        && event.data.source.plugin === '@lyness/system-prompt'
+        && event.data.source.plugin === '@lyness/lyn-system-prompt'
         ? [event]
         : [])
     expect(runtimeContexts).toHaveLength(2)

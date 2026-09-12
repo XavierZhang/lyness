@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import type { SettingsNamespace } from '@lyness/settings'
+import type { SettingsNamespace } from '@lyness/lyn-settings'
 import z from '@lyness/schemastery'
-import InvariantRegistry from '@lyness/invariants'
+import InvariantRegistry from '@lyness/lyn-invariants'
 import * as SettingsInvariant from '../src/invariant.ts'
 import { MemorySettings } from './memory.ts'
 

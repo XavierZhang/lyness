@@ -1,3 +1,3 @@
 - insert:
     - id: code-runtime
-      name: '@lyness/code-runtime-worker-thread'
+      name: '@lyness/lyn-code-runtime-worker-thread'

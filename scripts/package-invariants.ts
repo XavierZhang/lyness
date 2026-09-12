@@ -127,24 +127,24 @@ function checkManifest(
   if (!manifest.files?.includes('lib/invariant.js')) {
     addViolation(violations, owner.manifestPath, 'files must publish lib/invariant.js')
   }
-  if (owner.packageName === '@lyness/invariants') return
+  if (owner.packageName === '@lyness/lyn-invariants') return
   const developmentOnlyInvariant = usesFlattenedPackageDependencies(
     owner.manifestPath,
     owner.packageName,
     manifest.lyn,
   )
   const expectedRange = 'workspace:^'
-  const peerRange = manifest.peerDependencies?.['@lyness/invariants']
+  const peerRange = manifest.peerDependencies?.['@lyness/lyn-invariants']
   if (developmentOnlyInvariant ? peerRange !== undefined : peerRange !== expectedRange) {
     addViolation(violations, owner.manifestPath, developmentOnlyInvariant
-      ? '@lyness/invariants must not be a peerDependency under this package dependency policy'
-      : '@lyness/invariants must be a workspace:^ peerDependency')
+      ? '@lyness/lyn-invariants must not be a peerDependency under this package dependency policy'
+      : '@lyness/lyn-invariants must be a workspace:^ peerDependency')
   }
-  if (manifest.devDependencies?.['@lyness/invariants'] !== expectedRange) {
+  if (manifest.devDependencies?.['@lyness/lyn-invariants'] !== expectedRange) {
     addViolation(
       violations,
       owner.manifestPath,
-      `@lyness/invariants must be a ${expectedRange} devDependency`,
+      `@lyness/lyn-invariants must be a ${expectedRange} devDependency`,
     )
   }
 }
@@ -157,7 +157,7 @@ function checkBuild(
 ): void {
   const tsconfigPath = `${owner.dir}/tsconfig.json`
   if (hasCompanion
-    && owner.packageName !== '@lyness/invariants'
+    && owner.packageName !== '@lyness/lyn-invariants'
     && !projectReferencesInvariants(root, owner.dir, tsconfigPath)) {
     addViolation(
       violations,

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { SessionLogOffset } from '@lyness/session'
-import type { SessionEvent } from '@lyness/session'
+import { SessionLogOffset } from '@lyness/lyn-session'
+import type { SessionEvent } from '@lyness/lyn-session'
 import {
   ScheduleId,
   ScheduleInputError,
