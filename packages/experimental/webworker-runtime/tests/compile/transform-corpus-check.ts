@@ -25,6 +25,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url'
 const repositoryRoot = fileURLToPath(new URL('../../../../../', import.meta.url))
 const DOCKKIT_BUNDLE = 'packages/client/ui-dockkit/lib/index.js'
 const DOCKKIT_CSS = join(repositoryRoot, 'packages/client/ui-dockkit/lib/components/dockkit.module.css')
+const REFUSED_STYLESHEET = /^Unknown file extension "\.css" for (.+)$/
 
 /**
  * Files Node's ESM loader cannot import in this repository. None is a finding:
@@ -42,6 +43,33 @@ const BASELINE_EXEMPT: ReadonlyMap<string, string> = new Map([
   ['packages/subprocess/win32-process/lib/index.js', 'koffi type-name collision on a second load'],
   ['packages/test-support/client-runtime/lib/index.js', "needs vitest's internal state"],
 ])
+
+/**
+ * Package directories other than dockkit whose own bundle is exempt for a
+ * stylesheet import.
+ *
+ * Dockkit externalizes its primitives dependency, so importing dockkit's bundle
+ * loads that package first and the loader names ITS stylesheet. Tolerating a
+ * stylesheet from one of these packages keeps the dockkit exemption narrow —
+ * a stylesheet dockkit itself introduces, other than the one named above, is
+ * still a finding — without pinning whichever file the dependency happens to
+ * import first.
+ */
+const STYLESHEET_EXEMPT_PACKAGES: readonly string[] = [...BASELINE_EXEMPT]
+  .filter(([bundle, reason]) => bundle !== DOCKKIT_BUNDLE && reason.includes('.css'))
+  .map(([bundle]) => bundle.slice(0, bundle.indexOf('/lib/')))
+
+/**
+ * True when a refused stylesheet belongs to a package already exempt for one.
+ * @param message - the loader's failure message.
+ * @returns Whether the stylesheet is inherited from an exempt dependency.
+ */
+function inheritedStylesheet(message: string): boolean {
+  const stylesheet = REFUSED_STYLESHEET.exec(message)?.[1]
+  if (stylesheet === undefined) return false
+  const owned = relative(stylesheet)
+  return STYLESHEET_EXEMPT_PACKAGES.some(directory => owned.startsWith(`${directory}/`))
+}
 
 let failures = 0
 const report: string[] = []
@@ -113,7 +141,8 @@ if (files.length === 0) {
     } catch (reason) {
       const expectedDockkitCss = reason instanceof Error
         && 'code' in reason && reason.code === 'ERR_UNKNOWN_FILE_EXTENSION'
-        && reason.message === `Unknown file extension ".css" for ${DOCKKIT_CSS}`
+        && (reason.message === `Unknown file extension ".css" for ${DOCKKIT_CSS}`
+          || inheritedStylesheet(reason.message))
       if (exemption === undefined || (key === DOCKKIT_BUNDLE && !expectedDockkitCss)) {
         // A bundle that stopped being importable is a real finding, so it
         // fails rather than joining a tolerated total.

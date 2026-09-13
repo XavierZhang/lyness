@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, symlinkSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, rmSync, symlinkSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { dirname, join, resolve } from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
@@ -12,7 +12,11 @@ afterEach(() => {
 })
 
 function fixture(): string {
-  const root = mkdtempSync(join(tmpdir(), 'lyn-browser-notices-'))
+  // Canonical, because a vite config addresses its inputs by absolute path
+  // while vite resolves its own root through realpath. On macOS the platform
+  // temp directory is a symlink, so the uncanonical form makes the emitted
+  // asset name a path that escapes the root and rolldown rejects it.
+  const root = realpathSync(mkdtempSync(join(tmpdir(), 'lyn-browser-notices-')))
   roots.push(root)
   write(root, 'package.json', '{"type":"module"}')
   write(root, 'tsconfig.base.json', JSON.stringify({
