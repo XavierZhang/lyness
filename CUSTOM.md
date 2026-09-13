@@ -71,6 +71,13 @@ codemod 只改文本和路径。下面这些是它改完之后必然过期、必
 | 6 | **手工**重排按名字排序的期望文件 | 同上。本次：`tool-schemas.expected.json` 的工具顺序、`web-browser-open.expected.e2e.ts` 的内联快照键序、desktop 的三个夹具 |
 | 7 | 重算 `scripts/lint-rule-fingerprint.spec.ts` 的三条 sha256 | `.oxlintrc.json` 有一句规则提示含包名 |
 
+### 新增包之后同样要做的一件事
+
+生成文档只写英文侧，而配对门禁只比**代码块与链接目标**——表格单元格的缺失它查不出来。
+新增一个包后，除了重跑生成器，还要手工核对中文侧的表格行。2026-09-13 实测漏掉过
+`docs/event-producer-consumer.zh.md` 的事件消费方一行，门禁全绿。
+核对方法：`grep -c <包名> docs/<文件>.md docs/<文件>.zh.md` 两侧计数必须相等。
+
 第 5、6 项没有门禁能自动修，只能靠失败信息定位。它们全都源于同一件事：
 **`@lyness/*` 的字典序与 `@deepseek-ai/dsh-*` 不同。**
 
@@ -103,6 +110,7 @@ codemod 只改文本和路径。下面这些是它改完之后必然过期、必
 | 可重放的品牌改名 | `scripts/rebrand.ts` | 21 条有序规则 + 保护路径 + 后置断言 + `--check`。**每次 sync upstream 后必须重跑**，否则上游带回的旧名会残留。设计见 [Agent Note](.agents/notes/implemented/process/2026-08-31-lyness-rebrand-codemod.md) |
 | 二开任务清单 | `.fork/TASKS.md` | 需求拆解、7 处冲突裁决与分阶段计划 |
 | 二开手册 | `.fork/FORK-GUIDE.md` | 原在 `docs/` 下，因受上游双语门禁管辖而迁出 |
+| 部署层品牌 | `packages/host/brand-deployment` | 组合层 `Config` + 资产按角色提供 + `renderIndex` 注入。改 patch 层并重启即换品牌，不重建前端。[决策](.agents/notes/implemented/architecture/2026-09-13-deployment-brand-as-composition-config.md) |
 
 ## 我故意删除或禁用的内容 ⚠️ 合并官方后必查
 

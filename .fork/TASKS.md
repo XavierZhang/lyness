@@ -44,7 +44,7 @@
 | 0.3 | npm scope `@deepseek-ai/dsh-<name>` → `@lyness/<name>`（241 个待发布包） | done |
 | 0.4 | CLI `dsh` → `lyn`；`~/.dsh` → `~/.lyn`；`DSH_*` → `LYNESS_*` | done |
 | 0.5 | ⚠️ 系统提示词身份 `packages/core/system-prompt/src/index.ts:412` —— 模型可见，须同步更新 snapshot | done |
-| 0.6 | Web UI 品牌：新增 `ui-brand-lyness` 填 `sidebar.brand.mark` / `sidebar.brand.name` / `conversation.hero.brand.mark`，零官方文件改动。模板为 `packages/client/ui-brand-official`；插槽消费方在 0.1.5 已迁到新包 `packages/client/ui-sidebar/src/client/SidebarRoot.tsx` | todo |
+| 0.6 | Web UI 品牌：新增 `ui-brand-lyness` 填 `sidebar.brand.mark` / `sidebar.brand.name` / `conversation.hero.brand.mark`，零官方文件改动。模板为 `packages/client/ui-brand-official`；插槽消费方在 0.1.5 已迁到 `packages/client/ui-sidebar/src/client/SidebarRoot.tsx`。**读 1.0 已发布的 `globalThis.lynDeploymentBrand`**（`markUrl`/`wordmarkUrl` 已就绪）；顺带把 `AppFrame` 的构建期 `LYNESS_CLIENT_TITLE` 改为读该值 | todo（需 0.7 的图形资产才有实际内容） |
 | 0.7 | Logo：`apps/web/public/favicon.svg`（产品本体）、`website/public/{wordmark,favicon}.svg` | todo |
 | 0.8 | 仓库 URL → `https://github.com/XavierZhang/lyness`（仅 URL 类；`.agents/notes/` 官方历史笔记不动） | done |
 | 0.9 | 遥测：默认改为 `DISABLED` 且不带端点；启用需同时设 `LYNESS_TELEMETRY_MODE` 与 `LYNESS_TELEMETRY_OTLP_URL` | done |
@@ -57,7 +57,7 @@
 
 | # | 任务 | 状态 |
 |---|---|---|
-| 1.0 | 部署层品牌配置：配置文件格式 + 读取插件 + `renderIndex` 注入（[划分](BRAND-CONFIG.md)） | todo |
+| 1.0 | 部署层品牌配置：新增 `packages/host/brand-deployment`——组合层 `Config` + 资产按角色提供 + `renderIndex` 注入。已在真实服务器验证：标题/favicon/主题色/品牌全局值生效且无需重建前端。不放 `settings.yaml`（用户设置压过组合），[理由](../.agents/notes/implemented/architecture/2026-09-13-deployment-brand-as-composition-config.md) | done |
 | 1.1 | 租户能力缝：Service Definition + Provider + Consumer 三角 | todo |
 | 1.2 | 租户解析：Domain / Subdomain / `X-Tenant-ID` header | todo |
 | 1.3 | `TenantConfig`：供应商白名单、功能授权、Agent 身份、文案覆盖（**不含资产与产品名**，那些在部署层） | todo |

@@ -105,8 +105,50 @@ Web 前端由 `lyn-host-frontend-static` 提供构建产物目录，每个 index
 - **`TenantConfig` 去掉 `markUrl`／`wordmarkUrl`／`faviconUrl`**，这些上移到部署配置。
 - **新增部署配置文件**及其读取插件，属于 Phase 1 的前置。
 
+## 部署层配置放在哪：已定（2026-09-13）
+
+**不是 `settings.yaml`，也不是独立文件，而是组合层的插件配置。**
+
+原先设想放 `settings.yaml`。查过上游的[配置来源归属](../.agents/notes/implemented/architecture/2026-08-04-configuration-source-ownership.md)后，
+这条路是错的——解析次序是：
+
+```
+本次运行显式 > 用户设置(settings.yaml) > 组合 > 启动 shell > 发现的文件 > 默认值
+```
+
+`settings.yaml` **压过**组合。把品牌放进去，等于让使用该部署的人可以改掉产品名和图标——
+而部署的标识恰恰是必须对这个人成立的事实。上游那份笔记给了对应做法：
+「必须把某字段钉死在用户设置之上的部署，自带 bin 或 loader 树，或者干脆不挂设置提供方」。
+
+因此：品牌值是 `@lyness/lyn-host-brand-deployment` 的组合层 `Config`，该插件**不注册任何设置段**，
+组合应用之下的任何一层都触及不到它。部署方式是填 profile 的 `cordis.patch.yml` 并重启。
+
+也不走构建期。上游给自己打品牌用的是 `LYNESS_CLIENT_*`（构建期嵌入浏览器产物），
+换品牌就得重新构建前端，部署脚本做不到。本方案作用于每一个 index 响应。
+
+理由与被否方案见 [Agent Note](../.agents/notes/implemented/architecture/2026-09-13-deployment-brand-as-composition-config.md)。
+
+### 资产放置与替换步骤：已定
+
+```yaml
+# $LYNESS_HOME/profiles/<名字>/cordis.patch.yml
+- id: brand-deployment
+  config:
+    productName: Acme Agent
+    themeColor: '#1f6feb'
+    assetDirectory: /srv/acme/brand     # 绝对路径，部署脚本写入
+    favicon: favicon.svg
+    mark: mark.svg
+    wordmark: wordmark.svg
+    showPoweredBy: false
+```
+
+资产**按角色寻址，不按文件名**：`favicon.svg` 以 `/brand/favicon.svg` 提供，
+`wordmark.png` 以 `/brand/wordmark.png` 提供。请求不把任何路径片段带进文件读取。
+可提供类型：SVG、PNG、WebP、ICO、JPEG。配置错误在**加载时**失败，部署不会带着错的品牌启动。
+
 ## 待定
 
-- 部署配置文件的格式与位置（`settings.yaml` 的一个段，还是独立文件）
-- 私有化部署下是否允许运营方开启租户级品牌覆盖（`allowTenantBranding: true`）
-- 资产在部署包中的放置路径与部署脚本的替换步骤
+- 私有化部署下是否允许运营方开启租户级品牌覆盖（`allowTenantBranding: true`）。
+  当前**未实现该开关**：两层划分下资产没有按租户的投放路径，加了这个开关也无从生效。
+  要让它有意义，必须先引入资产接收路径及随之而来的跨租户校验——那正是本划分刻意消掉的那条攻击面。

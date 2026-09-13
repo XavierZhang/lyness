@@ -142,6 +142,16 @@
         compressionLevel: 1
         compressionThresholdBytes: 1024
 
+    # The deployment's own visual identity, mounted with nothing set: a served
+    # page keeps the built-in brand until a deployment's patch layer fills this
+    # row. Composition rather than user settings, because settings outrank
+    # composition and a deployment pins its identity against the people using
+    # it; this row registers no settings section, so nothing below the
+    # application reaches it. Applied per index response, so changing it is a
+    # patch edit and a restart, not a frontend rebuild.
+    - id: brand-deployment
+      name: '@lyness/lyn-host-brand-deployment'
+
     # Web glue owned by this bundle: resolves the built frontend dist (an
     # assembly fact of lyn-web-app, never user config), mounts the
     # frontend-static fallback owner, registers the web-surface prompt

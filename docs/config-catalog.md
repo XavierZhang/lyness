@@ -891,6 +891,34 @@ export interface Config {
 
 Source: [`packages/hooks/hooks-codex/src/index.ts:43`](../packages/hooks/hooks-codex/src/index.ts)
 
+<a id="lynesslyn-host-brand-deployment"></a>
+
+## `@lyness/lyn-host-brand-deployment`
+
+Requires: `webServer`
+
+```ts config-catalog
+/** Plugin config: the deployment's brand, as an operator writes it. */
+export interface Config {
+  /** Product name shown in the browser tab and in-app; omit to keep the built-in one. */
+  productName?: string
+  /** Brand colour as a hex triplet or a CSS colour keyword. */
+  themeColor?: string
+  /** Absolute directory holding the files named below. */
+  assetDirectory?: string
+  /** Favicon file name inside `assetDirectory`. */
+  favicon?: string
+  /** Mark (icon) file name inside `assetDirectory`. */
+  mark?: string
+  /** Wordmark file name inside `assetDirectory`. */
+  wordmark?: string
+  /** Whether the served page shows the upstream attribution line. @default false */
+  showPoweredBy?: boolean
+}
+```
+
+Source: [`packages/host/brand-deployment/src/index.ts:63`](../packages/host/brand-deployment/src/index.ts)
+
 <a id="lynesslyn-host-directory-picker-browse"></a>
 
 ## `@lyness/lyn-host-directory-picker-browse`
