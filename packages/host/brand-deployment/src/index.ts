@@ -243,7 +243,7 @@ function assetHandler(assets: ReadonlyMap<AssetRole, Asset>) {
     }
     // The request contributes no path segment to a filesystem read: its
     // pathname either names a configured role exactly or it is a miss.
-    const asset = byUrl.get(new URL(req.url ?? '/', 'http://localhost').pathname)
+    const asset = byUrl.get(new URL(String(req.url), 'http://localhost').pathname)
     if (asset === undefined) {
       res.writeHead(404)
       res.end()

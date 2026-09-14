@@ -84,6 +84,32 @@ describe('deployment brand over the index render', () => {
     expect(ctx.webServer.renderIndex('<head></head><body></body>')).toContain('<title>Acme</title>')
   })
 
+  it('adds an icon link to a head that declares none', async () => {
+    const directory = await assetDirectory({ 'logo.svg': '<svg/>' })
+    const ctx = await server()
+    await brand(ctx, { assetDirectory: directory, favicon: 'logo.svg' })
+    expect(ctx.webServer.renderIndex('<head></head><body></body>'))
+      .toContain('<head><link rel="icon" href="/brand/favicon.svg" />')
+  })
+
+  it('answers HEAD with the asset headers and no body', async () => {
+    const directory = await assetDirectory({ 'logo.svg': '<svg/>' })
+    const ctx = await server()
+    await brand(ctx, { assetDirectory: directory, favicon: 'logo.svg' })
+    const head = await get(ctx, '/brand/favicon.svg', { method: 'HEAD' })
+    expect(head.status).toBe(200)
+    expect(head.headers.get('content-type')).toBe('image/svg+xml')
+    expect(await head.text()).toBe('')
+  })
+
+  it('answers a miss when a placed asset is removed while the deployment runs', async () => {
+    const directory = await assetDirectory({ 'logo.svg': '<svg/>' })
+    const ctx = await server()
+    await brand(ctx, { assetDirectory: directory, favicon: 'logo.svg' })
+    await rm(join(directory, 'logo.svg'))
+    expect((await get(ctx, '/brand/favicon.svg')).status).toBe(404)
+  })
+
   it('serves each configured asset and answers every other path on the route with 404', async () => {
     const directory = await assetDirectory({ 'logo.svg': '<svg/>', 'word.png': 'PNG' })
     const ctx = await server()
