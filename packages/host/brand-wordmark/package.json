@@ -1,0 +1,40 @@
+{
+  "name": "@lyness/lyn-host-brand-wordmark",
+  "description": "Typesets a brand name in a supplied font into a single-colour SVG wordmark sized for the Web shell's brand row",
+  "version": "0.1.5-rc.1",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "directory": "packages/host/brand-wordmark"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./src/*": "./src/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib/index.js",
+    "lib/types/**/*.d.ts"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "@lyness/cordis": "workspace:^"
+  },
+  "dependencies": {
+    "fontkit": "^2.0.4"
+  },
+  "devDependencies": {
+    "@fontsource/inter": "^5.3.0",
+    "@lyness/cordis": "workspace:^",
+    "@types/fontkit": "^2.0.9"
+  }
+}

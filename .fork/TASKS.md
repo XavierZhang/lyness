@@ -65,7 +65,7 @@
 | 1.5 | ⚠️ `tenant_id` 进 session log：新增 `SessionEventMap` 成员 | todo |
 | 1.6 | 数据隔离：租户层配置入库；backend 走 `storage` 缝（既有 sqlite 实现，或新增 MySQL provider） | todo |
 | 1.7 | 图像生成能力缝：服务定义 + 境内／海外厂商 Provider + 调用方；厂商与模型为部署配置，密钥走凭证缝，**默认关闭**（[方案](BRAND-CONFIG.md)） | todo |
-| 1.8 | 字标排版：`fontkit` 把品牌名按字体排版并转成路径，输出单色 SVG；中文字体由运营方提供完整字体文件 | 进行中 |
+| 1.8 | 字标排版：新增 `packages/host/brand-wordmark`——`fontkit` 把品牌名排版成单色 SVG（高 24，按字体行框定字号，宽于 7:1 拒绝）；字体由调用方提供，中文字体不打包（[决策](../.agents/notes/implemented/architecture/2026-09-15-wordmark-typesetting-with-fontkit.md)） | done |
 | 1.9 | 矢量化与校验：`@neplex/vectorizer`（MIT，锁定版本）+ SVG 白名单 + 单色／比例／路径数自动校验 | todo |
 | 1.10 | `lyn --profile brand-studio`（仅私有化）：两条路径——上传已有 logo（见 4.8），或填写品牌简介 → 候选 → 预览挑选；两者都写入 `assetDirectory` 与 `brand-deployment` 的 patch 层。上传路径依赖 1.8～1.9，生成路径另依赖 1.7；均不依赖 1.1～1.6 | todo |
 
