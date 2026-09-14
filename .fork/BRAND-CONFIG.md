@@ -159,16 +159,22 @@ Web 前端由 `lyn-host-frontend-static` 提供构建产物目录，每个 index
 
 - 仓库规定受支持的 Node 应用只能从 `lyn` 带 profile 启动（[规则](../docs/architecture.md#application-launch)），独立可执行文件会被 `verify-application-entrypoints` 拒绝。因此做成 `lyn --profile brand-studio`（名称暂定），由运营方在服务器上运行。
 - 不做进 Web 应用的设置页：Web 应用的使用者不应能改部署的身份，与品牌不放 `settings.yaml` 是同一个理由。
+- 上传入口同样放在这个 profile 里，不放在管理后台。上传者是有服务器权限的运营方，信任级别与手工把文件放进 `assetDirectory` 相同；上传的 SVG 仍走白名单检查。
 
 ### 流程
 
 ```
-运营方填写品牌简介（扩展槽）
- ├─ 图标：填入提示词模板 → 生图模型出 4～8 张候选 → 矢量化 → 白名单与自动校验 → 预览挑选
- ├─ 字标：品牌名 + 选定字体 → 转成路径 → SVG
- └─ favicon：由选中的图标补成正方形，加暗色规则
-        ↓
-写入 assetDirectory，并生成 brand-deployment 的 patch 层 → 重启生效
+运营方二选一
+ ├─ 上传已有 logo：按下方资产规格上传图标与字标
+ │    ├─ PNG → 矢量化 → 白名单与自动校验
+ │    └─ SVG → 白名单与自动校验
+ └─ AI 生成：填写品牌简介（扩展槽）
+      ├─ 图标：填入提示词模板 → 生图模型出 4～8 张候选 → 矢量化 → 白名单与自动校验 → 预览挑选
+      └─ 字标：品牌名 + 选定字体 → 转成路径 → SVG
+            ↓
+favicon：由图标补成正方形，加暗色规则
+            ↓
+预览确认 → 写入 assetDirectory，并生成 brand-deployment 的 patch 层 → 重启生效
 ```
 
 ### 扩展槽：运营方填写与平台固定
@@ -187,7 +193,7 @@ Web 前端由 `lyn-host-frontend-static` 提供构建产物目录，每个 index
 ### 字标：字体排版，不用生图模型
 
 - 生图模型经常拼错字母，中文名更不可靠；字体排版拼写一定正确，结果可复现，无需人工核对。
-- 用 `opentype.js` 把品牌名转成路径。字体从预设清单选，只收 SIL OFL 许可的开源字体，例如思源黑体 / Noto Sans SC（中文）、Inter（英文）。
+- 用 `fontkit` 把品牌名排版并转成路径，选型经实测（见任务 1.8）。字体只收 SIL OFL 许可的开源字体：英文从预设清单选，如 Inter；中文字体体积大（`@fontsource/noto-sans-sc` 解压后 74.5MB，每个字重切成 102 个分片），不打进产品，由运营方提供完整字体文件，如思源黑体 / Noto Sans SC。
 
 ### 生图模型：做成能力缝，不绑定厂商
 
@@ -212,7 +218,9 @@ Web 前端由 `lyn-host-frontend-static` 提供构建产物目录，每个 index
 | `@neplex/vectorizer` | MIT | 位图转 SVG；预编译覆盖 macOS / Linux / Windows 等 14 个平台 | 采用；版本为 0.1.0，接入时锁定版本 |
 | `imagetracerjs` | Unlicense | 位图转 SVG；2023 年后未更新 | 备选 |
 | `potrace`、`esm-potrace-wasm` | GPL-2.0 | 位图转 SVG | 不采用：随私有化部署包分发会带上 GPL 义务 |
-| `opentype.js` | MIT | 字标文字转路径 | 采用 |
+| `fontkit` | MIT | 字标排版转路径；woff、woff2、ttf、otf 均可读 | 采用；仓库 2024-08 后无新提交，属成熟停更 |
+| `opentype.js` | MIT | 字标排版转路径 | 不采用：2.0.0 解析 Inter 失败（不支持第 6 类替换查找格式 2） |
+| `harfbuzzjs` | MIT | 字形排版 | 不采用：读不了 woff／woff2，只认 TTF／OTF |
 | `svgo` | MIT | 压缩 SVG | 采用；它不是安全过滤器 |
 
 - **白名单检查**：无论 SVG 是描出来的还是模型直接给的，写入前只放行 `svg`、`g`、`path` 与填充属性；出现 `image`、`script`、`foreignObject` 或外部链接一律拒绝。
