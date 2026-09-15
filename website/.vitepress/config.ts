@@ -210,7 +210,7 @@ const siteIdentity = {
 }
 
 /**
- * The DeepSeek wordmark, inlined so its `currentColor` fills follow the active
+ * The lyness mark-and-wordmark lockup, inlined so its `currentColor` fills follow the active
  * theme. An `<img>` would freeze the mark at the colors the file declares.
  */
 const wordmark = readFileSync(resolve(import.meta.dirname, '../public/wordmark.svg'), 'utf8')
@@ -282,7 +282,7 @@ const scrollbarScript = `
 `
 
 /**
- * Navigation-bar title: the DeepSeek wordmark and the release-stage tag.
+ * Navigation-bar title: the lyness lockup and the release-stage tag.
  * VitePress renders `siteTitle` as HTML.
  *
  * @param previewTag - Localized release-stage label.

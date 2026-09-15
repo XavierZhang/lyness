@@ -113,8 +113,6 @@ None; this package neither assembles nor sends a provider request.
 
 These are current constraints, not a task backlog.
 
-- **The in-app product name is still built in** — the served page's title is replaced here, but `AppFrame` reads its own product title from the build-time `LYNESS_CLIENT_TITLE`. Routing that through `lynDeploymentBrand` needs a client-side occupant, which is separate work.
-- **The mark and wordmark are published, not yet drawn** — their URLs reach the page, and the client slot occupants that render them are separate work.
 - **A static worker deployment loses the title and icon** — both are `tapIndex` replacements, and the worker form consumes only the structured rows. The brand global and the theme colour reach it.
 - **No tenant layer** — one brand per deployment. Per-tenant branding would need an asset intake path and the cross-tenant checks that come with it.
 

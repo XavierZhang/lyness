@@ -1,0 +1,6 @@
+# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
+# side as of the last confirmed-consistent state. Both languages carry equal authority;
+# after editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-09-15-lyness-brand-in-the-web-client.md
+2026-09-15-lyness-brand-in-the-web-client.md: 4b386cad675ef94067a6a953c71e98bc9ea76d8a
+2026-09-15-lyness-brand-in-the-web-client.zh.md: cb24c3f365f6adc41c202d31e89c9f45a9693889

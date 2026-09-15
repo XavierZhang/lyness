@@ -44,8 +44,8 @@
 | 0.3 | npm scope `@deepseek-ai/dsh-<name>` → `@lyness/<name>`（241 个待发布包） | done |
 | 0.4 | CLI `dsh` → `lyn`；`~/.dsh` → `~/.lyn`；`DSH_*` → `LYNESS_*` | done |
 | 0.5 | ⚠️ 系统提示词身份 `packages/core/system-prompt/src/index.ts:412` —— 模型可见，须同步更新 snapshot | done |
-| 0.6 | Web UI 品牌：新增 `ui-brand-lyness` 填 `sidebar.brand.mark` / `sidebar.brand.name` / `conversation.hero.brand.mark`，零官方文件改动。模板为 `packages/client/ui-brand-official`；插槽消费方在 0.1.5 已迁到 `packages/client/ui-sidebar/src/client/SidebarRoot.tsx`。**读 1.0 已发布的 `globalThis.lynDeploymentBrand`**（`markUrl`/`wordmarkUrl` 已就绪）；顺带把 `AppFrame` 的构建期 `LYNESS_CLIENT_TITLE` 改为读该值 | todo（需 0.7 的图形资产才有实际内容） |
-| 0.7 | Logo：`apps/web/public/favicon.svg`（产品本体）、`website/public/{wordmark,favicon}.svg`。图标由 1.9 从 `lyness-icon-A-1.png` 描出，字标选定 inter-600（2026-09-15） | 进行中 |
+| 0.6 | Web UI 品牌：新增 `ui-brand-lyness` 填 `sidebar.brand.mark` / `sidebar.brand.name` / `conversation.hero.brand.mark`，零官方文件改动。模板为 `packages/client/ui-brand-official`；插槽消费方在 0.1.5 已迁到 `packages/client/ui-sidebar/src/client/SidebarRoot.tsx`。**读 1.0 已发布的 `globalThis.lynDeploymentBrand`**（`markUrl`/`wordmarkUrl` 已就绪）；顺带把 `AppFrame` 的构建期 `LYNESS_CLIENT_TITLE` 改为读该值 | done（2026-09-15：三个 slot 在所有构建中填 lyness 图形，部署品牌逐项覆盖；web-app 摘下 `ui-brand-official`；`AppFrame` 标题优先读部署 `productName`，改了官方文件，已登记 CUSTOM.md。[决策](../.agents/notes/implemented/architecture/2026-09-15-lyness-brand-in-the-web-client.md)） |
+| 0.7 | Logo：`apps/web/public/favicon.svg`（产品本体）、`website/public/{wordmark,favicon}.svg`。图标由 1.9 从 `lyness-icon-A-1.png` 描出，字标选定 inter-600（2026-09-15） | done（2026-09-15：两个 favicon、官网图标+字标组合、`powered by lyn` 徽章 PNG 全部换成 lyness；shields 徽章去掉 DeepSeek logo，新增 codemod 规则 `shields-logo`） |
 | 0.8 | 仓库 URL → `https://github.com/XavierZhang/lyness`（仅 URL 类；`.agents/notes/` 官方历史笔记不动） | done |
 | 0.9 | 遥测：默认改为 `DISABLED` 且不带端点；启用需同时设 `LYNESS_TELEMETRY_MODE` 与 `LYNESS_TELEMETRY_OTLP_URL` | done |
 | 0.10 | 验证：`typecheck` + `build` + `test` + `test:snapshot` + `hygiene` | done |

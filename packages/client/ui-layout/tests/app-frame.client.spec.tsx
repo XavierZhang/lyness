@@ -197,6 +197,22 @@ describe('AppFrame', () => {
     expect(document.title).toBe('Product')
   })
 
+  it('prefers the deployment product name over the build title', () => {
+    vi.stubEnv('LYNESS_CLIENT_TITLE', 'Product')
+    vi.stubGlobal('lynDeploymentBrand', { productName: 'Acme', showPoweredBy: false })
+    mountFrame()
+    expect(document.title).toBe('Acme')
+  })
+
+  it('ignores a deployment brand without a usable product name', () => {
+    for (const brand of [null, 'Acme', { productName: '' }, { productName: 7 }]) {
+      vi.stubGlobal('lynDeploymentBrand', brand)
+      const { unmount } = mountFrame()
+      expect(document.title).toBe('LYN Local Build')
+      unmount()
+    }
+  })
+
   it('renders owner props for the default sidebar and prospective right panel', () => {
     const { frame, rightOwner, sidebarOwner, slotCalls } = mountFrame()
     expect(tracks(frame)).toEqual([280, 0])

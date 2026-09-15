@@ -43,6 +43,17 @@ function MainPanel({ usePanelInfo, renderSlot }: Pick<PropsRuntime<'root'>, 'use
 }
 
 /**
+ * Product name `lyn-brand-deployment` injected as `globalThis.lynDeploymentBrand`,
+ * when it is a non-empty string. The value is script-assigned page data, so it is checked.
+ */
+function deploymentProductName(): string | undefined {
+  const brand: unknown = Reflect.get(globalThis, 'lynDeploymentBrand')
+  if (typeof brand !== 'object' || brand === null) return undefined
+  const name: unknown = Reflect.get(brand, 'productName')
+  return typeof name === 'string' && name !== '' ? name : undefined
+}
+
+/**
  * Right column grid item. Zero-width unless the occupant asked for a track; the
  * occupant's panel is positioned against the column's right edge, which never
  * moves, so it can hang over the centre when there is no track.
@@ -189,7 +200,7 @@ export function AppFrame({
   const onRightbarDrag = useCallback((dx: number) => {
     actions.setRightbar(rightbarBase.current - dx)
   }, [actions])
-  const productTitle = process.env.LYNESS_CLIENT_TITLE ?? t('brand.localBuild')
+  const productTitle = deploymentProductName() ?? process.env.LYNESS_CLIENT_TITLE ?? t('brand.localBuild')
   const sidebar = useMemo(() => renderSlot('sidebar', {
     collapsed: sidebarCollapsed,
     width: cols.sidebar,

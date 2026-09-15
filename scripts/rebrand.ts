@@ -200,6 +200,12 @@ const RULES: readonly Rule[] = [
     note: 'An accessible name a component builds by concatenating its label and a skill id, so the assertion text carries `Skill` immediately before the id and `dsh-token` reads the token as part of one lowercase word. The rendered id follows the rename, so the expectation must too.',
   },
   {
+    id: 'shields-logo',
+    from: '&logo=deepseek&logoColor=white',
+    to: '',
+    note: 'The Shields.io query parameters that draw the DeepSeek whale on the powered-by badge. Simple Icons carries no lyness logo, so the badge drops its logo instead of naming another mark. The query is badge-only and never names the model vendor.',
+  },
+  {
     id: 'dsh-token',
     from: 'dsh',
     to: 'lyn',
@@ -429,9 +435,10 @@ export function rewrite(
   const out = text.split('\n').map((line) => {
     let current = line
     for (const rule of rules) {
-      if (skip.has(rule.id)) continue
       const from = reverse ? rule.to : rule.from
       const to = reverse ? rule.from : rule.to
+      // A deletion rule has no text to find backwards; an empty `from` would match between every character.
+      if (skip.has(rule.id) || from === '') continue
       const next = applyPreservingArchivedReferences(current, rule, from, to)
       if (next !== current) hits.set(rule.id, (hits.get(rule.id) ?? 0) + 1)
       current = next
@@ -456,8 +463,9 @@ export function renamePath(file: string, rules: readonly Rule[], reverse: boolea
   if (skip === 'all') return file
   let out = file
   for (const rule of rules) {
-    if (skip.has(rule.id)) continue
-    out = applyRule(out, rule, reverse ? rule.to : rule.from, reverse ? rule.from : rule.to)
+    const from = reverse ? rule.to : rule.from
+    if (skip.has(rule.id) || from === '') continue
+    out = applyRule(out, rule, from, reverse ? rule.from : rule.to)
   }
   return out
 }

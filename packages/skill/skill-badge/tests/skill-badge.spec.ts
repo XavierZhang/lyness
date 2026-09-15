@@ -29,12 +29,12 @@ describe('lyn-skill-badge', () => {
     expect(await ctx.skills.list()).toEqual([])
   })
 
-  it('ships the official 726×120 PNG unchanged', async () => {
+  it('ships the lyness 726×120 PNG unchanged', async () => {
     const image = await readFile(new URL('../assets/lyn-badge.png', import.meta.url))
     expect(image.readUInt32BE(16)).toBe(726)
     expect(image.readUInt32BE(20)).toBe(120)
     expect(createHash('sha256').update(image).digest('hex')).toBe(
-      'f2c4f5ec9cbe847c0c763545c4d839efa8485bc74203733d0a0e8259f233c653',
+      '574e0265946cddca57299effbee2ed37348ab10d0a387aec6cca386ca770f339',
     )
   })
 })

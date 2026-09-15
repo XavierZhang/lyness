@@ -265,9 +265,10 @@
     - id: ui-chat
       name: '@lyness/lyn-client-ui-chat'
 
-    # Official occupants for the generic sidebar and conversation brand slots.
-    - id: ui-brand-official
-      name: '@lyness/lyn-client-ui-brand-official'
+    # lyness occupants for the generic sidebar and conversation brand slots,
+    # overridden per deployment by brand-deployment's injected brand.
+    - id: ui-brand-lyness
+      name: '@lyness/lyn-client-ui-brand-lyness'
 
     - id: ui-attachment
       name: '@lyness/lyn-client-ui-attachment'

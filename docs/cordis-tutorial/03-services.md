@@ -95,4 +95,4 @@ Service names live in one flat namespace per application. Prefix or namespace yo
 
 Next: [Events](04-events.md) — communication without a shared service.
 
-[![](https://img.shields.io/badge/powered_by-lyn-4D6BFE?style=flat-square&logo=deepseek&logoColor=white)](https://github.com/XavierZhang/lyness)
+[![](https://img.shields.io/badge/powered_by-lyn-4D6BFE?style=flat-square)](https://github.com/XavierZhang/lyness)

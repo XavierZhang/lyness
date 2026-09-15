@@ -55,7 +55,7 @@
     "@lyness/lyn-client-ui-agent-preset": "workspace:^",
     "@lyness/lyn-client-ui-approval": "workspace:^",
     "@lyness/lyn-client-ui-attachment": "workspace:^",
-    "@lyness/lyn-client-ui-brand-official": "workspace:^",
+    "@lyness/lyn-client-ui-brand-lyness": "workspace:^",
     "@lyness/lyn-client-ui-chat": "workspace:^",
     "@lyness/lyn-client-ui-commands": "workspace:^",
     "@lyness/lyn-client-ui-conversation": "workspace:^",

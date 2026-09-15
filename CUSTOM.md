@@ -41,6 +41,10 @@
 | `scripts/lint-rule-fingerprint.spec.ts` | 三条 sha256 指纹 | `.oxlintrc.json` 有一句规则提示文案含包名，被改名后哈希变化；规则数 89/88/84 与上游一致，可证规则集未变 | 2026-09-12 |
 | `packages/bundle/base/tests/base.spec.ts` | 遥测默认值断言改为 `DISABLED` + 空端点 | 上游 0.1.5 新增此测试钉住自己的默认值；改为钉住本 fork 的，它就成了遥测守卫 | 2026-09-12 |
 | `packages/bundle/base/cordis.patch.yml` | 遥测默认 `DISABLED`、去掉厂商端点 | 上游默认把完整会话记录发往自家 collector；服务他人用户的部署不能默认转发 | 2026-09-01 |
+| `packages/client/ui-layout/src/client/AppFrame.tsx`（+ `tests/app-frame.client.spec.tsx`） | 浏览器标题优先读部署品牌的 `productName` | `DocumentTitle` 在客户端覆盖 `document.title`，服务端替换过的 `<title>` 会被冲掉；标题不走 slot，没有插件接缝 | 2026-09-15 |
+| `packages/bundle/web-app/cordis.patch.yml`、`package.json` | `ui-brand-official` 行换成 `ui-brand-lyness` | 浏览器插件名单只在 bundle patch 里 | 2026-09-15 |
+| `apps/web/public/favicon.svg`、`website/public/{favicon,wordmark}.svg`、`packages/skill/skill-badge/assets/lyn-badge.png`（+ `tests/skill-badge.spec.ts` 的哈希） | 换成 lyness 图形 | 图片资产，codemod 表达不了。⚠️ **合并时 `read-tree` 会把它们重置为上游版本，必须从本 fork 恢复** | 2026-09-15 |
+| `website/.vitepress/config.ts` | 两处 "DeepSeek wordmark" 注释 | 注释描述的文件已换 | 2026-09-15 |
 
 ## 上游可移植性缺陷（已在本地修复，**可反馈给上游**）
 
@@ -65,7 +69,7 @@ codemod 只改文本和路径。下面这些是它改完之后必然过期、必
 |---|---|---|
 | 1 | `pnpm install` | 包名变了，lockfile 要重算 |
 | 2 | `pnpm run clean`；再删 `git mv` 留下的空目录 | 空目录不含文件，但按目录枚举的门禁（如 snapshot corpus）会把它当成缺文件 |
-| 3 | `gen-third-party-notices`、`gen-cordis-catalog`、`gen-config-catalog`、`gen-tsconfig-paths`、`gen-doc-graphs` | 生成物里含包名 |
+| 3 | `gen-third-party-notices`、`gen-cordis-catalog`、`gen-config-catalog`、`gen-tsconfig-paths`、`gen-doc-graphs`、`gen-module-graph`、`gen-client-catalog` | 生成物里含包名。`gen-module-graph` 与 `gen-doc-graphs` 是两个脚本，2026-09-15 发现前三个 host 品牌包因只跑了后者而一直没进 `docs/module-graph.md` |
 | 4 | `verify-translation-pairing --write --all` | 配对记录存的是两侧内容哈希；改名同时改了两侧，哈希全部过期（本次 648 条） |
 | 5 | **手工**对齐生成文档的中文侧顺序 | 生成器只写英文侧。改名后包名字典序变了，中文侧会保留旧顺序（本次：`config-catalog.zh.md` 两节、`capability-seams.zh.md` 两条图边） |
 | 6 | **手工**重排按名字排序的期望文件 | 同上。本次：`tool-schemas.expected.json` 的工具顺序、`web-browser-open.expected.e2e.ts` 的内联快照键序、desktop 的三个夹具 |
@@ -107,7 +111,8 @@ codemod 只改文本和路径。下面这些是它改完之后必然过期、必
 
 | 能力 | 位置 | 说明 |
 |---|---|---|
-| 可重放的品牌改名 | `scripts/rebrand.ts` | 21 条有序规则 + 保护路径 + 后置断言 + `--check`。**每次 sync upstream 后必须重跑**，否则上游带回的旧名会残留。设计见 [Agent Note](.agents/notes/implemented/process/2026-08-31-lyness-rebrand-codemod.md) |
+| Web UI 品牌 | `packages/client/ui-brand-lyness` | 所有构建中填三个品牌 slot（lyness 图标 + inter-600 字标），页面带部署品牌时逐项让位。[决策](.agents/notes/implemented/architecture/2026-09-15-lyness-brand-in-the-web-client.md) |
+| 可重放的品牌改名 | `scripts/rebrand.ts` | 21 条有序规则（含删除型规则 `shields-logo`，`--reverse` 跳过它）+ 保护路径 + 后置断言 + `--check`。**每次 sync upstream 后必须重跑**，否则上游带回的旧名会残留。设计见 [Agent Note](.agents/notes/implemented/process/2026-08-31-lyness-rebrand-codemod.md) |
 | 二开任务清单 | `.fork/TASKS.md` | 需求拆解、7 处冲突裁决与分阶段计划 |
 | 二开手册 | `.fork/FORK-GUIDE.md` | 原在 `docs/` 下，因受上游双语门禁管辖而迁出 |
 | 部署层品牌 | `packages/host/brand-deployment` | 组合层 `Config` + 资产按角色提供 + `renderIndex` 注入。改 patch 层并重启即换品牌，不重建前端。[决策](.agents/notes/implemented/architecture/2026-09-13-deployment-brand-as-composition-config.md) |
@@ -145,9 +150,10 @@ codemod 只改文本和路径。下面这些是它改完之后必然过期、必
 | npm scope | `@deepseek-ai/dsh-<name>` | `@lyness/lyn-<name>`（harness）／`@lyness/<name>`（vendored） | 已完成。产品段**保留**——上游靠它区分两类包，去掉后 6 处门禁失效且其中一处静默失效（[记录](.agents/notes/implemented/process/2026-09-12-restoring-the-product-name-segment.md)） |
 | 用户数据目录 | `~/.dsh` / `$DSH_HOME` | `~/.lyn` / `$LYNESS_HOME` | `packages/util/home-paths`；目录名与环境变量前缀刻意不成对，用户 2026-08-31 定 |
 | 系统提示词身份 ⚠️ | `You are an AI agent powered by DeepSeek Harness.` | `...powered by lyness.`（已完成） | `packages/core/system-prompt/src/index.ts:412`（模型可见，改动需更新 snapshot） |
-| Web UI 品牌插槽 | `@deepseek-ai/dsh-client-ui-brand-official` | 新增 `ui-brand-lyness` | 插槽化，零官方文件改动 |
+| Web UI 品牌插槽 | `@deepseek-ai/dsh-client-ui-brand-official`（鲸鱼） | `ui-brand-lyness`（已完成） | `packages/client/ui-brand-lyness`；web-app 已摘下官方包 |
 | 文档站 | `https://deepseek-harness.github.io` | 保留，是否公开后续定 | `website/` + `.github/workflows/docs-pages.yml` |
-| Logo | `website/public/{wordmark,favicon}.svg`、`apps/web/public/favicon.svg` | **未做** | 图形资产需人工设计；仅 `apps/web/public/favicon.svg` 是产品本体 |
+| Logo | `website/public/{wordmark,favicon}.svg`、`apps/web/public/favicon.svg`（鲸鱼） | lyness 图标 + inter-600 字标（已完成） | 源文件在 `.fork/brand-output/`（git 忽略）；⚠️ 合并后必须恢复 |
+| 徽章 | `lyn-badge.png`（鲸鱼 + powered by dsh）、shields `logo=deepseek` | lyness 图标 PNG；shields 去掉 logo（已完成） | `packages/skill/skill-badge/assets/`；shields 由 codemod 规则 `shields-logo` 重放，PNG ⚠️ 合并后必须恢复 |
 | API 端点 ⛔ | `https://api.deepseek.com` | 不改 | 供应商地址，非品牌 |
 | 模型供应商 DeepSeek ⛔ | `packages/llm/llm-deepseek`、`DeepSeekOnboardingDialog.tsx`、`ui-settings-models` | 不改 | 指模型供应商，不是 harness 品牌；全局替换会误伤 |
 | 遥测端点 ⚠️ | `https://harness-telemetry.deepseeksvc.com` | **已移除** | 默认 `DISABLED` 且无端点；启用需显式设两个环境变量。上游 0.1.5 的 `9ffe85a512` 把遥测**扩到了所有用户**（原先按 provider 区分），本二开的覆盖因此更重要，每次合并必查 |
