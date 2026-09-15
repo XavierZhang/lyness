@@ -27,10 +27,10 @@ This bundle is `lyn --profile brand-studio`, a one-shot command a private deploy
 
 ```sh
 lyn --profile brand-studio --name Acme --icon ./acme.png --font ./Inter-SemiBold.ttf \
-  --theme-color '#1a73e8' --accept-trademark
+  --theme-color '#1a73e8' --accept-trademark --accept-font-license
 ```
 
-`--name`, `--icon`, `--font`, and `--accept-trademark` are required. The icon is a PNG at least 1024 pixels a side with a dark mark on a light or transparent background; `lyn-host-brand-icon` refuses anything else and names the reason. The font is a TTF, OTF, WOFF, or WOFF2 file that covers every character of the name. `--theme-color` takes a hex colour or a colour keyword; without it, a colour the row already names stays.
+`--name`, `--icon`, `--font`, `--accept-trademark`, and `--accept-font-license` are required. The icon is a PNG at least 1024 pixels a side with a dark mark on a light or transparent background; `lyn-host-brand-icon` refuses anything else and names the reason. The font is a TTF, OTF, WOFF, or WOFF2 file that covers every character of the name, and the operator's license for it must permit using its glyphs in a logo. The studio reads the font on the operator's server but neither copies nor distributes it, and the wordmark it writes is outline artwork, not font software. `--theme-color` takes a hex colour or a colour keyword; without it, a colour the row already names stays.
 
 ### What it writes
 
@@ -82,7 +82,7 @@ These are current constraints, not a task backlog.
 
 - **Flags only** — every input is a command-line flag; the command does not prompt for a missing one.
 - **Upload path only** — generating the icon with an image model needs an image-generation capability the repository does not have yet.
-- **The operator supplies the font** — no font ships with the bundle, because the repository's runtime license gate admits no SIL OFL font.
+- **No built-in font yet** — the operator must supply a font; the platform's built-in multilingual fonts, which would make `--font` optional, are not bundled yet.
 - **One brand per profile** — the row is deployment-wide; there is no tenant layer.
 - **The layer is re-serialized** — comments and `!!js` values survive, but quoting and blank lines in other rows may be normalized.
 

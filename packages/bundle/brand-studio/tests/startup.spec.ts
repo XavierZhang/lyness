@@ -16,6 +16,8 @@ const require = createRequire(import.meta.url)
 const FONT = require.resolve('@fontsource/inter/files/inter-latin-600-normal.woff2')
 const ICON = join(import.meta.dirname, 'fixtures', 'icon.png')
 
+const CONFIRMED = ['--accept-trademark', '--accept-font-license']
+
 const original = { stdout: internals.stdout, stderr: internals.stderr }
 const directories: string[] = []
 
@@ -63,9 +65,15 @@ describe('brand-studio command line', () => {
     expect(result.stderr).toContain('pass --accept-trademark')
   })
 
+  it('refuses to run without the font license confirmation', async () => {
+    const result = await invoke(['--name', 'Acme', '--icon', ICON, '--font', FONT, '--accept-trademark'])
+    expect(result.code).toBe(1)
+    expect(result.stderr).toContain('pass --accept-font-license')
+  })
+
   it('applies the brand to the web profile and reports what it wrote', async () => {
     const dir = await home()
-    const result = await invoke(['--name', 'lyness', '--icon', ICON, '--font', FONT, '--accept-trademark'])
+    const result = await invoke(['--name', 'lyness', '--icon', ICON, '--font', FONT, ...CONFIRMED])
     expect(result).toMatchObject({ code: 0, stderr: '' })
     expect(result.stdout).toContain('brand-studio: wrote the brand for "lyness"')
     expect(result.stdout).toContain(join(dir, 'brand', 'mark.svg'))
@@ -75,7 +83,7 @@ describe('brand-studio command line', () => {
 
   it('reports a refused run and requests a failing exit', async () => {
     await home()
-    const result = await invoke(['--name', 'Acme', '--icon', ICON, '--font', FONT, '--theme-color', 'rgb(1,2,3)', '--accept-trademark'])
+    const result = await invoke(['--name', 'Acme', '--icon', ICON, '--font', FONT, '--theme-color', 'rgb(1,2,3)', ...CONFIRMED])
     expect(result).toMatchObject({ code: 1, stdout: '' })
     expect(result.stderr).toBe('brand-studio: StudioError: theme colour must be a hex colour or a colour keyword; got "rgb(1,2,3)"\n')
   })

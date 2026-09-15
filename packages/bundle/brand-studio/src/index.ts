@@ -30,6 +30,7 @@ interface StudioOptions {
   assetDir: string
   target: string
   acceptTrademark?: true
+  acceptFontLicense?: true
 }
 
 /**
@@ -47,11 +48,12 @@ function studioCommand(): Command {
     .option('--asset-dir <dir>', 'directory receiving the generated SVGs', lynHomePath('brand'))
     .option('--target <profile>', 'profile whose patch layer receives the brand', 'web')
     .option('--accept-trademark', 'confirm that the name and the icon infringe no trademark')
+    .option('--accept-font-license', 'confirm that your license for the font permits using its glyphs in a logo')
     .helpOption('-h, --help', 'show this help')
     .addHelpText('after', `
 Example:
   lyn --profile brand-studio --name Acme --icon ./acme.png --font ./Inter-SemiBold.ttf \\
-    --theme-color '#1a73e8' --accept-trademark
+    --theme-color '#1a73e8' --accept-trademark --accept-font-license
 `)
 }
 
@@ -111,6 +113,9 @@ export function apply(ctx: Context): void {
   program.action((options: StudioOptions) => {
     if (options.acceptTrademark !== true) {
       program.error('brand-studio: pass --accept-trademark to confirm that the name and the icon infringe no trademark')
+    }
+    if (options.acceptFontLicense !== true) {
+      program.error('brand-studio: pass --accept-font-license to confirm that your license for the font permits using its glyphs in a logo')
     }
     void run(options).then(exit)
   })

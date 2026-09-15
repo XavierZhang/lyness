@@ -2,5 +2,5 @@
 # side as of the last confirmed-consistent state. Both languages carry equal authority;
 # after editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-09-15-brand-studio-profile.md
-2026-09-15-brand-studio-profile.md: 787674c74ccc52bdeefd11f210c618fa39482c3e
-2026-09-15-brand-studio-profile.zh.md: fd20423975d284b1a89b8cd264c99d260592336e
+2026-09-15-brand-studio-profile.md: 4966117197833cf86c97e74d366c96fc0fa86118
+2026-09-15-brand-studio-profile.zh.md: 6ba9a8b4e3c7513c2e6cee9131de5bc77774bb92

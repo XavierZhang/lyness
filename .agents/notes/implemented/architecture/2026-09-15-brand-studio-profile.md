@@ -10,11 +10,11 @@ A private deployment brands itself through the `brand-deployment` row: an asset 
 
 ## Decision
 
-`@lyness/lyn-brand-studio` is a bundle, launched as `lyn --profile brand-studio`, whose patch inserts one row and does not layer over `lyn-base`. The row parses the launcher's arguments with commander, runs once, and requests exit through `ctx.appExit`. It takes the product name, the icon PNG, the font file, an optional theme colour, an asset directory, and a target profile as flags, and it refuses to run without `--accept-trademark`.
+`@lyness/lyn-brand-studio` is a bundle, launched as `lyn --profile brand-studio`, whose patch inserts one row and does not layer over `lyn-base`. The row parses the launcher's arguments with commander, runs once, and requests exit through `ctx.appExit`. It takes the product name, the icon PNG, the font file, an optional theme colour, an asset directory, and a target profile as flags, and it refuses to run without `--accept-trademark` and `--accept-font-license`.
 
 A run validates the colour, traces the icon, typesets the name, checks each SVG with `isBrandSvg`, and composes the new patch layer before it writes anything. It then writes the three SVGs, and only then the layer, so `lyn web`, which reloads its layer on change, never reads a row that names a missing file. The layer it edits is the target profile's own, `web` by default; a shipped profile that has never launched is initialized first, as its first launch would do. The layer is edited through the `yaml` document model, setting the keys the studio owns on every `brand-deployment` row and leaving other keys, rows, comments, and `!!js` values in place.
 
-The operator supplies the font. The typesetting decision already required a caller-supplied font, and shipping one would conflict with the repository's runtime license gate, which admits no SIL OFL font.
+A private deployment's brand owner supplies its own font, and the operator confirms with `--accept-font-license` that the license for it permits using its glyphs in a logo. The studio reads the font only on the operator's server; it neither copies nor distributes the file, and the wordmark it writes is outline artwork, not font software, so the platform takes on no obligation under the font's license. SaaS tenants cannot supply fonts, because tenants upload no files; they will use the platform's built-in fonts once those ship.
 
 ## Alternatives considered
 
@@ -24,7 +24,7 @@ The operator supplies the font. The typesetting decision already required a call
 
 **Prompt for missing inputs.** A guided prompt is friendlier on first use. The repository has no terminal prompt code, and flags alone keep the command scriptable and testable through a real launch.
 
-**Ship Inter as a runtime dependency for a preset font list.** An operator would not need a font file. `scripts/gen-third-party-notices.ts` refuses a non-permissive runtime license, and adding OFL to its list or a named exception changes a repository-wide distribution policy rather than this package.
+**Accept only built-in fonts.** Every wordmark would come from fonts the platform ships and discloses. A brand owner's typeface is part of its identity, and a private deployment can use it without the platform distributing it; built-in fonts serve SaaS tenants and operators without a font of their own.
 
 **A settings page in the Web application.** It would need no server access. A deployment's identity is not something the application's users may change, which is the same reason the brand is not in `settings.yaml`.
 
@@ -36,4 +36,4 @@ The operator supplies the font. The typesetting decision already required a call
 
 Re-serializing a layer can normalize the quoting and blank lines of rows the studio does not touch.
 
-The AI-generation path, interactive prompts, and a preset font list remain open; the first needs an image-generation capability.
+The AI-generation path, interactive prompts, and built-in multilingual fonts remain open; the first needs an image-generation capability.

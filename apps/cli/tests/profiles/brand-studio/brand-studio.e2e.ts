@@ -46,7 +46,7 @@ async function launch(args: readonly string[]) {
 
 describe('lyn --profile brand-studio', () => {
   it('writes the brand and the web profile row that serves it', async () => {
-    const { home, result } = await launch(['--name', 'lyness', '--icon', icon, '--font', font, '--theme-color', 'teal', '--accept-trademark'])
+    const { home, result } = await launch(['--name', 'lyness', '--icon', icon, '--font', font, '--theme-color', 'teal', '--accept-trademark', '--accept-font-license'])
     expect(result.stderr).not.toContain('brand-studio:')
     expect(result.exitCode).toBe(0)
     expect(result.stdout).toContain('brand-studio: wrote the brand for "lyness"')

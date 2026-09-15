@@ -27,10 +27,10 @@ kind: "package-bundle"
 
 ```sh
 lyn --profile brand-studio --name Acme --icon ./acme.png --font ./Inter-SemiBold.ttf \
-  --theme-color '#1a73e8' --accept-trademark
+  --theme-color '#1a73e8' --accept-trademark --accept-font-license
 ```
 
-`--name`、`--icon`、`--font` 与 `--accept-trademark` 为必填。图标须是边长不小于 1024 像素的 PNG，浅色或透明背景上的深色图形；其他情况 `lyn-host-brand-icon` 会拒绝并给出原因。字体须是覆盖名称中每个字符的 TTF、OTF、WOFF 或 WOFF2 文件。`--theme-color` 接受十六进制颜色或颜色关键字；不传时保留该行已有的颜色。
+`--name`、`--icon`、`--font`、`--accept-trademark` 与 `--accept-font-license` 为必填。图标须是边长不小于 1024 像素的 PNG，浅色或透明背景上的深色图形；其他情况 `lyn-host-brand-icon` 会拒绝并给出原因。字体须是覆盖名称中每个字符的 TTF、OTF、WOFF 或 WOFF2 文件，且运营方持有的授权须允许把其字形用于 logo。本工具只在运营方的服务器上读取字体，既不复制也不分发该文件；它写出的字标是轮廓图形，不是字体软件。`--theme-color` 接受十六进制颜色或颜色关键字；不传时保留该行已有的颜色。
 
 ### 写出的内容
 
@@ -82,7 +82,7 @@ lyn --profile brand-studio --name Acme --icon ./acme.png --font ./Inter-SemiBold
 
 - **只接受参数** —— 所有输入都是命令行参数；缺少参数时命令不会交互式询问。
 - **只有上传路径** —— 用生图模型生成图标需要仓库尚未具备的图像生成能力。
-- **字体由运营方提供** —— 本 bundle 不随附字体，因为仓库的运行时许可证门禁不接受任何 SIL OFL 字体。
+- **尚无内置字体** —— 运营方必须提供字体；能让 `--font` 变为可选的平台内置多语言字体尚未打包。
 - **一个 profile 一份品牌** —— 该行是部署级的，没有租户层。
 - **补丁层会被重新序列化** —— 注释与 `!!js` 值得以保留，但其他行的引号与空行可能被规范化。
 
