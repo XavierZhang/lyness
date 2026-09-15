@@ -45,7 +45,7 @@
 | 0.4 | CLI `dsh` → `lyn`；`~/.dsh` → `~/.lyn`；`DSH_*` → `LYNESS_*` | done |
 | 0.5 | ⚠️ 系统提示词身份 `packages/core/system-prompt/src/index.ts:412` —— 模型可见，须同步更新 snapshot | done |
 | 0.6 | Web UI 品牌：新增 `ui-brand-lyness` 填 `sidebar.brand.mark` / `sidebar.brand.name` / `conversation.hero.brand.mark`，零官方文件改动。模板为 `packages/client/ui-brand-official`；插槽消费方在 0.1.5 已迁到 `packages/client/ui-sidebar/src/client/SidebarRoot.tsx`。**读 1.0 已发布的 `globalThis.lynDeploymentBrand`**（`markUrl`/`wordmarkUrl` 已就绪）；顺带把 `AppFrame` 的构建期 `LYNESS_CLIENT_TITLE` 改为读该值 | todo（需 0.7 的图形资产才有实际内容） |
-| 0.7 | Logo：`apps/web/public/favicon.svg`（产品本体）、`website/public/{wordmark,favicon}.svg` | todo |
+| 0.7 | Logo：`apps/web/public/favicon.svg`（产品本体）、`website/public/{wordmark,favicon}.svg`。图标由 1.9 从 `lyness-icon-A-1.png` 描出，字标选定 inter-600（2026-09-15） | 进行中 |
 | 0.8 | 仓库 URL → `https://github.com/XavierZhang/lyness`（仅 URL 类；`.agents/notes/` 官方历史笔记不动） | done |
 | 0.9 | 遥测：默认改为 `DISABLED` 且不带端点；启用需同时设 `LYNESS_TELEMETRY_MODE` 与 `LYNESS_TELEMETRY_OTLP_URL` | done |
 | 0.10 | 验证：`typecheck` + `build` + `test` + `test:snapshot` + `hygiene` | done |
@@ -60,11 +60,11 @@
 | 1.0 | 部署层品牌配置：新增 `packages/host/brand-deployment`——组合层 `Config` + 资产按角色提供 + `renderIndex` 注入。已在真实服务器验证：标题/favicon/主题色/品牌全局值生效且无需重建前端。不放 `settings.yaml`（用户设置压过组合），[理由](../.agents/notes/implemented/architecture/2026-09-13-deployment-brand-as-composition-config.md) | done |
 | 1.1 | 租户能力缝：Service Definition + Provider + Consumer 三角 | todo |
 | 1.2 | 租户解析：Domain / Subdomain / `X-Tenant-ID` header | todo |
-| 1.3 | `TenantConfig`：供应商白名单、功能授权、Agent 身份、文案覆盖（**不含资产与产品名**，那些在部署层） | todo |
+| 1.3 | `TenantConfig`：本组织可用的模型（语言、图片、视频、音乐）与供应商白名单、功能授权、Agent 身份、文案覆盖（**不含资产与产品名**，那些在部署层）；API Key 按租户隔离存储 | todo |
 | 1.4 | 租户配置 Typert RPC（替代文档的 REST 方案，冲突 #2） | todo |
 | 1.5 | ⚠️ `tenant_id` 进 session log：新增 `SessionEventMap` 成员 | todo |
 | 1.6 | 数据隔离：租户层配置入库；backend 走 `storage` 缝（既有 sqlite 实现，或新增 MySQL provider） | todo |
-| 1.7 | 图像生成能力缝（平台通用能力，不限于 logo）：服务定义 + 境内／海外厂商 Provider + 调用方；模型设置走设置缝、密钥走凭证缝，与上游语言模型设置同一条路；未配置模型即不可用（定位见下节） | todo |
+| 1.7 | 图像生成能力缝（平台通用能力，不限于 logo）：服务定义 + 境内／海外厂商 Provider + 调用方；模型按租户配置（进 `TenantConfig`，见 1.3），API Key 按租户隔离；未配置模型即不可用（定位见下节） | todo |
 | 1.8 | 字标排版：新增 `packages/host/brand-wordmark`——`fontkit` 把品牌名排版成单色 SVG（高 24，按字体行框定字号，宽于 7:1 拒绝）；字体由调用方提供，中文字体不打包（[决策](../.agents/notes/implemented/architecture/2026-09-15-wordmark-typesetting-with-fontkit.md)） | done |
 | 1.9 | 矢量化与校验：新增 `packages/host/brand-icon`——图标 PNG 铺白底、按亮度区分图形、裁到图形 → 描成单色图标 SVG → 派生 favicon SVG；校验尺寸（1024～4096）、比例（1:1～1.4:1）、深色背景、形状数（≤64）；`isBrandSvg` 按输出语法检查三种品牌 SVG（[决策](../.agents/notes/implemented/architecture/2026-09-15-brand-icon-from-png.md)） | done |
 | 1.10 | `lyn --profile brand-studio`（仅私有化）：图标 PNG 二选一——上传（见 4.8）或填写品牌简介由模型生成；之后统一由 1.9 生成图标与 favicon 的 SVG，字标一律由 1.8 字体排版生成；写入 `assetDirectory` 与 `brand-deployment` 的 patch 层。上传路径依赖 1.8～1.9，生成路径另依赖 1.7；均不依赖 1.1～1.6 | todo |
@@ -72,11 +72,10 @@
 ### 1.7 生成模型的定位（2026-09-15 定）
 
 - **通用能力，不只服务 logo**：图像生成是平台能力，品牌工具只是第一个调用方。以后平台除了编程、写文案用的语言模型，还要能配置**图片、视频、音乐**三类模型，用于这三类资源的生成与编辑。
-- **一份设置，两个入口，效果相同**：私有化部署可以在 `lyn --profile brand-studio` 引导里完成设置；SaaS 与私有化都可以由管理员在「生图模型」设置界面完成。两个入口写的是同一份设置，不存在两套配置。
-- **沿用上游做模型设置的方式**：上游的语言模型由提供方插件注册设置命名空间（如 `llm-pi-ai` 的 `providers.<供应商>`），设置页通过 `remote.settings` 读写，密钥通过 `remote.credentials` 存进凭证缝，配置里只留凭证名。生成模型照此实现，brand-studio 与设置页调用同一组接口。
+- **按租户配置，两种部署一致**（2026-09-15 定）：SaaS 与私有化部署都由**租户管理员登录管理后台**，配置本组织可用的模型——语言模型，以及图片、视频、音乐模型。私有化部署另可在 `lyn --profile brand-studio` 引导里完成首次设置，写的是同一份租户配置，不存在两套配置。
+- **与上游做法的差异（需注意）**：上游的模型设置按部署存一份——提供方插件注册设置命名空间（如 `llm-pi-ai` 的 `providers.<供应商>`），写进 `settings.yaml`；API Key 按操作系统用户存进凭证缝。租户级配置不能直接复用这套：模型清单进 1.3 的 `TenantConfig`、经 1.6 的存储缝入库，API Key 需要按租户隔离的凭证存储。上游没有多租户，因此不构成路线冲突，但上游的模型设置页不能直接当作租户管理员的设置页用。租户未配置时是否回落到部署级模型，在 1.3 设计时定。
 - **建议按模态分缝**：图片、视频、音乐的请求与结果形态不同，视频通常是长时间运行的异步任务，各自一条能力缝；供应商登记、凭证、配额等共用部分，等实际出现重复再抽取，不预先合并。
-- **未配置即不可用**：没有配置模型时，生成类功能不出现，不会向任何第三方发送数据。
-- **待定**：SaaS 下这份设置是平台级（所有租户共用平台配置的模型），还是租户级（各租户管理员各自配置）。上游的设置缝按部署存一份文档；若要租户级，需要由 1.3 的 `TenantConfig` 承载，与语言模型供应商白名单的做法一致。
+- **未配置即不可用**：某个租户没有配置模型时，该租户的生成类功能不出现，不会向任何第三方发送数据。
 
 ## Phase 2 — 可观测性与预警（需求 Step 2）
 
@@ -106,6 +105,7 @@
 | 4.5 | 租户设置：文案覆盖、Agent 身份，实时预览。**不含 Logo、产品名、主题色**：这些属于部署层，SaaS 租户不改（冲突 #8），私有化部署由 1.10 在部署时生成 | todo |
 | 4.6 | Agent & 团队管理：授权 + 拓扑可视化搭建 | todo |
 | 4.7 | 日志与预警：Trace 查询、错误栈、预警规则配置 | todo |
+| 4.9 | 模型设置：租户管理员配置本组织可用的语言、图片、视频、音乐模型与 API Key（SaaS 与私有化部署一致，见 1.3、1.7） | todo |
 | 4.8 | 品牌资产上传与校验（仅私有化，见下节）：由 `lyn --profile brand-studio` 引导运营方提供图标 PNG——按资产规格上传，或由 1.7 生成；图标与 favicon 的 SVG 由 1.9 从 PNG 生成，字标由 1.8 生成；只接受 PNG，不接受 SVG 与字标上传；产出写入 `assetDirectory`。管理后台只做只读展示 | todo |
 
 ### 4.8 品牌资产（已随部署／租户两层划分收缩）
