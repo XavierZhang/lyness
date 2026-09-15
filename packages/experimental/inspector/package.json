@@ -40,7 +40,7 @@
     "@lyness/lyn-brand": "workspace:^",
     "@lyness/lyn-util-crypto": "workspace:^",
     "@lyness/schemastery": "workspace:^",
-    "ws": "^8.21.0"
+    "ws": "^8.21.3"
   },
   "peerDependencies": {
     "@lyness/cordis": "workspace:^",
