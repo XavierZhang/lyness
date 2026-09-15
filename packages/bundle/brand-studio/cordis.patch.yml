@@ -1,0 +1,9 @@
+# The standalone brand-studio application: one command that generates a
+# deployment brand and writes it into a profile's patch layer. It needs no
+# model, session, or Web row, so it does not layer over lyn-base: this insert
+# is the complete Cordis tree. User profile, home, and invocation patches still
+# apply above it.
+
+- insert:
+    - id: brand-studio
+      name: '@lyness/lyn-brand-studio'

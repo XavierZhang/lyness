@@ -163,6 +163,9 @@ importers:
       '@lyness/lyn-base':
         specifier: workspace:^
         version: link:../../packages/bundle/base
+      '@lyness/lyn-brand-studio':
+        specifier: workspace:^
+        version: link:../../packages/bundle/brand-studio
       '@lyness/lyn-client-ui-agent-preset':
         specifier: workspace:^
         version: link:../../packages/client/ui-agent-preset
@@ -1585,6 +1588,43 @@ importers:
         specifier: workspace:^
         version: link:../../workflow/workflow-worker-thread
     devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:^
+        version: link:../../../vendor/cordis
+
+  packages/bundle/brand-studio:
+    dependencies:
+      '@lyness/lyn-app-boot':
+        specifier: workspace:^
+        version: link:../../boot/app-boot
+      '@lyness/lyn-atomic-write':
+        specifier: workspace:^
+        version: link:../../util/atomic-write
+      '@lyness/lyn-cmdline':
+        specifier: workspace:^
+        version: link:../../boot/cmdline
+      '@lyness/lyn-home-paths':
+        specifier: workspace:^
+        version: link:../../util/home-paths
+      '@lyness/lyn-host-brand-deployment':
+        specifier: workspace:^
+        version: link:../../host/brand-deployment
+      '@lyness/lyn-host-brand-icon':
+        specifier: workspace:^
+        version: link:../../host/brand-icon
+      '@lyness/lyn-host-brand-wordmark':
+        specifier: workspace:^
+        version: link:../../host/brand-wordmark
+      commander:
+        specifier: ^15.0.0
+        version: 15.0.0
+      yaml:
+        specifier: ^2.9.0
+        version: 2.9.0
+    devDependencies:
+      '@fontsource/inter':
+        specifier: ^5.3.0
+        version: 5.3.0
       '@lyness/cordis':
         specifier: workspace:^
         version: link:../../../vendor/cordis

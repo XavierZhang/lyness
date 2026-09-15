@@ -45,6 +45,7 @@
 | `packages/bundle/web-app/cordis.patch.yml`、`package.json` | `ui-brand-official` 行换成 `ui-brand-lyness` | 浏览器插件名单只在 bundle patch 里 | 2026-09-15 |
 | `apps/web/public/favicon.svg`、`website/public/{favicon,wordmark}.svg`、`packages/skill/skill-badge/assets/lyn-badge.png`（+ `tests/skill-badge.spec.ts` 的哈希） | 换成 lyness 图形 | 图片资产，codemod 表达不了。⚠️ **合并时 `read-tree` 会把它们重置为上游版本，必须从本 fork 恢复** | 2026-09-15 |
 | `website/.vitepress/config.ts` | 两处 "DeepSeek wordmark" 注释 | 注释描述的文件已换 | 2026-09-15 |
+| `packages/boot/app-boot/src/profile.ts`（+ `tests/profile.spec.ts`）、`apps/cli/package.json`、`docs/architecture{,.zh}.md` | `PROFILE_TEMPLATES` 新增 `brand-studio`；CLI 依赖该 bundle；应用清单加一项 | 随附 profile 名单是写死的表，没有注册接缝；不登记则 `lyn --profile brand-studio` 报 "does not exist" | 2026-09-15 |
 
 ## 上游可移植性缺陷（已在本地修复，**可反馈给上游**）
 
@@ -111,6 +112,7 @@ codemod 只改文本和路径。下面这些是它改完之后必然过期、必
 
 | 能力 | 位置 | 说明 |
 |---|---|---|
+| 品牌引导命令 | `packages/bundle/brand-studio` | `lyn --profile brand-studio`：图标 PNG + 字体文件 → 三个 SVG，写入目标 profile（默认 `web`）补丁层的 `brand-deployment` 行。仅参数、仅上传路径、字体由运营方提供。[决策](.agents/notes/implemented/architecture/2026-09-15-brand-studio-profile.md) |
 | Web UI 品牌 | `packages/client/ui-brand-lyness` | 所有构建中填三个品牌 slot（lyness 图标 + inter-600 字标），页面带部署品牌时逐项让位。[决策](.agents/notes/implemented/architecture/2026-09-15-lyness-brand-in-the-web-client.md) |
 | 可重放的品牌改名 | `scripts/rebrand.ts` | 21 条有序规则（含删除型规则 `shields-logo`，`--reverse` 跳过它）+ 保护路径 + 后置断言 + `--check`。**每次 sync upstream 后必须重跑**，否则上游带回的旧名会残留。设计见 [Agent Note](.agents/notes/implemented/process/2026-08-31-lyness-rebrand-codemod.md) |
 | 二开任务清单 | `.fork/TASKS.md` | 需求拆解、7 处冲突裁决与分阶段计划 |

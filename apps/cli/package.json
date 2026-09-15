@@ -34,6 +34,7 @@
     "@lyness/cordis-plugin-loader": "workspace:^",
     "@lyness/cordis-plugin-timer": "workspace:^",
     "@lyness/lyn-acp-app": "workspace:^",
+    "@lyness/lyn-brand-studio": "workspace:^",
     "@lyness/lyn-agent-instructions": "workspace:^",
     "@lyness/lyn-agent-tool-presentation": "workspace:^",
     "@lyness/lyn-app-boot": "workspace:^",

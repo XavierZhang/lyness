@@ -128,6 +128,10 @@ export const PROFILE_TEMPLATES: Record<string, ProfileTemplate> = {
     bundles: ['@lyness/lyn-sdk-minimal'],
     patchReload: 'startup',
   },
+  'brand-studio': {
+    bundles: ['@lyness/lyn-brand-studio'],
+    patchReload: 'startup',
+  },
 }
 
 /** Installation-owned bundle tuples normalized to the shipped template. */

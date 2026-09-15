@@ -159,6 +159,11 @@ describe('deployment brand over the index render', () => {
     expect((await get(ctx, '/brand/favicon.svg')).status).toBe(404)
   })
 
+  it('names which colours a deployment may configure', () => {
+    for (const colour of ['#abc', '#abcd', '#1a73e8', '#1a73e8cc', 'teal']) expect(BrandDeployment.isBrandColour(colour)).toBe(true)
+    for (const colour of ['rgb(1,2,3)', '#12', 'x', 'red; color: blue']) expect(BrandDeployment.isBrandColour(colour)).toBe(false)
+  })
+
   it('refuses a colour, a directory, and an asset an operator got wrong', async () => {
     const ctx = await server()
     await expect(brand(ctx, { themeColor: 'rgb(1,2,3)' }))

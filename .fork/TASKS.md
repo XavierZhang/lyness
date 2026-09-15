@@ -67,7 +67,7 @@
 | 1.7 | 图像生成能力缝（平台通用能力，不限于 logo）：服务定义 + 境内／海外厂商 Provider + 调用方；模型按租户配置（进 `TenantConfig`，见 1.3），API Key 按租户隔离；未配置模型即不可用（定位见下节） | todo |
 | 1.8 | 字标排版：新增 `packages/host/brand-wordmark`——`fontkit` 把品牌名排版成单色 SVG（高 24，按字体行框定字号，宽于 7:1 拒绝）；字体由调用方提供，中文字体不打包（[决策](../.agents/notes/implemented/architecture/2026-09-15-wordmark-typesetting-with-fontkit.md)） | done |
 | 1.9 | 矢量化与校验：新增 `packages/host/brand-icon`——图标 PNG 铺白底、按亮度区分图形、裁到图形 → 描成单色图标 SVG → 派生 favicon SVG；校验尺寸（1024～4096）、比例（1:1～1.4:1）、深色背景、形状数（≤64）；`isBrandSvg` 按输出语法检查三种品牌 SVG（[决策](../.agents/notes/implemented/architecture/2026-09-15-brand-icon-from-png.md)） | done |
-| 1.10 | `lyn --profile brand-studio`（仅私有化）：图标 PNG 二选一——上传（见 4.8）或填写品牌简介由模型生成；之后统一由 1.9 生成图标与 favicon 的 SVG，字标一律由 1.8 字体排版生成；写入 `assetDirectory` 与 `brand-deployment` 的 patch 层。上传路径依赖 1.8～1.9，生成路径另依赖 1.7；均不依赖 1.1～1.6 | todo |
+| 1.10 | `lyn --profile brand-studio`（仅私有化）：图标 PNG 二选一——上传（见 4.8）或填写品牌简介由模型生成；之后统一由 1.9 生成图标与 favicon 的 SVG，字标一律由 1.8 字体排版生成；写入 `assetDirectory` 与 `brand-deployment` 的 patch 层。上传路径依赖 1.8～1.9，生成路径另依赖 1.7；均不依赖 1.1～1.6 | 部分完成（2026-09-15 上传路径已交付：`packages/bundle/brand-studio`，参数式、`--accept-trademark` 必填、字体由运营方提供、写目标 profile 补丁层，[决策](../.agents/notes/implemented/architecture/2026-09-15-brand-studio-profile.md)。待做：AI 生成路径（需 1.7）、交互式引导、预设字体清单（与官方许可门禁冲突，见 BRAND-CONFIG）、首次模型设置） |
 
 ### 1.7 生成模型的定位（2026-09-15 定）
 

@@ -224,6 +224,10 @@ describe('loadProfile', () => {
       bundles: ['@lyness/lyn-sdk-minimal'],
       patchReload: 'startup',
     })
+    expect(PROFILE_TEMPLATES['brand-studio']).toEqual({
+      bundles: ['@lyness/lyn-brand-studio'],
+      patchReload: 'startup',
+    })
     try {
       loadProfile('t', 'web', anchor, home)
     } catch {

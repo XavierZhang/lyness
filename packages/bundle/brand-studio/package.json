@@ -1,0 +1,54 @@
+{
+  "name": "@lyness/lyn-brand-studio",
+  "description": "The lyn brand-studio profile bundle: generate a deployment brand from an icon PNG and a font, and apply it to a profile",
+  "version": "0.1.5-rc.1",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "directory": "packages/bundle/brand-studio"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./src/*": "./src/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib/index.js",
+    "cordis.patch.yml",
+    "lib/types/**/*.d.ts"
+  ],
+  "license": "MIT",
+  "lyn": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "dependencies": {
+    "@lyness/lyn-app-boot": "workspace:^",
+    "@lyness/lyn-atomic-write": "workspace:^",
+    "@lyness/lyn-cmdline": "workspace:^",
+    "@lyness/lyn-home-paths": "workspace:^",
+    "@lyness/lyn-host-brand-deployment": "workspace:^",
+    "@lyness/lyn-host-brand-icon": "workspace:^",
+    "@lyness/lyn-host-brand-wordmark": "workspace:^",
+    "commander": "^15.0.0",
+    "yaml": "^2.9.0"
+  },
+  "peerDependencies": {
+    "@lyness/cordis": "workspace:^"
+  },
+  "devDependencies": {
+    "@fontsource/inter": "^5.3.0",
+    "@lyness/cordis": "workspace:^"
+  }
+}

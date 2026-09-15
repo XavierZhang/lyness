@@ -28,6 +28,7 @@ kind: "package-group"
 | [`headless`](headless/README.zh.md) | 基于 base 的一次性命令行任务应用 | `headless-runner` |
 | [`sdk-app`](sdk-app/README.zh.md) | 基于 base 的 SDK JSON-RPC stdio 应用 | 挂载 SDK 服务器 |
 | [`sdk-minimal`](sdk-minimal/README.zh.md) | 不使用 base 或 Web 的独立极简 SDK 应用 | —（完整 patch 树） |
+| [`brand-studio`](brand-studio/README.zh.md) | 生成部署品牌并应用到 profile 的独立运营方命令 | `brand-studio` |
 
 内置组合包从 lyn 安装目录解析；树外（out-of-tree）组合包通过 `lyn plugin --profile <name> add <package>` 安装进 profile。
 

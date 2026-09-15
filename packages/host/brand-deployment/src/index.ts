@@ -103,6 +103,15 @@ export const Config: z<Config> = z.object({
  */
 const BRAND_COLOUR = /^(?:#[0-9a-f]{3}|#[0-9a-f]{4}|#[0-9a-f]{6}|#[0-9a-f]{8}|[a-z]{3,20})$/iu
 
+/**
+ * Whether a deployment may name this colour as its `themeColor`.
+ * @param colour - the configured value.
+ * @returns true for a hex colour or a colour keyword.
+ */
+export function isBrandColour(colour: string): boolean {
+  return BRAND_COLOUR.test(colour)
+}
+
 /** Asset roles a deployment may place, in the order the page consumes them. */
 const ASSET_ROLES = ['favicon', 'mark', 'wordmark'] as const
 
@@ -273,7 +282,7 @@ function assetHandler(assets: ReadonlyMap<AssetRole, Asset>) {
  * @throws {Error} when a configured colour or asset is unusable.
  */
 export function apply(ctx: Context, config: Config): void {
-  if (config.themeColor !== undefined && !BRAND_COLOUR.test(config.themeColor)) {
+  if (config.themeColor !== undefined && !isBrandColour(config.themeColor)) {
     throw new Error(
       `brand-deployment: themeColor must be a hex triplet or a colour keyword; got ${JSON.stringify(config.themeColor)}`,
     )
