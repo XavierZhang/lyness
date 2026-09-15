@@ -54,7 +54,7 @@
     "@lyness/lyn-deque": "workspace:^",
     "@lyness/lyn-timeout": "workspace:^",
     "@lyness/schemastery": "workspace:^",
-    "ws": "^8.21.0",
+    "ws": "^8.21.3",
     "@lyness/lyn-typert-protocol": "workspace:^"
   },
   "peerDependencies": {
