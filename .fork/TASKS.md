@@ -66,8 +66,8 @@
 | 1.6 | 数据隔离：租户层配置入库；backend 走 `storage` 缝（既有 sqlite 实现，或新增 MySQL provider） | todo |
 | 1.7 | 图像生成能力缝：服务定义 + 境内／海外厂商 Provider + 调用方；厂商与模型为部署配置，密钥走凭证缝，**默认关闭**（[方案](BRAND-CONFIG.md)） | todo |
 | 1.8 | 字标排版：新增 `packages/host/brand-wordmark`——`fontkit` 把品牌名排版成单色 SVG（高 24，按字体行框定字号，宽于 7:1 拒绝）；字体由调用方提供，中文字体不打包（[决策](../.agents/notes/implemented/architecture/2026-09-15-wordmark-typesetting-with-fontkit.md)） | done |
-| 1.9 | 矢量化与校验：`@neplex/vectorizer`（MIT，锁定版本）+ SVG 白名单 + 单色／比例／路径数自动校验 | todo |
-| 1.10 | `lyn --profile brand-studio`（仅私有化）：两条路径——上传已有 logo（见 4.8），或填写品牌简介 → 候选 → 预览挑选；两者都写入 `assetDirectory` 与 `brand-deployment` 的 patch 层。上传路径依赖 1.8～1.9，生成路径另依赖 1.7；均不依赖 1.1～1.6 | todo |
+| 1.9 | 矢量化与校验：图标 PNG → 收紧画布、校验比例 → 矢量化成单色图标 SVG → 由图标派生 favicon SVG；SVG 白名单 + 单色／比例／路径数自动校验 | 进行中 |
+| 1.10 | `lyn --profile brand-studio`（仅私有化）：图标 PNG 二选一——上传（见 4.8）或填写品牌简介由模型生成；之后统一由 1.9 生成图标与 favicon 的 SVG，字标一律由 1.8 字体排版生成；写入 `assetDirectory` 与 `brand-deployment` 的 patch 层。上传路径依赖 1.8～1.9，生成路径另依赖 1.7；均不依赖 1.1～1.6 | todo |
 
 ## Phase 2 — 可观测性与预警（需求 Step 2）
 
@@ -97,7 +97,7 @@
 | 4.5 | 租户设置：文案覆盖、Agent 身份，实时预览。**不含 Logo、产品名、主题色**：这些属于部署层，SaaS 租户不改（冲突 #8），私有化部署由 1.10 在部署时生成 | todo |
 | 4.6 | Agent & 团队管理：授权 + 拓扑可视化搭建 | todo |
 | 4.7 | 日志与预警：Trace 查询、错误栈、预警规则配置 | todo |
-| 4.8 | 品牌资产上传与校验（仅私有化，见下节）：由 `lyn --profile brand-studio` 引导运营方二选一——按资产规格上传已有 logo（PNG 自动矢量化，SVG 过白名单），或按 1.7～1.9 生成；产出写入 `assetDirectory`。管理后台只做只读展示 | todo |
+| 4.8 | 品牌资产上传与校验（仅私有化，见下节）：由 `lyn --profile brand-studio` 引导运营方提供图标 PNG——按资产规格上传，或由 1.7 生成；图标与 favicon 的 SVG 由 1.9 从 PNG 生成，字标由 1.8 生成；只接受 PNG，不接受 SVG 与字标上传；产出写入 `assetDirectory`。管理后台只做只读展示 | todo |
 
 ### 4.8 品牌资产（已随部署／租户两层划分收缩）
 
@@ -107,7 +107,7 @@
 
 管理后台在此项上只剩**只读展示**：显示当前部署的品牌资产与产品名，供租户管理员确认自己所在部署的身份，不提供编辑。
 
-**上传入口保留在私有化部署的 `lyn --profile brand-studio` 里**（2026-09-15 定）：运营方可按 [BRAND-CONFIG.md 的资产规格](BRAND-CONFIG.md)上传已有 logo，也可以用 AI 生成。上传的 PNG 自动矢量化，上传的 SVG 与生成的 SVG 走同一道白名单检查。上传者是有服务器权限的运营方，信任级别与手工把文件放进 `assetDirectory` 相同。引导入口必须是 `lyn` profile，不能是独立命令：仓库规定受支持的 Node 应用只能从 `lyn` 启动。
+**上传入口保留在私有化部署的 `lyn --profile brand-studio` 里**（2026-09-15 定）：运营方只提供**图标 PNG**，可按 [BRAND-CONFIG.md 的资产规格](BRAND-CONFIG.md)上传，也可以用 AI 生成。图标与 favicon 的 SVG 一律由程序从 PNG 生成，字标一律由字体排版生成，所以不接受 SVG 与字标上传。上传者是有服务器权限的运营方，信任级别与手工把文件放进 `assetDirectory` 相同。引导入口必须是 `lyn` profile，不能是独立命令：仓库规定受支持的 Node 应用只能从 `lyn` 启动。
 
 资产规格（比例、显示尺寸与限制来源）统一记在 [BRAND-CONFIG.md 的「资产规格」](BRAND-CONFIG.md)，此处不重复。
 
