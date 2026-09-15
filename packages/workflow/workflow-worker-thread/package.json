@@ -59,7 +59,7 @@
     "@lyness/lyn-system-prompt": "workspace:^",
     "@lyness/lyn-tools": "workspace:^",
     "@lyness/lyn-workflow": "workspace:^",
-    "tsx": "^4.19.2",
+    "tsx": "^4.23.12",
     "@lyness/lyn-http-proxy": "workspace:^"
   }
 }
