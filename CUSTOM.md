@@ -112,6 +112,7 @@ codemod 只改文本和路径。下面这些是它改完之后必然过期、必
 | 二开手册 | `.fork/FORK-GUIDE.md` | 原在 `docs/` 下，因受上游双语门禁管辖而迁出 |
 | 部署层品牌 | `packages/host/brand-deployment` | 组合层 `Config` + 资产按角色提供 + `renderIndex` 注入。改 patch 层并重启即换品牌，不重建前端。[决策](.agents/notes/implemented/architecture/2026-09-13-deployment-brand-as-composition-config.md) |
 | 字标排版 | `packages/host/brand-wordmark` | fontkit 把品牌名排版成单色 SVG 字标（高 24，按字体行框定字号，宽于 7:1 拒绝）；字体由调用方提供。[决策](.agents/notes/implemented/architecture/2026-09-15-wordmark-typesetting-with-fontkit.md) |
+| 图标描边 | `packages/host/brand-icon` | 图标 PNG 铺白底、按亮度区分图形、裁到图形、描成单色 SVG 图标并派生 favicon；另提供品牌 SVG 语法检查 `isBrandSvg`。[决策](.agents/notes/implemented/architecture/2026-09-15-brand-icon-from-png.md) |
 
 ## 我故意删除或禁用的内容 ⚠️ 合并官方后必查
 

@@ -222,7 +222,8 @@ favicon SVG：由图标 SVG 补成正方形，加暗色规则
 
 | 库 | 许可证 | 用途 | 结论 |
 |---|---|---|---|
-| `@neplex/vectorizer` | MIT | 位图转 SVG；预编译覆盖 macOS / Linux / Windows 等 14 个平台 | 采用；版本为 0.1.0，接入时锁定版本 |
+| `@neplex/vectorizer` | MIT | PNG 解码与位图描边；原生插件，预编译覆盖 macOS / Linux / Windows 等 14 个平台 | 采用；精确锁定 0.1.0 |
+| `pngjs` | MIT | PNG 解码 | 不需要：描边库自带解码 |
 | `imagetracerjs` | Unlicense | 位图转 SVG；2023 年后未更新 | 备选 |
 | `potrace`、`esm-potrace-wasm` | GPL-2.0 | 位图转 SVG | 不采用：随私有化部署包分发会带上 GPL 义务 |
 | `fontkit` | MIT | 字标排版转路径；woff、woff2、ttf、otf 均可读 | 采用；仓库 2024-08 后无新提交，属成熟停更 |
@@ -230,7 +231,7 @@ favicon SVG：由图标 SVG 补成正方形，加暗色规则
 | `harfbuzzjs` | MIT | 字形排版 | 不采用：读不了 woff／woff2，只认 TTF／OTF |
 | `svgo` | MIT | 压缩 SVG | 采用；它不是安全过滤器 |
 
-- **白名单检查**：图标与 favicon 的 SVG 由矢量化生成，写入前仍只放行 `svg`、`g`、`path` 与填充属性，出现 `image`、`script`、`foreignObject` 或外部链接一律拒绝。检查对象是程序自己的输出，用来拦住矢量化库或后续改动带进来的意外内容。
+- **白名单检查**：由 `isBrandSvg` 按输出语法检查——只接受尺寸与 `viewBox` 一致的 `svg`、固定的暗色规则，以及只含移动、直线、曲线、闭合命令的 `path`；其他任何元素、属性、注释、声明或引用都不通过。检查对象是程序自己的输出，用来拦住描边库或后续改动带进来的意外内容。
 - **自动校验**：是否单色、图形实际比例、路径数量上限。
 - **交给运营方判断**：好不好看、16px 下能否认出、是否与已有商标相似。确认生效前需勾选商标确认条款。
 
