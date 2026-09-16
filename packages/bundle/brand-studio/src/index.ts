@@ -8,6 +8,7 @@ import { resolve } from 'node:path'
 import { Command } from 'commander'
 import type { Context } from '@lyness/cordis'
 import { internals, parseCmdline } from '@lyness/lyn-cmdline'
+import { BRAND_FONTS } from '@lyness/lyn-host-brand-fonts'
 import { lynHomePath, resolveLynHome } from '@lyness/lyn-home-paths'
 import { resolveProfilePatch, runStudio } from './studio.ts'
 import type { StudioRequest, StudioResult } from './studio.ts'
@@ -25,7 +26,7 @@ export const inject = ['cmdlineArgs']
 interface StudioOptions {
   name: string
   icon: string
-  font: string
+  font?: string
   themeColor?: string
   assetDir: string
   target: string
@@ -43,7 +44,7 @@ function studioCommand(): Command {
     .description('Generate a deployment brand from an icon PNG and a font, and apply it to a profile.')
     .requiredOption('--name <text>', 'product name, typeset as the wordmark')
     .requiredOption('--icon <png>', 'icon PNG: at least 1024px a side, a dark mark on a light or transparent background')
-    .requiredOption('--font <file>', 'TTF, OTF, WOFF, or WOFF2 font that covers every character of the name')
+    .option('--font <file>', "the brand owner's TTF, OTF, WOFF, or WOFF2 font; omit to use the built-in fonts")
     .option('--theme-color <color>', 'brand colour as a hex colour or a colour keyword')
     .option('--asset-dir <dir>', 'directory receiving the generated SVGs', lynHomePath('brand'))
     .option('--target <profile>', 'profile whose patch layer receives the brand', 'web')
@@ -51,8 +52,9 @@ function studioCommand(): Command {
     .option('--accept-font-license', 'confirm that your license for the font permits using its glyphs in a logo')
     .helpOption('-h, --help', 'show this help')
     .addHelpText('after', `
-Example:
-  lyn --profile brand-studio --name Acme --icon ./acme.png --font ./Inter-SemiBold.ttf \\
+Examples:
+  lyn --profile brand-studio --name 领驭 --icon ./lyness.png --accept-trademark
+  lyn --profile brand-studio --name Acme --icon ./acme.png --font ./AcmeSans-Bold.otf \\
     --theme-color '#1a73e8' --accept-trademark --accept-font-license
 `)
 }
@@ -70,6 +72,7 @@ function report(request: StudioRequest, result: StudioResult, target: string): s
     `  mark      ${result.assets.mark} (${result.iconAspect.toFixed(2)}:1)`,
     `  wordmark  ${result.assets.wordmark} (${result.wordmarkAspect.toFixed(2)}:1)`,
     `  favicon   ${result.assets.favicon}`,
+    `  font      ${request.fontPath ?? `built-in (${BRAND_FONTS.map(font => font.name).join(', ')})`}`,
     `  patch     ${request.patchPath}`,
     `A running \`lyn --profile ${target}\` that reloads its patch layer applies the brand now; otherwise restart it.`,
     '',
@@ -86,7 +89,7 @@ async function run(options: StudioOptions): Promise<number> {
     const request: StudioRequest = {
       productName: options.name,
       iconPath: resolve(options.icon),
-      fontPath: resolve(options.font),
+      fontPath: options.font === undefined ? undefined : resolve(options.font),
       themeColor: options.themeColor,
       assetDirectory: resolve(options.assetDir),
       patchPath: resolveProfilePatch(options.target, resolveLynHome()),
@@ -114,7 +117,7 @@ export function apply(ctx: Context): void {
     if (options.acceptTrademark !== true) {
       program.error('brand-studio: pass --accept-trademark to confirm that the name and the icon infringe no trademark')
     }
-    if (options.acceptFontLicense !== true) {
+    if (options.font !== undefined && options.acceptFontLicense !== true) {
       program.error('brand-studio: pass --accept-font-license to confirm that your license for the font permits using its glyphs in a logo')
     }
     void run(options).then(exit)

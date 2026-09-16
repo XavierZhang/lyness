@@ -11,6 +11,7 @@ import type { Document } from 'yaml'
 import { initProfile, PROFILE_PATCH_FILENAME, PROFILE_TEMPLATES, resolveProfileDir } from '@lyness/lyn-app-boot'
 import { writeFileAtomic } from '@lyness/lyn-atomic-write'
 import { isBrandColour } from '@lyness/lyn-host-brand-deployment'
+import { loadBrandFonts } from '@lyness/lyn-host-brand-fonts'
 import { isBrandSvg, vectorizeIcon } from '@lyness/lyn-host-brand-icon'
 import { typesetWordmark } from '@lyness/lyn-host-brand-wordmark'
 
@@ -38,8 +39,8 @@ export interface StudioRequest {
   readonly productName: string
   /** Icon PNG to trace. */
   readonly iconPath: string
-  /** Font file the product name is typeset in. */
-  readonly fontPath: string
+  /** The brand owner's font file, or undefined to set the name in the platform's built-in fonts. */
+  readonly fontPath: string | undefined
   /** Brand colour, or undefined to keep the colour the row already names. */
   readonly themeColor: string | undefined
   /** Directory receiving the generated SVGs. */
@@ -143,7 +144,10 @@ export async function runStudio(request: StudioRequest): Promise<StudioResult> {
     throw new StudioError(`theme colour must be a hex colour or a colour keyword; got ${JSON.stringify(request.themeColor)}`)
   }
   const icon = vectorizeIcon(new Uint8Array(await readFile(request.iconPath)))
-  const wordmark = typesetWordmark(request.productName, new Uint8Array(await readFile(request.fontPath)))
+  const fonts: readonly [Uint8Array, ...Uint8Array[]] = request.fontPath === undefined
+    ? loadBrandFonts()
+    : [new Uint8Array(await readFile(request.fontPath))]
+  const wordmark = typesetWordmark(request.productName, fonts)
   const svgs: Record<AssetRole, string> = { mark: icon.icon, wordmark: wordmark.svg, favicon: icon.favicon }
   for (const role of ASSET_ROLES) {
     if (!isBrandSvg(svgs[role])) throw new Error(`brand-studio: the generated ${role} is not a brand SVG`)

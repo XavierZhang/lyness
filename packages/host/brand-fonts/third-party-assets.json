@@ -1,0 +1,22 @@
+{
+  "assets": [
+    {
+      "file": "fonts/Inter-SemiBold.ttf",
+      "name": "Inter SemiBold",
+      "version": "4.1",
+      "license": "OFL-1.1",
+      "licenseFile": "fonts/LICENSE-Inter.txt",
+      "source": "https://github.com/rsms/inter/releases/tag/v4.1",
+      "sha256": "78a843fade9d4612a5567302fb595b56976eb5fcebf4fea5a5912d638bafcde3"
+    },
+    {
+      "file": "fonts/NotoSansCJKsc-Medium.otf",
+      "name": "Noto Sans CJK SC Medium",
+      "version": "2.004",
+      "license": "OFL-1.1",
+      "licenseFile": "fonts/LICENSE-NotoSansCJK.txt",
+      "source": "https://github.com/notofonts/noto-cjk/releases/tag/Sans2.004",
+      "sha256": "ca094f6b0001fb048ca39ddd797a0cdb0179e1e55c6561e111c49c3e6a61d7b7"
+    }
+  ]
+}

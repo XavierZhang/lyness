@@ -2,5 +2,5 @@
 # side as of the last confirmed-consistent state. Both languages carry equal authority;
 # after editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/bundle/brand-studio/README.md
-README.md: 18d98ccd8a0b9ca40d0e1ebad1212e043e23081f
-README.zh.md: 4c35b77a07044e0f84c16bb6e5ed6c22c7d3217a
+README.md: 480eac316015653365a3a9ec1196a67c9bb2ffcb
+README.zh.md: f680f2e62b3acb66f2c00e9a637840c281afbe7e

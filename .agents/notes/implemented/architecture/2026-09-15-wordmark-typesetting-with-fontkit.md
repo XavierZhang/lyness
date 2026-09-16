@@ -16,7 +16,7 @@ That needs an engine that reads the formats open fonts are distributed in — WO
 
 The box height is the font's line box rather than the name's ink, so names set in one font show letters of the same size whether or not they have ascenders or descenders. The width limit is the sidebar's: at its narrowest the brand row leaves room for 7:1.
 
-No font ships with the package. The caller supplies one font file, which is how a deployment chooses its typeface and how a Chinese name is served without bundling megabytes of glyphs.
+No font ships with the package. The caller supplies a list of font files in preference order, and each character is set in the first font that draws it, so one name can mix scripts no single font covers. The platform's own pair lives in [`lyn-host-brand-fonts`](2026-09-16-built-in-wordmark-fonts.md); a deployment that wants another typeface passes its own file instead.
 
 ## Alternatives considered
 
@@ -26,7 +26,7 @@ No font ships with the package. The caller supplies one font file, which is how 
 
 **Generate the wordmark with the image model the brand tooling already calls.** One pipeline for the mark and the wordmark. It keeps the misspelling this package exists to remove, and every generated wordmark would need the same character-by-character review.
 
-**Bundle a Chinese font.** A deployment would need no font of its own for a Chinese name. `@fontsource/noto-sans-sc` unpacks to 74.5MB and splits each weight into 102 unicode-range files, so a two-character name can need two files, and one run cannot be shaped across two fonts.
+**Bundle a Chinese font in this package.** A deployment would need no font of its own for a Chinese name. Font files belong to a package that ships files, not to the typesetter; `lyn-host-brand-fonts` holds them, and this package stays a library over whatever fonts a caller passes.
 
 ## Consequences
 

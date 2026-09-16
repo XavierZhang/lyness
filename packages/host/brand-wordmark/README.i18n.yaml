@@ -2,5 +2,5 @@
 # side as of the last confirmed-consistent state. Both languages carry equal authority;
 # after editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/host/brand-wordmark/README.md
-README.md: 8f579cb7f324a0ef5cffc724cc56b7a266e08ff6
-README.zh.md: c1f0cf549cc795f5ecef2552013d0c46ffc3b4a7
+README.md: d3b9f6588511bd961624b36e14c274cd51db9acb
+README.zh.md: 509b47e2ad1e69e279ef2a67e9506f638baf7620

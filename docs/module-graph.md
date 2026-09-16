@@ -244,6 +244,7 @@ flowchart TD
   end
   subgraph group_host["packages/host"]
     pkg_host_brand_deployment["host-brand-deployment"]
+    pkg_host_brand_fonts["host-brand-fonts"]
     pkg_host_brand_icon["host-brand-icon"]
     pkg_host_brand_wordmark["host-brand-wordmark"]
     pkg_host_directory_picker["host-directory-picker"]
@@ -1268,6 +1269,7 @@ flowchart TD
 | [`experimental-webworker-packer`](../packages/experimental/webworker-packer) | `experimental` | — |
 | [`client-ui-cordis`](../packages/extensions/ui-cordis) | `extensions` | — |
 | [`cordis-client-runner`](../packages/extensions/cordis-client-runner) | `extensions` | — |
+| [`host-brand-fonts`](../packages/host/brand-fonts) | `host` | — |
 | [`host-brand-icon`](../packages/host/brand-icon) | `host` | — |
 | [`host-brand-wordmark`](../packages/host/brand-wordmark) | `host` | — |
 | [`host-directory-picker`](../packages/host/directory-picker) | `host` | — |

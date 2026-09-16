@@ -194,6 +194,7 @@
       "@lyness/lyn-client-ui-brand-official": ["./packages/client/ui-brand-official/src"],
       "@lyness/lyn-client-ui-brand-lyness": ["./packages/client/ui-brand-lyness/src"],
       "@lyness/lyn-brand-studio": ["./packages/bundle/brand-studio/src"],
+      "@lyness/lyn-host-brand-fonts": ["./packages/host/brand-fonts/src"],
       "@lyness/lyn-client-ui-approval": ["./packages/client/ui-approval/src"],
       "@lyness/lyn-client-ui-approval/client": ["./packages/client/ui-approval/src/client/index.ts"],
       "@lyness/lyn-client-ui-chat": ["./packages/client/ui-chat/src"],

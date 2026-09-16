@@ -135,6 +135,12 @@ describe('runStudio', () => {
     }])
   })
 
+  it('sets a name in the built-in fonts when the brand supplies none', async () => {
+    const subject = await request({ productName: '领驭 lyness', fontPath: undefined })
+    const result = await runStudio(subject)
+    expect(isBrandSvg(await readFile(result.assets.wordmark, 'utf8'))).toBe(true)
+  })
+
   it('keeps the colour a row already names when the run supplies none', async () => {
     const subject = await request({ themeColor: undefined })
     await writeFile(subject.patchPath, '- id: brand-deployment\n  config:\n    themeColor: teal\n')

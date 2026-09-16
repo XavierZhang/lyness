@@ -39,6 +39,7 @@
     "@lyness/lyn-cmdline": "workspace:^",
     "@lyness/lyn-home-paths": "workspace:^",
     "@lyness/lyn-host-brand-deployment": "workspace:^",
+    "@lyness/lyn-host-brand-fonts": "workspace:^",
     "@lyness/lyn-host-brand-icon": "workspace:^",
     "@lyness/lyn-host-brand-wordmark": "workspace:^",
     "commander": "^15.0.0",

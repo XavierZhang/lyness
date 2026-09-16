@@ -1609,6 +1609,9 @@ importers:
       '@lyness/lyn-host-brand-deployment':
         specifier: workspace:^
         version: link:../../host/brand-deployment
+      '@lyness/lyn-host-brand-fonts':
+        specifier: workspace:^
+        version: link:../../host/brand-fonts
       '@lyness/lyn-host-brand-icon':
         specifier: workspace:^
         version: link:../../host/brand-icon
@@ -6638,6 +6641,18 @@ importers:
       '@lyness/lyn-host-webserver':
         specifier: workspace:^
         version: link:../webserver
+
+  packages/host/brand-fonts:
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:^
+        version: link:../../../vendor/cordis
+      '@lyness/lyn-host-brand-icon':
+        specifier: workspace:^
+        version: link:../brand-icon
+      '@lyness/lyn-host-brand-wordmark':
+        specifier: workspace:^
+        version: link:../brand-wordmark
 
   packages/host/brand-icon:
     dependencies:

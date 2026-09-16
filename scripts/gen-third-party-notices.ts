@@ -8,6 +8,7 @@
  * `.agents/notes/implemented/process/2026-07-30-generated-third-party-notices.md`.
  */
 
+import { createHash } from 'node:crypto'
 import { existsSync, globSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import * as yaml from 'js-yaml'
@@ -437,6 +438,94 @@ export function parseVendoredRows(text: string): VendoredRow[] {
   return rows
 }
 
+/** A third-party file committed inside a workspace package and distributed unmodified with it. */
+export interface BundledAsset {
+  /** The file, relative to the repository root. */
+  file: string
+  /** The name its authors give it. */
+  name: string
+  /** The upstream release it was taken from. */
+  version: string
+  /** SPDX identifier of its license. */
+  license: string
+  /** Its license text, shipped beside it, relative to the repository root. */
+  licenseFile: string
+  /** The upstream release page. */
+  source: string
+}
+
+/** License a bundled font file may carry beyond the permissive set; fonts are its only use. */
+const BUNDLED_FONT_LICENSE = 'OFL-1.1'
+const FONT_FILE = /\.(?:otf|ttf|woff2?)$/u
+const ASSET_FIELDS = ['file', 'name', 'version', 'license', 'licenseFile', 'source', 'sha256'] as const
+
+/**
+ * List the files under one package that could be third-party fonts, skipping
+ * installed dependencies and build output.
+ * @param repoRoot - repository root.
+ * @param packageDir - package directory, relative to the root.
+ * @returns font files, relative to the root.
+ */
+function packageFontFiles(repoRoot: string, packageDir: string): string[] {
+  const found: string[] = []
+  const walk = (dir: string): void => {
+    for (const entry of readdirSync(resolve(repoRoot, dir), { withFileTypes: true })) {
+      const path = `${dir}/${entry.name}`
+      if (entry.isDirectory() && entry.name !== 'node_modules' && entry.name !== 'lib') walk(path)
+      else if (entry.isFile() && FONT_FILE.test(entry.name)) found.push(path)
+    }
+  }
+  walk(packageDir)
+  return found
+}
+
+/**
+ * Read every package's `third-party-assets.json` and verify what it records:
+ * each file and its license text exist, the file still matches its recorded
+ * SHA-256, its license is permissive or an OFL-1.1 font, and no font file in a
+ * package is left unrecorded.
+ * @param repoRoot - repository root; tests pass a fixture tree.
+ * @returns the recorded files, ordered by path.
+ * @throws When a record is malformed or a check above fails.
+ */
+export function collectBundledAssets(repoRoot: string = root): BundledAsset[] {
+  const assets: BundledAsset[] = []
+  const recorded = new Set<string>()
+  const packageDirs = globSync('packages/*/*/package.json', { cwd: repoRoot }).map(path => dirname(path).replaceAll('\\', '/')).sort()
+  for (const packageDir of packageDirs) {
+    const manifestPath = `${packageDir}/third-party-assets.json`
+    if (existsSync(resolve(repoRoot, manifestPath))) {
+      const parsed = JSON.parse(readFileSync(resolve(repoRoot, manifestPath), 'utf8')) as { assets?: unknown }
+      if (!Array.isArray(parsed.assets)) throw new Error(`gen-third-party-notices: ${manifestPath} must hold an "assets" array.`)
+      for (const entry of parsed.assets as Record<string, unknown>[]) {
+        const missingField = ASSET_FIELDS.find(field => typeof entry[field] !== 'string')
+        if (missingField !== undefined) {
+          throw new Error(`gen-third-party-notices: ${manifestPath} has an asset without a string "${missingField}".`)
+        }
+        const record = entry as Record<(typeof ASSET_FIELDS)[number], string>
+        const file = `${packageDir}/${record.file}`
+        const licenseFile = `${packageDir}/${record.licenseFile}`
+        for (const path of [file, licenseFile]) {
+          if (!existsSync(resolve(repoRoot, path))) throw new Error(`gen-third-party-notices: ${manifestPath} names ${path}, which does not exist.`)
+        }
+        if (createHash('sha256').update(readFileSync(resolve(repoRoot, file))).digest('hex') !== record.sha256) {
+          throw new Error(`gen-third-party-notices: ${file} does not match the SHA-256 in ${manifestPath}; bundled third-party files ship unmodified, so record a new checksum only with a new upstream release.`)
+        }
+        if (!isPermissive(record.license) && !(FONT_FILE.test(file) && record.license === BUNDLED_FONT_LICENSE)) {
+          throw new Error(`gen-third-party-notices: ${file} declares ${record.license}; a bundled file must be permissive, or a font under ${BUNDLED_FONT_LICENSE}.`)
+        }
+        recorded.add(file)
+        assets.push({ file, name: record.name, version: record.version, license: record.license, licenseFile, source: record.source })
+      }
+    }
+    const unrecorded = packageFontFiles(repoRoot, packageDir).filter(path => !recorded.has(path))
+    if (unrecorded.length > 0) {
+      throw new Error(`gen-third-party-notices: ${unrecorded.join(', ')} ${unrecorded.length === 1 ? 'is' : 'are'} not recorded in a third-party-assets.json; record each bundled font's source, license, and checksum.`)
+    }
+  }
+  return assets.sort((left, right) => left.file.localeCompare(right.file))
+}
+
 /**
  * Parse the vendored manifest table and confirm it accounts for every vendored
  * directory. The `vendor/` tree — not the table — is the set that must be
@@ -699,6 +788,7 @@ export async function render(): Promise<string> {
   const runtimeDeps = npm.filter(dep => dep.runtime)
   const devDeps = npm.filter(dep => !dep.runtime)
   const vendored = collectVendored()
+  const bundled = collectBundledAssets()
   const python = collectPython()
   const patched = collectPatched()
   const claudeDistribution = runtimeDeps.some(
@@ -728,6 +818,14 @@ The Cordis framework and its foundation libraries are source-vendored into this 
 | Package | Upstream name | Upstream | License |
 | --- | --- | --- | --- |
 ${vendored.map(row => `| \`${row.npmName}\` | \`${row.upstreamName}\` | [${row.upstream.replace('https://', '')}](${row.upstream}) | MIT |`).join('\n')}
+
+## Bundled third-party files
+
+Files committed inside workspace packages and distributed unmodified with them. Each file's license text ships beside it, and its package's \`third-party-assets.json\` records its source and SHA-256, which the generator verifies.
+
+| File | Name | Version | License | Source |
+| --- | --- | --- | --- | --- |
+${bundled.map(asset => `| \`${asset.file}\` | ${asset.name} | ${asset.version} | [${asset.license}](${asset.licenseFile}) | [${asset.source.replace('https://', '')}](${asset.source}) |`).join('\n')}
 
 ## Runtime npm dependencies
 

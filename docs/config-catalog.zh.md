@@ -3603,6 +3603,7 @@ export interface Config {
 - `@lyness/lyn-experimental-webworker-runtime`（[`packages/experimental/webworker-runtime/src/index.ts`](../packages/experimental/webworker-runtime/src/index.ts)）
 - `@lyness/lyn-home-paths`（[`packages/util/home-paths/src/index.ts`](../packages/util/home-paths/src/index.ts)）
 - `@lyness/lyn-hook-protocol`（[`packages/hooks/hook-protocol/src/index.ts`](../packages/hooks/hook-protocol/src/index.ts)）
+- `@lyness/lyn-host-brand-fonts`（[`packages/host/brand-fonts/src/index.ts`](../packages/host/brand-fonts/src/index.ts)）
 - `@lyness/lyn-host-brand-icon`（[`packages/host/brand-icon/src/index.ts`](../packages/host/brand-icon/src/index.ts)）
 - `@lyness/lyn-host-brand-wordmark`（[`packages/host/brand-wordmark/src/index.ts`](../packages/host/brand-wordmark/src/index.ts)）
 - `@lyness/lyn-http-proxy`（[`packages/util/http-proxy/src/index.ts`](../packages/util/http-proxy/src/index.ts)）

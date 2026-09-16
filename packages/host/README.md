@@ -9,7 +9,7 @@ English | [中文](README.zh.md)
 
 ## Summary
 
-The `host/` group provides the web GUI's plain HTTP server, the SPA dist server that serves the built Web shell, the workspace-directory picking seam with its native, browse, and adaptive composition packages, the open-in-app application probe and launch routes, the read-only plugin inventory projection, and the deployment brand with its wordmark typesetter and icon tracer. All eleven packages are product packages; the browser transport lives in [`client/`](../client/README.md), and the composed application is [`apps/cli`](../../apps/cli/README.md) booting the [`lyn-base` bundle](../bundle/base/cordis.patch.yml) that serves the web app under `apps/web/`. The picker backends replace one another behind the shared seam.
+The `host/` group provides the web GUI's plain HTTP server, the SPA dist server that serves the built Web shell, the workspace-directory picking seam with its native, browse, and adaptive composition packages, the open-in-app application probe and launch routes, the read-only plugin inventory projection, and the deployment brand with its wordmark typesetter, built-in wordmark fonts, and icon tracer. All twelve packages are product packages; the browser transport lives in [`client/`](../client/README.md), and the composed application is [`apps/cli`](../../apps/cli/README.md) booting the [`lyn-base` bundle](../bundle/base/cordis.patch.yml) that serves the web app under `apps/web/`. The picker backends replace one another behind the shared seam.
 
 ## Table of Contents
 
@@ -22,7 +22,7 @@ The `host/` group provides the web GUI's plain HTTP server, the SPA dist server 
 <a id="packages"></a>
 ## Packages
 
-Eleven packages play the host roles; each package README owns its contract and configuration.
+Twelve packages play the host roles; each package README owns its contract and configuration.
 
 | Package | Role | ctx key |
 |---|---|---|
@@ -35,7 +35,8 @@ Eleven packages play the host roles; each package README owns its contract and c
 | [`open-in-app/`](open-in-app/README.md) | Application probe, icon, and launch routes opening the workspace directory in an installed application | consumes `ctx.webServer` |
 | [`plugin-inventory/`](plugin-inventory/README.md) | Read-only projection of current Loader entries | Remote `pluginInventory/list` |
 | [`brand-deployment/`](brand-deployment/README.md) | The deployment's own brand over the index render: title, favicon, theme colour, and operator-placed assets | consumes `ctx.webServer` |
-| [`brand-wordmark/`](brand-wordmark/README.md) | Typesets a brand name in a supplied font into a single-colour SVG wordmark | library; no ctx key |
+| [`brand-wordmark/`](brand-wordmark/README.md) | Typesets a brand name across supplied fonts into a single-colour SVG wordmark | library; no ctx key |
+| [`brand-fonts/`](brand-fonts/README.md) | The platform's built-in wordmark fonts for Latin, Greek, Cyrillic, Chinese, Japanese, and Korean | library; no ctx key |
 | [`brand-icon/`](brand-icon/README.md) | Traces a brand icon PNG into the single-colour SVG icon and favicon, and checks brand SVGs | library; no ctx key |
 
 -----

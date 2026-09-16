@@ -26,11 +26,13 @@ This bundle is `lyn --profile brand-studio`, a one-shot command a private deploy
 ## Use this package
 
 ```sh
-lyn --profile brand-studio --name Acme --icon ./acme.png --font ./Inter-SemiBold.ttf \
+lyn --profile brand-studio --name 领驭 --icon ./lyness.png --accept-trademark
+
+lyn --profile brand-studio --name Acme --icon ./acme.png --font ./AcmeSans-Bold.otf \
   --theme-color '#1a73e8' --accept-trademark --accept-font-license
 ```
 
-`--name`, `--icon`, `--font`, `--accept-trademark`, and `--accept-font-license` are required. The icon is a PNG at least 1024 pixels a side with a dark mark on a light or transparent background; `lyn-host-brand-icon` refuses anything else and names the reason. The font is a TTF, OTF, WOFF, or WOFF2 file that covers every character of the name, and the operator's license for it must permit using its glyphs in a logo. The studio reads the font on the operator's server but neither copies nor distributes it, and the wordmark it writes is outline artwork, not font software. `--theme-color` takes a hex colour or a colour keyword; without it, a colour the row already names stays.
+`--name`, `--icon`, and `--accept-trademark` are required; `--font` needs `--accept-font-license` with it. The icon is a PNG at least 1024 pixels a side with a dark mark on a light or transparent background; `lyn-host-brand-icon` refuses anything else and names the reason. Without `--font`, the name is set in the built-in fonts from [`brand-fonts`](../../host/brand-fonts/README.md), which cover Latin, Greek, Cyrillic, Chinese, Japanese, and Korean. `--font` takes the brand owner's own TTF, OTF, WOFF, or WOFF2 file, which must cover every character of the name and carry a license permitting its glyphs in a logo; `--accept-font-license` confirms that. Either way the font serves the wordmark only: the studio reads it on the operator's server, neither copies nor distributes it, and writes outline artwork rather than font software. `--theme-color` takes a hex colour or a colour keyword; without it, a colour the row already names stays.
 
 ### What it writes
 
@@ -82,7 +84,7 @@ These are current constraints, not a task backlog.
 
 - **Flags only** — every input is a command-line flag; the command does not prompt for a missing one.
 - **Upload path only** — generating the icon with an image model needs an image-generation capability the repository does not have yet.
-- **No built-in font yet** — the operator must supply a font; the platform's built-in multilingual fonts, which would make `--font` optional, are not bundled yet.
+- **Built-in fonts cover six scripts** — a name in Arabic, Hebrew, Thai, or another script the built-in fonts do not draw needs `--font`.
 - **One brand per profile** — the row is deployment-wide; there is no tenant layer.
 - **The layer is re-serialized** — comments and `!!js` values survive, but quoting and blank lines in other rows may be normalized.
 

@@ -73,12 +73,20 @@ describe('brand-studio command line', () => {
 
   it('applies the brand to the web profile and reports what it wrote', async () => {
     const dir = await home()
-    const result = await invoke(['--name', 'lyness', '--icon', ICON, '--font', FONT, ...CONFIRMED])
+    const result = await invoke(['--name', '领驭 lyness', '--icon', ICON, '--accept-trademark'])
     expect(result).toMatchObject({ code: 0, stderr: '' })
-    expect(result.stdout).toContain('brand-studio: wrote the brand for "lyness"')
+    expect(result.stdout).toContain('brand-studio: wrote the brand for "领驭 lyness"')
+    expect(result.stdout).toContain('font      built-in (Inter SemiBold, Noto Sans CJK SC Medium)')
     expect(result.stdout).toContain(join(dir, 'brand', 'mark.svg'))
     expect(result.stdout).toContain(join(dir, 'profiles', 'web', 'cordis.patch.yml'))
     expect(result.stdout).toContain('`lyn --profile web`')
+  })
+
+  it("names the brand owner's font in the report", async () => {
+    await home()
+    const result = await invoke(['--name', 'lyness', '--icon', ICON, '--font', FONT, ...CONFIRMED])
+    expect(result).toMatchObject({ code: 0, stderr: '' })
+    expect(result.stdout).toContain(`font      ${FONT}`)
   })
 
   it('reports a refused run and requests a failing exit', async () => {

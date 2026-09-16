@@ -90,6 +90,7 @@ const SENTENCE_MODEL_EXPERIENCE: Readonly<Record<string, SentenceContract>> = {
   'packages/client/ui-sidebar': { kind: 'none', reason: 'Browser-side UI plugin layer; registers nothing model-facing.' },
   'packages/client/ui-brand-official': { kind: 'none', reason: 'Browser-side presentation occupants; registers nothing model-facing.' },
   'packages/client/ui-brand-lyness': { kind: 'none', reason: 'Browser-side presentation occupants; registers nothing model-facing.' },
+  'packages/host/brand-fonts': { kind: 'none', reason: 'Ships font files for wordmark typesetting; registers nothing model-facing.' },
   'packages/bundle/brand-studio': { kind: 'none', reason: 'Operator command that writes brand files and a patch layer; mounts no model-facing row.' },
   'packages/client/ui-conversation': { kind: 'none', reason: 'Browser-side UI plugin layer; registers nothing model-facing.' },
   'packages/client/ui-approval': { kind: 'none', reason: 'Browser-side approval presentation; registers nothing model-facing.' },

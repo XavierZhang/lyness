@@ -25,6 +25,15 @@ The Cordis framework and its foundation libraries are source-vendored into this 
 | `@lyness/cordis-plugin-hmr` | `@cordisjs/plugin-hmr` | [github.com/deepseek-harness/cordis](https://github.com/deepseek-harness/cordis) | MIT |
 | `@lyness/cordis-plugin-logger-console` | `@cordisjs/plugin-logger-console` | [github.com/deepseek-harness/cordis](https://github.com/deepseek-harness/cordis) | MIT |
 
+## Bundled third-party files
+
+Files committed inside workspace packages and distributed unmodified with them. Each file's license text ships beside it, and its package's `third-party-assets.json` records its source and SHA-256, which the generator verifies.
+
+| File | Name | Version | License | Source |
+| --- | --- | --- | --- | --- |
+| `packages/host/brand-fonts/fonts/Inter-SemiBold.ttf` | Inter SemiBold | 4.1 | [OFL-1.1](packages/host/brand-fonts/fonts/LICENSE-Inter.txt) | [github.com/rsms/inter/releases/tag/v4.1](https://github.com/rsms/inter/releases/tag/v4.1) |
+| `packages/host/brand-fonts/fonts/NotoSansCJKsc-Medium.otf` | Noto Sans CJK SC Medium | 2.004 | [OFL-1.1](packages/host/brand-fonts/fonts/LICENSE-NotoSansCJK.txt) | [github.com/notofonts/noto-cjk/releases/tag/Sans2.004](https://github.com/notofonts/noto-cjk/releases/tag/Sans2.004) |
+
 ## Runtime npm dependencies
 
 External packages installed for runtime use or distributed inside the prebuilt browser artifacts. Browser inputs are resolved through the shipping tsdown and Vite configurations, independently of npm dependency sections. The tier covers every plugin a user can mount from `cordis.yml` — not only what the `lyn` CLI, Web UI, and Python SDK runtime load by default.

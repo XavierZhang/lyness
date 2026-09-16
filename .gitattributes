@@ -8,6 +8,13 @@
 
 *.pdf binary
 
+# Bundled third-party fonts: recorded by SHA-256 in each package's
+# third-party-assets.json, so their bytes must survive checkout unchanged.
+*.otf binary
+*.ttf binary
+*.woff binary
+*.woff2 binary
+
 # Pairing records are generated from the three confirmed owner-blob pairs.
 # The worktree-local installer registers the fail-closed driver command.
 *.i18n.yaml merge=lyn-translation-pairing

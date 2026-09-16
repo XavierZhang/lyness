@@ -294,6 +294,7 @@
     { "path": "./packages/acp/acp" },
     { "path": "./packages/bundle/acp-app" },
     { "path": "./packages/bundle/brand-studio" },
+    { "path": "./packages/host/brand-fonts" },
     { "path": "./packages/bundle/base" },
     { "path": "./packages/bundle/headless" },
     { "path": "./packages/bundle/sdk-app" },
