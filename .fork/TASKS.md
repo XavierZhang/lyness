@@ -58,8 +58,8 @@
 | # | 任务 | 状态 |
 |---|---|---|
 | 1.0 | 部署层品牌配置：新增 `packages/host/brand-deployment`——组合层 `Config` + 资产按角色提供 + `renderIndex` 注入。已在真实服务器验证：标题/favicon/主题色/品牌全局值生效且无需重建前端。不放 `settings.yaml`（用户设置压过组合），[理由](../.agents/notes/implemented/architecture/2026-09-13-deployment-brand-as-composition-config.md) | done |
-| 1.1 | 租户能力缝：Service Definition + Provider + Consumer 三角 | todo |
-| 1.2 | 租户解析：Domain / Subdomain / `X-Tenant-ID` header | todo |
+| 1.1 | 租户能力缝：Service Definition + Provider + Consumer 三角 | done（2026-09-17：`packages/tenant/{tenant,tenant-static,tenant-http}`；1.1 与 1.2 合并交付——调用方就是请求边界上的解析。租户 id 不可变，与标识／域名分离；解析顺序 `X-Tenant-ID` → Host → 子域名，解析不到即拒绝，无兜底租户。逐文件覆盖率 100%，含 Loader 真实组合 + 真实 HTTP 的组合测试。[决策](../.agents/notes/implemented/architecture/2026-09-17-tenant-directory-seam.md)） |
+| 1.2 | 租户解析：Domain / Subdomain / `X-Tenant-ID` header | done（2026-09-17：随 1.1 一并交付，见上行） |
 | 1.3 | `TenantConfig`：本组织可用的模型（语言、图片、视频、音乐）与供应商白名单、功能授权、Agent 身份、文案覆盖（**不含资产与产品名**，那些在部署层）；API Key 按租户隔离存储 | todo |
 | 1.4 | 租户配置 Typert RPC（替代文档的 REST 方案，冲突 #2） | todo |
 | 1.5 | ⚠️ `tenant_id` 进 session log：新增 `SessionEventMap` 成员 | todo |

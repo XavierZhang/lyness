@@ -163,6 +163,16 @@
       "source": "packages/core/agent/src/runtime-types.ts"
     },
     {
+      "doc": "docs/subsystems/multi-tenancy.md",
+      "symbol": "TenantId",
+      "source": "packages/tenant/tenant/src/brand.ts"
+    },
+    {
+      "doc": "docs/subsystems/multi-tenancy.md",
+      "symbol": "Tenant",
+      "source": "packages/tenant/tenant/src/types.ts"
+    },
+    {
       "doc": "docs/subsystems/scope.md",
       "symbol": "ScopeKey",
       "source": "packages/core/scope/src/index.ts"

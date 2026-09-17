@@ -35,6 +35,7 @@ harness 由 `packages/` 下的 npm 包组装而成，按能力系列分组：会
 | [`schedule/`](schedule/README.zh.md) | 仅限会话内的定时后续操作 |
 | [`feedback/`](feedback/README.zh.md) | 人类反馈的采集与命令 |
 | [`identity/`](identity/README.zh.md) | 共享匿名身份 |
+| [`tenant/`](tenant/README.zh.md) | 租户目录能力缝：部署服务哪些租户，以及请求如何解析到其中一个 |
 | [`llm/`](llm/README.zh.md) | LLM（大语言模型）能力系列：抽象服务 + 提供方适配器 |
 | [`e2b/`](e2b/README.zh.md) | E2B 远程运行时提供方 |
 | [`subprocess/`](subprocess/README.zh.md) | 子进程能力系列：Service Definition + 本地进程树提供方 |

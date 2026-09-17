@@ -629,6 +629,15 @@ const SERVICE_ROLES: ServiceRole[] = [
     note: 'Discriminated interaction capability: the native backend opens one OS chooser on the host display, the browse backend serves listing/creation primitives for the in-app browser; dual-face backends fill ui-workspace directory-flow slots from their browser halves (no wire advertisement).',
   },
   {
+    key: 'tenants',
+    pkg: 'tenant',
+    title: 'Tenant directory seam',
+    mode: 'seam',
+    implementations: ['tenant-static'],
+    consumers: ['tenant-http'],
+    note: 'Three lookups — immutable id, hostname, subdomain slug — answering undefined for an unknown subject; which part of a request may name a tenant is transport knowledge the consumer owns, and an unresolved request is refused rather than served a fallback tenant.',
+  },
+  {
     key: 'webServer',
     pkg: 'host-webserver',
     title: 'HTTP route registration',

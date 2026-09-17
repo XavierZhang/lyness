@@ -2637,6 +2637,50 @@ export interface Config {
 
 Source: [`packages/core/system-prompt/src/index.ts:242`](../packages/core/system-prompt/src/index.ts)
 
+<a id="lynesslyn-tenant-http"></a>
+
+## `@lyness/lyn-tenant-http`
+
+Requires: `tenants` · `webServer`
+
+```ts config-catalog
+/** Plugin config: where the route answers, and which hostnames carry a tenant slug. */
+export interface Config {
+  /** Exact pathname of the route. */
+  path?: string
+  /** Base domain whose direct subdomains name tenants by slug; omit to resolve no subdomain. */
+  baseDomain?: string
+}
+```
+
+Source: [`packages/tenant/tenant-http/src/index.ts:30`](../packages/tenant/tenant-http/src/index.ts)
+
+<a id="lynesslyn-tenant-static"></a>
+
+## `@lyness/lyn-tenant-static`
+
+```ts config-catalog
+/** Plugin config: the deployment's tenant roster. */
+export interface Config {
+  /** Every tenant this deployment serves; at least one. */
+  tenants: TenantEntry[]
+}
+
+/** One configured tenant. */
+export interface TenantEntry {
+  /** Immutable id; durable records carry this value. */
+  id: string
+  /** Operator-facing handle and subdomain label, unique in the deployment. */
+  slug: string
+  /** Name shown to that tenant's users. */
+  displayName: string
+  /** Hostnames served for this tenant, each claimed by exactly one tenant. */
+  hosts?: string[]
+}
+```
+
+Source: [`packages/tenant/tenant-static/src/index.ts:39`](../packages/tenant/tenant-static/src/index.ts)
+
 <a id="lynesslyn-terminal-bash"></a>
 
 ## `@lyness/lyn-terminal-bash`
@@ -3575,6 +3619,7 @@ Abstract service classes — a deployment loads a concrete implementation packag
 - `@lyness/lyn-shell` — abstract `ShellExecutor` ([`packages/shell/shell/src/index.ts`](../packages/shell/shell/src/index.ts))
 - `@lyness/lyn-spill` — abstract `SpillStore` ([`packages/spill/spill/src/index.ts`](../packages/spill/spill/src/index.ts))
 - `@lyness/lyn-subprocess` — abstract `SubprocessRuntime` ([`packages/subprocess/subprocess/src/index.ts`](../packages/subprocess/subprocess/src/index.ts))
+- `@lyness/lyn-tenant` — abstract `TenantDirectory` ([`packages/tenant/tenant/src/index.ts`](../packages/tenant/tenant/src/index.ts))
 - `@lyness/lyn-workflow` — abstract `WorkflowEngine` ([`packages/workflow/workflow/src/index.ts`](../packages/workflow/workflow/src/index.ts))
 
 ## Library packages (no plugin entry)

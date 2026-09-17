@@ -9944,6 +9944,54 @@ importers:
         specifier: workspace:^
         version: link:../../../vendor/cordis
 
+  packages/tenant/tenant:
+    dependencies:
+      '@lyness/lyn-brand':
+        specifier: workspace:^
+        version: link:../../util/brand
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:^
+        version: link:../../../vendor/cordis
+
+  packages/tenant/tenant-http:
+    dependencies:
+      '@lyness/lyn-tenant':
+        specifier: workspace:^
+        version: link:../tenant
+      '@lyness/schemastery':
+        specifier: link:../../../vendor/schemastery
+        version: link:../../../vendor/schemastery
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:^
+        version: link:../../../vendor/cordis
+      '@lyness/cordis-plugin-include':
+        specifier: workspace:^
+        version: link:../../../vendor/include
+      '@lyness/cordis-plugin-loader':
+        specifier: workspace:^
+        version: link:../../../vendor/loader
+      '@lyness/lyn-host-webserver':
+        specifier: workspace:^
+        version: link:../../host/webserver
+      '@lyness/lyn-tenant-static':
+        specifier: workspace:^
+        version: link:../tenant-static
+
+  packages/tenant/tenant-static:
+    dependencies:
+      '@lyness/lyn-tenant':
+        specifier: workspace:^
+        version: link:../tenant
+      '@lyness/schemastery':
+        specifier: link:../../../vendor/schemastery
+        version: link:../../../vendor/schemastery
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:^
+        version: link:../../../vendor/cordis
+
   packages/terminal/terminal:
     devDependencies:
       '@lyness/cordis':
@@ -17277,8 +17325,8 @@ packages:
     resolution: {integrity: sha512-RJJPTTpvFfHcWLkIa2JFWK4XvtSzS0yEWDmunqHXli1h3JlkbcQZXDZdcWxv+JK3Xsl5/UFDPZ0iGm7DAengYw==}
     engines: {node: '>=12.0.0'}
 
-  proxy-addr@2.0.7:
-    resolution: {integrity: sha512-llQsMLSUDUPT44jdrU/O37qlnifitDP+ZwrmmZcoSKyLKvtZxpyV0n2/bD/N4tBAAZ/gJEdZU7KMraoK1+XYAg==}
+  proxy-addr@2.0.8:
+    resolution: {integrity: sha512-5nnx0yGyVUcY6t9RnWcARWtwT9F1D8O9rt08htPvnd49W1IgZtmLkhu9WfMzQj1cFxjHIO6connUNVW5k7AVyQ==}
     engines: {node: '>= 0.10'}
 
   publint@0.3.21:
@@ -22673,7 +22721,7 @@ snapshots:
       on-finished: 2.4.1
       once: 1.4.0
       parseurl: 1.3.3
-      proxy-addr: 2.0.7
+      proxy-addr: 2.0.8
       qs: 6.15.3
       range-parser: 1.3.0
       router: 2.2.0
@@ -24470,7 +24518,7 @@ snapshots:
       '@types/node': 22.20.0
       long: 5.3.2
 
-  proxy-addr@2.0.7:
+  proxy-addr@2.0.8:
     dependencies:
       forwarded: 0.2.0
       ipaddr.js: 1.9.1

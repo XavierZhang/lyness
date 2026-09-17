@@ -1,0 +1,43 @@
+{
+  "name": "@lyness/lyn-tenant",
+  "description": "Abstract tenant-directory seam (ctx.tenants) naming which tenants a lyness deployment serves",
+  "version": "0.1.5-rc.1",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "directory": "packages/tenant/tenant"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./types": {
+      "types": "./lib/types/types.d.ts",
+      "default": "./lib/types/types.js"
+    },
+    "./src/*": "./src/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib/index.js",
+    "lib/types/**/*.js",
+    "lib/types/**/*.d.ts"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@lyness/lyn-brand": "workspace:^"
+  },
+  "peerDependencies": {
+    "@lyness/cordis": "workspace:^"
+  },
+  "devDependencies": {
+    "@lyness/cordis": "workspace:^"
+  }
+}

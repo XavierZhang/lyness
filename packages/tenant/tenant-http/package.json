@@ -1,0 +1,43 @@
+{
+  "name": "@lyness/lyn-tenant-http",
+  "description": "Resolves the tenant an HTTP request belongs to, from the tenant header, the hostname, or a subdomain slug",
+  "version": "0.1.5-rc.1",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "directory": "packages/tenant/tenant-http"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./src/*": "./src/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib/index.js",
+    "lib/types/**/*.d.ts"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@lyness/lyn-tenant": "workspace:^",
+    "@lyness/schemastery": "workspace:^"
+  },
+  "peerDependencies": {
+    "@lyness/cordis": "workspace:^"
+  },
+  "devDependencies": {
+    "@lyness/cordis": "workspace:^",
+    "@lyness/cordis-plugin-include": "workspace:^",
+    "@lyness/cordis-plugin-loader": "workspace:^",
+    "@lyness/lyn-host-webserver": "workspace:^",
+    "@lyness/lyn-tenant-static": "workspace:^"
+  }
+}

@@ -2458,6 +2458,31 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
     ],
   },
   {
+    key: 'tenants',
+    summary: 'Abstract tenant directory.',
+    description: 'Abstract tenant directory. Subclass, implement the three lookups, and load the subclass as a plugin — it registers as `ctx.tenants` (one directory per context; loading a second throws, cordis\' standard duplicate-service behavior).\n\nEvery lookup answers `undefined` for an unknown subject rather than throwing: not finding a tenant is an ordinary outcome of resolving an arbitrary request, and the Consumer decides what refusing looks like on its transport. Lookups are asynchronous because a directory may be a database.',
+    methods: [
+      {
+        signature: 'abstract get(id: TenantId): Promise<Tenant | undefined>',
+        description: 'Look one tenant up by its immutable id.',
+        parameters: [{ name: 'id', description: 'the tenant id.' }],
+        returns: 'the tenant, or undefined when this deployment serves no such tenant.',
+      },
+      {
+        signature: 'abstract byHost(hostname: string): Promise<Tenant | undefined>',
+        description: 'Look one tenant up by a hostname it is served on.',
+        parameters: [{ name: 'hostname', description: 'lowercase hostname without port.' }],
+        returns: 'the tenant, or undefined when no tenant claims that hostname.',
+      },
+      {
+        signature: 'abstract bySlug(slug: string): Promise<Tenant | undefined>',
+        description: 'Look one tenant up by its slug.',
+        parameters: [{ name: 'slug', description: 'the operator-facing handle, also the subdomain label.' }],
+        returns: 'the tenant, or undefined when no tenant carries that slug.',
+      },
+    ],
+  },
+  {
     key: 'terminals',
     summary: 'In-process registry for replaceable PTY backends and exact-Agent sessions.',
     description: 'In-process registry for replaceable PTY backends and exact-Agent sessions.',
@@ -5925,6 +5950,14 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'TeamWaitResult',
     declaration: 'export interface TeamWaitResult {\n    readonly timedOut: boolean;\n}',
+  },
+  {
+    name: 'Tenant',
+    declaration: 'export interface Tenant {\n    readonly id: TenantId;\n    readonly slug: string;\n    readonly displayName: string;\n}',
+  },
+  {
+    name: 'TenantId',
+    declaration: 'export type TenantId = Branded<\'TenantId\'>;',
   },
   {
     name: 'TerminalBackend',

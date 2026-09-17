@@ -348,6 +348,11 @@ flowchart TD
     pkg_subprocess_local["subprocess-local"]
     pkg_win32_process["win32-process"]
   end
+  subgraph group_tenant["packages/tenant"]
+    pkg_tenant["tenant"]
+    pkg_tenant_http["tenant-http"]
+    pkg_tenant_static["tenant-static"]
+  end
   subgraph group_terminal["packages/terminal"]
     pkg_terminal["terminal"]
     pkg_terminal_bash["terminal-bash"]
@@ -1285,6 +1290,9 @@ flowchart TD
 | [`session-format-v2-to-v3`](../packages/session/session-format-v2-to-v3) | `session` | — |
 | [`storage`](../packages/storage/storage) | `storage` | — |
 | [`win32-process`](../packages/subprocess/win32-process) | `subprocess` | — |
+| [`tenant`](../packages/tenant/tenant) | `tenant` | — |
+| [`tenant-http`](../packages/tenant/tenant-http) | `tenant` | — |
+| [`tenant-static`](../packages/tenant/tenant-static) | `tenant` | — |
 | [`llm-mock-server`](../packages/test-support/llm-mock-server) | `test-support` | — |
 | [`typert-generator`](../packages/typert/generator) | `typert` | — |
 | [`typert-protocol`](../packages/typert/protocol) | `typert` | — |

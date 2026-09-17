@@ -35,6 +35,7 @@ Every package lives in exactly one group; new packages join existing groups, and
 | [`schedule/`](schedule/README.md) | Session-local scheduled follow-ups |
 | [`feedback/`](feedback/README.md) | Human feedback capture and command |
 | [`identity/`](identity/README.md) | Shared anonymous identity |
+| [`tenant/`](tenant/README.md) | Tenant directory seam: which tenants a deployment serves, and how a request resolves to one |
 | [`llm/`](llm/README.md) | LLM capability family: abstract service + provider adapters |
 | [`e2b/`](e2b/README.md) | E2B remote-runtime providers |
 | [`subprocess/`](subprocess/README.md) | Subprocess capability family: Service Definition + local process-tree provider |
