@@ -15,7 +15,7 @@ The Python SDK has no separate application entrypoint. It launches the bundled `
 Every launch requires an explicit Harness home. Pass `lyn_home` or provide a non-empty `LYNESS_HOME` in the child environment. The SDK deliberately never discovers `~/.lyn`.
 
 ```py
-from deepseek_harness import Lyness
+from lyness import Lyness
 
 with Lyness(
     lyn_home="/absolute/path/to/isolated-lyn-home",

@@ -8,8 +8,8 @@ Python packages for driving lyness as a subprocess. The client SDK communicates 
 
 | Directory | Dist / module | Role |
 |---|---|---|
-| [sdk](sdk/README.md) | `lyness-sdk` / `deepseek_harness` | High-level turns API and lower-level JSON-RPC client |
-| [sdk-runtime](sdk-runtime/README.md) | `lyness-runtime-bin` / `deepseek_harness_runtime` | Bundled `lyn` CLI executable and native sidecars |
+| [sdk](sdk/README.md) | `lyness-sdk` / `lyness` | High-level turns API and lower-level JSON-RPC client |
+| [sdk-runtime](sdk-runtime/README.md) | `lyness-runtime-bin` / `lyness_runtime` | Bundled `lyn` CLI executable and native sidecars |
 
 ## Behavior
 

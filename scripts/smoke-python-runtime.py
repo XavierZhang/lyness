@@ -24,7 +24,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING, Callable
 
 if TYPE_CHECKING:
-    from deepseek_harness import RunResult
+    from lyness import RunResult
 
 
 EXPECTED_TEXT = "runtime smoke ok"
@@ -842,7 +842,7 @@ def assert_installed_wheel_environment() -> Path:
 
     prefix = Path(sys.prefix).resolve()
     imported: dict[str, Path] = {}
-    for name in ("deepseek_harness", "deepseek_harness_runtime"):
+    for name in ("lyness", "lyness_runtime"):
         module = importlib.import_module(name)
         module_file = getattr(module, "__file__", None)
         if not isinstance(module_file, str):
@@ -854,9 +854,9 @@ def assert_installed_wheel_environment() -> Path:
             raise AssertionError(f"installed module {name} came from the repository checkout: {path}")
         imported[name] = path
 
-    runtime_module = sys.modules["deepseek_harness_runtime"]
+    runtime_module = sys.modules["lyness_runtime"]
     executable = runtime_module.bundled_runtime_path().resolve()
-    runtime_package = imported["deepseek_harness_runtime"].parent
+    runtime_package = imported["lyness_runtime"].parent
     if not executable.is_relative_to(runtime_package):
         raise AssertionError(f"bundled runtime came from outside the installed runtime wheel: {executable}")
     runtime_files = importlib.metadata.files("lyness-runtime-bin") or []
@@ -867,7 +867,7 @@ def assert_installed_wheel_environment() -> Path:
 
 def smoke_sdk_live() -> None:
     """Run a real-model, tool-using two-turn task through installed wheels."""
-    from deepseek_harness import Lyness
+    from lyness import Lyness
 
     api_key = os.environ.get("DEEPSEEK_API_KEY")
     base_url = os.environ.get("DEEPSEEK_BASE_URL")
@@ -977,7 +977,7 @@ def safe_turn_end(value: object) -> object:
 
 
 def smoke_sdk_default(base_url: str) -> None:
-    from deepseek_harness import Lyness
+    from lyness import Lyness
 
     with tempfile.TemporaryDirectory(prefix="lyn-sdk-default-") as temporary:
         root = Path(temporary).resolve()
@@ -1006,7 +1006,7 @@ def smoke_sdk_default(base_url: str) -> None:
 
 
 def smoke_sdk_custom(base_url: str, executable: Path) -> None:
-    from deepseek_harness import Lyness
+    from lyness import Lyness
 
     with tempfile.TemporaryDirectory(prefix="lyn-sdk-custom-") as temporary:
         root = Path(temporary).resolve()
@@ -1041,7 +1041,7 @@ def smoke_sdk_minimal(
     base_url: str, executable: Path, update_snapshots: bool, *, in_history: bool = False,
 ) -> None:
     """Exercise the shipped standalone minimal profile through the packaged executable."""
-    from deepseek_harness import Lyness
+    from lyness import Lyness
 
     # One mock model serves every scenario of a run, so the snapshot takes this turn's slice.
     first_request = len(MockModelHandler.requests)
@@ -1097,7 +1097,7 @@ def smoke_sdk_minimal(
 
 def smoke_sdk_fs_search(base_url: str, executable: Path) -> None:
     """Exercise real grep and glob spawns through the packaged executable."""
-    from deepseek_harness import Lyness
+    from lyness import Lyness
 
     with tempfile.TemporaryDirectory(prefix="lyn-sdk-fs-search-") as temporary:
         root = Path(temporary).resolve()
@@ -1131,7 +1131,7 @@ def smoke_sdk_fs_search(base_url: str, executable: Path) -> None:
 
 def smoke_sdk_spawn_node(base_url: str, executable: Path) -> None:
     """A shell command starting with `node` must reach the machine's Node, not the executable."""
-    from deepseek_harness import Lyness
+    from lyness import Lyness
 
     with tempfile.TemporaryDirectory(prefix="lyn-sdk-spawn-node-") as temporary:
         root = Path(temporary).resolve()
@@ -1161,7 +1161,7 @@ def smoke_sdk_spawn_node(base_url: str, executable: Path) -> None:
 
 def smoke_sdk_mcp(base_url: str, executable: Path | None) -> None:
     """Discover and call an external stdio MCP tool through the packaged client."""
-    from deepseek_harness import Lyness
+    from lyness import Lyness
 
     with tempfile.TemporaryDirectory(prefix="lyn-sdk-mcp-") as temporary:
         root = Path(temporary).resolve()
@@ -1200,7 +1200,7 @@ def smoke_sdk_mcp(base_url: str, executable: Path | None) -> None:
 
 def smoke_sdk_profile_plugin(base_url: str) -> None:
     """Install an external bundle through Python's lyn command and load it in the SDK."""
-    from deepseek_harness import Lyness
+    from lyness import Lyness
 
     with tempfile.TemporaryDirectory(prefix="lyn-sdk-profile-plugin-") as temporary:
         root = Path(temporary).resolve()
@@ -1282,7 +1282,7 @@ def smoke_sdk_profile_plugin(base_url: str) -> None:
 
 def smoke_sdk_snapshot(base_url: str, executable: Path, update_snapshots: bool) -> None:
     """Drive and compare the advanced SDK/executable behavioral snapshot."""
-    from deepseek_harness import Lyness
+    from lyness import Lyness
 
     with tempfile.TemporaryDirectory(prefix="lyn-sdk-snapshot-") as temporary:
         root = Path(temporary).resolve()
@@ -1354,7 +1354,7 @@ def smoke_sdk_snapshot(base_url: str, executable: Path, update_snapshots: bool) 
 
 def smoke_sdk_restart_snapshot(base_url: str, executable: Path, update_snapshots: bool) -> None:
     """Snapshot two isolated sessions across complete SDK runtime restarts."""
-    from deepseek_harness import Lyness
+    from lyness import Lyness
 
     with tempfile.TemporaryDirectory(prefix="lyn-sdk-restart-") as temporary:
         root = Path(temporary).resolve()

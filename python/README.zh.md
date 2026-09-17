@@ -8,8 +8,8 @@
 
 | 目录 | 分发名／模块 | 职责 |
 |---|---|---|
-| [sdk](sdk/README.zh.md) | `lyness-sdk` / `deepseek_harness` | 高层轮次 API 与低层 JSON-RPC 客户端 |
-| [sdk-runtime](sdk-runtime/README.zh.md) | `lyness-runtime-bin` / `deepseek_harness_runtime` | 内置 `lyn` CLI（命令行界面）可执行程序与原生伴随文件 |
+| [sdk](sdk/README.zh.md) | `lyness-sdk` / `lyness` | 高层轮次 API 与低层 JSON-RPC 客户端 |
+| [sdk-runtime](sdk-runtime/README.zh.md) | `lyness-runtime-bin` / `lyness_runtime` | 内置 `lyn` CLI（命令行界面）可执行程序与原生伴随文件 |
 
 ## 行为
 

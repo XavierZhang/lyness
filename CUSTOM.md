@@ -72,6 +72,7 @@ codemod 只改文本和路径。下面这些是它改完之后必然过期、必
 | 1 | `pnpm install` | 包名变了，lockfile 要重算 |
 | 2 | `pnpm run clean`；再删 `git mv` 留下的空目录 | 空目录不含文件，但按目录枚举的门禁（如 snapshot corpus）会把它当成缺文件 |
 | 3 | `gen-third-party-notices`、`gen-cordis-catalog`、`gen-config-catalog`、`gen-tsconfig-paths`、`gen-doc-graphs`、`gen-module-graph`、`gen-client-catalog` | 生成物里含包名。`gen-module-graph` 与 `gen-doc-graphs` 是两个脚本，2026-09-15 发现前三个 host 品牌包因只跑了后者而一直没进 `docs/module-graph.md` |
+| 3.5 | `uv lock --project python/sdk` | uv.lock 被 codemod 保护（由 uv 生成），改名后它仍钉着旧发行名，`pnpm install` 不会重算。2026-09-17 实测：pyproject 早已是 `lyness-sdk`，锁文件却还写着 `deepseek-harness-sdk` |
 | 4 | `verify-translation-pairing --write --all` | 配对记录存的是两侧内容哈希；改名同时改了两侧，哈希全部过期（本次 648 条） |
 | 5 | **手工**对齐生成文档的中文侧顺序 | 生成器只写英文侧。改名后包名字典序变了，中文侧会保留旧顺序（本次：`config-catalog.zh.md` 两节、`capability-seams.zh.md` 两条图边） |
 | 6 | **手工**重排按名字排序的期望文件 | 同上。本次：`tool-schemas.expected.json` 的工具顺序、`web-browser-open.expected.e2e.ts` 的内联快照键序、desktop 的三个夹具 |
@@ -116,7 +117,7 @@ codemod 只改文本和路径。下面这些是它改完之后必然过期、必
 | 内置字标字体 | `packages/host/brand-fonts` | Inter SemiBold + Noto Sans CJK SC Medium（均 OFL-1.1，原样随附），覆盖拉丁／希腊／西里尔／中日韩；**只用于品牌字标**，不下发浏览器。声明走 `third-party-assets.json`（校验和 + 许可证 + 未登记字体文件即报错） |
 | 品牌引导命令 | `packages/bundle/brand-studio` | `lyn --profile brand-studio`：图标 PNG + 字体文件 → 三个 SVG，写入目标 profile（默认 `web`）补丁层的 `brand-deployment` 行。仅参数、仅上传路径；品牌方自带字体，须 `--accept-trademark` 与 `--accept-font-license` 确认（SaaS 只用平台内置字体，见 `.fork/BRAND-CONFIG.md` 字体一节）。[决策](.agents/notes/implemented/architecture/2026-09-15-brand-studio-profile.md) |
 | Web UI 品牌 | `packages/client/ui-brand-lyness` | 所有构建中填三个品牌 slot（lyness 图标 + inter-600 字标），页面带部署品牌时逐项让位。[决策](.agents/notes/implemented/architecture/2026-09-15-lyness-brand-in-the-web-client.md) |
-| 可重放的品牌改名 | `scripts/rebrand.ts` | 21 条有序规则（含删除型规则 `shields-logo`，`--reverse` 跳过它）+ 保护路径 + 后置断言 + `--check`。**每次 sync upstream 后必须重跑**，否则上游带回的旧名会残留。设计见 [Agent Note](.agents/notes/implemented/process/2026-08-31-lyness-rebrand-codemod.md) |
+| 可重放的品牌改名 | `scripts/rebrand.ts` | 22 条有序规则（含 Python 包名规则 `python-package`、删除型规则 `shields-logo`，`--reverse` 跳过它）+ 保护路径 + 后置断言 + `--check`。**每次 sync upstream 后必须重跑**，否则上游带回的旧名会残留。设计见 [Agent Note](.agents/notes/implemented/process/2026-08-31-lyness-rebrand-codemod.md) |
 | 二开任务清单 | `.fork/TASKS.md` | 需求拆解、7 处冲突裁决与分阶段计划 |
 | 二开手册 | `.fork/FORK-GUIDE.md` | 原在 `docs/` 下，因受上游双语门禁管辖而迁出 |
 | 部署层品牌 | `packages/host/brand-deployment` | 组合层 `Config` + 资产按角色提供 + `renderIndex` 注入。改 patch 层并重启即换品牌，不重建前端。[决策](.agents/notes/implemented/architecture/2026-09-13-deployment-brand-as-composition-config.md) |
@@ -136,7 +137,6 @@ codemod 只改文本和路径。下面这些是它改完之后必然过期、必
 
 | 残留 | 位置 | 影响 | 处理 |
 |---|---|---|---|
-| Python 包名 `deepseek_harness` | `python/sdk/src/deepseek_harness/`、`python/sdk-runtime/src/deepseek_harness_runtime/`、`pyproject.toml` | 对外发布 Python SDK 时会暴露官方名 | 下划线变体不在 21 条规则内。需新增规则 + 目录改名 + `pyproject.toml`/CI 工作流同步，独立任务 |
 | 归档 Agent Note 中的 `dsh`（104 处） | `.agents/notes/archived/` | 无 | **刻意保留**：归档笔记冻结，是官方历史记录 |
 
 ## 品牌替换清单 ⚠️ 合并官方后必查

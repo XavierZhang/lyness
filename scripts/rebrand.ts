@@ -158,6 +158,12 @@ const RULES: readonly Rule[] = [
     note: 'Requires the `-harness` suffix, so it cannot match `deepseek-ai`, `llm-deepseek`, or `api.deepseek.com`.',
   },
   {
+    id: 'python-package',
+    from: 'deepseek_harness',
+    to: 'lyness',
+    note: 'The Python import packages (`deepseek_harness`, `deepseek_harness_runtime`) and the underscore form distribution names take inside wheel file names. The underscore spelling never names the model vendor, whose packages and endpoints carry no underscore.',
+  },
+  {
     id: 'env-prefix',
     from: 'DSH_',
     to: 'LYNESS_',

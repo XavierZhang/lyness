@@ -18,15 +18,15 @@ Issues = "https://github.com/XavierZhang/lyness/issues"
 Source = "https://github.com/XavierZhang/lyness"
 
 [project.scripts]
-lyn = "deepseek_harness_runtime:main"
+lyn = "lyness_runtime:main"
 
 # Include the injected lyn executable and sidecars; exclude the dev-only node closure.
 [tool.hatch.build]
-artifacts = ["src/deepseek_harness_runtime/runtime/lyness-sdk-runtime-*"]
-exclude = ["src/deepseek_harness_runtime/runtime/node"]
+artifacts = ["src/lyness_runtime/runtime/lyness-sdk-runtime-*"]
+exclude = ["src/lyness_runtime/runtime/node"]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/deepseek_harness_runtime"]
+packages = ["src/lyness_runtime"]
 
 [tool.hatch.build.targets.wheel.hooks.custom]
 

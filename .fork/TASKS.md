@@ -49,7 +49,7 @@
 | 0.8 | 仓库 URL → `https://github.com/XavierZhang/lyness`（仅 URL 类；`.agents/notes/` 官方历史笔记不动） | done |
 | 0.9 | 遥测：默认改为 `DISABLED` 且不带端点；启用需同时设 `LYNESS_TELEMETRY_MODE` 与 `LYNESS_TELEMETRY_OTLP_URL` | done |
 | 0.10 | 验证：`typecheck` + `build` + `test` + `test:snapshot` + `hygiene` | done |
-| 0.11 | Python 包名残留 `deepseek_harness` → 新增下划线规则 + 目录改名 + `pyproject.toml` 与 CI 工作流同步（[残留表](../CUSTOM.md#已知残留codemod-未覆盖非本次合并引入)） | todo |
+| 0.11 | Python 包名残留 `deepseek_harness` → 新增下划线规则 + 目录改名 + `pyproject.toml` 与 CI 工作流同步（[残留表](../CUSTOM.md#已知残留codemod-未覆盖非本次合并引入)） | done（2026-09-17：新增 codemod 规则 `python-package`，`deepseek_harness` → `lyness`、`deepseek_harness_runtime` → `lyness_runtime`；目录由 codemod 的 `git mv` 改名；CI 与文档里过期的 wheel 文件名一并修好；`uv.lock` 重新生成。[决策](../.agents/notes/implemented/process/2026-09-17-python-package-rename.md)） |
 | 0.12 | 遥测守卫测试 | done（长在上游自己的 `packages/bundle/base/tests/base.spec.ts` 里：上游 0.1.5 新增该测试钉住自家默认值，改为钉住本 fork 的 `DISABLED` + 空端点。上游将来改默认值会在此直接冲突） |
 | 0.13 | 恢复包名判别符：harness 包改为 `@lyness/lyn-<name>`，vendored 保持 `@lyness/<name>` | done（6 处门禁排除全部回退，上游检查逐字生效；codemod 21→18 条规则。[记录](../.agents/notes/implemented/process/2026-09-12-restoring-the-product-name-segment.md)） |
 

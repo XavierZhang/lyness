@@ -11,9 +11,9 @@ from pathlib import Path
 
 import pytest
 
-from deepseek_harness import Lyness, HarnessClient, HarnessConfig
-from deepseek_harness.errors import JsonRpcError, TransportClosedError
-from deepseek_harness_runtime import RUNTIME_MODE_ENV_VAR, resolve_bundled_launch_args
+from lyness import Lyness, HarnessClient, HarnessConfig
+from lyness.errors import JsonRpcError, TransportClosedError
+from lyness_runtime import RUNTIME_MODE_ENV_VAR, resolve_bundled_launch_args
 
 _MODES = ("exe", "node")
 

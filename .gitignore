@@ -29,8 +29,8 @@ mise.toml
 dist-exe/
 /dist/
 apps/desktop/.desktop-build/
-python/sdk-runtime/src/deepseek_harness_runtime/runtime/lyness-sdk-runtime-*
-python/sdk-runtime/src/deepseek_harness_runtime/runtime/node/
+python/sdk-runtime/src/lyness_runtime/runtime/lyness-sdk-runtime-*
+python/sdk-runtime/src/lyness_runtime/runtime/node/
 python/**/__pycache__/
 python/**/.pytest_cache/
 packages/**/__pycache__/

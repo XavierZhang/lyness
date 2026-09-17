@@ -1,0 +1,6 @@
+# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
+# side as of the last confirmed-consistent state. Both languages carry equal authority;
+# after editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write .agents/notes/implemented/process/2026-09-17-python-package-rename.md
+2026-09-17-python-package-rename.md: 9a8c5778d2710ba92fdbc38ec3d62435ad39c6a6
+2026-09-17-python-package-rename.zh.md: 8820ff4b847d0032e6e99b37e8b6cf0acdca0331

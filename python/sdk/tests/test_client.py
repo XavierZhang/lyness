@@ -9,8 +9,8 @@ from pathlib import Path
 
 import pytest
 
-from deepseek_harness import Lyness, HarnessClient, HarnessConfig, Notification, RunResult, SdkProtocolError
-from deepseek_harness.errors import JsonRpcError
+from lyness import Lyness, HarnessClient, HarnessConfig, Notification, RunResult, SdkProtocolError
+from lyness.errors import JsonRpcError
 
 
 def test_high_level_sdk_runs_turn_and_collects_final_response(tmp_path: Path) -> None:
@@ -849,7 +849,7 @@ for line in sys.stdin:
 
 
 def test_public_signatures_omit_unsupported_wire_parameters() -> None:
-    from deepseek_harness import LynessConfig, Session
+    from lyness import LynessConfig, Session
 
     assert "session_root" not in inspect.signature(HarnessClient.initialize).parameters
     assert "system_prompt" not in inspect.signature(HarnessClient.initialize).parameters
@@ -995,7 +995,7 @@ for line in sys.stdin:
 """.strip()
     )
 
-    module_dir = tmp_path / "deepseek_harness_runtime"
+    module_dir = tmp_path / "lyness_runtime"
     module_dir.mkdir()
     (module_dir / "__init__.py").write_text(
         f"""
@@ -1005,7 +1005,7 @@ def resolve_bundled_launch_args(mode=None):
     )
 
     monkeypatch.syspath_prepend(str(tmp_path))
-    monkeypatch.delitem(sys.modules, "deepseek_harness_runtime", raising=False)
+    monkeypatch.delitem(sys.modules, "lyness_runtime", raising=False)
 
 
 def test_client_default_launch_uses_bundled_lyn_sdk_profile_and_explicit_home(
@@ -1066,7 +1066,7 @@ def test_client_rejects_an_implicit_default_lyn_home(
 
 
 def test_client_reports_missing_bundled_runtime_dependency(monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.delitem(sys.modules, "deepseek_harness_runtime", raising=False)
+    monkeypatch.delitem(sys.modules, "lyness_runtime", raising=False)
     monkeypatch.setattr(sys, "path", [])
 
     with pytest.raises(FileNotFoundError, match="Install lyness-runtime-bin"):

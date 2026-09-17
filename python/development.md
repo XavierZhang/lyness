@@ -41,7 +41,7 @@ Trusted pull requests and master pushes also run `--scenario sdk-live --installe
 An interactive smoke test needs `DEEPSEEK_API_KEY` in the environment or repository-root `.env`:
 
 ```python
-from deepseek_harness import Lyness
+from lyness import Lyness
 
 with Lyness(lyn_home="/absolute/path/to/test-lyn-home") as harness:
     print(harness.run("say hi").final_response)
@@ -75,8 +75,8 @@ PY
 python scripts/build-python-release.py --package sdk --output-dir dist-python
 python scripts/build-python-release.py --package runtime --platform macos-arm64 --runtime-exe dist-exe/lyness-sdk-runtime-macos-arm64 --output-dir dist-python
 pip install \
-  "dist-python/deepseek_harness_sdk-$version-py3-none-any.whl" \
-  "dist-python/deepseek_harness_runtime_bin-$version-py3-none-macosx_14_0_arm64.whl"
+  "dist-python/lyness_sdk-$version-py3-none-any.whl" \
+  "dist-python/lyness_runtime_bin-$version-py3-none-macosx_14_0_arm64.whl"
 ```
 
 The runtime distribution is wheel-only. The release pipeline publishes five platform wheels with the pure SDK wheel: Linux x64, Linux arm64, macOS 14 or newer on arm64 and x64, and Windows x64 (`win_amd64`). A `python-v<repository-version>` tag is accepted only when it matches the repository version; prerelease repository versions such as `0.0.1-rc.1` use their normalized PEP 440 spelling, such as `0.0.1rc1`, inside wheel filenames and metadata.

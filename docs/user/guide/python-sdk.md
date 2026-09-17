@@ -83,7 +83,7 @@ The script prints the final assistant response. The selected home receives the g
 ```python
 from pathlib import Path
 
-from deepseek_harness import Lyness
+from lyness import Lyness
 
 workspace = Path("/absolute/path/to/disposable-workspace").resolve()
 lyn_home = Path("/absolute/path/to/example-lyn-home").resolve()

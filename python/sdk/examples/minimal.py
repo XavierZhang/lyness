@@ -7,7 +7,7 @@ import argparse
 import os
 from pathlib import Path
 
-from deepseek_harness import Lyness
+from lyness import Lyness
 
 
 def main() -> None:
