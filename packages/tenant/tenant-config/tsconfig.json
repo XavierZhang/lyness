@@ -12,16 +12,10 @@
       "path": "../../../vendor/cordis"
     },
     {
-      "path": "../../../vendor/schemastery"
-    },
-    {
-      "path": "../../host/webserver"
+      "path": "../../credentials/credentials"
     },
     {
       "path": "../tenant"
-    },
-    {
-      "path": "../tenant-config"
     }
   ]
 }

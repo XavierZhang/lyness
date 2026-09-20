@@ -1,6 +1,6 @@
 {
-  "name": "@lyness/lyn-tenant-http",
-  "description": "Resolves the tenant an HTTP request belongs to, from the tenant header, the hostname, or a subdomain slug",
+  "name": "@lyness/lyn-tenant-config",
+  "description": "Abstract tenant-configuration seam (ctx.tenantConfig): models, providers, features, identity, and copy one tenant configures",
   "version": "0.1.5-rc.1",
   "publishConfig": {
     "access": "public"
@@ -8,7 +8,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/XavierZhang/lyness.git",
-    "directory": "packages/tenant/tenant-http"
+    "directory": "packages/tenant/tenant-config"
   },
   "type": "module",
   "main": "lib/index.js",
@@ -18,28 +18,27 @@
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
     },
+    "./types": {
+      "types": "./lib/types/types.d.ts",
+      "default": "./lib/types/types.js"
+    },
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
   "files": [
     "lib/index.js",
+    "lib/types/**/*.js",
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
   "dependencies": {
-    "@lyness/lyn-tenant": "workspace:^",
-    "@lyness/schemastery": "workspace:^"
+    "@lyness/lyn-credentials": "workspace:^",
+    "@lyness/lyn-tenant": "workspace:^"
   },
   "peerDependencies": {
     "@lyness/cordis": "workspace:^"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/cordis-plugin-include": "workspace:^",
-    "@lyness/cordis-plugin-loader": "workspace:^",
-    "@lyness/lyn-host-webserver": "workspace:^",
-    "@lyness/lyn-tenant-config": "workspace:^",
-    "@lyness/lyn-tenant-config-static": "workspace:^",
-    "@lyness/lyn-tenant-static": "workspace:^"
+    "@lyness/cordis": "workspace:^"
   }
 }

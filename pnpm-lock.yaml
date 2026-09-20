@@ -9954,6 +9954,38 @@ importers:
         specifier: workspace:^
         version: link:../../../vendor/cordis
 
+  packages/tenant/tenant-config:
+    dependencies:
+      '@lyness/lyn-credentials':
+        specifier: workspace:^
+        version: link:../../credentials/credentials
+      '@lyness/lyn-tenant':
+        specifier: workspace:^
+        version: link:../tenant
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:^
+        version: link:../../../vendor/cordis
+
+  packages/tenant/tenant-config-static:
+    dependencies:
+      '@lyness/lyn-credentials':
+        specifier: workspace:^
+        version: link:../../credentials/credentials
+      '@lyness/lyn-tenant':
+        specifier: workspace:^
+        version: link:../tenant
+      '@lyness/lyn-tenant-config':
+        specifier: workspace:^
+        version: link:../tenant-config
+      '@lyness/schemastery':
+        specifier: link:../../../vendor/schemastery
+        version: link:../../../vendor/schemastery
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:^
+        version: link:../../../vendor/cordis
+
   packages/tenant/tenant-http:
     dependencies:
       '@lyness/lyn-tenant':
@@ -9975,6 +10007,12 @@ importers:
       '@lyness/lyn-host-webserver':
         specifier: workspace:^
         version: link:../../host/webserver
+      '@lyness/lyn-tenant-config':
+        specifier: workspace:^
+        version: link:../tenant-config
+      '@lyness/lyn-tenant-config-static':
+        specifier: workspace:^
+        version: link:../tenant-config-static
       '@lyness/lyn-tenant-static':
         specifier: workspace:^
         version: link:../tenant-static

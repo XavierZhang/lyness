@@ -2458,6 +2458,25 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
     ],
   },
   {
+    key: 'tenantConfig',
+    summary: 'Abstract tenant-configuration store.',
+    description: 'Abstract tenant-configuration store. Subclass, implement the read and the capability, and load the subclass as a plugin — it registers as `ctx.tenantConfig` (one store per context; loading a second throws, cordis\' standard duplicate-service behavior).\n\nA tenant with no configuration reads as `undefined` rather than as an empty configuration: nothing configured and everything configured empty are the same answer to a consumer, and both mean the tenant may use nothing.',
+    methods: [
+      {
+        signature: 'abstract get(tenantId: TenantId): Promise<TenantConfig | undefined>',
+        description: 'Read one tenant\'s configuration.',
+        parameters: [{ name: 'tenantId', description: 'the tenant.' }],
+        returns: 'the configuration, or undefined when the tenant has none.',
+      },
+      {
+        signature: 'abstract capability(): TenantConfigCapability',
+        description: 'Whether this backend can be saved to.',
+        parameters: [],
+        returns: 'the discriminated capability consumers switch on.',
+      },
+    ],
+  },
+  {
     key: 'tenants',
     summary: 'Abstract tenant directory.',
     description: 'Abstract tenant directory. Subclass, implement the three lookups, and load the subclass as a plugin — it registers as `ctx.tenants` (one directory per context; loading a second throws, cordis\' standard duplicate-service behavior).\n\nEvery lookup answers `undefined` for an unknown subject rather than throwing: not finding a tenant is an ordinary outcome of resolving an arbitrary request, and the Consumer decides what refusing looks like on its transport. Lookups are asynchronous because a directory may be a database.',
@@ -4724,6 +4743,14 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export interface MessageSourceMap {\n    user: {\n        kind: \'user\';\n    };\n    plugin: {\n        kind: \'plugin\';\n        plugin: string;\n    } & ContextFormed;\n    model: ModelMessageSource;\n    tool: ToolMessageSource;\n}',
   },
   {
+    name: 'Modality',
+    declaration: 'export type Modality = \'language\' | \'image\' | \'video\' | \'music\';',
+  },
+  {
+    name: 'ModalityModels',
+    declaration: 'export interface ModalityModels {\n    readonly available: readonly ModelChoice[];\n    readonly preferred?: ModelChoice | undefined;\n}',
+  },
+  {
     name: 'ModelCatalog',
     declaration: 'export interface ModelCatalog {\n    readonly default: ModelSelection;\n    readonly routableProviders: readonly string[];\n    readonly groups: readonly ModelProviderGroup[];\n    readonly failures: readonly ModelCatalogFailure[];\n}',
   },
@@ -4734,6 +4761,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'ModelCatalogModel',
     declaration: 'export interface ModelCatalogModel {\n    readonly id: string;\n    readonly name: string;\n    readonly description?: string;\n    readonly reasoning?: ModelReasoning;\n}',
+  },
+  {
+    name: 'ModelChoice',
+    declaration: 'export interface ModelChoice {\n    readonly provider: string;\n    readonly model: string;\n    readonly reasoningEffort?: string | undefined;\n}',
   },
   {
     name: 'ModelMessageSource',
@@ -4866,6 +4897,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'PromptSectionOrderName',
     declaration: 'export type PromptSectionOrderName = keyof typeof SECTION_ORDERS;',
+  },
+  {
+    name: 'ProviderGrant',
+    declaration: 'export interface ProviderGrant {\n    readonly provider: string;\n    readonly credential: CredentialRef;\n    readonly baseUrl?: string | undefined;\n}',
   },
   {
     name: 'ProviderRequestId',
@@ -5956,8 +5991,20 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export interface Tenant {\n    readonly id: TenantId;\n    readonly slug: string;\n    readonly displayName: string;\n}',
   },
   {
+    name: 'TenantConfig',
+    declaration: 'export interface TenantConfig {\n    readonly tenantId: TenantId;\n    readonly models: Readonly<Record<Modality, ModalityModels>>;\n    readonly providers: readonly ProviderGrant[];\n    readonly features: readonly string[];\n    readonly identity?: TenantIdentity | undefined;\n    readonly copy?: Readonly<Record<string, string>> | undefined;\n}',
+  },
+  {
+    name: 'TenantConfigCapability',
+    declaration: 'export type TenantConfigCapability = {\n    kind: \'read-only\';\n} | {\n    kind: \'writable\';\n    save(config: TenantConfig): Promise<void>;\n};',
+  },
+  {
     name: 'TenantId',
     declaration: 'export type TenantId = Branded<\'TenantId\'>;',
+  },
+  {
+    name: 'TenantIdentity',
+    declaration: 'export interface TenantIdentity {\n    readonly constraints: readonly string[];\n    readonly personality?: string | undefined;\n}',
   },
   {
     name: 'TerminalBackend',

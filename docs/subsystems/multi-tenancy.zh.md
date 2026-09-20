@@ -45,6 +45,51 @@ interface Tenant {
 
 解析不到的请求会被拒绝。没有兜底租户：租户是隔离边界，提供另一个组织的数据比什么都不提供更糟。`resolveTenant(directory, headers, baseDomain)` 已导出，因此第二个调用方无需路由即可应用同一顺序。
 
+## 租户配置
+
+`ctx.tenantConfig` 读取一个租户为自己配置的内容，由 [lyn-tenant-config](../../packages/tenant/tenant-config) 定义，并由组合配置中的行支撑（[lyn-tenant-config-static](../../packages/tenant/tenant-config-static)）。私有化部署与 SaaS 租户的配置方式完全相同，只是它只有一个租户。租户在此不配置的是品牌——标志、字标、favicon、产品名——那属于部署。
+
+```ts type-equiv
+/** Everything one tenant configures for itself. */
+interface TenantConfig {
+  /** The tenant this configuration belongs to. */
+  readonly tenantId: TenantId
+  /** Models by modality; every modality is present, and an empty list means unavailable. */
+  readonly models: Readonly<Record<Modality, ModalityModels>>
+  /** Providers this tenant may reach, each with its own key reference. */
+  readonly providers: readonly ProviderGrant[]
+  /** Features this tenant may use; a feature absent from the list is unavailable to it. */
+  readonly features: readonly string[]
+  /** Identity text this tenant contributes to its model requests. */
+  readonly identity?: TenantIdentity | undefined
+  /** Interface copy this tenant overrides, by copy id; never reaches a model request. */
+  readonly copy?: Readonly<Record<string, string>> | undefined
+}
+```
+
+授权携带的是 `CredentialRef` 而不是密钥，因此配置可以被读取、记录与导出而不携带任何密文；两个租户通过指向不同引用实现隔离。授权可以带自己的 `baseUrl`，租户接入自建模型走的就是这条路。没有配置的租户读作 `undefined`，空的模型清单表示该模态不可用——两者都不会借用部署方的模型，否则租户会花掉一个自己从未选择的账号。
+
+```ts type-equiv
+/**
+ * Identity text one tenant contributes to its own model requests.
+ *
+ * The two fields compose differently on purpose. Constraints accumulate down
+ * the layers — platform, organization, user, agent — and no lower layer
+ * removes one, so an organization's compliance rule survives whatever an agent
+ * says about itself. Personality is the voice, which a lower layer replaces.
+ */
+interface TenantIdentity {
+  /** Rules every request from this tenant carries; lower layers add to them and remove none. */
+  readonly constraints: readonly string[]
+  /** Voice this organization asks for, which an agent may replace with its own. */
+  readonly personality?: string | undefined
+}
+```
+
+身份在这里只有形状：把各层合成进提示词属于会话日志那一侧，因为进入模型请求的内容必须能从会话日志重建。组织与 Agent 之间的那一层是用户，它要等本部署具备用户记录后才出现。
+
+每个后端都据同一套规则校验——模型的供应商必须已授权、默认模型必须在可用清单内、不得重复，且 id、约束与文案覆盖不得为空——因此只读后端在加载时检查，可写后端在保存前检查。后端通过 `capability()` 说明自己属于哪一种，管理界面据此显示或隐藏保存，而不是靠失败去发现。
+
 ## 租户清单
 
 从组合配置读取的后端在加载时建立索引：id、标识、显示名，以及该租户被服务的主机名。它会拒绝没有任何租户的清单、格式不合法的行，以及两行争用同一个 id、标识或主机名，并按位置点名是哪一行——有歧义的清单会把请求解析到最后建索引的那一行。数据库支撑的目录可以替换这一行，而无需改动能力缝。
@@ -56,6 +101,31 @@ interface Tenant {
 ## Cordis API
 
 Generated from source by `scripts/gen-cordis-catalog.ts` (verified fresh by `pnpm run verify-cordis-catalog` in doc-sync; regenerate with `pnpm run gen-cordis-catalog`) — the language sides differ only in locale-specific paired document paths. Signature blocks use a `ts cordis-catalog` fence and keep the original source JSDoc; dispatch modes are defined in the [primer](../cordis-primer.zh.md#dispatch-modes), and the framework-inherited `ctx` API lives in [cordis-api/inherited.md](../cordis-api/inherited.md).
+
+<a id="ctxtenantconfig--tenantconfigstore-abstract-seam"></a>
+
+### `ctx.tenantConfig` — `TenantConfigStore` (abstract seam)
+
+Abstract tenant-configuration store. Subclass, implement the read and the capability, and load the subclass as a plugin — it registers as `ctx.tenantConfig` (one store per context; loading a second throws, cordis' standard duplicate-service behavior).
+
+A tenant with no configuration reads as `undefined` rather than as an empty configuration: nothing configured and everything configured empty are the same answer to a consumer, and both mean the tenant may use nothing.
+
+```ts cordis-catalog
+/**
+ * Read one tenant's configuration.
+ * @param tenantId - the tenant.
+ * @returns the configuration, or undefined when the tenant has none.
+ */
+abstract get(tenantId: TenantId): Promise<TenantConfig | undefined>
+
+/**
+ * Whether this backend can be saved to.
+ * @returns the discriminated capability consumers switch on.
+ */
+abstract capability(): TenantConfigCapability
+```
+
+Source: [`packages/tenant/tenant-config/src/index.ts`](../../packages/tenant/tenant-config/src/index.ts)
 
 <a id="ctxtenants--tenantdirectory-abstract-seam"></a>
 

@@ -8,12 +8,19 @@
  * roster, so a caller learns nothing beyond the tenant its own hostname or
  * header already names. An unresolved request is refused; a tenant is an
  * isolation boundary, so there is no fallback tenant to serve instead.
+ *
+ * When a deployment also mounts `ctx.tenantConfig`, the answer carries what a
+ * browser needs before it can render for this tenant: the features it may use
+ * and the interface copy it overrides. Models, provider grants, and credential
+ * references stay out of it — this route authenticates nobody, so it answers
+ * only with what the asking request's own hostname already implies.
  * @module @lyness/lyn-tenant-http
  */
 
 import { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
 import type {} from '@lyness/lyn-host-webserver'
+import type {} from '@lyness/lyn-tenant-config'
 import type { IncomingMessage, ServerResponse } from 'node:http'
 import { resolveTenant } from './resolve.ts'
 
@@ -83,7 +90,15 @@ export function apply(ctx: Context, config: Config): void {
       return
     }
     const { tenant, source } = resolved
-    json(res, 200, { id: tenant.id, slug: tenant.slug, displayName: tenant.displayName, source })
+    const identity = { id: tenant.id, slug: tenant.slug, displayName: tenant.displayName, source }
+    // Optional service: a deployment may resolve tenants without configuring them.
+    const configured = ctx.get('tenantConfig')
+    if (configured === undefined) {
+      json(res, 200, identity)
+      return
+    }
+    const config = await configured.get(tenant.id)
+    json(res, 200, { ...identity, features: config?.features ?? [], copy: config?.copy ?? {} })
   }
   ctx.effect(() => ctx.webServer.register({ kind: 'exact', path, handler }), 'tenant-http.route')
 }

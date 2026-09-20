@@ -24,6 +24,8 @@ A tenant is an organization whose data, configuration, and credentials stay sepa
 |---|---|
 | [`tenant`](tenant/README.md) | Service Definition: the `ctx.tenants` directory and the tenant vocabulary every face shares |
 | [`tenant-static`](tenant-static/README.md) | Provider: the roster an operator writes in composition config, validated at load |
+| [`tenant-config`](tenant-config/README.md) | Service Definition: what one tenant configures — models, providers, features, identity, copy |
+| [`tenant-config-static`](tenant-config-static/README.md) | Provider: those rows in composition config, validated at load |
 | [`tenant-http`](tenant-http/README.md) | Consumer: resolves the tenant one HTTP request belongs to, and answers which it is |
 
 <a id="related-documentation"></a>

@@ -24,6 +24,8 @@ kind: "package-group"
 |---|---|
 | [`tenant`](tenant/README.zh.md) | 服务定义：`ctx.tenants` 目录，以及各面共享的租户词汇 |
 | [`tenant-static`](tenant-static/README.zh.md) | 提供方：运营方写在组合配置里的租户清单，加载时校验 |
+| [`tenant-config`](tenant-config/README.zh.md) | 服务定义：一个租户配置什么——模型、供应商、功能、身份、文案 |
+| [`tenant-config-static`](tenant-config-static/README.zh.md) | 提供方：上述内容作为组合配置里的行，加载时校验 |
 | [`tenant-http`](tenant-http/README.zh.md) | 调用方：解析一个 HTTP 请求属于哪个租户，并答复是哪一个 |
 
 <a id="related-documentation"></a>

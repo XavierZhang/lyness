@@ -246,6 +246,8 @@
     { "path": "./packages/shell/shell" },
     { "path": "./packages/tenant/tenant" },
     { "path": "./packages/tenant/tenant-static" },
+    { "path": "./packages/tenant/tenant-config" },
+    { "path": "./packages/tenant/tenant-config-static" },
     { "path": "./packages/tenant/tenant-http" },
     { "path": "./packages/terminal/terminal" },
     { "path": "./packages/terminal/terminal-bash" },

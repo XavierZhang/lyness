@@ -92,6 +92,8 @@ const SENTENCE_MODEL_EXPERIENCE: Readonly<Record<string, SentenceContract>> = {
   'packages/client/ui-brand-lyness': { kind: 'none', reason: 'Browser-side presentation occupants; registers nothing model-facing.' },
   'packages/tenant/tenant': { kind: 'none', reason: 'Host-side tenant directory contract; nothing here reaches a model request.' },
   'packages/tenant/tenant-static': { kind: 'none', reason: 'Host-side tenant roster from composition config; nothing here reaches a model request.' },
+  'packages/tenant/tenant-config': { kind: 'none', reason: 'Host-side tenant configuration contract; a consumer that renders its identity text owns the model-facing effect.' },
+  'packages/tenant/tenant-config-static': { kind: 'none', reason: 'Host-side configuration rows from composition config; nothing here reaches a model request.' },
   'packages/tenant/tenant-http': { kind: 'none', reason: 'Host-side HTTP resolution of the requesting tenant; nothing here reaches a model request.' },
   'packages/host/brand-fonts': { kind: 'none', reason: 'Ships font files for wordmark typesetting; registers nothing model-facing.' },
   'packages/bundle/brand-studio': { kind: 'none', reason: 'Operator command that writes brand files and a patch layer; mounts no model-facing row.' },

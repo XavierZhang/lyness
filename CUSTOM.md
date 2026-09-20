@@ -45,7 +45,7 @@
 | `packages/bundle/web-app/cordis.patch.yml`、`package.json` | `ui-brand-official` 行换成 `ui-brand-lyness` | 浏览器插件名单只在 bundle patch 里 | 2026-09-15 |
 | `apps/web/public/favicon.svg`、`website/public/{favicon,wordmark}.svg`、`packages/skill/skill-badge/assets/lyn-badge.png`（+ `tests/skill-badge.spec.ts` 的哈希） | 换成 lyness 图形 | 图片资产，codemod 表达不了。⚠️ **合并时 `read-tree` 会把它们重置为上游版本，必须从本 fork 恢复** | 2026-09-15 |
 | `website/.vitepress/config.ts` | 两处 "DeepSeek wordmark" 注释 | 注释描述的文件已换 | 2026-09-15 |
-| `scripts/gen-cordis-catalog.ts`、`scripts/gen-doc-graphs.ts`、`scripts/type-equiv.manifest.json`、`scripts/verify-package-readme-model-experience.ts`、`docs/subsystems/README.md`、`packages/README.md` | 登记 `ctx.tenants`：服务→子系统页、类型→文档页、能力缝角色、类型等价清单、Model Experience、两处索引 | 新增 `ctx` 服务必须逐表登记，这些表都是写死的映射，没有扩展点；不登记则生成器直接报错 | 2026-09-17 |
+| `scripts/gen-cordis-catalog.ts`、`scripts/gen-doc-graphs.ts`、`scripts/type-equiv.manifest.json`、`scripts/verify-package-readme-model-experience.ts`、`docs/subsystems/README.md`、`packages/README.md` | 登记 `ctx.tenants` 与 `ctx.tenantConfig`：服务→子系统页、类型→文档页、能力缝角色、类型等价清单、Model Experience、两处索引 | 新增 `ctx` 服务必须逐表登记，这些表都是写死的映射，没有扩展点；不登记则生成器直接报错 | 2026-09-17 |
 | `scripts/gen-third-party-notices.ts`、`lefthook.yml`、`scripts/check-workspace-constraints.ts` | 新增「内置第三方文件」段落；brand-fonts 的 `fonts/` 与清单加入可发布文件白名单：读各包 `third-party-assets.json`，校验 sha256、许可证（宽松或 OFL-1.1 字体）、未登记字体文件即报错 | 上游只声明 npm 依赖与 vendored 包，仓库内随附的字体文件没有声明入口；OFL 字体要合规分发必须被声明 | 2026-09-16 |
 | `packages/boot/app-boot/src/profile.ts`（+ `tests/profile.spec.ts`）、`apps/cli/package.json`、`docs/architecture{,.zh}.md` | `PROFILE_TEMPLATES` 新增 `brand-studio`；CLI 依赖该 bundle；应用清单加一项 | 随附 profile 名单是写死的表，没有注册接缝；不登记则 `lyn --profile brand-studio` 报 "does not exist" | 2026-09-15 |
 
@@ -115,6 +115,7 @@ codemod 只改文本和路径。下面这些是它改完之后必然过期、必
 
 | 能力 | 位置 | 说明 |
 |---|---|---|
+| 租户配置 | `packages/tenant/{tenant-config,tenant-config-static}` | `ctx.tenantConfig`：按模态的模型（语言／图片／视频／音乐）、供应商授权（带凭据引用与自建端点，密钥不入配置）、功能开关、身份（约束叠加／个性替换）、界面文案覆盖。不回落部署级模型；后端自报只读或可写。[决策](.agents/notes/implemented/architecture/2026-09-20-tenant-configuration-seam.md) |
 | 租户能力缝 | `packages/tenant/{tenant,tenant-static,tenant-http}` | `ctx.tenants` 目录（按不可变 id／主机名／子域名标识三种查法）+ 组合配置清单提供方 + HTTP 调用方（请求头 → 主机名 → 子域名，解析不到即拒绝，无兜底租户）。不挂载即单租户。[决策](.agents/notes/implemented/architecture/2026-09-17-tenant-directory-seam.md)、[子系统页](docs/subsystems/multi-tenancy.md) |
 | 内置字标字体 | `packages/host/brand-fonts` | Inter SemiBold + Noto Sans CJK SC Medium（均 OFL-1.1，原样随附），覆盖拉丁／希腊／西里尔／中日韩；**只用于品牌字标**，不下发浏览器。声明走 `third-party-assets.json`（校验和 + 许可证 + 未登记字体文件即报错） |
 | 品牌引导命令 | `packages/bundle/brand-studio` | `lyn --profile brand-studio`：图标 PNG + 字体文件 → 三个 SVG，写入目标 profile（默认 `web`）补丁层的 `brand-deployment` 行。仅参数、仅上传路径；品牌方自带字体，须 `--accept-trademark` 与 `--accept-font-license` 确认（SaaS 只用平台内置字体，见 `.fork/BRAND-CONFIG.md` 字体一节）。[决策](.agents/notes/implemented/architecture/2026-09-15-brand-studio-profile.md) |

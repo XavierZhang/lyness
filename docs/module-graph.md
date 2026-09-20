@@ -350,6 +350,8 @@ flowchart TD
   end
   subgraph group_tenant["packages/tenant"]
     pkg_tenant["tenant"]
+    pkg_tenant_config["tenant-config"]
+    pkg_tenant_config_static["tenant-config-static"]
     pkg_tenant_http["tenant-http"]
     pkg_tenant_static["tenant-static"]
   end
@@ -1291,6 +1293,8 @@ flowchart TD
 | [`storage`](../packages/storage/storage) | `storage` | — |
 | [`win32-process`](../packages/subprocess/win32-process) | `subprocess` | — |
 | [`tenant`](../packages/tenant/tenant) | `tenant` | — |
+| [`tenant-config`](../packages/tenant/tenant-config) | `tenant` | — |
+| [`tenant-config-static`](../packages/tenant/tenant-config-static) | `tenant` | — |
 | [`tenant-http`](../packages/tenant/tenant-http) | `tenant` | — |
 | [`tenant-static`](../packages/tenant/tenant-static) | `tenant` | — |
 | [`llm-mock-server`](../packages/test-support/llm-mock-server) | `test-support` | — |

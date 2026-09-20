@@ -40,6 +40,15 @@ $ curl -s -H 'Host: acme.example.com' localhost:8080/tenant
 {"id":"acme","slug":"acme","displayName":"Acme","source":"host"}
 ```
 
+当部署同时挂载了 [`tenant-config`](../tenant-config/README.zh.md)，答复会带上浏览器为该租户渲染之前所需的内容——仅此而已：
+
+```console
+$ curl -s -H 'Host: acme.example.com' localhost:8080/tenant
+{"id":"acme","slug":"acme","displayName":"Acme","source":"host","features":["workflow"],"copy":{"session.new.label":"New ticket"}}
+```
+
+模型、供应商授权与凭据引用都不在其中：本路由不鉴权，因此只答复发起请求的一方其主机名本就指明的内容。已解析但部署尚未配置的租户，得到的是空功能清单与无文案覆盖。
+
 ### 解析顺序
 
 | 顺序 | 来源 | 规则 |
@@ -73,6 +82,7 @@ $ curl -s -H 'Host: acme.example.com' localhost:8080/tenant
 
 - [tenant](../tenant/README.zh.md)——本调用方读取的目录。
 - [tenant-static](../tenant-static/README.zh.md)——主机名或标识据以匹配的租户清单。
+- [tenant-config](../tenant-config/README.zh.md)——本路由读取功能与文案的可选配置。
 - [webserver](../../host/webserver/README.zh.md)——路由注册其上的载体。
 
 -----
@@ -92,7 +102,7 @@ $ curl -s -H 'Host: acme.example.com' localhost:8080/tenant
 
 以下是当前的约束，不是任务清单。
 
-- **该路由不做鉴权** —— 它只答复发起请求的一方，且答复内容正是该请求自身的主机名或请求头已指明的租户，但它自己不做任何会话或令牌校验。
+- **该路由不做鉴权** —— 它只答复发起请求的一方，内容是该请求自身的租户身份及其功能与文案，但它自己不做任何会话或令牌校验；租户不会公开的内容（如模型与密钥）必须走需要鉴权的接口。
 - **解析止于答复** —— 没有任何机制把已解析的租户带进 RPC 网关或会话日志；那些调用方出现后自行调用 `resolveTenant`。
 - **只有一个基础域名** —— 在多个域名下服务租户的部署，改为在清单里逐个声明主机名。
 

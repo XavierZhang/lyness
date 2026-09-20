@@ -629,6 +629,15 @@ const SERVICE_ROLES: ServiceRole[] = [
     note: 'Discriminated interaction capability: the native backend opens one OS chooser on the host display, the browse backend serves listing/creation primitives for the in-app browser; dual-face backends fill ui-workspace directory-flow slots from their browser halves (no wire advertisement).',
   },
   {
+    key: 'tenantConfig',
+    pkg: 'tenant-config',
+    title: 'Tenant configuration seam',
+    mode: 'seam',
+    implementations: ['tenant-config-static'],
+    consumers: ['tenant-http'],
+    note: 'What one tenant configures for itself — models per modality, provider grants carrying credential references rather than keys, features, identity text, and copy overrides; a backend states whether it can be saved to, and every backend validates against one rule set.',
+  },
+  {
     key: 'tenants',
     pkg: 'tenant',
     title: 'Tenant directory seam',

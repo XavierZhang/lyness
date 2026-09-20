@@ -17,10 +17,12 @@ import Loader from '@lyness/cordis-plugin-loader'
 import Include from '@lyness/cordis-plugin-include'
 import HttpServer from '@lyness/lyn-host-webserver'
 import StaticTenantDirectory from '@lyness/lyn-tenant-static'
+import StaticTenantConfigStore from '@lyness/lyn-tenant-config-static'
 import * as TenantHttp from '../src/index.ts'
 
 const WEBSERVER = '@lyness/lyn-host-webserver'
 const STATIC = '@lyness/lyn-tenant-static'
+const CONFIG = '@lyness/lyn-tenant-config-static'
 const HTTP = '@lyness/lyn-tenant-http'
 
 let root: string | undefined
@@ -33,8 +35,12 @@ afterEach(async () => {
   root = undefined
 })
 
-/** Boot the three rows through the real Loader and report the listening port. */
-async function compose(): Promise<number> {
+/**
+ * Boot the rows through the real Loader and report the listening port.
+ * @param options - whether the deployment also configures its tenants.
+ * @returns the port the composed server listens on.
+ */
+async function compose(options: { configured?: boolean } = {}): Promise<number> {
   root = await mkdtemp(join(tmpdir(), 'lyn-tenant-http-'))
   const configPath = join(root, 'cordis.yml')
   await writeFile(configPath, [
@@ -50,6 +56,28 @@ async function compose(): Promise<number> {
     "        displayName: 'Acme'",
     '        hosts:',
     "          - 'acme.example.com'",
+    "      - id: 'globex'",
+    "        slug: 'globex'",
+    "        displayName: 'Globex'",
+    ...options.configured !== true ? [] : [
+      `- name: '${CONFIG}'`,
+      '  config:',
+      '    tenants:',
+      "      - tenantId: 'acme'",
+      '        providers:',
+      "          - provider: 'self-hosted'",
+      "            credential: 'ACME_SELF_HOSTED_KEY'",
+      "            baseUrl: 'https://models.acme.internal/v1'",
+      '        models:',
+      '          image:',
+      '            available:',
+      "              - provider: 'self-hosted'",
+      "                model: 'sdxl'",
+      '        features:',
+      "          - 'workflow'",
+      '        copy:',
+      "          session.new.label: 'New ticket'",
+    ],
     `- name: '${HTTP}'`,
     '  config:',
     "    baseDomain: 'tenants.example.com'",
@@ -63,6 +91,7 @@ async function compose(): Promise<number> {
   const modules = new Map<string, unknown>([
     [WEBSERVER, HttpServer],
     [STATIC, StaticTenantDirectory],
+    [CONFIG, StaticTenantConfigStore],
     [HTTP, TenantHttp],
   ])
   context.loader.internal = {
@@ -108,9 +137,28 @@ describe('the composed tenant route', () => {
     expect(JSON.parse((await ask(port, { host: 'acme.tenants.example.com' })).body)).toMatchObject({ id: 'acme', source: 'subdomain' })
   })
 
+  it('carries the features and copy a configured tenant may use', async () => {
+    const port = await compose({ configured: true })
+
+    expect(JSON.parse((await ask(port, { host: 'acme.example.com' })).body)).toEqual({
+      id: 'acme',
+      slug: 'acme',
+      displayName: 'Acme',
+      source: 'host',
+      features: ['workflow'],
+      copy: { 'session.new.label': 'New ticket' },
+    })
+    // A resolved tenant the deployment has not configured may use nothing.
+    expect(JSON.parse((await ask(port, { host: 'x.example.com', 'x-tenant-id': 'globex' })).body))
+      .toMatchObject({ id: 'globex', features: [], copy: {} })
+    // Keys and model grants never leave over this unauthenticated route.
+    expect((await ask(port, { host: 'acme.example.com' })).body).not.toContain('ACME_SELF_HOSTED_KEY')
+    expect((await ask(port, { host: 'acme.example.com' })).body).not.toContain('sdxl')
+  })
+
   it('refuses a request that names no tenant of this deployment', async () => {
     const port = await compose()
-    for (const headers of [{ host: 'globex.example.com' }, { host: 'acme.example.com', 'x-tenant-id': 'globex' }]) {
+    for (const headers of [{ host: 'nobody.example.com' }, { host: 'acme.example.com', 'x-tenant-id': 'nobody' }]) {
       expect(await ask(port, headers)).toEqual({ status: 404, body: JSON.stringify({ error: 'unknown-tenant' }) })
     }
   })

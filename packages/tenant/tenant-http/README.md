@@ -40,6 +40,15 @@ $ curl -s -H 'Host: acme.example.com' localhost:8080/tenant
 {"id":"acme","slug":"acme","displayName":"Acme","source":"host"}
 ```
 
+When the deployment also mounts [`tenant-config`](../tenant-config/README.md), the answer carries what a browser needs before it can render for this tenant — and nothing else:
+
+```console
+$ curl -s -H 'Host: acme.example.com' localhost:8080/tenant
+{"id":"acme","slug":"acme","displayName":"Acme","source":"host","features":["workflow"],"copy":{"session.new.label":"New ticket"}}
+```
+
+Models, provider grants, and credential references stay out of it: this route authenticates nobody, so it answers only with what the asking request's own hostname already implies. A resolved tenant the deployment has not configured answers with an empty feature list and no copy overrides.
+
 ### Resolution order
 
 | Order | Source | Rule |
@@ -73,6 +82,7 @@ A request that resolves to none is answered `404` with `{"error":"unknown-tenant
 
 - [tenant](../tenant/README.md) — the directory this consumer reads.
 - [tenant-static](../tenant-static/README.md) — the roster a hostname or slug is matched against.
+- [tenant-config](../tenant-config/README.md) — the optional configuration this route reads features and copy from.
 - [webserver](../../host/webserver/README.md) — the carrier the route registers on.
 
 -----
@@ -92,7 +102,7 @@ None; this package neither assembles nor sends a provider request.
 
 These are current constraints, not a task backlog.
 
-- **The route is unauthenticated** — it answers only about the asking request, and the answer is what that request's own hostname or header already names, but it applies no session or token check of its own.
+- **The route is unauthenticated** — it answers only about the asking request, with that request's own tenant identity plus its features and copy, but it applies no session or token check of its own; anything a tenant would not publish, such as its models or keys, must travel over an authenticated surface instead.
 - **Resolution stops at the answer** — nothing carries the resolved tenant into the RPC gateway or the session log; those consumers call `resolveTenant` themselves once they exist.
 - **One base domain** — a deployment serving tenants under several domains claims each hostname in the roster instead.
 

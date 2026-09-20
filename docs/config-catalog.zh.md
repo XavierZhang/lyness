@@ -2639,6 +2639,74 @@ export interface Config {
 
 来源：[`packages/core/system-prompt/src/index.ts:242`](../packages/core/system-prompt/src/index.ts)
 
+<a id="lynesslyn-tenant-config-static"></a>
+
+## `@lyness/lyn-tenant-config-static`
+
+```ts config-catalog
+/** Plugin config: one row per configured tenant. */
+export interface Config {
+  /** Every tenant this deployment configures; at least one. */
+  tenants: TenantConfigEntry[]
+}
+
+/** One configured tenant. */
+export interface TenantConfigEntry {
+  /** The tenant this row configures. */
+  tenantId: string
+  /** Providers this tenant may reach. */
+  providers?: ProviderEntry[]
+  /** Models by modality; an absent modality is unavailable to this tenant. */
+  models?: Partial<Record<Modality, ModalityEntry>>
+  /** Features this tenant may use. */
+  features?: string[]
+  /** Identity text this tenant contributes to its model requests. */
+  identity?: IdentityEntry | null
+  /** Interface copy this tenant overrides, by copy id. */
+  copy?: Record<string, string>
+}
+
+/** One configured provider grant. */
+export interface ProviderEntry {
+  /** Provider id this tenant's models name. */
+  provider: string
+  /** Credential reference naming the tenant's key; the value lives in the credential store. */
+  credential: string
+  /** Endpoint to reach the provider at, for a tenant running the model itself. */
+  baseUrl?: string
+}
+
+/** One configured modality. */
+export interface ModalityEntry {
+  /** Models this tenant may use; omitted or empty means the modality is unavailable to it. */
+  available?: ModelEntry[]
+  /** The model chosen when a caller names none; must be one of `available`. */
+  preferred?: ModelEntry | null
+}
+
+/** One configured tenant identity. */
+export interface IdentityEntry {
+  /** Rules every request from this tenant carries. */
+  constraints?: string[]
+  /** Voice this organization asks for. */
+  personality?: string
+}
+
+/** One configured model. */
+export interface ModelEntry {
+  /** Provider id, which must also appear in this tenant's provider grants. */
+  provider: string
+  /** Model id as that provider names it. */
+  model: string
+  /** Provider-specific reasoning effort, when the provider takes one. */
+  reasoningEffort?: string
+}
+```
+
+依赖：[`Modality`](subsystems/multi-tenancy.zh.md)
+
+来源：[`packages/tenant/tenant-config-static/src/index.ts:80`](../packages/tenant/tenant-config-static/src/index.ts)
+
 <a id="lynesslyn-tenant-http"></a>
 
 ## `@lyness/lyn-tenant-http`
@@ -3623,6 +3691,7 @@ export interface Config {
 - `@lyness/lyn-spill` — 抽象 `SpillStore`（[`packages/spill/spill/src/index.ts`](../packages/spill/spill/src/index.ts)）
 - `@lyness/lyn-subprocess` — 抽象 `SubprocessRuntime`（[`packages/subprocess/subprocess/src/index.ts`](../packages/subprocess/subprocess/src/index.ts)）
 - `@lyness/lyn-tenant` — 抽象 `TenantDirectory`（[`packages/tenant/tenant/src/index.ts`](../packages/tenant/tenant/src/index.ts)）
+- `@lyness/lyn-tenant-config` — 抽象 `TenantConfigStore`（[`packages/tenant/tenant-config/src/index.ts`](../packages/tenant/tenant-config/src/index.ts)）
 - `@lyness/lyn-workflow` — 抽象 `WorkflowEngine`（[`packages/workflow/workflow/src/index.ts`](../packages/workflow/workflow/src/index.ts)）
 ## 库包（无插件入口）
 

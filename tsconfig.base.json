@@ -410,6 +410,8 @@
       "@lyness/lyn-system-prompt": ["./packages/core/system-prompt/src"],
       "@lyness/lyn-system-prompt/invariant": ["./packages/core/system-prompt/src/invariant.ts"],
       "@lyness/lyn-tenant": ["./packages/tenant/tenant/src"],
+      "@lyness/lyn-tenant-config": ["./packages/tenant/tenant-config/src"],
+      "@lyness/lyn-tenant-config-static": ["./packages/tenant/tenant-config-static/src"],
       "@lyness/lyn-tenant-http": ["./packages/tenant/tenant-http/src"],
       "@lyness/lyn-tenant-static": ["./packages/tenant/tenant-static/src"],
       "@lyness/lyn-terminal": ["./packages/terminal/terminal/src"],
