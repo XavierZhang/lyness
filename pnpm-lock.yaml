@@ -10017,6 +10017,43 @@ importers:
         specifier: workspace:^
         version: link:../tenant-static
 
+  packages/tenant/tenant-session:
+    dependencies:
+      '@lyness/lyn-session':
+        specifier: workspace:^
+        version: link:../../core/session
+      '@lyness/lyn-session-projection':
+        specifier: workspace:^
+        version: link:../../session/session-projection
+      '@lyness/lyn-tenant':
+        specifier: workspace:^
+        version: link:../tenant
+      '@lyness/lyn-tenant-config':
+        specifier: workspace:^
+        version: link:../tenant-config
+      '@lyness/schemastery':
+        specifier: link:../../../vendor/schemastery
+        version: link:../../../vendor/schemastery
+      zod:
+        specifier: ^4.4.3
+        version: 4.4.3
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:^
+        version: link:../../../vendor/cordis
+      '@lyness/cordis-plugin-include':
+        specifier: workspace:^
+        version: link:../../../vendor/include
+      '@lyness/cordis-plugin-loader':
+        specifier: workspace:^
+        version: link:../../../vendor/loader
+      '@lyness/lyn-tenant-config-static':
+        specifier: workspace:^
+        version: link:../tenant-config-static
+      '@lyness/lyn-tenant-static':
+        specifier: workspace:^
+        version: link:../tenant-static
+
   packages/tenant/tenant-static:
     dependencies:
       '@lyness/lyn-tenant':

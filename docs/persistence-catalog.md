@@ -909,6 +909,25 @@ Types: [TeamId](subsystems/agent-team.md) · [TeamTaskSnapshot](subsystems/agent
 
 Source: [`packages/experimental/agent-team/src/types.ts:223`](../packages/experimental/agent-team/src/types.ts)
 
+### `tenant/*`
+
+<a id="tenantidentity--log-only"></a>
+
+#### `tenant/identity` — log-only
+
+```ts persistence-catalog
+/**
+ * Records the tenant this session belongs to and the identity text that
+ * tenant contributed, as durable, log-only attribution. It stays out of
+ * the model transcript: the identity itself reaches the model through the
+ * assembled system prompt, and this record is what lets a later reader
+ * attribute the session and reconstruct the text it ran under.
+ */
+'tenant/identity': TenantSessionRecord
+```
+
+Source: [`packages/tenant/tenant-session/src/index.ts:54`](../packages/tenant/tenant-session/src/index.ts)
+
 ### `todo/*`
 
 <a id="todowrite--log-only"></a>

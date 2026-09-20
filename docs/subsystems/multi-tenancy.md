@@ -90,6 +90,12 @@ Identity is shape here and nothing more: composing the layers into a prompt belo
 
 Every backend validates against one rule set — a model's provider must be granted, a preferred model must be available, nothing repeats, and no id, constraint, or copy override is blank — so a read-only backend checks at load and a writable one checks before it saves. A backend states which it is through `capability()`, so an administration surface shows or hides saving rather than discovering it by failing.
 
+## In the session log
+
+A session records which tenant it belongs to and the identity text that tenant contributed, as the log-only `tenant/identity` event written once at creation ([lyn-tenant-session](../../packages/tenant/tenant-session), catalog entry in [persistence-catalog](../persistence-catalog.md#tenantidentity--log-only)). Attribution needs the tenant long after a session ends; reconstruction needs the text itself, because it reaches the model and a later edit to the tenant's configuration would otherwise leave the session unreadable. A fork or a resumed session keeps the record it was created with, and the `tenant` session projection folds it back.
+
+The tenant comes from the plugin's configuration rather than from the request that created the session: session creation carries no tenant today, and the request-scoped path is separate work.
+
 ## The roster
 
 The composition-configured backend indexes rows at load: id, slug, display name, and the hostnames the tenant is served on. It refuses a roster that names no tenant, a malformed row, and two rows claiming one id, slug, or hostname, naming the row by position — an ambiguous roster would resolve a request to whichever row was indexed last. A database-backed directory replaces this row without changing the seam.

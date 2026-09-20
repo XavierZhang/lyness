@@ -27,6 +27,7 @@ kind: "package-group"
 | [`tenant-config`](tenant-config/README.zh.md) | 服务定义：一个租户配置什么——模型、供应商、功能、身份、文案 |
 | [`tenant-config-static`](tenant-config-static/README.zh.md) | 提供方：上述内容作为组合配置里的行，加载时校验 |
 | [`tenant-http`](tenant-http/README.zh.md) | 调用方：解析一个 HTTP 请求属于哪个租户，并答复是哪一个 |
+| [`tenant-session`](tenant-session/README.zh.md) | 调用方：在持久日志里给每个会话打上其租户与该租户的身份文本 |
 
 <a id="related-documentation"></a>
 ## 相关文档

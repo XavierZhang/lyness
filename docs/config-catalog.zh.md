@@ -2725,6 +2725,28 @@ export interface Config {
 
 来源：[`packages/tenant/tenant-http/src/index.ts:30`](../packages/tenant/tenant-http/src/index.ts)
 
+<a id="lynesslyn-tenant-session"></a>
+
+## `@lyness/lyn-tenant-session`
+
+需要： `sessionProjections` · `sessions` · `tenants`
+
+```ts config-catalog
+/** Plugin config: which tenant this deployment's sessions belong to. */
+export interface Config {
+  /**
+   * The tenant every session created on this deployment belongs to.
+   *
+   * One deployment serves one tenant here. A deployment serving several needs
+   * the tenant of the request that created the session, which the session
+   * creation call does not carry today.
+   */
+  tenantId: string
+}
+```
+
+来源：[`packages/tenant/tenant-session/src/index.ts:90`](../packages/tenant/tenant-session/src/index.ts)
+
 <a id="lynesslyn-tenant-static"></a>
 
 ## `@lyness/lyn-tenant-static`
