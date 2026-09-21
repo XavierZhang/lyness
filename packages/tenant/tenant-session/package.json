@@ -35,13 +35,17 @@
     "zod": "^4.4.3"
   },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:^",
+    "@lyness/lyn-tenant-request": "workspace:^"
   },
   "devDependencies": {
     "@lyness/cordis": "workspace:^",
     "@lyness/cordis-plugin-include": "workspace:^",
     "@lyness/cordis-plugin-loader": "workspace:^",
+    "@lyness/lyn-client-connection": "workspace:^",
+    "@lyness/lyn-credentials": "workspace:^",
     "@lyness/lyn-tenant-config-static": "workspace:^",
+    "@lyness/lyn-tenant-request": "workspace:^",
     "@lyness/lyn-tenant-static": "workspace:^"
   }
 }

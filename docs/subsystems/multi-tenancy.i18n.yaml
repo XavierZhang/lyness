@@ -2,5 +2,5 @@
 # side as of the last confirmed-consistent state. Both languages carry equal authority;
 # after editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write docs/subsystems/multi-tenancy.md
-multi-tenancy.md: eb40048e8cc0e4aced1f2f7a51d3b314c352be83
-multi-tenancy.zh.md: 6ba798bd5941a966bd067c2a366d493839f98062
+multi-tenancy.md: 3c61e7846647619804a4f04247c7ac30c9a0c905
+multi-tenancy.zh.md: e1e31f6fad1dc911c785055af8aaf81b0fb9bbcc

@@ -103,6 +103,30 @@ export type ConnectionRpcHandler = (
   signal: AbortSignal,
 ) => Promise<ConnectionRpcResult<unknown>>
 
+/**
+ * Run one decoded RPC call inside state derived from its HTTP request.
+ *
+ * The handler signature carries the endpoint, the payload, and the caller's
+ * cancellation, and deliberately not the request: a channel owner answers about
+ * what the caller asked for, not about how the call arrived. A deployment that
+ * must derive per-call state from the transport — which organization a request
+ * belongs to, which identity signed it — registers a scope instead, resolves
+ * that state before `run`, and publishes it where the call can read it.
+ *
+ * `run` must be awaited and its result returned unchanged. A scope decides
+ * context, never outcome: returning another result, or not calling `run`, turns
+ * every endpoint on every channel into something its owner did not write.
+ *
+ * A scope sees the request after the trust fence, the browser authentication,
+ * and envelope decoding have all accepted it, so it is not a place to refuse a
+ * call. The body has already been read by then; a scope reads headers and the
+ * URL, not `request.json()`.
+ */
+export type ConnectionRequestScope = (
+  request: Request,
+  run: () => Promise<ConnectionRpcResult<unknown>>,
+) => Promise<ConnectionRpcResult<unknown>>
+
 /** Synchronous ownership test for one endpoint on a shared RPC channel. */
 export type ConnectionRpcEndpointMatcher = (endpoint: string) => boolean
 
@@ -159,6 +183,14 @@ export interface HostConnectionRpc {
     matches: ConnectionRpcEndpointMatcher,
     handler: ConnectionRpcHandler,
   ): () => Promise<void>
+
+  /**
+   * Run every decoded call on every channel inside one per-request scope.
+   * Several scopes nest in registration order, outermost first.
+   * @param scope - wrapper resolving per-request state around the call.
+   * @returns asynchronous disposer removing this scope.
+   */
+  scope(scope: ConnectionRequestScope): () => Promise<void>
 }
 
 /** Host `ctx.connection` shape consumed by transport-independent adapters. */

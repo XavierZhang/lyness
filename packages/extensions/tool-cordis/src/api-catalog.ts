@@ -1399,6 +1399,19 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
     ],
   },
   {
+    key: 'requestTenant',
+    summary: 'What a consumer may do with the tenant of the call in progress.',
+    description: 'What a consumer may do with the tenant of the call in progress.',
+    methods: [
+      {
+        signature: 'current(): RequestTenant | undefined',
+        description: 'The tenant of the call in progress.',
+        parameters: [],
+        returns: 'the resolved tenant, or undefined outside a call and for a call that named none.',
+      },
+    ],
+  },
+  {
     key: 'sandbox',
     summary: 'Abstract process-sandbox service.',
     description: 'Abstract process-sandbox service. confine must return enforcing argv or fail closed at wrap or runner-execution time; silent unconfined passthrough is forbidden. Functional probes arbitrate multi-runner chains and may be skipped for a sole candidate, whose own refusal remains the fail-closed end.',
@@ -2473,6 +2486,27 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         description: 'Whether this backend can be saved to.',
         parameters: [],
         returns: 'the discriminated capability consumers switch on.',
+      },
+    ],
+  },
+  {
+    key: 'tenantController',
+    summary: 'Host service backing the generated `ctx.remote.tenant` namespace.',
+    description: 'Host service backing the generated `ctx.remote.tenant` namespace.\n\nEvery method answers about the calling tenant and refuses a call that named none, because there is no tenant whose configuration it could be shown.',
+    methods: [
+      {
+        signature: '@Remote describe(): TenantConfigView',
+        description: 'Read the calling tenant\'s own configuration.',
+        parameters: [],
+        returns: 'who the caller is, whether this deployment accepts saves, and the configuration.',
+        throws: ['{RemoteError} `tenant/unresolved` when the call named no tenant.'],
+      },
+      {
+        signature: '@Remote async save(input: TenantConfigInput): Promise<TenantConfigView>',
+        description: 'Replace the calling tenant\'s whole configuration.',
+        parameters: [{ name: 'input', description: 'the complete configuration to store; it names no tenant, because the call already does.' }],
+        returns: 'the configuration as the store now reads it.',
+        throws: ['{RemoteError} `tenant/unresolved`, `gateway/bad-request` for invalid fields, `gateway/internal` when no store is mounted, `tenant/read-only` when the store refuses saves, or `tenant/rejected` when a seam rule refuses the configuration.'],
       },
     ],
   },
@@ -4979,6 +5013,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export type RequestRunOutcome = \'approved\' | \'completed\' | \'rejected\' | \'cancelled\' | \'failed\';',
   },
   {
+    name: 'RequestTenant',
+    declaration: 'export interface RequestTenant {\n    readonly tenant: Tenant;\n    readonly source: TenantSource;\n    readonly config?: TenantConfig | undefined;\n}',
+  },
+  {
     name: 'ResolvedAlwaysRetryPolicy',
     declaration: 'export interface ResolvedAlwaysRetryPolicy extends ResolvedRetryBackoff {\n    readonly mode: \'always\';\n}',
   },
@@ -5999,12 +6037,40 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export type TenantConfigCapability = {\n    kind: \'read-only\';\n} | {\n    kind: \'writable\';\n    save(config: TenantConfig): Promise<void>;\n};',
   },
   {
+    name: 'TenantConfigInput',
+    declaration: 'export interface TenantConfigInput {\n    readonly models: Readonly<Record<string, TenantModalityView>>;\n    readonly providers: readonly TenantProviderView[];\n    readonly features: readonly string[];\n    readonly identity?: TenantIdentityView | undefined;\n    readonly copy?: Readonly<Record<string, string>> | undefined;\n}',
+  },
+  {
+    name: 'TenantConfigView',
+    declaration: 'export interface TenantConfigView {\n    readonly tenantId: string;\n    readonly slug: string;\n    readonly displayName: string;\n    readonly writable: boolean;\n    readonly configured: boolean;\n    readonly models: Readonly<Record<string, TenantModalityView>>;\n    readonly providers: readonly TenantProviderView[];\n    readonly features: readonly string[];\n    readonly identity?: TenantIdentityView;\n    readonly copy: Readonly<Record<string, string>>;\n}',
+  },
+  {
     name: 'TenantId',
     declaration: 'export type TenantId = Branded<\'TenantId\'>;',
   },
   {
     name: 'TenantIdentity',
     declaration: 'export interface TenantIdentity {\n    readonly constraints: readonly string[];\n    readonly personality?: string | undefined;\n}',
+  },
+  {
+    name: 'TenantIdentityView',
+    declaration: 'export interface TenantIdentityView {\n    readonly constraints: readonly string[];\n    readonly personality?: string;\n}',
+  },
+  {
+    name: 'TenantModalityView',
+    declaration: 'export interface TenantModalityView {\n    readonly available: readonly TenantModelView[];\n    readonly preferred?: TenantModelView;\n}',
+  },
+  {
+    name: 'TenantModelView',
+    declaration: 'export interface TenantModelView {\n    readonly provider: string;\n    readonly model: string;\n    readonly reasoningEffort?: string;\n}',
+  },
+  {
+    name: 'TenantProviderView',
+    declaration: 'export interface TenantProviderView {\n    readonly provider: string;\n    readonly credential: string;\n    readonly baseUrl?: string;\n}',
+  },
+  {
+    name: 'TenantSource',
+    declaration: 'export type TenantSource = \'header\' | \'host\' | \'subdomain\';',
   },
   {
     name: 'TerminalBackend',

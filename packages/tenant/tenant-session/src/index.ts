@@ -14,6 +14,14 @@
  * The record is written once per session, on creation, and a session that
  * already carries one — a fork, or a session this process resumed — keeps the
  * record it was created with rather than being re-stamped with today's.
+ *
+ * Which tenant a session belongs to comes from the request that created it when
+ * `ctx.requestTenant` is mounted, and otherwise from this plugin's config. A
+ * deployment serving several organizations needs the former: the configured
+ * tenant is one value for the whole process, so it can only be right when the
+ * process serves one organization. The configured tenant stays the answer for
+ * every session created outside a request — a CLI run, a resumed session, a
+ * subagent — because those name no request to read.
  * @module @lyness/lyn-tenant-session
  */
 
@@ -21,9 +29,11 @@ import { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
 import { z as zod } from 'zod'
 import { TenantId } from '@lyness/lyn-tenant'
+import type { Tenant } from '@lyness/lyn-tenant'
 import type { Session, SessionEvent } from '@lyness/lyn-session'
 import type {} from '@lyness/lyn-session-projection'
-import type {} from '@lyness/lyn-tenant-config'
+import type { TenantConfig } from '@lyness/lyn-tenant-config'
+import type {} from '@lyness/lyn-tenant-request/types'
 
 /** Shape version of {@link TenantSessionRecord}; a later field set changes it deliberately. */
 export const TENANT_SESSION_RECORD_VERSION = 1
@@ -80,6 +90,23 @@ function applyTenantEvent(state: TenantSessionRecord | null, event: SessionEvent
   return event.type === 'tenant/identity' ? event.data : state
 }
 
+/**
+ * Build the record for one tenant and the identity it configured.
+ * @param tenant - the tenant the session belongs to.
+ * @param config - that tenant's configuration, when it has one.
+ * @returns the record to append.
+ */
+function recordOf(tenant: Tenant, config: TenantConfig | undefined): TenantSessionRecord {
+  const identity = config?.identity
+  return {
+    version: TENANT_SESSION_RECORD_VERSION,
+    tenantId: tenant.id,
+    slug: tenant.slug,
+    constraints: identity?.constraints ?? [],
+    ...identity?.personality === undefined ? {} : { personality: identity.personality },
+  }
+}
+
 /** Stable Cordis plugin name. */
 export const name = 'tenant-session'
 
@@ -89,11 +116,9 @@ export const inject = ['sessionProjections', 'sessions', 'tenants']
 /** Plugin config: which tenant this deployment's sessions belong to. */
 export interface Config {
   /**
-   * The tenant every session created on this deployment belongs to.
-   *
-   * One deployment serves one tenant here. A deployment serving several needs
-   * the tenant of the request that created the session, which the session
-   * creation call does not carry today.
+   * The tenant a session belongs to when the request that created it named
+   * none — a CLI run, a resumed session, a subagent, or a deployment that
+   * mounts no `ctx.requestTenant`.
    */
   tenantId: string
 }
@@ -117,14 +142,7 @@ export async function apply(ctx: Context, config: Config): Promise<void> {
   }
   // Optional service: a deployment may name its tenant without configuring it.
   const configured = await ctx.get('tenantConfig')?.get(tenantId)
-  const identity = configured?.identity
-  const record: TenantSessionRecord = {
-    version: TENANT_SESSION_RECORD_VERSION,
-    tenantId: tenant.id,
-    slug: tenant.slug,
-    constraints: identity?.constraints ?? [],
-    ...identity?.personality === undefined ? {} : { personality: identity.personality },
-  }
+  const fallback = recordOf(tenant, configured)
 
   ctx.sessionProjections.register({
     key: 'tenant',
@@ -139,7 +157,12 @@ export async function apply(ctx: Context, config: Config): Promise<void> {
     /* v8 ignore next -- the projection is registered above; stateOf answers undefined only for an unregistered key. */
     if (state === undefined) throw new Error('tenant-session: the tenant session projection is not registered')
     if (state !== null) return
-    session.append('tenant/identity', record)
+    // Read at stamp time, not at load: whichever scope is mounted when the
+    // session is created is the one that knows who created it.
+    const requested = ctx.get('requestTenant')?.current()
+    session.append('tenant/identity', requested === undefined
+      ? fallback
+      : recordOf(requested.tenant, requested.config))
   }
   ctx.on('session/created', stamp)
   for (const session of ctx.sessions.list()) stamp(session)

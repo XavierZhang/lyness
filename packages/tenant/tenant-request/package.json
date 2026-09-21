@@ -1,0 +1,52 @@
+{
+  "name": "@lyness/lyn-tenant-request",
+  "description": "The tenant one RPC request belongs to: resolved once per call and readable by everything the call reaches",
+  "version": "0.1.5-rc.1",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "directory": "packages/tenant/tenant-request"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./types": {
+      "types": "./lib/types/types.d.ts",
+      "default": "./lib/types/types.js"
+    },
+    "./src/*": "./src/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib/index.js",
+    "lib/types/**/*.js",
+    "lib/types/**/*.d.ts"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@lyness/lyn-tenant": "workspace:^",
+    "@lyness/lyn-tenant-http": "workspace:^",
+    "@lyness/schemastery": "workspace:^"
+  },
+  "peerDependencies": {
+    "@lyness/cordis": "workspace:^",
+    "@lyness/lyn-client-connection": "workspace:^",
+    "@lyness/lyn-tenant-config": "workspace:^"
+  },
+  "devDependencies": {
+    "@lyness/cordis": "workspace:^",
+    "@lyness/lyn-client-connection": "workspace:^",
+    "@lyness/lyn-credentials": "workspace:^",
+    "@lyness/lyn-tenant-config": "workspace:^",
+    "@lyness/lyn-tenant-config-static": "workspace:^",
+    "@lyness/lyn-tenant-static": "workspace:^"
+  }
+}

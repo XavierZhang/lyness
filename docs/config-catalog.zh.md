@@ -2725,6 +2725,22 @@ export interface Config {
 
 来源：[`packages/tenant/tenant-http/src/index.ts:30`](../packages/tenant/tenant-http/src/index.ts)
 
+<a id="lynesslyn-tenant-request"></a>
+
+## `@lyness/lyn-tenant-request`
+
+需要：`connection` · `tenants`
+
+```ts config-catalog
+/** Plugin config: which hostnames carry a tenant slug. */
+export interface Config {
+  /** Base domain whose direct subdomains name tenants by slug; omit to resolve no subdomain. */
+  baseDomain?: string
+}
+```
+
+来源：[`packages/tenant/tenant-request/src/index.ts:37`](../packages/tenant/tenant-request/src/index.ts)
+
 <a id="lynesslyn-tenant-session"></a>
 
 ## `@lyness/lyn-tenant-session`
@@ -2735,17 +2751,15 @@ export interface Config {
 /** Plugin config: which tenant this deployment's sessions belong to. */
 export interface Config {
   /**
-   * The tenant every session created on this deployment belongs to.
-   *
-   * One deployment serves one tenant here. A deployment serving several needs
-   * the tenant of the request that created the session, which the session
-   * creation call does not carry today.
+   * The tenant a session belongs to when the request that created it named
+   * none — a CLI run, a resumed session, a subagent, or a deployment that
+   * mounts no `ctx.requestTenant`.
    */
   tenantId: string
 }
 ```
 
-来源：[`packages/tenant/tenant-session/src/index.ts:90`](../packages/tenant/tenant-session/src/index.ts)
+来源：[`packages/tenant/tenant-session/src/index.ts:117`](../packages/tenant/tenant-session/src/index.ts)
 
 <a id="lynesslyn-tenant-static"></a>
 
@@ -3610,6 +3624,7 @@ export interface Config {
 - `@lyness/lyn-acp-app` — 需要 `cmdlineArgs`（[`packages/bundle/acp-app/src/index.ts`](../packages/bundle/acp-app/src/index.ts)）
 - `@lyness/lyn-agent`（[`packages/core/agent/src/index.ts`](../packages/core/agent/src/index.ts)）
 - `@lyness/lyn-api-remotes` — 需要 `typertGateway`（[`packages/api/remotes/src/index.ts`](../packages/api/remotes/src/index.ts)）
+- `@lyness/lyn-api-tenant-controller`（[`packages/api/tenant-controller/src/index.ts`](../packages/api/tenant-controller/src/index.ts)）
 - `@lyness/lyn-api-workspace-controller` — 需要 `typert` · `workspaceRegistry`（[`packages/api/workspace-controller/src/index.ts`](../packages/api/workspace-controller/src/index.ts)）
 - `@lyness/lyn-authorization` — 需要 `credentials`（[`packages/credentials/authorization/src/index.ts`](../packages/credentials/authorization/src/index.ts)）
 - `@lyness/lyn-brand-studio` — 需要 `cmdlineArgs`（[`packages/bundle/brand-studio/src/index.ts`](../packages/bundle/brand-studio/src/index.ts)）

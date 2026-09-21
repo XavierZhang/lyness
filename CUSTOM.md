@@ -45,6 +45,8 @@
 | `packages/bundle/web-app/cordis.patch.yml`、`package.json` | `ui-brand-official` 行换成 `ui-brand-lyness` | 浏览器插件名单只在 bundle patch 里 | 2026-09-15 |
 | `apps/web/public/favicon.svg`、`website/public/{favicon,wordmark}.svg`、`packages/skill/skill-badge/assets/lyn-badge.png`（+ `tests/skill-badge.spec.ts` 的哈希） | 换成 lyness 图形 | 图片资产，codemod 表达不了。⚠️ **合并时 `read-tree` 会把它们重置为上游版本，必须从本 fork 恢复** | 2026-09-15 |
 | `website/.vitepress/config.ts` | 两处 "DeepSeek wordmark" 注释 | 注释描述的文件已换 | 2026-09-15 |
+| `packages/client/connection/src/{rpc,rpc-host}.ts`（+ `tests/request-scope.host.spec.ts`） | 新增 `ctx.connection.rpc.scope(scope)`：每请求作用域，按注册顺序嵌套包裹所有通道上的每次已解码调用，作用域必须调用并原样返回 `run()` | Remote 方法不携带自己到达时的请求，共享 `/api` 通道只容纳一个 interceptor（属 Gateway），web server 每路径只选一条路由——路由与 handler 之间没有可站的位置。不改则调用方租户无处安放 | 2026-09-21 |
+| `scripts/gen-cordis-catalog.ts`、`scripts/gen-doc-graphs.ts`、`scripts/verify-package-readme-model-experience.ts` | 登记 `ctx.requestTenant`、`ctx.tenantController` 与 `RequestTenant`／`TenantConfigView`／`TenantConfigInput`：服务→子系统页、类型→文档页、服务角色、Model Experience | 同上一行的理由：新增 `ctx` 服务必须逐表登记 | 2026-09-21 |
 | `scripts/gen-cordis-catalog.ts`、`scripts/gen-doc-graphs.ts`、`scripts/type-equiv.manifest.json`、`scripts/verify-package-readme-model-experience.ts`、`docs/subsystems/README.md`、`packages/README.md` | 登记 `ctx.tenants` 与 `ctx.tenantConfig`：服务→子系统页、类型→文档页、能力缝角色、类型等价清单、Model Experience、两处索引 | 新增 `ctx` 服务必须逐表登记，这些表都是写死的映射，没有扩展点；不登记则生成器直接报错 | 2026-09-17 |
 | `scripts/gen-third-party-notices.ts`、`lefthook.yml`、`scripts/check-workspace-constraints.ts` | 新增「内置第三方文件」段落；brand-fonts 的 `fonts/` 与清单加入可发布文件白名单：读各包 `third-party-assets.json`，校验 sha256、许可证（宽松或 OFL-1.1 字体）、未登记字体文件即报错 | 上游只声明 npm 依赖与 vendored 包，仓库内随附的字体文件没有声明入口；OFL 字体要合规分发必须被声明 | 2026-09-16 |
 | `packages/boot/app-boot/src/profile.ts`（+ `tests/profile.spec.ts`）、`apps/cli/package.json`、`docs/architecture{,.zh}.md` | `PROFILE_TEMPLATES` 新增 `brand-studio`；CLI 依赖该 bundle；应用清单加一项 | 随附 profile 名单是写死的表，没有注册接缝；不登记则 `lyn --profile brand-studio` 报 "does not exist" | 2026-09-15 |
@@ -115,6 +117,8 @@ codemod 只改文本和路径。下面这些是它改完之后必然过期、必
 
 | 能力 | 位置 | 说明 |
 |---|---|---|
+| 租户配置 RPC | `packages/api/tenant-controller` | `ctx.remote.tenant`：`describe`（配置 + `writable` + `configured`）与 `save`（整份替换，输入不带租户 id）。租户只来自请求；wire 字段与能力缝规则各校验一遍，问题一次列全；答复从存储回读。**冲突 #2 按「用已有 Remote、不做 REST」裁定。**[决策](.agents/notes/implemented/architecture/2026-09-21-tenant-configuration-over-rpc.md) |
+| 请求级租户 | `packages/tenant/tenant-request` | `ctx.requestTenant`：在 Connection 上注册每请求作用域（`rpc.scope`），按请求头→主机名→子域名解析调用方租户，并连同其配置在调用期间发布（AsyncLocalStorage）。解析不到不拒绝，由应答方决定。只覆盖一元 RPC。[决策](.agents/notes/implemented/architecture/2026-09-21-the-tenant-of-a-request.md) |
 | 会话租户戳记 | `packages/tenant/tenant-session` | 会话创建时写一条仅日志事件 `tenant/identity`：租户 id、标识，以及该租户的约束与个性**原文**（配置可改，只记 id 事后还原不出当时文本）。投影兼作幂等守卫，fork 与恢复保留原戳记。新增事件类型不升会话格式版本。[决策](.agents/notes/implemented/architecture/2026-09-20-tenant-in-the-session-log.md) |
 | 租户配置入库 | `packages/tenant/tenant-config-store` | `ctx.tenantConfig` 的持久化后端：`tenant_config` 存储域、版本 1、`per-record`（保存一个租户不重写其他租户）；自报 `writable`，写入前跑 `validateTenantConfig`，自身不接受配置。与只读后端二选一，不叠加。[决策](.agents/notes/implemented/architecture/2026-09-21-durable-tenant-configuration.md) |
 | 租户配置 | `packages/tenant/{tenant-config,tenant-config-static}` | `ctx.tenantConfig`：按模态的模型（语言／图片／视频／音乐）、供应商授权（带凭据引用与自建端点，密钥不入配置）、功能开关、身份（约束叠加／个性替换）、界面文案覆盖。不回落部署级模型；后端自报只读或可写。[决策](.agents/notes/implemented/architecture/2026-09-20-tenant-configuration-seam.md) |

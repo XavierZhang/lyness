@@ -205,6 +205,11 @@ flowchart LR
   svc_directoryPicker["ctx.directoryPicker<br/>Workspace-directory picking seam"]
   pkg_host_directory_picker_native["host-directory-picker-native"]
   pkg_host_directory_picker_browse["host-directory-picker-browse"]
+  pkg_api_tenant_controller["api-tenant-controller"]
+  svc_tenantController["ctx.tenantController<br/>Host tenant-configuration Remote controller"]
+  pkg_tenant_request["tenant-request"]
+  svc_requestTenant["ctx.requestTenant<br/>Calling tenant of one RPC call"]
+  pkg_tenant_session["tenant-session"]
   pkg_tenant_config["tenant-config"]
   svc_tenantConfig["ctx.tenantConfig<br/>Tenant configuration seam"]
   pkg_tenant_config_static["tenant-config-static"]
@@ -242,6 +247,7 @@ flowchart LR
   pkg_api_session_controller --> svc_sessionSkillCatalog
   pkg_api_settings_controller --> svc_credentialsController
   pkg_api_settings_controller --> svc_settingsController
+  pkg_api_tenant_controller --> svc_tenantController
   pkg_api_workspace_controller --> svc_directoryPickerController
   pkg_api_workspace_controller --> svc_workspaceController
   pkg_api_workspace_files --> svc_workspaceFiles
@@ -338,6 +344,7 @@ flowchart LR
   pkg_tenant_config --> svc_tenantConfig
   pkg_tenant_config_static --> svc_tenantConfig
   pkg_tenant_config_store --> svc_tenantConfig
+  pkg_tenant_request --> svc_requestTenant
   pkg_tenant_static --> svc_tenants
   pkg_terminal --> svc_terminals
   pkg_terminal_bash --> svc_terminals
@@ -399,6 +406,7 @@ flowchart LR
   svc_llm --> pkg_agent_loop
   svc_llm --> pkg_compaction_basic
   svc_lsp --> pkg_tool_lsp
+  svc_requestTenant --> pkg_tenant_session
   svc_sandbox --> pkg_bash_sandbox
   svc_sandbox --> pkg_terminal_bash
   svc_sandboxPolicy --> pkg_bash_sandbox
@@ -458,7 +466,9 @@ flowchart LR
   svc_systemPrompt --> pkg_tool_web
   svc_systemPrompt --> pkg_tools
   svc_tenantConfig --> pkg_tenant_http
+  svc_tenantConfig --> pkg_tenant_request
   svc_tenants --> pkg_tenant_http
+  svc_tenants --> pkg_tenant_request
   svc_terminals --> pkg_tool_terminal
   svc_tokenMeter --> pkg_compaction_basic
   svc_toolResultPruner --> pkg_compaction_basic
@@ -554,8 +564,10 @@ flowchart LR
 | `ctx.web` | `seam` | [`web`](../packages/web/web) | [`web-search-exa`](../packages/web/web-search-exa), [`web-search-perplexity`](../packages/web/web-search-perplexity), [`web-search-deepseek`](../packages/web/web-search-deepseek), [`web-fetch-http`](../packages/web/web-fetch-http) | [`tool-web`](../packages/web/tool-web) | - | Search and fetch providers register into one ctx.web seam; tool-web owns the stable model-facing names. |
 | `ctx.spillStore` | `seam` | [`spill`](../packages/spill/spill) | [`spill-local`](../packages/spill/spill-local) | [`spill-policy`](../packages/spill/spill-policy) | - | The backend saves oversized tool text and returns a model-facing locator plus retrieval hint; spill-policy is the tools/post-execute consumer that decides when to spill. |
 | `ctx.directoryPicker` | `seam` | [`host-directory-picker`](../packages/host/directory-picker) | [`host-directory-picker-native`](../packages/host/directory-picker-native), [`host-directory-picker-browse`](../packages/host/directory-picker-browse) | [`api-workspace-controller`](../packages/api/workspace-controller) | - | Discriminated interaction capability: the native backend opens one OS chooser on the host display, the browse backend serves listing/creation primitives for the in-app browser; dual-face backends fill ui-workspace directory-flow slots from their browser halves (no wire advertisement). |
-| `ctx.tenantConfig` | `seam` | [`tenant-config`](../packages/tenant/tenant-config) | [`tenant-config-static`](../packages/tenant/tenant-config-static), [`tenant-config-store`](../packages/tenant/tenant-config-store) | [`tenant-http`](../packages/tenant/tenant-http) | - | What one tenant configures for itself — models per modality, provider grants carrying credential references rather than keys, features, identity text, and copy overrides; a backend states whether it can be saved to, and every backend validates against one rule set. |
-| `ctx.tenants` | `seam` | [`tenant`](../packages/tenant/tenant) | [`tenant-static`](../packages/tenant/tenant-static) | [`tenant-http`](../packages/tenant/tenant-http) | - | Three lookups — immutable id, hostname, subdomain slug — answering undefined for an unknown subject; which part of a request may name a tenant is transport knowledge the consumer owns, and an unresolved request is refused rather than served a fallback tenant. |
+| `ctx.tenantController` | `core` | [`api-tenant-controller`](../packages/api/tenant-controller) | - | - | - | Projects the tenant-configuration seam onto the generated Remote namespace: the calling tenant reads and saves its own configuration, and a call that named no tenant is refused rather than answered about any tenant. |
+| `ctx.requestTenant` | `core` | [`tenant-request`](../packages/tenant/tenant-request) | - | [`tenant-session`](../packages/tenant/tenant-session) | - | Resolves the tenant a Remote call arrived for, once per call, and publishes it with that tenant's configuration for the duration of the call; a call that named none reads as undefined rather than as a fallback tenant. |
+| `ctx.tenantConfig` | `seam` | [`tenant-config`](../packages/tenant/tenant-config) | [`tenant-config-static`](../packages/tenant/tenant-config-static), [`tenant-config-store`](../packages/tenant/tenant-config-store) | [`tenant-http`](../packages/tenant/tenant-http), [`tenant-request`](../packages/tenant/tenant-request) | - | What one tenant configures for itself — models per modality, provider grants carrying credential references rather than keys, features, identity text, and copy overrides; a backend states whether it can be saved to, and every backend validates against one rule set. |
+| `ctx.tenants` | `seam` | [`tenant`](../packages/tenant/tenant) | [`tenant-static`](../packages/tenant/tenant-static) | [`tenant-http`](../packages/tenant/tenant-http), [`tenant-request`](../packages/tenant/tenant-request) | - | Three lookups — immutable id, hostname, subdomain slug — answering undefined for an unknown subject; which part of a request may name a tenant is transport knowledge the consumer owns, and an unresolved request is refused rather than served a fallback tenant. |
 | `ctx.webServer` | `core` | [`host-webserver`](../packages/host/webserver) | - | [`client-connection`](../packages/client/connection), [`client-modules`](../packages/client/modules), [`client-hmr`](../packages/client/hmr) | - | Plain node:http carrier: named-route registry, index transform taps, and the static dist fallback; web-transport plugins register their own routes. |
 | `ctx.clientModules` | `core` | [`client-modules`](../packages/client/modules) | - | [`client-hmr`](../packages/client/hmr) | - | Composes the __LYNESS_BOOT__ entry graph from an incremental lyn.client scan, serves plugin bundles, and notifies rebuilt/graph-changed subscribers. |
 | `ctx.workflowEngine` | `seam` | [`workflow`](../packages/workflow/workflow) | [`workflow-worker-thread`](../packages/workflow/workflow-worker-thread) | [`tool-workflow`](../packages/workflow/tool-workflow), [`tool-ralph`](../packages/workflow/tool-ralph) | - | One engine per context, as in bash, with no named-provider registry; the general workflow and fixed Ralph consumers start runs whose agent() calls fan out through ctx.subagents. |

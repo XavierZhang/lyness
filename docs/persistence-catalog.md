@@ -926,7 +926,7 @@ Source: [`packages/experimental/agent-team/src/types.ts:223`](../packages/experi
 'tenant/identity': TenantSessionRecord
 ```
 
-Source: [`packages/tenant/tenant-session/src/index.ts:54`](../packages/tenant/tenant-session/src/index.ts)
+Source: [`packages/tenant/tenant-session/src/index.ts:64`](../packages/tenant/tenant-session/src/index.ts)
 
 ### `todo/*`
 

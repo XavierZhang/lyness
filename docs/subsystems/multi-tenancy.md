@@ -92,11 +92,19 @@ Every backend validates against one rule set — a model's provider must be gran
 
 The two backends are alternatives, not layers: one store is mounted per context. The durable one keeps a tenant's whole configuration as one record in the `tenant_config` domain, so saving one tenant rewrites that tenant alone, and changing a configuration is a save rather than a patch-layer edit and a restart.
 
+## Configuring a tenant over RPC
+
+`ctx.remote.tenant` is how an administration surface reads and writes a tenant's configuration ([lyn-api-tenant-controller](../../packages/api/tenant-controller)). `describe` answers the calling tenant's own configuration — models, grants as credential references, features, identity, copy — plus `writable`, which says whether this deployment's backend accepts a save, and `configured`, which distinguishes a tenant that has saved nothing from one that saved everything empty. `save` replaces the whole configuration; `TenantConfigInput` carries no tenant id, because the tenant is the one the call arrived for.
+
+The tenant is never a method parameter. A caller that could name its own tenant could name any tenant, so both methods read `ctx.requestTenant` and refuse a call that named none with `tenant/unresolved`. The other refusals are `gateway/bad-request` for a malformed wire field, `gateway/internal` when no store is mounted, `tenant/read-only` when the store does not accept saves, and `tenant/rejected` when a seam rule refuses the configuration, listing every problem at once.
+
+What this does not yet enforce is who inside an organization may save. The only rule available is that a caller configures its own organization; restricting saves to administrators needs user records.
+
 ## In the session log
 
 A session records which tenant it belongs to and the identity text that tenant contributed, as the log-only `tenant/identity` event written once at creation ([lyn-tenant-session](../../packages/tenant/tenant-session), catalog entry in [persistence-catalog](../persistence-catalog.md#tenantidentity--log-only)). Attribution needs the tenant long after a session ends; reconstruction needs the text itself, because it reaches the model and a later edit to the tenant's configuration would otherwise leave the session unreadable. A fork or a resumed session keeps the record it was created with, and the `tenant` session projection folds it back.
 
-The tenant comes from the plugin's configuration rather than from the request that created the session: session creation carries no tenant today, and the request-scoped path is separate work.
+The tenant comes from the request that created the session when [lyn-tenant-request](../../packages/tenant/tenant-request) is mounted, and otherwise from the plugin's configuration. Remote methods do not carry the request they arrived on, so that plugin registers a Connection request scope, resolves the tenant and its configuration once when the call arrives, and publishes both as `ctx.requestTenant` for the duration of the call — which is what lets the synchronous session-creation listener read them. The configured tenant stays the answer for every session created outside a call: a CLI run, a resumed session, a subagent.
 
 ## The roster
 
@@ -109,6 +117,22 @@ The composition-configured backend indexes rows at load: id, slug, display name,
 ## Cordis API
 
 Generated from source by `scripts/gen-cordis-catalog.ts` (verified fresh by `pnpm run verify-cordis-catalog` in doc-sync; regenerate with `pnpm run gen-cordis-catalog`) — the language sides differ only in locale-specific paired document paths. Signature blocks use a `ts cordis-catalog` fence and keep the original source JSDoc; dispatch modes are defined in the [primer](../cordis-primer.md#dispatch-modes), and the framework-inherited `ctx` API lives in [cordis-api/inherited.md](../cordis-api/inherited.md).
+
+<a id="ctxrequesttenant--requesttenantreader"></a>
+
+### `ctx.requestTenant` — `RequestTenantReader`
+
+What a consumer may do with the tenant of the call in progress.
+
+```ts cordis-catalog
+/**
+ * The tenant of the call in progress.
+ * @returns the resolved tenant, or undefined outside a call and for a call that named none.
+ */
+current(): RequestTenant | undefined
+```
+
+Source: [`packages/tenant/tenant-request/src/types.ts`](../../packages/tenant/tenant-request/src/types.ts)
 
 <a id="ctxtenantconfig--tenantconfigstore-abstract-seam"></a>
 
@@ -134,6 +158,35 @@ abstract capability(): TenantConfigCapability
 ```
 
 Source: [`packages/tenant/tenant-config/src/index.ts`](../../packages/tenant/tenant-config/src/index.ts)
+
+<a id="ctxtenantcontroller--tenantcontroller"></a>
+
+### `ctx.tenantController` — `TenantController`
+
+Host service backing the generated `ctx.remote.tenant` namespace.
+
+Every method answers about the calling tenant and refuses a call that named none, because there is no tenant whose configuration it could be shown.
+
+```ts cordis-catalog
+/**
+ * Read the calling tenant's own configuration.
+ * @returns who the caller is, whether this deployment accepts saves, and the configuration.
+ * @throws {RemoteError} `tenant/unresolved` when the call named no tenant.
+ */
+@Remote describe(): TenantConfigView
+
+/**
+ * Replace the calling tenant's whole configuration.
+ * @param input - the complete configuration to store; it names no tenant, because the call already does.
+ * @returns the configuration as the store now reads it.
+ * @throws {RemoteError} `tenant/unresolved`, `gateway/bad-request` for invalid fields,
+ * `gateway/internal` when no store is mounted, `tenant/read-only` when the store refuses saves,
+ * or `tenant/rejected` when a seam rule refuses the configuration.
+ */
+@Remote async save(input: TenantConfigInput): Promise<TenantConfigView>
+```
+
+Source: [`packages/api/tenant-controller/src/index.ts`](../../packages/api/tenant-controller/src/index.ts)
 
 <a id="ctxtenants--tenantdirectory-abstract-seam"></a>
 

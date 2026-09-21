@@ -1,0 +1,6 @@
+# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
+# side as of the last confirmed-consistent state. Both languages carry equal authority;
+# after editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-09-21-tenant-configuration-over-rpc.md
+2026-09-21-tenant-configuration-over-rpc.md: 55e4590d25b78cbddd3d8533d98390123a47910d
+2026-09-21-tenant-configuration-over-rpc.zh.md: 7e0046bbeaa9389e36657fabe4386e9e553e9e48

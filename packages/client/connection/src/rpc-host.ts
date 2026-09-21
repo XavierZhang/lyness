@@ -18,6 +18,7 @@ import type {
   ConnectionFetchRoute,
   ConnectionFetchHandler,
   HostConnectionFetch,
+  ConnectionRequestScope,
   ConnectionRpcEndpointMatcher,
   ConnectionRpcFailure,
   ConnectionRpcHandler,
@@ -60,6 +61,8 @@ declare module '@lyness/cordis' {
 export class HostConnectionService extends Service implements HostConnectionHandle {
   private readonly interceptors = new Map<string, ConnectionRpcInterceptor>()
   private readonly fetchRoutes = new Map<string, RegisteredFetchRoute>()
+  /** Insertion order is nesting order: the first registered scope runs outermost. */
+  private readonly scopes = new Set<ConnectionRequestScope>()
 
   /**
    * Provide the Host half over the active HTTP server.
@@ -82,6 +85,7 @@ export class HostConnectionService extends Service implements HostConnectionHand
       handle: (channel, handler) => this.register(owner, channel, handler),
       intercept: (channel, matches, handler) =>
         this.registerInterceptor(owner, channel, matches, handler),
+      scope: scope => this.registerScope(owner, scope),
     }
   }
 
@@ -161,7 +165,7 @@ export class HostConnectionService extends Service implements HostConnectionHand
     handler: ConnectionRpcHandler,
   ): () => Promise<void> {
     assertChannel(channel)
-    const fetchHandler = rpcFetchHandler(channel, handler)
+    const fetchHandler = rpcFetchHandler(channel, handler, this.scoped)
     const route: WebRoute = {
       kind: 'prefix',
       path: channel,
@@ -181,6 +185,38 @@ export class HostConnectionService extends Service implements HostConnectionHand
     )
   }
 
+  private registerScope(
+    owner: Context,
+    scope: ConnectionRequestScope,
+  ): () => Promise<void> {
+    return owner.effect(() => {
+      this.scopes.add(scope)
+      return () => {
+        this.scopes.delete(scope)
+      }
+    }, 'client-connection: rpc request scope')
+  }
+
+  /**
+   * Nest the registered scopes around one decoded call. Bound as a field so a
+   * handler factory can hold it without holding the service.
+   * @param request - the HTTP request the call arrived on.
+   * @param run - the channel owner's dispatch.
+   * @returns whatever the innermost dispatch returned.
+   */
+  private readonly scoped = (
+    request: Request,
+    run: () => Promise<ConnectionRpcResult<unknown>>,
+  ): Promise<ConnectionRpcResult<unknown>> => {
+    let next = run
+    // Reversed so the FIRST registered scope ends up outermost.
+    for (const scope of [...this.scopes].reverse()) {
+      const inner = next
+      next = () => scope(request, inner)
+    }
+    return next()
+  }
+
   private registerInterceptor(
     owner: Context,
     channel: string,
@@ -192,7 +228,7 @@ export class HostConnectionService extends Service implements HostConnectionHand
     }
     const interceptor: ConnectionRpcInterceptor = {
       matches,
-      fetchHandler: rpcFetchHandler(channel, handler),
+      fetchHandler: rpcFetchHandler(channel, handler, this.scoped),
     }
     return owner.effect(() => {
       if (this.interceptors.has(channel)) {
@@ -209,6 +245,7 @@ export class HostConnectionService extends Service implements HostConnectionHand
 function rpcFetchHandler(
   channel: string,
   handler: ConnectionRpcHandler,
+  scoped: ConnectionRequestScope,
 ): ConnectionFetchHandler {
   return {
     requestBodyMode: () => 'buffered',
@@ -244,7 +281,7 @@ function rpcFetchHandler(
       }
 
       try {
-        const result = await handler(endpoint, message.payload, request.signal)
+        const result = await scoped(request, () => handler(endpoint, message.payload, request.signal))
         return fullResponse(message.rpcId, result)
       } catch (error) {
         return new Response(`handler failure: ${String(error)}`, { status: 500 })

@@ -92,11 +92,19 @@ interface TenantIdentity {
 
 两种后端是二选一，而不是分层：一个 context 只挂载一个存储。持久化的那个把一个租户的整份配置存成 `tenant_config` 存储域里的一条记录，因此保存一个租户只重写该租户；修改配置是一次保存，而不是改补丁层再重启。
 
+## 通过 RPC 配置租户
+
+`ctx.remote.tenant` 是管理界面读写租户配置的入口（[lyn-api-tenant-controller](../../packages/api/tenant-controller)）。`describe` 答复调用方租户自己的配置——模型、以凭据引用形式出现的授权、功能、身份、文案——外加 `writable`（本部署的后端是否接受保存）与 `configured`（区分「什么都没保存过的租户」与「把一切都保存为空的租户」）。`save` 整份替换配置；`TenantConfigInput` 不携带租户 id，因为租户就是这次调用所属的那个。
+
+租户永远不是方法参数。能指名自己租户的调用方也就能指名任何租户，因此两个方法都读 `ctx.requestTenant`，并以 `tenant/unresolved` 拒绝没有命名租户的调用。其余拒绝是：wire 字段不合法为 `gateway/bad-request`，未挂载存储为 `gateway/internal`，存储不接受保存为 `tenant/read-only`，能力缝规则拒绝该配置为 `tenant/rejected`（一次列出全部问题）。
+
+它目前还管不到的是：组织内部谁有权保存。现有的唯一规则是调用方只能配置自己的组织；把保存限制给管理员需要用户记录。
+
 ## 在会话日志里
 
 会话会记录它属于哪个租户，以及该租户贡献的身份文本——这是在创建时写入一次的仅日志事件 `tenant/identity`（[lyn-tenant-session](../../packages/tenant/tenant-session)，生成条目见[持久化目录](../persistence-catalog.zh.md#tenantidentity--log-only)）。归属要求会话结束很久之后仍能说清租户；重建要求记录文本本身，因为它会进入模型请求，而租户之后修改配置会让这个会话无法还原。fork 出来的会话与被恢复的会话保留其创建时的记录，`tenant` 会话投影把它折叠回来。
 
-租户来自插件配置，而不是来自创建该会话的那个请求：会话创建今天不携带租户，按请求绑定是另一项工作。
+挂载了 [lyn-tenant-request](../../packages/tenant/tenant-request) 时，租户来自创建该会话的那个请求；否则来自插件配置。Remote 方法不携带自己到达时的请求，因此该插件在 Connection 上注册一个每请求作用域，在调用到达时一次性解析出租户与其配置，并在调用期间以 `ctx.requestTenant` 发布二者——这正是同步的会话创建监听器能读到它们的原因。在调用之外创建的会话仍以配置的租户为准：CLI 运行、恢复的会话、子 Agent。
 
 ## 租户清单
 
@@ -109,6 +117,22 @@ interface TenantIdentity {
 ## Cordis API
 
 Generated from source by `scripts/gen-cordis-catalog.ts` (verified fresh by `pnpm run verify-cordis-catalog` in doc-sync; regenerate with `pnpm run gen-cordis-catalog`) — the language sides differ only in locale-specific paired document paths. Signature blocks use a `ts cordis-catalog` fence and keep the original source JSDoc; dispatch modes are defined in the [primer](../cordis-primer.zh.md#dispatch-modes), and the framework-inherited `ctx` API lives in [cordis-api/inherited.md](../cordis-api/inherited.md).
+
+<a id="ctxrequesttenant--requesttenantreader"></a>
+
+### `ctx.requestTenant` — `RequestTenantReader`
+
+What a consumer may do with the tenant of the call in progress.
+
+```ts cordis-catalog
+/**
+ * The tenant of the call in progress.
+ * @returns the resolved tenant, or undefined outside a call and for a call that named none.
+ */
+current(): RequestTenant | undefined
+```
+
+Source: [`packages/tenant/tenant-request/src/types.ts`](../../packages/tenant/tenant-request/src/types.ts)
 
 <a id="ctxtenantconfig--tenantconfigstore-abstract-seam"></a>
 
@@ -134,6 +158,35 @@ abstract capability(): TenantConfigCapability
 ```
 
 Source: [`packages/tenant/tenant-config/src/index.ts`](../../packages/tenant/tenant-config/src/index.ts)
+
+<a id="ctxtenantcontroller--tenantcontroller"></a>
+
+### `ctx.tenantController` — `TenantController`
+
+Host service backing the generated `ctx.remote.tenant` namespace.
+
+Every method answers about the calling tenant and refuses a call that named none, because there is no tenant whose configuration it could be shown.
+
+```ts cordis-catalog
+/**
+ * Read the calling tenant's own configuration.
+ * @returns who the caller is, whether this deployment accepts saves, and the configuration.
+ * @throws {RemoteError} `tenant/unresolved` when the call named no tenant.
+ */
+@Remote describe(): TenantConfigView
+
+/**
+ * Replace the calling tenant's whole configuration.
+ * @param input - the complete configuration to store; it names no tenant, because the call already does.
+ * @returns the configuration as the store now reads it.
+ * @throws {RemoteError} `tenant/unresolved`, `gateway/bad-request` for invalid fields,
+ * `gateway/internal` when no store is mounted, `tenant/read-only` when the store refuses saves,
+ * or `tenant/rejected` when a seam rule refuses the configuration.
+ */
+@Remote async save(input: TenantConfigInput): Promise<TenantConfigView>
+```
+
+Source: [`packages/api/tenant-controller/src/index.ts`](../../packages/api/tenant-controller/src/index.ts)
 
 <a id="ctxtenants--tenantdirectory-abstract-seam"></a>
 

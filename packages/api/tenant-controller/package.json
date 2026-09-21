@@ -1,0 +1,71 @@
+{
+  "name": "@lyness/lyn-api-tenant-controller",
+  "description": "Remote owner of the tenant-configuration surface: the calling tenant reads and saves its own configuration",
+  "version": "0.1.5-rc.1",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "directory": "packages/api/tenant-controller"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./types": {
+      "types": "./lib/types/types.d.ts",
+      "default": "./lib/types/types.js"
+    },
+    "./typert": {
+      "types": "./lib/typert.host.d.ts",
+      "default": "./lib/typert.host.js"
+    },
+    "./remote": {
+      "types": "./lib/typert.remote-client.d.ts",
+      "default": "./lib/typert.remote-client.js"
+    },
+    "./src/*": "./src/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib/index.js",
+    "lib/types/**/*.js",
+    "lib/types/**/*.d.ts",
+    "lib/typert.host.js",
+    "lib/typert.host.d.ts",
+    "lib/typert.remote-client.js",
+    "lib/typert.remote-client.d.ts"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@lyness/lyn-credentials": "workspace:^",
+    "zod": "^4.4.3"
+  },
+  "peerDependencies": {
+    "@lyness/cordis": "workspace:^",
+    "@lyness/lyn-tenant": "workspace:^",
+    "@lyness/lyn-tenant-config": "workspace:^",
+    "@lyness/lyn-tenant-request": "workspace:^",
+    "@lyness/lyn-typert-protocol": "workspace:^"
+  },
+  "devDependencies": {
+    "@lyness/cordis": "workspace:^",
+    "@lyness/lyn-client-connection": "workspace:^",
+    "@lyness/lyn-storage": "workspace:^",
+    "@lyness/lyn-storage-domain": "workspace:^",
+    "@lyness/lyn-storage-json": "workspace:^",
+    "@lyness/lyn-tenant": "workspace:^",
+    "@lyness/lyn-tenant-config": "workspace:^",
+    "@lyness/lyn-tenant-config-static": "workspace:^",
+    "@lyness/lyn-tenant-config-store": "workspace:^",
+    "@lyness/lyn-tenant-request": "workspace:^",
+    "@lyness/lyn-tenant-static": "workspace:^",
+    "@lyness/lyn-typert-protocol": "workspace:^"
+  }
+}

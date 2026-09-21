@@ -928,7 +928,7 @@ export type SessionEvent<T extends SessionEventType = SessionEventType> = {
 'tenant/identity': TenantSessionRecord
 ```
 
-来源：[`packages/tenant/tenant-session/src/index.ts:54`](../packages/tenant/tenant-session/src/index.ts)
+来源：[`packages/tenant/tenant-session/src/index.ts:64`](../packages/tenant/tenant-session/src/index.ts)
 
 ### `todo/*`
 

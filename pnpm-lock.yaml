@@ -1142,6 +1142,52 @@ importers:
         specifier: workspace:^
         version: link:../../typert/protocol
 
+  packages/api/tenant-controller:
+    dependencies:
+      '@lyness/lyn-credentials':
+        specifier: workspace:^
+        version: link:../../credentials/credentials
+      zod:
+        specifier: ^4.4.3
+        version: 4.4.3
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:^
+        version: link:../../../vendor/cordis
+      '@lyness/lyn-client-connection':
+        specifier: workspace:^
+        version: link:../../client/connection
+      '@lyness/lyn-storage':
+        specifier: workspace:^
+        version: link:../../storage/storage
+      '@lyness/lyn-storage-domain':
+        specifier: workspace:^
+        version: link:../../storage/storage-domain
+      '@lyness/lyn-storage-json':
+        specifier: workspace:^
+        version: link:../../storage/storage-json
+      '@lyness/lyn-tenant':
+        specifier: workspace:^
+        version: link:../../tenant/tenant
+      '@lyness/lyn-tenant-config':
+        specifier: workspace:^
+        version: link:../../tenant/tenant-config
+      '@lyness/lyn-tenant-config-static':
+        specifier: workspace:^
+        version: link:../../tenant/tenant-config-static
+      '@lyness/lyn-tenant-config-store':
+        specifier: workspace:^
+        version: link:../../tenant/tenant-config-store
+      '@lyness/lyn-tenant-request':
+        specifier: workspace:^
+        version: link:../../tenant/tenant-request
+      '@lyness/lyn-tenant-static':
+        specifier: workspace:^
+        version: link:../../tenant/tenant-static
+      '@lyness/lyn-typert-protocol':
+        specifier: workspace:^
+        version: link:../../typert/protocol
+
   packages/api/workspace-controller:
     dependencies:
       '@lyness/lyn-deque':
@@ -10051,6 +10097,37 @@ importers:
         specifier: workspace:^
         version: link:../tenant-static
 
+  packages/tenant/tenant-request:
+    dependencies:
+      '@lyness/lyn-tenant':
+        specifier: workspace:^
+        version: link:../tenant
+      '@lyness/lyn-tenant-http':
+        specifier: workspace:^
+        version: link:../tenant-http
+      '@lyness/schemastery':
+        specifier: link:../../../vendor/schemastery
+        version: link:../../../vendor/schemastery
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:^
+        version: link:../../../vendor/cordis
+      '@lyness/lyn-client-connection':
+        specifier: workspace:^
+        version: link:../../client/connection
+      '@lyness/lyn-credentials':
+        specifier: workspace:^
+        version: link:../../credentials/credentials
+      '@lyness/lyn-tenant-config':
+        specifier: workspace:^
+        version: link:../tenant-config
+      '@lyness/lyn-tenant-config-static':
+        specifier: workspace:^
+        version: link:../tenant-config-static
+      '@lyness/lyn-tenant-static':
+        specifier: workspace:^
+        version: link:../tenant-static
+
   packages/tenant/tenant-session:
     dependencies:
       '@lyness/lyn-session':
@@ -10081,9 +10158,18 @@ importers:
       '@lyness/cordis-plugin-loader':
         specifier: workspace:^
         version: link:../../../vendor/loader
+      '@lyness/lyn-client-connection':
+        specifier: workspace:^
+        version: link:../../client/connection
+      '@lyness/lyn-credentials':
+        specifier: workspace:^
+        version: link:../../credentials/credentials
       '@lyness/lyn-tenant-config-static':
         specifier: workspace:^
         version: link:../tenant-config-static
+      '@lyness/lyn-tenant-request':
+        specifier: workspace:^
+        version: link:../tenant-request
       '@lyness/lyn-tenant-static':
         specifier: workspace:^
         version: link:../tenant-static

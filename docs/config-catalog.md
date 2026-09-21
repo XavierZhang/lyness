@@ -2723,6 +2723,22 @@ export interface Config {
 
 Source: [`packages/tenant/tenant-http/src/index.ts:37`](../packages/tenant/tenant-http/src/index.ts)
 
+<a id="lynesslyn-tenant-request"></a>
+
+## `@lyness/lyn-tenant-request`
+
+Requires: `connection` · `tenants`
+
+```ts config-catalog
+/** Plugin config: which hostnames carry a tenant slug. */
+export interface Config {
+  /** Base domain whose direct subdomains name tenants by slug; omit to resolve no subdomain. */
+  baseDomain?: string
+}
+```
+
+Source: [`packages/tenant/tenant-request/src/index.ts:37`](../packages/tenant/tenant-request/src/index.ts)
+
 <a id="lynesslyn-tenant-session"></a>
 
 ## `@lyness/lyn-tenant-session`
@@ -2733,17 +2749,15 @@ Requires: `sessionProjections` · `sessions` · `tenants`
 /** Plugin config: which tenant this deployment's sessions belong to. */
 export interface Config {
   /**
-   * The tenant every session created on this deployment belongs to.
-   *
-   * One deployment serves one tenant here. A deployment serving several needs
-   * the tenant of the request that created the session, which the session
-   * creation call does not carry today.
+   * The tenant a session belongs to when the request that created it named
+   * none — a CLI run, a resumed session, a subagent, or a deployment that
+   * mounts no `ctx.requestTenant`.
    */
   tenantId: string
 }
 ```
 
-Source: [`packages/tenant/tenant-session/src/index.ts:90`](../packages/tenant/tenant-session/src/index.ts)
+Source: [`packages/tenant/tenant-session/src/index.ts:117`](../packages/tenant/tenant-session/src/index.ts)
 
 <a id="lynesslyn-tenant-static"></a>
 
@@ -3607,6 +3621,7 @@ These load from a `cordis.yml` entry with no `config:` block; they declare no co
 - `@lyness/lyn-acp-app` — requires `cmdlineArgs` ([`packages/bundle/acp-app/src/index.ts`](../packages/bundle/acp-app/src/index.ts))
 - `@lyness/lyn-agent` ([`packages/core/agent/src/index.ts`](../packages/core/agent/src/index.ts))
 - `@lyness/lyn-api-remotes` — requires `typertGateway` ([`packages/api/remotes/src/index.ts`](../packages/api/remotes/src/index.ts))
+- `@lyness/lyn-api-tenant-controller` ([`packages/api/tenant-controller/src/index.ts`](../packages/api/tenant-controller/src/index.ts))
 - `@lyness/lyn-api-workspace-controller` — requires `typert` · `workspaceRegistry` ([`packages/api/workspace-controller/src/index.ts`](../packages/api/workspace-controller/src/index.ts))
 - `@lyness/lyn-authorization` — requires `credentials` ([`packages/credentials/authorization/src/index.ts`](../packages/credentials/authorization/src/index.ts))
 - `@lyness/lyn-brand-studio` — requires `cmdlineArgs` ([`packages/bundle/brand-studio/src/index.ts`](../packages/bundle/brand-studio/src/index.ts))

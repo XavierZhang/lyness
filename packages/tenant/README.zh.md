@@ -28,6 +28,7 @@ kind: "package-group"
 | [`tenant-config-static`](tenant-config-static/README.zh.md) | 提供方：上述内容作为组合配置里的行，加载时校验 |
 | [`tenant-config-store`](tenant-config-store/README.zh.md) | 提供方：上述内容作为存储域里的记录，管理界面可写 |
 | [`tenant-http`](tenant-http/README.zh.md) | 调用方：解析一个 HTTP 请求属于哪个租户，并答复是哪一个 |
+| [`tenant-request`](tenant-request/README.zh.md) | 调用方：在一次 RPC 调用期间发布该调用所属的租户 |
 | [`tenant-session`](tenant-session/README.zh.md) | 调用方：在持久日志里给每个会话打上其租户与该租户的身份文本 |
 
 <a id="related-documentation"></a>
