@@ -1,0 +1,46 @@
+{
+  "name": "@lyness/lyn-tenant-config-store",
+  "description": "Durable tenant configuration: one record per tenant in the storage domain, writable by an administration surface",
+  "version": "0.1.5-rc.1",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "directory": "packages/tenant/tenant-config-store"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./src/*": "./src/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib/index.js",
+    "lib/types/**/*.d.ts"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@lyness/lyn-credentials": "workspace:^",
+    "@lyness/lyn-storage-domain": "workspace:^",
+    "@lyness/lyn-tenant": "workspace:^",
+    "@lyness/lyn-tenant-config": "workspace:^",
+    "zod": "^4.4.3"
+  },
+  "peerDependencies": {
+    "@lyness/cordis": "workspace:^"
+  },
+  "devDependencies": {
+    "@lyness/cordis": "workspace:^",
+    "@lyness/cordis-plugin-include": "workspace:^",
+    "@lyness/cordis-plugin-loader": "workspace:^",
+    "@lyness/lyn-storage": "workspace:^",
+    "@lyness/lyn-storage-json": "workspace:^"
+  }
+}

@@ -248,6 +248,7 @@
     { "path": "./packages/tenant/tenant-static" },
     { "path": "./packages/tenant/tenant-config" },
     { "path": "./packages/tenant/tenant-config-static" },
+    { "path": "./packages/tenant/tenant-config-store" },
     { "path": "./packages/tenant/tenant-session" },
     { "path": "./packages/tenant/tenant-http" },
     { "path": "./packages/terminal/terminal" },

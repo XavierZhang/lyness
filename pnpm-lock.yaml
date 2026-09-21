@@ -9986,6 +9986,40 @@ importers:
         specifier: workspace:^
         version: link:../../../vendor/cordis
 
+  packages/tenant/tenant-config-store:
+    dependencies:
+      '@lyness/lyn-credentials':
+        specifier: workspace:^
+        version: link:../../credentials/credentials
+      '@lyness/lyn-storage-domain':
+        specifier: workspace:^
+        version: link:../../storage/storage-domain
+      '@lyness/lyn-tenant':
+        specifier: workspace:^
+        version: link:../tenant
+      '@lyness/lyn-tenant-config':
+        specifier: workspace:^
+        version: link:../tenant-config
+      zod:
+        specifier: ^4.4.3
+        version: 4.4.3
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:^
+        version: link:../../../vendor/cordis
+      '@lyness/cordis-plugin-include':
+        specifier: workspace:^
+        version: link:../../../vendor/include
+      '@lyness/cordis-plugin-loader':
+        specifier: workspace:^
+        version: link:../../../vendor/loader
+      '@lyness/lyn-storage':
+        specifier: workspace:^
+        version: link:../../storage/storage
+      '@lyness/lyn-storage-json':
+        specifier: workspace:^
+        version: link:../../storage/storage-json
+
   packages/tenant/tenant-http:
     dependencies:
       '@lyness/lyn-tenant':

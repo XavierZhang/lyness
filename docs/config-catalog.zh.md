@@ -3684,6 +3684,7 @@ export interface Config {
 - `@lyness/lyn-storage`（[`packages/storage/storage/src/index.ts`](../packages/storage/storage/src/index.ts)）
 - `@lyness/lyn-subagent`（[`packages/subagent/subagent/src/index.ts`](../packages/subagent/subagent/src/index.ts)）
 - `@lyness/lyn-subprocess-local`（[`packages/subprocess/subprocess-local/src/index.ts`](../packages/subprocess/subprocess-local/src/index.ts)）
+- `@lyness/lyn-tenant-config-store` — 需要 `storageDomain`（[`packages/tenant/tenant-config-store/src/index.ts`](../packages/tenant/tenant-config-store/src/index.ts)）
 - `@lyness/lyn-terminal`（[`packages/terminal/terminal/src/index.ts`](../packages/terminal/terminal/src/index.ts)）
 - `@lyness/lyn-tool-ask-user` — 需要 `tools` · `userInteraction`（[`packages/interaction/tool-ask-user/src/index.ts`](../packages/interaction/tool-ask-user/src/index.ts)）
 - `@lyness/lyn-tool-call-timeout-policy` — 需要 `tools`（[`packages/guard/timeout-policy/src/index.ts`](../packages/guard/timeout-policy/src/index.ts)）

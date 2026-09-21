@@ -25,7 +25,7 @@ English | [中文](README.zh.md)
 <a id="use-this-package"></a>
 ## Use this package
 
-Compose a backend — [`lyn-tenant-config-static`](../tenant-config-static/README.md) reads rows from composition config — and read through `ctx.tenantConfig`:
+Compose a backend — [`lyn-tenant-config-static`](../tenant-config-static/README.md) reads rows from composition config, [`lyn-tenant-config-store`](../tenant-config-store/README.md) keeps records an administration surface saves — and read through `ctx.tenantConfig`:
 
 ```ts
 import type { Context } from '@lyness/cordis'
@@ -86,6 +86,7 @@ The package is the abstract `TenantConfigStore` service, the vocabulary in [`src
 
 - [tenant](../tenant/README.md) — the directory that resolves which tenant a request belongs to.
 - [tenant-config-static](../tenant-config-static/README.md) — the composition-configured backend.
+- [tenant-config-store](../tenant-config-store/README.md) — the durable, writable backend.
 - [Multi-tenancy subsystem](../../../docs/subsystems/multi-tenancy.md) — the tenant vocabulary and the resolution order.
 - [credentials](../../credentials/credentials/README.md) — what a credential reference is and how it resolves.
 

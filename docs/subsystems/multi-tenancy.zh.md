@@ -47,7 +47,7 @@ interface Tenant {
 
 ## 租户配置
 
-`ctx.tenantConfig` 读取一个租户为自己配置的内容，由 [lyn-tenant-config](../../packages/tenant/tenant-config) 定义，并由组合配置中的行支撑（[lyn-tenant-config-static](../../packages/tenant/tenant-config-static)）。私有化部署与 SaaS 租户的配置方式完全相同，只是它只有一个租户。租户在此不配置的是品牌——标志、字标、favicon、产品名——那属于部署。
+`ctx.tenantConfig` 读取一个租户为自己配置的内容，由 [lyn-tenant-config](../../packages/tenant/tenant-config) 定义，其支撑要么是组合配置中的行（[lyn-tenant-config-static](../../packages/tenant/tenant-config-static)），要么是存储域中的记录（[lyn-tenant-config-store](../../packages/tenant/tenant-config-store)）。私有化部署与 SaaS 租户的配置方式完全相同，只是它只有一个租户。租户在此不配置的是品牌——标志、字标、favicon、产品名——那属于部署。
 
 ```ts type-equiv
 /** Everything one tenant configures for itself. */
@@ -89,6 +89,8 @@ interface TenantIdentity {
 身份在这里只有形状：把各层合成进提示词属于会话日志那一侧，因为进入模型请求的内容必须能从会话日志重建。组织与 Agent 之间的那一层是用户，它要等本部署具备用户记录后才出现。
 
 每个后端都据同一套规则校验——模型的供应商必须已授权、默认模型必须在可用清单内、不得重复，且 id、约束与文案覆盖不得为空——因此只读后端在加载时检查，可写后端在保存前检查。后端通过 `capability()` 说明自己属于哪一种，管理界面据此显示或隐藏保存，而不是靠失败去发现。
+
+两种后端是二选一，而不是分层：一个 context 只挂载一个存储。持久化的那个把一个租户的整份配置存成 `tenant_config` 存储域里的一条记录，因此保存一个租户只重写该租户；修改配置是一次保存，而不是改补丁层再重启。
 
 ## 在会话日志里
 

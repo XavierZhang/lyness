@@ -25,7 +25,7 @@ kind: "package-reference"
 <a id="use-this-package"></a>
 ## 使用本包
 
-组合一个后端——[`lyn-tenant-config-static`](../tenant-config-static/README.zh.md) 从组合配置读取行——然后通过 `ctx.tenantConfig` 读取：
+组合一个后端——[`lyn-tenant-config-static`](../tenant-config-static/README.zh.md) 从组合配置读取行，[`lyn-tenant-config-store`](../tenant-config-store/README.zh.md) 保存管理界面写入的记录——然后通过 `ctx.tenantConfig` 读取：
 
 ```ts
 import type { Context } from '@lyness/cordis'
@@ -86,6 +86,7 @@ export async function imageModelsOf(ctx: Context, tenantId: TenantId): Promise<r
 
 - [tenant](../tenant/README.zh.md)——解析请求属于哪个租户的目录。
 - [tenant-config-static](../tenant-config-static/README.zh.md)——从组合配置读取的后端。
+- [tenant-config-store](../tenant-config-store/README.zh.md)——持久化、可写的后端。
 - [多租户子系统](../../../docs/subsystems/multi-tenancy.zh.md)——租户词汇与解析顺序。
 - [credentials](../../credentials/credentials/README.zh.md)——凭据引用是什么、如何解析。
 

@@ -208,6 +208,7 @@ flowchart LR
   pkg_tenant_config["tenant-config"]
   svc_tenantConfig["ctx.tenantConfig<br/>Tenant configuration seam"]
   pkg_tenant_config_static["tenant-config-static"]
+  pkg_tenant_config_store["tenant-config-store"]
   pkg_tenant_http["tenant-http"]
   pkg_tenant["tenant"]
   svc_tenants["ctx.tenants<br/>Tenant directory seam"]
@@ -336,6 +337,7 @@ flowchart LR
   pkg_tenant --> svc_tenants
   pkg_tenant_config --> svc_tenantConfig
   pkg_tenant_config_static --> svc_tenantConfig
+  pkg_tenant_config_store --> svc_tenantConfig
   pkg_tenant_static --> svc_tenants
   pkg_terminal --> svc_terminals
   pkg_terminal_bash --> svc_terminals
@@ -552,7 +554,7 @@ flowchart LR
 | `ctx.web` | `seam` | [`web`](../packages/web/web) | [`web-search-exa`](../packages/web/web-search-exa), [`web-search-perplexity`](../packages/web/web-search-perplexity), [`web-search-deepseek`](../packages/web/web-search-deepseek), [`web-fetch-http`](../packages/web/web-fetch-http) | [`tool-web`](../packages/web/tool-web) | - | Search and fetch providers register into one ctx.web seam; tool-web owns the stable model-facing names. |
 | `ctx.spillStore` | `seam` | [`spill`](../packages/spill/spill) | [`spill-local`](../packages/spill/spill-local) | [`spill-policy`](../packages/spill/spill-policy) | - | The backend saves oversized tool text and returns a model-facing locator plus retrieval hint; spill-policy is the tools/post-execute consumer that decides when to spill. |
 | `ctx.directoryPicker` | `seam` | [`host-directory-picker`](../packages/host/directory-picker) | [`host-directory-picker-native`](../packages/host/directory-picker-native), [`host-directory-picker-browse`](../packages/host/directory-picker-browse) | [`api-workspace-controller`](../packages/api/workspace-controller) | - | Discriminated interaction capability: the native backend opens one OS chooser on the host display, the browse backend serves listing/creation primitives for the in-app browser; dual-face backends fill ui-workspace directory-flow slots from their browser halves (no wire advertisement). |
-| `ctx.tenantConfig` | `seam` | [`tenant-config`](../packages/tenant/tenant-config) | [`tenant-config-static`](../packages/tenant/tenant-config-static) | [`tenant-http`](../packages/tenant/tenant-http) | - | What one tenant configures for itself — models per modality, provider grants carrying credential references rather than keys, features, identity text, and copy overrides; a backend states whether it can be saved to, and every backend validates against one rule set. |
+| `ctx.tenantConfig` | `seam` | [`tenant-config`](../packages/tenant/tenant-config) | [`tenant-config-static`](../packages/tenant/tenant-config-static), [`tenant-config-store`](../packages/tenant/tenant-config-store) | [`tenant-http`](../packages/tenant/tenant-http) | - | What one tenant configures for itself — models per modality, provider grants carrying credential references rather than keys, features, identity text, and copy overrides; a backend states whether it can be saved to, and every backend validates against one rule set. |
 | `ctx.tenants` | `seam` | [`tenant`](../packages/tenant/tenant) | [`tenant-static`](../packages/tenant/tenant-static) | [`tenant-http`](../packages/tenant/tenant-http) | - | Three lookups — immutable id, hostname, subdomain slug — answering undefined for an unknown subject; which part of a request may name a tenant is transport knowledge the consumer owns, and an unresolved request is refused rather than served a fallback tenant. |
 | `ctx.webServer` | `core` | [`host-webserver`](../packages/host/webserver) | - | [`client-connection`](../packages/client/connection), [`client-modules`](../packages/client/modules), [`client-hmr`](../packages/client/hmr) | - | Plain node:http carrier: named-route registry, index transform taps, and the static dist fallback; web-transport plugins register their own routes. |
 | `ctx.clientModules` | `core` | [`client-modules`](../packages/client/modules) | - | [`client-hmr`](../packages/client/hmr) | - | Composes the __LYNESS_BOOT__ entry graph from an incremental lyn.client scan, serves plugin bundles, and notifies rebuilt/graph-changed subscribers. |

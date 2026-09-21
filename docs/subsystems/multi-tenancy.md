@@ -47,7 +47,7 @@ An unresolved request is refused. There is no fallback tenant: a tenant is an is
 
 ## Tenant configuration
 
-`ctx.tenantConfig` reads what one tenant configures for itself, provided by [lyn-tenant-config](../../packages/tenant/tenant-config) and backed by rows in composition config ([lyn-tenant-config-static](../../packages/tenant/tenant-config-static)). A private deployment configures the same way a SaaS tenant does; it simply has one tenant. What a tenant does not configure here is its brand — mark, wordmark, favicon, product name — which belongs to the deployment.
+`ctx.tenantConfig` reads what one tenant configures for itself, provided by [lyn-tenant-config](../../packages/tenant/tenant-config) and backed either by rows in composition config ([lyn-tenant-config-static](../../packages/tenant/tenant-config-static)) or by records in the storage domain ([lyn-tenant-config-store](../../packages/tenant/tenant-config-store)). A private deployment configures the same way a SaaS tenant does; it simply has one tenant. What a tenant does not configure here is its brand — mark, wordmark, favicon, product name — which belongs to the deployment.
 
 ```ts type-equiv
 /** Everything one tenant configures for itself. */
@@ -89,6 +89,8 @@ interface TenantIdentity {
 Identity is shape here and nothing more: composing the layers into a prompt belongs with the session log, because anything that reaches a model request must be reconstructable from it. The layer between organization and agent is the user, which arrives when this deployment has user records.
 
 Every backend validates against one rule set — a model's provider must be granted, a preferred model must be available, nothing repeats, and no id, constraint, or copy override is blank — so a read-only backend checks at load and a writable one checks before it saves. A backend states which it is through `capability()`, so an administration surface shows or hides saving rather than discovering it by failing.
+
+The two backends are alternatives, not layers: one store is mounted per context. The durable one keeps a tenant's whole configuration as one record in the `tenant_config` domain, so saving one tenant rewrites that tenant alone, and changing a configuration is a save rather than a patch-layer edit and a restart.
 
 ## In the session log
 

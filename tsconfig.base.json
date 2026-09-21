@@ -412,6 +412,7 @@
       "@lyness/lyn-tenant": ["./packages/tenant/tenant/src"],
       "@lyness/lyn-tenant-config": ["./packages/tenant/tenant-config/src"],
       "@lyness/lyn-tenant-config-static": ["./packages/tenant/tenant-config-static/src"],
+      "@lyness/lyn-tenant-config-store": ["./packages/tenant/tenant-config-store/src"],
       "@lyness/lyn-tenant-http": ["./packages/tenant/tenant-http/src"],
       "@lyness/lyn-tenant-session": ["./packages/tenant/tenant-session/src"],
       "@lyness/lyn-tenant-static": ["./packages/tenant/tenant-static/src"],

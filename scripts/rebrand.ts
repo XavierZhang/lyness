@@ -273,6 +273,10 @@ const PROTECTED: readonly Protection[] = [
     prefix: '.agents/notes/implemented/process/2026-09-12-restoring-the-product-name-segment',
     why: 'Records why harness package names keep the product segment, which it can only state by naming both spellings.',
   },
+  {
+    prefix: '.agents/notes/implemented/process/2026-09-17-python-package-rename',
+    why: 'Records the Python import-package rename, which it can only state by naming the upstream package it renamed away from.',
+  },
 ]
 
 /** A string that must appear exactly `count` times once the rebrand has run. */
@@ -304,6 +308,21 @@ const POSTCONDITIONS: readonly PostCondition[] = [
   { file: 'packages/bundle/base/cordis.patch.yml', text: 'api.deepseek.com', count: 0 },
   { file: 'CUSTOM.md', text: 'DeepSeek Harness', count: 3 },
 ]
+
+/**
+ * Check every post-state assertion against the working tree.
+ * @param root - repository root the assertion paths resolve against.
+ * @returns one message per assertion that does not hold; empty when all do.
+ */
+function postconditionFailures(root: string): string[] {
+  return POSTCONDITIONS.flatMap((check) => {
+    const path = resolve(root, check.file)
+    const hits = existsSync(path) ? readFileSync(path, 'utf8').split(check.text).length - 1 : -1
+    if (hits === check.count) return []
+    const found = `${String(hits)} occurrence(s) of ${JSON.stringify(check.text)}`
+    return [`postcondition: ${check.file} has ${found}, expected ${String(check.count)}`]
+  })
+}
 
 /**
  * True when a tracked file holds bytes no text rename may touch.
@@ -558,13 +577,7 @@ function main(): void {
   if (mode === 'check' && !reverse) {
     for (const file of outstanding) failures.push(`residue: ${file} still carries a pre-rebrand name`)
     for (const move of moves) failures.push(`residue: path ${move.from} was never renamed to ${move.to}`)
-    for (const check of POSTCONDITIONS) {
-      const path = resolve(root, check.file)
-      const hits = existsSync(path) ? readFileSync(path, 'utf8').split(check.text).length - 1 : -1
-      if (hits !== check.count) {
-        failures.push(`postcondition: ${check.file} has ${String(hits)} occurrence(s) of ${JSON.stringify(check.text)}, expected ${String(check.count)}`)
-      }
-    }
+    failures.push(...postconditionFailures(root))
   }
 
   if (failures.length > 0) {

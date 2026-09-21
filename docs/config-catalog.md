@@ -3681,6 +3681,7 @@ These load from a `cordis.yml` entry with no `config:` block; they declare no co
 - `@lyness/lyn-storage` ([`packages/storage/storage/src/index.ts`](../packages/storage/storage/src/index.ts))
 - `@lyness/lyn-subagent` ([`packages/subagent/subagent/src/index.ts`](../packages/subagent/subagent/src/index.ts))
 - `@lyness/lyn-subprocess-local` ([`packages/subprocess/subprocess-local/src/index.ts`](../packages/subprocess/subprocess-local/src/index.ts))
+- `@lyness/lyn-tenant-config-store` — requires `storageDomain` ([`packages/tenant/tenant-config-store/src/index.ts`](../packages/tenant/tenant-config-store/src/index.ts))
 - `@lyness/lyn-terminal` ([`packages/terminal/terminal/src/index.ts`](../packages/terminal/terminal/src/index.ts))
 - `@lyness/lyn-tool-ask-user` — requires `tools` · `userQuestions` ([`packages/interaction/tool-ask-user/src/index.ts`](../packages/interaction/tool-ask-user/src/index.ts))
 - `@lyness/lyn-tool-call-timeout-policy` — requires `tools` ([`packages/guard/timeout-policy/src/index.ts`](../packages/guard/timeout-policy/src/index.ts))

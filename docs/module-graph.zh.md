@@ -354,6 +354,7 @@ flowchart TD
     pkg_tenant["tenant"]
     pkg_tenant_config["tenant-config"]
     pkg_tenant_config_static["tenant-config-static"]
+    pkg_tenant_config_store["tenant-config-store"]
     pkg_tenant_http["tenant-http"]
     pkg_tenant_session["tenant-session"]
     pkg_tenant_static["tenant-static"]
@@ -1298,6 +1299,7 @@ flowchart TD
 | [`tenant`](../packages/tenant/tenant) | `tenant` | — |
 | [`tenant-config`](../packages/tenant/tenant-config) | `tenant` | — |
 | [`tenant-config-static`](../packages/tenant/tenant-config-static) | `tenant` | — |
+| [`tenant-config-store`](../packages/tenant/tenant-config-store) | `tenant` | — |
 | [`tenant-http`](../packages/tenant/tenant-http) | `tenant` | — |
 | [`tenant-session`](../packages/tenant/tenant-session) | `tenant` | — |
 | [`tenant-static`](../packages/tenant/tenant-static) | `tenant` | — |

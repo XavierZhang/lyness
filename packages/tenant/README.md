@@ -26,6 +26,7 @@ A tenant is an organization whose data, configuration, and credentials stay sepa
 | [`tenant-static`](tenant-static/README.md) | Provider: the roster an operator writes in composition config, validated at load |
 | [`tenant-config`](tenant-config/README.md) | Service Definition: what one tenant configures — models, providers, features, identity, copy |
 | [`tenant-config-static`](tenant-config-static/README.md) | Provider: those rows in composition config, validated at load |
+| [`tenant-config-store`](tenant-config-store/README.md) | Provider: those records in the storage domain, writable by an administration surface |
 | [`tenant-http`](tenant-http/README.md) | Consumer: resolves the tenant one HTTP request belongs to, and answers which it is |
 | [`tenant-session`](tenant-session/README.md) | Consumer: stamps every session with its tenant and that tenant's identity text, in the durable log |
 

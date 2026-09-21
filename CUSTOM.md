@@ -116,6 +116,7 @@ codemod 只改文本和路径。下面这些是它改完之后必然过期、必
 | 能力 | 位置 | 说明 |
 |---|---|---|
 | 会话租户戳记 | `packages/tenant/tenant-session` | 会话创建时写一条仅日志事件 `tenant/identity`：租户 id、标识，以及该租户的约束与个性**原文**（配置可改，只记 id 事后还原不出当时文本）。投影兼作幂等守卫，fork 与恢复保留原戳记。新增事件类型不升会话格式版本。[决策](.agents/notes/implemented/architecture/2026-09-20-tenant-in-the-session-log.md) |
+| 租户配置入库 | `packages/tenant/tenant-config-store` | `ctx.tenantConfig` 的持久化后端：`tenant_config` 存储域、版本 1、`per-record`（保存一个租户不重写其他租户）；自报 `writable`，写入前跑 `validateTenantConfig`，自身不接受配置。与只读后端二选一，不叠加。[决策](.agents/notes/implemented/architecture/2026-09-21-durable-tenant-configuration.md) |
 | 租户配置 | `packages/tenant/{tenant-config,tenant-config-static}` | `ctx.tenantConfig`：按模态的模型（语言／图片／视频／音乐）、供应商授权（带凭据引用与自建端点，密钥不入配置）、功能开关、身份（约束叠加／个性替换）、界面文案覆盖。不回落部署级模型；后端自报只读或可写。[决策](.agents/notes/implemented/architecture/2026-09-20-tenant-configuration-seam.md) |
 | 租户能力缝 | `packages/tenant/{tenant,tenant-static,tenant-http}` | `ctx.tenants` 目录（按不可变 id／主机名／子域名标识三种查法）+ 组合配置清单提供方 + HTTP 调用方（请求头 → 主机名 → 子域名，解析不到即拒绝，无兜底租户）。不挂载即单租户。[决策](.agents/notes/implemented/architecture/2026-09-17-tenant-directory-seam.md)、[子系统页](docs/subsystems/multi-tenancy.md) |
 | 内置字标字体 | `packages/host/brand-fonts` | Inter SemiBold + Noto Sans CJK SC Medium（均 OFL-1.1，原样随附），覆盖拉丁／希腊／西里尔／中日韩；**只用于品牌字标**，不下发浏览器。声明走 `third-party-assets.json`（校验和 + 许可证 + 未登记字体文件即报错） |
