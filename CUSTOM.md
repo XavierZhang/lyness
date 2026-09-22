@@ -127,6 +127,7 @@ codemod 只改文本和路径。下面这些是它改完之后必然过期、必
 | 品牌引导命令 | `packages/bundle/brand-studio` | `lyn --profile brand-studio`：图标 PNG + 字体文件 → 三个 SVG，写入目标 profile（默认 `web`）补丁层的 `brand-deployment` 行。仅参数、仅上传路径；品牌方自带字体，须 `--accept-trademark` 与 `--accept-font-license` 确认（SaaS 只用平台内置字体，见 `.fork/BRAND-CONFIG.md` 字体一节）。[决策](.agents/notes/implemented/architecture/2026-09-15-brand-studio-profile.md) |
 | Web UI 品牌 | `packages/client/ui-brand-lyness` | 所有构建中填三个品牌 slot（lyness 图标 + inter-600 字标），页面带部署品牌时逐项让位。[决策](.agents/notes/implemented/architecture/2026-09-15-lyness-brand-in-the-web-client.md) |
 | 可重放的品牌改名 | `scripts/rebrand.ts` | 22 条有序规则（含 Python 包名规则 `python-package`、删除型规则 `shields-logo`，`--reverse` 跳过它）+ 保护路径 + 后置断言 + `--check`。**每次 sync upstream 后必须重跑**，否则上游带回的旧名会残留。设计见 [Agent Note](.agents/notes/implemented/process/2026-08-31-lyness-rebrand-codemod.md) |
+| Linux 覆盖率 CI | `.github/workflows/fork-linux-coverage.yml` | push 到 `custom/main`（或手动触发）时在 GitHub 托管的 `ubuntu-24.04` 上跑 `check:ci:coverage`（逐文件 100%）。上游的覆盖率任务只在 PR 上、只在上游企业 runner 上跑，本 fork 两者都没有；macOS 上 `linux-execve.ts` 与 `code-runtime-python` 读 `/proc` 的分支按设计不执行，这是唯一检查它们的地方。`fork-` 前缀让它永远不与上游合并冲突。消耗私有仓库 Actions 分钟数 |
 | 二开任务清单 | `.fork/TASKS.md` | 需求拆解、7 处冲突裁决与分阶段计划 |
 | 二开手册 | `.fork/FORK-GUIDE.md` | 原在 `docs/` 下，因受上游双语门禁管辖而迁出 |
 | 部署层品牌 | `packages/host/brand-deployment` | 组合层 `Config` + 资产按角色提供 + `renderIndex` 注入。改 patch 层并重启即换品牌，不重建前端。[决策](.agents/notes/implemented/architecture/2026-09-13-deployment-brand-as-composition-config.md) |

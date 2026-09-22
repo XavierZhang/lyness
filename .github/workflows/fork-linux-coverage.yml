@@ -1,0 +1,104 @@
+# Fork-owned: the per-file 100% coverage gate on Linux for custom/main.
+#
+# Upstream's coverage lane (ci.yml node-24-coverage) runs only on pull
+# requests and only on upstream's enterprise runner pool, so this fork — which
+# commits to custom/main directly and has no such pool — never ran it. On
+# macOS the gate cannot pass: Linux-only code paths (the libc execve binding,
+# the /proc process-start read) are skipped there by design. This lane is the
+# only place those files are checked. It mirrors node-24-coverage's steps on a
+# GitHub-hosted runner.
+#
+# The `fork-` prefix keeps this file out of every upstream merge.
+name: Fork Linux coverage
+
+on:
+  push:
+    branches: [custom/main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PRIMARY_NODE_VERSION: '24'
+  # CI runs must never report to the production telemetry endpoint baked
+  # into apps/cli/cordis.yml (AppCLIEntry disables the row when set).
+  LYNESS_TELEMETRY_DISABLED: '1'
+
+# A newer push supersedes an older run; only the latest tip's result matters.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  coverage:
+    name: node 24 / coverage (linux)
+    # x86_64 is required: prepare-ci-bubblewrap.sh installs an amd64 package.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    env:
+      # Sized for the hosted 4-vCPU runner rather than upstream's 16-core pool.
+      LYNESS_COVERAGE_MAX_WORKERS: '3'
+      LYNESS_COVERAGE_PARTITIONS: '2'
+      LYNESS_GATE_CONCURRENCY: '2'
+      LYNESS_GATE_FAIL_FAST: '1'
+    steps:
+      - name: Use runner-owned temporary storage
+        run: |
+          echo "TMPDIR=${{ runner.temp }}" >> "$GITHUB_ENV"
+
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Redirect Node compile cache to runner temp
+        run: echo "NODE_COMPILE_CACHE=${{ runner.temp }}/node-compile-cache" >> "$GITHUB_ENV"
+
+      - uses: pnpm/action-setup@v4
+        with:
+          dest: ${{ runner.temp }}/setup-pnpm-${{ github.run_id }}-${{ github.run_attempt }}
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.PRIMARY_NODE_VERSION }}
+
+      - name: Configure pnpm store path
+        id: pnpm-store
+        run: |
+          store_root="$HOME/.local/share/pnpm/store"
+          echo "PNPM_CONFIG_STORE_DIR=$store_root" >> "$GITHUB_ENV"
+          store_path=$(PNPM_CONFIG_STORE_DIR="$store_root" pnpm store path --silent)
+          echo "path=$store_path" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/cache/restore@v4
+        id: pnpm-cache
+        with:
+          path: ${{ steps.pnpm-store.outputs.path }}
+          key: ${{ runner.os }}-node-${{ env.PRIMARY_NODE_VERSION }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ env.PRIMARY_NODE_VERSION }}-pnpm-
+
+      - name: Install dependencies and prepare bubblewrap
+        run: |
+          pnpm install --frozen-lockfile &
+          install_pid=$!
+          bash scripts/prepare-ci-bubblewrap.sh &
+          sandbox_pid=$!
+          install_status=0
+          wait "$install_pid" || install_status=$?
+          sandbox_status=0
+          wait "$sandbox_pid" || sandbox_status=$?
+          if (( install_status != 0 )); then exit "$install_status"; fi
+          exit "$sandbox_status"
+
+      # Upstream seeds this cache from its pull-request lane (ci.yml), which
+      # never runs here, so the restore above would always miss without a save.
+      # Saved before coverage so a failing run still seeds the next one.
+      - uses: actions/cache/save@v4
+        if: steps.pnpm-cache.outputs.cache-hit != 'true'
+        with:
+          path: ${{ steps.pnpm-store.outputs.path }}
+          key: ${{ runner.os }}-node-${{ env.PRIMARY_NODE_VERSION }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+
+      - name: Run exhaustive coverage
+        run: pnpm run check:ci:coverage
