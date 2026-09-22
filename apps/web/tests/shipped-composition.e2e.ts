@@ -19,6 +19,7 @@ import type {} from '@lyness/lyn-agent-presets'
 import type {} from '@lyness/lyn-commands'
 import type {} from '@lyness/lyn-system-prompt'
 import { launchWebScaffold, type WebScaffold } from './scaffold.ts'
+import { E2E_TARGET } from '@lyness/lyn-e2e-target'
 
 const FILE_REFERENCE_PROMPT = fileURLToPath(new URL(
   './expected/web-runtime-context/file-reference-prompt.expected.md', import.meta.url,
@@ -179,7 +180,7 @@ it('assembles the shipped Web transport, catalog, guidance, and defaults', async
   const commandHandle = await scaffold.ctx.agents.create({
     sessionId: SessionId('shipped-command-catalog'),
     meta: { cwd: scaffold.workspaceCwd },
-    agentOptions: { provider: 'deepseek-official', model: 'deepseek-v4-flash' },
+    agentOptions: { provider: 'deepseek-official', model: E2E_TARGET.model },
   })
   try {
     expect(scaffold.ctx.commands.list(commandHandle.agent)).toContainEqual({

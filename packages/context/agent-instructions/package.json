@@ -46,6 +46,7 @@
     "@lyness/lyn-agent": "workspace:^",
     "@lyness/lyn-agent-loop": "workspace:^",
     "@lyness/lyn-agent-loop-testkit": "workspace:^",
+    "@lyness/lyn-e2e-target": "workspace:^",
     "@lyness/lyn-fs": "workspace:^",
     "@lyness/lyn-fs-local": "workspace:^",
     "@lyness/lyn-home-paths": "workspace:^",

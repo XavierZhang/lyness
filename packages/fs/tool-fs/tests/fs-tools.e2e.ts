@@ -6,6 +6,7 @@ import { afterEach, describe, expect, it } from 'vitest'
 import type { Context } from '@lyness/cordis'
 import { SessionId } from '@lyness/lyn-session'
 import { fsHarness, waitForIdle } from './harness.ts'
+import { E2E_TARGET } from '@lyness/lyn-e2e-target'
 
 /** Key-gated smoke for a real model driving the local read/write/edit tools. */
 
@@ -28,7 +29,7 @@ describe.skipIf(!process.env.DEEPSEEK_API_KEY)('fs tools with-key smoke', () => 
     ctx = await fsHarness(workdir, SYSTEM)
     // agentLoop.create prepares a session with no cwd, so the provider default
     // (config.cwd = workdir) is the workspace.
-    const agent = await ctx.agentLoop.create(SessionId('fs-e2e'), { provider: 'deepseek-official', model: 'deepseek-v4-flash' })
+    const agent = await ctx.agentLoop.create(SessionId('fs-e2e'), { provider: 'deepseek-official', model: E2E_TARGET.model })
 
     agent.followup(createUserMessage({
       content: [{ type: 'text', text:
@@ -61,7 +62,7 @@ describe.skipIf(!process.env.DEEPSEEK_API_KEY)('fs tools with-key smoke', () => 
       const handle = await ctx.agents.create({
         sessionId: SessionId(`fs-e2e-cwd-${Date.now()}`),
         meta: { cwd: sessionDir },
-        agentOptions: { provider: 'deepseek-official', model: 'deepseek-v4-flash' },
+        agentOptions: { provider: 'deepseek-official', model: E2E_TARGET.model },
       })
       handle.agent.followup(createUserMessage({
         content: [{ type: 'text', text:

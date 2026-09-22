@@ -56,7 +56,7 @@ A request selects the route with `provider: deepseek-official`; the model id pas
 | `reasoningEffort` | `high` | Default effort: `off`, `low`, `high`, or `max` |
 | `maxTokens` | `256,000` | Per-request output cap; a model's own cap and explicit request values win |
 | `defaultContextWindow` | `1,000,000` | Capacity fallback for models without an exact value |
-| `models` | V41 Flash + V4 Flash + V4 Pro + V4 Flash Vision Exp | Advisory catalog shown by discovery consumers |
+| `models` | V41 Flash + V4 Flash + V4 Pro + V4 Flash Vision Exp | Advisory catalog shown by discovery consumers; `$DEEPSEEK_MODELS` replaces it |
 | `streamIdleTimeoutMs` | `300,000` | Maximum provider idle time per outstanding stream read |
 | `maxRequestFilesBytes` | `128 MiB` | High watermark for retained request-image bytes before oldest-first offload |
 | `maxInlineRequestImageBytes` | `20 MiB` | Independent base64 fallback high watermark |
@@ -71,6 +71,17 @@ A request selects the route with `provider: deepseek-official`; the model id pas
 | `retryPolicy` | normal, 5 retries | Provider-owned retry policy executed by `lyn-llm-retry` |
 
 The generated [configuration catalog](../../../docs/config-catalog.md#lynesslyn-llm-deepseek) is the exhaustive source for every accepted field and its JSDoc.
+
+### Another DeepSeek-compatible endpoint
+
+`$DEEPSEEK_BASE_URL` points this provider at any endpoint that speaks the DeepSeek chat API, and such an endpoint usually names its models differently. `$DEEPSEEK_MODELS` is that endpoint's catalog: comma-separated model ids, read from the same trusted environment layers as the endpoint.
+
+```sh
+DEEPSEEK_BASE_URL=https://gateway.example/v1
+DEEPSEEK_MODELS=deepseek-ai/DeepSeek-V4-Flash,deepseek-ai/DeepSeek-V4-Pro
+```
+
+The variable replaces the composition's `models` rather than merging into it, because a catalog written for one endpoint is wrong for another; a catalog saved in the user's settings still wins. Each id becomes a text-only entry with the default context window, so a model that takes images or has its own window is configured in settings instead. A set but empty value, or a blank entry, fails the load.
 
 ### Streaming with thinking and images
 

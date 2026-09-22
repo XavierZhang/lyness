@@ -6,6 +6,7 @@ import { afterEach, describe, expect, it } from 'vitest'
 import type { Context } from '@lyness/cordis'
 import { spawnHarness, waitForIdle } from './harness.ts'
 import { SessionId } from '@lyness/lyn-session'
+import { E2E_TARGET } from '@lyness/lyn-e2e-target'
 
 /** Key-gated smoke for a real parent delegating filesystem work to a real child. */
 
@@ -23,7 +24,7 @@ describe.skipIf(!process.env.DEEPSEEK_API_KEY)('spawn backend with-key smoke', (
   it('a parent delegates to a child that writes a file on disk', async () => {
     workdir = await mkdtemp(join(tmpdir(), 'lyn-subagent-spawn-e2e-'))
     ctx = await spawnHarness(workdir)
-    const parent = await ctx.agentLoop.create(SessionId('e2e-parent'), { provider: 'deepseek-official', model: 'deepseek-v4-flash' })
+    const parent = await ctx.agentLoop.create(SessionId('e2e-parent'), { provider: 'deepseek-official', model: E2E_TARGET.model })
 
     parent.followup(createUserMessage({
       content: [{ type: 'text', text:

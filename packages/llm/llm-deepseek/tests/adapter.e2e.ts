@@ -26,6 +26,7 @@ import * as PluginPackageInventoryDeepSeek from '@lyness/lyn-plugin-package-inve
 import * as SessionLogDeepSeek from '@lyness/lyn-session-log-deepseek'
 import * as LlmDeepSeek from '@lyness/lyn-llm-deepseek'
 import type { Config } from '@lyness/lyn-llm-deepseek'
+import { MODELS_ENV, parseModelIds } from '../src/index.ts'
 import type { WireMessage, WireRequest } from '../src/types.ts'
 import { assemble, type AssembledResult } from './assemble.ts'
 
@@ -37,7 +38,10 @@ import { assemble, type AssembledResult } from './assemble.ts'
  * requires $DEEPSEEK_FLASH_E2E=1 (see vitest.e2e.config.ts).
  */
 
-const FLASH = 'deepseek-v4-flash'
+// The configured platform's first model, as @lyness/lyn-e2e-target resolves it; read here directly
+// because that package depends on this one.
+const configuredModels = process.env[MODELS_ENV]
+const FLASH = configuredModels === undefined ? 'deepseek-v4-flash' : parseModelIds(configuredModels)[0]
 const VISION = 'deepseek-v4-flash-vision-exp'
 const VISION_E2E_ENABLED = process.env.DEEPSEEK_VISION_E2E === '1'
 /** A model whose endpoint reads the latest `system` message at any position; unset skips the in-history smoke. */

@@ -23,6 +23,7 @@ import {
   startDeepSeekResponsesBridge,
   type DeepSeekResponsesBridge,
 } from './deepseek-responses-bridge.ts'
+import { E2E_TARGET } from '@lyness/lyn-e2e-target'
 
 const execFileAsync = promisify(execFile)
 const codexPackageJson = createRequire(import.meta.url).resolve('@openai/codex/package.json')
@@ -66,7 +67,7 @@ describe.skipIf(!process.env.DEEPSEEK_API_KEY)(
       const bridge = await startDeepSeekResponsesBridge(nonce)
       bridges.push(bridge)
       writeFileSync(join(codexHome, 'config.toml'), [
-        'model = "deepseek-v4-flash"',
+        `model = ${JSON.stringify(E2E_TARGET.model)}`,
         'model_provider = "deepseek-e2e"',
         'approval_policy = "never"',
         'sandbox_mode = "read-only"',

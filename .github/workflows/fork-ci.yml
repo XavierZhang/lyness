@@ -10,10 +10,13 @@
 # Parallelism settings are scaled down from upstream's 16-core values for the
 # 4-vCPU hosted runners. Windows-hosted minutes bill at twice the Linux rate.
 #
-# Not mirrored: publishing, upstream PR governance, docs deployment, and the
-# real-API lanes. python-runtime needs the DEEPSEEK_API_KEY_EXTERNAL secret and
-# hard-fails without it, so it runs only when the repository variable
-# LYNESS_FORK_REAL_API is 'true'.
+# Not mirrored: publishing, upstream PR governance, and docs deployment.
+#
+# Real-API lanes run only when the repository variable LYNESS_FORK_REAL_API is
+# 'true', and need the DEEPSEEK_API_KEY_EXTERNAL secret. Which platform they
+# call is configuration, not code: the repository variables DEEPSEEK_BASE_URL
+# and DEEPSEEK_MODELS reach the product and the suites as the environment
+# variables of the same names. Unset, the target is the official API.
 #
 # The `fork-` prefix keeps this file out of every upstream merge.
 name: Fork CI
@@ -364,12 +367,12 @@ jobs:
         run: uv run --python 3.10 --group test --project python/sdk pytest
 
   # The reusable builder runs an installed-wheel real-API test on every
-  # non-PR event and hard-fails when the secret is empty; it also pins
-  # DEEPSEEK_BASE_URL to the official endpoint. Enable it by setting the
-  # repository variable LYNESS_FORK_REAL_API to 'true' once the secret exists.
+  # non-PR event and hard-fails when the secret is empty. It pins
+  # DEEPSEEK_BASE_URL to the official endpoint inside that upstream file, so it
+  # runs only when this fork's target is the official API.
   python-runtime:
     name: python runtime / release-shaped matrix
-    if: vars.LYNESS_FORK_REAL_API == 'true'
+    if: vars.LYNESS_FORK_REAL_API == 'true' && vars.DEEPSEEK_BASE_URL == ''
     uses: ./.github/workflows/build-exe-for-python-sdk.yml
     with:
       targets: node24-linux-x64,node24-win-x64
@@ -544,3 +547,69 @@ jobs:
       - name: Run Windows observational gates
         shell: pwsh
         run: pnpm run check:ci:windows-observational
+
+  e2e:
+    name: e2e (real API, configured platform)
+    if: vars.LYNESS_FORK_REAL_API == 'true'
+    runs-on: ubuntu-24.04
+    # Profile e2e files can each own several complete lyn subprocess trees, so
+    # four file workers preserve process/PTY headroom.
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install (immutable)
+        run: pnpm install --frozen-lockfile
+
+      # The with-key escalation e2e self-skips without a usable sandbox runner.
+      - name: Prepare bubblewrap (unrestrict userns)
+        run: bash scripts/prepare-ci-bubblewrap.sh
+
+      # The suites self-skip without a key, so a missing secret would otherwise
+      # report every real-API test as a green skip.
+      - name: Preflight (require DEEPSEEK_API_KEY)
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY_EXTERNAL }}
+        run: |
+          set -euo pipefail
+          if [ -z "${DEEPSEEK_API_KEY:-}" ]; then
+            echo "::error::DEEPSEEK_API_KEY_EXTERNAL is empty; the e2e suites would self-skip and report a false green."
+            exit 1
+          fi
+
+      # The endpoint is always set explicitly, as upstream does, so a stray
+      # .env cannot redirect the run. DEEPSEEK_MODELS is exported only when the
+      # variable is set: an empty value is a malformed catalog the product
+      # refuses at load.
+      - name: Resolve the configured platform
+        env:
+          CONFIGURED_BASE_URL: ${{ vars.DEEPSEEK_BASE_URL }}
+          CONFIGURED_MODELS: ${{ vars.DEEPSEEK_MODELS }}
+        run: |
+          set -euo pipefail
+          echo "DEEPSEEK_BASE_URL=${CONFIGURED_BASE_URL:-https://api.deepseek.com}" >> "$GITHUB_ENV"
+          if [ -n "${CONFIGURED_MODELS:-}" ]; then
+            echo "DEEPSEEK_MODELS=$CONFIGURED_MODELS" >> "$GITHUB_ENV"
+          fi
+          echo "e2e target: ${CONFIGURED_BASE_URL:-https://api.deepseek.com} models=${CONFIGURED_MODELS:-<official defaults>}"
+
+      # The e2e suites boot the example bins in `lib` mode, which requires a build.
+      - name: Build (lib for the e2e example bins)
+        run: pnpm run build:official
+
+      # The secret is scoped to this step and the preflight only.
+      - name: E2E tests (real API)
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY_EXTERNAL }}
+          LYNESS_E2E_MAX_WORKERS: 4
+          LYNESS_EXAMPLE_MODE: lib
+        run: pnpm run test:e2e

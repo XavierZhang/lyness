@@ -7,6 +7,7 @@ import { afterEach, describe, expect, it } from 'vitest'
 import type { Context } from '@lyness/cordis'
 import { codingHarness, finalText, SYSTEM_PROMPT, waitForIdle } from './harness.ts'
 import { SessionId } from '@lyness/lyn-session'
+import { E2E_TARGET } from '@lyness/lyn-e2e-target'
 
 /**
  * The swebench-style smoke test: a real model fixes a real bug in a temp
@@ -55,7 +56,7 @@ describe.skipIf(!process.env.DEEPSEEK_API_KEY)('coding task: fix a failing test 
     expect(before.status).not.toBe(0)
 
     ctx = await codingHarness(workdir, { personaPrefix: SYSTEM_PROMPT })
-    const agent = await ctx.agentLoop.create(SessionId('e2e-task'), { provider: 'deepseek-official', model: 'deepseek-v4-flash' })
+    const agent = await ctx.agentLoop.create(SessionId('e2e-task'), { provider: 'deepseek-official', model: E2E_TARGET.model })
 
     agent.followup(createUserMessage({
       content: [{

@@ -20,6 +20,7 @@ import type {} from '@lyness/lyn-tools'
 // Type-only: resolves `ctx.get('sessionProjections')` and `ctx.get('tokenMeter')`.
 import type {} from '@lyness/lyn-session-projection'
 import type {} from '@lyness/lyn-token-meter'
+import { E2E_TARGET } from '@lyness/lyn-e2e-target'
 
 const REPO_ROOT = fileURLToPath(new URL('../../..', import.meta.url))
 /** The shipped Web surface: the lyn-base and lyn-web-app bundle patches over an empty preset root. */
@@ -263,7 +264,7 @@ describe('the shipped Web composition', () => {
     })
     await ctx.settings.update(SUBAGENT_MODEL_SELECTION_SETTINGS_NAMESPACE, {
       enabled: true,
-      allowedModels: [{ provider: 'deepseek-official', model: 'deepseek-v4-flash' }],
+      allowedModels: [{ provider: 'deepseek-official', model: E2E_TARGET.model }],
     })
     const enabled = await ctx.agents.create({
       sessionId: SessionId('preset-model-selection-enabled'),

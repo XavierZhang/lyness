@@ -26,6 +26,7 @@ test-support 组为仓库测试提供确定且无须密钥的真实产品测试�
 |---|---|
 | [`session-snapshot`](session-snapshot/README.zh.md) | 为 profile 驱动的测试提供 session-log 快照支持与协议适配器 |
 | [`agent-loop-testkit`](agent-loop-testkit/README.zh.md) | 为运行具体 AgentLoop 的测试提供共享先决服务 |
+| [`e2e-target`](e2e-target/README.zh.md) | 根据产品读取的变量，解析真实 API e2e 测试调用哪个兼容 DeepSeek 的平台 |
 | [`client-runtime`](client-runtime/README.zh.md) | 为浏览器功能测试提供 jsdom slot 测试台 |
 | [`loader-smoke`](loader-smoke/README.zh.md) | 启动由 Loader 组合的应用并驱动 fixture（测试前置数据）轮次以执行冒烟测试 |
 | [`llm-mock-server`](llm-mock-server/README.zh.md) | 为恢复测试提供可通过脚本控制的 OpenAI 兼容故障服务器 |

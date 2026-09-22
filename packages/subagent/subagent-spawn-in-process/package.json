@@ -35,21 +35,22 @@
     "@lyness/schemastery": "workspace:^"
   },
   "devDependencies": {
+    "@lyness/cordis": "workspace:^",
     "@lyness/cordis-plugin-loader": "workspace:^",
     "@lyness/lyn-agent": "workspace:^",
     "@lyness/lyn-agent-loop": "workspace:^",
     "@lyness/lyn-agent-loop-testkit": "workspace:^",
     "@lyness/lyn-bash-local": "workspace:^",
-    "@lyness/lyn-subprocess-local": "workspace:^",
+    "@lyness/lyn-e2e-target": "workspace:^",
     "@lyness/lyn-invariants": "workspace:^",
     "@lyness/lyn-llm": "workspace:^",
     "@lyness/lyn-llm-deepseek": "workspace:^",
     "@lyness/lyn-session": "workspace:^",
+    "@lyness/lyn-session-projection": "workspace:^",
     "@lyness/lyn-subagent": "workspace:^",
     "@lyness/lyn-subagent-in-process-driver": "workspace:^",
+    "@lyness/lyn-subprocess-local": "workspace:^",
     "@lyness/lyn-tool-bash": "workspace:^",
-    "@lyness/lyn-tool-subagent": "workspace:^",
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-session-projection": "workspace:^"
+    "@lyness/lyn-tool-subagent": "workspace:^"
   }
 }

@@ -21,7 +21,8 @@
     agents:
       - id: main
         provider: deepseek-official
-        model: deepseek-v4-flash
+        # The configured platform's first model; llm-deepseek rejects a malformed DEEPSEEK_MODELS at load.
+        model: !!js "(process.env.DEEPSEEK_MODELS ?? 'deepseek-v4-flash').split(',')[0].trim()"
         cwd: !!js process.cwd()
 
 - id: session-persistence-jsonl

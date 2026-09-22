@@ -56,7 +56,7 @@ kind: "package-reference"
 | `reasoningEffort` | `high` | 默认强度：`off`、`low`、`high` 或 `max` |
 | `maxTokens` | `256,000` | 单次请求输出上限；模型自身上限与显式请求值优先 |
 | `defaultContextWindow` | `1,000,000` | 无精确值模型的容量回退 |
-| `models` | V41 Flash + V4 Flash + V4 Pro + V4 Flash Vision Exp | 供发现消费方查看的建议性目录 |
+| `models` | V41 Flash + V4 Flash + V4 Pro + V4 Flash Vision Exp | 供发现消费方查看的建议性目录；`$DEEPSEEK_MODELS` 会替换它 |
 | `streamIdleTimeoutMs` | `300,000` | 单次流读取未完成的最大提供方空闲时间 |
 | `maxRequestFilesBytes` | `128 MiB` | 按最旧优先卸载前保留的请求图片字节高水位 |
 | `maxInlineRequestImageBytes` | `20 MiB` | 独立的 base64 回退高水位 |
@@ -71,6 +71,17 @@ kind: "package-reference"
 | `retryPolicy` | normal，5 次重试 | 由 `lyn-llm-retry` 执行的提供方自有重试策略 |
 
 生成的[配置目录](../../../docs/config-catalog.zh.md#lynesslyn-llm-deepseek)是每个受支持字段及其 JSDoc 的穷尽式真源。
+
+### 其他兼容 DeepSeek 的端点
+
+`$DEEPSEEK_BASE_URL` 可以把本提供方指向任何讲 DeepSeek 对话 API 的端点，而这类端点通常给模型起不同的名字。`$DEEPSEEK_MODELS` 就是那个端点的模型目录：逗号分隔的模型 id，与端点从同一组受信任的环境层读取。
+
+```sh
+DEEPSEEK_BASE_URL=https://gateway.example/v1
+DEEPSEEK_MODELS=deepseek-ai/DeepSeek-V4-Flash,deepseek-ai/DeepSeek-V4-Pro
+```
+
+该变量会替换组合配置里的 `models`，而不是与之合并，因为为一个端点写的目录对另一个端点是错的；用户在设置里保存的目录仍然优先。每个 id 都成为一个仅文本、使用默认上下文窗口的条目，因此需要图片输入或有自己窗口大小的模型要在设置里配置。设置了但值为空，或含空条目，会导致加载失败。
 
 ### 带 thinking 与图片的流式调用
 

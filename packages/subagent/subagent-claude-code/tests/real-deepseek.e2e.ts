@@ -18,9 +18,9 @@ import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 import type { SubprocessHandle } from '@lyness/lyn-subprocess'
 import LocalSubprocessRuntime from '@lyness/lyn-subprocess-local'
 import * as claudeCode from '../src/index.ts'
+import { E2E_TARGET } from '@lyness/lyn-e2e-target'
 
 const execFileAsync = promisify(execFile)
-const OFFICIAL_DEEPSEEK_BASE_URL = 'https://api.deepseek.com'
 const DEEPSEEK_MODEL = 'deepseek-v4-flash'
 const sdkRoot = dirname(fileURLToPath(
   import.meta.resolve('@anthropic-ai/claude-agent-sdk'),
@@ -48,14 +48,7 @@ afterEach(async () => {
   for (const root of roots.splice(0)) rmSync(root, { recursive: true, force: true })
 })
 
-function deepSeekBaseUrl(): string {
-  const configured = (process.env.DEEPSEEK_BASE_URL ?? OFFICIAL_DEEPSEEK_BASE_URL)
-    .replace(/\/+$/, '')
-  if (configured !== OFFICIAL_DEEPSEEK_BASE_URL) {
-    throw new Error('Claude Code DeepSeek e2e requires the official DeepSeek base URL')
-  }
-  return configured
-}
+
 
 async function expectQuiescent(handles: readonly SubprocessHandle[]): Promise<void> {
   expect(handles.length).toBeGreaterThan(0)
@@ -65,8 +58,10 @@ async function expectQuiescent(handles: readonly SubprocessHandle[]): Promise<vo
   }
 }
 
-describe.skipIf(!process.env.DEEPSEEK_API_KEY)(
-  'Claude Code provider with real DeepSeek API',
+// The child reaches DeepSeek through the official Anthropic-compatible endpoint, which another
+// platform does not serve, so this suite runs only against the official API.
+describe.skipIf(!process.env.DEEPSEEK_API_KEY || !E2E_TARGET.official)(
+  'Claude Code provider with real DeepSeek API (official only)',
   () => {
     it('returns one unique nonce through the production provider and real SDK/CLI', async () => {
       const apiKey = process.env.DEEPSEEK_API_KEY
@@ -90,7 +85,7 @@ describe.skipIf(!process.env.DEEPSEEK_API_KEY)(
 
       const env = {
         ANTHROPIC_AUTH_TOKEN: apiKey,
-        ANTHROPIC_BASE_URL: `${deepSeekBaseUrl()}/anthropic`,
+        ANTHROPIC_BASE_URL: `${E2E_TARGET.baseURL}/anthropic`,
         ANTHROPIC_MODEL: DEEPSEEK_MODEL,
         ANTHROPIC_DEFAULT_OPUS_MODEL: DEEPSEEK_MODEL,
         ANTHROPIC_DEFAULT_SONNET_MODEL: DEEPSEEK_MODEL,

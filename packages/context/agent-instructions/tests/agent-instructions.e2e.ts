@@ -14,6 +14,7 @@ import { candidateScopeKey } from '../src/render.ts'
 import LocalFileSystem from '@lyness/lyn-fs-local'
 import * as ToolFs from '@lyness/lyn-tool-fs'
 import type { SessionEvent } from '@lyness/lyn-session'
+import { E2E_TARGET } from '@lyness/lyn-e2e-target'
 
 const PROBE = 'banana-271828'
 const NESTED_PROBE = 'papaya-314159'
@@ -41,11 +42,11 @@ async function harness(): Promise<{ ctx: Context; agent: Agent }> {
   await ctx.plugin(ToolFs)
   await ctx.plugin(WorkspaceContext, { maxBytes: 65536 })
   await ctx.plugin(AgentLoop, { agents: [] })
-  await ctx.plugin(LlmDeepSeek, { models: [{ id: 'deepseek-v4-flash' }] })
+  await ctx.plugin(LlmDeepSeek, { models: [{ id: E2E_TARGET.model }] })
   const handle = await ctx.agents.create({
     sessionId: SessionId('workspace-context-e2e-session'),
     meta: { cwd: workdir },
-    agentOptions: { provider: 'deepseek-official', model: 'deepseek-v4-flash' },
+    agentOptions: { provider: 'deepseek-official', model: E2E_TARGET.model },
   })
   return { ctx, agent: handle.agent }
 }

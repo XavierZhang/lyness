@@ -380,6 +380,9 @@ importers:
       '@lyness/lyn-deepseek-llm-api-extensions':
         specifier: workspace:^
         version: link:../../packages/llm/deepseek-llm-api-extensions
+      '@lyness/lyn-e2e-target':
+        specifier: workspace:^
+        version: link:../../packages/test-support/e2e-target
       '@lyness/lyn-experimental-agent-team':
         specifier: workspace:^
         version: link:../../packages/experimental/agent-team
@@ -612,6 +615,9 @@ importers:
       '@lyness/lyn-cmdline':
         specifier: workspace:^
         version: link:../../packages/boot/cmdline
+      '@lyness/lyn-e2e-target':
+        specifier: workspace:^
+        version: link:../../packages/test-support/e2e-target
       '@lyness/lyn-experimental-webworker-packer':
         specifier: workspace:^
         version: link:../../packages/experimental/webworker-packer
@@ -4862,6 +4868,9 @@ importers:
       '@lyness/lyn-agent-loop-testkit':
         specifier: workspace:^
         version: link:../../test-support/agent-loop-testkit
+      '@lyness/lyn-e2e-target':
+        specifier: workspace:^
+        version: link:../../test-support/e2e-target
       '@lyness/lyn-fs':
         specifier: workspace:^
         version: link:../../fs/fs
@@ -5168,6 +5177,9 @@ importers:
       '@lyness/lyn-agent':
         specifier: workspace:^
         version: link:../agent
+      '@lyness/lyn-e2e-target':
+        specifier: workspace:^
+        version: link:../../test-support/e2e-target
       '@lyness/lyn-invariants':
         specifier: workspace:^
         version: link:../../runtime-diagnostics/invariants
@@ -6174,6 +6186,9 @@ importers:
       '@lyness/lyn-code-runtime':
         specifier: workspace:^
         version: link:../../code-runtime/code-runtime
+      '@lyness/lyn-e2e-target':
+        specifier: workspace:^
+        version: link:../../test-support/e2e-target
       '@lyness/lyn-fs':
         specifier: workspace:^
         version: link:../fs
@@ -7271,6 +7286,9 @@ importers:
       '@lyness/lyn-credentials':
         specifier: workspace:^
         version: link:../../credentials/credentials
+      '@lyness/lyn-e2e-target':
+        specifier: workspace:^
+        version: link:../../test-support/e2e-target
       '@lyness/lyn-fs':
         specifier: workspace:^
         version: link:../../fs/fs
@@ -8593,6 +8611,9 @@ importers:
       '@lyness/lyn-agent-loop':
         specifier: workspace:^
         version: link:../../core/agent-loop
+      '@lyness/lyn-e2e-target':
+        specifier: workspace:^
+        version: link:../../test-support/e2e-target
       '@lyness/lyn-llm':
         specifier: workspace:^
         version: link:../../llm/llm
@@ -9491,6 +9512,9 @@ importers:
       '@lyness/lyn-app-boot':
         specifier: workspace:^
         version: link:../../boot/app-boot
+      '@lyness/lyn-e2e-target':
+        specifier: workspace:^
+        version: link:../../test-support/e2e-target
       '@lyness/lyn-llm':
         specifier: workspace:^
         version: link:../../llm/llm
@@ -9561,6 +9585,9 @@ importers:
       '@lyness/lyn-app-boot':
         specifier: workspace:^
         version: link:../../boot/app-boot
+      '@lyness/lyn-e2e-target':
+        specifier: workspace:^
+        version: link:../../test-support/e2e-target
       '@lyness/lyn-llm':
         specifier: workspace:^
         version: link:../../llm/llm
@@ -9796,6 +9823,9 @@ importers:
       '@lyness/lyn-bash-local':
         specifier: workspace:^
         version: link:../../shell/bash-local
+      '@lyness/lyn-e2e-target':
+        specifier: workspace:^
+        version: link:../../test-support/e2e-target
       '@lyness/lyn-invariants':
         specifier: workspace:^
         version: link:../../runtime-diagnostics/invariants
@@ -10411,6 +10441,15 @@ importers:
       react-dom:
         specifier: ^18.2.0
         version: 18.3.1(react@18.3.1)
+
+  packages/test-support/e2e-target:
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:^
+        version: link:../../../vendor/cordis
+      '@lyness/lyn-llm-deepseek':
+        specifier: workspace:^
+        version: link:../../llm/llm-deepseek
 
   packages/test-support/llm-mock-server:
     devDependencies:
@@ -11130,6 +11169,9 @@ importers:
       '@lyness/lyn-agent-loop-testkit':
         specifier: workspace:^
         version: link:../../test-support/agent-loop-testkit
+      '@lyness/lyn-e2e-target':
+        specifier: workspace:^
+        version: link:../../test-support/e2e-target
       '@lyness/lyn-http-proxy':
         specifier: workspace:^
         version: link:../../util/http-proxy

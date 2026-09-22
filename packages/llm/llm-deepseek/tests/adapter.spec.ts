@@ -20,7 +20,9 @@ import { SessionId } from '@lyness/lyn-session'
 import DeepSeekLlmApiExtensionRegistry from '@lyness/lyn-deepseek-llm-api-extensions'
 import type { PreparedDeepSeekLlmApiExtensions } from '@lyness/lyn-deepseek-llm-api-extensions'
 import * as LlmDeepSeek from '@lyness/lyn-llm-deepseek'
-import { DeepSeekAdapter, resolveAdapterOptions } from '@lyness/lyn-llm-deepseek'
+import {
+  DeepSeekAdapter, parseModelIds, resolveAdapterOptions, withEnvironmentCatalog,
+} from '@lyness/lyn-llm-deepseek'
 import { httpErrorCode } from '../src/adapter.ts'
 import { resolveRequestImagePolicy } from '../src/request-pricing.ts'
 import { assemble } from './assemble.ts'
@@ -2240,6 +2242,40 @@ describe('plugin registration and config', () => {
     ])
     expect(resolveAdapterOptions({ baseURL: 'https://gateway.internal' }, shell).baseURL).toBe('https://gateway.internal')
   })
+  it('replaces the composition catalog with the one DEEPSEEK_MODELS names', async () => {
+    vi.stubEnv('DEEPSEEK_MODELS', ' deepseek-ai/DeepSeek-V4-Flash , deepseek-ai/DeepSeek-V4-Pro ')
+    const ctx = new Context()
+    await ctx.plugin(LlmRuntime)
+    await ctx.plugin(LlmDeepSeek, { baseURL: 'http://127.0.0.1:1', models: [{ id: 'deepseek-v4-flash' }] })
+    await expect(ctx.llm.listModels('deepseek-official')).resolves.toEqual([
+      {
+        provider: 'deepseek-official', id: 'deepseek-ai/DeepSeek-V4-Flash', name: 'deepseek-ai/DeepSeek-V4-Flash', inputModalities: ['text'],
+      },
+      {
+        provider: 'deepseek-official', id: 'deepseek-ai/DeepSeek-V4-Pro', name: 'deepseek-ai/DeepSeek-V4-Pro', inputModalities: ['text'],
+      },
+    ])
+  })
+
+  it('takes DEEPSEEK_MODELS from any environment layer and leaves the config alone without it', () => {
+    const project = createLaunchEnvironmentSnapshot([
+      { source: 'project-env', path: '/work/.env', values: { DEEPSEEK_MODELS: 'gateway-flash' } },
+    ])
+    expect(withEnvironmentCatalog({ thinking: 'enabled' }, project))
+      .toEqual({ thinking: 'enabled', models: [{ id: 'gateway-flash' }] })
+    const config = { models: [{ id: 'deepseek-v4-flash' }] }
+    expect(withEnvironmentCatalog(config, createLaunchEnvironmentSnapshot([]))).toBe(config)
+  })
+
+  it('refuses a DEEPSEEK_MODELS value that names no model or a blank one', async () => {
+    expect(() => parseModelIds('')).toThrow(/DEEPSEEK_MODELS must be a comma-separated list of model ids; got ""/u)
+    expect(() => parseModelIds('a,,b')).toThrow(/got "a,,b"/u)
+    vi.stubEnv('DEEPSEEK_MODELS', 'flash, ')
+    const ctx = new Context()
+    await ctx.plugin(LlmRuntime)
+    expect(() => { LlmDeepSeek.apply(ctx, { baseURL: 'http://127.0.0.1:1' }) }).toThrow(/got "flash, "/u)
+  })
+
   it('defaults to the public base URL without config or env', async () => {
     vi.stubEnv('DEEPSEEK_API_KEY', 'k')
     vi.stubEnv('DEEPSEEK_BASE_URL', undefined)

@@ -1067,7 +1067,11 @@ export interface Config {
   maxTokens?: number
   /** Positive context capacity used when the selected model has no exact value (default 1,000,000). */
   defaultContextWindow?: number
-  /** Advisory models shown by discovery consumers; defaults to V41 Flash, V4 Flash, V4 Pro, and V4 Flash Vision Exp. */
+  /**
+   * Advisory models shown by discovery consumers; defaults to V41 Flash, V4 Flash, V4 Pro, and V4 Flash Vision Exp.
+   * $DEEPSEEK_MODELS from a trusted environment layer replaces this composition value; a catalog saved in
+   * the user's settings still outranks it.
+   */
   models?: DeepSeekCatalogModel[]
   /** Maximum provider idle time while one stream read is outstanding (default five minutes). */
   streamIdleTimeoutMs?: number
@@ -3750,6 +3754,7 @@ export interface Config {
 - `@lyness/lyn-client-web`（[`packages/client/web/src/index.ts`](../packages/client/web/src/index.ts)）
 - `@lyness/lyn-cmdline`（[`packages/boot/cmdline/src/index.ts`](../packages/boot/cmdline/src/index.ts)）
 - `@lyness/lyn-deque`（[`packages/util/deque/src/index.ts`](../packages/util/deque/src/index.ts)）
+- `@lyness/lyn-e2e-target`（[`packages/test-support/e2e-target/src/index.ts`](../packages/test-support/e2e-target/src/index.ts)）
 - `@lyness/lyn-experimental-agent-team-profile`（[`packages/experimental/agent-team-profile/src/index.ts`](../packages/experimental/agent-team-profile/src/index.ts)）
 - `@lyness/lyn-experimental-agent-team-web-profile`（[`packages/experimental/agent-team-web-profile/src/index.ts`](../packages/experimental/agent-team-web-profile/src/index.ts)）
 - `@lyness/lyn-experimental-webworker-packer`（[`packages/experimental/webworker-packer/src/index.ts`](../packages/experimental/webworker-packer/src/index.ts)）

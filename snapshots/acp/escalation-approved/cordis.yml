@@ -34,7 +34,8 @@
   name: '@lyness/lyn-acp'
   config:
     provider: deepseek-official
-    model: deepseek-v4-flash
+    # The configured platform's first model; llm-deepseek rejects a malformed DEEPSEEK_MODELS at load.
+    model: !!js "(process.env.DEEPSEEK_MODELS ?? 'deepseek-v4-flash').split(',')[0].trim()"
 
 - id: system-prompt
   name: '@lyness/lyn-system-prompt'

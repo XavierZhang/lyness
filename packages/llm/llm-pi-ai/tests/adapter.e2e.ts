@@ -6,6 +6,7 @@ import * as LlmPiAi from '@lyness/lyn-llm-pi-ai'
 import type { PiAiProviderProfile } from '@lyness/lyn-llm-pi-ai'
 import * as LlmDeepSeek from '@lyness/lyn-llm-deepseek'
 import { assemble, type AssembledResult } from './assemble.ts'
+import { E2E_TARGET } from '@lyness/lyn-e2e-target'
 
 /**
  * Real-API e2e for the pi-ai-backed adapter: V4 Flash defaults and
@@ -13,7 +14,7 @@ import { assemble, type AssembledResult } from './assemble.ts'
  * and exercises a replayed tool follow-up. Key-gated.
  */
 
-const FLASH = 'deepseek-v4-flash'
+const FLASH = E2E_TARGET.model
 const contexts: Context[] = []
 
 async function harness(_model: string, config: Partial<PiAiProviderProfile> = {}) {

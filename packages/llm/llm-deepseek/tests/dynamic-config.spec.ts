@@ -187,6 +187,20 @@ describe('request-level dynamic configuration', () => {
     expect(result.finish.failure.message).not.toContain('ByteString')
   })
 
+  it('offers the environment catalog as the base layer, which a saved catalog still outranks', async () => {
+    vi.stubEnv('DEEPSEEK_MODELS', 'gateway-flash')
+    const dir = await home()
+    const { ctx } = await boot(dir, { baseURL: 'http://127.0.0.1:1' })
+
+    await expect(ctx.llm.listModels('deepseek-official')).resolves.toEqual([
+      { provider: 'deepseek-official', id: 'gateway-flash', name: 'gateway-flash', inputModalities: ['text'] },
+    ])
+    await ctx.settings.update(NS, { models: [{ id: 'saved-model' }] })
+    await expect(ctx.llm.listModels('deepseek-official')).resolves.toEqual([
+      { provider: 'deepseek-official', id: 'saved-model', name: 'saved-model', inputModalities: ['text'] },
+    ])
+  })
+
   it('advertises a live settings catalog without re-registration', async () => {
     const dir = await home()
     const { ctx } = await boot(dir, { baseURL: 'http://127.0.0.1:1' })

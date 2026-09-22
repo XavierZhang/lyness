@@ -16,6 +16,7 @@ import { entryListSchema } from '@lyness/cordis-plugin-include'
 import { execa } from 'execa'
 import * as yaml from 'js-yaml'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { E2E_TARGET } from '@lyness/lyn-e2e-target'
 
 /** Published-entry acceptance for argument errors, profile lifecycle, and boot-free config dumps. */
 const repoRoot = fileURLToPath(new URL('../../../', import.meta.url))
@@ -184,7 +185,7 @@ function createEnvironmentProbeProfile(home: string, project: string): void {
     "    let text = ''",
     '    for await (const chunk of ctx.llm.stream({',
     "      provider: 'deepseek-official',",
-    "      model: 'deepseek-v4-flash',",
+    `      model: ${JSON.stringify(E2E_TARGET.model)},`,
     '      messages: [],',
     '      maxTokens: 32,',
     '    })) {',
@@ -471,7 +472,7 @@ describe.skipIf(!existsSync(lynBin))('lyn BUILT bin (node lib/bin.js, no tsx)', 
         jsonrpc: '2.0',
         id: 1,
         method: 'initialize',
-        params: { cwd: home, provider: 'deepseek-official', model: 'deepseek-v4-flash' },
+        params: { cwd: home, provider: 'deepseek-official', model: E2E_TARGET.model },
       })}\n`)
       const initialized = await response(1)
       expect(initialized, `${JSON.stringify(initialized)}\n${stderr}`).toMatchObject({

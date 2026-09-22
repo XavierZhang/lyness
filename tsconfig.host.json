@@ -300,6 +300,7 @@
     { "path": "./packages/guard/timeout-policy" },
     { "path": "./packages/runtime-diagnostics/invariants" },
     { "path": "./packages/test-support/agent-loop-testkit" },
+    { "path": "./packages/test-support/e2e-target" },
     { "path": "./packages/acp/acp" },
     { "path": "./packages/bundle/acp-app" },
     { "path": "./packages/bundle/brand-studio" },

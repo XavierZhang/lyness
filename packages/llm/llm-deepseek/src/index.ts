@@ -144,7 +144,11 @@ export interface Config {
   maxTokens?: number
   /** Positive context capacity used when the selected model has no exact value (default 1,000,000). */
   defaultContextWindow?: number
-  /** Advisory models shown by discovery consumers; defaults to V41 Flash, V4 Flash, V4 Pro, and V4 Flash Vision Exp. */
+  /**
+   * Advisory models shown by discovery consumers; defaults to V41 Flash, V4 Flash, V4 Pro, and V4 Flash Vision Exp.
+   * $DEEPSEEK_MODELS from a trusted environment layer replaces this composition value; a catalog saved in
+   * the user's settings still outranks it.
+   */
   models?: DeepSeekCatalogModel[]
   /** Maximum provider idle time while one stream read is outstanding (default five minutes). */
   streamIdleTimeoutMs?: number
@@ -211,6 +215,46 @@ export const PUBLIC_BASE_URL = 'https://api.deepseek.com'
 
 /** Environment variable naming this provider's endpoint, honored only from trusted layers. */
 const BASE_URL_ENV = 'DEEPSEEK_BASE_URL'
+
+/** Environment variable naming the models the configured endpoint serves, honored only from trusted layers. */
+export const MODELS_ENV = 'DEEPSEEK_MODELS'
+
+/**
+ * Read a model-id list in the form $DEEPSEEK_MODELS carries it.
+ * @param value - comma-separated model ids; whitespace around each id is ignored.
+ * @returns the ids in the order given; never empty.
+ * @throws {Error} when the list is empty or one entry is blank.
+ */
+export function parseModelIds(value: string): [string, ...string[]] {
+  const ids = value.split(',').map(id => id.trim())
+  if (ids.some(id => id === '')) {
+    throw new Error(`llm-deepseek: ${MODELS_ENV} must be a comma-separated list of model ids; got ${JSON.stringify(value)}`)
+  }
+  // `split` always yields at least one element, and every element is non-blank here.
+  return ids as [string, ...string[]]
+}
+
+/**
+ * Replace the composition's catalog with the one the launch environment names.
+ *
+ * $DEEPSEEK_BASE_URL can point this provider at any endpoint that speaks the
+ * DeepSeek chat API, and an endpoint other than the official one usually names
+ * its models differently. The variable is the catalog of the endpoint the
+ * environment chose, so it replaces the composition's catalog — written for
+ * whatever endpoint the composition assumed — rather than merging into it. The
+ * result is the base settings layer, so a catalog the user saved still wins.
+ * Each id becomes a text-only entry; a model that needs image input or its own
+ * context window is configured in settings instead.
+ * @param config - the composition entry config.
+ * @param environment - this run's environment layers.
+ * @returns the config with the environment's catalog, or `config` unchanged when the variable is unset.
+ * @throws {Error} when the variable is set but names no model or a blank one.
+ */
+export function withEnvironmentCatalog(config: Config, environment: LaunchEnvironmentSnapshot): Config {
+  const value = environment.get(MODELS_ENV)?.value
+  if (value === undefined) return config
+  return Object.assign({}, config, { models: parseModelIds(value).map(id => ({ id })) })
+}
 
 /**
  * One resolution's complete request facts. Connection and credential facts
@@ -419,7 +463,8 @@ export function resolveAdapterOptions(config: Config, environment?: LaunchEnviro
 }
 
 export function apply(ctx: Context, config: Config): void {
-  let current: () => Config = () => config
+  const composed = withEnvironmentCatalog(config, launchEnvironmentOf(ctx))
+  let current: () => Config = () => composed
   let lastRaw: Config | undefined
   let lastGood: ResolvedDeepSeekOptions | undefined
   const options = (): ResolvedDeepSeekOptions => {
@@ -504,7 +549,7 @@ export function apply(ctx: Context, config: Config): void {
   }
 
   ctx.inject(['settings'], (settingsCtx) => {
-    settingsCtx.settings.installSection(ctx, NS, Config, config, {
+    settingsCtx.settings.installSection(ctx, NS, Config, composed, {
       setSource: (source) => {
         current = source
       },

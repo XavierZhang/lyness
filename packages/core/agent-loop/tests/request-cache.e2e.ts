@@ -10,6 +10,7 @@ import AgentRegistry, { type Agent } from '@lyness/lyn-agent'
 import AgentLoop from '@lyness/lyn-agent-loop'
 import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 import * as LlmDeepSeek from '@lyness/lyn-llm-deepseek'
+import { E2E_TARGET } from '@lyness/lyn-e2e-target'
 
 /**
  * With-key proof that log-derived requests translate into real provider cache hits: a
@@ -70,10 +71,12 @@ function waitForIdle(context: Context, agent: Agent): Promise<void> {
   })
 }
 
-describe.skipIf(!process.env.DEEPSEEK_API_KEY)('log-derived request cache hits (real API)', () => {
+// prompt_cache_hit_tokens is the official API's accounting; another platform reports none, and a red
+// result there would describe the platform rather than the log-derived cache.
+describe.skipIf(!process.env.DEEPSEEK_API_KEY || !E2E_TARGET.official)('log-derived request cache hits (real API, official only)', () => {
   it('every request after the first hits the provider prefix cache', async () => {
     ctx = await loopHarness()
-    const agent = await ctx.agentLoop.create(SessionId('cache-e2e'), { provider: 'deepseek-official', model: 'deepseek-v4-flash' })
+    const agent = await ctx.agentLoop.create(SessionId('cache-e2e'), { provider: 'deepseek-official', model: E2E_TARGET.model })
 
     // Turn 1: forces a tool call → at least two steps (two model requests).
     agent.followup(createUserMessage({ content: [{ type: 'text', text: 'Look up the key "deploy-color" with the lookup tool and tell me the value.' }], source: { kind: 'user' } }))

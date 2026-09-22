@@ -6,6 +6,7 @@ import { afterEach, describe, expect, it } from 'vitest'
 import type { Context } from '@lyness/cordis'
 import { codingHarness, TODO_SYSTEM_PROMPT, waitForIdle } from './harness.ts'
 import { SessionId } from '@lyness/lyn-session'
+import { E2E_TARGET } from '@lyness/lyn-e2e-target'
 
 /**
  * A REAL model drives the REAL todo_write tool: verify the WORLD (the session
@@ -27,7 +28,7 @@ describe.skipIf(!process.env.DEEPSEEK_API_KEY)('todo_write: real model records a
   it('appends a todo/write event with the model-produced task list', async () => {
     workdir = await mkdtemp(join(tmpdir(), 'lyn-todo-write-e2e-'))
     ctx = await codingHarness(workdir, { personaPrefix: TODO_SYSTEM_PROMPT })
-    const agent = await ctx.agentLoop.create(SessionId('e2e-todo'), { provider: 'deepseek-official', model: 'deepseek-v4-flash' })
+    const agent = await ctx.agentLoop.create(SessionId('e2e-todo'), { provider: 'deepseek-official', model: E2E_TARGET.model })
 
     agent.followup(createUserMessage({
       content: [{ type: 'text', text:

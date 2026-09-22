@@ -8,6 +8,7 @@ import * as LlmDeepSeek from '@lyness/lyn-llm-deepseek'
 import SubagentRuntime from '@lyness/lyn-subagent'
 import * as Spawn from '@lyness/lyn-subagent-spawn-in-process'
 import WorkerThreadWorkflowEngine from '../src/index.ts'
+import { E2E_TARGET } from '@lyness/lyn-e2e-target'
 
 /**
  * With-key e2e: a REAL script in a REAL worker thread
@@ -57,7 +58,7 @@ describe.skipIf(!process.env.DEEPSEEK_API_KEY)('worker workflow engine with-key 
     ctx = await harness()
     const parentHandle = await ctx.agents.create({
       sessionId: 'wf-worker-e2e-session' as never,
-      agentOptions: { provider: 'deepseek-official', model: 'deepseek-v4-flash' },
+      agentOptions: { provider: 'deepseek-official', model: E2E_TARGET.model },
     })
 
     const events: string[] = []

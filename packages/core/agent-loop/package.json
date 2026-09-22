@@ -51,10 +51,11 @@
   },
   "devDependencies": {
     "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-llm-pi-ai": "workspace:^",
     "@lyness/lyn-agent": "workspace:^",
+    "@lyness/lyn-e2e-target": "workspace:^",
     "@lyness/lyn-invariants": "workspace:^",
     "@lyness/lyn-llm": "workspace:^",
+    "@lyness/lyn-llm-pi-ai": "workspace:^",
     "@lyness/lyn-scope": "workspace:^",
     "@lyness/lyn-session": "workspace:^",
     "@lyness/lyn-session-persistence": "workspace:^",

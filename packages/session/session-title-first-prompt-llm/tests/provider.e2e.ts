@@ -7,6 +7,7 @@ import SessionStore, { SessionId } from '@lyness/lyn-session'
 import SessionTitleService from '@lyness/lyn-session-title'
 import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 import * as FirstMessageTitleProvider from '@lyness/lyn-session-title-first-prompt-llm'
+import { E2E_TARGET } from '@lyness/lyn-e2e-target'
 
 const contexts: Context[] = []
 
@@ -34,7 +35,7 @@ describe.skipIf(!process.env.DEEPSEEK_API_KEY)('first-prompt title provider with
       maxOutputTokens: 64,
       timeoutMs: 60_000,
       provider: 'deepseek-official',
-      model: 'deepseek-v4-flash',
+      model: E2E_TARGET.model,
     })
     const session = ctx.sessions.create(SessionId('real-title-provider'))
     session.append('turn/start', {
@@ -52,7 +53,7 @@ describe.skipIf(!process.env.DEEPSEEK_API_KEY)('first-prompt title provider with
       source: {
         kind: 'provider',
         provider: 'session-title-first-prompt-llm',
-        model: { provider: 'deepseek-official', model: 'deepseek-v4-flash' },
+        model: { provider: 'deepseek-official', model: E2E_TARGET.model },
       },
     })
     expect(title?.title.length).toBeGreaterThan(0)
