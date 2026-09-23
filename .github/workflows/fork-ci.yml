@@ -223,7 +223,12 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 90
     env:
-      LYNESS_GATE_CONCURRENCY: '3'
+      # This aggregate boots whole `lyn` process trees, so its gates are
+      # latency-sensitive rather than throughput-bound. Upstream's 16 cores
+      # across 10 gates leave 1.6 cores per gate; 3 gates on 4 cores left 1.33
+      # and pushed two process expectations past their own deadlines. Two gates
+      # restore the headroom the assertions were written against.
+      LYNESS_GATE_CONCURRENCY: '2'
       LYNESS_NODE_COMPAT_SKIP_TYPECHECK: '1'
       LYNESS_OXLINT_THREADS: '4'
       LYNESS_PUBLINT_CONCURRENCY: '4'

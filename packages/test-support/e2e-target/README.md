@@ -9,7 +9,7 @@ English | [中文](README.zh.md)
 
 ## Summary
 
-Use `lyn-e2e-target` in a real-API e2e suite instead of naming a model. It resolves the platform a run calls from the variables the product itself reads — `DEEPSEEK_BASE_URL` for the endpoint and `DEEPSEEK_MODELS` for the models it serves — so the product and the suite always point at the same place. With neither set, the target is the official API and its default model, which is what every suite called before this was configurable. It also says whether the target is the official API, so a suite that needs an official-only feature can skip elsewhere.
+Use `lyn-e2e-target` in a real-API e2e suite instead of naming a model. It resolves the platform a run calls from the variables the product itself reads — `DEEPSEEK_BASE_URL` for the endpoint and `DEEPSEEK_MODELS` for the models it serves — so the product and the suite always point at the same place. With neither set, the target is the official API and its default model. It also says whether the target is the official API, so a suite can skip elsewhere when it needs an official-only feature or when its adapter routes only official model ids.
 
 ## Table of Contents
 

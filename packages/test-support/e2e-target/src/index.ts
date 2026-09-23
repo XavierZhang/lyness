@@ -11,7 +11,9 @@
  * A suite that exercises a feature only the official API has — prompt-cache
  * accounting, the Anthropic-compatible endpoint a Claude Code child uses —
  * skips on any other target rather than failing, because a red result there
- * would report the platform, not the code.
+ * would report the platform, not the code. So does a suite whose adapter
+ * routes through a model catalog that describes the official ids alone, since
+ * another platform's id has no route there at all.
  * @module @lyness/lyn-e2e-target
  */
 

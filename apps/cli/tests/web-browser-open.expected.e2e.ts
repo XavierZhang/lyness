@@ -14,6 +14,10 @@ const openerHook = new URL('./fixtures/web-browser-open/register.mjs', import.me
 const openingMessage = 'lyn web: opening the default browser; pass --no-open to disable'
 const tempRoots: string[] = []
 const builtArtifactsExist = existsSync(builtBin) && existsSync(frontendIndex)
+// Booting the shipped Web tree takes about 28s on a 4-vCPU hosted runner, so a
+// 30s budget decided these cases instead of the handoff they assert. The
+// ceiling only has to exceed a healthy boot; a hung one still fails the case.
+const WEB_BOOT_TIMEOUT_MS = 90_000
 
 if (process.env.LYNESS_EXAMPLE_MODE === 'lib' && !builtArtifactsExist) {
   throw new Error('lyn web browser-open snapshot requires built CLI and Web artifacts in lib mode')
@@ -59,7 +63,7 @@ describe.skipIf(!builtArtifactsExist)('lyn web browser-open assembled snapshot',
         SSH_TTY: '',
       },
       input: '',
-      timeout: 30_000,
+      timeout: WEB_BOOT_TIMEOUT_MS,
       killSignal: 'SIGKILL',
       reject: false,
     })
@@ -119,7 +123,7 @@ describe.skipIf(!builtArtifactsExist)('lyn web browser-open assembled snapshot',
         SSH_TTY: '',
       },
       input: '',
-      timeout: 30_000,
+      timeout: WEB_BOOT_TIMEOUT_MS,
       killSignal: 'SIGKILL',
       reject: false,
     })
@@ -167,7 +171,7 @@ describe.skipIf(!builtArtifactsExist)('lyn web browser-open assembled snapshot',
         VSCODE_IPC_HOOK_CLI: '/tmp/vscode-ipc',
       },
       input: '',
-      timeout: 30_000,
+      timeout: WEB_BOOT_TIMEOUT_MS,
       killSignal: 'SIGKILL',
       reject: false,
     })
@@ -212,7 +216,7 @@ describe.skipIf(!builtArtifactsExist)('lyn web browser-open assembled snapshot',
         SSH_TTY: '',
       },
       input: '',
-      timeout: 30_000,
+      timeout: WEB_BOOT_TIMEOUT_MS,
       killSignal: 'SIGKILL',
       reject: false,
     })

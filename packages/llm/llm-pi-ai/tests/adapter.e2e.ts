@@ -65,7 +65,13 @@ const weatherTool: ToolSchema = {
   },
 }
 
-describe.skipIf(!process.env.DEEPSEEK_API_KEY)('llm-pi-ai e2e (real API)', () => {
+// This harness lists no `models`, so the route resolves to pi-ai's installed
+// catalog, which describes the official DeepSeek ids and no others. A model id
+// another platform serves is absent from it and cannot be routed — listing it
+// in configuration would mean declaring a context window, a token ceiling, and
+// reasoning levels this suite would be guessing at, which is the capability
+// metadata the catalog exists to supply. Skip off the official API.
+describe.skipIf(!process.env.DEEPSEEK_API_KEY || !E2E_TARGET.official)('llm-pi-ai e2e (real API)', () => {
   it(`${FLASH} + provider-default reasoning: plain text generation`, async () => {
     const ctx = await harness(FLASH)
     const result = await assemble(ctx,{
