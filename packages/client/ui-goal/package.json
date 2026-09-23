@@ -64,7 +64,7 @@
     "@types/react": "~18.3.1",
     "@lyness/cordis": "workspace:^",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react-dom": "^19.2.8",
     "@lyness/lyn-session": "workspace:^",
     "@lyness/lyn-typert-protocol": "workspace:^"
   },
