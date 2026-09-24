@@ -112,6 +112,20 @@ jobs:
       LYNESS_COVERAGE_PARTITIONS: '2'
       LYNESS_GATE_CONCURRENCY: '2'
       LYNESS_GATE_FAIL_FAST: '1'
+      # subprocess-local picks native containment when `systemd-run --user
+      # --scope` answers, and this runner answers while the scope it creates
+      # does not survive its own bootstrap — one run left the no-containment
+      # branches of subprocess-local/src/index.ts unreached, the next failed 12
+      # subprocess, bash, and terminal cases outright. `systemd-run --user`
+      # reaches the user manager through these two variables, which the
+      # provider's environment scrub passes through, so emptying them makes the
+      # probe answer no every time. The lane then runs the same fallback
+      # containment macOS and the upstream runner do, which is the posture its
+      # per-file coverage bar was set against. The cost is that Linux native
+      # containment goes untested here; `native-containment.spec.ts` already
+      # self-skips when the probe says no, so it reports that as a skip.
+      XDG_RUNTIME_DIR: ''
+      DBUS_SESSION_BUS_ADDRESS: ''
     steps:
       - name: Use runner-owned temporary storage
         run: |
