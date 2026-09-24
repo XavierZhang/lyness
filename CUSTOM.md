@@ -56,7 +56,7 @@
 
 ## 上游可移植性缺陷（已在本地修复，**可反馈给上游**）
 
-这四处不是二开需要，是上游代码在开发机上的缺陷。上游 CI 之所以是绿的各有原因，
+这五处不是二开需要，是上游代码在开发机或托管 runner 上的缺陷。上游 CI 之所以是绿的各有原因，
 但在本机会稳定失败。改动都在上游文件里，因此登记在册；如果上游自己修了，
 合并时冲突会很小。
 
@@ -66,6 +66,7 @@
 | `packages/experimental/code-runtime-python/tests/runtime.spec.ts` | 断言子进程看不到 `PATH`。本机 `python3` 解析到 pyenv **shim**（shell 脚本），它自己 `export PATH` 后再 exec 真解释器 | CI 用真解释器，无版本管理器 shim | 测试改用 `sys.executable` 拿到的真解释器。已实测：真解释器在空环境下 `PATH` 是 `None`，运行时的 env 构造是对的 |
 | `scripts/browser-bundled-externals.spec.ts` | vite 配置用绝对路径指定 input，而 vite 会对自己的 root 做 realpath。macOS 的 `$TMPDIR` 是符号链接，两边不一致导致产物名变成逃出 root 的相对路径，rolldown 拒绝 | Linux 的 `/tmp` 不是符号链接 | fixture 根目录改用 `realpathSync` |
 | `packages/experimental/webworker-runtime/tests/compile/transform-corpus-check.ts` | dockkit 的豁免要求失败信息指向它**自己的** css，但产物先 import 外部化的 `ui-primitives`（同样因 css 被豁免），于是 loader 报的是那个包的 css——该条件永远为假 | 该 spec 在无构建产物时会 skip；上游 `pnpm run test` 不先跑 `build:lib:host` | 豁免条件改为「自己的 css，**或**来自同样因 css 被豁免的其他包」。`other-css` 负例仍然报告，契约未放宽 |
+| `packages/subprocess/subprocess-local/tests/spawn.spec.ts` | `waitGone` 在 `process.kill(pid,0)` 与读 `/proc/<pid>/stat` 之间存在竞态：进程恰在其间被回收时内核给 `ESRCH`，而它只处理了 `ENOENT`，于是把「进程已消失」这个**它正在等的结果**当成异常抛出 | 上游 runner 上这个窗口几乎不命中 | `ESRCH` 与 `ENOENT` 同等对待，都表示进程已不在。仅测试辅助函数，实现未改 |
 
 
 ## 跑完 `rebrand --apply` 之后的收尾清单
