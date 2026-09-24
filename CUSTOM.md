@@ -42,7 +42,7 @@
 | `packages/bundle/base/tests/base.spec.ts` | 遥测默认值断言改为 `DISABLED` + 空端点 | 上游 0.1.5 新增此测试钉住自己的默认值；改为钉住本 fork 的，它就成了遥测守卫 | 2026-09-12 |
 | `packages/bundle/base/cordis.patch.yml` | 遥测默认 `DISABLED`、去掉厂商端点 | 上游默认把完整会话记录发往自家 collector；服务他人用户的部署不能默认转发 | 2026-09-01 |
 | `packages/client/ui-layout/src/client/AppFrame.tsx`（+ `tests/app-frame.client.spec.tsx`） | 浏览器标题优先读部署品牌的 `productName` | `DocumentTitle` 在客户端覆盖 `document.title`，服务端替换过的 `<title>` 会被冲掉；标题不走 slot，没有插件接缝 | 2026-09-15 |
-| `packages/bundle/web-app/cordis.patch.yml`、`package.json` | `ui-brand-official` 行换成 `ui-brand-lyness` | 浏览器插件名单只在 bundle patch 里 | 2026-09-15 |
+| `packages/bundle/web-app/cordis.patch.yml`、`package.json`、`apps/web/tests/built-boot.expected.e2e.ts` | `ui-brand-official` 行换成 `ui-brand-lyness`；built-boot 冒烟里钉死的两个 viewBox 随之改为 lyness 的字标 `0 0 60.53 24` 与标记 `0 0 717 619`（原值出自 ui-primitives 的 `BrandWordmark` 与 `FishLogo`） | 浏览器插件名单只在 bundle patch 里；换了插件，钉死官方图形尺寸的断言就必然过期。2026-09-24 才暴露——`test:web` 这道门禁在 fork CI 里此前从未跑到过 | 2026-09-15 |
 | `apps/web/public/favicon.svg`、`website/public/{favicon,wordmark}.svg`、`packages/skill/skill-badge/assets/lyn-badge.png`（+ `tests/skill-badge.spec.ts` 的哈希） | 换成 lyness 图形 | 图片资产，codemod 表达不了。⚠️ **合并时 `read-tree` 会把它们重置为上游版本，必须从本 fork 恢复** | 2026-09-15 |
 | `website/.vitepress/config.ts` | 两处 "DeepSeek wordmark" 注释 | 注释描述的文件已换 | 2026-09-15 |
 | `packages/llm/llm-deepseek/src/index.ts`（+ `tests/{adapter,dynamic-config}.spec.ts`、README） | 新增 `DEEPSEEK_MODELS`：与 `DEEPSEEK_BASE_URL` 同一组受信任环境层读取的逗号分隔模型目录，替换组合配置的 `models`（用户在设置里保存的目录仍优先）；导出 `MODELS_ENV`、`parseModelIds`、`withEnvironmentCatalog` | 内置目录只有官方模型名，第三方兼容端点的模型名不同；web/profile e2e 自己启动 `lyn`，只有经环境变量才能不改测试就切换平台 | 2026-09-22 |

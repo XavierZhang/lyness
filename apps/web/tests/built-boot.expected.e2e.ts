@@ -16,6 +16,14 @@ import { act, fireEvent, screen, waitFor, within } from '@testing-library/react'
 import { expect, it } from 'vitest'
 import { installAssembledBootEnv, mountAssembledApp } from './assembled-boot.ts'
 
+// Mirrored, not imported, because a Client package would pull its whole
+// TypeScript project into the Host build graph (see this directory's README).
+// import { WORDMARK_HEIGHT, WORDMARK_WIDTH } from '@lyness/lyn-client-ui-brand-lyness/src/client/artwork.ts'
+/** The viewBox `ui-brand-lyness` composes for the wordmark it fills the sidebar name slot with. */
+const LYNESS_WORDMARK_VIEWBOX = '0 0 60.53 24'
+/** `MARK_VIEWBOX`, the viewBox `ui-brand-lyness` gives the mark it fills the sidebar mark slot with. */
+const LYNESS_MARK_VIEWBOX = '0 0 717 619'
+
 installAssembledBootEnv()
 
 const buildEnvironmentModulePath = '../../../scripts/client-build-environment.ts'
@@ -62,10 +70,10 @@ it('boots the built plugin graph and renders a fixture session end to end', asyn
   // The sidebar renders from the boot graph: every inject layer activated.
   const tree = await screen.findByRole('tree', { name: 'Sessions' }, { timeout: 10_000 })
   if (clientBuildValue('LYNESS_CLIENT_BUILD_PROFILE') === 'official') {
-    expect(document.querySelector('svg[viewBox="26 0 156 24"]')).not.toBeNull()
+    expect(document.querySelector(`svg[viewBox="${LYNESS_WORDMARK_VIEWBOX}"]`)).not.toBeNull()
     expect(screen.queryByText('LYN Local Build')).toBeNull()
   } else {
-    expect(document.querySelector('svg[viewBox="0 0 23.16 17.04"]')).not.toBeNull()
+    expect(document.querySelector(`svg[viewBox="${LYNESS_MARK_VIEWBOX}"]`)).not.toBeNull()
     const version = clientBuildValue('LYNESS_CLIENT_VERSION')
     if (version === undefined) throw new Error('default client build record must carry LYNESS_CLIENT_VERSION')
     const commit = clientBuildValue('LYNESS_CLIENT_COMMIT_HASH')
