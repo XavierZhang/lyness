@@ -10,7 +10,11 @@
     baseURL: !!js process.env.LYNESS_SNAPSHOT_BASE_URL
     thinking: enabled
     reasoningEffort: low
-    streamIdleTimeoutMs: 150
+    # The server these cases run against sends a keep-alive every 60ms, so 150
+    # left 90ms of slack and a slipped timer bought a retried request that the
+    # request-count assertions then saw. The sibling pi-ai fixture already
+    # carries 1000; no case here asserts this timeout firing.
+    streamIdleTimeoutMs: 1000
 
 - id: agent-loop
   config:
