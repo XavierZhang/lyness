@@ -110,6 +110,12 @@ jobs:
     env:
       LYNESS_COVERAGE_MAX_WORKERS: '3'
       LYNESS_COVERAGE_PARTITIONS: '2'
+      # Upstream sets this on its Windows lane only, because its Linux pool is
+      # fast enough for the 5s default even under v8 instrumentation. This lane
+      # is not: two different cases have already timed out at exactly 5000ms
+      # while doing ordinary work, one walking a fixture tree and one driving a
+      # pwsh terminal. A test that hangs still fails, 90s later.
+      LYNESS_COVERAGE_TEST_TIMEOUT_MS: '90000'
       LYNESS_GATE_CONCURRENCY: '2'
       LYNESS_GATE_FAIL_FAST: '1'
       # subprocess-local picks native containment when `systemd-run --user
