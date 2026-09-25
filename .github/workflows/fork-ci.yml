@@ -363,6 +363,12 @@ jobs:
       - name: Install (immutable)
         run: pnpm install --frozen-lockfile
 
+      # The compatibility smokes drive workflows that request a sandbox, and a
+      # runner without one fails them as sandbox-unavailable rather than
+      # skipping. Upstream's matching job prepares it the same way.
+      - name: Prepare bubblewrap (unrestrict userns)
+        run: bash scripts/prepare-ci-bubblewrap.sh
+
       - name: Run compatibility smokes
         env:
           LYNESS_BUILD_CLIENT_PROFILE: official
@@ -571,7 +577,7 @@ jobs:
           }
       - name: Run Windows observational gates
         shell: pwsh
-        run: pnpm run check:ci:windows-observational
+        run: pnpm run check:ci:windows-observational-ready
 
   e2e:
     name: e2e (real API, configured platform)

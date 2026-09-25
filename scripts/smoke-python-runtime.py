@@ -907,10 +907,10 @@ def smoke_sdk_office(executable: Path) -> None:
             else:
                 shutil.copy2(source, destination)
         office = root / f"{stem}-office"
-        adapter = office / "node_modules/@lyness/libreoffice-kit/package.json"
+        adapter = office / "node_modules/@deepseek-ai/libreoffice-kit/package.json"
         native = stem.removeprefix("lyness-sdk-runtime-").replace("win-", "win32-").replace("macos-", "darwin-")
         declared = json.loads(adapter.read_text(encoding="utf-8")).get("optionalDependencies", {})
-        selected = native if f"@lyness/libreoffice-kit-{native}" in declared else "wasm"
+        selected = native if f"@deepseek-ai/libreoffice-kit-{native}" in declared else "wasm"
         expected_backend = "wasm" if selected == "wasm" else "native"
         engines = [
             json.loads(manifest.read_text())["engine"]["kind"]

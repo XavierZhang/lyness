@@ -110,6 +110,12 @@ const RULES: readonly Rule[] = [
     note: 'A hash domain, not a brand. These strings are the SHA-256 domain separators for persisted Session schemas and finalization records, and every digest recorded in the committed format archives under docs/persistence-changes/ was computed with the upstream spelling. Renaming it changes all 570 of them at once, so verify-persistence-formats reads the whole archive as corrupt. Restored by `persistence-hash-domain-restore` after every rule has run.',
   },
   {
+    id: 'external-office-kit-segment-shield',
+    from: "'@deepseek-ai', 'libreoffice-kit'",
+    to: "'\u0000office-kit-segment\u0000'",
+    note: 'The same external packages addressed as path segments, where the scope stands alone and the slashed rules cannot see it. `libreoffice-packages.mjs` joins them to reach the installed engine, so renaming the segment sends the Python SDK build at a directory that does not exist.',
+  },
+  {
     id: 'external-office-kit-shield',
     from: '@deepseek-ai/libreoffice-kit',
     to: '\u0000office-kit\u0000',
@@ -138,6 +144,12 @@ const RULES: readonly Rule[] = [
     from: '@deepseek-ai',
     to: '@lyness',
     note: 'The npm organization named without a trailing slash, as prose and manifest tables spell it. Runs after the two slashed scope rules, which have already consumed every package reference.',
+  },
+  {
+    id: 'external-office-kit-segment-restore',
+    from: "'\u0000office-kit-segment\u0000'",
+    to: "'@deepseek-ai', 'libreoffice-kit'",
+    note: 'Puts back what `external-office-kit-segment-shield` parked, once the scope rules have run.',
   },
   {
     id: 'external-office-kit-restore',

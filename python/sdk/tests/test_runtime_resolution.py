@@ -27,13 +27,13 @@ def _resource_sidecars(executable: Path, native_targets: tuple[str, ...] = ("dar
     tag = executable.name.removeprefix("lyness-sdk-runtime-").removesuffix(".exe")
     native = tag.replace("win-", "win32-").replace("macos-", "darwin-")
     engine = native if native in native_targets else "wasm"
-    for required in ("@lyness/libreoffice-kit/package.json", f"@lyness/libreoffice-kit-{engine}/prebuilds.json"):
+    for required in ("@deepseek-ai/libreoffice-kit/package.json", f"@deepseek-ai/libreoffice-kit-{engine}/prebuilds.json"):
         path = office / "node_modules" / required
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text("{}")
-    adapter = office / "node_modules/@lyness/libreoffice-kit/package.json"
+    adapter = office / "node_modules/@deepseek-ai/libreoffice-kit/package.json"
     adapter.write_text(json.dumps({"optionalDependencies": {
-        f"@lyness/libreoffice-kit-{target}": "0.0.1" for target in (*native_targets, "wasm")
+        f"@deepseek-ai/libreoffice-kit-{target}": "0.0.1" for target in (*native_targets, "wasm")
     }}), encoding="utf-8")
     resources = executable.with_name(tag)
     manifest = resources / "primary-runtime/runtime.json"
@@ -199,7 +199,7 @@ def test_runtime_requires_complete_resource_sidecars(
         runtime.bundled_runtime_path()
     office = _resource_sidecars(executable)
     assert runtime.bundled_runtime_path() == executable
-    (office / "node_modules/@lyness/libreoffice-kit-wasm/prebuilds.json").unlink()
+    (office / "node_modules/@deepseek-ai/libreoffice-kit-wasm/prebuilds.json").unlink()
     with pytest.raises(FileNotFoundError, match="Office sidecar"):
         runtime.bundled_runtime_path()
 
@@ -317,7 +317,7 @@ def test_runtime_requires_its_platform_office_engine(
     monkeypatch.setattr(runtime, "bundled_package_dir", lambda: tmp_path)
     monkeypatch.setattr(runtime, "_current_platform_tag", lambda: target)
     assert runtime.bundled_runtime_path() == executable
-    engine = next(office.glob("node_modules/@lyness/libreoffice-kit-*/prebuilds.json"))
+    engine = next(office.glob("node_modules/@deepseek-ai/libreoffice-kit-*/prebuilds.json"))
     engine.unlink()
     foreign = office / "node_modules/@lyness" / ("libreoffice-kit-darwin-arm64" if engine.parent.name == "libreoffice-kit-wasm" else "libreoffice-kit-wasm") / "prebuilds.json"
     foreign.parent.mkdir(parents=True, exist_ok=True)

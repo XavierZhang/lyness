@@ -93,7 +93,7 @@ def bundled_runtime_path() -> Path:
                 + _EXE_ACQUISITION_HINT
             )
     office = path.with_name(f"{path.name.removesuffix('.exe')}-office")
-    adapter = office / "node_modules/@lyness/libreoffice-kit/package.json"
+    adapter = office / "node_modules/@deepseek-ai/libreoffice-kit/package.json"
     if not adapter.is_file():
         raise FileNotFoundError(
             f"lyness-runtime-bin is missing the Office sidecar at {office}. "
@@ -101,8 +101,8 @@ def bundled_runtime_path() -> Path:
         )
     native = tag.replace("win-", "win32-").replace("macos-", "darwin-")
     declared = json.loads(adapter.read_text(encoding="utf-8")).get("optionalDependencies", {})
-    engine = native if f"@lyness/libreoffice-kit-{native}" in declared else "wasm"
-    if not (office / "node_modules" / f"@lyness/libreoffice-kit-{engine}/prebuilds.json").is_file():
+    engine = native if f"@deepseek-ai/libreoffice-kit-{native}" in declared else "wasm"
+    if not (office / "node_modules" / f"@deepseek-ai/libreoffice-kit-{engine}/prebuilds.json").is_file():
         raise FileNotFoundError(
             f"lyness-runtime-bin is missing the Office sidecar engine {engine} at {office}. "
             + _EXE_ACQUISITION_HINT

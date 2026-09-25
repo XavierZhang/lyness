@@ -102,13 +102,13 @@ class RuntimeBuildHook(BuildHookInterface):
                 validate(resources, target)
                 continue
             if executable == office:
-                adapter = office / "node_modules/@lyness/libreoffice-kit/package.json"
+                adapter = office / "node_modules/@deepseek-ai/libreoffice-kit/package.json"
                 if not adapter.is_file():
                     raise RuntimeError(f"runtime Office dependency is missing: {adapter}")
                 native = target.replace("win-", "win32-").replace("macos-", "darwin-")
                 declared = json.loads(adapter.read_text(encoding="utf-8")).get("optionalDependencies", {})
-                engine = native if f"@lyness/libreoffice-kit-{native}" in declared else "wasm"
-                required = office / "node_modules" / f"@lyness/libreoffice-kit-{engine}/prebuilds.json"
+                engine = native if f"@deepseek-ai/libreoffice-kit-{native}" in declared else "wasm"
+                required = office / "node_modules" / f"@deepseek-ai/libreoffice-kit-{engine}/prebuilds.json"
                 if not required.is_file():
                     raise RuntimeError(f"runtime Office dependency is missing: {required}")
                 continue

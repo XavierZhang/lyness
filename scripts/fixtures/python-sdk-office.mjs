@@ -2,7 +2,7 @@
 import { readFile, writeFile } from 'node:fs/promises'
 import { execFile } from 'node:child_process'
 import { promisify } from 'node:util'
-import { createConverter } from '@lyness/libreoffice-kit'
+import { createConverter } from '@deepseek-ai/libreoffice-kit'
 
 export const name = 'python-sdk-office-smoke'
 
@@ -19,7 +19,7 @@ export async function apply(ctx, config) {
     await promisify(execFile)(node, [cli, 'convert', '--input', config.input, '--output', config.output + '.cli.pdf'], options)
     const pdf = await readFile(config.output + '.cli.pdf')
     if (pdf.subarray(0, 5).toString() !== '%PDF-') throw new Error('Skill CLI did not create a PDF')
-    await writeFile(config.result, JSON.stringify({ ...result, capabilities: JSON.parse(capabilities.stdout), moduleUrl: import.meta.resolve('@lyness/libreoffice-kit') }))
+    await writeFile(config.result, JSON.stringify({ ...result, capabilities: JSON.parse(capabilities.stdout), moduleUrl: import.meta.resolve('@deepseek-ai/libreoffice-kit') }))
   } finally {
     await converter.dispose()
   }

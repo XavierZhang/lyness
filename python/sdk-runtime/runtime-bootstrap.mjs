@@ -10,7 +10,7 @@ if (isSea()) {
   const parentURL = pathToFileURL(`${process.execPath.replace(/\.exe$/i, '')}-office/package.json`).href
   registerHooks({
     resolve(specifier, context, nextResolve) {
-      const office = specifier === '@lyness/libreoffice-kit' || specifier === '@lyness/libreoffice-kit/package.json'
+      const office = specifier === '@deepseek-ai/libreoffice-kit' || specifier === '@deepseek-ai/libreoffice-kit/package.json'
       return nextResolve(specifier, office ? { ...context, parentURL } : context)
     },
   })
