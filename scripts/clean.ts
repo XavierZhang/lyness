@@ -134,7 +134,11 @@ export class RepositoryCleaner {
       const parsed = parseConfig(configPath)
       if (parsed.options.outDir !== undefined) {
         const typesDirectory = resolve(parsed.options.outDir)
-        const outputDirectory = basename(typesDirectory) === 'types'
+        // A declaration-only config names its own types directory beside the
+        // package's, so the segment is `types` or ends in `-types`; either way
+        // the build output to remove is the directory holding it.
+        const segment = basename(typesDirectory)
+        const outputDirectory = segment === 'types' || segment.endsWith('-types')
           ? dirname(typesDirectory)
           : typesDirectory === nativeEntryOutput
             ? typesDirectory

@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-host-brand-deployment",
   "description": "The deployment's own brand over the webserver index render: title, favicon, theme colour, and the asset files an operator places",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },

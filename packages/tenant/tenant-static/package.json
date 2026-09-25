@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-tenant-static",
   "description": "Tenant directory backed by the deployment's composition config: the roster is patch-layer rows",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },

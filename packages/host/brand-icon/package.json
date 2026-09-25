@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-host-brand-icon",
   "description": "Turns a brand icon PNG into the single-colour SVG icon and square favicon a deployment serves, and checks brand SVGs against the form this toolchain writes",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },

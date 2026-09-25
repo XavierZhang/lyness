@@ -13,7 +13,7 @@ const row = (type: string, data: SessionFormatJsonObject) => ({ type, data })
 const splice = () => row('agent/inbox/spliced', { target: 'next-turn', inserted: [user('next')] })
 const start = (turn: number) => row('turn/start', { turn })
 const end = (turn: number) => row('turn/end', { turn, reason: { kind: 'completed' } })
-const titleMessage = { ...user('captured seq 4'), source: { kind: 'lyn-session-title-llm' } }
+const titleMessage = { ...user('captured seq 4'), source: { kind: 'dsh-session-title-llm' } }
 const prefix = () => [start(1), row('step/start', { turn: 1, step: 1 }), row('step/end', { turn: 1, step: 1 }), splice()]
 function events(rows: readonly object[]): SessionFormatEvent[] {
   return rows.map((event, seq) => ({ ...event, seq, time: seq + 10 }) as SessionFormatEvent)

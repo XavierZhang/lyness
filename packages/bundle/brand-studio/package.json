@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-brand-studio",
   "description": "The lyn brand-studio profile bundle: generate a deployment brand from an icon PNG and a font, and apply it to a profile",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },

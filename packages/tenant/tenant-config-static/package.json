@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-tenant-config-static",
   "description": "Tenant configuration backed by the deployment's composition config: models, providers, features, identity, and copy as patch-layer rows",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },

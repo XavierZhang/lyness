@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-tenant-session",
   "description": "Records the tenant a session belongs to, and the identity text that tenant contributed, as one durable session event",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },

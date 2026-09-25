@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-e2e-target",
   "description": "Which DeepSeek-compatible platform the real-API e2e suites call, resolved from the environment the product already reads",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },

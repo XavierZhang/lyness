@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-api-tenant-controller",
   "description": "Remote owner of the tenant-configuration surface: the calling tenant reads and saves its own configuration",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },

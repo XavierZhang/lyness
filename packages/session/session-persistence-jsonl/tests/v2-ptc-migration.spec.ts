@@ -17,7 +17,7 @@ const userMessage = {
 }
 const titleMessage = {
   id: 'tools-code-mode:title-input', role: 'user',
-  source: { kind: 'plugin', plugin: 'lyn-session-title-llm' },
+  source: { kind: 'plugin', plugin: 'dsh-session-title-llm' },
   content: [{ type: 'text', text: 'Generate the session title from this JSON array of human messages:\n[{"seq":2,"text":"Keep tools-code-mode and tool/code-dispatch in this text. 图片"}]' }],
 }
 const toolCall = {
@@ -171,7 +171,7 @@ describe('JSONL V2 PTC publication and restore', () => {
     expectedEvents[10] = { ...expectedEvents[10], data: {
       ...(events[10]?.data as Record<string, unknown>), messageSeqs: [3],
       messages: titleRequestData.messages.map(message => ({
-        ...message, source: { kind: 'lyn-session-title-llm' },
+        ...message, source: { kind: 'dsh-session-title-llm' },
       })),
     } } as SessionFormatEvent
     const systemMessage = {

@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-tenant-config-store",
   "description": "Durable tenant configuration: one record per tenant in the storage domain, writable by an administration surface",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },

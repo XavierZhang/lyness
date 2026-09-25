@@ -523,7 +523,7 @@ declare module './message.js' {
     [`${ATTRIBUTION} duplicate: {kind: 'semantic'}`, 'conflicting attribution'],
     [`${ATTRIBUTION} first: {kind: 'same'};\n${ATTRIBUTION} second: {kind: 'same'; value: number}`, 'conflicting attribution'],
     ['broadUnmarked: {kind: string}', 'invalid source compatibility'],
-    ...['model', 'tool', 'system-prompt', 'compact-checkpoint', 'lyn-session-title-llm', 'tool-registry', 'runtime-context', 'plugin']
+    ...['model', 'tool', 'system-prompt', 'compact-checkpoint', 'dsh-session-title-llm', 'tool-registry', 'runtime-context', 'plugin']
       .map(kind => [`${ATTRIBUTION} forbidden: {kind: '${kind}'}`, 'invalid source compatibility']),
     ["/** @persistenceAttribution yes */ invalid: {kind: 'new'}", 'invalid @persistenceAttribution'],
     ['/** @persistenceAttribution\n * @persistenceAttribution */ duplicateTag: {kind: \'new\'}', 'invalid @persistenceAttribution'],

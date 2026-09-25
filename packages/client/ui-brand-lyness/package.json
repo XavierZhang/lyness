@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-client-ui-brand-lyness",
   "description": "lyness brand occupants for the Web client's sidebar and conversation hero slots",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },

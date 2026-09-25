@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-tenant-request",
   "description": "The tenant one RPC request belongs to: resolved once per call and readable by everything the call reaches",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },

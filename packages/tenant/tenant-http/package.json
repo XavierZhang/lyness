@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-tenant-http",
   "description": "Resolves the tenant an HTTP request belongs to, from the tenant header, the hostname, or a subdomain slug",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },

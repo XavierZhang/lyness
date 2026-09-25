@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-host-brand-wordmark",
   "description": "Typesets a brand name in a supplied font into a single-colour SVG wordmark sized for the Web shell's brand row",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },

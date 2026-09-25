@@ -10,7 +10,7 @@ import { createUserMessage, BlockAssembler } from '@lyness/lyn-llm'
 import type { ContextFormed } from '@lyness/lyn-llm'
 declare module '@lyness/lyn-llm' {
   interface MessageSourceMap {
-    'lyn-session-title-llm': { kind: 'lyn-session-title-llm' } & ContextFormed
+    'dsh-session-title-llm': { kind: 'dsh-session-title-llm' } & ContextFormed
   }
 }
 
@@ -254,7 +254,7 @@ export async function generateSessionTitleWithLlm(
   const route = resolveRoute(config, request)
   const messages: Message[] = [createUserMessage({
     content: [{ type: 'text', text: framedInput }],
-    source: { kind: 'lyn-session-title-llm' },
+    source: { kind: 'dsh-session-title-llm' },
   })]
   const system = systemPrompt(config)
   using callDeadline = deadline(request.signal, config.timeoutMs, SESSION_TITLE_TIMEOUT_CODE)

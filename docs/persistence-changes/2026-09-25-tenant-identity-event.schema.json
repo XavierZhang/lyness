@@ -1,0 +1,100 @@
+{
+  "formatVersion": 2,
+  "roots": [
+    {
+      "key": "event:tenant/identity",
+      "kind": "event",
+      "event": "tenant/identity",
+      "surface": false,
+      "digest": "0b15140ccd5df3d1f62e93067131f0e738b3302ffcb4c6dc87cb10d802238d71",
+      "schema": {
+        "root": 0,
+        "nodes": [
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "data",
+                "type": 1,
+                "optional": false
+              },
+              {
+                "name": "ignorable",
+                "type": 5,
+                "optional": true
+              },
+              {
+                "name": "seq",
+                "type": 4,
+                "optional": false
+              },
+              {
+                "name": "time",
+                "type": 4,
+                "optional": false
+              },
+              {
+                "name": "type",
+                "type": 6,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "constraints",
+                "type": 2,
+                "optional": false
+              },
+              {
+                "name": "personality",
+                "type": 3,
+                "optional": true
+              },
+              {
+                "name": "slug",
+                "type": 3,
+                "optional": false
+              },
+              {
+                "name": "tenantId",
+                "type": 3,
+                "optional": false
+              },
+              {
+                "name": "version",
+                "type": 4,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "array",
+            "element": 3
+          },
+          {
+            "kind": "primitive",
+            "type": "string"
+          },
+          {
+            "kind": "primitive",
+            "type": "number"
+          },
+          {
+            "kind": "literal",
+            "value": true
+          },
+          {
+            "kind": "literal",
+            "value": "tenant/identity"
+          }
+        ]
+      }
+    }
+  ],
+  "types": []
+}
