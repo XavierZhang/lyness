@@ -89,7 +89,7 @@ jobs:
           store_path=$(PNPM_CONFIG_STORE_DIR="$store_root" pnpm store path --silent)
           echo "path=$store_path" >> "$GITHUB_OUTPUT"
 
-      - uses: actions/cache/restore@v4
+      - uses: actions/cache/restore@v6
         with:
           path: ${{ steps.pnpm-store.outputs.path }}
           key: ${{ runner.os }}-node-${{ env.PRIMARY_NODE_VERSION }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
@@ -160,7 +160,7 @@ jobs:
           store_path=$(PNPM_CONFIG_STORE_DIR="$store_root" pnpm store path --silent)
           echo "path=$store_path" >> "$GITHUB_OUTPUT"
 
-      - uses: actions/cache/restore@v4
+      - uses: actions/cache/restore@v6
         id: pnpm-cache
         with:
           path: ${{ steps.pnpm-store.outputs.path }}
@@ -184,7 +184,7 @@ jobs:
       # Upstream seeds this cache from its pull-request lane, which never runs
       # here. This job alone saves the Linux store for every Linux job; it saves
       # before coverage so a failing run still seeds the next one.
-      - uses: actions/cache/save@v4
+      - uses: actions/cache/save@v6
         if: steps.pnpm-cache.outputs.cache-hit != 'true'
         with:
           path: ${{ steps.pnpm-store.outputs.path }}
@@ -220,7 +220,7 @@ jobs:
           store_path=$(PNPM_CONFIG_STORE_DIR="$store_root" pnpm store path --silent)
           echo "path=$store_path" >> "$GITHUB_OUTPUT"
 
-      - uses: actions/cache/restore@v4
+      - uses: actions/cache/restore@v6
         with:
           path: ${{ steps.pnpm-store.outputs.path }}
           key: ${{ runner.os }}-node-${{ env.PRIMARY_NODE_VERSION }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
@@ -284,14 +284,14 @@ jobs:
           store_path=$(PNPM_CONFIG_STORE_DIR="$store_root" pnpm store path --silent)
           echo "path=$store_path" >> "$GITHUB_OUTPUT"
 
-      - uses: actions/cache/restore@v4
+      - uses: actions/cache/restore@v6
         with:
           path: ${{ steps.pnpm-store.outputs.path }}
           key: ${{ runner.os }}-node-${{ env.PRIMARY_NODE_VERSION }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-node-${{ env.PRIMARY_NODE_VERSION }}-pnpm-
 
-      - uses: actions/cache/restore@v4
+      - uses: actions/cache/restore@v6
         id: playwright-cache
         with:
           path: ${{ env.PLAYWRIGHT_BROWSERS_PATH }}
@@ -316,7 +316,7 @@ jobs:
         run: pnpm --filter @lyness/lyn-web-frontend exec playwright install --with-deps chromium
 
       # Upstream never saves this cache on a branch this fork builds.
-      - uses: actions/cache/save@v4
+      - uses: actions/cache/save@v6
         if: steps.playwright-cache.outputs.cache-hit != 'true'
         with:
           path: ${{ env.PLAYWRIGHT_BROWSERS_PATH }}
@@ -465,7 +465,7 @@ jobs:
       # The coordinator weights partitions by measured durations once a
       # history exists; entries are immutable, so each run saves a new key.
       - name: Restore coverage duration history
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v6
         with:
           path: .coverage-times.json
           key: coverage-times-${{ github.run_id }}
@@ -497,7 +497,7 @@ jobs:
         run: pnpm run check:ci:coverage
       - name: Save coverage duration history
         if: ${{ !cancelled() }}
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v6
         with:
           path: .coverage-times.json
           key: coverage-times-${{ github.run_id }}
