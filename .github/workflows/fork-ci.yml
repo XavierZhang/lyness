@@ -619,13 +619,23 @@ jobs:
         env:
           CONFIGURED_BASE_URL: ${{ vars.DEEPSEEK_BASE_URL }}
           CONFIGURED_MODELS: ${{ vars.DEEPSEEK_MODELS }}
+          CONFIGURED_MAX_TOKENS: ${{ vars.DEEPSEEK_MAX_TOKENS }}
         run: |
           set -euo pipefail
           echo "DEEPSEEK_BASE_URL=${CONFIGURED_BASE_URL:-https://api.deepseek.com}" >> "$GITHUB_ENV"
           if [ -n "${CONFIGURED_MODELS:-}" ]; then
             echo "DEEPSEEK_MODELS=$CONFIGURED_MODELS" >> "$GITHUB_ENV"
           fi
-          echo "e2e target: ${CONFIGURED_BASE_URL:-https://api.deepseek.com} models=${CONFIGURED_MODELS:-<official defaults>}"
+          # A catalog of bare ids takes the official completion cap. A gateway
+          # that caps lower answers an agent-sized request with an error or not
+          # at all, which reads here as a turn that never produces an assistant
+          # message, so a configured platform usually needs this set too.
+          if [ -n "${CONFIGURED_MAX_TOKENS:-}" ]; then
+            echo "DEEPSEEK_MAX_TOKENS=$CONFIGURED_MAX_TOKENS" >> "$GITHUB_ENV"
+          fi
+          echo "e2e target: ${CONFIGURED_BASE_URL:-https://api.deepseek.com}" \
+            "models=${CONFIGURED_MODELS:-<official defaults>}" \
+            "maxTokens=${CONFIGURED_MAX_TOKENS:-<official default>}"
 
       # The e2e suites boot the example bins in `lib` mode, which requires a build.
       - name: Build (lib for the e2e example bins)

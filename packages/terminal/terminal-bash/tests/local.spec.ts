@@ -324,10 +324,15 @@ describe.skipIf(!hasPwsh)('terminal-bash pwsh real shell', () => {
     const previous = process.env.LYNESS_TEST_SECRET
     process.env.LYNESS_TEST_SECRET = 'must-not-leak'
     try {
+      // pwsh starts a .NET runtime, so its first byte can arrive later than a
+      // 300ms silence window on a loaded 4-vCPU host — the session then settles
+      // before any output and the motd assertion below reads an empty string,
+      // or catches the default prompt before this shell's prompt setup lands.
+      // The window has to outlast a cold pwsh start, not a warm bash one.
       const { ctx, root, agent } = await harness('danger-full-access', {
-        idleSilenceMs: 300,
-        handoffGraceMs: 300,
-        timeoutMs: 8_000,
+        idleSilenceMs: 2_000,
+        handoffGraceMs: 2_000,
+        timeoutMs: 30_000,
       }, 'pwsh')
       const created = await ctx.terminals.spawn(agent, { type: 'shell', name: 'main', cwd: root })
       expect(created.motd).toContain('lyn> ')
@@ -392,5 +397,5 @@ describe.skipIf(!hasPwsh)('terminal-bash pwsh real shell', () => {
     const result = await sent.done
     expect(result.viewport).toContain('中文 encoding-ok')
     await ctx.terminals.kill(agent, created.sessionId)
-  }, 30_000)
+  }, 90_000)
 })

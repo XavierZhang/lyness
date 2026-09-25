@@ -79,9 +79,12 @@ kind: "package-reference"
 ```sh
 DEEPSEEK_BASE_URL=https://gateway.example/v1
 DEEPSEEK_MODELS=deepseek-ai/DeepSeek-V4-Flash,deepseek-ai/DeepSeek-V4-Pro
+DEEPSEEK_MAX_TOKENS=8192
 ```
 
 该变量会替换组合配置里的 `models`，而不是与之合并，因为为一个端点写的目录对另一个端点是错的；用户在设置里保存的目录仍然优先。每个 id 都成为一个仅文本、使用默认上下文窗口的条目，因此需要图片输入或有自己窗口大小的模型要在设置里配置。设置了但值为空，或含空条目，会导致加载失败。
+
+只有 id 的目录不携带容量，因此每个条目都取默认的完成长度上限，而那个默认值描述的是官方模型能接受的额度。`$DEEPSEEK_MAX_TOKENS` 改为声明所配端点能接受的上限，从同一组受信任的层读取。端点的完成长度上限低于官方 API 时就要设置它：超过网关上限的请求要么返回错误，要么根本不返回。它在设不设 `$DEEPSEEK_MODELS` 时都生效；值不是正整数会导致加载失败。
 
 ### 带 thinking 与图片的流式调用
 

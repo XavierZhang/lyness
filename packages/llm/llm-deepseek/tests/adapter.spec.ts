@@ -21,7 +21,7 @@ import DeepSeekLlmApiExtensionRegistry from '@lyness/lyn-deepseek-llm-api-extens
 import type { PreparedDeepSeekLlmApiExtensions } from '@lyness/lyn-deepseek-llm-api-extensions'
 import * as LlmDeepSeek from '@lyness/lyn-llm-deepseek'
 import {
-  DeepSeekAdapter, parseModelIds, resolveAdapterOptions, withEnvironmentCatalog,
+  DeepSeekAdapter, parseMaxTokens, parseModelIds, resolveAdapterOptions, withEnvironmentCatalog,
 } from '@lyness/lyn-llm-deepseek'
 import { httpErrorCode } from '../src/adapter.ts'
 import { resolveRequestImagePolicy } from '../src/request-pricing.ts'
@@ -2265,6 +2265,27 @@ describe('plugin registration and config', () => {
       .toEqual({ thinking: 'enabled', models: [{ id: 'gateway-flash' }] })
     const config = { models: [{ id: 'deepseek-v4-flash' }] }
     expect(withEnvironmentCatalog(config, createLaunchEnvironmentSnapshot([]))).toBe(config)
+  })
+
+  it('takes DEEPSEEK_MAX_TOKENS with or without a catalog beside it', () => {
+    const both = createLaunchEnvironmentSnapshot([
+      { source: 'project-env', path: '/work/.env', values: { DEEPSEEK_MODELS: 'gateway-flash', DEEPSEEK_MAX_TOKENS: '8192' } },
+    ])
+    expect(withEnvironmentCatalog({ thinking: 'enabled' }, both))
+      .toEqual({ thinking: 'enabled', models: [{ id: 'gateway-flash' }], maxTokens: 8192 })
+    const capOnly = createLaunchEnvironmentSnapshot([
+      { source: 'project-env', path: '/work/.env', values: { DEEPSEEK_MAX_TOKENS: '4096' } },
+    ])
+    expect(withEnvironmentCatalog({ models: [{ id: 'deepseek-v4-flash' }] }, capOnly))
+      .toEqual({ models: [{ id: 'deepseek-v4-flash' }], maxTokens: 4096 })
+  })
+
+  it('refuses a DEEPSEEK_MAX_TOKENS value that is not a positive integer', () => {
+    expect(() => parseMaxTokens('0')).toThrow(/DEEPSEEK_MAX_TOKENS must be a positive integer; got "0"/u)
+    expect(() => parseMaxTokens('-1')).toThrow(/got "-1"/u)
+    expect(() => parseMaxTokens('1.5')).toThrow(/got "1.5"/u)
+    expect(() => parseMaxTokens('lots')).toThrow(/got "lots"/u)
+    expect(parseMaxTokens(' 8192 ')).toBe(8192)
   })
 
   it('refuses a DEEPSEEK_MODELS value that names no model or a blank one', async () => {

@@ -97,6 +97,9 @@ async function bootWeb(
     // The always-on reload chain waits for the browser roster and bound port
     // disabled above.
     { id: 'client-hmr', disabled: true },
+    // Deployment branding reaches the browser by tapping index responses, so
+    // it waits for the webserver disabled above.
+    { id: 'brand-deployment', disabled: true },
     // The shipped `-auto` chooser resolves its interaction from a running
     // host and so waits for the webserver disabled above; the browse variant
     // supplies `directoryPicker` without one.

@@ -79,9 +79,12 @@ The generated [configuration catalog](../../../docs/config-catalog.md#lynesslyn-
 ```sh
 DEEPSEEK_BASE_URL=https://gateway.example/v1
 DEEPSEEK_MODELS=deepseek-ai/DeepSeek-V4-Flash,deepseek-ai/DeepSeek-V4-Pro
+DEEPSEEK_MAX_TOKENS=8192
 ```
 
 The variable replaces the composition's `models` rather than merging into it, because a catalog written for one endpoint is wrong for another; a catalog saved in the user's settings still wins. Each id becomes a text-only entry with the default context window, so a model that takes images or has its own window is configured in settings instead. A set but empty value, or a blank entry, fails the load.
+
+A catalog of bare ids carries no capacities, so every entry takes the default completion cap, which states what the official models accept. `$DEEPSEEK_MAX_TOKENS` states the cap the configured endpoint takes instead, read from the same trusted layers. Set it whenever the endpoint caps completions lower than the official API: a request above a gateway's ceiling comes back as an error, or never comes back at all. It applies with or without `$DEEPSEEK_MODELS`, and a value that is not a positive integer fails the load.
 
 ### Streaming with thinking and images
 

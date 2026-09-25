@@ -219,6 +219,9 @@ const BASE_URL_ENV = 'DEEPSEEK_BASE_URL'
 /** Environment variable naming the models the configured endpoint serves, honored only from trusted layers. */
 export const MODELS_ENV = 'DEEPSEEK_MODELS'
 
+/** Environment variable capping the completion length the configured endpoint accepts, honored only from trusted layers. */
+export const MAX_TOKENS_ENV = 'DEEPSEEK_MAX_TOKENS'
+
 /**
  * Read a model-id list in the form $DEEPSEEK_MODELS carries it.
  * @param value - comma-separated model ids; whitespace around each id is ignored.
@@ -235,25 +238,53 @@ export function parseModelIds(value: string): [string, ...string[]] {
 }
 
 /**
- * Replace the composition's catalog with the one the launch environment names.
+ * Read a completion cap in the form $DEEPSEEK_MAX_TOKENS carries it.
+ * @param value - a positive integer in decimal.
+ * @returns the cap.
+ * @throws {Error} when the value is not a positive integer.
+ */
+export function parseMaxTokens(value: string): number {
+  const parsed = Number(value.trim())
+  if (!Number.isSafeInteger(parsed) || parsed <= 0) {
+    throw new Error(`llm-deepseek: ${MAX_TOKENS_ENV} must be a positive integer; got ${JSON.stringify(value)}`)
+  }
+  return parsed
+}
+
+/**
+ * Replace the composition's catalog and completion cap with the ones the
+ * launch environment names.
  *
  * $DEEPSEEK_BASE_URL can point this provider at any endpoint that speaks the
  * DeepSeek chat API, and an endpoint other than the official one usually names
- * its models differently. The variable is the catalog of the endpoint the
+ * its models differently. $DEEPSEEK_MODELS is the catalog of the endpoint the
  * environment chose, so it replaces the composition's catalog — written for
  * whatever endpoint the composition assumed — rather than merging into it. The
  * result is the base settings layer, so a catalog the user saved still wins.
  * Each id becomes a text-only entry; a model that needs image input or its own
  * context window is configured in settings instead.
+ *
+ * A catalog of bare ids carries no capacities, so every entry would otherwise
+ * take {@link DEFAULT_MAX_TOKENS}, which states what the official models
+ * accept. A gateway that caps completions lower answers such a request with an
+ * error or not at all, so $DEEPSEEK_MAX_TOKENS states the cap that endpoint
+ * takes. It applies whether or not a catalog is named, because the composition
+ * may already name models the endpoint serves.
  * @param config - the composition entry config.
  * @param environment - this run's environment layers.
- * @returns the config with the environment's catalog, or `config` unchanged when the variable is unset.
- * @throws {Error} when the variable is set but names no model or a blank one.
+ * @returns the config with the environment's catalog and cap, or `config` unchanged when neither variable is set.
+ * @throws {Error} when a variable is set but names no model, a blank one, or a cap that is not a positive integer.
  */
 export function withEnvironmentCatalog(config: Config, environment: LaunchEnvironmentSnapshot): Config {
-  const value = environment.get(MODELS_ENV)?.value
-  if (value === undefined) return config
-  return Object.assign({}, config, { models: parseModelIds(value).map(id => ({ id })) })
+  const catalog = environment.get(MODELS_ENV)?.value
+  const cap = environment.get(MAX_TOKENS_ENV)?.value
+  if (catalog === undefined && cap === undefined) return config
+  return Object.assign(
+    {},
+    config,
+    catalog === undefined ? {} : { models: parseModelIds(catalog).map(id => ({ id })) },
+    cap === undefined ? {} : { maxTokens: parseMaxTokens(cap) },
+  )
 }
 
 /**

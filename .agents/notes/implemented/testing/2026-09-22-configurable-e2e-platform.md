@@ -43,3 +43,13 @@ The suites use one model per run: the first id the variable names.
 The change touches one upstream product file, about twenty upstream suites where a literal became `E2E_TARGET.model`, two YAML fixtures that now read the variable through `!!js`, and the official-only gates. `CUSTOM.md` records them.
 
 None of this has run against a real endpoint yet: this workspace has no key and the fork's Actions are billing-locked. The suites load and self-skip keyless, and the provider change is covered by unit and settings-layer tests.
+
+## What the first configured run showed
+
+The fork's CI later ran this against a third-party gateway. Short requests worked and agent-sized ones did not: the session log carried `turn/start`, `step/start`, and `request/header`, plus a `session/title` event from the 64-token title request, and then nothing — no assistant message and no error — until the suite's own deadline. Four suites failed that way.
+
+A catalog of bare ids is the cause. `withEnvironmentCatalog` gives each id no capacities, so every entry takes `DEFAULT_MAX_TOKENS`, which states what the official models accept. The agent request therefore asked a gateway for a 256,000-token completion, and the gateway neither answered nor refused.
+
+`$DEEPSEEK_MAX_TOKENS` closes that gap on the same trusted layers as the endpoint and the catalog. It is not a test knob: a deployment pointing the product at such a gateway hits the identical wall, so the cap belongs with the other two facts that describe the chosen platform.
+
+The variable is deliberately not inferred. A gateway's ceiling is not discoverable from its base URL, and guessing one would replace a loud stall with a quiet truncation.
