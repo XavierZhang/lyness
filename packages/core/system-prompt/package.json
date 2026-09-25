@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-system-prompt",
   "description": "System prompt assembly registry for the lyness",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -32,18 +32,18 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/lyn-invariants": "workspace:^",
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-scope": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-invariants": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-scope": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   },
   "dependencies": {
-    "@lyness/schemastery": "workspace:^"
+    "@lyness/schemastery": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/lyn-invariants": "workspace:^",
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-scope": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-invariants": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-scope": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   }
 }

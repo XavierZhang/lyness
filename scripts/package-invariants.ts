@@ -133,12 +133,12 @@ function checkManifest(
     owner.packageName,
     manifest.lyn,
   )
-  const expectedRange = 'workspace:^'
+  const expectedRange = 'workspace:*'
   const peerRange = manifest.peerDependencies?.['@lyness/lyn-invariants']
   if (developmentOnlyInvariant ? peerRange !== undefined : peerRange !== expectedRange) {
     addViolation(violations, owner.manifestPath, developmentOnlyInvariant
       ? '@lyness/lyn-invariants must not be a peerDependency under this package dependency policy'
-      : '@lyness/lyn-invariants must be a workspace:^ peerDependency')
+      : '@lyness/lyn-invariants must be a workspace:* peerDependency')
   }
   if (manifest.devDependencies?.['@lyness/lyn-invariants'] !== expectedRange) {
     addViolation(

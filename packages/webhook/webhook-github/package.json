@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-webhook-github",
   "description": "Signed GitHub HTTP webhook adapter for the lyness webhook runtime",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -32,24 +32,24 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-credentials": "workspace:^",
-    "@lyness/lyn-host-webserver": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-webhook": "workspace:^"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-credentials": "workspace:*",
+    "@lyness/lyn-host-webserver": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-webhook": "workspace:*"
   },
   "dependencies": {
-    "@lyness/lyn-util-values": "workspace:^",
-    "@lyness/schemastery": "workspace:^",
+    "@lyness/lyn-util-values": "workspace:*",
+    "@lyness/schemastery": "workspace:~",
     "@octokit/webhooks": "^14.2.0"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/cordis-plugin-include": "workspace:^",
-    "@lyness/cordis-plugin-loader": "workspace:^",
-    "@lyness/lyn-credentials": "workspace:^",
-    "@lyness/lyn-host-webserver": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-webhook": "workspace:^"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/cordis-plugin-include": "workspace:~",
+    "@lyness/cordis-plugin-loader": "workspace:~",
+    "@lyness/lyn-credentials": "workspace:*",
+    "@lyness/lyn-host-webserver": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-webhook": "workspace:*"
   }
 }

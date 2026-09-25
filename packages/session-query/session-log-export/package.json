@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-session-log-export",
   "description": "Web Session-log export command and shared download dialog",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -36,34 +36,35 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@lyness/lyn-session-format": "workspace:^",
-    "@lyness/schemastery": "workspace:^",
+    "@lyness/lyn-session-format": "workspace:*",
+    "@lyness/schemastery": "workspace:~",
     "fflate": "^0.8.2",
-    "@lyness/lyn-brand": "workspace:^"
+    "@lyness/lyn-brand": "workspace:*"
   },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-session-persistence": "workspace:^"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-session-persistence": "workspace:*"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/cordis-plugin-loader": "workspace:^",
-    "@lyness/lyn-agent": "workspace:^",
-    "@lyness/lyn-attachment": "workspace:^",
-    "@lyness/lyn-client-connection": "workspace:^",
-    "@lyness/lyn-client-locale": "workspace:^",
-    "@lyness/lyn-client-store": "workspace:^",
-    "@lyness/lyn-client-ui-commands": "workspace:^",
-    "@lyness/lyn-client-ui-conversation": "workspace:^",
-    "@lyness/lyn-client-ui-primitives": "workspace:^",
-    "@lyness/lyn-client-ui-renderer": "workspace:^",
-    "@lyness/lyn-client-ui-session": "workspace:^",
-    "@lyness/lyn-client-ui-slots": "workspace:^",
-    "@lyness/lyn-commands": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-session-persistence": "workspace:^",
-    "@lyness/lyn-session-query": "workspace:^",
+    "@lyness/cordis": "workspace:~",
+    "@lyness/cordis-plugin-loader": "workspace:~",
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/lyn-attachment": "workspace:*",
+    "@lyness/lyn-client-connection": "workspace:*",
+    "@lyness/lyn-client-locale": "workspace:*",
+    "@lyness/lyn-client-store": "workspace:*",
+    "@lyness/lyn-client-ui-commands": "workspace:*",
+    "@lyness/lyn-client-ui-conversation": "workspace:*",
+    "@lyness/lyn-client-ui-message-feedback": "workspace:*",
+    "@lyness/lyn-client-ui-primitives": "workspace:*",
+    "@lyness/lyn-client-ui-renderer": "workspace:*",
+    "@lyness/lyn-client-ui-session": "workspace:*",
+    "@lyness/lyn-client-ui-slots": "workspace:*",
+    "@lyness/lyn-commands": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-session-persistence": "workspace:*",
+    "@lyness/lyn-session-query": "workspace:*",
     "@types/react": "~18.3.1",
     "react": "^18.2.0"
   },

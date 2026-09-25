@@ -1,6 +1,40 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/ui-directory-picker-browse/README.md
-README.md: 0638c058b7018385bedaa404df2f0621df05dc06
-README.zh.md: 776352d23fbafb68bfef49df3c78ffcff3a14375
+/:
+  en: 5f823b578f5be33d
+  zh: 5e12bb5290b0286b
+/lyness-lyn-client-ui-directory-picker-browse:
+  en: 0e8f73442d40e91c
+  zh: 5cdca4e6fd809ae3
+/lyness-lyn-client-ui-directory-picker-browse/summary:
+  en: a301b6c084afb3a2
+  zh: c5988c7d9514c3b8
+/lyness-lyn-client-ui-directory-picker-browse/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-client-ui-directory-picker-browse/use-this-package:
+  en: 96d185a1c4e4ec8f
+  zh: 71cb19556f064d70
+/lyness-lyn-client-ui-directory-picker-browse/use-this-package/navigating-and-creating:
+  en: 18e10884b02f288f
+  zh: 06debd0a4a88bdac
+/lyness-lyn-client-ui-directory-picker-browse/understand-the-implementation:
+  en: fb217b7d152731db
+  zh: 9ee3c0a9f15a5a29
+/lyness-lyn-client-ui-directory-picker-browse/further-exploration:
+  en: 3e316f53d6e1f3bd
+  zh: e49da4b7ea0dd95d
+/lyness-lyn-client-ui-directory-picker-browse/model-experience:
+  en: 3bcc2b54b66f366e
+  zh: 489716ece3a4ef2a
+/lyness-lyn-client-ui-directory-picker-browse/model-experience/kv-cache-effect:
+  en: ca75c51c89c2c9b0
+  zh: f57cc48a1b5cbfa9
+/lyness-lyn-client-ui-directory-picker-browse/known-limitations-and-deferred-work:
+  en: 20e381071e1644e2
+  zh: 9260bcb09a52dd8c
+/lyness-lyn-client-ui-directory-picker-browse/known-limitations-and-deferred-work/dev-note:
+  en: d31303387d07ac33
+  zh: 5613857edfa8b0b4

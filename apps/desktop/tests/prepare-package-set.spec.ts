@@ -46,32 +46,45 @@ describe('desktop package-set selection', () => {
     ])
   })
 
-  it('rejects a required internal package absent from the packed release inputs', () => {
+  it.each([
+    '@lyness/lyn-base', '@lyness/cordis', '@lyness/node-addon-system',
+  ])('rejects required prepared package %s absent from the packed release inputs', (dependency) => {
     const available = new Map<string, PackedDesktopPackage>([
       ['@lyness/lyn', packed('@lyness/lyn', {
-        dependencies: { '@lyness/lyn-base': '^1.0.0' },
+        dependencies: { [dependency]: '^1.0.0' },
       })],
       ['@lyness/lyn-desktop-host', packed('@lyness/lyn-desktop-host', {
         dependencies: { '@lyness/lyn': '^1.0.0' },
       })],
     ])
-    expect(() => selectDesktopPackageClosure(available)).toThrow(/unpacked internal package/u)
+    expect(() => selectDesktopPackageClosure(available)).toThrow(/unpacked package/u)
     expect(() => selectDesktopPackageClosure(new Map([
       ['@lyness/lyn', packed('@lyness/lyn')],
     ]))).toThrow(/omit @lyness\/lyn-desktop-host/u)
   })
 
-  it('requires the Desktop Host entry and its packaged overlay', () => {
+  it('leaves independently published Office packages to npm resolution', () => {
+    const available = new Map<string, PackedDesktopPackage>([
+      ['@lyness/lyn', packed('@lyness/lyn', {
+        dependencies: {
+          '@deepseek-ai/libreoffice-kit': '0.0.1',
+          '@deepseek-ai/libreoffice-kit-wasm': '0.0.1',
+        },
+      })],
+      ['@lyness/lyn-desktop-host', packed('@lyness/lyn-desktop-host')],
+    ])
+    expect(selectDesktopPackageClosure(available).map(entry => entry.manifest.name)).toEqual([
+      '@lyness/lyn', '@lyness/lyn-desktop-host',
+    ])
+  })
+
+  it('requires the Desktop Host entry', () => {
     const files = [
       'package/lib/index.js',
-      'package/config/desktop.cordis.patch.yml',
     ]
     expect(() => {
       assertDesktopHostPackageFiles(files)
     }).not.toThrow()
-    expect(() => {
-      assertDesktopHostPackageFiles(files.slice(0, 1))
-    }).toThrow(/desktop\.cordis\.patch\.yml/u)
     expect(() => {
       assertDesktopHostPackageFiles(files.slice(1))
     }).toThrow(/lib\/index\.js/u)

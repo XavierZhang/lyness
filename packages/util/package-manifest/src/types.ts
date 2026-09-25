@@ -1,44 +1,81 @@
 /**
- * Shared declarations for `package.json.lyn`.
+ * Shared declarations for package.json fields and plugin display metadata.
  * Each reader owns JSON validation and resolved defaults.
  * @module @lyness/lyn-package-manifest/types
  */
 
-/** The `lyn` property of an npm manifest; a package may declare several roles. */
+/** Package identity and metadata; local profile readers may accept a partial declaration. */
+export interface LynPackageManifest {
+  /** Published npm package name. */
+  name: string
+  /** Published npm package version. */
+  version: string
+  /** Package summary for discovery and display. */
+  description?: string
+  /** SVG, PNG, JPEG, or WebP file relative to this manifest's directory, at most 256 KiB and contained there after realpath resolution. */
+  icon?: string
+  /** Prevent npm publication, for example for local profile projects. */
+  private?: boolean
+  /** Packages installed alongside this package. */
+  dependencies?: Record<string, string>
+  /** Compatible versions of packages supplied by the consuming project. */
+  peerDependencies?: Record<string, string>
+  /** Runtime requirements; LYN compatibility is declarative until a reader enforces it. */
+  engines?: LynEnginesManifest
+  /** LYN-specific author declarations. */
+  lyn?: LynManifest
+}
+
+/** Public author fields under `package.json.lyn`; a package may declare several roles. */
 export interface LynManifest {
+  /** Manifest format version, independent of the npm package and Session format versions. */
+  manifestVersion?: 1
   /** Bundle metadata consumed by the profile launcher. */
   bundle?: LynBundleManifest
   /** Profile metadata consumed by the profile launcher. */
   profile?: LynProfileManifest
   /** Client module loading and build metadata. */
   client?: LynClientManifest
-  /** Config directories consumed by the experimental deployment-image packer. */
-  configTrees?: LynConfigTreeDeclaration[]
-  /** Adjacent Session migration metadata consumed by the workspace catalog generator. */
-  sessionFormatMigration?: LynSessionFormatMigrationManifest
-  /**
-   * Launcher-generated module proxy metadata, not an author configuration entry.
-   * @internal
-   */
-  moduleFallback?: LynModuleFallbackManifest
+}
+
+/** Literal text or translations indexed by lowercase language id, with a required English fallback. */
+export type LocalizedText = string | { readonly en: string; readonly [locale: string]: string }
+
+/** Validated plugin display fields and diagnostics from exported locales, manifests, or icon files. */
+export interface PluginLocalizedMeta {
+  /** Display title; omission preserves the consumer's technical-name fallback. */
+  readonly title?: LocalizedText
+  /** Display introduction after locale and package-field fallback. */
+  readonly description?: LocalizedText
+  /** Base64 image data URL read from the manifest's icon file; render as an image, not inline markup. */
+  readonly icon?: string
+  /** Unmodified local metadata diagnostic; the plugin remains manageable. */
+  readonly error?: string
+}
+
+/** Runtime version requirements under `package.json.engines`. */
+export interface LynEnginesManifest {
+  /** Compatible LYN versions as a SemVer range, including an exact version. */
+  lyn?: string
+  /** Compatible Node.js versions. */
+  node?: string
+  /** Compatible npm versions. */
+  npm?: string
+  /** Requirements for additional runtimes or package managers. */
+  [engine: string]: string | undefined
 }
 
 /** The configuration layer exported by a bundle package. */
 export interface LynBundleManifest {
-  /** Patch file path relative to the declaring package root. */
-  patch: string
+  /** One patch file path, or an ordered list applied in sequence, each relative to the declaring package root. */
+  patch: string | string[]
 }
 
 /** The bundle composition declared by a profile directory. */
 export interface LynProfileManifest {
   /** Ordered bundle layer list, using installed package names. */
   bundles?: string[]
-  /** User patch lifecycle; omitted means `live` for custom profiles. */
-  patchReload?: ProfilePatchReload
 }
-
-/** Whether user patch files reload while a profile remains active or apply only at startup. */
-export type ProfilePatchReload = 'live' | 'startup'
 
 /** Client module declaration read by client-modules and the client build. */
 export interface LynClientManifest {
@@ -54,46 +91,4 @@ export interface LynClientManifest {
    * Type-only imports are erased and create no module request.
    */
   external?: string[]
-}
-
-/** One config directory read from the CLI package by the experimental image packer. */
-export interface LynConfigTreeDeclaration {
-  /** Non-empty destination path in the image; mount values must be unique. */
-  mount: string
-  /** Non-empty source directory path relative to the declaring package root. */
-  path: string
-  /** Include the directory's YAML plugin rows in the package roster; absent means false. */
-  scanRoster?: boolean
-}
-
-/**
- * Adjacent Session migration metadata declared on disk. The catalog generator
- * discovers only packages/session/session-format-vN-to-vN+1, not external plugins.
- */
-export interface LynSessionFormatMigrationManifest {
-  /** Non-negative safe integer source version; negative zero is rejected. */
-  from: number
-  /** Non-negative safe integer target version, exactly from + 1. */
-  to: number
-  /** Non-empty package export path, such as `.` or `./migration`. */
-  export: string
-  /** Non-empty named export of the migration implementation. */
-  migration: string
-  /** Non-empty named export of the source version codec. */
-  sourceCodec: string
-  /** Non-empty named export of the target version codec. */
-  targetCodec: string
-  /** Non-empty named export of the target header validator. */
-  targetHeaderValidator: string
-  /** Non-empty named export of the target version restorer. */
-  targetRestorer: string
-}
-
-/**
- * Metadata generated and read by the launcher's module fallback proxies.
- * @internal
- */
-export interface LynModuleFallbackManifest {
-  /** Package export subpaths mapped to resolved target file URLs. */
-  targets: Record<string, string>
 }

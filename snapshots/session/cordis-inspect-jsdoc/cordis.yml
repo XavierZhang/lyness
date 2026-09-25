@@ -33,5 +33,7 @@
 - insert:
     - id: cordis-host-runner
       name: '@lyness/lyn-cordis-host-runner'
+    - id: cordis-inspect-providers
+      name: '@lyness/lyn-tool-cordis/host'
     - id: tool-cordis
       name: '@lyness/lyn-tool-cordis'

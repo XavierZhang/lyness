@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-host-open-in-app",
   "description": "Host half of open-in-app: resolved application catalog, icons, and the launch endpoint as three webServer routes",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -36,17 +36,17 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@lyness/lyn-launch-environment": "workspace:^",
-    "@lyness/lyn-native-command": "workspace:^",
-    "@lyness/lyn-subprocess": "workspace:^",
-    "@lyness/schemastery": "workspace:^"
+    "@lyness/lyn-launch-environment": "workspace:*",
+    "@lyness/lyn-native-command": "workspace:*",
+    "@lyness/lyn-subprocess": "workspace:*",
+    "@lyness/schemastery": "workspace:~"
   },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/cordis-plugin-loader": "workspace:^",
-    "@lyness/lyn-host-webserver": "workspace:^"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/cordis-plugin-loader": "workspace:~",
+    "@lyness/lyn-host-webserver": "workspace:*"
   }
 }

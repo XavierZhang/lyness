@@ -55,6 +55,21 @@ describe('ShellEnvRegistry', () => {
     })
   })
 
+  it('collects the launcher-provided profile name and directory when a profile context exists', () => {
+    const ctx = new Context()
+    ctx.provide('profileContext', {
+      name: 'web', dir: '/profiles/web', patchPath: '/profiles/web/cordis.patch.yml', installAnchor: '/lyn/package.json',
+      cwd: '/work', home: '/home', startedBundles: [], overlays: [], telemetryDisabledEnv: undefined,
+    })
+    const registry = new ShellEnvRegistry(ctx, { lynHome: './test-lyn-home' })
+    expect(registry.collect(execution())).toMatchObject({ LYNESS_PROFILE: 'web', LYNESS_PROFILE_DIR: '/profiles/web' })
+    expect(() => registry.register({
+      name: 'profile-claimer',
+      variables: { LYNESS_PROFILE: { description: 'Reserved key.' } },
+      resolve: () => ({}),
+    })).toThrow(/reserved key "LYNESS_PROFILE"/)
+  })
+
   it('resolves LYNESS_HOME from the ambient override or the user-home default', () => {
     vi.stubEnv('LYNESS_HOME', './ambient-lyn-home')
     const fromEnvironment = new ShellEnvRegistry(new Context())

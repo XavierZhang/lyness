@@ -1,0 +1,38 @@
+# TypeScript SDK snapshot-record patch over `lyn --profile sdk`.
+
+# The fixture corpus must not depend on the developer's personal skill roots.
+# Ordinary product launches retain the sdk profile's default skill discovery.
+- id: skill-filesystem
+  name: '@lyness/lyn-skill-filesystem'
+  config:
+    includeDefaultRoots: false
+
+- id: llm-deepseek
+  name: '@lyness/lyn-llm-deepseek-api-key'
+  config:
+    thinking: enabled
+    reasoningEffort: max
+
+- id: session-persistence-jsonl
+  name: '@lyness/lyn-session-persistence-jsonl'
+  config:
+    root: !!js lynHomePath('sessions')
+    compression: !!js "process.env.LYNESS_SNAPSHOT === undefined ? 'zstd' : 'none'"
+
+- id: tool-subagent
+  name: '@lyness/lyn-tool-subagent'
+  config:
+    provider: spawn
+    toolName: subagent
+    backgroundMode: one-shot
+    enableRunInBackground: false
+    maxDepth: 1
+
+- id: session-log-deepseek
+  name: '@lyness/lyn-session-log-deepseek'
+  config:
+    enabled: true
+
+- insert:
+    - id: serial-created-fixture
+      name: '../../../packages/core/agent-loop/tests/fixtures/serial-created.mjs'

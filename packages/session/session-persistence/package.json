@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-session-persistence",
   "description": "Abstract durable session persistence seam (ctx.sessionPersistence) for the lyness",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -27,19 +27,19 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-brand": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-timeout": "workspace:^"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-timeout": "workspace:*"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-brand": "workspace:^",
-    "@lyness/lyn-scope": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-timeout": "workspace:^"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/lyn-scope": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-timeout": "workspace:*"
   },
   "dependencies": {
-    "@lyness/lyn-util-values": "workspace:^"
+    "@lyness/lyn-util-values": "workspace:*"
   }
 }

@@ -1,6 +1,40 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/ui-open-in-app/README.md
-README.md: 6f28cb2c7e9025f91d54ffca881d54aa537e6ce4
-README.zh.md: 22babf01d39de99b09a7838ed1be58883f33e6b0
+/:
+  en: be11314755d8f4f9
+  zh: dd75b03074eea543
+/lyness-lyn-client-ui-open-in-app:
+  en: acb6ddb8cb188126
+  zh: 4b04e1f75ebdb66d
+/lyness-lyn-client-ui-open-in-app/summary:
+  en: 39c88975c4e34654
+  zh: f969dd6e59fe0e0d
+/lyness-lyn-client-ui-open-in-app/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 725b47765ee8f30b
+/lyness-lyn-client-ui-open-in-app/use-this-package:
+  en: a89ffc01e1e008e9
+  zh: 48c2c3edb3839d92
+/lyness-lyn-client-ui-open-in-app/use-this-package/what-to-expect:
+  en: 4cba3fb65bc5807a
+  zh: 1e2bf186ac25f69f
+/lyness-lyn-client-ui-open-in-app/understand-the-implementation:
+  en: d6d99d40842b3495
+  zh: e0d17f80a2c82a86
+/lyness-lyn-client-ui-open-in-app/further-exploration:
+  en: 4270d40fb07f90c7
+  zh: 9c191acd6a0646c5
+/lyness-lyn-client-ui-open-in-app/model-experience:
+  en: 5f9e6e0fb0438628
+  zh: fc9a81185ea6cb14
+/lyness-lyn-client-ui-open-in-app/model-experience/kv-cache-effect:
+  en: ca75c51c89c2c9b0
+  zh: c2241315dc0c89c9
+/lyness-lyn-client-ui-open-in-app/known-limitations-and-deferred-work:
+  en: d0b38575754cb493
+  zh: 329834da1498095d
+/lyness-lyn-client-ui-open-in-app/known-limitations-and-deferred-work/dev-note:
+  en: e1ada3a66713106f
+  zh: 9914626f06c74db4

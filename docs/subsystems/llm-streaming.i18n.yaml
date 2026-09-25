@@ -1,6 +1,49 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for llm-streaming.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write docs/subsystems/llm-streaming.md
-llm-streaming.md: 576383a77633acf948d96949855fad9de3a362e7
-llm-streaming.zh.md: 22f16283496288a33b32d6f8a2a22fef86db78be
+/llm-streaming:
+  en: 87c88cd30286b534
+  zh: de389e836046548d
+/llm-streaming/content-blocks-and-messages:
+  en: e3fae9a2b94f908f
+  zh: 111812301ecf57c8
+/llm-streaming/streamchunk-the-raw-protocol:
+  en: a18fe401763efde4
+  zh: ef59a76d9c694654
+/llm-streaming/compact-assistant-streams:
+  en: 20f17f08f4e732cb
+  zh: 94d8dd1b556f8939
+/llm-streaming/llmfailure:
+  en: 13415501869b4ca9
+  zh: 723c7533cce3d1d6
+/llm-streaming/request-image-pricing:
+  en: 10598e1a98262415
+  zh: 7fb85b22174a1497
+/llm-streaming/the-adapter-contract:
+  en: 8a8a3fda179aaa21
+  zh: 79d8c328e72e678b
+/llm-streaming/resolvedretrypolicy:
+  en: 4f669f1f801b7962
+  zh: d1c61f936001134f
+/llm-streaming/appidentity-app-attribution:
+  en: b006eddbc10e5ca2
+  zh: c353c32007a53463
+/llm-streaming/tokenusage:
+  en: 33830f78fdb845fa
+  zh: f43a4502c4c3bfff
+/llm-streaming/blockassembler:
+  en: 58dec2259b0b1c6f
+  zh: fc99fe965acaabf3
+/llm-streaming/the-model-request:
+  en: c2b13fca13ed2075
+  zh: 3441a3f471b425bf
+/llm-streaming/the-model-request/the-request-envelope-llmcallconfig-and-the-logged-header:
+  en: 2736ad1d7dc4e0cb
+  zh: 5188264cba86f9fb
+/llm-streaming/official-deepseek-request-extensions:
+  en: acb51036aee7760e
+  zh: c5ba1d50555cf76d
+/llm-streaming/service-and-provider-contracts:
+  en: 501b158316e818aa
+  zh: d78f792021e4da1e

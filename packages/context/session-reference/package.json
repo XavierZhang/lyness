@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-session-reference",
   "description": "Cross-session snapshot references and durable untrusted model context (ctx.sessionReferenceResolver)",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -44,25 +44,26 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@lyness/lyn-brand": "workspace:^",
-    "@lyness/lyn-util-values": "workspace:^",
-    "@lyness/schemastery": "workspace:^",
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/lyn-util-values": "workspace:*",
+    "@lyness/schemastery": "workspace:~",
     "zod": "^4.4.3"
   },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-agent": "workspace:^",
-    "@lyness/lyn-compaction": "workspace:^",
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-output-retention": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-session-projection": "workspace:^",
-    "@lyness/lyn-session-projection-cache": "workspace:^",
-    "@lyness/lyn-session-query": "workspace:^",
-    "@lyness/lyn-session-title": "workspace:^",
-    "@lyness/lyn-spill": "workspace:^",
-    "@lyness/lyn-system-prompt": "workspace:^",
-    "@lyness/lyn-typert-protocol": "workspace:^"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/lyn-compaction": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-output-retention": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-session-projection": "workspace:*",
+    "@lyness/lyn-session-projection-cache": "workspace:*",
+    "@lyness/lyn-session-query": "workspace:*",
+    "@lyness/lyn-session-title": "workspace:*",
+    "@lyness/lyn-spill": "workspace:*",
+    "@lyness/lyn-subagent": "workspace:*",
+    "@lyness/lyn-system-prompt": "workspace:*",
+    "@lyness/lyn-typert-protocol": "workspace:*"
   },
   "peerDependenciesMeta": {
     "@lyness/lyn-spill": {
@@ -73,25 +74,26 @@
     }
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/cordis-plugin-include": "workspace:^",
-    "@lyness/cordis-plugin-loader": "workspace:^",
-    "@lyness/lyn-agent": "workspace:^",
-    "@lyness/lyn-compaction": "workspace:^",
-    "@lyness/lyn-fs-local": "workspace:^",
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-output-retention": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-session-projection": "workspace:^",
-    "@lyness/lyn-session-projection-cache": "workspace:^",
-    "@lyness/lyn-session-query": "workspace:^",
-    "@lyness/lyn-session-query-sqlite": "workspace:^",
-    "@lyness/lyn-session-title": "workspace:^",
-    "@lyness/lyn-spill": "workspace:^",
-    "@lyness/lyn-spill-local": "workspace:^",
-    "@lyness/lyn-system-prompt": "workspace:^",
-    "@lyness/lyn-tool-fs": "workspace:^",
-    "@lyness/lyn-tools": "workspace:^",
-    "@lyness/lyn-typert-protocol": "workspace:^"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/cordis-plugin-include": "workspace:~",
+    "@lyness/cordis-plugin-loader": "workspace:~",
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/lyn-compaction": "workspace:*",
+    "@lyness/lyn-fs-local": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-output-retention": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-session-projection": "workspace:*",
+    "@lyness/lyn-session-projection-cache": "workspace:*",
+    "@lyness/lyn-session-query": "workspace:*",
+    "@lyness/lyn-session-query-sqlite": "workspace:*",
+    "@lyness/lyn-session-title": "workspace:*",
+    "@lyness/lyn-spill": "workspace:*",
+    "@lyness/lyn-subagent": "workspace:*",
+    "@lyness/lyn-spill-local": "workspace:*",
+    "@lyness/lyn-system-prompt": "workspace:*",
+    "@lyness/lyn-tool-fs": "workspace:*",
+    "@lyness/lyn-tools": "workspace:*",
+    "@lyness/lyn-typert-protocol": "workspace:*"
   }
 }

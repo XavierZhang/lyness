@@ -1,0 +1,31 @@
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write docs/persistence-changes/releases/README.md
+/:
+  en: a8615ecaef0ebaa4
+  zh: d2d6cc659c34114b
+/persistence-changes-across-lyn-prereleases:
+  en: 85494a96d88fe2b5
+  zh: bb6ebaf1612b638c
+/persistence-changes-across-lyn-prereleases/summary:
+  en: c869d895208e72fd
+  zh: c4365754431b8ae2
+/persistence-changes-across-lyn-prereleases/table-of-contents:
+  en: 66af6c63111e0d4f
+  zh: d2cda8c92eda8473
+/persistence-changes-across-lyn-prereleases/archived-releases:
+  en: 5688ef44f517fe91
+  zh: 073f916a06e6a735
+/persistence-changes-across-lyn-prereleases/files-and-scope:
+  en: c7b3012355eec9c6
+  zh: c31da79dc5cf326c
+/persistence-changes-across-lyn-prereleases/extraction-and-limitations:
+  en: 2212c587e280c935
+  zh: e1e12ec7d87f9bd2
+/persistence-changes-across-lyn-prereleases/verification:
+  en: adb8deed4c2257b3
+  zh: 410cbedb1c262602
+/persistence-changes-across-lyn-prereleases/dev-note:
+  en: 5de1d6304e00c58f
+  zh: e58fc8dda0bea8d5

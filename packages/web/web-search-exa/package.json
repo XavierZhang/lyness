@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-web-search-exa",
   "description": "Exa-backed search provider for the lyness web capability seam (ctx.web)",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -27,17 +27,17 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/lyn-launch-environment": "workspace:^",
-    "@lyness/lyn-web": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-launch-environment": "workspace:*",
+    "@lyness/lyn-web": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   },
   "dependencies": {
-    "@lyness/schemastery": "workspace:^"
+    "@lyness/schemastery": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/lyn-launch-environment": "workspace:^",
-    "@lyness/lyn-web": "workspace:^",
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-http-proxy": "workspace:^"
+    "@lyness/lyn-launch-environment": "workspace:*",
+    "@lyness/lyn-web": "workspace:*",
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-http-proxy": "workspace:*"
   }
 }

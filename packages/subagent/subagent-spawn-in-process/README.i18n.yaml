@@ -1,6 +1,79 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/subagent/subagent-spawn-in-process/README.md
-README.md: 53dbcaef632c7b2e810102e532876628140ce4ea
-README.zh.md: c36d371c0fd05bdf812967ff855848ef292d3475
+/:
+  en: d510765ec1bebc28
+  zh: 35efb9f71f05f326
+/lyness-lyn-subagent-spawn-in-process:
+  en: c4ef6716f0c6b5a4
+  zh: 206df08a315ca7d5
+/lyness-lyn-subagent-spawn-in-process/summary:
+  en: 0e65f19d88fc9005
+  zh: f5c57ab706b93974
+/lyness-lyn-subagent-spawn-in-process/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-subagent-spawn-in-process/use-this-package:
+  en: 4fbcaaceb4223700
+  zh: 7326449eb197cecb
+/lyness-lyn-subagent-spawn-in-process/use-this-package/when-to-choose-it:
+  en: 5f14443940e59bb5
+  zh: 3e8610aec21c55e8
+/lyness-lyn-subagent-spawn-in-process/use-this-package/minimal-configuration:
+  en: 37c00dd36a29322f
+  zh: 657acb82b6bc3345
+/lyness-lyn-subagent-spawn-in-process/use-this-package/what-a-delegation-does:
+  en: 9f4e6f31ad4d86d1
+  zh: 4ad77e0b80c6efcc
+/lyness-lyn-subagent-spawn-in-process/understand-the-implementation:
+  en: 9e00b9dc2f9cf38c
+  zh: 60ce00ce6c3b5564
+/lyness-lyn-subagent-spawn-in-process/understand-the-implementation/design-concept:
+  en: 3f68cf9f9786dd52
+  zh: c174f5a735e2bc44
+/lyness-lyn-subagent-spawn-in-process/understand-the-implementation/source-map:
+  en: 6252313b7a004fda
+  zh: 85c1b0a872d4d846
+/lyness-lyn-subagent-spawn-in-process/understand-the-implementation/run-flow:
+  en: 7b55a5649bc38155
+  zh: 51fe220c84ca759a
+/lyness-lyn-subagent-spawn-in-process/understand-the-implementation/ownership-and-scope:
+  en: 8af949dc29cb4a5c
+  zh: f4e4f9f9f4a4b7c9
+/lyness-lyn-subagent-spawn-in-process/further-exploration:
+  en: 239e9e1dfc516f54
+  zh: 9929400565a38724
+/lyness-lyn-subagent-spawn-in-process/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/lyness-lyn-subagent-spawn-in-process/model-experience/child-agent-request:
+  en: 05e6180f1498fdf9
+  zh: 2b05d2b97bfa67da
+/lyness-lyn-subagent-spawn-in-process/model-experience/child-agent-request/what-the-model-sees:
+  en: 2035bdd8640e5a8a
+  zh: 5afa645d7dbe31a5
+/lyness-lyn-subagent-spawn-in-process/model-experience/child-agent-request/token-effect:
+  en: e74d21e38e4a53a9
+  zh: 6a5e3ef5fe0f4f14
+/lyness-lyn-subagent-spawn-in-process/model-experience/child-agent-request/kv-cache-effect:
+  en: 78d800b26fb3b0af
+  zh: 313169b62c29af1d
+/lyness-lyn-subagent-spawn-in-process/model-experience/parent-tool-result-indirectly:
+  en: 75d061c2151624a7
+  zh: 71e58e020b60ff90
+/lyness-lyn-subagent-spawn-in-process/model-experience/parent-tool-result-indirectly/what-the-model-sees:
+  en: 852ed2d44fffafe9
+  zh: 6c151ff5273a067b
+/lyness-lyn-subagent-spawn-in-process/model-experience/parent-tool-result-indirectly/token-effect:
+  en: ff8045aa0f466c2a
+  zh: e38fc5c6af2ce076
+/lyness-lyn-subagent-spawn-in-process/model-experience/parent-tool-result-indirectly/kv-cache-effect:
+  en: f5d5f97a153f7c70
+  zh: 3d6bc05b9eadfbc2
+/lyness-lyn-subagent-spawn-in-process/known-limitations-and-deferred-work:
+  en: 68720f2a663a4aad
+  zh: a472436c5cc2b801
+/lyness-lyn-subagent-spawn-in-process/known-limitations-and-deferred-work/dev-note:
+  en: e67f633dc6fe7773
+  zh: 3bb0c20c93f16f98

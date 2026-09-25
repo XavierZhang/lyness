@@ -1,6 +1,19 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-09-15-wordmark-typesetting-with-fontkit.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-09-15-wordmark-typesetting-with-fontkit.md
-2026-09-15-wordmark-typesetting-with-fontkit.md: d1ab3f843eeb8b6b5e9d1a8d5db36ff9c93ca907
-2026-09-15-wordmark-typesetting-with-fontkit.zh.md: edfc11eb0b4196fa55d7b9754adbd3ddd3ca4c00
+/agent-note-wordmarks-are-typeset-with-fontkit:
+  en: 01fd9d09c418c1e0
+  zh: b3291878b689d739
+/agent-note-wordmarks-are-typeset-with-fontkit/problem:
+  en: aea8ef86e72f23d1
+  zh: 428cf38fe6fec99f
+/agent-note-wordmarks-are-typeset-with-fontkit/decision:
+  en: fc60b5c12309e95c
+  zh: a98d5bbee9985539
+/agent-note-wordmarks-are-typeset-with-fontkit/alternatives-considered:
+  en: bc8d9095068a653e
+  zh: 96947549f1b04e69
+/agent-note-wordmarks-are-typeset-with-fontkit/consequences:
+  en: f76325595ee4b352
+  zh: beeca466cfafc3fa

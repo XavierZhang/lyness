@@ -14,6 +14,8 @@ import { LYNESS_ENV_PREFIX } from '@lyness/lyn-shell'
 import type { LynEnvironment, LynEnvironmentKey } from '@lyness/lyn-shell'
 import { LYNESS_HOME_ENV, resolveLynHome } from '@lyness/lyn-home-paths'
 import type { ToolExecution } from '@lyness/lyn-tools'
+// Declares `Context.profileContext`, the launcher-provided profile the built-ins read.
+import type {} from '@lyness/lyn-app-boot'
 
 declare module '@lyness/cordis' {
   interface Context {
@@ -69,10 +71,14 @@ export interface BashEnvVariableInfo extends BashEnvVariable {
 
 const LYNESS_SHELL_KEY = `${LYNESS_ENV_PREFIX}SHELL` as const
 const LYNESS_SESSION_ID_KEY = `${LYNESS_ENV_PREFIX}SESSION_ID` as const
+const LYNESS_PROFILE_KEY = `${LYNESS_ENV_PREFIX}PROFILE` as const
+const LYNESS_PROFILE_DIR_KEY = `${LYNESS_ENV_PREFIX}PROFILE_DIR` as const
 const RESERVED_BASH_ENV_KEYS = new Set<LynEnvironmentKey>([
   LYNESS_HOME_ENV,
   LYNESS_SHELL_KEY,
   LYNESS_SESSION_ID_KEY,
+  LYNESS_PROFILE_KEY,
+  LYNESS_PROFILE_DIR_KEY,
 ])
 const BASH_ENV_KEY_SUFFIX = /^[A-Z][A-Z0-9_]*$/
 
@@ -154,6 +160,11 @@ export class ShellEnvRegistry extends Service {
     }
     if (execution.agent !== undefined) {
       values[LYNESS_SESSION_ID_KEY] = execution.agent.session.header.id
+    }
+    const profile = this.ctx.get('profileContext')
+    if (profile !== undefined) {
+      values[LYNESS_PROFILE_KEY] = profile.name
+      values[LYNESS_PROFILE_DIR_KEY] = profile.dir
     }
 
     for (const contributor of [...this.contributors.values()].sort((left, right) => left.name.localeCompare(right.name))) {

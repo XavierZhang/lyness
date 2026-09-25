@@ -1,0 +1,37 @@
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write packages/ssh/sandbox-ssh/README.md
+/:
+  en: 222090dbd09cc030
+  zh: 24e479b8ff87e6d4
+/lyness-lyn-sandbox-ssh:
+  en: 1a77d7b6e3516df7
+  zh: e8d7698486f2285d
+/lyness-lyn-sandbox-ssh/summary:
+  en: d2bfa759676946cb
+  zh: 52089ecf82a05e7d
+/lyness-lyn-sandbox-ssh/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 725b47765ee8f30b
+/lyness-lyn-sandbox-ssh/use-this-package:
+  en: 1fe416da0cf0e6c3
+  zh: a92459951bbbcb36
+/lyness-lyn-sandbox-ssh/understand-the-implementation:
+  en: b4c1c32707dc9f7e
+  zh: 33a0b69e312aa80d
+/lyness-lyn-sandbox-ssh/further-exploration:
+  en: f5a2d424760571d2
+  zh: d5f2761656377268
+/lyness-lyn-sandbox-ssh/model-experience:
+  en: 586c0afcf6a3097d
+  zh: 4723c59f600a3b04
+/lyness-lyn-sandbox-ssh/model-experience/kv-cache-effect:
+  en: 21f304c66e5ba98b
+  zh: 18185d5b164f8216
+/lyness-lyn-sandbox-ssh/known-limitations-and-deferred-work:
+  en: 916d7c0e971765bb
+  zh: 56d347094c07bc5d
+/lyness-lyn-sandbox-ssh/known-limitations-and-deferred-work/dev-note:
+  en: 6ca4f1d4b4810fff
+  zh: e42f580ca971972b

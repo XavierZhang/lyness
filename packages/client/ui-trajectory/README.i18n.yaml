@@ -1,6 +1,49 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/ui-trajectory/README.md
-README.md: 98f6de0da3fdbaf93c9ea366753bccaa5854f655
-README.zh.md: fbec8d5cafa21575e42695c0019558eb61a296a0
+/:
+  en: e9078600734bb588
+  zh: 4b9b15913787c0d0
+/lyness-lyn-client-ui-trajectory:
+  en: 2a06fb1b743e7f49
+  zh: a4eb8c2722ce4c68
+/lyness-lyn-client-ui-trajectory/summary:
+  en: dc75677138d05dc6
+  zh: 6e11553a5caf4716
+/lyness-lyn-client-ui-trajectory/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-client-ui-trajectory/use-this-package:
+  en: 4bd17d05b8385675
+  zh: 5174e27f754f2a03
+/lyness-lyn-client-ui-trajectory/use-this-package/inspecting-records:
+  en: 7befe43b0d0c63c7
+  zh: 153d581c49cf3672
+/lyness-lyn-client-ui-trajectory/use-this-package/the-timing-overview:
+  en: 0331f90cbd904862
+  zh: bdc2d4ed1c3c1f5e
+/lyness-lyn-client-ui-trajectory/understand-the-implementation:
+  en: 925abc8e4b092cb3
+  zh: ebe85c5acdbea3b1
+/lyness-lyn-client-ui-trajectory/understand-the-implementation/virtual-rows:
+  en: c85e342bc7eee4e6
+  zh: 9feab66ef1755b94
+/lyness-lyn-client-ui-trajectory/understand-the-implementation/layout:
+  en: b9693a54b800d439
+  zh: cd9b84382ae0b181
+/lyness-lyn-client-ui-trajectory/further-exploration:
+  en: ff2b9cab790dd99c
+  zh: c5eaa38cc8577c3c
+/lyness-lyn-client-ui-trajectory/model-experience:
+  en: 3120df665299c634
+  zh: 1d9f365d091d0d2a
+/lyness-lyn-client-ui-trajectory/model-experience/kv-cache-effect:
+  en: ca75c51c89c2c9b0
+  zh: de54f3467ef3b9be
+/lyness-lyn-client-ui-trajectory/known-limitations-and-deferred-work:
+  en: d7da620f56eb3c65
+  zh: fb030b68322b94cd
+/lyness-lyn-client-ui-trajectory/known-limitations-and-deferred-work/dev-note:
+  en: f1893e3a6c69cc58
+  zh: b6e0dfe20567c35f

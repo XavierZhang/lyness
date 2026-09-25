@@ -1,6 +1,22 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-09-22-configurable-e2e-platform.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/testing/2026-09-22-configurable-e2e-platform.md
-2026-09-22-configurable-e2e-platform.md: d59c275a5fc3599788a9fafde9fcac28a8160b77
-2026-09-22-configurable-e2e-platform.zh.md: f2244a1ac79e6d9cf6b86c4239fbdab7a1c1c064
+/agent-note-the-real-api-e2e-platform-is-configuration-not-a-literal:
+  en: 03c098de62155c5d
+  zh: c120904edcd9e9d6
+/agent-note-the-real-api-e2e-platform-is-configuration-not-a-literal/problem:
+  en: db9c8962973065c7
+  zh: 7bb49748edc98fbf
+/agent-note-the-real-api-e2e-platform-is-configuration-not-a-literal/decision:
+  en: 9cd1bc8c3dcec4de
+  zh: b441b688cf53aa31
+/agent-note-the-real-api-e2e-platform-is-configuration-not-a-literal/alternatives-considered:
+  en: 65fba823bb9187aa
+  zh: 03897cdc4ff5c204
+/agent-note-the-real-api-e2e-platform-is-configuration-not-a-literal/consequences:
+  en: 869e89d06be3b479
+  zh: 377e9888c628d68c
+/agent-note-the-real-api-e2e-platform-is-configuration-not-a-literal/what-the-first-configured-run-showed:
+  en: 8f619dd5d8cbb21a
+  zh: d65607febc66a95a

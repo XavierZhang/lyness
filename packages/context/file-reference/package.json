@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-file-reference",
   "description": "File-reference discovery contract and shared @file grammar",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -36,11 +36,11 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/lyn-agent": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/lyn-agent": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   }
 }

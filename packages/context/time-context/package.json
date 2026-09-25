@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-time-context",
-  "description": "Opt-in durable per-step context with the current time and elapsed time",
-  "version": "0.1.5-rc.1",
+  "description": "Durable per-step context with the current time and elapsed time",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -32,34 +32,34 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@lyness/lyn-util-values": "workspace:^",
-    "@lyness/schemastery": "workspace:^",
+    "@lyness/lyn-util-values": "workspace:*",
+    "@lyness/schemastery": "workspace:~",
     "zod": "^4.4.3"
   },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-agent": "workspace:^",
-    "@lyness/lyn-invariants": "workspace:^",
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-session-projection": "workspace:^"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/lyn-invariants": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-session-projection": "workspace:*"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-agent": "workspace:^",
-    "@lyness/lyn-agent-loop": "workspace:^",
-    "@lyness/lyn-agent-loop-testkit": "workspace:^",
-    "@lyness/lyn-app-boot": "workspace:^",
-    "@lyness/lyn-bash-local": "workspace:^",
-    "@lyness/lyn-invariants": "workspace:^",
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-loader-smoke": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-session-checkpoint-policy": "workspace:^",
-    "@lyness/lyn-session-persistence-jsonl": "workspace:^",
-    "@lyness/lyn-session-projection": "workspace:^",
-    "@lyness/lyn-subprocess-local": "workspace:^",
-    "@lyness/lyn-system-prompt": "workspace:^",
-    "@lyness/lyn-tools": "workspace:^"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/lyn-agent-loop": "workspace:*",
+    "@lyness/lyn-agent-loop-testkit": "workspace:*",
+    "@lyness/lyn-app-boot": "workspace:*",
+    "@lyness/lyn-bash-local": "workspace:*",
+    "@lyness/lyn-invariants": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-loader-smoke": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-session-checkpoint-policy": "workspace:*",
+    "@lyness/lyn-session-persistence-jsonl": "workspace:*",
+    "@lyness/lyn-session-projection": "workspace:*",
+    "@lyness/lyn-subprocess-local": "workspace:*",
+    "@lyness/lyn-system-prompt": "workspace:*",
+    "@lyness/lyn-tools": "workspace:*"
   }
 }

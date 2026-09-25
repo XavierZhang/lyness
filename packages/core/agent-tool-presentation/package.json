@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-agent-tool-presentation",
   "description": "Agent-plane presentation selector: composes one agent's tools as PTC mode, native, or both",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -27,19 +27,19 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@lyness/schemastery": "workspace:^"
+    "@lyness/schemastery": "workspace:~"
   },
   "peerDependencies": {
-    "@lyness/lyn-tools": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-tools": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/lyn-agent": "workspace:^",
-    "@lyness/lyn-code-runtime": "workspace:^",
-    "@lyness/lyn-scope": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-system-prompt": "workspace:^",
-    "@lyness/lyn-tools": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/lyn-ptc-runtime": "workspace:*",
+    "@lyness/lyn-scope": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-system-prompt": "workspace:*",
+    "@lyness/lyn-tools": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   }
 }

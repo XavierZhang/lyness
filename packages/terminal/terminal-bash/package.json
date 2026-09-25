@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-terminal-bash",
   "description": "Persistent shell PTY backend over the lyness subprocess terminal primitive",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -27,29 +27,30 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/lyn-agent": "workspace:^",
-    "@lyness/lyn-terminal": "workspace:^",
-    "@lyness/lyn-sandbox": "workspace:^",
-    "@lyness/lyn-sandbox-policy": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-subprocess": "workspace:^",
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-session-projection": "workspace:^"
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/lyn-terminal": "workspace:*",
+    "@lyness/lyn-sandbox": "workspace:*",
+    "@lyness/lyn-sandbox-policy": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-subprocess": "workspace:*",
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-session-projection": "workspace:*"
   },
   "dependencies": {
-    "@lyness/lyn-pwsh-local": "workspace:^",
-    "@lyness/schemastery": "workspace:^",
+    "@lyness/lyn-lazy-require": "workspace:*",
+    "@lyness/lyn-pwsh-local": "workspace:*",
+    "@lyness/schemastery": "workspace:~",
     "@xterm/headless": "^6.0.0"
   },
   "devDependencies": {
-    "@lyness/lyn-agent": "workspace:^",
-    "@lyness/lyn-agent-loop-testkit": "workspace:^",
-    "@lyness/lyn-terminal": "workspace:^",
-    "@lyness/lyn-sandbox": "workspace:^",
-    "@lyness/lyn-sandbox-policy": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-subprocess": "workspace:^",
-    "@lyness/lyn-subprocess-local": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/lyn-agent-loop-testkit": "workspace:*",
+    "@lyness/lyn-terminal": "workspace:*",
+    "@lyness/lyn-sandbox": "workspace:*",
+    "@lyness/lyn-sandbox-policy": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-subprocess": "workspace:*",
+    "@lyness/lyn-subprocess-local": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   }
 }

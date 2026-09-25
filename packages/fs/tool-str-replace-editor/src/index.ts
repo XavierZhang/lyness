@@ -8,6 +8,7 @@ import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
 import { FsError } from '@lyness/lyn-fs'
 import type { FsInfo, FsTarget, FsWriteIntent } from '@lyness/lyn-fs'
+import { truncateWithoutSplittingSurrogatePair } from '@lyness/lyn-output-retention'
 import { sandboxDenialMarker } from '@lyness/lyn-sandbox'
 import type { SandboxExecutionPolicy } from '@lyness/lyn-sandbox'
 import type { SandboxPolicyService } from '@lyness/lyn-sandbox-policy'
@@ -33,7 +34,7 @@ Notes for using the \`str_replace\` command:
 function maybeTruncate(content: string, maxOutputChars: number): string {
   return content.length <= maxOutputChars
     ? content
-    : content.slice(0, maxOutputChars) + TRUNCATED_MESSAGE
+    : truncateWithoutSplittingSurrogatePair(content, maxOutputChars) + TRUNCATED_MESSAGE
 }
 
 function codepointCompare(left: string, right: string): number {

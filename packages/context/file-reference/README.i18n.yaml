@@ -1,6 +1,55 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/context/file-reference/README.md
-README.md: 77c9ce58d2c036e1e05e00167348c776c94fb7b0
-README.zh.md: afec7c6d5c5d7df47b98f971eebf2f4657bc56d4
+/:
+  en: 21c486a1839068f4
+  zh: 0333ad7c4f984794
+/lyness-lyn-file-reference:
+  en: 547e358e47cab578
+  zh: 787e00cc0bf04123
+/lyness-lyn-file-reference/summary:
+  en: 3cd7eb7312c07736
+  zh: f683cd4411343fa1
+/lyness-lyn-file-reference/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-file-reference/use-this-package:
+  en: e37b5d4bf0020063
+  zh: 2eb37494ea43228f
+/lyness-lyn-file-reference/use-this-package/mention-grammar:
+  en: efbe0e9233f402a4
+  zh: e3ec7c6ae2335a41
+/lyness-lyn-file-reference/use-this-package/getting-candidates:
+  en: 4dc2d6289f532225
+  zh: af06ce75299f23e5
+/lyness-lyn-file-reference/use-this-package/pairing-with-a-provider:
+  en: 474dab555725638e
+  zh: 5015d18465bbb308
+/lyness-lyn-file-reference/understand-the-implementation:
+  en: 92049fb7a6c345c3
+  zh: 86efc4d17127f97f
+/lyness-lyn-file-reference/understand-the-implementation/design-concept:
+  en: 5992bdc0dcced2b5
+  zh: c0429e55fac54313
+/lyness-lyn-file-reference/understand-the-implementation/source-map:
+  en: c4abf9f6f86cf29f
+  zh: 60d15ef1acd20b93
+/lyness-lyn-file-reference/understand-the-implementation/main-flow:
+  en: fd65f309c940de96
+  zh: c1517e592d646d6c
+/lyness-lyn-file-reference/further-exploration:
+  en: e1bb47f24df6cb73
+  zh: 9b53151b940c3ed9
+/lyness-lyn-file-reference/model-experience:
+  en: ab69d93c10a1572c
+  zh: b63720b1e6182805
+/lyness-lyn-file-reference/model-experience/kv-cache-effect:
+  en: 0aba47b2a2828b78
+  zh: 83a1af441dac3074
+/lyness-lyn-file-reference/known-limitations-and-deferred-work:
+  en: cc83a00bd7d4ccc9
+  zh: 130ba16bb567db5a
+/lyness-lyn-file-reference/known-limitations-and-deferred-work/dev-note:
+  en: e67f633dc6fe7773
+  zh: 3bb0c20c93f16f98

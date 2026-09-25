@@ -1,6 +1,19 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-06-11-content-block-vocabulary.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-06-11-content-block-vocabulary.md
-2026-06-11-content-block-vocabulary.md: 5d3a49c961fcb6acc19192788a3c88918ae1ac0e
-2026-06-11-content-block-vocabulary.zh.md: abe9c2bf834ccfdb10f458df84932ac7bda41ba0
+/agent-note-provider-neutral-content-block-vocabulary-owned-by-lyn-llm:
+  en: 65cbddb28b720544
+  zh: 22ea88869b11442b
+/agent-note-provider-neutral-content-block-vocabulary-owned-by-lyn-llm/problem:
+  en: 4e81df7bca1c1638
+  zh: f7483d180a613237
+/agent-note-provider-neutral-content-block-vocabulary-owned-by-lyn-llm/decision:
+  en: 4d9acdfb75109aa4
+  zh: 72e2a67a058a6536
+/agent-note-provider-neutral-content-block-vocabulary-owned-by-lyn-llm/alternatives-considered:
+  en: 1de2e19e711105e6
+  zh: a2cd5a64cc4e9e73
+/agent-note-provider-neutral-content-block-vocabulary-owned-by-lyn-llm/consequences:
+  en: 999d10e69e447e44
+  zh: 38370da5b900ac30

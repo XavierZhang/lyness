@@ -1,6 +1,31 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-06-30-interception-extension-points.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/feature/2026-06-30-interception-extension-points.md
-2026-06-30-interception-extension-points.md: e55a007fc3bf622dec629f9218186b50cf9d3774
-2026-06-30-interception-extension-points.zh.md: cb4a0b6786a81cc5f8857b1d4692eaeb8dbdc2ae
+/agent-note-interception-extension-points-the-typed-decision-surface-a-hook-programs-against:
+  en: 51bac5a0d608439c
+  zh: 8512ef2b579f85ed
+/agent-note-interception-extension-points-the-typed-decision-surface-a-hook-programs-against/problem:
+  en: 2ce2b646d367d2fb
+  zh: c912f18c96338618
+/agent-note-interception-extension-points-the-typed-decision-surface-a-hook-programs-against/decision:
+  en: fa2efda812fb37cf
+  zh: fd0227bc35422671
+/agent-note-interception-extension-points-the-typed-decision-surface-a-hook-programs-against/decision/the-tool-pipeline-gives-each-phase-one-kind-of-authority:
+  en: 19c18da89e0fa87f
+  zh: 6f2de9a793b59b7b
+/agent-note-interception-extension-points-the-typed-decision-surface-a-hook-programs-against/decision/three-load-bearing-loop-decisions:
+  en: d49952045c246230
+  zh: cf9362ef3438ea7d
+/agent-note-interception-extension-points-the-typed-decision-surface-a-hook-programs-against/decision/pre-tool-input-rewrite-is-a-separate-consistency-decision:
+  en: b4befe468a65bab8
+  zh: 8bb4001f89a92a3b
+/agent-note-interception-extension-points-the-typed-decision-surface-a-hook-programs-against/decision/boundaries:
+  en: 3e6ee354637b5730
+  zh: 1f965b3b9e336bea
+/agent-note-interception-extension-points-the-typed-decision-surface-a-hook-programs-against/alternatives-considered:
+  en: f66d7714fbf28c32
+  zh: 2fad076a7cc0a946
+/agent-note-interception-extension-points-the-typed-decision-surface-a-hook-programs-against/consequences:
+  en: a95a5dc60ca41982
+  zh: f4fe944499b6a49a

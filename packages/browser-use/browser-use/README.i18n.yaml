@@ -1,0 +1,37 @@
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write packages/browser-use/browser-use/README.md
+/:
+  en: f40b34f771caa863
+  zh: f61d7ce73e0720e2
+/lyness-lyn-browser-use:
+  en: 797f4d135a9cec02
+  zh: a45300c5d557260a
+/lyness-lyn-browser-use/summary:
+  en: 3e2c0d4aad911b93
+  zh: 3e3903754a46de8e
+/lyness-lyn-browser-use/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: f14f34fce35a8d90
+/lyness-lyn-browser-use/use-this-package:
+  en: 85b82e65ee0b30a3
+  zh: 711f2dd64877129c
+/lyness-lyn-browser-use/understand-the-implementation:
+  en: e8421af75ba37792
+  zh: 3dbc5e6ff5291972
+/lyness-lyn-browser-use/further-exploration:
+  en: 2908f8719e32834c
+  zh: 29014e7c56b79c79
+/lyness-lyn-browser-use/model-experience:
+  en: 8780c250dfaefaaa
+  zh: f1fd94f7531b60a1
+/lyness-lyn-browser-use/model-experience/kv-cache-effect:
+  en: 0cc866a67a19d08b
+  zh: c6a46b147b042cff
+/lyness-lyn-browser-use/known-limitations-and-deferred-work:
+  en: 43952e97817e9e32
+  zh: a5e494860a71fc71
+/lyness-lyn-browser-use/known-limitations-and-deferred-work/dev-note:
+  en: e67f633dc6fe7773
+  zh: 8ec3e73528ddb1a6

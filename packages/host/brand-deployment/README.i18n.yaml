@@ -1,6 +1,61 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/host/brand-deployment/README.md
-README.md: 39ebdfcfa8698a11f305ed3817b85503afbeecb5
-README.zh.md: 760d8a66dc6e9c75adaefe33e60f1900330cf57f
+/:
+  en: 755a72f00fa26fa5
+  zh: 681b1bf13d813411
+/lyness-lyn-host-brand-deployment:
+  en: f5388f0c9b1210ca
+  zh: a970ac4ce76f0efc
+/lyness-lyn-host-brand-deployment/summary:
+  en: fda92bdfeba3e0f6
+  zh: 09d5eeac8b3e5e96
+/lyness-lyn-host-brand-deployment/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-host-brand-deployment/use-this-package:
+  en: 8ac3b4a9b0b743e0
+  zh: 2c1c893b836d7c68
+/lyness-lyn-host-brand-deployment/use-this-package/minimal-configuration:
+  en: f6492d2d8126154d
+  zh: ab404ea2a5598538
+/lyness-lyn-host-brand-deployment/use-this-package/why-config-and-not-user-settings:
+  en: 15bc98f4ef73828e
+  zh: 643cd67916638551
+/lyness-lyn-host-brand-deployment/use-this-package/what-a-browser-receives:
+  en: e0ab111db1f65a0e
+  zh: d68a34930e2c78d0
+/lyness-lyn-host-brand-deployment/use-this-package/observable-failures:
+  en: afd5a53f81f94f34
+  zh: e03e6e4bf1edb98d
+/lyness-lyn-host-brand-deployment/understand-the-implementation:
+  en: 42b15ac6321706aa
+  zh: 7ae097f3abcc5d9c
+/lyness-lyn-host-brand-deployment/understand-the-implementation/design-concept:
+  en: 9ce9b964676c6388
+  zh: bb32d3f4b313c743
+/lyness-lyn-host-brand-deployment/understand-the-implementation/rows-where-a-row-suffices-a-tap-where-it-cannot:
+  en: 22590a40d94b2a20
+  zh: 77a455683c20ac25
+/lyness-lyn-host-brand-deployment/understand-the-implementation/the-asset-table-is-the-fence:
+  en: 48a52cd165f60f87
+  zh: ba5306e924e8d45e
+/lyness-lyn-host-brand-deployment/understand-the-implementation/source-map:
+  en: 4f9a86ac6bf28745
+  zh: 8740cf86f34246b7
+/lyness-lyn-host-brand-deployment/further-exploration:
+  en: 614b47a9a5fc963d
+  zh: 30502a4c99692dfb
+/lyness-lyn-host-brand-deployment/model-experience:
+  en: 06cd24a5e36e0f2f
+  zh: 1fa849b604eeefee
+/lyness-lyn-host-brand-deployment/model-experience/kv-cache-effect:
+  en: ca75c51c89c2c9b0
+  zh: ee6d77f08dfbe4ec
+/lyness-lyn-host-brand-deployment/known-limitations-and-deferred-work:
+  en: bc9053c14ba11317
+  zh: 444133f6d078f795
+/lyness-lyn-host-brand-deployment/known-limitations-and-deferred-work/dev-note:
+  en: b21625ab0985c50c
+  zh: 443d6f3eb83ffbb0

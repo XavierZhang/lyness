@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-client-ui-slots",
-  "description": "Slot registry pure core: SlotMap declaration merging, single register composition API, four-share props types, store-seat types, renderer install seam",
-  "version": "0.1.5-rc.1",
+  "description": "Slot registry pure core: typed ordinary Slots and reusable Component Factories, derived props, Store seats, and renderer installation",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -23,15 +23,15 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@lyness/lyn-client-store": "workspace:^",
+    "@lyness/lyn-client-store": "workspace:*",
     "@types/react": "~18.3.1",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:~"
   },
   "files": [
     "lib/index.js",
     "lib/types/**/*.d.ts"
   ],
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:~"
   }
 }

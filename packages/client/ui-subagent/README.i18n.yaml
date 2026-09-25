@@ -1,6 +1,64 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/ui-subagent/README.md
-README.md: 2b144cc7d12e33185cef369a2b6166969af66665
-README.zh.md: 5b7b2627d997b85f3eaaf6e59f254720f49f918c
+/:
+  en: 9d6f0f6ed42ff776
+  zh: 61799875ef3f71f8
+/lyness-lyn-client-ui-subagent:
+  en: 85d899b705c1e220
+  zh: 1def655663223fb6
+/lyness-lyn-client-ui-subagent/summary:
+  en: 50f267d55833a683
+  zh: 89d6b827576baa8b
+/lyness-lyn-client-ui-subagent/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-client-ui-subagent/use-this-package:
+  en: 1e96a2fed3ec4b67
+  zh: 6b37cd008352e890
+/lyness-lyn-client-ui-subagent/use-this-package/browsing-the-tree:
+  en: 3508631091820123
+  zh: ec7da9e5bedb22ba
+/lyness-lyn-client-ui-subagent/use-this-package/continuing-a-conversation:
+  en: 876e7152c8b9c4a6
+  zh: f89f5e2a812e8451
+/lyness-lyn-client-ui-subagent/use-this-package/the-reference-source:
+  en: 6a5f91b7dfcefafe
+  zh: 2d11441952cfea53
+/lyness-lyn-client-ui-subagent/understand-the-implementation:
+  en: 004fec17254f18f4
+  zh: 19ef1a477bb1257e
+/lyness-lyn-client-ui-subagent/understand-the-implementation/catalog-derivation:
+  en: 5e1c83ef8eb26c52
+  zh: f5be8f1e78c74859
+/lyness-lyn-client-ui-subagent/understand-the-implementation/duration-completion-and-tokens:
+  en: b817e9907392f59c
+  zh: e42feb97d572a989
+/lyness-lyn-client-ui-subagent/understand-the-implementation/composer-election:
+  en: 1c15af4dd7c0b791
+  zh: f789737ab4dd8cb2
+/lyness-lyn-client-ui-subagent/further-exploration:
+  en: dc2f9c87c86c0dec
+  zh: 3307d253232ff585
+/lyness-lyn-client-ui-subagent/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/lyness-lyn-client-ui-subagent/model-experience/subagent-label-text-in-the-user-prompt:
+  en: 7207881f1c032278
+  zh: 911d6e8b319da21a
+/lyness-lyn-client-ui-subagent/model-experience/subagent-label-text-in-the-user-prompt/what-the-model-sees:
+  en: 5688696ee061a0e1
+  zh: 7199ef8cb8697960
+/lyness-lyn-client-ui-subagent/model-experience/subagent-label-text-in-the-user-prompt/token-effect:
+  en: bf3c483598710d54
+  zh: 32742fbb880db1b2
+/lyness-lyn-client-ui-subagent/model-experience/subagent-label-text-in-the-user-prompt/kv-cache-effect:
+  en: de2762a99572475f
+  zh: 9b41107ad14ebf8a
+/lyness-lyn-client-ui-subagent/known-limitations-and-deferred-work:
+  en: ee310ff3cd487639
+  zh: 23793aa1c28a23af
+/lyness-lyn-client-ui-subagent/known-limitations-and-deferred-work/dev-note:
+  en: 3dd148cecbb1a4df
+  zh: 626cc5ed9f65c72a

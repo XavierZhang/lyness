@@ -1,6 +1,46 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/ui-sidebar-documentpreview/README.md
-README.md: 368be5426580a85c7e9ad1db398a7b689145ebca
-README.zh.md: 06a3e99d2dccd09c0ff84183cd24dfc2576d2781
+/:
+  en: ef50065f5ff17aa1
+  zh: ee5d2b7986739fca
+/lyness-lyn-client-ui-sidebar-documentpreview:
+  en: 80b4269db5daf3c3
+  zh: ad83ce0e538a463f
+/lyness-lyn-client-ui-sidebar-documentpreview/summary:
+  en: a74c16667d0baada
+  zh: 4fd709ff9f98b84f
+/lyness-lyn-client-ui-sidebar-documentpreview/table-of-contents:
+  en: 0dd8c3a22e28aacf
+  zh: c27c11bf4b5cceba
+/lyness-lyn-client-ui-sidebar-documentpreview/what-it-registers:
+  en: 954edd68ea127e06
+  zh: a4d3678f84636be3
+/lyness-lyn-client-ui-sidebar-documentpreview/addresses:
+  en: 9caa5e98d926e33f
+  zh: 9dc3208537c0472f
+/lyness-lyn-client-ui-sidebar-documentpreview/how-it-reads:
+  en: 11eee984d124dbbb
+  zh: 36e96b9273c4322a
+/lyness-lyn-client-ui-sidebar-documentpreview/excel-preview:
+  en: 2930ae6d00857e45
+  zh: c473febf172cc57b
+/lyness-lyn-client-ui-sidebar-documentpreview/office-preview:
+  en: 3792d2826676da98
+  zh: 92e05605762c5358
+/lyness-lyn-client-ui-sidebar-documentpreview/navigation:
+  en: 5cd81a7b3cdc83bd
+  zh: 4cdd1b7ede497925
+/lyness-lyn-client-ui-sidebar-documentpreview/model-experience:
+  en: ca1deb99d0e44755
+  zh: f285fc56cee669ec
+/lyness-lyn-client-ui-sidebar-documentpreview/model-experience/kv-cache-effect:
+  en: 7edb4c0bb5f13847
+  zh: ae5d0bbebe4aa563
+/lyness-lyn-client-ui-sidebar-documentpreview/known-limitations-and-deferred-work:
+  en: b7246b4b6e22d690
+  zh: a93a027a639d7215
+/lyness-lyn-client-ui-sidebar-documentpreview/known-limitations-and-deferred-work/dev-note:
+  en: 3d8904cb970145a3
+  zh: a0c0cddcfedf9e42

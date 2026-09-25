@@ -1,8 +1,11 @@
 {
   "name": "@lyness/lyn-experimental-inspector",
   "description": "Experimental cross-realm CDP hub for Host debugging and Client Runtime inspection",
-  "version": "0.1.5-rc.1",
-  "private": true,
+  "version": "0.1.7-rc.2",
+  "icon": "./icon.svg",
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/XavierZhang/lyness.git",
@@ -21,38 +24,48 @@
       "default": "./lib/client.js"
     },
     "./src/*": "./src/*",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./locale/*.json": "./locale/*.json"
   },
   "lyn": {
     "client": {
       "inject": [],
       "platform": "web",
       "immediately": true
+    },
+    "bundle": {
+      "patch": "./cordis.patch.yml"
     }
   },
   "files": [
+    "icon.svg",
+    "locale/*.json",
     "lib/index.js",
     "lib/client.js",
+    "cordis.patch.yml",
+    "lib/worker.js",
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
   "dependencies": {
-    "@lyness/lyn-brand": "workspace:^",
-    "@lyness/lyn-util-crypto": "workspace:^",
-    "@lyness/schemastery": "workspace:^",
+    "@lyness/lyn-app-boot": "workspace:*",
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/lyn-util-crypto": "workspace:*",
+    "@lyness/schemastery": "workspace:~",
     "ws": "^8.21.0"
   },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/cordis-plugin-loader": "workspace:^",
-    "@lyness/lyn-client-modules": "workspace:^",
-    "@lyness/lyn-host-webserver": "workspace:^"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/cordis-plugin-loader": "workspace:~",
+    "@lyness/lyn-client-modules": "workspace:*",
+    "@lyness/lyn-host-webserver": "workspace:*"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/cordis-plugin-include": "workspace:^",
-    "@lyness/cordis-plugin-loader": "workspace:^",
-    "@lyness/lyn-host-webserver": "workspace:^",
+    "@lyness/cordis": "workspace:~",
+    "@lyness/cordis-plugin-include": "workspace:~",
+    "@lyness/cordis-plugin-loader": "workspace:~",
+    "@lyness/lyn-host-webserver": "workspace:*",
     "@types/ws": "^8.18.1",
     "playwright": "^1.49.0",
     "tsx": "^4.19.2"

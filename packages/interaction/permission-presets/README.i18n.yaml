@@ -1,6 +1,64 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/interaction/permission-presets/README.md
-README.md: e03423ad8fd6ef12cf80f54924bac211cf2c0e63
-README.zh.md: 462a40956076f14073c6b7b8ea503910db12bcf8
+/:
+  en: a4e18d5b27337d71
+  zh: 2220eba5dfcdb1f3
+/lyness-lyn-permission-presets:
+  en: f5bc9ee99a6db365
+  zh: dfbe1c7e1f0dbc44
+/lyness-lyn-permission-presets/summary:
+  en: 75a5c477313feb23
+  zh: 9e036411e14edf1b
+/lyness-lyn-permission-presets/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-permission-presets/use-this-package:
+  en: 0b93409c92e2a769
+  zh: 4b4e10636760bb15
+/lyness-lyn-permission-presets/use-this-package/configuring-presets:
+  en: 92b3d809e6e90eeb
+  zh: 2517f6ef6a2a9cc1
+/lyness-lyn-permission-presets/use-this-package/switching-presets:
+  en: ede3169d799a7578
+  zh: cb88e3ade597e486
+/lyness-lyn-permission-presets/use-this-package/what-users-see:
+  en: 628a5bdd956e206c
+  zh: 172be9a9748d65ce
+/lyness-lyn-permission-presets/use-this-package/session-defaults:
+  en: 88218998b169a203
+  zh: 7a3646ff0ca28549
+/lyness-lyn-permission-presets/understand-the-implementation:
+  en: f5c37bc882b3f0d1
+  zh: 8203bea78976aefc
+/lyness-lyn-permission-presets/understand-the-implementation/source-map:
+  en: c240ef830a066e26
+  zh: 423ae941bed7e96c
+/lyness-lyn-permission-presets/understand-the-implementation/write-path:
+  en: 060373f5c0b56b09
+  zh: b6867c3de9eaf9ee
+/lyness-lyn-permission-presets/understand-the-implementation/read-side-and-custom:
+  en: c9ca792038f44654
+  zh: 83cc2641c800c114
+/lyness-lyn-permission-presets/understand-the-implementation/session-pinning-and-blank-reuse:
+  en: 893cea88bce22903
+  zh: 2431e19ced670511
+/lyness-lyn-permission-presets/understand-the-implementation/catalog-projection-and-optional-command:
+  en: 2e79bec74274b054
+  zh: 256526ab1b4b55e9
+/lyness-lyn-permission-presets/further-exploration:
+  en: 87c3ec692e60898a
+  zh: 897733adf82e48fb
+/lyness-lyn-permission-presets/model-experience:
+  en: 7d4f80dc03158e2c
+  zh: 909969d6475f8c1e
+/lyness-lyn-permission-presets/model-experience/kv-cache-effect:
+  en: 40294c1c31b74824
+  zh: ef3368fe16abff21
+/lyness-lyn-permission-presets/known-limitations-and-deferred-work:
+  en: 8f245d69661be63f
+  zh: d14108248083eaa5
+/lyness-lyn-permission-presets/known-limitations-and-deferred-work/dev-note:
+  en: e67f633dc6fe7773
+  zh: 3bb0c20c93f16f98

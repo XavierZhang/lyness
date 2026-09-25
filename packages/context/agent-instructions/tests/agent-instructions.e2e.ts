@@ -8,8 +8,8 @@ import { SessionId } from '@lyness/lyn-session'
 import type { Agent } from '@lyness/lyn-agent'
 import AgentLoop from '@lyness/lyn-agent-loop'
 import { mountAgentLoopTestDependencies } from '@lyness/lyn-agent-loop-testkit'
-import * as LlmDeepSeek from '@lyness/lyn-llm-deepseek'
-import * as WorkspaceContext from '@lyness/lyn-agent-instructions'
+import * as LlmDeepSeek from '@lyness/lyn-llm-deepseek-api-key'
+import * as AgentInstructions from '@lyness/lyn-agent-instructions'
 import { candidateScopeKey } from '../src/render.ts'
 import LocalFileSystem from '@lyness/lyn-fs-local'
 import * as ToolFs from '@lyness/lyn-tool-fs'
@@ -40,7 +40,7 @@ async function harness(): Promise<{ ctx: Context; agent: Agent }> {
   })
   await ctx.plugin(LocalFileSystem, { cwd: '/' })
   await ctx.plugin(ToolFs)
-  await ctx.plugin(WorkspaceContext, { maxBytes: 65536 })
+  await ctx.plugin(AgentInstructions, { maxBytes: 65536 })
   await ctx.plugin(AgentLoop, { agents: [] })
   await ctx.plugin(LlmDeepSeek, { models: [{ id: E2E_TARGET.model }] })
   const handle = await ctx.agents.create({

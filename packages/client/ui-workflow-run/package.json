@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-client-ui-workflow-run",
   "description": "Durable workflow-run Conversation Node and nested member disclosure for lyn web",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -33,7 +33,8 @@
         "@lyness/lyn-client-ui-chat",
         "@lyness/lyn-client-ui-conversation",
         "@lyness/lyn-client-ui-renderer",
-        "@lyness/lyn-client-ui-session"
+        "@lyness/lyn-client-ui-session",
+        "@lyness/lyn-client-ui-workspace"
       ],
       "platform": "web"
     }
@@ -49,24 +50,25 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/lyn-api-session-controller": "workspace:^",
-    "@lyness/lyn-client-locale": "workspace:^",
-    "@lyness/lyn-client-store": "workspace:^",
-    "@lyness/lyn-client-test-runtime": "workspace:^",
-    "@lyness/lyn-client-ui-chat": "workspace:^",
-    "@lyness/lyn-client-ui-conversation": "workspace:^",
-    "@lyness/lyn-client-ui-primitives": "workspace:^",
-    "@lyness/lyn-client-ui-slots": "workspace:^",
-    "@lyness/lyn-client-ui-renderer": "workspace:^",
-    "@lyness/lyn-client-ui-session": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-tool-workflow": "workspace:^",
-    "@lyness/lyn-workflow": "workspace:^",
+    "@lyness/lyn-api-session-controller": "workspace:*",
+    "@lyness/lyn-client-locale": "workspace:*",
+    "@lyness/lyn-client-store": "workspace:*",
+    "@lyness/lyn-client-test-runtime": "workspace:*",
+    "@lyness/lyn-client-ui-chat": "workspace:*",
+    "@lyness/lyn-client-ui-conversation": "workspace:*",
+    "@lyness/lyn-client-ui-primitives": "workspace:*",
+    "@lyness/lyn-client-ui-slots": "workspace:*",
+    "@lyness/lyn-client-ui-renderer": "workspace:*",
+    "@lyness/lyn-client-ui-session": "workspace:*",
+    "@lyness/lyn-client-ui-workspace": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-tool-workflow": "workspace:*",
+    "@lyness/lyn-workflow": "workspace:*",
     "@types/react": "~18.3.1",
-    "@lyness/cordis": "workspace:^",
+    "@lyness/cordis": "workspace:~",
     "react": "^18.2.0"
   }
 }

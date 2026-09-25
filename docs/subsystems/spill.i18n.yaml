@@ -1,6 +1,16 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for spill.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write docs/subsystems/spill.md
-spill.md: a962f5053ec3a0384cf0c58076f8957cc850380b
-spill.zh.md: 368e840fa949770b1b10be61cd6282963b7b82b3
+/spill-storage:
+  en: 99c444035eaff862
+  zh: fce1655fae7d6ceb
+/spill-storage/the-save-request:
+  en: 05dd1d013c45ee55
+  zh: e2ba974827f47a54
+/spill-storage/the-result:
+  en: 870c1b73f3c6bddc
+  zh: 8773fd6eade172ae
+/spill-storage/the-service:
+  en: 712cc7fd9325669c
+  zh: 2bcc13864e2ba169

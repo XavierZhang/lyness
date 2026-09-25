@@ -1,6 +1,19 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-06-16-pnpm-over-yarn.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/process/2026-06-16-pnpm-over-yarn.md
-2026-06-16-pnpm-over-yarn.md: 3651fbc80685f0578d0e62039527c50ddf35c980
-2026-06-16-pnpm-over-yarn.zh.md: 7fd2609d9cd4c4f2f98e95eb7b1763e9f6424153
+/agent-note-pnpm-as-the-package-manager-instead-of-yarn-4:
+  en: 03baf0cbe1539079
+  zh: 37b88a4c5290db1d
+/agent-note-pnpm-as-the-package-manager-instead-of-yarn-4/problem:
+  en: a397e5f0a83c3306
+  zh: 5ced99f94dae9e30
+/agent-note-pnpm-as-the-package-manager-instead-of-yarn-4/decision:
+  en: 7b2dd1f0353fac16
+  zh: 8108de6d9a8cca1b
+/agent-note-pnpm-as-the-package-manager-instead-of-yarn-4/alternatives-considered:
+  en: 20e2ebed65f92625
+  zh: f1717d69d271fb43
+/agent-note-pnpm-as-the-package-manager-instead-of-yarn-4/consequences:
+  en: 024fefe88e8bbc95
+  zh: 018dc287c07d6483

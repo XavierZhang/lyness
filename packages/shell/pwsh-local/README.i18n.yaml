@@ -1,6 +1,64 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/shell/pwsh-local/README.md
-README.md: 66ebe7f03edb2ecae184fbb87409122bd99d96b0
-README.zh.md: 4142841d6905d1e024767814e6cb2d53b7853ad0
+/:
+  en: 07482fe1f03de5e9
+  zh: 8ec16b9f9ac73b38
+/lyness-lyn-pwsh-local:
+  en: f64edf1dc0409f35
+  zh: 140bf660f9b4669d
+/lyness-lyn-pwsh-local/summary:
+  en: 0c1942b373a5c189
+  zh: c5e481585b4dcb8c
+/lyness-lyn-pwsh-local/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-pwsh-local/use-this-package:
+  en: f53013bc78e9367f
+  zh: cc15b499f6a95080
+/lyness-lyn-pwsh-local/use-this-package/when-to-choose-it:
+  en: c20677abb00a2046
+  zh: 346b919c616a4254
+/lyness-lyn-pwsh-local/use-this-package/minimal-configuration:
+  en: f65280f3c3eb63c8
+  zh: 0d6d4b6b355d5163
+/lyness-lyn-pwsh-local/use-this-package/running-commands:
+  en: d0efd217ca8ce07d
+  zh: 76eda93aa7300f87
+/lyness-lyn-pwsh-local/use-this-package/background-processes:
+  en: 3c580842cc8452af
+  zh: 5a156670a7cacc2a
+/lyness-lyn-pwsh-local/use-this-package/adjusting-budgets-at-runtime:
+  en: 1098db4c932a48f8
+  zh: 33f78ab65dbfeb1d
+/lyness-lyn-pwsh-local/understand-the-implementation:
+  en: 05e2abe4a25886fd
+  zh: 3f7f1326dc3c1d3f
+/lyness-lyn-pwsh-local/understand-the-implementation/design-concept:
+  en: d065be99a0cea908
+  zh: 50eee843e3b6860c
+/lyness-lyn-pwsh-local/understand-the-implementation/source-map:
+  en: 299f4ffe25b4806d
+  zh: d0aced83a1950a91
+/lyness-lyn-pwsh-local/understand-the-implementation/main-flow:
+  en: 1cb78cfddb484576
+  zh: 94e16b60c9cd458b
+/lyness-lyn-pwsh-local/understand-the-implementation/invariants-and-ownership:
+  en: 770db4b8b91afed0
+  zh: edba200aab544677
+/lyness-lyn-pwsh-local/further-exploration:
+  en: 786c24a6e5ac1054
+  zh: ac2ef3fcdeaf07cf
+/lyness-lyn-pwsh-local/model-experience:
+  en: 643533d35afc37b4
+  zh: 485b55e620584900
+/lyness-lyn-pwsh-local/model-experience/kv-cache-effect:
+  en: 40294c1c31b74824
+  zh: 788a4799b1d65a8b
+/lyness-lyn-pwsh-local/known-limitations-and-deferred-work:
+  en: dbe004f26cb332f2
+  zh: 83dc82454ee6a92d
+/lyness-lyn-pwsh-local/known-limitations-and-deferred-work/dev-note:
+  en: e67f633dc6fe7773
+  zh: 3bb0c20c93f16f98

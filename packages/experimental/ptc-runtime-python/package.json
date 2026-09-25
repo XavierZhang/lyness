@@ -1,0 +1,44 @@
+{
+  "name": "@lyness/lyn-experimental-ptc-runtime-python",
+  "description": "CPython subprocess implementation of the lyness PTC execution seam",
+  "version": "0.1.7-rc.2",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "directory": "packages/experimental/ptc-runtime-python"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib/index.js",
+    "py/**/*.py",
+    "lib/types/**/*.d.ts"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "@lyness/lyn-ptc-runtime": "workspace:*",
+    "@lyness/lyn-timeout": "workspace:*",
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-util-values": "workspace:*"
+  },
+  "devDependencies": {
+    "@lyness/lyn-ptc-runtime": "workspace:*",
+    "@lyness/lyn-timeout": "workspace:*",
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-util-values": "workspace:*"
+  },
+  "dependencies": {
+    "@lyness/schemastery": "workspace:~"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,6 +1,43 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/bundle/acp-app/README.md
-README.md: 68fdf8341187ce6a55bf6b1ec366b93daa71536d
-README.zh.md: 3ede3d84d8b0a182b32809529256e792b4ad855c
+/:
+  en: 54af04fe07d4168b
+  zh: e4ceb9a3f653e74b
+/lyness-lyn-acp-app:
+  en: fd5f01a7d5244fd8
+  zh: f80be4acd9e7a0c5
+/lyness-lyn-acp-app/summary:
+  en: bcdd36f4e25418fc
+  zh: cef33f4b4c583aa7
+/lyness-lyn-acp-app/table-of-contents:
+  en: 636fbd365057be75
+  zh: d12fd8759c7e62e5
+/lyness-lyn-acp-app/use-this-package:
+  en: 253968fa459a1fe0
+  zh: 419ff64d21b0f8d4
+/lyness-lyn-acp-app/standard-automation-workflow:
+  en: db2448c7336c24cf
+  zh: 220395bbe3aa2d09
+/lyness-lyn-acp-app/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/lyness-lyn-acp-app/model-experience/acp-coding-agent-persona:
+  en: a7451ee84e5e156a
+  zh: a7451ee84e5e156a
+/lyness-lyn-acp-app/model-experience/acp-coding-agent-persona/what-the-model-sees:
+  en: bc0db4c628a1e547
+  zh: 740d07803bca3ce4
+/lyness-lyn-acp-app/model-experience/acp-coding-agent-persona/token-effect:
+  en: 371d28831239e0a8
+  zh: 0d2678654607b657
+/lyness-lyn-acp-app/model-experience/acp-coding-agent-persona/kv-cache-effect:
+  en: 8a5d250256381538
+  zh: 0578eaa7f774753e
+/lyness-lyn-acp-app/known-limitations-and-deferred-work:
+  en: f702ff451ea66af0
+  zh: 88be9936f75d2224
+/lyness-lyn-acp-app/known-limitations-and-deferred-work/dev-note:
+  en: 8bc6c774f783517d
+  zh: d1643c271de867ae

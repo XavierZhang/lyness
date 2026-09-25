@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import LlmRuntime, { createUserMessage, ToolCallId, LlmError, StreamChunk, errorChain  } from '@lyness/lyn-llm'
+import type { ContextFormed } from '@lyness/lyn-llm'
 import SessionStore, { SessionId, TurnEndReason } from '@lyness/lyn-session'
 import type { SessionEvent } from '@lyness/lyn-session'
 import SystemPrompt from '@lyness/lyn-system-prompt'
@@ -10,6 +11,12 @@ import AgentRegistry, { type Agent } from '@lyness/lyn-agent'
 import AgentLoop from '@lyness/lyn-agent-loop'
 import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 import { MockAdapter, textResponse, toolCallResponse } from './mock-adapter.ts'
+
+declare module '@lyness/lyn-llm' {
+  interface MessageSourceMap {
+    'test': { kind: 'test' } & ContextFormed
+  }
+}
 
 function driverDone(agent: Agent): Promise<void> {
   return (agent as Agent & { done: Promise<void> }).done
@@ -237,7 +244,7 @@ describe('structured tool error propagation (the runtime-validation Agent Note, 
     await waitForIdle(ctx, agent)
 
     const toolResult = agent.session.snapshotEvents().find(e => e.type === 'tool/result')
-    expect(toolResult?.type === 'tool/result' && toolResult.data.message.content[0].isError).toBe(true)
+    expect(toolResult?.type === 'tool/result' && toolResult.data.message.isError).toBe(true)
     expect(toolResult?.type === 'tool/result' && toolResult.data.error)
       .toEqual({ name: 'HarnessError', code: 'BOOM' })
   })
@@ -493,7 +500,7 @@ describe('driver bookkeeping edges', () => {
     ctx.on('agent/turn-stopping', ({ agent: subject }) => {
       subject.inject(createUserMessage({
         content: [{ type: 'text', text: 'do not enter the next step' }],
-        source: { kind: 'plugin', plugin: 'test' },
+        source: { kind: 'test' },
       }))
     })
 

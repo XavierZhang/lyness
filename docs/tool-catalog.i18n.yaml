@@ -1,6 +1,313 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for tool-catalog.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write docs/tool-catalog.md
-tool-catalog.md: fea807503b24520a26df320f2e0d9f05214525b1
-tool-catalog.zh.md: 7db89bed71d418f30fcb38d337973150b7c9fbdf
+/:
+  en: 0be8ffbf23193557
+  zh: ce2c69aa86875171
+/tool-schema-catalog:
+  en: 2936d68748e35ac2
+  zh: 2200c557998f090b
+/tool-schema-catalog/tool-package-map:
+  en: 6c33e9433ea0c963
+  zh: 17196805dd11e19c
+/tool-schema-catalog/lyness-lyn-plugin-manager:
+  en: 78ed2883903ca173
+  zh: 78ed2883903ca173
+/tool-schema-catalog/lyness-lyn-plugin-manager/plugin-manager:
+  en: 7f23b90e6e5c96d2
+  zh: 935e4891e76db3ea
+/tool-schema-catalog/lyness-lyn-mcp-resources:
+  en: 6afbbed96fd9e612
+  zh: 6afbbed96fd9e612
+/tool-schema-catalog/lyness-lyn-mcp-resources/list-mcp-resource-templates:
+  en: 96275ece9d040944
+  zh: 1fa9744642601ece
+/tool-schema-catalog/lyness-lyn-mcp-resources/list-mcp-resources:
+  en: bf4236607199d61e
+  zh: 82f4f749dcabc89f
+/tool-schema-catalog/lyness-lyn-mcp-resources/read-mcp-resource:
+  en: ab034c84c6f336ac
+  zh: 267d79904da6d3f2
+/tool-schema-catalog/lyness-lyn-experimental-browser-use-stagehand-native:
+  en: 3ae40c040a3e1cc9
+  zh: 3ae40c040a3e1cc9
+/tool-schema-catalog/lyness-lyn-experimental-browser-use-stagehand-native/stagehand-act:
+  en: c4b27bf62c534dcc
+  zh: 70c53824ed57ac23
+/tool-schema-catalog/lyness-lyn-experimental-browser-use-stagehand-native/stagehand-extract:
+  en: ec7462ab99848155
+  zh: 632fe0249040708e
+/tool-schema-catalog/lyness-lyn-experimental-browser-use-stagehand-native/stagehand-navigate:
+  en: ef97f063a037a006
+  zh: 27727ccc908e007f
+/tool-schema-catalog/lyness-lyn-experimental-browser-use-stagehand-native/stagehand-observe:
+  en: 2068f1baa0a59e1b
+  zh: 5743c7b33e2c5ccb
+/tool-schema-catalog/lyness-lyn-experimental-browser-use-stagehand-native/stagehand-screenshot:
+  en: 4910ab327694ee97
+  zh: 17e79e4366cb636d
+/tool-schema-catalog/lyness-lyn-experimental-browser-use-stagehand-native/stagehand-tabs:
+  en: 47c94755dc4c5b53
+  zh: b58eb86fcfd412ef
+/tool-schema-catalog/lyness-lyn-tool-ask-user:
+  en: b300ee39e055518d
+  zh: b300ee39e055518d
+/tool-schema-catalog/lyness-lyn-tool-ask-user/ask-user-question:
+  en: d9c92efcf9fe9174
+  zh: 56ba131488dae8ee
+/tool-schema-catalog/lyness-lyn-tools:
+  en: cfbd69d00d8f8cf7
+  zh: cfbd69d00d8f8cf7
+/tool-schema-catalog/lyness-lyn-tools/run-code:
+  en: bc889b7a7e475f2f
+  zh: 91c5a3109c1c2145
+/tool-schema-catalog/lyness-lyn-plan-mode:
+  en: b098694195fc1c6e
+  zh: b098694195fc1c6e
+/tool-schema-catalog/lyness-lyn-plan-mode/exit-plan-mode:
+  en: 7eb92e413140c6e3
+  zh: 9a62bf10e621b767
+/tool-schema-catalog/lyness-lyn-tool-bash:
+  en: 586f04db14b9f31c
+  zh: 586f04db14b9f31c
+/tool-schema-catalog/lyness-lyn-tool-bash/bash:
+  en: f95265bad784a955
+  zh: 9528100834ff1b75
+/tool-schema-catalog/lyness-lyn-tool-present:
+  en: aeea4f081d8475c1
+  zh: aeea4f081d8475c1
+/tool-schema-catalog/lyness-lyn-tool-present/present:
+  en: 4a4d7b4fc8e56bdc
+  zh: 26189d6abe18cdd0
+/tool-schema-catalog/lyness-lyn-tool-pwsh:
+  en: 99f3bbe639c1ee44
+  zh: 99f3bbe639c1ee44
+/tool-schema-catalog/lyness-lyn-tool-pwsh/pwsh:
+  en: 8871e6375dca7a24
+  zh: 47eaef419f55debe
+/tool-schema-catalog/lyness-lyn-tool-cordis:
+  en: 4efc4e4745cfdae2
+  zh: 4efc4e4745cfdae2
+/tool-schema-catalog/lyness-lyn-tool-cordis/cordis-inspect-list:
+  en: 594e5b42047969cc
+  zh: 72189ca21345c210
+/tool-schema-catalog/lyness-lyn-tool-cordis/cordis-inspect-query:
+  en: f426c0cef870337c
+  zh: ae6ce1af9c5b5576
+/tool-schema-catalog/lyness-lyn-tool-bash-persistent:
+  en: beb9106858608a16
+  zh: beb9106858608a16
+/tool-schema-catalog/lyness-lyn-tool-bash-persistent/bash:
+  en: 42f4e68d8c7fe325
+  zh: f545b6d2d83a1bd1
+/tool-schema-catalog/lyness-lyn-tool-pwsh-persistent:
+  en: 3e398c9eff09e8b7
+  zh: 3e398c9eff09e8b7
+/tool-schema-catalog/lyness-lyn-tool-pwsh-persistent/pwsh:
+  en: aff6d9392a2edd6f
+  zh: 679191616f2c8f2b
+/tool-schema-catalog/lyness-lyn-tool-str-replace-editor:
+  en: 17554198bb416e7d
+  zh: 17554198bb416e7d
+/tool-schema-catalog/lyness-lyn-tool-str-replace-editor/str-replace-editor:
+  en: 8c480df0122921e9
+  zh: 2a9b71c1c30adb9d
+/tool-schema-catalog/lyness-lyn-tool-fs:
+  en: 4804f24068f2f86e
+  zh: 4804f24068f2f86e
+/tool-schema-catalog/lyness-lyn-tool-fs/edit:
+  en: 5b6a252adde51af6
+  zh: 7aa172a5d8b9cbd2
+/tool-schema-catalog/lyness-lyn-tool-fs/read:
+  en: 94bfc5b03c63baef
+  zh: 339338a0e74696c3
+/tool-schema-catalog/lyness-lyn-tool-fs/read-image:
+  en: f6f7a1140066ce04
+  zh: d528e01a0939795a
+/tool-schema-catalog/lyness-lyn-tool-fs/write:
+  en: d48ccfef63903109
+  zh: 10e805192248124d
+/tool-schema-catalog/lyness-lyn-tool-fs-search:
+  en: 280f0f6a57d36b14
+  zh: 280f0f6a57d36b14
+/tool-schema-catalog/lyness-lyn-tool-fs-search/glob:
+  en: 3ba734ba7852cdd5
+  zh: c6ce31ff2c195520
+/tool-schema-catalog/lyness-lyn-tool-fs-search/grep:
+  en: ed7e31a9ed582d72
+  zh: 9a7b1d3c415f1c63
+/tool-schema-catalog/lyness-lyn-tool-terminal:
+  en: e0e15fecbdeb0f86
+  zh: e0e15fecbdeb0f86
+/tool-schema-catalog/lyness-lyn-tool-terminal/terminal-close:
+  en: 6d6e428c866ac6c1
+  zh: 8033539fcdcb6e7b
+/tool-schema-catalog/lyness-lyn-tool-terminal/terminal-list:
+  en: ae7d5bce32142aa5
+  zh: e956a650a5bf294b
+/tool-schema-catalog/lyness-lyn-tool-terminal/terminal-open:
+  en: c542bd7f7e872441
+  zh: 14731de81780b518
+/tool-schema-catalog/lyness-lyn-tool-terminal/terminal-read:
+  en: 6a7491d2436e4404
+  zh: 772ff408ec0a67e3
+/tool-schema-catalog/lyness-lyn-tool-terminal/terminal-send:
+  en: e24ca8735dd59adb
+  zh: 24f7140a0aed0968
+/tool-schema-catalog/lyness-lyn-tool-terminal/terminal-signal:
+  en: 6e8f1649ca41c3dc
+  zh: 1b15a647bcb8d4d4
+/tool-schema-catalog/lyness-lyn-tool-goal:
+  en: c03447152da25574
+  zh: c03447152da25574
+/tool-schema-catalog/lyness-lyn-tool-goal/create-goal:
+  en: 9ae877cdf8a641a3
+  zh: f83c3c09e80e4190
+/tool-schema-catalog/lyness-lyn-tool-goal/get-goal:
+  en: 0b517f13dfde11fe
+  zh: b7ee7482e8ecde56
+/tool-schema-catalog/lyness-lyn-tool-goal/update-goal:
+  en: 72c38ea58e07e82e
+  zh: 577c1dabc613fe5b
+/tool-schema-catalog/lyness-lyn-schedule:
+  en: 4c22d31c83dc05d4
+  zh: 4c22d31c83dc05d4
+/tool-schema-catalog/lyness-lyn-schedule/schedule-create:
+  en: 0a10b5db8919d316
+  zh: 175d680a29f59b63
+/tool-schema-catalog/lyness-lyn-schedule/schedule-delete:
+  en: cff096695f06e298
+  zh: 3d0063a1e529377f
+/tool-schema-catalog/lyness-lyn-schedule/schedule-list:
+  en: d8543c8503d0947e
+  zh: f8498f9d4c9525d0
+/tool-schema-catalog/lyness-lyn-schedule/schedule-update:
+  en: b4cec451909c2fb2
+  zh: 380c2232af1cfe90
+/tool-schema-catalog/lyness-lyn-tool-lsp:
+  en: 1139151c20d96a77
+  zh: 1139151c20d96a77
+/tool-schema-catalog/lyness-lyn-tool-lsp/lsp:
+  en: 1a969f2671b15a80
+  zh: 57fcda57d805224e
+/tool-schema-catalog/lyness-lyn-tool-ralph:
+  en: 76f832b9012c3163
+  zh: 76f832b9012c3163
+/tool-schema-catalog/lyness-lyn-tool-ralph/ralph:
+  en: a80bc2379de5b912
+  zh: 3f6d25e2de50bb0b
+/tool-schema-catalog/lyness-lyn-tool-skill:
+  en: bcd0e22ec90f831b
+  zh: bcd0e22ec90f831b
+/tool-schema-catalog/lyness-lyn-tool-skill/skill:
+  en: b52365df0deb3f5b
+  zh: 4cc6352215827edb
+/tool-schema-catalog/lyness-lyn-tool-session-query:
+  en: 7a73f8a26377c505
+  zh: 7a73f8a26377c505
+/tool-schema-catalog/lyness-lyn-tool-session-query/session-event-read:
+  en: 6687105065ac3a5f
+  zh: 48b2f4d38536e4c7
+/tool-schema-catalog/lyness-lyn-tool-session-query/session-event-search:
+  en: 41251b4cbe9af70d
+  zh: 8855a5f32b4720e5
+/tool-schema-catalog/lyness-lyn-tool-session-query/session-event-trace:
+  en: 14b5ec05fa8c0932
+  zh: 3c85d44c13cc42c5
+/tool-schema-catalog/lyness-lyn-tool-session-query/session-search:
+  en: 8263202c97568fc3
+  zh: 92067337294c7a00
+/tool-schema-catalog/lyness-lyn-tool-session-query/session-trace:
+  en: 2467490a4c37d4a0
+  zh: 360ecea717ed352d
+/tool-schema-catalog/lyness-lyn-tool-subagent:
+  en: 068e185ebae701a3
+  zh: 068e185ebae701a3
+/tool-schema-catalog/lyness-lyn-tool-subagent/list-subagent-models:
+  en: c89084b31ffccbce
+  zh: d7b3b7000f2d2be9
+/tool-schema-catalog/lyness-lyn-tool-subagent/subagent:
+  en: ee13cacf8a67045b
+  zh: cc26436461dd1a38
+/tool-schema-catalog/lyness-lyn-tool-subagent-control:
+  en: 7d892d73ecc93d9b
+  zh: 7d892d73ecc93d9b
+/tool-schema-catalog/lyness-lyn-tool-subagent-control/interrupt-agent:
+  en: 0cec3f2520050839
+  zh: 06735f086cea84f1
+/tool-schema-catalog/lyness-lyn-tool-subagent-control/list-agents:
+  en: ae22e8543d123c39
+  zh: 4943a5c5980fc2d3
+/tool-schema-catalog/lyness-lyn-tool-subagent-control/send-message:
+  en: d33def7eab83955a
+  zh: 0faa2262e763eb6f
+/tool-schema-catalog/lyness-lyn-tool-jobs:
+  en: 7b9b5e7c032a569c
+  zh: 7b9b5e7c032a569c
+/tool-schema-catalog/lyness-lyn-tool-jobs/job-kill:
+  en: 14294cc1988ae768
+  zh: 80a9152bdc02723f
+/tool-schema-catalog/lyness-lyn-tool-jobs/job-list:
+  en: 0c37fb1fed979d72
+  zh: 5ea9d07f5a4a8a6c
+/tool-schema-catalog/lyness-lyn-tool-jobs/job-output:
+  en: 41e0e3e8726194ce
+  zh: e6f72fcd8e8db0a3
+/tool-schema-catalog/lyness-lyn-experimental-tool-agent-team:
+  en: 9a018e208d18aca2
+  zh: 9a018e208d18aca2
+/tool-schema-catalog/lyness-lyn-experimental-tool-agent-team/interrupt-agent:
+  en: c3c7af05ceb9f8c9
+  zh: ec379e0b42110c6a
+/tool-schema-catalog/lyness-lyn-experimental-tool-agent-team/list-agents:
+  en: f9457f033f75f00a
+  zh: a2d60ec44118c34c
+/tool-schema-catalog/lyness-lyn-experimental-tool-agent-team/send-message:
+  en: e99455aec4656ff2
+  zh: a8f88ec35cfe38b8
+/tool-schema-catalog/lyness-lyn-experimental-tool-agent-team/spawn-teammate:
+  en: 02d6cc746e234b99
+  zh: 49bc60ac098bca48
+/tool-schema-catalog/lyness-lyn-experimental-tool-agent-team/team-task-create:
+  en: 91e84febe063c3bd
+  zh: 550555d0f44f603b
+/tool-schema-catalog/lyness-lyn-experimental-tool-agent-team/team-task-get:
+  en: 1c6ae0aba0b8041d
+  zh: f8d634387b74121d
+/tool-schema-catalog/lyness-lyn-experimental-tool-agent-team/team-task-list:
+  en: 2084d494aae8798a
+  zh: e4c136c91028a7b1
+/tool-schema-catalog/lyness-lyn-experimental-tool-agent-team/team-task-update:
+  en: 2eac7360ba68b1bd
+  zh: b5d676bf288c245e
+/tool-schema-catalog/lyness-lyn-experimental-tool-agent-team/wait-agent:
+  en: 17e73964fd628342
+  zh: 5c0582b2dce0c1a7
+/tool-schema-catalog/lyness-lyn-tool-todo:
+  en: 6b46c55cd2c76927
+  zh: 6b46c55cd2c76927
+/tool-schema-catalog/lyness-lyn-tool-todo/todo-write:
+  en: 6083b8ef07b4bf8c
+  zh: 6b13abb941f7014d
+/tool-schema-catalog/lyness-lyn-tool-workflow:
+  en: daf3635023624dd1
+  zh: daf3635023624dd1
+/tool-schema-catalog/lyness-lyn-tool-workflow/workflow:
+  en: 7d9440a22d82f6e4
+  zh: 351599e9c469373c
+/tool-schema-catalog/lyness-lyn-tool-workspace-dependencies:
+  en: ea7bac41b14c11ea
+  zh: ea7bac41b14c11ea
+/tool-schema-catalog/lyness-lyn-tool-workspace-dependencies/load-workspace-dependencies:
+  en: a590ec98f1c47f75
+  zh: 86c8322d0b37ce19
+/tool-schema-catalog/lyness-lyn-tool-web:
+  en: de179318997ca9d6
+  zh: de179318997ca9d6
+/tool-schema-catalog/lyness-lyn-tool-web/web-fetch:
+  en: 8673f203aea9bdf2
+  zh: 4e17783ffdf34c83
+/tool-schema-catalog/lyness-lyn-tool-web/web-search:
+  en: cc1ad38bf0006710
+  zh: 324eacb827a09e93

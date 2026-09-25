@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-sandbox-windows-acl",
   "description": "Windows ACL write-restriction sandbox backend (restricted-token spawn with capability-SID write allowlist) for the lyness sandbox seam",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -33,15 +33,19 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-subprocess": "workspace:*"
   },
   "dependencies": {
-    "@lyness/lyn-win32-process": "workspace:^",
+    "@lyness/lyn-lazy-require": "workspace:*",
+    "@lyness/lyn-win32-process": "workspace:*",
     "koffi": "^3.1.0"
   },
   "devDependencies": {
-    "@lyness/lyn-pwsh-local": "workspace:^",
-    "@lyness/lyn-sandbox-local": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-pwsh-local": "workspace:*",
+    "@lyness/lyn-sandbox-local": "workspace:*",
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-subprocess": "workspace:*",
+    "@lyness/lyn-subprocess-local": "workspace:*"
   }
 }

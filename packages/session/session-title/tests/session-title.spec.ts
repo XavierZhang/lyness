@@ -1,4 +1,5 @@
 import { createUserMessage } from '@lyness/lyn-llm'
+import type { ContextFormed } from '@lyness/lyn-llm'
 import { Context } from '@lyness/cordis'
 import { describe, expect, it } from 'vitest'
 import SessionStore, { Session, SessionId, SessionSeq } from '@lyness/lyn-session'
@@ -10,6 +11,12 @@ import SessionTitleService, {
   normalizeSessionTitle,
   truncateTitleUtf8,
 } from '@lyness/lyn-session-title'
+
+declare module '@lyness/lyn-llm' {
+  interface MessageSourceMap {
+    'seed': { kind: 'seed' } & ContextFormed
+  }
+}
 
 const CONFIG = {
   fallbackMaxWords: 5,
@@ -113,7 +120,7 @@ describe('SessionTitleService', () => {
     })
     session.append('user/message', createUserMessage({
       content: [{ type: 'text', text: 'plugin text' }],
-      source: { kind: 'plugin', plugin: 'seed' },
+      source: { kind: 'seed' },
     }), { surfaceOp: 'append' })
     session.append('user/message', createUserMessage({
       content: [{ type: 'reasoning', text: 'not visible text' }],

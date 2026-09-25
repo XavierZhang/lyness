@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-client-ui-directory-picker-native",
-  "description": "Native directory-picker surface: the renderless workspace directory-flow occupant driving the host's OS chooser",
-  "version": "0.1.5-rc.1",
+  "description": "Native directory-picker surface: the renderless workspace directory-flow occupant driving the local Desktop or Host OS chooser",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -40,14 +40,15 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/lyn-client-ui-renderer": "workspace:^",
-    "@lyness/lyn-client-ui-workspace": "workspace:^",
+    "@lyness/lyn-client-test-runtime": "workspace:*",
+    "@lyness/lyn-client-ui-renderer": "workspace:*",
+    "@lyness/lyn-client-ui-workspace": "workspace:*",
     "@testing-library/react": "^16.1.0",
     "@types/react": "~18.3.1",
-    "@lyness/cordis": "workspace:^",
+    "@lyness/cordis": "workspace:~",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

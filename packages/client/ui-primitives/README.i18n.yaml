@@ -1,6 +1,61 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/ui-primitives/README.md
-README.md: 352ed47a505519f8f0faadb3431f3021d91d421e
-README.zh.md: c3fbb9ad61a69e00ef8f3abe4e5d605cd9e6ffdb
+/:
+  en: 82f544da59010158
+  zh: ef457b89042d5ead
+/lyness-lyn-client-ui-primitives:
+  en: 2f0811a9af0fbb79
+  zh: 9e261d0547a112cf
+/lyness-lyn-client-ui-primitives/summary:
+  en: fcb274b954caa498
+  zh: 9a684e86ceb275c7
+/lyness-lyn-client-ui-primitives/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-client-ui-primitives/use-this-package:
+  en: ddec1f6f9b018747
+  zh: 9555f132daf8901c
+/lyness-lyn-client-ui-primitives/use-this-package/component-catalog:
+  en: b195c202964b407c
+  zh: 41f350dea12d8865
+/lyness-lyn-client-ui-primitives/use-this-package/controls-and-icons:
+  en: 49e11bf8bc4ddfee
+  zh: 15f1cd91039c7488
+/lyness-lyn-client-ui-primitives/use-this-package/rendering-agent-output:
+  en: 66967e0bc9768e12
+  zh: d12fe4e211e89290
+/lyness-lyn-client-ui-primitives/use-this-package/localizing-copy:
+  en: 4aef65dea11de083
+  zh: abc22cd7c65cdf38
+/lyness-lyn-client-ui-primitives/understand-the-implementation:
+  en: 9cb6d404ba8e8b26
+  zh: 2c59637b1cb7ace2
+/lyness-lyn-client-ui-primitives/understand-the-implementation/source-map:
+  en: 44eb32370cbeafe8
+  zh: 728009c66375c6bb
+/lyness-lyn-client-ui-primitives/understand-the-implementation/input-modality:
+  en: e9ca36e19864ba52
+  zh: d40d46f4a6fe8422
+/lyness-lyn-client-ui-primitives/understand-the-implementation/streaming-markdown:
+  en: 8bbfa14c27f3bfd7
+  zh: 88f7548ac3a114e1
+/lyness-lyn-client-ui-primitives/understand-the-implementation/geometry-and-overflow:
+  en: 49f6341d81ded00e
+  zh: cab87dc54a42ba69
+/lyness-lyn-client-ui-primitives/further-exploration:
+  en: 8f5b9ea2f1ed5640
+  zh: 7ebe09a695e0dfd5
+/lyness-lyn-client-ui-primitives/model-experience:
+  en: 3120df665299c634
+  zh: 1d9f365d091d0d2a
+/lyness-lyn-client-ui-primitives/model-experience/kv-cache-effect:
+  en: ca75c51c89c2c9b0
+  zh: de54f3467ef3b9be
+/lyness-lyn-client-ui-primitives/known-limitations-and-deferred-work:
+  en: 258ad2c8bb82b0b2
+  zh: ebe28f0b1cfd3bb7
+/lyness-lyn-client-ui-primitives/known-limitations-and-deferred-work/dev-note:
+  en: ae1d5d1bcc80c932
+  zh: 15709ccdbfcdf26c

@@ -46,8 +46,7 @@ describe('lyn-base bundle', () => {
       __jsExpr: "process.env.LYNESS_TELEMETRY_OTLP_URL ?? ''",
     })
     expect(rows.find(row => row.id === 'hmr')).toMatchObject({
-      disabled: true,
-      config: { root: ['.'] },
+      config: { root: [] },
     })
     expect(rows.filter(row => row.id === 'subagent-codex')).toHaveLength(0)
     expect(rows.filter(row => row.id === 'subagent-claude-code')).toHaveLength(0)

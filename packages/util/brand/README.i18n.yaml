@@ -1,6 +1,46 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/util/brand/README.md
-README.md: e28d9cd6620f378e2fc237a80e98d10dd3ccb571
-README.zh.md: 0096646bca423a7008fd05298c299289b12cb9e1
+/:
+  en: 9c53a07c1a04a19a
+  zh: 1fd4666fbc6c39a8
+/lyness-lyn-brand:
+  en: 5e5cea190fc6973b
+  zh: d1cb4fa20f894312
+/lyness-lyn-brand/summary:
+  en: 748ea2b996c867a3
+  zh: ebadd067666fc644
+/lyness-lyn-brand/table-of-contents:
+  en: c992e0cd2e7042d6
+  zh: 2e8cd826664632d1
+/lyness-lyn-brand/use-this-package:
+  en: abdf7a28d3af06f0
+  zh: 8d68807326b03898
+/lyness-lyn-brand/use-this-package/branding-a-string:
+  en: 49b137dc146f5c0a
+  zh: 7fe82acb5ba633e8
+/lyness-lyn-brand/use-this-package/branding-a-number:
+  en: fd9617ca2804f47b
+  zh: cd3c0e6bda613509
+/lyness-lyn-brand/use-this-package/when-to-brand:
+  en: f9aabae793b61b37
+  zh: fa9053e66d20c159
+/lyness-lyn-brand/understand-the-implementation:
+  en: 98a62299f46d5050
+  zh: 042d3c626e1fbe34
+/lyness-lyn-brand/understand-the-implementation/source-map:
+  en: 4adda24125bd07aa
+  zh: bfcc7be63f134658
+/lyness-lyn-brand/understand-the-implementation/how-values-stay-portable:
+  en: 6a126aa2e31591c0
+  zh: c85e395cdb0bbb0e
+/lyness-lyn-brand/understand-the-implementation/why-it-stays-dependency-free:
+  en: 54273e2d2af151e5
+  zh: 32e6207625b7f453
+/lyness-lyn-brand/further-exploration:
+  en: 36b9a596c08bf2e0
+  zh: 81d6cf0e3d01f768
+/lyness-lyn-brand/dev-note:
+  en: 5de1d6304e00c58f
+  zh: 8d8225361cfa29e5

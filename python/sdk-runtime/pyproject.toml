@@ -22,7 +22,13 @@ lyn = "lyness_runtime:main"
 
 # Include the injected lyn executable and sidecars; exclude the dev-only node closure.
 [tool.hatch.build]
-artifacts = ["src/lyness_runtime/runtime/lyness-sdk-runtime-*"]
+artifacts = [
+  "src/lyness_runtime/runtime/lyness-sdk-runtime-*",
+  "src/lyness_runtime/runtime/lyness-sdk-runtime-*/**",
+  "src/lyness_runtime/runtime/linux-*/**",
+  "src/lyness_runtime/runtime/macos-*/**",
+  "src/lyness_runtime/runtime/win-*/**",
+]
 exclude = ["src/lyness_runtime/runtime/node"]
 
 [tool.hatch.build.targets.wheel]

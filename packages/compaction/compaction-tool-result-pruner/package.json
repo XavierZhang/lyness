@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-compaction-tool-result-pruner",
   "description": "Replay-safe model-free head/middle/tail pruning for tool-result surface nodes",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -27,25 +27,26 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-compaction": "workspace:^",
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-token-meter": "workspace:^"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-compaction": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-token-meter": "workspace:*"
   },
   "dependencies": {
-    "@lyness/lyn-util-values": "workspace:^",
-    "@lyness/schemastery": "workspace:^"
+    "@lyness/lyn-util-values": "workspace:*",
+    "@lyness/schemastery": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/cordis-plugin-include": "workspace:^",
-    "@lyness/cordis-plugin-loader": "workspace:^",
-    "@lyness/lyn-compaction": "workspace:^",
-    "@lyness/lyn-invariants": "workspace:^",
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-session-projection": "workspace:^",
-    "@lyness/lyn-token-meter": "workspace:^"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/cordis-plugin-include": "workspace:~",
+    "@lyness/cordis-plugin-loader": "workspace:~",
+    "@lyness/lyn-compaction": "workspace:*",
+    "@lyness/lyn-invariants": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-session-projection": "workspace:*",
+    "@lyness/lyn-token-meter": "workspace:*",
+    "@lyness/lyn-compaction-image-offload": "workspace:*"
   }
 }

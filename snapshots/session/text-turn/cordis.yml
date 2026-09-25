@@ -3,7 +3,7 @@
 # deterministic test composition and raw persistence needed for recording.
 
 - id: llm-deepseek
-  name: '@lyness/lyn-llm-deepseek'
+  name: '@lyness/lyn-llm-deepseek-api-key'
   config:
     thinking: enabled
     reasoningEffort: max
@@ -78,3 +78,7 @@
       name: '@lyness/lyn-hooks-codex'
       config:
         configPath: ./codex-hooks.json
+
+- id: session-log-deepseek
+  config:
+    enabled: false

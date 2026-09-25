@@ -1,6 +1,31 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/README.md
-README.md: 5b04d34346b9dc15b633f24c0553d43b795f1b65
-README.zh.md: 89d910ba15dcb8497277f3a53b24f962e9c54053
+/:
+  en: ee0abed4c4ee46b3
+  zh: df4a34469f71a24d
+/packages:
+  en: 88ee44430e41c626
+  zh: cfe74d5911f5c850
+/packages/summary:
+  en: ccd3273b56bdfc27
+  zh: 9987ed9d60c0c57a
+/packages/table-of-contents:
+  en: ffc55792d6e922e1
+  zh: 83bd759638857e2d
+/packages/package-groups:
+  en: dfa10c9ea053ebd0
+  zh: f33a5358e3ce98e0
+/packages/release-expectations:
+  en: 1ab880da3642bde1
+  zh: 6e168322f026a9cf
+/packages/dependencies:
+  en: 879364c7fa60c208
+  zh: 4745848fffe2d209
+/packages/package-readme-contracts:
+  en: 52ada7eacaee014f
+  zh: b78d390a8c17c11b
+/packages/dev-note:
+  en: 5de1d6304e00c58f
+  zh: 8d8225361cfa29e5

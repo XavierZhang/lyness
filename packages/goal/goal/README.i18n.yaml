@@ -1,6 +1,73 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/goal/goal/README.md
-README.md: 8e30b795dc7a4f858ff455022fcceaa46682db35
-README.zh.md: 760e1327b5549455a468b927eb9ed47e2eb3a8be
+/:
+  en: 6509c63744950c59
+  zh: b7d4e056e0591155
+/lyness-lyn-goal:
+  en: e946758ea99a2041
+  zh: 978970d2bbe7181e
+/lyness-lyn-goal/summary:
+  en: b197f7f57147ccb0
+  zh: 5e6701400468e1bd
+/lyness-lyn-goal/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-goal/use-this-package:
+  en: 529b9bb2e651ceb7
+  zh: 60f6571146b4adea
+/lyness-lyn-goal/use-this-package/when-to-use-it:
+  en: 44fbecf68641514a
+  zh: afa1720f5128cf1b
+/lyness-lyn-goal/use-this-package/set-up-the-service:
+  en: fdff28c78f203666
+  zh: 9aea7a79358c0f8a
+/lyness-lyn-goal/use-this-package/session-projection:
+  en: 75c30522ab0127df
+  zh: d3af2880457581f9
+/lyness-lyn-goal/use-this-package/drive-the-lifecycle:
+  en: 622890ced87a44e9
+  zh: 6ba1f3f872400452
+/lyness-lyn-goal/use-this-package/what-survives-and-what-does-not:
+  en: e5cd2097500a9027
+  zh: 3ecae388f839c944
+/lyness-lyn-goal/use-this-package/observing-a-goal:
+  en: 3074e4c76de81d22
+  zh: 10134afe344dafb3
+/lyness-lyn-goal/understand-the-implementation:
+  en: 592af7e68423bd1c
+  zh: 9b1f08393db1b14e
+/lyness-lyn-goal/understand-the-implementation/design:
+  en: 6f19e891ffc79754
+  zh: 9599e3b142f1e6b5
+/lyness-lyn-goal/understand-the-implementation/source-map:
+  en: f0451101cf73da7d
+  zh: 73176ab69bb63a7f
+/lyness-lyn-goal/understand-the-implementation/events-and-attribution:
+  en: 502cf61dba8b22ca
+  zh: 2b6f672bb2ac84ba
+/lyness-lyn-goal/further-exploration:
+  en: faac71f235e6add1
+  zh: 3d613c2a9a650122
+/lyness-lyn-goal/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/lyness-lyn-goal/model-experience/goal-state-mutations:
+  en: 6e6274de7991ef9e
+  zh: be2048ca18b3cbab
+/lyness-lyn-goal/model-experience/goal-state-mutations/what-the-model-sees:
+  en: 7f3f6cf3e85ca188
+  zh: 758596ce93635eab
+/lyness-lyn-goal/model-experience/goal-state-mutations/token-effect:
+  en: 5c3d2b320679252b
+  zh: 67156a0cec8c8e60
+/lyness-lyn-goal/model-experience/goal-state-mutations/kv-cache-effect:
+  en: 5fcc49f70cf6604d
+  zh: 39a3ba8fcdfba009
+/lyness-lyn-goal/known-limitations-and-deferred-work:
+  en: 78e0c4db99356982
+  zh: fd9a170987b9843f
+/lyness-lyn-goal/known-limitations-and-deferred-work/dev-note:
+  en: 0b672d0c3b09cd5d
+  zh: 8f5d79353a6e5d63

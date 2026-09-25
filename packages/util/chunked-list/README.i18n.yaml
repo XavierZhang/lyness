@@ -1,6 +1,37 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/util/chunked-list/README.md
-README.md: 2b97d956e444e222b293cb54abeb8156c8fa52ea
-README.zh.md: 25af88cc46abe70a6428273d48806ca25c72a3ee
+/:
+  en: e29affc07acbcf4f
+  zh: 10e2da625e145a68
+/lyness-lyn-chunked-list:
+  en: 5ca98b68d2f135ac
+  zh: f30d05405a24c1ac
+/lyness-lyn-chunked-list/summary:
+  en: c7e8cd751a949972
+  zh: 2e7496daf3d7a0e2
+/lyness-lyn-chunked-list/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 75f067b4c4218355
+/lyness-lyn-chunked-list/use-this-package:
+  en: 6808bfba89c5ffbf
+  zh: f80761fdcd3db317
+/lyness-lyn-chunked-list/understand-the-implementation:
+  en: c1d571642af3feeb
+  zh: c942c041a396ea94
+/lyness-lyn-chunked-list/further-exploration:
+  en: fc66a8c56de71c57
+  zh: 330c0c53089ce7ab
+/lyness-lyn-chunked-list/model-experience:
+  en: bc7e4d8a0c8b8ebb
+  zh: e11fe3bd45d4354a
+/lyness-lyn-chunked-list/model-experience/kv-cache-effect:
+  en: e7ba08477bf22c4e
+  zh: c38c528fe563bb51
+/lyness-lyn-chunked-list/known-limitations-and-deferred-work:
+  en: fdc87d52574748eb
+  zh: e1e7cbd86cd2bde0
+/lyness-lyn-chunked-list/known-limitations-and-deferred-work/dev-note:
+  en: e67f633dc6fe7773
+  zh: 3bb0c20c93f16f98

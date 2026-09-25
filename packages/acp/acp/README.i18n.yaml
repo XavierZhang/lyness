@@ -1,6 +1,82 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/acp/acp/README.md
-README.md: 8d993a5aa0eda9f0edd46cbe81c89ba356249802
-README.zh.md: 34909ea75c4b607feec7db68f2d837454641b74f
+/:
+  en: f69fa824b13fa67b
+  zh: c85c4c421556d6ac
+/lyness-lyn-acp:
+  en: f656e3246a113148
+  zh: 552c9612a0e1457b
+/lyness-lyn-acp/summary:
+  en: 214fff066b393235
+  zh: 161ba2c665ed0232
+/lyness-lyn-acp/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-acp/use-this-package:
+  en: 014a5573a8c05663
+  zh: e45302786655eea5
+/lyness-lyn-acp/use-this-package/when-to-choose-it:
+  en: dd442ae21c57c64d
+  zh: 7da35b2fa9065fdb
+/lyness-lyn-acp/use-this-package/minimal-configuration:
+  en: 51164c2545b3a596
+  zh: 3b6806770da8285f
+/lyness-lyn-acp/use-this-package/start-a-server:
+  en: c911a8e049c9d0e6
+  zh: 5fecd70959375f8f
+/lyness-lyn-acp/use-this-package/protocol-contract:
+  en: 804b87d8ebed9f8d
+  zh: 1b0c1c7269cdf040
+/lyness-lyn-acp/understand-the-implementation:
+  en: ea8afe89dbdd1934
+  zh: 6567979f92f34afd
+/lyness-lyn-acp/understand-the-implementation/design-philosophy:
+  en: 9d7e5b8c5ca53c84
+  zh: 352716adf0b19c4b
+/lyness-lyn-acp/understand-the-implementation/source-map:
+  en: 837330574e01d196
+  zh: 46f29717d175f7bb
+/lyness-lyn-acp/understand-the-implementation/admission-and-prompt-settlement:
+  en: 6485d449b5945b4a
+  zh: 90e56a9b410c9c42
+/lyness-lyn-acp/understand-the-implementation/teardown-and-connection-ownership:
+  en: 7e2be6a9e211d4d6
+  zh: 3ba8482d3231b9d0
+/lyness-lyn-acp/further-exploration:
+  en: c212a431a10624e4
+  zh: 6fc95220a07f1df1
+/lyness-lyn-acp/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/lyness-lyn-acp/model-experience/prompt-content:
+  en: 7fca865c9895801f
+  zh: 78a0ab12c0bb0499
+/lyness-lyn-acp/model-experience/prompt-content/what-the-model-sees:
+  en: e3adbb072da5ff1d
+  zh: 0af2105dd9e171d3
+/lyness-lyn-acp/model-experience/prompt-content/token-effect:
+  en: 93b8f76c67bef353
+  zh: 354fa2dca0804f72
+/lyness-lyn-acp/model-experience/prompt-content/kv-cache-effect:
+  en: 54946b64b26a3171
+  zh: 09550292ccfb36b0
+/lyness-lyn-acp/model-experience/permission-decisions:
+  en: 2e6d83c846a3a5e1
+  zh: 8d4339c26f3d8f68
+/lyness-lyn-acp/model-experience/permission-decisions/what-the-model-sees:
+  en: 87b55e04137085c3
+  zh: cdba4acf2e38b872
+/lyness-lyn-acp/model-experience/permission-decisions/token-effect:
+  en: bd0ded535cbedb19
+  zh: 47bcaa76827f88f2
+/lyness-lyn-acp/model-experience/permission-decisions/kv-cache-effect:
+  en: 83120763a07c4b72
+  zh: 6a1a181dc4da869d
+/lyness-lyn-acp/known-limitations-and-deferred-work:
+  en: 869579d8d68da2f9
+  zh: f48a201858d7360a
+/lyness-lyn-acp/known-limitations-and-deferred-work/dev-note:
+  en: e67f633dc6fe7773
+  zh: 3bb0c20c93f16f98

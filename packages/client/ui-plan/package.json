@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-client-ui-plan",
-  "description": "Plan-mode composer control: the conversation.input.plan seat over the plan projection and the /plan command channel",
-  "version": "0.1.5-rc.1",
+  "description": "Plan mode controls, persistent transcript plan cards, and sidebar Markdown previews",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -30,7 +30,12 @@
       "inject": [
         "@lyness/lyn-api-remotes",
         "@lyness/lyn-client-locale",
-        "@lyness/lyn-client-ui-conversation"
+        "@lyness/lyn-client-ui-conversation",
+        "@lyness/lyn-client-ui-sidebar-right",
+        "@lyness/lyn-client-ui-chat",
+        "@lyness/lyn-client-ui-user-questions",
+        "@lyness/lyn-client-resources",
+        "@lyness/lyn-api-session-controller"
       ],
       "platform": "web"
     }
@@ -41,22 +46,32 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/lyn-api-remotes": "workspace:^",
-    "@lyness/lyn-client-locale": "workspace:^",
-    "@lyness/lyn-client-test-runtime": "workspace:^",
-    "@lyness/lyn-client-ui-conversation": "workspace:^",
-    "@lyness/lyn-client-ui-primitives": "workspace:^",
-    "@lyness/lyn-client-ui-slots": "workspace:^",
-    "@lyness/lyn-plan-mode": "workspace:^",
+    "@lyness/lyn-client-store": "workspace:*",
+    "@lyness/lyn-api-remotes": "workspace:*",
+    "@lyness/lyn-client-locale": "workspace:*",
+    "@lyness/lyn-client-test-runtime": "workspace:*",
+    "@lyness/lyn-client-ui-conversation": "workspace:*",
+    "@lyness/lyn-client-ui-primitives": "workspace:*",
+    "@lyness/lyn-client-ui-slots": "workspace:*",
+    "@lyness/lyn-plan-mode": "workspace:*",
     "@types/react": "~18.3.1",
-    "@lyness/cordis": "workspace:^",
+    "@lyness/cordis": "workspace:~",
     "react": "^18.2.0",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-client-ui-renderer": "workspace:^",
-    "@lyness/lyn-client-ui-session": "workspace:^"
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-client-ui-renderer": "workspace:*",
+    "@lyness/lyn-client-ui-session": "workspace:*",
+    "@lyness/lyn-api-session-controller": "workspace:*",
+    "@lyness/lyn-client-ui-chat": "workspace:*",
+    "@lyness/lyn-client-ui-sidebar-right": "workspace:*",
+    "@lyness/lyn-client-ui-user-questions": "workspace:*",
+    "@lyness/lyn-client-resources": "workspace:*",
+    "@lyness/lyn-typert-protocol": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-tools": "workspace:*",
+    "@lyness/lyn-util-crypto": "workspace:*"
   },
   "files": [
     "lib/index.js",

@@ -1,6 +1,37 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/webhook/webhook-github/README.md
-README.md: 5260786ed435e5bfb941a9a275d1866b540e6e26
-README.zh.md: c5a79bfd0a99c751d5447950109e2f425261c444
+/:
+  en: 60db7ae899ed9fd9
+  zh: 4fe10fa8823aa6d1
+/lyness-lyn-webhook-github:
+  en: 2b7e121fceabd4f6
+  zh: 5ac4f459353872ff
+/lyness-lyn-webhook-github/summary:
+  en: d2b833e54f3355e1
+  zh: ed74084641be31a0
+/lyness-lyn-webhook-github/table-of-contents:
+  en: b946752a1c17cd00
+  zh: cdaaea55e4da6831
+/lyness-lyn-webhook-github/configuration:
+  en: a32a5195a6ae6a61
+  zh: a135089e86948290
+/lyness-lyn-webhook-github/http-contract:
+  en: 2d8b5cb8d44bef8e
+  zh: a98ec470d9d6bc2d
+/lyness-lyn-webhook-github/dedicated-listener-composition:
+  en: b2feeadc7ddd6573
+  zh: 4c9d7d788fbe591e
+/lyness-lyn-webhook-github/model-experience:
+  en: 729befd12d1e83cc
+  zh: 321d4f8fd738d0d6
+/lyness-lyn-webhook-github/model-experience/kv-cache-effect:
+  en: a7c54f451f61179e
+  zh: aaf25d0781ad4d6b
+/lyness-lyn-webhook-github/known-limitations-and-deferred-work:
+  en: 0c3192c3e300bb46
+  zh: 7c84d20e6a8a768e
+/lyness-lyn-webhook-github/known-limitations-and-deferred-work/dev-note:
+  en: bbd8c94f4d6a3c3d
+  zh: daeec1257fe65858

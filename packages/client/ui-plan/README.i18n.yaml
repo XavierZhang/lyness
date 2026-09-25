@@ -1,6 +1,46 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/ui-plan/README.md
-README.md: 4c43e4ef7b3056cf28ed0a78cf49f9bbdf17d555
-README.zh.md: 07857448c4b65eff9c44735264e6099542f12382
+/:
+  en: 1d5e0e4466f12e0f
+  zh: 14072627e89bc20b
+/lyness-lyn-client-ui-plan:
+  en: 43f3e26f3392145f
+  zh: a0aadc7a0f07d78e
+/lyness-lyn-client-ui-plan/summary:
+  en: 958c2c8bf80759a0
+  zh: 57ffbbfa1bcbdff4
+/lyness-lyn-client-ui-plan/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-client-ui-plan/use-this-package:
+  en: 2ea4dc3ede735265
+  zh: 20749520a0393800
+/lyness-lyn-client-ui-plan/use-this-package/what-the-chip-shows:
+  en: 1622db30d5378225
+  zh: 819c9cdb59d010a8
+/lyness-lyn-client-ui-plan/use-this-package/reading-submitted-plans:
+  en: 1d2fecc23c658516
+  zh: 24a894dc2bbb1b78
+/lyness-lyn-client-ui-plan/use-this-package/failures:
+  en: a13078ade4ef3b9d
+  zh: 2c8b3e8b62ad5652
+/lyness-lyn-client-ui-plan/understand-the-implementation:
+  en: d65a13a4cd567ae6
+  zh: a1bad7a7e4284f20
+/lyness-lyn-client-ui-plan/further-exploration:
+  en: 07e80c40dc5a5ce3
+  zh: db2620e80c21d4bb
+/lyness-lyn-client-ui-plan/model-experience:
+  en: 2f57dc275d27ece0
+  zh: 5c293e1daa15300c
+/lyness-lyn-client-ui-plan/model-experience/kv-cache-effect:
+  en: 0eeecf007103b9ba
+  zh: 4a105d4b5ec85547
+/lyness-lyn-client-ui-plan/known-limitations-and-deferred-work:
+  en: f74784ddad90a7e1
+  zh: 638ce5a243e6b5cc
+/lyness-lyn-client-ui-plan/known-limitations-and-deferred-work/dev-note:
+  en: 53576e07f209d06a
+  zh: 04d46435c2ff2000

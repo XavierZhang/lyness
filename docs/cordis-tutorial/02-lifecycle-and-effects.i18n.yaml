@@ -1,6 +1,16 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 02-lifecycle-and-effects.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write docs/cordis-tutorial/02-lifecycle-and-effects.md
-02-lifecycle-and-effects.md: 554897e472f713686092d38c23e3553ed034c07f
-02-lifecycle-and-effects.zh.md: a766a3859c0b81cc491679b9c3f35ac5d8d4d5f1
+/2-lifecycle-and-effects:
+  en: 3cc02bcad305faa6
+  zh: 33f89aba86f48610
+/2-lifecycle-and-effects/effects:
+  en: 2405133f23696f0e
+  zh: 30bcd69cba560176
+/2-lifecycle-and-effects/the-fiber-state-machine:
+  en: 33f5216242072591
+  zh: dbf249ec4f7e0457
+/2-lifecycle-and-effects/what-is-already-an-effect:
+  en: cfdeb01398502845
+  zh: fde0eb992945f01b

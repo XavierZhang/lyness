@@ -9,7 +9,7 @@
       name: './github-ready-review-rule.mjs'
       config:
         source: primary-github
-        repository: lyness/lyness
+        repository: deepseek-ai/lyness
         workspacePath: !!js process.env.LYNESS_GITHUB_REVIEW_WORKSPACE ?? process.cwd()
         agentPreset: standard
         permissionPreset: read-only

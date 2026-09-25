@@ -1,6 +1,67 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/web/web/README.md
-README.md: ad199d82fb9ae708657084c7be49718011315e48
-README.zh.md: b2323aac9a355a0c49e237bb0444461016184da9
+/:
+  en: 31868a4f15364a93
+  zh: 86824e1a18e237a7
+/lyness-lyn-web:
+  en: 44ba0a92ac593fe1
+  zh: c3226d514a43d1b2
+/lyness-lyn-web/summary:
+  en: 753f19019f2222e2
+  zh: f571531b1bc6eeca
+/lyness-lyn-web/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-web/use-this-package:
+  en: e999586af2a15656
+  zh: e83396968cdd4e1d
+/lyness-lyn-web/use-this-package/when-to-choose-it:
+  en: 63833410c94e07ea
+  zh: 31d6f786dc21ce73
+/lyness-lyn-web/use-this-package/minimal-configuration:
+  en: e566b34da72f0762
+  zh: 8e35b65c61929fa5
+/lyness-lyn-web/use-this-package/searching-and-fetching:
+  en: dadb69d5e0a36d13
+  zh: dfc64d6c0b6f7868
+/lyness-lyn-web/use-this-package/provider-selection:
+  en: a1d16fc8e3d3d7eb
+  zh: d7c91ce0bbd5e0e7
+/lyness-lyn-web/use-this-package/failures-and-recovery:
+  en: d8d09ed3839f6474
+  zh: 7164d902f333592a
+/lyness-lyn-web/understand-the-implementation:
+  en: a3364d8193deb7f0
+  zh: d1c4afbf25a7ae4d
+/lyness-lyn-web/understand-the-implementation/design-philosophy:
+  en: c4d5437cfb1e2157
+  zh: 411b1b398de73426
+/lyness-lyn-web/understand-the-implementation/source-map:
+  en: 75e450b263def321
+  zh: 7f28ff78ba2a5f03
+/lyness-lyn-web/understand-the-implementation/data-model:
+  en: d85ed328e64c1b7d
+  zh: c3c4a426781e53eb
+/lyness-lyn-web/understand-the-implementation/selection-flow:
+  en: 07dcd35a0a6369b2
+  zh: 927fe797d9079547
+/lyness-lyn-web/further-exploration:
+  en: 431e541ab9396c28
+  zh: e3544d8f02d26858
+/lyness-lyn-web/model-experience:
+  en: 73c745bafa84b95e
+  zh: 786fd40e84738580
+/lyness-lyn-web/model-experience/kv-cache-effect:
+  en: 40294c1c31b74824
+  zh: d75d48f485447a74
+/lyness-lyn-web/known-limitations-and-deferred-work:
+  en: ed5891ad4b44ad42
+  zh: b3c26ea2a54a3fab
+/lyness-lyn-web/known-limitations-and-deferred-work/dev-note:
+  en: 7f775cc79dbce94b
+  zh: 12b8f68f9e7c48ca
+/lyness-lyn-web/known-limitations-and-deferred-work/dev-note/future-observing-provider-state:
+  en: 855f97574a820579
+  zh: 360ff6cd2ed82904

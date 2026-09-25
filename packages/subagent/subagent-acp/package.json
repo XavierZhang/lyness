@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-subagent-acp",
   "description": "Out-of-process ACP subagent backend: drives a child agent in a spawned subprocess over the Agent Client Protocol",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -27,34 +27,34 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-agent": "workspace:^",
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-subagent": "workspace:^",
-    "@lyness/lyn-subprocess": "workspace:^",
-    "@lyness/lyn-timeout": "workspace:^"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-subagent": "workspace:*",
+    "@lyness/lyn-subprocess": "workspace:*",
+    "@lyness/lyn-timeout": "workspace:*"
   },
   "dependencies": {
     "@agentclientprotocol/sdk": "1.4.0",
-    "@lyness/lyn-brand": "workspace:^",
-    "@lyness/schemastery": "workspace:^"
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/schemastery": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/cordis-plugin-loader": "workspace:^",
-    "@lyness/lyn-agent": "workspace:^",
-    "@lyness/lyn-app-boot": "workspace:^",
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-loader-smoke": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-session-checkpoint-policy": "workspace:^",
-    "@lyness/lyn-session-persistence-jsonl": "workspace:^",
-    "@lyness/lyn-session-projection": "workspace:^",
-    "@lyness/lyn-subagent": "workspace:^",
-    "@lyness/lyn-subprocess": "workspace:^",
-    "@lyness/lyn-subprocess-local": "workspace:^",
-    "@lyness/lyn-timeout": "workspace:^",
-    "@lyness/lyn-tool-subagent": "workspace:^"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/cordis-plugin-loader": "workspace:~",
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/lyn-app-boot": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-loader-smoke": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-session-checkpoint-policy": "workspace:*",
+    "@lyness/lyn-session-persistence-jsonl": "workspace:*",
+    "@lyness/lyn-session-projection": "workspace:*",
+    "@lyness/lyn-subagent": "workspace:*",
+    "@lyness/lyn-subprocess": "workspace:*",
+    "@lyness/lyn-subprocess-local": "workspace:*",
+    "@lyness/lyn-timeout": "workspace:*",
+    "@lyness/lyn-tool-subagent": "workspace:*"
   }
 }

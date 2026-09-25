@@ -1,6 +1,25 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for multi-tenancy.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write docs/subsystems/multi-tenancy.md
-multi-tenancy.md: 3c61e7846647619804a4f04247c7ac30c9a0c905
-multi-tenancy.zh.md: e1e31f6fad1dc911c785055af8aaf81b0fb9bbcc
+/multi-tenancy:
+  en: 1dae58e29e19b5f2
+  zh: f9168c5f127fdbe3
+/multi-tenancy/the-tenant:
+  en: c88c0b3c28523ec5
+  zh: 3ec1615af82e8dea
+/multi-tenancy/resolving-a-request:
+  en: 0a8aba3f14ab421e
+  zh: 25553a3e8a59ec8a
+/multi-tenancy/tenant-configuration:
+  en: 445b6963230ce3ca
+  zh: 808f53eb59d37d5e
+/multi-tenancy/configuring-a-tenant-over-rpc:
+  en: 5675cd5945212527
+  zh: 153fe92508d50c5a
+/multi-tenancy/in-the-session-log:
+  en: 96672e70a490e8e6
+  zh: 77183c456f3bbcef
+/multi-tenancy/the-roster:
+  en: e8e1e1add47926f2
+  zh: fc0dbb6b1270ff31

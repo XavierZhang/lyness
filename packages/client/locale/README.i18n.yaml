@@ -1,6 +1,64 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/locale/README.md
-README.md: e8f7a95f2be227e90b0d4e78d74b18664791964a
-README.zh.md: 8b7e972c3f4df04457a8e71b49b109d84cc762de
+/:
+  en: d2aaa955e01c2679
+  zh: 9d264cf8be1536cf
+/lyness-lyn-client-locale:
+  en: 6c8e2452cfbb5d37
+  zh: ead34ea40980c530
+/lyness-lyn-client-locale/summary:
+  en: 162a142fc19f01d6
+  zh: 17c7b450c1911910
+/lyness-lyn-client-locale/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: bda879a892f240f0
+/lyness-lyn-client-locale/use-this-package:
+  en: 7fedfbcbc3ad8cea
+  zh: e29ba5230e0b9ecb
+/lyness-lyn-client-locale/use-this-package/choosing-a-language:
+  en: 6c29f124fccac07f
+  zh: d86e1a4e55a9f39b
+/lyness-lyn-client-locale/use-this-package/registering-a-dictionary:
+  en: 9b2fcfa8cae8dc4b
+  zh: 293012a4d364ef59
+/lyness-lyn-client-locale/use-this-package/resolving-package-text:
+  en: afe48a6ca9ced516
+  zh: 589dc2c4f2233783
+/lyness-lyn-client-locale/use-this-package/registering-a-language-pack:
+  en: aa4e9c70523339cc
+  zh: 3359eddc4e9ef15e
+/lyness-lyn-client-locale/use-this-package/what-the-host-half-does:
+  en: 8fa91333f7fc3387
+  zh: 789a9cbb3eace3b0
+/lyness-lyn-client-locale/understand-the-implementation:
+  en: 288d8db39f9acfc5
+  zh: d65cf2ffae8ad35c
+/lyness-lyn-client-locale/understand-the-implementation/design-concept:
+  en: a57e83d59b7ac881
+  zh: 93a3e7951e50caed
+/lyness-lyn-client-locale/understand-the-implementation/preference-resolution:
+  en: 4bc9dffa4629f537
+  zh: f51633c658b8d25b
+/lyness-lyn-client-locale/understand-the-implementation/dictionary-lookup:
+  en: f8dcc4035830e738
+  zh: 8452ac63ee148c61
+/lyness-lyn-client-locale/understand-the-implementation/source-map:
+  en: a382e032c06ced3f
+  zh: 419cb5f60b075388
+/lyness-lyn-client-locale/further-exploration:
+  en: 5f78facf64110011
+  zh: aa80643a999a11b8
+/lyness-lyn-client-locale/model-experience:
+  en: 209321ba2d2e6710
+  zh: 21deb6c973f69b66
+/lyness-lyn-client-locale/model-experience/kv-cache-effect:
+  en: ca75c51c89c2c9b0
+  zh: de54f3467ef3b9be
+/lyness-lyn-client-locale/known-limitations-and-deferred-work:
+  en: 500ede048ef44c6a
+  zh: f741fae55b29a627
+/lyness-lyn-client-locale/known-limitations-and-deferred-work/dev-note:
+  en: 82fb34d8a128a0ac
+  zh: fa3f40c900032aae

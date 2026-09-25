@@ -24,52 +24,25 @@ import { fileURLToPath, pathToFileURL } from 'node:url'
 
 const repositoryRoot = fileURLToPath(new URL('../../../../../', import.meta.url))
 const DOCKKIT_BUNDLE = 'packages/client/ui-dockkit/lib/index.js'
-const DOCKKIT_CSS = join(repositoryRoot, 'packages/client/ui-dockkit/lib/components/dockkit.module.css')
-const REFUSED_STYLESHEET = /^Unknown file extension "\.css" for (.+)$/
 
 /**
  * Files Node's ESM loader cannot import in this repository. None is a finding:
  * each is listed with the reason the import fails, and the run refuses a
  * listed file that imports cleanly so the list stays current in both
- * directions. The koffi entry depends on corpus order: sandbox-windows-acl
- * imports the win32-process package earlier in the serial sweep (a distinct
- * module instance under its node_modules URL), so win32-process's own file-URL
- * import re-registers koffi's type names and fails as the second load.
+ * directions.
+ *
+ * The Dockkit entry admits only Node's refusal of a `.css` import, not one
+ * exact stylesheet: the swept bundle's first unresolvable stylesheet depends on
+ * its import graph and on how the launcher resolves workspace packages, so a
+ * pinned path would certify an import order instead of the `.css` exemption.
  */
 const BASELINE_EXEMPT: ReadonlyMap<string, string> = new Map([
   [DOCKKIT_BUNDLE, 'imports .css, which bare Node cannot load'],
   ['packages/client/ui-primitives/lib/index.js', 'imports .css, which bare Node cannot load'],
   ['packages/client/web/lib/index.js', 'imports .css, which bare Node cannot load'],
-  ['packages/subprocess/win32-process/lib/index.js', 'koffi type-name collision on a second load'],
   ['packages/test-support/client-runtime/lib/index.js', "needs vitest's internal state"],
 ])
 
-/**
- * Package directories other than dockkit whose own bundle is exempt for a
- * stylesheet import.
- *
- * Dockkit externalizes its primitives dependency, so importing dockkit's bundle
- * loads that package first and the loader names ITS stylesheet. Tolerating a
- * stylesheet from one of these packages keeps the dockkit exemption narrow —
- * a stylesheet dockkit itself introduces, other than the one named above, is
- * still a finding — without pinning whichever file the dependency happens to
- * import first.
- */
-const STYLESHEET_EXEMPT_PACKAGES: readonly string[] = [...BASELINE_EXEMPT]
-  .filter(([bundle, reason]) => bundle !== DOCKKIT_BUNDLE && reason.includes('.css'))
-  .map(([bundle]) => bundle.slice(0, bundle.indexOf('/lib/')))
-
-/**
- * True when a refused stylesheet belongs to a package already exempt for one.
- * @param message - the loader's failure message.
- * @returns Whether the stylesheet is inherited from an exempt dependency.
- */
-function inheritedStylesheet(message: string): boolean {
-  const stylesheet = REFUSED_STYLESHEET.exec(message)?.[1]
-  if (stylesheet === undefined) return false
-  const owned = relative(stylesheet)
-  return STYLESHEET_EXEMPT_PACKAGES.some(directory => owned.startsWith(`${directory}/`))
-}
 
 let failures = 0
 const report: string[] = []
@@ -123,6 +96,16 @@ function discover(): string[] {
  */
 const relative = (path: string): string => path.slice(repositoryRoot.length).replaceAll('\\', '/')
 
+/**
+ * @param reason - the value the corpus import rejected with.
+ * @returns whether bare Node refused a `.css` import, the failure the Dockkit
+ * exemption admits.
+ */
+const isUnknownCssExtension = (reason: unknown): boolean =>
+  reason instanceof Error
+  && 'code' in reason && reason.code === 'ERR_UNKNOWN_FILE_EXTENSION'
+  && reason.message.startsWith('Unknown file extension ".css" for ')
+
 const files = process.argv.slice(2).length > 0
   ? process.argv.slice(2).map(path => (path.startsWith('/') ? path : join(process.cwd(), path)))
   : discover()
@@ -139,11 +122,7 @@ if (files.length === 0) {
     try {
       await import(pathToFileURL(file).href)
     } catch (reason) {
-      const expectedDockkitCss = reason instanceof Error
-        && 'code' in reason && reason.code === 'ERR_UNKNOWN_FILE_EXTENSION'
-        && (reason.message === `Unknown file extension ".css" for ${DOCKKIT_CSS}`
-          || inheritedStylesheet(reason.message))
-      if (exemption === undefined || (key === DOCKKIT_BUNDLE && !expectedDockkitCss)) {
+      if (exemption === undefined || (key === DOCKKIT_BUNDLE && !isUnknownCssExtension(reason))) {
         // A bundle that stopped being importable is a real finding, so it
         // fails rather than joining a tolerated total.
         fail(`- UNEXPECTED BASELINE FAILURE ${key}: ${(reason as Error).message.split('\n')[0]}`)

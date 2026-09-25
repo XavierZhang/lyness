@@ -1,0 +1,55 @@
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write packages/experimental/computer-use-cua-driver-mcp/README.md
+/:
+  en: 9402e76135b1a640
+  zh: 13645ec9b9fe38de
+/lyness-lyn-experimental-computer-use-cua-driver-mcp:
+  en: 1641bd7c962cff2a
+  zh: c648990a1bb173ea
+/lyness-lyn-experimental-computer-use-cua-driver-mcp/summary:
+  en: 44777c18cdaf3b1a
+  zh: c9074f5857539122
+/lyness-lyn-experimental-computer-use-cua-driver-mcp/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 725b47765ee8f30b
+/lyness-lyn-experimental-computer-use-cua-driver-mcp/use-this-package:
+  en: 4c64e68b6f20ffc1
+  zh: 52bd2fcb9118074d
+/lyness-lyn-experimental-computer-use-cua-driver-mcp/use-this-package/minimal-configuration:
+  en: 3f912f3eafa09f2f
+  zh: 6622067b48c35197
+/lyness-lyn-experimental-computer-use-cua-driver-mcp/use-this-package/activation-and-ownership:
+  en: 996978b39fb3c430
+  zh: e380c910bfba5634
+/lyness-lyn-experimental-computer-use-cua-driver-mcp/understand-the-implementation:
+  en: 95f7a180b2b3eb6e
+  zh: b5916cec6c4d4ad5
+/lyness-lyn-experimental-computer-use-cua-driver-mcp/understand-the-implementation/verify-an-installed-driver:
+  en: 37e17450b3cc5632
+  zh: d2c1a9bd28f9deb6
+/lyness-lyn-experimental-computer-use-cua-driver-mcp/further-exploration:
+  en: 5cbc0f8084c12957
+  zh: e93be6936671327a
+/lyness-lyn-experimental-computer-use-cua-driver-mcp/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/lyness-lyn-experimental-computer-use-cua-driver-mcp/model-experience/cua-driver-tools-and-screenshots:
+  en: 9d221bfceb3efcf9
+  zh: 3ee738cd4d24157e
+/lyness-lyn-experimental-computer-use-cua-driver-mcp/model-experience/cua-driver-tools-and-screenshots/what-the-model-sees:
+  en: 721e7cd3fba61ad4
+  zh: da2b6d63450101dc
+/lyness-lyn-experimental-computer-use-cua-driver-mcp/model-experience/cua-driver-tools-and-screenshots/token-effect:
+  en: fd697825fdf78c9b
+  zh: 973cf9a0caaaa558
+/lyness-lyn-experimental-computer-use-cua-driver-mcp/model-experience/cua-driver-tools-and-screenshots/kv-cache-effect:
+  en: 7064d248c94a5c4c
+  zh: 18abcf5142c078c7
+/lyness-lyn-experimental-computer-use-cua-driver-mcp/known-limitations-and-deferred-work:
+  en: a02e940da29a9fc1
+  zh: c2d2fb6a0d8cac5a
+/lyness-lyn-experimental-computer-use-cua-driver-mcp/known-limitations-and-deferred-work/dev-note:
+  en: e67f633dc6fe7773
+  zh: 8ec3e73528ddb1a6

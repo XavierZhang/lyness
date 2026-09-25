@@ -9,7 +9,7 @@
       name: './github-webhook-rule.mjs'
       config:
         source: github-real-e2e
-        repository: lyness/lyness
+        repository: deepseek-ai/lyness
         workspacePath: !!js process.env.LYNESS_GITHUB_E2E_WORKSPACE
         marker: !!js process.env.LYNESS_GITHUB_E2E_MARKER
         agentPreset: minimal

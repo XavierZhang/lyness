@@ -1,6 +1,61 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/boot/cmdline/README.md
-README.md: a04d1ec4045d48ee2ebded5b73405d0e505cf8a1
-README.zh.md: a210d36d6d6851084f95cef49b88dbade8e9c0e3
+/:
+  en: f932cd9d910a099a
+  zh: ef44636984eab8ff
+/lyness-lyn-cmdline:
+  en: 268ea6c8e9bdfda2
+  zh: 5b498d2724a94cb6
+/lyness-lyn-cmdline/summary:
+  en: f7613547cec6ed45
+  zh: ac8831c6a57cd493
+/lyness-lyn-cmdline/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-cmdline/use-this-package:
+  en: ad6f55231a2cb77d
+  zh: 9039fa43deeaa458
+/lyness-lyn-cmdline/use-this-package/the-launcher-values:
+  en: a6e3e457e32b6b76
+  zh: e7ec3e59cc8afadd
+/lyness-lyn-cmdline/use-this-package/parsing-your-flags:
+  en: f22652492585f198
+  zh: 343caa31f2a1f713
+/lyness-lyn-cmdline/use-this-package/how-flags-beat-config-values:
+  en: 301e1dc64b9ffdce
+  zh: d2fbd70267fe7bda
+/lyness-lyn-cmdline/use-this-package/reading-the-same-arguments-from-several-plugins:
+  en: 9078403a8341b8d6
+  zh: 7a6af7c16924ff03
+/lyness-lyn-cmdline/understand-the-implementation:
+  en: f4a2695cb4c8a570
+  zh: 89837235d2f376cf
+/lyness-lyn-cmdline/understand-the-implementation/design-notes:
+  en: 0753fe84c14e7d0b
+  zh: acc5c2224fac229e
+/lyness-lyn-cmdline/understand-the-implementation/parsing-contract:
+  en: 720b38c4c9afeb93
+  zh: b43160d7176e5799
+/lyness-lyn-cmdline/understand-the-implementation/source-map:
+  en: 9867efd4c939077c
+  zh: 00247b7fe19bc2eb
+/lyness-lyn-cmdline/further-exploration:
+  en: e46805b6dda6871b
+  zh: ba6377d68a5ab789
+/lyness-lyn-cmdline/model-experience:
+  en: f9f5061b618b962a
+  zh: 75c6de06b1d981a0
+/lyness-lyn-cmdline/model-experience/kv-cache-effect:
+  en: ca75c51c89c2c9b0
+  zh: f57cc48a1b5cbfa9
+/lyness-lyn-cmdline/known-limitations-and-deferred-work:
+  en: ff2d1068ce4ac0cd
+  zh: 6ab1d54e99c58285
+/lyness-lyn-cmdline/known-limitations-and-deferred-work/dev-note:
+  en: d2f0d68fe29fb750
+  zh: 323d21ee73a9e3f6
+/lyness-lyn-cmdline/known-limitations-and-deferred-work/dev-note/open-parser-surface:
+  en: a82e0020f6f2eb84
+  zh: 66b1f97dc6f15370

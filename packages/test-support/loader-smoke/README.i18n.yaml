@@ -1,6 +1,58 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/test-support/loader-smoke/README.md
-README.md: 9f68cc3d24629c98c0f74f9bc73128de155622f0
-README.zh.md: 8571d7fc4f95b4576487ced8c71e74723d88d1d8
+/:
+  en: 00a7ac59f751e4d0
+  zh: 35334966b956621d
+/lyness-lyn-loader-smoke:
+  en: fc7cd79b5c5c1c59
+  zh: c714b983208643fd
+/lyness-lyn-loader-smoke/summary:
+  en: 1b505c3899290305
+  zh: 86cbdb522f67fe95
+/lyness-lyn-loader-smoke/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-loader-smoke/use-this-package:
+  en: 682780f6cbeb85cb
+  zh: 07a2458db985471a
+/lyness-lyn-loader-smoke/use-this-package/booting-an-application-fixture:
+  en: 01f96fb00d15b93c
+  zh: 3677fd87bb2c066a
+/lyness-lyn-loader-smoke/use-this-package/testing-a-shipped-profile:
+  en: 53af518371f7d11c
+  zh: 90e25dda8a39d0af
+/lyness-lyn-loader-smoke/use-this-package/driving-a-fixture-turn:
+  en: c99402b3d2219738
+  zh: cbff00f4bfb7d625
+/lyness-lyn-loader-smoke/use-this-package/source-or-built-mode:
+  en: 684c99f7034e8263
+  zh: 7502aba97826e969
+/lyness-lyn-loader-smoke/use-this-package/what-can-go-wrong:
+  en: 1f0fad86bd0804f7
+  zh: b4b7a575df483e4e
+/lyness-lyn-loader-smoke/understand-the-implementation:
+  en: 3ffb8df759bf5071
+  zh: a93d3dd6472d9782
+/lyness-lyn-loader-smoke/understand-the-implementation/design:
+  en: 7de6fa14aa5136b6
+  zh: 25fe4008d4d098f7
+/lyness-lyn-loader-smoke/understand-the-implementation/source-map:
+  en: 4212f963f739e76e
+  zh: 1a08bcb7654df951
+/lyness-lyn-loader-smoke/further-exploration:
+  en: 7ccb5f4998f8d61b
+  zh: 786b6ae32313c700
+/lyness-lyn-loader-smoke/model-experience:
+  en: 27696a3c4d31d171
+  zh: 48b6df074e0b0911
+/lyness-lyn-loader-smoke/model-experience/kv-cache-effect:
+  en: c204a02c386ca3a0
+  zh: ce9b24304f9644aa
+/lyness-lyn-loader-smoke/known-limitations-and-deferred-work:
+  en: a3e0e21178bb00cc
+  zh: f3dc6139370330f6
+/lyness-lyn-loader-smoke/known-limitations-and-deferred-work/dev-note:
+  en: e67f633dc6fe7773
+  zh: 3bb0c20c93f16f98

@@ -2,7 +2,7 @@
 # a separate SDK child runtime. Both runtimes persist their request headers.
 
 - id: llm-deepseek
-  name: '@lyness/lyn-llm-deepseek'
+  name: '@lyness/lyn-llm-deepseek-api-key'
   disabled: true
 
 - id: tool-subagent
@@ -59,3 +59,7 @@
       disabled: !!js process.env.LYNESS_SNAPSHOT !== 'record'
       config:
         maxTokensAsSuccess: true
+
+- id: session-log-deepseek
+  config:
+    enabled: false

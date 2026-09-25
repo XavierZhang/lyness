@@ -27,11 +27,11 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-llm-deepseek": "workspace:^"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-llm-deepseek": "workspace:*"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-llm-deepseek": "workspace:^"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-llm-deepseek": "workspace:*"
   }
 }

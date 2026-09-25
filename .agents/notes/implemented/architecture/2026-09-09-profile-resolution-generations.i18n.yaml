@@ -1,0 +1,52 @@
+# Bilingual-pair consistency record for 2026-09-09-profile-resolution-generations.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-09-09-profile-resolution-generations.md
+/agent-note-add-immutable-profile-resolution-generations:
+  en: 8a5d12a248d375dc
+  zh: 2f0af9f1269459c7
+/agent-note-add-immutable-profile-resolution-generations/problem:
+  en: 8e192c176fe48c4c
+  zh: adb965d650088eb0
+/agent-note-add-immutable-profile-resolution-generations/decision:
+  en: a3022a87337058c5
+  zh: 1d53a08a25ed6eb3
+/agent-note-add-immutable-profile-resolution-generations/decision/one-selection-algorithm:
+  en: cc0eca689a6e0ad3
+  zh: 588925491946534f
+/agent-note-add-immutable-profile-resolution-generations/decision/ordinary-and-linked-package-examples:
+  en: f77ef79e2499a0dc
+  zh: 4bc28292763a1075
+/agent-note-add-immutable-profile-resolution-generations/decision/source-and-built-module-identity:
+  en: 296cbc175291cc9e
+  zh: 92b066033fa1c5d0
+/agent-note-add-immutable-profile-resolution-generations/decision/immutable-generations:
+  en: cd4e64bd80f448a2
+  zh: 585e1fbd8721ae99
+/agent-note-add-immutable-profile-resolution-generations/decision/shared-esm-and-commonjs-rule:
+  en: fb1ca9029bdefaac
+  zh: 3ceb2e42e52a3d2b
+/agent-note-add-immutable-profile-resolution-generations/decision/active-plugin-list-and-package-metadata:
+  en: 34cdbe1a3d9c4fd7
+  zh: 5d8f122d78861afe
+/agent-note-add-immutable-profile-resolution-generations/decision/workers-and-generation-updates:
+  en: 99308bd758859e02
+  zh: 35f1e7719fe80d2e
+/agent-note-add-immutable-profile-resolution-generations/decision/additive-package-changes:
+  en: 718dfa7826783f2a
+  zh: 21c3d5fdfae9cb99
+/agent-note-add-immutable-profile-resolution-generations/decision/filesystem-and-runtime-carriers:
+  en: 0c7605e14e52629c
+  zh: 690b4947f9372e16
+/agent-note-add-immutable-profile-resolution-generations/decision/performance-and-verification:
+  en: bf7bd2f8371f54f3
+  zh: 426c3b33af8874b8
+/agent-note-add-immutable-profile-resolution-generations/alternatives-considered:
+  en: 2426173c58a17a48
+  zh: 0423b3700273accd
+/agent-note-add-immutable-profile-resolution-generations/verification:
+  en: 1cbf65b1e831f064
+  zh: 6a237409905ce260
+/agent-note-add-immutable-profile-resolution-generations/consequences:
+  en: 54cae20b2734a07e
+  zh: caa334f8f7a40452

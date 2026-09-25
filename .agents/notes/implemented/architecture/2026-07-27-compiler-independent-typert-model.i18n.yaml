@@ -1,6 +1,22 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-07-27-compiler-independent-typert-model.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-07-27-compiler-independent-typert-model.md
-2026-07-27-compiler-independent-typert-model.md: c3e7bbb774f9b3c8cb08ac6471c35d428bb4da69
-2026-07-27-compiler-independent-typert-model.zh.md: 4feddcbde1e570e93cbcb91f4dfca87462cf73d7
+/agent-note-compiler-independent-typert-type-model:
+  en: 1b3d210af9708e18
+  zh: 40811bae61bc1341
+/agent-note-compiler-independent-typert-type-model/problem:
+  en: 77713a6c0d15207e
+  zh: 2dc30d4c0182d8ba
+/agent-note-compiler-independent-typert-type-model/decision:
+  en: 3b2563b713d23d99
+  zh: 9128b1927e24ed09
+/agent-note-compiler-independent-typert-type-model/verification-contract:
+  en: cbc38b8b2d3e248d
+  zh: b1ed78714240332b
+/agent-note-compiler-independent-typert-type-model/alternatives-considered:
+  en: 0e94dddc67fd6b35
+  zh: 390f8d05d42fedf9
+/agent-note-compiler-independent-typert-type-model/consequences:
+  en: 4a472acf377f8361
+  zh: cb83602b123a4aae

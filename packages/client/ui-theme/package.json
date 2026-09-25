@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-client-ui-theme",
   "description": "Theme plugin: Host bootstrap for the pre-plugin palette; DOM-free ThemeRuntime for light/dark/system state; --dsw-* token styles and Appearance settings row",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -23,7 +23,8 @@
       "default": "./lib/client.js"
     },
     "./src/*": "./src/*",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./brand-font.css": "./lib/styles/brand-font.css"
   },
   "lyn": {
     "client": {
@@ -40,24 +41,24 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-api-remotes": "workspace:^",
-    "@lyness/lyn-client-connection": "workspace:^",
-    "@lyness/lyn-client-locale": "workspace:^",
-    "@lyness/lyn-client-store": "workspace:^",
-    "@lyness/lyn-client-test-runtime": "workspace:^",
-    "@lyness/lyn-client-ui-primitives": "workspace:^",
-    "@lyness/lyn-client-ui-renderer": "workspace:^",
-    "@lyness/lyn-client-ui-settings": "workspace:^",
-    "@lyness/lyn-client-ui-slots": "workspace:^",
-    "@lyness/lyn-host-webserver": "workspace:^",
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-api-remotes": "workspace:*",
+    "@lyness/lyn-client-connection": "workspace:*",
+    "@lyness/lyn-client-locale": "workspace:*",
+    "@lyness/lyn-client-store": "workspace:*",
+    "@lyness/lyn-client-test-runtime": "workspace:*",
+    "@lyness/lyn-client-ui-primitives": "workspace:*",
+    "@lyness/lyn-client-ui-renderer": "workspace:*",
+    "@lyness/lyn-client-ui-settings": "workspace:*",
+    "@lyness/lyn-client-ui-slots": "workspace:*",
+    "@lyness/lyn-host-webserver": "workspace:*",
     "@types/react": "~18.3.1",
     "react": "^18.2.0",
-    "@lyness/lyn-settings": "workspace:^",
-    "clsx": "^2.0.0"
+    "clsx": "^2.0.0",
+    "@lyness/lyn-settings": "workspace:*"
   },
   "files": [
     "lib/index.js",
@@ -70,6 +71,6 @@
     "watch": "tsdown --watch"
   },
   "dependencies": {
-    "@lyness/schemastery": "workspace:^"
+    "@lyness/schemastery": "workspace:~"
   }
 }

@@ -4,6 +4,7 @@
  * entry; this package only contributes the single occupant, so no SlotMap
  * merge lives here.
  */
+import type { RemoteResult } from '@lyness/lyn-typert-protocol'
 import type { ModelSelection } from '@lyness/lyn-api-remotes/client'
 import type { SnapshotStore } from '@lyness/lyn-client-store'
 import type { ModelDirectoryState } from './directory.ts'
@@ -19,7 +20,7 @@ export interface ModelSelectInjected {
   /**
    * Select a complete provider/model/reasoning selection.
    * @param selection - model selection and optional adapter-owned effort.
-   * @returns whether the host accepted the selection.
+   * @returns the Host outcome, or undefined when this Session cannot select a model.
    */
-  select: (selection: ModelSelection) => Promise<boolean>
+  select: (selection: ModelSelection) => Promise<RemoteResult<void> | undefined>
 }

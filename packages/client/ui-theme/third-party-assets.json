@@ -1,0 +1,31 @@
+{
+  "assets": [
+    {
+      "file": "src/styles/montserrat-light.woff2",
+      "name": "Montserrat Light",
+      "version": "2024",
+      "license": "OFL-1.1",
+      "licenseFile": "src/styles/Montserrat-OFL.txt",
+      "source": "https://github.com/JulietaUla/Montserrat",
+      "sha256": "da25f1327eb1dcc70c193897b5d7e00d31821d9518c0a49e073ff50d97a3f10a"
+    },
+    {
+      "file": "src/styles/montserrat-medium.woff2",
+      "name": "Montserrat Medium",
+      "version": "2024",
+      "license": "OFL-1.1",
+      "licenseFile": "src/styles/Montserrat-OFL.txt",
+      "source": "https://github.com/JulietaUla/Montserrat",
+      "sha256": "8a81ca6f05cb6831d5487e4b287ce5a625a718c39226b736f155900adc394166"
+    },
+    {
+      "file": "src/styles/montserrat-regular.woff2",
+      "name": "Montserrat Regular",
+      "version": "2024",
+      "license": "OFL-1.1",
+      "licenseFile": "src/styles/Montserrat-OFL.txt",
+      "source": "https://github.com/JulietaUla/Montserrat",
+      "sha256": "0f4a15e29a9535af580a64db967929a8d6b202fad9a467be390619a591d2c4c5"
+    }
+  ]
+}

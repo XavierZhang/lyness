@@ -1,6 +1,55 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/sdk/protocol/README.md
-README.md: 1ddd10d59659103ddb7f306361f5858532d12aa7
-README.zh.md: 4850b5186cc76ed4698faa8964c391782f2b18b7
+/:
+  en: f7e65364dfe462b8
+  zh: 20d2b8f84f10f681
+/lyness-lyn-sdk-protocol:
+  en: 1594159b0c54cd90
+  zh: a14f42c4e9675d74
+/lyness-lyn-sdk-protocol/summary:
+  en: 1bd39dbea6682fe3
+  zh: 6ceacd8cc2097afa
+/lyness-lyn-sdk-protocol/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-sdk-protocol/use-this-package:
+  en: c4ca91b51aab452a
+  zh: 1c77b1deaeb34931
+/lyness-lyn-sdk-protocol/use-this-package/framing-and-transport:
+  en: be53c71505c0d1b4
+  zh: 6210dee577715539
+/lyness-lyn-sdk-protocol/use-this-package/the-sdk-methods:
+  en: 8cfc9efc99c7198d
+  zh: ac00d94406fc2388
+/lyness-lyn-sdk-protocol/use-this-package/payload-semantics:
+  en: 9005fd1ea3a14602
+  zh: 3bec58230a581af6
+/lyness-lyn-sdk-protocol/understand-the-implementation:
+  en: a11b136d8296deda
+  zh: 85081da5be53c9e1
+/lyness-lyn-sdk-protocol/understand-the-implementation/design-concept:
+  en: bc4b8dfc36ed4565
+  zh: 6a707eff1a4bbf2f
+/lyness-lyn-sdk-protocol/understand-the-implementation/source-map:
+  en: bfeb9999d7e71aaf
+  zh: afc873a229bb4bc5
+/lyness-lyn-sdk-protocol/understand-the-implementation/frame-dispatch:
+  en: eaf7d095810481c8
+  zh: 92767f908500be5e
+/lyness-lyn-sdk-protocol/further-exploration:
+  en: 3285f5372bb6e090
+  zh: 1d7c0d45ae2fc8c4
+/lyness-lyn-sdk-protocol/model-experience:
+  en: 1c3205c59385b059
+  zh: 9198a341567beca0
+/lyness-lyn-sdk-protocol/model-experience/kv-cache-effect:
+  en: ca75c51c89c2c9b0
+  zh: 696d26adaf4eda6d
+/lyness-lyn-sdk-protocol/known-limitations-and-deferred-work:
+  en: 39add2b1a4924d3f
+  zh: 85aa9a68a5efad2c
+/lyness-lyn-sdk-protocol/known-limitations-and-deferred-work/dev-note:
+  en: 951fa06249790ac1
+  zh: da66e7f53df3ab00

@@ -1,0 +1,37 @@
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write packages/preset/agent-preset/README.md
+/:
+  en: a3eb6ca39858c3d0
+  zh: 6fc16750d5f06034
+/lyness-lyn-agent-preset:
+  en: badc7a291db8c488
+  zh: d2b3e438d9ab5f85
+/lyness-lyn-agent-preset/summary:
+  en: af8933f035049563
+  zh: ab7a5f3dc562e84d
+/lyness-lyn-agent-preset/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: b3ad7867f23dad1c
+/lyness-lyn-agent-preset/use-this-package:
+  en: a403abbf4d126f04
+  zh: d8d1d643e789cd1f
+/lyness-lyn-agent-preset/understand-the-implementation:
+  en: e203a07f4ff9632f
+  zh: bea9c0aec4b35160
+/lyness-lyn-agent-preset/further-exploration:
+  en: 46a74dd32cd1f490
+  zh: 58e5ec11a723a8e4
+/lyness-lyn-agent-preset/model-experience:
+  en: e982cd210104c513
+  zh: cbde971d870c7ca5
+/lyness-lyn-agent-preset/model-experience/kv-cache-effect:
+  en: 4644bd5f0c865667
+  zh: 9aedc8ac43fb8b61
+/lyness-lyn-agent-preset/known-limitations-and-deferred-work:
+  en: d4dbce86236e8e91
+  zh: 11766aef5d0ff536
+/lyness-lyn-agent-preset/known-limitations-and-deferred-work/dev-note:
+  en: af1f8da6d3acb3e2
+  zh: e0c4f6afeefd5214

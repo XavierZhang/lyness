@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-sdk-client",
   "description": "TypeScript client SDK for driving a lyness runtime subprocess over stdio JSON-RPC: the Lyness high-level turns API and the lower-level HarnessClient",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -29,15 +29,15 @@
     "@lyness/lyn": "workspace:*"
   },
   "peerDependencies": {
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-sdk-protocol": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-sdk-protocol": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-sdk-protocol": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-sdk-protocol": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   }
 }

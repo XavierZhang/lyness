@@ -9,6 +9,7 @@
  */
 
 import type { Context } from '@lyness/cordis'
+import { CommandDefinitionId } from '@lyness/lyn-commands/brand'
 import type { CommandInvocation, CommandResult } from '@lyness/lyn-commands'
 import type { Session } from '@lyness/lyn-session'
 import { getOrCreateAnonymousUserId } from '@lyness/lyn-anonymous-user-id'
@@ -116,8 +117,9 @@ export class SessionFeedbackService extends TypertRemoteService {
 export function apply(ctx: Context): void {
   ctx.plugin(SessionFeedbackService)
   ctx.commands.register({
+    definitionId: CommandDefinitionId('@lyness/lyn-command-feedback'),
     name: 'feedback',
-    description: 'record feedback about this session',
+    description: 'Record feedback about this session',
     input: { hint: '<text>' },
     recordInput: false,
     handler: executeFeedbackCommand,

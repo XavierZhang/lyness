@@ -1,0 +1,83 @@
+{
+  "name": "@lyness/lyn-experimental-auto-review",
+  "description": "Per-tool LLM authorization review for the lyness Auto permission preset",
+  "version": "0.1.7-rc.2",
+  "icon": "./icon.svg",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "directory": "packages/experimental/auto-review"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./locale/*.json": "./locale/*.json",
+    "./src/*": "./src/*",
+    "./package.json": "./package.json",
+    "./cordis.patch.yml": "./cordis.patch.yml"
+  },
+  "files": [
+    "icon.svg",
+    "locale/*.json",
+    "lib/index.js",
+    "cordis.patch.yml",
+    "lib/types/**/*.d.ts"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/lyn-agent-instructions": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-permission-presets": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-tools": "workspace:*",
+    "@lyness/cordis": "workspace:~"
+  },
+  "dependencies": {
+    "@lyness/lyn-util-values": "workspace:*"
+  },
+  "devDependencies": {
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/lyn-agent-instructions": "workspace:*",
+    "@lyness/lyn-agent-loop": "workspace:*",
+    "@lyness/lyn-agent-loop-testkit": "workspace:*",
+    "@lyness/lyn-bash-sandbox": "workspace:*",
+    "@lyness/lyn-compaction": "workspace:*",
+    "@lyness/lyn-fs-local": "workspace:*",
+    "@lyness/lyn-fs-observation-policy": "workspace:*",
+    "@lyness/lyn-fs-sandbox": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-llm-deepseek": "workspace:*",
+    "@lyness/lyn-llm-deepseek-api-key": "workspace:*",
+    "@lyness/lyn-permission-presets": "workspace:*",
+    "@lyness/lyn-ptc-runtime-node": "workspace:*",
+    "@lyness/lyn-sandbox": "workspace:*",
+    "@lyness/lyn-sandbox-policy": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-session-projection": "workspace:*",
+    "@lyness/lyn-shell": "workspace:*",
+    "@lyness/lyn-shell-env": "workspace:*",
+    "@lyness/lyn-subagent": "workspace:*",
+    "@lyness/lyn-subprocess-local": "workspace:*",
+    "@lyness/lyn-system-prompt": "workspace:*",
+    "@lyness/lyn-tool-bash": "workspace:*",
+    "@lyness/lyn-tool-fs": "workspace:*",
+    "@lyness/lyn-tool-subagent": "workspace:*",
+    "@lyness/lyn-tools": "workspace:*",
+    "@lyness/lyn-user-approval": "workspace:*",
+    "@lyness/cordis": "workspace:~"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "lyn": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

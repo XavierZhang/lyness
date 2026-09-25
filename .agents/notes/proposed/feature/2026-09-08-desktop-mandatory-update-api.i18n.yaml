@@ -1,0 +1,43 @@
+# Bilingual-pair consistency record for 2026-09-08-desktop-mandatory-update-api.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write .agents/notes/proposed/feature/2026-09-08-desktop-mandatory-update-api.md
+/agent-note-desktop-mandatory-update-api:
+  en: d62373132228123e
+  zh: 41fce35f39255ad2
+/agent-note-desktop-mandatory-update-api/problem:
+  en: cc14e499c0f87586
+  zh: 4cf849710b782d4b
+/agent-note-desktop-mandatory-update-api/proposal:
+  en: f250cd0b245ca3a3
+  zh: 815e38f462b39bb7
+/agent-note-desktop-mandatory-update-api/proposal/endpoint-and-access:
+  en: 045e535a2637e1a1
+  zh: dbc28b70d7ed889a
+/agent-note-desktop-mandatory-update-api/proposal/request:
+  en: 40d90e7482a8bd0f
+  zh: ff1b3bff36e7ea09
+/agent-note-desktop-mandatory-update-api/proposal/no-mandatory-update:
+  en: 4814b1bd7002d6ed
+  zh: 3f0d77beb046e2fc
+/agent-note-desktop-mandatory-update-api/proposal/mandatory-update:
+  en: d3ae240665143695
+  zh: 486115cd2fdf35ed
+/agent-note-desktop-mandatory-update-api/proposal/errors-and-policy-matching:
+  en: 771a1e89646cd234
+  zh: 9cd790643415f8f3
+/agent-note-desktop-mandatory-update-api/proposal/policy-publication-and-current-decisions:
+  en: d4d70e1541b2c2d1
+  zh: a1b6e62a05b239be
+/agent-note-desktop-mandatory-update-api/proposal/capacity-and-caching:
+  en: d176fc8d0eb355db
+  zh: b9f60de3e4f0a3fc
+/agent-note-desktop-mandatory-update-api/alternatives-considered:
+  en: 7a443e439a1693a2
+  zh: 87fe4e167180fd2f
+/agent-note-desktop-mandatory-update-api/acceptance-criteria:
+  en: 7c1ba16ec7174336
+  zh: 91406605dfbf389e
+/agent-note-desktop-mandatory-update-api/risks:
+  en: a5689674032b188e
+  zh: 06b83a878fba55b3

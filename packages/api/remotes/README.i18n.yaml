@@ -1,6 +1,37 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/api/remotes/README.md
-README.md: acf5917298bb62200a646e575895871a9abb9d05
-README.zh.md: 791cd73ffaa3d530c1eebffb182935e8c46c911d
+/:
+  en: 1c32778606f3027a
+  zh: db7994fdb50333c8
+/lyness-lyn-api-remotes:
+  en: 10a6adfc81fdcaef
+  zh: 1b820896815222cf
+/lyness-lyn-api-remotes/summary:
+  en: 3c54c157bb823fd0
+  zh: 0db6778e94ae671c
+/lyness-lyn-api-remotes/table-of-contents:
+  en: a7a78c6d1aeebeb3
+  zh: 4bb69f32d8b05ba3
+/lyness-lyn-api-remotes/use-this-package:
+  en: 5894ca78d0bf90bd
+  zh: 2662cad5d078afe4
+/lyness-lyn-api-remotes/forwarded-host-events:
+  en: d6d82bf0e55ae5e9
+  zh: c3a0c80f8b115039
+/lyness-lyn-api-remotes/build-boundary:
+  en: 4117fa82cc95efff
+  zh: 3d6383c3542fc4ad
+/lyness-lyn-api-remotes/model-experience:
+  en: 6a60ae036c71e76f
+  zh: bf5e86a5ac5b4be4
+/lyness-lyn-api-remotes/model-experience/kv-cache-effect:
+  en: 6b51b98ce6368599
+  zh: 3d7a63126352741d
+/lyness-lyn-api-remotes/known-limitations-and-deferred-work:
+  en: 00a837c9e7b5a800
+  zh: 1b86e789327b7798
+/lyness-lyn-api-remotes/known-limitations-and-deferred-work/dev-note:
+  en: 947ba019d2a6a7e7
+  zh: ad4d687f3bc77dbb

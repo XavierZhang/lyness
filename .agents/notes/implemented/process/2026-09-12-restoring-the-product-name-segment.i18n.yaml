@@ -1,6 +1,19 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-09-12-restoring-the-product-name-segment.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/process/2026-09-12-restoring-the-product-name-segment.md
-2026-09-12-restoring-the-product-name-segment.md: 5bedf91b6574db7e408aec54864b4f5f6029b14b
-2026-09-12-restoring-the-product-name-segment.zh.md: 0c9841afd2bbffd2997c6d100679c51007572602
+/agent-note-restoring-the-product-name-segment-in-package-names:
+  en: 03aff2109cea62ae
+  zh: 02319d9768c2976d
+/agent-note-restoring-the-product-name-segment-in-package-names/problem:
+  en: d19586fdaf7dd4f2
+  zh: ab8796f01201155d
+/agent-note-restoring-the-product-name-segment-in-package-names/decision:
+  en: 24f0c08970ce02ac
+  zh: 2b47f0ae606889ff
+/agent-note-restoring-the-product-name-segment-in-package-names/alternatives-considered:
+  en: b7c920197081fdb9
+  zh: b8c0c5ab74c897bf
+/agent-note-restoring-the-product-name-segment-in-package-names/consequences:
+  en: 45d68e10a7ac2cee
+  zh: 5c5a650852ea870a

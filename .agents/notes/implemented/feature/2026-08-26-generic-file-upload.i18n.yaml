@@ -1,6 +1,25 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-08-26-generic-file-upload.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/feature/2026-08-26-generic-file-upload.md
-2026-08-26-generic-file-upload.md: 018a78e1f8aa5ffb59518165385066e54001109e
-2026-08-26-generic-file-upload.zh.md: 3a2a193fc62b566ac0f5190c553186632a433afb
+/agent-note-generic-file-upload:
+  en: 0064cc89636cef3f
+  zh: d6f7058114ea90cc
+/agent-note-generic-file-upload/problem:
+  en: e7c3b5d7702714fe
+  zh: 268f162b553b37d1
+/agent-note-generic-file-upload/decision:
+  en: 89719ac21698eee6
+  zh: bf02fc744287cf54
+/agent-note-generic-file-upload/alternatives-considered:
+  en: eabbb29efc5c5c83
+  zh: ceb3df4d72513624
+/agent-note-generic-file-upload/consequences:
+  en: 83ff544b82fd57d9
+  zh: 038d6b9599ddcd5c
+/agent-note-generic-file-upload/testing:
+  en: 3a50ac370d51cda9
+  zh: d490f58922f8795b
+/agent-note-generic-file-upload/related:
+  en: 3ed454c80e8458ca
+  zh: cc6dc95896548851

@@ -1,6 +1,37 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for architecture.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write docs/architecture.md
-architecture.md: f79721a63f496076bfe1b3df1c2f105f6dfe9240
-architecture.zh.md: 7c5f9da6b3ed1a3eaa7c60a1d17a5357fc1f2aa9
+/lyness-architecture:
+  en: da3731fe0e76335f
+  zh: 0ea99b21860957fb
+/lyness-architecture/cordis:
+  en: e4f0cce53e916da4
+  zh: f916bc9e0deb5096
+/lyness-architecture/profiles-and-bundles:
+  en: e5818e4bf8208f8f
+  zh: 8dd7a1300ff7991b
+/lyness-architecture/application-launch:
+  en: dc5411deeb8f530c
+  zh: 22c8a31e58313e83
+/lyness-architecture/desktop-application:
+  en: 220943004e4c3d58
+  zh: 91a89667c5bf3e74
+/lyness-architecture/core-packages:
+  en: dfdfb8cce8a92313
+  zh: e2eee6f6466e5bb7
+/lyness-architecture/events:
+  en: cf05cc941b1a777a
+  zh: bc82cb1d90bb1627
+/lyness-architecture/turn-flow:
+  en: 9fc403d5f86d79f6
+  zh: 61bcf0fc5cab8a12
+/lyness-architecture/session-log:
+  en: 473e2483137ed194
+  zh: 4daa4c9a79e41f95
+/lyness-architecture/capability-seams:
+  en: ea6a99dde753111b
+  zh: 6045d230c4efee85
+/lyness-architecture/where-new-behavior-goes:
+  en: 78140ba5131bcf18
+  zh: 7d4fed2d3ce05629

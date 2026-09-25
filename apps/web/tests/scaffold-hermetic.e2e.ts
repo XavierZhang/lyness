@@ -4,7 +4,7 @@ import { join } from 'node:path'
 import { expect, it } from 'vitest'
 import type {} from '@lyness/lyn-skill'
 import { SessionId } from '@lyness/lyn-session'
-import type {} from '@lyness/lyn-agent-presets'
+import type {} from '@lyness/lyn-agent-preset-registry'
 import { launchWebScaffold, type WebScaffold } from './scaffold.ts'
 
 async function writeSkill(root: string, name: string): Promise<void> {

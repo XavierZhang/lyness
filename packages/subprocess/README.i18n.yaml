@@ -1,6 +1,25 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/subprocess/README.md
-README.md: 58cfaeab432e3beed2e00c2a28be211e6ec6b230
-README.zh.md: fc54f316a586233f07ffce697f7fe42c84c95a01
+/:
+  en: 8a625c05bd33b1ae
+  zh: ca401fbbcb64368f
+/subprocess-subprocess-capability-family:
+  en: 5eb373a5571a97b5
+  zh: fe8856c3e6a4b838
+/subprocess-subprocess-capability-family/summary:
+  en: cccfd01eaced10a3
+  zh: b7372e340927a6ea
+/subprocess-subprocess-capability-family/table-of-contents:
+  en: 1eb35b015a6c423f
+  zh: a8a3dceee2c9e943
+/subprocess-subprocess-capability-family/packages:
+  en: dbd5b74f19089700
+  zh: ba422c3230722249
+/subprocess-subprocess-capability-family/related-documentation:
+  en: 3092f182d1401773
+  zh: 7e61d938d4c84e48
+/subprocess-subprocess-capability-family/dev-note:
+  en: 5de1d6304e00c58f
+  zh: 8d8225361cfa29e5

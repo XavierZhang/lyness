@@ -1,6 +1,85 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/subagent/subagent-acp/README.md
-README.md: 0296294988ce2572b3d856e65dcb5b0d62f472b2
-README.zh.md: 8332de85f77b3f8817137bf8c8c7a453700f4173
+/:
+  en: 86941ae0e2ae97a3
+  zh: ca2acb7bff6d53ab
+/lyness-lyn-subagent-acp:
+  en: 8fedec0a993af223
+  zh: 2c8e1f46fc53c96f
+/lyness-lyn-subagent-acp/summary:
+  en: 39559d1c5892fed9
+  zh: efd0fc17460a0b14
+/lyness-lyn-subagent-acp/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-subagent-acp/use-this-package:
+  en: 78623be74507229d
+  zh: b0ed9c9d0c6eb040
+/lyness-lyn-subagent-acp/use-this-package/when-to-choose-it:
+  en: 56946ab7637bb8f9
+  zh: c54c4da98092dd9c
+/lyness-lyn-subagent-acp/use-this-package/configuration:
+  en: 42906bc19dd5f35a
+  zh: c6bd06915771a06b
+/lyness-lyn-subagent-acp/use-this-package/what-you-get:
+  en: 0a809bd7b8cebddc
+  zh: e2c1edf8f485e8f8
+/lyness-lyn-subagent-acp/use-this-package/failure-and-recovery:
+  en: 312094fb2d293247
+  zh: c9b48a6127532308
+/lyness-lyn-subagent-acp/use-this-package/safe-diagnostics:
+  en: 11a38ce5f9a97e1f
+  zh: 617ad40f3e37f742
+/lyness-lyn-subagent-acp/understand-the-implementation:
+  en: 663322a5de5a2112
+  zh: 37d0602bb7e58c0e
+/lyness-lyn-subagent-acp/understand-the-implementation/design-concept:
+  en: c98e6bcd784bbf8a
+  zh: b96218f6e639755c
+/lyness-lyn-subagent-acp/understand-the-implementation/start-and-ownership-flow:
+  en: c0f7f78468f84c3b
+  zh: c9cb417d84d868ce
+/lyness-lyn-subagent-acp/understand-the-implementation/stop-reason-mapping:
+  en: 88bb2b62c6e2f114
+  zh: f6b720ca8ce90343
+/lyness-lyn-subagent-acp/understand-the-implementation/process-boundary:
+  en: 7217618a1d396333
+  zh: c8f47e31c815bec8
+/lyness-lyn-subagent-acp/further-exploration:
+  en: 3c844b6153b2e4f2
+  zh: f8456d54ee77e2dd
+/lyness-lyn-subagent-acp/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/lyness-lyn-subagent-acp/model-experience/child-agent-request:
+  en: 05e6180f1498fdf9
+  zh: 2b05d2b97bfa67da
+/lyness-lyn-subagent-acp/model-experience/child-agent-request/what-the-model-sees:
+  en: f7f619ca78d74c6f
+  zh: f642dc7b4ff69a10
+/lyness-lyn-subagent-acp/model-experience/child-agent-request/token-effect:
+  en: c0b78d334d5d0a9c
+  zh: d54bf504933e132d
+/lyness-lyn-subagent-acp/model-experience/child-agent-request/kv-cache-effect:
+  en: e9423135f647a086
+  zh: 6b50cc215a8b4403
+/lyness-lyn-subagent-acp/model-experience/parent-tool-result-indirectly:
+  en: 75d061c2151624a7
+  zh: 71e58e020b60ff90
+/lyness-lyn-subagent-acp/model-experience/parent-tool-result-indirectly/what-the-model-sees:
+  en: d45d9ce6a25e4bef
+  zh: d0a68d9d6d32b967
+/lyness-lyn-subagent-acp/model-experience/parent-tool-result-indirectly/token-effect:
+  en: 600ac97cdd163650
+  zh: cd26bb541f56699b
+/lyness-lyn-subagent-acp/model-experience/parent-tool-result-indirectly/kv-cache-effect:
+  en: f5d5f97a153f7c70
+  zh: 3d6bc05b9eadfbc2
+/lyness-lyn-subagent-acp/known-limitations-and-deferred-work:
+  en: 53a0e7fb49fe6e23
+  zh: 51096d4eb51fb4ba
+/lyness-lyn-subagent-acp/known-limitations-and-deferred-work/dev-note:
+  en: 5f1add5d61924059
+  zh: ab32b1c9d3433681

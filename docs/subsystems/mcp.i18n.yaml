@@ -1,0 +1,34 @@
+# Bilingual-pair consistency record for mcp.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write docs/subsystems/mcp.md
+/mcp:
+  en: 4e3f5bcb2ea74285
+  zh: 25c169e03940a37e
+/mcp/summary:
+  en: d8e61c38db5bb362
+  zh: f7208e6e59f77fcc
+/mcp/table-of-contents:
+  en: 5c0aa5a2e528af97
+  zh: ae2ba2297294e3de
+/mcp/configuration:
+  en: 018beeca4475d66e
+  zh: 77562fd226b32123
+/mcp/responsibilities-and-scope:
+  en: c25c84ebc0ebf0ad
+  zh: 53e39ef92255ec29
+/mcp/protocol-and-results:
+  en: 2d24711d157055f4
+  zh: 75080e2cfec73ad6
+/mcp/resources-and-instructions:
+  en: 29219d2c29afe7ec
+  zh: 35e114768785effd
+/mcp/resource-provider-types:
+  en: 16ae356364b54262
+  zh: 28fa0c87dbbd5e88
+/mcp/limits:
+  en: 27a59706525c88ed
+  zh: 1fb1684bc03bb6ae
+/mcp/further-reading:
+  en: c0bfd2422e2e98e8
+  zh: f8ff7c8fe5520456

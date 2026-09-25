@@ -1,6 +1,43 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/ui-jobs/README.md
-README.md: 0c45e9ff643a815dcabebbdd6097354efb74920d
-README.zh.md: 8d5b21203977f3f54b765a4727f94d2358e55379
+/:
+  en: 063a69d5d6281c07
+  zh: 04562d2b1dd29590
+/lyness-lyn-client-ui-jobs:
+  en: f95d9c66dfb72cac
+  zh: e2b59004baf57347
+/lyness-lyn-client-ui-jobs/summary:
+  en: 3041d1ae8c6eafa4
+  zh: 0974e03f7db49ddb
+/lyness-lyn-client-ui-jobs/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-client-ui-jobs/use-this-package:
+  en: 60f6d05d870f6518
+  zh: dddf3f532d828b78
+/lyness-lyn-client-ui-jobs/use-this-package/one-row-per-job:
+  en: 741e3c7dbaeff68f
+  zh: eafb75e53af4f276
+/lyness-lyn-client-ui-jobs/use-this-package/the-expanded-panel:
+  en: 99149ef3461710ef
+  zh: 9ea426bd8f08efcc
+/lyness-lyn-client-ui-jobs/understand-the-implementation:
+  en: f6f5d497ab340b9e
+  zh: 94832761177f12ca
+/lyness-lyn-client-ui-jobs/further-exploration:
+  en: 354e5cb835f14305
+  zh: d76ed292ceb0e823
+/lyness-lyn-client-ui-jobs/model-experience:
+  en: e81fc465f5f9203e
+  zh: 51454704c47bb350
+/lyness-lyn-client-ui-jobs/model-experience/kv-cache-effect:
+  en: 47f982e326fe77fd
+  zh: 9f2be5c9af23d759
+/lyness-lyn-client-ui-jobs/known-limitations-and-deferred-work:
+  en: 8be824a877852373
+  zh: bf4ae00ee70273b5
+/lyness-lyn-client-ui-jobs/known-limitations-and-deferred-work/dev-note:
+  en: 2e50937c500fbfd6
+  zh: 8b86762471d56dcc

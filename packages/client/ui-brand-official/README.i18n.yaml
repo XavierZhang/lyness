@@ -1,6 +1,43 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/ui-brand-official/README.md
-README.md: cf0882ac3ab4b69663df926ec2139d52e1a05313
-README.zh.md: 783c7d6f6ca60f2286984d1643bd0c0d336f6e14
+/:
+  en: ef55e381b8ce395e
+  zh: 73d5985ec4de8359
+/lyness-lyn-client-ui-brand-official:
+  en: 8f5a5e398eb8603a
+  zh: 2f6f130e5f749551
+/lyness-lyn-client-ui-brand-official/summary:
+  en: 004b48dd74a42cf4
+  zh: 46a757e89f7bb1b4
+/lyness-lyn-client-ui-brand-official/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-client-ui-brand-official/use-this-package:
+  en: 716dc268f98996db
+  zh: 7372a67ef81a0d5e
+/lyness-lyn-client-ui-brand-official/use-this-package/choosing-the-profile:
+  en: ac9477f5355972f0
+  zh: 257ea3ce1f004edf
+/lyness-lyn-client-ui-brand-official/use-this-package/replacing-the-brand:
+  en: 6a923aa630d01d65
+  zh: 5df0c24eebd9d0d0
+/lyness-lyn-client-ui-brand-official/understand-the-implementation:
+  en: 53d551f7976a2f7d
+  zh: f89495b8db821a7a
+/lyness-lyn-client-ui-brand-official/further-exploration:
+  en: ab6fb5067501ca22
+  zh: ce98ad66bc278df0
+/lyness-lyn-client-ui-brand-official/model-experience:
+  en: 618008c7641070e7
+  zh: 7233febb4d92ccfb
+/lyness-lyn-client-ui-brand-official/model-experience/kv-cache-effect:
+  en: ca75c51c89c2c9b0
+  zh: f57cc48a1b5cbfa9
+/lyness-lyn-client-ui-brand-official/known-limitations-and-deferred-work:
+  en: e66429dacdfffed0
+  zh: 2cddf12dfc483a03
+/lyness-lyn-client-ui-brand-official/known-limitations-and-deferred-work/dev-note:
+  en: e368635c2e69b577
+  zh: 6b0fcfc1e089e5d6

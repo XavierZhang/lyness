@@ -1,6 +1,73 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/boot/app-boot/README.md
-README.md: 7aa4d1d544df366f44e2227b28db6bec32ec6856
-README.zh.md: 67b4608077a14caf25b049fedfa75a369785372d
+/:
+  en: 8faf4582ae88ecfe
+  zh: 0c5a7502e22c6b3c
+/lyness-lyn-app-boot:
+  en: 3f60d467ee156d0c
+  zh: b2f25eb4aa3e0e48
+/lyness-lyn-app-boot/summary:
+  en: f47ac382087ce13b
+  zh: 728433be1ef9bf3f
+/lyness-lyn-app-boot/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-app-boot/use-this-package:
+  en: f6fa378225009c8f
+  zh: 324c0e4640bb1358
+/lyness-lyn-app-boot/use-this-package/when-to-use-it:
+  en: 7a083800eee7be9f
+  zh: 0fae8d7cdb8b8e78
+/lyness-lyn-app-boot/use-this-package/starting-the-app:
+  en: 1099528bde0e2aee
+  zh: b68772bdb9bb7856
+/lyness-lyn-app-boot/use-this-package/profiles:
+  en: 95dd5497f2a25ffe
+  zh: d8d1efb2e492c39e
+/lyness-lyn-app-boot/use-this-package/previewing-the-effective-configuration:
+  en: 646a0ccdd7881ad1
+  zh: e3696acb1573dd7b
+/lyness-lyn-app-boot/use-this-package/inspecting-plugin-configuration-schemas:
+  en: ab47f7d1f00de699
+  zh: 426c5bb39396af35
+/lyness-lyn-app-boot/use-this-package/reading-plugin-display-metadata:
+  en: e2369548f70f06ff
+  zh: 3530c4641fbc03fc
+/lyness-lyn-app-boot/use-this-package/startup-and-reload-failures:
+  en: f83001cbb6f68e0c
+  zh: 4d859e0e7731369c
+/lyness-lyn-app-boot/use-this-package/telling-the-agent-where-the-harness-lives:
+  en: 35e34858ed4e5eac
+  zh: 79bdb2aec64e1679
+/lyness-lyn-app-boot/understand-the-implementation:
+  en: f4a2695cb4c8a570
+  zh: 89837235d2f376cf
+/lyness-lyn-app-boot/understand-the-implementation/design-notes:
+  en: 5e3ce508795f2ced
+  zh: 4bceb852053c7e15
+/lyness-lyn-app-boot/understand-the-implementation/helper-behavior:
+  en: f7bc3a8dd4b00bdd
+  zh: 30098428aa769ad0
+/lyness-lyn-app-boot/understand-the-implementation/source-map:
+  en: 25602fd8eb9b2907
+  zh: 870a33dd34a52c32
+/lyness-lyn-app-boot/further-exploration:
+  en: 7e35a31c4e87d9fd
+  zh: 7ae2ebf622f1182e
+/lyness-lyn-app-boot/model-experience:
+  en: 769777f1cb1a9408
+  zh: f02b2834179df50d
+/lyness-lyn-app-boot/model-experience/kv-cache-effect:
+  en: c4d49630b68ae896
+  zh: 6f450ec6ba39bb81
+/lyness-lyn-app-boot/known-limitations-and-deferred-work:
+  en: bf1a49013cad8e9c
+  zh: 41b2b010f8650ec3
+/lyness-lyn-app-boot/known-limitations-and-deferred-work/dev-note:
+  en: d2f0d68fe29fb750
+  zh: 323d21ee73a9e3f6
+/lyness-lyn-app-boot/known-limitations-and-deferred-work/dev-note/open-yaml-config-dump-stability:
+  en: 319a62823b41008b
+  zh: 2d52e1592ac805f4

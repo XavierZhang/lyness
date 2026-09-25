@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-sdk-protocol",
   "description": "Shared wire protocol for the lyness SDK runtime: the newline-delimited JSON-RPC stdio transport and the named request, result, and notification types spoken between the runtime server and SDK clients",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -26,15 +26,15 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-subagent": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-subagent": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-subagent": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-subagent": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   }
 }

@@ -1,6 +1,19 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-09-13-gates-that-read-the-developer-host.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/process/2026-09-13-gates-that-read-the-developer-host.md
-2026-09-13-gates-that-read-the-developer-host.md: c8e924b5be0eed8796438681181db901e72ad4cb
-2026-09-13-gates-that-read-the-developer-host.zh.md: f7e0e6b23b8a73db9878d3ac949c5f0c9125efcd
+/agent-note-gates-that-read-the-developer-s-host:
+  en: 075c32fbbf410ac1
+  zh: 1be58685f0159f71
+/agent-note-gates-that-read-the-developer-s-host/problem:
+  en: 2c538b3010258583
+  zh: c3280d2f0859e8f6
+/agent-note-gates-that-read-the-developer-s-host/decision:
+  en: d44fb75f6f5b264f
+  zh: 061ad248524bc263
+/agent-note-gates-that-read-the-developer-s-host/alternatives-considered:
+  en: 5dc25fc2adad1e5b
+  zh: 0daa974ab27ec720
+/agent-note-gates-that-read-the-developer-s-host/consequences:
+  en: 674e87a243d1105a
+  zh: fb864c78c6392695

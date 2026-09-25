@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-web-search-deepseek",
   "description": "DeepSeek-backed search provider (native web_search via the Anthropic-compatible API) for the lyness web capability seam (ctx.web)",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -27,26 +27,24 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/lyn-agent": "workspace:^",
-    "@lyness/lyn-credentials": "workspace:^",
-    "@lyness/lyn-launch-environment": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-web": "workspace:^",
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-settings": "workspace:^"
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/lyn-credentials": "workspace:*",
+    "@lyness/lyn-launch-environment": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-web": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   },
   "dependencies": {
-    "@lyness/schemastery": "workspace:^"
+    "@lyness/schemastery": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/lyn-agent": "workspace:^",
-    "@lyness/lyn-credentials": "workspace:^",
-    "@lyness/lyn-credentials-local": "workspace:^",
-    "@lyness/lyn-launch-environment": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-web": "workspace:^",
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-settings": "workspace:^",
-    "@lyness/lyn-http-proxy": "workspace:^"
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/lyn-credentials": "workspace:*",
+    "@lyness/lyn-credentials-local": "workspace:*",
+    "@lyness/lyn-launch-environment": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-web": "workspace:*",
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-http-proxy": "workspace:*"
   }
 }

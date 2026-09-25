@@ -1,6 +1,19 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-06-20-discover-package-inventory.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/proposed/process/2026-06-20-discover-package-inventory.md
-2026-06-20-discover-package-inventory.md: 1a987e4c9b861879be763954387efa2a4321074a
-2026-06-20-discover-package-inventory.zh.md: 0f080765ddc208f066008f3dd79bcb9d1f497ae4
+/agent-note-discover-package-inventories-instead-of-maintaining-static-lists:
+  en: b412992548773806
+  zh: 4668ad898af83c54
+/agent-note-discover-package-inventories-instead-of-maintaining-static-lists/problem:
+  en: 17eb556d845ffa14
+  zh: 009d78b67c5b69eb
+/agent-note-discover-package-inventories-instead-of-maintaining-static-lists/proposal:
+  en: ce955aa355c15117
+  zh: 4d6f464bd5336981
+/agent-note-discover-package-inventories-instead-of-maintaining-static-lists/acceptance-criteria:
+  en: 99944a56114596df
+  zh: ec13f47fb2deef94
+/agent-note-discover-package-inventories-instead-of-maintaining-static-lists/risks:
+  en: e2876e76daf10637
+  zh: 01126163c6f15960

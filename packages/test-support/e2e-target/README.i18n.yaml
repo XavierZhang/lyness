@@ -1,6 +1,37 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/test-support/e2e-target/README.md
-README.md: 3f6689820dd87ab5d2a982c9611d9f1566343f30
-README.zh.md: c3dff0a19890ef2e3a8c9ee3d5bcd2514ff7bd74
+/:
+  en: 257d7dff66c3010a
+  zh: a708db82e781c7fe
+/lyness-lyn-e2e-target:
+  en: 1b3f0aa682d77c88
+  zh: 822ce3e261212d3e
+/lyness-lyn-e2e-target/summary:
+  en: 259ae7593efd5b18
+  zh: 81a4bf52b83f9b94
+/lyness-lyn-e2e-target/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-e2e-target/use-this-package:
+  en: 2256a3044f1e046a
+  zh: 99abe14766a15056
+/lyness-lyn-e2e-target/understand-the-implementation:
+  en: cba6e5a4174ed553
+  zh: 21315cb7e9f5e606
+/lyness-lyn-e2e-target/further-exploration:
+  en: 4b6dc52713acb4a2
+  zh: 9ab360891947e219
+/lyness-lyn-e2e-target/model-experience:
+  en: 855de1831ba3ee93
+  zh: 10fc812190a94ec4
+/lyness-lyn-e2e-target/model-experience/kv-cache-effect:
+  en: ca75c51c89c2c9b0
+  zh: ee6d77f08dfbe4ec
+/lyness-lyn-e2e-target/known-limitations-and-deferred-work:
+  en: a5a27ceb7231eee0
+  zh: b7cd06ac1c86d81e
+/lyness-lyn-e2e-target/known-limitations-and-deferred-work/dev-note:
+  en: afbf99949620f332
+  zh: e2ca95999eaf43a6

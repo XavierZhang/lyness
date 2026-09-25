@@ -104,6 +104,18 @@ const RULES: readonly Rule[] = [
     note: 'Markdown anchors in the generated catalogs drop the `@` and `/` from a package name, so `@deepseek-ai/dsh-acp` anchors as `deepseek-aidsh-acp` and the renamed `@lyness/lyn-acp` anchors as `lynesslyn-acp`. The generators rewrite their own headings; this rule carries the hand-written links that point at them.',
   },
   {
+    id: 'persistence-hash-domain-shield',
+    from: 'dsh-persistence-',
+    to: '\u0000persistence-domain\u0000',
+    note: 'A hash domain, not a brand. These strings are the SHA-256 domain separators for persisted Session schemas and finalization records, and every digest recorded in the committed format archives under docs/persistence-changes/ was computed with the upstream spelling. Renaming it changes all 570 of them at once, so verify-persistence-formats reads the whole archive as corrupt. Restored by `persistence-hash-domain-restore` after every rule has run.',
+  },
+  {
+    id: 'external-office-kit-shield',
+    from: '@deepseek-ai/libreoffice-kit',
+    to: '\u0000office-kit\u0000',
+    note: 'NOT the harness scope. `@deepseek-ai/libreoffice-kit*` are packages published to npm by the vendor and consumed like any other dependency, so renaming them names packages that do not exist — pnpm\'s minimumReleaseAge allowlist stopped matching and the install refused the lockfile. A literal rule cannot express "every @deepseek-ai/ except this one", so the name is parked out of reach of the three scope rules and restored by `external-office-kit-restore` right after them.',
+  },
+  {
     id: 'pkg-scope-escaped',
     from: '@deepseek-ai\\/dsh-',
     to: '@lyness\\/lyn-',
@@ -126,6 +138,12 @@ const RULES: readonly Rule[] = [
     from: '@deepseek-ai',
     to: '@lyness',
     note: 'The npm organization named without a trailing slash, as prose and manifest tables spell it. Runs after the two slashed scope rules, which have already consumed every package reference.',
+  },
+  {
+    id: 'external-office-kit-restore',
+    from: '\u0000office-kit\u0000',
+    to: '@deepseek-ai/libreoffice-kit',
+    note: 'Puts back what `external-office-kit-shield` parked, once `pkg-scope`, `vendor-scope`, and `scope-bare` have all run. The pair leaves no sentinel behind: `--check` fails loudly if one survives.',
   },
   {
     id: 'compound-identifier',
@@ -218,6 +236,12 @@ const RULES: readonly Rule[] = [
     note: 'The CLI command, the `~/.dsh` home directory, the `dsh` package-manifest key and its property accesses, and the `dsh-*` skill and preset ids. Bounded so it cannot split an unrelated identifier.',
     boundary: true,
   },
+  {
+    id: 'persistence-hash-domain-restore',
+    from: '\u0000persistence-domain\u0000',
+    to: 'dsh-persistence-',
+    note: 'Puts back what `persistence-hash-domain-shield` parked, after `dsh-token` has run. The pair leaves no sentinel behind: `--check` fails loudly if one survives.',
+  },
 ]
 
 /**
@@ -235,6 +259,8 @@ interface Protection {
   readonly why: string
   /** Rule ids to skip here; omitted means the path skips every rule. */
   readonly rules?: readonly string[]
+  /** Filename suffix the protection is limited to; omitted covers every file under the path. */
+  readonly suffix?: string
 }
 
 /**
@@ -252,11 +278,16 @@ const PROTECTED: readonly Protection[] = [
   },
   {
     prefix: 'THIRD_PARTY_NOTICES.md',
-    why: 'Generated from the vendored manifests, and its provenance column carries the same upstream source URLs vendor/README.md records. The scope rename still applies because that column names the published package.',
+    why: 'Generated from the vendored manifests, and its source column carries the same upstream repository URLs vendor/README.md records. The scope rename still applies because that column names the published package.',
     rules: ['repo-url', 'repo-url-org', 'slug'],
   },
   { prefix: 'CUSTOM.md', why: 'The fork ledger names both the upstream and fork values on purpose; rewriting it erases the mapping it exists to record.' },
   { prefix: '.fork/', why: 'Fork configuration recording the upstream identity it forked from.' },
+  {
+    prefix: 'docs/persistence-changes/',
+    suffix: '.schema.json',
+    why: 'Archived Session format generations are sealed by content hash: each root records the SHA-256 of its own schema, and verify-persistence-formats recomputes it. Renaming a brand token inside one changes the schema without changing the recorded digest, so the whole archive reads as corrupt. The prose beside them is ordinary documentation and still follows every rule.',
+  },
   {
     prefix: '.agents/notes/archived/',
     why: 'Archived Agent Notes are frozen: archived/manifest.json seals each artifact by content hash and only ever appends, so changed content is an error the tooling has no path to accept. The record states what was true when it was written.',
@@ -301,7 +332,7 @@ const POSTCONDITIONS: readonly PostCondition[] = [
   // package by name prefix reads that difference.
   { file: 'packages/llm/llm-deepseek/package.json', text: '"name": "@lyness/lyn-llm-deepseek"', count: 1 },
   { file: 'vendor/cordis/package.json', text: '"name": "@lyness/cordis"', count: 1 },
-  // Vendoring provenance: the upstream repositories the pinned source was copied from.
+  // The upstream repositories each pinned copy was taken from.
   { file: 'vendor/README.md', text: 'github.com/deepseek-harness/cosmokit', count: 1 },
   { file: 'vendor/README.md', text: 'github.com/deepseek-harness/cordis', count: 5 },
   // The model vendor must be untouched wherever the product reaches it.
@@ -362,6 +393,7 @@ function protectedRules(file: string): 'all' | ReadonlySet<string> {
   const skip = new Set<string>()
   for (const entry of PROTECTED) {
     if (file !== entry.prefix && !file.startsWith(entry.prefix)) continue
+    if (entry.suffix !== undefined && !file.endsWith(entry.suffix)) continue
     if (entry.rules === undefined) return 'all'
     for (const rule of entry.rules) skip.add(rule)
   }

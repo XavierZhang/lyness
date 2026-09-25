@@ -1,0 +1,13 @@
+- insert:
+    - id: speech-to-text
+      name: '@lyness/lyn-experimental-speech-to-text'
+      config:
+        defaultProvider: sensevoice-local
+    - id: speech-to-text-sensevoice
+      name: '@lyness/lyn-experimental-speech-to-text-sensevoice'
+      config:
+        dataRoot: !!js lynHomePath('speech-to-text', 'sensevoice')
+    - id: api-speech-to-text
+      name: '@lyness/lyn-experimental-api-speech-to-text'
+    - id: ui-voice-input
+      name: '@lyness/lyn-experimental-client-ui-voice-input'

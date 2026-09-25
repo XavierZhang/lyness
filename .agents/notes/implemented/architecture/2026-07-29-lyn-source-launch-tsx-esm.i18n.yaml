@@ -1,6 +1,19 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-07-29-lyn-source-launch-tsx-esm.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-07-29-lyn-source-launch-tsx-esm.md
-2026-07-29-lyn-source-launch-tsx-esm.md: 1fc90aa35b9cbf8402f3eed1d4c94bc7898ab0eb
-2026-07-29-lyn-source-launch-tsx-esm.zh.md: 78f06b246c7422c9633101910c5bd89bb92c8e66
+/agent-note-lyn-source-launch-through-the-tsx-esm-hook:
+  en: c98a9228b3933696
+  zh: 5f8223c0ca1a273c
+/agent-note-lyn-source-launch-through-the-tsx-esm-hook/problem:
+  en: 68385f7e47d3ac1f
+  zh: 285ca290832e2939
+/agent-note-lyn-source-launch-through-the-tsx-esm-hook/decision:
+  en: e325931e67101b08
+  zh: 1e44c77d48b93670
+/agent-note-lyn-source-launch-through-the-tsx-esm-hook/alternatives-considered:
+  en: c6eec3d899a61df1
+  zh: 128edd753d49c0da
+/agent-note-lyn-source-launch-through-the-tsx-esm-hook/consequences:
+  en: 7c8eb105520ccae3
+  zh: 9dc85ecda408de5a

@@ -1,6 +1,7 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for BRAND_GUIDELINES.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write BRAND_GUIDELINES.md
-BRAND_GUIDELINES.md: 31c0c49a1dec57b5c11ae7c860bc926e0ccb307d
-BRAND_GUIDELINES.zh.md: 847eb105c15908dca9ec08975c972007ec4bab27
+/lyness-brand-asset-usage-guidelines:
+  en: 26a77c0f710724c2
+  zh: 6a163f8700690fd8

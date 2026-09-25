@@ -1,6 +1,79 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/goal/tool-goal/README.md
-README.md: abafad17e672a36e53ed964f52b7b191451ccf3d
-README.zh.md: 6c3a812a20401a7c2aee4ad4421e14070e17fceb
+/:
+  en: 1965bb8d690c2163
+  zh: ccbb80e24190cb70
+/lyness-lyn-tool-goal:
+  en: 85a6035df3b149a0
+  zh: 665921fa5d19cada
+/lyness-lyn-tool-goal/summary:
+  en: 1ac467b70c558688
+  zh: ddb19f03a8d002a0
+/lyness-lyn-tool-goal/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-tool-goal/use-this-package:
+  en: aa98a62f36fbac41
+  zh: be2babd5986f447b
+/lyness-lyn-tool-goal/use-this-package/tools:
+  en: 1f9ad059567a448a
+  zh: d3f70b470e9317c4
+/lyness-lyn-tool-goal/use-this-package/configure-it:
+  en: 8bfc0134ef38cc31
+  zh: 922004cf757e2b7a
+/lyness-lyn-tool-goal/use-this-package/authority-rules:
+  en: a00f0dac577c3e9e
+  zh: 5dedb3dfcce449bc
+/lyness-lyn-tool-goal/understand-the-implementation:
+  en: 4e9fdb5a89f4baa3
+  zh: 50d182467ae1f3a7
+/lyness-lyn-tool-goal/understand-the-implementation/design:
+  en: a30f36299c8107f7
+  zh: 65e6e1e19aeb5281
+/lyness-lyn-tool-goal/understand-the-implementation/source-map:
+  en: 33e8469f99ffecb8
+  zh: f1b44e8dd51ffb48
+/lyness-lyn-tool-goal/understand-the-implementation/tool-output:
+  en: 79e54f40e0bfbe2b
+  zh: 895f7ba22749bc07
+/lyness-lyn-tool-goal/further-exploration:
+  en: 8bbba32940a1e1b3
+  zh: aa97e77fe07da919
+/lyness-lyn-tool-goal/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/lyness-lyn-tool-goal/model-experience/system-prompt:
+  en: cf78b9dd5596495f
+  zh: bd44560f8c2435e8
+/lyness-lyn-tool-goal/model-experience/system-prompt/what-the-model-sees:
+  en: c4ddc481746664fc
+  zh: f86e0ba3bb0043be
+/lyness-lyn-tool-goal/model-experience/system-prompt/what-the-model-sees/goal-policy:
+  en: 452e35a67b130e54
+  zh: ad6030b6cb0eaabc
+/lyness-lyn-tool-goal/model-experience/system-prompt/token-effect:
+  en: 0ca47969efda70ab
+  zh: bfb6dd046182bcfe
+/lyness-lyn-tool-goal/model-experience/system-prompt/kv-cache-effect:
+  en: 1228efe95b389486
+  zh: 0eb2e21c6ab3bc33
+/lyness-lyn-tool-goal/model-experience/tool-schemas-and-results:
+  en: cadc497841430a21
+  zh: af4cc374d7d16917
+/lyness-lyn-tool-goal/model-experience/tool-schemas-and-results/what-the-model-sees:
+  en: 46c2ff01989d204c
+  zh: 0e0b2d9ae177e4a4
+/lyness-lyn-tool-goal/model-experience/tool-schemas-and-results/token-effect:
+  en: 636b06a2958786bd
+  zh: 4bb09f24ef382b3b
+/lyness-lyn-tool-goal/model-experience/tool-schemas-and-results/kv-cache-effect:
+  en: c2d2e98ce08fb40e
+  zh: 54d278190a1a9ed5
+/lyness-lyn-tool-goal/known-limitations-and-deferred-work:
+  en: 01b34deaecd5b8ac
+  zh: 126221c281d22132
+/lyness-lyn-tool-goal/known-limitations-and-deferred-work/dev-note:
+  en: 47101daa04549489
+  zh: 1a3babd48193c068

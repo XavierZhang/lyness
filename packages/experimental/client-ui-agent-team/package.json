@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-experimental-client-ui-agent-team",
   "description": "Web Agent Teams roster, task board, and teammate navigation",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -22,17 +22,18 @@
       "types": "./lib/types/client/index.d.ts",
       "default": "./lib/client.js"
     },
+    "./locale/*.json": "./locale/*.json",
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
   "lyn": {
     "client": {
       "inject": [
-        "@lyness/lyn-api-remotes",
         "@lyness/lyn-api-session-controller",
         "@lyness/lyn-client-locale",
         "@lyness/lyn-client-ui-conversation",
-        "@lyness/lyn-client-ui-primitives"
+        "@lyness/lyn-client-ui-primitives",
+        "@lyness/lyn-client-ui-workspace"
       ],
       "platform": "web"
     }
@@ -42,42 +43,41 @@
     "watch": "tsdown --watch"
   },
   "license": "MIT",
-  "dependencies": {
-    "react": "^18.2.0"
-  },
   "peerDependencies": {
-    "@lyness/lyn-api-remotes": "workspace:^",
-    "@lyness/lyn-api-session-controller": "workspace:^",
-    "@lyness/lyn-client-locale": "workspace:^",
-    "@lyness/lyn-client-ui-conversation": "workspace:^",
-    "@lyness/lyn-client-ui-primitives": "workspace:^",
-    "@lyness/lyn-client-ui-renderer": "workspace:^",
-    "@lyness/lyn-client-ui-session": "workspace:^",
-    "@lyness/lyn-client-ui-slots": "workspace:^",
-    "@lyness/lyn-experimental-agent-team": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-typert-protocol": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-api-session-controller": "workspace:*",
+    "@lyness/lyn-client-locale": "workspace:*",
+    "@lyness/lyn-client-ui-conversation": "workspace:*",
+    "@lyness/lyn-client-ui-primitives": "workspace:*",
+    "@lyness/lyn-client-ui-renderer": "workspace:*",
+    "@lyness/lyn-client-ui-session": "workspace:*",
+    "@lyness/lyn-client-ui-slots": "workspace:*",
+    "@lyness/lyn-client-ui-workspace": "workspace:*",
+    "@lyness/lyn-experimental-agent-team": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/lyn-api-remotes": "workspace:^",
-    "@lyness/lyn-api-session-controller": "workspace:^",
-    "@lyness/lyn-client-locale": "workspace:^",
-    "@lyness/lyn-client-test-runtime": "workspace:^",
-    "@lyness/lyn-client-ui-conversation": "workspace:^",
-    "@lyness/lyn-client-ui-primitives": "workspace:^",
-    "@lyness/lyn-client-ui-renderer": "workspace:^",
-    "@lyness/lyn-client-ui-session": "workspace:^",
-    "@lyness/lyn-client-ui-slots": "workspace:^",
-    "@lyness/lyn-experimental-agent-team": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-typert-protocol": "workspace:^",
+    "@lyness/lyn-api-session-controller": "workspace:*",
+    "@lyness/lyn-client-locale": "workspace:*",
+    "@lyness/lyn-client-store": "workspace:*",
+    "@lyness/lyn-client-test-runtime": "workspace:*",
+    "@lyness/lyn-client-ui-conversation": "workspace:*",
+    "@lyness/lyn-client-ui-primitives": "workspace:*",
+    "@lyness/lyn-client-ui-renderer": "workspace:*",
+    "@lyness/lyn-client-ui-session": "workspace:*",
+    "@lyness/lyn-client-ui-slots": "workspace:*",
+    "@lyness/lyn-client-ui-workspace": "workspace:*",
+    "@lyness/lyn-experimental-agent-team": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
     "@testing-library/react": "^16.1.0",
     "@types/react": "~18.3.1",
-    "@lyness/cordis": "workspace:^",
+    "@types/react-dom": "~18.3.0",
+    "@lyness/cordis": "workspace:~",
+    "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "files": [
+    "locale/*.json",
     "lib/index.js",
     "lib/client.js",
     "lib/types/**/*.d.ts"

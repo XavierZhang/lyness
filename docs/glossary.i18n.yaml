@@ -1,6 +1,25 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for glossary.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write docs/glossary.md
-glossary.md: 1f2aac14579dc9cb51c5dc77dcd07af04cfb54fc
-glossary.zh.md: 93d16e64ca2cf15d605df8c8eda3cf0ed94adc2e
+/glossary:
+  en: ac195c4443e394b8
+  zh: b851c91e57fa3e4f
+/glossary/capability-seam:
+  en: 469b673aff081496
+  zh: 2480a8afba3715d3
+/glossary/agent-scope:
+  en: 893655aaaa6a9db4
+  zh: 48b699fd15fa7ba6
+/glossary/goal:
+  en: c64d9e91d54c6315
+  zh: a2918c9d276af8a1
+/glossary/human-command:
+  en: 881c8fb1086e9cc2
+  zh: fc3ebcef8024e5ff
+/glossary/loop-hierarchy:
+  en: 343a7cb31b8191c2
+  zh: 6831415a7fe1726a
+/glossary/ralph:
+  en: 5059f8a377980b9d
+  zh: 39bf11c10e5c0a84

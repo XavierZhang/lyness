@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-llm-retry",
   "description": "Provider-routed LLM request retry policy for the lyness",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -36,37 +36,38 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/lyn-brand": "workspace:^",
-    "@lyness/lyn-agent": "workspace:^",
-    "@lyness/lyn-invariants": "workspace:^",
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-timeout": "workspace:^",
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-session-projection": "workspace:^"
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/lyn-invariants": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-timeout": "workspace:*",
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-session-projection": "workspace:*"
   },
   "dependencies": {
-    "@lyness/schemastery": "workspace:^",
+    "@lyness/schemastery": "workspace:~",
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@lyness/lyn-brand": "workspace:^",
-    "@lyness/cordis-plugin-include": "workspace:^",
-    "@lyness/cordis-plugin-loader": "workspace:^",
-    "@lyness/lyn-agent": "workspace:^",
-    "@lyness/lyn-agent-loop": "workspace:^",
-    "@lyness/lyn-agent-loop-testkit": "workspace:^",
-    "@lyness/lyn-invariants": "workspace:^",
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-llm-deepseek": "workspace:^",
-    "@lyness/lyn-llm-mock-server": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-session-projection": "workspace:^",
-    "@lyness/lyn-session-persistence-jsonl": "workspace:^",
-    "@lyness/lyn-system-prompt": "workspace:^",
-    "@lyness/lyn-timeout": "workspace:^",
-    "@lyness/lyn-tools": "workspace:^",
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-session-projection": "workspace:^"
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/cordis-plugin-include": "workspace:~",
+    "@lyness/cordis-plugin-loader": "workspace:~",
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/lyn-agent-loop": "workspace:*",
+    "@lyness/lyn-agent-loop-testkit": "workspace:*",
+    "@lyness/lyn-invariants": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-llm-deepseek": "workspace:*",
+    "@lyness/lyn-llm-deepseek-api-key": "workspace:*",
+    "@lyness/lyn-llm-mock-server": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-session-projection": "workspace:*",
+    "@lyness/lyn-session-persistence-jsonl": "workspace:*",
+    "@lyness/lyn-system-prompt": "workspace:*",
+    "@lyness/lyn-timeout": "workspace:*",
+    "@lyness/lyn-tools": "workspace:*",
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-session-projection": "workspace:*"
   }
 }

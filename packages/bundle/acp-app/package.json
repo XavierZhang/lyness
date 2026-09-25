@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-acp-app",
   "description": "The lyn ACP profile bundle: automation-only JSON-RPC stdio and process lifecycle over lyn-base",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -34,15 +34,15 @@
     }
   },
   "dependencies": {
-    "@lyness/lyn-acp": "workspace:^",
-    "@lyness/lyn-cmdline": "workspace:^",
+    "@lyness/lyn-acp": "workspace:*",
+    "@lyness/lyn-cmdline": "workspace:*",
     "commander": "^15.0.0"
   },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis-plugin-include": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis-plugin-include": "workspace:~",
+    "@lyness/cordis": "workspace:~"
   }
 }

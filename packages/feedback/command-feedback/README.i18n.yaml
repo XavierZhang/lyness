@@ -1,6 +1,64 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/feedback/command-feedback/README.md
-README.md: 762326d3d3993ff253580c607215be2f1ac4bd7e
-README.zh.md: 9efa11ea9a4a410926375dadab215e1a3d84c454
+/:
+  en: 6fde8a2c01a13756
+  zh: 63b06f1e5373a1f0
+/lyness-lyn-command-feedback:
+  en: e9b2dd351b8000d8
+  zh: 695dae3bac01b044
+/lyness-lyn-command-feedback/summary:
+  en: 95f4f91f7813e11a
+  zh: ef0996d5b6c9d476
+/lyness-lyn-command-feedback/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-command-feedback/use-this-package:
+  en: f3b7e64960e97d78
+  zh: 22ab56d1d9074fdc
+/lyness-lyn-command-feedback/use-this-package/the-feedback-command:
+  en: 645ee72ee1af491d
+  zh: 32b86c39307093e3
+/lyness-lyn-command-feedback/use-this-package/the-web-feedback-dialog:
+  en: 21fae542942446d2
+  zh: 34d83535891dabee
+/lyness-lyn-command-feedback/use-this-package/recording-feedback-from-your-own-ui:
+  en: c6ee98ae5229d76f
+  zh: e058dae4cb5dd254
+/lyness-lyn-command-feedback/understand-the-implementation:
+  en: 42b15ac6321706aa
+  zh: 4ed0861911abaf5d
+/lyness-lyn-command-feedback/understand-the-implementation/design-concept:
+  en: 8363f597c28788d2
+  zh: 9dda2a864a01f4ce
+/lyness-lyn-command-feedback/understand-the-implementation/how-a-remark-is-recorded:
+  en: 0c6ceecbb1f45224
+  zh: 8138bb0fd3e68317
+/lyness-lyn-command-feedback/understand-the-implementation/source-map:
+  en: 4fd622508f032a28
+  zh: fa336bcbaabca58e
+/lyness-lyn-command-feedback/further-exploration:
+  en: 22c5b0830615e5bd
+  zh: ff6f859740bbe604
+/lyness-lyn-command-feedback/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/lyness-lyn-command-feedback/model-experience/human-feedback-capture:
+  en: 987bab29bbe8ec43
+  zh: 725efc45361172b5
+/lyness-lyn-command-feedback/model-experience/human-feedback-capture/what-the-model-sees:
+  en: 6ad8e2a4f961d2f4
+  zh: b510d05a74d6df0c
+/lyness-lyn-command-feedback/model-experience/human-feedback-capture/token-effect:
+  en: 1fcbd4d84eff267f
+  zh: 8da9902c44bf8dc4
+/lyness-lyn-command-feedback/model-experience/human-feedback-capture/kv-cache-effect:
+  en: c72e7dfee7b0957a
+  zh: b122fce5efccfafa
+/lyness-lyn-command-feedback/known-limitations-and-deferred-work:
+  en: b45e656a009e37b7
+  zh: 4949bd712564ee54
+/lyness-lyn-command-feedback/known-limitations-and-deferred-work/dev-note:
+  en: b4bf58d55f599bc2
+  zh: fea7a6b69b0266e1

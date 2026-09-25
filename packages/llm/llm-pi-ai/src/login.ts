@@ -7,7 +7,6 @@
  * @module lyn-llm-pi-ai/login
  */
 
-import { createModels } from '@earendil-works/pi-ai'
 import type { AuthEvent, AuthPrompt, AuthType, Provider } from '@earendil-works/pi-ai'
 import type { Context } from '@lyness/cordis'
 import type { AuthorizationMethod, AuthorizationPrompt, AuthorizationSession } from '@lyness/lyn-authorization'
@@ -15,6 +14,7 @@ import { isCredentialKeySegment } from '@lyness/lyn-credentials'
 import { catalogProvider, catalogProviderIds } from './catalog.ts'
 import { recordKeyFor } from './auth.ts'
 import type { PiAiAuthInjection } from './adapter.ts'
+import { createModels } from './models.ts'
 
 /**
  * The login methods one catalog provider offers.

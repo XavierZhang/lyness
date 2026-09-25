@@ -1,6 +1,58 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/session/session-projection/README.md
-README.md: 74e639ddc2729f16ca132e7bf0b450936b1483bb
-README.zh.md: 0f8986959cf9ca63faf039b8f407f85de7ef4f90
+/:
+  en: 85229e402add27cf
+  zh: 66473d34393c44db
+/lyness-lyn-session-projection:
+  en: 3b579cba1744236a
+  zh: 4d30013d8670f88b
+/lyness-lyn-session-projection/summary:
+  en: 44d63c22561aa1a5
+  zh: 9f590a81a7c11e72
+/lyness-lyn-session-projection/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-session-projection/use-this-package:
+  en: 97cc5a356813762f
+  zh: 1f297bb088ece8cb
+/lyness-lyn-session-projection/use-this-package/when-to-choose-it:
+  en: 90b7c26cb45be52a
+  zh: 386e294ec09607c1
+/lyness-lyn-session-projection/use-this-package/define-a-projection-unit:
+  en: 09758d1475fad86e
+  zh: 473637cb34aebe72
+/lyness-lyn-session-projection/use-this-package/register-and-read:
+  en: 5e754e67dff07b02
+  zh: 2ba1bda464abaa45
+/lyness-lyn-session-projection/use-this-package/persisted-checkpoints:
+  en: 802f4c22207b1463
+  zh: be61b4a42fd67620
+/lyness-lyn-session-projection/understand-the-implementation:
+  en: 3397f58d6f49bfda
+  zh: efb85d382e25574d
+/lyness-lyn-session-projection/understand-the-implementation/design-concept:
+  en: 8afa0fdb49898f6d
+  zh: 6b2da34455963935
+/lyness-lyn-session-projection/understand-the-implementation/source-map:
+  en: 8b6672b48e7607d6
+  zh: 33611e7ea13219f1
+/lyness-lyn-session-projection/understand-the-implementation/drive-and-checkpoint-flow:
+  en: 00136880bb586403
+  zh: bd35f645111c068c
+/lyness-lyn-session-projection/further-exploration:
+  en: 97b262060fbd4899
+  zh: 7117f33e28163f7c
+/lyness-lyn-session-projection/model-experience:
+  en: a24045627fb43695
+  zh: a8465196c3948796
+/lyness-lyn-session-projection/model-experience/kv-cache-effect:
+  en: 8a592dae9bc946ab
+  zh: eca939995bb5f8e0
+/lyness-lyn-session-projection/known-limitations-and-deferred-work:
+  en: 36ebf6d21898ff92
+  zh: 05bd2683c5518010
+/lyness-lyn-session-projection/known-limitations-and-deferred-work/dev-note:
+  en: e67f633dc6fe7773
+  zh: 3bb0c20c93f16f98

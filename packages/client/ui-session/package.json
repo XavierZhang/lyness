@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-client-ui-session",
   "description": "Session Controller adapter for React and session-scoped slots",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -28,6 +28,7 @@
   "lyn": {
     "client": {
       "inject": [
+        "@lyness/lyn-api-remotes",
         "@lyness/lyn-api-session-controller",
         "@lyness/lyn-client-ui-renderer"
       ],
@@ -40,15 +41,19 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-api-session-controller": "workspace:^",
-    "@lyness/lyn-client-store": "workspace:^",
-    "@lyness/lyn-client-ui-renderer": "workspace:^",
-    "@lyness/lyn-client-ui-slots": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-api-remotes": "workspace:*",
+    "@lyness/lyn-api-session-controller": "workspace:*",
+    "@lyness/lyn-client-store": "workspace:*",
+    "@lyness/lyn-client-test-runtime": "workspace:*",
+    "@lyness/lyn-client-ui-renderer": "workspace:*",
+    "@lyness/lyn-client-ui-slots": "workspace:*",
+    "@lyness/lyn-remote-mock": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-util-values": "workspace:*",
     "@types/react": "~18.3.1",
     "react": "^18.2.0"
   },

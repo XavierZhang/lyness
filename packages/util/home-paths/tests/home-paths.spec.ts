@@ -7,6 +7,7 @@ import {
   LYNESS_HOME_DIR_NAME,
   canonicalizeWatchPath,
   defaultLynHome,
+  lynCachePath,
   lynHomeDisplay,
   lynHomePath,
   expandHomePath,
@@ -56,6 +57,34 @@ describe('lyn path helpers', () => {
     expect(lynHomeDisplay('/some/other/root')).toBe('$LYNESS_HOME')
   })
 
+  it.each([
+    [undefined, join(homedir(), '.lyn')],
+    ['', join(homedir(), '.lyn')],
+    ['   ', join(homedir(), '.lyn')],
+    ['~/env-lyn', join(homedir(), 'env-lyn')],
+    ['./relative-lyn', resolve('./relative-lyn')],
+  ] as const)('resolves cache paths with LYNESS_HOME=%j', (home, expectedHome) => {
+    vi.stubEnv('LYNESS_HOME', home)
+    try {
+      expect(lynCachePath()).toBe(join(expectedHome, 'cache'))
+      expect(lynCachePath('models', 'index.json')).toBe(join(expectedHome, 'cache', 'models', 'index.json'))
+    } finally {
+      vi.unstubAllEnvs()
+    }
+  })
+
+  it('resolves configured cache homes before the environment', () => {
+    vi.stubEnv('LYNESS_HOME', '~/env-lyn')
+    try {
+      expect(lynCachePath({ lynHome: '~/explicit-lyn' })).toBe(join(homedir(), 'explicit-lyn', 'cache'))
+      expect(lynCachePath({ lynHome: './explicit-lyn' }, 'attachments', 'request-images'))
+        .toBe(resolve('./explicit-lyn/cache/attachments/request-images'))
+      expect(lynCachePath({}, 'attachments')).toBe(join(homedir(), 'env-lyn', 'cache', 'attachments'))
+    } finally {
+      vi.unstubAllEnvs()
+    }
+  })
+
   it('canonicalizes a watcher ancestor while preserving a missing suffix', async () => {
     const root = await mkdtemp(join(tmpdir(), 'lyn-watch-path-'))
     const target = join(root, 'target')
@@ -63,6 +92,7 @@ describe('lyn path helpers', () => {
     try {
       await mkdir(target)
       await symlink(target, alias, process.platform === 'win32' ? 'junction' : 'dir')
+      await expect(canonicalizeWatchPath(alias)).resolves.toBe(await realpath(target))
       await expect(canonicalizeWatchPath(join(alias, 'later', 'config.yml'))).resolves.toBe(
         join(await realpath(target), 'later', 'config.yml'),
       )

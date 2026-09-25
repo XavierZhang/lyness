@@ -1,6 +1,19 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-09-21-the-tenant-of-a-request.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-09-21-the-tenant-of-a-request.md
-2026-09-21-the-tenant-of-a-request.md: 9e41c9e0389bf62543eec9b10067c574e6dbcc29
-2026-09-21-the-tenant-of-a-request.zh.md: 2c38904d45366fe546857b57b01e263be8bf5a29
+/agent-note-the-tenant-of-a-request-and-the-hook-that-carries-it:
+  en: c0186a46d6fce981
+  zh: 7aaf991c61ac1e74
+/agent-note-the-tenant-of-a-request-and-the-hook-that-carries-it/problem:
+  en: 26c85d7e7019f100
+  zh: 2b4234afff52ba45
+/agent-note-the-tenant-of-a-request-and-the-hook-that-carries-it/decision:
+  en: d756e43ad020e9ed
+  zh: 9fd1e09346407346
+/agent-note-the-tenant-of-a-request-and-the-hook-that-carries-it/alternatives-considered:
+  en: 69c62c6faae55ad8
+  zh: 5ad760d34aa1def7
+/agent-note-the-tenant-of-a-request-and-the-hook-that-carries-it/consequences:
+  en: fe76c8dcaf64e96d
+  zh: 383a143f082ea3b7

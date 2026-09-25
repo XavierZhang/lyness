@@ -1,6 +1,34 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-09-02-in-history-system-prompt-replacement.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/feature/2026-09-02-in-history-system-prompt-replacement.md
-2026-09-02-in-history-system-prompt-replacement.md: 5caefb04716931b7384f5782dae1a6f75c331dce
-2026-09-02-in-history-system-prompt-replacement.zh.md: 1e55d023572b611862567a95f9f79808436dd97f
+/agent-note-in-history-system-prompt-replacement-for-cache-stable-prompt-changes:
+  en: 172bd988764e1899
+  zh: c5ca15c155396ecb
+/agent-note-in-history-system-prompt-replacement-for-cache-stable-prompt-changes/problem:
+  en: 2e0ed18f17b386ad
+  zh: 84f349014594d258
+/agent-note-in-history-system-prompt-replacement-for-cache-stable-prompt-changes/decision:
+  en: e43a7029d58e6f5d
+  zh: 2f84f2d154e10f57
+/agent-note-in-history-system-prompt-replacement-for-cache-stable-prompt-changes/decision/capability:
+  en: a0abed5579332658
+  zh: 9afc6475aa7b2828
+/agent-note-in-history-system-prompt-replacement-for-cache-stable-prompt-changes/decision/the-decision-rule:
+  en: 554d01427ebebee1
+  zh: 664c9bf0a9337a04
+/agent-note-in-history-system-prompt-replacement-for-cache-stable-prompt-changes/decision/presentation-and-accounting:
+  en: 6f419f7ad5e6a146
+  zh: 69779de1273814a1
+/agent-note-in-history-system-prompt-replacement-for-cache-stable-prompt-changes/decision/compaction:
+  en: c21a3e7a773860e5
+  zh: 566669e245ccdbaf
+/agent-note-in-history-system-prompt-replacement-for-cache-stable-prompt-changes/alternatives-considered:
+  en: f3dec242b2550529
+  zh: 0397fa07cc1806bb
+/agent-note-in-history-system-prompt-replacement-for-cache-stable-prompt-changes/consequences:
+  en: beda064bcd194a2a
+  zh: 8a3bb81d5edcd60a
+/agent-note-in-history-system-prompt-replacement-for-cache-stable-prompt-changes/testing:
+  en: 49134cbe02bd0c88
+  zh: 832d5b84e8c4efb0

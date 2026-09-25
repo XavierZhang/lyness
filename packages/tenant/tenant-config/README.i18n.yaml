@@ -1,6 +1,49 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/tenant/tenant-config/README.md
-README.md: c7005f18075ff211c536dee392632a42ae987d0e
-README.zh.md: b12f1bcc77a9eecd0b861d9ee45e3a18344d55d1
+/:
+  en: 1805895ec5e68273
+  zh: 9bd89dba66419691
+/lyness-lyn-tenant-config:
+  en: 065769b58b1ee45b
+  zh: 230a604a81de98f6
+/lyness-lyn-tenant-config/summary:
+  en: 95a396f389f98641
+  zh: 93d63019ead9e0fc
+/lyness-lyn-tenant-config/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-tenant-config/use-this-package:
+  en: 4409549a996800dd
+  zh: eefa0c4eb82dd484
+/lyness-lyn-tenant-config/use-this-package/what-a-tenant-configures:
+  en: aaa51a9ca739fb80
+  zh: a99466d1541eacb0
+/lyness-lyn-tenant-config/use-this-package/identity-composes-in-one-direction:
+  en: 047253875dc012c1
+  zh: afd795f28f34f287
+/lyness-lyn-tenant-config/use-this-package/keys:
+  en: a85b659002a91750
+  zh: d0c4bcaa6b1a57ba
+/lyness-lyn-tenant-config/use-this-package/rules:
+  en: 2dba2a344256f4ee
+  zh: 28ef3a057509834b
+/lyness-lyn-tenant-config/understand-the-implementation:
+  en: d60ea8b71bc8c651
+  zh: c6f69a190cf14f17
+/lyness-lyn-tenant-config/further-exploration:
+  en: d86886b0ff9e48d6
+  zh: 196415032c81a351
+/lyness-lyn-tenant-config/model-experience:
+  en: 821209ca5c08bb8f
+  zh: 2e95ba89982c5c7a
+/lyness-lyn-tenant-config/model-experience/kv-cache-effect:
+  en: ca75c51c89c2c9b0
+  zh: ee6d77f08dfbe4ec
+/lyness-lyn-tenant-config/known-limitations-and-deferred-work:
+  en: ecc74ff11b128f55
+  zh: 430dd6de84f4c61d
+/lyness-lyn-tenant-config/known-limitations-and-deferred-work/dev-note:
+  en: 1423d57d3835107f
+  zh: b8db62f277264d92

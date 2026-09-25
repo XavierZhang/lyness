@@ -1,6 +1,19 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-09-16-built-in-wordmark-fonts.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-09-16-built-in-wordmark-fonts.md
-2026-09-16-built-in-wordmark-fonts.md: c27dfb98d33c013d5d0f3e36092a648e2711ac62
-2026-09-16-built-in-wordmark-fonts.zh.md: 363f793b7bca9ae9a08d8d09a851b3b8c3a5bbb2
+/agent-note-the-platform-ships-the-fonts-its-wordmarks-are-set-in:
+  en: c2e046d64d947bf4
+  zh: 8d071719d75c5311
+/agent-note-the-platform-ships-the-fonts-its-wordmarks-are-set-in/problem:
+  en: 3f5ff61ecd4704e3
+  zh: 8c27264f261ba2a4
+/agent-note-the-platform-ships-the-fonts-its-wordmarks-are-set-in/decision:
+  en: 2ab03f716c0d4d0b
+  zh: 512b1bf7c5793778
+/agent-note-the-platform-ships-the-fonts-its-wordmarks-are-set-in/alternatives-considered:
+  en: 2280c99b850ddea4
+  zh: 433bce82a3c8fa7c
+/agent-note-the-platform-ships-the-fonts-its-wordmarks-are-set-in/consequences:
+  en: 0f0a74eb842b974c
+  zh: 2f3a7132cb4690bd

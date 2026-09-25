@@ -29,13 +29,16 @@ Use these helpers wherever a package must agree with the rest of the harness abo
 ### Resolving the home
 
 ```ts
-import { resolveLynHome, lynHomePath } from '@lyness/lyn-home-paths'
+import { resolveLynHome, lynHomePath, lynCachePath } from '@lyness/lyn-home-paths'
 
 const home = resolveLynHome()                // configured path, else $LYNESS_HOME, else ~/.lyn
 const settings = lynHomePath('settings')     // join one child onto the resolved home
+const cache = lynCachePath('models')         // $LYNESS_HOME/cache/models, default ~/.lyn/cache/models
 ```
 
 An explicit configured path has the highest precedence, then `$LYNESS_HOME`, then the default `~/.lyn`. An empty or whitespace-only `$LYNESS_HOME` is treated as unset, so a blank override never resolves the home to the current working directory.
+
+`lynCachePath(...segments)` derives paths from the resolved home's `cache` directory. With no segments it returns the cache directory itself. Pass an initial options object, `lynCachePath({ lynHome: home }, ...segments)`, to use an explicit configured home with the same precedence and tilde expansion. It returns an absolute path without creating directories.
 
 ### Displaying a home
 

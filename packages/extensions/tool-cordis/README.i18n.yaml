@@ -1,6 +1,46 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/extensions/tool-cordis/README.md
-README.md: 1d908b1234e41069be8de41fa8d6427542725973
-README.zh.md: 5ca8c928a0d4702cf34f89154905803d71a3478a
+/:
+  en: 784a82be07311e99
+  zh: 85d917ecc6386ec9
+/lyness-lyn-tool-cordis:
+  en: a053247374f8b5f1
+  zh: 2db69b46d8fc3a4f
+/lyness-lyn-tool-cordis/summary:
+  en: 245a3cd287214bed
+  zh: 8687666c28a676cf
+/lyness-lyn-tool-cordis/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 3a2f21ff0dc3420d
+/lyness-lyn-tool-cordis/use-this-package:
+  en: ac6ba48144855bb7
+  zh: 9dc731706db6e12e
+/lyness-lyn-tool-cordis/understand-the-implementation:
+  en: de18fe3471a4a341
+  zh: fda07860cfe1e325
+/lyness-lyn-tool-cordis/further-exploration:
+  en: 582df259142bb649
+  zh: 7014806e35731b68
+/lyness-lyn-tool-cordis/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/lyness-lyn-tool-cordis/model-experience/runtime-inspection:
+  en: 72ffb7cae674c31a
+  zh: 85674f298a78592a
+/lyness-lyn-tool-cordis/model-experience/runtime-inspection/what-the-model-sees:
+  en: ad1b3a230603b09b
+  zh: 3b19dafb59826daa
+/lyness-lyn-tool-cordis/model-experience/runtime-inspection/token-effect:
+  en: 5d9791798f8ce57f
+  zh: b47984cc13e12cfd
+/lyness-lyn-tool-cordis/model-experience/runtime-inspection/kv-cache-effect:
+  en: f57a20cd4e76d13c
+  zh: 7b673116422bee87
+/lyness-lyn-tool-cordis/known-limitations-and-deferred-work:
+  en: ffe15dd1fd333dbf
+  zh: b256afc74a1782cb
+/lyness-lyn-tool-cordis/known-limitations-and-deferred-work/dev-note:
+  en: 0a1253c6f7b5e8b9
+  zh: 9f56528562c7c914

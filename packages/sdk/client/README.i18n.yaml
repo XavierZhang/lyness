@@ -1,6 +1,55 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/sdk/client/README.md
-README.md: 4b8a2fa66f506f05b8b4c83c9d60b16572809146
-README.zh.md: 195130cbf873dc68266cd584a5397f0026fc4405
+/:
+  en: eb989828a8f6f512
+  zh: 6080443ed905ff5d
+/lyness-lyn-sdk-client:
+  en: 76fddd6b75e084c3
+  zh: 89232428bf22851a
+/lyness-lyn-sdk-client/summary:
+  en: e3cf3a4e7e28181e
+  zh: ccea13c6b46ced9e
+/lyness-lyn-sdk-client/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-sdk-client/use-this-package:
+  en: e6e41cc79d57d4cd
+  zh: 5f13646bd859b9ff
+/lyness-lyn-sdk-client/use-this-package/running-agent-turns-with-lyness:
+  en: 9ce6d1d7b29b9f27
+  zh: 28ea4c96faa62618
+/lyness-lyn-sdk-client/use-this-package/lower-level-control-with-harnessclient:
+  en: 6c6d386a9d5a0ff4
+  zh: 5f9fa66707da8f77
+/lyness-lyn-sdk-client/understand-the-implementation:
+  en: 8773f50c51da85f0
+  zh: 4649ebc69357deb0
+/lyness-lyn-sdk-client/understand-the-implementation/design-concept:
+  en: 6334e8531c861394
+  zh: f3d1121b56dc62f8
+/lyness-lyn-sdk-client/understand-the-implementation/source-map:
+  en: a9f045ec8a3845b2
+  zh: c2aca63334386274
+/lyness-lyn-sdk-client/understand-the-implementation/owned-activity-flow:
+  en: 94a42babac5f1c7d
+  zh: df9e42ed02f7d002
+/lyness-lyn-sdk-client/understand-the-implementation/errors-and-teardown:
+  en: 165364de2cee0a9f
+  zh: c4dc37b44e1e621e
+/lyness-lyn-sdk-client/further-exploration:
+  en: 8ad04b0ec10a8835
+  zh: 8ecd335366d5ef3a
+/lyness-lyn-sdk-client/model-experience:
+  en: e82a55513d3cd30e
+  zh: ecd8c0875ff2fb87
+/lyness-lyn-sdk-client/model-experience/kv-cache-effect:
+  en: 7abe0be104a791e7
+  zh: 445311f78b1069ca
+/lyness-lyn-sdk-client/known-limitations-and-deferred-work:
+  en: fe137ed6378f8386
+  zh: d6625f28afbefa53
+/lyness-lyn-sdk-client/known-limitations-and-deferred-work/dev-note:
+  en: 6177a56f053936a4
+  zh: 0f4b20228c2d15da

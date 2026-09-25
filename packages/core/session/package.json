@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-session",
   "description": "Event-sourced session store for the lyness",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -26,6 +26,10 @@
       "types": "./lib/types/types.d.ts",
       "default": "./lib/types/types.js"
     },
+    "./fork": {
+      "types": "./lib/types/fork.d.ts",
+      "default": "./lib/types/fork.js"
+    },
     "./src/*": "./src/*",
     "./package.json": "./package.json",
     "./surface": {
@@ -41,19 +45,19 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/lyn-scope": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-scope": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/lyn-invariants": "workspace:^",
-    "@lyness/lyn-scope": "workspace:^",
-    "@lyness/lyn-typert-protocol": "workspace:^",
-    "@lyness/lyn-typert-registry": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-invariants": "workspace:*",
+    "@lyness/lyn-scope": "workspace:*",
+    "@lyness/lyn-typert-protocol": "workspace:*",
+    "@lyness/lyn-typert-registry": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   },
   "dependencies": {
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-brand": "workspace:^",
-    "@lyness/lyn-util-values": "workspace:^"
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/lyn-util-values": "workspace:*"
   }
 }

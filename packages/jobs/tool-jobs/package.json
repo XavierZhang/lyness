@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-tool-jobs",
   "description": "Model-facing background job control tools (job_output, job_list, job_kill) over the ctx.jobs registry",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -27,26 +27,26 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@lyness/schemastery": "workspace:^"
+    "@lyness/schemastery": "workspace:~"
   },
   "peerDependencies": {
-    "@lyness/lyn-agent": "workspace:^",
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-output-retention": "workspace:^",
-    "@lyness/lyn-system-prompt": "workspace:^",
-    "@lyness/lyn-jobs": "workspace:^",
-    "@lyness/lyn-tools": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-output-retention": "workspace:*",
+    "@lyness/lyn-system-prompt": "workspace:*",
+    "@lyness/lyn-jobs": "workspace:*",
+    "@lyness/lyn-tools": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/lyn-agent": "workspace:^",
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-output-retention": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-system-prompt": "workspace:^",
-    "@lyness/lyn-jobs": "workspace:^",
-    "@lyness/lyn-jobs-local": "workspace:^",
-    "@lyness/lyn-tools": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-output-retention": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-system-prompt": "workspace:*",
+    "@lyness/lyn-jobs": "workspace:*",
+    "@lyness/lyn-jobs-local": "workspace:*",
+    "@lyness/lyn-tools": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   }
 }

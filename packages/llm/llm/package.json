@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-llm",
   "description": "Provider-neutral LLM service interface for the lyness",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -61,20 +61,20 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:~"
   },
   "dependencies": {
-    "@lyness/lyn-util-crypto": "workspace:^",
-    "@lyness/schemastery": "workspace:^",
+    "@lyness/lyn-util-crypto": "workspace:*",
+    "@lyness/schemastery": "workspace:~",
     "zod": "^4.4.3",
-    "@lyness/lyn-timeout": "workspace:^",
-    "@lyness/lyn-brand": "workspace:^",
-    "@lyness/lyn-util-values": "workspace:^",
-    "@lyness/lyn-typert-protocol": "workspace:^"
+    "@lyness/lyn-timeout": "workspace:*",
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/lyn-util-values": "workspace:*",
+    "@lyness/lyn-typert-protocol": "workspace:*"
   },
   "devDependencies": {
-    "@lyness/lyn-attachment": "workspace:^",
-    "@lyness/lyn-invariants": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-attachment": "workspace:*",
+    "@lyness/lyn-invariants": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   }
 }

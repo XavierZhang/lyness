@@ -1,6 +1,28 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-09-06-pr-ci-runner-temporary-storage.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/testing/2026-09-06-pr-ci-runner-temporary-storage.md
-2026-09-06-pr-ci-runner-temporary-storage.md: 900958fe9be0489559828d07d68622f0fcea3e5f
-2026-09-06-pr-ci-runner-temporary-storage.zh.md: 67e8e29b868bf133183f1e82f422c49b8484db17
+/agent-note-runner-owned-temporary-storage-for-pr-ci:
+  en: 73ebd195a3c2aee0
+  zh: 63786bd29daa2fca
+/agent-note-runner-owned-temporary-storage-for-pr-ci/problem:
+  en: 5787327a360024d9
+  zh: ee9b8cb63d79e551
+/agent-note-runner-owned-temporary-storage-for-pr-ci/decision:
+  en: 119b5092020d5b61
+  zh: ac384935086a7bcb
+/agent-note-runner-owned-temporary-storage-for-pr-ci/recorded-acp-completion-order:
+  en: 51f2f962db14ba9c
+  zh: 5fc8a908431c3865
+/agent-note-runner-owned-temporary-storage-for-pr-ci/workspace-grant-fixture-placement:
+  en: 1008b2fc61d01b10
+  zh: f5314d10980611ef
+/agent-note-runner-owned-temporary-storage-for-pr-ci/live-verification-and-browser-fixture-inputs:
+  en: 1b57e0db932b3211
+  zh: 7616b037e0f5147e
+/agent-note-runner-owned-temporary-storage-for-pr-ci/alternatives-considered:
+  en: 8b0f2798f91ff190
+  zh: f6e871a723e4d079
+/agent-note-runner-owned-temporary-storage-for-pr-ci/consequences:
+  en: edff86953aa8dea0
+  zh: 2590d5725e33454e

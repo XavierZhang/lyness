@@ -2,6 +2,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import { Context, type Fiber } from '@lyness/cordis'
 import type { Agent } from '@lyness/lyn-agent'
 import { createUserMessage, ToolCallId, HarnessError , createMessage } from '@lyness/lyn-llm'
+import type { ContextFormed } from '@lyness/lyn-llm'
 import { MAX_TIMER_DELAY_MS, TimeoutReason } from '@lyness/lyn-timeout'
 import * as TimeoutPolicy from '@lyness/lyn-tool-call-timeout-policy'
 import SessionStore, {
@@ -31,6 +32,12 @@ import SessionQueryEngine, {
 import SystemPrompt from '@lyness/lyn-system-prompt'
 import ToolRuntime, { type ToolExecutionResult } from '@lyness/lyn-tools'
 import * as ToolSessionQuery from '@lyness/lyn-tool-session-query'
+
+declare module '@lyness/lyn-llm' {
+  interface MessageSourceMap {
+    'test': { kind: 'test' } & ContextFormed
+  }
+}
 
 const activeContexts: Context[] = []
 
@@ -1221,7 +1228,7 @@ describe('workspace authority and lineage redaction', () => {
       'context/message',
       {
         content: [{ type: 'text', text: 'same-id moved secret' }],
-        source: { kind: 'plugin', plugin: 'test' },
+        source: { kind: 'test' },
       },
     )
     const window = await mounted.ctx.sessionQuery.readEvent({
@@ -1995,7 +2002,7 @@ describe('trace and exact read rendering', () => {
       'user/message',
       createUserMessage({
         content: [{ type: 'text', text: 'replacement' }],
-        source: { kind: 'plugin', plugin: 'test' },
+        source: { kind: 'test' },
       }),
       {
         surfaceOp: { op: 'replace', startSeq: SessionSeq(0), endSeq: SessionSeq(0) },
@@ -2042,7 +2049,7 @@ describe('trace and exact read rendering', () => {
     ) => SessionEvent
     appendLegacy(
       'context/message',
-      { content: [{ type: 'text', text: 'after semantic text' }], source: { kind: 'plugin', plugin: 'test' } },
+      { content: [{ type: 'text', text: 'after semantic text' }], source: { kind: 'test' } },
     )
     const result = await mounted.call('session_event_read', {
       session_id: session.id,

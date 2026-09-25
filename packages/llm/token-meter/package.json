@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-token-meter",
   "description": "Replay-aware token measurement service (ctx.tokenMeter) for the lyness",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -23,7 +23,11 @@
       "default": "./lib/types/client.js"
     },
     "./src/*": "./src/*",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./estimate": {
+      "types": "./lib/types/estimate.d.ts",
+      "default": "./lib/types/estimate.js"
+    }
   },
   "files": [
     "lib/index.js",
@@ -32,24 +36,26 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-compaction": "workspace:^",
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-llm-retry": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-session-projection": "workspace:^"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-compaction": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-llm-retry": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-session-projection": "workspace:*",
+    "@lyness/lyn-compaction-image-offload": "workspace:*"
   },
   "dependencies": {
-    "@lyness/lyn-util-values": "workspace:^",
-    "@lyness/schemastery": "workspace:^",
+    "@lyness/lyn-util-values": "workspace:*",
+    "@lyness/schemastery": "workspace:~",
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-compaction": "workspace:^",
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-llm-retry": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-session-projection": "workspace:^"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-compaction": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-llm-retry": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-session-projection": "workspace:*",
+    "@lyness/lyn-compaction-image-offload": "workspace:*"
   }
 }

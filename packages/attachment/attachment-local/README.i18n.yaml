@@ -1,6 +1,61 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/attachment/attachment-local/README.md
-README.md: c2cd693a9a93eb6493dedde8764428edbbedb78f
-README.zh.md: 956094a0327b79dc2690e7acdfd9d644ca1ef0bf
+/:
+  en: aa1a7c6de1061cae
+  zh: 1031774d03d46e04
+/lyness-lyn-attachment-local:
+  en: 65297918808e465f
+  zh: 4b1fe3dafe594798
+/lyness-lyn-attachment-local/summary:
+  en: 67eb4da8504b20ae
+  zh: 682d8a1955f74069
+/lyness-lyn-attachment-local/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-attachment-local/use-this-package:
+  en: 912a19be4b59ff8a
+  zh: 9c14694cf2ebbaf2
+/lyness-lyn-attachment-local/use-this-package/minimal-configuration:
+  en: 68ab1853fda24b8c
+  zh: 43717d995a63079b
+/lyness-lyn-attachment-local/use-this-package/where-your-images-are-stored-and-how-long-they-last:
+  en: 576912904b356f5b
+  zh: 75168c6b90110581
+/lyness-lyn-attachment-local/use-this-package/what-happens-when-you-attach-an-image:
+  en: 75ba799b1e4edba4
+  zh: 06c5f76200e8da8a
+/lyness-lyn-attachment-local/use-this-package/what-can-go-wrong:
+  en: 377696b2dc08b170
+  zh: 6b831ef31c93f712
+/lyness-lyn-attachment-local/understand-the-implementation:
+  en: e44b0aa3e234a0ef
+  zh: b7dd6829478eb7f1
+/lyness-lyn-attachment-local/understand-the-implementation/design-decisions:
+  en: dcd9857653645420
+  zh: a27259a09f17465d
+/lyness-lyn-attachment-local/understand-the-implementation/write-and-read-paths:
+  en: eb31fdcd046a15fe
+  zh: e5766bdee2c81162
+/lyness-lyn-attachment-local/understand-the-implementation/source-map:
+  en: b092fd38c68a06bd
+  zh: 4f3f4f1ec98401f4
+/lyness-lyn-attachment-local/further-exploration:
+  en: 36596c8a2722de90
+  zh: 21f53807ceddc699
+/lyness-lyn-attachment-local/model-experience:
+  en: 2e18b3dfbc5af126
+  zh: aaee1745632c561a
+/lyness-lyn-attachment-local/model-experience/kv-cache-effect:
+  en: 64670486210bdab7
+  zh: 44c988dd6268c1ff
+/lyness-lyn-attachment-local/known-limitations-and-deferred-work:
+  en: 46a33da5b3740127
+  zh: c3ac244228b81d8f
+/lyness-lyn-attachment-local/known-limitations-and-deferred-work/dev-note:
+  en: d56846da29ad869c
+  zh: 41e655e01351fd1d
+/lyness-lyn-attachment-local/known-limitations-and-deferred-work/dev-note/future-retention-and-remote-storage:
+  en: ca52dca949bc8291
+  zh: 1d50c2a6747e76a3

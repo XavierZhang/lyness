@@ -5,7 +5,7 @@ import { mountAgentLoopTestDependencies } from '@lyness/lyn-agent-loop-testkit'
 import LocalFileSystem from '@lyness/lyn-fs-local'
 import * as FsPolicy from '@lyness/lyn-fs-observation-policy'
 import * as ToolFs from '@lyness/lyn-tool-fs'
-import * as LlmDeepSeek from '@lyness/lyn-llm-deepseek'
+import * as LlmDeepSeek from '@lyness/lyn-llm-deepseek-api-key'
 
 /**
  * Build the real fs-tool stack for with-key e2e tests. Agents have no session

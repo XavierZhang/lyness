@@ -1,6 +1,19 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-09-21-durable-tenant-configuration.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-09-21-durable-tenant-configuration.md
-2026-09-21-durable-tenant-configuration.md: ce51bc0d41bd5c32ea25e942fdbb3afa65e2dd72
-2026-09-21-durable-tenant-configuration.zh.md: c5a4d3191f75e1b685bf131f21593d0d50f07206
+/agent-note-tenant-configuration-a-deployment-saves-not-edits-and-restarts:
+  en: 02008f05a7f4fb68
+  zh: 4b12e5b8a814b908
+/agent-note-tenant-configuration-a-deployment-saves-not-edits-and-restarts/problem:
+  en: 5d5eb5aee7be95b1
+  zh: a87fb33cf65b6be8
+/agent-note-tenant-configuration-a-deployment-saves-not-edits-and-restarts/decision:
+  en: b94bd56f91e756c4
+  zh: 8b7a9ff20837a76c
+/agent-note-tenant-configuration-a-deployment-saves-not-edits-and-restarts/alternatives-considered:
+  en: 3b9d023371c72115
+  zh: 21445355e7410d3f
+/agent-note-tenant-configuration-a-deployment-saves-not-edits-and-restarts/consequences:
+  en: 5e7375a5147b20a5
+  zh: 274c8c4b372cf87b

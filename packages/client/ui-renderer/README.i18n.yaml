@@ -1,6 +1,52 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/ui-renderer/README.md
-README.md: 7085bd35260e61ec62d7104a73c0904f21559b74
-README.zh.md: 4d88431490ace17a7ebe945f9b261a5b7b9bf131
+/:
+  en: c20ac3d0baadd0af
+  zh: e1a9a8a857567bb1
+/lyness-lyn-client-ui-renderer:
+  en: c0187590c0cab27e
+  zh: f89075ebf504b0b4
+/lyness-lyn-client-ui-renderer/summary:
+  en: c35c24f06ad40316
+  zh: 4706217118f0ee2a
+/lyness-lyn-client-ui-renderer/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-client-ui-renderer/use-this-package:
+  en: e7a2c304563e4699
+  zh: baa0a1d208aaa4f0
+/lyness-lyn-client-ui-renderer/use-this-package/what-mounting-does:
+  en: 1d5350799ce072d0
+  zh: 942e543fdab51818
+/lyness-lyn-client-ui-renderer/use-this-package/for-business-plugins:
+  en: 15a2bfee2c0bd051
+  zh: 0c5b336fc5afbbc6
+/lyness-lyn-client-ui-renderer/understand-the-implementation:
+  en: 0de0a8ad857b93f6
+  zh: 98a0fae2d6606a7d
+/lyness-lyn-client-ui-renderer/understand-the-implementation/activation-and-mount:
+  en: 8d25aaca20afe7e3
+  zh: aaaab85ebf99c591
+/lyness-lyn-client-ui-renderer/understand-the-implementation/slot-bindings:
+  en: 6ab26cf5744a23d4
+  zh: 84a531322a724a84
+/lyness-lyn-client-ui-renderer/understand-the-implementation/identity:
+  en: 2a349d500ead79cb
+  zh: ac49c8b1d73dcd6c
+/lyness-lyn-client-ui-renderer/further-exploration:
+  en: 7c8249a37579951b
+  zh: 34597aea8a73ab39
+/lyness-lyn-client-ui-renderer/model-experience:
+  en: ca4e29db08d34e6d
+  zh: de6ec680414b1d54
+/lyness-lyn-client-ui-renderer/model-experience/kv-cache-effect:
+  en: ca75c51c89c2c9b0
+  zh: de54f3467ef3b9be
+/lyness-lyn-client-ui-renderer/known-limitations-and-deferred-work:
+  en: 5ebaf02736035a44
+  zh: 3c04f28da7ec6c40
+/lyness-lyn-client-ui-renderer/known-limitations-and-deferred-work/dev-note:
+  en: e67f633dc6fe7773
+  zh: 3bb0c20c93f16f98

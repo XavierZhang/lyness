@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-client-ui-subagent",
   "description": "Subagent conversation catalog, continuation routing UI, and '@' reference source",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -30,9 +30,13 @@
       "inject": [
         "@lyness/lyn-api-session-controller",
         "@lyness/lyn-client-locale",
+        "@lyness/lyn-client-resources",
+        "@lyness/lyn-client-ui-chat",
         "@lyness/lyn-client-ui-conversation",
         "@lyness/lyn-client-ui-primitives",
-        "@lyness/lyn-client-ui-input-trigger"
+        "@lyness/lyn-client-ui-sidebar-right",
+        "@lyness/lyn-client-ui-input-trigger",
+        "@lyness/lyn-client-ui-workspace"
       ],
       "platform": "web"
     }
@@ -43,27 +47,31 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/lyn-client-locale": "workspace:^",
-    "@lyness/lyn-client-test-runtime": "workspace:^",
-    "@lyness/lyn-client-ui-conversation": "workspace:^",
-    "@lyness/lyn-client-ui-input-trigger": "workspace:^",
-    "@lyness/lyn-client-ui-primitives": "workspace:^",
-    "@lyness/lyn-client-ui-slots": "workspace:^",
-    "@lyness/lyn-subagent": "workspace:^",
-    "@lyness/lyn-token-meter": "workspace:^",
+    "@lyness/lyn-client-locale": "workspace:*",
+    "@lyness/lyn-client-resources": "workspace:*",
+    "@lyness/lyn-client-test-runtime": "workspace:*",
+    "@lyness/lyn-client-ui-chat": "workspace:*",
+    "@lyness/lyn-client-ui-conversation": "workspace:*",
+    "@lyness/lyn-client-ui-input-trigger": "workspace:*",
+    "@lyness/lyn-client-ui-primitives": "workspace:*",
+    "@lyness/lyn-client-ui-slots": "workspace:*",
+    "@lyness/lyn-subagent": "workspace:*",
+    "@lyness/lyn-token-meter": "workspace:*",
     "@types/react": "~18.3.1",
     "@types/react-dom": "~18.3.0",
-    "@lyness/cordis": "workspace:^",
+    "@lyness/cordis": "workspace:~",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "@lyness/lyn-api-session-controller": "workspace:^",
-    "@lyness/lyn-client-connection": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-client-ui-renderer": "workspace:^",
-    "@lyness/lyn-client-ui-session": "workspace:^"
+    "@lyness/lyn-api-session-controller": "workspace:*",
+    "@lyness/lyn-client-connection": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-client-ui-renderer": "workspace:*",
+    "@lyness/lyn-client-ui-sidebar-right": "workspace:*",
+    "@lyness/lyn-client-ui-session": "workspace:*",
+    "@lyness/lyn-client-ui-workspace": "workspace:*"
   },
   "files": [
     "lib/index.js",

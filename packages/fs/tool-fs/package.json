@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-tool-fs",
   "description": "Model-facing filesystem tools (read, write, edit) over the lyness filesystem seam (ctx.fs)",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -28,40 +28,42 @@
   "license": "MIT",
   "dependencies": {
     "diff": "^9.0.0",
-    "@lyness/schemastery": "workspace:^"
+    "@lyness/schemastery": "workspace:~",
+    "@lyness/lyn-util-code-language": "workspace:*"
   },
   "peerDependencies": {
-    "@lyness/lyn-attachment": "workspace:^",
-    "@lyness/lyn-fs": "workspace:^",
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-sandbox": "workspace:^",
-    "@lyness/lyn-sandbox-policy": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-system-prompt": "workspace:^",
-    "@lyness/lyn-tools": "workspace:^",
-    "@lyness/lyn-user-approval": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-attachment": "workspace:*",
+    "@lyness/lyn-fs": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-sandbox": "workspace:*",
+    "@lyness/lyn-sandbox-policy": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-system-prompt": "workspace:*",
+    "@lyness/lyn-tools": "workspace:*",
+    "@lyness/lyn-user-approval": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-agent": "workspace:^",
-    "@lyness/lyn-agent-loop": "workspace:^",
-    "@lyness/lyn-agent-loop-testkit": "workspace:^",
-    "@lyness/lyn-attachment": "workspace:^",
-    "@lyness/lyn-code-runtime": "workspace:^",
-    "@lyness/lyn-e2e-target": "workspace:^",
-    "@lyness/lyn-fs": "workspace:^",
-    "@lyness/lyn-fs-local": "workspace:^",
-    "@lyness/lyn-fs-observation-policy": "workspace:^",
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-llm-deepseek": "workspace:^",
-    "@lyness/lyn-sandbox": "workspace:^",
-    "@lyness/lyn-sandbox-policy": "workspace:^",
-    "@lyness/lyn-scope": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-session-projection": "workspace:^",
-    "@lyness/lyn-system-prompt": "workspace:^",
-    "@lyness/lyn-tools": "workspace:^",
-    "@lyness/lyn-user-approval": "workspace:^"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/lyn-agent-loop": "workspace:*",
+    "@lyness/lyn-agent-loop-testkit": "workspace:*",
+    "@lyness/lyn-attachment": "workspace:*",
+    "@lyness/lyn-e2e-target": "workspace:*",
+    "@lyness/lyn-fs": "workspace:*",
+    "@lyness/lyn-fs-local": "workspace:*",
+    "@lyness/lyn-fs-observation-policy": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-llm-deepseek": "workspace:*",
+    "@lyness/lyn-llm-deepseek-api-key": "workspace:*",
+    "@lyness/lyn-ptc-runtime": "workspace:*",
+    "@lyness/lyn-sandbox": "workspace:*",
+    "@lyness/lyn-sandbox-policy": "workspace:*",
+    "@lyness/lyn-scope": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-session-projection": "workspace:*",
+    "@lyness/lyn-system-prompt": "workspace:*",
+    "@lyness/lyn-tools": "workspace:*",
+    "@lyness/lyn-user-approval": "workspace:*"
   }
 }

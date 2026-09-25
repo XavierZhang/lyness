@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react'
 import type { SnapshotStore } from '@lyness/lyn-client-store'
 import type { InjectFace, PropsLocale, PropsRuntime } from '@lyness/lyn-client-ui-slots'
 import {
-  IconChevronDownOutline14, Menu, RiskConfirmation,
+  IconChevronDownOutlineRegular, Menu, RiskConfirmation,
 } from '@lyness/lyn-client-ui-primitives'
 import type { PermissionSettingsState } from './settings-store.ts'
 import type { PermissionSettingsKey } from './locales.ts'
@@ -97,7 +97,7 @@ export function PermissionRow({ load, select, usePermission, t }: PermissionRowP
               onClick={() => { setOpen(value => !value) }}
             >
               {label}
-              <IconChevronDownOutline14 className={css.chevron} />
+              <IconChevronDownOutlineRegular className={css.chevron} />
             </button>
           )}
         />

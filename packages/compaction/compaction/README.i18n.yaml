@@ -1,6 +1,85 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/compaction/compaction/README.md
-README.md: 188fffef80b95153cc63d544008b4e95f02c1308
-README.zh.md: 5d7a84351cf45fbddb6492492e4a58300c644b74
+/:
+  en: 5c47c9629036f119
+  zh: 7730d7468a38b38d
+/lyness-lyn-compaction:
+  en: a12d24864b30374d
+  zh: bdabd7af6d0baaae
+/lyness-lyn-compaction/summary:
+  en: 222ae33d76c6ea44
+  zh: aaabbc1a8056c4cc
+/lyness-lyn-compaction/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-compaction/use-this-package:
+  en: 7d1dad97626dbd2e
+  zh: 075fef4e1844ad12
+/lyness-lyn-compaction/use-this-package/when-to-choose-it:
+  en: 92ea3626d2f34a53
+  zh: c8124b65092a05e2
+/lyness-lyn-compaction/use-this-package/what-condensation-looks-like:
+  en: 0abbee3a3b929a90
+  zh: 334736dffe93488d
+/lyness-lyn-compaction/use-this-package/turning-condensation-on:
+  en: c3aed9cb8b53dc2f
+  zh: f537fa3cba4c65f4
+/lyness-lyn-compaction/use-this-package/implementing-a-backend:
+  en: 36235bec062334c1
+  zh: 49abcefcd3fbc95e
+/lyness-lyn-compaction/use-this-package/recognizing-condensed-history:
+  en: 35502487f2850f05
+  zh: 333d2b86cc1d6eb0
+/lyness-lyn-compaction/understand-the-implementation:
+  en: 321c3dc665ea03ff
+  zh: f0fa408cde7b0454
+/lyness-lyn-compaction/understand-the-implementation/design-philosophy:
+  en: 1089190c1edce906
+  zh: 8fdd0a084b20cb34
+/lyness-lyn-compaction/understand-the-implementation/service-api:
+  en: 04de2000db04fca2
+  zh: 504dfdc9a78e9ca8
+/lyness-lyn-compaction/understand-the-implementation/manual-failure-taxonomy:
+  en: 8cbe7e29596f6045
+  zh: 28a5929e3d32fbdc
+/lyness-lyn-compaction/understand-the-implementation/tool-pairing-boundaries:
+  en: 15dad68a04d6c86b
+  zh: 3b95acf1b7e503bf
+/lyness-lyn-compaction/understand-the-implementation/the-surface-contract:
+  en: 9132946ae915b54b
+  zh: 729532f372f12877
+/lyness-lyn-compaction/understand-the-implementation/source-map:
+  en: 121139cf1878d7cf
+  zh: f8f9d8d3eb9866b5
+/lyness-lyn-compaction/understand-the-implementation/locking-and-serialization:
+  en: 68caa51bed28bada
+  zh: 3f8261f9dcba95ed
+/lyness-lyn-compaction/understand-the-implementation/events:
+  en: 23eef3ae113d69ff
+  zh: d2e7e214fd487829
+/lyness-lyn-compaction/further-exploration:
+  en: ddec8db12dddd5ec
+  zh: 88fff43a81a1d005
+/lyness-lyn-compaction/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/lyness-lyn-compaction/model-experience/conversation-history-when-a-backend-is-invoked:
+  en: 94de97ed1e85db85
+  zh: c8e37d8050609e63
+/lyness-lyn-compaction/model-experience/conversation-history-when-a-backend-is-invoked/what-the-model-sees:
+  en: 3c4875a13da17814
+  zh: 9b257950a9e2c7c1
+/lyness-lyn-compaction/model-experience/conversation-history-when-a-backend-is-invoked/token-effect:
+  en: be91f4a4bbb9338b
+  zh: 2b5de31d4d7caff1
+/lyness-lyn-compaction/model-experience/conversation-history-when-a-backend-is-invoked/kv-cache-effect:
+  en: 40ba838a2309c44a
+  zh: c609fc1587a0d666
+/lyness-lyn-compaction/known-limitations-and-deferred-work:
+  en: fee9ba06d3e5f35c
+  zh: 2bb5241e2447d15d
+/lyness-lyn-compaction/known-limitations-and-deferred-work/dev-note:
+  en: 270e23ae6414aff0
+  zh: c6d219b8a547dbca

@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-client-locale",
   "description": "Locale plugin: Host-backed preference, extensible language catalog, browser fallback, and typed built-in dictionaries",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -39,24 +39,25 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-api-remotes": "workspace:^",
-    "@lyness/lyn-client-store": "workspace:^",
-    "@lyness/lyn-client-test-runtime": "workspace:^",
-    "@lyness/lyn-client-ui-primitives": "workspace:^",
-    "@lyness/lyn-client-ui-renderer": "workspace:^",
-    "@lyness/lyn-client-ui-settings": "workspace:^",
-    "@lyness/lyn-client-ui-slots": "workspace:^",
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-api-remotes": "workspace:*",
+    "@lyness/lyn-client-store": "workspace:*",
+    "@lyness/lyn-client-test-runtime": "workspace:*",
+    "@lyness/lyn-client-ui-primitives": "workspace:*",
+    "@lyness/lyn-client-ui-renderer": "workspace:*",
+    "@lyness/lyn-client-ui-settings": "workspace:*",
+    "@lyness/lyn-client-ui-slots": "workspace:*",
+    "@lyness/lyn-package-manifest": "workspace:*",
     "@types/react": "~18.3.1",
     "react": "^18.2.0",
-    "@lyness/lyn-client-connection": "workspace:^",
-    "@lyness/lyn-settings": "workspace:^"
+    "@lyness/lyn-client-connection": "workspace:*",
+    "@lyness/lyn-settings": "workspace:*"
   },
   "dependencies": {
-    "@lyness/schemastery": "workspace:^"
+    "@lyness/schemastery": "workspace:~"
   },
   "files": [
     "lib/index.js",

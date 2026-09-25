@@ -1,15 +1,15 @@
 /**
- * Public package manifest types, with no runtime exports.
+ * Public package manifest and plugin display types, with no runtime exports.
  * @module @lyness/lyn-package-manifest
  */
 
 export type {
   LynBundleManifest,
   LynClientManifest,
-  LynConfigTreeDeclaration,
+  LynEnginesManifest,
   LynManifest,
-  LynModuleFallbackManifest,
+  LynPackageManifest,
   LynProfileManifest,
-  LynSessionFormatMigrationManifest,
-  ProfilePatchReload,
+  LocalizedText,
+  PluginLocalizedMeta,
 } from './types.ts'

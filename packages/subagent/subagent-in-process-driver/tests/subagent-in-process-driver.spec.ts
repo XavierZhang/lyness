@@ -1,4 +1,5 @@
 import { ToolCallId, createUserMessage } from '@lyness/lyn-llm'
+import type { ContextFormed } from '@lyness/lyn-llm'
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import { type Agent, type AgentOptions } from '@lyness/lyn-agent'
@@ -13,6 +14,12 @@ import SubagentRuntime, { snapshotSubagentDescriptor } from '@lyness/lyn-subagen
 import { defineContentToolFixture } from '@lyness/lyn-tools'
 import { maxTokensResponse, MockAdapter, textResponse, toolCallResponse } from '../../../core/agent-loop/tests/mock-adapter.ts'
 import { startInProcessRun } from '../src/index.ts'
+
+declare module '@lyness/lyn-llm' {
+  interface MessageSourceMap {
+    'late-metadata': { kind: 'late-metadata' } & ContextFormed
+  }
+}
 
 type Script = ConstructorParameters<typeof MockAdapter>[0]
 
@@ -155,7 +162,7 @@ describe('startInProcessRun', () => {
       injected = true
       session.append('user/message', createUserMessage({
         content: [{ type: 'text', text: 'late metadata' }],
-        source: { kind: 'plugin', plugin: 'late-metadata' },
+        source: { kind: 'late-metadata' },
       }), { surfaceOp: 'append' })
     })
 

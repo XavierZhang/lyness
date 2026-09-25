@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-storage-sqlite",
   "description": "SQLite storage backend (kv facet) for the lyness storage hub",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -27,14 +27,14 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/lyn-storage": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-storage": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   },
   "dependencies": {
-    "@lyness/schemastery": "workspace:^"
+    "@lyness/schemastery": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/lyn-storage": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-storage": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   }
 }

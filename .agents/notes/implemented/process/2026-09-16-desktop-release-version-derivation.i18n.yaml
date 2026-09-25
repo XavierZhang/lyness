@@ -1,0 +1,19 @@
+# Bilingual-pair consistency record for 2026-09-16-desktop-release-version-derivation.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write .agents/notes/implemented/process/2026-09-16-desktop-release-version-derivation.md
+/agent-note-derive-desktop-test-versions-from-the-complete-lyn-version:
+  en: 23e2996aa41ecfe7
+  zh: f05e3aa3bf08448b
+/agent-note-derive-desktop-test-versions-from-the-complete-lyn-version/problem:
+  en: 2f07b54474559959
+  zh: 2263ad3f38bcd3e8
+/agent-note-derive-desktop-test-versions-from-the-complete-lyn-version/decision:
+  en: dc3cd0f63cb347ae
+  zh: 3222bf1ffb0b7bbe
+/agent-note-derive-desktop-test-versions-from-the-complete-lyn-version/alternatives-considered:
+  en: cf86267e11a4e534
+  zh: daa4fb017b2725a5
+/agent-note-derive-desktop-test-versions-from-the-complete-lyn-version/consequences:
+  en: ce62d7f641c0cd45
+  zh: 08b05c154f38d816

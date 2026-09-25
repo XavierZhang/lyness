@@ -1,6 +1,55 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/util/atomic-write/README.md
-README.md: 65458fdc17d374c6453225060b607cf2d46bc7c6
-README.zh.md: a79e0d177cff1114af05f90bb243bddd7412db3d
+/:
+  en: 1065a4fcafd0430d
+  zh: 40bc911b6d01288b
+/lyness-lyn-atomic-write:
+  en: f71bee5ab5b8d009
+  zh: fdbfe42dab3ef92d
+/lyness-lyn-atomic-write/summary:
+  en: d8999a212679b16c
+  zh: 7dc6e327dac30c11
+/lyness-lyn-atomic-write/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-atomic-write/use-this-package:
+  en: 9cc27a0ee5ae0808
+  zh: d0ee06b54452f600
+/lyness-lyn-atomic-write/use-this-package/writing-a-file-atomically:
+  en: 7b757dc3c3b27335
+  zh: a097d90a2561475d
+/lyness-lyn-atomic-write/use-this-package/coordinating-writers:
+  en: 77c865c1f78d2a0c
+  zh: 5a91874c352c6f18
+/lyness-lyn-atomic-write/use-this-package/failures-to-plan-for:
+  en: 59308dc757e25273
+  zh: 01113ed577a413cb
+/lyness-lyn-atomic-write/understand-the-implementation:
+  en: 93b537308f7c88c7
+  zh: 282e0d2042aeb1be
+/lyness-lyn-atomic-write/understand-the-implementation/source-map:
+  en: 725509a8b621c668
+  zh: c11e3ffdf73af844
+/lyness-lyn-atomic-write/understand-the-implementation/write-path:
+  en: 141797deffb22dfd
+  zh: ba09fb8f1acb314f
+/lyness-lyn-atomic-write/understand-the-implementation/why-the-swap-stays-safe:
+  en: 784e985c1fb3a25e
+  zh: 4afda1b9bf5f29cc
+/lyness-lyn-atomic-write/further-exploration:
+  en: 5b9228ce045092c2
+  zh: 4e9ec75c2f0b97c9
+/lyness-lyn-atomic-write/model-experience:
+  en: 225fc1d94a284905
+  zh: 7319a43c3b8a884d
+/lyness-lyn-atomic-write/model-experience/kv-cache-effect:
+  en: 815e93723a98919c
+  zh: 921da870f67e4033
+/lyness-lyn-atomic-write/known-limitations-and-deferred-work:
+  en: 5d0b395da8833bbb
+  zh: 6191bab46d288be7
+/lyness-lyn-atomic-write/known-limitations-and-deferred-work/dev-note:
+  en: d3461ceeaf041974
+  zh: f59df2adbf52fed9

@@ -1,6 +1,40 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/ui-dockkit/README.md
-README.md: c215afc70684107703f96f8baffaedef20aba897
-README.zh.md: e9c08237be158876f8ca740b1ff9cbc002535e6b
+/:
+  en: 6dfea2ba4cdc7e13
+  zh: b4319dd6768696ed
+/lyness-lyn-client-ui-dockkit:
+  en: 7f61438961dcb5bb
+  zh: 770f91a91c708ba2
+/lyness-lyn-client-ui-dockkit/summary:
+  en: 3ee4584a73215ef4
+  zh: 051170a6d0993fa5
+/lyness-lyn-client-ui-dockkit/table-of-contents:
+  en: 42038fdc402b9c2a
+  zh: 99890f8f908624ce
+/lyness-lyn-client-ui-dockkit/the-two-layers:
+  en: ea872ff2c2089037
+  zh: b3ec3a218eacd5c8
+/lyness-lyn-client-ui-dockkit/embedding-it:
+  en: 789c879dd83f463a
+  zh: 37f2dc45f9588810
+/lyness-lyn-client-ui-dockkit/interaction-rules-worth-keeping:
+  en: 7e5c1e9a9f9f244f
+  zh: 7e3a8fcef86bc7dd
+/lyness-lyn-client-ui-dockkit/build-shape:
+  en: 21216ba5798d7f5f
+  zh: ac505fdcd5c114d4
+/lyness-lyn-client-ui-dockkit/model-experience:
+  en: cdebb91645623401
+  zh: fe262db316714fa8
+/lyness-lyn-client-ui-dockkit/model-experience/kv-cache-effect:
+  en: ca75c51c89c2c9b0
+  zh: f57cc48a1b5cbfa9
+/lyness-lyn-client-ui-dockkit/known-limitations-and-deferred-work:
+  en: 4323810ca5a87e6c
+  zh: 3a24af2ea4467ab7
+/lyness-lyn-client-ui-dockkit/known-limitations-and-deferred-work/dev-note:
+  en: 4313d552f7c61055
+  zh: 55ec67e71324a705

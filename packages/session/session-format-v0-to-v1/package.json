@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-session-format-v0-to-v1",
   "description": "Frozen released-v0 Session codec and identity migration to v1",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -39,14 +39,14 @@
     }
   },
   "dependencies": {
-    "@lyness/lyn-session-format": "workspace:^",
-    "@lyness/lyn-util-values": "workspace:^"
+    "@lyness/lyn-session-format": "workspace:*",
+    "@lyness/lyn-util-values": "workspace:*"
   },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-session": "workspace:^"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-session": "workspace:*"
   }
 }

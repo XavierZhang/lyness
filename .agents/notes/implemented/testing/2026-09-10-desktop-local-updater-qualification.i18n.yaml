@@ -1,0 +1,19 @@
+# Bilingual-pair consistency record for 2026-09-10-desktop-local-updater-qualification.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write .agents/notes/implemented/testing/2026-09-10-desktop-local-updater-qualification.md
+/agent-note-qualify-desktop-update-downloads-with-an-isolated-local-server:
+  en: 120023ae66403ead
+  zh: c42b9e53de3652d5
+/agent-note-qualify-desktop-update-downloads-with-an-isolated-local-server/problem:
+  en: a621d24f1336bf19
+  zh: 56dc14cda197b301
+/agent-note-qualify-desktop-update-downloads-with-an-isolated-local-server/decision:
+  en: dd08e76ac0380331
+  zh: 6ca15a03eaee6532
+/agent-note-qualify-desktop-update-downloads-with-an-isolated-local-server/alternatives-considered:
+  en: f93809633864e337
+  zh: 4bd2141c2a36e1ac
+/agent-note-qualify-desktop-update-downloads-with-an-isolated-local-server/consequences:
+  en: 9fdfae8f0b45529a
+  zh: b4b2f0fca62c5553

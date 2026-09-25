@@ -1,6 +1,52 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/experimental/agent-team-profile/README.md
-README.md: f9efad6fcc8b599563cf8dd20c536617c8961b95
-README.zh.md: 7e61566abd6f1e286e67fa740c15e1c2aab4f110
+/:
+  en: e263a0edd266210f
+  zh: c5779bf7f64631d3
+/lyness-lyn-experimental-agent-team-profile:
+  en: a22bb00c279de91d
+  zh: dbd619790eb85f57
+/lyness-lyn-experimental-agent-team-profile/summary:
+  en: 5266bc39744dca50
+  zh: f8923e3ffb73d730
+/lyness-lyn-experimental-agent-team-profile/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-experimental-agent-team-profile/use-this-package:
+  en: bbff250eba0f1b89
+  zh: 0a618f05cc88ee2b
+/lyness-lyn-experimental-agent-team-profile/use-this-package/install-into-a-profile:
+  en: d24748e0ec88e80f
+  zh: 0a06fc8987d348d7
+/lyness-lyn-experimental-agent-team-profile/use-this-package/what-you-get:
+  en: ff64157ab9ac5065
+  zh: 15fd24e27653e783
+/lyness-lyn-experimental-agent-team-profile/understand-the-implementation:
+  en: a75e304e388648c7
+  zh: d98957ef54164dc7
+/lyness-lyn-experimental-agent-team-profile/further-exploration:
+  en: 078716237fb75623
+  zh: 83fc1238979a42ba
+/lyness-lyn-experimental-agent-team-profile/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/lyness-lyn-experimental-agent-team-profile/model-experience/team-policy-and-tools:
+  en: 8e1e365ff3b0dfb2
+  zh: c6c91fbf1e1df934
+/lyness-lyn-experimental-agent-team-profile/model-experience/team-policy-and-tools/what-the-model-sees:
+  en: cb4baebfbc7cd111
+  zh: 67b83ff2d1cdab9f
+/lyness-lyn-experimental-agent-team-profile/model-experience/team-policy-and-tools/token-effect:
+  en: 26168187ee34ed4d
+  zh: 13eb2d6f718ca547
+/lyness-lyn-experimental-agent-team-profile/model-experience/team-policy-and-tools/kv-cache-effect:
+  en: e331337b094aacde
+  zh: bb2e5df5ebeb9305
+/lyness-lyn-experimental-agent-team-profile/known-limitations-and-deferred-work:
+  en: d8acbf118a92e4fe
+  zh: c8e752368322fdfa
+/lyness-lyn-experimental-agent-team-profile/known-limitations-and-deferred-work/dev-note:
+  en: e67f633dc6fe7773
+  zh: 3bb0c20c93f16f98

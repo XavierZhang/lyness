@@ -1,10 +1,17 @@
 import { describe, expect, it } from 'vitest'
 import { createUserMessage } from '@lyness/lyn-llm'
 import type { UserMessage } from '@lyness/lyn-llm'
+import type { ContextFormed } from '@lyness/lyn-llm'
 import {
   deriveBrowserTimeZoneContext,
   renderBrowserTimeZoneContext,
 } from '../src/request-zone.ts'
+
+declare module '@lyness/lyn-llm' {
+  interface MessageSourceMap {
+    'test': { kind: 'test' } & ContextFormed
+  }
+}
 
 function browserMessage(timeZone: string): UserMessage {
   return createUserMessage({
@@ -17,7 +24,7 @@ describe('browser request-zone context', () => {
   it('derives missing, unique, and sorted mixed zones from user-rpc messages only', () => {
     const plugin = createUserMessage({
       content: [{ type: 'text', text: 'plugin' }],
-      source: { kind: 'plugin', plugin: 'test' },
+      source: { kind: 'test' },
     })
     expect(deriveBrowserTimeZoneContext([plugin])).toEqual({ kind: 'missing' })
     expect(deriveBrowserTimeZoneContext([

@@ -1,6 +1,19 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-08-02-pwsh-tool-bash-parity.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/feature/2026-08-02-pwsh-tool-bash-parity.md
-2026-08-02-pwsh-tool-bash-parity.md: a3a55a0abc94238f5e71cdd21a78445e14de55e8
-2026-08-02-pwsh-tool-bash-parity.zh.md: 0ab8214625ba26d8426f310ab9de424687f49c9d
+/agent-note-pwsh-tool-bash-parity:
+  en: 7908558533979dc6
+  zh: 98b3538278e0a1cb
+/agent-note-pwsh-tool-bash-parity/problem:
+  en: 6ee23b263e64115d
+  zh: aa4956c61cfbcd0f
+/agent-note-pwsh-tool-bash-parity/decision:
+  en: 8c7d7bcd037e4bb6
+  zh: bdff5925561acb30
+/agent-note-pwsh-tool-bash-parity/alternatives-considered:
+  en: 2e30ba79692e80da
+  zh: 4daa9e7a770963a0
+/agent-note-pwsh-tool-bash-parity/consequences:
+  en: 760747e9a07caa57
+  zh: 9caea0f3b852ed66

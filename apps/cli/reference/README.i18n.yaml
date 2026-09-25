@@ -1,6 +1,31 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write apps/cli/reference/README.md
-README.md: 4653d3b2ed5d348307a2980845c2f3638fdb00f7
-README.zh.md: c57fe0a0123b77846cf1435ad25401fff47fec55
+/lyn-cli-behavior-reference:
+  en: dab173a10fc1dc16
+  zh: cf5fd77e1a0690a0
+/lyn-cli-behavior-reference/profile-boot:
+  en: 7b0ebeee3e8fb9af
+  zh: 6938e3f9bcabd83b
+/lyn-cli-behavior-reference/profile-boot/app-arguments:
+  en: f53182f0221faee4
+  zh: 839fb5cb2dac5de9
+/lyn-cli-behavior-reference/profile-boot/config-schema-dump:
+  en: 3680b89265e3e185
+  zh: cb447f1f5a9819f2
+/lyn-cli-behavior-reference/startup-diagnostics:
+  en: 0eaf9c9f87f6c073
+  zh: dd541b9505582480
+/lyn-cli-behavior-reference/plugin-management:
+  en: 63fce0676f6ba389
+  zh: 9e1168d3021aff5d
+/lyn-cli-behavior-reference/web-profile:
+  en: 5198005b0f081c28
+  zh: b3edbbfafb205f51
+/lyn-cli-behavior-reference/shared-deployment-behavior:
+  en: d7b9711c2f4aab3a
+  zh: 1d55df0e06280bd1
+/lyn-cli-behavior-reference/source-execution:
+  en: 07916b5de0aea994
+  zh: 21bf02f7aa797091

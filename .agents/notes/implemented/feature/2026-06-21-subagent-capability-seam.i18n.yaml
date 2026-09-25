@@ -1,6 +1,46 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-06-21-subagent-capability-seam.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/feature/2026-06-21-subagent-capability-seam.md
-2026-06-21-subagent-capability-seam.md: c0d00621c09b7238ca19e5e7e92de20e71a66a54
-2026-06-21-subagent-capability-seam.zh.md: df581dbc2e4d85b1c5ae22722a3bbb61adde8bcc
+/agent-note-subagent-capability-seam:
+  en: 196a4087bb158dc3
+  zh: ce9d1a573b5f1858
+/agent-note-subagent-capability-seam/problem:
+  en: 3f13c7ec05d4fc1e
+  zh: 9b46406d05f696fe
+/agent-note-subagent-capability-seam/alternatives-considered:
+  en: 6119e2aff3b6be5a
+  zh: 76136ef5249c23eb
+/agent-note-subagent-capability-seam/alternatives-considered/why-not-the-bash-seam-shape:
+  en: b36d1f4571be530c
+  zh: 8a03c31046ddb915
+/agent-note-subagent-capability-seam/decision:
+  en: a15c7c13f167e5ac
+  zh: 63bcc2ef60c2f344
+/agent-note-subagent-capability-seam/decision/the-three-package-boundary:
+  en: 4dc5cc3dff7fa701
+  zh: 71a7ce23c320c047
+/agent-note-subagent-capability-seam/decision/the-primitive-async-start-subagentrun:
+  en: 08250dc4d5faf918
+  zh: 1b413cb438af6796
+/agent-note-subagent-capability-seam/decision/two-kinds-of-optional-capability-discovered-two-ways:
+  en: 18c6c859c2afbf1b
+  zh: c04cda88e9708b15
+/agent-note-subagent-capability-seam/decision/fork-vs-fresh-are-separate-backends-not-a-flag:
+  en: 33e4acc8a398e728
+  zh: e6e02d79d3f5571b
+/agent-note-subagent-capability-seam/decision/child-isolation-and-the-parent-log:
+  en: e970f97f27d11f4a
+  zh: 34ece0dfe5ec6185
+/agent-note-subagent-capability-seam/decision/synchronous-collect-first-cut:
+  en: a88facd92ca60924
+  zh: 38de2466f7e3d12c
+/agent-note-subagent-capability-seam/decision/transport-provider-selection-is-config-not-model-facing:
+  en: 8f1384a21cd3cb5b
+  zh: a2efa90354f6e745
+/agent-note-subagent-capability-seam/testing:
+  en: ca3950890a49f7db
+  zh: 173f48b951fd140a
+/agent-note-subagent-capability-seam/consequences:
+  en: 7a26392f49dac5bb
+  zh: 04f5a5f2bb2b48f1

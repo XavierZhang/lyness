@@ -1,7 +1,7 @@
 {
   "name": "@lyness/cordis-plugin-hmr",
   "description": "Hot Module Replacement Plugin for Cordis",
-  "version": "1.0.17",
+  "version": "1.0.19",
   "publishConfig": {
     "access": "public"
   },
@@ -41,15 +41,15 @@
     }
   },
   "peerDependencies": {
-    "@lyness/cordis-plugin-timer": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis-plugin-timer": "workspace:~",
+    "@lyness/cordis": "workspace:~"
   },
   "dependencies": {
     "@babel/code-frame": "^7.29.0",
     "chokidar": "^4.0.3",
-    "@lyness/cosmokit": "workspace:^",
+    "@lyness/cosmokit": "workspace:~",
     "picomatch": "^4.0.3",
-    "@lyness/schemastery": "workspace:^"
+    "@lyness/schemastery": "workspace:~"
   },
   "devDependencies": {
     "@types/babel__code-frame": "^7.27.0",

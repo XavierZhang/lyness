@@ -1,6 +1,31 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-08-28-ci-node-compile-cache-data-disk.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/process/2026-08-28-ci-node-compile-cache-data-disk.md
-2026-08-28-ci-node-compile-cache-data-disk.md: f763c5493c7efdb74ccee1bffec04a088f04601f
-2026-08-28-ci-node-compile-cache-data-disk.zh.md: e61614a49a46ecbfec5e55b79646e9edd5a4b182
+/agent-note-redirect-the-node-compile-cache-to-the-data-volume-runner-temp:
+  en: 64343385220e337b
+  zh: 9ba1e6cbe227fdbf
+/agent-note-redirect-the-node-compile-cache-to-the-data-volume-runner-temp/problem:
+  en: 251d909b022cef1d
+  zh: fd795aed331f5fd3
+/agent-note-redirect-the-node-compile-cache-to-the-data-volume-runner-temp/decision:
+  en: 482c6e3f48a62786
+  zh: 06f08a731b80d93b
+/agent-note-redirect-the-node-compile-cache-to-the-data-volume-runner-temp/verification:
+  en: e50a9772535aa92b
+  zh: d66c603a379e5561
+/agent-note-redirect-the-node-compile-cache-to-the-data-volume-runner-temp/alternatives-considered:
+  en: 6119e2aff3b6be5a
+  zh: e01a6c669a9ec6aa
+/agent-note-redirect-the-node-compile-cache-to-the-data-volume-runner-temp/alternatives-considered/why-not-disable-the-compile-cache-entirely:
+  en: cee8de5b45031309
+  zh: 6ce10a304e63bdbb
+/agent-note-redirect-the-node-compile-cache-to-the-data-volume-runner-temp/alternatives-considered/why-not-add-node-compile-cache-to-the-lyn-residue-sweep:
+  en: 95e06ed0e37e8597
+  zh: 303657e472abf143
+/agent-note-redirect-the-node-compile-cache-to-the-data-volume-runner-temp/alternatives-considered/why-not-job-level-env-or-gate-step-env-only:
+  en: 4ba6c9a14bafbc80
+  zh: 410149f4a3e930e6
+/agent-note-redirect-the-node-compile-cache-to-the-data-volume-runner-temp/consequences:
+  en: 083e2665e1550111
+  zh: 70560c09ca2b3750

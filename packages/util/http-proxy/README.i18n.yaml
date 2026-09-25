@@ -1,6 +1,55 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/util/http-proxy/README.md
-README.md: ff40697c36688ca543caceb82b8cb6410183e253
-README.zh.md: 5eec9188155a1aaf499add04500d164c1007ecc6
+/:
+  en: 117b4d191f773a9c
+  zh: 0b9e150f6cd23b04
+/lyness-lyn-http-proxy:
+  en: 7871c7be2dd34216
+  zh: 0799131b79be9c6f
+/lyness-lyn-http-proxy/summary:
+  en: c3b1b32ab36f5f97
+  zh: 143b744ab361f0d4
+/lyness-lyn-http-proxy/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-http-proxy/use-this-package:
+  en: 367e7a7cb7df14df
+  zh: 350015bb614481b1
+/lyness-lyn-http-proxy/use-this-package/writing-a-new-outbound-call:
+  en: 782b24f91ee8ce71
+  zh: af4b75a0d5a98fdc
+/lyness-lyn-http-proxy/use-this-package/what-the-policy-reads:
+  en: ed8efd6d55490d32
+  zh: 47da6cf716df432f
+/lyness-lyn-http-proxy/use-this-package/failures:
+  en: 4248bc9a662680ed
+  zh: 4150ade9f1aa9287
+/lyness-lyn-http-proxy/understand-the-implementation:
+  en: ee4615a04fa6503d
+  zh: ee2c5fb2204a43cf
+/lyness-lyn-http-proxy/understand-the-implementation/design-philosophy:
+  en: fc884bcc89930208
+  zh: a120cf475f76f6fa
+/lyness-lyn-http-proxy/understand-the-implementation/source-map:
+  en: a099f88dd0c7d394
+  zh: 7325b7ea973bce13
+/lyness-lyn-http-proxy/understand-the-implementation/bypass-matching:
+  en: e9ad6c2e8ee2fc21
+  zh: c10de6995cf594bc
+/lyness-lyn-http-proxy/further-exploration:
+  en: 4248900ce3b68f41
+  zh: 8cf14bf010bdd435
+/lyness-lyn-http-proxy/model-experience:
+  en: e0af6a1073934d5a
+  zh: d8bf9c77b54ed5ae
+/lyness-lyn-http-proxy/model-experience/kv-cache-effect:
+  en: 7f12ca92e7722f98
+  zh: 97fa75de6a3f6a3f
+/lyness-lyn-http-proxy/known-limitations-and-deferred-work:
+  en: d815500523960822
+  zh: 47411cfce0a1f8fc
+/lyness-lyn-http-proxy/known-limitations-and-deferred-work/dev-note:
+  en: e7d8628ccd7e0d36
+  zh: 751da266bfb84bef

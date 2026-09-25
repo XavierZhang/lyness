@@ -1,6 +1,43 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/llm/plugin-package-inventory-deepseek/README.md
-README.md: 65909ffb8817690d0b8c9446eb00ae4ceb712bfe
-README.zh.md: 1caa4a644f2554c673bc8f5d5e5e2195adcdcf0c
+/:
+  en: e10b56fe6b85f93b
+  zh: 7e5d4b03db35a436
+/lyness-lyn-plugin-package-inventory-deepseek:
+  en: 5e90b88bc98886f1
+  zh: 1b81f7b664d9a624
+/lyness-lyn-plugin-package-inventory-deepseek/summary:
+  en: 02850cf193ac7f6d
+  zh: d37f0201f4a5c060
+/lyness-lyn-plugin-package-inventory-deepseek/table-of-contents:
+  en: 13227fb47b30946f
+  zh: 97fe1dca5445d22a
+/lyness-lyn-plugin-package-inventory-deepseek/configuration:
+  en: 1bae22927cdaaadf
+  zh: 7488a8fa49d2d288
+/lyness-lyn-plugin-package-inventory-deepseek/collection:
+  en: 33fea97c4c478cd0
+  zh: c103937774f769f0
+/lyness-lyn-plugin-package-inventory-deepseek/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/lyness-lyn-plugin-package-inventory-deepseek/model-experience/package-inventory-metadata:
+  en: 8404d42a8da26f33
+  zh: b02b147c99b2d7eb
+/lyness-lyn-plugin-package-inventory-deepseek/model-experience/package-inventory-metadata/what-the-model-sees:
+  en: b04d22b128c0b21b
+  zh: 80eaefc780b00c38
+/lyness-lyn-plugin-package-inventory-deepseek/model-experience/package-inventory-metadata/token-effect:
+  en: 0f65cf393a8ea010
+  zh: ed89ff386373899d
+/lyness-lyn-plugin-package-inventory-deepseek/model-experience/package-inventory-metadata/kv-cache-effect:
+  en: 6dc3e97d0281180a
+  zh: 7abe4d4b128ef32d
+/lyness-lyn-plugin-package-inventory-deepseek/known-limitations-and-deferred-work:
+  en: d46a9293ac3dcaa2
+  zh: 53e86d9d54dd3f8a
+/lyness-lyn-plugin-package-inventory-deepseek/known-limitations-and-deferred-work/dev-note:
+  en: 39e2b90768772390
+  zh: d49e34ab1d02adbb

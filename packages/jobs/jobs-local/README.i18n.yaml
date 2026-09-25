@@ -1,6 +1,67 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/jobs/jobs-local/README.md
-README.md: 51f32125fa6cd5ec6d22dd59051094255a8cb4e2
-README.zh.md: 96e1ad69ef089bbdeca8935ce04808ec23645921
+/:
+  en: 0abe764a4bc3e3db
+  zh: 280ff3a1c1a8bc5c
+/lyness-lyn-jobs-local:
+  en: b0ed0130d963987f
+  zh: 094654fd71d68aee
+/lyness-lyn-jobs-local/summary:
+  en: 6a1ec0e773cb27fa
+  zh: 2da22bb099f383f0
+/lyness-lyn-jobs-local/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-jobs-local/use-this-package:
+  en: b42c01f1f45129af
+  zh: 291fac1a0718dace
+/lyness-lyn-jobs-local/use-this-package/when-to-choose-it:
+  en: 17479310883edc0a
+  zh: f1cea41c704dabe2
+/lyness-lyn-jobs-local/use-this-package/minimal-configuration:
+  en: 47cc03408c3a01b2
+  zh: 82c700a439bb26c2
+/lyness-lyn-jobs-local/use-this-package/what-each-owner-gets:
+  en: 9ab66aa770694092
+  zh: 38de930bcfbc132c
+/lyness-lyn-jobs-local/use-this-package/lifecycle:
+  en: 91dd372f742dcdb8
+  zh: 58eeee0254d33cd1
+/lyness-lyn-jobs-local/use-this-package/what-can-go-wrong:
+  en: 98f0391c2ed57581
+  zh: 4917be2f8c6a0b06
+/lyness-lyn-jobs-local/understand-the-implementation:
+  en: f782557ca8da3138
+  zh: e8f0082b9692cacc
+/lyness-lyn-jobs-local/understand-the-implementation/design-philosophy:
+  en: b92e6e5415553e2e
+  zh: c3e0be579af4c7fb
+/lyness-lyn-jobs-local/understand-the-implementation/source-map:
+  en: 344f78c7d7c9769a
+  zh: 1ca4ae80bacd564a
+/lyness-lyn-jobs-local/understand-the-implementation/scope-layers:
+  en: 2c53e11a60965985
+  zh: 63adc1628c71e62e
+/lyness-lyn-jobs-local/understand-the-implementation/admission-and-settlement:
+  en: bde6cb060ecbe0bf
+  zh: 3bf9d033d396c77c
+/lyness-lyn-jobs-local/understand-the-implementation/teardown:
+  en: 49e8bd5e2c1f6ffd
+  zh: ad3e1aa712fd59b3
+/lyness-lyn-jobs-local/further-exploration:
+  en: 93b635cdcec7d5d5
+  zh: d76f9ad61d761506
+/lyness-lyn-jobs-local/model-experience:
+  en: c7024006b4d8c38e
+  zh: 919139ff74b73643
+/lyness-lyn-jobs-local/model-experience/kv-cache-effect:
+  en: e290ccc9b3c92c08
+  zh: d75d48f485447a74
+/lyness-lyn-jobs-local/known-limitations-and-deferred-work:
+  en: 5284107cbd22e3dd
+  zh: 9aa0048908c94e25
+/lyness-lyn-jobs-local/known-limitations-and-deferred-work/dev-note:
+  en: e67f633dc6fe7773
+  zh: 3bb0c20c93f16f98

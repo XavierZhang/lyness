@@ -9,6 +9,13 @@ import { Context, Service } from '@lyness/cordis'
 import z from '@lyness/schemastery'
 import type { Agent } from '@lyness/lyn-agent'
 import { createUserMessage, type ToolCallId } from '@lyness/lyn-llm'
+import type { ContextFormed } from '@lyness/lyn-llm'
+declare module '@lyness/lyn-llm' {
+  interface MessageSourceMap {
+    'user-approval': { kind: 'user-approval' } & ContextFormed
+  }
+}
+
 import { scopeTarget } from '@lyness/lyn-scope'
 import type { Session } from '@lyness/lyn-session'
 import { SessionSeq } from '@lyness/lyn-session'
@@ -76,6 +83,7 @@ const ASK_SENTENCE = 'Approval policy: ask. Operations that require approval may
  */
 function hasOpenTurn(session: Session): boolean {
   for (let seq = session.seq - 1; seq >= 0; seq -= 1) {
+    // oxlint-disable-next-line typescript/no-deprecated -- Existing Session history read; migration deferred.
     const type = session.eventAt(SessionSeq(seq))?.type
     if (type === 'turn/start') return true
     if (type === 'turn/end') return false
@@ -182,7 +190,7 @@ export class ApprovalService extends Service {
         type: 'text',
         text: `The approval policy changed from "${previous}" to "${policy}" (changed by the user).`,
       }],
-      source: { kind: 'plugin', plugin: 'user-approval' },
+      source: { kind: 'user-approval' },
     }))
   }
 
@@ -243,6 +251,7 @@ export class ApprovalService extends Service {
    */
   overrideOf(session: Session): ApprovalPolicy | undefined {
     for (let seq = session.seq - 1; seq >= 0; seq -= 1) {
+      // oxlint-disable-next-line typescript/no-deprecated -- Existing Session history read; migration deferred.
       const event = session.eventAt(SessionSeq(seq))
       if (event?.type === 'approval/policy') return event.data.policy
     }

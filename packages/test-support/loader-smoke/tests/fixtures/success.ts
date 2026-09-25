@@ -7,6 +7,7 @@ process.stdin.on('end', () => {
   console.log(JSON.stringify({
     configPath: process.argv[2],
     args: process.argv.slice(2),
+    execArgv: process.execArgv,
     cwd: process.cwd(),
     lynHome: process.env.LYNESS_HOME,
     agentsHome: process.env.LYNESS_AGENTS_HOME,

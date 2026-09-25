@@ -1,6 +1,52 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/util/native-command/README.md
-README.md: c5a1d93c232b1661a7c13bae4375db685670f681
-README.zh.md: a00f6c952ff5cf5a7993d60b68d49fa08199ae3d
+/:
+  en: 3e0acbcc586810bb
+  zh: 688d34f126d1450e
+/lyness-lyn-native-command:
+  en: eb637772f0cb5f79
+  zh: 2563926a746183bd
+/lyness-lyn-native-command/summary:
+  en: 443834dd47effc6e
+  zh: 092e84402d8662fa
+/lyness-lyn-native-command/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-native-command/use-this-package:
+  en: aba695cba233905f
+  zh: c6359da30eb8e372
+/lyness-lyn-native-command/use-this-package/running-a-command:
+  en: 3a499bda33e33102
+  zh: d01abbf863810607
+/lyness-lyn-native-command/use-this-package/injecting-the-command-boundary:
+  en: 987bed629737b59d
+  zh: 258e30f813b0edcb
+/lyness-lyn-native-command/use-this-package/opening-a-host-path:
+  en: b4ec677605b12ff8
+  zh: f35256957eea141a
+/lyness-lyn-native-command/understand-the-implementation:
+  en: 78e86818bea36f9f
+  zh: 71dc1ad3e4cbe9f1
+/lyness-lyn-native-command/understand-the-implementation/source-map:
+  en: a19bb4cb9f6de785
+  zh: cc930d8facf1ca07
+/lyness-lyn-native-command/understand-the-implementation/what-execfile-gives-the-runner:
+  en: b16da99b2ed73bfd
+  zh: 5e806c31a6296366
+/lyness-lyn-native-command/further-exploration:
+  en: 0850f9aca6b80a4e
+  zh: 3254b69318ce81e9
+/lyness-lyn-native-command/model-experience:
+  en: d478457568b9517e
+  zh: 0460368e7567a13f
+/lyness-lyn-native-command/model-experience/kv-cache-effect:
+  en: 296c060e95197cc5
+  zh: b9d3fdf11b5ebe1e
+/lyness-lyn-native-command/known-limitations-and-deferred-work:
+  en: d3af15e86d679b8e
+  zh: ee5aa3c8cbd9d2db
+/lyness-lyn-native-command/known-limitations-and-deferred-work/dev-note:
+  en: e67f633dc6fe7773
+  zh: 3bb0c20c93f16f98

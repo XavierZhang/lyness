@@ -1,6 +1,19 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for webhook.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write docs/subsystems/webhook.md
-webhook.md: 6869433e88ff57249377eaecd7c8443c9029a8fa
-webhook.zh.md: 43dc9c9ac9cd8f7470578a0eee309cbb5038dbb9
+/webhook-runtime:
+  en: 1a3b929bd64d809e
+  zh: 8e70ad5b34c2a4d4
+/webhook-runtime/shared-values:
+  en: 99af66fb4c51ecf6
+  zh: fa1f2e88c7b13e46
+/webhook-runtime/fire-and-forget-dispatch:
+  en: 0e62c74b195d1c74
+  zh: d458f2b210daf6ac
+/webhook-runtime/session-creation:
+  en: 2ccdbc45140f9c41
+  zh: af509a7fb0f84e18
+/webhook-runtime/github-adapter:
+  en: 04d3a0158964b0be
+  zh: d4697089495dd95b

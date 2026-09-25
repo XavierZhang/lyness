@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-pwsh-sandbox",
   "description": "Sandbox-consuming implementation of the lyness PowerShell executor seam (confines every command via ctx.sandbox, reports denial/enforcement result facts)",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -27,20 +27,20 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/lyn-shell": "workspace:^",
-    "@lyness/lyn-pwsh-local": "workspace:^",
-    "@lyness/lyn-sandbox": "workspace:^",
-    "@lyness/lyn-sandbox-policy": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-shell": "workspace:*",
+    "@lyness/lyn-pwsh-local": "workspace:*",
+    "@lyness/lyn-sandbox": "workspace:*",
+    "@lyness/lyn-sandbox-policy": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/lyn-shell": "workspace:^",
-    "@lyness/lyn-pwsh-local": "workspace:^",
-    "@lyness/lyn-sandbox": "workspace:^",
-    "@lyness/lyn-sandbox-local": "workspace:^",
-    "@lyness/lyn-sandbox-policy": "workspace:^",
-    "@lyness/lyn-session-projection": "workspace:^",
-    "@lyness/lyn-subprocess-local": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-shell": "workspace:*",
+    "@lyness/lyn-pwsh-local": "workspace:*",
+    "@lyness/lyn-sandbox": "workspace:*",
+    "@lyness/lyn-sandbox-local": "workspace:*",
+    "@lyness/lyn-sandbox-policy": "workspace:*",
+    "@lyness/lyn-session-projection": "workspace:*",
+    "@lyness/lyn-subprocess-local": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   }
 }

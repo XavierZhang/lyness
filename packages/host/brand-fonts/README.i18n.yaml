@@ -1,6 +1,37 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/host/brand-fonts/README.md
-README.md: aa550780072dd999cefad2e486202739a82c9183
-README.zh.md: 378943111d0215fca52060f7af3ba50b1a628ebc
+/:
+  en: be5cadfa3947d817
+  zh: c81ab61c63f23421
+/lyness-lyn-host-brand-fonts:
+  en: dd28bb85a800787f
+  zh: 586ea99388c427de
+/lyness-lyn-host-brand-fonts/summary:
+  en: e43d6d944ae09895
+  zh: fb333fe64c21156e
+/lyness-lyn-host-brand-fonts/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-host-brand-fonts/use-this-package:
+  en: fff26f21bbe05d0b
+  zh: af3aff2bbb60f06b
+/lyness-lyn-host-brand-fonts/understand-the-implementation:
+  en: d9038cb099624666
+  zh: 09e7ca7e459d59ce
+/lyness-lyn-host-brand-fonts/further-exploration:
+  en: 07909bc1db81d585
+  zh: 2fd0977896a6feb7
+/lyness-lyn-host-brand-fonts/model-experience:
+  en: 4b77f389c8a72141
+  zh: ce619705564737f0
+/lyness-lyn-host-brand-fonts/model-experience/kv-cache-effect:
+  en: ca75c51c89c2c9b0
+  zh: ee6d77f08dfbe4ec
+/lyness-lyn-host-brand-fonts/known-limitations-and-deferred-work:
+  en: 37becf4601b7b363
+  zh: 0e9b5df7e6b59beb
+/lyness-lyn-host-brand-fonts/known-limitations-and-deferred-work/dev-note:
+  en: c53a996afc8477b6
+  zh: 7ca2cfa7a12eaa88

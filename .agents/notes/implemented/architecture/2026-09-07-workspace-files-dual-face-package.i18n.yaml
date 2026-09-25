@@ -1,6 +1,22 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-09-07-workspace-files-dual-face-package.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-09-07-workspace-files-dual-face-package.md
-2026-09-07-workspace-files-dual-face-package.md: e8faf3622ec4a03fc4d915f3a7cda38dbb7d6467
-2026-09-07-workspace-files-dual-face-package.zh.md: 58bf5ab5c3425966bdc6d55f3b4bbcef5b820bbf
+/agent-note-workspace-files-as-one-dual-face-api-package:
+  en: 622007872b7b5fd7
+  zh: 2e64e7482c0f3292
+/agent-note-workspace-files-as-one-dual-face-api-package/problem:
+  en: 2e36da12e9729e10
+  zh: 6786977927f70f67
+/agent-note-workspace-files-as-one-dual-face-api-package/decision:
+  en: d21d4190e582c133
+  zh: 497771fedb6c9fb1
+/agent-note-workspace-files-as-one-dual-face-api-package/alternatives-considered:
+  en: 8fc2843dd13c7d5a
+  zh: 135bc8db6b86fd82
+/agent-note-workspace-files-as-one-dual-face-api-package/consequences:
+  en: d4558eea4ac3a00b
+  zh: e625747fd469f146
+/agent-note-workspace-files-as-one-dual-face-api-package/verification:
+  en: 4c49a2ec778623e8
+  zh: 94eacb1ee8e4d36d

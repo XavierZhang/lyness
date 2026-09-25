@@ -1,6 +1,25 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/webhook/README.md
-README.md: 6ccd4b8aee1d0b21b38ae2865c94fdad5a673558
-README.zh.md: 9f0618273c0b8faa4648214895ca1877fbc64df9
+/:
+  en: c1d3d80e33df11a2
+  zh: 290a46bd5b1b62f4
+/webhook-verified-external-events-to-lyn-sessions:
+  en: 88db243ab2584f73
+  zh: 466a23b693f2b010
+/webhook-verified-external-events-to-lyn-sessions/summary:
+  en: 297975121095f74a
+  zh: 9530dbf3c90d1ae0
+/webhook-verified-external-events-to-lyn-sessions/table-of-contents:
+  en: 1eb35b015a6c423f
+  zh: a8a3dceee2c9e943
+/webhook-verified-external-events-to-lyn-sessions/packages:
+  en: dc49aa6f55ae486d
+  zh: 2ab72feaef1297b6
+/webhook-verified-external-events-to-lyn-sessions/related-documentation:
+  en: 3a29ac6921ebdfae
+  zh: 3ae36b6aa897c0ed
+/webhook-verified-external-events-to-lyn-sessions/dev-note:
+  en: b75c8458928b72b9
+  zh: 003ba4e17b4b5269

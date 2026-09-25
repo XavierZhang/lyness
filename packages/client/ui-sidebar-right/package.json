@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-client-ui-sidebar-right",
   "description": "Right Sidebar: the docking surface's session-bound state, its panel and header expand control, and the navigation service over it",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -32,7 +32,8 @@
         "@lyness/lyn-client-resources",
         "@lyness/lyn-client-ui-conversation",
         "@lyness/lyn-client-ui-layout",
-        "@lyness/lyn-client-ui-session"
+        "@lyness/lyn-client-ui-session",
+        "@lyness/lyn-client-shortcuts"
       ],
       "platform": "web"
     }
@@ -43,23 +44,23 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-api-session-controller": "workspace:^",
-    "@lyness/lyn-client-locale": "workspace:^",
-    "@lyness/lyn-client-resources": "workspace:^",
-    "@lyness/lyn-client-store": "workspace:^",
-    "@lyness/lyn-client-test-runtime": "workspace:^",
-    "@lyness/lyn-client-ui-conversation": "workspace:^",
-    "@lyness/lyn-client-ui-dockkit": "workspace:^",
-    "@lyness/lyn-client-ui-layout": "workspace:^",
-    "@lyness/lyn-client-ui-primitives": "workspace:^",
-    "@lyness/lyn-client-ui-renderer": "workspace:^",
-    "@lyness/lyn-client-ui-session": "workspace:^",
-    "@lyness/lyn-client-ui-slots": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-api-session-controller": "workspace:*",
+    "@lyness/lyn-client-locale": "workspace:*",
+    "@lyness/lyn-client-resources": "workspace:*",
+    "@lyness/lyn-client-store": "workspace:*",
+    "@lyness/lyn-client-test-runtime": "workspace:*",
+    "@lyness/lyn-client-ui-conversation": "workspace:*",
+    "@lyness/lyn-client-ui-dockkit": "workspace:*",
+    "@lyness/lyn-client-ui-layout": "workspace:*",
+    "@lyness/lyn-client-ui-primitives": "workspace:*",
+    "@lyness/lyn-client-ui-renderer": "workspace:*",
+    "@lyness/lyn-client-ui-session": "workspace:*",
+    "@lyness/lyn-client-ui-slots": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
     "@testing-library/react": "^16.1.0",
     "@types/picomatch": "^4.0.2",
     "@types/react": "~18.3.1",
@@ -67,7 +68,11 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "picomatch": "^4.0.4",
-    "clsx": "^2.0.0"
+    "clsx": "^2.0.0",
+    "@lyness/lyn-util-crypto": "workspace:*",
+    "zod": "^4.4.3",
+    "@lyness/lyn-client-shortcuts": "workspace:*",
+    "@lyness/lyn-brand": "workspace:*"
   },
   "files": [
     "lib/index.js",

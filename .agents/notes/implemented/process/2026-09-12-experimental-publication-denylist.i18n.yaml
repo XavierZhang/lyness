@@ -1,0 +1,19 @@
+# Bilingual-pair consistency record for 2026-09-12-experimental-publication-denylist.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write .agents/notes/implemented/process/2026-09-12-experimental-publication-denylist.md
+/agent-note-publish-experimental-packages-with-explicit-private-exceptions:
+  en: 523ba08c2c57a09e
+  zh: 916ed5afe603140a
+/agent-note-publish-experimental-packages-with-explicit-private-exceptions/problem:
+  en: c267b50c3004619f
+  zh: 91830d04d2972d46
+/agent-note-publish-experimental-packages-with-explicit-private-exceptions/decision:
+  en: 1137b46c4002d942
+  zh: 0e581ee8b302dbbf
+/agent-note-publish-experimental-packages-with-explicit-private-exceptions/alternatives-considered:
+  en: ed78cf58fae77a34
+  zh: fe305d6b847fdf81
+/agent-note-publish-experimental-packages-with-explicit-private-exceptions/consequences:
+  en: 23f4d725196f1c2d
+  zh: ebd9455778d8a89f

@@ -1,5 +1,5 @@
 ---
-description: "Web GUI Host 侧的包映射：HTTP 与 SPA 服务器、工作区目录选择实现、open-in-app 启动路由、插件清单投影，以及部署品牌与其字标排版器和图标描边器。"
+description: "Web GUI Host 侧的包映射：HTTP 与 SPA 服务器、工作区目录选择实现、open-in-app 启动路由、插件清单投影、显式产品事件上报，以及部署品牌与其字标排版器和图标描边器。"
 kind: "package-group"
 ---
 
@@ -9,7 +9,7 @@ kind: "package-group"
 
 ## 概述
 
-`host/` 组提供 Web GUI 的普通 HTTP 服务器、服务已构建 Web 壳的 SPA dist 服务器、带原生／浏览／自适应组合包的工作区目录选择 seam、open-in-app 的应用探测与启动路由、只读的插件清单投影，以及部署品牌与其字标排版器、内置字标字体和图标描边器。这十二个包都是产品包；浏览器传输位于 [`client/`](../client/README.zh.md)，组合应用是 [`apps/cli`](../../apps/cli/README.zh.md)，它启动 [`lyn-base` 组合包](../bundle/base/cordis.patch.yml) 来提供 `apps/web/` 下的 Web 应用。选择器后端可在共享 seam 后互相替换。
+`host/` 组提供 Web GUI 的普通 HTTP 服务器、服务已构建 Web 壳的 SPA dist 服务器、带原生／浏览／自适应组合包的工作区目录选择 seam、open-in-app 的应用探测与启动路由，只读的插件清单投影、显式产品事件上报，以及部署品牌与其字标排版器、内置字标字体和图标描边器。这些包都是产品包；浏览器传输位于 [`client/`](../client/README.zh.md)，组合应用是 [`apps/cli`](../../apps/cli/README.zh.md)，它启动 [`lyn-base` 组合包](../bundle/base/cordis.patch.yml) 来提供 `apps/web/` 下的 Web 应用。选择器后端可在共享 seam 后互相替换。
 
 ## 目录
 
@@ -22,7 +22,7 @@ kind: "package-group"
 <a id="packages"></a>
 ## 包
 
-十二个包分别承担 Host 角色；各包的 README 拥有自己的约定与配置。
+各包分别承担 Host 角色；各包的 README 拥有自己的约定与配置。
 
 | 包 | 职责 | ctx 键 |
 |---|---|---|
@@ -34,6 +34,7 @@ kind: "package-group"
 | [`directory-picker-auto/`](directory-picker-auto/README.zh.md) | 在启动时挂载匹配后端的宿主自适应选择器 | 挂载一个后端 |
 | [`open-in-app/`](open-in-app/README.zh.md) | 在已安装应用中打开 workspace 目录的应用探测、图标与启动路由 | 消费 `ctx.webServer` |
 | [`plugin-inventory/`](plugin-inventory/README.zh.md) | 当前 Loader 条目的只读投影 | Remote `pluginInventory/list` |
+| [`product-telemetry-otel/`](product-telemetry-otel/README.zh.md) | 通过 OTLP/HTTP 显式上报产品使用事件 | `ctx.productTelemetry` |
 | [`brand-deployment/`](brand-deployment/README.zh.md) | 部署自有品牌，作用于 index 渲染：标题、favicon、主题色与运营方投放的资产 | 消费 `ctx.webServer` |
 | [`brand-wordmark/`](brand-wordmark/README.zh.md) | 用给定的一组字体把品牌名排版成单色 SVG 字标 | 库，无 ctx 键 |
 | [`brand-fonts/`](brand-fonts/README.zh.md) | 平台内置的字标字体，覆盖拉丁字母、希腊文、西里尔文、中文、日文与韩文 | 库，无 ctx 键 |
@@ -49,6 +50,7 @@ kind: "package-group"
 - [HTTP 服务器子系统](../../docs/subsystems/web-server.zh.md)——webserver 的路由、匹配顺序与配置。
 - [工作区子系统](../../docs/subsystems/workspace.zh.md)——目录选择器所喂给的工作区记录。
 - [Web 配置树启动与传输分层](../../.agents/notes/implemented/architecture/2026-07-24-web-config-tree-boot-and-transport-layering.zh.md)——Web 传输各层的所有权。
+- [产品埋点](../../docs/subsystems/product-telemetry.zh.md)——显式提交分析事件。
 
 <a id="dev-note"></a>
 ## 开发备注

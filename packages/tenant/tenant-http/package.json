@@ -27,19 +27,19 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@lyness/lyn-tenant": "workspace:^",
-    "@lyness/schemastery": "workspace:^"
+    "@lyness/lyn-tenant": "workspace:*",
+    "@lyness/schemastery": "workspace:~"
   },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/cordis-plugin-include": "workspace:^",
-    "@lyness/cordis-plugin-loader": "workspace:^",
-    "@lyness/lyn-host-webserver": "workspace:^",
-    "@lyness/lyn-tenant-config": "workspace:^",
-    "@lyness/lyn-tenant-config-static": "workspace:^",
-    "@lyness/lyn-tenant-static": "workspace:^"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/cordis-plugin-include": "workspace:~",
+    "@lyness/cordis-plugin-loader": "workspace:~",
+    "@lyness/lyn-host-webserver": "workspace:*",
+    "@lyness/lyn-tenant-config": "workspace:*",
+    "@lyness/lyn-tenant-config-static": "workspace:*",
+    "@lyness/lyn-tenant-static": "workspace:*"
   }
 }

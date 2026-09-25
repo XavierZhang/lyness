@@ -1,6 +1,55 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/feedback/message-feedback/README.md
-README.md: e09b58b170d7694ce3bf8199aa98946f850f019f
-README.zh.md: c8cdec850749b59cac8af6956fa4b6b24f078965
+/:
+  en: f3648275facc4888
+  zh: 110c0e8aedf63e4e
+/lyness-lyn-message-feedback:
+  en: e21cba961cf6c563
+  zh: 0433ee64e5ac2d09
+/lyness-lyn-message-feedback/summary:
+  en: 07fec1cc63536ffb
+  zh: 530c8f20786c7af6
+/lyness-lyn-message-feedback/table-of-contents:
+  en: 122f0d41696980b1
+  zh: 528864635b577290
+/lyness-lyn-message-feedback/use-this-package:
+  en: 03ac34eca106f7ba
+  zh: 85b4eccab42295cc
+/lyness-lyn-message-feedback/use-this-package/configuration:
+  en: d30434b0cf4265af
+  zh: 83df424c28c1407f
+/lyness-lyn-message-feedback/use-this-package/reading-and-changing-feedback:
+  en: fed12d93b538866d
+  zh: 4b45e81d9e5a8260
+/lyness-lyn-message-feedback/understand-the-implementation:
+  en: ee4615a04fa6503d
+  zh: ee2c5fb2204a43cf
+/lyness-lyn-message-feedback/understand-the-implementation/canonical-log-and-durability:
+  en: 73ddbcf524f213a1
+  zh: 050f1a72c7f56fd6
+/lyness-lyn-message-feedback/understand-the-implementation/source-map:
+  en: 78e76b59b55d6343
+  zh: e55dc02abca9b937
+/lyness-lyn-message-feedback/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/lyness-lyn-message-feedback/model-experience/message-feedback:
+  en: 73eacb58a40342f6
+  zh: 1ee3049173128f61
+/lyness-lyn-message-feedback/model-experience/message-feedback/what-the-model-sees:
+  en: 3928187c2f20ec0f
+  zh: fd5273ee1a885bde
+/lyness-lyn-message-feedback/model-experience/message-feedback/token-effect:
+  en: 5ff6c3ac5017b3ef
+  zh: 4ccd5af39b37dd1c
+/lyness-lyn-message-feedback/model-experience/message-feedback/kv-cache-effect:
+  en: 2bdd13dcb4078358
+  zh: 591328cf1a061fca
+/lyness-lyn-message-feedback/known-limitations-and-deferred-work:
+  en: 42e5ad7ebf12683b
+  zh: 65d78ff6e682e4c5
+/lyness-lyn-message-feedback/known-limitations-and-deferred-work/dev-note:
+  en: 3c3ce6ed67282e05
+  zh: 213816553e3581b4

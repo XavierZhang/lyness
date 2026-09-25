@@ -32,7 +32,9 @@ const CONFIGURATION_ONLY_DEV_DEPENDENCIES = {
 /** Workspace packages whose complete runtime surface is safe across duplicate installations. */
 const DUPLICATE_SAFE_PACKAGES: readonly string[] = [
   '@lyness/lyn-brand',
+  '@lyness/lyn-lazy-require',
   '@lyness/lyn-typert-protocol',
+  '@lyness/lyn-util-code-language',
   '@lyness/lyn-util-crypto',
   '@lyness/lyn-util-values',
 ]
@@ -54,7 +56,9 @@ const SAFE_HOST_DEPENDENCY_EXPORTS = {
 
 /** Runtime exports that require every consumer to resolve the provider's shared peer instance. */
 const PEER_REQUIRED_HOST_EXPORTS = {
-  '@lyness/lyn-scope': ['carrierKeyOf', 'scopeOf', 'scopeTarget'],
+  '@lyness/lyn-client-connection': ['OperatorPeer'],
+  '@lyness/lyn-subprocess': ['SubprocessExecutableNotFoundError'],
+  '@lyness/lyn-scope': ['carrierKeyOf', 'createScope', 'scopeOf', 'scopeTarget'],
   '@lyness/lyn-session': ['SESSION_FORMAT_VERSION'],
   '@lyness/lyn-session-persistence': ['SessionPersistenceNotFoundError'],
 } as const satisfies HostDependencyExports

@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-api-workspace-controller",
   "description": "Workspace Remote commands and reconnect-safe state transport",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -25,6 +25,10 @@
     "./client": {
       "types": "./lib/types/client/index.d.ts",
       "default": "./lib/client.js"
+    },
+    "./default-workspace": {
+      "types": "./lib/types/default-workspace.d.ts",
+      "default": "./lib/types/default-workspace.js"
     },
     "./typert": {
       "types": "./lib/typert.host.d.ts",
@@ -65,28 +69,32 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@lyness/lyn-deque": "workspace:^",
+    "@lyness/lyn-deque": "workspace:*",
+    "@lyness/lyn-native-command": "workspace:*",
+    "@lyness/schemastery": "workspace:~",
     "zod": "^4.4.3"
   },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-api-gateway": "workspace:^",
-    "@lyness/lyn-client-connection": "workspace:^",
-    "@lyness/lyn-host-directory-picker": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-storage-domain": "workspace:^",
-    "@lyness/lyn-typert-protocol": "workspace:^",
-    "@lyness/lyn-workspace": "workspace:^"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-api-gateway": "workspace:*",
+    "@lyness/lyn-client-connection": "workspace:*",
+    "@lyness/lyn-host-directory-picker": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-storage-domain": "workspace:*",
+    "@lyness/lyn-typert-protocol": "workspace:*",
+    "@lyness/lyn-workspace": "workspace:*"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-api-gateway": "workspace:^",
-    "@lyness/lyn-client-connection": "workspace:^",
-    "@lyness/lyn-client-store": "workspace:^",
-    "@lyness/lyn-host-directory-picker": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-storage-domain": "workspace:^",
-    "@lyness/lyn-typert-protocol": "workspace:^",
-    "@lyness/lyn-workspace": "workspace:^"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-api-gateway": "workspace:*",
+    "@lyness/lyn-client-connection": "workspace:*",
+    "@lyness/lyn-client-store": "workspace:*",
+    "@lyness/lyn-client-test-runtime": "workspace:*",
+    "@lyness/lyn-host-directory-picker": "workspace:*",
+    "@lyness/lyn-remote-mock": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-storage-domain": "workspace:*",
+    "@lyness/lyn-typert-protocol": "workspace:*",
+    "@lyness/lyn-workspace": "workspace:*"
   }
 }

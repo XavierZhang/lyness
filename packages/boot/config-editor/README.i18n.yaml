@@ -1,0 +1,37 @@
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write packages/boot/config-editor/README.md
+/:
+  en: 68783acbf26e5790
+  zh: 8e04cbad03340c77
+/lyness-lyn-config-editor:
+  en: 5265cad90a87a038
+  zh: 9d7df341e85bbf14
+/lyness-lyn-config-editor/summary:
+  en: f8831f5fad9041d8
+  zh: 9744b776ffae1e7a
+/lyness-lyn-config-editor/table-of-contents:
+  en: 23386452a66b2fbd
+  zh: 70bba862b949b652
+/lyness-lyn-config-editor/use-this-package:
+  en: e6e3ea4286ddc9f8
+  zh: 1db35f33e1e59823
+/lyness-lyn-config-editor/understand-the-implementation:
+  en: 972ac006df48ad85
+  zh: df8adddc40817877
+/lyness-lyn-config-editor/further-exploration:
+  en: 947dc05a17c38952
+  zh: 00717ae46c42747f
+/lyness-lyn-config-editor/model-experience:
+  en: 358d1a5b1d9f2fde
+  zh: a40c6e95f39032e8
+/lyness-lyn-config-editor/model-experience/kv-cache-effect:
+  en: f49cb624cd503dd1
+  zh: 9944f21ab3458e4b
+/lyness-lyn-config-editor/known-limitations-and-deferred-work:
+  en: 8314910af268bda0
+  zh: 2c7f0c16ee09b0f7
+/lyness-lyn-config-editor/known-limitations-and-deferred-work/dev-note:
+  en: e67f633dc6fe7773
+  zh: e88aeb617ffb74ea

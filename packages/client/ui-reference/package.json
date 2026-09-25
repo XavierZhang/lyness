@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-client-ui-reference",
   "description": "Unified Web @file and @session reference source",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -32,7 +32,8 @@
         "@lyness/lyn-api-session-controller",
         "@lyness/lyn-client-connection",
         "@lyness/lyn-client-locale",
-        "@lyness/lyn-client-ui-input-trigger"
+        "@lyness/lyn-client-ui-input-trigger",
+        "@lyness/lyn-client-ui-sidebar-right"
       ],
       "platform": "web"
     }
@@ -43,22 +44,23 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/lyn-api-remotes": "workspace:^",
-    "@lyness/lyn-api-session-controller": "workspace:^",
-    "@lyness/lyn-client-connection": "workspace:^",
-    "@lyness/lyn-client-locale": "workspace:^",
-    "@lyness/lyn-client-test-runtime": "workspace:^",
-    "@lyness/lyn-client-ui-input-trigger": "workspace:^",
-    "@lyness/lyn-client-ui-primitives": "workspace:^",
-    "@lyness/lyn-client-ui-slots": "workspace:^",
-    "@lyness/lyn-file-reference": "workspace:^",
-    "@lyness/lyn-session-reference": "workspace:^",
-    "@lyness/lyn-typert-protocol": "workspace:^",
-    "@lyness/lyn-util-workspace-path": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-api-remotes": "workspace:*",
+    "@lyness/lyn-api-session-controller": "workspace:*",
+    "@lyness/lyn-client-connection": "workspace:*",
+    "@lyness/lyn-client-locale": "workspace:*",
+    "@lyness/lyn-client-test-runtime": "workspace:*",
+    "@lyness/lyn-client-ui-input-trigger": "workspace:*",
+    "@lyness/lyn-client-ui-primitives": "workspace:*",
+    "@lyness/lyn-client-ui-slots": "workspace:*",
+    "@lyness/lyn-file-reference": "workspace:*",
+    "@lyness/lyn-session-reference": "workspace:*",
+    "@lyness/lyn-typert-protocol": "workspace:*",
+    "@lyness/lyn-util-workspace-path": "workspace:*",
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-client-ui-sidebar-right": "workspace:*"
   },
   "files": [
     "lib/index.js",

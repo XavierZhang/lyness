@@ -1,0 +1,31 @@
+# Bilingual-pair consistency record for ui-radius.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write docs/ui-radius.md
+/lyn-unified-corner-radius-standard:
+  en: 497587b126c3b70f
+  zh: 4815842caa734293
+/lyn-unified-corner-radius-standard/summary:
+  en: 69a0cac69e3bf712
+  zh: f316d7c7e73933a9
+/lyn-unified-corner-radius-standard/table-of-contents:
+  en: aad65e4a8399adbb
+  zh: e76b80d421b17992
+/lyn-unified-corner-radius-standard/scope-and-authority:
+  en: a54916cd1a9e3f9f
+  zh: 9c5cee46399abab4
+/lyn-unified-corner-radius-standard/select-the-radius:
+  en: 51cd57ec0fe8bb03
+  zh: 53784eee8aa8be6e
+/lyn-unified-corner-radius-standard/reuse-tokens-and-preserve-deliberate-shapes:
+  en: c45bf0b442e743dc
+  zh: f94d0eaa4f64ccb1
+/lyn-unified-corner-radius-standard/nested-geometry-and-hover:
+  en: 3920921700d8ad1c
+  zh: fc99da8a5e905a27
+/lyn-unified-corner-radius-standard/settings-card-materials:
+  en: 85e7e63183df06d1
+  zh: 1da2b44083d7ebe2
+/lyn-unified-corner-radius-standard/apply-and-verify:
+  en: 2f6f10e45b27c19b
+  zh: 9eb5fd964c643be6

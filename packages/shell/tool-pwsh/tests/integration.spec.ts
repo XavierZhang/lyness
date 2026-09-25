@@ -19,7 +19,7 @@ import { ToolCallId } from '@lyness/lyn-llm'
 import SystemPrompt from '@lyness/lyn-system-prompt'
 import ToolRuntime, { TOOL_ABORTED } from '@lyness/lyn-tools'
 import LocalJobRegistry from '@lyness/lyn-jobs-local'
-import * as ToolTasks from '@lyness/lyn-tool-jobs'
+import * as ToolJobs from '@lyness/lyn-tool-jobs'
 import LocalSubprocessRuntime from '@lyness/lyn-subprocess-local'
 import { PwshLocalExecutor, resolvePwshPath } from '@lyness/lyn-pwsh-local'
 import * as ToolPwsh from '@lyness/lyn-tool-pwsh'
@@ -61,11 +61,13 @@ describe.skipIf(!hasPwsh)('pwsh tool over the real pwsh executor', () => {
     await ctx.plugin(SystemPrompt)
     await ctx.plugin(ToolRuntime)
     await ctx.plugin(LocalJobRegistry)
-    await ctx.plugin(ToolTasks)
+    await ctx.plugin(ToolJobs)
     await ctx.plugin(LocalSubprocessRuntime)
     await ctx.plugin(BashEnvPlugin)
     await ctx.plugin(PwshLocalExecutor, { timeoutMs: 20_000, graceMs: 200 })
-    await ctx.plugin(ToolPwsh)
+    // This suite pins the executor's own deadline behaviour; the job-backed
+    // foreground path is pinned by background.spec.
+    await ctx.plugin(ToolPwsh, { promoteOnTimeout: false })
   })
 
   afterEach(async () => {

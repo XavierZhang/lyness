@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-session-title-llm",
   "description": "Shared LLM generation policy for lyness session-title providers",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -27,21 +27,21 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-session-title": "workspace:^",
-    "@lyness/lyn-timeout": "workspace:^"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-session-title": "workspace:*",
+    "@lyness/lyn-timeout": "workspace:*"
   },
   "dependencies": {
-    "@lyness/lyn-util-values": "workspace:^",
-    "@lyness/schemastery": "workspace:^"
+    "@lyness/lyn-util-values": "workspace:*",
+    "@lyness/schemastery": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-session-title": "workspace:^",
-    "@lyness/lyn-timeout": "workspace:^"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-session-title": "workspace:*",
+    "@lyness/lyn-timeout": "workspace:*"
   }
 }

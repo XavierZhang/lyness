@@ -1,6 +1,22 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-08-10-session-log-version-mechanism.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-08-10-session-log-version-mechanism.md
-2026-08-10-session-log-version-mechanism.md: 513b126d3b00841f71893715cc296cb67619543e
-2026-08-10-session-log-version-mechanism.zh.md: 919bfb077c7037da2ebf7eb81b75745d6b4fe4d0
+/agent-note-session-log-versioning-one-integer-an-upgrade-chain-and-a-per-event-ignorable-marker:
+  en: f726ca0358127ce5
+  zh: a21544e2f78db353
+/agent-note-session-log-versioning-one-integer-an-upgrade-chain-and-a-per-event-ignorable-marker/problem:
+  en: c11f54e24be6cc3b
+  zh: c1c274fbb161a57b
+/agent-note-session-log-versioning-one-integer-an-upgrade-chain-and-a-per-event-ignorable-marker/decision:
+  en: 1cc6adc82b2e0128
+  zh: b66991b9da311851
+/agent-note-session-log-versioning-one-integer-an-upgrade-chain-and-a-per-event-ignorable-marker/decision/writer-and-publication-authority:
+  en: cfa1b3463d24ade4
+  zh: 44edd3a0bb13f8a1
+/agent-note-session-log-versioning-one-integer-an-upgrade-chain-and-a-per-event-ignorable-marker/consequences:
+  en: 9ea060aee5928108
+  zh: 5dfc5b590e2abe04
+/agent-note-session-log-versioning-one-integer-an-upgrade-chain-and-a-per-event-ignorable-marker/alternatives-considered:
+  en: 00e849982ac7d16a
+  zh: f7ac4af4caae71c5

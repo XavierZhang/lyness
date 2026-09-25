@@ -1,6 +1,25 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for network-proxy.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write docs/user/guide/network-proxy.md
-network-proxy.md: 3e9bc05341eb2e3c5c5dc2929d821f10e5381b58
-network-proxy.zh.md: 977b9224f3d7697af34f99a894df524c4cbaa006
+/run-lyn-behind-a-network-proxy:
+  en: 1cbdd32efd562404
+  zh: 1f2a2d89dd18e049
+/run-lyn-behind-a-network-proxy/export-the-variables:
+  en: 3615a931e90377cc
+  zh: 8805851f0d7de6a2
+/run-lyn-behind-a-network-proxy/why-your-browser-is-proxied-but-your-terminal-is-not:
+  en: 8504e89647935618
+  zh: 3479d8b4713ac9fb
+/run-lyn-behind-a-network-proxy/choose-what-stays-direct:
+  en: 1bdeead0f227b8da
+  zh: 6c46410e5b74de1f
+/run-lyn-behind-a-network-proxy/limits-worth-knowing:
+  en: 2b0af55229173aef
+  zh: d38f68e62fcb7bf4
+/run-lyn-behind-a-network-proxy/what-stays-direct:
+  en: 23307f5586d321c5
+  zh: 5f4c29d79239c98a
+/run-lyn-behind-a-network-proxy/check-that-it-worked:
+  en: aa196a7737a893ba
+  zh: c410c2a93b161211

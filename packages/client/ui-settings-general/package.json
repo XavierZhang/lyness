@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-client-ui-settings-general",
   "description": "Settings ownerless-copy and product onboarding plugin: the General section, shell trigger/header chrome content, settings dictionaries, and the versioned welcome notice",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -22,6 +22,9 @@
       "types": "./lib/types/client/index.d.ts",
       "default": "./lib/client.js"
     },
+    "./types": {
+      "types": "./lib/types/types.d.ts"
+    },
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
@@ -32,7 +35,8 @@
         "@lyness/lyn-client-locale",
         "@lyness/lyn-client-connection",
         "@lyness/lyn-api-remotes",
-        "@lyness/lyn-client-ui-sidebar"
+        "@lyness/lyn-client-ui-sidebar",
+        "@lyness/lyn-client-shortcuts"
       ],
       "platform": "web"
     }
@@ -43,28 +47,32 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@lyness/schemastery": "workspace:^"
+    "@lyness/schemastery": "workspace:~"
   },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/lyn-api-remotes": "workspace:^",
-    "@lyness/lyn-client-connection": "workspace:^",
-    "@lyness/lyn-client-locale": "workspace:^",
-    "@lyness/lyn-client-store": "workspace:^",
-    "@lyness/lyn-client-test-runtime": "workspace:^",
-    "@lyness/lyn-client-ui-primitives": "workspace:^",
-    "@lyness/lyn-client-ui-settings": "workspace:^",
-    "@lyness/lyn-client-ui-sidebar": "workspace:^",
-    "@lyness/lyn-client-ui-slots": "workspace:^",
-    "@lyness/cordis": "workspace:^",
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-api-remotes": "workspace:*",
+    "@lyness/lyn-client-connection": "workspace:*",
+    "@lyness/lyn-client-locale": "workspace:*",
+    "@lyness/lyn-client-store": "workspace:*",
+    "@lyness/lyn-client-test-runtime": "workspace:*",
+    "@lyness/lyn-client-ui-primitives": "workspace:*",
+    "@lyness/lyn-client-ui-renderer": "workspace:*",
+    "@lyness/lyn-client-ui-session": "workspace:*",
+    "@lyness/lyn-client-ui-settings": "workspace:*",
+    "@lyness/lyn-client-ui-sidebar": "workspace:*",
+    "@lyness/lyn-client-ui-slots": "workspace:*",
+    "@lyness/lyn-remote-mock": "workspace:*",
     "@types/react": "~18.3.1",
+    "@types/react-dom": "~18.3.0",
+    "clsx": "^2.0.0",
     "react": "^18.2.0",
-    "@lyness/lyn-client-ui-renderer": "workspace:^",
-    "@lyness/lyn-client-ui-session": "workspace:^",
-    "@lyness/lyn-settings": "workspace:^",
-    "clsx": "^2.0.0"
+    "@lyness/lyn-settings": "workspace:*",
+    "react-dom": "^18.2.0",
+    "@lyness/lyn-client-shortcuts": "workspace:*"
   },
   "files": [
     "lib/index.js",

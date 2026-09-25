@@ -13,7 +13,7 @@ export const LYNESS_HOME = `${LYNESS_ROOT}/home`
 /** Flat, symlink-free package tree resolved by the worker module loader. */
 export const LYNESS_NODE_MODULES = `${LYNESS_ROOT}/node_modules`
 
-/** Directory holding the composed cordis.yml and the agent-preset tree. */
+/** Directory holding the composed cordis.yml. */
 export const LYNESS_CONFIG = `${LYNESS_ROOT}/config`
 
 /** Default (empty) workspace directory. */

@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-host-plugin-inventory",
   "description": "Read-only Remote projection of current Cordis Loader plugin state",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -47,22 +47,24 @@
     "zod": "^4.4.3"
   },
   "peerDependencies": {
-    "@lyness/cordis-plugin-loader": "workspace:^",
-    "@lyness/lyn-agent-presets": "workspace:^",
-    "@lyness/lyn-brand": "workspace:^",
-    "@lyness/lyn-typert-protocol": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis-plugin-loader": "workspace:~",
+    "@lyness/lyn-agent-preset-registry": "workspace:*",
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/lyn-typert-protocol": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   },
   "peerDependenciesMeta": {
-    "@lyness/lyn-agent-presets": {
+    "@lyness/lyn-agent-preset-registry": {
       "optional": true
     }
   },
   "devDependencies": {
-    "@lyness/cordis-plugin-loader": "workspace:^",
-    "@lyness/lyn-agent-presets": "workspace:^",
-    "@lyness/lyn-brand": "workspace:^",
-    "@lyness/lyn-typert-protocol": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-app-boot": "workspace:*",
+    "@lyness/lyn-package-manifest": "workspace:*",
+    "@lyness/cordis-plugin-loader": "workspace:~",
+    "@lyness/lyn-agent-preset-registry": "workspace:*",
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/lyn-typert-protocol": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   }
 }

@@ -18,7 +18,7 @@ import { networkInterfaces } from 'node:os'
 import { fileURLToPath } from 'node:url'
 import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import { addHarnessSourceSection } from '@lyness/lyn-app-boot'
+import { addHarnessSourceSection, auditStartupEntries } from '@lyness/lyn-app-boot'
 import type {} from '@lyness/lyn-client-connection'
 import * as FrontendStatic from '@lyness/lyn-host-frontend-static'
 import { launchedThroughSsh, launchEnvironmentOf } from '@lyness/lyn-launch-environment'
@@ -284,15 +284,17 @@ export function apply(ctx: Context, config: Config): void {
       const settled = connectionCtx.get('loader')?.await()
       if (settled === undefined) announceReady()
       else {
-        void settled.then(() => {
+        void settled.then(async () => {
+          await auditStartupEntries(connectionCtx.root, 'lyn web', () => {})
           // The tree can be disposed while the boot was in flight (early
           // SIGTERM); a URL line or browser tab for a dead server would only
           // mislead, and reading torn-down services would turn a clean shutdown
           // into a crash.
           if (connectionCtx.get('webServer') !== undefined
             && connectionCtx.get('connection') !== undefined) announceReady()
-        // Loader reports a failed boot; this row only stays quiet.
-        }, () => {})
+        }).catch(() => {
+          // Boot owns the failure diagnostic; readiness remains unpublished.
+        })
       }
     })
   }

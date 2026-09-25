@@ -1,6 +1,22 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-07-21-follow-instruction-symlinks.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/feature/2026-07-21-follow-instruction-symlinks.md
-2026-07-21-follow-instruction-symlinks.md: 74c3167a3197348dcfef7e07dc701943e9f86ad8
-2026-07-21-follow-instruction-symlinks.zh.md: d5fc95cb5e6c4b0fd37aeb73f4c26abb72e0699b
+/agent-note-follow-symlinked-instruction-files:
+  en: 16bca972513f2fa2
+  zh: 7ac65e8794a48b18
+/agent-note-follow-symlinked-instruction-files/problem:
+  en: 56e0e7d32005e3c3
+  zh: 620a82ea4df4bff0
+/agent-note-follow-symlinked-instruction-files/decision:
+  en: ff2e4aba335c30ea
+  zh: 90e34e153032dba7
+/agent-note-follow-symlinked-instruction-files/decision/trust-boundary-and-residual-risk:
+  en: 8c1db304e255e36c
+  zh: a2fcdd1bf3c5d2a2
+/agent-note-follow-symlinked-instruction-files/alternatives-considered:
+  en: 30c92ffb4a844587
+  zh: 108e89103dfbd19d
+/agent-note-follow-symlinked-instruction-files/consequences:
+  en: b0ee45a9e4d95dd5
+  zh: 338d3758f400a651

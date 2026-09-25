@@ -1,0 +1,31 @@
+# Bilingual-pair consistency record for lyn-v0.0.1-rc.2.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write docs/persistence-changes/releases/lyn-v0.0.1-rc.2.md
+/:
+  en: 6f5157e395bb6d5c
+  zh: c7f0ce255ec93a66
+/persistence-release-lyn-v0-0-1-rc-2:
+  en: a02ff29db57b67ba
+  zh: f81e4d0e4f3061b4
+/persistence-release-lyn-v0-0-1-rc-2/summary:
+  en: 92debf799ae37656
+  zh: ed8e5361724534c3
+/persistence-release-lyn-v0-0-1-rc-2/table-of-contents:
+  en: 0ff4a6f3c6af323f
+  zh: f5c7bd70cc1585c7
+/persistence-release-lyn-v0-0-1-rc-2/release-evidence:
+  en: bf060fc14eae2ee0
+  zh: a30efc2efda7e0fd
+/persistence-release-lyn-v0-0-1-rc-2/declaration:
+  en: af9cea43334ee692
+  zh: c6c8bd0d6a17718a
+/persistence-release-lyn-v0-0-1-rc-2/structural-changes:
+  en: bdf6c95697ae5816
+  zh: 0332dec60181ab4a
+/persistence-release-lyn-v0-0-1-rc-2/verification:
+  en: 8ccca317964523b1
+  zh: 2c8b3e70a3320778
+/persistence-release-lyn-v0-0-1-rc-2/dev-note:
+  en: b75c8458928b72b9
+  zh: 003ba4e17b4b5269

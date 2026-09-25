@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-sdk-jsonrpc-server",
   "description": "Stdio JSON-RPC server plugin for out-of-process lyness SDK clients",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -27,34 +27,34 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@lyness/lyn-brand": "workspace:^",
-    "@lyness/schemastery": "workspace:^"
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/schemastery": "workspace:~"
   },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-agent": "workspace:^",
-    "@lyness/lyn-attachment": "workspace:^",
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-llm-deepseek": "workspace:^",
-    "@lyness/lyn-scope": "workspace:^",
-    "@lyness/lyn-sdk-protocol": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-subagent": "workspace:^"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/lyn-attachment": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-llm-deepseek-api-key": "workspace:*",
+    "@lyness/lyn-scope": "workspace:*",
+    "@lyness/lyn-sdk-protocol": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-subagent": "workspace:*"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/cordis-plugin-loader": "workspace:^",
-    "@lyness/lyn-agent": "workspace:^",
-    "@lyness/lyn-agent-loop": "workspace:^",
-    "@lyness/lyn-agent-loop-testkit": "workspace:^",
-    "@lyness/lyn-attachment": "workspace:^",
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-llm-deepseek": "workspace:^",
-    "@lyness/lyn-scope": "workspace:^",
-    "@lyness/lyn-sdk-protocol": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-session-persistence-jsonl": "workspace:^",
-    "@lyness/lyn-session-projection": "workspace:^",
-    "@lyness/lyn-subagent": "workspace:^"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/cordis-plugin-loader": "workspace:~",
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/lyn-agent-loop": "workspace:*",
+    "@lyness/lyn-agent-loop-testkit": "workspace:*",
+    "@lyness/lyn-attachment": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-llm-deepseek-api-key": "workspace:*",
+    "@lyness/lyn-scope": "workspace:*",
+    "@lyness/lyn-sdk-protocol": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-session-persistence-jsonl": "workspace:*",
+    "@lyness/lyn-session-projection": "workspace:*",
+    "@lyness/lyn-subagent": "workspace:*"
   }
 }

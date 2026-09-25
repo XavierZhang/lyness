@@ -1,6 +1,67 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/compaction/compaction-tool-result-pruner/README.md
-README.md: f11fad610d9cfaae971460f5e7800cdddca8c8ec
-README.zh.md: b17279571954872db82d2e8276c41d8f3356b766
+/:
+  en: 9ed7a84c51988fdb
+  zh: 4df60a349c2be7dc
+/lyness-lyn-compaction-tool-result-pruner:
+  en: ef88562a6dc232f8
+  zh: c1fbf4f6a7a4f998
+/lyness-lyn-compaction-tool-result-pruner/summary:
+  en: 1330b2e2870db018
+  zh: 97d53eaeb3f0fde2
+/lyness-lyn-compaction-tool-result-pruner/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-compaction-tool-result-pruner/use-this-package:
+  en: 566848ffd717f1b2
+  zh: 542637bac53cd928
+/lyness-lyn-compaction-tool-result-pruner/use-this-package/smallest-working-composition:
+  en: 55eadf840a54d2f8
+  zh: cc6bf82f58058c7b
+/lyness-lyn-compaction-tool-result-pruner/use-this-package/what-gets-trimmed:
+  en: a5cb5c94edcd91e3
+  zh: ed95adc91d11bbda
+/lyness-lyn-compaction-tool-result-pruner/use-this-package/setting-the-size-limits:
+  en: 6e9167b4ead08e7f
+  zh: 3dbd989b352746b2
+/lyness-lyn-compaction-tool-result-pruner/use-this-package/when-trimming-runs:
+  en: b9ab6687e2197cc0
+  zh: f458b6cf4e893aca
+/lyness-lyn-compaction-tool-result-pruner/understand-the-implementation:
+  en: 57aaa53880042873
+  zh: 667f54624411c37d
+/lyness-lyn-compaction-tool-result-pruner/understand-the-implementation/design-philosophy:
+  en: 5adff8207c6294e0
+  zh: ccba42d804989abb
+/lyness-lyn-compaction-tool-result-pruner/understand-the-implementation/pruning-mechanics:
+  en: 9813749e4f016897
+  zh: f2b2b5d6e5e8977a
+/lyness-lyn-compaction-tool-result-pruner/understand-the-implementation/source-map:
+  en: 9c10b4382c2347b5
+  zh: b713a6dcf7589aee
+/lyness-lyn-compaction-tool-result-pruner/further-exploration:
+  en: 99fd8e48e35c2703
+  zh: 13308f2bebbec673
+/lyness-lyn-compaction-tool-result-pruner/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/lyness-lyn-compaction-tool-result-pruner/model-experience/pruned-tool-result:
+  en: 0b0dfb7ec1bf906f
+  zh: 68f70bde796751cd
+/lyness-lyn-compaction-tool-result-pruner/model-experience/pruned-tool-result/what-the-model-sees:
+  en: 8514b5a6586bd65d
+  zh: 2a0648bea6cb81b6
+/lyness-lyn-compaction-tool-result-pruner/model-experience/pruned-tool-result/token-effect:
+  en: 1b11d405468e8d5d
+  zh: 06dc9aef281c776d
+/lyness-lyn-compaction-tool-result-pruner/model-experience/pruned-tool-result/kv-cache-effect:
+  en: aac7de507412ba39
+  zh: bdd8f391ad9c9a81
+/lyness-lyn-compaction-tool-result-pruner/known-limitations-and-deferred-work:
+  en: 2a7be98dc032e9bc
+  zh: d6710b1130722d12
+/lyness-lyn-compaction-tool-result-pruner/known-limitations-and-deferred-work/dev-note:
+  en: 19120c19286532da
+  zh: 49187f1e83b31007

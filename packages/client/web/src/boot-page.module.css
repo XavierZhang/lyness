@@ -1,7 +1,6 @@
 /* The framework-free boot page cannot depend on theme delivery succeeding. */
 
 .boot {
-  --lyn-boot-bg: #fff;
   --lyn-boot-label-primary: #0f1115;
   --lyn-boot-label-secondary: #61666b;
   --lyn-boot-label-tertiary: #81858c;
@@ -11,11 +10,10 @@
   height: 100%;
   display: grid;
   place-items: center;
-  background: var(--dsw-alias-bg-base, var(--lyn-boot-bg));
+  background: var(--dsw-alias-bg-base, var(--lyn-boot-bg, Canvas));
 }
 
 :global(body[data-ds-dark-theme]) .boot {
-  --lyn-boot-bg: #151517;
   --lyn-boot-label-primary: #f9fafb;
   --lyn-boot-label-secondary: #cfd3d6;
   --lyn-boot-label-tertiary: #adb2b8;

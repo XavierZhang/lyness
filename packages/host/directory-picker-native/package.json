@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-host-directory-picker-native",
   "description": "Native-OS-chooser backend of the directory-picker seam for the lyness web GUI host",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -32,15 +32,15 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@lyness/lyn-host-directory-picker": "workspace:^",
-    "@lyness/lyn-native-command": "workspace:^",
+    "@lyness/lyn-host-directory-picker": "workspace:*",
+    "@lyness/lyn-native-command": "workspace:*",
     "koffi": "^3.1.0"
   },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:^",
+    "@lyness/cordis": "workspace:~",
     "tsx": "^4.19.2"
   }
 }

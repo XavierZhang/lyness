@@ -1,6 +1,55 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/host/brand-wordmark/README.md
-README.md: d3b9f6588511bd961624b36e14c274cd51db9acb
-README.zh.md: 509b47e2ad1e69e279ef2a67e9506f638baf7620
+/:
+  en: bcacdd40ad0300ec
+  zh: cd29439392a9badb
+/lyness-lyn-host-brand-wordmark:
+  en: e19b7295bc97c8ad
+  zh: cd3eb9a89b35b6bd
+/lyness-lyn-host-brand-wordmark/summary:
+  en: a65830f34eaafd90
+  zh: 4d8aae2a5d7eaa30
+/lyness-lyn-host-brand-wordmark/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-host-brand-wordmark/use-this-package:
+  en: 2e3352cf16f82e1e
+  zh: cffde46b16097abf
+/lyness-lyn-host-brand-wordmark/use-this-package/minimal-use:
+  en: 27bcc56d33e8c0aa
+  zh: ebf3df8b39dda083
+/lyness-lyn-host-brand-wordmark/use-this-package/what-the-document-guarantees:
+  en: ad81905b1e9a5e41
+  zh: a5c68462a454f38b
+/lyness-lyn-host-brand-wordmark/use-this-package/refusals:
+  en: 58a2d8fcd57cf497
+  zh: 35ac1af58242cf0f
+/lyness-lyn-host-brand-wordmark/understand-the-implementation:
+  en: 42b15ac6321706aa
+  zh: 7ae097f3abcc5d9c
+/lyness-lyn-host-brand-wordmark/understand-the-implementation/design-concept:
+  en: dc3776a2a9b8358c
+  zh: 533b4394633a0ed2
+/lyness-lyn-host-brand-wordmark/understand-the-implementation/why-fontkit:
+  en: bef6d1469fd005cd
+  zh: aa8b9b8277aaa96d
+/lyness-lyn-host-brand-wordmark/understand-the-implementation/source-map:
+  en: 4eee70591b41a177
+  zh: 34507714e6e33975
+/lyness-lyn-host-brand-wordmark/further-exploration:
+  en: 8d536e27f38aff39
+  zh: c8f75aa9179961f6
+/lyness-lyn-host-brand-wordmark/model-experience:
+  en: d627c2811b18d2e4
+  zh: 93c47eb7b25155c7
+/lyness-lyn-host-brand-wordmark/model-experience/kv-cache-effect:
+  en: ca75c51c89c2c9b0
+  zh: ee6d77f08dfbe4ec
+/lyness-lyn-host-brand-wordmark/known-limitations-and-deferred-work:
+  en: 388434e629e089e6
+  zh: 6a9196bfa9369310
+/lyness-lyn-host-brand-wordmark/known-limitations-and-deferred-work/dev-note:
+  en: e2606c91b0a76b51
+  zh: be21a58ffd7c8aa1

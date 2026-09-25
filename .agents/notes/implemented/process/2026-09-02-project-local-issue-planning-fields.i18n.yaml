@@ -1,6 +1,22 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-09-02-project-local-issue-planning-fields.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/process/2026-09-02-project-local-issue-planning-fields.md
-2026-09-02-project-local-issue-planning-fields.md: d185bf90a67e97fd3a8982b089283d84c1007dc2
-2026-09-02-project-local-issue-planning-fields.zh.md: 2862758caae002cd2f1b2c8a28307960379d9e78
+/agent-note-project-local-issue-planning-fields:
+  en: d7f4823e62e17d7b
+  zh: 96fcc08c9f4dda22
+/agent-note-project-local-issue-planning-fields/problem:
+  en: f4c1e105648db0c5
+  zh: 3e35aa665125105f
+/agent-note-project-local-issue-planning-fields/decision:
+  en: 4ea33676b4965216
+  zh: 1eeeea06ce13f567
+/agent-note-project-local-issue-planning-fields/verification:
+  en: 7d1ef3eb9aac465d
+  zh: 68280a4511bce360
+/agent-note-project-local-issue-planning-fields/alternatives-considered:
+  en: b51a8fbc92bb7b5f
+  zh: 9316e86ac82c0a1b
+/agent-note-project-local-issue-planning-fields/consequences:
+  en: 72631c05a0447ef4
+  zh: 07a7b90ce84e51f1

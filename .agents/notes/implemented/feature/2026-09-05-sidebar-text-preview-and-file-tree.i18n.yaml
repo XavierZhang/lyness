@@ -1,6 +1,37 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-09-05-sidebar-text-preview-and-file-tree.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/feature/2026-09-05-sidebar-text-preview-and-file-tree.md
-2026-09-05-sidebar-text-preview-and-file-tree.md: 8d1cf643d140502b9f26526ed2886beef7867c08
-2026-09-05-sidebar-text-preview-and-file-tree.zh.md: 18b040425145813fa6bbfa1e93b5b70ba28ad6df
+/agent-note-sidebar-text-preview-and-file-tree:
+  en: 5bb2e421386b06c9
+  zh: d29a27939fac0154
+/agent-note-sidebar-text-preview-and-file-tree/problem:
+  en: f538e3fc9c35e832
+  zh: 8e3ba5dce86aba31
+/agent-note-sidebar-text-preview-and-file-tree/decision:
+  en: f8ea6a52a404b064
+  zh: c91528d66487bb33
+/agent-note-sidebar-text-preview-and-file-tree/decision/the-guide:
+  en: 4a40c175b84bbf6a
+  zh: afe652fbf075551c
+/agent-note-sidebar-text-preview-and-file-tree/decision/the-text-preview:
+  en: 0f5786dd70e746e1
+  zh: e39a8988221dc703
+/agent-note-sidebar-text-preview-and-file-tree/decision/the-file-tree:
+  en: 6c3a4f44763fdf2f
+  zh: d2279697f6b409ad
+/agent-note-sidebar-text-preview-and-file-tree/alternatives-considered:
+  en: 87fddbd01f117061
+  zh: 1810d283202db648
+/agent-note-sidebar-text-preview-and-file-tree/consequences:
+  en: 00b1675fcd76ad0d
+  zh: caf3eb340c74aef7
+/agent-note-sidebar-text-preview-and-file-tree/testing:
+  en: 2987a6417b7e4c14
+  zh: 97eeb97e67536c70
+/agent-note-sidebar-text-preview-and-file-tree/deferred:
+  en: 6c788b26fb65227b
+  zh: 1bafda76bac92edd
+/agent-note-sidebar-text-preview-and-file-tree/related:
+  en: a0b09e865c15cbcc
+  zh: cdaf0b74b62c530c

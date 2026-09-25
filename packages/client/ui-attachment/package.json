@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-client-ui-attachment",
   "description": "Dynamic attachment presentation plugin for conversation input, message-image, and trajectory image slots",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -43,19 +43,19 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@lyness/cordis": "workspace:^",
+    "@lyness/cordis": "workspace:~",
     "@types/react": "~18.3.1",
     "@types/react-dom": "~18.3.0",
-    "@lyness/lyn-client-ui-chat": "workspace:^",
-    "@lyness/lyn-client-ui-conversation": "workspace:^",
-    "@lyness/lyn-client-ui-trajectory": "workspace:^",
-    "@lyness/lyn-client-ui-renderer": "workspace:^",
-    "@lyness/lyn-client-ui-primitives": "workspace:^",
-    "@lyness/lyn-client-ui-slots": "workspace:^",
+    "@lyness/lyn-client-ui-chat": "workspace:*",
+    "@lyness/lyn-client-ui-conversation": "workspace:*",
+    "@lyness/lyn-client-ui-trajectory": "workspace:*",
+    "@lyness/lyn-client-ui-renderer": "workspace:*",
+    "@lyness/lyn-client-ui-primitives": "workspace:*",
+    "@lyness/lyn-client-ui-slots": "workspace:*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "@lyness/lyn-attachment": "workspace:^",
-    "@lyness/lyn-client-ui-tool": "workspace:^",
+    "@lyness/lyn-attachment": "workspace:*",
+    "@lyness/lyn-client-ui-tool": "workspace:*",
     "clsx": "^2.0.0"
   },
   "files": [
@@ -64,6 +64,6 @@
     "lib/types/**/*.d.ts"
   ],
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:~"
   }
 }

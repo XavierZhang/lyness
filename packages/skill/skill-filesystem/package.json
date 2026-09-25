@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-skill-filesystem",
   "description": "Local filesystem skill provider for the lyness",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -27,20 +27,20 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/lyn-fs": "workspace:^",
-    "@lyness/lyn-home-paths": "workspace:^",
-    "@lyness/lyn-skill": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-fs": "workspace:*",
+    "@lyness/lyn-home-paths": "workspace:*",
+    "@lyness/lyn-skill": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   },
   "dependencies": {
     "chokidar": "^5.0.0",
-    "@lyness/schemastery": "workspace:^",
+    "@lyness/schemastery": "workspace:~",
     "yaml": "^2.4.2"
   },
   "devDependencies": {
-    "@lyness/lyn-fs": "workspace:^",
-    "@lyness/lyn-home-paths": "workspace:^",
-    "@lyness/lyn-skill": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-fs": "workspace:*",
+    "@lyness/lyn-home-paths": "workspace:*",
+    "@lyness/lyn-skill": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   }
 }

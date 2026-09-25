@@ -1,6 +1,19 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-07-24-single-harness-home-resolver.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-07-24-single-harness-home-resolver.md
-2026-07-24-single-harness-home-resolver.md: 28d0729172c06a58b10c8e0a11d9cf6392b00a69
-2026-07-24-single-harness-home-resolver.zh.md: 6e98834a1faf0a01220b365729de41041a0dedae
+/agent-note-one-harness-home-resolver:
+  en: 83d32f1b8db546da
+  zh: d1b992a27610ebc5
+/agent-note-one-harness-home-resolver/problem:
+  en: aa959aff7dd526cd
+  zh: a33c1899a2f7bea1
+/agent-note-one-harness-home-resolver/decision:
+  en: fd0550f4218e3814
+  zh: 8ad58237161bc678
+/agent-note-one-harness-home-resolver/alternatives-considered:
+  en: 736ac4e2bec1ee66
+  zh: 61b570c3854fdfa1
+/agent-note-one-harness-home-resolver/consequences:
+  en: 3d25abed2e39f0c4
+  zh: 8c8ecc7594b4d20d

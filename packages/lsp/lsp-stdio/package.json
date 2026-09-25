@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-lsp-stdio",
   "description": "Generic stdio language-server provider for the lyness LSP capability seam (ctx.lsp) — spawns configured servers, translates JSON-RPC, and serves transient-open goToDefinition/findReferences/goToImplementation/hover queries in the host filesystem namespace",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -27,28 +27,28 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-brand": "workspace:^",
-    "@lyness/lyn-fs": "workspace:^",
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-lsp": "workspace:^",
-    "@lyness/lyn-subprocess": "workspace:^",
-    "@lyness/lyn-timeout": "workspace:^"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/lyn-fs": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-lsp": "workspace:*",
+    "@lyness/lyn-subprocess": "workspace:*",
+    "@lyness/lyn-timeout": "workspace:*"
   },
   "dependencies": {
-    "@lyness/lyn-util-values": "workspace:^",
-    "@lyness/schemastery": "workspace:^"
+    "@lyness/lyn-util-values": "workspace:*",
+    "@lyness/schemastery": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-brand": "workspace:^",
-    "@lyness/lyn-fs": "workspace:^",
-    "@lyness/lyn-fs-local": "workspace:^",
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-lsp": "workspace:^",
-    "@lyness/lyn-subprocess": "workspace:^",
-    "@lyness/lyn-subprocess-local": "workspace:^",
-    "@lyness/lyn-timeout": "workspace:^",
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/lyn-fs": "workspace:*",
+    "@lyness/lyn-fs-local": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-lsp": "workspace:*",
+    "@lyness/lyn-subprocess": "workspace:*",
+    "@lyness/lyn-subprocess-local": "workspace:*",
+    "@lyness/lyn-timeout": "workspace:*",
     "typescript": "^6.0.3",
     "typescript-language-server": "^5.0.0"
   }

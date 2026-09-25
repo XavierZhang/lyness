@@ -1,0 +1,24 @@
+- name: '@lyness/lyn-llm'
+- name: '@lyness/lyn-session'
+- name: '@lyness/lyn-session-projection'
+- name: '@lyness/lyn-system-prompt'
+- name: '@lyness/lyn-tools'
+- name: '@lyness/lyn-agent'
+- name: '@lyness/lyn-agent-loop'
+  config:
+    agents: []
+- name: '@lyness/lyn-credentials-local'
+  config:
+    path: {{credentials}}
+    watch: false
+- name: '@lyness/lyn-llm-deepseek-api-key'
+  config:
+    apiKeyEnv: DEEPSEEK_API_KEY
+    baseURL: {{endpoint}}
+    thinking: enabled
+    reasoningEffort: high
+    maxTokens: 256000
+    streamIdleTimeoutMs: 300000
+- name: '@lyness/lyn-llm-deepseek-account'
+  config:
+    baseURL: {{endpoint}}

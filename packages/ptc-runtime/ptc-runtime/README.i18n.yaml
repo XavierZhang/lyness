@@ -1,0 +1,70 @@
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write packages/ptc-runtime/ptc-runtime/README.md
+/:
+  en: 8904d5f5d5251a83
+  zh: 69b48f289b0416f0
+/lyness-lyn-ptc-runtime:
+  en: c5cbf1d8631349b0
+  zh: f2d9f76270669fa8
+/lyness-lyn-ptc-runtime/summary:
+  en: 869686526cd673bf
+  zh: 446ce1cfdb0d0463
+/lyness-lyn-ptc-runtime/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-ptc-runtime/use-this-package:
+  en: 984bc5ce1204ab0a
+  zh: 3842ed1a6094d7eb
+/lyness-lyn-ptc-runtime/use-this-package/run-a-program:
+  en: 6f97019cebc2f417
+  zh: c56f18a690dbe814
+/lyness-lyn-ptc-runtime/use-this-package/choose-a-backend:
+  en: 41ca2e5de9d3b891
+  zh: 02877a3ff5ce8e7a
+/lyness-lyn-ptc-runtime/use-this-package/name-your-bindings-portably:
+  en: 4e46c1672701b8df
+  zh: 0353c5855c9ff6be
+/lyness-lyn-ptc-runtime/use-this-package/what-can-go-wrong:
+  en: 44f9fdf2c8e2cacc
+  zh: 99dd555a49075f88
+/lyness-lyn-ptc-runtime/understand-the-implementation:
+  en: 686d570f5e669fa4
+  zh: 2075cf27c30f251a
+/lyness-lyn-ptc-runtime/understand-the-implementation/design-concept:
+  en: bca07f178caab12a
+  zh: c56877e48a1349bf
+/lyness-lyn-ptc-runtime/understand-the-implementation/service-api:
+  en: 1f4df634c895a2cd
+  zh: 3f903514e19f7ad9
+/lyness-lyn-ptc-runtime/understand-the-implementation/vocabulary:
+  en: 855cb8366e3bd293
+  zh: da6d7a0ce51f97fc
+/lyness-lyn-ptc-runtime/understand-the-implementation/portable-identifiers:
+  en: 8175ae6f1f4a1c88
+  zh: 27bd8966ddc7aed5
+/lyness-lyn-ptc-runtime/understand-the-implementation/source-map:
+  en: 73b7deab23f3b00d
+  zh: 780ddf5ff0dd5f65
+/lyness-lyn-ptc-runtime/further-exploration:
+  en: aaca5b2952cac834
+  zh: 756ff403273604ba
+/lyness-lyn-ptc-runtime/model-experience:
+  en: a99208608e04339e
+  zh: da4e8adfd37287fd
+/lyness-lyn-ptc-runtime/model-experience/kv-cache-effect:
+  en: 40294c1c31b74824
+  zh: 081cebc2e2650f03
+/lyness-lyn-ptc-runtime/known-limitations-and-deferred-work:
+  en: 7f30f78c5d427667
+  zh: 99d21160016deea2
+/lyness-lyn-ptc-runtime/known-limitations-and-deferred-work/dev-note:
+  en: d56846da29ad869c
+  zh: 0397151a7e29b8ba
+/lyness-lyn-ptc-runtime/known-limitations-and-deferred-work/dev-note/future-persistent-kernel-backend:
+  en: cfefaae6ed9705d5
+  zh: 3cca5b1bd92445b0
+/lyness-lyn-ptc-runtime/known-limitations-and-deferred-work/dev-note/future-container-backend:
+  en: 2b94202842f0556c
+  zh: 5aa0311fa621a018

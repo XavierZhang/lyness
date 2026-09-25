@@ -1,6 +1,19 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-09-15-brand-icon-from-png.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-09-15-brand-icon-from-png.md
-2026-09-15-brand-icon-from-png.md: 91901581f3264c243cf66d0cb7affc7b1f211709
-2026-09-15-brand-icon-from-png.zh.md: ae3f6a035074897c5642354a690b94065fc9bdb7
+/agent-note-brand-icons-are-traced-from-a-png:
+  en: d4d8d51b8d03a302
+  zh: 72f53667884cfdcd
+/agent-note-brand-icons-are-traced-from-a-png/problem:
+  en: 5fcf42dbb1e666f4
+  zh: 150935834c37d6f5
+/agent-note-brand-icons-are-traced-from-a-png/decision:
+  en: 6b9b8c4758c8f8aa
+  zh: 98b5d48fed30e786
+/agent-note-brand-icons-are-traced-from-a-png/alternatives-considered:
+  en: 6841200f5ddb3e61
+  zh: f7c4a304cbb3e23d
+/agent-note-brand-icons-are-traced-from-a-png/consequences:
+  en: 8c478714938ef8f2
+  zh: 63e4687d50f33c3b

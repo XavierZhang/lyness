@@ -327,7 +327,7 @@ async function sendGitHubDelivery(origin: string): Promise<Response> {
   const body = JSON.stringify({
     action: 'ready_for_review',
     number: 4242,
-    repository: { full_name: 'lyness/lyness' },
+    repository: { full_name: 'deepseek-ai/lyness' },
     pull_request: {
       title: 'Real CLI webhook e2e',
       html_url: 'https://github.com/XavierZhang/lyness/pull/4242',
@@ -412,7 +412,7 @@ describe.skipIf(!process.env.DEEPSEEK_API_KEY)('GitHub webhook through the real 
       const admitted = await eventually(
         child,
         observation.text,
-        'webhook provenance, title, and permission events',
+        'webhook source, title, and permission events',
         async () => await history(baseUrl, sessionId),
         (page) => {
           const events = historyEvents(page)

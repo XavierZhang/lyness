@@ -1,6 +1,94 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/subagent/subagent/README.md
-README.md: d79e13c3161131101e691e9d627d56c61389efc9
-README.zh.md: 5cd9b4a9b306ec5a685584b4ace8cda63c7a8345
+/:
+  en: 384d01a27a111f49
+  zh: fbadc6917c3099c9
+/lyness-lyn-subagent:
+  en: b0184399a17dc47e
+  zh: 881125830728baf9
+/lyness-lyn-subagent/summary:
+  en: 2ba1ddb008591962
+  zh: 5822ab2b8eb1e4a5
+/lyness-lyn-subagent/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-subagent/use-this-package:
+  en: 4651aec03a1d2e21
+  zh: 7b6d1d604bdb1bf1
+/lyness-lyn-subagent/use-this-package/enabling-delegation:
+  en: f66e74a5fa4e49b6
+  zh: 8c3a793cc29fcc1b
+/lyness-lyn-subagent/use-this-package/delegation-settings:
+  en: 86c982223fab1a3a
+  zh: 3d220d8ed84eab9a
+/lyness-lyn-subagent/use-this-package/continuable-capacity:
+  en: 758b12e9f3283720
+  zh: 7b607ceadf74f7a7
+/lyness-lyn-subagent/use-this-package/one-shot-and-continuable-children:
+  en: 10d0a7e0513bf04b
+  zh: 0cf2c2d81e85d7a9
+/lyness-lyn-subagent/use-this-package/messaging-interrupting-and-discovering:
+  en: ff41ac0e770ed865
+  zh: 27dcf055badf217d
+/lyness-lyn-subagent/use-this-package/failure-and-recovery:
+  en: 782aaaf8639c211c
+  zh: e2a873eece366e74
+/lyness-lyn-subagent/understand-the-implementation:
+  en: 74d91b364b23f88d
+  zh: 19cc558105efe8df
+/lyness-lyn-subagent/understand-the-implementation/design-concept:
+  en: 26c4eb7592b77d14
+  zh: c166fb6ee1a1c7d8
+/lyness-lyn-subagent/understand-the-implementation/source-map:
+  en: d9afc0d9548afe58
+  zh: 0e11526b6c001dc6
+/lyness-lyn-subagent/understand-the-implementation/one-shot-flow:
+  en: 6f1ad926d2851582
+  zh: 13da8a194b1961d4
+/lyness-lyn-subagent/understand-the-implementation/continuable-flow:
+  en: 7b3d4f388b811d14
+  zh: dfe72a67e3f6d135
+/lyness-lyn-subagent/understand-the-implementation/ownership-and-invariants:
+  en: b07c23a8d35f8bce
+  zh: bdc923e15016afd7
+/lyness-lyn-subagent/further-exploration:
+  en: a406499846ec6989
+  zh: cae05d3eb4f66738
+/lyness-lyn-subagent/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/lyness-lyn-subagent/model-experience/settlement-notice:
+  en: f7cec22ba9d3fb4f
+  zh: 67b1d40f9b136f71
+/lyness-lyn-subagent/model-experience/settlement-notice/what-the-model-sees:
+  en: 44ba290ef9896de9
+  zh: 21d207c31228c0ce
+/lyness-lyn-subagent/model-experience/settlement-notice/token-effect:
+  en: 45dc428c61f606f5
+  zh: 7e9a2587e98c8ca6
+/lyness-lyn-subagent/model-experience/settlement-notice/kv-cache-effect:
+  en: d6b1d618083da79b
+  zh: 9a28942b7d53c382
+/lyness-lyn-subagent/model-experience/child-delegation-scope-statement:
+  en: dc8544657916e194
+  zh: b0feff0764b5d903
+/lyness-lyn-subagent/model-experience/child-delegation-scope-statement/what-the-model-sees:
+  en: 61906b6a7b656eeb
+  zh: 2fa94349714efc9f
+/lyness-lyn-subagent/model-experience/child-delegation-scope-statement/what-the-model-sees/the-delegation-scope-statement:
+  en: 960e4abc8393bcd1
+  zh: e125aa2bab1570d0
+/lyness-lyn-subagent/model-experience/child-delegation-scope-statement/token-effect:
+  en: 4e0b922b186dc2a9
+  zh: 7453563417c5b9a2
+/lyness-lyn-subagent/model-experience/child-delegation-scope-statement/kv-cache-effect:
+  en: 59e848fca82a46fb
+  zh: fcd6a8a2bb58609f
+/lyness-lyn-subagent/known-limitations-and-deferred-work:
+  en: b2182809471f0780
+  zh: cfab217025442ae8
+/lyness-lyn-subagent/known-limitations-and-deferred-work/dev-note:
+  en: 25cc0909348666bb
+  zh: 95517f12de100049

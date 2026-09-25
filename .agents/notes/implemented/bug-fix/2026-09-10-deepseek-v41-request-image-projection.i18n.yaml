@@ -1,0 +1,19 @@
+# Bilingual-pair consistency record for 2026-09-10-deepseek-v41-request-image-projection.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write .agents/notes/implemented/bug-fix/2026-09-10-deepseek-v41-request-image-projection.md
+/agent-note-deepseek-request-images-on-the-published-token-grid:
+  en: 5be361de885106b2
+  zh: 8b79f1faea14e173
+/agent-note-deepseek-request-images-on-the-published-token-grid/problem:
+  en: 07487c9b7167a00a
+  zh: 18b52315fe90cba4
+/agent-note-deepseek-request-images-on-the-published-token-grid/decision:
+  en: 281a9ab92fb77240
+  zh: 939940289576807d
+/agent-note-deepseek-request-images-on-the-published-token-grid/alternatives-considered:
+  en: 63af6fd04c542851
+  zh: 5e0d1b3cbee88059
+/agent-note-deepseek-request-images-on-the-published-token-grid/consequences:
+  en: 95bc8d0d09928dee
+  zh: 090292fa154e854f

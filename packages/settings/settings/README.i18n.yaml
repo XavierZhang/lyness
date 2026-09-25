@@ -1,6 +1,37 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/settings/settings/README.md
-README.md: 3633722d47a3ffc383c80d38becc0e580e0bda52
-README.zh.md: 7adf761e8ea3d15bfa6147a5614a19d9e4b215b1
+/:
+  en: 51da5e07db469e4d
+  zh: fbacb8b1ea8d70ca
+/lyness-lyn-settings:
+  en: 5d070e3f5dbcdefa
+  zh: 0cb92be8603f1748
+/lyness-lyn-settings/summary:
+  en: a5e84db91656bc73
+  zh: 3fabc5eb76ae228f
+/lyness-lyn-settings/table-of-contents:
+  en: 23386452a66b2fbd
+  zh: 70bba862b949b652
+/lyness-lyn-settings/use-this-package:
+  en: e3f8be32837ff0ad
+  zh: c702be17bf3e3639
+/lyness-lyn-settings/understand-the-implementation:
+  en: c0f2f476ce7a6e54
+  zh: 16cbd0cf117a2c02
+/lyness-lyn-settings/further-exploration:
+  en: e3876d4ddf8e3260
+  zh: 940aed8ee573278e
+/lyness-lyn-settings/model-experience:
+  en: 358d1a5b1d9f2fde
+  zh: a40c6e95f39032e8
+/lyness-lyn-settings/model-experience/kv-cache-effect:
+  en: f49cb624cd503dd1
+  zh: 9944f21ab3458e4b
+/lyness-lyn-settings/known-limitations-and-deferred-work:
+  en: 4ae53522f8a7d66d
+  zh: ee55c14ebd4575db
+/lyness-lyn-settings/known-limitations-and-deferred-work/dev-note:
+  en: e67f633dc6fe7773
+  zh: e88aeb617ffb74ea

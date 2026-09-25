@@ -1,6 +1,25 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/schedule/README.md
-README.md: bcbc0ece5df3f7fb1443d0f7ffc7ff18339871c1
-README.zh.md: 251f9d2ad301aca02a88eb1264c683b0e6e3a3e8
+/:
+  en: f9ec298bef2d07af
+  zh: 9673967495f91150
+/schedule-host-owned-reminders:
+  en: a8a846e510b90772
+  zh: ab3364643f809344
+/schedule-host-owned-reminders/summary:
+  en: 1b1c6395ae6eae1c
+  zh: 8b11a0b8e5de16bc
+/schedule-host-owned-reminders/table-of-contents:
+  en: 1eb35b015a6c423f
+  zh: a8a3dceee2c9e943
+/schedule-host-owned-reminders/packages:
+  en: 80cf489e3519fb2b
+  zh: 317d8199aca2a474
+/schedule-host-owned-reminders/related-documentation:
+  en: 856a16ca1b338309
+  zh: cffd68f653129a10
+/schedule-host-owned-reminders/dev-note:
+  en: 5de1d6304e00c58f
+  zh: 8d8225361cfa29e5

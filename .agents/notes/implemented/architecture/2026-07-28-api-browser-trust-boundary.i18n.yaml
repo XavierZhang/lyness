@@ -1,6 +1,19 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-07-28-api-browser-trust-boundary.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-07-28-api-browser-trust-boundary.md
-2026-07-28-api-browser-trust-boundary.md: 1411eee3398d8c4e6ec25be0401322c5df6dcc19
-2026-07-28-api-browser-trust-boundary.zh.md: 4111d1cafad167bd180f3a4e13c331902fa7dd8a
+/agent-note-one-carrier-level-browser-trust-boundary-for-all-api-routes:
+  en: 58a85f0dd6436586
+  zh: 187ca25c8bb7be7a
+/agent-note-one-carrier-level-browser-trust-boundary-for-all-api-routes/problem:
+  en: c25db2ef111b2276
+  zh: 557891ca9e030ae5
+/agent-note-one-carrier-level-browser-trust-boundary-for-all-api-routes/decision:
+  en: be7d348ebe6175c7
+  zh: a0fe1e25e7cc9ddc
+/agent-note-one-carrier-level-browser-trust-boundary-for-all-api-routes/alternatives-considered:
+  en: 79a637fbb306c066
+  zh: 81259cf5f625768f
+/agent-note-one-carrier-level-browser-trust-boundary-for-all-api-routes/consequences:
+  en: 8acf5e6f55a747c2
+  zh: bbd0b10927302965

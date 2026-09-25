@@ -1,6 +1,40 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/api/tenant-controller/README.md
-README.md: d976de5d97123abf877e40ab27d505bd423a1a49
-README.zh.md: 3baeae8a9fc875dead28f9170c451b2efa271ac5
+/:
+  en: 3f3b06f7e1e4d306
+  zh: 06a77a1ca0cacb74
+/lyness-lyn-api-tenant-controller:
+  en: 6c2c2c8516a5bf10
+  zh: cbc12628bbd2e8f0
+/lyness-lyn-api-tenant-controller/summary:
+  en: 17b48c51a5c00588
+  zh: dc4f39f079def3ed
+/lyness-lyn-api-tenant-controller/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-api-tenant-controller/use-this-package:
+  en: 84d6eb8a3636c045
+  zh: 2be207d90946f30d
+/lyness-lyn-api-tenant-controller/use-this-package/what-it-refuses:
+  en: 61d6033b806a03ec
+  zh: 403ea3c536a6e844
+/lyness-lyn-api-tenant-controller/understand-the-implementation:
+  en: 66ab441558fdc8c6
+  zh: af31321b5608d313
+/lyness-lyn-api-tenant-controller/further-exploration:
+  en: 409c12db81f098d0
+  zh: 8ae2241c716c7803
+/lyness-lyn-api-tenant-controller/model-experience:
+  en: a8a3f37f4b1b4fb5
+  zh: dd534bbe6bdda865
+/lyness-lyn-api-tenant-controller/model-experience/kv-cache-effect:
+  en: ca75c51c89c2c9b0
+  zh: ee6d77f08dfbe4ec
+/lyness-lyn-api-tenant-controller/known-limitations-and-deferred-work:
+  en: 390a9be685b2bcbd
+  zh: b3cdfad6311a089b
+/lyness-lyn-api-tenant-controller/known-limitations-and-deferred-work/dev-note:
+  en: a218a38a17436098
+  zh: 3b86a157a3a9cc87

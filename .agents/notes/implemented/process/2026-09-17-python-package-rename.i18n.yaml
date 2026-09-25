@@ -1,6 +1,19 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-09-17-python-package-rename.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/process/2026-09-17-python-package-rename.md
-2026-09-17-python-package-rename.md: 9a8c5778d2710ba92fdbc38ec3d62435ad39c6a6
-2026-09-17-python-package-rename.zh.md: 8820ff4b847d0032e6e99b37e8b6cf0acdca0331
+/agent-note-the-python-import-packages-carry-the-fork-s-name:
+  en: ccde1eb374423d91
+  zh: cce1422af4c89035
+/agent-note-the-python-import-packages-carry-the-fork-s-name/problem:
+  en: 8b20e3625df2eedf
+  zh: d7eb01abc00602fc
+/agent-note-the-python-import-packages-carry-the-fork-s-name/decision:
+  en: 5a9d39419190412d
+  zh: c211063c9efbbc07
+/agent-note-the-python-import-packages-carry-the-fork-s-name/alternatives-considered:
+  en: fb1559a01ddeb491
+  zh: 7f6020e55e3591e1
+/agent-note-the-python-import-packages-carry-the-fork-s-name/consequences:
+  en: 5d3def892672e911
+  zh: 4c8c3effca322f2d

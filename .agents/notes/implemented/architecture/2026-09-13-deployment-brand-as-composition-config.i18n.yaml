@@ -1,6 +1,19 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-09-13-deployment-brand-as-composition-config.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-09-13-deployment-brand-as-composition-config.md
-2026-09-13-deployment-brand-as-composition-config.md: 0e8d5036355a3fe36a66fc9af686ff07328ac8bc
-2026-09-13-deployment-brand-as-composition-config.zh.md: a7ff97ac645a3ae413c01ba2c98b975400005b36
+/agent-note-the-deployment-s-brand-is-composition-config-served-per-response:
+  en: 0ecd14ad75490e88
+  zh: ca193d911b40e2a5
+/agent-note-the-deployment-s-brand-is-composition-config-served-per-response/problem:
+  en: 6a293a3c8d9f19d8
+  zh: 6b54187499ee7933
+/agent-note-the-deployment-s-brand-is-composition-config-served-per-response/decision:
+  en: 299c8c4bd088b3dc
+  zh: 1b57eda1e627095a
+/agent-note-the-deployment-s-brand-is-composition-config-served-per-response/alternatives-considered:
+  en: ac410cb1ab1b37ea
+  zh: 817bfed24755fdfe
+/agent-note-the-deployment-s-brand-is-composition-config-served-per-response/consequences:
+  en: de86574178d9cacf
+  zh: 9f324d8284095fe8

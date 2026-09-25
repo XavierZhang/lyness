@@ -9,7 +9,7 @@ import AgentRegistry, { type Agent } from '@lyness/lyn-agent'
 
 import AgentLoop from '@lyness/lyn-agent-loop'
 import SessionProjectionRegistry from '@lyness/lyn-session-projection'
-import * as LlmDeepSeek from '@lyness/lyn-llm-deepseek'
+import * as LlmDeepSeek from '@lyness/lyn-llm-deepseek-api-key'
 import { E2E_TARGET } from '@lyness/lyn-e2e-target'
 
 /**

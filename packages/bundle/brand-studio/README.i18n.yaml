@@ -1,6 +1,40 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/bundle/brand-studio/README.md
-README.md: 480eac316015653365a3a9ec1196a67c9bb2ffcb
-README.zh.md: f680f2e62b3acb66f2c00e9a637840c281afbe7e
+/:
+  en: ed97eca4d59dd01d
+  zh: 09ca2b5344f33bf5
+/lyness-lyn-brand-studio:
+  en: 1fe50af2488e0a83
+  zh: e59725b98e456a2c
+/lyness-lyn-brand-studio/summary:
+  en: 98f59d3295612c39
+  zh: a8755b2fde6c379d
+/lyness-lyn-brand-studio/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-brand-studio/use-this-package:
+  en: 08c4fed406ef6e1e
+  zh: 00a33f24610fa893
+/lyness-lyn-brand-studio/use-this-package/what-it-writes:
+  en: 626ab069ee7a043d
+  zh: aaacf0b7d839bc48
+/lyness-lyn-brand-studio/understand-the-implementation:
+  en: 069fd99ca723e8f6
+  zh: 2e7727be70a95aac
+/lyness-lyn-brand-studio/further-exploration:
+  en: 1d1ba096df2585f6
+  zh: daa5fb544285620e
+/lyness-lyn-brand-studio/model-experience:
+  en: a90d154b30165461
+  zh: 8a306a92a902f79b
+/lyness-lyn-brand-studio/model-experience/kv-cache-effect:
+  en: 9f13fbe7414d4c07
+  zh: 0b4dd994e7f7e95b
+/lyness-lyn-brand-studio/known-limitations-and-deferred-work:
+  en: dd79d726e7ec0e88
+  zh: 846144f69818f176
+/lyness-lyn-brand-studio/known-limitations-and-deferred-work/dev-note:
+  en: cd06ab3fa6069373
+  zh: a1a03adc735274ff

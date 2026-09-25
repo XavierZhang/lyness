@@ -1,6 +1,28 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-07-19-package-invariant-runtime-contracts.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-07-19-package-invariant-runtime-contracts.md
-2026-07-19-package-invariant-runtime-contracts.md: 6ef6567cced74360e98b248390a22060e7701326
-2026-07-19-package-invariant-runtime-contracts.zh.md: e3d95586f7fe12e5a9410fb4fd0433bdba15b469
+/agent-note-meaningful-package-invariant-contracts:
+  en: 9770308ab4f7fd21
+  zh: 171be66fec1ef566
+/agent-note-meaningful-package-invariant-contracts/problem:
+  en: 220a4ceb3cd9b9c9
+  zh: 9eac93e1762b2914
+/agent-note-meaningful-package-invariant-contracts/decision:
+  en: a15c7c13f167e5ac
+  zh: 63bcc2ef60c2f344
+/agent-note-meaningful-package-invariant-contracts/decision/published-assertions-must-be-meaningful:
+  en: e21ceec41e3c0f26
+  zh: d5540e5d8898162b
+/agent-note-meaningful-package-invariant-contracts/decision/representative-implemented-checks:
+  en: 9b5e865c7e42a689
+  zh: c1f70a67a30724fe
+/agent-note-meaningful-package-invariant-contracts/decision/repository-gate-and-tests:
+  en: 37e646754f13dd65
+  zh: 355ebf3ce1403117
+/agent-note-meaningful-package-invariant-contracts/alternatives-considered:
+  en: 74c6a5a0cfadbf88
+  zh: e41356bb1a8c1fdf
+/agent-note-meaningful-package-invariant-contracts/consequences:
+  en: 1f8d53063fb5903e
+  zh: 5edd23739749b065

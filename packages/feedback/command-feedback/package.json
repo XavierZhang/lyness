@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-command-feedback",
   "description": "Log-only session feedback: the record event, the sessionFeedback Host Remote, and the human-facing slash command",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -44,25 +44,25 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/lyn-commands": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-anonymous-user-id": "workspace:^",
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-typert-protocol": "workspace:^"
+    "@lyness/lyn-commands": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-anonymous-user-id": "workspace:*",
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-typert-protocol": "workspace:*"
   },
   "dependencies": {
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@lyness/cordis-plugin-include": "workspace:^",
-    "@lyness/cordis-plugin-loader": "workspace:^",
-    "@lyness/lyn-agent": "workspace:^",
-    "@lyness/lyn-agent-loop-testkit": "workspace:^",
-    "@lyness/lyn-commands": "workspace:^",
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-anonymous-user-id": "workspace:^",
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-typert-protocol": "workspace:^"
+    "@lyness/cordis-plugin-include": "workspace:~",
+    "@lyness/cordis-plugin-loader": "workspace:~",
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/lyn-agent-loop-testkit": "workspace:*",
+    "@lyness/lyn-commands": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-anonymous-user-id": "workspace:*",
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-typert-protocol": "workspace:*"
   }
 }

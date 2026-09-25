@@ -24,3 +24,7 @@
 - insert:
     - id: llm-replay
       name: '@lyness/lyn-llm-replay'
+
+- id: session-log-deepseek
+  config:
+    enabled: false

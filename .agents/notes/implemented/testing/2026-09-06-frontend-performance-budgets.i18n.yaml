@@ -1,6 +1,28 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-09-06-frontend-performance-budgets.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/testing/2026-09-06-frontend-performance-budgets.md
-2026-09-06-frontend-performance-budgets.md: 960096931a4be0960d07ed482bc64f9a5213049c
-2026-09-06-frontend-performance-budgets.zh.md: 55cd0cff165fef7de81209ad4a10d527eaf8245c
+/agent-note-frontend-large-session-performance-budgets:
+  en: d0097655b8428ffb
+  zh: 84ec897345b50310
+/agent-note-frontend-large-session-performance-budgets/problem:
+  en: 955a73e7227dc98d
+  zh: dabb80fc24be7e34
+/agent-note-frontend-large-session-performance-budgets/decision:
+  en: 81d9ae3d777a88a2
+  zh: 5ff86eb729c2b4c7
+/agent-note-frontend-large-session-performance-budgets/calibration:
+  en: f3be2a0d346e80cc
+  zh: c49cc56e7714f68c
+/agent-note-frontend-large-session-performance-budgets/calibration/actual-ci-runs:
+  en: 265a600ffefc97e3
+  zh: 4b73a6773e489415
+/agent-note-frontend-large-session-performance-budgets/calibration/standard-hosted-expectations-and-input-scheduling:
+  en: 8cb6299dbb42a9fe
+  zh: 51ef49d4fcaeb92f
+/agent-note-frontend-large-session-performance-budgets/alternatives-considered:
+  en: 1472bd425ef0daec
+  zh: a89811758d70331e
+/agent-note-frontend-large-session-performance-budgets/consequences:
+  en: e69e3c1a1fd876b2
+  zh: a94528b770d24b40

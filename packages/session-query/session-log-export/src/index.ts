@@ -1,6 +1,7 @@
 /** Session-log download command and Host-owned streaming route. */
 
 import type { Context } from '@lyness/cordis'
+import type { CommandDefinitionId } from '@lyness/lyn-commands/brand'
 import Schema from '@lyness/schemastery'
 import { brandString } from '@lyness/lyn-brand'
 import type {} from '@lyness/lyn-attachment'
@@ -16,6 +17,7 @@ import {
   type SessionLogCompressionLevel,
   type SessionLogExportReady,
 } from './archive.ts'
+import { SESSION_LOG_EXPORT_PATH } from './routes.ts'
 
 export {
   DEFAULT_SESSION_LOG_COMPRESSION_LEVEL,
@@ -38,8 +40,7 @@ export type {
 export const name = 'session-log-download'
 export const inject = ['commands', 'connection']
 
-/** Stable browser download path retained across the transport migration. */
-export const SESSION_LOG_EXPORT_PATH = '/api/session.export'
+export { SESSION_LOG_EXPORT_PATH } from './routes.ts'
 
 /** Session-log archive policy. */
 export interface Config {
@@ -76,6 +77,7 @@ const REQUESTED: CommandResult = {
  */
 export function apply(ctx: Context, config: Config = {}): void {
   ctx.effect(() => ctx.commands.register({
+    definitionId: brandString<CommandDefinitionId>('@lyness/lyn-session-log-export'),
     name: 'export',
     description: 'Download this Session log as a ZIP archive',
     handler: invocation => Promise.resolve(invocation.rawInput.trim() === ''

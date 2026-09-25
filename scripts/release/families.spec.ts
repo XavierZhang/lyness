@@ -42,19 +42,33 @@ afterEach(() => {
 })
 
 describe('release families', () => {
-  it('publishes Agent Teams while excluding private experimental packages', () => {
+  it('publishes all current experimental packages', () => {
     const members = releaseFamily('lyn').members(resolve(import.meta.dirname, '../..'))
 
     expect(members
       .filter(member => member.directory.startsWith('packages/experimental/'))
       .map(member => member.name)).toEqual([
       '@lyness/lyn-experimental-agent-team-profile',
-      '@lyness/lyn-experimental-agent-team-web-profile',
       '@lyness/lyn-experimental-agent-team',
+      '@lyness/lyn-experimental-api-speech-to-text',
+      '@lyness/lyn-experimental-auto-review',
+      '@lyness/lyn-experimental-browser-use-chrome-devtools-mcp',
+      '@lyness/lyn-experimental-browser-use-playwright-mcp',
+      '@lyness/lyn-experimental-browser-use-runtime',
+      '@lyness/lyn-experimental-browser-use-stagehand-native',
       '@lyness/lyn-experimental-client-ui-agent-team',
+      '@lyness/lyn-experimental-client-ui-voice-input',
+      '@lyness/lyn-experimental-computer-use-cua-driver-mcp',
+      '@lyness/lyn-experimental-computer-use-cua-driver-native',
+      '@lyness/lyn-experimental-inspector',
+      '@lyness/lyn-experimental-ptc-runtime-python',
+      '@lyness/lyn-experimental-speech-to-text-sensevoice',
+      '@lyness/lyn-experimental-speech-to-text',
       '@lyness/lyn-experimental-tool-agent-team',
+      '@lyness/lyn-experimental-voice-input-bundle',
+      '@lyness/lyn-experimental-webworker-packer',
+      '@lyness/lyn-experimental-webworker-runtime',
     ])
-    expect(members.map(member => member.name)).not.toContain('@lyness/lyn-experimental-inspector')
   })
 
   it('excludes private applications from the publish set', () => {
@@ -64,6 +78,25 @@ describe('release families', () => {
     write(join(root, 'apps/private/package.json'), '{"name":"@lyness/lyn-private","version":"0.0.1","private":true}\n')
 
     expect(releaseFamily('lyn').members(root).map(entry => entry.name)).toEqual(['@lyness/lyn-public'])
+  })
+
+  it('publishes unlisted experimental packages while retaining private exclusions', () => {
+    const root = mkdtempSync(join(tmpdir(), 'lyn-release-experimental-'))
+    roots.push(root)
+    write(join(root, 'packages/experimental/prototype/package.json'), JSON.stringify({
+      name: '@lyness/lyn-experimental-prototype',
+      version: '0.0.1',
+      publishConfig: { access: 'public' },
+    }))
+    write(join(root, 'packages/experimental/inspector/package.json'), JSON.stringify({
+      name: '@lyness/lyn-experimental-inspector',
+      version: '0.0.1',
+      private: true,
+    }))
+
+    expect(releaseFamily('lyn').members(root).map(entry => entry.name)).toEqual([
+      '@lyness/lyn-experimental-prototype',
+    ])
   })
 
   it('bumps private lyn workspaces without adding release tags', () => {

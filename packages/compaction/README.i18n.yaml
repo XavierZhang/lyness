@@ -1,6 +1,25 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/compaction/README.md
-README.md: b06d832f3d2ffdc34808dd22d97ba2cae78bec81
-README.zh.md: 6cd3a7b58a8d3c2acf2de47613cdd3c22a382ef9
+/:
+  en: 4fe8f6f7b09339c1
+  zh: d138739147e506ef
+/compaction-compaction-capability-family:
+  en: c7fe5e50ef3b0bee
+  zh: 41e88319461864ab
+/compaction-compaction-capability-family/summary:
+  en: 4ddbf8af7f1341bd
+  zh: 359ee6bde40777e4
+/compaction-compaction-capability-family/table-of-contents:
+  en: 1eb35b015a6c423f
+  zh: a8a3dceee2c9e943
+/compaction-compaction-capability-family/packages:
+  en: 9c9530882adf7c28
+  zh: 17d219ddf465b120
+/compaction-compaction-capability-family/related-documentation:
+  en: c6b92de84d1ad475
+  zh: 5a30c107053bcfa4
+/compaction-compaction-capability-family/dev-note:
+  en: 5de1d6304e00c58f
+  zh: 8d8225361cfa29e5

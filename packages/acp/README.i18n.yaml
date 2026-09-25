@@ -1,6 +1,25 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/acp/README.md
-README.md: dd3a968bf93c6de3104d48c1e5cd15a4f700b8f8
-README.zh.md: b5b5fe7d28fb5ef12c8a597072b21439d60f45e6
+/:
+  en: 911abc3a94d688a1
+  zh: 1d7f8c7aa14c5767
+/acp-agent-client-protocol-automation:
+  en: 585f9cf70c7968c6
+  zh: 0cc00a48b47f1c5d
+/acp-agent-client-protocol-automation/summary:
+  en: 5f8b2ffd685c9152
+  zh: ad942659a815db15
+/acp-agent-client-protocol-automation/table-of-contents:
+  en: 1eb35b015a6c423f
+  zh: a8a3dceee2c9e943
+/acp-agent-client-protocol-automation/packages:
+  en: 20f9d7a76884e84e
+  zh: 1844e5b7eead74f6
+/acp-agent-client-protocol-automation/related-documentation:
+  en: ebcad8fa9c9ca9f1
+  zh: a6cfbf4624460479
+/acp-agent-client-protocol-automation/dev-note:
+  en: b75c8458928b72b9
+  zh: 003ba4e17b4b5269

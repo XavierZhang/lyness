@@ -1,6 +1,31 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/experimental/webworker-packer/README.md
-README.md: 8bcbd7b929b10897bc756e713142da0f57ec9247
-README.zh.md: 044f344accd8c4fea9e477f457b9244b9e3b7440
+/:
+  en: 5bf871fc6ff3da7c
+  zh: eae970e01432a92a
+/lyness-lyn-experimental-webworker-packer:
+  en: cc62f257ab536ed8
+  zh: b5a64a89272e76e1
+/lyness-lyn-experimental-webworker-packer/summary:
+  en: e338a7749313212d
+  zh: 7a14c924d126f603
+/lyness-lyn-experimental-webworker-packer/table-of-contents:
+  en: 4e53164159b5ce41
+  zh: 89582dc0294d0776
+/lyness-lyn-experimental-webworker-packer/use-this-package:
+  en: 2c51a566e07c0d6f
+  zh: 87827e5cf2bb2609
+/lyness-lyn-experimental-webworker-packer/model-experience:
+  en: e16b355530dadc1c
+  zh: 8488e03b253b7b33
+/lyness-lyn-experimental-webworker-packer/model-experience/kv-cache-effect:
+  en: ca75c51c89c2c9b0
+  zh: 64715dc7e6d02f71
+/lyness-lyn-experimental-webworker-packer/known-limitations-and-deferred-work:
+  en: b6b89e8081f853ed
+  zh: d4c479ecf0d6eb19
+/lyness-lyn-experimental-webworker-packer/known-limitations-and-deferred-work/dev-note:
+  en: 46176f90f22845c7
+  zh: 8e6ba8ba2958fba3

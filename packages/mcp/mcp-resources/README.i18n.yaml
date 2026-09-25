@@ -1,0 +1,64 @@
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write packages/mcp/mcp-resources/README.md
+/:
+  en: 34b851d97ea0313e
+  zh: 2fa00063647b6eee
+/lyness-lyn-mcp-resources:
+  en: 49cd84bd363e8bfd
+  zh: 5083358b17ace4f3
+/lyness-lyn-mcp-resources/summary:
+  en: 99ca4a5037fbe6b5
+  zh: 6b81de2f005ea7fb
+/lyness-lyn-mcp-resources/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 725b47765ee8f30b
+/lyness-lyn-mcp-resources/use-this-package:
+  en: 91348104caecac73
+  zh: 74df7f02e900c0eb
+/lyness-lyn-mcp-resources/use-this-package/server-configuration:
+  en: a714e0cee57d36da
+  zh: 59b2f7fe0537f75e
+/lyness-lyn-mcp-resources/use-this-package/discover-and-read:
+  en: f7fb6597acd3c5dc
+  zh: 9c59219fb4ab00d9
+/lyness-lyn-mcp-resources/understand-the-implementation:
+  en: ee4859d2a38de734
+  zh: 4004e03073b1f198
+/lyness-lyn-mcp-resources/further-exploration:
+  en: 96024c072a339cfd
+  zh: 7b7a9cb26df79180
+/lyness-lyn-mcp-resources/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/lyness-lyn-mcp-resources/model-experience/shared-resource-tools:
+  en: 520e0b6cb35e4285
+  zh: 20a323f87e6d12fc
+/lyness-lyn-mcp-resources/model-experience/shared-resource-tools/what-the-model-sees:
+  en: 84d9452ebf2496b7
+  zh: 8e0e7e4031537af8
+/lyness-lyn-mcp-resources/model-experience/shared-resource-tools/token-effect:
+  en: 92682e15ca9e90a5
+  zh: 3487ef2adb89c9e4
+/lyness-lyn-mcp-resources/model-experience/shared-resource-tools/kv-cache-effect:
+  en: fdb450babcdf877b
+  zh: f013ae46ce9e1125
+/lyness-lyn-mcp-resources/model-experience/resource-results:
+  en: f46ae3151a215b4d
+  zh: 8d15019792d3fe61
+/lyness-lyn-mcp-resources/model-experience/resource-results/what-the-model-sees:
+  en: 62d0a18c52283474
+  zh: 70b2fbea70c98818
+/lyness-lyn-mcp-resources/model-experience/resource-results/token-effect:
+  en: e6fb5043a1ccc6ff
+  zh: d15d2e7b5986d614
+/lyness-lyn-mcp-resources/model-experience/resource-results/kv-cache-effect:
+  en: ea0dfc069bf175c0
+  zh: 3e1465e56ff79764
+/lyness-lyn-mcp-resources/known-limitations-and-deferred-work:
+  en: 58d13dc99946c11d
+  zh: 4099c46a1ca60512
+/lyness-lyn-mcp-resources/known-limitations-and-deferred-work/dev-note:
+  en: e67f633dc6fe7773
+  zh: 3bb0c20c93f16f98

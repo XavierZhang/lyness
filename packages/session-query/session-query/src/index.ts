@@ -4,6 +4,7 @@
  * @module @lyness/lyn-session-query
  */
 
+import { currentSessionMessageProjections } from '@lyness/lyn-session-format-catalog/message-projections'
 import { Context, Service } from '@lyness/cordis'
 import {
   Session,
@@ -187,6 +188,7 @@ export abstract class SessionQueryEngine extends Service {
       loaded.events,
       loaded.header,
       loaded.inheritedEventCount,
+      currentSessionMessageProjections,
     )
     return {
       session: structuredClone(loaded.header),

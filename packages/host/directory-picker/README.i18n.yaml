@@ -1,6 +1,58 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/host/directory-picker/README.md
-README.md: 4bf82c71e70e0d4dcef1f9718af667068ec5b2db
-README.zh.md: 0e0ac16cdab81b0970eed21cb6e8abed4da2e7a5
+/:
+  en: 12d81f579b3578c5
+  zh: 31ceb9bec2a62864
+/lyness-lyn-host-directory-picker:
+  en: 1884f5d03a4b7ba6
+  zh: 948f0413ac24e518
+/lyness-lyn-host-directory-picker/summary:
+  en: eccb4c3b89bf1072
+  zh: 97f245651d77ec7c
+/lyness-lyn-host-directory-picker/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-host-directory-picker/use-this-package:
+  en: 05f272a3dc5484cb
+  zh: 0cc21b2d26fc0ff0
+/lyness-lyn-host-directory-picker/use-this-package/choosing-a-backend:
+  en: 272e97123cdef815
+  zh: 031537de004e867d
+/lyness-lyn-host-directory-picker/use-this-package/the-capability-contract:
+  en: cb6a87e5fa0dcda6
+  zh: 721c2c9271f633df
+/lyness-lyn-host-directory-picker/use-this-package/what-rows-carry:
+  en: 9842d42847a8240f
+  zh: e3bba4ee8075e6bc
+/lyness-lyn-host-directory-picker/understand-the-implementation:
+  en: 42b15ac6321706aa
+  zh: 4ed0861911abaf5d
+/lyness-lyn-host-directory-picker/understand-the-implementation/design-concept:
+  en: 83c5f6025b89178a
+  zh: 8e7c011376abef02
+/lyness-lyn-host-directory-picker/understand-the-implementation/the-merge-extensible-vocabulary:
+  en: 3a5018ce8b2b8a6f
+  zh: 6d27549330773627
+/lyness-lyn-host-directory-picker/understand-the-implementation/source-map:
+  en: 742ee37fe9c70d93
+  zh: 93f0371cc6ec6dae
+/lyness-lyn-host-directory-picker/understand-the-implementation/failure-vocabulary:
+  en: 410862f3762b441a
+  zh: f15318e549388618
+/lyness-lyn-host-directory-picker/further-exploration:
+  en: ee63a63fb57db3bf
+  zh: 85b2a2128a880597
+/lyness-lyn-host-directory-picker/model-experience:
+  en: 90a8149ae911c396
+  zh: 887d434607099162
+/lyness-lyn-host-directory-picker/model-experience/kv-cache-effect:
+  en: ca75c51c89c2c9b0
+  zh: de54f3467ef3b9be
+/lyness-lyn-host-directory-picker/known-limitations-and-deferred-work:
+  en: 8c2c5c2dcb2bd5ec
+  zh: 17005c66ae6029ad
+/lyness-lyn-host-directory-picker/known-limitations-and-deferred-work/dev-note:
+  en: 9a5e8587ac555934
+  zh: b5bb3a7d1702b055

@@ -1,6 +1,19 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-09-07-pwsh-ci-observable-completion.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/testing/2026-09-07-pwsh-ci-observable-completion.md
-2026-09-07-pwsh-ci-observable-completion.md: 7dce825b86820b50db8eba2f1f394ca8150570d1
-2026-09-07-pwsh-ci-observable-completion.zh.md: 40ac1add89e02d9d375a91520ff2c4a9c90be4c2
+/agent-note-powershell-ci-completion-and-profile-expectations:
+  en: e377fe060f906490
+  zh: 5df80e8daa880ecf
+/agent-note-powershell-ci-completion-and-profile-expectations/problem:
+  en: 5806986dfd58191c
+  zh: ac082211e112c2d4
+/agent-note-powershell-ci-completion-and-profile-expectations/decision:
+  en: f23d0691bc168ad7
+  zh: 2873eb08c925f2f6
+/agent-note-powershell-ci-completion-and-profile-expectations/alternatives-considered:
+  en: 8aadcefe1d0f03c1
+  zh: 0e276ba75ed169ec
+/agent-note-powershell-ci-completion-and-profile-expectations/consequences:
+  en: d486f9db082655db
+  zh: 01c46ff6b700cb15

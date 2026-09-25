@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-sdk-app",
   "description": "The lyn SDK profile bundle: stdio JSON-RPC serving and process lifecycle over lyn-base",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -34,16 +34,18 @@
     }
   },
   "dependencies": {
-    "@lyness/lyn-cmdline": "workspace:^",
-    "@lyness/lyn-sdk-jsonrpc-server": "workspace:^",
-    "@lyness/schemastery": "workspace:^",
-    "commander": "^15.0.0"
+    "@lyness/lyn-cmdline": "workspace:*",
+    "@lyness/lyn-sdk-jsonrpc-server": "workspace:*",
+    "@lyness/schemastery": "workspace:~",
+    "commander": "^15.0.0",
+    "@lyness/lyn-skill-office": "workspace:*",
+    "@lyness/lyn-tool-workspace-dependencies": "workspace:*"
   },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis-plugin-include": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis-plugin-include": "workspace:~",
+    "@lyness/cordis": "workspace:~"
   }
 }

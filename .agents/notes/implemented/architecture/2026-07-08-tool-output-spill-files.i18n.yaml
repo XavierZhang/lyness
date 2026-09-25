@@ -1,6 +1,40 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-07-08-tool-output-spill-files.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-07-08-tool-output-spill-files.md
-2026-07-08-tool-output-spill-files.md: 5f4ee5451653b3801ad6d7bed9938fadb7d5e695
-2026-07-08-tool-output-spill-files.zh.md: 131f4d70849586e4aa52fdc389767adfdb15eb04
+/agent-note-tool-output-spill-policy:
+  en: 1f31bab4307d365b
+  zh: 583d6ae467467256
+/agent-note-tool-output-spill-policy/problem:
+  en: 8caaa8ff653952ee
+  zh: b1388f183969ab4e
+/agent-note-tool-output-spill-policy/decision:
+  en: 67e0a28d706cb9b3
+  zh: 41dc5e27edb05815
+/agent-note-tool-output-spill-policy/decision/spill-seam:
+  en: a1de0a20f5b1f071
+  zh: ad355d3a3182b3a4
+/agent-note-tool-output-spill-policy/decision/spill-policy:
+  en: 11992ee35b1c5f4b
+  zh: 0c215ac1aca0bc43
+/agent-note-tool-output-spill-policy/showcase-web-fetch:
+  en: 1fcb9dfcbb4b32e2
+  zh: bd9705d7bfe29547
+/agent-note-tool-output-spill-policy/relationship-to-retention-and-early-spill:
+  en: 86ba598829340500
+  zh: 903d9e6b15629ecc
+/agent-note-tool-output-spill-policy/non-goals:
+  en: f82b5399ecddd8a1
+  zh: 9675b58631bb5c90
+/agent-note-tool-output-spill-policy/deferred:
+  en: 094f8c71672ea726
+  zh: 252dbe825d6e34ca
+/agent-note-tool-output-spill-policy/testing:
+  en: 7af2d07dcaa53cc6
+  zh: 3be07a0be03e2ef3
+/agent-note-tool-output-spill-policy/consequences:
+  en: 7980dabbee30babc
+  zh: 17e0f1df10e8f4cc
+/agent-note-tool-output-spill-policy/alternatives-considered:
+  en: d53fb144141de557
+  zh: 1b851eb64c421803

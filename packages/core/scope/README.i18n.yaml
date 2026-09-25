@@ -1,6 +1,52 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/core/scope/README.md
-README.md: 934d2eab963a00cda5c1d1d8fe291f1af6425d91
-README.zh.md: 370a69ce8fd58837a60cf7f36eef034c4ef0df47
+/:
+  en: 47f2816e2d2cecb9
+  zh: e051427327761450
+/lyness-lyn-scope:
+  en: aacfd13777ae5841
+  zh: 97608059ffd8bf38
+/lyness-lyn-scope/summary:
+  en: 44a4fe72a1aa2e9a
+  zh: eb2df501d8010669
+/lyness-lyn-scope/table-of-contents:
+  en: 80b31a934611cb4a
+  zh: 05f3f7f9cb2fd881
+/lyness-lyn-scope/use-this-package:
+  en: 2e5fac13ee8270a6
+  zh: 3246e4d49f667ae0
+/lyness-lyn-scope/use-this-package/mint-a-scope:
+  en: e7bfa7a59f61fd72
+  zh: 852d6d4b113babd1
+/lyness-lyn-scope/use-this-package/route-scoped-events:
+  en: 7439a6c862956a63
+  zh: bfeda5194bb8cdc9
+/lyness-lyn-scope/use-this-package/build-a-scoped-registry-layer:
+  en: 187aa0e904782395
+  zh: 14fa36d3716eaff2
+/lyness-lyn-scope/understand-the-implementation:
+  en: ce7e776e9d516bdb
+  zh: 59d2751743db7795
+/lyness-lyn-scope/understand-the-implementation/design-concept:
+  en: 1d19d421fa6f3546
+  zh: ed6679cfc9166f14
+/lyness-lyn-scope/understand-the-implementation/source-map:
+  en: 52dd18180452c174
+  zh: 47d0198266697794
+/lyness-lyn-scope/understand-the-implementation/the-parent-chain:
+  en: f0c433a9b0091de4
+  zh: 21cecb4194aff7d0
+/lyness-lyn-scope/understand-the-implementation/event-filtering:
+  en: 9ec9b8d491c7dfe7
+  zh: da82e63bac268535
+/lyness-lyn-scope/further-exploration:
+  en: 182bbb12e58b92aa
+  zh: 7a823c75329ad7a0
+/lyness-lyn-scope/known-limitations-and-deferred-work:
+  en: 87eea2029792dc14
+  zh: ba020413273d3235
+/lyness-lyn-scope/known-limitations-and-deferred-work/dev-note:
+  en: e67f633dc6fe7773
+  zh: 3bb0c20c93f16f98

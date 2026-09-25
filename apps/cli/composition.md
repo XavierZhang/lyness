@@ -8,9 +8,13 @@ The lyn-base bundle patch shared by the web, headless, sdk, and acp profiles; th
 ```mermaid
 flowchart LR
   cfg["packages/bundle/base/cordis.patch.yml<br/>cordis.yml"]
+  plugin_lyn_base_tool_plugin_manager["tool-plugin-manager<br/>@lyness/lyn-plugin-manager/tools"]
+  cfg --> plugin_lyn_base_tool_plugin_manager
+  plugin_lyn_base_plugin_manager["plugin-manager<br/>@lyness/lyn-plugin-manager"]
+  cfg --> plugin_lyn_base_plugin_manager
   plugin_lyn_base_timer["timer<br/>@lyness/cordis-plugin-timer"]
   cfg --> plugin_lyn_base_timer
-  plugin_lyn_base_hmr["hmr<br/>@lyness/cordis-plugin-hmr"]
+  plugin_lyn_base_hmr["hmr<br/>@lyness/lyn-hmr"]
   cfg --> plugin_lyn_base_hmr
   plugin_lyn_base_llm["llm<br/>@lyness/lyn-llm"]
   cfg --> plugin_lyn_base_llm
@@ -42,8 +46,14 @@ flowchart LR
   cfg --> plugin_lyn_base_jobs
   plugin_lyn_base_llm_retry["llm-retry<br/>@lyness/lyn-llm-retry"]
   cfg --> plugin_lyn_base_llm_retry
-  plugin_lyn_base_settings["settings<br/>@lyness/lyn-settings-file"]
+  plugin_lyn_base_config_editor["config-editor<br/>@lyness/lyn-config-editor"]
+  cfg --> plugin_lyn_base_config_editor
+  plugin_lyn_base_settings["settings<br/>@lyness/lyn-settings"]
   cfg --> plugin_lyn_base_settings
+  plugin_lyn_base_authorization["authorization<br/>@lyness/lyn-authorization"]
+  cfg --> plugin_lyn_base_authorization
+  plugin_lyn_base_deepseek_account["deepseek-account<br/>@lyness/lyn-deepseek-account-platform"]
+  cfg --> plugin_lyn_base_deepseek_account
   plugin_lyn_base_credentials["credentials<br/>@lyness/lyn-credentials-local"]
   cfg --> plugin_lyn_base_credentials
   plugin_lyn_base_llm_pi_ai["llm-pi-ai<br/>@lyness/lyn-llm-pi-ai"]
@@ -136,8 +146,10 @@ flowchart LR
   cfg --> plugin_lyn_base_tool_subagent
   plugin_lyn_base_tool_subagent_fork["tool-subagent-fork<br/>@lyness/lyn-tool-subagent"]
   cfg --> plugin_lyn_base_tool_subagent_fork
-  plugin_lyn_base_workflow_worker_thread["workflow-worker-thread<br/>@lyness/lyn-workflow-worker-thread"]
-  cfg --> plugin_lyn_base_workflow_worker_thread
+  plugin_lyn_base_ptc_runtime["ptc-runtime<br/>@lyness/lyn-ptc-runtime-node"]
+  cfg --> plugin_lyn_base_ptc_runtime
+  plugin_lyn_base_workflow_ptc["workflow-ptc<br/>@lyness/lyn-workflow-ptc"]
+  cfg --> plugin_lyn_base_workflow_ptc
   plugin_lyn_base_tool_workflow["tool-workflow<br/>@lyness/lyn-tool-workflow"]
   cfg --> plugin_lyn_base_tool_workflow
   plugin_lyn_base_timeout_policy["timeout-policy<br/>@lyness/lyn-tool-call-timeout-policy"]
@@ -150,6 +162,8 @@ flowchart LR
   cfg --> plugin_lyn_base_session_checkpoint_policy
   plugin_lyn_base_tool_result_pruner["tool-result-pruner<br/>@lyness/lyn-compaction-tool-result-pruner"]
   cfg --> plugin_lyn_base_tool_result_pruner
+  plugin_lyn_base_image_offload["image-offload<br/>@lyness/lyn-compaction-image-offload"]
+  cfg --> plugin_lyn_base_image_offload
   plugin_lyn_base_tool_todo["tool-todo<br/>@lyness/lyn-tool-todo"]
   cfg --> plugin_lyn_base_tool_todo
   plugin_lyn_base_tool_goal["tool-goal<br/>@lyness/lyn-tool-goal"]
@@ -166,6 +180,8 @@ flowchart LR
   cfg --> plugin_lyn_base_web_fetch_http
   plugin_lyn_base_tool_web["tool-web<br/>@lyness/lyn-tool-web"]
   cfg --> plugin_lyn_base_tool_web
+  plugin_lyn_base_mcp_resources["mcp-resources<br/>@lyness/lyn-mcp-resources"]
+  cfg --> plugin_lyn_base_mcp_resources
   plugin_lyn_base_tools["tools<br/>@lyness/lyn-tools"]
   cfg --> plugin_lyn_base_tools
   plugin_lyn_base_system_prompt["system-prompt<br/>@lyness/lyn-system-prompt"]
@@ -174,14 +190,18 @@ flowchart LR
   cfg --> plugin_lyn_base_agent_loop
   plugin_lyn_base_fs_sandbox["fs-sandbox<br/>@lyness/lyn-fs-sandbox"]
   cfg --> plugin_lyn_base_fs_sandbox
-  plugin_lyn_base_llm_deepseek["llm-deepseek<br/>@lyness/lyn-llm-deepseek"]
+  plugin_lyn_base_llm_deepseek["llm-deepseek<br/>@lyness/lyn-llm-deepseek-api-key"]
   cfg --> plugin_lyn_base_llm_deepseek
+  plugin_lyn_base_llm_deepseek_account["llm-deepseek-account<br/>@lyness/lyn-llm-deepseek-account"]
+  cfg --> plugin_lyn_base_llm_deepseek_account
 ```
 
 | Plugin id | Package / module |
 | --- | --- |
+| `tool-plugin-manager` | `@lyness/lyn-plugin-manager/tools` |
+| `plugin-manager` | `@lyness/lyn-plugin-manager` |
 | `timer` | `@lyness/cordis-plugin-timer` |
-| `hmr` | `@lyness/cordis-plugin-hmr` |
+| `hmr` | `@lyness/lyn-hmr` |
 | `llm` | `@lyness/lyn-llm` |
 | `deepseek-llm-api-extensions` | `@lyness/lyn-deepseek-llm-api-extensions` |
 | `session` | `@lyness/lyn-session` |
@@ -197,7 +217,10 @@ flowchart LR
 | `agent-default-model` | `@lyness/lyn-agent-default-model` |
 | `jobs` | `@lyness/lyn-jobs-local` |
 | `llm-retry` | `@lyness/lyn-llm-retry` |
-| `settings` | `@lyness/lyn-settings-file` |
+| `config-editor` | `@lyness/lyn-config-editor` |
+| `settings` | `@lyness/lyn-settings` |
+| `authorization` | `@lyness/lyn-authorization` |
+| `deepseek-account` | `@lyness/lyn-deepseek-account-platform` |
 | `credentials` | `@lyness/lyn-credentials-local` |
 | `llm-pi-ai` | `@lyness/lyn-llm-pi-ai` |
 | `session-persistence-jsonl` | `@lyness/lyn-session-persistence-jsonl` |
@@ -244,13 +267,15 @@ flowchart LR
 | `tool-subagent-list-agents` | `@lyness/lyn-tool-subagent-control/list-agents` |
 | `tool-subagent` | `@lyness/lyn-tool-subagent` |
 | `tool-subagent-fork` | `@lyness/lyn-tool-subagent` |
-| `workflow-worker-thread` | `@lyness/lyn-workflow-worker-thread` |
+| `ptc-runtime` | `@lyness/lyn-ptc-runtime-node` |
+| `workflow-ptc` | `@lyness/lyn-workflow-ptc` |
 | `tool-workflow` | `@lyness/lyn-tool-workflow` |
 | `timeout-policy` | `@lyness/lyn-tool-call-timeout-policy` |
 | `spill-local` | `@lyness/lyn-spill-local` |
 | `spill-policy` | `@lyness/lyn-spill-policy` |
 | `session-checkpoint-policy` | `@lyness/lyn-session-checkpoint-policy` |
 | `tool-result-pruner` | `@lyness/lyn-compaction-tool-result-pruner` |
+| `image-offload` | `@lyness/lyn-compaction-image-offload` |
 | `tool-todo` | `@lyness/lyn-tool-todo` |
 | `tool-goal` | `@lyness/lyn-tool-goal` |
 | `tool-ralph` | `@lyness/lyn-tool-ralph` |
@@ -259,11 +284,13 @@ flowchart LR
 | `web-search-deepseek` | `@lyness/lyn-web-search-deepseek` |
 | `web-fetch-http` | `@lyness/lyn-web-fetch-http` |
 | `tool-web` | `@lyness/lyn-tool-web` |
+| `mcp-resources` | `@lyness/lyn-mcp-resources` |
 | `tools` | `@lyness/lyn-tools` |
 | `system-prompt` | `@lyness/lyn-system-prompt` |
 | `agent-loop` | `@lyness/lyn-agent-loop` |
 | `fs-sandbox` | `@lyness/lyn-fs-sandbox` |
-| `llm-deepseek` | `@lyness/lyn-llm-deepseek` |
+| `llm-deepseek` | `@lyness/lyn-llm-deepseek-api-key` |
+| `llm-deepseek-account` | `@lyness/lyn-llm-deepseek-account` |
 
 Source config: [`packages/bundle/base/cordis.patch.yml`](../../packages/bundle/base/cordis.patch.yml).
 

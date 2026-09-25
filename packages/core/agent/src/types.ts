@@ -5,6 +5,8 @@
  */
 
 import type { UserMessage } from '@lyness/lyn-llm/types'
+// Type-only: the Workspace registry's archive-admission family map this registry merges `turn` into.
+import type {} from '@lyness/lyn-workspace/types'
 import type { OptionalSessionSeq, SessionId, SessionSeq } from '@lyness/lyn-session/types'
 import type { TypertContext, TypertLookup } from '@lyness/lyn-typert-protocol'
 import type { JsonValue } from '@lyness/lyn-util-values'
@@ -13,6 +15,13 @@ import type { JsonValue } from '@lyness/lyn-util-values'
 export interface Agent {
   /** Session-backed Agent identity. */
   readonly id: SessionId
+}
+
+declare module '@lyness/lyn-workspace/types' {
+  interface SessionActivityKindMap {
+    /** The session's own Agent is inside a turn, including one waiting for an approval or an answer. */
+    turn: true
+  }
 }
 
 declare module '@lyness/lyn-typert-protocol' {

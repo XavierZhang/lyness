@@ -27,20 +27,20 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@lyness/lyn-credentials": "workspace:^",
-    "@lyness/lyn-storage-domain": "workspace:^",
-    "@lyness/lyn-tenant": "workspace:^",
-    "@lyness/lyn-tenant-config": "workspace:^",
+    "@lyness/lyn-credentials": "workspace:*",
+    "@lyness/lyn-storage-domain": "workspace:*",
+    "@lyness/lyn-tenant": "workspace:*",
+    "@lyness/lyn-tenant-config": "workspace:*",
     "zod": "^4.4.3"
   },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/cordis-plugin-include": "workspace:^",
-    "@lyness/cordis-plugin-loader": "workspace:^",
-    "@lyness/lyn-storage": "workspace:^",
-    "@lyness/lyn-storage-json": "workspace:^"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/cordis-plugin-include": "workspace:~",
+    "@lyness/cordis-plugin-loader": "workspace:~",
+    "@lyness/lyn-storage": "workspace:*",
+    "@lyness/lyn-storage-json": "workspace:*"
   }
 }

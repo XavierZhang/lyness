@@ -1,0 +1,19 @@
+# Bilingual-pair consistency record for 2026-09-10-command-identities-and-composer-file-action.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-09-10-command-identities-and-composer-file-action.md
+/agent-note-command-identities-and-composer-owned-file-action:
+  en: 407416a60e8bfaa9
+  zh: 3822d3223ac72b92
+/agent-note-command-identities-and-composer-owned-file-action/problem:
+  en: ad2c360593eb7a42
+  zh: 503a9c31a5eb55e7
+/agent-note-command-identities-and-composer-owned-file-action/decision:
+  en: bad5863c2e618a68
+  zh: f69d90b3847c4f58
+/agent-note-command-identities-and-composer-owned-file-action/alternatives-considered:
+  en: 94ccabd1fe224408
+  zh: bfa28806f0218ce8
+/agent-note-command-identities-and-composer-owned-file-action/consequences:
+  en: 08f25ff5e0d227cf
+  zh: a26663e5b7d9feeb

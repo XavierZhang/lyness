@@ -1,10 +1,10 @@
 import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
-import LlmRuntime, { createUserMessage, ToolCallId, ReasoningEffortId  } from '@lyness/lyn-llm'
+import LlmRuntime, { createToolResultMessage, createUserMessage, ToolCallId, ReasoningEffortId } from '@lyness/lyn-llm'
 import type { Message, ToolSchema } from '@lyness/lyn-llm'
 import * as LlmPiAi from '@lyness/lyn-llm-pi-ai'
 import type { PiAiProviderProfile } from '@lyness/lyn-llm-pi-ai'
-import * as LlmDeepSeek from '@lyness/lyn-llm-deepseek'
+import * as LlmDeepSeek from '@lyness/lyn-llm-deepseek-api-key'
 import { assemble, type AssembledResult } from './assemble.ts'
 import { E2E_TARGET } from '@lyness/lyn-e2e-target'
 
@@ -25,7 +25,6 @@ async function harness(_model: string, config: Partial<PiAiProviderProfile> = {}
     providers: {
       deepseek: {
         ...process.env.DEEPSEEK_API_KEY === undefined ? {} : { apiKey: process.env.DEEPSEEK_API_KEY },
-        ...process.env.DEEPSEEK_BASE_URL === undefined ? {} : { baseURL: process.env.DEEPSEEK_BASE_URL },
         ...config,
       },
     },
@@ -40,7 +39,7 @@ afterEach(async () => {
 function ask(text: string): Message[] {
   return [createUserMessage({
     content: [{ type: 'text', text }],
-    source: { kind: 'plugin', plugin: 'test' },
+    source: { kind: 'model', provider: 'deepseek-official', model: 'deepseek-v4-flash' },
   })]
 }
 
@@ -134,13 +133,10 @@ describe.skipIf(!process.env.DEEPSEEK_API_KEY || !E2E_TARGET.official)('llm-pi-a
       messages: [
         ...ask('What is the weather in Paris right now? Use the get_weather tool.'),
         first.message,
-        createUserMessage({
-          content: [{
-            type: 'tool-result',
-            toolCallId: ToolCallId(call!.id),
-            content: [{ type: 'text', text: 'Sunny, 22°C' }],
-          }],
-          source: { kind: 'plugin', plugin: 'test' },
+        createToolResultMessage({
+          callId: ToolCallId(call!.id),
+          content: [{ type: 'text', text: 'Sunny, 22°C' }],
+          isError: false,
         }),
       ],
       tools: [weatherTool],

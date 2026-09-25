@@ -1,6 +1,37 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-09-02-system-prompt-as-surface-node.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-09-02-system-prompt-as-surface-node.md
-2026-09-02-system-prompt-as-surface-node.md: 26f9c90cf1a367a552090f0c30dbb8347f49c257
-2026-09-02-system-prompt-as-surface-node.zh.md: 8eb4ebfe3921da73afd64db4f701bc42ef7490e4
+/agent-note-the-system-prompt-is-surface-node-0:
+  en: 717f2b58810ca8dd
+  zh: e438c92f45d25557
+/agent-note-the-system-prompt-is-surface-node-0/problem:
+  en: e6f2bdcdddebbf30
+  zh: cde373d5cfbbebf7
+/agent-note-the-system-prompt-is-surface-node-0/decision:
+  en: 3911ea80c5466d5e
+  zh: a0d6844e6f8af462
+/agent-note-the-system-prompt-is-surface-node-0/decision/the-event:
+  en: 3342e6d46792e86d
+  zh: f11d55cbc97048bd
+/agent-note-the-system-prompt-is-surface-node-0/decision/the-operations:
+  en: a217a08932938062
+  zh: 4924d99d55d9c973
+/agent-note-the-system-prompt-is-surface-node-0/decision/ownership-in-the-loop:
+  en: 3d8c5e89276defc8
+  zh: 2091880a140570ef
+/agent-note-the-system-prompt-is-surface-node-0/decision/consumers:
+  en: 3bba5039aa22f91f
+  zh: 4b9a048bb8cd24a3
+/agent-note-the-system-prompt-is-surface-node-0/decision/v2-to-v3-structural-conversion:
+  en: 549b0c0b920d6eb0
+  zh: 2d6f00e81ab8771f
+/agent-note-the-system-prompt-is-surface-node-0/alternatives-considered:
+  en: 067e96734ebbce89
+  zh: 9f79bc0f4942675d
+/agent-note-the-system-prompt-is-surface-node-0/consequences:
+  en: 0b8bd76b5ac41eb6
+  zh: 76a666c29dc7c040
+/agent-note-the-system-prompt-is-surface-node-0/testing:
+  en: f5b21c4863cd92bd
+  zh: 7d1efed827d55161

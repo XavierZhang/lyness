@@ -1,6 +1,37 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/ui-agent-preset/README.md
-README.md: 48c70008d0e95201697e8e0f376aef66898a2a56
-README.zh.md: b87f801c525da8bbe9e77b5d3c4f258e8db16ae1
+/:
+  en: 03dc41b8fb76229e
+  zh: a66439c4378fc6fc
+/lyness-lyn-client-ui-agent-preset:
+  en: 73b699cce9d44137
+  zh: 10f18dca348db267
+/lyness-lyn-client-ui-agent-preset/summary:
+  en: 405fc7224ffd6c97
+  zh: 4ff5930a4c5bc64a
+/lyness-lyn-client-ui-agent-preset/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: b3ad7867f23dad1c
+/lyness-lyn-client-ui-agent-preset/use-this-package:
+  en: cf381c4f00b42c3f
+  zh: 1b226687dcbd4875
+/lyness-lyn-client-ui-agent-preset/understand-the-implementation:
+  en: 7813f0063c15e241
+  zh: 6eabc242edfc45ec
+/lyness-lyn-client-ui-agent-preset/further-exploration:
+  en: 46a74dd32cd1f490
+  zh: 58e5ec11a723a8e4
+/lyness-lyn-client-ui-agent-preset/model-experience:
+  en: ff77436515de40ff
+  zh: 6c6a23f85ba318bc
+/lyness-lyn-client-ui-agent-preset/model-experience/kv-cache-effect:
+  en: 713c6916c3dd7360
+  zh: 9c582f94b926d51b
+/lyness-lyn-client-ui-agent-preset/known-limitations-and-deferred-work:
+  en: 2c5e994e86b1ae4a
+  zh: 8bc5a90d3a2133ba
+/lyness-lyn-client-ui-agent-preset/known-limitations-and-deferred-work/dev-note:
+  en: 6ce953763f1dc0f0
+  zh: 2d8cabb28ccd151b

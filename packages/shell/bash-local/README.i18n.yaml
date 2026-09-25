@@ -1,6 +1,61 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/shell/bash-local/README.md
-README.md: 6222c85dc9892f7107e5faf4fc8b24a4396bf3e9
-README.zh.md: 3d0a0d27148cc42cc979f1aea8007f7727a5fd60
+/:
+  en: f70a1e0bb1e0d56d
+  zh: 927e75bc75573410
+/lyness-lyn-bash-local:
+  en: 8f72d33378aa3d40
+  zh: 3de3353a83a28cd3
+/lyness-lyn-bash-local/summary:
+  en: 4f52f7c3b12617e1
+  zh: 31261ff4f3a87f5b
+/lyness-lyn-bash-local/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-bash-local/use-this-package:
+  en: 95ae7843275778ca
+  zh: 43b5069075a99625
+/lyness-lyn-bash-local/use-this-package/minimal-configuration:
+  en: 365971b69be4c264
+  zh: a636035e8ae6708c
+/lyness-lyn-bash-local/use-this-package/running-commands:
+  en: a27f24e1c9908612
+  zh: 4183e0c89aebb96c
+/lyness-lyn-bash-local/use-this-package/background-processes:
+  en: 3c580842cc8452af
+  zh: 5a156670a7cacc2a
+/lyness-lyn-bash-local/use-this-package/adjusting-budgets-at-runtime:
+  en: 1098db4c932a48f8
+  zh: 33f78ab65dbfeb1d
+/lyness-lyn-bash-local/understand-the-implementation:
+  en: 05e2abe4a25886fd
+  zh: 3f7f1326dc3c1d3f
+/lyness-lyn-bash-local/understand-the-implementation/design-concept:
+  en: ec84e5746de85fe0
+  zh: 1c353325eeae87c6
+/lyness-lyn-bash-local/understand-the-implementation/source-map:
+  en: 254759ab26151a72
+  zh: e94679a11b67dc10
+/lyness-lyn-bash-local/understand-the-implementation/main-flow:
+  en: 723bbaedc34e58f3
+  zh: d0239dcfdd8a53c6
+/lyness-lyn-bash-local/understand-the-implementation/invariants-and-ownership:
+  en: 2cb979552082e643
+  zh: 76088c9417ecc8c4
+/lyness-lyn-bash-local/further-exploration:
+  en: b4419c753313106a
+  zh: f99747f135e8498c
+/lyness-lyn-bash-local/model-experience:
+  en: cdb06c2b6a02803c
+  zh: 9b80a8fc4747f39d
+/lyness-lyn-bash-local/model-experience/kv-cache-effect:
+  en: 40294c1c31b74824
+  zh: 788a4799b1d65a8b
+/lyness-lyn-bash-local/known-limitations-and-deferred-work:
+  en: e90e23f8514abb1d
+  zh: eff0fb4c2dc37172
+/lyness-lyn-bash-local/known-limitations-and-deferred-work/dev-note:
+  en: e67f633dc6fe7773
+  zh: 3bb0c20c93f16f98

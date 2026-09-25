@@ -12,6 +12,7 @@ import { MemoryVfs } from '@lyness/lyn-experimental-webworker-runtime/src/storag
 import { setActiveVfs } from '@lyness/lyn-experimental-webworker-runtime/src/storage/active.ts'
 import * as fs from '@lyness/lyn-experimental-webworker-runtime/src/node/builtin_modules/implemented/fs.ts'
 import * as fsp from '@lyness/lyn-experimental-webworker-runtime/src/node/builtin_modules/implemented/fs/promises.ts'
+import { promisify } from '@lyness/lyn-experimental-webworker-runtime/src/node/builtin_modules/implemented/util.ts'
 import type { VfsBigIntStats, VfsMutationSink, VfsStats } from '@lyness/lyn-experimental-webworker-runtime/src/storage/types.ts'
 
 let flushes = 0
@@ -62,6 +63,22 @@ check('statSync isFile', fs.statSync('/lyn/config/cordis.yml').isFile(), true)
 check('statSync size', fs.statSync('/lyn/config/cordis.yml').size, 12)
 check('statSync dir', fs.statSync('/lyn/config').isDirectory(), true)
 check('realpathSync', fs.realpathSync('/lyn/config/../config/cordis.yml'), '/lyn/config/cordis.yml')
+
+test('native realpath supports the filesystem provider promise wrapper', async () => {
+  expect(fs.default.realpath).toBe(fs.realpath)
+  const resolveNative = promisify(fs.realpath.native)
+  expect(await resolveNative('/lyn/config/../config/cordis.yml')).toBe('/lyn/config/cordis.yml')
+  await expect(resolveNative('/lyn/missing-realpath')).rejects.toMatchObject({ code: 'ENOENT' })
+})
+
+test('callback realpath settles after the current call returns', async () => {
+  let returned = false
+  const completion = new Promise<unknown>((resolve) => {
+    fs.realpath('/lyn/config/cordis.yml', (error, path) => { resolve({ error, path, returned }) })
+  })
+  returned = true
+  expect(await completion).toEqual({ error: null, path: '/lyn/config/cordis.yml', returned: true })
+})
 
 fs.appendFileSync('/lyn/config/cordis.yml', '- id: llm\n')
 check('appendFileSync', fs.readFileSync('/lyn/config/cordis.yml', 'utf8'), '- id: timer\n- id: llm\n')

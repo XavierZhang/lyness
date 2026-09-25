@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-pwsh-local",
   "description": "Local PowerShell implementation of the lyness bash executor seam",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -27,21 +27,19 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/lyn-shell": "workspace:^",
-    "@lyness/lyn-subprocess": "workspace:^",
-    "@lyness/lyn-timeout": "workspace:^",
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-settings": "workspace:^"
+    "@lyness/lyn-shell": "workspace:*",
+    "@lyness/lyn-subprocess": "workspace:*",
+    "@lyness/lyn-timeout": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   },
   "dependencies": {
-    "@lyness/schemastery": "workspace:^"
+    "@lyness/schemastery": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/lyn-shell": "workspace:^",
-    "@lyness/lyn-subprocess": "workspace:^",
-    "@lyness/lyn-subprocess-local": "workspace:^",
-    "@lyness/lyn-timeout": "workspace:^",
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-settings": "workspace:^"
+    "@lyness/lyn-shell": "workspace:*",
+    "@lyness/lyn-subprocess": "workspace:*",
+    "@lyness/lyn-subprocess-local": "workspace:*",
+    "@lyness/lyn-timeout": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   }
 }

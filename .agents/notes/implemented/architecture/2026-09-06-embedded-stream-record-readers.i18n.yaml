@@ -1,6 +1,22 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-09-06-embedded-stream-record-readers.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-09-06-embedded-stream-record-readers.md
-2026-09-06-embedded-stream-record-readers.md: cf8fa378739e68b11b244495df7b99109c0028c7
-2026-09-06-embedded-stream-record-readers.zh.md: 59808afe7d2e347a101f67c32d5b27e29c156c02
+/agent-note-embedded-assistant-stream-consumers-read-compact-records:
+  en: eddc88a774f250ed
+  zh: edb359b25e6f423f
+/agent-note-embedded-assistant-stream-consumers-read-compact-records/problem:
+  en: 34ceceb99e246ae6
+  zh: 0a18314b78557205
+/agent-note-embedded-assistant-stream-consumers-read-compact-records/decision:
+  en: d6d2cae1a8cd726b
+  zh: 3827c5918fa62281
+/agent-note-embedded-assistant-stream-consumers-read-compact-records/decision/measurements:
+  en: 2eedf644fa07e35a
+  zh: cb691c75fbeda518
+/agent-note-embedded-assistant-stream-consumers-read-compact-records/alternatives-considered:
+  en: 66b6007d582f7521
+  zh: a33aa19f7c912fa2
+/agent-note-embedded-assistant-stream-consumers-read-compact-records/consequences:
+  en: 79dc55d16b0c6087
+  zh: c82a2392dd506e88

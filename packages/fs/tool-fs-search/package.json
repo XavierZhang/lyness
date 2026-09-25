@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-tool-fs-search",
   "description": "Model-facing filesystem discovery tools (glob, grep) backed by the packaged ripgrep binary (@vscode/ripgrep)",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -28,31 +28,31 @@
   "license": "MIT",
   "dependencies": {
     "@vscode/ripgrep": "^1.18.0",
-    "@lyness/schemastery": "workspace:^"
+    "@lyness/schemastery": "workspace:~"
   },
   "peerDependencies": {
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-output-retention": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-spill": "workspace:^",
-    "@lyness/lyn-subprocess": "workspace:^",
-    "@lyness/lyn-system-prompt": "workspace:^",
-    "@lyness/lyn-timeout": "workspace:^",
-    "@lyness/lyn-tools": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-output-retention": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-spill": "workspace:*",
+    "@lyness/lyn-subprocess": "workspace:*",
+    "@lyness/lyn-system-prompt": "workspace:*",
+    "@lyness/lyn-timeout": "workspace:*",
+    "@lyness/lyn-tools": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/lyn-agent": "workspace:^",
-    "@lyness/lyn-subprocess": "workspace:^",
-    "@lyness/lyn-subprocess-local": "workspace:^",
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-output-retention": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-spill": "workspace:^",
-    "@lyness/lyn-system-prompt": "workspace:^",
-    "@lyness/lyn-timeout": "workspace:^",
-    "@lyness/lyn-tools": "workspace:^",
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-scope": "workspace:^"
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/lyn-subprocess": "workspace:*",
+    "@lyness/lyn-subprocess-local": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-output-retention": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-spill": "workspace:*",
+    "@lyness/lyn-system-prompt": "workspace:*",
+    "@lyness/lyn-timeout": "workspace:*",
+    "@lyness/lyn-tools": "workspace:*",
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-scope": "workspace:*"
   }
 }

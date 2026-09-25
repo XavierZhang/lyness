@@ -6,6 +6,13 @@ import * as SessionTitleInvariantCompanion from '@lyness/lyn-session-title/invar
 import InvariantRegistry, { InvariantError } from '@lyness/lyn-invariants'
 import SessionStore, { SessionId, SessionSeq } from '@lyness/lyn-session'
 import { createUserMessage } from '@lyness/lyn-llm'
+import type { ContextFormed } from '@lyness/lyn-llm'
+
+declare module '@lyness/lyn-llm' {
+  interface MessageSourceMap {
+    'test': { kind: 'test' } & ContextFormed
+  }
+}
 
 async function setup(): Promise<Context> {
   const ctx = new Context()
@@ -64,7 +71,7 @@ describe('session-title source invariant', () => {
     })).toThrow(/invalid message seq/)
     const pluginMessage = session.append('user/message', createUserMessage({
       content: [{ type: 'text', text: 'plugin context' }],
-      source: { kind: 'plugin', plugin: 'test' },
+      source: { kind: 'test' },
     }), { surfaceOp: 'append' })
     expect(() => session.append('session/title', {
       title: 'plugin source', messageSeqs: [pluginMessage.seq], source: { kind: 'fallback' },

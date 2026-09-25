@@ -1,6 +1,34 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for testing.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write docs/testing.md
-testing.md: a7750edbbbe65dea33ab8c06b048866ed9c3ebc7
-testing.zh.md: 5bda80b17d27b4561e96b0c4dcd7c53cd9450cc6
+/testing-policy:
+  en: 03177eae9420ce86
+  zh: 4781bd2ea456fe08
+/testing-policy/tiers:
+  en: f8dab2234b6fd7cc
+  zh: 1d1bc7b0e8df78c1
+/testing-policy/how-specs-execute:
+  en: 492efcdb1856c969
+  zh: 8080eb6853a89bb8
+/testing-policy/the-with-key-policy-inference-is-cheap-here:
+  en: d10a0718f1dbb246
+  zh: 1359813f18c97bf8
+/testing-policy/prefer-the-real-implementation-over-a-mock:
+  en: 96a5bdcea4960b25
+  zh: 98ad9d468e55a5ed
+/testing-policy/verify-the-world-not-the-self-report:
+  en: e7cbafc4f96b72c2
+  zh: 0c5a0aa2afd9a812
+/testing-policy/test-the-real-entry-path:
+  en: 002e4c4a1bcbef50
+  zh: c3dd3820c0b2164f
+/testing-policy/test-resolution-source-plane-only:
+  en: 6474bca34ef7978d
+  zh: d8ef87690799d145
+/testing-policy/test-subprocess-launch-modes:
+  en: 5ea1c7ff7a9a5728
+  zh: bbae70e0cd2d5cbf
+/testing-policy/when-a-snapshot-test-is-required:
+  en: ddbca92dd5fb54dd
+  zh: 40612a159aa1d114

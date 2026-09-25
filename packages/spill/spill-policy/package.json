@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-spill-policy",
-  "description": "Tool-result spill policy for the lyness — replaces oversized plain-text tool results with a retained preview plus a spill-file path (no service API)",
-  "version": "0.1.5-rc.1",
+  "description": "Token-budgeted tool-result retention with recoverable text and image paths",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -32,24 +32,42 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-output-retention": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-spill": "workspace:^",
-    "@lyness/lyn-tools": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-output-retention": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-spill": "workspace:*",
+    "@lyness/lyn-tools": "workspace:*",
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-attachment": "workspace:*",
+    "@lyness/lyn-fs": "workspace:*",
+    "@lyness/lyn-token-meter": "workspace:*"
   },
   "dependencies": {
-    "@lyness/schemastery": "workspace:^"
+    "@lyness/schemastery": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/lyn-agent": "workspace:^",
-    "@lyness/lyn-code-runtime-worker-thread": "workspace:^",
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-output-retention": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-spill": "workspace:^",
-    "@lyness/lyn-tools": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/lyn-ptc-runtime-node": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-output-retention": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-spill": "workspace:*",
+    "@lyness/lyn-tools": "workspace:*",
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-fs-local": "workspace:*",
+    "@lyness/lyn-subprocess-local": "workspace:*",
+    "@lyness/lyn-sandbox-local": "workspace:*",
+    "@lyness/lyn-sandbox-policy": "workspace:*",
+    "@lyness/lyn-session-projection": "workspace:*",
+    "@lyness/lyn-attachment": "workspace:*",
+    "@lyness/lyn-fs": "workspace:*",
+    "@lyness/lyn-token-meter": "workspace:*",
+    "@lyness/lyn-mcp-client": "workspace:*",
+    "@lyness/lyn-spill-local": "workspace:*",
+    "@lyness/lyn-llm-deepseek": "workspace:*",
+    "@lyness/lyn-ptc-runtime": "workspace:*",
+    "@lyness/lyn-attachment-local": "workspace:*",
+    "@lyness/lyn-tool-fs": "workspace:*",
+    "sharp": "^0.35.3"
   }
 }

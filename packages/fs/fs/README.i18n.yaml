@@ -1,6 +1,58 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/fs/fs/README.md
-README.md: f0e20a27894da97d08834a7adcc2fe080f28da3a
-README.zh.md: 624b603712d23156558444235338b8f3e63fcec5
+/:
+  en: a94eb1470c498a2c
+  zh: cdd5faa0a8fcb562
+/lyness-lyn-fs:
+  en: acb146c951129267
+  zh: 280143284b02957a
+/lyness-lyn-fs/summary:
+  en: cebe47e4f22c2c87
+  zh: 8af140575c5f78c5
+/lyness-lyn-fs/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-fs/use-this-package:
+  en: 40d96e73204808b2
+  zh: 76c1872e2d5ece78
+/lyness-lyn-fs/use-this-package/choosing-and-mounting-a-backend:
+  en: 54a097692a5433b2
+  zh: 03d38b91c60d9f7d
+/lyness-lyn-fs/use-this-package/what-the-service-lets-you-do:
+  en: 48aa680bb26e99c7
+  zh: 4f9b6e47292c233e
+/lyness-lyn-fs/understand-the-implementation:
+  en: 7e13d669ecc96d59
+  zh: b5fe7ae65812d926
+/lyness-lyn-fs/understand-the-implementation/design-philosophy:
+  en: 2ff3c5a38afb7c7c
+  zh: c898b583add032d8
+/lyness-lyn-fs/understand-the-implementation/source-map:
+  en: 9507d7d9259fc89e
+  zh: aa500435e02e6de3
+/lyness-lyn-fs/understand-the-implementation/how-a-call-flows:
+  en: 6ce9e67b0f5653e5
+  zh: 6d974a760352417f
+/lyness-lyn-fs/understand-the-implementation/the-fs-policy-events:
+  en: 4285d718530c8295
+  zh: 0b7c49cef0e86629
+/lyness-lyn-fs/understand-the-implementation/invariants:
+  en: 15b98bc9800b6eae
+  zh: 434d9dd05fa1a332
+/lyness-lyn-fs/further-exploration:
+  en: 13cc383c9342879e
+  zh: 10bb706632384b79
+/lyness-lyn-fs/model-experience:
+  en: 764182d3d8d3dc0d
+  zh: 2010f70db77ca63f
+/lyness-lyn-fs/model-experience/kv-cache-effect:
+  en: 40294c1c31b74824
+  zh: 0857e9b4dd363e0a
+/lyness-lyn-fs/known-limitations-and-deferred-work:
+  en: f6bb36845508a346
+  zh: b5ceeb7458ae4cc0
+/lyness-lyn-fs/known-limitations-and-deferred-work/dev-note:
+  en: e67f633dc6fe7773
+  zh: 3bb0c20c93f16f98

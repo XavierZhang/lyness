@@ -27,25 +27,25 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-session-projection": "workspace:^",
-    "@lyness/lyn-tenant": "workspace:^",
-    "@lyness/lyn-tenant-config": "workspace:^",
-    "@lyness/schemastery": "workspace:^",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-session-projection": "workspace:*",
+    "@lyness/lyn-tenant": "workspace:*",
+    "@lyness/lyn-tenant-config": "workspace:*",
+    "@lyness/schemastery": "workspace:~",
     "zod": "^4.4.3"
   },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-tenant-request": "workspace:^"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-tenant-request": "workspace:*"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/cordis-plugin-include": "workspace:^",
-    "@lyness/cordis-plugin-loader": "workspace:^",
-    "@lyness/lyn-client-connection": "workspace:^",
-    "@lyness/lyn-credentials": "workspace:^",
-    "@lyness/lyn-tenant-config-static": "workspace:^",
-    "@lyness/lyn-tenant-request": "workspace:^",
-    "@lyness/lyn-tenant-static": "workspace:^"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/cordis-plugin-include": "workspace:~",
+    "@lyness/cordis-plugin-loader": "workspace:~",
+    "@lyness/lyn-client-connection": "workspace:*",
+    "@lyness/lyn-credentials": "workspace:*",
+    "@lyness/lyn-tenant-config-static": "workspace:*",
+    "@lyness/lyn-tenant-request": "workspace:*",
+    "@lyness/lyn-tenant-static": "workspace:*"
   }
 }

@@ -1,6 +1,25 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-07-28-portable-execution-world-consumers.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-07-28-portable-execution-world-consumers.md
-2026-07-28-portable-execution-world-consumers.md: 914d04d5e78d16fc2f063e1c22e6234a385ae60e
-2026-07-28-portable-execution-world-consumers.zh.md: e5da98f4b5f888d168ba0b348d53ffc9b22e98d2
+/agent-note-portable-consumers-over-filesystem-and-subprocess-execution-worlds:
+  en: c9cbd3604f7537b0
+  zh: 4fb9276665df861e
+/agent-note-portable-consumers-over-filesystem-and-subprocess-execution-worlds/problem:
+  en: 5ac6e84aa1492707
+  zh: 6e879e57b092e7bb
+/agent-note-portable-consumers-over-filesystem-and-subprocess-execution-worlds/decision:
+  en: b6d2eab36165be87
+  zh: 2363aa86a3bd3d5a
+/agent-note-portable-consumers-over-filesystem-and-subprocess-execution-worlds/remote-provider-ownership:
+  en: 91a27a68b3ae96f0
+  zh: d1efed2dec800a47
+/agent-note-portable-consumers-over-filesystem-and-subprocess-execution-worlds/verification:
+  en: b34540c3548ea98f
+  zh: 79e53bda3981802c
+/agent-note-portable-consumers-over-filesystem-and-subprocess-execution-worlds/alternatives-considered:
+  en: 4aef8f76a8ac620c
+  zh: 93274ef2bf9e238a
+/agent-note-portable-consumers-over-filesystem-and-subprocess-execution-worlds/consequences:
+  en: 3e8426e4a6788505
+  zh: 143b8c07d21d95d1

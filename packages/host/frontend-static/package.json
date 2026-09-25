@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-host-frontend-static",
   "description": "SPA dist server for the Web shell: owns the webserver fallback seat, serving explicit index entries and static assets with traversal rejection and 404 misses",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -27,18 +27,18 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/lyn-host-webserver": "workspace:^",
-    "@lyness/lyn-client-connection": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-host-webserver": "workspace:*",
+    "@lyness/lyn-client-connection": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   },
   "dependencies": {
-    "@lyness/schemastery": "workspace:^"
+    "@lyness/schemastery": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis-plugin-loader": "workspace:^",
-    "@lyness/lyn-client-connection": "workspace:^",
-    "@lyness/lyn-credentials-local": "workspace:^",
-    "@lyness/lyn-host-webserver": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis-plugin-loader": "workspace:~",
+    "@lyness/lyn-client-connection": "workspace:*",
+    "@lyness/lyn-credentials-local": "workspace:*",
+    "@lyness/lyn-host-webserver": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   }
 }

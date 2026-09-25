@@ -1,6 +1,52 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/session/session-format-catalog/README.md
-README.md: 48f6a7e93d2c0f903523e6dc807da58ffb734837
-README.zh.md: ce35f118400c73ee4c79a5ab7398224b30341e81
+/:
+  en: 89c9b992aff39650
+  zh: 94d371a24dedeec1
+/lyness-lyn-session-format-catalog:
+  en: 9cb476bdea2a4d77
+  zh: 961e08795a87d293
+/lyness-lyn-session-format-catalog/summary:
+  en: 53366706d4695bb8
+  zh: c3263581af0592f8
+/lyness-lyn-session-format-catalog/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-session-format-catalog/use-this-package:
+  en: bbff250eba0f1b89
+  zh: 0a618f05cc88ee2b
+/lyness-lyn-session-format-catalog/use-this-package/when-to-use-it:
+  en: 705e341a9189d58f
+  zh: 849007446a7b8a46
+/lyness-lyn-session-format-catalog/use-this-package/entry-point:
+  en: a459270b5116deac
+  zh: 0a3cce30834e9d41
+/lyness-lyn-session-format-catalog/understand-the-implementation:
+  en: cac81936d7b06de4
+  zh: 6ec5b5af0c115464
+/lyness-lyn-session-format-catalog/further-exploration:
+  en: 0ec587d8afdf255c
+  zh: a76d355c512eee17
+/lyness-lyn-session-format-catalog/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/lyness-lyn-session-format-catalog/model-experience/catalog-dispatch:
+  en: 370b9bf19d575dbd
+  zh: e08724fcf4189634
+/lyness-lyn-session-format-catalog/model-experience/catalog-dispatch/what-the-model-sees:
+  en: 53fa22f9082ca037
+  zh: 81c5ebd439d9afdf
+/lyness-lyn-session-format-catalog/model-experience/catalog-dispatch/token-effect:
+  en: f7d1eb359afe1932
+  zh: 5fc82f0403c52d19
+/lyness-lyn-session-format-catalog/model-experience/catalog-dispatch/kv-cache-effect:
+  en: 3796ca9965965a66
+  zh: a6f655fa0d6e7aa4
+/lyness-lyn-session-format-catalog/known-limitations-and-deferred-work:
+  en: 9f86bd4bcaa5f43d
+  zh: aef8d58f4d1e0370
+/lyness-lyn-session-format-catalog/known-limitations-and-deferred-work/dev-note:
+  en: e67f633dc6fe7773
+  zh: 3bb0c20c93f16f98

@@ -1,6 +1,43 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/tenant/tenant-session/README.md
-README.md: d13955b6641a96297fd43a6b9463b8893552b04d
-README.zh.md: b07fb40ff567024793aa5e5b94be84841ba0b8e5
+/:
+  en: 30ffa313db22c567
+  zh: 10cbc565f7be23f8
+/lyness-lyn-tenant-session:
+  en: 312ec96e04adbb1b
+  zh: 6af250d74a249fd3
+/lyness-lyn-tenant-session/summary:
+  en: 87fc6237a58fdede
+  zh: de56b9ab45d82401
+/lyness-lyn-tenant-session/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-tenant-session/use-this-package:
+  en: 7dc801b9d2a598ab
+  zh: ebb92dcc15f30e7d
+/lyness-lyn-tenant-session/use-this-package/what-lands-in-the-log:
+  en: 7a00fc469d53e044
+  zh: e1cb599da9c9c251
+/lyness-lyn-tenant-session/use-this-package/one-tenant-per-deployment-for-now:
+  en: d88205e50edd2bfc
+  zh: d1c936a332cd7cf2
+/lyness-lyn-tenant-session/understand-the-implementation:
+  en: 993a77d67a658f74
+  zh: d8429c2a8d28c371
+/lyness-lyn-tenant-session/further-exploration:
+  en: 524b940cda0c8174
+  zh: 839c1e110e57a66f
+/lyness-lyn-tenant-session/model-experience:
+  en: 8bc0cee7f2a56c63
+  zh: c819c07eece8fa2f
+/lyness-lyn-tenant-session/model-experience/kv-cache-effect:
+  en: ca75c51c89c2c9b0
+  zh: ee6d77f08dfbe4ec
+/lyness-lyn-tenant-session/known-limitations-and-deferred-work:
+  en: 2404b6ae8e68557d
+  zh: 9a60449832f80eeb
+/lyness-lyn-tenant-session/known-limitations-and-deferred-work/dev-note:
+  en: 1daa57f1854dfe4c
+  zh: ed627ee3e20e0926

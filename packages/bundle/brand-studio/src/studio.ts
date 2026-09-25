@@ -113,7 +113,7 @@ export function resolveProfilePatch(profile: string, home: string): string {
     if (template === undefined) {
       throw new StudioError(`profile ${JSON.stringify(profile)} does not exist; launch it once or name a shipped profile`)
     }
-    initProfile(dir, template.bundles, template.patchReload)
+    initProfile(dir, template.bundles)
   }
   return join(dir, PROFILE_PATCH_FILENAME)
 }

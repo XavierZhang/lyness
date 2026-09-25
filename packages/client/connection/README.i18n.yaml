@@ -1,6 +1,37 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/connection/README.md
-README.md: 82d1aeae77f8e785451a4f236c47321036dbae35
-README.zh.md: 8d714b968c7d4c07257377c70a2d1fc6a0f19412
+/:
+  en: 13b131457d03a224
+  zh: 6dedd0706d5ffc0a
+/lyness-lyn-client-connection:
+  en: 19dd72d985d6bcf1
+  zh: e4f78b52f2ea5309
+/lyness-lyn-client-connection/summary:
+  en: a83b5e9fd1968062
+  zh: ac68628e185a4bff
+/lyness-lyn-client-connection/table-of-contents:
+  en: 18792bf2fb4f8030
+  zh: 84c63acc7e0099ae
+/lyness-lyn-client-connection/use-this-package:
+  en: dc4d2d902762ebdc
+  zh: a6d59c3212cfac63
+/lyness-lyn-client-connection/browser-authentication-and-request-trust:
+  en: f3762fb7c71c1944
+  zh: c58e84b0638cc284
+/lyness-lyn-client-connection/connection-generation:
+  en: acb17365f18753b7
+  zh: 04262a637fac2959
+/lyness-lyn-client-connection/model-experience:
+  en: 88bbc33fe9ae9df8
+  zh: bfbab6d51b4abd40
+/lyness-lyn-client-connection/model-experience/kv-cache-effect:
+  en: ca75c51c89c2c9b0
+  zh: de54f3467ef3b9be
+/lyness-lyn-client-connection/known-limitations-and-deferred-work:
+  en: 692635acdbf4a443
+  zh: afa53a857a1e7603
+/lyness-lyn-client-connection/known-limitations-and-deferred-work/dev-note:
+  en: c51db1312f6a43ef
+  zh: 7193ff08f53e3230

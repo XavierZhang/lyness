@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-web-fetch-http",
   "description": "Anonymous public HTTP(S) fetch provider for the lyness web capability seam (ctx.web)",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -27,20 +27,20 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-timeout": "workspace:^",
-    "@lyness/lyn-web": "workspace:^",
-    "@lyness/lyn-http-proxy": "workspace:^"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-timeout": "workspace:*",
+    "@lyness/lyn-web": "workspace:*",
+    "@lyness/lyn-http-proxy": "workspace:*"
   },
   "dependencies": {
-    "@lyness/schemastery": "workspace:^",
+    "@lyness/schemastery": "workspace:~",
     "ipaddr.js": "^2.5.0",
     "undici": "^8.10.0"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-timeout": "workspace:^",
-    "@lyness/lyn-web": "workspace:^",
-    "@lyness/lyn-http-proxy": "workspace:^"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-timeout": "workspace:*",
+    "@lyness/lyn-web": "workspace:*",
+    "@lyness/lyn-http-proxy": "workspace:*"
   }
 }

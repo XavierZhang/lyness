@@ -1,6 +1,31 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-08-28-ctx-remote-failure-vocabulary.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-08-28-ctx-remote-failure-vocabulary.md
-2026-08-28-ctx-remote-failure-vocabulary.md: 4ae96a3ca823b9d2a2768006b92eee2f9d640573
-2026-08-28-ctx-remote-failure-vocabulary.zh.md: 75825a187a65805249d29a704634cfdc881fe3d9
+/agent-note-one-remote-failure-vocabulary-for-ctx-remote:
+  en: 4864a05a067b2ca4
+  zh: ea19a8e36ea1b45e
+/agent-note-one-remote-failure-vocabulary-for-ctx-remote/problem:
+  en: 2bc2b366a179b00c
+  zh: f88bfc5127cbfd6e
+/agent-note-one-remote-failure-vocabulary-for-ctx-remote/decision:
+  en: 67006471a258372f
+  zh: acc438aaea0444bd
+/agent-note-one-remote-failure-vocabulary-for-ctx-remote/code-ownership:
+  en: 48e882af2479ef06
+  zh: 615de6af22748065
+/agent-note-one-remote-failure-vocabulary-for-ctx-remote/discrimination-by-code:
+  en: 4771c4ca3d8bdfdb
+  zh: f685432a3dda2638
+/agent-note-one-remote-failure-vocabulary-for-ctx-remote/fixed-host-facts:
+  en: 64073d4324efea8c
+  zh: 72d89a1ff410152b
+/agent-note-one-remote-failure-vocabulary-for-ctx-remote/what-the-wire-carries:
+  en: 778d6f33ee7acecb
+  zh: eba40bbacd5045ba
+/agent-note-one-remote-failure-vocabulary-for-ctx-remote/alternatives-considered:
+  en: d92f46d0827ad0d1
+  zh: 640f223d3a27559b
+/agent-note-one-remote-failure-vocabulary-for-ctx-remote/consequences:
+  en: b8bc5c8a7d06a886
+  zh: c3df79f349ae6206

@@ -1,6 +1,22 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-09-06-environment-prompt-suffix.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/bug-fix/2026-09-06-environment-prompt-suffix.md
-2026-09-06-environment-prompt-suffix.md: 3438df0fec7b3296084c94b7db68d2800c6d6c98
-2026-09-06-environment-prompt-suffix.zh.md: 102d1196639ac7d7a754a24fc5a93bc93c1d05ba
+/agent-note-environment-facts-follow-reusable-prompt-instructions:
+  en: 39c9d4fa6871368b
+  zh: f29f1dba5ccc1d82
+/agent-note-environment-facts-follow-reusable-prompt-instructions/problem:
+  en: 7b20207cd4dc1583
+  zh: ca5014aa437a5239
+/agent-note-environment-facts-follow-reusable-prompt-instructions/decision:
+  en: dbf3cf5a4575ce26
+  zh: aa7d4c19ac443372
+/agent-note-environment-facts-follow-reusable-prompt-instructions/alternatives-considered:
+  en: 9fb4ff8a8786ce2d
+  zh: 25820720365b489f
+/agent-note-environment-facts-follow-reusable-prompt-instructions/consequences:
+  en: 212b29160c254854
+  zh: e6a1ea253e8f7780
+/agent-note-environment-facts-follow-reusable-prompt-instructions/testing:
+  en: f9f7afaa593d8ed3
+  zh: f2e418976f832849

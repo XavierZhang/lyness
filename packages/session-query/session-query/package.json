@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-session-query",
   "description": "Combined session query service contract with concrete reads, traces, and filters",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -27,15 +27,15 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/lyn-brand": "workspace:^",
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-session-title": "workspace:^",
-    "@lyness/lyn-tool-todo": "workspace:^",
-    "@lyness/lyn-session-persistence": "workspace:^",
-    "@lyness/lyn-session-projection": "workspace:^",
-    "@lyness/lyn-session-projection-cache": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-session-title": "workspace:*",
+    "@lyness/lyn-tool-todo": "workspace:*",
+    "@lyness/lyn-session-persistence": "workspace:*",
+    "@lyness/lyn-session-projection": "workspace:*",
+    "@lyness/lyn-session-projection-cache": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   },
   "peerDependenciesMeta": {
     "@lyness/lyn-session-persistence": {
@@ -49,14 +49,17 @@
     }
   },
   "devDependencies": {
-    "@lyness/lyn-brand": "workspace:^",
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-session-title": "workspace:^",
-    "@lyness/lyn-tool-todo": "workspace:^",
-    "@lyness/lyn-session-persistence": "workspace:^",
-    "@lyness/lyn-session-projection": "workspace:^",
-    "@lyness/lyn-session-projection-cache": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-session-title": "workspace:*",
+    "@lyness/lyn-tool-todo": "workspace:*",
+    "@lyness/lyn-session-persistence": "workspace:*",
+    "@lyness/lyn-session-projection": "workspace:*",
+    "@lyness/lyn-session-projection-cache": "workspace:*",
+    "@lyness/cordis": "workspace:~"
+  },
+  "dependencies": {
+    "@lyness/lyn-session-format-catalog": "workspace:*"
   }
 }

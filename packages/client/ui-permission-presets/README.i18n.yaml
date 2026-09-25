@@ -1,6 +1,43 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/ui-permission-presets/README.md
-README.md: 086568bd1f9c71773df754b7953b7d3188af9cb0
-README.zh.md: fd9fe75c2095e072f0e3c8de35ef3e68b9fcca91
+/:
+  en: bef3c4170b3887a8
+  zh: eb1b5ac2e6e04f5f
+/lyness-lyn-client-ui-permission-presets:
+  en: 72621e3758347c10
+  zh: c7a38522593c7b83
+/lyness-lyn-client-ui-permission-presets/summary:
+  en: 2591adc4721c0564
+  zh: 311292f58621adb6
+/lyness-lyn-client-ui-permission-presets/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-client-ui-permission-presets/use-this-package:
+  en: 91606bff7da02253
+  zh: ef68e813d64c89be
+/lyness-lyn-client-ui-permission-presets/use-this-package/the-picker:
+  en: d851eab85fe002bd
+  zh: 0fdf6eeb1cbd609b
+/lyness-lyn-client-ui-permission-presets/use-this-package/the-settings-row:
+  en: 5067f6aa12496225
+  zh: cfa6796684f97535
+/lyness-lyn-client-ui-permission-presets/understand-the-implementation:
+  en: 4089d5bebf3e8bf0
+  zh: bc5c3652b0612784
+/lyness-lyn-client-ui-permission-presets/further-exploration:
+  en: d652a2f263c14f56
+  zh: e1e0013c3727135d
+/lyness-lyn-client-ui-permission-presets/model-experience:
+  en: 114f37b90a58cffa
+  zh: dc99a48a72c975e6
+/lyness-lyn-client-ui-permission-presets/model-experience/kv-cache-effect:
+  en: f25206808c8d84c5
+  zh: 4fcbc876952d240d
+/lyness-lyn-client-ui-permission-presets/known-limitations-and-deferred-work:
+  en: 08cdc0ad196d12c1
+  zh: 1b65f5d30e219197
+/lyness-lyn-client-ui-permission-presets/known-limitations-and-deferred-work/dev-note:
+  en: febc49a55a454923
+  zh: b72c74e467fd6407

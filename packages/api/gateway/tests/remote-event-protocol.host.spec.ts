@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
+import { isRemoteJsonValue } from '@lyness/lyn-typert-protocol'
 import {
-  isRemoteJsonValue,
   parseRemoteEventResult,
   parseRemoteStreamClientMessage,
   projectRemoteEventRequest,

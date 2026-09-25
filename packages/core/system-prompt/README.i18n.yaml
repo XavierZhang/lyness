@@ -1,6 +1,88 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/core/system-prompt/README.md
-README.md: dd93a65111c653bc4deceac24be37da78d1fdfd9
-README.zh.md: 1691728e09d77a9b9e09c5e11d824c7102613abc
+/:
+  en: 51d99b2500db958f
+  zh: 91f2b113ba7989fd
+/lyness-lyn-system-prompt:
+  en: 229cb902b53ce9dc
+  zh: 47c6523278dc8034
+/lyness-lyn-system-prompt/summary:
+  en: 3627e88bd6fc2d74
+  zh: 0b0576d15eb70493
+/lyness-lyn-system-prompt/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-system-prompt/use-this-package:
+  en: b0d8909bae28480f
+  zh: 34845ac277b3c71e
+/lyness-lyn-system-prompt/use-this-package/configure-the-prompt:
+  en: d2da0976ddaf3c71
+  zh: c068b157bea5fe67
+/lyness-lyn-system-prompt/use-this-package/contribute-a-prompt-section:
+  en: 15d70e3b8eddd636
+  zh: a3a67cab60eee86f
+/lyness-lyn-system-prompt/use-this-package/contribute-a-prompt-variable:
+  en: 39050b92755ceb21
+  zh: 9ddc7d24914b8f2e
+/lyness-lyn-system-prompt/use-this-package/contribute-tool-schemas:
+  en: 009ef267dac2f270
+  zh: e79c24bff5cd836f
+/lyness-lyn-system-prompt/use-this-package/suppress-runtime-context:
+  en: 61e2c1a3f18b48dd
+  zh: 29ecab2639f60103
+/lyness-lyn-system-prompt/understand-the-implementation:
+  en: ce7e776e9d516bdb
+  zh: 59d2751743db7795
+/lyness-lyn-system-prompt/understand-the-implementation/design-concept:
+  en: c91963b89a866fed
+  zh: ef9ef4940145778f
+/lyness-lyn-system-prompt/understand-the-implementation/source-map:
+  en: a93197314e803d86
+  zh: 8cc650f60e868631
+/lyness-lyn-system-prompt/understand-the-implementation/assembly-and-rendering:
+  en: 54977e6c431f851e
+  zh: ef60007054b97ff0
+/lyness-lyn-system-prompt/understand-the-implementation/scoping:
+  en: 1100ab1dfe961631
+  zh: c510275c893951b4
+/lyness-lyn-system-prompt/further-exploration:
+  en: ea34361c9bc01cb6
+  zh: 2b1860e039bceb0a
+/lyness-lyn-system-prompt/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/lyness-lyn-system-prompt/model-experience/system-prompt:
+  en: cf78b9dd5596495f
+  zh: bd44560f8c2435e8
+/lyness-lyn-system-prompt/model-experience/system-prompt/what-the-model-sees:
+  en: 9927fdee4f8aa8ec
+  zh: 3687314c357fa7f4
+/lyness-lyn-system-prompt/model-experience/system-prompt/what-the-model-sees/harness-identity:
+  en: 40effd71cb503319
+  zh: 9969356237a4f398
+/lyness-lyn-system-prompt/model-experience/system-prompt/token-effect:
+  en: 29722e212137deaa
+  zh: 92cd0f1a16b10315
+/lyness-lyn-system-prompt/model-experience/system-prompt/kv-cache-effect:
+  en: 3c4a720c1d7a1984
+  zh: e6caea5a355b66ef
+/lyness-lyn-system-prompt/model-experience/tool-schemas:
+  en: 3039bc5e7a796b21
+  zh: 6b7a9eaf69c9ea53
+/lyness-lyn-system-prompt/model-experience/tool-schemas/what-the-model-sees:
+  en: 3c3ddcfecea1c844
+  zh: bb8684d833394aac
+/lyness-lyn-system-prompt/model-experience/tool-schemas/token-effect:
+  en: f3a7d374c55e1720
+  zh: 0ee48af678cb875f
+/lyness-lyn-system-prompt/model-experience/tool-schemas/kv-cache-effect:
+  en: ebd329e360f0d143
+  zh: 9d67fe503a6a095a
+/lyness-lyn-system-prompt/known-limitations-and-deferred-work:
+  en: 23bb9f59ceb1620c
+  zh: be34f1770fa2e027
+/lyness-lyn-system-prompt/known-limitations-and-deferred-work/dev-note:
+  en: e67f633dc6fe7773
+  zh: 3bb0c20c93f16f98

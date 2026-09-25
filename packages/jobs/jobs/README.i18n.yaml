@@ -1,6 +1,61 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/jobs/jobs/README.md
-README.md: 6faa33ab61b463b191adbef70f9c693ed57475c6
-README.zh.md: 880d26fb9c077c03040eee1fc62c3db8f31bb812
+/:
+  en: 4055a3bc920e4ac2
+  zh: 3bc99f3b5bc2fd71
+/lyness-lyn-jobs:
+  en: 3beda6459798a805
+  zh: 2d00394702d510dd
+/lyness-lyn-jobs/summary:
+  en: cbea89544bc65adf
+  zh: 6bbb5f7a990d9388
+/lyness-lyn-jobs/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-jobs/use-this-package:
+  en: 527425c450bd20d6
+  zh: fdf6a35a9e2ffe85
+/lyness-lyn-jobs/use-this-package/what-a-background-job-gives-you:
+  en: 3ca33299863e0e8c
+  zh: 568e5d87ca184842
+/lyness-lyn-jobs/use-this-package/the-ownership-boundary:
+  en: 873494750b38dae5
+  zh: 2e6142ab889f7a8b
+/lyness-lyn-jobs/use-this-package/starting-background-work-needs-a-controller:
+  en: d8153038d1f1a889
+  zh: 61d3ae5001e58bcb
+/lyness-lyn-jobs/use-this-package/smallest-working-composition:
+  en: 972dc1635b70cc1f
+  zh: f07f4b03f86f4c28
+/lyness-lyn-jobs/use-this-package/what-can-go-wrong:
+  en: fcfee3f72ea703ac
+  zh: 80299901bd44783b
+/lyness-lyn-jobs/understand-the-implementation:
+  en: 7e13d669ecc96d59
+  zh: b5fe7ae65812d926
+/lyness-lyn-jobs/understand-the-implementation/design-philosophy:
+  en: dca8dcb758fde564
+  zh: 7e9d653a3a07d1b6
+/lyness-lyn-jobs/understand-the-implementation/source-map:
+  en: 2416d5be526d4dba
+  zh: 1090a9373258d7bb
+/lyness-lyn-jobs/understand-the-implementation/service-operations:
+  en: 9c74e1fb05be9205
+  zh: a773d9836e6aa1e5
+/lyness-lyn-jobs/further-exploration:
+  en: dea91a5f754b572f
+  zh: cf96a8306ac8532a
+/lyness-lyn-jobs/model-experience:
+  en: efb58cac0fc08163
+  zh: 838791f77fd79917
+/lyness-lyn-jobs/model-experience/kv-cache-effect:
+  en: e290ccc9b3c92c08
+  zh: d75d48f485447a74
+/lyness-lyn-jobs/known-limitations-and-deferred-work:
+  en: bf4e5e0bd25d579e
+  zh: ed995c02012f0c72
+/lyness-lyn-jobs/known-limitations-and-deferred-work/dev-note:
+  en: e67f633dc6fe7773
+  zh: 3bb0c20c93f16f98

@@ -1,6 +1,19 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-08-31-cross-process-session-write-lease.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/feature/2026-08-31-cross-process-session-write-lease.md
-2026-08-31-cross-process-session-write-lease.md: edb4b6d69dd0ac594b9bbefb801251937bbc1349
-2026-08-31-cross-process-session-write-lease.zh.md: 70ded26efb7df536978cf5ad49babb826b000357
+/agent-note-cross-process-session-write-lease:
+  en: c120b47609362fef
+  zh: b4f3645d07899427
+/agent-note-cross-process-session-write-lease/problem:
+  en: fa5063a7f8ec786f
+  zh: f3f7f955d146f00c
+/agent-note-cross-process-session-write-lease/decision:
+  en: a426aaa6d70f4014
+  zh: dce8797feecfcc02
+/agent-note-cross-process-session-write-lease/alternatives-considered:
+  en: 2e49f38768df60d0
+  zh: 4720d6444dd01935
+/agent-note-cross-process-session-write-lease/consequences:
+  en: d2a681fa574ebd04
+  zh: 4af2e372011bbd59

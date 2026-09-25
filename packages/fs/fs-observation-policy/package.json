@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-fs-observation-policy",
   "description": "File-context policy plugin for the lyness — observed-state, read-before-edit, and version-guarded write/edit added over the ctx.fs provider seam through the fs/* event gate (no service API)",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -27,12 +27,12 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/lyn-fs": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-fs": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/lyn-fs": "workspace:^",
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-fs": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   }
 }

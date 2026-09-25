@@ -27,14 +27,14 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/lyn-host-webserver": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-host-webserver": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   },
   "dependencies": {
-    "@lyness/schemastery": "workspace:^"
+    "@lyness/schemastery": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-host-webserver": "workspace:^"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-host-webserver": "workspace:*"
   }
 }

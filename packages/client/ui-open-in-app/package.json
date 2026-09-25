@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-client-ui-open-in-app",
-  "description": "Web Session-header \"Open In...\" split button opening the session workspace directory in a locally installed application",
-  "version": "0.1.5-rc.1",
+  "description": "Web \"Open In...\" controls: the Session-header split button opening the workspace directory in an installed application, and the document preview's default-application controls for one file",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -38,31 +38,44 @@
   "lyn": {
     "client": {
       "inject": [
+        "@lyness/lyn-api-gateway",
+        "@lyness/lyn-api-remotes",
+        "@lyness/lyn-api-session-controller",
         "@lyness/lyn-client-locale",
+        "@lyness/lyn-client-shortcuts",
         "@lyness/lyn-client-ui-conversation",
+        "@lyness/lyn-client-ui-layout",
         "@lyness/lyn-client-ui-renderer",
-        "@lyness/lyn-client-ui-session"
+        "@lyness/lyn-client-ui-session",
+        "@lyness/lyn-client-ui-sidebar-documentpreview"
       ],
       "platform": "web"
     }
   },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-api-session-controller": "workspace:^",
-    "@lyness/lyn-client-locale": "workspace:^",
-    "@lyness/lyn-client-store": "workspace:^",
-    "@lyness/lyn-client-test-runtime": "workspace:^",
-    "@lyness/lyn-client-ui-conversation": "workspace:^",
-    "@lyness/lyn-client-ui-primitives": "workspace:^",
-    "@lyness/lyn-client-ui-renderer": "workspace:^",
-    "@lyness/lyn-client-ui-session": "workspace:^",
-    "@lyness/lyn-client-ui-slots": "workspace:^",
-    "@lyness/lyn-host-open-in-app": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-api-gateway": "workspace:*",
+    "@lyness/lyn-api-remotes": "workspace:*",
+    "@lyness/lyn-api-session-controller": "workspace:*",
+    "@lyness/lyn-client-locale": "workspace:*",
+    "@lyness/lyn-client-store": "workspace:*",
+    "@lyness/lyn-client-test-runtime": "workspace:*",
+    "@lyness/lyn-client-ui-conversation": "workspace:*",
+    "@lyness/lyn-client-ui-layout": "workspace:*",
+    "@lyness/lyn-client-ui-primitives": "workspace:*",
+    "@lyness/lyn-client-ui-renderer": "workspace:*",
+    "@lyness/lyn-client-ui-session": "workspace:*",
+    "@lyness/lyn-client-ui-sidebar-documentpreview": "workspace:*",
+    "@lyness/lyn-client-ui-slots": "workspace:*",
+    "@lyness/lyn-host-open-in-app": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
     "@types/react": "~18.3.1",
-    "react": "^18.2.0"
+    "react": "^18.2.0",
+    "@lyness/lyn-client-ui-deliverables": "workspace:*",
+    "@lyness/lyn-native-command": "workspace:*",
+    "@lyness/lyn-client-shortcuts": "workspace:*"
   }
 }

@@ -9,7 +9,7 @@ import type { ClientRemote } from '@lyness/lyn-api-gateway/client'
 import type { CommandSubmitAttachment } from '@lyness/lyn-commands/types'
 import type { SessionId } from '@lyness/lyn-session/types'
 import type {
-  SubagentCatalog, SubagentInterruptReceipt, SubagentPromptReceipt, SubagentPromptRequest,
+  SubagentInterruptReceipt, SubagentPromptReceipt, SubagentPromptRequest,
 } from '@lyness/lyn-subagent/client'
 import type { RemoteResult } from '@lyness/lyn-typert-protocol'
 import type { SessionRemote } from '../transport.ts'
@@ -26,7 +26,6 @@ export interface SessionCommandsRemote {
 
 /** Narrow subagent namespace consumed by a Client Session and its manager. */
 export interface SessionSubagentsRemote {
-  list(parentSessionId: SessionId, signal?: AbortSignal): Promise<RemoteResult<SubagentCatalog>>
   prompt(
     request: SubagentPromptRequest,
     signal?: AbortSignal,

@@ -1,0 +1,19 @@
+# Bilingual-pair consistency record for browser-use.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write docs/subsystems/browser-use.md
+/browser-use:
+  en: 38cfebbc52187389
+  zh: f499ede0cb591e0e
+/browser-use/choose-a-provider:
+  en: f63c83624f071324
+  zh: 53c54625047a6d9d
+/browser-use/session-ownership:
+  en: 0f980f6e30a250ff
+  zh: d06926e1be4c3330
+/browser-use/mcp-initialization:
+  en: 877ef03fbbfbbf89
+  zh: 7b96be38961d1b16
+/browser-use/tools-and-recorded-results:
+  en: 494b4925d67ca88b
+  zh: a6c13876c912af69

@@ -1,5 +1,5 @@
 ---
-description: "Shared TypeScript declarations for package.json.lyn metadata, usable by boot, client, build, and external packages."
+description: "Shared TypeScript declarations for package identity, runtime requirements, and LYN plugin metadata."
 kind: "package-library"
 ---
 
@@ -9,7 +9,7 @@ English | [中文](README.zh.md)
 
 ## Summary
 
-Use `LynManifest` to type a package's Harness metadata, or a member type such as `LynClientManifest` for one declaration. Boot, client, build, and external packages import the same types; each reader owns JSON validation and default resolution.
+Use `LynPackageManifest` for package metadata, `LynManifest` for the public fields under `lyn`, and member types such as `LynClientManifest` for one domain. Each reader owns JSON parsing, validation, and default resolution.
 
 ## Table of Contents
 
@@ -28,16 +28,33 @@ Use `LynManifest` to type a package's Harness metadata, or a member type such as
 Import from the package root. Use a development dependency when only checking your own source; use a production dependency if your published declarations reference these types.
 
 ```ts
-import type { LynClientManifest, LynManifest } from '@lyness/lyn-package-manifest'
+import type { LynClientManifest, LynPackageManifest } from '@lyness/lyn-package-manifest'
 
 const client: LynClientManifest = { platform: 'web' }
-const lyn: LynManifest = {
-  bundle: { patch: './cordis.patch.yml' },
-  client,
+const manifest: LynPackageManifest = {
+  name: 'example-lyn-plugin',
+  version: '1.0.0',
+  engines: { node: '>=24', lyn: '0.1.5-alpha.1' },
+  lyn: {
+    manifestVersion: 1,
+    bundle: { patch: './cordis.patch.yml' },
+    client,
+  },
 }
 ```
 
-`LynManifest` describes `bundle`, `profile`, `client`, `configTrees`, `sessionFormatMigration`, and `moduleFallback`, not the surrounding npm manifest. `moduleFallback` is launcher-generated metadata and is not an author configuration entry. TypeScript checks this object and erases `import type` during compilation; JSON files cannot import types, and this example does not write a `package.json`. See [`src/types.ts`](src/types.ts) for the declarations.
+`LynPackageManifest` describes the package.json fields used by LYN, with required `name` and `version`; it is not an exhaustive npm schema. Local profile readers use `Partial<LynPackageManifest>` because profiles need no published version. `LynManifest` describes only public author fields under `lyn`. `LynBundleManifest.patch` is one patch file path or an ordered list of them, each relative to the package root; the launcher applies a list in order as one bundle layer. TypeScript checks the example and erases `import type`; these interfaces do not parse JSON or write a file.
+
+The following metadata fields are optional. Omitting them leaves the format version or compatible host versions undeclared; readers do not infer defaults.
+
+| Field | Meaning |
+|---|---|
+| `lyn.manifestVersion` | Manifest format identifier; the declared format is `1`, independent of the npm package version and Session format version. |
+| `engines.lyn` | Author-declared compatible LYN versions as a SemVer range, including exact prerelease versions. This field sits beside `engines.node` and `engines.npm`; an engines object may omit `lyn`. |
+
+`LocalizedText` carries literal text or a language map with a required English fallback. `PluginLocalizedMeta` carries optional display title, description, an image data URL resolved from `package.json.icon`, and metadata diagnostics for installed plugins. [App boot](../../boot/app-boot/README.md) reads these values; this package only supplies their types.
+
+Public composition declarations are defined in [`src/types.ts`](src/types.ts). Internal `configTrees`, `sessionFormatMigration`, and generated `moduleFallback` metadata remain owned by their image-packer, catalog, and launcher readers; the public types do not expose them.
 
 -----
 
@@ -57,7 +74,7 @@ The package root only re-exports declarations from [`src/types.ts`](src/types.ts
 ## Further Exploration
 
 - [Profile launcher](../../boot/app-boot/README.md#profiles) — manifest loading and composition.
-- [Declaration ownership](../../../.agents/notes/implemented/architecture/2026-09-05-package-manifest-types.md) — scope and dependency rationale.
+- [Public package metadata](../../../.agents/notes/implemented/architecture/2026-09-10-public-package-manifest.md) — field placement and reader ownership.
 
 <a id="model-experience"></a>
 ## Model Experience
@@ -72,7 +89,8 @@ Type declarations add no model input, so provider cache reuse is unaffected.
 
 <a id="known-limitations-and-deferred-work"></a>
 
-- **Static typing only.** These declarations do not validate JSON, check file existence, or supply defaults. `configTrees` serves the experimental image packer, and `sessionFormatMigration` is discovered only for workspace migration packages; declaring them does not register external plugin behavior.
+- **Static typing only.** Consumers read and validate the JSON fields they use, then adapt the shared declarations to their runtime data. The package supplies no parser, getter helpers, file checks, or defaults.
+- **Compatibility is declarative.** Current installers and loaders do not enforce `lyn.manifestVersion` or `engines.lyn`; declaring a range does not reject incompatible hosts or validate SemVer syntax.
 
 <a id="dev-note"></a>
 ### Dev Note

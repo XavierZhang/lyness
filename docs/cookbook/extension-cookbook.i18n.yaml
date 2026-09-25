@@ -1,6 +1,25 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for extension-cookbook.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write docs/cookbook/extension-cookbook.md
-extension-cookbook.md: 2576cc42bd724259a6deb5b91240100a5cc30deb
-extension-cookbook.zh.md: 07b4836e6d2ec5a6b49cc7a5b8e6cd01c87bc6f8
+/cookbook-extension-plugin-shapes:
+  en: 9043ae4c0ebeb055
+  zh: 3f76faad45465788
+/cookbook-extension-plugin-shapes/a-tool-plugin:
+  en: fbc00d5c52576c02
+  zh: e981e9769a9a4ace
+/cookbook-extension-plugin-shapes/a-hook-plugin-permission-gate-example:
+  en: 439e5a73c7dd9002
+  zh: a87b3f7b8769b2cb
+/cookbook-extension-plugin-shapes/a-ui-plugin:
+  en: 674b3963b819f1de
+  zh: 22be1c3742c1fc39
+/cookbook-extension-plugin-shapes/an-external-protocol-driver:
+  en: e3e5d34f67ffbe83
+  zh: 8fe234a1bec071f5
+/cookbook-extension-plugin-shapes/runnable-wirings:
+  en: e7d43f5d9187b0d9
+  zh: 1ac25bf15aaedd51
+/cookbook-extension-plugin-shapes/the-feature-mechanism-map:
+  en: d180182a42faf5f3
+  zh: 9a29c3a22eb454d8

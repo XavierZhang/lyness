@@ -1,6 +1,91 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/core/agent/README.md
-README.md: 1d0408a9f46c97dcb129bbe8a27cb60ae2c37222
-README.zh.md: f6bdf20c29da817346963fa99a1f1154be5a8a47
+/:
+  en: b6bcf3c8b941d336
+  zh: 28b5d2aa43fdd026
+/lyness-lyn-agent:
+  en: 0f0bc6545ecf88c2
+  zh: 1241131e2eae5150
+/lyness-lyn-agent/summary:
+  en: 7c45e4d34831d9d6
+  zh: 7fa9aad4d2f36219
+/lyness-lyn-agent/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-agent/use-this-package:
+  en: f2c42a1ad62e688c
+  zh: d1da99909e8297b3
+/lyness-lyn-agent/use-this-package/create-or-resume-an-agent:
+  en: e305441a5a4a9b44
+  zh: 3e997b12ce0ce04c
+/lyness-lyn-agent/use-this-package/drive-an-agent-s-conversation:
+  en: 71e258897e2e7d73
+  zh: abf0991012faa17e
+/lyness-lyn-agent/use-this-package/scope-registrations-to-one-agent:
+  en: 2594a1e02adea801
+  zh: cae8860369728efb
+/lyness-lyn-agent/use-this-package/intercept-or-observe-work-in-flight:
+  en: 70c557685f78af49
+  zh: 1339dc528dec32fd
+/lyness-lyn-agent/understand-the-implementation:
+  en: ce7e776e9d516bdb
+  zh: 59d2751743db7795
+/lyness-lyn-agent/understand-the-implementation/design-concept:
+  en: 1e53eff92f0f2d7b
+  zh: f61451c8b5c80693
+/lyness-lyn-agent/understand-the-implementation/step-admission:
+  en: 348b9ecd0890c585
+  zh: d0f73d28d0d2c6f1
+/lyness-lyn-agent/understand-the-implementation/durable-inbox:
+  en: de03668d48f74f1e
+  zh: 82dda6a9dd318c74
+/lyness-lyn-agent/understand-the-implementation/source-map:
+  en: c08cf19efc131171
+  zh: 7e9f7b6a85e0aa1d
+/lyness-lyn-agent/understand-the-implementation/registry-and-lifecycle:
+  en: c88054e45323db88
+  zh: f8d798659aec52d3
+/lyness-lyn-agent/understand-the-implementation/initiator-scope:
+  en: 6c1aef5822627c13
+  zh: d8611889c2958dd0
+/lyness-lyn-agent/understand-the-implementation/ownership-invariants:
+  en: e48eae6c7de88cf8
+  zh: 1f5b37bdb0e53788
+/lyness-lyn-agent/further-exploration:
+  en: 9bf5e94f8395c66c
+  zh: 3441f8393d83723a
+/lyness-lyn-agent/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/lyness-lyn-agent/model-experience/user-steering-and-injected-messages:
+  en: 962c598672b0eed6
+  zh: d05b3bc936685ad3
+/lyness-lyn-agent/model-experience/user-steering-and-injected-messages/what-the-model-sees:
+  en: 55fcf97dbcb7a41e
+  zh: 691c0ab3ea41f6f0
+/lyness-lyn-agent/model-experience/user-steering-and-injected-messages/token-effect:
+  en: 5f428bfadaf4394b
+  zh: 03308df9fd3492a7
+/lyness-lyn-agent/model-experience/user-steering-and-injected-messages/kv-cache-effect:
+  en: 75dc61fe240860f0
+  zh: 621720291d1b4bd3
+/lyness-lyn-agent/model-experience/agent-scoped-request-composition:
+  en: 215fc35b0f30e38a
+  zh: 21788ec980c300ea
+/lyness-lyn-agent/model-experience/agent-scoped-request-composition/what-the-model-sees:
+  en: 057babd515991736
+  zh: acf0c05c490b689c
+/lyness-lyn-agent/model-experience/agent-scoped-request-composition/token-effect:
+  en: dfebf42b629656d9
+  zh: 9369ace52f58a579
+/lyness-lyn-agent/model-experience/agent-scoped-request-composition/kv-cache-effect:
+  en: 07a408b32e49ecaf
+  zh: 9684b80cb3c0e75c
+/lyness-lyn-agent/known-limitations-and-deferred-work:
+  en: 00a2d12980ffe756
+  zh: c8bf69d06d165b36
+/lyness-lyn-agent/known-limitations-and-deferred-work/dev-note:
+  en: 217405c92be96543
+  zh: 7bc21e6842079a57

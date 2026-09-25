@@ -1,6 +1,34 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write README.md
-README.md: c9004aaf7817caa5239b648d43c66ffa545dbcc3
-README.zh.md: 2a93c7bf008c1c9194984d91eae029afc95833b7
+/lyness:
+  en: a0e443a66ac23468
+  zh: b6f3743083e5421a
+/lyness/developer-preview:
+  en: c3e0d09f0f5df8e3
+  zh: 3579204d6cfcd4d7
+/lyness/run:
+  en: 4e0248e4c6474fc6
+  zh: eb2fb8d78c7d6bc0
+/lyness/run/run-from-npm:
+  en: fe37235eddc55db2
+  zh: c26673e8722a52b5
+/lyness/run/run-from-source:
+  en: 3a64109bb56f3a08
+  zh: 5d30645c8020b83c
+/lyness/community-and-support:
+  en: b59bb79578c741f3
+  zh: 81b440a115ccf7d4
+/lyness/contributing:
+  en: 53b2b28a4b2dac14
+  zh: 31a1d8bbbd1ba324
+/lyness/development:
+  en: 6e8e02be3e928306
+  zh: 1b0049587fdb7ce6
+/lyness/citation:
+  en: 6704e9e5a8d49a91
+  zh: 85c9cdd8d56f8e9d
+/lyness/license:
+  en: 926995344fc1c72b
+  zh: c92fab5abf85932f

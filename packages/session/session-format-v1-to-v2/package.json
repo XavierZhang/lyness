@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-session-format-v1-to-v2",
   "description": "Frozen released-v1 Session codec and assistant-stream migration to v2",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -39,16 +39,16 @@
     }
   },
   "dependencies": {
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-session-format": "workspace:^",
-    "@lyness/lyn-session-format-v0-to-v1": "workspace:^",
-    "@lyness/lyn-util-values": "workspace:^"
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-session-format": "workspace:*",
+    "@lyness/lyn-session-format-v0-to-v1": "workspace:*",
+    "@lyness/lyn-util-values": "workspace:*"
   },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-session": "workspace:^"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-session": "workspace:*"
   }
 }

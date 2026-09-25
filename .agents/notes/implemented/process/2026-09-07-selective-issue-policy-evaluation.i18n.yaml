@@ -1,0 +1,22 @@
+# Bilingual-pair consistency record for 2026-09-07-selective-issue-policy-evaluation.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write .agents/notes/implemented/process/2026-09-07-selective-issue-policy-evaluation.md
+/agent-note-selective-issue-policy-evaluation:
+  en: d0415192fa3d3299
+  zh: c5a68430e11ddca7
+/agent-note-selective-issue-policy-evaluation/problem:
+  en: 5af4901a5e9576fb
+  zh: eb089750b27129b1
+/agent-note-selective-issue-policy-evaluation/decision:
+  en: ca511b5915011a5d
+  zh: f7c4ef5a4ebb501d
+/agent-note-selective-issue-policy-evaluation/alternatives-considered:
+  en: 89631c2a92ab079a
+  zh: 37b94f76ec6dc36a
+/agent-note-selective-issue-policy-evaluation/consequences:
+  en: c0d2e770c1fa0eb3
+  zh: eb764170e055b62d
+/agent-note-selective-issue-policy-evaluation/verification:
+  en: b7fb4ebd009d7fd3
+  zh: 6d682a4b7f41a4e0

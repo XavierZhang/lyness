@@ -1,6 +1,40 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/ui-schedule/README.md
-README.md: f2108284b25e15f91b0a21c491ba0bc806caa293
-README.zh.md: 145456c0886d1a30bd3ad09c251eb437901c6a4d
+/:
+  en: 265778d19fe0dd76
+  zh: 78b0a191a4bd4e4e
+/lyness-lyn-client-ui-schedule:
+  en: 50a2f7786ed21566
+  zh: 77ebc175b6476a01
+/lyness-lyn-client-ui-schedule/summary:
+  en: 8dfc371c14bb4415
+  zh: 9b3545c1a7468a7a
+/lyness-lyn-client-ui-schedule/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 405b30feaf48c087
+/lyness-lyn-client-ui-schedule/use-this-package:
+  en: 7a4ea26953c8358f
+  zh: 63b458a45355e327
+/lyness-lyn-client-ui-schedule/use-this-package/time-zone-data-source:
+  en: 51ac7f781145fd39
+  zh: 576cd161b6432f79
+/lyness-lyn-client-ui-schedule/understand-the-implementation:
+  en: 370245de63a78b2d
+  zh: c91f134ab6040d2f
+/lyness-lyn-client-ui-schedule/further-exploration:
+  en: 2671bb18d05bc7e3
+  zh: 76965dd1146ca67a
+/lyness-lyn-client-ui-schedule/model-experience:
+  en: a8838aba5fd29fd8
+  zh: b9f67d82c81dd030
+/lyness-lyn-client-ui-schedule/model-experience/kv-cache-effect:
+  en: 4b81350950285d47
+  zh: 6dc3d5cf7ca8a622
+/lyness-lyn-client-ui-schedule/known-limitations-and-deferred-work:
+  en: ee71bd5780bd77ca
+  zh: ccee6ad04fdd634a
+/lyness-lyn-client-ui-schedule/known-limitations-and-deferred-work/dev-note:
+  en: e67f633dc6fe7773
+  zh: a4b126f9a4eaca6f

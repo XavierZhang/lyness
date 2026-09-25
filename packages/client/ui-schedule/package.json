@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-client-ui-schedule",
-  "description": "Read-only active Schedule catalog in the Web Session header",
-  "version": "0.1.5-rc.1",
+  "description": "Host task management page and Session reminder catalog",
+  "version": "0.1.7-rc.2",
   "type": "module",
   "main": "lib/index.js",
   "types": "lib/types/index.d.ts",
@@ -20,8 +20,17 @@
   "lyn": {
     "client": {
       "inject": [
+        "@lyness/lyn-api-remotes",
+        "@lyness/lyn-api-session-controller",
+        "@lyness/lyn-api-workspace-controller",
+        "@lyness/lyn-client-connection",
         "@lyness/lyn-client-locale",
         "@lyness/lyn-client-ui-conversation",
+        "@lyness/lyn-client-ui-layout",
+        "@lyness/lyn-client-ui-sidebar",
+        "@lyness/lyn-client-ui-sidebar-right",
+        "@lyness/lyn-client-ui-tool",
+        "@lyness/lyn-client-ui-workspace",
         "@lyness/lyn-client-ui-primitives"
       ],
       "platform": "web"
@@ -41,23 +50,33 @@
     "access": "public"
   },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/lyn-api-session-controller": "workspace:^",
-    "@lyness/lyn-client-locale": "workspace:^",
-    "@lyness/lyn-client-test-runtime": "workspace:^",
-    "@lyness/lyn-client-ui-conversation": "workspace:^",
-    "@lyness/lyn-client-ui-primitives": "workspace:^",
-    "@lyness/lyn-client-ui-renderer": "workspace:^",
-    "@lyness/lyn-client-ui-session": "workspace:^",
-    "@lyness/lyn-client-ui-slots": "workspace:^",
-    "@lyness/lyn-schedule": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
+    "@lyness/lyn-api-remotes": "workspace:*",
+    "@lyness/lyn-api-session-controller": "workspace:*",
+    "@lyness/lyn-api-workspace-controller": "workspace:*",
+    "@lyness/lyn-client-connection": "workspace:*",
+    "@lyness/lyn-client-locale": "workspace:*",
+    "@lyness/lyn-client-test-runtime": "workspace:*",
+    "@lyness/lyn-client-ui-conversation": "workspace:*",
+    "@lyness/lyn-client-ui-layout": "workspace:*",
+    "@lyness/lyn-client-ui-primitives": "workspace:*",
+    "@lyness/lyn-client-ui-renderer": "workspace:*",
+    "@lyness/lyn-client-ui-session": "workspace:*",
+    "@lyness/lyn-client-ui-sidebar": "workspace:*",
+    "@lyness/lyn-client-ui-sidebar-right": "workspace:*",
+    "@lyness/lyn-client-ui-slots": "workspace:*",
+    "@lyness/lyn-client-ui-tool": "workspace:*",
+    "@lyness/lyn-client-ui-workspace": "workspace:*",
+    "@lyness/lyn-schedule": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-util-values": "workspace:*",
     "@testing-library/react": "^16.1.0",
     "@types/react": "~18.3.1",
     "@types/react-dom": "~18.3.0",
-    "@lyness/cordis": "workspace:^",
+    "clsx": "^2.1.1",
+    "@lyness/cordis": "workspace:~",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

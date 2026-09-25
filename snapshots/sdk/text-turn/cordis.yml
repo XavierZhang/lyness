@@ -8,7 +8,7 @@
     includeDefaultRoots: false
 
 - id: llm-deepseek
-  name: '@lyness/lyn-llm-deepseek'
+  name: '@lyness/lyn-llm-deepseek-api-key'
   config:
     thinking: enabled
     reasoningEffort: max
@@ -27,11 +27,6 @@
     backgroundMode: one-shot
     enableRunInBackground: false
     maxDepth: 1
-
-- id: session-log-deepseek
-  name: '@lyness/lyn-session-log-deepseek'
-  config:
-    enabled: true
 
 - insert:
     - id: snapshot-message-feedback

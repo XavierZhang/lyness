@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-client-ui-sidebar-documentpreview",
-  "description": "Extensible document previews for Sidebar files: Markdown, highlighted code, images, PDF, HTML, and plain text",
-  "version": "0.1.5-rc.1",
+  "description": "Extensible Sidebar previews for Office documents, spreadsheets, Markdown, code, images, PDF, HTML, and plain text",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -30,9 +30,12 @@
       "inject": [
         "@lyness/lyn-api-gateway",
         "@lyness/lyn-api-workspace-files",
+        "@lyness/lyn-client-resources",
         "@lyness/lyn-client-ui-sidebar-right",
         "@lyness/lyn-client-ui-session",
-        "@lyness/lyn-api-remotes"
+        "@lyness/lyn-api-remotes",
+        "@lyness/lyn-client-locale",
+        "@lyness/lyn-client-ui-settings"
       ],
       "platform": "web"
     }
@@ -43,36 +46,54 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-api-gateway": "workspace:^",
-    "@lyness/lyn-api-remotes": "workspace:^",
-    "@lyness/lyn-api-workspace-files": "workspace:^",
-    "@lyness/lyn-client-locale": "workspace:^",
-    "@lyness/lyn-client-resources": "workspace:^",
-    "@lyness/lyn-client-store": "workspace:^",
-    "@lyness/lyn-client-test-runtime": "workspace:^",
-    "@lyness/lyn-client-ui-dockkit": "workspace:^",
-    "@lyness/lyn-client-ui-primitives": "workspace:^",
-    "@lyness/lyn-client-ui-renderer": "workspace:^",
-    "@lyness/lyn-client-ui-session": "workspace:^",
-    "@lyness/lyn-client-ui-sidebar-right": "workspace:^",
-    "@lyness/lyn-client-ui-slots": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-util-workspace-path": "workspace:^",
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-api-gateway": "workspace:*",
+    "@lyness/lyn-api-remotes": "workspace:*",
+    "@lyness/lyn-api-workspace-files": "workspace:*",
+    "@lyness/lyn-client-connection": "workspace:*",
+    "@lyness/lyn-client-locale": "workspace:*",
+    "@lyness/lyn-client-resources": "workspace:*",
+    "@lyness/lyn-client-store": "workspace:*",
+    "@lyness/lyn-client-test-runtime": "workspace:*",
+    "@lyness/lyn-client-ui-dockkit": "workspace:*",
+    "@lyness/lyn-client-ui-primitives": "workspace:*",
+    "@lyness/lyn-client-ui-renderer": "workspace:*",
+    "@lyness/lyn-client-ui-session": "workspace:*",
+    "@lyness/lyn-client-ui-settings": "workspace:*",
+    "@lyness/lyn-client-ui-sidebar-right": "workspace:*",
+    "@lyness/lyn-client-ui-slots": "workspace:*",
+    "@lyness/lyn-office-to-pdf": "workspace:*",
+    "@lyness/lyn-host-webserver": "workspace:*",
+    "@lyness/lyn-office-to-pdf": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-util-workspace-path": "workspace:*",
+    "@fortune-sheet/core": "1.0.4",
+    "@fortune-sheet/react": "1.0.4",
     "@testing-library/react": "^16.1.0",
+    "@types/papaparse": "^5.3.16",
     "@types/react": "~18.3.1",
     "@types/react-dom": "~18.3.0",
     "clsx": "^2.0.0",
+    "dompurify": "^3.4.11",
+    "exceljs": "4.4.0",
+    "fast-xml-parser": "5.11.1",
+    "fflate": "^0.8.3",
+    "papaparse": "5.5.3",
     "pdfjs-dist": "6.3.289",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
   },
   "files": [
     "lib/index.js",
     "lib/client.js",
+    "lib/client.*.js",
     "lib/types/**/*.d.ts"
-  ]
+  ],
+  "dependencies": {
+    "@lyness/schemastery": "workspace:~"
+  }
 }

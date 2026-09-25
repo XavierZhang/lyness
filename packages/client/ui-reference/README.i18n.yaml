@@ -1,6 +1,49 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/ui-reference/README.md
-README.md: f9c283469675d002cedc0e1dd61fccc1ad906bc2
-README.zh.md: 512197606bb36ae65b88b94af2103d1314697ff4
+/:
+  en: 891fa9f998222b74
+  zh: 5eed64a6df09c534
+/lyness-lyn-client-ui-reference:
+  en: 7943b9040bdfec69
+  zh: e32ba9604acafda8
+/lyness-lyn-client-ui-reference/summary:
+  en: a11aab07ed6bd5b0
+  zh: b396b507410c6664
+/lyness-lyn-client-ui-reference/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-client-ui-reference/use-this-package:
+  en: 779a9a534eaad38b
+  zh: 3dd159a2c35702d6
+/lyness-lyn-client-ui-reference/use-this-package/what-a-pick-inserts:
+  en: 975bcc612962d67b
+  zh: 324f431f40735f22
+/lyness-lyn-client-ui-reference/use-this-package/failure-behavior:
+  en: 228ee6f4b81d96a7
+  zh: e1c960c3f5b25317
+/lyness-lyn-client-ui-reference/understand-the-implementation:
+  en: dbfe93987c800112
+  zh: 200d477cc8cd8a1a
+/lyness-lyn-client-ui-reference/understand-the-implementation/candidate-flow:
+  en: 6c77da1e946f72e1
+  zh: b7b8e1e1d4f5a102
+/lyness-lyn-client-ui-reference/understand-the-implementation/serialization:
+  en: 59b406a94a246549
+  zh: d6e0a8dea6f44ee7
+/lyness-lyn-client-ui-reference/further-exploration:
+  en: 7eb3bc92b802f413
+  zh: e5151103dfa85ae4
+/lyness-lyn-client-ui-reference/model-experience:
+  en: f7fa58a80d82d63a
+  zh: 8235157cbbbd18cf
+/lyness-lyn-client-ui-reference/model-experience/kv-cache-effect:
+  en: ff23f8026f7c6050
+  zh: 6b0841800076bcd2
+/lyness-lyn-client-ui-reference/known-limitations-and-deferred-work:
+  en: e79991a25b11e342
+  zh: 15064e8374c8e63d
+/lyness-lyn-client-ui-reference/known-limitations-and-deferred-work/dev-note:
+  en: 80768071dca1786f
+  zh: a82f1ec9dcb368bd

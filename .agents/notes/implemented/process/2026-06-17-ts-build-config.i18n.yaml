@@ -1,6 +1,19 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-06-17-ts-build-config.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/process/2026-06-17-ts-build-config.md
-2026-06-17-ts-build-config.md: 66a84d022ee57c7797ef194440eeb3b6e9f5aecb
-2026-06-17-ts-build-config.zh.md: 9f973328c0eecb938977e92403da314115935b26
+/agent-note-tsc-first-build-and-one-compiler-ownership:
+  en: 85979fef57858927
+  zh: 80a0fee79c71cb3d
+/agent-note-tsc-first-build-and-one-compiler-ownership/problem:
+  en: 62307ddfb9e110cb
+  zh: 236bdad7df92a028
+/agent-note-tsc-first-build-and-one-compiler-ownership/decision:
+  en: 6b4766382e01044f
+  zh: 3d999e25b7ef3783
+/agent-note-tsc-first-build-and-one-compiler-ownership/alternatives-considered:
+  en: 9b143ba610f06e2f
+  zh: 7832be7816aec7e6
+/agent-note-tsc-first-build-and-one-compiler-ownership/consequences:
+  en: bf28a71ce0dc9501
+  zh: e809bd18c2ea3bf7

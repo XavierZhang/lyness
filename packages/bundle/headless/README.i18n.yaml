@@ -1,6 +1,67 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/bundle/headless/README.md
-README.md: ab56e78fa83b8720fc84b04cca075fbaf154dd4c
-README.zh.md: f77f05a9ca243bb3ee851022475b3e5b6a2568f4
+/:
+  en: fa3201ce01a99d6b
+  zh: e78ed79701e26ea7
+/lyness-lyn-headless:
+  en: c7971e99ed5f8da3
+  zh: dbab781fd32346aa
+/lyness-lyn-headless/summary:
+  en: 2e74863ee0ada0d7
+  zh: 081c8498da281d1f
+/lyness-lyn-headless/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-headless/use-this-package:
+  en: 4447012f4c84100d
+  zh: faf579ae9f04c096
+/lyness-lyn-headless/use-this-package/running-a-one-shot-task:
+  en: 943a561aa6b0d28c
+  zh: 4a3ec1e53b6668f7
+/lyness-lyn-headless/use-this-package/choosing-the-session-identity:
+  en: dbaa2fac63910a4c
+  zh: 4fd5c17815ca444b
+/lyness-lyn-headless/use-this-package/machine-readable-output:
+  en: cd7cf1a9fcbc058f
+  zh: ff0064b568a4d774
+/lyness-lyn-headless/use-this-package/when-to-use-it:
+  en: 7779855c88df001a
+  zh: 84d636152fd39634
+/lyness-lyn-headless/use-this-package/help-and-task-errors:
+  en: 626d58aceb4b3f62
+  zh: b1d154cda5de7947
+/lyness-lyn-headless/understand-the-implementation:
+  en: be1b73a6d0ee3902
+  zh: bdba099685d68b27
+/lyness-lyn-headless/understand-the-implementation/run-flow:
+  en: 8541a122ded45706
+  zh: 60fb55f238b8030b
+/lyness-lyn-headless/understand-the-implementation/patch-surface-over-base:
+  en: 172f844d4f20a5d3
+  zh: 3cd0df12b1463453
+/lyness-lyn-headless/understand-the-implementation/exit-mapping:
+  en: a48c1383ac6d4103
+  zh: d61fac0a9be24916
+/lyness-lyn-headless/understand-the-implementation/source-map:
+  en: 4c45b48be04c2d8f
+  zh: c0bc27fbaed268a8
+/lyness-lyn-headless/understand-the-implementation/invariant-ownership:
+  en: 329f170dec4b2279
+  zh: bb40f8beda5b3a1c
+/lyness-lyn-headless/further-exploration:
+  en: 487ec5fad3e64fcd
+  zh: c90356c08dd812e9
+/lyness-lyn-headless/model-experience:
+  en: c5a0991833f64dd7
+  zh: 46f9feb255778f11
+/lyness-lyn-headless/model-experience/kv-cache-effect:
+  en: 0b0f74b412c7c6d8
+  zh: 6e8f918d0c4bf342
+/lyness-lyn-headless/known-limitations-and-deferred-work:
+  en: ec1414e56b045d43
+  zh: f17974e4d4ac6221
+/lyness-lyn-headless/known-limitations-and-deferred-work/dev-note:
+  en: e67f633dc6fe7773
+  zh: 3bb0c20c93f16f98

@@ -1,4 +1,5 @@
 import { createUserMessage } from '@lyness/lyn-llm'
+import type { ContextFormed } from '@lyness/lyn-llm'
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import {
@@ -12,6 +13,12 @@ import { Session, SessionId } from '@lyness/lyn-session'
 import type { SessionSeq } from '@lyness/lyn-session'
 import type { CompactionAgentContext } from '@lyness/lyn-compaction'
 import type { ManualCompactAgentContext } from '@lyness/lyn-compaction'
+
+declare module '@lyness/lyn-llm' {
+  interface MessageSourceMap {
+    'other': { kind: 'other' } & ContextFormed
+  }
+}
 
 /**
  * A trivial concrete CompactionEngine implementing the abstract contract. The
@@ -146,7 +153,7 @@ describe('CompactionEngine seam', () => {
       && isCompactCheckpointSource(event.data.source))
     expect(checkpoint?.type === 'user/message' && checkpoint.data.source)
       .toEqual(compactCheckpointSource(result.compactionId))
-    expect(isCompactCheckpointSource({ kind: 'plugin', plugin: 'other' })).toBe(false)
+    expect(isCompactCheckpointSource({ kind: 'other' })).toBe(false)
     expect(isCompactCheckpointSource({ kind: 'user' })).toBe(false)
     expect(session.snapshotEvents().filter(e => e.type.startsWith('compaction/')).map(e => e.type))
       .toEqual(['compaction/start', 'compaction/summary', 'compaction/end'])

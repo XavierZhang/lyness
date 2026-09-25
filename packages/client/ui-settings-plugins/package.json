@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-client-ui-settings-plugins",
-  "description": "Plugins settings section with feature-owned tabs and configurable host-plane plugin cards",
-  "version": "0.1.5-rc.1",
+  "description": "Built-in plugins settings section for the lyn web client: the Settings navigation entry and the tab chrome feature-owned tabs register into",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -29,8 +29,7 @@
     "client": {
       "inject": [
         "@lyness/lyn-client-locale",
-        "@lyness/lyn-client-ui-settings",
-        "@lyness/lyn-api-remotes"
+        "@lyness/lyn-client-ui-settings"
       ],
       "platform": "web"
     }
@@ -41,21 +40,18 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-api-remotes": "workspace:^",
-    "@lyness/lyn-client-locale": "workspace:^",
-    "@lyness/lyn-client-store": "workspace:^",
-    "@lyness/lyn-client-test-runtime": "workspace:^",
-    "@lyness/lyn-client-ui-primitives": "workspace:^",
-    "@lyness/lyn-client-ui-settings": "workspace:^",
-    "@lyness/lyn-client-ui-slots": "workspace:^",
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-client-locale": "workspace:*",
+    "@lyness/lyn-client-test-runtime": "workspace:*",
+    "@lyness/lyn-client-ui-renderer": "workspace:*",
+    "@lyness/lyn-client-ui-settings": "workspace:*",
+    "@lyness/lyn-client-ui-slots": "workspace:*",
+    "@lyness/lyn-util-values": "workspace:*",
     "@types/react": "~18.3.1",
-    "react": "^18.2.0",
-    "@lyness/lyn-client-ui-renderer": "workspace:^",
-    "clsx": "^2.0.0"
+    "react": "^18.2.0"
   },
   "files": [
     "lib/index.js",

@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-scope",
   "description": "Scoped-context registration primitive (scope tags, scope-filtered event dispatch) for the lyness",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -32,11 +32,11 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/lyn-invariants": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-invariants": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/lyn-invariants": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-invariants": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   }
 }

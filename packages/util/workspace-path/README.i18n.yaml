@@ -1,6 +1,25 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/util/workspace-path/README.md
-README.md: 36b5a6f6c511d9c231388998e268db98a28c2b5e
-README.zh.md: d0230a5287d96363c6dc811ba142063eaf5e16f7
+/:
+  en: e8d97ffa99a57ab7
+  zh: 2d7247c47412c30a
+/lyn-util-workspace-path:
+  en: 1dcbf79fce655ab3
+  zh: 34be4196423d8378
+/lyn-util-workspace-path/summary:
+  en: 96b956a9f44870b5
+  zh: bcf8197d9375016f
+/lyn-util-workspace-path/table-of-contents:
+  en: e8236aa6cbcb7dca
+  zh: 500e57982344c0fa
+/lyn-util-workspace-path/file-addresses:
+  en: 1a930bbc71c031b4
+  zh: e8892dccae9a7b33
+/lyn-util-workspace-path/known-limitations-and-deferred-work:
+  en: 1e6d448f4f0030c4
+  zh: c050dd5e470fe47b
+/lyn-util-workspace-path/known-limitations-and-deferred-work/dev-note:
+  en: cfc7173facebc57c
+  zh: 4ea51377d7c9c147

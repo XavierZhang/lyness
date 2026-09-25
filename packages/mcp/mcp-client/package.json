@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-mcp-client",
   "description": "MCP client bridge: connects to MCP servers and registers their tools on ctx.tools",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -27,30 +27,45 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/lyn-attachment": "workspace:^",
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-scope": "workspace:^",
-    "@lyness/lyn-subprocess": "workspace:^",
-    "@lyness/lyn-timeout": "workspace:^",
-    "@lyness/lyn-tools": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-attachment": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-scope": "workspace:*",
+    "@lyness/lyn-subprocess": "workspace:*",
+    "@lyness/lyn-timeout": "workspace:*",
+    "@lyness/lyn-tools": "workspace:*",
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-mcp-resources": "workspace:*",
+    "@lyness/lyn-system-prompt": "workspace:*"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.12.0",
-    "@lyness/schemastery": "workspace:^",
-    "zod": "^4.4.3"
+    "@lyness/schemastery": "workspace:~",
+    "@modelcontextprotocol/client": "2.0.0",
+    "@lyness/lyn-util-values": "workspace:*"
   },
   "devDependencies": {
-    "@lyness/lyn-attachment": "workspace:^",
-    "@lyness/lyn-attachment-local": "workspace:^",
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-scope": "workspace:^",
-    "@lyness/lyn-subprocess": "workspace:^",
-    "@lyness/lyn-timeout": "workspace:^",
-    "@lyness/lyn-tools": "workspace:^",
+    "@lyness/lyn-attachment": "workspace:*",
+    "@lyness/lyn-attachment-local": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-scope": "workspace:*",
+    "@lyness/lyn-subprocess": "workspace:*",
+    "@lyness/lyn-timeout": "workspace:*",
+    "@lyness/lyn-tools": "workspace:*",
     "@modelcontextprotocol/server-everything": "^2026.7.4",
     "@modelcontextprotocol/server-filesystem": "^2026.7.4",
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-http-proxy": "workspace:^"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-http-proxy": "workspace:*",
+    "@modelcontextprotocol/server": "2.0.0",
+    "@modelcontextprotocol/node": "2.0.0",
+    "zod": "^4.4.3",
+    "@lyness/lyn-mcp-resources": "workspace:*",
+    "@lyness/lyn-system-prompt": "workspace:*"
+  },
+  "peerDependenciesMeta": {
+    "@lyness/lyn-mcp-resources": {
+      "optional": true
+    },
+    "@lyness/lyn-system-prompt": {
+      "optional": true
+    }
   }
 }

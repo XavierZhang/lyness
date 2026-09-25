@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-anonymous-user-id",
   "description": "Shared anonymous user identity for lyness telemetry and feedback correlation",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -27,13 +27,13 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/lyn-brand": "workspace:^",
-    "@lyness/lyn-home-paths": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/lyn-home-paths": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/lyn-brand": "workspace:^",
-    "@lyness/lyn-home-paths": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/lyn-home-paths": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   }
 }

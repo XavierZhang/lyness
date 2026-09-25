@@ -1,6 +1,67 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/shell/shell/README.md
-README.md: eb129262037ee002ce14470ca5d5beb3626d6b21
-README.zh.md: a1d1ecfa05e41fe637efa8b16a74e7211cdee2b8
+/:
+  en: 4a173bf52227a3b6
+  zh: 76bb85595252765c
+/lyness-lyn-shell:
+  en: 53c0c7d07c59f2a3
+  zh: 68008fb21ec7e10d
+/lyness-lyn-shell/summary:
+  en: bb40932744bc4b80
+  zh: 22e2af1327b2f835
+/lyness-lyn-shell/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-shell/use-this-package:
+  en: b81fffe9eb713a49
+  zh: ac37478e7f1f7499
+/lyness-lyn-shell/use-this-package/foreground-commands:
+  en: cf38f6bc0e150602
+  zh: 2ff6cfb0ce48a7b8
+/lyness-lyn-shell/use-this-package/background-processes:
+  en: 277c543917453017
+  zh: d2c100e37944f151
+/lyness-lyn-shell/use-this-package/deadlines-and-bounded-waits:
+  en: 719b0708bf3cf1cf
+  zh: 044f53d543960f42
+/lyness-lyn-shell/use-this-package/requests-and-resolved-specs:
+  en: 344dcba199c6ebe3
+  zh: b26c3cda1683255e
+/lyness-lyn-shell/use-this-package/choosing-and-composing-an-executor:
+  en: acf46c7b22c92003
+  zh: 139cca090441d382
+/lyness-lyn-shell/use-this-package/the-shared-exit-status-contract:
+  en: f4125282c1deab36
+  zh: 46b8ee789ae68a9a
+/lyness-lyn-shell/understand-the-implementation:
+  en: d2192b68c2faf92b
+  zh: 7678a2fd356d8587
+/lyness-lyn-shell/understand-the-implementation/design-philosophy:
+  en: 068624b10ca1e928
+  zh: 0e1532f6ef7aebc8
+/lyness-lyn-shell/understand-the-implementation/source-map:
+  en: 80d45b2de500588a
+  zh: 23da8d99b05f4db6
+/lyness-lyn-shell/understand-the-implementation/settings-namespace:
+  en: a5b81ecee7fe9938
+  zh: 25fcf060b48e14cf
+/lyness-lyn-shell/understand-the-implementation/background-lifecycle-and-ownership:
+  en: 63853c610719e1bb
+  zh: 09668e6fd34c9161
+/lyness-lyn-shell/further-exploration:
+  en: 40618f5e0cb1336f
+  zh: 49ffb747f7bf5eca
+/lyness-lyn-shell/model-experience:
+  en: 7a19a6a31cbcc295
+  zh: 2afe04bee7e5e4dc
+/lyness-lyn-shell/model-experience/kv-cache-effect:
+  en: 40294c1c31b74824
+  zh: 788a4799b1d65a8b
+/lyness-lyn-shell/known-limitations-and-deferred-work:
+  en: 3769cb3e3fdc396c
+  zh: 46b0feb1084a82cb
+/lyness-lyn-shell/known-limitations-and-deferred-work/dev-note:
+  en: e67f633dc6fe7773
+  zh: 3c8bbe93d71a3377

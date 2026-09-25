@@ -1,6 +1,49 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/ui-workflow-run/README.md
-README.md: d0a5c3ca54e4a120c09402bbf5888aef1cb29c62
-README.zh.md: 05bdc14510183d47763d1d1137946d29142c3d28
+/:
+  en: 5822f7e621e95967
+  zh: deb39f60472bb448
+/lyness-lyn-client-ui-workflow-run:
+  en: 0af873d46ddad5b1
+  zh: 80740ceccce8e60f
+/lyness-lyn-client-ui-workflow-run/summary:
+  en: 6fb03f8b4091dcbe
+  zh: 96d4b8b51784dbf6
+/lyness-lyn-client-ui-workflow-run/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-client-ui-workflow-run/use-this-package:
+  en: 9e0efc53be664646
+  zh: f02f8fa564305aec
+/lyness-lyn-client-ui-workflow-run/use-this-package/navigating-the-node:
+  en: ced9d82bdf540585
+  zh: 34651e03ed937508
+/lyness-lyn-client-ui-workflow-run/use-this-package/state-and-completion:
+  en: 03784e501ae8f70a
+  zh: 90b32daccf577780
+/lyness-lyn-client-ui-workflow-run/understand-the-implementation:
+  en: d41b996f3fb6727b
+  zh: 6b40fdf1db894fff
+/lyness-lyn-client-ui-workflow-run/understand-the-implementation/disclosure-choices:
+  en: adf86d983c51865e
+  zh: 014a4644d55be111
+/lyness-lyn-client-ui-workflow-run/understand-the-implementation/composition:
+  en: 364d3c38e5f02149
+  zh: ca5dbee6ac27e141
+/lyness-lyn-client-ui-workflow-run/further-exploration:
+  en: 087a40a6a72ebd66
+  zh: 897f8236307b9b95
+/lyness-lyn-client-ui-workflow-run/model-experience:
+  en: 62a75f801964a0bb
+  zh: a247663753a52ae9
+/lyness-lyn-client-ui-workflow-run/model-experience/kv-cache-effect:
+  en: ca75c51c89c2c9b0
+  zh: de54f3467ef3b9be
+/lyness-lyn-client-ui-workflow-run/known-limitations-and-deferred-work:
+  en: 02c2047848bf494a
+  zh: 274d3f3a512fb595
+/lyness-lyn-client-ui-workflow-run/known-limitations-and-deferred-work/dev-note:
+  en: 8e5a74ff5f3bc069
+  zh: b5d05c4d192ac837

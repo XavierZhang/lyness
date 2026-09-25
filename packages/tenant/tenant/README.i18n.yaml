@@ -1,6 +1,43 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/tenant/tenant/README.md
-README.md: 57ac8102a2b16177f7e56b4c4da308270ae58873
-README.zh.md: f7949102ad1888edd6cfba1e43b513da7c20505b
+/:
+  en: 5a2cfec7d47f8999
+  zh: b7d75e1762759878
+/lyness-lyn-tenant:
+  en: f51b977bde85d2d0
+  zh: 50844be6a3bf2fe8
+/lyness-lyn-tenant/summary:
+  en: 36f86ec3f2e34945
+  zh: ccc1b620e5c564ef
+/lyness-lyn-tenant/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-tenant/use-this-package:
+  en: e58a0dde63892d5d
+  zh: 72f213182e7b7e90
+/lyness-lyn-tenant/use-this-package/what-a-tenant-is:
+  en: 978e4442d5dfff91
+  zh: d98a119eb4821f99
+/lyness-lyn-tenant/use-this-package/what-the-seam-does-not-decide:
+  en: 626e967bdb394247
+  zh: 57b9c655c5a86a4e
+/lyness-lyn-tenant/understand-the-implementation:
+  en: 1ea91f3217d25f63
+  zh: 161f609c659fd159
+/lyness-lyn-tenant/further-exploration:
+  en: edefd164b3f1f87e
+  zh: fa4eabdd83b80feb
+/lyness-lyn-tenant/model-experience:
+  en: 5ce5b3061de6d3a6
+  zh: 0a679e03b85211c2
+/lyness-lyn-tenant/model-experience/kv-cache-effect:
+  en: ca75c51c89c2c9b0
+  zh: ee6d77f08dfbe4ec
+/lyness-lyn-tenant/known-limitations-and-deferred-work:
+  en: 8c01550a89fc83b0
+  zh: 02ae211670e4166a
+/lyness-lyn-tenant/known-limitations-and-deferred-work/dev-note:
+  en: 307497b3b9ac84da
+  zh: 0942fd282d6a8650

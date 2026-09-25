@@ -1,6 +1,28 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-08-31-lyness-rebrand-codemod.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/process/2026-08-31-lyness-rebrand-codemod.md
-2026-08-31-lyness-rebrand-codemod.md: 3659c47d32cde2c9632c6565fbd80cfa2b4fb1bb
-2026-08-31-lyness-rebrand-codemod.zh.md: d74f69f2098bb8d44357fe909a6082742c6c10fa
+/agent-note-the-lyness-rebrand-codemod:
+  en: 3136d26e01cccce1
+  zh: 2556d32860ec8e2f
+/agent-note-the-lyness-rebrand-codemod/problem:
+  en: b9f84aad1839eec0
+  zh: 88b39655e4072b5b
+/agent-note-the-lyness-rebrand-codemod/decision:
+  en: e07b6ce57b6909e3
+  zh: 4ef2b6c6893129ca
+/agent-note-the-lyness-rebrand-codemod/decision/what-the-word-boundary-means:
+  en: 57e7a6532c0fc14e
+  zh: cf76607ce2de0978
+/agent-note-the-lyness-rebrand-codemod/decision/paths-move-with-text:
+  en: 069366ca1d1b51b6
+  zh: 90d7efb3b37b8820
+/agent-note-the-lyness-rebrand-codemod/decision/archived-agent-notes-stay-frozen:
+  en: 3d7d3dfecc0bf84e
+  zh: 9916bf90c574a1c2
+/agent-note-the-lyness-rebrand-codemod/alternatives-considered:
+  en: 7c2b4b2ebb62ff91
+  zh: 0d2a0e8aa7ee139c
+/agent-note-the-lyness-rebrand-codemod/consequences:
+  en: 492d1d79255be3a0
+  zh: efb16f7896ae55e9

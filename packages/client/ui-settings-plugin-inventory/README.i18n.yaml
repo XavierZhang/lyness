@@ -1,6 +1,52 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/ui-settings-plugin-inventory/README.md
-README.md: 233ec14bc89c978ae6c1d8b592a82faa1f023106
-README.zh.md: eb401e3abc982516d1447d4d1b699c96d3a4de38
+/:
+  en: 790dc70b4bdd154b
+  zh: fadc0357c1af04a7
+/lyness-lyn-client-ui-settings-plugin-inventory:
+  en: 68c4475dfcfee783
+  zh: d6addeae58c9c0fd
+/lyness-lyn-client-ui-settings-plugin-inventory/summary:
+  en: 56f5349b6e502525
+  zh: 691a0fe90b739e9d
+/lyness-lyn-client-ui-settings-plugin-inventory/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-client-ui-settings-plugin-inventory/use-this-package:
+  en: 67637808e7940157
+  zh: d4d0716ea4d33e4a
+/lyness-lyn-client-ui-settings-plugin-inventory/use-this-package/reading-a-card:
+  en: 0c76720b49c05a26
+  zh: 20cb11319af522f4
+/lyness-lyn-client-ui-settings-plugin-inventory/use-this-package/the-preset-switcher:
+  en: 84e5938329199a22
+  zh: 6f5cfaac56433e8b
+/lyness-lyn-client-ui-settings-plugin-inventory/use-this-package/retrying-a-failed-read:
+  en: 2859449aaae5ab59
+  zh: 06380059ae429026
+/lyness-lyn-client-ui-settings-plugin-inventory/understand-the-implementation:
+  en: cab883d26642c932
+  zh: 54e7321bd781b400
+/lyness-lyn-client-ui-settings-plugin-inventory/understand-the-implementation/registration:
+  en: e4792880c5916ce0
+  zh: 4c8171a446dd153f
+/lyness-lyn-client-ui-settings-plugin-inventory/understand-the-implementation/rendering:
+  en: b9aa850e5f101b68
+  zh: 8a29025f19f6ce37
+/lyness-lyn-client-ui-settings-plugin-inventory/further-exploration:
+  en: 8b5156becca7bc4a
+  zh: 84ea8551be924d6e
+/lyness-lyn-client-ui-settings-plugin-inventory/model-experience:
+  en: 69fb187ac2361233
+  zh: d4d3ec4ed3e3d98d
+/lyness-lyn-client-ui-settings-plugin-inventory/model-experience/kv-cache-effect:
+  en: ca75c51c89c2c9b0
+  zh: de54f3467ef3b9be
+/lyness-lyn-client-ui-settings-plugin-inventory/known-limitations-and-deferred-work:
+  en: 3d3343d97eb73762
+  zh: 5fc9d1c1f0c4055d
+/lyness-lyn-client-ui-settings-plugin-inventory/known-limitations-and-deferred-work/dev-note:
+  en: 7516b7e39304e5b3
+  zh: 8961c0cefb89ee12

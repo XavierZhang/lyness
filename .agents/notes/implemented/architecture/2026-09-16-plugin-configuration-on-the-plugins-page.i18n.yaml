@@ -1,0 +1,22 @@
+# Bilingual-pair consistency record for 2026-09-16-plugin-configuration-on-the-plugins-page.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-09-16-plugin-configuration-on-the-plugins-page.md
+/agent-note-plugin-configuration-on-the-plugins-page:
+  en: a565625b90a93d75
+  zh: b5a05d8f20874164
+/agent-note-plugin-configuration-on-the-plugins-page/problem:
+  en: 9ca845902f1df3a2
+  zh: 41e3157a843a511e
+/agent-note-plugin-configuration-on-the-plugins-page/decision:
+  en: 6538c0388955d806
+  zh: 9beeb3efaa0b04e7
+/agent-note-plugin-configuration-on-the-plugins-page/consequences:
+  en: 0fb9a4f837a5e560
+  zh: aba980f6b3337f43
+/agent-note-plugin-configuration-on-the-plugins-page/alternatives-considered:
+  en: 14c6db09f23c2005
+  zh: 979730121cd837c3
+/agent-note-plugin-configuration-on-the-plugins-page/testing:
+  en: b58fdf0d5922f52b
+  zh: 0b999255d2b9b832

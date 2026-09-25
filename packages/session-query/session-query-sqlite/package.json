@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-session-query-sqlite",
   "description": "Concrete ctx.sessionQuery backend with SQLite FTS5 search",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -27,10 +27,10 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-session-persistence": "workspace:^",
-    "@lyness/lyn-session-query": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-session-persistence": "workspace:*",
+    "@lyness/lyn-session-query": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   },
   "peerDependenciesMeta": {
     "@lyness/lyn-session-persistence": {
@@ -38,15 +38,15 @@
     }
   },
   "dependencies": {
-    "@lyness/schemastery": "workspace:^"
+    "@lyness/schemastery": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis-plugin-loader": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-session-persistence": "workspace:^",
-    "@lyness/lyn-session-persistence-jsonl": "workspace:^",
-    "@lyness/lyn-session-query": "workspace:^",
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-session-projection": "workspace:^"
+    "@lyness/cordis-plugin-loader": "workspace:~",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-session-persistence": "workspace:*",
+    "@lyness/lyn-session-persistence-jsonl": "workspace:*",
+    "@lyness/lyn-session-query": "workspace:*",
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-session-projection": "workspace:*"
   }
 }

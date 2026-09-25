@@ -1,6 +1,58 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/ui-skill/README.md
-README.md: 335bdfc6684fcf3508e433583cac1f92fc7f735a
-README.zh.md: 97722672f991aee0f00b4c7130bc1455093cfbbd
+/:
+  en: 40814f3004135db9
+  zh: 0e479caa62055a0f
+/lyness-lyn-client-ui-skill:
+  en: fb6b008aefb3f274
+  zh: 3e301741eb430ceb
+/lyness-lyn-client-ui-skill/summary:
+  en: 300acd399f760003
+  zh: a7fb7242d85f1129
+/lyness-lyn-client-ui-skill/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-client-ui-skill/use-this-package:
+  en: 2f17d0875048ef3c
+  zh: 6878ee4c75f2b2cf
+/lyness-lyn-client-ui-skill/use-this-package/what-the-source-offers:
+  en: 2ba1a6158c85b46e
+  zh: 9ab58ceef8743849
+/lyness-lyn-client-ui-skill/use-this-package/the-skill-tool-row:
+  en: 52c7aee8faf26795
+  zh: f68e2f17cc7e369a
+/lyness-lyn-client-ui-skill/understand-the-implementation:
+  en: df2a0ee9d2638f41
+  zh: 3b4af7e505e990ca
+/lyness-lyn-client-ui-skill/understand-the-implementation/candidate-flow:
+  en: 1a02a85859f851c7
+  zh: 03bd48b83c4a287c
+/lyness-lyn-client-ui-skill/understand-the-implementation/registration:
+  en: 1965ad3169b7fd97
+  zh: efc23c44ad1d2765
+/lyness-lyn-client-ui-skill/further-exploration:
+  en: 7c8a0c2cefad3732
+  zh: f17aae50e4eadfc6
+/lyness-lyn-client-ui-skill/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/lyness-lyn-client-ui-skill/model-experience/user-explicit-skill-invocation:
+  en: ae1928252b0ea55c
+  zh: 6c78cb51c6805a2d
+/lyness-lyn-client-ui-skill/model-experience/user-explicit-skill-invocation/what-the-model-sees:
+  en: e72b4d5fb783ec23
+  zh: e3b1cafbbcd70172
+/lyness-lyn-client-ui-skill/model-experience/user-explicit-skill-invocation/token-effect:
+  en: cb759321f8c62a96
+  zh: 6d479501856d9cd6
+/lyness-lyn-client-ui-skill/model-experience/user-explicit-skill-invocation/kv-cache-effect:
+  en: da53c649077dad7e
+  zh: 845f77793f8e10a2
+/lyness-lyn-client-ui-skill/known-limitations-and-deferred-work:
+  en: aed53b17a91d4b02
+  zh: fac571e9228e69c5
+/lyness-lyn-client-ui-skill/known-limitations-and-deferred-work/dev-note:
+  en: f3cb9f98b665c2f9
+  zh: 2275c60173ce961b

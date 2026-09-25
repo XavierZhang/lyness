@@ -1,6 +1,46 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/webhook/webhook/README.md
-README.md: 9c75a53fcc0730e7ab7af4d97727673842606269
-README.zh.md: d2cae613f39d11f084a5f0b7b77fc8b976549c6a
+/:
+  en: e4ac1bc2fef159c0
+  zh: a2d724d2cffb6608
+/lyness-lyn-webhook:
+  en: 8793b7d50fb786fd
+  zh: a230a1467f9fa0bf
+/lyness-lyn-webhook/summary:
+  en: a4287de3e808e789
+  zh: a194377e4f9ebb73
+/lyness-lyn-webhook/table-of-contents:
+  en: 2c6f2175556251ee
+  zh: 753d216d980e1735
+/lyness-lyn-webhook/rule-interface:
+  en: d9674188535399ab
+  zh: c52fe9b7ebe8fe79
+/lyness-lyn-webhook/session-request:
+  en: e4d096efc8633575
+  zh: b1bf7d45fe76c380
+/lyness-lyn-webhook/composition:
+  en: abe6cfee73eb4f36
+  zh: 60c6afa97aae75c0
+/lyness-lyn-webhook/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/lyness-lyn-webhook/model-experience/rule-authored-initial-prompt:
+  en: d9d6f7525ae75c28
+  zh: 981d9ea68b9e884b
+/lyness-lyn-webhook/model-experience/rule-authored-initial-prompt/what-the-model-sees:
+  en: 44859d5d877a1484
+  zh: 0f6c96ff6435167b
+/lyness-lyn-webhook/model-experience/rule-authored-initial-prompt/token-effect:
+  en: 13937f95014a6bea
+  zh: c61031459298c4ab
+/lyness-lyn-webhook/model-experience/rule-authored-initial-prompt/kv-cache-effect:
+  en: 88b78de3ce71698f
+  zh: d13964bad7485d4e
+/lyness-lyn-webhook/known-limitations-and-deferred-work:
+  en: 49d9bd7c7c327cc0
+  zh: ab94de11bbda1936
+/lyness-lyn-webhook/known-limitations-and-deferred-work/dev-note:
+  en: e67f633dc6fe7773
+  zh: e88aeb617ffb74ea

@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-client-ui-sidebar",
   "description": "Sidebar plugin: session multi-level tree, search, grouping, state dots",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -33,7 +33,8 @@
         "@lyness/lyn-client-ui-layout",
         "@lyness/lyn-client-ui-session",
         "@lyness/lyn-client-ui-workspace",
-        "@lyness/lyn-client-locale"
+        "@lyness/lyn-client-locale",
+        "@lyness/lyn-client-shortcuts"
       ],
       "platform": "web"
     }
@@ -44,23 +45,24 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/lyn-api-workspace-controller": "workspace:^",
-    "@lyness/lyn-client-locale": "workspace:^",
-    "@lyness/lyn-client-store": "workspace:^",
-    "@lyness/lyn-client-test-runtime": "workspace:^",
-    "@lyness/lyn-client-ui-layout": "workspace:^",
-    "@lyness/lyn-client-ui-primitives": "workspace:^",
-    "@lyness/lyn-client-ui-renderer": "workspace:^",
-    "@lyness/lyn-client-ui-slots": "workspace:^",
-    "@lyness/lyn-client-ui-session": "workspace:^",
-    "@lyness/lyn-client-ui-workspace": "workspace:^",
+    "@lyness/lyn-api-workspace-controller": "workspace:*",
+    "@lyness/lyn-client-locale": "workspace:*",
+    "@lyness/lyn-client-store": "workspace:*",
+    "@lyness/lyn-client-test-runtime": "workspace:*",
+    "@lyness/lyn-client-ui-layout": "workspace:*",
+    "@lyness/lyn-client-ui-primitives": "workspace:*",
+    "@lyness/lyn-client-ui-renderer": "workspace:*",
+    "@lyness/lyn-client-ui-slots": "workspace:*",
+    "@lyness/lyn-client-ui-session": "workspace:*",
+    "@lyness/lyn-client-ui-workspace": "workspace:*",
     "@types/react": "~18.3.1",
-    "@lyness/cordis": "workspace:^",
+    "@lyness/cordis": "workspace:~",
     "react": "^18.2.0",
-    "clsx": "^2.0.0"
+    "clsx": "^2.0.0",
+    "@lyness/lyn-client-shortcuts": "workspace:*"
   },
   "files": [
     "lib/index.js",

@@ -1,6 +1,22 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-06-13-capability-seams.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-06-13-capability-seams.md
-2026-06-13-capability-seams.md: 08151579227d7ce6afafdc3881ff2e0d3dc8e59a
-2026-06-13-capability-seams.zh.md: bb348564bfb1453732c5dcabb9e7cd3a75214fa3
+/agent-note-capability-seams-service-definition-service-provider-consumer-roles:
+  en: 80fee5fa50eaa0bf
+  zh: 1ef98e648afddd5d
+/agent-note-capability-seams-service-definition-service-provider-consumer-roles/problem:
+  en: 3215928333de66f7
+  zh: 2c72fcacccf25741
+/agent-note-capability-seams-service-definition-service-provider-consumer-roles/decision:
+  en: 39d4e76c06188e0f
+  zh: f3a6a48abb67fdc9
+/agent-note-capability-seams-service-definition-service-provider-consumer-roles/terminology-seam-names-the-trio-not-the-interface:
+  en: 9bacb8d025559cd4
+  zh: d5a7afaa92ccea3a
+/agent-note-capability-seams-service-definition-service-provider-consumer-roles/alternatives-considered:
+  en: cf6e4b1f188d9e4a
+  zh: bf2485a5f539746c
+/agent-note-capability-seams-service-definition-service-provider-consumer-roles/consequences:
+  en: 7b3493f623f1e089
+  zh: 71db481cd3af7b50

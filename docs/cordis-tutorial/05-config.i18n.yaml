@@ -1,6 +1,19 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 05-config.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write docs/cordis-tutorial/05-config.md
-05-config.md: 30440a9f0f5f4e8a884e9fbf95206b0e2bd2cb65
-05-config.zh.md: cb2ed046c0a6a357646c965f6e3d34056cdcdb6f
+/5-configuration:
+  en: 41d6a1c086e8486a
+  zh: bc88acdb865bf841
+/5-configuration/a-configurable-plugin:
+  en: 1fcc4b1a64c6e6bb
+  zh: 85444447b593f18f
+/5-configuration/fail-loud:
+  en: 261253c9d96b0fc1
+  zh: 3f4ea5f34aa2637d
+/5-configuration/volatile-fields:
+  en: ee367f4db7e8598c
+  zh: c1f17caebad9cc0a
+/5-configuration/computed-config-values:
+  en: 5cff641486bc41f3
+  zh: 9392301ae974b856

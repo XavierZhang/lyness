@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-client-connection",
-  "description": "Authenticated RPC transport, generation lifecycle, and browser fixture",
-  "version": "0.1.5-rc.1",
+  "description": "Authenticated RPC transport and generation lifecycle",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -34,8 +34,8 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@lyness/lyn-credentials": "workspace:^",
-    "@lyness/schemastery": "workspace:^",
+    "@lyness/lyn-credentials": "workspace:*",
+    "@lyness/schemastery": "workspace:~",
     "zod": "^4.4.3"
   },
   "files": [
@@ -44,20 +44,17 @@
     "lib/types/**/*.d.ts"
   ],
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-scope": "workspace:*"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-api-session-controller": "workspace:^",
-    "@lyness/lyn-attachment": "workspace:^",
-    "@lyness/lyn-brand": "workspace:^",
-    "@lyness/lyn-commands": "workspace:^",
-    "@lyness/lyn-host-directory-picker": "workspace:^",
-    "@lyness/lyn-host-webserver": "workspace:^",
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-settings": "workspace:^",
-    "@lyness/lyn-tool-todo": "workspace:^",
-    "@lyness/lyn-util-values": "workspace:^"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-attachment": "workspace:*",
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/lyn-host-webserver": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-scope": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-typert-protocol": "workspace:*"
   }
 }

@@ -24,7 +24,7 @@
       name: '@lyness/lyn-plugin-package-inventory-deepseek'
 
     - id: llm-deepseek
-      name: '@lyness/lyn-llm-deepseek'
+      name: '@lyness/lyn-llm-deepseek-api-key'
       config:
         apiKeyEnv: DEEPSEEK_API_KEY
         defaultContextWindow: !!js Number(process.env.LYNESS_CONTEXT_WINDOW ?? 1000000)
@@ -90,6 +90,9 @@
 
     - id: tools
       name: '@lyness/lyn-tools'
+
+    - id: mcp-resources
+      name: '@lyness/lyn-mcp-resources'
 
     - id: agent
       name: '@lyness/lyn-agent'

@@ -1,6 +1,25 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/llm/README.md
-README.md: 5737ca7316bed2da261f6edfe0380fe54ef2876b
-README.zh.md: 7f243acc93c7bd8d6e1b5fe03f48e3f35ac106c2
+/:
+  en: 2c229c1ca0bb752f
+  zh: d238dc305f853b48
+/llm-llm-capability-family:
+  en: 1db2e4fbf045c54f
+  zh: 91df48ea2a2deef8
+/llm-llm-capability-family/summary:
+  en: 757ca5b6ecfda2bf
+  zh: b133a4be8fd9b803
+/llm-llm-capability-family/table-of-contents:
+  en: 1eb35b015a6c423f
+  zh: a8a3dceee2c9e943
+/llm-llm-capability-family/packages:
+  en: fcb4f3bca44f3d9c
+  zh: cc80feae91674700
+/llm-llm-capability-family/related-documentation:
+  en: 1eecfab4450e0c80
+  zh: fd069f06ec6889a8
+/llm-llm-capability-family/dev-note:
+  en: b75c8458928b72b9
+  zh: 003ba4e17b4b5269

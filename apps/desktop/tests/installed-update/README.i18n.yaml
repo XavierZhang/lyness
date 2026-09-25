@@ -1,0 +1,28 @@
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write apps/desktop/tests/installed-update/README.md
+/:
+  en: e509b9908db08b9b
+  zh: d01d0d95db36098c
+/windows-installed-update-walkthrough:
+  en: 38093de18fbb1e37
+  zh: 7d991abf1781dc4c
+/windows-installed-update-walkthrough/summary:
+  en: a462606fa87984c1
+  zh: c40305ba98d9cd6a
+/windows-installed-update-walkthrough/table-of-contents:
+  en: bd61ff806d57cbb1
+  zh: 8b09719bc3b247c8
+/windows-installed-update-walkthrough/prepare-materials:
+  en: 0dbe0e3ccd13744a
+  zh: 0893554d501eb624
+/windows-installed-update-walkthrough/operator-sequence:
+  en: 979401f1e65e21d2
+  zh: 550730e581829e1d
+/windows-installed-update-walkthrough/evidence-and-recovery:
+  en: d28660bf3bb8f6ec
+  zh: 27e097bae4162fb1
+/windows-installed-update-walkthrough/dev-note:
+  en: 550335915d9ca83b
+  zh: f6fa7989e835b029

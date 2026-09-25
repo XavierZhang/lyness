@@ -29,11 +29,11 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-host-brand-icon": "workspace:^",
-    "@lyness/lyn-host-brand-wordmark": "workspace:^"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-host-brand-icon": "workspace:*",
+    "@lyness/lyn-host-brand-wordmark": "workspace:*"
   }
 }

@@ -27,13 +27,13 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@lyness/lyn-tenant": "workspace:^",
-    "@lyness/schemastery": "workspace:^"
+    "@lyness/lyn-tenant": "workspace:*",
+    "@lyness/schemastery": "workspace:~"
   },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:~"
   }
 }

@@ -21,6 +21,7 @@ import * as claudeCode from '../src/index.ts'
 import { E2E_TARGET } from '@lyness/lyn-e2e-target'
 
 const execFileAsync = promisify(execFile)
+const OFFICIAL_DEEPSEEK_MESSAGES_BASE_URL = 'https://api.deepseek.com/anthropic'
 const DEEPSEEK_MODEL = 'deepseek-v4-flash'
 const sdkRoot = dirname(fileURLToPath(
   import.meta.resolve('@anthropic-ai/claude-agent-sdk'),
@@ -47,8 +48,6 @@ afterEach(async () => {
   await Promise.all(contexts.splice(0).map(ctx => ctx.fiber.dispose()))
   for (const root of roots.splice(0)) rmSync(root, { recursive: true, force: true })
 })
-
-
 
 async function expectQuiescent(handles: readonly SubprocessHandle[]): Promise<void> {
   expect(handles.length).toBeGreaterThan(0)
@@ -85,7 +84,7 @@ describe.skipIf(!process.env.DEEPSEEK_API_KEY || !E2E_TARGET.official)(
 
       const env = {
         ANTHROPIC_AUTH_TOKEN: apiKey,
-        ANTHROPIC_BASE_URL: `${E2E_TARGET.baseURL}/anthropic`,
+        ANTHROPIC_BASE_URL: OFFICIAL_DEEPSEEK_MESSAGES_BASE_URL,
         ANTHROPIC_MODEL: DEEPSEEK_MODEL,
         ANTHROPIC_DEFAULT_OPUS_MODEL: DEEPSEEK_MODEL,
         ANTHROPIC_DEFAULT_SONNET_MODEL: DEEPSEEK_MODEL,

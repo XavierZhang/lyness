@@ -1,6 +1,103 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/core/tools/README.md
-README.md: c3e21a78659ab76174bb64d9597f4385a6759809
-README.zh.md: d0998345e6f9408f71fb9d3be900190fb962aa54
+/:
+  en: 3b12a77945c0d1e9
+  zh: e9af32047e4f658b
+/lyness-lyn-tools:
+  en: 916ee22bb435093f
+  zh: 9bbb69819ef990bf
+/lyness-lyn-tools/summary:
+  en: 177f98b05be44e4a
+  zh: f51481d3e1c0eeee
+/lyness-lyn-tools/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-tools/use-this-package:
+  en: bba1e2ed7a3cbaba
+  zh: ebd242134bdd2a49
+/lyness-lyn-tools/use-this-package/register-a-tool:
+  en: 02fce53c21a33d74
+  zh: 01110c4714dfd602
+/lyness-lyn-tools/use-this-package/configure-the-presentation-mode:
+  en: a63fd7dc496f59ed
+  zh: ec04d1ab652419f9
+/lyness-lyn-tools/use-this-package/restrict-tools-per-agent:
+  en: c6f98b2283cc2e47
+  zh: c2cdce5d13473f15
+/lyness-lyn-tools/use-this-package/enforce-policy-on-calls:
+  en: cbfe8317565ac62d
+  zh: 1e71c66941e50881
+/lyness-lyn-tools/use-this-package/host-presentation-descriptors:
+  en: 2198541a7342760c
+  zh: 5c1950170475b728
+/lyness-lyn-tools/understand-the-implementation:
+  en: ce7e776e9d516bdb
+  zh: 59d2751743db7795
+/lyness-lyn-tools/understand-the-implementation/design-concept:
+  en: 92e8af53e6067bad
+  zh: 33c7b99b42c5acac
+/lyness-lyn-tools/understand-the-implementation/source-map:
+  en: 7f61ed30a231b7ba
+  zh: c7587af984650f8b
+/lyness-lyn-tools/understand-the-implementation/execution-and-cancellation:
+  en: dc44a88997777988
+  zh: 56454aeace1c8b77
+/lyness-lyn-tools/understand-the-implementation/ptc-mode:
+  en: 3ff1ec5df2fdd80c
+  zh: d89f35294785a648
+/lyness-lyn-tools/understand-the-implementation/extension-points:
+  en: c2a14d6f22bc9428
+  zh: 89c1414fca465931
+/lyness-lyn-tools/further-exploration:
+  en: 8d45d0fa3127a851
+  zh: 14f72744b3b21c51
+/lyness-lyn-tools/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/lyness-lyn-tools/model-experience/normal-tool-schemas:
+  en: 483b01d9bb2cb49a
+  zh: 1d95095e76fb0996
+/lyness-lyn-tools/model-experience/normal-tool-schemas/what-the-model-sees:
+  en: 0a432f249519a8b5
+  zh: fee1814b23397922
+/lyness-lyn-tools/model-experience/normal-tool-schemas/token-effect:
+  en: d594b71ff5e4cc87
+  zh: dcec1ea0dd2a0fa6
+/lyness-lyn-tools/model-experience/normal-tool-schemas/kv-cache-effect:
+  en: 7c5e75964e020b2c
+  zh: d50d0402d15232d9
+/lyness-lyn-tools/model-experience/ptc-mode-schema-and-system-prompt:
+  en: eaefd7303f22977d
+  zh: 9c425f9501128224
+/lyness-lyn-tools/model-experience/ptc-mode-schema-and-system-prompt/what-the-model-sees:
+  en: 79a28f77df46e0ef
+  zh: b85fac53e942b068
+/lyness-lyn-tools/model-experience/ptc-mode-schema-and-system-prompt/what-the-model-sees/typescript-ptc-mode-sdk-instructions-with-bash:
+  en: 3a8df15e4ae32f9e
+  zh: fc4a800ba363e835
+/lyness-lyn-tools/model-experience/ptc-mode-schema-and-system-prompt/token-effect:
+  en: 12296fcafc14562c
+  zh: f8e9351bb8c6437d
+/lyness-lyn-tools/model-experience/ptc-mode-schema-and-system-prompt/kv-cache-effect:
+  en: 78906628d634441f
+  zh: 492f133aea50cfe3
+/lyness-lyn-tools/model-experience/tool-call-history-and-results:
+  en: a8503137ad03720c
+  zh: 611a2dadf7c0c706
+/lyness-lyn-tools/model-experience/tool-call-history-and-results/what-the-model-sees:
+  en: 7c568da5a45e99ab
+  zh: 7e78f04448fc5450
+/lyness-lyn-tools/model-experience/tool-call-history-and-results/token-effect:
+  en: 8fe3f024f364ed9f
+  zh: 89c1d5d24c5f950b
+/lyness-lyn-tools/model-experience/tool-call-history-and-results/kv-cache-effect:
+  en: 2fbf2175168e8244
+  zh: ad59a120b54a0996
+/lyness-lyn-tools/known-limitations-and-deferred-work:
+  en: 2ac52364de39f91c
+  zh: 26f7be66092b0146
+/lyness-lyn-tools/known-limitations-and-deferred-work/dev-note:
+  en: e67f633dc6fe7773
+  zh: 3bb0c20c93f16f98

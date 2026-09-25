@@ -65,7 +65,7 @@ Each companion protects relationships its package owns, and a companion installs
 | `lyn-permission-presets`, `lyn-user-approval`, `lyn-commands` | Preset references to live presets, approval asked/decided pairing, command run/done pairing |
 | `lyn-jobs`, `lyn-tool-todo`, `lyn-time-context` | Job snapshot field relationships, whole-list todo shape, durable clock readings |
 | `lyn-credentials`, `lyn-settings`, `lyn-storage-domain`, `lyn-workspace` | Commit events against the live service or memory state, entity-cache mirroring |
-| `lyn-agent-presets`, `lyn-session-title`, `lyn-plan-mode`, `lyn-schedule` | Preset mount placement, title source citation, plan-mode payload, schedule stream |
+| `lyn-agent-preset-registry`, `lyn-session-title`, `lyn-plan-mode`, `lyn-schedule` | Preset mount placement, title source citation, plan-mode payload, schedule stream |
 | `lyn-client-hmr`, `lyn-client-modules`, `lyn-client-runtime` | Browser/node-half stat-watcher lifecycle, boot entry graph, slot mutation versioning |
 
 Every other workspace package omits the companion and states the package-specific reason in its README.

@@ -1,0 +1,22 @@
+# Bilingual-pair consistency record for 2026-09-09-plugin-management-in-the-web-sidebar.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-09-09-plugin-management-in-the-web-sidebar.md
+/agent-note-plugin-management-moves-to-the-web-sidebar:
+  en: d744cc12b4d1192e
+  zh: 50b594e4c6a8e4fe
+/agent-note-plugin-management-moves-to-the-web-sidebar/problem:
+  en: a793d163df4bfbc6
+  zh: 0724b3b37fbe3bb9
+/agent-note-plugin-management-moves-to-the-web-sidebar/decision:
+  en: 54d905f178bb8277
+  zh: 207ce087561e4735
+/agent-note-plugin-management-moves-to-the-web-sidebar/alternatives-considered:
+  en: b0fce95a67824599
+  zh: 520c2c649243f863
+/agent-note-plugin-management-moves-to-the-web-sidebar/consequences:
+  en: 74c0051937f03444
+  zh: 256b38ff34549a4d
+/agent-note-plugin-management-moves-to-the-web-sidebar/testing:
+  en: 9d08eb02abc00595
+  zh: 56c7d26016f9deec

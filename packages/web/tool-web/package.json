@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-tool-web",
   "description": "Model-facing web tools (web_search, web_fetch) over the lyness web capability seam (ctx.web)",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -27,32 +27,33 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-system-prompt": "workspace:^",
-    "@lyness/lyn-tools": "workspace:^",
-    "@lyness/lyn-web": "workspace:^"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-system-prompt": "workspace:*",
+    "@lyness/lyn-tools": "workspace:*",
+    "@lyness/lyn-web": "workspace:*"
   },
   "dependencies": {
-    "@lyness/lyn-util-values": "workspace:^",
-    "@lyness/schemastery": "workspace:^",
+    "@lyness/lyn-util-values": "workspace:*",
+    "@lyness/schemastery": "workspace:~",
     "@joplin/turndown-plugin-gfm": "^1.0.67",
     "turndown": "^7.2.4"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-agent": "workspace:^",
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-spill-local": "workspace:^",
-    "@lyness/lyn-spill-policy": "workspace:^",
-    "@lyness/lyn-system-prompt": "workspace:^",
-    "@lyness/lyn-tool-call-timeout-policy": "workspace:^",
-    "@lyness/lyn-tools": "workspace:^",
-    "@lyness/lyn-web": "workspace:^",
-    "@lyness/lyn-web-fetch-http": "workspace:^",
-    "@lyness/lyn-web-search-exa": "workspace:^",
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-spill-local": "workspace:*",
+    "@lyness/lyn-spill-policy": "workspace:*",
+    "@lyness/lyn-system-prompt": "workspace:*",
+    "@lyness/lyn-tool-call-timeout-policy": "workspace:*",
+    "@lyness/lyn-tools": "workspace:*",
+    "@lyness/lyn-web": "workspace:*",
+    "@lyness/lyn-web-fetch-http": "workspace:*",
+    "@lyness/lyn-web-search-exa": "workspace:*",
     "@types/turndown": "^5.0.6",
-    "@lyness/lyn-scope": "workspace:^"
+    "@lyness/lyn-scope": "workspace:*",
+    "@lyness/lyn-token-meter": "workspace:*"
   }
 }

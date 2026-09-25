@@ -1,6 +1,55 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/host/directory-picker-native/README.md
-README.md: fbae9675f9b44b6cea0c727ff18ba29767cd70c7
-README.zh.md: e7e2ebbdc1fd11e073c5567f5f84357eb1c517bd
+/:
+  en: caa1e08492610d5a
+  zh: ea5b4fca758305d4
+/lyness-lyn-host-directory-picker-native:
+  en: b99182c1668f21d7
+  zh: 35693624a9000cac
+/lyness-lyn-host-directory-picker-native/summary:
+  en: 86bfdc4c0c6f92b4
+  zh: baa2b19b2176cd91
+/lyness-lyn-host-directory-picker-native/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-host-directory-picker-native/use-this-package:
+  en: ae1b7eabeea5047d
+  zh: 192d3f3bdb96b5eb
+/lyness-lyn-host-directory-picker-native/use-this-package/when-to-choose-it:
+  en: b5f7ec5b76f48c97
+  zh: efff7b21159ff4b0
+/lyness-lyn-host-directory-picker-native/use-this-package/what-an-operator-experiences:
+  en: 6ea5dc02d78653c1
+  zh: 5d247656f3650d6f
+/lyness-lyn-host-directory-picker-native/use-this-package/observable-failures:
+  en: 833a8ec09c25eb75
+  zh: bf5bd0419098439d
+/lyness-lyn-host-directory-picker-native/understand-the-implementation:
+  en: 42b15ac6321706aa
+  zh: 4ed0861911abaf5d
+/lyness-lyn-host-directory-picker-native/understand-the-implementation/design-concept:
+  en: 8a54f55d1162b16d
+  zh: 29732d82cf1906a7
+/lyness-lyn-host-directory-picker-native/understand-the-implementation/platform-mechanics:
+  en: a78d75054b81753a
+  zh: 52867e73630b1be2
+/lyness-lyn-host-directory-picker-native/understand-the-implementation/source-map:
+  en: 22ecabd6b74d6ecb
+  zh: af59381cf2957b68
+/lyness-lyn-host-directory-picker-native/further-exploration:
+  en: df62b411d1fc4248
+  zh: 364be4cf6121db13
+/lyness-lyn-host-directory-picker-native/model-experience:
+  en: cdbb9c75fbb91bb5
+  zh: 35047dda1956f0ac
+/lyness-lyn-host-directory-picker-native/model-experience/kv-cache-effect:
+  en: ca75c51c89c2c9b0
+  zh: de54f3467ef3b9be
+/lyness-lyn-host-directory-picker-native/known-limitations-and-deferred-work:
+  en: 08faf27d90fde463
+  zh: b8edfb7ec238f2b4
+/lyness-lyn-host-directory-picker-native/known-limitations-and-deferred-work/dev-note:
+  en: 321aef90f4cdb291
+  zh: c6cdc00db1ee9a42

@@ -1,6 +1,37 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for sidebar-right.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write docs/subsystems/sidebar-right.md
-sidebar-right.md: 1b4c270a215d44343424841de684c67d32be8984
-sidebar-right.zh.md: 97a13389d0a918539025a243c0ec87f9420476c6
+/right-sidebar:
+  en: bc6c1bb0a96daa52
+  zh: 0db328d5e0d7b1e8
+/right-sidebar/position-and-ownership:
+  en: 0032bf4f39ce316b
+  zh: 449d076aa7e5922c
+/right-sidebar/addresses:
+  en: 4e5c0cf89acf0730
+  zh: cbba13dc2319c7dd
+/right-sidebar/tab-type-registration:
+  en: 58a0a2dd47aed116
+  zh: 7cd6411a8daebbee
+/right-sidebar/navigation-ctx-sidebarright:
+  en: 27467a0a1d38c2c7
+  zh: a1dee13c666429d3
+/right-sidebar/slots-and-owner-props:
+  en: d85e5cacc98ecd82
+  zh: 31a349f515a891a6
+/right-sidebar/document-renderers:
+  en: a93e4649f73cf4b4
+  zh: 58a09e793085a255
+/right-sidebar/resource-model:
+  en: eae04ad89dfde830
+  zh: a0001d99f9403eb5
+/right-sidebar/workspace-files:
+  en: 89879cd7c619976a
+  zh: e9bfb7d64b45f8f4
+/right-sidebar/shipped-types:
+  en: 60bd3c3c93a97e8c
+  zh: b0759743a40777ee
+/right-sidebar/not-built:
+  en: 2f9e2670326de3bc
+  zh: 6d6226c4601d73e0

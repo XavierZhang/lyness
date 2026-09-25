@@ -1,6 +1,31 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/llm/deepseek-llm-api-extensions/README.md
-README.md: 73c90872388adbe3e027589560fbee009fdb2dce
-README.zh.md: 8dca546b46a9edd400fd28b1874fc005cb729ad2
+/:
+  en: 8805672f8507e16d
+  zh: 07696ec60f8d86e8
+/lyness-lyn-deepseek-llm-api-extensions:
+  en: 10385e17d0267ddb
+  zh: 8bc69f292b9e3805
+/lyness-lyn-deepseek-llm-api-extensions/summary:
+  en: ee7ea9e102662847
+  zh: fc5d43861e0ce4a2
+/lyness-lyn-deepseek-llm-api-extensions/table-of-contents:
+  en: 6b7f62c318c9aad6
+  zh: 5e22d58884e60c87
+/lyness-lyn-deepseek-llm-api-extensions/service:
+  en: 3caad17b0816e128
+  zh: d65dd475840c2545
+/lyness-lyn-deepseek-llm-api-extensions/model-experience:
+  en: 94aa5655d8e77783
+  zh: 27ba1fc2e8bafcbd
+/lyness-lyn-deepseek-llm-api-extensions/model-experience/kv-cache-effect:
+  en: 83eb7f1e6ce80b45
+  zh: 516811171411ffca
+/lyness-lyn-deepseek-llm-api-extensions/known-limitations-and-deferred-work:
+  en: 440169524f1a1323
+  zh: 935424afe40201b7
+/lyness-lyn-deepseek-llm-api-extensions/known-limitations-and-deferred-work/dev-note:
+  en: 0718d089fcbe4223
+  zh: 5d6f73b7ecfe86ef

@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-command-goal",
   "description": "Human-facing slash command for persisted same-session goals",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -27,21 +27,21 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/lyn-commands": "workspace:^",
-    "@lyness/lyn-goal": "workspace:^",
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-commands": "workspace:*",
+    "@lyness/lyn-goal": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis-plugin-loader": "workspace:^",
-    "@lyness/lyn-agent": "workspace:^",
-    "@lyness/lyn-agent-loop": "workspace:^",
-    "@lyness/lyn-agent-loop-testkit": "workspace:^",
-    "@lyness/lyn-commands": "workspace:^",
-    "@lyness/lyn-goal": "workspace:^",
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-session-projection": "workspace:^"
+    "@lyness/cordis-plugin-loader": "workspace:~",
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/lyn-agent-loop": "workspace:*",
+    "@lyness/lyn-agent-loop-testkit": "workspace:*",
+    "@lyness/lyn-commands": "workspace:*",
+    "@lyness/lyn-goal": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-session-projection": "workspace:*"
   }
 }

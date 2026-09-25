@@ -1,6 +1,19 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-09-01-parent-owned-subagent-catalog.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-09-01-parent-owned-subagent-catalog.md
-2026-09-01-parent-owned-subagent-catalog.md: 8333c81199de23f15503a22c448c542133cbe78c
-2026-09-01-parent-owned-subagent-catalog.zh.md: e4645c26f39b9941bae15f4172b0a116d0dd3d12
+/agent-note-parent-owned-subagent-catalog-events:
+  en: e965147979644e12
+  zh: c586f7ea560360f0
+/agent-note-parent-owned-subagent-catalog-events/problem:
+  en: 5a991fec31578cea
+  zh: 13b75aa36eb22907
+/agent-note-parent-owned-subagent-catalog-events/decision:
+  en: 0e4c9a44d5fa12f4
+  zh: e40c9087a0d62d64
+/agent-note-parent-owned-subagent-catalog-events/alternatives-considered:
+  en: 7a3d4b9f69c243d8
+  zh: 82b03d16ccc94dd2
+/agent-note-parent-owned-subagent-catalog-events/consequences:
+  en: e8e07c812bd7d524
+  zh: 5011c1367dd2c2bf

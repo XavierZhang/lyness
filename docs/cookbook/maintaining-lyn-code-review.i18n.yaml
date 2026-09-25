@@ -1,6 +1,22 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for maintaining-lyn-code-review.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write docs/cookbook/maintaining-lyn-code-review.md
-maintaining-lyn-code-review.md: e234a5e602e2ac672433e06866db6bce370911da
-maintaining-lyn-code-review.zh.md: 2724d136b0fe7180b91b9266fcae5dfd15c26a29
+/maintaining-the-lyn-code-review-skill:
+  en: cbd1e8dfae78372f
+  zh: 0c4aa548484ac1ea
+/maintaining-the-lyn-code-review-skill/what-the-maintainer-receives:
+  en: 7232e25906f0c3e5
+  zh: 8fc91fc04576154e
+/maintaining-the-lyn-code-review-skill/what-the-operator-does-with-a-candidate-diff:
+  en: 4bf64a25628c0e19
+  zh: 859ef8a33155dbe4
+/maintaining-the-lyn-code-review-skill/when-a-run-produces-no-candidate:
+  en: feb6d261939d6c19
+  zh: 044d8238cd6537d3
+/maintaining-the-lyn-code-review-skill/interruptions-and-handoff:
+  en: edd4044f82234790
+  zh: 688c3014a81e8bda
+/maintaining-the-lyn-code-review-skill/where-the-operator-s-private-setup-lives:
+  en: ae06145764738c16
+  zh: d527b944db8c52be

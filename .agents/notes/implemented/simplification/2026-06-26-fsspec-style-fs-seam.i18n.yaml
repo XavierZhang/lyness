@@ -1,6 +1,40 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-06-26-fsspec-style-fs-seam.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/simplification/2026-06-26-fsspec-style-fs-seam.md
-2026-06-26-fsspec-style-fs-seam.md: ab34183bcb58e7b8d40f61b159af573bb1fbf85e
-2026-06-26-fsspec-style-fs-seam.zh.md: 02ae3fecfd93aafaa85fef203ca74c9cf1863f0a
+/agent-note-split-the-filesystem-seam-provider-text-mutations-plus-the-lyn-fs-observation-policy-plugin:
+  en: 374447d4647ccc39
+  zh: ee30e514e3ecf5f6
+/agent-note-split-the-filesystem-seam-provider-text-mutations-plus-the-lyn-fs-observation-policy-plugin/problem:
+  en: 3ec45c7aaf0ae063
+  zh: ac3c33848b4a0c0d
+/agent-note-split-the-filesystem-seam-provider-text-mutations-plus-the-lyn-fs-observation-policy-plugin/decision:
+  en: ead53d169cacd297
+  zh: 6e4d5a3094e72633
+/agent-note-split-the-filesystem-seam-provider-text-mutations-plus-the-lyn-fs-observation-policy-plugin/provider-contract:
+  en: 4c3cd805a700693a
+  zh: 42fc015c892c5117
+/agent-note-split-the-filesystem-seam-provider-text-mutations-plus-the-lyn-fs-observation-policy-plugin/policy-contract:
+  en: 1b41a9a2fd8fa555
+  zh: 3b7d0312d9a8582a
+/agent-note-split-the-filesystem-seam-provider-text-mutations-plus-the-lyn-fs-observation-policy-plugin/tool-contract:
+  en: 028dd19612b3f05b
+  zh: ed6c816053c835dd
+/agent-note-split-the-filesystem-seam-provider-text-mutations-plus-the-lyn-fs-observation-policy-plugin/concurrency-boundary:
+  en: 6a459d121a49988c
+  zh: 048de517a0f952b6
+/agent-note-split-the-filesystem-seam-provider-text-mutations-plus-the-lyn-fs-observation-policy-plugin/supersedes:
+  en: 395dbc6f86712872
+  zh: d6651fe1bc031514
+/agent-note-split-the-filesystem-seam-provider-text-mutations-plus-the-lyn-fs-observation-policy-plugin/verification:
+  en: 79032860f2a38673
+  zh: f6c9a6d973d90c63
+/agent-note-split-the-filesystem-seam-provider-text-mutations-plus-the-lyn-fs-observation-policy-plugin/later-extension:
+  en: b56210bf2c8f8dec
+  zh: 27decb39624c0ef7
+/agent-note-split-the-filesystem-seam-provider-text-mutations-plus-the-lyn-fs-observation-policy-plugin/alternatives-considered:
+  en: 050335cf80de7789
+  zh: c7e1f8cca4f7383a
+/agent-note-split-the-filesystem-seam-provider-text-mutations-plus-the-lyn-fs-observation-policy-plugin/consequences:
+  en: 665450b87b30e5ce
+  zh: f635d185120ef897

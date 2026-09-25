@@ -1,6 +1,31 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for index.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write docs/user/develop/framework/index.md
-index.md: 355ff608aef283031145dccb40dfacac2f7bd812
-index.zh.md: d7cac5f82059249b9a8cf4f7ad6bb1c4a4722b7b
+/plugins-and-lifecycle:
+  en: a9e8d1a65664050e
+  zh: c9d05da6efa4fdb5
+/plugins-and-lifecycle/fiber-state-machine:
+  en: 66b51bb63094de1a
+  zh: 1d9f70611c9930ea
+/plugins-and-lifecycle/dependency-driven-loading:
+  en: 726a61e5c20db20f
+  zh: bd935ca733c30a15
+/plugins-and-lifecycle/automatic-cleanup:
+  en: e9bcc83f7a752d13
+  zh: c8df4bd5c23c8875
+/plugins-and-lifecycle/nested-contexts:
+  en: 2862ee99034d4423
+  zh: 7180298e3eff6524
+/plugins-and-lifecycle/dispose-semantics:
+  en: 1d23337dbcc4ae61
+  zh: ad003f8b5e325801
+/plugins-and-lifecycle/hot-replacement-hmr:
+  en: 068f3362ad4979f8
+  zh: 605f10b1f6874e06
+/plugins-and-lifecycle/example-lifecycle:
+  en: e17160970571b690
+  zh: e49149cd82e77801
+/plugins-and-lifecycle/next-steps:
+  en: 725bbc055520cc06
+  zh: 87f1ef0014deed85

@@ -1,6 +1,49 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-07-24-domain-kv-storage-and-workspace.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/proposed/architecture/2026-07-24-domain-kv-storage-and-workspace.md
-2026-07-24-domain-kv-storage-and-workspace.md: 1abf7397e26c482e575c84e79b757c4d8729163c
-2026-07-24-domain-kv-storage-and-workspace.zh.md: af13abcd82aa1b6ea9449e3fd83c04d3185f7eeb
+/agent-note-domain-kv-storage-capability-seam-and-the-workspace-entity:
+  en: 58f6065e1afb0638
+  zh: 398c17e5e44a4806
+/agent-note-domain-kv-storage-capability-seam-and-the-workspace-entity/problem:
+  en: 486f2d63b502d4fc
+  zh: 4819c222f78afdbc
+/agent-note-domain-kv-storage-capability-seam-and-the-workspace-entity/proposal:
+  en: dcb8d6385ae6370d
+  zh: 66e621bf9845fa6a
+/agent-note-domain-kv-storage-capability-seam-and-the-workspace-entity/proposal/lyn-storage-the-storage-hub:
+  en: 2beba524d6bdb83d
+  zh: d65f5a212793c2db
+/agent-note-domain-kv-storage-capability-seam-and-the-workspace-entity/proposal/lyn-storage-json:
+  en: 3e32da1bda6bb915
+  zh: 8bbaa0a74e599954
+/agent-note-domain-kv-storage-capability-seam-and-the-workspace-entity/proposal/lyn-storage-sqlite:
+  en: 547018047c772faa
+  zh: ee52e3ad973e5184
+/agent-note-domain-kv-storage-capability-seam-and-the-workspace-entity/proposal/lyn-domain-the-domain-data-form:
+  en: 133ba36297b0a551
+  zh: fa90acbd9c37485f
+/agent-note-domain-kv-storage-capability-seam-and-the-workspace-entity/proposal/future-work-session-side-deletion-design-settled-not-implemented-this-phase:
+  en: a3824326587b6539
+  zh: 9736e3060bd57651
+/agent-note-domain-kv-storage-capability-seam-and-the-workspace-entity/proposal/lyn-workspace:
+  en: 4a78d6ae090ff43b
+  zh: 256f566cfc3ccd7e
+/agent-note-domain-kv-storage-capability-seam-and-the-workspace-entity/proposal/reuse-and-the-session-backend-migration-outlook:
+  en: 9939afb429987831
+  zh: 863bc33410298db1
+/agent-note-domain-kv-storage-capability-seam-and-the-workspace-entity/proposal/test-matrix:
+  en: 4f8560110ec03322
+  zh: 574d611d6e086e96
+/agent-note-domain-kv-storage-capability-seam-and-the-workspace-entity/proposal/out-of-scope-list:
+  en: 6a8b96b362f8a742
+  zh: 4ba5c96353ae46f5
+/agent-note-domain-kv-storage-capability-seam-and-the-workspace-entity/alternatives-considered:
+  en: 159649c838437048
+  zh: 286e2f61c796cb1c
+/agent-note-domain-kv-storage-capability-seam-and-the-workspace-entity/acceptance-criteria:
+  en: ec4f2e69de32577b
+  zh: 64a4d049a3b75004
+/agent-note-domain-kv-storage-capability-seam-and-the-workspace-entity/risks:
+  en: d5d49b31afe6cfab
+  zh: 19606893bbde5b03

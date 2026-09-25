@@ -1,6 +1,70 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/modules/README.md
-README.md: d091180b16608e61c05a7757a9a61758cd5931ae
-README.zh.md: 0b6dfa79af2c489a4fdd38d03b693f8947852340
+/:
+  en: 97d39db1617684ea
+  zh: de11ba354583a044
+/lyness-lyn-client-modules:
+  en: e1f1574e8cc18d98
+  zh: 39e41125c416191d
+/lyness-lyn-client-modules/summary:
+  en: 6a3d83e2c4de5ae7
+  zh: 848c591647bd6e51
+/lyness-lyn-client-modules/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-client-modules/use-this-package:
+  en: b23e4dbef92534e8
+  zh: 3c8d5c51d04188d9
+/lyness-lyn-client-modules/use-this-package/declaring-a-client-plugin:
+  en: f0b2a8f8e88eeb8f
+  zh: 114a89c50d0a3e60
+/lyness-lyn-client-modules/use-this-package/what-the-browser-loads:
+  en: 1383d68472b3c057
+  zh: 94dd7d9abbdbccf3
+/lyness-lyn-client-modules/use-this-package/live-plugin-composition:
+  en: 45740a56e931d094
+  zh: b3362af77c804459
+/lyness-lyn-client-modules/use-this-package/sharing-modules:
+  en: 0774b2c1dbc7d348
+  zh: ca51c80156f2bcf1
+/lyness-lyn-client-modules/use-this-package/build-requirements:
+  en: b6a4d3b901c89efe
+  zh: 615b5f3eec41f281
+/lyness-lyn-client-modules/understand-the-implementation:
+  en: 7ab11d2c2bdc6eaa
+  zh: 54c3c9091cf59711
+/lyness-lyn-client-modules/understand-the-implementation/design-concept:
+  en: b1c686b59accb209
+  zh: 5e12f20352e2d9c2
+/lyness-lyn-client-modules/understand-the-implementation/lazy-cjs-model:
+  en: 6d16b74acb333e3b
+  zh: fcb3a20cc8c39e4a
+/lyness-lyn-client-modules/understand-the-implementation/incremental-composition:
+  en: 1b54c654b3f7344d
+  zh: c20d3499b51f0b4d
+/lyness-lyn-client-modules/understand-the-implementation/boot-manifest-injection:
+  en: 253d9f265cd83ed0
+  zh: 9d0f8df84d9d3ac9
+/lyness-lyn-client-modules/understand-the-implementation/entry-ownership:
+  en: ae59769034d692fa
+  zh: f71914d6f39b033a
+/lyness-lyn-client-modules/understand-the-implementation/source-map:
+  en: d94dfc3f00776772
+  zh: c5b6fed842a892a3
+/lyness-lyn-client-modules/further-exploration:
+  en: c00cdb5620810548
+  zh: 93c2d89a788c6b3a
+/lyness-lyn-client-modules/model-experience:
+  en: abb2fc0416e1482c
+  zh: 0e8a913d424a0c28
+/lyness-lyn-client-modules/model-experience/kv-cache-effect:
+  en: ca75c51c89c2c9b0
+  zh: de54f3467ef3b9be
+/lyness-lyn-client-modules/known-limitations-and-deferred-work:
+  en: d0908712f037c479
+  zh: 14034e5df3c34e7f
+/lyness-lyn-client-modules/known-limitations-and-deferred-work/dev-note:
+  en: e67f633dc6fe7773
+  zh: 3bb0c20c93f16f98

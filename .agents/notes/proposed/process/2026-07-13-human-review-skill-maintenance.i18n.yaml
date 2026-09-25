@@ -1,6 +1,40 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-07-13-human-review-skill-maintenance.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/proposed/process/2026-07-13-human-review-skill-maintenance.md
-2026-07-13-human-review-skill-maintenance.md: 1a2270c2771161bcd70d2883c37ad12004da5abb
-2026-07-13-human-review-skill-maintenance.zh.md: 15259157e106fea4fe5683dc9e7a143560007d54
+/agent-note-periodic-human-review-maintenance-for-lyn-code-review:
+  en: cde46b08a46c733d
+  zh: cc45e19103737e3b
+/agent-note-periodic-human-review-maintenance-for-lyn-code-review/problem:
+  en: c789dfc8921a9a52
+  zh: 49db6ba11564cbe7
+/agent-note-periodic-human-review-maintenance-for-lyn-code-review/proposal:
+  en: 895f3347448b62d6
+  zh: c16bb5a067d9bfee
+/agent-note-periodic-human-review-maintenance-for-lyn-code-review/proposal/acquisition-contract:
+  en: a95dea3f6b37af6f
+  zh: 29cfc8f03a8b487b
+/agent-note-periodic-human-review-maintenance-for-lyn-code-review/proposal/adoption-evidence:
+  en: f61dfd9e11b1e5a5
+  zh: c87f245097c39fc7
+/agent-note-periodic-human-review-maintenance-for-lyn-code-review/proposal/dual-reviewer-classification-and-drafting:
+  en: fe1f6987e5a7d4f7
+  zh: 74d990935316e69b
+/agent-note-periodic-human-review-maintenance-for-lyn-code-review/proposal/reviewer-adapter-protocol:
+  en: baa824361e643e80
+  zh: 15d5efb0a1ca2c11
+/agent-note-periodic-human-review-maintenance-for-lyn-code-review/proposal/promotion-contract:
+  en: dd6810cf423430bc
+  zh: 0c81e470f64af150
+/agent-note-periodic-human-review-maintenance-for-lyn-code-review/proposal/where-the-mechanism-lives:
+  en: d6d27a6b6a827770
+  zh: 4ff4aaa04e34c85b
+/agent-note-periodic-human-review-maintenance-for-lyn-code-review/alternatives-considered:
+  en: 1673a2138ddd34c2
+  zh: 81c91a50ea0703d6
+/agent-note-periodic-human-review-maintenance-for-lyn-code-review/acceptance-criteria:
+  en: 98e9db38bf1076d2
+  zh: 4c000b0194ac3034
+/agent-note-periodic-human-review-maintenance-for-lyn-code-review/risks:
+  en: b26ffb43c1c35b3a
+  zh: c2c8b81a8317cd55

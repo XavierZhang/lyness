@@ -1,0 +1,37 @@
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write packages/experimental/browser-use-runtime/README.md
+/:
+  en: 32bd01db6a5146ed
+  zh: 31e56827b98bc1b3
+/lyness-lyn-experimental-browser-use-runtime:
+  en: 156e4e93931a317f
+  zh: cd55e7fd552b649c
+/lyness-lyn-experimental-browser-use-runtime/summary:
+  en: ac29eb4a94d3cbff
+  zh: 66f2e800cabb19aa
+/lyness-lyn-experimental-browser-use-runtime/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: f14f34fce35a8d90
+/lyness-lyn-experimental-browser-use-runtime/use-this-package:
+  en: 460ee943e496a503
+  zh: 0bef5d6398078741
+/lyness-lyn-experimental-browser-use-runtime/understand-the-implementation:
+  en: 5c21a333c9aa3344
+  zh: a89796dd1beeeca9
+/lyness-lyn-experimental-browser-use-runtime/further-exploration:
+  en: 40cf6aa042c1ebe1
+  zh: 53e62cb04ffa1729
+/lyness-lyn-experimental-browser-use-runtime/model-experience:
+  en: 705441e08df596c9
+  zh: d70a7ba9611daca5
+/lyness-lyn-experimental-browser-use-runtime/model-experience/kv-cache-effect:
+  en: 68b91a73746b663a
+  zh: 18f6d14457ed81d9
+/lyness-lyn-experimental-browser-use-runtime/known-limitations-and-deferred-work:
+  en: 336d4014afe5f5c3
+  zh: 3e85b6b5bc55f2cf
+/lyness-lyn-experimental-browser-use-runtime/known-limitations-and-deferred-work/dev-note:
+  en: e67f633dc6fe7773
+  zh: 8ec3e73528ddb1a6

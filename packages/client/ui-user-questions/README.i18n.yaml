@@ -1,6 +1,52 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/ui-user-questions/README.md
-README.md: bd02fc8520d1bf5a1738fc3c4fb29457e6876426
-README.zh.md: a1054f2a976bced8a0deb9c1e470fbc4dda4e581
+/:
+  en: baec3d00249737ff
+  zh: 64875c879d23625e
+/lyness-lyn-client-ui-user-questions:
+  en: 3cf696f2db64c1ec
+  zh: f2f8abeb740d5318
+/lyness-lyn-client-ui-user-questions/summary:
+  en: 7e81c6a53759ff37
+  zh: b83f666c4ef4cbd3
+/lyness-lyn-client-ui-user-questions/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-client-ui-user-questions/use-this-package:
+  en: 4aa048dcb7282f12
+  zh: d2731da0870aa6a0
+/lyness-lyn-client-ui-user-questions/use-this-package/answering:
+  en: 8b6f37bfb11a2c3a
+  zh: 59d8951211f9b21b
+/lyness-lyn-client-ui-user-questions/use-this-package/the-plan-review-card:
+  en: 940a3eccbaede4ea
+  zh: b8ecad1fa6ff5a87
+/lyness-lyn-client-ui-user-questions/use-this-package/failure-and-recovery:
+  en: da530ef485c07417
+  zh: b07525cfcd5034f0
+/lyness-lyn-client-ui-user-questions/understand-the-implementation:
+  en: 77e1b2585acdf67b
+  zh: d433ec185c6b8f57
+/lyness-lyn-client-ui-user-questions/understand-the-implementation/intent-surface-election:
+  en: 7f3e0e2460317462
+  zh: cb6b9410410e2f29
+/lyness-lyn-client-ui-user-questions/understand-the-implementation/copy-and-locale:
+  en: d94763521a7ea68e
+  zh: 49bb405834baebda
+/lyness-lyn-client-ui-user-questions/further-exploration:
+  en: 63eea2db39e1f0ac
+  zh: 5f0822cb0c248696
+/lyness-lyn-client-ui-user-questions/model-experience:
+  en: 5e549ad1841bf45b
+  zh: b1f8fc760d3879af
+/lyness-lyn-client-ui-user-questions/model-experience/kv-cache-effect:
+  en: 068c813bb31af476
+  zh: cf1d0b24d8ea547f
+/lyness-lyn-client-ui-user-questions/known-limitations-and-deferred-work:
+  en: beb6dc6d1496e799
+  zh: d92150a88a797c21
+/lyness-lyn-client-ui-user-questions/known-limitations-and-deferred-work/dev-note:
+  en: 7c763299daed17e4
+  zh: fb410b366b407ec7

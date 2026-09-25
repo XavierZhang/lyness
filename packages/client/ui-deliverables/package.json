@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-client-ui-deliverables",
-  "description": "Produced-files turn tail and clickable final-response file references for Web",
-  "version": "0.1.5-rc.1",
+  "description": "Changed-files card with per-file comparison tabs, delivery cards, and clickable final-response file references for Web",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -34,7 +34,9 @@
         "@lyness/lyn-client-ui-chat",
         "@lyness/lyn-client-ui-conversation",
         "@lyness/lyn-client-ui-renderer",
-        "@lyness/lyn-client-ui-tool"
+        "@lyness/lyn-client-ui-sidebar-right",
+        "@lyness/lyn-client-ui-tool",
+        "@lyness/lyn-client-ui-settings"
       ],
       "platform": "web"
     }
@@ -45,35 +47,39 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/lyn-api-remotes": "workspace:^",
-    "@lyness/lyn-client-connection": "workspace:^",
-    "@lyness/lyn-client-locale": "workspace:^",
-    "@lyness/lyn-client-store": "workspace:^",
-    "@lyness/lyn-client-test-runtime": "workspace:^",
-    "@lyness/lyn-client-ui-chat": "workspace:^",
-    "@lyness/lyn-client-ui-conversation": "workspace:^",
-    "@lyness/lyn-client-ui-renderer": "workspace:^",
-    "@lyness/lyn-client-ui-slots": "workspace:^",
+    "@lyness/lyn-api-remotes": "workspace:*",
+    "@lyness/lyn-client-connection": "workspace:*",
+    "@lyness/lyn-client-locale": "workspace:*",
+    "@lyness/lyn-client-store": "workspace:*",
+    "@lyness/lyn-client-test-runtime": "workspace:*",
+    "@lyness/lyn-client-ui-chat": "workspace:*",
+    "@lyness/lyn-client-ui-conversation": "workspace:*",
+    "@lyness/lyn-client-ui-dockkit": "workspace:*",
+    "@lyness/lyn-client-ui-renderer": "workspace:*",
+    "@lyness/lyn-client-ui-sidebar-right": "workspace:*",
+    "@lyness/lyn-client-ui-slots": "workspace:*",
     "@types/react": "~18.3.1",
-    "@lyness/cordis": "workspace:^",
+    "@lyness/cordis": "workspace:~",
     "react": "^18.2.0",
-    "@lyness/lyn-client-ui-primitives": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-system-prompt": "workspace:^",
-    "@lyness/lyn-session-query": "workspace:^",
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-client-ui-tool": "workspace:^",
-    "@lyness/lyn-tool-present": "workspace:^",
-    "@lyness/lyn-api-session-controller": "workspace:^",
-    "@lyness/lyn-util-workspace-path": "workspace:^",
-    "@lyness/lyn-api-workspace-files": "workspace:^",
-    "@lyness/lyn-fs": "workspace:^",
-    "@lyness/lyn-fs-local": "workspace:^",
-    "@lyness/lyn-agent": "workspace:^",
-    "@lyness/lyn-sandbox-policy": "workspace:^"
+    "@lyness/lyn-client-ui-primitives": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-system-prompt": "workspace:*",
+    "@lyness/lyn-session-query": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-client-ui-tool": "workspace:*",
+    "@lyness/lyn-tool-present": "workspace:*",
+    "@lyness/lyn-workspace-changes": "workspace:*",
+    "@lyness/lyn-api-session-controller": "workspace:*",
+    "@lyness/lyn-util-workspace-path": "workspace:*",
+    "@lyness/lyn-api-workspace-files": "workspace:*",
+    "@lyness/lyn-fs": "workspace:*",
+    "@lyness/lyn-fs-local": "workspace:*",
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/lyn-sandbox-policy": "workspace:*",
+    "@lyness/lyn-client-ui-settings": "workspace:*"
   },
   "files": [
     "lib/index.js",
@@ -81,6 +87,6 @@
     "lib/types/**/*.d.ts"
   ],
   "dependencies": {
-    "@lyness/lyn-typert-protocol": "workspace:^"
+    "@lyness/lyn-typert-protocol": "workspace:*"
   }
 }

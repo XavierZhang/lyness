@@ -1,0 +1,19 @@
+# Bilingual-pair consistency record for 2026-09-21-live-config-inspect-provider.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-09-21-live-config-inspect-provider.md
+/agent-note-live-plugin-config-inspection-replaces-the-host-builtin-provider:
+  en: 3196d5cc5345f265
+  zh: 2bed175682af7148
+/agent-note-live-plugin-config-inspection-replaces-the-host-builtin-provider/problem:
+  en: e01cc31ce200b24b
+  zh: 7462a52c3e59ec87
+/agent-note-live-plugin-config-inspection-replaces-the-host-builtin-provider/decision:
+  en: d06595aeecc87ec6
+  zh: 2b9572998bd43985
+/agent-note-live-plugin-config-inspection-replaces-the-host-builtin-provider/alternatives-considered:
+  en: 773e9bfa942122f3
+  zh: 1387e1dc39a4609f
+/agent-note-live-plugin-config-inspection-replaces-the-host-builtin-provider/consequences:
+  en: efa454977043c76d
+  zh: d6bf61ac47310d3e

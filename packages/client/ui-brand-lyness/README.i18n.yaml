@@ -1,6 +1,43 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/ui-brand-lyness/README.md
-README.md: 60bcc6b93c84a1d13eee4a91e2e664cda91c07bf
-README.zh.md: 3a55d6e6238c9dde532a656723655d2bf7f558ca
+/:
+  en: e428915e617df56d
+  zh: 1f81c3e25b5cfabb
+/lyness-lyn-client-ui-brand-lyness:
+  en: 6950ad55b8f6b980
+  zh: bf6514031db66543
+/lyness-lyn-client-ui-brand-lyness/summary:
+  en: 4ae1f2313e5093e9
+  zh: 442c8733c06e1c2a
+/lyness-lyn-client-ui-brand-lyness/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-client-ui-brand-lyness/use-this-package:
+  en: 4061c51b14a0d476
+  zh: baebdcce1f7fc980
+/lyness-lyn-client-ui-brand-lyness/use-this-package/deployment-brand:
+  en: ad816f3a52d18e9c
+  zh: cb94e6ed9e66ad5f
+/lyness-lyn-client-ui-brand-lyness/use-this-package/replacing-the-brand:
+  en: d51939db31dbb959
+  zh: ae52ca7df813bead
+/lyness-lyn-client-ui-brand-lyness/understand-the-implementation:
+  en: 917848dea495f08a
+  zh: 2f67d409cf613b1e
+/lyness-lyn-client-ui-brand-lyness/further-exploration:
+  en: 5e149e0487270d6e
+  zh: 96097de04d312a95
+/lyness-lyn-client-ui-brand-lyness/model-experience:
+  en: 618008c7641070e7
+  zh: 7233febb4d92ccfb
+/lyness-lyn-client-ui-brand-lyness/model-experience/kv-cache-effect:
+  en: ca75c51c89c2c9b0
+  zh: f57cc48a1b5cbfa9
+/lyness-lyn-client-ui-brand-lyness/known-limitations-and-deferred-work:
+  en: d882075831ec9a59
+  zh: 2d15c7b419f44df3
+/lyness-lyn-client-ui-brand-lyness/known-limitations-and-deferred-work/dev-note:
+  en: b141c8b4feecb44f
+  zh: 308a9c622aef4b78

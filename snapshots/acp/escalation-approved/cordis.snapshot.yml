@@ -3,7 +3,7 @@
 # raw for fixture harvesting.
 
 - id: llm-deepseek
-  name: '@lyness/lyn-llm-deepseek'
+  name: '@lyness/lyn-llm-deepseek-api-key'
   disabled: true
 
 - id: acp

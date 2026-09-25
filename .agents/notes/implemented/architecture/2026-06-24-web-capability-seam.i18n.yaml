@@ -1,6 +1,76 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-06-24-web-capability-seam.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-06-24-web-capability-seam.md
-2026-06-24-web-capability-seam.md: a12f97f53d398ad4b6f7e1f3d1e7a2ba2151094f
-2026-06-24-web-capability-seam.zh.md: 14427d5dfb8969f0d4436f3f16bdfae081954b93
+/agent-note-web-capability-seam-stable-tools-over-multiple-providers:
+  en: 869171c65368db40
+  zh: 8632b4c54b1900ca
+/agent-note-web-capability-seam-stable-tools-over-multiple-providers/problem:
+  en: 314e336fdfb395ed
+  zh: 6d14e249253b45f6
+/agent-note-web-capability-seam-stable-tools-over-multiple-providers/decision:
+  en: 0d0e1d339777c67a
+  zh: 85cd2e553f3ab954
+/agent-note-web-capability-seam-stable-tools-over-multiple-providers/package-topology:
+  en: 8736b8322e7e3cc1
+  zh: a7d8d0e99d63c902
+/agent-note-web-capability-seam-stable-tools-over-multiple-providers/ctx-web-contract:
+  en: c9eb04152168bb74
+  zh: 3f29e77c05a6c4f9
+/agent-note-web-capability-seam-stable-tools-over-multiple-providers/provider-availability-and-selection:
+  en: 77632c0da6a31a1e
+  zh: a55d85bead883ca5
+/agent-note-web-capability-seam-stable-tools-over-multiple-providers/search-request-and-result-schema:
+  en: 9737f6ac520a0269
+  zh: 2b5ece2a10951f8a
+/agent-note-web-capability-seam-stable-tools-over-multiple-providers/fetch-request-and-result-schema:
+  en: 733aafa848e68bba
+  zh: c82211a342ec764e
+/agent-note-web-capability-seam-stable-tools-over-multiple-providers/tool-consumer-behavior:
+  en: 008a45011abf9c36
+  zh: 93cbe233e494604a
+/agent-note-web-capability-seam-stable-tools-over-multiple-providers/errors:
+  en: e30730472c6e9eec
+  zh: b930427e44598e50
+/agent-note-web-capability-seam-stable-tools-over-multiple-providers/testing:
+  en: 399911a55e225e5e
+  zh: 400a09a53a85c8fa
+/agent-note-web-capability-seam-stable-tools-over-multiple-providers/alternatives-considered:
+  en: 6119e2aff3b6be5a
+  zh: 76136ef5249c23eb
+/agent-note-web-capability-seam-stable-tools-over-multiple-providers/alternatives-considered/let-each-provider-register-its-own-model-facing-tool:
+  en: e0d84a9b1b9c2123
+  zh: 9e116a7b96751563
+/agent-note-web-capability-seam-stable-tools-over-multiple-providers/alternatives-considered/put-provider-dispatch-directly-in-lyn-tool-web:
+  en: 4975892c26ef0e5e
+  zh: 09eb687fa0906599
+/agent-note-web-capability-seam-stable-tools-over-multiple-providers/alternatives-considered/split-search-and-fetch-into-two-seams-lyn-search-lyn-fetch:
+  en: 0b8c91bc36ee81dc
+  zh: d71eab922dbfff62
+/agent-note-web-capability-seam-stable-tools-over-multiple-providers/alternatives-considered/choose-the-first-registered-provider:
+  en: 1800706ea0f6b90b
+  zh: ced985b7657e2d7f
+/agent-note-web-capability-seam-stable-tools-over-multiple-providers/alternatives-considered/treat-firecrawl-exa-tavily-parallel-extraction-as-fetch:
+  en: fc22e6a8bfaeaa20
+  zh: 64032ea6ab61b836
+/agent-note-web-capability-seam-stable-tools-over-multiple-providers/alternatives-considered/mirror-claude-code-s-url-prompt-webfetch-shape:
+  en: 33d01ffe71c241d7
+  zh: d05fb5ac437f9dd7
+/agent-note-web-capability-seam-stable-tools-over-multiple-providers/alternatives-considered/validate-dns-and-then-call-an-ordinary-fetch:
+  en: aa6c1e7e6374a875
+  zh: 045c8af6cd44c3e1
+/agent-note-web-capability-seam-stable-tools-over-multiple-providers/alternatives-considered/block-private-looking-hostname-strings-without-pinning-resolved-addresses:
+  en: 3d906f3056733479
+  zh: d652723eb5372007
+/agent-note-web-capability-seam-stable-tools-over-multiple-providers/alternatives-considered/require-per-call-approval-before-public-fetches:
+  en: f8d1fc8e9c9659cf
+  zh: da5792520e35cba0
+/agent-note-web-capability-seam-stable-tools-over-multiple-providers/consequences:
+  en: 12fd20ba54818215
+  zh: c1ca000b13666701
+/agent-note-web-capability-seam-stable-tools-over-multiple-providers/deferred-work:
+  en: c397d82f4afba74e
+  zh: afe36adb15d09b21
+/agent-note-web-capability-seam-stable-tools-over-multiple-providers/open-questions:
+  en: 63848c6ef9a6ab44
+  zh: 041b340802091e60

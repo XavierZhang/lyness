@@ -1,6 +1,70 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/session/session-persistence-jsonl/README.md
-README.md: d00ad5de6076b2236bb8941ce5cc4803644192c4
-README.zh.md: 85829e525d73efcc3d0f01d7551b89aae8b2791c
+/:
+  en: cc97ed79d262bf09
+  zh: 90a141669dc844f3
+/lyness-lyn-session-persistence-jsonl:
+  en: d1e0494bd1d3621b
+  zh: 8dc99e82d3b79537
+/lyness-lyn-session-persistence-jsonl/summary:
+  en: b7f4e712dab466bb
+  zh: 4e95f398b8c7c264
+/lyness-lyn-session-persistence-jsonl/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-session-persistence-jsonl/use-this-package:
+  en: d6112142a705ec43
+  zh: f0914d9e37216f97
+/lyness-lyn-session-persistence-jsonl/use-this-package/when-to-choose-it:
+  en: 37c10302bbbde268
+  zh: 3d5c027bac868efd
+/lyness-lyn-session-persistence-jsonl/use-this-package/minimal-configuration:
+  en: 8c7ea23359479252
+  zh: e7d1e0fcb51d986d
+/lyness-lyn-session-persistence-jsonl/use-this-package/on-disk-layout:
+  en: e20cf32540d7c785
+  zh: 67e182529e9211ca
+/lyness-lyn-session-persistence-jsonl/use-this-package/durability-and-crash-semantics:
+  en: 1eaa87736cac029b
+  zh: 26224e8889786d69
+/lyness-lyn-session-persistence-jsonl/use-this-package/reading-the-logs:
+  en: c98d987f4ed7c17e
+  zh: 85dcffd65b941a5a
+/lyness-lyn-session-persistence-jsonl/understand-the-implementation:
+  en: a35407bb25671e7e
+  zh: 6a00f9510c85adcb
+/lyness-lyn-session-persistence-jsonl/understand-the-implementation/design-concept:
+  en: b69d4565a11b6f02
+  zh: c8309690fc931f8d
+/lyness-lyn-session-persistence-jsonl/understand-the-implementation/physical-encoding:
+  en: aeb445b57b9ba9b0
+  zh: df0cf1a21a011374
+/lyness-lyn-session-persistence-jsonl/understand-the-implementation/source-map:
+  en: 3bdb0f1dd4d69fba
+  zh: 8198d655d73d42e3
+/lyness-lyn-session-persistence-jsonl/further-exploration:
+  en: e903e7c51322278f
+  zh: 234463a46ae792e6
+/lyness-lyn-session-persistence-jsonl/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/lyness-lyn-session-persistence-jsonl/model-experience/resumed-conversation-history:
+  en: 062875aab7f3f138
+  zh: c7285918227e6f5c
+/lyness-lyn-session-persistence-jsonl/model-experience/resumed-conversation-history/what-the-model-sees:
+  en: 2a3b5c6e3860eef6
+  zh: 82afe0f0359581b6
+/lyness-lyn-session-persistence-jsonl/model-experience/resumed-conversation-history/token-effect:
+  en: 8fb2f7cdba1ff320
+  zh: e130ec2a92a53a5c
+/lyness-lyn-session-persistence-jsonl/model-experience/resumed-conversation-history/kv-cache-effect:
+  en: 53ce4da7ce68d21c
+  zh: 10f40bc354100f77
+/lyness-lyn-session-persistence-jsonl/known-limitations-and-deferred-work:
+  en: 5e09d68835421c2c
+  zh: d9895896d1c0049b
+/lyness-lyn-session-persistence-jsonl/known-limitations-and-deferred-work/dev-note:
+  en: e67f633dc6fe7773
+  zh: 3bb0c20c93f16f98

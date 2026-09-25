@@ -5,7 +5,7 @@ import { scheduler } from 'node:timers/promises'
 import { Context } from '@lyness/cordis'
 import AgentLoop, { turnBoundaryProjectionDefinition } from '@lyness/lyn-agent-loop'
 import { mountAgentLoopTestDependencies } from '@lyness/lyn-agent-loop-testkit'
-import { agentPresetProjectionDefinition } from '@lyness/lyn-agent-presets'
+import { agentPresetProjectionDefinition } from '@lyness/lyn-agent-preset-registry'
 import SessionStore, {
   interruptedTurnClosers,
   SessionId,

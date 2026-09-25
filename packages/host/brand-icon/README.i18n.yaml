@@ -1,6 +1,61 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/host/brand-icon/README.md
-README.md: a135a119fc73aae182e48dda97e93f08fe7d322d
-README.zh.md: fce78fa52d73e4b5a1b2449bfd710be8a524e2d9
+/:
+  en: 63a992b35025ef49
+  zh: aa64db796508f316
+/lyness-lyn-host-brand-icon:
+  en: e167dacbba99aa34
+  zh: 7b529364d23b3736
+/lyness-lyn-host-brand-icon/summary:
+  en: 402d3800a9690cdf
+  zh: 5e07b01114b3a844
+/lyness-lyn-host-brand-icon/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-host-brand-icon/use-this-package:
+  en: a4c7d50a20246825
+  zh: 889e973635332504
+/lyness-lyn-host-brand-icon/use-this-package/minimal-use:
+  en: f7e354f31605eec8
+  zh: 9293c67a6446510b
+/lyness-lyn-host-brand-icon/use-this-package/what-the-input-must-be:
+  en: deeac44383ccfbc6
+  zh: 20e723833dc649de
+/lyness-lyn-host-brand-icon/use-this-package/what-the-documents-guarantee:
+  en: e39f23d648a58e3f
+  zh: bfbf1d6881328756
+/lyness-lyn-host-brand-icon/use-this-package/isbrandsvg:
+  en: 592d5b378c64650c
+  zh: 3bf07b2944d876a5
+/lyness-lyn-host-brand-icon/use-this-package/refusals:
+  en: bfbe11f8ffe52d87
+  zh: 87fb9d17cdcd3d7e
+/lyness-lyn-host-brand-icon/understand-the-implementation:
+  en: 42b15ac6321706aa
+  zh: 7ae097f3abcc5d9c
+/lyness-lyn-host-brand-icon/understand-the-implementation/design-concept:
+  en: c3a1fbe814a6ab72
+  zh: 5d9cbf97be92e974
+/lyness-lyn-host-brand-icon/understand-the-implementation/why-this-tracer:
+  en: 82e5478c2712ea4e
+  zh: ecb344ee0e4436b6
+/lyness-lyn-host-brand-icon/understand-the-implementation/source-map:
+  en: 50b769763af3e977
+  zh: 17076fa3de903a79
+/lyness-lyn-host-brand-icon/further-exploration:
+  en: abfa68d1a9b34664
+  zh: 06dc4a055df4c635
+/lyness-lyn-host-brand-icon/model-experience:
+  en: fb8a51242be435bf
+  zh: f814fed2dce1331d
+/lyness-lyn-host-brand-icon/model-experience/kv-cache-effect:
+  en: ca75c51c89c2c9b0
+  zh: ee6d77f08dfbe4ec
+/lyness-lyn-host-brand-icon/known-limitations-and-deferred-work:
+  en: 9b5745999e75a788
+  zh: ed2056a0dee18625
+/lyness-lyn-host-brand-icon/known-limitations-and-deferred-work/dev-note:
+  en: e2606c91b0a76b51
+  zh: be21a58ffd7c8aa1

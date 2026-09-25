@@ -1,6 +1,6 @@
 # Replay counterpart to advanced.cordis.yml; only the live model is replaced.
 - id: llm-deepseek
-  name: '@lyness/lyn-llm-deepseek'
+  name: '@lyness/lyn-llm-deepseek-api-key'
   disabled: true
 
 - id: agent-default-model
@@ -36,6 +36,8 @@
 - insert:
     - id: cordis-host-runner
       name: '@lyness/lyn-cordis-host-runner'
+    - id: cordis-inspect-providers
+      name: '@lyness/lyn-tool-cordis/host'
     - id: tool-cordis
       name: '@lyness/lyn-tool-cordis'
     - id: llm-replay

@@ -1,0 +1,31 @@
+# The summary output cap inherits the 1,800-token headroom. A 1,000-token
+# request output reservation lowers the proactive trigger to 5,582 tokens.
+
+- id: llm-deepseek
+  name: '@lyness/lyn-llm-deepseek-api-key'
+  disabled: true
+
+- id: session-persistence-jsonl
+  name: '@lyness/lyn-session-persistence-jsonl'
+  config:
+    root: !!js lynHomePath('sessions')
+    compression: none
+
+- id: compaction-basic
+  name: '@lyness/lyn-compaction-basic'
+  config:
+    thresholdRatio: 0.8
+    headroomTokens: 1800
+    retainTokens: 20
+
+- insert:
+    - id: llm-replay
+      name: '@lyness/lyn-llm-replay'
+      config:
+        providers:
+          - id: deepseek-official
+            name: DeepSeek
+            models:
+              - id: deepseek-v4-flash
+                contextWindow: 8382
+                defaultMaxTokens: 1000

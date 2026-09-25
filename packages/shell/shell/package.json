@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-shell",
   "description": "Abstract bash executor seam (ctx.shell) for the lyness",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -27,15 +27,13 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/lyn-subprocess": "workspace:^",
-    "@lyness/lyn-sandbox": "workspace:^",
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-settings": "workspace:^"
+    "@lyness/lyn-subprocess": "workspace:*",
+    "@lyness/lyn-sandbox": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/lyn-subprocess": "workspace:^",
-    "@lyness/lyn-sandbox": "workspace:^",
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-settings": "workspace:^"
+    "@lyness/lyn-subprocess": "workspace:*",
+    "@lyness/lyn-sandbox": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   }
 }

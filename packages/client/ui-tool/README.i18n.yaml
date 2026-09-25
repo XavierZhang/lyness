@@ -1,6 +1,49 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/ui-tool/README.md
-README.md: 1011416d6510448a1287138bc53a835c878aed99
-README.zh.md: 17ad83a88c2a66574cda6783927ec0048b04a3b0
+/:
+  en: be6fb4d857544b40
+  zh: eb4e2b70caa0779e
+/lyness-lyn-client-ui-tool:
+  en: 754922081fcf51d9
+  zh: 9afe973ac1c3da3a
+/lyness-lyn-client-ui-tool/summary:
+  en: dc013f4d0153b30f
+  zh: 27084d98b9c73a1a
+/lyness-lyn-client-ui-tool/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-client-ui-tool/use-this-package:
+  en: be2bc859e0d64fe5
+  zh: d51a35fb36675dd3
+/lyness-lyn-client-ui-tool/use-this-package/registering-a-business-tool-view:
+  en: 5332d87e76037f07
+  zh: db5d06e7e46b8429
+/lyness-lyn-client-ui-tool/use-this-package/built-in-views:
+  en: 4b69e36952574494
+  zh: 1f9842b40931adb6
+/lyness-lyn-client-ui-tool/understand-the-implementation:
+  en: 00bc7b0c84edc603
+  zh: 1cfcf5b435248a91
+/lyness-lyn-client-ui-tool/understand-the-implementation/rendering-contract:
+  en: 2959b10b01e08a7b
+  zh: 7084ca22650cbb5b
+/lyness-lyn-client-ui-tool/understand-the-implementation/cards:
+  en: d8518f5eedc016ac
+  zh: 150c32fb003196f4
+/lyness-lyn-client-ui-tool/further-exploration:
+  en: ddead8371c9decbb
+  zh: 105759ff6957853a
+/lyness-lyn-client-ui-tool/model-experience:
+  en: 1e5e72dd269855d5
+  zh: 81a4756d460e3af9
+/lyness-lyn-client-ui-tool/model-experience/kv-cache-effect:
+  en: ca75c51c89c2c9b0
+  zh: de54f3467ef3b9be
+/lyness-lyn-client-ui-tool/known-limitations-and-deferred-work:
+  en: 7475317a656f1d11
+  zh: 787f10cc0f2c586e
+/lyness-lyn-client-ui-tool/known-limitations-and-deferred-work/dev-note:
+  en: 0fdeab2e4db0261f
+  zh: 156d2b2952cf112e

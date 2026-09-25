@@ -1,6 +1,58 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/ui-deliverables/README.md
-README.md: 8979042f8a3225b2a6b6dd2875c330e0590e69af
-README.zh.md: 7ada2273e873264a77d3771a27c2a8b2ba154e0f
+/:
+  en: 91a4da87e2e078ed
+  zh: 8d489c6cdf208c4d
+/lyness-lyn-client-ui-deliverables:
+  en: 29025a19ce7ba656
+  zh: 8f501c2583414259
+/lyness-lyn-client-ui-deliverables/summary:
+  en: a17b97d16803f911
+  zh: ad80cf4bcb5a8018
+/lyness-lyn-client-ui-deliverables/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-client-ui-deliverables/use-this-package:
+  en: 4e752460f427286c
+  zh: d3595963c415362d
+/lyness-lyn-client-ui-deliverables/use-this-package/explicit-deliveries:
+  en: 52b71cb295bfc995
+  zh: 39e291246744f8ed
+/lyness-lyn-client-ui-deliverables/use-this-package/the-changed-files-card:
+  en: 4b279e2bddddc083
+  zh: a3135393299c935b
+/lyness-lyn-client-ui-deliverables/use-this-package/the-review-tab:
+  en: b5b9c6f694619a02
+  zh: 95ffad9c12a6ff2c
+/lyness-lyn-client-ui-deliverables/use-this-package/inline-code-links:
+  en: e36ccef8bf908ea4
+  zh: 30e11327a55e5dfa
+/lyness-lyn-client-ui-deliverables/understand-the-implementation:
+  en: 90258986788f716b
+  zh: 5adc4817c524619b
+/lyness-lyn-client-ui-deliverables/further-exploration:
+  en: 8acae429cf8433d1
+  zh: 310bf09042701e65
+/lyness-lyn-client-ui-deliverables/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/lyness-lyn-client-ui-deliverables/model-experience/clickable-file-reference-guidance:
+  en: eb244aa21a4e5210
+  zh: e3450addfa19cea5
+/lyness-lyn-client-ui-deliverables/model-experience/clickable-file-reference-guidance/what-the-model-sees:
+  en: 78339e353ae47a53
+  zh: 582efa623a5dfd72
+/lyness-lyn-client-ui-deliverables/model-experience/clickable-file-reference-guidance/token-effect:
+  en: 364f42e80be92ebc
+  zh: dde2f9d6f4f75536
+/lyness-lyn-client-ui-deliverables/model-experience/clickable-file-reference-guidance/kv-cache-effect:
+  en: 52626a05acc8b320
+  zh: 6a8e62b0d47d5297
+/lyness-lyn-client-ui-deliverables/known-limitations-and-deferred-work:
+  en: b974d3a7923afa64
+  zh: e25f7d9cc8befdce
+/lyness-lyn-client-ui-deliverables/known-limitations-and-deferred-work/dev-note:
+  en: a55f817f597aa646
+  zh: aba9a91ecde566ab

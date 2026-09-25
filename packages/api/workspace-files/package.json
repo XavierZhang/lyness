@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-api-workspace-files",
   "description": "Workspace file service and Client resource provider: bounded reads, directory listing, and live metadata over the workspaceFiles Remote namespace",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -52,24 +52,26 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@lyness/lyn-deque": "workspace:^",
-    "@lyness/lyn-typert-protocol": "workspace:^",
-    "@lyness/schemastery": "workspace:^",
+    "@lyness/lyn-deque": "workspace:*",
+    "@lyness/lyn-typert-protocol": "workspace:*",
+    "@lyness/schemastery": "workspace:~",
     "zod": "^4.4.3"
   },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^"
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-api-gateway": "workspace:^",
-    "@lyness/lyn-client-resources": "workspace:^",
-    "@lyness/lyn-client-ui-slots": "workspace:^",
-    "@lyness/lyn-fs": "workspace:^",
-    "@lyness/lyn-sandbox-policy": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-session-persistence": "workspace:^",
-    "@lyness/lyn-util-workspace-path": "workspace:^"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-api-gateway": "workspace:*",
+    "@lyness/lyn-client-connection": "workspace:*",
+    "@lyness/lyn-client-resources": "workspace:*",
+    "@lyness/lyn-client-ui-slots": "workspace:*",
+    "@lyness/lyn-fs": "workspace:*",
+    "@lyness/lyn-remote-mock": "workspace:*",
+    "@lyness/lyn-sandbox-policy": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-session-persistence": "workspace:*",
+    "@lyness/lyn-util-workspace-path": "workspace:*"
   },
   "files": [
     "lib/index.js",

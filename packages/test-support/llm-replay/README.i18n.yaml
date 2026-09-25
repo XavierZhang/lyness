@@ -1,6 +1,61 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/test-support/llm-replay/README.md
-README.md: b14a38fed14a0b0e3da835180917be7c0e50e969
-README.zh.md: 4b04f530bf7f78ef6b424b6d1de8834d029f5b07
+/:
+  en: 80e8e69cb5216e23
+  zh: cd84f0762bc67487
+/lyness-lyn-llm-replay:
+  en: 2d33f221efb2408b
+  zh: dbf9c037b0fdb913
+/lyness-lyn-llm-replay/summary:
+  en: 757e00e957622a6f
+  zh: e8749f6ad0c07857
+/lyness-lyn-llm-replay/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-llm-replay/use-this-package:
+  en: e2116be9c7a5c18f
+  zh: dc89da423decf4aa
+/lyness-lyn-llm-replay/use-this-package/mounting-it:
+  en: 6f698ea60ac3781f
+  zh: da7f4e2cb6abe1c8
+/lyness-lyn-llm-replay/use-this-package/how-the-fixture-works:
+  en: d7dd048cd69e723d
+  zh: 9f5dfa5186549cd0
+/lyness-lyn-llm-replay/use-this-package/nested-agents:
+  en: 7745c49d10a63b0e
+  zh: 937b954c664f1973
+/lyness-lyn-llm-replay/use-this-package/failure-modes-and-overrides:
+  en: 319e95521a4a06fe
+  zh: 884c8299028df8a3
+/lyness-lyn-llm-replay/use-this-package/what-can-go-wrong:
+  en: 965da31d63ec88fe
+  zh: 8ca1428daae5d583
+/lyness-lyn-llm-replay/understand-the-implementation:
+  en: 1d2dbd8b50da6f22
+  zh: ab738914c74212ff
+/lyness-lyn-llm-replay/understand-the-implementation/design:
+  en: dfd1dd70ea389c66
+  zh: 3c0f2e0ee601e3f5
+/lyness-lyn-llm-replay/understand-the-implementation/source-map:
+  en: cbf5c51583663671
+  zh: 794ec0b8873736cc
+/lyness-lyn-llm-replay/understand-the-implementation/binding-and-stream-flow:
+  en: 484c98a2679b218f
+  zh: 8d3266a0f3deac87
+/lyness-lyn-llm-replay/further-exploration:
+  en: 1d8282af19b703e2
+  zh: 4fcea9877ebfd884
+/lyness-lyn-llm-replay/model-experience:
+  en: ad4fe7025029da90
+  zh: 1cced10c67323c37
+/lyness-lyn-llm-replay/model-experience/kv-cache-effect:
+  en: ca75c51c89c2c9b0
+  zh: f57cc48a1b5cbfa9
+/lyness-lyn-llm-replay/known-limitations-and-deferred-work:
+  en: 003f1d9c1ec49eed
+  zh: 116bcde9030e4cb4
+/lyness-lyn-llm-replay/known-limitations-and-deferred-work/dev-note:
+  en: e67f633dc6fe7773
+  zh: 3bb0c20c93f16f98

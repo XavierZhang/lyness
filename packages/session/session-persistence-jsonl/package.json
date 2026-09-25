@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-session-persistence-jsonl",
   "description": "JSONL durable session persistence backend for the lyness",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -28,23 +28,23 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-session-persistence": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-session-persistence": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   },
   "dependencies": {
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-session-format": "workspace:^",
-    "@lyness/lyn-session-format-catalog": "workspace:^",
-    "@lyness/lyn-session-format-v2-to-v3": "workspace:^",
-    "@lyness/node-addon-system": "workspace:^",
-    "koffi": "^3.1.0",
-    "@lyness/schemastery": "workspace:^"
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-session-format": "workspace:*",
+    "@lyness/lyn-session-format-catalog": "workspace:*",
+    "@lyness/lyn-session-format-v3-to-v4": "workspace:*",
+    "@lyness/node-addon-system": "workspace:~",
+    "@lyness/schemastery": "workspace:~",
+    "koffi": "^3.1.0"
   },
   "devDependencies": {
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-session-format-v0-to-v1": "workspace:^",
-    "@lyness/lyn-session-persistence": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-session-format-v0-to-v1": "workspace:*",
+    "@lyness/lyn-session-persistence": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   }
 }

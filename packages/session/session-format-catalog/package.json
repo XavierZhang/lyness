@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-session-format-catalog",
   "description": "Build-static first-party Session format codec and migration catalog",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -19,25 +19,32 @@
       "default": "./lib/index.js"
     },
     "./src/*": "./src/*",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./message-projections": {
+      "types": "./lib/types/message-projections.d.ts",
+      "default": "./lib/types/message-projections.js"
+    }
   },
   "files": [
     "lib/index.js",
+    "lib/types/**/*.js",
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
   "dependencies": {
-    "@lyness/lyn-session-format": "workspace:^",
-    "@lyness/lyn-session-format-v0-to-v1": "workspace:^",
-    "@lyness/lyn-session-format-v1-to-v2": "workspace:^",
-    "@lyness/lyn-session-format-v2-to-v3": "workspace:^"
+    "@lyness/lyn-session-format": "workspace:*",
+    "@lyness/lyn-session-format-v0-to-v1": "workspace:*",
+    "@lyness/lyn-session-format-v1-to-v2": "workspace:*",
+    "@lyness/lyn-session-format-v2-to-v3": "workspace:*",
+    "@lyness/lyn-session-format-v3-to-v4": "workspace:*",
+    "@lyness/lyn-compaction-image-offload": "workspace:*"
   },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-session": "workspace:^"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-session": "workspace:*"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-session": "workspace:^"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-session": "workspace:*"
   }
 }

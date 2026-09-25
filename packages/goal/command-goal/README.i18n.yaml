@@ -1,6 +1,64 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/goal/command-goal/README.md
-README.md: b15e3e503a259a460a81e21cfeec64ca32f3ca1d
-README.zh.md: 5143daa8c543c7d5ace9930220aa183fde6c8536
+/:
+  en: 47b9efbd26fb01af
+  zh: a9d083654a3e2cab
+/lyness-lyn-command-goal:
+  en: c8ac8a450cfe08f0
+  zh: 19515a6b8687e456
+/lyness-lyn-command-goal/summary:
+  en: 2b4d05b29f55173f
+  zh: f4889e938583a47c
+/lyness-lyn-command-goal/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-command-goal/use-this-package:
+  en: 9846d681214fb98a
+  zh: 1115881d386e9e08
+/lyness-lyn-command-goal/use-this-package/command-reference:
+  en: 98ca4ad981960f99
+  zh: 22d6ecbadbb3a7e1
+/lyness-lyn-command-goal/use-this-package/input-grammar:
+  en: 38a273cb14017e13
+  zh: d4b7b501bcd9589b
+/lyness-lyn-command-goal/use-this-package/attachments:
+  en: e61cd7437ed4aa73
+  zh: 552c36c3b8d16007
+/lyness-lyn-command-goal/use-this-package/compose-it:
+  en: 3936c345789fb94d
+  zh: 849ca6f389721a00
+/lyness-lyn-command-goal/understand-the-implementation:
+  en: 7fba8a13f8452dc1
+  zh: bbaba056cda78ec9
+/lyness-lyn-command-goal/understand-the-implementation/design:
+  en: ab637815b21bf065
+  zh: 56eb4ae2ad368994
+/lyness-lyn-command-goal/understand-the-implementation/source-map:
+  en: 08050fc601600dc9
+  zh: 1a42ebf4f32334b6
+/lyness-lyn-command-goal/further-exploration:
+  en: 5166e4c8bb6749f3
+  zh: 51ea07cba02f5a73
+/lyness-lyn-command-goal/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/lyness-lyn-command-goal/model-experience/human-goal-control:
+  en: b542d90272a9b64e
+  zh: 9f8bfb4ca7784428
+/lyness-lyn-command-goal/model-experience/human-goal-control/what-the-model-sees:
+  en: a4c7a3d502c58794
+  zh: a47ab70d7aa4f0a4
+/lyness-lyn-command-goal/model-experience/human-goal-control/token-effect:
+  en: 1c48e9c98cee51b0
+  zh: 63b2f981bdaf6ca4
+/lyness-lyn-command-goal/model-experience/human-goal-control/kv-cache-effect:
+  en: 15426cc075dc65d7
+  zh: 496e488693a2bacb
+/lyness-lyn-command-goal/known-limitations-and-deferred-work:
+  en: df596a8934dba006
+  zh: 45b8a32fc0433fe0
+/lyness-lyn-command-goal/known-limitations-and-deferred-work/dev-note:
+  en: c7a829d5a6e780fd
+  zh: 041dc046a223a711

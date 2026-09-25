@@ -1,6 +1,43 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-06-26-file-context-as-event-gate.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-06-26-file-context-as-event-gate.md
-2026-06-26-file-context-as-event-gate.md: ff62e7b06026985746b2b261cf6eed49cc7f8e58
-2026-06-26-file-context-as-event-gate.zh.md: 0f64c0d59c2bd75b05e2aa6ed4e27bbc58debbc2
+/agent-note-make-lyn-fs-observation-policy-an-event-gate-plugin-not-a-method-interface:
+  en: dd3b2270847f2af2
+  zh: 57a021fdc39ea74b
+/agent-note-make-lyn-fs-observation-policy-an-event-gate-plugin-not-a-method-interface/problem:
+  en: 5a5c86e97f7203f5
+  zh: c9dca94b3c613d50
+/agent-note-make-lyn-fs-observation-policy-an-event-gate-plugin-not-a-method-interface/decision:
+  en: 938c06ec79f368b9
+  zh: 33701767a948f204
+/agent-note-make-lyn-fs-observation-policy-an-event-gate-plugin-not-a-method-interface/the-policy-is-enforced-by-provider-cas-not-by-lyn-fs-observation-policy-stat:
+  en: 431b0a891be8d2df
+  zh: 869c3a7aa33cf286
+/agent-note-make-lyn-fs-observation-policy-an-event-gate-plugin-not-a-method-interface/provider-contract-change-the-version-guard-is-optional:
+  en: 935c33f813aefaa6
+  zh: f7894b23493ffb00
+/agent-note-make-lyn-fs-observation-policy-an-event-gate-plugin-not-a-method-interface/event-vocabulary-owned-by-lyn-fs:
+  en: a47139409f6e327e
+  zh: 8796c97791439b0e
+/agent-note-make-lyn-fs-observation-policy-an-event-gate-plugin-not-a-method-interface/tool-contract-lyn-tool-fs:
+  en: dc4d5295c0c3940f
+  zh: 5c85ea9a1a190f87
+/agent-note-make-lyn-fs-observation-policy-an-event-gate-plugin-not-a-method-interface/policy-plugin-contract-lyn-fs-observation-policy:
+  en: c87ea8d9b2e54382
+  zh: b940c461a6a659b1
+/agent-note-make-lyn-fs-observation-policy-an-event-gate-plugin-not-a-method-interface/bare-provider-behavior-no-lyn-fs-observation-policy:
+  en: b5c3a562569293f0
+  zh: 6b02b4bf4307b08e
+/agent-note-make-lyn-fs-observation-policy-an-event-gate-plugin-not-a-method-interface/supersedes:
+  en: 48db6e7bf6246f18
+  zh: ff44fba7b656dea9
+/agent-note-make-lyn-fs-observation-policy-an-event-gate-plugin-not-a-method-interface/verification:
+  en: 278a5a7e23c0d329
+  zh: c8ccfebec6935655
+/agent-note-make-lyn-fs-observation-policy-an-event-gate-plugin-not-a-method-interface/alternatives-considered:
+  en: 136cbce8ff31cb5d
+  zh: 15c6505217f82d37
+/agent-note-make-lyn-fs-observation-policy-an-event-gate-plugin-not-a-method-interface/consequences:
+  en: 731ab89797b998e4
+  zh: df6affa969026742

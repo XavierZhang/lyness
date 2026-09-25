@@ -1,6 +1,19 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-08-25-feedback-gated-telemetry-default.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/feature/2026-08-25-feedback-gated-telemetry-default.md
-2026-08-25-feedback-gated-telemetry-default.md: bb35833b436f2a3de1ab77f0371a2ccaed2eef6a
-2026-08-25-feedback-gated-telemetry-default.zh.md: ff9a4fdf139fe3661befed8abe4bf5c140ffd6cc
+/agent-note-feedback-gated-session-telemetry-default:
+  en: 53b0788db3139dd4
+  zh: d1aa7244c0861302
+/agent-note-feedback-gated-session-telemetry-default/problem:
+  en: f803f178a2a80450
+  zh: cdc8209077ffd577
+/agent-note-feedback-gated-session-telemetry-default/decision:
+  en: 6630866bdea8d65f
+  zh: d84812314ae91639
+/agent-note-feedback-gated-session-telemetry-default/alternatives-considered:
+  en: 14b51f0de8771943
+  zh: 616afb4097857368
+/agent-note-feedback-gated-session-telemetry-default/consequences:
+  en: d3ed844cc1e29b0b
+  zh: 76838815edb0a450

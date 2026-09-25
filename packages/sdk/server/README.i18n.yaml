@@ -1,6 +1,73 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/sdk/server/README.md
-README.md: 475e6417e6ef83fbdd89b81e88181e95c6cafccb
-README.zh.md: 4b7337134a8442f35f0ecc00ea21d6c43c51295e
+/:
+  en: 0fc3af479445379a
+  zh: fc9caaa2bb2f27e8
+/lyness-lyn-sdk-jsonrpc-server:
+  en: 25398738658b8c2b
+  zh: e04b54d83f34d69a
+/lyness-lyn-sdk-jsonrpc-server/summary:
+  en: 9c9606a675700958
+  zh: 9f6cc521dfaf1036
+/lyness-lyn-sdk-jsonrpc-server/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-sdk-jsonrpc-server/use-this-package:
+  en: 7abbf9c04a04b16c
+  zh: dc18b716ed3807d5
+/lyness-lyn-sdk-jsonrpc-server/use-this-package/wiring:
+  en: 47a33e9397e36e15
+  zh: e6d173820f9ea6e5
+/lyness-lyn-sdk-jsonrpc-server/use-this-package/configuration:
+  en: 623e6c3c6258f33f
+  zh: 6398463bc4f7cb3e
+/lyness-lyn-sdk-jsonrpc-server/use-this-package/stdout-is-the-protocol:
+  en: 784b68b5a498f2d5
+  zh: 2c3c5a1490845179
+/lyness-lyn-sdk-jsonrpc-server/use-this-package/what-sdk-clients-can-do:
+  en: 7164095da7da3364
+  zh: 1893c110ea7ea701
+/lyness-lyn-sdk-jsonrpc-server/use-this-package/shutdown-and-exit:
+  en: 08c3858f53090f39
+  zh: dfae960e11515b06
+/lyness-lyn-sdk-jsonrpc-server/understand-the-implementation:
+  en: eca39e7027d67d8f
+  zh: dd3f494276322857
+/lyness-lyn-sdk-jsonrpc-server/understand-the-implementation/design-concept:
+  en: b6b6f3c52b74ed8e
+  zh: 9a3fd6722ca5d1a5
+/lyness-lyn-sdk-jsonrpc-server/understand-the-implementation/source-map:
+  en: 27474bf15222a95a
+  zh: f293e9b9d9d5dca5
+/lyness-lyn-sdk-jsonrpc-server/understand-the-implementation/request-flow:
+  en: 2658804b2f90b135
+  zh: 085aa00c8f0bbbcd
+/lyness-lyn-sdk-jsonrpc-server/understand-the-implementation/teardown:
+  en: 81786b3bd70b389f
+  zh: da80b4f50f16a098
+/lyness-lyn-sdk-jsonrpc-server/further-exploration:
+  en: 89c68e855bc595ab
+  zh: 7774635b33381bb2
+/lyness-lyn-sdk-jsonrpc-server/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/lyness-lyn-sdk-jsonrpc-server/model-experience/sdk-user-message:
+  en: 04d1b73cd8e06dfe
+  zh: cd67fbbfdf39f776
+/lyness-lyn-sdk-jsonrpc-server/model-experience/sdk-user-message/what-the-model-sees:
+  en: 2b5a80ec4b4df11e
+  zh: e459fe77cc14d9b8
+/lyness-lyn-sdk-jsonrpc-server/model-experience/sdk-user-message/token-effect:
+  en: 372ed851986b76d2
+  zh: 075b94a565275368
+/lyness-lyn-sdk-jsonrpc-server/model-experience/sdk-user-message/kv-cache-effect:
+  en: f5d5f97a153f7c70
+  zh: f681f89596f500f5
+/lyness-lyn-sdk-jsonrpc-server/known-limitations-and-deferred-work:
+  en: a6d0b12d02961572
+  zh: 92822e033db55980
+/lyness-lyn-sdk-jsonrpc-server/known-limitations-and-deferred-work/dev-note:
+  en: 583a835f84c55c33
+  zh: a4377e2c9bea8c4e

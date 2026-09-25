@@ -1,6 +1,22 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for 2026-09-05-continuous-client-recovery.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/bug-fix/2026-09-05-continuous-client-recovery.md
-2026-09-05-continuous-client-recovery.md: 24186881242129df5a9ecbc7773389b52e2b58bb
-2026-09-05-continuous-client-recovery.zh.md: 5953ccf7d2c5cf6e27618fd5365f382fa8a46d0e
+/agent-note-continuous-client-connection-recovery:
+  en: 2624f516934097bb
+  zh: e038dffc7fb76715
+/agent-note-continuous-client-connection-recovery/problem:
+  en: 70259bdedbf6b449
+  zh: b0a3014c27483a09
+/agent-note-continuous-client-connection-recovery/decision:
+  en: c22da3abcd5d5b09
+  zh: 6389fa3f23cb4c92
+/agent-note-continuous-client-connection-recovery/alternatives-considered:
+  en: 2e94feca66d912af
+  zh: 8fc4e81b797d4553
+/agent-note-continuous-client-connection-recovery/consequences:
+  en: cd99c771043a23d5
+  zh: 8559757fa8098fbe
+/agent-note-continuous-client-connection-recovery/testing:
+  en: 39fdcfb5c6b52a96
+  zh: 276de310ed1bbc39

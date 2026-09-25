@@ -1,6 +1,94 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/llm/llm-deepseek/README.md
-README.md: 1a234f7b984ebd277e756ebf76d5a056066cdad1
-README.zh.md: 69c4ac642400c9c4659d897c4ef556d11af61316
+/:
+  en: c6924d7c0d7c82ff
+  zh: 95fbf06db428f532
+/lyness-lyn-llm-deepseek:
+  en: 2a8fa896a217a77e
+  zh: eebe8e837a6427bf
+/lyness-lyn-llm-deepseek/summary:
+  en: b5e42d1838146dee
+  zh: fac145a24ce41f6b
+/lyness-lyn-llm-deepseek/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-llm-deepseek/use-this-package:
+  en: 1f81a4944a4931a7
+  zh: 79cc27d0e1f49122
+/lyness-lyn-llm-deepseek/use-this-package/when-to-choose-it:
+  en: 0b11313b4298bc45
+  zh: ab14e5bc59e1229e
+/lyness-lyn-llm-deepseek/use-this-package/minimal-configuration:
+  en: 9ae33fec43584375
+  zh: 195c7536c2b5961c
+/lyness-lyn-llm-deepseek/use-this-package/endpoint-and-wire-format:
+  en: fce88d2ebad6296c
+  zh: 0c351f26b472d521
+/lyness-lyn-llm-deepseek/use-this-package/account-credentials:
+  en: 12fe87dcb1eba713
+  zh: 78583391d91a3f90
+/lyness-lyn-llm-deepseek/use-this-package/another-deepseek-compatible-endpoint:
+  en: 181b34b6c312b445
+  zh: 599c9e8c10577f74
+/lyness-lyn-llm-deepseek/use-this-package/streaming-with-thinking-and-images:
+  en: 9b82549c6ce25261
+  zh: 22a3978c5022576b
+/lyness-lyn-llm-deepseek/use-this-package/dynamic-configuration:
+  en: 49290fc5647136b4
+  zh: 96fa9ce0f9e83c13
+/lyness-lyn-llm-deepseek/use-this-package/provider-specific-request-fields:
+  en: 484dcfa01e10ffb9
+  zh: 81aa0809ed978cd7
+/lyness-lyn-llm-deepseek/use-this-package/failures-and-recovery:
+  en: 4a572ca307448f59
+  zh: aed094a6d2031ffc
+/lyness-lyn-llm-deepseek/understand-the-implementation:
+  en: 1598ac8a8bb9b6bf
+  zh: fdd089c5ae7722cd
+/lyness-lyn-llm-deepseek/understand-the-implementation/design-philosophy:
+  en: 829203c4c282dc46
+  zh: e05dada4a1420a95
+/lyness-lyn-llm-deepseek/understand-the-implementation/source-map:
+  en: dc2d2409ad8c41cc
+  zh: 51fc4ad65dab6378
+/lyness-lyn-llm-deepseek/understand-the-implementation/wire-flow:
+  en: 9477d8af3d762450
+  zh: 52a2967518509f94
+/lyness-lyn-llm-deepseek/further-exploration:
+  en: 714e5d819e3cb6d9
+  zh: b6baff8258ec550d
+/lyness-lyn-llm-deepseek/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/lyness-lyn-llm-deepseek/model-experience/deepseek-request:
+  en: 1dc50052999253c6
+  zh: 7abf968fc18bffcd
+/lyness-lyn-llm-deepseek/model-experience/deepseek-request/what-the-model-sees:
+  en: 14110610860656e8
+  zh: 995e28d6931ebe4e
+/lyness-lyn-llm-deepseek/model-experience/deepseek-request/token-effect:
+  en: 4f54c6e3a215277c
+  zh: 203335cfaedb56f1
+/lyness-lyn-llm-deepseek/model-experience/deepseek-request/kv-cache-effect:
+  en: 87ac92776176ee15
+  zh: bb49edf3a68dda07
+/lyness-lyn-llm-deepseek/model-experience/deepseek-response:
+  en: 957d6665495e5ca5
+  zh: 0aa72b2c2dc07167
+/lyness-lyn-llm-deepseek/model-experience/deepseek-response/what-the-model-sees:
+  en: 36a3d0297d6ca209
+  zh: bfc68b8300f61593
+/lyness-lyn-llm-deepseek/model-experience/deepseek-response/token-effect:
+  en: 533309d1f93b89de
+  zh: 4cc0b86f05c9be53
+/lyness-lyn-llm-deepseek/model-experience/deepseek-response/kv-cache-effect:
+  en: ddfbea043596878d
+  zh: 4fbf5864a684c053
+/lyness-lyn-llm-deepseek/known-limitations-and-deferred-work:
+  en: 82bc8d95ae48d93b
+  zh: 90cf7ad16d0d9278
+/lyness-lyn-llm-deepseek/known-limitations-and-deferred-work/dev-note:
+  en: a1dcfb113de53c3c
+  zh: 84e06d60a9cb2536

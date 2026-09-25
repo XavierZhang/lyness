@@ -1,6 +1,55 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/ui-sidebar/README.md
-README.md: 19a220bf073f9b69d4e0526357041f25e8120a41
-README.zh.md: 44899191d62160ac79d5c165f12ea6598284a548
+/:
+  en: 3f14b18d4370a476
+  zh: 60f65fdd642e2821
+/lyness-lyn-client-ui-sidebar:
+  en: 2ff3be34e2260dff
+  zh: 198aa47a6d079a4f
+/lyness-lyn-client-ui-sidebar/summary:
+  en: 92717254e8bb9ab0
+  zh: 9a88bfd455a3eeb1
+/lyness-lyn-client-ui-sidebar/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-client-ui-sidebar/use-this-package:
+  en: a970f0547496634f
+  zh: 36ef9a85b26e19f1
+/lyness-lyn-client-ui-sidebar/use-this-package/brand-and-new-session:
+  en: b3d03128c215ab3b
+  zh: 29b0ce79eebc775a
+/lyness-lyn-client-ui-sidebar/use-this-package/global-panel-entries:
+  en: 5d3300d3506254c5
+  zh: 541ae1ee1e10b921
+/lyness-lyn-client-ui-sidebar/use-this-package/collapse-behavior:
+  en: 9bccf2b33ae1fd87
+  zh: d0c10b067ed7c67c
+/lyness-lyn-client-ui-sidebar/use-this-package/macos-desktop:
+  en: b4b42eb131b8989c
+  zh: 79a44cd57904885b
+/lyness-lyn-client-ui-sidebar/use-this-package/scrollbars:
+  en: d053b1ed0f4fd293
+  zh: ff25a56541f57530
+/lyness-lyn-client-ui-sidebar/understand-the-implementation:
+  en: 676cd4c309b4110d
+  zh: 25d1bd0b2c7db645
+/lyness-lyn-client-ui-sidebar/understand-the-implementation/slot-discipline:
+  en: 6eefc5c45abe8a8f
+  zh: 20b651e48a0ea903
+/lyness-lyn-client-ui-sidebar/further-exploration:
+  en: 0ec5fb0cfc41f2ad
+  zh: a24037c1b52a377b
+/lyness-lyn-client-ui-sidebar/model-experience:
+  en: 3120df665299c634
+  zh: 1d9f365d091d0d2a
+/lyness-lyn-client-ui-sidebar/model-experience/kv-cache-effect:
+  en: ca75c51c89c2c9b0
+  zh: de54f3467ef3b9be
+/lyness-lyn-client-ui-sidebar/known-limitations-and-deferred-work:
+  en: 262db5b10dfb7d98
+  zh: c1b5cf6aa58b054e
+/lyness-lyn-client-ui-sidebar/known-limitations-and-deferred-work/dev-note:
+  en: c8d74533efbc8d23
+  zh: eb58f7098335f55e

@@ -1,0 +1,19 @@
+# Bilingual-pair consistency record for 2026-09-19-deepseek-messages-only.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write .agents/notes/implemented/simplification/2026-09-19-deepseek-messages-only.md
+/agent-note-one-messages-transport-for-the-official-deepseek-route:
+  en: 8ad90ab578c4fe80
+  zh: 62548407e9b20877
+/agent-note-one-messages-transport-for-the-official-deepseek-route/problem:
+  en: 050718df19ce3089
+  zh: 676838e85ba91e25
+/agent-note-one-messages-transport-for-the-official-deepseek-route/decision:
+  en: c607127621c76bea
+  zh: 47e1c3ef9d7210c8
+/agent-note-one-messages-transport-for-the-official-deepseek-route/alternatives-considered:
+  en: f92695788ada65aa
+  zh: b885b30ba9f846f8
+/agent-note-one-messages-transport-for-the-official-deepseek-route/consequences:
+  en: 23f7d09fb7cf709c
+  zh: 1db0bf29cdc38871

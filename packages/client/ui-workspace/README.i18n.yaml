@@ -1,6 +1,73 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/ui-workspace/README.md
-README.md: 34797bd664dcf9fefbf471305ced4f531edddc75
-README.zh.md: 4ef107529c0ced847f4a2e72709c2640005856d7
+/:
+  en: 57d48a865e410952
+  zh: 81221515688296da
+/lyness-lyn-client-ui-workspace:
+  en: 5e50dcb3f5a67993
+  zh: c2d427e92dda535a
+/lyness-lyn-client-ui-workspace/summary:
+  en: 1a76ace6a18e3ab5
+  zh: b274d1e98e133851
+/lyness-lyn-client-ui-workspace/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-client-ui-workspace/use-this-package:
+  en: c8d579e1e65bc8c5
+  zh: 56f8e45351445ec7
+/lyness-lyn-client-ui-workspace/use-this-package/reordering-and-view-options:
+  en: 490c55caa1860379
+  zh: ed8a128036b51197
+/lyness-lyn-client-ui-workspace/use-this-package/workspace-hierarchy:
+  en: 5e049b90c55eddb3
+  zh: e06dc8d0d25c013f
+/lyness-lyn-client-ui-workspace/use-this-package/search:
+  en: 9eab3bfbaf98c987
+  zh: 54e7e141dae5c9e8
+/lyness-lyn-client-ui-workspace/use-this-package/managing-sessions:
+  en: bdbbc9cca671fbe5
+  zh: c75b988f24a9925a
+/lyness-lyn-client-ui-workspace/use-this-package/pending-interactions:
+  en: 9fb88260380bf093
+  zh: 3bace2b96ecd4a82
+/lyness-lyn-client-ui-workspace/use-this-package/active-schedule-markers:
+  en: 09f3accd49456b87
+  zh: d82898ec1659e931
+/lyness-lyn-client-ui-workspace/understand-the-implementation:
+  en: 21590da1f7488361
+  zh: 95916475cced409e
+/lyness-lyn-client-ui-workspace/understand-the-implementation/the-directory-flow-hole:
+  en: 978415ec6b2e0cc0
+  zh: 0d5c705ff34fb1da
+/lyness-lyn-client-ui-workspace/understand-the-implementation/session-row-actions:
+  en: a3b80d0e844d2929
+  zh: 85fe5dfb2968b491
+/lyness-lyn-client-ui-workspace/understand-the-implementation/session-row-actions/packaged-client-plugin:
+  en: 36934671b80b11ae
+  zh: 8e0aea6162e35e77
+/lyness-lyn-client-ui-workspace/understand-the-implementation/session-row-actions/dynamic-client-package:
+  en: d616709731bf25b3
+  zh: 185d16686a5c675f
+/lyness-lyn-client-ui-workspace/understand-the-implementation/view-state:
+  en: 83031e7505fc228a
+  zh: 03e17c9428fe29fd
+/lyness-lyn-client-ui-workspace/understand-the-implementation/hover-cards:
+  en: 34668e3c2e9c77b7
+  zh: c8bb72e29a3f2490
+/lyness-lyn-client-ui-workspace/further-exploration:
+  en: dd8dd6e342f291da
+  zh: 42007972e782748b
+/lyness-lyn-client-ui-workspace/model-experience:
+  en: 3120df665299c634
+  zh: 1d9f365d091d0d2a
+/lyness-lyn-client-ui-workspace/model-experience/kv-cache-effect:
+  en: ca75c51c89c2c9b0
+  zh: de54f3467ef3b9be
+/lyness-lyn-client-ui-workspace/known-limitations-and-deferred-work:
+  en: 00d7b1ddda7390f5
+  zh: 1e5a1055d1be4d1d
+/lyness-lyn-client-ui-workspace/known-limitations-and-deferred-work/dev-note:
+  en: 585813ff2c68c20c
+  zh: 18b43c0d64fa8a72

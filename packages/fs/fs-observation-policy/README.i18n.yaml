@@ -1,6 +1,70 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/fs/fs-observation-policy/README.md
-README.md: 2cbe2fc55b11f73ca41a3a6fdd0ffb3d8b614641
-README.zh.md: 7e529e775d57adc8bb6c6cb7fb08b0d10e8d2297
+/:
+  en: 2e7d205b959bad5b
+  zh: 78111c063c98c309
+/lyness-lyn-fs-observation-policy:
+  en: 5e1c4d8208b8aba4
+  zh: 96ef78ffab5203b7
+/lyness-lyn-fs-observation-policy/summary:
+  en: 50aeeafa7f656733
+  zh: 7120e0d3267b2e57
+/lyness-lyn-fs-observation-policy/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-fs-observation-policy/use-this-package:
+  en: fd2c8166198ccf13
+  zh: d7a2f30d32993f2c
+/lyness-lyn-fs-observation-policy/use-this-package/minimal-composition:
+  en: d85e3b814b43768e
+  zh: 89d3672dbb2f6d30
+/lyness-lyn-fs-observation-policy/use-this-package/what-changes-for-the-model:
+  en: 91686925a433794d
+  zh: 9ac2a197203d6549
+/lyness-lyn-fs-observation-policy/use-this-package/failures-and-recovery:
+  en: 1ecc7b68f7c7b3f0
+  zh: f6a9800786ed30c0
+/lyness-lyn-fs-observation-policy/understand-the-implementation:
+  en: 612e69f76edc8795
+  zh: 55edab9956941616
+/lyness-lyn-fs-observation-policy/understand-the-implementation/design-concept:
+  en: 100befb84dd894c2
+  zh: 627f1c6e50983208
+/lyness-lyn-fs-observation-policy/understand-the-implementation/source-map:
+  en: 6a55bd72a91664bf
+  zh: fc22345acfd9d850
+/lyness-lyn-fs-observation-policy/understand-the-implementation/decision-flow:
+  en: 79ddd675e3c27d62
+  zh: b9b74b63aad5b42d
+/lyness-lyn-fs-observation-policy/understand-the-implementation/single-slot-first-wins:
+  en: 226bb7885eb147b8
+  zh: 0b68d59ddc55fb07
+/lyness-lyn-fs-observation-policy/understand-the-implementation/lifecycle:
+  en: 02a1e3e7707706fb
+  zh: eff587af0445d032
+/lyness-lyn-fs-observation-policy/further-exploration:
+  en: 7fe5e255822e5c41
+  zh: ad0d8c7845afab91
+/lyness-lyn-fs-observation-policy/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/lyness-lyn-fs-observation-policy/model-experience/filesystem-tool-outcome:
+  en: ee1f02dc1bb69955
+  zh: 9ba9205a9b15d132
+/lyness-lyn-fs-observation-policy/model-experience/filesystem-tool-outcome/what-the-model-sees:
+  en: 9530ba33c8354366
+  zh: 74d7258494761b1c
+/lyness-lyn-fs-observation-policy/model-experience/filesystem-tool-outcome/token-effect:
+  en: 425ccc7dafa6218d
+  zh: d2c1a29955a60e3d
+/lyness-lyn-fs-observation-policy/model-experience/filesystem-tool-outcome/kv-cache-effect:
+  en: 2fbf2175168e8244
+  zh: 3d6bc05b9eadfbc2
+/lyness-lyn-fs-observation-policy/known-limitations-and-deferred-work:
+  en: bf511ef69abe8b03
+  zh: e7643ad1b39241b5
+/lyness-lyn-fs-observation-policy/known-limitations-and-deferred-work/dev-note:
+  en: 9979632783da7b78
+  zh: c42c1feec2905268

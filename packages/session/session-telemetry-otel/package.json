@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-session-telemetry-otel",
   "description": "OpenTelemetry backend for the lyness telemetry seam: hands captured session records to the OTel JS SDK's log pipeline",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -33,33 +33,33 @@
     "@opentelemetry/otlp-exporter-base": "^0.220.0",
     "@opentelemetry/resources": "^2.9.0",
     "@opentelemetry/sdk-logs": "^0.220.0",
-    "@lyness/schemastery": "workspace:^"
+    "@lyness/schemastery": "workspace:~"
   },
   "peerDependencies": {
-    "@lyness/lyn-command-feedback": "workspace:^",
-    "@lyness/lyn-message-feedback": "workspace:^",
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-session-telemetry": "workspace:^",
-    "@lyness/lyn-anonymous-user-id": "workspace:^",
-    "@lyness/cordis": "workspace:^"
+    "@lyness/lyn-command-feedback": "workspace:*",
+    "@lyness/lyn-message-feedback": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-session-telemetry": "workspace:*",
+    "@lyness/lyn-anonymous-user-id": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis-plugin-logger-console": "workspace:^",
-    "@lyness/cordis-plugin-loader": "workspace:^",
-    "@lyness/lyn-app-boot": "workspace:^",
-    "@lyness/lyn-bash-local": "workspace:^",
-    "@lyness/lyn-command-feedback": "workspace:^",
-    "@lyness/lyn-message-feedback": "workspace:^",
-    "@lyness/lyn-llm": "workspace:^",
-    "@lyness/lyn-loader-smoke": "workspace:^",
-    "@lyness/lyn-session": "workspace:^",
-    "@lyness/lyn-session-checkpoint-policy": "workspace:^",
-    "@lyness/lyn-session-persistence-jsonl": "workspace:^",
-    "@lyness/lyn-session-telemetry": "workspace:^",
-    "@lyness/lyn-subprocess-local": "workspace:^",
-    "@lyness/lyn-anonymous-user-id": "workspace:^",
-    "@lyness/cordis": "workspace:^",
-    "@lyness/lyn-http-proxy": "workspace:^"
+    "@lyness/cordis-plugin-logger-console": "workspace:~",
+    "@lyness/cordis-plugin-loader": "workspace:~",
+    "@lyness/lyn-app-boot": "workspace:*",
+    "@lyness/lyn-bash-local": "workspace:*",
+    "@lyness/lyn-command-feedback": "workspace:*",
+    "@lyness/lyn-message-feedback": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-loader-smoke": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-session-checkpoint-policy": "workspace:*",
+    "@lyness/lyn-session-persistence-jsonl": "workspace:*",
+    "@lyness/lyn-session-telemetry": "workspace:*",
+    "@lyness/lyn-subprocess-local": "workspace:*",
+    "@lyness/lyn-anonymous-user-id": "workspace:*",
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-http-proxy": "workspace:*"
   }
 }

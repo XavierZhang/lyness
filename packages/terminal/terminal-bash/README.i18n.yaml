@@ -1,6 +1,91 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/terminal/terminal-bash/README.md
-README.md: cb09586b944fc006ab7b5fad64f5718cb647baf7
-README.zh.md: cd034455ecbbb9405f476bafc897c0f4005ebd38
+/:
+  en: 7451cb97579aa088
+  zh: 836bff293fae7bd3
+/lyness-lyn-terminal-bash:
+  en: ce17f7e3a66257a4
+  zh: 90ccdb264d0d5252
+/lyness-lyn-terminal-bash/summary:
+  en: fa87f6dc8677087c
+  zh: 4a7ceee2c910dba1
+/lyness-lyn-terminal-bash/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-terminal-bash/use-this-package:
+  en: 2d59ab0d0290162e
+  zh: e37c1830f721c14b
+/lyness-lyn-terminal-bash/use-this-package/when-to-choose-it:
+  en: 9d8cc244535aa7a5
+  zh: 533e28f3c60a607d
+/lyness-lyn-terminal-bash/use-this-package/composition:
+  en: 71449ef1985b2f1b
+  zh: 562e9b5ef73cd5e1
+/lyness-lyn-terminal-bash/use-this-package/configuration:
+  en: 1b1f79e21cb9f6d0
+  zh: 4534976b5516e741
+/lyness-lyn-terminal-bash/use-this-package/shell-dialects-and-readiness:
+  en: bab340c3347f1794
+  zh: a4c32b651fea000d
+/lyness-lyn-terminal-bash/use-this-package/sandboxing-and-safe-operation:
+  en: 39e0f0b429b024a7
+  zh: 440171193664d13b
+/lyness-lyn-terminal-bash/use-this-package/observable-outcomes-and-failures:
+  en: 71726aa75e303acd
+  zh: 4dc311eeed75fa09
+/lyness-lyn-terminal-bash/understand-the-implementation:
+  en: 97f4f07114f5a995
+  zh: d30b07058a3103c7
+/lyness-lyn-terminal-bash/understand-the-implementation/design-concept:
+  en: 227efa256e8fff0b
+  zh: 5489214abb2c899a
+/lyness-lyn-terminal-bash/understand-the-implementation/source-map:
+  en: 9a525f7a7228a09b
+  zh: d57537edfacc9f8b
+/lyness-lyn-terminal-bash/understand-the-implementation/readiness-model:
+  en: a768d621c2ea2585
+  zh: 8213317da48766e3
+/lyness-lyn-terminal-bash/understand-the-implementation/send-cancellation-and-teardown:
+  en: 025325caab883327
+  zh: 1decfdea61e95ae1
+/lyness-lyn-terminal-bash/understand-the-implementation/sandbox-mode-fence:
+  en: a88b693ec539ac28
+  zh: a309bbe671166027
+/lyness-lyn-terminal-bash/further-exploration:
+  en: 0c875c2c5488dc55
+  zh: eb9f20f77a5f987c
+/lyness-lyn-terminal-bash/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/lyness-lyn-terminal-bash/model-experience/indirect-consumer:
+  en: a601a3c4f5b848cd
+  zh: ec617f79f706aaa1
+/lyness-lyn-terminal-bash/model-experience/indirect-consumer/what-the-model-sees:
+  en: 881e88ea1a5b9976
+  zh: f448b839f7d3631f
+/lyness-lyn-terminal-bash/model-experience/indirect-consumer/token-effect:
+  en: 41bd9bec80350376
+  zh: bdd2db111e86282f
+/lyness-lyn-terminal-bash/model-experience/indirect-consumer/kv-cache-effect:
+  en: 4ded19a792b5b94a
+  zh: 82029b44250df6a0
+/lyness-lyn-terminal-bash/model-experience/sandbox-policy-context:
+  en: 0342db1221081250
+  zh: 6a510f03982e2d56
+/lyness-lyn-terminal-bash/model-experience/sandbox-policy-context/what-the-model-sees:
+  en: d9cc7077b03fa969
+  zh: 91af4f3451603759
+/lyness-lyn-terminal-bash/model-experience/sandbox-policy-context/token-effect:
+  en: d3b7f8f648fd0aa4
+  zh: 954f662ddafaedbb
+/lyness-lyn-terminal-bash/model-experience/sandbox-policy-context/kv-cache-effect:
+  en: 5e4dc482b93e2b06
+  zh: 5b56af99bcfd74ed
+/lyness-lyn-terminal-bash/known-limitations-and-deferred-work:
+  en: 2dc221de0d3a76a7
+  zh: 822cef044e765459
+/lyness-lyn-terminal-bash/known-limitations-and-deferred-work/dev-note:
+  en: 979c4600ed8a81d5
+  zh: 4016ea615f638036

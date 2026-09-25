@@ -1,6 +1,61 @@
-# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
-# side as of the last confirmed-consistent state. Both languages carry equal authority;
-# after editing either side, bring the other along and re-record with:
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/hooks/hook-protocol/README.md
-README.md: 5efe8b05240a84dde464c4e4f11463a1b4fbd5ba
-README.zh.md: 9a4d0c74ab264750039f0df71246e154d3a6db31
+/:
+  en: 7cfe3761eedff848
+  zh: 80b0bed5743d0924
+/lyness-lyn-hook-protocol:
+  en: 19008de3d07ab71c
+  zh: 87822e783f639b3e
+/lyness-lyn-hook-protocol/summary:
+  en: db526d7002a41a0a
+  zh: af6142c4085bab85
+/lyness-lyn-hook-protocol/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-hook-protocol/use-this-package:
+  en: 4408de2bd44a20ee
+  zh: 33fb8506d07bd35e
+/lyness-lyn-hook-protocol/use-this-package/when-to-choose-it:
+  en: ab84bd32f7844208
+  zh: 5666047aeea01624
+/lyness-lyn-hook-protocol/use-this-package/what-a-hook-can-do:
+  en: 043f54b3a5b518a7
+  zh: a4115083a9b1cef1
+/lyness-lyn-hook-protocol/use-this-package/what-you-see-when-hooks-run:
+  en: ba2d6ed1db063f53
+  zh: ab1b8d72dccd2ff1
+/lyness-lyn-hook-protocol/understand-the-implementation:
+  en: 08b3960150e9c5e2
+  zh: 6bb2f236d697de01
+/lyness-lyn-hook-protocol/understand-the-implementation/processing-pipeline:
+  en: e9f7514082af4ec8
+  zh: 4d91f7d4ffe73416
+/lyness-lyn-hook-protocol/understand-the-implementation/hook-session-events:
+  en: df385034792cc4b7
+  zh: db098189111877c3
+/lyness-lyn-hook-protocol/understand-the-implementation/design-philosophy:
+  en: f84d6ec047897ec9
+  zh: 3d1088a4fa06bf01
+/lyness-lyn-hook-protocol/understand-the-implementation/source-map:
+  en: d613d9bd98d499fb
+  zh: afe2939d7df250ea
+/lyness-lyn-hook-protocol/further-exploration:
+  en: 15e8aeb4db821a80
+  zh: d6fc26d3da0cbdb3
+/lyness-lyn-hook-protocol/model-experience:
+  en: de4d399e2cf45496
+  zh: 05f163a237754329
+/lyness-lyn-hook-protocol/model-experience/kv-cache-effect:
+  en: e290ccc9b3c92c08
+  zh: cb3c8823f41e7afe
+/lyness-lyn-hook-protocol/known-limitations-and-deferred-work:
+  en: fba05637add75d6a
+  zh: fef1db91ce029009
+/lyness-lyn-hook-protocol/known-limitations-and-deferred-work/dev-note:
+  en: ac1d08360a93382b
+  zh: 6c58749bae9a6e65
+/lyness-lyn-hook-protocol/known-limitations-and-deferred-work/dev-note/future-run-level-halt:
+  en: bfb3db50de22c1d0
+  zh: 2a979359b0edbbe7

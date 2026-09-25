@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-app-boot",
   "description": "Shared boot glue for the app bins: .env loading, fail-loud Loader guards, snapshot-aware config resolution, and the Loader boot sequence",
-  "version": "0.1.5-rc.1",
+  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
@@ -18,46 +18,49 @@
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
     },
+    "./worker/profile-resolution-bootstrap": {
+      "types": "./lib/types/profile-resolution/worker-bootstrap.d.ts",
+      "default": "./lib/worker/profile-resolution-bootstrap.js"
+    },
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
   "files": [
     "lib/index.js",
+    "lib/worker/profile-resolution-bootstrap.js",
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
   "dependencies": {
-    "@lyness/lyn-atomic-write": "workspace:^",
-    "@lyness/lyn-package-manifest": "workspace:^",
+    "@lyness/lyn-atomic-write": "workspace:*",
+    "@lyness/lyn-package-manifest": "workspace:*",
+    "@eslint-community/regexpp": "^4.12.2",
+    "ajv": "^8.20.0",
     "js-yaml": "^4.2.0",
-    "resolve.exports": "^2.0.3"
+    "node-addon-require-builtin": "^0.1.6",
+    "resolve.exports": "^2.0.3",
+    "semver": "^7.8.5"
   },
   "peerDependencies": {
-    "@lyness/cordis-plugin-group": "workspace:^",
-    "@lyness/cordis-plugin-hmr": "workspace:^",
-    "@lyness/cordis-plugin-include": "workspace:^",
-    "@lyness/cordis-plugin-loader": "workspace:^",
-    "@lyness/lyn-launch-environment": "workspace:^",
-    "@lyness/lyn-home-paths": "workspace:^",
-    "@lyness/lyn-system-prompt": "workspace:^",
-    "@lyness/cordis": "workspace:^"
-  },
-  "peerDependenciesMeta": {
-    "@lyness/cordis-plugin-hmr": {
-      "optional": true
-    }
+    "@lyness/cordis-plugin-group": "workspace:~",
+    "@lyness/cordis-plugin-include": "workspace:~",
+    "@lyness/cordis-plugin-loader": "workspace:~",
+    "@lyness/lyn-launch-environment": "workspace:*",
+    "@lyness/lyn-home-paths": "workspace:*",
+    "@lyness/lyn-system-prompt": "workspace:*",
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis-plugin-group": "workspace:^",
-    "@lyness/cordis-plugin-hmr": "workspace:^",
-    "@lyness/cordis-plugin-include": "workspace:^",
-    "@lyness/cordis-plugin-loader": "workspace:^",
-    "@lyness/cordis-plugin-timer": "workspace:^",
-    "@lyness/lyn-launch-environment": "workspace:^",
-    "@lyness/lyn-home-paths": "workspace:^",
-    "@lyness/lyn-system-prompt": "workspace:^",
+    "@lyness/schemastery": "workspace:~",
+    "@lyness/cordis-plugin-group": "workspace:~",
+    "@lyness/cordis-plugin-include": "workspace:~",
+    "@lyness/cordis-plugin-loader": "workspace:~",
+    "@lyness/cordis-plugin-timer": "workspace:~",
+    "@lyness/lyn-launch-environment": "workspace:*",
+    "@lyness/lyn-home-paths": "workspace:*",
+    "@lyness/lyn-system-prompt": "workspace:*",
     "@types/js-yaml": "^4.0.9",
-    "@lyness/cordis": "workspace:^",
-    "chokidar": "4.0.3"
+    "@types/semver": "^7.8.0",
+    "@lyness/cordis": "workspace:~"
   }
 }

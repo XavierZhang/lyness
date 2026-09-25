@@ -1,0 +1,19 @@
+# Bilingual-pair consistency record for 2026-09-11-turn-changed-files-card.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write .agents/notes/implemented/feature/2026-09-11-turn-changed-files-card.md
+/agent-note-turn-changed-files-card:
+  en: d529535e6fcef72e
+  zh: 0fa5663b9b5e396c
+/agent-note-turn-changed-files-card/problem:
+  en: f3416b4d37371155
+  zh: 52e22bd5a90358e5
+/agent-note-turn-changed-files-card/decision:
+  en: 29611c6fb56f6bf9
+  zh: b838981d1b173954
+/agent-note-turn-changed-files-card/alternatives-considered:
+  en: a3d0113a551c0b9a
+  zh: 41a93daf5ab5f7ac
+/agent-note-turn-changed-files-card/consequences:
+  en: 33504bcb31f30f84
+  zh: c6626b532701fcc7
