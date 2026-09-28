@@ -320,7 +320,7 @@ const archive = async (): Promise<Uint8Array> =>
       },
       deepseekLlmApiExtensions: {
         register: (field: string, contribution: { readonly prepare: Prepare }): void => {
-          expect(field).toBe('lyn_plugin_packages')
+          expect(field).toBe('dsh_plugin_packages')
           prepare = contribution.prepare
         },
       },

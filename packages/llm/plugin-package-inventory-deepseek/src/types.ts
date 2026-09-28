@@ -14,6 +14,6 @@ export interface DeepSeekPluginPackageInventoryExtension {
 
 declare module '@lyness/lyn-deepseek-llm-api-extensions/types' {
   interface DeepSeekLlmApiExtensionMap {
-    lyn_plugin_packages: DeepSeekPluginPackageInventoryExtension
+    dsh_plugin_packages: DeepSeekPluginPackageInventoryExtension
   }
 }

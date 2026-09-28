@@ -30,7 +30,7 @@ export const inject = ['agents', 'deepseekLlmApiExtensions', 'loader']
 
 /** Plugin-package request contribution configuration. */
 export interface Config {
-  /** Contribute `lyn_plugin_packages` to official DeepSeek requests. Defaults to `true`. */
+  /** Contribute `dsh_plugin_packages` to official DeepSeek requests. Defaults to `true`. */
   enabled?: boolean
 }
 
@@ -185,7 +185,7 @@ async function collectActivePluginPackages(
 }
 
 /**
- * Register the complete `lyn_plugin_packages` request contribution when enabled.
+ * Register the complete `dsh_plugin_packages` request contribution when enabled.
  * @param ctx - plugin context carrying Loader entry metadata and the DeepSeek request-extension registry.
  * @param config - validated default-on configuration.
  */
@@ -193,7 +193,7 @@ export function apply(ctx: Context, config: Config): void {
   if (config.enabled === false) return
   const hostBaseUrl = ctx.baseUrl ?? import.meta.url
   const resolver = new PackageIdentityResolver(hostBaseUrl, ctx.get('pluginPackages'))
-  ctx.deepseekLlmApiExtensions.register('lyn_plugin_packages', {
+  ctx.deepseekLlmApiExtensions.register('dsh_plugin_packages', {
     prepare: async (request) => {
       const value: DeepSeekPluginPackageInventoryExtension = {
         version: 1,

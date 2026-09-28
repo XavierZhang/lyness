@@ -6,29 +6,29 @@
   en: 6f74eca7ce77e731
   zh: baf14ef16b96a67d
 /official-deepseek-llm-api-wire-extensions/wire-namespaces-and-versioning:
-  en: 3d702b448cccfc54
-  zh: ec6762f44cffce8c
+  en: 418eec1705926199
+  zh: ef9bbeb3b81b2d65
 /official-deepseek-llm-api-wire-extensions/request-headers:
   en: a6ce1a5816041e35
   zh: c0c0c1a2b26ce96f
 /official-deepseek-llm-api-wire-extensions/body-extension-transaction:
   en: f0b1443c364a431c
   zh: 16d16ddf5c451e8e
-/official-deepseek-llm-api-wire-extensions/lyn-plugin-packages:
-  en: 1a5e253aed8d5ada
-  zh: 5afda39db7c5a09d
-/official-deepseek-llm-api-wire-extensions/lyn-session-log:
-  en: 6b2e75b96c630cb7
-  zh: cf56bae7e23bc2b4
-/official-deepseek-llm-api-wire-extensions/lyn-session-log/wire-session-header:
-  en: 76f03118ba390449
-  zh: ac10890b857c3804
-/official-deepseek-llm-api-wire-extensions/lyn-session-log/canonical-event-envelopes:
+/official-deepseek-llm-api-wire-extensions/dsh-plugin-packages:
+  en: 9bb0b4d1bdac76bb
+  zh: 4b23d37191424a7b
+/official-deepseek-llm-api-wire-extensions/dsh-session-log:
+  en: abd673f8866646d5
+  zh: 5710ccc3d223b40f
+/official-deepseek-llm-api-wire-extensions/dsh-session-log/wire-session-header:
+  en: 32f6de9d6349b08c
+  zh: 98e09e6bf472a13d
+/official-deepseek-llm-api-wire-extensions/dsh-session-log/canonical-event-envelopes:
   en: 008a21df5e314154
   zh: 8855710a37542ec5
-/official-deepseek-llm-api-wire-extensions/lyn-session-log/acceptance-watermark-and-at-least-once-delivery:
+/official-deepseek-llm-api-wire-extensions/dsh-session-log/acceptance-watermark-and-at-least-once-delivery:
   en: 4d84cb1e61f9cf58
   zh: 8a63ce3069e2f0b3
 /official-deepseek-llm-api-wire-extensions/exposure-and-receiver-requirements:
-  en: 6fb39878caa3b1d1
-  zh: d31cb1cf0ee79785
+  en: ae93d9a44245b12f
+  zh: 8b95fc66c6e653c2

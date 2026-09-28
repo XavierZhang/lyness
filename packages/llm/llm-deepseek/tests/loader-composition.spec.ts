@@ -133,14 +133,14 @@ describe('llm-deepseek real dynamic composition', () => {
     session.append('turn/start', { turn: 1 })
 
     await assemble(ctx, { model: 'deepseek-v4-flash', messages: [], sessionId: session.id })
-    const request = server.requests[0] as { lyn_plugin_packages: { version: number; packages: unknown[] } }
-    expect(request).not.toHaveProperty('lyn_session_log')
-    expect(request.lyn_plugin_packages.packages).toEqual(expect.arrayContaining([
+    const request = server.requests[0] as { dsh_plugin_packages: { version: number; packages: unknown[] } }
+    expect(request).not.toHaveProperty('dsh_session_log')
+    expect(request.dsh_plugin_packages.packages).toEqual(expect.arrayContaining([
       { name: '@lyness/lyn-deepseek-llm-api-extensions', version: '0.1.0-rc.8' },
       { name: '@lyness/lyn-llm-deepseek-api-key', version: '0.1.0-rc.8' },
       { name: '@lyness/lyn-session-log-deepseek', version: '0.1.0-rc.8' },
     ]))
-    expect(request.lyn_plugin_packages.version).toBe(1)
+    expect(request.dsh_plugin_packages.version).toBe(1)
     expect(SessionLogDeepSeek.acceptedThrough(session)).toBe(-1)
   })
 
@@ -156,7 +156,7 @@ describe('llm-deepseek real dynamic composition', () => {
 
     await assemble(ctx, { model: 'deepseek-v4-flash', messages: [], sessionId: session.id })
     const request = server.requests[0] as {
-      lyn_session_log?: {
+      dsh_session_log?: {
         version: number
         session: { id: string }
         afterSeq: number
@@ -164,7 +164,7 @@ describe('llm-deepseek real dynamic composition', () => {
         events: Array<{ type: string; seq: number }>
       }
     }
-    expect(request.lyn_session_log).toMatchObject({
+    expect(request.dsh_session_log).toMatchObject({
       version: 1,
       session: { id: 'extension-composition-enabled' },
       afterSeq: -1,

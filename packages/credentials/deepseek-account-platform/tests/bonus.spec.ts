@@ -55,9 +55,9 @@ async function fixture() {
   let bonusBizCode = 0
   let bonusStatus = 200
   let bonuses: unknown = [
-    { order_id: ORDER, campaign: 'lyn_login_bonus', amount: '5.00', currency: 'CNY',
+    { order_id: ORDER, campaign: 'dsh_login_bonus', amount: '5.00', currency: 'CNY',
       granted_at: '2026-09-21T12:00:00Z', expires_at: '2026-10-21T12:00:00Z', msg: '已赠送您 5.00 元 LYN 体验赠金。' },
-    { order_id: SECOND_ORDER, campaign: 'lyn_login_bonus', amount: '1.50', currency: 'CNY',
+    { order_id: SECOND_ORDER, campaign: 'dsh_login_bonus', amount: '1.50', currency: 'CNY',
       granted_at: '2026-09-20T12:00:00Z', expires_at: '2026-10-20T12:00:00Z', msg: '已赠送您 1.50 元 LYN 体验赠金。' },
   ]
   let ackBizCode = 0
@@ -192,9 +192,9 @@ it('reads unnotified bonuses with the platform origin, grant header, and locale 
   expect(batch).toEqual<AccountBonusBatch>({
     accountId: USER as AccountUserId,
     bonuses: [
-      { orderId: ORDER as AccountBonusOrderId, campaign: 'lyn_login_bonus', amount: '5.00', currency: 'CNY',
+      { orderId: ORDER as AccountBonusOrderId, campaign: 'dsh_login_bonus', amount: '5.00', currency: 'CNY',
         grantedAt: '2026-09-21T12:00:00Z', expiresAt: '2026-10-21T12:00:00Z', message: '已赠送您 5.00 元 LYN 体验赠金。' },
-      { orderId: SECOND_ORDER as AccountBonusOrderId, campaign: 'lyn_login_bonus', amount: '1.50', currency: 'CNY',
+      { orderId: SECOND_ORDER as AccountBonusOrderId, campaign: 'dsh_login_bonus', amount: '1.50', currency: 'CNY',
         grantedAt: '2026-09-20T12:00:00Z', expiresAt: '2026-10-20T12:00:00Z', message: '已赠送您 1.50 元 LYN 体验赠金。' },
     ],
   })
@@ -210,9 +210,9 @@ it('accepts exponent and full-precision bonus amounts through the Platform numer
   const f = await fixture()
   await f.grant('test-account-token')
   f.bonuses([
-    { order_id: ORDER, campaign: 'lyn_login_bonus', amount: '5.0000000000000000', currency: 'CNY',
+    { order_id: ORDER, campaign: 'dsh_login_bonus', amount: '5.0000000000000000', currency: 'CNY',
       granted_at: '2026-09-21T12:00:00Z', expires_at: '2026-10-21T12:00:00Z', msg: 'fixture' },
-    { order_id: SECOND_ORDER, campaign: 'lyn_login_bonus', amount: '1E+3', currency: 'CNY',
+    { order_id: SECOND_ORDER, campaign: 'dsh_login_bonus', amount: '1E+3', currency: 'CNY',
       granted_at: '2026-09-20T12:00:00Z', expires_at: '2026-10-20T12:00:00Z', msg: 'fixture' },
   ])
   const batch = await f.account.getUnnotifiedBonuses(clientMetadata('en'))

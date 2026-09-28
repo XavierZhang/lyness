@@ -166,16 +166,16 @@ describe.skipIf(!process.env.DEEPSEEK_API_KEY)('DeepSeek Messages real API', () 
       if (url !== `${Protocol.PUBLIC_BASE_URL}/v1/messages`) return fetchImpl(input, init)
       if (typeof init?.body !== 'string') throw new Error('expected a JSON Messages request')
       const body = JSON.parse(init.body) as Record<string, unknown>
-      expect(body).toMatchObject({ lyn_plugin_packages: {
+      expect(body).toMatchObject({ dsh_plugin_packages: {
         version: 1, packages: [{ name: packageIdentity.name, version: packageIdentity.version }],
       } })
       if (enabled) {
-        expect(body).toMatchObject({ lyn_session_log: {
+        expect(body).toMatchObject({ dsh_session_log: {
           version: 1, sessionFormatVersion: session.header.version, session: { id: session.id },
           afterSeq, throughSeq,
           events: Array.from({ length: throughSeq - afterSeq }, (_, index) => ({ seq: afterSeq + index + 1 })),
         } })
-      } else expect(body).not.toHaveProperty('lyn_session_log')
+      } else expect(body).not.toHaveProperty('dsh_session_log')
       expect(SessionLogDeepSeek.acceptedThrough(session)).toBe(afterSeq)
       const response = await fetchImpl(input, init)
       expect(response.ok).toBe(true)

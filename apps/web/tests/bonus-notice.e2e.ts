@@ -20,7 +20,7 @@ const SNAPSHOT_DIR = fileURLToPath(new URL('./expected/bonus-notice', import.met
 const OVERLAY_TEMPLATE = fileURLToPath(new URL('./fixtures/bonus-notice/cordis.patch.yml', import.meta.url))
 const MODE = webSnapshotMode()
 
-const TOKEN = 'lyn_bonus_notice_test'
+const TOKEN = 'dsh_bonus_notice_test'
 const ACCOUNT_ID = 'bonus-user'
 const ORDER_FIRST = '22222222-2222-4222-8222-222222222222'
 const ORDER_LATER = '33333333-3333-4333-8333-333333333333'
@@ -88,7 +88,7 @@ async function mockPlatform() {
   }
   /** @param value - granted bonus. @param locale - request language. @returns its wire fields. */
   const wire = (value: Granted, locale: string | undefined): unknown => ({
-    order_id: value.orderId, campaign: 'lyn_login_bonus', amount: value.amount, currency: 'CNY',
+    order_id: value.orderId, campaign: 'dsh_login_bonus', amount: value.amount, currency: 'CNY',
     granted_at: new Date().toISOString(), expires_at: expiresAt(),
     msg: locale === 'en_US' ? value.en_US : value.zh_CN,
   })

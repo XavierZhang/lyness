@@ -37,10 +37,10 @@ export const inject = ['deepseekLlmApiExtensions', 'sessions']
 
 /** Session-log request contribution configuration. */
 export interface Config {
-  /** Contribute `lyn_session_log` to official DeepSeek requests. Defaults to `true`. */
+  /** Contribute `dsh_session_log` to official DeepSeek requests. Defaults to `true`. */
   enabled?: boolean
   /**
-   * Largest serialized `lyn_session_log` field, in UTF-8 bytes, that one request carries.
+   * Largest serialized `dsh_session_log` field, in UTF-8 bytes, that one request carries.
    * A request uploads the longest pending event prefix that fits; later requests continue
    * after its acceptance. Defaults to 8 MiB.
    */
@@ -175,7 +175,7 @@ export function acceptedThrough(session: Session): SessionSeqCursor {
 }
 
 /**
- * Register the incremental `lyn_session_log` request contribution when enabled.
+ * Register the incremental `dsh_session_log` request contribution when enabled.
  * @param ctx - plugin context carrying Sessions and the DeepSeek request-extension registry.
  * @param config - validated configuration.
  */
@@ -183,7 +183,7 @@ export function apply(ctx: Context, config: Config): void {
   if (config.enabled !== true) return
   // Schemastery validates and fills the defaults before `apply` runs.
   const { maxBytes } = config as Required<Config>
-  ctx.deepseekLlmApiExtensions.register('lyn_session_log', {
+  ctx.deepseekLlmApiExtensions.register('dsh_session_log', {
     prepare: (request) => {
       // TODO: Define an explicit wire result for direct or stale-session calls if they become a supported product path.
       if (request.sessionId === undefined) return undefined
@@ -219,9 +219,9 @@ export function apply(ctx: Context, config: Config): void {
           const seq = String(first.seq)
           ctx.logger.warn(Number.isFinite(candidateBytes)
             ? `session-log-deepseek: event ${seq} of session "${session.id}" needs a ${String(candidateBytes)}-byte`
-              + ` lyn_session_log field, above maxBytes ${String(maxBytes)}; this session's upload stays at event ${seq}`
+              + ` dsh_session_log field, above maxBytes ${String(maxBytes)}; this session's upload stays at event ${seq}`
               + ' until maxBytes admits it'
-            : `session-log-deepseek: event ${seq} of session "${session.id}" is too large to serialize into a lyn_session_log field;`
+            : `session-log-deepseek: event ${seq} of session "${session.id}" is too large to serialize into a dsh_session_log field;`
               + ` this session's upload stays at event ${seq}`)
         }
         return undefined

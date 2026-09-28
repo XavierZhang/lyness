@@ -35,7 +35,7 @@ function bonus(orderId: string, message = 'Awarded 5.00'): AccountBonusBatch {
   return {
     accountId: 'account-user' as AccountUserId,
     bonuses: [{
-      orderId: orderId as AccountBonusOrderId, campaign: 'lyn_login_bonus', amount: '5.00', currency: 'CNY',
+      orderId: orderId as AccountBonusOrderId, campaign: 'dsh_login_bonus', amount: '5.00', currency: 'CNY',
       grantedAt: '2026-09-21T12:00:00Z', expiresAt: '2099-01-01T00:00:00Z', message,
     }],
   }

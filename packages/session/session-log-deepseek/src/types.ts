@@ -71,7 +71,7 @@ export interface DeepSeekSessionLogExtension {
 
 declare module '@lyness/lyn-deepseek-llm-api-extensions/types' {
   interface DeepSeekLlmApiExtensionMap {
-    lyn_session_log: DeepSeekSessionLogExtension
+    dsh_session_log: DeepSeekSessionLogExtension
   }
 }
 

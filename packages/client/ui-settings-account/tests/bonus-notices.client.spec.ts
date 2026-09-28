@@ -22,7 +22,7 @@ function batch(accountId: string, orderId: string, expiresAt = '2099-01-01T00:00
     accountId: accountId as AccountUserId,
     bonuses: [{
       orderId: orderId as AccountBonusOrderId,
-      campaign: 'lyn_login_bonus',
+      campaign: 'dsh_login_bonus',
       amount: '5.00',
       currency: 'CNY',
       grantedAt: '2026-09-21T12:00:00Z',

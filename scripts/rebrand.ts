@@ -104,6 +104,42 @@ const RULES: readonly Rule[] = [
     note: 'Markdown anchors in the generated catalogs drop the `@` and `/` from a package name, so `@deepseek-ai/dsh-acp` anchors as `deepseek-aidsh-acp` and the renamed `@lyness/lyn-acp` anchors as `lynesslyn-acp`. The generators rewrite their own headings; this rule carries the hand-written links that point at them.',
   },
   {
+    id: 'deepseek-request-field-shield-session-log',
+    from: 'dsh_session_log',
+    to: '\u0000deepseek-request-field\u0000session_log',
+    note: 'A field name the official DeepSeek service owns, not a brand. The incremental session-log upload that `session-log-deepseek` registers on the official DeepSeek request. The server matches these keys literally, so a renamed key is silently dropped and the feature stops working against the real endpoint while every mock-server test still passes. Restored by `deepseek-request-field-restore` after `dsh-token` has run.',
+  },
+  {
+    id: 'deepseek-request-field-shield-plugin-packages',
+    from: 'dsh_plugin_packages',
+    to: '\u0000deepseek-request-field\u0000plugin_packages',
+    note: 'A field name the official DeepSeek service owns, not a brand. The installed-plugin inventory that `plugin-package-inventory-deepseek` registers on the official DeepSeek request. The server matches these keys literally, so a renamed key is silently dropped and the feature stops working against the real endpoint while every mock-server test still passes. Restored by `deepseek-request-field-restore` after `dsh-token` has run.',
+  },
+  {
+    id: 'deepseek-request-field-shield-otel-report',
+    from: 'dsh_otel_report',
+    to: '\u0000deepseek-request-field\u0000otel_report',
+    note: 'A field name the official DeepSeek service owns, not a brand. The `x-channel` header value the OpenTelemetry exporter sends to the official collector. The server matches these keys literally, so a renamed key is silently dropped and the feature stops working against the real endpoint while every mock-server test still passes. Restored by `deepseek-request-field-restore` after `dsh-token` has run.',
+  },
+  {
+    id: 'deepseek-request-field-shield-feedback',
+    from: 'dsh_feedback',
+    to: '\u0000deepseek-request-field\u0000feedback',
+    note: 'A field name the official DeepSeek service owns, not a brand. The message-feedback field the official API accepts; a spec asserts the session-log path never emits it. The server matches these keys literally, so a renamed key is silently dropped and the feature stops working against the real endpoint while every mock-server test still passes. Restored by `deepseek-request-field-restore` after `dsh-token` has run.',
+  },
+  {
+    id: 'deepseek-request-field-shield-login-bonus',
+    from: 'dsh_login_bonus',
+    to: '\u0000deepseek-request-field\u0000login_bonus',
+    note: 'A field name the official DeepSeek service owns, not a brand. A campaign id the account platform issues; the fork reads it back verbatim from the vendor response. The server matches these keys literally, so a renamed key is silently dropped and the feature stops working against the real endpoint while every mock-server test still passes. Restored by `deepseek-request-field-restore` after `dsh-token` has run.',
+  },
+  {
+    id: 'deepseek-request-field-shield-bonus-notice-test',
+    from: 'dsh_bonus_notice_test',
+    to: '\u0000deepseek-request-field\u0000bonus_notice_test',
+    note: 'A field name the official DeepSeek service owns, not a brand. The bonus-notice token the account platform fixtures replay against that same campaign vocabulary. The server matches these keys literally, so a renamed key is silently dropped and the feature stops working against the real endpoint while every mock-server test still passes. Restored by `deepseek-request-field-restore` after `dsh-token` has run.',
+  },
+  {
     id: 'persistence-hash-domain-shield',
     from: 'dsh-persistence-',
     to: '\u0000persistence-domain\u0000',
@@ -206,6 +242,12 @@ const RULES: readonly Rule[] = [
     note: 'The product abbreviation in prose, headings, and identifiers such as `DSHInspector`. Runs after `env-prefix` so `DSH_HOME` has already become `LYNESS_HOME` and cannot be reached here. Unbounded: no other all-caps word in this tree contains these three letters.',
   },
   {
+    id: 'lowercase-desktop-env-prefix-probe',
+    from: 'dsh_desktop_',
+    to: 'lyness_desktop_',
+    note: 'Deliberately lowercase desktop packaging variables proving the ambient-settings scrubber matches `LYNESS_DESKTOP_` case-insensitively. Same reason as `lowercase-env-prefix-probe`: the prefix spells `lyness_` in lowercase while the bare token spells `lyn`, so the generic token rule names variables the scrubber never sees and the test asserts nothing.',
+  },
+  {
     id: 'lowercase-env-prefix-probe',
     from: 'dsh_scrub_probe_lower',
     to: 'lyness_scrub_probe_lower',
@@ -247,6 +289,12 @@ const RULES: readonly Rule[] = [
     to: 'lyn',
     note: 'The CLI command, the `~/.dsh` home directory, the `dsh` package-manifest key and its property accesses, and the `dsh-*` skill and preset ids. Bounded so it cannot split an unrelated identifier.',
     boundary: true,
+  },
+  {
+    id: 'deepseek-request-field-restore',
+    from: '\u0000deepseek-request-field\u0000',
+    to: 'dsh_',
+    note: 'Puts back every name the `deepseek-request-field-shield-*` rules parked, after `dsh-token` has run. The pair leaves no sentinel behind: `--check` fails loudly if one survives.',
   },
   {
     id: 'persistence-hash-domain-restore',
