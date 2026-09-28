@@ -313,7 +313,7 @@ jobs:
           exit "$sandbox_status"
 
       - name: Install Playwright Chromium and hosted dependencies
-        run: pnpm --filter @lyness/lyn-web-frontend exec playwright install --with-deps chromium
+        run: pnpm --filter @lyness/lyn-web-frontend exec playwright install --with-deps chromium webkit
 
       # Upstream never saves this cache on a branch this fork builds.
       - uses: actions/cache/save@v4
