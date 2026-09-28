@@ -1,8 +1,8 @@
 Usage: lyn [--profile] <name> [options] [app-args...]
        lyn plugin --profile <name> <pnpm-args...>
 
-lyn: boot a lyness profile — an ordered stack of plugin-bundle patch
-layers under your own overrides.
+lyn: boot a lyness profile — an ordered stack of plugin-bundle patch layers
+under your own overrides.
 
 Arguments:
   args                           arguments for the booted profile's app (see:
