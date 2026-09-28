@@ -6,6 +6,18 @@ import { RELEASED_V0_EVENT_DISPOSITIONS } from './dispositions.ts'
 
 const SURFACE_TYPES = new Set(['user/message', 'assistant/message', 'tool/result'])
 
+/**
+ * Recognize the released session-title producer under either recorded spelling.
+ * The producer kind is a frozen rename target, so the current build writes
+ * `dsh-session-title-llm`; generations this fork recorded before that was
+ * settled carry `lyn-session-title-llm`, and both must keep validating.
+ * @param plugin - the producer string read from a released source record.
+ * @returns whether the value names that producer.
+ */
+function isTitleProducer(plugin: SessionFormatJsonValue | undefined): boolean {
+  return plugin === 'dsh-session-title-llm' || plugin === 'lyn-session-title-llm'
+}
+
 interface CompactionState {
   readonly id: string
   readonly sourceCommandId?: string
@@ -454,7 +466,7 @@ function assertTitleSources(
     const content = message?.['content'] as readonly Record<string, SessionFormatJsonValue>[] | undefined
     const source = message === undefined ? undefined : releasedV0Record(message['source'], 'session/title-llm-request message source')
     if (messages.length !== 1 || message?.['role'] !== 'user' || content?.length !== 1
-      || source?.['kind'] !== 'plugin' || source['plugin'] !== 'dsh-session-title-llm') {
+      || source?.['kind'] !== 'plugin' || !isTitleProducer(source['plugin'])) {
       throw new SessionFormatError('session/title-llm-request messages do not represent messageSeqs')
     }
     const framed = content[0]

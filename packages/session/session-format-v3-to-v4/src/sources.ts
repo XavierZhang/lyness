@@ -42,6 +42,9 @@ const RENAMED_PRODUCERS: Readonly<Record<string, string>> = Object.freeze({
   'tools-ptc': 'ptc-mode',
   'dsh-compaction-basic': 'compact-basic',
   '@deepseek-ai/dsh-system-prompt': 'runtime-context',
+  // Logs this fork wrote name the same producer under its own scope, and
+  // both spellings appear in committed generations.
+  '@lyness/lyn-system-prompt': 'runtime-context',
 })
 
 /** First-party V3 plugin identities that intentionally keep their current kind. */
@@ -53,11 +56,14 @@ const RELEASED_SAME_NAME_PRODUCERS: ReadonlySet<string> = new Set([
   'repeat-tool-reminder', 'tool-cordis', 'cordis-host-runner', 'tool-goal',
   'tool-jobs', 'hooks-codex', 'hooks-claude-code', 'schedule',
   'dsh-session-title-llm',
+  // Generations this fork recorded name the same producer this way.
+  'lyn-session-title-llm',
 ])
 
 /** Resolve the current producer kind for one released V3 plugin string. */
 function producerKind(plugin: string, role: SessionFormatJsonValue | undefined): string {
-  if (plugin === '@deepseek-ai/dsh-system-prompt' && role === 'system') return 'system-prompt'
+  if ((plugin === '@deepseek-ai/dsh-system-prompt' || plugin === '@lyness/lyn-system-prompt')
+    && role === 'system') return 'system-prompt'
   const renamed = Object.hasOwn(RENAMED_PRODUCERS, plugin) ? RENAMED_PRODUCERS[plugin] : undefined
   if (renamed !== undefined) return renamed
   if (RELEASED_SAME_NAME_PRODUCERS.has(plugin)) return plugin
