@@ -1,13 +1,14 @@
 /** Which platform an environment table names, and what it refuses. */
 
 import { describe, expect, it } from 'vitest'
+import { PUBLIC_BASE_URL } from '@lyness/lyn-llm-deepseek'
 import { E2E_TARGET, OFFICIAL_E2E_MODEL, resolveE2eTarget } from '../src/index.ts'
 
 describe('the e2e target', () => {
   it('is the official API and its default model when nothing is configured', () => {
     expect(resolveE2eTarget({})).toEqual({
       model: OFFICIAL_E2E_MODEL,
-      baseURL: 'https://api.deepseek.com',
+      baseURL: PUBLIC_BASE_URL,
       official: true,
     })
   })
@@ -24,7 +25,7 @@ describe('the e2e target', () => {
   })
 
   it('treats the official endpoint written with a trailing slash as official', () => {
-    expect(resolveE2eTarget({ DEEPSEEK_BASE_URL: 'https://api.deepseek.com/' }).official).toBe(true)
+    expect(resolveE2eTarget({ DEEPSEEK_BASE_URL: `${PUBLIC_BASE_URL}/` }).official).toBe(true)
   })
 
   it('refuses a model list that names a blank model', () => {

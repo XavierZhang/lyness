@@ -330,6 +330,13 @@ export function resolveAdapterOptions(config: Options, environment?: LaunchEnvir
   const environmentCatalog = catalogValue === undefined
     ? undefined
     : parseModelIds(catalogValue).map(id => ({ id }))
+  // The variable replaces the built-in catalog, which is what a composition
+  // that names no models resolves to. A catalog someone did name — in the
+  // composition or saved through settings — outranks it, so compare against
+  // the built-in list rather than reading the resolved value as a choice.
+  const builtInIds = DEFAULT_MODELS.map(model => model.id).join('\u0000')
+  const namedCatalog = config.models === undefined
+    || config.models.map(model => model.id).join('\u0000') === builtInIds ? undefined : config.models
   const capValue = environment?.get(MAX_TOKENS_ENV)?.value
   const environmentMaxTokens = capValue === undefined ? undefined : parseMaxTokens(capValue)
   const parsed = new URL(baseURL)
@@ -344,7 +351,7 @@ export function resolveAdapterOptions(config: Options, environment?: LaunchEnvir
     },
     maxTokens: environmentMaxTokens ?? config.maxTokens ?? DEFAULT_MAX_TOKENS,
     defaultContextWindow: config.defaultContextWindow ?? DEFAULT_CONTEXT_WINDOW,
-    models: resolveModels(environmentCatalog ?? config.models),
+    models: resolveModels(namedCatalog ?? environmentCatalog),
     streamIdleTimeoutMs,
     maxRequestFilesBytes,
     maxInlineRequestImageBytes,

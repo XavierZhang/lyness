@@ -447,6 +447,18 @@ describe('Cordis provider composition', () => {
     expect(resumed.session.requestContext()?.systemPromptUpdate).toBe(inHistory ? 'in-history' : undefined)
   })
 
+  it('offers the environment catalog as the base layer, which a saved catalog still outranks', async () => {
+    vi.stubEnv('DEEPSEEK_MODELS', 'gateway-flash')
+    const { ctx } = await boot()
+    await expect(ctx.llm.listModels('deepseek-official')).resolves.toEqual([
+      { provider: 'deepseek-official', id: 'gateway-flash', name: 'gateway-flash', inputModalities: ['text'] },
+    ])
+    await ctx.settings.update(Messages.name, { models: [{ id: 'saved-model' }] })
+    await expect(ctx.llm.listModels('deepseek-official')).resolves.toEqual([
+      { provider: 'deepseek-official', id: 'saved-model', name: 'saved-model', inputModalities: ['text'] },
+    ])
+  })
+
   it.each([false, true])('continues and resumes sessions after a model capability change, in-history=%s', async (inHistory) => {
     const { ctx, http } = await boot()
     await ctx.settings.update(Messages.name, { baseURL: http.url, models: [{ id: MODEL, systemPromptUpdate: 'in-history' }] })

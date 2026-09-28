@@ -97,7 +97,7 @@ describe('resolveProfilePatch', () => {
     const patch = resolveProfilePatch('web', home)
     expect(patch).toBe(join(home, 'profiles', 'web', 'cordis.patch.yml'))
     const manifest = JSON.parse(readFileSync(join(home, 'profiles', 'web', 'package.json'), 'utf8')) as { lyn: unknown }
-    expect(manifest.lyn).toEqual({ profile: { bundles: ['@lyness/lyn-base', '@lyness/lyn-web-app'], patchReload: 'live' } })
+    expect(manifest.lyn).toEqual({ profile: { bundles: ['@lyness/lyn-base', '@lyness/lyn-web-app'] } })
   })
 
   it('uses an existing custom profile and refuses one that does not exist', async () => {
