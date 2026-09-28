@@ -18,7 +18,7 @@ const SIDEBAR = '@lyness/lyn-client-ui-sidebar'
 const PARALLEL_PROBE = '@lyness/lyn-client-test-parallel-probe'
 /** Declared by ui-sidebar, whose SlotMap merge is outside this package's compilation face. */
 const SIDEBAR_SETTINGS = 'sidebar.settings' as never
-const BRAND = '@lyness/lyn-client-ui-brand-official'
+const BRAND = '@lyness/lyn-client-ui-brand-lyness'
 const globals = globalThis as { EventSource?: unknown; ResizeObserver?: unknown }
 /** The whole roster's first boot pays the cold module transform of every plugin package. */
 const COLD_BOOT_TIMEOUT_MS = 60_000

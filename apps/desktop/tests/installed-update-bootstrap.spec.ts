@@ -50,7 +50,7 @@ console.log(JSON.stringify({ paths: app.paths, home: process.env.LYNESS_HOME, jo
       const root = join(directory, 'application-data/lyn-update-qualification', run.id)
       expect(results).toEqual([0, 1].map(() => ({ paths: { userData: join(root, 'user-data'), sessionData: join(root, 'user-data') },
         home: join(root, 'lyn-home'), journals: join(root, 'journals') })))
-      expect((await readdir(root)).sort()).toEqual(['lyn-home', 'journals', 'user-data'])
+      expect((await readdir(root)).sort()).toEqual(['journals', 'lyn-home', 'user-data'])
       await expect(prepareInstalledUpdateBootstrap(join(run.root, 'run.json'))).rejects.toMatchObject({ code: 'EEXIST' })
     })
   })
