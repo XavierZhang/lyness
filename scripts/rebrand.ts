@@ -194,6 +194,12 @@ const RULES: readonly Rule[] = [
     note: 'Puts back what `external-office-kit-shield` parked, once `pkg-scope`, `vendor-scope`, and `scope-bare` have all run. The pair leaves no sentinel behind: `--check` fails loudly if one survives.',
   },
   {
+    id: 'released-title-producer-shield',
+    from: 'dsh-session-title-llm',
+    to: '\u0000released-producer\u0000',
+    note: 'A released Session source kind, not a package. RESERVED_SOURCE_KINDS freezes it as a rename target: the current build writes it, committed generations carry it, and the V0 and V3 migrations, the persistence catalog, the persistence schema, and the headless expected fixtures all name it verbatim. Renaming it makes every migration stop recognising real logs. Runs after the scope rules on purpose — by here `@deepseek-ai/dsh-session-title-llm`, the package that shares the spelling, has already become `@lyness/lyn-session-title-llm`, so only the bare kind is left to park. Restored by `released-title-producer-restore` after `dsh-token`.',
+  },
+  {
     id: 'compound-identifier',
     from: 'DeepSeekHarness',
     to: 'Lyness',
@@ -297,6 +303,12 @@ const RULES: readonly Rule[] = [
     note: 'Puts back every name the `deepseek-request-field-shield-*` rules parked, after `dsh-token` has run. The pair leaves no sentinel behind: `--check` fails loudly if one survives.',
   },
   {
+    id: 'released-title-producer-restore',
+    from: '\u0000released-producer\u0000',
+    to: 'dsh-session-title-llm',
+    note: 'Puts back what `released-title-producer-shield` parked, after `dsh-token` has run. The pair leaves no sentinel behind: `--check` fails loudly if one survives.',
+  },
+  {
     id: 'persistence-hash-domain-restore',
     from: '\u0000persistence-domain\u0000',
     to: 'dsh-persistence-',
@@ -351,6 +363,66 @@ const PROTECTED: readonly Protection[] = [
   {
     prefix: '.agents/notes/archived/',
     why: 'Archived Agent Notes are frozen: archived/manifest.json seals each artifact by content hash and only ever appends, so changed content is an error the tooling has no path to accept. The record states what was true when it was written.',
+  },
+  {
+    prefix: 'apps/desktop-host/src/office-engine.ts',
+    why: 'Addresses the vendor\'s `@deepseek-ai/libreoffice-kit*` packages by scope alone, by glob, by regular expression, or through an interpolated path, which the two literal office-kit shields cannot reach — a shield matches one spelling and these files each use a different one. Renaming the scope here sends the build, the runtime probe, or the packaged app at a directory that does not exist. Scope rules only; every other rename still applies.',
+    rules: ['pkg-scope-escaped', 'pkg-scope', 'vendor-scope', 'scope-bare'],
+  },
+  {
+    prefix: 'apps/desktop/scripts/macos-runtime.ts',
+    why: 'Addresses the vendor\'s `@deepseek-ai/libreoffice-kit*` packages by scope alone, by glob, by regular expression, or through an interpolated path, which the two literal office-kit shields cannot reach — a shield matches one spelling and these files each use a different one. Renaming the scope here sends the build, the runtime probe, or the packaged app at a directory that does not exist. Scope rules only; every other rename still applies.',
+    rules: ['pkg-scope-escaped', 'pkg-scope', 'vendor-scope', 'scope-bare'],
+  },
+  {
+    prefix: 'apps/desktop/tests/macos-runtime.spec.ts',
+    why: 'Addresses the vendor\'s `@deepseek-ai/libreoffice-kit*` packages by scope alone, by glob, by regular expression, or through an interpolated path, which the two literal office-kit shields cannot reach — a shield matches one spelling and these files each use a different one. Renaming the scope here sends the build, the runtime probe, or the packaged app at a directory that does not exist. Scope rules only; every other rename still applies.',
+    rules: ['pkg-scope-escaped', 'pkg-scope', 'vendor-scope', 'scope-bare'],
+  },
+  {
+    prefix: 'apps/desktop/tests/windows-asar-unpack.spec.ts',
+    why: 'Addresses the vendor\'s `@deepseek-ai/libreoffice-kit*` packages by scope alone, by glob, by regular expression, or through an interpolated path, which the two literal office-kit shields cannot reach — a shield matches one spelling and these files each use a different one. Renaming the scope here sends the build, the runtime probe, or the packaged app at a directory that does not exist. Scope rules only; every other rename still applies.',
+    rules: ['pkg-scope-escaped', 'pkg-scope', 'vendor-scope', 'scope-bare'],
+  },
+  {
+    prefix: 'python/sdk/tests/test_release_version.py',
+    why: 'Addresses the vendor\'s `@deepseek-ai/libreoffice-kit*` packages by scope alone, by glob, by regular expression, or through an interpolated path, which the two literal office-kit shields cannot reach — a shield matches one spelling and these files each use a different one. Renaming the scope here sends the build, the runtime probe, or the packaged app at a directory that does not exist. Scope rules only; every other rename still applies.',
+    rules: ['pkg-scope-escaped', 'pkg-scope', 'vendor-scope', 'scope-bare'],
+  },
+  {
+    prefix: 'python/sdk/tests/test_runtime_resolution.py',
+    why: 'Addresses the vendor\'s `@deepseek-ai/libreoffice-kit*` packages by scope alone, by glob, by regular expression, or through an interpolated path, which the two literal office-kit shields cannot reach — a shield matches one spelling and these files each use a different one. Renaming the scope here sends the build, the runtime probe, or the packaged app at a directory that does not exist. Scope rules only; every other rename still applies.',
+    rules: ['pkg-scope-escaped', 'pkg-scope', 'vendor-scope', 'scope-bare'],
+  },
+  {
+    prefix: 'scripts/build-python-release.py',
+    why: 'Addresses the vendor\'s `@deepseek-ai/libreoffice-kit*` packages by scope alone, by glob, by regular expression, or through an interpolated path, which the two literal office-kit shields cannot reach — a shield matches one spelling and these files each use a different one. Renaming the scope here sends the build, the runtime probe, or the packaged app at a directory that does not exist. Scope rules only; every other rename still applies.',
+    rules: ['pkg-scope-escaped', 'pkg-scope', 'vendor-scope', 'scope-bare'],
+  },
+  {
+    prefix: 'scripts/smoke-python-runtime.py',
+    why: 'Addresses the vendor\'s `@deepseek-ai/libreoffice-kit*` packages by scope alone, by glob, by regular expression, or through an interpolated path, which the two literal office-kit shields cannot reach — a shield matches one spelling and these files each use a different one. Renaming the scope here sends the build, the runtime probe, or the packaged app at a directory that does not exist. Scope rules only; every other rename still applies.',
+    rules: ['pkg-scope-escaped', 'pkg-scope', 'vendor-scope', 'scope-bare'],
+  },
+  {
+    prefix: 'scripts/gen-third-party-notices.ts',
+    why: 'Generates the notices file from the vendored manifests and names the office packages by scope while resolving them, alongside the upstream repository the kit is published from. Both are external facts about the vendor, not about this fork.',
+    rules: ['pkg-scope-escaped', 'pkg-scope', 'vendor-scope', 'scope-bare', 'slug'],
+  },
+  {
+    prefix: 'scripts/verify-default-product-isolation.ts',
+    why: 'Checks both scopes on purpose: a workspace package is unknown whether it is spelled `@lyness/` or `@deepseek-ai/`, and the rename once removed half of that test, leaving a gate that passed while verifying nothing.',
+    rules: ['pkg-scope-escaped', 'pkg-scope', 'vendor-scope', 'scope-bare'],
+  },
+  {
+    prefix: 'packages/session/session-format-v3-to-v4/src/sources.ts',
+    why: 'The released V3 producer table. Every left-hand value is a string some released generation actually recorded \u2014 `@deepseek-ai/dsh-system-prompt`, `dsh-compaction-basic` \u2014 so renaming one makes the migration stop recognising real logs. The frozen kinds it maps to are parked by `released-title-producer-shield`; these two carry the upstream scope or a plain segment no shield can tell apart from a package name.',
+    rules: ['pkg-scope-escaped', 'pkg-scope', 'vendor-scope', 'scope-bare', 'dsh-token'],
+  },
+  {
+    prefix: 'docs/deepseek-llm-api-wire-extensions.i18n.yaml',
+    why: 'Section anchors derived from headings that name the official request fields. The headings are parked by the `deepseek-request-field-shield-*` rules, which match the underscore spelling; the anchor slugifies it to hyphens. Renaming only the anchor breaks its link to the heading it addresses.',
+    rules: ['dsh-token'],
   },
   { prefix: 'python/sdk/uv.lock', why: 'Generated by `uv`, which rewrites it from the Python manifests.' },
   { prefix: 'pnpm-lock.yaml', why: 'Generated by `pnpm install`, which rewrites it from the manifests; it also records workspace DIRECTORY paths, which this codemod does not rename.' },

@@ -149,6 +149,30 @@ codemod 只改文本和路径。下面这些是它改完之后必然过期、必
 > 这张表靠人复查，人会忘。**待办**：为遥测项补一条行为测试（断言默认组合下不产生外发请求），
 > 把「每次合并后人工复查」变成 CI 自动拦截。测试检查行为而非文件路径，上游换实现也拦得住。
 
+## `rebrand:check` 的表达力（2026-09-28 修复）
+
+`--check` 曾报 35 处 residue，全部是刻意保留的名字。它没法区分「codemod 漏改」和「刻意保留」，
+于是这条收尾命令不再是信号——报出来的都要人工逐条回忆为什么。基线 22 处是既有缺陷，另 13 处是
+还原服务端 wire 字段和 office 作用域时新撞出来的。
+
+按名字的**边界**分两种修法，不是二选一：
+
+- **一个稳定标识符 → 屏蔽规则。** `dsh-session-title-llm` 是 `RESERVED_SOURCE_KINDS` 里的冻结
+  改名目标，散在 23 个文件（含 15 个活的源码/测试）。对这些文件整体豁免 `dsh-token`，下次同步
+  它们新增的 `dsh` 会被静默跳过——正是要消灭的失效模式。改用 `released-title-producer-shield`，
+  排在作用域规则**之后**、`dsh-token` 之前：那时 `@deepseek-ai/dsh-session-title-llm` 这个同名
+  包已改成 `@lyness/lyn-session-title-llm`，剩下的裸出现才是冻结标识。护的是名字，不是文件。
+- **拼写无界 → `PROTECTED` 路径豁免。** office 引擎的寻址有 `@deepseek-ai/libreoffice-kit`、
+  `'@deepseek-ai', 'libreoffice-kit'`、`@deepseek-ai\/libreoffice-kit-(?:darwin|win32|linux)`、
+  `f"{office_modules}/@deepseek-ai"` 至少四种写法，按拼写补规则永远收敛不了（上一轮反复六轮的
+  教训）。这 10 个文件改为只豁免四条作用域规则，其余重命名照旧生效。同理还有
+  `session-format-v3-to-v4/src/sources.ts`（已发布 V3 生产者表，每个左值都是某个真实 generation
+  记过的字符串）和 `deepseek-llm-api-wire-extensions.i18n.yaml`（标题锚点的连字符形）。
+
+验证方式不是「不报错」，而是在上游树（`477b4f4205`）跑一次 `--apply`：21 处包名照改、裸冻结标识
+保留、102 处 `dsh_session_log` 与 191 处 `@deepseek-ai/libreoffice-kit` 未动。现在 `--check` 报
+`post-state verified — no residue`，报出来就是真漏改。
+
 ## 已知残留（codemod 未覆盖，非本次合并引入）
 
 | 残留 | 位置 | 影响 | 处理 |
