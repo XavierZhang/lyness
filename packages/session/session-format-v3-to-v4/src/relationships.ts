@@ -13,18 +13,6 @@ const RELATIONSHIP_TYPES = new Set([
   'command/done', 'compaction/start', 'compaction/summary', 'compaction/end', 'compaction/prune', 'session/end-seed',
 ])
 
-/**
- * Recognize the released session-title producer under either recorded spelling.
- * The producer kind is a frozen rename target, so the current build writes
- * `dsh-session-title-llm`; generations this fork recorded before that was
- * settled carry `lyn-session-title-llm`, and both must keep validating.
- * @param plugin - the producer string read from a released source record.
- * @returns whether the value names that producer.
- */
-function isTitleProducer(plugin: SessionFormatJsonValue | undefined): boolean {
-  return plugin === 'dsh-session-title-llm' || plugin === 'lyn-session-title-llm'
-}
-
 function record(value: SessionFormatJsonValue | undefined, subject: string): SessionFormatJsonObject {
   if (!isSessionFormatJsonObject(value)) throw new SessionFormatError(`${subject} requires an object`)
   return value
@@ -380,7 +368,7 @@ function titleSources(
   const content = array(message['content'], 'title content')
   const block = content[0]
   if (references.length === 0 || messages.length !== 1 || message['role'] !== 'user'
-    || !isTitleProducer(record(message['source'], 'title source')['kind'])
+    || record(message['source'], 'title source')['kind'] !== 'dsh-session-title-llm'
     || content.length !== 1 || !isSessionFormatJsonObject(block) || block['type'] !== 'text') {
     throw new SessionFormatError('session/title-llm-request messages do not represent messageSeqs')
   }
