@@ -44,7 +44,6 @@
     "@lyness/lyn-experimental-agent-team": "workspace:*",
     "@lyness/lyn-experimental-webworker-packer": "workspace:*",
     "@lyness/lyn-experimental-webworker-runtime": "workspace:*",
-    "@lyness/lyn-launch-environment": "workspace:*",
     "@lyness/lyn-pwsh-local": "workspace:*",
     "@lyness/lyn-remote-mock": "workspace:*",
     "@types/node": "^22.0.0",

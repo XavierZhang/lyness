@@ -412,7 +412,7 @@ jobs:
       DEEPSEEK_API_KEY_EXTERNAL: ${{ secrets.DEEPSEEK_API_KEY_EXTERNAL }}
 
   windows-build:
-    name: windows node 24 / build
+    name: windows node 24 / build & observational
     runs-on: windows-2025
     timeout-minutes: 90
     env:
@@ -446,6 +446,25 @@ jobs:
       - name: Run blocking Windows builds
         shell: pwsh
         run: pnpm run check:ci:windows-blocking
+      # Upstream keeps these on the same runner: the observational gates read
+      # the lib/ and vendor/ outputs the blocking build just produced.
+      - name: Run Windows observational gates on built artifacts
+        id: observational
+        continue-on-error: true
+        timeout-minutes: 15
+        shell: pwsh
+        env:
+          LYNESS_GATE_FAIL_FAST: ''
+          LYNESS_PUBLINT_CONCURRENCY: '4'
+        run: pnpm run check:ci:windows-observational-ready
+      - name: Report Windows observational failures
+        continue-on-error: true
+        if: steps.observational.outcome == 'failure'
+        shell: pwsh
+        run: |
+          $message = 'Windows observational checks failed; see the observational step for diagnostics.'
+          Write-Output "::warning::$message"
+          $message | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Encoding utf8 -Append
 
   windows-coverage:
     name: windows node 24 / coverage
@@ -543,42 +562,6 @@ jobs:
           packages/subprocess/subprocess-local/tests/process-exit.spec.ts
 
   # Non-blocking, as upstream marks it: a red run here does not fail the workflow.
-  windows-observational:
-    name: windows node 24 / observational
-    continue-on-error: true
-    runs-on: windows-2025
-    timeout-minutes: 60
-    env:
-      LYNESS_PUBLINT_CONCURRENCY: '4'
-    steps:
-      - uses: actions/checkout@v6
-        with:
-          persist-credentials: false
-      - name: Enable Developer Mode (symlink support)
-        shell: pwsh
-        run: >-
-          reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock"
-          /t REG_DWORD /f /v "AllowDevelopmentWithoutDevLicense" /d "1"
-      - uses: pnpm/action-setup@v4
-        with:
-          dest: ${{ runner.temp }}/setup-pnpm-js-${{ github.run_id }}-${{ github.run_attempt }}-${{ github.job }}
-      - uses: actions/setup-node@v6
-        with:
-          node-version: ${{ env.PRIMARY_NODE_VERSION }}
-      - name: Install (immutable)
-        shell: pwsh
-        run: >-
-          $drive = (Split-Path -Qualifier $env:GITHUB_WORKSPACE).TrimEnd(':');
-          $fs = (Get-Volume -DriveLetter $drive).FileSystem;
-          if ($fs -eq 'ReFS') {
-            corepack pnpm install --frozen-lockfile --package-import-method=clone
-          } else {
-            pnpm install --frozen-lockfile
-          }
-      - name: Run Windows observational gates
-        shell: pwsh
-        run: pnpm run check:ci:windows-observational-ready
-
   e2e:
     name: e2e (real API, configured platform)
     if: vars.LYNESS_FORK_REAL_API == 'true'
@@ -628,7 +611,13 @@ jobs:
           CONFIGURED_MAX_TOKENS: ${{ vars.DEEPSEEK_MAX_TOKENS }}
         run: |
           set -euo pipefail
-          echo "DEEPSEEK_BASE_URL=${CONFIGURED_BASE_URL:-https://api.deepseek.com}" >> "$GITHUB_ENV"
+          # Unset means the adapter's own PUBLIC_BASE_URL applies. Naming a
+          # default here would pin a second copy of that constant, and the one
+          # written before 0.1.7-rc.2 kept pointing at the pre-Anthropic root
+          # after upstream moved the official route to /anthropic.
+          if [ -n "${CONFIGURED_BASE_URL:-}" ]; then
+            echo "DEEPSEEK_BASE_URL=$CONFIGURED_BASE_URL" >> "$GITHUB_ENV"
+          fi
           if [ -n "${CONFIGURED_MODELS:-}" ]; then
             echo "DEEPSEEK_MODELS=$CONFIGURED_MODELS" >> "$GITHUB_ENV"
           fi
@@ -639,7 +628,7 @@ jobs:
           if [ -n "${CONFIGURED_MAX_TOKENS:-}" ]; then
             echo "DEEPSEEK_MAX_TOKENS=$CONFIGURED_MAX_TOKENS" >> "$GITHUB_ENV"
           fi
-          echo "e2e target: ${CONFIGURED_BASE_URL:-https://api.deepseek.com}" \
+          echo "e2e target: ${CONFIGURED_BASE_URL:-<official Anthropic Messages root>}" \
             "models=${CONFIGURED_MODELS:-<official defaults>}" \
             "maxTokens=${CONFIGURED_MAX_TOKENS:-<official default>}"
 
