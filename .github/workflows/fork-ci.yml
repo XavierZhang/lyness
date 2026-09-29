@@ -523,6 +523,34 @@ jobs:
         run: |
           whoami /groups | Select-String -Pattern 'Administrators|High Mandatory|Medium Mandatory'
           whoami /priv | Select-String -Pattern 'SeBackupPrivilege|SeRestorePrivilege|SeTakeOwnership'
+      # Second round: SeBackupPrivilege came back Disabled, so backup semantics
+      # cannot be what opens the directory. The test denies a root that already
+      # has a child directory, so the deny has to propagate to an existing
+      # child. Reproduce just that, without the product code, and print whether
+      # the child's ACL received it — plus the filesystem the temp drive uses,
+      # because inheritance is what differs between NTFS and ReFS.
+      - name: Report ACL inheritance onto an existing child (sandbox ACL diagnostic)
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $temp = [System.IO.Path]::GetTempPath()
+          $drive = (Split-Path -Qualifier $temp).TrimEnd(':')
+          Write-Output "TEMP=$temp FILESYSTEM=$((Get-Volume -DriveLetter $drive).FileSystem)"
+          $root = Join-Path $temp ("acl-probe-" + [guid]::NewGuid().ToString('N'))
+          $child = Join-Path $root 'child'
+          New-Item -ItemType Directory -Path $root | Out-Null
+          New-Item -ItemType Directory -Path $child | Out-Null
+          $sid = [Security.Principal.WindowsIdentity]::GetCurrent().User
+          $acl = Get-Acl $root
+          $rule = New-Object Security.AccessControl.FileSystemAccessRule(
+            $sid, 'Delete', 'ContainerInherit', 'None', 'Deny')
+          $acl.AddAccessRule($rule)
+          Set-Acl -Path $root -AclObject $acl
+          Write-Output '--- icacls root ---'
+          icacls $root
+          Write-Output '--- icacls child (inherited deny expected) ---'
+          icacls $child
+          Remove-Item -Recurse -Force $root -ErrorAction SilentlyContinue
       - name: Run Windows coverage
         shell: pwsh
         run: pnpm run check:ci:coverage
