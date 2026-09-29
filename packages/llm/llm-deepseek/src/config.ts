@@ -1,6 +1,7 @@
 /** Plugin configuration and complete request-local resolution for DeepSeek. */
 import type { Volatile } from '@lyness/cordis'
 
+import { isDeepStrictEqual } from 'node:util'
 import z from '@lyness/schemastery'
 import { isVolatile } from '@lyness/cosmokit'
 import { resolveRetryPolicy, RetryPolicySchema } from '@lyness/lyn-llm'
@@ -145,6 +146,13 @@ export function parseMaxTokens(value: string): number {
 
 /** Complete protocol settings captured for one request operation. */
 export type ResolvedDeepSeekOptions = DeepSeekConnectionOptions
+
+/** The built-in catalog in resolved form, computed once for default detection. */
+let builtIn: DeepSeekCatalogModel[] | undefined
+function builtInCatalog(): DeepSeekCatalogModel[] {
+  builtIn ??= resolveModels(DEFAULT_MODELS)
+  return builtIn
+}
 
 /** Resolve, validate, and detach the advisory model catalog. */
 function resolveModels(models: readonly DeepSeekCatalogModel[] | undefined): DeepSeekCatalogModel[] {
@@ -332,11 +340,13 @@ export function resolveAdapterOptions(config: Options, environment?: LaunchEnvir
     : parseModelIds(catalogValue).map(id => ({ id }))
   // The variable replaces the built-in catalog, which is what a composition
   // that names no models resolves to. A catalog someone did name — in the
-  // composition or saved through settings — outranks it, so compare against
-  // the built-in list rather than reading the resolved value as a choice.
-  const builtInIds = DEFAULT_MODELS.map(model => model.id).join('\u0000')
+  // composition or saved through settings — outranks it. Schemastery fills
+  // every omitted field, so the resolved value is compared against the
+  // built-in list in the same normalized form: comparing ids alone would read
+  // a settings catalog that only renamed a built-in model as the default and
+  // discard the name the user typed.
   const namedCatalog = config.models === undefined
-    || config.models.map(model => model.id).join('\u0000') === builtInIds ? undefined : config.models
+    || isDeepStrictEqual(resolveModels(config.models), builtInCatalog()) ? undefined : config.models
   const capValue = environment?.get(MAX_TOKENS_ENV)?.value
   const environmentMaxTokens = capValue === undefined ? undefined : parseMaxTokens(capValue)
   const parsed = new URL(baseURL)

@@ -459,6 +459,17 @@ describe('Cordis provider composition', () => {
     ])
   })
 
+  it('keeps a saved catalog that only renames a built-in model', async () => {
+    const { ctx } = await boot()
+    const builtIn = await ctx.llm.listModels('deepseek-official')
+    const renamed = builtIn.map((model, index) => index === 0 ? { id: model.id, name: 'Renamed Flash' } : { id: model.id })
+    await ctx.settings.update(Messages.name, { models: renamed })
+    await expect(ctx.llm.listModels('deepseek-official')).resolves.toMatchObject([
+      { id: builtIn[0]?.id, name: 'Renamed Flash' },
+      { id: builtIn[1]?.id },
+    ])
+  })
+
   it.each([false, true])('continues and resumes sessions after a model capability change, in-history=%s', async (inHistory) => {
     const { ctx, http } = await boot()
     await ctx.settings.update(Messages.name, { baseURL: http.url, models: [{ id: MODEL, systemPromptUpdate: 'in-history' }] })
