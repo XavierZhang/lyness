@@ -511,6 +511,18 @@ jobs:
           } else {
             pnpm install --frozen-lockfile
           }
+      # Diagnostic only, never fails the job: sandbox-windows-acl asserts that a
+      # container-inheriting deny ACE blocks a directory open. On this runner the
+      # file denies but the directory opens, and opening a directory handle needs
+      # FILE_FLAG_BACKUP_SEMANTICS, which SeBackupPrivilege lets bypass the ACL
+      # outright. Upstream runs the same test on its own Windows pool. Print the
+      # token so the next failure says whether that is the reason.
+      - name: Report the runner token (sandbox ACL diagnostic)
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          whoami /groups | Select-String -Pattern 'Administrators|High Mandatory|Medium Mandatory'
+          whoami /priv | Select-String -Pattern 'SeBackupPrivilege|SeRestorePrivilege|SeTakeOwnership'
       - name: Run Windows coverage
         shell: pwsh
         run: pnpm run check:ci:coverage
