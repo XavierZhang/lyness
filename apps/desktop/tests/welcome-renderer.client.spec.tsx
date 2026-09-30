@@ -50,6 +50,8 @@ describe('desktop welcome presentation', () => {
     const view = mount(language)
     expect(view.document.documentElement.lang).toBe(language)
     expect(view.document.querySelector('img')!.getAttribute('src')).toBe('assets/welcome-brand.svg')
+    expect(view.document.querySelector('picture source')!.getAttribute('srcset')).toBe('assets/welcome-brand-dark.svg')
+    expect(view.document.querySelector('picture source')!.getAttribute('media')).toBe('(prefers-color-scheme: dark)')
     await expect(view.copy()).toMatchFileSnapshot(`./expected/welcome/${language}.expected.txt`)
     fireEvent.click(view.button('#api-key'))
     expect(view.document.activeElement).toBe(view.input)
