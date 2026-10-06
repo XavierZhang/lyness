@@ -218,9 +218,9 @@ codemod 只改文本和路径。下面这些是它改完之后必然过期、必
 | 英文小写 | `lyness` |
 | 英文全大写 | `LYNESS` |
 
-因此 UI 文案里的 `LYN`（「另一个正在运行的 LYN 实例」「与 LYN {runtime} 不兼容」等十余处）**保持不变**，它不是漏改。
+因此 UI 文案里的 `LYN`（「另一个正在运行的 LYN 实例」「与 LYN {runtime} 不兼容」等）**仍取缩写**，它不是漏改；中文名只出现在中文产品标签（侧栏的「领驭本地构建」），诊断类句子不换。
 
-**独立部署默认沿用上表**；品牌方若提供了自己的缩写、中文名或英文全名，则按其要求替换。这对 `brand-deployment` 提出了要求：它现在只有单个 `productName`，而覆盖需要缩写、中文名、英文全名三者各自可配，否则品牌方只能换掉一处、其余仍显示 lyness 的取值。这项扩展随部署级令牌覆盖一并做。
+**独立部署默认沿用上表**；品牌方提供自己的缩写、中文名或英文全名时按其要求替换。实现是：`brand-deployment` 的 `productName`／`productAbbreviation`／`productNameZh` 三者各自可配，经页面全局交给客户端 locale；产品文案不再写死名字，而是写 `{brandName}`／`{brandAbbr}`／`{brandNameZh}` 占位，由 `packages/client/locale/src/client/brand-values.ts` 填充。三者**作为一组解析**：部署只给了其中一个，另两个取它，而不是回落到 lyness 的内置取值——否则 Acme 的界面里会混进 `LYN` 和「领驭」。包名（`@lyness/lyn-*`）与命令名（`lyn web`）是外部标识符，不参与替换。
 
 ## 合并官方记录
 

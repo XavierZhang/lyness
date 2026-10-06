@@ -45,10 +45,23 @@ export const DEPLOYMENT_BRAND_GLOBAL = 'lynDeploymentBrand'
  *
  * Absent members mean the deployment configured nothing and the page keeps its
  * built-in presentation, which is what an unbranded development build shows.
+ * The three product names are one set: a deployment that names any of them
+ * gets no built-in name beside its own, because copy that still said `LYN` or
+ * 领驭 next to the operator's name would read as a leaked upstream brand.
  */
 export interface DeploymentBrand {
   /** Product name for page and in-app presentation, or undefined to keep the built-in one. */
   readonly productName?: string | undefined
+  /**
+   * Short form product copy uses where the built-in brand writes `LYN`, or
+   * undefined to use {@link productName} there.
+   */
+  readonly productAbbreviation?: string | undefined
+  /**
+   * Chinese product name, where the built-in brand writes 领驭, or undefined to
+   * use {@link productName} there.
+   */
+  readonly productNameZh?: string | undefined
   /** Brand colour for browser chrome and accents, or undefined to keep the built-in one. */
   readonly themeColor?: string | undefined
   /** URL of the deployment's mark, or undefined to keep the built-in one. */
@@ -81,20 +94,17 @@ export const BRAND_COLOUR_TOKENS = [
 /** One overridable brand colour token. */
 export type BrandColourToken = (typeof BRAND_COLOUR_TOKENS)[number]
 
-/**
- * The CSS custom property one token sets.
- * @param token - the token key an operator writes.
- * @returns the custom property name the palette declares.
- */
-export function brandColourProperty(token: BrandColourToken): string {
-  const dashed = token.replace(/[A-Z]/gu, upper => `-${upper.toLowerCase()}`)
-  return `--lyness-${dashed}`
-}
-
 /** Plugin config: the deployment's brand, as an operator writes it. */
 export interface Config {
   /** Product name shown in the browser tab and in-app; omit to keep the built-in one. */
   productName?: string
+  /**
+   * Short form shown where product copy abbreviates the name; omit to keep the
+   * built-in one. A brand with no short form of its own names its full one here.
+   */
+  productAbbreviation?: string
+  /** Chinese product name shown in Chinese copy; omit to keep the built-in one. */
+  productNameZh?: string
   /** Brand colour as a hex triplet or a CSS colour keyword. */
   themeColor?: string
   /**
@@ -117,10 +127,13 @@ export interface Config {
 /** Config after the schema has applied its defaults. */
 interface ResolvedConfig extends Config {
   showPoweredBy: boolean
+  colors: Partial<Record<BrandColourToken, string>>
 }
 
 export const Config: z<Config> = z.object({
   productName: z.string(),
+  productAbbreviation: z.string(),
+  productNameZh: z.string(),
   themeColor: z.string(),
   colors: z.dict(z.string()),
   assetDirectory: z.string(),
@@ -320,14 +333,13 @@ function assetHandler(assets: ReadonlyMap<AssetRole, Asset>) {
  * dropping it would leave the deployment running with the built-in colour and
  * no sign of why. Each value passes the same check `themeColor` does, because
  * it reaches a stylesheet the same way.
- * @param colors - the configured token map, or undefined when none.
+ * @param colors - the configured token map, empty when the operator wrote none.
  * @returns a detached map, or undefined when the deployment replaced none.
  * @throws {Error} when a key is not a brand colour token or a value is not a colour.
  */
 function resolveColours(
-  colors: Partial<Record<BrandColourToken, string>> | undefined,
+  colors: Partial<Record<BrandColourToken, string>>,
 ): Readonly<Partial<Record<BrandColourToken, string>>> | undefined {
-  if (colors === undefined) return undefined
   const entries = Object.entries(colors)
   if (entries.length === 0) return undefined
   const known = new Set<string>(BRAND_COLOUR_TOKENS)
@@ -360,14 +372,16 @@ export function apply(ctx: Context, config: Config): void {
       `brand-deployment: themeColor must be a hex triplet or a colour keyword; got ${JSON.stringify(config.themeColor)}`,
     )
   }
-  const colors = resolveColours(config.colors)
   const assets = resolveAssets(config)
   // The schema applied its defaults before apply ran, so the optional-input
   // fields are present here; the cast records that once rather than defaulting
   // a second time behind the schema's back.
   const resolved = config as ResolvedConfig
+  const colors = resolveColours(resolved.colors)
   const brand: DeploymentBrand = {
     productName: resolved.productName,
+    productAbbreviation: resolved.productAbbreviation,
+    productNameZh: resolved.productNameZh,
     themeColor: resolved.themeColor,
     markUrl: assets.get('mark')?.url,
     wordmarkUrl: assets.get('wordmark')?.url,

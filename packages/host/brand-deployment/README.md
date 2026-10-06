@@ -34,6 +34,8 @@ Give one deployment its own visual identity without rebuilding the frontend. Con
   name: '@lyness/lyn-host-brand-deployment'
   config:
     productName: Acme Agent
+    productAbbreviation: ACME
+    productNameZh: 艾可
     themeColor: '#1f6feb'
     assetDirectory: /srv/acme/brand
     favicon: favicon.svg
@@ -47,6 +49,8 @@ Give one deployment its own visual identity without rebuilding the frontend. Con
 
 `colors` replaces brand colour tokens by name: `black`, `blue`, `blueDark`, `cyan`, `white`, `gray50`, `gray200`, `gray600`, `gray900`, `success`, `warning`, `error`, and `info`. An absent key keeps the built-in value, so a deployment that owns only a primary colour names that one. Each value takes the same forms `themeColor` does, and a key outside that list fails the row rather than being dropped — a misspelling an operator cannot see would otherwise leave the built-in colour in place with no sign of why. `themeColor` is separate and still owns the browser-chrome colour.
 
+`productName`, `productAbbreviation` and `productNameZh` are the three faces product copy says the product's name in: the full name, the short form the built-in brand writes as `LYN`, and the Chinese name it writes as 领驭. They resolve as one set — a deployment that names any of them gets the others from the one it named, never a built-in name beside its own, because copy that still read `LYN` next to Acme would show a brand the operator does not ship. A deployment that names none keeps all three built-in names.
+
 `assetDirectory` is absolute and holds the three named files; the deployment script writes them there. Each file is addressed by its role, not its name: `favicon.svg` above is served as `/brand/favicon.svg`, and a wordmark named `wordmark.png` is served as `/brand/wordmark.png`. Serveable types are SVG, PNG, WebP, ICO, and JPEG.
 
 ### Why config and not user settings
@@ -55,7 +59,7 @@ Configuration resolves settings above composition ([ordering](../../../.agents/n
 
 ### What a browser receives
 
-The product name replaces the first `<title>`, or adds one when the head declares none. A configured favicon replaces the first `rel="icon"` link rather than adding a second, because a browser resolves competing icon links itself. The theme colour arrives as a `<meta name="theme-color">` row. The brand object arrives as `globalThis.lynDeploymentBrand`, carrying the product name, colour, mark and wordmark URLs, and the attribution flag — absent members mean the deployment configured nothing and the page keeps its built-in presentation.
+The product name replaces the first `<title>`, or adds one when the head declares none. A configured favicon replaces the first `rel="icon"` link rather than adding a second, because a browser resolves competing icon links itself. The theme colour arrives as a `<meta name="theme-color">` row. The brand object arrives as `globalThis.lynDeploymentBrand`, carrying the three product names, the colour and its replaced palette tokens, the mark and wordmark URLs, and the attribution flag — absent members mean the deployment configured nothing and the page keeps its built-in presentation.
 
 Asset responses carry their image type and `cache-control: no-cache`. The URL is stable across deployments, so a redeploy that replaces the bytes must not keep serving the old ones.
 

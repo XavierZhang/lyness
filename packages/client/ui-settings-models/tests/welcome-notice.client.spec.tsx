@@ -2,7 +2,7 @@
 import type { GlobalStandardProps } from '@lyness/lyn-client-ui-slots'
 import { act, cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { bindSnapshotSelector, RemoteError } from '@lyness/lyn-client-test-runtime'
+import { bindSnapshotSelector, makeTranslate, RemoteError } from '@lyness/lyn-client-test-runtime'
 import { Context } from '@lyness/cordis'
 import { SettingsSchemaService } from '@lyness/lyn-client-ui-settings/src/client/schema.ts'
 import { SettingsDescribeMirror } from '@lyness/lyn-client-ui-settings/src/client/settings-mirror.ts'
@@ -24,9 +24,11 @@ import {
   WELCOME_NOTICE_VERSION,
 } from '../src/onboarding-copy.ts'
 
+/** The notice as a reader sees it: the locale copy with its brand placeholders filled. */
+const rendered = { en: makeTranslate(en), zh: makeTranslate(zh) }
 const WELCOME_NOTICE_COPY = {
-  en: { title: en.welcomeTitle, body: en.welcomeBody, continueLabel: en.welcomeContinue },
-  zh: { title: zh.welcomeTitle, body: zh.welcomeBody, continueLabel: zh.welcomeContinue },
+  en: { title: rendered.en('welcomeTitle'), body: rendered.en('welcomeBody'), continueLabel: rendered.en('welcomeContinue') },
+  zh: { title: rendered.zh('welcomeTitle'), body: rendered.zh('welcomeBody'), continueLabel: rendered.zh('welcomeContinue') },
 }
 
 afterEach(() => {
@@ -98,7 +100,7 @@ function mount(
     useWorkspaces: unusedHook,
     controller,
     useWelcome: bindSnapshotSelector(controller.store),
-    t: key => zh[key],
+    t: rendered.zh,
   }
   return { ...render(<WelcomeNotice {...props} />), complete, controller, mirror, mutate, appRoot }
 }
@@ -110,8 +112,8 @@ describe('WelcomeNotice', () => {
       body: "lyness 0.1 remains in testing for lyness developers. Many areas need further improvement, and we welcome feedback from the developer community. lyness's core plugins and foundational APIs will continue to evolve rapidly over the coming months.\n\nWe look forward to exploring the limits of intelligence with developers around the world, building on open-source, open, reusable, and composable infrastructure. We welcome lyness developers everywhere to join the LYN plugin ecosystem.",
       continueLabel: 'Continue',
     })
-    expect(en.welcomeBody).toBe(WELCOME_NOTICE_COPY.en.body)
-    expect(zh.welcomeBody).toBe(WELCOME_NOTICE_COPY.zh.body)
+    expect(en.welcomeBody).toContain('{brandName}')
+    expect(zh.welcomeBody).toContain('{brandName}')
   })
 
   it('renders one blocking modal action and focuses the title', async () => {

@@ -149,12 +149,12 @@ it('shows provider-specific installation estimates before preparation and remove
     recommendedDiskBytes: 5_000_000_000, expectedMemoryBytes: 2_000_000_000, minimumMinutes: 5, maximumMinutes: 30,
   } }
   b.rerender(<PreparationCard {...b.props} provider={provider} />)
-  expect(screen.getByText(zh['setup.local'])).toBeTruthy()
+  expect(screen.getByText(t('setup.local'))).toBeTruthy()
   expect(screen.getByText(/建议预留约 5 GB/)).toBeTruthy()
   expect(screen.getByText(/模型加载后约 2 GB/)).toBeTruthy()
   expect(screen.getByText(/参考 5–30 分钟/)).toBeTruthy()
   b.rerender(<PreparationCard {...b.props} provider={{ ...provider, preparation: { phase: 'checking', startedAt: Date.now() } }} />)
-  expect(screen.queryByText(zh['setup.local'])).toBeNull()
+  expect(screen.queryByText(t('setup.local'))).toBeNull()
 })
 
 it('offers Host sources, submits a manual choice, and retains it for retry', async () => {

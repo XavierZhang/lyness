@@ -37,6 +37,10 @@ Native shells may provide `__LYNESS_LOCALE__` with an asynchronous `read()` and 
 
 Call `ctx.locale.register(ns, { zh, en })` with a namespace merged into `LocaleNamespaceMap`; the compiler checks every key against the namespace's typed key union and requires both shipped locales. Consumers translate through `ctx.locale.bind(ns)` or the framework-injected `t` seat. A dictionary registered after the UI is already mounted is picked up without a remount.
 
+### Naming the product in copy
+
+A dictionary writes the product's name as a placeholder — `{brandName}`, `{brandAbbr}` or `{brandNameZh}` — and never as a literal. Every translation fills them, including the calls that pass no parameters of their own, so a private deployment that configured [`brand-deployment`](../../host/brand-deployment/README.md) reads as its own product in every sentence rather than only the ones an operator thought to look at. The three names resolve as one set: a deployment that named any of them gets the others from the one it named. A page that names no brand gets the built-in `lyness`, `LYN` and 领驭. An unknown placeholder stays visible, so a literal brace in copy survives.
+
 ### Resolving package text
 
 Use `ctx.locale.resolveText(text)` for [`LocalizedText`](../../util/package-manifest/README.md), such as installed plugin titles and descriptions. Literal strings are returned unchanged. Translation maps use lowercase language ids, require an `en` fallback, and follow the active language's declared fallback chain. They do not consult or register namespace dictionaries.
@@ -101,6 +105,7 @@ The typed object form requires complete dictionaries for both built-in locales. 
 | [`src/index.ts`](src/index.ts) | Node half: registers the `locale` settings namespace |
 | [`src/locale-settings.ts`](src/locale-settings.ts) | The durable schema for `locale.preference` |
 | [`src/locales/`](src/locales/) | The shipped `zh`/`en` dictionaries |
+| [`src/client/brand-values.ts`](src/client/brand-values.ts) | The brand names translations fill placeholders with |
 
 </details>
 

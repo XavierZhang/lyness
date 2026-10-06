@@ -97,7 +97,7 @@ it.each(['remote', 'render', 'files'] as const)('keeps Word and PowerPoint regis
       expect(h.registry.candidates(path)[0]!.title()).toBe(en.title)
       expect(h.registry.candidates(path)[0]!.loading).toBe('renderer')
       expect(h.registry.candidates(path)[0]).not.toHaveProperty('read')
-      await expect(h.read(undefined, path)).rejects.toThrow(en.unavailable)
+      await expect(h.read(undefined, path)).rejects.toThrow(makeTranslate(en)('unavailable'))
     }
     for (const path of ['sheet.XLS', 'sheet.xlsx']) expect(h.registry.candidates(path)).toEqual([])
     expect(h.render).not.toHaveBeenCalled()
@@ -133,7 +133,7 @@ it.each([
     const endpoint = method === 'render' ? 'officeToPdf/render' : 'officeToPdf/generation'
     const failure = new RemoteError(code, 'Office provider is unavailable.', { endpoint })
     h[method].mockResolvedValueOnce({ ok: false, error: failure })
-    await expect(h.read()).rejects.toMatchObject({ message: en.unavailable, cause: failure })
+    await expect(h.read()).rejects.toMatchObject({ message: makeTranslate(en)('unavailable'), cause: failure })
     expect((await h.read()).ok).toBe(true)
   } finally { await h.close() }
 })
@@ -143,7 +143,7 @@ it('shows configuration guidance when the Host exposes no Office HTTP endpoint',
   try {
     const failure = new RemoteError('gateway/internal', 'transport failure for /api/officeToPdf/generation: HTTP 404', {})
     h.rendererGeneration.mockResolvedValueOnce({ ok: false, error: failure })
-    await expect(h.read()).rejects.toMatchObject({ message: en.unavailable, cause: failure })
+    await expect(h.read()).rejects.toMatchObject({ message: makeTranslate(en)('unavailable'), cause: failure })
     expect(h.readBytes).not.toHaveBeenCalled()
     expect(h.render).not.toHaveBeenCalled()
   } finally { await h.close() }
@@ -224,7 +224,7 @@ it.each([
   try {
     const failure = new RemoteError('document-render/failed', 'Office conversion failed.', { reason: code })
     h.render.mockResolvedValueOnce({ ok: false, error: failure })
-    await expect(h.read()).rejects.toMatchObject({ message: en[key], cause: failure })
+    await expect(h.read()).rejects.toMatchObject({ message: makeTranslate(en)(key), cause: failure })
     expect((await h.read()).ok).toBe(true)
   } finally { await h.close() }
 })

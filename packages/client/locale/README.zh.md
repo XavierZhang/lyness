@@ -37,6 +37,10 @@ kind: "package-reference"
 
 用已合并进 `LocaleNamespaceMap` 的命名空间调用 `ctx.locale.register(ns, { zh, en })`；编译器会对照该命名空间的类型化键并集检查每个键，并要求两个内置 locale 齐全。消费方通过 `ctx.locale.bind(ns)` 或框架注入的 `t` 席位翻译。UI 已挂载后再注册的字典无需重新挂载即可生效。
 
+### 在文案里称呼产品
+
+字典把产品名写成占位符——`{brandName}`、`{brandAbbr}` 或 `{brandNameZh}`——而不写死。每次翻译都会填充它们，包括本身不传参数的调用，因此配置了 [`brand-deployment`](../../host/brand-deployment/README.zh.md) 的私有部署在每一句话里都读到自己的产品名，而不只是运营方想到去看的那几句。三个名字作为一组解析：部署只给了其中一个，另两个取它。未声明品牌的页面取内置的 `lyness`、`LYN` 与「领驭」。未知占位符原样保留，因此文案里字面的花括号不会被吃掉。
+
 ### 解析包文本
 
 使用 `ctx.locale.resolveText(text)` 解析 [`LocalizedText`](../../util/package-manifest/README.zh.md)，例如已安装插件的标题与描述。字面字符串原样返回。翻译映射使用小写语言 id，必须提供 `en` 回退值，并沿当前语言声明的回退链查找。它们不查询或注册命名空间字典。
@@ -101,6 +105,7 @@ Host 通过 settings 服务为 loopback 页面持久化偏好。Client 会刻意
 | [`src/index.ts`](src/index.ts) | node 半侧：注册 `locale` 设置命名空间 |
 | [`src/locale-settings.ts`](src/locale-settings.ts) | `locale.preference` 的持久 schema |
 | [`src/locales/`](src/locales/) | 内置的 `zh`／`en` 字典 |
+| [`src/client/brand-values.ts`](src/client/brand-values.ts) | 翻译用来填充占位符的品牌名 |
 
 </details>
 

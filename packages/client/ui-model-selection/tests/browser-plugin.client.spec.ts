@@ -14,7 +14,7 @@ import { createScope } from '@lyness/lyn-api-session-controller/client'
 import type { SessionId } from '@lyness/lyn-session/types'
 import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
 import { createSnapshotStore, type SnapshotStore } from '@lyness/lyn-client-store'
-import { RemoteError, TestRemote } from '@lyness/lyn-client-test-runtime'
+import { makeTranslate, RemoteError, TestRemote } from '@lyness/lyn-client-test-runtime'
 import type { ModelSelection, ModelSelectionProjection } from '@lyness/lyn-api-session-controller/types'
 import type { CommandContribution, PopupSelectSpec, SelectOption } from '@lyness/lyn-client-ui-commands/client'
 import type { ModelSelectInjected } from '../src/client/slots.ts'
@@ -204,7 +204,7 @@ describe('ui-model-selection dual entry', () => {
     const input = projection('owned')
     const options = await b.popup().options(input, new AbortController().signal)
     b.rejectSelection()
-    await expect(b.popup().onSelect(options[0]!, input)).rejects.toThrow(zh['error.sessionInUse'])
+    await expect(b.popup().onSelect(options[0]!, input)).rejects.toThrow(makeTranslate(zh)('error.sessionInUse'))
     expect(b.ctx.modelDirectories.directoryFor(sid('owned')).store.getSnapshot()).toMatchObject({
       status: 'error', pending: null, error: 'session/writer-held: writer held',
     })

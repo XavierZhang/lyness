@@ -10,7 +10,10 @@
  * compares rendered text, which is how a brand edit to the locale reached CI with
  * three web scenarios failing on copy nobody had looked at.
  *
- * Both sides are read as text so this check needs neither graph.
+ * Both sides are read as text so this check needs neither graph. The locale
+ * writes the product's name as a brand placeholder, so the comparison fills
+ * those placeholders first: the scaffold restates the sentence a reader sees,
+ * and the built-in names are the ones a deployment that renamed nothing gets.
  */
 import { readFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
@@ -19,6 +22,7 @@ import { describe, expect, it } from 'vitest'
 const SCAFFOLD = fileURLToPath(new URL('../apps/web/tests/scaffold.ts', import.meta.url))
 const LOCALES = fileURLToPath(new URL('../packages/client/ui-settings-models/src/client/locales.ts', import.meta.url))
 const ONBOARDING = fileURLToPath(new URL('../packages/client/ui-settings-models/src/onboarding-copy.ts', import.meta.url))
+const BRAND = fileURLToPath(new URL('../packages/client/locale/src/client/brand-values.ts', import.meta.url))
 
 /**
  * Read one single-quoted string assigned to `key` in a module's source.
@@ -59,14 +63,33 @@ function exported(source: string, name: string): string | undefined {
   return match?.[1]
 }
 
+/**
+ * Fill brand placeholders with the built-in names `brand-values.ts` declares.
+ * @param template - Product copy as its locale writes it.
+ * @param brand - Complete text of `brand-values.ts`.
+ * @returns The copy a deployment that renamed nothing shows.
+ */
+function fillBrand(template: string, brand: string): string {
+  const table = /const BUILT_IN[^{]*\{([^}]*)\}/.exec(brand)?.[1]
+  if (table === undefined) throw new Error('brand-values must declare BUILT_IN as an object literal')
+  const names = new Map<string, string>()
+  for (const [, name, value] of table.matchAll(/(\w+):\s*'([^']*)'/g)) {
+    if (name !== undefined && value !== undefined) names.set(name, value)
+  }
+  if (names.size === 0) throw new Error('brand-values BUILT_IN must name at least one brand value')
+  return template.replace(/\{(\w+)\}/g, (match, name: string) => names.get(name) ?? match)
+}
+
 describe('web scaffold mirrored copy', () => {
-  it('restates the Chinese welcome notice exactly as the product locale writes it', async () => {
-    const [scaffold, locales] = await Promise.all([readFile(SCAFFOLD, 'utf8'), readFile(LOCALES, 'utf8')])
+  it('restates the Chinese welcome notice exactly as the product locale renders it', async () => {
+    const [scaffold, locales, brand] = await Promise.all([
+      readFile(SCAFFOLD, 'utf8'), readFile(LOCALES, 'utf8'), readFile(BRAND, 'utf8'),
+    ])
     const mirrored = literal(scaffold, 'body')
     const product = literal(dictionary(locales, 'zh'), 'welcomeBody')
     expect(product, 'ui-settings-models locales must define welcomeBody as a single-quoted literal').toBeDefined()
     expect(mirrored, 'scaffold must restate the notice body as a single-quoted literal').toBeDefined()
-    expect(mirrored).toBe(product)
+    expect(mirrored).toBe(fillBrand(product ?? '', brand))
   })
 
   it('restates the acknowledgement constants exactly as their owning module writes them', async () => {

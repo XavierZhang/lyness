@@ -31,7 +31,9 @@ export const zh = {
   'collapse': '收起',
   'expand': '展开',
   'back': '返回',
-  'brand.localBuild': 'LYN 本地构建',
+  // The product's own name in Chinese, which is the face a Chinese product
+  // label takes. Diagnostics keep the abbreviation.
+  'brand.localBuild': '{brandNameZh}本地构建',
   'workspace.defaultName': '默认工作区',
   'unknown': '未知',
   'none': '无',

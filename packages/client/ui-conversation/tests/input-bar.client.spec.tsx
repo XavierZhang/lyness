@@ -1603,7 +1603,7 @@ describe('strips and variants', () => {
       },
       t: makeTranslate(dictionary, commonZh),
     })
-    expect(send.view.getByRole('alert').textContent).toBe(dictionary['error.sessionInUse'])
+    expect(send.view.getByRole('alert').textContent).toBe(makeTranslate(dictionary, commonZh)('error.sessionInUse'))
   })
 
   it('announces promptError as a fading toast (ordinary failure — no transaction UI, no Retry)', () => {

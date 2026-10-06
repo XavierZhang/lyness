@@ -6,6 +6,7 @@
  */
 import type { Context as ClientContext } from '@lyness/cordis'
 import type { LocalizedText } from '@lyness/lyn-package-manifest'
+import { readBrandValues } from './brand-values.ts'
 import {
   type BoundActions, type LocaleDictOf, type LocaleNamespaceMap, type Translate, type TranslateNS,
 } from '@lyness/lyn-client-ui-slots'
@@ -175,6 +176,12 @@ export class LocaleRuntime {
   private provisional: LocaleId
   /** Last explicit selection, including one awaiting an external registration. */
   private preference: LocaleId | undefined
+  /**
+   * Brand names every dictionary may fill through a placeholder. Read once:
+   * the page global is assigned before the client entry runs and does not
+   * change while the page lives.
+   */
+  private readonly brand: Readonly<Record<string, string>> = readBrandValues()
 
   /**
    * @param ctx - owning context (change events are emitted on it; the scope
@@ -468,9 +475,13 @@ export class LocaleRuntime {
     const template = this.lookup(ns, key, chain)
       ?? (ns !== COMMON_NS ? this.lookup(COMMON_NS, key, chain) : undefined)
       ?? key
-    if (!params) return template
+    // Brand names fill without the caller passing them: product copy names the
+    // product in sentences whose call sites have no other parameter, and a
+    // deployment that replaced its name must not read as lyness in those. A
+    // caller's own parameter wins, so a dictionary may still shadow one.
+    const values = params === undefined ? this.brand : { ...this.brand, ...params }
     return template.replace(/\{(\w+)\}/g, (match, name: string) =>
-      name in params ? String(params[name]) : match)
+      name in values ? String(values[name]) : match)
   }
 
   private lookup(ns: string, key: string, chain: readonly LocaleId[]): string | undefined {

@@ -538,7 +538,7 @@ exports[`sidebar shell snapshots > renders the expanded column in the default lo
                 <span
                   class="localBuildTitle"
                 >
-                  LYN 本地构建
+                  领驭本地构建
                 </span>
                 <span
                   class="buildVersion"

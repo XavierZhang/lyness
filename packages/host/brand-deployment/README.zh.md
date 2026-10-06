@@ -34,6 +34,8 @@ kind: "package-reference"
   name: '@lyness/lyn-host-brand-deployment'
   config:
     productName: Acme Agent
+    productAbbreviation: ACME
+    productNameZh: 艾可
     themeColor: '#1f6feb'
     assetDirectory: /srv/acme/brand
     favicon: favicon.svg
@@ -47,6 +49,8 @@ kind: "package-reference"
 
 `colors` 按名字替换品牌色彩令牌：`black`、`blue`、`blueDark`、`cyan`、`white`、`gray50`、`gray200`、`gray600`、`gray900`、`success`、`warning`、`error` 与 `info`。缺省的键保留内置值，因此只拥有一个主色的部署只写那一个。每个值接受的形式与 `themeColor` 相同；列表之外的键会让该行失败而不是被丢弃——运营方看不见的拼写错误，否则会让内置颜色原样生效且没有任何线索。`themeColor` 是独立的，仍然负责浏览器界面色。
 
+`productName`、`productAbbreviation` 与 `productNameZh` 是产品文案称呼产品的三个面：全名、内置品牌写作 `LYN` 的缩写、内置品牌写作「领驭」的中文名。三者**作为一组解析**——部署只给了其中一个，另两个取它，绝不会在自己的名字旁边留下内置取值，否则 Acme 的界面里仍会读到 `LYN`，显示的是运营方并未发布的品牌。三者都不给的部署保留全部内置取值。
+
 `assetDirectory` 是绝对路径，其中存放上面命名的三个文件；由部署脚本写入。每个文件按其角色寻址，而非按文件名：上面的 `favicon.svg` 以 `/brand/favicon.svg` 提供，而名为 `wordmark.png` 的字标以 `/brand/wordmark.png` 提供。可提供的类型为 SVG、PNG、WebP、ICO 与 JPEG。
 
 ### 为何是配置而非用户设置
@@ -55,7 +59,7 @@ kind: "package-reference"
 
 ### 浏览器收到什么
 
-产品名替换第一个 `<title>`，若 head 未声明则补上一个。配置的 favicon 替换第一个 `rel="icon"` 链接，而不是再加一个，因为浏览器会自行在相互竞争的图标链接之间做选择。主题色以一条 `<meta name="theme-color">` 注入行到达。品牌对象以 `globalThis.lynDeploymentBrand` 到达，携带产品名、颜色、图标与字标的 URL 以及署名开关——成员缺失即表示部署未做配置，页面保留其内置呈现。
+产品名替换第一个 `<title>`，若 head 未声明则补上一个。配置的 favicon 替换第一个 `rel="icon"` 链接，而不是再加一个，因为浏览器会自行在相互竞争的图标链接之间做选择。主题色以一条 `<meta name="theme-color">` 注入行到达。品牌对象以 `globalThis.lynDeploymentBrand` 到达，携带三个产品名、颜色与被替换的调色板令牌、图标与字标的 URL 以及署名开关——成员缺失即表示部署未做配置，页面保留其内置呈现。
 
 资产响应携带各自的图片类型与 `cache-control: no-cache`。该 URL 跨部署保持不变，因此一次替换了字节的重新部署不能继续提供旧内容。
 
