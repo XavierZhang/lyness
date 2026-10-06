@@ -27,10 +27,7 @@ const MINIMUM_DICTIONARIES = 50
  * Remove an entry together with the mechanism that lets its copy name the
  * brand; an entry is a deferral, not permission.
  */
-const EXEMPT: Readonly<Record<string, string>> = {
-  'apps/desktop/src/locale.ts':
-    'the Electron shell owns this copy outside the locale runtime, which has no interpolation there yet',
-}
+const EXEMPT: Readonly<Record<string, string>> = {}
 
 /** Package names carrying the scope, removed before the names are looked for. */
 const PACKAGE_NAME = /@lyness\/[\w./-]+/gu

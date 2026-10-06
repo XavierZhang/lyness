@@ -21,6 +21,8 @@ import {
   type IpcMainInvokeEvent,
   type MenuItemConstructorOptions,
 } from 'electron'
+import { BUILT_IN_BRAND } from './brand-names.ts'
+import { resolveDesktopBrand } from './brand.ts'
 import { resolveDesktopPaths } from './paths.ts'
 import { DesktopProjectManager } from './project-manager.ts'
 import { DesktopHostFatalError, DesktopHostProcess, DesktopHostUncleanExitError } from './host-process.ts'
@@ -65,6 +67,8 @@ let shuttingDown = false
  */
 let skipQuitConfirmation = false
 let windowsLanguage: string | undefined
+/** This build's product names, read from the packaged manifest before the first copy is selected. */
+let brandNames: Readonly<Record<string, string>> = BUILT_IN_BRAND
 /**
  * Whether the backend has reached ready: false until the first ready, back to
  * false when a restart returns it to starting, frozen during shutdown so a
@@ -72,6 +76,27 @@ let windowsLanguage: string | undefined
  */
 let backendReady = false
 /** Error-level console output of the primary window, attached to crash reports. */
+/**
+ * Read the packaged manifest for the metadata the shell needs before startup.
+ *
+ * Read before the first window so the brand names it carries reach the copy a
+ * failed startup shows. An unpackaged development launch has no packaged
+ * manifest and needs none.
+ * @returns the parsed manifest, or undefined when this launch has none.
+ */
+async function packagedManifest(): Promise<unknown> {
+  if (!app.isPackaged) return undefined
+  try {
+    return JSON.parse(await readFile(join(app.getAppPath(), 'package.json'), 'utf8'))
+  } catch (error) {
+    // A manifest this process cannot read leaves the built-in product names in
+    // place; the policy read later reports the same file's failures with its
+    // own context.
+    console.error(`desktop brand: ${String(error)}`)
+    return undefined
+  }
+}
+
 const rendererConsole = new RendererConsoleTail()
 
 // Platform-conventional logs directory (macOS ~/Library/Logs/<name>, otherwise under userData);
@@ -79,7 +104,7 @@ const rendererConsole = new RendererConsoleTail()
 app.setAppLogsPath()
 
 function currentDesktopLocale(): ReturnType<typeof resolveDesktopLocale> {
-  return resolveDesktopLocale(windowsLanguage ?? app.getLocale())
+  return resolveDesktopLocale(windowsLanguage ?? app.getLocale(), brandNames)
 }
 /** Quit without the task confirmation; the caller has already decided the application must stop. */
 function quitWithoutConfirmation(): void {
@@ -332,8 +357,11 @@ async function main(): Promise<void> {
   let updateStoppedHost = false
   let updateStopFailure: DesktopHostUncleanExitError | undefined
   let updateState: DesktopUpdateState = { phase: 'idle' }
+  // Before the first copy is selected: the shell's copy names the product
+  // through placeholders this build's manifest fills.
+  brandNames = resolveDesktopBrand(await packagedManifest())
   const systemLanguages = app.getPreferredSystemLanguages()
-  let locale = resolveDesktopStartupLocale(null, systemLanguages)
+  let locale = resolveDesktopStartupLocale(null, systemLanguages, brandNames)
   windowsLanguage = locale.id
   let mandatoryPolicy: DesktopMandatoryUpdatePolicy | undefined
   let mandatoryUI: DesktopMandatoryUpdateWindow | undefined
@@ -712,7 +740,7 @@ async function main(): Promise<void> {
     const window = mainWindow
     if (window === undefined || event.sender !== window.webContents || event.senderFrame !== window.webContents.mainFrame
       || typeof next !== 'string') return
-    const current = resolveDesktopStartupLocale(next, systemLanguages)
+    const current = resolveDesktopStartupLocale(next, systemLanguages, brandNames)
     if (current.id === locale.id) return
     locale = current
     platformView.notifyLocaleChanged()
@@ -1117,7 +1145,7 @@ async function main(): Promise<void> {
           return { ok: true }
         },
         skip: enterWorkspace,
-      })
+      }, brandNames)
       const window = welcomeWindow
       window.once('closed', () => {
         void welcomeBackend?.account.state().then((state) => {
@@ -1142,7 +1170,7 @@ async function main(): Promise<void> {
     if (quitting || recovery.active) return
     const state = await readWelcomeState()
     if (isQuitting() || backend.state.phase !== 'ready') return
-    locale = resolveDesktopStartupLocale(state.localePreference, systemLanguages)
+    locale = resolveDesktopStartupLocale(state.localePreference, systemLanguages, brandNames)
     windowsLanguage = locale.id
     refreshApplicationMenu()
     if (!enteredWorkspace && needsWelcome({ loggedIn: state.loggedIn, hasApiKey: state.hasApiKey })) {

@@ -3,6 +3,13 @@
 /** Environment variable that supplies the Electron application identifier. */
 export const DESKTOP_APP_ID_ENV = 'LYNESS_DESKTOP_APP_ID'
 
+/** Packaging variables naming the product, by the manifest key each one fills. */
+export const DESKTOP_BRAND_ENV = {
+  lynBrandName: 'LYNESS_DESKTOP_BRAND_NAME',
+  lynBrandAbbr: 'LYNESS_DESKTOP_BRAND_ABBR',
+  lynBrandNameZh: 'LYNESS_DESKTOP_BRAND_NAME_ZH',
+}
+
 /** Environment variable that supplies electron-builder's macOS certificate qualifier. */
 export const MACOS_SIGNING_IDENTITY_ENV = 'LYNESS_DESKTOP_MACOS_SIGNING_IDENTITY'
 
@@ -66,6 +73,29 @@ export function resolveDesktopAppId(env) {
     throw new Error(`desktop release environment: ${DESKTOP_APP_ID_ENV} must be a reverse-DNS identifier`)
   }
   return appId
+}
+
+/**
+ * Resolve the product names this build packages for the shell's own copy.
+ *
+ * The shell writes that copy as placeholders the packaged manifest fills, so a
+ * build that names none shows the built-in names. The three names resolve as one
+ * set in the application; a build that names only one gets it everywhere.
+ * @param {NodeJS.ProcessEnv} env - Packaging environment.
+ * @returns {Record<string, string>} Manifest entries, empty when this build names no product.
+ * @throws {Error} When a name could not survive placeholder substitution.
+ */
+export function resolveDesktopBrandMetadata(env) {
+  const metadata = {}
+  for (const [key, variable] of Object.entries(DESKTOP_BRAND_ENV)) {
+    const value = env[variable]
+    if (value === undefined) continue
+    if (!/^[^\n\r{}]{1,64}$/u.test(value)) {
+      throw new Error(`desktop release environment: ${variable} must be one line of at most 64 characters without braces`)
+    }
+    metadata[key] = value
+  }
+  return metadata
 }
 
 /**

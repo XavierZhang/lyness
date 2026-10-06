@@ -5,7 +5,10 @@ import { DESKTOP_HOST_PROTOCOL_VERSION } from '../src/host-protocol.ts'
 import { parseDesktopRelease } from '../src/release.ts'
 import type { DesktopUpdateState } from '../src/ipc.ts'
 import { DesktopUpdatePreparationError } from '../src/update-error.ts'
-import { zh } from '../src/locale.ts'
+import { resolveDesktopLocale } from '../src/locale.ts'
+
+/** The copy a reader sees. */
+const zh = resolveDesktopLocale('zh').messages
 
 vi.mock('electron', () => ({ app: { isPackaged: false } }))
 vi.mock('electron-updater', () => ({

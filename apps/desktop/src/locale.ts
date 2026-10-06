@@ -1,20 +1,22 @@
 /** Typed English and Chinese copy owned by the Electron shell. */
 
+import { BUILT_IN_BRAND } from './brand-names.ts'
+
 export const en = {
   application: 'Application',
   fileMenu: 'File',
   closePage: 'Close Page or Window',
-  aboutMenu: 'About lyness',
-  aboutProduct: 'lyness',
+  aboutMenu: 'About {brandName}',
+  aboutProduct: '{brandName}',
   aboutVersion: 'Version V{version}',
-  hideApplication: 'Hide lyness',
+  hideApplication: 'Hide {brandName}',
   hideOtherApplications: 'Hide Others',
   showAllApplications: 'Show All',
-  quitApplication: 'Quit lyness',
-  openApplication: 'Open lyness',
+  quitApplication: 'Quit {brandName}',
+  openApplication: 'Open {brandName}',
   quit: 'Quit',
   cancel: 'Cancel',
-  quitTitle: 'Quit lyness?',
+  quitTitle: 'Quit {brandName}?',
   quitActiveTasks: 'Running tasks will be interrupted.',
   quitScheduledTasks: 'Scheduled tasks will not run while the app is closed.',
   quitActiveAndScheduledTasks: 'Running tasks will be interrupted, and scheduled tasks will not run while the app is closed.',
@@ -29,9 +31,9 @@ export const en = {
   copy: 'Copy',
   paste: 'Paste',
   selectAll: 'Select All',
-  startupFailed: 'lyness is unavailable',
+  startupFailed: '{brandName} is unavailable',
   fatalSummary: 'The application could not start or stopped unexpectedly.',
-  startupAddressInUse: 'Another LYN instance (such as lyn web or the desktop app) is running. They cannot start at the same time. Quit the other running LYN instance, then restart.',
+  startupAddressInUse: 'Another {brandAbbr} instance (such as lyn web or the desktop app) is running. They cannot start at the same time. Quit the other running {brandAbbr} instance, then restart.',
   diagnosticTruncated: '… Error details shortened.',
   reportWrittenTo: 'Diagnostic report: {path}',
   startupReinstallAdvice: 'If application files are missing or damaged, close the application and reinstall it. Your tasks are stored separately.',
@@ -39,10 +41,10 @@ export const en = {
   restartApplication: 'Restart',
   recoveryOperationFailed: 'The recovery operation failed',
   disableThirdPartyPlugins: 'Disable third-party plugins, back up profile patch, and restart',
-  welcomeTitle: 'lyness',
-  welcomeBrand: 'lyness',
+  welcomeTitle: '{brandName}',
+  welcomeBrand: '{brandName}',
   welcomeTaglineBefore: 'Welcome to ',
-  welcomeTaglineBrand: 'lyness',
+  welcomeTaglineBrand: '{brandName}',
   welcomeTaglineAfter: '',
   welcomeDescription: 'Build potential. Explore intelligence.',
   welcomeAuthStarting: 'Opening sign in…',
@@ -60,7 +62,7 @@ export const en = {
   welcomeSignIn: 'Sign in',
   welcomeApiKey: 'Add API Key',
   welcomeKeyTitle: 'Add an API key to get started',
-  welcomeKeyDescription: 'Configure official DeepSeek models to start using lyness',
+  welcomeKeyDescription: 'Configure official DeepSeek models to start using {brandName}',
   welcomeKeyPlaceholder: 'Enter API key',
   welcomeKeySave: 'Save and continue',
   welcomeKeyLater: 'Set up later',
@@ -85,7 +87,7 @@ export const en = {
   updateCurrent: 'No updates available. Current version: V{version}',
   updateChecking: 'Checking for updates…',
   updateDownload: 'Download update',
-  updateDownloadedTitle: 'lyness v{version} downloaded',
+  updateDownloadedTitle: '{brandName} v{version} downloaded',
   updateDownloadedDetail: 'The update package has downloaded. Select “Install and Restart” to restart the app and begin installation.',
   updateDownloadedTitleWindows: 'New version v{version} is ready',
   updateDownloadedDetailWindows: 'The app will close temporarily during the update and reopen automatically when it is complete.\n\nThe update may take some time. Please wait and do not launch the app again during installation.',
@@ -103,9 +105,9 @@ export const en = {
   updateTasksUnavailable: 'Task status is unavailable. Try updating again when the workspace is ready.',
   updateStopFailed: 'Tasks could not be stopped safely. The update was not installed. Please try again later.',
   updateTechnicalDetails: 'View technical details',
-  updateTitle: 'lyness Update',
+  updateTitle: '{brandName} Update',
   updateAvailable: 'An update is available',
-  updateDetail: 'lyness {version}\n\nlyness will restart to complete the update.',
+  updateDetail: '{brandName} {version}\n\n{brandName} will restart to complete the update.',
   installAndRestart: 'Install and Restart',
   later: 'Later',
   updateFailedTitle: 'Update Failed',
@@ -148,17 +150,17 @@ export const zh = {
   application: '应用',
   fileMenu: '文件',
   closePage: '关闭页面或窗口',
-  aboutMenu: '关于 lyness',
-  aboutProduct: 'lyness',
+  aboutMenu: '关于 {brandName}',
+  aboutProduct: '{brandName}',
   aboutVersion: '版本 V{version}',
-  hideApplication: '隐藏 lyness',
+  hideApplication: '隐藏 {brandName}',
   hideOtherApplications: '隐藏其他',
   showAllApplications: '显示全部',
-  quitApplication: '退出 lyness',
-  openApplication: '打开 lyness',
+  quitApplication: '退出 {brandName}',
+  openApplication: '打开 {brandName}',
   quit: '退出',
   cancel: '取消',
-  quitTitle: '退出 lyness？',
+  quitTitle: '退出 {brandName}？',
   quitActiveTasks: '当前正在运行的任务将会中断',
   quitScheduledTasks: '应用关闭期间，定时任务不会运行',
   quitActiveAndScheduledTasks: '当前正在运行的任务将会中断，且应用关闭期间，定时任务不会运行',
@@ -173,9 +175,9 @@ export const zh = {
   copy: '复制',
   paste: '粘贴',
   selectAll: '全选',
-  startupFailed: 'lyness 无法使用',
+  startupFailed: '{brandName} 无法使用',
   fatalSummary: '应用无法启动或已意外停止。',
-  startupAddressInUse: '有其他正在运行的 LYN（如其他 lyn web、桌面端），无法同时启动，请退出其他正在运行的 LYN 后重启。',
+  startupAddressInUse: '有其他正在运行的 {brandAbbr}（如其他 lyn web、桌面端），无法同时启动，请退出其他正在运行的 {brandAbbr} 后重启。',
   diagnosticTruncated: '… 错误详情已截短。',
   reportWrittenTo: '诊断报告：{path}',
   startupReinstallAdvice: '如果应用文件缺失或损坏，请关闭应用并重新安装。任务数据存储在独立位置。',
@@ -183,10 +185,10 @@ export const zh = {
   restartApplication: '重启',
   recoveryOperationFailed: '恢复操作失败',
   disableThirdPartyPlugins: '禁用第三方插件、备份 profile patch 并重启',
-  welcomeTitle: 'lyness',
-  welcomeBrand: 'lyness',
+  welcomeTitle: '{brandName}',
+  welcomeBrand: '{brandName}',
   welcomeTaglineBefore: '欢迎使用 ',
-  welcomeTaglineBrand: 'lyness',
+  welcomeTaglineBrand: '{brandName}',
   welcomeTaglineAfter: '',
   welcomeDescription: '组装无限可能，共探智能上限',
   welcomeAuthStarting: '正在打开登录…',
@@ -229,7 +231,7 @@ export const zh = {
   updateCurrent: '当前暂无可用更新。当前版本：V{version}',
   updateChecking: '正在检查更新…',
   updateDownload: '下载更新',
-  updateDownloadedTitle: 'lyness v{version} 下载完成',
+  updateDownloadedTitle: '{brandName} v{version} 下载完成',
   updateDownloadedDetail: '安装包已下载完毕，点击“安装并重启”，即刻重启客户端，开始部署。',
   updateDownloadedTitleWindows: '新版本 v{version} 已准备就绪',
   updateDownloadedDetailWindows: '更新期间应用将暂时关闭，完成后会自动打开。\n\n更新可能需要一些时间，请耐心等待，期间请勿重复启动应用。',
@@ -247,9 +249,9 @@ export const zh = {
   updateTasksUnavailable: '无法确认任务状态，请在工作区就绪后重试更新。',
   updateStopFailed: '未能安全停止任务，更新未安装。请稍后重试。',
   updateTechnicalDetails: '查看技术详情',
-  updateTitle: 'lyness 更新',
+  updateTitle: '{brandName} 更新',
   updateAvailable: '发现可用更新',
-  updateDetail: 'lyness {version}\n\nlyness 将重启以完成更新。',
+  updateDetail: '{brandName} {version}\n\n{brandName} 将重启以完成更新。',
   installAndRestart: '安装并重启',
   later: '稍后',
   updateFailedTitle: '更新失败',
@@ -291,27 +293,58 @@ export interface DesktopLocale {
   readonly messages: DesktopMessages
 }
 
-/** Resolve Electron's locale to one shipped Desktop dictionary. */
-export function resolveDesktopLocale(locale: string): DesktopLocale {
+/**
+ * Put this build's product names into one shipped dictionary.
+ *
+ * The shell's copy names the product through a placeholder, and most of that
+ * copy is read straight off the dictionary rather than through
+ * {@link formatDesktopMessage}, so the names fill once here rather than at each
+ * use. A placeholder no name covers stays, which is how `{version}` and the
+ * other per-call values survive to their own substitution.
+ * @param messages - one shipped dictionary.
+ * @param brand - the names this build carries.
+ * @returns the dictionary a reader sees.
+ */
+function brandedMessages(messages: DesktopMessages, brand: Readonly<Record<string, string>>): DesktopMessages {
+  return Object.fromEntries(Object.entries(messages)
+    .map(([key, message]) => [key, formatDesktopMessage(message, brand)])) as DesktopMessages
+}
+
+/**
+ * Resolve Electron's locale to one shipped Desktop dictionary.
+ * @param locale - Electron's locale, or any language tag.
+ * @param brand - this build's product names; the built-in names stand for a
+ * build that packaged none.
+ * @returns the dictionary for that language with its product names filled.
+ */
+export function resolveDesktopLocale(
+  locale: string,
+  brand: Readonly<Record<string, string>> = BUILT_IN_BRAND,
+): DesktopLocale {
   return locale.toLowerCase().startsWith('zh')
-    ? { id: 'zh-CN', messages: zh }
-    : { id: 'en', messages: en }
+    ? { id: 'zh-CN', messages: brandedMessages(zh, brand) }
+    : { id: 'en', messages: brandedMessages(en, brand) }
 }
 
 /**
  * Choose a built-in dictionary from the shared preference, then ordered OS languages.
  * @param preference - explicit locale.preference, or null when no language was selected.
  * @param languages - operating-system languages in preference order.
+ * @param brand - this build's product names.
  * @returns the supported dictionary, falling back to English.
  */
-export function resolveDesktopStartupLocale(preference: string | null, languages: readonly string[]): DesktopLocale {
+export function resolveDesktopStartupLocale(
+  preference: string | null,
+  languages: readonly string[],
+  brand: Readonly<Record<string, string>> = BUILT_IN_BRAND,
+): DesktopLocale {
   const selected = preference?.toLowerCase()
-  if (selected === 'zh' || selected === 'en') return resolveDesktopLocale(selected)
+  if (selected === 'zh' || selected === 'en') return resolveDesktopLocale(selected, brand)
   for (const language of languages) {
     const primary = language.toLowerCase().split('-')[0]
-    if (primary === 'zh' || primary === 'en') return resolveDesktopLocale(primary)
+    if (primary === 'zh' || primary === 'en') return resolveDesktopLocale(primary, brand)
   }
-  return resolveDesktopLocale('en')
+  return resolveDesktopLocale('en', brand)
 }
 
 /** Replace named placeholders in one locale-owned message. */

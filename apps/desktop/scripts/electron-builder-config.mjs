@@ -8,6 +8,7 @@ import { execFile } from 'node:child_process'
 import { promisify } from 'node:util'
 import {
   resolveDesktopAppId,
+  resolveDesktopBrandMetadata,
   resolveMacOSNotarizationEnvironment,
   resolveMacOSSigningEnvironment,
 } from './desktop-release-environment.mjs'
@@ -103,6 +104,8 @@ export function createElectronBuilderConfig(
     extraMetadata: {
       lynDesktopAppId: appId,
       lynMandatoryUpdatePolicy: policy,
+      // The shell's own copy names the product through placeholders this manifest fills.
+      ...resolveDesktopBrandMetadata(env),
       ...buildVersion === productVersion ? {} : { version: buildVersion },
       ...packaged === undefined ? {} : { lynBuildCommit: packaged.commit, lynBuildDirty: packaged.dirty },
     },

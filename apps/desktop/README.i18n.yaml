@@ -3,8 +3,8 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write apps/desktop/README.md
 /lyness-desktop:
-  en: 7b4a6f57e21ac887
-  zh: 04011809eec5346b
+  en: 77ee1456fd420676
+  zh: 81f9a0700e3888a6
 /lyness-desktop/closing-the-window-and-quitting:
   en: 493a63ec5a5e0aed
   zh: 2ea93e246f67f9f9
@@ -42,8 +42,8 @@
   en: fe34752be93aedc5
   zh: a5cb86cde97229a0
 /lyness-desktop/package/unsigned-windows-test-installer:
-  en: 35cb17e16787490c
-  zh: 8593b5f8b9ec12d8
+  en: da21596a49d89d70
+  zh: 0c764e738abcd1f2
 /lyness-desktop/package/windows-installer-interface:
   en: 0f671d115cce29ea
   zh: 90a2cec9bb032727

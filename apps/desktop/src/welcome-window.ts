@@ -4,6 +4,8 @@ import type { SignInAttemptId } from '@lyness/lyn-deepseek-account/types'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { app, BrowserWindow, ipcMain, type BrowserWindowConstructorOptions, type IpcMainInvokeEvent } from 'electron'
+import { desktopBrandArguments } from './brand.ts'
+import { BUILT_IN_BRAND } from './brand-names.ts'
 import type { DesktopLocale } from './locale.ts'
 import { WELCOME_IPC, type WelcomeOperations } from './welcome-api.ts'
 
@@ -13,7 +15,11 @@ import { WELCOME_IPC, type WelcomeOperations } from './welcome-api.ts'
  * @param locale - shell-owned localized copy.
  * @returns sandboxed window options with a locale-only preload.
  */
-export function welcomeWindowOptions(platform: NodeJS.Platform, locale: DesktopLocale): BrowserWindowConstructorOptions {
+export function welcomeWindowOptions(
+  platform: NodeJS.Platform,
+  locale: DesktopLocale,
+  brand: Readonly<Record<string, string>> = BUILT_IN_BRAND,
+): BrowserWindowConstructorOptions {
   return {
     width: 600,
     height: 700,
@@ -38,7 +44,7 @@ export function welcomeWindowOptions(platform: NodeJS.Platform, locale: DesktopL
     } as const : {}),
     webPreferences: {
       preload: fileURLToPath(new URL('./preload-welcome.cjs', import.meta.url)),
-      additionalArguments: [`--lyn-welcome-locale=${locale.id}`],
+      additionalArguments: [`--lyn-welcome-locale=${locale.id}`, ...desktopBrandArguments(brand)],
       nodeIntegration: false,
       contextIsolation: true,
       sandbox: true,
@@ -56,8 +62,12 @@ let disposeActiveHandlers: (() => void) | undefined
  * @param operations - credential write and this-launch-only skip actions.
  * @returns the visible window; a failed load destroys it before rejecting.
  */
-export async function openWelcomeWindow(locale: DesktopLocale, operations: WelcomeOperations): Promise<BrowserWindow> {
-  const window = new BrowserWindow(welcomeWindowOptions(process.platform, locale))
+export async function openWelcomeWindow(
+  locale: DesktopLocale,
+  operations: WelcomeOperations,
+  brand: Readonly<Record<string, string>> = BUILT_IN_BRAND,
+): Promise<BrowserWindow> {
+  const window = new BrowserWindow(welcomeWindowOptions(process.platform, locale, brand))
   disposeActiveHandlers?.()
   let active = true
   const disposeHandlers = (): void => {

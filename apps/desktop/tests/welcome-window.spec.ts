@@ -56,7 +56,12 @@ describe('desktop welcome window', () => {
       resizable: false, maximizable: false, fullscreenable: false,
       webPreferences: {
         nodeIntegration: false, contextIsolation: true, sandbox: true, webSecurity: true,
-        additionalArguments: ['--lyn-welcome-locale=zh-CN'],
+        // The renderer resolves its own copy, so the window carries the product
+        // names with the locale.
+        additionalArguments: [
+          '--lyn-welcome-locale=zh-CN',
+          '--lyn-brand-name=lyness', '--lyn-brand-abbr=LYN', '--lyn-brand-name-zh=领驭',
+        ],
       },
     })
     expect(options.webPreferences?.preload).toMatch(/preload-welcome\.cjs$/u)

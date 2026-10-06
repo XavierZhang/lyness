@@ -1,6 +1,10 @@
 import { expect, it } from 'vitest'
 import { desktopUpdateErrorSummary, presentDesktopUpdate } from '../src/update-presentation.ts'
-import { en, zh } from '../src/locale.ts'
+import { resolveDesktopLocale } from '../src/locale.ts'
+
+/** The copy a reader sees, in both shipped languages. */
+const en = resolveDesktopLocale('en').messages
+const zh = resolveDesktopLocale('zh').messages
 import type { DesktopUpdateState, LynDesktopProductApi } from '../src/ipc.ts'
 import type { DesktopUpdateBridge } from '@lyness/lyn-client-ui-settings-general/types'
 

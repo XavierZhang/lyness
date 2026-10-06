@@ -6,6 +6,7 @@
   },
   "include": [
     "src/client",
+    "src/brand-names.ts",
     "src/welcome-api.ts",
     "src/locale.ts"
   ],
