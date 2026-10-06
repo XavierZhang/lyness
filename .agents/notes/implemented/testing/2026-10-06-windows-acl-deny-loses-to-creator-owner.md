@@ -31,7 +31,11 @@ The Windows coverage job therefore points `TMP` and `TEMP` at a scratch root cre
 
 The confinement rests on a precondition the sandbox does not establish and does not check: that directories inside a granted root carry no explicit allow. `CREATOR OWNER` inheritable ACEs are ordinary under `C:\Users\<account>\`, which is where a workspace usually lives, so a real deployment can reach the same state the runner is in — the container deny propagates and is then outranked. The seam would have to read the effective DACL of each container it means to deny, or place an explicit deny rather than an inherited one, to close that gap.
 
-This is upstream's design, reached here only because a hosted runner happens to expose it. The fork changes no sandbox code: a security seam is not something to adjust from a CI symptom, and the finding belongs upstream, where the threat model that chose an inherited deny is written down.
+This is upstream's design, reached here only because a hosted runner happens to expose it. The fork owns the question rather than reporting it upstream, and the sandbox code is unchanged for now, for a reason that is about evidence rather than ownership.
+
+The probe that produced `DIRECTORY: OK` runs under `spawnSync('pwsh', ...)`, which is the runner's ordinary token. The deny it defeats names the world SID, so the assertion it breaks — that even an unrestricted process cannot open the container — is real and is the stronger of the two claims the suite makes. What the probe does **not** establish is the one that decides severity: whether a sandboxed process, whose token is write-restricted, also reaches that `CREATOR OWNER` allow. It is the same account, so it plausibly does; nothing here measures it.
+
+Closing the gap means either placing an explicit deny on every container inside a granted root, which then has to cover directories created after the grant, or reading each container's effective DACL before trusting an inherited deny. Both are edits to a security seam, both need a Windows host to validate against a restricted token, and this fork reaches Windows only through a CI round trip. Changing the seam from that position would be guessing. The measurement comes first.
 
 ## Consequences
 
@@ -39,7 +43,7 @@ The Windows coverage job now owns a scratch root and the two environment variabl
 
 The assertion keeps its force. If the product stops propagating the deny, or propagates it in a form that loses to an inherited allow, the test fails again. What it no longer reports is the runner's own profile ACL.
 
-The gap named above stays open in the product, and this fork does not close it. A deployment on Windows should not treat directory containment as proven by this suite alone.
+The gap named above stays open in the product. A deployment on Windows should not treat directory containment as proven by this suite alone until a restricted-token measurement settles whether a sandboxed process reaches the `CREATOR OWNER` allow; that measurement is the next step, and it belongs on a Windows host rather than in a CI log.
 
 ## Alternatives considered
 
