@@ -8,7 +8,7 @@
 
 import { act, cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { bindSnapshotSelector } from '@lyness/lyn-client-test-runtime'
+import { bindSnapshotSelector, makeTranslate } from '@lyness/lyn-client-test-runtime'
 import { createSnapshotStore } from '@lyness/lyn-client-store'
 import type { SessionRetainInfo } from '@lyness/lyn-api-session-controller/client'
 import { SessionId } from '@lyness/lyn-session/types'
@@ -41,13 +41,8 @@ const SEAT_READY: AgentPresetSeatState = {
 
 const useSessionRetainInfo = <Selected,>(selector: (value: undefined) => Selected): Selected => selector(undefined)
 
-/** The runtime's own `{name}` substitution, so a test reads the shown text. */
-function translate(key: keyof typeof en, params?: Record<string, unknown>): string {
-  const template = en[key]
-  return params === undefined
-    ? template
-    : template.replace(/\{(\w+)\}/g, (match, name: string) => name in params ? String(params[name]) : match)
-}
+/** The runtime's own substitution, so a test reads the shown text. */
+const translate = makeTranslate(en)
 
 function renderSeat(
   state: Partial<AgentPresetSeatState> = {},

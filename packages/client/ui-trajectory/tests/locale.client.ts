@@ -1,21 +1,10 @@
+import { makeTranslate } from '@lyness/lyn-client-test-runtime'
 import { en as commonEn } from '@lyness/lyn-client-locale/src/locales/en.ts'
 import { zh as commonZh } from '@lyness/lyn-client-locale/src/locales/zh.ts'
 import { en, zh, type TrajectoryTranslate } from '../src/client/locales.ts'
 
-function translator(dictionary: Record<string, string>): TrajectoryTranslate {
-  return (key, params = {}) => {
-    const template = dictionary[key] ?? key
-    return template.replace(/\{(\w+)\}/g, (_match, name: string) => {
-      const value = params[name]
-      return typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean'
-        ? String(value)
-        : ''
-    })
-  }
-}
-
 /** English trajectory translator for component and pure-layout tests. */
-export const t = translator({ ...commonEn, ...en })
+export const t: TrajectoryTranslate = makeTranslate(en, commonEn)
 
 /** Chinese trajectory translator for real-view fixtures that open in Chinese. */
-export const tZh = translator({ ...commonZh, ...zh })
+export const tZh: TrajectoryTranslate = makeTranslate(zh, commonZh)

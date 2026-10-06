@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import { act, cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { RemoteError } from '@lyness/lyn-client-test-runtime'
+import { makeTranslate, RemoteError } from '@lyness/lyn-client-test-runtime'
 import { SessionId } from '@lyness/lyn-session/types'
 import type { ModelSelection } from '@lyness/lyn-api-remotes/client'
 import { createSnapshotStore } from '@lyness/lyn-client-store'
@@ -11,16 +11,9 @@ import { ModelSelect } from '../src/client/ModelSelect.tsx'
 import { en, zh } from '../src/client/locales.ts'
 import { zh as commonZh } from '@lyness/lyn-client-locale/src/locales/zh.ts'
 
-// The seat's key domain is model ∪ common; the stub mirrors the real lookup
-// chain: package dictionary, then common vocabulary, then the key.
-const t: ComponentProps<typeof ModelSelect>['t'] = (key, params) => {
-  const template = (zh as Record<string, string>)[key]
-    ?? (commonZh as Record<string, string>)[key]
-    ?? key
-  return params === undefined
-    ? template
-    : template.replace(/\{(\w+)\}/g, (match, name: string) => name in params ? String(params[name]) : match)
-}
+// The seat's key domain is model ∪ common; the double resolves the same chain:
+// package dictionary, then common vocabulary, then the key.
+const t: ComponentProps<typeof ModelSelect>['t'] = makeTranslate(zh, commonZh)
 
 const reasoning = {
   efforts: [
@@ -218,7 +211,7 @@ describe('ModelSelect reasoning effort', () => {
     const toast = await screen.findByRole('alert')
     expect(document.activeElement).toBe(trigger)
     expect(toast.textContent).toBe(sessionInUse
-      ? zh['error.sessionInUse']
+      ? t('error.sessionInUse')
       : '模型操作失败：session/model-unavailable: session already contains images')
     // The selection failure does not render the in-menu load strip (no Retry).
     expect(screen.queryByRole('button', { name: '重试' })).toBeNull()

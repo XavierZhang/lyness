@@ -2,6 +2,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { act, cleanup, fireEvent, render, waitFor } from '@testing-library/react'
 import { useSyncExternalStore } from 'react'
+import { makeTranslate } from '@lyness/lyn-client-test-runtime'
 import type { SessionId } from '@lyness/lyn-session/types'
 import type { PaneId, TabId } from '@lyness/lyn-client-ui-dockkit'
 import { createBrowserControllers, type BrowserControllerState, type BrowserInjected } from '../src/client/browser/BrowserController.ts'
@@ -61,10 +62,7 @@ function mountBrowser(navigation?: { readonly url?: string },
       }),
       useStore: hookOf(store),
       actions: store.actions,
-      t: (key, params) => {
-        const template = messages[key] ?? key
-        return params === undefined ? template : template.replace(/\{(\w+)\}/g, (_match, name: string) => String(params[name]))
-      },
+      t: makeTranslate(messages),
       ...commands,
       useBrowserState: (key: string) => {
         const state = keyedHooks.browserState(key) ?? absentState

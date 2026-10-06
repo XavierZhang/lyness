@@ -53,6 +53,7 @@
     "@lyness/lyn-client-locale": "workspace:*",
     "@lyness/lyn-client-shortcuts": "workspace:*",
     "@lyness/lyn-client-store": "workspace:*",
+    "@lyness/lyn-client-test-runtime": "workspace:*",
     "@lyness/lyn-client-ui-dockkit": "workspace:*",
     "@lyness/lyn-client-ui-primitives": "workspace:*",
     "@lyness/lyn-client-ui-renderer": "workspace:*",
