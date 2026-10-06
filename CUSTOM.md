@@ -87,6 +87,12 @@ codemod 只改文本和路径。下面这些是它改完之后必然过期、必
 | 6.5 | **手工**重算按宽度折行的期望文本 | 改名改的是**长度**，不只是顺序。commander 在运行时按终端宽度折行，`lyn: boot a lyness profile` 比上游同一句短九个字符，折行点左移一个词，而夹具被逐字改写、保留了旧折行。2026-09-28：`apps/cli/tests/expected/launcher-help.txt` |
 | 7 | 重算 `scripts/lint-rule-fingerprint.spec.ts` 的三条 sha256 | `.oxlintrc.json` 有一句规则提示含包名 |
 
+## 两条证据面的坑（2026-10-06 各踩一次）
+
+**加一条 workspace 依赖，要核锁文件里无关的版本有没有动。** 为给一个包加 devDependency 跑的 `pnpm install` 会把无关子图一起重解析：本次 `micromark-core-commonmark` 2.0.3→2.0.4、`micromark-factory-space` 2.0.1→2.0.4 之外还新增了 `micromark-util-types` 2.0.3，于是两份类型并存，`ui-primitives/src/markdown/parse.ts` 的 unified 重载编译不过，CI 里六个带 build 的 job 一起红。本地看不出来——增量构建复用 tsbuildinfo，只有冷构建会重新检查那个文件。修法：从上一个绿提交取回锁文件，只手工补上 importers 里那条 `link:`（workspace 链接不经过注册表），然后删掉 `node_modules/.pnpm` 与 `node_modules/.pnpm-workspace-state-v1.json` 重装——`--force` 和删 `.modules.yaml` 都不会让 pnpm 重排布局。
+
+**证据面要对准改的东西，`test:docs` 不等于 `doc-sync`。** 改了 Config 字段却只跑 `pnpm run test:docs`（doc-quick 聚合），而 `verify-config-catalog` 只在 `doc-sync` 里：catalog 过期让 static job 失败并 fail-fast 带掉其后全部静态门禁。同理，改 `scripts/run-gates.ts` 的门禁注册要跑 `scripts/run-gates.spec.ts`——hygiene 聚合的 id 清单钉在那里，漏改会让两个覆盖率 job 红。
+
 ### 新增包之后同样要做的一件事
 
 生成文档只写英文侧，而配对门禁只比**代码块与链接目标**——表格单元格的缺失它查不出来。
