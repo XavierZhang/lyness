@@ -84,7 +84,7 @@ codemod 只改文本和路径。下面这些是它改完之后必然过期、必
 | 4 | `verify-translation-pairing --write --all` | 配对记录存的是两侧内容哈希；改名同时改了两侧，哈希全部过期（本次 648 条） |
 | 5 | **手工**对齐生成文档的中文侧顺序 | 生成器只写英文侧。改名后包名字典序变了，中文侧会保留旧顺序（本次：`config-catalog.zh.md` 两节、`capability-seams.zh.md` 两条图边） |
 | 6 | **手工**重排按名字排序的期望文件 | 同上。2026-09-12：`tool-schemas.expected.json` 的工具顺序、`web-browser-open.expected.e2e.ts` 的内联快照键序、desktop 的三个夹具。2026-09-28 同一条又漏做，撞出两处：`subagent_dsh_sdk` < `subagent_fork`（d<f）改名后变成 `subagent_lyn_sdk` > `subagent_fork`，工具清单断了字典序；`installed-update-bootstrap.spec.ts` 的 `readdir().sort()` 期望值同理 |
-| 6.5 | **手工**重算按宽度折行的期望文本 | 改名改的是**长度**，不只是顺序。commander 在运行时按终端宽度折行，`lyn: boot a lyness profile` 比 `dsh: boot a DeepSeek Harness profile` 短九个字符，折行点左移一个词，而夹具被逐字改写、保留了旧折行。2026-09-28：`apps/cli/tests/expected/launcher-help.txt` |
+| 6.5 | **手工**重算按宽度折行的期望文本 | 改名改的是**长度**，不只是顺序。commander 在运行时按终端宽度折行，`lyn: boot a lyness profile` 比上游同一句短九个字符，折行点左移一个词，而夹具被逐字改写、保留了旧折行。2026-09-28：`apps/cli/tests/expected/launcher-help.txt` |
 | 7 | 重算 `scripts/lint-rule-fingerprint.spec.ts` 的三条 sha256 | `.oxlintrc.json` 有一句规则提示含包名 |
 
 ### 新增包之后同样要做的一件事

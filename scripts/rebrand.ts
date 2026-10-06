@@ -200,6 +200,12 @@ const RULES: readonly Rule[] = [
     note: 'A released Session source kind, not a package. RESERVED_SOURCE_KINDS freezes it as a rename target: the current build writes it, committed generations carry it, and the V0 and V3 migrations, the persistence catalog, the persistence schema, and the headless expected fixtures all name it verbatim. Renaming it makes every migration stop recognising real logs. Runs after the scope rules on purpose — by here `@deepseek-ai/dsh-session-title-llm`, the package that shares the spelling, has already become `@lyness/lyn-session-title-llm`, so only the bare kind is left to park. Restored by `released-title-producer-restore` after `dsh-token`.',
   },
   {
+    id: 'boot-wordmark',
+    from: "'HARNESS'",
+    to: "'lyness'",
+    note: 'The boot page\'s wordmark, the first thing a user sees. Upstream writes the product name in caps there, which no other rule can reach: `product-name` needs the space, `slug` needs the hyphen, and `abbreviation` reads DSH. Quoted on both sides so it matches that string alone — `HARNESS_IDENTITY` and `HARNESS_SOURCE` are system-prompt section ids and keep their names. The guidelines set the wordmark lowercase, so the replacement is not capitalised.',
+  },
+  {
     id: 'compound-identifier',
     from: 'DeepSeekHarness',
     to: 'Lyness',

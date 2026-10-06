@@ -359,9 +359,9 @@ describe('lyn web keyless CLI smoke', () => {
       // The bootstrap phase is the modules package alone; the application phase
       // is one combo. Upstream splits it in two because its map-form URL is
       // just over the 3 KiB limit, and this fork's names are shorter: the same
-      // 63 packages spell `@lyness/lyn-` where upstream spells
-      // `@deepseek-ai/dsh-`, five bytes less each, which takes the script URL
-      // from 3081 to 2766 bytes and puts the phase back inside one combo.
+      // 63 packages spell `@lyness/lyn-`, five bytes less each than the scope
+      // and segment upstream uses, which takes the script URL from 3081 to
+      // 2766 bytes and puts the phase back inside one combo.
       expect(batchPaths).toHaveLength(2)
       expect(batchPaths.filter(path => (
         /^\/plugins\/\?\?.+\/client\.js,.+\/client\.js&rev=[a-f\d]{12}$/.test(path)
@@ -682,7 +682,7 @@ describe.skipIf(!process.env.DEEPSEEK_API_KEY || notReady.length > 0)('web smoke
     sessionsDir = mkdtempSync(join(tmpdir(), 'lyn-web-w5-'))
     const port = await probeFreePort()
     // tsx boot mirrors the runtime half of the root lyn script. Isolate
-    // the host-level Harness and shared-agent homes inside the temp world; tsx
+    // the host-level lyness and shared-agent homes inside the temp world; tsx
     // also needs the repo's loader and tsconfig paths pointed at explicitly.
     const tsxLoader = pathToFileURL(createRequire(join(REPO_ROOT, 'package.json')).resolve('tsx')).href
     child = spawn(
