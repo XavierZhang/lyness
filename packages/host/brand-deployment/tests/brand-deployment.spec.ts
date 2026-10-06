@@ -164,6 +164,33 @@ describe('deployment brand over the index render', () => {
     for (const colour of ['rgb(1,2,3)', '#12', 'x', 'red; color: blue']) expect(BrandDeployment.isBrandColour(colour)).toBe(false)
   })
 
+  it('carries the colour tokens a deployment replaced and leaves the rest built in', async () => {
+    const ctx = await server()
+    await brand(ctx, { colors: { blue: '#1a73e8', gray50: 'whitesmoke' } })
+    const html = ctx.webServer.renderIndex(INDEX)
+
+    expect(html).toContain('"colors":{"blue":"#1a73e8","gray50":"whitesmoke"}')
+  })
+
+  it('omits the colour member when the deployment replaced none', async () => {
+    const ctx = await server()
+    await brand(ctx, { colors: {} })
+
+    expect(ctx.webServer.renderIndex(INDEX)).not.toContain('"colors"')
+  })
+
+  it('refuses a colour token an operator misspelled rather than dropping it', async () => {
+    const ctx = await server()
+    // The schema admits any key (a dict of strings), and the type admits only
+    // the named tokens, so a misspelling can only arrive the way a parsed
+    // cordis.yml delivers it: as a dict this test states as one.
+    const misspelled: Record<string, string> = { accent: '#1a73e8' }
+    await expect(brand(ctx, { colors: misspelled }))
+      .rejects.toThrow(/colors has no token "accent"; expected one of/u)
+    await expect(brand(ctx, { colors: { blue: 'rgb(1,2,3)' } }))
+      .rejects.toThrow(/colors\.blue must be a hex triplet or a colour keyword/u)
+  })
+
   it('refuses a colour, a directory, and an asset an operator got wrong', async () => {
     const ctx = await server()
     await expect(brand(ctx, { themeColor: 'rgb(1,2,3)' }))

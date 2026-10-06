@@ -40,7 +40,12 @@ kind: "package-reference"
     mark: mark.svg
     wordmark: wordmark.svg
     showPoweredBy: false
+    colors:
+      blue: '#1a73e8'
+      blueDark: '#11418a'
 ```
+
+`colors` 按名字替换品牌色彩令牌：`black`、`blue`、`blueDark`、`cyan`、`white`、`gray50`、`gray200`、`gray600`、`gray900`、`success`、`warning`、`error` 与 `info`。缺省的键保留内置值，因此只拥有一个主色的部署只写那一个。每个值接受的形式与 `themeColor` 相同；列表之外的键会让该行失败而不是被丢弃——运营方看不见的拼写错误，否则会让内置颜色原样生效且没有任何线索。`themeColor` 是独立的，仍然负责浏览器界面色。
 
 `assetDirectory` 是绝对路径，其中存放上面命名的三个文件；由部署脚本写入。每个文件按其角色寻址，而非按文件名：上面的 `favicon.svg` 以 `/brand/favicon.svg` 提供，而名为 `wordmark.png` 的字标以 `/brand/wordmark.png` 提供。可提供的类型为 SVG、PNG、WebP、ICO 与 JPEG。
 

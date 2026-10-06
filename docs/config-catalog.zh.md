@@ -1373,7 +1373,7 @@ export interface Config {
 ## `@lyness/lyn-host-brand-deployment`
 
 - `inject`: `webServer`
-- `source`: [`packages/host/brand-deployment/src/index.ts:63`](../packages/host/brand-deployment/src/index.ts)
+- `source`: [`packages/host/brand-deployment/src/index.ts:95`](../packages/host/brand-deployment/src/index.ts)
 
 ```ts config-catalog
 /** Plugin config: the deployment's brand, as an operator writes it. */
@@ -1382,6 +1382,11 @@ export interface Config {
   productName?: string
   /** Brand colour as a hex triplet or a CSS colour keyword. */
   themeColor?: string
+  /**
+   * Brand colour tokens this deployment replaces, by {@link BRAND_COLOUR_TOKENS}
+   * key; an absent key keeps the built-in value.
+   */
+  colors?: Partial<Record<BrandColourToken, string>>
   /** Absolute directory holding the files named below. */
   assetDirectory?: string
   /** Favicon file name inside `assetDirectory`. */
@@ -1393,6 +1398,9 @@ export interface Config {
   /** Whether the served page shows the upstream attribution line. @default false */
   showPoweredBy?: boolean
 }
+
+/** One overridable brand colour token. */
+export type BrandColourToken = (typeof BRAND_COLOUR_TOKENS)[number]
 ```
 <!-- END GENERATED config-catalog:@lyness/lyn-host-brand-deployment -->
 

@@ -55,8 +55,40 @@ export interface DeploymentBrand {
   readonly markUrl?: string | undefined
   /** URL of the deployment's wordmark, or undefined to keep the built-in one. */
   readonly wordmarkUrl?: string | undefined
+  /**
+   * Brand colour tokens the served page applies over the built-in palette,
+   * by {@link BRAND_COLOUR_TOKENS} key. Absent when the deployment replaced none.
+   */
+  readonly colors?: Readonly<Partial<Record<BrandColourToken, string>>> | undefined
   /** Whether the page shows the upstream attribution line. */
   readonly showPoweredBy: boolean
+}
+
+/**
+ * Brand colour tokens a deployment may replace, keyed as an operator writes
+ * them rather than as CSS spells them.
+ *
+ * The names and their meanings come from the brand guidelines' token section.
+ * An absent key keeps the built-in value, so a deployment that only owns a
+ * primary colour names that one and inherits the rest.
+ */
+export const BRAND_COLOUR_TOKENS = [
+  'black', 'blue', 'blueDark', 'cyan',
+  'white', 'gray50', 'gray200', 'gray600', 'gray900',
+  'success', 'warning', 'error', 'info',
+] as const
+
+/** One overridable brand colour token. */
+export type BrandColourToken = (typeof BRAND_COLOUR_TOKENS)[number]
+
+/**
+ * The CSS custom property one token sets.
+ * @param token - the token key an operator writes.
+ * @returns the custom property name the palette declares.
+ */
+export function brandColourProperty(token: BrandColourToken): string {
+  const dashed = token.replace(/[A-Z]/gu, upper => `-${upper.toLowerCase()}`)
+  return `--lyness-${dashed}`
 }
 
 /** Plugin config: the deployment's brand, as an operator writes it. */
@@ -65,6 +97,11 @@ export interface Config {
   productName?: string
   /** Brand colour as a hex triplet or a CSS colour keyword. */
   themeColor?: string
+  /**
+   * Brand colour tokens this deployment replaces, by {@link BRAND_COLOUR_TOKENS}
+   * key; an absent key keeps the built-in value.
+   */
+  colors?: Partial<Record<BrandColourToken, string>>
   /** Absolute directory holding the files named below. */
   assetDirectory?: string
   /** Favicon file name inside `assetDirectory`. */
@@ -85,6 +122,7 @@ interface ResolvedConfig extends Config {
 export const Config: z<Config> = z.object({
   productName: z.string(),
   themeColor: z.string(),
+  colors: z.dict(z.string()),
   assetDirectory: z.string(),
   favicon: z.string(),
   mark: z.string(),
@@ -276,6 +314,41 @@ function assetHandler(assets: ReadonlyMap<AssetRole, Asset>) {
 }
 
 /**
+ * Validate the configured colour tokens.
+ *
+ * An unknown key is a typo the operator should hear about at load: silently
+ * dropping it would leave the deployment running with the built-in colour and
+ * no sign of why. Each value passes the same check `themeColor` does, because
+ * it reaches a stylesheet the same way.
+ * @param colors - the configured token map, or undefined when none.
+ * @returns a detached map, or undefined when the deployment replaced none.
+ * @throws {Error} when a key is not a brand colour token or a value is not a colour.
+ */
+function resolveColours(
+  colors: Partial<Record<BrandColourToken, string>> | undefined,
+): Readonly<Partial<Record<BrandColourToken, string>>> | undefined {
+  if (colors === undefined) return undefined
+  const entries = Object.entries(colors)
+  if (entries.length === 0) return undefined
+  const known = new Set<string>(BRAND_COLOUR_TOKENS)
+  const resolved: Partial<Record<BrandColourToken, string>> = {}
+  for (const [key, value] of entries) {
+    if (!known.has(key)) {
+      throw new Error(
+        `brand-deployment: colors has no token ${JSON.stringify(key)}; expected one of ${[...known].join(', ')}`,
+      )
+    }
+    if (typeof value !== 'string' || !isBrandColour(value)) {
+      throw new Error(
+        `brand-deployment: colors.${key} must be a hex triplet or a colour keyword; got ${JSON.stringify(value)}`,
+      )
+    }
+    resolved[key as BrandColourToken] = value
+  }
+  return resolved
+}
+
+/**
  * Mount the deployment's brand: serve its assets and apply it to every index.
  * @param ctx - the host context.
  * @param config - the validated plugin config.
@@ -287,6 +360,7 @@ export function apply(ctx: Context, config: Config): void {
       `brand-deployment: themeColor must be a hex triplet or a colour keyword; got ${JSON.stringify(config.themeColor)}`,
     )
   }
+  const colors = resolveColours(config.colors)
   const assets = resolveAssets(config)
   // The schema applied its defaults before apply ran, so the optional-input
   // fields are present here; the cast records that once rather than defaulting
@@ -297,6 +371,7 @@ export function apply(ctx: Context, config: Config): void {
     themeColor: resolved.themeColor,
     markUrl: assets.get('mark')?.url,
     wordmarkUrl: assets.get('wordmark')?.url,
+    ...colors === undefined ? {} : { colors },
     showPoweredBy: resolved.showPoweredBy,
   }
 

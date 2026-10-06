@@ -35,6 +35,12 @@ The plugin registers Appearance preference cubes and a font-size stepper in the 
 
 A composition can register a third-party theme id with alias-token overrides through `ctx.theme`; the override layer folds into the active snapshot's tokens in registration order. Removing one never overwrites the last durable built-in preference. Third-party theme ids remain an in-process extension and do not cross the built-in settings schema.
 
+### Deployment colour overrides
+
+The palette sheet declares the brand colour tokens on `:root`, and the per-mode alias blocks resolve against them. A private deployment replaces any of those tokens through [`brand-deployment`](../../host/brand-deployment/README.md), which publishes them on the page global its own README documents. This package applies them to the document element, which outranks the sheet without editing it, and removes them on dispose.
+
+The global is script-assigned page data, so each token is checked here as well as at the host: only the names this package declares are applied, and only values that parse as a hex colour or a colour keyword. A token the page names but this package does not, or a value carrying anything a stylesheet would read further, is skipped while its usable siblings still apply.
+
 ### Pre-plugin palette
 
 When the host composition includes an HTTP server, the host half embeds the registered `ui-theme` settings, or schema defaults, into each index response. Head CSS selects the document canvas color scheme before any script runs, including a `prefers-color-scheme` query for the `system` preference. A body script then sets `body[data-ds-dark-theme]` and `--lyn-content-font-size` before the loading page and application scripts, so the first paint uses the selected palette and text size.

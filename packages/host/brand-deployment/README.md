@@ -40,7 +40,12 @@ Give one deployment its own visual identity without rebuilding the frontend. Con
     mark: mark.svg
     wordmark: wordmark.svg
     showPoweredBy: false
+    colors:
+      blue: '#1a73e8'
+      blueDark: '#11418a'
 ```
+
+`colors` replaces brand colour tokens by name: `black`, `blue`, `blueDark`, `cyan`, `white`, `gray50`, `gray200`, `gray600`, `gray900`, `success`, `warning`, `error`, and `info`. An absent key keeps the built-in value, so a deployment that owns only a primary colour names that one. Each value takes the same forms `themeColor` does, and a key outside that list fails the row rather than being dropped — a misspelling an operator cannot see would otherwise leave the built-in colour in place with no sign of why. `themeColor` is separate and still owns the browser-chrome colour.
 
 `assetDirectory` is absolute and holds the three named files; the deployment script writes them there. Each file is addressed by its role, not its name: `favicon.svg` above is served as `/brand/favicon.svg`, and a wordmark named `wordmark.png` is served as `/brand/wordmark.png`. Serveable types are SVG, PNG, WebP, ICO, and JPEG.
 
