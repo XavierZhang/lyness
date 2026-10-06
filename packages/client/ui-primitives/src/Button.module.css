@@ -35,7 +35,7 @@
 
 .primary {
   background: var(--dsw-alias-button-primary-fill);
-  color: var(--dsw-alias-label-primary-foreground);
+  color: var(--dsw-alias-label-on-brand);
 }
 
 .primary:hover:not(:disabled) {

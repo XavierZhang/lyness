@@ -137,7 +137,7 @@
 }
 
 .primary {
-  color: var(--dsw-alias-label-primary-foreground);
+  color: var(--dsw-alias-label-on-brand);
   background: var(--dsw-alias-button-primary-fill);
   font-weight: 500;
   border-color: transparent;

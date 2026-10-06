@@ -250,7 +250,7 @@
 /* Checked: label-primary fill with a primary-foreground check — the pair
    inverts with the theme (dark fill in light mode, light fill in dark mode). */
 .checkboxChecked {
-  color: var(--dsw-alias-label-primary-foreground);
+  color: var(--dsw-alias-label-on-brand);
 }
 
 .checkboxChecked::before {

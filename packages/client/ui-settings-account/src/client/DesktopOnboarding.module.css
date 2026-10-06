@@ -316,7 +316,7 @@
   border: 2px solid var(--dsw-alias-onboarding-checkbox-border);
   border-radius: 6px;
   background: transparent;
-  color: var(--dsw-alias-label-primary-foreground);
+  color: var(--dsw-alias-label-on-brand);
   pointer-events: none;
 }
 

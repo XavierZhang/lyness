@@ -36,7 +36,7 @@
   height: 16px;
   border-radius: 50%;
   corner-shape: round;
-  background: var(--dsw-alias-label-primary-foreground);
+  background: var(--dsw-alias-label-on-brand);
   transition: transform 120ms ease;
 }
 

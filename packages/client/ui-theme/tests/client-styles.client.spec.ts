@@ -22,6 +22,7 @@ describe('ui-theme client styles', () => {
     expect(styles.map(style => style.dataset.pluginCss)).toEqual([
       `${PLUGIN_ID}/base.css`,
       `${PLUGIN_ID}/corner-shape.css`,
+      `${PLUGIN_ID}/lyness-tokens.css`,
       `${PLUGIN_ID}/design-platform.css`,
       `${PLUGIN_ID}/focus.css`,
       `${PLUGIN_ID}/onboarding.css`,
