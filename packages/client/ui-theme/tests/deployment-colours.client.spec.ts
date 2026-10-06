@@ -4,9 +4,10 @@
  * refusals, not just the happy path: a value that reached `setProperty`
  * unchecked would reach the stylesheet.
  */
-import { afterEach, describe, expect, it } from 'vitest'
+import { Context } from '@lyness/cordis'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 
-import { readDeploymentColours } from '../src/client/deployment-colours.ts'
+import { installDeploymentColours, readDeploymentColours } from '../src/client/deployment-colours.ts'
 
 const GLOBAL = 'lynDeploymentBrand'
 
@@ -68,5 +69,13 @@ describe('deployment colour overrides', () => {
   it('keeps the usable tokens when a sibling is unusable', () => {
     withBrand({ colors: { blue: '#123456', error: 'red; x: y' } })
     expect(readDeploymentColours()).toEqual([['--lyness-blue', '#123456']])
+  })
+
+  it('registers nothing where the lane has no document, which the client-node tier is', () => {
+    withBrand({ colors: { blue: '#123456' } })
+    const ctx = new Context()
+    const effect = vi.spyOn(ctx, 'effect')
+    installDeploymentColours(ctx)
+    expect(effect).not.toHaveBeenCalled()
   })
 })
