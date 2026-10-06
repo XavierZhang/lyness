@@ -318,7 +318,8 @@ describe('gate graph validation', () => {
     expect(ids).toEqual([
       'rescope-vendor', 'publint', 'constraints', 'default-product-isolation', 'package-dependencies', 'application-entrypoints',
       'lyn-package-licenses', 'package-invariants', 'built-package-invariants', 'node-next-types',
-      'optional-dependency-imports', 'client-packages', 'client-ui-i18n', 'client-route-resolution', 'no-bare-dispatcher',
+      'optional-dependency-imports', 'client-packages', 'client-ui-i18n', 'brand-placeholders',
+      'client-route-resolution', 'no-bare-dispatcher',
       'no-unknown-casts',
       'cordis-config', 'runtime-closure',
     ])
