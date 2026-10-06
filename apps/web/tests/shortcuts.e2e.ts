@@ -120,7 +120,7 @@ describe('web e2e: shortcut reference', () => {
       expect(await recorder.evaluate(element => ({
         color: getComputedStyle(element).color, border: getComputedStyle(element).borderColor,
       })))
-        .toEqual({ color: 'rgb(97, 102, 107)', border: 'rgba(0, 0, 0, 0.16)' })
+        .toEqual({ color: 'rgb(102, 112, 133)', border: 'rgba(0, 0, 0, 0.16)' })
       expect(await recorder.evaluate(element => ({
         focused: element === document.activeElement,
         outline: getComputedStyle(element).outlineStyle, shadow: getComputedStyle(element).boxShadow,
@@ -138,7 +138,7 @@ describe('web e2e: shortcut reference', () => {
       expect(await recorder.evaluate(element => ({
         color: getComputedStyle(element).borderColor, width: getComputedStyle(element).borderWidth,
       })))
-        .toEqual({ color: 'rgb(236, 19, 19)', width: '1px' })
+        .toEqual({ color: 'rgb(214, 69, 69)', width: '1px' })
       await compareOrRefreshGolden(join(expected, `${locale}-conflict.expected.md`), await errorToast.ariaSnapshot(), mode)
       await page.keyboard.press('i')
       await page.getByRole('alert').filter({ hasText: locale === 'zh-CN'
