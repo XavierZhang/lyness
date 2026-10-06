@@ -4,7 +4,7 @@ import { act, cleanup, fireEvent, render, screen, waitFor, within } from '@testi
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import Schema from '@lyness/schemastery'
 import { Context } from '@lyness/cordis'
-import { bindSnapshotSelector, RemoteError } from '@lyness/lyn-client-test-runtime'
+import { RemoteError, bindSnapshotSelector, makeTranslate } from '@lyness/lyn-client-test-runtime'
 import type {
   CredentialInfo, RemoteResult, SettingsNamespaceView,
 } from '@lyness/lyn-api-remotes/client'
@@ -28,7 +28,7 @@ import { settingsSchema } from './settings-schema.client.ts'
 
 afterEach(cleanup)
 
-const t: ModelsSectionInjected['t'] = key => en[key]
+const t: ModelsSectionInjected['t'] = makeTranslate(en)
 const OPENAI_TARGET = { provider: 'openai', displayName: 'openai' }
 const openaiCopy = (template: string): string => providerCopy(template, OPENAI_TARGET)
 const DEEPSEEK_TARGET = { provider: 'deepseek-official', displayName: 'DeepSeek' }
@@ -1912,7 +1912,7 @@ it.each([en, zh])('edits the account model catalog without credential or endpoin
   const onClose = vi.fn()
   render(<ProviderEditor provider="deepseek-account" displayName={copy.deepSeekAccount}
     namespace={namespace} settingsPath={[]} schema={settingsSchema}
-    operations={ops} t={key => copy[key]} readOnly={false} onClose={onClose} />)
+    operations={ops} t={makeTranslate(copy)} readOnly={false} onClose={onClose} />)
   expect(screen.queryByLabelText(copy.keyInput)).toBeNull()
   expect(screen.queryByLabelText(copy.baseUrl)).toBeNull()
   expect(describe).not.toHaveBeenCalled()

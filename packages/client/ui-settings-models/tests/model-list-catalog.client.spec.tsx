@@ -5,6 +5,7 @@ import { afterEach, expect, it, vi } from 'vitest'
 import { ModelListEditor } from '../src/client/ModelListEditor.tsx'
 import type { ModelDiscoveryOutcome, ModelsOperations } from '../src/client/operations.ts'
 import { en } from '../src/client/locales.ts'
+import { makeTranslate } from '@lyness/lyn-client-test-runtime'
 
 afterEach(cleanup)
 
@@ -44,7 +45,7 @@ it('uses provider input defaults for a model absent from the installed catalog',
   const onChange = vi.fn()
   render(<ModelListEditor
     models={[{ id: 'custom' }]} onChange={onChange} defaultInput={['image']} catalogProvider="openai"
-    probe={{ settingsNs: 'llm-pi-ai', provider: 'openai' }} disabled={false} t={key => en[key]} onBusyChange={() => {}}
+    probe={{ settingsNs: 'llm-pi-ai', provider: 'openai' }} disabled={false} t={makeTranslate(en)} onBusyChange={() => {}}
     operations={operations(() => Promise.resolve({ kind: 'found', models: [] }))}
   />)
   fireEvent.click(screen.getByRole('button', { name: `${en.modelAdvanced} 1` }))
@@ -89,7 +90,7 @@ it('restores inherited image input after a failed catalog read is retried manual
   const onChange = vi.fn()
   render(<ModelListEditor
     models={[{ id: 'vision' }]} onChange={onChange} catalogProvider="openai"
-    probe={{ settingsNs: 'llm-pi-ai', provider: 'openai' }} disabled={false} t={key => en[key]} onBusyChange={() => {}}
+    probe={{ settingsNs: 'llm-pi-ai', provider: 'openai' }} disabled={false} t={makeTranslate(en)} onBusyChange={() => {}}
     operations={operations(discover)}
   />)
   await screen.findByText('Catalog unavailable')

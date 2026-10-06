@@ -6,7 +6,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import Schema from '@lyness/schemastery'
 import type { SettingsNamespaceView } from '@lyness/lyn-api-remotes/client'
 import type { JsonValue } from '@lyness/lyn-util-values'
-import { bindSnapshotSelector, RemoteError } from '@lyness/lyn-client-test-runtime'
+import { RemoteError, bindSnapshotSelector, makeTranslate } from '@lyness/lyn-client-test-runtime'
 import { DeepSeekOnboardingDialog } from '../src/client/DeepSeekOnboardingDialog.tsx'
 import type { DeepSeekOnboardingDialogProps } from '../src/client/DeepSeekOnboardingDialog.tsx'
 import { SettingsDescribeMirror } from '@lyness/lyn-client-ui-settings/src/client/settings-mirror.ts'
@@ -156,7 +156,7 @@ function harness(options: {
     useModels: bindSnapshotSelector(controller.store),
     operations,
     schema: settingsSchema,
-    t: key => en[key],
+    t: makeTranslate(en),
   }
   return {
     controller, complete, openSection, props, mutate, set,

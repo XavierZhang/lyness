@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
 import { act, cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { useState } from 'react'
+import { makeTranslate } from '@lyness/lyn-client-test-runtime'
 import { afterEach, expect, it, vi } from 'vitest'
 import { DesktopOnboarding } from '../src/client/DesktopOnboarding.tsx'
 import type { DesktopOnboardingProps, DesktopOnboardingState } from '../src/client/onboarding-contract.ts'
@@ -25,7 +26,7 @@ function mount(step: DesktopOnboardingState['progress']['step'] = 'welcome', bal
       status, visible: true, error: status === 'error' ? 'settings' : null, creditFunded,
       progress: { version: 1, step, purpose: null, process: null, completion: null, usage: 'compact', developerTools: false },
     })
-    return <DesktopOnboarding locale={copy === zh ? 'zh' : 'en'} state={state} t={key => copy[key]} complete={complete} retry={retry}
+    return <DesktopOnboarding locale={copy === zh ? 'zh' : 'en'} state={state} t={makeTranslate(copy)} complete={complete} retry={retry}
       update={async (change) => {
         setState(current => ({ ...current, status: 'saving' }))
         const saved = await update(change)

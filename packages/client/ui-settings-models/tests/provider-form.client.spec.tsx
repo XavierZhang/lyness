@@ -4,7 +4,7 @@ import { within, cleanup, fireEvent, render, screen, waitFor } from '@testing-li
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import Schema from '@lyness/schemastery'
 import { Context } from '@lyness/cordis'
-import { bindSnapshotSelector, RemoteError } from '@lyness/lyn-client-test-runtime'
+import { RemoteError, bindSnapshotSelector, makeTranslate } from '@lyness/lyn-client-test-runtime'
 import type { SettingsNamespaceView } from '@lyness/lyn-api-remotes/client'
 import type { JsonValue } from '@lyness/lyn-util-values'
 import { ModelsSection, providerCopy } from '../src/client/ModelsSection.tsx'
@@ -20,7 +20,7 @@ import { settingsSchema } from './settings-schema.client.ts'
 
 afterEach(cleanup)
 
-const t: ModelsSectionInjected['t'] = key => en[key]
+const t: ModelsSectionInjected['t'] = makeTranslate(en)
 
 const PROTOCOLS = ['openai-completions', 'openai-responses', 'anthropic-messages']
 

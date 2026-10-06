@@ -4,11 +4,12 @@ import { cleanup, fireEvent, render, screen, act } from '@testing-library/react'
 import { afterEach, expect, it, vi } from 'vitest'
 import { SignOutDialog } from '../src/client/SignOutDialog.tsx'
 import { en, zh } from '../src/client/locales.ts'
+import { makeTranslate } from '@lyness/lyn-client-test-runtime'
 
 afterEach(cleanup)
 function mount(running: boolean | 'unknown', copy: typeof en | typeof zh = en, signOut = vi.fn(async () => {})) {
   const close = vi.fn()
-  render(<SignOutDialog running={running} signOut={signOut} close={close} t={key => copy[key]} />)
+  render(<SignOutDialog running={running} signOut={signOut} close={close} t={makeTranslate(copy)} />)
   return { signOut, close }
 }
 it.each([en, zh].flatMap(copy => ([false, true, 'unknown'] as const).map(running => ({ copy, running }))))(
