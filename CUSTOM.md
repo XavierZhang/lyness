@@ -208,6 +208,7 @@ codemod 只改文本和路径。下面这些是它改完之后必然过期、必
 | Logo | `website/public/{wordmark,favicon}.svg`、`apps/web/public/favicon.svg`（鲸鱼） | lyness 图标 + inter-600 字标（已完成） | 源文件在 `.fork/brand-output/`（git 忽略）；⚠️ 合并后必须恢复 |
 | 徽章 | `lyn-badge.png`（鲸鱼 + powered by dsh）、shields `logo=deepseek` | lyness 图标 PNG；shields 去掉 logo（已完成） | `packages/skill/skill-badge/assets/`；shields 由 codemod 规则 `shields-logo` 重放，PNG ⚠️ 合并后必须恢复 |
 | API 端点 ⛔ | `https://api.deepseek.com` | 不改 | 供应商地址，非品牌 |
+| 裸词 `Harness` ⛔ | `Harness`（注释与 JSDoc 共 79 处，另有若干代码内） | 不改 | **类别名词**，读作 `agent harness` 的那个义项，不是品牌面；codemod 每条规则都刻意要求 `DeepSeek Harness`／`-harness`／scope 才匹配（理由写在 `scripts/rebrand.ts` 顶部）。其中 `session/src/repair.ts` 那句更不能动：它是写进会话日志的模型可见文本，两个格式迁移器按它逐字匹配 |
 | 请求扩展字段名 ⛔ | `dsh_session_log`、`dsh_plugin_packages`、`dsh_otel_report`、`dsh_feedback`、`dsh_login_bonus`、`dsh_bonus_notice_test` | 不改 | **官方服务端拥有的字段名**，不是品牌。服务端逐字匹配，改名后字段被静默丢弃——会话日志上传、插件清单、OTel 上报对真实端点失效，而所有 mock server 测试照样全绿。codemod 已加 `deepseek-request-field-shield-*` 六条屏蔽 + 一条还原 |
 | 小写环境前缀 ⚠️ | `dsh_desktop_*`、`dsh_scrub_probe_lower` | `lyness_desktop_*`、`lyness_scrub_probe_lower` | 环境变量前缀的小写形，用于证明清理器大小写不敏感。通用 `dsh`→`lyn` 规则会写成 `lyn_desktop_*`，清理器认不出，断言变成永真。codemod 规则 `lowercase-desktop-env-prefix-probe`、`lowercase-env-prefix-probe` |
 | 模型供应商 DeepSeek ⛔ | `packages/llm/llm-deepseek`、`DeepSeekOnboardingDialog.tsx`、`ui-settings-models` | 不改 | 指模型供应商，不是 harness 品牌；全局替换会误伤 |
