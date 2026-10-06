@@ -551,6 +551,26 @@ jobs:
           Write-Output '--- icacls child (inherited deny expected) ---'
           icacls $child
           Remove-Item -Recurse -Force $root -ErrorAction SilentlyContinue
+      # sandbox-windows-acl asserts that a container-inheriting deny ACE blocks a
+      # directory open inside a granted root. The runner's %TEMP% carries a
+      # CREATOR OWNER inheritable ACE, so every directory created under it also
+      # receives a NON-inherited FullControl allow for the creator. Windows
+      # evaluates explicit ACEs before inherited ones, so that allow is reached
+      # first and the inherited deny never applies — the test's precondition is
+      # absent rather than its assertion wrong. Give the suite a scratch root
+      # with inheritance reset, so a new child inherits allows and denies alike
+      # and their canonical order decides. The product sandbox is untouched.
+      - name: Scratch root without a CREATOR OWNER allow (sandbox ACL precondition)
+        shell: pwsh
+        run: |
+          $dir = Join-Path $env:RUNNER_TEMP 'acl-scratch'
+          New-Item -ItemType Directory -Force -Path $dir | Out-Null
+          icacls $dir /inheritance:r | Out-Null
+          icacls $dir /grant "*S-1-5-18:(OI)(CI)(F)" | Out-Null
+          icacls $dir /grant "$($env:USERNAME):(OI)(CI)(F)" | Out-Null
+          icacls $dir
+          "TMP=$dir"  | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          "TEMP=$dir" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
       - name: Run Windows coverage
         shell: pwsh
         run: pnpm run check:ci:coverage

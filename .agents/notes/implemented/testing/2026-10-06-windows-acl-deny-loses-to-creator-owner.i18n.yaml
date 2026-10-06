@@ -1,0 +1,31 @@
+# Bilingual-pair consistency record for 2026-10-06-windows-acl-deny-loses-to-creator-owner.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write .agents/notes/implemented/testing/2026-10-06-windows-acl-deny-loses-to-creator-owner.md
+/agent-note-a-creator-owner-allow-defeats-the-windows-sandbox-s-container-deny:
+  en: 9aa300dc48344c3a
+  zh: b4f2dfcc61ffb149
+/agent-note-a-creator-owner-allow-defeats-the-windows-sandbox-s-container-deny/problem:
+  en: 292886813c1197a6
+  zh: b9c0c85a8bec9413
+/agent-note-a-creator-owner-allow-defeats-the-windows-sandbox-s-container-deny/decision:
+  en: bbaa284f0aa61407
+  zh: 087ca6a34ac760d2
+/agent-note-a-creator-owner-allow-defeats-the-windows-sandbox-s-container-deny/what-this-says-about-the-sandbox:
+  en: c01d6e84c7489c91
+  zh: f0adde4b13af3da1
+/agent-note-a-creator-owner-allow-defeats-the-windows-sandbox-s-container-deny/consequences:
+  en: 1994f85be1e93e40
+  zh: de890e2a65dbd7d9
+/agent-note-a-creator-owner-allow-defeats-the-windows-sandbox-s-container-deny/alternatives-considered:
+  en: 6119e2aff3b6be5a
+  zh: 1451efd5fdc6ca36
+/agent-note-a-creator-owner-allow-defeats-the-windows-sandbox-s-container-deny/alternatives-considered/why-not-skip-the-test-on-this-runner:
+  en: d50830cf0f00699e
+  zh: 16c48324dc6eb892
+/agent-note-a-creator-owner-allow-defeats-the-windows-sandbox-s-container-deny/alternatives-considered/why-not-widen-the-assertion-to-accept-either-outcome:
+  en: a0ad6f3d5380a187
+  zh: 23f30a35d3aaa3a2
+/agent-note-a-creator-owner-allow-defeats-the-windows-sandbox-s-container-deny/alternatives-considered/why-not-run-the-windows-coverage-job-on-a-self-hosted-pool:
+  en: 506cd3b243b5922c
+  zh: e37a798e75886502

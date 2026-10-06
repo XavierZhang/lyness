@@ -691,7 +691,7 @@ describe('DeepSeek e2e workflow', () => {
     if (!Array.isArray(e2e.steps)) throw new TypeError('DeepSeek e2e workflow must define steps')
 
     const step = e2e.steps.filter(isRecord).find(candidate => candidate.name === 'E2E tests (real DeepSeek API)')
-    expect(step).toMatchObject({ env: { LYNESS_E2E_MAX_WORKERS: 4 } })
+    expect(step).toMatchObject({ env: { LYNESS_E2E_MAX_WORKERS: 2 } })
   })
 })
 
