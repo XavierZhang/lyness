@@ -1371,13 +1371,20 @@ export interface Config {
 ## `@lyness/lyn-host-brand-deployment`
 
 - `inject`: `webServer`
-- `source`: [`packages/host/brand-deployment/src/index.ts:95`](../packages/host/brand-deployment/src/index.ts)
+- `source`: [`packages/host/brand-deployment/src/index.ts:98`](../packages/host/brand-deployment/src/index.ts)
 
 ```ts config-catalog
 /** Plugin config: the deployment's brand, as an operator writes it. */
 export interface Config {
   /** Product name shown in the browser tab and in-app; omit to keep the built-in one. */
   productName?: string
+  /**
+   * Short form shown where product copy abbreviates the name; omit to keep the
+   * built-in one. A brand with no short form of its own names its full one here.
+   */
+  productAbbreviation?: string
+  /** Chinese product name shown in Chinese copy; omit to keep the built-in one. */
+  productNameZh?: string
   /** Brand colour as a hex triplet or a CSS colour keyword. */
   themeColor?: string
   /**
