@@ -8,6 +8,7 @@ import { resolve } from 'node:path'
 import { Command } from 'commander'
 import type { Context } from '@lyness/cordis'
 import { internals, parseCmdline } from '@lyness/lyn-cmdline'
+import { BRAND_COLOUR_TOKENS } from '@lyness/lyn-host-brand-deployment'
 import { BRAND_FONTS } from '@lyness/lyn-host-brand-fonts'
 import { lynHomePath, resolveLynHome } from '@lyness/lyn-home-paths'
 import { resolveProfilePatch, runStudio } from './studio.ts'
@@ -25,9 +26,12 @@ export const inject = ['cmdlineArgs']
 /** Parsed flags; commander fills the defaults. */
 interface StudioOptions {
   name: string
+  abbreviation?: string
+  nameZh?: string
   icon: string
   font?: string
   themeColor?: string
+  color: readonly string[]
   assetDir: string
   target: string
   acceptTrademark?: true
@@ -44,8 +48,16 @@ function studioCommand(): Command {
     .description('Generate a deployment brand from an icon PNG and a font, and apply it to a profile.')
     .requiredOption('--name <text>', 'product name, typeset as the wordmark')
     .requiredOption('--icon <png>', 'icon PNG: at least 1024px a side, a dark mark on a light or transparent background')
+    .option('--abbreviation <text>', 'short form product copy abbreviates to; omit to abbreviate to the product name')
+    .option('--name-zh <text>', 'Chinese product name; omit to use the product name in Chinese copy')
     .option('--font <file>', "the brand owner's TTF, OTF, WOFF, or WOFF2 font; omit to use the built-in fonts")
     .option('--theme-color <color>', 'brand colour as a hex colour or a colour keyword')
+    .option(
+      '--color <token=value>',
+      `replace one palette token; repeat for more (${BRAND_COLOUR_TOKENS.join(', ')})`,
+      (pair: string, collected: readonly string[]) => [...collected, pair],
+      [],
+    )
     .option('--asset-dir <dir>', 'directory receiving the generated SVGs', lynHomePath('brand'))
     .option('--target <profile>', 'profile whose patch layer receives the brand', 'web')
     .option('--accept-trademark', 'confirm that the name and the icon infringe no trademark')
@@ -56,6 +68,8 @@ Examples:
   lyn --profile brand-studio --name 领驭 --icon ./lyness.png --accept-trademark
   lyn --profile brand-studio --name Acme --icon ./acme.png --font ./AcmeSans-Bold.otf \\
     --theme-color '#1a73e8' --accept-trademark --accept-font-license
+  lyn --profile brand-studio --name 'Acme Agent' --abbreviation ACME --name-zh 艾可 \\
+    --icon ./acme.png --color blue=#1a73e8 --color blueDark=#11418a --accept-trademark
 `)
 }
 
@@ -80,6 +94,22 @@ function report(request: StudioRequest, result: StudioResult, target: string): s
 }
 
 /**
+ * Read the repeated `--color token=value` flags.
+ * @param pairs - each flag's raw text.
+ * @returns the named tokens; a later pair replaces an earlier one.
+ * @throws {Error} when a pair carries no `=`, which would otherwise read as a token nobody named.
+ */
+function paletteOverrides(pairs: readonly string[]): Record<string, string> {
+  const colors: Record<string, string> = {}
+  for (const pair of pairs) {
+    const at = pair.indexOf('=')
+    if (at < 1) throw new Error(`brand-studio: --color takes token=value; got ${JSON.stringify(pair)}`)
+    colors[pair.slice(0, at)] = pair.slice(at + 1)
+  }
+  return colors
+}
+
+/**
  * Run the studio for one accepted invocation.
  * @param options - the parsed flags.
  * @returns the process exit code.
@@ -88,6 +118,9 @@ async function run(options: StudioOptions): Promise<number> {
   try {
     const request: StudioRequest = {
       productName: options.name,
+      productAbbreviation: options.abbreviation,
+      productNameZh: options.nameZh,
+      colors: paletteOverrides(options.color),
       iconPath: resolve(options.icon),
       fontPath: options.font === undefined ? undefined : resolve(options.font),
       themeColor: options.themeColor,

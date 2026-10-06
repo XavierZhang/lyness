@@ -10,7 +10,7 @@ import { isMap, isSeq, parseDocument, YAMLMap, YAMLSeq } from 'yaml'
 import type { Document } from 'yaml'
 import { initProfile, PROFILE_PATCH_FILENAME, PROFILE_TEMPLATES, resolveProfileDir } from '@lyness/lyn-app-boot'
 import { writeFileAtomic } from '@lyness/lyn-atomic-write'
-import { isBrandColour } from '@lyness/lyn-host-brand-deployment'
+import { BRAND_COLOUR_TOKENS, isBrandColour, isBrandName } from '@lyness/lyn-host-brand-deployment'
 import { loadBrandFonts } from '@lyness/lyn-host-brand-fonts'
 import { isBrandSvg, vectorizeIcon } from '@lyness/lyn-host-brand-icon'
 import { typesetWordmark } from '@lyness/lyn-host-brand-wordmark'
@@ -37,6 +37,12 @@ const ASSET_ROLES: readonly AssetRole[] = ['mark', 'wordmark', 'favicon']
 export interface StudioRequest {
   /** Product name: the wordmark text and the deployment's `productName`. */
   readonly productName: string
+  /** Short form product copy abbreviates to, or undefined to abbreviate to the product name. */
+  readonly productAbbreviation: string | undefined
+  /** Chinese product name, or undefined to use the product name in Chinese copy. */
+  readonly productNameZh: string | undefined
+  /** Palette tokens this brand replaces, by `brand-deployment` token key; empty when it replaces none. */
+  readonly colors: Readonly<Record<string, string>>
   /** Icon PNG to trace. */
   readonly iconPath: string
   /** The brand owner's font file, or undefined to set the name in the platform's built-in fonts. */
@@ -70,10 +76,16 @@ export class StudioError extends Error {
  * `showPoweredBy`, other rows, comments, and `!!js` values stay as written.
  * @param layer - current patch-layer text; empty when the file does not exist.
  * @param fields - config keys to set on the row.
+ * @param colors - palette tokens to set inside the row's `colors` map, merged
+ * into the tokens already there; an empty map leaves that key as written.
  * @returns the new patch-layer text.
  * @throws {StudioError} when the layer is not a YAML array.
  */
-export function upsertBrandRow(layer: string, fields: Readonly<Record<string, string>>): string {
+export function upsertBrandRow(
+  layer: string,
+  fields: Readonly<Record<string, string>>,
+  colors: Readonly<Record<string, string>> = {},
+): string {
   const document: Document = parseDocument(layer)
   const [error] = document.errors
   if (error !== undefined) throw new StudioError(`the patch layer is not valid YAML: ${error.message}`)
@@ -93,6 +105,12 @@ export function upsertBrandRow(layer: string, fields: Readonly<Record<string, st
     const existing = row.get('config', true)
     const config = isMap(existing) ? existing : new YAMLMap()
     for (const [key, value] of Object.entries(fields)) config.set(key, value)
+    if (Object.keys(colors).length > 0) {
+      const named = config.get('colors', true)
+      const palette = isMap(named) ? named : new YAMLMap()
+      for (const [token, value] of Object.entries(colors)) palette.set(token, value)
+      config.set('colors', palette)
+    }
     row.set('config', config)
   }
   return document.toString()
@@ -143,6 +161,25 @@ export async function runStudio(request: StudioRequest): Promise<StudioResult> {
   if (request.themeColor !== undefined && !isBrandColour(request.themeColor)) {
     throw new StudioError(`theme colour must be a hex colour or a colour keyword; got ${JSON.stringify(request.themeColor)}`)
   }
+  const names = {
+    productName: request.productName,
+    productAbbreviation: request.productAbbreviation,
+    productNameZh: request.productNameZh,
+  }
+  for (const [field, value] of Object.entries(names)) {
+    if (value !== undefined && !isBrandName(value)) {
+      throw new StudioError(`${field} must be one line of at most 64 characters without braces; got ${JSON.stringify(value)}`)
+    }
+  }
+  const tokens = new Set<string>(BRAND_COLOUR_TOKENS)
+  for (const [token, value] of Object.entries(request.colors)) {
+    if (!tokens.has(token)) {
+      throw new StudioError(`there is no palette token ${JSON.stringify(token)}; expected one of ${[...tokens].join(', ')}`)
+    }
+    if (!isBrandColour(value)) {
+      throw new StudioError(`${token} must be a hex colour or a colour keyword; got ${JSON.stringify(value)}`)
+    }
+  }
   const icon = vectorizeIcon(new Uint8Array(await readFile(request.iconPath)))
   const fonts: readonly [Uint8Array, ...Uint8Array[]] = request.fontPath === undefined
     ? loadBrandFonts()
@@ -154,10 +191,12 @@ export async function runStudio(request: StudioRequest): Promise<StudioResult> {
   }
   const layer = upsertBrandRow(await readLayer(request.patchPath), {
     productName: request.productName,
+    ...request.productAbbreviation === undefined ? {} : { productAbbreviation: request.productAbbreviation },
+    ...request.productNameZh === undefined ? {} : { productNameZh: request.productNameZh },
     ...request.themeColor === undefined ? {} : { themeColor: request.themeColor },
     assetDirectory: request.assetDirectory,
     ...ASSET_FILES,
-  })
+  }, request.colors)
 
   const assets: Record<AssetRole, string> = {
     mark: join(request.assetDirectory, ASSET_FILES.mark),

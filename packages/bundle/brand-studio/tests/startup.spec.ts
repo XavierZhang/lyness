@@ -3,7 +3,7 @@
  * succeeds, a run that fails, and the exit code each one requests.
  */
 
-import { mkdtemp, rm } from 'node:fs/promises'
+import { mkdtemp, readFile, rm } from 'node:fs/promises'
 import { createRequire } from 'node:module'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
@@ -87,6 +87,27 @@ describe('brand-studio command line', () => {
     const result = await invoke(['--name', 'lyness', '--icon', ICON, '--font', FONT, ...CONFIRMED])
     expect(result).toMatchObject({ code: 0, stderr: '' })
     expect(result.stdout).toContain(`font      ${FONT}`)
+  })
+
+  it('carries every name and palette token the brand named into the row', async () => {
+    const dir = await home()
+    const result = await invoke([
+      '--name', 'Acme Agent', '--abbreviation', 'ACME', '--name-zh', '艾可',
+      '--icon', ICON, '--color', 'blue=#1a73e8', '--color', 'gray50=white', '--accept-trademark',
+    ])
+    expect(result).toMatchObject({ code: 0, stderr: '' })
+    const layer = await readFile(join(dir, 'profiles', 'web', 'cordis.patch.yml'), 'utf8')
+    expect(layer).toContain('productAbbreviation: ACME')
+    expect(layer).toContain('productNameZh: 艾可')
+    expect(layer).toContain('blue: "#1a73e8"')
+    expect(layer).toContain('gray50: white')
+  })
+
+  it('refuses a palette flag that names no value', async () => {
+    await home()
+    const result = await invoke(['--name', 'Acme', '--icon', ICON, '--color', 'blue', '--accept-trademark'])
+    expect(result).toMatchObject({ code: 1, stdout: '' })
+    expect(result.stderr).toBe('brand-studio: Error: brand-studio: --color takes token=value; got "blue"\n')
   })
 
   it('reports a refused run and requests a failing exit', async () => {

@@ -31,6 +31,9 @@ it('refuses a generated SVG that is not a brand SVG and writes nothing', async (
   const assetDirectory = join(root, 'brand')
   await expect(runStudio({
     productName: 'lyness',
+    productAbbreviation: undefined,
+    productNameZh: undefined,
+    colors: {},
     iconPath: join(import.meta.dirname, 'fixtures', 'icon.png'),
     fontPath: require.resolve('@fontsource/inter/files/inter-latin-600-normal.woff2'),
     themeColor: undefined,

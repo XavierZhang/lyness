@@ -163,6 +163,26 @@ export function isBrandColour(colour: string): boolean {
   return BRAND_COLOUR.test(colour)
 }
 
+/**
+ * A product name a deployment may carry.
+ *
+ * Product copy names the product through a placeholder the page fills, so a
+ * name carrying `{`, `}` or a line break would reopen substitution or break a
+ * sentence, and a name past 64 characters is prose rather than a brand. The
+ * page checks the same rule on arrival, where the names are script-assigned
+ * page data; refusing here names the field an operator mistyped.
+ */
+const BRAND_NAME = /^[^\n\r{}]{1,64}$/u
+
+/**
+ * Whether a deployment may carry this product name.
+ * @param name - the configured value.
+ * @returns true for one line of at most 64 characters with no placeholder syntax.
+ */
+export function isBrandName(name: string): boolean {
+  return BRAND_NAME.test(name)
+}
+
 /** Asset roles a deployment may place, in the order the page consumes them. */
 const ASSET_ROLES = ['favicon', 'mark', 'wordmark'] as const
 
@@ -371,6 +391,14 @@ export function apply(ctx: Context, config: Config): void {
     throw new Error(
       `brand-deployment: themeColor must be a hex triplet or a colour keyword; got ${JSON.stringify(config.themeColor)}`,
     )
+  }
+  for (const field of ['productName', 'productAbbreviation', 'productNameZh'] as const) {
+    const value = config[field]
+    if (value !== undefined && !isBrandName(value)) {
+      throw new Error(
+        `brand-deployment: ${field} must be one line of at most 64 characters without braces; got ${JSON.stringify(value)}`,
+      )
+    }
   }
   const assets = resolveAssets(config)
   // The schema applied its defaults before apply ran, so the optional-input

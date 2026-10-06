@@ -191,6 +191,18 @@ describe('deployment brand over the index render', () => {
       .rejects.toThrow(/colors\.blue must be a hex triplet or a colour keyword/u)
   })
 
+  it('refuses a product name the page could not carry', async () => {
+    const ctx = await server()
+    // A brace would reopen placeholder substitution in the copy that names the
+    // product, and a line break would split the sentence carrying it.
+    await expect(brand(ctx, { productName: 'Acme {brandName}' }))
+      .rejects.toThrow(/productName must be one line of at most 64 characters without braces/u)
+    await expect(brand(ctx, { productAbbreviation: 'AC\nME' }))
+      .rejects.toThrow(/productAbbreviation must be one line/u)
+    await expect(brand(ctx, { productNameZh: '艾'.repeat(65) }))
+      .rejects.toThrow(/productNameZh must be one line/u)
+  })
+
   it('refuses a colour, a directory, and an asset an operator got wrong', async () => {
     const ctx = await server()
     await expect(brand(ctx, { themeColor: 'rgb(1,2,3)' }))

@@ -34,6 +34,9 @@ async function request(overrides: Partial<StudioRequest> = {}): Promise<StudioRe
   const root = await scratch()
   return {
     productName: 'lyness',
+    productAbbreviation: undefined,
+    productNameZh: undefined,
+    colors: {},
     iconPath: ICON,
     fontPath: FONT,
     themeColor: '#1a73e8',
@@ -133,6 +136,57 @@ describe('runStudio', () => {
         favicon: 'favicon.svg',
       },
     }])
+  })
+
+  it('writes every name the brand carries and the palette tokens it replaces', async () => {
+    const subject = await request({
+      productName: 'Acme Agent',
+      productAbbreviation: 'ACME',
+      productNameZh: '艾可',
+      colors: { blue: '#1a73e8', gray50: 'white' },
+    })
+    await runStudio(subject)
+    expect(parse(await readFile(subject.patchPath, 'utf8'))).toEqual([{
+      id: 'brand-deployment',
+      name: BRAND_PACKAGE,
+      config: {
+        productName: 'Acme Agent',
+        productAbbreviation: 'ACME',
+        productNameZh: '艾可',
+        themeColor: '#1a73e8',
+        assetDirectory: subject.assetDirectory,
+        colors: { blue: '#1a73e8', gray50: 'white' },
+        mark: 'mark.svg',
+        wordmark: 'wordmark.svg',
+        favicon: 'favicon.svg',
+      },
+    }])
+  })
+
+  it('keeps a palette token the run does not name', async () => {
+    const subject = await request({ colors: { blue: '#1a73e8' } })
+    await writeFile(subject.patchPath, '- id: brand-deployment\n  config:\n    colors:\n      error: crimson\n')
+    await runStudio(subject)
+    const [row] = parse(await readFile(subject.patchPath, 'utf8')) as { config: { colors: Record<string, string> } }[]
+    expect(row?.config.colors).toEqual({ error: 'crimson', blue: '#1a73e8' })
+  })
+
+  it('refuses a name or a palette token the deployment could not use', async () => {
+    const brace = await request({ productAbbreviation: 'A{B}' })
+    await expect(runStudio(brace)).rejects.toThrow(/productAbbreviation must be one line/u)
+
+    const prose = await request({ productNameZh: '艾'.repeat(65) })
+    await expect(runStudio(prose)).rejects.toThrow(/productNameZh must be one line/u)
+
+    const unknown = await request({ colors: { accent: '#1a73e8' } })
+    await expect(runStudio(unknown)).rejects.toThrow(/there is no palette token "accent"/u)
+
+    const unusable = await request({ colors: { blue: 'rgb(1, 2, 3)' } })
+    await expect(runStudio(unusable)).rejects.toThrow(/blue must be a hex colour or a colour keyword/u)
+
+    for (const subject of [brace, prose, unknown, unusable]) {
+      expect(existsSync(subject.assetDirectory)).toBe(false)
+    }
   })
 
   it('sets a name in the built-in fonts when the brand supplies none', async () => {
