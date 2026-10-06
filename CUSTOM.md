@@ -188,8 +188,10 @@ codemod 只改文本和路径。下面这些是它改完之后必然过期、必
 
 | 项 | 官方值 | 我的值 | 所在文件 |
 |---|---|---|---|
-| 产品名（英文） | `DeepSeek Harness`（360 处） | `lyness` | 未决 |
-| 产品名（中文） | 无 | `领驭` | 未决 |
+| 产品名（英文，小写） | `DeepSeek Harness`（360 处） | `lyness` | 已定 2026-10-06 |
+| 产品名（英文，全大写） | `DEEPSEEK HARNESS` | `LYNESS` | 已定 2026-10-06 |
+| 产品名（中文） | 无 | `领驭` | 已定 2026-10-06 |
+| 缩写 | `DSH` | `LYN` | 已定 2026-10-06：上游用缩写的位置照用 `LYN`，不改成全名 |
 | 仓库/标识 slug | `deepseek-harness` | `lyness` | 已完成；归档笔记冻结不动 |
 | CLI 命令名 | `dsh` | `lyn` | `apps/cli/package.json` bin |
 | npm scope | `@deepseek-ai/dsh-<name>` | `@lyness/lyn-<name>`（harness）／`@lyness/<name>`（vendored） | 已完成。产品段**保留**——上游靠它区分两类包，去掉后 6 处门禁失效且其中一处静默失效（[记录](.agents/notes/implemented/process/2026-09-12-restoring-the-product-name-segment.md)） |
@@ -204,6 +206,21 @@ codemod 只改文本和路径。下面这些是它改完之后必然过期、必
 | 小写环境前缀 ⚠️ | `dsh_desktop_*`、`dsh_scrub_probe_lower` | `lyness_desktop_*`、`lyness_scrub_probe_lower` | 环境变量前缀的小写形，用于证明清理器大小写不敏感。通用 `dsh`→`lyn` 规则会写成 `lyn_desktop_*`，清理器认不出，断言变成永真。codemod 规则 `lowercase-desktop-env-prefix-probe`、`lowercase-env-prefix-probe` |
 | 模型供应商 DeepSeek ⛔ | `packages/llm/llm-deepseek`、`DeepSeekOnboardingDialog.tsx`、`ui-settings-models` | 不改 | 指模型供应商，不是 harness 品牌；全局替换会误伤 |
 | 遥测端点 ⚠️ | `https://harness-telemetry.deepseeksvc.com` | **已移除** | 默认 `DISABLED` 且无端点；启用需显式设两个环境变量。上游 0.1.5 的 `9ffe85a512` 把遥测**扩到了所有用户**（原先按 provider 区分），本二开的覆盖因此更重要，每次合并必查 |
+
+## 品牌命名的四个面（2026-10-06 定）
+
+官方 SaaS 版本按下表取值，四个面各有其位，不互相替代：
+
+| 场合 | 取值 |
+|---|---|
+| 上游用缩写处 | `LYN` |
+| 中文 | `领驭` |
+| 英文小写 | `lyness` |
+| 英文全大写 | `LYNESS` |
+
+因此 UI 文案里的 `LYN`（「另一个正在运行的 LYN 实例」「与 LYN {runtime} 不兼容」等十余处）**保持不变**，它不是漏改。
+
+**独立部署默认沿用上表**；品牌方若提供了自己的缩写、中文名或英文全名，则按其要求替换。这对 `brand-deployment` 提出了要求：它现在只有单个 `productName`，而覆盖需要缩写、中文名、英文全名三者各自可配，否则品牌方只能换掉一处、其余仍显示 lyness 的取值。这项扩展随部署级令牌覆盖一并做。
 
 ## 合并官方记录
 
