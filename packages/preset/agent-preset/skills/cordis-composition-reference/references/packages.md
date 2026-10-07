@@ -50,6 +50,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | Package | Config | Description |
 |---|---|---|
 | `@lyness/lyn-acp-app` | no | The lyn ACP profile bundle: automation-only JSON-RPC stdio and process lifecycle over lyn-base |
+| `@lyness/lyn-brand-setup` | yes | The lyn brand-setup profile bundle: a loopback page an operator brands a deployment from, reached through a one-time token the command prints |
 | `@lyness/lyn-brand-studio` | no | The lyn brand-studio profile bundle: generate a deployment brand from an icon PNG and a font, and apply it to a profile |
 | `@lyness/lyn-headless` | yes | The lyn one-shot bundle: a direct core Agent/Session runner over lyn-base with no Host, HTTP, or browser layer |
 | `@lyness/lyn-sdk-app` | yes | The lyn SDK profile bundle: stdio JSON-RPC serving and process lifecycle over lyn-base |

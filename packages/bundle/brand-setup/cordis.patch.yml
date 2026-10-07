@@ -1,0 +1,14 @@
+# The standalone brand-setup application: a loopback page one operator brands a
+# deployment from. It needs no model, session, or product Web row, so it does
+# not layer over lyn-base: this insert is the complete Cordis tree. The server
+# binds the loopback interface and takes an OS-assigned port, because the page
+# writes a profile's patch layer and must not be reachable from the network.
+
+- insert:
+    - id: webserver
+      name: '@lyness/lyn-host-webserver'
+      config:
+        host: 127.0.0.1
+        port: 0
+    - id: brand-setup
+      name: '@lyness/lyn-brand-setup'

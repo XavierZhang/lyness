@@ -429,6 +429,25 @@ export type Config = LocalConfig
 ```
 <!-- END GENERATED config-catalog:@lyness/lyn-bash-sandbox -->
 
+<!-- BEGIN GENERATED config-catalog:@lyness/lyn-brand-setup -->
+<a id="lynesslyn-brand-setup"></a>
+
+## `@lyness/lyn-brand-setup`
+
+- `inject`: `webServer`
+- `source`: [`packages/bundle/brand-setup/src/index.ts:43`](../packages/bundle/brand-setup/src/index.ts)
+
+```ts config-catalog
+/** Plugin config: where the brand this page writes lands. */
+export interface Config {
+  /** Profile whose patch layer receives the brand row. */
+  target?: string
+  /** Absolute directory receiving the generated SVGs; omit for `$LYNESS_HOME/brand`. */
+  assetDirectory?: string
+}
+```
+<!-- END GENERATED config-catalog:@lyness/lyn-brand-setup -->
+
 <!-- BEGIN GENERATED config-catalog:@lyness/lyn-client-connection -->
 <a id="lynesslyn-client-connection"></a>
 

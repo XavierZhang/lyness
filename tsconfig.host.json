@@ -412,6 +412,7 @@
     { "path": "./packages/test-support/e2e-target" },
     { "path": "./packages/acp/acp" },
     { "path": "./packages/bundle/acp-app" },
+    { "path": "./packages/bundle/brand-setup" },
     { "path": "./packages/bundle/brand-studio" },
     { "path": "./packages/host/brand-fonts" },
     { "path": "./packages/bundle/base" },

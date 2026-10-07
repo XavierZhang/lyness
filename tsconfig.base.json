@@ -363,6 +363,7 @@
       "@lyness/lyn-bash-local": ["./packages/shell/bash-local/src"],
       "@lyness/lyn-bash-sandbox": ["./packages/shell/bash-sandbox/src"],
       "@lyness/lyn-brand": ["./packages/util/brand/src"],
+      "@lyness/lyn-brand-setup": ["./packages/bundle/brand-setup/src"],
       "@lyness/lyn-chunked-list": ["./packages/util/chunked-list/src"],
       "@lyness/lyn-cmdline": ["./packages/boot/cmdline/src"],
       "@lyness/lyn-command-compact": ["./packages/compaction/command-compact/src"],

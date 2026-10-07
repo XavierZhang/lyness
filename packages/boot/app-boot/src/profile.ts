@@ -195,6 +195,9 @@ export const PROFILE_TEMPLATES: Record<string, ProfileTemplate> = {
   'brand-studio': {
     bundles: ['@lyness/lyn-brand-studio'],
   },
+  'brand-setup': {
+    bundles: ['@lyness/lyn-brand-setup'],
+  },
 }
 
 /** Installation-owned bundle tuples normalized to the shipped template. */

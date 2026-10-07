@@ -29,6 +29,7 @@ This group maps the installable patch layers used by `lyn --profile`. Each packa
 | [`sdk-app`](sdk-app/README.md) | SDK JSON-RPC stdio application over base | mounts the SDK server |
 | [`sdk-minimal`](sdk-minimal/README.md) | Standalone minimal SDK application without base or Web | — (complete patch tree) |
 | [`brand-studio`](brand-studio/README.md) | Standalone operator command that generates a deployment brand and applies it to a profile | `brand-studio` |
+| [`brand-setup`](brand-setup/README.md) | Standalone operator page that brands a deployment behind a printed token | `brand-setup` |
 
 In-box bundles resolve from the lyn installation; out-of-tree bundles install into a profile through `lyn plugin --profile <name> add <package>`.
 

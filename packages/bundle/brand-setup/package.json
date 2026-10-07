@@ -1,0 +1,51 @@
+{
+  "name": "@lyness/lyn-brand-setup",
+  "description": "The lyn brand-setup profile bundle: a loopback page an operator brands a deployment from, reached through a one-time token the command prints",
+  "version": "0.1.7-rc.2",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "directory": "packages/bundle/brand-setup"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./src/*": "./src/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib/index.js",
+    "cordis.patch.yml",
+    "lib/types/**/*.d.ts"
+  ],
+  "license": "MIT",
+  "lyn": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "dependencies": {
+    "@lyness/lyn-brand-studio": "workspace:*",
+    "@lyness/lyn-cmdline": "workspace:*",
+    "@lyness/lyn-home-paths": "workspace:*",
+    "@lyness/lyn-host-brand-deployment": "workspace:*",
+    "@lyness/lyn-host-webserver": "workspace:*",
+    "@lyness/schemastery": "workspace:~",
+    "yaml": "^2.9.0"
+  },
+  "peerDependencies": {
+    "@lyness/cordis": "workspace:~"
+  },
+  "devDependencies": {
+    "@lyness/cordis": "workspace:~"
+  }
+}

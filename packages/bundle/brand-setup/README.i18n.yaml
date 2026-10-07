@@ -1,0 +1,43 @@
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write packages/bundle/brand-setup/README.md
+/:
+  en: 175815b655a3d391
+  zh: 687019e0725dc7e8
+/lyness-lyn-brand-setup:
+  en: 0e330765a10606d9
+  zh: e0eaf0caa311a375
+/lyness-lyn-brand-setup/summary:
+  en: 4c87f0d0c1a0cb3d
+  zh: c34f51c3d2aee70a
+/lyness-lyn-brand-setup/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: f3e9b26731cefe05
+/lyness-lyn-brand-setup/use-this-package:
+  en: 8c1b53204a79170f
+  zh: a25bf5b9d7ac5dae
+/lyness-lyn-brand-setup/use-this-package/why-a-token-rather-than-a-login:
+  en: d86aeba9c7fe73f7
+  zh: aa322f9ceb05b050
+/lyness-lyn-brand-setup/use-this-package/configuration:
+  en: 4f1a5ff56ce037ff
+  zh: 042c410fa4211500
+/lyness-lyn-brand-setup/understand-the-implementation:
+  en: 166976fc98f8bacf
+  zh: fea10b3b7a274c19
+/lyness-lyn-brand-setup/further-exploration:
+  en: 089ff932e247507c
+  zh: 219a9538b4549c0f
+/lyness-lyn-brand-setup/model-experience:
+  en: e3d43ffbbeb99a99
+  zh: 95d750a9e77ee119
+/lyness-lyn-brand-setup/model-experience/kv-cache-effect:
+  en: ca75c51c89c2c9b0
+  zh: ee6d77f08dfbe4ec
+/lyness-lyn-brand-setup/known-limitations-and-deferred-work:
+  en: 2821c0aaf5625f69
+  zh: 11974e7b84a2a499
+/lyness-lyn-brand-setup/known-limitations-and-deferred-work/dev-note:
+  en: dd44703ff4e0340f
+  zh: 86b5c965c9bae02a

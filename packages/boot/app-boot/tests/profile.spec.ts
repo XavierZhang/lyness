@@ -352,6 +352,7 @@ describe('loadProfile', () => {
       bundles: ['@lyness/lyn-sdk-minimal'],
     })
     expect(PROFILE_TEMPLATES['brand-studio']).toEqual({ bundles: ['@lyness/lyn-brand-studio'] })
+    expect(PROFILE_TEMPLATES['brand-setup']).toEqual({ bundles: ['@lyness/lyn-brand-setup'] })
     loadProfile('t', 'web', anchor, home)
     expect(readProfileManifest('t', resolveProfileDir('web', home)).lyn?.profile?.bundles)
       .toEqual([...PROFILE_TEMPLATES.web?.bundles ?? []])
