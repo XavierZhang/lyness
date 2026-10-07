@@ -65,6 +65,8 @@ The shell is pure composition: `SidebarRootComponentProps` composes the layout o
 
 ### Slot discipline
 
+Under the foot sits `sidebar.attribution`, a single slot for the line naming the platform the deployment runs on. It is the one seat here that must not take the deployment's own brand, and a build whose occupant shows no line leaves it empty, so the foot keeps its height.
+
 Declaration-aware `slots.inject()` lets a replacing package activate before or after the sidebar. The foot is the `sidebar.settings` seat: the sidebar renders only the bottom-pinned layout slot and shares its column state (`wide`). The `/client` exports are the plugin body (`apply`/`inject`) plus the contract types only; SidebarRoot, the row components, and the tree derivation remain package-internal behind the slot registration.
 
 </details>

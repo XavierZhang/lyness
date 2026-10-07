@@ -1,7 +1,12 @@
 import type { HeroBrandMarkOwnerProps } from '@lyness/lyn-client-ui-conversation/client'
-import type { SidebarBrandMarkOwnerProps } from '@lyness/lyn-client-ui-sidebar/client'
+import type { PropsLocale } from '@lyness/lyn-client-ui-slots'
+import type { SidebarAttributionOwnerProps, SidebarBrandMarkOwnerProps } from '@lyness/lyn-client-ui-sidebar/client'
 import { MARK_PATHS, MARK_VIEWBOX, WORDMARK_HEIGHT, WORDMARK_PATH, WORDMARK_WIDTH } from './artwork.ts'
 import { readDeploymentBrand } from './deployment-brand.ts'
+import css from './Brand.module.css'
+
+/** The attribution occupant's props: the sidebar's column state and its own copy. */
+type AttributionProps = SidebarAttributionOwnerProps & PropsLocale<'brandAttribution'>
 
 interface BrandMarkProps {
   size: number
@@ -59,4 +64,19 @@ export function LynessSidebarName() {
       <path d={WORDMARK_PATH} />
     </svg>
   )
+}
+
+/**
+ * Render the attribution line, which names the platform this deployment runs
+ * on rather than the deployment's own brand.
+ *
+ * A deployment that shows none renders nothing, so the sidebar foot keeps its
+ * height. The collapsed rail has no room for a sentence, so the line waits for
+ * the wide column.
+ * @param props - the sidebar's column state and this occupant's translate seat.
+ * @returns the line, or nothing when this deployment shows none.
+ */
+export function LynessAttribution({ wide, t }: AttributionProps) {
+  if (!wide || !readDeploymentBrand().showPoweredBy) return null
+  return <span className={css.attribution}>{t('poweredBy')}</span>
 }

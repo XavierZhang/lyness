@@ -1,7 +1,8 @@
 // @vitest-environment jsdom
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { cleanup, render } from '@testing-library/react'
-import { LynessHeroMark, LynessSidebarMark, LynessSidebarName } from '../src/client/Brand.tsx'
+import { LynessAttribution, LynessHeroMark, LynessSidebarMark, LynessSidebarName } from '../src/client/Brand.tsx'
+import { en } from '../src/client/locales.ts'
 import { DEPLOYMENT_BRAND_GLOBAL, readDeploymentBrand } from '../src/client/deployment-brand.ts'
 
 afterEach(() => {
@@ -63,16 +64,41 @@ describe('deployment brand', () => {
 
   it('reads unusable members as absent', () => {
     carryBrand({ productName: '', markUrl: 'https://cdn.example/mark.svg', wordmarkUrl: '//cdn.example/wordmark.svg' })
-    expect(readDeploymentBrand()).toEqual({})
-    carryBrand({ productName: 42, markUrl: '/\\cdn.example/mark.svg', wordmarkUrl: 7 })
-    expect(readDeploymentBrand()).toEqual({})
+    expect(readDeploymentBrand()).toEqual({ showPoweredBy: false })
+    carryBrand({ productName: 42, markUrl: '/\\cdn.example/mark.svg', wordmarkUrl: 7, showPoweredBy: 'yes' })
+    expect(readDeploymentBrand()).toEqual({ showPoweredBy: false })
   })
 
   it('reads a missing or non-object global as no brand', () => {
-    expect(readDeploymentBrand()).toEqual({})
+    expect(readDeploymentBrand()).toEqual({ showPoweredBy: false })
     carryBrand(null)
-    expect(readDeploymentBrand()).toEqual({})
+    expect(readDeploymentBrand()).toEqual({ showPoweredBy: false })
     carryBrand('Acme')
-    expect(readDeploymentBrand()).toEqual({})
+    expect(readDeploymentBrand()).toEqual({ showPoweredBy: false })
+  })
+})
+
+describe('platform attribution', () => {
+  const t = ((key: keyof typeof en) => en[key]) as Parameters<typeof LynessAttribution>[0]['t']
+
+  it('names the platform, not the deployment, for a deployment that shows the line', () => {
+    carryBrand({ productName: 'Acme', wordmarkUrl: '/brand/wordmark.svg', showPoweredBy: true })
+    const shown = render(<LynessAttribution wide t={t} />)
+    expect(shown.container.textContent).toBe('Powered by lyness')
+  })
+
+  it('renders nothing where the deployment shows none, carries no brand, or has no room', () => {
+    const none = render(<LynessAttribution wide t={t} />)
+    expect(none.container.textContent).toBe('')
+    none.unmount()
+
+    carryBrand({ showPoweredBy: false })
+    const refused = render(<LynessAttribution wide t={t} />)
+    expect(refused.container.textContent).toBe('')
+    refused.unmount()
+
+    carryBrand({ showPoweredBy: true })
+    const rail = render(<LynessAttribution wide={false} t={t} />)
+    expect(rail.container.textContent).toBe('')
   })
 })

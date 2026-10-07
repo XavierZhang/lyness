@@ -65,6 +65,8 @@ lyn Web 客户端的侧边栏让用户识别当前构建、启动新会话、将
 
 ### slot 纪律
 
+底部之下是 `sidebar.attribution`，承载标明该部署运行在什么平台之上的那行字的单占位 slot。它是这里唯一**不该**取部署自身品牌的席位；占位者不显示时该 slot 为空，底部高度不变。
+
 声明感知的 `slots.inject()` 让替换包无论先于还是后于侧边栏激活都能生效。页脚承载 `sidebar.settings` 席位：侧边栏只渲染固定在底部的布局 slot，并共享其栏状态（`wide`）。`/client` 导出接口只包含插件主体（`apply`/`inject`）及约定类型；SidebarRoot、行组件与树派生仍由 slot 注册封装在包内。
 
 </details>

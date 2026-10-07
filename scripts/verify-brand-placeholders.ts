@@ -29,6 +29,17 @@ const MINIMUM_DICTIONARIES = 50
  */
 const EXEMPT: Readonly<Record<string, string>> = {}
 
+/**
+ * Dictionary values that name a product on purpose, by the file that writes them.
+ *
+ * Only the attribution line qualifies: it names the platform a deployment runs
+ * on, so it must keep saying lyness while every other sentence takes the
+ * deployment's own name. An entry here is a decision, not a deferral.
+ */
+const DELIBERATE: Readonly<Record<string, readonly string[]>> = {
+  'packages/client/ui-brand-lyness/src/client/locales.ts': ['Powered by lyness', '由领驭提供技术支持'],
+}
+
 /** Package names carrying the scope, removed before the names are looked for. */
 const PACKAGE_NAME = /@lyness\/[\w./-]+/gu
 
@@ -137,8 +148,11 @@ function main(): void {
     throw new Error(`verify-brand-placeholders: exemption names a missing file: ${stale.join(', ')}`)
   }
   const checked = files.filter(file => !(file in EXEMPT))
-  const violations = checked.flatMap(file =>
-    findBrandPlaceholderViolations(file, readFileSync(resolve(root, file), 'utf8')))
+  const violations = checked.flatMap((file) => {
+    const deliberate = DELIBERATE[file] ?? []
+    return findBrandPlaceholderViolations(file, readFileSync(resolve(root, file), 'utf8'))
+      .filter(violation => !deliberate.includes(violation.text))
+  })
   if (violations.length > 0) {
     console.error(`verify-brand-placeholders: ${violations.length} literal product name(s) in dictionary copy:`)
     for (const violation of violations) {
@@ -151,7 +165,8 @@ function main(): void {
   }
   console.log(
     `verify-brand-placeholders: ${checked.length} dictionary file(s) name the product through placeholders`
-    + ` (${String(Object.keys(EXEMPT).length)} exempt).`,
+    + ` (${String(Object.keys(EXEMPT).length)} exempt,`
+    + ` ${String(Object.values(DELIBERATE).flat().length)} deliberate).`,
   )
 }
 

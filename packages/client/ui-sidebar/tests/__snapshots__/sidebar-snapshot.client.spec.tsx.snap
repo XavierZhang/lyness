@@ -86,6 +86,10 @@ exports[`sidebar shell snapshots > renders Windows caption controls in expanded 
           style="display: contents;"
         />
       </div>
+      <div
+        data-slot="sidebar.attribution"
+        style="display: contents;"
+      />
     </div>
   </div>
 </div>
@@ -229,6 +233,10 @@ exports[`sidebar shell snapshots > renders Windows caption controls in expanded 
           style="display: contents;"
         />
       </div>
+      <div
+        data-slot="sidebar.attribution"
+        style="display: contents;"
+      />
     </div>
   </div>
 </div>
@@ -338,6 +346,10 @@ exports[`sidebar shell snapshots > renders the collapsed rail after the crossfad
           style="display: contents;"
         />
       </div>
+      <div
+        data-slot="sidebar.attribution"
+        style="display: contents;"
+      />
     </div>
   </div>
 </div>
@@ -481,6 +493,10 @@ exports[`sidebar shell snapshots > renders the expanded column (wordmark, capsul
           style="display: contents;"
         />
       </div>
+      <div
+        data-slot="sidebar.attribution"
+        style="display: contents;"
+      />
     </div>
   </div>
 </div>
@@ -624,6 +640,10 @@ exports[`sidebar shell snapshots > renders the expanded column in the default lo
           style="display: contents;"
         />
       </div>
+      <div
+        data-slot="sidebar.attribution"
+        style="display: contents;"
+      />
     </div>
   </div>
 </div>

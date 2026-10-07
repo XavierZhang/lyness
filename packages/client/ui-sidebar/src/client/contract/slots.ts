@@ -5,7 +5,8 @@
  * everything between the workspace section header and the list bottom is the
  * `sidebar.workspaces` registrant's (ui-workspace), and the foot is the
  * `sidebar.settings` registrant's (ui-settings), followed by optional footer
- * actions in `sidebar.footer.action`.
+ * actions in `sidebar.footer.action` and the attribution line in
+ * `sidebar.attribution`.
  */
 import type { InjectFace, PropsLocale, PropsRenderSlots, PropsRuntime } from '@lyness/lyn-client-ui-slots'
 import type { ObservableSnapshot } from '@lyness/lyn-client-store'
@@ -51,6 +52,14 @@ declare module '@lyness/lyn-client-ui-slots' {
      * package's 'sidebar' entry; each action receives only the column state.
      */
     'sidebar.footer.action': { kind: 'list'; scope: 'root'; owner: SidebarFooterActionOwnerProps }
+    /**
+     * The attribution line under the sidebar foot, naming the platform this
+     * deployment runs on rather than the deployment's own brand. Declared by
+     * this package's 'sidebar' entry; the brand package registers the line and
+     * decides whether the deployment shows it. Empty in every build that shows
+     * none, so the shell reserves no space for it.
+     */
+    'sidebar.attribution': { kind: 'single'; scope: 'root'; owner: SidebarAttributionOwnerProps }
   }
 }
 
@@ -110,6 +119,12 @@ export interface SidebarFooterActionOwnerProps {
   wide: boolean
 }
 
+/** Owner share of the attribution line under the sidebar foot. */
+export interface SidebarAttributionOwnerProps {
+  /** Whether the sidebar renders wide content (false = 56px rail). */
+  wide: boolean
+}
+
 /**
  * Registrant-private injected share (arrives via the register inject
  * factory). The renderer binds the panel metadata source to usePanels.
@@ -144,5 +159,6 @@ export type SidebarRootComponentProps =
     | 'sidebar.workspaces'
     | 'sidebar.settings'
     | 'sidebar.footer.action'
+    | 'sidebar.attribution'
   >
   & InjectFace<SidebarRootInjected> & PropsLocale<'sidebar'>

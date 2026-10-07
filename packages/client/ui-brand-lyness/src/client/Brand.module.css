@@ -1,0 +1,11 @@
+/* The attribution line sits under the sidebar foot, quieter than any control
+   above it: it states what the deployment runs on and is never interactive. */
+.attribution {
+  padding: 0 12px 8px;
+  color: var(--dsw-alias-label-tertiary);
+  font-size: 11px;
+  line-height: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

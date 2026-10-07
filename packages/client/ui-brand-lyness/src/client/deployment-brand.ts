@@ -11,6 +11,8 @@ export interface DeploymentBrandMembers {
   readonly markUrl?: string | undefined
   /** Same-origin path of the deployment wordmark. */
   readonly wordmarkUrl?: string | undefined
+  /** Whether this deployment shows the line naming the platform it runs on. */
+  readonly showPoweredBy: boolean
 }
 
 /** A path on the page's own origin: one leading slash, not a protocol-relative `//` or `/\`. */
@@ -34,10 +36,11 @@ function sameOriginPath(brand: object, key: string): string | undefined {
  */
 export function readDeploymentBrand(): DeploymentBrandMembers {
   const brand: unknown = Reflect.get(globalThis, DEPLOYMENT_BRAND_GLOBAL)
-  if (typeof brand !== 'object' || brand === null) return {}
+  if (typeof brand !== 'object' || brand === null) return { showPoweredBy: false }
   return {
     productName: text(brand, 'productName'),
     markUrl: sameOriginPath(brand, 'markUrl'),
     wordmarkUrl: sameOriginPath(brand, 'wordmarkUrl'),
+    showPoweredBy: Reflect.get(brand, 'showPoweredBy') === true,
   }
 }

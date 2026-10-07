@@ -9,11 +9,15 @@ const HOLES = [
   'sidebar.brand.mark',
   'sidebar.brand.name',
   'conversation.hero.brand.mark',
+  'sidebar.attribution',
 ] as const
 
 async function bench() {
   const ctx = new Context()
   await ctx.plugin(SlotRegistry).await()
+  // The attribution line carries copy, so the plugin now waits on the locale
+  // registry as well; this bench only needs the registration to succeed.
+  ctx.provide('locale', { register: () => () => {} } as never)
   const slots = ctx.get('slots') as SlotRegistry
   const declare = (holes: readonly string[]) => slots.register({
     name: 'root',
@@ -29,7 +33,7 @@ describe('lyness browser-brand plugin', () => {
   })
 
   it('declares only the slot service it uses', () => {
-    expect(inject).toEqual(['slots'])
+    expect(inject).toEqual(['slots', 'locale'])
   })
 
   it('fills declarations made before or after apply and removes every occupant on teardown', async () => {
@@ -37,29 +41,29 @@ describe('lyness browser-brand plugin', () => {
     const disposeHoles = before.declare(HOLES)
     const fiber = before.ctx.plugin({ inject: [...inject], apply })
     await fiber.await()
-    expect(before.counts()).toEqual([1, 1, 1])
+    expect(before.counts()).toEqual([1, 1, 1, 1])
 
     disposeHoles()
-    expect(before.counts()).toEqual([0, 0, 0])
+    expect(before.counts()).toEqual([0, 0, 0, 0])
     before.declare(HOLES)
     await Promise.resolve()
-    expect(before.counts()).toEqual([1, 1, 1])
+    expect(before.counts()).toEqual([1, 1, 1, 1])
 
     await fiber.dispose()
-    expect(before.counts()).toEqual([0, 0, 0])
+    expect(before.counts()).toEqual([0, 0, 0, 0])
 
     const after = await bench()
     await after.ctx.plugin({ inject: [...inject], apply }).await()
-    expect(after.counts()).toEqual([0, 0, 0])
+    expect(after.counts()).toEqual([0, 0, 0, 0])
     after.declare(HOLES)
     await Promise.resolve()
-    expect(after.counts()).toEqual([1, 1, 1])
+    expect(after.counts()).toEqual([1, 1, 1, 1])
   })
 
   it('fills the hero mark without waiting for the sidebar declarations', async () => {
     const subject = await bench()
     subject.declare(['conversation.hero.brand.mark'])
     await subject.ctx.plugin({ inject: [...inject], apply }).await()
-    expect(subject.counts()).toEqual([0, 0, 1])
+    expect(subject.counts()).toEqual([0, 0, 1, 0])
   })
 })

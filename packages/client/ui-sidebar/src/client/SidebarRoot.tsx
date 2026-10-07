@@ -303,7 +303,8 @@ export function SidebarRoot({
         })}
       </div>
 
-      {/* Footer actions stack above Settings in both sidebar widths. */}
+      {/* Footer actions stack above Settings in both sidebar widths, and the
+          attribution line sits under both when a deployment shows one. */}
       <div className={css.footArea}>
         <div className={css.footerActions}>
           {renderSlot('sidebar.footer.action', { wide })}
@@ -311,6 +312,7 @@ export function SidebarRoot({
         <div className={css.settingsArea}>
           {renderSlot('sidebar.settings', { wide })}
         </div>
+        {renderSlot('sidebar.attribution', { wide })}
       </div>
     </div>
   )

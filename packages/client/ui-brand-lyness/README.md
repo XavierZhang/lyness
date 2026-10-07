@@ -31,6 +31,10 @@ Mount this plugin in the browser roster. The Web application bundle mounts it in
 
 Each occupant reads `globalThis.lynDeploymentBrand`, which `lyn-brand-deployment` assigns before the client boots, every time it renders. Both marks show the deployment mark when one is configured. The name shows the deployment wordmark when one is configured, otherwise the deployment product name as text, otherwise the lyness wordmark. A member that is not a non-empty string, and a URL that is not a path on the page's own origin, read as absent, so the lyness artwork stays in place rather than a broken image. A deployment that sets a product name without a mark shows that name beside the lyness mark.
 
+### Platform attribution
+
+A deployment that sets `showPoweredBy` gets one more line, under the sidebar foot: `Powered by lyness` in English, 「由领驭提供技术支持」 in Chinese. That line names the platform the deployment runs on, so it keeps saying lyness while every other sentence takes the deployment's own name — it is the one piece of copy here that brand configuration does not replace. The collapsed rail has no room for a sentence, so the line waits for the wide column, and a deployment that sets nothing shows none.
+
 ### Replacing the brand
 
 A deployment that only changes its brand configures `lyn-brand-deployment` and keeps this package; that change needs a host restart but no client rebuild. A deployment that needs different built-in artwork composes another package occupying the same three slots instead of this one.
