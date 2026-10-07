@@ -22,10 +22,12 @@ A Session belongs to the person who opened it. The organization's claim on it is
 
 At creation a Session carries one durable ownership event naming two things:
 
-- **the owner** — the user who opened it, always present in the hosted product;
-- **the organization that user belonged to at that moment** — present for a member, absent for an individual customer.
+- **the owner** — the person who opened it, always present in the hosted product;
+- **the membership they were acting in** — the organization whose seat they held open at that moment, absent when they were acting as themselves.
 
-The organization is recorded rather than derived from the user's current membership, because people move. A member who leaves Acme and joins Globex must not drag three months of Acme's conversations into Globex's account, and an organization reading its own history must see what was true when each conversation happened. The owner answers "whose is this"; the recorded organization answers "under whose roof was it opened".
+One person holds one identity and may hold several memberships at once — their own, and one in each organization they belong to — so "which organization" is not a property of the person but of the act. A person who opens a conversation while acting for Acme opened Acme's conversation, whatever else they are a member of, and conversations do not cross between memberships: what was opened for Acme is not among what that person sees while acting for Globex or as themselves.
+
+The membership is recorded rather than derived, because both sides of it move. A person who leaves Acme and joins Globex must not drag three months of Acme's conversations into Globex's account, and an organization reading its own history must see what was true when each conversation happened. The owner answers "whose is this"; the recorded membership answers "under whose roof was it opened".
 
 The event is written once, at creation, and never rewritten. It is the attribution of record.
 
@@ -39,9 +41,9 @@ An organization can end a member's standing — removing the person, or reclaimi
 
 What changes is the person's state, and a Session whose owner no longer stands in the organization reads as archived. The state is derived from the owner rather than stamped on each Session, so ending a membership is one write rather than a sweep across every conversation that person ever opened, and restoring a reclaimed seat needs no second sweep to undo. Archived means retained and readable by the organization, not hidden from it: an organization that cannot read what it is answerable for has gained nothing from the archive.
 
-### The request must carry the person
+### The request must carry the person and the membership they act in
 
-None of this is recordable until a call resolves to a person rather than to an organization. That layer — users, their membership in an organization, and what each may do — is the prerequisite, and this note does not design it.
+None of this is recordable until a call resolves to a person acting in a known membership, rather than to an organization alone. How a call states which membership it acts in — the address it arrived at, or a context the client carries — is an open question for the layer below; this note requires only that the answer be explicit in the request rather than inferred from the person's memberships, because a person with two memberships makes inference a guess. That layer — users, their membership in an organization, and what each may do — is the prerequisite, and this note does not design it.
 
 One decision about it is already made and belongs here because the operations above depend on it: when an organization finishes onboarding, a **platform administrator assigns its first tenant administrator**, and only then can the organization configure or manage anything itself, including removing members. An organization cannot bootstrap its own first administrator. The note that designs the user and role layer owns that rule; it is recorded here so the archival and reclamation operations have a defined actor.
 
@@ -57,7 +59,7 @@ Ownership and the organization land in the Session log together, as one format c
 
 **Give every individual a personal organization.** Uniform: every Session has a tenant, every query has one shape. Rejected: it fills the system with organizations that have one member and no administrator, and makes every per-organization decision — plan gates, branding, billing — answer a question about a fiction.
 
-**Derive the organization from the owner's current membership.** No second field, and membership is already stored. Rejected: it rewrites history whenever a person changes organization, which is the one thing the attribution of record must never do.
+**Derive the organization from the owner's membership.** No second field, and membership is already stored. Rejected twice over: a person may hold several memberships at once, so there is nothing to derive from, and even with one it rewrites history whenever that person changes organization — the one thing the attribution of record must never do.
 
 **Delete a removed member's Sessions.** Clean, and arguably what a departing person expects. Rejected: the organization remains answerable for what was done under its roof, and deletion of released Session data is not something this product offers in any other path either.
 
@@ -65,8 +67,9 @@ Ownership and the organization land in the Session log together, as one format c
 
 ## Acceptance criteria
 
-- A Session created by a member records that member as its owner and that member's organization as it stood at creation; a Session created by an individual records the owner and no organization.
-- The recorded organization does not change when the owner later joins, leaves, or moves between organizations.
+- A Session created by a person acting in a membership records that person as its owner and that membership's organization; a Session created by a person acting as themselves records the owner and no organization.
+- A Session opened in one membership is not among the Sessions that person sees while acting in another, or while acting as themselves.
+- The recorded membership does not change when the owner later joins, leaves, or moves between organizations.
 - Ending a member's standing changes no Session record, and every Session that member owns reads as archived; restoring the standing returns them to active without touching those records.
 - An organization can read the archived Sessions of its removed members.
 - A Session carrying no ownership event — every Session written before this change — reads as unattributed, and no consumer infers an owner from who opened it later.
