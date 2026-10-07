@@ -1,0 +1,40 @@
+# Bilingual-pair consistency record for 2026-10-07-per-tenant-brand.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write .agents/notes/proposed/architecture/2026-10-07-per-tenant-brand.md
+/agent-note-per-tenant-brand-for-the-hosted-product:
+  en: d7e28bce0c24b9cd
+  zh: a2699df592f36704
+/agent-note-per-tenant-brand-for-the-hosted-product/problem:
+  en: be14b8efe3783788
+  zh: 295345169efb42cc
+/agent-note-per-tenant-brand-for-the-hosted-product/proposal:
+  en: 26acc2e5cb81de98
+  zh: b3db6e2e9714046e
+/agent-note-per-tenant-brand-for-the-hosted-product/proposal/the-brand-becomes-tenant-configuration:
+  en: c431f00bd257db52
+  zh: 6c00e5f5aa546fe0
+/agent-note-per-tenant-brand-for-the-hosted-product/proposal/the-index-injection-resolves-per-request:
+  en: fdc9837761239e3c
+  zh: f79a6e58690475cb
+/agent-note-per-tenant-brand-for-the-hosted-product/proposal/assets-are-addressed-by-tenant:
+  en: 6a0e517ec3222ff9
+  zh: 01984c32dcea8e37
+/agent-note-per-tenant-brand-for-the-hosted-product/proposal/changing-the-brand-is-a-product-surface-not-a-command:
+  en: dd0e83bb0fee098b
+  zh: 657be89d658e7913
+/agent-note-per-tenant-brand-for-the-hosted-product/proposal/the-plan-decides-and-the-server-enforces:
+  en: 3e9332ef7bdf0096
+  zh: ce7e49313dd60070
+/agent-note-per-tenant-brand-for-the-hosted-product/proposal/addressing-subdomains-now-custom-domains-later:
+  en: 57ad6a079662aa45
+  zh: f75ff0b9121ea37e
+/agent-note-per-tenant-brand-for-the-hosted-product/alternatives-considered:
+  en: 236f0cd4798f3b41
+  zh: 993aa9c8f51f4fef
+/agent-note-per-tenant-brand-for-the-hosted-product/acceptance-criteria:
+  en: c64a2d6182e37758
+  zh: fd4e68b0d3c01736
+/agent-note-per-tenant-brand-for-the-hosted-product/risks:
+  en: e8cd7941af9182a3
+  zh: 7f17418190f401e1
