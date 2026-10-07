@@ -437,7 +437,7 @@ export type Config = LocalConfig
 ## `@lyness/lyn-brand-setup`
 
 - `inject`: `webServer`
-- `source`: [`packages/bundle/brand-setup/src/index.ts:43`](../packages/bundle/brand-setup/src/index.ts)
+- `source`: [`packages/bundle/brand-setup/src/index.ts:45`](../packages/bundle/brand-setup/src/index.ts)
 
 ```ts config-catalog
 /** Plugin config: where the brand this page writes lands. */

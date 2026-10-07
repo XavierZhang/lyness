@@ -23,9 +23,11 @@ import { lynHomePath, resolveLynHome } from '@lyness/lyn-home-paths'
 import { resolveProfilePatch, StudioError } from '@lyness/lyn-brand-studio'
 import { applySubmission, MAXIMUM_ICON_BYTES, parseSubmission, readCurrentBrand, SubmissionError } from './brand-request.ts'
 import { renderSetupPage } from './page.ts'
+import { createSerialiser } from './serialise.ts'
 
 export { MAXIMUM_ICON_BYTES, parseSubmission, readCurrentBrand, SubmissionError } from './brand-request.ts'
 export { renderSetupPage } from './page.ts'
+export { createSerialiser, type Serialiser } from './serialise.ts'
 
 /** Stable Cordis plugin name. */
 export const name = 'brand-setup'
@@ -127,6 +129,10 @@ export function apply(ctx: Context, config: Config): void {
   const patchPath = resolveProfilePatch(resolved.target, home)
   const assetDirectory = resolveAssetDirectory(resolved.assetDirectory)
   const token = randomBytes(32).toString('base64url')
+  // Applies run one at a time: the three SVGs and the row are one write to a
+  // reader, and two in flight could leave the row naming one brand while the
+  // artwork on disk is another's.
+  const serialise = createSerialiser()
 
   /**
    * Whether this request may act, answering it when it may not.
@@ -172,7 +178,8 @@ export function apply(ctx: Context, config: Config): void {
       if (!admits(res, req.headers[TOKEN_HEADER])) return
       if (req.method !== 'POST') { sendJson(res, 405, { error: 'apply takes a POST' }); return }
       try {
-        const result = await applySubmission(parseSubmission(await readBody(req)), assetDirectory, patchPath)
+        const submitted = parseSubmission(await readBody(req))
+        const result = await serialise(() => applySubmission(submitted, assetDirectory, patchPath))
         sendJson(res, 200, { assets: result.assets })
       } catch (error) {
         // The operator sees the reason; a studio refusal and a submission

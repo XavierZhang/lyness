@@ -96,7 +96,7 @@ These limits define what the page can brand today. They are current package cons
 
 - **No font upload** — the wordmark is set in the built-in fonts; a brand owner's own font file still needs `lyn --profile brand-studio --font`, which carries the licence confirmation that choice requires.
 - **No preview before applying** — the page shows the written files after a run, not the artwork before one; checking the mark means opening the written SVG.
-- **One operator at a time** — the token admits anyone who has it, and the page neither locks the row nor notices a second writer; two people applying at once leave whichever wrote last.
+- **No conflict between two operators** — applies run one at a time, so two of them never interleave into a row naming one brand while the artwork is another's. Nothing else arbitrates: the token admits anyone who has it, the page does not notice a second writer, and two operators who apply in turn leave the later brand even where they changed different fields. This is a single-operator tool, which is what a self-hosted deployment is.
 
 <a id="dev-note"></a>
 ### Dev Note
