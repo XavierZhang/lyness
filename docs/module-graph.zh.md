@@ -146,6 +146,7 @@ flowchart TD
   subgraph group_bundle["packages/bundle"]
     pkg_acp_app["acp-app"]
     pkg_base["base"]
+    pkg_brand_setup["brand-setup"]
     pkg_brand_studio["brand-studio"]
     pkg_headless["headless"]
     pkg_sdk_app["sdk-app"]
@@ -1418,6 +1419,7 @@ flowchart TD
 | [`cmdline`](../packages/boot/cmdline) | `boot` | — |
 | [`acp-app`](../packages/bundle/acp-app) | `bundle` | — |
 | [`base`](../packages/bundle/base) | `bundle` | — |
+| [`brand-setup`](../packages/bundle/brand-setup) | `bundle` | — |
 | [`brand-studio`](../packages/bundle/brand-studio) | `bundle` | — |
 | [`sdk-app`](../packages/bundle/sdk-app) | `bundle` | — |
 | [`sdk-minimal`](../packages/bundle/sdk-minimal) | `bundle` | — |

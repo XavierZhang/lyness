@@ -35,6 +35,22 @@ declare module '@lyness/cordis' {
   }
 }
 
+/**
+ * Answer one request with a JSON value.
+ *
+ * Route handlers own their responses, so this is a convenience rather than a
+ * rule: it writes the media type and refuses caching, which is what an answer
+ * computed per request needs.
+ * @param res - the response this route owns.
+ * @param status - HTTP status code.
+ * @param body - the value to serialize.
+ */
+export function sendJson(res: ServerResponse, status: number, body: unknown): void {
+  const text = JSON.stringify(body)
+  res.writeHead(status, { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' })
+  res.end(text)
+}
+
 /** Route match kind: 'exact' matches the pathname verbatim; 'prefix' p matches p and p/<anything>. */
 export type WebRouteKind = 'exact' | 'prefix'
 

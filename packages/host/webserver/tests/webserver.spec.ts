@@ -15,7 +15,7 @@ import { afterEach, describe, expect, it } from 'vitest'
 import { Context, FiberState } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
 import Include from '@lyness/cordis-plugin-include'
-import HttpServer, { renderIndexInjections } from '../src/index.ts'
+import HttpServer, { renderIndexInjections, sendJson } from '../src/index.ts'
 
 let root: string | undefined
 let context: Context | undefined
@@ -208,11 +208,17 @@ describe('real Loader composition', () => {
     // route answers its own path, and routes own their method handling
     // (POST reaches a registered prefix; 405 is fallback-only semantics).
     server.register({ kind: 'exact', path: '/probe', handler: (_req, res) => { res.writeHead(200); res.end('EXACT') } })
+    // The JSON reply helper routes share: media type, no caching, one body.
+    server.register({ kind: 'exact', path: '/json', handler: (_req, res) => { sendJson(res, 404, { error: 'absent' }) } })
     server.register({ kind: 'prefix', path: '/api', handler: (_req, res) => { res.writeHead(200); res.end('API') } })
     server.register({ kind: 'prefix', path: '/api/deep', handler: (_req, res) => { res.writeHead(200); res.end('DEEP') } })
     expect(await request(port, '/probe')).toMatchObject({ status: 200, body: 'EXACT' })
     expect(await request(port, '/api/anything')).toMatchObject({ status: 200, body: 'API' })
     expect(await request(port, '/api/deep/leaf')).toMatchObject({ status: 200, body: 'DEEP' })
+    const answered = await request(port, '/json')
+    expect(answered).toMatchObject({ status: 404, body: '{"error":"absent"}' })
+    expect(answered.headers.get('content-type')).toBe('application/json; charset=utf-8')
+    expect(answered.headers.get('cache-control')).toBe('no-store')
     expect(await request(port, '/api')).toMatchObject({ status: 200, body: 'API' })
     expect(await request(port, '/api/anything', { method: 'POST' })).toMatchObject({ status: 200, body: 'API' })
 

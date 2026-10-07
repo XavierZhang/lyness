@@ -19,7 +19,7 @@
 
 import { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-import type {} from '@lyness/lyn-host-webserver'
+import { sendJson } from '@lyness/lyn-host-webserver'
 import type {} from '@lyness/lyn-tenant-config'
 import type { IncomingMessage, ServerResponse } from 'node:http'
 import { resolveTenant } from './resolve.ts'
@@ -55,18 +55,6 @@ interface ResolvedConfig extends Config {
 }
 
 /**
- * Answer one request with JSON.
- * @param res - the response to end.
- * @param status - HTTP status code.
- * @param body - JSON-serializable payload.
- */
-function json(res: ServerResponse, status: number, body: unknown): void {
-  const text = JSON.stringify(body)
-  res.writeHead(status, { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' })
-  res.end(text)
-}
-
-/**
  * Serve the tenant route: resolve this deployment's tenant for one request.
  * @param ctx - plugin context carrying `ctx.tenants` and `ctx.webServer`.
  * @param config - the validated plugin config.
@@ -81,12 +69,12 @@ export function apply(ctx: Context, config: Config): void {
   }
   const handler = async (req: IncomingMessage, res: ServerResponse): Promise<void> => {
     if (req.method !== 'GET' && req.method !== 'HEAD') {
-      json(res, 405, { error: 'method-not-allowed' })
+      sendJson(res, 405, { error: 'method-not-allowed' })
       return
     }
     const resolved = await resolveTenant(ctx.tenants, req.headers, baseDomain)
     if (resolved === undefined) {
-      json(res, 404, { error: 'unknown-tenant' })
+      sendJson(res, 404, { error: 'unknown-tenant' })
       return
     }
     const { tenant, source } = resolved
@@ -94,11 +82,11 @@ export function apply(ctx: Context, config: Config): void {
     // Optional service: a deployment may resolve tenants without configuring them.
     const configured = ctx.get('tenantConfig')
     if (configured === undefined) {
-      json(res, 200, identity)
+      sendJson(res, 200, identity)
       return
     }
     const config = await configured.get(tenant.id)
-    json(res, 200, { ...identity, features: config?.features ?? [], copy: config?.copy ?? {} })
+    sendJson(res, 200, { ...identity, features: config?.features ?? [], copy: config?.copy ?? {} })
   }
   ctx.effect(() => ctx.webServer.register({ kind: 'exact', path, handler }), 'tenant-http.route')
 }

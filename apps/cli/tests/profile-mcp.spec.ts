@@ -11,10 +11,11 @@ const installAnchor = fileURLToPath(new URL('../package.json', import.meta.url))
 const resourcePackage = '@lyness/lyn-mcp-resources'
 
 describe('shipped MCP resource composition', () => {
-  // brand-studio is excluded: it is a one-row standalone command tree that
-  // mounts no model, session, or Web row, so it carries no agent for an MCP
-  // resource consumer to serve. Its own patch states that design.
-  it.each(Object.keys(PROFILE_TEMPLATES).filter(name => name !== 'brand-studio'))(
+  // The brand profiles are excluded: each is a standalone tree that mounts no
+  // model, session, or Web row, so it carries no agent for an MCP resource
+  // consumer to serve. Their own patches state that design.
+  const STANDALONE = ['brand-studio', 'brand-setup']
+  it.each(Object.keys(PROFILE_TEMPLATES).filter(name => !STANDALONE.includes(name)))(
     '%s carries one shared resource consumer without a server', (name) => {
       const home = mkdtempSync(join(tmpdir(), 'lyn-profile-mcp-'))
       try {

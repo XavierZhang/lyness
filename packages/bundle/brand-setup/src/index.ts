@@ -16,8 +16,8 @@ import { readFile } from 'node:fs/promises'
 import type { IncomingMessage, ServerResponse } from 'node:http'
 import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
-// Type-only: pulls the web server's Context merge (ctx.webServer).
-import type {} from '@lyness/lyn-host-webserver'
+// The Context merge (ctx.webServer) arrives with the reply helper.
+import { sendJson } from '@lyness/lyn-host-webserver'
 import { internals } from '@lyness/lyn-cmdline'
 import { lynHomePath, resolveLynHome } from '@lyness/lyn-home-paths'
 import { resolveProfilePatch, StudioError } from '@lyness/lyn-brand-studio'
@@ -104,18 +104,6 @@ async function readBody(req: IncomingMessage): Promise<string> {
     chunks.push(buffer)
   }
   return Buffer.concat(chunks).toString('utf8')
-}
-
-/**
- * Answer with one JSON value.
- * @param res - the response.
- * @param status - HTTP status.
- * @param body - the value to serialize.
- */
-function sendJson(res: ServerResponse, status: number, body: unknown): void {
-  const text = JSON.stringify(body)
-  res.writeHead(status, { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' })
-  res.end(text)
 }
 
 /**
