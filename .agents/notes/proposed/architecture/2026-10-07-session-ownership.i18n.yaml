@@ -1,0 +1,37 @@
+# Bilingual-pair consistency record for 2026-10-07-session-ownership.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write .agents/notes/proposed/architecture/2026-10-07-session-ownership.md
+/agent-note-session-ownership-through-the-person-who-opened-it:
+  en: ad4631c09ac8174d
+  zh: 2312d32c7537e40a
+/agent-note-session-ownership-through-the-person-who-opened-it/problem:
+  en: a19af790b973a5d8
+  zh: 4bca5104d4018db2
+/agent-note-session-ownership-through-the-person-who-opened-it/proposal:
+  en: 57a7f8755e65d417
+  zh: 9422f8585a972be4
+/agent-note-session-ownership-through-the-person-who-opened-it/proposal/what-a-session-records-once:
+  en: 01c78be2001dca35
+  zh: a817920f2f47a630
+/agent-note-session-ownership-through-the-person-who-opened-it/proposal/an-individual-has-no-organization:
+  en: 9d28c29f29869f0d
+  zh: 43c0b7b96175a561
+/agent-note-session-ownership-through-the-person-who-opened-it/proposal/removing-a-member-archives-it-does-not-delete:
+  en: e7ed2ccbf5ae4686
+  zh: 0d7a429c8f468fa8
+/agent-note-session-ownership-through-the-person-who-opened-it/proposal/the-request-must-carry-the-person:
+  en: bf0a793b45e151ae
+  zh: cd5b06e28fc31bab
+/agent-note-session-ownership-through-the-person-who-opened-it/proposal/sequencing:
+  en: e4f7251ab9706a2c
+  zh: 39eb78753eac2546
+/agent-note-session-ownership-through-the-person-who-opened-it/alternatives-considered:
+  en: b1e97a1e03978612
+  zh: 582c7b426ac2b451
+/agent-note-session-ownership-through-the-person-who-opened-it/acceptance-criteria:
+  en: 0c595e3bab8be4ea
+  zh: 794e345d7cafa17e
+/agent-note-session-ownership-through-the-person-who-opened-it/risks:
+  en: eb44bd9869899e0f
+  zh: a5dd099b4547dae4
