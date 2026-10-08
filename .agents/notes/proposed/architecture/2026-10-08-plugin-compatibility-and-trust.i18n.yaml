@@ -1,0 +1,37 @@
+# Bilingual-pair consistency record for 2026-10-08-plugin-compatibility-and-trust.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write .agents/notes/proposed/architecture/2026-10-08-plugin-compatibility-and-trust.md
+/agent-note-upstream-plugin-compatibility-and-who-may-install-one:
+  en: 94da05dc99a30b5b
+  zh: 3f1f838f8b6b2fc3
+/agent-note-upstream-plugin-compatibility-and-who-may-install-one/problem:
+  en: ba3ea4a5b8abed0d
+  zh: ed032b55493017fb
+/agent-note-upstream-plugin-compatibility-and-who-may-install-one/proposal:
+  en: 60fe30c4c84856aa
+  zh: ccd0aa20b0580f16
+/agent-note-upstream-plugin-compatibility-and-who-may-install-one/proposal/the-alias-layer:
+  en: a624e5bf15381fca
+  zh: bd83e382c9817cbb
+/agent-note-upstream-plugin-compatibility-and-who-may-install-one/proposal/four-modes-one-of-which-is-different:
+  en: 18e91d5f5f3b220b
+  zh: 13ebd6c3554a7ea2
+/agent-note-upstream-plugin-compatibility-and-who-may-install-one/proposal/where-a-plugin-may-be-installed-and-by-whom:
+  en: d605f19399cc0fe2
+  zh: 1f53b67f34d56b17
+/agent-note-upstream-plugin-compatibility-and-who-may-install-one/proposal/a-plugin-an-organization-wrote-belongs-to-that-organization:
+  en: 78739cf2c1af8825
+  zh: 5af47af4bd5b8d16
+/agent-note-upstream-plugin-compatibility-and-who-may-install-one/proposal/the-runtime-decides-not-the-catalogue:
+  en: 78f89f14061bea1c
+  zh: cc24fb226195d557
+/agent-note-upstream-plugin-compatibility-and-who-may-install-one/alternatives-considered:
+  en: 06c5f8836caa1fdb
+  zh: 49166703f3cd2553
+/agent-note-upstream-plugin-compatibility-and-who-may-install-one/acceptance-criteria:
+  en: 403cbac349577c3d
+  zh: 0dd5045e337178a5
+/agent-note-upstream-plugin-compatibility-and-who-may-install-one/risks:
+  en: 9e5daa3fa6f202e9
+  zh: fc47339d66e4bdeb

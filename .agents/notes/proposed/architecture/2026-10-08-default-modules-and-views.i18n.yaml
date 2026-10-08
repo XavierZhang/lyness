@@ -1,0 +1,40 @@
+# Bilingual-pair consistency record for 2026-10-08-default-modules-and-views.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write .agents/notes/proposed/architecture/2026-10-08-default-modules-and-views.md
+/agent-note-which-modules-a-customer-gets-by-default-and-the-two-views-over-them:
+  en: a47fb12766f174a2
+  zh: 7ed78160ac061e60
+/agent-note-which-modules-a-customer-gets-by-default-and-the-two-views-over-them/problem:
+  en: 9e224d4cc071a8bd
+  zh: 06209fa4cd4f03db
+/agent-note-which-modules-a-customer-gets-by-default-and-the-two-views-over-them/proposal:
+  en: b57be9eff4e96406
+  zh: 561758e3fc4b227b
+/agent-note-which-modules-a-customer-gets-by-default-and-the-two-views-over-them/proposal/twelve-default-modules:
+  en: ffb9e6d6aeda0a54
+  zh: d5dbdea2c88aa52d
+/agent-note-which-modules-a-customer-gets-by-default-and-the-two-views-over-them/proposal/default-on-subject-to-plan-and-deployment:
+  en: 850869e08f39996c
+  zh: 420a75f2f40d6a81
+/agent-note-which-modules-a-customer-gets-by-default-and-the-two-views-over-them/proposal/a-plugin-may-replace-a-module-and-there-is-a-way-back:
+  en: 4565daa966a8e827
+  zh: 8fb8bbeb5d54c4c8
+/agent-note-which-modules-a-customer-gets-by-default-and-the-two-views-over-them/proposal/two-views-over-the-same-runtime:
+  en: 9447bf652de6ecff
+  zh: c766819b53ef881c
+/agent-note-which-modules-a-customer-gets-by-default-and-the-two-views-over-them/proposal/ui-organisation-borrowed-rather-than-invented:
+  en: 86a3b5f5bf0b0db9
+  zh: 7b0632d33b3ff735
+/agent-note-which-modules-a-customer-gets-by-default-and-the-two-views-over-them/proposal/plugin-authoring-follows-the-existing-cookbook:
+  en: f80f33e80721d938
+  zh: 98f248dbf754d9ba
+/agent-note-which-modules-a-customer-gets-by-default-and-the-two-views-over-them/alternatives-considered:
+  en: 904623a822fb0741
+  zh: de7e1d286311598a
+/agent-note-which-modules-a-customer-gets-by-default-and-the-two-views-over-them/acceptance-criteria:
+  en: 78a56f0bf4a87ea5
+  zh: 854f646be8d575e4
+/agent-note-which-modules-a-customer-gets-by-default-and-the-two-views-over-them/risks:
+  en: ffd19a9e7035716a
+  zh: bc6a63504b496395
