@@ -13,6 +13,10 @@ export type AgentPresetSettingsKey =
   | 'sectionIntro'
   | 'setDefault'
   | 'view'
+  | 'presetWorkName'
+  | 'presetWorkDescription'
+  | 'presetBuildName'
+  | 'presetBuildDescription'
   | 'presetStandardName'
   | 'presetStandardDescription'
   | 'presetPtcName'
@@ -34,7 +38,7 @@ export type AgentPresetSettingsKey =
 export const en: Record<AgentPresetSettingsKey, string> = {
   ...guideEn,
   builtInGroup: 'Built-in', customGroup: 'Custom',
-  sectionIntro: 'Choose the agent’s tools and how it works. Use Standard mode for everyday tasks, or Creator mode to add capabilities to {brandAbbr}.',
+  sectionIntro: 'Choose the agent’s tools and how it works. Use Work mode for everyday tasks, or Builder mode to add capabilities to {brandAbbr}.',
 
   seatHint: 'Choose the agent preset for your new task',
   headerHint: 'The agent preset chosen when this task started',
@@ -43,6 +47,12 @@ export const en: Record<AgentPresetSettingsKey, string> = {
   setDefault: 'Set as new task default',
   view: 'View configuration',
 
+  presetWorkName: 'Work mode',
+  presetWorkDescription:
+    'Everyday work and conversation over a folder you choose. Carries everything Standard and PTC modes offer separately: search, editing, one-shot commands, a terminal that keeps its state across calls, and batch tool calls through generated code.',
+  presetBuildName: 'Builder mode',
+  presetBuildDescription:
+    'Everything Work mode offers, plus customizing {brandAbbr} through conversation. Let the agent write plugins that add features or UI, or combine tools and prompts to create your own mode.',
   presetStandardName: 'Standard mode',
   presetStandardDescription:
     'Work with code, files, and information. Suitable for most tasks, with search, editing, terminal commands, and other tools available as needed.',
@@ -75,7 +85,7 @@ export const en: Record<AgentPresetSettingsKey, string> = {
 export const zh: Record<AgentPresetSettingsKey, string> = {
   ...guideZh,
   builtInGroup: '内置', customGroup: '自定义',
-  sectionIntro: '选择 Agent 的工具和工作方式。日常任务用「标准模式」，扩展 {brandAbbr} 的能力用「创造模式」。',
+  sectionIntro: '选择 Agent 的工具和工作方式。日常任务用「工作模式」，扩展 {brandAbbr} 的能力用「开发模式」。',
 
   seatHint: '选择新任务使用的 Agent 预设',
   headerHint: '本任务的 Agent 预设，在任务开始时确定',
@@ -84,6 +94,10 @@ export const zh: Record<AgentPresetSettingsKey, string> = {
   setDefault: '设为新任务默认',
   view: '查看配置',
 
+  presetWorkName: '工作模式',
+  presetWorkDescription: '日常办公与对话，工作目录由你选定的文件夹决定。包含标准模式与 PTC 模式各自的全部能力：检索、编辑、一次性命令、可跨轮次保持状态的终端，以及用生成代码批量调用工具。',
+  presetBuildName: '开发模式',
+  presetBuildDescription: '包含工作模式的全部能力，并可用对话定制 {brandAbbr}：让 Agent 编写插件，添加新功能或界面；也能组合工具和提示词，创建自己的模式。',
   presetStandardName: '标准模式',
   presetStandardDescription: '处理代码、文件和资料，适合大多数任务。Agent 会按需使用检索、编辑和终端等工具。',
   presetPtcName: 'PTC 模式',

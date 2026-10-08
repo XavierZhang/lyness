@@ -1,12 +1,15 @@
-# Agent preset ptc: one `@lyness/lyn-agent-preset` declaration inserted
-# after the web patch. Edits saved from the Web editor override this row's
-# `config.plugins` by id from the profile patch.
+# Agent preset work: the business-view default. The `standard` rows plus a
+# persistent terminal session and `both` tool presentation, so one preset
+# carries every capability `standard` and `ptc` offer separately. One
+# `@lyness/lyn-agent-preset` declaration inserted after the web patch; edits
+# saved from the Web editor override this row's `config.plugins` by id from
+# the profile patch.
 - insert:
-    - id: preset-ptc
+    - id: preset-work
       name: '@lyness/lyn-agent-preset'
       config:
-        id: ptc
-        order: 4
+        id: work
+        order: 1
         plugins:
           - id: persona
             name: '@lyness/lyn-persona'
@@ -31,6 +34,27 @@
               sampleOverCapGlobResults: false
           - id: tool-jobs
             name: '@lyness/lyn-tool-jobs'
+          - id: persistent-shell
+            name: cordis:group
+            group: true
+            isolate:
+              terminals: true
+            config:
+              - id: pty
+                name: '@lyness/lyn-terminal'
+              - id: terminal-bash
+                name: '@lyness/lyn-terminal-bash'
+                disabled: !!js process.platform === 'win32'
+                config:
+                  timeoutMs: 300000
+              - id: terminal-pwsh
+                name: '@lyness/lyn-terminal-bash'
+                disabled: !!js process.platform !== 'win32'
+                config:
+                  shellDialect: pwsh
+                  timeoutMs: 300000
+              - id: tool-terminal
+                name: '@lyness/lyn-tool-terminal'
           - id: skill-filesystem
             name: '@lyness/lyn-skill-filesystem'
           - id: tool-skill
@@ -118,12 +142,10 @@
                   maxDepth: provider-managed
               - id: workflow-ptc
                 name: '@lyness/lyn-workflow-ptc'
-                disabled: true
                 config:
                   provider: spawn
               - id: tool-workflow
                 name: '@lyness/lyn-tool-workflow'
-                disabled: true
               - id: tool-ralph
                 name: '@lyness/lyn-tool-ralph'
                 disabled: true
@@ -144,7 +166,7 @@
           - id: tool-presentation
             name: '@lyness/lyn-agent-tool-presentation'
             config:
-              mode: ptc
+              mode: both
           - id: present
             name: '@lyness/lyn-tool-present'
           - id: tool-plugin-manager

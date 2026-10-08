@@ -570,4 +570,4 @@
     - id: agent-preset-registry
       name: '@lyness/lyn-agent-preset-registry'
       config:
-        default: standard
+        default: work

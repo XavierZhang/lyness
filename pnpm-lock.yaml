@@ -2824,6 +2824,9 @@ importers:
       '@lyness/lyn-tool-todo':
         specifier: workspace:*
         version: link:../../todo/tool-todo
+      '@lyness/lyn-tool-terminal':
+        specifier: workspace:*
+        version: link:../../terminal/tool-terminal
       '@lyness/lyn-tool-web':
         specifier: workspace:*
         version: link:../../web/tool-web
@@ -14663,6 +14666,9 @@ importers:
       '@lyness/lyn-tool-subagent-control':
         specifier: workspace:*
         version: link:../../packages/subagent/tool-subagent-control
+      '@lyness/lyn-tool-terminal':
+        specifier: workspace:*
+        version: link:../../packages/terminal/tool-terminal
       '@lyness/lyn-tool-todo':
         specifier: workspace:*
         version: link:../../packages/todo/tool-todo

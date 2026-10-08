@@ -16,6 +16,17 @@ describe('presetDisplayText', () => {
     })
   })
 
+  it('resolves the two view defaults through their own dictionary keys', () => {
+    expect(presetDisplayText({ id: 'work' }, t)).toEqual({
+      name: 't:presetWorkName',
+      description: 't:presetWorkDescription',
+    })
+    expect(presetDisplayText({ id: 'build' }, t)).toEqual({
+      name: 't:presetBuildName',
+      description: 't:presetBuildDescription',
+    })
+  })
+
   it('keeps user-authored metadata untranslated', () => {
     expect(presetDisplayText({ id: 'mine', name: '我的模式', description: '自述' }, t))
       .toEqual({ name: '我的模式', description: '自述' })

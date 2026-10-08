@@ -9,6 +9,8 @@
 
 /** Dictionary keys carrying one shipped preset's display copy. */
 export type BuiltInPresetCopyKey =
+  | 'presetWorkName' | 'presetWorkDescription'
+  | 'presetBuildName' | 'presetBuildDescription'
   | 'presetStandardName' | 'presetStandardDescription'
   | 'presetPtcName' | 'presetPtcDescription'
   | 'presetMinimalName' | 'presetMinimalDescription'
@@ -38,6 +40,8 @@ interface PresetLocaleKeys {
 }
 
 const BUILT_IN_PRESET_KEYS: Readonly<Partial<Record<string, PresetLocaleKeys>>> = {
+  work: { name: 'presetWorkName', description: 'presetWorkDescription' },
+  build: { name: 'presetBuildName', description: 'presetBuildDescription' },
   standard: { name: 'presetStandardName', description: 'presetStandardDescription' },
   ptc: { name: 'presetPtcName', description: 'presetPtcDescription' },
   minimal: { name: 'presetMinimalName', description: 'presetMinimalDescription' },

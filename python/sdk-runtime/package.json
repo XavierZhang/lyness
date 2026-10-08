@@ -135,6 +135,7 @@
     "@lyness/lyn-tool-str-replace-editor": "workspace:*",
     "@lyness/lyn-tool-subagent": "workspace:*",
     "@lyness/lyn-tool-subagent-control": "workspace:*",
+    "@lyness/lyn-tool-terminal": "workspace:*",
     "@lyness/lyn-tool-todo": "workspace:*",
     "@lyness/lyn-tool-web": "workspace:*",
     "@lyness/lyn-tool-workflow": "workspace:*",

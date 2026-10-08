@@ -6,7 +6,7 @@
       name: '@lyness/lyn-agent-preset'
       config:
         id: standard
-        order: 1
+        order: 3
         plugins:
           - id: persona
             name: '@lyness/lyn-persona'

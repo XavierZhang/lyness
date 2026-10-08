@@ -1,18 +1,25 @@
-# Agent preset ptc: one `@lyness/lyn-agent-preset` declaration inserted
-# after the web patch. Edits saved from the Web editor override this row's
+# Agent preset build: the development-view default. The `cordis` rows — the
+# runtime self-modification tool and the preset-authoring skills — plus a
+# persistent terminal session and `both` tool presentation, so it carries
+# every capability the business-view `work` preset offers and the authoring
+# surface besides. One `@lyness/lyn-agent-preset` declaration inserted after
+# the web patch; edits saved from the Web editor override this row's
 # `config.plugins` by id from the profile patch.
 - insert:
-    - id: preset-ptc
+    - id: preset-build
       name: '@lyness/lyn-agent-preset'
       config:
-        id: ptc
-        order: 4
+        id: build
+        order: 2
         plugins:
+          # Same persona as `work`: tool descriptions and the skill catalog carry
+          # the operating detail, and the skills own the preset-authoring rules.
           - id: persona
             name: '@lyness/lyn-persona'
             config:
               suffix: Your working directory is {{cwd}}.
-              prefix: You are a coding agent powered by the {{model}} model.
+              prefix: >-
+                You are a coding agent powered by the {{model}} model.
           - id: agent-instructions
             name: '@lyness/lyn-agent-instructions'
             config:
@@ -31,10 +38,27 @@
               sampleOverCapGlobResults: false
           - id: tool-jobs
             name: '@lyness/lyn-tool-jobs'
-          - id: skill-filesystem
-            name: '@lyness/lyn-skill-filesystem'
-          - id: tool-skill
-            name: '@lyness/lyn-tool-skill'
+          - id: persistent-shell
+            name: cordis:group
+            group: true
+            isolate:
+              terminals: true
+            config:
+              - id: pty
+                name: '@lyness/lyn-terminal'
+              - id: terminal-bash
+                name: '@lyness/lyn-terminal-bash'
+                disabled: !!js process.platform === 'win32'
+                config:
+                  timeoutMs: 300000
+              - id: terminal-pwsh
+                name: '@lyness/lyn-terminal-bash'
+                disabled: !!js process.platform !== 'win32'
+                config:
+                  shellDialect: pwsh
+                  timeoutMs: 300000
+              - id: tool-terminal
+                name: '@lyness/lyn-tool-terminal'
           - id: command-goal
             name: '@lyness/lyn-command-goal'
           - id: tool-goal
@@ -118,12 +142,10 @@
                   maxDepth: provider-managed
               - id: workflow-ptc
                 name: '@lyness/lyn-workflow-ptc'
-                disabled: true
                 config:
                   provider: spawn
               - id: tool-workflow
                 name: '@lyness/lyn-tool-workflow'
-                disabled: true
               - id: tool-ralph
                 name: '@lyness/lyn-tool-ralph'
                 disabled: true
@@ -141,12 +163,21 @@
             config:
               fetch: true
               searchTimeoutMs: 60000
+          - id: tool-cordis
+            name: '@lyness/lyn-tool-cordis'
+          - id: skill-filesystem
+            name: '@lyness/lyn-skill-filesystem'
+            config:
+              customSkillDirs:
+                - !!js process.getBuiltinModule('node:path').join(process.getBuiltinModule('node:path').dirname(process.getBuiltinModule('node:module').createRequire(baseUrl).resolve('@lyness/lyn-agent-preset/package.json')), 'skills')
+          - id: tool-skill
+            name: '@lyness/lyn-tool-skill'
           - id: tool-presentation
             name: '@lyness/lyn-agent-tool-presentation'
             config:
-              mode: ptc
+              mode: both
           - id: present
             name: '@lyness/lyn-tool-present'
           - id: tool-plugin-manager
             name: '@lyness/lyn-plugin-manager/tools'
-            disabled: true
+            disabled: !!js "!ctx.get('profileContext')"
