@@ -24,7 +24,9 @@ Status: proposed
 
 ### index 注入按请求解析
 
-`brand-deployment` 仍然拥有注入，但不再是它唯一的来源。当请求解析出了租户、且该租户配置了品牌时，注入的是租户那份；否则仍是部署那份。客户端无需改动：它本来就只从页面全局读一个对象，而 [`brand-values.ts`](../../../../packages/client/locale/src/client/brand-values.ts) 本来就把每个成员当作不可信的页面数据来校验。
+`brand-deployment` 仍然拥有注入，但不再是它唯一的来源。品牌跟随请求**所行事的**那个组织，由[行事上下文](2026-10-08-people-memberships-and-acting-context.zh.md)给出：解析出组织的地址把上下文约束在该组织上，而平台自己的地址则从当前生效的上下文取得组织。当该组织配置了品牌时，注入的是它自己那份；否则仍是部署那份。
+
+仅凭地址解析，对从未启用子域的组织是错的：它的成员访问的是平台地址，那里的 hostname 不指向任何人，于是他们会在为自己组织行事的同时看到平台的品牌。客户端无需改动：它本来就只从页面全局读一个对象，而 [`brand-values.ts`](../../../../packages/client/locale/src/client/brand-values.ts) 本来就把每个成员当作不可信的页面数据来校验。
 
 ### 资产按租户寻址
 
@@ -62,7 +64,7 @@ Status: proposed
 ## Acceptance criteria
 
 - `TenantConfig.brand` 存在，`validateTenantConfig` 拒绝不可用的名字、未知的调色板令牌与不可用的颜色，且拒绝信息指明是哪个字段。
-- 解析出带品牌的租户的请求，其 index 注入得到该租户的品牌；解析出不带品牌的租户、或没有解析出租户的请求，得到部署品牌；没有部署品牌时得到内置的 lyness 取值。
+- 为带品牌的组织行事的请求，其 index 注入得到该组织的品牌，无论该组织是由地址还是由行事上下文指明的；为不带品牌的组织行事、或不为任何组织行事的请求，得到部署品牌；没有部署品牌时得到内置的 lyness 取值。
 - 配置了不同标志的两个租户收到不同的资产字节，且任一 URL 都无法回答另一个。
 - `tenant.save()` 拒绝来自不具备 `brand.customize` 的租户的 `brand` 变更，拒绝来自不具备 `brand.remove-attribution` 的租户的 `showPoweredBy: false`，两者都发生在 Remote 调用处而不是页面上。
 - 个人计划的租户渲染署名行，无论其存储的配置写了什么。

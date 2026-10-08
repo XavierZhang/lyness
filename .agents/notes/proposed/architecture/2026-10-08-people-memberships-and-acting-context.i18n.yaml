@@ -1,0 +1,43 @@
+# Bilingual-pair consistency record for 2026-10-08-people-memberships-and-acting-context.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write .agents/notes/proposed/architecture/2026-10-08-people-memberships-and-acting-context.md
+/agent-note-people-memberships-and-the-context-a-call-acts-in:
+  en: 018fb0773e5bf252
+  zh: 3abaf1a9e6ed6922
+/agent-note-people-memberships-and-the-context-a-call-acts-in/problem:
+  en: 9915cbc582375884
+  zh: 2b0a952cd1fb479c
+/agent-note-people-memberships-and-the-context-a-call-acts-in/proposal:
+  en: 2840ac615de53d95
+  zh: 6e0933bc2612cd3c
+/agent-note-people-memberships-and-the-context-a-call-acts-in/proposal/one-identity-several-memberships:
+  en: f5f57770e63bb485
+  zh: eaa150cfe83c1a87
+/agent-note-people-memberships-and-the-context-a-call-acts-in/proposal/the-acting-context-lives-in-the-authenticated-session:
+  en: 7d0e8eead84a013d
+  zh: 9b8f1d61da54a852
+/agent-note-people-memberships-and-the-context-a-call-acts-in/proposal/the-address-constrains-the-context-it-does-not-choose-it:
+  en: 38e03b27f7f8afee
+  zh: 490fa47e305c0634
+/agent-note-people-memberships-and-the-context-a-call-acts-in/proposal/x-tenant-id-stays-infrastructure:
+  en: 078c139388b722de
+  zh: 318d68dc15b43da0
+/agent-note-people-memberships-and-the-context-a-call-acts-in/proposal/a-new-organization-receives-its-first-administrator-from-the-platform:
+  en: ed301d0ec343a5c1
+  zh: e90d587fa40c4e3a
+/agent-note-people-memberships-and-the-context-a-call-acts-in/proposal/ending-a-standing-ends-the-membership-not-the-identity:
+  en: cc271349f204a39b
+  zh: 622d603c188b67ee
+/agent-note-people-memberships-and-the-context-a-call-acts-in/proposal/what-the-platform-administrator-may-not-do:
+  en: a479425734109888
+  zh: a206a4d8b9097b88
+/agent-note-people-memberships-and-the-context-a-call-acts-in/alternatives-considered:
+  en: 8ba62fc5f32af57c
+  zh: 8941611371bff8ce
+/agent-note-people-memberships-and-the-context-a-call-acts-in/acceptance-criteria:
+  en: 09c664f473ef9bc3
+  zh: 6fc476f9d5485689
+/agent-note-people-memberships-and-the-context-a-call-acts-in/risks:
+  en: cf63e98642e9ea49
+  zh: 126d672fcbc895ae

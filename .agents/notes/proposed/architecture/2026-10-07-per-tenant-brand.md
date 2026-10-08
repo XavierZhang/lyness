@@ -24,7 +24,9 @@ The names resolve as one set, the way they already do on the page: a tenant that
 
 ### The index injection resolves per request
 
-`brand-deployment` keeps owning the injection but stops being its only source. When the request resolved a tenant and that tenant configured a brand, the injected object is the tenant's; otherwise it is the deployment's, as today. The client needs no change: it already reads one object from the page global, and [`brand-values.ts`](../../../../packages/client/locale/src/client/brand-values.ts) already treats every member as untrusted page data.
+`brand-deployment` keeps owning the injection but stops being its only source. The brand follows the organization the request **acts for**, which [the acting context](2026-10-08-people-memberships-and-acting-context.md) states: an address that resolves an organization constrains the context to that organization, and the platform's own address takes the organization from the context in force. When that organization configured a brand, the injected object is its own; otherwise it is the deployment's, as today.
+
+Resolving from the address alone would be wrong for the organization that never took a subdomain: its members reach the platform's address, where the hostname names nobody, and they would see the platform's brand while acting for their own organization. The client needs no change: it already reads one object from the page global, and [`brand-values.ts`](../../../../packages/client/locale/src/client/brand-values.ts) already treats every member as untrusted page data.
 
 ### Assets are addressed by tenant
 
@@ -62,7 +64,7 @@ Tenants are reached at `<slug>.<base domain>`, which `tenant-request` already re
 ## Acceptance criteria
 
 - `TenantConfig.brand` exists, `validateTenantConfig` refuses an unusable name, an unknown palette token, and an unusable colour, and the refusal names the field.
-- A request that resolves a tenant with a brand gets that brand in its index injection; a request that resolves a tenant without one, or no tenant at all, gets the deployment brand; a deployment with no brand gets the built-in lyness values.
+- A request acting for an organization with a brand gets that brand in its index injection, whether the organization was named by the address or by the acting context; a request acting for an organization without one, or acting for none, gets the deployment brand; a deployment with no brand gets the built-in lyness values.
 - Two tenants configured with different marks are served different asset bytes, and neither URL can answer for the other.
 - `tenant.save()` refuses a `brand` change from a tenant without `brand.customize`, and refuses `showPoweredBy: false` from a tenant without `brand.remove-attribution`, in both cases through the Remote call rather than through the page.
 - An individual-plan tenant renders the attribution line, whatever its stored configuration says.
