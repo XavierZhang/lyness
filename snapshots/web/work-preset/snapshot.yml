@@ -1,0 +1,8 @@
+version: 1
+scenario: work-preset
+profile: web
+composition: web-work
+recording: authored
+header:
+  class: web-work
+  pin: true
