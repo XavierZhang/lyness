@@ -16,6 +16,8 @@ And conversations are stored together. [`session-persistence-jsonl`](../../../..
 
 So the hosted product has three different boundaries that are all missing, and naming them all "sandbox" hides that they need different mechanisms.
 
+One more gap belongs here because the metering below depends on it: [`packages/llm`](../../../../packages/llm/README.md) serves one vendor. Every adapter in it is DeepSeek — the shared Messages transport, the API-key and account authentication plugins, the model catalog — beside `llm-pi-ai`. The transport is the Anthropic Messages protocol and `DEEPSEEK_BASE_URL`, `DEEPSEEK_MODELS` and `DEEPSEEK_MAX_TOKENS` can redirect it, so one compatible endpoint can be substituted by a deployment. What does not exist is a second provider family in the tree, which is what "an organization brings its own model" actually requires.
+
 ## Proposal
 
 Three boundaries, each at the level that can actually hold it.
@@ -50,6 +52,14 @@ A team collaborates in-process. Teams collaborate over ACP, which is also how a 
 
 **A2A is deliberately not adopted.** It answers a different question — how agents from different vendors discover each other and negotiate a task — and adopting it before there is a counterpart to negotiate with would add a protocol with no correspondent. ACP already carries delegation, including to other vendors' agents, and the ACP seam is built. This stays open: a customer who needs to reach an A2A agent is the reason to revisit, and the subagent seam is where it would attach.
 
+### An organization may bring its own provider
+
+The platform supplies a model by default, and an organization may instead supply its own credentials for a provider the deployment registers. A provider family is a package in [`packages/llm`](../../../../packages/llm/README.md) owning one vendor's transport, authentication, and model capabilities; a credential is tenant configuration, resolved per request like the rest of it.
+
+Substituting an endpoint through `DEEPSEEK_BASE_URL` is not this. That redirects one adapter at the process level, so it serves a deployment that swapped in a compatible endpoint and cannot serve two organizations on different vendors in the same hosted product. Naming each vendor's family as its own package is what makes the second organization possible.
+
+Capability differences are the provider's to declare, not the agent's to discover. Context window, image input, prompt-cache behaviour, and whether a model accepts tool updates mid-session already come from the catalog; a second family declares the same facts, and the loop keeps reading them from one place.
+
 ### Metering follows the person
 
 Usage is attributed to the member who acted, not only to the organization, so an organization can see which of its people and which of its departments spent what. Where the platform supplies the model, that attribution also enforces: a quota belongs to a membership and a plan, and work stops when it is exhausted.
@@ -68,6 +78,8 @@ Where an organization brings its own model credentials, usage is recorded for re
 
 **Adopt A2A now.** It is where multi-vendor agent interoperation is heading. Deferred: no counterpart yet, and ACP already covers delegation including across vendors.
 
+**Substitute an endpoint instead of adding a provider family.** `DEEPSEEK_BASE_URL` already redirects the transport, and the protocol is the Anthropic Messages API, so one compatible vendor costs nothing. Rejected as the hosted answer: it is a process-level swap, so it serves a deployment and not two organizations on different vendors at once. It stays the right answer for a private deployment.
+
 **Meter per organization only.** Simpler, and matches how the organization is billed. Rejected: an organization cannot manage seats or departments it cannot measure, and per-member attribution is what makes a seat meaningful.
 
 ## Acceptance criteria
@@ -76,6 +88,8 @@ Where an organization brings its own model credentials, usage is recorded for re
 - A main agent and the children it creates run in one process, and a child is seeded with the parent's completed turns as it is today.
 - A command runs inside a container whose filesystem is the session workspace and whose network reachability is what the organization permits; the file-effect policy still applies inside it.
 - Delegation across processes, including to a non-lyness agent, goes over ACP; no new agent-to-agent protocol is introduced.
+- A second provider family exists as its own package, declaring its own transport, authentication, and model capabilities, and the agent loop reads capabilities from the catalog rather than from a provider-specific branch.
+- An organization's own model credentials are tenant configuration resolved per request, not process environment.
 - Usage records the acting membership, not only the organization.
 - With a platform-supplied model, an exhausted quota stops further work; with an organization's own credentials, usage is recorded and no limit is claimed.
 
@@ -86,5 +100,7 @@ Where an organization brings its own model credentials, usage is recorded for re
 **Containers add a layer to operate.** Image lifecycle, start latency on a cold conversation, and what happens when the container dies mid-command are all new operational surface. A command that fails because its container vanished must not read to the agent as a command that failed.
 
 **The in-process team is a trust unit.** Within a team there is no boundary, so a child agent is as privileged as its parent. That is correct for delegation the customer asked for, and it means a prompt that convinces a parent to delegate also inherits the parent's reach.
+
+**One vendor's assumptions are already in the tree.** Everything in `packages/llm` was written against one provider, and the first second family is where it becomes clear which of those are protocol facts and which were that vendor's habits. The `deepseek-llm-api-extensions` package names the category that will not generalize.
 
 **Unenforceable quotas invite misreading.** A customer bringing their own model will see usage numbers and may assume a limit exists behind them. The surface has to say plainly that it reports and does not restrict, or the first surprise bill becomes the platform's fault.

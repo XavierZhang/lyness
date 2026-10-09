@@ -1,0 +1,37 @@
+# Bilingual-pair consistency record for 2026-10-09-memory-recall-and-prompt-assembly.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write .agents/notes/proposed/architecture/2026-10-09-memory-recall-and-prompt-assembly.md
+/agent-note-what-the-agent-remembers-what-it-can-look-up-and-how-its-prompt-is-assembled:
+  en: 8ee5b43a23e64732
+  zh: ae41c4dbb00046e5
+/agent-note-what-the-agent-remembers-what-it-can-look-up-and-how-its-prompt-is-assembled/problem:
+  en: 7c0fee918b1b772b
+  zh: b4c6fa969b6217b0
+/agent-note-what-the-agent-remembers-what-it-can-look-up-and-how-its-prompt-is-assembled/proposal:
+  en: c518032608508a80
+  zh: 113be340a4064c31
+/agent-note-what-the-agent-remembers-what-it-can-look-up-and-how-its-prompt-is-assembled/proposal/every-prompt-section-declares-a-tier:
+  en: 3b55d0bee6abc692
+  zh: d1429ae973fe1ca7
+/agent-note-what-the-agent-remembers-what-it-can-look-up-and-how-its-prompt-is-assembled/proposal/memory-belongs-to-a-membership-and-the-organization-can-see-it:
+  en: 5e0544bb1b851925
+  zh: 0873edf289194e28
+/agent-note-what-the-agent-remembers-what-it-can-look-up-and-how-its-prompt-is-assembled/proposal/recall-becomes-default-on-with-its-authorization-unchanged:
+  en: a58b9bd82d3219f5
+  zh: 1094bc4a9c397501
+/agent-note-what-the-agent-remembers-what-it-can-look-up-and-how-its-prompt-is-assembled/proposal/workspace-instruction-files-are-untrusted-input:
+  en: c19c412acc896bfb
+  zh: b151fbc17002d85b
+/agent-note-what-the-agent-remembers-what-it-can-look-up-and-how-its-prompt-is-assembled/proposal/memory-and-the-knowledge-base-are-different-things:
+  en: 08a047989aba2eba
+  zh: d3a89e82e6f03698
+/agent-note-what-the-agent-remembers-what-it-can-look-up-and-how-its-prompt-is-assembled/alternatives-considered:
+  en: 8d2afb0a363d33ce
+  zh: 567e79d0baefd3ac
+/agent-note-what-the-agent-remembers-what-it-can-look-up-and-how-its-prompt-is-assembled/acceptance-criteria:
+  en: 1f0a2ea9bffb376e
+  zh: f66b49871a666ef5
+/agent-note-what-the-agent-remembers-what-it-can-look-up-and-how-its-prompt-is-assembled/risks:
+  en: c96156f1c981a5b4
+  zh: 25a74c9325bca594

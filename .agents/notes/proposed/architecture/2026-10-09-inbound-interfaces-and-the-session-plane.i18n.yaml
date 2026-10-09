@@ -1,0 +1,43 @@
+# Bilingual-pair consistency record for 2026-10-09-inbound-interfaces-and-the-session-plane.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write .agents/notes/proposed/architecture/2026-10-09-inbound-interfaces-and-the-session-plane.md
+/agent-note-how-work-reaches-an-agent-and-the-one-session-plane-it-lands-on:
+  en: fa375c5d78ac7a02
+  zh: 2da58aa9309ea113
+/agent-note-how-work-reaches-an-agent-and-the-one-session-plane-it-lands-on/problem:
+  en: 2e72f164163215de
+  zh: 1126f57e1fdc37a5
+/agent-note-how-work-reaches-an-agent-and-the-one-session-plane-it-lands-on/proposal:
+  en: 7f246e3c781acb7c
+  zh: ed92264e4154a56b
+/agent-note-how-work-reaches-an-agent-and-the-one-session-plane-it-lands-on/proposal/every-inbound-surface-resolves-an-acting-membership-then-does-one-of-three-things:
+  en: 0be2ad3df5f24040
+  zh: 0ab92347270aeca3
+/agent-note-how-work-reaches-an-agent-and-the-one-session-plane-it-lands-on/proposal/adapters-authenticate-the-plane-authorizes:
+  en: 222c11255818a143
+  zh: b37e1cd9a0d58156
+/agent-note-how-work-reaches-an-agent-and-the-one-session-plane-it-lands-on/proposal/an-external-account-binds-to-a-membership-and-the-organization-owns-the-binding:
+  en: 34ba423ae56e1d9a
+  zh: dc5893a862b4d5fe
+/agent-note-how-work-reaches-an-agent-and-the-one-session-plane-it-lands-on/proposal/the-inbound-event-runs-under-the-acting-membership-s-permissions:
+  en: 5db6ae4ae47ee1a9
+  zh: 4fc65f0d2904216c
+/agent-note-how-work-reaches-an-agent-and-the-one-session-plane-it-lands-on/proposal/delivery-reuses-what-schedule-proved:
+  en: 59d96493c60b2965
+  zh: 68c8585cd8df73e5
+/agent-note-how-work-reaches-an-agent-and-the-one-session-plane-it-lands-on/proposal/first-adapters:
+  en: dd58c813010d3e76
+  zh: 6a43c49c1e180b5b
+/agent-note-how-work-reaches-an-agent-and-the-one-session-plane-it-lands-on/proposal/inbound-and-outbound-stay-separate-packages:
+  en: 687cfc763a0bf9f7
+  zh: abe4febe88305cfe
+/agent-note-how-work-reaches-an-agent-and-the-one-session-plane-it-lands-on/alternatives-considered:
+  en: ddd3dc52c141b19a
+  zh: 6d042072c98ff5c9
+/agent-note-how-work-reaches-an-agent-and-the-one-session-plane-it-lands-on/acceptance-criteria:
+  en: 81b8e9bd77a16f82
+  zh: 3ff6d822b09c7467
+/agent-note-how-work-reaches-an-agent-and-the-one-session-plane-it-lands-on/risks:
+  en: 039fe18071299b24
+  zh: 38a7fb2ff4b8aa47

@@ -6,8 +6,8 @@
   en: c2e07df4c9b8b7a0
   zh: 6063b0d7c9f83cef
 /agent-note-what-an-agent-runs-inside-and-how-agents-work-together/problem:
-  en: bb97fca7b7635d35
-  zh: be85658237808b35
+  en: b151db32f1424db6
+  zh: ea9dfd35ab6db3a7
 /agent-note-what-an-agent-runs-inside-and-how-agents-work-together/proposal:
   en: 9a233c53495897bf
   zh: 63676040bc8926d4
@@ -23,15 +23,18 @@
 /agent-note-what-an-agent-runs-inside-and-how-agents-work-together/proposal/agents-work-together-over-protocols-that-already-exist:
   en: a5e8237349a4cce1
   zh: b036c55f48e1a6e4
+/agent-note-what-an-agent-runs-inside-and-how-agents-work-together/proposal/an-organization-may-bring-its-own-provider:
+  en: 37c2eb8be33a03ba
+  zh: 40492faeaf23ea45
 /agent-note-what-an-agent-runs-inside-and-how-agents-work-together/proposal/metering-follows-the-person:
   en: f066773c8b6ee73d
   zh: 1a48e087e203f08d
 /agent-note-what-an-agent-runs-inside-and-how-agents-work-together/alternatives-considered:
-  en: 2a5ceb3bfa70dd48
-  zh: cf2c092fe85a08f1
+  en: bdb32e2f41270676
+  zh: e7616780794ecc62
 /agent-note-what-an-agent-runs-inside-and-how-agents-work-together/acceptance-criteria:
-  en: 3dd41c5c6d0eb1aa
-  zh: fc8d77c005e966b1
+  en: 6b7f614b2b70386a
+  zh: 733f54a7ace376b9
 /agent-note-what-an-agent-runs-inside-and-how-agents-work-together/risks:
-  en: b1e64e3e0b6ee0d4
-  zh: bdaff01ffcf67a70
+  en: d96cff3457c56720
+  zh: a891e6ce6194133b
