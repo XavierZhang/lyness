@@ -51,6 +51,12 @@
     - id: subagent-model-selection-settings
       name: '@lyness/lyn-tool-subagent/model-selection-settings'
 
+    # One durable memory store per deployment, on the Host plane: the storage
+    # domain has a single owner, and the prompt contribution applies to every
+    # agent. The preset rows carry only the model-facing write tools.
+    - id: memory
+      name: '@lyness/lyn-memory'
+
     - id: message-feedback
       name: '@lyness/lyn-message-feedback'
       config:

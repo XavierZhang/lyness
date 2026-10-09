@@ -14,6 +14,9 @@ const SNAPSHOT_DIR = fileURLToPath(new URL('../../../snapshots/web/work-preset',
 const FIXTURE = join(SNAPSHOT_DIR, 'session.v4.jsonl')
 const PROMPT = "Use the bash tool to run exactly: printf 'WORK_BASH_CARD_OK\\n'. Then reply exactly WORK_PRESET_REQUEST_OK and stop."
 
+/** The explicit memory write path `@lyness/lyn-memory/tools` contributes. */
+const MEMORY_TOOLS = ['memory_write', 'memory_list', 'memory_forget']
+
 /** The read-only recall tools `tool-session-query` contributes. */
 const RECALL_TOOLS = [
   'session_search', 'session_event_search', 'session_trace', 'session_event_trace', 'session_event_read',
@@ -71,6 +74,11 @@ describe('work agent preset', () => {
     // Recall ships on by default: the tools are useless without the index the
     // web patch opens at `first-search`, so this pins the pair together.
     expect(names).toEqual(expect.arrayContaining(RECALL_TOOLS))
+
+    // Memory's service is Host-plane (one durable store, one domain owner)
+    // while only its write tools are per-agent, so this pins the split.
+    expect(names).toEqual(expect.arrayContaining(MEMORY_TOOLS))
+    expect(scaffold.ctx.get('memory')).not.toBeUndefined()
 
     // The business view keeps the whole `standard` surface, not a reduced one.
     expect(names).toEqual(expect.arrayContaining(['read', 'write', 'edit', 'web_search', 'skill', 'todo_write']))

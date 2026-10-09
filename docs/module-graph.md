@@ -322,6 +322,9 @@ flowchart TD
     pkg_mcp_client["mcp-client"]
     pkg_mcp_resources["mcp-resources"]
   end
+  subgraph group_memory["packages/memory"]
+    pkg_memory["memory"]
+  end
   subgraph group_preset["packages/preset"]
     pkg_agent_preset["agent-preset"]
     pkg_agent_preset_registry["agent-preset-registry"]
@@ -947,6 +950,11 @@ flowchart TD
   pkg_mcp_resources --> pkg_scope
   pkg_mcp_resources --> pkg_system_prompt
   pkg_mcp_resources --> pkg_tools
+  pkg_memory --> pkg_brand
+  pkg_memory --> pkg_storage_domain
+  pkg_memory --> pkg_system_prompt
+  pkg_memory --> pkg_tools
+  pkg_memory --> pkg_util_crypto
   pkg_agent_preset_registry --> pkg_agent
   pkg_agent_preset_registry --> pkg_invariants
   pkg_agent_preset_registry --> pkg_scope
@@ -1659,6 +1667,7 @@ flowchart TD
 | [`tool-jobs`](../packages/jobs/tool-jobs) | `jobs` | [`agent`](../packages/core/agent), [`jobs`](../packages/jobs/jobs), [`llm`](../packages/llm/llm), [`output-retention`](../packages/util/output-retention), [`system-prompt`](../packages/core/system-prompt), [`tools`](../packages/core/tools) |
 | [`tool-lsp`](../packages/lsp/tool-lsp) | `lsp` | [`llm`](../packages/llm/llm), [`lsp`](../packages/lsp/lsp), [`system-prompt`](../packages/core/system-prompt), [`timeout`](../packages/util/timeout), [`tools`](../packages/core/tools) |
 | [`mcp-resources`](../packages/mcp/mcp-resources) | `mcp` | [`llm`](../packages/llm/llm), [`scope`](../packages/core/scope), [`system-prompt`](../packages/core/system-prompt), [`tools`](../packages/core/tools) |
+| [`memory`](../packages/memory/memory) | `memory` | [`brand`](../packages/util/brand), [`storage-domain`](../packages/storage/storage-domain), [`system-prompt`](../packages/core/system-prompt), [`tools`](../packages/core/tools), [`util-crypto`](../packages/util/crypto) |
 | [`agent-preset-registry`](../packages/preset/agent-preset-registry) | `preset` | [`agent`](../packages/core/agent), [`invariants`](../packages/runtime-diagnostics/invariants), [`scope`](../packages/core/scope), [`session`](../packages/core/session), [`session-projection`](../packages/session/session-projection), [`settings`](../packages/settings/settings), [`system-prompt`](../packages/core/system-prompt), [`tools`](../packages/core/tools), [`typert-protocol`](../packages/typert/protocol) |
 | [`session-checkpoint-policy`](../packages/session/session-checkpoint-policy) | `session` | [`agent`](../packages/core/agent), [`llm`](../packages/llm/llm), [`session`](../packages/core/session), [`session-persistence`](../packages/session/session-persistence), [`tools`](../packages/core/tools) |
 | [`session-title-all-prompts-llm`](../packages/session/session-title-all-prompts-llm) | `session` | [`llm`](../packages/llm/llm), [`session`](../packages/core/session), [`session-title`](../packages/session/session-title), [`session-title-llm`](../packages/session/session-title-llm) |

@@ -92,6 +92,7 @@ export const SERVICE_PAGE: Record<string, string> = {
   fileReferences: 'session-reference.md',
   fs: 'filesystem.md',
   goals: 'goal.md',
+  memory: 'memory.md',
   schedule: 'schedule.md',
   inspector: 'extensions.md',
   webServer: 'web-server.md',
@@ -277,6 +278,9 @@ export const EVENT_WALK_EXEMPTIONS: Record<string, string> = {
  * appear on more than one page.
  */
 export const LINK_MAP: Readonly<Record<string, string>> = {
+  MemoryId: 'memory.md',
+  MemoryRecord: 'memory.md',
+  MemoryScope: 'memory.md',
   ProductTelemetryRecord: 'product-telemetry.md',
   ProductTelemetryScalar: 'product-telemetry.md',
   WorkspaceChangesSummary: 'deliverables.md',

@@ -13,6 +13,7 @@ One page per subsystem of the lyness: what it is, the data structures it moves, 
 | [scope.md](scope.md) | scoped registration identity, dispatch carriers, and the owned `Scope` context |
 | [typert.md](typert.md) | Remote invocation descriptors, lookup/Context declarations, Typert registries, and the Host Gateway/Client API boundaries |
 | [goal.md](goal.md) | persisted goal identity, lifecycle snapshots, activation, change records, and round attribution |
+| [memory.md](memory.md) | durable cross-session facts, the explicit write path, retention, scope, and how memory differs from the knowledge base |
 | [schedule.md](schedule.md) | Host-owned reminder records, durable transitions, active and ended views, and ordinary-conversation delivery |
 | [todo.md](todo.md) | the todo package's whole-list item type, durable event ownership, projection, and open-turn invariant |
 | [deliverables.md](deliverables.md) | what a turn hands to the user: `PresentedFile` deliveries from `present` and the Host-served `WorkspaceChangesSummary` of changed files from git snapshots |

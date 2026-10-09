@@ -305,6 +305,12 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@lyness/lyn-mcp-client` | yes | MCP client bridge: connects to MCP servers and registers their tools on ctx.tools |
 | `@lyness/lyn-mcp-resources` | no | Scoped MCP resource discovery and reading through shared model tools |
 
+## memory
+
+| Package | Config | Description |
+|---|---|---|
+| `@lyness/lyn-memory` | yes | Durable agent memory: explicitly written facts folded into every later request as runtime context |
+
 ## plan
 
 | Package | Config | Description |

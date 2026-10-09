@@ -1486,6 +1486,32 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
     ],
   },
   {
+    key: 'memory',
+    summary: 'Durable memory with an explicit write path and a prompt contribution.',
+    description: 'Durable memory with an explicit write path and a prompt contribution.',
+    methods: [
+      {
+        signature: 'async remember(text: string, scope: MemoryScope = \'member\'): Promise<MemoryRecord>',
+        description: 'Keep one fact. The only write path: there is no listener that stores anything a caller did not ask for.',
+        parameters: [{ name: 'text', description: 'the fact to keep, trimmed and non-empty.' }, { name: 'scope', description: 'reach of the entry; defaults to the writing member.' }],
+        returns: 'the stored record, including its new identity.',
+        throws: ['{TypeError} when the text is blank or longer than {@link MAX_ENTRY_CHARS}.'],
+      },
+      {
+        signature: 'async list(): Promise<readonly MemoryRecord[]>',
+        description: 'Read every kept fact, oldest first.',
+        parameters: [],
+        returns: 'the stored records in write order.',
+      },
+      {
+        signature: 'async forget(id: MemoryId): Promise<boolean>',
+        description: 'Remove one kept fact.',
+        parameters: [{ name: 'id', description: 'the record\'s identity.' }],
+        returns: 'true when an entry was removed, false when none carried that id.',
+      },
+    ],
+  },
+  {
     key: 'messageFeedback',
     summary: 'Session-log service; cold operations never construct a Session or Agent.',
     description: 'Session-log service; cold operations never construct a Session or Agent.',
@@ -5702,6 +5728,22 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'McpResourceRequest',
     declaration: 'export type McpResourceRequest = {\n    method: \'resources/list\' | \'resources/templates/list\';\n    cursor?: string;\n} | {\n    method: \'resources/read\';\n    uri: string;\n};',
+  },
+  {
+    name: 'MemoryEntry',
+    declaration: 'export interface MemoryEntry {\n    readonly text: string;\n    readonly scope: MemoryScope;\n    readonly writtenAt: string;\n}',
+  },
+  {
+    name: 'MemoryId',
+    declaration: 'export type MemoryId = Branded<\'MemoryId\'>;',
+  },
+  {
+    name: 'MemoryRecord',
+    declaration: 'export interface MemoryRecord extends MemoryEntry {\n    readonly id: MemoryId;\n}',
+  },
+  {
+    name: 'MemoryScope',
+    declaration: 'export type MemoryScope = \'member\' | \'shared\';',
   },
   {
     name: 'Message',

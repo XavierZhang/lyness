@@ -164,6 +164,18 @@ interface ToolArgsMap {
     /** children (default) lists direct children, which accept send_message in any status. descendants lists the whole tree below you with each entry's parent session id and depth; entries deeper than 1 accept only interrupt_agent. */
     scope?: "children" | "descendants";
   } & Record<string, JsonValue>;
+  /** Remove one remembered fact by its id, after the user asks for it to be forgotten or corrects it. */
+  memory_forget: {
+    /** The id `memory_list` reported for that fact. */
+    id: string;
+  } & Record<string, JsonValue>;
+  /** List every remembered fact with its id. The same facts are already in your context; call this only when you need an id to remove one. */
+  memory_list: Record<string, JsonValue>;
+  /** Remember one durable fact about this workspace or the people in it, so later sessions start with it. Use it when the user asks you to remember something, or states a lasting preference or convention. Do not record task state, secrets, or anything the user did not mean to keep. */
+  memory_write: {
+    /** The fact to keep, at most 2048 characters. */
+    text: string;
+  } & Record<string, JsonValue>;
   /** Declare existing files as final deliverables for the user. Use it when the user needs a separate file, especially Office documents, spreadsheets, and slide decks; prefer your final response when that suffices. The user opens the current files; their contents are not copied. */
   present: {
     /** Usually the 1-2 most important deliverables; at most 4 per call. */
@@ -553,6 +565,9 @@ interface ToolOutputMap {
     parent?: string;
     depth?: number;
   })[];
+  memory_forget: string;
+  memory_list: string;
+  memory_write: string;
   present: {
     turn: number;
     files: {

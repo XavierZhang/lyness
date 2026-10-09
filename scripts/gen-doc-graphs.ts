@@ -596,6 +596,13 @@ const SERVICE_ROLES: ServiceRole[] = [
     note: 'Stores tasks independently of Session activation and queues due messages in the original Session.',
   },
   {
+    key: 'memory',
+    pkg: 'memory',
+    title: 'Durable cross-session memory',
+    mode: 'core',
+    note: 'Keeps explicitly written facts in a storage domain and folds them into each request as runtime context; writes never derive from a transcript.',
+  },
+  {
     key: 'goals',
     pkg: 'goal',
     title: 'Same-session goal domain',

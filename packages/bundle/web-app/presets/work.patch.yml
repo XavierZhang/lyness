@@ -158,6 +158,8 @@
             name: '@lyness/lyn-tool-todo'
             config:
               allowParallelInProgress: true
+          - id: memory-tools
+            name: '@lyness/lyn-memory/tools'
           - id: tool-session-query
             name: '@lyness/lyn-tool-session-query'
           - id: tool-web

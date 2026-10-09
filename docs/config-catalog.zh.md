@@ -2128,6 +2128,25 @@ export interface ReconnectConfig {
 ```
 <!-- END GENERATED config-catalog:@lyness/lyn-mcp-client -->
 
+<!-- BEGIN GENERATED config-catalog:@lyness/lyn-memory -->
+<a id="lynesslyn-memory"></a>
+
+## `@lyness/lyn-memory`
+
+- `inject`: `storageDomain` · `systemPrompt`
+- `source`: [`packages/memory/memory/src/index.ts:65`](../packages/memory/memory/src/index.ts)
+
+```ts config-catalog
+/** Deployment-owned retention and prompt placement. Invalid values fail plugin load. */
+export interface Config {
+  /** Entries retained before the oldest is dropped on write. Defaults to 200. */
+  maxEntries?: number
+  /** Runtime-context sort position. Defaults to 130, after the policy entries. */
+  contextOrder?: number
+}
+```
+<!-- END GENERATED config-catalog:@lyness/lyn-memory -->
+
 <!-- BEGIN GENERATED config-catalog:@lyness/lyn-message-feedback -->
 <a id="lynesslyn-message-feedback"></a>
 

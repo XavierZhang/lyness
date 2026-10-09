@@ -324,6 +324,46 @@
       }
     },
     {
+      "name": "memory_forget",
+      "description": "Remove one remembered fact by its id, after the user asks for it to be forgotten or corrects it.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The id `memory_list` reported for that fact."
+          }
+        },
+        "required": [
+          "id"
+        ]
+      }
+    },
+    {
+      "name": "memory_list",
+      "description": "List every remembered fact with its id. The same facts are already in your context; call this only when you need an id to remove one.",
+      "parameters": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "memory_write",
+      "description": "Remember one durable fact about this workspace or the people in it, so later sessions start with it. Use it when the user asks you to remember something, or states a lasting preference or convention. Do not record task state, secrets, or anything the user did not mean to keep.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "The fact to keep, at most 2048 characters."
+          }
+        },
+        "required": [
+          "text"
+        ]
+      }
+    },
+    {
       "name": "present",
       "description": "Declare existing files as final deliverables for the user. Use it when the user needs a separate file, especially Office documents, spreadsheets, and slide decks; prefer your final response when that suffices. The user opens the current files; their contents are not copied.",
       "parameters": {

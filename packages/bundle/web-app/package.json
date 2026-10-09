@@ -144,6 +144,7 @@
     "@lyness/lyn-host-webserver": "workspace:*",
     "@lyness/lyn-launch-environment": "workspace:*",
     "@lyness/lyn-message-feedback": "workspace:*",
+    "@lyness/lyn-memory": "workspace:*",
     "@lyness/lyn-office-to-pdf": "workspace:*",
     "@lyness/lyn-persona": "workspace:*",
     "@lyness/lyn-plan-mode": "workspace:*",

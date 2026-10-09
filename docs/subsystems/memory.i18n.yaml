@@ -1,0 +1,25 @@
+# Bilingual-pair consistency record for memory.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write docs/subsystems/memory.md
+/memory:
+  en: cea88ab2d34c33b3
+  zh: 48c2c18f033d0ebc
+/memory/what-a-memory-is:
+  en: caaa026cabaf302b
+  zh: e21822bc5e0a9f01
+/memory/writes-are-explicit:
+  en: 8fdde941531fb666
+  zh: 465630f0659a4c3f
+/memory/scope:
+  en: 788c76b1e6da7446
+  zh: 3b37702a87827a7e
+/memory/how-a-memory-reaches-the-model:
+  en: 95cbb57accac8ffc
+  zh: 54efd56b37d8c307
+/memory/memory-is-not-the-knowledge-base:
+  en: ad582fc6049af63e
+  zh: 842bd1b48a431cca
+/memory/governance:
+  en: 42a915b3c47f2ea6
+  zh: c106f64286124398
