@@ -18,6 +18,10 @@ What is missing is the part a hosted customer needs.
 
 **Nothing maps an external account to a person.** [The acting context](2026-10-08-people-memberships-and-acting-context.md) says a request acts in a membership, and [attribution records that membership](2026-10-07-session-ownership.md). An inbound event has no such membership: webhook's own rules are "trusted programmatic", so the rule's author decides what happens, not the person the work is for. On shared hosted infrastructure that is the wrong authority.
 
+**And no person is authenticated anywhere.** [`packages/identity`](../../../../packages/identity/anonymous-user-id/README.md) holds one anonymous installation id for telemetry correlation, which "contains no machine or account data" by design. Nothing in the tree establishes who a human is. That is why the binding below has to start as a manual act: there is no directory to read it from.
+
+The mechanism to fix that is already built, for one provider. [`lyn-authorization`](../../../../packages/credentials/authorization/README.md) is deliberately provider-agnostic — "the package provides no provider-specific methods itself" — and [`deepseek-account-platform`](../../../../packages/credentials/deepseek-account-platform/README.md) is its one integration, running a full OAuth 2.0 authorization-code flow with S256 PKCE: it registers `/oauth/callback` on the existing Host web server, validates `state`, exchanges the code once, and commits a grant. Every vendor sign-in this note needs is that same flow against a different issuer.
+
 **And the inbound direction has no owner.** The [default-modules note](2026-10-08-default-modules-and-views.md) gives the connector catalog to MCP servers — the agent reaching the customer's systems. The opposite direction, the customer's people and systems handing work to the agent, is not in that list. That omission is this note's reason to exist, and it is the direction customers ask for first: they want the agent reachable from the chat tool their company already uses, not only from this product's own page.
 
 ## Proposal
@@ -36,7 +40,9 @@ Webhook's README already draws this line — "provider authentication belongs to
 
 ### An external account binds to a membership, and the organization owns the binding
 
-A DingTalk userid, a Feishu open_id, or a CRM user id maps to a membership through a binding an organization administrator creates. An external identity with no binding cannot start a session, and the refusal says so rather than silently dropping the event.
+A DingTalk userid, a Feishu open_id, or a CRM user id maps to a membership through a binding the organization owns. An external identity with no binding cannot start a session, and the refusal says so rather than silently dropping the event.
+
+An administrator may create a binding by hand, and where the organization has connected that vendor's identity face the binding comes from the directory instead: the person signs in once through the vendor, and the account that signed in is the account that is bound. Manual binding stays available for systems with no identity face, such as a CRM, but it stops being the only way in.
 
 This is what lets attribution keep working: the session is owned by the person the work is for, in the membership they act in, exactly as it is when they open the product themselves.
 
@@ -48,9 +54,25 @@ An arriving event carries the resolved membership's permission preset and plan, 
 
 Follow-up delivery into a cold session is solved: schedule restores the session and appends the occurrence. Inbound follow-ups use that same path rather than a second mechanism.
 
-### First adapters
+### A vendor integration contributes identity, a channel, or both
 
-One messaging adapter ships to prove the seam end to end — DingTalk or Feishu, whichever the first customer uses — and `webhook-github` stays as the second shape, an event becoming a new session. Two adapters of different shapes is the smallest set that shows the seam is a seam and not one provider's special case.
+One vendor is one package, and it may contribute two faces. The **identity face** signs a person in and answers which memberships they hold, through the OAuth flow `deepseek-account-platform` already proves. The **channel face** receives that vendor's events and delivers replies. A vendor with both shares one application credential and one token-refresh path.
+
+Sharing them is the reason the package is per vendor rather than per face. DingTalk, Feishu and WeCom each issue one enterprise application credential that both faces use; splitting them into a channel package and an identity package would copy that credential and its refresh into two owners. Microsoft is the same relationship across two product names: Entra ID is the identity face, Teams is the channel face, and Teams' own bot tokens are issued by Entra, so the channel face cannot be built independently of the identity one anyway.
+
+All four vendors — DingTalk, Feishu, WeCom, Microsoft — are in scope for both faces. The identity face is worth having even for an organization that never connects the channel, because the same sign-in serves the product's own web surface and populates the bindings above.
+
+### Tenant credentials live where the agent cannot read them
+
+A vendor application credential belongs to the organization, and on hosted infrastructure the agent must not be able to read it. [`credentials-local`](../../../../packages/credentials/credentials-local/README.md) states plainly that it cannot provide this: its file is readable by the OS user, and "agent tool processes run as that same user, so this store cannot isolate secrets from the agent". That is correct for a developer's own machine, where the secret is theirs. It is not correct for a customer's enterprise application secret on shared infrastructure, where a single `bash` call would read it.
+
+A credential store the agent cannot reach is therefore a **precondition** for hosted inbound, not a later refinement. It is the same boundary as [the command container](2026-10-08-agent-isolation-and-teams.md): the agent runs where the credential is not. Until that holds, inbound adapters ship to desktop and private deployments only, where the operator and the credential owner are the same person.
+
+### Sequence by shape, not by vendor
+
+The first two integrations are chosen for shape rather than brand: one identity-led vendor and one channel-led vendor, so both faces and both failure modes are exercised before the remaining two are built. `webhook-github` stays as a third shape — an event with no human behind it becoming a new session.
+
+Which vendor goes first is a customer question, not an architecture question, and this note deliberately does not answer it. Building all four before any of them has a real user would put the same seam mistake in four places at once.
 
 ### Inbound and outbound stay separate packages
 
@@ -66,6 +88,12 @@ The customer's own systems appear twice, in opposite directions, and the two are
 
 **Keep trusting the rule, as webhook does today.** Correct for a private deployment, where the rule's author runs the server. Rejected for hosted: the rule author and the person the work is for are no longer the same, and only the second one's plan and permissions are legitimate.
 
+**Split each vendor into a channel package and an identity package.** Cleaner by face, and a customer wanting only one face would install only one package. Rejected: the two faces of one vendor share an application credential and its refresh path, so splitting gives that credential two owners — and for Microsoft the channel's own tokens are issued by the identity face, so the split would not even be possible.
+
+**Treat the identity face as optional, since channels carry their own user ids.** A channel event already names its sender, so bindings could stay manual forever. Rejected: manual binding does not scale past a pilot, it has no deprovisioning story when someone leaves, and the same identity face also gives the product its own sign-in — three reasons to build it once rather than defer it.
+
+**Ship hosted inbound on the existing credential store.** It works today and the gap is documented. Rejected: it hands a customer's enterprise application secret to the agent's own shell. The documented limitation is a statement of what that store is for, not a risk to accept.
+
 **Build a generic chat-protocol adapter covering every platform.** Fewer adapters to write. Rejected: the platforms disagree on identity, threading, attachments, and recall semantics, so the generic layer would be a union of special cases with no owner for any of them.
 
 ## Acceptance criteria
@@ -75,12 +103,18 @@ The customer's own systems appear twice, in opposite directions, and the two are
 - Creating a root session, delivering a follow-up, and streaming a live conversation are the only inbound operations, and no session kind exists only for inbound work.
 - Follow-up delivery restores a cold session through the path schedule already uses.
 - At least one messaging adapter and `webhook` are mounted in a profile that serves people.
-- An external-account binding is created by an organization administrator and is visible to that organization.
+- An external-account binding is owned by the organization and visible to it, whether an administrator created it by hand or the vendor's identity face established it at sign-in.
+- One vendor is one package contributing an identity face, a channel face, or both, and a vendor with both uses one application credential and one token-refresh path.
+- A hosted deployment resolves a vendor application credential from a store the agent cannot read; until such a store exists, inbound adapters are available only where the operator owns the credential.
 - No inbound adapter appears in the connector catalog, and no MCP server appears in the inbound plane.
 
 ## Risks
 
 **Adapter count grows with every customer.** Each platform is its own authentication, identity, and threading model, and a customer who uses a platform nobody built for will ask for it. The seam bounds the work per adapter but does not bound how many are wanted.
+
+**Four vendors with two faces each is eight faces of work.** The seam bounds what one face costs and bounds nothing about the total. Each identity face is an issuer's own quirks and each channel face is its own signature scheme, event envelope, token lifecycle, threading model, attachment fetch, and rate limits.
+
+**Directory-driven binding needs a deprovisioning answer.** A directory that can create a binding will eventually remove a person, and nothing here says what happens to their sessions and their running work at that moment. [Session ownership](2026-10-07-session-ownership.md) decides archival for a removed member; the directory is the trigger that makes it a routine event rather than an administrator's action.
 
 **The external-account binding is an account-takeover surface.** A wrong binding hands one person's sessions and quota to another. It needs the same care as adding a member, because that is what it is.
 

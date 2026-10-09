@@ -6,8 +6,8 @@
   en: fa375c5d78ac7a02
   zh: 2da58aa9309ea113
 /agent-note-how-work-reaches-an-agent-and-the-one-session-plane-it-lands-on/problem:
-  en: 2e72f164163215de
-  zh: 1126f57e1fdc37a5
+  en: f7dd7c1d6acee0dc
+  zh: 1d0e2420359deca2
 /agent-note-how-work-reaches-an-agent-and-the-one-session-plane-it-lands-on/proposal:
   en: 7f246e3c781acb7c
   zh: ed92264e4154a56b
@@ -18,26 +18,32 @@
   en: 222c11255818a143
   zh: b37e1cd9a0d58156
 /agent-note-how-work-reaches-an-agent-and-the-one-session-plane-it-lands-on/proposal/an-external-account-binds-to-a-membership-and-the-organization-owns-the-binding:
-  en: 34ba423ae56e1d9a
-  zh: dc5893a862b4d5fe
+  en: 4fc77d8a1b9df251
+  zh: b7fe46d3f6c35a32
 /agent-note-how-work-reaches-an-agent-and-the-one-session-plane-it-lands-on/proposal/the-inbound-event-runs-under-the-acting-membership-s-permissions:
   en: 5db6ae4ae47ee1a9
   zh: 4fc65f0d2904216c
 /agent-note-how-work-reaches-an-agent-and-the-one-session-plane-it-lands-on/proposal/delivery-reuses-what-schedule-proved:
   en: 59d96493c60b2965
   zh: 68c8585cd8df73e5
-/agent-note-how-work-reaches-an-agent-and-the-one-session-plane-it-lands-on/proposal/first-adapters:
-  en: dd58c813010d3e76
-  zh: 6a43c49c1e180b5b
+/agent-note-how-work-reaches-an-agent-and-the-one-session-plane-it-lands-on/proposal/a-vendor-integration-contributes-identity-a-channel-or-both:
+  en: 4304ef87f6fcc020
+  zh: 7cb6262cc5a71313
+/agent-note-how-work-reaches-an-agent-and-the-one-session-plane-it-lands-on/proposal/tenant-credentials-live-where-the-agent-cannot-read-them:
+  en: b694b8c30da5c862
+  zh: a0e7b1380a4ee39e
+/agent-note-how-work-reaches-an-agent-and-the-one-session-plane-it-lands-on/proposal/sequence-by-shape-not-by-vendor:
+  en: 6b6bce1fdff40358
+  zh: 4b276272b48a8329
 /agent-note-how-work-reaches-an-agent-and-the-one-session-plane-it-lands-on/proposal/inbound-and-outbound-stay-separate-packages:
   en: 687cfc763a0bf9f7
   zh: abe4febe88305cfe
 /agent-note-how-work-reaches-an-agent-and-the-one-session-plane-it-lands-on/alternatives-considered:
-  en: ddd3dc52c141b19a
-  zh: 6d042072c98ff5c9
+  en: bb172da69d31d005
+  zh: adaf52b6f93fbcfb
 /agent-note-how-work-reaches-an-agent-and-the-one-session-plane-it-lands-on/acceptance-criteria:
-  en: 81b8e9bd77a16f82
-  zh: 3ff6d822b09c7467
+  en: 06f0a4670d5a4a5f
+  zh: 2d055ccb84330c14
 /agent-note-how-work-reaches-an-agent-and-the-one-session-plane-it-lands-on/risks:
-  en: 039fe18071299b24
-  zh: 38a7fb2ff4b8aa47
+  en: b742a2886ba84978
+  zh: 8b09fb1a31854366
