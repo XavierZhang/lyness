@@ -63,7 +63,7 @@ When you launch `lyn --profile web` over SSH, the URL line still prints but the 
 
 ### Per-session agent setup
 
-Each browser session selects a shipped preset (`work` by default). The Agent presets settings page changes the default and edits preset child plugins; saves persist in `$LYNESS_HOME/profiles/web/cordis.patch.yml`. Creator's plugin-management tool is enabled only when the Host provides an editable profile.
+Each browser session selects a shipped preset (`work` by default). The `work` and `build` presets carry the `session_*` recall tools, and the web patch opens the derived search index at `first-search` so they have something to read; the four preset ids the official modes use keep their upstream tool sets. The Agent presets settings page changes the default and edits preset child plugins; saves persist in `$LYNESS_HOME/profiles/web/cordis.patch.yml`. Creator's plugin-management tool is enabled only when the Host provides an editable profile.
 
 -----
 

@@ -14,6 +14,11 @@ const SNAPSHOT_DIR = fileURLToPath(new URL('../../../snapshots/web/work-preset',
 const FIXTURE = join(SNAPSHOT_DIR, 'session.v4.jsonl')
 const PROMPT = "Use the bash tool to run exactly: printf 'WORK_BASH_CARD_OK\\n'. Then reply exactly WORK_PRESET_REQUEST_OK and stop."
 
+/** The read-only recall tools `tool-session-query` contributes. */
+const RECALL_TOOLS = [
+  'session_search', 'session_event_search', 'session_trace', 'session_event_trace', 'session_event_read',
+]
+
 /** The persistent-terminal tools the preset's isolated terminal group contributes. */
 const TERMINAL_TOOLS = [
   'terminal_open', 'terminal_send', 'terminal_read', 'terminal_signal', 'terminal_close', 'terminal_list',
@@ -62,6 +67,10 @@ describe('work agent preset', () => {
     expect(names).toContain('run_code')
     expect(names).toContain('bash')
     expect(names).toEqual(expect.arrayContaining(TERMINAL_TOOLS))
+
+    // Recall ships on by default: the tools are useless without the index the
+    // web patch opens at `first-search`, so this pins the pair together.
+    expect(names).toEqual(expect.arrayContaining(RECALL_TOOLS))
 
     // The business view keeps the whole `standard` surface, not a reduced one.
     expect(names).toEqual(expect.arrayContaining(['read', 'write', 'edit', 'web_search', 'skill', 'todo_write']))

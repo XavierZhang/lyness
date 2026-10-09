@@ -170,6 +170,7 @@
     "@lyness/lyn-tool-pwsh": "workspace:*",
     "@lyness/lyn-tool-pwsh-persistent": "workspace:*",
     "@lyness/lyn-tool-ralph": "workspace:*",
+    "@lyness/lyn-tool-session-query": "workspace:*",
     "@lyness/lyn-tool-skill": "workspace:*",
     "@lyness/lyn-tool-subagent": "workspace:*",
     "@lyness/lyn-tool-subagent-control": "workspace:*",

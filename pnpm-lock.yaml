@@ -2812,6 +2812,9 @@ importers:
       '@lyness/lyn-tool-ralph':
         specifier: workspace:*
         version: link:../../workflow/tool-ralph
+      '@lyness/lyn-tool-session-query':
+        specifier: workspace:*
+        version: link:../../session-query/tool-session-query
       '@lyness/lyn-tool-skill':
         specifier: workspace:*
         version: link:../../skill/tool-skill
@@ -14654,6 +14657,9 @@ importers:
       '@lyness/lyn-tool-ralph':
         specifier: workspace:*
         version: link:../../packages/workflow/tool-ralph
+      '@lyness/lyn-tool-session-query':
+        specifier: workspace:*
+        version: link:../../packages/session-query/tool-session-query
       '@lyness/lyn-tool-skill':
         specifier: workspace:*
         version: link:../../packages/skill/tool-skill
