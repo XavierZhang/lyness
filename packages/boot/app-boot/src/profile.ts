@@ -181,7 +181,7 @@ export const PROFILE_TEMPLATES: Record<string, ProfileTemplate> = {
     bundles: ['@lyness/lyn-base', '@lyness/lyn-acp-app'],
   },
   web: {
-    bundles: ['@lyness/lyn-base', '@lyness/lyn-web-app'],
+    bundles: ['@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-module-schedule'],
   },
   headless: {
     bundles: ['@lyness/lyn-base', '@lyness/lyn-headless'],
@@ -203,6 +203,8 @@ export const PROFILE_TEMPLATES: Record<string, ProfileTemplate> = {
 /** Installation-owned bundle tuples normalized to the shipped template. */
 const INSTALLATION_OWNED_PROFILE_TUPLES: Record<string, readonly string[]> = {
   headless: ['@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-headless'],
+  // The tuple before the scheduled-follow-ups module became its own bundle.
+  web: ['@lyness/lyn-base', '@lyness/lyn-web-app'],
 }
 
 /** The bundle list a `lyn plugin` init uses for a name with no shipped template. */

@@ -149,6 +149,7 @@ flowchart TD
     pkg_brand_setup["brand-setup"]
     pkg_brand_studio["brand-studio"]
     pkg_headless["headless"]
+    pkg_module_schedule["module-schedule"]
     pkg_sdk_app["sdk-app"]
     pkg_sdk_minimal["sdk-minimal"]
     pkg_web_app["web-app"]
@@ -1436,6 +1437,7 @@ flowchart TD
 | [`base`](../packages/bundle/base) | `bundle` | — |
 | [`brand-setup`](../packages/bundle/brand-setup) | `bundle` | — |
 | [`brand-studio`](../packages/bundle/brand-studio) | `bundle` | — |
+| [`module-schedule`](../packages/bundle/module-schedule) | `bundle` | — |
 | [`sdk-app`](../packages/bundle/sdk-app) | `bundle` | — |
 | [`sdk-minimal`](../packages/bundle/sdk-minimal) | `bundle` | — |
 | [`client-hmr`](../packages/client/hmr) | `client` | — |

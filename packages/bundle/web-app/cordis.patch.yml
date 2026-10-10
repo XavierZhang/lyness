@@ -126,15 +126,13 @@
     # Durable Host-wide reminders. The Schedule service owns the task store and
     # delivers each due occurrence as a follow-up in its original Session;
     # `time-context` supplies the current time, browser zone, and elapsed time
-    # the model needs to resolve an unqualified date or time. The browser half
-    # is the `ui-schedule` row below.
+    # the model needs to resolve an unqualified date or time. The Schedule
+    # service and its browser catalog are their own module bundle,
+    # `@lyness/lyn-module-schedule`.
     - id: time-context
       name: '@lyness/lyn-time-context'
       disabled: true
 
-    - id: schedule
-      name: '@lyness/lyn-schedule'
-      disabled: true
 
     # Configuration-surface reads and writes over Typert Remote. Each method
     # reports an actionable error when its settings-domain provider is absent.
@@ -386,11 +384,6 @@
     - id: ui-jobs
       name: '@lyness/lyn-client-ui-jobs'
 
-    # Task management and Session reminder catalog over the Host Schedule
-    # service mounted above.
-    - id: ui-schedule
-      name: '@lyness/lyn-client-ui-schedule'
-      disabled: true
 
     # Goal surface: GoalBar in the input dock over the goal session projection.
     - id: ui-goal

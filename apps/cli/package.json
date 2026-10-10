@@ -43,6 +43,7 @@
     "@lyness/lyn-compaction-tool-result-pruner": "workspace:*",
     "@lyness/lyn-cordis-client-runner": "workspace:*",
     "@lyness/lyn-experimental-agent-team-profile": "workspace:*",
+    "@lyness/lyn-module-schedule": "workspace:*",
     "@lyness/lyn-experimental-auto-review": "workspace:*",
     "@lyness/lyn-experimental-voice-input-bundle": "workspace:*",
     "@lyness/lyn-fs-local": "workspace:*",

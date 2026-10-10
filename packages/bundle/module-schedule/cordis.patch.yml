@@ -1,0 +1,20 @@
+# The scheduled follow-ups module, as its own bundle rather than rows inside
+# the surface bundle. Packaging it this way is what lets the platform ship a
+# fix for this module without a release of the whole product
+# (../../../.agents/notes/proposed/architecture/2026-10-08-default-modules-and-views.md).
+#
+# Both rows keep the `disabled: true` they had in the web patch: this change
+# moves the module, it does not switch it on. Enabling it adds four
+# `schedule_*` tools to every agent's catalog and is its own change.
+- insert:
+    # Durable Host-wide reminders. The Schedule service owns the task store and
+    # delivers each due occurrence as a follow-up in its original Session.
+    - id: schedule
+      name: '@lyness/lyn-schedule'
+      disabled: true
+
+    # Task management and Session reminder catalog over the Host Schedule
+    # service above.
+    - id: ui-schedule
+      name: '@lyness/lyn-client-ui-schedule'
+      disabled: true

@@ -253,6 +253,9 @@ importers:
       '@lyness/lyn-experimental-agent-team-profile':
         specifier: workspace:*
         version: link:../../packages/experimental/agent-team-profile
+      '@lyness/lyn-module-schedule':
+        specifier: workspace:*
+        version: link:../packages/bundle/module-schedule
       '@lyness/lyn-experimental-auto-review':
         specifier: workspace:*
         version: link:../../packages/experimental/auto-review
@@ -780,6 +783,9 @@ importers:
       '@lyness/lyn-experimental-agent-team':
         specifier: workspace:*
         version: link:../../packages/experimental/agent-team
+      '@lyness/lyn-module-schedule':
+        specifier: workspace:*
+        version: link:../packages/bundle/module-schedule
       '@lyness/lyn-experimental-auto-review':
         specifier: workspace:*
         version: link:../../packages/experimental/auto-review
@@ -2343,6 +2349,19 @@ importers:
         specifier: workspace:*
         version: link:../../session-query/session-query
 
+  packages/bundle/module-schedule:
+    dependencies:
+      '@lyness/lyn-client-ui-schedule':
+        specifier: workspace:*
+        version: link:../../client/ui-schedule
+      '@lyness/lyn-schedule':
+        specifier: workspace:*
+        version: link:../../schedule/schedule
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+
   packages/bundle/sdk-app:
     dependencies:
       '@lyness/lyn-cmdline':
@@ -2596,9 +2615,6 @@ importers:
       '@lyness/lyn-client-ui-renderer':
         specifier: workspace:*
         version: link:../../client/ui-renderer
-      '@lyness/lyn-client-ui-schedule':
-        specifier: workspace:*
-        version: link:../../client/ui-schedule
       '@lyness/lyn-client-ui-session':
         specifier: workspace:*
         version: link:../../client/ui-session
@@ -2749,9 +2765,6 @@ importers:
       '@lyness/lyn-plugin-manager':
         specifier: workspace:*
         version: link:../../boot/plugin-manager
-      '@lyness/lyn-schedule':
-        specifier: workspace:*
-        version: link:../../schedule/schedule
       '@lyness/lyn-session-log-export':
         specifier: workspace:*
         version: link:../../session-query/session-log-export

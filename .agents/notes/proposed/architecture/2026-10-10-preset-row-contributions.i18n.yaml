@@ -1,0 +1,37 @@
+# Bilingual-pair consistency record for 2026-10-10-preset-row-contributions.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write .agents/notes/proposed/architecture/2026-10-10-preset-row-contributions.md
+/agent-note-how-a-module-bundle-adds-a-tool-to-a-preset-it-does-not-own:
+  en: 6af78ab2e5703fd8
+  zh: 8d24bf1e83dabcfc
+/agent-note-how-a-module-bundle-adds-a-tool-to-a-preset-it-does-not-own/problem:
+  en: 91872108a142da08
+  zh: 2f7193a5fbef59d1
+/agent-note-how-a-module-bundle-adds-a-tool-to-a-preset-it-does-not-own/proposal:
+  en: 0e05f71df60e4189
+  zh: ae27d2e6f776926e
+/agent-note-how-a-module-bundle-adds-a-tool-to-a-preset-it-does-not-own/proposal/a-contribution-names-its-target-class-not-a-preset-id:
+  en: 8d92b8a6f01be274
+  zh: a7948d6ab72d5ad6
+/agent-note-how-a-module-bundle-adds-a-tool-to-a-preset-it-does-not-own/proposal/position-comes-from-a-central-allocation:
+  en: 0d7af94fe65baa55
+  zh: 1876348503aa3dbf
+/agent-note-how-a-module-bundle-adds-a-tool-to-a-preset-it-does-not-own/proposal/a-duplicate-id-fails-at-mount:
+  en: 425a22c646db4b75
+  zh: 5aa13e1b06e5a80b
+/agent-note-how-a-module-bundle-adds-a-tool-to-a-preset-it-does-not-own/proposal/a-contribution-is-an-effect:
+  en: f0c10850d659001d
+  zh: 730b1f1807ead696
+/agent-note-how-a-module-bundle-adds-a-tool-to-a-preset-it-does-not-own/proposal/host-and-preset-planes-stay-distinct:
+  en: cb5ed3056e28e3b3
+  zh: 2a516beb58eaf02b
+/agent-note-how-a-module-bundle-adds-a-tool-to-a-preset-it-does-not-own/alternatives-considered:
+  en: 38a6d2d5a267259e
+  zh: bf8156b00e4d2122
+/agent-note-how-a-module-bundle-adds-a-tool-to-a-preset-it-does-not-own/acceptance-criteria:
+  en: 37381e007ad47ed3
+  zh: af60f12cc16ef506
+/agent-note-how-a-module-bundle-adds-a-tool-to-a-preset-it-does-not-own/risks:
+  en: 2b6166c24cb882fd
+  zh: 954bc015f397f9e8

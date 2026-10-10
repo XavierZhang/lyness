@@ -8,6 +8,7 @@ import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { createRequire } from 'node:module'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
+import { PROFILE_TEMPLATES } from '@lyness/lyn-app-boot'
 import { afterEach, describe, expect, it } from 'vitest'
 import { parse } from 'yaml'
 import { isBrandSvg } from '@lyness/lyn-host-brand-icon'
@@ -100,7 +101,7 @@ describe('resolveProfilePatch', () => {
     const patch = resolveProfilePatch('web', home)
     expect(patch).toBe(join(home, 'profiles', 'web', 'cordis.patch.yml'))
     const manifest = JSON.parse(readFileSync(join(home, 'profiles', 'web', 'package.json'), 'utf8')) as { lyn: unknown }
-    expect(manifest.lyn).toEqual({ profile: { bundles: ['@lyness/lyn-base', '@lyness/lyn-web-app'] } })
+    expect(manifest.lyn).toEqual({ profile: { bundles: PROFILE_TEMPLATES.web?.bundles } })
   })
 
   it('uses an existing custom profile and refuses one that does not exist', async () => {

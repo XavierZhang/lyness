@@ -60,6 +60,7 @@
     "vite": "^6.0.0",
     "vitest": "^4.1.8",
     "@lyness/lyn-client-ui-theme": "workspace:*",
+    "@lyness/lyn-module-schedule": "workspace:*",
     "@lyness/lyn-experimental-auto-review": "workspace:*",
     "@lyness/lyn-experimental-speech-to-text": "workspace:*",
     "@lyness/lyn-experimental-voice-input-bundle": "workspace:*",

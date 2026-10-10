@@ -1,0 +1,48 @@
+{
+  "name": "@lyness/lyn-module-schedule",
+  "description": "The scheduled follow-ups default module as its own bundle: the Host Schedule service and its browser catalog",
+  "version": "0.1.7-rc.2",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "directory": "packages/bundle/module-schedule"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./locale/*.json": "./locale/*.json",
+    "./src/*": "./src/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "locale/*.json",
+    "lib/index.js",
+    "cordis.patch.yml",
+    "lib/types/**/*.d.ts"
+  ],
+  "license": "MIT",
+  "lyn": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "peerDependencies": {
+    "@lyness/cordis": "workspace:~"
+  },
+  "dependencies": {
+    "@lyness/lyn-client-ui-schedule": "workspace:*",
+    "@lyness/lyn-schedule": "workspace:*"
+  },
+  "devDependencies": {
+    "@lyness/cordis": "workspace:~"
+  }
+}
