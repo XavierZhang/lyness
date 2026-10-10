@@ -1,0 +1,19 @@
+# Bilingual-pair consistency record for vendor-integrations.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write docs/subsystems/vendor-integrations.md
+/vendor-integrations:
+  en: df449c5f7a498a45
+  zh: 2511e468115447a4
+/vendor-integrations/two-faces-one-package:
+  en: 2401dc8da28b309b
+  zh: d98351afcd26bfa2
+/vendor-integrations/what-an-identity-face-establishes:
+  en: e0f4ee16a8e80591
+  zh: 6e9d1a93f87b3106
+/vendor-integrations/where-the-subject-comes-from:
+  en: ead10c8697e13682
+  zh: 23ddf3b21215a768
+/vendor-integrations/credentials-and-the-hosted-boundary:
+  en: f6a494bd23ba72fe
+  zh: 604ebf75ec2efb11

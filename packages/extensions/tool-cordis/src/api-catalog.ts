@@ -1537,6 +1537,19 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
     ],
   },
   {
+    key: 'microsoftEntra',
+    summary: 'Microsoft Entra sign-in.',
+    description: 'Microsoft Entra sign-in.',
+    methods: [
+      {
+        signature: 'async subject(): Promise<EntraSubject | undefined>',
+        description: 'The person this deployment signed in.',
+        parameters: [],
+        returns: 'the stored subject, or undefined while nobody has signed in.',
+      },
+    ],
+  },
+  {
     key: 'officeToPdf',
     summary: 'A provider lifetime owns all converters, queued calls, and temporary files.',
     description: 'A provider lifetime owns all converters, queued calls, and temporary files.',
@@ -5176,6 +5189,18 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'EncodedImageAttachment',
     declaration: 'export interface EncodedImageAttachment {\n    mediaType: ImageMediaType;\n    data: string;\n    name?: string;\n}',
+  },
+  {
+    name: 'EntraDirectoryId',
+    declaration: 'export type EntraDirectoryId = Branded<\'EntraDirectoryId\'>;',
+  },
+  {
+    name: 'EntraObjectId',
+    declaration: 'export type EntraObjectId = Branded<\'EntraObjectId\'>;',
+  },
+  {
+    name: 'EntraSubject',
+    declaration: 'export interface EntraSubject {\n    readonly objectId: EntraObjectId;\n    readonly directoryId: EntraDirectoryId;\n    readonly displayName?: string;\n    readonly address?: string;\n}',
   },
   {
     name: 'EpochHeader',

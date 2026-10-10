@@ -14,6 +14,7 @@
 | [typert.md](typert.zh.md) | 远程调用描述符、lookup/Context 声明、Typert 注册表，以及 Host Gateway/Client API 边界 |
 | [goal.md](goal.zh.md) | 持久 goal 标识、生命周期快照、激活、变更记录与 Round 归属 |
 | [memory.md](memory.zh.md) | 跨会话的持久事实、显式写入路径、保留策略、作用域，以及记忆与知识库的区别 |
+| [vendor-integrations.md](vendor-integrations.zh.md) | 一个外部厂商一个包、它的身份面与渠道面、共享的应用凭据，以及托管的凭据边界 |
 | [schedule.md](schedule.zh.md) | Host 拥有的提醒记录、持久转换、活动和已结束视图与普通对话交付 |
 | [todo.md](todo.zh.md) | todo 包的整列表条目类型、持久事件所有权、投影和未结束轮次不变式 |
 | [deliverables.md](deliverables.zh.md) | 一轮交给用户的东西：`present` 声明的 `PresentedFile` 交付，以及由 git 快照得出、由 Host 提供的 `WorkspaceChangesSummary` 改动摘要 |

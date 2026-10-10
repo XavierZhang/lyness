@@ -596,6 +596,13 @@ const SERVICE_ROLES: ServiceRole[] = [
     note: 'Stores tasks independently of Session activation and queues due messages in the original Session.',
   },
   {
+    key: 'microsoftEntra',
+    pkg: 'microsoft-entra',
+    title: 'Microsoft Entra sign-in',
+    mode: 'core',
+    note: 'Registers one authorization flow and reads the signed-in person from the directory itself, so no token signature is verified and no key material is held.',
+  },
+  {
     key: 'memory',
     pkg: 'memory',
     title: 'Durable cross-session memory',

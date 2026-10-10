@@ -93,6 +93,7 @@ export const SERVICE_PAGE: Record<string, string> = {
   fs: 'filesystem.md',
   goals: 'goal.md',
   memory: 'memory.md',
+  microsoftEntra: 'vendor-integrations.md',
   schedule: 'schedule.md',
   inspector: 'extensions.md',
   webServer: 'web-server.md',
@@ -278,6 +279,7 @@ export const EVENT_WALK_EXEMPTIONS: Record<string, string> = {
  * appear on more than one page.
  */
 export const LINK_MAP: Readonly<Record<string, string>> = {
+  EntraSubject: 'vendor-integrations.md',
   MemoryId: 'memory.md',
   MemoryRecord: 'memory.md',
   MemoryScope: 'memory.md',

@@ -2162,6 +2162,45 @@ export interface Config {
 ```
 <!-- END GENERATED config-catalog:@lyness/lyn-message-feedback -->
 
+<!-- BEGIN GENERATED config-catalog:@lyness/lyn-microsoft-entra -->
+<a id="lynesslyn-microsoft-entra"></a>
+
+## `@lyness/lyn-microsoft-entra`
+
+- `inject`: `authorization` · `credentials` · `webServer`
+- `source`: [`packages/vendor/microsoft-entra/src/index.ts:74`](../packages/vendor/microsoft-entra/src/index.ts)
+
+```ts config-catalog
+/**
+ * Entra application registration this deployment signs in through. Invalid
+ * values fail plugin load, because a half-configured sign-in is a sign-in that
+ * fails in a browser instead of at boot.
+ */
+export interface Config {
+  /**
+   * The directory to sign in to: a tenant id, a verified domain, or one of
+   * Entra's multi-tenant audiences (`organizations`, `common`, `consumers`).
+   * Required, because no default is correct for someone else's directory.
+   */
+  directory: string
+  /** The application (client) id of the Entra app registration. Required. */
+  clientId: string
+  /** Authority host; defaults to the public cloud. */
+  authorityHost?: string
+  /** Microsoft Graph origin; defaults to the public cloud. */
+  graphOrigin?: string
+  /** Scopes requested at sign-in; defaults to openid, profile, User.Read, offline_access. */
+  scopes?: string[]
+  /** Loopback path the browser returns to; defaults to `/oauth/callback/microsoft-entra`. */
+  redirectPath?: string
+  /** Bound on one browser round trip in milliseconds; defaults to 300000. */
+  attemptTimeoutMs?: number
+  /** Bound on one token or Graph request in milliseconds; defaults to 20000. */
+  requestTimeoutMs?: number
+}
+```
+<!-- END GENERATED config-catalog:@lyness/lyn-microsoft-entra -->
+
 <!-- BEGIN GENERATED config-catalog:@lyness/lyn-office-to-pdf -->
 <a id="lynesslyn-office-to-pdf"></a>
 

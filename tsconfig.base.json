@@ -424,6 +424,7 @@
       "@lyness/lyn-mcp-resources": ["./packages/mcp/mcp-resources/src"],
       "@lyness/lyn-memory": ["./packages/memory/memory/src"],
       "@lyness/lyn-message-feedback": ["./packages/feedback/message-feedback/src"],
+      "@lyness/lyn-microsoft-entra": ["./packages/vendor/microsoft-entra/src"],
       "@lyness/lyn-native-command": ["./packages/util/native-command/src"],
       "@lyness/lyn-office-to-pdf": ["./packages/document/office-to-pdf/src"],
       "@lyness/lyn-output-retention": ["./packages/util/output-retention/src"],

@@ -177,6 +177,8 @@ flowchart LR
   pkg_sdk_minimal["sdk-minimal"]
   pkg_schedule["schedule"]
   svc_schedule["ctx.schedule<br/>Host scheduled messages"]
+  pkg_microsoft_entra["microsoft-entra"]
+  svc_microsoftEntra["ctx.microsoftEntra<br/>Microsoft Entra sign-in"]
   pkg_memory["memory"]
   svc_memory["ctx.memory<br/>Durable cross-session memory"]
   pkg_goal["goal"]
@@ -366,6 +368,7 @@ flowchart LR
   pkg_mcp_resources --> svc_mcpResources
   pkg_memory --> svc_memory
   pkg_message_feedback --> svc_messageFeedback
+  pkg_microsoft_entra --> svc_microsoftEntra
   pkg_office_to_pdf --> svc_officeToPdf
   pkg_permission_presets --> svc_permissionPresets
   pkg_plan_mode --> svc_planMode
@@ -659,6 +662,7 @@ flowchart LR
 | `ctx.agentDefaultModel` | `core` | [`agent-default-model`](../packages/core/agent-default-model) | - | [`api-session-controller`](../packages/api/session-controller), [`headless`](../packages/bundle/headless) | - | Reads the default ModelSelection from volatile Config and saves selections through the profile editor. |
 | `ctx.agentLoop` | `bundle` | [`agent-loop`](../packages/core/agent-loop) | - | [`base`](../packages/bundle/base), [`sdk-minimal`](../packages/bundle/sdk-minimal) | - | 唯一的具体循环插件；扩展包依赖 lyn-agent 的事件和服务，而不依赖此包。 |
 | `ctx.schedule` | `core` | [`schedule`](../packages/schedule/schedule) | - | - | - | 独立于 Session 的加载状态存储任务，并将到期消息排入原 Session。 |
+| `ctx.microsoftEntra` | `core` | [`microsoft-entra`](../packages/vendor/microsoft-entra) | - | - | - | 注册一个授权流程，并从目录本身读取已登录的人，因此不验证任何令牌签名、也不持有密钥材料。 |
 | `ctx.memory` | `core` | [`memory`](../packages/memory/memory) | - | - | - | 把显式写入的事实存入存储域，并作为运行时上下文折进每个请求；写入从不来自会话记录的推断。 |
 | `ctx.goals` | `core` | [`goal`](../packages/goal/goal) | - | - | - | 从会话日志折叠带修订版本的目标状态，并将实时延续激活保留在进程本地。 |
 | `ctx.ssh` | `core` | [`ssh`](../packages/ssh/ssh) | - | [`fs-ssh`](../packages/ssh/fs-ssh), [`subprocess-ssh`](../packages/ssh/subprocess-ssh), [`sandbox-ssh`](../packages/ssh/sandbox-ssh) | - | 负责一条经过认证的 OpenSSH 连接、已安装辅助程序身份、独立程序流，以及配套远端提供方的断连清理。 |

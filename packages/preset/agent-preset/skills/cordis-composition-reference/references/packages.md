@@ -493,6 +493,12 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 |---|---|---|
 | `@lyness/lyn-typert-loader` | yes | Loader integration for generated Typert package contributions |
 
+## vendor
+
+| Package | Config | Description |
+|---|---|---|
+| `@lyness/lyn-microsoft-entra` | yes | Microsoft Entra ID sign-in: the identity face of the Microsoft vendor integration |
+
 ## web
 
 | Package | Config | Description |

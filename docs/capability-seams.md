@@ -175,6 +175,8 @@ flowchart LR
   pkg_sdk_minimal["sdk-minimal"]
   pkg_schedule["schedule"]
   svc_schedule["ctx.schedule<br/>Host scheduled messages"]
+  pkg_microsoft_entra["microsoft-entra"]
+  svc_microsoftEntra["ctx.microsoftEntra<br/>Microsoft Entra sign-in"]
   pkg_memory["memory"]
   svc_memory["ctx.memory<br/>Durable cross-session memory"]
   pkg_goal["goal"]
@@ -364,6 +366,7 @@ flowchart LR
   pkg_mcp_resources --> svc_mcpResources
   pkg_memory --> svc_memory
   pkg_message_feedback --> svc_messageFeedback
+  pkg_microsoft_entra --> svc_microsoftEntra
   pkg_office_to_pdf --> svc_officeToPdf
   pkg_permission_presets --> svc_permissionPresets
   pkg_plan_mode --> svc_planMode
@@ -657,6 +660,7 @@ flowchart LR
 | `ctx.agentDefaultModel` | `core` | [`agent-default-model`](../packages/core/agent-default-model) | - | [`api-session-controller`](../packages/api/session-controller), [`headless`](../packages/bundle/headless) | - | Reads the default ModelSelection from volatile Config and saves selections through the profile editor. |
 | `ctx.agentLoop` | `bundle` | [`agent-loop`](../packages/core/agent-loop) | - | [`base`](../packages/bundle/base), [`sdk-minimal`](../packages/bundle/sdk-minimal) | - | The one concrete loop plugin; extension packages depend on lyn-agent events and services, not on this package. |
 | `ctx.schedule` | `core` | [`schedule`](../packages/schedule/schedule) | - | - | - | Stores tasks independently of Session activation and queues due messages in the original Session. |
+| `ctx.microsoftEntra` | `core` | [`microsoft-entra`](../packages/vendor/microsoft-entra) | - | - | - | Registers one authorization flow and reads the signed-in person from the directory itself, so no token signature is verified and no key material is held. |
 | `ctx.memory` | `core` | [`memory`](../packages/memory/memory) | - | - | - | Keeps explicitly written facts in a storage domain and folds them into each request as runtime context; writes never derive from a transcript. |
 | `ctx.goals` | `core` | [`goal`](../packages/goal/goal) | - | - | - | Folds revisioned objective state from the session log and keeps live continuation activation process-local. |
 | `ctx.ssh` | `core` | [`ssh`](../packages/ssh/ssh) | - | [`fs-ssh`](../packages/ssh/fs-ssh), [`subprocess-ssh`](../packages/ssh/subprocess-ssh), [`sandbox-ssh`](../packages/ssh/sandbox-ssh) | - | Owns one authenticated OpenSSH connection, installed helper identity, independent program streams and disconnect cleanup for the paired remote providers. |
