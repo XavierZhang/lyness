@@ -64,6 +64,16 @@ Web 内置定义来自 `lyn-web-app` bundle。定义使用普通插件行；注�
 
 </details>
 
+### 被贡献的行
+
+模块 bundle 无法靠打补丁给某个 preset 加一个工具：preset 是一个行，它的 `config.plugins` 持有整份清单，而补丁替换目标行的整个 config。它改为调用 `contribute()`，由注册表把这一行合并进每个声明了 `acceptsContributions: true` 的 preset——那些视图默认，绝不包括官方四种模式所用的那四个 id。
+
+被贡献的行 id 必须在 `CONTRIBUTION_ORDERS` 里有中央分配，因为工具目录的顺序是请求前缀的一部分：开着同样模块的两个部署必须产出同样顺序的同一份目录，而到达顺序保证不了这件事。贡献排在 preset 自己声明的行之后，按该分配排序。
+
+启动顺序把模块 bundle 排在声明 preset 的界面 bundle 之后，所以贡献通常在它们挂载之后才到。于是它让每个接收贡献的 preset 的那一代退休并激活新的一代，走的是一个声明自己被撤回时同样的路。已经绑定的 agent 保留退休那一代直到结束；下一个 agent 拿到这一行。会话中途打开一个模块改变的是下一个 agent，不是正在运行的那个。
+
+两个模块争夺同一个行 id，或者行 id 与 preset 已声明的行相撞，都会让重建失败并点名两边。
+
 <a id="further-exploration"></a>
 ## 延伸阅读
 

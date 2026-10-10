@@ -142,6 +142,13 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         returns: 'Definition disposer after activation or its diagnostic settles; the declaring plugin owns it.',
       },
       {
+        signature: 'async contribute(contribution: PresetContribution): Promise<() => Promise<void>>',
+        description: 'Add one row to every preset that accepts contributions.\n\nBoot order puts a module bundle after the surface bundle that declares the presets, so a contribution normally arrives once they have already mounted. It therefore retires their current generation and activates a fresh one: an agent already bound keeps the retired generation until it finishes, and the next agent gets the row.',
+        parameters: [{ name: 'contribution', description: 'the allocated row id, the owning module, and the row.' }],
+        returns: 'the disposer the contributing plugin owns.',
+        throws: ['{Error} when the row id carries no central order allocation.'],
+      },
+      {
         signature: 'async list(): Promise<AgentPreset[]>',
         description: 'Read every declared preset, including activation failures.',
         parameters: [],
@@ -4927,6 +4934,14 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export interface ContinuableSubagentDescriptorData extends SubagentDescriptorBase {\n    readonly mode: \'continuable\';\n    readonly label: string;\n    readonly agentProvider?: string;\n    readonly agentModel?: string;\n    readonly agentReasoningEffort?: ReasoningEffortId;\n    readonly persona?: string;\n    readonly toolFilter?: ToolRestriction;\n}',
   },
   {
+    name: 'ContributedRow',
+    declaration: 'export type ContributedRow = PresetDefinition[\'plugins\'][number];',
+  },
+  {
+    name: 'ContributionId',
+    declaration: 'export type ContributionId = keyof typeof CONTRIBUTION_ORDERS;',
+  },
+  {
     name: 'CordisDynamicPackageId',
     declaration: 'export type CordisDynamicPackageId = Branded<\'CordisDynamicPackageId\'>;',
   },
@@ -6071,8 +6086,12 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export type PrepareSessionOptions = (CreateSessionOptions & {\n    readonly eventState?: undefined;\n}) | RestoredSessionOptions;',
   },
   {
+    name: 'PresetContribution',
+    declaration: 'export interface PresetContribution {\n    readonly id: ContributionId;\n    readonly module: string;\n    readonly row: Omit<ContributedRow, \'id\'>;\n}',
+  },
+  {
     name: 'PresetDefinition',
-    declaration: 'export interface PresetDefinition {\n    readonly id: string;\n    readonly name?: string;\n    readonly description?: string;\n    readonly order?: number;\n    readonly plugins: readonly (Omit<EntryOptions, \'id\' | \'disabled\'> & {\n        id?: string;\n        disabled?: EntryOptions[\'disabled\'] | JsExpr;\n    })[];\n}',
+    declaration: 'export interface PresetDefinition {\n    readonly id: string;\n    readonly name?: string;\n    readonly description?: string;\n    readonly order?: number;\n    readonly plugins: readonly (Omit<EntryOptions, \'id\' | \'disabled\'> & {\n        id?: string;\n        disabled?: EntryOptions[\'disabled\'] | JsExpr;\n    })[];\n    readonly acceptsContributions?: boolean;\n}',
   },
   {
     name: 'PresetOption',

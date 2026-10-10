@@ -11,6 +11,7 @@ import type {} from '@lyness/lyn-settings'
 import type {} from '@lyness/lyn-tools'
 import type { AgentPresetDocument, AgentPresetRoster } from './types.ts'
 import { entryListProblem, type PresetDefinition } from './definition.ts'
+import { isContributionId, mergeContributions, type PresetContribution } from './contribution.ts'
 import type { AgentPreset, Config } from './preset.ts'
 import { agentPresetProjectionDefinition } from './session.ts'
 import { auditRows, mountPreset, standingMountFor, serviceForAgent, type PresetMount } from './mount.ts'
@@ -18,6 +19,10 @@ import { definitionComposition, mountedCompositionRows, type AgentPresetComposit
 
 export { agentPresetProjectionDefinition } from './session.ts'
 export { entryListProblem, type PresetDefinition } from './definition.ts'
+export {
+  CONTRIBUTION_ORDERS, isContributionId, mergeContributions,
+  type ContributedRow, type ContributionId, type PresetContribution,
+} from './contribution.ts'
 export { auditRows, livePresetMounts, leakedServices, serviceForAgent, standingMountFor, type PresetMount, type RowAudit } from './mount.ts'
 export type { AgentPreset, Config } from './preset.ts'
 
@@ -57,6 +62,8 @@ export class AgentPresetRegistry extends TypertRemoteService {
   private readonly owner: Context
   private readonly definitions = new Map<string, Definition>()
   private readonly generations = new Map<ScopeKey, Generation>()
+  /** Rows module bundles contribute, in registration order. */
+  private readonly contributions: PresetContribution[] = []
   private readonly bindings = new WeakMap<ScopeKey, Binding>()
   private readonly switches = new Map<string, Promise<unknown>>()
 
@@ -103,10 +110,13 @@ export class AgentPresetRegistry extends TypertRemoteService {
     const key = {}
     const scope = createScope(this.owner, key)
     try {
-      const problem = entryListProblem(record.config.plugins)
+      const plugins = record.config.acceptsContributions === true
+        ? mergeContributions(record.config.plugins, this.contributions)
+        : record.config.plugins
+      const problem = entryListProblem(plugins)
       if (problem !== undefined) throw new Error(problem)
       const context = scope.ctx.extend({ baseUrl: record.context.baseUrl })
-      const mount = await mountPreset(context, record.config.id, record.config.plugins)
+      const mount = await mountPreset(context, record.config.id, plugins)
       const generation: Generation = { scope, key, mount, users: 0, retired: false }
       this.generations.set(key, generation)
       record.generation = generation
@@ -145,6 +155,55 @@ export class AgentPresetRegistry extends TypertRemoteService {
     if (!generation.retired || generation.users !== 0) return
     this.generations.delete(generation.key)
     await generation.scope.dispose()
+  }
+
+  /**
+   * Add one row to every preset that accepts contributions.
+   *
+   * Boot order puts a module bundle after the surface bundle that declares
+   * the presets, so a contribution normally arrives once they have already
+   * mounted. It therefore retires their current generation and activates a
+   * fresh one: an agent already bound keeps the retired generation until it
+   * finishes, and the next agent gets the row.
+   * @param contribution - the allocated row id, the owning module, and the row.
+   * @returns the disposer the contributing plugin owns.
+   * @throws {Error} when the row id carries no central order allocation.
+   */
+  async contribute(contribution: PresetContribution): Promise<() => Promise<void>> {
+    const id: string = contribution.id
+    if (!isContributionId(id)) {
+      throw new Error(`preset contribution "${id}" has no allocated order; add it to CONTRIBUTION_ORDERS`)
+    }
+    this.contributions.push(contribution)
+    await this.reactivateAccepting()
+    let disposed = false
+    return async () => {
+      if (disposed) return
+      disposed = true
+      const remaining = this.contributions.filter(entry => entry !== contribution)
+      this.contributions.length = 0
+      this.contributions.push(...remaining)
+      await this.reactivateAccepting()
+    }
+  }
+
+  /** Retire and rebuild every accepting preset's generation. */
+  private async reactivateAccepting(): Promise<void> {
+    for (const record of [...this.definitions.values()]) {
+      if (record.config.acceptsContributions !== true) continue
+      await record.ready
+      const previous = record.generation
+      if (previous !== undefined) {
+        previous.retired = true
+        delete record.generation
+      }
+      delete record.broken
+      record.ready = this.activate(record)
+      await record.ready
+      // Collected only after the rebuild, so a bound agent's generation
+      // survives while an unused one goes immediately.
+      if (previous !== undefined) await this.collect(previous)
+    }
   }
 
   /** Read every declared preset, including activation failures.

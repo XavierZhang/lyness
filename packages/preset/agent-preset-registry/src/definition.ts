@@ -8,6 +8,12 @@ export interface PresetDefinition {
   readonly description?: string
   readonly order?: number
   readonly plugins: readonly (Omit<EntryOptions, 'id' | 'disabled'> & { id?: string; disabled?: EntryOptions['disabled'] | JsExpr })[]
+  /**
+   * Whether module bundles may contribute rows into this preset. The presets
+   * that serve people declare it; the four ids the official modes use do not,
+   * which is what keeps them as upstream shipped them.
+   */
+  readonly acceptsContributions?: boolean
 }
 
 /** Validate a parsed Cordis entry list, including nested groups.

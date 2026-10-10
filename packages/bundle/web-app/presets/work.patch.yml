@@ -9,6 +9,9 @@
       name: '@lyness/lyn-agent-preset'
       config:
         id: work
+        # A view default is where module bundles contribute their rows; the four
+        # ids the official modes use stay as upstream shipped them.
+        acceptsContributions: true
         order: 1
         plugins:
           - id: persona

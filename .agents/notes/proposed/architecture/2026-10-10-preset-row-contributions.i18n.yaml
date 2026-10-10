@@ -20,6 +20,9 @@
 /agent-note-how-a-module-bundle-adds-a-tool-to-a-preset-it-does-not-own/proposal/a-duplicate-id-fails-at-mount:
   en: 425a22c646db4b75
   zh: 5aa13e1b06e5a80b
+/agent-note-how-a-module-bundle-adds-a-tool-to-a-preset-it-does-not-own/proposal/a-contribution-that-arrives-late-retires-the-generation-it-does-not-patch-it:
+  en: cbd41338d89bce17
+  zh: f3940a97e06d578c
 /agent-note-how-a-module-bundle-adds-a-tool-to-a-preset-it-does-not-own/proposal/a-contribution-is-an-effect:
   en: f0c10850d659001d
   zh: 730b1f1807ead696
@@ -30,8 +33,8 @@
   en: 38a6d2d5a267259e
   zh: bf8156b00e4d2122
 /agent-note-how-a-module-bundle-adds-a-tool-to-a-preset-it-does-not-own/acceptance-criteria:
-  en: 37381e007ad47ed3
-  zh: af60f12cc16ef506
+  en: 858a78919dd178df
+  zh: cfcd774e17b18a3f
 /agent-note-how-a-module-bundle-adds-a-tool-to-a-preset-it-does-not-own/risks:
-  en: 2b6166c24cb882fd
-  zh: 954bc015f397f9e8
+  en: 65aeda1677d4310e
+  zh: 6592998dbd8e63ca

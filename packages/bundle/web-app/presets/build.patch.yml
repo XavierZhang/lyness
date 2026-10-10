@@ -10,6 +10,9 @@
       name: '@lyness/lyn-agent-preset'
       config:
         id: build
+        # A view default is where module bundles contribute their rows; the four
+        # ids the official modes use stay as upstream shipped them.
+        acceptsContributions: true
         order: 2
         plugins:
           # Same persona as `work`: tool descriptions and the skill catalog carry

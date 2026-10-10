@@ -32,6 +32,14 @@ A contributed row's place in the tool order is allocated centrally, the way [`ly
 
 Two contributions claiming one row id is a composition error, not a last-writer-wins merge. It fails when the preset mounts, which is the earliest point at which both are known, and the failure names both contributors.
 
+### A contribution that arrives late retires the generation, it does not patch it
+
+Boot order puts contributions after presets. A module bundle sits later in the ordered bundle list than the surface bundle that declares the presets, so by the time a module contributes, the preset it joins has already activated and mounted a generation. A mechanism that required contributions first would fail on every boot.
+
+So a contribution registering **retires** the current generation of every accepting preset and activates a fresh one. Agents already bound to the retired generation keep it until they finish — the registry's existing retain count holds it, and it is collected when the last one leaves — while the next agent gets the generation that includes the contribution. This is the same path a definition's own withdrawal already takes, not a second one.
+
+The consequence worth stating: a module switched on mid-session does not change a running agent. It changes the next one. Anything else would mean rewriting the tool catalog of a request already in flight.
+
 ### A contribution is an effect
 
 Switching the module bundle off withdraws its rows, because the contribution registers through `ctx.effect()` like every other registration. There is no second removal path, and no state survives the module that owns it.
@@ -59,6 +67,7 @@ A module bundle may carry both: host rows in its own patch layer, preset rows as
 - A contributed row's position comes from a central allocation, and two deployments with the same modules switched on produce byte-identical tool catalogs.
 - Two contributions claiming one row id fail when the preset mounts, and the failure names both contributors.
 - Switching a module bundle off removes its contributed rows with no second removal path.
+- A contribution registered after an accepting preset has mounted retires that preset's generation and activates a fresh one; an agent already bound to the retired generation keeps it until it finishes.
 - A contribution whose service the same bundle does not mount is refused at mount rather than producing a tool that cannot work.
 
 ## Risks
@@ -68,5 +77,7 @@ A module bundle may carry both: host rows in its own patch layer, preset rows as
 **A module switch changes the request prefix.** Contributing a tool changes the catalog, so switching a module on invalidates the cached prefix for every session on that profile. That is correct and unavoidable; it is worth stating because a module switch now has a cost that a host-plane-only switch did not.
 
 **Snapshot expectations gain a dependency.** Every preset snapshot's tool catalog becomes a function of which module bundles are selected, so a snapshot that pins a catalog pins that selection too. The pinned selection has to be visible in the scenario rather than implied by the default profile.
+
+**Retiring a generation on every contribution makes boot do it repeatedly.** Each module contributing during boot retires and rebuilds the accepting presets, so a deployment with six contributing modules rebuilds them six times before the first agent exists. It is correct and wasteful; whether it needs a settle point is a question for the first deployment that feels it, not a reason to add one now.
 
 **The central allocation is a bottleneck by design.** Every module contributing a tool needs a position allocated in one place, so two modules developed in parallel touch the same table. That is the same cost the prompt-section allocation already pays, accepted for the same reason.

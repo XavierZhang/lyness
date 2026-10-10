@@ -64,6 +64,16 @@ Activation auditing checks imports, missing services and globally leaked service
 
 </details>
 
+### Contributed rows
+
+A module bundle cannot add one tool to a preset by patching it: a preset is one row whose `config.plugins` holds the whole list, and a patch replaces the targeted row's whole config. It calls `contribute()` instead, and the registry merges the row into every preset declaring `acceptsContributions: true` — the view defaults, never the four ids the official modes use.
+
+A contributed row id must carry a central allocation in `CONTRIBUTION_ORDERS`, because the tool catalog's order is part of the request prefix: two deployments with the same modules switched on have to produce the same catalog in the same order, which arrival order cannot guarantee. Contributions follow the preset's declared rows, sorted by that allocation.
+
+Boot order puts a module bundle after the surface bundle that declares the presets, so a contribution normally arrives once they have mounted. It therefore retires each accepting preset's generation and activates a fresh one, through the same path a declaration's own withdrawal takes. An agent already bound keeps the retired generation until it finishes; the next agent gets the row. A module switched on mid-session changes the next agent, not a running one.
+
+Two modules claiming one row id, or a row id the preset already declares, fails the rebuild and names both sides.
+
 <a id="further-exploration"></a>
 ## Further Exploration
 

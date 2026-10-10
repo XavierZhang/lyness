@@ -495,6 +495,20 @@ Registry of YAML-declared presets and the revisions live Agents retain.
  */
 async register(definition: PresetDefinition): Promise<() => Promise<void>>
 
+/**
+ * Add one row to every preset that accepts contributions.
+ *
+ * Boot order puts a module bundle after the surface bundle that declares
+ * the presets, so a contribution normally arrives once they have already
+ * mounted. It therefore retires their current generation and activates a
+ * fresh one: an agent already bound keeps the retired generation until it
+ * finishes, and the next agent gets the row.
+ * @param contribution - the allocated row id, the owning module, and the row.
+ * @returns the disposer the contributing plugin owns.
+ * @throws {Error} when the row id carries no central order allocation.
+ */
+async contribute(contribution: PresetContribution): Promise<() => Promise<void>>
+
 /** Read every declared preset, including activation failures.
  * @returns Display metadata and loading diagnostics.
  */
