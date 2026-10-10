@@ -10,7 +10,7 @@ import { Context } from '@lyness/cordis'
 import Storage from '@lyness/lyn-storage'
 import * as StorageDomain from '@lyness/lyn-storage-domain'
 import * as StorageJson from '@lyness/lyn-storage-json'
-import SystemPrompt from '@lyness/lyn-system-prompt'
+import SystemPrompt, { renderContextSnapshot, renderPrompt } from '@lyness/lyn-system-prompt'
 import Tools from '@lyness/lyn-tools'
 import { brandString } from '@lyness/lyn-brand'
 import { afterEach, describe, expect, it } from 'vitest'
@@ -160,6 +160,21 @@ describe('the prompt contribution', () => {
     expect(renderEntries(entries)).toBe(
       'Remembered about this workspace and the people in it:\n- first\n- second',
     )
+  })
+
+  it('leaves the stable prompt prefix byte-identical when a fact is written', async () => {
+    const ctx = await harness()
+    const prompt = ctx.get('systemPrompt') as SystemPrompt
+    const before = renderPrompt(await prompt.assemble({}))
+
+    await memoryOf(ctx).remember('Deploys happen on Fridays')
+    const after = await prompt.assemble({})
+
+    // Memory is a volatile contribution, so a write must change the snapshot
+    // and move no byte of the reusable prefix ahead of it.
+    expect(renderPrompt(after)).toBe(before)
+    expect(renderContextSnapshot(after)).toContain('Deploys happen on Fridays')
+    await ctx.fiber.dispose()
   })
 
   it('registers under one stable context name', async () => {

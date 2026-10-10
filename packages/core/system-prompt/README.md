@@ -106,6 +106,12 @@ The package is a registry plus a cooperative assembly pipeline. One `assemble()`
 
 Assembly resolves and renders in two stages: `assemble()` returns sections with resolved-but-uninterpolated text, the ordered tool schemas, and every registered variable resolved against the context, while `renderPrompt()` interpolates `{{variable}}` references unless a section sets `interpolate: false`, drops empty sections, and joins with blank lines — strictly, an unknown reference, a registered-but-valueless reference, or a malformed complete group throws, because a malformed prompt is worse than a loud failure. `toolOrder` canonicalizes the collected tools before the waterfall (registration order is a plugin-load artifact); a waterfall listener that mutates the list owns the determinism of what it emits.
 
+### The stable and volatile tiers
+
+`PROMPT_TIERS` names what the two assembly lists are: the sections are the **stable** tier — harness identity, deployment persona, tool guidance — and the runtime contexts are the **volatile** tier — sandbox and approval policy, delegation state, durable memory. They render through separate functions (`renderPrompt` and `renderContextSnapshot`), and a consumer places the stable text first.
+
+That ordering is the cache boundary: a volatile-only change leaves every stable byte untouched, so a provider's reusable prefix survives it. The mistake the tiers exist to prevent is registering a fact that changes while a session runs as a *section*, where it would invalidate the prefix on every turn. A fact that changes mid-session belongs in a context.
+
 ### Scoping
 
 Scoped sections, variables, and tool providers shadow globals for one agent, and the assembly waterfall dispatches scope-filtered. Registry-change notifications (`system-prompt/change`) are deliberately unfiltered because a global change affects every scope.

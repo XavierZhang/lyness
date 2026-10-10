@@ -171,6 +171,30 @@ const CONTEXT_ORDERS = {
 export type PromptContextOrderName = keyof typeof CONTEXT_ORDERS
 
 /**
+ * Which part of a request a contribution belongs to, and therefore how often
+ * it changes.
+ *
+ * `stable` is the assembled sections: the harness identity, the deployment
+ * persona, and the tool guidance, which change when the composition changes.
+ * `volatile` is the runtime contexts: the sandbox and approval policies, the
+ * delegation state, and durable memory, which change while a session runs.
+ *
+ * The two are rendered by different functions — {@link renderPrompt} and
+ * {@link renderContextSnapshot} — and a consumer places the stable text
+ * first. That ordering is the cache boundary a provider's reusable prefix
+ * depends on: a volatile-only change leaves every stable byte untouched.
+ * Registering a fact that changes mid-session as a section, rather than as a
+ * context, is what breaks it.
+ */
+export type PromptTier = 'stable' | 'volatile'
+
+/** The tier each centrally allocated position belongs to. */
+export const PROMPT_TIERS: Readonly<{ sections: PromptTier; contexts: PromptTier }> = {
+  sections: 'stable',
+  contexts: 'volatile',
+}
+
+/**
  * The deployment persona prefix's section name. Exported because a
  * composition can replace this slot — an agent preset shadows the
  * deployment's persona with its own — and both sides naming the same section

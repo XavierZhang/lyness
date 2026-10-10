@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import SystemPrompt, {
-  AssembleContext, PromptAssembly, renderContextSnapshot, renderPrompt,
+  AssembleContext, PROMPT_TIERS, PromptAssembly, renderContextSnapshot, renderPrompt,
 } from '@lyness/lyn-system-prompt'
 import type { PromptContextOrderName, PromptSectionOrderName } from '@lyness/lyn-system-prompt'
 
@@ -691,5 +691,50 @@ describe('SystemPrompt', () => {
       })
       expect(text).toBe('v = literal {{sneaky}} inside!')
     })
+  })
+})
+
+describe('the stable/volatile tier boundary', () => {
+  it('names the sections stable and the contexts volatile', () => {
+    expect(PROMPT_TIERS).toEqual({ sections: 'stable', contexts: 'volatile' })
+  })
+
+  it('leaves the stable prefix byte-identical when only a volatile context changes', async () => {
+    const ctx = new Context()
+    await ctx.plugin(SystemPrompt)
+    ctx.systemPrompt.section({ name: 'guidance', order: 100, text: 'Use the tools carefully.' })
+    let reading = 'first'
+    ctx.systemPrompt.context({ name: 'runtime:reading', order: 200, text: () => reading })
+
+    const before = await ctx.systemPrompt.assemble()
+    const stableBefore = renderPrompt(before)
+    expect(renderContextSnapshot(before)).toContain('first')
+
+    reading = 'second'
+    const after = await ctx.systemPrompt.assemble()
+    // The provider's reusable prefix depends on this: a mid-session fact must
+    // not move a single byte of what precedes it.
+    expect(renderPrompt(after)).toBe(stableBefore)
+    expect(renderContextSnapshot(after)).toContain('second')
+    await ctx.fiber.dispose()
+  })
+
+  it('reports a volatile-only change as a changed snapshot and an unchanged prompt', async () => {
+    const ctx = new Context()
+    await ctx.plugin(SystemPrompt)
+    let policy = 'read-only'
+    ctx.systemPrompt.context({
+      name: 'runtime:policy',
+      order: ctx.systemPrompt.getContextOrder('SANDBOX_POLICY'),
+      text: () => `Sandbox: ${policy}`,
+    })
+
+    const first = await ctx.systemPrompt.assemble()
+    policy = 'workspace-write'
+    const second = await ctx.systemPrompt.assemble()
+
+    expect(renderPrompt(second)).toBe(renderPrompt(first))
+    expect(renderContextSnapshot(second)).not.toBe(renderContextSnapshot(first))
+    await ctx.fiber.dispose()
   })
 })

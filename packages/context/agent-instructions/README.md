@@ -107,6 +107,14 @@ Every injected message carries a typed source with its change list; a complete b
 
 </details>
 
+### What instruction content can never do
+
+Instruction files are untrusted input: a workspace may come from anywhere, and the loaded chain is lower-authority guidance that never overrides system, developer, or direct user instructions. Two separate things keep that true.
+
+The frame is escaped. Content carrying either `<system-reminder>` delimiter is neutralized before it joins the body, so a file cannot close this plugin's frame early or open a second one and have what follows read as harness framing. When that happens the budget marker says so, rather than neutralizing it silently.
+
+Capability stays with the operation that grants it. Instruction text can phrase guidance and cannot enable a tool, raise a sandbox mode, change an approval policy, or alter a quota: those decisions live in the operations that make them, and a wider sandbox mode for one command still requires a justification and an approval through [`lyn-user-approval`](../../interaction/user-approval/README.md). This package performs no judgement of what the text asks for, and offers none.
+
 -----
 
 <a id="further-exploration"></a>
@@ -211,6 +219,7 @@ Append-only; newly visible content follows the reusable request prefix and does 
 
 These limits define when instruction loading is a poor fit or needs operational awareness. They are current package constraints, not a task backlog.
 
+- **Content inspection is frame-only** — the delimiters are escaped and reported, and nothing judges what the text asks for. A hostile file that phrases ordinary-looking guidance passes through as guidance, which is why capability stays with the operations that grant it rather than with this loader.
 - **Discovery follows structured fs tools, not shell navigation** — a `bash` command that changes directories does not trigger nested instruction discovery because shell syntax and per-call shell state are not a reliable filesystem seam.
 - **Refresh is touch-driven** — there is no watcher; external edits become visible on the next successful first-party `read`, `write`, or `edit`, when resume reconciles a visible baseline, or when an entering pre-step restores a shadowed baseline.
 - **Candidate semantics stay intentionally small** — lowercase names, `.claude/rules/`, and `@path` imports are not interpreted; project scopes load `AGENTS.local.md`/`CLAUDE.local.md` overlays by default, but the user-global `$LYNESS_HOME` scope has no local overlay and other custom names require explicit candidate configuration.

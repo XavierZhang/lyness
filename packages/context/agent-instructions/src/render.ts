@@ -78,8 +78,24 @@ function truncateUtf8(value: string, maxBytes: number): string {
   return bytes.subarray(0, end).toString('utf8')
 }
 
-function escapeInstructionFrameBody(body: string): string {
-  return body.replaceAll(SYSTEM_REMINDER_CLOSE, '<\\/system-reminder>')
+/**
+ * Neutralize the frame delimiters inside instruction content and say whether
+ * any were found.
+ *
+ * Instruction files are untrusted input: a workspace may come from anywhere,
+ * and this plugin bakes the complete `<system-reminder>` frame into the
+ * message content. Content carrying either delimiter could close the frame
+ * early or open a second one, so the model would read what follows as harness
+ * framing instead of as a quoted file. Escaping both is the whole defense this
+ * function offers; it does not judge what the text asks for.
+ * @param body - the assembled body, including this plugin's own marker and intro.
+ * @returns the escaped body, and whether a delimiter was neutralized.
+ */
+export function escapeInstructionFrameBody(body: string): { text: string; neutralized: boolean } {
+  const text = body
+    .replaceAll(SYSTEM_REMINDER_CLOSE, '<\\/system-reminder>')
+    .replaceAll(SYSTEM_REMINDER_OPEN, '<\\system-reminder>')
+  return { text, neutralized: text !== body }
 }
 
 function sectionText(file: LoadedInstructionFile): string {
@@ -212,9 +228,17 @@ export function renderInstructionChanges(
   }
 }
 
-function markerText(maxBytes: number, omitted: InstructionFile[], truncated: TruncatedInstruction[]): string {
-  if (omitted.length === 0 && truncated.length === 0) return ''
+function markerText(
+  maxBytes: number,
+  omitted: InstructionFile[],
+  truncated: TruncatedInstruction[],
+  neutralized: boolean,
+): string {
+  if (omitted.length === 0 && truncated.length === 0 && !neutralized) return ''
   const parts: string[] = []
+  if (neutralized) {
+    parts.push('neutralized a system-reminder delimiter inside instruction content')
+  }
   if (omitted.length > 0) {
     parts.push(`omitted ${omitted.map(file => file.displayPath).join(', ')}`)
   }
@@ -231,15 +255,19 @@ function buildInstructionText(
   truncated: TruncatedInstruction[],
   style: RenderStyle,
 ): string {
-  const marker = markerText(maxBytes, omitted, truncated)
-  const body = [marker, style.intro, ...files.map(file => style.section(file))].filter(block => block.length > 0)
+  // Inspect first: the marker has to report a neutralized delimiter, and the
+  // marker is itself part of the body that gets escaped.
+  const sections = files.map(file => style.section(file))
+  const { neutralized } = escapeInstructionFrameBody(sections.join('\n\n'))
+  const marker = markerText(maxBytes, omitted, truncated, neutralized)
+  const body = [marker, style.intro, ...sections].filter(block => block.length > 0)
   // Caller-owned framing: the plugin bakes the complete `<system-reminder>`
   // frame into the message content. The session surface projects context
   // verbatim and does not wrap it, so any framing must live here in the
   // producer's content (the pattern a future `meta`-driven renderer would
   // generalize — see the deferred note in
   // ../../../../.agents/notes/implemented/simplification/2026-07-20-unwrap-injected-content-envelopes.md).
-  return [SYSTEM_REMINDER_OPEN, escapeInstructionFrameBody(body.join('\n\n')), SYSTEM_REMINDER_CLOSE].join('\n')
+  return [SYSTEM_REMINDER_OPEN, escapeInstructionFrameBody(body.join('\n\n')).text, SYSTEM_REMINDER_CLOSE].join('\n')
 }
 
 function withTruncatedContent(file: LoadedInstructionFile, includedBytes: number): LoadedInstructionFile {
@@ -319,10 +347,11 @@ function renderInstructionContext(
     originalBytes,
     includedBytes: 0,
   }]
-  const compactNotice = escapeInstructionFrameBody(markerText(maxBytes, omitted, truncated))
-  const compactWithHeading = escapeInstructionFrameBody(
-    [compactNotice, style.section(withTruncatedContent(mostSpecific, 0))].join('\n\n'),
-  )
+  const heading = style.section(withTruncatedContent(mostSpecific, 0))
+  const compactNotice = escapeInstructionFrameBody(
+    markerText(maxBytes, omitted, truncated, escapeInstructionFrameBody(heading).neutralized),
+  ).text
+  const compactWithHeading = escapeInstructionFrameBody([compactNotice, heading].join('\n\n')).text
   if (byteLength(compactWithHeading) <= maxBytes) {
     const represented = originalBytes === 0 ? [mostSpecific] : []
     return { text: compactWithHeading, omitted, truncated, represented }

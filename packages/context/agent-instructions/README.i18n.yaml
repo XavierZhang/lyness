@@ -39,8 +39,11 @@
   en: d881b9055f823929
   zh: 87b25f0bf8e204e9
 /lyness-lyn-agent-instructions/understand-the-implementation/invariants:
-  en: 7f6e9b5356da91fd
-  zh: 7b99f255d23d982e
+  en: 7aaf379fcc183e2b
+  zh: ef1a6d0f44852ce2
+/lyness-lyn-agent-instructions/understand-the-implementation/what-instruction-content-can-never-do:
+  en: 39c9ab78d27c7e91
+  zh: 28f49e16f2d14b79
 /lyness-lyn-agent-instructions/further-exploration:
   en: d1d505f16333b93a
   zh: 3c46b8276aefb3b3
@@ -93,8 +96,8 @@
   en: 2fbf2175168e8244
   zh: f681f89596f500f5
 /lyness-lyn-agent-instructions/known-limitations-and-deferred-work:
-  en: a5585346683f7a65
-  zh: b545a4fb86940f92
+  en: 62dcd2895d68d859
+  zh: fe0fdb8d31316c2c
 /lyness-lyn-agent-instructions/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98
