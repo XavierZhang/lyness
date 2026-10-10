@@ -12,6 +12,8 @@ Capabilities exist, are tested, and no shipped profile mounts them. [`tool-lsp`]
 
 So the composition is the product's feature list, and nobody decided it as one. Each row was added where it was needed and left where it landed.
 
+The packaging has the same shape, and it costs the platform its own upgrade path. A default capability is a **row inside a shipped patch**, not a package a deployment selects, so the only way the platform ships a fix to one is a new release of the whole product. [`lyn-plugin-manager`](../../../../packages/boot/plugin-manager/README.md) can already install, pin, version-check and revert a bundle from a registry, a Git host, a tarball or a path, and the launcher's `OPTIONAL_BUNDLES` already ships bundles switched off and unremovable — so the machinery for an independently upgradable module exists and the default modules are the one thing that does not use it.
+
 Two consequences follow for a hosted product. A customer cannot tell what the product does, because the answer differs per profile and is written in YAML. And a customer who replaces a module with a plugin has no way back: `lyn-base` disabling a row and a profile never mounting it look identical from the outside, so "return to the default" is not an operation that exists.
 
 There is also no place to put the modules a hosted product needs and this tree has never had — a knowledge base, a catalog of the customer's own systems, and a record of who did what — and each would otherwise arrive as one more row in whichever profile the author happened to be editing.
@@ -35,6 +37,16 @@ Runtime self-modification is the one module whose availability is not universal:
 ### Default-on, subject to plan and deployment
 
 Every core capability is enabled unless the customer's plan excludes it or the deployment cannot run it safely. Those two conditions are the only reasons a module is off, and both are stated rather than expressed as an absent row. A capability that is off because nobody mounted it is the defect; a capability that is off because the plan does not include it is a product decision with a surface that can say so.
+
+### Each default module is its own shipped bundle
+
+A default module is a bundle the platform publishes, selected out of the box and not removable — the shape `OPTIONAL_BUNDLES` already has, minus the switched-off part. It is not a row inside a profile patch.
+
+This is what gives the platform the same upgrade path it gives a customer. A module ships, is fixed, and is upgraded through [`lyn-plugin-manager`](../../../../packages/boot/plugin-manager/README.md), under the same registry plan, the same LYN peer-version check before anything downloads, and the same rollback of manifest and lockfile on failure. The platform stops needing a release of the whole product to correct one module, and a customer on a slow upgrade cadence can still receive one.
+
+It also makes "replace" and "revert" one mechanism instead of two. A customer's replacement and the platform's own version are both bundles competing for the same rows, resolved by the ordered bundle list that already decides this.
+
+A module that is one package stays one bundle; a module that spans several packages ships one bundle that mounts them, so the unit a customer selects is the module and not its parts.
 
 ### A plugin may replace a module, and there is a way back
 
@@ -66,6 +78,8 @@ A plugin that replaces a default module is an ordinary package in this tree, and
 
 **Keep the composition as the feature list.** No new concept, and the profiles already work. Rejected: the feature list is then written in YAML per profile, and the gap between what is built and what a customer can reach stays invisible until a customer asks for something that exists.
 
+**Keep default modules as rows in the shipped patches.** It is today's packaging and costs nothing to keep. Rejected: it leaves the platform with no way to ship a module fix except a release of the whole product, and it makes a customer's replacement and the platform's own version two different mechanisms rather than two bundles in one ordered list.
+
 **Mount everything in `lyn-base`.** The simplest promotion, and one place to look. Rejected: `lyn-base` is shared by headless, SDK, ACP and app profiles, and a webhook ingress or a right-panel browser in a headless SDK run is weight nobody asked for. Promotion belongs in the profiles that serve people.
 
 **Add the three new modules later.** The nine promotions are cheap; the new modules are real work. Rejected: a hosted product without knowledge, connectors, or an audit record is not sellable, and deferring them would park them in whichever profile their author was editing — the exact failure this note exists to fix.
@@ -82,6 +96,8 @@ A plugin that replaces a default module is an ordinary package in this tree, and
 
 - The twelve default modules are named in one place, and every profile that serves people mounts all of them that its deployment supports.
 - A module is off only because the plan excludes it or the deployment cannot run it; the surface states which, and no module is off merely because no row mounts it.
+- Each default module is a bundle selected out of the box and not removable, and no default module is a row inside a profile patch.
+- The platform can upgrade one default module through the plugin manager, without a release of the whole product, and that upgrade passes the same version check as any other bundle.
 - A customer can replace a default module with a plugin and return to the platform's version, and the return restores the version pinned by the running release.
 - Data written by a replacement survives a return to the default and is marked as that replacement's.
 - The business view shows no plugin id, profile name, or patch layer; the development view is reached as its own surface rather than through general settings.
@@ -94,6 +110,8 @@ A plugin that replaces a default module is an ordinary package in this tree, and
 **Twelve modules default-on is a large surface to keep working.** Every one needs settings, UI, documentation and tests, and a module that ships half-finished is worse than one that is honestly absent. Sequencing within the batch matters even though the batch is decided.
 
 **The three new modules are the schedule risk.** Knowledge and retrieval in particular is a product in itself — ingestion, indexing, permissions, freshness — and calling it one module of twelve understates it.
+
+**Twelve bundles is twelve published packages to version.** Each one gains its own release, its own peer range against the runtime, and its own compatibility surface. A module upgraded independently is a module that can be a version the rest of the composition was never tested against, which is the cost of not needing a whole-product release.
 
 **Revert is only as good as the service definitions.** A replacement is accepted in a module's place because it provides that module's service. Where a service definition is loose, a replacement can satisfy it and still behave differently, and revert will not undo what the difference wrote.
 

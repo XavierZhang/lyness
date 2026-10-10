@@ -6,8 +6,8 @@
   en: a47fb12766f174a2
   zh: 7ed78160ac061e60
 /agent-note-which-modules-a-customer-gets-by-default-and-the-two-views-over-them/problem:
-  en: 9e224d4cc071a8bd
-  zh: 06209fa4cd4f03db
+  en: 90bf040f1fbdfd2c
+  zh: 28e50ad2736a7a75
 /agent-note-which-modules-a-customer-gets-by-default-and-the-two-views-over-them/proposal:
   en: b57be9eff4e96406
   zh: 561758e3fc4b227b
@@ -17,6 +17,9 @@
 /agent-note-which-modules-a-customer-gets-by-default-and-the-two-views-over-them/proposal/default-on-subject-to-plan-and-deployment:
   en: 850869e08f39996c
   zh: 420a75f2f40d6a81
+/agent-note-which-modules-a-customer-gets-by-default-and-the-two-views-over-them/proposal/each-default-module-is-its-own-shipped-bundle:
+  en: 385cc544b35211c3
+  zh: 040cc53b359affa0
 /agent-note-which-modules-a-customer-gets-by-default-and-the-two-views-over-them/proposal/a-plugin-may-replace-a-module-and-there-is-a-way-back:
   en: 4565daa966a8e827
   zh: 8fb8bbeb5d54c4c8
@@ -30,11 +33,11 @@
   en: f80f33e80721d938
   zh: 98f248dbf754d9ba
 /agent-note-which-modules-a-customer-gets-by-default-and-the-two-views-over-them/alternatives-considered:
-  en: 904623a822fb0741
-  zh: de7e1d286311598a
+  en: 87c1d1ba2f159115
+  zh: 27c49907cfff7b26
 /agent-note-which-modules-a-customer-gets-by-default-and-the-two-views-over-them/acceptance-criteria:
-  en: 78a56f0bf4a87ea5
-  zh: 854f646be8d575e4
+  en: 13d1f2e4d5e7a7d2
+  zh: 70a80e40965808dc
 /agent-note-which-modules-a-customer-gets-by-default-and-the-two-views-over-them/risks:
-  en: ffd19a9e7035716a
-  zh: bc6a63504b496395
+  en: 778ed3cd5bd5b8b0
+  zh: 35156ac9957caa0c
