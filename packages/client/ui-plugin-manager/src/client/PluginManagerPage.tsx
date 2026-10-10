@@ -15,7 +15,7 @@ import type { PluginInstallFailureKind, Registry } from '@lyness/lyn-api-remotes
 import {
   Button, IconCheckCircleFillRegular, IconChevronDownOutlineRegular, IconChevronLeftOutlineMedium,
   IconChevronRightOutlineRegular, IconCloseOutlineMedium,
-  IconPlusOutlineRegular, IconRefreshOutlineRegular, IconTrashOutlineRegular,
+  IconListPenOutlineRegular, IconPlusOutlineRegular, IconRefreshOutlineRegular, IconTrashOutlineRegular,
   IconWarningOutlineRegular, Input, Modal,
   PluginArtworkDefault, PluginArtworkLoop, PluginArtworkSearch, PluginArtworkSubagent, PluginArtworkTerminal,
   StateDot, Switch, Tag, TerminalBlock, Toast, useAnchoredPosition, useDismissOnOutsidePointer,
@@ -23,6 +23,7 @@ import {
 } from '@lyness/lyn-client-ui-primitives'
 import type { InjectFace, PropsLocale, PropsRenderSlots, PropsRuntime, PropsStore } from '@lyness/lyn-client-ui-slots'
 import type { createNavigationStore } from './navigation-store.ts'
+import { DevGuideDialog } from './DevGuideDialog.tsx'
 import { rowConfigKey, type OfficialItem } from './config-ledger.ts'
 import type { PluginManagerLocaleKey } from './locales.ts'
 import {
@@ -1146,6 +1147,7 @@ function ConfirmDialog({ name, t, onConfirm, onCancel }: {
 
 /** Render the plugin manager: the official plugins and installed bundles, their pages, the install dialog, and the confirmation. */
 export function PluginManagerPage(props: PluginManagerPageProps): ReactNode {
+  const [devGuideOpen, setDevGuideOpen] = useState(false)
   const { t, ensure, renderSlot, resolveText } = props
   const configurations = props.useConfigurations(snapshot => snapshot.view?.namespaces)
   const formFor = (id: string): ConfigPageForm | undefined => {
@@ -1225,6 +1227,7 @@ export function PluginManagerPage(props: PluginManagerPageProps): ReactNode {
 
   return (
     <section className={css.page} data-plugin-panel aria-busy={state.status === 'loading'}>
+      {devGuideOpen ? <DevGuideDialog t={t} onClose={() => { setDevGuideOpen(false) }} /> : null}
       {showsCards
         ? (
           <header className={css.pageHead} data-window-drag>
@@ -1233,6 +1236,15 @@ export function PluginManagerPage(props: PluginManagerPageProps): ReactNode {
               <p className={css.pageIntro}>{t('intro')}</p>
             </div>
             <div className={css.toolbar}>
+              <button
+                type="button"
+                className={css.iconButton}
+                aria-label={t('devGuideOpen')}
+                title={t('devGuideOpen')}
+                onClick={() => { setDevGuideOpen(true) }}
+              >
+                <span className={css.iconWrap} aria-hidden="true"><IconListPenOutlineRegular /></span>
+              </button>
               <button type="button" className={css.iconButton} aria-label={t('refresh')} title={t('refresh')} disabled={!loaded} onClick={props.refresh}>
                 <span className={css.iconWrap} aria-hidden="true"><IconRefreshOutlineRegular /></span>
               </button>

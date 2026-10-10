@@ -1,7 +1,10 @@
 /** Plugin management interface copy. */
 
+import { guideEn, guideZh } from './guide-locales.ts'
+
 /** Simplified Chinese dictionary and key source of truth. */
 export const zh = {
+  ...guideZh,
   panel: '插件',
   title: '插件',
   intro: '添加和管理插件',
@@ -195,6 +198,7 @@ export type PluginManagerLocaleKey = keyof typeof zh
 
 /** English dictionary checked against the Chinese key set. */
 export const en = {
+  ...guideEn,
   panel: 'Plugins',
   title: 'Plugins',
   intro: 'Add and manage plugins',

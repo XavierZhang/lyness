@@ -1496,3 +1496,82 @@ it('supplies the accepted entry values and atomic mutation action to a custom pl
   fireEvent.click(screen.getByText('Save custom'))
   expect(mutate).toHaveBeenCalledWith([{ op: 'set', path: ['count'], value: 3 }], 7)
 })
+
+describe('the plugin development manual', () => {
+  it('opens from the header, shows the first chapter, and closes again', () => {
+    const b = renderTab({ status: 'ready', packages: [pkg()] })
+    expect(document.querySelector('[data-guide-page]')).toBeNull()
+
+    fireEvent.click(screen.getByRole('button', { name: en.devGuideOpen }))
+    const overview = document.querySelector('[data-guide-page="overview"]')
+    expect(overview?.hasAttribute('hidden')).toBe(false)
+    expect(document.body.textContent).toContain('lyn.bundle.patch')
+
+    fireEvent.click(screen.getByRole('button', { name: en.close }))
+    expect(document.querySelector('[data-guide-page]')).toBeNull()
+    b.unmount()
+  })
+
+  it('moves between every chapter', () => {
+    const b = renderTab({ status: 'ready', packages: [pkg()] })
+    fireEvent.click(screen.getByRole('button', { name: en.devGuideOpen }))
+
+    for (const [page, label] of [
+      ['host', en.devGuideHostTab],
+      ['ui', en.devGuideUiTab],
+      ['mcp', en.devGuideMcpTab],
+      ['install', en.devGuideInstallTab],
+    ] as const) {
+      fireEvent.click(screen.getByRole('tab', { name: label }))
+      expect(document.querySelector(`[data-guide-page="${page}"]`)?.hasAttribute('hidden')).toBe(false)
+    }
+    b.unmount()
+  })
+
+  it('reads the manual in the active language', () => {
+    const b = renderTab({ status: 'ready', packages: [pkg()] })
+    b.setLanguage(zh)
+    fireEvent.click(screen.getByRole('button', { name: zh.devGuideOpen }))
+    expect(document.body.textContent).toContain(zh.devGuideTitle)
+    b.unmount()
+  })
+
+  it('keeps keyboard focus inside the manual and closes on Escape', () => {
+    const b = renderTab({ status: 'ready', packages: [pkg()] })
+    const trigger = screen.getByRole('button', { name: en.devGuideOpen })
+    trigger.focus()
+    fireEvent.click(trigger)
+
+    const dialog = screen.getByRole('dialog', { name: en.devGuideTitle })
+    const firstTab = within(dialog).getByRole('tab', { name: en.devGuideOverviewTab })
+    const panel = within(dialog).getByRole('tabpanel', { name: en.devGuideOverviewTab })
+    const close = within(dialog).getByRole('button', { name: en.close })
+    expect(document.activeElement).toBe(firstTab)
+
+    // Tab wraps within the reader rather than escaping into the page behind it.
+    panel.focus()
+    fireEvent.keyDown(panel, { key: 'Tab' })
+    expect(document.activeElement).toBe(close)
+    fireEvent.keyDown(close, { key: 'Tab', shiftKey: true })
+    expect(document.activeElement).toBe(panel)
+    // A key that is not Tab passes through untouched, and so does a Tab from
+    // anywhere that is not an edge of the reader.
+    expect(fireEvent.keyDown(firstTab, { key: 'ArrowDown' })).toBe(true)
+    firstTab.focus()
+    expect(fireEvent.keyDown(firstTab, { key: 'Tab' })).toBe(true)
+
+    fireEvent.keyDown(panel, { key: 'Escape' })
+    expect(screen.queryByRole('dialog', { name: en.devGuideTitle })).toBeNull()
+    b.unmount()
+  })
+
+  it('installs nothing and changes no bundle', () => {
+    const b = renderTab({ status: 'ready', packages: [pkg()] })
+    fireEvent.click(screen.getByRole('button', { name: en.devGuideOpen }))
+    fireEvent.click(screen.getByRole('tab', { name: en.devGuideInstallTab }))
+    // The manual is read-only help; opening and reading it must reach no action.
+    expect(b.actions.openInstall).not.toHaveBeenCalled()
+    expect(b.actions.refresh).not.toHaveBeenCalled()
+    b.unmount()
+  })
+})
