@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url'
 import type { Browser, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { FiberState } from '@lyness/cordis'
-import { OPTIONAL_BUNDLES } from '@lyness/lyn-app-boot'
+import { OPTIONAL_BUNDLES, PROFILE_TEMPLATES } from '@lyness/lyn-app-boot'
 import { createUserMessage } from '@lyness/lyn-llm'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed } from 'vitest'
 import { join } from 'node:path'
@@ -24,8 +24,15 @@ const EXPORTS_EXPECTED = join(SNAPSHOT_DIR, 'exports.expected.md')
 const EXPORTS_EN_EXPECTED = join(SNAPSHOT_DIR, 'exports-en.expected.md')
 const FIXTURE_PLUGINS = fileURLToPath(new URL('./fixtures/plugins', import.meta.url))
 const MODE = webSnapshotMode()
-/** The profile manifest's bundles as the scaffold initializes them. */
-const SCAFFOLD_BUNDLES = ['@lyness/lyn-base', '@lyness/lyn-web-app', SCAFFOLD_DEFAULTS_BUNDLE]
+/**
+ * The profile manifest's bundles as the scaffold initializes them: the `web`
+ * template's selection, then the scaffold's own deployment-defaults bundle.
+ *
+ * Read from the template because each default module ships as its own bundle,
+ * so the selected list grows with the product; a literal here would turn every
+ * new default module into a failure in this page's assertions.
+ */
+const SCAFFOLD_BUNDLES = [...PROFILE_TEMPLATES.web?.bundles ?? [], SCAFFOLD_DEFAULTS_BUNDLE]
 
 describe('web e2e: plugin manager', () => {
   let scaffold: WebScaffold

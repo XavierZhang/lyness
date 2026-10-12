@@ -195,10 +195,36 @@ export function recordedSessionFixturePath(path: string, version: number): strin
   return join(dirname(path), sessionFixtureName(fixture.index, version))
 }
 
-/** The shipped composition under test: the lyn-base and lyn-web-app bundle patches over the empty profile root. */
+/**
+ * The shipped composition under test: every bundle the `web` profile template
+ * selects, in its order, over the empty profile root.
+ *
+ * Reading the template rather than naming two bundles is what keeps the
+ * scaffold honest once default modules ship as their own bundles: a module
+ * that contributes a preset row changes the tool catalog, so a scenario
+ * pinning that catalog has to compose the same selection a deployment gets.
+ */
 const BASE_PATCH_PATH = join(REPO_ROOT, 'packages/bundle/base/cordis.patch.yml')
-const WEB_BUNDLE_DIR = join(REPO_ROOT, 'packages/bundle/web-app')
-const WEB_BUNDLE_PATCH = (JSON.parse(readFileSync(join(WEB_BUNDLE_DIR, 'package.json'), 'utf8')) as { lyn: { bundle: { patch: string[] } } }).lyn.bundle
+
+/** One selected bundle's directory and its declared patch document. */
+function shippedBundle(name: string): { dir: string; bundle: { patch: string | string[] } } {
+  const dir = join(REPO_ROOT, 'packages/bundle', name.replace('@lyness/lyn-', ''))
+  const manifest = JSON.parse(readFileSync(join(dir, 'package.json'), 'utf8')) as {
+    lyn: { bundle: { patch: string | string[] } }
+  }
+  return { dir, bundle: manifest.lyn.bundle }
+}
+
+/**
+ * The template's bundles after `lyn-base`, which the scaffold applies first.
+ *
+ * Read through the built launcher copy, like everything else this scaffold
+ * takes from app-boot, so the selection under test is the one a deployment
+ * would get rather than a second list kept in step by hand.
+ */
+function surfaceBundleNames(): readonly string[] {
+  return (appBoot().PROFILE_TEMPLATES.web?.bundles ?? []).filter(name => name !== '@lyness/lyn-base')
+}
 /** The installation anchor whose dependency surface the runtime resolution mirrors. */
 const INSTALL_ANCHOR = join(REPO_ROOT, 'apps/cli/package.json')
 
@@ -552,7 +578,10 @@ export async function launchWebScaffold(options: LaunchOptions = {}): Promise<We
   // patch id that stops matching a row fails the boot sweep loudly instead of
   // drifting).
   const basePatches = loadOverlayPatches('web e2e scaffold', BASE_PATCH_PATH)
-  const surfacePatches = bundlePatchPaths(WEB_BUNDLE_DIR, WEB_BUNDLE_PATCH).flatMap(file => loadOverlayPatches('web e2e scaffold', file))
+  const surfacePatches = surfaceBundleNames().flatMap((name) => {
+    const { dir, bundle } = shippedBundle(name)
+    return bundlePatchPaths(dir, bundle).flatMap(file => loadOverlayPatches('web e2e scaffold', file))
+  })
   const extraOverlayPatches = options.extraOverlayPath === undefined
     ? []
     : (typeof options.extraOverlayPath === 'string' ? [options.extraOverlayPath] : options.extraOverlayPath)
@@ -752,7 +781,11 @@ export async function launchWebScaffold(options: LaunchOptions = {}): Promise<We
       // A real profile: the shipped web bundles plus each fixture package,
       // installed the way `lyn plugin add` leaves them.
       const dependencies: Record<string, string> = {}
-      const bundles = ['@lyness/lyn-base', '@lyness/lyn-web-app', ...options.profile?.bundles ?? []]
+      // The profile's own selection is what `readProfilePatches` mounts, so
+      // it has to be the template's complete list: a default module shipping
+      // as its own bundle contributes a preset row, and a scenario pinning
+      // the tool catalog must compose the selection a deployment gets.
+      const bundles = [...appBoot().PROFILE_TEMPLATES.web?.bundles ?? [], ...options.profile?.bundles ?? []]
       for (const entry of options.profile?.packages ?? []) {
         const manifest = JSON.parse(await readFile(join(entry.dir, 'package.json'), 'utf8')) as { name: string }
         dependencies[manifest.name] = `file:${entry.dir}`

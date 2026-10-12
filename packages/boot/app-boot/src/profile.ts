@@ -181,7 +181,7 @@ export const PROFILE_TEMPLATES: Record<string, ProfileTemplate> = {
     bundles: ['@lyness/lyn-base', '@lyness/lyn-acp-app'],
   },
   web: {
-    bundles: ['@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-module-schedule'],
+    bundles: ['@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-module-memory', '@lyness/lyn-module-schedule'],
   },
   headless: {
     bundles: ['@lyness/lyn-base', '@lyness/lyn-headless'],
@@ -200,11 +200,24 @@ export const PROFILE_TEMPLATES: Record<string, ProfileTemplate> = {
   },
 }
 
-/** Installation-owned bundle tuples normalized to the shipped template. */
-const INSTALLATION_OWNED_PROFILE_TUPLES: Record<string, readonly string[]> = {
-  headless: ['@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-headless'],
-  // The tuple before the scheduled-follow-ups module became its own bundle.
-  web: ['@lyness/lyn-base', '@lyness/lyn-web-app'],
+/**
+ * Bundle tuples the installation has shipped for a profile, normalized to its
+ * current template.
+ *
+ * Each entry is a complete previous tuple, not a prefix: only an exact match
+ * is normalized, so a list anybody edited by hand is left alone. A profile
+ * that has sat through several default-module releases matches whichever
+ * tuple it stopped at, which is why this holds every previous one rather than
+ * only the latest.
+ */
+const INSTALLATION_OWNED_PROFILE_TUPLES: Record<string, readonly (readonly string[])[]> = {
+  headless: [['@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-headless']],
+  web: [
+    // Before any default module became its own bundle.
+    ['@lyness/lyn-base', '@lyness/lyn-web-app'],
+    // After scheduled follow-ups, before durable memory.
+    ['@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-module-schedule'],
+  ],
 }
 
 /** The bundle list a `lyn plugin` init uses for a name with no shipped template. */
@@ -588,7 +601,7 @@ function normalizeShippedProfile(name: string, dir: string, manifest: ProfileMan
   const template = PROFILE_TEMPLATES[name]
   const bundles = manifest.lyn?.profile?.bundles
   if (template === undefined || bundles === undefined) return manifest
-  const isRetiredTuple = installationOwned !== undefined && sameBundles(bundles, installationOwned)
+  const isRetiredTuple = installationOwned?.some(tuple => sameBundles(bundles, tuple)) === true
   if (!isRetiredTuple) return manifest
   const normalized: ProfileManifest = {
     ...manifest,

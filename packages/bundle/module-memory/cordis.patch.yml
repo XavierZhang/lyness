@@ -1,0 +1,14 @@
+# The durable memory module, as its own bundle. The Host service mounts here;
+# its write tools reach the presets through the contribution seam rather than
+# by restating a preset's whole row list
+# (../../../.agents/notes/proposed/architecture/2026-10-10-preset-row-contributions.md).
+#
+# Both rows name `@lyness/lyn-memory`, which resolves wherever the service
+# does. A bundle that named itself would also have to be resolvable as a
+# module, which a patch-carrying bundle otherwise never needs to be.
+- insert:
+    - id: memory
+      name: '@lyness/lyn-memory'
+
+    - id: memory-preset-contribution
+      name: '@lyness/lyn-memory/preset-contribution'

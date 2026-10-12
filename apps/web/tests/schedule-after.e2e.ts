@@ -8,7 +8,7 @@ import type { Browser, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed } from 'vitest'
 import type { Agent, AgentHandle } from '@lyness/lyn-agent'
-import { bundlePatchPaths, composeEntries, loadOverlayPatches } from '@lyness/lyn-app-boot'
+import { PROFILE_TEMPLATES, bundlePatchPaths, composeEntries, loadOverlayPatches } from '@lyness/lyn-app-boot'
 import { MessageId, ToolCallId, createUserMessage, LlmAdapter } from '@lyness/lyn-llm'
 import { appendDelivery } from '../../../packages/schedule/schedule/src/delivery-history.ts'
 import type { ScheduleTask } from '@lyness/lyn-schedule'
@@ -68,8 +68,25 @@ const CATALOG_SNAPSHOT_DIR = fileURLToPath(new URL('../../../snapshots/web/sched
 const CATALOG_FIXTURE = join(CATALOG_SNAPSHOT_DIR, 'session.v3.jsonl')
 const CATALOG_EXPECTED = join(CATALOG_SNAPSHOT_DIR, 'catalog.expected.md')
 const BASE_PATCH = fileURLToPath(new URL('../../../packages/bundle/base/cordis.patch.yml', import.meta.url))
-const WEB_BUNDLE = fileURLToPath(new URL('../../../packages/bundle/web-app/', import.meta.url))
-const WEB_PATCHES = bundlePatchPaths(WEB_BUNDLE, (JSON.parse(readFileSync(join(WEB_BUNDLE, 'package.json'), 'utf8')) as { lyn: { bundle: { patch: string[] } } }).lyn.bundle)
+const BUNDLE_ROOT = fileURLToPath(new URL('../../../packages/bundle/', import.meta.url))
+/**
+ * Every patch file the `web` template selects after `lyn-base`, in template
+ * order.
+ *
+ * Reading the template rather than naming `web-app` is what keeps this roster
+ * assertion honest: a default module that moved into its own bundle is absent
+ * from the surface bundle's patch, so a list naming one bundle would stop
+ * seeing the rows it is here to pin.
+ */
+const WEB_PATCHES = (PROFILE_TEMPLATES.web?.bundles ?? [])
+  .filter(name => name !== '@lyness/lyn-base')
+  .flatMap((name) => {
+    const dir = join(BUNDLE_ROOT, name.replace('@lyness/lyn-', ''))
+    const manifest = JSON.parse(readFileSync(join(dir, 'package.json'), 'utf8')) as {
+      lyn: { bundle: { patch: string | string[] } }
+    }
+    return bundlePatchPaths(dir, manifest.lyn.bundle)
+  })
 const CATALOG_NOW = Date.parse('2099-08-25T12:00:00.000Z')
 const CATALOG_SESSION_ID = SessionId('schedule-catalog-web-e2e')
 const CATALOG_TITLE = 'Active schedule catalog'

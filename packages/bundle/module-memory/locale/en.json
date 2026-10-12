@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Durable memory",
+    "description": "Facts the agent keeps across sessions, written only by an explicit act."
+  }
+}

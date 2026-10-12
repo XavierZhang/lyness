@@ -8,9 +8,21 @@
   - button "打开配置文件"
   - button "关闭"
   - heading "Agent 预设" [level=2]
-  - paragraph: 选择 Agent 的工具和工作方式。日常任务用「标准模式」，扩展 LYN 的能力用「创造模式」。
+  - paragraph: 选择 Agent 的工具和工作方式。日常任务用「工作模式」，扩展 LYN 的能力用「开发模式」。
   - heading "内置" [level=3]
   - list:
+    - listitem:
+      - 'button "设为新任务默认: 工作模式"':
+        - text: 工作模式 内置
+        - code: work
+        - text: 日常办公与对话，工作目录由你选定的文件夹决定。包含标准模式与 PTC 模式各自的全部能力：检索、编辑、一次性命令、可跨轮次保持状态的终端，以及用生成代码批量调用工具。
+      - 'button "查看配置: 工作模式"': 查看配置
+    - listitem:
+      - 'button "设为新任务默认: 开发模式"':
+        - text: 开发模式 内置
+        - code: build
+        - text: 包含工作模式的全部能力，并可用对话定制 LYN：让 Agent 编写插件，添加新功能或界面；也能组合工具和提示词，创建自己的模式。
+      - 'button "查看配置: 开发模式"': 查看配置
     - listitem:
       - 'button "新任务默认: 标准模式" [disabled] [pressed]':
         - text: 标准模式 新任务默认

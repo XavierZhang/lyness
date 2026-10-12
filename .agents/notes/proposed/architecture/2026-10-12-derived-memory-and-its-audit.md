@@ -16,9 +16,9 @@ So the question is not whether to derive. It is whether a derived memory can car
 
 ## Proposal
 
-Derivation is allowed, and every derived memory carries its provenance, is logged where it came from, and can be invalidated without erasing the record.
+Derivation is allowed, and every derived memory records the session and turn it came from, is logged there, and can be invalidated without erasing the record.
 
-### Provenance is a field, not a convention
+### The originating session and turn are a field, not a convention
 
 Every entry records how it came to exist: a person asked, or the agent derived it. A derived entry additionally records the session and turn it was derived from.
 
@@ -28,7 +28,7 @@ Without that field there is no audit, only a list. With it, "where did this come
 
 The write is recorded as an event in the **originating session's** log, not only in the memory store. That is where a reviewer looks: the turn is right there, and the claim derived from it sits beside it.
 
-This gives the audit two ends that meet. From a memory, its provenance names a session and turn. From a session, its log names the memories that turn produced. Either direction answers the question, which is what makes a wrong derivation findable rather than merely recorded.
+This gives the audit two ends that meet. From a memory, its recorded origin names a session and turn. From a session, its log names the memories that turn produced. Either direction answers the question, which is what makes a wrong derivation findable rather than merely recorded.
 
 ### Invalidation is not deletion
 
@@ -54,11 +54,11 @@ Extraction is a model request per turn it examines, so it is configuration — w
 
 ## Alternatives considered
 
-**Keep refusing derivation.** It is the current decision and the simplest story: every memory was asked for. Rejected: it keeps the gap that makes derivation attractive — the conventions everybody knows and nobody states — and the stated objection was auditability, which provenance answers.
+**Keep refusing derivation.** It is the current decision and the simplest story: every memory was asked for. Rejected: it keeps the gap that makes derivation attractive — the conventions everybody knows and nobody states — and the stated objection was auditability, which a recorded origin answers.
 
-**Derive into a queue a person approves before it is stored.** Nothing unapproved ever reaches a model, which is the strictest reading of the original objection. Rejected as the default: a queue that nobody drains is a feature that does nothing, and the approval work scales with the conversation rather than with the value. It remains the right shape for an organization that wants it, as a policy over the same provenance field rather than a second mechanism.
+**Derive into a queue a person approves before it is stored.** Nothing unapproved ever reaches a model, which is the strictest reading of the original objection. Rejected as the default: a queue that nobody drains is a feature that does nothing, and the approval work scales with the conversation rather than with the value. It remains the right shape for an organization that wants it, as a policy over the same origin field rather than a second mechanism.
 
-**Store derived memories separately from explicit ones.** Two stores make the classes impossible to confuse. Rejected: one store with a provenance field answers the same question, and two stores would need two retentions, two prompts, and two audits that have to agree.
+**Store derived memories separately from explicit ones.** Two stores make the classes impossible to confuse. Rejected: one store with an origin field answers the same question, and two stores would need two retentions, two prompts, and two audits that have to agree.
 
 **Delete a wrong derived memory instead of invalidating it.** Simpler state, and a customer asking for removal usually means removal. Rejected: the record is the evidence that the memory was in every request until it was caught, which is exactly what a customer reviewing a bad answer is looking for.
 
@@ -75,9 +75,9 @@ Extraction is a model request per turn it examines, so it is configuration — w
 
 ## Risks
 
-**Provenance can be wrong without being detectably wrong.** The session and turn a derivation names are what the extractor believed it read. If extraction summarizes across turns, the recorded origin is the best available answer rather than a proof, and an audit that treats it as a proof will mislead.
+**A recorded origin can be wrong without being detectably wrong.** The session and turn a derivation names are what the extractor believed it read. If extraction summarizes across turns, the recorded origin is the best available answer rather than a proof, and an audit that treats it as a proof will mislead.
 
-**The audit trail is the sensitive data too.** Provenance ties a claim about a person to the exact conversation that produced it. The invalidated record keeps that tie after the claim stops being used, so a store that holds many invalidated derivations holds a long history of inferences about named people.
+**The audit trail is the sensitive data too.** A recorded origin ties a claim about a person to the exact conversation that produced it. The invalidated record keeps that tie after the claim stops being used, so a store that holds many invalidated derivations holds a long history of inferences about named people.
 
 **Derivation is a recurring model cost tied to conversation volume, not value.** It scales with how much people talk, and most turns produce `NOOP`. A deployment can tune which turns it examines, but the shape is that the busiest customers pay the most for the least new information.
 

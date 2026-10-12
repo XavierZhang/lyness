@@ -9,13 +9,13 @@
   en: c99a925fae1830b0
   zh: 20780a3641ceaeec
 /agent-note-memory-the-agent-derived-and-the-evidence-that-lets-it-be-undone/proposal:
-  en: 00398edf8e119a50
+  en: d4df397de0974d7b
   zh: 603f507c79a71853
-/agent-note-memory-the-agent-derived-and-the-evidence-that-lets-it-be-undone/proposal/provenance-is-a-field-not-a-convention:
-  en: 2498cc68e80fe93a
-  zh: bc5baef4e0e816d5
+/agent-note-memory-the-agent-derived-and-the-evidence-that-lets-it-be-undone/proposal/the-originating-session-and-turn-are-a-field-not-a-convention:
+  en: 59c65f5768a2139c
+  zh: 5286705c91feb8ee
 /agent-note-memory-the-agent-derived-and-the-evidence-that-lets-it-be-undone/proposal/a-derivation-is-logged-in-the-session-that-produced-it:
-  en: b0828e40c533b084
+  en: c14eadae47459c2e
   zh: 27b6f4c816942a41
 /agent-note-memory-the-agent-derived-and-the-evidence-that-lets-it-be-undone/proposal/invalidation-is-not-deletion:
   en: 0b644cf9b704dfd2
@@ -30,11 +30,11 @@
   en: 29fcb70855de3443
   zh: d790b780edc0ed98
 /agent-note-memory-the-agent-derived-and-the-evidence-that-lets-it-be-undone/alternatives-considered:
-  en: 30404ace63d61462
+  en: 0717e4546d91d613
   zh: 00b37fe0041c6b0c
 /agent-note-memory-the-agent-derived-and-the-evidence-that-lets-it-be-undone/acceptance-criteria:
   en: 1dd4b4ec435ff35d
   zh: 7394091c491724a9
 /agent-note-memory-the-agent-derived-and-the-evidence-that-lets-it-be-undone/risks:
-  en: b4f5f69312ee8467
+  en: b188a77c28bd35ab
   zh: feb692a3bed13c4c

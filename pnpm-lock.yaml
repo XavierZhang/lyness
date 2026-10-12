@@ -253,9 +253,12 @@ importers:
       '@lyness/lyn-experimental-agent-team-profile':
         specifier: workspace:*
         version: link:../../packages/experimental/agent-team-profile
+      '@lyness/lyn-module-memory':
+        specifier: workspace:*
+        version: link:../../packages/bundle/module-memory
       '@lyness/lyn-module-schedule':
         specifier: workspace:*
-        version: link:../packages/bundle/module-schedule
+        version: link:../../packages/bundle/module-schedule
       '@lyness/lyn-experimental-auto-review':
         specifier: workspace:*
         version: link:../../packages/experimental/auto-review
@@ -783,9 +786,12 @@ importers:
       '@lyness/lyn-experimental-agent-team':
         specifier: workspace:*
         version: link:../../packages/experimental/agent-team
+      '@lyness/lyn-module-memory':
+        specifier: workspace:*
+        version: link:../../packages/bundle/module-memory
       '@lyness/lyn-module-schedule':
         specifier: workspace:*
-        version: link:../packages/bundle/module-schedule
+        version: link:../../packages/bundle/module-schedule
       '@lyness/lyn-experimental-auto-review':
         specifier: workspace:*
         version: link:../../packages/experimental/auto-review
@@ -2349,6 +2355,16 @@ importers:
         specifier: workspace:*
         version: link:../../session-query/session-query
 
+  packages/bundle/module-memory:
+    dependencies:
+      '@lyness/lyn-memory':
+        specifier: workspace:*
+        version: link:../../memory/memory
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+
   packages/bundle/module-schedule:
     dependencies:
       '@lyness/lyn-client-ui-schedule':
@@ -2750,9 +2766,6 @@ importers:
       '@lyness/lyn-message-feedback':
         specifier: workspace:*
         version: link:../../feedback/message-feedback
-      '@lyness/lyn-memory':
-        specifier: workspace:*
-        version: link:../../memory/memory
       '@lyness/lyn-office-to-pdf':
         specifier: workspace:*
         version: link:../../document/office-to-pdf
@@ -10042,6 +10055,9 @@ importers:
       '@lyness/cordis':
         specifier: workspace:~
         version: link:../../../vendor/cordis
+      '@lyness/lyn-agent-preset-registry':
+        specifier: workspace:*
+        version: link:../../preset/agent-preset-registry
       '@lyness/lyn-brand':
         specifier: workspace:*
         version: link:../../util/brand

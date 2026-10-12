@@ -23,7 +23,11 @@
       "default": "./lib/types/tools.js"
     },
     "./src/*": "./src/*",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./preset-contribution": {
+      "types": "./lib/types/preset-contribution.d.ts",
+      "default": "./lib/types/preset-contribution.js"
+    }
   },
   "files": [
     "lib/index.js",
@@ -32,6 +36,7 @@
   ],
   "license": "MIT",
   "peerDependencies": {
+    "@lyness/lyn-agent-preset-registry": "workspace:*",
     "@lyness/lyn-brand": "workspace:*",
     "@lyness/lyn-storage-domain": "workspace:*",
     "@lyness/lyn-system-prompt": "workspace:*",
@@ -44,6 +49,7 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@lyness/lyn-agent-preset-registry": "workspace:*",
     "@lyness/lyn-brand": "workspace:*",
     "@lyness/lyn-storage": "workspace:*",
     "@lyness/lyn-storage-domain": "workspace:*",

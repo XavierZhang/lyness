@@ -624,7 +624,16 @@ describe('lyn web keyless CLI smoke', () => {
     const tsxLoader = pathToFileURL(createRequire(join(REPO_ROOT, 'package.json')).resolve('tsx')).href
     const child = spawn(
       process.execPath,
-      ['--import', tsxLoader, join(REPO_ROOT, 'apps/cli/src/bin.ts'), 'web', '--no-open', '--port', '0'],
+      // The environment seam this scenario measures applies only to a preset
+      // that declares no presentation row, so the overlay selects `standard`
+      // rather than the shipped `work` default, which declares `mode: both`.
+      [
+        '--import', tsxLoader, join(REPO_ROOT, 'apps/cli/src/bin.ts'), 'web',
+        // Launcher flags come first: the first token the launcher does not own
+        // starts the web app's own arguments.
+        '--patch', fileURLToPath(new URL('./standard-preset-default.overlay.yml', import.meta.url)),
+        '--no-open', '--port', '0',
+      ],
       {
         cwd: workspace,
         env: {

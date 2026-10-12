@@ -340,6 +340,11 @@
       "@lyness/lyn-compaction-image-offload/projection": ["./packages/compaction/compaction-image-offload/src/projection.ts"],
       "@lyness/lyn-session-format-catalog/message-projections": ["./packages/session/session-format-catalog/src/message-projections.ts"],
       "@lyness/lyn-native-command/types": ["./packages/util/native-command/src/types.ts"],
+      // The generated aliases map only a package's bare name, and memory's rows are
+      // named in a bundle patch rather than imported, so the tsx source launch needs
+      // both subpaths spelled out to resolve them without a built lib/.
+      "@lyness/lyn-memory/preset-contribution": ["./packages/memory/memory/src/preset-contribution.ts"],
+      "@lyness/lyn-memory/tools": ["./packages/memory/memory/src/tools.ts"],
       // BEGIN generated package aliases — pnpm run gen-tsconfig-paths
       "@lyness/lyn-acp": ["./packages/acp/acp/src"],
       "@lyness/lyn-acp-app": ["./packages/bundle/acp-app/src"],
@@ -425,6 +430,7 @@
       "@lyness/lyn-memory": ["./packages/memory/memory/src"],
       "@lyness/lyn-message-feedback": ["./packages/feedback/message-feedback/src"],
       "@lyness/lyn-microsoft-entra": ["./packages/vendor/microsoft-entra/src"],
+      "@lyness/lyn-module-memory": ["./packages/bundle/module-memory/src"],
       "@lyness/lyn-module-schedule": ["./packages/bundle/module-schedule/src"],
       "@lyness/lyn-native-command": ["./packages/util/native-command/src"],
       "@lyness/lyn-office-to-pdf": ["./packages/document/office-to-pdf/src"],
