@@ -175,6 +175,8 @@ interface ToolArgsMap {
   memory_write: {
     /** The fact to keep, at most 2048 characters. */
     text: string;
+    /** The id of a remembered fact this one replaces. Use it when a convention changed, so the store holds the current answer instead of both. */
+    supersedes?: string;
   } & Record<string, JsonValue>;
   /** Declare existing files as final deliverables for the user. Use it when the user needs a separate file, especially Office documents, spreadsheets, and slide decks; prefer your final response when that suffices. The user opens the current files; their contents are not copied. */
   present: {

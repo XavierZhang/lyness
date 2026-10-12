@@ -41,12 +41,13 @@ Mount the service entry on the Host plane when the agent should start a session 
 |---|---|---|
 | `maxEntries` | `200` | Entries retained before a write drops the oldest |
 | `contextOrder` | `130` | Runtime-context sort position, after the policy entries |
+| `promptEntries` | `12` | Newest entries the prompt carries; the rest stay reachable through the tools |
 
 ### The service API
 
 | Member | Contract |
 |---|---|
-| `remember(text, scope?)` | Store one fact. Trims the text; rejects a blank one and one longer than `MAX_ENTRY_CHARS`. `scope` is `member` (default) or `shared`. Returns the stored record with its new id. |
+| `remember(text, scope?, supersedes?)` | Store one fact. Trims the text; rejects a blank one and one longer than `MAX_ENTRY_CHARS`. `scope` is `member` (default) or `shared`. `supersedes` removes the entry it names in the same durable write, so a changed convention leaves one answer rather than two; an id already gone is not an error. Returns the stored record with its new id. |
 | `list()` | Every stored record, oldest first. |
 | `forget(id)` | Remove one record; `true` when one was removed, `false` when no record carried that id. |
 
@@ -90,7 +91,7 @@ Retention runs inside the same durable write that added an entry, dropping the o
 
 #### What the model sees
 
-An empty store contributes no text at all. With entries, the runtime context carries one block:
+An empty store contributes no text at all. With entries, the runtime context carries one bounded block: the newest `promptEntries`, newest first, and a statement of how many older facts it withheld. Carrying every retained entry in every request is what makes a memory store a token cost with no ceiling, so the block is bounded and says where the rest are — without that statement a withheld fact reads as a fact nobody wrote.
 
 ##### The remembered-facts block
 
@@ -112,7 +113,7 @@ No remembered fact carries the id <id>.
 
 #### Token effect
 
-The block costs one line per retained entry on every request, bounded by `maxEntries` and 2048 characters per entry. `memory_list` repeats the same facts with their ids, so it is worth calling only to obtain an id.
+The block costs one line per shown entry on every request, bounded by `promptEntries` rather than by how much is stored, plus one line when it withheld anything. `memory_list` returns everything with ids, which is how the agent reaches a withheld fact or obtains an id to supersede.
 
 #### KV Cache effect
 

@@ -2132,7 +2132,7 @@ export interface ReconnectConfig {
 ## `@lyness/lyn-memory`
 
 - `inject`: `storageDomain` · `systemPrompt`
-- `source`: [`packages/memory/memory/src/index.ts:65`](../packages/memory/memory/src/index.ts)
+- `source`: [`packages/memory/memory/src/index.ts:78`](../packages/memory/memory/src/index.ts)
 
 ```ts config-catalog
 /** Deployment-owned retention and prompt placement. Invalid values fail plugin load. */
@@ -2141,6 +2141,8 @@ export interface Config {
   maxEntries?: number
   /** Runtime-context sort position. Defaults to 130, after the policy entries. */
   contextOrder?: number
+  /** Newest entries the prompt carries; the rest are reachable through the tools. Defaults to 12. */
+  promptEntries?: number
 }
 ```
 <!-- END GENERATED config-catalog:@lyness/lyn-memory -->

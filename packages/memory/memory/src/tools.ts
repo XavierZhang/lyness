@@ -69,13 +69,19 @@ export function apply(ctx: Context): void {
       + 'Do not record task state, secrets, or anything the user did not mean to keep.',
     parameters: {
       text: { type: 'string', required: true, description: `The fact to keep, at most ${String(MAX_ENTRY_CHARS)} characters.` },
+      supersedes: {
+        type: 'string',
+        description: 'The id of a remembered fact this one replaces. Use it when a convention changed, '
+          + 'so the store holds the current answer instead of both.',
+      },
     },
     output: TEXT_OUTPUT,
-    async execute(args: { text: string }) {
-      const record = await ctx.memory.remember(args.text)
-      return `Remembered as ${record.id}.`
+    async execute(args: { text: string; supersedes?: string }) {
+      const replaced = args.supersedes === undefined ? undefined : brandString<MemoryId>(args.supersedes)
+      const record = await ctx.memory.remember(args.text, 'member', replaced)
+      return replaced === undefined ? `Remembered as ${record.id}.` : `Remembered as ${record.id}, replacing ${replaced}.`
     },
-    presentCall: (args: { text: string }) => memoryCallCard('memory_write', args),
+    presentCall: (args: { text: string; supersedes?: string }) => memoryCallCard('memory_write', args),
   })))
 
   ctx.effect(() => ctx.tools.register(defineTool({

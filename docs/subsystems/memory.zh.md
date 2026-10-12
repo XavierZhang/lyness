@@ -62,12 +62,20 @@ Durable memory with an explicit write path and a prompt contribution.
 /**
  * Keep one fact. The only write path: there is no listener that stores
  * anything a caller did not ask for.
+ *
+ * `supersedes` is how a remembered fact is corrected rather than
+ * contradicted. A store that can only append ends up holding both halves of
+ * a changed convention, and nothing in the text says which one is current;
+ * replacing the superseded entry in the same durable write leaves exactly
+ * one answer. An id that no longer exists is not an error — the fact it
+ * named is already gone, which is the outcome the caller wanted.
  * @param text - the fact to keep, trimmed and non-empty.
  * @param scope - reach of the entry; defaults to the writing member.
+ * @param supersedes - an entry this one replaces, removed in the same write.
  * @returns the stored record, including its new identity.
  * @throws {TypeError} when the text is blank or longer than {@link MAX_ENTRY_CHARS}.
  */
-async remember(text: string, scope: MemoryScope = 'member'): Promise<MemoryRecord>
+async remember(text: string, scope: MemoryScope = 'member', supersedes?: MemoryId): Promise<MemoryRecord>
 
 /**
  * Read every kept fact, oldest first.

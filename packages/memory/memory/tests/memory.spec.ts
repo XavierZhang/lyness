@@ -90,6 +90,26 @@ describe('the memory service', () => {
     await ctx.fiber.dispose()
   })
 
+  it('replaces a superseded fact in the same write instead of holding both', async () => {
+    const ctx = await harness()
+    const first = await memoryOf(ctx).remember('Deploys happen on Fridays')
+    const second = await memoryOf(ctx).remember('Deploys happen on Thursdays', 'member', first.id)
+
+    // A store that could only append would hold both halves of the changed
+    // convention, with nothing saying which one is current.
+    expect((await memoryOf(ctx).list()).map(record => record.text)).toEqual(['Deploys happen on Thursdays'])
+    expect(second.id).not.toBe(first.id)
+    await ctx.fiber.dispose()
+  })
+
+  it('accepts a superseded id that is already gone', async () => {
+    const ctx = await harness()
+    const record = await memoryOf(ctx).remember('kept', 'member', brandString<MemoryId>('never-existed'))
+    expect((await memoryOf(ctx).list()).map(entry => entry.text)).toEqual(['kept'])
+    expect(record.text).toBe('kept')
+    await ctx.fiber.dispose()
+  })
+
   it('forgets a stored entry and reports an unknown id', async () => {
     const ctx = await harness()
     const record = await memoryOf(ctx).remember('temporary')
@@ -149,17 +169,40 @@ describe('the prompt contribution', () => {
   })
 
   it('renders an empty store as no text at all', () => {
-    expect(renderEntries([])).toBe('')
+    expect(renderEntries([], 12)).toBe('')
   })
 
-  it('renders one line per remembered fact', () => {
+  it('renders the newest facts first', () => {
     const entries: readonly MemoryRecord[] = [
       { id: brandString<MemoryId>('a'), text: 'first', scope: 'member', writtenAt: '2026-10-09T00:00:00.000Z' },
       { id: brandString<MemoryId>('b'), text: 'second', scope: 'shared', writtenAt: '2026-10-09T00:00:01.000Z' },
     ]
-    expect(renderEntries(entries)).toBe(
-      'Remembered about this workspace and the people in it:\n- first\n- second',
+    expect(renderEntries(entries, 12)).toBe(
+      'Remembered about this workspace and the people in it, newest first:\n- second\n- first',
     )
+  })
+
+  it('bounds the block and says how many facts it withheld', () => {
+    const entries: readonly MemoryRecord[] = ['a', 'b', 'c', 'd'].map((id, index) => ({
+      id: brandString<MemoryId>(id),
+      text: `fact ${id}`,
+      scope: 'member' as const,
+      writtenAt: `2026-10-09T00:00:0${String(index)}.000Z`,
+    }))
+    const rendered = renderEntries(entries, 2)
+    // Only the newest two reach the prompt; the rest are reachable, and the
+    // block has to say so or the agent has no reason to look.
+    expect(rendered).toContain('- fact d\n- fact c')
+    expect(rendered).not.toContain('fact a')
+    expect(rendered).toContain('2 older remembered facts are not shown here; read them with memory_list.')
+  })
+
+  it('uses the singular when it withheld exactly one fact', () => {
+    const entries: readonly MemoryRecord[] = ['a', 'b'].map((id, index) => ({
+      id: brandString<MemoryId>(id), text: `fact ${id}`, scope: 'member' as const,
+      writtenAt: `2026-10-09T00:00:0${String(index)}.000Z`,
+    }))
+    expect(renderEntries(entries, 1)).toContain('1 older remembered fact is not shown here')
   })
 
   it('leaves the stable prompt prefix byte-identical when a fact is written', async () => {
@@ -203,6 +246,12 @@ describe('the memory tools', () => {
     const listed = await run('memory_list', {})
     expect(listed).toContain('Release notes live in docs/')
 
+    // A correction through the tool replaces rather than appends, and says so.
+    const firstId = (await memoryOf(ctx).list())[0]?.id ?? brandString<MemoryId>('missing')
+    const replaced = await run('memory_write', { text: 'Release notes live in CHANGELOG.md', supersedes: firstId })
+    expect(replaced).toBe(`Remembered as ${(await memoryOf(ctx).list())[0]?.id ?? ''}, replacing ${firstId}.`)
+    expect((await memoryOf(ctx).list()).map(record => record.text)).toEqual(['Release notes live in CHANGELOG.md'])
+
     const id = (await memoryOf(ctx).list())[0]?.id ?? brandString<MemoryId>('missing')
     expect(await run('memory_forget', { id })).toBe(`Forgot ${id}.`)
     expect(await run('memory_forget', { id })).toBe(`No remembered fact carries the id ${id}.`)
@@ -238,11 +287,12 @@ describe('the memory tools', () => {
 
 describe('the resolved configuration', () => {
   it('applies both defaults for a config that names neither', () => {
-    expect(resolveConfig({})).toEqual({ maxEntries: 200, contextOrder: 130 })
+    expect(resolveConfig({})).toEqual({ maxEntries: 200, contextOrder: 130, promptEntries: 12 })
   })
 
   it('keeps every value a caller named', () => {
-    expect(resolveConfig({ maxEntries: 7, contextOrder: 42 })).toEqual({ maxEntries: 7, contextOrder: 42 })
+    expect(resolveConfig({ maxEntries: 7, contextOrder: 42, promptEntries: 3 }))
+      .toEqual({ maxEntries: 7, contextOrder: 42, promptEntries: 3 })
   })
 })
 

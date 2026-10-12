@@ -40,6 +40,12 @@ A process boundary is not an operating-system boundary for what a command may do
 
 This is the boundary that makes `tool-bash` safe to offer to a hosted customer. Without it, confinement is a policy the command's own process is asked to respect.
 
+**The container is reached over SSH, and its runtime is a deployment choice.** The container runs `sshd`, and the existing [SSH provider family](../../../../packages/ssh/README.md) — one shared connection plus the filesystem, subprocess and sandbox providers — supplies `ctx.fs`, `ctx.subprocess` and `ctx.sandbox` inside it. Nothing new has to be written to execute there.
+
+That indirection is not taste. [The E2B providers were removed](../../implemented/simplification/2026-09-11-remove-e2b-providers.md) because PTC confinement needs bidirectional control traffic on a descriptor separate from a program's own streams, and that SDK exposed only standard streams and PTY output: "creating a descriptor inside the VM does not expose it to the Harness host". SSH carries that traffic — `subprocess-ssh` names fd 7 explicitly — which is why the SSH family shipped and the SDK-based family did not. A sandbox service reached through an E2B-compatible SDK inherits the gap that removal recorded, however good its isolation is.
+
+So the isolation and the transport are chosen separately. A microVM-per-sandbox runtime with a sub-100ms cold start and a few megabytes of overhead per instance — the shape Tencent's CubeSandbox publishes — is exactly what this design wants underneath, because the per-organization process above it is what sets the floor under every price. Taking its isolation while talking SSH to it keeps both: hardware-level separation and a transport that already carries what PTC needs.
+
 ### Agents work together over protocols that already exist
 
 Three questions are often run together and have three different answers here:
@@ -96,6 +102,8 @@ Where an organization brings its own model credentials, usage is recorded for re
 ## Risks
 
 **Per-organization processes change density and cost.** A runtime per customer is the dominant infrastructure decision in this design, and it sets the floor under every price. Small organizations are the hard case.
+
+**A sandbox runtime's SDK is not a reason to adopt its SDK.** The isolation and the transport are separable here, and keeping them separate is what avoids repeating the E2B removal. A future runtime that carries an extra descriptor natively would make the SSH indirection unnecessary; nothing in this design would have to change except the provider family it points at.
 
 **Containers add a layer to operate.** Image lifecycle, start latency on a cold conversation, and what happens when the container dies mid-command are all new operational surface. A command that fails because its container vanished must not read to the agent as a command that failed.
 

@@ -41,12 +41,13 @@ kind: "package-reference"
 |---|---|---|
 | `maxEntries` | `200` | 一次写入开始丢弃最旧条目之前保留的条数 |
 | `contextOrder` | `130` | 运行时上下文的排序位置，在各策略条目之后 |
+| `promptEntries` | `12` | 提示词承载的最新条数；其余仍可经工具读到 |
 
 ### 服务 API
 
 | 成员 | 契约 |
 |---|---|
-| `remember(text, scope?)` | 存入一条事实。文本会被 trim；空白文本与超过 `MAX_ENTRY_CHARS` 的文本被拒绝。`scope` 取 `member`（默认）或 `shared`。返回带新 id 的已存记录。 |
+| `remember(text, scope?, supersedes?)` | 存入一条事实。文本会被 trim；空白文本与超过 `MAX_ENTRY_CHARS` 的文本被拒绝。`scope` 取 `member`（默认）或 `shared`。`supersedes` 在同一次持久写入里移除它指名的那条，使变更过的约定只留一个答案而不是两个；已经不存在的 id 不算错误。返回带新 id 的已存记录。 |
 | `list()` | 全部已存记录，最旧的在前。 |
 | `forget(id)` | 移除一条记录；移除成功返回 `true`，没有记录持有该 id 时返回 `false`。 |
 
@@ -90,7 +91,7 @@ kind: "package-reference"
 
 #### 模型看到什么
 
-空存储完全不贡献文本。有条目时，运行时上下文承载一个块：
+空存储完全不贡献文本。有条目时，运行时上下文承载一个**有界**的块：最新的 `promptEntries` 条、新的在前，再加一句说明它扣下了多少条更早的事实。把每一条保留条目都放进每个请求，正是让记忆存储成为一项没有上界的 token 成本的原因；所以这个块是有界的，并且说明其余在哪里——没有那句说明，被扣下的事实读起来就像从没有人写过。
 
 ##### 已记住事实的那个块
 
@@ -112,7 +113,7 @@ No remembered fact carries the id <id>.
 
 #### Token 影响
 
-该块在每个请求上按保留条数各占一行，上界是 `maxEntries` 与每条 2048 个字符。`memory_list` 会把同样的事实连同 id 重复一遍，所以只有在需要取 id 时才值得调用。
+该块在每个请求上按**展示**条数各占一行，上界是 `promptEntries` 而不是已存了多少，另加扣下内容时的一行。`memory_list` 返回全部并带 id，这正是 agent 够到被扣下的事实、或取一个 id 去 supersede 的方式。
 
 #### KV Cache 影响
 

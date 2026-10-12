@@ -356,6 +356,10 @@
           "text": {
             "type": "string",
             "description": "The fact to keep, at most 2048 characters."
+          },
+          "supersedes": {
+            "type": "string",
+            "description": "The id of a remembered fact this one replaces. Use it when a convention changed, so the store holds the current answer instead of both."
           }
         },
         "required": [
