@@ -149,6 +149,7 @@ flowchart TD
     pkg_brand_setup["brand-setup"]
     pkg_brand_studio["brand-studio"]
     pkg_headless["headless"]
+    pkg_module_deliverables["module-deliverables"]
     pkg_module_lsp["module-lsp"]
     pkg_module_memory["module-memory"]
     pkg_module_schedule["module-schedule"]
@@ -885,12 +886,6 @@ flowchart TD
   pkg_file_reference_local --> pkg_file_reference
   pkg_file_reference_local --> pkg_system_prompt
   pkg_file_reference_local --> pkg_tools
-  pkg_tool_present --> pkg_agent
-  pkg_tool_present --> pkg_fs
-  pkg_tool_present --> pkg_llm
-  pkg_tool_present --> pkg_session
-  pkg_tool_present --> pkg_session_projection
-  pkg_tool_present --> pkg_tools
   pkg_workspace_changes --> pkg_agent
   pkg_workspace_changes --> pkg_session
   pkg_workspace_changes --> pkg_subprocess
@@ -1015,6 +1010,13 @@ flowchart TD
   pkg_api_settings_controller --> pkg_typert_protocol
   pkg_web_app --> pkg_shell_env
   pkg_web_app --> pkg_system_prompt
+  pkg_tool_present --> pkg_agent
+  pkg_tool_present --> pkg_agent_preset_registry
+  pkg_tool_present --> pkg_fs
+  pkg_tool_present --> pkg_llm
+  pkg_tool_present --> pkg_session
+  pkg_tool_present --> pkg_session_projection
+  pkg_tool_present --> pkg_tools
   pkg_experimental_auto_review --> pkg_agent
   pkg_experimental_auto_review --> pkg_agent_instructions
   pkg_experimental_auto_review --> pkg_llm
@@ -1443,6 +1445,7 @@ flowchart TD
 | [`base`](../packages/bundle/base) | `bundle` | — |
 | [`brand-setup`](../packages/bundle/brand-setup) | `bundle` | — |
 | [`brand-studio`](../packages/bundle/brand-studio) | `bundle` | — |
+| [`module-deliverables`](../packages/bundle/module-deliverables) | `bundle` | — |
 | [`module-lsp`](../packages/bundle/module-lsp) | `bundle` | — |
 | [`module-memory`](../packages/bundle/module-memory) | `bundle` | — |
 | [`module-schedule`](../packages/bundle/module-schedule) | `bundle` | — |
@@ -1670,7 +1673,6 @@ flowchart TD
 | [`compaction-image-offload`](../packages/compaction/compaction-image-offload) | `compaction` | [`agent`](../packages/core/agent), [`compaction`](../packages/compaction/compaction), [`llm`](../packages/llm/llm), [`session`](../packages/core/session) |
 | [`agent-instructions`](../packages/context/agent-instructions) | `context` | [`agent`](../packages/core/agent), [`fs`](../packages/fs/fs), [`home-paths`](../packages/util/home-paths), [`llm`](../packages/llm/llm), [`session`](../packages/core/session), [`session-projection`](../packages/session/session-projection), [`tools`](../packages/core/tools) |
 | [`file-reference-local`](../packages/context/file-reference-local) | `context` | [`agent`](../packages/core/agent), [`file-reference`](../packages/context/file-reference), [`system-prompt`](../packages/core/system-prompt), [`tools`](../packages/core/tools) |
-| [`tool-present`](../packages/deliverables/tool-present) | `deliverables` | [`agent`](../packages/core/agent), [`fs`](../packages/fs/fs), [`llm`](../packages/llm/llm), [`session`](../packages/core/session), [`session-projection`](../packages/session/session-projection), [`tools`](../packages/core/tools) |
 | [`workspace-changes`](../packages/deliverables/workspace-changes) | `deliverables` | [`agent`](../packages/core/agent), [`session`](../packages/core/session), [`subprocess`](../packages/subprocess/subprocess), [`tools`](../packages/core/tools) |
 | [`experimental-browser-use-chrome-devtools-mcp`](../packages/experimental/browser-use-chrome-devtools-mcp) | `experimental` | [`agent`](../packages/core/agent), [`browser-use`](../packages/browser-use/browser-use), [`system-prompt`](../packages/core/system-prompt), [`tools`](../packages/core/tools) |
 | [`experimental-browser-use-playwright-mcp`](../packages/experimental/browser-use-playwright-mcp) | `experimental` | [`agent`](../packages/core/agent), [`browser-use`](../packages/browser-use/browser-use), [`system-prompt`](../packages/core/system-prompt), [`tools`](../packages/core/tools) |
@@ -1696,6 +1698,7 @@ flowchart TD
 | [`session-query`](../packages/session-query/session-query) | `session-query` | [`brand`](../packages/util/brand), [`llm`](../packages/llm/llm), [`session`](../packages/core/session), [`session-persistence`](../packages/session/session-persistence), [`session-projection`](../packages/session/session-projection), [`session-projection-cache`](../packages/session/session-projection-cache), [`session-title`](../packages/session/session-title), [`tool-todo`](../packages/todo/tool-todo) |
 | [`api-settings-controller`](../packages/api/settings-controller) | `api` | [`agent-preset-registry`](../packages/preset/agent-preset-registry), [`credentials`](../packages/credentials/credentials), [`native-command`](../packages/util/native-command), [`session`](../packages/core/session), [`settings`](../packages/settings/settings), [`typert-protocol`](../packages/typert/protocol) |
 | [`web-app`](../packages/bundle/web-app) | `bundle` | [`shell-env`](../packages/shell/shell-env), [`system-prompt`](../packages/core/system-prompt) |
+| [`tool-present`](../packages/deliverables/tool-present) | `deliverables` | [`agent`](../packages/core/agent), [`agent-preset-registry`](../packages/preset/agent-preset-registry), [`fs`](../packages/fs/fs), [`llm`](../packages/llm/llm), [`session`](../packages/core/session), [`session-projection`](../packages/session/session-projection), [`tools`](../packages/core/tools) |
 | [`experimental-auto-review`](../packages/experimental/auto-review) | `experimental` | [`agent`](../packages/core/agent), [`agent-instructions`](../packages/context/agent-instructions), [`llm`](../packages/llm/llm), [`permission-presets`](../packages/interaction/permission-presets), [`session`](../packages/core/session), [`tools`](../packages/core/tools) |
 | [`tool-cordis`](../packages/extensions/tool-cordis) | `extensions` | [`agent`](../packages/core/agent), [`app-boot`](../packages/boot/app-boot), [`cordis-host-runner`](../packages/extensions/cordis-host-runner), [`tools`](../packages/core/tools) |
 | [`host-plugin-inventory`](../packages/host/plugin-inventory) | `host` | [`agent-preset-registry`](../packages/preset/agent-preset-registry), [`brand`](../packages/util/brand), [`typert-protocol`](../packages/typert/protocol) |

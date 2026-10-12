@@ -151,8 +151,6 @@
             name: '@lyness/lyn-agent-tool-presentation'
             config:
               mode: both
-          - id: present
-            name: '@lyness/lyn-tool-present'
           - id: tool-plugin-manager
             name: '@lyness/lyn-plugin-manager/tools'
             disabled: true

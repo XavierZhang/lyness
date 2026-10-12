@@ -335,17 +335,6 @@
     - id: ui-cordis
       name: '@lyness/lyn-client-ui-cordis'
 
-    # Turn tail: the changed-files card and delivery cards under each closing
-    # assistant message. Remove this entry to turn the surface off; the tail
-    # hole renders empty.
-    - id: ui-deliverables
-      name: '@lyness/lyn-client-ui-deliverables'
-
-    # Records each top-level turn's changed files from git working-tree
-    # snapshots; the changed-files card above renders its events.
-    - id: workspace-changes
-      name: '@lyness/lyn-workspace-changes'
-
 
     - id: ui-workspace
       name: '@lyness/lyn-client-ui-workspace'

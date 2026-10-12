@@ -23,7 +23,11 @@
       "default": "./lib/types/types.js"
     },
     "./src/*": "./src/*",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./preset-contribution": {
+      "types": "./lib/types/preset-contribution.d.ts",
+      "default": "./lib/types/preset-contribution.js"
+    }
   },
   "license": "MIT",
   "files": [
@@ -41,7 +45,8 @@
     "@lyness/lyn-llm": "workspace:*",
     "@lyness/lyn-session": "workspace:*",
     "@lyness/lyn-session-projection": "workspace:*",
-    "@lyness/lyn-tools": "workspace:*"
+    "@lyness/lyn-tools": "workspace:*",
+    "@lyness/lyn-agent-preset-registry": "workspace:*"
   },
   "devDependencies": {
     "@lyness/cordis": "workspace:~",
@@ -55,6 +60,7 @@
     "@lyness/lyn-agent-loop-testkit": "workspace:*",
     "@lyness/lyn-fs-local": "workspace:*",
     "@lyness/lyn-system-prompt": "workspace:*",
-    "@lyness/lyn-scope": "workspace:*"
+    "@lyness/lyn-scope": "workspace:*",
+    "@lyness/lyn-agent-preset-registry": "workspace:*"
   }
 }

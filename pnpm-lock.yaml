@@ -253,6 +253,9 @@ importers:
       '@lyness/lyn-experimental-agent-team-profile':
         specifier: workspace:*
         version: link:../../packages/experimental/agent-team-profile
+      '@lyness/lyn-module-deliverables':
+        specifier: workspace:*
+        version: link:../../packages/bundle/module-deliverables
       '@lyness/lyn-module-lsp':
         specifier: workspace:*
         version: link:../../packages/bundle/module-lsp
@@ -792,6 +795,9 @@ importers:
       '@lyness/lyn-experimental-agent-team':
         specifier: workspace:*
         version: link:../../packages/experimental/agent-team
+      '@lyness/lyn-module-deliverables':
+        specifier: workspace:*
+        version: link:../../packages/bundle/module-deliverables
       '@lyness/lyn-module-lsp':
         specifier: workspace:*
         version: link:../../packages/bundle/module-lsp
@@ -2366,6 +2372,22 @@ importers:
       '@lyness/lyn-session-query':
         specifier: workspace:*
         version: link:../../session-query/session-query
+
+  packages/bundle/module-deliverables:
+    dependencies:
+      '@lyness/lyn-client-ui-deliverables':
+        specifier: workspace:*
+        version: link:../../client/ui-deliverables
+      '@lyness/lyn-tool-present':
+        specifier: workspace:*
+        version: link:../../deliverables/tool-present
+      '@lyness/lyn-workspace-changes':
+        specifier: workspace:*
+        version: link:../../deliverables/workspace-changes
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
 
   packages/bundle/module-lsp:
     dependencies:
@@ -7230,6 +7252,9 @@ importers:
       '@lyness/lyn-agent-loop-testkit':
         specifier: workspace:*
         version: link:../../test-support/agent-loop-testkit
+      '@lyness/lyn-agent-preset-registry':
+        specifier: workspace:*
+        version: link:../../preset/agent-preset-registry
       '@lyness/lyn-fs':
         specifier: workspace:*
         version: link:../../fs/fs

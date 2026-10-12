@@ -26,8 +26,6 @@ export const CONTRIBUTION_ORDERS = {
   'module-memory-tools': 100,
   'module-terminal-tool': 200,
   'module-lsp-tool': 300,
-  'module-computer-use-tool': 400,
-  'module-browser-use-tool': 500,
   'module-deliverables-tool': 600,
   'module-extensions-tool': 700,
 } as const
