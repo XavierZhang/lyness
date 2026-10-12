@@ -56,7 +56,9 @@ The [default-modules note](2026-10-08-default-modules-and-views.md) gives the pr
 
 ## Alternatives considered
 
-**Harvest memory automatically from transcripts.** The agent would learn without anyone doing extra work, and this is what "self-improving" usually means. Rejected: it writes facts the customer never approved and cannot audit, and it turns every conversation into a silent input to future ones. An organization cannot accept that about its own staff's conversations.
+**Harvest memory automatically from transcripts.** The agent would learn without anyone doing extra work, and this is what "self-improving" usually means. Rejected here: it writes facts the customer never approved and cannot audit, and it turns every conversation into a silent input to future ones.
+
+[Derived memory and its audit](2026-10-12-derived-memory-and-its-audit.md) revisits this and allows derivation, because the objection was auditability rather than derivation itself: a derived entry that records its origin, logs itself in the session that produced it, and can be invalidated without erasing the record is reviewable in a way the rejected version was not. The rule that survives unchanged is that nothing reaches a request without being reconstructable.
 
 **One memory per organization.** Simpler to store and to show. Rejected: one member's half-formed draft becomes every colleague's context, and the first wrong memory misleads the whole organization instead of one person.
 
