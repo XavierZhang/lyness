@@ -1,0 +1,41 @@
+# The language-server navigation module, as its own bundle. The seam and its
+# local-server provider are Host rows — one server per workspace, shared by
+# every agent in it — while the query tool is per-agent and reaches presets
+# through the contribution seam
+# (../../../.agents/notes/proposed/architecture/2026-10-10-preset-row-contributions.md).
+#
+# Every row ships disabled, and that is not a staging decision: `lsp-stdio`
+# requires a `servers` table naming commands this harness does not install, so
+# there is no value that would work on an arbitrary machine. A deployment
+# supplies the commands and enables all three rows together; enabling the tool
+# alone publishes a tool whose calls fail in the session instead of at the boot
+# that composed them.
+#
+# Enabling it looks like this, in a later patch layer:
+#
+#   - id: lsp
+#     disabled: false
+#   - id: lsp-stdio
+#     disabled: false
+#     config:
+#       servers:
+#         typescript:
+#           command: typescript-language-server
+#           args: ['--stdio']
+#           extensionToLanguage:
+#             .ts: typescript
+#             .tsx: typescriptreact
+#   - id: lsp-preset-contribution
+#     disabled: false
+- insert:
+    - id: lsp
+      name: '@lyness/lyn-lsp'
+      disabled: true
+
+    - id: lsp-stdio
+      name: '@lyness/lyn-lsp-stdio'
+      disabled: true
+
+    - id: lsp-preset-contribution
+      name: '@lyness/lyn-lsp/preset-contribution'
+      disabled: true

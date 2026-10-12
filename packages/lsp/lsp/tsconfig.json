@@ -19,6 +19,12 @@
     },
     {
       "path": "../../llm/llm"
+    },
+    {
+      "path": "../../preset/agent-preset-registry"
+    },
+    {
+      "path": "../../../vendor/schemastery"
     }
   ]
 }

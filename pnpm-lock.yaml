@@ -253,6 +253,9 @@ importers:
       '@lyness/lyn-experimental-agent-team-profile':
         specifier: workspace:*
         version: link:../../packages/experimental/agent-team-profile
+      '@lyness/lyn-module-lsp':
+        specifier: workspace:*
+        version: link:../../packages/bundle/module-lsp
       '@lyness/lyn-module-memory':
         specifier: workspace:*
         version: link:../../packages/bundle/module-memory
@@ -789,6 +792,9 @@ importers:
       '@lyness/lyn-experimental-agent-team':
         specifier: workspace:*
         version: link:../../packages/experimental/agent-team
+      '@lyness/lyn-module-lsp':
+        specifier: workspace:*
+        version: link:../../packages/bundle/module-lsp
       '@lyness/lyn-module-memory':
         specifier: workspace:*
         version: link:../../packages/bundle/module-memory
@@ -2360,6 +2366,22 @@ importers:
       '@lyness/lyn-session-query':
         specifier: workspace:*
         version: link:../../session-query/session-query
+
+  packages/bundle/module-lsp:
+    dependencies:
+      '@lyness/lyn-lsp':
+        specifier: workspace:*
+        version: link:../../lsp/lsp
+      '@lyness/lyn-lsp-stdio':
+        specifier: workspace:*
+        version: link:../../lsp/lsp-stdio
+      '@lyness/lyn-tool-lsp':
+        specifier: workspace:*
+        version: link:../../lsp/tool-lsp
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
 
   packages/bundle/module-memory:
     dependencies:
@@ -9965,10 +9987,17 @@ importers:
         version: link:../../session/session-projection
 
   packages/lsp/lsp:
+    dependencies:
+      '@lyness/schemastery':
+        specifier: link:../../../vendor/schemastery
+        version: link:../../../vendor/schemastery
     devDependencies:
       '@lyness/cordis':
         specifier: workspace:~
         version: link:../../../vendor/cordis
+      '@lyness/lyn-agent-preset-registry':
+        specifier: workspace:*
+        version: link:../../preset/agent-preset-registry
       '@lyness/lyn-brand':
         specifier: workspace:*
         version: link:../../util/brand

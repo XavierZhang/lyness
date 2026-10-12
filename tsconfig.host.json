@@ -267,6 +267,7 @@
     { "path": "./packages/memory/memory" },
     { "path": "./packages/bundle/module-memory" },
     { "path": "./packages/bundle/module-terminal" },
+    { "path": "./packages/bundle/module-lsp" },
     { "path": "./packages/bundle/module-schedule" },
     { "path": "./packages/vendor/microsoft-entra" },
     { "path": "./packages/llm/llm" },

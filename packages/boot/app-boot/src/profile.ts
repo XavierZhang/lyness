@@ -181,8 +181,8 @@ export const PROFILE_TEMPLATES: Record<string, ProfileTemplate> = {
     bundles: ['@lyness/lyn-base', '@lyness/lyn-acp-app'],
   },
   web: {
-    bundles: ['@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-module-memory',
-      '@lyness/lyn-module-schedule', '@lyness/lyn-module-terminal'],
+    bundles: ['@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-module-lsp',
+      '@lyness/lyn-module-memory', '@lyness/lyn-module-schedule', '@lyness/lyn-module-terminal'],
   },
   headless: {
     bundles: ['@lyness/lyn-base', '@lyness/lyn-headless'],
@@ -220,6 +220,9 @@ const INSTALLATION_OWNED_PROFILE_TUPLES: Record<string, readonly (readonly strin
     ['@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-module-schedule'],
     // After durable memory, before the persistent terminal.
     ['@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-module-memory', '@lyness/lyn-module-schedule'],
+    // After the persistent terminal, before code navigation.
+    ['@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-module-memory',
+      '@lyness/lyn-module-schedule', '@lyness/lyn-module-terminal'],
   ],
 }
 
