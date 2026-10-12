@@ -47,6 +47,7 @@ const NO_MODEL_EXPERIENCE_SECTION: Readonly<Record<string, string>> = {
 const SENTENCE_MODEL_EXPERIENCE: Readonly<Record<string, SentenceContract>> = {
   'packages/bundle/module-schedule': { kind: 'none', reason: 'A module bundle contributes composition rows; the Schedule service owns every prompt, tool, and Session event it registers.' },
   'packages/bundle/module-memory': { kind: 'indirect', reason: 'A module bundle contributes composition rows; the Memory service owns its tool schemas and the remembered-facts context block.' },
+  'packages/bundle/module-terminal': { kind: 'indirect', reason: 'A module bundle contributes one composition row; lyn-tool-terminal owns its tool schemas and results.' },
   'packages/experimental/speech-to-text': { kind: 'none', reason: 'Routes transient recognition without adding model requests or Session events.' },
   'packages/experimental/api-speech-to-text': { kind: 'none', reason: 'Transports audio and preparation state; ordinary user submission owns model-visible text.' },
   'packages/experimental/speech-to-text-sensevoice': { kind: 'none', reason: 'Local recognition returns transient text without modifying model context.' },

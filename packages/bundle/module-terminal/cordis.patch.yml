@@ -1,0 +1,17 @@
+# The persistent terminal module, as its own bundle. Every row of this
+# capability is per-agent, so the bundle inserts no Host row: it mounts the
+# contribution plugin, which hands the whole isolate group to each accepting
+# preset
+# (../../../.agents/notes/proposed/architecture/2026-10-10-preset-row-contributions.md).
+#
+# The row names `@lyness/lyn-terminal`, which resolves wherever the service
+# does. A bundle that named itself would also have to be resolvable as a
+# module, which a patch-carrying bundle otherwise never needs to be.
+- insert:
+    - id: terminal-preset-contribution
+      name: '@lyness/lyn-terminal/preset-contribution'
+      config:
+        # A long-running build and an interactive shell on a laptop do not
+        # share a ceiling, so the timeout stays a deployment value here rather
+        # than a constant in the contribution.
+        timeoutMs: 300000

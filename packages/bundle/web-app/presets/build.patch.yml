@@ -41,27 +41,6 @@
               sampleOverCapGlobResults: false
           - id: tool-jobs
             name: '@lyness/lyn-tool-jobs'
-          - id: persistent-shell
-            name: cordis:group
-            group: true
-            isolate:
-              terminals: true
-            config:
-              - id: pty
-                name: '@lyness/lyn-terminal'
-              - id: terminal-bash
-                name: '@lyness/lyn-terminal-bash'
-                disabled: !!js process.platform === 'win32'
-                config:
-                  timeoutMs: 300000
-              - id: terminal-pwsh
-                name: '@lyness/lyn-terminal-bash'
-                disabled: !!js process.platform !== 'win32'
-                config:
-                  shellDialect: pwsh
-                  timeoutMs: 300000
-              - id: tool-terminal
-                name: '@lyness/lyn-tool-terminal'
           - id: command-goal
             name: '@lyness/lyn-command-goal'
           - id: tool-goal

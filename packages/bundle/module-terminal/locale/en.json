@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Persistent terminal",
+    "description": "Interactive shells that keep their state across tool calls, one set per agent."
+  }
+}

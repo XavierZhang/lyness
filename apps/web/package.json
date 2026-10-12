@@ -68,6 +68,7 @@
     "@lyness/lyn-launch-environment": "workspace:*",
     "@lyness/lyn-subprocess-local": "workspace:*",
     "@lyness/lyn-workspace-changes": "workspace:*",
-    "ws": "8.21.0"
+    "ws": "8.21.0",
+    "@lyness/lyn-module-terminal": "workspace:*"
   }
 }

@@ -19,6 +19,12 @@
     },
     {
       "path": "../../util/brand"
+    },
+    {
+      "path": "../../preset/agent-preset-registry"
+    },
+    {
+      "path": "../../../vendor/schemastery"
     }
   ]
 }

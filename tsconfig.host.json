@@ -266,6 +266,7 @@
     { "path": "./packages/client/file-upload/tsconfig.host.json" },
     { "path": "./packages/memory/memory" },
     { "path": "./packages/bundle/module-memory" },
+    { "path": "./packages/bundle/module-terminal" },
     { "path": "./packages/bundle/module-schedule" },
     { "path": "./packages/vendor/microsoft-entra" },
     { "path": "./packages/llm/llm" },

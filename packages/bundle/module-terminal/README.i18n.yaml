@@ -1,0 +1,37 @@
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write packages/bundle/module-terminal/README.md
+/:
+  en: ea1b9c9674d726cc
+  zh: e20f1dd5279625da
+/lyness-lyn-module-terminal:
+  en: 331112c43c2b43ac
+  zh: f298b362aabc339b
+/lyness-lyn-module-terminal/summary:
+  en: 2e52374b1744a716
+  zh: dc490b41fe8c6bb6
+/lyness-lyn-module-terminal/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-module-terminal/use-this-package:
+  en: c42b9820510f3e20
+  zh: c3c026153e1d522d
+/lyness-lyn-module-terminal/understand-the-implementation:
+  en: 696b323466819c0b
+  zh: c3c238dcee29d834
+/lyness-lyn-module-terminal/further-exploration:
+  en: 6d9a2aec946b70db
+  zh: ac08a7a5e8d8fed6
+/lyness-lyn-module-terminal/model-experience:
+  en: cd330b2dab90d790
+  zh: 02e0e5a1be049160
+/lyness-lyn-module-terminal/model-experience/kv-cache-effect:
+  en: a0fdd3bb493fcc15
+  zh: 072108a8e6707bd8
+/lyness-lyn-module-terminal/known-limitations-and-deferred-work:
+  en: 34ef34b557454032
+  zh: 9adba01a1ca94a22
+/lyness-lyn-module-terminal/known-limitations-and-deferred-work/dev-note:
+  en: fccfd5c03e5fe2c8
+  zh: 7a58665488ea6adc

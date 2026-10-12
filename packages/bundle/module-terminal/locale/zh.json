@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "持久终端",
+    "description": "跨工具调用保持状态的交互式 shell，每个 agent 各一套。"
+  }
+}
