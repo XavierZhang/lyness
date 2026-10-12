@@ -64,7 +64,14 @@ describe.skipIf(MODE === 'record').each([false, true])('web e2e: native credenti
         await accountMenu.click()
         const menu = page.getByRole('menu')
         await menu.waitFor()
-        expect(await menu.getByRole('menuitem').allTextContents()).toEqual(['设置', '联系我们', '登录'])
+        // Read the roster through accessible names, not text content: an item's
+        // shortcut hint is aria-hidden and platform-dependent (⌘ on macOS, Meta
+        // elsewhere), so its text is not a stable roster. The menu golden below
+        // pins the order and the rendered detail.
+        for (const label of ['设置', '联系我们', '登录']) {
+          await menu.getByRole('menuitem', { name: label, exact: true }).waitFor()
+        }
+        expect(await menu.getByRole('menuitem').count()).toBe(3)
         const menuBox = (await menu.boundingBox())!
         expect(Math.abs(menuBox.width - 124)).toBeLessThan(1)
         expect(Math.abs(menuBox.height - 128)).toBeLessThan(1)
