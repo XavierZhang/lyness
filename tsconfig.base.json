@@ -434,6 +434,7 @@
       "@lyness/lyn-message-feedback": ["./packages/feedback/message-feedback/src"],
       "@lyness/lyn-microsoft-entra": ["./packages/vendor/microsoft-entra/src"],
       "@lyness/lyn-module-deliverables": ["./packages/bundle/module-deliverables/src"],
+      "@lyness/lyn-module-extensions": ["./packages/bundle/module-extensions/src"],
       "@lyness/lyn-module-lsp": ["./packages/bundle/module-lsp/src"],
       "@lyness/lyn-module-memory": ["./packages/bundle/module-memory/src"],
       "@lyness/lyn-module-schedule": ["./packages/bundle/module-schedule/src"],

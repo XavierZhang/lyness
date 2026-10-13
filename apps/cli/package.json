@@ -108,7 +108,8 @@
     "node-addon-require-builtin": "^0.1.6",
     "@lyness/lyn-module-terminal": "workspace:*",
     "@lyness/lyn-module-lsp": "workspace:*",
-    "@lyness/lyn-module-deliverables": "workspace:*"
+    "@lyness/lyn-module-deliverables": "workspace:*",
+    "@lyness/lyn-module-extensions": "workspace:*"
   },
   "devDependencies": {
     "@agentclientprotocol/sdk": "1.4.0",

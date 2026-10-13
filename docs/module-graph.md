@@ -148,6 +148,7 @@ flowchart TD
     pkg_brand_studio["brand-studio"]
     pkg_headless["headless"]
     pkg_module_deliverables["module-deliverables"]
+    pkg_module_extensions["module-extensions"]
     pkg_module_lsp["module-lsp"]
     pkg_module_memory["module-memory"]
     pkg_module_schedule["module-schedule"]
@@ -1444,6 +1445,7 @@ flowchart TD
 | [`brand-setup`](../packages/bundle/brand-setup) | `bundle` | — |
 | [`brand-studio`](../packages/bundle/brand-studio) | `bundle` | — |
 | [`module-deliverables`](../packages/bundle/module-deliverables) | `bundle` | — |
+| [`module-extensions`](../packages/bundle/module-extensions) | `bundle` | — |
 | [`module-lsp`](../packages/bundle/module-lsp) | `bundle` | — |
 | [`module-memory`](../packages/bundle/module-memory) | `bundle` | — |
 | [`module-schedule`](../packages/bundle/module-schedule) | `bundle` | — |

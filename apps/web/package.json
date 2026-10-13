@@ -71,6 +71,7 @@
     "ws": "8.21.0",
     "@lyness/lyn-module-terminal": "workspace:*",
     "@lyness/lyn-module-lsp": "workspace:*",
-    "@lyness/lyn-module-deliverables": "workspace:*"
+    "@lyness/lyn-module-deliverables": "workspace:*",
+    "@lyness/lyn-module-extensions": "workspace:*"
   }
 }

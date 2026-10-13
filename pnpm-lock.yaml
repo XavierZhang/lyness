@@ -256,6 +256,9 @@ importers:
       '@lyness/lyn-module-deliverables':
         specifier: workspace:*
         version: link:../../packages/bundle/module-deliverables
+      '@lyness/lyn-module-extensions':
+        specifier: workspace:*
+        version: link:../../packages/bundle/module-extensions
       '@lyness/lyn-module-lsp':
         specifier: workspace:*
         version: link:../../packages/bundle/module-lsp
@@ -798,6 +801,9 @@ importers:
       '@lyness/lyn-module-deliverables':
         specifier: workspace:*
         version: link:../../packages/bundle/module-deliverables
+      '@lyness/lyn-module-extensions':
+        specifier: workspace:*
+        version: link:../../packages/bundle/module-extensions
       '@lyness/lyn-module-lsp':
         specifier: workspace:*
         version: link:../../packages/bundle/module-lsp
@@ -2384,6 +2390,25 @@ importers:
       '@lyness/lyn-workspace-changes':
         specifier: workspace:*
         version: link:../../deliverables/workspace-changes
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+
+  packages/bundle/module-extensions:
+    dependencies:
+      '@lyness/lyn-client-ui-cordis':
+        specifier: workspace:*
+        version: link:../../extensions/ui-cordis
+      '@lyness/lyn-cordis-client-runner':
+        specifier: workspace:*
+        version: link:../../extensions/cordis-client-runner
+      '@lyness/lyn-cordis-host-runner':
+        specifier: workspace:*
+        version: link:../../extensions/cordis-host-runner
+      '@lyness/lyn-tool-cordis':
+        specifier: workspace:*
+        version: link:../../extensions/tool-cordis
     devDependencies:
       '@lyness/cordis':
         specifier: workspace:~

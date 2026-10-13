@@ -4725,6 +4725,7 @@ export interface Config {
 | `@lyness/lyn-llm-mock-server` | — | [`packages/test-support/llm-mock-server/src/index.ts`](../packages/test-support/llm-mock-server/src/index.ts) |
 | `@lyness/lyn-loader-smoke` | — | [`packages/test-support/loader-smoke/src/index.ts`](../packages/test-support/loader-smoke/src/index.ts) |
 | `@lyness/lyn-module-deliverables` | — | [`packages/bundle/module-deliverables/src/index.ts`](../packages/bundle/module-deliverables/src/index.ts) |
+| `@lyness/lyn-module-extensions` | — | [`packages/bundle/module-extensions/src/index.ts`](../packages/bundle/module-extensions/src/index.ts) |
 | `@lyness/lyn-module-lsp` | — | [`packages/bundle/module-lsp/src/index.ts`](../packages/bundle/module-lsp/src/index.ts) |
 | `@lyness/lyn-module-memory` | — | [`packages/bundle/module-memory/src/index.ts`](../packages/bundle/module-memory/src/index.ts) |
 | `@lyness/lyn-module-schedule` | — | [`packages/bundle/module-schedule/src/index.ts`](../packages/bundle/module-schedule/src/index.ts) |

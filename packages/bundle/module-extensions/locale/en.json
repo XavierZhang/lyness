@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Runtime self-modification",
+    "description": "Reading and editing the running composition, for the developer view."
+  }
+}

@@ -8,9 +8,9 @@
  * Only presets that accept contributions take the tool this way. The four
  * official modes declare `@lyness/lyn-tool-present` as a row of their own, as
  * upstream ships them, and keep it: a contribution reaching them would be a
- * second row registering one tool name. So `standard`, `ptc`, and `cordis`
- * carry the declared row while the view defaults carry this contribution, and
- * every preset ends with exactly one.
+ * second row registering one tool name. So the standard, PTC, and creator
+ * modes carry the declared row while the view defaults carry this
+ * contribution, and every preset ends with exactly one.
  *
  * This lives beside the tool rather than in the module bundle so that the
  * plugin name a patch references resolves wherever the tool does: a bundle
