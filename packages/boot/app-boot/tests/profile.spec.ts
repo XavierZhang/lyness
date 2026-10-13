@@ -388,6 +388,49 @@ describe('loadProfile', () => {
     ])
   })
 
+  it('normalizes a tuple a profile spelled before the package rescope', () => {
+    const anchor = stageInstallation({
+      '@lyness/lyn-base': { patch: '[]\n' },
+      '@lyness/lyn-web-app': { patch: '[]\n' },
+      '@lyness/lyn-module-memory': { patch: '[]\n' },
+      '@lyness/lyn-module-schedule': { patch: '[]\n' },
+      '@lyness/lyn-module-terminal': { patch: '[]\n' },
+      '@lyness/lyn-module-lsp': { patch: '[]\n' },
+      '@lyness/lyn-module-deliverables': { patch: '[]\n' },
+      '@lyness/lyn-module-extensions': { patch: '[]\n' },
+      '@lyness/lyn-module-webhook': { patch: '[]\n' },
+    })
+    const home = tmp()
+    const dir = resolveProfileDir('web', home)
+    // The spelling a profile created before the rescope still carries. Such a
+    // profile boots, because its node_modules holds a legacy link per name, so
+    // without this path it silently never receives a module shipped since.
+    initProfile(dir, ['@lyness/base', '@lyness/web-app'])
+
+    loadProfile('t', 'web', anchor, home)
+
+    expect(readProfileManifest('t', dir).lyn?.profile?.bundles)
+      .toEqual([...PROFILE_TEMPLATES.web?.bundles ?? []])
+  })
+
+  it('leaves a pre-rescope list alone once it stops matching a recorded tuple', () => {
+    const anchor = stageInstallation({
+      '@lyness/lyn-base': { patch: '[]\n' },
+      '@lyness/lyn-web-app': { patch: '[]\n' },
+      'custom-bundle': { patch: '[]\n' },
+    })
+    const home = tmp()
+    const dir = resolveProfileDir('web', home)
+    initProfile(dir, ['@lyness/base', '@lyness/web-app', 'custom-bundle'])
+
+    loadProfile('t', 'web', anchor, home)
+
+    // Mapping the spelling must not widen which lists are owned: a hand-edited
+    // profile stays hand-edited.
+    expect(readProfileManifest('t', dir).lyn?.profile?.bundles)
+      .toEqual(['@lyness/base', '@lyness/web-app', 'custom-bundle'])
+  })
+
   it.each(['missing package', 'invalid manifest', 'not a bundle', 'missing patch', 'invalid patch'])(
     'skips a bundle with %s, retains selections, and retries it on reread', async (failure) => {
       const anchor = stageInstallation({

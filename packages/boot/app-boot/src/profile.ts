@@ -213,9 +213,16 @@ export const PROFILE_TEMPLATES: Record<string, ProfileTemplate> = {
  * only the latest.
  */
 const INSTALLATION_OWNED_PROFILE_TUPLES: Record<string, readonly (readonly string[])[]> = {
-  headless: [['@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-headless']],
+  headless: [
+    ['@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-headless'],
+    // The current template's own list, recorded so a profile that spells it the
+    // pre-rescope way is rewritten to the current spelling rather than left
+    // depending on its legacy links.
+    ['@lyness/lyn-base', '@lyness/lyn-headless'],
+  ],
   web: [
-    // Before any default module became its own bundle.
+    // Before any default module became its own bundle. A profile spelling this
+    // the pre-rescope way reaches it through `rescopedBundleName`.
     ['@lyness/lyn-base', '@lyness/lyn-web-app'],
     // After scheduled follow-ups, before durable memory.
     ['@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-module-schedule'],
@@ -611,6 +618,22 @@ function sameBundles(left: readonly string[], right: readonly string[]): boolean
 }
 
 /**
+ * The current name of a bundle a profile may have recorded before the package
+ * rescope, when bundles carried their unprefixed names.
+ *
+ * Such a profile still boots, because its `node_modules` holds a legacy link
+ * per recorded name, so nothing tells its owner the list has stopped matching
+ * any tuple below. Comparing by current name is what lets one recorded tuple
+ * stand for both spellings instead of every historical list being written
+ * twice.
+ * @param bundle - a bundle name as some profile manifest recorded it.
+ * @returns the name this installation ships that bundle under.
+ */
+function rescopedBundleName(bundle: string): string {
+  return bundle.replace(/^@lyness\/(?!lyn-)/u, '@lyness/lyn-')
+}
+
+/**
  * Normalize an exact installation-owned bundle tuple to its shipped template,
  * preserving all other manifest fields. Other bundle lists remain untouched.
  */
@@ -619,7 +642,8 @@ function normalizeShippedProfile(name: string, dir: string, manifest: ProfileMan
   const template = PROFILE_TEMPLATES[name]
   const bundles = manifest.lyn?.profile?.bundles
   if (template === undefined || bundles === undefined) return manifest
-  const isRetiredTuple = installationOwned?.some(tuple => sameBundles(bundles, tuple)) === true
+  const recorded = bundles.map(rescopedBundleName)
+  const isRetiredTuple = installationOwned?.some(tuple => sameBundles(recorded, tuple)) === true
   if (!isRetiredTuple) return manifest
   const normalized: ProfileManifest = {
     ...manifest,
