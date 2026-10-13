@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Webhook ingress",
+    "description": "Turning an external event into a new agent Session, through rules a deployment authors."
+  }
+}

@@ -1,0 +1,31 @@
+# The webhook ingress module, as its own bundle: an external event becoming a
+# new agent Session. Both rows ship disabled, and that is both structural and
+# a security decision.
+#
+# Structural: the GitHub adapter has four required fields, one of them a
+# credential reference for the shared secret, so no shipped value would be
+# right. Enabling the adapter without them fails loudly at load rather than
+# opening an unverified route.
+#
+# Security: an enabled adapter is authenticated public HTTP ingress that
+# creates root Sessions. The secret verifies the sender, not the tenant, so on
+# a host serving more than one tenant the route and its Workspace routing are
+# the authorization boundary — the plane authorizes, the adapter only
+# authenticates
+# (../../../.agents/notes/proposed/architecture/2026-10-09-inbound-interfaces-and-the-session-plane.md).
+#
+# Dispatch also does nothing on its own: rules are user-authored plugins that
+# inject `webhookRuntime` and yield the disposer `register()` returns. The
+# runtime ships no rule, so a configured route with no rule accepts deliveries
+# and starts nothing.
+#
+# `docs/user/guide/github-review.md` walks a rule module, a dedicated ingress
+# port, secret setup, and Workspace routing end to end.
+- insert:
+    - id: webhook-runtime
+      name: '@lyness/lyn-webhook'
+      disabled: true
+
+    - id: webhook-github
+      name: '@lyness/lyn-webhook-github'
+      disabled: true

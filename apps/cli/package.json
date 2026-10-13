@@ -109,7 +109,8 @@
     "@lyness/lyn-module-terminal": "workspace:*",
     "@lyness/lyn-module-lsp": "workspace:*",
     "@lyness/lyn-module-deliverables": "workspace:*",
-    "@lyness/lyn-module-extensions": "workspace:*"
+    "@lyness/lyn-module-extensions": "workspace:*",
+    "@lyness/lyn-module-webhook": "workspace:*"
   },
   "devDependencies": {
     "@agentclientprotocol/sdk": "1.4.0",

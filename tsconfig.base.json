@@ -439,6 +439,7 @@
       "@lyness/lyn-module-memory": ["./packages/bundle/module-memory/src"],
       "@lyness/lyn-module-schedule": ["./packages/bundle/module-schedule/src"],
       "@lyness/lyn-module-terminal": ["./packages/bundle/module-terminal/src"],
+      "@lyness/lyn-module-webhook": ["./packages/bundle/module-webhook/src"],
       "@lyness/lyn-native-command": ["./packages/util/native-command/src"],
       "@lyness/lyn-office-to-pdf": ["./packages/document/office-to-pdf/src"],
       "@lyness/lyn-output-retention": ["./packages/util/output-retention/src"],

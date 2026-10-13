@@ -316,6 +316,9 @@ importers:
       '@lyness/lyn-module-terminal':
         specifier: workspace:*
         version: link:../../packages/bundle/module-terminal
+      '@lyness/lyn-module-webhook':
+        specifier: workspace:*
+        version: link:../../packages/bundle/module-webhook
       '@lyness/lyn-persona':
         specifier: workspace:*
         version: link:../../packages/preset/persona
@@ -834,6 +837,9 @@ importers:
       '@lyness/lyn-module-terminal':
         specifier: workspace:*
         version: link:../../packages/bundle/module-terminal
+      '@lyness/lyn-module-webhook':
+        specifier: workspace:*
+        version: link:../../packages/bundle/module-webhook
       '@lyness/lyn-pwsh-local':
         specifier: workspace:*
         version: link:../../packages/shell/pwsh-local
@@ -2451,6 +2457,19 @@ importers:
       '@lyness/lyn-tool-terminal':
         specifier: workspace:*
         version: link:../../terminal/tool-terminal
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+
+  packages/bundle/module-webhook:
+    dependencies:
+      '@lyness/lyn-webhook':
+        specifier: workspace:*
+        version: link:../../webhook/webhook
+      '@lyness/lyn-webhook-github':
+        specifier: workspace:*
+        version: link:../../webhook/webhook-github
     devDependencies:
       '@lyness/cordis':
         specifier: workspace:~

@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Webhook 入站",
+    "description": "经由部署自行编写的规则，把外部事件变成一个新的 agent 会话。"
+  }
+}

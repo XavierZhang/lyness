@@ -51,6 +51,7 @@ const SENTENCE_MODEL_EXPERIENCE: Readonly<Record<string, SentenceContract>> = {
   'packages/bundle/module-lsp': { kind: 'indirect', reason: 'A module bundle contributes one composition row; lyn-tool-lsp owns the tool schema, guidance, and rendered results.' },
   'packages/bundle/module-deliverables': { kind: 'indirect', reason: 'A module bundle contributes one composition row; lyn-tool-present owns the tool schema and results, and the recorder owns its client-read event.' },
   'packages/bundle/module-extensions': { kind: 'indirect', reason: 'A module bundle supplies the Host runner and inspect providers; lyn-tool-cordis owns the tool schema and results, and presets own whether they carry it.' },
+  'packages/bundle/module-webhook': { kind: 'indirect', reason: 'A module bundle contributes composition rows; a deployment-authored rule owns the initial prompt its Session begins with.' },
   'packages/experimental/speech-to-text': { kind: 'none', reason: 'Routes transient recognition without adding model requests or Session events.' },
   'packages/experimental/api-speech-to-text': { kind: 'none', reason: 'Transports audio and preparation state; ordinary user submission owns model-visible text.' },
   'packages/experimental/speech-to-text-sensevoice': { kind: 'none', reason: 'Local recognition returns transient text without modifying model context.' },

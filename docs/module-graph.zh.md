@@ -155,6 +155,7 @@ flowchart TD
     pkg_module_memory["module-memory"]
     pkg_module_schedule["module-schedule"]
     pkg_module_terminal["module-terminal"]
+    pkg_module_webhook["module-webhook"]
     pkg_sdk_app["sdk-app"]
     pkg_sdk_minimal["sdk-minimal"]
     pkg_web_app["web-app"]
@@ -1452,6 +1453,7 @@ flowchart TD
 | [`module-memory`](../packages/bundle/module-memory) | `bundle` | — |
 | [`module-schedule`](../packages/bundle/module-schedule) | `bundle` | — |
 | [`module-terminal`](../packages/bundle/module-terminal) | `bundle` | — |
+| [`module-webhook`](../packages/bundle/module-webhook) | `bundle` | — |
 | [`sdk-app`](../packages/bundle/sdk-app) | `bundle` | — |
 | [`sdk-minimal`](../packages/bundle/sdk-minimal) | `bundle` | — |
 | [`client-hmr`](../packages/client/hmr) | `client` | — |
