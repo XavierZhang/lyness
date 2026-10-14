@@ -73,6 +73,7 @@
     "@lyness/lyn-module-lsp": "workspace:*",
     "@lyness/lyn-module-deliverables": "workspace:*",
     "@lyness/lyn-module-extensions": "workspace:*",
-    "@lyness/lyn-module-webhook": "workspace:*"
+    "@lyness/lyn-module-webhook": "workspace:*",
+    "@lyness/lyn-module-model-governance": "workspace:*"
   }
 }

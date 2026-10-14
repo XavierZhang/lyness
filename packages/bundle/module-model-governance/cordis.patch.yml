@@ -1,0 +1,31 @@
+# The deployment-owns-the-model module. Selecting it is how a shipped product
+# states that its models are a deployment decision rather than a user's
+# (../../../.agents/notes/proposed/architecture/2026-10-14-the-model-is-a-deployment-decision.md).
+#
+# Two of the three rows are shared by both shipped shapes. The third — the
+# policy provider — is where they differ: this bundle carries the static one,
+# which serves an installation with a single administrator-maintained list.
+# A hosted deployment disables it and enables a tenant-resolving provider
+# instead, because its allowance differs per request.
+#
+# A developer profile selects none of this: an install that has not been given
+# a key yet should still open its own Models page and add one.
+- insert:
+    # Refuses to serve a deployment that reaches no model, at the first point
+    # an empty registry is conclusive.
+    - id: model-required
+      name: '@lyness/lyn-model-required'
+
+    # The allowed list an administrator maintains. Required and non-empty, so
+    # a deployment that selects this bundle states its models or fails at load.
+    - id: model-policy
+      name: '@lyness/lyn-model-policy/static'
+      config:
+        allowed:
+          - provider: deepseek-official
+            model: deepseek-flash
+
+    # Enforcement rides the llm/stream waterfall, so a preset row, a profile
+    # patch, or a direct RPC cannot reach a model the policy does not name.
+    - id: model-policy-enforce
+      name: '@lyness/lyn-model-policy/enforce'

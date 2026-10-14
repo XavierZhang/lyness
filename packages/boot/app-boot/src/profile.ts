@@ -185,6 +185,19 @@ export const PROFILE_TEMPLATES: Record<string, ProfileTemplate> = {
       '@lyness/lyn-module-extensions', '@lyness/lyn-module-lsp', '@lyness/lyn-module-memory',
       '@lyness/lyn-module-schedule', '@lyness/lyn-module-terminal', '@lyness/lyn-module-webhook'],
   },
+  /**
+   * The enterprise shape: one customer's own servers, their own staff. It adds
+   * model governance to the web surface and selects neither tenancy nor
+   * credits — on this shape those subsystems are absent rather than disabled,
+   * which is the only version of "no quota" that cannot leak a balance into a
+   * surface, a log, or an error message.
+   */
+  enterprise: {
+    bundles: ['@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-module-deliverables',
+      '@lyness/lyn-module-extensions', '@lyness/lyn-module-lsp', '@lyness/lyn-module-memory',
+      '@lyness/lyn-module-model-governance', '@lyness/lyn-module-schedule',
+      '@lyness/lyn-module-terminal', '@lyness/lyn-module-webhook'],
+  },
   headless: {
     bundles: ['@lyness/lyn-base', '@lyness/lyn-headless'],
   },

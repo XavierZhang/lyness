@@ -1,0 +1,37 @@
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write packages/bundle/module-model-governance/README.md
+/:
+  en: 017ac5351dc9f9ac
+  zh: 2bc1606d894fe420
+/lyness-lyn-module-model-governance:
+  en: 1b2bbc6aa10c8563
+  zh: 0a98bc8bcb363501
+/lyness-lyn-module-model-governance/summary:
+  en: 875f2c078ce4a047
+  zh: 79e61898d96d90bc
+/lyness-lyn-module-model-governance/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-module-model-governance/use-this-package:
+  en: ff9ca25860bb8da4
+  zh: 22e6168c27c5a85d
+/lyness-lyn-module-model-governance/understand-the-implementation:
+  en: 47f6a23c8d38f997
+  zh: 466a5231796c6866
+/lyness-lyn-module-model-governance/further-exploration:
+  en: 780ef699d0bd2610
+  zh: 00e145240c71aa91
+/lyness-lyn-module-model-governance/model-experience:
+  en: b224b366e6930c6d
+  zh: 9a29f72401a63f43
+/lyness-lyn-module-model-governance/model-experience/kv-cache-effect:
+  en: 40f2a101a9dd356d
+  zh: 30d7ac421eb44d05
+/lyness-lyn-module-model-governance/known-limitations-and-deferred-work:
+  en: dd489a0adee5f5b4
+  zh: fb498b028e5b4c04
+/lyness-lyn-module-model-governance/known-limitations-and-deferred-work/dev-note:
+  en: 4b5c2fe3958294bd
+  zh: ffd11358ecdc0064

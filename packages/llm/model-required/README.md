@@ -74,7 +74,8 @@ No request prefix changes, because a deployment that passes the check sends exac
 <a id="known-limitations-and-deferred-work"></a>
 
 - **The process starts before it exits** — the check cannot be earlier without false alarms, so an operator sees a brief start rather than a refused launch.
-- **It checks reachability, not usability** — a registered route with an invalid key passes this check and fails at the first request. Proving a key works means spending one model call at startup, which this package does not do.
+- **It checks that routes exist, not that any is usable** — an adapter registers its route whether or not a credential resolves, so a deployment mounting the shipped DeepSeek adapter passes this check with no key at all and fails at the first request. Measured, not assumed: an `enterprise` profile with no credential started and kept serving. The guard is therefore meaningful for a composition routing only through `llm-pi-ai`, whose registry really is empty until settings name a route.
+- **The stronger guarantee lives elsewhere** — a deployment that must state its models uses [`lyn-model-policy`](../model-policy/README.md), whose `allowed` list is required and non-empty and therefore fails at load, which is both earlier and unconditional.
 - **A route registered after startup commits is not rechecked** — a deployment whose settings empty out later keeps serving until its next start.
 
 **Runtime invariant:** No companion is published. The plugin owns no runtime state; its one listener is effect-owned and the registry it reads publishes its own.

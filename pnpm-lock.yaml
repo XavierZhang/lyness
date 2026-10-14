@@ -265,6 +265,9 @@ importers:
       '@lyness/lyn-module-memory':
         specifier: workspace:*
         version: link:../../packages/bundle/module-memory
+      '@lyness/lyn-module-model-governance':
+        specifier: workspace:*
+        version: link:../../packages/bundle/module-model-governance
       '@lyness/lyn-module-schedule':
         specifier: workspace:*
         version: link:../../packages/bundle/module-schedule
@@ -813,6 +816,9 @@ importers:
       '@lyness/lyn-module-memory':
         specifier: workspace:*
         version: link:../../packages/bundle/module-memory
+      '@lyness/lyn-module-model-governance':
+        specifier: workspace:*
+        version: link:../../packages/bundle/module-model-governance
       '@lyness/lyn-module-schedule':
         specifier: workspace:*
         version: link:../../packages/bundle/module-schedule
@@ -2441,6 +2447,19 @@ importers:
       '@lyness/lyn-memory':
         specifier: workspace:*
         version: link:../../memory/memory
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+
+  packages/bundle/module-model-governance:
+    dependencies:
+      '@lyness/lyn-model-policy':
+        specifier: workspace:*
+        version: link:../../llm/model-policy
+      '@lyness/lyn-model-required':
+        specifier: workspace:*
+        version: link:../../llm/model-required
     devDependencies:
       '@lyness/cordis':
         specifier: workspace:~

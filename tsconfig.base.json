@@ -442,6 +442,7 @@
       "@lyness/lyn-module-extensions": ["./packages/bundle/module-extensions/src"],
       "@lyness/lyn-module-lsp": ["./packages/bundle/module-lsp/src"],
       "@lyness/lyn-module-memory": ["./packages/bundle/module-memory/src"],
+      "@lyness/lyn-module-model-governance": ["./packages/bundle/module-model-governance/src"],
       "@lyness/lyn-module-schedule": ["./packages/bundle/module-schedule/src"],
       "@lyness/lyn-module-terminal": ["./packages/bundle/module-terminal/src"],
       "@lyness/lyn-module-webhook": ["./packages/bundle/module-webhook/src"],

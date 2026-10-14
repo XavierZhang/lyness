@@ -4728,6 +4728,7 @@ Imported as libraries by other packages; a `cordis.yml` cannot load them.
 | `@lyness/lyn-module-extensions` | — | [`packages/bundle/module-extensions/src/index.ts`](../packages/bundle/module-extensions/src/index.ts) |
 | `@lyness/lyn-module-lsp` | — | [`packages/bundle/module-lsp/src/index.ts`](../packages/bundle/module-lsp/src/index.ts) |
 | `@lyness/lyn-module-memory` | — | [`packages/bundle/module-memory/src/index.ts`](../packages/bundle/module-memory/src/index.ts) |
+| `@lyness/lyn-module-model-governance` | — | [`packages/bundle/module-model-governance/src/index.ts`](../packages/bundle/module-model-governance/src/index.ts) |
 | `@lyness/lyn-module-schedule` | — | [`packages/bundle/module-schedule/src/index.ts`](../packages/bundle/module-schedule/src/index.ts) |
 | `@lyness/lyn-module-terminal` | — | [`packages/bundle/module-terminal/src/index.ts`](../packages/bundle/module-terminal/src/index.ts) |
 | `@lyness/lyn-module-webhook` | — | [`packages/bundle/module-webhook/src/index.ts`](../packages/bundle/module-webhook/src/index.ts) |

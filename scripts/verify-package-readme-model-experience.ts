@@ -60,6 +60,7 @@ const SENTENCE_MODEL_EXPERIENCE: Readonly<Record<string, SentenceContract>> = {
   'packages/host/product-telemetry-otel': { kind: 'none', reason: 'The plugin exports explicit analytics records without contributing model context.' },
   'packages/llm/model-required': { kind: 'none', reason: 'A startup guard observes the route registry and registers no tool, prompt, or Session event.' },
   'packages/llm/model-policy': { kind: 'none', reason: 'A route guard refuses disallowed calls and registers no tool, prompt, or Session event.' },
+  'packages/bundle/module-model-governance': { kind: 'none', reason: 'A module bundle contributes composition rows; the packages it mounts only refuse calls.' },
   'packages/api/terminal-controller': { kind: 'none', reason: 'User-owned terminal processes and screen streams never enter model requests or Session events.' },
   'packages/client/ui-sidebar-terminal': { kind: 'none', reason: 'The browser renders user terminal screens without exposing them to the model.' },
   'packages/ssh/ssh': { kind: 'none', reason: 'The connection owner transports private provider operations; consumers own all model-facing content.' },

@@ -155,6 +155,7 @@ flowchart TD
     pkg_module_extensions["module-extensions"]
     pkg_module_lsp["module-lsp"]
     pkg_module_memory["module-memory"]
+    pkg_module_model_governance["module-model-governance"]
     pkg_module_schedule["module-schedule"]
     pkg_module_terminal["module-terminal"]
     pkg_module_webhook["module-webhook"]
@@ -1456,6 +1457,7 @@ flowchart TD
 | [`module-extensions`](../packages/bundle/module-extensions) | `bundle` | — |
 | [`module-lsp`](../packages/bundle/module-lsp) | `bundle` | — |
 | [`module-memory`](../packages/bundle/module-memory) | `bundle` | — |
+| [`module-model-governance`](../packages/bundle/module-model-governance) | `bundle` | — |
 | [`module-schedule`](../packages/bundle/module-schedule) | `bundle` | — |
 | [`module-terminal`](../packages/bundle/module-terminal) | `bundle` | — |
 | [`module-webhook`](../packages/bundle/module-webhook) | `bundle` | — |

@@ -751,6 +751,12 @@ const requiredStartupEntryIds = new Set<string>([
   'headless-runner',
   'acp',
   'sdk-jsonrpc-server',
+  // Model governance fails closed. An inactive policy leaves its enforcement
+  // waiting for a service that never arrives, so the deployment would serve
+  // every model instead of the ones it allows — a misconfigured guard must
+  // stop the startup, not widen it.
+  'model-policy',
+  'model-policy-enforce',
 ])
 
 /** Render plugin stacks, nested causes, and aggregate member failures once per error. */
