@@ -20,6 +20,16 @@ What already exists is the shape of the answer. [`tenant-config`](../../../../pa
 
 The model becomes a deployment decision. A user receives a choice among what the deployment allows, and — on a hosted deployment — a free allowance when they bring nothing of their own.
 
+### Two shipped shapes, two templates, not one switch
+
+lyness ships two products, and they differ in which subsystems exist rather than in how one subsystem behaves.
+
+The **hosted** shape serves many organizations: it has tenants, it meters credits, and lyness operates it. The **enterprise** shape runs on one customer's own servers for that customer's own staff: it has no tenants, no credits, and no payment of any kind, because the customer bought the system rather than usage of it.
+
+That difference is a profile template, not a runtime mode. `PROFILE_TEMPLATES` already names a bundle list per shape, so the hosted template selects the tenancy and credit modules and the enterprise template does not select them at all. Credits are therefore absent from an enterprise install rather than disabled in one, which is the only version of "no quota" that cannot leak a balance into a surface, a log, or an error message.
+
+A runtime `mode: hosted | enterprise` flag was the alternative, and it is worse in the way this repo already knows: every consumer acquires a branch, every branch is a place the wrong shape can appear, and the flag has to be consulted correctly in each. A bundle that is not mounted has no branches to get wrong.
+
 ### A deployment states its models, and boot fails when it does not
 
 A deployment declares the models it serves before it serves anything. A composition that declares none fails at load with that as the reason, rather than starting and failing per session.
@@ -40,11 +50,17 @@ The Models page becomes read-only wherever the deployment owns the configuration
 
 Read-only is not the same as hidden. A user still sees which models they may use and which is default, and still chooses among them per session; what they cannot do is add a provider, change an endpoint, or write a credential.
 
+Who the owning authority is differs by shape. On the hosted shape, lyness's own operators set the default that applies to every tenant and every direct user, and a tenant's administrator may change it for that tenant; an ordinary user only uses it. On the enterprise shape, the customer's administrator sets the list in an administration surface, and an authorized user chooses among it without being able to change it.
+
+Neither shape lets an ordinary user add a provider, change an endpoint, or write a credential. That is the single rule both shapes share, and it is the one the resolver enforces.
+
 A single-tenant developer install keeps today's behaviour, because a deployment that mounts no tenant backend is its own operator. That is the existing single-tenant rule, not a new exception.
 
 ### A hosted user without their own model gets a daily allowance of credits
 
-The unit is **credits**, shown as 积分 in Chinese. A hosted deployment grants each user a daily allowance of them, spent by model requests, and refuses service when the balance reaches zero.
+This section describes the hosted shape only. An enterprise install mounts no credit module, so none of it exists there.
+
+The unit is **credits**, shown as 积分 in Chinese. A hosted deployment grants each user **500 credits per day**, counted against **UTC+8**, spent by model requests, and refuses service when the balance reaches zero. Both the grant size and the per-user cap are changeable — by lyness's operators for the deployment, and by a tenant's administrator for that tenant's own users — so 500 is a validated default, not a constant.
 
 The allowance is a balance with a ledger, not a counter. A refusal a customer cannot account for is a support case; a balance whose every debit names the session that caused it is answerable. This is the same reasoning the derived-memory note applied to invalidation: the record is the product, not an implementation detail.
 
@@ -76,7 +92,9 @@ It follows that the two populations cannot share one top-up implementation. A te
 
 The first-run credential dialog already resolves itself: `onboardingReadiness` reports `provider-ready` when any provider is usable, and the dialog renders nothing. A deployment that declares its models satisfies that condition, so this half needs no change.
 
-The internal-testing notice is unconditional and should not be. It is a statement about a pre-release build shown to its developers, not something a customer of a hosted deployment should meet on first login. It becomes a deployment choice, off where the deployment states its own copy.
+The internal-testing notice is removed rather than made conditional. It is a statement about a pre-release build addressed to its developers, and no shape of this product should open with it: a hosted customer did not come to read it, and an enterprise user is on a build their own implementer deployed.
+
+What it was carrying — that this is an early build, and what changed — moves to a **system announcement** a user opens when they want it, holding the release notes and the running version. A notice that interrupts is a worse version of a page that waits.
 
 ## Alternatives considered
 
@@ -94,8 +112,6 @@ The internal-testing notice is unconditional and should not be. It is a statemen
 
 The decisions above fix the shape. Two values remain, and neither blocks building it.
 
-**The grant size and its clock.** A daily grant needs an amount and a timezone to be daily against. A deployment serving one region differs from one serving several, so this is a validated configuration field rather than a constant.
-
 **The platform fee's own shape.** What lyness charges a tenant is a commercial decision that this note only constrains in one way: it is charged to the tenant, never to the tenant's users.
 
 ## Acceptance criteria
@@ -109,7 +125,10 @@ The decisions above fix the shape. Two values remain, and neither blocks buildin
 - A turn that exhausts its balance stops without overdrawing, keeps the work already done, and starts no further request.
 - A refusal names whether the deployment's grant or the tenant's per-user cap was the limit reached.
 - A tenant's corporate account details are maintained through an administration surface, and no code path makes lyness the receiving party for a tenant user's top-up.
-- The internal-testing notice is a deployment choice, and a deployment that states its own copy does not show it.
+- The internal-testing dialog is gone, and the release notes plus the running version are reachable from a system announcement a user opens.
+- The enterprise template selects no credit module, and no balance, grant, ledger, or top-up text is reachable on an enterprise install.
+- On the hosted shape the daily grant defaults to 500 credits against UTC+8, and both the grant and a tenant's per-user cap are changeable by their respective authorities.
+- An ordinary user on either shape cannot add a provider, change an endpoint, or write a credential, proven through the resolver and the save path rather than the interface.
 
 ## Risks
 
@@ -120,6 +139,8 @@ The decisions above fix the shape. Two values remain, and neither blocks buildin
 **A read-only Models page is a worse experience than no Models page for a single-tenant user.** The developer install keeps write access, so the two modes diverge, and a bug in the authority check is most likely to appear as a developer unable to configure their own model.
 
 **The credit ledger is a per-user record of usage.** It is less sensitive than memory but still describes what a named person did and when, and a hosted deployment holding it inherits the retention question that comes with it.
+
+**An enterprise install must show no trace of credits, and traces hide in shared code.** Locale dictionaries, error vocabularies, and session events are shared between the shapes even when the module is not mounted. A credit-exhaustion message that lives in a shared dictionary, or a refusal reason a shared type can express, reaches an enterprise user who has no balance and no way to act on it. Keeping the module unmounted is necessary and not sufficient; its vocabulary has to live with it.
 
 **Two payment paths invite one implementation.** The ledger is shared and the top-up buttons look alike, so the cheapest next change is always to route a tenant user's payment through the same code as a direct user's. That single change makes lyness the merchant of record for every tenant's users, which is the one outcome this note forbids. The separation needs to be visible in the code, not only in this file.
 

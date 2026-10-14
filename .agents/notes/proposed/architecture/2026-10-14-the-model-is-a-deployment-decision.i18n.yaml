@@ -11,6 +11,9 @@
 /agent-note-the-model-is-a-deployment-decision-and-a-free-allowance-is-what-a-user-gets-instead/proposal:
   en: a84d3524b77f63f4
   zh: 9a073914753c9654
+/agent-note-the-model-is-a-deployment-decision-and-a-free-allowance-is-what-a-user-gets-instead/proposal/two-shipped-shapes-two-templates-not-one-switch:
+  en: aafc954742048172
+  zh: a400a72ab3f450a8
 /agent-note-the-model-is-a-deployment-decision-and-a-free-allowance-is-what-a-user-gets-instead/proposal/a-deployment-states-its-models-and-boot-fails-when-it-does-not:
   en: 6af427094ac777b0
   zh: 60c1edeef3a29d60
@@ -18,11 +21,11 @@
   en: 3ffdff04a8d206c9
   zh: 5eff5cd8a1637078
 /agent-note-the-model-is-a-deployment-decision-and-a-free-allowance-is-what-a-user-gets-instead/proposal/model-configuration-is-read-only-to-a-user-and-the-surface-says-so:
-  en: 7f33c3c3d53cdcb7
-  zh: e3a069d6a348bf3b
+  en: b8328a408e3ad0d2
+  zh: b5e50df5a6a3514b
 /agent-note-the-model-is-a-deployment-decision-and-a-free-allowance-is-what-a-user-gets-instead/proposal/a-hosted-user-without-their-own-model-gets-a-daily-allowance-of-credits:
-  en: 5230a58fb793705b
-  zh: 0b67caad111562aa
+  en: d9875541e4c08bc3
+  zh: 1d78678e6ef0de7b
 /agent-note-the-model-is-a-deployment-decision-and-a-free-allowance-is-what-a-user-gets-instead/proposal/exhaustion-stops-the-turn-says-so-and-blocks-the-next-one:
   en: 0f52ee0a11ff34fb
   zh: a13212b1c5db838a
@@ -33,17 +36,17 @@
   en: f824f31844ef39ad
   zh: 0880a4e6c6d1723b
 /agent-note-the-model-is-a-deployment-decision-and-a-free-allowance-is-what-a-user-gets-instead/proposal/onboarding-asks-nothing-a-deployment-has-already-decided:
-  en: 307326880ea3d665
-  zh: 38d962d10bb6e217
+  en: f8eab1dfb4d0f7e8
+  zh: 5192cdcdf7820f9d
 /agent-note-the-model-is-a-deployment-decision-and-a-free-allowance-is-what-a-user-gets-instead/alternatives-considered:
   en: c4e6221a05e4212e
   zh: 6558581e84a8670c
 /agent-note-the-model-is-a-deployment-decision-and-a-free-allowance-is-what-a-user-gets-instead/still-to-settle:
-  en: 4c1388b299e0a267
-  zh: 6d3e1cf5ddcefc75
+  en: 8a4ae83b7572dccb
+  zh: d999da788b7cfc79
 /agent-note-the-model-is-a-deployment-decision-and-a-free-allowance-is-what-a-user-gets-instead/acceptance-criteria:
-  en: 9ff34893567afb06
-  zh: ed5aeb100a53aa7c
+  en: 030234e6aa38e6e0
+  zh: 01de4bc4a43beafb
 /agent-note-the-model-is-a-deployment-decision-and-a-free-allowance-is-what-a-user-gets-instead/risks:
-  en: 9a423c43ecce5491
-  zh: 9c7485ce7b18b3c6
+  en: b24caf205ba7d62f
+  zh: 0789285214bedbc9
