@@ -287,6 +287,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@lyness/lyn-llm-deepseek-api-key` | yes | DeepSeek api-key provider authentication and discovery |
 | `@lyness/lyn-llm-pi-ai` | yes | pi-ai-backed DeepSeek adapter for the lyness LLM seam (design-verification twin of lyn-llm-deepseek) |
 | `@lyness/lyn-llm-retry` | yes | Provider-routed LLM request retry policy for the lyness |
+| `@lyness/lyn-model-required` | no | Refuse to serve a deployment that reaches no model, at the earliest point an empty registry is conclusive |
 | `@lyness/lyn-plugin-package-inventory-deepseek` | yes | Active Loader-backed plugin package inventory for official DeepSeek LLM API requests |
 | `@lyness/lyn-token-meter` | yes | Replay-aware token measurement service (ctx.tokenMeter) for the lyness |
 

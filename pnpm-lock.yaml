@@ -9981,6 +9981,18 @@ importers:
         specifier: workspace:*
         version: link:../../core/tools
 
+  packages/llm/model-required:
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+      '@lyness/lyn-cmdline':
+        specifier: workspace:*
+        version: link:../../boot/cmdline
+      '@lyness/lyn-llm':
+        specifier: workspace:*
+        version: link:../llm
+
   packages/llm/plugin-package-inventory-deepseek:
     dependencies:
       '@lyness/lyn-brand':

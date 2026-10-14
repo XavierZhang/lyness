@@ -34,6 +34,7 @@ flowchart TD
     pkg_llm_deepseek_api_key["llm-deepseek-api-key"]
     pkg_llm_pi_ai["llm-pi-ai"]
     pkg_llm_retry["llm-retry"]
+    pkg_model_required["model-required"]
     pkg_plugin_package_inventory_deepseek["plugin-package-inventory-deepseek"]
     pkg_token_meter["token-meter"]
   end
@@ -459,6 +460,8 @@ flowchart TD
   subgraph group_workspace["packages/workspace"]
     pkg_workspace["workspace"]
   end
+  pkg_model_required --> pkg_cmdline
+  pkg_model_required --> pkg_llm
   pkg_scope --> pkg_invariants
   pkg_web --> pkg_llm
   pkg_attachment --> pkg_brand
@@ -1547,6 +1550,7 @@ flowchart TD
 | [`typert-generator`](../packages/typert/generator) | `typert` | — |
 | [`typert-protocol`](../packages/typert/protocol) | `typert` | — |
 | [`typert-registry`](../packages/typert/registry) | `typert` | — |
+| [`model-required`](../packages/llm/model-required) | `llm` | [`cmdline`](../packages/boot/cmdline), [`llm`](../packages/llm/llm) |
 | [`scope`](../packages/core/scope) | `core` | [`invariants`](../packages/runtime-diagnostics/invariants) |
 | [`web`](../packages/web/web) | `web` | [`llm`](../packages/llm/llm) |
 | [`attachment`](../packages/attachment/attachment) | `attachment` | [`brand`](../packages/util/brand) |

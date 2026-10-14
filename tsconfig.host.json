@@ -274,6 +274,7 @@
     { "path": "./packages/bundle/module-schedule" },
     { "path": "./packages/vendor/microsoft-entra" },
     { "path": "./packages/llm/llm" },
+    { "path": "./packages/llm/model-required" },
     { "path": "./packages/llm/deepseek-llm-api-extensions" },
     { "path": "./packages/llm/token-meter" },
     { "path": "./packages/core/session" },
