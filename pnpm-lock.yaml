@@ -9981,6 +9981,19 @@ importers:
         specifier: workspace:*
         version: link:../../core/tools
 
+  packages/llm/model-policy:
+    dependencies:
+      '@lyness/schemastery':
+        specifier: link:../../../vendor/schemastery
+        version: link:../../../vendor/schemastery
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+      '@lyness/lyn-llm':
+        specifier: workspace:*
+        version: link:../llm
+
   packages/llm/model-required:
     devDependencies:
       '@lyness/cordis':

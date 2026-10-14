@@ -206,6 +206,15 @@ const SERVICE_ROLES: ServiceRole[] = [
     note: 'Adapters register provider implementations; the loop and compaction call the provider-neutral stream service.',
   },
   {
+    key: 'modelPolicy',
+    pkg: 'model-policy',
+    title: 'Models a deployment allows',
+    mode: 'seam',
+    implementations: ['model-policy/static'],
+    consumers: ['model-policy/enforce'],
+    note: 'A deployment states which models a request may use; enforcement rides the llm/stream waterfall, so a preset row or direct RPC cannot bypass it.',
+  },
+  {
     key: 'deepseekLlmApiExtensions',
     pkg: 'deepseek-llm-api-extensions',
     title: 'Official DeepSeek request extensions',

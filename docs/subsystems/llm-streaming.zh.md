@@ -1084,6 +1084,26 @@ Types: [FileAttachmentRef](attachment.zh.md)
 
 Source: [`packages/llm/llm/src/index.ts`](../../packages/llm/llm/src/index.ts)
 
+<a id="ctxmodelpolicy--modelpolicy-abstract-seam"></a>
+
+### `ctx.modelPolicy` — `ModelPolicy` (abstract seam)
+
+Abstract policy store. Subclass and implement allowance for one source of truth; a deployment mounts exactly one.
+
+```ts cordis-catalog
+/**
+ * The models allowed for the request being resolved.
+ *
+ * Called per request rather than cached by the consumer, because a hosted
+ * deployment resolves a different tenant per request and an administrator's
+ * change should reach the next one.
+ * @returns the allowed models and the authority that decided them.
+ */
+abstract allowance(): Promise<ModelAllowance>
+```
+
+Source: [`packages/llm/model-policy/src/index.ts`](../../packages/llm/model-policy/src/index.ts)
+
 <a id="llm-events"></a>
 
 ### `llm/*` events

@@ -1557,6 +1557,19 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
     ],
   },
   {
+    key: 'modelPolicy',
+    summary: 'Abstract policy store.',
+    description: 'Abstract policy store. Subclass and implement allowance for one source of truth; a deployment mounts exactly one.',
+    methods: [
+      {
+        signature: 'abstract allowance(): Promise<ModelAllowance>',
+        description: 'The models allowed for the request being resolved.\n\nCalled per request rather than cached by the consumer, because a hosted deployment resolves a different tenant per request and an administrator\'s change should reach the next one.',
+        parameters: [],
+        returns: 'the allowed models and the authority that decided them.',
+      },
+    ],
+  },
+  {
     key: 'officeToPdf',
     summary: 'A provider lifetime owns all converters, queued calls, and temporary files.',
     description: 'A provider lifetime owns all converters, queued calls, and temporary files.',
@@ -4566,6 +4579,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export type AgentStatus = \'idle\' | \'running\';',
   },
   {
+    name: 'AllowedModel',
+    declaration: 'export interface AllowedModel {\n    readonly provider: string;\n    readonly model: string;\n}',
+  },
+  {
     name: 'ApiKeyRecord',
     declaration: 'export interface ApiKeyRecord {\n    readonly kind: \'api-key\';\n    readonly key?: string;\n    readonly env?: Readonly<Record<string, string>>;\n}',
   },
@@ -5884,6 +5901,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'ModalityModels',
     declaration: 'export interface ModalityModels {\n    readonly available: readonly ModelChoice[];\n    readonly preferred?: ModelChoice | undefined;\n}',
+  },
+  {
+    name: 'ModelAllowance',
+    declaration: 'export interface ModelAllowance {\n    readonly allowed: readonly AllowedModel[];\n    readonly authority: string;\n}',
   },
   {
     name: 'ModelCatalog',

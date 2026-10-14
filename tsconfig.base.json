@@ -346,6 +346,9 @@
       "@lyness/lyn-memory/preset-contribution": ["./packages/memory/memory/src/preset-contribution.ts"],
       "@lyness/lyn-terminal/preset-contribution": ["./packages/terminal/terminal/src/preset-contribution.ts"],
       "@lyness/lyn-lsp/preset-contribution": ["./packages/lsp/lsp/src/preset-contribution.ts"],
+      "@lyness/lyn-model-policy/enforce": ["./packages/llm/model-policy/src/enforce.ts"],
+      "@lyness/lyn-model-policy/static": ["./packages/llm/model-policy/src/static.ts"],
+      "@lyness/lyn-model-policy/types": ["./packages/llm/model-policy/src/types.ts"],
       "@lyness/lyn-tool-present/preset-contribution": ["./packages/deliverables/tool-present/src/preset-contribution.ts"],
       "@lyness/lyn-memory/tools": ["./packages/memory/memory/src/tools.ts"],
       // BEGIN generated package aliases — pnpm run gen-tsconfig-paths
@@ -433,6 +436,7 @@
       "@lyness/lyn-memory": ["./packages/memory/memory/src"],
       "@lyness/lyn-message-feedback": ["./packages/feedback/message-feedback/src"],
       "@lyness/lyn-microsoft-entra": ["./packages/vendor/microsoft-entra/src"],
+      "@lyness/lyn-model-policy": ["./packages/llm/model-policy/src"],
       "@lyness/lyn-model-required": ["./packages/llm/model-required/src"],
       "@lyness/lyn-module-deliverables": ["./packages/bundle/module-deliverables/src"],
       "@lyness/lyn-module-extensions": ["./packages/bundle/module-extensions/src"],
