@@ -55,6 +55,9 @@ flowchart LR
   svc_modelPolicy["ctx.modelPolicy<br/>Models a deployment allows"]
   pkg_model_policy_static["model-policy/static"]
   pkg_model_policy_enforce["model-policy/enforce"]
+  pkg_credits["credits"]
+  svc_credits["ctx.credits<br/>The allowance a hosted deployment meters"]
+  pkg_credits_store["credits/store"]
   pkg_acting_context["acting-context"]
   svc_actingContext["ctx.actingContext<br/>The context one call acts in"]
   pkg_people["people"]
@@ -338,6 +341,8 @@ flowchart LR
   pkg_cordis_host_runner --> svc_dynamicCordisRunner
   pkg_credentials --> svc_credentials
   pkg_credentials_local --> svc_credentials
+  pkg_credits --> svc_credits
+  pkg_credits_store --> svc_credits
   pkg_deepseek_account --> svc_deepseekAccount
   pkg_deepseek_account_platform --> svc_deepseekAccount
   pkg_deepseek_llm_api_extensions --> svc_deepseekLlmApiExtensions
@@ -628,6 +633,7 @@ flowchart LR
 | `ctx.fileUploads` | `core` | [`client-file-upload`](../packages/client/file-upload) | - | [`api-session-controller`](../packages/api/session-controller) | - | 负责流式接收、持久存储和暂存回执生命周期；Session Controller 将回执绑定到已接受的提交。 |
 | `ctx.llm` | `seam` | [`llm`](../packages/llm/llm) | [`llm-deepseek`](../packages/llm/llm-deepseek), [`llm-pi-ai`](../packages/llm/llm-pi-ai), [`llm-replay`](../packages/test-support/llm-replay) | [`agent-loop`](../packages/core/agent-loop), [`compaction-basic`](../packages/compaction/compaction-basic) | - | 适配器注册提供方实现；agent loop（智能体循环）与压缩功能调用提供方无关的流服务。 |
 | `ctx.modelPolicy` | `seam` | [`model-policy`](../packages/llm/model-policy) | `model-policy/static` | `model-policy/enforce` | - | 部署方声明一次请求可以使用哪些模型；强制执行坐在 llm/stream waterfall 上，所以一个 preset 行或一次直接 RPC 都无法绕过它。 |
+| `ctx.credits` | `seam` | [`credits`](../packages/credits/credits) | `credits/store` | - | - | 一本赠送与扣减的账，其和即余额；覆盖不了的一次消耗会被拒绝，而不是透支。 |
 | `ctx.actingContext` | `core` | [`acting-context`](../packages/identity/acting-context) | - | - | - | 判定一次声明的上下文是否「已声明、由调用方持有、且被地址允许」；这条规则只住在这一处。 |
 | `ctx.people` | `seam` | [`people`](../packages/identity/people) | `people/static` | - | - | 报告调用方是谁、以及他的身份携带三个角色中的哪一个；每个操作依据那个角色自行授权，而不是让目录去做决定。 |
 | `ctx.deepseekLlmApiExtensions` | `seam` | [`deepseek-llm-api-extensions`](../packages/llm/deepseek-llm-api-extensions) | [`session-log-deepseek`](../packages/session/session-log-deepseek), [`plugin-package-inventory-deepseek`](../packages/llm/plugin-package-inventory-deepseek) | [`llm-deepseek`](../packages/llm/llm-deepseek) | - | 插件准备彼此独立的顶层字段；官方适配器会合并这些字段，并在 HTTP 接受后提交其交付状态。 |

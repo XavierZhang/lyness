@@ -53,6 +53,9 @@ flowchart LR
   svc_modelPolicy["ctx.modelPolicy<br/>Models a deployment allows"]
   pkg_model_policy_static["model-policy/static"]
   pkg_model_policy_enforce["model-policy/enforce"]
+  pkg_credits["credits"]
+  svc_credits["ctx.credits<br/>The allowance a hosted deployment meters"]
+  pkg_credits_store["credits/store"]
   pkg_acting_context["acting-context"]
   svc_actingContext["ctx.actingContext<br/>The context one call acts in"]
   pkg_people["people"]
@@ -336,6 +339,8 @@ flowchart LR
   pkg_cordis_host_runner --> svc_dynamicCordisRunner
   pkg_credentials --> svc_credentials
   pkg_credentials_local --> svc_credentials
+  pkg_credits --> svc_credits
+  pkg_credits_store --> svc_credits
   pkg_deepseek_account --> svc_deepseekAccount
   pkg_deepseek_account_platform --> svc_deepseekAccount
   pkg_deepseek_llm_api_extensions --> svc_deepseekLlmApiExtensions
@@ -626,6 +631,7 @@ flowchart LR
 | `ctx.fileUploads` | `core` | [`client-file-upload`](../packages/client/file-upload) | - | [`api-session-controller`](../packages/api/session-controller) | - | Owns streaming intake, durable storage, and staged receipt lifetime; the Session controller binds receipts to accepted submissions. |
 | `ctx.llm` | `seam` | [`llm`](../packages/llm/llm) | [`llm-deepseek`](../packages/llm/llm-deepseek), [`llm-pi-ai`](../packages/llm/llm-pi-ai), [`llm-replay`](../packages/test-support/llm-replay) | [`agent-loop`](../packages/core/agent-loop), [`compaction-basic`](../packages/compaction/compaction-basic) | - | Adapters register provider implementations; the loop and compaction call the provider-neutral stream service. |
 | `ctx.modelPolicy` | `seam` | [`model-policy`](../packages/llm/model-policy) | `model-policy/static` | `model-policy/enforce` | - | A deployment states which models a request may use; enforcement rides the llm/stream waterfall, so a preset row or direct RPC cannot bypass it. |
+| `ctx.credits` | `seam` | [`credits`](../packages/credits/credits) | `credits/store` | - | - | A ledger of grants and debits whose sum is the balance; a spend it cannot cover is refused rather than overdrawn. |
 | `ctx.actingContext` | `core` | [`acting-context`](../packages/identity/acting-context) | - | - | - | Decides whether a declared context is stated, held by the caller, and permitted by the address; the one place that rule lives. |
 | `ctx.people` | `seam` | [`people`](../packages/identity/people) | `people/static` | - | - | Reports who a caller is and which of three roles their standing carries; each operation authorizes itself against that role rather than asking the directory to decide. |
 | `ctx.deepseekLlmApiExtensions` | `seam` | [`deepseek-llm-api-extensions`](../packages/llm/deepseek-llm-api-extensions) | [`session-log-deepseek`](../packages/session/session-log-deepseek), [`plugin-package-inventory-deepseek`](../packages/llm/plugin-package-inventory-deepseek) | [`llm-deepseek`](../packages/llm/llm-deepseek) | - | Plugins prepare independent top-level fields; the official adapter merges them and commits their delivery state after HTTP acceptance. |

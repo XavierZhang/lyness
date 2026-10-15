@@ -215,6 +215,15 @@ const SERVICE_ROLES: ServiceRole[] = [
     note: 'A deployment states which models a request may use; enforcement rides the llm/stream waterfall, so a preset row or direct RPC cannot bypass it.',
   },
   {
+    key: 'credits',
+    pkg: 'credits',
+    title: 'The allowance a hosted deployment meters',
+    mode: 'seam',
+    implementations: ['credits/store'],
+    consumers: [],
+    note: 'A ledger of grants and debits whose sum is the balance; a spend it cannot cover is refused rather than overdrawn.',
+  },
+  {
     key: 'actingContext',
     pkg: 'acting-context',
     title: 'The context one call acts in',

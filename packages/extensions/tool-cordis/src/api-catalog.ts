@@ -864,6 +864,38 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
     ],
   },
   {
+    key: 'credits',
+    summary: 'Abstract credit ledger.',
+    description: 'Abstract credit ledger. Subclass and implement the four operations for one source of truth; a hosted deployment mounts exactly one.',
+    methods: [
+      {
+        signature: 'abstract balance(person: PersonId): Promise<CreditBalance>',
+        description: 'What one person may spend now.',
+        parameters: [{ name: 'person', description: 'whose balance to read.' }],
+        returns: 'the balance, including what it is made of.',
+      },
+      {
+        signature: 'abstract spend(request: SpendRequest): Promise<CreditDebit>',
+        description: 'Spend credits, or refuse when the balance cannot cover it.\n\nRefusing rather than overdrawing is the whole point: an overdraw is a cost the operator did not agree to, and a person who can exceed a balance has no balance.',
+        parameters: [{ name: 'request', description: 'whose credits, how many, and which session.' }],
+        returns: 'the recorded debit.',
+        throws: ['{CreditsExhausted} when the available balance cannot cover the amount.'],
+      },
+      {
+        signature: 'abstract grant(request: GrantRequest): Promise<CreditGrant>',
+        description: 'Add credits to one person.',
+        parameters: [{ name: 'request', description: 'who receives them, how many, why, and when they lapse.' }],
+        returns: 'the recorded grant.',
+      },
+      {
+        signature: 'abstract history(person: PersonId): Promise<{ readonly grants: readonly CreditGrant[] readonly debits: readonly CreditDebit[] }>',
+        description: 'Everything granted to and spent by one person, newest first.\n\nThe ledger is the product rather than an implementation detail: a customer reviewing a refusal reads this, and a balance they cannot account for is a support case.',
+        parameters: [{ name: 'person', description: 'whose history to read.' }],
+        returns: 'the grants and debits recorded for them.',
+      },
+    ],
+  },
+  {
     key: 'deepseekAccount',
     summary: 'Account operations; only Host consumers can obtain a request credential.',
     description: 'Account operations; only Host consumers can obtain a request credential.',
@@ -5130,6 +5162,18 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export type CredentialRef = Branded<\'CredentialRef\'>;',
   },
   {
+    name: 'CreditBalance',
+    declaration: 'export interface CreditBalance {\n    readonly person: PersonId;\n    readonly available: number;\n    readonly granted: number;\n    readonly spent: number;\n    readonly nextGrantAt?: string | undefined;\n}',
+  },
+  {
+    name: 'CreditDebit',
+    declaration: 'export interface CreditDebit {\n    readonly id: DebitId;\n    readonly person: PersonId;\n    readonly amount: number;\n    readonly at: string;\n    readonly session: string;\n}',
+  },
+  {
+    name: 'CreditGrant',
+    declaration: 'export interface CreditGrant {\n    readonly id: GrantId;\n    readonly person: PersonId;\n    readonly amount: number;\n    readonly grantedAt: string;\n    readonly expiresAt?: string | undefined;\n    readonly reason: GrantReason;\n    readonly grantedBy?: PersonId | undefined;\n}',
+  },
+  {
     name: 'CronInput',
     declaration: 'export interface CronInput {\n    readonly expression: string;\n    readonly time_zone: string;\n}',
   },
@@ -5144,6 +5188,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'DailyScheduleRecord',
     declaration: 'export interface DailyScheduleRecord {\n    readonly id: ScheduleId;\n    readonly kind: \'daily\';\n    readonly title: string;\n    readonly prompt: string;\n    readonly time: string;\n    readonly timeZone: string;\n    readonly scheduledAt: string;\n}',
+  },
+  {
+    name: 'DebitId',
+    declaration: 'export type DebitId = Branded<\'DebitId\'>;',
   },
   {
     name: 'DeclaredContext',
@@ -5450,8 +5498,20 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export interface GoalView extends GoalSnapshot {\n    readonly roundsStarted: number;\n    readonly createdAt: number;\n    readonly updatedAt: number;\n    readonly activation: GoalActivation;\n}',
   },
   {
+    name: 'GrantId',
+    declaration: 'export type GrantId = Branded<\'GrantId\'>;',
+  },
+  {
+    name: 'GrantReason',
+    declaration: 'export type GrantReason = \'periodic\' | \'administrator\' | \'purchase\';',
+  },
+  {
     name: 'GrantRecord',
     declaration: 'export interface GrantRecord {\n    readonly kind: \'grant\';\n    readonly payload: unknown;\n}',
+  },
+  {
+    name: 'GrantRequest',
+    declaration: 'export interface GrantRequest {\n    readonly person: PersonId;\n    readonly amount: number;\n    readonly reason: GrantReason;\n    readonly expiresAt?: string | undefined;\n    readonly grantedBy?: PersonId | undefined;\n}',
   },
   {
     name: 'HostConnectionFetch',
@@ -7372,6 +7432,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'SpeechSpec',
     declaration: 'export interface SpeechSpec extends SpeechInput {\n    readonly provider: SpeechProvider;\n}',
+  },
+  {
+    name: 'SpendRequest',
+    declaration: 'export interface SpendRequest {\n    readonly person: PersonId;\n    readonly amount: number;\n    readonly session: string;\n}',
   },
   {
     name: 'SpillLocator',

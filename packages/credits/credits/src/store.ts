@@ -1,0 +1,246 @@
+/**
+ * Provider: the credit ledger a hosted deployment keeps.
+ *
+ * The periodic allowance arrives lazily — the first read or spend in a new
+ * period records the grant for that period — rather than from a timer. A
+ * timer would have to fire for every person on the deployment at the same
+ * instant, and would miss anyone whose period rolled over while the process
+ * was down. Granting on use costs nothing for people who are not using it and
+ * cannot miss a period.
+ *
+ * @module @lyness/lyn-credits/store
+ */
+
+import type { Context } from '@lyness/cordis'
+import z from '@lyness/schemastery'
+import { brandString } from '@lyness/lyn-brand'
+import { randomUUID } from '@lyness/lyn-util-crypto'
+import type { Domain } from '@lyness/lyn-storage-domain'
+import type { PersonId } from '@lyness/lyn-people'
+import { CreditLedger, CreditsExhausted } from './index.ts'
+import type { GrantRequest, SpendRequest } from './index.ts'
+import { nextPeriodStart, periodStart } from './period.ts'
+import type { ResetPeriod } from './period.ts'
+import { creditsDomain } from './storage.ts'
+import type { CreditBalance, CreditDebit, CreditGrant, DebitId, GrantId } from './types.ts'
+
+/** Credits each person receives per period before a deployment changes it. */
+const DEFAULT_PERIODIC_AMOUNT = 500
+
+/** The clock the allowance is counted against, as an offset from UTC. */
+const DEFAULT_OFFSET_HOURS = 8
+
+/** Deployment-owned allowance policy. */
+export interface Config {
+  /** Credits granted each period. Defaults to 500. */
+  periodicAmount?: number
+  /** How often the allowance arrives. Defaults to daily. */
+  period?: ResetPeriod
+  /** Clock offset from UTC the period is counted against. Defaults to 8. */
+  offsetHours?: number
+}
+
+export const Config: z<Config> = z.object({
+  periodicAmount: z.number().step(1).min(0).max(10_000_000).default(DEFAULT_PERIODIC_AMOUNT),
+  period: z.union(['daily', 'weekly', 'monthly']).default('daily'),
+  offsetHours: z.number().min(-12).max(14).default(DEFAULT_OFFSET_HOURS),
+})
+
+/** Resolved allowance policy, with every default applied. */
+export interface ResolvedConfig {
+  /** Credits granted each period. */
+  readonly periodicAmount: number
+  /** How often the allowance arrives. */
+  readonly period: ResetPeriod
+  /** Clock offset the period is counted against. */
+  readonly offsetHours: number
+}
+
+/**
+ * Apply the defaults for a config a caller supplied without the Loader's
+ * schema validation.
+ * @param config - validated or hand-built configuration.
+ * @returns the policy this ledger runs on.
+ */
+export function resolveConfig(config: Config): ResolvedConfig {
+  return {
+    periodicAmount: config.periodicAmount ?? DEFAULT_PERIODIC_AMOUNT,
+    period: config.period ?? 'daily',
+    offsetHours: config.offsetHours ?? DEFAULT_OFFSET_HOURS,
+  }
+}
+
+/** The credit ledger, persisted and granted on use. */
+export class StoredCreditLedger extends CreditLedger {
+  static inject = ['storageDomain']
+
+  static readonly Config = Config
+
+  private readonly policy: ResolvedConfig
+  private readonly ready: Promise<Domain<typeof creditsDomain>>
+  private chain: Promise<unknown> = Promise.resolve()
+
+  /**
+   * @param ctx - Host context owning durable storage.
+   * @param config - validated allowance policy.
+   */
+  constructor(ctx: Context, config: Config) {
+    super(ctx)
+    this.policy = resolveConfig(config)
+    this.ready = ctx.storageDomain.open(creditsDomain)
+    ctx.effect(() => async () => {
+      await this.chain // Failures reach their own callers; this only waits.
+      await (await this.ready).close()
+    })
+  }
+
+  /**
+   * What one person may spend now, after any due periodic grant is recorded.
+   * @param person - whose balance to read.
+   * @returns the balance and what it is made of.
+   */
+  async balance(person: PersonId): Promise<CreditBalance> {
+    return this.serialise(async (domain) => {
+      await this.grantPeriodIfDue(domain, person, new Date())
+      return this.computeBalance(domain, person, new Date())
+    })
+  }
+
+  /**
+   * Spend credits, or refuse rather than overdraw.
+   * @param request - whose credits, how many, and which session.
+   * @returns the recorded debit.
+   * @throws {CreditsExhausted} when the balance cannot cover the amount.
+   */
+  async spend(request: SpendRequest): Promise<CreditDebit> {
+    if (request.amount <= 0) throw new TypeError('credits: a spend must be positive')
+    return this.serialise(async (domain) => {
+      const now = new Date()
+      await this.grantPeriodIfDue(domain, request.person, now)
+      const current = this.computeBalance(domain, request.person, now)
+      if (current.available < request.amount) {
+        throw new CreditsExhausted(current.available, current.nextGrantAt)
+      }
+      const id = brandString<DebitId>(randomUUID())
+      const debit = {
+        person: request.person,
+        amount: request.amount,
+        at: now.toISOString(),
+        session: request.session,
+      }
+      await domain.table('debits').put(id, debit)
+      return { id, ...debit }
+    })
+  }
+
+  /**
+   * Add credits to one person.
+   * @param request - who receives them, how many, why, and when they lapse.
+   * @returns the recorded grant.
+   */
+  async grant(request: GrantRequest): Promise<CreditGrant> {
+    if (request.amount <= 0) throw new TypeError('credits: a grant must be positive')
+    return this.serialise(async (domain) => {
+      return this.record(domain, {
+        person: request.person,
+        amount: request.amount,
+        grantedAt: new Date().toISOString(),
+        reason: request.reason,
+        ...request.expiresAt === undefined ? {} : { expiresAt: request.expiresAt },
+        ...request.grantedBy === undefined ? {} : { grantedBy: request.grantedBy },
+      })
+    })
+  }
+
+  /**
+   * Everything granted to and spent by one person, newest first.
+   * @param person - whose history to read.
+   * @returns their grants and debits.
+   */
+  async history(person: PersonId): Promise<{
+    readonly grants: readonly CreditGrant[]
+    readonly debits: readonly CreditDebit[]
+  }> {
+    const domain = await this.ready
+    return {
+      grants: grantsOf(domain, person).toReversed(),
+      debits: debitsOf(domain, person).toReversed(),
+    }
+  }
+
+  /** Record one grant and return it with its new identity. */
+  private async record(
+    domain: Domain<typeof creditsDomain>, grant: Omit<CreditGrant, 'id'>,
+  ): Promise<CreditGrant> {
+    const id = brandString<GrantId>(randomUUID())
+    await domain.table('grants').put(id, grant)
+    return { id, ...grant }
+  }
+
+  /**
+   * Record this period's allowance when it has not been recorded yet.
+   *
+   * Idempotent by construction: a grant carries the instant it was made, so
+   * one already inside the current period means this period is covered. Two
+   * concurrent calls cannot double-grant because every mutation is serialised.
+   */
+  private async grantPeriodIfDue(
+    domain: Domain<typeof creditsDomain>, person: PersonId, now: Date,
+  ): Promise<void> {
+    if (this.policy.periodicAmount === 0) return
+    const start = periodStart(now, this.policy.period, this.policy.offsetHours).getTime()
+    const already = grantsOf(domain, person)
+      .some(grant => grant.reason === 'periodic' && Date.parse(grant.grantedAt) >= start)
+    if (already) return
+    await this.record(domain, {
+      person,
+      amount: this.policy.periodicAmount,
+      grantedAt: now.toISOString(),
+      expiresAt: nextPeriodStart(now, this.policy.period, this.policy.offsetHours).toISOString(),
+      reason: 'periodic',
+    })
+  }
+
+  /** Sum unexpired grants less everything spent. */
+  private computeBalance(
+    domain: Domain<typeof creditsDomain>, person: PersonId, now: Date,
+  ): CreditBalance {
+    const instant = now.getTime()
+    const granted = grantsOf(domain, person)
+      .filter(grant => grant.expiresAt === undefined || Date.parse(grant.expiresAt) > instant)
+      .reduce((total, grant) => total + grant.amount, 0)
+    const spent = debitsOf(domain, person).reduce((total, debit) => total + debit.amount, 0)
+    return {
+      person,
+      available: Math.max(0, granted - spent),
+      granted,
+      spent,
+      ...this.policy.periodicAmount === 0 ? {} : {
+        nextGrantAt: nextPeriodStart(now, this.policy.period, this.policy.offsetHours).toISOString(),
+      },
+    }
+  }
+
+  /** Run one durable mutation after the previous one settles. */
+  private serialise<T>(work: (domain: Domain<typeof creditsDomain>) => Promise<T>): Promise<T> {
+    const result = this.ready.then(work)
+    this.chain = result.catch(() => undefined)
+    return result
+  }
+}
+
+/** One person's grants, in write order. */
+function grantsOf(domain: Domain<typeof creditsDomain>, person: PersonId): CreditGrant[] {
+  return [...domain.table('grants').entries()]
+    .filter(([, grant]) => grant.person === person)
+    .map(([id, grant]) => ({ id, ...grant }))
+}
+
+/** One person's debits, in write order. */
+function debitsOf(domain: Domain<typeof creditsDomain>, person: PersonId): CreditDebit[] {
+  return [...domain.table('debits').entries()]
+    .filter(([, debit]) => debit.person === person)
+    .map(([id, debit]) => ({ id, ...debit }))
+}
+
+export default StoredCreditLedger

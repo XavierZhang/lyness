@@ -252,6 +252,9 @@ flowchart TD
     pkg_deepseek_account["deepseek-account"]
     pkg_deepseek_account_platform["deepseek-account-platform"]
   end
+  subgraph group_credits["packages/credits"]
+    pkg_credits["credits"]
+  end
   subgraph group_deliverables["packages/deliverables"]
     pkg_tool_present["tool-present"]
     pkg_workspace_changes["workspace-changes"]
@@ -521,6 +524,10 @@ flowchart TD
   pkg_credentials_local --> pkg_credentials
   pkg_credentials_local --> pkg_home_paths
   pkg_credentials_local --> pkg_launch_environment
+  pkg_credits --> pkg_brand
+  pkg_credits --> pkg_people
+  pkg_credits --> pkg_storage_domain
+  pkg_credits --> pkg_util_crypto
   pkg_experimental_computer_use_cua_driver_mcp --> pkg_computer_use
   pkg_acting_context --> pkg_people
   pkg_sandbox_windows_acl --> pkg_subprocess
@@ -1594,6 +1601,7 @@ flowchart TD
 | [`client-file-upload`](../packages/client/file-upload) | `client` | [`scope`](../packages/core/scope) |
 | [`authorization`](../packages/credentials/authorization) | `credentials` | [`credentials`](../packages/credentials/credentials), [`invariants`](../packages/runtime-diagnostics/invariants), [`llm`](../packages/llm/llm) |
 | [`credentials-local`](../packages/credentials/credentials-local) | `credentials` | [`atomic-write`](../packages/util/atomic-write), [`credentials`](../packages/credentials/credentials), [`home-paths`](../packages/util/home-paths), [`launch-environment`](../packages/util/launch-environment) |
+| [`credits`](../packages/credits/credits) | `credits` | [`brand`](../packages/util/brand), [`people`](../packages/identity/people), [`storage-domain`](../packages/storage/storage-domain), [`util-crypto`](../packages/util/crypto) |
 | [`experimental-computer-use-cua-driver-mcp`](../packages/experimental/computer-use-cua-driver-mcp) | `experimental` | [`computer-use`](../packages/computer-use/computer-use) |
 | [`acting-context`](../packages/identity/acting-context) | `identity` | [`people`](../packages/identity/people) |
 | [`sandbox-windows-acl`](../packages/sandbox/sandbox-windows-acl) | `sandbox` | [`subprocess`](../packages/subprocess/subprocess) |

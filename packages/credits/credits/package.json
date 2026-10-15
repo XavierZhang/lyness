@@ -1,0 +1,66 @@
+{
+  "name": "@lyness/lyn-credits",
+  "description": "Credits a hosted deployment grants, spends, and refuses when exhausted: the ledger seam and its reset clock",
+  "version": "0.1.7-rc.2",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "directory": "packages/credits/credits"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./types": {
+      "types": "./lib/types/types.d.ts",
+      "default": "./lib/types/types.js"
+    },
+    "./period": {
+      "types": "./lib/types/period.d.ts",
+      "default": "./lib/types/period.js"
+    },
+    "./src/*": "./src/*",
+    "./package.json": "./package.json",
+    "./store": {
+      "types": "./lib/types/store.d.ts",
+      "default": "./lib/types/store.js"
+    },
+    "./storage": {
+      "types": "./lib/types/storage.d.ts",
+      "default": "./lib/types/storage.js"
+    }
+  },
+  "files": [
+    "lib/index.js",
+    "lib/types/**/*.js",
+    "lib/types/**/*.d.ts"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/lyn-people": "workspace:*",
+    "@lyness/lyn-storage-domain": "workspace:*",
+    "@lyness/lyn-util-crypto": "workspace:*"
+  },
+  "devDependencies": {
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/lyn-people": "workspace:*",
+    "@lyness/lyn-storage-domain": "workspace:*",
+    "@lyness/lyn-util-crypto": "workspace:*",
+    "@lyness/lyn-storage": "workspace:*",
+    "@lyness/lyn-storage-json": "workspace:*"
+  },
+  "dependencies": {
+    "@lyness/schemastery": "workspace:~",
+    "zod": "^4.4.3"
+  }
+}

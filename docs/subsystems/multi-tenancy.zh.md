@@ -136,6 +136,53 @@ async resolve(claim: ActingContextClaim): Promise<ActingContext>
 
 Source: [`packages/identity/acting-context/src/index.ts`](../../packages/identity/acting-context/src/index.ts)
 
+<a id="ctxcredits--creditledger-abstract-seam"></a>
+
+### `ctx.credits` — `CreditLedger` (abstract seam)
+
+Abstract credit ledger. Subclass and implement the four operations for one source of truth; a hosted deployment mounts exactly one.
+
+```ts cordis-catalog
+/**
+ * What one person may spend now.
+ * @param person - whose balance to read.
+ * @returns the balance, including what it is made of.
+ */
+abstract balance(person: PersonId): Promise<CreditBalance>
+
+/**
+ * Spend credits, or refuse when the balance cannot cover it.
+ *
+ * Refusing rather than overdrawing is the whole point: an overdraw is a cost
+ * the operator did not agree to, and a person who can exceed a balance has
+ * no balance.
+ * @param request - whose credits, how many, and which session.
+ * @returns the recorded debit.
+ * @throws {CreditsExhausted} when the available balance cannot cover the amount.
+ */
+abstract spend(request: SpendRequest): Promise<CreditDebit>
+
+/**
+ * Add credits to one person.
+ * @param request - who receives them, how many, why, and when they lapse.
+ * @returns the recorded grant.
+ */
+abstract grant(request: GrantRequest): Promise<CreditGrant>
+
+/**
+ * Everything granted to and spent by one person, newest first.
+ *
+ * The ledger is the product rather than an implementation detail: a
+ * customer reviewing a refusal reads this, and a balance they cannot
+ * account for is a support case.
+ * @param person - whose history to read.
+ * @returns the grants and debits recorded for them.
+ */
+abstract history(person: PersonId): Promise<{ readonly grants: readonly CreditGrant[] readonly debits: readonly CreditDebit[] }>
+```
+
+Source: [`packages/credits/credits/src/index.ts`](../../packages/credits/credits/src/index.ts)
+
 <a id="ctxpeople--peopledirectory-abstract-seam"></a>
 
 ### `ctx.people` — `PeopleDirectory` (abstract seam)
