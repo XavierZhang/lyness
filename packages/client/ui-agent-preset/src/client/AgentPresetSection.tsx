@@ -3,12 +3,13 @@ import type { ReactNode } from 'react'
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import {
   Button, IconBrowseOutlineRegular, IconPlusOutlineRegular, Modal, Tag, Tooltip,
+  trapReaderTab,
 } from '@lyness/lyn-client-ui-primitives'
 import type { ObservableSnapshot, SnapshotStore } from '@lyness/lyn-client-store'
 import type { InjectFace, PropsLocale, PropsRuntime } from '@lyness/lyn-client-ui-slots'
 import type { AgentPresetSectionState } from './section-store.ts'
 import { isBuiltInPreset, presetDisplayText } from './locales.ts'
-import { PresetGuideDialog, presetGuide, trapPresetReaderTab, type PresetGuidePage } from './PresetGuideDialog.tsx'
+import { PresetGuideDialog, presetGuide, type PresetGuidePage } from './PresetGuideDialog.tsx'
 import css from './AgentPresetSection.module.css'
 
 /** Settings actions and their shared controller state. */
@@ -167,7 +168,7 @@ export function AgentPresetSection({
           event.preventDefault()
           event.stopPropagation()
           closeViewer()
-        } else trapPresetReaderTab(event)
+        } else trapReaderTab(event)
       }}
       title={viewed === null ? '' : `${t('view')} · ${viewedTitle}`} className={css.dialog as string}
       footer={<Button variant="outline" autoFocus onClick={closeViewer}>{t('close')}</Button>}>

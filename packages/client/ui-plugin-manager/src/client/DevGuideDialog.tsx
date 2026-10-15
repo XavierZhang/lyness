@@ -2,7 +2,9 @@
 import { useId, useLayoutEffect, useRef, useState } from 'react'
 import type { KeyboardEvent, ReactNode } from 'react'
 import type { TranslateNS } from '@lyness/lyn-client-ui-slots'
-import { Button, IconCloseOutlineRegular, MarkdownText, Modal, SegmentedTabs } from '@lyness/lyn-client-ui-primitives'
+import {
+  Button, IconCloseOutlineRegular, MarkdownText, Modal, SegmentedTabs, trapReaderTab,
+} from '@lyness/lyn-client-ui-primitives'
 import type { SegmentedTab } from '@lyness/lyn-client-ui-primitives'
 import type { PluginDevGuideKey } from './guide-locales.ts'
 import css from './DevGuideDialog.module.css'
@@ -44,25 +46,6 @@ function chapterTabs(
   return [first as SegmentedTab<DevGuidePage>, ...rest]
 }
 
-/**
- * Keep keyboard focus inside the manual while Tab moves through its controls.
- * @param event - keyboard event from the active reader.
- */
-export function trapDevGuideTab(event: KeyboardEvent<HTMLDivElement>): void {
-  if (event.key !== 'Tab') return
-  const targets = Array.from(event.currentTarget.querySelectorAll<HTMLElement>(
-    'button:not([disabled]):not([tabindex="-1"]), [tabindex="0"]',
-  )).filter(element => !element.closest('[hidden]'))
-  const first = targets[0]
-  const last = targets[targets.length - 1]
-  if (event.shiftKey && document.activeElement === first) {
-    event.preventDefault()
-    last?.focus()
-  } else if (!event.shiftKey && document.activeElement === last) {
-    event.preventDefault()
-    first?.focus()
-  }
-}
 
 /**
  * The plugin development manual.
@@ -88,7 +71,7 @@ export function DevGuideDialog({ t, onClose }: {
       event.preventDefault()
       event.stopPropagation()
       onClose()
-    } else trapDevGuideTab(event)
+    } else trapReaderTab(event)
   }
 
   return (

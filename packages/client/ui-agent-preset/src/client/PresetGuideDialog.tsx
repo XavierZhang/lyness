@@ -2,7 +2,10 @@
 import { useId, useLayoutEffect, useRef, useState } from 'react'
 import type { KeyboardEvent, ReactNode } from 'react'
 import type { TranslateNS } from '@lyness/lyn-client-ui-slots'
-import { Button, IconCloseOutlineRegular, IconListPenOutlineRegular, MarkdownText, Modal, SegmentedTabs, Tag } from '@lyness/lyn-client-ui-primitives'
+import {
+  Button, IconCloseOutlineRegular, IconListPenOutlineRegular, MarkdownText, Modal, SegmentedTabs, Tag,
+  trapReaderTab,
+} from '@lyness/lyn-client-ui-primitives'
 import type { AgentPresetSettingsKey } from './locales.ts'
 import css from './PresetGuideDialog.module.css'
 
@@ -33,24 +36,6 @@ export function presetGuide(id: string, trust: string): PresetGuide | undefined 
   return trust === 'system' ? guides.get(id) : undefined
 }
 
-/** Keep keyboard focus inside a preset reader while Tab moves through its controls.
- * @param event Keyboard event from the active reader.
- */
-export function trapPresetReaderTab(event: KeyboardEvent<HTMLDivElement>): void {
-  if (event.key !== 'Tab') return
-  const targets = Array.from(event.currentTarget.querySelectorAll<HTMLElement>(
-    'button:not([disabled]):not([tabindex="-1"]), [tabindex="0"]',
-  )).filter(element => !element.closest('[hidden]'))
-  const first = targets[0]
-  const last = targets[targets.length - 1]
-  if (event.shiftKey && document.activeElement === first) {
-    event.preventDefault()
-    last?.focus()
-  } else if (!event.shiftKey && document.activeElement === last) {
-    event.preventDefault()
-    first?.focus()
-  }
-}
 
 /** Curated usage dictionaries contain only level-three example sections. */
 function GuideUsage({ text, t }: {
@@ -105,7 +90,7 @@ export function PresetGuideDialog({ guide, initialPage, t, onClose }: {
       event.preventDefault()
       event.stopPropagation()
       onClose()
-    } else trapPresetReaderTab(event)
+    } else trapReaderTab(event)
   }
 
   return (

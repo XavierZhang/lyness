@@ -5,6 +5,9 @@
 import { describe, expect, it } from 'vitest'
 import { storedId, storedInstant } from '../src/records.ts'
 
+/** A branded identity standing in for a real one, so the brand is observable. */
+type Opaque = string & { readonly __opaque: unique symbol }
+
 describe('storedInstant', () => {
   it('accepts a millisecond-precision UTC instant', () => {
     expect(storedInstant().safeParse('2026-10-15T08:30:00.000Z').success).toBe(true)
@@ -25,8 +28,11 @@ describe('storedInstant', () => {
 
 describe('storedId', () => {
   it('accepts a non-empty identity and keeps its brand', () => {
-    const parsed = storedId<'opaque' & string>().safeParse('7a1f')
-    expect(parsed.success && parsed.data).toBe('7a1f')
+    const parsed = storedId<Opaque>().safeParse('7a1f')
+    // The narrowed value is typed as the brand, which is what a record schema
+    // needs: a plain string would not satisfy the field it fills.
+    const held: Opaque | false = parsed.success && parsed.data
+    expect(held).toBe('7a1f')
   })
 
   it('refuses an empty identity', () => {

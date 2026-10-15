@@ -27,3 +27,39 @@ export function focusWithoutRing(element: HTMLElement, options?: FocusOptions): 
   element.focus(options)
   if (!element.matches(':focus')) release()
 }
+
+/**
+ * Keep keyboard focus inside a reader while Tab moves through its controls.
+ *
+ * A reader is a dialog, so Tab leaving it would land on the page behind one
+ * that cannot be seen. Hidden panels are skipped because a tabbed reader
+ * keeps the inactive panels in the tree.
+ * @param event - keyboard event from the active reader.
+ */
+export function trapReaderTab(event: ReaderKeyboardEvent): void {
+  if (event.key !== 'Tab') return
+  const targets = Array.from(event.currentTarget.querySelectorAll<HTMLElement>(
+    'button:not([disabled]):not([tabindex="-1"]), [tabindex="0"]',
+  )).filter(element => !element.closest('[hidden]'))
+  const first = targets[0]
+  const last = targets[targets.length - 1]
+  if (event.shiftKey && document.activeElement === first) {
+    event.preventDefault()
+    last?.focus()
+  } else if (!event.shiftKey && document.activeElement === last) {
+    event.preventDefault()
+    first?.focus()
+  }
+}
+
+/** The part of a keyboard event this trap reads, so it takes React's and the DOM's alike. */
+export interface ReaderKeyboardEvent {
+  /** The key that was pressed. */
+  readonly key: string
+  /** Whether Shift was held, which reverses the direction. */
+  readonly shiftKey: boolean
+  /** The reader the handler is attached to. */
+  readonly currentTarget: HTMLElement
+  /** Stops the browser moving focus out of the reader. */
+  preventDefault: () => void
+}
