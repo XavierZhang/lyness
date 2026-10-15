@@ -44,6 +44,8 @@ const workspaceSpec = defineDomain({
 })
 ```
 
+每个领域共有的记录字段来自这里，而不是来自各个归属包：`storedInstant()` 用于 UTC 日历时刻，`storedId<T>()` 用于带品牌的不透明身份。一个领域接受、另一个领域拒绝的时间戳，会让同一份 JSON 在一张表里有效、在下一张表里是坏记录。
+
 ### 打开并使用领域
 
 消费方通过 `ctx.storageDomain` 打开已声明的领域并持有返回的句柄；读取是同步的，写入是持久的：
@@ -99,6 +101,7 @@ domain.table('workspaces').update(id, (r) => ({ ...r, path: newPath }))
 |---|---|
 | [`src/index.ts`](src/index.ts) | 插件入口：`DomainFacility`、路由、`Config`、数据形式挂载 |
 | [`src/spec.ts`](src/spec.ts) | 领域声明：`defineDomain`、`domainTable`、描述符投影 |
+| [`src/records.ts`](src/records.ts) | 共享记录字段：`storedInstant`、`storedId` |
 | [`src/domain.ts`](src/domain.ts) | 已打开领域的运行时：写入链、表与全局句柄、关闭 |
 | [`src/events.ts`](src/events.ts) | `domain/changed` 事件词汇 |
 | [`src/error.ts`](src/error.ts) | `DomainError` 代码 |

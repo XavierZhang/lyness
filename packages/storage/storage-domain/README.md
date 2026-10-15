@@ -44,6 +44,8 @@ const workspaceSpec = defineDomain({
 })
 ```
 
+Record fields that every domain shares come from here rather than from each owning package: `storedInstant()` for a UTC calendar instant and `storedId<T>()` for a branded opaque identity. A timestamp one domain accepted and another refused would make the same JSON valid in one table and malformed in the next.
+
 ### Opening and using a domain
 
 A consumer opens the declared domain through `ctx.storageDomain` and keeps the returned handle; reads are synchronous, writes are durable:
@@ -99,6 +101,7 @@ The domain layer is a single implementation, not an abstracted seam: consumers d
 |---|---|
 | [`src/index.ts`](src/index.ts) | Plugin entry: `DomainFacility`, routing, `Config`, form mounting |
 | [`src/spec.ts`](src/spec.ts) | Domain declarations: `defineDomain`, `domainTable`, descriptor projection |
+| [`src/records.ts`](src/records.ts) | Shared record fields: `storedInstant`, `storedId` |
 | [`src/domain.ts`](src/domain.ts) | Open-domain runtime: write chain, table and global handles, close |
 | [`src/events.ts`](src/events.ts) | The `domain/changed` event vocabulary |
 | [`src/error.ts`](src/error.ts) | `DomainError` codes |

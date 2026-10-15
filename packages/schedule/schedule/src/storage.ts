@@ -2,7 +2,7 @@
 import { z } from 'zod'
 import { SessionId } from '@lyness/lyn-session'
 import { MessageId } from '@lyness/lyn-llm/brand'
-import { defineDomain, domainTable } from '@lyness/lyn-storage-domain'
+import { defineDomain, domainTable, storedInstant } from '@lyness/lyn-storage-domain'
 import { decodeScheduleRecord } from './domain.ts'
 import type { ScheduleId, ScheduleRecord } from './types.ts'
 
@@ -15,13 +15,9 @@ const recordSchema = z.unknown().transform((value, context): ScheduleRecord => {
   return z.NEVER
 })
 
-const instantSchema = z.iso.datetime({ precision: 3 }).refine(value => !value.startsWith('0000-'), {
-  message: 'Expected a canonical four-digit-year UTC calendar instant',
-})
-
 const deliveryReceiptSchema = z.object({
-  scheduledAt: instantSchema,
-  deliveredAt: instantSchema,
+  scheduledAt: storedInstant(),
+  deliveredAt: storedInstant(),
   messageId: z.string().min(1).refine(value => value.trim() === value).transform(MessageId),
 }).strict()
 

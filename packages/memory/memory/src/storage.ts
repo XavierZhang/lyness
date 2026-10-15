@@ -6,15 +6,11 @@
  */
 
 import { z } from 'zod'
-import { defineDomain, domainTable } from '@lyness/lyn-storage-domain'
+import { defineDomain, domainTable, storedInstant } from '@lyness/lyn-storage-domain'
 import type { MemoryEntry, MemoryId } from './types.ts'
 
 /** Largest accepted entry, in UTF-16 code units. A memory is a fact, not a document. */
 export const MAX_ENTRY_CHARS = 2048
-
-const instantSchema = z.iso.datetime({ precision: 3 }).refine(value => !value.startsWith('0000-'), {
-  message: 'Expected a canonical four-digit-year UTC calendar instant',
-})
 
 /** Stored entry; a blank or oversized text is a malformed record, not an empty memory. */
 export const memoryEntrySchema: z.ZodType<MemoryEntry> = z.object({
@@ -22,7 +18,7 @@ export const memoryEntrySchema: z.ZodType<MemoryEntry> = z.object({
     message: 'Memory text must carry no leading or trailing whitespace',
   }),
   scope: z.enum(['member', 'shared']),
-  writtenAt: instantSchema,
+  writtenAt: storedInstant(),
 }).strict()
 
 /** Authoritative memory storage. */

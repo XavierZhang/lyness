@@ -19,6 +19,7 @@ import type { Domain } from './domain.ts'
 export { DomainError } from './error.ts'
 export type { DomainErrorCode, DomainErrorOptions, InvalidRecordDetail } from './error.ts'
 export { defineDomain, domainTable, descriptorOf } from './spec.ts'
+export { storedId, storedInstant } from './records.ts'
 export type {
   DomainSpec, DomainGlobalSpec, DomainTableSpec,
   TableKeyOf, TableValueOf, GlobalValueOf,

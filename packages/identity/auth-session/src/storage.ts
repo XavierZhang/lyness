@@ -5,28 +5,19 @@
  */
 
 import { z } from 'zod'
-import { defineDomain, domainTable } from '@lyness/lyn-storage-domain'
+import { defineDomain, domainTable, storedId, storedInstant } from '@lyness/lyn-storage-domain'
 import type { MembershipId, PersonId } from '@lyness/lyn-people'
 import type { AuthSessionId, SignedInSession } from './types.ts'
 
-const instant = z.iso.datetime({ precision: 3 })
-
-/** A branded identity as a stored string. */
-function brandedId<T extends string>(): z.ZodType<T> {
-  return z.custom<T>(value => typeof value === 'string' && value.length > 0, {
-    message: 'Expected a non-empty opaque identity',
-  })
-}
-
 /** Stored session; the acting context is stored as the two ids it is made of. */
 export const sessionSchema: z.ZodType<Omit<SignedInSession, 'id'>> = z.object({
-  person: brandedId<PersonId>(),
+  person: storedId<PersonId>(),
   acting: z.object({
-    person: brandedId<PersonId>(),
-    membership: brandedId<MembershipId>().optional(),
+    person: storedId<PersonId>(),
+    membership: storedId<MembershipId>().optional(),
   }).strict(),
-  establishedAt: instant,
-  expiresAt: instant.optional(),
+  establishedAt: storedInstant(),
+  expiresAt: storedInstant().optional(),
   method: z.string().min(1),
 }).strict()
 
