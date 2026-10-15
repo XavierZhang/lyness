@@ -293,6 +293,22 @@ abstract memberships(person: PersonId): Promise<readonly Membership[]>
 
 Source: [`packages/identity/people/src/index.ts`](../../packages/identity/people/src/index.ts)
 
+<a id="ctxrequestprincipal--requestprincipal"></a>
+
+### `ctx.requestPrincipal` — `RequestPrincipal`
+
+Resolves and publishes the principal of the call in progress.
+
+```ts cordis-catalog
+/**
+ * Who the call in progress is.
+ * @returns the principal, or undefined outside a call and for a call presenting no live session.
+ */
+current(): Principal | undefined
+```
+
+Source: [`packages/identity/request-principal/src/index.ts`](../../packages/identity/request-principal/src/index.ts)
+
 <a id="ctxrequesttenant--requesttenantreader"></a>
 
 ### `ctx.requestTenant` — `RequestTenantReader`

@@ -318,6 +318,7 @@ flowchart TD
     pkg_anonymous_user_id["anonymous-user-id"]
     pkg_auth_session["auth-session"]
     pkg_people["people"]
+    pkg_request_principal["request-principal"]
   end
   subgraph group_interaction["packages/interaction"]
     pkg_commands["commands"]
@@ -525,11 +526,6 @@ flowchart TD
   pkg_credentials_local --> pkg_credentials
   pkg_credentials_local --> pkg_home_paths
   pkg_credentials_local --> pkg_launch_environment
-  pkg_credits --> pkg_brand
-  pkg_credits --> pkg_llm
-  pkg_credits --> pkg_people
-  pkg_credits --> pkg_storage_domain
-  pkg_credits --> pkg_util_crypto
   pkg_experimental_computer_use_cua_driver_mcp --> pkg_computer_use
   pkg_acting_context --> pkg_people
   pkg_auth_session --> pkg_brand
@@ -553,6 +549,10 @@ flowchart TD
   pkg_experimental_webworker_runtime --> pkg_host_webserver
   pkg_host_frontend_static --> pkg_client_connection
   pkg_host_frontend_static --> pkg_host_webserver
+  pkg_request_principal --> pkg_auth_session
+  pkg_request_principal --> pkg_brand
+  pkg_request_principal --> pkg_client_connection
+  pkg_request_principal --> pkg_people
   pkg_persona --> pkg_system_prompt
   pkg_sandbox --> pkg_llm
   pkg_sandbox --> pkg_session
@@ -588,6 +588,12 @@ flowchart TD
   pkg_api_tenant_controller --> pkg_typert_protocol
   pkg_hmr --> pkg_app_boot
   pkg_hmr --> pkg_cmdline
+  pkg_credits --> pkg_brand
+  pkg_credits --> pkg_llm
+  pkg_credits --> pkg_people
+  pkg_credits --> pkg_request_principal
+  pkg_credits --> pkg_storage_domain
+  pkg_credits --> pkg_util_crypto
   pkg_experimental_speech_to_text --> pkg_settings
   pkg_ptc_runtime --> pkg_sandbox
   pkg_sandbox_local --> pkg_llm
@@ -1607,7 +1613,6 @@ flowchart TD
 | [`client-file-upload`](../packages/client/file-upload) | `client` | [`scope`](../packages/core/scope) |
 | [`authorization`](../packages/credentials/authorization) | `credentials` | [`credentials`](../packages/credentials/credentials), [`invariants`](../packages/runtime-diagnostics/invariants), [`llm`](../packages/llm/llm) |
 | [`credentials-local`](../packages/credentials/credentials-local) | `credentials` | [`atomic-write`](../packages/util/atomic-write), [`credentials`](../packages/credentials/credentials), [`home-paths`](../packages/util/home-paths), [`launch-environment`](../packages/util/launch-environment) |
-| [`credits`](../packages/credits/credits) | `credits` | [`brand`](../packages/util/brand), [`llm`](../packages/llm/llm), [`people`](../packages/identity/people), [`storage-domain`](../packages/storage/storage-domain), [`util-crypto`](../packages/util/crypto) |
 | [`experimental-computer-use-cua-driver-mcp`](../packages/experimental/computer-use-cua-driver-mcp) | `experimental` | [`computer-use`](../packages/computer-use/computer-use) |
 | [`acting-context`](../packages/identity/acting-context) | `identity` | [`people`](../packages/identity/people) |
 | [`auth-session`](../packages/identity/auth-session) | `identity` | [`brand`](../packages/util/brand), [`people`](../packages/identity/people), [`storage-domain`](../packages/storage/storage-domain), [`util-crypto`](../packages/util/crypto) |
@@ -1620,6 +1625,7 @@ flowchart TD
 | [`app-boot`](../packages/boot/app-boot) | `boot` | [`home-paths`](../packages/util/home-paths), [`launch-environment`](../packages/util/launch-environment), [`system-prompt`](../packages/core/system-prompt) |
 | [`experimental-webworker-runtime`](../packages/experimental/webworker-runtime) | `experimental` | [`client-connection`](../packages/client/connection), [`client-modules`](../packages/client/modules), [`host-webserver`](../packages/host/webserver) |
 | [`host-frontend-static`](../packages/host/frontend-static) | `host` | [`client-connection`](../packages/client/connection), [`host-webserver`](../packages/host/webserver) |
+| [`request-principal`](../packages/identity/request-principal) | `identity` | [`auth-session`](../packages/identity/auth-session), [`brand`](../packages/util/brand), [`client-connection`](../packages/client/connection), [`people`](../packages/identity/people) |
 | [`persona`](../packages/preset/persona) | `preset` | [`system-prompt`](../packages/core/system-prompt) |
 | [`sandbox`](../packages/sandbox/sandbox) | `sandbox` | [`llm`](../packages/llm/llm), [`session`](../packages/core/session) |
 | [`session-format-catalog`](../packages/session/session-format-catalog) | `session` | [`session`](../packages/core/session) |
@@ -1635,6 +1641,7 @@ flowchart TD
 | [`session-log-export`](../packages/session-query/session-log-export) | `session-query` | [`session`](../packages/core/session), [`session-persistence`](../packages/session/session-persistence) |
 | [`api-tenant-controller`](../packages/api/tenant-controller) | `api` | [`tenant`](../packages/tenant/tenant), [`tenant-config`](../packages/tenant/tenant-config), [`tenant-request`](../packages/tenant/tenant-request), [`typert-protocol`](../packages/typert/protocol) |
 | [`hmr`](../packages/boot/hmr) | `boot` | [`app-boot`](../packages/boot/app-boot), [`cmdline`](../packages/boot/cmdline) |
+| [`credits`](../packages/credits/credits) | `credits` | [`brand`](../packages/util/brand), [`llm`](../packages/llm/llm), [`people`](../packages/identity/people), [`request-principal`](../packages/identity/request-principal), [`storage-domain`](../packages/storage/storage-domain), [`util-crypto`](../packages/util/crypto) |
 | [`experimental-speech-to-text`](../packages/experimental/speech-to-text) | `experimental` | [`settings`](../packages/settings/settings) |
 | [`ptc-runtime`](../packages/ptc-runtime/ptc-runtime) | `ptc-runtime` | [`sandbox`](../packages/sandbox/sandbox) |
 | [`sandbox-local`](../packages/sandbox/sandbox-local) | `sandbox` | [`llm`](../packages/llm/llm), [`sandbox`](../packages/sandbox/sandbox), [`session`](../packages/core/session) |

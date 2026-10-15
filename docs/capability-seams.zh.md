@@ -60,6 +60,9 @@ flowchart LR
   pkg_credits_enforce["credits/enforce"]
   svc_credits["ctx.credits<br/>The allowance a hosted deployment meters"]
   pkg_credits_store["credits/store"]
+  pkg_request_principal["request-principal"]
+  svc_requestPrincipal["ctx.requestPrincipal<br/>Who the call in progress is"]
+  pkg_credits_subject_request["credits/subject-request"]
   pkg_auth_session["auth-session"]
   svc_authSessions["ctx.authSessions<br/>Signed-in sessions"]
   pkg_auth_session_store["auth-session/store"]
@@ -404,6 +407,7 @@ flowchart LR
   pkg_ptc_runtime --> svc_ptcRuntime
   pkg_ptc_runtime_node --> svc_ptcRuntime
   pkg_pwsh_local --> svc_shell
+  pkg_request_principal --> svc_requestPrincipal
   pkg_sandbox --> svc_sandbox
   pkg_sandbox_local --> svc_sandbox
   pkg_sandbox_policy --> svc_sandboxPolicy
@@ -535,6 +539,7 @@ flowchart LR
   svc_profileContext --> pkg_plugin_manager
   svc_ptcRuntime --> pkg_tools
   svc_ptcRuntime --> pkg_workflow_ptc
+  svc_requestPrincipal --> pkg_credits_subject_request
   svc_requestTenant --> pkg_tenant_session
   svc_sandbox --> pkg_bash_sandbox
   svc_sandbox --> pkg_terminal_bash
@@ -644,6 +649,7 @@ flowchart LR
 | `ctx.modelPolicy` | `seam` | [`model-policy`](../packages/llm/model-policy) | `model-policy/static` | `model-policy/enforce` | - | 部署方声明一次请求可以使用哪些模型；强制执行坐在 llm/stream waterfall 上，所以一个 preset 行或一次直接 RPC 都无法绕过它。 |
 | `ctx.creditSubject` | `seam` | [`credits`](../packages/credits/credits) | - | `credits/enforce` | - | 一次流式调用携带的是路由与消息，不是人；这里没有 provider 时，强制执行保持未激活，而不是无声地什么都不计量。 |
 | `ctx.credits` | `seam` | [`credits`](../packages/credits/credits) | `credits/store` | - | - | 一本赠送与扣减的账，其和即余额；覆盖不了的一次消耗会被拒绝，而不是透支。 |
+| `ctx.requestPrincipal` | `core` | [`request-principal`](../packages/identity/request-principal) | - | `credits/subject-request` | - | 把被出示的持有凭据解析成一个人、以及他的会话所持有的上下文，并且只为那一次调用发布它；它只解析、从不拒绝。 |
 | `ctx.authSessions` | `seam` | [`auth-session`](../packages/identity/auth-session) | `auth-session/store` | - | - | 持有「签入」所产生的东西：会话属于一个人，而当前生效的上下文是只能由显式切换改变的服务端状态。 |
 | `ctx.actingContext` | `core` | [`acting-context`](../packages/identity/acting-context) | - | - | - | 判定一次声明的上下文是否「已声明、由调用方持有、且被地址允许」；这条规则只住在这一处。 |
 | `ctx.people` | `seam` | [`people`](../packages/identity/people) | `people/static` | - | - | 报告调用方是谁、以及他的身份携带三个角色中的哪一个；每个操作依据那个角色自行授权，而不是让目录去做决定。 |

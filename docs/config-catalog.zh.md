@@ -4638,6 +4638,7 @@ export interface Config {
 | `@lyness/lyn-lsp` | — | [`packages/lsp/lsp/src/index.ts`](../packages/lsp/lsp/src/index.ts) |
 | `@lyness/lyn-mcp-resources` | `tools` | [`packages/mcp/mcp-resources/src/index.ts`](../packages/mcp/mcp-resources/src/index.ts) |
 | `@lyness/lyn-model-required` | `llm` · `appReady` | [`packages/llm/model-required/src/index.ts`](../packages/llm/model-required/src/index.ts) |
+| `@lyness/lyn-request-principal` | `authSessions` | [`packages/identity/request-principal/src/index.ts`](../packages/identity/request-principal/src/index.ts) |
 | `@lyness/lyn-sandbox-ssh` | `ssh` | [`packages/ssh/sandbox-ssh/src/index.ts`](../packages/ssh/sandbox-ssh/src/index.ts) |
 | `@lyness/lyn-session` | — | [`packages/core/session/src/index.ts`](../packages/core/session/src/index.ts) |
 | `@lyness/lyn-session-checkpoint-policy` | `llm` · `sessionPersistence` · `sessions` · `tools` | [`packages/session/session-checkpoint-policy/src/index.ts`](../packages/session/session-checkpoint-policy/src/index.ts) |

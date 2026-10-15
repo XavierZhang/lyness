@@ -47,6 +47,10 @@
     "./enforce": {
       "types": "./lib/types/enforce.d.ts",
       "default": "./lib/types/enforce.js"
+    },
+    "./subject-request": {
+      "types": "./lib/types/subject-request.d.ts",
+      "default": "./lib/types/subject-request.js"
     }
   },
   "files": [
@@ -61,7 +65,8 @@
     "@lyness/lyn-people": "workspace:*",
     "@lyness/lyn-storage-domain": "workspace:*",
     "@lyness/lyn-util-crypto": "workspace:*",
-    "@lyness/lyn-llm": "workspace:*"
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-request-principal": "workspace:*"
   },
   "devDependencies": {
     "@lyness/cordis": "workspace:~",
@@ -71,7 +76,10 @@
     "@lyness/lyn-util-crypto": "workspace:*",
     "@lyness/lyn-storage": "workspace:*",
     "@lyness/lyn-storage-json": "workspace:*",
-    "@lyness/lyn-llm": "workspace:*"
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-request-principal": "workspace:*",
+    "@lyness/lyn-auth-session": "workspace:*",
+    "@lyness/lyn-client-connection": "workspace:*"
   },
   "dependencies": {
     "@lyness/schemastery": "workspace:~",

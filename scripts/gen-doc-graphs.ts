@@ -233,6 +233,14 @@ const SERVICE_ROLES: ServiceRole[] = [
     note: 'A ledger of grants and debits whose sum is the balance; a spend it cannot cover is refused rather than overdrawn.',
   },
   {
+    key: 'requestPrincipal',
+    pkg: 'request-principal',
+    title: 'Who the call in progress is',
+    mode: 'core',
+    consumers: ['credits/subject-request'],
+    note: 'Resolves the presented bearer identity into a person and the context their session holds, and publishes it for that call only; it resolves and never refuses.',
+  },
+  {
     key: 'authSessions',
     pkg: 'auth-session',
     title: 'Signed-in sessions',

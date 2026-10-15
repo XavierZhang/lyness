@@ -1955,6 +1955,19 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
     ],
   },
   {
+    key: 'requestPrincipal',
+    summary: 'Resolves and publishes the principal of the call in progress.',
+    description: 'Resolves and publishes the principal of the call in progress.',
+    methods: [
+      {
+        signature: 'current(): Principal | undefined',
+        description: 'Who the call in progress is.',
+        parameters: [],
+        returns: 'the principal, or undefined outside a call and for a call presenting no live session.',
+      },
+    ],
+  },
+  {
     key: 'requestTenant',
     summary: 'What a consumer may do with the tenant of the call in progress.',
     description: 'What a consumer may do with the tenant of the call in progress.',
@@ -6330,6 +6343,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'PreToolDecision',
     declaration: 'export type PreToolDecision = {\n    kind: \'allow\';\n} | {\n    kind: \'deny\';\n    reason: string;\n    info?: ToolErrorInfo;\n} | {\n    kind: \'cancel\';\n} | {\n    kind: \'ask\';\n    reason?: string;\n    displayReason?: {\n        readonly en: string;\n        readonly [locale: string]: string;\n    };\n};',
+  },
+  {
+    name: 'Principal',
+    declaration: 'export interface Principal {\n    readonly person: PersonId;\n    readonly acting: ActingContext;\n}',
   },
   {
     name: 'ProductTelemetryRecord',

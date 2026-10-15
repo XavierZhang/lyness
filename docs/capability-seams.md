@@ -58,6 +58,9 @@ flowchart LR
   pkg_credits_enforce["credits/enforce"]
   svc_credits["ctx.credits<br/>The allowance a hosted deployment meters"]
   pkg_credits_store["credits/store"]
+  pkg_request_principal["request-principal"]
+  svc_requestPrincipal["ctx.requestPrincipal<br/>Who the call in progress is"]
+  pkg_credits_subject_request["credits/subject-request"]
   pkg_auth_session["auth-session"]
   svc_authSessions["ctx.authSessions<br/>Signed-in sessions"]
   pkg_auth_session_store["auth-session/store"]
@@ -402,6 +405,7 @@ flowchart LR
   pkg_ptc_runtime --> svc_ptcRuntime
   pkg_ptc_runtime_node --> svc_ptcRuntime
   pkg_pwsh_local --> svc_shell
+  pkg_request_principal --> svc_requestPrincipal
   pkg_sandbox --> svc_sandbox
   pkg_sandbox_local --> svc_sandbox
   pkg_sandbox_policy --> svc_sandboxPolicy
@@ -533,6 +537,7 @@ flowchart LR
   svc_profileContext --> pkg_plugin_manager
   svc_ptcRuntime --> pkg_tools
   svc_ptcRuntime --> pkg_workflow_ptc
+  svc_requestPrincipal --> pkg_credits_subject_request
   svc_requestTenant --> pkg_tenant_session
   svc_sandbox --> pkg_bash_sandbox
   svc_sandbox --> pkg_terminal_bash
@@ -642,6 +647,7 @@ flowchart LR
 | `ctx.modelPolicy` | `seam` | [`model-policy`](../packages/llm/model-policy) | `model-policy/static` | `model-policy/enforce` | - | A deployment states which models a request may use; enforcement rides the llm/stream waterfall, so a preset row or direct RPC cannot bypass it. |
 | `ctx.creditSubject` | `seam` | [`credits`](../packages/credits/credits) | - | `credits/enforce` | - | A streaming call carries a route and messages, not a person; without a provider here enforcement stays inactive rather than metering nothing in silence. |
 | `ctx.credits` | `seam` | [`credits`](../packages/credits/credits) | `credits/store` | - | - | A ledger of grants and debits whose sum is the balance; a spend it cannot cover is refused rather than overdrawn. |
+| `ctx.requestPrincipal` | `core` | [`request-principal`](../packages/identity/request-principal) | - | `credits/subject-request` | - | Resolves the presented bearer identity into a person and the context their session holds, and publishes it for that call only; it resolves and never refuses. |
 | `ctx.authSessions` | `seam` | [`auth-session`](../packages/identity/auth-session) | `auth-session/store` | - | - | Holds what sign-in produced: a session belongs to a person, and the context in force is server-side state changed only by an explicit switch. |
 | `ctx.actingContext` | `core` | [`acting-context`](../packages/identity/acting-context) | - | - | - | Decides whether a declared context is stated, held by the caller, and permitted by the address; the one place that rule lives. |
 | `ctx.people` | `seam` | [`people`](../packages/identity/people) | `people/static` | - | - | Reports who a caller is and which of three roles their standing carries; each operation authorizes itself against that role rather than asking the directory to decide. |

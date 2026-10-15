@@ -6500,9 +6500,18 @@ importers:
       '@lyness/lyn-llm':
         specifier: workspace:*
         version: link:../../llm/llm
+      '@lyness/lyn-auth-session':
+        specifier: workspace:*
+        version: link:../../identity/auth-session
+      '@lyness/lyn-client-connection':
+        specifier: workspace:*
+        version: link:../../client/connection
       '@lyness/lyn-people':
         specifier: workspace:*
         version: link:../../identity/people
+      '@lyness/lyn-request-principal':
+        specifier: workspace:*
+        version: link:../../identity/request-principal
       '@lyness/lyn-storage':
         specifier: workspace:*
         version: link:../../storage/storage
@@ -9536,6 +9545,33 @@ importers:
       '@lyness/lyn-brand':
         specifier: workspace:*
         version: link:../../util/brand
+
+  packages/identity/request-principal:
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+      '@lyness/lyn-auth-session':
+        specifier: workspace:*
+        version: link:../auth-session
+      '@lyness/lyn-brand':
+        specifier: workspace:*
+        version: link:../../util/brand
+      '@lyness/lyn-client-connection':
+        specifier: workspace:*
+        version: link:../../client/connection
+      '@lyness/lyn-people':
+        specifier: workspace:*
+        version: link:../people
+      '@lyness/lyn-storage':
+        specifier: workspace:*
+        version: link:../../storage/storage
+      '@lyness/lyn-storage-domain':
+        specifier: workspace:*
+        version: link:../../storage/storage-domain
+      '@lyness/lyn-storage-json':
+        specifier: workspace:*
+        version: link:../../storage/storage-json
 
   packages/interaction/commands:
     dependencies:
