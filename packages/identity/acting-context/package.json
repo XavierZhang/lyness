@@ -1,0 +1,43 @@
+{
+  "name": "@lyness/lyn-acting-context",
+  "description": "Resolve and check the context one call acts in: stated, held, and permitted by the address",
+  "version": "0.1.7-rc.2",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "directory": "packages/identity/acting-context"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./types": {
+      "types": "./lib/types/types.d.ts",
+      "default": "./lib/types/types.js"
+    },
+    "./src/*": "./src/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib/index.js",
+    "lib/types/**/*.js",
+    "lib/types/**/*.d.ts"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-people": "workspace:*"
+  },
+  "devDependencies": {
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-people": "workspace:*",
+    "@lyness/lyn-brand": "workspace:*"
+  }
+}

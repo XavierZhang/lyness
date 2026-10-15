@@ -278,6 +278,7 @@
     { "path": "./packages/llm/model-required" },
     { "path": "./packages/llm/model-policy" },
     { "path": "./packages/identity/people" },
+    { "path": "./packages/identity/acting-context" },
     { "path": "./packages/llm/deepseek-llm-api-extensions" },
     { "path": "./packages/llm/token-meter" },
     { "path": "./packages/core/session" },

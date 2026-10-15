@@ -215,6 +215,14 @@ const SERVICE_ROLES: ServiceRole[] = [
     note: 'A deployment states which models a request may use; enforcement rides the llm/stream waterfall, so a preset row or direct RPC cannot bypass it.',
   },
   {
+    key: 'actingContext',
+    pkg: 'acting-context',
+    title: 'The context one call acts in',
+    mode: 'core',
+    consumers: [],
+    note: 'Decides whether a declared context is stated, held by the caller, and permitted by the address; the one place that rule lives.',
+  },
+  {
     key: 'people',
     pkg: 'people',
     title: 'People and their standing in an organization',

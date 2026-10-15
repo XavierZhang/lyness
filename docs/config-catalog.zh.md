@@ -4557,6 +4557,7 @@ export interface Config {
 | `package` | `inject` | `source` |
 | --- | --- | --- |
 | `@lyness/lyn-acp-app` | `cmdlineArgs` | [`packages/bundle/acp-app/src/index.ts`](../packages/bundle/acp-app/src/index.ts) |
+| `@lyness/lyn-acting-context` | `people` | [`packages/identity/acting-context/src/index.ts`](../packages/identity/acting-context/src/index.ts) |
 | `@lyness/lyn-agent` | — | [`packages/core/agent/src/index.ts`](../packages/core/agent/src/index.ts) |
 | `@lyness/lyn-api-account-controller` | `deepseekAccount` · `agents` | [`packages/api/account-controller/src/index.ts`](../packages/api/account-controller/src/index.ts) |
 | `@lyness/lyn-api-remotes` | `typertGateway` | [`packages/api/remotes/src/index.ts`](../packages/api/remotes/src/index.ts) |

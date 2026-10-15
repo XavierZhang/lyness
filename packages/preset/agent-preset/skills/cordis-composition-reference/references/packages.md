@@ -260,6 +260,12 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@lyness/lyn-host-product-telemetry-otel` | yes | Explicit product usage events exported through OpenTelemetry HTTP logs |
 | `@lyness/lyn-host-webserver` | yes | Web route-registration plugin: HTTP and upgrade routes, index transform taps, and static dist fallback; knows no harness concepts |
 
+## identity
+
+| Package | Config | Description |
+|---|---|---|
+| `@lyness/lyn-acting-context` | no | Resolve and check the context one call acts in: stated, held, and permitted by the address |
+
 ## interaction
 
 | Package | Config | Description |

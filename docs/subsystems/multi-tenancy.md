@@ -118,6 +118,24 @@ The composition-configured backend indexes rows at load: id, slug, display name,
 
 Generated from source by `scripts/gen-cordis-catalog.ts` (verified fresh by `pnpm run verify-cordis-catalog` in doc-sync; regenerate with `pnpm run gen-cordis-catalog`) — the language sides differ only in locale-specific paired document paths. Signature blocks use a `ts cordis-catalog` fence and keep the original source JSDoc; dispatch modes are defined in the [primer](../cordis-primer.md#dispatch-modes), and the framework-inherited `ctx` API lives in [cordis-api/inherited.md](../cordis-api/inherited.md).
 
+<a id="ctxactingcontext--actingcontextresolver"></a>
+
+### `ctx.actingContext` — `ActingContextResolver`
+
+Resolves a declared context against the directory, or refuses it.
+
+```ts cordis-catalog
+/**
+ * Check one call's claim and return the context it acts in.
+ * @param claim - who the caller is, what they declared, and what the address resolved to.
+ * @returns the permitted acting context.
+ * @throws {ActingContextRefused} when any of the three rules refuses it.
+ */
+async resolve(claim: ActingContextClaim): Promise<ActingContext>
+```
+
+Source: [`packages/identity/acting-context/src/index.ts`](../../packages/identity/acting-context/src/index.ts)
+
 <a id="ctxpeople--peopledirectory-abstract-seam"></a>
 
 ### `ctx.people` — `PeopleDirectory` (abstract seam)

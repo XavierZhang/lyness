@@ -82,6 +82,20 @@ export interface TypeApiEntry {
 /** Every harness `ctx.<key>` service, sorted by key. */
 export const SERVICE_API: readonly ServiceApiEntry[] = [
   {
+    key: 'actingContext',
+    summary: 'Resolves a declared context against the directory, or refuses it.',
+    description: 'Resolves a declared context against the directory, or refuses it.',
+    methods: [
+      {
+        signature: 'async resolve(claim: ActingContextClaim): Promise<ActingContext>',
+        description: 'Check one call\'s claim and return the context it acts in.',
+        parameters: [{ name: 'claim', description: 'who the caller is, what they declared, and what the address resolved to.' }],
+        returns: 'the permitted acting context.',
+        throws: ['{ActingContextRefused} when any of the three rules refuses it.'],
+      },
+    ],
+  },
+  {
     key: 'agentDefaultModel',
     summary: 'Owns the default model selection independently of any Host or transport.',
     description: 'Owns the default model selection independently of any Host or transport. Each operation reads the owning Config references.',
@@ -4548,6 +4562,14 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export interface AccountWallet {\n    readonly currency: \'CNY\' | \'USD\';\n    readonly balance: string;\n}',
   },
   {
+    name: 'ActingContext',
+    declaration: 'export interface ActingContext {\n    readonly person: PersonId;\n    readonly membership?: MembershipId | undefined;\n}',
+  },
+  {
+    name: 'ActingContextClaim',
+    declaration: 'export interface ActingContextClaim {\n    readonly person: PersonId;\n    readonly declared?: DeclaredContext | undefined;\n    readonly organization?: string | undefined;\n}',
+  },
+  {
     name: 'AdapterRegistrationHandle',
     declaration: 'export interface AdapterRegistrationHandle {\n    (): void;\n    replace(providers: string[]): void;\n}',
   },
@@ -5122,6 +5144,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'DailyScheduleRecord',
     declaration: 'export interface DailyScheduleRecord {\n    readonly id: ScheduleId;\n    readonly kind: \'daily\';\n    readonly title: string;\n    readonly prompt: string;\n    readonly time: string;\n    readonly timeZone: string;\n    readonly scheduledAt: string;\n}',
+  },
+  {
+    name: 'DeclaredContext',
+    declaration: 'export type DeclaredContext = {\n    readonly kind: \'personal\';\n} | {\n    readonly kind: \'membership\';\n    readonly membership: MembershipId;\n};',
   },
   {
     name: 'DeepSeekLlmApiExtensionMap',
