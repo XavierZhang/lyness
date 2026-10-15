@@ -1601,6 +1601,31 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
     ],
   },
   {
+    key: 'people',
+    summary: 'Abstract people directory.',
+    description: 'Abstract people directory. Subclass and implement the three lookups for one source of truth; a deployment mounts exactly one.\n\nA deployment that mounts none has no identities, which is what a single-operator developer install is: it is its own administrator.',
+    methods: [
+      {
+        signature: 'abstract person(id: PersonId): Promise<Person | undefined>',
+        description: 'One person by identity.',
+        parameters: [{ name: 'id', description: 'the person\'s stable identity.' }],
+        returns: 'the person, or undefined when no such identity exists.',
+      },
+      {
+        signature: 'abstract membership(id: MembershipId): Promise<Membership | undefined>',
+        description: 'One standing by identity.',
+        parameters: [{ name: 'id', description: 'the membership\'s stable identity.' }],
+        returns: 'the standing, or undefined when no such standing exists.',
+      },
+      {
+        signature: 'abstract memberships(person: PersonId): Promise<readonly Membership[]>',
+        description: 'Every standing one person holds.\n\nReturned rather than filtered by organization because a surface offering a context switch needs all of them, and an authorization check needs the one the call named — neither is served by a per-organization query.',
+        parameters: [{ name: 'person', description: 'the person whose standings to list.' }],
+        returns: 'their standings, in a stable order.',
+      },
+    ],
+  },
+  {
     key: 'permissionPresets',
     summary: 'Owns the deployment\'s configured permission presets, the fixed Auto integration hook, and their write path.',
     description: 'Owns the deployment\'s configured permission presets, the fixed Auto integration hook, and their write path. Requires a confining `ctx.shell` executor and `ctx.approval`; unmatched knob values are reported as CUSTOM_PRESET, not an error.',
@@ -5787,6 +5812,14 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export type McpResourceRequest = {\n    method: \'resources/list\' | \'resources/templates/list\';\n    cursor?: string;\n} | {\n    method: \'resources/read\';\n    uri: string;\n};',
   },
   {
+    name: 'Membership',
+    declaration: 'export interface Membership {\n    readonly id: MembershipId;\n    readonly person: PersonId;\n    readonly organization?: string | undefined;\n    readonly role: Role;\n}',
+  },
+  {
+    name: 'MembershipId',
+    declaration: 'export type MembershipId = Branded<\'MembershipId\'>;',
+  },
+  {
     name: 'MemoryEntry',
     declaration: 'export interface MemoryEntry {\n    readonly text: string;\n    readonly scope: MemoryScope;\n    readonly writtenAt: string;\n}',
   },
@@ -6017,6 +6050,14 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'PermissionCatalog',
     declaration: 'export interface PermissionCatalog {\n    options: PresetOption[];\n    defaultOptions: PresetOption[];\n    defaultPreset: string;\n}',
+  },
+  {
+    name: 'Person',
+    declaration: 'export interface Person {\n    readonly id: PersonId;\n    readonly displayName: string;\n}',
+  },
+  {
+    name: 'PersonId',
+    declaration: 'export type PersonId = Branded<\'PersonId\'>;',
   },
   {
     name: 'PlatformSession',
@@ -6369,6 +6410,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'ResumeAgentOptions',
     declaration: 'export interface ResumeAgentOptions {\n    readonly resumeSessionId: SessionId;\n    readonly parentAgent?: Agent;\n    readonly agentOptions?: AgentOptions;\n    readonly signal?: AbortSignal;\n    readonly setup?: AgentSetup;\n}',
+  },
+  {
+    name: 'Role',
+    declaration: 'export type Role = \'platform-administrator\' | \'tenant-administrator\' | \'member\';',
   },
   {
     name: 'RpcId',

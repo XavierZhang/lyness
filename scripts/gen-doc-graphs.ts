@@ -215,6 +215,15 @@ const SERVICE_ROLES: ServiceRole[] = [
     note: 'A deployment states which models a request may use; enforcement rides the llm/stream waterfall, so a preset row or direct RPC cannot bypass it.',
   },
   {
+    key: 'people',
+    pkg: 'people',
+    title: 'People and their standing in an organization',
+    mode: 'seam',
+    implementations: ['people/static'],
+    consumers: [],
+    note: 'Reports who a caller is and which of three roles their standing carries; each operation authorizes itself against that role rather than asking the directory to decide.',
+  },
+  {
     key: 'deepseekLlmApiExtensions',
     pkg: 'deepseek-llm-api-extensions',
     title: 'Official DeepSeek request extensions',

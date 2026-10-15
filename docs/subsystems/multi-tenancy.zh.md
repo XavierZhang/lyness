@@ -118,6 +118,43 @@ interface TenantIdentity {
 
 Generated from source by `scripts/gen-cordis-catalog.ts` (verified fresh by `pnpm run verify-cordis-catalog` in doc-sync; regenerate with `pnpm run gen-cordis-catalog`) — the language sides differ only in locale-specific paired document paths. Signature blocks use a `ts cordis-catalog` fence and keep the original source JSDoc; dispatch modes are defined in the [primer](../cordis-primer.zh.md#dispatch-modes), and the framework-inherited `ctx` API lives in [cordis-api/inherited.md](../cordis-api/inherited.md).
 
+<a id="ctxpeople--peopledirectory-abstract-seam"></a>
+
+### `ctx.people` — `PeopleDirectory` (abstract seam)
+
+Abstract people directory. Subclass and implement the three lookups for one source of truth; a deployment mounts exactly one.
+
+A deployment that mounts none has no identities, which is what a single-operator developer install is: it is its own administrator.
+
+```ts cordis-catalog
+/**
+ * One person by identity.
+ * @param id - the person's stable identity.
+ * @returns the person, or undefined when no such identity exists.
+ */
+abstract person(id: PersonId): Promise<Person | undefined>
+
+/**
+ * One standing by identity.
+ * @param id - the membership's stable identity.
+ * @returns the standing, or undefined when no such standing exists.
+ */
+abstract membership(id: MembershipId): Promise<Membership | undefined>
+
+/**
+ * Every standing one person holds.
+ *
+ * Returned rather than filtered by organization because a surface offering a
+ * context switch needs all of them, and an authorization check needs the one
+ * the call named — neither is served by a per-organization query.
+ * @param person - the person whose standings to list.
+ * @returns their standings, in a stable order.
+ */
+abstract memberships(person: PersonId): Promise<readonly Membership[]>
+```
+
+Source: [`packages/identity/people/src/index.ts`](../../packages/identity/people/src/index.ts)
+
 <a id="ctxrequesttenant--requesttenantreader"></a>
 
 ### `ctx.requestTenant` — `RequestTenantReader`

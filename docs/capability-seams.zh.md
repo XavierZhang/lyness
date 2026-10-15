@@ -55,6 +55,9 @@ flowchart LR
   svc_modelPolicy["ctx.modelPolicy<br/>Models a deployment allows"]
   pkg_model_policy_static["model-policy/static"]
   pkg_model_policy_enforce["model-policy/enforce"]
+  pkg_people["people"]
+  svc_people["ctx.people<br/>People and their standing in an organization"]
+  pkg_people_static["people/static"]
   pkg_deepseek_llm_api_extensions["deepseek-llm-api-extensions"]
   svc_deepseekLlmApiExtensions["ctx.deepseekLlmApiExtensions<br/>Official DeepSeek request extensions"]
   pkg_session_log_deepseek["session-log-deepseek"]
@@ -376,6 +379,8 @@ flowchart LR
   pkg_model_policy --> svc_modelPolicy
   pkg_model_policy_static --> svc_modelPolicy
   pkg_office_to_pdf --> svc_officeToPdf
+  pkg_people --> svc_people
+  pkg_people_static --> svc_people
   pkg_permission_presets --> svc_permissionPresets
   pkg_plan_mode --> svc_planMode
   pkg_plugin_manager --> svc_pluginManager
@@ -620,6 +625,7 @@ flowchart LR
 | `ctx.fileUploads` | `core` | [`client-file-upload`](../packages/client/file-upload) | - | [`api-session-controller`](../packages/api/session-controller) | - | 负责流式接收、持久存储和暂存回执生命周期；Session Controller 将回执绑定到已接受的提交。 |
 | `ctx.llm` | `seam` | [`llm`](../packages/llm/llm) | [`llm-deepseek`](../packages/llm/llm-deepseek), [`llm-pi-ai`](../packages/llm/llm-pi-ai), [`llm-replay`](../packages/test-support/llm-replay) | [`agent-loop`](../packages/core/agent-loop), [`compaction-basic`](../packages/compaction/compaction-basic) | - | 适配器注册提供方实现；agent loop（智能体循环）与压缩功能调用提供方无关的流服务。 |
 | `ctx.modelPolicy` | `seam` | [`model-policy`](../packages/llm/model-policy) | `model-policy/static` | `model-policy/enforce` | - | 部署方声明一次请求可以使用哪些模型；强制执行坐在 llm/stream waterfall 上，所以一个 preset 行或一次直接 RPC 都无法绕过它。 |
+| `ctx.people` | `seam` | [`people`](../packages/identity/people) | `people/static` | - | - | 报告调用方是谁、以及他的身份携带三个角色中的哪一个；每个操作依据那个角色自行授权，而不是让目录去做决定。 |
 | `ctx.deepseekLlmApiExtensions` | `seam` | [`deepseek-llm-api-extensions`](../packages/llm/deepseek-llm-api-extensions) | [`session-log-deepseek`](../packages/session/session-log-deepseek), [`plugin-package-inventory-deepseek`](../packages/llm/plugin-package-inventory-deepseek) | [`llm-deepseek`](../packages/llm/llm-deepseek) | - | 插件准备彼此独立的顶层字段；官方适配器会合并这些字段，并在 HTTP 接受后提交其交付状态。 |
 | `ctx.tokenMeter` | `core` | [`token-meter`](../packages/llm/token-meter) | - | [`compaction-basic`](../packages/compaction/compaction-basic) | - | 拥有按会话隔离的回放折叠区；压力消费方共享不可变且带修订版本的测量结果。 |
 | `ctx.toolResultPruner` | `core` | [`compaction-tool-result-pruner`](../packages/compaction/compaction-tool-result-pruner) | - | [`compaction-basic`](../packages/compaction/compaction-basic) | - | 在摘要压缩前，通过可回放的单节点表层替换来改写过大的当前工具结果。 |

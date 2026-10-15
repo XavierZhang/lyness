@@ -4673,6 +4673,7 @@ Abstract service classes — a deployment loads a concrete implementation packag
 | `@lyness/lyn-host-directory-picker` | `DirectoryPicker` | — | [`packages/host/directory-picker/src/index.ts`](../packages/host/directory-picker/src/index.ts) |
 | `@lyness/lyn-jobs` | `JobRegistry` | — | [`packages/jobs/jobs/src/index.ts`](../packages/jobs/jobs/src/index.ts) |
 | `@lyness/lyn-model-policy` | `ModelPolicy` | — | [`packages/llm/model-policy/src/index.ts`](../packages/llm/model-policy/src/index.ts) |
+| `@lyness/lyn-people` | `PeopleDirectory` | — | [`packages/identity/people/src/index.ts`](../packages/identity/people/src/index.ts) |
 | `@lyness/lyn-ptc-runtime` | `PtcRuntime` | — | [`packages/ptc-runtime/ptc-runtime/src/index.ts`](../packages/ptc-runtime/ptc-runtime/src/index.ts) |
 | `@lyness/lyn-sandbox` | `SandboxProvider` | — | [`packages/sandbox/sandbox/src/index.ts`](../packages/sandbox/sandbox/src/index.ts) |
 | `@lyness/lyn-session-persistence` | `SessionPersistence` | — | [`packages/session/session-persistence/src/index.ts`](../packages/session/session-persistence/src/index.ts) |
