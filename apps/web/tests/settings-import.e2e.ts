@@ -7,18 +7,24 @@ import { chromium } from 'playwright'
 import { expect, it } from 'vitest'
 import { entryListSchema } from '@lyness/cordis-plugin-include'
 import yaml from 'js-yaml'
-import { WELCOME_NOTICE_VERSION, launchWebScaffold, watchConsole } from './scaffold.ts'
+import { launchWebScaffold, watchConsole } from './scaffold.ts'
 import { ZH_BROWSER_LOCALE } from './support.ts'
+
+/** The last version the retired internal-testing notice recorded. */
+const RETIRED_ACK_VERSION = '2026-08-13.1'
 
 it('imports settings.yaml into the profile once and applies the imported values', async () => {
   const harnessHome = mkdtempSync(join(tmpdir(), 'lyn-settings-import-'))
   writeFileSync(join(harnessHome, 'settings.yaml'), [
     'ui-theme:', '  fontSize: 16',
     'ui-developer-tools:', '  enabled: false',
-    'ui-onboarding:', `  welcomeNoticeVersion: '${WELCOME_NOTICE_VERSION}'`,
+    // A field of the renamed namespace, which is what this asserts: the
+    // import has to land it under `ui-settings-general`. Nothing writes this
+    // one any more, and a profile that carries it keeps it.
+    'ui-onboarding:', `  welcomeNoticeVersion: '${RETIRED_ACK_VERSION}'`,
     '',
   ].join('\n'))
-  const scaffold = await launchWebScaffold({ harnessHome, welcomeNoticePending: true })
+  const scaffold = await launchWebScaffold({ harnessHome })
   const browser = await chromium.launch()
   try {
     const patchPath = join(harnessHome, 'profiles', 'scaffold', 'cordis.patch.yml')
@@ -27,7 +33,7 @@ it('imports settings.yaml into the profile once and applies the imported values'
       (yaml.load(readFileSync(patchPath, 'utf8'), { schema: entryListSchema }) as Row[]).find(row => row.id === id)?.config
     await expect.poll(() => config('ui-theme')?.['fontSize'], { timeout: 10_000 }).toBe(16)
     expect(config('ui-settings')?.['enabled']).toBe(false)
-    expect(config('ui-settings-general')?.['welcomeNoticeVersion']).toBe(WELCOME_NOTICE_VERSION)
+    expect(config('ui-settings-general')?.['welcomeNoticeVersion']).toBe(RETIRED_ACK_VERSION)
     expect(existsSync(join(harnessHome, 'settings.yaml'))).toBe(false)
     expect(readFileSync(join(harnessHome, 'settings.yaml.imported'), 'utf8')).toContain('fontSize: 16')
 

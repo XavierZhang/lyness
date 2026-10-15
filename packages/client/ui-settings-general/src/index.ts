@@ -7,11 +7,17 @@ import z from '@lyness/schemastery'
 
 /** Runtime preferences projected to the browser. */
 export interface Config {
-  /** Last acknowledged welcome notice version. */
+  /**
+   * Last acknowledged internal-testing notice version.
+   *
+   * No longer written: that notice was retired. The field stays declared
+   * because profiles carry what an earlier build wrote, and a field this
+   * build did not know would turn a readable profile into an unreadable one.
+   */
   welcomeNoticeVersion: Volatile<string | undefined>
 }
 
-/** Live welcome preference. */
+/** The retired notice's acknowledgement, kept readable for existing profiles. */
 export const Config = z.object({
   welcomeNoticeVersion: z.string().volatile(),
 })
