@@ -1,0 +1,28 @@
+# Bilingual-pair consistency record for 2026-10-15-diverging-from-the-single-operator-host.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write .agents/notes/proposed/architecture/2026-10-15-diverging-from-the-single-operator-host.md
+/agent-note-leaving-the-single-operator-host-and-what-that-obliges:
+  en: b0bcfe3e2f358f45
+  zh: 1eb8ed4f8e248cad
+/agent-note-leaving-the-single-operator-host-and-what-that-obliges/problem:
+  en: 0d758c487232a310
+  zh: 74bd6011e47def67
+/agent-note-leaving-the-single-operator-host-and-what-that-obliges/proposal:
+  en: bd4a569f0838cecc
+  zh: b82f2708e9d9f328
+/agent-note-leaving-the-single-operator-host-and-what-that-obliges/proposal/the-four-points-we-leave-upstream-on-and-why:
+  en: 9c605647d23bb60d
+  zh: 289a21fea2797a01
+/agent-note-leaving-the-single-operator-host-and-what-that-obliges/proposal/what-the-divergence-does-not-buy:
+  en: 759b82c12c8f7eec
+  zh: 491281ab82e01fb2
+/agent-note-leaving-the-single-operator-host-and-what-that-obliges/alternatives-considered:
+  en: 96915424b9e2823e
+  zh: 42028c73d3e40458
+/agent-note-leaving-the-single-operator-host-and-what-that-obliges/acceptance-criteria:
+  en: 082b217a42131461
+  zh: e88260855f061349
+/agent-note-leaving-the-single-operator-host-and-what-that-obliges/risks:
+  en: 69f23964d629c4a1
+  zh: 7d806afa18ae6086
