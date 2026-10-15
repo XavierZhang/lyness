@@ -319,6 +319,7 @@ flowchart TD
     pkg_auth_session["auth-session"]
     pkg_people["people"]
     pkg_request_principal["request-principal"]
+    pkg_sign_in["sign-in"]
   end
   subgraph group_interaction["packages/interaction"]
     pkg_commands["commands"]
@@ -553,6 +554,9 @@ flowchart TD
   pkg_request_principal --> pkg_brand
   pkg_request_principal --> pkg_client_connection
   pkg_request_principal --> pkg_people
+  pkg_sign_in --> pkg_auth_session
+  pkg_sign_in --> pkg_brand
+  pkg_sign_in --> pkg_people
   pkg_persona --> pkg_system_prompt
   pkg_sandbox --> pkg_llm
   pkg_sandbox --> pkg_session
@@ -1626,6 +1630,7 @@ flowchart TD
 | [`experimental-webworker-runtime`](../packages/experimental/webworker-runtime) | `experimental` | [`client-connection`](../packages/client/connection), [`client-modules`](../packages/client/modules), [`host-webserver`](../packages/host/webserver) |
 | [`host-frontend-static`](../packages/host/frontend-static) | `host` | [`client-connection`](../packages/client/connection), [`host-webserver`](../packages/host/webserver) |
 | [`request-principal`](../packages/identity/request-principal) | `identity` | [`auth-session`](../packages/identity/auth-session), [`brand`](../packages/util/brand), [`client-connection`](../packages/client/connection), [`people`](../packages/identity/people) |
+| [`sign-in`](../packages/identity/sign-in) | `identity` | [`auth-session`](../packages/identity/auth-session), [`brand`](../packages/util/brand), [`people`](../packages/identity/people) |
 | [`persona`](../packages/preset/persona) | `preset` | [`system-prompt`](../packages/core/system-prompt) |
 | [`sandbox`](../packages/sandbox/sandbox) | `sandbox` | [`llm`](../packages/llm/llm), [`session`](../packages/core/session) |
 | [`session-format-catalog`](../packages/session/session-format-catalog) | `session` | [`session`](../packages/core/session) |

@@ -2783,6 +2783,46 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
     ],
   },
   {
+    key: 'signIn',
+    summary: 'The channels a deployment offers, and the sign-in they perform.',
+    description: 'The channels a deployment offers, and the sign-in they perform.\n\nSessions and the admission rule are injected rather than read optionally: without either, a sign-in has nowhere to put its result or no rule for who may have one, and in both cases the right behaviour is to offer no sign-in at all rather than one that admits everybody.',
+    methods: [
+      {
+        signature: 'register(channel: SignInChannel): () => Promise<void>',
+        description: 'Offer one channel as a sign-in option.\n\nTwo channels of one id is a composition mistake rather than a runtime condition — a sign-in page would show two identical buttons leading to different directories — so it fails at registration.',
+        parameters: [{ name: 'channel', description: 'the channel to offer.' }],
+        returns: 'the disposer; the registering plugin owns it.',
+        throws: ['{Error} when a channel of that id is already registered.'],
+      },
+      {
+        signature: 'available(): readonly ChannelDescription[]',
+        description: 'The channels a surface may offer, in registration order.',
+        parameters: [],
+        returns: 'each mounted channel\'s id and display name.',
+      },
+      {
+        signature: 'async begin(channel: ChannelId): Promise<AuthSessionId>',
+        description: 'Sign a person in through one channel.\n\nThe session is established last, after both the directory and the admission rule have answered, so a refused sign-in leaves no session behind to be revoked.',
+        parameters: [{ name: 'channel', description: 'the channel the person chose.' }],
+        returns: 'the bearer identity of their new session.',
+        throws: ['{SignInRefused} when the channel is unknown, the directory did not complete, or this deployment admits them as nobody.'],
+      },
+    ],
+  },
+  {
+    key: 'signInAdmission',
+    summary: 'Abstract admission rule.',
+    description: 'Abstract admission rule. Subclass and implement the one decision; a deployment mounts exactly one.',
+    methods: [
+      {
+        signature: 'abstract admit(subject: ExternalSubject): Promise<PersonId | undefined>',
+        description: 'The person an authenticated subject is, if this deployment admits them.\n\nUndefined refuses the sign-in. It is deliberately the same answer for "this directory is not one we accept" and "this person is not on the roster": a sign-in page that distinguished them would report, to whoever asked, which addresses exist here.',
+        parameters: [{ name: 'subject', description: 'the subject a channel verified.' }],
+        returns: 'the person they are here, or undefined when this deployment admits them as nobody.',
+      },
+    ],
+  },
+  {
     key: 'skills',
     summary: 'Layered registry of skill providers, the host+per-scope shape the tools registry established.',
     description: 'Layered registry of skill providers, the host+per-scope shape the tools registry established. A registration files into the layer of its calling context\'s scope (scopeOf): host rows and repository plugins land in the global layer, while a plugin mounted by an agent preset\'s standing composition lands in that preset\'s layer. A read merges the global layer with the viewing scope\'s chain — the nearest layer\'s entry wins a duplicate name outright, and the rank order decides duplicates only within one layer. It exposes sorted invocation-neutral summaries and loads full skill bodies on demand.',
@@ -4937,6 +4977,14 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export interface ChangeResult {\n    changed: boolean;\n    application: \'applied\' | \'restart-required\' | \'overridden\' | \'failed\' | \'cancelled\';\n    stage: \'install\' | \'enable\' | \'remove\';\n    target: string;\n    enabled?: boolean;\n    error?: ManagementError;\n    warnings?: string[];\n    packageResult?: PackageResult;\n    bundle?: string;\n    pendingBuilds?: string[];\n    approvedBuilds?: string[];\n    registries?: Registry[];\n    failedAt?: \'registry\' | \'spec-host\';\n}',
   },
   {
+    name: 'ChannelDescription',
+    declaration: 'export interface ChannelDescription {\n    readonly id: ChannelId;\n    readonly displayName: string;\n}',
+  },
+  {
+    name: 'ChannelId',
+    declaration: 'export type ChannelId = Branded<\'ChannelId\'>;',
+  },
+  {
     name: 'ClientArtifactBaseline',
     declaration: 'export interface ClientArtifactBaseline {\n    readonly path: string;\n    readonly mtimeMs: number;\n    readonly ctimeMs: number;\n    readonly size: number;\n}',
   },
@@ -5419,6 +5467,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'EveryScheduleRecord',
     declaration: 'export interface EveryScheduleRecord {\n    readonly id: ScheduleId;\n    readonly kind: \'every\';\n    readonly title: string;\n    readonly prompt: string;\n    readonly everySeconds: number;\n    readonly scheduledAt: string;\n}',
+  },
+  {
+    name: 'ExternalSubject',
+    declaration: 'export interface ExternalSubject {\n    readonly channel: ChannelId;\n    readonly issuer: string;\n    readonly subject: string;\n    readonly displayName?: string | undefined;\n    readonly address?: string | undefined;\n}',
   },
   {
     name: 'FeedbackCategory',
@@ -7359,6 +7411,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'SignInAttemptView',
     declaration: 'export interface SignInAttemptView {\n    readonly id: SignInAttemptId;\n    readonly phase: \'initializing\' | \'waiting-browser\' | \'exchanging\' | \'committing\' | \'succeeded\' | \'cancelled\' | \'expired\' | \'failed\';\n    readonly authorizeUrl?: string;\n    readonly expiresAt?: number;\n    readonly errorCode?: SignInErrorCode;\n}',
+  },
+  {
+    name: 'SignInChannel',
+    declaration: 'export interface SignInChannel extends ChannelDescription {\n    authenticate(): Promise<ExternalSubject | undefined>;\n}',
   },
   {
     name: 'SignInErrorCode',

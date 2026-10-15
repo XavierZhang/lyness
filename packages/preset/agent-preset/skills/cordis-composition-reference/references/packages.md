@@ -266,6 +266,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 |---|---|---|
 | `@lyness/lyn-acting-context` | no | Resolve and check the context one call acts in: stated, held, and permitted by the address |
 | `@lyness/lyn-request-principal` | no | Publish who the call in progress is, resolved from the bearer identity it presents |
+| `@lyness/lyn-sign-in` | yes | Sign a person in through an external directory, admit them by a deployment's own rule, and establish their session |
 
 ## interaction
 

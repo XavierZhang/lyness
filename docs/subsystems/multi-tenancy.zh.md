@@ -325,6 +325,70 @@ current(): RequestTenant | undefined
 
 Source: [`packages/tenant/tenant-request/src/types.ts`](../../packages/tenant/tenant-request/src/types.ts)
 
+<a id="ctxsignin--signin"></a>
+
+### `ctx.signIn` — `SignIn`
+
+The channels a deployment offers, and the sign-in they perform.
+
+Sessions and the admission rule are injected rather than read optionally: without either, a sign-in has nowhere to put its result or no rule for who may have one, and in both cases the right behaviour is to offer no sign-in at all rather than one that admits everybody.
+
+```ts cordis-catalog
+/**
+ * Offer one channel as a sign-in option.
+ *
+ * Two channels of one id is a composition mistake rather than a runtime
+ * condition — a sign-in page would show two identical buttons leading to
+ * different directories — so it fails at registration.
+ * @param channel - the channel to offer.
+ * @returns the disposer; the registering plugin owns it.
+ * @throws {Error} when a channel of that id is already registered.
+ */
+register(channel: SignInChannel): () => Promise<void>
+
+/**
+ * The channels a surface may offer, in registration order.
+ * @returns each mounted channel's id and display name.
+ */
+available(): readonly ChannelDescription[]
+
+/**
+ * Sign a person in through one channel.
+ *
+ * The session is established last, after both the directory and the
+ * admission rule have answered, so a refused sign-in leaves no session
+ * behind to be revoked.
+ * @param channel - the channel the person chose.
+ * @returns the bearer identity of their new session.
+ * @throws {SignInRefused} when the channel is unknown, the directory did not complete, or this deployment admits them as nobody.
+ */
+async begin(channel: ChannelId): Promise<AuthSessionId>
+```
+
+Source: [`packages/identity/sign-in/src/index.ts`](../../packages/identity/sign-in/src/index.ts)
+
+<a id="ctxsigninadmission--signinadmission-abstract-seam"></a>
+
+### `ctx.signInAdmission` — `SignInAdmission` (abstract seam)
+
+Abstract admission rule. Subclass and implement the one decision; a deployment mounts exactly one.
+
+```ts cordis-catalog
+/**
+ * The person an authenticated subject is, if this deployment admits them.
+ *
+ * Undefined refuses the sign-in. It is deliberately the same answer for
+ * "this directory is not one we accept" and "this person is not on the
+ * roster": a sign-in page that distinguished them would report, to whoever
+ * asked, which addresses exist here.
+ * @param subject - the subject a channel verified.
+ * @returns the person they are here, or undefined when this deployment admits them as nobody.
+ */
+abstract admit(subject: ExternalSubject): Promise<PersonId | undefined>
+```
+
+Source: [`packages/identity/sign-in/src/admission.ts`](../../packages/identity/sign-in/src/admission.ts)
+
 <a id="ctxtenantconfig--tenantconfigstore-abstract-seam"></a>
 
 ### `ctx.tenantConfig` — `TenantConfigStore` (abstract seam)

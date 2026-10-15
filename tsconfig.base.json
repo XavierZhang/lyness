@@ -523,6 +523,7 @@
       "@lyness/lyn-session-turn-outline": ["./packages/session/session-turn-outline/src"],
       "@lyness/lyn-settings": ["./packages/settings/settings/src"],
       "@lyness/lyn-shell": ["./packages/shell/shell/src"],
+      "@lyness/lyn-sign-in": ["./packages/identity/sign-in/src"],
       "@lyness/lyn-skill": ["./packages/skill/skill/src"],
       "@lyness/lyn-skill-badge": ["./packages/skill/skill-badge/src"],
       "@lyness/lyn-skill-filesystem": ["./packages/skill/skill-filesystem/src"],

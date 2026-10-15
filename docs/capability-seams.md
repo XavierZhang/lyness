@@ -58,6 +58,10 @@ flowchart LR
   pkg_credits_enforce["credits/enforce"]
   svc_credits["ctx.credits<br/>The allowance a hosted deployment meters"]
   pkg_credits_store["credits/store"]
+  pkg_sign_in["sign-in"]
+  svc_signIn["ctx.signIn<br/>Sign-in through an external directory"]
+  svc_signInAdmission["ctx.signInAdmission<br/>Who an authenticated directory subject is here"]
+  pkg_sign_in_admission_roster["sign-in/admission-roster"]
   pkg_request_principal["request-principal"]
   svc_requestPrincipal["ctx.requestPrincipal<br/>Who the call in progress is"]
   pkg_credits_subject_request["credits/subject-request"]
@@ -428,6 +432,9 @@ flowchart LR
   pkg_settings --> svc_settings
   pkg_shell --> svc_shell
   pkg_shell_env --> svc_shellEnv
+  pkg_sign_in --> svc_signIn
+  pkg_sign_in --> svc_signInAdmission
+  pkg_sign_in_admission_roster --> svc_signInAdmission
   pkg_skill --> svc_skills
   pkg_skill_badge --> svc_skills
   pkg_skill_filesystem --> svc_skills
@@ -574,6 +581,7 @@ flowchart LR
   svc_shell --> pkg_tool_pwsh
   svc_shellEnv --> pkg_tool_bash
   svc_shellEnv --> pkg_tool_pwsh
+  svc_signInAdmission --> pkg_sign_in
   svc_skills --> pkg_tool_skill
   svc_speechToText --> pkg_experimental_api_speech_to_text
   svc_spillStore --> pkg_spill_policy
@@ -647,6 +655,8 @@ flowchart LR
 | `ctx.modelPolicy` | `seam` | [`model-policy`](../packages/llm/model-policy) | `model-policy/static` | `model-policy/enforce` | - | A deployment states which models a request may use; enforcement rides the llm/stream waterfall, so a preset row or direct RPC cannot bypass it. |
 | `ctx.creditSubject` | `seam` | [`credits`](../packages/credits/credits) | - | `credits/enforce` | - | A streaming call carries a route and messages, not a person; without a provider here enforcement stays inactive rather than metering nothing in silence. |
 | `ctx.credits` | `seam` | [`credits`](../packages/credits/credits) | `credits/store` | - | - | A ledger of grants and debits whose sum is the balance; a spend it cannot cover is refused rather than overdrawn. |
+| `ctx.signIn` | `seam` | [`sign-in`](../packages/identity/sign-in) | [`sign-in`](../packages/identity/sign-in) | - | - | A channel verifies who someone is at their directory, the admission rule says who that is here, and a session is established for that person. |
+| `ctx.signInAdmission` | `seam` | [`sign-in`](../packages/identity/sign-in) | `sign-in/admission-roster` | [`sign-in`](../packages/identity/sign-in) | - | Authentication and admission are two decisions; a deployment mounting no rule signs nobody in. |
 | `ctx.requestPrincipal` | `core` | [`request-principal`](../packages/identity/request-principal) | - | `credits/subject-request` | - | Resolves the presented bearer identity into a person and the context their session holds, and publishes it for that call only; it resolves and never refuses. |
 | `ctx.authSessions` | `seam` | [`auth-session`](../packages/identity/auth-session) | `auth-session/store` | - | - | Holds what sign-in produced: a session belongs to a person, and the context in force is server-side state changed only by an explicit switch. |
 | `ctx.actingContext` | `core` | [`acting-context`](../packages/identity/acting-context) | - | - | - | Decides whether a declared context is stated, held by the caller, and permitted by the address; the one place that rule lives. |

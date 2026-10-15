@@ -1,0 +1,60 @@
+{
+  "name": "@lyness/lyn-sign-in",
+  "description": "Sign a person in through an external directory, admit them by a deployment's own rule, and establish their session",
+  "version": "0.1.7-rc.2",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "directory": "packages/identity/sign-in"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./types": {
+      "types": "./lib/types/types.d.ts",
+      "default": "./lib/types/types.js"
+    },
+    "./admission": {
+      "types": "./lib/types/admission.d.ts",
+      "default": "./lib/types/admission.js"
+    },
+    "./admission-roster": {
+      "types": "./lib/types/admission-roster.d.ts",
+      "default": "./lib/types/admission-roster.js"
+    },
+    "./src/*": "./src/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib/index.js",
+    "lib/types/**/*.js",
+    "lib/types/**/*.d.ts"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-auth-session": "workspace:*",
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/lyn-people": "workspace:*"
+  },
+  "devDependencies": {
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-auth-session": "workspace:*",
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/lyn-people": "workspace:*",
+    "@lyness/lyn-storage": "workspace:*",
+    "@lyness/lyn-storage-domain": "workspace:*",
+    "@lyness/lyn-storage-json": "workspace:*"
+  },
+  "dependencies": {
+    "@lyness/schemastery": "workspace:~"
+  }
+}

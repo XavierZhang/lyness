@@ -2931,6 +2931,28 @@ export interface Config {
 ```
 <!-- END GENERATED config-catalog:@lyness/lyn-shell-env -->
 
+<!-- BEGIN GENERATED config-catalog:@lyness/lyn-sign-in -->
+<a id="lynesslyn-sign-in"></a>
+
+## `@lyness/lyn-sign-in`
+
+- `inject`: `authSessions` · `signInAdmission`
+- `source`: [`packages/identity/sign-in/src/index.ts:74`](../packages/identity/sign-in/src/index.ts)
+
+```ts config-catalog
+/** Deployment-owned terms for a session a directory sign-in establishes. */
+export interface Config {
+  /**
+   * How long such a session lasts, in milliseconds. Defaults to twelve hours.
+   *
+   * A customer whose staff share machines shortens it; one issuing company
+   * laptops lengthens it. Neither is a default this package can pick for them.
+   */
+  lifetimeMs?: number
+}
+```
+<!-- END GENERATED config-catalog:@lyness/lyn-sign-in -->
+
 <!-- BEGIN GENERATED config-catalog:@lyness/lyn-skill -->
 <a id="lynesslyn-skill"></a>
 
