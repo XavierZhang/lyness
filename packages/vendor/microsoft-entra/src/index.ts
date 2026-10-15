@@ -23,14 +23,13 @@ import { credentialKey } from '@lyness/lyn-credentials'
 import type { CredentialKey } from '@lyness/lyn-credentials'
 import type { AuthorizationSession } from '@lyness/lyn-authorization'
 import type {} from '@lyness/lyn-host-webserver'
-import {
-  authorizeUrl, graphMeSchema, subjectFromGraph, tokenEndpoint, tokenErrorSchema,
-  tokenRequestBody, tokenResponseSchema,
-} from './protocol.ts'
-import type { AttemptSecrets, TokenResponse } from './protocol.ts'
+import { authorizeUrl } from './protocol.ts'
+import type { AttemptSecrets } from './protocol.ts'
+import { EntraSignInError, readSubject, redeemCode } from './exchange.ts'
 import type { EntraSubject } from './types.ts'
 
 export type { EntraDirectoryId, EntraObjectId, EntraSubject } from './types.ts'
+export { EntraSignInError } from './exchange.ts'
 
 declare module '@lyness/cordis' {
   interface Context {
@@ -163,15 +162,6 @@ export interface EntraGrant {
   readonly refreshToken?: string
 }
 
-/** Sign-in failed for a reason worth telling the person apart from a crash. */
-export class EntraSignInError extends Error {
-  /** @param reason - which step refused, in words a surface can show. */
-  constructor(reason: string) {
-    super(`microsoft-entra: ${reason}`)
-    this.name = 'EntraSignInError'
-  }
-}
-
 /**
  * Mint one attempt's single-use values. Exported so the request shapes stay
  * checkable without running a browser round trip.
@@ -245,8 +235,8 @@ export class MicrosoftEntra extends Service {
     // bind host never enters the URI.
     const redirectUri = `http://127.0.0.1:${String(this.ctx.webServer.port)}${this.config.redirectPath}`
     const code = await this.awaitCallback(session, secrets, redirectUri)
-    const tokens = await this.redeem(secrets, redirectUri, code, session.signal)
-    const subject = await this.readSubject(tokens.access_token, session.signal)
+    const tokens = await redeemCode(this.config, secrets, redirectUri, code, session.signal)
+    const subject = await readSubject(this.config, tokens.access_token, session.signal)
     const grant: EntraGrant = {
       subject,
       accessToken: tokens.access_token,
@@ -307,55 +297,6 @@ export class MicrosoftEntra extends Service {
         url: authorizeUrl(this.config, secrets, redirectUri).toString(),
       })
     })
-  }
-
-  /** Redeem one authorization code at the token endpoint. */
-  private async redeem(
-    secrets: AttemptSecrets,
-    redirectUri: string,
-    code: string,
-    signal: AbortSignal,
-  ): Promise<TokenResponse> {
-    const response = await this.send(
-      tokenEndpoint(this.config),
-      {
-        method: 'POST',
-        headers: { 'content-type': 'application/x-www-form-urlencoded' },
-        body: tokenRequestBody(this.config, secrets, redirectUri, code).toString(),
-      },
-      signal,
-    )
-    const body: unknown = await response.json()
-    if (!response.ok) {
-      const refusal = tokenErrorSchema.safeParse(body)
-      throw new EntraSignInError(refusal.success
-        ? `the directory refused the sign-in: ${refusal.data.error}`
-        : `the directory refused the sign-in with status ${String(response.status)}`)
-    }
-    const parsed = tokenResponseSchema.safeParse(body)
-    if (!parsed.success) throw new EntraSignInError('the directory returned a token response this build cannot read')
-    return parsed.data
-  }
-
-  /** Read the signed-in person from the directory itself. */
-  private async readSubject(accessToken: string, signal: AbortSignal): Promise<EntraSubject> {
-    const response = await this.send(
-      new URL(`${this.config.graphOrigin}/v1.0/me`),
-      { headers: { authorization: `Bearer ${accessToken}` } },
-      signal,
-    )
-    if (!response.ok) {
-      throw new EntraSignInError(`the directory would not report the signed-in person (status ${String(response.status)})`)
-    }
-    const parsed = graphMeSchema.safeParse(await response.json())
-    if (!parsed.success) throw new EntraSignInError('the directory described the person in a form this build cannot read')
-    return subjectFromGraph(parsed.data, this.config.directory)
-  }
-
-  /** One bounded request that stops with the attempt. */
-  private async send(url: URL, init: RequestInit, signal: AbortSignal): Promise<Response> {
-    const timeout = AbortSignal.timeout(this.config.requestTimeoutMs)
-    return fetch(url, { ...init, signal: AbortSignal.any([signal, timeout]) })
   }
 }
 

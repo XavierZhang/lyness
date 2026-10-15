@@ -2170,7 +2170,7 @@ export interface Config {
 ## `@lyness/lyn-microsoft-entra`
 
 - `inject`: `authorization` · `credentials` · `webServer`
-- `source`: [`packages/vendor/microsoft-entra/src/index.ts:74`](../packages/vendor/microsoft-entra/src/index.ts)
+- `source`: [`packages/vendor/microsoft-entra/src/index.ts:73`](../packages/vendor/microsoft-entra/src/index.ts)
 
 ```ts config-catalog
 /**
@@ -3119,7 +3119,7 @@ export interface Config {
 ## `@lyness/lyn-storage-domain`
 
 - `inject`: `storage`
-- `source`: [`packages/storage/storage-domain/src/index.ts:52`](../packages/storage/storage-domain/src/index.ts)
+- `source`: [`packages/storage/storage-domain/src/index.ts:53`](../packages/storage/storage-domain/src/index.ts)
 
 ```ts config-catalog
 /**

@@ -575,10 +575,6 @@ flowchart TD
   pkg_tenant_request --> pkg_tenant_config
   pkg_session_snapshot --> pkg_http_proxy
   pkg_session_snapshot --> pkg_session
-  pkg_microsoft_entra --> pkg_authorization
-  pkg_microsoft_entra --> pkg_brand
-  pkg_microsoft_entra --> pkg_credentials
-  pkg_microsoft_entra --> pkg_host_webserver
   pkg_fs --> pkg_brand
   pkg_fs --> pkg_invariants
   pkg_fs --> pkg_llm
@@ -617,6 +613,11 @@ flowchart TD
   pkg_shell --> pkg_sandbox
   pkg_shell --> pkg_subprocess
   pkg_tenant_session --> pkg_tenant_request
+  pkg_microsoft_entra --> pkg_authorization
+  pkg_microsoft_entra --> pkg_brand
+  pkg_microsoft_entra --> pkg_credentials
+  pkg_microsoft_entra --> pkg_host_webserver
+  pkg_microsoft_entra --> pkg_sign_in
   pkg_workspace --> pkg_invariants
   pkg_workspace --> pkg_session
   pkg_workspace --> pkg_session_persistence
@@ -1640,7 +1641,6 @@ flowchart TD
 | [`settings`](../packages/settings/settings) | `settings` | [`brand`](../packages/util/brand), [`invariants`](../packages/runtime-diagnostics/invariants), [`session`](../packages/core/session) |
 | [`tenant-request`](../packages/tenant/tenant-request) | `tenant` | [`client-connection`](../packages/client/connection), [`tenant-config`](../packages/tenant/tenant-config) |
 | [`session-snapshot`](../packages/test-support/session-snapshot) | `test-support` | [`http-proxy`](../packages/util/http-proxy), [`session`](../packages/core/session) |
-| [`microsoft-entra`](../packages/vendor/microsoft-entra) | `vendor` | [`authorization`](../packages/credentials/authorization), [`brand`](../packages/util/brand), [`credentials`](../packages/credentials/credentials), [`host-webserver`](../packages/host/webserver) |
 | [`fs`](../packages/fs/fs) | `fs` | [`brand`](../packages/util/brand), [`invariants`](../packages/runtime-diagnostics/invariants), [`llm`](../packages/llm/llm), [`sandbox`](../packages/sandbox/sandbox) |
 | [`spill-local`](../packages/spill/spill-local) | `spill` | [`spill`](../packages/spill/spill) |
 | [`session-log-export`](../packages/session-query/session-log-export) | `session-query` | [`session`](../packages/core/session), [`session-persistence`](../packages/session/session-persistence) |
@@ -1656,6 +1656,7 @@ flowchart TD
 | [`session-turn-outline`](../packages/session/session-turn-outline) | `session` | [`llm`](../packages/llm/llm), [`session`](../packages/core/session), [`session-projection`](../packages/session/session-projection) |
 | [`shell`](../packages/shell/shell) | `shell` | [`sandbox`](../packages/sandbox/sandbox), [`subprocess`](../packages/subprocess/subprocess) |
 | [`tenant-session`](../packages/tenant/tenant-session) | `tenant` | [`tenant-request`](../packages/tenant/tenant-request) |
+| [`microsoft-entra`](../packages/vendor/microsoft-entra) | `vendor` | [`authorization`](../packages/credentials/authorization), [`brand`](../packages/util/brand), [`credentials`](../packages/credentials/credentials), [`host-webserver`](../packages/host/webserver), [`sign-in`](../packages/identity/sign-in) |
 | [`workspace`](../packages/workspace/workspace) | `workspace` | [`invariants`](../packages/runtime-diagnostics/invariants), [`session`](../packages/core/session), [`session-persistence`](../packages/session/session-persistence), [`storage`](../packages/storage/storage), [`storage-domain`](../packages/storage/storage-domain), [`typert-protocol`](../packages/typert/protocol) |
 | [`llm-deepseek`](../packages/llm/llm-deepseek) | `llm` | [`anonymous-user-id`](../packages/identity/anonymous-user-id), [`atomic-write`](../packages/util/atomic-write), [`attachment`](../packages/attachment/attachment), [`deepseek-llm-api-extensions`](../packages/llm/deepseek-llm-api-extensions), [`fs`](../packages/fs/fs), [`home-paths`](../packages/util/home-paths), [`launch-environment`](../packages/util/launch-environment), [`llm`](../packages/llm/llm), [`timeout`](../packages/util/timeout) |
 | [`llm-pi-ai`](../packages/llm/llm-pi-ai) | `llm` | [`attachment`](../packages/attachment/attachment), [`authorization`](../packages/credentials/authorization), [`credentials`](../packages/credentials/credentials), [`fs`](../packages/fs/fs), [`launch-environment`](../packages/util/launch-environment), [`llm`](../packages/llm/llm), [`timeout`](../packages/util/timeout) |

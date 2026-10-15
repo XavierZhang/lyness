@@ -54,6 +54,25 @@ The Entra app registration must be a public client with the loopback redirect UR
 
 `ctx.microsoftEntra.subject()` answers the stored subject, or `undefined` while nobody has signed in. `objectId` paired with `directoryId` is the identity to bind to: a display name and an address both change, the object id does not.
 
+### Sign a deployment's people in
+
+`./channel` is a separate plugin for a separate job. The service above signs in the one operator who runs an install and stores their grant; the channel signs in whichever of a customer's staff is at the browser, stores nothing, and leaves who they are here to the deployment's admission rule.
+
+```yaml
+- id: microsoft-entra-channel
+  name: '@lyness/lyn-microsoft-entra/channel'
+  config:
+    directory: contoso.onmicrosoft.com
+    clientId: 00000000-0000-0000-0000-000000000000
+    attemptTtlMs: 600000
+```
+
+| Field | Default | Meaning |
+|---|---|---|
+| `attemptTtlMs` | `600000` | How long an unfinished attempt is remembered, in milliseconds |
+
+Every other field is the service's. The app registration needs the deployment's own callback — the address passed to `begin` — as a redirect URI, not the loopback one.
+
 -----
 
 <a id="understand-the-implementation"></a>
@@ -102,7 +121,8 @@ These limits define when this package is a poor fit or needs special care. They 
 - **No refresh yet** — the refresh token is stored when the directory grants one, and nothing redeems it. An expired access token means signing in again.
 - **No channel face** — Teams is not here. When it arrives it shares this application registration rather than registering a second credential.
 - **No directory read beyond the signed-in person** — group and membership queries are absent, so nothing here can populate a membership binding on its own.
-- **One signed-in person per deployment** — the grant is one credential record, so this package cannot hold two people at once.
+- **One signed-in person per deployment, for the service** — the grant is one credential record, so `ctx.microsoftEntra` cannot hold two people at once. `./channel` is the way a deployment signs in many, and it holds none of them.
+- **The channel's attempts live in the process** — an unfinished sign-in is remembered in memory, so a deployment behind two Host instances must send the browser back to the one that started it.
 - **The loopback port must match the registration** — a deployment on an ephemeral port cannot complete a sign-in, because the redirect URI would not be the registered one.
 
 **Runtime invariant:** No companion is published. The grant is one credential record this package writes through the authorization seam, which confirms the commit itself, so no two independent observations of the sign-in can diverge.

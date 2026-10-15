@@ -54,6 +54,25 @@ Entra 应用注册必须是公共客户端，并带 loopback 重定向 URI `http
 
 `ctx.microsoftEntra.subject()` 回答已存的主体，无人登录时回答 `undefined`。`objectId` 配上 `directoryId` 才是应当绑定的身份：显示名与地址都会变，对象 id 不会。
 
+### 让一个部署的人签入
+
+`./channel` 是一个单独的插件，做的是另一件事。上面那个服务签入的是运行这套安装的那一个操作者，并存下他的授权；渠道签入的是此刻在浏览器前的那位客户员工，什么都不存，并把「他在这里是谁」交给部署自己的准入规则。
+
+```yaml
+- id: microsoft-entra-channel
+  name: '@lyness/lyn-microsoft-entra/channel'
+  config:
+    directory: contoso.onmicrosoft.com
+    clientId: 00000000-0000-0000-0000-000000000000
+    attemptTtlMs: 600000
+```
+
+| 字段 | 默认值 | 含义 |
+|---|---|---|
+| `attemptTtlMs` | `600000` | 一个未完成的尝试被记住多久，单位毫秒 |
+
+其余字段都是那个服务的。应用注册需要把部署自己的回调地址——传给 `begin` 的那个——登记为重定向 URI，而不是那个回环地址。
+
 -----
 
 <a id="understand-the-implementation"></a>
@@ -102,7 +121,8 @@ None, as directory sign-in never enters model prompts, Session logs, or tool res
 - **尚无刷新** —— 目录授予刷新令牌时会存下来，但没有任何东西去兑换它。访问令牌过期就意味着重新登录一次。
 - **没有渠道面** —— Teams 不在这里。它到来时将共享本包的应用注册，而不是再注册一份凭据。
 - **除已登录的人之外不读目录** —— 没有组与成员关系的查询，所以这里没有任何东西能独自填充成员身份绑定。
-- **一个部署一位已登录的人** —— 授权是一条凭据记录，所以本包无法同时持有两个人。
+- **就那个服务而言，每个部署只有一个已签入的人** —— 授权是一条凭据记录，所以 `ctx.microsoftEntra` 无法同时持有两个人。`./channel` 才是一个部署签入很多人的方式，而它谁都不持有。
+- **渠道的尝试活在进程里** —— 一个未完成的签入记在内存中，所以一个跑在两个宿主实例后面的部署，必须把浏览器送回发起它的那一个。
 - **loopback 端口必须与注册一致** —— 跑在临时端口上的部署无法完成登录，因为重定向 URI 不会是注册过的那一个。
 
 **Runtime invariant:** No companion is published. 授权是本包经授权接缝写入的一条凭据记录，而该接缝自己确认这次提交，因此对这次登录的两次独立观察不可能分歧。

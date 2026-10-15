@@ -18,30 +18,42 @@
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
     },
+    "./channel": {
+      "types": "./lib/types/channel.d.ts",
+      "default": "./lib/types/channel.js"
+    },
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
   "files": [
     "lib/index.js",
+    "lib/types/**/*.js",
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
   "peerDependencies": {
+    "@lyness/cordis": "workspace:~",
     "@lyness/lyn-authorization": "workspace:*",
     "@lyness/lyn-brand": "workspace:*",
     "@lyness/lyn-credentials": "workspace:*",
     "@lyness/lyn-host-webserver": "workspace:*",
-    "@lyness/cordis": "workspace:~"
+    "@lyness/lyn-sign-in": "workspace:*"
   },
   "dependencies": {
     "@lyness/schemastery": "workspace:~",
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-auth-session": "workspace:*",
     "@lyness/lyn-authorization": "workspace:*",
     "@lyness/lyn-brand": "workspace:*",
     "@lyness/lyn-credentials": "workspace:*",
     "@lyness/lyn-host-webserver": "workspace:*",
-    "@lyness/cordis": "workspace:~"
+    "@lyness/lyn-people": "workspace:*",
+    "@lyness/lyn-sign-in": "workspace:*",
+    "@lyness/lyn-storage": "workspace:*",
+    "@lyness/lyn-storage-domain": "workspace:*",
+    "@lyness/lyn-storage-json": "workspace:*"
   }
 }

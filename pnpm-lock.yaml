@@ -14212,6 +14212,9 @@ importers:
       '@lyness/cordis':
         specifier: workspace:~
         version: link:../../../vendor/cordis
+      '@lyness/lyn-auth-session':
+        specifier: workspace:*
+        version: link:../../identity/auth-session
       '@lyness/lyn-authorization':
         specifier: workspace:*
         version: link:../../credentials/authorization
@@ -14224,7 +14227,21 @@ importers:
       '@lyness/lyn-host-webserver':
         specifier: workspace:*
         version: link:../../host/webserver
-
+      '@lyness/lyn-people':
+        specifier: workspace:*
+        version: link:../../identity/people
+      '@lyness/lyn-sign-in':
+        specifier: workspace:*
+        version: link:../../identity/sign-in
+      '@lyness/lyn-storage':
+        specifier: workspace:*
+        version: link:../../storage/storage
+      '@lyness/lyn-storage-domain':
+        specifier: workspace:*
+        version: link:../../storage/storage-domain
+      '@lyness/lyn-storage-json':
+        specifier: workspace:*
+        version: link:../../storage/storage-json
   packages/web/tool-web:
     dependencies:
       '@joplin/turndown-plugin-gfm':
