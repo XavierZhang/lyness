@@ -22,6 +22,28 @@ A form namespace is the local id of a uniquely addressed entry in the active pro
 
 Generated from source by `scripts/gen-cordis-catalog.ts` (verified fresh by `pnpm run verify-cordis-catalog` in doc-sync; regenerate with `pnpm run gen-cordis-catalog`) — the language sides differ only in locale-specific paired document paths. Signature blocks use a `ts cordis-catalog` fence and keep the original source JSDoc; dispatch modes are defined in the [primer](../cordis-primer.md#dispatch-modes), and the framework-inherited `ctx` API lives in [cordis-api/inherited.md](../cordis-api/inherited.md).
 
+<a id="ctxannouncements--announcementsource-abstract-seam"></a>
+
+### `ctx.announcements` — `AnnouncementSource` (abstract seam)
+
+Abstract announcement source. Subclass and implement the one read; a deployment mounts exactly one.
+
+A deployment that mounts none has nothing to announce, which is what a single-operator developer install is.
+
+```ts cordis-catalog
+/**
+ * Everything this deployment has published, newest first.
+ *
+ * Ordered here rather than by the surface so every surface agrees on what
+ * "latest" is; a list a reader has to sort themselves is a list two
+ * surfaces will sort differently.
+ * @returns the announcements, newest first.
+ */
+abstract published(): Promise<readonly Announcement[]>
+```
+
+Source: [`packages/host/announcements/src/index.ts`](../../packages/host/announcements/src/index.ts)
+
 <a id="ctxsettings--settingsforms"></a>
 
 ### `ctx.settings` — `SettingsForms`

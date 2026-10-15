@@ -119,6 +119,7 @@ flowchart TD
   end
   subgraph group_api["packages/api"]
     pkg_api_account_controller["api-account-controller"]
+    pkg_api_announcement_controller["api-announcement-controller"]
     pkg_api_gateway["api-gateway"]
     pkg_api_job_controller["api-job-controller"]
     pkg_api_remotes["api-remotes"]
@@ -200,6 +201,7 @@ flowchart TD
     pkg_client_ui_settings["client-ui-settings"]
     pkg_client_ui_settings_account["client-ui-settings-account"]
     pkg_client_ui_settings_agent_loop["client-ui-settings-agent-loop"]
+    pkg_client_ui_settings_announcements["client-ui-settings-announcements"]
     pkg_client_ui_settings_general["client-ui-settings-general"]
     pkg_client_ui_settings_models["client-ui-settings-models"]
     pkg_client_ui_settings_plugin_inventory["client-ui-settings-plugin-inventory"]
@@ -297,6 +299,7 @@ flowchart TD
     pkg_tool_call_timeout_policy["tool-call-timeout-policy"]
   end
   subgraph group_host["packages/host"]
+    pkg_announcements["announcements"]
     pkg_host_brand_deployment["host-brand-deployment"]
     pkg_host_brand_fonts["host-brand-fonts"]
     pkg_host_brand_icon["host-brand-icon"]
@@ -475,6 +478,8 @@ flowchart TD
   pkg_model_required --> pkg_llm
   pkg_scope --> pkg_invariants
   pkg_web --> pkg_llm
+  pkg_api_announcement_controller --> pkg_announcements
+  pkg_api_announcement_controller --> pkg_typert_protocol
   pkg_attachment --> pkg_brand
   pkg_browser_use --> pkg_brand
   pkg_computer_use --> pkg_brand
@@ -1533,6 +1538,7 @@ flowchart TD
 | [`client-ui-settings`](../packages/client/ui-settings) | `client` | — |
 | [`client-ui-settings-account`](../packages/client/ui-settings-account) | `client` | — |
 | [`client-ui-settings-agent-loop`](../packages/client/ui-settings-agent-loop) | `client` | — |
+| [`client-ui-settings-announcements`](../packages/client/ui-settings-announcements) | `client` | — |
 | [`client-ui-settings-general`](../packages/client/ui-settings-general) | `client` | — |
 | [`client-ui-settings-models`](../packages/client/ui-settings-models) | `client` | — |
 | [`client-ui-settings-plugin-inventory`](../packages/client/ui-settings-plugin-inventory) | `client` | — |
@@ -1563,6 +1569,7 @@ flowchart TD
 | [`experimental-webworker-packer`](../packages/experimental/webworker-packer) | `experimental` | — |
 | [`client-ui-cordis`](../packages/extensions/ui-cordis) | `extensions` | — |
 | [`cordis-client-runner`](../packages/extensions/cordis-client-runner) | `extensions` | — |
+| [`announcements`](../packages/host/announcements) | `host` | — |
 | [`host-brand-fonts`](../packages/host/brand-fonts) | `host` | — |
 | [`host-brand-icon`](../packages/host/brand-icon) | `host` | — |
 | [`host-brand-wordmark`](../packages/host/brand-wordmark) | `host` | — |
@@ -1593,6 +1600,7 @@ flowchart TD
 | [`model-required`](../packages/llm/model-required) | `llm` | [`cmdline`](../packages/boot/cmdline), [`llm`](../packages/llm/llm) |
 | [`scope`](../packages/core/scope) | `core` | [`invariants`](../packages/runtime-diagnostics/invariants) |
 | [`web`](../packages/web/web) | `web` | [`llm`](../packages/llm/llm) |
+| [`api-announcement-controller`](../packages/api/announcement-controller) | `api` | [`announcements`](../packages/host/announcements), [`typert-protocol`](../packages/typert/protocol) |
 | [`attachment`](../packages/attachment/attachment) | `attachment` | [`brand`](../packages/util/brand) |
 | [`browser-use`](../packages/browser-use/browser-use) | `browser-use` | [`brand`](../packages/util/brand) |
 | [`computer-use`](../packages/computer-use/computer-use) | `computer-use` | [`brand`](../packages/util/brand) |

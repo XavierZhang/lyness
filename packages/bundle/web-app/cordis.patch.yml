@@ -139,6 +139,15 @@
     - id: settings-controller
       name: '@lyness/lyn-api-settings-controller'
 
+    # What this deployment has announced, read-only. Written where the
+    # deployment is configured, so a desktop install and a browser each read
+    # whatever their own server publishes.
+    - id: announcements
+      name: '@lyness/lyn-announcements/static'
+
+    - id: announcement-controller
+      name: '@lyness/lyn-api-announcement-controller'
+
     # Workspace commands and reconnect-safe projection over Typert Remote.
     - id: workspace-controller
       name: '@lyness/lyn-api-workspace-controller'
@@ -284,6 +293,9 @@
 
     - id: ui-settings-general
       name: '@lyness/lyn-client-ui-settings-general'
+
+    - id: ui-settings-announcements
+      name: '@lyness/lyn-client-ui-settings-announcements'
 
     - id: ui-settings-models
       name: '@lyness/lyn-client-ui-settings-models'

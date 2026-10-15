@@ -1,0 +1,65 @@
+{
+  "name": "@lyness/lyn-client-ui-settings-announcements",
+  "description": "The system-announcements row in General Settings, read from the deployment a client connected to",
+  "version": "0.1.7-rc.2",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "directory": "packages/client/ui-settings-announcements"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./client": {
+      "types": "./lib/types/client/index.d.ts",
+      "default": "./lib/client.js"
+    },
+    "./src/*": "./src/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib/index.js",
+    "lib/client.js",
+    "lib/types/**/*.d.ts"
+  ],
+  "license": "MIT",
+  "lyn": {
+    "client": {
+      "inject": [
+        "@lyness/lyn-client-locale",
+        "@lyness/lyn-client-ui-renderer",
+        "@lyness/lyn-client-ui-settings",
+        "@lyness/lyn-api-remotes",
+        "@lyness/lyn-api-announcement-controller"
+      ],
+      "platform": "web",
+      "immediately": true
+    }
+  },
+  "peerDependencies": {
+    "@lyness/cordis": "workspace:~"
+  },
+  "devDependencies": {
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-announcements": "workspace:*",
+    "@lyness/lyn-api-announcement-controller": "workspace:*",
+    "@lyness/lyn-api-remotes": "workspace:*",
+    "@lyness/lyn-client-locale": "workspace:*",
+    "@lyness/lyn-client-store": "workspace:*",
+    "@lyness/lyn-client-test-runtime": "workspace:*",
+    "@lyness/lyn-client-ui-primitives": "workspace:*",
+    "@lyness/lyn-client-ui-renderer": "workspace:*",
+    "@lyness/lyn-client-ui-settings": "workspace:*",
+    "@lyness/lyn-client-ui-slots": "workspace:*",
+    "@types/react": "~18.3.1",
+    "react": "^18.2.0"
+  }
+}

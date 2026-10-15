@@ -15,6 +15,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | Package | Config | Description |
 |---|---|---|
 | `@lyness/lyn-api-account-controller` | no | Expose safe account operations over authenticated Remote |
+| `@lyness/lyn-api-announcement-controller` | no | Expose a deployment's own announcements over authenticated Remote |
 | `@lyness/lyn-api-gateway` | yes | Typert Remote Host dispatcher and Client API endpoint |
 | `@lyness/lyn-api-job-controller` | yes | Job Remote observation stream and the reference-counted client job-output service |
 | `@lyness/lyn-api-remotes` | no | Remote BFF assembly for application-selected Host capabilities |
@@ -95,6 +96,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@lyness/lyn-client-ui-settings` | no | Settings domain base plugin: shared configuration forms and the canonical settings slot-type contract |
 | `@lyness/lyn-client-ui-settings-account` | yes | Manage DeepSeek login and open Platform billing pages |
 | `@lyness/lyn-client-ui-settings-agent-loop` | no | Settings page of the agent loop on the lyn web client's Plugins page: the parallel tool-call cap of the agent-loop namespace |
+| `@lyness/lyn-client-ui-settings-announcements` | no | The system-announcements row in General Settings, read from the deployment a client connected to |
 | `@lyness/lyn-client-ui-settings-general` | no | Settings ownerless-copy and product onboarding plugin: the General section, shell trigger/header chrome content, settings dictionaries, and the versioned welcome notice |
 | `@lyness/lyn-client-ui-settings-models` | yes | Models settings and shared product-onboarding dialogs over existing settings and credential joins |
 | `@lyness/lyn-client-ui-settings-plugin-inventory` | no | Read-only Cordis Loader inventory tab in Web Plugins settings |

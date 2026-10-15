@@ -1106,6 +1106,18 @@ importers:
         specifier: workspace:*
         version: link:../../typert/protocol
 
+  packages/api/announcement-controller:
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+      '@lyness/lyn-announcements':
+        specifier: workspace:*
+        version: link:../../host/announcements
+      '@lyness/lyn-typert-protocol':
+        specifier: workspace:*
+        version: link:../../typert/protocol
+
   packages/api/gateway:
     dependencies:
       '@lyness/lyn-deque':
@@ -2640,9 +2652,15 @@ importers:
       '@lyness/lyn-agent-tool-presentation':
         specifier: workspace:*
         version: link:../../core/agent-tool-presentation
+      '@lyness/lyn-announcements':
+        specifier: workspace:*
+        version: link:../../host/announcements
       '@lyness/lyn-api-account-controller':
         specifier: workspace:*
         version: link:../../api/account-controller
+      '@lyness/lyn-api-announcement-controller':
+        specifier: workspace:*
+        version: link:../../api/announcement-controller
       '@lyness/lyn-api-job-controller':
         specifier: workspace:*
         version: link:../../api/job-controller
@@ -2772,6 +2790,9 @@ importers:
       '@lyness/lyn-client-ui-settings-agent-loop':
         specifier: workspace:*
         version: link:../../client/ui-settings-agent-loop
+      '@lyness/lyn-client-ui-settings-announcements':
+        specifier: workspace:*
+        version: link:../../client/ui-settings-announcements
       '@lyness/lyn-client-ui-settings-general':
         specifier: workspace:*
         version: link:../../client/ui-settings-general
@@ -5046,6 +5067,48 @@ importers:
       '@lyness/lyn-client-ui-plugin-manager':
         specifier: workspace:*
         version: link:../ui-plugin-manager
+      '@lyness/lyn-client-ui-primitives':
+        specifier: workspace:*
+        version: link:../ui-primitives
+      '@lyness/lyn-client-ui-renderer':
+        specifier: workspace:*
+        version: link:../ui-renderer
+      '@lyness/lyn-client-ui-settings':
+        specifier: workspace:*
+        version: link:../ui-settings
+      '@lyness/lyn-client-ui-slots':
+        specifier: workspace:*
+        version: link:../ui-slots
+      '@types/react':
+        specifier: ~18.3.1
+        version: 18.3.31
+      react:
+        specifier: ^18.2.0
+        version: 18.3.1
+
+  packages/client/ui-settings-announcements:
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+      '@lyness/lyn-announcements':
+        specifier: workspace:*
+        version: link:../../host/announcements
+      '@lyness/lyn-api-announcement-controller':
+        specifier: workspace:*
+        version: link:../../api/announcement-controller
+      '@lyness/lyn-api-remotes':
+        specifier: workspace:*
+        version: link:../../api/remotes
+      '@lyness/lyn-client-locale':
+        specifier: workspace:*
+        version: link:../locale
+      '@lyness/lyn-client-store':
+        specifier: workspace:*
+        version: link:../store
+      '@lyness/lyn-client-test-runtime':
+        specifier: workspace:*
+        version: link:../../test-support/client-runtime
       '@lyness/lyn-client-ui-primitives':
         specifier: workspace:*
         version: link:../ui-primitives
@@ -9217,6 +9280,16 @@ importers:
       '@lyness/lyn-tools':
         specifier: workspace:*
         version: link:../../core/tools
+
+  packages/host/announcements:
+    dependencies:
+      '@lyness/schemastery':
+        specifier: link:../../../vendor/schemastery
+        version: link:../../../vendor/schemastery
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
 
   packages/host/brand-deployment:
     dependencies:

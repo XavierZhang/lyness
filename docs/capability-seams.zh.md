@@ -62,6 +62,10 @@ flowchart LR
   pkg_credits_store["credits/store"]
   svc_creditAdministration["ctx.creditAdministration<br/>Administrator credit decisions"]
   pkg_credits_administration["credits/administration"]
+  pkg_announcements["announcements"]
+  svc_announcements["ctx.announcements<br/>What a deployment tells the people using it"]
+  pkg_announcements_static["announcements/static"]
+  pkg_api_announcement_controller["api-announcement-controller"]
   pkg_sign_in["sign-in"]
   svc_signIn["ctx.signIn<br/>Sign-in through an external directory"]
   svc_signInAdmission["ctx.signInAdmission<br/>Who an authenticated directory subject is here"]
@@ -321,6 +325,8 @@ flowchart LR
   pkg_agent_default_model --> svc_agentDefaultModel
   pkg_agent_loop --> svc_agentLoop
   pkg_agent_preset_registry --> svc_agentPresets
+  pkg_announcements --> svc_announcements
+  pkg_announcements_static --> svc_announcements
   pkg_api_gateway --> svc_typertGateway
   pkg_api_job_controller --> svc_jobController
   pkg_api_session_controller --> svc_sessionController
@@ -495,6 +501,7 @@ flowchart LR
   svc_agents --> pkg_acp
   svc_agents --> pkg_agent_loop
   svc_agents --> pkg_subagent_in_process_driver
+  svc_announcements --> pkg_api_announcement_controller
   svc_approval --> pkg_acp
   svc_approval --> pkg_tool_bash
   svc_approval --> pkg_tools
@@ -663,6 +670,7 @@ flowchart LR
 | `ctx.creditSubject` | `seam` | [`credits`](../packages/credits/credits) | - | `credits/enforce` | - | 一次流式调用携带的是路由与消息，不是人；这里没有 provider 时，强制执行保持未激活，而不是无声地什么都不计量。 |
 | `ctx.credits` | `seam` | [`credits`](../packages/credits/credits) | `credits/store` | - | - | 一本赠送与扣减的账，其和即余额；覆盖不了的一次消耗会被拒绝，而不是透支。 |
 | `ctx.creditAdministration` | `core` | [`credits`](../packages/credits/credits) | `credits/administration` | `credits/store` | - | 授予与额度覆盖，每一项都针对「作出它的那个身份」被授权；账本再把这些覆盖读回去。 |
+| `ctx.announcements` | `seam` | [`announcements`](../packages/host/announcements) | `announcements/static` | [`api-announcement-controller`](../packages/api/announcement-controller) | - | 部署所发布的更新日志与通知，最新在前；每一条自带它所描述的版本，而不是由服务报告某一个当前版本。 |
 | `ctx.signIn` | `seam` | [`sign-in`](../packages/identity/sign-in) | [`sign-in`](../packages/identity/sign-in) | - | - | 渠道在某人自己的目录上验证他是谁，准入规则说他在这里是谁，然后为那个人建立一个会话。 |
 | `ctx.signInAdmission` | `seam` | [`sign-in`](../packages/identity/sign-in) | `sign-in/admission-roster` | [`sign-in`](../packages/identity/sign-in) | - | 认证与准入是两个决定；一个没有挂任何规则的部署谁都签不进来。 |
 | `ctx.requestPrincipal` | `core` | [`request-principal`](../packages/identity/request-principal) | - | `credits/subject-request` | - | 把被出示的持有凭据解析成一个人、以及他的会话所持有的上下文，并且只为那一次调用发布它；它只解析、从不拒绝。 |

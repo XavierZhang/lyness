@@ -242,6 +242,15 @@ const SERVICE_ROLES: ServiceRole[] = [
     note: 'Grants and allowance overrides, each authorized against the standing that makes it; the ledger reads the overrides back.',
   },
   {
+    key: 'announcements',
+    pkg: 'announcements',
+    title: 'What a deployment tells the people using it',
+    mode: 'seam',
+    implementations: ['announcements/static'],
+    consumers: ['api-announcement-controller'],
+    note: 'Release notes and notices the deployment publishes, newest first; each carries the release it describes rather than the service reporting one current version.',
+  },
+  {
     key: 'signIn',
     pkg: 'sign-in',
     title: 'Sign-in through an external directory',

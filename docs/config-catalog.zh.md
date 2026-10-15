@@ -4616,6 +4616,7 @@ export interface Config {
 | `@lyness/lyn-acting-context` | `people` | [`packages/identity/acting-context/src/index.ts`](../packages/identity/acting-context/src/index.ts) |
 | `@lyness/lyn-agent` | — | [`packages/core/agent/src/index.ts`](../packages/core/agent/src/index.ts) |
 | `@lyness/lyn-api-account-controller` | `deepseekAccount` · `agents` | [`packages/api/account-controller/src/index.ts`](../packages/api/account-controller/src/index.ts) |
+| `@lyness/lyn-api-announcement-controller` | `announcements` | [`packages/api/announcement-controller/src/index.ts`](../packages/api/announcement-controller/src/index.ts) |
 | `@lyness/lyn-api-remotes` | `typertGateway` | [`packages/api/remotes/src/index.ts`](../packages/api/remotes/src/index.ts) |
 | `@lyness/lyn-api-tenant-controller` | — | [`packages/api/tenant-controller/src/index.ts`](../packages/api/tenant-controller/src/index.ts) |
 | `@lyness/lyn-authorization` | `credentials` | [`packages/credentials/authorization/src/index.ts`](../packages/credentials/authorization/src/index.ts) |
@@ -4652,6 +4653,7 @@ export interface Config {
 | `@lyness/lyn-client-ui-session` | — | [`packages/client/ui-session/src/index.ts`](../packages/client/ui-session/src/index.ts) |
 | `@lyness/lyn-client-ui-settings` | — | [`packages/client/ui-settings/src/index.ts`](../packages/client/ui-settings/src/index.ts) |
 | `@lyness/lyn-client-ui-settings-agent-loop` | — | [`packages/client/ui-settings-agent-loop/src/index.ts`](../packages/client/ui-settings-agent-loop/src/index.ts) |
+| `@lyness/lyn-client-ui-settings-announcements` | — | [`packages/client/ui-settings-announcements/src/index.ts`](../packages/client/ui-settings-announcements/src/index.ts) |
 | `@lyness/lyn-client-ui-settings-general` | — | [`packages/client/ui-settings-general/src/index.ts`](../packages/client/ui-settings-general/src/index.ts) |
 | `@lyness/lyn-client-ui-settings-plugin-inventory` | — | [`packages/client/ui-settings-plugin-inventory/src/index.ts`](../packages/client/ui-settings-plugin-inventory/src/index.ts) |
 | `@lyness/lyn-client-ui-settings-plugins` | — | [`packages/client/ui-settings-plugins/src/index.ts`](../packages/client/ui-settings-plugins/src/index.ts) |
@@ -4724,6 +4726,7 @@ export interface Config {
 <!-- BEGIN GENERATED config-catalog:seam -->
 | `package` | `class` | `inject` | `source` |
 | --- | --- | --- | --- |
+| `@lyness/lyn-announcements` | `AnnouncementSource` | — | [`packages/host/announcements/src/index.ts`](../packages/host/announcements/src/index.ts) |
 | `@lyness/lyn-attachment` | `AttachmentStore` | — | [`packages/attachment/attachment/src/index.ts`](../packages/attachment/attachment/src/index.ts) |
 | `@lyness/lyn-auth-session` | `AuthSessionStore` | — | [`packages/identity/auth-session/src/index.ts`](../packages/identity/auth-session/src/index.ts) |
 | `@lyness/lyn-compaction` | `CompactionEngine` | — | [`packages/compaction/compaction/src/index.ts`](../packages/compaction/compaction/src/index.ts) |

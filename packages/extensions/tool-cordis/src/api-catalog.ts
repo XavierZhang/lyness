@@ -406,6 +406,19 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
     ],
   },
   {
+    key: 'announcements',
+    summary: 'Abstract announcement source.',
+    description: 'Abstract announcement source. Subclass and implement the one read; a deployment mounts exactly one.\n\nA deployment that mounts none has nothing to announce, which is what a single-operator developer install is.',
+    methods: [
+      {
+        signature: 'abstract published(): Promise<readonly Announcement[]>',
+        description: 'Everything this deployment has published, newest first.\n\nOrdered here rather than by the surface so every surface agrees on what "latest" is; a list a reader has to sort themselves is a list two surfaces will sort differently.',
+        parameters: [],
+        returns: 'the announcements, newest first.',
+      },
+    ],
+  },
+  {
     key: 'approval',
     summary: 'Approval service that applies session policy before answerers and logs every ask/outcome pair to the requesting session.',
     description: 'Approval service that applies session policy before answerers and logs every ask/outcome pair to the requesting session. It exposes deterministic policy changes to the model through the runtime-context snapshot and switch notices.',
@@ -4816,6 +4829,14 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'AllowedModel',
     declaration: 'export interface AllowedModel {\n    readonly provider: string;\n    readonly model: string;\n}',
+  },
+  {
+    name: 'Announcement',
+    declaration: 'export interface Announcement {\n    readonly id: AnnouncementId;\n    readonly version?: string | undefined;\n    readonly publishedAt: string;\n    readonly title: string;\n    readonly body: string;\n    readonly url?: string | undefined;\n}',
+  },
+  {
+    name: 'AnnouncementId',
+    declaration: 'export type AnnouncementId = string;',
   },
   {
     name: 'ApiKeyRecord',

@@ -1,0 +1,47 @@
+{
+  "name": "@lyness/lyn-announcements",
+  "description": "What a deployment tells the people using it: release notes and notices, newest first",
+  "version": "0.1.7-rc.2",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "directory": "packages/host/announcements"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./types": {
+      "types": "./lib/types/types.d.ts",
+      "default": "./lib/types/types.js"
+    },
+    "./static": {
+      "types": "./lib/types/static.d.ts",
+      "default": "./lib/types/static.js"
+    },
+    "./src/*": "./src/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib/index.js",
+    "lib/types/**/*.js",
+    "lib/types/**/*.d.ts"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "@lyness/cordis": "workspace:~"
+  },
+  "devDependencies": {
+    "@lyness/cordis": "workspace:~"
+  },
+  "dependencies": {
+    "@lyness/schemastery": "workspace:~"
+  }
+}
