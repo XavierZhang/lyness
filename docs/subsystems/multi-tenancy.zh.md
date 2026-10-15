@@ -188,6 +188,48 @@ abstract revoke(id: AuthSessionId): Promise<boolean>
 
 Source: [`packages/identity/auth-session/src/index.ts`](../../packages/identity/auth-session/src/index.ts)
 
+<a id="ctxcreditadministration--creditadministration"></a>
+
+### `ctx.creditAdministration` — `CreditAdministration`
+
+Administrator credit decisions, authorized against the standing making them.
+
+```ts cordis-catalog
+/**
+ * Add credits to one person, on behalf of one standing.
+ * @param request - who receives them, how many, and when they lapse.
+ * @param by - the standing making the grant.
+ * @returns the recorded grant.
+ * @throws {Error} when the amount is not positive, or that standing may not administer that person.
+ */
+async grant(request: AdministratorGrant, by: Membership): Promise<CreditGrant>
+
+/**
+ * Set or replace one allowance override, on behalf of one standing.
+ *
+ * An override for a whole organization is a decision about that
+ * organization, so it is authorized against the organization itself; one for
+ * a person is authorized against that person's standings.
+ * @param change - what to change, and whose allowance it applies to.
+ * @param by - the standing making the change.
+ * @throws {Error} when the change names neither an organization nor a person, or that standing may not administer it.
+ */
+async setAllowance(change: AllowanceChange, by: Membership): Promise<void>
+
+/**
+ * The overrides that reach one person.
+ *
+ * Read without an authority check because this is what the ledger itself
+ * calls to work out a periodic grant; the decision it reports was already
+ * authorized when it was made.
+ * @param person - whose allowance to resolve.
+ * @returns the organization-wide and person-specific overrides, where they exist.
+ */
+async overridesFor(person: PersonId): Promise<PersonOverrides>
+```
+
+Source: [`packages/credits/credits/src/administration.ts`](../../packages/credits/credits/src/administration.ts)
+
 <a id="ctxcredits--creditledger-abstract-seam"></a>
 
 ### `ctx.credits` — `CreditLedger` (abstract seam)

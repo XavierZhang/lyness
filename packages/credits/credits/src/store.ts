@@ -19,6 +19,9 @@ import type { Domain } from '@lyness/lyn-storage-domain'
 import type { PersonId } from '@lyness/lyn-people'
 import { CreditLedger, CreditsExhausted } from './index.ts'
 import type { GrantRequest, SpendRequest } from './index.ts'
+import { effectiveAllowance } from './allowance.ts'
+import type { EffectiveAllowance } from './allowance.ts'
+import type {} from './administration.ts'
 import { nextPeriodStart, periodStart } from './period.ts'
 import type { ResetPeriod } from './period.ts'
 import { creditsDomain } from './storage.ts'
@@ -102,7 +105,7 @@ export class StoredCreditLedger extends CreditLedger {
   async balance(person: PersonId): Promise<CreditBalance> {
     return this.serialise(async (domain) => {
       await this.grantPeriodIfDue(domain, person, new Date())
-      return this.computeBalance(domain, person, new Date())
+      return this.computeBalance(domain, person, new Date(), await this.allowanceFor(person))
     })
   }
 
@@ -117,7 +120,7 @@ export class StoredCreditLedger extends CreditLedger {
     return this.serialise(async (domain) => {
       const now = new Date()
       await this.grantPeriodIfDue(domain, request.person, now)
-      const current = this.computeBalance(domain, request.person, now)
+      const current = this.computeBalance(domain, request.person, now, await this.allowanceFor(request.person))
       if (current.available < request.amount) {
         throw new CreditsExhausted(current.available, current.nextGrantAt)
       }
@@ -187,23 +190,44 @@ export class StoredCreditLedger extends CreditLedger {
   private async grantPeriodIfDue(
     domain: Domain<typeof creditsDomain>, person: PersonId, now: Date,
   ): Promise<void> {
-    if (this.policy.periodicAmount === 0) return
-    const start = periodStart(now, this.policy.period, this.policy.offsetHours).getTime()
+    const allowance = await this.allowanceFor(person)
+    if (allowance.periodicAmount === 0) return
+    const start = periodStart(now, allowance.period, this.policy.offsetHours).getTime()
     const already = grantsOf(domain, person)
       .some(grant => grant.reason === 'periodic' && Date.parse(grant.grantedAt) >= start)
     if (already) return
     await this.record(domain, {
       person,
-      amount: this.policy.periodicAmount,
+      amount: allowance.periodicAmount,
       grantedAt: now.toISOString(),
-      expiresAt: nextPeriodStart(now, this.policy.period, this.policy.offsetHours).toISOString(),
+      expiresAt: nextPeriodStart(now, allowance.period, this.policy.offsetHours).toISOString(),
       reason: 'periodic',
     })
+  }
+
+  /**
+   * This person's recurring allowance, with any administrator override applied.
+   *
+   * The administration service is read through `ctx.get` rather than injected:
+   * a deployment nobody administers credits on — a single-operator install —
+   * mounts no such service, and the deployment's own numbers are then the
+   * whole answer. Injecting it would make the ledger unavailable there.
+   */
+  private async allowanceFor(person: PersonId): Promise<EffectiveAllowance> {
+    const base: EffectiveAllowance = {
+      periodicAmount: this.policy.periodicAmount,
+      period: this.policy.period,
+    }
+    const administration = this.ctx.get('creditAdministration')
+    if (administration === undefined) return base
+    const overrides = await administration.overridesFor(person)
+    return effectiveAllowance(base, overrides.organization, overrides.person)
   }
 
   /** Sum unexpired grants less everything spent. */
   private computeBalance(
     domain: Domain<typeof creditsDomain>, person: PersonId, now: Date,
+    allowance: EffectiveAllowance,
   ): CreditBalance {
     const instant = now.getTime()
     const granted = grantsOf(domain, person)
@@ -215,8 +239,8 @@ export class StoredCreditLedger extends CreditLedger {
       available: Math.max(0, granted - spent),
       granted,
       spent,
-      ...this.policy.periodicAmount === 0 ? {} : {
-        nextGrantAt: nextPeriodStart(now, this.policy.period, this.policy.offsetHours).toISOString(),
+      ...allowance.periodicAmount === 0 ? {} : {
+        nextGrantAt: nextPeriodStart(now, allowance.period, this.policy.offsetHours).toISOString(),
       },
     }
   }

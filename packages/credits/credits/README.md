@@ -51,6 +51,30 @@ Enforcement also needs a `creditSubject` provider, which answers whose credits a
 
 A refused spend throws `CreditsExhausted`, carrying what is available and when the next grant arrives.
 
+### Let administrators change it
+
+```yaml
+- id: credits-administration
+  name: '@lyness/lyn-credits/administration'
+```
+
+It takes no configuration and needs the ledger, the people directory, and storage. Two operations, both taking the standing that makes them:
+
+```ts
+import type { CreditAdministration } from '@lyness/lyn-credits/administration'
+import type { Membership, PersonId } from '@lyness/lyn-people'
+
+declare const administration: CreditAdministration
+declare const by: Membership
+declare const person: PersonId
+
+await administration.grant({ person, amount: 2000, expiresAt: '2026-12-31T16:00:00.000Z' }, by)
+await administration.setAllowance({ person, periodicAmount: 1500, period: 'weekly' }, by)
+```
+
+A platform administrator administers anyone; a tenant administrator administers the people who hold standing in their own organization; a member administers nobody, including themselves. An override may name an organization instead of a person, which changes it for everyone in that organization.
+
+
 -----
 
 <a id="understand-the-implementation"></a>
@@ -67,6 +91,14 @@ That is idempotent by construction rather than by a flag: a grant carries the in
 **Enforcement is check, call, settle.** Checking before the call is what makes exhaustion stop a turn instead of reporting after the cost was incurred; settling after it is what makes the charge the real usage rather than an estimate. A call that reported no usage is not charged — the operator pays for a failed call either way, and charging a person for an answer they never got would be worse.
 
 **A settlement clamps to the balance rather than failing.** The call already completed and the person already has the answer, so refusing the settlement would fail a turn that succeeded.
+
+**An administrator decision is authorized where it is made.** Both operations take the standing as a parameter, for the reason the model policy gives for its own write: a check in a surface or an RPC handler is bypassed by the next caller, while one here cannot be. Which people a tenant administrator reaches is resolved through the directory, never from an organization the caller supplied.
+
+**An override states only what it changes.** A tenant raising the daily amount and saying nothing about the period leaves the period where the deployment put it, so a later change to the deployment default still reaches them. Zero is a decision, not an absence: an administrator setting `periodicAmount: 0` caps that person at nothing, and no next grant is reported because there is none to wait for.
+
+**Overrides are a separate record from the ledger.** A standing decision is not a transaction: changing next month's allowance must not rewrite last month's grants, and reading a balance must not replay every policy change that ever applied.
+
+**The ledger reads the administration service optionally.** A single-operator install mounts none, and the deployment's own numbers are then the whole answer; injecting it would make the ledger unavailable there.
 
 **Every debit names its session.** A refusal a customer cannot account for is a support case; a balance whose every debit names the session that caused it is answerable.
 

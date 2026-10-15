@@ -58,6 +58,8 @@ flowchart LR
   pkg_credits_enforce["credits/enforce"]
   svc_credits["ctx.credits<br/>The allowance a hosted deployment meters"]
   pkg_credits_store["credits/store"]
+  svc_creditAdministration["ctx.creditAdministration<br/>Administrator credit decisions"]
+  pkg_credits_administration["credits/administration"]
   pkg_sign_in["sign-in"]
   svc_signIn["ctx.signIn<br/>Sign-in through an external directory"]
   svc_signInAdmission["ctx.signInAdmission<br/>Who an authenticated directory subject is here"]
@@ -353,8 +355,10 @@ flowchart LR
   pkg_cordis_host_runner --> svc_dynamicCordisRunner
   pkg_credentials --> svc_credentials
   pkg_credentials_local --> svc_credentials
+  pkg_credits --> svc_creditAdministration
   pkg_credits --> svc_creditSubject
   pkg_credits --> svc_credits
+  pkg_credits_administration --> svc_creditAdministration
   pkg_credits_store --> svc_credits
   pkg_deepseek_account --> svc_deepseekAccount
   pkg_deepseek_account_platform --> svc_deepseekAccount
@@ -512,6 +516,7 @@ flowchart LR
   svc_credentials --> pkg_api_settings_controller
   svc_credentials --> pkg_llm_deepseek
   svc_credentials --> pkg_llm_pi_ai
+  svc_creditAdministration --> pkg_credits_store
   svc_creditSubject --> pkg_credits_enforce
   svc_deepseekAccount --> pkg_api_account_controller
   svc_deepseekAccount --> pkg_llm_deepseek
@@ -655,6 +660,7 @@ flowchart LR
 | `ctx.modelPolicy` | `seam` | [`model-policy`](../packages/llm/model-policy) | `model-policy/static` | `model-policy/enforce` | - | A deployment states which models a request may use; enforcement rides the llm/stream waterfall, so a preset row or direct RPC cannot bypass it. |
 | `ctx.creditSubject` | `seam` | [`credits`](../packages/credits/credits) | - | `credits/enforce` | - | A streaming call carries a route and messages, not a person; without a provider here enforcement stays inactive rather than metering nothing in silence. |
 | `ctx.credits` | `seam` | [`credits`](../packages/credits/credits) | `credits/store` | - | - | A ledger of grants and debits whose sum is the balance; a spend it cannot cover is refused rather than overdrawn. |
+| `ctx.creditAdministration` | `core` | [`credits`](../packages/credits/credits) | `credits/administration` | `credits/store` | - | Grants and allowance overrides, each authorized against the standing that makes it; the ledger reads the overrides back. |
 | `ctx.signIn` | `seam` | [`sign-in`](../packages/identity/sign-in) | [`sign-in`](../packages/identity/sign-in) | - | - | A channel verifies who someone is at their directory, the admission rule says who that is here, and a session is established for that person. |
 | `ctx.signInAdmission` | `seam` | [`sign-in`](../packages/identity/sign-in) | `sign-in/admission-roster` | [`sign-in`](../packages/identity/sign-in) | - | Authentication and admission are two decisions; a deployment mounting no rule signs nobody in. |
 | `ctx.requestPrincipal` | `core` | [`request-principal`](../packages/identity/request-principal) | - | `credits/subject-request` | - | Resolves the presented bearer identity into a person and the context their session holds, and publishes it for that call only; it resolves and never refuses. |

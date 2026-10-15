@@ -51,6 +51,30 @@ kind: "package-reference"
 
 一次被拒绝的消耗抛出 `CreditsExhausted`，携带当前可用量以及下一次赠送何时到达。
 
+### 让管理员改动它
+
+```yaml
+- id: credits-administration
+  name: '@lyness/lyn-credits/administration'
+```
+
+它不接受任何配置，需要账本、人员目录与存储。两个操作，都把「作出它的那个身份」作为参数：
+
+```ts
+import type { CreditAdministration } from '@lyness/lyn-credits/administration'
+import type { Membership, PersonId } from '@lyness/lyn-people'
+
+declare const administration: CreditAdministration
+declare const by: Membership
+declare const person: PersonId
+
+await administration.grant({ person, amount: 2000, expiresAt: '2026-12-31T16:00:00.000Z' }, by)
+await administration.setAllowance({ person, periodicAmount: 1500, period: 'weekly' }, by)
+```
+
+平台管理员管得了任何人；租户管理员管得了在自己组织里持有身份的那些人；成员谁都管不了，包括他自己。一条覆盖也可以指向一个组织而不是一个人，那会改变那个组织里每一个人的额度。
+
+
 -----
 
 <a id="understand-the-implementation"></a>
@@ -67,6 +91,14 @@ kind: "package-reference"
 **强制执行是「检查、调用、结算」。** 在调用之前检查，才使得耗尽能停下一个回合、而不是在成本已经产生之后才报告；在调用之后结算，才使得这笔账是真实用量、而不是一个估算。一次没有报告 usage 的调用不计费——运营方无论如何都要为一次失败的调用付钱，而为一个用户根本没拿到的回答向他收费会更糟。
 
 **结算会被夹到余额，而不是失败。** 调用已经完成、用户已经拿到答案，所以拒绝这次结算等于让一个成功的回合失败。
+
+**管理员的决定在它被作出的地方被授权。** 两个操作都把那个身份作为参数，理由与模型策略为自己的写所给的相同：界面或 RPC 处理器里的校验会被下一个调用方绕开，而这里的绕不开。租户管理员能管到哪些人，是通过目录解析出来的，绝不取自调用方自己给出的组织。
+
+**一条覆盖只声明它所改变的那部分。** 一个租户把每日额度提高、却对周期不置一词，那么周期仍停在部署放它的地方，于是日后对部署默认值的改动依然能到达他们。零是一个决定，不是缺席：管理员把 `periodicAmount` 设为 0 就把那个人封到零，并且不报告下一次赠予，因为确实没有可等的。
+
+**覆盖与账本是分开的记录。** 一个长期决定不是一笔交易：改下个月的额度不能改写上个月的授予，而读一次余额不能重放历史上生效过的每一次策略变更。
+
+**账本以可选的方式读取管理服务。** 单操作者安装一个都不挂，于是部署自己的数字就是全部答案；注入它会让账本在那里根本用不上。
 
 **每一笔扣减都点名它的会话。** 一次客户无法对账的拒绝是一个工单；而一份「每笔扣减都点名造成它的那个会话」的余额是可以回答的。
 

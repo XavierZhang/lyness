@@ -60,6 +60,8 @@ flowchart LR
   pkg_credits_enforce["credits/enforce"]
   svc_credits["ctx.credits<br/>The allowance a hosted deployment meters"]
   pkg_credits_store["credits/store"]
+  svc_creditAdministration["ctx.creditAdministration<br/>Administrator credit decisions"]
+  pkg_credits_administration["credits/administration"]
   pkg_sign_in["sign-in"]
   svc_signIn["ctx.signIn<br/>Sign-in through an external directory"]
   svc_signInAdmission["ctx.signInAdmission<br/>Who an authenticated directory subject is here"]
@@ -355,8 +357,10 @@ flowchart LR
   pkg_cordis_host_runner --> svc_dynamicCordisRunner
   pkg_credentials --> svc_credentials
   pkg_credentials_local --> svc_credentials
+  pkg_credits --> svc_creditAdministration
   pkg_credits --> svc_creditSubject
   pkg_credits --> svc_credits
+  pkg_credits_administration --> svc_creditAdministration
   pkg_credits_store --> svc_credits
   pkg_deepseek_account --> svc_deepseekAccount
   pkg_deepseek_account_platform --> svc_deepseekAccount
@@ -514,6 +518,7 @@ flowchart LR
   svc_credentials --> pkg_api_settings_controller
   svc_credentials --> pkg_llm_deepseek
   svc_credentials --> pkg_llm_pi_ai
+  svc_creditAdministration --> pkg_credits_store
   svc_creditSubject --> pkg_credits_enforce
   svc_deepseekAccount --> pkg_api_account_controller
   svc_deepseekAccount --> pkg_llm_deepseek
@@ -657,6 +662,7 @@ flowchart LR
 | `ctx.modelPolicy` | `seam` | [`model-policy`](../packages/llm/model-policy) | `model-policy/static` | `model-policy/enforce` | - | 部署方声明一次请求可以使用哪些模型；强制执行坐在 llm/stream waterfall 上，所以一个 preset 行或一次直接 RPC 都无法绕过它。 |
 | `ctx.creditSubject` | `seam` | [`credits`](../packages/credits/credits) | - | `credits/enforce` | - | 一次流式调用携带的是路由与消息，不是人；这里没有 provider 时，强制执行保持未激活，而不是无声地什么都不计量。 |
 | `ctx.credits` | `seam` | [`credits`](../packages/credits/credits) | `credits/store` | - | - | 一本赠送与扣减的账，其和即余额；覆盖不了的一次消耗会被拒绝，而不是透支。 |
+| `ctx.creditAdministration` | `core` | [`credits`](../packages/credits/credits) | `credits/administration` | `credits/store` | - | 授予与额度覆盖，每一项都针对「作出它的那个身份」被授权；账本再把这些覆盖读回去。 |
 | `ctx.signIn` | `seam` | [`sign-in`](../packages/identity/sign-in) | [`sign-in`](../packages/identity/sign-in) | - | - | 渠道在某人自己的目录上验证他是谁，准入规则说他在这里是谁，然后为那个人建立一个会话。 |
 | `ctx.signInAdmission` | `seam` | [`sign-in`](../packages/identity/sign-in) | `sign-in/admission-roster` | [`sign-in`](../packages/identity/sign-in) | - | 认证与准入是两个决定；一个没有挂任何规则的部署谁都签不进来。 |
 | `ctx.requestPrincipal` | `core` | [`request-principal`](../packages/identity/request-principal) | - | `credits/subject-request` | - | 把被出示的持有凭据解析成一个人、以及他的会话所持有的上下文，并且只为那一次调用发布它；它只解析、从不拒绝。 |

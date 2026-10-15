@@ -233,6 +233,15 @@ const SERVICE_ROLES: ServiceRole[] = [
     note: 'A ledger of grants and debits whose sum is the balance; a spend it cannot cover is refused rather than overdrawn.',
   },
   {
+    key: 'creditAdministration',
+    pkg: 'credits',
+    title: 'Administrator credit decisions',
+    mode: 'core',
+    implementations: ['credits/administration'],
+    consumers: ['credits/store'],
+    note: 'Grants and allowance overrides, each authorized against the standing that makes it; the ledger reads the overrides back.',
+  },
+  {
     key: 'signIn',
     pkg: 'sign-in',
     title: 'Sign-in through an external directory',

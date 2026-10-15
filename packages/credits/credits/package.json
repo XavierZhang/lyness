@@ -51,6 +51,18 @@
     "./subject-request": {
       "types": "./lib/types/subject-request.d.ts",
       "default": "./lib/types/subject-request.js"
+    },
+    "./allowance": {
+      "types": "./lib/types/allowance.d.ts",
+      "default": "./lib/types/allowance.js"
+    },
+    "./allowance-storage": {
+      "types": "./lib/types/allowance-storage.d.ts",
+      "default": "./lib/types/allowance-storage.js"
+    },
+    "./administration": {
+      "types": "./lib/types/administration.d.ts",
+      "default": "./lib/types/administration.js"
     }
   },
   "files": [

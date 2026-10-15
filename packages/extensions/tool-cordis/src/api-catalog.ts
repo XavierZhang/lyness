@@ -897,6 +897,32 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
     ],
   },
   {
+    key: 'creditAdministration',
+    summary: 'Administrator credit decisions, authorized against the standing making them.',
+    description: 'Administrator credit decisions, authorized against the standing making them.',
+    methods: [
+      {
+        signature: 'async grant(request: AdministratorGrant, by: Membership): Promise<CreditGrant>',
+        description: 'Add credits to one person, on behalf of one standing.',
+        parameters: [{ name: 'request', description: 'who receives them, how many, and when they lapse.' }, { name: 'by', description: 'the standing making the grant.' }],
+        returns: 'the recorded grant.',
+        throws: ['{Error} when the amount is not positive, or that standing may not administer that person.'],
+      },
+      {
+        signature: 'async setAllowance(change: AllowanceChange, by: Membership): Promise<void>',
+        description: 'Set or replace one allowance override, on behalf of one standing.\n\nAn override for a whole organization is a decision about that organization, so it is authorized against the organization itself; one for a person is authorized against that person\'s standings.',
+        parameters: [{ name: 'change', description: 'what to change, and whose allowance it applies to.' }, { name: 'by', description: 'the standing making the change.' }],
+        throws: ['{Error} when the change names neither an organization nor a person, or that standing may not administer it.'],
+      },
+      {
+        signature: 'async overridesFor(person: PersonId): Promise<PersonOverrides>',
+        description: 'The overrides that reach one person.\n\nRead without an authority check because this is what the ledger itself calls to work out a periodic grant; the decision it reports was already authorized when it was made.',
+        parameters: [{ name: 'person', description: 'whose allowance to resolve.' }],
+        returns: 'the organization-wide and person-specific overrides, where they exist.',
+      },
+    ],
+  },
+  {
     key: 'credits',
     summary: 'Abstract credit ledger.',
     description: 'Abstract credit ledger. Subclass and implement the four operations for one source of truth; a hosted deployment mounts exactly one.',
@@ -4712,6 +4738,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export interface AdapterRegistrationHandle {\n    (): void;\n    replace(providers: string[]): void;\n}',
   },
   {
+    name: 'AdministratorGrant',
+    declaration: 'export interface AdministratorGrant {\n    readonly person: PersonId;\n    readonly amount: number;\n    readonly expiresAt?: string | undefined;\n}',
+  },
+  {
     name: 'AdmittedPromptContentPart',
     declaration: 'export type AdmittedPromptContentPart = {\n    readonly type: \'text\';\n    readonly text: string;\n} | {\n    readonly type: \'image\';\n    readonly attachment: ImageAttachmentRef;\n} | {\n    readonly type: \'file\';\n    readonly attachment: FileAttachmentRef;\n};',
   },
@@ -4774,6 +4804,14 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'AgentStatus',
     declaration: 'export type AgentStatus = \'idle\' | \'running\';',
+  },
+  {
+    name: 'AllowanceChange',
+    declaration: 'export interface AllowanceChange extends AllowanceOverride {\n    readonly organization?: string | undefined;\n    readonly person?: PersonId | undefined;\n}',
+  },
+  {
+    name: 'AllowanceOverride',
+    declaration: 'export interface AllowanceOverride {\n    readonly periodicAmount?: number | undefined;\n    readonly period?: ResetPeriod | undefined;\n}',
   },
   {
     name: 'AllowedModel',
@@ -6296,6 +6334,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export type PersonId = Branded<\'PersonId\'>;',
   },
   {
+    name: 'PersonOverrides',
+    declaration: 'export interface PersonOverrides {\n    readonly organization?: AllowanceOverride | undefined;\n    readonly person?: AllowanceOverride | undefined;\n}',
+  },
+  {
     name: 'PlatformSession',
     declaration: 'export interface PlatformSession {\n    readonly origin: string;\n    readonly token: string;\n    readonly userId: AccountUserId | null;\n    readonly embeddedPageDist?: string;\n    readonly requestHeaders?: Readonly<Record<string, string>>;\n}',
   },
@@ -6626,6 +6668,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'RequestUserInput',
     declaration: 'export interface RequestUserInput {\n    readonly role: \'user\';\n    readonly content: UserMessage[\'content\'];\n    readonly id?: never;\n    readonly source?: never;\n}',
+  },
+  {
+    name: 'ResetPeriod',
+    declaration: 'export type ResetPeriod = \'daily\' | \'weekly\' | \'monthly\';',
   },
   {
     name: 'ResolvedAlwaysRetryPolicy',
