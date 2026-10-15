@@ -2801,11 +2801,18 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         returns: 'each mounted channel\'s id and display name.',
       },
       {
-        signature: 'async begin(channel: ChannelId): Promise<AuthSessionId>',
-        description: 'Sign a person in through one channel.\n\nThe session is established last, after both the directory and the admission rule have answered, so a refused sign-in leaves no session behind to be revoked.',
-        parameters: [{ name: 'channel', description: 'the channel the person chose.' }],
-        returns: 'the bearer identity of their new session.',
+        signature: 'async begin(channel: ChannelId, returnTo: string): Promise<SignInOutcome>',
+        description: 'Begin a sign-in through one channel.\n\nA self-driven channel has a session by the time this returns; a redirect channel has only said where to send the browser, and resume finishes it. Both shapes reach the same admission and the same session, because the decision about who may use this deployment must not depend on which kind of client someone signed in from.',
+        parameters: [{ name: 'channel', description: 'the channel the person chose.' }, { name: 'returnTo', description: 'the deployment\'s own callback address; a self-driven channel ignores it.' }],
+        returns: 'their new session, or where to send the browser.',
         throws: ['{SignInRefused} when the channel is unknown, the directory did not complete, or this deployment admits them as nobody.'],
+      },
+      {
+        signature: 'async resume(channel: ChannelId, parameters: URLSearchParams): Promise<AuthSessionId>',
+        description: 'Finish the sign-in a redirect channel\'s directory is returning from.',
+        parameters: [{ name: 'channel', description: 'the channel that started it.' }, { name: 'parameters', description: 'the query the directory came back with.' }],
+        returns: 'the bearer identity of their new session.',
+        throws: ['{SignInRefused} when the channel is unknown or self-driven, the return completes no sign-in, or this deployment admits them as nobody.'],
       },
     ],
   },
@@ -4978,11 +4985,15 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   },
   {
     name: 'ChannelDescription',
-    declaration: 'export interface ChannelDescription {\n    readonly id: ChannelId;\n    readonly displayName: string;\n}',
+    declaration: 'export interface ChannelDescription {\n    readonly id: ChannelId;\n    readonly displayName: string;\n    readonly kind: ChannelKind;\n}',
   },
   {
     name: 'ChannelId',
     declaration: 'export type ChannelId = Branded<\'ChannelId\'>;',
+  },
+  {
+    name: 'ChannelKind',
+    declaration: 'export type ChannelKind = \'self-driven\' | \'redirect\';',
   },
   {
     name: 'ClientArtifactBaseline',
@@ -6545,6 +6556,14 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export interface RedactedSecret {\n    path: string[];\n    set: boolean;\n}',
   },
   {
+    name: 'RedirectChannel',
+    declaration: 'export interface RedirectChannel extends ChannelDescription {\n    readonly kind: \'redirect\';\n    start(returnTo: string): Promise<RedirectStart>;\n    complete(parameters: URLSearchParams): Promise<ExternalSubject | undefined>;\n}',
+  },
+  {
+    name: 'RedirectStart',
+    declaration: 'export interface RedirectStart {\n    readonly to: string;\n    readonly attempt: string;\n}',
+  },
+  {
     name: 'Registry',
     declaration: 'export type Registry = string | null;',
   },
@@ -6791,6 +6810,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'SearchResultView',
     declaration: 'export type SearchResultView = SearchMatchesResultView | SearchPathsResultView;',
+  },
+  {
+    name: 'SelfDrivenChannel',
+    declaration: 'export interface SelfDrivenChannel extends ChannelDescription {\n    readonly kind: \'self-driven\';\n    authenticate(): Promise<ExternalSubject | undefined>;\n}',
   },
   {
     name: 'SendTeamMessageRequest',
@@ -7414,11 +7437,15 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   },
   {
     name: 'SignInChannel',
-    declaration: 'export interface SignInChannel extends ChannelDescription {\n    authenticate(): Promise<ExternalSubject | undefined>;\n}',
+    declaration: 'export type SignInChannel = SelfDrivenChannel | RedirectChannel;',
   },
   {
     name: 'SignInErrorCode',
     declaration: 'export type SignInErrorCode = \'network\' | \'protocol\' | \'expired\' | \'storage\';',
+  },
+  {
+    name: 'SignInOutcome',
+    declaration: 'export type SignInOutcome = {\n    readonly kind: \'session\';\n    readonly session: AuthSessionId;\n} | {\n    readonly kind: \'redirect\';\n    readonly start: RedirectStart;\n};',
   },
   {
     name: 'SkillCandidate',

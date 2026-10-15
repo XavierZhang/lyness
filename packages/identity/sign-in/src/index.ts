@@ -22,9 +22,14 @@ import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
 import { brandString } from '@lyness/lyn-brand'
 import type { AuthSessionId } from '@lyness/lyn-auth-session'
-import type { ChannelDescription, ChannelId, ExternalSubject, SignInRefusal } from './types.ts'
+import type {
+  ChannelDescription, ChannelId, ExternalSubject, RedirectStart, SignInOutcome, SignInRefusal,
+} from './types.ts'
 
-export type { ChannelDescription, ChannelId, ExternalSubject, SignInRefusal } from './types.ts'
+export type {
+  ChannelDescription, ChannelId, ChannelKind, ExternalSubject, RedirectStart, SignInOutcome,
+  SignInRefusal,
+} from './types.ts'
 export { SignInAdmission } from './admission.ts'
 
 declare module '@lyness/cordis' {
@@ -65,6 +70,7 @@ const MESSAGES: Record<SignInRefusal, string> = {
   // gives: telling an unauthenticated caller which addresses this deployment
   // knows would answer a question they are not entitled to ask.
   'not-admitted': 'this account may not use this deployment',
+  'nothing-to-resume': 'this channel completes its own sign-in',
 }
 
 /** How long a session established by a directory sign-in lasts, in milliseconds. */
@@ -101,14 +107,52 @@ export function resolveConfig(config: Config): ResolvedConfig {
   return { lifetimeMs: config.lifetimeMs ?? DEFAULT_LIFETIME_MS }
 }
 
-/** One mounted sign-in channel. */
-export interface SignInChannel extends ChannelDescription {
+/**
+ * A channel that owns its own browser round trip and returns when it is done.
+ *
+ * This is the desktop and CLI shape: the channel opens a window, waits on a
+ * loopback callback, and has an answer by the time it returns.
+ */
+export interface SelfDrivenChannel extends ChannelDescription {
+  /** Distinguishes the two shapes. */
+  readonly kind: 'self-driven'
+
   /**
    * Run one sign-in against the directory.
    * @returns the verified subject, or undefined when the person did not complete it.
    */
   authenticate(): Promise<ExternalSubject | undefined>
 }
+
+/**
+ * A channel the browser leaves for and comes back from.
+ *
+ * This is the hosted web shape, and it is two requests rather than one call:
+ * the first says where to send the person, the second is the directory
+ * returning them. A channel contract that had only the self-driven shape
+ * would work for the client and not for the web app.
+ */
+export interface RedirectChannel extends ChannelDescription {
+  /** Distinguishes the two shapes. */
+  readonly kind: 'redirect'
+
+  /**
+   * Begin one sign-in.
+   * @param returnTo - the deployment's own callback address the directory returns to.
+   * @returns where to send the browser, and the attempt it belongs to.
+   */
+  start(returnTo: string): Promise<RedirectStart>
+
+  /**
+   * Finish the sign-in the directory is returning from.
+   * @param parameters - the query the directory came back with.
+   * @returns the verified subject, or undefined when the return does not complete a sign-in.
+   */
+  complete(parameters: URLSearchParams): Promise<ExternalSubject | undefined>
+}
+
+/** One mounted sign-in channel, in either shape. */
+export type SignInChannel = SelfDrivenChannel | RedirectChannel
 
 /**
  * The channels a deployment offers, and the sign-in they perform.
@@ -161,23 +205,64 @@ export class SignIn extends Service {
    * @returns each mounted channel's id and display name.
    */
   available(): readonly ChannelDescription[] {
-    return [...this.channels.values()].map(({ id, displayName }) => ({ id, displayName }))
+    return [...this.channels.values()].map(({ id, displayName, kind }) => ({ id, displayName, kind }))
   }
 
   /**
-   * Sign a person in through one channel.
+   * Begin a sign-in through one channel.
+   *
+   * A self-driven channel has a session by the time this returns; a redirect
+   * channel has only said where to send the browser, and {@link resume}
+   * finishes it. Both shapes reach the same admission and the same session,
+   * because the decision about who may use this deployment must not depend on
+   * which kind of client someone signed in from.
+   * @param channel - the channel the person chose.
+   * @param returnTo - the deployment's own callback address; a self-driven channel ignores it.
+   * @returns their new session, or where to send the browser.
+   * @throws {SignInRefused} when the channel is unknown, the directory did not
+   * complete, or this deployment admits them as nobody.
+   */
+  async begin(channel: ChannelId, returnTo: string): Promise<SignInOutcome> {
+    const mounted = this.mounted(channel)
+    if (mounted.kind === 'redirect') {
+      return { kind: 'redirect', start: await mounted.start(returnTo) }
+    }
+    const subject = await mounted.authenticate()
+    return { kind: 'session', session: await this.admitAndEstablish(channel, subject) }
+  }
+
+  /**
+   * Finish the sign-in a redirect channel's directory is returning from.
+   * @param channel - the channel that started it.
+   * @param parameters - the query the directory came back with.
+   * @returns the bearer identity of their new session.
+   * @throws {SignInRefused} when the channel is unknown or self-driven, the return
+   * completes no sign-in, or this deployment admits them as nobody.
+   */
+  async resume(channel: ChannelId, parameters: URLSearchParams): Promise<AuthSessionId> {
+    const mounted = this.mounted(channel)
+    if (mounted.kind !== 'redirect') throw new SignInRefused('nothing-to-resume')
+    return this.admitAndEstablish(channel, await mounted.complete(parameters))
+  }
+
+  /** The channel of that id, or the refusal a caller naming an unmounted one gets. */
+  private mounted(channel: ChannelId): SignInChannel {
+    const found = this.channels.get(channel)
+    if (found === undefined) throw new SignInRefused('channel-unknown')
+    return found
+  }
+
+  /**
+   * The half both shapes share: admit the verified subject, then establish.
    *
    * The session is established last, after both the directory and the
    * admission rule have answered, so a refused sign-in leaves no session
    * behind to be revoked.
-   * @param channel - the channel the person chose.
-   * @returns the bearer identity of their new session.
-   * @throws {SignInRefused} when the channel is unknown, the directory did not complete, or this deployment admits them as nobody.
    */
-  async begin(channel: ChannelId): Promise<AuthSessionId> {
-    const mounted = this.channels.get(channel)
-    if (mounted === undefined) throw new SignInRefused('channel-unknown')
-    const subject = await mounted.authenticate()
+  private async admitAndEstablish(
+    channel: ChannelId,
+    subject: ExternalSubject | undefined,
+  ): Promise<AuthSessionId> {
     if (subject === undefined) throw new SignInRefused('not-authenticated')
     const person = await this.ctx.signInAdmission.admit(subject)
     if (person === undefined) throw new SignInRefused('not-admitted')

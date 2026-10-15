@@ -4,6 +4,7 @@
  * @module @lyness/lyn-sign-in/types
  */
 
+import type { AuthSessionId } from '@lyness/lyn-auth-session'
 import type { Branded } from '@lyness/lyn-brand'
 
 /** Opaque identity of one configured sign-in channel. */
@@ -30,13 +31,32 @@ export interface ExternalSubject {
   readonly address?: string | undefined
 }
 
+/** Where one redirect sign-in stands, so its caller can be sent onward. */
+export interface RedirectStart {
+  /** The directory's own page to send the browser to. */
+  readonly to: string
+  /** The attempt this redirect belongs to, presented again on the way back. */
+  readonly attempt: string
+}
+
 /** What a surface needs to offer one channel as a sign-in option. */
 export interface ChannelDescription {
   /** The channel to name when starting a sign-in. */
   readonly id: ChannelId
   /** Name a surface shows on the button. */
   readonly displayName: string
+  /**
+   * Which shape this channel signs in with.
+   *
+   * A surface needs it before it starts: a redirect channel sends the browser
+   * away and comes back to a callback the surface has to own, while a
+   * self-driven one returns a session in place.
+   */
+  readonly kind: ChannelKind
 }
+
+/** The two shapes a sign-in channel comes in. */
+export type ChannelKind = 'self-driven' | 'redirect'
 
 /** Why a sign-in did not produce a session. */
 export type SignInRefusal =
@@ -46,3 +66,20 @@ export type SignInRefusal =
   | 'not-authenticated'
   /** The directory authenticated them, and this deployment admits nobody by that identity. */
   | 'not-admitted'
+  /** The channel drives its own round trip, so there is nothing to resume. */
+  | 'nothing-to-resume'
+
+/**
+ * How one sign-in ended.
+ *
+ * Two outcomes rather than one because the two channel shapes end differently:
+ * a channel that owns its own browser round trip has a session by the time it
+ * returns, while a redirect channel has only told us where to send the person
+ * next. A caller that handled just one of these would work for the desktop
+ * client and not the web app, or the reverse.
+ */
+export type SignInOutcome =
+  /** The person is signed in; this is their session. */
+  | { readonly kind: 'session'; readonly session: AuthSessionId }
+  /** Send the browser here; the sign-in finishes when it comes back. */
+  | { readonly kind: 'redirect'; readonly start: RedirectStart }

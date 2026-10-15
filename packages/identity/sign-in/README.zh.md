@@ -9,7 +9,7 @@ kind: "package-reference"
 
 ## 概述
 
-`lyn-sign-in` 让一个人通过他本来就属于的目录签入，并交回一个会话。渠道在那个目录上验证他是谁；部署自己的准入规则说他在这里是谁；然后为那个人建立会话。渠道是注册进来的，而不是在这里配置的，所以一个同时提供微软目录和企业微信的部署挂两个渠道插件，本包与签入页都不知道哪个是哪个。两半都是注入的：没有会话存储或没有准入规则，就根本没有签入。
+`lyn-sign-in` 让一个人通过他本来就属于的目录签入，并交回一个会话。渠道在那里验证他是谁；部署自己的准入规则说他在这里是谁；然后为那个人建立会话。渠道要么自己掌管整趟浏览器往返（给客户端），要么是浏览器离开再回来的那一种（给网页版）——两者走到同一条准入。渠道是注册进来的，而不是在这里配置的，所以平台不支持的目录可以以插件的方式到达。没有会话存储或没有准入规则，就没有签入。
 
 ## 目录
 
@@ -62,19 +62,23 @@ export function apply(ctx: Context): void {
   // `register` ties the disposer to this plugin's own fiber; the return value
   // is there for a channel that withdraws itself earlier than that.
   void ctx.signIn.register({
+    kind: 'redirect',
     id: channelId('wecom'),
     displayName: 'WeCom',
-    authenticate: async () => undefined,
+    start: async (returnTo: string) => ({ to: `https://login.example/?r=${returnTo}`, attempt: 'a1' }),
+    complete: async (parameters: URLSearchParams) => (parameters.get('code') === null ? undefined : undefined),
   })
 }
 ```
 
-`authenticate` 返回被验证的 subject，或在这个人没有完成签入时返回 `undefined`。它从不决定他是否可以使用这个系统。
+`self-driven` 渠道声明 `authenticate()`，而不是 `start`/`complete`。无论哪一种，渠道返回的都是被验证的 subject，或在这个人没有完成签入时返回 `undefined`；它从不决定他是否可以使用这个系统。
 
 -----
 
 <a id="understand-the-implementation"></a>
 ## 理解实现
+
+**渠道有两种形状。** `self-driven` 渠道自己开窗口、等回环回调，返回时已经有答案——那是客户端与 CLI 的形状。`redirect` 渠道只说把浏览器送到哪里，等目录把人送回来时才结束，而这正是托管网页签入真实的样子：两次请求，不是一次调用。`begin` 回答的要么是一个会话、要么是一次重定向，`resume` 把第二种形状收尾。两者抵达同一条准入规则，因为「谁可以用这个部署」不能取决于他是从哪种客户端签入的。
 
 **认证与准入是两个决定。** 一个目录确认某人在某公司工作，并不说明这套安装是给他用的。把两者混为一谈，会在目录一接上的瞬间就准入整个目录，所以 `SignInAdmission` 是一个单独的能力缝，而流程注入它：一个没有挂任何规则的部署谁都签不进来。这是失败即关闭的方向——「谁可以用这个系统」这个问题没有答案时，必须把人挡在外面。
 

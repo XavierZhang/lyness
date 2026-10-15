@@ -9,7 +9,7 @@ English | [中文](README.zh.md)
 
 ## Summary
 
-`lyn-sign-in` signs a person in through a directory they already belong to and hands back a session. A channel verifies who they are at that directory; the deployment's own admission rule says who that is here; a session is established for that person. Channels register rather than being configured here, so a deployment offering a Microsoft directory and a WeCom one mounts two channel plugins and nothing in this package or on a sign-in page knows which is which. Both halves are injected: without a session store or an admission rule there is no sign-in at all.
+`lyn-sign-in` signs a person in through a directory they already belong to and hands back a session. A channel verifies who they are there; the deployment's own admission rule says who that is here; a session is established for that person. A channel either owns its browser round trip, for the client, or is one the browser leaves for and returns from, for the web app — and both reach the same admission. Channels register rather than being configured here, so an unsupported directory arrives as a plugin. Without a session store or an admission rule there is no sign-in.
 
 ## Table of Contents
 
@@ -62,19 +62,23 @@ export function apply(ctx: Context): void {
   // `register` ties the disposer to this plugin's own fiber; the return value
   // is there for a channel that withdraws itself earlier than that.
   void ctx.signIn.register({
+    kind: 'redirect',
     id: channelId('wecom'),
     displayName: 'WeCom',
-    authenticate: async () => undefined,
+    start: async (returnTo: string) => ({ to: `https://login.example/?r=${returnTo}`, attempt: 'a1' }),
+    complete: async (parameters: URLSearchParams) => (parameters.get('code') === null ? undefined : undefined),
   })
 }
 ```
 
-`authenticate` returns the verified subject, or `undefined` when the person did not complete the sign-in. It never decides whether they may use the system.
+A `self-driven` channel declares `authenticate()` instead of `start`/`complete`. Either way the channel returns the verified subject, or `undefined` when the person did not complete the sign-in; it never decides whether they may use the system.
 
 -----
 
 <a id="understand-the-implementation"></a>
 ## Understand the implementation
+
+**A channel comes in either shape.** A `self-driven` channel opens a window, waits on a loopback callback, and has an answer by the time it returns — that is the client and CLI shape. A `redirect` channel says where to send the browser and finishes when the directory returns it, which is what a hosted web sign-in actually is: two requests, not one call. `begin` answers either a session or a redirect, and `resume` finishes the second shape. Both arrive at the same admission rule, because who may use a deployment must not depend on which client someone signed in from.
 
 **Authentication and admission are two decisions.** A directory confirming that someone works at a company says nothing about whether this installation is for them. Conflating the two would admit the whole directory the moment it is connected, so `SignInAdmission` is a separate seam and the flow injects it: a deployment that mounts no rule signs nobody in. That is the fail-closed direction — an unanswered question about who may use the system has to keep people out.
 

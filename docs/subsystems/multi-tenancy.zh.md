@@ -353,16 +353,30 @@ register(channel: SignInChannel): () => Promise<void>
 available(): readonly ChannelDescription[]
 
 /**
- * Sign a person in through one channel.
+ * Begin a sign-in through one channel.
  *
- * The session is established last, after both the directory and the
- * admission rule have answered, so a refused sign-in leaves no session
- * behind to be revoked.
+ * A self-driven channel has a session by the time this returns; a redirect
+ * channel has only said where to send the browser, and {@link resume}
+ * finishes it. Both shapes reach the same admission and the same session,
+ * because the decision about who may use this deployment must not depend on
+ * which kind of client someone signed in from.
  * @param channel - the channel the person chose.
- * @returns the bearer identity of their new session.
- * @throws {SignInRefused} when the channel is unknown, the directory did not complete, or this deployment admits them as nobody.
+ * @param returnTo - the deployment's own callback address; a self-driven channel ignores it.
+ * @returns their new session, or where to send the browser.
+ * @throws {SignInRefused} when the channel is unknown, the directory did not
+ * complete, or this deployment admits them as nobody.
  */
-async begin(channel: ChannelId): Promise<AuthSessionId>
+async begin(channel: ChannelId, returnTo: string): Promise<SignInOutcome>
+
+/**
+ * Finish the sign-in a redirect channel's directory is returning from.
+ * @param channel - the channel that started it.
+ * @param parameters - the query the directory came back with.
+ * @returns the bearer identity of their new session.
+ * @throws {SignInRefused} when the channel is unknown or self-driven, the return
+ * completes no sign-in, or this deployment admits them as nobody.
+ */
+async resume(channel: ChannelId, parameters: URLSearchParams): Promise<AuthSessionId>
 ```
 
 Source: [`packages/identity/sign-in/src/index.ts`](../../packages/identity/sign-in/src/index.ts)
