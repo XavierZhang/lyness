@@ -896,6 +896,19 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
     ],
   },
   {
+    key: 'creditSubject',
+    summary: 'Resolves the person a request is charged to.',
+    description: 'Resolves the person a request is charged to.',
+    methods: [
+      {
+        signature: 'abstract current(): Promise<PersonId | undefined>',
+        description: 'The person the request being served is charged to.\n\nUndefined is a real answer, not a failure: a deployment\'s own maintenance work, a replay in a test, and a seeded session all issue requests that belong to nobody. Charging them to whoever happens to be signed in would be worse than not charging them.',
+        parameters: [],
+        returns: 'the person to charge, or undefined when the request belongs to none.',
+      },
+    ],
+  },
+  {
     key: 'deepseekAccount',
     summary: 'Account operations; only Host consumers can obtain a request credential.',
     description: 'Account operations; only Host consumers can obtain a request credential.',

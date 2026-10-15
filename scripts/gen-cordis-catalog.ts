@@ -103,6 +103,7 @@ export const SERVICE_PAGE: Record<string, string> = {
   people: 'multi-tenancy.md',
   actingContext: 'multi-tenancy.md',
   credits: 'multi-tenancy.md',
+  creditSubject: 'multi-tenancy.md',
   lsp: 'lsp.md',
   messageFeedback: 'feedback.md',
   sessionFeedback: 'feedback.md',

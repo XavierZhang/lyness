@@ -32,7 +32,14 @@ Use `lyn-credits` to meter a hosted deployment's free allowance. A balance is a 
     periodicAmount: 500
     period: daily
     offsetHours: 8
+- id: credits-enforce
+  name: '@lyness/lyn-credits/enforce'
+  config:
+    creditsPerMillion: 1000
+    minimumDebit: 1
 ```
+
+Enforcement also needs a `creditSubject` provider, which answers whose credits a request spends.
 
 | Field | Default | Meaning |
 |---|---|---|
@@ -56,6 +63,10 @@ That is idempotent by construction rather than by a flag: a grant carries the in
 **Grants expire individually, not as a balance.** A periodic allowance lapses at the next reset while purchased credits keep their own longer life. A balance that expired as a whole would take the bought ones with it.
 
 **A refusal leaves the balance intact.** An overdraw is a cost the operator did not agree to, and a person who can exceed a balance has no balance — so the check precedes the debit and a refused spend records nothing.
+
+**Enforcement is check, call, settle.** Checking before the call is what makes exhaustion stop a turn instead of reporting after the cost was incurred; settling after it is what makes the charge the real usage rather than an estimate. A call that reported no usage is not charged — the operator pays for a failed call either way, and charging a person for an answer they never got would be worse.
+
+**A settlement clamps to the balance rather than failing.** The call already completed and the person already has the answer, so refusing the settlement would fail a turn that succeeded.
 
 **Every debit names its session.** A refusal a customer cannot account for is a support case; a balance whose every debit names the session that caused it is answerable.
 
@@ -82,7 +93,8 @@ No request prefix changes. A permitted spend leaves the request untouched, and a
 
 <a id="known-limitations-and-deferred-work"></a>
 
-- **Nothing spends credits yet** — the enforcement that debits a model request and stops a turn on refusal is a separate consumer; this package is the ledger it will call.
+- **One request can cost more than the balance it had** — the model is check, call, settle, so a call that owes more than remains settles to zero rather than failing a turn that already produced an answer. The defence is the check before the *next* request; removing the overshoot entirely needs pre-authorisation rather than settlement.
+- **Metering needs somebody to charge** — `./enforce` injects `creditSubject`, so a deployment without one leaves enforcement inactive, which a startup audit reports. The full chain is sign-in, an authenticated session, its acting context, and then that subject.
 - **No per-person cap yet** — an organization capping one of its members below the deployment's allowance needs a stored cap and a second authority in the refusal, which this version does not carry.
 - **The balance is recomputed from the whole ledger** — correct and auditable, but linear in a person's history, so a long-lived account will want a checkpoint.
 - **Grants and debits are never pruned** — the ledger is the product, so retention is a deployment policy rather than a default this package picks.

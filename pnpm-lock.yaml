@@ -6497,6 +6497,9 @@ importers:
       '@lyness/lyn-brand':
         specifier: workspace:*
         version: link:../../util/brand
+      '@lyness/lyn-llm':
+        specifier: workspace:*
+        version: link:../../llm/llm
       '@lyness/lyn-people':
         specifier: workspace:*
         version: link:../../identity/people

@@ -215,6 +215,15 @@ const SERVICE_ROLES: ServiceRole[] = [
     note: 'A deployment states which models a request may use; enforcement rides the llm/stream waterfall, so a preset row or direct RPC cannot bypass it.',
   },
   {
+    key: 'creditSubject',
+    pkg: 'credits',
+    title: 'Whose credits a request spends',
+    mode: 'seam',
+    implementations: [],
+    consumers: ['credits/enforce'],
+    note: 'A streaming call carries a route and messages, not a person; without a provider here enforcement stays inactive rather than metering nothing in silence.',
+  },
+  {
     key: 'credits',
     pkg: 'credits',
     title: 'The allowance a hosted deployment meters',

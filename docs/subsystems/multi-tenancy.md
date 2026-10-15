@@ -183,6 +183,27 @@ abstract history(person: PersonId): Promise<{ readonly grants: readonly CreditGr
 
 Source: [`packages/credits/credits/src/index.ts`](../../packages/credits/credits/src/index.ts)
 
+<a id="ctxcreditsubject--creditsubject-abstract-seam"></a>
+
+### `ctx.creditSubject` — `CreditSubject` (abstract seam)
+
+Resolves the person a request is charged to.
+
+```ts cordis-catalog
+/**
+ * The person the request being served is charged to.
+ *
+ * Undefined is a real answer, not a failure: a deployment's own maintenance
+ * work, a replay in a test, and a seeded session all issue requests that
+ * belong to nobody. Charging them to whoever happens to be signed in would
+ * be worse than not charging them.
+ * @returns the person to charge, or undefined when the request belongs to none.
+ */
+abstract current(): Promise<PersonId | undefined>
+```
+
+Source: [`packages/credits/credits/src/subject.ts`](../../packages/credits/credits/src/subject.ts)
+
 <a id="ctxpeople--peopledirectory-abstract-seam"></a>
 
 ### `ctx.people` — `PeopleDirectory` (abstract seam)

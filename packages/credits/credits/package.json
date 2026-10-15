@@ -35,6 +35,18 @@
     "./storage": {
       "types": "./lib/types/storage.d.ts",
       "default": "./lib/types/storage.js"
+    },
+    "./subject": {
+      "types": "./lib/types/subject.d.ts",
+      "default": "./lib/types/subject.js"
+    },
+    "./pricing": {
+      "types": "./lib/types/pricing.d.ts",
+      "default": "./lib/types/pricing.js"
+    },
+    "./enforce": {
+      "types": "./lib/types/enforce.d.ts",
+      "default": "./lib/types/enforce.js"
     }
   },
   "files": [
@@ -48,7 +60,8 @@
     "@lyness/lyn-brand": "workspace:*",
     "@lyness/lyn-people": "workspace:*",
     "@lyness/lyn-storage-domain": "workspace:*",
-    "@lyness/lyn-util-crypto": "workspace:*"
+    "@lyness/lyn-util-crypto": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*"
   },
   "devDependencies": {
     "@lyness/cordis": "workspace:~",
@@ -57,7 +70,8 @@
     "@lyness/lyn-storage-domain": "workspace:*",
     "@lyness/lyn-util-crypto": "workspace:*",
     "@lyness/lyn-storage": "workspace:*",
-    "@lyness/lyn-storage-json": "workspace:*"
+    "@lyness/lyn-storage-json": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*"
   },
   "dependencies": {
     "@lyness/schemastery": "workspace:~",
