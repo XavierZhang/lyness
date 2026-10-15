@@ -13,7 +13,7 @@ import type {
 } from '@lyness/lyn-llm'
 import { expect, it } from 'vitest'
 import { ModelPolicy } from '../src/index.ts'
-import type { ModelAllowance } from '../src/types.ts'
+import type { ModelAllowance, ModelPolicyCapability } from '../src/types.ts'
 import * as Enforce from '../src/enforce.ts'
 import StaticModelPolicy, { resolveAuthority } from '../src/static.ts'
 
@@ -47,6 +47,10 @@ class FixedPolicy extends ModelPolicy {
 
   override allowance(): Promise<ModelAllowance> {
     return Promise.resolve(this.value)
+  }
+
+  override capability(): ModelPolicyCapability {
+    return { writable: false }
   }
 }
 

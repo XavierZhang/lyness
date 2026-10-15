@@ -16,7 +16,7 @@
 import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
 import { ModelPolicy } from './index.ts'
-import type { AllowedModel, ModelAllowance } from './types.ts'
+import type { AllowedModel, ModelAllowance, ModelPolicyCapability } from './types.ts'
 
 /** Authority named in a refusal when this deployment decided the list itself. */
 const DEFAULT_AUTHORITY = 'this deployment'
@@ -83,6 +83,16 @@ export class StaticModelPolicy extends ModelPolicy {
    */
   allowance(): Promise<ModelAllowance> {
     return Promise.resolve(this.value)
+  }
+
+  /**
+   * Never writable: this list lives in composition config, which an
+   * administration surface does not edit. An installation whose administrator
+   * changes models at runtime mounts the store-backed backend instead.
+   * @returns the read-only capability.
+   */
+  capability(): ModelPolicyCapability {
+    return Object.freeze({ writable: false })
   }
 }
 

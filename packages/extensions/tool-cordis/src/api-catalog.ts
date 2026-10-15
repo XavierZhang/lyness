@@ -1567,6 +1567,18 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         parameters: [],
         returns: 'the allowed models and the authority that decided them.',
       },
+      {
+        signature: 'abstract capability(): ModelPolicyCapability',
+        description: 'Whether this backend accepts a save, and whose administrators may make one.\n\nStated rather than discovered by failing, because an administration surface should show or hide saving instead of offering a button that always errors.',
+        parameters: [],
+        returns: 'the backend\'s save capability.',
+      },
+      {
+        signature: 'save(input: ModelAllowanceInput, by: Membership): Promise<void>',
+        description: 'Replace the allowance, on behalf of one standing.\n\nThe standing is a parameter rather than ambient state so the authority check lives with the write. An authorization check in a surface or an RPC handler is bypassed by the next caller — a maintenance task, a CLI, a setup wizard — while one here cannot be.\n\nA read-only backend refuses every save; the default implementation is that refusal, so a backend opts into writing rather than inheriting it.',
+        parameters: [{ name: 'input', description: 'the replacement allowance.' }, { name: 'by', description: 'the standing requesting the change.' }],
+        throws: ['{Error} when the backend is read-only or the standing may not administer it.'],
+      },
     ],
   },
   {
@@ -5940,6 +5952,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export interface ModelAllowance {\n    readonly allowed: readonly AllowedModel[];\n    readonly authority: string;\n}',
   },
   {
+    name: 'ModelAllowanceInput',
+    declaration: 'export interface ModelAllowanceInput {\n    readonly allowed: readonly AllowedModel[];\n    readonly authority?: string | undefined;\n}',
+  },
+  {
     name: 'ModelCatalog',
     declaration: 'export interface ModelCatalog {\n    readonly default: ModelSelection;\n    readonly routableProviders: readonly string[];\n    readonly groups: readonly ModelProviderGroup[];\n    readonly failures: readonly ModelCatalogFailure[];\n}',
   },
@@ -5966,6 +5982,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'ModelModalityMap',
     declaration: 'export interface ModelModalityMap {\n    text: \'text\';\n    image: \'image\';\n}',
+  },
+  {
+    name: 'ModelPolicyCapability',
+    declaration: 'export interface ModelPolicyCapability {\n    readonly writable: boolean;\n    readonly organization?: string | undefined;\n}',
   },
   {
     name: 'ModelProviderGroup',

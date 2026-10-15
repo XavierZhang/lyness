@@ -25,3 +25,27 @@ export interface ModelAllowance {
    */
   readonly authority: string
 }
+
+/** Whether a policy backend accepts a save, and who may make one. */
+export interface ModelPolicyCapability {
+  /**
+   * Whether this backend can be saved to at all.
+   *
+   * Stated rather than discovered by failing, so an administration surface
+   * shows or hides saving instead of offering a button that always errors.
+   */
+  readonly writable: boolean
+  /**
+   * The organization whose administrators may save, or absent when only a
+   * platform administrator may.
+   */
+  readonly organization?: string | undefined
+}
+
+/** A replacement allowance an administrator submits. */
+export interface ModelAllowanceInput {
+  /** Models an authorized user may use; empty is refused. */
+  readonly allowed: readonly AllowedModel[]
+  /** Who to name in a refusal; the backend keeps its current value when absent. */
+  readonly authority?: string | undefined
+}

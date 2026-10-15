@@ -465,7 +465,6 @@ flowchart TD
   subgraph group_workspace["packages/workspace"]
     pkg_workspace["workspace"]
   end
-  pkg_model_policy --> pkg_llm
   pkg_model_required --> pkg_cmdline
   pkg_model_required --> pkg_llm
   pkg_scope --> pkg_invariants
@@ -492,6 +491,9 @@ flowchart TD
   pkg_subprocess --> pkg_http_proxy
   pkg_remote_mock --> pkg_typert_protocol
   pkg_typert_loader --> pkg_typert_registry
+  pkg_model_policy --> pkg_llm
+  pkg_model_policy --> pkg_people
+  pkg_model_policy --> pkg_storage_domain
   pkg_session --> pkg_scope
   pkg_system_prompt --> pkg_invariants
   pkg_system_prompt --> pkg_llm
@@ -1558,7 +1560,6 @@ flowchart TD
 | [`typert-generator`](../packages/typert/generator) | `typert` | — |
 | [`typert-protocol`](../packages/typert/protocol) | `typert` | — |
 | [`typert-registry`](../packages/typert/registry) | `typert` | — |
-| [`model-policy`](../packages/llm/model-policy) | `llm` | [`llm`](../packages/llm/llm) |
 | [`model-required`](../packages/llm/model-required) | `llm` | [`cmdline`](../packages/boot/cmdline), [`llm`](../packages/llm/llm) |
 | [`scope`](../packages/core/scope) | `core` | [`invariants`](../packages/runtime-diagnostics/invariants) |
 | [`web`](../packages/web/web) | `web` | [`llm`](../packages/llm/llm) |
@@ -1577,6 +1578,7 @@ flowchart TD
 | [`subprocess`](../packages/subprocess/subprocess) | `subprocess` | [`http-proxy`](../packages/util/http-proxy) |
 | [`remote-mock`](../packages/test-support/remote-mock) | `test-support` | [`typert-protocol`](../packages/typert/protocol) |
 | [`typert-loader`](../packages/typert/loader) | `typert` | [`typert-registry`](../packages/typert/registry) |
+| [`model-policy`](../packages/llm/model-policy) | `llm` | [`llm`](../packages/llm/llm), [`people`](../packages/identity/people), [`storage-domain`](../packages/storage/storage-domain) |
 | [`session`](../packages/core/session) | `core` | [`scope`](../packages/core/scope) |
 | [`system-prompt`](../packages/core/system-prompt) | `core` | [`invariants`](../packages/runtime-diagnostics/invariants), [`llm`](../packages/llm/llm), [`scope`](../packages/core/scope) |
 | [`skill`](../packages/skill/skill) | `skill` | [`llm`](../packages/llm/llm), [`scope`](../packages/core/scope) |

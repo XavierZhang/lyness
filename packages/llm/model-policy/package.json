@@ -31,7 +31,15 @@
       "default": "./lib/types/static.js"
     },
     "./src/*": "./src/*",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./store": {
+      "types": "./lib/types/store.d.ts",
+      "default": "./lib/types/store.js"
+    },
+    "./storage": {
+      "types": "./lib/types/storage.d.ts",
+      "default": "./lib/types/storage.js"
+    }
   },
   "files": [
     "lib/index.js",
@@ -40,14 +48,21 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@lyness/schemastery": "workspace:~"
+    "@lyness/schemastery": "workspace:~",
+    "zod": "^4.4.3"
   },
   "peerDependencies": {
     "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-llm": "workspace:*"
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-people": "workspace:*",
+    "@lyness/lyn-storage-domain": "workspace:*"
   },
   "devDependencies": {
     "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-llm": "workspace:*"
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-people": "workspace:*",
+    "@lyness/lyn-storage-domain": "workspace:*",
+    "@lyness/lyn-storage": "workspace:*",
+    "@lyness/lyn-storage-json": "workspace:*"
   }
 }

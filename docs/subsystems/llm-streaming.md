@@ -1094,6 +1094,33 @@ Abstract policy store. Subclass and implement allowance for one source of truth;
  * @returns the allowed models and the authority that decided them.
  */
 abstract allowance(): Promise<ModelAllowance>
+
+/**
+ * Whether this backend accepts a save, and whose administrators may make
+ * one.
+ *
+ * Stated rather than discovered by failing, because an administration
+ * surface should show or hide saving instead of offering a button that
+ * always errors.
+ * @returns the backend's save capability.
+ */
+abstract capability(): ModelPolicyCapability
+
+/**
+ * Replace the allowance, on behalf of one standing.
+ *
+ * The standing is a parameter rather than ambient state so the authority
+ * check lives with the write. An authorization check in a surface or an RPC
+ * handler is bypassed by the next caller — a maintenance task, a CLI, a
+ * setup wizard — while one here cannot be.
+ *
+ * A read-only backend refuses every save; the default implementation is
+ * that refusal, so a backend opts into writing rather than inheriting it.
+ * @param input - the replacement allowance.
+ * @param by - the standing requesting the change.
+ * @throws {Error} when the backend is read-only or the standing may not administer it.
+ */
+save(input: ModelAllowanceInput, by: Membership): Promise<void>
 ```
 
 Source: [`packages/llm/model-policy/src/index.ts`](../../packages/llm/model-policy/src/index.ts)

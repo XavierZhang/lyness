@@ -862,6 +862,8 @@ export const TYPE_LINK_EXEMPTIONS: Readonly<Record<string, string>> = {
   PatchOptions: 'Include patch entries are owned by vendor/include (vendored upstream)',
   McpResourceProvider: 'scoped resource provider is owned by packages/mcp/mcp-resources/README.md',
   ModelAllowance: 'allowed models and the deciding authority are owned by packages/llm/model-policy/README.md',
+  ModelPolicyCapability: 'whether a policy backend accepts a save is owned by packages/llm/model-policy/README.md',
+  ModelAllowanceInput: 'a replacement allowance an administrator submits is owned by packages/llm/model-policy/README.md',
   Person: 'one person, independent of any organization, is owned by packages/identity/people/README.md',
   PersonId: 'the opaque stable identity of a person is owned by packages/identity/people/README.md',
   Membership: 'the standing one person holds in one organization is owned by packages/identity/people/README.md',

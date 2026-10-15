@@ -350,6 +350,8 @@
       "@lyness/lyn-people/static": ["./packages/identity/people/src/static.ts"],
       "@lyness/lyn-people/types": ["./packages/identity/people/src/types.ts"],
       "@lyness/lyn-model-policy/static": ["./packages/llm/model-policy/src/static.ts"],
+      "@lyness/lyn-model-policy/store": ["./packages/llm/model-policy/src/store.ts"],
+      "@lyness/lyn-model-policy/storage": ["./packages/llm/model-policy/src/storage.ts"],
       "@lyness/lyn-model-policy/types": ["./packages/llm/model-policy/src/types.ts"],
       "@lyness/lyn-tool-present/preset-contribution": ["./packages/deliverables/tool-present/src/preset-contribution.ts"],
       "@lyness/lyn-memory/tools": ["./packages/memory/memory/src/tools.ts"],
