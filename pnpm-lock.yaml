@@ -9601,6 +9601,42 @@ importers:
         specifier: workspace:*
         version: link:../../storage/storage-json
 
+  packages/identity/sign-in-http:
+    dependencies:
+      '@lyness/schemastery':
+        specifier: link:../../../vendor/schemastery
+        version: link:../../../vendor/schemastery
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+      '@lyness/lyn-auth-session':
+        specifier: workspace:*
+        version: link:../auth-session
+      '@lyness/lyn-brand':
+        specifier: workspace:*
+        version: link:../../util/brand
+      '@lyness/lyn-host-webserver':
+        specifier: workspace:*
+        version: link:../../host/webserver
+      '@lyness/lyn-people':
+        specifier: workspace:*
+        version: link:../people
+      '@lyness/lyn-sign-in':
+        specifier: workspace:*
+        version: link:../sign-in
+      '@lyness/lyn-storage':
+        specifier: workspace:*
+        version: link:../../storage/storage
+      '@lyness/lyn-storage-domain':
+        specifier: workspace:*
+        version: link:../../storage/storage-domain
+      '@lyness/lyn-storage-json':
+        specifier: workspace:*
+        version: link:../../storage/storage-json
+      '@lyness/lyn-util-values':
+        specifier: workspace:*
+        version: link:../../util/values
   packages/interaction/commands:
     dependencies:
       '@lyness/lyn-util-crypto':

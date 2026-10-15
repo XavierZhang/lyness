@@ -524,6 +524,7 @@
       "@lyness/lyn-settings": ["./packages/settings/settings/src"],
       "@lyness/lyn-shell": ["./packages/shell/shell/src"],
       "@lyness/lyn-sign-in": ["./packages/identity/sign-in/src"],
+      "@lyness/lyn-sign-in-http": ["./packages/identity/sign-in-http/src"],
       "@lyness/lyn-skill": ["./packages/skill/skill/src"],
       "@lyness/lyn-skill-badge": ["./packages/skill/skill-badge/src"],
       "@lyness/lyn-skill-filesystem": ["./packages/skill/skill-filesystem/src"],

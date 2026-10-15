@@ -282,6 +282,7 @@
     { "path": "./packages/identity/auth-session" },
     { "path": "./packages/identity/request-principal" },
     { "path": "./packages/identity/sign-in" },
+    { "path": "./packages/identity/sign-in-http" },
     { "path": "./packages/credits/credits" },
     { "path": "./packages/llm/deepseek-llm-api-extensions" },
     { "path": "./packages/llm/token-meter" },

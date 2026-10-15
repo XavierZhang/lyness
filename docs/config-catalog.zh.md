@@ -2955,6 +2955,40 @@ export interface Config {
 ```
 <!-- END GENERATED config-catalog:@lyness/lyn-sign-in -->
 
+<!-- BEGIN GENERATED config-catalog:@lyness/lyn-sign-in-http -->
+<a id="lynesslyn-sign-in-http"></a>
+
+## `@lyness/lyn-sign-in-http`
+
+- `inject`: `signIn` · `authSessions` · `webServer`
+- `source`: [`packages/identity/sign-in-http/src/index.ts:55`](../packages/identity/sign-in-http/src/index.ts)
+
+```ts config-catalog
+/** Deployment-owned facts about being served over HTTP. */
+export interface Config {
+  /**
+   * The origin a browser reaches this deployment at, with no trailing slash.
+   *
+   * Required, because the Host cannot know it: behind a proxy the request's
+   * own `Host` is the proxy's, and the address a directory returns to has to
+   * be the one in the app registration. Guessing it wrong makes every
+   * sign-in fail at the directory, with the directory doing the complaining.
+   */
+  publicOrigin: string
+  /**
+   * Whether that origin is served over TLS, which decides the cookies' `Secure`.
+   *
+   * Required and not defaulted either way: `true` silently breaks a
+   * plain-HTTP development install, and `false` silently ships a session
+   * cookie that travels in the clear. A deployment states which it is.
+   */
+  secureCookies: boolean
+  /** Where a completed sign-in sends the browser. Defaults to the application root. */
+  landingPath?: string
+}
+```
+<!-- END GENERATED config-catalog:@lyness/lyn-sign-in-http -->
+
 <!-- BEGIN GENERATED config-catalog:@lyness/lyn-skill -->
 <a id="lynesslyn-skill"></a>
 

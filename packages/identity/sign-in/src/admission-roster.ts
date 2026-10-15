@@ -94,6 +94,8 @@ export function indexBindings(bindings: readonly BindingEntry[]): ReadonlyMap<st
 
 /** Admits the directory identities an operator wrote down, and no others. */
 export class RosterAdmission extends SignInAdmission {
+  static readonly Config = Config
+
   private readonly bound: ReadonlyMap<string, PersonId>
 
   /**

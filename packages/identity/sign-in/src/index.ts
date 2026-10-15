@@ -163,6 +163,8 @@ export type SignInChannel = SelfDrivenChannel | RedirectChannel
  * at all rather than one that admits everybody.
  */
 export class SignIn extends Service {
+  static readonly Config = Config
+
   static inject = ['authSessions', 'signInAdmission']
 
   private readonly channels = new Map<ChannelId, SignInChannel>()
