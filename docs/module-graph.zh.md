@@ -316,6 +316,7 @@ flowchart TD
   subgraph group_identity["packages/identity"]
     pkg_acting_context["acting-context"]
     pkg_anonymous_user_id["anonymous-user-id"]
+    pkg_auth_session["auth-session"]
     pkg_people["people"]
   end
   subgraph group_interaction["packages/interaction"]
@@ -531,6 +532,10 @@ flowchart TD
   pkg_credits --> pkg_util_crypto
   pkg_experimental_computer_use_cua_driver_mcp --> pkg_computer_use
   pkg_acting_context --> pkg_people
+  pkg_auth_session --> pkg_brand
+  pkg_auth_session --> pkg_people
+  pkg_auth_session --> pkg_storage_domain
+  pkg_auth_session --> pkg_util_crypto
   pkg_sandbox_windows_acl --> pkg_subprocess
   pkg_subprocess_local --> pkg_subprocess
   pkg_subprocess_local --> pkg_timeout
@@ -1605,6 +1610,7 @@ flowchart TD
 | [`credits`](../packages/credits/credits) | `credits` | [`brand`](../packages/util/brand), [`llm`](../packages/llm/llm), [`people`](../packages/identity/people), [`storage-domain`](../packages/storage/storage-domain), [`util-crypto`](../packages/util/crypto) |
 | [`experimental-computer-use-cua-driver-mcp`](../packages/experimental/computer-use-cua-driver-mcp) | `experimental` | [`computer-use`](../packages/computer-use/computer-use) |
 | [`acting-context`](../packages/identity/acting-context) | `identity` | [`people`](../packages/identity/people) |
+| [`auth-session`](../packages/identity/auth-session) | `identity` | [`brand`](../packages/util/brand), [`people`](../packages/identity/people), [`storage-domain`](../packages/storage/storage-domain), [`util-crypto`](../packages/util/crypto) |
 | [`sandbox-windows-acl`](../packages/sandbox/sandbox-windows-acl) | `sandbox` | [`subprocess`](../packages/subprocess/subprocess) |
 | [`subprocess-local`](../packages/subprocess/subprocess-local) | `subprocess` | [`subprocess`](../packages/subprocess/subprocess), [`timeout`](../packages/util/timeout) |
 | [`skill-badge`](../packages/skill/skill-badge) | `skill` | [`skill`](../packages/skill/skill) |

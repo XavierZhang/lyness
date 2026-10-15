@@ -136,6 +136,58 @@ async resolve(claim: ActingContextClaim): Promise<ActingContext>
 
 Source: [`packages/identity/acting-context/src/index.ts`](../../packages/identity/acting-context/src/index.ts)
 
+<a id="ctxauthsessions--authsessionstore-abstract-seam"></a>
+
+### `ctx.authSessions` — `AuthSessionStore` (abstract seam)
+
+Abstract store of signed-in sessions. Subclass and implement the four operations for one source of truth; a deployment mounts exactly one.
+
+```ts cordis-catalog
+/**
+ * Establish a session for a person who has just proved who they are.
+ *
+ * The session opens on that person's personal context rather than on a
+ * membership, because opening on a standing would be the guess this design
+ * exists to avoid — even when the person holds exactly one.
+ * @param request - who signed in, how, and for how long.
+ * @returns the established session.
+ */
+abstract establish(request: EstablishRequest): Promise<SignedInSession>
+
+/**
+ * Read one session by its bearer identity.
+ * @param id - the bearer identity presented by a caller.
+ * @returns the session.
+ * @throws {SessionUnavailable} when no session carries that identity, or it has lapsed.
+ */
+abstract read(id: AuthSessionId): Promise<SignedInSession>
+
+/**
+ * Change the context one session acts in.
+ *
+ * The new context is checked before it is stored, so a session can never
+ * hold a context its person may not act in — which would turn one bad
+ * switch into every later call being wrong.
+ * @param id - the session to change.
+ * @param acting - the context to put in force, already checked.
+ * @returns the session with its new context.
+ * @throws {SessionUnavailable} when no session carries that identity, or it has lapsed.
+ */
+abstract switchContext(id: AuthSessionId, acting: ActingContext): Promise<SignedInSession>
+
+/**
+ * End one session.
+ *
+ * Ending a session ends the bearer credential, not the identity: the person
+ * still exists and still holds every standing they held.
+ * @param id - the session to end.
+ * @returns true when a session was ended, false when none carried that identity.
+ */
+abstract revoke(id: AuthSessionId): Promise<boolean>
+```
+
+Source: [`packages/identity/auth-session/src/index.ts`](../../packages/identity/auth-session/src/index.ts)
+
 <a id="ctxcredits--creditledger-abstract-seam"></a>
 
 ### `ctx.credits` — `CreditLedger` (abstract seam)

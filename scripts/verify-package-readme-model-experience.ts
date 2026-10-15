@@ -64,6 +64,7 @@ const SENTENCE_MODEL_EXPERIENCE: Readonly<Record<string, SentenceContract>> = {
   'packages/identity/people': { kind: 'none', reason: 'A Host directory answers who a caller is; it registers no tool, prompt, or Session event.' },
   'packages/identity/acting-context': { kind: 'none', reason: 'A Host authorization check answers whether a declared context is permitted; it registers nothing model-facing.' },
   'packages/credits/credits': { kind: 'none', reason: 'A Host ledger meters an allowance; it registers no tool, prompt, or Session event.' },
+  'packages/identity/auth-session': { kind: 'none', reason: 'A Host store holds authentication state; it registers no tool, prompt, or Session event.' },
   'packages/api/terminal-controller': { kind: 'none', reason: 'User-owned terminal processes and screen streams never enter model requests or Session events.' },
   'packages/client/ui-sidebar-terminal': { kind: 'none', reason: 'The browser renders user terminal screens without exposing them to the model.' },
   'packages/ssh/ssh': { kind: 'none', reason: 'The connection owner transports private provider operations; consumers own all model-facing content.' },

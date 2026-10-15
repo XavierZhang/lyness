@@ -58,6 +58,9 @@ flowchart LR
   pkg_credits_enforce["credits/enforce"]
   svc_credits["ctx.credits<br/>The allowance a hosted deployment meters"]
   pkg_credits_store["credits/store"]
+  pkg_auth_session["auth-session"]
+  svc_authSessions["ctx.authSessions<br/>Signed-in sessions"]
+  pkg_auth_session_store["auth-session/store"]
   pkg_acting_context["acting-context"]
   svc_actingContext["ctx.actingContext<br/>The context one call acts in"]
   pkg_people["people"]
@@ -322,6 +325,8 @@ flowchart LR
   pkg_app_boot --> svc_profileContext
   pkg_attachment --> svc_attachments
   pkg_attachment_local --> svc_attachments
+  pkg_auth_session --> svc_authSessions
+  pkg_auth_session_store --> svc_authSessions
   pkg_authorization --> svc_authorization
   pkg_bash_local --> svc_shell
   pkg_bash_sandbox --> svc_shell
@@ -637,6 +642,7 @@ flowchart LR
 | `ctx.modelPolicy` | `seam` | [`model-policy`](../packages/llm/model-policy) | `model-policy/static` | `model-policy/enforce` | - | A deployment states which models a request may use; enforcement rides the llm/stream waterfall, so a preset row or direct RPC cannot bypass it. |
 | `ctx.creditSubject` | `seam` | [`credits`](../packages/credits/credits) | - | `credits/enforce` | - | A streaming call carries a route and messages, not a person; without a provider here enforcement stays inactive rather than metering nothing in silence. |
 | `ctx.credits` | `seam` | [`credits`](../packages/credits/credits) | `credits/store` | - | - | A ledger of grants and debits whose sum is the balance; a spend it cannot cover is refused rather than overdrawn. |
+| `ctx.authSessions` | `seam` | [`auth-session`](../packages/identity/auth-session) | `auth-session/store` | - | - | Holds what sign-in produced: a session belongs to a person, and the context in force is server-side state changed only by an explicit switch. |
 | `ctx.actingContext` | `core` | [`acting-context`](../packages/identity/acting-context) | - | - | - | Decides whether a declared context is stated, held by the caller, and permitted by the address; the one place that rule lives. |
 | `ctx.people` | `seam` | [`people`](../packages/identity/people) | `people/static` | - | - | Reports who a caller is and which of three roles their standing carries; each operation authorizes itself against that role rather than asking the directory to decide. |
 | `ctx.deepseekLlmApiExtensions` | `seam` | [`deepseek-llm-api-extensions`](../packages/llm/deepseek-llm-api-extensions) | [`session-log-deepseek`](../packages/session/session-log-deepseek), [`plugin-package-inventory-deepseek`](../packages/llm/plugin-package-inventory-deepseek) | [`llm-deepseek`](../packages/llm/llm-deepseek) | - | Plugins prepare independent top-level fields; the official adapter merges them and commits their delivery state after HTTP acceptance. |

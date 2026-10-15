@@ -1,0 +1,37 @@
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write packages/identity/auth-session/README.md
+/:
+  en: a378f3810fa29fc7
+  zh: d8a73ab58f861747
+/lyness-lyn-auth-session:
+  en: f9899e694d9cb436
+  zh: 3d97b9b64dbdd348
+/lyness-lyn-auth-session/summary:
+  en: 689bd2a251d9af4a
+  zh: 1543ca2657f376dd
+/lyness-lyn-auth-session/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-auth-session/use-this-package:
+  en: 6da85a43e3678230
+  zh: 0ed948f612159290
+/lyness-lyn-auth-session/understand-the-implementation:
+  en: 11de7d8c4fded882
+  zh: 37b1b06229569964
+/lyness-lyn-auth-session/further-exploration:
+  en: b3067e9c518b83b6
+  zh: ffc39d79ddcde116
+/lyness-lyn-auth-session/model-experience:
+  en: c8c7ae6570cd87f8
+  zh: dfe6c303b5f66e5a
+/lyness-lyn-auth-session/model-experience/kv-cache-effect:
+  en: 40747b6e2a1c3919
+  zh: 6752122b6ca796ef
+/lyness-lyn-auth-session/known-limitations-and-deferred-work:
+  en: ab6741562721cf10
+  zh: 623d9688faa039d2
+/lyness-lyn-auth-session/known-limitations-and-deferred-work/dev-note:
+  en: 55f2a82931357d0b
+  zh: 3b8ee77710abcb95

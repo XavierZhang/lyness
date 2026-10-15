@@ -233,6 +233,15 @@ const SERVICE_ROLES: ServiceRole[] = [
     note: 'A ledger of grants and debits whose sum is the balance; a spend it cannot cover is refused rather than overdrawn.',
   },
   {
+    key: 'authSessions',
+    pkg: 'auth-session',
+    title: 'Signed-in sessions',
+    mode: 'seam',
+    implementations: ['auth-session/store'],
+    consumers: [],
+    note: 'Holds what sign-in produced: a session belongs to a person, and the context in force is server-side state changed only by an explicit switch.',
+  },
+  {
     key: 'actingContext',
     pkg: 'acting-context',
     title: 'The context one call acts in',

@@ -4666,6 +4666,7 @@ Abstract service classes — a deployment loads a concrete implementation packag
 | `package` | `class` | `inject` | `source` |
 | --- | --- | --- | --- |
 | `@lyness/lyn-attachment` | `AttachmentStore` | — | [`packages/attachment/attachment/src/index.ts`](../packages/attachment/attachment/src/index.ts) |
+| `@lyness/lyn-auth-session` | `AuthSessionStore` | — | [`packages/identity/auth-session/src/index.ts`](../packages/identity/auth-session/src/index.ts) |
 | `@lyness/lyn-compaction` | `CompactionEngine` | — | [`packages/compaction/compaction/src/index.ts`](../packages/compaction/compaction/src/index.ts) |
 | `@lyness/lyn-credentials` | `CredentialProvider` | — | [`packages/credentials/credentials/src/index.ts`](../packages/credentials/credentials/src/index.ts) |
 | `@lyness/lyn-credits` | `CreditLedger` | — | [`packages/credits/credits/src/index.ts`](../packages/credits/credits/src/index.ts) |

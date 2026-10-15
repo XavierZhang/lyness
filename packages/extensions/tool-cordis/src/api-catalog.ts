@@ -564,6 +564,39 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
     ],
   },
   {
+    key: 'authSessions',
+    summary: 'Abstract store of signed-in sessions.',
+    description: 'Abstract store of signed-in sessions. Subclass and implement the four operations for one source of truth; a deployment mounts exactly one.',
+    methods: [
+      {
+        signature: 'abstract establish(request: EstablishRequest): Promise<SignedInSession>',
+        description: 'Establish a session for a person who has just proved who they are.\n\nThe session opens on that person\'s personal context rather than on a membership, because opening on a standing would be the guess this design exists to avoid — even when the person holds exactly one.',
+        parameters: [{ name: 'request', description: 'who signed in, how, and for how long.' }],
+        returns: 'the established session.',
+      },
+      {
+        signature: 'abstract read(id: AuthSessionId): Promise<SignedInSession>',
+        description: 'Read one session by its bearer identity.',
+        parameters: [{ name: 'id', description: 'the bearer identity presented by a caller.' }],
+        returns: 'the session.',
+        throws: ['{SessionUnavailable} when no session carries that identity, or it has lapsed.'],
+      },
+      {
+        signature: 'abstract switchContext(id: AuthSessionId, acting: ActingContext): Promise<SignedInSession>',
+        description: 'Change the context one session acts in.\n\nThe new context is checked before it is stored, so a session can never hold a context its person may not act in — which would turn one bad switch into every later call being wrong.',
+        parameters: [{ name: 'id', description: 'the session to change.' }, { name: 'acting', description: 'the context to put in force, already checked.' }],
+        returns: 'the session with its new context.',
+        throws: ['{SessionUnavailable} when no session carries that identity, or it has lapsed.'],
+      },
+      {
+        signature: 'abstract revoke(id: AuthSessionId): Promise<boolean>',
+        description: 'End one session.\n\nEnding a session ends the bearer credential, not the identity: the person still exists and still holds every standing they held.',
+        parameters: [{ name: 'id', description: 'the session to end.' }],
+        returns: 'true when a session was ended, false when none carried that identity.',
+      },
+    ],
+  },
+  {
     key: 'browserUse',
     summary: 'Owns one optional provider registration in the shared browser-use service.',
     description: 'Owns one optional provider registration in the shared browser-use service.',
@@ -4847,6 +4880,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export type AuthorizationStatus = \'authorized\' | \'cancelled\';',
   },
   {
+    name: 'AuthSessionId',
+    declaration: 'export type AuthSessionId = Branded<\'AuthSessionId\'>;',
+  },
+  {
     name: 'BackendRegistry',
     declaration: 'export class BackendRegistry {\n    register(name: string, backend: StorageBackend): () => void;\n    get(name: string): StorageBackend;\n    names(): string[];\n}',
   },
@@ -5361,6 +5398,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'EpochHeader',
     declaration: 'export interface EpochHeader {\n    config: LlmCallConfig;\n    adapterDefaults?: LlmCallConfigAdapterDefaults;\n    tools?: ToolSchema[];\n    system?: never;\n}',
+  },
+  {
+    name: 'EstablishRequest',
+    declaration: 'export interface EstablishRequest {\n    readonly person: PersonId;\n    readonly method: string;\n    readonly lifetimeMs?: number | undefined;\n}',
   },
   {
     name: 'EveryScheduleRecord',
@@ -7289,6 +7330,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'ShellSandboxInfo',
     declaration: 'export interface ShellSandboxInfo {\n    mode: SandboxMode;\n    denied: boolean;\n    enforcement?: SandboxEnforcement;\n    runnerFailed?: boolean;\n}',
+  },
+  {
+    name: 'SignedInSession',
+    declaration: 'export interface SignedInSession {\n    readonly id: AuthSessionId;\n    readonly person: PersonId;\n    readonly acting: ActingContext;\n    readonly establishedAt: string;\n    readonly expiresAt?: string | undefined;\n    readonly method: string;\n}',
   },
   {
     name: 'SignInAttemptId',
