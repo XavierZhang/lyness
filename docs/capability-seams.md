@@ -60,6 +60,9 @@ flowchart LR
   pkg_credits_store["credits/store"]
   svc_creditAdministration["ctx.creditAdministration<br/>Administrator credit decisions"]
   pkg_credits_administration["credits/administration"]
+  pkg_desktop_link["desktop-link"]
+  svc_desktopLink["ctx.desktopLink<br/>The link to a person own machine"]
+  pkg_desktop_link_controller["desktop-link/controller"]
   pkg_announcements["announcements"]
   svc_announcements["ctx.announcements<br/>What a deployment tells the people using it"]
   pkg_announcements_static["announcements/static"]
@@ -369,6 +372,7 @@ flowchart LR
   pkg_deepseek_account --> svc_deepseekAccount
   pkg_deepseek_account_platform --> svc_deepseekAccount
   pkg_deepseek_llm_api_extensions --> svc_deepseekLlmApiExtensions
+  pkg_desktop_link --> svc_desktopLink
   pkg_experimental_agent_team --> svc_agentTeams
   pkg_experimental_api_speech_to_text --> svc_speechController
   pkg_experimental_browser_use_chrome_devtools_mcp --> svc_browserUse
@@ -528,6 +532,7 @@ flowchart LR
   svc_deepseekAccount --> pkg_api_account_controller
   svc_deepseekAccount --> pkg_llm_deepseek
   svc_deepseekLlmApiExtensions --> pkg_llm_deepseek
+  svc_desktopLink --> pkg_desktop_link_controller
   svc_directoryPicker --> pkg_api_workspace_controller
   svc_dynamicCordisRunner --> pkg_tool_cordis
   svc_fileReferences --> pkg_api_session_controller
@@ -668,6 +673,7 @@ flowchart LR
 | `ctx.creditSubject` | `seam` | [`credits`](../packages/credits/credits) | - | `credits/enforce` | - | A streaming call carries a route and messages, not a person; without a provider here enforcement stays inactive rather than metering nothing in silence. |
 | `ctx.credits` | `seam` | [`credits`](../packages/credits/credits) | `credits/store` | - | - | A ledger of grants and debits whose sum is the balance; a spend it cannot cover is refused rather than overdrawn. |
 | `ctx.creditAdministration` | `core` | [`credits`](../packages/credits/credits) | `credits/administration` | `credits/store` | - | Grants and allowance overrides, each authorized against the standing that makes it; the ledger reads the overrides back. |
+| `ctx.desktopLink` | `core` | [`desktop-link`](../packages/api/desktop-link) | [`desktop-link`](../packages/api/desktop-link) | `desktop-link/controller` | - | One authenticated channel per signed-in person, carrying Host-to-desktop work over the Remote stream the desktop opened. |
 | `ctx.announcements` | `seam` | [`announcements`](../packages/host/announcements) | `announcements/static` | [`api-announcement-controller`](../packages/api/announcement-controller) | - | Release notes and notices the deployment publishes, newest first; each carries the release it describes rather than the service reporting one current version. |
 | `ctx.signIn` | `seam` | [`sign-in`](../packages/identity/sign-in) | [`sign-in`](../packages/identity/sign-in) | - | - | A channel verifies who someone is at their directory, the admission rule says who that is here, and a session is established for that person. |
 | `ctx.signInAdmission` | `seam` | [`sign-in`](../packages/identity/sign-in) | `sign-in/admission-roster` | [`sign-in`](../packages/identity/sign-in) | - | Authentication and admission are two decisions; a deployment mounting no rule signs nobody in. |

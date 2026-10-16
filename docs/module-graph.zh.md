@@ -131,6 +131,7 @@ flowchart TD
     pkg_api_terminal_controller["api-terminal-controller"]
     pkg_api_workspace_controller["api-workspace-controller"]
     pkg_api_workspace_files["api-workspace-files"]
+    pkg_desktop_link["desktop-link"]
   end
   subgraph group_attachment["packages/attachment"]
     pkg_attachment["attachment"]
@@ -593,6 +594,11 @@ flowchart TD
   pkg_api_tenant_controller --> pkg_tenant_config
   pkg_api_tenant_controller --> pkg_tenant_request
   pkg_api_tenant_controller --> pkg_typert_protocol
+  pkg_desktop_link --> pkg_brand
+  pkg_desktop_link --> pkg_people
+  pkg_desktop_link --> pkg_request_principal
+  pkg_desktop_link --> pkg_typert_protocol
+  pkg_desktop_link --> pkg_util_values
   pkg_hmr --> pkg_app_boot
   pkg_hmr --> pkg_cmdline
   pkg_credits --> pkg_brand
@@ -1661,6 +1667,7 @@ flowchart TD
 | [`spill-local`](../packages/spill/spill-local) | `spill` | [`spill`](../packages/spill/spill) |
 | [`session-log-export`](../packages/session-query/session-log-export) | `session-query` | [`session`](../packages/core/session), [`session-persistence`](../packages/session/session-persistence) |
 | [`api-tenant-controller`](../packages/api/tenant-controller) | `api` | [`tenant`](../packages/tenant/tenant), [`tenant-config`](../packages/tenant/tenant-config), [`tenant-request`](../packages/tenant/tenant-request), [`typert-protocol`](../packages/typert/protocol) |
+| [`desktop-link`](../packages/api/desktop-link) | `api` | [`brand`](../packages/util/brand), [`people`](../packages/identity/people), [`request-principal`](../packages/identity/request-principal), [`typert-protocol`](../packages/typert/protocol), [`util-values`](../packages/util/values) |
 | [`hmr`](../packages/boot/hmr) | `boot` | [`app-boot`](../packages/boot/app-boot), [`cmdline`](../packages/boot/cmdline) |
 | [`credits`](../packages/credits/credits) | `credits` | [`brand`](../packages/util/brand), [`llm`](../packages/llm/llm), [`people`](../packages/identity/people), [`request-principal`](../packages/identity/request-principal), [`storage-domain`](../packages/storage/storage-domain), [`util-crypto`](../packages/util/crypto) |
 | [`experimental-speech-to-text`](../packages/experimental/speech-to-text) | `experimental` | [`settings`](../packages/settings/settings) |

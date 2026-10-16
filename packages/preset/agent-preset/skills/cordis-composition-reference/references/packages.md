@@ -25,6 +25,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@lyness/lyn-api-terminal-controller` | yes | Session-owned interactive terminals with shell discovery, screen recovery and typed Remote control |
 | `@lyness/lyn-api-workspace-controller` | yes | Workspace Remote commands and reconnect-safe state transport |
 | `@lyness/lyn-api-workspace-files` | yes | Workspace file service and Client resource provider: bounded reads, directory listing, and live metadata over the workspaceFiles Remote namespace |
+| `@lyness/lyn-desktop-link` | no | The Host-to-desktop link: one authenticated channel per signed-in person, and the executor that answers on it |
 
 ## attachment
 

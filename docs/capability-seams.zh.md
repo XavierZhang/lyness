@@ -62,6 +62,9 @@ flowchart LR
   pkg_credits_store["credits/store"]
   svc_creditAdministration["ctx.creditAdministration<br/>Administrator credit decisions"]
   pkg_credits_administration["credits/administration"]
+  pkg_desktop_link["desktop-link"]
+  svc_desktopLink["ctx.desktopLink<br/>The link to a person own machine"]
+  pkg_desktop_link_controller["desktop-link/controller"]
   pkg_announcements["announcements"]
   svc_announcements["ctx.announcements<br/>What a deployment tells the people using it"]
   pkg_announcements_static["announcements/static"]
@@ -371,6 +374,7 @@ flowchart LR
   pkg_deepseek_account --> svc_deepseekAccount
   pkg_deepseek_account_platform --> svc_deepseekAccount
   pkg_deepseek_llm_api_extensions --> svc_deepseekLlmApiExtensions
+  pkg_desktop_link --> svc_desktopLink
   pkg_experimental_agent_team --> svc_agentTeams
   pkg_experimental_api_speech_to_text --> svc_speechController
   pkg_experimental_browser_use_chrome_devtools_mcp --> svc_browserUse
@@ -530,6 +534,7 @@ flowchart LR
   svc_deepseekAccount --> pkg_api_account_controller
   svc_deepseekAccount --> pkg_llm_deepseek
   svc_deepseekLlmApiExtensions --> pkg_llm_deepseek
+  svc_desktopLink --> pkg_desktop_link_controller
   svc_directoryPicker --> pkg_api_workspace_controller
   svc_dynamicCordisRunner --> pkg_tool_cordis
   svc_fileReferences --> pkg_api_session_controller
@@ -670,6 +675,7 @@ flowchart LR
 | `ctx.creditSubject` | `seam` | [`credits`](../packages/credits/credits) | - | `credits/enforce` | - | 一次流式调用携带的是路由与消息，不是人；这里没有 provider 时，强制执行保持未激活，而不是无声地什么都不计量。 |
 | `ctx.credits` | `seam` | [`credits`](../packages/credits/credits) | `credits/store` | - | - | 一本赠送与扣减的账，其和即余额；覆盖不了的一次消耗会被拒绝，而不是透支。 |
 | `ctx.creditAdministration` | `core` | [`credits`](../packages/credits/credits) | `credits/administration` | `credits/store` | - | 授予与额度覆盖，每一项都针对「作出它的那个身份」被授权；账本再把这些覆盖读回去。 |
+| `ctx.desktopLink` | `core` | [`desktop-link`](../packages/api/desktop-link) | [`desktop-link`](../packages/api/desktop-link) | `desktop-link/controller` | - | 每位已签入的人一条、经过认证的通道，沿桌面自己开的那条 Remote 流承载宿主到桌面的工作。 |
 | `ctx.announcements` | `seam` | [`announcements`](../packages/host/announcements) | `announcements/static` | [`api-announcement-controller`](../packages/api/announcement-controller) | - | 部署所发布的更新日志与通知，最新在前；每一条自带它所描述的版本，而不是由服务报告某一个当前版本。 |
 | `ctx.signIn` | `seam` | [`sign-in`](../packages/identity/sign-in) | [`sign-in`](../packages/identity/sign-in) | - | - | 渠道在某人自己的目录上验证他是谁，准入规则说他在这里是谁，然后为那个人建立一个会话。 |
 | `ctx.signInAdmission` | `seam` | [`sign-in`](../packages/identity/sign-in) | `sign-in/admission-roster` | [`sign-in`](../packages/identity/sign-in) | - | 认证与准入是两个决定；一个没有挂任何规则的部署谁都签不进来。 |

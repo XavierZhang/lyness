@@ -242,6 +242,15 @@ const SERVICE_ROLES: ServiceRole[] = [
     note: 'Grants and allowance overrides, each authorized against the standing that makes it; the ledger reads the overrides back.',
   },
   {
+    key: 'desktopLink',
+    pkg: 'desktop-link',
+    title: 'The link to a person own machine',
+    mode: 'core',
+    implementations: ['desktop-link'],
+    consumers: ['desktop-link/controller'],
+    note: 'One authenticated channel per signed-in person, carrying Host-to-desktop work over the Remote stream the desktop opened.',
+  },
+  {
     key: 'announcements',
     pkg: 'announcements',
     title: 'What a deployment tells the people using it',

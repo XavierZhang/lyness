@@ -1121,6 +1121,27 @@ importers:
         specifier: workspace:*
         version: link:../../typert/protocol
 
+  packages/api/desktop-link:
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+      '@lyness/lyn-brand':
+        specifier: workspace:*
+        version: link:../../util/brand
+      '@lyness/lyn-people':
+        specifier: workspace:*
+        version: link:../../identity/people
+      '@lyness/lyn-request-principal':
+        specifier: workspace:*
+        version: link:../../identity/request-principal
+      '@lyness/lyn-typert-protocol':
+        specifier: workspace:*
+        version: link:../../typert/protocol
+      '@lyness/lyn-util-values':
+        specifier: workspace:*
+        version: link:../../util/values
+
   packages/api/gateway:
     dependencies:
       '@lyness/lyn-deque':

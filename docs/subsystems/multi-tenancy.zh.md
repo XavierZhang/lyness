@@ -298,6 +298,53 @@ abstract current(): Promise<PersonId | undefined>
 
 Source: [`packages/credits/credits/src/subject.ts`](../../packages/credits/credits/src/subject.ts)
 
+<a id="ctxdesktoplink--desktoplink"></a>
+
+### `ctx.desktopLink` — `DesktopLink`
+
+Links to signed-in people's own machines.
+
+```ts cordis-catalog
+/**
+ * Whether this person currently has a desktop connected.
+ * @param person - whose machine to ask about.
+ * @returns true while a desktop is attached for them.
+ */
+reachable(person: PersonId): boolean
+
+/**
+ * Serve one desktop: yield the work asked of it until its stream ends.
+ *
+ * One link per person, and a second connection replaces the first rather
+ * than joining it. Two machines answering for one person would make "run
+ * this command on my laptop" ambiguous, and the newest connection is the
+ * one the person is sitting at.
+ * @param person - the signed-in person this desktop belongs to.
+ * @param replies - the uplink the desktop answers on.
+ * @param signal - ends the link when the carrier does.
+ * @returns the requests this desktop should perform.
+ */
+async *serve( person: PersonId, replies: AsyncIterable<DesktopReply>, signal: AbortSignal, ): AsyncIterable<DesktopRequest>
+
+/**
+ * Ask one person's desktop to perform an operation.
+ *
+ * The result is an iterable because a call may produce many items before it
+ * finishes — a command's output arrives as it is produced, not after. A
+ * caller that wants only the final value iterates to the end.
+ * @param person - whose machine to reach.
+ * @param capability - the capability the call belongs to.
+ * @param operation - the operation within it.
+ * @param payload - the operation's arguments.
+ * @param signal - cancels the call on the desktop.
+ * @returns each item the desktop sent, then its final value.
+ * @throws {DesktopUnavailable} when no desktop is connected, the desktop is lost, or the call fails there.
+ */
+async *call( person: PersonId, capability: string, operation: string, payload: JsonValue, signal?: AbortSignal, ): AsyncIterable<JsonValue>
+```
+
+Source: [`packages/api/desktop-link/src/index.ts`](../../packages/api/desktop-link/src/index.ts)
+
 <a id="ctxpeople--peopledirectory-abstract-seam"></a>
 
 ### `ctx.people` — `PeopleDirectory` (abstract seam)

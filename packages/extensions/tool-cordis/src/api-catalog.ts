@@ -1079,6 +1079,32 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
     ],
   },
   {
+    key: 'desktopLink',
+    summary: 'Links to signed-in people\'s own machines.',
+    description: 'Links to signed-in people\'s own machines.',
+    methods: [
+      {
+        signature: 'reachable(person: PersonId): boolean',
+        description: 'Whether this person currently has a desktop connected.',
+        parameters: [{ name: 'person', description: 'whose machine to ask about.' }],
+        returns: 'true while a desktop is attached for them.',
+      },
+      {
+        signature: 'async *serve( person: PersonId, replies: AsyncIterable<DesktopReply>, signal: AbortSignal, ): AsyncIterable<DesktopRequest>',
+        description: 'Serve one desktop: yield the work asked of it until its stream ends.\n\nOne link per person, and a second connection replaces the first rather than joining it. Two machines answering for one person would make "run this command on my laptop" ambiguous, and the newest connection is the one the person is sitting at.',
+        parameters: [{ name: 'person', description: 'the signed-in person this desktop belongs to.' }, { name: 'replies', description: 'the uplink the desktop answers on.' }, { name: 'signal', description: 'ends the link when the carrier does.' }],
+        returns: 'the requests this desktop should perform.',
+      },
+      {
+        signature: 'async *call( person: PersonId, capability: string, operation: string, payload: JsonValue, signal?: AbortSignal, ): AsyncIterable<JsonValue>',
+        description: 'Ask one person\'s desktop to perform an operation.\n\nThe result is an iterable because a call may produce many items before it finishes — a command\'s output arrives as it is produced, not after. A caller that wants only the final value iterates to the end.',
+        parameters: [{ name: 'person', description: 'whose machine to reach.' }, { name: 'capability', description: 'the capability the call belongs to.' }, { name: 'operation', description: 'the operation within it.' }, { name: 'payload', description: 'the operation\'s arguments.' }, { name: 'signal', description: 'cancels the call on the desktop.' }],
+        returns: 'each item the desktop sent, then its final value.',
+        throws: ['{DesktopUnavailable} when no desktop is connected, the desktop is lost, or the call fails there.'],
+      },
+    ],
+  },
+  {
     key: 'directoryPicker',
     summary: 'Abstract directory-picking service.',
     description: 'Abstract directory-picking service. Subclass, implement `capability()`, and load the subclass as a plugin — it registers as `ctx.directoryPicker` (one implementation per context; loading a second throws, cordis\' standard duplicate-service behavior). The capability object must be stable for the service lifetime: consumers may capture it across calls.',
@@ -5039,6 +5065,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export interface BundleRowInfo {\n    rowId: string;\n    moduleName: string;\n    meta?: PluginLocalizedMeta;\n    entryId?: PluginEntryId;\n}',
   },
   {
+    name: 'CallId',
+    declaration: 'export type CallId = Branded<\'DesktopCallId\'>;',
+  },
+  {
     name: 'ChangeResult',
     declaration: 'export interface ChangeResult {\n    changed: boolean;\n    application: \'applied\' | \'restart-required\' | \'overridden\' | \'failed\' | \'cancelled\';\n    stage: \'install\' | \'enable\' | \'remove\';\n    target: string;\n    enabled?: boolean;\n    error?: ManagementError;\n    warnings?: string[];\n    packageResult?: PackageResult;\n    bundle?: string;\n    pendingBuilds?: string[];\n    approvedBuilds?: string[];\n    registries?: Registry[];\n    failedAt?: \'registry\' | \'spec-host\';\n}',
   },
@@ -5397,6 +5427,14 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'DeliveryRetentionBounds',
     declaration: 'export interface DeliveryRetentionBounds {\n    readonly days: number;\n    readonly records: number;\n}',
+  },
+  {
+    name: 'DesktopReply',
+    declaration: 'export type DesktopReply = {\n    readonly kind: \'item\';\n    readonly id: CallId;\n    readonly value: JsonValue;\n} | {\n    readonly kind: \'done\';\n    readonly id: CallId;\n    readonly value: JsonValue;\n} | {\n    readonly kind: \'failed\';\n    readonly id: CallId;\n    readonly reason: string;\n};',
+  },
+  {
+    name: 'DesktopRequest',
+    declaration: 'export type DesktopRequest = {\n    readonly kind: \'call\';\n    readonly id: CallId;\n    readonly capability: string;\n    readonly operation: string;\n    readonly payload: JsonValue;\n} | {\n    readonly kind: \'cancel\';\n    readonly id: CallId;\n};',
   },
   {
     name: 'DeveloperMessage',

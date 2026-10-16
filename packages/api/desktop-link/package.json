@@ -1,0 +1,70 @@
+{
+  "name": "@lyness/lyn-desktop-link",
+  "description": "The Host-to-desktop link: one authenticated channel per signed-in person, and the executor that answers on it",
+  "version": "0.1.7-rc.2",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "directory": "packages/api/desktop-link"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./types": {
+      "types": "./lib/types/types.d.ts",
+      "default": "./lib/types/types.js"
+    },
+    "./controller": {
+      "types": "./lib/types/controller.d.ts",
+      "default": "./lib/types/controller.js"
+    },
+    "./executor": {
+      "types": "./lib/types/executor.d.ts",
+      "default": "./lib/types/executor.js"
+    },
+    "./src/*": "./src/*",
+    "./package.json": "./package.json",
+    "./typert": {
+      "types": "./lib/typert.host.d.ts",
+      "default": "./lib/typert.host.js"
+    },
+    "./remote": {
+      "types": "./lib/typert.remote-client.d.ts",
+      "default": "./lib/typert.remote-client.js"
+    }
+  },
+  "files": [
+    "lib/index.js",
+    "lib/types/**/*.js",
+    "lib/types/**/*.d.ts",
+    "lib/typert.host.js",
+    "lib/typert.host.d.ts",
+    "lib/typert.remote-client.js",
+    "lib/typert.remote-client.d.ts"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/lyn-people": "workspace:*",
+    "@lyness/lyn-request-principal": "workspace:*",
+    "@lyness/lyn-typert-protocol": "workspace:*",
+    "@lyness/lyn-util-values": "workspace:*"
+  },
+  "devDependencies": {
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/lyn-people": "workspace:*",
+    "@lyness/lyn-request-principal": "workspace:*",
+    "@lyness/lyn-typert-protocol": "workspace:*",
+    "@lyness/lyn-util-values": "workspace:*"
+  }
+}
