@@ -256,6 +256,9 @@ importers:
       '@lyness/lyn-module-deliverables':
         specifier: workspace:*
         version: link:../../packages/bundle/module-deliverables
+      '@lyness/lyn-module-execution':
+        specifier: workspace:*
+        version: link:../../packages/bundle/module-execution
       '@lyness/lyn-module-extensions':
         specifier: workspace:*
         version: link:../../packages/bundle/module-extensions
@@ -2029,9 +2032,6 @@ importers:
       '@lyness/lyn-authorization':
         specifier: workspace:*
         version: link:../../credentials/authorization
-      '@lyness/lyn-bash-sandbox':
-        specifier: workspace:*
-        version: link:../../shell/bash-sandbox
       '@lyness/lyn-command-compact':
         specifier: workspace:*
         version: link:../../compaction/command-compact
@@ -2068,12 +2068,6 @@ importers:
       '@lyness/lyn-fs-local':
         specifier: workspace:*
         version: link:../../fs/fs-local
-      '@lyness/lyn-fs-observation-policy':
-        specifier: workspace:*
-        version: link:../../fs/fs-observation-policy
-      '@lyness/lyn-fs-sandbox':
-        specifier: workspace:*
-        version: link:../../fs/fs-sandbox
       '@lyness/lyn-goal':
         specifier: workspace:*
         version: link:../../goal/goal
@@ -2116,21 +2110,9 @@ importers:
       '@lyness/lyn-plugin-package-inventory-deepseek':
         specifier: workspace:*
         version: link:../../llm/plugin-package-inventory-deepseek
-      '@lyness/lyn-ptc-runtime-node':
-        specifier: workspace:*
-        version: link:../../ptc-runtime/ptc-runtime-node
-      '@lyness/lyn-pwsh-sandbox':
-        specifier: workspace:*
-        version: link:../../shell/pwsh-sandbox
       '@lyness/lyn-repeat-tool-reminder':
         specifier: workspace:*
         version: link:../../guard/repeat-tool-reminder
-      '@lyness/lyn-sandbox-local':
-        specifier: workspace:*
-        version: link:../../sandbox/sandbox-local
-      '@lyness/lyn-sandbox-policy':
-        specifier: workspace:*
-        version: link:../../sandbox/sandbox-policy
       '@lyness/lyn-session':
         specifier: workspace:*
         version: link:../../core/session
@@ -2164,9 +2146,6 @@ importers:
       '@lyness/lyn-settings':
         specifier: workspace:*
         version: link:../../settings/settings
-      '@lyness/lyn-shell-env':
-        specifier: workspace:*
-        version: link:../../shell/shell-env
       '@lyness/lyn-skill':
         specifier: workspace:*
         version: link:../../skill/skill
@@ -2200,27 +2179,15 @@ importers:
       '@lyness/lyn-subagent-spawn-in-process':
         specifier: workspace:*
         version: link:../../subagent/subagent-spawn-in-process
-      '@lyness/lyn-subprocess-local':
-        specifier: workspace:*
-        version: link:../../subprocess/subprocess-local
       '@lyness/lyn-system-prompt':
         specifier: workspace:*
         version: link:../../core/system-prompt
       '@lyness/lyn-token-meter':
         specifier: workspace:*
         version: link:../../llm/token-meter
-      '@lyness/lyn-tool-bash':
-        specifier: workspace:*
-        version: link:../../shell/tool-bash
       '@lyness/lyn-tool-call-timeout-policy':
         specifier: workspace:*
         version: link:../../guard/timeout-policy
-      '@lyness/lyn-tool-fs':
-        specifier: workspace:*
-        version: link:../../fs/tool-fs
-      '@lyness/lyn-tool-fs-search':
-        specifier: workspace:*
-        version: link:../../fs/tool-fs-search
       '@lyness/lyn-tool-goal':
         specifier: workspace:*
         version: link:../../goal/tool-goal
@@ -2230,12 +2197,6 @@ importers:
       '@lyness/lyn-tool-present':
         specifier: workspace:*
         version: link:../../deliverables/tool-present
-      '@lyness/lyn-tool-pwsh':
-        specifier: workspace:*
-        version: link:../../shell/tool-pwsh
-      '@lyness/lyn-tool-ralph':
-        specifier: workspace:*
-        version: link:../../workflow/tool-ralph
       '@lyness/lyn-tool-skill':
         specifier: workspace:*
         version: link:../../skill/tool-skill
@@ -2251,9 +2212,6 @@ importers:
       '@lyness/lyn-tool-web':
         specifier: workspace:*
         version: link:../../web/tool-web
-      '@lyness/lyn-tool-workflow':
-        specifier: workspace:*
-        version: link:../../workflow/tool-workflow
       '@lyness/lyn-tools':
         specifier: workspace:*
         version: link:../../core/tools
@@ -2278,9 +2236,6 @@ importers:
       '@lyness/lyn-web-search-deepseek':
         specifier: workspace:*
         version: link:../../web/web-search-deepseek
-      '@lyness/lyn-workflow-ptc':
-        specifier: workspace:*
-        version: link:../../workflow/workflow-ptc
     devDependencies:
       '@lyness/cordis':
         specifier: workspace:~
@@ -2414,6 +2369,61 @@ importers:
       '@lyness/lyn-workspace-changes':
         specifier: workspace:*
         version: link:../../deliverables/workspace-changes
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+
+  packages/bundle/module-execution:
+    dependencies:
+      '@lyness/lyn-bash-sandbox':
+        specifier: workspace:*
+        version: link:../../shell/bash-sandbox
+      '@lyness/lyn-fs-observation-policy':
+        specifier: workspace:*
+        version: link:../../fs/fs-observation-policy
+      '@lyness/lyn-fs-sandbox':
+        specifier: workspace:*
+        version: link:../../fs/fs-sandbox
+      '@lyness/lyn-ptc-runtime-node':
+        specifier: workspace:*
+        version: link:../../ptc-runtime/ptc-runtime-node
+      '@lyness/lyn-pwsh-sandbox':
+        specifier: workspace:*
+        version: link:../../shell/pwsh-sandbox
+      '@lyness/lyn-sandbox-local':
+        specifier: workspace:*
+        version: link:../../sandbox/sandbox-local
+      '@lyness/lyn-sandbox-policy':
+        specifier: workspace:*
+        version: link:../../sandbox/sandbox-policy
+      '@lyness/lyn-shell-env':
+        specifier: workspace:*
+        version: link:../../shell/shell-env
+      '@lyness/lyn-subprocess-local':
+        specifier: workspace:*
+        version: link:../../subprocess/subprocess-local
+      '@lyness/lyn-tool-bash':
+        specifier: workspace:*
+        version: link:../../shell/tool-bash
+      '@lyness/lyn-tool-fs':
+        specifier: workspace:*
+        version: link:../../fs/tool-fs
+      '@lyness/lyn-tool-fs-search':
+        specifier: workspace:*
+        version: link:../../fs/tool-fs-search
+      '@lyness/lyn-tool-pwsh':
+        specifier: workspace:*
+        version: link:../../shell/tool-pwsh
+      '@lyness/lyn-tool-ralph':
+        specifier: workspace:*
+        version: link:../../workflow/tool-ralph
+      '@lyness/lyn-tool-workflow':
+        specifier: workspace:*
+        version: link:../../workflow/tool-workflow
+      '@lyness/lyn-workflow-ptc':
+        specifier: workspace:*
+        version: link:../../workflow/workflow-ptc
     devDependencies:
       '@lyness/cordis':
         specifier: workspace:~
@@ -13907,6 +13917,9 @@ importers:
       '@lyness/lyn-typert-protocol':
         specifier: workspace:*
         version: link:../../typert/protocol
+      '@lyness/lyn-module-execution':
+        specifier: workspace:*
+        version: link:../../bundle/module-execution
       '@lyness/lyn-web-app':
         specifier: workspace:*
         version: link:../../bundle/web-app

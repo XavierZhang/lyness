@@ -76,34 +76,12 @@ flowchart LR
   cfg --> plugin_lyn_base_session_projection_cache
   plugin_lyn_base_session_telemetry_otel["session-telemetry-otel<br/>@lyness/lyn-session-telemetry-otel"]
   cfg --> plugin_lyn_base_session_telemetry_otel
-  plugin_lyn_base_subprocess["subprocess<br/>@lyness/lyn-subprocess-local"]
-  cfg --> plugin_lyn_base_subprocess
-  plugin_lyn_base_sandbox["sandbox<br/>@lyness/lyn-sandbox-local"]
-  cfg --> plugin_lyn_base_sandbox
-  plugin_lyn_base_sandbox_policy["sandbox-policy<br/>@lyness/lyn-sandbox-policy"]
-  cfg --> plugin_lyn_base_sandbox_policy
-  plugin_lyn_base_bash_sandbox["bash-sandbox<br/>@lyness/lyn-bash-sandbox"]
-  cfg --> plugin_lyn_base_bash_sandbox
-  plugin_lyn_base_pwsh_sandbox["pwsh-sandbox<br/>@lyness/lyn-pwsh-sandbox"]
-  cfg --> plugin_lyn_base_pwsh_sandbox
   plugin_lyn_base_approval["approval<br/>@lyness/lyn-user-approval"]
   cfg --> plugin_lyn_base_approval
   plugin_lyn_base_permission["permission<br/>@lyness/lyn-permission-presets"]
   cfg --> plugin_lyn_base_permission
-  plugin_lyn_base_shell_env["shell-env<br/>@lyness/lyn-shell-env"]
-  cfg --> plugin_lyn_base_shell_env
-  plugin_lyn_base_tool_bash["tool-bash<br/>@lyness/lyn-tool-bash"]
-  cfg --> plugin_lyn_base_tool_bash
-  plugin_lyn_base_tool_pwsh["tool-pwsh<br/>@lyness/lyn-tool-pwsh"]
-  cfg --> plugin_lyn_base_tool_pwsh
   plugin_lyn_base_tool_jobs["tool-jobs<br/>@lyness/lyn-tool-jobs"]
   cfg --> plugin_lyn_base_tool_jobs
-  plugin_lyn_base_fs_observation_policy["fs-observation-policy<br/>@lyness/lyn-fs-observation-policy"]
-  cfg --> plugin_lyn_base_fs_observation_policy
-  plugin_lyn_base_tool_fs["tool-fs<br/>@lyness/lyn-tool-fs"]
-  cfg --> plugin_lyn_base_tool_fs
-  plugin_lyn_base_tool_fs_search["tool-fs-search<br/>@lyness/lyn-tool-fs-search"]
-  cfg --> plugin_lyn_base_tool_fs_search
   plugin_lyn_base_agent_instructions["agent-instructions<br/>@lyness/lyn-agent-instructions"]
   cfg --> plugin_lyn_base_agent_instructions
   plugin_lyn_base_skill["skill<br/>@lyness/lyn-skill"]
@@ -146,12 +124,6 @@ flowchart LR
   cfg --> plugin_lyn_base_tool_subagent
   plugin_lyn_base_tool_subagent_fork["tool-subagent-fork<br/>@lyness/lyn-tool-subagent"]
   cfg --> plugin_lyn_base_tool_subagent_fork
-  plugin_lyn_base_ptc_runtime["ptc-runtime<br/>@lyness/lyn-ptc-runtime-node"]
-  cfg --> plugin_lyn_base_ptc_runtime
-  plugin_lyn_base_workflow_ptc["workflow-ptc<br/>@lyness/lyn-workflow-ptc"]
-  cfg --> plugin_lyn_base_workflow_ptc
-  plugin_lyn_base_tool_workflow["tool-workflow<br/>@lyness/lyn-tool-workflow"]
-  cfg --> plugin_lyn_base_tool_workflow
   plugin_lyn_base_timeout_policy["timeout-policy<br/>@lyness/lyn-tool-call-timeout-policy"]
   cfg --> plugin_lyn_base_timeout_policy
   plugin_lyn_base_spill_local["spill-local<br/>@lyness/lyn-spill-local"]
@@ -168,8 +140,6 @@ flowchart LR
   cfg --> plugin_lyn_base_tool_todo
   plugin_lyn_base_tool_goal["tool-goal<br/>@lyness/lyn-tool-goal"]
   cfg --> plugin_lyn_base_tool_goal
-  plugin_lyn_base_tool_ralph["tool-ralph<br/>@lyness/lyn-tool-ralph"]
-  cfg --> plugin_lyn_base_tool_ralph
   plugin_lyn_base_repeat_tool_reminder["repeat-tool-reminder<br/>@lyness/lyn-repeat-tool-reminder"]
   cfg --> plugin_lyn_base_repeat_tool_reminder
   plugin_lyn_base_web["web<br/>@lyness/lyn-web"]
@@ -188,8 +158,6 @@ flowchart LR
   cfg --> plugin_lyn_base_system_prompt
   plugin_lyn_base_agent_loop["agent-loop<br/>@lyness/lyn-agent-loop"]
   cfg --> plugin_lyn_base_agent_loop
-  plugin_lyn_base_fs_sandbox["fs-sandbox<br/>@lyness/lyn-fs-sandbox"]
-  cfg --> plugin_lyn_base_fs_sandbox
   plugin_lyn_base_llm_deepseek["llm-deepseek<br/>@lyness/lyn-llm-deepseek-api-key"]
   cfg --> plugin_lyn_base_llm_deepseek
   plugin_lyn_base_llm_deepseek_account["llm-deepseek-account<br/>@lyness/lyn-llm-deepseek-account"]
@@ -232,20 +200,9 @@ flowchart LR
 | `storage-domain` | `@lyness/lyn-storage-domain` |
 | `session-projection-cache` | `@lyness/lyn-session-projection-cache` |
 | `session-telemetry-otel` | `@lyness/lyn-session-telemetry-otel` |
-| `subprocess` | `@lyness/lyn-subprocess-local` |
-| `sandbox` | `@lyness/lyn-sandbox-local` |
-| `sandbox-policy` | `@lyness/lyn-sandbox-policy` |
-| `bash-sandbox` | `@lyness/lyn-bash-sandbox` |
-| `pwsh-sandbox` | `@lyness/lyn-pwsh-sandbox` |
 | `approval` | `@lyness/lyn-user-approval` |
 | `permission` | `@lyness/lyn-permission-presets` |
-| `shell-env` | `@lyness/lyn-shell-env` |
-| `tool-bash` | `@lyness/lyn-tool-bash` |
-| `tool-pwsh` | `@lyness/lyn-tool-pwsh` |
 | `tool-jobs` | `@lyness/lyn-tool-jobs` |
-| `fs-observation-policy` | `@lyness/lyn-fs-observation-policy` |
-| `tool-fs` | `@lyness/lyn-tool-fs` |
-| `tool-fs-search` | `@lyness/lyn-tool-fs-search` |
 | `agent-instructions` | `@lyness/lyn-agent-instructions` |
 | `skill` | `@lyness/lyn-skill` |
 | `skill-filesystem` | `@lyness/lyn-skill-filesystem` |
@@ -267,9 +224,6 @@ flowchart LR
 | `tool-subagent-list-agents` | `@lyness/lyn-tool-subagent-control/list-agents` |
 | `tool-subagent` | `@lyness/lyn-tool-subagent` |
 | `tool-subagent-fork` | `@lyness/lyn-tool-subagent` |
-| `ptc-runtime` | `@lyness/lyn-ptc-runtime-node` |
-| `workflow-ptc` | `@lyness/lyn-workflow-ptc` |
-| `tool-workflow` | `@lyness/lyn-tool-workflow` |
 | `timeout-policy` | `@lyness/lyn-tool-call-timeout-policy` |
 | `spill-local` | `@lyness/lyn-spill-local` |
 | `spill-policy` | `@lyness/lyn-spill-policy` |
@@ -278,7 +232,6 @@ flowchart LR
 | `image-offload` | `@lyness/lyn-compaction-image-offload` |
 | `tool-todo` | `@lyness/lyn-tool-todo` |
 | `tool-goal` | `@lyness/lyn-tool-goal` |
-| `tool-ralph` | `@lyness/lyn-tool-ralph` |
 | `repeat-tool-reminder` | `@lyness/lyn-repeat-tool-reminder` |
 | `web` | `@lyness/lyn-web` |
 | `web-search-deepseek` | `@lyness/lyn-web-search-deepseek` |
@@ -288,7 +241,6 @@ flowchart LR
 | `tools` | `@lyness/lyn-tools` |
 | `system-prompt` | `@lyness/lyn-system-prompt` |
 | `agent-loop` | `@lyness/lyn-agent-loop` |
-| `fs-sandbox` | `@lyness/lyn-fs-sandbox` |
 | `llm-deepseek` | `@lyness/lyn-llm-deepseek-api-key` |
 | `llm-deepseek-account` | `@lyness/lyn-llm-deepseek-account` |
 

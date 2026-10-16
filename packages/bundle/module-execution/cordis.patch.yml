@@ -1,0 +1,105 @@
+# The execution module, as its own bundle: the plane that touches a machine.
+#
+# It carries the filesystem provider, the subprocess and sandbox providers,
+# the shell tools, the file tools, and the code and workflow runtimes. Every
+# row here acts on files and processes, so the bundle answers one question for
+# a deployment — which machine does this agent work on — rather than a dozen
+# separate ones.
+#
+# It left `lyn-base` because a hosted deployment must be able to compose a
+# runtime that executes nothing at all. Credits, roles and the model policy
+# constrain the model request and nothing else; the boundary that keeps one
+# customer's agent off a shared server is the absence of this bundle, until an
+# organization gets a process
+# (../../../.agents/notes/proposed/architecture/2026-10-15-diverging-from-the-single-operator-host.md).
+#
+# It layers directly after `lyn-base` and before the application bundle,
+# because `lyn-web-app` disables the Host shell-tool rows so sessions mount
+# their own: an override only reaches a row that an earlier layer inserted.
+#
+# Every shipped profile that works on the machine it runs on selects it. A
+# profile that omits it has no `ctx.fs`, `ctx.shell`, `ctx.subprocess`,
+# `ctx.sandbox` or `ctx.ptcRuntime`, so the tools that inject them never
+# activate — the rows are absent rather than disabled, which is the only
+# version of "cannot execute" that a later patch layer cannot switch back on.
+#
+# `approval` and `permission-presets` stay in `lyn-base`: they are the
+# approval vocabulary every tool uses, not an execution row.
+- insert:
+    - id: subprocess
+      name: '@lyness/lyn-subprocess-local'
+
+    # Every shipped CLI mode starts with the same file-effect boundary.
+    # The environment remains an explicit deployment override; otherwise fresh
+    # sessions pin workspace-write + ask through the permission presets, which
+    # stay in `lyn-base` because every tool reads them.
+    - id: sandbox
+      name: '@lyness/lyn-sandbox-local'
+
+    - id: sandbox-policy
+      name: '@lyness/lyn-sandbox-policy'
+      config:
+        mode: !!js process.env.LYNESS_PERMISSION_MODE ?? 'workspace-write'
+        workspaceRoot: !!js process.cwd()
+
+    - id: bash-sandbox
+      name: '@lyness/lyn-bash-sandbox'
+      disabled: !!js process.platform === 'win32'
+      config:
+        timeoutMs: 60000
+
+    - id: pwsh-sandbox
+      name: '@lyness/lyn-pwsh-sandbox'
+      disabled: !!js process.platform !== 'win32'
+
+    - id: shell-env
+      name: '@lyness/lyn-shell-env'
+
+    - id: tool-bash
+      name: '@lyness/lyn-tool-bash'
+      disabled: !!js process.platform === 'win32'
+
+    - id: tool-pwsh
+      name: '@lyness/lyn-tool-pwsh'
+      disabled: !!js process.platform !== 'win32'
+
+    - id: fs-observation-policy
+      name: '@lyness/lyn-fs-observation-policy'
+
+    - id: tool-fs
+      name: '@lyness/lyn-tool-fs'
+
+    - id: tool-fs-search
+      name: '@lyness/lyn-tool-fs-search'
+      config:
+        sampleOverCapGlobResults: false
+
+    - id: ptc-runtime
+      name: '@lyness/lyn-ptc-runtime-node'
+
+    - id: workflow-ptc
+      name: '@lyness/lyn-workflow-ptc'
+      config:
+        provider: spawn
+
+    - id: tool-workflow
+      name: '@lyness/lyn-tool-workflow'
+
+    # Fresh-agent Ralph iteration over a build-time-fixed script. Off by
+    # default: the tool description restricts `ralph` to runs the human
+    # explicitly asked for, and completion is a worker self-report, not an
+    # independent evaluation. An overlay row restores it for a base-backed
+    # profile (`$LYNESS_HOME/cordis.patch.yml`, or a `--patch <file>`):
+    #   - id: tool-ralph
+    #     disabled: false
+    - id: tool-ralph
+      name: '@lyness/lyn-tool-ralph'
+      disabled: true
+      config:
+        subagentProvider: spawn
+        maxRounds: 64
+
+    # The sandboxed filesystem provider. `cwd` defaults to `process.cwd()`; an
+    # overlay can pin another workspace.
+    - id: fs-sandbox
+      name: '@lyness/lyn-fs-sandbox'

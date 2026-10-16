@@ -1,10 +1,10 @@
 /**
- * The shipped shell composition: the base bundle gates both shell stacks by
- * platform on its own rows (`disabled: !!js process.platform`), so exactly
+ * The shipped shell composition: the execution bundle gates both shell stacks
+ * by platform on its own rows (`disabled: !!js process.platform`), so exactly
  * one shell stack mounts per host and no separate platform layer exists —
  * the launcher applies nothing beyond the bundle layers. The spec composes
- * the REAL shipped bundle layers (lyn-base + lyn-web-app resolved from the
- * app installation anchor) through the boot's patch algorithm and pins the
+ * the REAL shipped bundle layers (lyn-base + lyn-module-execution + lyn-web-app
+ * resolved from the app installation anchor) through the boot's patch algorithm and pins the
  * effective per-platform roster, the preset-level gates that keep tool-bash
  * out of win32 sessions and tool-pwsh out of POSIX sessions, and the
  * cold-start resolution closure for the pwsh rows' bare plugin names.
@@ -42,7 +42,8 @@ describe('the shipped shell composition (real bundle layers)', () => {
 
   it('composes the confined pwsh roster on win32 and the bash roster on POSIX from the same rows', () => {
     home = mkdtempSync(join(tmpdir(), 'lyn-windows-home-'))
-    initProfile(join(home, PROFILES_DIR, 'web'), ['@lyness/lyn-base', '@lyness/lyn-web-app'])
+    initProfile(join(home, PROFILES_DIR, 'web'),
+      ['@lyness/lyn-base', '@lyness/lyn-module-execution', '@lyness/lyn-web-app'])
     const profile = loadProfile('lyn', 'web', anchor, home)
     const warnings: string[] = []
     const rows = composeEntries(
@@ -80,7 +81,8 @@ describe('the shipped shell composition (real bundle layers)', () => {
 
   it('base-only profiles carry both stacks with the same platform gating', () => {
     home = mkdtempSync(join(tmpdir(), 'lyn-windows-home-'))
-    initProfile(join(home, PROFILES_DIR, 'base-only'), ['@lyness/lyn-base'])
+    initProfile(join(home, PROFILES_DIR, 'base-only'),
+      ['@lyness/lyn-base', '@lyness/lyn-module-execution'])
     const profile = loadProfile('lyn', 'base-only', anchor, home)
     const warnings: string[] = []
     const rows = composeEntries(
@@ -88,6 +90,7 @@ describe('the shipped shell composition (real bundle layers)', () => {
       message => warnings.push(message),
     )
     const byId = new Map(rows.map(row => [row.id, row]))
+    // No web overlay above the two layers that carry the shell rows.
     for (const id of ['bash-sandbox', 'tool-bash', 'pwsh-sandbox', 'tool-pwsh']) {
       expect(byId.has(id), `row ${id}`).toBe(true)
     }

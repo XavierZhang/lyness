@@ -223,31 +223,6 @@
           maxExportBatchSize: 2048
           exportTimeoutMillis: 1500
 
-    - id: subprocess
-      name: '@lyness/lyn-subprocess-local'
-
-    # Every shipped CLI mode starts with the same file-effect boundary.
-    # The environment remains an explicit deployment override; otherwise fresh
-    # sessions pin workspace-write + ask through the permission service below.
-    - id: sandbox
-      name: '@lyness/lyn-sandbox-local'
-
-    - id: sandbox-policy
-      name: '@lyness/lyn-sandbox-policy'
-      config:
-        mode: !!js process.env.LYNESS_PERMISSION_MODE ?? 'workspace-write'
-        workspaceRoot: !!js process.cwd()
-
-    - id: bash-sandbox
-      name: '@lyness/lyn-bash-sandbox'
-      disabled: !!js process.platform === 'win32'
-      config:
-        timeoutMs: 60000
-
-    - id: pwsh-sandbox
-      name: '@lyness/lyn-pwsh-sandbox'
-      disabled: !!js process.platform !== 'win32'
-
     - id: approval
       name: '@lyness/lyn-user-approval'
       config:
@@ -267,30 +242,8 @@
             sandbox: danger-full-access
             approval: never
 
-    - id: shell-env
-      name: '@lyness/lyn-shell-env'
-
-    - id: tool-bash
-      name: '@lyness/lyn-tool-bash'
-      disabled: !!js process.platform === 'win32'
-
-    - id: tool-pwsh
-      name: '@lyness/lyn-tool-pwsh'
-      disabled: !!js process.platform !== 'win32'
-
     - id: tool-jobs
       name: '@lyness/lyn-tool-jobs'
-
-    - id: fs-observation-policy
-      name: '@lyness/lyn-fs-observation-policy'
-
-    - id: tool-fs
-      name: '@lyness/lyn-tool-fs'
-
-    - id: tool-fs-search
-      name: '@lyness/lyn-tool-fs-search'
-      config:
-        sampleOverCapGlobResults: false
 
     - id: agent-instructions
       name: '@lyness/lyn-agent-instructions'
@@ -393,17 +346,6 @@
         toolName: subagent_fork
         backgroundMode: one-shot
 
-    - id: ptc-runtime
-      name: '@lyness/lyn-ptc-runtime-node'
-
-    - id: workflow-ptc
-      name: '@lyness/lyn-workflow-ptc'
-      config:
-        provider: spawn
-
-    - id: tool-workflow
-      name: '@lyness/lyn-tool-workflow'
-
     - id: timeout-policy
       name: '@lyness/lyn-tool-call-timeout-policy'
 
@@ -442,20 +384,6 @@
     # domain, driver, and `/goal` command are above.
     - id: tool-goal
       name: '@lyness/lyn-tool-goal'
-
-    # Fresh-agent Ralph iteration over a build-time-fixed script. Off by
-    # default: the tool description restricts `ralph` to runs the human
-    # explicitly asked for, and completion is a worker self-report, not an
-    # independent evaluation. An overlay row restores it for a base-backed
-    # profile (`$LYNESS_HOME/cordis.patch.yml`, or a `--patch <file>`):
-    #   - id: tool-ralph
-    #     disabled: false
-    - id: tool-ralph
-      name: '@lyness/lyn-tool-ralph'
-      disabled: true
-      config:
-        subagentProvider: spawn
-        maxRounds: 64
 
     # Consecutive-repeat reminders on the tool chain.
     - id: repeat-tool-reminder
@@ -518,11 +446,6 @@
       name: '@lyness/lyn-agent-loop'
       config:
         agents: []
-
-    # The sandboxed filesystem provider. `cwd` defaults to `process.cwd()`; an
-    # overlay can pin another workspace.
-    - id: fs-sandbox
-      name: '@lyness/lyn-fs-sandbox'
 
     # The native DeepSeek adapter. No key or endpoint is inlined: both resolve per
     # request from the `llm-deepseek:` settings section over this entry, with the

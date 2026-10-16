@@ -47,6 +47,7 @@ const NO_MODEL_EXPERIENCE_SECTION: Readonly<Record<string, string>> = {
 const SENTENCE_MODEL_EXPERIENCE: Readonly<Record<string, SentenceContract>> = {
   'packages/bundle/module-schedule': { kind: 'none', reason: 'A module bundle contributes composition rows; the Schedule service owns every prompt, tool, and Session event it registers.' },
   'packages/bundle/module-memory': { kind: 'indirect', reason: 'A module bundle contributes composition rows; the Memory service owns its tool schemas and the remembered-facts context block.' },
+  'packages/bundle/module-execution': { kind: 'indirect', reason: 'A module bundle selects the execution rows; the six tool packages own their schemas and results.' },
   'packages/bundle/module-terminal': { kind: 'indirect', reason: 'A module bundle contributes one composition row; lyn-tool-terminal owns its tool schemas and results.' },
   'packages/bundle/module-lsp': { kind: 'indirect', reason: 'A module bundle contributes one composition row; lyn-tool-lsp owns the tool schema, guidance, and rendered results.' },
   'packages/bundle/module-deliverables': { kind: 'indirect', reason: 'A module bundle contributes one composition row; lyn-tool-present owns the tool schema and results, and the recorder owns its client-read event.' },

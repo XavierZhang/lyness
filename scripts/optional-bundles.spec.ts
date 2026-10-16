@@ -28,7 +28,10 @@ function bundle(name: string): { dir: string; patches: ReturnType<typeof loadOve
 }
 
 describe('optional bundles', () => {
-  const shipped = ['@lyness/lyn-base', '@lyness/lyn-web-app'].map(name => bundle(name).patches)
+  // The execution layer sits between them, because `lyn-web-app` overrides the
+  // Host shell-tool rows that `lyn-module-execution` inserts.
+  const shipped = ['@lyness/lyn-base', '@lyness/lyn-module-execution', '@lyness/lyn-web-app']
+    .map(name => bundle(name).patches)
 
   it('ships at least one bundle switched off', () => {
     expect(OPTIONAL_BUNDLES.length).toBeGreaterThan(0)

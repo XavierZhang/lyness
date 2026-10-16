@@ -77,6 +77,7 @@
     "@lyness/lyn-client-ui-settings": "workspace:*",
     "@lyness/lyn-client-ui-slots": "workspace:*",
     "@lyness/lyn-client-web": "workspace:*",
+    "@lyness/lyn-module-execution": "workspace:*",
     "@lyness/lyn-remote-mock": "workspace:*",
     "@lyness/lyn-session": "workspace:*",
     "@lyness/lyn-settings": "workspace:*",

@@ -24,7 +24,9 @@ import * as yaml from 'js-yaml'
 import { ClientRoster, type ClientRosterRow } from './roster.ts'
 
 /** The `web` profile's bundle layers, in the order `lyn --profile web` applies them (app-boot `PROFILE_TEMPLATES.web`). */
-export const WEB_PROFILE_BUNDLES: readonly string[] = ['@lyness/lyn-base', '@lyness/lyn-web-app']
+export const WEB_PROFILE_BUNDLES: readonly string[] = [
+  '@lyness/lyn-base', '@lyness/lyn-module-execution', '@lyness/lyn-web-app',
+]
 
 interface PackageManifest {
   name?: unknown

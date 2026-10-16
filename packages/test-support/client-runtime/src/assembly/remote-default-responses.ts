@@ -30,6 +30,10 @@ export const remoteDefaultResponses: RemoteTable = {
     'dynamicCordisRunner/syncInspectManifest': ok(null),
     // ui-cordis inventory at apply and on `connection/reset`.
     'dynamicCordisRunner/inventory': ok([]),
+    // ui-settings-models joins the provider directory as soon as its onboarding
+    // step mounts, which is on first boot now that nothing precedes that step.
+    'llm/listProviders': ok([]),
+    'llm/listConfigurableProviders': ok([]),
     // ui-settings-plugins web-search card `readCredential()` when the settings mirror first publishes.
     'credentials/describe': ok({}),
     // ui-permission-presets `PermissionCatalogDirectory` on its first read for a connection generation.

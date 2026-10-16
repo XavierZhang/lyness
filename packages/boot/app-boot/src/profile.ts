@@ -178,12 +178,13 @@ export function resolveProfileDir(name: string, home: string = resolveLynHome())
 /** The shipped profile templates auto-initialized on first use, by name. */
 export const PROFILE_TEMPLATES: Record<string, ProfileTemplate> = {
   acp: {
-    bundles: ['@lyness/lyn-base', '@lyness/lyn-acp-app'],
+    bundles: ['@lyness/lyn-base', '@lyness/lyn-module-execution', '@lyness/lyn-acp-app'],
   },
   web: {
-    bundles: ['@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-module-deliverables',
-      '@lyness/lyn-module-extensions', '@lyness/lyn-module-lsp', '@lyness/lyn-module-memory',
-      '@lyness/lyn-module-schedule', '@lyness/lyn-module-terminal', '@lyness/lyn-module-webhook'],
+    bundles: ['@lyness/lyn-base', '@lyness/lyn-module-execution', '@lyness/lyn-web-app',
+      '@lyness/lyn-module-deliverables', '@lyness/lyn-module-extensions', '@lyness/lyn-module-lsp',
+      '@lyness/lyn-module-memory', '@lyness/lyn-module-schedule', '@lyness/lyn-module-terminal',
+      '@lyness/lyn-module-webhook'],
   },
   /**
    * The enterprise shape: one customer's own servers, their own staff. It adds
@@ -193,16 +194,16 @@ export const PROFILE_TEMPLATES: Record<string, ProfileTemplate> = {
    * surface, a log, or an error message.
    */
   enterprise: {
-    bundles: ['@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-module-deliverables',
-      '@lyness/lyn-module-extensions', '@lyness/lyn-module-lsp', '@lyness/lyn-module-memory',
-      '@lyness/lyn-module-model-governance', '@lyness/lyn-module-schedule',
-      '@lyness/lyn-module-terminal', '@lyness/lyn-module-webhook'],
+    bundles: ['@lyness/lyn-base', '@lyness/lyn-module-execution', '@lyness/lyn-web-app',
+      '@lyness/lyn-module-deliverables', '@lyness/lyn-module-extensions', '@lyness/lyn-module-lsp',
+      '@lyness/lyn-module-memory', '@lyness/lyn-module-model-governance',
+      '@lyness/lyn-module-schedule', '@lyness/lyn-module-terminal', '@lyness/lyn-module-webhook'],
   },
   headless: {
-    bundles: ['@lyness/lyn-base', '@lyness/lyn-headless'],
+    bundles: ['@lyness/lyn-base', '@lyness/lyn-module-execution', '@lyness/lyn-headless'],
   },
   sdk: {
-    bundles: ['@lyness/lyn-base', '@lyness/lyn-sdk-app'],
+    bundles: ['@lyness/lyn-base', '@lyness/lyn-module-execution', '@lyness/lyn-sdk-app'],
   },
   'sdk-minimal': {
     bundles: ['@lyness/lyn-sdk-minimal'],
@@ -226,10 +227,18 @@ export const PROFILE_TEMPLATES: Record<string, ProfileTemplate> = {
  * only the latest.
  */
 const INSTALLATION_OWNED_PROFILE_TUPLES: Record<string, readonly (readonly string[])[]> = {
+  acp: [
+    // Before execution became its own bundle.
+    ['@lyness/lyn-base', '@lyness/lyn-acp-app'],
+  ],
+  sdk: [
+    // Before execution became its own bundle.
+    ['@lyness/lyn-base', '@lyness/lyn-sdk-app'],
+  ],
   headless: [
     ['@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-headless'],
-    // The current template's own list, recorded so a profile that spells it the
-    // pre-rescope way is rewritten to the current spelling rather than left
+    // Before execution became its own bundle. Also the list a profile that
+    // spells it the pre-rescope way is rewritten from, rather than being left
     // depending on its legacy links.
     ['@lyness/lyn-base', '@lyness/lyn-headless'],
   ],
@@ -255,6 +264,10 @@ const INSTALLATION_OWNED_PROFILE_TUPLES: Record<string, readonly (readonly strin
     ['@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-module-deliverables',
       '@lyness/lyn-module-extensions', '@lyness/lyn-module-lsp', '@lyness/lyn-module-memory',
       '@lyness/lyn-module-schedule', '@lyness/lyn-module-terminal'],
+    // After webhook ingress, before execution became its own bundle.
+    ['@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-module-deliverables',
+      '@lyness/lyn-module-extensions', '@lyness/lyn-module-lsp', '@lyness/lyn-module-memory',
+      '@lyness/lyn-module-schedule', '@lyness/lyn-module-terminal', '@lyness/lyn-module-webhook'],
   ],
 }
 

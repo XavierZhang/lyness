@@ -343,10 +343,10 @@ describe('loadProfile', () => {
       .toThrow('profile "custom" does not exist')
     expect(PROFILE_TEMPLATES.web?.bundles).toContain('@lyness/lyn-base')
     expect(PROFILE_TEMPLATES.acp).toEqual({
-      bundles: ['@lyness/lyn-base', '@lyness/lyn-acp-app'],
+      bundles: ['@lyness/lyn-base', '@lyness/lyn-module-execution', '@lyness/lyn-acp-app'],
     })
     expect(PROFILE_TEMPLATES.sdk).toEqual({
-      bundles: ['@lyness/lyn-base', '@lyness/lyn-sdk-app'],
+      bundles: ['@lyness/lyn-base', '@lyness/lyn-module-execution', '@lyness/lyn-sdk-app'],
     })
     expect(PROFILE_TEMPLATES['sdk-minimal']).toEqual({
       bundles: ['@lyness/lyn-sdk-minimal'],
@@ -363,6 +363,7 @@ describe('loadProfile', () => {
       '@lyness/lyn-base': { patch: '[]\n' },
       '@lyness/lyn-web-app': { patch: '[]\n' },
       '@lyness/lyn-headless': { patch: '[]\n' },
+      '@lyness/lyn-module-execution': { patch: '[]\n' },
       'custom-bundle': { patch: '[]\n' },
     })
     const home = tmp()
@@ -374,7 +375,7 @@ describe('loadProfile', () => {
     writeProfileManifest(stock, retiredManifest)
     loadProfile('t', 'headless', anchor, home)
     expect(readProfileManifest('t', stock).lyn?.profile).toEqual({
-      bundles: ['@lyness/lyn-base', '@lyness/lyn-headless'],
+      bundles: ['@lyness/lyn-base', '@lyness/lyn-module-execution', '@lyness/lyn-headless'],
     })
 
     const customHome = tmp()

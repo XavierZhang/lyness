@@ -14,7 +14,8 @@ function profileScope(name: string) {
 
 describe('webApp (the real web profile)', () => {
   it('composes lyn-base then lyn-web-app: unique names, inject edges on roster rows or platform seed words', () => {
-    expect(WEB_PROFILE_BUNDLES).toEqual(['@lyness/lyn-base', '@lyness/lyn-web-app'])
+    expect(WEB_PROFILE_BUNDLES)
+      .toEqual(['@lyness/lyn-base', '@lyness/lyn-module-execution', '@lyness/lyn-web-app'])
     const names = webApp.rows.map(row => row.name)
     expect(new Set(names).size).toBe(names.length)
     const known = new Set([...names, ...Object.keys(getStaticModules())])
