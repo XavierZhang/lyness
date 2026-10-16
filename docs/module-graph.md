@@ -57,6 +57,7 @@ flowchart TD
   end
   subgraph group_fs["packages/fs"]
     pkg_fs["fs"]
+    pkg_fs_desktop["fs-desktop"]
     pkg_fs_local["fs-local"]
     pkg_fs_observation_policy["fs-observation-policy"]
     pkg_fs_sandbox["fs-sandbox"]
@@ -722,6 +723,17 @@ flowchart TD
   pkg_goal --> pkg_session
   pkg_goal --> pkg_session_projection
   pkg_goal --> pkg_typert_protocol
+  pkg_fs_desktop --> pkg_agent
+  pkg_fs_desktop --> pkg_brand
+  pkg_fs_desktop --> pkg_desktop_link
+  pkg_fs_desktop --> pkg_fs
+  pkg_fs_desktop --> pkg_people
+  pkg_fs_desktop --> pkg_request_principal
+  pkg_fs_desktop --> pkg_sandbox
+  pkg_fs_desktop --> pkg_session
+  pkg_fs_desktop --> pkg_session_ownership
+  pkg_fs_desktop --> pkg_session_projection
+  pkg_fs_desktop --> pkg_util_values
   pkg_web_search_deepseek --> pkg_agent
   pkg_web_search_deepseek --> pkg_credentials
   pkg_web_search_deepseek --> pkg_launch_environment
@@ -1705,6 +1717,7 @@ flowchart TD
 | [`llm-retry`](../packages/llm/llm-retry) | `llm` | [`agent`](../packages/core/agent), [`brand`](../packages/util/brand), [`invariants`](../packages/runtime-diagnostics/invariants), [`llm`](../packages/llm/llm), [`session`](../packages/core/session), [`session-projection`](../packages/session/session-projection), [`timeout`](../packages/util/timeout) |
 | [`agent-default-model`](../packages/core/agent-default-model) | `core` | [`agent`](../packages/core/agent), [`llm`](../packages/llm/llm) |
 | [`goal`](../packages/goal/goal) | `goal` | [`agent`](../packages/core/agent), [`brand`](../packages/util/brand), [`invariants`](../packages/runtime-diagnostics/invariants), [`llm`](../packages/llm/llm), [`scope`](../packages/core/scope), [`session`](../packages/core/session), [`session-projection`](../packages/session/session-projection), [`typert-protocol`](../packages/typert/protocol) |
+| [`fs-desktop`](../packages/fs/fs-desktop) | `fs` | [`agent`](../packages/core/agent), [`brand`](../packages/util/brand), [`desktop-link`](../packages/api/desktop-link), [`fs`](../packages/fs/fs), [`people`](../packages/identity/people), [`request-principal`](../packages/identity/request-principal), [`sandbox`](../packages/sandbox/sandbox), [`session`](../packages/core/session), [`session-ownership`](../packages/identity/session-ownership), [`session-projection`](../packages/session/session-projection), [`util-values`](../packages/util/values) |
 | [`web-search-deepseek`](../packages/web/web-search-deepseek) | `web` | [`agent`](../packages/core/agent), [`credentials`](../packages/credentials/credentials), [`launch-environment`](../packages/util/launch-environment), [`session`](../packages/core/session), [`web`](../packages/web/web) |
 | [`file-reference`](../packages/context/file-reference) | `context` | [`agent`](../packages/core/agent) |
 | [`time-context`](../packages/context/time-context) | `context` | [`agent`](../packages/core/agent), [`invariants`](../packages/runtime-diagnostics/invariants), [`llm`](../packages/llm/llm), [`session`](../packages/core/session), [`session-projection`](../packages/session/session-projection) |

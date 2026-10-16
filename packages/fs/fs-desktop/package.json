@@ -1,0 +1,73 @@
+{
+  "name": "@lyness/lyn-fs-desktop",
+  "description": "The files the agent works on are on the person's own machine, not the server's",
+  "version": "0.1.7-rc.2",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "directory": "packages/fs/fs-desktop"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./src/*": "./src/*",
+    "./package.json": "./package.json",
+    "./protocol": {
+      "types": "./lib/types/protocol.d.ts",
+      "default": "./lib/types/protocol.js"
+    },
+    "./targets": {
+      "types": "./lib/types/targets.d.ts",
+      "default": "./lib/types/targets.js"
+    },
+    "./handler": {
+      "types": "./lib/types/handler.d.ts",
+      "default": "./lib/types/handler.js"
+    }
+  },
+  "files": [
+    "lib/index.js",
+    "lib/types/**/*.js",
+    "lib/types/**/*.d.ts"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "zod": "^4.4.3"
+  },
+  "peerDependencies": {
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/lyn-desktop-link": "workspace:*",
+    "@lyness/lyn-fs": "workspace:*",
+    "@lyness/lyn-people": "workspace:*",
+    "@lyness/lyn-request-principal": "workspace:*",
+    "@lyness/lyn-sandbox": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-session-ownership": "workspace:*",
+    "@lyness/lyn-session-projection": "workspace:*",
+    "@lyness/lyn-util-values": "workspace:*"
+  },
+  "devDependencies": {
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/lyn-desktop-link": "workspace:*",
+    "@lyness/lyn-fs": "workspace:*",
+    "@lyness/lyn-people": "workspace:*",
+    "@lyness/lyn-request-principal": "workspace:*",
+    "@lyness/lyn-sandbox": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-session-ownership": "workspace:*",
+    "@lyness/lyn-session-projection": "workspace:*",
+    "@lyness/lyn-util-values": "workspace:*"
+  }
+}

@@ -219,6 +219,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 
 | Package | Config | Description |
 |---|---|---|
+| `@lyness/lyn-fs-desktop` | no | The files the agent works on are on the person's own machine, not the server's |
 | `@lyness/lyn-fs-local` | yes | Local-filesystem implementation of the lyness filesystem seam (ctx.fs) |
 | `@lyness/lyn-fs-observation-policy` | no | File-context policy plugin for the lyness — observed-state, read-before-edit, and version-guarded write/edit added over the ctx.fs provider seam through the fs/* event gate (no service API) |
 | `@lyness/lyn-fs-sandbox` | yes | Sandbox-enforcing implementation of the lyness filesystem seam: fences write/edit by the per-call sandbox mode (read-only denies mutation, workspace-write contains it to the workspace + temp roots) while reads pass through |

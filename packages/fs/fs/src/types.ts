@@ -188,6 +188,34 @@ export type FsErrorCode =
   | 'FS_ABORTED'
 
 /**
+ * One key per code. `satisfies` is what keeps it honest: adding an arm to
+ * {@link FsErrorCode} without a key here fails the build, which is the only
+ * reason a derived list can be trusted by a backend validating a code it
+ * received over a wire.
+ */
+const CODE_KEYS = {
+  FS_NOT_FOUND: true,
+  FS_NOT_DIRECTORY: true,
+  FS_NOT_TEXT: true,
+  FS_NOT_REGULAR_FILE: true,
+  FS_TOO_LARGE: true,
+  FS_PERMISSION_DENIED: true,
+  FS_SANDBOX_DENIED: true,
+  FS_IO_ERROR: true,
+  FS_STALE_VERSION: true,
+  FS_NOT_OBSERVED: true,
+  FS_AMBIGUOUS_EDIT: true,
+  FS_EDIT_NOT_FOUND: true,
+  FS_ABORTED: true,
+} as const satisfies Record<FsErrorCode, true>
+
+/**
+ * Every code in the taxonomy, as one list. A remote backend validates a code
+ * it receives against this rather than restating the taxonomy on its own side.
+ */
+export const FS_ERROR_CODES = Object.keys(CODE_KEYS) as [FsErrorCode, ...FsErrorCode[]]
+
+/**
  * Typed filesystem error. Extends {@link HarnessError} so it carries a stable
  * {@link FsErrorCode} and chains `cause`. `lyn-fs` owns this vocabulary so
  * backends and the policy layer raise the same codes instead of each inventing

@@ -8760,6 +8760,49 @@ importers:
         specifier: workspace:*
         version: link:../../sandbox/sandbox
 
+  packages/fs/fs-desktop:
+    dependencies:
+      zod:
+        specifier: ^4.4.3
+        version: 4.4.3
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+      '@lyness/lyn-agent':
+        specifier: workspace:*
+        version: link:../../core/agent
+      '@lyness/lyn-brand':
+        specifier: workspace:*
+        version: link:../../util/brand
+      '@lyness/lyn-desktop-link':
+        specifier: workspace:*
+        version: link:../../api/desktop-link
+      '@lyness/lyn-fs':
+        specifier: workspace:*
+        version: link:../fs
+      '@lyness/lyn-people':
+        specifier: workspace:*
+        version: link:../../identity/people
+      '@lyness/lyn-request-principal':
+        specifier: workspace:*
+        version: link:../../identity/request-principal
+      '@lyness/lyn-sandbox':
+        specifier: workspace:*
+        version: link:../../sandbox/sandbox
+      '@lyness/lyn-session':
+        specifier: workspace:*
+        version: link:../../core/session
+      '@lyness/lyn-session-ownership':
+        specifier: workspace:*
+        version: link:../../identity/session-ownership
+      '@lyness/lyn-session-projection':
+        specifier: workspace:*
+        version: link:../../session/session-projection
+      '@lyness/lyn-util-values':
+        specifier: workspace:*
+        version: link:../../util/values
+
   packages/fs/fs-local:
     dependencies:
       '@lyness/schemastery':

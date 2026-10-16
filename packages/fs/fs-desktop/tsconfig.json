@@ -1,0 +1,25 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "lib/types"
+  },
+  "include": [
+    "src"
+  ],
+  "references": [
+    { "path": "../../../vendor/cosmokit" },
+    { "path": "../../../vendor/cordis" },
+    { "path": "../../util/brand" },
+    { "path": "../../util/values" },
+    { "path": "../../core/agent" },
+    { "path": "../../api/desktop-link" },
+    { "path": "../fs" },
+    { "path": "../../identity/people" },
+    { "path": "../../identity/request-principal" },
+    { "path": "../../identity/session-ownership" },
+    { "path": "../../sandbox/sandbox" },
+    { "path": "../../core/session" },
+    { "path": "../../session/session-projection" }
+  ]
+}
