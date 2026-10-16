@@ -248,3 +248,38 @@ export function defineStore<T, A extends ActionsDecl<T>>(
     },
   }
 }
+
+/** What one shared read publishes while it runs and when it settles. */
+export interface SharedRead {
+  /** Perform the read, or join the one already running. */
+  load: () => Promise<void>
+  /** Read again after a failure, or join the one already running. */
+  retry: () => Promise<void>
+}
+
+/**
+ * Share one in-flight read between every caller that asks for it.
+ *
+ * Two surfaces of the same page, or a page and the row that opens it, ask for
+ * the same answer at the same moment; without this they ask the deployment
+ * twice. A retry drops the previous outcome first, so a reader sees the
+ * attempt rather than the failure it replaces.
+ * @param perform - reads once and publishes whatever it finds.
+ * @param reset - drops the previous outcome before another attempt.
+ * @returns the two verbs a surface drives.
+ */
+export function createSharedRead(perform: () => Promise<void>, reset: () => void): SharedRead {
+  let inFlight: Promise<void> | undefined
+  const load = (): Promise<void> => {
+    inFlight ??= perform().finally(() => { inFlight = undefined })
+    return inFlight
+  }
+  return {
+    load,
+    retry: (): Promise<void> => {
+      if (inFlight !== undefined) return inFlight
+      reset()
+      return load()
+    },
+  }
+}

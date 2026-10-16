@@ -12,6 +12,7 @@
 import type { Context } from '@lyness/cordis'
 import type {} from '@lyness/lyn-api-remotes/client'
 import type {} from '@lyness/lyn-api-announcement-controller/remote'
+import { createSharedRead } from '@lyness/lyn-client-store'
 import type { Announcement } from '@lyness/lyn-announcements/types'
 
 /** What one Remote read answers: the list, or the reason it refused. */
@@ -62,9 +63,7 @@ export function createAnnouncementsReader(
   read: () => Promise<ReadOutcome>,
   sink: ReaderSink,
 ): AnnouncementsReader {
-  let inFlight: Promise<void> | undefined
-
-  const perform = async (): Promise<void> => {
+  return createSharedRead(async () => {
     sink.begin()
     try {
       const result = await read()
@@ -76,19 +75,5 @@ export function createAnnouncementsReader(
       // The reason belongs to the transport, and a reader can only retry.
       sink.fail()
     }
-  }
-
-  const load = (): Promise<void> => {
-    inFlight ??= perform().finally(() => { inFlight = undefined })
-    return inFlight
-  }
-
-  return {
-    load,
-    retry: (): Promise<void> => {
-      if (inFlight !== undefined) return inFlight
-      sink.reset()
-      return load()
-    },
-  }
+  }, () => { sink.reset() })
 }

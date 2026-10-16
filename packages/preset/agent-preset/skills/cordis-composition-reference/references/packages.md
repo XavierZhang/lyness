@@ -516,6 +516,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | Package | Config | Description |
 |---|---|---|
 | `@lyness/lyn-microsoft-entra` | yes | Microsoft Entra ID sign-in: the identity face of the Microsoft vendor integration |
+| `@lyness/lyn-wecom` | yes | WeCom as a sign-in channel: a corporation signs in whichever of its members is at the browser |
 
 ## web
 

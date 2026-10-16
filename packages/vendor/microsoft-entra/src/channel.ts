@@ -19,6 +19,7 @@ import type { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
 import { channelId } from '@lyness/lyn-sign-in'
 import type { ExternalSubject, RedirectChannel, RedirectStart } from '@lyness/lyn-sign-in'
+import { AttemptBook } from '@lyness/lyn-sign-in/attempts'
 import { Config as EntraConfig, createSecrets, resolveConfig } from './index.ts'
 import type { Config as ServiceConfig, ResolvedConfig } from './index.ts'
 import { authorizeUrl } from './protocol.ts'
@@ -59,16 +60,6 @@ export const Config: z<Config> = z.intersect([
     attemptTtlMs: z.number().step(1).min(30_000).max(3_600_000).default(DEFAULT_ATTEMPT_TTL_MS),
   }),
 ])
-
-/** One sign-in waiting for the directory to return the browser. */
-interface Attempt {
-  /** This attempt's single-use values, including the PKCE verifier. */
-  readonly secrets: AttemptSecrets
-  /** The callback the authorization request named, which redemption must repeat. */
-  readonly redirectUri: string
-  /** Epoch milliseconds after which it is forgotten. */
-  readonly expiresAt: number
-}
 
 /**
  * Apply the attempt lifetime default for a config built without the Loader.
@@ -117,16 +108,14 @@ export class EntraChannel implements RedirectChannel {
 
   private readonly config: ResolvedConfig
 
-  private readonly ttlMs: number
-
-  private readonly attempts = new Map<string, Attempt>()
+  private readonly attempts: AttemptBook<AttemptSecrets>
 
   /**
    * @param config - validated directory configuration and attempt lifetime.
    */
   constructor(config: Config) {
     this.config = resolveConfig(config)
-    this.ttlMs = resolveAttemptTtl(config)
+    this.attempts = new AttemptBook<AttemptSecrets>(resolveAttemptTtl(config))
   }
 
   /**
@@ -140,12 +129,7 @@ export class EntraChannel implements RedirectChannel {
    */
   start(returnTo: string): Promise<RedirectStart> {
     const secrets = createSecrets()
-    this.forgetExpired(Date.now())
-    this.attempts.set(secrets.state, {
-      secrets,
-      redirectUri: returnTo,
-      expiresAt: Date.now() + this.ttlMs,
-    })
+    this.attempts.open(secrets.state, secrets, returnTo)
     return Promise.resolve({
       to: authorizeUrl(this.config, secrets, returnTo).toString(),
       attempt: secrets.state,
@@ -165,23 +149,11 @@ export class EntraChannel implements RedirectChannel {
     const state = parameters.get('state')
     const code = parameters.get('code')
     if (state === null || code === null) return undefined
-    // The lookup is the state check the protocol calls for: an attempt is
-    // stored under its own state, so finding one means the echoed value is
-    // exactly what this process issued. A second comparison afterwards would
-    // compare the key against itself.
-    const attempt = this.attempts.get(state)
-    this.attempts.delete(state)
-    if (attempt === undefined || attempt.expiresAt <= Date.now()) return undefined
+    const attempt = this.attempts.take(state)
+    if (attempt === undefined) return undefined
     const signal = AbortSignal.timeout(this.config.requestTimeoutMs)
-    const tokens = await redeemCode(this.config, attempt.secrets, attempt.redirectUri, code, signal)
+    const tokens = await redeemCode(this.config, attempt.held, attempt.redirectUri, code, signal)
     return asExternalSubject(await readSubject(this.config, tokens.access_token, signal))
-  }
-
-  /** Drop attempts nobody came back from, so an idle deployment does not accumulate them. */
-  private forgetExpired(now: number): void {
-    for (const [state, attempt] of this.attempts) {
-      if (attempt.expiresAt <= now) this.attempts.delete(state)
-    }
   }
 }
 

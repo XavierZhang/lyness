@@ -11,6 +11,7 @@
  */
 
 import type { Context } from '@lyness/cordis'
+import { createSharedRead } from '@lyness/lyn-client-store'
 import type {} from '@lyness/lyn-api-remotes/client'
 import type {} from '@lyness/lyn-api-credits-controller/remote'
 import type { AllowanceInput, AllowanceView, CreditAccountView, CreditGrantInput } from '@lyness/lyn-api-credits-controller/types'
@@ -91,9 +92,7 @@ function reasonOf(outcome: { readonly error?: { readonly code?: string; readonly
  * @returns the operations the section's injected face hands over.
  */
 export function createCreditsOperations(calls: CreditsCalls, sink: CreditsSink): CreditsOperations {
-  let inFlight: Promise<void> | undefined
-
-  const perform = async (): Promise<void> => {
+  const shared = createSharedRead(async () => {
     sink.begin()
     try {
       const result = await calls.mine()
@@ -105,20 +104,11 @@ export function createCreditsOperations(calls: CreditsCalls, sink: CreditsSink):
       // The reason belongs to the transport, and a reader can only retry.
       sink.fail('failed')
     }
-  }
-
-  const load = (): Promise<void> => {
-    inFlight ??= perform().finally(() => { inFlight = undefined })
-    return inFlight
-  }
+  }, () => { sink.reset() })
 
   return {
-    load,
-    retry: (): Promise<void> => {
-      if (inFlight !== undefined) return inFlight
-      sink.reset()
-      return load()
-    },
+    load: shared.load,
+    retry: shared.retry,
     grant: async (input): Promise<void> => {
       sink.work()
       try {

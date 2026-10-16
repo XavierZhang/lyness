@@ -30,6 +30,10 @@
       "types": "./lib/types/admission-roster.d.ts",
       "default": "./lib/types/admission-roster.js"
     },
+    "./attempts": {
+      "types": "./lib/types/attempts.d.ts",
+      "default": "./lib/types/attempts.js"
+    },
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },

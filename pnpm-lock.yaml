@@ -14575,6 +14575,31 @@ importers:
       '@lyness/lyn-storage-json':
         specifier: workspace:*
         version: link:../../storage/storage-json
+  packages/vendor/wecom:
+    dependencies:
+      '@lyness/schemastery':
+        specifier: link:../../../vendor/schemastery
+        version: link:../../../vendor/schemastery
+      zod:
+        specifier: ^4.4.3
+        version: 4.4.3
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+      '@lyness/lyn-brand':
+        specifier: workspace:*
+        version: link:../../util/brand
+      '@lyness/lyn-credentials':
+        specifier: workspace:*
+        version: link:../../credentials/credentials
+      '@lyness/lyn-sign-in':
+        specifier: workspace:*
+        version: link:../../identity/sign-in
+      '@lyness/lyn-util-crypto':
+        specifier: workspace:*
+        version: link:../../util/crypto
+
   packages/web/tool-web:
     dependencies:
       '@joplin/turndown-plugin-gfm':

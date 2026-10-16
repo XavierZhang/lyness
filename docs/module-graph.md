@@ -468,6 +468,7 @@ flowchart TD
   end
   subgraph group_vendor["packages/vendor"]
     pkg_microsoft_entra["microsoft-entra"]
+    pkg_wecom["wecom"]
   end
   subgraph group_webhook["packages/webhook"]
     pkg_webhook["webhook"]
@@ -649,6 +650,10 @@ flowchart TD
   pkg_microsoft_entra --> pkg_credentials
   pkg_microsoft_entra --> pkg_host_webserver
   pkg_microsoft_entra --> pkg_sign_in
+  pkg_wecom --> pkg_brand
+  pkg_wecom --> pkg_credentials
+  pkg_wecom --> pkg_sign_in
+  pkg_wecom --> pkg_util_crypto
   pkg_workspace --> pkg_invariants
   pkg_workspace --> pkg_session
   pkg_workspace --> pkg_session_persistence
@@ -1714,6 +1719,7 @@ flowchart TD
 | [`shell`](../packages/shell/shell) | `shell` | [`sandbox`](../packages/sandbox/sandbox), [`subprocess`](../packages/subprocess/subprocess) |
 | [`tenant-session`](../packages/tenant/tenant-session) | `tenant` | [`tenant-request`](../packages/tenant/tenant-request) |
 | [`microsoft-entra`](../packages/vendor/microsoft-entra) | `vendor` | [`authorization`](../packages/credentials/authorization), [`brand`](../packages/util/brand), [`credentials`](../packages/credentials/credentials), [`host-webserver`](../packages/host/webserver), [`sign-in`](../packages/identity/sign-in) |
+| [`wecom`](../packages/vendor/wecom) | `vendor` | [`brand`](../packages/util/brand), [`credentials`](../packages/credentials/credentials), [`sign-in`](../packages/identity/sign-in), [`util-crypto`](../packages/util/crypto) |
 | [`workspace`](../packages/workspace/workspace) | `workspace` | [`invariants`](../packages/runtime-diagnostics/invariants), [`session`](../packages/core/session), [`session-persistence`](../packages/session/session-persistence), [`storage`](../packages/storage/storage), [`storage-domain`](../packages/storage/storage-domain), [`typert-protocol`](../packages/typert/protocol) |
 | [`llm-deepseek`](../packages/llm/llm-deepseek) | `llm` | [`anonymous-user-id`](../packages/identity/anonymous-user-id), [`atomic-write`](../packages/util/atomic-write), [`attachment`](../packages/attachment/attachment), [`deepseek-llm-api-extensions`](../packages/llm/deepseek-llm-api-extensions), [`fs`](../packages/fs/fs), [`home-paths`](../packages/util/home-paths), [`launch-environment`](../packages/util/launch-environment), [`llm`](../packages/llm/llm), [`timeout`](../packages/util/timeout) |
 | [`llm-pi-ai`](../packages/llm/llm-pi-ai) | `llm` | [`attachment`](../packages/attachment/attachment), [`authorization`](../packages/credentials/authorization), [`credentials`](../packages/credentials/credentials), [`fs`](../packages/fs/fs), [`launch-environment`](../packages/util/launch-environment), [`llm`](../packages/llm/llm), [`timeout`](../packages/util/timeout) |

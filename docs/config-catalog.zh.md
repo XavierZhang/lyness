@@ -4552,6 +4552,51 @@ export interface Config {
 ```
 <!-- END GENERATED config-catalog:@lyness/lyn-webhook-github -->
 
+<!-- BEGIN GENERATED config-catalog:@lyness/lyn-wecom -->
+<a id="lynesslyn-wecom"></a>
+
+## `@lyness/lyn-wecom`
+
+- `inject`: `signIn` · `credentials`
+- `source`: [`packages/vendor/wecom/src/index.ts:85`](../packages/vendor/wecom/src/index.ts)
+
+```ts config-catalog
+/** The corporation to sign in against, and how to reach it. */
+export interface Config {
+  /** The corporation's own id, which WeCom calls `corpid`. Required. */
+  corpId: string
+  /** The self-built application's `agentid`. Required. */
+  agentId: string
+  /**
+   * Credential reference naming the application secret.
+   *
+   * A reference rather than the secret: a composition file is read by
+   * everyone who can read the repository, and an application secret signs in
+   * the whole corporation.
+   */
+  secret: string
+  /** Scan-code login host; defaults to the public service. */
+  loginHost?: string
+  /** API origin; defaults to the public service. */
+  apiOrigin?: string
+  /** Callback path the corporation returns to; defaults to `/oauth/callback/wecom`. */
+  redirectPath?: string
+  /**
+   * Whether to read member detail — name and work address — after sign-in.
+   *
+   * Off by default, because it requires the application to hold the private
+   * information scope, and a deployment that only binds members by id needs
+   * neither value.
+   */
+  readDetail?: boolean
+  /** How long an unfinished attempt is remembered, in milliseconds; defaults to 600000. */
+  attemptTtlMs?: number
+  /** Bound on one outbound request in milliseconds; defaults to 20000. */
+  requestTimeoutMs?: number
+}
+```
+<!-- END GENERATED config-catalog:@lyness/lyn-wecom -->
+
 <!-- BEGIN GENERATED config-catalog:@lyness/lyn-workflow-ptc -->
 <a id="lynesslyn-workflow-ptc"></a>
 

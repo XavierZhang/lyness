@@ -13,25 +13,14 @@ import type { AllowanceView, CreditAccountView } from '@lyness/lyn-api-credits-c
 import type { CreditsOperations, CreditsSink } from './operations.ts'
 import type { CreditsSectionInjected } from './CreditsSection.tsx'
 
-/** The store writes this section performs, as the framework hands them over. */
-export interface CreditsActions {
-  /** A read has started. */
-  begin: () => void
-  /** A read returned this account. */
-  succeed: (account: CreditAccountView) => void
-  /** A read did not return an account. */
-  fail: (status: 'failed' | 'unavailable') => void
-  /** Drop the previous outcome before another attempt. */
-  reset: () => void
-  /** A change has started. */
-  work: () => void
-  /** A grant landed. */
-  granted: (outcome: { account: CreditAccountView; person: string; amount: number }) => void
-  /** An allowance was saved. */
-  allowed: (allowance: AllowanceView) => void
-  /** A change was refused. */
-  refused: (reason: string) => void
-}
+/**
+ * The store writes this section performs, as the framework hands them over.
+ *
+ * The same members the calls publish, because that is what they are: the
+ * binding exists to hold them until the framework has baked a store, not to
+ * translate between two vocabularies.
+ */
+export type CreditsActions = CreditsSink
 
 /** Publishes outcomes to the baked store, once there is one. */
 export class SectionBinding implements CreditsSink {

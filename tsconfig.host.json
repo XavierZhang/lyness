@@ -276,6 +276,7 @@
     { "path": "./packages/bundle/module-webhook" },
     { "path": "./packages/bundle/module-schedule" },
     { "path": "./packages/vendor/microsoft-entra" },
+    { "path": "./packages/vendor/wecom" },
     { "path": "./packages/llm/llm" },
     { "path": "./packages/llm/model-required" },
     { "path": "./packages/llm/model-policy" },

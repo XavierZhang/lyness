@@ -1,5 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { createSnapshotStore, defineStore, shallowEqual } from '../src/index.ts'
+import { createSharedRead, createSnapshotStore, defineStore, shallowEqual } from '../src/index.ts'
+import type { SharedRead } from '../src/index.ts'
 
 interface State {
   a: { n: number }
@@ -291,5 +292,65 @@ describe('shallowEqual', () => {
     expect(shallowEqual({ x: 1, y: { deep: 1 } }, { x: 1, y: { deep: 1 } })).toBe(false)
     expect(shallowEqual([1, 2], [1, 2])).toBe(true)
     expect(shallowEqual([1, 2], [2, 1])).toBe(false)
+  })
+})
+
+describe('createSharedRead', () => {
+  /** A read whose settlement the test controls, counting how often it ran. */
+  function controlled(): {
+    perform: () => Promise<void>
+    settle: () => void
+    runs: number
+    resets: number
+    read: SharedRead
+  } {
+    const state = { runs: 0, resets: 0, release: () => {} }
+    const perform = (): Promise<void> => {
+      state.runs += 1
+      return new Promise<void>((resolve) => { state.release = resolve })
+    }
+    const read = createSharedRead(perform, () => { state.resets += 1 })
+    return {
+      perform,
+      settle: () => { state.release() },
+      get runs() { return state.runs },
+      get resets() { return state.resets },
+      read,
+    }
+  }
+
+  it('reads once for every caller that asks while one read is running', async () => {
+    const subject = controlled()
+    const joined = Promise.all([subject.read.load(), subject.read.load(), subject.read.retry()])
+    expect(subject.runs).toBe(1)
+    subject.settle()
+    await joined
+    expect(subject.runs).toBe(1)
+    // A retry that joined an in-flight read drops nothing: there is no
+    // previous outcome yet to replace.
+    expect(subject.resets).toBe(0)
+  })
+
+  it('reads again once the shared read has settled', async () => {
+    const subject = controlled()
+    const first = subject.read.load()
+    subject.settle()
+    await first
+    const second = subject.read.load()
+    subject.settle()
+    await second
+    expect(subject.runs).toBe(2)
+  })
+
+  it('drops the previous outcome before a retry, so the attempt is what shows', async () => {
+    const subject = controlled()
+    const first = subject.read.load()
+    subject.settle()
+    await first
+    const retried = subject.read.retry()
+    expect(subject.resets).toBe(1)
+    subject.settle()
+    await retried
+    expect(subject.runs).toBe(2)
   })
 })
