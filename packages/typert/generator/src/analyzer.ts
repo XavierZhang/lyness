@@ -47,6 +47,17 @@ type WithoutId<T> = T extends { readonly id: TypeNodeId } ? Omit<T, 'id'> : neve
 
 type TypeNodeInput = WithoutId<TypeNodeModel>
 
+/**
+ * The standings a Remote namespace or method may require.
+ *
+ * Restated here rather than imported from the protocol because the analyzer
+ * reads source text and must reject an unknown value without resolving the
+ * type graph it is still building.
+ */
+const REMOTE_AUTHORITIES: ReadonlySet<string> = new Set([
+  'anyone', 'member', 'tenant-administrator', 'platform-administrator',
+])
+
 const PUBLIC_REMOTE_TYPE_ROOTS = new Set([
   '@lyness/lyn-util-values',
 ])
@@ -1304,18 +1315,77 @@ class FaceAnalyzer {
         this.fail(options, 'bindTypertRemote() options must be an object literal')
       }
       for (const propertyOption of options.properties) {
-        if (!ts.isPropertyAssignment(propertyOption)
-          || memberName(propertyOption.name) !== 'namespace') {
-          this.fail(propertyOption, 'bindTypertRemote() only supports a namespace option')
+        const option = ts.isPropertyAssignment(propertyOption) ? memberName(propertyOption.name) : undefined
+        if (option !== 'namespace' && option !== 'requires') {
+          this.fail(propertyOption, 'bindTypertRemote() only supports namespace and requires options')
         }
-        const value = stringLiteralValue(propertyOption.initializer)
-        if (value === undefined) this.fail(propertyOption.initializer, 'Gateway namespace must be a string literal')
+        const value = stringLiteralValue((propertyOption as ts.PropertyAssignment).initializer)
+        if (value === undefined) {
+          this.fail((propertyOption as ts.PropertyAssignment).initializer, `Gateway ${option} must be a string literal`)
+        }
+        // The standing a namespace requires is a composition fact the Gateway
+        // reads at dispatch, not a wire type; the analyzer only checks that it
+        // is one of the declared values.
+        if (option === 'requires') {
+          if (!REMOTE_AUTHORITIES.has(value)) {
+            this.fail((propertyOption as ts.PropertyAssignment).initializer, 'Gateway requires must name a RemoteAuthority')
+          }
+          continue
+        }
         namespace = value
       }
     }
     if (!isRemoteSegment(service)) this.fail(serviceArgument, 'Gateway service key must contain only RPC endpoint segment characters')
     if (!isRemoteSegment(namespace)) this.fail(options ?? call, 'Gateway namespace must contain only RPC endpoint segment characters')
     return { service, namespace, site }
+  }
+
+  /**
+   * Read a `@Remote({...})` options object: the export name, the stream mode,
+   * and the standing the method requires.
+   *
+   * `requires` reaches the Gateway through the runtime marker rather than
+   * through a generated artifact, so the analyzer validates it and keeps
+   * nothing; only `exportName` and `mode` change what is generated.
+   */
+  private remoteOptions(argument: ts.Expression): { readonly exportName?: string; readonly mode?: 'stream' } {
+    if (!ts.isObjectLiteralExpression(argument) || argument.properties.length === 0) {
+      this.fail(argument, 'Remote() options must declare exportName, mode, or requires')
+    }
+    let exportName: string | undefined
+    let mode: 'stream' | undefined
+    let declaredRequires = false
+    for (const property of argument.properties) {
+      const option = ts.isPropertyAssignment(property) ? memberName(property.name) : undefined
+      if (option !== 'exportName' && option !== 'mode' && option !== 'requires') {
+        this.fail(property, 'Remote() options only support exportName, mode, and requires')
+      }
+      const value = stringLiteralValue((property as ts.PropertyAssignment).initializer)
+      if (value === undefined) {
+        this.fail((property as ts.PropertyAssignment).initializer, `Remote() ${option} must be a string literal`)
+      }
+      if (option === 'exportName') {
+        if (!isRemoteSegment(value)) {
+          this.fail((property as ts.PropertyAssignment).initializer, 'Remote() exportName must contain only RPC endpoint segment characters')
+        }
+        exportName = value
+      } else if (option === 'mode') {
+        if (value !== 'stream') this.fail((property as ts.PropertyAssignment).initializer, 'Remote() mode must be "stream"')
+        mode = value
+      } else {
+        if (!REMOTE_AUTHORITIES.has(value)) {
+          this.fail((property as ts.PropertyAssignment).initializer, 'Remote() requires must name a RemoteAuthority')
+        }
+        declaredRequires = true
+      }
+    }
+    if (exportName === undefined && mode === undefined && !declaredRequires) {
+      this.fail(argument, 'Remote() options must declare exportName, mode, or requires')
+    }
+    return {
+      ...exportName === undefined ? {} : { exportName },
+      ...mode === undefined ? {} : { mode },
+    }
   }
 
   private remoteMarker(
@@ -1345,16 +1415,7 @@ class FaceAnalyzer {
           }
           marker = { kind: 'direct', exportName }
         } else {
-          if (!ts.isObjectLiteralExpression(argument) || argument.properties.length !== 1) {
-            this.fail(argument, 'Remote() options must contain exactly mode: "stream"')
-          }
-          const [property] = argument.properties
-          if (property === undefined) this.fail(argument, 'Remote() options must contain exactly mode: "stream"')
-          const mode = ts.isPropertyAssignment(property) && memberName(property.name) === 'mode'
-            ? stringLiteralValue(property.initializer)
-            : undefined
-          if (mode !== 'stream') this.fail(property, 'Remote() options must contain exactly mode: "stream"')
-          marker = { kind: 'direct', mode }
+          marker = { kind: 'direct', ...this.remoteOptions(argument) }
         }
       } else if (ts.isCallExpression(expression)
         && this.isTypeMetaSymbol(expression.expression, 'RemoteScope')) {

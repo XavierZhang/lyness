@@ -21,7 +21,7 @@ export class SessionSkillCatalog extends TypertRemoteService {
 
   /** @param ctx - Host context carrying Session reads and optional skill/preset services. */
   constructor(ctx: Context) {
-    super(ctx, 'sessionSkillCatalog', { namespace: 'skills' })
+    super(ctx, 'sessionSkillCatalog', { namespace: 'skills', requires: 'member' })
   }
 
   /**

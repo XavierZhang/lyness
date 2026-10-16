@@ -75,10 +75,32 @@ export type {
   TypertRegistryContract,
 } from './types.ts'
 
+/**
+ * The standing one Remote call must hold to be served.
+ *
+ * Declared rather than inferred, because a namespace nobody classified is a
+ * namespace everybody reaches. `anyone` admits a call that presented no
+ * identity at all — a sign-in page, or what a deployment has announced.
+ * `member` admits any signed-in person. The two administrator values admit
+ * that standing and the platform's; a tenant administrator is not admitted
+ * where the platform's is required.
+ *
+ * Whether any of this is enforced is a composition choice: a deployment with
+ * no accounts has one operator, and refusing them their own installation
+ * would be the wrong answer.
+ */
+export type RemoteAuthority = 'anyone' | 'member' | 'tenant-administrator' | 'platform-administrator'
+
 /** Options for an explicit Service-to-Gateway binding. */
 export interface TypertGatewayBindingOptions {
   /** Wire namespace; defaults to the Cordis service key. */
   readonly namespace?: string
+  /**
+   * The standing every method in this namespace requires unless it declares
+   * its own. Omitting it leaves the namespace unclassified, which an
+   * enforcing deployment refuses rather than admits.
+   */
+  readonly requires?: RemoteAuthority
 }
 
 /** Visible declaration that one Service participates in Typert Gateway export. */
@@ -86,6 +108,8 @@ export interface TypertGatewayBinding<Service extends object = object> {
   readonly service: Service
   readonly serviceKey: string
   readonly namespace: string
+  /** The namespace's declared standing; absent when it declared none. */
+  readonly requires?: RemoteAuthority
 }
 
 /** Invocation mode recorded by a Remote method decorator. */
@@ -101,13 +125,23 @@ export interface RemoteMethodMarker {
   readonly exportName?: string
   /** Stream methods yield many independently validated result items. */
   readonly mode?: 'stream'
+  /** The standing this method requires, overriding its namespace's. */
+  readonly requires?: RemoteAuthority
   readonly invocation: RemoteInvocationMarker
 }
 
-/** Options for a non-unary Remote method. */
+/** Options for a Remote method that is not an ordinary unary call at its namespace's standing. */
 export interface RemoteMethodOptions {
+  /** Endpoint method name, where it differs from the implementation member. */
+  readonly exportName?: string
   /** `stream`: deliver each Iterable item over the shared logical-stream carrier. */
-  readonly mode: 'stream'
+  readonly mode?: 'stream'
+  /**
+   * The standing this one method requires, where it differs from its
+   * namespace's. Raising it is the common case: one write, or one operation
+   * that reaches the machine, inside a namespace members otherwise read.
+   */
+  readonly requires?: RemoteAuthority
 }
 
 type RemoteMethodDecorator = <This extends object, Args extends unknown[], Result>(
@@ -125,6 +159,7 @@ interface RemoteInitializerContext<This extends object> {
 interface StoredRemoteMethodMarker {
   readonly exportName?: string
   readonly mode?: 'stream'
+  readonly requires?: RemoteAuthority
   readonly invocation: RemoteInvocationMarker
 }
 
@@ -159,7 +194,12 @@ export function bindTypertRemote<Service extends object>(
   validateName('namespace', namespace)
   const ctx: unknown = Reflect.get(service, 'ctx')
   if (ctx instanceof Context) provideInvocationAccessor(ctx)
-  return Object.freeze({ service, serviceKey, namespace })
+  return Object.freeze({
+    service,
+    serviceKey,
+    namespace,
+    ...options.requires === undefined ? {} : { requires: options.requires },
+  })
 }
 
 /** Cordis Service base that exposes its registered name through Typert Gateway. */
@@ -211,33 +251,68 @@ export function Remote<This extends object, Args extends unknown[], Result>(
 ): void | RemoteMethodDecorator {
   if (typeof methodExportOrOptions === 'string') {
     validateName('Remote export name', methodExportOrOptions)
-    return remoteDecorator({ kind: 'direct' }, undefined, methodExportOrOptions)
+    return remoteDecorator({ kind: 'direct' }, {}, methodExportOrOptions)
   }
   if (typeof methodExportOrOptions === 'object') {
-    if (remoteOptionMode(methodExportOrOptions) !== 'stream'
-      || Reflect.ownKeys(methodExportOrOptions).length !== 1) {
-      throw new TypeError('typert-protocol: Remote options must contain exactly mode: "stream"')
-    }
-    return remoteDecorator({ kind: 'direct' }, 'stream')
+    const options = validateOptions(methodExportOrOptions)
+    return remoteDecorator({ kind: 'direct' }, options, options.exportName)
   }
   if (context === undefined) throw new TypeError('typert-protocol: Remote decorator context is missing')
-  addMarkerInitializer(context, { kind: 'direct' })
+  addMarkerInitializer(context, { kind: 'direct' }, {})
 }
 
-function remoteOptionMode(options: object): unknown {
-  return Reflect.get(options, 'mode') as unknown
+const AUTHORITIES: ReadonlySet<string> = new Set<RemoteAuthority>([
+  'anyone', 'member', 'tenant-administrator', 'platform-administrator',
+])
+
+/**
+ * Read one Remote method's options, refusing anything the marker cannot carry.
+ *
+ * Checked here rather than left to the type system because a decorator's
+ * argument is also what a JavaScript consumer writes, and an unrecognized
+ * option would record a method as unclassified instead of failing.
+ */
+function validateOptions(options: object): RemoteMethodOptions {
+  const accepted = new Set<string | symbol>(['exportName', 'mode', 'requires'])
+  const unknownKeys = Reflect.ownKeys(options).filter(key => !accepted.has(key))
+  if (unknownKeys.length > 0) {
+    throw new TypeError(`typert-protocol: Remote options do not accept ${String(unknownKeys[0])}`)
+  }
+  const mode: unknown = Reflect.get(options, 'mode')
+  if (mode !== undefined && mode !== 'stream') {
+    throw new TypeError('typert-protocol: Remote mode must be "stream" when present')
+  }
+  const requires: unknown = Reflect.get(options, 'requires')
+  if (requires !== undefined && (typeof requires !== 'string' || !AUTHORITIES.has(requires))) {
+    throw new TypeError('typert-protocol: Remote requires must name a RemoteAuthority')
+  }
+  const exportName: unknown = Reflect.get(options, 'exportName')
+  if (exportName !== undefined) {
+    if (typeof exportName !== 'string') {
+      throw new TypeError('typert-protocol: Remote exportName must be a string when present')
+    }
+    validateName('Remote export name', exportName)
+  }
+  if (mode === undefined && requires === undefined && exportName === undefined) {
+    throw new TypeError('typert-protocol: Remote options must declare exportName, mode, or requires')
+  }
+  return {
+    ...exportName === undefined ? {} : { exportName },
+    ...mode === undefined ? {} : { mode: 'stream' as const },
+    ...requires === undefined ? {} : { requires: requires as RemoteAuthority },
+  }
 }
 
 function remoteDecorator(
   invocation: RemoteInvocationMarker,
-  mode?: 'stream',
+  options: RemoteMethodOptions,
   exportName?: string,
 ): RemoteMethodDecorator {
   return function <This extends object, Args extends unknown[], Result>(
     _method: (this: This, ...args: Args) => Result,
     context: ClassMethodDecoratorContext<This, (this: This, ...args: Args) => Result>,
   ): void {
-    addMarkerInitializer(context, invocation, mode, exportName)
+    addMarkerInitializer(context, invocation, options, exportName)
   }
 }
 
@@ -253,7 +328,7 @@ export function RemoteScope(
 ): RemoteMethodDecorator {
   validateName('Scope key', key)
   if (exportName !== undefined) validateName('Remote export name', exportName)
-  return remoteDecorator({ kind: 'context', context: key }, undefined, exportName)
+  return remoteDecorator({ kind: 'context', context: key }, {}, exportName)
 }
 
 /**
@@ -289,7 +364,7 @@ function readRemoteMethodDescriptor(prototype: object): RemoteMethodDescriptorV1
 function addMarkerInitializer<This extends object>(
   context: RemoteInitializerContext<This>,
   invocation: RemoteInvocationMarker,
-  mode?: 'stream',
+  options: RemoteMethodOptions,
   exportName?: string,
 ): void {
   if (context.private || context.static || typeof context.name !== 'string') {
@@ -301,7 +376,7 @@ function addMarkerInitializer<This extends object>(
     if (prototype === null) {
       throw new TypeError(`typert-protocol: cannot mark Remote method "${method}" on an object without a prototype`)
     }
-    mark(prototype, method, invocation, mode, exportName)
+    mark(prototype, method, invocation, options, exportName)
   })
 }
 
@@ -309,20 +384,22 @@ function mark(
   prototype: object,
   method: string,
   invocation: RemoteInvocationMarker,
-  mode?: 'stream',
+  options: RemoteMethodOptions,
   exportName?: string,
 ): void {
   const descriptor = readRemoteMethodDescriptor(prototype)
   const marker: StoredRemoteMethod = Object.freeze({
     method,
     ...(exportName === undefined || exportName === method ? {} : { exportName }),
-    ...(mode === undefined ? {} : { mode }),
+    ...(options.mode === undefined ? {} : { mode: options.mode }),
+    ...(options.requires === undefined ? {} : { requires: options.requires }),
     invocation: Object.freeze(invocation),
   })
   const current = descriptor?.methods.find(candidate => candidate.method === method)
   if (current !== undefined) {
     if (current.exportName === marker.exportName
       && current.mode === marker.mode
+      && current.requires === marker.requires
       && sameInvocation(current.invocation, invocation)) return
     throw new Error(`typert-protocol: Remote method "${method}" has conflicting invocation markers`)
   }

@@ -124,6 +124,7 @@ flowchart TD
     pkg_api_credits_controller["api-credits-controller"]
     pkg_api_gateway["api-gateway"]
     pkg_api_job_controller["api-job-controller"]
+    pkg_api_remote_authority["api-remote-authority"]
     pkg_api_remotes["api-remotes"]
     pkg_api_session_controller["api-session-controller"]
     pkg_api_settings_controller["api-settings-controller"]
@@ -593,6 +594,10 @@ flowchart TD
   pkg_spill_local --> pkg_spill
   pkg_session_log_export --> pkg_session
   pkg_session_log_export --> pkg_session_persistence
+  pkg_api_remote_authority --> pkg_api_gateway
+  pkg_api_remote_authority --> pkg_people
+  pkg_api_remote_authority --> pkg_request_principal
+  pkg_api_remote_authority --> pkg_typert_protocol
   pkg_api_tenant_controller --> pkg_tenant
   pkg_api_tenant_controller --> pkg_tenant_config
   pkg_api_tenant_controller --> pkg_tenant_request
@@ -1692,6 +1697,7 @@ flowchart TD
 | [`fs`](../packages/fs/fs) | `fs` | [`brand`](../packages/util/brand), [`invariants`](../packages/runtime-diagnostics/invariants), [`llm`](../packages/llm/llm), [`sandbox`](../packages/sandbox/sandbox) |
 | [`spill-local`](../packages/spill/spill-local) | `spill` | [`spill`](../packages/spill/spill) |
 | [`session-log-export`](../packages/session-query/session-log-export) | `session-query` | [`session`](../packages/core/session), [`session-persistence`](../packages/session/session-persistence) |
+| [`api-remote-authority`](../packages/api/remote-authority) | `api` | [`api-gateway`](../packages/api/gateway), [`people`](../packages/identity/people), [`request-principal`](../packages/identity/request-principal), [`typert-protocol`](../packages/typert/protocol) |
 | [`api-tenant-controller`](../packages/api/tenant-controller) | `api` | [`tenant`](../packages/tenant/tenant), [`tenant-config`](../packages/tenant/tenant-config), [`tenant-request`](../packages/tenant/tenant-request), [`typert-protocol`](../packages/typert/protocol) |
 | [`desktop-link`](../packages/api/desktop-link) | `api` | [`brand`](../packages/util/brand), [`people`](../packages/identity/people), [`request-principal`](../packages/identity/request-principal), [`typert-protocol`](../packages/typert/protocol), [`util-values`](../packages/util/values) |
 | [`hmr`](../packages/boot/hmr) | `boot` | [`app-boot`](../packages/boot/app-boot), [`cmdline`](../packages/boot/cmdline) |

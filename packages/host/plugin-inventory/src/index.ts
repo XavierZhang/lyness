@@ -52,7 +52,7 @@ export class PluginInventoryGateway extends TypertRemoteService {
   static inject = ['loader']
 
   constructor(ctx: Context) {
-    super(ctx, 'pluginInventory')
+    super(ctx, 'pluginInventory', { requires: 'platform-administrator' })
   }
 
   /**

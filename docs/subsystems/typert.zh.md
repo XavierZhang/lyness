@@ -296,6 +296,7 @@ type TypertGatewayErrorCode =
   | 'gateway/context-not-found'
   | 'gateway/context-unavailable'
   | 'gateway/definition-unavailable'
+  | 'gateway/forbidden'
   | 'gateway/input-invalid'
   | 'gateway/invocation-unavailable'
   | 'gateway/lookup-failed'
@@ -470,6 +471,38 @@ async invoke(request: InvokeRemoteRequest): Promise<unknown>
  * @returns a cancellation-aware iterable over the business results.
  */
 async stream(request: InvokeRemoteRequest): Promise<AsyncIterable<unknown>>
+```
+
+Source: [`packages/api/gateway/src/index.ts`](../../packages/api/gateway/src/index.ts)
+
+<a id="typert-events"></a>
+
+### `typert/*` events
+
+<a id="typertauthorize--bail"></a>
+
+#### `typert/authorize` — bail
+
+Decide whether one resolved Remote call may be served, before its arguments are resolved and before its method runs.
+
+The Gateway is the only place every wire call passes through, so it is the only place an authority rule cannot be reached around: a namespace's own method, a preset row, or a direct RPC all arrive here. The rule itself is not here — a deployment with no accounts has one operator, and refusing them their own installation would be the wrong answer, so the policy is a plugin a composition selects.
+
+```ts cordis-catalog
+/**
+ * Decide whether one resolved Remote call may be served, before its
+ * arguments are resolved and before its method runs.
+ *
+ * The Gateway is the only place every wire call passes through, so it is
+ * the only place an authority rule cannot be reached around: a namespace's
+ * own method, a preset row, or a direct RPC all arrive here. The rule
+ * itself is not here — a deployment with no accounts has one operator, and
+ * refusing them their own installation would be the wrong answer, so the
+ * policy is a plugin a composition selects.
+ * @param call - the endpoint, what it declared it requires, and the peer asking.
+ * @returns the reason to refuse, or `undefined` to raise no objection.
+ * @mode bail
+ */
+'typert/authorize'(call: RemoteAuthorizationRequest): string | undefined | Promise<string | undefined>
 ```
 
 Source: [`packages/api/gateway/src/index.ts`](../../packages/api/gateway/src/index.ts)

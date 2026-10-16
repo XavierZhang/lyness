@@ -254,6 +254,7 @@ const SENTENCE_MODEL_EXPERIENCE: Readonly<Record<string, SentenceContract>> = {
   'packages/api/settings-controller': { kind: 'none', reason: 'Configuration-surface API owner; it registers no prompt, tool, or session event.' },
   'packages/api/tenant-controller': { kind: 'none', reason: 'Tenant-configuration API owner; it registers no prompt, tool, or session event.' },
   'packages/api/credits-controller': { kind: 'none', reason: 'Credits API owner; the ledger refuses a turn inside llm/stream, and this package registers no prompt, tool, or session event.' },
+  'packages/api/remote-authority': { kind: 'none', reason: 'A wire-call authority rule answered before any method runs; it registers no prompt, tool, or session event.' },
   'packages/client/ui-settings-credits': { kind: 'none', reason: 'A Settings page a person reads; it registers no prompt, tool, or session event.' },
   'packages/api/workspace-controller': { kind: 'none', reason: 'Workspace API and state projection owner; it registers no prompt, tool, or session event.' },
   'packages/api/workspace-files': { kind: 'none', reason: 'Workspace file read API and its Client resource provider; it registers no prompt, tool, or session event.' },

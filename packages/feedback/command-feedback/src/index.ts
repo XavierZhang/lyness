@@ -89,7 +89,7 @@ export class SessionFeedbackService extends TypertRemoteService {
    * @param ctx - Host context carrying the live Session store.
    */
   constructor(ctx: Context) {
-    super(ctx, 'sessionFeedback')
+    super(ctx, 'sessionFeedback', { requires: 'member' })
   }
 
   /**

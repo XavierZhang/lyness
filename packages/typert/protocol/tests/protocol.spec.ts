@@ -12,6 +12,7 @@ import {
   type TypertContext,
   type TypertForwardableEvent,
   type TypertForwardableEventEntry,
+  type RemoteMethodOptions,
   type TypertLookup,
   type TypertRemoteEvent,
 } from '@lyness/lyn-typert-protocol'
@@ -73,6 +74,17 @@ declare module '@lyness/lyn-typert-protocol' {
 
   interface TypertRemoteEventSelection extends
     Record<'meta-fixture/forwardable' | 'meta-fixture/waterfall' | 'meta-fixture/absent', true> {}
+}
+
+/**
+ * One options object a JavaScript caller could pass that the declared type
+ * forbids. The decorator validates its argument at runtime for exactly these
+ * callers, so the test has to reach past the type to exercise it.
+ * @param value - the object to pass as options.
+ * @returns the same object, as the decorator's declared options.
+ */
+function badOptions(value: object): RemoteMethodOptions {
+  return value as RemoteMethodOptions
 }
 
 describe('typert-protocol Remote declarations', () => {
@@ -305,11 +317,12 @@ describe('typert-protocol Remote declarations', () => {
     expect(() => Remote('bad name')).toThrow('export name')
     expect(() => Remote('.')).toThrow('export name')
     expect(() => Remote('..')).toThrow('export name')
-    expect(() => Remote({ mode: 'unary' } as unknown as { mode: 'stream' })).toThrow('exactly mode')
-    expect(() => Remote({ mode: 'stream', extra: true } as unknown as { mode: 'stream' })).toThrow('exactly mode')
-    const bogusMode: string = 'duplex'
-    expect(() => Remote({ mode: bogusMode } as { mode: 'stream' }))
-      .toThrow('Remote options must contain exactly mode: "stream"')
+    expect(() => Remote(badOptions({ mode: 'unary' }))).toThrow('mode must be "stream"')
+    expect(() => Remote(badOptions({ mode: 'stream', extra: true }))).toThrow('do not accept extra')
+    expect(() => Remote(badOptions({}))).toThrow('must declare exportName, mode, or requires')
+    expect(() => Remote(badOptions({ requires: 'operator' }))).toThrow('requires must name a RemoteAuthority')
+    expect(() => Remote({ exportName: 'bad/name' })).toThrow('export name')
+    expect(() => Remote(badOptions({ exportName: 7 }))).toThrow('exportName must be a string')
     expect(() => RemoteScope('' as 'metaFixture')).toThrow('Scope key')
     expect(() => RemoteScope('metaFixture', 'bad/name')).toThrow('export name')
 

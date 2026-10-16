@@ -62,7 +62,7 @@ export class FileUploads extends TypertRemoteService {
 
   /** @param ctx - Host context carrying Agent, attachment, command, and Connection services. */
   constructor(ctx: Context) {
-    super(ctx, 'fileUploads')
+    super(ctx, 'fileUploads', { requires: 'member' })
     const resolve: CommandFileReceiptResolver = (agent, receiptId) =>
       this.resolve(agent, receiptId as FileUploadReceiptId)
     ctx.effect(

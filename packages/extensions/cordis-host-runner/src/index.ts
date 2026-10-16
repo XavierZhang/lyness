@@ -142,7 +142,7 @@ export class DynamicCordisRunnerService extends TypertRemoteService {
 
   /** Create the service under the Host composition. */
   constructor(ctx: Context, config: Config) {
-    super(ctx, 'dynamicCordisRunner')
+    super(ctx, 'dynamicCordisRunner', { requires: 'platform-administrator' })
     this.rootCtx = ctx
     this.resolved = config as ResolvedConfig
     this.inspectRegistry = new CordisInspectRegistryService(ctx)

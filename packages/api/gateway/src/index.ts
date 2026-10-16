@@ -26,6 +26,7 @@ import {
   type InvocationDescriptor,
   type InvocationParameterDescriptor,
   type PeerScope,
+  type RemoteAuthority,
   type RemoteInvocation,
   type TypertCodec,
   type TypertGatewayBinding,
@@ -188,6 +189,42 @@ export class TypertGatewayError extends RemoteError<TypertGatewayErrorCode> {
     this.endpoint = endpoint
     this.field = options.field
   }
+}
+
+declare module '@lyness/cordis' {
+  interface Events {
+    /**
+     * Decide whether one resolved Remote call may be served, before its
+     * arguments are resolved and before its method runs.
+     *
+     * The Gateway is the only place every wire call passes through, so it is
+     * the only place an authority rule cannot be reached around: a namespace's
+     * own method, a preset row, or a direct RPC all arrive here. The rule
+     * itself is not here — a deployment with no accounts has one operator, and
+     * refusing them their own installation would be the wrong answer, so the
+     * policy is a plugin a composition selects.
+     * @param call - the endpoint, what it declared it requires, and the peer asking.
+     * @returns the reason to refuse, or `undefined` to raise no objection.
+     * @mode bail
+     */
+    'typert/authorize'(call: RemoteAuthorizationRequest): string | undefined | Promise<string | undefined>
+  }
+}
+
+/** One resolved call, as the authority rule reads it. */
+export interface RemoteAuthorizationRequest {
+  /** Canonical `<namespace>/<method>` endpoint. */
+  readonly endpoint: string
+  /** Wire namespace the call arrived for. */
+  readonly namespace: string
+  /** Wire method within it. */
+  readonly method: string
+  /**
+   * The standing this endpoint requires: its method's declaration, else its
+   * namespace's. `undefined` means neither classified it, which an enforcing
+   * policy refuses rather than admits.
+   */
+  readonly requires: RemoteAuthority | undefined
 }
 
 /**
@@ -699,7 +736,10 @@ export class TypertGatewayService extends Service implements TypertGateway {
         `active Service ${JSON.stringify(descriptor.service)} is unavailable`,
       )
     }
-    validateBinding(receiver, descriptor.service, descriptor.namespace, endpoint)
+    const bound = validateBinding(receiver, descriptor.service, descriptor.namespace, endpoint)
+    // Before the arguments resolve: a refused call must not open a lookup or
+    // reach a Remote Scope on its way to being told no.
+    await this.authorize(bound, descriptor, endpoint)
     const args = await Promise.all(descriptor.parameters.map(parameter =>
       this.resolveParameter(parameter, request.args, endpoint)))
     const signal = methodSignal(request, control)
@@ -738,6 +778,31 @@ export class TypertGatewayService extends Service implements TypertGateway {
       method: method as (...args: never[]) => unknown,
       invocation,
     }
+  }
+
+  /**
+   * Put one resolved call to the deployment's authority rule.
+   *
+   * The requirement is the method's own declaration where it has one, else its
+   * namespace's: raising it for a single write inside a namespace members
+   * otherwise read is the common case, so the narrower declaration wins.
+   * @throws {TypertGatewayError} `gateway/forbidden` when a listener objects.
+   */
+  private async authorize(
+    bound: ResolvedBinding,
+    descriptor: InvocationDescriptor,
+    endpoint: string,
+  ): Promise<void> {
+    const marker = remoteMethods(bound.original)
+      .find(candidate => (candidate.exportName ?? candidate.method) === descriptor.method)
+    const requires = marker?.requires ?? bound.binding.requires
+    const reason = await this.ctx.bail('typert/authorize', {
+      endpoint,
+      namespace: descriptor.namespace,
+      method: descriptor.method,
+      requires,
+    })
+    if (reason !== undefined) throw new TypertGatewayError('gateway/forbidden', endpoint, reason)
   }
 
   private resolveDescriptor(namespace: string, method: string, endpoint: string): InvocationDescriptor {

@@ -348,7 +348,7 @@ export class LlmRuntime extends TypertRemoteService {
   >()
 
   constructor(ctx: Context) {
-    super(ctx, 'llm')
+    super(ctx, 'llm', { requires: 'member' })
   }
 
   /** Notify topology observers without letting one broken listener veto the commit. */
@@ -634,7 +634,7 @@ export class LlmRuntime extends TypertRemoteService {
    * @returns advertised models in endpoint order.
    * @throws RemoteError with `llm/model-discovery-rejected` when discovery refuses or fails.
    */
-  @Remote('discoverModels')
+  @Remote({ exportName: 'discoverModels', requires: 'platform-administrator' })
   async remoteDiscoverModels(
     settingsNs: string,
     request: LlmModelDiscoveryRequest,

@@ -132,7 +132,7 @@ export class MessageFeedbackService extends TypertRemoteService {
    * @param config - Required note-size policy.
    */
   constructor(ctx: Context, config: Config) {
-    super(ctx, 'messageFeedback')
+    super(ctx, 'messageFeedback', { requires: 'member' })
     if (!Number.isSafeInteger(config.maxNoteBytes) || config.maxNoteBytes < 1) {
       throw new TypeError('message-feedback: maxNoteBytes must be a positive safe integer')
     }

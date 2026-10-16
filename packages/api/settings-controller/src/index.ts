@@ -83,7 +83,7 @@ export class SettingsController extends TypertRemoteService {
    * @param ctx - Host context where settings and credential providers may be mounted.
    */
   constructor(ctx: Context, internals: SettingsControllerInternals = {}) {
-    super(ctx, 'settingsController', { namespace: 'settings' })
+    super(ctx, 'settingsController', { namespace: 'settings', requires: 'platform-administrator' })
     this.openTextFile = internals.openTextFile ?? openNativeTextFile
     ctx.plugin(CredentialsController)
   }
@@ -94,7 +94,7 @@ export class SettingsController extends TypertRemoteService {
    * @returns provider writability, local-document presence, and one view per namespace.
    * @throws RemoteError when no settings provider is mounted.
    */
-  @Remote
+  @Remote({ requires: 'member' })
   describe(): SettingsDescribeValue {
     const settings = this.provider()
     return {

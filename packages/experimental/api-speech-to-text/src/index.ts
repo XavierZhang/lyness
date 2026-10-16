@@ -33,7 +33,7 @@ export default class SpeechController extends TypertRemoteService {
   })
 
   constructor(ctx: Context, private readonly config: Config) {
-    super(ctx, 'speechController', { namespace: 'speech' })
+    super(ctx, 'speechController', { namespace: 'speech', requires: 'member' })
   }
 
   /**

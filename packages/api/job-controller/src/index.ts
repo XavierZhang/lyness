@@ -56,7 +56,7 @@ export class JobController extends TypertRemoteService {
    * @param config - observation cadence and framing policy.
    */
   constructor(ctx: Context, config: Config) {
-    super(ctx, 'jobController', { namespace: 'job' })
+    super(ctx, 'jobController', { namespace: 'job', requires: 'member' })
     // schemastery (the exported Config schema) has already filled the defaulted
     // fields; the assertion records that resolution, not a hidden fallback.
     const resolved = config as Required<Config>

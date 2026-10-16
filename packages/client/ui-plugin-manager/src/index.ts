@@ -34,7 +34,7 @@ export default class PluginRegistryProbe extends TypertRemoteService {
   private cached: { registry: string | null; expiresAt: number } | undefined
 
   constructor(ctx: Context, private readonly config: Config) {
-    super(ctx, 'pluginRegistryProbe')
+    super(ctx, 'pluginRegistryProbe', { requires: 'platform-administrator' })
     ctx.effect(() => async () => {
       this.lifetime.abort()
       await this.pending

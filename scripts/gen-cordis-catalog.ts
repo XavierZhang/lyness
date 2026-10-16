@@ -261,6 +261,7 @@ export const EVENT_SCOPE_PAGE: Record<string, string> = {
   'webserver': 'web-server.md',
   'workflow': 'workflow.md',
   'workspace': 'workspace.md',
+  typert: 'typert.md',
 }
 
 /**
@@ -880,6 +881,7 @@ export const TYPE_LINK_EXEMPTIONS: Readonly<Record<string, string>> = {
   ActingContextClaim: 'one call claim about who it is and what it acts as is owned by packages/identity/acting-context/README.md',
   CreditBalance: 'what one person balance is made of is owned by packages/credits/credits/README.md',
   CreditAccountView: 'one person credits as a surface shows them is owned by packages/api/credits-controller/README.md',
+  RemoteAuthorizationRequest: 'one resolved call as the authority rule reads it is owned by packages/api/remote-authority/README.md',
   CreditGrantInput: 'what an administrator adds to one person is owned by packages/api/credits-controller/README.md',
   AllowanceInput: 'what an administrator changes about a recurring allowance is owned by packages/api/credits-controller/README.md',
   AllowanceView: 'the overrides reaching one person is owned by packages/api/credits-controller/README.md',

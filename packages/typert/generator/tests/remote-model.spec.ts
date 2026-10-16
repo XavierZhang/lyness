@@ -540,7 +540,7 @@ export type {`,
       name: 'an unknown Remote mode',
       mode: 'duplex',
       method: 'async *attach(agent: Agent, signal: AbortSignal): AsyncIterable<CreateGoalResult>',
-      message: 'Remote\\(\\) options must contain exactly mode: "stream"',
+      message: 'Remote\\(\\) mode must be "stream"',
     },
   ])('rejects $name', ({ mode, method, message }) => {
     const root = copyFixture()

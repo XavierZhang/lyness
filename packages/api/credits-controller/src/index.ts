@@ -119,7 +119,7 @@ export default class CreditsController extends TypertRemoteService {
    * @param ctx - Host context where the ledger, the directory, and the request principal may be mounted.
    */
   constructor(ctx: Context) {
-    super(ctx, 'creditsController', { namespace: 'credits' })
+    super(ctx, 'creditsController', { namespace: 'credits', requires: 'member' })
   }
 
   /**

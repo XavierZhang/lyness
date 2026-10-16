@@ -40,6 +40,7 @@
   },
   "dependencies": {
     "@lyness/lyn-acting-context": "workspace:*",
+    "@lyness/lyn-api-remote-authority": "workspace:*",
     "@lyness/lyn-auth-session": "workspace:*",
     "@lyness/lyn-credits": "workspace:*",
     "@lyness/lyn-people": "workspace:*",

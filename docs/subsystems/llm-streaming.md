@@ -990,7 +990,7 @@ async discoverModels( settingsNs: string, request: LlmModelDiscoveryRequest, sig
  * @returns advertised models in endpoint order.
  * @throws RemoteError with `llm/model-discovery-rejected` when discovery refuses or fails.
  */
-@Remote('discoverModels') async remoteDiscoverModels( settingsNs: string, request: LlmModelDiscoveryRequest, signal: AbortSignal, ): Promise<LlmDiscoveredModel[]>
+@Remote({ exportName: 'discoverModels', requires: 'platform-administrator' }) async remoteDiscoverModels( settingsNs: string, request: LlmModelDiscoveryRequest, signal: AbortSignal, ): Promise<LlmDiscoveredModel[]>
 
 /**
  * Resolve the retry policy captured when one provider route was registered.

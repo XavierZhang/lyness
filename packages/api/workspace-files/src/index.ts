@@ -197,7 +197,7 @@ export class WorkspaceFiles extends TypertRemoteService {
    * @param config - deployment caps on one page or one listing.
    */
   constructor(ctx: Context, private readonly config: Config) {
-    super(ctx, 'workspaceFiles')
+    super(ctx, 'workspaceFiles', { requires: 'member' })
     this.feed = new WorkspaceChangeFeed(ctx)
     ctx.inject(['sessions', 'typert'], (scope) => {
       scope.typert.lookups.register('workspaceFileScope', {

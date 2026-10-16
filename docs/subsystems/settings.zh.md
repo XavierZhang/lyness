@@ -107,7 +107,7 @@ Host service backing the generated `ctx.remote.settings` namespace. Every remote
  * @returns provider writability, local-document presence, and one view per namespace.
  * @throws RemoteError when no settings provider is mounted.
  */
-@Remote describe(): SettingsDescribeValue
+@Remote({ requires: 'member' }) describe(): SettingsDescribeValue
 
 /**
  * Merge a patch into one namespace's stored user section.

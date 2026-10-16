@@ -203,7 +203,7 @@ export class PluginManager extends TypertRemoteService {
   private readonly installs = new Map<PluginInstallRequestId, InstallControl>()
 
   constructor(ctx: Context, config: Config) {
-    super(ctx, 'pluginManager')
+    super(ctx, 'pluginManager', { requires: 'platform-administrator' })
     this.ownerEntryId = ctx.fiber.entry?.id
     this.ownerContext = ctx
     this.profile = ctx.profileContext

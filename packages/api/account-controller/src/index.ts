@@ -10,7 +10,7 @@ import type { AccountView, SignInAttemptId } from './types.ts'
 export class AccountController extends TypertRemoteService {
   static inject = ['deepseekAccount', 'agents']
   /** @param ctx - Host with the account provider mounted. */
-  constructor(ctx: Context) { super(ctx, 'accountController', { namespace: 'account' }) }
+  constructor(ctx: Context) { super(ctx, 'accountController', { namespace: 'account', requires: 'platform-administrator' }) }
   /**
    * Read the safe account projection.
    * @returns current account and attempt state.

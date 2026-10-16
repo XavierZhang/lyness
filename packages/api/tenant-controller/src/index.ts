@@ -160,7 +160,7 @@ export default class TenantController extends TypertRemoteService {
    * @param ctx - Host context where the request scope and a configuration backend may be mounted.
    */
   constructor(ctx: Context) {
-    super(ctx, 'tenantController', { namespace: 'tenant' })
+    super(ctx, 'tenantController', { namespace: 'tenant', requires: 'tenant-administrator' })
   }
 
   /**

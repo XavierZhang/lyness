@@ -274,7 +274,7 @@ export class CommandRuntime extends TypertRemoteService {
   private readonly fileReceipts: { resolver: CommandFileReceiptResolver | undefined } = { resolver: undefined }
 
   constructor(ctx: Context) {
-    super(ctx, 'commands')
+    super(ctx, 'commands', { requires: 'member' })
   }
 
   /**

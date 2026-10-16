@@ -99,7 +99,7 @@ export class TerminalController extends TypertRemoteService {
    * @param config - validated terminal limits and optional shell profile.
    */
   constructor(ctx: Context, private readonly config: Config) {
-    super(ctx, 'terminalController', { namespace: 'terminal' })
+    super(ctx, 'terminalController', { namespace: 'terminal', requires: 'member' })
     ctx.effect(() => async () => {
       this.lifetime.abort(new Error('Terminal controller disposed'))
       const results = await Promise.allSettled([...this.owners].map(([id, owner]) => this.disposeOwner(id, owner)))

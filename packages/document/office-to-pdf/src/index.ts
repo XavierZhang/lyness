@@ -113,7 +113,7 @@ export class OfficeToPdf extends TypertRemoteService {
    * @param config - resolved rendering, font, and concurrency limits.
    */
   constructor(ctx: Context, private readonly config: Config) {
-    super(ctx, 'officeToPdf')
+    super(ctx, 'officeToPdf', { requires: 'member' })
     if (config.fontDirectories?.some(path => !isAbsolute(path))) throw new Error('fontDirectories must contain absolute paths.')
     if (config.maxSourceBytes < config.maxInputBytes) throw new Error('maxSourceBytes must be at least maxInputBytes.')
     const { fontDirectories, fontFallbacks, timeoutMs, maxInputBytes, maxOutputBytes, maxImageResolution,

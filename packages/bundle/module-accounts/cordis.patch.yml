@@ -46,6 +46,12 @@
     - id: request-principal
       name: '@lyness/lyn-request-principal'
 
+    # And the rule that decides whether that call may be served at all. It
+    # rides the Gateway, which is the one place every wire call passes
+    # through, so a namespace's own method cannot be reached around it.
+    - id: remote-authority
+      name: '@lyness/lyn-api-remote-authority'
+
     # Whether a call may act in the context it declared.
     - id: acting-context
       name: '@lyness/lyn-acting-context'

@@ -28,7 +28,7 @@ export class DesktopLinkController extends TypertRemoteService {
   static inject = ['desktopLink', 'requestPrincipal']
 
   /** @param ctx - Host with the link and the request principal mounted. */
-  constructor(ctx: Context) { super(ctx, 'desktopLinkController', { namespace: 'desktopLink' }) }
+  constructor(ctx: Context) { super(ctx, 'desktopLinkController', { namespace: 'desktopLink', requires: 'member' }) }
 
   /**
    * Attach this desktop as its person's executor.

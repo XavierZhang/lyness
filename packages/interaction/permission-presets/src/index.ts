@@ -205,7 +205,7 @@ export class PermissionPresetService extends TypertRemoteService {
   private defaultSettings: () => PermissionSettings
 
   constructor(ctx: Context, config: Config) {
-    super(ctx, 'permissionPresets')
+    super(ctx, 'permissionPresets', { requires: 'member' })
 
     ctx.inject(['settings'], (child) => { child.effect(() => child.settings.configure({ auto: false }, ctx.fiber)) })
     // The schema defaulted the table — the cast records that runtime fact.

@@ -1256,6 +1256,24 @@ importers:
         specifier: workspace:*
         version: link:../../typert/registry
 
+  packages/api/remote-authority:
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+      '@lyness/lyn-api-gateway':
+        specifier: workspace:*
+        version: link:../gateway
+      '@lyness/lyn-people':
+        specifier: workspace:*
+        version: link:../../identity/people
+      '@lyness/lyn-request-principal':
+        specifier: workspace:*
+        version: link:../../identity/request-principal
+      '@lyness/lyn-typert-protocol':
+        specifier: workspace:*
+        version: link:../../typert/protocol
+
   packages/api/remotes:
     dependencies:
       '@lyness/lyn-deque':
@@ -2409,6 +2427,9 @@ importers:
       '@lyness/lyn-acting-context':
         specifier: workspace:*
         version: link:../../identity/acting-context
+      '@lyness/lyn-api-remote-authority':
+        specifier: workspace:*
+        version: link:../../api/remote-authority
       '@lyness/lyn-auth-session':
         specifier: workspace:*
         version: link:../../identity/auth-session

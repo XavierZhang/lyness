@@ -43,7 +43,7 @@ export class DirectoryPickerController extends TypertRemoteService {
 
   /** @param ctx - Host context carrying the composed directory-picking backend. */
   constructor(ctx: Context) {
-    super(ctx, 'directoryPickerController', { namespace: 'directoryPicker' })
+    super(ctx, 'directoryPickerController', { namespace: 'directoryPicker', requires: 'member' })
   }
 
   /**

@@ -19,7 +19,7 @@ export class SessionFileReferences extends TypertRemoteService {
 
   /** @param ctx - Host context carrying the selected file-reference provider. */
   constructor(ctx: Context) {
-    super(ctx, 'sessionFileReferences', { namespace: 'fileReferences' })
+    super(ctx, 'sessionFileReferences', { namespace: 'fileReferences', requires: 'member' })
   }
 
   /**

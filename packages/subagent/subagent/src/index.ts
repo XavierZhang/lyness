@@ -212,7 +212,7 @@ export class SubagentRuntime extends TypertRemoteService {
   private readonly emitLifecycle: LifecycleEmitter
 
   constructor(ctx: Context, private config: Config) {
-    super(ctx, 'subagents')
+    super(ctx, 'subagents', { requires: 'member' })
     this.emitLifecycle = createLifecycleEmitter(this.ctx, parent => scopeTarget(this, parent))
     ctx.inject(['agents'], (childCtx: Context) => {
       const manager = new SubagentContinuationManager(childCtx, {

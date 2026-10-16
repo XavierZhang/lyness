@@ -67,7 +67,7 @@ declare module '@lyness/cordis' {
 export class CredentialsController extends TypertRemoteService {
   /** @param ctx - Host context where a credential provider may be mounted. */
   constructor(ctx: Context) {
-    super(ctx, 'credentialsController', { namespace: 'credentials' })
+    super(ctx, 'credentialsController', { namespace: 'credentials', requires: 'platform-administrator' })
   }
 
   /**

@@ -118,7 +118,7 @@ export class ScheduleService extends TypertRemoteService {
    * @param config - Validated retention configuration for delivery history.
    */
   constructor(ctx: Context, config: Config) {
-    super(ctx, 'schedule')
+    super(ctx, 'schedule', { requires: 'member' })
     this.retention = {
       days: config.deliveryHistoryDays ?? DEFAULT_DELIVERY_HISTORY_DAYS,
       records: config.deliveryHistoryRecords ?? DEFAULT_DELIVERY_HISTORY_RECORDS,

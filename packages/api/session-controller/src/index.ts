@@ -133,7 +133,7 @@ export class SessionController extends TypertRemoteService {
    * @param internals - host integrations replaceable by direct unit tests.
    */
   constructor(ctx: Context, config: Config, internals: SessionControllerInternals = {}) {
-    super(ctx, 'sessionController', { namespace: 'session' })
+    super(ctx, 'sessionController', { namespace: 'session', requires: 'member' })
     installModelSelectionProjection(ctx)
     this.agents = new ApiSessionAgentController(ctx)
     this.commands = new SessionCommandController(ctx, this.agents, process.cwd())

@@ -22,7 +22,7 @@ export class AnnouncementController extends TypertRemoteService {
   static inject = ['announcements']
 
   /** @param ctx - Host with an announcement source mounted. */
-  constructor(ctx: Context) { super(ctx, 'announcementController', { namespace: 'announcements' }) }
+  constructor(ctx: Context) { super(ctx, 'announcementController', { namespace: 'announcements', requires: 'anyone' }) }
 
   /**
    * Everything this deployment has published.

@@ -95,7 +95,7 @@ export class SessionReferenceResolver extends TypertRemoteService {
   private readonly assembledRoutes = new WeakMap<Agent, { provider: string | undefined; model: string | undefined }>()
 
   constructor(ctx: Context, config: Config = {}) {
-    super(ctx, 'sessionReferenceResolver')
+    super(ctx, 'sessionReferenceResolver', { requires: 'member' })
     this.config = {
       maxReferences: config.maxReferences ?? MAX_REFERENCES,
       candidateLimit: config.candidateLimit ?? DEFAULT_CANDIDATE_LIMIT,

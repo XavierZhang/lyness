@@ -68,7 +68,7 @@ export class AgentPresetRegistry extends TypertRemoteService {
   private readonly switches = new Map<string, Promise<unknown>>()
 
   constructor(ctx: Context, public config: Config) {
-    super(ctx, 'agentPresets')
+    super(ctx, 'agentPresets', { requires: 'member' })
     this.owner = ctx
     ctx.sessionProjections.register(agentPresetProjectionDefinition)
     ctx.inject(['settings'], (child) => { child.effect(() => child.settings.configure({ auto: false }, ctx.fiber)) })

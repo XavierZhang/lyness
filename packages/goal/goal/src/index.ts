@@ -248,7 +248,7 @@ export class GoalService extends TypertRemoteService {
   private readonly runtimeStates = new WeakMap<Session, GoalRuntimeState>()
 
   constructor(ctx: Context, config: Config = {}) {
-    super(ctx, 'goals')
+    super(ctx, 'goals', { requires: 'member' })
     this.resolved = {
       defaultMaxGoalRounds: resolveMaxGoalRounds(config.defaultMaxGoalRounds ?? 256),
     }
