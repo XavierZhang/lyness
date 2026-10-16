@@ -24,6 +24,9 @@
       "path": "../people"
     },
     {
+      "path": "../../util/crypto"
+    },
+    {
       "path": "../auth-session"
     }
   ]

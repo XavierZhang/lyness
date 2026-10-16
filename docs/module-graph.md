@@ -467,6 +467,7 @@ flowchart TD
     pkg_typert_registry["typert-registry"]
   end
   subgraph group_vendor["packages/vendor"]
+    pkg_dingtalk["dingtalk"]
     pkg_microsoft_entra["microsoft-entra"]
     pkg_wecom["wecom"]
   end
@@ -570,6 +571,7 @@ flowchart TD
   pkg_sign_in --> pkg_auth_session
   pkg_sign_in --> pkg_brand
   pkg_sign_in --> pkg_people
+  pkg_sign_in --> pkg_util_crypto
   pkg_persona --> pkg_system_prompt
   pkg_sandbox --> pkg_llm
   pkg_sandbox --> pkg_session
@@ -645,6 +647,10 @@ flowchart TD
   pkg_shell --> pkg_sandbox
   pkg_shell --> pkg_subprocess
   pkg_tenant_session --> pkg_tenant_request
+  pkg_dingtalk --> pkg_brand
+  pkg_dingtalk --> pkg_credentials
+  pkg_dingtalk --> pkg_sign_in
+  pkg_dingtalk --> pkg_util_crypto
   pkg_microsoft_entra --> pkg_authorization
   pkg_microsoft_entra --> pkg_brand
   pkg_microsoft_entra --> pkg_credentials
@@ -1689,7 +1695,7 @@ flowchart TD
 | [`experimental-webworker-runtime`](../packages/experimental/webworker-runtime) | `experimental` | [`client-connection`](../packages/client/connection), [`client-modules`](../packages/client/modules), [`host-webserver`](../packages/host/webserver) |
 | [`host-frontend-static`](../packages/host/frontend-static) | `host` | [`client-connection`](../packages/client/connection), [`host-webserver`](../packages/host/webserver) |
 | [`request-principal`](../packages/identity/request-principal) | `identity` | [`auth-session`](../packages/identity/auth-session), [`brand`](../packages/util/brand), [`client-connection`](../packages/client/connection), [`people`](../packages/identity/people) |
-| [`sign-in`](../packages/identity/sign-in) | `identity` | [`auth-session`](../packages/identity/auth-session), [`brand`](../packages/util/brand), [`people`](../packages/identity/people) |
+| [`sign-in`](../packages/identity/sign-in) | `identity` | [`auth-session`](../packages/identity/auth-session), [`brand`](../packages/util/brand), [`people`](../packages/identity/people), [`util-crypto`](../packages/util/crypto) |
 | [`persona`](../packages/preset/persona) | `preset` | [`system-prompt`](../packages/core/system-prompt) |
 | [`sandbox`](../packages/sandbox/sandbox) | `sandbox` | [`llm`](../packages/llm/llm), [`session`](../packages/core/session) |
 | [`session-format-catalog`](../packages/session/session-format-catalog) | `session` | [`session`](../packages/core/session) |
@@ -1718,6 +1724,7 @@ flowchart TD
 | [`session-turn-outline`](../packages/session/session-turn-outline) | `session` | [`llm`](../packages/llm/llm), [`session`](../packages/core/session), [`session-projection`](../packages/session/session-projection) |
 | [`shell`](../packages/shell/shell) | `shell` | [`sandbox`](../packages/sandbox/sandbox), [`subprocess`](../packages/subprocess/subprocess) |
 | [`tenant-session`](../packages/tenant/tenant-session) | `tenant` | [`tenant-request`](../packages/tenant/tenant-request) |
+| [`dingtalk`](../packages/vendor/dingtalk) | `vendor` | [`brand`](../packages/util/brand), [`credentials`](../packages/credentials/credentials), [`sign-in`](../packages/identity/sign-in), [`util-crypto`](../packages/util/crypto) |
 | [`microsoft-entra`](../packages/vendor/microsoft-entra) | `vendor` | [`authorization`](../packages/credentials/authorization), [`brand`](../packages/util/brand), [`credentials`](../packages/credentials/credentials), [`host-webserver`](../packages/host/webserver), [`sign-in`](../packages/identity/sign-in) |
 | [`wecom`](../packages/vendor/wecom) | `vendor` | [`brand`](../packages/util/brand), [`credentials`](../packages/credentials/credentials), [`sign-in`](../packages/identity/sign-in), [`util-crypto`](../packages/util/crypto) |
 | [`workspace`](../packages/workspace/workspace) | `workspace` | [`invariants`](../packages/runtime-diagnostics/invariants), [`session`](../packages/core/session), [`session-persistence`](../packages/session/session-persistence), [`storage`](../packages/storage/storage), [`storage-domain`](../packages/storage/storage-domain), [`typert-protocol`](../packages/typert/protocol) |

@@ -822,6 +822,32 @@ export interface Config {
 ```
 <!-- END GENERATED config-catalog:@lyness/lyn-deepseek-account-platform -->
 
+<!-- BEGIN GENERATED config-catalog:@lyness/lyn-dingtalk -->
+<a id="lynesslyn-dingtalk"></a>
+
+## `@lyness/lyn-dingtalk`
+
+- `inject`: `signIn` · `credentials`
+- `refs`: `RedirectChannelConfig` (`@lyness/lyn-sign-in/redirect`)
+- `source`: [`packages/vendor/dingtalk/src/index.ts:92`](../packages/vendor/dingtalk/src/index.ts)
+
+```ts config-catalog
+/** The organization to sign in against, and how to reach it. */
+export interface Config extends RedirectChannelConfig {
+  /** Callback path the directory returns to; defaults to this channel's own. */
+  redirectPath?: string
+  /** The application's own key, which DingTalk calls `AppKey`. Required. */
+  appKey: string
+  /** Sign-in host; defaults to the public service. */
+  loginHost?: string
+  /** API origin; defaults to the public service. */
+  apiOrigin?: string
+  /** Scope requested at sign-in; defaults to the person's identity only. */
+  scope?: string
+}
+```
+<!-- END GENERATED config-catalog:@lyness/lyn-dingtalk -->
+
 <!-- BEGIN GENERATED config-catalog:@lyness/lyn-experimental-agent-team -->
 <a id="lynesslyn-experimental-agent-team"></a>
 
@@ -4558,29 +4584,22 @@ export interface Config {
 ## `@lyness/lyn-wecom`
 
 - `inject`: `signIn` · `credentials`
-- `source`: [`packages/vendor/wecom/src/index.ts:85`](../packages/vendor/wecom/src/index.ts)
+- `refs`: `RedirectChannelConfig` (`@lyness/lyn-sign-in/redirect`)
+- `source`: [`packages/vendor/wecom/src/index.ts:90`](../packages/vendor/wecom/src/index.ts)
 
 ```ts config-catalog
 /** The corporation to sign in against, and how to reach it. */
-export interface Config {
+export interface Config extends RedirectChannelConfig {
+  /** Callback path the directory returns to; defaults to this channel's own. */
+  redirectPath?: string
   /** The corporation's own id, which WeCom calls `corpid`. Required. */
   corpId: string
   /** The self-built application's `agentid`. Required. */
   agentId: string
-  /**
-   * Credential reference naming the application secret.
-   *
-   * A reference rather than the secret: a composition file is read by
-   * everyone who can read the repository, and an application secret signs in
-   * the whole corporation.
-   */
-  secret: string
   /** Scan-code login host; defaults to the public service. */
   loginHost?: string
   /** API origin; defaults to the public service. */
   apiOrigin?: string
-  /** Callback path the corporation returns to; defaults to `/oauth/callback/wecom`. */
-  redirectPath?: string
   /**
    * Whether to read member detail — name and work address — after sign-in.
    *
@@ -4589,10 +4608,6 @@ export interface Config {
    * neither value.
    */
   readDetail?: boolean
-  /** How long an unfinished attempt is remembered, in milliseconds; defaults to 600000. */
-  attemptTtlMs?: number
-  /** Bound on one outbound request in milliseconds; defaults to 20000. */
-  requestTimeoutMs?: number
 }
 ```
 <!-- END GENERATED config-catalog:@lyness/lyn-wecom -->

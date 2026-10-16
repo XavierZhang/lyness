@@ -14,15 +14,25 @@
  * @module @lyness/lyn-wecom
  */
 
+/* jscpd:ignore-start */
+// Every redirect channel reaches the same four seams — a context, a schema, a
+// credential store and the sign-in registry — so their import lists are
+// identical by construction rather than by copying.
 import { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
 import { brandString } from '@lyness/lyn-brand'
 import { credentialRef, isCredentialRefName } from '@lyness/lyn-credentials'
 import type {} from '@lyness/lyn-credentials'
 import { channelId } from '@lyness/lyn-sign-in'
-import type { ExternalSubject, RedirectChannel, RedirectStart } from '@lyness/lyn-sign-in'
-import { AttemptBook } from '@lyness/lyn-sign-in/attempts'
-import { randomUUID } from '@lyness/lyn-util-crypto'
+import type { ExternalSubject } from '@lyness/lyn-sign-in'
+import {
+  DEFAULT_ATTEMPT_TTL_MS,
+  DEFAULT_REQUEST_TIMEOUT_MS,
+  REDIRECT_CHANNEL_CONFIG,
+  REDIRECT_PATH_PATTERN,
+  StatefulRedirectChannel,
+} from '@lyness/lyn-sign-in/redirect'
+import type { RedirectChannelConfig, ResolvedRedirectConfig } from '@lyness/lyn-sign-in/redirect'
 import {
   OK,
   authorizeUrl,
@@ -33,6 +43,7 @@ import {
   userInfoReplySchema,
   userInfoUrl,
 } from './protocol.ts'
+/* jscpd:ignore-end */
 import type { WecomCorpId, WecomSubject, WecomUserId } from './types.ts'
 
 export * from './protocol.ts'
@@ -59,12 +70,6 @@ export const DEFAULT_API_ORIGIN = 'https://qyapi.weixin.qq.com'
 /** Callback path the corporation returns the browser to. */
 export const DEFAULT_REDIRECT_PATH = '/oauth/callback/wecom'
 
-/** How long an unfinished attempt is remembered, in milliseconds. */
-export const DEFAULT_ATTEMPT_TTL_MS = 600_000
-
-/** Bound on one outbound request, in milliseconds. */
-export const DEFAULT_REQUEST_TIMEOUT_MS = 20_000
-
 /** A WeCom sign-in that did not complete, with the corporation's own code. */
 export class WecomSignInError extends Error {
   /** The `errcode` the corporation reported, or undefined for a transport failure. */
@@ -82,25 +87,17 @@ export class WecomSignInError extends Error {
 }
 
 /** The corporation to sign in against, and how to reach it. */
-export interface Config {
+export interface Config extends RedirectChannelConfig {
+  /** Callback path the directory returns to; defaults to this channel's own. */
+  redirectPath?: string
   /** The corporation's own id, which WeCom calls `corpid`. Required. */
   corpId: string
   /** The self-built application's `agentid`. Required. */
   agentId: string
-  /**
-   * Credential reference naming the application secret.
-   *
-   * A reference rather than the secret: a composition file is read by
-   * everyone who can read the repository, and an application secret signs in
-   * the whole corporation.
-   */
-  secret: string
   /** Scan-code login host; defaults to the public service. */
   loginHost?: string
   /** API origin; defaults to the public service. */
   apiOrigin?: string
-  /** Callback path the corporation returns to; defaults to `/oauth/callback/wecom`. */
-  redirectPath?: string
   /**
    * Whether to read member detail — name and work address — after sign-in.
    *
@@ -109,38 +106,30 @@ export interface Config {
    * neither value.
    */
   readDetail?: boolean
-  /** How long an unfinished attempt is remembered, in milliseconds; defaults to 600000. */
-  attemptTtlMs?: number
-  /** Bound on one outbound request in milliseconds; defaults to 20000. */
-  requestTimeoutMs?: number
 }
 
-const idPattern = /^[A-Za-z0-9_-]{1,64}$/u
-
 /** Schemastery configuration for Loader defaults and generated configuration docs. */
-export const Config: z<Config> = z.object({
-  corpId: z.string().pattern(idPattern).required(),
-  agentId: z.string().pattern(/^[0-9]{1,20}$/u).required(),
-  secret: z.string().required(),
-  loginHost: z.string().pattern(/^[A-Za-z0-9.-]{1,253}$/u).default(DEFAULT_LOGIN_HOST),
-  apiOrigin: z.string().default(DEFAULT_API_ORIGIN),
-  redirectPath: z.string().pattern(/^\/[A-Za-z0-9/_-]{0,255}$/u).default(DEFAULT_REDIRECT_PATH),
-  readDetail: z.boolean().default(false),
-  attemptTtlMs: z.number().step(1).min(30_000).max(3_600_000).default(DEFAULT_ATTEMPT_TTL_MS),
-  requestTimeoutMs: z.number().step(1).min(1000).default(DEFAULT_REQUEST_TIMEOUT_MS),
-})
+export const Config: z<Config> = z.intersect([
+  REDIRECT_CHANNEL_CONFIG,
+  z.object({
+    redirectPath: z.string().pattern(REDIRECT_PATH_PATTERN).default(DEFAULT_REDIRECT_PATH),
+    corpId: z.string().pattern(/^[A-Za-z0-9_-]{1,64}$/u).required(),
+    agentId: z.string().pattern(/^[0-9]{1,20}$/u).required(),
+    loginHost: z.string().pattern(/^[A-Za-z0-9.-]{1,253}$/u).default(DEFAULT_LOGIN_HOST),
+    apiOrigin: z.string().default(DEFAULT_API_ORIGIN),
+    readDetail: z.boolean().default(false),
+  }),
+])
 
 /** Configuration with every default applied. */
-export interface ResolvedConfig {
+export interface ResolvedConfig extends ResolvedRedirectConfig {
+  /** Callback path the directory returns the browser to. */
+  readonly redirectPath: string
   readonly corpId: string
   readonly agentId: string
-  readonly secret: string
   readonly loginHost: string
   readonly apiOrigin: string
-  readonly redirectPath: string
   readonly readDetail: boolean
-  readonly attemptTtlMs: number
-  readonly requestTimeoutMs: number
 }
 
 /**
@@ -186,59 +175,38 @@ export function asExternalSubject(subject: WecomSubject): ExternalSubject {
   }
 }
 
+/* jscpd:ignore-start */
+// The preamble of implementing the redirect seam: an id, a button name, and a
+// constructor that resolves its own configuration. It is the same five lines in
+// every channel because the base class owns everything that could differ.
 /** WeCom as a redirect channel: start sends the browser away, complete reads what comes back. */
-export class WecomChannel implements RedirectChannel {
-  readonly kind = 'redirect' as const
+export class WecomChannel extends StatefulRedirectChannel<ResolvedConfig> {
+  override readonly id = CHANNEL_ID
 
-  readonly id = CHANNEL_ID
-
-  readonly displayName = DISPLAY_NAME
-
-  private readonly config: ResolvedConfig
-
-  private readonly attempts: AttemptBook<null>
+  override readonly displayName = DISPLAY_NAME
 
   /**
    * @param ctx - context providing the credential store.
    * @param config - validated corporation configuration.
    */
   constructor(private readonly ctx: Context, config: Config) {
-    this.config = resolveConfig(config)
-    this.attempts = new AttemptBook<null>(this.config.attemptTtlMs)
+    super(resolveConfig(config))
   }
 
-  /**
-   * Begin one sign-in.
-   *
-   * The attempt's state is also its id, because the corporation echoes exactly
-   * one opaque value back and a second id would have to be carried somewhere
-   * it could be separated from this one.
-   * @param returnTo - the deployment's own callback address.
-   * @returns the page to send the browser to, and the attempt it belongs to.
-   */
-  start(returnTo: string): Promise<RedirectStart> {
-    const state = randomUUID()
-    this.attempts.open(state, null, returnTo)
-    return Promise.resolve({
-      to: authorizeUrl(this.config, state, returnTo).toString(),
-      attempt: state,
-    })
+  /** Where the corporation's own scan-code page is, for one attempt. */
+  protected override authorize(state: string, returnTo: string): string {
+    return authorizeUrl(this.config, state, returnTo).toString()
   }
 
+  /* jscpd:ignore-end */
+
   /**
-   * Finish the sign-in the corporation is returning from.
-   *
-   * The attempt is removed before the code is spent, so one callback can only
-   * ever be used once — a replayed link finds nothing waiting.
-   * @param parameters - the query the corporation came back with.
-   * @returns the verified member, or undefined when the return completes no sign-in.
+   * Turn one authorization code into the member it belongs to.
+   * @param code - the code the callback carried.
+   * @returns the verified member, or undefined when the corporation's directory holds nobody by it.
    * @throws {WecomSignInError} when the corporation refuses a request or will not report the member.
    */
-  async complete(parameters: URLSearchParams): Promise<ExternalSubject | undefined> {
-    const state = parameters.get('state')
-    const code = parameters.get('code')
-    if (state === null || code === null) return undefined
-    if (this.attempts.take(state) === undefined) return undefined
+  protected override async verify(code: string): Promise<ExternalSubject | undefined> {
     const token = await this.applicationToken()
     const identity = await this.request(userInfoUrl(this.config, token, code), userInfoReplySchema, 'read the member')
     // A reply without `userid` is somebody who authenticated through WeChat

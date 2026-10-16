@@ -275,6 +275,7 @@
     { "path": "./packages/bundle/module-extensions" },
     { "path": "./packages/bundle/module-webhook" },
     { "path": "./packages/bundle/module-schedule" },
+    { "path": "./packages/vendor/dingtalk" },
     { "path": "./packages/vendor/microsoft-entra" },
     { "path": "./packages/vendor/wecom" },
     { "path": "./packages/llm/llm" },
