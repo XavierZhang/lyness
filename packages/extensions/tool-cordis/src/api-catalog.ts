@@ -933,6 +933,12 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         parameters: [{ name: 'person', description: 'whose allowance to resolve.' }],
         returns: 'the organization-wide and person-specific overrides, where they exist.',
       },
+      {
+        signature: 'async mayAdminister(by: Membership, person: PersonId): Promise<boolean>',
+        description: 'Whether one standing may act on one person\'s credits.\n\nA tenant administrator reaches a person only through a standing they share an organization with. Resolving that through the directory rather than trusting a caller-supplied organization is the point: the caller names who to act on, never the authority to do it.\n\nPublic because a surface that shows one person\'s ledger to another answers the same question a grant does, and two copies of this rule would be one rule too many.',
+        parameters: [{ name: 'by', description: 'the standing asking.' }, { name: 'person', description: 'the person it would affect.' }],
+        returns: 'true when that standing may administer that person.',
+      },
     ],
   },
   {
@@ -964,6 +970,48 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         description: 'Everything granted to and spent by one person, newest first.\n\nThe ledger is the product rather than an implementation detail: a customer reviewing a refusal reads this, and a balance they cannot account for is a support case.',
         parameters: [{ name: 'person', description: 'whose history to read.' }],
         returns: 'the grants and debits recorded for them.',
+      },
+    ],
+  },
+  {
+    key: 'creditsController',
+    summary: 'Host service backing the generated `ctx.remote.credits` namespace.',
+    description: 'Host service backing the generated `ctx.remote.credits` namespace.',
+    methods: [
+      {
+        signature: '@Remote async mine(): Promise<CreditAccountView>',
+        description: 'Read the calling person\'s own account.',
+        parameters: [],
+        returns: 'their balance and ledger, and whether they may administer anyone.',
+        throws: ['{RemoteError} `credits/anonymous` when the call presented no identity, or `credits/unavailable` when this deployment mounts no ledger.'],
+      },
+      {
+        signature: '@Remote async account(person: string): Promise<CreditAccountView>',
+        description: 'Read one person\'s account as an administrator.',
+        parameters: [{ name: 'person', description: 'whose account to read.' }],
+        returns: 'their balance and ledger.',
+        throws: ['{RemoteError} `credits/anonymous`, `credits/unavailable`, or `credits/not-permitted` when the calling standing may not act on that person.'],
+      },
+      {
+        signature: '@Remote async grant(input: CreditGrantInput): Promise<CreditAccountView>',
+        description: 'Add credits to one person.',
+        parameters: [{ name: 'input', description: 'who receives them, how many, and when they lapse.' }],
+        returns: 'that person\'s account as the ledger now reads it.',
+        throws: ['{RemoteError} `credits/anonymous`, `credits/unavailable`, `gateway/bad-request` for invalid fields, `credits/not-permitted`, or `credits/rejected` when the administration seam refuses the grant.'],
+      },
+      {
+        signature: '@Remote async setAllowance(input: AllowanceInput): Promise<AllowanceView>',
+        description: 'Set or replace one recurring-allowance override.',
+        parameters: [{ name: 'input', description: 'what to change, and whose allowance it applies to.' }],
+        returns: 'the overrides now reaching the named person, or the setter when the change was organization-wide.',
+        throws: ['{RemoteError} `credits/anonymous`, `credits/unavailable`, `gateway/bad-request` for invalid fields, `credits/not-permitted`, or `credits/rejected` when the change names neither an organization nor a person.'],
+      },
+      {
+        signature: '@Remote async allowance(person: string): Promise<AllowanceView>',
+        description: 'Read the overrides reaching one person.',
+        parameters: [{ name: 'person', description: 'whose allowance to resolve.' }],
+        returns: 'the organization-wide and person-specific overrides, and the periods a form may offer.',
+        throws: ['{RemoteError} `credits/anonymous`, `credits/unavailable`, or `credits/not-permitted`.'],
       },
     ],
   },
@@ -4849,8 +4897,24 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export interface AllowanceChange extends AllowanceOverride {\n    readonly organization?: string | undefined;\n    readonly person?: PersonId | undefined;\n}',
   },
   {
+    name: 'AllowanceInput',
+    declaration: 'export interface AllowanceInput {\n    readonly organization?: string;\n    readonly person?: string;\n    readonly periodicAmount?: number;\n    readonly period?: ResetPeriodView;\n}',
+  },
+  {
     name: 'AllowanceOverride',
     declaration: 'export interface AllowanceOverride {\n    readonly periodicAmount?: number | undefined;\n    readonly period?: ResetPeriod | undefined;\n}',
+  },
+  {
+    name: 'AllowanceOverrideView',
+    declaration: 'export interface AllowanceOverrideView {\n    readonly periodicAmount?: number;\n    readonly period?: ResetPeriodView;\n    readonly setAt: string;\n    readonly setBy: string;\n}',
+  },
+  {
+    name: 'AllowanceRecord',
+    declaration: 'export interface AllowanceRecord extends AllowanceOverride {\n    readonly organization?: string | undefined;\n    readonly person?: PersonId | undefined;\n    readonly setAt: string;\n    readonly setBy: PersonId;\n}',
+  },
+  {
+    name: 'AllowanceView',
+    declaration: 'export interface AllowanceView {\n    readonly person: string;\n    readonly organization?: AllowanceOverrideView;\n    readonly own?: AllowanceOverrideView;\n    readonly periods: readonly ResetPeriodView[];\n}',
   },
   {
     name: 'AllowedModel',
@@ -5373,6 +5437,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export type CredentialRef = Branded<\'CredentialRef\'>;',
   },
   {
+    name: 'CreditAccountView',
+    declaration: 'export interface CreditAccountView {\n    readonly person: string;\n    readonly available: number;\n    readonly granted: number;\n    readonly spent: number;\n    readonly nextGrantAt?: string;\n    readonly grants: readonly CreditGrantView[];\n    readonly debits: readonly CreditDebitView[];\n    readonly administrable: boolean;\n}',
+  },
+  {
     name: 'CreditBalance',
     declaration: 'export interface CreditBalance {\n    readonly person: PersonId;\n    readonly available: number;\n    readonly granted: number;\n    readonly spent: number;\n    readonly nextGrantAt?: string | undefined;\n}',
   },
@@ -5381,8 +5449,20 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export interface CreditDebit {\n    readonly id: DebitId;\n    readonly person: PersonId;\n    readonly amount: number;\n    readonly at: string;\n    readonly session: string;\n}',
   },
   {
+    name: 'CreditDebitView',
+    declaration: 'export interface CreditDebitView {\n    readonly id: string;\n    readonly amount: number;\n    readonly at: string;\n    readonly session: string;\n}',
+  },
+  {
     name: 'CreditGrant',
     declaration: 'export interface CreditGrant {\n    readonly id: GrantId;\n    readonly person: PersonId;\n    readonly amount: number;\n    readonly grantedAt: string;\n    readonly expiresAt?: string | undefined;\n    readonly reason: GrantReason;\n    readonly grantedBy?: PersonId | undefined;\n}',
+  },
+  {
+    name: 'CreditGrantInput',
+    declaration: 'export interface CreditGrantInput {\n    readonly person: string;\n    readonly amount: number;\n    readonly expiresAt?: string;\n}',
+  },
+  {
+    name: 'CreditGrantView',
+    declaration: 'export interface CreditGrantView {\n    readonly id: string;\n    readonly amount: number;\n    readonly grantedAt: string;\n    readonly expiresAt?: string;\n    readonly reason: \'periodic\' | \'administrator\' | \'purchase\';\n    readonly grantedBy?: string;\n}',
   },
   {
     name: 'CronInput',
@@ -6394,7 +6474,7 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   },
   {
     name: 'PersonOverrides',
-    declaration: 'export interface PersonOverrides {\n    readonly organization?: AllowanceOverride | undefined;\n    readonly person?: AllowanceOverride | undefined;\n}',
+    declaration: 'export interface PersonOverrides {\n    readonly organization?: AllowanceRecord | undefined;\n    readonly person?: AllowanceRecord | undefined;\n}',
   },
   {
     name: 'PlatformSession',
@@ -6731,6 +6811,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'ResetPeriod',
     declaration: 'export type ResetPeriod = \'daily\' | \'weekly\' | \'monthly\';',
+  },
+  {
+    name: 'ResetPeriodView',
+    declaration: 'export type ResetPeriodView = \'daily\' | \'weekly\' | \'monthly\';',
   },
   {
     name: 'ResolvedAlwaysRetryPolicy',

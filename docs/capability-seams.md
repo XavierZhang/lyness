@@ -291,6 +291,8 @@ flowchart LR
   svc_directoryPicker["ctx.directoryPicker<br/>Workspace-directory picking seam"]
   pkg_host_directory_picker_native["host-directory-picker-native"]
   pkg_host_directory_picker_browse["host-directory-picker-browse"]
+  pkg_api_credits_controller["api-credits-controller"]
+  svc_creditsController["ctx.creditsController<br/>Host credits Remote controller"]
   pkg_api_tenant_controller["api-tenant-controller"]
   svc_tenantController["ctx.tenantController<br/>Host tenant-configuration Remote controller"]
   pkg_tenant_request["tenant-request"]
@@ -328,6 +330,7 @@ flowchart LR
   pkg_agent_preset_registry --> svc_agentPresets
   pkg_announcements --> svc_announcements
   pkg_announcements_static --> svc_announcements
+  pkg_api_credits_controller --> svc_creditsController
   pkg_api_gateway --> svc_typertGateway
   pkg_api_job_controller --> svc_jobController
   pkg_api_session_controller --> svc_sessionController
@@ -754,6 +757,7 @@ flowchart LR
 | `ctx.web` | `seam` | [`web`](../packages/web/web) | [`web-search-exa`](../packages/web/web-search-exa), [`web-search-perplexity`](../packages/web/web-search-perplexity), [`web-search-deepseek`](../packages/web/web-search-deepseek), [`web-fetch-http`](../packages/web/web-fetch-http) | [`tool-web`](../packages/web/tool-web) | - | Search and fetch providers register into one ctx.web seam; tool-web owns the stable model-facing names. |
 | `ctx.spillStore` | `seam` | [`spill`](../packages/spill/spill) | [`spill-local`](../packages/spill/spill-local) | [`spill-policy`](../packages/spill/spill-policy) | - | The backend saves oversized tool text and returns a model-facing locator plus retrieval hint; spill-policy is the tools/post-execute consumer that decides when to spill. |
 | `ctx.directoryPicker` | `seam` | [`host-directory-picker`](../packages/host/directory-picker) | [`host-directory-picker-native`](../packages/host/directory-picker-native), [`host-directory-picker-browse`](../packages/host/directory-picker-browse) | [`api-workspace-controller`](../packages/api/workspace-controller) | - | Discriminated interaction capability: the native backend opens one OS chooser on the host display, the browse backend serves listing/creation primitives for the in-app browser; dual-face backends fill ui-workspace directory-flow slots from their browser halves (no wire advertisement). |
+| `ctx.creditsController` | `core` | [`api-credits-controller`](../packages/api/credits-controller) | - | - | - | Projects the ledger and the administration seam onto the generated Remote namespace: a person reads their own balance, an administrator grants credits and sets allowances for the people their standing reaches, and the authority rule stays in lyn-credits so a read and a grant cannot disagree. |
 | `ctx.tenantController` | `core` | [`api-tenant-controller`](../packages/api/tenant-controller) | - | - | - | Projects the tenant-configuration seam onto the generated Remote namespace: the calling tenant reads and saves its own configuration, and a call that named no tenant is refused rather than answered about any tenant. |
 | `ctx.requestTenant` | `core` | [`tenant-request`](../packages/tenant/tenant-request) | - | [`tenant-session`](../packages/tenant/tenant-session) | - | Resolves the tenant a Remote call arrived for, once per call, and publishes it with that tenant's configuration for the duration of the call; a call that named none reads as undefined rather than as a fallback tenant. |
 | `ctx.tenantConfig` | `seam` | [`tenant-config`](../packages/tenant/tenant-config) | [`tenant-config-static`](../packages/tenant/tenant-config-static), [`tenant-config-store`](../packages/tenant/tenant-config-store) | [`tenant-http`](../packages/tenant/tenant-http), [`tenant-request`](../packages/tenant/tenant-request) | - | What one tenant configures for itself — models per modality, provider grants carrying credential references rather than keys, features, identity text, and copy overrides; a backend states whether it can be saved to, and every backend validates against one rule set. |

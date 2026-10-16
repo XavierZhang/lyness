@@ -293,6 +293,8 @@ flowchart LR
   svc_directoryPicker["ctx.directoryPicker<br/>Workspace-directory picking seam"]
   pkg_host_directory_picker_native["host-directory-picker-native"]
   pkg_host_directory_picker_browse["host-directory-picker-browse"]
+  pkg_api_credits_controller["api-credits-controller"]
+  svc_creditsController["ctx.creditsController<br/>Host credits Remote controller"]
   pkg_api_tenant_controller["api-tenant-controller"]
   svc_tenantController["ctx.tenantController<br/>Host tenant-configuration Remote controller"]
   pkg_tenant_request["tenant-request"]
@@ -330,6 +332,7 @@ flowchart LR
   pkg_agent_preset_registry --> svc_agentPresets
   pkg_announcements --> svc_announcements
   pkg_announcements_static --> svc_announcements
+  pkg_api_credits_controller --> svc_creditsController
   pkg_api_gateway --> svc_typertGateway
   pkg_api_job_controller --> svc_jobController
   pkg_api_session_controller --> svc_sessionController
@@ -756,6 +759,7 @@ flowchart LR
 | `ctx.web` | `seam` | [`web`](../packages/web/web) | [`web-search-exa`](../packages/web/web-search-exa), [`web-search-perplexity`](../packages/web/web-search-perplexity), [`web-search-deepseek`](../packages/web/web-search-deepseek), [`web-fetch-http`](../packages/web/web-fetch-http) | [`tool-web`](../packages/web/tool-web) | - | 搜索和抓取提供方注册到同一个 ctx.web seam；tool-web 负责稳定的面向模型名称。 |
 | `ctx.spillStore` | `seam` | [`spill`](../packages/spill/spill) | [`spill-local`](../packages/spill/spill-local) | [`spill-policy`](../packages/spill/spill-policy) | - | 后端保存过大的工具文本，并返回面向模型的定位信息和取回提示；spill-policy 是 tools/post-execute 消费方，负责决定何时 spill。 |
 | `ctx.directoryPicker` | `seam` | [`host-directory-picker`](../packages/host/directory-picker) | [`host-directory-picker-native`](../packages/host/directory-picker-native), [`host-directory-picker-browse`](../packages/host/directory-picker-browse) | [`api-workspace-controller`](../packages/api/workspace-controller) | - | 带判别标记的交互能力：原生后端在 Host 显示设备上打开一个操作系统选择器，浏览后端为应用内浏览器提供列表与创建原语；双端后端通过其浏览器侧填充 ui-workspace 目录流程的 slot（不通过协议发布）。 |
+| `ctx.creditsController` | `core` | [`api-credits-controller`](../packages/api/credits-controller) | - | - | - | 把账本与管理能力缝投影到生成的 Remote 命名空间：本人读自己的余额，管理员为自己身份管得着的人发放积分、设定额度；授权规则留在 lyn-credits，于是「能读」与「能发」不会各说各话。 |
 | `ctx.tenantController` | `core` | [`api-tenant-controller`](../packages/api/tenant-controller) | - | - | - | 把租户配置能力缝投影到生成的 Remote 命名空间：调用方租户读取并保存自己的配置；没有命名租户的调用会被拒绝，而不是被答复任何租户的信息。 |
 | `ctx.requestTenant` | `core` | [`tenant-request`](../packages/tenant/tenant-request) | - | [`tenant-session`](../packages/tenant/tenant-session) | - | 解析一次 Remote 调用到达时所属的租户，每次调用一次，并在调用期间连同该租户的配置一起发布；未命名租户的调用读到 undefined，而不是兜底租户。 |
 | `ctx.tenantConfig` | `seam` | [`tenant-config`](../packages/tenant/tenant-config) | [`tenant-config-static`](../packages/tenant/tenant-config-static), [`tenant-config-store`](../packages/tenant/tenant-config-store) | [`tenant-http`](../packages/tenant/tenant-http), [`tenant-request`](../packages/tenant/tenant-request) | - | 一个租户为自己配置什么——按模态的模型、携带凭据引用而非密钥的供应商授权、功能、身份文本与文案覆盖；后端会说明自己能否被写入，且所有后端据同一套规则校验。 |

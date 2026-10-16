@@ -226,6 +226,23 @@ async setAllowance(change: AllowanceChange, by: Membership): Promise<void>
  * @returns the organization-wide and person-specific overrides, where they exist.
  */
 async overridesFor(person: PersonId): Promise<PersonOverrides>
+
+/**
+ * Whether one standing may act on one person's credits.
+ *
+ * A tenant administrator reaches a person only through a standing they share
+ * an organization with. Resolving that through the directory rather than
+ * trusting a caller-supplied organization is the point: the caller names who
+ * to act on, never the authority to do it.
+ *
+ * Public because a surface that shows one person's ledger to another answers
+ * the same question a grant does, and two copies of this rule would be one
+ * rule too many.
+ * @param by - the standing asking.
+ * @param person - the person it would affect.
+ * @returns true when that standing may administer that person.
+ */
+async mayAdminister(by: Membership, person: PersonId): Promise<boolean>
 ```
 
 Source: [`packages/credits/credits/src/administration.ts`](../../packages/credits/credits/src/administration.ts)
@@ -276,6 +293,61 @@ abstract history(person: PersonId): Promise<{ readonly grants: readonly CreditGr
 ```
 
 Source: [`packages/credits/credits/src/index.ts`](../../packages/credits/credits/src/index.ts)
+
+<a id="ctxcreditscontroller--creditscontroller"></a>
+
+### `ctx.creditsController` — `CreditsController`
+
+Host service backing the generated `ctx.remote.credits` namespace.
+
+```ts cordis-catalog
+/**
+ * Read the calling person's own account.
+ * @returns their balance and ledger, and whether they may administer anyone.
+ * @throws {RemoteError} `credits/anonymous` when the call presented no identity,
+ * or `credits/unavailable` when this deployment mounts no ledger.
+ */
+@Remote async mine(): Promise<CreditAccountView>
+
+/**
+ * Read one person's account as an administrator.
+ * @param person - whose account to read.
+ * @returns their balance and ledger.
+ * @throws {RemoteError} `credits/anonymous`, `credits/unavailable`, or
+ * `credits/not-permitted` when the calling standing may not act on that person.
+ */
+@Remote async account(person: string): Promise<CreditAccountView>
+
+/**
+ * Add credits to one person.
+ * @param input - who receives them, how many, and when they lapse.
+ * @returns that person's account as the ledger now reads it.
+ * @throws {RemoteError} `credits/anonymous`, `credits/unavailable`,
+ * `gateway/bad-request` for invalid fields, `credits/not-permitted`, or
+ * `credits/rejected` when the administration seam refuses the grant.
+ */
+@Remote async grant(input: CreditGrantInput): Promise<CreditAccountView>
+
+/**
+ * Set or replace one recurring-allowance override.
+ * @param input - what to change, and whose allowance it applies to.
+ * @returns the overrides now reaching the named person, or the setter when the change was organization-wide.
+ * @throws {RemoteError} `credits/anonymous`, `credits/unavailable`,
+ * `gateway/bad-request` for invalid fields, `credits/not-permitted`, or
+ * `credits/rejected` when the change names neither an organization nor a person.
+ */
+@Remote async setAllowance(input: AllowanceInput): Promise<AllowanceView>
+
+/**
+ * Read the overrides reaching one person.
+ * @param person - whose allowance to resolve.
+ * @returns the organization-wide and person-specific overrides, and the periods a form may offer.
+ * @throws {RemoteError} `credits/anonymous`, `credits/unavailable`, or `credits/not-permitted`.
+ */
+@Remote async allowance(person: string): Promise<AllowanceView>
+```
+
+Source: [`packages/api/credits-controller/src/index.ts`](../../packages/api/credits-controller/src/index.ts)
 
 <a id="ctxcreditsubject--creditsubject-abstract-seam"></a>
 

@@ -64,12 +64,18 @@ export interface AllowanceChange extends AllowanceOverride {
   readonly person?: PersonId | undefined
 }
 
-/** The overrides that reach one person, narrowest last. */
+/**
+ * The overrides that reach one person, narrowest last.
+ *
+ * Stored records rather than bare overrides: who set one and when is what an
+ * administrator reading somebody else's allowance is looking for, and it is
+ * already on the row.
+ */
 export interface PersonOverrides {
   /** The override set for an organization they hold standing in, if any. */
-  readonly organization?: AllowanceOverride | undefined
+  readonly organization?: AllowanceRecord | undefined
   /** The override set for them specifically, if any. */
-  readonly person?: AllowanceOverride | undefined
+  readonly person?: AllowanceRecord | undefined
 }
 
 /** Cordis plugin name used by loader diagnostics. */
@@ -162,22 +168,36 @@ export class CreditAdministration extends Service {
   }
 
   /**
-   * Refuse an administrator action on a person the standing may not administer.
+   * Whether one standing may act on one person's credits.
    *
    * A tenant administrator reaches a person only through a standing they share
    * an organization with. Resolving that through the directory rather than
    * trusting a caller-supplied organization is the point: the caller names who
    * to act on, never the authority to do it.
+   *
+   * Public because a surface that shows one person's ledger to another answers
+   * the same question a grant does, and two copies of this rule would be one
+   * rule too many.
+   * @param by - the standing asking.
+   * @param person - the person it would affect.
+   * @returns true when that standing may administer that person.
+   */
+  async mayAdminister(by: Membership, person: PersonId): Promise<boolean> {
+    if (by.role === 'platform-administrator') return true
+    for (const held of await this.ctx.people.memberships(person)) {
+      if (administers(by, held.organization)) return true
+    }
+    return false
+  }
+
+  /**
+   * Refuse an administrator action on a person the standing may not administer.
    * @param by - the standing making the change.
    * @param person - the person it affects.
    * @throws {Error} when that standing may not administer that person.
    */
   private async assertMayAdministerPerson(by: Membership, person: PersonId): Promise<void> {
-    if (by.role === 'platform-administrator') return
-    for (const held of await this.ctx.people.memberships(person)) {
-      if (administers(by, held.organization)) return
-    }
-    throw new Error(NOT_PERMITTED)
+    if (!await this.mayAdminister(by, person)) throw new Error(NOT_PERMITTED)
   }
 }
 

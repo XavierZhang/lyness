@@ -1,0 +1,65 @@
+{
+  "name": "@lyness/lyn-api-credits-controller",
+  "description": "A person reads their own balance; an administrator grants credits and sets allowances",
+  "version": "0.1.7-rc.2",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "directory": "packages/api/credits-controller"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./types": {
+      "types": "./lib/types/types.d.ts",
+      "default": "./lib/types/types.js"
+    },
+    "./typert": {
+      "types": "./lib/typert.host.d.ts",
+      "default": "./lib/typert.host.js"
+    },
+    "./remote": {
+      "types": "./lib/typert.remote-client.d.ts",
+      "default": "./lib/typert.remote-client.js"
+    },
+    "./src/*": "./src/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib/index.js",
+    "lib/types/**/*.js",
+    "lib/types/**/*.d.ts",
+    "lib/typert.host.js",
+    "lib/typert.host.d.ts",
+    "lib/typert.remote-client.js",
+    "lib/typert.remote-client.d.ts"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "zod": "^4.4.3"
+  },
+  "peerDependencies": {
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/lyn-credits": "workspace:*",
+    "@lyness/lyn-people": "workspace:*",
+    "@lyness/lyn-request-principal": "workspace:*",
+    "@lyness/lyn-typert-protocol": "workspace:*"
+  },
+  "devDependencies": {
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/lyn-credits": "workspace:*",
+    "@lyness/lyn-people": "workspace:*",
+    "@lyness/lyn-request-principal": "workspace:*",
+    "@lyness/lyn-typert-protocol": "workspace:*"
+  }
+}

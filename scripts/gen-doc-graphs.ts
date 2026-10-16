@@ -898,6 +898,15 @@ const SERVICE_ROLES: ServiceRole[] = [
     note: 'Discriminated interaction capability: the native backend opens one OS chooser on the host display, the browse backend serves listing/creation primitives for the in-app browser; dual-face backends fill ui-workspace directory-flow slots from their browser halves (no wire advertisement).',
   },
   {
+    key: 'creditsController',
+    pkg: 'api-credits-controller',
+    title: 'Host credits Remote controller',
+    mode: 'core',
+    implementations: [],
+    consumers: [],
+    note: 'Projects the ledger and the administration seam onto the generated Remote namespace: a person reads their own balance, an administrator grants credits and sets allowances for the people their standing reaches, and the authority rule stays in lyn-credits so a read and a grant cannot disagree.',
+  },
+  {
     key: 'tenantController',
     pkg: 'api-tenant-controller',
     title: 'Host tenant-configuration Remote controller',
