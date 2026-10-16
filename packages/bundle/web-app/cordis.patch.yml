@@ -148,6 +148,12 @@
     - id: announcement-controller
       name: '@lyness/lyn-api-announcement-controller'
 
+    # The credits namespace. It mounts on every deployment, metered or not: a
+    # deployment with no ledger answers `credits/unavailable`, which is what
+    # lets the Settings section say so instead of showing an empty balance.
+    - id: credits-controller
+      name: '@lyness/lyn-api-credits-controller'
+
     # Workspace commands and reconnect-safe projection over Typert Remote.
     - id: workspace-controller
       name: '@lyness/lyn-api-workspace-controller'
@@ -296,6 +302,9 @@
 
     - id: ui-settings-announcements
       name: '@lyness/lyn-client-ui-settings-announcements'
+
+    - id: ui-settings-credits
+      name: '@lyness/lyn-client-ui-settings-credits'
 
     - id: ui-settings-models
       name: '@lyness/lyn-client-ui-settings-models'
