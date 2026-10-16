@@ -212,19 +212,25 @@ export const PROFILE_TEMPLATES: Record<string, ProfileTemplate> = {
   },
   /**
    * The hosted shape: lyness's own servers, many customers. It selects the
-   * control plane — identity, credits, model governance, sessions — and
+   * control plane — accounts, credits, model governance, sessions — and
    * selects no execution bundle, so the runtime executes nothing on behalf of
    * anyone. Agent work that touches a machine runs on the person's own, and
    * cloud execution waits for an organization to get a process.
    *
-   * Runtime self-modification is absent for the same reason: on a shared
-   * runtime it would let one customer rewrite the deployment's composition.
+   * It does not boot until the deployment names its people: the accounts
+   * module ships no roster, because a default one would be this template
+   * deciding who administers somebody else's installation.
+   *
+   * Runtime self-modification is absent for the same reason the execution
+   * bundle is: on a shared runtime it would let one customer rewrite the
+   * deployment's composition.
    */
   hosted: {
     hosted: true,
-    bundles: ['@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-module-deliverables',
-      '@lyness/lyn-module-memory', '@lyness/lyn-module-model-governance',
-      '@lyness/lyn-module-schedule', '@lyness/lyn-module-webhook'],
+    bundles: ['@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-module-accounts',
+      '@lyness/lyn-module-deliverables', '@lyness/lyn-module-memory',
+      '@lyness/lyn-module-model-governance', '@lyness/lyn-module-schedule',
+      '@lyness/lyn-module-webhook'],
   },
   headless: {
     bundles: ['@lyness/lyn-base', '@lyness/lyn-module-execution', '@lyness/lyn-headless'],

@@ -4793,6 +4793,7 @@ Imported as libraries by other packages; a `cordis.yml` cannot load them.
 | `@lyness/lyn-llm-deepseek` | — | [`packages/llm/llm-deepseek/src/index.ts`](../packages/llm/llm-deepseek/src/index.ts) |
 | `@lyness/lyn-llm-mock-server` | — | [`packages/test-support/llm-mock-server/src/index.ts`](../packages/test-support/llm-mock-server/src/index.ts) |
 | `@lyness/lyn-loader-smoke` | — | [`packages/test-support/loader-smoke/src/index.ts`](../packages/test-support/loader-smoke/src/index.ts) |
+| `@lyness/lyn-module-accounts` | — | [`packages/bundle/module-accounts/src/index.ts`](../packages/bundle/module-accounts/src/index.ts) |
 | `@lyness/lyn-module-deliverables` | — | [`packages/bundle/module-deliverables/src/index.ts`](../packages/bundle/module-deliverables/src/index.ts) |
 | `@lyness/lyn-module-execution` | — | [`packages/bundle/module-execution/src/index.ts`](../packages/bundle/module-execution/src/index.ts) |
 | `@lyness/lyn-module-extensions` | — | [`packages/bundle/module-extensions/src/index.ts`](../packages/bundle/module-extensions/src/index.ts) |

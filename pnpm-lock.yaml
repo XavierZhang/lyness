@@ -2404,6 +2404,37 @@ importers:
         specifier: workspace:*
         version: link:../../session-query/session-query
 
+  packages/bundle/module-accounts:
+    dependencies:
+      '@lyness/lyn-acting-context':
+        specifier: workspace:*
+        version: link:../../identity/acting-context
+      '@lyness/lyn-auth-session':
+        specifier: workspace:*
+        version: link:../../identity/auth-session
+      '@lyness/lyn-credits':
+        specifier: workspace:*
+        version: link:../../credits/credits
+      '@lyness/lyn-people':
+        specifier: workspace:*
+        version: link:../../identity/people
+      '@lyness/lyn-request-principal':
+        specifier: workspace:*
+        version: link:../../identity/request-principal
+      '@lyness/lyn-session-ownership':
+        specifier: workspace:*
+        version: link:../../identity/session-ownership
+      '@lyness/lyn-sign-in':
+        specifier: workspace:*
+        version: link:../../identity/sign-in
+      '@lyness/lyn-sign-in-http':
+        specifier: workspace:*
+        version: link:../../identity/sign-in-http
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+
   packages/bundle/module-deliverables:
     dependencies:
       '@lyness/lyn-client-ui-deliverables':

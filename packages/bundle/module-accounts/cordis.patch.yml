@@ -1,0 +1,77 @@
+# The accounts module: a deployment whose people are not one operator.
+#
+# Selecting it is how a shipped product states that it serves named people
+# with standings, balances, and conversations of their own
+# (../../../.agents/notes/proposed/architecture/2026-10-15-diverging-from-the-single-operator-host.md).
+# Without it the runtime answers one operator, which is the single-operator
+# shape every developer profile keeps.
+#
+# Two rows deliberately ship no usable default, because a default would be
+# an authorization decision this bundle has no business making. The roster
+# names nobody and fails at load, so a deployment states its people or does
+# not boot; the admission roster binds nobody, so a connected directory
+# cannot sign anyone in until a binding is written for them. Both refuse
+# rather than admit.
+#
+# A sign-in channel is not here either: every channel carries the credentials
+# of one directory registration, which belong to the deployment.
+- insert:
+    # Who exists, and what each of them may do. Required and non-empty: a
+    # deployment that selects this module states its people or fails at load.
+    - id: people
+      name: '@lyness/lyn-people/static'
+
+    # Signed-in sessions, durable so a restart does not sign everyone out.
+    - id: auth-sessions
+      name: '@lyness/lyn-auth-session/store'
+
+    # The channel registry one sign-in goes through.
+    - id: sign-in
+      name: '@lyness/lyn-sign-in'
+
+    # Who a verified subject is allowed to be. An empty roster admits nobody,
+    # which is the intended reading: a connected directory with no bindings
+    # written yet must not sign anyone in.
+    - id: sign-in-admission
+      name: '@lyness/lyn-sign-in/admission-roster'
+      config:
+        bindings: []
+
+    # The four browser routes and the cookie, which is the only layer that
+    # binds one sign-in to one browser.
+    - id: sign-in-http
+      name: '@lyness/lyn-sign-in-http'
+
+    # Who one call speaks for, published for the duration of that call.
+    - id: request-principal
+      name: '@lyness/lyn-request-principal'
+
+    # Whether a call may act in the context it declared.
+    - id: acting-context
+      name: '@lyness/lyn-acting-context'
+
+    # Whose conversation a session is, written once when it is opened.
+    - id: session-ownership
+      name: '@lyness/lyn-session-ownership'
+
+    # The ledger. Its recurring allowance is a deployment decision, so the
+    # numbers here are the ones an installation changes first.
+    - id: credits
+      name: '@lyness/lyn-credits/store'
+      config:
+        periodicAmount: 1000
+        period: daily
+
+    # Who a request charges, resolved from its principal.
+    - id: credit-subject
+      name: '@lyness/lyn-credits/subject-request'
+
+    # Grants and recurring-allowance overrides, authorized against the
+    # standing making them.
+    - id: credit-administration
+      name: '@lyness/lyn-credits/administration'
+
+    # Metering rides the llm/stream waterfall, so a preset row, a profile
+    # patch, or a direct RPC cannot reach a model without being charged.
+    - id: credits-enforce
+      name: '@lyness/lyn-credits/enforce'
