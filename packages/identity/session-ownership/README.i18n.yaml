@@ -1,0 +1,37 @@
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write packages/identity/session-ownership/README.md
+/:
+  en: b49e1d0b50bffeb4
+  zh: 1f22fa72978c918b
+/lyness-lyn-session-ownership:
+  en: f9eb635581b7ba0f
+  zh: ddc0a00068ad482e
+/lyness-lyn-session-ownership/summary:
+  en: 2e5d8bfa51eb2949
+  zh: e6616ba96b542af3
+/lyness-lyn-session-ownership/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-session-ownership/use-this-package:
+  en: 849eec9beba95a36
+  zh: 23af74b2b3328efe
+/lyness-lyn-session-ownership/understand-the-implementation:
+  en: 65b33167e75bab3e
+  zh: a1a60ab9e0e426d3
+/lyness-lyn-session-ownership/further-exploration:
+  en: 7611db3c19e7b52f
+  zh: f0ebeae454ed8242
+/lyness-lyn-session-ownership/model-experience:
+  en: 4bb24051be0d85e2
+  zh: 2934eb746157e3f1
+/lyness-lyn-session-ownership/model-experience/kv-cache-effect:
+  en: eb7d0c330496e9b0
+  zh: d6b0615543940da2
+/lyness-lyn-session-ownership/known-limitations-and-deferred-work:
+  en: 8b2adcaaf6c5e3b5
+  zh: 8ecc32fa59bab8da
+/lyness-lyn-session-ownership/known-limitations-and-deferred-work/dev-note:
+  en: f4475bb3ceaec6c8
+  zh: 651c308815c3dff1

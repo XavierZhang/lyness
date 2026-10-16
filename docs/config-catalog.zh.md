@@ -4701,6 +4701,7 @@ export interface Config {
 | `@lyness/lyn-sandbox-ssh` | `ssh` | [`packages/ssh/sandbox-ssh/src/index.ts`](../packages/ssh/sandbox-ssh/src/index.ts) |
 | `@lyness/lyn-session` | — | [`packages/core/session/src/index.ts`](../packages/core/session/src/index.ts) |
 | `@lyness/lyn-session-checkpoint-policy` | `llm` · `sessionPersistence` · `sessions` · `tools` | [`packages/session/session-checkpoint-policy/src/index.ts`](../packages/session/session-checkpoint-policy/src/index.ts) |
+| `@lyness/lyn-session-ownership` | `sessionProjections` · `sessions` · `requestPrincipal` | [`packages/identity/session-ownership/src/index.ts`](../packages/identity/session-ownership/src/index.ts) |
 | `@lyness/lyn-session-projection` | — | [`packages/session/session-projection/src/index.ts`](../packages/session/session-projection/src/index.ts) |
 | `@lyness/lyn-session-stats` | `sessionProjections` | [`packages/session/session-stats/src/index.ts`](../packages/session/session-stats/src/index.ts) |
 | `@lyness/lyn-session-turn-outline` | `sessionProjections` | [`packages/session/session-turn-outline/src/index.ts`](../packages/session/session-turn-outline/src/index.ts) |

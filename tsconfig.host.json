@@ -284,6 +284,7 @@
     { "path": "./packages/identity/request-principal" },
     { "path": "./packages/identity/sign-in" },
     { "path": "./packages/identity/sign-in-http" },
+    { "path": "./packages/identity/session-ownership" },
     { "path": "./packages/host/announcements" },
     { "path": "./packages/client/ui-settings-announcements/tsconfig.host.json" },
     { "path": "./packages/api/announcement-controller" },

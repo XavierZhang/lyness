@@ -9677,6 +9677,31 @@ importers:
         specifier: workspace:*
         version: link:../../storage/storage-json
 
+  packages/identity/session-ownership:
+    dependencies:
+      zod:
+        specifier: ^4.4.3
+        version: 4.4.3
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+      '@lyness/lyn-people':
+        specifier: workspace:*
+        version: link:../people
+      '@lyness/lyn-request-principal':
+        specifier: workspace:*
+        version: link:../request-principal
+      '@lyness/lyn-session':
+        specifier: workspace:*
+        version: link:../../core/session
+      '@lyness/lyn-session-projection':
+        specifier: workspace:*
+        version: link:../../session/session-projection
+      '@lyness/lyn-storage-domain':
+        specifier: workspace:*
+        version: link:../../storage/storage-domain
+
   packages/identity/sign-in:
     dependencies:
       '@lyness/schemastery':

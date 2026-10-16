@@ -11627,6 +11627,91 @@
       }
     },
     {
+      "key": "event:session/owner",
+      "kind": "event",
+      "event": "session/owner",
+      "surface": false,
+      "digest": "6d5b72b6153d90f7cb549610592cd49e034a721f50f99b5b5e3ae89460fb6279",
+      "schema": {
+        "root": 0,
+        "nodes": [
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "data",
+                "type": 1,
+                "optional": false
+              },
+              {
+                "name": "ignorable",
+                "type": 4,
+                "optional": true
+              },
+              {
+                "name": "seq",
+                "type": 3,
+                "optional": false
+              },
+              {
+                "name": "time",
+                "type": 3,
+                "optional": false
+              },
+              {
+                "name": "type",
+                "type": 5,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "membership",
+                "type": 2,
+                "optional": true
+              },
+              {
+                "name": "openedAt",
+                "type": 2,
+                "optional": false
+              },
+              {
+                "name": "owner",
+                "type": 2,
+                "optional": false
+              },
+              {
+                "name": "version",
+                "type": 3,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "primitive",
+            "type": "string"
+          },
+          {
+            "kind": "primitive",
+            "type": "number"
+          },
+          {
+            "kind": "literal",
+            "value": true
+          },
+          {
+            "kind": "literal",
+            "value": "session/owner"
+          }
+        ]
+      }
+    },
+    {
       "key": "event:session/title",
       "kind": "event",
       "event": "session/title",
@@ -44923,6 +45008,8 @@
         "packages/experimental/agent-team/src/types.ts#TeamTaskId",
         "packages/feedback/message-feedback/src/types.ts#MessageFeedbackVersion",
         "packages/goal/goal/src/types.ts#GoalId",
+        "packages/identity/people/src/types.ts#MembershipId",
+        "packages/identity/people/src/types.ts#PersonId",
         "packages/interaction/commands/src/brand.ts#CommandId",
         "packages/interaction/user-approval/src/types.ts#ApprovalRequestId",
         "packages/llm/llm-retry/src/brand.ts#RetryId",
@@ -44948,6 +45035,8 @@
         "packages/experimental/agent-team/src/types.ts:8",
         "packages/feedback/message-feedback/src/types.ts:14",
         "packages/goal/goal/src/types.ts:17",
+        "packages/identity/people/src/types.ts:11",
+        "packages/identity/people/src/types.ts:14",
         "packages/interaction/commands/src/brand.ts:31",
         "packages/interaction/user-approval/src/types.ts:17",
         "packages/llm/llm-retry/src/brand.ts:4",
@@ -59069,6 +59158,89 @@
       "sources": []
     },
     {
+      "digest": "6d5b72b6153d90f7cb549610592cd49e034a721f50f99b5b5e3ae89460fb6279",
+      "schema": {
+        "root": 0,
+        "nodes": [
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "data",
+                "type": 1,
+                "optional": false
+              },
+              {
+                "name": "ignorable",
+                "type": 4,
+                "optional": true
+              },
+              {
+                "name": "seq",
+                "type": 3,
+                "optional": false
+              },
+              {
+                "name": "time",
+                "type": 3,
+                "optional": false
+              },
+              {
+                "name": "type",
+                "type": 5,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "membership",
+                "type": 2,
+                "optional": true
+              },
+              {
+                "name": "openedAt",
+                "type": 2,
+                "optional": false
+              },
+              {
+                "name": "owner",
+                "type": 2,
+                "optional": false
+              },
+              {
+                "name": "version",
+                "type": 3,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "primitive",
+            "type": "string"
+          },
+          {
+            "kind": "primitive",
+            "type": "number"
+          },
+          {
+            "kind": "literal",
+            "value": true
+          },
+          {
+            "kind": "literal",
+            "value": "session/owner"
+          }
+        ]
+      },
+      "names": [],
+      "sources": []
+    },
+    {
       "digest": "6e52dd55a1d48954ed5464ec46fe34d9eb65f709baabc9561e7a279910b0c406",
       "schema": {
         "root": 0,
@@ -63655,6 +63827,54 @@
       },
       "names": [],
       "sources": []
+    },
+    {
+      "digest": "8b8eb3e412b34ec09d08495db8ad43c69c3921eea63f11707519598c15b3aadd",
+      "schema": {
+        "root": 0,
+        "nodes": [
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "membership",
+                "type": 1,
+                "optional": true
+              },
+              {
+                "name": "openedAt",
+                "type": 1,
+                "optional": false
+              },
+              {
+                "name": "owner",
+                "type": 1,
+                "optional": false
+              },
+              {
+                "name": "version",
+                "type": 2,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "primitive",
+            "type": "string"
+          },
+          {
+            "kind": "primitive",
+            "type": "number"
+          }
+        ]
+      },
+      "names": [
+        "packages/identity/session-ownership/src/types.ts#SessionOwnerRecord"
+      ],
+      "sources": [
+        "packages/identity/session-ownership/src/types.ts:26"
+      ]
     },
     {
       "digest": "8bb8c3751a6ce64b61aba1ec7ae798c00a5803c4d868a0430873216c6569ed52",
@@ -74574,6 +74794,20 @@
           {
             "kind": "literal",
             "value": "active"
+          }
+        ]
+      },
+      "names": [],
+      "sources": []
+    },
+    {
+      "digest": "c993389e93a8c46ed84f8c67292e144e0279b40d096441902924811f2900bfcd",
+      "schema": {
+        "root": 0,
+        "nodes": [
+          {
+            "kind": "literal",
+            "value": "session/owner"
           }
         ]
       },

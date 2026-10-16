@@ -72,6 +72,7 @@ const SENTENCE_MODEL_EXPERIENCE: Readonly<Record<string, SentenceContract>> = {
   'packages/host/announcements': { kind: 'none', reason: 'A Host source serves deployment-authored text to a surface; it registers no tool, prompt, or Session event.' },
   'packages/api/announcement-controller': { kind: 'none', reason: 'One Remote read of deployment-authored text; it registers no tool, prompt, or Session event.' },
   'packages/api/desktop-link': { kind: 'none', reason: 'A Host-to-desktop carrier; it registers no tool, prompt, or Session event.' },
+  'packages/identity/session-ownership': { kind: 'none', reason: 'One log-only attribution event; it registers no tool or prompt and never enters the transcript.' },
   'packages/client/ui-settings-announcements': { kind: 'none', reason: 'A Settings row renders deployment-authored text; it registers no tool, prompt, or Session event.' },
   'packages/api/terminal-controller': { kind: 'none', reason: 'User-owned terminal processes and screen streams never enter model requests or Session events.' },
   'packages/client/ui-sidebar-terminal': { kind: 'none', reason: 'The browser renders user terminal screens without exposing them to the model.' },

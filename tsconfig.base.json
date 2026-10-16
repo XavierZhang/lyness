@@ -521,6 +521,7 @@
       "@lyness/lyn-session-log-deepseek": ["./packages/session/session-log-deepseek/src"],
       "@lyness/lyn-session-log-deepseek/invariant": ["./packages/session/session-log-deepseek/src/invariant.ts"],
       "@lyness/lyn-session-log-export": ["./packages/session-query/session-log-export/src"],
+      "@lyness/lyn-session-ownership": ["./packages/identity/session-ownership/src"],
       "@lyness/lyn-session-persistence": ["./packages/session/session-persistence/src"],
       "@lyness/lyn-session-persistence-jsonl": ["./packages/session/session-persistence-jsonl/src"],
       "@lyness/lyn-session-projection": ["./packages/session/session-projection/src"],
