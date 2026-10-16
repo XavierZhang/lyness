@@ -134,6 +134,7 @@
     "verify-optional-dependency-imports": "tsx scripts/verify-optional-dependency-imports.ts",
     "verify-runtime-closure": "tsx scripts/verify-runtime-closure.ts",
     "verify-default-product-isolation": "tsx scripts/verify-default-product-isolation.ts",
+    "verify-hosted-profile-boundary": "tsx scripts/verify-hosted-profile-boundary.ts",
     "verify-application-entrypoints": "tsx scripts/verify-application-entrypoints.ts",
     "verify-package-dependencies": "tsx scripts/verify-package-dependencies.ts",
     "verify-npm-install-layout": "tsx scripts/verify-npm-install-layout.ts",

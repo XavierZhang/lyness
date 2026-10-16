@@ -43,6 +43,17 @@ export const PROFILE_PATCH_FILENAME = 'cordis.patch.yml'
 export interface ProfileTemplate {
   /** Ordered bundle layer list. */
   bundles: readonly string[]
+  /**
+   * Whether this profile serves several customers from one runtime.
+   *
+   * A hosted profile runs no user code: it mounts no execution provider and
+   * no execution tool, so a prompt cannot reach the machine the Host runs on.
+   * That is the boundary standing in for per-organization isolation until an
+   * organization gets a process
+   * ([decision](../../../../.agents/notes/proposed/architecture/2026-10-15-diverging-from-the-single-operator-host.md)),
+   * and `verify-hosted-profile-boundary` holds the shipped profile to it.
+   */
+  hosted?: boolean
 }
 
 /** Package metadata accepted by the profile reader; local profiles need no published identity. */
@@ -198,6 +209,22 @@ export const PROFILE_TEMPLATES: Record<string, ProfileTemplate> = {
       '@lyness/lyn-module-deliverables', '@lyness/lyn-module-extensions', '@lyness/lyn-module-lsp',
       '@lyness/lyn-module-memory', '@lyness/lyn-module-model-governance',
       '@lyness/lyn-module-schedule', '@lyness/lyn-module-terminal', '@lyness/lyn-module-webhook'],
+  },
+  /**
+   * The hosted shape: lyness's own servers, many customers. It selects the
+   * control plane — identity, credits, model governance, sessions — and
+   * selects no execution bundle, so the runtime executes nothing on behalf of
+   * anyone. Agent work that touches a machine runs on the person's own, and
+   * cloud execution waits for an organization to get a process.
+   *
+   * Runtime self-modification is absent for the same reason: on a shared
+   * runtime it would let one customer rewrite the deployment's composition.
+   */
+  hosted: {
+    hosted: true,
+    bundles: ['@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-module-deliverables',
+      '@lyness/lyn-module-memory', '@lyness/lyn-module-model-governance',
+      '@lyness/lyn-module-schedule', '@lyness/lyn-module-webhook'],
   },
   headless: {
     bundles: ['@lyness/lyn-base', '@lyness/lyn-module-execution', '@lyness/lyn-headless'],

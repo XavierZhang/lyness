@@ -382,7 +382,13 @@ function profilePackages(source: string): { packages: string[]; webBundles: stri
     }
     else if (ts.isAsExpression(node) || ts.isSatisfiesExpression(node) || ts.isParenthesizedExpression(node)) {
       literals(node.expression, path)
-    } else throw new Error(`${PROFILE_SOURCE}: default profile packages must use static literal lists`)
+    }
+    // A template flag such as `hosted: true` carries no package name; it is
+    // still a static literal, so it passes through rather than failing the
+    // list it sits beside.
+    else if (node.kind !== ts.SyntaxKind.TrueKeyword && node.kind !== ts.SyntaxKind.FalseKeyword) {
+      throw new Error(`${PROFILE_SOURCE}: default profile packages must use static literal lists`)
+    }
   }
   for (const statement of file.statements) {
     if (!ts.isVariableStatement(statement)) continue
