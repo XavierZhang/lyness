@@ -468,6 +468,7 @@ flowchart TD
   end
   subgraph group_vendor["packages/vendor"]
     pkg_dingtalk["dingtalk"]
+    pkg_feishu["feishu"]
     pkg_microsoft_entra["microsoft-entra"]
     pkg_wecom["wecom"]
   end
@@ -651,6 +652,10 @@ flowchart TD
   pkg_dingtalk --> pkg_credentials
   pkg_dingtalk --> pkg_sign_in
   pkg_dingtalk --> pkg_util_crypto
+  pkg_feishu --> pkg_brand
+  pkg_feishu --> pkg_credentials
+  pkg_feishu --> pkg_sign_in
+  pkg_feishu --> pkg_util_crypto
   pkg_microsoft_entra --> pkg_authorization
   pkg_microsoft_entra --> pkg_brand
   pkg_microsoft_entra --> pkg_credentials
@@ -1725,6 +1730,7 @@ flowchart TD
 | [`shell`](../packages/shell/shell) | `shell` | [`sandbox`](../packages/sandbox/sandbox), [`subprocess`](../packages/subprocess/subprocess) |
 | [`tenant-session`](../packages/tenant/tenant-session) | `tenant` | [`tenant-request`](../packages/tenant/tenant-request) |
 | [`dingtalk`](../packages/vendor/dingtalk) | `vendor` | [`brand`](../packages/util/brand), [`credentials`](../packages/credentials/credentials), [`sign-in`](../packages/identity/sign-in), [`util-crypto`](../packages/util/crypto) |
+| [`feishu`](../packages/vendor/feishu) | `vendor` | [`brand`](../packages/util/brand), [`credentials`](../packages/credentials/credentials), [`sign-in`](../packages/identity/sign-in), [`util-crypto`](../packages/util/crypto) |
 | [`microsoft-entra`](../packages/vendor/microsoft-entra) | `vendor` | [`authorization`](../packages/credentials/authorization), [`brand`](../packages/util/brand), [`credentials`](../packages/credentials/credentials), [`host-webserver`](../packages/host/webserver), [`sign-in`](../packages/identity/sign-in) |
 | [`wecom`](../packages/vendor/wecom) | `vendor` | [`brand`](../packages/util/brand), [`credentials`](../packages/credentials/credentials), [`sign-in`](../packages/identity/sign-in), [`util-crypto`](../packages/util/crypto) |
 | [`workspace`](../packages/workspace/workspace) | `workspace` | [`invariants`](../packages/runtime-diagnostics/invariants), [`session`](../packages/core/session), [`session-persistence`](../packages/session/session-persistence), [`storage`](../packages/storage/storage), [`storage-domain`](../packages/storage/storage-domain), [`typert-protocol`](../packages/typert/protocol) |

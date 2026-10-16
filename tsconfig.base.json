@@ -439,6 +439,7 @@
       "@lyness/lyn-deque": ["./packages/util/deque/src"],
       "@lyness/lyn-dingtalk": ["./packages/vendor/dingtalk/src"],
       "@lyness/lyn-e2e-target": ["./packages/test-support/e2e-target/src"],
+      "@lyness/lyn-feishu": ["./packages/vendor/feishu/src"],
       "@lyness/lyn-file-reference": ["./packages/context/file-reference/src"],
       "@lyness/lyn-file-reference-local": ["./packages/context/file-reference-local/src"],
       "@lyness/lyn-fs": ["./packages/fs/fs/src"],

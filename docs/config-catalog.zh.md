@@ -1222,6 +1222,33 @@ export interface Config {
 ```
 <!-- END GENERATED config-catalog:@lyness/lyn-experimental-tool-agent-team -->
 
+<!-- BEGIN GENERATED config-catalog:@lyness/lyn-feishu -->
+<a id="lynesslyn-feishu"></a>
+
+## `@lyness/lyn-feishu`
+
+- `inject`: `signIn` · `credentials`
+- `refs`: `RedirectChannelConfig` (`@lyness/lyn-sign-in/redirect`)
+- `source`: [`packages/vendor/feishu/src/index.ts:87`](../packages/vendor/feishu/src/index.ts)
+
+```ts config-catalog
+/** The application to sign in with, and how to reach it. */
+export interface Config extends RedirectChannelConfig {
+  /** Callback path the directory returns to; defaults to this channel's own. */
+  redirectPath?: string
+  /** The application's own id, which Feishu calls `app_id`. Required. */
+  appId: string
+  /**
+   * API origin; defaults to the public Feishu service.
+   *
+   * An international deployment points this at Lark's own origin, which
+   * serves the same interface under a different name.
+   */
+  apiOrigin?: string
+}
+```
+<!-- END GENERATED config-catalog:@lyness/lyn-feishu -->
+
 <!-- BEGIN GENERATED config-catalog:@lyness/lyn-file-reference-local -->
 <a id="lynesslyn-file-reference-local"></a>
 
