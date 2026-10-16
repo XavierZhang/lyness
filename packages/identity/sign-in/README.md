@@ -113,9 +113,9 @@ No request prefix changes, because nothing here reaches a model request.
 
 <a id="known-limitations-and-deferred-work"></a>
 
-- **No channel ships yet** — `lyn-microsoft-entra` verifies a subject already, and wiring it in as a channel is the next step; until then a deployment has nothing to register.
+- **One channel ships, and it carries its own credentials** — `@lyness/lyn-microsoft-entra/channel` is the redirect channel a deployment registers; it needs that deployment's own directory registration, so no bundle can select it for them. A channel for another directory is a new package following the same shape.
 - **No hosted admission rule** — the roster is the installation shape's answer. A hosted deployment's people arrive by signing up, which needs a rule that provisions on first sign-in within a tenant's own directory.
-- **Nothing issues the cookie** — `begin` returns the session identity; the surface that puts it in a response, and the attributes it sets, are not decided here.
+- **The cookie is somebody else's decision** — `begin` returns the session identity, and `lyn-sign-in-http` is what puts it in a response and binds one sign-in to one browser; neither the attributes nor the redirect target are decided here.
 - **A changed binding needs a restart** — the roster is read at load, so an administrator adding a person edits composition config rather than a surface.
 
 **Runtime invariant:** No companion is published. Every relation this package holds — a channel's registration, a binding's person — has exactly one observer.
