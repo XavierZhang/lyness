@@ -12,11 +12,23 @@
 
 不存在需要打补丁的特权内核：扩展 lyn 的方式是把插件挂载到其他插件旁边，而各项注册都是副作用，会在其插件卸载时撤销。
 
+## 产品形态
+
+随包交付三种形态，而每一种都同时服务两个客户端。浏览器与桌面安装不是「完整版」与「精简版」：它们到达同一个部署、获得同样的能力，区别只在于 agent 的工作落在哪台机器上。
+
+| 形态 | 服务器属于谁 | 租户 | 积分 | 模板 |
+|---|---|---|---|---|
+| SaaS 租户 | lyness | 有 | 有 | `hosted` |
+| SaaS 个人 | lyness | 无 | 有 | `hosted` |
+| 独立部署 | 客户自己 | 无 | 无 | `enterprise` |
+
+`hosted` 不运行任何用户代码：它不选任何执行组合包，所以一次提示到达不了运行 Host 的那台机器，而触及文件或 shell 的工作改为跑在那个人自己的机器上（[原因](../.agents/notes/proposed/architecture/2026-10-15-diverging-from-the-single-operator-host.zh.md)）。身份、积分与租户目前还是没有任何组合包选用的包，所以托管部署自行组合那些行。
+
 ## Profile 与组合包
 
 运行中的 `lyn` 是一棵插件树，由启动时按序叠加的各层组合而成。
 
-**profile** 是存放在 Harness home 中的具名组装。它列出自己叠放的组合包，存放自己安装的树外插件，并保存用户自己的 `cordis.patch.yml`。`web`、`headless`、`sdk`、`sdk-minimal` 和 `acp` 作为模板随发行版交付。
+**profile** 是存放在 Harness home 中的具名组装。它列出自己叠放的组合包，存放自己安装的树外插件，并保存用户自己的 `cordis.patch.yml`。`web`、`hosted`、`enterprise`、`headless`、`sdk`、`sdk-minimal` 和 `acp` 作为模板随发行版交付。
 
 **组合包**是 Cordis 配置项及其挂载代码的分发格式，因此它插入的内容始终可被其上各层 patch。
 

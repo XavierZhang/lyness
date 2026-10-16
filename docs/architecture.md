@@ -12,11 +12,23 @@ We recommend using an agent to explore the codebase and understand its architect
 
 There is no privileged core to patch: you extend lyn by mounting a plugin beside the others, and registrations are effects that unwind when their plugin unloads.
 
+## Product shapes
+
+Three shapes ship, and every one of them serves both clients. The browser and the desktop install are not a full and a reduced edition: they reach the same deployment and get the same capabilities, differing only in which machine the agent's work lands on.
+
+| Shape | Whose server | Tenancy | Credits | Template |
+|---|---|---|---|---|
+| SaaS tenant | lyness | yes | yes | `hosted` |
+| SaaS personal | lyness | no | yes | `hosted` |
+| Standalone | the customer's own | no | no | `enterprise` |
+
+`hosted` runs no user code: it selects no execution bundle, so a prompt cannot reach the machine the Host runs on, and work that touches files or shells runs on the person's own machine instead ([why](../.agents/notes/proposed/architecture/2026-10-15-diverging-from-the-single-operator-host.md)). Identity, credits and tenancy are packages no bundle selects yet, so a hosted deployment composes those rows itself.
+
 ## Profiles and bundles
 
 A running `lyn` is a plugin tree composed at boot from ordered layers.
 
-A **profile** is a named composition stored in the Harness home. It lists the bundles it stacks, holds any out-of-tree plugins it installs, and keeps the user's own `cordis.patch.yml`. `web`, `headless`, `sdk`, `sdk-minimal`, and `acp` ship as templates.
+A **profile** is a named composition stored in the Harness home. It lists the bundles it stacks, holds any out-of-tree plugins it installs, and keeps the user's own `cordis.patch.yml`. `web`, `hosted`, `enterprise`, `headless`, `sdk`, `sdk-minimal`, and `acp` ship as templates.
 
 A **bundle** is a distribution format for Cordis config rows and the code they mount, so whatever it inserts stays patchable by the layers above it.
 
