@@ -103,7 +103,9 @@ No request prefix changes, because nothing here reaches a model request.
 
 <a id="known-limitations-and-deferred-work"></a>
 
-- **No capability provider uses it yet** — `subprocess-desktop` is the first, and until it lands the link carries nothing in a shipped profile.
+- **One capability rides it** — [`lyn-fs-desktop`](../../fs/fs-desktop/README.md), and no shipped profile composes that yet, so the link carries nothing in production.
+- **No input direction** — a call carries its arguments once. A capability that must be fed while it runs — a subprocess's stdin, a terminal's keystrokes, a window resize — has no channel, so `subprocess-desktop` needs the request vocabulary extended before it can be written.
+- **One queue for everything** — every call's items multiplex onto one logical stream, so a chatty call's output shares the queue with every other call to that machine.
 - **No executor plugin** — `DesktopExecutor` is a class a desktop composition drives; the plugin that opens the stream and feeds it is not written.
 - **One machine per person** — a person with a laptop and a workstation reaches whichever connected last, with no way to name the other.
 - **No backpressure** — queued requests and delivered items are held in memory, so a desktop that stops consuming grows the queue rather than slowing the Host.
