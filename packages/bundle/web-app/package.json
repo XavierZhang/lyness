@@ -62,6 +62,7 @@
     "@lyness/lyn-api-account-controller": "workspace:*",
     "@lyness/lyn-api-announcement-controller": "workspace:*",
     "@lyness/lyn-api-credits-controller": "workspace:*",
+    "@lyness/lyn-api-identity-controller": "workspace:*",
     "@lyness/lyn-api-job-controller": "workspace:*",
     "@lyness/lyn-api-remotes": "workspace:*",
     "@lyness/lyn-api-session-controller": "workspace:*",

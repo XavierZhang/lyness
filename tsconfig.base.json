@@ -37,6 +37,8 @@
       "@lyness/lyn-api-announcement-controller/types": ["./packages/api/announcement-controller/src/types.ts"],
       "@lyness/lyn-api-credits-controller": ["./packages/api/credits-controller/src/index.ts"],
       "@lyness/lyn-api-credits-controller/types": ["./packages/api/credits-controller/src/types.ts"],
+      "@lyness/lyn-api-identity-controller": ["./packages/api/identity-controller/src/index.ts"],
+      "@lyness/lyn-api-identity-controller/types": ["./packages/api/identity-controller/src/types.ts"],
       "@lyness/lyn-api-remote-authority": ["./packages/api/remote-authority/src/index.ts"],
       "@lyness/lyn-desktop-link": ["./packages/api/desktop-link/src/index.ts"],
       "@lyness/lyn-desktop-link/types": ["./packages/api/desktop-link/src/types.ts"],

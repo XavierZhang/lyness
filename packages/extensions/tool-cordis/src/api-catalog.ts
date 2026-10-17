@@ -1448,6 +1448,19 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
     ],
   },
   {
+    key: 'identityController',
+    summary: 'Host service backing the generated `ctx.remote.identity` namespace.',
+    description: 'Host service backing the generated `ctx.remote.identity` namespace.',
+    methods: [
+      {
+        signature: '@Remote async viewer(): Promise<ViewerView>',
+        description: 'Describe the caller and what they may sign in with.',
+        parameters: [],
+        returns: 'whether this deployment has accounts, who the caller is, and the channels it offers.',
+      },
+    ],
+  },
+  {
     key: 'inspector',
     summary: 'Shared Host/Client service façade over the realm\'s source publisher.',
     description: 'Shared Host/Client service façade over the realm\'s source publisher.',
@@ -5157,6 +5170,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export type ChannelKind = \'self-driven\' | \'redirect\';',
   },
   {
+    name: 'ChannelOfferView',
+    declaration: 'export interface ChannelOfferView {\n    readonly id: string;\n    readonly displayName: string;\n    readonly redirect: boolean;\n}',
+  },
+  {
     name: 'ClientArtifactBaseline',
     declaration: 'export interface ClientArtifactBaseline {\n    readonly path: string;\n    readonly mtimeMs: number;\n    readonly ctimeMs: number;\n    readonly size: number;\n}',
   },
@@ -8499,6 +8516,18 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'VerifiedWebhookDelivery',
     declaration: 'export interface VerifiedWebhookDelivery<K extends string = string> {\n    readonly kind: K;\n    readonly source: WebhookSourceId;\n    readonly deliveryId: WebhookDeliveryId;\n    readonly event: WebhookEventOf<K>;\n    readonly receivedAt: number;\n}',
+  },
+  {
+    name: 'ViewerPersonView',
+    declaration: 'export interface ViewerPersonView {\n    readonly id: string;\n    readonly displayName: string;\n}',
+  },
+  {
+    name: 'ViewerStandingView',
+    declaration: 'export interface ViewerStandingView {\n    readonly id: string;\n    readonly role: \'platform-administrator\' | \'tenant-administrator\' | \'member\';\n    readonly organization?: string;\n}',
+  },
+  {
+    name: 'ViewerView',
+    declaration: 'export interface ViewerView {\n    readonly accounts: boolean;\n    readonly person?: ViewerPersonView;\n    readonly standing?: ViewerStandingView;\n    readonly channels: readonly ChannelOfferView[];\n    readonly signInPrefix: string;\n    readonly signOutPath: string;\n}',
   },
   {
     name: 'WebBootBatch',

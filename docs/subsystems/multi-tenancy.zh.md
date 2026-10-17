@@ -417,6 +417,22 @@ async *call( person: PersonId, capability: string, operation: string, payload: J
 
 Source: [`packages/api/desktop-link/src/index.ts`](../../packages/api/desktop-link/src/index.ts)
 
+<a id="ctxidentitycontroller--identitycontroller"></a>
+
+### `ctx.identityController` — `IdentityController`
+
+Host service backing the generated `ctx.remote.identity` namespace.
+
+```ts cordis-catalog
+/**
+ * Describe the caller and what they may sign in with.
+ * @returns whether this deployment has accounts, who the caller is, and the channels it offers.
+ */
+@Remote async viewer(): Promise<ViewerView>
+```
+
+Source: [`packages/api/identity-controller/src/index.ts`](../../packages/api/identity-controller/src/index.ts)
+
 <a id="ctxpeople--peopledirectory-abstract-seam"></a>
 
 ### `ctx.people` — `PeopleDirectory` (abstract seam)

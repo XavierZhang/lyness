@@ -898,6 +898,15 @@ const SERVICE_ROLES: ServiceRole[] = [
     note: 'Discriminated interaction capability: the native backend opens one OS chooser on the host display, the browse backend serves listing/creation primitives for the in-app browser; dual-face backends fill ui-workspace directory-flow slots from their browser halves (no wire advertisement).',
   },
   {
+    key: 'identityController',
+    pkg: 'api-identity-controller',
+    title: 'Host viewer Remote controller',
+    mode: 'core',
+    implementations: [],
+    consumers: [],
+    note: 'Answers one surface question before anybody is classified: whether this deployment has accounts, who the caller is, the standing they act in, and the channels a sign-in screen may offer; signing in and out stay browser navigations lyn-sign-in-http owns.',
+  },
+  {
     key: 'creditsController',
     pkg: 'api-credits-controller',
     title: 'Host credits Remote controller',

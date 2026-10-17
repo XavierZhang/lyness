@@ -154,6 +154,12 @@
     - id: credits-controller
       name: '@lyness/lyn-api-credits-controller'
 
+    # Who the viewer is, and what this deployment would let them sign in with.
+    # It mounts on every deployment, with accounts or without: a surface has
+    # to ask before it can know which of the two it is rendering.
+    - id: identity-controller
+      name: '@lyness/lyn-api-identity-controller'
+
     # Workspace commands and reconnect-safe projection over Typert Remote.
     - id: workspace-controller
       name: '@lyness/lyn-api-workspace-controller'

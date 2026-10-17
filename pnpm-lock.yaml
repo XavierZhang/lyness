@@ -1216,6 +1216,27 @@ importers:
         specifier: ^4.4.3
         version: 4.4.3
 
+  packages/api/identity-controller:
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+      '@lyness/lyn-people':
+        specifier: workspace:*
+        version: link:../../identity/people
+      '@lyness/lyn-request-principal':
+        specifier: workspace:*
+        version: link:../../identity/request-principal
+      '@lyness/lyn-sign-in':
+        specifier: workspace:*
+        version: link:../../identity/sign-in
+      '@lyness/lyn-sign-in-http':
+        specifier: workspace:*
+        version: link:../../identity/sign-in-http
+      '@lyness/lyn-typert-protocol':
+        specifier: workspace:*
+        version: link:../../typert/protocol
+
   packages/api/job-controller:
     dependencies:
       '@lyness/lyn-typert-protocol':
@@ -2772,6 +2793,9 @@ importers:
       '@lyness/lyn-api-announcement-controller':
         specifier: workspace:*
         version: link:../../api/announcement-controller
+      '@lyness/lyn-api-identity-controller':
+        specifier: workspace:*
+        version: link:../../api/identity-controller
       '@lyness/lyn-api-job-controller':
         specifier: workspace:*
         version: link:../../api/job-controller

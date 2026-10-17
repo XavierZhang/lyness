@@ -125,6 +125,7 @@ flowchart TD
     pkg_api_announcement_controller["api-announcement-controller"]
     pkg_api_credits_controller["api-credits-controller"]
     pkg_api_gateway["api-gateway"]
+    pkg_api_identity_controller["api-identity-controller"]
     pkg_api_job_controller["api-job-controller"]
     pkg_api_remote_authority["api-remote-authority"]
     pkg_api_remotes["api-remotes"]
@@ -711,6 +712,11 @@ flowchart TD
   pkg_api_credits_controller --> pkg_people
   pkg_api_credits_controller --> pkg_request_principal
   pkg_api_credits_controller --> pkg_typert_protocol
+  pkg_api_identity_controller --> pkg_people
+  pkg_api_identity_controller --> pkg_request_principal
+  pkg_api_identity_controller --> pkg_sign_in
+  pkg_api_identity_controller --> pkg_sign_in_http
+  pkg_api_identity_controller --> pkg_typert_protocol
   pkg_api_workspace_controller --> pkg_api_gateway
   pkg_api_workspace_controller --> pkg_client_connection
   pkg_api_workspace_controller --> pkg_host_directory_picker
@@ -1744,6 +1750,7 @@ flowchart TD
 | [`skill-filesystem`](../packages/skill/skill-filesystem) | `skill` | [`fs`](../packages/fs/fs), [`home-paths`](../packages/util/home-paths), [`skill`](../packages/skill/skill) |
 | [`hook-protocol`](../packages/hooks/hook-protocol) | `hooks` | [`invariants`](../packages/runtime-diagnostics/invariants), [`session`](../packages/core/session), [`shell`](../packages/shell/shell) |
 | [`api-credits-controller`](../packages/api/credits-controller) | `api` | [`brand`](../packages/util/brand), [`credits`](../packages/credits/credits), [`people`](../packages/identity/people), [`request-principal`](../packages/identity/request-principal), [`typert-protocol`](../packages/typert/protocol) |
+| [`api-identity-controller`](../packages/api/identity-controller) | `api` | [`people`](../packages/identity/people), [`request-principal`](../packages/identity/request-principal), [`sign-in`](../packages/identity/sign-in), [`sign-in-http`](../packages/identity/sign-in-http), [`typert-protocol`](../packages/typert/protocol) |
 | [`api-workspace-controller`](../packages/api/workspace-controller) | `api` | [`api-gateway`](../packages/api/gateway), [`client-connection`](../packages/client/connection), [`host-directory-picker`](../packages/host/directory-picker), [`session`](../packages/core/session), [`storage-domain`](../packages/storage/storage-domain), [`typert-protocol`](../packages/typert/protocol), [`workspace`](../packages/workspace/workspace) |
 | [`config-editor`](../packages/boot/config-editor) | `boot` | [`app-boot`](../packages/boot/app-boot), [`hmr`](../packages/boot/hmr) |
 | [`experimental-api-speech-to-text`](../packages/experimental/api-speech-to-text) | `experimental` | [`experimental-speech-to-text`](../packages/experimental/speech-to-text), [`typert-protocol`](../packages/typert/protocol) |

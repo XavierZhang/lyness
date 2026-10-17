@@ -294,6 +294,7 @@
     { "path": "./packages/client/ui-settings-credits/tsconfig.host.json" },
     { "path": "./packages/api/announcement-controller" },
     { "path": "./packages/api/credits-controller" },
+    { "path": "./packages/api/identity-controller" },
     { "path": "./packages/api/remote-authority" },
     { "path": "./packages/api/desktop-link" },
     { "path": "./packages/credits/credits" },
