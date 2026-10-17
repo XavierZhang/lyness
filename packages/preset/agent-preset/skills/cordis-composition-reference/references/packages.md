@@ -116,6 +116,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@lyness/lyn-client-ui-sidebar-files` | no | Workspace file tree tab type for the right Sidebar: lazy directory listing over the workspaceFiles Remote namespace, opening files into the Sidebar |
 | `@lyness/lyn-client-ui-sidebar-right` | no | Right Sidebar: the docking surface's session-bound state, its panel and header expand control, and the navigation service over it |
 | `@lyness/lyn-client-ui-sidebar-terminal` | no | Interactive shell tabs for the right Sidebar |
+| `@lyness/lyn-client-ui-sign-in` | no | The sign-in screen a deployment with accounts shows, and the row naming who is signed in |
 | `@lyness/lyn-client-ui-skill` | no | Web skill references and the dedicated skill tool row |
 | `@lyness/lyn-client-ui-subagent` | no | Subagent conversation catalog, continuation routing UI, and '@' reference source |
 | `@lyness/lyn-client-ui-theme` | yes | Theme plugin: Host bootstrap for the pre-plugin palette; DOM-free ThemeRuntime for light/dark/system state; --dsw-* token styles and Appearance settings row |

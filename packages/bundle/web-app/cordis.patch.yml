@@ -312,6 +312,12 @@
     - id: ui-settings-credits
       name: '@lyness/lyn-client-ui-settings-credits'
 
+    # The sign-in screen, and the row naming whose session this is. On a
+    # deployment with no accounts both render nothing, so the single-operator
+    # shape sees no change.
+    - id: ui-sign-in
+      name: '@lyness/lyn-client-ui-sign-in'
+
     - id: ui-settings-models
       name: '@lyness/lyn-client-ui-settings-models'
 

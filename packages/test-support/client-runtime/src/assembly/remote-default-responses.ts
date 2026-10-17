@@ -17,6 +17,14 @@ export const remoteDefaultResponses: RemoteTable = {
     'workspace/initializeDefault': ok(undefined),
     // ui-settings `mirror.ensure()` at apply and again on `connection/reset`.
     'settings/describe': ok({ writable: true, hasDocument: false, namespaces: [] }),
+    // ui-sign-in's screen and row on first mount; a deployment with no
+    // accounts is what a boot with no identity rows composes to.
+    'identity/viewer': ok({
+      accounts: false,
+      channels: [],
+      signInPrefix: '/auth/sign-in',
+      signOutPath: '/auth/sign-out',
+    }),
     // ui-model-selection `ModelDirectoryResolver` constructor.
     'session/modelCatalog': ok({
       default: { provider: 'deepseek-official', model: 'deepseek-v4-flash' },

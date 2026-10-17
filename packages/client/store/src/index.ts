@@ -283,3 +283,46 @@ export function createSharedRead(perform: () => Promise<void>, reset: () => void
     },
   }
 }
+
+/** What one Remote read answers: the value, or that it did not arrive. */
+export type ReadOutcome<T> =
+  | { readonly ok: true; readonly value: T }
+  | { readonly ok: false }
+
+/** Where one read's outcome is published. */
+export interface OutcomeSink<T> {
+  /** A read has started. */
+  begin: () => void
+  /** A read returned this value. */
+  succeed: (value: T) => void
+  /** A read did not return one. */
+  fail: () => void
+  /** Drop the previous outcome before another attempt. */
+  reset: () => void
+}
+
+/**
+ * Share one read whose only two answers are the value and "not this time".
+ *
+ * A refused call and a thrown one come out the same, because a surface that
+ * can only retry has nothing to do with the difference. A surface that does
+ * distinguish its refusals — one that tells "this deployment meters nothing"
+ * from "the read broke" — builds its own perform and shares it with
+ * {@link createSharedRead} instead.
+ * @param read - performs one Remote read.
+ * @param sink - where each outcome is published.
+ * @returns the two verbs a surface drives.
+ */
+export function createOutcomeRead<T>(read: () => Promise<ReadOutcome<T>>, sink: OutcomeSink<T>): SharedRead {
+  return createSharedRead(async () => {
+    sink.begin()
+    try {
+      const result = await read()
+      if (!result.ok) { sink.fail(); return }
+      sink.succeed(result.value)
+    } catch {
+      // The reason belongs to the transport, and a surface can only retry.
+      sink.fail()
+    }
+  }, () => { sink.reset() })
+}

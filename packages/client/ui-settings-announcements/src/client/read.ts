@@ -12,7 +12,7 @@
 import type { Context } from '@lyness/cordis'
 import type {} from '@lyness/lyn-api-remotes/client'
 import type {} from '@lyness/lyn-api-announcement-controller/remote'
-import { createSharedRead } from '@lyness/lyn-client-store'
+import { createOutcomeRead } from '@lyness/lyn-client-store'
 import type { Announcement } from '@lyness/lyn-announcements/types'
 
 /** What one Remote read answers: the list, or the reason it refused. */
@@ -63,17 +63,5 @@ export function createAnnouncementsReader(
   read: () => Promise<ReadOutcome>,
   sink: ReaderSink,
 ): AnnouncementsReader {
-  return createSharedRead(async () => {
-    sink.begin()
-    try {
-      const result = await read()
-      // A refused call and a thrown one are the same answer here: the reader
-      // can only retry either way.
-      if (!result.ok) { sink.fail(); return }
-      sink.succeed(result.value)
-    } catch {
-      // The reason belongs to the transport, and a reader can only retry.
-      sink.fail()
-    }
-  }, () => { sink.reset() })
+  return createOutcomeRead(read, sink)
 }

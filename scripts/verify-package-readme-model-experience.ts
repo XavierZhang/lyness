@@ -260,6 +260,7 @@ const SENTENCE_MODEL_EXPERIENCE: Readonly<Record<string, SentenceContract>> = {
   'packages/vendor/dingtalk': { kind: 'none', reason: 'A browser sign-in round trip answered before any session exists; it registers no prompt, tool, or session event.' },
   'packages/vendor/feishu': { kind: 'none', reason: 'A browser sign-in round trip answered before any session exists; it registers no prompt, tool, or session event.' },
   'packages/client/ui-settings-credits': { kind: 'none', reason: 'A Settings page a person reads; it registers no prompt, tool, or session event.' },
+  'packages/client/ui-sign-in': { kind: 'none', reason: 'What a person sees before a session exists; it registers no prompt, tool, or session event.' },
   'packages/api/workspace-controller': { kind: 'none', reason: 'Workspace API and state projection owner; it registers no prompt, tool, or session event.' },
   'packages/api/workspace-files': { kind: 'none', reason: 'Workspace file read API and its Client resource provider; it registers no prompt, tool, or session event.' },
   'packages/typert/protocol': { kind: 'none', reason: 'Compiler-independent Remote protocol declarations; registers nothing model-facing.' },

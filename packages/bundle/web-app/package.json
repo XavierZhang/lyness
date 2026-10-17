@@ -122,6 +122,7 @@
     "@lyness/lyn-client-ui-sidebar-files": "workspace:*",
     "@lyness/lyn-client-ui-sidebar-right": "workspace:*",
     "@lyness/lyn-client-ui-sidebar-terminal": "workspace:*",
+    "@lyness/lyn-client-ui-sign-in": "workspace:*",
     "@lyness/lyn-client-ui-skill": "workspace:*",
     "@lyness/lyn-client-ui-subagent": "workspace:*",
     "@lyness/lyn-client-ui-theme": "workspace:*",
