@@ -39,7 +39,7 @@
     "@lyness/lyn-session-format-v3-to-v4": "workspace:*",
     "@lyness/node-addon-system": "workspace:~",
     "@lyness/schemastery": "workspace:~",
-    "koffi": "^3.1.0"
+    "koffi": "^3.1.6"
   },
   "devDependencies": {
     "@lyness/lyn-session": "workspace:*",
