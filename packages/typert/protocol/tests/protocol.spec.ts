@@ -78,13 +78,14 @@ declare module '@lyness/lyn-typert-protocol' {
 
 /**
  * One options object a JavaScript caller could pass that the declared type
- * forbids. The decorator validates its argument at runtime for exactly these
- * callers, so the test has to reach past the type to exercise it.
+ * forbids. Every declared option is optional, so only a literal is refused;
+ * passing the same object through a parameter the compiler does not inspect
+ * for excess properties is what lets the test reach the runtime validation.
  * @param value - the object to pass as options.
  * @returns the same object, as the decorator's declared options.
  */
 function badOptions(value: object): RemoteMethodOptions {
-  return value as RemoteMethodOptions
+  return value
 }
 
 describe('typert-protocol Remote declarations', () => {

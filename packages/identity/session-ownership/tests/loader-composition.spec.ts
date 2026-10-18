@@ -103,7 +103,7 @@ async function compose(): Promise<{ ctx: Context; scopes: Scope[] }> {
 function records(session: Session): SessionOwnerRecord[] {
   return session.ownEvents()
     .filter(event => event.type === 'session/owner')
-    .map(event => event.data as SessionOwnerRecord)
+    .map(event => event.data)
 }
 
 it('attributes a session created inside a signed-in call, and leaves one created outside unowned', async () => {

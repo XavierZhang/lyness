@@ -524,10 +524,11 @@ Sessions and the admission rule are injected rather than read optionally: withou
 register(channel: SignInChannel): () => Promise<void>
 
 /**
- * The channels a surface may offer, in registration order.
- * @returns each mounted channel's id and display name.
+ * The channels a surface may offer one caller, in registration order.
+ * @param scope - the organization this request is for; absent asks for the deployment's own.
+ * @returns each channel that caller may be offered.
  */
-available(): readonly ChannelDescription[]
+available(scope: ChannelScope = {}): readonly ChannelDescription[]
 
 /**
  * Begin a sign-in through one channel.
@@ -579,6 +580,80 @@ abstract admit(subject: ExternalSubject): Promise<PersonId | undefined>
 ```
 
 Source: [`packages/identity/sign-in/src/admission.ts`](../../packages/identity/sign-in/src/admission.ts)
+
+<a id="ctxsigninchannels--configuredchannels"></a>
+
+### `ctx.signInChannels` — `ConfiguredChannels`
+
+Configured sign-in channels, mounted from what a deployment stored.
+
+```ts cordis-catalog
+/**
+ * The channels one standing may configure.
+ *
+ * A platform administrator sees every channel, including each tenant's; a
+ * tenant administrator sees only their own organization's. Nobody sees a
+ * secret, because nobody stores one here to see.
+ * @param by - the standing asking.
+ * @returns the channels it may configure, oldest first.
+ */
+async list(by: Membership): Promise<readonly ChannelView[]>
+
+/**
+ * Create one channel, or replace one that exists.
+ * @param submission - what the administrator filled in.
+ * @param by - the standing making the change.
+ * @returns the channel as it now reads.
+ * @throws {Error} when the standing may not configure it, the kind is unknown, or a setting is missing.
+ */
+async save(submission: ChannelSubmission, by: Membership): Promise<ChannelView>
+
+/**
+ * Remove one channel, its secret with it.
+ * @param id - the channel to remove.
+ * @param by - the standing making the change.
+ * @throws {Error} when the standing may not configure it.
+ */
+async remove(id: string, by: Membership): Promise<void>
+```
+
+Source: [`packages/identity/sign-in-channels/src/index.ts`](../../packages/identity/sign-in-channels/src/index.ts)
+
+<a id="ctxsigninkinds--channelkindregistry"></a>
+
+### `ctx.signInKinds` — `ChannelKindRegistry`
+
+The kinds a deployment can be configured with.
+
+```ts cordis-catalog
+/**
+ * Offer one kind.
+ *
+ * Two packages offering one kind id is a composition mistake rather than a
+ * runtime condition — a configured instance would reach whichever won, and
+ * an administrator reading their own configuration could not tell which —
+ * so it fails here.
+ * @param kind - the kind to offer.
+ * @returns the disposer; the registering plugin owns it.
+ * @throws {Error} when that kind is already offered.
+ */
+register(kind: ChannelKind): () => Promise<void>
+
+/**
+ * The kind of that id, when one is offered.
+ * @param id - the kind a configured instance names.
+ * @returns the kind, or undefined when nothing offers it.
+ */
+get(id: string): ChannelKind | undefined
+
+/**
+ * The kinds a configuration surface may offer, in registration order.
+ * @returns each kind's id, name, and the settings it needs.
+ */
+available(): readonly ChannelKindDescription[]
+```
+
+Source: [`packages/identity/sign-in/src/kinds.ts`](../../packages/identity/sign-in/src/kinds.ts)
 
 <a id="ctxtenantconfig--tenantconfigstore-abstract-seam"></a>
 

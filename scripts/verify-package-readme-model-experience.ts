@@ -74,6 +74,7 @@ const SENTENCE_MODEL_EXPERIENCE: Readonly<Record<string, SentenceContract>> = {
   'packages/api/announcement-controller': { kind: 'none', reason: 'One Remote read of deployment-authored text; it registers no tool, prompt, or Session event.' },
   'packages/api/desktop-link': { kind: 'none', reason: 'A Host-to-desktop carrier; it registers no tool, prompt, or Session event.' },
   'packages/identity/session-ownership': { kind: 'none', reason: 'One log-only attribution event; it registers no tool or prompt and never enters the transcript.' },
+  'packages/identity/sign-in-channels': { kind: 'none', reason: 'Configures how people sign in; it registers no prompt, tool, or session event.' },
   'packages/fs/fs-desktop': { kind: 'indirect', reason: 'A filesystem backend serves the existing fs tools; lyn-tool-fs owns every schema, result, and rendered path.' },
   'packages/client/ui-settings-announcements': { kind: 'none', reason: 'A Settings row renders deployment-authored text; it registers no tool, prompt, or Session event.' },
   'packages/api/terminal-controller': { kind: 'none', reason: 'User-owned terminal processes and screen streams never enter model requests or Session events.' },

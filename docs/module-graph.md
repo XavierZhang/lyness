@@ -331,6 +331,7 @@ flowchart TD
     pkg_request_principal["request-principal"]
     pkg_session_ownership["session-ownership"]
     pkg_sign_in["sign-in"]
+    pkg_sign_in_channels["sign-in-channels"]
     pkg_sign_in_http["sign-in-http"]
   end
   subgraph group_interaction["packages/interaction"]
@@ -627,6 +628,11 @@ flowchart TD
   pkg_session_ownership --> pkg_session
   pkg_session_ownership --> pkg_session_projection
   pkg_session_ownership --> pkg_storage_domain
+  pkg_sign_in_channels --> pkg_credentials
+  pkg_sign_in_channels --> pkg_people
+  pkg_sign_in_channels --> pkg_sign_in
+  pkg_sign_in_channels --> pkg_storage_domain
+  pkg_sign_in_channels --> pkg_util_crypto
   pkg_sign_in_http --> pkg_auth_session
   pkg_sign_in_http --> pkg_brand
   pkg_sign_in_http --> pkg_host_webserver
@@ -1728,6 +1734,7 @@ flowchart TD
 | [`credits`](../packages/credits/credits) | `credits` | [`brand`](../packages/util/brand), [`llm`](../packages/llm/llm), [`people`](../packages/identity/people), [`request-principal`](../packages/identity/request-principal), [`storage-domain`](../packages/storage/storage-domain), [`util-crypto`](../packages/util/crypto) |
 | [`experimental-speech-to-text`](../packages/experimental/speech-to-text) | `experimental` | [`settings`](../packages/settings/settings) |
 | [`session-ownership`](../packages/identity/session-ownership) | `identity` | [`people`](../packages/identity/people), [`request-principal`](../packages/identity/request-principal), [`session`](../packages/core/session), [`session-projection`](../packages/session/session-projection), [`storage-domain`](../packages/storage/storage-domain) |
+| [`sign-in-channels`](../packages/identity/sign-in-channels) | `identity` | [`credentials`](../packages/credentials/credentials), [`people`](../packages/identity/people), [`sign-in`](../packages/identity/sign-in), [`storage-domain`](../packages/storage/storage-domain), [`util-crypto`](../packages/util/crypto) |
 | [`sign-in-http`](../packages/identity/sign-in-http) | `identity` | [`auth-session`](../packages/identity/auth-session), [`brand`](../packages/util/brand), [`host-webserver`](../packages/host/webserver), [`sign-in`](../packages/identity/sign-in), [`util-values`](../packages/util/values) |
 | [`ptc-runtime`](../packages/ptc-runtime/ptc-runtime) | `ptc-runtime` | [`sandbox`](../packages/sandbox/sandbox) |
 | [`sandbox-local`](../packages/sandbox/sandbox-local) | `sandbox` | [`llm`](../packages/llm/llm), [`sandbox`](../packages/sandbox/sandbox), [`session`](../packages/core/session) |

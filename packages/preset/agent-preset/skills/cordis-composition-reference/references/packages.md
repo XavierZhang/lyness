@@ -277,6 +277,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@lyness/lyn-request-principal` | no | Publish who the call in progress is, resolved from the bearer identity it presents |
 | `@lyness/lyn-session-ownership` | no | A session belongs to the person who opened it, and the standing they held it open under |
 | `@lyness/lyn-sign-in` | yes | Sign a person in through an external directory, admit them by a deployment's own rule, and establish their session |
+| `@lyness/lyn-sign-in-channels` | no | The configured sign-in channels a deployment serves, mounted from what its administrators stored |
 | `@lyness/lyn-sign-in-http` | yes | The browser-facing half of signing in: the sign-in, callback, channel-list and sign-out routes, and the session cookie |
 
 ## interaction

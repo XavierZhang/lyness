@@ -32,6 +32,7 @@ import {
   REDIRECT_PATH_PATTERN,
   StatefulRedirectChannel,
 } from '@lyness/lyn-sign-in/redirect'
+import type { ChannelIdentity } from '@lyness/lyn-sign-in/redirect'
 import type { RedirectChannelConfig, ResolvedRedirectConfig } from '@lyness/lyn-sign-in/redirect'
 import {
   OK,
@@ -161,16 +162,16 @@ export function asExternalSubject(subject: FeishuSubject): ExternalSubject {
 // every channel because the base class owns everything that could differ.
 /** Feishu as a redirect channel: start sends the browser away, complete reads what comes back. */
 export class FeishuChannel extends StatefulRedirectChannel<ResolvedConfig> {
-  override readonly id = CHANNEL_ID
-
-  override readonly displayName = DISPLAY_NAME
-
   /**
    * @param ctx - context providing the credential store.
    * @param config - validated application configuration.
    */
-  constructor(private readonly ctx: Context, config: Config) {
-    super(resolveConfig(config))
+  constructor(
+    private readonly ctx: Context,
+    config: Config,
+    identity: ChannelIdentity = { id: CHANNEL_ID, displayName: DISPLAY_NAME },
+  ) {
+    super(resolveConfig(config), identity)
   }
 
   /** Where the tenant's own sign-in page is, for one attempt. */

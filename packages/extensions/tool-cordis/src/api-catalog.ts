@@ -2921,10 +2921,10 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         throws: ['{Error} when a channel of that id is already registered.'],
       },
       {
-        signature: 'available(): readonly ChannelDescription[]',
-        description: 'The channels a surface may offer, in registration order.',
-        parameters: [],
-        returns: 'each mounted channel\'s id and display name.',
+        signature: 'available(scope: ChannelScope = {}): readonly ChannelDescription[]',
+        description: 'The channels a surface may offer one caller, in registration order.',
+        parameters: [{ name: 'scope', description: 'the organization this request is for; absent asks for the deployment\'s own.' }],
+        returns: 'each channel that caller may be offered.',
       },
       {
         signature: 'async begin(channel: ChannelId, returnTo: string): Promise<SignInOutcome>',
@@ -2952,6 +2952,58 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         description: 'The person an authenticated subject is, if this deployment admits them.\n\nUndefined refuses the sign-in. It is deliberately the same answer for "this directory is not one we accept" and "this person is not on the roster": a sign-in page that distinguished them would report, to whoever asked, which addresses exist here.',
         parameters: [{ name: 'subject', description: 'the subject a channel verified.' }],
         returns: 'the person they are here, or undefined when this deployment admits them as nobody.',
+      },
+    ],
+  },
+  {
+    key: 'signInChannels',
+    summary: 'Configured sign-in channels, mounted from what a deployment stored.',
+    description: 'Configured sign-in channels, mounted from what a deployment stored.',
+    methods: [
+      {
+        signature: 'async list(by: Membership): Promise<readonly ChannelView[]>',
+        description: 'The channels one standing may configure.\n\nA platform administrator sees every channel, including each tenant\'s; a tenant administrator sees only their own organization\'s. Nobody sees a secret, because nobody stores one here to see.',
+        parameters: [{ name: 'by', description: 'the standing asking.' }],
+        returns: 'the channels it may configure, oldest first.',
+      },
+      {
+        signature: 'async save(submission: ChannelSubmission, by: Membership): Promise<ChannelView>',
+        description: 'Create one channel, or replace one that exists.',
+        parameters: [{ name: 'submission', description: 'what the administrator filled in.' }, { name: 'by', description: 'the standing making the change.' }],
+        returns: 'the channel as it now reads.',
+        throws: ['{Error} when the standing may not configure it, the kind is unknown, or a setting is missing.'],
+      },
+      {
+        signature: 'async remove(id: string, by: Membership): Promise<void>',
+        description: 'Remove one channel, its secret with it.',
+        parameters: [{ name: 'id', description: 'the channel to remove.' }, { name: 'by', description: 'the standing making the change.' }],
+        throws: ['{Error} when the standing may not configure it.'],
+      },
+    ],
+  },
+  {
+    key: 'signInKinds',
+    summary: 'The kinds a deployment can be configured with.',
+    description: 'The kinds a deployment can be configured with.',
+    methods: [
+      {
+        signature: 'register(kind: ChannelKind): () => Promise<void>',
+        description: 'Offer one kind.\n\nTwo packages offering one kind id is a composition mistake rather than a runtime condition — a configured instance would reach whichever won, and an administrator reading their own configuration could not tell which — so it fails here.',
+        parameters: [{ name: 'kind', description: 'the kind to offer.' }],
+        returns: 'the disposer; the registering plugin owns it.',
+        throws: ['{Error} when that kind is already offered.'],
+      },
+      {
+        signature: 'get(id: string): ChannelKind | undefined',
+        description: 'The kind of that id, when one is offered.',
+        parameters: [{ name: 'id', description: 'the kind a configured instance names.' }],
+        returns: 'the kind, or undefined when nothing offers it.',
+      },
+      {
+        signature: 'available(): readonly ChannelKindDescription[]',
+        description: 'The kinds a configuration surface may offer, in registration order.',
+        parameters: [],
+        returns: 'each kind\'s id, name, and the settings it needs.',
       },
     ],
   },
@@ -5159,19 +5211,35 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   },
   {
     name: 'ChannelDescription',
-    declaration: 'export interface ChannelDescription {\n    readonly id: ChannelId;\n    readonly displayName: string;\n    readonly kind: ChannelKind;\n}',
+    declaration: 'export interface ChannelDescription {\n    readonly id: ChannelId;\n    readonly displayName: string;\n    readonly kind: ChannelKind;\n    readonly organization?: string | undefined;\n}',
   },
   {
     name: 'ChannelId',
     declaration: 'export type ChannelId = Branded<\'ChannelId\'>;',
   },
   {
-    name: 'ChannelKind',
-    declaration: 'export type ChannelKind = \'self-driven\' | \'redirect\';',
+    name: 'ChannelKindDescription',
+    declaration: 'export interface ChannelKindDescription {\n    readonly id: string;\n    readonly displayName: string;\n    readonly fields: readonly ChannelKindField[];\n}',
+  },
+  {
+    name: 'ChannelKindField',
+    declaration: 'export interface ChannelKindField {\n    readonly name: string;\n    readonly label: string;\n    readonly required: boolean;\n}',
   },
   {
     name: 'ChannelOfferView',
     declaration: 'export interface ChannelOfferView {\n    readonly id: string;\n    readonly displayName: string;\n    readonly redirect: boolean;\n}',
+  },
+  {
+    name: 'ChannelScope',
+    declaration: 'export interface ChannelScope {\n    readonly organization?: string | undefined;\n}',
+  },
+  {
+    name: 'ChannelSubmission',
+    declaration: 'export interface ChannelSubmission {\n    readonly id?: string | undefined;\n    readonly kind: string;\n    readonly displayName: string;\n    readonly organization?: string | undefined;\n    readonly settings: Readonly<Record<string, string>>;\n    readonly secret?: string | undefined;\n}',
+  },
+  {
+    name: 'ChannelView',
+    declaration: 'export interface ChannelView {\n    readonly id: string;\n    readonly kind: string;\n    readonly displayName: string;\n    readonly organization?: string | undefined;\n    readonly settings: Readonly<Record<string, string>>;\n    readonly configuredAt: string;\n    readonly configuredBy: string;\n    readonly mounted: boolean;\n}',
   },
   {
     name: 'ClientArtifactBaseline',

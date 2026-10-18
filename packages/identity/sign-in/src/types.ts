@@ -53,6 +53,16 @@ export interface ChannelDescription {
    * self-driven one returns a session in place.
    */
   readonly kind: ChannelKind
+  /**
+   * The organization this channel belongs to; absent means the deployment's.
+   *
+   * A deployment serving several organizations offers each one its own
+   * directory and nobody else's: a channel configured by one tenant's
+   * administrator must not appear on another tenant's sign-in page. A
+   * deployment-wide channel is offered to everyone, which is what a
+   * standalone installation has.
+   */
+  readonly organization?: string | undefined
 }
 
 /** The two shapes a sign-in channel comes in. */

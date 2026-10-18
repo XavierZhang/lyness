@@ -25,7 +25,7 @@ afterEach(async () => { for (const ctx of live.splice(0)) await ctx.fiber.dispos
 function records(session: Session): SessionOwnerRecord[] {
   return session.ownEvents()
     .filter(event => event.type === 'session/owner')
-    .map(event => event.data as SessionOwnerRecord)
+    .map(event => event.data)
 }
 
 /** Sessions, projections, a principal, and the stamp. */

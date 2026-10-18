@@ -73,6 +73,16 @@ export interface ResolvedRedirectConfig {
   readonly requestTimeoutMs: number
 }
 
+/** Who one channel instance is, where its kind can build several. */
+export interface ChannelIdentity {
+  /** The channel id a binding names and a sign-in path carries. */
+  readonly id: ChannelId
+  /** Name a sign-in page shows on the button. */
+  readonly displayName: string
+  /** The organization it belongs to; absent means the deployment's own. */
+  readonly organization?: string | undefined
+}
+
 /**
  * A redirect channel that keeps its attempts in this process.
  *
@@ -85,18 +95,28 @@ implements RedirectChannel {
   readonly kind = 'redirect' as const
 
   /** The channel id a deployment names in a binding. */
-  abstract readonly id: ChannelId
+  readonly id: ChannelId
 
   /** Name a sign-in page shows on the button. */
-  abstract readonly displayName: string
+  readonly displayName: string
+
+  /**
+   * The organization this instance belongs to; `undefined` is the
+   * deployment's own, which every sign-in page is offered.
+   */
+  readonly organization: string | undefined
 
   /** The attempts this channel has in flight. */
   protected readonly attempts: AttemptBook<null>
 
   /**
    * @param config - this channel's configuration, with every default applied.
+   * @param identity - who this instance is, where its kind can build several.
    */
-  protected constructor(protected readonly config: Resolved) {
+  protected constructor(protected readonly config: Resolved, identity: ChannelIdentity) {
+    this.id = identity.id
+    this.displayName = identity.displayName
+    this.organization = identity.organization
     this.attempts = new AttemptBook<null>(config.attemptTtlMs)
   }
 

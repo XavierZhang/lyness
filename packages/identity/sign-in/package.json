@@ -38,6 +38,10 @@
       "types": "./lib/types/redirect.d.ts",
       "default": "./lib/types/redirect.js"
     },
+    "./kinds": {
+      "types": "./lib/types/kinds.d.ts",
+      "default": "./lib/types/kinds.js"
+    },
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },

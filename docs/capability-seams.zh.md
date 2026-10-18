@@ -293,6 +293,12 @@ flowchart LR
   svc_directoryPicker["ctx.directoryPicker<br/>Workspace-directory picking seam"]
   pkg_host_directory_picker_native["host-directory-picker-native"]
   pkg_host_directory_picker_browse["host-directory-picker-browse"]
+  svc_signInKinds["ctx.signInKinds<br/>Sign-in channel kinds"]
+  pkg_wecom["wecom"]
+  pkg_dingtalk["dingtalk"]
+  pkg_feishu["feishu"]
+  pkg_sign_in_channels["sign-in-channels"]
+  svc_signInChannels["ctx.signInChannels<br/>Configured sign-in channels"]
   pkg_api_identity_controller["api-identity-controller"]
   svc_identityController["ctx.identityController<br/>Host viewer Remote controller"]
   pkg_api_credits_controller["api-credits-controller"]
@@ -381,6 +387,7 @@ flowchart LR
   pkg_deepseek_account_platform --> svc_deepseekAccount
   pkg_deepseek_llm_api_extensions --> svc_deepseekLlmApiExtensions
   pkg_desktop_link --> svc_desktopLink
+  pkg_dingtalk --> svc_signInKinds
   pkg_experimental_agent_team --> svc_agentTeams
   pkg_experimental_api_speech_to_text --> svc_speechController
   pkg_experimental_browser_use_chrome_devtools_mcp --> svc_browserUse
@@ -391,6 +398,7 @@ flowchart LR
   pkg_experimental_ptc_runtime_python --> svc_ptcRuntime
   pkg_experimental_speech_to_text --> svc_speechToText
   pkg_experimental_speech_to_text_sensevoice --> svc_speechToText
+  pkg_feishu --> svc_signInKinds
   pkg_file_reference --> svc_fileReferences
   pkg_file_reference_local --> svc_fileReferences
   pkg_fs --> svc_fs
@@ -456,7 +464,9 @@ flowchart LR
   pkg_shell_env --> svc_shellEnv
   pkg_sign_in --> svc_signIn
   pkg_sign_in --> svc_signInAdmission
+  pkg_sign_in --> svc_signInKinds
   pkg_sign_in_admission_roster --> svc_signInAdmission
+  pkg_sign_in_channels --> svc_signInChannels
   pkg_skill --> svc_skills
   pkg_skill_badge --> svc_skills
   pkg_skill_filesystem --> svc_skills
@@ -499,6 +509,7 @@ flowchart LR
   pkg_web_search_exa --> svc_web
   pkg_web_search_perplexity --> svc_web
   pkg_webhook --> svc_webhookRuntime
+  pkg_wecom --> svc_signInKinds
   pkg_workflow --> svc_workflowEngine
   pkg_workflow_ptc --> svc_workflowEngine
   pkg_workspace --> svc_workspaceRegistry
@@ -607,6 +618,7 @@ flowchart LR
   svc_shellEnv --> pkg_tool_bash
   svc_shellEnv --> pkg_tool_pwsh
   svc_signInAdmission --> pkg_sign_in
+  svc_signInKinds --> pkg_sign_in_channels
   svc_skills --> pkg_tool_skill
   svc_speechToText --> pkg_experimental_api_speech_to_text
   svc_spillStore --> pkg_spill_policy
@@ -762,6 +774,8 @@ flowchart LR
 | `ctx.web` | `seam` | [`web`](../packages/web/web) | [`web-search-exa`](../packages/web/web-search-exa), [`web-search-perplexity`](../packages/web/web-search-perplexity), [`web-search-deepseek`](../packages/web/web-search-deepseek), [`web-fetch-http`](../packages/web/web-fetch-http) | [`tool-web`](../packages/web/tool-web) | - | 搜索和抓取提供方注册到同一个 ctx.web seam；tool-web 负责稳定的面向模型名称。 |
 | `ctx.spillStore` | `seam` | [`spill`](../packages/spill/spill) | [`spill-local`](../packages/spill/spill-local) | [`spill-policy`](../packages/spill/spill-policy) | - | 后端保存过大的工具文本，并返回面向模型的定位信息和取回提示；spill-policy 是 tools/post-execute 消费方，负责决定何时 spill。 |
 | `ctx.directoryPicker` | `seam` | [`host-directory-picker`](../packages/host/directory-picker) | [`host-directory-picker-native`](../packages/host/directory-picker-native), [`host-directory-picker-browse`](../packages/host/directory-picker-browse) | [`api-workspace-controller`](../packages/api/workspace-controller) | - | 带判别标记的交互能力：原生后端在 Host 显示设备上打开一个操作系统选择器，浏览后端为应用内浏览器提供列表与创建原语；双端后端通过其浏览器侧填充 ui-workspace 目录流程的 slot（不通过协议发布）。 |
+| `ctx.signInKinds` | `seam` | [`sign-in`](../packages/identity/sign-in) | [`wecom`](../packages/vendor/wecom), [`dingtalk`](../packages/vendor/dingtalk), [`feishu`](../packages/vendor/feishu) | [`sign-in-channels`](../packages/identity/sign-in-channels) | - | 一个种类说出某个目录需要什么、以及怎么把一个实例建出来；它永远不知道一套部署有几个、分别属于谁，于是加一个客户是加一条存下的记录，而不是一次重新部署。 |
+| `ctx.signInChannels` | `core` | [`sign-in-channels`](../packages/identity/sign-in-channels) | - | - | - | 把存下的记录变成挂载的渠道、再变回来：平台管理员配置部署自己的，租户管理员只配置本组织的，而每个组织的登录页只被提供自己的那些、加上部署级的那些。 |
 | `ctx.identityController` | `core` | [`api-identity-controller`](../packages/api/identity-controller) | - | - | - | 在任何人被分类之前，回答界面的那一个问题：这套部署有没有账户、调用者是谁、以什么身份行事、登录屏可以提供哪些渠道；登录与登出仍是 lyn-sign-in-http 拥有的浏览器跳转。 |
 | `ctx.creditsController` | `core` | [`api-credits-controller`](../packages/api/credits-controller) | - | - | - | 把账本与管理能力缝投影到生成的 Remote 命名空间：本人读自己的余额，管理员为自己身份管得着的人发放积分、设定额度；授权规则留在 lyn-credits，于是「能读」与「能发」不会各说各话。 |
 | `ctx.tenantController` | `core` | [`api-tenant-controller`](../packages/api/tenant-controller) | - | - | - | 把租户配置能力缝投影到生成的 Remote 命名空间：调用方租户读取并保存自己的配置；没有命名租户的调用会被拒绝，而不是被答复任何租户的信息。 |

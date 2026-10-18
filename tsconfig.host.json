@@ -287,6 +287,7 @@
     { "path": "./packages/identity/auth-session" },
     { "path": "./packages/identity/request-principal" },
     { "path": "./packages/identity/sign-in" },
+    { "path": "./packages/identity/sign-in-channels" },
     { "path": "./packages/identity/sign-in-http" },
     { "path": "./packages/identity/session-ownership" },
     { "path": "./packages/host/announcements" },

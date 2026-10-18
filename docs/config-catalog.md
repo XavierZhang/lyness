@@ -827,7 +827,7 @@ export interface Config {
 
 - `inject`: `signIn` · `credentials`
 - `refs`: `RedirectChannelConfig` (`@lyness/lyn-sign-in/redirect`)
-- `source`: [`packages/vendor/dingtalk/src/index.ts:92`](../packages/vendor/dingtalk/src/index.ts)
+- `source`: [`packages/vendor/dingtalk/src/index.ts:93`](../packages/vendor/dingtalk/src/index.ts)
 
 ```ts config-catalog
 /** The organization to sign in against, and how to reach it. */
@@ -1227,7 +1227,7 @@ export interface Config {
 
 - `inject`: `signIn` · `credentials`
 - `refs`: `RedirectChannelConfig` (`@lyness/lyn-sign-in/redirect`)
-- `source`: [`packages/vendor/feishu/src/index.ts:87`](../packages/vendor/feishu/src/index.ts)
+- `source`: [`packages/vendor/feishu/src/index.ts:88`](../packages/vendor/feishu/src/index.ts)
 
 ```ts config-catalog
 /** The application to sign in with, and how to reach it. */
@@ -4610,7 +4610,7 @@ export interface Config {
 
 - `inject`: `signIn` · `credentials`
 - `refs`: `RedirectChannelConfig` (`@lyness/lyn-sign-in/redirect`)
-- `source`: [`packages/vendor/wecom/src/index.ts:90`](../packages/vendor/wecom/src/index.ts)
+- `source`: [`packages/vendor/wecom/src/index.ts:91`](../packages/vendor/wecom/src/index.ts)
 
 ```ts config-catalog
 /** The corporation to sign in against, and how to reach it. */
@@ -4797,6 +4797,7 @@ These load from a `cordis.yml` entry with no `config:` block; they declare no co
 | `@lyness/lyn-session-stats` | `sessionProjections` | [`packages/session/session-stats/src/index.ts`](../packages/session/session-stats/src/index.ts) |
 | `@lyness/lyn-session-turn-outline` | `sessionProjections` | [`packages/session/session-turn-outline/src/index.ts`](../packages/session/session-turn-outline/src/index.ts) |
 | `@lyness/lyn-settings` | `configEditor` · `profileContext` | [`packages/settings/settings/src/index.ts`](../packages/settings/settings/src/index.ts) |
+| `@lyness/lyn-sign-in-channels` | `storageDomain` · `signIn` · `signInKinds` · `credentials` | [`packages/identity/sign-in-channels/src/index.ts`](../packages/identity/sign-in-channels/src/index.ts) |
 | `@lyness/lyn-skill-badge` | `skills` | [`packages/skill/skill-badge/src/index.ts`](../packages/skill/skill-badge/src/index.ts) |
 | `@lyness/lyn-storage` | — | [`packages/storage/storage/src/index.ts`](../packages/storage/storage/src/index.ts) |
 | `@lyness/lyn-subprocess-local` | — | [`packages/subprocess/subprocess-local/src/index.ts`](../packages/subprocess/subprocess-local/src/index.ts) |

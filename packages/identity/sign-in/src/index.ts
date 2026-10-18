@@ -154,6 +154,15 @@ export interface RedirectChannel extends ChannelDescription {
 /** One mounted sign-in channel, in either shape. */
 export type SignInChannel = SelfDrivenChannel | RedirectChannel
 
+/** Whose sign-in page is asking which channels it may offer. */
+export interface ChannelScope {
+  /**
+   * The organization the request resolved to; absent is a request that
+   * resolved to none, which sees only the deployment's own channels.
+   */
+  readonly organization?: string | undefined
+}
+
 /**
  * The channels a deployment offers, and the sign-in they perform.
  *
@@ -203,11 +212,22 @@ export class SignIn extends Service {
   }
 
   /**
-   * The channels a surface may offer, in registration order.
-   * @returns each mounted channel's id and display name.
+   * The channels a surface may offer one caller, in registration order.
+   * @param scope - the organization this request is for; absent asks for the deployment's own.
+   * @returns each channel that caller may be offered.
    */
-  available(): readonly ChannelDescription[] {
-    return [...this.channels.values()].map(({ id, displayName, kind }) => ({ id, displayName, kind }))
+  available(scope: ChannelScope = {}): readonly ChannelDescription[] {
+    return [...this.channels.values()]
+      // A channel belonging to another organization is not offered here at
+      // all. Listing it and refusing the sign-in would tell one customer who
+      // the others are.
+      .filter(channel => channel.organization === undefined || channel.organization === scope.organization)
+      .map(({ id, displayName, kind, organization }) => ({
+        id,
+        displayName,
+        kind,
+        ...organization === undefined ? {} : { organization },
+      }))
   }
 
   /**

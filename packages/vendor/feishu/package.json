@@ -26,6 +26,10 @@
       "types": "./lib/types/protocol.d.ts",
       "default": "./lib/types/protocol.js"
     },
+    "./kind": {
+      "types": "./lib/types/kind.d.ts",
+      "default": "./lib/types/kind.js"
+    },
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },

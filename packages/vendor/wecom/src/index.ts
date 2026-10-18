@@ -32,6 +32,7 @@ import {
   REDIRECT_PATH_PATTERN,
   StatefulRedirectChannel,
 } from '@lyness/lyn-sign-in/redirect'
+import type { ChannelIdentity } from '@lyness/lyn-sign-in/redirect'
 import type { RedirectChannelConfig, ResolvedRedirectConfig } from '@lyness/lyn-sign-in/redirect'
 import {
   OK,
@@ -181,16 +182,16 @@ export function asExternalSubject(subject: WecomSubject): ExternalSubject {
 // every channel because the base class owns everything that could differ.
 /** WeCom as a redirect channel: start sends the browser away, complete reads what comes back. */
 export class WecomChannel extends StatefulRedirectChannel<ResolvedConfig> {
-  override readonly id = CHANNEL_ID
-
-  override readonly displayName = DISPLAY_NAME
-
   /**
    * @param ctx - context providing the credential store.
    * @param config - validated corporation configuration.
    */
-  constructor(private readonly ctx: Context, config: Config) {
-    super(resolveConfig(config))
+  constructor(
+    private readonly ctx: Context,
+    config: Config,
+    identity: ChannelIdentity = { id: CHANNEL_ID, displayName: DISPLAY_NAME },
+  ) {
+    super(resolveConfig(config), identity)
   }
 
   /** Where the corporation's own scan-code page is, for one attempt. */
