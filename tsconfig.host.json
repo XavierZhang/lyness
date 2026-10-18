@@ -293,6 +293,7 @@
     { "path": "./packages/host/announcements" },
     { "path": "./packages/client/ui-settings-announcements/tsconfig.host.json" },
     { "path": "./packages/client/ui-settings-credits/tsconfig.host.json" },
+    { "path": "./packages/client/ui-settings-sign-in-channels/tsconfig.host.json" },
     { "path": "./packages/client/ui-sign-in/tsconfig.host.json" },
     { "path": "./packages/api/announcement-controller" },
     { "path": "./packages/api/credits-controller" },

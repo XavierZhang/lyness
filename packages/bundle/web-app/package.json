@@ -108,6 +108,7 @@
     "@lyness/lyn-client-ui-settings-agent-loop": "workspace:*",
     "@lyness/lyn-client-ui-settings-announcements": "workspace:*",
     "@lyness/lyn-client-ui-settings-credits": "workspace:*",
+    "@lyness/lyn-client-ui-settings-sign-in-channels": "workspace:*",
     "@lyness/lyn-client-ui-settings-general": "workspace:*",
     "@lyness/lyn-client-ui-settings-models": "workspace:*",
     "@lyness/lyn-client-ui-settings-plugin-inventory": "workspace:*",

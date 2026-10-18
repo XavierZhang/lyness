@@ -108,6 +108,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@lyness/lyn-client-ui-settings-plugin-inventory` | no | Read-only Cordis Loader inventory tab in Web Plugins settings |
 | `@lyness/lyn-client-ui-settings-plugins` | no | Built-in plugins settings section for the lyn web client: the Settings navigation entry and the tab chrome feature-owned tabs register into |
 | `@lyness/lyn-client-ui-settings-shell` | no | Settings page of the shell executor on the lyn web client's Plugins page: the command timeout and the per-stream output cap of the shell namespace |
+| `@lyness/lyn-client-ui-settings-sign-in-channels` | no | The sign-in channels section in Settings: what a deployment or a tenant signs its people in with, configured at runtime |
 | `@lyness/lyn-client-ui-settings-subagent` | no | Settings page of Subagent delegation on the lyn web client's Plugins page: recursion depth, parallel capacity, and the models agents may choose for subagents |
 | `@lyness/lyn-client-ui-settings-web-search` | no | Settings page of the DeepSeek web-search provider on the lyn web client's Plugins page: its API key, endpoint, and per-request search budget |
 | `@lyness/lyn-client-ui-shortcuts` | no | Keyboard shortcut reference, recording, and local preference editing |

@@ -312,6 +312,12 @@
     - id: ui-settings-credits
       name: '@lyness/lyn-client-ui-settings-credits'
 
+    # The channels an administrator configures at runtime. It renders a
+    # notice rather than a form where the deployment configures none or the
+    # caller may not, so the row is the same on every product shape.
+    - id: ui-settings-sign-in-channels
+      name: '@lyness/lyn-client-ui-settings-sign-in-channels'
+
     # The sign-in screen, and the row naming whose session this is. On a
     # deployment with no accounts both render nothing, so the single-operator
     # shape sees no change.
