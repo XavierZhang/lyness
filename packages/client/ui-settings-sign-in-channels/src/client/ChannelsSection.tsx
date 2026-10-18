@@ -74,6 +74,11 @@ function ChannelRow({ channel, kinds, editing, t, onEdit, onRemove }: {
         </span>
       </div>
       {channel.mounted ? null : <p className={css.rowHint}>{t('notServingHint')}</p>}
+      <p className={css.rowId}>
+        <span>{t('channelId')}</span>
+        <code className={css.rowIdValue}>{channel.id}</code>
+        <span className={css.rowHint}>{t('channelIdHint')}</span>
+      </p>
       <div className={css.rowActions}>
         <Button variant="outline" onClick={onEdit}>{editing ? t('cancelEdit') : t('edit')}</Button>
         <Button variant="outline" onClick={onRemove}>{t('remove')}</Button>

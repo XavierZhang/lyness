@@ -148,7 +148,14 @@ implements RedirectChannel {
     const code = this.codeOf(parameters)
     if (state === null || code === undefined) return undefined
     if (this.attempts.take(state) === undefined) return undefined
-    return this.verify(code)
+    const subject = await this.verify(code)
+    if (subject === undefined) return undefined
+    // The channel on the subject is this instance, not its kind. A directory
+    // reports an issuer the configured channel asserts — a corp id is a
+    // settings field — so two configured channels of one kind could otherwise
+    // report the same issuer and subject, and one organization's binding
+    // would admit a person another organization's channel authenticated.
+    return { ...subject, channel: this.id }
   }
 
   /**

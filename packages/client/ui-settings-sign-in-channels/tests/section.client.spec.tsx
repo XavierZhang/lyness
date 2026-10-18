@@ -130,6 +130,9 @@ describe('what one configured channel shows', () => {
     expect(row.getByText('企业微信')).toBeDefined()
     expect(row.getByText(zh.deploymentWide)).toBeDefined()
     expect(row.getByText(zh.serving)).toBeDefined()
+    // The id is what an admission binding names the channel by, so it is on
+    // the row rather than only in the store.
+    expect(row.getByText('one')).toBeDefined()
   })
 
   it('says why a stored channel is not serving', () => {

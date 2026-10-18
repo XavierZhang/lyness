@@ -99,6 +99,21 @@
   font-size: var(--lyn-font-size-xs);
 }
 
+.rowId {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--lyn-space-2);
+  margin: 0;
+  color: var(--lyn-color-text-tertiary);
+  font-size: var(--lyn-font-size-xs);
+}
+
+.rowIdValue {
+  color: var(--lyn-color-text-secondary);
+  font-family: var(--lyn-font-family-mono);
+}
+
 .rowActions {
   display: flex;
   flex-wrap: wrap;

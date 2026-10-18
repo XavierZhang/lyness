@@ -6,6 +6,7 @@
 
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
+import { channelId } from '@lyness/lyn-sign-in'
 import { CHANNEL_ID, WecomChannel, WecomSignInError, asExternalSubject } from '../src/index.ts'
 import type { Config as WecomConfig } from '../src/index.ts'
 import type { WecomCorpId, WecomUserId } from '../src/types.ts'
@@ -124,6 +125,23 @@ describe('finishing one sign-in', () => {
       address: 'ada@acme.example',
     })
     expect(corporation.calls).toEqual(['/cgi-bin/gettoken', '/cgi-bin/auth/getuserinfo', '/cgi-bin/auth/getuserdetail'])
+  })
+
+  it('reports the configured instance as the channel, not its kind', async () => {
+    const ctx = new Context()
+    live.push(ctx)
+    ctx.provide('credentials', { resolve: () => Promise.resolve({ value: 'the-secret' }) })
+    const configured = new WecomChannel(ctx, config({ readDetail: false }), {
+      id: channelId('a-configured-instance'),
+      displayName: 'Head office',
+      organization: 'acme',
+    })
+    const { attempt } = await started(configured)
+    const found = await configured.complete(new URLSearchParams({ state: attempt, code: 'the-code' }))
+    // The corp id is a settings field, so another organization's channel can
+    // assert this one's issuer. Naming the instance is what keeps that
+    // channel from matching a binding written for this one.
+    expect(found).toMatchObject({ channel: 'a-configured-instance', issuer: 'ww-acme', subject: 'ada' })
   })
 
   it('leaves detail alone when the deployment did not ask', async () => {
