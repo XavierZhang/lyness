@@ -271,6 +271,7 @@
     { "path": "./packages/bundle/module-lsp" },
     { "path": "./packages/bundle/module-model-governance" },
     { "path": "./packages/bundle/module-accounts" },
+    { "path": "./packages/bundle/module-credits" },
     { "path": "./packages/bundle/module-deliverables" },
     { "path": "./packages/bundle/module-extensions" },
     { "path": "./packages/bundle/module-webhook" },

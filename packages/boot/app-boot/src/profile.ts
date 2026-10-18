@@ -203,10 +203,18 @@ export const PROFILE_TEMPLATES: Record<string, ProfileTemplate> = {
    * credits — on this shape those subsystems are absent rather than disabled,
    * which is the only version of "no quota" that cannot leak a balance into a
    * surface, a log, or an error message.
+   *
+   * It selects accounts, because a customer's own staff are named people who
+   * sign in through the customer's own directory, and because their
+   * administrator configures that directory at runtime rather than asking
+   * whoever deployed it to edit a composition file. Like the hosted template,
+   * it does not boot until the deployment names its people
+   * ([handbook](../../../../docs/user/guide/standalone-administration.md)).
    */
   enterprise: {
     bundles: ['@lyness/lyn-base', '@lyness/lyn-module-execution', '@lyness/lyn-web-app',
-      '@lyness/lyn-module-deliverables', '@lyness/lyn-module-extensions', '@lyness/lyn-module-lsp',
+      '@lyness/lyn-module-accounts', '@lyness/lyn-module-deliverables',
+      '@lyness/lyn-module-extensions', '@lyness/lyn-module-lsp',
       '@lyness/lyn-module-memory', '@lyness/lyn-module-model-governance',
       '@lyness/lyn-module-schedule', '@lyness/lyn-module-terminal', '@lyness/lyn-module-webhook'],
   },
@@ -228,9 +236,9 @@ export const PROFILE_TEMPLATES: Record<string, ProfileTemplate> = {
   hosted: {
     hosted: true,
     bundles: ['@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-module-accounts',
-      '@lyness/lyn-module-deliverables', '@lyness/lyn-module-memory',
-      '@lyness/lyn-module-model-governance', '@lyness/lyn-module-schedule',
-      '@lyness/lyn-module-webhook'],
+      '@lyness/lyn-module-credits', '@lyness/lyn-module-deliverables',
+      '@lyness/lyn-module-memory', '@lyness/lyn-module-model-governance',
+      '@lyness/lyn-module-schedule', '@lyness/lyn-module-webhook'],
   },
   headless: {
     bundles: ['@lyness/lyn-base', '@lyness/lyn-module-execution', '@lyness/lyn-headless'],

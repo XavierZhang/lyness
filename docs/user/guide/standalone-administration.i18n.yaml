@@ -1,0 +1,31 @@
+# Bilingual-pair consistency record for standalone-administration.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write docs/user/guide/standalone-administration.md
+/administer-a-standalone-deployment:
+  en: 14fcd7f400411103
+  zh: 0bc69da8aa20680c
+/administer-a-standalone-deployment/before-the-first-start-name-your-people:
+  en: ca8f266a66bd60c1
+  zh: 91e370138e1e1848
+/administer-a-standalone-deployment/before-the-first-start-admit-the-first-administrator:
+  en: b4671d13ab81a308
+  zh: 03a8dbb31a314747
+/administer-a-standalone-deployment/afterwards-configure-channels-from-the-ui:
+  en: 4f05c994f93d92bf
+  zh: c5eb120f75e5af35
+/administer-a-standalone-deployment/afterwards-configure-channels-from-the-ui/add-the-rest-of-your-staff:
+  en: a9c276dffbd5a5db
+  zh: afb26e73ddd081c8
+/administer-a-standalone-deployment/afterwards-configure-channels-from-the-ui/rotate-a-secret:
+  en: a1b92d4b5d1d2c44
+  zh: 894a07aac805a6f9
+/administer-a-standalone-deployment/afterwards-configure-channels-from-the-ui/remove-a-channel:
+  en: e598e050a48d1890
+  zh: 168d9955648a47e5
+/administer-a-standalone-deployment/who-can-do-what:
+  en: a6c1e48322ff0f0c
+  zh: 553831021521a94d
+/administer-a-standalone-deployment/continue:
+  en: 6f5429fdc7fc1b96
+  zh: 5667ee6c384e093b

@@ -1,0 +1,33 @@
+# The credits module: a deployment that meters what its people spend.
+#
+# Separate from the accounts module because the two answer different
+# questions. Accounts says who exists and how they sign in; credits says what
+# each of them may spend. A deployment on a customer's own servers wants the
+# first and not the second: metering staff against a quota on hardware the
+# customer paid for would be charging them for their own machine
+# (../../../docs/architecture.md#product-shapes).
+#
+# It reads who a request charges from that request's principal, so it is
+# selected beside the accounts module, never instead of it.
+- insert:
+    # The ledger. Its recurring allowance is a deployment decision, so the
+    # numbers here are the ones an installation changes first.
+    - id: credits
+      name: '@lyness/lyn-credits/store'
+      config:
+        periodicAmount: 1000
+        period: daily
+
+    # Who a request charges, resolved from its principal.
+    - id: credit-subject
+      name: '@lyness/lyn-credits/subject-request'
+
+    # Grants and recurring-allowance overrides, authorized against the
+    # standing making them.
+    - id: credit-administration
+      name: '@lyness/lyn-credits/administration'
+
+    # Metering rides the llm/stream waterfall, so a preset row, a profile
+    # patch, or a direct RPC cannot reach a model without being charged.
+    - id: credits-enforce
+      name: '@lyness/lyn-credits/enforce'

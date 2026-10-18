@@ -497,6 +497,7 @@
       "@lyness/lyn-model-policy": ["./packages/llm/model-policy/src"],
       "@lyness/lyn-model-required": ["./packages/llm/model-required/src"],
       "@lyness/lyn-module-accounts": ["./packages/bundle/module-accounts/src"],
+      "@lyness/lyn-module-credits": ["./packages/bundle/module-credits/src"],
       "@lyness/lyn-module-deliverables": ["./packages/bundle/module-deliverables/src"],
       "@lyness/lyn-module-execution": ["./packages/bundle/module-execution/src"],
       "@lyness/lyn-module-extensions": ["./packages/bundle/module-extensions/src"],

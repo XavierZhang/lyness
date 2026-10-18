@@ -2496,9 +2496,6 @@ importers:
       '@lyness/lyn-auth-session':
         specifier: workspace:*
         version: link:../../identity/auth-session
-      '@lyness/lyn-credits':
-        specifier: workspace:*
-        version: link:../../credits/credits
       '@lyness/lyn-dingtalk':
         specifier: workspace:*
         version: link:../../vendor/dingtalk
@@ -2526,6 +2523,16 @@ importers:
       '@lyness/lyn-wecom':
         specifier: workspace:*
         version: link:../../vendor/wecom
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+
+  packages/bundle/module-credits:
+    dependencies:
+      '@lyness/lyn-credits':
+        specifier: workspace:*
+        version: link:../../credits/credits
     devDependencies:
       '@lyness/cordis':
         specifier: workspace:~

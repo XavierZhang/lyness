@@ -1,7 +1,10 @@
 # The accounts module: a deployment whose people are not one operator.
 #
+# What each of them may spend is the credits module's question, selected
+# beside this one where a deployment meters at all.
+#
 # Selecting it is how a shipped product states that it serves named people
-# with standings, balances, and conversations of their own
+# with standings and conversations of their own
 # (../../../.agents/notes/proposed/architecture/2026-10-15-diverging-from-the-single-operator-host.md).
 # Without it the runtime answers one operator, which is the single-operator
 # shape every developer profile keeps.
@@ -86,25 +89,3 @@
     # Whose conversation a session is, written once when it is opened.
     - id: session-ownership
       name: '@lyness/lyn-session-ownership'
-
-    # The ledger. Its recurring allowance is a deployment decision, so the
-    # numbers here are the ones an installation changes first.
-    - id: credits
-      name: '@lyness/lyn-credits/store'
-      config:
-        periodicAmount: 1000
-        period: daily
-
-    # Who a request charges, resolved from its principal.
-    - id: credit-subject
-      name: '@lyness/lyn-credits/subject-request'
-
-    # Grants and recurring-allowance overrides, authorized against the
-    # standing making them.
-    - id: credit-administration
-      name: '@lyness/lyn-credits/administration'
-
-    # Metering rides the llm/stream waterfall, so a preset row, a profile
-    # patch, or a direct RPC cannot reach a model without being charged.
-    - id: credits-enforce
-      name: '@lyness/lyn-credits/enforce'
