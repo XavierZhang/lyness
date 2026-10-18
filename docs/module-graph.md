@@ -129,6 +129,7 @@ flowchart TD
     pkg_api_remotes["api-remotes"]
     pkg_api_session_controller["api-session-controller"]
     pkg_api_settings_controller["api-settings-controller"]
+    pkg_api_sign_in_channel_controller["api-sign-in-channel-controller"]
     pkg_api_tenant_controller["api-tenant-controller"]
     pkg_api_terminal_controller["api-terminal-controller"]
     pkg_api_workspace_controller["api-workspace-controller"]
@@ -722,6 +723,12 @@ flowchart TD
   pkg_api_identity_controller --> pkg_sign_in
   pkg_api_identity_controller --> pkg_sign_in_http
   pkg_api_identity_controller --> pkg_typert_protocol
+  pkg_api_sign_in_channel_controller --> pkg_people
+  pkg_api_sign_in_channel_controller --> pkg_request_principal
+  pkg_api_sign_in_channel_controller --> pkg_sign_in
+  pkg_api_sign_in_channel_controller --> pkg_sign_in_channels
+  pkg_api_sign_in_channel_controller --> pkg_typert_protocol
+  pkg_api_sign_in_channel_controller --> pkg_util_values
   pkg_api_workspace_controller --> pkg_api_gateway
   pkg_api_workspace_controller --> pkg_client_connection
   pkg_api_workspace_controller --> pkg_host_directory_picker
@@ -1758,6 +1765,7 @@ flowchart TD
 | [`hook-protocol`](../packages/hooks/hook-protocol) | `hooks` | [`invariants`](../packages/runtime-diagnostics/invariants), [`session`](../packages/core/session), [`shell`](../packages/shell/shell) |
 | [`api-credits-controller`](../packages/api/credits-controller) | `api` | [`brand`](../packages/util/brand), [`credits`](../packages/credits/credits), [`people`](../packages/identity/people), [`request-principal`](../packages/identity/request-principal), [`typert-protocol`](../packages/typert/protocol) |
 | [`api-identity-controller`](../packages/api/identity-controller) | `api` | [`people`](../packages/identity/people), [`request-principal`](../packages/identity/request-principal), [`sign-in`](../packages/identity/sign-in), [`sign-in-http`](../packages/identity/sign-in-http), [`typert-protocol`](../packages/typert/protocol) |
+| [`api-sign-in-channel-controller`](../packages/api/sign-in-channel-controller) | `api` | [`people`](../packages/identity/people), [`request-principal`](../packages/identity/request-principal), [`sign-in`](../packages/identity/sign-in), [`sign-in-channels`](../packages/identity/sign-in-channels), [`typert-protocol`](../packages/typert/protocol), [`util-values`](../packages/util/values) |
 | [`api-workspace-controller`](../packages/api/workspace-controller) | `api` | [`api-gateway`](../packages/api/gateway), [`client-connection`](../packages/client/connection), [`host-directory-picker`](../packages/host/directory-picker), [`session`](../packages/core/session), [`storage-domain`](../packages/storage/storage-domain), [`typert-protocol`](../packages/typert/protocol), [`workspace`](../packages/workspace/workspace) |
 | [`config-editor`](../packages/boot/config-editor) | `boot` | [`app-boot`](../packages/boot/app-boot), [`hmr`](../packages/boot/hmr) |
 | [`experimental-api-speech-to-text`](../packages/experimental/api-speech-to-text) | `experimental` | [`experimental-speech-to-text`](../packages/experimental/speech-to-text), [`typert-protocol`](../packages/typert/protocol) |

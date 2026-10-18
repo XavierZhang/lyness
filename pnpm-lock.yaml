@@ -1416,6 +1416,45 @@ importers:
         specifier: ^4.4.3
         version: 4.4.3
 
+  packages/api/sign-in-channel-controller:
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+      '@lyness/lyn-brand':
+        specifier: workspace:*
+        version: link:../../util/brand
+      '@lyness/lyn-credentials':
+        specifier: workspace:*
+        version: link:../../credentials/credentials
+      '@lyness/lyn-people':
+        specifier: workspace:*
+        version: link:../../identity/people
+      '@lyness/lyn-request-principal':
+        specifier: workspace:*
+        version: link:../../identity/request-principal
+      '@lyness/lyn-sign-in':
+        specifier: workspace:*
+        version: link:../../identity/sign-in
+      '@lyness/lyn-sign-in-channels':
+        specifier: workspace:*
+        version: link:../../identity/sign-in-channels
+      '@lyness/lyn-storage':
+        specifier: workspace:*
+        version: link:../../storage/storage
+      '@lyness/lyn-storage-domain':
+        specifier: workspace:*
+        version: link:../../storage/storage-domain
+      '@lyness/lyn-storage-json':
+        specifier: workspace:*
+        version: link:../../storage/storage-json
+      '@lyness/lyn-typert-protocol':
+        specifier: workspace:*
+        version: link:../../typert/protocol
+      '@lyness/lyn-util-values':
+        specifier: workspace:*
+        version: link:../../util/values
+
   packages/api/session-controller:
     dependencies:
       '@lyness/lyn-brand':
@@ -2451,6 +2490,9 @@ importers:
       '@lyness/lyn-api-remote-authority':
         specifier: workspace:*
         version: link:../../api/remote-authority
+      '@lyness/lyn-api-sign-in-channel-controller':
+        specifier: workspace:*
+        version: link:../../api/sign-in-channel-controller
       '@lyness/lyn-auth-session':
         specifier: workspace:*
         version: link:../../identity/auth-session

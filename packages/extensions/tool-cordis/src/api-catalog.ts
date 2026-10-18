@@ -2956,6 +2956,39 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
     ],
   },
   {
+    key: 'signInChannelController',
+    summary: 'Host service backing the generated `ctx.remote.signInChannels` namespace.',
+    description: 'Host service backing the generated `ctx.remote.signInChannels` namespace.',
+    methods: [
+      {
+        signature: '@Remote kinds(): readonly ChannelKindView[]',
+        description: 'The kinds of directory this deployment can configure a channel of.',
+        parameters: [],
+        returns: 'each mounted kind and the settings it needs.',
+      },
+      {
+        signature: '@Remote async list(): Promise<readonly ConfiguredChannelView[]>',
+        description: 'The configured channels the calling standing may change.',
+        parameters: [],
+        returns: 'the channels it administers, oldest first.',
+        throws: ['{RemoteError} `sign-in-channels/no-standing` when the call establishes none, or `gateway/internal` when this deployment stores no configured channels.'],
+      },
+      {
+        signature: '@Remote async save(input: ChannelInput): Promise<ConfiguredChannelView>',
+        description: 'Create one channel, or replace one that exists.',
+        parameters: [{ name: 'input', description: 'what the administrator filled in.' }],
+        returns: 'the channel as the deployment now reads it.',
+        throws: ['{RemoteError} `sign-in-channels/not-permitted`, `sign-in-channels/unknown-kind`, `sign-in-channels/incomplete`, `sign-in-channels/no-standing`, or `gateway/internal`.'],
+      },
+      {
+        signature: '@Remote async remove(id: string): Promise<void>',
+        description: 'Remove one channel, its secret with it.',
+        parameters: [{ name: 'id', description: 'the channel to remove.' }],
+        throws: ['{RemoteError} `sign-in-channels/not-permitted`, `sign-in-channels/no-standing`, or `gateway/internal`.'],
+      },
+    ],
+  },
+  {
     key: 'signInChannels',
     summary: 'Configured sign-in channels, mounted from what a deployment stored.',
     description: 'Configured sign-in channels, mounted from what a deployment stored.',
@@ -2971,13 +3004,13 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         description: 'Create one channel, or replace one that exists.',
         parameters: [{ name: 'submission', description: 'what the administrator filled in.' }, { name: 'by', description: 'the standing making the change.' }],
         returns: 'the channel as it now reads.',
-        throws: ['{Error} when the standing may not configure it, the kind is unknown, or a setting is missing.'],
+        throws: ['{ChannelRefusedError} when the standing may not configure it, the kind is unknown, or a setting is missing.'],
       },
       {
         signature: 'async remove(id: string, by: Membership): Promise<void>',
         description: 'Remove one channel, its secret with it.',
         parameters: [{ name: 'id', description: 'the channel to remove.' }, { name: 'by', description: 'the standing making the change.' }],
-        throws: ['{Error} when the standing may not configure it.'],
+        throws: ['{ChannelRefusedError} when the standing may not configure it.'],
       },
     ],
   },
@@ -5214,8 +5247,16 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export interface ChannelDescription {\n    readonly id: ChannelId;\n    readonly displayName: string;\n    readonly kind: ChannelKind;\n    readonly organization?: string | undefined;\n}',
   },
   {
+    name: 'ChannelFieldView',
+    declaration: 'export interface ChannelFieldView {\n    readonly name: string;\n    readonly label: string;\n    readonly required: boolean;\n}',
+  },
+  {
     name: 'ChannelId',
     declaration: 'export type ChannelId = Branded<\'ChannelId\'>;',
+  },
+  {
+    name: 'ChannelInput',
+    declaration: 'export interface ChannelInput {\n    readonly id?: string;\n    readonly kind: string;\n    readonly displayName: string;\n    readonly organization?: string;\n    readonly settings: Readonly<Record<string, string>>;\n    readonly secret?: string;\n}',
   },
   {
     name: 'ChannelKindDescription',
@@ -5224,6 +5265,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'ChannelKindField',
     declaration: 'export interface ChannelKindField {\n    readonly name: string;\n    readonly label: string;\n    readonly required: boolean;\n}',
+  },
+  {
+    name: 'ChannelKindView',
+    declaration: 'export interface ChannelKindView {\n    readonly id: string;\n    readonly displayName: string;\n    readonly fields: readonly ChannelFieldView[];\n}',
   },
   {
     name: 'ChannelOfferView',
@@ -5312,6 +5357,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'ComputerUseProviderName',
     declaration: 'export type ComputerUseProviderName = Branded<\'ComputerUseProviderName\'>;',
+  },
+  {
+    name: 'ConfiguredChannelView',
+    declaration: 'export interface ConfiguredChannelView {\n    readonly id: string;\n    readonly kind: string;\n    readonly displayName: string;\n    readonly organization?: string;\n    readonly settings: Readonly<Record<string, string>>;\n    readonly configuredAt: string;\n    readonly configuredBy: string;\n    readonly mounted: boolean;\n}',
   },
   {
     name: 'ConfinedArgv',

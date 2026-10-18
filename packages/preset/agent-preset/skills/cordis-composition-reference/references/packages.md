@@ -24,6 +24,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@lyness/lyn-api-remotes` | no | Remote BFF assembly for application-selected Host capabilities |
 | `@lyness/lyn-api-session-controller` | yes | Session Remote commands, cold reads, and live control transport |
 | `@lyness/lyn-api-settings-controller` | yes | Remote owner for the configuration surfaces over the settings-domain seams |
+| `@lyness/lyn-api-sign-in-channel-controller` | no | Remote owner of the sign-in channel surface: administrators configure the directories a deployment signs people in with |
 | `@lyness/lyn-api-tenant-controller` | no | Remote owner of the tenant-configuration surface: the calling tenant reads and saves its own configuration |
 | `@lyness/lyn-api-terminal-controller` | yes | Session-owned interactive terminals with shell discovery, screen recovery and typed Remote control |
 | `@lyness/lyn-api-workspace-controller` | yes | Workspace Remote commands and reconnect-safe state transport |

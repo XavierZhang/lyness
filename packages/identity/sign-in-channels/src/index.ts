@@ -54,6 +54,36 @@ export const SECRET_REQUIRED = 'sign-in-channels: a new channel needs its applic
 export const SETTING_REQUIRED = 'sign-in-channels: this kind needs'
 
 /**
+ * Why one configuration change was refused.
+ *
+ * A closed set rather than a message to read: the surface reporting it marks
+ * one field, names the kind, or says the standing is wrong, and deciding
+ * which by matching prose would break the moment the prose changed.
+ */
+export type ChannelRefusal = 'not-permitted' | 'unknown-kind' | 'secret-required' | 'settings-required'
+
+/** A configuration change this service refused, carrying the reason it refused. */
+export class ChannelRefusedError extends Error {
+  /** Which rule refused it. */
+  readonly reason: ChannelRefusal
+
+  /** The settings that were missing, for `settings-required`; empty otherwise. */
+  readonly fields: readonly string[]
+
+  /**
+   * @param reason - which rule refused it.
+   * @param message - what went wrong, in words an administrator can act on.
+   * @param fields - the settings that were missing, when that is the reason.
+   */
+  constructor(reason: ChannelRefusal, message: string, fields: readonly string[] = []) {
+    super(message)
+    this.name = 'ChannelRefusedError'
+    this.reason = reason
+    this.fields = fields
+  }
+}
+
+/**
  * The credential reference one channel's secret is stored under.
  *
  * Derived from the channel's own generated id rather than from anything an
@@ -112,24 +142,30 @@ export class ConfiguredChannels extends Service {
    * @param submission - what the administrator filled in.
    * @param by - the standing making the change.
    * @returns the channel as it now reads.
-   * @throws {Error} when the standing may not configure it, the kind is unknown, or a setting is missing.
+   * @throws {ChannelRefusedError} when the standing may not configure it, the kind is unknown, or a setting is missing.
    */
   async save(submission: ChannelSubmission, by: Membership): Promise<ChannelView> {
-    if (!administers(by, submission.organization)) throw new Error(NOT_PERMITTED)
+    if (!administers(by, submission.organization)) throw new ChannelRefusedError('not-permitted', NOT_PERMITTED)
     const kind = this.ctx.signInKinds.get(submission.kind)
-    if (kind === undefined) throw new Error(KIND_UNKNOWN)
+    if (kind === undefined) throw new ChannelRefusedError('unknown-kind', KIND_UNKNOWN)
     const missing = kind.fields
       .filter(field => field.required && (submission.settings[field.name] ?? '') === '')
       .map(field => field.name)
-    if (missing.length > 0) throw new Error(`${SETTING_REQUIRED} ${missing.join(', ')}`)
+    if (missing.length > 0) {
+      throw new ChannelRefusedError('settings-required', `${SETTING_REQUIRED} ${missing.join(', ')}`, missing)
+    }
 
     const domain = await this.ready
     const existing = submission.id === undefined ? undefined : domain.table('channels').get(submission.id)
     // A replacement is authorized against what is stored as well as against
     // what was submitted: otherwise one tenant's administrator could claim
     // another's channel by naming its id with their own organization.
-    if (existing !== undefined && !administers(by, existing.organization)) throw new Error(NOT_PERMITTED)
-    if (existing === undefined && submission.secret === undefined) throw new Error(SECRET_REQUIRED)
+    if (existing !== undefined && !administers(by, existing.organization)) {
+      throw new ChannelRefusedError('not-permitted', NOT_PERMITTED)
+    }
+    if (existing === undefined && submission.secret === undefined) {
+      throw new ChannelRefusedError('secret-required', SECRET_REQUIRED)
+    }
 
     const id = existing?.id ?? randomUUID()
     const secret = secretRefOf(id)
@@ -155,13 +191,13 @@ export class ConfiguredChannels extends Service {
    * Remove one channel, its secret with it.
    * @param id - the channel to remove.
    * @param by - the standing making the change.
-   * @throws {Error} when the standing may not configure it.
+   * @throws {ChannelRefusedError} when the standing may not configure it.
    */
   async remove(id: string, by: Membership): Promise<void> {
     const domain = await this.ready
     const existing = domain.table('channels').get(id)
     if (existing === undefined) return
-    if (!administers(by, existing.organization)) throw new Error(NOT_PERMITTED)
+    if (!administers(by, existing.organization)) throw new ChannelRefusedError('not-permitted', NOT_PERMITTED)
     await this.unmount(id)
     await domain.table('channels').delete(id)
     // The secret goes with the record: leaving it behind would keep a

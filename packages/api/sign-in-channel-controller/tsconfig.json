@@ -1,0 +1,33 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "lib/types"
+  },
+  "include": [
+    "src"
+  ],
+  "references": [
+    {
+      "path": "../../../vendor/cordis"
+    },
+    {
+      "path": "../../identity/people"
+    },
+    {
+      "path": "../../identity/request-principal"
+    },
+    {
+      "path": "../../identity/sign-in"
+    },
+    {
+      "path": "../../identity/sign-in-channels"
+    },
+    {
+      "path": "../../typert/protocol"
+    },
+    {
+      "path": "../../util/values"
+    }
+  ]
+}

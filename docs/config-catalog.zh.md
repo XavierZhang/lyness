@@ -4708,6 +4708,7 @@ export interface Config {
 | `@lyness/lyn-api-identity-controller` | — | [`packages/api/identity-controller/src/index.ts`](../packages/api/identity-controller/src/index.ts) |
 | `@lyness/lyn-api-remote-authority` | `requestPrincipal` · `people` | [`packages/api/remote-authority/src/index.ts`](../packages/api/remote-authority/src/index.ts) |
 | `@lyness/lyn-api-remotes` | `typertGateway` | [`packages/api/remotes/src/index.ts`](../packages/api/remotes/src/index.ts) |
+| `@lyness/lyn-api-sign-in-channel-controller` | — | [`packages/api/sign-in-channel-controller/src/index.ts`](../packages/api/sign-in-channel-controller/src/index.ts) |
 | `@lyness/lyn-api-tenant-controller` | — | [`packages/api/tenant-controller/src/index.ts`](../packages/api/tenant-controller/src/index.ts) |
 | `@lyness/lyn-authorization` | `credentials` | [`packages/credentials/authorization/src/index.ts`](../packages/credentials/authorization/src/index.ts) |
 | `@lyness/lyn-brand-studio` | `cmdlineArgs` | [`packages/bundle/brand-studio/src/index.ts`](../packages/bundle/brand-studio/src/index.ts) |

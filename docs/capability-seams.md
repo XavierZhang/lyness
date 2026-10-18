@@ -297,6 +297,8 @@ flowchart LR
   pkg_feishu["feishu"]
   pkg_sign_in_channels["sign-in-channels"]
   svc_signInChannels["ctx.signInChannels<br/>Configured sign-in channels"]
+  pkg_api_sign_in_channel_controller["api-sign-in-channel-controller"]
+  svc_signInChannelController["ctx.signInChannelController<br/>Host sign-in channel Remote controller"]
   pkg_api_identity_controller["api-identity-controller"]
   svc_identityController["ctx.identityController<br/>Host viewer Remote controller"]
   pkg_api_credits_controller["api-credits-controller"]
@@ -347,6 +349,7 @@ flowchart LR
   pkg_api_session_controller --> svc_sessionSkillCatalog
   pkg_api_settings_controller --> svc_credentialsController
   pkg_api_settings_controller --> svc_settingsController
+  pkg_api_sign_in_channel_controller --> svc_signInChannelController
   pkg_api_tenant_controller --> svc_tenantController
   pkg_api_terminal_controller --> svc_terminalController
   pkg_api_workspace_controller --> svc_directoryPickerController
@@ -774,6 +777,7 @@ flowchart LR
 | `ctx.directoryPicker` | `seam` | [`host-directory-picker`](../packages/host/directory-picker) | [`host-directory-picker-native`](../packages/host/directory-picker-native), [`host-directory-picker-browse`](../packages/host/directory-picker-browse) | [`api-workspace-controller`](../packages/api/workspace-controller) | - | Discriminated interaction capability: the native backend opens one OS chooser on the host display, the browse backend serves listing/creation primitives for the in-app browser; dual-face backends fill ui-workspace directory-flow slots from their browser halves (no wire advertisement). |
 | `ctx.signInKinds` | `seam` | [`sign-in`](../packages/identity/sign-in) | [`wecom`](../packages/vendor/wecom), [`dingtalk`](../packages/vendor/dingtalk), [`feishu`](../packages/vendor/feishu) | [`sign-in-channels`](../packages/identity/sign-in-channels) | - | A kind says what one directory needs and how to build an instance of it; it never knows how many a deployment has or whose they are, so adding a customer is a stored record rather than a redeploy. |
 | `ctx.signInChannels` | `core` | [`sign-in-channels`](../packages/identity/sign-in-channels) | - | - | - | Turns stored records into mounted channels and back: a platform administrator configures the deployment's own, a tenant administrator only their organization's, and each organization's sign-in page is offered only its own plus the deployment-wide ones. |
+| `ctx.signInChannelController` | `core` | [`api-sign-in-channel-controller`](../packages/api/sign-in-channel-controller) | - | - | - | Projects the configured-channel store onto the generated Remote namespace: it resolves the standing one call acts in, hands it to the one rule that decides who administers what, and reports each refusal under its own code so a form can mark the field it names. |
 | `ctx.identityController` | `core` | [`api-identity-controller`](../packages/api/identity-controller) | - | - | - | Answers one surface question before anybody is classified: whether this deployment has accounts, who the caller is, the standing they act in, and the channels a sign-in screen may offer; signing in and out stay browser navigations lyn-sign-in-http owns. |
 | `ctx.creditsController` | `core` | [`api-credits-controller`](../packages/api/credits-controller) | - | - | - | Projects the ledger and the administration seam onto the generated Remote namespace: a person reads their own balance, an administrator grants credits and sets allowances for the people their standing reaches, and the authority rule stays in lyn-credits so a read and a grant cannot disagree. |
 | `ctx.tenantController` | `core` | [`api-tenant-controller`](../packages/api/tenant-controller) | - | - | - | Projects the tenant-configuration seam onto the generated Remote namespace: the calling tenant reads and saves its own configuration, and a call that named no tenant is refused rather than answered about any tenant. |

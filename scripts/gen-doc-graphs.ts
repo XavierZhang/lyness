@@ -916,6 +916,15 @@ const SERVICE_ROLES: ServiceRole[] = [
     note: 'Turns stored records into mounted channels and back: a platform administrator configures the deployment\'s own, a tenant administrator only their organization\'s, and each organization\'s sign-in page is offered only its own plus the deployment-wide ones.',
   },
   {
+    key: 'signInChannelController',
+    pkg: 'api-sign-in-channel-controller',
+    title: 'Host sign-in channel Remote controller',
+    mode: 'core',
+    implementations: [],
+    consumers: [],
+    note: 'Projects the configured-channel store onto the generated Remote namespace: it resolves the standing one call acts in, hands it to the one rule that decides who administers what, and reports each refusal under its own code so a form can mark the field it names.',
+  },
+  {
     key: 'identityController',
     pkg: 'api-identity-controller',
     title: 'Host viewer Remote controller',

@@ -581,6 +581,47 @@ abstract admit(subject: ExternalSubject): Promise<PersonId | undefined>
 
 Source: [`packages/identity/sign-in/src/admission.ts`](../../packages/identity/sign-in/src/admission.ts)
 
+<a id="ctxsigninchannelcontroller--signinchannelcontroller"></a>
+
+### `ctx.signInChannelController` — `SignInChannelController`
+
+Host service backing the generated `ctx.remote.signInChannels` namespace.
+
+```ts cordis-catalog
+/**
+ * The kinds of directory this deployment can configure a channel of.
+ * @returns each mounted kind and the settings it needs.
+ */
+@Remote kinds(): readonly ChannelKindView[]
+
+/**
+ * The configured channels the calling standing may change.
+ * @returns the channels it administers, oldest first.
+ * @throws {RemoteError} `sign-in-channels/no-standing` when the call establishes none,
+ * or `gateway/internal` when this deployment stores no configured channels.
+ */
+@Remote async list(): Promise<readonly ConfiguredChannelView[]>
+
+/**
+ * Create one channel, or replace one that exists.
+ * @param input - what the administrator filled in.
+ * @returns the channel as the deployment now reads it.
+ * @throws {RemoteError} `sign-in-channels/not-permitted`, `sign-in-channels/unknown-kind`,
+ * `sign-in-channels/incomplete`, `sign-in-channels/no-standing`, or `gateway/internal`.
+ */
+@Remote async save(input: ChannelInput): Promise<ConfiguredChannelView>
+
+/**
+ * Remove one channel, its secret with it.
+ * @param id - the channel to remove.
+ * @throws {RemoteError} `sign-in-channels/not-permitted`, `sign-in-channels/no-standing`,
+ * or `gateway/internal`.
+ */
+@Remote async remove(id: string): Promise<void>
+```
+
+Source: [`packages/api/sign-in-channel-controller/src/index.ts`](../../packages/api/sign-in-channel-controller/src/index.ts)
+
 <a id="ctxsigninchannels--configuredchannels"></a>
 
 ### `ctx.signInChannels` — `ConfiguredChannels`
@@ -604,7 +645,7 @@ async list(by: Membership): Promise<readonly ChannelView[]>
  * @param submission - what the administrator filled in.
  * @param by - the standing making the change.
  * @returns the channel as it now reads.
- * @throws {Error} when the standing may not configure it, the kind is unknown, or a setting is missing.
+ * @throws {ChannelRefusedError} when the standing may not configure it, the kind is unknown, or a setting is missing.
  */
 async save(submission: ChannelSubmission, by: Membership): Promise<ChannelView>
 
@@ -612,7 +653,7 @@ async save(submission: ChannelSubmission, by: Membership): Promise<ChannelView>
  * Remove one channel, its secret with it.
  * @param id - the channel to remove.
  * @param by - the standing making the change.
- * @throws {Error} when the standing may not configure it.
+ * @throws {ChannelRefusedError} when the standing may not configure it.
  */
 async remove(id: string, by: Membership): Promise<void>
 ```

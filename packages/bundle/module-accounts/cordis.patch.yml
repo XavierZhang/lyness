@@ -50,6 +50,12 @@
     - id: sign-in-kind-feishu
       name: '@lyness/lyn-feishu/kind'
 
+    # The surface administrators configure those instances through. It is here
+    # rather than with the other namespaces because what it speaks for is
+    # here: a deployment without this module stores no channels to configure.
+    - id: sign-in-channel-controller
+      name: '@lyness/lyn-api-sign-in-channel-controller'
+
     # Who a verified subject is allowed to be. An empty roster admits nobody,
     # which is the intended reading: a connected directory with no bindings
     # written yet must not sign anyone in.
