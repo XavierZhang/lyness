@@ -170,6 +170,7 @@ flowchart TD
     pkg_sdk_app["sdk-app"]
     pkg_sdk_minimal["sdk-minimal"]
     pkg_web_app["web-app"]
+    pkg_web_execution["web-execution"]
   end
   subgraph group_client["packages/client"]
     pkg_client_connection["client-connection"]
@@ -1583,6 +1584,7 @@ flowchart TD
 | [`module-webhook`](../packages/bundle/module-webhook) | `bundle` | — |
 | [`sdk-app`](../packages/bundle/sdk-app) | `bundle` | — |
 | [`sdk-minimal`](../packages/bundle/sdk-minimal) | `bundle` | — |
+| [`web-execution`](../packages/bundle/web-execution) | `bundle` | — |
 | [`client-hmr`](../packages/client/hmr) | `client` | — |
 | [`client-locale`](../packages/client/locale) | `client` | — |
 | [`client-modules`](../packages/client/modules) | `client` | — |

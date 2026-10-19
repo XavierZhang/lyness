@@ -193,7 +193,8 @@ export const PROFILE_TEMPLATES: Record<string, ProfileTemplate> = {
   },
   web: {
     bundles: ['@lyness/lyn-base', '@lyness/lyn-module-execution', '@lyness/lyn-web-app',
-      '@lyness/lyn-module-deliverables', '@lyness/lyn-module-extensions', '@lyness/lyn-module-lsp',
+      '@lyness/lyn-web-execution', '@lyness/lyn-module-deliverables',
+      '@lyness/lyn-module-extensions', '@lyness/lyn-module-lsp',
       '@lyness/lyn-module-memory', '@lyness/lyn-module-schedule', '@lyness/lyn-module-terminal',
       '@lyness/lyn-module-webhook'],
   },
@@ -213,7 +214,7 @@ export const PROFILE_TEMPLATES: Record<string, ProfileTemplate> = {
    */
   enterprise: {
     bundles: ['@lyness/lyn-base', '@lyness/lyn-module-execution', '@lyness/lyn-web-app',
-      '@lyness/lyn-module-accounts', '@lyness/lyn-module-deliverables',
+      '@lyness/lyn-web-execution', '@lyness/lyn-module-accounts', '@lyness/lyn-module-deliverables',
       '@lyness/lyn-module-extensions', '@lyness/lyn-module-lsp',
       '@lyness/lyn-module-memory', '@lyness/lyn-module-model-governance',
       '@lyness/lyn-module-schedule', '@lyness/lyn-module-terminal', '@lyness/lyn-module-webhook'],

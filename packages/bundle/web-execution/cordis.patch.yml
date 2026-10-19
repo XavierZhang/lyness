@@ -1,0 +1,43 @@
+# The Web execution plane: the execution bundle's host-plane tool rows move
+# behind the Web profile's per-session presets.
+#
+# It is its own bundle because the move needs both halves. The execution
+# bundle inserts these rows; the Web bundle's presets re-add them per
+# session, keyed by agent. A profile with the Web surface and no execution
+# bundle — the hosted shape, which executes nothing — has neither half, and a
+# patch naming rows that are not there reports an absent entry per row at
+# every boot. A patch layer cannot say "disable this if it exists", so the
+# rows that only make sense with both bundles are selected with both.
+#
+# Disabling rather than deleting is deliberate: the base is shared, and a row
+# absent from a surface overlay would silently reappear the day someone
+# reorders the composition.
+#
+# `shell-env` stays in the host plane: `apps/cli/src/web.ts` injects it to
+# publish `LYNESS_WEB_URL`/`LYNESS_WEB_MODE`, and a host row that injects a
+# service is the criterion for host-plane ownership — injection resolves
+# before any session exists, so there is no agent to key by. Behind a preset
+# realm those variables would never reach the model's shell at all.
+- id: tool-bash
+  disabled: true
+
+- id: tool-pwsh
+  disabled: true
+
+- id: tool-fs
+  disabled: true
+
+- id: tool-fs-search
+  disabled: true
+
+- id: workflow-ptc
+  disabled: true
+
+- id: tool-workflow
+  disabled: true
+
+# `base` ships this row disabled; the preset-plane gate reads declared row ids
+# without regard to `disabled`, so this row must stay to keep `tool-ralph` off
+# the host plane and out of collision with every preset's row.
+- id: tool-ralph
+  disabled: true

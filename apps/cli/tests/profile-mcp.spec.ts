@@ -16,21 +16,6 @@ describe('shipped MCP resource composition', () => {
   // consumer to serve. Their own patches state that design.
   const STANDALONE = ['brand-studio', 'brand-setup']
 
-  /**
-   * Composition warnings a template is known to produce.
-   *
-   * `hosted` selects the Web bundle and no execution bundle, and the Web
-   * bundle's patch disables the host-plane tool rows the execution bundle
-   * inserts — rows that are absent here, which the composer reports rather
-   * than skipping silently. The warnings are accurate: a patch layer cannot
-   * say "disable this if it exists", so the Web bundle names rows that only
-   * a profile with execution has.
-   * @param template - the shipped profile template being composed.
-   * @returns the warnings composing it is expected to produce.
-   */
-  const expectedWarnings = (template: string): string[] => template !== 'hosted' ? [] : [
-    'tool-bash', 'tool-pwsh', 'tool-fs', 'tool-fs-search', 'workflow-ptc', 'tool-workflow', 'tool-ralph',
-  ].map(id => `patch: entry ${JSON.stringify(id)} not found`)
   it.each(Object.keys(PROFILE_TEMPLATES).filter(name => !STANDALONE.includes(name)))(
     '%s carries one shared resource consumer without a server', (name) => {
       const home = mkdtempSync(join(tmpdir(), 'lyn-profile-mcp-'))
@@ -46,7 +31,10 @@ describe('shipped MCP resource composition', () => {
           { id: 'mcp-resources', name: resourcePackage },
         ])
         expect(rows.filter(row => row.name === '@lyness/lyn-mcp-client')).toEqual([])
-        expect(warnings).toEqual(expectedWarnings(name))
+        // No template patches a row another bundle did not insert: a patch
+        // layer cannot say "disable this if it exists", so rows that need two
+        // bundles are selected with both.
+        expect(warnings).toEqual([])
 
         const owners = profile.layers.filter((layer) => {
           const manifest = JSON.parse(readFileSync(join(layer.packageDir, 'package.json'), 'utf8')) as {

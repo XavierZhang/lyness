@@ -644,6 +644,7 @@
       "@lyness/lyn-user-questions": ["./packages/interaction/user-questions/src"],
       "@lyness/lyn-web": ["./packages/web/web/src"],
       "@lyness/lyn-web-app": ["./packages/bundle/web-app/src"],
+      "@lyness/lyn-web-execution": ["./packages/bundle/web-execution/src"],
       "@lyness/lyn-web-fetch-http": ["./packages/web/web-fetch-http/src"],
       "@lyness/lyn-web-search-deepseek": ["./packages/web/web-search-deepseek/src"],
       "@lyness/lyn-web-search-exa": ["./packages/web/web-search-exa/src"],

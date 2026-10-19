@@ -3282,6 +3282,12 @@ importers:
         specifier: workspace:*
         version: link:../../typert/registry
 
+  packages/bundle/web-execution:
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+
   packages/client/connection:
     dependencies:
       '@lyness/lyn-credentials':

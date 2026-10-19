@@ -4925,5 +4925,6 @@ Imported as libraries by other packages; a `cordis.yml` cannot load them.
 | `@lyness/lyn-util-time` | — | [`packages/util/time/src/index.ts`](../packages/util/time/src/index.ts) |
 | `@lyness/lyn-util-values` | — | [`packages/util/values/src/index.ts`](../packages/util/values/src/index.ts) |
 | `@lyness/lyn-util-workspace-path` | — | [`packages/util/workspace-path/src/index.ts`](../packages/util/workspace-path/src/index.ts) |
+| `@lyness/lyn-web-execution` | — | [`packages/bundle/web-execution/src/index.ts`](../packages/bundle/web-execution/src/index.ts) |
 | `@lyness/lyn-win32-process` | — | [`packages/subprocess/win32-process/src/index.ts`](../packages/subprocess/win32-process/src/index.ts) |
 <!-- END GENERATED config-catalog:library -->

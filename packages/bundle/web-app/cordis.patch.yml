@@ -455,24 +455,18 @@
 # Disabling rather than deleting is deliberate: the base is shared, and a row
 # absent from a surface overlay would silently reappear the day someone reorders
 # the composition.
-
-# `shell-env` STAYS in the host plane: `apps/cli/src/web.ts` injects it to
-# publish `LYNESS_WEB_URL`/`LYNESS_WEB_MODE`, and a host row that injects a service is
-# the criterion for host-plane ownership — injection resolves before any session
-# exists, so there is no agent to key by. Behind a preset realm those variables
-# would never reach the model's shell at all.
+#
+# The execution bundle's own rows — the shell, filesystem, workflow and ralph
+# tools — are not disabled here. They exist only where that bundle is also
+# selected, so the rows that move them behind presets live in
+# `@lyness/lyn-web-execution`, which a profile selects when it has both.
 
 - id: tool-plugin-manager
   disabled: true
 
-- id: tool-bash
-  disabled: true
-
-- id: tool-pwsh
-  disabled: true
-
 # The background-job REGISTRY stays on the host plane; only the model-facing
-# `job_*` controls move. Its producers — `tool-bash` here, `tool-terminal` and a
+# `job_*` controls move. Its producers — `tool-bash` in the execution plane,
+# `tool-terminal` and a
 # non-continuable `tool-subagent` elsewhere — are preset rows that resolve it
 # with `ctx.get`, and an entry-local realm around the registry is invisible to
 # every sibling row outside that realm, so `run_in_background` answered
@@ -482,12 +476,6 @@
 # agent, so one host instance serves every session exactly as before presets.
 
 - id: tool-jobs
-  disabled: true
-
-- id: tool-fs
-  disabled: true
-
-- id: tool-fs-search
   disabled: true
 
 # The `skill` REGISTRY stays in the host plane. It is host+per-scope layered
@@ -550,18 +538,6 @@
   disabled: true
 
 - id: tool-subagent-fork
-  disabled: true
-
-- id: workflow-ptc
-  disabled: true
-
-- id: tool-workflow
-  disabled: true
-
-# `base` ships this row disabled; the preset-plane gate reads declared row ids
-# without regard to `disabled`, so this row must stay to keep `tool-ralph` off
-# the host plane and out of collision with every preset's row.
-- id: tool-ralph
   disabled: true
 
 - id: agent-instructions

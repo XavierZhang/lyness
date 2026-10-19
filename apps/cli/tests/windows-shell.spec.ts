@@ -3,8 +3,8 @@
  * by platform on its own rows (`disabled: !!js process.platform`), so exactly
  * one shell stack mounts per host and no separate platform layer exists —
  * the launcher applies nothing beyond the bundle layers. The spec composes
- * the REAL shipped bundle layers (lyn-base + lyn-module-execution + lyn-web-app
- * resolved from the app installation anchor) through the boot's patch algorithm and pins the
+ * the REAL shipped bundle layers of the `web` template (resolved from the app
+ * installation anchor) through the boot's patch algorithm and pins the
  * effective per-platform roster, the preset-level gates that keep tool-bash
  * out of win32 sessions and tool-pwsh out of POSIX sessions, and the
  * cold-start resolution closure for the pwsh rows' bare plugin names.
@@ -18,7 +18,9 @@ import { fileURLToPath } from 'node:url'
 import yaml from 'js-yaml'
 import { entryListSchema } from '@lyness/cordis-plugin-include'
 import { evaluate } from '@lyness/cordis-plugin-loader'
-import { bundlePatchPaths, composeEntries, initProfile, loadProfile, PROFILES_DIR } from '@lyness/lyn-app-boot'
+import {
+  bundlePatchPaths, composeEntries, initProfile, loadProfile, PROFILE_TEMPLATES, PROFILES_DIR,
+} from '@lyness/lyn-app-boot'
 
 /**
  * The effective disabled state of one row on one platform: a `!!js` expression
@@ -42,8 +44,9 @@ describe('the shipped shell composition (real bundle layers)', () => {
 
   it('composes the confined pwsh roster on win32 and the bash roster on POSIX from the same rows', () => {
     home = mkdtempSync(join(tmpdir(), 'lyn-windows-home-'))
-    initProfile(join(home, PROFILES_DIR, 'web'),
-      ['@lyness/lyn-base', '@lyness/lyn-module-execution', '@lyness/lyn-web-app'])
+    // The shipped template's own list, so a bundle added to the Web shape is
+    // composed here rather than silently left out of this assertion.
+    initProfile(join(home, PROFILES_DIR, 'web'), [...PROFILE_TEMPLATES['web']?.bundles ?? []])
     const profile = loadProfile('lyn', 'web', anchor, home)
     const warnings: string[] = []
     const rows = composeEntries(
