@@ -8,7 +8,7 @@ import { strFromU8, unzipSync } from 'fflate'
 import { describe, expect, it } from 'vitest'
 import {
   Config,
-  EXPORT_UNATTRIBUTABLE,
+  EXPORT_NOT_FOUND,
   SESSION_LOG_FILENAME,
   SESSION_LOG_EXPORT_PATH,
   apply,
@@ -35,18 +35,24 @@ function readHandle(id: string): SessionHandle {
   } as unknown as SessionHandle
 }
 
-async function mounted(withServices: boolean, withAccounts = false): Promise<{
+async function mounted(withServices: boolean, visible?: boolean, observable = true): Promise<{
   readonly connection: HostConnectionService
   readonly dispose: () => Promise<void>
 }> {
   const ctx = new Context()
   ctx.provide('commands', { register: () => () => {} } as never)
-  // A deployment that serves named people publishes a request principal —
-  // inside the RPC scope, which a plain route never enters.
-  if (withAccounts) ctx.provide('requestPrincipal', { current: () => undefined } as never)
+  // A deployment that serves named people mounts the ownership rule; the
+  // route runs inside the same per-request scopes a decoded call does, so
+  // the rule answers for whoever is asking.
+  if (visible !== undefined) {
+    ctx.provide('sessionVisibility', { mayReadObservation: () => Promise.resolve(visible) } as never)
+  }
   if (withServices) {
     ctx.provide('sessionQuery', {
       traceSession: async () => ({ descendants: [] }),
+      observeSession: (id: SessionId) => observable
+        ? Promise.resolve({ header: readHandle(String(id)).header, events: [], [Symbol.dispose]: () => {} })
+        : Promise.reject(new Error('no such session')),
     } as never)
     ctx.provide('sessionPersistence', {
       stat: async (id: SessionId) => ({ header: readHandle(String(id)).header }),
@@ -87,16 +93,31 @@ describe('Session log export Fetch route', () => {
     ))).status).toBe(404)
   })
 
-  it('serves nothing on a deployment that serves named people', async () => {
-    const { connection, dispose } = await mounted(true, true)
-    const shared = connection.createSharedFetchHandler('/api')
-    const response = await shared.fetch(new Request(
+  it('exports a session its asker owns and answers nothing for one they do not', async () => {
+    const owned = await mounted(true, true)
+    expect((await owned.connection.createSharedFetchHandler('/api').fetch(new Request(
+      `http://host${SESSION_LOG_EXPORT_PATH}?sessionId=session-1`,
+    ))).status).toBe(200)
+    await owned.dispose()
+
+    const theirs = await mounted(true, false)
+    const refused = await theirs.connection.createSharedFetchHandler('/api').fetch(new Request(
       `http://host${SESSION_LOG_EXPORT_PATH}?sessionId=session-1`,
     ))
-    // Not a refusal of this caller — there is no caller this route can tell
-    // apart — so the download is absent rather than forbidden.
+    // The same answer a session that does not exist gets: a distinct refusal
+    // would tell one person that another's conversation is there.
+    expect(refused.status).toBe(404)
+    expect(await refused.text()).toBe(EXPORT_NOT_FOUND)
+    await theirs.dispose()
+  })
+
+  it('answers nothing for a session the rule cannot even observe', async () => {
+    const { connection, dispose } = await mounted(true, true, false)
+    const response = await connection.createSharedFetchHandler('/api').fetch(new Request(
+      `http://host${SESSION_LOG_EXPORT_PATH}?sessionId=gone`,
+    ))
     expect(response.status).toBe(404)
-    expect(await response.text()).toBe(EXPORT_UNATTRIBUTABLE)
+    expect(await response.text()).toBe(EXPORT_NOT_FOUND)
     await dispose()
   })
 

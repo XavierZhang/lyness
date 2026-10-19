@@ -93,7 +93,7 @@ No request prefix changes, because the event never enters the assembled request.
 
 <a id="known-limitations-and-deferred-work"></a>
 
-- **Every reader asks, each in its own way** — the Remote session surface asks for the call in progress; the `session_query` tool asks for the conversation its Agent runs in, because an Agent carries no principal; the `/export` route can ask neither and withholds itself entirely where people are named, rather than serving one person another's log.
+- **Every reader asks, each in its own way** — the Remote session surface and the `/export` route ask for the call in progress, and the `session_query` tool asks for the conversation its Agent runs in, because an Agent carries no principal.
 - **An Agent reads only what its own conversation's owner could** — which is right for a person's own delegation and wrong for a deployment-wide assistant that should search across people; nothing expresses that second case today.
 - **Archived-on-removal is not implemented** — the decision derives an archived state from the owner's standing; nothing reads it that way today.
 - **An unowned session is indistinguishable from a pre-attribution one** — both read as no owner, so a deployment that mounted this plugin late cannot tell which of its old sessions simply predate it.

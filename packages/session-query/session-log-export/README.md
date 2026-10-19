@@ -63,7 +63,7 @@ Attachment collection reads declared content fields of built-in Session events a
 
 ### Deployments with accounts
 
-A deployment that serves named people exports nothing: the route answers 404 and the `/export` command says why. The download is a plain authenticated route rather than a Remote call, and a request principal is published only inside the RPC scope, so this route cannot tell which person is asking — and serving everybody's log to anybody who is signed in is the wrong answer to that question. The check reads the principal service per call, so a deployment that grows accounts stops exporting without a restart.
+Where a deployment mounts [`sessionVisibility`](../../identity/session-ownership/README.md), the route exports only what the person asking may see. The route runs inside the same per-request scopes a decoded call does, so the principal is published here too, and the rule answers against the session's own log — authoritative for a live session and a cold one alike. A session the asker may not see answers exactly as one that does not exist: 404 and `session not found`, because a distinct refusal would tell one person that another's conversation is there. A deployment that mounts no rule exports whatever its one operator asks for.
 
 ### Failures
 
@@ -133,7 +133,7 @@ These limits define when this package is a poor fit or needs special operational
 
 - **Browser download, not a Host-path writer** — the browser chooses the local destination; no Host path or native folder action is returned.
 - **Preflight reports only pre-stream failures** — a descendant or attachment failure after the browser accepts the GET is reported by the browser download manager, not by the dialog.
-- **Withheld entirely where people are named** — rather than exporting the asker's own sessions, which needs a request principal on plain Fetch routes; until that exists, a deployment with accounts has no session export at all.
+- **Descendants ride on their root's answer** — the rule is asked about the session named in the query, and its sub-sessions are included because they belong to that conversation; no separate question is asked per descendant.
 
 <a id="dev-note"></a>
 ### Dev Note

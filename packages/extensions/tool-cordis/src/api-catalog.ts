@@ -5449,7 +5449,7 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   },
   {
     name: 'ConnectionRequestScope',
-    declaration: 'export type ConnectionRequestScope = (request: Request, run: () => Promise<ConnectionRpcResult<unknown>>) => Promise<ConnectionRpcResult<unknown>>;',
+    declaration: 'export type ConnectionRequestScope = <Result>(request: Request, run: () => Promise<Result>) => Promise<Result>;',
   },
   {
     name: 'ConnectionRpcAttachment',

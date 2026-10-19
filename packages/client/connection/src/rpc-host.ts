@@ -142,7 +142,12 @@ export class HostConnectionService extends Service implements HostConnectionHand
       fetch: (request) => {
         const pathname = new URL(request.url).pathname
         const route = this.fetchRoutes.get(pathname)
-        if (route?.methods.has(request.method) === true) return route.fetch(request)
+        // An exact route runs inside the same per-request scopes a decoded
+        // call does: a route that must know which person is asking resolves
+        // it where every other caller does.
+        if (route?.methods.has(request.method) === true) {
+          return this.scoped(request, () => route.fetch(request))
+        }
         const endpoint = endpointFromPath(channel, pathname)
         const interceptor = this.interceptors.get(channel)
         if (endpoint === undefined || interceptor === undefined || !interceptor.matches(endpoint)) {
@@ -217,10 +222,10 @@ export class HostConnectionService extends Service implements HostConnectionHand
    * @param run - the channel owner's dispatch.
    * @returns whatever the innermost dispatch returned.
    */
-  private readonly scoped = (
+  private readonly scoped = <Result>(
     request: Request,
-    run: () => Promise<ConnectionRpcResult<unknown>>,
-  ): Promise<ConnectionRpcResult<unknown>> => {
+    run: () => Promise<Result>,
+  ): Promise<Result> => {
     let next = run
     // Reversed so the FIRST registered scope ends up outermost.
     for (const scope of [...this.scopes].reverse()) {

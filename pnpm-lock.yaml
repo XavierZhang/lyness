@@ -11603,9 +11603,9 @@ importers:
       '@lyness/lyn-commands':
         specifier: workspace:*
         version: link:../../interaction/commands
-      '@lyness/lyn-request-principal':
+      '@lyness/lyn-session-ownership':
         specifier: workspace:*
-        version: link:../../identity/request-principal
+        version: link:../../identity/session-ownership
       '@lyness/lyn-session':
         specifier: workspace:*
         version: link:../../core/session

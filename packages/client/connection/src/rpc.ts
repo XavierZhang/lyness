@@ -149,11 +149,17 @@ export type ConnectionRpcHandler = (
  * and envelope decoding have all accepted it, so it is not a place to refuse a
  * call. The body has already been read by then; a scope reads headers and the
  * URL, not `request.json()`.
+ *
+ * The same scopes wrap an exact Fetch route's own handler, which is why they
+ * are written over the result rather than over one result type: a route that
+ * must know which person is asking needs the state a scope resolves exactly
+ * as a decoded call does, and a deployment that registers one scope should
+ * not have to register it twice.
  */
-export type ConnectionRequestScope = (
+export type ConnectionRequestScope = <Result>(
   request: Request,
-  run: () => Promise<ConnectionRpcResult<unknown>>,
-) => Promise<ConnectionRpcResult<unknown>>
+  run: () => Promise<Result>,
+) => Promise<Result>
 
 /** Synchronous ownership test for one endpoint on a shared RPC channel. */
 export type ConnectionRpcEndpointMatcher = (endpoint: string) => boolean

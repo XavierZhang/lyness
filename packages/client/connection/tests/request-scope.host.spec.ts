@@ -44,6 +44,29 @@ async function call(
 }
 
 describe('Connection per-request scopes', () => {
+  it('wraps an exact Fetch route, so a route reads what a decoded call reads', async () => {
+    const { ctx, connection, dispose } = await mounted()
+    const store = new AsyncLocalStorage<string>()
+    connection.rpc.scope((request, run) => store.run(request.headers.get('x-org') ?? 'none', run))
+    connection.fetch.register({
+      path: '/api/download',
+      methods: ['GET'],
+      requestBody: 'buffered',
+      // A plain route needs the same per-request state a decoded call does:
+      // which person is asking is resolved in one place for both.
+      fetch: () => Promise.resolve(new Response(store.getStore() ?? 'outside')),
+    })
+    void ctx
+
+    const shared = connection.createSharedFetchHandler('/api')
+    expect(await (await shared.fetch(new Request('http://host/api/download', {
+      headers: { 'x-org': 'acme' },
+    }))).text()).toBe('acme')
+    expect(await (await shared.fetch(new Request('http://host/api/download'))).text()).toBe('none')
+    await dispose()
+  })
+
+
   it('lets a handler read state the scope resolved from the request', async () => {
     const { connection, dispose } = await mounted()
     const store = new AsyncLocalStorage<string>()

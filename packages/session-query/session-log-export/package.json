@@ -62,7 +62,7 @@
     "@lyness/lyn-client-ui-session": "workspace:*",
     "@lyness/lyn-client-ui-slots": "workspace:*",
     "@lyness/lyn-commands": "workspace:*",
-    "@lyness/lyn-request-principal": "workspace:*",
+    "@lyness/lyn-session-ownership": "workspace:*",
     "@lyness/lyn-session": "workspace:*",
     "@lyness/lyn-session-persistence": "workspace:*",
     "@lyness/lyn-session-query": "workspace:*",

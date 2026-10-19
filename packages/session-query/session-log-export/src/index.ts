@@ -6,7 +6,7 @@ import Schema from '@lyness/schemastery'
 import { brandString } from '@lyness/lyn-brand'
 import type {} from '@lyness/lyn-attachment'
 import type { CommandResult } from '@lyness/lyn-commands'
-import type {} from '@lyness/lyn-request-principal'
+import type {} from '@lyness/lyn-session-ownership/visibility'
 import type { SessionId } from '@lyness/lyn-session/types'
 import {
   DEFAULT_SESSION_LOG_COMPRESSION_LEVEL,
@@ -72,28 +72,38 @@ const REQUESTED: CommandResult = {
 }
 
 /**
- * Why a deployment that serves named people exports nothing.
+ * What a session the caller may not see answers with.
  *
- * The download is a plain authenticated route rather than a Remote call, and
- * a request principal is published only inside the RPC scope, so this route
- * cannot tell which person is asking. On a deployment with one operator that
- * is no question; on one with several it is the whole question, and serving
- * everybody's log to anybody who is signed in is the wrong answer to it.
+ * The same words a session that does not exist gets: a distinct refusal
+ * would tell one person that another's conversation is there.
  */
-export const EXPORT_UNATTRIBUTABLE
-  = 'session log export is unavailable: this deployment serves named people, and this route cannot tell who is asking'
+export const EXPORT_NOT_FOUND = 'session not found'
 
 /**
- * Whether this deployment serves named people.
+ * Whether the call in progress may export one session.
  *
- * Read per call rather than at mount: the identity rows may arrive after
- * this one, and an answer taken once at load would keep serving a
- * deployment that has since grown accounts.
+ * The route runs inside the same per-request scopes a decoded call does, so
+ * the principal is published here and the ownership rule answers for it.
+ * The observation is the authoritative read — a live session answers from
+ * its own projection, a cold one from the log this export is about to read
+ * anyway — and a deployment that mounts no rule admits every caller, which
+ * is the single-operator shape.
  * @param ctx - Host context the route runs in.
- * @returns true when a request principal exists to be told apart.
+ * @param ready - the resolved export services.
+ * @param sessionId - the session the query named.
+ * @param signal - the caller's cancellation.
+ * @returns true when this call may export it.
  */
-function servesNamedPeople(ctx: Context): boolean {
-  return ctx.get('requestPrincipal') !== undefined
+async function mayExport(
+  ctx: Context,
+  ready: SessionLogExportReady,
+  sessionId: SessionId,
+  signal: AbortSignal,
+): Promise<boolean> {
+  const visibility = ctx.get('sessionVisibility')
+  if (visibility === undefined) return true
+  using observation = await ready.sessionQuery.observeSession(sessionId, { signal, projectionMode: 'none' })
+  return await visibility.mayReadObservation(observation)
 }
 
 /**
@@ -106,14 +116,9 @@ export function apply(ctx: Context, config: Config = {}): void {
     definitionId: brandString<CommandDefinitionId>('@lyness/lyn-session-log-export'),
     name: 'export',
     description: 'Download this Session log as a ZIP archive',
-    handler: (invocation) => {
-      if (invocation.rawInput.trim() !== '') {
-        return Promise.resolve({ kind: 'error', text: 'The Web /export command does not accept a path.' })
-      }
-      return Promise.resolve(servesNamedPeople(ctx)
-        ? { kind: 'error', text: EXPORT_UNATTRIBUTABLE }
-        : REQUESTED)
-    },
+    handler: invocation => Promise.resolve(invocation.rawInput.trim() === ''
+      ? REQUESTED
+      : { kind: 'error', text: 'The Web /export command does not accept a path.' }),
   }), 'session-log-download: command')
   connectionOf(ctx).fetch.register({
     path: SESSION_LOG_EXPORT_PATH,
@@ -141,7 +146,6 @@ async function sessionLogExportResponse(
   request: Request,
   compressionLevel: SessionLogCompressionLevel,
 ): Promise<Response> {
-  if (servesNamedPeople(ctx)) return new Response(EXPORT_UNATTRIBUTABLE, { status: 404 })
   const url = new URL(request.url)
   const query = Object.fromEntries(url.searchParams)
   const sessionIdValue = query['sessionId']
@@ -165,6 +169,14 @@ async function sessionLogExportResponse(
     sessionPersistence: deps.sessionPersistence,
     attachments: deps.attachments,
     sessions: deps.sessions,
+  }
+  try {
+    if (!await mayExport(ctx, ready, sessionId, request.signal)) {
+      return new Response(EXPORT_NOT_FOUND, { status: 404 })
+    }
+  } catch {
+    request.signal.throwIfAborted()
+    return new Response(EXPORT_NOT_FOUND, { status: 404 })
   }
   let rootContent: string | undefined
   try {
