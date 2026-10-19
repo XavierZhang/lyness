@@ -10,12 +10,12 @@
  * Loader fixtures resolve from their package manifest.
  */
 
-import { globSync, readFileSync } from 'node:fs'
+import { existsSync, globSync, readdirSync, readFileSync } from 'node:fs'
 import { dirname, relative, resolve } from 'node:path'
 import { Script } from 'node:vm'
 import ts from 'typescript'
 import type { LynBundleManifest } from '../packages/util/package-manifest/src/types.ts'
-import { bundlePatchFiles, bundlePatchPaths } from '../packages/boot/app-boot/src/profile.ts'
+import { bundlePatchFiles, bundlePatchPaths, PROFILE_TEMPLATES } from '../packages/boot/app-boot/src/profile.ts'
 import { cordisConfigFiles } from './cordis-config-files.ts'
 import { isAgentPresetEntry, presetDefinitions, isCordisGroupEntry, isJsExpr, loadCordisYaml } from './cordis-yaml.ts'
 
@@ -138,24 +138,21 @@ function validateClientHalvesDeclared(): string[] {
  */
 function validatePresetPlaneSeparation(): string[] {
   const problems: string[] = []
-  // The shipped Web surface is two bundle layers over an empty root; the web
-  // layer is its host patch followed by one patch file per shipped preset.
-  const hostFile = 'packages/bundle/base/cordis.patch.yml'
-  const overlayDir = 'packages/bundle/web-app'
-  const overlayManifest = JSON.parse(readFileSync(resolve(root, overlayDir, 'package.json'), 'utf8')) as { lyn: { bundle: LynBundleManifest } }
-  const overlayFiles = bundlePatchFiles(overlayManifest.lyn.bundle).map(file => `${overlayDir}/${file.replace(/^\.\//, '')}`)
+  // Every layer the shipped Web template selects, in its own order: a row's
+  // plane is decided by the whole composition, so reading two bundles would
+  // miss a row a third one inserts and a fourth one takes back out.
+  const files = shippedWebPatchFiles()
   const disabled = new Set<string>()
-  const overlayRows = new Set<string>()
-  for (const file of overlayFiles) {
+  const inserted = new Set<string>()
+  for (const file of files) {
     for (const entry of loadEntries(file)) {
       if (!isRecord(entry)) continue
       if (entry.disabled === true && typeof entry.id === 'string') disabled.add(entry.id)
     }
-    for (const id of rowIds(file)) overlayRows.add(id)
+    for (const id of rowIds(file)) inserted.add(id)
   }
-  // The overlay's own inserts are host-plane too; its disables take them back out.
-  const active = new Set([...rowIds(hostFile), ...overlayRows].filter(id => !disabled.has(id)))
-  for (const file of overlayFiles) {
+  const active = new Set([...inserted].filter(id => !disabled.has(id)))
+  for (const file of files) {
     for (const definition of presetDefinitions(loadEntries(file))) {
       for (const id of collectRowIds(definition.plugins)) {
         if (active.has(id)) problems.push(`${file}#${definition.id}: row "${id}" is also active in the host composition; a row belongs to exactly one plane`)
@@ -163,6 +160,31 @@ function validatePresetPlaneSeparation(): string[] {
     }
   }
   return problems
+}
+
+/**
+ * The patch files the shipped `web` template composes, in layer order.
+ * @returns repository-relative patch paths.
+ */
+function shippedWebPatchFiles(): string[] {
+  const directories = new Map<string, string>()
+  for (const entry of readdirSync(resolve(root, 'packages/bundle'), { withFileTypes: true })) {
+    if (!entry.isDirectory()) continue
+    const manifestPath = resolve(root, 'packages/bundle', entry.name, 'package.json')
+    if (!existsSync(manifestPath)) continue
+    const manifest = JSON.parse(readFileSync(manifestPath, 'utf8')) as PackageManifest & { lyn?: { bundle?: LynBundleManifest } }
+    if (manifest.name !== undefined && manifest.lyn?.bundle !== undefined) {
+      directories.set(manifest.name, `packages/bundle/${entry.name}`)
+    }
+  }
+  const files: string[] = []
+  for (const name of PROFILE_TEMPLATES['web']?.bundles ?? []) {
+    const directory = directories.get(name)
+    if (directory === undefined) continue
+    const manifest = JSON.parse(readFileSync(resolve(root, directory, 'package.json'), 'utf8')) as { lyn: { bundle: LynBundleManifest } }
+    files.push(...bundlePatchFiles(manifest.lyn.bundle).map(file => `${directory}/${file.replace(/^\.\//, '')}`))
+  }
+  return files
 }
 
 /** Every entry of one config file, or an empty list when it is not an entry array. */
