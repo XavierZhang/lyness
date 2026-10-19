@@ -75,6 +75,36 @@ describe('desktop external plugin profile', () => {
     expect(lstatSync(path).isDirectory()).toBe(true)
     expect(lstatSync(join(profile, 'node_modules/plugin')).isDirectory()).toBe(true)
   })
+  it('brings a profile this product shipped forward to the current Web template', async () => {
+    const { manager } = setup()
+    await manager.applyRelease()
+    const path = join(manager.paths.profile, 'package.json')
+    const read = (): string[] => (JSON.parse(readFileSync(path, 'utf8')) as {
+      lyn: { profile: { bundles: string[] } }
+    }).lyn.profile.bundles
+    const current = read()
+
+    // A profile created before the Web execution plane moved into its own
+    // bundle: left alone it runs those rows on two planes at once.
+    const superseded = current.filter(bundle => bundle !== '@lyness/lyn-web-execution')
+    expect(superseded).not.toEqual(current)
+    writeFileSync(path, JSON.stringify({
+      ...JSON.parse(readFileSync(path, 'utf8')),
+      lyn: { profile: { bundles: superseded } },
+    }))
+    await manager.applyRelease()
+    expect(read()).toEqual(current)
+
+    // One its owner edited keeps exactly what they wrote.
+    const owned = [...current, 'plugin']
+    writeFileSync(path, JSON.stringify({
+      ...JSON.parse(readFileSync(path, 'utf8')),
+      lyn: { profile: { bundles: owned } },
+    }))
+    await manager.applyRelease()
+    expect(read()).toEqual(owned)
+  })
+
   it('reuses plugin files without scanning manifests and can disable them', async () => {
     const { manager } = setup()
     await manager.applyRelease()

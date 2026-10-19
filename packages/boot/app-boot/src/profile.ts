@@ -186,7 +186,16 @@ export function resolveProfileDir(name: string, home: string = resolveLynHome())
   return join(home, PROFILES_DIR, name)
 }
 
-/** The shipped profile templates auto-initialized on first use, by name. */
+/**
+ * The shipped profile templates auto-initialized on first use, by name.
+ *
+ * Changing a template's bundle list leaves every profile already on disk
+ * holding the old one: a profile records what it was created with, and
+ * nothing rewrites a list its owner may have edited. Record the superseded
+ * list in {@link INSTALLATION_OWNED_PROFILE_TUPLES} in the same change, so a
+ * profile still holding exactly what this product shipped follows the move
+ * and one that was edited by hand keeps what its owner wrote.
+ */
 export const PROFILE_TEMPLATES: Record<string, ProfileTemplate> = {
   acp: {
     bundles: ['@lyness/lyn-base', '@lyness/lyn-module-execution', '@lyness/lyn-acp-app'],
@@ -310,6 +319,30 @@ const INSTALLATION_OWNED_PROFILE_TUPLES: Record<string, readonly (readonly strin
     ['@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-module-deliverables',
       '@lyness/lyn-module-extensions', '@lyness/lyn-module-lsp', '@lyness/lyn-module-memory',
       '@lyness/lyn-module-schedule', '@lyness/lyn-module-terminal', '@lyness/lyn-module-webhook'],
+    // After execution became its own bundle, before the Web execution plane
+    // moved into one. A profile left on this list keeps the shell, filesystem,
+    // workflow and ralph rows on the host plane while its presets mount their
+    // own, which is the collision both planes exist to prevent.
+    ['@lyness/lyn-base', '@lyness/lyn-module-execution', '@lyness/lyn-web-app',
+      '@lyness/lyn-module-deliverables', '@lyness/lyn-module-extensions', '@lyness/lyn-module-lsp',
+      '@lyness/lyn-module-memory', '@lyness/lyn-module-schedule', '@lyness/lyn-module-terminal',
+      '@lyness/lyn-module-webhook'],
+  ],
+  enterprise: [
+    // The shape as first shipped: before it served named people, and before
+    // the Web execution plane moved into its own bundle.
+    ['@lyness/lyn-base', '@lyness/lyn-module-execution', '@lyness/lyn-web-app',
+      '@lyness/lyn-module-deliverables', '@lyness/lyn-module-extensions', '@lyness/lyn-module-lsp',
+      '@lyness/lyn-module-memory', '@lyness/lyn-module-model-governance',
+      '@lyness/lyn-module-schedule', '@lyness/lyn-module-terminal', '@lyness/lyn-module-webhook'],
+  ],
+  hosted: [
+    // Before the ledger became its own bundle, when the accounts module
+    // carried it. A profile left on this list meters nobody.
+    ['@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-module-accounts',
+      '@lyness/lyn-module-deliverables', '@lyness/lyn-module-memory',
+      '@lyness/lyn-module-model-governance', '@lyness/lyn-module-schedule',
+      '@lyness/lyn-module-webhook'],
   ],
 }
 
@@ -699,6 +732,23 @@ function sameBundles(left: readonly string[], right: readonly string[]): boolean
  */
 function rescopedBundleName(bundle: string): string {
   return bundle.replace(/^@lyness\/(?!lyn-)/u, '@lyness/lyn-')
+}
+
+/**
+ * Bring one profile's bundle list to the template it was created from.
+ *
+ * For a caller that knows which shipped template a profile follows without
+ * the profile being named after it — the Desktop plugin profile follows
+ * `web` under the project's own name. A list the owner edited is left alone,
+ * and a list already equal to the template is not rewritten, so a release
+ * that changes nothing writes nothing.
+ * @param binName - the diagnostic prefix on thrown errors.
+ * @param dir - the profile directory.
+ * @param templateName - the shipped template this profile follows.
+ */
+export function followShippedTemplate(binName: string, dir: string, templateName: string): void {
+  if (!existsSync(join(dir, 'package.json'))) return
+  normalizeShippedProfile(templateName, dir, readProfileManifest(binName, dir))
 }
 
 /**

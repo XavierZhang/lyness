@@ -109,6 +109,12 @@ Edit the channel, type the new secret, and save. Leaving the secret field empty 
 
 Removing a channel ends the way in for everybody who signed in through it and deletes its application secret. The page asks for an acknowledgement before it does either. Bindings written for that channel stay in the profile and admit nobody, because no channel reports that id any more.
 
+### Upgrade it
+
+Installing a newer lyn does not rewrite your profile, with one exception: when a release moves a capability into a different bundle, a profile whose bundle list is still exactly one this product shipped is brought forward to the current list. A list you edited — a plugin added, a bundle removed — is left exactly as you wrote it, and a profile already on the current list is not written at all.
+
+So after an upgrade that changed the shape of a profile, check `$LYNESS_HOME/profiles/<name>/package.json` against the shipped list only if you have edited it; the release notes name what moved. An edited profile that misses a new bundle keeps working, except where the release moved rows between composition layers — the startup log names the rows it could not place.
+
 ### Who can do what
 
 Configuring channels requires an administrator's standing. A member who opens the page reads that only an administrator can configure sign-in, and sees nothing else. A tenant administrator — on a deployment that has organizations — configures only their own organization's channels, and the deployment-wide ones stay out of reach.

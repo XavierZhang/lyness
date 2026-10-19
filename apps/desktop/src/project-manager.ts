@@ -23,7 +23,8 @@ import type { DesktopPaths } from './paths.ts'
 import type { DesktopRelease } from './release.ts'
 import { readDesktopRuntime } from './runtime-tree.ts'
 import {
-  initProfile, PROFILE_TEMPLATES, removeLinkProjections, sanitizeProfile, type ProfileTemplate,
+  followShippedTemplate, initProfile, PROFILE_TEMPLATES, removeLinkProjections, sanitizeProfile,
+  type ProfileTemplate,
 } from '@lyness/lyn-app-boot'
 
 const PROJECT_NAME = '@lyness/lyn-desktop-runtime'
@@ -86,6 +87,10 @@ export class DesktopProjectManager {
       readDesktopRuntime(this.runtime.lyn)
       migrateProfileSettings(this.paths.profile)
       createPluginProfile(this.paths.profile)
+      // The plugin profile follows the Web template under the project's own
+      // name, so a release that moved a bundle reaches it here: a list this
+      // product shipped is brought forward, one its owner edited is not.
+      followShippedTemplate('lyn', this.paths.profile, 'web')
       removeLinkProjections(this.paths.profile)
     })
   }

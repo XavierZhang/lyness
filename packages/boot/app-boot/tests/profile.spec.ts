@@ -15,6 +15,7 @@ import { afterAll, describe, expect, it, onTestFinished, vi } from 'vitest'
 import {
   composeEntries,
   createRuntimeResolution,
+  followShippedTemplate,
   getLynRuntimeVersion,
   initProfile,
   loadProfile,
@@ -387,6 +388,80 @@ describe('loadProfile', () => {
     expect(readProfileManifest('t', custom).lyn?.profile?.bundles).toEqual([
       '@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-headless', 'custom-bundle',
     ])
+  })
+
+  it('carries an existing profile through a template that gained a bundle', () => {
+    // Every bundle both the superseded tuple and the current template name,
+    // so resolution succeeds either way and the manifest is what is observed.
+    const staged: Record<string, { patch: string }> = {}
+    for (const name of new Set([
+      ...PROFILE_TEMPLATES['web']?.bundles ?? [],
+      ...PROFILE_TEMPLATES['hosted']?.bundles ?? [],
+      'custom-bundle',
+    ])) staged[name] = { patch: '[]\n' }
+    const anchor = stageInstallation(staged)
+
+    // A Web profile created before the execution plane moved into its own
+    // bundle: left alone it would run those rows on both planes.
+    const home = tmp()
+    const web = resolveProfileDir('web', home)
+    initProfile(web, [
+      '@lyness/lyn-base', '@lyness/lyn-module-execution', '@lyness/lyn-web-app',
+      '@lyness/lyn-module-deliverables', '@lyness/lyn-module-extensions', '@lyness/lyn-module-lsp',
+      '@lyness/lyn-module-memory', '@lyness/lyn-module-schedule', '@lyness/lyn-module-terminal',
+      '@lyness/lyn-module-webhook',
+    ])
+    loadProfile('t', 'web', anchor, home)
+    expect(readProfileManifest('t', web).lyn?.profile?.bundles)
+      .toEqual([...PROFILE_TEMPLATES['web']?.bundles ?? []])
+
+    // A hosted profile created before the ledger became its own bundle.
+    const hostedHome = tmp()
+    const hosted = resolveProfileDir('hosted', hostedHome)
+    initProfile(hosted, [
+      '@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-module-accounts',
+      '@lyness/lyn-module-deliverables', '@lyness/lyn-module-memory',
+      '@lyness/lyn-module-model-governance', '@lyness/lyn-module-schedule',
+      '@lyness/lyn-module-webhook',
+    ])
+    loadProfile('t', 'hosted', anchor, hostedHome)
+    expect(readProfileManifest('t', hosted).lyn?.profile?.bundles)
+      .toEqual([...PROFILE_TEMPLATES['hosted']?.bundles ?? []])
+
+    // One the owner edited keeps exactly what they wrote, and a profile
+    // already on the current list is not rewritten at all.
+    const editedHome = tmp()
+    const edited = resolveProfileDir('web', editedHome)
+    const own = [...PROFILE_TEMPLATES['web']?.bundles ?? [], 'custom-bundle']
+    initProfile(edited, own)
+    loadProfile('t', 'web', anchor, editedHome)
+    expect(readProfileManifest('t', edited).lyn?.profile?.bundles).toEqual(own)
+  })
+
+  it('follows a named template for a profile stored under another name', () => {
+    // The Desktop plugin profile lives under the project's own name, so
+    // nothing can infer which template it follows; its owner says so.
+    const home = tmp()
+    const dir = join(home, 'project-profile')
+    expect(() => { followShippedTemplate('t', dir, 'web') }).not.toThrow()
+
+    initProfile(dir, [
+      '@lyness/lyn-base', '@lyness/lyn-module-execution', '@lyness/lyn-web-app',
+      '@lyness/lyn-module-deliverables', '@lyness/lyn-module-extensions', '@lyness/lyn-module-lsp',
+      '@lyness/lyn-module-memory', '@lyness/lyn-module-schedule', '@lyness/lyn-module-terminal',
+      '@lyness/lyn-module-webhook',
+    ])
+    followShippedTemplate('t', dir, 'web')
+    expect(readProfileManifest('t', dir).lyn?.profile?.bundles)
+      .toEqual([...PROFILE_TEMPLATES['web']?.bundles ?? []])
+
+    const owned = [...PROFILE_TEMPLATES['web']?.bundles ?? [], 'plugin']
+    writeProfileManifest(dir, {
+      ...readProfileManifest('t', dir),
+      lyn: { profile: { bundles: owned } },
+    })
+    followShippedTemplate('t', dir, 'web')
+    expect(readProfileManifest('t', dir).lyn?.profile?.bundles).toEqual(owned)
   })
 
   it('normalizes a tuple a profile spelled before the package rescope', () => {

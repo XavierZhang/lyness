@@ -60,6 +60,7 @@ export {
   OPTIONAL_BUNDLES,
   bundlePatchFiles,
   bundlePatchPaths,
+  followShippedTemplate,
   initProfile,
   removeLinkProjections,
   loadProfile,
