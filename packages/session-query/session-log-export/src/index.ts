@@ -6,6 +6,7 @@ import Schema from '@lyness/schemastery'
 import { brandString } from '@lyness/lyn-brand'
 import type {} from '@lyness/lyn-attachment'
 import type { CommandResult } from '@lyness/lyn-commands'
+import type {} from '@lyness/lyn-request-principal'
 import type { SessionId } from '@lyness/lyn-session/types'
 import {
   DEFAULT_SESSION_LOG_COMPRESSION_LEVEL,
@@ -71,6 +72,31 @@ const REQUESTED: CommandResult = {
 }
 
 /**
+ * Why a deployment that serves named people exports nothing.
+ *
+ * The download is a plain authenticated route rather than a Remote call, and
+ * a request principal is published only inside the RPC scope, so this route
+ * cannot tell which person is asking. On a deployment with one operator that
+ * is no question; on one with several it is the whole question, and serving
+ * everybody's log to anybody who is signed in is the wrong answer to it.
+ */
+export const EXPORT_UNATTRIBUTABLE
+  = 'session log export is unavailable: this deployment serves named people, and this route cannot tell who is asking'
+
+/**
+ * Whether this deployment serves named people.
+ *
+ * Read per call rather than at mount: the identity rows may arrive after
+ * this one, and an answer taken once at load would keep serving a
+ * deployment that has since grown accounts.
+ * @param ctx - Host context the route runs in.
+ * @returns true when a request principal exists to be told apart.
+ */
+function servesNamedPeople(ctx: Context): boolean {
+  return ctx.get('requestPrincipal') !== undefined
+}
+
+/**
  * Register the Web-only `/export` command and authenticated ZIP download route.
  * @param ctx - Host context carrying the human-command registry.
  * @param config - resolved compression policy.
@@ -80,9 +106,14 @@ export function apply(ctx: Context, config: Config = {}): void {
     definitionId: brandString<CommandDefinitionId>('@lyness/lyn-session-log-export'),
     name: 'export',
     description: 'Download this Session log as a ZIP archive',
-    handler: invocation => Promise.resolve(invocation.rawInput.trim() === ''
-      ? REQUESTED
-      : { kind: 'error', text: 'The Web /export command does not accept a path.' }),
+    handler: (invocation) => {
+      if (invocation.rawInput.trim() !== '') {
+        return Promise.resolve({ kind: 'error', text: 'The Web /export command does not accept a path.' })
+      }
+      return Promise.resolve(servesNamedPeople(ctx)
+        ? { kind: 'error', text: EXPORT_UNATTRIBUTABLE }
+        : REQUESTED)
+    },
   }), 'session-log-download: command')
   connectionOf(ctx).fetch.register({
     path: SESSION_LOG_EXPORT_PATH,
@@ -102,7 +133,7 @@ export function apply(ctx: Context, config: Config = {}): void {
 }
 
 function connectionOf(ctx: Context): SessionLogConnection {
-  return Reflect.get(ctx, 'connection') as SessionLogConnection
+  return Reflect.get(ctx, 'connection')
 }
 
 async function sessionLogExportResponse(
@@ -110,6 +141,7 @@ async function sessionLogExportResponse(
   request: Request,
   compressionLevel: SessionLogCompressionLevel,
 ): Promise<Response> {
+  if (servesNamedPeople(ctx)) return new Response(EXPORT_UNATTRIBUTABLE, { status: 404 })
   const url = new URL(request.url)
   const query = Object.fromEntries(url.searchParams)
   const sessionIdValue = query['sessionId']

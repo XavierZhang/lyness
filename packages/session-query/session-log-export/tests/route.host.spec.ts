@@ -8,6 +8,7 @@ import { strFromU8, unzipSync } from 'fflate'
 import { describe, expect, it } from 'vitest'
 import {
   Config,
+  EXPORT_UNATTRIBUTABLE,
   SESSION_LOG_FILENAME,
   SESSION_LOG_EXPORT_PATH,
   apply,
@@ -34,12 +35,15 @@ function readHandle(id: string): SessionHandle {
   } as unknown as SessionHandle
 }
 
-async function mounted(withServices: boolean): Promise<{
+async function mounted(withServices: boolean, withAccounts = false): Promise<{
   readonly connection: HostConnectionService
   readonly dispose: () => Promise<void>
 }> {
   const ctx = new Context()
   ctx.provide('commands', { register: () => () => {} } as never)
+  // A deployment that serves named people publishes a request principal —
+  // inside the RPC scope, which a plain route never enters.
+  if (withAccounts) ctx.provide('requestPrincipal', { current: () => undefined } as never)
   if (withServices) {
     ctx.provide('sessionQuery', {
       traceSession: async () => ({ descendants: [] }),
@@ -81,6 +85,19 @@ describe('Session log export Fetch route', () => {
     expect((await shared.fetch(new Request(
       `http://host${SESSION_LOG_EXPORT_PATH}?sessionId=session-1`,
     ))).status).toBe(404)
+  })
+
+  it('serves nothing on a deployment that serves named people', async () => {
+    const { connection, dispose } = await mounted(true, true)
+    const shared = connection.createSharedFetchHandler('/api')
+    const response = await shared.fetch(new Request(
+      `http://host${SESSION_LOG_EXPORT_PATH}?sessionId=session-1`,
+    ))
+    // Not a refusal of this caller — there is no caller this route can tell
+    // apart — so the download is absent rather than forbidden.
+    expect(response.status).toBe(404)
+    expect(await response.text()).toBe(EXPORT_UNATTRIBUTABLE)
+    await dispose()
   })
 
   it('validates the query before reporting missing export services', async () => {

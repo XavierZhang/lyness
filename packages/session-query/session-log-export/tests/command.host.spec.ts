@@ -33,4 +33,24 @@ describe('/export Web download command', () => {
     await fiber.dispose()
     expect(descriptor).toBeUndefined()
   })
+
+  it('says why it cannot export on a deployment that serves named people', async () => {
+    let descriptor: CommandDefinition | undefined
+    const ctx = new Context()
+    ctx.provide('commands', {
+      register(next: CommandDefinition) {
+        descriptor = next
+        return () => { descriptor = undefined }
+      },
+    } as never)
+    ctx.provide('connection', { fetch: { register: () => () => Promise.resolve() } } as never)
+    ctx.provide('requestPrincipal', { current: () => undefined } as never)
+    const fiber = await ctx.plugin(SessionLogDownload)
+
+    // The command would otherwise promise a download the route withholds.
+    await expect(descriptor?.handler({ rawInput: '' } as CommandInvocation)).resolves.toEqual({
+      kind: 'error', text: SessionLogDownload.EXPORT_UNATTRIBUTABLE,
+    })
+    await fiber.dispose()
+  })
 })

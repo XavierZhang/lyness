@@ -40,6 +40,6 @@ The rule is a composition row. `module-accounts` selects it beside the stamp; a 
 
 A deployment with accounts now separates its people's conversations on every Remote read, and a single-operator install is unchanged because the rule is not mounted there. The session list costs one cache read per cold row.
 
-Two readers remain outside the rule, both named in the package's Known Limitations: the `/export` ZIP route is a plain authenticated HTTP route that no request principal enters, and the `session_query` tool runs inside an Agent, which by design has no principal — so on a deployment with accounts both still reach every session the deployment holds. Closing them needs a principal on plain fetch routes and a subject for a tool call, which are their own decisions.
+Two readers could not ask the rule, and they answer differently. The `/export` ZIP route is a plain authenticated HTTP route that no request principal enters, so it withholds itself entirely where people are named: 404, with the reason, rather than one person's log served to another. The `session_query` tool runs inside an Agent, which by design has no principal, and still reaches every session the deployment holds. Serving the asker's own sessions from that route needs a principal on plain Fetch routes, and the tool needs a subject for a tool call; both are their own decisions.
 
 A subagent child whose parent is closed is invisible to its owner until the parent is open again. The alternative is resuming a parent to decide whether to show a child, which turns a read into an activation.

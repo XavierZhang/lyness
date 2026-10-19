@@ -61,6 +61,10 @@ The dialog reports three phases: preparing, download started, or failed. Closing
 
 Attachment collection reads declared content fields of built-in Session events and completed assistant stream blocks, including flat V4 tool-role messages. Unknown event payloads and unrelated fields remain unchanged in the exported log but do not cause attachment reads.
 
+### Deployments with accounts
+
+A deployment that serves named people exports nothing: the route answers 404 and the `/export` command says why. The download is a plain authenticated route rather than a Remote call, and a request principal is published only inside the RPC scope, so this route cannot tell which person is asking — and serving everybody's log to anybody who is signed in is the wrong answer to that question. The check reads the principal service per call, so a deployment that grows accounts stops exporting without a restart.
+
 ### Failures
 
 The dialog shows a preparation error when the preflight fails before ZIP streaming starts — for example an unreachable or misconfigured host endpoint. A descendant or attachment read failure after the browser accepts the GET is reported by the browser download manager, not by the dialog.
@@ -129,6 +133,7 @@ These limits define when this package is a poor fit or needs special operational
 
 - **Browser download, not a Host-path writer** — the browser chooses the local destination; no Host path or native folder action is returned.
 - **Preflight reports only pre-stream failures** — a descendant or attachment failure after the browser accepts the GET is reported by the browser download manager, not by the dialog.
+- **Withheld entirely where people are named** — rather than exporting the asker's own sessions, which needs a request principal on plain Fetch routes; until that exists, a deployment with accounts has no session export at all.
 
 <a id="dev-note"></a>
 ### Dev Note
