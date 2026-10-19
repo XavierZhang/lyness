@@ -169,6 +169,26 @@ export class SessionProjectionCache extends Service {
   }
 
   /**
+   * The stored rows for a listed Session, without any log read.
+   *
+   * The Host-only rung of {@link cachedSnapshot}: the stored record holds
+   * every registered unit's state, including units with no client view, so a
+   * Host rule that must decide something about a listed Session — whose
+   * conversation it is, for one — reads its own unit out of these rows with
+   * `sessionProjections.checkpointState` instead of publishing that state to
+   * the client to read it back. The same lifecycle identity governs it, so a
+   * record bound to another generation of this id answers nothing.
+   * @param meta - the listed session's header (identity witness; no log read).
+   * @returns the stored rows, or `undefined` when no record is bound to this lifecycle.
+   */
+  cachedCheckpoint(meta: SessionHeader): ProjectionCheckpoint | undefined {
+    const expected = lifecycleIdentityOf(meta)
+    const record = this.requireTable().get(meta.id)
+    if (record === undefined || !currentLifecycleMatches(record.identity, expected)) return undefined
+    return record.rows
+  }
+
+  /**
    * Read only a predecessor checkpoint's title as a zero-I/O listing hint.
    *
    * The authoritative Session header supplies the lifecycle identity. A cache

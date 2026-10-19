@@ -9,7 +9,7 @@ English | [中文](README.zh.md)
 
 ## Summary
 
-`lyn-session-ownership` records whose conversation a session is: the person who opened it, and the standing they held it open under. It is written once, at creation, from the principal the call published, and never rewritten. A private deployment never needed it — there is one person — while a hosted process serves many organizations, and a conversation nobody is attributed to is one its organization cannot answer for. A session opened by nobody, such as a CLI run or an inbound webhook, carries no owner rather than an invented one.
+`lyn-session-ownership` records whose conversation a session is — the person who opened it, and the standing they held it open under — and, through its `./visibility` row, decides who may read it afterwards. The record is written once, at creation, from the principal the call published, and never rewritten. A private deployment never needed either half: there is one person. A session opened by nobody, such as a CLI run or an inbound webhook, carries no owner rather than an invented one, and reads as the deployment's own.
 
 ## Table of Contents
 
@@ -28,9 +28,14 @@ English | [中文](README.zh.md)
 ```yaml
 - id: session-ownership
   name: '@lyness/lyn-session-ownership'
+
+- id: session-visibility
+  name: '@lyness/lyn-session-ownership/visibility'
 ```
 
-It takes no configuration and needs the sessions, the projection registry, and the request principal. A reader asks the session:
+Neither row takes configuration. The stamp needs the sessions, the projection registry, and the request principal; the rule needs the directory as well, to tell a platform administrator from everyone else. Selecting the stamp without the rule records attribution that nothing acts on, which on a deployment serving several people means each of them can still list and open the others' conversations.
+
+A reader asks the session:
 
 ```ts
 import type { Context } from '@lyness/cordis'
@@ -60,6 +65,10 @@ if (owner !== undefined) {
 
 **No owner is a real answer.** A CLI run, a subagent and an inbound webhook all create sessions no request principal opened. They carry no owner, because attribution invented here would be permanent.
 
+**A conversation belongs to the person who opened it, and to nobody else.** `ctx.sessionVisibility` answers for the call in progress: its own conversations, never another person's — administering a deployment is not reading its people's conversations — and an unattributed one only for a platform administrator, because that is the one standing that can answer for what the deployment did on its own. A call with no principal is the deployment acting on itself and sees everything, which is what keeps the CLI, a subagent and a scheduled follow-up working.
+
+**A listing never opens a log.** The rule reads a live session's own projection and a cold row's stored projection state, so filtering a list costs no reads. A row whose owner is not in the cache reads as unattributed: it stays out of a member's list rather than leaking, and opening it by id still asks the session's own log.
+
 -----
 
 <a id="further-exploration"></a>
@@ -84,7 +93,7 @@ No request prefix changes, because the event never enters the assembled request.
 
 <a id="known-limitations-and-deferred-work"></a>
 
-- **Nothing filters by owner yet** — the record exists; the session list, the query backends and the export surface still show every session a reader can reach.
+- **The Remote session surface filters; the others do not yet** — the list, the search, every Agent-backed endpoint, the history and the projections ask the rule. The `/export` ZIP route is a plain authenticated HTTP route that no request principal enters, and the `session_query` tool runs inside an Agent with no principal at all, so both still reach every session the deployment holds.
 - **Archived-on-removal is not implemented** — the decision derives an archived state from the owner's standing; nothing reads it that way today.
 - **An unowned session is indistinguishable from a pre-attribution one** — both read as no owner, so a deployment that mounted this plugin late cannot tell which of its old sessions simply predate it.
 - **A hosted deployment can still create unowned sessions** — webhook and subagent sessions legitimately have no principal, so absence cannot be made an error here.

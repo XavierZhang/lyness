@@ -383,6 +383,7 @@
       "@lyness/lyn-sign-in/attempts": ["./packages/identity/sign-in/src/attempts.ts"],
       "@lyness/lyn-sign-in/kinds": ["./packages/identity/sign-in/src/kinds.ts"],
       "@lyness/lyn-sign-in/redirect": ["./packages/identity/sign-in/src/redirect.ts"],
+      "@lyness/lyn-session-ownership/visibility": ["./packages/identity/session-ownership/src/visibility.ts"],
       "@lyness/lyn-sign-in/types": ["./packages/identity/sign-in/src/types.ts"],
       "@lyness/lyn-sign-in-http/cookie": ["./packages/identity/sign-in-http/src/cookie.ts"],
       "@lyness/lyn-credits/period": ["./packages/credits/credits/src/period.ts"],

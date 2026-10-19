@@ -23,6 +23,10 @@
     "./types": {
       "types": "./lib/types/types.d.ts",
       "default": "./lib/types/types.js"
+    },
+    "./visibility": {
+      "types": "./lib/types/visibility.d.ts",
+      "default": "./lib/types/visibility.js"
     }
   },
   "files": [
@@ -40,6 +44,7 @@
     "@lyness/lyn-request-principal": "workspace:*",
     "@lyness/lyn-session": "workspace:*",
     "@lyness/lyn-session-projection": "workspace:*",
+    "@lyness/lyn-session-projection-cache": "workspace:*",
     "@lyness/lyn-storage-domain": "workspace:*"
   },
   "devDependencies": {
@@ -48,6 +53,7 @@
     "@lyness/lyn-request-principal": "workspace:*",
     "@lyness/lyn-session": "workspace:*",
     "@lyness/lyn-session-projection": "workspace:*",
+    "@lyness/lyn-session-projection-cache": "workspace:*",
     "@lyness/lyn-storage-domain": "workspace:*"
   }
 }

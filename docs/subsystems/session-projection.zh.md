@@ -142,6 +142,21 @@ The persisted projection cache service. Opens the `session_projcache` domain at 
 cachedSnapshot( meta: SessionHeader, keys?: readonly Extract<keyof SessionProjectionMap, string>[], ): ProjectionSnapshot | undefined
 
 /**
+ * The stored rows for a listed Session, without any log read.
+ *
+ * The Host-only rung of {@link cachedSnapshot}: the stored record holds
+ * every registered unit's state, including units with no client view, so a
+ * Host rule that must decide something about a listed Session — whose
+ * conversation it is, for one — reads its own unit out of these rows with
+ * `sessionProjections.checkpointState` instead of publishing that state to
+ * the client to read it back. The same lifecycle identity governs it, so a
+ * record bound to another generation of this id answers nothing.
+ * @param meta - the listed session's header (identity witness; no log read).
+ * @returns the stored rows, or `undefined` when no record is bound to this lifecycle.
+ */
+cachedCheckpoint(meta: SessionHeader): ProjectionCheckpoint | undefined
+
+/**
  * Read only a predecessor checkpoint's title as a zero-I/O listing hint.
  *
  * The authoritative Session header supplies the lifecycle identity. A cache
@@ -297,6 +312,22 @@ checkpoint(session: Session): ProjectionCheckpoint
  *   {@link restore} would serve empty values regardless).
  */
 restoreFloor(checkpoint: ProjectionCheckpoint): SessionLogOffset | undefined
+
+/**
+ * Read one unit's stored state out of a checkpoint, without any log read.
+ *
+ * The host-only rung beside {@link viewCheckpoint}: a checkpoint holds
+ * every registered unit's state, including units with no client view, and
+ * a Host rule that must decide something about a listed session reads its
+ * own unit's state here rather than putting that state on the wire to get
+ * it back. A row whose `ver` does not match the live unit, or whose value
+ * its schema rejects, reads as absent — the same answer a listing consumer
+ * already handles for a key it cannot serve.
+ * @param checkpoint - persisted rows for one session (possibly stale or empty).
+ * @param key - the registered unit to read.
+ * @returns the stored state, or undefined when no usable row exists.
+ */
+checkpointState<K extends Extract<keyof SessionProjectionStateMap, string>>( checkpoint: ProjectionCheckpoint, key: K, ): SessionProjectionStateMap[K] | undefined
 
 /**
  * View a checkpoint's rows without any log read: for every registered

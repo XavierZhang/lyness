@@ -14,6 +14,7 @@ import type { SessionInspection } from '@lyness/lyn-session-persistence'
 import { SessionQueryError, type SessionObservation } from '@lyness/lyn-session-query'
 import { RemoteError } from '@lyness/lyn-typert-protocol'
 import type {} from '@lyness/lyn-typert-registry'
+import type {} from '@lyness/lyn-session-ownership/visibility'
 import type { ModelSelection } from './types.ts'
 
 /** Cold Session identity absent from persistence. */
@@ -168,7 +169,7 @@ export class ApiSessionAgentController {
    * @returns the live Agent or a stable Session-domain failure.
    */
   async resolveAgent(sessionId: SessionId): Promise<ApiSessionAgentResult> {
-    return this.resolve(sessionId)
+    return this.permitted(sessionId, await this.resolve(sessionId))
   }
 
   /**
@@ -177,7 +178,29 @@ export class ApiSessionAgentController {
    * @returns the live Agent or a stable Session-domain failure.
    */
   async resolveObservedAgent(observation: SessionObservation): Promise<ApiSessionAgentResult> {
-    return this.resolve(observation.header.id, observation)
+    return this.permitted(observation.header.id, await this.resolve(observation.header.id, observation))
+  }
+
+  /**
+   * Refuse a resolved Session the call in progress may not see.
+   *
+   * Every Agent-backed endpoint arrives through the two resolve faces, so
+   * the rule is applied once here rather than in each of them. It answers
+   * `session/not-found`, which is what a session belonging to somebody else
+   * is for this caller: a distinct refusal would let one person enumerate
+   * another's conversations by their ids.
+   * @param sessionId - the identity the call named.
+   * @param found - what resolution produced.
+   * @returns the same result, or a not-found failure.
+   */
+  private async permitted(
+    sessionId: SessionId,
+    found: ApiSessionAgentResult,
+  ): Promise<ApiSessionAgentResult> {
+    if ('error' in found) return found
+    const visibility = this.ctx.get('sessionVisibility')
+    if (visibility === undefined || await visibility.mayRead(found.agent.session)) return found
+    return { error: new RemoteError('session/not-found', `session "${sessionId}" was not found`, { sessionId }) }
   }
 
   private async resolve(

@@ -16,7 +16,7 @@ Two consequences make this urgent rather than merely incomplete. A Session log i
 
 ## Proposal
 
-A Session belongs to the person who opened it. The organization's claim on it is held through that person, and recorded as it stood when the conversation began.
+A Session belongs to the person who opened it. The organization's claim on it is held through that person, and recorded as it stood when the conversation began. Who may read that Session afterwards is the separate, shipped decision in [session visibility](../../implemented/architecture/2026-10-19-session-visibility.md).
 
 ### What a Session records, once
 

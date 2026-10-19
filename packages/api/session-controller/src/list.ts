@@ -6,7 +6,8 @@ import type { ImageAttachmentLimits } from '@lyness/lyn-attachment'
 import type { Session, SessionEvent, SessionHeader, SessionId } from '@lyness/lyn-session'
 import type { ProjectionSnapshot } from '@lyness/lyn-session-projection'
 import type {} from '@lyness/lyn-session-projection-cache'
-import { SessionQueryError, type SessionSearchCursor } from '@lyness/lyn-session-query'
+import { SessionQueryError, type SessionRecord, type SessionSearchCursor } from '@lyness/lyn-session-query'
+import type {} from '@lyness/lyn-session-ownership/visibility'
 import { RemoteError } from '@lyness/lyn-typert-protocol'
 import { z } from 'zod'
 import {
@@ -125,7 +126,7 @@ export class ApiSessionList {
    */
   async list(signal?: AbortSignal): Promise<SessionSummary[]> {
     signal?.throwIfAborted()
-    const records = await this.ctx.sessionQuery.listSessions(signal)
+    const records = await this.readable(await this.ctx.sessionQuery.listSessions(signal))
     signal?.throwIfAborted()
     const items: SessionSummary[] = []
     const cold: SessionHeader[] = []
@@ -141,6 +142,33 @@ export class ApiSessionList {
     for (const header of cold) items.push(this.summarizeCold(header))
     items.sort((left, right) => right.updatedAt - left.updatedAt)
     return items
+  }
+
+  /**
+   * Keep only the conversations the call in progress may see.
+   *
+   * Both faces read the same corpus, so the rule is applied once here: a row
+   * the caller may not see is absent from the list and absent from what a
+   * search is allowed to match, rather than filtered in one and not the
+   * other. A deployment with no accounts mounts no rule and keeps every row.
+   * @param records - the corpus rows this read produced.
+   * @returns the rows this call may see, newest-first order preserved.
+   */
+  private async readable(records: readonly SessionRecord[]): Promise<SessionRecord[]> {
+    const visibility = this.ctx.get('sessionVisibility')
+    if (visibility === undefined) return [...records]
+    const kept: SessionRecord[] = []
+    for (const record of records) {
+      // A live session answers from its own projection; a cold row answers
+      // from the durable cache, which is the only owner a listing can read
+      // without opening a log.
+      const live = this.ctx.sessions.get(record.header.id)
+      const may = live === undefined
+        ? await visibility.mayList(record.header)
+        : await visibility.mayRead(live)
+      if (may) kept.push(record)
+    }
+    return kept
   }
 
   private summarizeCold(header: SessionHeader): SessionSummary {
@@ -176,7 +204,7 @@ export class ApiSessionList {
       )
     }
     try {
-      const visible = await provider.listSessions(signal)
+      const visible = await this.readable(await provider.listSessions(signal))
       signal.throwIfAborted()
       const visibleIds = new Set(visible
         .filter(record => record.header.cwd !== undefined)

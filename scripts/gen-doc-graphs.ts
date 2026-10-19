@@ -916,6 +916,15 @@ const SERVICE_ROLES: ServiceRole[] = [
     note: 'Turns stored records into mounted channels and back: a platform administrator configures the deployment\'s own, a tenant administrator only their organization\'s, and each organization\'s sign-in page is offered only its own plus the deployment-wide ones.',
   },
   {
+    key: 'sessionVisibility',
+    pkg: 'session-ownership',
+    title: 'Whose conversation one call may see',
+    mode: 'core',
+    implementations: [],
+    consumers: ['api-session-controller'],
+    note: 'Reads back the attribution the stamp wrote: a person sees the conversations they opened and no others, an unattributed one answers only to a platform administrator, and a call with no principal is the deployment acting on itself and sees everything.',
+  },
+  {
     key: 'signInChannelController',
     pkg: 'api-sign-in-channel-controller',
     title: 'Host sign-in channel Remote controller',

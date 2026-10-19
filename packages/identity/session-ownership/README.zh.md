@@ -9,7 +9,7 @@ kind: "package-reference"
 
 ## 概述
 
-`lyn-session-ownership` 记录一个会话是谁的对话：开启它的那个人，以及他开启它时所处的身份。它在创建时写入一次，取自那次调用所发布的 principal，并且永不改写。私有部署从来不需要它——那里只有一个人；而一个托管进程服务许多组织，一场没有归属的对话，是它所属组织无法为之负责的对话。由「没有人」开启的会话（比如一次 CLI 运行或一次入站 webhook）不带归属，而不是带一个编造出来的归属。
+`lyn-session-ownership` 记录一个会话是谁的对话——开启它的那个人，以及他开启它时所处的身份——并通过它的 `./visibility` 行，决定此后谁读得到它。记录在创建时写入一次，取自那次调用所发布的 principal，并且永不改写。私有部署两半都不需要：那里只有一个人。由「没有人」开启的会话（比如一次 CLI 运行或一次入站 webhook）不带归属，而不是带一个编造出来的归属，并读作部署自己的。
 
 ## 目录
 
@@ -28,9 +28,14 @@ kind: "package-reference"
 ```yaml
 - id: session-ownership
   name: '@lyness/lyn-session-ownership'
+
+- id: session-visibility
+  name: '@lyness/lyn-session-ownership/visibility'
 ```
 
-它不接受任何配置，需要会话、投影注册表与请求 principal。读取方向会话发问：
+两行都不接受配置。写入那半需要会话、投影注册表与请求 principal；规则那半还需要目录，好把平台管理员与其余人区分开。只选写入、不选规则，等于记下了归属却没有任何东西据以行事——在服务多个人的部署上，这意味着他们各自仍能列出并打开别人的对话。
+
+读取方向会话发问：
 
 ```ts
 import type { Context } from '@lyness/cordis'
@@ -84,7 +89,7 @@ if (owner !== undefined) {
 
 <a id="known-limitations-and-deferred-work"></a>
 
-- **还没有任何东西按归属过滤** —— 记录有了；会话列表、查询后端与导出面仍然展示读取方能够到达的每一个会话。
+- **Remote 会话界面已经过滤，其余的还没有** —— 列表、搜索、每一个由 Agent 支撑的端点、历史与投影都会问那条规则。`/export` 的 ZIP 路由是一条普通的已认证 HTTP 路由，请求 principal 不进入它；`session_query` 工具跑在一个根本没有 principal 的 Agent 里面。两者仍然够得到这套部署持有的每一个会话。
 - **「移除成员即归档」尚未实现** —— 那个决定从主人的成员身份推导出归档状态；今天没有东西这样读它。
 - **「无归属」与「归属之前」无法区分** —— 两者都读成没有归属，所以一个较晚才挂上本插件的部署，分不清哪些旧会话只是早于它。
 - **托管部署仍然可以创建无归属的会话** —— webhook 与子 agent 的会话本来就没有 principal，所以在这里不能把「缺席」判为错误。

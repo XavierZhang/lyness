@@ -1,9 +1,9 @@
 /**
  * REAL-composition coverage: a test-only cordis.yml booted through the
  * vendored Loader mounts the session store, the projection registry, the
- * sessions' identity chain, and this plugin, and the assertion is the
- * durable outcome — what a session created by a signed-in call carries in
- * its own log.
+ * sessions' identity chain, and both halves of this package. The assertions
+ * are the durable outcome — what a session created by a signed-in call
+ * carries in its own log — and what a second person's call may see of it.
  */
 
 import { mkdtemp, rm, writeFile } from 'node:fs/promises'
@@ -24,11 +24,14 @@ import * as StoredAuthSessions from '@lyness/lyn-auth-session/store'
 import * as RequestPrincipal from '@lyness/lyn-request-principal'
 import { IDENTITY_COOKIE } from '@lyness/lyn-request-principal'
 import { brandString } from '@lyness/lyn-brand'
+import { StaticPeopleDirectory } from '@lyness/lyn-people/static'
 import type { PersonId } from '@lyness/lyn-people'
 import * as SessionOwnership from '../src/index.ts'
+import SessionVisibility from '../src/visibility.ts'
 import type { SessionOwnerRecord } from '../src/index.ts'
 
 const ADA = brandString<PersonId>('ada')
+const BEA = brandString<PersonId>('bea')
 
 let root: string | undefined
 let context: Context | undefined
@@ -57,9 +60,19 @@ async function compose(): Promise<{ ctx: Context; scopes: Scope[] }> {
     "- name: '@lyness/lyn-storage-domain'",
     '  config:',
     '    backend: json',
+    "- name: '@lyness/lyn-people/static'",
+    '  config:',
+    '    people:',
+    '      - id: ada',
+    '        displayName: Ada',
+    '        role: member',
+    '      - id: bea',
+    '        displayName: Bea',
+    '        role: member',
     "- name: '@lyness/lyn-auth-session/store'",
     "- name: '@lyness/lyn-request-principal'",
     "- name: '@lyness/lyn-session-ownership'",
+    "- name: '@lyness/lyn-session-ownership/visibility'",
     '',
   ].join('\n'))
 
@@ -78,9 +91,11 @@ async function compose(): Promise<{ ctx: Context; scopes: Scope[] }> {
     ['@lyness/lyn-storage', Storage],
     ['@lyness/lyn-storage-json', StorageJson],
     ['@lyness/lyn-storage-domain', StorageDomain],
+    ['@lyness/lyn-people/static', StaticPeopleDirectory],
     ['@lyness/lyn-auth-session/store', StoredAuthSessions],
     ['@lyness/lyn-request-principal', RequestPrincipal],
     ['@lyness/lyn-session-ownership', SessionOwnership],
+    ['@lyness/lyn-session-ownership/visibility', SessionVisibility],
   ])
   const base = ctx.loader.internal
   if (base === undefined) throw new Error('this Node build exposes no internal module loader')
@@ -123,4 +138,29 @@ it('attributes a session created inside a signed-in call, and leaves one created
     })
   }
   expect(attributed).toMatchObject([{ version: 1, owner: ADA }])
+})
+
+it('shows each person their own conversation and not the other\'s', async () => {
+  const { ctx, scopes } = await compose()
+
+  /** Run one call as the person whose signed-in session this is. */
+  const asPerson = async <T>(person: PersonId, call: () => Promise<T>): Promise<T> => {
+    const established = await ctx.authSessions.establish({ person, method: 'test' })
+    const request = new Request('http://127.0.0.1/api', {
+      headers: { cookie: `${IDENTITY_COOKIE}=${established.id}` },
+    })
+    let answered: T | undefined
+    for (const scope of scopes) await scope(request, async () => { answered = await call() })
+    if (answered === undefined) throw new Error('no request scope ran the call')
+    return answered
+  }
+
+  const mine = await asPerson(ADA, () => Promise.resolve(ctx.sessions.create()))
+  const theirs = await asPerson(BEA, () => Promise.resolve(ctx.sessions.create()))
+
+  expect(await asPerson(ADA, () => ctx.sessionVisibility.mayRead(mine))).toBe(true)
+  expect(await asPerson(ADA, () => ctx.sessionVisibility.mayRead(theirs))).toBe(false)
+  expect(await asPerson(BEA, () => ctx.sessionVisibility.mayRead(theirs))).toBe(true)
+  // Outside a request there is no principal: the deployment reads its own.
+  expect(await ctx.sessionVisibility.mayRead(theirs)).toBe(true)
 })

@@ -2416,6 +2416,12 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         returns: 'the viewed block, or `undefined` when no usable row exists for this lifecycle at the current Session format.',
       },
       {
+        signature: 'cachedCheckpoint(meta: SessionHeader): ProjectionCheckpoint | undefined',
+        description: 'The stored rows for a listed Session, without any log read.\n\nThe Host-only rung of cachedSnapshot: the stored record holds every registered unit\'s state, including units with no client view, so a Host rule that must decide something about a listed Session — whose conversation it is, for one — reads its own unit out of these rows with `sessionProjections.checkpointState` instead of publishing that state to the client to read it back. The same lifecycle identity governs it, so a record bound to another generation of this id answers nothing.',
+        parameters: [{ name: 'meta', description: 'the listed session\'s header (identity witness; no log read).' }],
+        returns: 'the stored rows, or `undefined` when no record is bound to this lifecycle.',
+      },
+      {
         signature: 'cachedPredecessorTitle(meta: SessionHeader): ProjectionSnapshot | undefined',
         description: 'Read only a predecessor checkpoint\'s title as a zero-I/O listing hint.\n\nThe authoritative Session header supplies the lifecycle identity. A cache checkpoint can lag that log but cannot lead it because writes flush the log first, so a matching predecessor title is a genuine (possibly stale) fact from this Session. The registry still requires the current title projection\'s row version and schema. No other predecessor projection is exposed: format normalization can change their current meaning, and the cachedSnapshot / hydration paths continue to reject them.',
         parameters: [{ name: 'meta', description: 'authoritative listed Session header.' }],
@@ -2493,6 +2499,12 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         description: 'The stored seq a restore tail read over `checkpoint` must start at: one event BELOW the lowest usable watermark (a row is usable when its `ver` matches the live unit\'s `stateVersion`; an absent or mismatched row pulls the floor to `0` — that key must refold the full log). The one-below anchor is load-bearing: the tail then proves how far the stored log still extends, so restore can detect a log that shrank below a row\'s watermark (crash-repair truncation) instead of serving the stale row as current — an empty tail read from the anchor yields an end below every watermark and the restore rejects for a full re-read.',
         parameters: [{ name: 'checkpoint', description: 'persisted rows for one session (possibly stale or empty).' }],
         returns: 'the offset for the stored-log suffix read (`SessionHandle.read`), or `undefined` when no unit is registered (no read needed — {@link restore} would serve empty values regardless).',
+      },
+      {
+        signature: 'checkpointState<K extends Extract<keyof SessionProjectionStateMap, string>>( checkpoint: ProjectionCheckpoint, key: K, ): SessionProjectionStateMap[K] | undefined',
+        description: 'Read one unit\'s stored state out of a checkpoint, without any log read.\n\nThe host-only rung beside viewCheckpoint: a checkpoint holds every registered unit\'s state, including units with no client view, and a Host rule that must decide something about a listed session reads its own unit\'s state here rather than putting that state on the wire to get it back. A row whose `ver` does not match the live unit, or whose value its schema rejects, reads as absent — the same answer a listing consumer already handles for a key it cannot serve.',
+        parameters: [{ name: 'checkpoint', description: 'persisted rows for one session (possibly stale or empty).' }, { name: 'key', description: 'the registered unit to read.' }],
+        returns: 'the stored state, or undefined when no usable row exists.',
       },
       {
         signature: 'viewCheckpoint( checkpoint: ProjectionCheckpoint, keys?: readonly Extract<keyof SessionProjectionMap, string>[], ): Partial<SessionProjectionMap>',
@@ -2777,6 +2789,37 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         description: 'Register the sole optional title provider. Disposal aborts its pending and active work before another provider may register.',
         parameters: [{ name: 'provider', description: 'provider identity, cadence, and generation function.' }],
         returns: 'exact Cordis effect disposer, which settles after active calls quiesce.',
+      },
+    ],
+  },
+  {
+    key: 'sessionVisibility',
+    summary: 'Decide whether one call may see one conversation.',
+    description: 'Decide whether one call may see one conversation.',
+    methods: [
+      {
+        signature: 'mayRead(session: Session): Promise<boolean>',
+        description: 'Whether the call in progress may see one live conversation.\n\nAuthoritative: the owner comes from the session\'s own log rather than from a cache, so this is the answer an operation on one named session acts on.',
+        parameters: [{ name: 'session', description: 'the session the call named.' }],
+        returns: 'true when the call may see it.',
+      },
+      {
+        signature: 'mayReadObservation(observation: ObservedCut): Promise<boolean>',
+        description: 'Whether the call in progress may see the conversation one observed cut belongs to.\n\nAuthoritative, for a read that never resumes an Agent: a live session answers from its own projection, and a cold one from the events the observation already holds, so the hot path never materializes a log to find out who opened it.',
+        parameters: [{ name: 'observation', description: 'the cut a page, a follow, or a projection read holds.' }],
+        returns: 'true when the call may see it.',
+      },
+      {
+        signature: 'mayList(header: SessionHeader): Promise<boolean>',
+        description: 'Whether the call in progress may see one listed conversation.\n\nCheap: the owner comes from the durable projection cache, because a listing reads no logs. A row whose owner is not cached reads as unattributed, which keeps a listing from leaking one and leaves the authoritative answer to mayRead when somebody opens it.',
+        parameters: [{ name: 'header', description: 'the listed session\'s header.' }],
+        returns: 'true when the call may see it.',
+      },
+      {
+        signature: 'async listable<Row>(items: readonly Row[], headerOf: (row: Row) => SessionHeader): Promise<Row[]>',
+        description: 'Keep only the conversations the call in progress may see.',
+        parameters: [{ name: 'items', description: 'the rows to filter.' }, { name: 'headerOf', description: 'the header each row is about.' }],
+        returns: 'the rows this call may see, in their original order.',
       },
     ],
   },
@@ -6545,6 +6588,14 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'ObjectJsonSchema',
     declaration: 'export type ObjectJsonSchema = JsonSchemaNode & {\n    type: \'object\';\n};',
+  },
+  {
+    name: 'ObservedCut',
+    declaration: 'export interface ObservedCut {\n    readonly header: SessionHeader;\n    readonly events: readonly ObservedEvent[];\n}',
+  },
+  {
+    name: 'ObservedEvent',
+    declaration: 'export interface ObservedEvent {\n    readonly type: string;\n    readonly data: unknown;\n}',
   },
   {
     name: 'OfficeExtension',

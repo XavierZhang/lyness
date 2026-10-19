@@ -9,6 +9,7 @@ import z from '@lyness/schemastery'
 import { errorChain, ReasoningEffortId } from '@lyness/lyn-llm'
 import type {} from '@lyness/lyn-client-file-upload'
 import { canOpenNativePath, nativeFileManager, nativeFileApplications, openNativeFileApplication, openNativeAssociatedPath, revealNativePath } from '@lyness/lyn-native-command'
+import type {} from '@lyness/lyn-session-ownership/visibility'
 import type { SessionId } from '@lyness/lyn-session'
 import type { SessionInspection } from '@lyness/lyn-session-persistence'
 import { SessionQueryError, type SessionObservation } from '@lyness/lyn-session-query'
@@ -495,6 +496,10 @@ export class SessionController extends TypertRemoteService {
     }
     try {
       using observation = await this.ctx.sessionQuery.observeSession(sessionId, { signal })
+      // The same rule the history reads apply here: a projection baseline is
+      // as much of somebody's conversation as its events are.
+      const visibility = this.ctx.get('sessionVisibility')
+      if (visibility !== undefined && !await visibility.mayReadObservation(observation)) return null
       const projections = observation.projections
       if (projections === undefined) {
         throw new RemoteError('session/projections-unavailable', 'Session projections are unavailable', {})

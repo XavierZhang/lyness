@@ -27,6 +27,9 @@
       "path": "../../session/session-projection"
     },
     {
+      "path": "../../session/session-projection-cache"
+    },
+    {
       "path": "../../storage/storage-domain"
     }
   ]

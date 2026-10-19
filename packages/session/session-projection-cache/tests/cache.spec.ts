@@ -520,6 +520,26 @@ describe('SessionProjectionCache listing read', () => {
       .not.toContain('private prompt text')
   })
 
+  it('serves host-only checkpoint state to a Host rule that asks for its own unit', async () => {
+    const root = await mkdtemp(join(tmpdir(), 'lyn-projcache-'))
+    roots.push(root)
+    await seedRecord(root, 'host-read', {
+      'cache-test/secret': { ver: 1, seq: SessionSeq(4), val: 'private prompt text' },
+    })
+    const { ctx, cache } = await harness({ root })
+    ctx.sessionProjections.register(secretUnit)
+    const header = headerOf(SessionId('host-read'))
+
+    // The wire face keeps it off the wire; the Host face reads it, which is
+    // what lets a rule decide something about a listed session without
+    // publishing the state it decides on.
+    const rows = cache.cachedCheckpoint(header)
+    expect(rows !== undefined && ctx.sessionProjections.checkpointState(rows, 'cache-test/secret'))
+      .toBe('private prompt text')
+    expect(cache.cachedCheckpoint(headerOf(SessionId('nothing-stored')))).toBeUndefined()
+    expect(cache.cachedCheckpoint(headerOf(SessionId('host-read'), 0, '/moved'))).toBeUndefined()
+  })
+
   it('serves lifecycle-matching rows as a cached block and refuses unrelated ones', async () => {
     const root = await mkdtemp(join(tmpdir(), 'lyn-projcache-'))
     roots.push(root)

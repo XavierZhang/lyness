@@ -89,3 +89,10 @@
     # Whose conversation a session is, written once when it is opened.
     - id: session-ownership
       name: '@lyness/lyn-session-ownership'
+
+    # And who may read it afterwards. Without this row the attribution is
+    # recorded and nothing acts on it, which on a deployment serving several
+    # people means every one of them can list and open the others'
+    # conversations.
+    - id: session-visibility
+      name: '@lyness/lyn-session-ownership/visibility'

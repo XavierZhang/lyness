@@ -502,6 +502,62 @@ current(): RequestTenant | undefined
 
 Source: [`packages/tenant/tenant-request/src/types.ts`](../../packages/tenant/tenant-request/src/types.ts)
 
+<a id="ctxsessionvisibility--sessionvisibility"></a>
+
+### `ctx.sessionVisibility` — `SessionVisibility`
+
+Decide whether one call may see one conversation.
+
+```ts cordis-catalog
+/**
+ * Whether the call in progress may see one live conversation.
+ *
+ * Authoritative: the owner comes from the session's own log rather than
+ * from a cache, so this is the answer an operation on one named session
+ * acts on.
+ * @param session - the session the call named.
+ * @returns true when the call may see it.
+ */
+mayRead(session: Session): Promise<boolean>
+
+/**
+ * Whether the call in progress may see the conversation one observed cut
+ * belongs to.
+ *
+ * Authoritative, for a read that never resumes an Agent: a live session
+ * answers from its own projection, and a cold one from the events the
+ * observation already holds, so the hot path never materializes a log to
+ * find out who opened it.
+ * @param observation - the cut a page, a follow, or a projection read holds.
+ * @returns true when the call may see it.
+ */
+mayReadObservation(observation: ObservedCut): Promise<boolean>
+
+/**
+ * Whether the call in progress may see one listed conversation.
+ *
+ * Cheap: the owner comes from the durable projection cache, because a
+ * listing reads no logs. A row whose owner is not cached reads as
+ * unattributed, which keeps a listing from leaking one and leaves the
+ * authoritative answer to {@link mayRead} when somebody opens it.
+ * @param header - the listed session's header.
+ * @returns true when the call may see it.
+ */
+mayList(header: SessionHeader): Promise<boolean>
+
+/**
+ * Keep only the conversations the call in progress may see.
+ * @param items - the rows to filter.
+ * @param headerOf - the header each row is about.
+ * @returns the rows this call may see, in their original order.
+ */
+async listable<Row>(items: readonly Row[], headerOf: (row: Row) => SessionHeader): Promise<Row[]>
+```
+
+Types: [Session](session.zh.md) · [SessionHeader](persistence.zh.md)
+
+Source: [`packages/identity/session-ownership/src/visibility.ts`](../../packages/identity/session-ownership/src/visibility.ts)
+
 <a id="ctxsignin--signin"></a>
 
 ### `ctx.signIn` — `SignIn`

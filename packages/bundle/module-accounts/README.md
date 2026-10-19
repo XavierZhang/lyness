@@ -9,7 +9,7 @@ English | [中文](README.zh.md)
 
 ## Summary
 
-This bundle is what a shipped product selects to state that it serves named people rather than one operator. It carries the directory, signed-in sessions, the sign-in registry with its channel kinds and browser routes, the principal one call speaks for, the context it may act in, and a conversation's owner. What those people may spend is the [credits module](../module-credits/README.md)'s question. Two rows ship no usable default on purpose: the roster names nobody and fails at load, and the admission roster binds nobody, so a deployment states who its people are before serving any of them.
+This bundle is what a shipped product selects to state that it serves named people rather than one operator. It carries the directory, signed-in sessions, the sign-in registry with its kinds and routes, the principal one call speaks for, the context it may act in, a conversation's owner, and the rule keeping one person's conversations out of another's list. What they may spend is the [credits module](../module-credits/README.md)'s question. Two rows ship no usable default on purpose: the roster names nobody and fails at load, and the admission roster binds nobody, so a deployment states who its people are first.
 
 ## Table of Contents
 

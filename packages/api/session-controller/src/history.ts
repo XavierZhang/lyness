@@ -18,6 +18,7 @@ import type {
 import { SessionQueryError, type SessionObservation } from '@lyness/lyn-session-query'
 import type {} from '@lyness/lyn-subagent'
 import { RemoteError } from '@lyness/lyn-typert-protocol'
+import type {} from '@lyness/lyn-session-ownership/visibility'
 import type { JsonValue } from '@lyness/lyn-util-values'
 import type {
   SessionAddress,
@@ -265,6 +266,13 @@ export class SessionHistoryController {
       } catch (error: unknown) {
         observation[Symbol.dispose]()
         throw error
+      }
+      // A conversation this call may not see is not found for this call:
+      // any other answer would let one person enumerate another's by id.
+      const visibility = this.ctx.get('sessionVisibility')
+      if (visibility !== undefined && !await visibility.mayReadObservation(observation)) {
+        observation[Symbol.dispose]()
+        rejectNotFound(address)
       }
       return observation
     } catch (error: unknown) {

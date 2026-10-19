@@ -435,6 +435,39 @@ export class SessionProjectionRegistry extends Service {
   }
 
   /**
+   * Read one unit's stored state out of a checkpoint, without any log read.
+   *
+   * The host-only rung beside {@link viewCheckpoint}: a checkpoint holds
+   * every registered unit's state, including units with no client view, and
+   * a Host rule that must decide something about a listed session reads its
+   * own unit's state here rather than putting that state on the wire to get
+   * it back. A row whose `ver` does not match the live unit, or whose value
+   * its schema rejects, reads as absent — the same answer a listing consumer
+   * already handles for a key it cannot serve.
+   * @param checkpoint - persisted rows for one session (possibly stale or empty).
+   * @param key - the registered unit to read.
+   * @returns the stored state, or undefined when no usable row exists.
+   */
+  checkpointState<K extends Extract<keyof SessionProjectionStateMap, string>>(
+    checkpoint: ProjectionCheckpoint,
+    key: K,
+  ): SessionProjectionStateMap[K] | undefined {
+    const registration = this.registrations.get(key)
+    if (registration === undefined) return undefined
+    const row = checkpoint[key]
+    if (row === undefined || row.ver !== registration.def.stateVersion) return undefined
+    try {
+      return registration.def.stateSchema.parse(row.val) as SessionProjectionStateMap[K]
+    } catch (rejected: unknown) {
+      // `rejected` is the stored row failing the live unit's schema: the row
+      // is disposable derived data, and absent is the answer a listing
+      // consumer already handles.
+      void rejected
+      return undefined
+    }
+  }
+
+  /**
    * View a checkpoint's rows without any log read: for every registered
    * client-visible unit whose row's `ver` matches, serve the schema-validated
    * `view` of the schema-validated stored state; mismatched, malformed, or absent rows leave their key

@@ -1,0 +1,19 @@
+# Bilingual-pair consistency record for 2026-10-19-session-visibility.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-10-19-session-visibility.md
+/agent-note-whose-conversations-one-call-may-see:
+  en: 226544ed4acd268e
+  zh: 09d118363c6be045
+/agent-note-whose-conversations-one-call-may-see/problem:
+  en: 1bf028f0176c28dd
+  zh: ea9948c305f42de3
+/agent-note-whose-conversations-one-call-may-see/decision:
+  en: 6d57bdaee7a4b44b
+  zh: a10756e7f328de95
+/agent-note-whose-conversations-one-call-may-see/alternatives-considered:
+  en: 11edcb57033b5dbb
+  zh: 5596c75cd560ebac
+/agent-note-whose-conversations-one-call-may-see/consequences:
+  en: 53cfc3f3378cb2e4
+  zh: b194a81733131692
