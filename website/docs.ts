@@ -141,7 +141,7 @@ const homeAndGuide = pairedPages([
   {
     source: 'docs/user/guide/standalone-administration.md',
     route: 'guide/standalone-administration.md',
-    label: { root: '独立部署管理', en: 'Administer a deployment' },
+    label: { root: '部署与管理', en: 'Deploy and administer' },
     sidebar: { root: 'zh-guide', en: 'en-guide' },
     section: { root: '入门', en: 'Guide' },
     order: 4,
