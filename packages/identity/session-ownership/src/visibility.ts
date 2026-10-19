@@ -16,11 +16,11 @@
 
 import { Service } from '@lyness/cordis'
 import type { Context } from '@lyness/cordis'
-import type { Session, SessionHeader, SessionId } from '@lyness/lyn-session'
+import type { Session, SessionHeader } from '@lyness/lyn-session'
 import type {} from '@lyness/lyn-session-projection'
 import type {} from '@lyness/lyn-session-projection-cache'
 import type {} from '@lyness/lyn-request-principal'
-import type { Role } from '@lyness/lyn-people'
+import type { PersonId, Role } from '@lyness/lyn-people'
 import type { SessionOwnerRecord } from './types.ts'
 import { applyOwnerEvent, ownerOf } from './index.ts'
 
@@ -114,6 +114,25 @@ export class SessionVisibility extends Service {
   }
 
   /**
+   * Whether the conversation one Agent runs in may read another.
+   *
+   * A tool call carries no request principal — an Agent is not a browser —
+   * so what bounds it is the conversation it is running in: it reaches what
+   * the person who opened that conversation could reach, and nothing else.
+   * An Agent in a conversation nobody opened is the deployment's own and is
+   * bounded by nothing here; an unattributed target is not the deployment
+   * answering for itself, so no Agent reads one it does not descend from.
+   * @param reader - the session the Agent is running in.
+   * @param target - the session it wants to read.
+   * @returns true when that conversation may read this one.
+   */
+  async mayReadFrom(reader: Session, target: SessionHeader): Promise<boolean> {
+    const subject = ownerOf(this.ctx, reader)
+    if (subject === undefined) return true
+    return await this.attribution(this.ownerAt(target), target, subject.owner, 0) === 'mine'
+  }
+
+  /**
    * Keep only the conversations the call in progress may see.
    * @param items - the rows to filter.
    * @param headerOf - the header each row is about.
@@ -141,23 +160,33 @@ export class SessionVisibility extends Service {
     return (rows === undefined ? undefined : this.ctx.sessionProjections.checkpointState(rows, 'owner')) ?? undefined
   }
 
+  /** What one session reads as, live where it is open and from the cache where it is not. */
+  private ownerAt(header: SessionHeader): SessionOwnerRecord | undefined {
+    const live = this.ctx.sessions.get(header.id)
+    return live === undefined ? this.cachedOwner(header) : ownerOf(this.ctx, live)
+  }
+
   /**
-   * Whether the call may see one session named only by its id.
+   * Whose conversation this one is, to the person asking.
    *
-   * The parent of an unattributed child: resuming that parent to decide
-   * whether its child may be shown would turn a read into an activation, so
-   * only an open parent answers.
-   * @param id - the parent this child names.
-   * @param depth - how far the walk has already come.
-   * @returns true when the call may see the conversation that lineage belongs to.
+   * A subagent child carries no owner of its own and belongs to the
+   * conversation that spawned it, so the walk follows the parent chain. It
+   * is bounded: a lineage longer than {@link LINEAGE_LIMIT} is corrupt
+   * rather than deep. A parent that is not open is not resumed to answer —
+   * a child is looked at from inside its parent, which is open then.
    */
-  private whoseLineage(id: SessionId, depth: number): Promise<boolean> {
-    const live = this.ctx.sessions.get(id)
-    // A parent that is not open cannot be read without opening it, so the
-    // child stays the deployment's own until the conversation it belongs to
-    // is: a child is looked at from inside its parent, which is open then.
-    if (live === undefined) return this.decide(undefined, undefined)
-    return this.decide(ownerOf(this.ctx, live), live.header, depth)
+  private async attribution(
+    owner: SessionOwnerRecord | undefined,
+    header: SessionHeader | undefined,
+    person: PersonId,
+    depth: number,
+  ): Promise<'mine' | 'theirs' | 'unattributed'> {
+    if (owner !== undefined) return owner.owner === person ? 'mine' : 'theirs'
+    const parent = header?.parentSession
+    if (parent === undefined || depth >= LINEAGE_LIMIT) return 'unattributed'
+    const live = this.ctx.sessions.get(parent)
+    if (live === undefined) return 'unattributed'
+    return this.attribution(ownerOf(this.ctx, live), live.header, person, depth + 1)
   }
 
   /**
@@ -172,20 +201,16 @@ export class SessionVisibility extends Service {
   private async decide(
     owner: SessionOwnerRecord | undefined,
     header: SessionHeader | undefined,
-    depth = 0,
   ): Promise<boolean> {
     const principal = this.ctx.requestPrincipal.current()
     // No principal is no browser: the CLI, a subagent, and a scheduled
     // follow-up are the deployment acting on itself, not somebody reading
     // another person's conversation.
     if (principal === undefined) return true
-    if (owner !== undefined) return owner.owner === principal.person
-    // A subagent child is opened by the loop rather than by a request, so it
-    // carries no owner of its own and belongs to the conversation that
-    // spawned it. The walk is bounded: a lineage longer than this is a
-    // corrupt parent chain, and it reads as the deployment's own.
-    const parent = header?.parentSession
-    if (parent !== undefined && depth < LINEAGE_LIMIT) return this.whoseLineage(parent, depth + 1)
+    const verdict = await this.attribution(owner, header, principal.person, 0)
+    if (verdict !== 'unattributed') return verdict === 'mine'
+    // What nobody opened is the deployment's own, and a platform
+    // administrator is the one standing that answers for it.
     return await this.role(principal.acting.membership) === 'platform-administrator'
   }
 

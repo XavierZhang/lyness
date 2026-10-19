@@ -8,9 +8,11 @@ import type { Context } from '@lyness/cordis'
 import { brandString } from '@lyness/lyn-brand'
 import { HarnessError } from '@lyness/lyn-llm'
 import {
+  type Session,
   type SessionHeader,
   type SessionId as SessionIdValue,
 } from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-session-ownership/visibility'
 import type { TurnBoundaryProjection } from '@lyness/lyn-agent'
 import type {
   SessionLineageNode,
@@ -23,6 +25,8 @@ import { serviceBoundary } from './service-boundary.ts'
 interface Caller {
   readonly id: SessionIdValue
   readonly header: SessionHeader
+  /** The conversation this Agent is running in, which bounds what it may read. */
+  readonly session: Session
   /** The caller's own-session boundary fold (the `turnBoundary` projection). */
   readonly boundary: TurnBoundaryProjection | undefined
 }
@@ -64,8 +68,27 @@ function callerOf(exec: ToolRunContext, ctx: Context): Caller {
   return {
     id: agent.session.id,
     header: agent.session.header,
+    session: agent.session,
     boundary: ctx.sessionProjections.stateOf(agent.session, 'turnBoundary'),
   }
+}
+
+/**
+ * Whether the caller's conversation may read one session, beside the
+ * workspace rule.
+ *
+ * A workspace is a path, and on a deployment that serves named people two of
+ * them can be working in the same one; the path says where a conversation
+ * happened, not whose it is. Where no deployment mounts the ownership rule —
+ * one operator at the keyboard — the workspace stays the whole answer.
+ * @param ctx - Host context where the rule may be mounted.
+ * @param caller - the conversation this tool call runs in.
+ * @param header - the session being considered.
+ * @returns true when the caller's conversation may read it.
+ */
+async function ownerAuthorized(ctx: Context, caller: Caller, header: SessionHeader): Promise<boolean> {
+  const visibility = ctx.get('sessionVisibility')
+  return visibility === undefined || await visibility.mayReadFrom(caller.session, header)
 }
 
 function targetId(args: { readonly session_id?: string }, caller: Caller): SessionIdValue {
@@ -86,7 +109,9 @@ async function authorizeTarget(
       { kind: 'id', values: [target] },
       { kind: 'cwd', values: [cwd] },
     ], signal))
-  if (records.length !== 1) throw serviceBoundary.unauthorizedTarget()
+  const found = records[0]
+  if (records.length !== 1 || found === undefined) throw serviceBoundary.unauthorizedTarget()
+  if (!await ownerAuthorized(ctx, caller, found.header)) throw serviceBoundary.unauthorizedTarget()
 }
 
 function recordAuthorized(record: SessionRecord, caller: Caller): boolean {
@@ -127,7 +152,9 @@ async function authorizeSessionIds(
     ], signal))
   const requested = new Set(other)
   for (const record of records) {
-    if (requested.has(record.header.id) && recordAuthorized(record, caller)) {
+    if (requested.has(record.header.id)
+      && recordAuthorized(record, caller)
+      && await ownerAuthorized(ctx, caller, record.header)) {
       authorized.add(record.header.id)
     }
   }
@@ -243,6 +270,7 @@ function titleText(view: TitleView): string {
 /** Workspace-scoped caller authorization, title access, and lineage projection. */
 export const workspaceAccess = {
   callerOf,
+  ownerAuthorized,
   targetId,
   authorizeTarget,
   recordAuthorized,

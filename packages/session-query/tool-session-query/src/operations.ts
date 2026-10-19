@@ -98,7 +98,9 @@ async function executeSessionSearch(
         eventFilters,
         ...cursor === undefined ? {} : { cursor },
       }, { signal: exec.signal })),
-    hit => hit.header.id !== caller.id && workspaceAccess.recordAuthorized(hit, caller),
+    async hit => hit.header.id !== caller.id
+      && workspaceAccess.recordAuthorized(hit, caller)
+      && await workspaceAccess.ownerAuthorized(ctx, caller, hit.header),
   )
 
   const parentIds = collected.items
@@ -248,7 +250,7 @@ async function collectPages<T>(
     readonly items: readonly T[]
     readonly nextCursor?: SessionSearchCursor
   }>,
-  accept: (item: T) => boolean,
+  accept: (item: T) => boolean | Promise<boolean>,
 ): Promise<SearchCollection<T>> {
   const items: T[] = []
   const seen = new Set<SessionSearchCursor>()
@@ -258,7 +260,7 @@ async function collectPages<T>(
     const page = await request(cursor)
     signal.throwIfAborted()
     for (const item of page.items) {
-      if (!accept(item)) continue
+      if (!await accept(item)) continue
       if (items.length === maxResults) {
         return { items, capped: true }
       }

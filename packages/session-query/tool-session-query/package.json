@@ -47,6 +47,7 @@
     "@lyness/lyn-agent-loop": "workspace:*",
     "@lyness/lyn-llm": "workspace:*",
     "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-session-ownership": "workspace:*",
     "@lyness/lyn-session-persistence": "workspace:*",
     "@lyness/lyn-session-persistence-jsonl": "workspace:*",
     "@lyness/lyn-session-projection": "workspace:*",

@@ -201,6 +201,67 @@ describe('a subagent child', () => {
   })
 })
 
+describe('a tool call inside one conversation', () => {
+  it('reaches what the person who opened that conversation could reach', async () => {
+    const it_ = await bench()
+    it_.as(ADA, 'member')
+    const mine = it_.open()
+    const alsoMine = it_.open()
+    it_.as(BEA, 'member')
+    const theirs = it_.open()
+
+    // An Agent is not a browser: no principal is published for a tool call,
+    // so what bounds it is the conversation it runs in.
+    it_.as(undefined)
+    expect(await it_.ctx.sessionVisibility.mayReadFrom(mine, alsoMine.header)).toBe(true)
+    expect(await it_.ctx.sessionVisibility.mayReadFrom(mine, theirs.header)).toBe(false)
+    expect(await it_.ctx.sessionVisibility.mayReadFrom(theirs, mine.header)).toBe(false)
+  })
+
+  it('reaches a subagent child of its own conversation', async () => {
+    const it_ = await bench()
+    it_.as(ADA, 'member')
+    const mine = it_.open()
+    it_.as(undefined)
+    const child = it_.ctx.sessions.create(SessionId('tool-child'), {
+      meta: { parentSession: mine.id, origin: 'subagent' },
+    })
+    expect(await it_.ctx.sessionVisibility.mayReadFrom(mine, child.header)).toBe(true)
+  })
+
+  it('reaches no unattributed conversation it does not descend from', async () => {
+    const it_ = await bench()
+    it_.as(undefined)
+    const deployments = it_.open()
+    it_.as(ADA, 'member')
+    const mine = it_.open()
+    it_.as(undefined)
+    // An Agent answers for its conversation's owner, and that person is not
+    // a platform administrator here however the deployment's own reads.
+    expect(await it_.ctx.sessionVisibility.mayReadFrom(mine, deployments.header)).toBe(false)
+  })
+
+  it('reads a closed conversation from the durable cache, like a listing does', async () => {
+    const owned: SessionOwnerRecord = { version: 1, owner: ADA, openedAt: '2026-10-19T00:00:00.000Z' }
+    const it_ = await bench(owned)
+    it_.as(ADA, 'member')
+    const mine = it_.open()
+    const closed = { ...mine.header, id: SessionId('a-closed-session') }
+    it_.as(undefined)
+    expect(await it_.ctx.sessionVisibility.mayReadFrom(mine, closed)).toBe(true)
+  })
+
+  it('bounds nothing for an Agent in a conversation nobody opened', async () => {
+    const it_ = await bench()
+    it_.as(ADA, 'member')
+    const theirs = it_.open()
+    it_.as(undefined)
+    const deployments = it_.open()
+    // The CLI, a scheduled follow-up and an inbound webhook run here.
+    expect(await it_.ctx.sessionVisibility.mayReadFrom(deployments, theirs.header)).toBe(true)
+  })
+})
+
 describe('listing without reading a log', () => {
   const owned: SessionOwnerRecord = { version: 1, owner: ADA, openedAt: '2026-10-18T00:00:00.000Z' }
 

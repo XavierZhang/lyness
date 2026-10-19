@@ -546,6 +546,21 @@ mayReadObservation(observation: ObservedCut): Promise<boolean>
 mayList(header: SessionHeader): Promise<boolean>
 
 /**
+ * Whether the conversation one Agent runs in may read another.
+ *
+ * A tool call carries no request principal — an Agent is not a browser —
+ * so what bounds it is the conversation it is running in: it reaches what
+ * the person who opened that conversation could reach, and nothing else.
+ * An Agent in a conversation nobody opened is the deployment's own and is
+ * bounded by nothing here; an unattributed target is not the deployment
+ * answering for itself, so no Agent reads one it does not descend from.
+ * @param reader - the session the Agent is running in.
+ * @param target - the session it wants to read.
+ * @returns true when that conversation may read this one.
+ */
+async mayReadFrom(reader: Session, target: SessionHeader): Promise<boolean>
+
+/**
  * Keep only the conversations the call in progress may see.
  * @param items - the rows to filter.
  * @param headerOf - the header each row is about.

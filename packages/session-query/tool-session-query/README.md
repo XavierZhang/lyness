@@ -50,7 +50,7 @@ The generated [configuration catalog](../../../docs/config-catalog.md#lynesslyn-
 | `session_event_trace` | One event's positional replacements and cited source-event relationships |
 | `session_event_read` | One full unabridged event as JSON, plus optional neighboring event summaries |
 
-Workspace authority is conservative: cross-session access requires exact `cwd` equality between target and caller session, and a caller without `cwd` can inspect only itself. Requested parent ids are deduplicated and authority-checked before search; missing and cross-workspace guesses behave identically. Search results are cursor-free: a capped result asks the model to narrow its query, and never exposes provider cursors, offsets, page sizes, or a model-controlled limit. Timestamps at the tool boundary are timezone-qualified ISO 8601 and become inclusive epoch-millisecond filters.
+Workspace authority is conservative: cross-session access requires exact `cwd` equality between target and caller session, and a caller without `cwd` can inspect only itself. Where a deployment mounts [`sessionVisibility`](../../identity/session-ownership/README.md), a second rule applies beside it: the call reaches what the person who opened the caller's conversation could reach, because a workspace is a path and two people can be working in the same one. A refused session answers exactly as one outside the workspace does, so the refusal states no fact about whose it is. Requested parent ids are deduplicated and authority-checked before search; missing and cross-workspace guesses behave identically. Search results are cursor-free: a capped result asks the model to narrow its query, and never exposes provider cursors, offsets, page sizes, or a model-controlled limit. Timestamps at the tool boundary are timezone-qualified ISO 8601 and become inclusive epoch-millisecond filters.
 
 ### Failures and recovery
 
@@ -71,7 +71,7 @@ This section explains the design decisions behind the tools and points at the co
 The consumer is built on one separation and three commitments:
 
 - **Narrow read-only tools.** Five tools with flat snake-case schemas, each teaching one follow-up step; no cursor, offset, page-size, or model-controlled limit ever reaches the model.
-- **Authority derived from the caller, never the model.** Caller identity comes from `ToolExecution.exec.agent`; workspace is exact-string `cwd` equality, re-checked against the header observed with each result.
+- **Authority derived from the caller, never the model.** Caller identity comes from `ToolExecution.exec.agent`; workspace is exact-string `cwd` equality, re-checked against the header observed with each result. The ownership rule reads the same Agent's session: an Agent carries no request principal, so what bounds it is the conversation it is running in.
 - **One model-boundary sanitizer.** Every trusted `ctx.sessionQuery` call goes through the service boundary, which preserves cancellation and contains diagnostic and classification failures.
 - **No second truncation format.** Results stay complete; the generic spill policy owns bounded inline output.
 
