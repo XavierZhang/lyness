@@ -916,6 +916,15 @@ const SERVICE_ROLES: ServiceRole[] = [
     note: 'Turns stored records into mounted channels and back: a platform administrator configures the deployment\'s own, a tenant administrator only their organization\'s, and each organization\'s sign-in page is offered only its own plus the deployment-wide ones.',
   },
   {
+    key: 'managedPeople',
+    pkg: 'managed-people',
+    title: 'People and admission an administrator maintains',
+    mode: 'core',
+    implementations: [],
+    consumers: [],
+    note: 'Holds the people and admission bindings added at runtime, beside the ones composition wrote: the written half wins every lookup and cannot be changed here, because the next boot reads the file again.',
+  },
+  {
     key: 'sessionVisibility',
     pkg: 'session-ownership',
     title: 'Whose conversation one call may see',

@@ -299,6 +299,8 @@ flowchart LR
   pkg_feishu["feishu"]
   pkg_sign_in_channels["sign-in-channels"]
   svc_signInChannels["ctx.signInChannels<br/>Configured sign-in channels"]
+  pkg_managed_people["managed-people"]
+  svc_managedPeople["ctx.managedPeople<br/>People and admission an administrator maintains"]
   pkg_session_ownership["session-ownership"]
   svc_sessionVisibility["ctx.sessionVisibility<br/>Whose conversation one call may see"]
   pkg_api_sign_in_channel_controller["api-sign-in-channel-controller"]
@@ -427,6 +429,7 @@ flowchart LR
   pkg_llm_replay --> svc_llm
   pkg_lsp --> svc_lsp
   pkg_lsp_stdio --> svc_lsp
+  pkg_managed_people --> svc_managedPeople
   pkg_mcp_client --> svc_mcpResources
   pkg_mcp_resources --> svc_mcpResources
   pkg_memory --> svc_memory
@@ -783,6 +786,7 @@ flowchart LR
 | `ctx.directoryPicker` | `seam` | [`host-directory-picker`](../packages/host/directory-picker) | [`host-directory-picker-native`](../packages/host/directory-picker-native), [`host-directory-picker-browse`](../packages/host/directory-picker-browse) | [`api-workspace-controller`](../packages/api/workspace-controller) | - | 带判别标记的交互能力：原生后端在 Host 显示设备上打开一个操作系统选择器，浏览后端为应用内浏览器提供列表与创建原语；双端后端通过其浏览器侧填充 ui-workspace 目录流程的 slot（不通过协议发布）。 |
 | `ctx.signInKinds` | `seam` | [`sign-in`](../packages/identity/sign-in) | [`wecom`](../packages/vendor/wecom), [`dingtalk`](../packages/vendor/dingtalk), [`feishu`](../packages/vendor/feishu) | [`sign-in-channels`](../packages/identity/sign-in-channels) | - | 一个种类说出某个目录需要什么、以及怎么把一个实例建出来；它永远不知道一套部署有几个、分别属于谁，于是加一个客户是加一条存下的记录，而不是一次重新部署。 |
 | `ctx.signInChannels` | `core` | [`sign-in-channels`](../packages/identity/sign-in-channels) | - | - | - | 把存下的记录变成挂载的渠道、再变回来：平台管理员配置部署自己的，租户管理员只配置本组织的，而每个组织的登录页只被提供自己的那些、加上部署级的那些。 |
+| `ctx.managedPeople` | `core` | [`managed-people`](../packages/identity/managed-people) | - | - | - | 持有运行时添加的人员与准入绑定，与 composition 写下的那些并存：写下的那一半在每次查找中优先，并且不能在这里改动，因为下一次启动会重新读那个文件。 |
 | `ctx.sessionVisibility` | `core` | [`session-ownership`](../packages/identity/session-ownership) | - | [`api-session-controller`](../packages/api/session-controller) | - | 把写入的归属读回来：一个人看得到自己开启的对话、看不到别人的；没有归属的那些只对平台管理员作答；而没有 principal 的调用是部署在对自己行事，它看得到全部。 |
 | `ctx.signInChannelController` | `core` | [`api-sign-in-channel-controller`](../packages/api/sign-in-channel-controller) | - | - | - | 把配置好的渠道存储投影到生成的 Remote 命名空间上：它解析出这次调用所处的身份，交给那条唯一决定谁管得着什么的规则，并把每种拒绝按自己的错误码汇报，好让表单标出它点名的那个字段。 |
 | `ctx.identityController` | `core` | [`api-identity-controller`](../packages/api/identity-controller) | - | - | - | 在任何人被分类之前，回答界面的那一个问题：这套部署有没有账户、调用者是谁、以什么身份行事、登录屏可以提供哪些渠道；登录与登出仍是 lyn-sign-in-http 拥有的浏览器跳转。 |

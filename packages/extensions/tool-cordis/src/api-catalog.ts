@@ -1698,6 +1698,81 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
     ],
   },
   {
+    key: 'managedPeople',
+    summary: 'The people and bindings this deployment stores, and the written ones they may not shadow.',
+    description: 'The people and bindings this deployment stores, and the written ones they may not shadow.',
+    methods: [
+      {
+        signature: 'declarePerson(entry: DeclaredPerson): () => void',
+        description: 'Declare one person composition wrote.\n\nThe provider that read the roster registers them, so this service can refuse to shadow them and a surface can show them as the operator\'s.',
+        parameters: [{ name: 'entry', description: 'the person and the standing they hold.' }],
+        returns: 'the disposer that withdraws them.',
+      },
+      {
+        signature: 'declareBinding(entry: BindingSubmission): () => void',
+        description: 'Declare one admission binding composition wrote.',
+        parameters: [{ name: 'entry', description: 'the directory identity and who it signs in as.' }],
+        returns: 'the disposer that withdraws it.',
+      },
+      {
+        signature: 'async person(id: PersonId): Promise<Person | undefined>',
+        description: 'One person by identity, written or stored.',
+        parameters: [{ name: 'id', description: 'the person\'s stable identity.' }],
+        returns: 'the person, or undefined when neither half names them.',
+      },
+      {
+        signature: 'async membership(id: MembershipId): Promise<Membership | undefined>',
+        description: 'One standing by identity, written or stored.',
+        parameters: [{ name: 'id', description: 'the standing\'s stable identity.' }],
+        returns: 'the standing, or undefined when neither half holds it.',
+      },
+      {
+        signature: 'async memberships(person: PersonId): Promise<readonly Membership[]>',
+        description: 'Every standing one person holds.',
+        parameters: [{ name: 'person', description: 'the person whose standings to list.' }],
+        returns: 'their standings; one, or none when nobody holds that identity.',
+      },
+      {
+        signature: 'async admit(key: string): Promise<PersonId | undefined>',
+        description: 'The person one admitted directory identity signs in as.',
+        parameters: [{ name: 'key', description: 'the binding\'s lookup key, from {@link bindingKey}.' }],
+        returns: 'that person, or undefined when neither half admits the identity.',
+      },
+      {
+        signature: 'async list(by: Membership): Promise<readonly PersonView[]>',
+        description: 'The people one standing administers, written and stored alike.',
+        parameters: [{ name: 'by', description: 'the standing asking.' }],
+        returns: 'the people it administers, written ones first, then oldest stored first.',
+      },
+      {
+        signature: 'async save(submission: PersonSubmission, by: Membership): Promise<PersonView>',
+        description: 'Add one person, or change one this service holds.',
+        parameters: [{ name: 'submission', description: 'what the administrator filled in.' }, { name: 'by', description: 'the standing making the change.' }],
+        returns: 'the person as they now read.',
+        throws: ['{PeopleRefusedError} when the standing may not make the change, or composition owns the person.'],
+      },
+      {
+        signature: 'async remove(id: PersonId, by: Membership): Promise<void>',
+        description: 'Remove one person this service holds, and every binding that admitted them.\n\nTheir identity is not reused, so the conversations they opened stay attributed to somebody who no longer signs in rather than to whoever is added next.',
+        parameters: [{ name: 'id', description: 'the person to remove.' }, { name: 'by', description: 'the standing making the change.' }],
+        throws: ['{PeopleRefusedError} when the standing may not remove them, or composition owns them.'],
+      },
+      {
+        signature: 'async bind(submission: BindingSubmission, by: Membership): Promise<BindingView>',
+        description: 'Admit one directory identity as one person.',
+        parameters: [{ name: 'submission', description: 'the identity and who it signs in as.' }, { name: 'by', description: 'the standing making the change.' }],
+        returns: 'the binding as a surface shows it.',
+        throws: ['{PeopleRefusedError} when the standing may not make the change, nobody holds that identity, or it is already admitted.'],
+      },
+      {
+        signature: 'async unbind(submission: Omit<BindingSubmission, \'person\'>, by: Membership): Promise<void>',
+        description: 'Stop admitting one directory identity.',
+        parameters: [{ name: 'submission', description: 'the identity to stop admitting; its person is not read.' }, { name: 'by', description: 'the standing making the change.' }],
+        throws: ['{PeopleRefusedError} when the standing may not make the change, or composition owns the binding.'],
+      },
+    ],
+  },
+  {
     key: 'mcpResources',
     summary: 'Scoped resource access plus three tools shared by configured MCP servers.',
     description: 'Scoped resource access plus three tools shared by configured MCP servers.',
@@ -5270,6 +5345,14 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export interface BashEnvVariableInfo extends BashEnvVariable {\n    contributor: string;\n    key: LynEnvironmentKey;\n}',
   },
   {
+    name: 'BindingSubmission',
+    declaration: 'export interface BindingSubmission {\n    readonly channel: string;\n    readonly issuer: string;\n    readonly subject: string;\n    readonly person: PersonId;\n}',
+  },
+  {
+    name: 'BindingView',
+    declaration: 'export interface BindingView {\n    readonly channel: string;\n    readonly issuer: string;\n    readonly subject: string;\n    readonly written: boolean;\n}',
+  },
+  {
     name: 'Branded',
     declaration: 'export type Branded<B extends string> = string & {\n    readonly [BRAND]: B;\n};',
   },
@@ -5684,6 +5767,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'DeclaredContext',
     declaration: 'export type DeclaredContext = {\n    readonly kind: \'personal\';\n} | {\n    readonly kind: \'membership\';\n    readonly membership: MembershipId;\n};',
+  },
+  {
+    name: 'DeclaredPerson',
+    declaration: 'export interface DeclaredPerson {\n    readonly person: Person;\n    readonly membership: Membership;\n}',
   },
   {
     name: 'DeepSeekLlmApiExtensionMap',
@@ -6680,6 +6767,14 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'PersonOverrides',
     declaration: 'export interface PersonOverrides {\n    readonly organization?: AllowanceRecord | undefined;\n    readonly person?: AllowanceRecord | undefined;\n}',
+  },
+  {
+    name: 'PersonSubmission',
+    declaration: 'export interface PersonSubmission {\n    readonly id?: PersonId | undefined;\n    readonly displayName: string;\n    readonly role: Role;\n    readonly organization?: string | undefined;\n}',
+  },
+  {
+    name: 'PersonView',
+    declaration: 'export interface PersonView {\n    readonly id: PersonId;\n    readonly displayName: string;\n    readonly role: Role;\n    readonly organization?: string | undefined;\n    readonly written: boolean;\n    readonly bindings: readonly BindingView[];\n}',
   },
   {
     name: 'PlatformSession',

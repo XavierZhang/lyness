@@ -433,6 +433,106 @@ Host service backing the generated `ctx.remote.identity` namespace.
 
 Source: [`packages/api/identity-controller/src/index.ts`](../../packages/api/identity-controller/src/index.ts)
 
+<a id="ctxmanagedpeople--managedpeople"></a>
+
+### `ctx.managedPeople` — `ManagedPeople`
+
+The people and bindings this deployment stores, and the written ones they may not shadow.
+
+```ts cordis-catalog
+/**
+ * Declare one person composition wrote.
+ *
+ * The provider that read the roster registers them, so this service can
+ * refuse to shadow them and a surface can show them as the operator's.
+ * @param entry - the person and the standing they hold.
+ * @returns the disposer that withdraws them.
+ */
+declarePerson(entry: DeclaredPerson): () => void
+
+/**
+ * Declare one admission binding composition wrote.
+ * @param entry - the directory identity and who it signs in as.
+ * @returns the disposer that withdraws it.
+ */
+declareBinding(entry: BindingSubmission): () => void
+
+/**
+ * One person by identity, written or stored.
+ * @param id - the person's stable identity.
+ * @returns the person, or undefined when neither half names them.
+ */
+async person(id: PersonId): Promise<Person | undefined>
+
+/**
+ * One standing by identity, written or stored.
+ * @param id - the standing's stable identity.
+ * @returns the standing, or undefined when neither half holds it.
+ */
+async membership(id: MembershipId): Promise<Membership | undefined>
+
+/**
+ * Every standing one person holds.
+ * @param person - the person whose standings to list.
+ * @returns their standings; one, or none when nobody holds that identity.
+ */
+async memberships(person: PersonId): Promise<readonly Membership[]>
+
+/**
+ * The person one admitted directory identity signs in as.
+ * @param key - the binding's lookup key, from {@link bindingKey}.
+ * @returns that person, or undefined when neither half admits the identity.
+ */
+async admit(key: string): Promise<PersonId | undefined>
+
+/**
+ * The people one standing administers, written and stored alike.
+ * @param by - the standing asking.
+ * @returns the people it administers, written ones first, then oldest stored first.
+ */
+async list(by: Membership): Promise<readonly PersonView[]>
+
+/**
+ * Add one person, or change one this service holds.
+ * @param submission - what the administrator filled in.
+ * @param by - the standing making the change.
+ * @returns the person as they now read.
+ * @throws {PeopleRefusedError} when the standing may not make the change, or composition owns the person.
+ */
+async save(submission: PersonSubmission, by: Membership): Promise<PersonView>
+
+/**
+ * Remove one person this service holds, and every binding that admitted them.
+ *
+ * Their identity is not reused, so the conversations they opened stay
+ * attributed to somebody who no longer signs in rather than to whoever is
+ * added next.
+ * @param id - the person to remove.
+ * @param by - the standing making the change.
+ * @throws {PeopleRefusedError} when the standing may not remove them, or composition owns them.
+ */
+async remove(id: PersonId, by: Membership): Promise<void>
+
+/**
+ * Admit one directory identity as one person.
+ * @param submission - the identity and who it signs in as.
+ * @param by - the standing making the change.
+ * @returns the binding as a surface shows it.
+ * @throws {PeopleRefusedError} when the standing may not make the change, nobody holds that identity, or it is already admitted.
+ */
+async bind(submission: BindingSubmission, by: Membership): Promise<BindingView>
+
+/**
+ * Stop admitting one directory identity.
+ * @param submission - the identity to stop admitting; its person is not read.
+ * @param by - the standing making the change.
+ * @throws {PeopleRefusedError} when the standing may not make the change, or composition owns the binding.
+ */
+async unbind(submission: Omit<BindingSubmission, 'person'>, by: Membership): Promise<void>
+```
+
+Source: [`packages/identity/managed-people/src/index.ts`](../../packages/identity/managed-people/src/index.ts)
+
 <a id="ctxpeople--peopledirectory-abstract-seam"></a>
 
 ### `ctx.people` — `PeopleDirectory` (abstract seam)

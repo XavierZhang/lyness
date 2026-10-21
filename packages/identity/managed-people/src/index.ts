@@ -1,0 +1,407 @@
+/**
+ * The people a deployment's administrators maintain at runtime, and the
+ * directory identities admitted as them.
+ *
+ * A roster written into composition is the people decided when the
+ * installation was assembled. That is right for the first of them — an empty
+ * system has no administrator to add the first administrator — and wrong for
+ * every one after: adding a colleague should not be an edit to a file on the
+ * server followed by a restart.
+ *
+ * So both halves coexist, and the written half wins. Composition names the
+ * people the operator stands behind, and this service holds the ones an
+ * administrator added since; a written person cannot be changed or removed
+ * here, because the next boot would bring them back and the surface would
+ * have lied. The same holds for an admission binding.
+ *
+ * @module @lyness/lyn-managed-people
+ */
+
+import { Service } from '@lyness/cordis'
+import type { Context } from '@lyness/cordis'
+import { brandString } from '@lyness/lyn-brand'
+import { administers } from '@lyness/lyn-people'
+import type { Membership, MembershipId, Person, PersonId, Role } from '@lyness/lyn-people'
+import type {} from '@lyness/lyn-sign-in-channels'
+import { randomUUID } from '@lyness/lyn-util-crypto'
+import type { Domain } from '@lyness/lyn-storage-domain'
+import { managedPeopleDomain } from './storage.ts'
+import type {
+  BindingRecord, BindingSubmission, BindingView, DeclaredPerson,
+  PersonRecord, PersonSubmission, PersonView,
+} from './types.ts'
+
+export type * from './types.ts'
+export { managedPeopleDomain, personSchema, bindingSchema } from './storage.ts'
+
+declare module '@lyness/cordis' {
+  interface Context {
+    /** The people and bindings administrators maintain at runtime; absent where a deployment manages none. */
+    managedPeople: ManagedPeople
+  }
+}
+
+/** Message an unauthorized administrator attempt is refused with. */
+export const NOT_PERMITTED = 'managed-people: this standing may not make that change'
+
+/** Message a change to a composition-written person or binding is refused with. */
+export const WRITTEN = 'managed-people: the installation\'s configuration owns that entry'
+
+/** Message a binding naming nobody is refused with. */
+export const UNKNOWN_PERSON = 'managed-people: no such person'
+
+/** Message a second binding of one directory identity is refused with. */
+export const ALREADY_BOUND = 'managed-people: that directory identity is already admitted'
+
+/** Message a tenant administrator without an organization is refused with. */
+export const ORGANIZATION_REQUIRED = 'managed-people: a tenant administrator names the organization they administer'
+
+/**
+ * Why one directory change was refused.
+ *
+ * A closed set rather than a message to read: the surface reporting it marks
+ * one field, disables one row, or says the standing is wrong, and deciding
+ * which by matching prose would break the moment the prose changed.
+ */
+export type PeopleRefusal = 'not-permitted' | 'written' | 'unknown-person' | 'already-bound' | 'organization-required'
+
+/** A directory change this service refused, carrying the reason it refused. */
+export class PeopleRefusedError extends Error {
+  /** Which rule refused it. */
+  readonly reason: PeopleRefusal
+
+  /**
+   * @param reason - which rule refused it.
+   * @param message - what went wrong, in words an administrator can act on.
+   */
+  constructor(reason: PeopleRefusal, message: string) {
+    super(message)
+    this.name = 'PeopleRefusedError'
+    this.reason = reason
+  }
+}
+
+/**
+ * The key one admission binding is found by.
+ *
+ * All three parts, because each can repeat on its own: a subject is unique
+ * only within its directory, and one directory reached through two channels
+ * is two trust paths even though it is one directory.
+ * @param channel - the channel that authenticated them.
+ * @param issuer - the directory that channel reported.
+ * @param subject - their identity within it.
+ * @returns the lookup key.
+ */
+export function bindingKey(channel: string, issuer: string, subject: string): string {
+  return JSON.stringify([channel, issuer, subject])
+}
+
+/**
+ * The standing one stored person holds.
+ *
+ * Derived from their identity and nothing else, so an administrator changing
+ * someone's role does not change the standing a signed-in session already
+ * names: a membership id that moved would leave that session acting with no
+ * standing at all.
+ * @param id - the person's identity.
+ * @returns their membership identity.
+ */
+export function standingOf(id: PersonId): MembershipId {
+  return brandString<MembershipId>(`${id}:standing`)
+}
+
+/** The people and bindings this deployment stores, and the written ones they may not shadow. */
+export class ManagedPeople extends Service {
+  static inject = ['storageDomain']
+
+  private readonly ready: Promise<Domain<typeof managedPeopleDomain>>
+
+  private readonly written = new Map<PersonId, DeclaredPerson>()
+
+  private readonly writtenBindings = new Map<string, BindingSubmission>()
+
+  /**
+   * @param ctx - context providing durable storage.
+   */
+  constructor(ctx: Context) {
+    super(ctx, 'managedPeople')
+    this.ready = ctx.storageDomain.open(managedPeopleDomain)
+    ctx.effect(() => async () => { await (await this.ready).close() })
+  }
+
+  /**
+   * Declare one person composition wrote.
+   *
+   * The provider that read the roster registers them, so this service can
+   * refuse to shadow them and a surface can show them as the operator's.
+   * @param entry - the person and the standing they hold.
+   * @returns the disposer that withdraws them.
+   */
+  declarePerson(entry: DeclaredPerson): () => void {
+    this.written.set(entry.person.id, entry)
+    return () => { this.written.delete(entry.person.id) }
+  }
+
+  /**
+   * Declare one admission binding composition wrote.
+   * @param entry - the directory identity and who it signs in as.
+   * @returns the disposer that withdraws it.
+   */
+  declareBinding(entry: BindingSubmission): () => void {
+    const key = bindingKey(entry.channel, entry.issuer, entry.subject)
+    this.writtenBindings.set(key, entry)
+    return () => { this.writtenBindings.delete(key) }
+  }
+
+  /**
+   * One person by identity, written or stored.
+   * @param id - the person's stable identity.
+   * @returns the person, or undefined when neither half names them.
+   */
+  async person(id: PersonId): Promise<Person | undefined> {
+    const entry = this.written.get(id)
+    if (entry !== undefined) return entry.person
+    const record = (await this.ready).table('people').get(id)
+    return record === undefined ? undefined : Object.freeze({ id: record.id, displayName: record.displayName })
+  }
+
+  /**
+   * One standing by identity, written or stored.
+   * @param id - the standing's stable identity.
+   * @returns the standing, or undefined when neither half holds it.
+   */
+  async membership(id: MembershipId): Promise<Membership | undefined> {
+    for (const entry of this.written.values()) if (entry.membership.id === id) return entry.membership
+    for (const [, record] of (await this.ready).table('people').entries()) {
+      if (standingOf(record.id) === id) return membershipOf(record)
+    }
+    return undefined
+  }
+
+  /**
+   * Every standing one person holds.
+   * @param person - the person whose standings to list.
+   * @returns their standings; one, or none when nobody holds that identity.
+   */
+  async memberships(person: PersonId): Promise<readonly Membership[]> {
+    const entry = this.written.get(person)
+    if (entry !== undefined) return [entry.membership]
+    const record = (await this.ready).table('people').get(person)
+    return record === undefined ? [] : [membershipOf(record)]
+  }
+
+  /**
+   * The person one admitted directory identity signs in as.
+   * @param key - the binding's lookup key, from {@link bindingKey}.
+   * @returns that person, or undefined when neither half admits the identity.
+   */
+  async admit(key: string): Promise<PersonId | undefined> {
+    const written = this.writtenBindings.get(key)
+    if (written !== undefined) return written.person
+    return (await this.ready).table('bindings').get(key)?.person
+  }
+
+  /**
+   * The people one standing administers, written and stored alike.
+   * @param by - the standing asking.
+   * @returns the people it administers, written ones first, then oldest stored first.
+   */
+  async list(by: Membership): Promise<readonly PersonView[]> {
+    const domain = await this.ready
+    const bindings = [...domain.table('bindings').entries()].map(([, record]) => record)
+    const views: PersonView[] = []
+    for (const entry of this.written.values()) {
+      if (!administers(by, entry.membership.organization)) continue
+      views.push(this.view(entry.person.id, entry.membership, entry.person.displayName, true, bindings))
+    }
+    for (const [, record] of domain.table('people').entries()) {
+      if (!administers(by, record.organization)) continue
+      views.push(this.view(record.id, membershipOf(record), record.displayName, false, bindings))
+    }
+    return views
+  }
+
+  /**
+   * Add one person, or change one this service holds.
+   * @param submission - what the administrator filled in.
+   * @param by - the standing making the change.
+   * @returns the person as they now read.
+   * @throws {PeopleRefusedError} when the standing may not make the change, or composition owns the person.
+   */
+  async save(submission: PersonSubmission, by: Membership): Promise<PersonView> {
+    this.authorize(submission.role, submission.organization, by)
+    const domain = await this.ready
+    const existing = submission.id === undefined ? undefined : domain.table('people').get(submission.id)
+    if (submission.id !== undefined && this.written.has(submission.id)) {
+      throw new PeopleRefusedError('written', WRITTEN)
+    }
+    // A change is authorized against what is stored as well as against what
+    // was submitted: otherwise one tenant's administrator could take another
+    // tenant's person by naming their id with their own organization.
+    if (existing !== undefined) this.authorize(existing.role, existing.organization, by)
+    const record: PersonRecord = {
+      id: existing?.id ?? brandString<PersonId>(randomUUID()),
+      displayName: submission.displayName,
+      role: submission.role,
+      ...submission.organization === undefined ? {} : { organization: submission.organization },
+      addedAt: existing?.addedAt ?? new Date().toISOString(),
+      addedBy: existing?.addedBy ?? by.person,
+    }
+    await domain.table('people').put(record.id, record)
+    const bindings = [...domain.table('bindings').entries()].map(([, row]) => row)
+    return this.view(record.id, membershipOf(record), record.displayName, false, bindings)
+  }
+
+  /**
+   * Remove one person this service holds, and every binding that admitted them.
+   *
+   * Their identity is not reused, so the conversations they opened stay
+   * attributed to somebody who no longer signs in rather than to whoever is
+   * added next.
+   * @param id - the person to remove.
+   * @param by - the standing making the change.
+   * @throws {PeopleRefusedError} when the standing may not remove them, or composition owns them.
+   */
+  async remove(id: PersonId, by: Membership): Promise<void> {
+    if (this.written.has(id)) throw new PeopleRefusedError('written', WRITTEN)
+    const domain = await this.ready
+    const existing = domain.table('people').get(id)
+    if (existing === undefined) return
+    this.authorize(existing.role, existing.organization, by)
+    for (const [key, record] of domain.table('bindings').entries()) {
+      if (record.person === id) await domain.table('bindings').delete(key)
+    }
+    await domain.table('people').delete(id)
+  }
+
+  /**
+   * Admit one directory identity as one person.
+   * @param submission - the identity and who it signs in as.
+   * @param by - the standing making the change.
+   * @returns the binding as a surface shows it.
+   * @throws {PeopleRefusedError} when the standing may not make the change, nobody holds that identity, or it is already admitted.
+   */
+  async bind(submission: BindingSubmission, by: Membership): Promise<BindingView> {
+    const standing = await this.standingFor(submission.person)
+    if (standing === undefined) throw new PeopleRefusedError('unknown-person', UNKNOWN_PERSON)
+    if (!administers(by, standing.organization)) throw new PeopleRefusedError('not-permitted', NOT_PERMITTED)
+    await this.authorizeChannel(submission.channel, by)
+    const key = bindingKey(submission.channel, submission.issuer, submission.subject)
+    if (this.writtenBindings.has(key)) throw new PeopleRefusedError('written', WRITTEN)
+    const domain = await this.ready
+    // One identity, one person: a second binding would decide who somebody
+    // signs in as by whichever row was read first.
+    if (domain.table('bindings').get(key) !== undefined) {
+      throw new PeopleRefusedError('already-bound', ALREADY_BOUND)
+    }
+    const record: BindingRecord = {
+      channel: submission.channel,
+      issuer: submission.issuer,
+      subject: submission.subject,
+      person: submission.person,
+      boundAt: new Date().toISOString(),
+      boundBy: by.person,
+    }
+    await domain.table('bindings').put(key, record)
+    return { channel: record.channel, issuer: record.issuer, subject: record.subject, written: false }
+  }
+
+  /**
+   * Stop admitting one directory identity.
+   * @param submission - the identity to stop admitting; its person is not read.
+   * @param by - the standing making the change.
+   * @throws {PeopleRefusedError} when the standing may not make the change, or composition owns the binding.
+   */
+  async unbind(submission: Omit<BindingSubmission, 'person'>, by: Membership): Promise<void> {
+    const key = bindingKey(submission.channel, submission.issuer, submission.subject)
+    if (this.writtenBindings.has(key)) throw new PeopleRefusedError('written', WRITTEN)
+    const domain = await this.ready
+    const existing = domain.table('bindings').get(key)
+    if (existing === undefined) return
+    const standing = await this.standingFor(existing.person)
+    if (standing !== undefined && !administers(by, standing.organization)) {
+      throw new PeopleRefusedError('not-permitted', NOT_PERMITTED)
+    }
+    await domain.table('bindings').delete(key)
+  }
+
+  /** The organization and role one person holds, written or stored. */
+  private async standingFor(person: PersonId): Promise<Membership | undefined> {
+    const [standing] = await this.memberships(person)
+    return standing
+  }
+
+  /**
+   * Whether this standing may put somebody in that role and organization.
+   *
+   * Granting a role is granting what it may do, so a tenant administrator
+   * cannot make a platform administrator: that standing administers every
+   * organization, including the ones this one does not.
+   */
+  private authorize(role: Role, organization: string | undefined, by: Membership): void {
+    if (role === 'tenant-administrator' && organization === undefined) {
+      throw new PeopleRefusedError('organization-required', ORGANIZATION_REQUIRED)
+    }
+    if (role === 'platform-administrator' && by.role !== 'platform-administrator') {
+      throw new PeopleRefusedError('not-permitted', NOT_PERMITTED)
+    }
+    if (!administers(by, organization)) throw new PeopleRefusedError('not-permitted', NOT_PERMITTED)
+  }
+
+  /**
+   * Whether this standing may admit somebody through that channel.
+   *
+   * Checked against the configured channels when a deployment stores them,
+   * because a binding on another organization's directory lets that
+   * organization's people sign in here. A deployment whose channels come
+   * from composition stores none, and the binding is authorized by the
+   * person it names alone.
+   */
+  private async authorizeChannel(channel: string, by: Membership): Promise<void> {
+    const channels = this.ctx.get('signInChannels')
+    if (channels === undefined) return
+    const permitted = await channels.list(by)
+    if (!permitted.some(candidate => candidate.id === channel)) {
+      throw new PeopleRefusedError('not-permitted', NOT_PERMITTED)
+    }
+  }
+
+  /** One person as a surface shows them, with the identities that sign in as them. */
+  private view(
+    id: PersonId,
+    standing: Membership,
+    displayName: string,
+    written: boolean,
+    stored: readonly BindingRecord[],
+  ): PersonView {
+    const bindings: BindingView[] = []
+    for (const [, entry] of this.writtenBindings) {
+      if (entry.person !== id) continue
+      bindings.push({ channel: entry.channel, issuer: entry.issuer, subject: entry.subject, written: true })
+    }
+    for (const record of stored) {
+      if (record.person !== id) continue
+      bindings.push({ channel: record.channel, issuer: record.issuer, subject: record.subject, written: false })
+    }
+    return {
+      id,
+      displayName,
+      role: standing.role,
+      ...standing.organization === undefined ? {} : { organization: standing.organization },
+      written,
+      bindings,
+    }
+  }
+}
+
+/** The standing one stored person holds, as the directory reports it. */
+function membershipOf(record: PersonRecord): Membership {
+  return Object.freeze({
+    id: standingOf(record.id),
+    person: record.id,
+    role: record.role,
+    ...record.organization === undefined ? {} : { organization: record.organization },
+  })
+}
+
+export default ManagedPeople
