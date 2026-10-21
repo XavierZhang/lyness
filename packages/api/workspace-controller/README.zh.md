@@ -13,6 +13,7 @@ kind: "package-reference"
 ## 目录
 
 - [使用本包](#use-this-package)
+- [投影指名谁的对话](#whose-conversations-a-projection-names)
 - [模型体验](#model-experience)
 - [已知限制与延期工作](#known-limitations-and-deferred-work)
 - [开发备注](#dev-note)
@@ -25,6 +26,17 @@ kind: "package-reference"
 Host 控制器会串行执行正确性取决于当前注册表状态的变更，并为预期失败抛出带有稳定错误码的 `RemoteError`。它的 `follow()` 流会同步订阅持久 Workspace 变更，先发出一份完整 baseline，再按顺序发出 `upsert`、`remove`、`order`、`archived` 和 `pinned` 增量。归档与置顶集合都是会话 id 数组，置顶数组把最近置顶的 id 放在前面。重连会以替换 baseline 开始新一代，因此消费方不依赖收到断线期间的每个增量。不带 `stopActivity` 的 `archiveSession` 会以 `workspace/session-active` 拒绝仍有工作在跑的会话，其 details 按族（`turn`、`subagent`、`job`、`schedule`）列出这些工作及各项的 id 与名称；带 `stopActivity: true` 时注册表的提供方先停止这些工作，归档集合持久化后即返回响应，停止在后台收敛。
 
 Client 入口提供 `ClientWorkspaceModel` 和 `createWorkspaceStateStream()`。该模型拥有 Workspace 行、registry 顺序、归档与置顶会话身份、一元变更回显，以及流与一元调用的竞态处理。较新的 Host 行按 `updatedAt` 获胜；已提交的流顺序优先于较旧的一元响应；已经移除的 Workspace id 不会被延迟数据复活。置顶快照仅在会话身份或顺序变化时更新。该包公开与框架无关的快照和订阅，把导航策略与 React 钩子留给 UI owner。`WorkspaceController.archiveSession(sessionId, { stopActivity })` 抛出携带 Host `rpcError` 的 `WorkspaceArchiveError`，界面因此能区分"仍有工作在跑"的拒绝与会话缺失或载体故障，并提议停止这些工作。
+
+<a id="whose-conversations-a-projection-names"></a>
+### 投影指名谁的对话
+
+Workspace 是 Host 上的一个目录，所有能访问它的人共用同一份注册，而在其中开启的对话属于各自的开启者。因此本包发出的每份投影——baseline、每条 `upsert` 增量以及所有变更响应——只指名该调用可见的 Session，判定依据是[会话可见性](../../identity/session-ownership/README.zh.md)；注册表全局的 `archived` 与 `pinned` 集合同样按此收窄。账目本身不受影响：某人投影里看不到的 Session 仍保留它的位次、归档项与置顶。
+
+命令同样拒绝投影不指名的 id，因为一次写入只需要指名一个 id：`archiveSession` 与 `pinSession` 对调用看不见的 Session 以注册表自己的措辞回答 `session/not-found`；`insertSessionBefore` 对看不见的被移动 Session 或锚点回答 `workspace/move-invalid`；`unarchiveSession` 与 `unpinSession` 不触碰注册表，回答与「该 id 从未被归档或置顶」完全一致。因此在每个动词上，看不见的 Session 都与不存在的 Session 无法区分。
+
+一代 `follow()` 在整个存活期间都以开启它的人的身份作答。后续帧由传输层拉取，而不属于任何一次调用，因此控制器在开流时捕获该 principal，并通过 `requestPrincipal.as()` 在每帧重新进入。
+
+挂载了可见性规则的部署必须同时组合 `sessionQuery`：语料库才是判断 Workspace 帧指名谁的对话的依据，缺少它时投影被拒绝，而不是不收窄地发出。没有账户体系的部署不挂载规则，不读语料库，直接发送注册表自身的账目。
 
 <a id="first-use-workspace"></a>
 ### 首次使用工作区
@@ -59,6 +71,8 @@ Documents 查询占用注册表变更队列，因此其他 Workspace 变更（�
 
 - `follow()` 在重连后替换完整投影，不提供持久 cursor 或增量追赶协议。
 - 进程内删除标记只会在 Client 模型生命周期内阻止延迟数据复活已移除的 Workspace。
+- 收窄投影每帧读取一次会话语料库。Workspace 帧由显式命令触发，开销因此受限于创建、重命名、重排、归档和置顶的频率；若某个界面持续产生帧，则需要改用缓存的可见集合。
+- 规则挂载时，语料库未列出的 Session 不会被任何投影指名，因此既未挂载也未持久化的 Workspace 位次是不可见的，而不是以无归属状态显示。
 
 
 <a id="dev-note"></a>

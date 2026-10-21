@@ -6,6 +6,7 @@ import { Remote, TypertRemoteService } from '@lyness/lyn-typert-protocol'
 import { WorkspaceCommands } from './commands.ts'
 import { DirectoryPickerController } from './directory-picker.ts'
 import { WorkspaceFeed, workspaceView } from './feed.ts'
+import { visibleSessions } from './visible-sessions.ts'
 import { defaultWorkspaceDirectory, validateDocumentsDirectory } from './default-directory.ts'
 import type {
   WorkspaceArchiveSessionRequest,
@@ -103,7 +104,8 @@ export class WorkspaceController extends TypertRemoteService {
         this.config.documentsDirectory, AbortSignal.any([signal, timeout]),
       )
     })
-    return workspace === undefined ? undefined : { workspace: workspaceView(workspace) }
+    if (workspace === undefined) return undefined
+    return { workspace: workspaceView(workspace, await visibleSessions(this.ctx, signal)) }
   }
 
   /**

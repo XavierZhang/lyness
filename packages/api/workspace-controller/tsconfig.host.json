@@ -12,6 +12,7 @@
     "src/default-workspace.ts",
     "src/directory-picker.ts",
     "src/feed.ts",
+    "src/visible-sessions.ts",
     "src/default-directory.ts"
   ],
   "references": [
@@ -19,10 +20,14 @@
     { "path": "../../../vendor/schemastery" },
     { "path": "../../core/session" },
     { "path": "../../host/directory-picker" },
+    { "path": "../../identity/request-principal" },
+    { "path": "../../identity/session-ownership" },
+    { "path": "../../session-query/session-query" },
     { "path": "../../storage/storage-domain" },
     { "path": "../../typert/protocol" },
     { "path": "../../util/deque" },
     { "path": "../../util/native-command" },
+    { "path": "../../util/values" },
     { "path": "../../workspace/workspace" }
   ]
 }

@@ -79,9 +79,13 @@
     "@lyness/lyn-api-gateway": "workspace:*",
     "@lyness/lyn-client-connection": "workspace:*",
     "@lyness/lyn-host-directory-picker": "workspace:*",
+    "@lyness/lyn-request-principal": "workspace:*",
     "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-session-ownership": "workspace:*",
+    "@lyness/lyn-session-query": "workspace:*",
     "@lyness/lyn-storage-domain": "workspace:*",
     "@lyness/lyn-typert-protocol": "workspace:*",
+    "@lyness/lyn-util-values": "workspace:*",
     "@lyness/lyn-workspace": "workspace:*"
   },
   "devDependencies": {
@@ -92,9 +96,13 @@
     "@lyness/lyn-client-test-runtime": "workspace:*",
     "@lyness/lyn-host-directory-picker": "workspace:*",
     "@lyness/lyn-remote-mock": "workspace:*",
+    "@lyness/lyn-request-principal": "workspace:*",
     "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-session-ownership": "workspace:*",
+    "@lyness/lyn-session-query": "workspace:*",
     "@lyness/lyn-storage-domain": "workspace:*",
     "@lyness/lyn-typert-protocol": "workspace:*",
+    "@lyness/lyn-util-values": "workspace:*",
     "@lyness/lyn-workspace": "workspace:*"
   }
 }

@@ -2,6 +2,8 @@
 
 import type { Context } from '@lyness/cordis'
 import { Deque } from '@lyness/lyn-deque'
+import { assertNever } from '@lyness/lyn-util-values'
+import type { Principal } from '@lyness/lyn-request-principal'
 import type { DomainChanged } from '@lyness/lyn-storage-domain'
 import type { Workspace, WorkspaceRecord } from '@lyness/lyn-workspace'
 import {
@@ -9,23 +11,31 @@ import {
   workspaceRecord,
   WorkspaceId,
 } from '@lyness/lyn-workspace'
+import { keepVisible, visibleSessions } from './visible-sessions.ts'
+import type { VisibleSessions } from './visible-sessions.ts'
 import type {
   WorkspaceBaseline,
   WorkspaceFollowFrame,
+  WorkspaceFollowIncrement,
   WorkspaceView,
 } from './types.ts'
 
 /**
  * Project one authoritative Workspace entity into its Remote value.
+ *
+ * A Workspace is shared and its accounted conversations are not, so the
+ * caller reads what it may name first and passes it here: the projection
+ * cannot be built without answering whose conversations it names.
  * @param workspace - authoritative registry entity.
+ * @param visible - the conversations this call may name.
  * @returns detached Workspace projection for Remote consumers.
  */
-export function workspaceView(workspace: Workspace): WorkspaceView {
+export function workspaceView(workspace: Workspace, visible: VisibleSessions): WorkspaceView {
   return {
     workspaceId: workspace.id,
     path: workspace.path,
     title: workspace.title,
-    sessionIds: [...workspace.sessionIds],
+    sessionIds: keepVisible(workspace.sessionIds, visible),
     createdAt: workspace.createdAt,
     updatedAt: workspace.updatedAt,
   }
@@ -40,6 +50,40 @@ function changedWorkspaceView(workspaceId: string, value: unknown): WorkspaceVie
     sessionIds: [...record.sessionIds],
     createdAt: record.createdAt,
     updatedAt: record.updatedAt,
+  }
+}
+
+/**
+ * Narrow one published increment to the conversations its reader may name.
+ *
+ * The domain observation that produces an increment belongs to whoever
+ * committed the write, so narrowing happens once per reader on the sending
+ * path rather than at publication.
+ * @param frame - the increment as the registry committed it.
+ * @param visible - the conversations this generation's reader may name.
+ * @returns the increment this reader receives.
+ */
+function visibleIncrement(
+  frame: WorkspaceFollowIncrement,
+  visible: VisibleSessions,
+): WorkspaceFollowIncrement {
+  switch (frame.type) {
+    case 'upsert':
+      return {
+        type: 'upsert',
+        workspace: { ...frame.workspace, sessionIds: keepVisible(frame.workspace.sessionIds, visible) },
+      }
+    case 'archived':
+      return { type: 'archived', archivedSessionIds: keepVisible(frame.archivedSessionIds, visible) }
+    case 'pinned':
+      return { type: 'pinned', pinnedSessionIds: keepVisible(frame.pinnedSessionIds, visible) }
+    // Workspace identity and registry order name no conversation.
+    case 'remove':
+    case 'order':
+      return frame
+    /* v8 ignore next 2 -- closed-union exhaustiveness guard */
+    default:
+      return assertNever(frame, 'workspace follow increment')
   }
 }
 
@@ -67,32 +111,48 @@ export class WorkspaceFeed {
 
   /**
    * Read the complete current projection synchronously.
+   * @param visible - the conversations this call may name.
    * @returns all active Workspaces plus archived and pinned Session identities.
    */
-  baseline(): WorkspaceBaseline {
+  baseline(visible: VisibleSessions): WorkspaceBaseline {
     return {
-      items: this.ctx.workspaceRegistry.list().map(workspaceView),
-      archivedSessionIds: [...this.ctx.workspaceRegistry.archivedSessionIds],
-      pinnedSessionIds: [...this.ctx.workspaceRegistry.pinnedSessionIds],
+      items: this.ctx.workspaceRegistry.list().map(workspace => workspaceView(workspace, visible)),
+      archivedSessionIds: keepVisible(this.ctx.workspaceRegistry.archivedSessionIds, visible),
+      pinnedSessionIds: keepVisible(this.ctx.workspaceRegistry.pinnedSessionIds, visible),
     }
   }
 
   /**
    * Open one generation beginning with a complete baseline.
+   *
+   * The generation speaks for whoever opened it for as long as it runs: its
+   * frames are pulled by the transport long after that request returned, so
+   * the principal is captured here and re-entered to read what each frame
+   * may name.
    * @param signal - generation cancellation.
    * @returns baseline followed by ordered Workspace increments.
    */
   async *follow(signal: AbortSignal): AsyncIterable<WorkspaceFollowFrame> {
     signal.throwIfAborted()
+    const reader = this.ctx.get('requestPrincipal')?.current()
     const follower = new WorkspaceFollower()
     this.followers.add(follower)
     try {
-      yield { type: 'baseline', value: this.baseline() }
-      yield* follower.read(signal)
+      yield { type: 'baseline', value: this.baseline(await this.visible(reader, signal)) }
+      for await (const frame of follower.read(signal)) {
+        yield visibleIncrement(frame, await this.visible(reader, signal))
+      }
     } finally {
       this.followers.delete(follower)
       follower.close()
     }
+  }
+
+  /** What one generation's reader may name, read as that reader rather than as the pump. */
+  private visible(reader: Principal | undefined, signal: AbortSignal): Promise<VisibleSessions> {
+    const principals = this.ctx.get('requestPrincipal')
+    if (principals === undefined) return visibleSessions(this.ctx, signal)
+    return principals.as(reader, () => visibleSessions(this.ctx, signal))
   }
 
   private changed(change: DomainChanged): void {
@@ -109,7 +169,8 @@ export class WorkspaceFeed {
           throw new Error(`committed Workspace registry references missing Workspace "${id}"`)
         }
         this.knownIds.add(id)
-        this.publish({ type: 'upsert', workspace: workspaceView(workspace) })
+        // Published unnarrowed: each generation narrows the frame for its own reader.
+        this.publish({ type: 'upsert', workspace: workspaceView(workspace, undefined) })
       }
       this.order = nextOrder
       if (orderChanged) this.publish({ type: 'order', workspaceIds: [...state.workspaceIds] })
@@ -138,7 +199,7 @@ export class WorkspaceFeed {
     })
   }
 
-  private publish(frame: Exclude<WorkspaceFollowFrame, { readonly type: 'baseline' }>): void {
+  private publish(frame: WorkspaceFollowIncrement): void {
     for (const follower of this.followers) follower.push(frame)
   }
 }
@@ -148,11 +209,11 @@ function sameStrings(left: readonly string[], right: readonly string[]): boolean
 }
 
 class WorkspaceFollower {
-  private readonly frames = new Deque<WorkspaceFollowFrame>()
+  private readonly frames = new Deque<WorkspaceFollowIncrement>()
   private waiting: (() => void) | undefined
   private closed = false
 
-  push(frame: WorkspaceFollowFrame): void {
+  push(frame: WorkspaceFollowIncrement): void {
     /* v8 ignore next -- closed followers are removed before later publication can reach them. */
     if (this.closed) return
     this.frames.pushBack(frame)
@@ -165,7 +226,7 @@ class WorkspaceFollower {
     this.waiting?.()
   }
 
-  async *read(signal: AbortSignal): AsyncIterable<WorkspaceFollowFrame> {
+  async *read(signal: AbortSignal): AsyncIterable<WorkspaceFollowIncrement> {
     while (!this.closed && !signal.aborted) {
       const frame = this.frames.popFront()
       if (frame !== undefined) {

@@ -1783,15 +1783,27 @@ importers:
       '@lyness/lyn-remote-mock':
         specifier: workspace:*
         version: link:../../test-support/remote-mock
+      '@lyness/lyn-request-principal':
+        specifier: workspace:*
+        version: link:../../identity/request-principal
       '@lyness/lyn-session':
         specifier: workspace:*
         version: link:../../core/session
+      '@lyness/lyn-session-ownership':
+        specifier: workspace:*
+        version: link:../../identity/session-ownership
+      '@lyness/lyn-session-query':
+        specifier: workspace:*
+        version: link:../../session-query/session-query
       '@lyness/lyn-storage-domain':
         specifier: workspace:*
         version: link:../../storage/storage-domain
       '@lyness/lyn-typert-protocol':
         specifier: workspace:*
         version: link:../../typert/protocol
+      '@lyness/lyn-util-values':
+        specifier: workspace:*
+        version: link:../../util/values
       '@lyness/lyn-workspace':
         specifier: workspace:*
         version: link:../../workspace/workspace

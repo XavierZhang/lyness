@@ -12,6 +12,7 @@ import {
 } from '@lyness/lyn-workspace'
 import { RemoteError, remoteErrorOf } from '@lyness/lyn-typert-protocol'
 import { workspaceView } from './feed.ts'
+import { keepVisible, names, visibleSessions } from './visible-sessions.ts'
 import type {
   WorkspaceArchiveSessionRequest,
   WorkspaceArchiveValue,
@@ -47,10 +48,10 @@ export class WorkspaceCommands {
       try {
         const existing = await this.ctx.workspaceRegistry.resolveByPath(request.path)
         if (existing !== undefined) {
-          return { workspace: workspaceView(existing), created: false }
+          return { workspace: workspaceView(existing, await visibleSessions(this.ctx)), created: false }
         }
         const workspace = await this.ctx.workspaceRegistry.create(request.path)
-        return { workspace: workspaceView(workspace), created: true }
+        return { workspace: workspaceView(workspace, await visibleSessions(this.ctx)), created: true }
       } catch (error) {
         if (remoteErrorOf(error) !== undefined) throw error
         throw new RemoteError(
@@ -86,7 +87,7 @@ export class WorkspaceCommands {
         }
         await workspace.setTitle(title)
       }
-      return { workspace: workspaceView(workspace) }
+      return { workspace: workspaceView(workspace, await visibleSessions(this.ctx)) }
     })
   }
 
@@ -131,7 +132,17 @@ export class WorkspaceCommands {
    */
   async insertSessionBefore(request: WorkspaceInsertSessionBeforeRequest): Promise<WorkspaceValue> {
     const workspace = this.requireWorkspace(request.workspaceId)
+    const visible = await visibleSessions(this.ctx)
     try {
+      for (const named of [request.sessionId, request.beforeSessionId]) {
+        // A conversation this call cannot see is not in the order it is
+        // allowed to rearrange, and says so in those words.
+        if (named !== undefined && !names(named, visible)) {
+          throw new WorkspaceMoveInvalidError(
+            `cannot move session '${request.sessionId}' in workspace '${workspace.path}': the session is not accounted`,
+          )
+        }
+      }
       await workspace.insertSessionBefore(request.sessionId, request.beforeSessionId)
     } catch (error) {
       if (!(error instanceof WorkspaceMoveInvalidError)) throw error
@@ -148,7 +159,7 @@ export class WorkspaceCommands {
         { cause: error },
       )
     }
-    return { workspace: workspaceView(workspace) }
+    return { workspace: workspaceView(workspace, visible) }
   }
 
   /**
@@ -160,7 +171,9 @@ export class WorkspaceCommands {
    * @returns the complete resulting archive set.
    */
   async archiveSession(request: WorkspaceArchiveSessionRequest): Promise<WorkspaceArchiveValue> {
+    const visible = await visibleSessions(this.ctx)
     try {
+      if (!names(request.sessionId, visible)) throw new WorkspaceUnknownSessionError(request.sessionId, 'archive')
       await this.ctx.workspaceRegistry.archiveSession(
         request.sessionId,
         request.stopActivity === true ? { stopActivity: true } : {},
@@ -179,7 +192,7 @@ export class WorkspaceCommands {
       }
       throw error
     }
-    return { archivedSessionIds: [...this.ctx.workspaceRegistry.archivedSessionIds] }
+    return { archivedSessionIds: keepVisible(this.ctx.workspaceRegistry.archivedSessionIds, visible) }
   }
 
   /**
@@ -190,8 +203,12 @@ export class WorkspaceCommands {
    * @returns the complete resulting archive set.
    */
   async unarchiveSession(request: WorkspaceUnarchiveSessionRequest): Promise<WorkspaceArchiveValue> {
-    await this.ctx.workspaceRegistry.unarchiveSession(request.sessionId)
-    return { archivedSessionIds: [...this.ctx.workspaceRegistry.archivedSessionIds] }
+    const visible = await visibleSessions(this.ctx)
+    // Dropping an id is idempotent, and an id this call cannot see is one it
+    // cannot drop: both answer with the same unchanged set, so a command
+    // cannot test whether somebody else's conversation is archived.
+    if (names(request.sessionId, visible)) await this.ctx.workspaceRegistry.unarchiveSession(request.sessionId)
+    return { archivedSessionIds: keepVisible(this.ctx.workspaceRegistry.archivedSessionIds, visible) }
   }
 
   /**
@@ -200,7 +217,9 @@ export class WorkspaceCommands {
    * @returns the complete resulting pin set, most recently pinned first.
    */
   async pinSession(request: WorkspacePinSessionRequest): Promise<WorkspacePinValue> {
+    const visible = await visibleSessions(this.ctx)
     try {
+      if (!names(request.sessionId, visible)) throw new WorkspaceUnknownSessionError(request.sessionId, 'pin')
       await this.ctx.workspaceRegistry.pinSession(request.sessionId)
     } catch (error) {
       if (error instanceof WorkspaceUnknownSessionError) {
@@ -211,7 +230,7 @@ export class WorkspaceCommands {
       }
       throw error
     }
-    return { pinnedSessionIds: [...this.ctx.workspaceRegistry.pinnedSessionIds] }
+    return { pinnedSessionIds: keepVisible(this.ctx.workspaceRegistry.pinnedSessionIds, visible) }
   }
 
   /**
@@ -222,8 +241,11 @@ export class WorkspaceCommands {
    * @returns the complete resulting pin set, most recently pinned first.
    */
   async unpinSession(request: WorkspaceUnpinSessionRequest): Promise<WorkspacePinValue> {
-    await this.ctx.workspaceRegistry.unpinSession(request.sessionId)
-    return { pinnedSessionIds: [...this.ctx.workspaceRegistry.pinnedSessionIds] }
+    const visible = await visibleSessions(this.ctx)
+    // Idempotent for the same reason unarchiving is: an invisible id and an
+    // unpinned one answer alike.
+    if (names(request.sessionId, visible)) await this.ctx.workspaceRegistry.unpinSession(request.sessionId)
+    return { pinnedSessionIds: keepVisible(this.ctx.workspaceRegistry.pinnedSessionIds, visible) }
   }
 
   private requireWorkspace(workspaceId: WorkspaceId): Workspace {

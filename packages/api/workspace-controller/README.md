@@ -13,6 +13,7 @@ English | [中文](README.zh.md)
 ## Table of Contents
 
 - [Use this package](#use-this-package)
+- [Whose conversations a projection names](#whose-conversations-a-projection-names)
 - [Model Experience](#model-experience)
 - [Known Limitations and Deferred Work](#known-limitations-and-deferred-work)
 - [Dev Note](#dev-note)
@@ -25,6 +26,17 @@ English | [中文](README.zh.md)
 The Host controller serializes mutations whose correctness depends on current registry state and throws `RemoteError` with a stable error code for expected failures. Its `follow()` stream synchronously attaches to durable Workspace changes, emits one complete baseline first, then emits ordered `upsert`, `remove`, `order`, `archived`, and `pinned` increments. Archive and pin sets are Session id arrays, with the most recently pinned id first in the pin array. A reconnect starts another generation with a replacement baseline, so consumers do not depend on receiving every increment while disconnected. `archiveSession` without `stopActivity` refuses a Session with running work as `workspace/session-active`, whose details list that work by family (`turn`, `subagent`, `job`, `schedule`) with item ids and labels; with `stopActivity: true` the registry's providers stop the work first and the response arrives once the archive set is durable, while the stops settle in the background.
 
 The Client entry provides `ClientWorkspaceModel` and `createWorkspaceStateStream()`. The model owns Workspace rows, registry order, archived and pinned Session identities, unary mutation echoes, and stream/unary race resolution. A newer Host row wins by `updatedAt`; a committed stream order outranks an older unary response; a removed Workspace id cannot be resurrected by delayed data. Pin snapshots change only when their identities or order change. The package exposes framework-neutral snapshots and subscriptions, leaving navigation policy and React hooks to the UI owner. `WorkspaceController.archiveSession(sessionId, { stopActivity })` throws `WorkspaceArchiveError` with the Host's `rpcError`, so a surface can tell the running-work refusal from a missing Session or a carrier fault and offer to stop the work.
+
+<a id="whose-conversations-a-projection-names"></a>
+### Whose conversations a projection names
+
+A Workspace is a directory on the Host and everybody who can reach it shares one registration, while the conversations opened in it belong to the people who opened them. Every projection this package sends — the baseline, each `upsert` increment, and every mutation response — therefore names only the Sessions the call may see, as [session visibility](../../identity/session-ownership/README.md) decides it, and the registry-global `archived` and `pinned` sets are narrowed the same way. The accounting itself is untouched: a Session absent from one person's projection keeps its slot, its archive entry, and its pin.
+
+A command refuses the ids its projections do not name, because naming one is all a write takes: `archiveSession` and `pinSession` answer `session/not-found` in the registry's own words for a Session the call cannot see, `insertSessionBefore` answers `workspace/move-invalid` for a moved Session or an anchor it cannot see, and `unarchiveSession` and `unpinSession` leave the registry untouched and answer exactly as they do for an id that was never archived or pinned. An invisible Session is therefore indistinguishable from an absent one on every verb.
+
+A `follow()` generation answers for the person who opened it for as long as it runs. Its later frames are pulled by the transport rather than by a call of their own, so the controller captures that principal at the open and re-enters it per frame through `requestPrincipal.as()`.
+
+A deployment that mounts the visibility rule must also compose `sessionQuery`: the corpus is what tells a Workspace frame whose conversations it names, and a projection without it is refused rather than sent unnarrowed. A deployment with no accounts mounts no rule, reads no corpus, and sends the registry's own accounting.
 
 <a id="first-use-workspace"></a>
 ### First-use Workspace
@@ -59,6 +71,8 @@ No direct effect; Workspace mutations do not alter model requests.
 
 - `follow()` replaces the whole projection after reconnect and has no durable cursor or incremental catch-up protocol.
 - Process-local deletion markers prevent delayed data from reviving a removed Workspace only for the lifetime of the Client model.
+- Narrowing a projection reads the Session corpus once per frame. Workspace frames follow explicit commands, so the cost is bounded by how often people create, rename, reorder, archive, and pin; a surface that produced frames continuously would need a cached visible set instead.
+- A Session the corpus does not list is named by no projection while the rule is mounted, so a Workspace slot whose Session is neither attached nor persisted is invisible rather than shown unattributed.
 
 
 <a id="dev-note"></a>

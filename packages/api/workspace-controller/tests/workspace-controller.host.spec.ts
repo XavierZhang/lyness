@@ -1,9 +1,16 @@
+import { AsyncLocalStorage } from 'node:async_hooks'
 import { existsSync, mkdirSync, mkdtempSync, realpathSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { basename, join } from 'node:path'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
+import { brandString } from '@lyness/lyn-brand'
+import type { MembershipId, PersonId, Role } from '@lyness/lyn-people'
+import type { Principal } from '@lyness/lyn-request-principal'
 import SessionStore, { SessionId } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import * as SessionOwnership from '@lyness/lyn-session-ownership'
+import SessionVisibility from '@lyness/lyn-session-ownership/visibility'
 import Storage from '@lyness/lyn-storage'
 import { DomainFacility } from '@lyness/lyn-storage-domain'
 import { RemoteError } from '@lyness/lyn-typert-protocol'
@@ -50,7 +57,54 @@ function deferred<T>(): Deferred<T> {
   return { promise, resolve }
 }
 
-async function harness(options: { systemDocuments?: boolean } = {}) {
+/** Who the deployment's accounts are, when a test mounts them. */
+interface Accounts {
+  /** Put one person, in one standing, behind every following call. */
+  as(person: PersonId | undefined, role?: Role): void
+}
+
+const ADA = brandString<PersonId>('ada')
+const BEA = brandString<PersonId>('bea')
+
+/**
+ * Mount the visibility rule and the Session corpus over an existing harness.
+ *
+ * The principal is a stub rather than the shipped plugin because the shipped
+ * one resolves a bearer identity off an HTTP request; what these tests need
+ * is control over who the call in progress is, and a faithful `as` that
+ * overrides it for one continuation the way re-entry does in production.
+ */
+function accounts(ctx: Context, options: { corpus: boolean }): Accounts {
+  const reentered = new AsyncLocalStorage<{ readonly principal: Principal | undefined }>()
+  let signedIn: Principal | undefined
+  ctx.provide('requestPrincipal', {
+    current: () => reentered.getStore() === undefined ? signedIn : reentered.getStore()?.principal,
+    as: <T>(principal: Principal | undefined, run: () => T): T => reentered.run({ principal }, run),
+  } as never)
+  ctx.provide('people', {
+    person: () => Promise.resolve(undefined),
+    membership: (id: MembershipId) => Promise.resolve(
+      { id, person: ADA, role: String(id).split(':')[1] as Role },
+    ),
+    memberships: () => Promise.resolve([]),
+  } as never)
+  if (options.corpus) {
+    ctx.provide('sessionQuery', {
+      listSessions: () => Promise.resolve(
+        ctx.sessions.list().map(session => ({ header: session.header, live: true, persisted: false })),
+      ),
+    } as never)
+  }
+  return {
+    as: (person: PersonId | undefined, role: Role = 'member') => {
+      signedIn = person === undefined
+        ? undefined
+        : { person, acting: { person, membership: brandString<MembershipId>(`${person}:${role}`) } }
+    },
+  }
+}
+
+async function harness(options: { systemDocuments?: boolean; identity?: 'with-corpus' | 'no-corpus' } = {}) {
   const root = realpathSync.native(mkdtempSync(join(tmpdir(), 'lyn-workspace-controller-')))
   tempDirs.push(root)
   const ctx = new Context()
@@ -68,8 +122,15 @@ async function harness(options: { systemDocuments?: boolean } = {}) {
     lookups: { configure: () => dispose },
     contexts: { configureHost: () => dispose },
   } as never)
+  let people: Accounts | undefined
+  if (options.identity !== undefined) {
+    await ctx.plugin(SessionProjectionRegistry)
+    people = accounts(ctx, { corpus: options.identity === 'with-corpus' })
+    await ctx.plugin(SessionOwnership).await()
+    await ctx.plugin(SessionVisibility)
+  }
   const controller = new WorkspaceController(ctx, options.systemDocuments === true ? {} : { documentsDirectory: root })
-  return { controller, ctx, root, storageDomain }
+  return { controller, ctx, root, storageDomain, people }
 }
 
 function stageDir(root: string, name: string): string {
@@ -307,7 +368,7 @@ describe('WorkspaceController follow', () => {
     const { ctx, root } = await harness()
     const existing = await ctx.workspaceRegistry.create(stageDir(root, 'existing'))
     const feed = new WorkspaceFeed(ctx)
-    expect(feed.baseline()).toMatchObject({
+    expect(feed.baseline(undefined)).toMatchObject({
       items: [{ workspaceId: existing.id }],
     })
 
@@ -476,5 +537,149 @@ describe('first-use Remote', () => {
     vi.spyOn(ctx.workspaceRegistry, 'initializeDefault').mockRejectedValueOnce(new Error('permission denied'))
     await expect(controller.initializeDefault(new AbortController().signal))
       .rejects.toThrow('permission denied')
+  })
+})
+
+describe('whose conversations a Workspace projection names', () => {
+  /** One Workspace holding one conversation per person, each accounted to it. */
+  async function shared() {
+    const it = await harness({ identity: 'with-corpus' })
+    const people = it.people
+    if (people === undefined) throw new Error('fixture mounted no accounts')
+    const created = await it.controller.create({ path: stageDir(it.root, 'shared') })
+    const workspace = it.ctx.workspaceRegistry.get(created.workspace.workspaceId)
+    if (workspace === undefined) throw new Error('fixture Workspace disappeared')
+    const opened = new Map<PersonId, SessionId>()
+    for (const person of [ADA, BEA]) {
+      people.as(person)
+      const session = it.ctx.sessions.create(SessionId(`${person}-one`), { meta: { cwd: workspace.path } })
+      await workspace.attachSession(session.id)
+      opened.set(person, session.id)
+    }
+    const sessionOf = (person: PersonId): SessionId => {
+      const id = opened.get(person)
+      if (id === undefined) throw new Error('fixture conversation disappeared')
+      return id
+    }
+    return { ...it, people, workspace, sessionOf }
+  }
+
+  it('names the caller\'s own conversation and not the one beside it', async () => {
+    const it = await shared()
+    it.people.as(ADA)
+    const mine = [it.sessionOf(ADA)]
+    await expect(it.controller.create({ path: it.workspace.path }))
+      .resolves.toMatchObject({ workspace: { sessionIds: mine }, created: false })
+    await expect(it.controller.rename({ workspaceId: it.workspace.id, title: 'renamed' }))
+      .resolves.toMatchObject({ workspace: { sessionIds: mine } })
+    await expect(it.controller.insertSessionBefore({
+      workspaceId: it.workspace.id,
+      sessionId: it.sessionOf(ADA),
+    })).resolves.toMatchObject({ workspace: { sessionIds: mine } })
+  })
+
+  it('narrows the registry-global archive and pin sets to the caller', async () => {
+    const it = await shared()
+    // Both sets are one registry-wide list, so each person must be answered
+    // with their own entries rather than with everybody's.
+    it.people.as(BEA)
+    await expect(it.controller.archiveSession({ sessionId: it.sessionOf(BEA) }))
+      .resolves.toEqual({ archivedSessionIds: [it.sessionOf(BEA)] })
+    it.people.as(ADA)
+    await expect(it.controller.archiveSession({ sessionId: it.sessionOf(ADA) }))
+      .resolves.toEqual({ archivedSessionIds: [it.sessionOf(ADA)] })
+    await expect(it.controller.unarchiveSession({ sessionId: it.sessionOf(ADA) }))
+      .resolves.toEqual({ archivedSessionIds: [] })
+    await expect(it.controller.pinSession({ sessionId: it.sessionOf(ADA) }))
+      .resolves.toEqual({ pinnedSessionIds: [it.sessionOf(ADA)] })
+    it.people.as(BEA)
+    await expect(it.controller.unpinSession({ sessionId: it.sessionOf(BEA) }))
+      .resolves.toEqual({ pinnedSessionIds: [] })
+  })
+
+  it('refuses a command that names a conversation the caller cannot see', async () => {
+    const it = await shared()
+    it.people.as(ADA)
+    const theirs = it.sessionOf(BEA)
+    // Archiving, pinning and reordering are writes on somebody's
+    // conversation, and naming an id is all they take.
+    await expect(it.controller.archiveSession({ sessionId: theirs }))
+      .rejects.toMatchObject({ code: 'session/not-found' })
+    await expect(it.controller.pinSession({ sessionId: theirs }))
+      .rejects.toMatchObject({ code: 'session/not-found' })
+    await expect(it.controller.insertSessionBefore({ workspaceId: it.workspace.id, sessionId: theirs }))
+      .rejects.toMatchObject({ code: 'workspace/move-invalid' })
+    await expect(it.controller.insertSessionBefore({
+      workspaceId: it.workspace.id,
+      sessionId: it.sessionOf(ADA),
+      beforeSessionId: theirs,
+    })).rejects.toMatchObject({ code: 'workspace/move-invalid' })
+  })
+
+  it('leaves another person\'s pin and archive in place on an idempotent command', async () => {
+    const it = await shared()
+    it.people.as(BEA)
+    const theirs = it.sessionOf(BEA)
+    await it.controller.pinSession({ sessionId: theirs })
+    it.people.as(ADA)
+    // Dropping an id this call cannot see answers exactly as dropping one
+    // that is not there, so neither the write nor the answer tells Ada that
+    // Bea's conversation exists.
+    await expect(it.controller.unpinSession({ sessionId: theirs })).resolves.toEqual({ pinnedSessionIds: [] })
+    await expect(it.controller.unarchiveSession({ sessionId: theirs })).resolves.toEqual({ archivedSessionIds: [] })
+    expect(it.ctx.workspaceRegistry.pinnedSessionIds).toEqual([theirs])
+  })
+
+  it('keeps answering a generation as the person who opened it', async () => {
+    const it = await shared()
+    it.people.as(ADA)
+    const frames: WorkspaceFollowFrame[] = []
+    const generation = new AbortController()
+    const reading = (async () => {
+      for await (const frame of it.controller.follow(generation.signal)) frames.push(frame)
+    })()
+    await vi.waitFor(() => { expect(frames).toHaveLength(1) })
+    expect(frames[0]).toMatchObject({
+      type: 'baseline',
+      value: { items: [{ sessionIds: [it.sessionOf(ADA)] }] },
+    })
+
+    // The transport pulls later frames long after Ada's request returned, and
+    // whatever call shares that task must not decide what she is shown.
+    it.people.as(BEA)
+    await it.controller.archiveSession({ sessionId: it.sessionOf(BEA) })
+    await vi.waitFor(() => { expect(frames).toHaveLength(2) })
+    expect(frames[1]).toEqual({ type: 'archived', archivedSessionIds: [] })
+
+    await it.controller.create({ path: stageDir(it.root, 'later') })
+    await vi.waitFor(() => { expect(frames).toHaveLength(4) })
+    expect(frames[2]).toMatchObject({ type: 'upsert', workspace: { sessionIds: [] } })
+    expect(frames[3]).toMatchObject({ type: 'order' })
+
+    generation.abort()
+    await reading
+  })
+
+  it('names every conversation where the deployment has no accounts', async () => {
+    // The disproof of the three above: with no rule mounted there is nobody
+    // to narrow to, and the registry's own accounting is what ships.
+    const it = await harness()
+    const created = await it.controller.create({ path: stageDir(it.root, 'shared') })
+    const workspace = it.ctx.workspaceRegistry.get(created.workspace.workspaceId)
+    if (workspace === undefined) throw new Error('fixture Workspace disappeared')
+    const ids: SessionId[] = []
+    for (const name of ['one', 'two']) {
+      const session = it.ctx.sessions.create(SessionId(name), { meta: { cwd: workspace.path } })
+      await workspace.attachSession(session.id)
+      ids.push(session.id)
+    }
+    const { workspace: projected } = await it.controller.create({ path: workspace.path })
+    expect([...projected.sessionIds].sort()).toEqual([...ids].sort())
+  })
+
+  it('refuses to project at all when the rule is mounted without the Session corpus', async () => {
+    const it = await harness({ identity: 'no-corpus' })
+    await expect(it.controller.create({ path: stageDir(it.root, 'shared') }))
+      .rejects.toThrow(/must compose sessionQuery/u)
   })
 })
