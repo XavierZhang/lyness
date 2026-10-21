@@ -24,7 +24,7 @@ Write the roster into the profile's `cordis.patch.yml`:
 
 ```yaml
 - id: people
-  name: '@lyness/lyn-people/static'
+  name: '@lyness/lyn-managed-people/directory'
   config:
     people:
       - id: ada
@@ -54,7 +54,7 @@ The first administrator cannot configure anything before signing in, so their ch
     secret: WECOM_APP_SECRET
 
 - id: sign-in-admission
-  name: '@lyness/lyn-sign-in/admission-roster'
+  name: '@lyness/lyn-managed-people/admission'
   config:
     bindings:
       - channel: wecom
@@ -99,7 +99,11 @@ Each row also shows a **channel id**. That id is what an admission binding names
 
 ### Add the rest of your staff
 
-Adding a person is still two edits to the profile today: a row in the roster, and a binding naming their directory identity. The sign-in page is runtime-configurable; the roster is not yet. Plan for this when you add staff in batches.
+Everybody after the first administrator is added from **Settings → People**: a name, what they may do, the organization their standing is in, and then the directory identity admitted as them. Adding somebody admits nobody until that identity is bound, and the row says so.
+
+The written roster stays the operator's. The people named in the profile are shown on that page marked **from configuration**, with no edit: the file is read again at every boot, so a change made from the page would be undone. That is also the recovery path — the administrator written in the file cannot be locked out from the page.
+
+The identity is typed, not searched: the **directory** is what the channel calls the directory it verified them at (the corpid, the tenant key), and the **identity in that directory** is their stable id there. Getting one wrong admits nobody rather than the wrong person.
 
 ### Rotate a secret
 
@@ -107,7 +111,7 @@ Edit the channel, type the new secret, and save. Leaving the secret field empty 
 
 ### Remove a channel
 
-Removing a channel ends the way in for everybody who signed in through it and deletes its application secret. The page asks for an acknowledgement before it does either. Bindings written for that channel stay in the profile and admit nobody, because no channel reports that id any more.
+Removing a channel ends the way in for everybody who signed in through it and deletes its application secret. The page asks for an acknowledgement before it does either. The identities admitted through that channel stay on their people and admit nobody, because no channel reports that id any more; withdraw them from Settings → People when you are not bringing the channel back.
 
 ### Upgrade it
 

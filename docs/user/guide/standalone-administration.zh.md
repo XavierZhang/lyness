@@ -24,7 +24,7 @@ npx @lyness/lyn --profile acme --from-default-profile enterprise
 
 ```yaml
 - id: people
-  name: '@lyness/lyn-people/static'
+  name: '@lyness/lyn-managed-people/directory'
   config:
     people:
       - id: ada
@@ -54,7 +54,7 @@ npx @lyness/lyn --profile acme --from-default-profile enterprise
     secret: WECOM_APP_SECRET
 
 - id: sign-in-admission
-  name: '@lyness/lyn-sign-in/admission-roster'
+  name: '@lyness/lyn-managed-people/admission'
   config:
     bindings:
       - channel: wecom
@@ -99,7 +99,11 @@ profile 之后的参数属于 Web 应用：`--host`、`--port`、`--trusted-host
 
 ### 把其余员工加进来
 
-今天加一个人仍然是对 profile 的两处编辑：名册里加一行，再加一条点名其目录身份的绑定。登录页是运行时可配的，名册还不是。批量加人时请把这件事算进计划。
+第一位管理员之后的每个人都在 **Settings → 人员** 里添加：姓名、能做什么、身份所属的组织，然后是被准入为他的那个目录身份。在那个身份被绑定之前，添加一个人并不放任何人进来，那一行会写明这一点。
+
+写下的名册仍然属于运维。写在 profile 里的人会在那一页上标注**来自配置**，并且不给编辑入口：那个文件每次启动都会被重新读，从页面上做的修改会被回退。这也是恢复路径——写在文件里的那位管理员不可能被从页面上锁在门外。
+
+身份是手输的，不是搜出来的：**目录**是该渠道如何称呼它为此人做认证的那个目录（corpid、tenant key），**在该目录中的身份**是他在那里的稳定 id。填错的结果是谁都进不来，而不是错的人进来。
 
 ### 轮换密钥
 
@@ -107,7 +111,7 @@ profile 之后的参数属于 Web 应用：`--host`、`--port`、`--trusted-host
 
 ### 删除渠道
 
-删除一个渠道，等于掐掉所有经由它登录的人的入口，并删掉它的应用密钥。这一页在做这两件事之前都会要一次确认。为那个渠道写过的绑定会留在 profile 里，但谁也放不进来，因为再没有渠道报出那个标识。
+删除一个渠道，等于掐掉所有经由它登录的人的入口，并删掉它的应用密钥。这一页在做这两件事之前都会要一次确认。经由那个渠道准入的身份会留在各自的人员名下，但谁也放不进来，因为再没有渠道报出那个标识；不打算把渠道加回来时，请在 Settings → 人员 里撤回它们。
 
 ### 升级
 
