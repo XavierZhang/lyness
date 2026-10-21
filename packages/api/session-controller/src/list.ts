@@ -157,18 +157,7 @@ export class ApiSessionList {
   private async readable(records: readonly SessionRecord[]): Promise<SessionRecord[]> {
     const visibility = this.ctx.get('sessionVisibility')
     if (visibility === undefined) return [...records]
-    const kept: SessionRecord[] = []
-    for (const record of records) {
-      // A live session answers from its own projection; a cold row answers
-      // from the durable cache, which is the only owner a listing can read
-      // without opening a log.
-      const live = this.ctx.sessions.get(record.header.id)
-      const may = live === undefined
-        ? await visibility.mayList(record.header)
-        : await visibility.mayRead(live)
-      if (may) kept.push(record)
-    }
-    return kept
+    return await visibility.listable(records, record => record.header)
   }
 
   private summarizeCold(header: SessionHeader): SessionSummary {

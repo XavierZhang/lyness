@@ -482,6 +482,24 @@ Resolves and publishes the principal of the call in progress.
  * @returns the principal, or undefined outside a call and for a call presenting no live session.
  */
 current(): Principal | undefined
+
+/**
+ * Run one continuation as a principal this call already resolved.
+ *
+ * A stream outlives the request that opened it: its later frames are
+ * produced by the transport's pump rather than by a call, so `current()`
+ * is empty there, and whatever request happens to share that task would
+ * otherwise answer for them. A generation captures its principal at the
+ * open and re-enters it per frame.
+ *
+ * This resolves nobody and widens nothing: the only sound argument is a
+ * principal {@link current} returned, and an absent one is entered as
+ * absent so a re-entry can never inherit another call's identity.
+ * @param principal - the principal captured while the call was in progress.
+ * @param run - the work to run as that principal.
+ * @returns whatever the work returned.
+ */
+as<T>(principal: Principal | undefined, run: () => T): T
 ```
 
 Source: [`packages/identity/request-principal/src/index.ts`](../../packages/identity/request-principal/src/index.ts)
@@ -562,6 +580,13 @@ async mayReadFrom(reader: Session, target: SessionHeader): Promise<boolean>
 
 /**
  * Keep only the conversations the call in progress may see.
+ *
+ * Every corpus-wide read filters through here, so a row one face hides is
+ * hidden by all of them. A live session answers authoritatively from its
+ * own projection and a cold one from the durable cache, which is the only
+ * owner a listing can read without opening a log: a session opened moments
+ * ago has no cached owner yet, and answering it from the cache would hide
+ * it from the very person who opened it.
  * @param items - the rows to filter.
  * @param headerOf - the header each row is about.
  * @returns the rows this call may see, in their original order.

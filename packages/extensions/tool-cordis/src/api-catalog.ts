@@ -2091,6 +2091,12 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         parameters: [],
         returns: 'the principal, or undefined outside a call and for a call presenting no live session.',
       },
+      {
+        signature: 'as<T>(principal: Principal | undefined, run: () => T): T',
+        description: 'Run one continuation as a principal this call already resolved.\n\nA stream outlives the request that opened it: its later frames are produced by the transport\'s pump rather than by a call, so `current()` is empty there, and whatever request happens to share that task would otherwise answer for them. A generation captures its principal at the open and re-enters it per frame.\n\nThis resolves nobody and widens nothing: the only sound argument is a principal current returned, and an absent one is entered as absent so a re-entry can never inherit another call\'s identity.',
+        parameters: [{ name: 'principal', description: 'the principal captured while the call was in progress.' }, { name: 'run', description: 'the work to run as that principal.' }],
+        returns: 'whatever the work returned.',
+      },
     ],
   },
   {
@@ -2823,7 +2829,7 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
       },
       {
         signature: 'async listable<Row>(items: readonly Row[], headerOf: (row: Row) => SessionHeader): Promise<Row[]>',
-        description: 'Keep only the conversations the call in progress may see.',
+        description: 'Keep only the conversations the call in progress may see.\n\nEvery corpus-wide read filters through here, so a row one face hides is hidden by all of them. A live session answers authoritatively from its own projection and a cold one from the durable cache, which is the only owner a listing can read without opening a log: a session opened moments ago has no cached owner yet, and answering it from the cache would hide it from the very person who opened it.',
         parameters: [{ name: 'items', description: 'the rows to filter.' }, { name: 'headerOf', description: 'the header each row is about.' }],
         returns: 'the rows this call may see, in their original order.',
       },

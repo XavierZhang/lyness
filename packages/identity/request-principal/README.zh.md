@@ -52,6 +52,8 @@ if (principal === undefined) throw new Error('this operation requires a signed-i
 
 **上下文来自会话，而不是来自请求。** 一次调用不说自己以哪个身份行事；持有那件事的是它的会话，并且只能由一次显式切换改变。正是这一点让「一个人的两个成员身份」永远不会被按调用猜一次。
 
+**比调用活得更久的工作要重新进入 principal。** 流的后续帧由传输层拉取，而不属于任何一次自己的调用，因此那里的 `current()` 是空的，否则共用同一任务的那次请求就会替它们作答。`as(principal, run)` 以 `current()` 已经返回过的 principal 运行一段后续工作；它不解析任何人、也不放宽任何权限，并且「没有 principal」也会被当作「没有」进入，于是一次重新进入永远不会继承另一次调用的身份。
+
 -----
 
 <a id="further-exploration"></a>

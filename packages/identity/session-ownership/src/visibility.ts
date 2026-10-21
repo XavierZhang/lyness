@@ -134,13 +134,24 @@ export class SessionVisibility extends Service {
 
   /**
    * Keep only the conversations the call in progress may see.
+   *
+   * Every corpus-wide read filters through here, so a row one face hides is
+   * hidden by all of them. A live session answers authoritatively from its
+   * own projection and a cold one from the durable cache, which is the only
+   * owner a listing can read without opening a log: a session opened moments
+   * ago has no cached owner yet, and answering it from the cache would hide
+   * it from the very person who opened it.
    * @param items - the rows to filter.
    * @param headerOf - the header each row is about.
    * @returns the rows this call may see, in their original order.
    */
   async listable<Row>(items: readonly Row[], headerOf: (row: Row) => SessionHeader): Promise<Row[]> {
     const kept: Row[] = []
-    for (const row of items) if (await this.mayList(headerOf(row))) kept.push(row)
+    for (const row of items) {
+      const header = headerOf(row)
+      const live = this.ctx.sessions.get(header.id)
+      if (await (live === undefined ? this.mayList(header) : this.mayRead(live))) kept.push(row)
+    }
     return kept
   }
 

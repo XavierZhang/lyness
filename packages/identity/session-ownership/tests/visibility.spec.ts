@@ -289,6 +289,28 @@ describe('listing without reading a log', () => {
     expect(await it.ctx.sessionVisibility.mayList(header(it))).toBe(true)
   })
 
+  it('answers a listed row from the conversation itself while it is open', async () => {
+    const it = await bench('none')
+    it.as(ADA, 'member')
+    const opened = header(it)
+    // The durable cache is written at checkpoint, so a conversation opened
+    // moments ago has no cached owner yet; answering a listing only from the
+    // cache would hide it from the very person who opened it.
+    expect(await it.ctx.sessionVisibility.mayList(opened)).toBe(false)
+    expect(await it.ctx.sessionVisibility.listable([opened], row => row)).toEqual([opened])
+  })
+
+  it('answers a listed row from the durable cache once its conversation is closed', async () => {
+    const it = await bench(owned)
+    it.as(ADA, 'member')
+    const closed = { ...header(it), id: SessionId('a-closed-session') }
+    // Nothing is opened to answer a listing: a row whose conversation is not
+    // running is attributed from the cache the checkpoint wrote.
+    expect(await it.ctx.sessionVisibility.listable([closed], row => row)).toEqual([closed])
+    it.as(BEA, 'member')
+    expect(await it.ctx.sessionVisibility.listable([closed], row => row)).toEqual([])
+  })
+
   it('keeps the rows one call may see, in the order they were given', async () => {
     const it = await bench(owned)
     it.as(ADA, 'member')

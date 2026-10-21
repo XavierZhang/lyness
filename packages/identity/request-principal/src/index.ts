@@ -71,7 +71,7 @@ export function presentedSession(request: Request): AuthSessionId | undefined {
 export class RequestPrincipal extends Service {
   static inject = ['authSessions']
 
-  private readonly store = new AsyncLocalStorage<Principal>()
+  private readonly store = new AsyncLocalStorage<Principal | undefined>()
 
   /**
    * @param ctx - context providing the session store and the connection.
@@ -93,6 +93,26 @@ export class RequestPrincipal extends Service {
   }
 
   /**
+   * Run one continuation as a principal this call already resolved.
+   *
+   * A stream outlives the request that opened it: its later frames are
+   * produced by the transport's pump rather than by a call, so `current()`
+   * is empty there, and whatever request happens to share that task would
+   * otherwise answer for them. A generation captures its principal at the
+   * open and re-enters it per frame.
+   *
+   * This resolves nobody and widens nothing: the only sound argument is a
+   * principal {@link current} returned, and an absent one is entered as
+   * absent so a re-entry can never inherit another call's identity.
+   * @param principal - the principal captured while the call was in progress.
+   * @param run - the work to run as that principal.
+   * @returns whatever the work returned.
+   */
+  as<T>(principal: Principal | undefined, run: () => T): T {
+    return this.store.run(principal, run)
+  }
+
+  /**
    * Resolve this request's principal, then run the call inside it.
    * @param request - the HTTP request the call arrived on.
    * @param run - the channel owner's dispatch.
@@ -100,10 +120,11 @@ export class RequestPrincipal extends Service {
    */
   private async enter<T>(request: Request, run: () => Promise<T>): Promise<T> {
     const presented = presentedSession(request)
-    if (presented === undefined) return run()
-    const session = await this.read(presented)
-    if (session === undefined) return run()
-    return this.store.run({ person: session.person, acting: session.acting }, run)
+    const session = presented === undefined ? undefined : await this.read(presented)
+    return this.store.run(
+      session === undefined ? undefined : { person: session.person, acting: session.acting },
+      run,
+    )
   }
 
   /** Read one presented session, treating unknown and lapsed alike as anonymous. */

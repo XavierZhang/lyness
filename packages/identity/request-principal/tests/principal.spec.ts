@@ -20,17 +20,30 @@ import type { Principal } from '../src/index.ts'
 const ADA = brandString<PersonId>('ada')
 const ADA_STANDING = brandString<MembershipId>('ada:member')
 const roots: string[] = []
-afterEach(() => { for (const root of roots.splice(0)) rmSync(root, { recursive: true, force: true }) })
+const live: Context[] = []
+afterEach(async () => {
+  // The session store keeps its domain open on the temp root, so the context
+  // settles before the directory under it is removed.
+  for (const ctx of live.splice(0)) await ctx.fiber.dispose()
+  for (const root of roots.splice(0)) rmSync(root, { recursive: true, force: true })
+})
 
 /** One registered request scope, captured from the connection double. */
 type Scope = (request: Request, run: () => Promise<unknown>) => Promise<unknown>
 
 /** A context with sessions, a connection double, and the principal plugin. */
-async function harness(): Promise<{ ctx: Context; runWith: (request: Request) => Promise<Principal | undefined> }> {
+interface Harness {
+  readonly ctx: Context
+  /** Run one request through the registered scope, optionally doing more inside it. */
+  readonly runWith: (request: Request, inside?: () => void) => Promise<Principal | undefined>
+}
+
+async function harness(): Promise<Harness> {
   const root = mkdtempSync(join(tmpdir(), 'lyn-principal-'))
   roots.push(root)
   const scopes: Scope[] = []
   const ctx = new Context()
+  live.push(ctx)
   await ctx.plugin(Storage)
   await ctx.plugin(StorageJson, { root })
   await ctx.plugin(StorageDomain, { backend: 'json' })
@@ -46,13 +59,14 @@ async function harness(): Promise<{ ctx: Context; runWith: (request: Request) =>
   await ctx.plugin(RequestPrincipal).await()
   return {
     ctx,
-    runWith: async (request: Request) => {
+    runWith: async (request: Request, inside?: () => void) => {
       let seen: Principal | undefined
       // The scope is the only way a principal is published, so the test must
       // go through it rather than calling current() outside a call.
       for (const scope of scopes) {
         await scope(request, () => {
           seen = ctx.requestPrincipal.current()
+          inside?.()
           return Promise.resolve(undefined)
         })
       }
@@ -103,4 +117,30 @@ it('publishes nothing outside a call', async () => {
   const { ctx } = await harness()
 
   expect(ctx.requestPrincipal.current()).toBeUndefined()
+})
+
+it('re-enters a captured principal for work that outlives its call', async () => {
+  const { ctx, runWith } = await harness()
+  const session = await ctx.authSessions.establish({ person: ADA, method: 'sso' })
+  const ada = await runWith(presenting(session.id))
+
+  // A stream's later frames are pulled by the transport, with no call of
+  // their own: re-entry is what keeps them answering for whoever opened it.
+  expect(ctx.requestPrincipal.as(ada, () => ctx.requestPrincipal.current())).toEqual(ada)
+})
+
+it('re-enters an absent principal as absent rather than inheriting the caller', async () => {
+  const { ctx, runWith } = await harness()
+  const session = await ctx.authSessions.establish({ person: ADA, method: 'sso' })
+
+  // Re-entered from inside a call that does speak for somebody: a generation
+  // nobody opened must not be answered as whichever call pulls its frames.
+  let reentered: Principal | undefined
+  let ran = false
+  await runWith(presenting(session.id), () => {
+    reentered = ctx.requestPrincipal.as(undefined, () => ctx.requestPrincipal.current())
+    ran = true
+  })
+  expect(ran).toBe(true)
+  expect(reentered).toBeUndefined()
 })

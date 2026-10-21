@@ -52,6 +52,8 @@ if (principal === undefined) throw new Error('this operation requires a signed-i
 
 **The context comes from the session, not from the request.** A call does not say which standing it acts in; its session holds that, changed only by an explicit switch. That is what keeps one person's two memberships from ever being guessed at per call.
 
+**Work that outlives its call re-enters the principal.** A stream's later frames are pulled by the transport rather than by a call of their own, so `current()` is empty there and whatever request shares that task would otherwise answer for them. `as(principal, run)` runs one continuation as a principal `current()` already returned; it resolves nobody and widens nothing, and an absent principal is entered as absent so a re-entry can never inherit another call's identity.
+
 -----
 
 <a id="further-exploration"></a>

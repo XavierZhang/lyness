@@ -67,7 +67,7 @@ if (owner !== undefined) {
 
 **A conversation belongs to the person who opened it, and to nobody else.** `ctx.sessionVisibility` answers for the call in progress: its own conversations, never another person's — administering a deployment is not reading its people's conversations — and an unattributed one only for a platform administrator, because that is the one standing that can answer for what the deployment did on its own. A call with no principal is the deployment acting on itself and sees everything, which is what keeps the CLI, a subagent and a scheduled follow-up working.
 
-**A listing never opens a log.** The rule reads a live session's own projection and a cold row's stored projection state, so filtering a list costs no reads. A row whose owner is not in the cache reads as unattributed: it stays out of a member's list rather than leaking, and opening it by id still asks the session's own log.
+**A listing never opens a log.** The rule reads a live session's own projection and a cold row's stored projection state, so filtering a list costs no reads. A row whose owner is not in the cache reads as unattributed: it stays out of a member's list rather than leaking, and opening it by id still asks the session's own log. Every corpus-wide read filters through `listable`, so a row one face hides is hidden by all of them, and a conversation opened moments ago — too recent to have a cached owner — is still answered from itself rather than hidden from the person who opened it.
 
 -----
 
@@ -93,7 +93,7 @@ No request prefix changes, because the event never enters the assembled request.
 
 <a id="known-limitations-and-deferred-work"></a>
 
-- **Every reader asks, each in its own way** — the Remote session surface and the `/export` route ask for the call in progress, and the `session_query` tool asks for the conversation its Agent runs in, because an Agent carries no principal.
+- **Every reader asks, each in its own way** — the Remote session surface, the `/export` route and the Workspace projections ask for the call in progress, and the `session_query` tool asks for the conversation its Agent runs in, because an Agent carries no principal.
 - **An Agent reads only what its own conversation's owner could** — which is right for a person's own delegation and wrong for a deployment-wide assistant that should search across people; nothing expresses that second case today.
 - **Archived-on-removal is not implemented** — the decision derives an archived state from the owner's standing; nothing reads it that way today.
 - **An unowned session is indistinguishable from a pre-attribution one** — both read as no owner, so a deployment that mounted this plugin late cannot tell which of its old sessions simply predate it.
