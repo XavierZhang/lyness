@@ -20,7 +20,7 @@ import { Service } from '@lyness/cordis'
 import type { Context } from '@lyness/cordis'
 import { AsyncLocalStorage } from 'node:async_hooks'
 import { brandString } from '@lyness/lyn-brand'
-import type { ActingContext, PersonId } from '@lyness/lyn-people'
+import type { ActingContext, Membership, PersonId } from '@lyness/lyn-people'
 import type { AuthSessionId, SignedInSession } from '@lyness/lyn-auth-session'
 import type {} from '@lyness/lyn-client-connection'
 
@@ -65,6 +65,27 @@ export function presentedSession(request: Request): AuthSessionId | undefined {
     }
   }
   return undefined
+}
+
+/**
+ * The standing the call in progress acts in, as the directory holds it.
+ *
+ * Two reads rather than one: the principal names the standing its session has
+ * in force, and the directory says what that standing is. An operation that
+ * authorizes against a role needs the second, and asking for it here keeps
+ * every such operation from re-deriving it.
+ *
+ * Absent for a call that speaks for nobody, that declared no standing, or
+ * whose declared standing the directory does not hold — three causes with one
+ * answer, because the operation that requires a standing is where the refusal
+ * belongs and where its own words can be used.
+ * @param ctx - the context the principal and the directory are mounted on.
+ * @returns the standing, or undefined when this call acts in none.
+ */
+export async function callingStanding(ctx: Context): Promise<Membership | undefined> {
+  const acting = ctx.get('requestPrincipal')?.current()?.acting.membership
+  if (acting === undefined) return undefined
+  return await ctx.get('people')?.membership(acting)
 }
 
 /** Resolves and publishes the principal of the call in progress. */

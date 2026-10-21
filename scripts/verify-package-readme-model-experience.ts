@@ -261,6 +261,7 @@ const SENTENCE_MODEL_EXPERIENCE: Readonly<Record<string, SentenceContract>> = {
   'packages/api/remote-authority': { kind: 'none', reason: 'A wire-call authority rule answered before any method runs; it registers no prompt, tool, or session event.' },
   'packages/api/identity-controller': { kind: 'none', reason: 'A viewer projection a surface renders from; it registers no prompt, tool, or session event.' },
   'packages/api/sign-in-channel-controller': { kind: 'none', reason: 'A configuration surface for how people sign in; it registers no prompt, tool, or session event.' },
+  'packages/api/people-controller': { kind: 'none', reason: 'A configuration surface for who may use a deployment; it registers no prompt, tool, or session event.' },
   'packages/client/ui-settings-sign-in-channels': { kind: 'none', reason: 'A Settings section rendering how people sign in; it registers no prompt, tool, or session event.' },
   'packages/vendor/wecom': { kind: 'none', reason: 'A browser sign-in round trip answered before any session exists; it registers no prompt, tool, or session event.' },
   'packages/vendor/dingtalk': { kind: 'none', reason: 'A browser sign-in round trip answered before any session exists; it registers no prompt, tool, or session event.' },

@@ -40,11 +40,13 @@
   },
   "dependencies": {
     "@lyness/lyn-acting-context": "workspace:*",
+    "@lyness/lyn-api-people-controller": "workspace:*",
     "@lyness/lyn-api-remote-authority": "workspace:*",
     "@lyness/lyn-api-sign-in-channel-controller": "workspace:*",
     "@lyness/lyn-auth-session": "workspace:*",
     "@lyness/lyn-dingtalk": "workspace:*",
     "@lyness/lyn-feishu": "workspace:*",
+    "@lyness/lyn-managed-people": "workspace:*",
     "@lyness/lyn-people": "workspace:*",
     "@lyness/lyn-request-principal": "workspace:*",
     "@lyness/lyn-session-ownership": "workspace:*",

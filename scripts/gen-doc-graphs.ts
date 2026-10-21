@@ -925,6 +925,15 @@ const SERVICE_ROLES: ServiceRole[] = [
     note: 'Holds the people and admission bindings added at runtime, beside the ones composition wrote: the written half wins every lookup and cannot be changed here, because the next boot reads the file again.',
   },
   {
+    key: 'peopleController',
+    pkg: 'api-people-controller',
+    title: 'Who may use this deployment',
+    mode: 'core',
+    implementations: [],
+    consumers: [],
+    note: 'Projects the managed directory onto the generated Remote namespace: it resolves the standing one call acts in, hands it to the rules that decide who administers whom, and reports each refusal under its own code so a form can disable the row it names.',
+  },
+  {
     key: 'sessionVisibility',
     pkg: 'session-ownership',
     title: 'Whose conversation one call may see',

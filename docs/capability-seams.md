@@ -299,6 +299,8 @@ flowchart LR
   svc_signInChannels["ctx.signInChannels<br/>Configured sign-in channels"]
   pkg_managed_people["managed-people"]
   svc_managedPeople["ctx.managedPeople<br/>People and admission an administrator maintains"]
+  pkg_api_people_controller["api-people-controller"]
+  svc_peopleController["ctx.peopleController<br/>Who may use this deployment"]
   pkg_session_ownership["session-ownership"]
   svc_sessionVisibility["ctx.sessionVisibility<br/>Whose conversation one call may see"]
   pkg_api_sign_in_channel_controller["api-sign-in-channel-controller"]
@@ -348,6 +350,7 @@ flowchart LR
   pkg_api_gateway --> svc_typertGateway
   pkg_api_identity_controller --> svc_identityController
   pkg_api_job_controller --> svc_jobController
+  pkg_api_people_controller --> svc_peopleController
   pkg_api_session_controller --> svc_sessionController
   pkg_api_session_controller --> svc_sessionFileReferences
   pkg_api_session_controller --> svc_sessionSkillCatalog
@@ -785,6 +788,7 @@ flowchart LR
 | `ctx.signInKinds` | `seam` | [`sign-in`](../packages/identity/sign-in) | [`wecom`](../packages/vendor/wecom), [`dingtalk`](../packages/vendor/dingtalk), [`feishu`](../packages/vendor/feishu) | [`sign-in-channels`](../packages/identity/sign-in-channels) | - | A kind says what one directory needs and how to build an instance of it; it never knows how many a deployment has or whose they are, so adding a customer is a stored record rather than a redeploy. |
 | `ctx.signInChannels` | `core` | [`sign-in-channels`](../packages/identity/sign-in-channels) | - | - | - | Turns stored records into mounted channels and back: a platform administrator configures the deployment's own, a tenant administrator only their organization's, and each organization's sign-in page is offered only its own plus the deployment-wide ones. |
 | `ctx.managedPeople` | `core` | [`managed-people`](../packages/identity/managed-people) | - | - | - | Holds the people and admission bindings added at runtime, beside the ones composition wrote: the written half wins every lookup and cannot be changed here, because the next boot reads the file again. |
+| `ctx.peopleController` | `core` | [`api-people-controller`](../packages/api/people-controller) | - | - | - | Projects the managed directory onto the generated Remote namespace: it resolves the standing one call acts in, hands it to the rules that decide who administers whom, and reports each refusal under its own code so a form can disable the row it names. |
 | `ctx.sessionVisibility` | `core` | [`session-ownership`](../packages/identity/session-ownership) | - | [`api-session-controller`](../packages/api/session-controller) | - | Reads back the attribution the stamp wrote: a person sees the conversations they opened and no others, an unattributed one answers only to a platform administrator, and a call with no principal is the deployment acting on itself and sees everything. |
 | `ctx.signInChannelController` | `core` | [`api-sign-in-channel-controller`](../packages/api/sign-in-channel-controller) | - | - | - | Projects the configured-channel store onto the generated Remote namespace: it resolves the standing one call acts in, hands it to the one rule that decides who administers what, and reports each refusal under its own code so a form can mark the field it names. |
 | `ctx.identityController` | `core` | [`api-identity-controller`](../packages/api/identity-controller) | - | - | - | Answers one surface question before anybody is classified: whether this deployment has accounts, who the caller is, the standing they act in, and the channels a sign-in screen may offer; signing in and out stay browser navigations lyn-sign-in-http owns. |

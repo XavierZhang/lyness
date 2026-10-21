@@ -17,7 +17,7 @@
 
 import { Context } from '@lyness/cordis'
 import type { Membership } from '@lyness/lyn-people'
-import type {} from '@lyness/lyn-request-principal'
+import { callingStanding } from '@lyness/lyn-request-principal'
 import { ChannelRefusedError } from '@lyness/lyn-sign-in-channels'
 import type { ChannelRefusal, ChannelSubmission, ChannelView } from '@lyness/lyn-sign-in-channels'
 import type {} from '@lyness/lyn-sign-in/kinds'
@@ -131,11 +131,8 @@ export default class SignInChannelController extends TypertRemoteService {
    * standing would be one nobody is answerable for.
    */
   private async calling(): Promise<Membership> {
-    const acting = this.ctx.get('requestPrincipal')?.current()?.acting.membership
-    const held = acting === undefined ? undefined : await this.ctx.get('people')?.membership(acting)
-    if (held === undefined) {
-      throw new RemoteError('sign-in-channels/no-standing', 'this call acts in no standing', {})
-    }
+    const held = await callingStanding(this.ctx)
+    if (held === undefined) throw new RemoteError('sign-in-channels/no-standing', 'this call acts in no standing', {})
     return held
   }
 

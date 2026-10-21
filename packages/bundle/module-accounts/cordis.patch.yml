@@ -12,19 +12,31 @@
 # Two rows deliberately ship no usable default, because a default would be
 # an authorization decision this bundle has no business making. The roster
 # names nobody and fails at load, so a deployment states its people or does
-# not boot; the admission roster binds nobody, so a connected directory
-# cannot sign anyone in until a binding is written for them. Both refuse
-# rather than admit.
+# not boot; the written bindings admit nobody, so a connected directory
+# cannot sign anyone in until somebody is admitted. Both refuse rather than
+# admit.
+#
+# What composition writes is only the first of them. The directory and the
+# admission rule are the managed ones, so an administrator adds the rest at
+# runtime; the written half stays the operator's and cannot be changed from
+# the surface, because this file is read again at every boot.
 #
 # Three channel kinds are here, and no configured channel: a kind says what a
 # directory needs, and an administrator fills that in at runtime. Nobody can
-# sign in until somebody does, which is the same refusal the empty admission
-# roster makes.
+# sign in until somebody does, which is the same refusal the empty written
+# bindings make.
 - insert:
+    # The people and admission bindings added at runtime, beside the ones
+    # written below. Its own row because both halves read it: the directory
+    # answers who exists, the admission rule who may sign in.
+    - id: managed-people
+      name: '@lyness/lyn-managed-people'
+
     # Who exists, and what each of them may do. Required and non-empty: a
-    # deployment that selects this module states its people or fails at load.
+    # deployment that selects this module states its people or fails at load,
+    # and the people it names are who add everybody else.
     - id: people
-      name: '@lyness/lyn-people/static'
+      name: '@lyness/lyn-managed-people/directory'
 
     # Signed-in sessions, durable so a restart does not sign everyone out.
     - id: auth-sessions
@@ -59,13 +71,18 @@
     - id: sign-in-channel-controller
       name: '@lyness/lyn-api-sign-in-channel-controller'
 
-    # Who a verified subject is allowed to be. An empty roster admits nobody,
-    # which is the intended reading: a connected directory with no bindings
-    # written yet must not sign anyone in.
+    # Who a verified subject is allowed to be. No written binding admits
+    # nobody by itself, which is the intended reading: a connected directory
+    # nobody has been admitted through must not sign anyone in.
     - id: sign-in-admission
-      name: '@lyness/lyn-sign-in/admission-roster'
+      name: '@lyness/lyn-managed-people/admission'
       config:
         bindings: []
+
+    # The surface administrators maintain all of it through, so adding a
+    # colleague is not an edit to a file on the server and a restart.
+    - id: people-controller
+      name: '@lyness/lyn-api-people-controller'
 
     # The four browser routes and the cookie, which is the only layer that
     # binds one sign-in to one browser.

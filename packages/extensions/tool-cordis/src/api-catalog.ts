@@ -1931,6 +1931,45 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
     ],
   },
   {
+    key: 'peopleController',
+    summary: 'Host service backing the generated `ctx.remote.people` namespace.',
+    description: 'Host service backing the generated `ctx.remote.people` namespace.',
+    methods: [
+      {
+        signature: '@Remote async list(): Promise<readonly PersonRowView[]>',
+        description: 'The people the calling standing may change.',
+        parameters: [],
+        returns: 'the people it administers, written ones first.',
+        throws: ['{RemoteError} `people/no-standing` when the call establishes none, or `gateway/internal` when this deployment maintains no directory.'],
+      },
+      {
+        signature: '@Remote async save(input: PersonInput): Promise<PersonRowView>',
+        description: 'Add one person, or change one this deployment maintains.',
+        parameters: [{ name: 'input', description: 'what the administrator filled in.' }],
+        returns: 'the person as the deployment now reads them.',
+        throws: ['{RemoteError} `people/not-permitted`, `people/written`, `people/incomplete`, `people/no-standing`, or `gateway/internal`.'],
+      },
+      {
+        signature: '@Remote async remove(id: string): Promise<void>',
+        description: 'Remove one person, and every identity admitted as them.',
+        parameters: [{ name: 'id', description: 'the person to remove.' }],
+        throws: ['{RemoteError} `people/not-permitted`, `people/written`, `people/no-standing`, or `gateway/internal`.'],
+      },
+      {
+        signature: '@Remote async bind(input: BindingInput): Promise<void>',
+        description: 'Admit one directory identity as one person.',
+        parameters: [{ name: 'input', description: 'the identity and who it signs in as.' }],
+        throws: ['{RemoteError} `people/not-permitted`, `people/written`, `people/unknown-person`, `people/already-bound`, `people/no-standing`, or `gateway/internal`.'],
+      },
+      {
+        signature: '@Remote async unbind(input: IdentityInput): Promise<void>',
+        description: 'Stop admitting one directory identity.',
+        parameters: [{ name: 'input', description: 'the identity to stop admitting.' }],
+        throws: ['{RemoteError} `people/not-permitted`, `people/written`, `people/no-standing`, or `gateway/internal`.'],
+      },
+    ],
+  },
+  {
     key: 'permissionPresets',
     summary: 'Owns the deployment\'s configured permission presets, the fixed Auto integration hook, and their write path.',
     description: 'Owns the deployment\'s configured permission presets, the fixed Auto integration hook, and their write path. Requires a confining `ctx.shell` executor and `ctx.approval`; unmatched knob values are reported as CUSTOM_PRESET, not an error.',
@@ -5065,6 +5104,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export interface AdministratorGrant {\n    readonly person: PersonId;\n    readonly amount: number;\n    readonly expiresAt?: string | undefined;\n}',
   },
   {
+    name: 'AdmittedIdentityView',
+    declaration: 'export interface AdmittedIdentityView {\n    readonly channel: string;\n    readonly issuer: string;\n    readonly subject: string;\n    readonly written: boolean;\n}',
+  },
+  {
     name: 'AdmittedPromptContentPart',
     declaration: 'export type AdmittedPromptContentPart = {\n    readonly type: \'text\';\n    readonly text: string;\n} | {\n    readonly type: \'image\';\n    readonly attachment: ImageAttachmentRef;\n} | {\n    readonly type: \'file\';\n    readonly attachment: FileAttachmentRef;\n};',
   },
@@ -5343,6 +5386,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'BashEnvVariableInfo',
     declaration: 'export interface BashEnvVariableInfo extends BashEnvVariable {\n    contributor: string;\n    key: LynEnvironmentKey;\n}',
+  },
+  {
+    name: 'BindingInput',
+    declaration: 'export interface BindingInput extends IdentityInput {\n    readonly person: string;\n}',
   },
   {
     name: 'BindingSubmission',
@@ -6113,6 +6160,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export interface HostConnectionRpc {\n    handle(channel: string, handler: ConnectionRpcHandler): () => Promise<void>;\n    intercept(channel: \'/api\', matches: ConnectionRpcEndpointMatcher, handler: ConnectionRpcHandler): () => Promise<void>;\n    scope(scope: ConnectionRequestScope): () => Promise<void>;\n}',
   },
   {
+    name: 'IdentityInput',
+    declaration: 'export interface IdentityInput {\n    readonly channel: string;\n    readonly issuer: string;\n    readonly subject: string;\n}',
+  },
+  {
     name: 'ImageAttachmentLimits',
     declaration: 'export interface ImageAttachmentLimits {\n    maxImageBytes: number;\n    maxImagesPerMessage: number;\n    maxMessageImageBytes: number;\n    maxImagePixels: number;\n    maxImageDimension: number;\n    mediaTypes: readonly ImageMediaType[];\n}',
   },
@@ -6765,8 +6816,16 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export type PersonId = Branded<\'PersonId\'>;',
   },
   {
+    name: 'PersonInput',
+    declaration: 'export interface PersonInput {\n    readonly id?: string;\n    readonly displayName: string;\n    readonly role: Role;\n    readonly organization?: string;\n}',
+  },
+  {
     name: 'PersonOverrides',
     declaration: 'export interface PersonOverrides {\n    readonly organization?: AllowanceRecord | undefined;\n    readonly person?: AllowanceRecord | undefined;\n}',
+  },
+  {
+    name: 'PersonRowView',
+    declaration: 'export interface PersonRowView {\n    readonly id: string;\n    readonly displayName: string;\n    readonly role: Role;\n    readonly organization?: string;\n    readonly written: boolean;\n    readonly bindings: readonly AdmittedIdentityView[];\n}',
   },
   {
     name: 'PersonSubmission',

@@ -1277,6 +1277,39 @@ importers:
         specifier: workspace:*
         version: link:../../typert/registry
 
+  packages/api/people-controller:
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+      '@lyness/lyn-brand':
+        specifier: workspace:*
+        version: link:../../util/brand
+      '@lyness/lyn-managed-people':
+        specifier: workspace:*
+        version: link:../../identity/managed-people
+      '@lyness/lyn-people':
+        specifier: workspace:*
+        version: link:../../identity/people
+      '@lyness/lyn-request-principal':
+        specifier: workspace:*
+        version: link:../../identity/request-principal
+      '@lyness/lyn-storage':
+        specifier: workspace:*
+        version: link:../../storage/storage
+      '@lyness/lyn-storage-domain':
+        specifier: workspace:*
+        version: link:../../storage/storage-domain
+      '@lyness/lyn-storage-json':
+        specifier: workspace:*
+        version: link:../../storage/storage-json
+      '@lyness/lyn-typert-protocol':
+        specifier: workspace:*
+        version: link:../../typert/protocol
+      '@lyness/lyn-util-values':
+        specifier: workspace:*
+        version: link:../../util/values
+
   packages/api/remote-authority:
     devDependencies:
       '@lyness/cordis':
@@ -2505,6 +2538,9 @@ importers:
       '@lyness/lyn-api-remote-authority':
         specifier: workspace:*
         version: link:../../api/remote-authority
+      '@lyness/lyn-api-people-controller':
+        specifier: workspace:*
+        version: link:../../api/people-controller
       '@lyness/lyn-api-sign-in-channel-controller':
         specifier: workspace:*
         version: link:../../api/sign-in-channel-controller
@@ -2517,6 +2553,9 @@ importers:
       '@lyness/lyn-feishu':
         specifier: workspace:*
         version: link:../../vendor/feishu
+      '@lyness/lyn-managed-people':
+        specifier: workspace:*
+        version: link:../../identity/managed-people
       '@lyness/lyn-people':
         specifier: workspace:*
         version: link:../../identity/people

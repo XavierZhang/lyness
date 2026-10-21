@@ -50,6 +50,8 @@ if (principal === undefined) throw new Error('this operation requires a signed-i
 
 **It resolves and never refuses.** The request scope runs after authentication, host trust, and envelope decoding have all accepted the call, so by contract it is not a place to reject one. Unknown and lapsed sessions are therefore the same answer — this call speaks for nobody — and the refusal belongs to the operation that requires a principal, which is also where the reason can be given.
 
+**The standing is one read further out.** A principal names the standing its session has in force; what that standing *is* belongs to the directory. `callingStanding(ctx)` does both reads for an operation that authorizes against a role, and answers undefined for a call that speaks for nobody, declared no standing, or declared one the directory does not hold — one answer for three causes, because the refusal belongs to the operation that requires a standing.
+
 **The context comes from the session, not from the request.** A call does not say which standing it acts in; its session holds that, changed only by an explicit switch. That is what keeps one person's two memberships from ever being guessed at per call.
 
 **Work that outlives its call re-enters the principal.** A stream's later frames are pulled by the transport rather than by a call of their own, so `current()` is empty there and whatever request shares that task would otherwise answer for them. `as(principal, run)` runs one continuation as a principal `current()` already returned; it resolves nobody and widens nothing, and an absent principal is entered as absent so a re-entry can never inherit another call's identity.

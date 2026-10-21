@@ -570,6 +570,57 @@ abstract memberships(person: PersonId): Promise<readonly Membership[]>
 
 Source: [`packages/identity/people/src/index.ts`](../../packages/identity/people/src/index.ts)
 
+<a id="ctxpeoplecontroller--peoplecontroller"></a>
+
+### `ctx.peopleController` — `PeopleController`
+
+Host service backing the generated `ctx.remote.people` namespace.
+
+```ts cordis-catalog
+/**
+ * The people the calling standing may change.
+ * @returns the people it administers, written ones first.
+ * @throws {RemoteError} `people/no-standing` when the call establishes none,
+ * or `gateway/internal` when this deployment maintains no directory.
+ */
+@Remote async list(): Promise<readonly PersonRowView[]>
+
+/**
+ * Add one person, or change one this deployment maintains.
+ * @param input - what the administrator filled in.
+ * @returns the person as the deployment now reads them.
+ * @throws {RemoteError} `people/not-permitted`, `people/written`, `people/incomplete`,
+ * `people/no-standing`, or `gateway/internal`.
+ */
+@Remote async save(input: PersonInput): Promise<PersonRowView>
+
+/**
+ * Remove one person, and every identity admitted as them.
+ * @param id - the person to remove.
+ * @throws {RemoteError} `people/not-permitted`, `people/written`, `people/no-standing`,
+ * or `gateway/internal`.
+ */
+@Remote async remove(id: string): Promise<void>
+
+/**
+ * Admit one directory identity as one person.
+ * @param input - the identity and who it signs in as.
+ * @throws {RemoteError} `people/not-permitted`, `people/written`, `people/unknown-person`,
+ * `people/already-bound`, `people/no-standing`, or `gateway/internal`.
+ */
+@Remote async bind(input: BindingInput): Promise<void>
+
+/**
+ * Stop admitting one directory identity.
+ * @param input - the identity to stop admitting.
+ * @throws {RemoteError} `people/not-permitted`, `people/written`, `people/no-standing`,
+ * or `gateway/internal`.
+ */
+@Remote async unbind(input: IdentityInput): Promise<void>
+```
+
+Source: [`packages/api/people-controller/src/index.ts`](../../packages/api/people-controller/src/index.ts)
+
 <a id="ctxrequestprincipal--requestprincipal"></a>
 
 ### `ctx.requestPrincipal` — `RequestPrincipal`

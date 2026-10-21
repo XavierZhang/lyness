@@ -302,6 +302,7 @@
     { "path": "./packages/api/credits-controller" },
     { "path": "./packages/api/identity-controller" },
     { "path": "./packages/api/remote-authority" },
+    { "path": "./packages/api/people-controller" },
     { "path": "./packages/api/sign-in-channel-controller" },
     { "path": "./packages/api/desktop-link" },
     { "path": "./packages/credits/credits" },
