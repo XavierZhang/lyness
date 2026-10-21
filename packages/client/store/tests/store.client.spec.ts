@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { createSharedRead, createSnapshotStore, defineStore, shallowEqual } from '../src/index.ts'
+import { createSharedRead, createSnapshotStore, defineStore, messageOf, shallowEqual } from '../src/index.ts'
 import type { SharedRead } from '../src/index.ts'
 
 interface State {
@@ -292,6 +292,16 @@ describe('shallowEqual', () => {
     expect(shallowEqual({ x: 1, y: { deep: 1 } }, { x: 1, y: { deep: 1 } })).toBe(false)
     expect(shallowEqual([1, 2], [1, 2])).toBe(true)
     expect(shallowEqual([1, 2], [2, 1])).toBe(false)
+  })
+})
+
+describe('messageOf', () => {
+  it('reports whatever a rejection says about itself, Error or not', () => {
+    // The carrier rejects with whatever the other side produced; a surface
+    // with no reason to show would be the worse answer.
+    expect(messageOf(new Error('socket closed'))).toBe('socket closed')
+    expect(messageOf('the worker went away')).toBe('the worker went away')
+    expect(messageOf(undefined)).toBe('undefined')
   })
 })
 

@@ -99,9 +99,8 @@ No request prefix changes, because nothing here contributes to an assembled requ
 
 - **Nothing says why a record will not mount** — `mounted: false` reports that the kind refused its settings or that no plugin offers it, without saying which or what was wrong.
 - **One organization per channel** — a channel belongs to the deployment or to exactly one organization; a platform offering one directory to a named subset of its customers has no way to say so.
-- **The admission bindings are still composition** — an administrator can add a channel at runtime and cannot yet say who it admits, so a new channel signs nobody in until the roster is edited.
+- **Removing a channel leaves the bindings that named it** — the admission bindings are maintained at runtime by [`lyn-managed-people`](../managed-people/README.md), and the ones naming a removed channel stay, matching nothing, until somebody withdraws them.
 - **No audit of its own** — a record names who configured it and when, and a replacement overwrites both; the history of who changed what is not kept.
-- **Removing a channel leaves its bindings** — the roster entries that named it stay, matching nothing, until somebody removes them.
 
 **Runtime invariant:** No companion is published. The mounted channels are derived from the stored records by this service alone, and `mounted` is read from the same map that holds their disposers.
 

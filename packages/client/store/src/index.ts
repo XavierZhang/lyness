@@ -284,6 +284,19 @@ export function createSharedRead(perform: () => Promise<void>, reset: () => void
   }
 }
 
+/**
+ * What one thrown value says about itself.
+ *
+ * A rejection crossing the transport is not always an `Error`: the carrier
+ * may reject with whatever the other side produced, and reporting nothing
+ * would leave a surface with no reason to show.
+ * @param error - whatever the call rejected with.
+ * @returns the words to report.
+ */
+export function messageOf(error: unknown): string {
+  return error instanceof Error ? error.message : String(error)
+}
+
 /** What one Remote read answers: the value, or that it did not arrive. */
 export type ReadOutcome<T> =
   | { readonly ok: true; readonly value: T }

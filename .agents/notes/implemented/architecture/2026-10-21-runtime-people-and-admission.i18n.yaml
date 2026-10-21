@@ -1,0 +1,19 @@
+# Bilingual-pair consistency record for 2026-10-21-runtime-people-and-admission.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-10-21-runtime-people-and-admission.md
+/agent-note-adding-a-colleague-without-editing-a-file-on-the-server:
+  en: aac318c1a6fb6d1c
+  zh: 353ab079fba4a0a0
+/agent-note-adding-a-colleague-without-editing-a-file-on-the-server/problem:
+  en: daade8b263e14c5e
+  zh: 700f42588fd5ff7b
+/agent-note-adding-a-colleague-without-editing-a-file-on-the-server/decision:
+  en: 42f79a0875eff34d
+  zh: 035122867c0f405d
+/agent-note-adding-a-colleague-without-editing-a-file-on-the-server/alternatives-considered:
+  en: ac7a09fe5ce3e168
+  zh: 46c5cc5361f9bf1c
+/agent-note-adding-a-colleague-without-editing-a-file-on-the-server/consequences:
+  en: 490a883a05d9bd1b
+  zh: a8c0dd315d12ca1e

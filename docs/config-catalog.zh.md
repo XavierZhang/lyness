@@ -4748,6 +4748,7 @@ export interface Config {
 | `@lyness/lyn-client-ui-settings-announcements` | — | [`packages/client/ui-settings-announcements/src/index.ts`](../packages/client/ui-settings-announcements/src/index.ts) |
 | `@lyness/lyn-client-ui-settings-credits` | — | [`packages/client/ui-settings-credits/src/index.ts`](../packages/client/ui-settings-credits/src/index.ts) |
 | `@lyness/lyn-client-ui-settings-general` | — | [`packages/client/ui-settings-general/src/index.ts`](../packages/client/ui-settings-general/src/index.ts) |
+| `@lyness/lyn-client-ui-settings-people` | — | [`packages/client/ui-settings-people/src/index.ts`](../packages/client/ui-settings-people/src/index.ts) |
 | `@lyness/lyn-client-ui-settings-plugin-inventory` | — | [`packages/client/ui-settings-plugin-inventory/src/index.ts`](../packages/client/ui-settings-plugin-inventory/src/index.ts) |
 | `@lyness/lyn-client-ui-settings-plugins` | — | [`packages/client/ui-settings-plugins/src/index.ts`](../packages/client/ui-settings-plugins/src/index.ts) |
 | `@lyness/lyn-client-ui-settings-shell` | — | [`packages/client/ui-settings-shell/src/index.ts`](../packages/client/ui-settings-shell/src/index.ts) |

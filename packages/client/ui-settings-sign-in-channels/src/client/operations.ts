@@ -12,7 +12,7 @@
  */
 
 import type { Context } from '@lyness/cordis'
-import { createSharedRead } from '@lyness/lyn-client-store'
+import { createSharedRead, messageOf } from '@lyness/lyn-client-store'
 import type { RemoteFailure } from '@lyness/lyn-typert-protocol'
 import type {} from '@lyness/lyn-api-remotes/client'
 import type {} from '@lyness/lyn-api-sign-in-channel-controller/remote'
@@ -101,19 +101,6 @@ export function statusOf(error: RemoteFailure): 'failed' | 'unavailable' | 'forb
   if (error.code === 'gateway/internal') return 'unavailable'
   if (error.code === 'gateway/forbidden' || error.code === 'sign-in-channels/no-standing') return 'forbidden'
   return 'failed'
-}
-
-/**
- * What one thrown value says about itself.
- *
- * A rejection crossing the transport is not always an `Error`: the carrier
- * may reject with whatever the other side produced, and reporting nothing
- * would leave the form with no reason to show.
- * @param error - whatever the call rejected with.
- * @returns the words to report.
- */
-export function messageOf(error: unknown): string {
-  return error instanceof Error ? error.message : String(error)
 }
 
 /**

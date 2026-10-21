@@ -7,7 +7,7 @@
 
 import { describe, expect, it, vi } from 'vitest'
 import type { ChannelKindView, ConfiguredChannelView } from '@lyness/lyn-api-sign-in-channel-controller/types'
-import { createChannelsOperations, messageOf, statusOf } from '../src/client/operations.ts'
+import { createChannelsOperations, statusOf } from '../src/client/operations.ts'
 import type { CallOutcome, ChannelsCalls, ChannelsSink } from '../src/client/operations.ts'
 
 const KIND: ChannelKindView = {
@@ -145,12 +145,5 @@ describe('changing what is configured', () => {
     await operations.save({ kind: 'wecom', displayName: 'x', settings: {} })
     await operations.remove('one')
     expect(sink.seen).toEqual(['work', 'refused:the worker went away:', 'work', 'refused:the worker went away:'])
-  })
-
-  it('reports a rejection that is not an error at all by what it prints as', () => {
-    // The carrier rejects with whatever the other side produced; a form with
-    // no reason to show would be the worse answer.
-    expect(messageOf(new Error('closed'))).toBe('closed')
-    expect(messageOf('the worker went away')).toBe('the worker went away')
   })
 })

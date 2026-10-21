@@ -318,6 +318,12 @@
     - id: ui-settings-sign-in-channels
       name: '@lyness/lyn-client-ui-settings-sign-in-channels'
 
+    # Who may use the deployment, maintained beside the channels they sign in
+    # through. Same notice-rather-than-form rule, so the row is the same on
+    # every product shape.
+    - id: ui-settings-people
+      name: '@lyness/lyn-client-ui-settings-people'
+
     # The sign-in screen, and the row naming whose session this is. On a
     # deployment with no accounts both render nothing, so the single-operator
     # shape sees no change.
