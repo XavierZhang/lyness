@@ -265,6 +265,7 @@ const SENTENCE_MODEL_EXPERIENCE: Readonly<Record<string, SentenceContract>> = {
   'packages/api/bots-controller': { kind: 'none', reason: 'A configuration surface for a deployment\'s bots; it registers no prompt, tool, or session event.' },
   'packages/api/people-controller': { kind: 'none', reason: 'A configuration surface for who may use a deployment; it registers no prompt, tool, or session event.' },
   'packages/client/ui-settings-sign-in-channels': { kind: 'none', reason: 'A Settings section rendering how people sign in; it registers no prompt, tool, or session event.' },
+  'packages/client/ui-settings-bots': { kind: 'none', reason: 'A Settings section rendering the bots an organization runs; it registers no prompt, tool, or session event.' },
   'packages/client/ui-settings-people': { kind: 'none', reason: 'A Settings section rendering who may use a deployment; it registers no prompt, tool, or session event.' },
   'packages/vendor/wecom': { kind: 'none', reason: 'A browser sign-in round trip answered before any session exists; it registers no prompt, tool, or session event.' },
   'packages/vendor/dingtalk': { kind: 'none', reason: 'A browser sign-in round trip answered before any session exists; it registers no prompt, tool, or session event.' },

@@ -324,6 +324,12 @@
     - id: ui-settings-people
       name: '@lyness/lyn-client-ui-settings-people'
 
+    # The bots the organization runs, maintained beside the people: a bot
+    # holds a standing in the same roster, so the two pages answer the same
+    # question about different kinds of actor.
+    - id: ui-settings-bots
+      name: '@lyness/lyn-client-ui-settings-bots'
+
     # The sign-in screen, and the row naming whose session this is. On a
     # deployment with no accounts both render nothing, so the single-operator
     # shape sees no change.

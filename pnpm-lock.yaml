@@ -3091,6 +3091,9 @@ importers:
       '@lyness/lyn-client-ui-settings-credits':
         specifier: workspace:*
         version: link:../../client/ui-settings-credits
+      '@lyness/lyn-client-ui-settings-bots':
+        specifier: workspace:*
+        version: link:../../client/ui-settings-bots
       '@lyness/lyn-client-ui-settings-people':
         specifier: workspace:*
         version: link:../../client/ui-settings-people
@@ -5473,6 +5476,48 @@ importers:
       '@lyness/lyn-client-ui-slots':
         specifier: workspace:*
         version: link:../ui-slots
+      '@types/react':
+        specifier: ~18.3.1
+        version: 18.3.31
+      react:
+        specifier: ^18.2.0
+        version: 18.3.1
+
+  packages/client/ui-settings-bots:
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+      '@lyness/lyn-api-bots-controller':
+        specifier: workspace:*
+        version: link:../../api/bots-controller
+      '@lyness/lyn-api-remotes':
+        specifier: workspace:*
+        version: link:../../api/remotes
+      '@lyness/lyn-client-locale':
+        specifier: workspace:*
+        version: link:../locale
+      '@lyness/lyn-client-store':
+        specifier: workspace:*
+        version: link:../store
+      '@lyness/lyn-client-test-runtime':
+        specifier: workspace:*
+        version: link:../test-runtime
+      '@lyness/lyn-client-ui-primitives':
+        specifier: workspace:*
+        version: link:../ui-primitives
+      '@lyness/lyn-client-ui-renderer':
+        specifier: workspace:*
+        version: link:../ui-renderer
+      '@lyness/lyn-client-ui-settings':
+        specifier: workspace:*
+        version: link:../ui-settings
+      '@lyness/lyn-client-ui-slots':
+        specifier: workspace:*
+        version: link:../ui-slots
+      '@lyness/lyn-typert-protocol':
+        specifier: workspace:*
+        version: link:../../typert/protocol
       '@types/react':
         specifier: ~18.3.1
         version: 18.3.31

@@ -1,0 +1,94 @@
+---
+description: "管理员在 Settings 里维护一个组织所运行的那些 bot 的区块。"
+kind: "package-reference"
+---
+
+# @lyness/lyn-client-ui-settings-bots
+
+[English](README.md) | 中文
+
+## 概述
+
+`lyn-client-ui-settings-bots` 添加一个 Settings 区块：这个组织运行着哪些 bot、每一个是干什么的、以及它运行所用的是什么。管理员给一个 bot 起名、写下它的性格和职责，再从部署提供的那些 agent preset 里挑一个；被安装自己的文件写下的 bot 只展示、不提供编辑，因为下一次启动会把那个文件再读一遍。一个 preset 已不再被部署提供的 bot 会被展示并标出来，而不是藏起来，因为有人写下的那段性格比运行它的那一行活得更久。
+
+## 目录
+
+- [使用本包](#use-this-package)
+- [理解实现](#understand-the-implementation)
+- [进一步探索](#further-exploration)
+- [模型体验](#model-experience)
+- [已知限制与延期工作](#known-limitations-and-deferred-work)
+- [开发备注](#dev-note)
+
+-----
+
+<a id="use-this-package"></a>
+## 使用本包
+
+Web bundle 把它挂在其他 Settings 区块旁边：
+
+```yaml
+- id: ui-settings-bots
+  name: '@lyness/lyn-client-ui-settings-bots'
+```
+
+没有别的要配置的。这个区块在打开时读 `remote.bots`，并渲染四样东西之一：那些 bot 和表单、一条「这个部署不维护自己的机器人」的提示、一条「调用方不能更改它们」的提示，或者一次带重试的失败。
+
+-----
+
+<a id="understand-the-implementation"></a>
+## 理解实现
+
+**三种回答，其中只有一种值得重试。**一个不维护机器人的部署，不会在读者等待时长出一个来；一个没有那个身份的调用方，再问一遍也不会获得它。只有读取失败才配一个按钮。
+
+**能力是挑出来的，不是敲进去的。**preset 控件提供的正好是 `remote.bots.presets` 答出来的那些，而那也正是部署用来校验一次保存的同一份列表。这里放一个自由文本字段，会让管理员指名一套没人审过的组合，也会拒绝掉表单刚刚自己给出的选项。
+
+**被写下的 bot 只展示、不提供编辑。**那一行会说明安装的配置拥有它，并且不带编辑和移除：在这里被接受的修改会在下一次启动时被撤销，而界面就等于报告了一件不真实的事。
+
+**一个跑不起来的 bot 会被标出来，而不是藏起来。**它的 preset 离开了 profile，所以它开不了对话；删掉那一行会丢掉管理员写下的性格，而藏起来会让他去找一个其实还在的 bot。
+
+**移除要先问一遍。**这个 bot 会停止运行并离开名册，而它拥有的那些对话仍归属于它、却再没有人会在里面作答，所以它走共享的风险确认，而不是一次点击。
+
+-----
+
+<a id="further-exploration"></a>
+## 进一步探索
+
+- [`lyn-api-bots-controller`](../../api/bots-controller/README.zh.md) — 这个区块调用的那个命名空间，以及每种拒绝的含义。
+- [`lyn-managed-bots`](../../identity/managed-bots/README.zh.md) — 它背后的那份名册，以及决定谁能改什么的那些规则。
+- [`lyn-client-ui-settings-people`](../ui-settings-people/README.zh.md) — 面向那些会登录的人的同胞区块。
+
+-----
+
+<a id="model-experience"></a>
+## 模型体验
+
+无，因为本包不注册任何工具或提示词：它渲染一个配置界面，它展示的东西都不会进入模型请求。
+
+#### KV Cache 影响
+
+请求前缀不变，因为这里没有任何东西参与请求装配。
+
+## 已知限制与延期工作
+
+<a id="known-limitations-and-deferred-work"></a>
+
+- **这里没有东西能和一个 bot 开启对话** — 这个区块维护的是那些记录，和一个 bot 交谈是这份设计的下一部分。
+- **这个区块对每个读者都显示** — 一个成员打开 Settings 会看到它，并读到「你不能更改这个组织的机器人」的提示，而不是根本看不到这个区块。要把它藏起来，导航得在区块自己的读取答出来之前就知道调用方的身份。
+- **组织是敲进去的，不是挑出来的** — 表单把组织 id 当文本收，因为客户端这边还读不到任何组织目录。
+- **性格只是一个纯文本框** — 没有办法预览一个 bot 会以什么样的系统提示词运行，也没有办法在保存前试一试。
+- **没有分页也没有搜索** — 调用方管得着的每一个 bot 都一次性列出来。
+
+**Runtime invariant:** 不发布伴生检查。这个区块从一次读取和它自己那些调用的结果来渲染；没有第二份副本可以和部署的说法不一致。
+
+-----
+
+<a id="dev-note"></a>
+### 开发备注
+
+<details>
+<summary>维护者的工作上下文 — 点击展开</summary>
+
+读取放在插件里而不是组件里，这样一次在途的读取可以被每个打开着的界面共享；`SectionBinding` 正是让那次读取可以在框架烤出 store 之前就结束的东西。这里只注入一个命名空间而不是两个，因为一个 bot 可以被给到的那些 preset，由校验这次保存的同一份名册来回答。
+
+</details>

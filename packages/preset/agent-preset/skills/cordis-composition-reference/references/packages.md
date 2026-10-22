@@ -104,6 +104,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@lyness/lyn-client-ui-settings-account` | yes | Manage DeepSeek login and open Platform billing pages |
 | `@lyness/lyn-client-ui-settings-agent-loop` | no | Settings page of the agent loop on the lyn web client's Plugins page: the parallel tool-call cap of the agent-loop namespace |
 | `@lyness/lyn-client-ui-settings-announcements` | no | The system-announcements row in General Settings, read from the deployment a client connected to |
+| `@lyness/lyn-client-ui-settings-bots` | no | The bots section in Settings: which bots an organization runs and what each one runs with, maintained at runtime |
 | `@lyness/lyn-client-ui-settings-credits` | no | The credits section in Settings: a balance, a ledger, and the two decisions an administrator makes |
 | `@lyness/lyn-client-ui-settings-general` | no | Settings ownerless-copy and product onboarding plugin: the General section, shell trigger/header chrome content, settings dictionaries, and the versioned welcome notice |
 | `@lyness/lyn-client-ui-settings-models` | yes | Models settings and shared product-onboarding dialogs over existing settings and credential joins |
