@@ -1,0 +1,49 @@
+# Bilingual-pair consistency record for 2026-10-22-bots-their-teams-and-their-rooms.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write .agents/notes/proposed/architecture/2026-10-22-bots-their-teams-and-their-rooms.md
+/agent-note-a-bot-the-team-it-works-in-and-the-room-it-talks-in:
+  en: 4b579ae72f46dce9
+  zh: 9907bd8a3f500ef6
+/agent-note-a-bot-the-team-it-works-in-and-the-room-it-talks-in/problem:
+  en: c21fc5123e65a64d
+  zh: 4e86be0df18fe0a3
+/agent-note-a-bot-the-team-it-works-in-and-the-room-it-talks-in/proposal:
+  en: 0d8c1b08f5271944
+  zh: 890d57c3736f84d3
+/agent-note-a-bot-the-team-it-works-in-and-the-room-it-talks-in/proposal/a-bot-is-a-person-of-a-different-kind:
+  en: 7724b6b67e9d4a4e
+  zh: e7731fb679472065
+/agent-note-a-bot-the-team-it-works-in-and-the-room-it-talks-in/proposal/its-character-and-its-capabilities-are-stored-and-the-stored-half-wins:
+  en: 0b723aa248c9b69e
+  zh: 4f1a5e6817e0d7d8
+/agent-note-a-bot-the-team-it-works-in-and-the-room-it-talks-in/proposal/a-bot-is-selected-from-never-written:
+  en: bb2ad93117679e5a
+  zh: 88930dfadfbf1dda
+/agent-note-a-bot-the-team-it-works-in-and-the-room-it-talks-in/proposal/a-bot-may-not-be-given-more-than-its-author-holds:
+  en: 2bbc9d14670850cd
+  zh: 39cce9ff2da18bd6
+/agent-note-a-bot-the-team-it-works-in-and-the-room-it-talks-in/proposal/a-team-is-who-may-ask-whom:
+  en: 2ab75b7cdbc164cf
+  zh: 3e30a39af54540f2
+/agent-note-a-bot-the-team-it-works-in-and-the-room-it-talks-in/proposal/asking-is-not-reading:
+  en: e5c1608a5557e7ab
+  zh: 3b9c5e4f915ba9db
+/agent-note-a-bot-the-team-it-works-in-and-the-room-it-talks-in/proposal/what-crosses-a-line-is-approved-by-a-person:
+  en: 3fc15e900494d293
+  zh: 91ad220ee21d4a95
+/agent-note-a-bot-the-team-it-works-in-and-the-room-it-talks-in/proposal/a-room-is-one-session-with-several-participants-and-one-conclusion:
+  en: 045603eef96f59dc
+  zh: 4f1376acb480e23d
+/agent-note-a-bot-the-team-it-works-in-and-the-room-it-talks-in/sequence:
+  en: ae14373cfab82a75
+  zh: d303dbe2bb5d065b
+/agent-note-a-bot-the-team-it-works-in-and-the-room-it-talks-in/alternatives-considered:
+  en: 31689f16fbe88938
+  zh: 0defa78765a0df20
+/agent-note-a-bot-the-team-it-works-in-and-the-room-it-talks-in/acceptance-criteria:
+  en: beb6052f2d0a28f3
+  zh: 88d1ce8743ebe24e
+/agent-note-a-bot-the-team-it-works-in-and-the-room-it-talks-in/risks:
+  en: 53aad67b1cd802d6
+  zh: b7a31c233f479277
