@@ -8,12 +8,24 @@
 
 import type { Membership, Person, PersonId, Role } from '@lyness/lyn-people'
 
-/** One person composition wrote, and the single standing they hold. */
+/** What kind of actor one roster entry is. */
+export type PersonKind = 'person' | 'bot'
+
+/** One person another owner holds, and the single standing they hold. */
 export interface DeclaredPerson {
   /** The person, as a lookup answers them. */
   readonly person: Person
   /** The standing they hold. */
   readonly membership: Membership
+  /**
+   * Whether this entry is a human or a bot; absent reads as a human.
+   *
+   * The directory treats both the same, because a bot owns conversations and
+   * is attributed like anybody else. Admission does not: a bot is never a
+   * verified subject, and a surface says which it is showing rather than
+   * offering to admit an identity as one.
+   */
+  readonly kind?: PersonKind | undefined
 }
 
 /** One person an administrator added, as the deployment stores them. */
@@ -94,6 +106,8 @@ export interface BindingView {
 export interface PersonView {
   /** Stable identity. */
   readonly id: PersonId
+  /** Whether this entry is a human or a bot. */
+  readonly kind: PersonKind
   /** Name a surface shows. */
   readonly displayName: string
   /** What this person may do. */
@@ -101,11 +115,11 @@ export interface PersonView {
   /** The organization their standing is in; absent for a platform administrator. */
   readonly organization?: string | undefined
   /**
-   * Whether this person comes from composition configuration.
+   * Whether this person is maintained somewhere other than here.
    *
-   * A written person is the operator's: the installation's files name them,
-   * so changing or removing them here would be undone at the next boot and
-   * is refused instead.
+   * A written person belongs to the installation's files or to the bot
+   * roster: changing or removing them here would be undone by the owner that
+   * holds them, so it is refused instead. Which owner is `kind`.
    */
   readonly written: boolean
   /** The directory identities that sign in as them, oldest first. */

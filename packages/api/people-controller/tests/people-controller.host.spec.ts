@@ -43,7 +43,7 @@ function standing(role: Role, organization?: string): Membership {
 /** The deployment, with one standing calling it. */
 async function harness(
   by: Membership | 'none',
-  options: { directory?: boolean; fails?: string } = {},
+  options: { directory?: boolean; fails?: string; bot?: { id: string; organization: string } } = {},
 ): Promise<PeopleController> {
   root ??= await mkdtemp(join(tmpdir(), 'lyn-people-controller-'))
   const ctx = new Context()
@@ -77,6 +77,21 @@ async function harness(
         ...by === 'none' || by.organization === undefined ? {} : { organization: by.organization },
       }],
     }).await()
+    if (options.bot !== undefined) {
+      const bot = options.bot
+      // What the bot roster registers, without standing one up: an entry the
+      // directory answers and the admission table must refuse.
+      ctx.effect(() => ctx.managedPeople.declarePerson({
+        person: { id: brandString<PersonId>(bot.id), displayName: 'Triage' },
+        membership: {
+          id: brandString<MembershipId>(`${bot.id}:standing`),
+          person: brandString<PersonId>(bot.id),
+          organization: bot.organization,
+          role: 'member',
+        },
+        kind: 'bot',
+      }))
+    }
   }
   await ctx.plugin(PeopleController)
   return ctx.peopleController
@@ -125,6 +140,16 @@ describe('an administrator maintaining who may use the deployment', () => {
     const platform = await harness(standing('platform-administrator'))
     expect(await codeOf(platform.save({ displayName: 'Mallory', role: 'tenant-administrator' })))
       .toBe('people/incomplete')
+  })
+
+  it('leaves the deployment\'s bots out, and refuses to admit an identity as one', async () => {
+    const controller = await harness(standing('platform-administrator'), { bot: { id: 'triage', organization: 'acme' } })
+
+    // This surface is who signs in. A bot owns conversations and signs in
+    // nowhere, so listing it would be a row nothing here can act on.
+    expect((await controller.list()).map(person => person.id)).toEqual(['ada'])
+    expect(await codeOf(controller.bind({ channel: 'wecom-1', issuer: 'corp', subject: 'bea', person: 'triage' })))
+      .toBe('people/not-a-person')
   })
 
   it('is refused an identity nobody holds, and one already admitted', async () => {

@@ -42,6 +42,11 @@ export default class PeopleController extends TypertRemoteService {
 
   /**
    * The people the calling standing may change.
+   *
+   * People only. The roster also answers the deployment's bots, because a
+   * bot owns the conversations it opens, and this surface is about who signs
+   * in: a bot listed here would be a row an administrator could neither
+   * change nor admit an identity as.
    * @returns the people it administers, written ones first.
    * @throws {RemoteError} `people/no-standing` when the call establishes none,
    * or `gateway/internal` when this deployment maintains no directory.
@@ -49,7 +54,8 @@ export default class PeopleController extends TypertRemoteService {
   @Remote
   async list(): Promise<readonly PersonRowView[]> {
     const directory = this.managed()
-    return (await directory.list(await this.calling())).map(view)
+    const roster = await directory.list(await this.calling())
+    return roster.filter(entry => entry.kind === 'person').map(view)
   }
 
   /**
@@ -97,7 +103,7 @@ export default class PeopleController extends TypertRemoteService {
    * Admit one directory identity as one person.
    * @param input - the identity and who it signs in as.
    * @throws {RemoteError} `people/not-permitted`, `people/written`, `people/unknown-person`,
-   * `people/already-bound`, `people/no-standing`, or `gateway/internal`.
+   * `people/already-bound`, `people/not-a-person`, `people/no-standing`, or `gateway/internal`.
    */
   @Remote
   async bind(input: BindingInput): Promise<void> {
@@ -201,8 +207,9 @@ function reported(reason: PeopleRefusal, message: string): RemoteError {
     case 'written': return new RemoteError('people/written', message, {})
     case 'unknown-person': return new RemoteError('people/unknown-person', message, {})
     case 'already-bound': return new RemoteError('people/already-bound', message, {})
+    case 'not-a-person': return new RemoteError('people/not-a-person', message, {})
     case 'organization-required': return new RemoteError('people/incomplete', message, { fields: ['organization'] })
-    /* v8 ignore next -- closed-union exhaustiveness guard; the directory names one of the five above. */
+    /* v8 ignore next -- closed-union exhaustiveness guard; the directory names one of the six above. */
     default: return assertNever(reason, 'managed people refusal')
   }
 }

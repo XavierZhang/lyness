@@ -1,0 +1,37 @@
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write packages/identity/managed-bots/README.md
+/:
+  en: e303a3607d4ad146
+  zh: 3541b0e4546a9ff7
+/lyness-lyn-managed-bots:
+  en: e2e444bbedaf3255
+  zh: 6d067923f4acb5c2
+/lyness-lyn-managed-bots/summary:
+  en: eae921e17b28af5b
+  zh: 38da4711fe330e28
+/lyness-lyn-managed-bots/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-managed-bots/use-this-package:
+  en: c0de3d869a756ba1
+  zh: e1ed63fab37c96f4
+/lyness-lyn-managed-bots/understand-the-implementation:
+  en: c21a95a8a9b6aacd
+  zh: 5e19000af4ee4a06
+/lyness-lyn-managed-bots/further-exploration:
+  en: 172b569f3a774412
+  zh: 42bb71f1686afaf2
+/lyness-lyn-managed-bots/model-experience:
+  en: af46949fd4ed5a31
+  zh: f8058475494a3add
+/lyness-lyn-managed-bots/model-experience/kv-cache-effect:
+  en: e13faf79aaae30a9
+  zh: c1facb2df4d7d038
+/lyness-lyn-managed-bots/known-limitations-and-deferred-work:
+  en: ded8f724618faea6
+  zh: 825714c14dd73000
+/lyness-lyn-managed-bots/known-limitations-and-deferred-work/dev-note:
+  en: 0e115f746c93a288
+  zh: 8cd0720c51552d53

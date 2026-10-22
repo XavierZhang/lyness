@@ -4790,6 +4790,7 @@ These load from a `cordis.yml` entry with no `config:` block; they declare no co
 | `@lyness/lyn-host-plugin-inventory` | `loader` | [`packages/host/plugin-inventory/src/index.ts`](../packages/host/plugin-inventory/src/index.ts) |
 | `@lyness/lyn-llm` | — | [`packages/llm/llm/src/index.ts`](../packages/llm/llm/src/index.ts) |
 | `@lyness/lyn-lsp` | — | [`packages/lsp/lsp/src/index.ts`](../packages/lsp/lsp/src/index.ts) |
+| `@lyness/lyn-managed-bots` | `storageDomain` · `managedPeople` · `agentPresets` | [`packages/identity/managed-bots/src/index.ts`](../packages/identity/managed-bots/src/index.ts) |
 | `@lyness/lyn-managed-people` | `storageDomain` | [`packages/identity/managed-people/src/index.ts`](../packages/identity/managed-people/src/index.ts) |
 | `@lyness/lyn-mcp-resources` | `tools` | [`packages/mcp/mcp-resources/src/index.ts`](../packages/mcp/mcp-resources/src/index.ts) |
 | `@lyness/lyn-model-required` | `llm` · `appReady` | [`packages/llm/model-required/src/index.ts`](../packages/llm/model-required/src/index.ts) |

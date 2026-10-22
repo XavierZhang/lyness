@@ -433,6 +433,54 @@ Host service backing the generated `ctx.remote.identity` namespace.
 
 Source: [`packages/api/identity-controller/src/index.ts`](../../packages/api/identity-controller/src/index.ts)
 
+<a id="ctxmanagedbots--managedbots"></a>
+
+### `ctx.managedBots` — `ManagedBots`
+
+The bots this deployment stores, and the written ones they may not shadow.
+
+```ts cordis-catalog
+/**
+ * Declare one bot composition wrote.
+ *
+ * The provider that read the roster registers it, so this service can
+ * refuse to shadow it and a surface can show it as the operator's.
+ * @param entry - the bot, as composition names it.
+ * @returns the disposer that withdraws it.
+ */
+declareBot(entry: DeclaredBot): () => void
+
+/**
+ * The bots one standing administers, written and stored alike.
+ * @param by - the standing asking.
+ * @returns the bots it administers, written ones first, then oldest stored first.
+ */
+async list(by: Membership): Promise<readonly BotView[]>
+
+/**
+ * Add one bot, or change one this service holds.
+ * @param submission - what the administrator filled in.
+ * @param by - the standing making the change.
+ * @returns the bot as it now reads.
+ * @throws {BotsRefusedError} when the standing may not make the change, composition owns the bot, or no such preset is offered.
+ */
+async save(submission: BotSubmission, by: Membership): Promise<BotView>
+
+/**
+ * Remove one bot this service holds.
+ *
+ * Its identity is not reused, so the conversations it opened stay
+ * attributed to a bot that no longer runs rather than to whichever one is
+ * added next.
+ * @param id - the bot to remove.
+ * @param by - the standing making the change.
+ * @throws {BotsRefusedError} when the standing may not remove it, or composition owns it.
+ */
+async remove(id: PersonId, by: Membership): Promise<void>
+```
+
+Source: [`packages/identity/managed-bots/src/index.ts`](../../packages/identity/managed-bots/src/index.ts)
+
 <a id="ctxmanagedpeople--managedpeople"></a>
 
 ### `ctx.managedPeople` — `ManagedPeople`
@@ -441,11 +489,13 @@ The people and bindings this deployment stores, and the written ones they may no
 
 ```ts cordis-catalog
 /**
- * Declare one person composition wrote.
+ * Declare one person another owner holds.
  *
- * The provider that read the roster registers them, so this service can
- * refuse to shadow them and a surface can show them as the operator's.
- * @param entry - the person and the standing they hold.
+ * The provider that read the roster registers what composition wrote, and
+ * the bot roster registers its own entries, so this service can refuse to
+ * shadow either and a surface can show who holds them. A declared entry is
+ * answered by every lookup and is never stored here.
+ * @param entry - the person, the standing they hold, and which kind they are.
  * @returns the disposer that withdraws them.
  */
 declarePerson(entry: DeclaredPerson): () => void
@@ -579,6 +629,11 @@ Host service backing the generated `ctx.remote.people` namespace.
 ```ts cordis-catalog
 /**
  * The people the calling standing may change.
+ *
+ * People only. The roster also answers the deployment's bots, because a
+ * bot owns the conversations it opens, and this surface is about who signs
+ * in: a bot listed here would be a row an administrator could neither
+ * change nor admit an identity as.
  * @returns the people it administers, written ones first.
  * @throws {RemoteError} `people/no-standing` when the call establishes none,
  * or `gateway/internal` when this deployment maintains no directory.
@@ -606,7 +661,7 @@ Host service backing the generated `ctx.remote.people` namespace.
  * Admit one directory identity as one person.
  * @param input - the identity and who it signs in as.
  * @throws {RemoteError} `people/not-permitted`, `people/written`, `people/unknown-person`,
- * `people/already-bound`, `people/no-standing`, or `gateway/internal`.
+ * `people/already-bound`, `people/not-a-person`, `people/no-standing`, or `gateway/internal`.
  */
 @Remote async bind(input: BindingInput): Promise<void>
 

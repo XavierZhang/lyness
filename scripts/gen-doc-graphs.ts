@@ -916,6 +916,15 @@ const SERVICE_ROLES: ServiceRole[] = [
     note: 'Turns stored records into mounted channels and back: a platform administrator configures the deployment\'s own, a tenant administrator only their organization\'s, and each organization\'s sign-in page is offered only its own plus the deployment-wide ones.',
   },
   {
+    key: 'managedBots',
+    pkg: 'managed-bots',
+    title: 'The bots an administrator maintains',
+    mode: 'core',
+    implementations: [],
+    consumers: [],
+    note: 'Holds the bots added at runtime and puts each one in its organization\'s roster, where it holds a member standing and owns what it opens; admission refuses it, because no directory can authenticate a bot.',
+  },
+  {
     key: 'managedPeople',
     pkg: 'managed-people',
     title: 'People and admission an administrator maintains',

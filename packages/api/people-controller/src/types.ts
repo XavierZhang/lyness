@@ -35,6 +35,12 @@ declare module '@lyness/lyn-typert-protocol' {
      */
     'people/already-bound': Record<string, never>
     /**
+     * The binding named a bot. A bot holds a standing and owns conversations,
+     * and no directory can authenticate one, so admitting an identity as a
+     * bot would hand a human subject the bot's standing under its name.
+     */
+    'people/not-a-person': Record<string, never>
+    /**
      * The submission left something out. `fields` names what, so a form marks
      * them together.
      */

@@ -28,7 +28,7 @@ import type { Domain } from '@lyness/lyn-storage-domain'
 import { managedPeopleDomain } from './storage.ts'
 import type {
   BindingRecord, BindingSubmission, BindingView, DeclaredPerson,
-  PersonRecord, PersonSubmission, PersonView,
+  PersonKind, PersonRecord, PersonSubmission, PersonView,
 } from './types.ts'
 
 export type * from './types.ts'
@@ -53,6 +53,9 @@ export const UNKNOWN_PERSON = 'managed-people: no such person'
 /** Message a second binding of one directory identity is refused with. */
 export const ALREADY_BOUND = 'managed-people: that directory identity is already admitted'
 
+/** Message an attempt to admit a directory identity as a bot is refused with. */
+export const NOT_A_PERSON = 'managed-people: a bot does not sign in'
+
 /** Message a tenant administrator without an organization is refused with. */
 export const ORGANIZATION_REQUIRED = 'managed-people: a tenant administrator names the organization they administer'
 
@@ -63,7 +66,13 @@ export const ORGANIZATION_REQUIRED = 'managed-people: a tenant administrator nam
  * one field, disables one row, or says the standing is wrong, and deciding
  * which by matching prose would break the moment the prose changed.
  */
-export type PeopleRefusal = 'not-permitted' | 'written' | 'unknown-person' | 'already-bound' | 'organization-required'
+export type PeopleRefusal =
+  | 'not-permitted'
+  | 'written'
+  | 'unknown-person'
+  | 'already-bound'
+  | 'organization-required'
+  | 'not-a-person'
 
 /** A directory change this service refused, carrying the reason it refused. */
 export class PeopleRefusedError extends Error {
@@ -130,11 +139,13 @@ export class ManagedPeople extends Service {
   }
 
   /**
-   * Declare one person composition wrote.
+   * Declare one person another owner holds.
    *
-   * The provider that read the roster registers them, so this service can
-   * refuse to shadow them and a surface can show them as the operator's.
-   * @param entry - the person and the standing they hold.
+   * The provider that read the roster registers what composition wrote, and
+   * the bot roster registers its own entries, so this service can refuse to
+   * shadow either and a surface can show who holds them. A declared entry is
+   * answered by every lookup and is never stored here.
+   * @param entry - the person, the standing they hold, and which kind they are.
    * @returns the disposer that withdraws them.
    */
   declarePerson(entry: DeclaredPerson): () => void {
@@ -212,11 +223,11 @@ export class ManagedPeople extends Service {
     const views: PersonView[] = []
     for (const entry of this.written.values()) {
       if (!administers(by, entry.membership.organization)) continue
-      views.push(this.view(entry.person.id, entry.membership, entry.person.displayName, true, bindings))
+      views.push(this.view(entry.person.id, entry.membership, entry.person.displayName, entry.kind ?? 'person', true, bindings))
     }
     for (const [, record] of domain.table('people').entries()) {
       if (!administers(by, record.organization)) continue
-      views.push(this.view(record.id, membershipOf(record), record.displayName, false, bindings))
+      views.push(this.view(record.id, membershipOf(record), record.displayName, 'person', false, bindings))
     }
     return views
   }
@@ -249,7 +260,7 @@ export class ManagedPeople extends Service {
     }
     await domain.table('people').put(record.id, record)
     const bindings = [...domain.table('bindings').entries()].map(([, row]) => row)
-    return this.view(record.id, membershipOf(record), record.displayName, false, bindings)
+    return this.view(record.id, membershipOf(record), record.displayName, 'person', false, bindings)
   }
 
   /**
@@ -284,6 +295,12 @@ export class ManagedPeople extends Service {
   async bind(submission: BindingSubmission, by: Membership): Promise<BindingView> {
     const standing = await this.standingFor(submission.person)
     if (standing === undefined) throw new PeopleRefusedError('unknown-person', UNKNOWN_PERSON)
+    // A bot holds a standing and owns conversations, and no directory can
+    // authenticate one. Admitting an identity as a bot would hand a human
+    // subject the bot's standing under the bot's name.
+    if (this.written.get(submission.person)?.kind === 'bot') {
+      throw new PeopleRefusedError('not-a-person', NOT_A_PERSON)
+    }
     if (!administers(by, standing.organization)) throw new PeopleRefusedError('not-permitted', NOT_PERMITTED)
     await this.authorizeChannel(submission.channel, by)
     const key = bindingKey(submission.channel, submission.issuer, submission.subject)
@@ -371,6 +388,7 @@ export class ManagedPeople extends Service {
     id: PersonId,
     standing: Membership,
     displayName: string,
+    kind: PersonKind,
     written: boolean,
     stored: readonly BindingRecord[],
   ): PersonView {
@@ -385,6 +403,7 @@ export class ManagedPeople extends Service {
     }
     return {
       id,
+      kind,
       displayName,
       role: standing.role,
       ...standing.organization === undefined ? {} : { organization: standing.organization },

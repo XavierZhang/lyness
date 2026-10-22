@@ -1698,14 +1698,46 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
     ],
   },
   {
+    key: 'managedBots',
+    summary: 'The bots this deployment stores, and the written ones they may not shadow.',
+    description: 'The bots this deployment stores, and the written ones they may not shadow.',
+    methods: [
+      {
+        signature: 'declareBot(entry: DeclaredBot): () => void',
+        description: 'Declare one bot composition wrote.\n\nThe provider that read the roster registers it, so this service can refuse to shadow it and a surface can show it as the operator\'s.',
+        parameters: [{ name: 'entry', description: 'the bot, as composition names it.' }],
+        returns: 'the disposer that withdraws it.',
+      },
+      {
+        signature: 'async list(by: Membership): Promise<readonly BotView[]>',
+        description: 'The bots one standing administers, written and stored alike.',
+        parameters: [{ name: 'by', description: 'the standing asking.' }],
+        returns: 'the bots it administers, written ones first, then oldest stored first.',
+      },
+      {
+        signature: 'async save(submission: BotSubmission, by: Membership): Promise<BotView>',
+        description: 'Add one bot, or change one this service holds.',
+        parameters: [{ name: 'submission', description: 'what the administrator filled in.' }, { name: 'by', description: 'the standing making the change.' }],
+        returns: 'the bot as it now reads.',
+        throws: ['{BotsRefusedError} when the standing may not make the change, composition owns the bot, or no such preset is offered.'],
+      },
+      {
+        signature: 'async remove(id: PersonId, by: Membership): Promise<void>',
+        description: 'Remove one bot this service holds.\n\nIts identity is not reused, so the conversations it opened stay attributed to a bot that no longer runs rather than to whichever one is added next.',
+        parameters: [{ name: 'id', description: 'the bot to remove.' }, { name: 'by', description: 'the standing making the change.' }],
+        throws: ['{BotsRefusedError} when the standing may not remove it, or composition owns it.'],
+      },
+    ],
+  },
+  {
     key: 'managedPeople',
     summary: 'The people and bindings this deployment stores, and the written ones they may not shadow.',
     description: 'The people and bindings this deployment stores, and the written ones they may not shadow.',
     methods: [
       {
         signature: 'declarePerson(entry: DeclaredPerson): () => void',
-        description: 'Declare one person composition wrote.\n\nThe provider that read the roster registers them, so this service can refuse to shadow them and a surface can show them as the operator\'s.',
-        parameters: [{ name: 'entry', description: 'the person and the standing they hold.' }],
+        description: 'Declare one person another owner holds.\n\nThe provider that read the roster registers what composition wrote, and the bot roster registers its own entries, so this service can refuse to shadow either and a surface can show who holds them. A declared entry is answered by every lookup and is never stored here.',
+        parameters: [{ name: 'entry', description: 'the person, the standing they hold, and which kind they are.' }],
         returns: 'the disposer that withdraws them.',
       },
       {
@@ -1937,7 +1969,7 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
     methods: [
       {
         signature: '@Remote async list(): Promise<readonly PersonRowView[]>',
-        description: 'The people the calling standing may change.',
+        description: 'The people the calling standing may change.\n\nPeople only. The roster also answers the deployment\'s bots, because a bot owns the conversations it opens, and this surface is about who signs in: a bot listed here would be a row an administrator could neither change nor admit an identity as.',
         parameters: [],
         returns: 'the people it administers, written ones first.',
         throws: ['{RemoteError} `people/no-standing` when the call establishes none, or `gateway/internal` when this deployment maintains no directory.'],
@@ -1959,7 +1991,7 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         signature: '@Remote async bind(input: BindingInput): Promise<void>',
         description: 'Admit one directory identity as one person.',
         parameters: [{ name: 'input', description: 'the identity and who it signs in as.' }],
-        throws: ['{RemoteError} `people/not-permitted`, `people/written`, `people/unknown-person`, `people/already-bound`, `people/no-standing`, or `gateway/internal`.'],
+        throws: ['{RemoteError} `people/not-permitted`, `people/written`, `people/unknown-person`, `people/already-bound`, `people/not-a-person`, `people/no-standing`, or `gateway/internal`.'],
       },
       {
         signature: '@Remote async unbind(input: IdentityInput): Promise<void>',
@@ -5400,6 +5432,14 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export interface BindingView {\n    readonly channel: string;\n    readonly issuer: string;\n    readonly subject: string;\n    readonly written: boolean;\n}',
   },
   {
+    name: 'BotSubmission',
+    declaration: 'export interface BotSubmission {\n    readonly id?: PersonId | undefined;\n    readonly displayName: string;\n    readonly organization: string;\n    readonly persona: string;\n    readonly job: string;\n    readonly preset: string;\n}',
+  },
+  {
+    name: 'BotView',
+    declaration: 'export interface BotView extends DeclaredBot {\n    readonly written: boolean;\n    readonly available: boolean;\n}',
+  },
+  {
     name: 'Branded',
     declaration: 'export type Branded<B extends string> = string & {\n    readonly [BRAND]: B;\n};',
   },
@@ -5812,12 +5852,16 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export type DebitId = Branded<\'DebitId\'>;',
   },
   {
+    name: 'DeclaredBot',
+    declaration: 'export interface DeclaredBot {\n    readonly id: PersonId;\n    readonly displayName: string;\n    readonly organization: string;\n    readonly persona: string;\n    readonly job: string;\n    readonly preset: string;\n}',
+  },
+  {
     name: 'DeclaredContext',
     declaration: 'export type DeclaredContext = {\n    readonly kind: \'personal\';\n} | {\n    readonly kind: \'membership\';\n    readonly membership: MembershipId;\n};',
   },
   {
     name: 'DeclaredPerson',
-    declaration: 'export interface DeclaredPerson {\n    readonly person: Person;\n    readonly membership: Membership;\n}',
+    declaration: 'export interface DeclaredPerson {\n    readonly person: Person;\n    readonly membership: Membership;\n    readonly kind?: PersonKind | undefined;\n}',
   },
   {
     name: 'DeepSeekLlmApiExtensionMap',
@@ -6820,6 +6864,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export interface PersonInput {\n    readonly id?: string;\n    readonly displayName: string;\n    readonly role: Role;\n    readonly organization?: string;\n}',
   },
   {
+    name: 'PersonKind',
+    declaration: 'export type PersonKind = \'person\' | \'bot\';',
+  },
+  {
     name: 'PersonOverrides',
     declaration: 'export interface PersonOverrides {\n    readonly organization?: AllowanceRecord | undefined;\n    readonly person?: AllowanceRecord | undefined;\n}',
   },
@@ -6833,7 +6881,7 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   },
   {
     name: 'PersonView',
-    declaration: 'export interface PersonView {\n    readonly id: PersonId;\n    readonly displayName: string;\n    readonly role: Role;\n    readonly organization?: string | undefined;\n    readonly written: boolean;\n    readonly bindings: readonly BindingView[];\n}',
+    declaration: 'export interface PersonView {\n    readonly id: PersonId;\n    readonly kind: PersonKind;\n    readonly displayName: string;\n    readonly role: Role;\n    readonly organization?: string | undefined;\n    readonly written: boolean;\n    readonly bindings: readonly BindingView[];\n}',
   },
   {
     name: 'PlatformSession',
