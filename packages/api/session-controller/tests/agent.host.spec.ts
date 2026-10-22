@@ -5,6 +5,8 @@ import { Context } from '@lyness/cordis'
 import AgentRegistry from '@lyness/lyn-agent'
 import type { Agent } from '@lyness/lyn-agent'
 import { agentPresetProjectionDefinition } from '@lyness/lyn-agent-preset-registry'
+import { botProjectionDefinition } from '@lyness/lyn-managed-bots/session'
+import type { EngagedBot } from '@lyness/lyn-managed-bots/session'
 import SessionStore, { SESSION_FORMAT_VERSION, SessionLogOffset, SessionId } from '@lyness/lyn-session'
 import type { SessionEvent, SessionHeader } from '@lyness/lyn-session'
 import { SessionAlreadyOwnedError } from '@lyness/lyn-session-persistence'
@@ -31,14 +33,32 @@ afterEach(async () => {
   for (const dir of tempDirs.splice(0)) rmSync(dir, { recursive: true, force: true })
 })
 
-async function harness(): Promise<{ ctx: Context; agents: ApiSessionAgentController }> {
+async function harness(options: { presets?: readonly string[]; roster?: EngagedBot[] } = {}): Promise<{
+  ctx: Context
+  agents: ApiSessionAgentController
+}> {
   const ctx = new Context()
   roots.push(ctx)
   await ctx.plugin(TypertRegistry)
   await ctx.plugin(SessionStore)
   await ctx.plugin(AgentRegistry)
   installSessionReadTestServices(ctx)
+  if (options.presets !== undefined) {
+    const ids = options.presets
+    ctx.provide('agentPresets', {
+      defaultId: ids[0],
+      resolve: (id?: string) => Promise.resolve({ id: id ?? ids[0] ?? '' }),
+      mount: (_ctx: Context, id?: string) => Promise.resolve({ id: id ?? ids[0] ?? '' }),
+    } as never)
+  }
+  if (options.roster !== undefined) {
+    const composed = options.roster
+    ctx.provide('managedBots', {
+      compose: (_agentCtx: Context, engaged: EngagedBot) => { composed.push(engaged); return () => {} },
+    } as never)
+  }
   ctx.sessionProjections.register(agentPresetProjectionDefinition)
+  ctx.sessionProjections.register(botProjectionDefinition)
   installModelSelectionProjection(ctx)
   ctx.provide('agentDefaultModel', {
     currentSelection: () => ({ provider: 'fixture', model: 'fixture-model' }),
@@ -284,6 +304,90 @@ describe('ApiSession Agent lookup and recovery', () => {
     expect(() => agents.presetForObservation(observed)).toThrow(
       'Agent activation requires a projected Session observation',
     )
+    expect(() => agents.botForObservation(observed)).toThrow(
+      'Agent activation requires a projected Session observation',
+    )
+  })
+})
+
+describe('ApiSession resuming a conversation with a bot', () => {
+  const ENGAGED: EngagedBot = { bot: 'triage', displayName: 'Triage', persona: 'You answer briefly.' }
+
+  /** One observation of a session whose log recorded that bot. */
+  function observedWithBot(meta: SessionHeader, bot: EngagedBot | undefined): SessionObservation {
+    const observation: SessionObservation = {
+      source: 'prepared',
+      header: meta,
+      inheritedEventCount: SessionLogOffset(0),
+      events: [],
+      cursor: -1,
+      projections: { asOfSeq: -1, values: bot === undefined ? {} : { bot } },
+      retain: () => observation,
+      [Symbol.dispose]: () => {},
+    }
+    return observation
+  }
+
+  /** Resume, running the setup the composition supplied. */
+  function resumingWithSetup(ctx: Context, resumed: Agent): void {
+    vi.spyOn(ctx.agents, 'resume').mockImplementation(async (options: { setup?: unknown }) => {
+      await (options.setup as ((c: Context, a: Agent) => Promise<void>) | undefined)?.(ctx, resumed)
+      return { agent: resumed, dispose: () => Promise.resolve() }
+    })
+  }
+
+  it('rebuilds the character from the log and records nothing a second time', async () => {
+    const composed: EngagedBot[] = []
+    const { ctx, agents } = await harness({ presets: ['standard'], roster: composed })
+    const meta = header('bot-resume')
+    const resumed = agent(ctx, meta)
+    resumingWithSetup(ctx, resumed)
+
+    await expect(agents.resolveObservedAgent(observedWithBot(meta, ENGAGED)))
+      .resolves.toEqual({ agent: resumed })
+    expect(composed).toEqual([ENGAGED])
+    // Already in the log: appending again would double-count the engagement
+    // and, if the roster changed since, record a character this conversation
+    // never ran under.
+    expect(resumed.session.snapshotEvents().filter(one => one.type === 'bot/engaged')).toEqual([])
+  })
+
+  it('composes nothing for a session a person opened themselves', async () => {
+    const composed: EngagedBot[] = []
+    const { ctx, agents } = await harness({ presets: ['standard'], roster: composed })
+    const meta = header('plain-resume')
+    const resumed = agent(ctx, meta)
+    resumingWithSetup(ctx, resumed)
+
+    await expect(agents.resolveObservedAgent(observedWithBot(meta, undefined)))
+      .resolves.toEqual({ agent: resumed })
+    expect(composed).toEqual([])
+  })
+
+  it('rebuilds the character when a stored conversation is adopted by id', async () => {
+    const composed: EngagedBot[] = []
+    const { ctx, agents } = await harness({ presets: ['standard'], roster: composed })
+    const meta = header('bot-adopt')
+    const resumed = agent(ctx, meta)
+    resumingWithSetup(ctx, resumed)
+    vi.spyOn(ctx.sessionQuery, 'observeSession')
+      .mockResolvedValue(observedWithBot(meta, ENGAGED))
+
+    await expect(agents.ensureSession(meta.id, '/workspace', true)).resolves.toBe(resumed)
+    expect(composed).toEqual([ENGAGED])
+  })
+
+  it('refuses to resume a bot conversation where no roster is mounted', async () => {
+    const { ctx, agents } = await harness({ presets: ['standard'] })
+    const meta = header('bot-resume-no-roster')
+    const resumed = agent(ctx, meta)
+    resumingWithSetup(ctx, resumed)
+
+    // The deployment dropped the accounts module since: rebuilding the
+    // prompt is impossible, and running the conversation without the
+    // character would answer as somebody else.
+    await expect(agents.resolveObservedAgent(observedWithBot(meta, ENGAGED)))
+      .resolves.toMatchObject({ error: { message: expect.stringContaining('maintains no bot roster') as string } })
   })
 })
 

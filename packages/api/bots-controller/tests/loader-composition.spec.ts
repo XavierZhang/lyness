@@ -199,6 +199,42 @@ it('admits no directory identity as a bot, however it is named', async () => {
   expect(await ctx.signInAdmission.admit(identity)).toBeUndefined()
 })
 
+it('opens a conversation that speaks as the bot, and records what it ran with', async () => {
+  const composed = await compose()
+  const { ctx } = composed
+  const added = await asAda(composed, () => ctx.botsController.save({
+    displayName: 'Triage',
+    organization: 'acme',
+    persona: 'You answer in short sentences.',
+    job: 'Files reports.',
+    preset: 'standard',
+  }))
+
+  // What the session controller asks the roster for, and what it writes into
+  // the session's own log: the preset to compose, and the character verbatim.
+  const engagement = await ctx.managedBots.engage(brandString<PersonId>(added.id))
+  expect(engagement).toEqual({
+    preset: 'standard',
+    engaged: { bot: added.id, displayName: 'Triage', persona: 'You answer in short sentences.' },
+  })
+
+  // Rewriting the character changes what it says next. A conversation that
+  // already recorded the old one keeps running under what its log holds,
+  // which is why the engagement is written into the log rather than looked
+  // up again on resume.
+  await asAda(composed, () => ctx.botsController.save({
+    id: added.id,
+    displayName: 'Triage',
+    organization: 'acme',
+    persona: 'You answer at length.',
+    job: 'Files reports.',
+    preset: 'standard',
+  }))
+  const rewritten = await ctx.managedBots.engage(brandString<PersonId>(added.id))
+  expect(rewritten?.engaged.persona).toBe('You answer at length.')
+  expect(engagement?.engaged.persona).toBe('You answer in short sentences.')
+})
+
 it('refuses a preset this deployment never declared', async () => {
   const composed = await compose()
   const { ctx } = composed

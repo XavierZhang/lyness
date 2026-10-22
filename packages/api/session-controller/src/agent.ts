@@ -15,6 +15,22 @@ import { SessionQueryError, type SessionObservation } from '@lyness/lyn-session-
 import { RemoteError } from '@lyness/lyn-typert-protocol'
 import type {} from '@lyness/lyn-typert-registry'
 import type {} from '@lyness/lyn-session-ownership/visibility'
+import type {} from '@lyness/lyn-managed-bots'
+import type { EngagedBot } from '@lyness/lyn-managed-bots/session'
+
+/**
+ * One bot a session is about to speak as.
+ *
+ * `record` separates the session that engaged it from one resuming: the
+ * first writes the character into its own log, and the second rebuilds the
+ * section from what that log already holds.
+ */
+export interface BotEngagement {
+  /** The bot and the character to run with. */
+  readonly engaged: EngagedBot
+  /** Whether this session has yet to record the engagement. */
+  readonly record: boolean
+}
 import type { ModelSelection } from './types.ts'
 
 /** Cold Session identity absent from persistence. */
@@ -257,6 +273,7 @@ export class ApiSessionAgentController {
    * @param cwd - directory the Session must own.
    * @param checkPersistedIdentity - whether to inspect a cold identity before creation.
    * @param presetId - optional Agent preset the Session must own.
+   * @param engagement - the bot this session speaks as, when it speaks as one.
    * @returns the matching live ordinary Agent.
    */
   async ensureSession(
@@ -264,10 +281,11 @@ export class ApiSessionAgentController {
     cwd: string,
     checkPersistedIdentity: boolean,
     presetId?: string,
+    engagement?: BotEngagement,
   ): Promise<Agent> {
     let creation = this.creations.get(sessionId)
     if (creation === undefined) {
-      creation = this.createOrAdopt(sessionId, cwd, checkPersistedIdentity, presetId)
+      creation = this.createOrAdopt(sessionId, cwd, checkPersistedIdentity, presetId, engagement)
         .catch((error: unknown) => {
           const live = this.ctx.agents.get(sessionId)
           if (live !== undefined) {
@@ -399,9 +417,10 @@ export class ApiSessionAgentController {
   /**
    * Resolve the preset id and pre-publication Agent setup for a create or resume.
    * @param presetId - requested preset or the configured default when omitted.
+   * @param engagement - the bot this session speaks as, when it speaks as one.
    * @returns the resolved preset identity and Agent setup callback.
    */
-  async composeAgent(presetId: string | undefined): Promise<{
+  async composeAgent(presetId: string | undefined, engagement?: BotEngagement): Promise<{
     readonly agentPreset?: string
     readonly setup: AgentSetup
   }> {
@@ -415,8 +434,39 @@ export class ApiSessionAgentController {
       setup: async (agentCtx, agent) => {
         this.installSelection(agent)
         await presets.mount(agentCtx, resolvedId)
+        if (engagement !== undefined) this.engageBot(agentCtx, agent, engagement)
       },
     }
+  }
+
+  /**
+   * Put the bot's character into this agent, and record it the first time.
+   *
+   * Composed after the preset mounts, because the preset says how the agent
+   * works and the bot says who is speaking. Recorded only on the session that
+   * engaged it: a resume rebuilds the same section from what the log already
+   * holds, so an administrator who rewrote the character since does not
+   * rewrite what this conversation ran under.
+   */
+  private engageBot(agentCtx: Context, agent: Agent, engagement: BotEngagement): void {
+    const roster = this.ctx.get('managedBots')
+    if (roster === undefined) {
+      throw new Error('api-session: a session speaks as a bot, and this deployment maintains no bot roster')
+    }
+    agentCtx.effect(() => roster.compose(agentCtx, engagement.engaged))
+    if (engagement.record) agent.session.append('bot/engaged', { ...engagement.engaged })
+  }
+
+  /**
+   * Read the bot one session speaks as from an all-projections observation.
+   * @param observation - exact Session observation carrying its projection snapshot.
+   * @returns the bot it speaks as, or undefined when a person opened it themselves.
+   */
+  botForObservation(observation: SessionObservation): EngagedBot | undefined {
+    if (observation.projections === undefined) {
+      throw new Error('api-session: Agent activation requires a projected Session observation')
+    }
+    return observation.projections.values.bot ?? undefined
   }
 
   private liveAgent(sessionId: SessionId): ApiSessionAgentResult | undefined {
@@ -451,7 +501,11 @@ export class ApiSessionAgentController {
     if (hasApiSessionSubagentOwner(this.ctx, { header: observation.header }, undefined)) {
       throw new ApiSessionSubagentOwnership(sessionId)
     }
-    const composition = await this.composeAgent(this.presetForObservation(observation))
+    const recorded = this.botForObservation(observation)
+    const composition = await this.composeAgent(
+      this.presetForObservation(observation),
+      recorded === undefined ? undefined : { engaged: recorded, record: false },
+    )
     const published = this.ctx.sessions.get(sessionId)
     const live = this.ctx.agents.get(sessionId)
     if (published !== undefined && hasApiSessionSubagentOwner(this.ctx, published, live)) {
@@ -469,6 +523,7 @@ export class ApiSessionAgentController {
     cwd: string,
     checkPersistedIdentity: boolean,
     presetId: string | undefined,
+    engagement: BotEngagement | undefined,
   ): Promise<Agent> {
     const attached = this.ctx.sessions.get(sessionId)
     const live = this.ctx.agents.get(sessionId)
@@ -488,7 +543,11 @@ export class ApiSessionAgentController {
         }
         const storedPreset = this.presetForObservation(observation)
         this.assertPresetUnchanged(sessionId, presetId, storedPreset)
-        const composition = await this.composeAgent(storedPreset)
+        const recorded = this.botForObservation(observation)
+        const composition = await this.composeAgent(
+          storedPreset,
+          recorded === undefined ? undefined : { engaged: recorded, record: false },
+        )
         return (await this.ctx.agents.resume({
           resumeSessionId: sessionId,
           agentOptions: this.agentOptions(),
@@ -505,7 +564,7 @@ export class ApiSessionAgentController {
     } catch (error: unknown) {
       throw new Error(`failed to ensure project directory "${cwd}": ${String(error)}`, { cause: error })
     }
-    const composition = await this.composeAgent(presetId)
+    const composition = await this.composeAgent(presetId, engagement)
     return (await this.ctx.agents.create({
       sessionId,
       agentOptions: this.agentOptions(),

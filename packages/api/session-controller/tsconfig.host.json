@@ -28,6 +28,7 @@
     { "path": "../../core/agent" },
     { "path": "../../core/agent-default-model" },
     { "path": "../../core/scope" },
+    { "path": "../../identity/managed-bots" },
     { "path": "../../identity/session-ownership" },
     { "path": "../../core/session" },
     { "path": "../../context/file-reference" },

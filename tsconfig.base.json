@@ -382,6 +382,7 @@
       "@lyness/lyn-people/static": ["./packages/identity/people/src/static.ts"],
       "@lyness/lyn-api-bots-controller/types": ["./packages/api/bots-controller/src/types.ts"],
       "@lyness/lyn-api-people-controller/types": ["./packages/api/people-controller/src/types.ts"],
+      "@lyness/lyn-managed-bots/session": ["./packages/identity/managed-bots/src/session.ts"],
       "@lyness/lyn-managed-bots/storage": ["./packages/identity/managed-bots/src/storage.ts"],
       "@lyness/lyn-managed-bots/types": ["./packages/identity/managed-bots/src/types.ts"],
       "@lyness/lyn-managed-people/directory": ["./packages/identity/managed-people/src/directory.ts"],

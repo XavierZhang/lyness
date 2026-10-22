@@ -287,12 +287,21 @@ export interface SessionCreateRequest {
   readonly cwd?: string
   readonly sessionId?: SessionId
   readonly agentPreset?: string
+  /**
+   * The bot this conversation is with, when it is with one.
+   *
+   * Its preset decides the composition, so naming both a bot and a preset is
+   * refused rather than silently resolved one way.
+   */
+  readonly bot?: string
 }
 
 /** Session creation response value. */
 export interface SessionCreateValue {
   readonly sessionId: SessionId
   readonly agentPreset?: string
+  /** The bot this conversation is with, when it is with one. */
+  readonly bot?: string
 }
 
 /** Session model-selection request. */

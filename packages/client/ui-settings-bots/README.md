@@ -73,7 +73,7 @@ No request prefix changes, because nothing here contributes to an assembled requ
 
 <a id="known-limitations-and-deferred-work"></a>
 
-- **Nothing here opens a conversation with a bot** — the section maintains the records, and talking to one is the next part of the design.
+- **Nothing here opens a conversation with a bot** — the section maintains the records; the conversation surface is where one is talked to.
 - **The section is offered to every reader** — a member who opens Settings sees it and reads the notice that they may not change the organization's bots, rather than not being offered the section at all. Hiding it needs the navigation to know the caller's standing before the section's own read answers.
 - **Organization is typed, not picked** — the form takes an organization id as text, because no directory of organizations is readable from the client yet.
 - **The character is a plain box** — there is no preview of the system prompt a bot would run with, and no way to try one before saving it.

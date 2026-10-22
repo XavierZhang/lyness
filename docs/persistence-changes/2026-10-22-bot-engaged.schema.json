@@ -1,0 +1,86 @@
+{
+  "formatVersion": 2,
+  "roots": [
+    {
+      "key": "event:bot/engaged",
+      "kind": "event",
+      "event": "bot/engaged",
+      "surface": false,
+      "digest": "1d814f0805d00b9a45432779ad907e42e4be779ed300abbbe36a552356d2776d",
+      "schema": {
+        "root": 0,
+        "nodes": [
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "data",
+                "type": 1,
+                "optional": false
+              },
+              {
+                "name": "ignorable",
+                "type": 3,
+                "optional": true
+              },
+              {
+                "name": "seq",
+                "type": 4,
+                "optional": false
+              },
+              {
+                "name": "time",
+                "type": 4,
+                "optional": false
+              },
+              {
+                "name": "type",
+                "type": 5,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "bot",
+                "type": 2,
+                "optional": false
+              },
+              {
+                "name": "displayName",
+                "type": 2,
+                "optional": false
+              },
+              {
+                "name": "persona",
+                "type": 2,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "primitive",
+            "type": "string"
+          },
+          {
+            "kind": "literal",
+            "value": true
+          },
+          {
+            "kind": "primitive",
+            "type": "number"
+          },
+          {
+            "kind": "literal",
+            "value": "bot/engaged"
+          }
+        ]
+      }
+    }
+  ],
+  "types": []
+}

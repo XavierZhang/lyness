@@ -1755,6 +1755,18 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         returns: 'the presets on offer, in the registry\'s own order; a preset that cannot compose a session is left out.',
       },
       {
+        signature: 'async engage(id: PersonId): Promise<{ preset: string; engaged: EngagedBot } | undefined>',
+        description: 'What one bot runs as, for a session about to speak as it.\n\nThe character is read here and written into the session\'s own log by the caller, never looked up again on resume: an administrator who rewrites a bot\'s character changes what it says next, and must not change what it already said.',
+        parameters: [{ name: 'id', description: 'the bot to engage.' }],
+        returns: 'the preset it runs with and the character to record, or undefined when no such bot exists.',
+      },
+      {
+        signature: 'compose(agentCtx: Context, engaged: EngagedBot): () => void',
+        description: 'Put one bot\'s character into an agent\'s prompt.\n\nOffered on the service so a caller composing a session reaches it through the roster rather than importing this package: a deployment without bots has no roster, and nothing on the session path should have to carry code for one.',
+        parameters: [{ name: 'agentCtx', description: 'the agent scope the bot runs in, after its preset mounted.' }, { name: 'engaged', description: 'the bot and the character its own log records.' }],
+        returns: 'the disposer that withdraws the section.',
+      },
+      {
         signature: 'async save(submission: BotSubmission, by: Membership): Promise<BotView>',
         description: 'Add one bot, or change one this service holds.',
         parameters: [{ name: 'submission', description: 'what the administrator filled in.' }, { name: 'by', description: 'the standing making the change.' }],
@@ -6056,6 +6068,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export interface EncodedImageAttachment {\n    mediaType: ImageMediaType;\n    data: string;\n    name?: string;\n}',
   },
   {
+    name: 'EngagedBot',
+    declaration: 'export interface EngagedBot {\n    readonly bot: string;\n    readonly displayName: string;\n    readonly persona: string;\n}',
+  },
+  {
     name: 'EntraDirectoryId',
     declaration: 'export type EntraDirectoryId = Branded<\'EntraDirectoryId\'>;',
   },
@@ -7553,11 +7569,11 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   },
   {
     name: 'SessionCreateRequest',
-    declaration: 'export interface SessionCreateRequest {\n    readonly workspaceId?: WorkspaceId;\n    readonly cwd?: string;\n    readonly sessionId?: SessionId;\n    readonly agentPreset?: string;\n}',
+    declaration: 'export interface SessionCreateRequest {\n    readonly workspaceId?: WorkspaceId;\n    readonly cwd?: string;\n    readonly sessionId?: SessionId;\n    readonly agentPreset?: string;\n    readonly bot?: string;\n}',
   },
   {
     name: 'SessionCreateValue',
-    declaration: 'export interface SessionCreateValue {\n    readonly sessionId: SessionId;\n    readonly agentPreset?: string;\n}',
+    declaration: 'export interface SessionCreateValue {\n    readonly sessionId: SessionId;\n    readonly agentPreset?: string;\n    readonly bot?: string;\n}',
   },
   {
     name: 'SessionEvent',

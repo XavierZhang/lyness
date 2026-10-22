@@ -70,6 +70,9 @@ async function harness(
   })
   const offered = options.presets ?? [{ id: 'standard', name: 'Standard' }]
   ctx.provide('agentPresets', { list: () => Promise.resolve(offered) } as never)
+  // The roster registers its session projection there; what it records is
+  // covered in the managed-bots package.
+  ctx.provide('sessionProjections', { register: () => () => {} } as never)
   if (options.roster !== false) {
     await ctx.plugin(Storage)
     await ctx.plugin(StorageJson, { root: join(root, 'state') })

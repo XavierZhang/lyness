@@ -900,6 +900,7 @@ export const TYPE_LINK_EXEMPTIONS: Readonly<Record<string, string>> = {
   BotInput: 'what an administrator fills in to add or change one bot is owned by packages/api/bots-controller/README.md',
   PresetOptionView: 'one agent preset a bot may be given is owned by packages/api/bots-controller/README.md',
   PresetOption: 'one agent preset a bot may be given is owned by packages/identity/managed-bots/README.md',
+  EngagedBot: 'the bot one session speaks as is owned by packages/identity/managed-bots/README.md',
   BotView: 'one bot as a surface shows it is owned by packages/identity/managed-bots/README.md',
   BotSubmission: 'what an administrator submits to add or change one bot is owned by packages/identity/managed-bots/README.md',
   DeclaredBot: 'one bot composition wrote is owned by packages/identity/managed-bots/README.md',

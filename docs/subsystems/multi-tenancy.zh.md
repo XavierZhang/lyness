@@ -518,6 +518,31 @@ async list(by: Membership): Promise<readonly BotView[]>
 async offers(): Promise<readonly PresetOption[]>
 
 /**
+ * What one bot runs as, for a session about to speak as it.
+ *
+ * The character is read here and written into the session's own log by the
+ * caller, never looked up again on resume: an administrator who rewrites a
+ * bot's character changes what it says next, and must not change what it
+ * already said.
+ * @param id - the bot to engage.
+ * @returns the preset it runs with and the character to record, or undefined when no such bot exists.
+ */
+async engage(id: PersonId): Promise<{ preset: string; engaged: EngagedBot } | undefined>
+
+/**
+ * Put one bot's character into an agent's prompt.
+ *
+ * Offered on the service so a caller composing a session reaches it
+ * through the roster rather than importing this package: a deployment
+ * without bots has no roster, and nothing on the session path should have
+ * to carry code for one.
+ * @param agentCtx - the agent scope the bot runs in, after its preset mounted.
+ * @param engaged - the bot and the character its own log records.
+ * @returns the disposer that withdraws the section.
+ */
+compose(agentCtx: Context, engaged: EngagedBot): () => void
+
+/**
  * Add one bot, or change one this service holds.
  * @param submission - what the administrator filled in.
  * @param by - the standing making the change.

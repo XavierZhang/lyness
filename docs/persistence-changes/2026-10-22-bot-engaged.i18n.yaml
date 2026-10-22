@@ -1,0 +1,28 @@
+# Bilingual-pair consistency record for 2026-10-22-bot-engaged.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write docs/persistence-changes/2026-10-22-bot-engaged.md
+/:
+  en: 3d5a424ae7d7e46b
+  zh: c22a8e4a62d8cc1a
+/2026-10-22-bot-engaged:
+  en: f89a9f6494bd2231
+  zh: 3e2db0d8c5bf3674
+/2026-10-22-bot-engaged/summary:
+  en: 3c87ad2b85c6d24f
+  zh: 03553e13f38adc11
+/2026-10-22-bot-engaged/table-of-contents:
+  en: 6cf314a069ceb451
+  zh: 9adff678e9ecab3b
+/2026-10-22-bot-engaged/declaration:
+  en: 6907136f28e48c90
+  zh: 02f8298485f3d8e7
+/2026-10-22-bot-engaged/compatibility:
+  en: a4a029a3f0f2a1d0
+  zh: aa7cdf02d7e33491
+/2026-10-22-bot-engaged/verification:
+  en: e43108d19f4a2d2c
+  zh: 20f2fccf6ff2a85e
+/2026-10-22-bot-engaged/dev-note:
+  en: b75c8458928b72b9
+  zh: 003ba4e17b4b5269

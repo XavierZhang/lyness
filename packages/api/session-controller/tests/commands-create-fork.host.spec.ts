@@ -63,6 +63,9 @@ describe('Session creation failures', () => {
       '/default-workspace',
       false,
       undefined,
+      // No bot: an ordinary session composes whatever preset the roster
+      // defaults to, and engages nobody.
+      undefined,
     )
     await ctx.fiber.dispose()
   })

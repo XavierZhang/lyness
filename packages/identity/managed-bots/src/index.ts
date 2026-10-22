@@ -25,10 +25,14 @@ import type {} from '@lyness/lyn-agent-preset-registry'
 import { randomUUID } from '@lyness/lyn-util-crypto'
 import type { Domain } from '@lyness/lyn-storage-domain'
 import { managedBotsDomain } from './storage.ts'
+import { botProjectionDefinition, composeBotPersona } from './session.ts'
+import type { EngagedBot } from './session.ts'
 import type { BotRecord, BotSubmission, BotView, DeclaredBot, PresetOption } from './types.ts'
 
 export type * from './types.ts'
 export { managedBotsDomain, botSchema } from './storage.ts'
+export { BOT_PERSONA_SECTION, botProjectionDefinition, composeBotPersona } from './session.ts'
+export type { EngagedBot } from './session.ts'
 
 declare module '@lyness/cordis' {
   interface Context {
@@ -86,7 +90,7 @@ export class BotsRefusedError extends Error {
 
 /** The bots this deployment stores, and the written ones they may not shadow. */
 export class ManagedBots extends Service {
-  static inject = ['storageDomain', 'managedPeople', 'agentPresets']
+  static inject = ['storageDomain', 'managedPeople', 'agentPresets', 'sessionProjections']
 
   private readonly ready: Promise<Domain<typeof managedBotsDomain>>
 
@@ -101,6 +105,7 @@ export class ManagedBots extends Service {
   constructor(ctx: Context) {
     super(ctx, 'managedBots')
     this.ready = ctx.storageDomain.open(managedBotsDomain)
+    ctx.sessionProjections.register(botProjectionDefinition)
     ctx.effect(() => async () => {
       for (const withdraw of this.rostered.values()) withdraw()
       this.rostered.clear()
@@ -176,6 +181,40 @@ export class ManagedBots extends Service {
         ...preset.name === undefined ? {} : { displayName: preset.name },
         ...preset.description === undefined ? {} : { description: preset.description },
       }))
+  }
+
+  /**
+   * What one bot runs as, for a session about to speak as it.
+   *
+   * The character is read here and written into the session's own log by the
+   * caller, never looked up again on resume: an administrator who rewrites a
+   * bot's character changes what it says next, and must not change what it
+   * already said.
+   * @param id - the bot to engage.
+   * @returns the preset it runs with and the character to record, or undefined when no such bot exists.
+   */
+  async engage(id: PersonId): Promise<{ preset: string; engaged: EngagedBot } | undefined> {
+    const entry = this.written.get(id) ?? (await this.ready).table('bots').get(id)
+    if (entry === undefined) return undefined
+    return {
+      preset: entry.preset,
+      engaged: { bot: entry.id, displayName: entry.displayName, persona: entry.persona },
+    }
+  }
+
+  /**
+   * Put one bot's character into an agent's prompt.
+   *
+   * Offered on the service so a caller composing a session reaches it
+   * through the roster rather than importing this package: a deployment
+   * without bots has no roster, and nothing on the session path should have
+   * to carry code for one.
+   * @param agentCtx - the agent scope the bot runs in, after its preset mounted.
+   * @param engaged - the bot and the character its own log records.
+   * @returns the disposer that withdraws the section.
+   */
+  compose(agentCtx: Context, engaged: EngagedBot): () => void {
+    return composeBotPersona(agentCtx, engaged)
   }
 
   /**

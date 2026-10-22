@@ -16,6 +16,9 @@ import {
 } from '@lyness/lyn-llm'
 import type { MessageSource } from '@lyness/lyn-llm'
 import { buildForkSeed } from '@lyness/lyn-session/fork'
+import type {} from '@lyness/lyn-managed-bots'
+import type { EngagedBot } from '@lyness/lyn-managed-bots/session'
+import type { PersonId } from '@lyness/lyn-people'
 import { SessionLogOffset, SessionSeq } from '@lyness/lyn-session'
 import type { SessionEvent, SessionHeader, SessionId, UserMessage } from '@lyness/lyn-session'
 import { SessionQueryError, type SessionObservation } from '@lyness/lyn-session-query'
@@ -106,6 +109,12 @@ export class SessionCommandController {
     if (request.workspaceId !== undefined && request.cwd !== undefined) {
       throw new RemoteError('gateway/bad-request', 'session.create accepts workspaceId or cwd, not both', {})
     }
+    // A bot's preset is the bot's: honouring both would run a character
+    // under a composition its author never gave it.
+    if (request.bot !== undefined && request.agentPreset !== undefined) {
+      throw new RemoteError('gateway/bad-request', 'session.create accepts bot or agentPreset, not both', {})
+    }
+    const engagement = await this.engagementFor(request.bot)
     const sessionId = request.sessionId ?? brandString<SessionId>(`session-${randomUUID()}`)
     let workspace: Workspace | undefined
     if (request.workspaceId !== undefined) {
@@ -123,7 +132,8 @@ export class SessionCommandController {
         sessionId,
         cwd,
         request.sessionId !== undefined,
-        request.agentPreset,
+        engagement?.engaged === undefined ? request.agentPreset : engagement.preset,
+        engagement === undefined ? undefined : { engaged: engagement.engaged, record: true },
       )
     } catch (error) {
       this.rejectCreation(sessionId, error)
@@ -140,7 +150,34 @@ export class SessionCommandController {
       }
     }
     const agentPreset = this.agents.presetForSession(adopted.session)
-    return { sessionId, ...(agentPreset === undefined ? {} : { agentPreset }) }
+    return {
+      sessionId,
+      ...(agentPreset === undefined ? {} : { agentPreset }),
+      ...(request.bot === undefined ? {} : { bot: request.bot }),
+    }
+  }
+
+  /**
+   * What the named bot runs as, refused loudly when nothing answers for it.
+   *
+   * Resolved before the session exists so a bot nobody maintains is a
+   * refusal rather than a conversation with an agent carrying no character.
+   */
+  private async engagementFor(bot: string | undefined): Promise<
+    { preset: string; engaged: EngagedBot } | undefined
+  > {
+    if (bot === undefined) return undefined
+    const roster = this.ctx.get('managedBots')
+    if (roster === undefined) {
+      throw new RemoteError('gateway/internal', 'this deployment maintains no bots of its own', {
+        endpoint: 'session',
+      })
+    }
+    const engagement = await roster.engage(brandString<PersonId>(bot))
+    if (engagement === undefined) {
+      throw new RemoteError('session/not-found', `no bot "${bot}"`, { sessionId: brandString<SessionId>(bot) })
+    }
+    return engagement
   }
 
   /**

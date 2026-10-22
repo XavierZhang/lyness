@@ -66,6 +66,8 @@ async function bench(options: { presets?: readonly string[] } = {}): Promise<Con
   // The real registry composes plugin trees; what this service reads from it
   // is which ids it currently offers.
   ctx.provide('agentPresets', { list: () => Promise.resolve(offered.map(id => ({ id }))) } as never)
+  // What the roster registers there is covered in `bot-session.spec.ts`.
+  ctx.provide('sessionProjections', { register: () => () => {} } as never)
   await ctx.plugin(ManagedPeople).await()
   await ctx.plugin(ManagedBots).await()
   return ctx
@@ -252,6 +254,7 @@ describe('a restart', () => {
       await ctx.plugin(StorageJson, { root })
       await ctx.plugin(StorageDomain, { backend: 'json' })
       ctx.provide('agentPresets', { list: () => Promise.resolve([{ id: 'standard' }]) } as never)
+      ctx.provide('sessionProjections', { register: () => () => {} } as never)
       await ctx.plugin(ManagedPeople).await()
       await ctx.plugin(ManagedBots).await()
       return ctx

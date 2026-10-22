@@ -68,6 +68,10 @@ Replacing one keeps its id, so the conversations it already owns stay its own. A
 
 **A change is authorized against what is stored as well as what was submitted**, or one tenant's administrator could claim another's bot by naming its id with their own organization.
 
+**The character is recorded, not looked up again.** A session that speaks as a bot writes the character into its own log through `bot/engaged`, and a resume rebuilds the prompt from that. An administrator who rewrites a bot's character changes what it says next and must not change what it already said — and the repo's model-visible ⟺ logged rule requires it outright, since the character reaches the model.
+
+**The character is a section of its own, appended after the preset's.** The preset says how the agent works, the bot says who is speaking. Appending cannot widen what the agent may do, which is what keeps prose written by a tenant administrator from reaching past the permission preset.
+
 **A record outlives the preset that runs it.** A preset the deployment stopped offering leaves the bot stored and `available: false`. Deleting it would lose the character an administrator wrote because a row left the profile.
 
 -----
@@ -77,7 +81,8 @@ Replacing one keeps its id, so the conversations it already owns stay its own. A
 
 - [`lyn-managed-people`](../managed-people/README.md) — the roster these join, and the admission table that refuses them.
 - [`lyn-agent-preset-registry`](../../preset/agent-preset-registry/README.md) — where the presets a bot may name come from.
-- [`lyn-persona`](../../preset/persona/README.md) — the row that gives one agent its own system prompt.
+- [`lyn-persona`](../../preset/persona/README.md) — the row that gives one agent its own system prompt, which a preset may carry beside a bot's character.
+- [`lyn-api-session-controller`](../../api/session-controller/README.md) — where a conversation names the bot it is with.
 - [Bots, their teams and their rooms](../../../.agents/notes/proposed/architecture/2026-10-22-bots-their-teams-and-their-rooms.md) — the design this package is the first part of.
 
 -----
@@ -95,7 +100,7 @@ No request prefix changes, because nothing here contributes to an assembled requ
 
 <a id="known-limitations-and-deferred-work"></a>
 
-- **A stored bot does not run yet** — the roster answers it and an administrator maintains it, but nothing mounts its persona and preset into a session. Opening a conversation with one is the next part of the design.
+- **A bot is talked to, and does not act on its own** — a person opens a conversation with one; nothing lets a bot start one, be scheduled, or be reached from a chat tool.
 - **The preset is the whole capability selection** — individual skills, MCP servers, models and permission presets cannot be chosen per bot; a bot gets exactly what its preset composes.
 - **No teams and no rooms** — a bot cannot ask another bot anything, and several of them cannot discuss one question. Both are later parts of the same design.
 - **One organization per bot** — a bot belongs to the deployment's one named organization, and a platform offering one bot to a named subset of its customers has no way to say so.

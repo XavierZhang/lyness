@@ -68,6 +68,10 @@ await ctx.managedBots.save({
 
 **一次修改既按提交的内容授权，也按已存储的内容授权**，否则一个租户的管理员只要用自己的组织指名另一个租户的 bot 的 id，就能把它据为己有。
 
+**性格是被记下来的，不是每次重新查的。**一个以某个 bot 身份说话的会话，会通过 `bot/engaged` 把那段性格写进它自己的日志，恢复时从日志重建提示词。改写一个 bot 的性格，改变的是它接下来说什么，而不能改变它已经说过的话——而且仓库的 model-visible ⟺ logged 规则直接要求这样，因为那段性格会进入模型。
+
+**性格是它自己的一个段落，追加在 preset 的那一段之后。**preset 说这个 agent 怎么工作，bot 说是谁在说话。追加不可能放宽这个 agent 能做什么，这正是让租户管理员写的文字够不到权限预设之外的原因。
+
 **记录比运行它的那个 preset 活得长。**部署不再提供的 preset 会让 bot 留在存储里并标为 `available: false`。因为某一行离开了 profile 就把它删掉，会丢掉管理员写下的那个性格。
 
 -----
@@ -77,7 +81,8 @@ await ctx.managedBots.save({
 
 - [`lyn-managed-people`](../managed-people/README.zh.md) — 它们加入的那份名册，以及拒绝它们的那张准入表。
 - [`lyn-agent-preset-registry`](../../preset/agent-preset-registry/README.zh.md) — bot 可以指名的那些 preset 从哪里来。
-- [`lyn-persona`](../../preset/persona/README.zh.md) — 给一个 agent 它自己的系统提示词的那一行。
+- [`lyn-persona`](../../preset/persona/README.zh.md) — 给一个 agent 它自己的系统提示词的那一行，一个 preset 可以在 bot 的性格之外带着它。
+- [`lyn-api-session-controller`](../../api/session-controller/README.zh.md) — 一场对话在哪里指名它所面对的 bot。
 - [bot、它所在的团队，和它说话的那个房间](../../../.agents/notes/proposed/architecture/2026-10-22-bots-their-teams-and-their-rooms.zh.md) — 这个包是其中第一部分的那份设计。
 
 -----
@@ -95,7 +100,7 @@ await ctx.managedBots.save({
 
 <a id="known-limitations-and-deferred-work"></a>
 
-- **存下来的 bot 还跑不起来** — 名册回答它、管理员维护它，但还没有东西把它的人格和 preset 挂进一个会话。和它开一场对话是这份设计的下一部分。
+- **bot 是被交谈的，它不自己行动** — 由人来和它开一场对话；还没有东西能让 bot 自己发起对话、被定时触发，或从某个聊天工具被够到。
 - **preset 就是全部的能力选择** — 单个技能、MCP 服务器、模型和权限预设还不能按 bot 挑；bot 拿到的正好是它的 preset 组合出来的那些。
 - **没有团队也没有房间** — 一个 bot 问不了另一个 bot 任何事，几个 bot 也没法一起讨论一个问题。两者都是同一份设计里靠后的部分。
 - **一个 bot 一个组织** — bot 属于部署里那一个被指名的组织，而一个想把某个 bot 只提供给一部分客户的平台，没有办法表达这件事。

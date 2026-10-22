@@ -84,7 +84,7 @@ No request prefix changes, because nothing here contributes to an assembled requ
 
 <a id="known-limitations-and-deferred-work"></a>
 
-- **Nothing opens a conversation with a bot yet** — this surface maintains the records, and mounting a bot's persona and preset into a session is the next part of the design.
+- **A conversation with a bot is opened elsewhere** — this surface maintains the records; naming the bot a session is with belongs to `session.create`.
 - **No pagination** — `list` answers every bot the standing administers in one reply, which an organization with hundreds of them would feel.
 - **Nothing says why a preset is not offered** — a preset that cannot compose a session is simply absent from `presets`, without saying which row failed.
 - **No audit of its own** — the roster records who added a bot and when; this namespace adds nothing, so who changed a persona and when is not kept.

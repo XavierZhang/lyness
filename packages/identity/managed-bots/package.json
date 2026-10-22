@@ -26,6 +26,10 @@
       "types": "./lib/types/storage.d.ts",
       "default": "./lib/types/storage.js"
     },
+    "./session": {
+      "types": "./lib/types/session.d.ts",
+      "default": "./lib/types/session.js"
+    },
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
@@ -45,7 +49,9 @@
     "@lyness/lyn-brand": "workspace:*",
     "@lyness/lyn-managed-people": "workspace:*",
     "@lyness/lyn-people": "workspace:*",
+    "@lyness/lyn-session-projection": "workspace:*",
     "@lyness/lyn-storage-domain": "workspace:*",
+    "@lyness/lyn-system-prompt": "workspace:*",
     "@lyness/lyn-util-crypto": "workspace:*"
   },
   "devDependencies": {
@@ -54,9 +60,12 @@
     "@lyness/lyn-brand": "workspace:*",
     "@lyness/lyn-managed-people": "workspace:*",
     "@lyness/lyn-people": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-session-projection": "workspace:*",
     "@lyness/lyn-storage": "workspace:*",
     "@lyness/lyn-storage-domain": "workspace:*",
     "@lyness/lyn-storage-json": "workspace:*",
+    "@lyness/lyn-system-prompt": "workspace:*",
     "@lyness/lyn-util-crypto": "workspace:*"
   }
 }

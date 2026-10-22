@@ -1599,6 +1599,9 @@ importers:
       '@lyness/lyn-llm':
         specifier: workspace:*
         version: link:../../llm/llm
+      '@lyness/lyn-managed-bots':
+        specifier: workspace:*
+        version: link:../../identity/managed-bots
       '@lyness/lyn-native-command':
         specifier: workspace:*
         version: link:../../util/native-command
@@ -10199,6 +10202,12 @@ importers:
       '@lyness/lyn-people':
         specifier: workspace:*
         version: link:../people
+      '@lyness/lyn-session':
+        specifier: workspace:*
+        version: link:../../core/session
+      '@lyness/lyn-session-projection':
+        specifier: workspace:*
+        version: link:../../session/session-projection
       '@lyness/lyn-storage':
         specifier: workspace:*
         version: link:../../storage/storage
@@ -10208,6 +10217,9 @@ importers:
       '@lyness/lyn-storage-json':
         specifier: workspace:*
         version: link:../../storage/storage-json
+      '@lyness/lyn-system-prompt':
+        specifier: workspace:*
+        version: link:../../core/system-prompt
       '@lyness/lyn-util-crypto':
         specifier: workspace:*
         version: link:../../util/crypto
