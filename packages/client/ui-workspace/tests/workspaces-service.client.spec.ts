@@ -644,6 +644,18 @@ describe('UiWorkspaceService', () => {
     expect(b.sessions.retain).not.toHaveBeenCalled()
   })
 
+  it('never reuses a blank Session for a conversation with a bot', async () => {
+    const b = bench({
+      sessions: sessionState([summary('blank', { blank: true, cwd: '/w/a' })], 'pending'),
+      workspaces: workspaceState([workspace('a', [sid('blank')])]),
+    })
+    b.sessions.create.mockClear()
+    // That blank session speaks as nobody, and which bot a session speaks as
+    // is written into its log when it is created.
+    await expect(b.uiWorkspace.connectWorkspace(wid('a'), { bot: 'triage' })).resolves.not.toBe(sid('blank'))
+    expect(b.sessions.create).toHaveBeenCalledExactlyOnceWith({ workspaceId: wid('a'), bot: 'triage' })
+  })
+
   it('reports a refused explicit Session creation through the Workspace notice', async () => {
     const b = bench({ workspaces: workspaceState([workspace('a')]), sessions: sessionState() })
     // Startup restoration creates its own Session first and stays quiet on failure (pinned above).

@@ -13,7 +13,7 @@ import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
 import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
 import { TestRemote } from '@lyness/lyn-client-test-runtime'
 import type { BotRowView, PresetOptionView } from '@lyness/lyn-api-bots-controller/types'
-import { apply, botsCallsOf, inject, NS } from '@lyness/lyn-client-ui-settings-bots/client'
+import { apply, botsCallsOf, inject, NS, startingBotConversation } from '@lyness/lyn-client-ui-settings-bots/client'
 import { BotsSection } from '../src/client/BotsSection.tsx'
 import type { createBotsSectionStore } from '../src/client/store.ts'
 
@@ -48,6 +48,12 @@ async function bench(list: () => Promise<unknown> = () => Promise.resolve({ ok: 
     },
   })
   events.$host = { home: undefined, isLoopback: true }
+  // A conversation with a bot is started through the Workspace navigation,
+  // the way every other new session is.
+  const started: { bot?: string }[] = []
+  ctx.provide('uiWorkspace', {
+    startSession: (_workspaceId: unknown, options: { bot?: string } = {}) => { started.push(options) },
+  } as never)
   const slots = ctx.get('slots') as SlotRegistry
   const declared = slots.register(
     { name: 'root', children: { [SLOT]: { kind: 'list', scope: 'root' } } } as never,
@@ -55,7 +61,7 @@ async function bench(list: () => Promise<unknown> = () => Promise.resolve({ ok: 
   )
   const fiber = ctx.plugin({ inject: [...inject], apply })
   await fiber.await()
-  return { ctx, slots, locale, declared, fiber }
+  return { ctx, slots, locale, declared, fiber, started }
 }
 
 /** The store handle this section registered. */
@@ -151,6 +157,14 @@ describe('ui-settings-bots apply', () => {
     expect(instance.store.getSnapshot()).toMatchObject({
       working: false, outcome: { kind: 'refused', reason: 'needs an organization', fields: ['organization'] },
     })
+  })
+
+  it('starts a bot conversation through the Workspace navigation', async () => {
+    const { ctx, started } = await bench()
+    startingBotConversation(ctx)('triage')
+    // Started rather than created here, so it lands in the Workspace the
+    // reader is in and opens the way every other new session does.
+    expect(started).toEqual([{ bot: 'triage' }])
   })
 
   it('stops offering the section when its plugin is unloaded', async () => {

@@ -54,11 +54,12 @@ const t = ((key: keyof typeof zh, values?: Record<string, string>) => {
 function renderSection(state: BotsSectionState, over: Partial<BotsSectionProps> = {}) {
   const load = vi.fn(() => Promise.resolve())
   const retry = vi.fn(() => Promise.resolve())
+  const talk = vi.fn()
   const save = vi.fn(() => Promise.resolve())
   const remove = vi.fn(() => Promise.resolve())
   const useStore = (<T,>(select: (value: BotsSectionState) => T) => select(state)) as BotsSectionProps['useStore']
-  const props = { t, useStore, load, retry, save, remove, ...over } as BotsSectionProps
-  return { ...render(<BotsSection {...props} />), load, retry, save, remove }
+  const props = { t, useStore, load, retry, talk, save, remove, ...over } as BotsSectionProps
+  return { ...render(<BotsSection {...props} />), load, retry, talk, save, remove }
 }
 
 /** A ready state carrying these bots and presets. */
@@ -161,21 +162,38 @@ describe('what one bot shows', () => {
     expect(rowOf('Triage').queryByText('Reads incoming reports and files them.')).toBeNull()
   })
 
-  it('shows a bot composition owns without offering to change it', () => {
-    renderSection(ready([SCRIBE]))
+  it('shows a bot composition owns without offering to change it, and still offers to talk to it', () => {
+    const { talk } = renderSection(ready([SCRIBE]))
     const row = rowOf('Scribe')
     expect(row.getByText(zh.fromConfiguration)).toBeDefined()
     expect(row.getByText(zh.fromConfigurationHint)).toBeDefined()
     // The next boot reads the file again, so an edit here would be undone.
     expect(row.queryByRole('button', { name: zh.edit })).toBeNull()
     expect(row.queryByRole('button', { name: zh.remove })).toBeNull()
+    // The operator's own bots are the ones most worth talking to; only
+    // changing them is refused.
+    fireEvent.click(row.getByRole('button', { name: zh.talk }))
+    expect(talk).toHaveBeenCalledWith('scribe')
+  })
+
+  it('starts a conversation with one, and offers none with a bot that will not run', () => {
+    const { talk } = renderSection(ready([TRIAGE]))
+    fireEvent.click(rowOf('Triage').getByRole('button', { name: zh.talk }))
+    expect(talk).toHaveBeenCalledWith('triage-id')
+
+    cleanup()
+    const stopped = renderSection(ready([{ ...TRIAGE, available: false }]))
+    const button = rowOf('Triage').getByRole('button', { name: zh.talk })
+    expect(button.hasAttribute('disabled')).toBe(true)
+    fireEvent.click(button)
+    expect(stopped.talk).not.toHaveBeenCalled()
   })
 
   it('marks one whose preset the deployment no longer offers rather than hiding it', () => {
     renderSection(ready([{ ...TRIAGE, available: false }]))
     const row = rowOf('Triage')
     expect(row.getByText(zh.unavailableBot)).toBeDefined()
-    expect(row.getByText(zh.unavailableBotHint)).toBeDefined()
+    expect(row.getByText(`${zh.unavailableBotHint} ${zh.talkUnavailable}`)).toBeDefined()
     // The character an administrator wrote outlives the row that ran it, so
     // it stays editable.
     expect(row.getByRole('button', { name: zh.edit })).toBeDefined()

@@ -90,17 +90,20 @@ export class SectionBinding implements BotsSink {
  * registration.
  * @param binding - the join that will receive the baked actions.
  * @param operations - the calls the section drives.
+ * @param talk - opens a new conversation with one bot.
  * @returns the factory the framework calls with the baked actions.
  */
 export function sectionFace(
   binding: SectionBinding,
   operations: BotsOperations,
+  talk: (id: string) => void,
 ): (actions: BotsActions) => BotsSectionInjected {
   return (actions: BotsActions): BotsSectionInjected => {
     binding.bind(actions)
     return {
       load: operations.load,
       retry: operations.retry,
+      talk,
       save: operations.save,
       remove: operations.remove,
     }

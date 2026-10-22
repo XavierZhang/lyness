@@ -18,6 +18,7 @@ import type {} from '@lyness/lyn-client-ui-settings/client'
 import type {} from '@lyness/lyn-client-ui-renderer/client'
 import type {} from '@lyness/lyn-api-remotes/client'
 import type {} from '@lyness/lyn-api-bots-controller/remote'
+import type {} from '@lyness/lyn-client-ui-workspace/client'
 import { BotsSection } from './BotsSection.tsx'
 import { SectionBinding, sectionFace } from './binding.ts'
 import { botsCallsOf, createBotsOperations } from './operations.ts'
@@ -41,8 +42,21 @@ declare module '@lyness/lyn-client-ui-slots' {
 /** The locale namespace this section's copy lives in. */
 export const NS = 'settings.bots'
 
+/**
+ * How this section starts a conversation with one bot.
+ *
+ * Through the Workspace navigation rather than by creating a session here,
+ * so a bot conversation lands in the Workspace the reader is in and opens the
+ * way every other new session does.
+ * @param ctx - the client context carrying the Workspace navigation.
+ * @returns the action the section's rows call.
+ */
+export function startingBotConversation(ctx: Context): (bot: string) => void {
+  return (bot: string): void => { ctx.uiWorkspace.startSession(undefined, { bot }) }
+}
+
 /** Services required by the bots section. */
-export const inject = ['slots', 'locale', 'remote', 'remote.bots']
+export const inject = ['slots', 'locale', 'remote', 'remote.bots', 'uiWorkspace']
 
 /**
  * Register the section.
@@ -64,6 +78,6 @@ export function apply(ctx: Context): void {
     label: () => t('nav'),
     store,
     locale: NS,
-    inject: sectionFace(binding, operations),
+    inject: sectionFace(binding, operations, startingBotConversation(ctx)),
   }, BotsSection))
 }

@@ -10,8 +10,12 @@ import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
 import type { StoredEntry } from '@lyness/lyn-client-ui-slots'
 import { RemoteError, TestRemote } from '@lyness/lyn-client-test-runtime'
 import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
-import { apply, inject } from '@lyness/lyn-client-ui-workspace/client'
-import type { WorkspaceBrowserInjected, WorkspacePickerInjected } from '@lyness/lyn-client-ui-workspace/client'
+// Relative, like every other import this spec makes of its own package: the
+// assertions compare component identity, and reaching the same file through
+// the package alias is a second module whenever the resolver prefers the
+// built entry.
+import { apply, inject } from '../src/client/index.ts'
+import type { WorkspaceBrowserInjected, WorkspacePickerInjected } from '../src/client/index.ts'
 import {
   type ArchiveSessionInjected, type ForkSessionInjected, menuOpenStateFactory, type PinSessionInjected,
   type RenameSessionInjected, type RowToastInjected, type SessionArchiveConfirmInjected, type SessionRenameDialogInjected,

@@ -89,11 +89,14 @@ describe('sectionFace', () => {
       remove: vi.fn(() => Promise.resolve()),
     }
     const baked = actions()
-    const face = sectionFace(binding, operations)(baked)
+    const talked: string[] = []
+    const face = sectionFace(binding, operations, (id) => { talked.push(id) })(baked)
     expect(face.load).toBe(operations.load)
     expect(face.retry).toBe(operations.retry)
     expect(face.save).toBe(operations.save)
     expect(face.remove).toBe(operations.remove)
+    face.talk('triage')
+    expect(talked).toEqual(['triage'])
     binding.begin()
     expect(baked.calls).toEqual(['begin'])
   })

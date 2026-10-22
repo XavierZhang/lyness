@@ -21,6 +21,8 @@ import css from './BotsSection.module.css'
 export interface BotsSectionInjected {
   /** Read the bots and the presets, or join the read already running. */
   load: () => Promise<void>
+  /** Open a new conversation with one bot, in the Workspace the reader is in. */
+  talk: (id: string) => void
   /** Read again after a failure. */
   retry: () => Promise<void>
   /** Add one bot, or change one. */
@@ -51,10 +53,11 @@ function presetLabel(preset: PresetOptionView): string {
  * @param props - the bot, what to call things, and the things to do with it.
  * @returns the row element tree.
  */
-function BotRow({ bot, editing, t, onEdit, onRemove }: {
+function BotRow({ bot, editing, t, onTalk, onEdit, onRemove }: {
   bot: BotRowView
   editing: boolean
   t: Translate
+  onTalk: () => void
   onEdit: () => void
   onRemove: () => void
 }) {
@@ -72,22 +75,27 @@ function BotRow({ bot, editing, t, onEdit, onRemove }: {
       </div>
       {bot.job === '' ? null : <p className={css.rowJob}>{bot.job}</p>}
       {bot.written ? <p className={css.rowHint}>{t('fromConfigurationHint')}</p> : null}
-      {bot.available ? null : <p className={css.rowHint}>{t('unavailableBotHint')}</p>}
+      {bot.available ? null : (
+        <p className={css.rowHint}>{`${t('unavailableBotHint')} ${t('talkUnavailable')}`}</p>
+      )}
       <p className={css.rowId}>
         <span>{t('botId')}</span>
         <code className={css.rowIdValue}>{bot.id}</code>
         <span className={css.rowHint}>{t('botIdHint')}</span>
       </p>
-      {/* The two actions a row that may be changed offers, which every
-          Settings roster row offers in the same place. */}
-      {/* jscpd:ignore-start */}
-      {bot.written ? null : (
-        <div className={css.rowActions}>
-          <Button variant="outline" onClick={onEdit}>{editing ? t('cancelEdit') : t('edit')}</Button>
-          <Button variant="outline" onClick={onRemove}>{t('remove')}</Button>
-        </div>
-      )}
-      {/* jscpd:ignore-end */}
+      <div className={css.rowActions}>
+        {/* Offered for a written bot too: the operator's own bots are the
+            ones most worth talking to, and only changing them is refused. */}
+        <Button variant="primary" disabled={!bot.available} onClick={onTalk}>{t('talk')}</Button>
+        {/* jscpd:ignore-start */}
+        {bot.written ? null : (
+          <>
+            <Button variant="outline" onClick={onEdit}>{editing ? t('cancelEdit') : t('edit')}</Button>
+            <Button variant="outline" onClick={onRemove}>{t('remove')}</Button>
+          </>
+        )}
+        {/* jscpd:ignore-end */}
+      </div>
     </li>
   )
 }
@@ -195,7 +203,7 @@ function BotForm({ editing, presets, working, marked, save, t }: {
  * @param props - composed slot props.
  * @returns the section element tree.
  */
-export function BotsSection({ t, useStore, load, retry, save, remove }: BotsSectionProps) {
+export function BotsSection({ t, useStore, load, retry, talk, save, remove }: BotsSectionProps) {
   const status = useStore(state => state.status)
   const bots = useStore(state => state.bots)
   const presets = useStore(state => state.presets)
@@ -259,6 +267,7 @@ export function BotsSection({ t, useStore, load, retry, save, remove }: BotsSect
                     bot={bot}
                     editing={bot.id === editingId}
                     t={t}
+                    onTalk={() => { talk(bot.id) }}
                     onEdit={() => { setEditingId(bot.id === editingId ? undefined : bot.id) }}
                     onRemove={() => { setRemoving(bot); setAcknowledged(false) }}
                   />

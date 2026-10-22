@@ -32,7 +32,7 @@ The Web bundle mounts it beside the other Settings sections:
   name: '@lyness/lyn-client-ui-settings-bots'
 ```
 
-There is nothing else to configure. The section reads `remote.bots` when it opens, and renders one of four things: the bots and the form, a notice that this deployment maintains no bots of its own, a notice that the caller may not change them, or a failure with a retry.
+There is nothing else to configure. The section reads `remote.bots` when it opens, and renders one of four things: the bots and the form, a notice that this deployment maintains no bots of its own, a notice that the caller may not change them, or a failure with a retry. Each row also starts a conversation with that bot, through the Workspace navigation rather than by creating a session here, so it lands in the Workspace the reader is in and opens the way every other new session does.
 
 -----
 
@@ -46,6 +46,8 @@ There is nothing else to configure. The section reads `remote.bots` when it open
 **A written bot is shown, not offered.** The row says the installation's configuration owns it and carries no Edit or Remove: a change accepted here would be undone at the next boot, and the surface would have reported something untrue.
 
 **A bot that will not run is marked rather than hidden.** Its preset left the profile, so it cannot start a conversation; removing the row would lose the character an administrator wrote, and hiding it would leave them looking for a bot that still exists.
+
+**Talking to one is offered for a written bot too.** The operator's own bots are the ones most worth talking to; only changing them is refused. The one row that cannot start a conversation is the one whose preset the deployment stopped offering, and it says so.
 
 **Removal asks first.** The bot stops running and leaves the roster, and the conversations it owns stay attributed to it with nobody to answer in them, so it goes through the shared risk confirmation rather than a single click.
 
@@ -73,7 +75,7 @@ No request prefix changes, because nothing here contributes to an assembled requ
 
 <a id="known-limitations-and-deferred-work"></a>
 
-- **Nothing here opens a conversation with a bot** — the section maintains the records; the conversation surface is where one is talked to.
+- **This is the only way in** — a conversation with a bot starts from this page; there is no bot in the new-session screen, the sidebar, or the composer.
 - **The section is offered to every reader** — a member who opens Settings sees it and reads the notice that they may not change the organization's bots, rather than not being offered the section at all. Hiding it needs the navigation to know the caller's standing before the section's own read answers.
 - **Organization is typed, not picked** — the form takes an organization id as text, because no directory of organizations is readable from the client yet.
 - **The character is a plain box** — there is no preview of the system prompt a bot would run with, and no way to try one before saving it.

@@ -7,8 +7,12 @@ import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
 import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
 import { TestRemote } from '@lyness/lyn-client-test-runtime'
 import { apply as settingsApply, inject as settingsInject } from '@lyness/lyn-client-ui-settings/client'
-import { apply, inject, SETTINGS_NS } from '@lyness/lyn-client-ui-theme/client'
-import type { AppearanceRowInjected, FontSizeRowInjected, ThemeRuntime } from '@lyness/lyn-client-ui-theme/client'
+// Relative, like every other import this spec makes of its own package: the
+// assertions compare component and store identity, and reaching the same file
+// through the package alias is a second module whenever the resolver prefers
+// the built entry.
+import { apply, inject, SETTINGS_NS } from '../src/client/index.ts'
+import type { AppearanceRowInjected, FontSizeRowInjected, ThemeRuntime } from '../src/client/index.ts'
 import { THEME_SETTINGS_NAMESPACE, ThemeSettingsSchema } from '../src/theme-settings.ts'
 import { AppearanceRow } from '../src/client/AppearanceRow.tsx'
 import { FontSizeRow } from '../src/client/FontSizeRow.tsx'

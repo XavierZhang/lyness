@@ -341,9 +341,9 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         parameters: [{ name: 'target', description: 'known Session identity or durable direct-parent subagent address to display.' }],
       },
       {
-        signature: 'openWorkspace(workspaceId: WorkspaceId, beforeOpen?: (sessionId: SessionId) => void): Promise<void>',
+        signature: 'openWorkspace( workspaceId: WorkspaceId, beforeOpen?: (sessionId: SessionId) => void, options?: StartOptions, ): Promise<void>',
         description: 'Connect a Workspace and open its Session unless a later navigation supersedes it.',
-        parameters: [{ name: 'workspaceId', description: 'target Workspace.' }, { name: 'beforeOpen', description: 'optional synchronous preparation for the selected Session, skipped after supersession; a throw aborts the open and releases the retained reference.' }],
+        parameters: [{ name: 'workspaceId', description: 'target Workspace.' }, { name: 'beforeOpen', description: 'optional synchronous preparation for the selected Session, skipped after supersession; a throw aborts the open and releases the retained reference.' }, { name: 'options', description: 'the bot to speak with, when the conversation is with one.' }],
         returns: 'completion; a superseded request may create a Session but does not open it.',
         throws: ['on failure; a refused creation is also shown through the Workspace notice unless a later navigation or disposal superseded the request.'],
       },
@@ -354,15 +354,15 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         returns: 'completion after child creation and inherited-title increment.',
       },
       {
-        signature: 'connectWorkspace(workspaceId: WorkspaceId): Promise<SessionId>',
+        signature: 'connectWorkspace(workspaceId: WorkspaceId, options?: StartOptions): Promise<SessionId>',
         description: 'Resolve the reusable or newly created blank Session for a Workspace.',
-        parameters: [{ name: 'workspaceId', description: 'target Workspace.' }],
+        parameters: [{ name: 'workspaceId', description: 'target Workspace.' }, { name: 'options', description: 'the bot to speak with, when the conversation is with one.' }],
         returns: 'a Session already addressable through the Session Controller.',
       },
       {
-        signature: 'startSession(workspaceId?: WorkspaceId): void',
+        signature: 'startSession(workspaceId?: WorkspaceId, options?: StartOptions): void',
         description: 'Start a New Session flow and navigate to its Session; a creation the Host refuses is shown through the Workspace notice and leaves the selection as it was.',
-        parameters: [{ name: 'workspaceId', description: 'explicit target; absent inherits the current or most recent Workspace.' }],
+        parameters: [{ name: 'workspaceId', description: 'explicit target; absent inherits the current or most recent Workspace.' }, { name: 'options', description: 'the bot to speak with, when the conversation is with one.' }],
       },
       {
         signature: 'archiveSession(sessionId: SessionId, options?: { readonly stopActivity?: boolean }): Promise<void>',
@@ -966,6 +966,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'SnapshotSelectorHook',
     declaration: 'export type SnapshotSelectorHook<T> = <S>(sel: (s: T) => S, eq?: (a: S, b: S) => boolean) => S;',
+  },
+  {
+    name: 'StartOptions',
+    declaration: 'export interface StartOptions {\n    readonly bot?: string;\n}',
   },
   {
     name: 'StoreDecl',

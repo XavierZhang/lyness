@@ -25,6 +25,18 @@ interface MainSelection {
   readonly subagentAddress?: SubagentAddress
 }
 
+/** What a new conversation is started with, beyond the Workspace it belongs to. */
+export interface StartOptions {
+  /**
+   * The bot it is with, when it is with one.
+   *
+   * A bot conversation never reuses a blank session already open: that
+   * session speaks as nobody, and which bot a session speaks as is written
+   * into its log when it is created.
+   */
+  readonly bot?: string
+}
+
 /** Workspace archive and directory operations consumed by Client UI domains. */
 export interface UiWorkspace {
   /**
@@ -37,11 +49,16 @@ export interface UiWorkspace {
    * @param workspaceId - target Workspace.
    * @param beforeOpen - optional synchronous preparation for the selected Session,
    * skipped after supersession; a throw aborts the open and releases the retained reference.
+   * @param options - the bot to speak with, when the conversation is with one.
    * @returns completion; a superseded request may create a Session but does not open it.
    * @throws on failure; a refused creation is also shown through the Workspace
    * notice unless a later navigation or disposal superseded the request.
    */
-  openWorkspace(workspaceId: WorkspaceId, beforeOpen?: (sessionId: SessionId) => void): Promise<void>
+  openWorkspace(
+    workspaceId: WorkspaceId,
+    beforeOpen?: (sessionId: SessionId) => void,
+    options?: StartOptions,
+  ): Promise<void>
   /**
    * Fork a Session without changing the current selection.
    * @param sessionId - source Session.
@@ -51,15 +68,17 @@ export interface UiWorkspace {
   /**
    * Resolve the reusable or newly created blank Session for a Workspace.
    * @param workspaceId - target Workspace.
+   * @param options - the bot to speak with, when the conversation is with one.
    * @returns a Session already addressable through the Session Controller.
    */
-  connectWorkspace(workspaceId: WorkspaceId): Promise<SessionId>
+  connectWorkspace(workspaceId: WorkspaceId, options?: StartOptions): Promise<SessionId>
   /**
    * Start a New Session flow and navigate to its Session; a creation the Host
    * refuses is shown through the Workspace notice and leaves the selection as it was.
    * @param workspaceId - explicit target; absent inherits the current or most recent Workspace.
+   * @param options - the bot to speak with, when the conversation is with one.
    */
-  startSession(workspaceId?: WorkspaceId): void
+  startSession(workspaceId?: WorkspaceId, options?: StartOptions): void
   /**
    * Archive a Session and clear it when it is the current selection.
    * @param sessionId - Session to archive.
@@ -160,11 +179,17 @@ class UiWorkspaceService extends Service implements UiWorkspace {
     }, 'ui-workspace: Workspace navigation policy')
   }
 
-  async connectWorkspace(workspaceId: WorkspaceId): Promise<SessionId> {
+  async connectWorkspace(workspaceId: WorkspaceId, options: StartOptions = {}): Promise<SessionId> {
     const workspace = this.workspaces.list.getSnapshot().items
       .find(item => item.workspaceId === workspaceId)
     if (workspace === undefined) {
       throw new Error(`uiWorkspace.connectWorkspace: unknown workspace ${workspaceId}`)
+    }
+    // A conversation with a bot is always a new one: a blank session already
+    // open speaks as nobody, and the bot a session speaks as is written into
+    // its log when it is created.
+    if (options.bot !== undefined) {
+      return this.sessions.create({ workspaceId: workspace.workspaceId, bot: options.bot })
     }
     const inflight = this.connecting.get(workspaceId)
     if (inflight !== undefined) return inflight
@@ -200,11 +225,15 @@ class UiWorkspaceService extends Service implements UiWorkspace {
     this.replaceMain(target, this.lifetime.signal, 'reveal')
   }
 
-  async openWorkspace(workspaceId: WorkspaceId, beforeOpen?: (sessionId: SessionId) => void): Promise<void> {
+  async openWorkspace(
+    workspaceId: WorkspaceId,
+    beforeOpen?: (sessionId: SessionId) => void,
+    options: StartOptions = {},
+  ): Promise<void> {
     const navigation = AbortSignal.any([this.ctx.layout.beginNavigation(), this.lifetime.signal])
     let sessionId: SessionId
     try {
-      sessionId = await this.connectWorkspace(workspaceId)
+      sessionId = await this.connectWorkspace(workspaceId, options)
     } catch (error: unknown) {
       // Reported here, not in connectWorkspace: startup restoration calls that
       // directly and stays console-only.
@@ -219,7 +248,7 @@ class UiWorkspaceService extends Service implements UiWorkspace {
     await this.sessions.fork({ sessionId, increaseTitle: true })
   }
 
-  startSession(workspaceId?: WorkspaceId): void {
+  startSession(workspaceId?: WorkspaceId, options: StartOptions = {}): void {
     const workspace = this.workspaces.list.getSnapshot()
     const sessions = this.sessions.list.getSnapshot()
     const current = this.mainReference?.sessionId
@@ -234,7 +263,7 @@ class UiWorkspaceService extends Service implements UiWorkspace {
       this.clearMain()
       return
     }
-    void this.openWorkspace(target).catch(
+    void this.openWorkspace(target, undefined, options).catch(
       (reason: unknown) => { console.warn('new session failed:', reason) },
     )
   }

@@ -5,8 +5,12 @@ import { afterEach, describe, expect, expectTypeOf, it, vi } from 'vitest'
 import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
 import type { PropsRenderSlots } from '@lyness/lyn-client-ui-slots'
 import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
-import { apply, inject } from '@lyness/lyn-client-ui-sidebar/client'
-import type { SidebarRootInjected } from '@lyness/lyn-client-ui-sidebar/client'
+// Relative, like every other import this spec makes of its own package: the
+// assertions compare component and store identity, and reaching the same file
+// through the package alias is a second module whenever the resolver prefers
+// the built entry.
+import { apply, inject } from '../src/client/index.ts'
+import type { SidebarRootInjected } from '../src/client/index.ts'
 import type { MainPanelId } from '@lyness/lyn-client-ui-layout/client'
 import { HeaderLeadingControls } from '../src/client/HeaderLeadingControls.tsx'
 import { apply as hostApply } from '../src/index.ts'
