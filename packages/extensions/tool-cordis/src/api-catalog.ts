@@ -610,6 +610,40 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
     ],
   },
   {
+    key: 'botsController',
+    summary: 'Host service backing the generated `ctx.remote.bots` namespace.',
+    description: 'Host service backing the generated `ctx.remote.bots` namespace.',
+    methods: [
+      {
+        signature: '@Remote async list(): Promise<readonly BotRowView[]>',
+        description: 'The bots the calling standing may change.',
+        parameters: [],
+        returns: 'the bots it administers, written ones first.',
+        throws: ['{RemoteError} `bots/no-standing` when the call establishes none, or `gateway/internal` when this deployment maintains no bots.'],
+      },
+      {
+        signature: '@Remote async presets(): Promise<readonly PresetOptionView[]>',
+        description: 'The agent presets a bot may be given.\n\nAnswered by the roster rather than read from the preset registry here, because that is the list a save is validated against: a form offering one list while the roster checked another would refuse a choice it had just presented.',
+        parameters: [],
+        returns: 'the presets on offer, in the registry\'s own order.',
+        throws: ['{RemoteError} `bots/no-standing` when the call establishes none, or `gateway/internal` when this deployment maintains no bots.'],
+      },
+      {
+        signature: '@Remote async save(input: BotInput): Promise<BotRowView>',
+        description: 'Add one bot, or change one this deployment maintains.',
+        parameters: [{ name: 'input', description: 'what the administrator filled in.' }],
+        returns: 'the bot as the deployment now reads it.',
+        throws: ['{RemoteError} `bots/not-permitted`, `bots/written`, `bots/unknown-preset`, `bots/incomplete`, `bots/no-standing`, or `gateway/internal`.'],
+      },
+      {
+        signature: '@Remote async remove(id: string): Promise<void>',
+        description: 'Remove one bot this deployment maintains.',
+        parameters: [{ name: 'id', description: 'the bot to remove.' }],
+        throws: ['{RemoteError} `bots/not-permitted`, `bots/written`, `bots/no-standing`, or `gateway/internal`.'],
+      },
+    ],
+  },
+  {
     key: 'browserUse',
     summary: 'Owns one optional provider registration in the shared browser-use service.',
     description: 'Owns one optional provider registration in the shared browser-use service.',
@@ -1713,6 +1747,12 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         description: 'The bots one standing administers, written and stored alike.',
         parameters: [{ name: 'by', description: 'the standing asking.' }],
         returns: 'the bots it administers, written ones first, then oldest stored first.',
+      },
+      {
+        signature: 'async offers(): Promise<readonly PresetOption[]>',
+        description: 'The agent presets a bot may be given.\n\nAnswered here rather than read from the preset registry by each caller, because this is the list save validates against: a surface offering one list while the service checked another would refuse a choice it had just presented.',
+        parameters: [],
+        returns: 'the presets on offer, in the registry\'s own order; a preset that cannot compose a session is left out.',
       },
       {
         signature: 'async save(submission: BotSubmission, by: Membership): Promise<BotView>',
@@ -5432,6 +5472,14 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export interface BindingView {\n    readonly channel: string;\n    readonly issuer: string;\n    readonly subject: string;\n    readonly written: boolean;\n}',
   },
   {
+    name: 'BotInput',
+    declaration: 'export interface BotInput {\n    readonly id?: string;\n    readonly displayName: string;\n    readonly organization: string;\n    readonly persona: string;\n    readonly job: string;\n    readonly preset: string;\n}',
+  },
+  {
+    name: 'BotRowView',
+    declaration: 'export interface BotRowView {\n    readonly id: string;\n    readonly displayName: string;\n    readonly organization: string;\n    readonly persona: string;\n    readonly job: string;\n    readonly preset: string;\n    readonly written: boolean;\n    readonly available: boolean;\n}',
+  },
+  {
     name: 'BotSubmission',
     declaration: 'export interface BotSubmission {\n    readonly id?: PersonId | undefined;\n    readonly displayName: string;\n    readonly organization: string;\n    readonly persona: string;\n    readonly job: string;\n    readonly preset: string;\n}',
   },
@@ -6980,8 +7028,8 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export interface PresetDefinition {\n    readonly id: string;\n    readonly name?: string;\n    readonly description?: string;\n    readonly order?: number;\n    readonly plugins: readonly (Omit<EntryOptions, \'id\' | \'disabled\'> & {\n        id?: string;\n        disabled?: EntryOptions[\'disabled\'] | JsExpr;\n    })[];\n    readonly acceptsContributions?: boolean;\n}',
   },
   {
-    name: 'PresetOption',
-    declaration: 'export interface PresetOption {\n    value: string;\n    name: string;\n    description?: string;\n}',
+    name: 'PresetOptionView',
+    declaration: 'export interface PresetOptionView {\n    readonly id: string;\n    readonly displayName?: string;\n    readonly description?: string;\n}',
   },
   {
     name: 'PresetSpec',

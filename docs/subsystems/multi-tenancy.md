@@ -188,6 +188,54 @@ abstract revoke(id: AuthSessionId): Promise<boolean>
 
 Source: [`packages/identity/auth-session/src/index.ts`](../../packages/identity/auth-session/src/index.ts)
 
+<a id="ctxbotscontroller--botscontroller"></a>
+
+### `ctx.botsController` — `BotsController`
+
+Host service backing the generated `ctx.remote.bots` namespace.
+
+```ts cordis-catalog
+/**
+ * The bots the calling standing may change.
+ * @returns the bots it administers, written ones first.
+ * @throws {RemoteError} `bots/no-standing` when the call establishes none,
+ * or `gateway/internal` when this deployment maintains no bots.
+ */
+@Remote async list(): Promise<readonly BotRowView[]>
+
+/**
+ * The agent presets a bot may be given.
+ *
+ * Answered by the roster rather than read from the preset registry here,
+ * because that is the list a save is validated against: a form offering
+ * one list while the roster checked another would refuse a choice it had
+ * just presented.
+ * @returns the presets on offer, in the registry's own order.
+ * @throws {RemoteError} `bots/no-standing` when the call establishes none,
+ * or `gateway/internal` when this deployment maintains no bots.
+ */
+@Remote async presets(): Promise<readonly PresetOptionView[]>
+
+/**
+ * Add one bot, or change one this deployment maintains.
+ * @param input - what the administrator filled in.
+ * @returns the bot as the deployment now reads it.
+ * @throws {RemoteError} `bots/not-permitted`, `bots/written`, `bots/unknown-preset`,
+ * `bots/incomplete`, `bots/no-standing`, or `gateway/internal`.
+ */
+@Remote async save(input: BotInput): Promise<BotRowView>
+
+/**
+ * Remove one bot this deployment maintains.
+ * @param id - the bot to remove.
+ * @throws {RemoteError} `bots/not-permitted`, `bots/written`, `bots/no-standing`,
+ * or `gateway/internal`.
+ */
+@Remote async remove(id: string): Promise<void>
+```
+
+Source: [`packages/api/bots-controller/src/index.ts`](../../packages/api/bots-controller/src/index.ts)
+
 <a id="ctxcreditadministration--creditadministration"></a>
 
 ### `ctx.creditAdministration` — `CreditAdministration`
@@ -458,6 +506,18 @@ declareBot(entry: DeclaredBot): () => void
 async list(by: Membership): Promise<readonly BotView[]>
 
 /**
+ * The agent presets a bot may be given.
+ *
+ * Answered here rather than read from the preset registry by each caller,
+ * because this is the list {@link save} validates against: a surface
+ * offering one list while the service checked another would refuse a
+ * choice it had just presented.
+ * @returns the presets on offer, in the registry's own order; a preset that
+ *   cannot compose a session is left out.
+ */
+async offers(): Promise<readonly PresetOption[]>
+
+/**
  * Add one bot, or change one this service holds.
  * @param submission - what the administrator filled in.
  * @param by - the standing making the change.
@@ -478,6 +538,8 @@ async save(submission: BotSubmission, by: Membership): Promise<BotView>
  */
 async remove(id: PersonId, by: Membership): Promise<void>
 ```
+
+Types: [PresetOption](permission-presets.md)
 
 Source: [`packages/identity/managed-bots/src/index.ts`](../../packages/identity/managed-bots/src/index.ts)
 

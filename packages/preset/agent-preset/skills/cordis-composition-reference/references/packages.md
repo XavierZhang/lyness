@@ -16,6 +16,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 |---|---|---|
 | `@lyness/lyn-api-account-controller` | no | Expose safe account operations over authenticated Remote |
 | `@lyness/lyn-api-announcement-controller` | no | Expose a deployment's own announcements over authenticated Remote |
+| `@lyness/lyn-api-bots-controller` | no | Remote owner of the bots surface: administrators maintain which bots their organization runs and what each one runs with |
 | `@lyness/lyn-api-credits-controller` | no | A person reads their own balance; an administrator grants credits and sets allowances |
 | `@lyness/lyn-api-gateway` | yes | Typert Remote Host dispatcher and Client API endpoint |
 | `@lyness/lyn-api-identity-controller` | no | Who the caller is, and what this deployment would let them sign in with |

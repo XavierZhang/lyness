@@ -303,6 +303,8 @@ flowchart LR
   svc_managedBots["ctx.managedBots<br/>The bots an administrator maintains"]
   pkg_managed_people["managed-people"]
   svc_managedPeople["ctx.managedPeople<br/>People and admission an administrator maintains"]
+  pkg_api_bots_controller["api-bots-controller"]
+  svc_botsController["ctx.botsController<br/>The bots an organization runs"]
   pkg_api_people_controller["api-people-controller"]
   svc_peopleController["ctx.peopleController<br/>Who may use this deployment"]
   pkg_session_ownership["session-ownership"]
@@ -350,6 +352,7 @@ flowchart LR
   pkg_agent_preset_registry --> svc_agentPresets
   pkg_announcements --> svc_announcements
   pkg_announcements_static --> svc_announcements
+  pkg_api_bots_controller --> svc_botsController
   pkg_api_credits_controller --> svc_creditsController
   pkg_api_gateway --> svc_typertGateway
   pkg_api_identity_controller --> svc_identityController
@@ -794,6 +797,7 @@ flowchart LR
 | `ctx.signInChannels` | `core` | [`sign-in-channels`](../packages/identity/sign-in-channels) | - | - | - | 把存下的记录变成挂载的渠道、再变回来：平台管理员配置部署自己的，租户管理员只配置本组织的，而每个组织的登录页只被提供自己的那些、加上部署级的那些。 |
 | `ctx.managedBots` | `core` | [`managed-bots`](../packages/identity/managed-bots) | - | - | - | 存着运行时添加的那些 bot，并把每一个放进它所在组织的名册，在那里它持有一个成员身份、并拥有它开启的东西；准入会拒绝它，因为没有哪个目录能验证一个 bot。 |
 | `ctx.managedPeople` | `core` | [`managed-people`](../packages/identity/managed-people) | - | - | - | 持有运行时添加的人员与准入绑定，与 composition 写下的那些并存：写下的那一半在每次查找中优先，并且不能在这里改动，因为下一次启动会重新读那个文件。 |
+| `ctx.botsController` | `core` | [`api-bots-controller`](../packages/api/bots-controller) | - | - | - | 把 bot 名册投影到生成的 Remote 命名空间上：它解析出这次调用所处的身份，交给那些决定谁管得着谁的规则，并答出那份名册用来校验一次保存的同一份 preset 列表。 |
 | `ctx.peopleController` | `core` | [`api-people-controller`](../packages/api/people-controller) | - | - | - | 把被管理的目录投影到生成的 Remote 命名空间上：它解析出这次调用所处的身份，交给那些决定谁管得着谁的规则，并把每种拒绝按自己的错误码汇报，好让表单禁用它点名的那一行。 |
 | `ctx.sessionVisibility` | `core` | [`session-ownership`](../packages/identity/session-ownership) | - | [`api-session-controller`](../packages/api/session-controller) | - | 把写入的归属读回来：一个人看得到自己开启的对话、看不到别人的；没有归属的那些只对平台管理员作答；而没有 principal 的调用是部署在对自己行事，它看得到全部。 |
 | `ctx.signInChannelController` | `core` | [`api-sign-in-channel-controller`](../packages/api/sign-in-channel-controller) | - | - | - | 把配置好的渠道存储投影到生成的 Remote 命名空间上：它解析出这次调用所处的身份，交给那条唯一决定谁管得着什么的规则，并把每种拒绝按自己的错误码汇报，好让表单标出它点名的那个字段。 |

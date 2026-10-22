@@ -32,6 +32,13 @@
     - id: managed-people
       name: '@lyness/lyn-managed-people'
 
+    # The bots an organization runs, each one a roster entry holding a member
+    # standing and owning what it opens. Here rather than with the agent rows
+    # because what it needs is the roster: without this module there is one
+    # operator, and a bot would be a second actor with nobody to belong to.
+    - id: managed-bots
+      name: '@lyness/lyn-managed-bots'
+
     # Who exists, and what each of them may do. Required and non-empty: a
     # deployment that selects this module states its people or fails at load,
     # and the people it names are who add everybody else.
@@ -83,6 +90,10 @@
     # colleague is not an edit to a file on the server and a restart.
     - id: people-controller
       name: '@lyness/lyn-api-people-controller'
+
+    # And the one they maintain their bots through, for the same reason.
+    - id: bots-controller
+      name: '@lyness/lyn-api-bots-controller'
 
     # The four browser routes and the cookie, which is the only layer that
     # binds one sign-in to one browser.

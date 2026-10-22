@@ -934,6 +934,15 @@ const SERVICE_ROLES: ServiceRole[] = [
     note: 'Holds the people and admission bindings added at runtime, beside the ones composition wrote: the written half wins every lookup and cannot be changed here, because the next boot reads the file again.',
   },
   {
+    key: 'botsController',
+    pkg: 'api-bots-controller',
+    title: 'The bots an organization runs',
+    mode: 'core',
+    implementations: [],
+    consumers: [],
+    note: 'Projects the bot roster onto the generated Remote namespace: it resolves the standing one call acts in, hands it to the rules that decide who administers whom, and answers the preset list that same roster validates a save against.',
+  },
+  {
     key: 'peopleController',
     pkg: 'api-people-controller',
     title: 'Who may use this deployment',

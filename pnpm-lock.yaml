@@ -1277,6 +1277,45 @@ importers:
         specifier: workspace:*
         version: link:../../typert/registry
 
+  packages/api/bots-controller:
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+      '@lyness/lyn-agent-preset-registry':
+        specifier: workspace:*
+        version: link:../../preset/agent-preset-registry
+      '@lyness/lyn-brand':
+        specifier: workspace:*
+        version: link:../../util/brand
+      '@lyness/lyn-managed-bots':
+        specifier: workspace:*
+        version: link:../../identity/managed-bots
+      '@lyness/lyn-managed-people':
+        specifier: workspace:*
+        version: link:../../identity/managed-people
+      '@lyness/lyn-people':
+        specifier: workspace:*
+        version: link:../../identity/people
+      '@lyness/lyn-request-principal':
+        specifier: workspace:*
+        version: link:../../identity/request-principal
+      '@lyness/lyn-storage':
+        specifier: workspace:*
+        version: link:../../storage/storage
+      '@lyness/lyn-storage-domain':
+        specifier: workspace:*
+        version: link:../../storage/storage-domain
+      '@lyness/lyn-storage-json':
+        specifier: workspace:*
+        version: link:../../storage/storage-json
+      '@lyness/lyn-typert-protocol':
+        specifier: workspace:*
+        version: link:../../typert/protocol
+      '@lyness/lyn-util-values':
+        specifier: workspace:*
+        version: link:../../util/values
+
   packages/api/people-controller:
     devDependencies:
       '@lyness/cordis':
@@ -2538,6 +2577,9 @@ importers:
       '@lyness/lyn-api-remote-authority':
         specifier: workspace:*
         version: link:../../api/remote-authority
+      '@lyness/lyn-api-bots-controller':
+        specifier: workspace:*
+        version: link:../../api/bots-controller
       '@lyness/lyn-api-people-controller':
         specifier: workspace:*
         version: link:../../api/people-controller
@@ -2553,6 +2595,9 @@ importers:
       '@lyness/lyn-feishu':
         specifier: workspace:*
         version: link:../../vendor/feishu
+      '@lyness/lyn-managed-bots':
+        specifier: workspace:*
+        version: link:../../identity/managed-bots
       '@lyness/lyn-managed-people':
         specifier: workspace:*
         version: link:../../identity/managed-people

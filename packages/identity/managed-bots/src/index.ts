@@ -25,7 +25,7 @@ import type {} from '@lyness/lyn-agent-preset-registry'
 import { randomUUID } from '@lyness/lyn-util-crypto'
 import type { Domain } from '@lyness/lyn-storage-domain'
 import { managedBotsDomain } from './storage.ts'
-import type { BotRecord, BotSubmission, BotView, DeclaredBot } from './types.ts'
+import type { BotRecord, BotSubmission, BotView, DeclaredBot, PresetOption } from './types.ts'
 
 export type * from './types.ts'
 export { managedBotsDomain, botSchema } from './storage.ts'
@@ -159,6 +159,26 @@ export class ManagedBots extends Service {
   }
 
   /**
+   * The agent presets a bot may be given.
+   *
+   * Answered here rather than read from the preset registry by each caller,
+   * because this is the list {@link save} validates against: a surface
+   * offering one list while the service checked another would refuse a
+   * choice it had just presented.
+   * @returns the presets on offer, in the registry's own order; a preset that
+   *   cannot compose a session is left out.
+   */
+  async offers(): Promise<readonly PresetOption[]> {
+    return (await this.ctx.agentPresets.list())
+      .filter(preset => preset.broken === undefined)
+      .map(preset => ({
+        id: preset.id,
+        ...preset.name === undefined ? {} : { displayName: preset.name },
+        ...preset.description === undefined ? {} : { description: preset.description },
+      }))
+  }
+
+  /**
    * Add one bot, or change one this service holds.
    * @param submission - what the administrator filled in.
    * @param by - the standing making the change.
@@ -241,14 +261,15 @@ export class ManagedBots extends Service {
   }
 
   /**
-   * The preset ids this deployment currently offers.
+   * The preset ids a bot may name, as a lookup.
    *
-   * A required injection rather than an optional lookup: a bot's capabilities
-   * are the preset it runs with, so a deployment registering no presets has
-   * nothing to give one and this service has no business mounting there.
+   * The registry is a required injection rather than an optional lookup: a
+   * bot's capabilities are the preset it runs with, so a deployment
+   * registering no presets has nothing to give one and this service has no
+   * business mounting there.
    */
   private async presets(): Promise<ReadonlySet<string>> {
-    return new Set((await this.ctx.agentPresets.list()).map(preset => preset.id))
+    return new Set((await this.offers()).map(preset => preset.id))
   }
 }
 

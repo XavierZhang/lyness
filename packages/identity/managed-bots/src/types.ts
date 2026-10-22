@@ -66,3 +66,13 @@ export interface BotView extends DeclaredBot {
    */
   readonly available: boolean
 }
+
+/** One agent preset a bot may be given, as this deployment currently offers it. */
+export interface PresetOption {
+  /** Stable preset id, which is what a bot stores. */
+  readonly id: string
+  /** Display name the preset published; absent leaves the id as the label. */
+  readonly displayName?: string | undefined
+  /** One sentence on what this preset is for. */
+  readonly description?: string | undefined
+}

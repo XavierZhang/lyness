@@ -301,6 +301,8 @@ flowchart LR
   svc_managedBots["ctx.managedBots<br/>The bots an administrator maintains"]
   pkg_managed_people["managed-people"]
   svc_managedPeople["ctx.managedPeople<br/>People and admission an administrator maintains"]
+  pkg_api_bots_controller["api-bots-controller"]
+  svc_botsController["ctx.botsController<br/>The bots an organization runs"]
   pkg_api_people_controller["api-people-controller"]
   svc_peopleController["ctx.peopleController<br/>Who may use this deployment"]
   pkg_session_ownership["session-ownership"]
@@ -348,6 +350,7 @@ flowchart LR
   pkg_agent_preset_registry --> svc_agentPresets
   pkg_announcements --> svc_announcements
   pkg_announcements_static --> svc_announcements
+  pkg_api_bots_controller --> svc_botsController
   pkg_api_credits_controller --> svc_creditsController
   pkg_api_gateway --> svc_typertGateway
   pkg_api_identity_controller --> svc_identityController
@@ -792,6 +795,7 @@ flowchart LR
 | `ctx.signInChannels` | `core` | [`sign-in-channels`](../packages/identity/sign-in-channels) | - | - | - | Turns stored records into mounted channels and back: a platform administrator configures the deployment's own, a tenant administrator only their organization's, and each organization's sign-in page is offered only its own plus the deployment-wide ones. |
 | `ctx.managedBots` | `core` | [`managed-bots`](../packages/identity/managed-bots) | - | - | - | Holds the bots added at runtime and puts each one in its organization's roster, where it holds a member standing and owns what it opens; admission refuses it, because no directory can authenticate a bot. |
 | `ctx.managedPeople` | `core` | [`managed-people`](../packages/identity/managed-people) | - | - | - | Holds the people and admission bindings added at runtime, beside the ones composition wrote: the written half wins every lookup and cannot be changed here, because the next boot reads the file again. |
+| `ctx.botsController` | `core` | [`api-bots-controller`](../packages/api/bots-controller) | - | - | - | Projects the bot roster onto the generated Remote namespace: it resolves the standing one call acts in, hands it to the rules that decide who administers whom, and answers the preset list that same roster validates a save against. |
 | `ctx.peopleController` | `core` | [`api-people-controller`](../packages/api/people-controller) | - | - | - | Projects the managed directory onto the generated Remote namespace: it resolves the standing one call acts in, hands it to the rules that decide who administers whom, and reports each refusal under its own code so a form can disable the row it names. |
 | `ctx.sessionVisibility` | `core` | [`session-ownership`](../packages/identity/session-ownership) | - | [`api-session-controller`](../packages/api/session-controller) | - | Reads back the attribution the stamp wrote: a person sees the conversations they opened and no others, an unattributed one answers only to a platform administrator, and a call with no principal is the deployment acting on itself and sees everything. |
 | `ctx.signInChannelController` | `core` | [`api-sign-in-channel-controller`](../packages/api/sign-in-channel-controller) | - | - | - | Projects the configured-channel store onto the generated Remote namespace: it resolves the standing one call acts in, hands it to the one rule that decides who administers what, and reports each refusal under its own code so a form can mark the field it names. |
