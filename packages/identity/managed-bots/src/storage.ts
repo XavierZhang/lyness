@@ -12,7 +12,7 @@
 import { z } from 'zod'
 import { defineDomain, domainTable, storedId, storedInstant } from '@lyness/lyn-storage-domain'
 import type { PersonId } from '@lyness/lyn-people'
-import type { BotRecord } from './types.ts'
+import type { BotRecord, TeamRecord } from './types.ts'
 
 /** One stored bot. */
 export const botSchema: z.ZodType<BotRecord> = z.object({
@@ -26,11 +26,24 @@ export const botSchema: z.ZodType<BotRecord> = z.object({
   addedBy: storedId<PersonId>(),
 }).strict()
 
+/** One stored team. */
+export const teamSchema: z.ZodType<TeamRecord> = z.object({
+  id: z.string().min(1),
+  displayName: z.string().min(1),
+  organization: z.string().min(1),
+  members: z.array(storedId<PersonId>()),
+  addedAt: storedInstant(),
+  addedBy: storedId<PersonId>(),
+}).strict()
+
 /** Authoritative storage for a runtime-maintained bot roster. */
 export const managedBotsDomain = defineDomain({
   name: 'managed_bots',
   version: 1,
+  // One version, not two: this domain is introduced with the teams table
+  // beside the bots one, so no stored generation precedes either.
   tables: {
     bots: domainTable<string, BotRecord>(botSchema),
+    teams: domainTable<string, TeamRecord>(teamSchema),
   },
 })

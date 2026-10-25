@@ -72,6 +72,10 @@ Replacing one keeps its id, so the conversations it already owns stay its own. A
 
 **The character is a section of its own, appended after the preset's.** The preset says how the agent works, the bot says who is speaking. Appending cannot widen what the agent may do, which is what keeps prose written by a tenant administrator from reaching past the permission preset.
 
+**A team is who may ask whom.** Two bots in one organization that share no team are not teammates: the relation an administrator wrote is the only thing that grants one bot the right to ask another, so a team holding a bot from elsewhere would hand that right across an organization boundary and is refused. What a teammate reads is a name, a job, a character and a preset — enough to decide who to ask, and no conversation of theirs.
+
+**A teammate's job comes from its own record, not from the team.** A bot in two teams reads the same way in both. Letting a team restate what a member is for would make "what it does" depend on the company it is in, which is where a reader stops trusting either answer.
+
 **A record outlives the preset that runs it.** A preset the deployment stopped offering leaves the bot stored and `available: false`. Deleting it would lose the character an administrator wrote because a row left the profile.
 
 -----
@@ -101,6 +105,8 @@ No request prefix changes, because nothing here contributes to an assembled requ
 <a id="known-limitations-and-deferred-work"></a>
 
 - **A bot is talked to, and does not act on its own** — a person opens a conversation with one; nothing lets a bot start one, be scheduled, or be reached from a chat tool.
+- **Nothing asks a teammate yet** — the team relation and the teammate catalog are stored and readable, and the operation that turns them into one bot asking another is the next part of the design. Until it lands, a team changes nothing a bot can do.
+- **Removing a bot leaves the teams that named it** — `teammates` skips a member nobody answers for, so the stale entry grants nothing, and it stays until somebody edits the team.
 - **The preset is the whole capability selection** — individual skills, MCP servers, models and permission presets cannot be chosen per bot; a bot gets exactly what its preset composes.
 - **No teams and no rooms** — a bot cannot ask another bot anything, and several of them cannot discuss one question. Both are later parts of the same design.
 - **One organization per bot** — a bot belongs to the deployment's one named organization, and a platform offering one bot to a named subset of its customers has no way to say so.

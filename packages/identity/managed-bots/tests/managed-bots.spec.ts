@@ -17,7 +17,7 @@ import * as StorageJson from '@lyness/lyn-storage-json'
 import * as StorageDomain from '@lyness/lyn-storage-domain'
 import ManagedPeople, { NOT_A_PERSON, PeopleRefusedError, standingOf } from '@lyness/lyn-managed-people'
 import ManagedBots, {
-  BOT_ROLE, BotsRefusedError, NOT_PERMITTED, ORGANIZATION_REQUIRED, UNKNOWN_PRESET, WRITTEN,
+  BOT_ROLE, BotsRefusedError, NOT_PERMITTED, ORGANIZATION_REQUIRED, UNKNOWN_BOT, UNKNOWN_PRESET, WRITTEN,
 } from '../src/index.ts'
 import type { BotSubmission } from '../src/types.ts'
 
@@ -54,7 +54,9 @@ function submission(over: Partial<BotSubmission> = {}): BotSubmission {
 }
 
 /** A deployment storing its bots, offering whichever presets the test names. */
-async function bench(options: { presets?: readonly string[] } = {}): Promise<Context> {
+async function bench(
+  options: { presets?: readonly { id: string; name?: string; description?: string; broken?: string }[] } = {},
+): Promise<Context> {
   const root = await mkdtemp(join(tmpdir(), 'lyn-managed-bots-'))
   roots.push(root)
   const ctx = new Context()
@@ -62,10 +64,10 @@ async function bench(options: { presets?: readonly string[] } = {}): Promise<Con
   await ctx.plugin(Storage)
   await ctx.plugin(StorageJson, { root })
   await ctx.plugin(StorageDomain, { backend: 'json' })
-  const offered = options.presets ?? ['standard']
+  const offered = options.presets ?? [{ id: 'standard' }]
   // The real registry composes plugin trees; what this service reads from it
   // is which ids it currently offers.
-  ctx.provide('agentPresets', { list: () => Promise.resolve(offered.map(id => ({ id }))) } as never)
+  ctx.provide('agentPresets', { list: () => Promise.resolve(offered) } as never)
   // What the roster registers there is covered in `bot-session.spec.ts`.
   ctx.provide('sessionProjections', { register: () => () => {} } as never)
   await ctx.plugin(ManagedPeople).await()
@@ -91,7 +93,7 @@ describe('adding a bot', () => {
   })
 
   it('refuses a preset this deployment does not offer', async () => {
-    const ctx = await bench({ presets: ['standard'] })
+    const ctx = await bench({ presets: [{ id: 'standard' }] })
     await expect(ctx.managedBots.save(submission({ preset: 'unlisted' }), standing('platform-administrator')))
       .rejects.toThrow(new BotsRefusedError('unknown-preset', UNKNOWN_PRESET))
     await expect(ctx.managedBots.list(standing('platform-administrator'))).resolves.toEqual([])
@@ -268,5 +270,174 @@ describe('a restart', () => {
     const second = await boot()
     await expect(second.managedPeople.person(saved.id)).resolves.toMatchObject({ displayName: 'Triage' })
     await expect(second.managedBots.list(standing('tenant-administrator', 'acme'))).resolves.toHaveLength(1)
+  })
+})
+
+describe('what a bot may be given', () => {
+  it('answers the presets on offer, labels and all, and leaves out a broken one', async () => {
+    const ctx = await bench({ presets: [
+      { id: 'standard', name: 'Standard', description: 'The everyday one.' },
+      { id: 'plain' },
+      { id: 'broken', broken: 'a row failed to activate' },
+    ] })
+    // The same list `save` validates against, so a surface cannot offer a
+    // choice the service would refuse.
+    await expect(ctx.managedBots.offers()).resolves.toEqual([
+      { id: 'standard', displayName: 'Standard', description: 'The everyday one.' },
+      { id: 'plain' },
+    ])
+  })
+})
+
+describe('a team', () => {
+  /** One bot in that organization, by name. */
+  async function bot(ctx: Context, displayName: string, organization = 'acme'): Promise<PersonId> {
+    const saved = await ctx.managedBots.save(
+      submission({ displayName, organization }),
+      standing('platform-administrator'),
+    )
+    return brandString<PersonId>(saved.id)
+  }
+
+  it('is who may ask whom: a shared team makes teammates, a shared organization does not', async () => {
+    const ctx = await bench()
+    const by = standing('tenant-administrator', 'acme')
+    const triage = await bot(ctx, 'Triage')
+    const scribe = await bot(ctx, 'Scribe')
+    const stranger = await bot(ctx, 'Stranger')
+
+    await ctx.managedBots.saveTeam({ displayName: 'Intake', organization: 'acme', members: [triage, scribe] }, by)
+
+    // The relation an administrator wrote is the only thing that grants the
+    // right to ask; sharing an organization grants nothing.
+    await expect(ctx.managedBots.teammates(triage)).resolves.toEqual([
+      { id: scribe, displayName: 'Scribe', job: 'Reads incoming reports and files them.', persona: 'You answer in short sentences.', preset: 'standard' },
+    ])
+    await expect(ctx.managedBots.teammates(stranger)).resolves.toEqual([])
+  })
+
+  it('reads one colleague once, however many teams they share', async () => {
+    const ctx = await bench()
+    const by = standing('tenant-administrator', 'acme')
+    const triage = await bot(ctx, 'Triage')
+    const scribe = await bot(ctx, 'Scribe')
+    await ctx.managedBots.saveTeam({ displayName: 'Intake', organization: 'acme', members: [triage, scribe] }, by)
+    await ctx.managedBots.saveTeam({ displayName: 'Review', organization: 'acme', members: [triage, scribe] }, by)
+
+    const teammates = await ctx.managedBots.teammates(triage)
+    expect(teammates.map(one => one.displayName)).toEqual(['Scribe'])
+  })
+
+  it('refuses a member the team\'s organization does not hold', async () => {
+    const ctx = await bench()
+    const ours = await bot(ctx, 'Ours')
+    const theirs = await bot(ctx, 'Theirs', 'other')
+    const by = standing('tenant-administrator', 'acme')
+
+    // Membership grants the right to ask, so a team holding another
+    // organization's bot would hand that right across the boundary.
+    await expect(ctx.managedBots.saveTeam(
+      { displayName: 'Mixed', organization: 'acme', members: [ours, theirs] },
+      by,
+    )).rejects.toThrow(new BotsRefusedError('unknown-bot', UNKNOWN_BOT))
+
+    await expect(ctx.managedBots.saveTeam(
+      { displayName: 'Ghosts', organization: 'acme', members: [brandString<PersonId>('nobody')] },
+      by,
+    )).rejects.toThrow(new BotsRefusedError('unknown-bot', UNKNOWN_BOT))
+  })
+
+  it('refuses an organization the standing does not administer, and one with none', async () => {
+    const ctx = await bench()
+    await expect(ctx.managedBots.saveTeam(
+      { displayName: 'Theirs', organization: 'other', members: [] },
+      standing('tenant-administrator', 'acme'),
+    )).rejects.toThrow(new BotsRefusedError('not-permitted', NOT_PERMITTED))
+
+    await expect(ctx.managedBots.saveTeam(
+      { displayName: 'Nobody\'s', organization: '', members: [] },
+      standing('platform-administrator'),
+    )).rejects.toThrow(new BotsRefusedError('organization-required', ORGANIZATION_REQUIRED))
+  })
+
+  it('is listed, changed and removed by the standing that administers it', async () => {
+    const ctx = await bench()
+    const by = standing('tenant-administrator', 'acme')
+    const triage = await bot(ctx, 'Triage')
+    const saved = await ctx.managedBots.saveTeam({ displayName: 'Intake', organization: 'acme', members: [triage] }, by)
+
+    expect(saved).toMatchObject({ displayName: 'Intake', members: [triage], written: false })
+    const renamed = await ctx.managedBots.saveTeam(
+      { id: saved.id, displayName: 'Front desk', organization: 'acme', members: [triage] },
+      by,
+    )
+    expect(renamed.id).toBe(saved.id)
+    await expect(ctx.managedBots.teams(by)).resolves.toEqual([expect.objectContaining({ displayName: 'Front desk' })])
+
+    // Another organization's teams are not listed, for the reason its bots
+    // are not: listing them would tell one customer who the others are.
+    await expect(ctx.managedBots.teams(standing('tenant-administrator', 'other'))).resolves.toEqual([])
+
+    await ctx.managedBots.removeTeam(saved.id, by)
+    await expect(ctx.managedBots.teams(by)).resolves.toEqual([])
+    // The bots stay; what went is the relation that let them ask each other.
+    await expect(ctx.managedBots.list(by)).resolves.toHaveLength(1)
+    await expect(ctx.managedBots.removeTeam(saved.id, by)).resolves.toBeUndefined()
+  })
+
+  it('refuses to change or remove another organization\'s team', async () => {
+    const ctx = await bench()
+    const theirs = await ctx.managedBots.saveTeam(
+      { displayName: 'Theirs', organization: 'other', members: [] },
+      standing('platform-administrator'),
+    )
+    const by = standing('tenant-administrator', 'acme')
+    await expect(ctx.managedBots.saveTeam(
+      { id: theirs.id, displayName: 'Mine now', organization: 'acme', members: [] },
+      by,
+    )).rejects.toThrow(new BotsRefusedError('not-permitted', NOT_PERMITTED))
+    await expect(ctx.managedBots.removeTeam(theirs.id, by))
+      .rejects.toThrow(new BotsRefusedError('not-permitted', NOT_PERMITTED))
+  })
+
+  it('leaves another organization\'s written team out of the listing', async () => {
+    const ctx = await bench()
+    ctx.effect(() => ctx.managedBots.declareTeam({
+      id: 'theirs', displayName: 'Theirs', organization: 'other', members: [],
+    }))
+    await expect(ctx.managedBots.teams(standing('tenant-administrator', 'acme'))).resolves.toEqual([])
+    await expect(ctx.managedBots.teams(standing('platform-administrator'))).resolves.toHaveLength(1)
+  })
+
+  it('leaves a written team to the operator, and still answers its teammates', async () => {
+    const ctx = await bench()
+    const written = { id: 'intake', displayName: 'Intake', organization: 'acme', members: [
+      brandString<PersonId>('scribe'), brandString<PersonId>('triage'),
+    ] }
+    ctx.effect(() => ctx.managedBots.declareTeam(written))
+    ctx.effect(() => ctx.managedBots.declareBot({
+      id: brandString<PersonId>('scribe'),
+      displayName: 'Scribe',
+      organization: 'acme',
+      persona: 'You write minutes.',
+      job: 'Keeps the record.',
+      preset: 'standard',
+    }))
+    const by = standing('tenant-administrator', 'acme')
+
+    await expect(ctx.managedBots.teams(by)).resolves.toEqual([{ ...written, written: true }])
+    await expect(ctx.managedBots.saveTeam(
+      { id: 'intake', displayName: 'Renamed', organization: 'acme', members: [] },
+      by,
+    )).rejects.toThrow(new BotsRefusedError('written', WRITTEN))
+    await expect(ctx.managedBots.removeTeam('intake', by))
+      .rejects.toThrow(new BotsRefusedError('written', WRITTEN))
+
+    // `triage` is named by the team and held by nobody: a member nothing
+    // answers for is not a teammate anybody can ask.
+    await expect(ctx.managedBots.teammates(brandString<PersonId>('triage'))).resolves.toEqual([
+      expect.objectContaining({ displayName: 'Scribe' }),
+    ])
+    await expect(ctx.managedBots.teammates(brandString<PersonId>('scribe'))).resolves.toEqual([])
   })
 })

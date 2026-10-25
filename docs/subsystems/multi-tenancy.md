@@ -232,6 +232,33 @@ Host service backing the generated `ctx.remote.bots` namespace.
  * or `gateway/internal`.
  */
 @Remote async remove(id: string): Promise<void>
+
+/**
+ * The teams the calling standing may change.
+ * @returns the teams it administers, written ones first.
+ * @throws {RemoteError} `bots/no-standing` when the call establishes none,
+ * or `gateway/internal` when this deployment maintains no bots.
+ */
+@Remote async teams(): Promise<readonly TeamRowView[]>
+
+/**
+ * Add one team, or change one this deployment maintains.
+ * @param input - what the administrator filled in.
+ * @returns the team as the deployment now reads it.
+ * @throws {RemoteError} `bots/not-permitted`, `bots/written`, `bots/unknown-bot`,
+ * `bots/incomplete`, `bots/no-standing`, or `gateway/internal`.
+ */
+@Remote async saveTeam(input: TeamInput): Promise<TeamRowView>
+
+/**
+ * Remove one team this deployment maintains.
+ *
+ * The bots stay; what goes is the relation that let them ask each other.
+ * @param id - the team to remove.
+ * @throws {RemoteError} `bots/not-permitted`, `bots/written`, `bots/no-standing`,
+ * or `gateway/internal`.
+ */
+@Remote async removeTeam(id: string): Promise<void>
 ```
 
 Source: [`packages/api/bots-controller/src/index.ts`](../../packages/api/bots-controller/src/index.ts)
@@ -497,6 +524,54 @@ The bots this deployment stores, and the written ones they may not shadow.
  * @returns the disposer that withdraws it.
  */
 declareBot(entry: DeclaredBot): () => void
+
+/**
+ * Declare one team composition wrote.
+ * @param entry - the team, as composition names it.
+ * @returns the disposer that withdraws it.
+ */
+declareTeam(entry: DeclaredTeam): () => void
+
+/**
+ * The teams one standing administers, written and stored alike.
+ * @param by - the standing asking.
+ * @returns the teams it administers, written ones first, then oldest stored first.
+ */
+async teams(by: Membership): Promise<readonly TeamView[]>
+
+/**
+ * Add one team, or change one this service holds.
+ * @param submission - what the administrator filled in.
+ * @param by - the standing making the change.
+ * @returns the team as it now reads.
+ * @throws {BotsRefusedError} when the standing may not make the change, composition owns the team, or a member is not its organization's bot.
+ */
+async saveTeam(submission: TeamSubmission, by: Membership): Promise<TeamView>
+
+/**
+ * Remove one team this service holds.
+ *
+ * The bots stay; what goes is the relation that let them ask each other.
+ * @param id - the team to remove.
+ * @param by - the standing making the change.
+ * @throws {BotsRefusedError} when the standing may not remove it, or composition owns it.
+ */
+async removeTeam(id: string, by: Membership): Promise<void>
+
+/**
+ * The teammates one bot may ask.
+ *
+ * Shared team membership and nothing else: two bots in one organization
+ * that share no team are not teammates, because the relation an
+ * administrator wrote is the only thing that grants the right to ask.
+ *
+ * A bot in two teams with the same colleague reads that colleague once. The
+ * job and character come from the colleague's own record rather than from
+ * the team, so what a bot is for does not change with the company it is in.
+ * @param bot - the bot asking.
+ * @returns its teammates, each once, in team order then member order.
+ */
+async teammates(bot: PersonId): Promise<readonly TeammateView[]>
 
 /**
  * The bots one standing administers, written and stored alike.

@@ -27,10 +27,13 @@ import type { Domain } from '@lyness/lyn-storage-domain'
 import { managedBotsDomain } from './storage.ts'
 import { botProjectionDefinition, composeBotPersona } from './session.ts'
 import type { EngagedBot } from './session.ts'
-import type { BotRecord, BotSubmission, BotView, DeclaredBot, PresetOption } from './types.ts'
+import type {
+  BotRecord, BotSubmission, BotView, DeclaredBot, DeclaredTeam, PresetOption,
+  TeammateView, TeamRecord, TeamSubmission, TeamView,
+} from './types.ts'
 
 export type * from './types.ts'
-export { managedBotsDomain, botSchema } from './storage.ts'
+export { managedBotsDomain, botSchema, teamSchema } from './storage.ts'
 export { BOT_PERSONA_SECTION, botProjectionDefinition, composeBotPersona } from './session.ts'
 export type { EngagedBot } from './session.ts'
 
@@ -63,6 +66,9 @@ export const UNKNOWN_PRESET = 'managed-bots: this deployment offers no such agen
 /** Message a bot naming no organization is refused with. */
 export const ORGANIZATION_REQUIRED = 'managed-bots: a bot belongs to exactly one organization'
 
+/** Message a team naming a bot its organization does not hold is refused with. */
+export const UNKNOWN_BOT = 'managed-bots: a team holds only its own organization\'s bots'
+
 /**
  * Why one bot change was refused.
  *
@@ -70,7 +76,12 @@ export const ORGANIZATION_REQUIRED = 'managed-bots: a bot belongs to exactly one
  * one field, disables one row, or says the standing is wrong, and deciding
  * which by matching prose would break the moment the prose changed.
  */
-export type BotRefusal = 'not-permitted' | 'written' | 'unknown-preset' | 'organization-required'
+export type BotRefusal =
+  | 'not-permitted'
+  | 'written'
+  | 'unknown-preset'
+  | 'organization-required'
+  | 'unknown-bot'
 
 /** A bot change this service refused, carrying the reason it refused. */
 export class BotsRefusedError extends Error {
@@ -95,6 +106,8 @@ export class ManagedBots extends Service {
   private readonly ready: Promise<Domain<typeof managedBotsDomain>>
 
   private readonly written = new Map<PersonId, DeclaredBot>()
+
+  private readonly writtenTeams = new Map<string, DeclaredTeam>()
 
   /** Roster registrations this service holds, one per bot it answers for. */
   private readonly rostered = new Map<PersonId, () => void>()
@@ -143,6 +156,149 @@ export class ManagedBots extends Service {
       withdraw()
       this.rostered.delete(entry.id)
     }
+  }
+
+  /**
+   * Declare one team composition wrote.
+   * @param entry - the team, as composition names it.
+   * @returns the disposer that withdraws it.
+   */
+  declareTeam(entry: DeclaredTeam): () => void {
+    this.writtenTeams.set(entry.id, entry)
+    return () => { this.writtenTeams.delete(entry.id) }
+  }
+
+  /**
+   * The teams one standing administers, written and stored alike.
+   * @param by - the standing asking.
+   * @returns the teams it administers, written ones first, then oldest stored first.
+   */
+  async teams(by: Membership): Promise<readonly TeamView[]> {
+    const domain = await this.ready
+    const views: TeamView[] = []
+    for (const entry of this.writtenTeams.values()) {
+      if (administers(by, entry.organization)) views.push({ ...entry, written: true })
+    }
+    for (const [, record] of domain.table('teams').entries()) {
+      if (administers(by, record.organization)) {
+        views.push({
+          id: record.id,
+          displayName: record.displayName,
+          organization: record.organization,
+          members: record.members,
+          written: false,
+        })
+      }
+    }
+    return views
+  }
+
+  /**
+   * Add one team, or change one this service holds.
+   * @param submission - what the administrator filled in.
+   * @param by - the standing making the change.
+   * @returns the team as it now reads.
+   * @throws {BotsRefusedError} when the standing may not make the change,
+   * composition owns the team, or a member is not its organization's bot.
+   */
+  async saveTeam(submission: TeamSubmission, by: Membership): Promise<TeamView> {
+    if (submission.organization.length === 0) {
+      throw new BotsRefusedError('organization-required', ORGANIZATION_REQUIRED)
+    }
+    if (!administers(by, submission.organization)) throw new BotsRefusedError('not-permitted', NOT_PERMITTED)
+    if (submission.id !== undefined && this.writtenTeams.has(submission.id)) {
+      throw new BotsRefusedError('written', WRITTEN)
+    }
+    const domain = await this.ready
+    const existing = submission.id === undefined ? undefined : domain.table('teams').get(submission.id)
+    if (existing !== undefined && !administers(by, existing.organization)) {
+      throw new BotsRefusedError('not-permitted', NOT_PERMITTED)
+    }
+    // Membership is what grants one bot the right to ask another, so a team
+    // holding a bot from elsewhere would hand that right across an
+    // organization boundary. Every member is checked against the team's own
+    // organization, not the caller's.
+    for (const member of submission.members) {
+      const bot = this.written.get(member) ?? domain.table('bots').get(member)
+      if (bot === undefined || bot.organization !== submission.organization) {
+        throw new BotsRefusedError('unknown-bot', UNKNOWN_BOT)
+      }
+    }
+    const record: TeamRecord = {
+      id: existing?.id ?? randomUUID(),
+      displayName: submission.displayName,
+      organization: submission.organization,
+      members: [...submission.members],
+      addedAt: existing?.addedAt ?? new Date().toISOString(),
+      addedBy: existing?.addedBy ?? by.person,
+    }
+    await domain.table('teams').put(record.id, record)
+    return {
+      id: record.id,
+      displayName: record.displayName,
+      organization: record.organization,
+      members: record.members,
+      written: false,
+    }
+  }
+
+  /**
+   * Remove one team this service holds.
+   *
+   * The bots stay; what goes is the relation that let them ask each other.
+   * @param id - the team to remove.
+   * @param by - the standing making the change.
+   * @throws {BotsRefusedError} when the standing may not remove it, or composition owns it.
+   */
+  async removeTeam(id: string, by: Membership): Promise<void> {
+    if (this.writtenTeams.has(id)) throw new BotsRefusedError('written', WRITTEN)
+    const domain = await this.ready
+    const existing = domain.table('teams').get(id)
+    if (existing === undefined) return
+    if (!administers(by, existing.organization)) throw new BotsRefusedError('not-permitted', NOT_PERMITTED)
+    await domain.table('teams').delete(id)
+  }
+
+  /**
+   * The teammates one bot may ask.
+   *
+   * Shared team membership and nothing else: two bots in one organization
+   * that share no team are not teammates, because the relation an
+   * administrator wrote is the only thing that grants the right to ask.
+   *
+   * A bot in two teams with the same colleague reads that colleague once. The
+   * job and character come from the colleague's own record rather than from
+   * the team, so what a bot is for does not change with the company it is in.
+   * @param bot - the bot asking.
+   * @returns its teammates, each once, in team order then member order.
+   */
+  async teammates(bot: PersonId): Promise<readonly TeammateView[]> {
+    const domain = await this.ready
+    const teams = [
+      ...[...this.writtenTeams.values()].map(entry => entry.members),
+      ...[...domain.table('teams').entries()].map(([, record]) => record.members),
+    ]
+    const seen = new Set<PersonId>([bot])
+    const views: TeammateView[] = []
+    for (const members of teams) {
+      if (!members.includes(bot)) continue
+      for (const member of members) {
+        if (seen.has(member)) continue
+        seen.add(member)
+        const entry = this.written.get(member) ?? domain.table('bots').get(member)
+        // A team outlives a bot an administrator removed; a member nothing
+        // answers for is not a teammate anybody can ask.
+        if (entry === undefined) continue
+        views.push({
+          id: entry.id,
+          displayName: entry.displayName,
+          job: entry.job,
+          persona: entry.persona,
+          preset: entry.preset,
+        })
+      }
+    }
+    return views
   }
 
   /**

@@ -163,6 +163,59 @@ describe('an administrator maintaining the bots their organization runs', () => 
   })
 })
 
+describe('an administrator maintaining the teams their bots work in', () => {
+  it('adds one, lists it, changes it, and removes it without removing the bots', async () => {
+    const controller = await harness(standing('tenant-administrator', 'acme'))
+    const triage = await controller.save(input())
+    const scribe = await controller.save(input({ displayName: 'Scribe' }))
+
+    const team = await controller.saveTeam({
+      displayName: 'Intake', organization: 'acme', members: [triage.id, scribe.id],
+    })
+    expect(team).toMatchObject({ displayName: 'Intake', members: [triage.id, scribe.id], written: false })
+
+    const renamed = await controller.saveTeam({
+      id: team.id, displayName: 'Front desk', organization: 'acme', members: [triage.id],
+    })
+    expect(renamed.id).toBe(team.id)
+    expect(await controller.teams()).toEqual([expect.objectContaining({ displayName: 'Front desk' })])
+
+    await controller.removeTeam(team.id)
+    expect(await controller.teams()).toEqual([])
+    // The relation went; the bots did not.
+    expect(await controller.list()).toHaveLength(2)
+  })
+
+  it('is refused a member its organization does not hold', async () => {
+    const platform = await harness(standing('platform-administrator'))
+    const theirs = await platform.save(input({ organization: 'other' }))
+
+    const tenant = await harness(standing('tenant-administrator', 'acme'))
+    // Team membership is what grants one bot the right to ask another.
+    expect(await codeOf(tenant.saveTeam({
+      displayName: 'Mixed', organization: 'acme', members: [theirs.id],
+    }))).toBe('bots/unknown-bot')
+  })
+
+  it('is refused a team with no organization, naming the field a form marks', async () => {
+    const controller = await harness(standing('platform-administrator'))
+    expect(await codeOf(controller.saveTeam({ displayName: 'Nobody\'s', organization: '', members: [] })))
+      .toBe('bots/incomplete')
+  })
+
+  it('is refused another organization\'s team, whether changing or removing it', async () => {
+    const platform = await harness(standing('platform-administrator'))
+    const theirs = await platform.saveTeam({ displayName: 'Theirs', organization: 'other', members: [] })
+
+    const tenant = await harness(standing('tenant-administrator', 'acme'))
+    expect(await codeOf(tenant.saveTeam({
+      id: theirs.id, displayName: 'Mine now', organization: 'acme', members: [],
+    }))).toBe('bots/not-permitted')
+    expect(await codeOf(tenant.removeTeam(theirs.id))).toBe('bots/not-permitted')
+    expect(await tenant.teams()).toEqual([])
+  })
+})
+
 describe('what the surface refuses before it reaches the roster', () => {
   it('says the deployment maintains no bots when no roster is mounted', async () => {
     const controller = await harness(standing('platform-administrator'), { roster: false })
@@ -170,6 +223,10 @@ describe('what the surface refuses before it reaches the roster', () => {
     expect(await codeOf(controller.presets())).toBe('gateway/internal')
     expect(await codeOf(controller.save(input()))).toBe('gateway/internal')
     expect(await codeOf(controller.remove('triage'))).toBe('gateway/internal')
+    expect(await codeOf(controller.teams())).toBe('gateway/internal')
+    expect(await codeOf(controller.saveTeam({ displayName: 'Intake', organization: 'acme', members: [] })))
+      .toBe('gateway/internal')
+    expect(await codeOf(controller.removeTeam('intake'))).toBe('gateway/internal')
   })
 
   it('refuses a call that acts in no standing rather than performing it on nobody\'s authority', async () => {
@@ -178,6 +235,10 @@ describe('what the surface refuses before it reaches the roster', () => {
     expect(await codeOf(controller.presets())).toBe('bots/no-standing')
     expect(await codeOf(controller.save(input()))).toBe('bots/no-standing')
     expect(await codeOf(controller.remove('triage'))).toBe('bots/no-standing')
+    expect(await codeOf(controller.teams())).toBe('bots/no-standing')
+    expect(await codeOf(controller.saveTeam({ displayName: 'Intake', organization: 'acme', members: [] })))
+      .toBe('bots/no-standing')
+    expect(await codeOf(controller.removeTeam('intake'))).toBe('bots/no-standing')
   })
 })
 
@@ -197,6 +258,15 @@ describe('what composition wrote', () => {
     expect(await controller.list()).toEqual([expect.objectContaining({ id: 'scribe', written: true })])
     expect(await codeOf(controller.save(input({ id: 'scribe' })))).toBe('bots/written')
     expect(await codeOf(controller.remove('scribe'))).toBe('bots/written')
+
+    ctx?.effect(() => ctx.managedBots.declareTeam({
+      id: 'intake', displayName: 'Intake', organization: 'acme', members: [brandString<PersonId>('scribe')],
+    }))
+    expect(await controller.teams()).toEqual([expect.objectContaining({ id: 'intake', written: true })])
+    expect(await codeOf(controller.saveTeam({
+      id: 'intake', displayName: 'Renamed', organization: 'acme', members: [],
+    }))).toBe('bots/written')
+    expect(await codeOf(controller.removeTeam('intake'))).toBe('bots/written')
   })
 })
 

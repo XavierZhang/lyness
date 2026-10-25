@@ -29,6 +29,12 @@ declare module '@lyness/lyn-typert-protocol' {
      */
     'bots/unknown-preset': Record<string, never>
     /**
+     * The team named a bot its organization does not hold. Team membership is
+     * what grants one bot the right to ask another, so a team holding a bot
+     * from elsewhere would hand that right across an organization boundary.
+     */
+    'bots/unknown-bot': Record<string, never>
+    /**
      * The submission left something out. `fields` names what, so a form marks
      * them together.
      */
@@ -87,4 +93,30 @@ export interface PresetOptionView {
   readonly displayName?: string
   /** One sentence on what this preset is for. */
   readonly description?: string
+}
+
+/** One team as the surface shows it. */
+export interface TeamRowView {
+  /** Stable identity. */
+  readonly id: string
+  /** Name a surface shows. */
+  readonly displayName: string
+  /** The organization it belongs to. */
+  readonly organization: string
+  /** The bots in it, in the order they were named. */
+  readonly members: readonly string[]
+  /** Whether composition owns the entry, and the surface may not change it. */
+  readonly written: boolean
+}
+
+/** What an administrator fills in to add one team or change one. */
+export interface TeamInput {
+  /** The team to change; absent adds one. */
+  readonly id?: string
+  /** Name a surface shows. */
+  readonly displayName: string
+  /** The organization it belongs to. */
+  readonly organization: string
+  /** The bots in it. */
+  readonly members: readonly string[]
 }

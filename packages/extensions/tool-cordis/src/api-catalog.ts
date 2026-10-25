@@ -641,6 +641,26 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         parameters: [{ name: 'id', description: 'the bot to remove.' }],
         throws: ['{RemoteError} `bots/not-permitted`, `bots/written`, `bots/no-standing`, or `gateway/internal`.'],
       },
+      {
+        signature: '@Remote async teams(): Promise<readonly TeamRowView[]>',
+        description: 'The teams the calling standing may change.',
+        parameters: [],
+        returns: 'the teams it administers, written ones first.',
+        throws: ['{RemoteError} `bots/no-standing` when the call establishes none, or `gateway/internal` when this deployment maintains no bots.'],
+      },
+      {
+        signature: '@Remote async saveTeam(input: TeamInput): Promise<TeamRowView>',
+        description: 'Add one team, or change one this deployment maintains.',
+        parameters: [{ name: 'input', description: 'what the administrator filled in.' }],
+        returns: 'the team as the deployment now reads it.',
+        throws: ['{RemoteError} `bots/not-permitted`, `bots/written`, `bots/unknown-bot`, `bots/incomplete`, `bots/no-standing`, or `gateway/internal`.'],
+      },
+      {
+        signature: '@Remote async removeTeam(id: string): Promise<void>',
+        description: 'Remove one team this deployment maintains.\n\nThe bots stay; what goes is the relation that let them ask each other.',
+        parameters: [{ name: 'id', description: 'the team to remove.' }],
+        throws: ['{RemoteError} `bots/not-permitted`, `bots/written`, `bots/no-standing`, or `gateway/internal`.'],
+      },
     ],
   },
   {
@@ -1741,6 +1761,37 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         description: 'Declare one bot composition wrote.\n\nThe provider that read the roster registers it, so this service can refuse to shadow it and a surface can show it as the operator\'s.',
         parameters: [{ name: 'entry', description: 'the bot, as composition names it.' }],
         returns: 'the disposer that withdraws it.',
+      },
+      {
+        signature: 'declareTeam(entry: DeclaredTeam): () => void',
+        description: 'Declare one team composition wrote.',
+        parameters: [{ name: 'entry', description: 'the team, as composition names it.' }],
+        returns: 'the disposer that withdraws it.',
+      },
+      {
+        signature: 'async teams(by: Membership): Promise<readonly TeamView[]>',
+        description: 'The teams one standing administers, written and stored alike.',
+        parameters: [{ name: 'by', description: 'the standing asking.' }],
+        returns: 'the teams it administers, written ones first, then oldest stored first.',
+      },
+      {
+        signature: 'async saveTeam(submission: TeamSubmission, by: Membership): Promise<TeamView>',
+        description: 'Add one team, or change one this service holds.',
+        parameters: [{ name: 'submission', description: 'what the administrator filled in.' }, { name: 'by', description: 'the standing making the change.' }],
+        returns: 'the team as it now reads.',
+        throws: ['{BotsRefusedError} when the standing may not make the change, composition owns the team, or a member is not its organization\'s bot.'],
+      },
+      {
+        signature: 'async removeTeam(id: string, by: Membership): Promise<void>',
+        description: 'Remove one team this service holds.\n\nThe bots stay; what goes is the relation that let them ask each other.',
+        parameters: [{ name: 'id', description: 'the team to remove.' }, { name: 'by', description: 'the standing making the change.' }],
+        throws: ['{BotsRefusedError} when the standing may not remove it, or composition owns it.'],
+      },
+      {
+        signature: 'async teammates(bot: PersonId): Promise<readonly TeammateView[]>',
+        description: 'The teammates one bot may ask.\n\nShared team membership and nothing else: two bots in one organization that share no team are not teammates, because the relation an administrator wrote is the only thing that grants the right to ask.\n\nA bot in two teams with the same colleague reads that colleague once. The job and character come from the colleague\'s own record rather than from the team, so what a bot is for does not change with the company it is in.',
+        parameters: [{ name: 'bot', description: 'the bot asking.' }],
+        returns: 'its teammates, each once, in team order then member order.',
       },
       {
         signature: 'async list(by: Membership): Promise<readonly BotView[]>',
@@ -5924,6 +5975,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export interface DeclaredPerson {\n    readonly person: Person;\n    readonly membership: Membership;\n    readonly kind?: PersonKind | undefined;\n}',
   },
   {
+    name: 'DeclaredTeam',
+    declaration: 'export interface DeclaredTeam {\n    readonly id: string;\n    readonly displayName: string;\n    readonly organization: string;\n    readonly members: readonly PersonId[];\n}',
+  },
+  {
     name: 'DeepSeekLlmApiExtensionMap',
     declaration: 'export interface DeepSeekLlmApiExtensionMap {\n}',
   },
@@ -8496,6 +8551,14 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export type TeamId = Branded<\'TeamId\'>;',
   },
   {
+    name: 'TeamInput',
+    declaration: 'export interface TeamInput {\n    readonly id?: string;\n    readonly displayName: string;\n    readonly organization: string;\n    readonly members: readonly string[];\n}',
+  },
+  {
+    name: 'TeammateView',
+    declaration: 'export interface TeammateView {\n    readonly id: PersonId;\n    readonly displayName: string;\n    readonly job: string;\n    readonly persona: string;\n    readonly preset: string;\n}',
+  },
+  {
     name: 'TeamMembership',
     declaration: 'export interface TeamMembership {\n    readonly root: Agent;\n    readonly id: TeamId;\n    readonly role: \'lead\' | \'teammate\';\n    readonly name: string;\n}',
   },
@@ -8506,6 +8569,14 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'TeamMessageId',
     declaration: 'export type TeamMessageId = Branded<\'TeamMessageId\'>;',
+  },
+  {
+    name: 'TeamRowView',
+    declaration: 'export interface TeamRowView {\n    readonly id: string;\n    readonly displayName: string;\n    readonly organization: string;\n    readonly members: readonly string[];\n    readonly written: boolean;\n}',
+  },
+  {
+    name: 'TeamSubmission',
+    declaration: 'export interface TeamSubmission {\n    readonly id?: string | undefined;\n    readonly displayName: string;\n    readonly organization: string;\n    readonly members: readonly PersonId[];\n}',
   },
   {
     name: 'TeamTaskAction',
@@ -8522,6 +8593,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'TeamTaskView',
     declaration: 'export interface TeamTaskView {\n    readonly id: TeamTaskId;\n    readonly revision: number;\n    readonly subject: string;\n    readonly description: string;\n    readonly status: TeamTaskStatus;\n    readonly blockedBy: TeamTaskId[];\n    readonly writeScopes: string[];\n    readonly ownerName?: string;\n    readonly ready: boolean;\n    readonly writeScopeWarnings: string[];\n}',
+  },
+  {
+    name: 'TeamView',
+    declaration: 'export interface TeamView extends DeclaredTeam {\n    readonly written: boolean;\n}',
   },
   {
     name: 'TeamWaitResult',
