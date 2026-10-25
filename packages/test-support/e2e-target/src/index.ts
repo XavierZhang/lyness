@@ -19,8 +19,14 @@
 
 import { MODELS_ENV, PUBLIC_BASE_URL, parseModelIds } from '@lyness/lyn-llm-deepseek'
 
-/** The model the suites call when the environment names none. */
-export const OFFICIAL_E2E_MODEL = 'deepseek-v4-flash'
+/**
+ * The model the suites call when the environment names none.
+ *
+ * The first id the shipped catalog carries, so a keyed run with no
+ * `DEEPSEEK_MODELS` calls what the official API actually serves: it answers a
+ * retired id with `invalid_request_error` and names the ids it accepts.
+ */
+export const OFFICIAL_E2E_MODEL = 'deepseek-flash'
 
 /** The platform one e2e run calls. */
 export interface E2eTarget {
