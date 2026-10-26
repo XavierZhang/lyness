@@ -300,6 +300,7 @@ flowchart LR
   pkg_sign_in_channels["sign-in-channels"]
   svc_signInChannels["ctx.signInChannels<br/>Configured sign-in channels"]
   pkg_bot_ask["bot-ask"]
+  svc_botRoom["ctx.botRoom<br/>Several bots discussing one question"]
   svc_botAsk["ctx.botAsk<br/>One bot asking a teammate"]
   pkg_managed_bots["managed-bots"]
   svc_managedBots["ctx.managedBots<br/>The bots an administrator maintains"]
@@ -380,6 +381,7 @@ flowchart LR
   pkg_bash_local --> svc_shell
   pkg_bash_sandbox --> svc_shell
   pkg_bot_ask --> svc_botAsk
+  pkg_bot_ask --> svc_botRoom
   pkg_browser_use --> svc_browserUse
   pkg_client_connection --> svc_connection
   pkg_client_file_upload --> svc_fileUploads
@@ -798,6 +800,7 @@ flowchart LR
 | `ctx.directoryPicker` | `seam` | [`host-directory-picker`](../packages/host/directory-picker) | [`host-directory-picker-native`](../packages/host/directory-picker-native), [`host-directory-picker-browse`](../packages/host/directory-picker-browse) | [`api-workspace-controller`](../packages/api/workspace-controller) | - | 带判别标记的交互能力：原生后端在 Host 显示设备上打开一个操作系统选择器，浏览后端为应用内浏览器提供列表与创建原语；双端后端通过其浏览器侧填充 ui-workspace 目录流程的 slot（不通过协议发布）。 |
 | `ctx.signInKinds` | `seam` | [`sign-in`](../packages/identity/sign-in) | [`wecom`](../packages/vendor/wecom), [`dingtalk`](../packages/vendor/dingtalk), [`feishu`](../packages/vendor/feishu) | [`sign-in-channels`](../packages/identity/sign-in-channels) | - | 一个种类说出某个目录需要什么、以及怎么把一个实例建出来；它永远不知道一套部署有几个、分别属于谁，于是加一个客户是加一条存下的记录，而不是一次重新部署。 |
 | `ctx.signInChannels` | `core` | [`sign-in-channels`](../packages/identity/sign-in-channels) | - | - | - | 把存下的记录变成挂载的渠道、再变回来：平台管理员配置部署自己的，租户管理员只配置本组织的，而每个组织的登录页只被提供自己的那些、加上部署级的那些。 |
+| `ctx.botRoom` | `core` | [`bot-ask`](../packages/identity/bot-ask) | - | - | - | 用代码而不是通过某个参与者来主持这场讨论：轮询顺序、一条不管主持怎么想都会结束它的部署上界，以及一份在固定提示词下从说过的话里写出来的具名结论——而不是以任何参与者的口吻写的。 |
 | `ctx.botAsk` | `core` | [`bot-ask`](../packages/identity/bot-ask) | - | - | - | 在队友自己的一场会话里、以它自己的性格和 preset 跑作答那一轮，并以那场会话记录下来的那段话作答；团队成员身份就是全部的授权，两侧都够不到对方的对话。 |
 | `ctx.managedBots` | `core` | [`managed-bots`](../packages/identity/managed-bots) | - | - | - | 存着运行时添加的那些 bot，并把每一个放进它所在组织的名册，在那里它持有一个成员身份、并拥有它开启的东西；准入会拒绝它，因为没有哪个目录能验证一个 bot。 |
 | `ctx.managedPeople` | `core` | [`managed-people`](../packages/identity/managed-people) | - | - | - | 持有运行时添加的人员与准入绑定，与 composition 写下的那些并存：写下的那一半在每次查找中优先，并且不能在这里改动，因为下一次启动会重新读那个文件。 |

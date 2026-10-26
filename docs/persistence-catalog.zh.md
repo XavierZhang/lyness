@@ -54,6 +54,9 @@
 | `event:plan/mode` | event | `a7cf43ce7c2a4c038feed1885cd7a00d5c6ee2d90a7e0d56b46f78a3e1ca327f` | [`{ type: "plan/mode" }`](#persistence-type-sha256-a7cf43ce7c2a4c038feed1885cd7a00d5c6ee2d90a7e0d56b46f78a3e1ca327f) |
 | `event:request/context` | event | `37cbc9cf06d494cfe5c67f078af1605eacb8e4c2c853e9e26455b73de0ee7ccf` | [`{ type: "request/context" }`](#persistence-type-sha256-37cbc9cf06d494cfe5c67f078af1605eacb8e4c2c853e9e26455b73de0ee7ccf) |
 | `event:request/header` | event | `4208123b50df5006b181481ab45fcf1cde807b88d3fd4d340090bc2e202fac41` | [`{ type: "request/header" }`](#persistence-type-sha256-4208123b50df5006b181481ab45fcf1cde807b88d3fd4d340090bc2e202fac41) |
+| `event:room/concluded` | event | `80dc1abb2361af56d4435ee5264571863617b3b0e6d813da5f7f5adf220802b8` | [`{ type: "room/concluded" }`](#persistence-type-sha256-80dc1abb2361af56d4435ee5264571863617b3b0e6d813da5f7f5adf220802b8) |
+| `event:room/opened` | event | `31e9db5599468c41afbe50d03dd56001ead3b3c4d14b22c1c4ca107e9cef1561` | [`{ type: "room/opened" }`](#persistence-type-sha256-31e9db5599468c41afbe50d03dd56001ead3b3c4d14b22c1c4ca107e9cef1561) |
+| `event:room/said` | event | `975d14f0afccf105fd4e42a377cbda7e8cdfd7fa84b096d565bd7ba8fea45198` | [`{ type: "room/said" }`](#persistence-type-sha256-975d14f0afccf105fd4e42a377cbda7e8cdfd7fa84b096d565bd7ba8fea45198) |
 | `event:sandbox/mode` | event | `516da4cdd6d2f1e5ce488e648578ca51f40e458f707b803e5b24de870e799415` | [`{ type: "sandbox/mode" }`](#persistence-type-sha256-516da4cdd6d2f1e5ce488e648578ca51f40e458f707b803e5b24de870e799415) |
 | `event:schedule/change` | event | `a0a2e5c42e1c929445ecd1cd70f49be6b66441894ec72c08e8ae332821d4a3cb` | [`{ type: "schedule/change" }`](#persistence-type-sha256-a0a2e5c42e1c929445ecd1cd70f49be6b66441894ec72c08e8ae332821d4a3cb) |
 | `event:session-log-deepseek/delivery-accepted` | event | `d63b8b8ffad9c02fd80c43a17df4f240c1fe8118ecca9de34f9d5871838ab5b9` | [`{ type: "session-log-deepseek/delivery-accepted" }`](#persistence-type-sha256-d63b8b8ffad9c02fd80c43a17df4f240c1fe8118ecca9de34f9d5871838ab5b9) |
@@ -806,6 +809,62 @@ export type SessionEvent<T extends SessionEventType = SessionEventType> = {
 ```
 
 来源：[`packages/core/session/src/types.ts:390`](../packages/core/session/src/types.ts)
+
+### `room/*`
+
+<a id="roomconcluded--log-only"></a>
+
+#### `room/concluded` — log-only
+
+```ts persistence-catalog
+/** The discussion ended and the chair wrote its result. */
+'room/concluded': {
+  /** The named result, as the chair stated it. */
+  conclusion: string
+  /** How many remarks it was written from. */
+  remarks: number
+}
+```
+
+来源：[`packages/identity/bot-ask/src/room-session.ts:34`](../packages/identity/bot-ask/src/room-session.ts)
+
+<a id="roomopened--log-only"></a>
+
+#### `room/opened` — log-only
+
+```ts persistence-catalog
+/** A discussion was opened, naming what it is about and who is in it. */
+'room/opened': {
+  /** What the participants are discussing. */
+  question: string
+  /** How many times each of them speaks. */
+  rounds: number
+  /** Everyone in the room, in speaking order. */
+  participants: { bot: string; displayName: string }[]
+}
+```
+
+来源：[`packages/identity/bot-ask/src/room-session.ts:14`](../packages/identity/bot-ask/src/room-session.ts)
+
+<a id="roomsaid--log-only"></a>
+
+#### `room/said` — log-only
+
+```ts persistence-catalog
+/** One participant said one thing. */
+'room/said': {
+  /** The bot that said it. */
+  bot: string
+  /** The name it speaks under. */
+  displayName: string
+  /** What it said, verbatim. */
+  text: string
+  /** Which round it was, counting from one. */
+  round: number
+}
+```
+
+来源：[`packages/identity/bot-ask/src/room-session.ts:23`](../packages/identity/bot-ask/src/room-session.ts)
 
 ### `sandbox/*`
 
@@ -2426,6 +2485,30 @@ SHA-256: `5bd310104cfe448e530beb11422d2f791e2e32e8e95fdc528a15f9ca693dae75`
 SHA-256: `34d1ab5c5df378186d6054b1a1beea9a41e41965d6f336f0bc0025c441a82e66`
 
 `"resume"`
+
+<a id="persistence-type-sha256-882a5493d5ac3d32edbc7af65a24859663134aa4ba19bfda229edb9f1f1bfbc0"></a>
+
+### `"room/concluded"`
+
+SHA-256: `882a5493d5ac3d32edbc7af65a24859663134aa4ba19bfda229edb9f1f1bfbc0`
+
+`"room/concluded"`
+
+<a id="persistence-type-sha256-50291fa0af3c4f3f90de5abfb504c286caf44e888097a9af83cf03d0deadd0bd"></a>
+
+### `"room/opened"`
+
+SHA-256: `50291fa0af3c4f3f90de5abfb504c286caf44e888097a9af83cf03d0deadd0bd`
+
+`"room/opened"`
+
+<a id="persistence-type-sha256-1a3b0f54995fa1a31358103b15ba9a55933d21f3a5f336e1968e5db518d7c1cc"></a>
+
+### `"room/said"`
+
+SHA-256: `1a3b0f54995fa1a31358103b15ba9a55933d21f3a5f336e1968e5db518d7c1cc`
+
+`"room/said"`
 
 <a id="persistence-type-sha256-24b10f7cdae64928f89c49afc2eca0af9eb4a2f135e16f3416e6b8461fef1748"></a>
 
@@ -5781,6 +5864,27 @@ SHA-256: `950cd04395c1f1af5b65b6c1c870840b8af35e70ad00570f66041b1d5d174453`
 | `displayName` | 必需 | `string` |
 | `question` | 必需 | `string` |
 
+<a id="persistence-type-sha256-cc0ed52cc2afaf5835ca48f0fc86eca6bc76be298d1a036bd002bea4ff3cd982"></a>
+
+### `{ bot, displayName }`
+
+SHA-256: `cc0ed52cc2afaf5835ca48f0fc86eca6bc76be298d1a036bd002bea4ff3cd982`
+
+来源：[`packages/identity/bot-ask/src/room-session.ts:20`](../packages/identity/bot-ask/src/room-session.ts)
+
+| 属性 | 存在性 | 类型 |
+|---|---|---|
+| `bot` | 必需 | `string` |
+| `displayName` | 必需 | `string` |
+
+<a id="persistence-type-sha256-18e4aeef0290789a26ab38d9caf7da11497eae22552e5c32820322d5440b376a"></a>
+
+### `{ bot, displayName }[]`
+
+SHA-256: `18e4aeef0290789a26ab38d9caf7da11497eae22552e5c32820322d5440b376a`
+
+[`{ bot, displayName }`](#persistence-type-sha256-cc0ed52cc2afaf5835ca48f0fc86eca6bc76be298d1a036bd002bea4ff3cd982) 的数组。
+
 <a id="persistence-type-sha256-cdfea4003dd9236c3b34c1980c6f99fc0869a50a685e4e5ca9a168a00d93a978"></a>
 
 ### `{ bot, displayName, persona }`
@@ -5794,6 +5898,21 @@ SHA-256: `cdfea4003dd9236c3b34c1980c6f99fc0869a50a685e4e5ca9a168a00d93a978`
 | `bot` | 必需 | `string` |
 | `displayName` | 必需 | `string` |
 | `persona` | 必需 | `string` |
+
+<a id="persistence-type-sha256-650d09f7122fa281afb23585e81caba83f4e334ee0f1a31ca92d0701b3b96840"></a>
+
+### `{ bot, displayName, round, text }`
+
+SHA-256: `650d09f7122fa281afb23585e81caba83f4e334ee0f1a31ca92d0701b3b96840`
+
+来源：[`packages/identity/bot-ask/src/room-session.ts:23`](../packages/identity/bot-ask/src/room-session.ts)
+
+| 属性 | 存在性 | 类型 |
+|---|---|---|
+| `bot` | 必需 | `string` |
+| `displayName` | 必需 | `string` |
+| `round` | 必需 | `number` |
+| `text` | 必需 | `string` |
 
 <a id="persistence-type-sha256-1528539c63db8b23506f0209a99ce77d8ad138adfbfcee3d4769b7382d93756c"></a>
 
@@ -6022,6 +6141,19 @@ SHA-256: `3e4e7683b0192c9f0e6a75c59076108f017892cdb302a98032c2632fd79c356f`
 | `compactionId` | 必需 | `string` |
 | `sourceCommandId` | 可选 | `string` |
 | `turn` | 必需 | [`OptionalSessionSeq`](#persistence-type-sha256-3bd652ebfa8726b3ce3937a4f1bd2759e02f86b3a08a20f9e41a8513656fbc5f) |
+
+<a id="persistence-type-sha256-ae7a8f01dfaec6a3390e2d9a907dc6b08b236a6b1ad6566ea0972452cdf20532"></a>
+
+### `{ conclusion, remarks }`
+
+SHA-256: `ae7a8f01dfaec6a3390e2d9a907dc6b08b236a6b1ad6566ea0972452cdf20532`
+
+来源：[`packages/identity/bot-ask/src/room-session.ts:34`](../packages/identity/bot-ask/src/room-session.ts)
+
+| 属性 | 存在性 | 类型 |
+|---|---|---|
+| `conclusion` | 必需 | `string` |
+| `remarks` | 必需 | `number` |
 
 <a id="persistence-type-sha256-8ad45ad053b4d89f8865c17cc9ff3b8748e86045f3f0fb816269a34af2619141"></a>
 
@@ -7682,6 +7814,20 @@ SHA-256: `9890113e97dd3541787bfe6704f2b223d3a890b5325ca0acae2b0398909b413e`
 | `mode` | 必需 | [`SandboxMode`](#persistence-type-sha256-fab2bb09bc5e3b9db0685e8f5500b029af1a2b33e70bc703c1d5d0f596fbc1fd) |
 | `source` | 可选 | `"delegation"` |
 
+<a id="persistence-type-sha256-977a3123054d7001ced67ece2a0bb30e8c5c59f677023533791f6cdb1d466c45"></a>
+
+### `{ participants, question, rounds }`
+
+SHA-256: `977a3123054d7001ced67ece2a0bb30e8c5c59f677023533791f6cdb1d466c45`
+
+来源：[`packages/identity/bot-ask/src/room-session.ts:14`](../packages/identity/bot-ask/src/room-session.ts)
+
+| 属性 | 存在性 | 类型 |
+|---|---|---|
+| `participants` | 必需 | [`{ bot, displayName }[]`](#persistence-type-sha256-18e4aeef0290789a26ab38d9caf7da11497eae22552e5c32820322d5440b376a) |
+| `question` | 必需 | `string` |
+| `rounds` | 必需 | `number` |
+
 <a id="persistence-type-sha256-11f70b595aa76897fc4e25a352bfa718c659f44b799e5aa14e84e5a38fe72912"></a>
 
 ### `{ policy, source? }`
@@ -8438,6 +8584,54 @@ SHA-256: `4208123b50df5006b181481ab45fcf1cde807b88d3fd4d340090bc2e202fac41`
 | `seq` | 必需 | `number` |
 | `time` | 必需 | `number` |
 | `type` | 必需 | `"request/header"` |
+
+<a id="persistence-type-sha256-80dc1abb2361af56d4435ee5264571863617b3b0e6d813da5f7f5adf220802b8"></a>
+
+<a id="persistence-type-eventroomconcluded"></a>
+
+### `{ type: "room/concluded" }`
+
+SHA-256: `80dc1abb2361af56d4435ee5264571863617b3b0e6d813da5f7f5adf220802b8`
+
+| 属性 | 存在性 | 类型 |
+|---|---|---|
+| `data` | 必需 | [`{ conclusion, remarks }`](#persistence-type-sha256-ae7a8f01dfaec6a3390e2d9a907dc6b08b236a6b1ad6566ea0972452cdf20532) |
+| `ignorable` | 可选 | `true` |
+| `seq` | 必需 | `number` |
+| `time` | 必需 | `number` |
+| `type` | 必需 | `"room/concluded"` |
+
+<a id="persistence-type-sha256-31e9db5599468c41afbe50d03dd56001ead3b3c4d14b22c1c4ca107e9cef1561"></a>
+
+<a id="persistence-type-eventroomopened"></a>
+
+### `{ type: "room/opened" }`
+
+SHA-256: `31e9db5599468c41afbe50d03dd56001ead3b3c4d14b22c1c4ca107e9cef1561`
+
+| 属性 | 存在性 | 类型 |
+|---|---|---|
+| `data` | 必需 | [`{ participants, question, rounds }`](#persistence-type-sha256-977a3123054d7001ced67ece2a0bb30e8c5c59f677023533791f6cdb1d466c45) |
+| `ignorable` | 可选 | `true` |
+| `seq` | 必需 | `number` |
+| `time` | 必需 | `number` |
+| `type` | 必需 | `"room/opened"` |
+
+<a id="persistence-type-sha256-975d14f0afccf105fd4e42a377cbda7e8cdfd7fa84b096d565bd7ba8fea45198"></a>
+
+<a id="persistence-type-eventroomsaid"></a>
+
+### `{ type: "room/said" }`
+
+SHA-256: `975d14f0afccf105fd4e42a377cbda7e8cdfd7fa84b096d565bd7ba8fea45198`
+
+| 属性 | 存在性 | 类型 |
+|---|---|---|
+| `data` | 必需 | [`{ bot, displayName, round, text }`](#persistence-type-sha256-650d09f7122fa281afb23585e81caba83f4e334ee0f1a31ca92d0701b3b96840) |
+| `ignorable` | 可选 | `true` |
+| `seq` | 必需 | `number` |
+| `time` | 必需 | `number` |
+| `type` | 必需 | `"room/said"` |
 
 <a id="persistence-type-sha256-516da4cdd6d2f1e5ce488e648578ca51f40e458f707b803e5b24de870e799415"></a>
 

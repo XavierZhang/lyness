@@ -1,5 +1,5 @@
 ---
-description: "One bot asking a teammate a question, answered in a conversation of the teammate's own."
+description: "Teammates working together: one bot asking another, and several of them discussing one question."
 kind: "package-reference"
 ---
 
@@ -9,7 +9,7 @@ English | [中文](README.zh.md)
 
 ## Summary
 
-`lyn-bot-ask` lets one bot ask a teammate a question and wait for the answer. The teammate answers in a conversation of its own, under its own character and its own preset, and decides what to say; what comes back is prose written for that question. The asking bot never reaches the teammate's conversations, cannot list them, and cannot learn that a particular one exists. Team membership is the whole authorization — two bots that share only an organization are not teammates — and both sides record the exchange in their own logs.
+`lyn-bot-ask` is how teammates work together. One bot asks another a question and waits for the answer; several of them discuss one question in a room a chair runs. Every turn happens in a conversation of its own bot, under that bot's character and preset, and what comes back is prose written for the question — never a transcript of anybody's conversation. Team membership is the whole authorization, and each side keeps its own record.
 
 ## Table of Contents
 
@@ -25,16 +25,18 @@ English | [中文](README.zh.md)
 <a id="use-this-package"></a>
 ## Use this package
 
-The accounts module mounts the service beside the roster, and contributes the tools into every preset that accepts rows:
+The accounts module mounts both services beside the roster, and contributes the tools into every preset that accepts rows:
 
 ```yaml
 - id: bot-ask
   name: '@lyness/lyn-bot-ask'
+- id: bot-room
+  name: '@lyness/lyn-bot-ask/room'
 - id: bot-ask-tools
   name: '@lyness/lyn-bot-ask/preset-contribution'
 ```
 
-There is nothing to configure. A bot's own conversation then carries `list_teammates` and `ask_teammate`; a conversation a person opened carries them too and reads an empty team, because it speaks as no bot.
+There is nothing to configure. A bot's own conversation then carries `list_teammates`, `ask_teammate` and `hold_discussion`; a conversation a person opened carries them too and reads an empty team, because it speaks as no bot.
 
 -----
 
@@ -48,6 +50,14 @@ There is nothing to configure. A bot's own conversation then carries `list_teamm
 **Team membership is the whole authorization.** The catalog this reads is the relation an administrator wrote. It carries everything the answering turn runs with, so there is no second read of the roster to disagree with it.
 
 **An answer is a disclosure, so both sides record it.** The asking session records what it learned and from whom; the answering session records who asked it what, before the turn runs, so a session that failed to answer still says what it was asked. Neither event carries the other side's conversation.
+
+**A room's chair is code, not a participant.** It decides who speaks next and when the discussion ends, because a participant that chose its own turn would be one nobody could stop. The rule is round-robin: every participant speaks once per round, in the order the opener named them, the opener first. A smarter chair can replace it; a room with no bound could not be made safe later.
+
+**The bound is the deployment's, and clamps rather than refuses.** A request for more rounds than a deployment chairs runs fewer, because a shorter discussion is the honest answer and a refusal would be one more failure for the model to recover from.
+
+**The conclusion is the chair's own request, under a fixed prompt.** Written from what was said, in no participant's voice: a conclusion in one bot's voice would be that bot's position, which is the one thing a chair must not add. A chair whose own request produced nothing still ends the room and says so — the remarks are the record, and a missing summary is not a reason to lose them.
+
+**A participant reads the room, and only the room.** The transcript it is sent is the discussion it was invited to. That is not a hole in the rule above: nothing of any other conversation reaches it.
 
 **The answering turn runs in the asker's directory.** Two bots a team puts together share the work the asker is doing, and an answering turn with no directory has nothing its file tools could read.
 
@@ -93,6 +103,20 @@ One short line per teammate, read when the model asks for the list rather than c
 
 Append-only; the result follows the reusable request prefix.
 
+### Discussion
+
+#### What the model sees
+
+Every remark as `<name>: <said>`, in order, then `Conclusion:` and the chair's prose. Each participant is sent the question, the transcript so far, and whose turn it is; the first speaker reads `Nobody has spoken yet.` A refusal names which rule stopped it: the conversation speaks as no bot, a participant is not a teammate, or nobody else was named.
+
+#### Token effect
+
+The calling turn receives every remark plus the conclusion, once. The participants' own turns and the chair's summarising request are spent in their own sessions and do not reach this request. A discussion of n participants over r rounds costs n×r speaking turns plus one chair request, which is why the bound exists.
+
+#### KV Cache effect
+
+Append-only in the calling session; each participant's turn is a fresh session with no shared prefix to reuse.
+
 ### Answer
 
 #### What the model sees
@@ -111,6 +135,9 @@ Append-only; each answer follows the reusable request prefix.
 
 <a id="known-limitations-and-deferred-work"></a>
 
+- **A room is a transcript, not a conversation anybody can join** — the room session holds what was said and the conclusion, and nothing appends to it afterwards. A person cannot speak in it, and no participant can be added once it has started.
+- **The chair cannot stop early** — round-robin runs every round the bound allows even when the participants have agreed, so a settled question still costs its remaining turns.
+- **A discussion is opened by a bot, not by a person** — the opener has to be a bot with teammates. There is no surface where a person convenes several bots.
 - **Every ask opens a session** — the answering turn is a new conversation each time, which is what makes it auditable and what makes a busy team accumulate sessions. Nothing reuses or prunes them.
 - **The answering turn runs on the deployment's default permissions** — not the asking session's. A conversation somebody tightened can still ask a teammate that answers under the deployment default, which is the baseline rather than an escalation; carrying the asking session's policy across is deferred.
 - **No human approval gate** — the design reserves one for reaching outside the organization, exceeding the asker's quota, and acting under a stronger permission preset. None of the three is reachable yet: a teammate is same-organization by construction, no metering is mounted, and the answering turn does not inherit a stronger policy.

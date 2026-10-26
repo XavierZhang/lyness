@@ -39,6 +39,7 @@ const SCRIBE: TeammateView = {
 async function bench(asked: { answer?: string } = {}): Promise<{
   ctx: Context
   asks: { teammate: string; question: string }[]
+  discussions: { participants: readonly string[]; question: string; rounds: number }[]
 }> {
   const ctx = new Context()
   live.push(ctx)
@@ -53,6 +54,17 @@ async function bench(asked: { answer?: string } = {}): Promise<{
   ctx.sessionProjections.register(botProjectionDefinition)
   const asks: { teammate: string; question: string }[] = []
   ctx.provide('managedBots', { teammates: () => Promise.resolve([SCRIBE]) } as never)
+  const discussions: { participants: readonly string[]; question: string; rounds: number }[] = []
+  ctx.provide('botRoom', {
+    hold: (_opener: Agent, request: { participants: readonly string[]; question: string; rounds: number }) => {
+      discussions.push(request)
+      return Promise.resolve({
+        sessionId: 'room',
+        remarks: [{ bot: 'scribe', displayName: 'Scribe', text: 'Minutes are filed.' }],
+        conclusion: 'Ship it on Friday.',
+      })
+    },
+  } as never)
   ctx.provide('botAsk', {
     ask: (_asker: Agent, teammate: PersonId, question: string) => {
       asks.push({ teammate, question })
@@ -60,7 +72,7 @@ async function bench(asked: { answer?: string } = {}): Promise<{
     },
   } as never)
   await ctx.plugin(BotAskTools).await()
-  return { ctx, asks }
+  return { ctx, asks, discussions }
 }
 
 /** One production agent whose session speaks as that bot, or as nobody. */
@@ -126,6 +138,28 @@ describe('ask_teammate', () => {
   it('requires a calling agent', async () => {
     const { ctx } = await bench()
     expect(text(await call(ctx, 'ask_teammate', { teammate: 'scribe', question: 'Anything?' }, undefined)))
+      .toContain('requires a calling agent')
+  })
+})
+
+describe('hold_discussion', () => {
+  it('hands the room to the service and renders every remark before the conclusion', async () => {
+    const { ctx, discussions } = await bench()
+    const bot = await agent(ctx, 'mine', { bot: 'triage', displayName: 'Triage', persona: '' })
+    const result = await call(
+      ctx,
+      'hold_discussion',
+      { participants: ['scribe'], question: 'Ship it?', rounds: 2 },
+      bot,
+    )
+
+    expect(discussions).toEqual([{ participants: ['scribe'], question: 'Ship it?', rounds: 2 }])
+    expect(text(result)).toBe('Scribe: Minutes are filed.\n\nConclusion:\n\nShip it on Friday.')
+  })
+
+  it('requires a calling agent', async () => {
+    const { ctx } = await bench()
+    expect(text(await call(ctx, 'hold_discussion', { participants: [], question: 'Ship it?', rounds: 1 }, undefined)))
       .toContain('requires a calling agent')
   })
 })

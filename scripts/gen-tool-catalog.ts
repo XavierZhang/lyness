@@ -623,15 +623,20 @@ const TOOL_PACKAGES: ToolPackage[] = [
     pkg: '@lyness/lyn-bot-ask',
     dir: 'bot-ask',
     source: 'packages/identity/bot-ask/src/tool.ts',
-    requires: ['ctx.tools', 'ctx.botAsk', 'ctx.managedBots', 'ctx.sessionProjections', 'a calling Agent'],
-    writes: ['tool/call', 'bot/asked', 'bot/answered', 'tool/result'],
+    requires: [
+      'ctx.tools', 'ctx.botAsk', 'ctx.botRoom', 'ctx.managedBots', 'ctx.sessionProjections', 'a calling Agent',
+    ],
+    writes: [
+      'tool/call', 'bot/asked', 'bot/answered', 'room/opened', 'room/said', 'room/concluded', 'tool/result',
+    ],
     async mount(ctx) {
       ctx.provide('botAsk', { ask: () => Promise.reject(new Error('the catalog mounts no roster')) } as never)
+      ctx.provide('botRoom', { hold: () => Promise.reject(new Error('the catalog mounts no roster')) } as never)
       ctx.provide('managedBots', { teammates: () => Promise.resolve([]) } as never)
       await ctx.plugin(BotAskTools)
     },
     note:
-      'Contributed into every preset that accepts rows rather than mounted as a preset row, because a patch cannot add one tool to a preset whose whole row list it would have to restate. An ask runs the answering turn in a session of the teammate\'s own, so the tokens it spends are that session\'s and the asking request receives only the answer.',
+      'Contributed into every preset that accepts rows rather than mounted as a preset row, because a patch cannot add one tool to a preset whose whole row list it would have to restate. Both an ask and a discussion run their turns in sessions of the teammates\' own, so the tokens they spend are those sessions\' and the calling request receives only the answer or the conclusion.',
   },
   {
     pkg: '@lyness/lyn-tool-todo',

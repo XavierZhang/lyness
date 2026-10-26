@@ -1,0 +1,266 @@
+{
+  "formatVersion": 2,
+  "roots": [
+    {
+      "key": "event:room/concluded",
+      "kind": "event",
+      "event": "room/concluded",
+      "surface": false,
+      "digest": "80dc1abb2361af56d4435ee5264571863617b3b0e6d813da5f7f5adf220802b8",
+      "schema": {
+        "root": 0,
+        "nodes": [
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "data",
+                "type": 1,
+                "optional": false
+              },
+              {
+                "name": "ignorable",
+                "type": 4,
+                "optional": true
+              },
+              {
+                "name": "seq",
+                "type": 3,
+                "optional": false
+              },
+              {
+                "name": "time",
+                "type": 3,
+                "optional": false
+              },
+              {
+                "name": "type",
+                "type": 5,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "conclusion",
+                "type": 2,
+                "optional": false
+              },
+              {
+                "name": "remarks",
+                "type": 3,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "primitive",
+            "type": "string"
+          },
+          {
+            "kind": "primitive",
+            "type": "number"
+          },
+          {
+            "kind": "literal",
+            "value": true
+          },
+          {
+            "kind": "literal",
+            "value": "room/concluded"
+          }
+        ]
+      }
+    },
+    {
+      "key": "event:room/opened",
+      "kind": "event",
+      "event": "room/opened",
+      "surface": false,
+      "digest": "31e9db5599468c41afbe50d03dd56001ead3b3c4d14b22c1c4ca107e9cef1561",
+      "schema": {
+        "root": 0,
+        "nodes": [
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "data",
+                "type": 1,
+                "optional": false
+              },
+              {
+                "name": "ignorable",
+                "type": 6,
+                "optional": true
+              },
+              {
+                "name": "seq",
+                "type": 5,
+                "optional": false
+              },
+              {
+                "name": "time",
+                "type": 5,
+                "optional": false
+              },
+              {
+                "name": "type",
+                "type": 7,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "participants",
+                "type": 2,
+                "optional": false
+              },
+              {
+                "name": "question",
+                "type": 4,
+                "optional": false
+              },
+              {
+                "name": "rounds",
+                "type": 5,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "array",
+            "element": 3
+          },
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "bot",
+                "type": 4,
+                "optional": false
+              },
+              {
+                "name": "displayName",
+                "type": 4,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "primitive",
+            "type": "string"
+          },
+          {
+            "kind": "primitive",
+            "type": "number"
+          },
+          {
+            "kind": "literal",
+            "value": true
+          },
+          {
+            "kind": "literal",
+            "value": "room/opened"
+          }
+        ]
+      }
+    },
+    {
+      "key": "event:room/said",
+      "kind": "event",
+      "event": "room/said",
+      "surface": false,
+      "digest": "975d14f0afccf105fd4e42a377cbda7e8cdfd7fa84b096d565bd7ba8fea45198",
+      "schema": {
+        "root": 0,
+        "nodes": [
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "data",
+                "type": 1,
+                "optional": false
+              },
+              {
+                "name": "ignorable",
+                "type": 4,
+                "optional": true
+              },
+              {
+                "name": "seq",
+                "type": 3,
+                "optional": false
+              },
+              {
+                "name": "time",
+                "type": 3,
+                "optional": false
+              },
+              {
+                "name": "type",
+                "type": 5,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "bot",
+                "type": 2,
+                "optional": false
+              },
+              {
+                "name": "displayName",
+                "type": 2,
+                "optional": false
+              },
+              {
+                "name": "round",
+                "type": 3,
+                "optional": false
+              },
+              {
+                "name": "text",
+                "type": 2,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "primitive",
+            "type": "string"
+          },
+          {
+            "kind": "primitive",
+            "type": "number"
+          },
+          {
+            "kind": "literal",
+            "value": true
+          },
+          {
+            "kind": "literal",
+            "value": "room/said"
+          }
+        ]
+      }
+    }
+  ],
+  "types": []
+}

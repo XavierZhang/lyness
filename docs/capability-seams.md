@@ -298,6 +298,7 @@ flowchart LR
   pkg_sign_in_channels["sign-in-channels"]
   svc_signInChannels["ctx.signInChannels<br/>Configured sign-in channels"]
   pkg_bot_ask["bot-ask"]
+  svc_botRoom["ctx.botRoom<br/>Several bots discussing one question"]
   svc_botAsk["ctx.botAsk<br/>One bot asking a teammate"]
   pkg_managed_bots["managed-bots"]
   svc_managedBots["ctx.managedBots<br/>The bots an administrator maintains"]
@@ -378,6 +379,7 @@ flowchart LR
   pkg_bash_local --> svc_shell
   pkg_bash_sandbox --> svc_shell
   pkg_bot_ask --> svc_botAsk
+  pkg_bot_ask --> svc_botRoom
   pkg_browser_use --> svc_browserUse
   pkg_client_connection --> svc_connection
   pkg_client_file_upload --> svc_fileUploads
@@ -796,6 +798,7 @@ flowchart LR
 | `ctx.directoryPicker` | `seam` | [`host-directory-picker`](../packages/host/directory-picker) | [`host-directory-picker-native`](../packages/host/directory-picker-native), [`host-directory-picker-browse`](../packages/host/directory-picker-browse) | [`api-workspace-controller`](../packages/api/workspace-controller) | - | Discriminated interaction capability: the native backend opens one OS chooser on the host display, the browse backend serves listing/creation primitives for the in-app browser; dual-face backends fill ui-workspace directory-flow slots from their browser halves (no wire advertisement). |
 | `ctx.signInKinds` | `seam` | [`sign-in`](../packages/identity/sign-in) | [`wecom`](../packages/vendor/wecom), [`dingtalk`](../packages/vendor/dingtalk), [`feishu`](../packages/vendor/feishu) | [`sign-in-channels`](../packages/identity/sign-in-channels) | - | A kind says what one directory needs and how to build an instance of it; it never knows how many a deployment has or whose they are, so adding a customer is a stored record rather than a redeploy. |
 | `ctx.signInChannels` | `core` | [`sign-in-channels`](../packages/identity/sign-in-channels) | - | - | - | Turns stored records into mounted channels and back: a platform administrator configures the deployment's own, a tenant administrator only their organization's, and each organization's sign-in page is offered only its own plus the deployment-wide ones. |
+| `ctx.botRoom` | `core` | [`bot-ask`](../packages/identity/bot-ask) | - | - | - | Chairs the discussion in code rather than through a participant: round-robin order, a deployment bound that ends it whatever the chair thinks, and one named conclusion written from what was said under a fixed prompt rather than in any participant's voice. |
 | `ctx.botAsk` | `core` | [`bot-ask`](../packages/identity/bot-ask) | - | - | - | Runs the answering turn in a session of the teammate's own, under its own character and preset, and answers with the prose that session recorded; team membership is the whole authorization and neither side reaches the other's conversations. |
 | `ctx.managedBots` | `core` | [`managed-bots`](../packages/identity/managed-bots) | - | - | - | Holds the bots added at runtime and puts each one in its organization's roster, where it holds a member standing and owns what it opens; admission refuses it, because no directory can authenticate a bot. |
 | `ctx.managedPeople` | `core` | [`managed-people`](../packages/identity/managed-people) | - | - | - | Holds the people and admission bindings added at runtime, beside the ones composition wrote: the written half wins every lookup and cannot be changed here, because the next boot reads the file again. |

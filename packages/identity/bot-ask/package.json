@@ -22,6 +22,18 @@
       "types": "./lib/types/session.d.ts",
       "default": "./lib/types/session.js"
     },
+    "./room": {
+      "types": "./lib/types/room.d.ts",
+      "default": "./lib/types/room.js"
+    },
+    "./room-session": {
+      "types": "./lib/types/room-session.d.ts",
+      "default": "./lib/types/room-session.js"
+    },
+    "./turn": {
+      "types": "./lib/types/turn.d.ts",
+      "default": "./lib/types/turn.js"
+    },
     "./tool": {
       "types": "./lib/types/tool.d.ts",
       "default": "./lib/types/tool.js"

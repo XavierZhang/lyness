@@ -11335,6 +11335,266 @@
       }
     },
     {
+      "key": "event:room/concluded",
+      "kind": "event",
+      "event": "room/concluded",
+      "surface": false,
+      "digest": "80dc1abb2361af56d4435ee5264571863617b3b0e6d813da5f7f5adf220802b8",
+      "schema": {
+        "root": 0,
+        "nodes": [
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "data",
+                "type": 1,
+                "optional": false
+              },
+              {
+                "name": "ignorable",
+                "type": 4,
+                "optional": true
+              },
+              {
+                "name": "seq",
+                "type": 3,
+                "optional": false
+              },
+              {
+                "name": "time",
+                "type": 3,
+                "optional": false
+              },
+              {
+                "name": "type",
+                "type": 5,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "conclusion",
+                "type": 2,
+                "optional": false
+              },
+              {
+                "name": "remarks",
+                "type": 3,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "primitive",
+            "type": "string"
+          },
+          {
+            "kind": "primitive",
+            "type": "number"
+          },
+          {
+            "kind": "literal",
+            "value": true
+          },
+          {
+            "kind": "literal",
+            "value": "room/concluded"
+          }
+        ]
+      }
+    },
+    {
+      "key": "event:room/opened",
+      "kind": "event",
+      "event": "room/opened",
+      "surface": false,
+      "digest": "31e9db5599468c41afbe50d03dd56001ead3b3c4d14b22c1c4ca107e9cef1561",
+      "schema": {
+        "root": 0,
+        "nodes": [
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "data",
+                "type": 1,
+                "optional": false
+              },
+              {
+                "name": "ignorable",
+                "type": 6,
+                "optional": true
+              },
+              {
+                "name": "seq",
+                "type": 5,
+                "optional": false
+              },
+              {
+                "name": "time",
+                "type": 5,
+                "optional": false
+              },
+              {
+                "name": "type",
+                "type": 7,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "participants",
+                "type": 2,
+                "optional": false
+              },
+              {
+                "name": "question",
+                "type": 4,
+                "optional": false
+              },
+              {
+                "name": "rounds",
+                "type": 5,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "array",
+            "element": 3
+          },
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "bot",
+                "type": 4,
+                "optional": false
+              },
+              {
+                "name": "displayName",
+                "type": 4,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "primitive",
+            "type": "string"
+          },
+          {
+            "kind": "primitive",
+            "type": "number"
+          },
+          {
+            "kind": "literal",
+            "value": true
+          },
+          {
+            "kind": "literal",
+            "value": "room/opened"
+          }
+        ]
+      }
+    },
+    {
+      "key": "event:room/said",
+      "kind": "event",
+      "event": "room/said",
+      "surface": false,
+      "digest": "975d14f0afccf105fd4e42a377cbda7e8cdfd7fa84b096d565bd7ba8fea45198",
+      "schema": {
+        "root": 0,
+        "nodes": [
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "data",
+                "type": 1,
+                "optional": false
+              },
+              {
+                "name": "ignorable",
+                "type": 4,
+                "optional": true
+              },
+              {
+                "name": "seq",
+                "type": 3,
+                "optional": false
+              },
+              {
+                "name": "time",
+                "type": 3,
+                "optional": false
+              },
+              {
+                "name": "type",
+                "type": 5,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "bot",
+                "type": 2,
+                "optional": false
+              },
+              {
+                "name": "displayName",
+                "type": 2,
+                "optional": false
+              },
+              {
+                "name": "round",
+                "type": 3,
+                "optional": false
+              },
+              {
+                "name": "text",
+                "type": 2,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "primitive",
+            "type": "string"
+          },
+          {
+            "kind": "primitive",
+            "type": "number"
+          },
+          {
+            "kind": "literal",
+            "value": true
+          },
+          {
+            "kind": "literal",
+            "value": "room/said"
+          }
+        ]
+      }
+    },
+    {
       "key": "event:sandbox/mode",
       "kind": "event",
       "event": "sandbox/mode",
@@ -29973,6 +30233,40 @@
       ]
     },
     {
+      "digest": "18e4aeef0290789a26ab38d9caf7da11497eae22552e5c32820322d5440b376a",
+      "schema": {
+        "root": 0,
+        "nodes": [
+          {
+            "kind": "array",
+            "element": 1
+          },
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "bot",
+                "type": 2,
+                "optional": false
+              },
+              {
+                "name": "displayName",
+                "type": 2,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "primitive",
+            "type": "string"
+          }
+        ]
+      },
+      "names": [],
+      "sources": []
+    },
+    {
       "digest": "18ee62b8900a4c3d046700f05d7a4d49d6cab2a660a020c87481d1603dd8bd4f",
       "schema": {
         "root": 0,
@@ -30250,6 +30544,20 @@
       "sources": [
         "packages/core/session/src/types.ts:94"
       ]
+    },
+    {
+      "digest": "1a3b0f54995fa1a31358103b15ba9a55933d21f3a5f336e1968e5db518d7c1cc",
+      "schema": {
+        "root": 0,
+        "nodes": [
+          {
+            "kind": "literal",
+            "value": "room/said"
+          }
+        ]
+      },
+      "names": [],
+      "sources": []
     },
     {
       "digest": "1ab2ef1296f157ba96998f179bb5daa9d21a82480da2901127aeab2730797c92",
@@ -34562,6 +34870,104 @@
       "sources": [
         "packages/compaction/compaction/src/checkpoint.ts:22"
       ]
+    },
+    {
+      "digest": "31e9db5599468c41afbe50d03dd56001ead3b3c4d14b22c1c4ca107e9cef1561",
+      "schema": {
+        "root": 0,
+        "nodes": [
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "data",
+                "type": 1,
+                "optional": false
+              },
+              {
+                "name": "ignorable",
+                "type": 6,
+                "optional": true
+              },
+              {
+                "name": "seq",
+                "type": 5,
+                "optional": false
+              },
+              {
+                "name": "time",
+                "type": 5,
+                "optional": false
+              },
+              {
+                "name": "type",
+                "type": 7,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "participants",
+                "type": 2,
+                "optional": false
+              },
+              {
+                "name": "question",
+                "type": 4,
+                "optional": false
+              },
+              {
+                "name": "rounds",
+                "type": 5,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "array",
+            "element": 3
+          },
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "bot",
+                "type": 4,
+                "optional": false
+              },
+              {
+                "name": "displayName",
+                "type": 4,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "primitive",
+            "type": "string"
+          },
+          {
+            "kind": "primitive",
+            "type": "number"
+          },
+          {
+            "kind": "literal",
+            "value": true
+          },
+          {
+            "kind": "literal",
+            "value": "room/opened"
+          }
+        ]
+      },
+      "names": [],
+      "sources": []
     },
     {
       "digest": "326a9bfda27dda5882fb3cbe6e715df41dae2298fdae3d66437457268a665693",
@@ -45792,6 +46198,20 @@
       "sources": []
     },
     {
+      "digest": "50291fa0af3c4f3f90de5abfb504c286caf44e888097a9af83cf03d0deadd0bd",
+      "schema": {
+        "root": 0,
+        "nodes": [
+          {
+            "kind": "literal",
+            "value": "room/opened"
+          }
+        ]
+      },
+      "names": [],
+      "sources": []
+    },
+    {
       "digest": "50cf02d875f8a1f1411f4a6fbcffab9120ccef5f74a47331fbf29480e5f68f48",
       "schema": {
         "root": 0,
@@ -55102,6 +55522,52 @@
       ]
     },
     {
+      "digest": "650d09f7122fa281afb23585e81caba83f4e334ee0f1a31ca92d0701b3b96840",
+      "schema": {
+        "root": 0,
+        "nodes": [
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "bot",
+                "type": 1,
+                "optional": false
+              },
+              {
+                "name": "displayName",
+                "type": 1,
+                "optional": false
+              },
+              {
+                "name": "round",
+                "type": 2,
+                "optional": false
+              },
+              {
+                "name": "text",
+                "type": 1,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "primitive",
+            "type": "string"
+          },
+          {
+            "kind": "primitive",
+            "type": "number"
+          }
+        ]
+      },
+      "names": [],
+      "sources": [
+        "packages/identity/bot-ask/src/room-session.ts:23"
+      ]
+    },
+    {
       "digest": "6598cd6da253948d6b207c6374a45335804c79b576866d6215649c2d1bc85e25",
       "schema": {
         "root": 0,
@@ -62368,6 +62834,79 @@
       "sources": []
     },
     {
+      "digest": "80dc1abb2361af56d4435ee5264571863617b3b0e6d813da5f7f5adf220802b8",
+      "schema": {
+        "root": 0,
+        "nodes": [
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "data",
+                "type": 1,
+                "optional": false
+              },
+              {
+                "name": "ignorable",
+                "type": 4,
+                "optional": true
+              },
+              {
+                "name": "seq",
+                "type": 3,
+                "optional": false
+              },
+              {
+                "name": "time",
+                "type": 3,
+                "optional": false
+              },
+              {
+                "name": "type",
+                "type": 5,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "conclusion",
+                "type": 2,
+                "optional": false
+              },
+              {
+                "name": "remarks",
+                "type": 3,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "primitive",
+            "type": "string"
+          },
+          {
+            "kind": "primitive",
+            "type": "number"
+          },
+          {
+            "kind": "literal",
+            "value": true
+          },
+          {
+            "kind": "literal",
+            "value": "room/concluded"
+          }
+        ]
+      },
+      "names": [],
+      "sources": []
+    },
+    {
       "digest": "811229eedcec57979dbadca7dbea832a59f8580cff30cb217fca5e2da16314bd",
       "schema": {
         "root": 0,
@@ -63943,6 +64482,20 @@
       "sources": []
     },
     {
+      "digest": "882a5493d5ac3d32edbc7af65a24859663134aa4ba19bfda229edb9f1f1bfbc0",
+      "schema": {
+        "root": 0,
+        "nodes": [
+          {
+            "kind": "literal",
+            "value": "room/concluded"
+          }
+        ]
+      },
+      "names": [],
+      "sources": []
+    },
+    {
       "digest": "88841202942c7683b3b7e5ea6a796047ec326b6701ac23e58cc236d85613b9fa",
       "schema": {
         "root": 0,
@@ -65290,6 +65843,150 @@
       ],
       "sources": [
         "packages/core/agent/src/types.ts:39"
+      ]
+    },
+    {
+      "digest": "975d14f0afccf105fd4e42a377cbda7e8cdfd7fa84b096d565bd7ba8fea45198",
+      "schema": {
+        "root": 0,
+        "nodes": [
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "data",
+                "type": 1,
+                "optional": false
+              },
+              {
+                "name": "ignorable",
+                "type": 4,
+                "optional": true
+              },
+              {
+                "name": "seq",
+                "type": 3,
+                "optional": false
+              },
+              {
+                "name": "time",
+                "type": 3,
+                "optional": false
+              },
+              {
+                "name": "type",
+                "type": 5,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "bot",
+                "type": 2,
+                "optional": false
+              },
+              {
+                "name": "displayName",
+                "type": 2,
+                "optional": false
+              },
+              {
+                "name": "round",
+                "type": 3,
+                "optional": false
+              },
+              {
+                "name": "text",
+                "type": 2,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "primitive",
+            "type": "string"
+          },
+          {
+            "kind": "primitive",
+            "type": "number"
+          },
+          {
+            "kind": "literal",
+            "value": true
+          },
+          {
+            "kind": "literal",
+            "value": "room/said"
+          }
+        ]
+      },
+      "names": [],
+      "sources": []
+    },
+    {
+      "digest": "977a3123054d7001ced67ece2a0bb30e8c5c59f677023533791f6cdb1d466c45",
+      "schema": {
+        "root": 0,
+        "nodes": [
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "participants",
+                "type": 1,
+                "optional": false
+              },
+              {
+                "name": "question",
+                "type": 3,
+                "optional": false
+              },
+              {
+                "name": "rounds",
+                "type": 4,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "array",
+            "element": 2
+          },
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "bot",
+                "type": 3,
+                "optional": false
+              },
+              {
+                "name": "displayName",
+                "type": 3,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "primitive",
+            "type": "string"
+          },
+          {
+            "kind": "primitive",
+            "type": "number"
+          }
+        ]
+      },
+      "names": [],
+      "sources": [
+        "packages/identity/bot-ask/src/room-session.ts:14"
       ]
     },
     {
@@ -72030,6 +72727,42 @@
       "sources": []
     },
     {
+      "digest": "ae7a8f01dfaec6a3390e2d9a907dc6b08b236a6b1ad6566ea0972452cdf20532",
+      "schema": {
+        "root": 0,
+        "nodes": [
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "conclusion",
+                "type": 1,
+                "optional": false
+              },
+              {
+                "name": "remarks",
+                "type": 2,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "primitive",
+            "type": "string"
+          },
+          {
+            "kind": "primitive",
+            "type": "number"
+          }
+        ]
+      },
+      "names": [],
+      "sources": [
+        "packages/identity/bot-ask/src/room-session.ts:34"
+      ]
+    },
+    {
       "digest": "aec150797b655c5f15ebb7a501454b0c208fbaccec9ace49d7de2171fc02f47d",
       "schema": {
         "root": 0,
@@ -75473,6 +76206,38 @@
       },
       "names": [],
       "sources": []
+    },
+    {
+      "digest": "cc0ed52cc2afaf5835ca48f0fc86eca6bc76be298d1a036bd002bea4ff3cd982",
+      "schema": {
+        "root": 0,
+        "nodes": [
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "bot",
+                "type": 1,
+                "optional": false
+              },
+              {
+                "name": "displayName",
+                "type": 1,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "primitive",
+            "type": "string"
+          }
+        ]
+      },
+      "names": [],
+      "sources": [
+        "packages/identity/bot-ask/src/room-session.ts:20"
+      ]
     },
     {
       "digest": "cd186c309e2bef305705e1d324139240f5e681f4f6a957d6a25b0225f65560df",

@@ -216,6 +216,29 @@ Types: [Agent](core.zh.md)
 
 Source: [`packages/identity/bot-ask/src/index.ts`](../../packages/identity/bot-ask/src/index.ts)
 
+<a id="ctxbotroom--botroom"></a>
+
+### `ctx.botRoom` — `BotRoom`
+
+Several bots discussing one question.
+
+```ts cordis-catalog
+/**
+ * Hold one discussion and answer with what was said and concluded.
+ * @param opener - the agent opening it, whose session names the opening bot.
+ * @param request - who to invite, what to discuss, and for how many rounds.
+ * @param signal - cancellation from the opening turn.
+ * @returns the room session, every remark, and the chair's conclusion.
+ * @throws {RoomRefusedError} when the opening session speaks as no bot, a
+ * participant is not a teammate, or nobody else was named.
+ */
+async hold(opener: Agent, request: RoomRequest, signal: AbortSignal): Promise<RoomResult>
+```
+
+Types: [Agent](core.zh.md)
+
+Source: [`packages/identity/bot-ask/src/room.ts`](../../packages/identity/bot-ask/src/room.ts)
+
 <a id="ctxbotscontroller--botscontroller"></a>
 
 ### `ctx.botsController` — `BotsController`

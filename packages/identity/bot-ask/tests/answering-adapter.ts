@@ -63,3 +63,55 @@ export class AnsweringAdapter extends LlmAdapter {
     yield { type: 'finish', reason: { kind: 'stop' } }
   }
 }
+
+/**
+ * A scripted answer per request, so a room can be given a different remark
+ * from each speaker and a conclusion from the chair.
+ *
+ * Its own class rather than a mode on the one above: a room's assertions are
+ * about who said what, and a single answer could not tell two speakers apart.
+ */
+export class TakingTurnsAdapter extends LlmAdapter {
+  /** The answers to give, consumed in request order; the last one repeats. */
+  answers: readonly string[] = ['said something']
+
+  /** Request indexes whose answer is reasoning rather than prose. */
+  silent: readonly number[] = []
+
+  /** Every request this adapter served, in order. */
+  readonly requests: GenerateOptions[] = []
+
+  /**
+   * Describe the requested route back without consulting any catalog.
+   * @param provider - the requested provider route.
+   * @param model - the requested model id.
+   * @returns the route as this adapter serves it.
+   */
+  override resolveModel(provider: string, model: string): Promise<LlmResolvedModelInfo> {
+    return Promise.resolve({ provider, id: model, name: model })
+  }
+
+  /**
+   * Stream the next scripted answer.
+   * @param options - the assembled request.
+   * @returns the chunks one turn consumes.
+   */
+  async * stream(options: GenerateOptions): AsyncIterable<StreamChunk> {
+    const index = this.requests.length
+    this.requests.push(options)
+    const text = this.answers[index] ?? this.answers.at(-1) ?? ''
+    if (this.silent.includes(index)) {
+      // A turn that ends on reasoning alone carries no prose for a reader to
+      // take, which is not the same as carrying nothing at all.
+      yield { type: 'block-start', index: 0, blockType: 'reasoning' }
+      yield { type: 'reasoning-delta', index: 0, text: 'thinking' }
+      yield { type: 'block-end', index: 0, block: { type: 'reasoning', text: 'thinking' } }
+    } else if (text !== '') {
+      yield { type: 'block-start', index: 0, blockType: 'text' }
+      yield { type: 'text-delta', index: 0, text }
+      yield { type: 'block-end', index: 0, block: { type: 'text', text } }
+    }
+    yield { type: 'usage', usage: { inputTokens: 10, outputTokens: text.length } }
+    yield { type: 'finish', reason: { kind: 'stop' } }
+  }
+}

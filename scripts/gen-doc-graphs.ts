@@ -916,6 +916,15 @@ const SERVICE_ROLES: ServiceRole[] = [
     note: 'Turns stored records into mounted channels and back: a platform administrator configures the deployment\'s own, a tenant administrator only their organization\'s, and each organization\'s sign-in page is offered only its own plus the deployment-wide ones.',
   },
   {
+    key: 'botRoom',
+    pkg: 'bot-ask',
+    title: 'Several bots discussing one question',
+    mode: 'core',
+    implementations: [],
+    consumers: [],
+    note: 'Chairs the discussion in code rather than through a participant: round-robin order, a deployment bound that ends it whatever the chair thinks, and one named conclusion written from what was said under a fixed prompt rather than in any participant\'s voice.',
+  },
+  {
     key: 'botAsk',
     pkg: 'bot-ask',
     title: 'One bot asking a teammate',

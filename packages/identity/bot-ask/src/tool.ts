@@ -17,13 +17,15 @@ import { defineTool } from '@lyness/lyn-tools'
 import type {} from '@lyness/lyn-managed-bots'
 import type {} from '@lyness/lyn-session-projection'
 import type {} from './index.ts'
+import { MAX_ROUNDS } from './room.ts'
+import type {} from './room.ts'
 
 export const name = 'bot-ask-tools'
-export const inject = ['tools', 'botAsk', 'managedBots', 'sessionProjections']
+export const inject = ['tools', 'botAsk', 'botRoom', 'managedBots', 'sessionProjections']
 
 /**
- * Register the two teammate tools.
- * @param ctx - context carrying the tool registry, the ask service and the roster.
+ * Register the three teammate tools.
+ * @param ctx - context carrying the tool registry, the two services and the roster.
  */
 export function apply(ctx: Context): void {
   ctx.tools.register(defineTool({
@@ -107,6 +109,76 @@ export function apply(ctx: Context): void {
       if (!caller) throw new Error('ask_teammate requires a calling agent (exec.agent was undefined)')
       const answer = await ctx.botAsk.ask(caller, brandString<PersonId>(args.teammate), args.question, exec.signal)
       return { name: answer.displayName, answer: answer.text }
+    },
+  }))
+
+  ctx.tools.register(defineTool({
+    name: 'hold_discussion',
+    description:
+      'Discuss one question with several teammates at once and wait for the conclusion. '
+      + 'Everyone speaks in turn, once per round, reading what was said before them; you speak first each round. '
+      + `A deployment chairs at most ${String(MAX_ROUNDS)} rounds, and asking for more simply runs fewer. `
+      + 'The conclusion is written by the chair from what was said, not by any participant. '
+      + 'Use this when one answer is not enough because the teammates would disagree; use ask_teammate otherwise.',
+    parameters: {
+      participants: {
+        type: 'array',
+        required: true,
+        items: { type: 'string' },
+        description: 'The ids of teammates from list_teammates. You are added as the first speaker.',
+      },
+      question: {
+        type: 'string',
+        required: true,
+        description: 'What to discuss. Include whatever context it needs: nobody can see your conversation.',
+      },
+      rounds: {
+        type: 'number',
+        required: true,
+        description: `How many times each participant speaks, from 1 to ${String(MAX_ROUNDS)}.`,
+      },
+    },
+    output: {
+      schema: {
+        type: 'object',
+        additionalProperties: false,
+        properties: {
+          conclusion: { type: 'string', required: true },
+          remarks: {
+            type: 'array',
+            required: true,
+            items: {
+              type: 'object',
+              additionalProperties: false,
+              properties: {
+                name: { type: 'string', required: true },
+                said: { type: 'string', required: true },
+              },
+            },
+          },
+        },
+      },
+      render: (_args, value) => [{
+        type: 'text',
+        text: `${value.remarks.map(one => `${one.name}: ${one.said}`).join('\n\n')}\n\nConclusion:\n\n${value.conclusion}`,
+      }],
+    },
+    async execute(args, exec) {
+      const caller = exec.agent
+      if (!caller) throw new Error('hold_discussion requires a calling agent (exec.agent was undefined)')
+      const held = await ctx.botRoom.hold(
+        caller,
+        {
+          participants: args.participants.map(one => brandString<PersonId>(one)),
+          question: args.question,
+          rounds: args.rounds,
+        },
+        exec.signal,
+      )
+      return {
+        conclusion: held.conclusion,
+        remarks: held.remarks.map(one => ({ name: one.displayName, said: one.text })),
+      }
     },
   }))
 }

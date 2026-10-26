@@ -101,6 +101,12 @@
     - id: bot-ask
       name: '@lyness/lyn-bot-ask'
 
+    # Several of them discussing one question, chaired by code rather than by
+    # a participant: one that chose its own turn would be one nobody could
+    # stop.
+    - id: bot-room
+      name: '@lyness/lyn-bot-ask/room'
+
     - id: bot-ask-tools
       name: '@lyness/lyn-bot-ask/preset-contribution'
 

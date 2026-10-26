@@ -45,7 +45,7 @@
 | `@lyness/lyn-tool-subagent-control` | `interrupt_agent`、`list_agents`、`send_message` | `ctx.tools`、`ctx.subagents`、`ctx.agents and ctx.sessionProjections (list_agents only)` | `tool/call`、`tool/result`、`child session events through ctx.subagents` | - | 这些是控制可继续后台 subagent 的全局命名工具：绑定提供方的 `tool-subagent` 实例注册不同的委派工具；本包注册一次 `send_message` 和 `interrupt_agent`，另由 `list_agents` 通过单独加载的 `/list-agents` 插件提供，其目录行使用 sessionProjections 和实时 Agent 注册表。 |
 | `@lyness/lyn-tool-jobs` | `job_kill`、`job_list`、`job_output` | `ctx.tools`、`ctx.jobs`、`ctx.systemPrompt` | `tool/call`、`tool/result`、`user/message via agent.inject() for background completion notices` | - | 与任务种类无关的后台任务控制器：后台 bash 命令、PTY 发送和 subagent 都通过相同的 3 个工具读取、列出和终止。加载该插件会挂接控制器，从而启用生产方的 `ctx.jobs.start()`。 |
 | `@lyness/lyn-experimental-tool-agent-team` | `interrupt_agent`、`list_agents`、`send_message`、`spawn_teammate`、`team_task_create`、`team_task_get`、`team_task_list`、`team_task_update`、`wait_agent` | `ctx.tools`、`ctx.systemPrompt`、`ctx.agentTeams`、`an exact live Team member Agent` | `tool/call`、`team/member`、`team/message/queued`、`team/message/delivered`、`team/task`、`tool/result` | - | 这 9 个工具限定于隐式 Team Lead 与持久 teammate 作用域。随产品发布的 lyn-base bundle 默认禁用该包；文档中的 Agent Teams profile patch 会启用它，并禁用旧 continuable child 的同名控制工具。 |
-| `@lyness/lyn-bot-ask` | `ask_teammate`、`list_teammates` | `ctx.tools`、`ctx.botAsk`、`ctx.managedBots`、`ctx.sessionProjections`、`一个发起调用的 Agent` | `tool/call`、`bot/asked`、`bot/answered`、`tool/result` | - | 被贡献进每一个接受贡献行的 preset，而不是作为 preset 的一行挂载，因为一个 patch 没法往一个 preset 里只加一个工具——它得把那个 preset 的整张行表重新写一遍。一次提问在队友自己的一场会话里跑作答那一轮，所以它花掉的 token 是那场会话的，而发起提问的那个请求只收到答复。 |
+| `@lyness/lyn-bot-ask` | `ask_teammate`、`hold_discussion`、`list_teammates` | `ctx.tools`、`ctx.botAsk`、`ctx.botRoom`、`ctx.managedBots`、`ctx.sessionProjections`、`一个发起调用的 Agent` | `tool/call`、`bot/asked`、`bot/answered`、`room/opened`、`room/said`、`room/concluded`、`tool/result` | - | 被贡献进每一个接受贡献行的 preset，而不是作为 preset 的一行挂载，因为一个 patch 没法往一个 preset 里只加一个工具——它得把那个 preset 的整张行表重新写一遍。一次提问和一场讨论都在队友自己的会话里跑它们那些轮次，所以它们花掉的 token 是那些会话的，而发起调用的那个请求只收到答复或结论。 |
 | `@lyness/lyn-tool-todo` | `todo_write` | `ctx.tools`、`owning Agent session` | `tool/call`、`todo/write`、`tool/result` | - | todo_write 是会话所有的状态；UI 将最新的 todo/write 事件渲染为检查清单。`allowParallelInProgress` 是没有默认值的必填项，因此本目录明确选择 `true`，对应描述允许同时存在多个 `in_progress` 项。选择 `false` 的部署会获得同一工具，但描述会要求只能有 1 个活动任务。 |
 | `@lyness/lyn-tool-workflow` | `workflow` | `ctx.tools`、`ctx.workflowEngine`、`ctx.systemPrompt`、`a calling Agent (exec.agent parents the script children)` | `tool/call`、`tool/result` | - | - |
 | `@lyness/lyn-tool-workspace-dependencies` | `load_workspace_dependencies` | `ctx.tools` | `tool/call`, `tool/result` | - | - |
@@ -2547,6 +2547,40 @@ Ask one of your teammates a question and wait for its answer. It answers in a co
 
 来源：[`packages/identity/bot-ask/src/tool.ts`](../packages/identity/bot-ask/src/tool.ts)
 
+### `hold_discussion`
+
+Discuss one question with several teammates at once and wait for the conclusion. Everyone speaks in turn, once per round, reading what was said before them; you speak first each round. A deployment chairs at most 5 rounds, and asking for more simply runs fewer. The conclusion is written by the chair from what was said, not by any participant. Use this when one answer is not enough because the teammates would disagree; use ask_teammate otherwise.
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "participants": {
+      "type": "array",
+      "description": "The ids of teammates from list_teammates. You are added as the first speaker.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "question": {
+      "type": "string",
+      "description": "What to discuss. Include whatever context it needs: nobody can see your conversation."
+    },
+    "rounds": {
+      "type": "number",
+      "description": "How many times each participant speaks, from 1 to 5."
+    }
+  },
+  "required": [
+    "participants",
+    "question",
+    "rounds"
+  ]
+}
+```
+
+来源：[`packages/identity/bot-ask/src/tool.ts`](../packages/identity/bot-ask/src/tool.ts)
+
 ### `list_teammates`
 
 List the bots you may ask. Each entry says what that bot is for and how it answers, so you can pick the one whose job covers your question. You cannot see any of their conversations.
@@ -2560,7 +2594,7 @@ List the bots you may ask. Each entry says what that bot is for and how it answe
 
 来源：[`packages/identity/bot-ask/src/tool.ts`](../packages/identity/bot-ask/src/tool.ts)
 
-被贡献进每一个接受贡献行的 preset，而不是作为 preset 的一行挂载，因为一个 patch 没法往一个 preset 里只加一个工具——它得把那个 preset 的整张行表重新写一遍。一次提问在队友自己的一场会话里跑作答那一轮，所以它花掉的 token 是那场会话的，而发起提问的那个请求只收到答复。
+被贡献进每一个接受贡献行的 preset，而不是作为 preset 的一行挂载，因为一个 patch 没法往一个 preset 里只加一个工具——它得把那个 preset 的整张行表重新写一遍。一次提问和一场讨论都在队友自己的会话里跑它们那些轮次，所以它们花掉的 token 是那些会话的，而发起调用的那个请求只收到答复或结论。
 
 <a id="lynesslyn-tool-todo"></a>
 

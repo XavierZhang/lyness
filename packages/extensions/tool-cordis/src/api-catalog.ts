@@ -624,6 +624,20 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
     ],
   },
   {
+    key: 'botRoom',
+    summary: 'Several bots discussing one question.',
+    description: 'Several bots discussing one question.',
+    methods: [
+      {
+        signature: 'async hold(opener: Agent, request: RoomRequest, signal: AbortSignal): Promise<RoomResult>',
+        description: 'Hold one discussion and answer with what was said and concluded.',
+        parameters: [{ name: 'opener', description: 'the agent opening it, whose session names the opening bot.' }, { name: 'request', description: 'who to invite, what to discuss, and for how many rounds.' }, { name: 'signal', description: 'cancellation from the opening turn.' }],
+        returns: 'the room session, every remark, and the chair\'s conclusion.',
+        throws: ['{RoomRefusedError} when the opening session speaks as no bot, a participant is not a teammate, or nobody else was named.'],
+      },
+    ],
+  },
+  {
     key: 'botsController',
     summary: 'Host service backing the generated `ctx.remote.bots` namespace.',
     description: 'Host service backing the generated `ctx.remote.bots` namespace.',
@@ -7404,6 +7418,18 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'Role',
     declaration: 'export type Role = \'platform-administrator\' | \'tenant-administrator\' | \'member\';',
+  },
+  {
+    name: 'RoomRemark',
+    declaration: 'export interface RoomRemark {\n    readonly bot: PersonId;\n    readonly displayName: string;\n    readonly text: string;\n}',
+  },
+  {
+    name: 'RoomRequest',
+    declaration: 'export interface RoomRequest {\n    readonly participants: readonly PersonId[];\n    readonly question: string;\n    readonly rounds: number;\n}',
+  },
+  {
+    name: 'RoomResult',
+    declaration: 'export interface RoomResult {\n    readonly sessionId: SessionId;\n    readonly remarks: readonly RoomRemark[];\n    readonly conclusion: string;\n}',
   },
   {
     name: 'RpcId',

@@ -19,15 +19,11 @@ import { Service } from '@lyness/cordis'
 import type { Context } from '@lyness/cordis'
 import type { Agent } from '@lyness/lyn-agent'
 import { brandString } from '@lyness/lyn-brand'
-import { createUserMessage } from '@lyness/lyn-llm'
 import type { PersonId } from '@lyness/lyn-people'
-import type { SessionId } from '@lyness/lyn-session'
-import type {} from '@lyness/lyn-agent-default-model'
 import type {} from '@lyness/lyn-session-projection'
 import type { TeammateView } from '@lyness/lyn-managed-bots'
 import type {} from '@lyness/lyn-managed-bots/session'
-import type {} from '@lyness/lyn-agent-preset-registry'
-import { randomUUID } from '@lyness/lyn-util-crypto'
+import { runBotTurn } from './turn.ts'
 import type {} from './session.ts'
 
 export { BOT_ASK_EVENTS } from './session.ts'
@@ -147,55 +143,23 @@ export class BotAsk extends Service {
     target: TeammateView,
     signal: AbortSignal,
   ): Promise<Answer> {
-    const selection = this.ctx.agentDefaultModel.currentSelection()
-    const roster = this.ctx.managedBots
-    const engaged = { bot: target.id, displayName: target.displayName, persona: target.persona }
-    const sessionId = brandString<SessionId>(`session-${randomUUID()}`)
-    const created = await this.ctx.agents.create({
-      sessionId,
-      agentOptions: { provider: selection.provider, model: selection.model },
+    const { text } = await runBotTurn(this.ctx, {
+      engaged: { bot: target.id, displayName: target.displayName, persona: target.persona },
+      preset: target.preset,
       // The asker's own directory: two bots a team puts together share the
       // work the asker is doing, and an answering turn with no directory has
       // nothing its file tools could read.
-      meta: { cwd: askerDirectory(asker), agentPreset: target.preset },
-      setup: async (agentCtx) => {
-        await this.ctx.agentPresets.mount(agentCtx, target.preset)
-        agentCtx.effect(() => roster.compose(agentCtx, engaged))
+      cwd: askerDirectory(asker),
+      prompt: question,
+      // Recorded before the turn, so a session that failed to answer still
+      // says who asked it what.
+      before: (session) => {
+        session.append('bot/answered', { asker: askerId, displayName: askerName, question })
       },
+      signal,
     })
-    const { agent } = created
-    try {
-      await agent.whenIdle()
-      // Recorded after creation rather than inside setup, because a session
-      // only dispatches its events once it is published: a record written
-      // before that reaches its own log and no observer. Still before the
-      // turn, so a session that failed to answer says who asked it what.
-      agent.session.append('bot/engaged', { ...engaged })
-      agent.session.append('bot/answered', { asker: askerId, displayName: askerName, question })
-      // Collected from the events this turn commits rather than scanned back
-      // out of the log: the answer is the prose the turn produced, and a
-      // historical read would make this depend on storage it does not need.
-      let text: string | undefined
-      const collect = this.ctx.on('session/event', (session, event) => {
-        if (session.id !== agent.session.id || event.type !== 'assistant/message') return
-        const joined = event.data.message.content
-          .flatMap(block => block.type === 'text' ? [block.text] : [])
-          .join('')
-        if (joined !== '') text = joined
-      })
-      try {
-        agent.followup(createUserMessage({ content: [{ type: 'text', text: question }], source: { kind: 'user' } }))
-        await agent.whenIdle()
-      } finally {
-        collect()
-      }
-      signal.throwIfAborted()
-      await this.ctx.sessions.flush(agent.session)
-      if (text === undefined) throw new AskRefusedError('no-answer', NO_ANSWER)
-      return { teammate: target.id, displayName: target.displayName, text }
-    } finally {
-      await created.dispose()
-    }
+    if (text === undefined) throw new AskRefusedError('no-answer', NO_ANSWER)
+    return { teammate: target.id, displayName: target.displayName, text }
   }
 }
 
