@@ -17,7 +17,9 @@ import Storage from '@lyness/lyn-storage'
 import * as StorageJson from '@lyness/lyn-storage-json'
 import * as StorageDomain from '@lyness/lyn-storage-domain'
 import ManagedPeople from '@lyness/lyn-managed-people'
-import ManagedBots, { BOT_PERSONA_SECTION, botProjectionDefinition, composeBotPersona } from '../src/index.ts'
+import ManagedBots, {
+  BOT_PERSONA_SECTION, BotsRefusedError, NOT_YOURS, botProjectionDefinition, composeBotPersona,
+} from '../src/index.ts'
 import type { EngagedBot } from '../src/session.ts'
 
 const live: Context[] = []
@@ -74,7 +76,7 @@ describe('engaging a bot', () => {
       preset: 'standard',
     }, BY)
 
-    await expect(ctx.managedBots.engage(brandString<PersonId>(saved.id))).resolves.toEqual({
+    await expect(ctx.managedBots.engage(brandString<PersonId>(saved.id), BY)).resolves.toEqual({
       preset: 'standard',
       engaged: { bot: saved.id, displayName: 'Triage', persona: 'You answer in short sentences.' },
     })
@@ -90,14 +92,37 @@ describe('engaging a bot', () => {
       job: '',
       preset: 'standard',
     }))
-    await expect(ctx.managedBots.engage(brandString<PersonId>('scribe'))).resolves.toMatchObject({
+    await expect(ctx.managedBots.engage(brandString<PersonId>('scribe'), BY)).resolves.toMatchObject({
       engaged: { displayName: 'Scribe', persona: 'You write minutes.' },
     })
   })
 
   it('answers nothing for a bot nobody maintains', async () => {
     const ctx = await bench()
-    await expect(ctx.managedBots.engage(brandString<PersonId>('ghost'))).resolves.toBeUndefined()
+    await expect(ctx.managedBots.engage(brandString<PersonId>('ghost'), BY)).resolves.toBeUndefined()
+  })
+
+  it('refuses a standing from another organization, and admits an ordinary member of its own', async () => {
+    const ctx = await bench()
+    const saved = await ctx.managedBots.save({
+      displayName: 'Triage', organization: 'acme', persona: '', job: '', preset: 'standard',
+    }, BY)
+    const id = brandString<PersonId>(saved.id)
+
+    // Knowing a bot's id is not permission to be it.
+    const elsewhere: Membership = {
+      id: brandString<MembershipId>('bea:member'),
+      person: brandString<PersonId>('bea'),
+      role: 'member',
+      organization: 'other',
+    }
+    await expect(ctx.managedBots.engage(id, elsewhere))
+      .rejects.toThrow(new BotsRefusedError('not-yours', NOT_YOURS))
+
+    // An ordinary member of that organization may talk to its bots; it is not
+    // an administrative act.
+    const inside: Membership = { ...elsewhere, organization: 'acme' }
+    await expect(ctx.managedBots.engage(id, inside)).resolves.toMatchObject({ preset: 'standard' })
   })
 })
 

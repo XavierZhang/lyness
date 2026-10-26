@@ -628,10 +628,16 @@ async offers(): Promise<readonly PresetOption[]>
  * caller, never looked up again on resume: an administrator who rewrites a
  * bot's character changes what it says next, and must not change what it
  * already said.
+ *
+ * A bot belongs to one organization, and speaking as it is reaching that
+ * organization's work. The standing asking has to hold a place in that
+ * organization — knowing a bot's id is not permission to be it.
  * @param id - the bot to engage.
+ * @param by - the standing the call acts in.
  * @returns the preset it runs with and the character to record, or undefined when no such bot exists.
+ * @throws {BotsRefusedError} when that standing belongs to another organization.
  */
-async engage(id: PersonId): Promise<{ preset: string; engaged: EngagedBot } | undefined>
+async engage(id: PersonId, by: Membership): Promise<{ preset: string; engaged: EngagedBot } | undefined>
 
 /**
  * Put one bot's character into an agent's prompt.

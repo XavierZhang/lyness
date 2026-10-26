@@ -253,8 +253,10 @@ function reported(reason: BotRefusal, message: string): RemoteError {
     case 'written': return new RemoteError('bots/written', message, {})
     case 'unknown-preset': return new RemoteError('bots/unknown-preset', message, {})
     case 'unknown-bot': return new RemoteError('bots/unknown-bot', message, {})
+    /* v8 ignore next -- no method here engages a bot; `session.create` owns that refusal. */
+    case 'not-yours': return new RemoteError('bots/not-yours', message, {})
     case 'organization-required': return new RemoteError('bots/incomplete', message, { fields: ['organization'] })
-    /* v8 ignore next -- closed-union exhaustiveness guard; the roster names one of the five above. */
+    /* v8 ignore next -- closed-union exhaustiveness guard; the roster names one of the six above. */
     default: return assertNever(reason, 'managed bots refusal')
   }
 }

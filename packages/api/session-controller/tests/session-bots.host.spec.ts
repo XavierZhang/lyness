@@ -9,6 +9,8 @@ import { mkdtempSync, realpathSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { Context } from '@lyness/cordis'
+import { brandString } from '@lyness/lyn-brand'
+import type { MembershipId, PersonId } from '@lyness/lyn-people'
 import AgentRegistry from '@lyness/lyn-agent'
 import type { Agent, AgentFactory } from '@lyness/lyn-agent'
 import { agentPresetProjectionDefinition } from '@lyness/lyn-agent-preset-registry'
@@ -17,7 +19,11 @@ import type { EngagedBot } from '@lyness/lyn-managed-bots/session'
 import SessionStore, { SessionId } from '@lyness/lyn-session'
 import type { Session } from '@lyness/lyn-session'
 import { afterEach, describe, expect, it } from 'vitest'
+import { BotsRefusedError } from '@lyness/lyn-managed-bots'
 import { createSessionTestRemote } from './test-remote.ts'
+
+const ADA = brandString<PersonId>('ada')
+const ADA_STANDING = brandString<MembershipId>('ada:platform-administrator')
 
 const contexts: Context[] = []
 const tempDirs: string[] = []
@@ -51,7 +57,7 @@ function presets(ids: readonly string[]): unknown {
  * The deployment, with a roster when one is asked for.
  * @param options - which bots the roster answers for, and whether it exists.
  */
-async function harness(options: { roster?: boolean } = {}) {
+async function harness(options: { roster?: boolean; standing?: 'none' | 'elsewhere' } = {}) {
   const cwd = realpathSync(mkdtempSync(join(tmpdir(), 'lyn-session-bots-')))
   tempDirs.push(cwd)
   const ctx = new Context()
@@ -59,6 +65,20 @@ async function harness(options: { roster?: boolean } = {}) {
   await ctx.plugin(SessionStore)
   await ctx.plugin(AgentRegistry)
   ctx.provide('agentPresets', presets(['standard', 'specialist']) as never)
+  // Speaking as a bot acts in a standing; the roster judges it, and this
+  // supplies the one a signed-in request would carry.
+  ctx.provide('requestPrincipal', {
+    current: () => options.standing === 'none'
+      ? undefined
+      : { person: ADA, acting: { person: ADA, membership: ADA_STANDING } },
+  })
+  ctx.provide('people', {
+    person: () => Promise.resolve(undefined),
+    membership: () => Promise.resolve(options.standing === 'elsewhere'
+      ? { id: ADA_STANDING, person: ADA, role: 'member', organization: 'other' }
+      : { id: ADA_STANDING, person: ADA, role: 'platform-administrator' }),
+    memberships: () => Promise.resolve([]),
+  } as never)
 
   const composed: EngagedBot[] = []
   if (options.roster !== false) {
@@ -66,9 +86,15 @@ async function harness(options: { roster?: boolean } = {}) {
     // this controller does with it is which preset it composes and what it
     // writes into the log.
     ctx.provide('managedBots', {
-      engage: (id: string) => Promise.resolve(
-        id === TRIAGE.bot ? { preset: 'specialist', engaged: TRIAGE } : undefined,
-      ),
+      engage: (id: string, by: { role: string; organization?: string }) => {
+        if (id !== TRIAGE.bot) return Promise.resolve(undefined)
+        // The real roster refuses a standing from elsewhere; this records
+        // that the controller hands it the standing to judge.
+        if (by.role !== 'platform-administrator' && by.organization !== 'acme') {
+          return Promise.reject(new BotsRefusedError('not-yours', 'that bot belongs to another organization'))
+        }
+        return Promise.resolve({ preset: 'specialist', engaged: TRIAGE })
+      },
       compose: (_agentCtx: Context, engaged: EngagedBot) => { composed.push(engaged); return () => {} },
     } as never)
   }
@@ -145,6 +171,17 @@ describe('what the surface refuses', () => {
     await expect(remote.create({ sessionId: SessionId('b4'), bot: 'ghost' }))
       .resolves.toMatchObject({ ok: false, error: { code: 'session/not-found' } })
     expect(ctx.sessions.get(SessionId('b4'))).toBeUndefined()
+  })
+
+  it('refuses a standing from another organization, and one that establishes none', async () => {
+    // Knowing a bot's id is not permission to be it.
+    const elsewhere = await harness({ standing: 'elsewhere' })
+    await expect(elsewhere.remote.create({ sessionId: SessionId('b6'), bot: 'triage' }))
+      .resolves.toMatchObject({ ok: false, error: { code: 'session/bot-forbidden' } })
+
+    const anonymous = await harness({ standing: 'none' })
+    await expect(anonymous.remote.create({ sessionId: SessionId('b7'), bot: 'triage' }))
+      .resolves.toMatchObject({ ok: false, error: { code: 'session/bot-forbidden' } })
   })
 
   it('says a deployment with no roster maintains no bots', async () => {

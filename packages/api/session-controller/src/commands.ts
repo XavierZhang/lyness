@@ -16,8 +16,9 @@ import {
 } from '@lyness/lyn-llm'
 import type { MessageSource } from '@lyness/lyn-llm'
 import { buildForkSeed } from '@lyness/lyn-session/fork'
-import type {} from '@lyness/lyn-managed-bots'
+import { BotsRefusedError } from '@lyness/lyn-managed-bots'
 import type { EngagedBot } from '@lyness/lyn-managed-bots/session'
+import { callingStanding } from '@lyness/lyn-request-principal'
 import type { PersonId } from '@lyness/lyn-people'
 import { SessionLogOffset, SessionSeq } from '@lyness/lyn-session'
 import type { SessionEvent, SessionHeader, SessionId, UserMessage } from '@lyness/lyn-session'
@@ -173,11 +174,25 @@ export class SessionCommandController {
         endpoint: 'session',
       })
     }
-    const engagement = await roster.engage(brandString<PersonId>(bot))
-    if (engagement === undefined) {
-      throw new RemoteError('session/not-found', `no bot "${bot}"`, { sessionId: brandString<SessionId>(bot) })
+    // A bot belongs to one organization, and speaking as it is reaching that
+    // organization's work; knowing an id is not permission to be it. The
+    // roster holds the rule, this resolves the standing it judges.
+    const by = await callingStanding(this.ctx)
+    if (by === undefined) {
+      throw new RemoteError('session/bot-forbidden', 'a conversation with a bot acts in a standing', {})
     }
-    return engagement
+    try {
+      const engagement = await roster.engage(brandString<PersonId>(bot), by)
+      if (engagement === undefined) {
+        throw new RemoteError('session/not-found', `no bot "${bot}"`, { sessionId: brandString<SessionId>(bot) })
+      }
+      return engagement
+    } catch (refused: unknown) {
+      if (refused instanceof BotsRefusedError) {
+        throw new RemoteError('session/bot-forbidden', refused.message, {})
+      }
+      throw refused
+    }
   }
 
   /**

@@ -209,6 +209,14 @@ declare module '@lyness/lyn-typert-protocol' {
       readonly requestedCwd: string
       readonly existingCwd?: string
     }
+    /**
+     * This call may not speak as that bot. A bot belongs to one organization,
+     * and speaking as it is reaching that organization's work, so the call
+     * has to act in a standing that holds a place there — knowing a bot's id
+     * is not permission to be it. Also refused when the call establishes no
+     * standing at all.
+     */
+    'session/bot-forbidden': Record<string, never>
     'session/projections-unavailable': Record<string, never>
     'session/writer-held': { readonly sessionId: SessionId }
     'session/agent-busy': { readonly reason: string }

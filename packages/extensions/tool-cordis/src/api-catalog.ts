@@ -1820,10 +1820,11 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         returns: 'the presets on offer, in the registry\'s own order; a preset that cannot compose a session is left out.',
       },
       {
-        signature: 'async engage(id: PersonId): Promise<{ preset: string; engaged: EngagedBot } | undefined>',
-        description: 'What one bot runs as, for a session about to speak as it.\n\nThe character is read here and written into the session\'s own log by the caller, never looked up again on resume: an administrator who rewrites a bot\'s character changes what it says next, and must not change what it already said.',
-        parameters: [{ name: 'id', description: 'the bot to engage.' }],
+        signature: 'async engage(id: PersonId, by: Membership): Promise<{ preset: string; engaged: EngagedBot } | undefined>',
+        description: 'What one bot runs as, for a session about to speak as it.\n\nThe character is read here and written into the session\'s own log by the caller, never looked up again on resume: an administrator who rewrites a bot\'s character changes what it says next, and must not change what it already said.\n\nA bot belongs to one organization, and speaking as it is reaching that organization\'s work. The standing asking has to hold a place in that organization — knowing a bot\'s id is not permission to be it.',
+        parameters: [{ name: 'id', description: 'the bot to engage.' }, { name: 'by', description: 'the standing the call acts in.' }],
         returns: 'the preset it runs with and the character to record, or undefined when no such bot exists.',
+        throws: ['{BotsRefusedError} when that standing belongs to another organization.'],
       },
       {
         signature: 'compose(agentCtx: Context, engaged: EngagedBot): () => void',

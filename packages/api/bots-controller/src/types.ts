@@ -35,6 +35,12 @@ declare module '@lyness/lyn-typert-protocol' {
      */
     'bots/unknown-bot': Record<string, never>
     /**
+     * The call may not speak as that bot. Reported here for completeness of
+     * the roster's refusals; the surface that reaches it is `session.create`,
+     * which answers `session/bot-forbidden`.
+     */
+    'bots/not-yours': Record<string, never>
+    /**
      * The submission left something out. `fields` names what, so a form marks
      * them together.
      */

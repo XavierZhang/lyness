@@ -72,6 +72,8 @@ Replacing one keeps its id, so the conversations it already owns stay its own. A
 
 **The character is a section of its own, appended after the preset's.** The preset says how the agent works, the bot says who is speaking. Appending cannot widen what the agent may do, which is what keeps prose written by a tenant administrator from reaching past the permission preset.
 
+**Knowing a bot's id is not permission to be it.** Speaking as a bot is reaching its organization's work, so `engage` judges the standing the call acts in: an ordinary member of that organization may talk to its bots, a platform standing reaches every organization, and a standing from elsewhere is refused. This is not `administers` — talking to a bot is not an administrative act.
+
 **A team is who may ask whom.** Two bots in one organization that share no team are not teammates: the relation an administrator wrote is the only thing that grants one bot the right to ask another, so a team holding a bot from elsewhere would hand that right across an organization boundary and is refused. What a teammate reads is a name, a job, a character and a preset — enough to decide who to ask, and no conversation of theirs.
 
 **A teammate's job comes from its own record, not from the team.** A bot in two teams reads the same way in both. Letting a team restate what a member is for would make "what it does" depend on the company it is in, which is where a reader stops trusting either answer.

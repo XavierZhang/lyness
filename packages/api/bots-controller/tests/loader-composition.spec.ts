@@ -212,7 +212,8 @@ it('opens a conversation that speaks as the bot, and records what it ran with', 
 
   // What the session controller asks the roster for, and what it writes into
   // the session's own log: the preset to compose, and the character verbatim.
-  const engagement = await ctx.managedBots.engage(brandString<PersonId>(added.id))
+  const standing = { id: ADA_STANDING, person: ADA, role: 'platform-administrator' as const }
+  const engagement = await ctx.managedBots.engage(brandString<PersonId>(added.id), standing)
   expect(engagement).toEqual({
     preset: 'standard',
     engaged: { bot: added.id, displayName: 'Triage', persona: 'You answer in short sentences.' },
@@ -230,7 +231,7 @@ it('opens a conversation that speaks as the bot, and records what it ran with', 
     job: 'Files reports.',
     preset: 'standard',
   }))
-  const rewritten = await ctx.managedBots.engage(brandString<PersonId>(added.id))
+  const rewritten = await ctx.managedBots.engage(brandString<PersonId>(added.id), standing)
   expect(rewritten?.engaged.persona).toBe('You answer at length.')
   expect(engagement?.engaged.persona).toBe('You answer in short sentences.')
 })

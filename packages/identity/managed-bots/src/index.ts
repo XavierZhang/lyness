@@ -66,6 +66,9 @@ export const UNKNOWN_PRESET = 'managed-bots: this deployment offers no such agen
 /** Message a bot naming no organization is refused with. */
 export const ORGANIZATION_REQUIRED = 'managed-bots: a bot belongs to exactly one organization'
 
+/** Message an attempt to speak as a bot from another organization is refused with. */
+export const NOT_YOURS = 'managed-bots: that bot belongs to another organization'
+
 /** Message a team naming a bot its organization does not hold is refused with. */
 export const UNKNOWN_BOT = 'managed-bots: a team holds only its own organization\'s bots'
 
@@ -82,6 +85,7 @@ export type BotRefusal =
   | 'unknown-preset'
   | 'organization-required'
   | 'unknown-bot'
+  | 'not-yours'
 
 /** A bot change this service refused, carrying the reason it refused. */
 export class BotsRefusedError extends Error {
@@ -346,12 +350,22 @@ export class ManagedBots extends Service {
    * caller, never looked up again on resume: an administrator who rewrites a
    * bot's character changes what it says next, and must not change what it
    * already said.
+   *
+   * A bot belongs to one organization, and speaking as it is reaching that
+   * organization's work. The standing asking has to hold a place in that
+   * organization — knowing a bot's id is not permission to be it.
    * @param id - the bot to engage.
+   * @param by - the standing the call acts in.
    * @returns the preset it runs with and the character to record, or undefined when no such bot exists.
+   * @throws {BotsRefusedError} when that standing belongs to another organization.
    */
-  async engage(id: PersonId): Promise<{ preset: string; engaged: EngagedBot } | undefined> {
+  async engage(id: PersonId, by: Membership): Promise<{ preset: string; engaged: EngagedBot } | undefined> {
     const entry = this.written.get(id) ?? (await this.ready).table('bots').get(id)
     if (entry === undefined) return undefined
+    // Not `administers`: an ordinary member of that organization may talk to
+    // its bots, and a platform standing reaches every organization.
+    const inside = by.role === 'platform-administrator' || by.organization === entry.organization
+    if (!inside) throw new BotsRefusedError('not-yours', NOT_YOURS)
     return {
       preset: entry.preset,
       engaged: { bot: entry.id, displayName: entry.displayName, persona: entry.persona },
