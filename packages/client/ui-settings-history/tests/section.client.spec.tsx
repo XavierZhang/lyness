@@ -43,26 +43,54 @@ const ADDED: AuditEntryView = {
 }
 
 /** The shipped Chinese copy, so the test reads what a user reads. */
-const t = ((key: keyof typeof zh) => zh[key]) as HistorySectionProps['t']
+const t = ((key: keyof typeof zh, values?: Record<string, string>) => {
+  const text = zh[key]
+  return values === undefined
+    ? text
+    : text.replace(/\{(\w+)\}/gu, (_, name: string) => values[name] ?? '')
+}) as HistorySectionProps['t']
 
 /** One rendered section over a fixed state. */
 function renderSection(state: HistorySectionState) {
   const load = vi.fn(() => Promise.resolve())
   const retry = vi.fn(() => Promise.resolve())
   const loadMore = vi.fn(() => Promise.resolve())
+  const exportTrail = vi.fn(() => Promise.resolve())
   const useStore = (<T,>(select: (value: HistorySectionState) => T) => select(state)) as HistorySectionProps['useStore']
-  const props = { t, useStore, load, retry, loadMore } as HistorySectionProps
-  return { ...render(<HistorySection {...props} />), load, retry, loadMore }
+  const props = { t, useStore, load, retry, loadMore, exportTrail } as HistorySectionProps
+  return { ...render(<HistorySection {...props} />), load, retry, loadMore, exportTrail }
 }
 
 /** A ready state carrying these entries. */
 function ready(entries: readonly AuditEntryView[], over: Partial<HistorySectionState> = {}): HistorySectionState {
-  return { status: 'ready', entries, more: false, loadingMore: false, ...over }
+  return {
+    status: 'ready',
+    entries,
+    more: false,
+    loadingMore: false,
+    exporting: false,
+    exported: undefined,
+    exportFailed: false,
+    ...over,
+  }
+}
+
+/** A state before the read has answered, with whatever one test varies. */
+function pending(status: HistorySectionState['status']): HistorySectionState {
+  return {
+    status,
+    entries: [],
+    more: false,
+    loadingMore: false,
+    exporting: false,
+    exported: undefined,
+    exportFailed: false,
+  }
 }
 
 describe('what the section shows', () => {
   it('reads the trail when it opens', () => {
-    const { load } = renderSection({ status: 'idle', entries: [], more: false, loadingMore: false })
+    const { load } = renderSection(pending('idle'))
     expect(load).toHaveBeenCalledOnce()
   })
 
@@ -138,6 +166,29 @@ describe('what the section shows', () => {
     expect(screen.queryByRole('button', { name: zh.loadMore })).toBeNull()
   })
 
+  it('hands the whole trail over as a file, and says what the file holds', () => {
+    const exporting = renderSection(ready([CHANGED]))
+    fireEvent.click(screen.getByRole('button', { name: zh.export }))
+    expect(exporting.exportTrail).toHaveBeenCalledOnce()
+    cleanup()
+
+    renderSection(ready([CHANGED], { exporting: true }))
+    expect(screen.getByRole('button', { name: zh.exporting })).toHaveProperty('disabled', true)
+    cleanup()
+
+    renderSection(ready([CHANGED], { exported: { count: 12, complete: true } }))
+    expect(screen.getByText(zh.exportDone.replace('{count}', '12'))).toBeDefined()
+    cleanup()
+
+    // A file that is not the whole history says so rather than looking whole.
+    renderSection(ready([CHANGED], { exported: { count: 10_000, complete: false } }))
+    expect(screen.getByText(zh.exportPartial.replace('{count}', '10000'))).toBeDefined()
+    cleanup()
+
+    renderSection(ready([CHANGED], { exportFailed: true }))
+    expect(screen.getByText(zh.exportFailed)).toBeDefined()
+  })
+
   it('reads again when the reader refreshes', () => {
     const { retry } = renderSection(ready([CHANGED]))
     fireEvent.click(screen.getByRole('button', { name: zh.refresh }))
@@ -147,7 +198,7 @@ describe('what the section shows', () => {
 
 describe('what the section says while the read is unfinished', () => {
   it('offers a retry only for a read that broke', () => {
-    const failed = renderSection({ status: 'failed', entries: [], more: false, loadingMore: false })
+    const failed = renderSection(pending('failed'))
     expect(screen.getByText(zh.failed)).toBeDefined()
     fireEvent.click(screen.getByRole('button', { name: zh.retry }))
     expect(failed.retry).toHaveBeenCalledOnce()
@@ -155,17 +206,17 @@ describe('what the section says while the read is unfinished', () => {
 
     // A deployment that keeps no trail will not grow one, and a caller
     // without the standing will not gain it by asking again.
-    renderSection({ status: 'unavailable', entries: [], more: false, loadingMore: false })
+    renderSection(pending('unavailable'))
     expect(screen.getByText(zh.unavailable)).toBeDefined()
     expect(screen.queryByRole('button', { name: zh.retry })).toBeNull()
     cleanup()
 
-    renderSection({ status: 'forbidden', entries: [], more: false, loadingMore: false })
+    renderSection(pending('forbidden'))
     expect(screen.getByText(zh.forbidden)).toBeDefined()
     expect(screen.queryByRole('button', { name: zh.retry })).toBeNull()
     cleanup()
 
-    renderSection({ status: 'loading', entries: [], more: false, loadingMore: false })
+    renderSection(pending('loading'))
     expect(screen.getByText(zh.loading)).toBeDefined()
   })
 })

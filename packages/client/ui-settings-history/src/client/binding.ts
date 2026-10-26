@@ -11,7 +11,7 @@
  */
 
 import type { AuditEntryView } from '@lyness/lyn-api-admin-audit-controller/types'
-import type { HistoryOperations, HistorySink } from './operations.ts'
+import type { ExportOutcome, HistoryOperations, HistorySink } from './operations.ts'
 import type { HistorySectionInjected } from './HistorySection.tsx'
 
 /**
@@ -61,6 +61,15 @@ export class SectionBinding implements HistorySink {
    * @param entries - the next, older entries; empty means there are none.
    */
   appended(entries: readonly AuditEntryView[]): void { this.actions?.appended(entries) }
+
+  /** Report that an export has started. */
+  exporting(): void { this.actions?.exporting() }
+
+  /**
+   * Report what an export produced.
+   * @param outcome - how many entries the file holds and whether it is whole; absent means no file was written.
+   */
+  exported(outcome: ExportOutcome | undefined): void { this.actions?.exported(outcome) }
 }
 
 /**
@@ -79,6 +88,11 @@ export function sectionFace(
 ): (actions: HistoryActions) => HistorySectionInjected {
   return (actions: HistoryActions): HistorySectionInjected => {
     binding.bind(actions)
-    return { load: operations.load, retry: operations.retry, loadMore: operations.loadMore }
+    return {
+      load: operations.load,
+      retry: operations.retry,
+      loadMore: operations.loadMore,
+      exportTrail: operations.exportTrail,
+    }
   }
 }

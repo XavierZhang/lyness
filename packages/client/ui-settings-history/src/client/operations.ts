@@ -27,6 +27,33 @@ export interface HistoryCalls {
   read: (query: AuditQueryInput) => Promise<CallOutcome<readonly AuditEntryView[]>>
 }
 
+/**
+ * The most entries one export writes.
+ *
+ * A bound rather than a deployment setting: the loop that pages the whole
+ * trail has to stop at something it decides itself, and an auditor who hits
+ * it is told the file is partial rather than handed a truncated one quietly.
+ * Ten thousand entries is a file a spreadsheet and a log pipeline both open.
+ */
+export const MAX_EXPORT_ENTRIES = 10_000
+
+/** What one export produced. */
+export interface ExportOutcome {
+  /** How many entries the file holds. */
+  readonly count: number
+  /** Whether it holds the whole trail, rather than stopping at the bound. */
+  readonly complete: boolean
+}
+
+/**
+ * Hands one finished file to the reader.
+ *
+ * A seam rather than a direct download, because what "hand it over" means
+ * belongs to the surface: the browser saves it, and a test asserts what was
+ * written without a document to click in.
+ */
+export type DeliverFile = (name: string, contents: string) => void
+
 /** Where an outcome is published. */
 export interface HistorySink {
   /** A read has started. */
@@ -41,6 +68,10 @@ export interface HistorySink {
   appending: () => void
   /** A continuation returned the next, older entries. */
   appended: (entries: readonly AuditEntryView[]) => void
+  /** An export has started. */
+  exporting: () => void
+  /** An export finished, or did not. */
+  exported: (outcome: ExportOutcome | undefined) => void
 }
 
 /** What the section's injected face hands over. */
@@ -51,6 +82,8 @@ export interface HistoryOperations {
   retry: () => Promise<void>
   /** Read the entries older than one already shown. */
   loadMore: (before: string) => Promise<void>
+  /** Page the whole trail and hand it over as one file. */
+  exportTrail: () => Promise<void>
 }
 
 /**
@@ -83,12 +116,31 @@ export function statusOf(error: RemoteFailure): 'failed' | 'unavailable' | 'forb
 }
 
 /**
+ * The file one export writes.
+ *
+ * One JSON entry per line, as the namespace answered it. CSV would have to
+ * flatten or stringify the changed fields, which is the part an auditor came
+ * for; a line-delimited stream is what a log pipeline reads and what a
+ * spreadsheet can still import.
+ * @param entries - the entries to write, newest first.
+ * @returns the file's contents.
+ */
+export function trailFile(entries: readonly AuditEntryView[]): string {
+  return entries.map(entry => JSON.stringify(entry)).join('\n') + '\n'
+}
+
+/**
  * Build the operations.
  * @param calls - performs the Remote call.
  * @param sink - where each outcome is published.
+ * @param deliver - hands one finished file to the reader.
  * @returns the operations the section's injected face hands over.
  */
-export function createHistoryOperations(calls: HistoryCalls, sink: HistorySink): HistoryOperations {
+export function createHistoryOperations(
+  calls: HistoryCalls,
+  sink: HistorySink,
+  deliver: DeliverFile,
+): HistoryOperations {
   const shared = createSharedRead(async () => {
     sink.begin()
     try {
@@ -117,5 +169,32 @@ export function createHistoryOperations(calls: HistoryCalls, sink: HistorySink):
         sink.appended([])
       }
     },
+    exportTrail: async (): Promise<void> => {
+      sink.exporting()
+      const collected: AuditEntryView[] = []
+      try {
+        let before: string | undefined
+        for (;;) {
+          const read = await calls.read(before === undefined ? {} : { before })
+          // A refused page stops the export rather than writing a file that
+          // claims to be the trail and is not.
+          if (!read.ok) { sink.exported(undefined); return }
+          if (read.value.length === 0) break
+          collected.push(...read.value)
+          before = read.value[read.value.length - 1]?.id
+          if (collected.length >= MAX_EXPORT_ENTRIES) break
+        }
+      } catch {
+        sink.exported(undefined)
+        return
+      }
+      const complete = collected.length < MAX_EXPORT_ENTRIES
+      const written = complete ? collected : collected.slice(0, MAX_EXPORT_ENTRIES)
+      deliver(EXPORT_FILE_NAME, trailFile(written))
+      sink.exported({ count: written.length, complete })
+    },
   }
 }
+
+/** The name the exported file is offered under. */
+export const EXPORT_FILE_NAME = 'administrative-history.jsonl'

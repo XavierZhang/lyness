@@ -30,8 +30,12 @@ export type { HistorySectionInjected, HistorySectionProps } from './HistorySecti
 export { actionLabel, kindLabel } from './HistorySection.tsx'
 export { createHistorySectionStore } from './store.ts'
 export type { HistorySectionState, HistoryStatus } from './store.ts'
-export { createHistoryOperations, historyCallsOf, statusOf } from './operations.ts'
-export type { CallOutcome, HistoryCalls, HistoryOperations, HistorySink } from './operations.ts'
+export {
+  createHistoryOperations, EXPORT_FILE_NAME, historyCallsOf, MAX_EXPORT_ENTRIES, statusOf, trailFile,
+} from './operations.ts'
+export type {
+  CallOutcome, DeliverFile, ExportOutcome, HistoryCalls, HistoryOperations, HistorySink,
+} from './operations.ts'
 export { SectionBinding, sectionFace } from './binding.ts'
 export type { HistoryActions } from './binding.ts'
 
@@ -41,6 +45,27 @@ declare module '@lyness/lyn-client-ui-slots' {
 
 /** The locale namespace this section's copy lives in. */
 export const NS = 'settings.history'
+
+/**
+ * Hand one finished file to the reader, the way the browser does.
+ *
+ * The product's own window has no download handler of its own, so the
+ * browser and the desktop shell both save it where that platform saves
+ * downloads. Exported as a named function so the section's own tests assert
+ * what was written without a document to click in.
+ * @param name - the file name to offer it under.
+ * @param contents - the file's text.
+ */
+export function deliverDownload(name: string, contents: string): void {
+  const url = URL.createObjectURL(new Blob([contents], { type: 'application/x-ndjson' }))
+  const link = document.createElement('a')
+  link.href = url
+  link.download = name
+  link.click()
+  // Released on the next tick rather than immediately: a click that has not
+  // been handled yet still needs the object alive.
+  setTimeout(() => { URL.revokeObjectURL(url) }, 0)
+}
 
 /** Services required by the history section. */
 export const inject = ['slots', 'locale', 'remote', 'remote.audit']
@@ -53,7 +78,7 @@ export function apply(ctx: Context): void {
   ctx.effect(() => ctx.locale.register(NS, { en, zh }), 'history: dictionaries')
   const store = createHistorySectionStore()
   const binding = new SectionBinding()
-  const operations = createHistoryOperations(historyCallsOf(ctx), binding)
+  const operations = createHistoryOperations(historyCallsOf(ctx), binding, deliverDownload)
   const t = ctx.locale.bind(NS)
 
   ctx.slots.inject('settings.section', () => ctx.slots.register({

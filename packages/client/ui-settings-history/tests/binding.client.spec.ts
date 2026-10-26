@@ -32,6 +32,8 @@ function actions(): HistoryActions & { readonly calls: string[] } {
     reset: () => { calls.push('reset') },
     appending: () => { calls.push('appending') },
     appended: (entries) => { calls.push(`appended:${String(entries.length)}`) },
+    exporting: () => { calls.push('exporting') },
+    exported: (outcome) => { calls.push(outcome === undefined ? 'exported:none' : `exported:${String(outcome.count)}`) },
   }
 }
 
@@ -43,6 +45,9 @@ function publishAll(binding: SectionBinding): void {
   binding.reset()
   binding.appending()
   binding.appended([ENTRY])
+  binding.exporting()
+  binding.exported({ count: 1, complete: true })
+  binding.exported(undefined)
 }
 
 describe('publishing before a render', () => {
@@ -62,7 +67,10 @@ describe('publishing once the framework has baked a store', () => {
 
     publishAll(binding)
 
-    expect(bound.calls).toEqual(['begin', 'succeed:1', 'fail:failed', 'reset', 'appending', 'appended:1'])
+    expect(bound.calls).toEqual([
+      'begin', 'succeed:1', 'fail:failed', 'reset', 'appending', 'appended:1',
+      'exporting', 'exported:1', 'exported:none',
+    ])
   })
 })
 
@@ -73,11 +81,12 @@ describe('the inject factory', () => {
     const load = vi.fn(() => Promise.resolve())
     const retry = vi.fn(() => Promise.resolve())
     const loadMore = vi.fn(() => Promise.resolve())
-    const operations: HistoryOperations = { load, retry, loadMore }
+    const exportTrail = vi.fn(() => Promise.resolve())
+    const operations: HistoryOperations = { load, retry, loadMore, exportTrail }
 
     const injected = sectionFace(binding, operations)(bound)
 
-    expect(injected).toEqual({ load, retry, loadMore })
+    expect(injected).toEqual({ load, retry, loadMore, exportTrail })
     binding.begin()
     expect(bound.calls).toEqual(['begin'])
   })

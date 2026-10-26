@@ -11,6 +11,7 @@
 import { defineStore } from '@lyness/lyn-client-store'
 import type { EngineStoreHandle } from '@lyness/lyn-client-store'
 import type { AuditEntryView } from '@lyness/lyn-api-admin-audit-controller/types'
+import type { ExportOutcome } from './operations.ts'
 
 /** Where the read stands. */
 export type HistoryStatus = 'idle' | 'loading' | 'ready' | 'failed' | 'unavailable' | 'forbidden'
@@ -31,6 +32,12 @@ export interface HistorySectionState {
   more: boolean
   /** True while a continuation is in flight. */
   loadingMore: boolean
+  /** True while an export is paging the trail. */
+  exporting: boolean
+  /** What the last export produced, or undefined when it did not finish. */
+  exported: ExportOutcome | undefined
+  /** True when the last export stopped before writing a file. */
+  exportFailed: boolean
 }
 
 /** Declared action shape giving the exported factory a stable return type. */
@@ -41,6 +48,8 @@ type HistorySectionActions = {
   reset: (draft: HistorySectionState) => void
   appending: (draft: HistorySectionState) => void
   appended: (draft: HistorySectionState, entries: readonly AuditEntryView[]) => void
+  exporting: (draft: HistorySectionState) => void
+  exported: (draft: HistorySectionState, outcome: ExportOutcome | undefined) => void
 }
 
 /**
@@ -49,7 +58,15 @@ type HistorySectionActions = {
  */
 export function createHistorySectionStore(): EngineStoreHandle<HistorySectionState, HistorySectionActions> {
   return defineStore({
-    init: (): HistorySectionState => ({ status: 'idle', entries: [], more: false, loadingMore: false }),
+    init: (): HistorySectionState => ({
+      status: 'idle',
+      entries: [],
+      more: false,
+      loadingMore: false,
+      exporting: false,
+      exported: undefined,
+      exportFailed: false,
+    }),
     actions: {
       begin: (draft) => { draft.status = 'loading' },
       succeed: (draft, entries: readonly AuditEntryView[]) => {
@@ -72,6 +89,18 @@ export function createHistorySectionStore(): EngineStoreHandle<HistorySectionSta
         draft.loadingMore = false
         draft.more = entries.length > 0
         draft.entries = [...draft.entries, ...entries]
+      },
+      exporting: (draft) => {
+        draft.exporting = true
+        draft.exported = undefined
+        draft.exportFailed = false
+      },
+      // An export that did not finish writes no file, so the reader is told
+      // that rather than left with a count of nothing.
+      exported: (draft, outcome: ExportOutcome | undefined) => {
+        draft.exporting = false
+        draft.exported = outcome
+        draft.exportFailed = outcome === undefined
       },
     },
   })

@@ -24,6 +24,8 @@ export interface HistorySectionInjected {
   retry: () => Promise<void>
   /** Read the entries older than one already shown. */
   loadMore: (before: string) => Promise<void>
+  /** Page the whole trail and hand it over as one file. */
+  exportTrail: () => Promise<void>
 }
 
 /** Full component props: runtime share + store share + locale seat + injected face. */
@@ -139,11 +141,14 @@ function EntryRow({ entry, t }: { entry: AuditEntryView; t: Translate }) {
  * @param props - the locale seat, the store share and the injected face.
  * @returns the section element tree.
  */
-export function HistorySection({ t, useStore, load, retry, loadMore }: HistorySectionProps) {
+export function HistorySection({ t, useStore, load, retry, loadMore, exportTrail }: HistorySectionProps) {
   const status = useStore(state => state.status)
   const entries = useStore(state => state.entries)
   const more = useStore(state => state.more)
   const loadingMore = useStore(state => state.loadingMore)
+  const exporting = useStore(state => state.exporting)
+  const exported = useStore(state => state.exported)
+  const exportFailed = useStore(state => state.exportFailed)
   const oldest = entries[entries.length - 1]?.id
 
   // The read starts when the section opens rather than at plugin load: a
@@ -177,8 +182,19 @@ export function HistorySection({ t, useStore, load, retry, loadMore }: HistorySe
         <>
           <div className={css.toolbar}>
             <Button variant="outline" onClick={() => { void retry() }}>{t('refresh')}</Button>
+            <Button variant="outline" disabled={exporting} onClick={() => { void exportTrail() }}>
+              {exporting ? t('exporting') : t('export')}
+            </Button>
             <p className={css.hint}>{t('pageHint')}</p>
           </div>
+          {exportFailed ? <p className={css.hint}>{t('exportFailed')}</p> : null}
+          {exported === undefined ? null : (
+            <p className={css.hint}>
+              {exported.complete
+                ? t('exportDone', { count: String(exported.count) })
+                : t('exportPartial', { count: String(exported.count) })}
+            </p>
+          )}
           {entries.length === 0
             ? <p className={css.notice}>{t('none')}</p>
             : (

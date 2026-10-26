@@ -41,6 +41,11 @@ export const en = {
   loadMore: 'Load older entries',
   loadingMore: 'Loading…',
   allShown: 'That is the whole history this organization has.',
+  export: 'Export',
+  exporting: 'Exporting…',
+  exportDone: 'Exported {count} entries, one JSON object per line.',
+  exportPartial: 'Exported the newest {count} entries. The history is longer than one export holds.',
+  exportFailed: 'The export stopped and wrote no file. Please try again.',
 }
 
 /** The keys this section's copy is addressed by. */
@@ -82,4 +87,9 @@ export const zh: Record<HistoryKey, string> = {
   loadMore: '加载更早的条目',
   loadingMore: '正在加载……',
   allShown: '这就是这个组织的全部历史了。',
+  export: '导出',
+  exporting: '正在导出……',
+  exportDone: '已导出 {count} 条，每行一个 JSON 对象。',
+  exportPartial: '已导出最新的 {count} 条。这份历史比一次导出装得下的更长。',
+  exportFailed: '导出中断了，没有写出文件。请再试一次。',
 }

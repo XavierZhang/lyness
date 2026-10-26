@@ -32,7 +32,7 @@ The Web app mounts it beside the sections whose changes it shows:
   name: '@lyness/lyn-client-ui-settings-history'
 ```
 
-There is nothing to configure. The section registers into `settings.section` at order 50, after the bots, and reads `remote.audit` when it is opened.
+There is nothing to configure. The section registers into `settings.section` at order 50, after the bots, and reads `remote.audit` when it is opened. An export is handed to the reader as a download, which the browser and the desktop shell each save where that platform saves downloads.
 
 -----
 
@@ -48,6 +48,8 @@ There is nothing to configure. The section registers into `settings.section` at 
 **A kind this build does not know is shown as the server named it.** The set of administrable records is open, so a later owner of them reads here as itself rather than as a blank.
 
 **An empty value is named, not left out.** A field changed to the empty string is a change worth reading, so the row says so rather than showing a gap where a value belongs.
+
+**An export is the same paging, written out.** It pages from the newest with the one read this surface already makes, so there is no second server surface to keep in step with the first. One JSON object per line, as the namespace answered it: CSV would have to flatten or stringify the changed fields, which is the part an auditor came for. A page that is refused stops the export and writes nothing, because a file that claims to be the trail and is not would be worse than none.
 
 **Older entries load a page at a time, by cursor.** The continuation names the oldest entry on the page, so a reader paging back is not moved by what administrators do meanwhile. There is no count of what is left — the deployment clamps the page and does not say by how much — so the button is offered while a page came back with anything in it, and a continuation that comes back empty is what says the history is whole.
 
@@ -77,7 +79,7 @@ No request prefix changes, because nothing here contributes to an assembled requ
 
 <a id="known-limitations-and-deferred-work"></a>
 
-- **No export** — a reader can page back to the whole history, and has no way to take it out of the page as a file for an auditor's own tools.
+- **An export stops at ten thousand entries** — the loop that pages the trail has to stop at something it decides itself; a reader who hits the bound is told the file is the newest ten thousand rather than handed a truncated one quietly. There is no way to export an older stretch.
 - **No filter and no search** — every kind, every record and every administrator are shown together; a reader looking for one record's history has to find it by eye.
 - **The time is the stored instant** — each entry shows the UTC instant the trail recorded, not a time formatted for the reader's own locale and zone.
 - **A record is named by its id** — an entry names the record's identity and the name it went by, and nothing links to the row it describes on the people or bots page.
@@ -93,6 +95,6 @@ No request prefix changes, because nothing here contributes to an assembled requ
 <details>
 <summary>Working context for maintainers — click to expand</summary>
 
-`kindLabel` and `actionLabel` are exported so the two label mappings are testable without rendering the section, which is also what pins that an unknown kind is shown rather than dropped.
+`kindLabel` and `actionLabel` are exported so the two label mappings are testable without rendering the section, which is also what pins that an unknown kind is shown rather than dropped. `deliverDownload` is exported for the same reason: the operations take handing a file over as a parameter, so what gets written is asserted without a document to click in.
 
 </details>

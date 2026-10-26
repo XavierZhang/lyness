@@ -92,8 +92,15 @@ describe('ui-settings-history apply', () => {
   it('declares a store the section reads through', async () => {
     const { slots } = await bench()
     const handle = entryOf(slots).store as Handle
-    expect(handle.create().store.getSnapshot())
-      .toEqual({ status: 'idle', entries: [], more: false, loadingMore: false })
+    expect(handle.create().store.getSnapshot()).toEqual({
+      status: 'idle',
+      entries: [],
+      more: false,
+      loadingMore: false,
+      exporting: false,
+      exported: undefined,
+      exportFailed: false,
+    })
   })
 
   it('declares a store whose writes move the read through its states', async () => {
@@ -112,6 +119,16 @@ describe('ui-settings-history apply', () => {
     instance.actions.appended([])
     expect(instance.store.getSnapshot()).toMatchObject({ more: false, loadingMore: false })
     expect(instance.store.getSnapshot().entries).toHaveLength(2)
+    // An export that wrote no file is reported as that, not as a count of
+    // nothing.
+    instance.actions.exporting()
+    expect(instance.store.getSnapshot()).toMatchObject({ exporting: true, exported: undefined })
+    instance.actions.exported({ count: 2, complete: true })
+    expect(instance.store.getSnapshot())
+      .toMatchObject({ exporting: false, exported: { count: 2, complete: true }, exportFailed: false })
+    instance.actions.exporting()
+    instance.actions.exported(undefined)
+    expect(instance.store.getSnapshot()).toMatchObject({ exported: undefined, exportFailed: true })
     instance.actions.fail('forbidden')
     expect(instance.store.getSnapshot().status).toBe('forbidden')
     instance.actions.reset()
