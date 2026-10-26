@@ -300,6 +300,7 @@
     { "path": "./packages/client/ui-settings-announcements/tsconfig.host.json" },
     { "path": "./packages/client/ui-settings-credits/tsconfig.host.json" },
     { "path": "./packages/client/ui-settings-bots/tsconfig.host.json" },
+    { "path": "./packages/client/ui-settings-history/tsconfig.host.json" },
     { "path": "./packages/client/ui-settings-people/tsconfig.host.json" },
     { "path": "./packages/client/ui-settings-sign-in-channels/tsconfig.host.json" },
     { "path": "./packages/client/ui-sign-in/tsconfig.host.json" },

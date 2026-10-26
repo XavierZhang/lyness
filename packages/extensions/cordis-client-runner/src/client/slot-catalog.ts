@@ -2696,6 +2696,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
       'client-ui-settings-bots BotsSection id \'bots\'',
       'client-ui-settings-credits CreditsSection id \'credits\'',
       'client-ui-settings-general GeneralSection id \'general\'',
+      'client-ui-settings-history HistorySection id \'history\'',
       'client-ui-settings-models ModelsSection id \'models\'',
       'client-ui-settings-people PeopleSection id \'people\'',
       'client-ui-settings-plugins PluginsSettingsSection id \'plugins\'',

@@ -4775,6 +4775,7 @@ These load from a `cordis.yml` entry with no `config:` block; they declare no co
 | `@lyness/lyn-client-ui-settings-bots` | — | [`packages/client/ui-settings-bots/src/index.ts`](../packages/client/ui-settings-bots/src/index.ts) |
 | `@lyness/lyn-client-ui-settings-credits` | — | [`packages/client/ui-settings-credits/src/index.ts`](../packages/client/ui-settings-credits/src/index.ts) |
 | `@lyness/lyn-client-ui-settings-general` | — | [`packages/client/ui-settings-general/src/index.ts`](../packages/client/ui-settings-general/src/index.ts) |
+| `@lyness/lyn-client-ui-settings-history` | — | [`packages/client/ui-settings-history/src/index.ts`](../packages/client/ui-settings-history/src/index.ts) |
 | `@lyness/lyn-client-ui-settings-people` | — | [`packages/client/ui-settings-people/src/index.ts`](../packages/client/ui-settings-people/src/index.ts) |
 | `@lyness/lyn-client-ui-settings-plugin-inventory` | — | [`packages/client/ui-settings-plugin-inventory/src/index.ts`](../packages/client/ui-settings-plugin-inventory/src/index.ts) |
 | `@lyness/lyn-client-ui-settings-plugins` | — | [`packages/client/ui-settings-plugins/src/index.ts`](../packages/client/ui-settings-plugins/src/index.ts) |

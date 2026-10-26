@@ -330,6 +330,13 @@
     - id: ui-settings-bots
       name: '@lyness/lyn-client-ui-settings-bots'
 
+    # The history of what either page changed, read-only because the trail is
+    # append-only: a page offering to edit an entry would offer something the
+    # deployment refuses. It renders a notice where no trail is kept, so the
+    # single-operator shape sees no change.
+    - id: ui-settings-history
+      name: '@lyness/lyn-client-ui-settings-history'
+
     # The sign-in screen, and the row naming whose session this is. On a
     # deployment with no accounts both render nothing, so the single-operator
     # shape sees no change.

@@ -1,0 +1,169 @@
+// @vitest-environment jsdom
+
+/**
+ * What the section shows: the recorded changes newest first with both sides
+ * of every field, a kind this build does not know shown as the server named
+ * it, a cut value marked, and the read's own states.
+ */
+
+import { afterEach, describe, expect, it, vi } from 'vitest'
+import { cleanup, fireEvent, render, screen } from '@testing-library/react'
+import type { AuditEntryView } from '@lyness/lyn-api-admin-audit-controller/types'
+import { actionLabel, HistorySection, kindLabel } from '../src/client/HistorySection.tsx'
+import type { HistorySectionProps } from '../src/client/HistorySection.tsx'
+import type { HistorySectionState } from '../src/client/store.ts'
+import { zh } from '../src/client/locales.ts'
+
+afterEach(cleanup)
+
+const CHANGED: AuditEntryView = {
+  id: '2026-10-26T02:00:00.000Z:two',
+  at: '2026-10-26T02:00:00.000Z',
+  by: 'ada',
+  standing: 'ada:tenant-administrator',
+  kind: 'bot',
+  subject: 'triage',
+  subjectName: 'Triage',
+  action: 'changed',
+  organization: 'acme',
+  changes: [{ field: 'persona', before: 'Be brief.', after: 'Be thorough.' }],
+}
+
+const ADDED: AuditEntryView = {
+  id: '2026-10-26T01:00:00.000Z:one',
+  at: '2026-10-26T01:00:00.000Z',
+  by: 'ada',
+  standing: 'ada:tenant-administrator',
+  kind: 'person',
+  subject: 'bea',
+  subjectName: 'Bea',
+  action: 'added',
+  organization: 'acme',
+  changes: [{ field: 'role', after: 'member' }],
+}
+
+/** The shipped Chinese copy, so the test reads what a user reads. */
+const t = ((key: keyof typeof zh) => zh[key]) as HistorySectionProps['t']
+
+/** One rendered section over a fixed state. */
+function renderSection(state: HistorySectionState) {
+  const load = vi.fn(() => Promise.resolve())
+  const retry = vi.fn(() => Promise.resolve())
+  const useStore = (<T,>(select: (value: HistorySectionState) => T) => select(state)) as HistorySectionProps['useStore']
+  const props = { t, useStore, load, retry } as HistorySectionProps
+  return { ...render(<HistorySection {...props} />), load, retry }
+}
+
+/** A ready state carrying these entries. */
+function ready(entries: readonly AuditEntryView[]): HistorySectionState {
+  return { status: 'ready', entries }
+}
+
+describe('what the section shows', () => {
+  it('reads the trail when it opens', () => {
+    const { load } = renderSection({ status: 'idle', entries: [] })
+    expect(load).toHaveBeenCalledOnce()
+  })
+
+  it('shows each change with both sides of every field', () => {
+    renderSection(ready([CHANGED, ADDED]))
+
+    expect(screen.getByText('Triage')).toBeDefined()
+    expect(screen.getByText('persona')).toBeDefined()
+    expect(screen.getByText('Be brief.')).toBeDefined()
+    expect(screen.getByText('Be thorough.')).toBeDefined()
+    // An addition has only the new value, so no "was" is claimed for it.
+    expect(screen.getByText('member')).toBeDefined()
+    expect(screen.getAllByText(zh.fieldWas)).toHaveLength(1)
+  })
+
+  it('names an empty value rather than showing nothing where a value belongs', () => {
+    renderSection(ready([{
+      ...CHANGED,
+      changes: [
+        { field: 'job', before: 'Files reports.', after: '' },
+        { field: 'persona', before: '', after: 'Be brief.' },
+        // A removal keeps the value that is gone and claims nothing on the
+        // other side.
+        { field: 'preset', before: 'standard' },
+      ],
+    }]))
+    expect(screen.getAllByText(zh.fieldEmpty)).toHaveLength(2)
+    expect(screen.getAllByText(zh.fieldWas)).toHaveLength(3)
+    expect(screen.getAllByText(zh.fieldNow)).toHaveLength(2)
+  })
+
+  it('marks a value the deployment cut, and says why once', () => {
+    renderSection(ready([{
+      ...CHANGED,
+      changes: [{ field: 'persona', after: 'Be tho', truncated: true }],
+    }]))
+    expect(screen.getByText(zh.truncated)).toBeDefined()
+    expect(screen.getByText(zh.truncatedHint)).toBeDefined()
+  })
+
+  it('says so when a change recorded no field', () => {
+    renderSection(ready([{ ...CHANGED, changes: [] }]))
+    expect(screen.getByText(zh.noFields)).toBeDefined()
+  })
+
+  it('says so when nothing has been changed yet', () => {
+    renderSection(ready([]))
+    expect(screen.getByText(zh.none)).toBeDefined()
+  })
+
+  it('reads again when the reader refreshes', () => {
+    const { retry } = renderSection(ready([CHANGED]))
+    fireEvent.click(screen.getByRole('button', { name: zh.refresh }))
+    expect(retry).toHaveBeenCalledOnce()
+  })
+})
+
+describe('what the section says while the read is unfinished', () => {
+  it('offers a retry only for a read that broke', () => {
+    const failed = renderSection({ status: 'failed', entries: [] })
+    expect(screen.getByText(zh.failed)).toBeDefined()
+    fireEvent.click(screen.getByRole('button', { name: zh.retry }))
+    expect(failed.retry).toHaveBeenCalledOnce()
+    cleanup()
+
+    // A deployment that keeps no trail will not grow one, and a caller
+    // without the standing will not gain it by asking again.
+    renderSection({ status: 'unavailable', entries: [] })
+    expect(screen.getByText(zh.unavailable)).toBeDefined()
+    expect(screen.queryByRole('button', { name: zh.retry })).toBeNull()
+    cleanup()
+
+    renderSection({ status: 'forbidden', entries: [] })
+    expect(screen.getByText(zh.forbidden)).toBeDefined()
+    expect(screen.queryByRole('button', { name: zh.retry })).toBeNull()
+    cleanup()
+
+    renderSection({ status: 'loading', entries: [] })
+    expect(screen.getByText(zh.loading)).toBeDefined()
+  })
+})
+
+describe('naming a record and what happened to it', () => {
+  it('names the four kinds it knows and shows another as the server named it', () => {
+    expect(kindLabel('person', t)).toBe(zh.kindPerson)
+    expect(kindLabel('binding', t)).toBe(zh.kindBinding)
+    expect(kindLabel('bot', t)).toBe(zh.kindBot)
+    expect(kindLabel('team', t)).toBe(zh.kindTeam)
+    // The set is open, so a later owner of administrable records reads as
+    // itself here rather than as a blank.
+    expect(kindLabel('workspace', t)).toBe('workspace')
+  })
+
+  it('names each of the three actions', () => {
+    expect(actionLabel('added', t)).toBe(zh.actionAdded)
+    expect(actionLabel('changed', t)).toBe(zh.actionChanged)
+    expect(actionLabel('removed', t)).toBe(zh.actionRemoved)
+  })
+
+  it('leaves the organization off an entry that belongs to none', () => {
+    const { organization: _belongsToNone, ...platformWide } = ADDED
+    renderSection(ready([platformWide]))
+    expect(screen.queryByText(`${zh.organization}: acme`)).toBeNull()
+  })
+})

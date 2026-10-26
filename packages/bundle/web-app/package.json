@@ -111,6 +111,7 @@
     "@lyness/lyn-client-ui-settings-general": "workspace:*",
     "@lyness/lyn-client-ui-settings-models": "workspace:*",
     "@lyness/lyn-client-ui-settings-bots": "workspace:*",
+    "@lyness/lyn-client-ui-settings-history": "workspace:*",
     "@lyness/lyn-client-ui-settings-people": "workspace:*",
     "@lyness/lyn-client-ui-settings-plugin-inventory": "workspace:*",
     "@lyness/lyn-client-ui-settings-plugins": "workspace:*",
