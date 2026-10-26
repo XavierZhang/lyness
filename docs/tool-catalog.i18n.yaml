@@ -9,8 +9,8 @@
   en: 2936d68748e35ac2
   zh: 2200c557998f090b
 /tool-schema-catalog/tool-package-map:
-  en: 6c33e9433ea0c963
-  zh: 17196805dd11e19c
+  en: 081e5268bd399dc4
+  zh: 30880eed82498287
 /tool-schema-catalog/lyness-lyn-plugin-manager:
   en: 78ed2883903ca173
   zh: 78ed2883903ca173
@@ -282,8 +282,17 @@
   en: 2eac7360ba68b1bd
   zh: b5d676bf288c245e
 /tool-schema-catalog/lyness-lyn-experimental-tool-agent-team/wait-agent:
-  en: 17e73964fd628342
-  zh: 5c0582b2dce0c1a7
+  en: d3767a9fe9eddd40
+  zh: cfaa1772b04f5bd2
+/tool-schema-catalog/lyness-lyn-bot-ask:
+  en: 5674456c460edf3a
+  zh: 5674456c460edf3a
+/tool-schema-catalog/lyness-lyn-bot-ask/ask-teammate:
+  en: c63d1d73787306ae
+  zh: 5e4729c1857ad225
+/tool-schema-catalog/lyness-lyn-bot-ask/list-teammates:
+  en: 0b8cb8d294341233
+  zh: 369adad85ff76052
 /tool-schema-catalog/lyness-lyn-tool-todo:
   en: 6b46c55cd2c76927
   zh: 6b46c55cd2c76927

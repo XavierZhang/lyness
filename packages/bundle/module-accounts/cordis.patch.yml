@@ -95,6 +95,15 @@
     - id: bots-controller
       name: '@lyness/lyn-api-bots-controller'
 
+    # One bot asking a teammate. Its two model-facing tools cannot be a row
+    # here — they belong inside a preset whose whole row list this patch would
+    # have to restate — so the row below contributes them instead.
+    - id: bot-ask
+      name: '@lyness/lyn-bot-ask'
+
+    - id: bot-ask-tools
+      name: '@lyness/lyn-bot-ask/preset-contribution'
+
     # The four browser routes and the cookie, which is the only layer that
     # binds one sign-in to one browser.
     - id: sign-in-http

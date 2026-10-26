@@ -41,6 +41,7 @@ This table connects model-visible tool names to the plugin package and service s
 | `@lyness/lyn-tool-subagent-control` | `interrupt_agent`, `list_agents`, `send_message` | `ctx.tools`, `ctx.subagents`, `ctx.agents and ctx.sessionProjections (list_agents only)` | `tool/call`, `tool/result`, `child session events through ctx.subagents` | - | The globally named control tools over continuable background subagents: provider-bound `tool-subagent` instances register distinct delegation tools, while this package registers `send_message` and `interrupt_agent` once, plus `list_agents` from its separately loaded `/list-agents` plugin (whose catalog rows use the sessionProjections and live Agent registries). |
 | `@lyness/lyn-tool-jobs` | `job_kill`, `job_list`, `job_output` | `ctx.tools`, `ctx.jobs`, `ctx.systemPrompt` | `tool/call`, `tool/result`, `user/message via agent.inject() for background completion notices` | - | The kind-agnostic background-job controller: background bash commands, PTY sends, and subagents are read, listed, and killed through the same three tools. Loading the plugin attaches the controller that arms producers' `ctx.jobs.start()`. |
 | `@lyness/lyn-experimental-tool-agent-team` | `interrupt_agent`, `list_agents`, `send_message`, `spawn_teammate`, `team_task_create`, `team_task_get`, `team_task_list`, `team_task_update`, `wait_agent` | `ctx.tools`, `ctx.systemPrompt`, `ctx.agentTeams`, `an exact live Team member Agent` | `tool/call`, `team/member`, `team/message/queued`, `team/message/delivered`, `team/task`, `tool/result` | - | All nine tools are scoped to implicit Team Leads and durable teammates. The shipped lyn-base bundle keeps the package disabled; the documented Agent Teams profile patch enables it while disabling the legacy continuable-child control names. |
+| `@lyness/lyn-bot-ask` | `ask_teammate`, `list_teammates` | `ctx.tools`, `ctx.botAsk`, `ctx.managedBots`, `ctx.sessionProjections`, `a calling Agent` | `tool/call`, `bot/asked`, `bot/answered`, `tool/result` | - | Contributed into every preset that accepts rows rather than mounted as a preset row, because a patch cannot add one tool to a preset whose whole row list it would have to restate. An ask runs the answering turn in a session of the teammate's own, so the tokens it spends are that session's and the asking request receives only the answer. |
 | `@lyness/lyn-tool-todo` | `todo_write` | `ctx.tools`, `owning Agent session` | `tool/call`, `todo/write`, `tool/result` | - | todo_write is session-owned state; UIs render the latest todo/write event as a checklist. `allowParallelInProgress` is required with no default, so the catalog states its choice: `true`, whose description invites several `in_progress` items. A deployment choosing `false` receives the same tool with a description asking for exactly one active task. |
 | `@lyness/lyn-tool-workflow` | `workflow` | `ctx.tools`, `ctx.workflowEngine`, `ctx.systemPrompt`, `a calling Agent (exec.agent parents the script children)` | `tool/call`, `tool/result` | - | - |
 | `@lyness/lyn-tool-workspace-dependencies` | `load_workspace_dependencies` | `ctx.tools` | `tool/call`, `tool/result` | - | - |
@@ -2504,6 +2505,51 @@ Wait for the next teammate status, mailbox, or shared-task change after this cal
 Source: [`packages/experimental/tool-agent-team/src/index.ts`](../packages/experimental/tool-agent-team/src/index.ts)
 
 All nine tools are scoped to implicit Team Leads and durable teammates. The shipped lyn-base bundle keeps the package disabled; the documented Agent Teams profile patch enables it while disabling the legacy continuable-child control names.
+
+<a id="lynesslyn-bot-ask"></a>
+
+## `@lyness/lyn-bot-ask`
+
+### `ask_teammate`
+
+Ask one of your teammates a question and wait for its answer. It answers in a conversation of its own, with its own character and tools, and decides what to tell you. You receive prose written for your question — never its conversations. Both sides record the question and the answer.
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "teammate": {
+      "type": "string",
+      "description": "The id of a bot from list_teammates."
+    },
+    "question": {
+      "type": "string",
+      "description": "What to ask it. Include whatever context it needs: it cannot see your conversation."
+    }
+  },
+  "required": [
+    "teammate",
+    "question"
+  ]
+}
+```
+
+Source: [`packages/identity/bot-ask/src/tool.ts`](../packages/identity/bot-ask/src/tool.ts)
+
+### `list_teammates`
+
+List the bots you may ask. Each entry says what that bot is for and how it answers, so you can pick the one whose job covers your question. You cannot see any of their conversations.
+
+```json
+{
+  "type": "object",
+  "properties": {}
+}
+```
+
+Source: [`packages/identity/bot-ask/src/tool.ts`](../packages/identity/bot-ask/src/tool.ts)
+
+Contributed into every preset that accepts rows rather than mounted as a preset row, because a patch cannot add one tool to a preset whose whole row list it would have to restate. An ask runs the answering turn in a session of the teammate's own, so the tokens it spends are that session's and the asking request receives only the answer.
 
 <a id="lynesslyn-tool-todo"></a>
 

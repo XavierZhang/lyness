@@ -188,6 +188,34 @@ abstract revoke(id: AuthSessionId): Promise<boolean>
 
 Source: [`packages/identity/auth-session/src/index.ts`](../../packages/identity/auth-session/src/index.ts)
 
+<a id="ctxbotask--botask"></a>
+
+### `ctx.botAsk` — `BotAsk`
+
+One bot asking a teammate a question.
+
+```ts cordis-catalog
+/**
+ * Ask one teammate a question, and answer with what it said.
+ *
+ * The asking agent's own session decides who is asking: a session that
+ * speaks as nobody has no teammates, so a person's own conversation cannot
+ * reach another bot this way.
+ * @param asker - the agent asking, whose session names the asking bot.
+ * @param teammate - the bot to ask.
+ * @param question - what to ask it, sent verbatim as the answering turn's user message.
+ * @param signal - cancellation from the asking turn.
+ * @returns what the teammate answered.
+ * @throws {AskRefusedError} when the asking session speaks as no bot, the
+ * target is not a teammate, or the answering turn did not complete.
+ */
+async ask(asker: Agent, teammate: PersonId, question: string, signal: AbortSignal): Promise<Answer>
+```
+
+Types: [Agent](core.zh.md)
+
+Source: [`packages/identity/bot-ask/src/index.ts`](../../packages/identity/bot-ask/src/index.ts)
+
 <a id="ctxbotscontroller--botscontroller"></a>
 
 ### `ctx.botsController` — `BotsController`
@@ -544,7 +572,8 @@ async teams(by: Membership): Promise<readonly TeamView[]>
  * @param submission - what the administrator filled in.
  * @param by - the standing making the change.
  * @returns the team as it now reads.
- * @throws {BotsRefusedError} when the standing may not make the change, composition owns the team, or a member is not its organization's bot.
+ * @throws {BotsRefusedError} when the standing may not make the change,
+ * composition owns the team, or a member is not its organization's bot.
  */
 async saveTeam(submission: TeamSubmission, by: Membership): Promise<TeamView>
 

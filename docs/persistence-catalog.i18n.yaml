@@ -9,8 +9,8 @@
   en: 75119831218d99b3
   zh: 705d070543208acc
 /session-persistence-event-catalog/persistence-type-fingerprints:
-  en: b2ad2f85204168d3
-  zh: 304902f5f95e958f
+  en: accdeadd22217706
+  zh: f71e76ab119bd0b6
 /session-persistence-event-catalog/event-envelope:
   en: 7ebb1a2e0dd1f916
   zh: 8946f415dda5c1b8
@@ -51,8 +51,14 @@
   en: e2530ef840fb5f06
   zh: 947aa104716a78f0
 /session-persistence-event-catalog/events/bot:
-  en: 9beda5af6fc7ebf9
-  zh: 9beda5af6fc7ebf9
+  en: 551abf1e10b7a31f
+  zh: 551abf1e10b7a31f
+/session-persistence-event-catalog/events/bot/bot-answered-log-only:
+  en: fdd5e13e6dc67b7a
+  zh: ed41d51e86ace5b1
+/session-persistence-event-catalog/events/bot/bot-asked-log-only:
+  en: ff9f5810cdadcfec
+  zh: 61c24365c5a906b4
 /session-persistence-event-catalog/events/bot/bot-engaged-log-only:
   en: ccaddb077845bb51
   zh: 205eeab4b4c0d18a
@@ -372,8 +378,14 @@
   en: 38537c1d5622fcba
   zh: 38537c1d5622fcba
 /session-persistence-event-catalog/resolved-persistence-types/blocked:
-  en: 79437e0f03506f7e
-  zh: 79437e0f03506f7e
+  en: de6540f9730f494c
+  zh: de6540f9730f494c
+/session-persistence-event-catalog/resolved-persistence-types/bot-answered:
+  en: 04d13a416f3427ed
+  zh: 04d13a416f3427ed
+/session-persistence-event-catalog/resolved-persistence-types/bot-asked:
+  en: a28ed0afeaaba48b
+  zh: a28ed0afeaaba48b
 /session-persistence-event-catalog/resolved-persistence-types/bot-engaged:
   en: ab5af938f3498850
   zh: ab5af938f3498850
@@ -1362,14 +1374,20 @@
   en: b8a0f8aac9708056
   zh: f5f004bd205b41e1
 /session-persistence-event-catalog/resolved-persistence-types/allowedmodels:
-  en: 6178321110ceb69d
-  zh: 0a9d94cab9d57487
+  en: f65b4e07185aaff7
+  zh: 1a08dda2f4e98b9a
+/session-persistence-event-catalog/resolved-persistence-types/answer-displayname-question-teammate:
+  en: 379b545d9e387267
+  zh: 14199f5e0fa48084
 /session-persistence-event-catalog/resolved-persistence-types/args-commandid-name-source:
   en: a117573a5d58cb3c
   zh: d5ad59e17a3a815d
 /session-persistence-event-catalog/resolved-persistence-types/arguments-callid-name-step:
-  en: 46c7c344d69b00d0
-  zh: 3343fc0bb6e1ebce
+  en: 20e68249d4d6655c
+  zh: a2b24ec687b8a8b2
+/session-persistence-event-catalog/resolved-persistence-types/asker-displayname-question:
+  en: e0344824e5a59cc0
+  zh: 8ce0da6e617e3a5f
 /session-persistence-event-catalog/resolved-persistence-types/bot-displayname-persona:
   en: d6e9208146a6ca66
   zh: 2ee96514c9cb7a5c
@@ -1893,8 +1911,14 @@
   en: 8c5a05fa6adf3e70
   zh: 66768b25d6fb3e07
 /session-persistence-event-catalog/resolved-persistence-types/type-block-start:
-  en: 3c883da1992f3e68
-  zh: 49ff80878de50857
+  en: 7badc68605726294
+  zh: d6b2cb5e3773cb57
+/session-persistence-event-catalog/resolved-persistence-types/type-bot-answered:
+  en: 895471ccdf1f82fe
+  zh: c439bec3b539215d
+/session-persistence-event-catalog/resolved-persistence-types/type-bot-asked:
+  en: 9c9351f113bad969
+  zh: 00022c9935dbc75a
 /session-persistence-event-catalog/resolved-persistence-types/type-bot-engaged:
   en: a1700e72a9576ec0
   zh: 3e474405a7da1173

@@ -29,6 +29,8 @@
 | `event:approval/policy` | event | `26718e15e7e395bce9642dba5bbe09b3b1a4ce2213d20d566cd9207d7fc5fb78` | [`{ type: "approval/policy" }`](#persistence-type-sha256-26718e15e7e395bce9642dba5bbe09b3b1a4ce2213d20d566cd9207d7fc5fb78) |
 | `event:assistant/attempt` | event | `15d5dfdd822aa35e115afd74a8982825a493880457774e6850bc1520b50875e4` | [`{ type: "assistant/attempt" }`](#persistence-type-sha256-15d5dfdd822aa35e115afd74a8982825a493880457774e6850bc1520b50875e4) |
 | `event:assistant/message` | event | `1033093edd0db80ff410e00830b523405e00bb0c7684948e531ff65095799625` | [`{ type: "assistant/message" }`](#persistence-type-sha256-1033093edd0db80ff410e00830b523405e00bb0c7684948e531ff65095799625) |
+| `event:bot/answered` | event | `fd59199a6385e8e1328cb4148bc7a5245a146e1d968da040601ff83313d104cc` | [`{ type: "bot/answered" }`](#persistence-type-sha256-fd59199a6385e8e1328cb4148bc7a5245a146e1d968da040601ff83313d104cc) |
+| `event:bot/asked` | event | `6d26cc4f57bee17d548fb27a51fde4424399c0148854d341f5daf2017db61776` | [`{ type: "bot/asked" }`](#persistence-type-sha256-6d26cc4f57bee17d548fb27a51fde4424399c0148854d341f5daf2017db61776) |
 | `event:bot/engaged` | event | `1d814f0805d00b9a45432779ad907e42e4be779ed300abbbe36a552356d2776d` | [`{ type: "bot/engaged" }`](#persistence-type-sha256-1d814f0805d00b9a45432779ad907e42e4be779ed300abbbe36a552356d2776d) |
 | `event:command/done` | event | `15196447222782e773eb943c92b18316ce96b9af0f0cfddb6e57ba8274ecc5ff` | [`{ type: "command/done" }`](#persistence-type-sha256-15196447222782e773eb943c92b18316ce96b9af0f0cfddb6e57ba8274ecc5ff) |
 | `event:command/run` | event | `37184378c6439257d105c4e2022d80fc9c3a3f7c7f6ac661b00bc9f18d871006` | [`{ type: "command/run" }`](#persistence-type-sha256-37184378c6439257d105c4e2022d80fc9c3a3f7c7f6ac661b00bc9f18d871006) |
@@ -320,6 +322,52 @@ export type SessionEvent<T extends SessionEventType = SessionEventType> = {
 来源：[`packages/core/session/src/types.ts:341`](../packages/core/session/src/types.ts)
 
 ### `bot/*`
+
+<a id="botanswered--log-only"></a>
+
+#### `bot/answered` — log-only
+
+```ts persistence-catalog
+/**
+ * This session exists because a teammate asked its bot a question.
+ * Recorded before the turn runs, so a session that failed to answer still
+ * says who asked it what.
+ */
+'bot/answered': {
+  /** The asking bot's stable identity. */
+  asker: string
+  /** The name it speaks under. */
+  displayName: string
+  /** What it asked, verbatim. */
+  question: string
+}
+```
+
+来源：[`packages/identity/bot-ask/src/session.ts:34`](../packages/identity/bot-ask/src/session.ts)
+
+<a id="botasked--log-only"></a>
+
+#### `bot/asked` — log-only
+
+```ts persistence-catalog
+/**
+ * This session asked a teammate a question and received an answer. Recorded
+ * on the asking side once the answer is in, so the log holds what reached
+ * the model rather than an attempt that never answered.
+ */
+'bot/asked': {
+  /** The teammate's stable identity. */
+  teammate: string
+  /** The name it speaks under. */
+  displayName: string
+  /** What it was asked, verbatim. */
+  question: string
+  /** What it answered, verbatim. */
+  answer: string
+}
+```
+
+来源：[`packages/identity/bot-ask/src/session.ts:19`](../packages/identity/bot-ask/src/session.ts)
 
 <a id="botengaged--log-only"></a>
 
@@ -1524,6 +1572,22 @@ SHA-256: `cbca49bde16b656d5b8fbe4a8a507769f7b594c6287782b809c03814941bc5e3`
 SHA-256: `254dce209e735f9cb6f6b7aec0354712b1611759ec02af4d35a96f2081e666f6`
 
 `"blocked"`
+
+<a id="persistence-type-sha256-99059f692c3fa102659883d13fcae0a89af0e84ecd8539c54e83fb501af5ea31"></a>
+
+### `"bot/answered"`
+
+SHA-256: `99059f692c3fa102659883d13fcae0a89af0e84ecd8539c54e83fb501af5ea31`
+
+`"bot/answered"`
+
+<a id="persistence-type-sha256-b4b2195e380c35813f9547b568f1154a2a2ccf9eb36174c9429693345aa80a76"></a>
+
+### `"bot/asked"`
+
+SHA-256: `b4b2195e380c35813f9547b568f1154a2a2ccf9eb36174c9429693345aa80a76`
+
+`"bot/asked"`
 
 <a id="persistence-type-sha256-5dc285f065310919657fcd1e4edb9f26e313d72a5872263058bcb69608d70473"></a>
 
@@ -5657,6 +5721,21 @@ SHA-256: `0d47a8f3d847243c4488e755ad4cab7a04ac5d4621b9c81865524cf3f4d8536f`
 |---|---|---|
 | `allowedModels` | 必需 | [`SessionTitleModelIdentity[]`](#persistence-type-sha256-ba77b58995e36f14bb13886b0493d0a1a63d5db10b1a6cd9f6ac65a72cf832ec) |
 
+<a id="persistence-type-sha256-8613cc7e40d8e5860e5852cce96954356f58a92b6cccde202da1bda8f98988a2"></a>
+
+### `{ answer, displayName, question, teammate }`
+
+SHA-256: `8613cc7e40d8e5860e5852cce96954356f58a92b6cccde202da1bda8f98988a2`
+
+来源：[`packages/identity/bot-ask/src/session.ts:19`](../packages/identity/bot-ask/src/session.ts)
+
+| 属性 | 存在性 | 类型 |
+|---|---|---|
+| `answer` | 必需 | `string` |
+| `displayName` | 必需 | `string` |
+| `question` | 必需 | `string` |
+| `teammate` | 必需 | `string` |
+
 <a id="persistence-type-sha256-a853902cfab417b8f08aa51ad6855fea46f34ed4588a74e47403035111d0fb86"></a>
 
 ### `{ args?, commandId, name, source }`
@@ -5687,6 +5766,20 @@ SHA-256: `e4c18e294232c3ba6c9f1999f168263cc55956147cfe4121720899be8e52edd1`
 | `name` | 必需 | `string` |
 | `step` | 必需 | `number` |
 | `turn` | 必需 | `number` |
+
+<a id="persistence-type-sha256-950cd04395c1f1af5b65b6c1c870840b8af35e70ad00570f66041b1d5d174453"></a>
+
+### `{ asker, displayName, question }`
+
+SHA-256: `950cd04395c1f1af5b65b6c1c870840b8af35e70ad00570f66041b1d5d174453`
+
+来源：[`packages/identity/bot-ask/src/session.ts:34`](../packages/identity/bot-ask/src/session.ts)
+
+| 属性 | 存在性 | 类型 |
+|---|---|---|
+| `asker` | 必需 | `string` |
+| `displayName` | 必需 | `string` |
+| `question` | 必需 | `string` |
 
 <a id="persistence-type-sha256-cdfea4003dd9236c3b34c1980c6f99fc0869a50a685e4e5ca9a168a00d93a978"></a>
 
@@ -7885,6 +7978,38 @@ SHA-256: `3bec87f9e6ab3da03346f49923d3c51621debc0159df68605e543c3b2a026f90`
 | `blockType` | 必需 | [`ContentBlockType`](#persistence-type-sha256-7d65acf0a3a43a8f445ce5d3320b42eca492739fc931b2a7516bfb8368dc2c68) |
 | `index` | 必需 | `number` |
 | `type` | 必需 | `"block-start"` |
+
+<a id="persistence-type-sha256-fd59199a6385e8e1328cb4148bc7a5245a146e1d968da040601ff83313d104cc"></a>
+
+<a id="persistence-type-eventbotanswered"></a>
+
+### `{ type: "bot/answered" }`
+
+SHA-256: `fd59199a6385e8e1328cb4148bc7a5245a146e1d968da040601ff83313d104cc`
+
+| 属性 | 存在性 | 类型 |
+|---|---|---|
+| `data` | 必需 | [`{ asker, displayName, question }`](#persistence-type-sha256-950cd04395c1f1af5b65b6c1c870840b8af35e70ad00570f66041b1d5d174453) |
+| `ignorable` | 可选 | `true` |
+| `seq` | 必需 | `number` |
+| `time` | 必需 | `number` |
+| `type` | 必需 | `"bot/answered"` |
+
+<a id="persistence-type-sha256-6d26cc4f57bee17d548fb27a51fde4424399c0148854d341f5daf2017db61776"></a>
+
+<a id="persistence-type-eventbotasked"></a>
+
+### `{ type: "bot/asked" }`
+
+SHA-256: `6d26cc4f57bee17d548fb27a51fde4424399c0148854d341f5daf2017db61776`
+
+| 属性 | 存在性 | 类型 |
+|---|---|---|
+| `data` | 必需 | [`{ answer, displayName, question, teammate }`](#persistence-type-sha256-8613cc7e40d8e5860e5852cce96954356f58a92b6cccde202da1bda8f98988a2) |
+| `ignorable` | 可选 | `true` |
+| `seq` | 必需 | `number` |
+| `time` | 必需 | `number` |
+| `type` | 必需 | `"bot/asked"` |
 
 <a id="persistence-type-sha256-1d814f0805d00b9a45432779ad907e42e4be779ed300abbbe36a552356d2776d"></a>
 

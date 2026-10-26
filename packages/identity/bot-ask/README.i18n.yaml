@@ -1,0 +1,70 @@
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write packages/identity/bot-ask/README.md
+/:
+  en: 3566b534ab4a4075
+  zh: 8183f1df772dedd8
+/lyness-lyn-bot-ask:
+  en: fdbc5ef31e5bbdae
+  zh: 30fa4107bed27274
+/lyness-lyn-bot-ask/summary:
+  en: 5389f2d97fd13b91
+  zh: 9ef8cd1693734cf3
+/lyness-lyn-bot-ask/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 09388d293f9be9cb
+/lyness-lyn-bot-ask/use-this-package:
+  en: 0b0e7d9558eb8f92
+  zh: 66f2eb47b5c961f6
+/lyness-lyn-bot-ask/understand-the-implementation:
+  en: a2df43a0b81b6f29
+  zh: ec74039f85f6d7ed
+/lyness-lyn-bot-ask/further-exploration:
+  en: 69d11c1cbee8f8d1
+  zh: fc96d3cc4038982e
+/lyness-lyn-bot-ask/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/lyness-lyn-bot-ask/model-experience/tool-schema:
+  en: e4c7376d4f29dbd5
+  zh: 6b7a9eaf69c9ea53
+/lyness-lyn-bot-ask/model-experience/tool-schema/what-the-model-sees:
+  en: f66861a6fea9f7c0
+  zh: 04cd1204f2d236db
+/lyness-lyn-bot-ask/model-experience/tool-schema/token-effect:
+  en: f39efb5b588999ba
+  zh: ae8b759f3ec03a3f
+/lyness-lyn-bot-ask/model-experience/tool-schema/kv-cache-effect:
+  en: 61e51afbee15640f
+  zh: 836f11b2ff09c111
+/lyness-lyn-bot-ask/model-experience/teammate-catalog:
+  en: 385ad52ea0a945d2
+  zh: 3368ef765a2e1f37
+/lyness-lyn-bot-ask/model-experience/teammate-catalog/what-the-model-sees:
+  en: 09006600cf87056a
+  zh: fbc00a08897d4d2b
+/lyness-lyn-bot-ask/model-experience/teammate-catalog/token-effect:
+  en: 005fc2af0c98ff5a
+  zh: d981b75041166b1c
+/lyness-lyn-bot-ask/model-experience/teammate-catalog/kv-cache-effect:
+  en: 45c20995b8ace59a
+  zh: ab33cde8c843c525
+/lyness-lyn-bot-ask/model-experience/answer:
+  en: 60af6bb3f5ec611c
+  zh: 64fefff8e56b0a5f
+/lyness-lyn-bot-ask/model-experience/answer/what-the-model-sees:
+  en: 93bb15f920b693b8
+  zh: 4d5b0eb07f492e88
+/lyness-lyn-bot-ask/model-experience/answer/token-effect:
+  en: edf9494bf115528f
+  zh: ab07085d54f749de
+/lyness-lyn-bot-ask/model-experience/answer/kv-cache-effect:
+  en: c710caee9bee0457
+  zh: 59d95e5146057341
+/lyness-lyn-bot-ask/known-limitations-and-deferred-work:
+  en: fa6141b0905cea22
+  zh: de0f5ae3bfda0130
+/lyness-lyn-bot-ask/known-limitations-and-deferred-work/dev-note:
+  en: f7d9d0d4a989cbca
+  zh: aa4ad1dbbbc7bd83

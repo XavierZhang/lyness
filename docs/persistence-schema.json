@@ -5404,6 +5404,171 @@
       }
     },
     {
+      "key": "event:bot/answered",
+      "kind": "event",
+      "event": "bot/answered",
+      "surface": false,
+      "digest": "fd59199a6385e8e1328cb4148bc7a5245a146e1d968da040601ff83313d104cc",
+      "schema": {
+        "root": 0,
+        "nodes": [
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "data",
+                "type": 1,
+                "optional": false
+              },
+              {
+                "name": "ignorable",
+                "type": 3,
+                "optional": true
+              },
+              {
+                "name": "seq",
+                "type": 4,
+                "optional": false
+              },
+              {
+                "name": "time",
+                "type": 4,
+                "optional": false
+              },
+              {
+                "name": "type",
+                "type": 5,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "asker",
+                "type": 2,
+                "optional": false
+              },
+              {
+                "name": "displayName",
+                "type": 2,
+                "optional": false
+              },
+              {
+                "name": "question",
+                "type": 2,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "primitive",
+            "type": "string"
+          },
+          {
+            "kind": "literal",
+            "value": true
+          },
+          {
+            "kind": "primitive",
+            "type": "number"
+          },
+          {
+            "kind": "literal",
+            "value": "bot/answered"
+          }
+        ]
+      }
+    },
+    {
+      "key": "event:bot/asked",
+      "kind": "event",
+      "event": "bot/asked",
+      "surface": false,
+      "digest": "6d26cc4f57bee17d548fb27a51fde4424399c0148854d341f5daf2017db61776",
+      "schema": {
+        "root": 0,
+        "nodes": [
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "data",
+                "type": 1,
+                "optional": false
+              },
+              {
+                "name": "ignorable",
+                "type": 3,
+                "optional": true
+              },
+              {
+                "name": "seq",
+                "type": 4,
+                "optional": false
+              },
+              {
+                "name": "time",
+                "type": 4,
+                "optional": false
+              },
+              {
+                "name": "type",
+                "type": 5,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "answer",
+                "type": 2,
+                "optional": false
+              },
+              {
+                "name": "displayName",
+                "type": 2,
+                "optional": false
+              },
+              {
+                "name": "question",
+                "type": 2,
+                "optional": false
+              },
+              {
+                "name": "teammate",
+                "type": 2,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "primitive",
+            "type": "string"
+          },
+          {
+            "kind": "literal",
+            "value": true
+          },
+          {
+            "kind": "primitive",
+            "type": "number"
+          },
+          {
+            "kind": "literal",
+            "value": "bot/asked"
+          }
+        ]
+      }
+    },
+    {
       "key": "event:bot/engaged",
       "kind": "event",
       "event": "bot/engaged",
@@ -59330,6 +59495,89 @@
       "sources": []
     },
     {
+      "digest": "6d26cc4f57bee17d548fb27a51fde4424399c0148854d341f5daf2017db61776",
+      "schema": {
+        "root": 0,
+        "nodes": [
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "data",
+                "type": 1,
+                "optional": false
+              },
+              {
+                "name": "ignorable",
+                "type": 3,
+                "optional": true
+              },
+              {
+                "name": "seq",
+                "type": 4,
+                "optional": false
+              },
+              {
+                "name": "time",
+                "type": 4,
+                "optional": false
+              },
+              {
+                "name": "type",
+                "type": 5,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "answer",
+                "type": 2,
+                "optional": false
+              },
+              {
+                "name": "displayName",
+                "type": 2,
+                "optional": false
+              },
+              {
+                "name": "question",
+                "type": 2,
+                "optional": false
+              },
+              {
+                "name": "teammate",
+                "type": 2,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "primitive",
+            "type": "string"
+          },
+          {
+            "kind": "literal",
+            "value": true
+          },
+          {
+            "kind": "primitive",
+            "type": "number"
+          },
+          {
+            "kind": "literal",
+            "value": "bot/asked"
+          }
+        ]
+      },
+      "names": [],
+      "sources": []
+    },
+    {
       "digest": "6d5b72b6153d90f7cb549610592cd49e034a721f50f99b5b5e3ae89460fb6279",
       "schema": {
         "root": 0,
@@ -63403,6 +63651,48 @@
       "sources": []
     },
     {
+      "digest": "8613cc7e40d8e5860e5852cce96954356f58a92b6cccde202da1bda8f98988a2",
+      "schema": {
+        "root": 0,
+        "nodes": [
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "answer",
+                "type": 1,
+                "optional": false
+              },
+              {
+                "name": "displayName",
+                "type": 1,
+                "optional": false
+              },
+              {
+                "name": "question",
+                "type": 1,
+                "optional": false
+              },
+              {
+                "name": "teammate",
+                "type": 1,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "primitive",
+            "type": "string"
+          }
+        ]
+      },
+      "names": [],
+      "sources": [
+        "packages/identity/bot-ask/src/session.ts:19"
+      ]
+    },
+    {
       "digest": "8620189c8e33582708ece48fd2d20dc4d57912486a17bdbb9aea4c44f7018062",
       "schema": {
         "root": 0,
@@ -64889,6 +65179,43 @@
       ]
     },
     {
+      "digest": "950cd04395c1f1af5b65b6c1c870840b8af35e70ad00570f66041b1d5d174453",
+      "schema": {
+        "root": 0,
+        "nodes": [
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "asker",
+                "type": 1,
+                "optional": false
+              },
+              {
+                "name": "displayName",
+                "type": 1,
+                "optional": false
+              },
+              {
+                "name": "question",
+                "type": 1,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "primitive",
+            "type": "string"
+          }
+        ]
+      },
+      "names": [],
+      "sources": [
+        "packages/identity/bot-ask/src/session.ts:34"
+      ]
+    },
+    {
       "digest": "95c0e88fcf0bafb2087f912ad9e2369de6ae6530cc0c4c2772c96205b57f7f60",
       "schema": {
         "root": 0,
@@ -65016,6 +65343,20 @@
       "sources": [
         "packages/sandbox/sandbox-policy/src/session-mode.ts:33"
       ]
+    },
+    {
+      "digest": "99059f692c3fa102659883d13fcae0a89af0e84ecd8539c54e83fb501af5ea31",
+      "schema": {
+        "root": 0,
+        "nodes": [
+          {
+            "kind": "literal",
+            "value": "bot/answered"
+          }
+        ]
+      },
+      "names": [],
+      "sources": []
     },
     {
       "digest": "99135d8a3937977955eaac5f8f04f930dcd1562f8450a54a51cde9b921dd59a6",
@@ -72394,6 +72735,20 @@
           {
             "kind": "literal",
             "value": "disposed"
+          }
+        ]
+      },
+      "names": [],
+      "sources": []
+    },
+    {
+      "digest": "b4b2195e380c35813f9547b568f1154a2a2ccf9eb36174c9429693345aa80a76",
+      "schema": {
+        "root": 0,
+        "nodes": [
+          {
+            "kind": "literal",
+            "value": "bot/asked"
           }
         ]
       },
@@ -97622,6 +97977,84 @@
           {
             "kind": "literal",
             "value": "pending"
+          }
+        ]
+      },
+      "names": [],
+      "sources": []
+    },
+    {
+      "digest": "fd59199a6385e8e1328cb4148bc7a5245a146e1d968da040601ff83313d104cc",
+      "schema": {
+        "root": 0,
+        "nodes": [
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "data",
+                "type": 1,
+                "optional": false
+              },
+              {
+                "name": "ignorable",
+                "type": 3,
+                "optional": true
+              },
+              {
+                "name": "seq",
+                "type": 4,
+                "optional": false
+              },
+              {
+                "name": "time",
+                "type": 4,
+                "optional": false
+              },
+              {
+                "name": "type",
+                "type": 5,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "object",
+            "properties": [
+              {
+                "name": "asker",
+                "type": 2,
+                "optional": false
+              },
+              {
+                "name": "displayName",
+                "type": 2,
+                "optional": false
+              },
+              {
+                "name": "question",
+                "type": 2,
+                "optional": false
+              }
+            ],
+            "indices": []
+          },
+          {
+            "kind": "primitive",
+            "type": "string"
+          },
+          {
+            "kind": "literal",
+            "value": true
+          },
+          {
+            "kind": "primitive",
+            "type": "number"
+          },
+          {
+            "kind": "literal",
+            "value": "bot/answered"
           }
         ]
       },

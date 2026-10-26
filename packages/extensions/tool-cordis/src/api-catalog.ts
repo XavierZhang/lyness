@@ -610,6 +610,20 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
     ],
   },
   {
+    key: 'botAsk',
+    summary: 'One bot asking a teammate a question.',
+    description: 'One bot asking a teammate a question.',
+    methods: [
+      {
+        signature: 'async ask(asker: Agent, teammate: PersonId, question: string, signal: AbortSignal): Promise<Answer>',
+        description: 'Ask one teammate a question, and answer with what it said.\n\nThe asking agent\'s own session decides who is asking: a session that speaks as nobody has no teammates, so a person\'s own conversation cannot reach another bot this way.',
+        parameters: [{ name: 'asker', description: 'the agent asking, whose session names the asking bot.' }, { name: 'teammate', description: 'the bot to ask.' }, { name: 'question', description: 'what to ask it, sent verbatim as the answering turn\'s user message.' }, { name: 'signal', description: 'cancellation from the asking turn.' }],
+        returns: 'what the teammate answered.',
+        throws: ['{AskRefusedError} when the asking session speaks as no bot, the target is not a teammate, or the answering turn did not complete.'],
+      },
+    ],
+  },
+  {
     key: 'botsController',
     summary: 'Host service backing the generated `ctx.remote.bots` namespace.',
     description: 'Host service backing the generated `ctx.remote.bots` namespace.',
@@ -5341,6 +5355,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'AnnouncementId',
     declaration: 'export type AnnouncementId = string;',
+  },
+  {
+    name: 'Answer',
+    declaration: 'export interface Answer {\n    readonly teammate: PersonId;\n    readonly displayName: string;\n    readonly text: string;\n}',
   },
   {
     name: 'ApiKeyRecord',

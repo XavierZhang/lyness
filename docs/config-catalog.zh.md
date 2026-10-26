@@ -4713,6 +4713,7 @@ export interface Config {
 | `@lyness/lyn-api-sign-in-channel-controller` | — | [`packages/api/sign-in-channel-controller/src/index.ts`](../packages/api/sign-in-channel-controller/src/index.ts) |
 | `@lyness/lyn-api-tenant-controller` | — | [`packages/api/tenant-controller/src/index.ts`](../packages/api/tenant-controller/src/index.ts) |
 | `@lyness/lyn-authorization` | `credentials` | [`packages/credentials/authorization/src/index.ts`](../packages/credentials/authorization/src/index.ts) |
+| `@lyness/lyn-bot-ask` | `agentPresets` · `agents` · `agentDefaultModel` · `managedBots` · `sessionProjections` · `sessions` | [`packages/identity/bot-ask/src/index.ts`](../packages/identity/bot-ask/src/index.ts) |
 | `@lyness/lyn-brand-studio` | `cmdlineArgs` | [`packages/bundle/brand-studio/src/index.ts`](../packages/bundle/brand-studio/src/index.ts) |
 | `@lyness/lyn-browser-use` | — | [`packages/browser-use/browser-use/src/index.ts`](../packages/browser-use/browser-use/src/index.ts) |
 | `@lyness/lyn-client-file-upload` | `agents` · `attachments` · `commands` · `connection` | [`packages/client/file-upload/src/index.ts`](../packages/client/file-upload/src/index.ts) |

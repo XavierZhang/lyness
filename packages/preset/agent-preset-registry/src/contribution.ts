@@ -27,6 +27,7 @@ export const CONTRIBUTION_ORDERS = {
   'module-terminal-tool': 200,
   'module-lsp-tool': 300,
   'module-deliverables-tool': 600,
+  'module-accounts-bot-ask': 700,
 } as const
 
 /** Row id with a centrally allocated position. */

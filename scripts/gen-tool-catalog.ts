@@ -64,6 +64,7 @@ import * as StagehandBrowserTools from '@lyness/lyn-experimental-browser-use-sta
 import type TeamService from '@lyness/lyn-experimental-agent-team'
 import * as ToolTeam from '@lyness/lyn-experimental-tool-agent-team'
 import * as ToolTodo from '@lyness/lyn-tool-todo'
+import * as BotAskTools from '@lyness/lyn-bot-ask/tool'
 import type PluginManager from '@lyness/lyn-plugin-manager'
 import * as PluginManagerTools from '@lyness/lyn-plugin-manager/tools'
 import SandboxPolicy from '@lyness/lyn-sandbox-policy'
@@ -617,6 +618,20 @@ const TOOL_PACKAGES: ToolPackage[] = [
     scope: ctx => catalogChildScopes.get(ctx) as Agent,
     note:
       'All nine tools are scoped to implicit Team Leads and durable teammates. The shipped lyn-base bundle keeps the package disabled; the documented Agent Teams profile patch enables it while disabling the legacy continuable-child control names.',
+  },
+  {
+    pkg: '@lyness/lyn-bot-ask',
+    dir: 'bot-ask',
+    source: 'packages/identity/bot-ask/src/tool.ts',
+    requires: ['ctx.tools', 'ctx.botAsk', 'ctx.managedBots', 'ctx.sessionProjections', 'a calling Agent'],
+    writes: ['tool/call', 'bot/asked', 'bot/answered', 'tool/result'],
+    async mount(ctx) {
+      ctx.provide('botAsk', { ask: () => Promise.reject(new Error('the catalog mounts no roster')) } as never)
+      ctx.provide('managedBots', { teammates: () => Promise.resolve([]) } as never)
+      await ctx.plugin(BotAskTools)
+    },
+    note:
+      'Contributed into every preset that accepts rows rather than mounted as a preset row, because a patch cannot add one tool to a preset whose whole row list it would have to restate. An ask runs the answering turn in a session of the teammate\'s own, so the tokens it spends are that session\'s and the asking request receives only the answer.',
   },
   {
     pkg: '@lyness/lyn-tool-todo',

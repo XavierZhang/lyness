@@ -41,6 +41,7 @@
   "dependencies": {
     "@lyness/lyn-acting-context": "workspace:*",
     "@lyness/lyn-api-bots-controller": "workspace:*",
+    "@lyness/lyn-bot-ask": "workspace:*",
     "@lyness/lyn-api-people-controller": "workspace:*",
     "@lyness/lyn-api-remote-authority": "workspace:*",
     "@lyness/lyn-api-sign-in-channel-controller": "workspace:*",
