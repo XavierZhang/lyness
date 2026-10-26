@@ -125,6 +125,6 @@ const history = await ctx.adminAudit.read({ organization: 'acme', subject: 'tria
 <details>
 <summary>维护者的工作上下文 — 点击展开</summary>
 
-这个服务把它的上界作为一份经过校验的 `Config` 取进来，由 Loader 从组合行里提供：一个不写 `config` 键的行会让这个插件挂不上，这就是账户模块把两个上界都显式写出来、而测试台传 `{}` 的原因。
+这个服务把它的上界作为一份经过校验的 `Config` 取进来，而让 Loader 拿组合行去对它做校验的，是 `static readonly Config` 这一句：有这句声明，一个不写 `config` 键的行会带着全部默认值挂上；没有它，Loader 什么也不交给构造函数，插件挂不上。账户模块仍然把两个上界写出来，这样部署自己的那两个数字在文件里读得到，而不是只在这个包里。
 
 </details>

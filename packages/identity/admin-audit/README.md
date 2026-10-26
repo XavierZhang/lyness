@@ -125,6 +125,6 @@ No request prefix changes, because nothing here contributes to an assembled requ
 <details>
 <summary>Working context for maintainers — click to expand</summary>
 
-The service takes its bounds as a validated `Config`, and the Loader supplies them from the composition row: a row that states no `config` key leaves the plugin unmounted, which is why the accounts module states both bounds explicitly and the test benches pass `{}`.
+The service takes its bounds as a validated `Config`, and `static readonly Config` is what makes the Loader validate a composition row against it: with that declaration a row stating no `config` key mounts with every default applied, and without it the Loader hands the constructor nothing and the plugin fails to mount. The accounts module still states both bounds, so the deployment's own numbers are readable in the file rather than only in this package.
 
 </details>

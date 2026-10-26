@@ -59,8 +59,6 @@ async function compose(): Promise<{ ctx: Context; scopes: Scope[] }> {
     '  config:',
     '    backend: json',
     "- name: '@lyness/lyn-admin-audit'",
-    '  config:',
-    '    maxValueLength: 2000',
     "- name: '@lyness/lyn-managed-people'",
     "- name: '@lyness/lyn-managed-people/directory'",
     '  config:',
