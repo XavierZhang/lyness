@@ -10,10 +10,12 @@
  */
 
 import { useCallback, useEffect, useState } from 'react'
-import { Button, Input, RiskConfirmation, SegmentedControl, Tag } from '@lyness/lyn-client-ui-primitives'
+import { Button, Checkbox, Input, RiskConfirmation, SegmentedControl, Tag } from '@lyness/lyn-client-ui-primitives'
 import type { PropsLocale, PropsRuntime, PropsStore } from '@lyness/lyn-client-ui-slots'
 import type {} from '@lyness/lyn-client-ui-settings/client'
-import type { BotInput, BotRowView, PresetOptionView } from '@lyness/lyn-api-bots-controller/types'
+import type {
+  BotInput, BotRowView, PresetOptionView, TeamInput, TeamRowView,
+} from '@lyness/lyn-api-bots-controller/types'
 import type { createBotsSectionStore } from './store.ts'
 import css from './BotsSection.module.css'
 
@@ -29,6 +31,10 @@ export interface BotsSectionInjected {
   save: (input: BotInput) => Promise<void>
   /** Remove one bot. */
   remove: (id: string) => Promise<void>
+  /** Add one team, or change one. */
+  saveTeam: (input: TeamInput) => Promise<void>
+  /** Remove one team. */
+  removeTeam: (id: string) => Promise<void>
 }
 
 /** Full component props: runtime share + store share + locale seat + injected face. */
@@ -199,25 +205,148 @@ function BotForm({ editing, presets, working, marked, save, t }: {
 }
 
 /**
+ * Render one team.
+ * @param props - the team, the bots it may name, and the things to do with it.
+ * @returns the row element tree.
+ */
+function TeamRow({ team, bots, editing, t, onEdit, onRemove }: {
+  team: TeamRowView
+  bots: readonly BotRowView[]
+  editing: boolean
+  t: Translate
+  onEdit: () => void
+  onRemove: () => void
+}) {
+  const names = team.members
+    .map(member => bots.find(one => one.id === member)?.displayName)
+    .filter((name): name is string => name !== undefined)
+  return (
+    <li className={css.row}>
+      <div className={css.rowMain}>
+        <span className={css.rowName}>{team.displayName}</span>
+        {team.written ? <Tag tone="neutral">{t('fromConfiguration')}</Tag> : null}
+      </div>
+      <div className={css.rowFacts}>
+        <span className={css.rowKind}>{t('teamMembers')}</span>
+        <span className={css.rowScope}>{names.length === 0 ? t('teamMembersNone') : names.join('、')}</span>
+      </div>
+      {team.written ? <p className={css.rowHint}>{t('fromConfigurationHint')}</p> : null}
+      {team.written ? null : (
+        <div className={css.rowActions}>
+          <Button variant="outline" onClick={onEdit}>{editing ? t('cancelEdit') : t('edit')}</Button>
+          <Button variant="outline" onClick={onRemove}>{t('removeTeam')}</Button>
+        </div>
+      )}
+    </li>
+  )
+}
+
+/**
+ * Render the create-or-edit team form.
+ * @param props - which team is being edited, the bots it may hold, and what to do on submit.
+ * @returns the form element tree.
+ */
+function TeamForm({ editing, bots, working, marked, save, t }: {
+  editing: TeamRowView | undefined
+  bots: readonly BotRowView[]
+  working: boolean
+  marked: readonly string[]
+  save: (input: TeamInput) => Promise<void>
+  t: Translate
+}) {
+  const [displayName, setDisplayName] = useState(editing?.displayName ?? '')
+  const [organization, setOrganization] = useState(editing?.organization ?? bots[0]?.organization ?? '')
+  const [members, setMembers] = useState<readonly string[]>(editing?.members ?? [])
+
+  // The form follows what it is editing, the way the bot form does.
+  useEffect(() => {
+    setDisplayName(editing?.displayName ?? '')
+    setOrganization(editing?.organization ?? bots[0]?.organization ?? '')
+    setMembers(editing?.members ?? [])
+  }, [bots, editing])
+
+  const submit = useCallback((): void => {
+    if (displayName.trim().length === 0) return
+    void save({
+      ...editing === undefined ? {} : { id: editing.id },
+      displayName: displayName.trim(),
+      organization: organization.trim(),
+      members: [...members],
+    })
+  }, [displayName, editing, members, organization, save])
+
+  // A team holds only its own organization's bots, so the member list is the
+  // bots this reader already maintains rather than a free-text field.
+  if (bots.length === 0) return <p className={css.notice}>{t('teamNoBots')}</p>
+
+  return (
+    <form className={css.form} onSubmit={(event) => { event.preventDefault(); submit() }}>
+      <h4 className={css.formHeading}>
+        {editing === undefined ? t('addTeamHeading') : t('editTeamHeading', { name: editing.displayName })}
+      </h4>
+      <label className={css.field}>
+        <span className={css.fieldLabel}>{t('teamName')}</span>
+        <Input value={displayName} onChange={(event) => { setDisplayName(event.target.value) }} />
+        <span className={css.fieldHint}>{t('teamNameHint')}</span>
+      </label>
+      <label className={marked.includes('organization') ? css.fieldMarked : css.field}>
+        <span className={css.fieldLabel}>{t('organization')}</span>
+        <Input value={organization} onChange={(event) => { setOrganization(event.target.value) }} />
+        <span className={css.fieldHint}>{t('organizationHint')}</span>
+      </label>
+      <div className={css.field}>
+        <span className={css.fieldLabel}>{t('teamMembers')}</span>
+        <ul className={css.members}>
+          {bots.map(one => (
+            <li className={css.member} key={one.id}>
+              <Checkbox
+                checked={members.includes(one.id)}
+                label={one.displayName}
+                onChange={(next) => {
+                  setMembers(current => next
+                    ? [...current, one.id]
+                    : current.filter(member => member !== one.id))
+                }}
+              />
+            </li>
+          ))}
+        </ul>
+        <span className={css.fieldHint}>{t('teamMembersHint')}</span>
+      </div>
+      <Button type="submit" variant="primary" disabled={working}>
+        {editing === undefined ? t('submitNewTeam') : t('submitEditTeam')}
+      </Button>
+    </form>
+  )
+}
+
+/**
  * Render the bots section.
  * @param props - composed slot props.
  * @returns the section element tree.
  */
-export function BotsSection({ t, useStore, load, retry, talk, save, remove }: BotsSectionProps) {
+export function BotsSection({
+  t, useStore, load, retry, talk, save, remove, saveTeam, removeTeam,
+}: BotsSectionProps) {
   const status = useStore(state => state.status)
   const bots = useStore(state => state.bots)
   const presets = useStore(state => state.presets)
+  const teams = useStore(state => state.teams)
   const working = useStore(state => state.working)
   const outcome = useStore(state => state.outcome)
   const [editingId, setEditingId] = useState<string | undefined>(undefined)
   const [removing, setRemoving] = useState<BotRowView | undefined>(undefined)
   const [acknowledged, setAcknowledged] = useState(false)
+  const [editingTeamId, setEditingTeamId] = useState<string | undefined>(undefined)
+  const [removingTeam, setRemovingTeam] = useState<TeamRowView | undefined>(undefined)
+  const [teamAcknowledged, setTeamAcknowledged] = useState(false)
 
   // The read starts when the section opens rather than at plugin load: a
   // reader who never opens this should not cost the deployment a request.
   useEffect(() => { void load() }, [load])
 
   const editing = bots.find(one => one.id === editingId)
+  const editingTeam = teams.find(one => one.id === editingTeamId)
   const marked = outcome?.kind === 'refused' ? outcome.fields : []
 
   /* jscpd:ignore-start */
@@ -282,6 +411,8 @@ export function BotsSection({ t, useStore, load, retry, talk, save, remove }: Bo
             {working ? <p className={css.notice}>{t('working')}</p> : null}
             {outcome?.kind === 'saved' ? <p className={css.done}>{t('savedDone', { name: outcome.displayName })}</p> : null}
             {outcome?.kind === 'removed' ? <p className={css.done}>{t('removedDone')}</p> : null}
+            {outcome?.kind === 'team-saved' ? <p className={css.done}>{t('teamSavedDone', { name: outcome.displayName })}</p> : null}
+            {outcome?.kind === 'team-removed' ? <p className={css.done}>{t('teamRemovedDone')}</p> : null}
             {outcome?.kind === 'refused' ? <p className={css.refused}>{t('refused', { reason: outcome.reason })}</p> : null}
             {/* jscpd:ignore-end */}
             <BotForm
@@ -296,7 +427,59 @@ export function BotsSection({ t, useStore, load, retry, talk, save, remove }: Bo
               t={t}
             />
           </section>
+
+          <section className={css.block}>
+            <h3 className={css.blockHeading}>{t('teams')}</h3>
+            <p className={css.intro}>{t('teamsIntro')}</p>
+            {teams.length === 0 ? <p className={css.notice}>{t('teamsNone')}</p> : (
+              <ul className={css.rows}>
+                {teams.map(team => (
+                  <TeamRow
+                    key={team.id}
+                    team={team}
+                    bots={bots}
+                    editing={team.id === editingTeamId}
+                    t={t}
+                    onEdit={() => { setEditingTeamId(team.id === editingTeamId ? undefined : team.id) }}
+                    onRemove={() => { setRemovingTeam(team); setTeamAcknowledged(false) }}
+                  />
+                ))}
+              </ul>
+            )}
+            <TeamForm
+              key={editingTeamId ?? 'new-team'}
+              editing={editingTeam}
+              bots={bots}
+              working={working}
+              marked={marked}
+              save={saveTeam}
+              t={t}
+            />
+          </section>
         </>
+      )}
+
+      {removingTeam === undefined ? null : (
+        <RiskConfirmation
+          open
+          title={t('removeTeamTitle', { name: removingTeam.displayName })}
+          description={t('removeTeamBody')}
+          acknowledgeLabel={t('removeTeamAcknowledge')}
+          cancelLabel={t('removeCancel')}
+          closeLabel={t('close')}
+          confirmLabel={t('removeTeamConfirm')}
+          acknowledged={teamAcknowledged}
+          disabled={working}
+          onAcknowledgedChange={setTeamAcknowledged}
+          onCancel={() => { setRemovingTeam(undefined); setTeamAcknowledged(false) }}
+          onConfirm={() => {
+            const target = removingTeam
+            setRemovingTeam(undefined)
+            setTeamAcknowledged(false)
+            if (target.id === editingTeamId) setEditingTeamId(undefined)
+            void removeTeam(target.id)
+          }}
+        />
       )}
 
       {/* jscpd:ignore-start */}

@@ -9,7 +9,7 @@
 
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { cleanup, fireEvent, render, screen, within } from '@testing-library/react'
-import type { BotRowView, PresetOptionView } from '@lyness/lyn-api-bots-controller/types'
+import type { BotRowView, PresetOptionView, TeamRowView } from '@lyness/lyn-api-bots-controller/types'
 import { BotsSection } from '../src/client/BotsSection.tsx'
 import type { BotsSectionProps } from '../src/client/BotsSection.tsx'
 import type { BotsSectionState } from '../src/client/store.ts'
@@ -40,6 +40,15 @@ const SCRIBE: BotRowView = {
 }
 
 const STANDARD: PresetOptionView = { id: 'standard', displayName: 'Standard' }
+
+const TEAM: TeamRowView = {
+  id: 'intake',
+  displayName: 'Intake',
+  organization: 'acme',
+  members: ['triage-id'],
+  written: false,
+}
+
 const PLAIN: PresetOptionView = { id: 'plain' }
 
 /** The shipped Chinese copy, so the test reads what a user reads. */
@@ -57,9 +66,11 @@ function renderSection(state: BotsSectionState, over: Partial<BotsSectionProps> 
   const talk = vi.fn()
   const save = vi.fn(() => Promise.resolve())
   const remove = vi.fn(() => Promise.resolve())
+  const saveTeam = vi.fn(() => Promise.resolve())
+  const removeTeam = vi.fn(() => Promise.resolve())
   const useStore = (<T,>(select: (value: BotsSectionState) => T) => select(state)) as BotsSectionProps['useStore']
-  const props = { t, useStore, load, retry, talk, save, remove, ...over } as BotsSectionProps
-  return { ...render(<BotsSection {...props} />), load, retry, talk, save, remove }
+  const props = { t, useStore, load, retry, talk, save, remove, saveTeam, removeTeam, ...over } as BotsSectionProps
+  return { ...render(<BotsSection {...props} />), load, retry, talk, save, remove, saveTeam, removeTeam }
 }
 
 /** A ready state carrying these bots and presets. */
@@ -68,11 +79,11 @@ function ready(
   presets: readonly PresetOptionView[] = [STANDARD],
   over: Partial<BotsSectionState> = {},
 ): BotsSectionState {
-  return { status: 'ready', bots, presets, working: false, outcome: undefined, ...over }
+  return { status: 'ready', bots, presets, teams: [], working: false, outcome: undefined, ...over }
 }
 
 const IDLE: BotsSectionState = {
-  status: 'idle', bots: [], presets: [], working: false, outcome: undefined,
+  status: 'idle', bots: [], presets: [], teams: [], working: false, outcome: undefined,
 }
 
 /**
@@ -102,6 +113,21 @@ function prose(label: string): HTMLTextAreaElement {
     .find((one): one is HTMLTextAreaElement => one !== null && one !== undefined)
   if (box === undefined) throw new Error(`no textarea labelled "${label}"`)
   return box
+}
+
+/**
+ * One input by the nth occurrence of a label, for a page with two forms.
+ * @param label - the text in the field's own label.
+ * @param index - which occurrence to take.
+ * @returns the input under it.
+ */
+function nthField(label: string, index: number): HTMLInputElement {
+  const inputs = screen.getAllByText(label)
+    .map(one => one.parentElement?.querySelector('input'))
+    .filter((one): one is HTMLInputElement => one !== null && one !== undefined)
+  const found = inputs[index]
+  if (found === undefined) throw new Error(`no input ${String(index)} labelled "${label}"`)
+  return found
 }
 
 /** The row for one bot. */
@@ -282,6 +308,127 @@ describe('editing a bot', () => {
     fireEvent.change(field(zh.displayName), { target: { value: 'Intake' } })
     fireEvent.click(screen.getByRole('button', { name: zh.submitEdit }))
     expect(save).toHaveBeenCalledWith(expect.objectContaining({ id: 'triage-id', displayName: 'Intake' }))
+  })
+})
+
+describe('the team block', () => {
+  it('says a deployment with no team has none, and asks for a bot before a team', () => {
+    renderSection(ready([]))
+    expect(screen.getByText(zh.teamsNone)).toBeDefined()
+    // A team holds only its own organization's bots, so there is nothing to
+    // pick from until one exists.
+    expect(screen.getByText(zh.teamNoBots)).toBeDefined()
+    expect(screen.queryByRole('button', { name: zh.submitNewTeam })).toBeNull()
+  })
+
+  it('creates a team from the bots this reader maintains', () => {
+    const { saveTeam } = renderSection(ready([TRIAGE, SCRIBE]))
+    fireEvent.change(field(zh.teamName), { target: { value: 'Intake' } })
+    fireEvent.click(screen.getByLabelText('Triage'))
+    fireEvent.click(screen.getByLabelText('Scribe'))
+    fireEvent.click(screen.getByRole('button', { name: zh.submitNewTeam }))
+
+    expect(saveTeam).toHaveBeenCalledWith({
+      displayName: 'Intake',
+      organization: 'acme',
+      members: ['triage-id', 'scribe'],
+    })
+  })
+
+  it('submits nothing for a team with no name', () => {
+    const { saveTeam } = renderSection(ready([TRIAGE]))
+    fireEvent.click(screen.getByRole('button', { name: zh.submitNewTeam }))
+    expect(saveTeam).not.toHaveBeenCalled()
+  })
+
+  it('takes a typed organization, and unticking a member', () => {
+    const { saveTeam } = renderSection(ready([TRIAGE, SCRIBE], [STANDARD], {
+      // The organization field is marked when the server said it was missing,
+      // the same way the bot form marks it.
+      outcome: { kind: 'refused', reason: 'needs one', fields: ['organization'] },
+    }))
+    fireEvent.change(field(zh.teamName), { target: { value: 'Intake' } })
+    // The second field by this label is the team form's; the first is the
+    // bot form's above it.
+    fireEvent.change(nthField(zh.organization, 1), { target: { value: 'other' } })
+    fireEvent.click(screen.getByLabelText('Triage'))
+    fireEvent.click(screen.getByLabelText('Scribe'))
+    // Unticking takes it back out rather than leaving it staged.
+    fireEvent.click(screen.getByLabelText('Scribe'))
+    fireEvent.click(screen.getByRole('button', { name: zh.submitNewTeam }))
+    expect(saveTeam).toHaveBeenCalledWith({
+      displayName: 'Intake', organization: 'other', members: ['triage-id'],
+    })
+  })
+
+  it('removes a team that is not the one being edited', () => {
+    const review: TeamRowView = { ...TEAM, id: 'review', displayName: 'Review', members: [] }
+    const { removeTeam } = renderSection(ready([TRIAGE], [STANDARD], { teams: [TEAM, review] }))
+    fireEvent.click(rowOf('Intake').getByRole('button', { name: zh.edit }))
+
+    fireEvent.click(rowOf('Review').getByRole('button', { name: zh.removeTeam }))
+    fireEvent.click(screen.getByLabelText(zh.removeTeamAcknowledge))
+    fireEvent.click(screen.getByRole('button', { name: zh.removeTeamConfirm }))
+    expect(removeTeam).toHaveBeenCalledWith('review')
+    // The row being edited was a different one, so the form stays on it.
+    expect(screen.getByText(zh.editTeamHeading.replace('{name}', 'Intake'))).toBeDefined()
+  })
+
+  it('leaves edit mode when the row being edited is clicked again', () => {
+    renderSection(ready([TRIAGE], [STANDARD], { teams: [TEAM] }))
+    fireEvent.click(rowOf('Intake').getByRole('button', { name: zh.edit }))
+    expect(screen.getByText(zh.editTeamHeading.replace('{name}', 'Intake'))).toBeDefined()
+    fireEvent.click(rowOf('Intake').getByRole('button', { name: zh.cancelEdit }))
+    expect(screen.getByText(zh.addTeamHeading)).toBeDefined()
+  })
+
+  it('names each team\'s members, and shows a written one without an edit', () => {
+    renderSection(ready([TRIAGE], [STANDARD], { teams: [TEAM, { ...TEAM, id: 'written', displayName: 'Ops', written: true, members: [] }] }))
+    const intake = rowOf('Intake')
+    expect(intake.getByText('Triage')).toBeDefined()
+    expect(intake.getByRole('button', { name: zh.edit })).toBeDefined()
+
+    const ops = rowOf('Ops')
+    expect(ops.getByText(zh.fromConfiguration)).toBeDefined()
+    expect(ops.getByText(zh.teamMembersNone)).toBeDefined()
+    expect(ops.queryByRole('button', { name: zh.removeTeam })).toBeNull()
+  })
+
+  it('edits one from its own values, and submits its id', () => {
+    const { saveTeam } = renderSection(ready([TRIAGE], [STANDARD], { teams: [TEAM] }))
+    fireEvent.click(rowOf('Intake').getByRole('button', { name: zh.edit }))
+    expect(screen.getByText(zh.editTeamHeading.replace('{name}', 'Intake'))).toBeDefined()
+    expect(field(zh.teamName).value).toBe('Intake')
+
+    fireEvent.change(field(zh.teamName), { target: { value: 'Front desk' } })
+    fireEvent.click(screen.getByRole('button', { name: zh.submitEditTeam }))
+    expect(saveTeam).toHaveBeenCalledWith(expect.objectContaining({ id: 'intake', displayName: 'Front desk' }))
+  })
+
+  it('removes one only after it is acknowledged, and leaves edit mode on it', () => {
+    const { removeTeam } = renderSection(ready([TRIAGE], [STANDARD], { teams: [TEAM] }))
+    fireEvent.click(rowOf('Intake').getByRole('button', { name: zh.edit }))
+    fireEvent.click(rowOf('Intake').getByRole('button', { name: zh.removeTeam }))
+    expect(screen.getByText(zh.removeTeamTitle.replace('{name}', 'Intake'))).toBeDefined()
+    expect(screen.getByText(zh.removeTeamBody)).toBeDefined()
+
+    fireEvent.click(screen.getByRole('button', { name: zh.removeCancel }))
+    expect(removeTeam).not.toHaveBeenCalled()
+
+    fireEvent.click(rowOf('Intake').getByRole('button', { name: zh.removeTeam }))
+    fireEvent.click(screen.getByLabelText(zh.removeTeamAcknowledge))
+    fireEvent.click(screen.getByRole('button', { name: zh.removeTeamConfirm }))
+    expect(removeTeam).toHaveBeenCalledWith('intake')
+    expect(screen.getByText(zh.addTeamHeading)).toBeDefined()
+  })
+
+  it('reports each team outcome in its own words', () => {
+    renderSection(ready([TRIAGE], [STANDARD], { outcome: { kind: 'team-saved', displayName: 'Intake' } }))
+    expect(screen.getByText(zh.teamSavedDone.replace('{name}', 'Intake'))).toBeDefined()
+
+    cleanup()
+    renderSection(ready([TRIAGE], [STANDARD], { outcome: { kind: 'team-removed' } }))
+    expect(screen.getByText(zh.teamRemovedDone)).toBeDefined()
   })
 })
 

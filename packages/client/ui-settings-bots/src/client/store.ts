@@ -11,7 +11,7 @@
 
 import { defineStore } from '@lyness/lyn-client-store'
 import type { EngineStoreHandle } from '@lyness/lyn-client-store'
-import type { BotRowView, PresetOptionView } from '@lyness/lyn-api-bots-controller/types'
+import type { BotRowView, PresetOptionView, TeamRowView } from '@lyness/lyn-api-bots-controller/types'
 
 /** Where the read stands. */
 export type BotsStatus = 'idle' | 'loading' | 'ready' | 'failed' | 'unavailable' | 'forbidden'
@@ -20,6 +20,8 @@ export type BotsStatus = 'idle' | 'loading' | 'ready' | 'failed' | 'unavailable'
 export type BotsOutcome =
   | { kind: 'saved'; displayName: string }
   | { kind: 'removed' }
+  | { kind: 'team-saved'; displayName: string }
+  | { kind: 'team-removed' }
   | { kind: 'refused'; reason: string; fields: readonly string[] }
 
 /** What the section renders. */
@@ -30,6 +32,8 @@ export interface BotsSectionState {
   bots: readonly BotRowView[]
   /** The presets a bot may be given. */
   presets: readonly PresetOptionView[]
+  /** The teams the caller may change. */
+  teams: readonly TeamRowView[]
   /** True while a change is in flight. */
   working: boolean
   /** What the last change answered, so the form reports its own outcome. */
@@ -42,6 +46,8 @@ export interface BotsRead {
   bots: readonly BotRowView[]
   /** The presets a bot may be given. */
   presets: readonly PresetOptionView[]
+  /** The teams the caller may change. */
+  teams: readonly TeamRowView[]
 }
 
 /** Declared action shape giving the exported factory a stable return type. */
@@ -53,6 +59,8 @@ type BotsSectionActions = {
   work: (draft: BotsSectionState) => void
   saved: (draft: BotsSectionState, bot: BotRowView) => void
   removed: (draft: BotsSectionState, id: string) => void
+  teamSaved: (draft: BotsSectionState, team: TeamRowView) => void
+  teamRemoved: (draft: BotsSectionState, id: string) => void
   refused: (draft: BotsSectionState, refusal: { reason: string; fields: readonly string[] }) => void
 }
 
@@ -66,6 +74,7 @@ export function createBotsSectionStore(): EngineStoreHandle<BotsSectionState, Bo
       status: 'idle',
       bots: [],
       presets: [],
+      teams: [],
       working: false,
       outcome: undefined,
     }),
@@ -80,6 +89,7 @@ export function createBotsSectionStore(): EngineStoreHandle<BotsSectionState, Bo
         draft.status = 'ready'
         draft.bots = read.bots
         draft.presets = read.presets
+        draft.teams = read.teams
       },
       // Three answers, not one: a deployment that maintains no bots has
       // nothing to retry, a caller who may not maintain them has nothing to
@@ -111,6 +121,19 @@ export function createBotsSectionStore(): EngineStoreHandle<BotsSectionState, Bo
         draft.working = false
         draft.outcome = { kind: 'removed' }
         draft.bots = draft.bots.filter(one => one.id !== id)
+      },
+      teamSaved: (draft, team: TeamRowView) => {
+        draft.working = false
+        draft.outcome = { kind: 'team-saved', displayName: team.displayName }
+        const existing = draft.teams.findIndex(one => one.id === team.id)
+        draft.teams = existing === -1
+          ? [...draft.teams, team]
+          : draft.teams.map(one => one.id === team.id ? team : one)
+      },
+      teamRemoved: (draft, id: string) => {
+        draft.working = false
+        draft.outcome = { kind: 'team-removed' }
+        draft.teams = draft.teams.filter(one => one.id !== id)
       },
       refused: (draft, refusal: { reason: string; fields: readonly string[] }) => {
         draft.working = false

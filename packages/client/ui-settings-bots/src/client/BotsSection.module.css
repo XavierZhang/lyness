@@ -196,3 +196,17 @@
   color: var(--lyn-color-text-secondary);
   font-size: var(--lyn-font-size-sm);
 }
+
+.members {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--lyn-space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.member {
+  display: flex;
+  align-items: center;
+}

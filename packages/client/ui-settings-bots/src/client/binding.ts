@@ -10,7 +10,7 @@
  * @module @lyness/lyn-client-ui-settings-bots/client/binding
  */
 
-import type { BotRowView } from '@lyness/lyn-api-bots-controller/types'
+import type { BotRowView, TeamRowView } from '@lyness/lyn-api-bots-controller/types'
 import type { BotsOperations, BotsSink } from './operations.ts'
 import type { BotsRead } from './store.ts'
 import type { BotsSectionInjected } from './BotsSection.tsx'
@@ -75,6 +75,18 @@ export class SectionBinding implements BotsSink {
   removed(id: string): void { this.actions?.removed(id) }
 
   /**
+   * Report a team that was added or changed.
+   * @param team - what it now reads as.
+   */
+  teamSaved(team: TeamRowView): void { this.actions?.teamSaved(team) }
+
+  /**
+   * Report a team that was removed.
+   * @param id - the team that is gone.
+   */
+  teamRemoved(id: string): void { this.actions?.teamRemoved(id) }
+
+  /**
    * Report a change that was refused.
    * @param refusal - what the server said, and the fields it named.
    */
@@ -106,6 +118,8 @@ export function sectionFace(
       talk,
       save: operations.save,
       remove: operations.remove,
+      saveTeam: operations.saveTeam,
+      removeTeam: operations.removeTeam,
     }
   }
 }

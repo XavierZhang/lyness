@@ -4,7 +4,7 @@
  */
 
 import { describe, expect, it, vi } from 'vitest'
-import type { BotRowView } from '@lyness/lyn-api-bots-controller/types'
+import type { BotRowView, TeamRowView } from '@lyness/lyn-api-bots-controller/types'
 import { SectionBinding, sectionFace } from '../src/client/binding.ts'
 import type { BotsActions } from '../src/client/binding.ts'
 import type { BotsOperations } from '../src/client/operations.ts'
@@ -20,6 +20,14 @@ const BOT: BotRowView = {
   available: true,
 }
 
+const TEAM: TeamRowView = {
+  id: 'intake',
+  displayName: 'Intake',
+  organization: 'acme',
+  members: ['triage'],
+  written: false,
+}
+
 /** The store writes, as the framework bakes them. */
 function actions(): BotsActions & { readonly calls: string[] } {
   const calls: string[] = []
@@ -32,6 +40,8 @@ function actions(): BotsActions & { readonly calls: string[] } {
     work: () => { calls.push('work') },
     saved: (bot) => { calls.push(`saved:${bot.id}`) },
     removed: (id) => { calls.push(`removed:${id}`) },
+    teamSaved: (team) => { calls.push(`team-saved:${team.id}`) },
+    teamRemoved: (id) => { calls.push(`team-removed:${id}`) },
     refused: (refusal) => { calls.push(`refused:${refusal.reason}`) },
   }
 }
@@ -39,12 +49,14 @@ function actions(): BotsActions & { readonly calls: string[] } {
 /** Every outcome, in one sequence. */
 function publishAll(binding: SectionBinding): void {
   binding.begin()
-  binding.succeed({ bots: [BOT], presets: [] })
+  binding.succeed({ bots: [BOT], presets: [], teams: [TEAM] })
   binding.fail('failed')
   binding.reset()
   binding.work()
   binding.saved(BOT)
   binding.removed('triage')
+  binding.teamSaved(TEAM)
+  binding.teamRemoved('intake')
   binding.refused({ reason: 'bots/not-permitted', fields: [] })
 }
 
@@ -63,7 +75,7 @@ describe('SectionBinding', () => {
     publishAll(binding)
     expect(baked.calls).toEqual([
       'begin', 'succeed:1', 'fail:failed', 'reset', 'work', 'saved:triage', 'removed:triage',
-      'refused:bots/not-permitted',
+      'team-saved:intake', 'team-removed:intake', 'refused:bots/not-permitted',
     ])
   })
 
@@ -87,6 +99,8 @@ describe('sectionFace', () => {
       retry: vi.fn(() => Promise.resolve()),
       save: vi.fn(() => Promise.resolve()),
       remove: vi.fn(() => Promise.resolve()),
+      saveTeam: vi.fn(() => Promise.resolve()),
+      removeTeam: vi.fn(() => Promise.resolve()),
     }
     const baked = actions()
     const talked: string[] = []
@@ -95,6 +109,8 @@ describe('sectionFace', () => {
     expect(face.retry).toBe(operations.retry)
     expect(face.save).toBe(operations.save)
     expect(face.remove).toBe(operations.remove)
+    expect(face.saveTeam).toBe(operations.saveTeam)
+    expect(face.removeTeam).toBe(operations.removeTeam)
     face.talk('triage')
     expect(talked).toEqual(['triage'])
     binding.begin()

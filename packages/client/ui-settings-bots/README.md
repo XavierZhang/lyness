@@ -32,7 +32,7 @@ The Web bundle mounts it beside the other Settings sections:
   name: '@lyness/lyn-client-ui-settings-bots'
 ```
 
-There is nothing else to configure. The section reads `remote.bots` when it opens, and renders one of four things: the bots and the form, a notice that this deployment maintains no bots of its own, a notice that the caller may not change them, or a failure with a retry. Each row also starts a conversation with that bot, through the Workspace navigation rather than by creating a session here, so it lands in the Workspace the reader is in and opens the way every other new session does.
+There is nothing else to configure. The section reads `remote.bots` when it opens, and renders one of four things: the bots and the teams with their forms, a notice that this deployment maintains no bots of its own, a notice that the caller may not change them, or a failure with a retry. Each bot row also starts a conversation with that bot, through the Workspace navigation rather than by creating a session here, so it lands in the Workspace the reader is in and opens the way every other new session does.
 
 -----
 
@@ -48,6 +48,8 @@ There is nothing else to configure. The section reads `remote.bots` when it open
 **A bot that will not run is marked rather than hidden.** Its preset left the profile, so it cannot start a conversation; removing the row would lose the character an administrator wrote, and hiding it would leave them looking for a bot that still exists.
 
 **Talking to one is offered for a written bot too.** The operator's own bots are the ones most worth talking to; only changing them is refused. The one row that cannot start a conversation is the one whose preset the deployment stopped offering, and it says so.
+
+**A team's members are picked, not typed.** A team holds only its own organization's bots, so the member list is the bots this reader already maintains. A deployment with no bot yet says so instead of offering an empty form: there is nothing a team could hold.
 
 **Removal asks first.** The bot stops running and leaves the roster, and the conversations it owns stay attributed to it with nobody to answer in them, so it goes through the shared risk confirmation rather than a single click.
 
@@ -76,6 +78,8 @@ No request prefix changes, because nothing here contributes to an assembled requ
 <a id="known-limitations-and-deferred-work"></a>
 
 - **This is the only way in** — a conversation with a bot starts from this page; there is no bot in the new-session screen, the sidebar, or the composer.
+- **One organization per form** — both forms take an organization as text, so a reader who administers two of them retypes it; neither offers the organizations they administer as a choice.
+- **A team's members are its bots only** — the picker lists the bots on this page, so a platform administrator editing another organization's team sees that organization's bots only after the read answers them.
 - **The section is offered to every reader** — a member who opens Settings sees it and reads the notice that they may not change the organization's bots, rather than not being offered the section at all. Hiding it needs the navigation to know the caller's standing before the section's own read answers.
 - **Organization is typed, not picked** — the form takes an organization id as text, because no directory of organizations is readable from the client yet.
 - **The character is a plain box** — there is no preview of the system prompt a bot would run with, and no way to try one before saving it.

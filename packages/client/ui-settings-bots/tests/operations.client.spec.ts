@@ -6,7 +6,7 @@
  */
 
 import { describe, expect, it, vi } from 'vitest'
-import type { BotRowView, PresetOptionView } from '@lyness/lyn-api-bots-controller/types'
+import type { BotRowView, PresetOptionView, TeamRowView } from '@lyness/lyn-api-bots-controller/types'
 import { createBotsOperations, statusOf } from '../src/client/operations.ts'
 import type { BotsCalls, BotsSink, CallOutcome } from '../src/client/operations.ts'
 
@@ -22,6 +22,15 @@ const BOT: BotRowView = {
 }
 
 const PRESET: PresetOptionView = { id: 'standard', displayName: 'Standard' }
+
+const TEAM: TeamRowView = {
+  id: 'intake',
+  displayName: 'Intake',
+  organization: 'acme',
+  members: ['triage'],
+  written: false,
+}
+
 
 /** One refusal, as a Remote call answers it. */
 function refused(code: string, details: object = {}, message?: string): CallOutcome<never> {
@@ -45,6 +54,8 @@ function recorder(): BotsSink & { seen: string[]; read: unknown[] } {
     work: () => { seen.push('work') },
     saved: (bot) => { seen.push(`saved:${bot.id}`) },
     removed: (id) => { seen.push(`removed:${id}`) },
+    teamSaved: (team) => { seen.push(`team-saved:${team.id}`) },
+    teamRemoved: (id) => { seen.push(`team-removed:${id}`) },
     refused: (refusal) => { seen.push(`refused:${refusal.reason}:${refusal.fields.join(',')}`) },
   }
 }
@@ -56,6 +67,9 @@ function calls(over: Partial<BotsCalls> = {}): BotsCalls {
     presets: () => Promise.resolve({ ok: true, value: [PRESET] }),
     save: () => Promise.resolve({ ok: true, value: BOT }),
     remove: () => Promise.resolve({ ok: true, value: undefined }),
+    teams: () => Promise.resolve({ ok: true, value: [TEAM] }),
+    saveTeam: () => Promise.resolve({ ok: true, value: TEAM }),
+    removeTeam: () => Promise.resolve({ ok: true, value: undefined }),
     ...over,
   }
 }
@@ -65,7 +79,7 @@ describe('the read', () => {
     const sink = recorder()
     await createBotsOperations(calls(), sink).load()
     expect(sink.seen).toEqual(['begin', 'succeed'])
-    expect(sink.read).toEqual([{ bots: [BOT], presets: [PRESET] }])
+    expect(sink.read).toEqual([{ bots: [BOT], presets: [PRESET], teams: [TEAM] }])
   })
 
   it('is shared: opening the section twice asks the deployment once', async () => {
@@ -85,7 +99,7 @@ describe('the read', () => {
     expect(forbidden.seen).toEqual(['begin', 'fail:forbidden'])
   })
 
-  it('reports a read that broke as retryable, whichever half broke', async () => {
+  it('reports a read that broke as retryable, whichever third broke', async () => {
     const bots = recorder()
     await createBotsOperations(calls({ list: () => Promise.resolve(refused('gateway/timeout')) }), bots).load()
     expect(bots.seen).toEqual(['begin', 'fail:failed'])
@@ -93,6 +107,10 @@ describe('the read', () => {
     const presets = recorder()
     await createBotsOperations(calls({ presets: () => Promise.resolve(refused('gateway/timeout')) }), presets).load()
     expect(presets.seen).toEqual(['begin', 'fail:failed'])
+
+    const teams = recorder()
+    await createBotsOperations(calls({ teams: () => Promise.resolve(refused('gateway/timeout')) }), teams).load()
+    expect(teams.seen).toEqual(['begin', 'fail:failed'])
 
     const thrown = recorder()
     await createBotsOperations(calls({ list: () => Promise.reject(new Error('carrier')) }), thrown).load()
@@ -146,6 +164,52 @@ describe('a change', () => {
     await createBotsOperations(calls({ remove: () => Promise.reject(new Error('socket closed')) }), removing)
       .remove('triage')
     expect(removing.seen).toEqual(['work', 'refused:socket closed:'])
+  })
+})
+
+describe('a team change', () => {
+  it('publishes what the team now reads as, and what was removed', async () => {
+    const saved = recorder()
+    await createBotsOperations(calls(), saved)
+      .saveTeam({ displayName: 'Intake', organization: 'acme', members: ['triage'] })
+    expect(saved.seen).toEqual(['work', 'team-saved:intake'])
+
+    const removed = recorder()
+    await createBotsOperations(calls(), removed).removeTeam('intake')
+    expect(removed.seen).toEqual(['work', 'team-removed:intake'])
+  })
+
+  it('reports a refusal with the fields the server named, and a carrier that did not deliver', async () => {
+    const incomplete = recorder()
+    await createBotsOperations(
+      calls({ saveTeam: () => Promise.resolve(refused('bots/incomplete', { fields: ['organization'] }, 'needs one')) }),
+      incomplete,
+    ).saveTeam({ displayName: 'Intake', organization: '', members: [] })
+    expect(incomplete.seen).toEqual(['work', 'refused:needs one:organization'])
+
+    const unknown = recorder()
+    await createBotsOperations(
+      calls({ saveTeam: () => Promise.resolve(refused('bots/unknown-bot', {}, 'not ours')) }),
+      unknown,
+    ).saveTeam({ displayName: 'Intake', organization: 'acme', members: ['theirs'] })
+    expect(unknown.seen).toEqual(['work', 'refused:not ours:'])
+
+    const thrown = recorder()
+    await createBotsOperations(calls({ saveTeam: () => Promise.reject(new Error('socket closed')) }), thrown)
+      .saveTeam({ displayName: 'Intake', organization: 'acme', members: [] })
+    expect(thrown.seen).toEqual(['work', 'refused:socket closed:'])
+
+    const removing = recorder()
+    await createBotsOperations(calls({ removeTeam: () => Promise.reject(new Error('socket closed')) }), removing)
+      .removeTeam('intake')
+    expect(removing.seen).toEqual(['work', 'refused:socket closed:'])
+
+    const written = recorder()
+    await createBotsOperations(
+      calls({ removeTeam: () => Promise.resolve(refused('bots/written', {}, 'configuration owns it')) }),
+      written,
+    ).removeTeam('intake')
+    expect(written.seen).toEqual(['work', 'refused:configuration owns it:'])
   })
 })
 

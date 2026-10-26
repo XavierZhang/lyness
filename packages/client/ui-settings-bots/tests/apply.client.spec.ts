@@ -12,7 +12,7 @@ import { describe, expect, it, vi } from 'vitest'
 import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
 import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
 import { TestRemote } from '@lyness/lyn-client-test-runtime'
-import type { BotRowView, PresetOptionView } from '@lyness/lyn-api-bots-controller/types'
+import type { BotRowView, PresetOptionView, TeamRowView } from '@lyness/lyn-api-bots-controller/types'
 import { apply, botsCallsOf, inject, NS, startingBotConversation } from '@lyness/lyn-client-ui-settings-bots/client'
 import { BotsSection } from '../src/client/BotsSection.tsx'
 import type { createBotsSectionStore } from '../src/client/store.ts'
@@ -32,6 +32,14 @@ const BOT: BotRowView = {
 
 const PRESET: PresetOptionView = { id: 'standard', displayName: 'Standard' }
 
+const TEAM: TeamRowView = {
+  id: 'intake',
+  displayName: 'Intake',
+  organization: 'acme',
+  members: ['triage'],
+  written: false,
+}
+
 /** A context with the slot registry, a locale, and the section mounted. */
 async function bench(list: () => Promise<unknown> = () => Promise.resolve({ ok: true, value: [BOT] })) {
   const ctx = new Context()
@@ -45,6 +53,9 @@ async function bench(list: () => Promise<unknown> = () => Promise.resolve({ ok: 
       presets: () => Promise.resolve({ ok: true, value: [PRESET] }),
       save: () => Promise.resolve({ ok: true, value: BOT }),
       remove: () => Promise.resolve({ ok: true, value: undefined }),
+      teams: () => Promise.resolve({ ok: true, value: [TEAM] }),
+      saveTeam: () => Promise.resolve({ ok: true, value: TEAM }),
+      removeTeam: () => Promise.resolve({ ok: true, value: undefined }),
     },
   })
   events.$host = { home: undefined, isLoopback: true }
@@ -104,6 +115,10 @@ describe('ui-settings-bots apply', () => {
     expect(await calls.save({ displayName: 'Triage', organization: 'acme', persona: '', job: '', preset: 'standard' }))
       .toEqual({ ok: true, value: BOT })
     expect(await calls.remove('triage')).toEqual({ ok: true, value: undefined })
+    expect(await calls.teams()).toEqual({ ok: true, value: [TEAM] })
+    expect(await calls.saveTeam({ displayName: 'Intake', organization: 'acme', members: ['triage'] }))
+      .toEqual({ ok: true, value: TEAM })
+    expect(await calls.removeTeam('intake')).toEqual({ ok: true, value: undefined })
     expect(list).toHaveBeenCalledOnce()
   })
 
@@ -111,7 +126,7 @@ describe('ui-settings-bots apply', () => {
     const { slots } = await bench()
     const handle = entryOf(slots).store as Handle
     expect(handle.create().store.getSnapshot()).toEqual({
-      status: 'idle', bots: [], presets: [], working: false, outcome: undefined,
+      status: 'idle', bots: [], presets: [], teams: [], working: false, outcome: undefined,
     })
   })
 
@@ -120,8 +135,9 @@ describe('ui-settings-bots apply', () => {
     const instance = (entryOf(slots).store as Handle).create()
     instance.actions.begin()
     expect(instance.store.getSnapshot().status).toBe('loading')
-    instance.actions.succeed({ bots: [BOT], presets: [PRESET] })
-    expect(instance.store.getSnapshot()).toMatchObject({ status: 'ready', bots: [BOT], presets: [PRESET] })
+    instance.actions.succeed({ bots: [BOT], presets: [PRESET], teams: [TEAM] })
+    expect(instance.store.getSnapshot())
+      .toMatchObject({ status: 'ready', bots: [BOT], presets: [PRESET], teams: [TEAM] })
     instance.actions.fail('forbidden')
     expect(instance.store.getSnapshot().status).toBe('forbidden')
     instance.actions.reset()
@@ -131,7 +147,7 @@ describe('ui-settings-bots apply', () => {
   it('replaces a renamed bot in place rather than listing it twice', async () => {
     const { slots } = await bench()
     const instance = (entryOf(slots).store as Handle).create()
-    instance.actions.succeed({ bots: [BOT], presets: [PRESET] })
+    instance.actions.succeed({ bots: [BOT], presets: [PRESET], teams: [TEAM] })
     instance.actions.work()
     instance.actions.saved({ ...BOT, displayName: 'Intake' })
     expect(instance.store.getSnapshot().bots).toEqual([{ ...BOT, displayName: 'Intake' }])
@@ -146,7 +162,7 @@ describe('ui-settings-bots apply', () => {
   it('drops a removed bot, and keeps the fields a refusal named', async () => {
     const { slots } = await bench()
     const instance = (entryOf(slots).store as Handle).create()
-    instance.actions.succeed({ bots: [BOT], presets: [PRESET] })
+    instance.actions.succeed({ bots: [BOT], presets: [PRESET], teams: [TEAM] })
     instance.actions.work()
     instance.actions.removed('triage')
     expect(instance.store.getSnapshot()).toMatchObject({ working: false, bots: [], outcome: { kind: 'removed' } })
@@ -165,6 +181,26 @@ describe('ui-settings-bots apply', () => {
     // Started rather than created here, so it lands in the Workspace the
     // reader is in and opens the way every other new session does.
     expect(started).toEqual([{ bot: 'triage' }])
+  })
+
+  it('replaces a renamed team in place, and drops a removed one', async () => {
+    const { slots } = await bench()
+    const instance = (entryOf(slots).store as Handle).create()
+    instance.actions.succeed({ bots: [BOT], presets: [PRESET], teams: [TEAM] })
+    instance.actions.work()
+    instance.actions.teamSaved({ ...TEAM, displayName: 'Front desk' })
+    expect(instance.store.getSnapshot().teams).toEqual([{ ...TEAM, displayName: 'Front desk' }])
+
+    instance.actions.teamSaved({ ...TEAM, id: 'review', displayName: 'Review' })
+    expect(instance.store.getSnapshot().teams).toHaveLength(2)
+
+    // Replacing one of several keeps the others in place.
+    instance.actions.teamSaved({ ...TEAM, id: 'review', displayName: 'Weekly review' })
+    expect(instance.store.getSnapshot().teams.map(one => one.displayName)).toEqual(['Front desk', 'Weekly review'])
+
+    instance.actions.teamRemoved('review')
+    expect(instance.store.getSnapshot())
+      .toMatchObject({ working: false, teams: [{ ...TEAM, displayName: 'Front desk' }], outcome: { kind: 'team-removed' } })
   })
 
   it('stops offering the section when its plugin is unloaded', async () => {

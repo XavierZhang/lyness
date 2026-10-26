@@ -15,7 +15,9 @@ import { createSharedRead, messageOf } from '@lyness/lyn-client-store'
 import type { RemoteFailure } from '@lyness/lyn-typert-protocol'
 import type {} from '@lyness/lyn-api-remotes/client'
 import type {} from '@lyness/lyn-api-bots-controller/remote'
-import type { BotInput, BotRowView, PresetOptionView } from '@lyness/lyn-api-bots-controller/types'
+import type {
+  BotInput, BotRowView, PresetOptionView, TeamInput, TeamRowView,
+} from '@lyness/lyn-api-bots-controller/types'
 import type { BotsRead } from './store.ts'
 
 /** What one Remote call answers: the value, or the failure it refused with. */
@@ -33,6 +35,12 @@ export interface BotsCalls {
   save: (input: BotInput) => Promise<CallOutcome<BotRowView>>
   /** Remove one bot. */
   remove: (id: string) => Promise<CallOutcome<void>>
+  /** The teams the caller may change. */
+  teams: () => Promise<CallOutcome<readonly TeamRowView[]>>
+  /** Add one team, or change one. */
+  saveTeam: (input: TeamInput) => Promise<CallOutcome<TeamRowView>>
+  /** Remove one team. */
+  removeTeam: (id: string) => Promise<CallOutcome<void>>
 }
 
 // Deliberately parallel to the people section: sibling Settings sections
@@ -44,7 +52,7 @@ export interface BotsCalls {
 export interface BotsSink {
   /** A read has started. */
   begin: () => void
-  /** A read returned the bots and the presets. */
+  /** A read returned the bots, the presets and the teams. */
   succeed: (read: BotsRead) => void
   /** A read did not return them. */
   fail: (status: 'failed' | 'unavailable' | 'forbidden') => void
@@ -56,6 +64,10 @@ export interface BotsSink {
   saved: (bot: BotRowView) => void
   /** A bot was removed. */
   removed: (id: string) => void
+  /** A team was added or changed, and this is what it now reads as. */
+  teamSaved: (team: TeamRowView) => void
+  /** A team was removed. */
+  teamRemoved: (id: string) => void
   /** A change was refused, with the reason and the fields to mark. */
   refused: (refusal: { reason: string; fields: readonly string[] }) => void
 }
@@ -70,6 +82,10 @@ export interface BotsOperations {
   save: (input: BotInput) => Promise<void>
   /** Remove one bot. */
   remove: (id: string) => Promise<void>
+  /** Add one team, or change one. */
+  saveTeam: (input: TeamInput) => Promise<void>
+  /** Remove one team. */
+  removeTeam: (id: string) => Promise<void>
 }
 
 /* jscpd:ignore-end */
@@ -89,6 +105,9 @@ export function botsCallsOf(ctx: Context): BotsCalls {
     presets: () => ctx.remote.bots.presets(),
     save: input => ctx.remote.bots.save(input),
     remove: id => ctx.remote.bots.remove(id),
+    teams: () => ctx.remote.bots.teams(),
+    saveTeam: input => ctx.remote.bots.saveTeam(input),
+    removeTeam: id => ctx.remote.bots.removeTeam(id),
   }
 }
 
@@ -131,10 +150,11 @@ export function createBotsOperations(calls: BotsCalls, sink: BotsSink): BotsOper
   const shared = createSharedRead(async () => {
     sink.begin()
     try {
-      const [bots, presets] = await Promise.all([calls.list(), calls.presets()])
+      const [bots, presets, teams] = await Promise.all([calls.list(), calls.presets(), calls.teams()])
       if (!bots.ok) { sink.fail(statusOf(bots.error)); return }
       if (!presets.ok) { sink.fail(statusOf(presets.error)); return }
-      sink.succeed({ bots: bots.value, presets: presets.value })
+      if (!teams.ok) { sink.fail(statusOf(teams.error)); return }
+      sink.succeed({ bots: bots.value, presets: presets.value, teams: teams.value })
     } catch {
       // The reason belongs to the transport, and a reader can only retry.
       sink.fail('failed')
@@ -161,6 +181,26 @@ export function createBotsOperations(calls: BotsCalls, sink: BotsSink): BotsOper
         const result = await calls.remove(id)
         if (!result.ok) { sink.refused(refusalOf(result.error)); return }
         sink.removed(id)
+      } catch (error: unknown) {
+        sink.refused({ reason: messageOf(error), fields: [] })
+      }
+    },
+    saveTeam: async (input): Promise<void> => {
+      sink.work()
+      try {
+        const result = await calls.saveTeam(input)
+        if (!result.ok) { sink.refused(refusalOf(result.error)); return }
+        sink.teamSaved(result.value)
+      } catch (error: unknown) {
+        sink.refused({ reason: messageOf(error), fields: [] })
+      }
+    },
+    removeTeam: async (id): Promise<void> => {
+      sink.work()
+      try {
+        const result = await calls.removeTeam(id)
+        if (!result.ok) { sink.refused(refusalOf(result.error)); return }
+        sink.teamRemoved(id)
       } catch (error: unknown) {
         sink.refused({ reason: messageOf(error), fields: [] })
       }
