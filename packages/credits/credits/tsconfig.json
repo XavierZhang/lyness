@@ -18,6 +18,8 @@
       "path": "../../util/brand"
     },
     {
+      "path": "../../identity/admin-audit"
+    },    {
       "path": "../../identity/people"
     },
     {

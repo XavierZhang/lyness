@@ -56,6 +56,7 @@
   },
   "devDependencies": {
     "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-admin-audit": "workspace:*",
     "@lyness/lyn-brand": "workspace:*",
     "@lyness/lyn-credits": "workspace:*",
     "@lyness/lyn-people": "workspace:*",

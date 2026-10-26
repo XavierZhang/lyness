@@ -73,6 +73,7 @@
   "license": "MIT",
   "peerDependencies": {
     "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-admin-audit": "workspace:*",
     "@lyness/lyn-brand": "workspace:*",
     "@lyness/lyn-people": "workspace:*",
     "@lyness/lyn-storage-domain": "workspace:*",
@@ -82,6 +83,7 @@
   },
   "devDependencies": {
     "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-admin-audit": "workspace:*",
     "@lyness/lyn-brand": "workspace:*",
     "@lyness/lyn-people": "workspace:*",
     "@lyness/lyn-storage-domain": "workspace:*",

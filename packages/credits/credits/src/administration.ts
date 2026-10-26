@@ -19,6 +19,8 @@
 import { Service } from '@lyness/cordis'
 import type { Context } from '@lyness/cordis'
 import type { Domain } from '@lyness/lyn-storage-domain'
+import { fieldChanges } from '@lyness/lyn-admin-audit'
+import type {} from '@lyness/lyn-admin-audit'
 import { administers } from '@lyness/lyn-people'
 import type { Membership, PersonId } from '@lyness/lyn-people'
 import { allowanceKey } from './allowance.ts'
@@ -83,7 +85,7 @@ export const name = 'credits-administration'
 
 /** Administrator credit decisions, authorized against the standing making them. */
 export class CreditAdministration extends Service {
-  static inject = ['credits', 'people', 'storageDomain']
+  static inject = ['credits', 'people', 'storageDomain', 'adminAudit']
 
   private readonly ready: Promise<Domain<typeof allowanceDomain>>
 
@@ -143,7 +145,28 @@ export class CreditAdministration extends Service {
       setBy: by.person,
     }
     const domain = await this.ready
-    await domain.table('overrides').put(allowanceKey(change.organization, change.person), record)
+    const key = allowanceKey(change.organization, change.person)
+    const existing = domain.table('overrides').get(key)
+    await domain.table('overrides').put(key, record)
+    // An override is replaced in place, so what it used to allow is only
+    // readable from the trail. A grant is not recorded there: the ledger row
+    // is already an immutable record naming who granted what to whom.
+    const changes = fieldChanges(
+      existing === undefined ? undefined : allowanceFields(existing),
+      allowanceFields(record),
+    )
+    if (existing !== undefined && changes.length === 0) return
+    await this.ctx.adminAudit.record({
+      kind: 'credit-allowance',
+      subject: key,
+      subjectName: change.organization ?? String(change.person),
+      action: existing === undefined ? 'added' : 'changed',
+      // The organization of the standing that made the decision, so a tenant
+      // administrator reads back the overrides they set; a platform standing
+      // holds none, and those entries are read with the whole trail.
+      ...by.organization === undefined ? {} : { organization: by.organization },
+      changes,
+    }, by)
   }
 
   /**
@@ -198,6 +221,20 @@ export class CreditAdministration extends Service {
    */
   private async assertMayAdministerPerson(by: Membership, person: PersonId): Promise<void> {
     if (!await this.mayAdminister(by, person)) throw new Error(NOT_PERMITTED)
+  }
+}
+
+/**
+ * One allowance override's audited fields.
+ *
+ * Only what an administrator decided: how much each period and how often. Who
+ * set it and when are on the trail's own entry, so repeating them would be
+ * two answers to one question.
+ */
+function allowanceFields(record: AllowanceRecord): Record<string, string> {
+  return {
+    ...record.periodicAmount === undefined ? {} : { periodicAmount: String(record.periodicAmount) },
+    ...record.period === undefined ? {} : { period: record.period },
   }
 }
 

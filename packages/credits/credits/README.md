@@ -100,6 +100,8 @@ That is idempotent by construction rather than by a flag: a grant carries the in
 
 **The ledger reads the administration service optionally.** A single-operator install mounts none, and the deployment's own numbers are then the whole answer; injecting it would make the ledger unavailable there.
 
+**An override is recorded in the trail, and a grant is not.** An override is replaced in place, so what it used to allow is only readable from [`lyn-admin-audit`](../../identity/admin-audit/README.md). A grant is already an immutable row naming who granted what to whom, so recording it again would be a second answer to one question. An override entry belongs to the organization of the standing that set it, so a tenant administrator reads back their own decisions.
+
 **Every debit names its session.** A refusal a customer cannot account for is a support case; a balance whose every debit names the session that caused it is answerable.
 
 -----

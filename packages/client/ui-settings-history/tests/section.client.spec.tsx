@@ -153,11 +153,13 @@ describe('what the section says while the read is unfinished', () => {
 })
 
 describe('naming a record and what happened to it', () => {
-  it('names the four kinds it knows and shows another as the server named it', () => {
+  it('names the kinds it knows and shows another as the server named it', () => {
     expect(kindLabel('person', t)).toBe(zh.kindPerson)
     expect(kindLabel('binding', t)).toBe(zh.kindBinding)
     expect(kindLabel('bot', t)).toBe(zh.kindBot)
     expect(kindLabel('team', t)).toBe(zh.kindTeam)
+    expect(kindLabel('sign-in-channel', t)).toBe(zh.kindSignInChannel)
+    expect(kindLabel('credit-allowance', t)).toBe(zh.kindCreditAllowance)
     // The set is open, so a later owner of administrable records reads as
     // itself here rather than as a blank.
     expect(kindLabel('workspace', t)).toBe('workspace')

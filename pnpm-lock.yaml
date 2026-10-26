@@ -1202,6 +1202,9 @@ importers:
       '@lyness/cordis':
         specifier: workspace:~
         version: link:../../../vendor/cordis
+      '@lyness/lyn-admin-audit':
+        specifier: workspace:*
+        version: link:../../identity/admin-audit
       '@lyness/lyn-brand':
         specifier: workspace:*
         version: link:../../util/brand
@@ -7997,6 +8000,9 @@ importers:
       '@lyness/cordis':
         specifier: workspace:~
         version: link:../../../vendor/cordis
+      '@lyness/lyn-admin-audit':
+        specifier: workspace:*
+        version: link:../../identity/admin-audit
       '@lyness/lyn-auth-session':
         specifier: workspace:*
         version: link:../../identity/auth-session

@@ -13,6 +13,7 @@ import { afterEach, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
 import Include from '@lyness/cordis-plugin-include'
+import AdminAudit from '@lyness/lyn-admin-audit'
 import StoredCreditLedger from '@lyness/lyn-credits/store'
 import CreditAdministration from '@lyness/lyn-credits/administration'
 import { StaticPeopleDirectory } from '@lyness/lyn-people/static'
@@ -67,6 +68,7 @@ async function compose(): Promise<CreditsController> {
     '        displayName: Cai',
     '        role: member',
     '        organization: zenith',
+    "- name: '@lyness/lyn-admin-audit'",
     "- name: '@lyness/lyn-credits/store'",
     '  config:',
     '    periodicAmount: 100',
@@ -87,6 +89,7 @@ async function compose(): Promise<CreditsController> {
     ['@lyness/lyn-storage-json', StorageJson],
     ['@lyness/lyn-storage-domain', StorageDomain],
     ['@lyness/lyn-people/static', StaticPeopleDirectory],
+    ['@lyness/lyn-admin-audit', AdminAudit],
     ['@lyness/lyn-credits/store', StoredCreditLedger],
     ['@lyness/lyn-credits/administration', CreditAdministration],
     ['@lyness/lyn-api-credits-controller', CreditsController],

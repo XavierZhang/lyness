@@ -47,6 +47,8 @@ export function kindLabel(kind: string, t: Translate): string {
   if (kind === 'binding') return t('kindBinding')
   if (kind === 'bot') return t('kindBot')
   if (kind === 'team') return t('kindTeam')
+  if (kind === 'sign-in-channel') return t('kindSignInChannel')
+  if (kind === 'credit-allowance') return t('kindCreditAllowance')
   return kind
 }
 

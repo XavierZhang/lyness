@@ -93,6 +93,7 @@ const history = await ctx.adminAudit.read({ organization: 'acme', subject: 'tria
 - [`lyn-managed-people`](../managed-people/README.zh.md) — 它记录其更改的那些人和绑定。
 - [`lyn-managed-bots`](../managed-bots/README.zh.md) — 它记录其更改的那些 bot 和团队。
 - [`lyn-sign-in-channels`](../sign-in-channels/README.zh.md) — 它记录其更改的那些已配置目录，密钥除外。
+- [`lyn-credits`](../../credits/credits/README.zh.md) — 它记录其更改的那些额度覆盖；一次授予是它自己的记录。
 - [`lyn-people`](../people/README.zh.md) — 一次读所凭的那些身份。
 - [`lyn-module-accounts`](../../bundle/module-accounts/README.zh.md) — 把它和名册一起选上的那份组合。
 
@@ -114,7 +115,7 @@ const history = await ctx.adminAudit.read({ organization: 'acme', subject: 'tria
 - **打开时整份记录都被读进内存** — 这个域是一张读进内存的键值表，所以一个长期运行的部署的全部记录都被持有着，一次读会把它排序。长到超出这个做法的记录，想要的是对一个能答出时间范围查询的存储做这种查询。
 - **条目永不裁剪** — 这份记录就是产品本身，所以保留多久是部署的政策，不是这个包挑的默认值。
 - **没有界面读它** — 这个服务答复一个身份，但还没有任何 Remote 命名空间或设置页展示这份记录，所以今天它只能从代码读。
-- **不是每一个管理记录的拥有者都往里记** — 两个名册和登录渠道会记；设置、积分发放和模型选择也都是管理行为，它们还没有。
+- **不是每一个管理记录的拥有者都往里记** — 两个名册、登录渠道和积分额度会记；设置和模型选择也都是管理行为，它们还没有。一次积分授予是故意不记的：账本那一行本来就是一条不会被重写、并且点名了谁把多少给了谁的记录。
 - **一次读是一页，最新的在前** — 没有游标、没有范围，也不能按谁改的或改的是哪一类记录来筛。
 - **记录说的是改了什么，不是尝试过什么** — 一次被拒绝的更改什么也不记，所以一个反复被拒的管理员在这里留不下痕迹。
 

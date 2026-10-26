@@ -16,6 +16,7 @@ import StaticPeople from '@lyness/lyn-people/static'
 import { afterEach, describe, expect, it } from 'vitest'
 import StoredCreditLedger from '../src/store.ts'
 import type { Config as LedgerConfig } from '../src/store.ts'
+import AdminAudit from '@lyness/lyn-admin-audit'
 import CreditAdministration, { NOT_PERMITTED, NOT_POSITIVE } from '../src/administration.ts'
 
 const ADA = brandString<PersonId>('ada')
@@ -72,6 +73,7 @@ async function harness(ledger: LedgerConfig = {}): Promise<Context> {
     ],
   }).await()
   await ctx.plugin(StoredCreditLedger, ledger).await()
+  await ctx.plugin(AdminAudit, {}).await()
   await ctx.plugin(CreditAdministration).await()
   live.push(ctx)
   return ctx
@@ -133,6 +135,62 @@ describe('granting credits', () => {
     const expiresAt = new Date(Date.now() - 1000).toISOString()
     await ctx.creditAdministration.grant({ person: ADA, amount: 100, expiresAt }, PLATFORM)
     expect((await ctx.credits.balance(ADA)).available).toBe(0)
+  })
+})
+
+describe('what the trail records', () => {
+  it('keeps the allowance an override replaced, which the stored row does not', async () => {
+    const ctx = await harness({ periodicAmount: 0 })
+    await ctx.creditAdministration.setAllowance({ organization: 'acme', periodicAmount: 100 }, ACME_ADMIN)
+    await ctx.creditAdministration.setAllowance(
+      { organization: 'acme', periodicAmount: 250, period: 'weekly' },
+      ACME_ADMIN,
+    )
+
+    const trail = await ctx.adminAudit.read({ organization: 'acme' }, ACME_ADMIN)
+    expect(trail.map(entry => [entry.kind, entry.action])).toEqual([
+      ['credit-allowance', 'changed'], ['credit-allowance', 'added'],
+    ])
+    expect(trail[0]?.changes).toEqual([
+      { field: 'periodicAmount', before: '100', after: '250' },
+      { field: 'period', after: 'weekly' },
+    ])
+    expect(trail[1]).toMatchObject({ subjectName: 'acme', by: 'grace' })
+  })
+
+  it('records a person\'s own override under the organization of the standing that set it', async () => {
+    const ctx = await harness({ periodicAmount: 0 })
+    await ctx.creditAdministration.setAllowance({ person: ADA, periodicAmount: 10 }, ACME_ADMIN)
+
+    const trail = await ctx.adminAudit.read({ organization: 'acme' }, ACME_ADMIN)
+    expect(trail[0]).toMatchObject({ kind: 'credit-allowance', action: 'added', subjectName: 'ada' })
+  })
+
+  it('records nothing for an override that changed nothing', async () => {
+    const ctx = await harness({ periodicAmount: 0 })
+    await ctx.creditAdministration.setAllowance({ organization: 'acme', periodicAmount: 100 }, ACME_ADMIN)
+    await ctx.creditAdministration.setAllowance({ organization: 'acme', periodicAmount: 100 }, ACME_ADMIN)
+
+    expect((await ctx.adminAudit.read({ organization: 'acme' }, ACME_ADMIN))).toHaveLength(1)
+  })
+
+  it('records no grant, because the ledger row already is one', async () => {
+    const ctx = await harness({ periodicAmount: 0 })
+    await ctx.creditAdministration.grant({ person: ADA, amount: 100 }, ACME_ADMIN)
+
+    // A grant is never rewritten and names who made it, so a second record of
+    // it would be a second answer to one question.
+    expect(await ctx.adminAudit.read({ organization: 'acme' }, ACME_ADMIN)).toEqual([])
+  })
+
+  it('reads a platform standing\'s own overrides with the whole trail', async () => {
+    const ctx = await harness({ periodicAmount: 0 })
+    await ctx.creditAdministration.setAllowance({ organization: 'acme', periodicAmount: 100 }, PLATFORM)
+
+    // A platform standing holds no organization, so its entries belong to
+    // none and are read with every organization's.
+    expect(await ctx.adminAudit.read({ organization: 'acme' }, ACME_ADMIN)).toEqual([])
+    expect((await ctx.adminAudit.read({}, PLATFORM)).map(entry => entry.subjectName)).toEqual(['acme'])
   })
 })
 

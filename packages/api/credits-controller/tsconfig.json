@@ -10,6 +10,7 @@
   "references": [
     { "path": "../../../vendor/cordis" },
     { "path": "../../util/brand" },
+    { "path": "../../identity/admin-audit" },
     { "path": "../../credits/credits" },
     { "path": "../../identity/people" },
     { "path": "../../identity/request-principal" },
