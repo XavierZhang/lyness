@@ -27,6 +27,7 @@ import ToolRuntime from '@lyness/lyn-tools'
 import Storage from '@lyness/lyn-storage'
 import * as StorageJson from '@lyness/lyn-storage-json'
 import * as StorageDomain from '@lyness/lyn-storage-domain'
+import AdminAudit from '@lyness/lyn-admin-audit'
 import ManagedPeople from '@lyness/lyn-managed-people'
 import ManagedBots, { botProjectionDefinition } from '@lyness/lyn-managed-bots'
 import type { EngagedBot } from '@lyness/lyn-managed-bots/session'
@@ -89,6 +90,7 @@ async function bench(): Promise<{ ctx: Context; model: AnsweringAdapter; log: Re
   // in-memory table it has already left.
   const log: Recorded[] = []
   ctx.on('session/event', (session, event) => { log.push({ session: session.id, type: event.type, data: event.data }) })
+  await ctx.plugin(AdminAudit, {}).await()
   await ctx.plugin(ManagedPeople).await()
   await ctx.plugin(ManagedBots).await()
   await ctx.plugin(BotAsk).await()

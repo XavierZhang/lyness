@@ -15,6 +15,7 @@ import type { ChannelId } from '@lyness/lyn-sign-in'
 import Storage from '@lyness/lyn-storage'
 import * as StorageJson from '@lyness/lyn-storage-json'
 import * as StorageDomain from '@lyness/lyn-storage-domain'
+import AdminAudit from '@lyness/lyn-admin-audit'
 import ManagedPeople, {
   ALREADY_BOUND, NOT_PERMITTED, ORGANIZATION_REQUIRED, PeopleRefusedError, UNKNOWN_PERSON, WRITTEN,
   bindingKey, standingOf,
@@ -61,6 +62,7 @@ async function bench(options: {
     // the test says this standing administers.
     ctx.provide('signInChannels', { list: () => Promise.resolve(offered.map(id => ({ id }))) } as never)
   }
+  await ctx.plugin(AdminAudit, {}).await()
   await ctx.plugin(ManagedPeople).await()
   if (options.people !== undefined) await ctx.plugin(ManagedPeopleDirectory, { people: options.people }).await()
   if (options.bindings !== undefined) await ctx.plugin(ManagedAdmission, { bindings: options.bindings }).await()
@@ -258,6 +260,87 @@ describe('the directory identities admitted as them', () => {
     // Withdrawing one that is not there is the same no-op as removing a
     // person who is gone.
     await expect(ctx.managedPeople.unbind(identity, acme)).resolves.toBeUndefined()
+  })
+})
+
+describe('what the trail records', () => {
+  it('names the role a change replaced, and the identity a binding admitted', async () => {
+    const ctx = await bench({ people: OPERATOR, bindings: [] })
+    const platform = standing('platform-administrator')
+    const added = await ctx.managedPeople.save({ displayName: 'Bea', role: 'member', organization: 'acme' }, platform)
+    await ctx.managedPeople.save({
+      id: added.id, displayName: 'Bea', role: 'tenant-administrator', organization: 'acme',
+    }, platform)
+    await ctx.managedPeople.bind({ channel: 'wecom-1', issuer: 'corp', subject: 'bea', person: added.id }, platform)
+
+    const trail = await ctx.adminAudit.read({ organization: 'acme' }, platform)
+    expect(trail.map(entry => [entry.kind, entry.action])).toEqual([
+      ['binding', 'added'], ['person', 'changed'], ['person', 'added'],
+    ])
+    expect(trail[1]?.changes).toEqual([
+      { field: 'role', before: 'member', after: 'tenant-administrator' },
+    ])
+    expect(trail[0]).toMatchObject({ subjectName: 'wecom-1:corp:bea', changes: [{ field: 'person', after: added.id }] })
+  })
+
+  it('records removing somebody as the bindings going with them', async () => {
+    const ctx = await bench({ people: OPERATOR, bindings: [] })
+    const platform = standing('platform-administrator')
+    const added = await ctx.managedPeople.save({ displayName: 'Bea', role: 'member', organization: 'acme' }, platform)
+    await ctx.managedPeople.bind({ channel: 'wecom-1', issuer: 'corp', subject: 'bea', person: added.id }, platform)
+    await ctx.managedPeople.remove(added.id, platform)
+
+    const trail = await ctx.adminAudit.read({ organization: 'acme' }, platform)
+    // The binding is removed before the person, because that is the order the
+    // operation does it in and the trail is what happened.
+    expect(trail.map(entry => [entry.kind, entry.action])).toEqual([
+      ['person', 'removed'], ['binding', 'removed'], ['binding', 'added'], ['person', 'added'],
+    ])
+  })
+
+  it('records unbinding one identity on its own', async () => {
+    const ctx = await bench({ people: OPERATOR, bindings: [] })
+    const platform = standing('platform-administrator')
+    const added = await ctx.managedPeople.save({ displayName: 'Bea', role: 'member', organization: 'acme' }, platform)
+    const identity = { channel: 'wecom-1', issuer: 'corp', subject: 'bea' }
+    await ctx.managedPeople.bind({ ...identity, person: added.id }, platform)
+    await ctx.managedPeople.unbind(identity, platform)
+
+    const trail = await ctx.adminAudit.read({ organization: 'acme' }, platform)
+    expect(trail[0]).toMatchObject({
+      kind: 'binding',
+      action: 'removed',
+      subjectName: 'wecom-1:corp:bea',
+      changes: [{ field: 'person', before: added.id }],
+    })
+  })
+  it('leaves the organization off a trail entry for somebody who belongs to none', async () => {
+    const ctx = await bench({ people: OPERATOR, bindings: [] })
+    const platform = standing('platform-administrator')
+    const added = await ctx.managedPeople.save({ displayName: 'Cal', role: 'platform-administrator' }, platform)
+    const identity = { channel: 'wecom-1', issuer: 'corp', subject: 'cal' }
+    await ctx.managedPeople.bind({ ...identity, person: added.id }, platform)
+    await ctx.managedPeople.unbind(identity, platform)
+    await ctx.managedPeople.bind({ ...identity, person: added.id }, platform)
+    await ctx.managedPeople.remove(added.id, platform)
+
+    // Nobody's organization, so only a platform standing reads these at all.
+    const trail = await ctx.adminAudit.read({}, platform)
+    expect(trail.map(entry => [entry.kind, entry.action])).toEqual([
+      ['person', 'removed'], ['binding', 'removed'], ['binding', 'added'],
+      ['binding', 'removed'], ['binding', 'added'], ['person', 'added'],
+    ])
+    expect(trail.every(entry => entry.organization === undefined)).toBe(true)
+  })
+
+  it('records nothing for a save that altered no field', async () => {
+    const ctx = await bench({ people: OPERATOR, bindings: [] })
+    const platform = standing('platform-administrator')
+    const added = await ctx.managedPeople.save({ displayName: 'Bea', role: 'member', organization: 'acme' }, platform)
+    await ctx.managedPeople.save({ id: added.id, displayName: 'Bea', role: 'member', organization: 'acme' }, platform)
+
+    expect((await ctx.adminAudit.read({ organization: 'acme' }, platform)).map(entry => entry.action))
+      .toEqual(['added'])
   })
 })
 

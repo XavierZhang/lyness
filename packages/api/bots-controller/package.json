@@ -55,6 +55,7 @@
   },
   "devDependencies": {
     "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-admin-audit": "workspace:*",
     "@lyness/lyn-agent-preset-registry": "workspace:*",
     "@lyness/lyn-brand": "workspace:*",
     "@lyness/lyn-managed-bots": "workspace:*",

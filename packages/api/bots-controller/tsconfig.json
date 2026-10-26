@@ -9,6 +9,7 @@
   ],
   "references": [
     { "path": "../../../vendor/cordis" },
+    { "path": "../../identity/admin-audit" },
     { "path": "../../identity/managed-bots" },
     { "path": "../../identity/people" },
     { "path": "../../identity/request-principal" },

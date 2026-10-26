@@ -21,6 +21,8 @@ import { brandString } from '@lyness/lyn-brand'
 import { administers } from '@lyness/lyn-people'
 import type { Membership, PersonId, Role } from '@lyness/lyn-people'
 import { standingOf } from '@lyness/lyn-managed-people'
+import { fieldChanges } from '@lyness/lyn-admin-audit'
+import type { AuditSubmission } from '@lyness/lyn-admin-audit'
 import type {} from '@lyness/lyn-agent-preset-registry'
 import { randomUUID } from '@lyness/lyn-util-crypto'
 import type { Domain } from '@lyness/lyn-storage-domain'
@@ -237,6 +239,14 @@ export class ManagedBots extends Service {
       addedBy: existing?.addedBy ?? by.person,
     }
     await domain.table('teams').put(record.id, record)
+    await this.audit({
+      kind: 'team',
+      subject: record.id,
+      subjectName: record.displayName,
+      action: existing === undefined ? 'added' : 'changed',
+      organization: record.organization,
+      changes: fieldChanges(existing === undefined ? undefined : teamFields(existing), teamFields(record)),
+    }, by)
     return {
       id: record.id,
       displayName: record.displayName,
@@ -261,6 +271,14 @@ export class ManagedBots extends Service {
     if (existing === undefined) return
     if (!administers(by, existing.organization)) throw new BotsRefusedError('not-permitted', NOT_PERMITTED)
     await domain.table('teams').delete(id)
+    await this.audit({
+      kind: 'team',
+      subject: id,
+      subjectName: existing.displayName,
+      action: 'removed',
+      organization: existing.organization,
+      changes: fieldChanges(teamFields(existing), undefined),
+    }, by)
   }
 
   /**
@@ -426,6 +444,14 @@ export class ManagedBots extends Service {
       addedBy: existing?.addedBy ?? by.person,
     }
     await domain.table('bots').put(record.id, record)
+    await this.audit({
+      kind: 'bot',
+      subject: record.id,
+      subjectName: record.displayName,
+      action: existing === undefined ? 'added' : 'changed',
+      organization: record.organization,
+      changes: fieldChanges(existing === undefined ? undefined : botFields(existing), botFields(record)),
+    }, by)
     this.rostered.get(record.id)?.()
     this.enrol(record)
     return view(record, false, offered)
@@ -448,6 +474,14 @@ export class ManagedBots extends Service {
     if (existing === undefined) return
     if (!administers(by, existing.organization)) throw new BotsRefusedError('not-permitted', NOT_PERMITTED)
     await domain.table('bots').delete(id)
+    await this.audit({
+      kind: 'bot',
+      subject: id,
+      subjectName: existing.displayName,
+      action: 'removed',
+      organization: existing.organization,
+      changes: fieldChanges(botFields(existing), undefined),
+    }, by)
     this.rostered.get(id)?.()
     this.rostered.delete(id)
   }
@@ -470,6 +504,19 @@ export class ManagedBots extends Service {
   }
 
   /**
+   * Record one change in the trail, unless nothing changed.
+   *
+   * A submission that altered no field is an administrator pressing Save
+   * without an edit, and an entry for it would be an entry an auditor has to
+   * read past. An addition and a removal are always recorded, because the
+   * record existing or not is itself the change.
+   */
+  private async audit(submission: AuditSubmission, by: Membership): Promise<void> {
+    if (submission.action === 'changed' && submission.changes.length === 0) return
+    await this.ctx.adminAudit.record(submission, by)
+  }
+
+  /**
    * The preset ids a bot may name, as a lookup.
    *
    * The registry is a required injection rather than an optional lookup: a
@@ -479,6 +526,26 @@ export class ManagedBots extends Service {
    */
   private async presets(): Promise<ReadonlySet<string>> {
     return new Set((await this.offers()).map(preset => preset.id))
+  }
+}
+
+/** One bot's audited fields, as an auditor would read them out. */
+function botFields(record: BotRecord): Record<string, string> {
+  return {
+    displayName: record.displayName,
+    organization: record.organization,
+    persona: record.persona,
+    job: record.job,
+    preset: record.preset,
+  }
+}
+
+/** One team's audited fields; its members read as the list an administrator chose. */
+function teamFields(record: TeamRecord): Record<string, string> {
+  return {
+    displayName: record.displayName,
+    organization: record.organization,
+    members: record.members.join(', '),
   }
 }
 

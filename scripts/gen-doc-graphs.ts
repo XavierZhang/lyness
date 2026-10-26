@@ -934,6 +934,15 @@ const SERVICE_ROLES: ServiceRole[] = [
     note: 'Runs the answering turn in a session of the teammate\'s own, under its own character and preset, and answers with the prose that session recorded; team membership is the whole authorization and neither side reaches the other\'s conversations.',
   },
   {
+    key: 'adminAudit',
+    pkg: 'admin-audit',
+    title: 'The trail of administrative changes',
+    mode: 'core',
+    implementations: [],
+    consumers: [],
+    note: 'Keeps who changed which record, when, and the value the change replaced, in a domain of its own that is only ever appended to; both rosters inject it, so a deployment administering them without a history fails to load.',
+  },
+  {
     key: 'managedBots',
     pkg: 'managed-bots',
     title: 'The bots an administrator maintains',

@@ -78,6 +78,8 @@ Replacing one keeps its id, so the conversations it already owns stay its own. A
 
 **A teammate's job comes from its own record, not from the team.** A bot in two teams reads the same way in both. Letting a team restate what a member is for would make "what it does" depend on the company it is in, which is where a reader stops trusting either answer.
 
+**Every change is recorded elsewhere, before it is read back here.** The roster holds what is true now; [`lyn-admin-audit`](../admin-audit/README.md) holds who changed it and what the change replaced. It is a hard injection, so a deployment that maintains bots without keeping their history fails to load rather than recording nothing in silence. A save that altered no field records nothing, because that is an administrator pressing Save without an edit.
+
 **A record outlives the preset that runs it.** A preset the deployment stopped offering leaves the bot stored and `available: false`. Deleting it would lose the character an administrator wrote because a row left the profile.
 
 -----
@@ -86,6 +88,7 @@ Replacing one keeps its id, so the conversations it already owns stay its own. A
 ## Further Exploration
 
 - [`lyn-managed-people`](../managed-people/README.md) — the roster these join, and the admission table that refuses them.
+- [`lyn-admin-audit`](../admin-audit/README.md) — the trail every change here is recorded in.
 - [`lyn-agent-preset-registry`](../../preset/agent-preset-registry/README.md) — where the presets a bot may name come from.
 - [`lyn-persona`](../../preset/persona/README.md) — the row that gives one agent its own system prompt, which a preset may carry beside a bot's character.
 - [`lyn-api-session-controller`](../../api/session-controller/README.md) — where a conversation names the bot it is with.
@@ -107,13 +110,11 @@ No request prefix changes, because nothing here contributes to an assembled requ
 <a id="known-limitations-and-deferred-work"></a>
 
 - **A bot is talked to, and does not act on its own** — a person opens a conversation with one; nothing lets a bot start one, be scheduled, or be reached from a chat tool.
-- **Nothing asks a teammate yet** — the team relation and the teammate catalog are stored and readable, and the operation that turns them into one bot asking another is the next part of the design. Until it lands, a team changes nothing a bot can do.
 - **Removing a bot leaves the teams that named it** — `teammates` skips a member nobody answers for, so the stale entry grants nothing, and it stays until somebody edits the team.
 - **The preset is the whole capability selection** — individual skills, MCP servers, models and permission presets cannot be chosen per bot; a bot gets exactly what its preset composes.
-- **No teams and no rooms** — a bot cannot ask another bot anything, and several of them cannot discuss one question. Both are later parts of the same design.
 - **One organization per bot** — a bot belongs to the deployment's one named organization, and a platform offering one bot to a named subset of its customers has no way to say so.
 - **Removing a bot does not end the conversations it owns** — its identity is not reused, so they stay attributed to a bot that no longer runs, and a reader opening one finds a conversation nobody will answer in.
-- **No audit of its own** — a record names who added it and when, and a replacement overwrites the persona without keeping what it was.
+- **The stored record keeps only the current values** — a replacement overwrites the persona in place, so what it used to say is read from the [trail](../admin-audit/README.md) rather than from the roster.
 
 **Runtime invariant:** No companion is published. The roster entries are derived from the stored records by this service alone, and the registrations are held in the same map that holds their disposers.
 

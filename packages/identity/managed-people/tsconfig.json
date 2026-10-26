@@ -13,6 +13,7 @@
     { "path": "../../storage/storage-domain" },
     { "path": "../../util/brand" },
     { "path": "../../util/crypto" },
+    { "path": "../admin-audit" },
     { "path": "../people" },
     { "path": "../sign-in" },
     { "path": "../sign-in-channels" }

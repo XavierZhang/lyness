@@ -78,6 +78,8 @@ await ctx.managedBots.save({
 
 **队友的职责来自它自己的记录，不来自团队。**一个在两个团队里的 bot，在两边读起来都一样。让团队重新陈述一个成员是干什么的，会让「它做什么」取决于它在哪个团队里，而那正是读者开始不信任两个答案的地方。
 
+**每一次更改都先记在别处，再从这里读回来。**名册存的是现在什么是真的；[`lyn-admin-audit`](../admin-audit/README.zh.md) 存的是谁改了它、那次更改替换掉了什么。它是硬注入，所以一个维护 bot 却不保留它们历史的部署会加载不起来，而不是默默什么都不记。一次没有改动任何字段的保存什么也不记，因为那是管理员没编辑就按了保存。
+
 **记录比运行它的那个 preset 活得长。**部署不再提供的 preset 会让 bot 留在存储里并标为 `available: false`。因为某一行离开了 profile 就把它删掉，会丢掉管理员写下的那个性格。
 
 -----
@@ -86,6 +88,7 @@ await ctx.managedBots.save({
 ## 进一步探索
 
 - [`lyn-managed-people`](../managed-people/README.zh.md) — 它们加入的那份名册，以及拒绝它们的那张准入表。
+- [`lyn-admin-audit`](../admin-audit/README.zh.md) — 这里每一次更改被记进的那份记录。
 - [`lyn-agent-preset-registry`](../../preset/agent-preset-registry/README.zh.md) — bot 可以指名的那些 preset 从哪里来。
 - [`lyn-persona`](../../preset/persona/README.zh.md) — 给一个 agent 它自己的系统提示词的那一行，一个 preset 可以在 bot 的性格之外带着它。
 - [`lyn-api-session-controller`](../../api/session-controller/README.zh.md) — 一场对话在哪里指名它所面对的 bot。
@@ -107,13 +110,11 @@ await ctx.managedBots.save({
 <a id="known-limitations-and-deferred-work"></a>
 
 - **bot 是被交谈的，它不自己行动** — 由人来和它开一场对话；还没有东西能让 bot 自己发起对话、被定时触发，或从某个聊天工具被够到。
-- **还没有东西去问队友** — 团队关系和队友名录已经存下来、也读得到，而把它们变成「一个 bot 去问另一个」的那个操作是这份设计的下一部分。在它落地之前，一个团队不改变任何 bot 能做的事。
 - **移除一个 bot 会留下指名它的那些团队** — `teammates` 会跳过没人应答的成员，所以那条陈旧的记录什么权利也不授予，它会一直留到有人去编辑那个团队。
 - **preset 就是全部的能力选择** — 单个技能、MCP 服务器、模型和权限预设还不能按 bot 挑；bot 拿到的正好是它的 preset 组合出来的那些。
-- **没有团队也没有房间** — 一个 bot 问不了另一个 bot 任何事，几个 bot 也没法一起讨论一个问题。两者都是同一份设计里靠后的部分。
 - **一个 bot 一个组织** — bot 属于部署里那一个被指名的组织，而一个想把某个 bot 只提供给一部分客户的平台，没有办法表达这件事。
 - **移除一个 bot 不会结束它拥有的那些会话** — 它的 id 不会被复用，所以那些会话仍然归属到一个已经不再运行的 bot，读到其中一场的人会发现这是一场没人会再作答的对话。
-- **没有自己的审计** — 一条记录记着谁在什么时候加了它，而一次替换会把人格覆盖掉，不保留它原来是什么。
+- **存下来的记录只留当前的值** — 一次替换会原地覆盖性格，所以它原来写的是什么要从[那份记录](../admin-audit/README.zh.md)读，不是从名册读。
 
 **Runtime invariant:** 不发布伴生检查。名册条目只由这个服务从已存储的记录推出，而那些注册就握在持有它们 disposer 的同一张表里。
 

@@ -16,6 +16,7 @@ import SystemPrompt, { renderPrompt } from '@lyness/lyn-system-prompt'
 import Storage from '@lyness/lyn-storage'
 import * as StorageJson from '@lyness/lyn-storage-json'
 import * as StorageDomain from '@lyness/lyn-storage-domain'
+import AdminAudit from '@lyness/lyn-admin-audit'
 import ManagedPeople from '@lyness/lyn-managed-people'
 import ManagedBots, {
   BOT_PERSONA_SECTION, BotsRefusedError, NOT_YOURS, botProjectionDefinition, composeBotPersona,
@@ -55,6 +56,7 @@ async function bench(): Promise<Context> {
   ctx.provide('sessionProjections', {
     register: (one: { key: string }) => { registeredProjections.push(one); return () => {} },
   } as never)
+  await ctx.plugin(AdminAudit, {}).await()
   await ctx.plugin(ManagedPeople).await()
   await ctx.plugin(ManagedBots).await()
   return ctx

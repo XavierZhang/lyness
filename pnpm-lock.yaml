@@ -1282,6 +1282,9 @@ importers:
       '@lyness/cordis':
         specifier: workspace:~
         version: link:../../../vendor/cordis
+      '@lyness/lyn-admin-audit':
+        specifier: workspace:*
+        version: link:../../identity/admin-audit
       '@lyness/lyn-agent-preset-registry':
         specifier: workspace:*
         version: link:../../preset/agent-preset-registry
@@ -1321,6 +1324,9 @@ importers:
       '@lyness/cordis':
         specifier: workspace:~
         version: link:../../../vendor/cordis
+      '@lyness/lyn-admin-audit':
+        specifier: workspace:*
+        version: link:../../identity/admin-audit
       '@lyness/lyn-brand':
         specifier: workspace:*
         version: link:../../util/brand
@@ -2604,6 +2610,9 @@ importers:
       '@lyness/lyn-managed-bots':
         specifier: workspace:*
         version: link:../../identity/managed-bots
+      '@lyness/lyn-admin-audit':
+        specifier: workspace:*
+        version: link:../../identity/admin-audit
       '@lyness/lyn-managed-people':
         specifier: workspace:*
         version: link:../../identity/managed-people
@@ -10184,11 +10193,45 @@ importers:
         specifier: workspace:*
         version: link:../../util/crypto
 
+  packages/identity/admin-audit:
+    dependencies:
+      '@lyness/schemastery':
+        specifier: link:../../../vendor/schemastery
+        version: link:../../../vendor/schemastery
+      zod:
+        specifier: ^4.4.3
+        version: 4.4.3
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+      '@lyness/lyn-brand':
+        specifier: workspace:*
+        version: link:../../util/brand
+      '@lyness/lyn-people':
+        specifier: workspace:*
+        version: link:../people
+      '@lyness/lyn-storage':
+        specifier: workspace:*
+        version: link:../../storage/storage
+      '@lyness/lyn-storage-domain':
+        specifier: workspace:*
+        version: link:../../storage/storage-domain
+      '@lyness/lyn-storage-json':
+        specifier: workspace:*
+        version: link:../../storage/storage-json
+      '@lyness/lyn-util-crypto':
+        specifier: workspace:*
+        version: link:../../util/crypto
+
   packages/identity/bot-ask:
     devDependencies:
       '@lyness/cordis':
         specifier: workspace:~
         version: link:../../../vendor/cordis
+      '@lyness/lyn-admin-audit':
+        specifier: workspace:*
+        version: link:../admin-audit
       '@lyness/lyn-agent':
         specifier: workspace:*
         version: link:../../core/agent
@@ -10241,6 +10284,9 @@ importers:
       '@lyness/cordis':
         specifier: workspace:~
         version: link:../../../vendor/cordis
+      '@lyness/lyn-admin-audit':
+        specifier: workspace:*
+        version: link:../admin-audit
       '@lyness/lyn-agent-preset-registry':
         specifier: workspace:*
         version: link:../../preset/agent-preset-registry
@@ -10287,6 +10333,9 @@ importers:
       '@lyness/cordis':
         specifier: workspace:~
         version: link:../../../vendor/cordis
+      '@lyness/lyn-admin-audit':
+        specifier: workspace:*
+        version: link:../admin-audit
       '@lyness/lyn-brand':
         specifier: workspace:*
         version: link:../../util/brand

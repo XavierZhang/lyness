@@ -17,6 +17,7 @@
     { "path": "../../storage/storage-domain" },
     { "path": "../../util/brand" },
     { "path": "../../util/crypto" },
+    { "path": "../admin-audit" },
     { "path": "../managed-people" },
     { "path": "../people" }
   ]

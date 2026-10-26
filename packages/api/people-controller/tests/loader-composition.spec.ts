@@ -15,6 +15,7 @@ import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
 import Include from '@lyness/cordis-plugin-include'
 import { brandString } from '@lyness/lyn-brand'
+import AdminAudit from '@lyness/lyn-admin-audit'
 import ManagedPeople from '@lyness/lyn-managed-people'
 import ManagedPeopleDirectory from '@lyness/lyn-managed-people/directory'
 import ManagedAdmission from '@lyness/lyn-managed-people/admission'
@@ -57,6 +58,9 @@ async function compose(): Promise<{ ctx: Context; scopes: Scope[] }> {
     "- name: '@lyness/lyn-storage-domain'",
     '  config:',
     '    backend: json',
+    "- name: '@lyness/lyn-admin-audit'",
+    '  config:',
+    '    maxValueLength: 2000',
     "- name: '@lyness/lyn-managed-people'",
     "- name: '@lyness/lyn-managed-people/directory'",
     '  config:',
@@ -86,6 +90,7 @@ async function compose(): Promise<{ ctx: Context; scopes: Scope[] }> {
     ['@lyness/lyn-storage', Storage],
     ['@lyness/lyn-storage-json', StorageJson],
     ['@lyness/lyn-storage-domain', StorageDomain],
+    ['@lyness/lyn-admin-audit', AdminAudit],
     ['@lyness/lyn-managed-people', ManagedPeople],
     ['@lyness/lyn-managed-people/directory', ManagedPeopleDirectory],
     ['@lyness/lyn-managed-people/admission', ManagedAdmission],

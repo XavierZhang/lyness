@@ -300,6 +300,8 @@ flowchart LR
   pkg_bot_ask["bot-ask"]
   svc_botRoom["ctx.botRoom<br/>Several bots discussing one question"]
   svc_botAsk["ctx.botAsk<br/>One bot asking a teammate"]
+  pkg_admin_audit["admin-audit"]
+  svc_adminAudit["ctx.adminAudit<br/>The trail of administrative changes"]
   pkg_managed_bots["managed-bots"]
   svc_managedBots["ctx.managedBots<br/>The bots an administrator maintains"]
   pkg_managed_people["managed-people"]
@@ -347,6 +349,7 @@ flowchart LR
   svc_dynamicCordisRunner["ctx.dynamicCordisRunner<br/>Dynamic Cordis package host runner"]
   svc_cordisInspect["ctx.cordisInspect<br/>Dynamic Cordis inspect registry"]
   pkg_acting_context --> svc_actingContext
+  pkg_admin_audit --> svc_adminAudit
   pkg_agent --> svc_agents
   pkg_agent_default_model --> svc_agentDefaultModel
   pkg_agent_loop --> svc_agentLoop
@@ -800,6 +803,7 @@ flowchart LR
 | `ctx.signInChannels` | `core` | [`sign-in-channels`](../packages/identity/sign-in-channels) | - | - | - | Turns stored records into mounted channels and back: a platform administrator configures the deployment's own, a tenant administrator only their organization's, and each organization's sign-in page is offered only its own plus the deployment-wide ones. |
 | `ctx.botRoom` | `core` | [`bot-ask`](../packages/identity/bot-ask) | - | - | - | Chairs the discussion in code rather than through a participant: round-robin order, a deployment bound that ends it whatever the chair thinks, and one named conclusion written from what was said under a fixed prompt rather than in any participant's voice. |
 | `ctx.botAsk` | `core` | [`bot-ask`](../packages/identity/bot-ask) | - | - | - | Runs the answering turn in a session of the teammate's own, under its own character and preset, and answers with the prose that session recorded; team membership is the whole authorization and neither side reaches the other's conversations. |
+| `ctx.adminAudit` | `core` | [`admin-audit`](../packages/identity/admin-audit) | - | - | - | Keeps who changed which record, when, and the value the change replaced, in a domain of its own that is only ever appended to; both rosters inject it, so a deployment administering them without a history fails to load. |
 | `ctx.managedBots` | `core` | [`managed-bots`](../packages/identity/managed-bots) | - | - | - | Holds the bots added at runtime and puts each one in its organization's roster, where it holds a member standing and owns what it opens; admission refuses it, because no directory can authenticate a bot. |
 | `ctx.managedPeople` | `core` | [`managed-people`](../packages/identity/managed-people) | - | - | - | Holds the people and admission bindings added at runtime, beside the ones composition wrote: the written half wins every lookup and cannot be changed here, because the next boot reads the file again. |
 | `ctx.botsController` | `core` | [`api-bots-controller`](../packages/api/bots-controller) | - | - | - | Projects the bot roster onto the generated Remote namespace: it resolves the standing one call acts in, hands it to the rules that decide who administers whom, and answers the preset list that same roster validates a save against. |

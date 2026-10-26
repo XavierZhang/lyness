@@ -79,6 +79,8 @@ await ctx.managedPeople.bind({
 
 **A standing's identity never moves.** It is derived from the person's identity alone, so changing somebody's role does not change the membership id an open session already names — a session whose standing moved would act with no standing rather than with the new one.
 
+**Every change is recorded elsewhere, before it is read back here.** The directory holds what is true now; [`lyn-admin-audit`](../admin-audit/README.md) holds who changed it and what the change replaced — a role, a name, or which person a directory identity signs in as. It is a hard injection, so a deployment that administers people without keeping their history fails to load rather than recording nothing in silence. Removing somebody records the bindings going with them, in the order the operation does it in.
+
 **An identity is not reused.** A removed person's identity is retired with them, so the conversations they opened stay attributed to somebody who no longer signs in rather than to whoever is added next.
 
 -----
@@ -86,6 +88,7 @@ await ctx.managedPeople.bind({
 <a id="further-exploration"></a>
 ## Further Exploration
 
+- [`lyn-admin-audit`](../admin-audit/README.md) — the trail every change here is recorded in.
 - [`lyn-people`](../people/README.md) — the directory this provides, and the static roster it reads.
 - [`lyn-sign-in`](../sign-in/README.md) — the admission rule this provides, and the roster rule it reads.
 - [`lyn-sign-in-channels`](../sign-in-channels/README.md) — the channels a binding names.
@@ -108,7 +111,7 @@ No request prefix changes, because nothing here contributes to an assembled requ
 
 - **One standing per person** — a person belongs to one organization in one role, as the written roster has always had it; somebody who works with two organizations needs two identities.
 - **A composition channel cannot be bound by a tenant administrator** — the channel check reads the configured channels, and a channel that came from a composition row is in none of them, so only a deployment whose channels are stored can delegate binding.
-- **No audit of its own** — a record names who added the person and when, and a replacement keeps both; the history of who changed what is not kept.
+- **The stored record keeps only the current values** — a replacement keeps who added the person and when, and overwrites their name and role in place, so what those used to be is read from the [trail](../admin-audit/README.md) rather than from the directory.
 - **Removing a person does not end their sessions** — they stop signing in, and a session already established stays valid until it lapses.
 - **Nothing stops the last administrator from being removed** — the written roster is the recovery path, which is another reason it cannot be emptied.
 

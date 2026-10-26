@@ -26,6 +26,17 @@
 # sign in until somebody does, which is the same refusal the empty written
 # bindings make.
 - insert:
+    # The trail of every administrative change, kept apart from the records it
+    # describes and only ever appended to. First because both rosters inject
+    # it: a deployment that administers people without keeping their history
+    # cannot answer for the roster it serves, so its absence fails at load
+    # rather than recording nothing in silence.
+    - id: admin-audit
+      name: '@lyness/lyn-admin-audit'
+      config:
+        maxValueLength: 2000
+        maxEntries: 200
+
     # The people and admission bindings added at runtime, beside the ones
     # written below. Its own row because both halves read it: the directory
     # answers who exists, the admission rule who may sign in.

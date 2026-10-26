@@ -33,6 +33,31 @@ export interface AcpConfig {
 ```
 <!-- END GENERATED config-catalog:@lyness/lyn-acp -->
 
+<!-- BEGIN GENERATED config-catalog:@lyness/lyn-admin-audit -->
+<a id="lynesslyn-admin-audit"></a>
+
+## `@lyness/lyn-admin-audit`
+
+- `inject`: `storageDomain`
+- `source`: [`packages/identity/admin-audit/src/index.ts:76`](../packages/identity/admin-audit/src/index.ts)
+
+```ts config-catalog
+/** Deployment-owned bounds on what the trail keeps and answers. */
+export interface Config {
+  /**
+   * Characters of each recorded value to keep. Defaults to 2000.
+   *
+   * A persona is free text an administrator wrote, so one record can carry
+   * more prose than a trail should grow by. The cut is recorded on the field
+   * rather than hidden, so a reader knows it is reading part of a value.
+   */
+  maxValueLength?: number
+  /** Entries one read answers with, newest first. Defaults to 200. */
+  maxEntries?: number
+}
+```
+<!-- END GENERATED config-catalog:@lyness/lyn-admin-audit -->
+
 <!-- BEGIN GENERATED config-catalog:@lyness/lyn-agent-default-model -->
 <a id="lynesslyn-agent-default-model"></a>
 
@@ -4794,7 +4819,7 @@ These load from a `cordis.yml` entry with no `config:` block; they declare no co
 | `@lyness/lyn-llm` | — | [`packages/llm/llm/src/index.ts`](../packages/llm/llm/src/index.ts) |
 | `@lyness/lyn-lsp` | — | [`packages/lsp/lsp/src/index.ts`](../packages/lsp/lsp/src/index.ts) |
 | `@lyness/lyn-managed-bots` | `storageDomain` · `managedPeople` · `agentPresets` · `sessionProjections` | [`packages/identity/managed-bots/src/index.ts`](../packages/identity/managed-bots/src/index.ts) |
-| `@lyness/lyn-managed-people` | `storageDomain` | [`packages/identity/managed-people/src/index.ts`](../packages/identity/managed-people/src/index.ts) |
+| `@lyness/lyn-managed-people` | `storageDomain` · `adminAudit` | [`packages/identity/managed-people/src/index.ts`](../packages/identity/managed-people/src/index.ts) |
 | `@lyness/lyn-mcp-resources` | `tools` | [`packages/mcp/mcp-resources/src/index.ts`](../packages/mcp/mcp-resources/src/index.ts) |
 | `@lyness/lyn-model-required` | `llm` · `appReady` | [`packages/llm/model-required/src/index.ts`](../packages/llm/model-required/src/index.ts) |
 | `@lyness/lyn-request-principal` | `authSessions` | [`packages/identity/request-principal/src/index.ts`](../packages/identity/request-principal/src/index.ts) |

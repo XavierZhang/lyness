@@ -285,6 +285,7 @@
     { "path": "./packages/llm/model-required" },
     { "path": "./packages/llm/model-policy" },
     { "path": "./packages/identity/bot-ask" },
+    { "path": "./packages/identity/admin-audit" },
     { "path": "./packages/identity/managed-bots" },
     { "path": "./packages/identity/managed-people" },
     { "path": "./packages/identity/people" },

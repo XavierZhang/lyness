@@ -136,6 +136,37 @@ async resolve(claim: ActingContextClaim): Promise<ActingContext>
 
 Source: [`packages/identity/acting-context/src/index.ts`](../../packages/identity/acting-context/src/index.ts)
 
+<a id="ctxadminaudit--adminaudit"></a>
+
+### `ctx.adminAudit` — `AdminAudit`
+
+The append-only trail of administrative changes.
+
+```ts cordis-catalog
+/**
+ * Record one change.
+ *
+ * Nothing is authorized here. The operation that made the change already
+ * decided it was permitted, and a trail that could refuse an entry would be
+ * a trail with changes missing from it.
+ * @param submission - what changed, and how it read before and after.
+ * @param by - the standing that made the change.
+ * @returns the entry as the trail now holds it.
+ */
+async record(submission: AuditSubmission, by: Membership): Promise<AuditEntry>
+
+/**
+ * Read the trail, newest first.
+ * @param query - whose trail, which record, and how many entries.
+ * @param by - the standing asking for it.
+ * @returns the matching entries, newest first.
+ * @throws {AuditRefusedError} when this standing may not read that trail.
+ */
+async read(query: AuditQuery, by: Membership): Promise<readonly AuditEntry[]>
+```
+
+Source: [`packages/identity/admin-audit/src/index.ts`](../../packages/identity/admin-audit/src/index.ts)
+
 <a id="ctxauthsessions--authsessionstore-abstract-seam"></a>
 
 ### `ctx.authSessions` — `AuthSessionStore` (abstract seam)

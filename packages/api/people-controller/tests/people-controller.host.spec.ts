@@ -10,6 +10,7 @@ import { join } from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import { brandString } from '@lyness/lyn-brand'
+import AdminAudit from '@lyness/lyn-admin-audit'
 import ManagedPeople from '@lyness/lyn-managed-people'
 import ManagedPeopleDirectory from '@lyness/lyn-managed-people/directory'
 import type { Membership, MembershipId, PersonId, Role } from '@lyness/lyn-people'
@@ -66,6 +67,7 @@ async function harness(
     await ctx.plugin(Storage)
     await ctx.plugin(StorageJson, { root: join(root, 'state') })
     await ctx.plugin(StorageDomain, { backend: 'json' })
+    await ctx.plugin(AdminAudit, {}).await()
     await ctx.plugin(ManagedPeople).await()
     // The caller is the operator's own written person, which is also where
     // the standing a call acts in is read back from.

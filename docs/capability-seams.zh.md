@@ -302,6 +302,8 @@ flowchart LR
   pkg_bot_ask["bot-ask"]
   svc_botRoom["ctx.botRoom<br/>Several bots discussing one question"]
   svc_botAsk["ctx.botAsk<br/>One bot asking a teammate"]
+  pkg_admin_audit["admin-audit"]
+  svc_adminAudit["ctx.adminAudit<br/>The trail of administrative changes"]
   pkg_managed_bots["managed-bots"]
   svc_managedBots["ctx.managedBots<br/>The bots an administrator maintains"]
   pkg_managed_people["managed-people"]
@@ -349,6 +351,7 @@ flowchart LR
   svc_dynamicCordisRunner["ctx.dynamicCordisRunner<br/>Dynamic Cordis package host runner"]
   svc_cordisInspect["ctx.cordisInspect<br/>Dynamic Cordis inspect registry"]
   pkg_acting_context --> svc_actingContext
+  pkg_admin_audit --> svc_adminAudit
   pkg_agent --> svc_agents
   pkg_agent_default_model --> svc_agentDefaultModel
   pkg_agent_loop --> svc_agentLoop
@@ -802,6 +805,7 @@ flowchart LR
 | `ctx.signInChannels` | `core` | [`sign-in-channels`](../packages/identity/sign-in-channels) | - | - | - | 把存下的记录变成挂载的渠道、再变回来：平台管理员配置部署自己的，租户管理员只配置本组织的，而每个组织的登录页只被提供自己的那些、加上部署级的那些。 |
 | `ctx.botRoom` | `core` | [`bot-ask`](../packages/identity/bot-ask) | - | - | - | 用代码而不是通过某个参与者来主持这场讨论：轮询顺序、一条不管主持怎么想都会结束它的部署上界，以及一份在固定提示词下从说过的话里写出来的具名结论——而不是以任何参与者的口吻写的。 |
 | `ctx.botAsk` | `core` | [`bot-ask`](../packages/identity/bot-ask) | - | - | - | 在队友自己的一场会话里、以它自己的性格和 preset 跑作答那一轮，并以那场会话记录下来的那段话作答；团队成员身份就是全部的授权，两侧都够不到对方的对话。 |
+| `ctx.adminAudit` | `core` | [`admin-audit`](../packages/identity/admin-audit) | - | - | - | 存着谁改了哪条记录、什么时候，以及那次更改替换掉的那个值，放在一个只会被追加的、它自己的域里；两个名册都注入它，所以一个管理它们却不留历史的部署会加载不起来。 |
 | `ctx.managedBots` | `core` | [`managed-bots`](../packages/identity/managed-bots) | - | - | - | 存着运行时添加的那些 bot，并把每一个放进它所在组织的名册，在那里它持有一个成员身份、并拥有它开启的东西；准入会拒绝它，因为没有哪个目录能验证一个 bot。 |
 | `ctx.managedPeople` | `core` | [`managed-people`](../packages/identity/managed-people) | - | - | - | 持有运行时添加的人员与准入绑定，与 composition 写下的那些并存：写下的那一半在每次查找中优先，并且不能在这里改动，因为下一次启动会重新读那个文件。 |
 | `ctx.botsController` | `core` | [`api-bots-controller`](../packages/api/bots-controller) | - | - | - | 把 bot 名册投影到生成的 Remote 命名空间上：它解析出这次调用所处的身份，交给那些决定谁管得着谁的规则，并答出那份名册用来校验一次保存的同一份 preset 列表。 |

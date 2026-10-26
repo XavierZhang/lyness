@@ -96,6 +96,26 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
     ],
   },
   {
+    key: 'adminAudit',
+    summary: 'The append-only trail of administrative changes.',
+    description: 'The append-only trail of administrative changes.',
+    methods: [
+      {
+        signature: 'async record(submission: AuditSubmission, by: Membership): Promise<AuditEntry>',
+        description: 'Record one change.\n\nNothing is authorized here. The operation that made the change already decided it was permitted, and a trail that could refuse an entry would be a trail with changes missing from it.',
+        parameters: [{ name: 'submission', description: 'what changed, and how it read before and after.' }, { name: 'by', description: 'the standing that made the change.' }],
+        returns: 'the entry as the trail now holds it.',
+      },
+      {
+        signature: 'async read(query: AuditQuery, by: Membership): Promise<readonly AuditEntry[]>',
+        description: 'Read the trail, newest first.',
+        parameters: [{ name: 'query', description: 'whose trail, which record, and how many entries.' }, { name: 'by', description: 'the standing asking for it.' }],
+        returns: 'the matching entries, newest first.',
+        throws: ['{AuditRefusedError} when this standing may not read that trail.'],
+      },
+    ],
+  },
+  {
     key: 'agentDefaultModel',
     summary: 'Owns the default model selection independently of any Host or transport.',
     description: 'Owns the default model selection independently of any Host or transport. Each operation reads the owning Config references.',
@@ -5486,6 +5506,30 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'AttachmentId',
     declaration: 'export type AttachmentId = Branded<\'AttachmentId\'>;',
+  },
+  {
+    name: 'AuditAction',
+    declaration: 'export type AuditAction = \'added\' | \'changed\' | \'removed\';',
+  },
+  {
+    name: 'AuditEntry',
+    declaration: 'export interface AuditEntry extends AuditSubmission {\n    readonly id: AuditEntryId;\n    readonly at: string;\n    readonly by: PersonId;\n    readonly standing: MembershipId;\n}',
+  },
+  {
+    name: 'AuditEntryId',
+    declaration: 'export type AuditEntryId = Branded<\'audit-entry-id\'>;',
+  },
+  {
+    name: 'AuditFieldChange',
+    declaration: 'export interface AuditFieldChange {\n    readonly field: string;\n    readonly before?: string | undefined;\n    readonly after?: string | undefined;\n    readonly truncated?: boolean | undefined;\n}',
+  },
+  {
+    name: 'AuditQuery',
+    declaration: 'export interface AuditQuery {\n    readonly organization?: string | undefined;\n    readonly subject?: string | undefined;\n    readonly limit?: number | undefined;\n}',
+  },
+  {
+    name: 'AuditSubmission',
+    declaration: 'export interface AuditSubmission {\n    readonly kind: string;\n    readonly subject: string;\n    readonly subjectName: string;\n    readonly action: AuditAction;\n    readonly organization?: string | undefined;\n    readonly changes: readonly AuditFieldChange[];\n}',
   },
   {
     name: 'AuthorizationEntry',

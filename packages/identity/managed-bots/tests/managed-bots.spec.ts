@@ -15,6 +15,7 @@ import type { Membership, MembershipId, PersonId, Role } from '@lyness/lyn-peopl
 import Storage from '@lyness/lyn-storage'
 import * as StorageJson from '@lyness/lyn-storage-json'
 import * as StorageDomain from '@lyness/lyn-storage-domain'
+import AdminAudit from '@lyness/lyn-admin-audit'
 import ManagedPeople, { NOT_A_PERSON, PeopleRefusedError, standingOf } from '@lyness/lyn-managed-people'
 import ManagedBots, {
   BOT_ROLE, BotsRefusedError, NOT_PERMITTED, ORGANIZATION_REQUIRED, UNKNOWN_BOT, UNKNOWN_PRESET, WRITTEN,
@@ -70,6 +71,7 @@ async function bench(
   ctx.provide('agentPresets', { list: () => Promise.resolve(offered) } as never)
   // What the roster registers there is covered in `bot-session.spec.ts`.
   ctx.provide('sessionProjections', { register: () => () => {} } as never)
+  await ctx.plugin(AdminAudit, {}).await()
   await ctx.plugin(ManagedPeople).await()
   await ctx.plugin(ManagedBots).await()
   return ctx
@@ -115,6 +117,46 @@ describe('adding a bot', () => {
     const ctx = await bench()
     await expect(ctx.managedBots.save(submission(), standing('member', 'acme')))
       .rejects.toThrow(new BotsRefusedError('not-permitted', NOT_PERMITTED))
+  })
+})
+
+describe('what the trail records', () => {
+  it('names the administrator, the value a change replaced, and nothing for a change that altered none', async () => {
+    const ctx = await bench()
+    const by = standing('tenant-administrator', 'acme')
+    const saved = await ctx.managedBots.save(submission(), by)
+
+    await ctx.managedBots.save({ ...submission(), id: brandString<PersonId>(saved.id), persona: 'Answer at length.' }, by)
+    // Saving the same submission again changed nothing, so there is nothing
+    // for an auditor to read past.
+    await ctx.managedBots.save({ ...submission(), id: brandString<PersonId>(saved.id), persona: 'Answer at length.' }, by)
+    await ctx.managedBots.remove(brandString<PersonId>(saved.id), by)
+
+    const trail = await ctx.adminAudit.read({ organization: 'acme' }, by)
+    expect(trail.map(entry => entry.action)).toEqual(['removed', 'changed', 'added'])
+    expect(trail.every(entry => entry.by === 'ada' && entry.subjectName === 'Triage')).toBe(true)
+    expect(trail[1]?.changes).toEqual([
+      { field: 'persona', before: 'You answer in short sentences.', after: 'Answer at length.' },
+    ])
+  })
+
+  it('records a team by the members an administrator chose', async () => {
+    const ctx = await bench()
+    const by = standing('tenant-administrator', 'acme')
+    const first = await ctx.managedBots.save(submission(), by)
+    const team = await ctx.managedBots.saveTeam(
+      { displayName: 'Intake', organization: 'acme', members: [brandString<PersonId>(first.id)] },
+      by,
+    )
+    await ctx.managedBots.removeTeam(team.id, by)
+
+    const trail = await ctx.adminAudit.read({ organization: 'acme', subject: team.id }, by)
+    expect(trail.map(entry => entry.action)).toEqual(['removed', 'added'])
+    expect(trail[1]?.changes).toEqual([
+      { field: 'displayName', after: 'Intake' },
+      { field: 'organization', after: 'acme' },
+      { field: 'members', after: first.id },
+    ])
   })
 })
 
@@ -257,6 +299,7 @@ describe('a restart', () => {
       await ctx.plugin(StorageDomain, { backend: 'json' })
       ctx.provide('agentPresets', { list: () => Promise.resolve([{ id: 'standard' }]) } as never)
       ctx.provide('sessionProjections', { register: () => () => {} } as never)
+      await ctx.plugin(AdminAudit, {}).await()
       await ctx.plugin(ManagedPeople).await()
       await ctx.plugin(ManagedBots).await()
       return ctx

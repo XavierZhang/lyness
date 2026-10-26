@@ -9,6 +9,9 @@
   ],
   "references": [
     {
+      "path": "../admin-audit"
+    },
+    {
       "path": "../../../vendor/cordis"
     },
     {

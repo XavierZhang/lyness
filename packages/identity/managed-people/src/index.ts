@@ -20,6 +20,8 @@
 import { Service } from '@lyness/cordis'
 import type { Context } from '@lyness/cordis'
 import { brandString } from '@lyness/lyn-brand'
+import { fieldChanges } from '@lyness/lyn-admin-audit'
+import type { AuditSubmission } from '@lyness/lyn-admin-audit'
 import { administers } from '@lyness/lyn-people'
 import type { Membership, MembershipId, Person, PersonId, Role } from '@lyness/lyn-people'
 import type {} from '@lyness/lyn-sign-in-channels'
@@ -121,7 +123,7 @@ export function standingOf(id: PersonId): MembershipId {
 
 /** The people and bindings this deployment stores, and the written ones they may not shadow. */
 export class ManagedPeople extends Service {
-  static inject = ['storageDomain']
+  static inject = ['storageDomain', 'adminAudit']
 
   private readonly ready: Promise<Domain<typeof managedPeopleDomain>>
 
@@ -259,6 +261,14 @@ export class ManagedPeople extends Service {
       addedBy: existing?.addedBy ?? by.person,
     }
     await domain.table('people').put(record.id, record)
+    await this.audit({
+      kind: 'person',
+      subject: record.id,
+      subjectName: record.displayName,
+      action: existing === undefined ? 'added' : 'changed',
+      ...record.organization === undefined ? {} : { organization: record.organization },
+      changes: fieldChanges(existing === undefined ? undefined : personFields(existing), personFields(record)),
+    }, by)
     const bindings = [...domain.table('bindings').entries()].map(([, row]) => row)
     return this.view(record.id, membershipOf(record), record.displayName, 'person', false, bindings)
   }
@@ -280,9 +290,26 @@ export class ManagedPeople extends Service {
     if (existing === undefined) return
     this.authorize(existing.role, existing.organization, by)
     for (const [key, record] of domain.table('bindings').entries()) {
-      if (record.person === id) await domain.table('bindings').delete(key)
+      if (record.person !== id) continue
+      await domain.table('bindings').delete(key)
+      await this.audit({
+        kind: 'binding',
+        subject: key,
+        subjectName: identityName(record),
+        action: 'removed',
+        ...existing.organization === undefined ? {} : { organization: existing.organization },
+        changes: fieldChanges(bindingFields(record), undefined),
+      }, by)
     }
     await domain.table('people').delete(id)
+    await this.audit({
+      kind: 'person',
+      subject: id,
+      subjectName: existing.displayName,
+      action: 'removed',
+      ...existing.organization === undefined ? {} : { organization: existing.organization },
+      changes: fieldChanges(personFields(existing), undefined),
+    }, by)
   }
 
   /**
@@ -320,6 +347,14 @@ export class ManagedPeople extends Service {
       boundBy: by.person,
     }
     await domain.table('bindings').put(key, record)
+    await this.audit({
+      kind: 'binding',
+      subject: key,
+      subjectName: identityName(record),
+      action: 'added',
+      ...standing.organization === undefined ? {} : { organization: standing.organization },
+      changes: fieldChanges(undefined, bindingFields(record)),
+    }, by)
     return { channel: record.channel, issuer: record.issuer, subject: record.subject, written: false }
   }
 
@@ -340,6 +375,27 @@ export class ManagedPeople extends Service {
       throw new PeopleRefusedError('not-permitted', NOT_PERMITTED)
     }
     await domain.table('bindings').delete(key)
+    await this.audit({
+      kind: 'binding',
+      subject: key,
+      subjectName: identityName(existing),
+      action: 'removed',
+      ...standing?.organization === undefined ? {} : { organization: standing.organization },
+      changes: fieldChanges(bindingFields(existing), undefined),
+    }, by)
+  }
+
+  /**
+   * Record one change in the trail, unless nothing changed.
+   *
+   * A submission that altered no field is an administrator pressing Save
+   * without an edit, and an entry for it would be an entry an auditor has to
+   * read past. An addition and a removal are always recorded, because the
+   * record existing or not is itself the change.
+   */
+  private async audit(submission: AuditSubmission, by: Membership): Promise<void> {
+    if (submission.action === 'changed' && submission.changes.length === 0) return
+    await this.ctx.adminAudit.record(submission, by)
   }
 
   /** The organization and role one person holds, written or stored. */
@@ -421,6 +477,25 @@ function membershipOf(record: PersonRecord): Membership {
     role: record.role,
     ...record.organization === undefined ? {} : { organization: record.organization },
   })
+}
+
+/** One person's audited fields, as an auditor would read them out. */
+function personFields(record: PersonRecord): Record<string, string> {
+  return {
+    displayName: record.displayName,
+    role: record.role,
+    ...record.organization === undefined ? {} : { organization: record.organization },
+  }
+}
+
+/** One binding's audited field: who the identity signs in as. */
+function bindingFields(record: BindingRecord): Record<string, string> {
+  return { person: record.person }
+}
+
+/** One directory identity in the words an auditor reads, rather than as a lookup key. */
+function identityName(record: BindingRecord): string {
+  return `${record.channel}:${record.issuer}:${record.subject}`
 }
 
 export default ManagedPeople
