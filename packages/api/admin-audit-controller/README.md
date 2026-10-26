@@ -54,6 +54,8 @@ Each refusal arrives under its own code — `audit/not-permitted` and `audit/no-
 
 **An unnamed read means the caller's own organization.** A tenant administrator holds exactly one, and typing it into every read would be a field that can only hold one value. A platform standing holds none, so an unnamed read stays the every-organization read — the same answer the trail already refuses to anybody else.
 
+**A page is continued by a cursor, not an offset.** The trail is appended to while a reader pages through it, so `before` names the entry to continue after and the next page stays the next page. An offset would repeat or skip an entry whenever an administrator worked between two reads.
+
 **The page is clamped by the deployment, not by the caller.** `limit` asks; the trail answers at most what the deployment keeps. Asking for more is a shorter page rather than a refusal, so a surface does not have to know the bound to make a valid request.
 
 **A failure that is not a refusal reaches the caller as itself.** Only the trail's own closed reason is mapped to a code; a storage failure is not dressed up as an authorization one.
@@ -82,7 +84,7 @@ No request prefix changes, because nothing here contributes to an assembled requ
 
 <a id="known-limitations-and-deferred-work"></a>
 
-- **One read, and no cursor** — a page is the newest entries the deployment answers with; there is no range, no continuation and no filter by who made the change or what kind of record it was.
+- **One read, and one direction** — `before` continues backwards in time; there is no range, no forward read, and no filter by who made the change or what kind of record it was.
 - **No export** — an auditor who wants the trail as a file has to read it a page at a time through this namespace.
 - **No subscription** — a surface showing the trail re-reads it; nothing tells it a new entry arrived.
 

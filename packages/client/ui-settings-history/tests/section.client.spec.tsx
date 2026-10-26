@@ -49,19 +49,20 @@ const t = ((key: keyof typeof zh) => zh[key]) as HistorySectionProps['t']
 function renderSection(state: HistorySectionState) {
   const load = vi.fn(() => Promise.resolve())
   const retry = vi.fn(() => Promise.resolve())
+  const loadMore = vi.fn(() => Promise.resolve())
   const useStore = (<T,>(select: (value: HistorySectionState) => T) => select(state)) as HistorySectionProps['useStore']
-  const props = { t, useStore, load, retry } as HistorySectionProps
-  return { ...render(<HistorySection {...props} />), load, retry }
+  const props = { t, useStore, load, retry, loadMore } as HistorySectionProps
+  return { ...render(<HistorySection {...props} />), load, retry, loadMore }
 }
 
 /** A ready state carrying these entries. */
-function ready(entries: readonly AuditEntryView[]): HistorySectionState {
-  return { status: 'ready', entries }
+function ready(entries: readonly AuditEntryView[], over: Partial<HistorySectionState> = {}): HistorySectionState {
+  return { status: 'ready', entries, more: false, loadingMore: false, ...over }
 }
 
 describe('what the section shows', () => {
   it('reads the trail when it opens', () => {
-    const { load } = renderSection({ status: 'idle', entries: [] })
+    const { load } = renderSection({ status: 'idle', entries: [], more: false, loadingMore: false })
     expect(load).toHaveBeenCalledOnce()
   })
 
@@ -120,6 +121,23 @@ describe('what the section shows', () => {
     expect(screen.getByText(zh.none)).toBeDefined()
   })
 
+  it('continues from the oldest entry shown, and says so when there is no more', () => {
+    const paging = renderSection(ready([CHANGED, ADDED], { more: true }))
+    fireEvent.click(screen.getByRole('button', { name: zh.loadMore }))
+    // The cursor is the oldest entry on the page: an offset would move under
+    // a reader while administrators work.
+    expect(paging.loadMore).toHaveBeenCalledWith(ADDED.id)
+    cleanup()
+
+    renderSection(ready([CHANGED], { more: true, loadingMore: true }))
+    expect(screen.getByRole('button', { name: zh.loadingMore })).toHaveProperty('disabled', true)
+    cleanup()
+
+    renderSection(ready([CHANGED]))
+    expect(screen.getByText(zh.allShown)).toBeDefined()
+    expect(screen.queryByRole('button', { name: zh.loadMore })).toBeNull()
+  })
+
   it('reads again when the reader refreshes', () => {
     const { retry } = renderSection(ready([CHANGED]))
     fireEvent.click(screen.getByRole('button', { name: zh.refresh }))
@@ -129,7 +147,7 @@ describe('what the section shows', () => {
 
 describe('what the section says while the read is unfinished', () => {
   it('offers a retry only for a read that broke', () => {
-    const failed = renderSection({ status: 'failed', entries: [] })
+    const failed = renderSection({ status: 'failed', entries: [], more: false, loadingMore: false })
     expect(screen.getByText(zh.failed)).toBeDefined()
     fireEvent.click(screen.getByRole('button', { name: zh.retry }))
     expect(failed.retry).toHaveBeenCalledOnce()
@@ -137,17 +155,17 @@ describe('what the section says while the read is unfinished', () => {
 
     // A deployment that keeps no trail will not grow one, and a caller
     // without the standing will not gain it by asking again.
-    renderSection({ status: 'unavailable', entries: [] })
+    renderSection({ status: 'unavailable', entries: [], more: false, loadingMore: false })
     expect(screen.getByText(zh.unavailable)).toBeDefined()
     expect(screen.queryByRole('button', { name: zh.retry })).toBeNull()
     cleanup()
 
-    renderSection({ status: 'forbidden', entries: [] })
+    renderSection({ status: 'forbidden', entries: [], more: false, loadingMore: false })
     expect(screen.getByText(zh.forbidden)).toBeDefined()
     expect(screen.queryByRole('button', { name: zh.retry })).toBeNull()
     cleanup()
 
-    renderSection({ status: 'loading', entries: [] })
+    renderSection({ status: 'loading', entries: [], more: false, loadingMore: false })
     expect(screen.getByText(zh.loading)).toBeDefined()
   })
 })

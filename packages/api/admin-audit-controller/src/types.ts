@@ -80,4 +80,12 @@ export interface AuditQueryInput {
   readonly subject?: string
   /** How many entries to answer with, newest first; clamped to what the deployment answers. */
   readonly limit?: number
+  /**
+   * Read only entries older than this one, by its id.
+   *
+   * A cursor rather than an offset, because the trail is appended to while a
+   * reader pages through it: the entry after a given one stays the same entry
+   * however much landed since.
+   */
+  readonly before?: string
 }

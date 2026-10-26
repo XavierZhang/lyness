@@ -30,6 +30,8 @@ function actions(): HistoryActions & { readonly calls: string[] } {
     succeed: (entries) => { calls.push(`succeed:${String(entries.length)}`) },
     fail: (status) => { calls.push(`fail:${status}`) },
     reset: () => { calls.push('reset') },
+    appending: () => { calls.push('appending') },
+    appended: (entries) => { calls.push(`appended:${String(entries.length)}`) },
   }
 }
 
@@ -39,6 +41,8 @@ function publishAll(binding: SectionBinding): void {
   binding.succeed([ENTRY])
   binding.fail('failed')
   binding.reset()
+  binding.appending()
+  binding.appended([ENTRY])
 }
 
 describe('publishing before a render', () => {
@@ -58,7 +62,7 @@ describe('publishing once the framework has baked a store', () => {
 
     publishAll(binding)
 
-    expect(bound.calls).toEqual(['begin', 'succeed:1', 'fail:failed', 'reset'])
+    expect(bound.calls).toEqual(['begin', 'succeed:1', 'fail:failed', 'reset', 'appending', 'appended:1'])
   })
 })
 
@@ -68,11 +72,12 @@ describe('the inject factory', () => {
     const bound = actions()
     const load = vi.fn(() => Promise.resolve())
     const retry = vi.fn(() => Promise.resolve())
-    const operations: HistoryOperations = { load, retry }
+    const loadMore = vi.fn(() => Promise.resolve())
+    const operations: HistoryOperations = { load, retry, loadMore }
 
     const injected = sectionFace(binding, operations)(bound)
 
-    expect(injected).toEqual({ load, retry })
+    expect(injected).toEqual({ load, retry, loadMore })
     binding.begin()
     expect(bound.calls).toEqual(['begin'])
   })

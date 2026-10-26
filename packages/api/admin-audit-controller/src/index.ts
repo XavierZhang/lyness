@@ -19,7 +19,8 @@
 
 import { Context } from '@lyness/cordis'
 import { AuditRefusedError } from '@lyness/lyn-admin-audit'
-import type { AuditEntry, AuditQuery, AuditRefusal } from '@lyness/lyn-admin-audit'
+import type { AuditEntry, AuditEntryId, AuditQuery, AuditRefusal } from '@lyness/lyn-admin-audit'
+import { brandString } from '@lyness/lyn-brand'
 import type { Membership } from '@lyness/lyn-people'
 import { callingStanding } from '@lyness/lyn-request-principal'
 import { Remote, RemoteError, TypertRemoteService } from '@lyness/lyn-typert-protocol'
@@ -60,6 +61,7 @@ export default class AdminAuditController extends TypertRemoteService {
       ...organizationOf(query, by) === undefined ? {} : { organization: organizationOf(query, by) },
       ...query.subject === undefined ? {} : { subject: query.subject },
       ...query.limit === undefined ? {} : { limit: query.limit },
+      ...query.before === undefined ? {} : { before: brandString<AuditEntryId>(query.before) },
     }
     try {
       return (await trail.read(asked, by)).map(view)

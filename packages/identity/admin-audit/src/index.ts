@@ -224,7 +224,8 @@ export class AdminAudit extends Service {
     const domain = await this.ready
     const matching = [...domain.table('entries').entries()].map(([, row]) => row).filter(entry =>
       (query.organization === undefined || entry.organization === query.organization)
-      && (query.subject === undefined || entry.subject === query.subject))
+      && (query.subject === undefined || entry.subject === query.subject)
+      && (query.before === undefined || entry.id < query.before))
     matching.sort((left, right) => right.id.localeCompare(left.id))
     return matching.slice(0, this.limit(query.limit))
   }

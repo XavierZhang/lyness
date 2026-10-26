@@ -16,12 +16,14 @@ import type { AuditChangeView, AuditEntryView } from '@lyness/lyn-api-admin-audi
 import type { createHistorySectionStore } from './store.ts'
 import css from './HistorySection.module.css'
 
-/** Injected business face: the read and the retry. */
+/** Injected business face: the read, the retry and the continuation. */
 export interface HistorySectionInjected {
   /** Read the trail, or join the read already running. */
   load: () => Promise<void>
   /** Read again after a failure. */
   retry: () => Promise<void>
+  /** Read the entries older than one already shown. */
+  loadMore: (before: string) => Promise<void>
 }
 
 /** Full component props: runtime share + store share + locale seat + injected face. */
@@ -137,9 +139,12 @@ function EntryRow({ entry, t }: { entry: AuditEntryView; t: Translate }) {
  * @param props - the locale seat, the store share and the injected face.
  * @returns the section element tree.
  */
-export function HistorySection({ t, useStore, load, retry }: HistorySectionProps) {
+export function HistorySection({ t, useStore, load, retry, loadMore }: HistorySectionProps) {
   const status = useStore(state => state.status)
   const entries = useStore(state => state.entries)
+  const more = useStore(state => state.more)
+  const loadingMore = useStore(state => state.loadingMore)
+  const oldest = entries[entries.length - 1]?.id
 
   // The read starts when the section opens rather than at plugin load: a
   // reader who never opens this should not cost the deployment a request.
@@ -177,9 +182,18 @@ export function HistorySection({ t, useStore, load, retry }: HistorySectionProps
           {entries.length === 0
             ? <p className={css.notice}>{t('none')}</p>
             : (
-              <ul className={css.list}>
-                {entries.map(entry => <EntryRow key={entry.id} entry={entry} t={t} />)}
-              </ul>
+              <>
+                <ul className={css.list}>
+                  {entries.map(entry => <EntryRow key={entry.id} entry={entry} t={t} />)}
+                </ul>
+                {more && oldest !== undefined
+                  ? (
+                    <Button variant="outline" disabled={loadingMore} onClick={() => { void loadMore(oldest) }}>
+                      {loadingMore ? t('loadingMore') : t('loadMore')}
+                    </Button>
+                  )
+                  : <p className={css.hint}>{t('allShown')}</p>}
+              </>
             )}
         </>
       )}

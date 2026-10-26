@@ -190,6 +190,34 @@ describe('reading the trail', () => {
     expect((await ctx.adminAudit.read({ organization: 'acme' }, ACME))).toHaveLength(2)
   })
 
+  it('continues from one entry, so a reader paging through is not moved by new ones', async () => {
+    const ctx = await bench({ maxEntries: 2 })
+    for (const subject of ['a', 'b', 'c', 'd']) {
+      await ctx.adminAudit.record({
+        kind: 'bot', subject, subjectName: subject, action: 'added', organization: 'acme', changes: [],
+      }, ACME)
+    }
+
+    const first = await ctx.adminAudit.read({ organization: 'acme' }, ACME)
+    expect(first.map(entry => entry.subject)).toEqual(['d', 'c'])
+
+    // Something lands between the two reads; a cursor keeps the next page the
+    // next page, where an offset would repeat an entry.
+    await ctx.adminAudit.record({
+      kind: 'bot', subject: 'e', subjectName: 'e', action: 'added', organization: 'acme', changes: [],
+    }, ACME)
+
+    const next = await ctx.adminAudit.read(
+      { organization: 'acme', before: first[first.length - 1]?.id },
+      ACME,
+    )
+    expect(next.map(entry => entry.subject)).toEqual(['b', 'a'])
+    expect(await ctx.adminAudit.read(
+      { organization: 'acme', before: next[next.length - 1]?.id },
+      ACME,
+    )).toEqual([])
+  })
+
   it('keeps every entry across a remount, because the trail is only appended to', async () => {
     const root = await mkdtemp(join(tmpdir(), 'lyn-admin-audit-'))
     roots.push(root)

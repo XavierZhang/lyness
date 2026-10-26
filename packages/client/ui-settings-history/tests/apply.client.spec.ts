@@ -92,7 +92,8 @@ describe('ui-settings-history apply', () => {
   it('declares a store the section reads through', async () => {
     const { slots } = await bench()
     const handle = entryOf(slots).store as Handle
-    expect(handle.create().store.getSnapshot()).toEqual({ status: 'idle', entries: [] })
+    expect(handle.create().store.getSnapshot())
+      .toEqual({ status: 'idle', entries: [], more: false, loadingMore: false })
   })
 
   it('declares a store whose writes move the read through its states', async () => {
@@ -101,7 +102,16 @@ describe('ui-settings-history apply', () => {
     instance.actions.begin()
     expect(instance.store.getSnapshot().status).toBe('loading')
     instance.actions.succeed([ENTRY])
-    expect(instance.store.getSnapshot()).toMatchObject({ status: 'ready', entries: [ENTRY] })
+    expect(instance.store.getSnapshot()).toMatchObject({ status: 'ready', entries: [ENTRY], more: true })
+    // A continuation appends, and an empty one settles that there is nothing
+    // older rather than emptying the page.
+    instance.actions.appending()
+    expect(instance.store.getSnapshot().loadingMore).toBe(true)
+    instance.actions.appended([{ ...ENTRY, id: '2026-10-25T00:00:00.000Z:old' }])
+    expect(instance.store.getSnapshot().entries).toHaveLength(2)
+    instance.actions.appended([])
+    expect(instance.store.getSnapshot()).toMatchObject({ more: false, loadingMore: false })
+    expect(instance.store.getSnapshot().entries).toHaveLength(2)
     instance.actions.fail('forbidden')
     expect(instance.store.getSnapshot().status).toBe('forbidden')
     instance.actions.reset()

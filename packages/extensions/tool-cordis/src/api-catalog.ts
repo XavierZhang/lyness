@@ -5547,11 +5547,11 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   },
   {
     name: 'AuditQuery',
-    declaration: 'export interface AuditQuery {\n    readonly organization?: string | undefined;\n    readonly subject?: string | undefined;\n    readonly limit?: number | undefined;\n}',
+    declaration: 'export interface AuditQuery {\n    readonly organization?: string | undefined;\n    readonly subject?: string | undefined;\n    readonly limit?: number | undefined;\n    readonly before?: AuditEntryId | undefined;\n}',
   },
   {
     name: 'AuditQueryInput',
-    declaration: 'export interface AuditQueryInput {\n    readonly organization?: string;\n    readonly subject?: string;\n    readonly limit?: number;\n}',
+    declaration: 'export interface AuditQueryInput {\n    readonly organization?: string;\n    readonly subject?: string;\n    readonly limit?: number;\n    readonly before?: string;\n}',
   },
   {
     name: 'AuditSubmission',

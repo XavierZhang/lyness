@@ -52,6 +52,15 @@ export class SectionBinding implements HistorySink {
 
   /** Drop the previous outcome before another attempt. */
   reset(): void { this.actions?.reset() }
+
+  /** Report that a continuation has started. */
+  appending(): void { this.actions?.appending() }
+
+  /**
+   * Report what a continuation returned.
+   * @param entries - the next, older entries; empty means there are none.
+   */
+  appended(entries: readonly AuditEntryView[]): void { this.actions?.appended(entries) }
 }
 
 /**
@@ -70,6 +79,6 @@ export function sectionFace(
 ): (actions: HistoryActions) => HistorySectionInjected {
   return (actions: HistoryActions): HistorySectionInjected => {
     binding.bind(actions)
-    return { load: operations.load, retry: operations.retry }
+    return { load: operations.load, retry: operations.retry, loadMore: operations.loadMore }
   }
 }

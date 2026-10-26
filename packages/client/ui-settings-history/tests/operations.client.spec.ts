@@ -38,6 +38,8 @@ function recorder(): HistorySink & { seen: string[]; read: unknown[] } {
     succeed: (entries) => { seen.push(`succeed:${String(entries.length)}`); read.push(entries) },
     fail: (status) => { seen.push(`fail:${status}`) },
     reset: () => { seen.push('reset') },
+    appending: () => { seen.push('appending') },
+    appended: (entries) => { seen.push(`appended:${String(entries.length)}`) },
   }
 }
 
@@ -65,6 +67,29 @@ describe('reading the trail', () => {
     await Promise.all([operations.load(), operations.load(), operations.load()])
 
     expect(read).toHaveBeenCalledOnce()
+  })
+
+  it('continues from one entry, and reads nothing else into the page', async () => {
+    const sink = recorder()
+    const read = vi.fn(() => Promise.resolve({ ok: true as const, value: [ENTRY] }))
+    await createHistoryOperations({ read }, sink).loadMore('2026-10-26T01:00:00.000Z:two')
+
+    expect(read).toHaveBeenCalledWith({ before: '2026-10-26T01:00:00.000Z:two' })
+    expect(sink.seen).toEqual(['appending', 'appended:1'])
+  })
+
+  it('leaves the page as it is when a continuation does not answer', async () => {
+    const refusedSink = recorder()
+    await createHistoryOperations(
+      { read: () => Promise.resolve(refused('audit/not-permitted')) },
+      refusedSink,
+    ).loadMore('x')
+    // The entries already shown are still true, and a reader can ask again.
+    expect(refusedSink.seen).toEqual(['appending', 'appended:0'])
+
+    const brokenSink = recorder()
+    await createHistoryOperations({ read: () => Promise.reject(new Error('offline')) }, brokenSink).loadMore('x')
+    expect(brokenSink.seen).toEqual(['appending', 'appended:0'])
   })
 
   it('reads again on a retry, after dropping the previous outcome', async () => {

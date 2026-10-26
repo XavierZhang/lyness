@@ -49,6 +49,8 @@ There is nothing to configure. The section registers into `settings.section` at 
 
 **An empty value is named, not left out.** A field changed to the empty string is a change worth reading, so the row says so rather than showing a gap where a value belongs.
 
+**Older entries load a page at a time, by cursor.** The continuation names the oldest entry on the page, so a reader paging back is not moved by what administrators do meanwhile. There is no count of what is left — the deployment clamps the page and does not say by how much — so the button is offered while a page came back with anything in it, and a continuation that comes back empty is what says the history is whole.
+
 **A cut value is marked where it was cut.** The deployment keeps only the first part of a long value; the row says which field was shortened and why, once per entry.
 
 -----
@@ -75,7 +77,7 @@ No request prefix changes, because nothing here contributes to an assembled requ
 
 <a id="known-limitations-and-deferred-work"></a>
 
-- **One page, and no cursor** — the newest entries the deployment answers with are shown in one go; older ones are kept and cannot be reached from here.
+- **No export** — a reader can page back to the whole history, and has no way to take it out of the page as a file for an auditor's own tools.
 - **No filter and no search** — every kind, every record and every administrator are shown together; a reader looking for one record's history has to find it by eye.
 - **The time is the stored instant** — each entry shows the UTC instant the trail recorded, not a time formatted for the reader's own locale and zone.
 - **A record is named by its id** — an entry names the record's identity and the name it went by, and nothing links to the row it describes on the people or bots page.

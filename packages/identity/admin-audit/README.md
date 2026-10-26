@@ -81,6 +81,8 @@ A tenant administrator reads their own organization's trail. Naming no organizat
 
 **A change that altered nothing is not recorded.** Both rosters skip a `changed` submission with no differing fields, because that is an administrator pressing Save without an edit and the entry would be one an auditor has to read past.
 
+**A page is continued by a cursor, not an offset.** `before` names the entry to continue after, which is what the time-leading id is for: the trail is appended to while a reader pages through it, and an offset would repeat or skip an entry whenever an administrator worked between two reads.
+
 **The entry id leads with the instant.** The stored key sorts by time, which is the order every read wants; the suffix separates two changes made in the same millisecond. A read sorts on the key rather than re-deriving an order from the record.
 
 **The name is kept beside the identity.** An entry carries the name the record went by at the time, so the history of a removed bot still reads as a name rather than as an identifier nothing resolves.
@@ -116,7 +118,7 @@ No request prefix changes, because nothing here contributes to an assembled requ
 - **Entries are never pruned** — the trail is the product, so retention is a deployment policy rather than a default this package picks.
 - **No surface reads it** — the service answers a standing, and no Remote namespace or settings page shows the trail yet, so today it is readable only from code.
 - **Not every administrative owner records into it** — the two rosters, the sign-in channels and the credit allowances do; settings and model selections are administrative too and do not yet. A credit grant deliberately does not: the ledger row is already an immutable record naming who granted what to whom.
-- **A read is one page, newest first** — there is no cursor, no range and no filter by who made the change or what kind of record it was.
+- **A read goes one way** — `before` continues backwards in time; there is no range, no forward read, and no filter by who made the change or what kind of record it was.
 - **The trail says what changed, not what was attempted** — a refused change records nothing, so an administrator repeatedly denied a change leaves no trace here.
 
 **Runtime invariant:** No companion is published. The trail is the only record of its own content, so there is no independent observation that could disagree with it.

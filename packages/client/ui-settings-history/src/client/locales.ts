@@ -37,7 +37,10 @@ export const en = {
   noFields: 'No field was recorded for this change.',
   organization: 'Organization',
   subjectId: 'Record id',
-  pageHint: 'The newest entries this deployment answers with. Older ones are kept and are not shown here yet.',
+  pageHint: 'The newest entries first. Older ones load a page at a time.',
+  loadMore: 'Load older entries',
+  loadingMore: 'Loading…',
+  allShown: 'That is the whole history this organization has.',
 }
 
 /** The keys this section's copy is addressed by. */
@@ -75,5 +78,8 @@ export const zh: Record<HistoryKey, string> = {
   noFields: '这次更改没有记下任何字段。',
   organization: '组织',
   subjectId: '记录 id',
-  pageHint: '这是这个部署答得出的那些最新条目。更早的仍然保留着，只是这里还不展示。',
+  pageHint: '最新的在前。更早的一页一页地加载。',
+  loadMore: '加载更早的条目',
+  loadingMore: '正在加载……',
+  allShown: '这就是这个组织的全部历史了。',
 }

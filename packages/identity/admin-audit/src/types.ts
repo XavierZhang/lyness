@@ -88,4 +88,13 @@ export interface AuditQuery {
   readonly subject?: string | undefined
   /** How many entries to answer with, newest first; clamped to the configured maximum. */
   readonly limit?: number | undefined
+  /**
+   * Read only entries older than this one, by its id.
+   *
+   * A cursor rather than an offset: the trail is append-only and ids sort by
+   * time, so the entry after a given one is the same entry however much was
+   * added since. An offset would move under a reader paging through while
+   * administrators work.
+   */
+  readonly before?: AuditEntryId | undefined
 }

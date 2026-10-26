@@ -37,6 +37,10 @@ export interface HistorySink {
   fail: (status: 'failed' | 'unavailable' | 'forbidden') => void
   /** Drop the previous outcome before another attempt. */
   reset: () => void
+  /** A continuation has started. */
+  appending: () => void
+  /** A continuation returned the next, older entries. */
+  appended: (entries: readonly AuditEntryView[]) => void
 }
 
 /** What the section's injected face hands over. */
@@ -45,6 +49,8 @@ export interface HistoryOperations {
   load: () => Promise<void>
   /** Read again after a failure, or join the read already running. */
   retry: () => Promise<void>
+  /** Read the entries older than one already shown. */
+  loadMore: (before: string) => Promise<void>
 }
 
 /**
@@ -97,5 +103,19 @@ export function createHistoryOperations(calls: HistoryCalls, sink: HistorySink):
     }
   }, () => { sink.reset() })
 
-  return { load: shared.load, retry: shared.retry }
+  return {
+    load: shared.load,
+    retry: shared.retry,
+    loadMore: async (before): Promise<void> => {
+      sink.appending()
+      try {
+        const read = await calls.read({ before })
+        // A continuation that failed leaves the page as it is: the entries
+        // already shown are still true, and a reader can ask again.
+        sink.appended(read.ok ? read.value : [])
+      } catch {
+        sink.appended([])
+      }
+    },
+  }
 }
