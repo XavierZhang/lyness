@@ -127,6 +127,7 @@ function view(entry: AuditEntry): AuditEntryView {
       ...change.before === undefined ? {} : { before: change.before },
       ...change.after === undefined ? {} : { after: change.after },
       ...change.truncated === undefined ? {} : { truncated: change.truncated },
+      ...change.redacted === undefined ? {} : { redacted: change.redacted },
     })),
   }
 }

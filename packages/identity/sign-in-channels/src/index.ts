@@ -21,6 +21,8 @@ import { Service } from '@lyness/cordis'
 import type { Context } from '@lyness/cordis'
 import { credentialRef } from '@lyness/lyn-credentials'
 import type {} from '@lyness/lyn-credentials'
+import { fieldChanges, redactedChange } from '@lyness/lyn-admin-audit'
+import type { AuditSubmission } from '@lyness/lyn-admin-audit'
 import { administers } from '@lyness/lyn-people'
 import type { Membership } from '@lyness/lyn-people'
 import { channelId } from '@lyness/lyn-sign-in'
@@ -98,7 +100,7 @@ export function secretRefOf(id: string): string {
 
 /** Configured sign-in channels, mounted from what a deployment stored. */
 export class ConfiguredChannels extends Service {
-  static inject = ['storageDomain', 'signIn', 'signInKinds', 'credentials']
+  static inject = ['storageDomain', 'signIn', 'signInKinds', 'credentials', 'adminAudit']
 
   private readonly ready: Promise<Domain<typeof channelDomain>>
 
@@ -183,6 +185,23 @@ export class ConfiguredChannels extends Service {
       configuredBy: by.person,
     }
     await domain.table('channels').put(id, record)
+    const changes = fieldChanges(
+      existing === undefined ? undefined : channelFields(existing),
+      channelFields(record),
+    )
+    // The credential itself never reaches the trail. What an auditor has to
+    // be able to see is that a directory's secret was replaced, and the
+    // reference is derived from the id, so a replacement is what the
+    // submission carried rather than a difference between two records.
+    if (submission.secret !== undefined && existing !== undefined) changes.push(redactedChange('secret'))
+    await this.audit({
+      kind: 'sign-in-channel',
+      subject: record.id,
+      subjectName: record.displayName,
+      action: existing === undefined ? 'added' : 'changed',
+      ...record.organization === undefined ? {} : { organization: record.organization },
+      changes,
+    }, by)
     await this.remount(record)
     return this.view(record)
   }
@@ -203,6 +222,26 @@ export class ConfiguredChannels extends Service {
     // The secret goes with the record: leaving it behind would keep a
     // directory's credential in the store with nothing naming it.
     await this.ctx.credentials.unset(credentialRef(existing.secret))
+    await this.audit({
+      kind: 'sign-in-channel',
+      subject: id,
+      subjectName: existing.displayName,
+      action: 'removed',
+      ...existing.organization === undefined ? {} : { organization: existing.organization },
+      changes: [...fieldChanges(channelFields(existing), undefined), redactedChange('secret')],
+    }, by)
+  }
+
+  /**
+   * Record one change in the trail, unless nothing changed.
+   *
+   * A submission that altered no field and rotated no secret is an
+   * administrator pressing Save without an edit, and an entry for it would be
+   * an entry an auditor has to read past.
+   */
+  private async audit(submission: AuditSubmission, by: Membership): Promise<void> {
+    if (submission.action === 'changed' && submission.changes.length === 0) return
+    await this.ctx.adminAudit.record(submission, by)
   }
 
   /** Mount every stored channel whose kind is offered. */
@@ -275,6 +314,23 @@ export class ConfiguredChannels extends Service {
       configuredBy: String(record.configuredBy),
       mounted: this.mounted.has(record.id),
     }
+  }
+}
+
+/**
+ * One channel's audited fields.
+ *
+ * The settings an administrator filled in are named one by one, so an auditor
+ * reads which setting changed rather than that something in a blob did. The
+ * credential reference is not among them: it is derived from the id, so it
+ * never differs, and what a rotation is recorded as is a redacted change.
+ */
+function channelFields(record: ChannelRecord): Record<string, string> {
+  return {
+    kind: record.kind,
+    displayName: record.displayName,
+    ...record.organization === undefined ? {} : { organization: record.organization },
+    ...Object.fromEntries(Object.entries(record.settings).map(([name, value]) => [`settings.${name}`, value])),
   }
 }
 

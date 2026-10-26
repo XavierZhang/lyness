@@ -102,6 +102,14 @@ describe('what the section shows', () => {
     expect(screen.getByText(zh.truncatedHint)).toBeDefined()
   })
 
+  it('says a credential was replaced without showing either side', () => {
+    renderSection(ready([{ ...CHANGED, changes: [{ field: 'secret', redacted: true }] }]))
+    expect(screen.getByText(zh.redacted)).toBeDefined()
+    expect(screen.getByText(zh.redactedHint)).toBeDefined()
+    expect(screen.queryByText(zh.fieldWas)).toBeNull()
+    expect(screen.queryByText(zh.fieldNow)).toBeNull()
+  })
+
   it('says so when a change recorded no field', () => {
     renderSection(ready([{ ...CHANGED, changes: [] }]))
     expect(screen.getByText(zh.noFields)).toBeDefined()

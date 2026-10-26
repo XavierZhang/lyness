@@ -21,6 +21,7 @@ export const changeSchema: z.ZodType<AuditFieldChange> = z.object({
   before: z.string().optional(),
   after: z.string().optional(),
   truncated: z.boolean().optional(),
+  redacted: z.boolean().optional(),
 }).strict()
 
 /** One stored entry. */

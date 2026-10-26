@@ -75,6 +75,8 @@ A tenant administrator reads their own organization's trail. Naming no organizat
 
 **Comparison lives here, once.** Every owner of administrable records needs the same field-by-field comparison, and a second copy would drift. A caller flattens its record into named strings — joining a list, omitting a field it does not carry — and `fieldChanges` answers what an auditor would read out.
 
+**A secret is recorded as having changed, never as a value.** A rotated credential is the one change an auditor must see and the trail must not hold: `redactedChange` records the field with neither side, and the surface says a credential was replaced. It is not a comparison, so it does not go through `fieldChanges` — the caller knows a credential was replaced and must not hand over either side.
+
 **A recorded value is cut, and says that it was.** A persona is free text an administrator wrote, so one record can carry more prose than a trail should grow by. The cut is marked on the field rather than hidden, so a reader knows it is reading part of a value.
 
 **A change that altered nothing is not recorded.** Both rosters skip a `changed` submission with no differing fields, because that is an administrator pressing Save without an edit and the entry would be one an auditor has to read past.
@@ -90,6 +92,7 @@ A tenant administrator reads their own organization's trail. Naming no organizat
 
 - [`lyn-managed-people`](../managed-people/README.md) — the people and bindings whose changes it records.
 - [`lyn-managed-bots`](../managed-bots/README.md) — the bots and teams whose changes it records.
+- [`lyn-sign-in-channels`](../sign-in-channels/README.md) — the configured directories whose changes it records, secrets excepted.
 - [`lyn-people`](../people/README.md) — the standings a read is authorized against.
 - [`lyn-module-accounts`](../../bundle/module-accounts/README.md) — the composition that selects it beside the rosters.
 
@@ -111,7 +114,7 @@ No request prefix changes, because nothing here contributes to an assembled requ
 - **The whole trail is loaded at open** — the domain is a key-value table read into memory, so a long-lived deployment's trail is held in full and a read sorts it. A trail that outgrows that wants a time-ranged query against a store that can answer one.
 - **Entries are never pruned** — the trail is the product, so retention is a deployment policy rather than a default this package picks.
 - **No surface reads it** — the service answers a standing, and no Remote namespace or settings page shows the trail yet, so today it is readable only from code.
-- **Only the rosters record into it** — sign-in channel changes, settings, credit grants and model selections are administrative too, and none of them record here yet.
+- **Not every administrative owner records into it** — the two rosters and the sign-in channels do; settings, credit grants and model selections are administrative too and do not yet.
 - **A read is one page, newest first** — there is no cursor, no range and no filter by who made the change or what kind of record it was.
 - **The trail says what changed, not what was attempted** — a refused change records nothing, so an administrator repeatedly denied a change leaves no trace here.
 

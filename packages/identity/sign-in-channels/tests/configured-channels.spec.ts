@@ -18,6 +18,7 @@ import type { ChannelKind, ConfiguredChannel } from '@lyness/lyn-sign-in/kinds'
 import type { SignInChannel } from '@lyness/lyn-sign-in'
 import { brandString } from '@lyness/lyn-brand'
 import type { Membership, MembershipId, PersonId, Role } from '@lyness/lyn-people'
+import AdminAudit from '@lyness/lyn-admin-audit'
 import ConfiguredChannels, { KIND_UNKNOWN, NOT_PERMITTED, SECRET_REQUIRED, secretRefOf } from '../src/index.ts'
 
 const ADA = brandString<PersonId>('ada')
@@ -86,6 +87,7 @@ async function bench(kinds: readonly ChannelKind[] = [fixtureKind()]): Promise<C
     unset: (ref: string) => { stored.delete(ref); return Promise.resolve() },
     resolve: (ref: string) => Promise.resolve(stored.has(ref) ? { value: stored.get(ref) } : undefined),
   })
+  await ctx.plugin(AdminAudit, {}).await()
   await ctx.plugin(ConfiguredChannels)
   // The service mounts what it stored as soon as its domain opens.
   await Promise.resolve()
@@ -171,6 +173,70 @@ describe('replacing one channel', () => {
       { ...submission(), id: theirs.id, organization: 'zenith' },
       standing('tenant-administrator', 'zenith'),
     )).rejects.toThrow(NOT_PERMITTED)
+  })
+})
+
+describe('what the trail records', () => {
+  it('names each setting that changed, and never the secret itself', async () => {
+    const ctx = await bench()
+    const by = standing('tenant-administrator', 'acme')
+    const added = await ctx.signInChannels.save(submission({ organization: 'acme' }), by)
+    await ctx.signInChannels.save(
+      submission({ id: added.id, organization: 'acme', settings: { corpId: 'ww-other' }, secret: 'rotated' }),
+      by,
+    )
+
+    const trail = await ctx.adminAudit.read({ organization: 'acme' }, by)
+    expect(trail.map(entry => [entry.kind, entry.action])).toEqual([
+      ['sign-in-channel', 'changed'], ['sign-in-channel', 'added'],
+    ])
+    // The setting reads by its own name, and the rotation is recorded with
+    // neither side: the trail must not be where a directory's secret is
+    // readable from.
+    expect(trail[0]?.changes).toEqual([
+      { field: 'settings.corpId', before: 'ww-acme', after: 'ww-other' },
+      { field: 'secret', redacted: true },
+    ])
+    expect(JSON.stringify(trail)).not.toContain('rotated')
+    expect(JSON.stringify(trail)).not.toContain('the-secret')
+  })
+
+  it('records a rotation that changed nothing else', async () => {
+    const ctx = await bench()
+    const by = standing('tenant-administrator', 'acme')
+    const added = await ctx.signInChannels.save(submission({ organization: 'acme' }), by)
+    await ctx.signInChannels.save(submission({ id: added.id, organization: 'acme', secret: 'rotated' }), by)
+
+    const trail = await ctx.adminAudit.read({ organization: 'acme' }, by)
+    expect(trail[0]?.changes).toEqual([{ field: 'secret', redacted: true }])
+  })
+
+  it('records nothing for a save that altered no setting and rotated nothing', async () => {
+    const ctx = await bench()
+    const by = standing('tenant-administrator', 'acme')
+    const added = await ctx.signInChannels.save(submission({ organization: 'acme' }), by)
+    const { secret: _kept, ...unchanged } = submission({ id: added.id, organization: 'acme' })
+    await ctx.signInChannels.save(unchanged, by)
+
+    expect((await ctx.adminAudit.read({ organization: 'acme' }, by)).map(entry => entry.action))
+      .toEqual(['added'])
+  })
+
+  it('records a removal as the settings going and the secret with them', async () => {
+    const ctx = await bench()
+    const by = standing('tenant-administrator', 'acme')
+    const added = await ctx.signInChannels.save(submission({ organization: 'acme' }), by)
+    await ctx.signInChannels.remove(added.id, by)
+
+    const trail = await ctx.adminAudit.read({ organization: 'acme' }, by)
+    expect(trail[0]).toMatchObject({ action: 'removed', subjectName: 'Acme directory' })
+    expect(trail[0]?.changes).toEqual([
+      { field: 'kind', before: 'fixture' },
+      { field: 'displayName', before: 'Acme directory' },
+      { field: 'organization', before: 'acme' },
+      { field: 'settings.corpId', before: 'ww-acme' },
+      { field: 'secret', redacted: true },
+    ])
   })
 })
 

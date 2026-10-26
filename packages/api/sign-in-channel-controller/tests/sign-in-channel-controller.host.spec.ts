@@ -18,6 +18,7 @@ import SignIn from '@lyness/lyn-sign-in'
 import ChannelKindRegistry from '@lyness/lyn-sign-in/kinds'
 import type { ChannelKind, ConfiguredChannel } from '@lyness/lyn-sign-in/kinds'
 import type { SignInChannel } from '@lyness/lyn-sign-in'
+import AdminAudit from '@lyness/lyn-admin-audit'
 import ConfiguredChannels from '@lyness/lyn-sign-in-channels'
 import { RemoteError } from '@lyness/lyn-typert-protocol'
 import SignInChannelController from '../src/index.ts'
@@ -99,6 +100,7 @@ async function harness(by: Membership | 'none', mounted: Mounted = {}): Promise<
       unset: (ref: string) => { secrets.delete(ref); return Promise.resolve() },
       resolve: (ref: string) => Promise.resolve(secrets.has(ref) ? { value: secrets.get(ref) } : undefined),
     })
+    await ctx.plugin(AdminAudit, {}).await()
     await ctx.plugin(ConfiguredChannels)
     await Promise.resolve()
   }

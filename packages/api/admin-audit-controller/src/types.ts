@@ -35,6 +35,11 @@ export interface AuditChangeView {
   readonly after?: string
   /** Whether either value was cut to the recorded length. */
   readonly truncated?: boolean
+  /**
+   * Whether this field changed and the trail deliberately keeps no value for
+   * it, as a rotated credential does. Such a change carries neither side.
+   */
+  readonly redacted?: boolean
 }
 
 /** One recorded change as the surface shows it. */

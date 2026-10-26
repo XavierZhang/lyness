@@ -5527,7 +5527,7 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   },
   {
     name: 'AuditChangeView',
-    declaration: 'export interface AuditChangeView {\n    readonly field: string;\n    readonly before?: string;\n    readonly after?: string;\n    readonly truncated?: boolean;\n}',
+    declaration: 'export interface AuditChangeView {\n    readonly field: string;\n    readonly before?: string;\n    readonly after?: string;\n    readonly truncated?: boolean;\n    readonly redacted?: boolean;\n}',
   },
   {
     name: 'AuditEntry',
@@ -5543,7 +5543,7 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   },
   {
     name: 'AuditFieldChange',
-    declaration: 'export interface AuditFieldChange {\n    readonly field: string;\n    readonly before?: string | undefined;\n    readonly after?: string | undefined;\n    readonly truncated?: boolean | undefined;\n}',
+    declaration: 'export interface AuditFieldChange {\n    readonly field: string;\n    readonly before?: string | undefined;\n    readonly after?: string | undefined;\n    readonly truncated?: boolean | undefined;\n    readonly redacted?: boolean | undefined;\n}',
   },
   {
     name: 'AuditQuery',

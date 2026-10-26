@@ -84,6 +84,7 @@ function ChangeRow({ change, t }: { change: AuditChangeView; t: Translate }) {
         </>
       )}
       {change.truncated === true ? <Tag tone="neutral">{t('truncated')}</Tag> : null}
+      {change.redacted === true ? <Tag tone="neutral">{t('redacted')}</Tag> : null}
     </li>
   )
 }
@@ -117,6 +118,9 @@ function EntryRow({ entry, t }: { entry: AuditEntryView; t: Translate }) {
         )}
       {entry.changes.some(change => change.truncated === true)
         ? <p className={css.hint}>{t('truncatedHint')}</p>
+        : null}
+      {entry.changes.some(change => change.redacted === true)
+        ? <p className={css.hint}>{t('redactedHint')}</p>
         : null}
       <p className={css.entryId}>
         <span>{t('subjectId')}</span>

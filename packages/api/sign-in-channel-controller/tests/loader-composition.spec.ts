@@ -21,6 +21,7 @@ import type { MembershipId, PersonId } from '@lyness/lyn-people'
 import SignIn from '@lyness/lyn-sign-in'
 import ChannelKindRegistry from '@lyness/lyn-sign-in/kinds'
 import * as AdmissionRoster from '@lyness/lyn-sign-in/admission-roster'
+import AdminAudit from '@lyness/lyn-admin-audit'
 import ConfiguredChannels from '@lyness/lyn-sign-in-channels'
 import * as Wecom from '@lyness/lyn-wecom/kind'
 import * as StoredAuthSessions from '@lyness/lyn-auth-session/store'
@@ -79,6 +80,7 @@ async function compose(): Promise<{ ctx: Context; scopes: Scope[] }> {
     "- name: '@lyness/lyn-sign-in'",
     "- name: '@lyness/lyn-sign-in/kinds'",
     "- name: '@lyness/lyn-wecom/kind'",
+    "- name: '@lyness/lyn-admin-audit'",
     "- name: '@lyness/lyn-sign-in-channels'",
     "- name: '@lyness/lyn-request-principal'",
     "- name: '@lyness/lyn-api-sign-in-channel-controller'",
@@ -105,6 +107,7 @@ async function compose(): Promise<{ ctx: Context; scopes: Scope[] }> {
     ['@lyness/lyn-sign-in', SignIn],
     ['@lyness/lyn-sign-in/kinds', ChannelKindRegistry],
     ['@lyness/lyn-wecom/kind', Wecom],
+    ['@lyness/lyn-admin-audit', AdminAudit],
     ['@lyness/lyn-sign-in-channels', ConfiguredChannels],
     ['@lyness/lyn-request-principal', RequestPrincipal],
     ['@lyness/lyn-api-sign-in-channel-controller', SignInChannelController],

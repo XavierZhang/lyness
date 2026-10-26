@@ -9,6 +9,7 @@
   ],
   "references": [
     { "path": "../../../vendor/cordis" },
+    { "path": "../admin-audit" },
     { "path": "../../credentials/credentials" },
     { "path": "../people" },
     { "path": "../sign-in" },

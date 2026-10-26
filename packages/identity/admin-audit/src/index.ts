@@ -113,6 +113,18 @@ export function resolveConfig(config: Config): ResolvedConfig {
 }
 
 /**
+ * One field that changed and whose value the trail deliberately keeps none of.
+ *
+ * Separate from {@link fieldChanges} because it is not a comparison: the
+ * caller knows a credential was replaced and must not hand over either side.
+ * @param field - the field's name, as the record that holds it calls it.
+ * @returns the change to record.
+ */
+export function redactedChange(field: string): AuditFieldChange {
+  return { field, redacted: true }
+}
+
+/**
  * Every field two states of one record disagree about.
  *
  * Here rather than in each owner of administrable records, because every one
@@ -227,6 +239,7 @@ export class AdminAudit extends Service {
       ...before === undefined ? {} : { before },
       ...after === undefined ? {} : { after },
       ...truncated ? { truncated: true } : {},
+      ...change.redacted === true ? { redacted: true } : {},
     }
   }
 

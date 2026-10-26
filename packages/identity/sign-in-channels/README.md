@@ -70,6 +70,8 @@ Replacing one keeps its id, so the admission bindings written against it still m
 
 **A record outlives the plugin that builds it.** A kind nothing offers, or settings that kind refuses, leaves the record stored and unmounted. Deleting it because a plugin left the composition would lose the configuration a deployment needs back when it returns, and a surface showing `mounted: false` is the honest report.
 
+**Every change is recorded, and the secret is not.** [`lyn-admin-audit`](../admin-audit/README.md) holds who configured what and which setting changed, each setting named one by one so an auditor reads which one moved rather than that something in a blob did. A replaced credential is recorded as a change with neither side: an auditor must be able to see that a directory's secret was rotated, and the trail must not be where that secret is readable from. A save that altered no setting and rotated nothing records nothing.
+
 **Another organization's channel is not listed, not refused.** Listing it and refusing the sign-in would tell one customer who the others are.
 
 -----

@@ -30,6 +30,16 @@ export interface AuditFieldChange {
   readonly after?: string | undefined
   /** Whether either value was cut to the recorded length; absent when neither was. */
   readonly truncated?: boolean | undefined
+  /**
+   * Whether this field changed and the trail deliberately keeps no value for
+   * it.
+   *
+   * A rotated credential is the case this exists for: an auditor has to be
+   * able to see that a directory's secret was replaced, and the trail must
+   * not be the place that secret is readable from. Such a change carries
+   * neither side.
+   */
+  readonly redacted?: boolean | undefined
 }
 
 /** What one caller submits to be recorded. */

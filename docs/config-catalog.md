@@ -4833,7 +4833,7 @@ These load from a `cordis.yml` entry with no `config:` block; they declare no co
 | `@lyness/lyn-session-stats` | `sessionProjections` | [`packages/session/session-stats/src/index.ts`](../packages/session/session-stats/src/index.ts) |
 | `@lyness/lyn-session-turn-outline` | `sessionProjections` | [`packages/session/session-turn-outline/src/index.ts`](../packages/session/session-turn-outline/src/index.ts) |
 | `@lyness/lyn-settings` | `configEditor` · `profileContext` | [`packages/settings/settings/src/index.ts`](../packages/settings/settings/src/index.ts) |
-| `@lyness/lyn-sign-in-channels` | `storageDomain` · `signIn` · `signInKinds` · `credentials` | [`packages/identity/sign-in-channels/src/index.ts`](../packages/identity/sign-in-channels/src/index.ts) |
+| `@lyness/lyn-sign-in-channels` | `storageDomain` · `signIn` · `signInKinds` · `credentials` · `adminAudit` | [`packages/identity/sign-in-channels/src/index.ts`](../packages/identity/sign-in-channels/src/index.ts) |
 | `@lyness/lyn-skill-badge` | `skills` | [`packages/skill/skill-badge/src/index.ts`](../packages/skill/skill-badge/src/index.ts) |
 | `@lyness/lyn-storage` | — | [`packages/storage/storage/src/index.ts`](../packages/storage/storage/src/index.ts) |
 | `@lyness/lyn-subprocess-local` | — | [`packages/subprocess/subprocess-local/src/index.ts`](../packages/subprocess/subprocess-local/src/index.ts) |

@@ -183,6 +183,14 @@ describe('what one entry looks like on the wire', () => {
     expect((await controller.read({}))[0]?.changes)
       .toEqual([{ field: 'persona', before: 'You answer in short sentences.' }])
 
+    // A rotated credential: the entry says the field changed and carries
+    // neither side, so the trail is not where a secret is readable from.
+    await ctx.adminAudit.record({
+      kind: 'sign-in-channel', subject: 'wecom', subjectName: 'Acme directory', action: 'changed',
+      organization: 'acme', changes: [{ field: 'secret', redacted: true }],
+    }, acme)
+    expect((await controller.read({}))[0]?.changes).toEqual([{ field: 'secret', redacted: true }])
+
     const cutting = await harness(acme, { maxValueLength: 4 })
     await cutting.ctx.adminAudit.record({
       kind: 'bot', subject: 'other', subjectName: 'Other', action: 'added', organization: 'acme',
