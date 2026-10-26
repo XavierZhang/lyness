@@ -15,6 +15,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | Package | Config | Description |
 |---|---|---|
 | `@lyness/lyn-api-account-controller` | no | Expose safe account operations over authenticated Remote |
+| `@lyness/lyn-api-admin-audit-controller` | no | Remote owner of the administrative trail surface: an administrator reads what was changed, by whom, and from what |
 | `@lyness/lyn-api-announcement-controller` | no | Expose a deployment's own announcements over authenticated Remote |
 | `@lyness/lyn-api-bots-controller` | no | Remote owner of the bots surface: administrators maintain which bots their organization runs and what each one runs with |
 | `@lyness/lyn-api-credits-controller` | no | A person reads their own balance; an administrator grants credits and sets allowances |

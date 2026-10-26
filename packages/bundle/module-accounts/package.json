@@ -50,6 +50,7 @@
     "@lyness/lyn-feishu": "workspace:*",
     "@lyness/lyn-managed-bots": "workspace:*",
     "@lyness/lyn-admin-audit": "workspace:*",
+    "@lyness/lyn-api-admin-audit-controller": "workspace:*",
     "@lyness/lyn-managed-people": "workspace:*",
     "@lyness/lyn-people": "workspace:*",
     "@lyness/lyn-request-principal": "workspace:*",

@@ -106,6 +106,12 @@
     - id: bots-controller
       name: '@lyness/lyn-api-bots-controller'
 
+    # And the one they read the history through: a surface that shows what
+    # was changed is what makes the trail answerable rather than merely
+    # stored.
+    - id: admin-audit-controller
+      name: '@lyness/lyn-api-admin-audit-controller'
+
     # One bot asking a teammate. Its two model-facing tools cannot be a row
     # here — they belong inside a preset whose whole row list this patch would
     # have to restate — so the row below contributes them instead.

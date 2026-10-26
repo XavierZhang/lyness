@@ -1109,6 +1109,36 @@ importers:
         specifier: workspace:*
         version: link:../../typert/protocol
 
+  packages/api/admin-audit-controller:
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+      '@lyness/lyn-admin-audit':
+        specifier: workspace:*
+        version: link:../../identity/admin-audit
+      '@lyness/lyn-brand':
+        specifier: workspace:*
+        version: link:../../util/brand
+      '@lyness/lyn-people':
+        specifier: workspace:*
+        version: link:../../identity/people
+      '@lyness/lyn-request-principal':
+        specifier: workspace:*
+        version: link:../../identity/request-principal
+      '@lyness/lyn-storage':
+        specifier: workspace:*
+        version: link:../../storage/storage
+      '@lyness/lyn-storage-domain':
+        specifier: workspace:*
+        version: link:../../storage/storage-domain
+      '@lyness/lyn-storage-json':
+        specifier: workspace:*
+        version: link:../../storage/storage-json
+      '@lyness/lyn-typert-protocol':
+        specifier: workspace:*
+        version: link:../../typert/protocol
+
   packages/api/announcement-controller:
     devDependencies:
       '@lyness/cordis':
@@ -2586,6 +2616,9 @@ importers:
       '@lyness/lyn-api-remote-authority':
         specifier: workspace:*
         version: link:../../api/remote-authority
+      '@lyness/lyn-api-admin-audit-controller':
+        specifier: workspace:*
+        version: link:../../api/admin-audit-controller
       '@lyness/lyn-api-bots-controller':
         specifier: workspace:*
         version: link:../../api/bots-controller

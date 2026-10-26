@@ -167,6 +167,26 @@ async read(query: AuditQuery, by: Membership): Promise<readonly AuditEntry[]>
 
 Source: [`packages/identity/admin-audit/src/index.ts`](../../packages/identity/admin-audit/src/index.ts)
 
+<a id="ctxadminauditcontroller--adminauditcontroller"></a>
+
+### `ctx.adminAuditController` — `AdminAuditController`
+
+Host service backing the generated `ctx.remote.audit` namespace.
+
+```ts cordis-catalog
+/**
+ * The recorded changes the calling standing may read, newest first.
+ * @param query - whose trail, which record, and how many entries.
+ * @returns the matching entries, newest first.
+ * @throws {RemoteError} `audit/not-permitted` when the standing may not read
+ * that trail, `audit/no-standing` when the call establishes none, or
+ * `gateway/internal` when this deployment keeps no trail.
+ */
+@Remote async read(query: AuditQueryInput): Promise<readonly AuditEntryView[]>
+```
+
+Source: [`packages/api/admin-audit-controller/src/index.ts`](../../packages/api/admin-audit-controller/src/index.ts)
+
 <a id="ctxauthsessions--authsessionstore-abstract-seam"></a>
 
 ### `ctx.authSessions` — `AuthSessionStore` (abstract seam)

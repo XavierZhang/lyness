@@ -961,6 +961,15 @@ const SERVICE_ROLES: ServiceRole[] = [
     note: 'Holds the people and admission bindings added at runtime, beside the ones composition wrote: the written half wins every lookup and cannot be changed here, because the next boot reads the file again.',
   },
   {
+    key: 'adminAuditController',
+    pkg: 'api-admin-audit-controller',
+    title: 'The trail an administrator reads',
+    mode: 'core',
+    implementations: [],
+    consumers: [],
+    note: 'Answers one page of recorded changes on the standing the call acts in, and resolves the one thing it owns: an unnamed read means the caller\'s own organization, so a tenant administrator does not name the only one they administer.',
+  },
+  {
     key: 'botsController',
     pkg: 'api-bots-controller',
     title: 'The bots an organization runs',

@@ -66,6 +66,7 @@ const SENTENCE_MODEL_EXPERIENCE: Readonly<Record<string, SentenceContract>> = {
   'packages/bundle/module-credits': { kind: 'indirect', reason: 'A module bundle contributes composition rows; lyn-credits owns the refusal a turn meets inside llm/stream.' },
   'packages/bundle/web-execution': { kind: 'indirect', reason: 'A bundle that moves tool rows behind per-session presets; the tool packages own their schemas and results.' },
   'packages/identity/admin-audit': { kind: 'none', reason: 'A Host trail stores what administrators changed; it registers no tool, prompt, or Session event.' },
+  'packages/api/admin-audit-controller': { kind: 'none', reason: 'A Remote namespace answers one administrative read; it registers no tool, prompt, or Session event.' },
   'packages/identity/people': { kind: 'none', reason: 'A Host directory answers who a caller is; it registers no tool, prompt, or Session event.' },
   'packages/identity/acting-context': { kind: 'none', reason: 'A Host authorization check answers whether a declared context is permitted; it registers nothing model-facing.' },
   'packages/credits/credits': { kind: 'none', reason: 'A Host ledger meters an allowance; it registers no tool, prompt, or Session event.' },

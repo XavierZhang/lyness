@@ -116,6 +116,20 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
     ],
   },
   {
+    key: 'adminAuditController',
+    summary: 'Host service backing the generated `ctx.remote.audit` namespace.',
+    description: 'Host service backing the generated `ctx.remote.audit` namespace.',
+    methods: [
+      {
+        signature: '@Remote async read(query: AuditQueryInput): Promise<readonly AuditEntryView[]>',
+        description: 'The recorded changes the calling standing may read, newest first.',
+        parameters: [{ name: 'query', description: 'whose trail, which record, and how many entries.' }],
+        returns: 'the matching entries, newest first.',
+        throws: ['{RemoteError} `audit/not-permitted` when the standing may not read that trail, `audit/no-standing` when the call establishes none, or `gateway/internal` when this deployment keeps no trail.'],
+      },
+    ],
+  },
+  {
     key: 'agentDefaultModel',
     summary: 'Owns the default model selection independently of any Host or transport.',
     description: 'Owns the default model selection independently of any Host or transport. Each operation reads the owning Config references.',
@@ -5512,6 +5526,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export type AuditAction = \'added\' | \'changed\' | \'removed\';',
   },
   {
+    name: 'AuditChangeView',
+    declaration: 'export interface AuditChangeView {\n    readonly field: string;\n    readonly before?: string;\n    readonly after?: string;\n    readonly truncated?: boolean;\n}',
+  },
+  {
     name: 'AuditEntry',
     declaration: 'export interface AuditEntry extends AuditSubmission {\n    readonly id: AuditEntryId;\n    readonly at: string;\n    readonly by: PersonId;\n    readonly standing: MembershipId;\n}',
   },
@@ -5520,12 +5538,20 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export type AuditEntryId = Branded<\'audit-entry-id\'>;',
   },
   {
+    name: 'AuditEntryView',
+    declaration: 'export interface AuditEntryView {\n    readonly id: string;\n    readonly at: string;\n    readonly by: string;\n    readonly standing: string;\n    readonly kind: string;\n    readonly subject: string;\n    readonly subjectName: string;\n    readonly action: \'added\' | \'changed\' | \'removed\';\n    readonly organization?: string;\n    readonly changes: readonly AuditChangeView[];\n}',
+  },
+  {
     name: 'AuditFieldChange',
     declaration: 'export interface AuditFieldChange {\n    readonly field: string;\n    readonly before?: string | undefined;\n    readonly after?: string | undefined;\n    readonly truncated?: boolean | undefined;\n}',
   },
   {
     name: 'AuditQuery',
     declaration: 'export interface AuditQuery {\n    readonly organization?: string | undefined;\n    readonly subject?: string | undefined;\n    readonly limit?: number | undefined;\n}',
+  },
+  {
+    name: 'AuditQueryInput',
+    declaration: 'export interface AuditQueryInput {\n    readonly organization?: string;\n    readonly subject?: string;\n    readonly limit?: number;\n}',
   },
   {
     name: 'AuditSubmission',

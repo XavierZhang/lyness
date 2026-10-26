@@ -4726,6 +4726,7 @@ These load from a `cordis.yml` entry with no `config:` block; they declare no co
 | `@lyness/lyn-acting-context` | `people` | [`packages/identity/acting-context/src/index.ts`](../packages/identity/acting-context/src/index.ts) |
 | `@lyness/lyn-agent` | — | [`packages/core/agent/src/index.ts`](../packages/core/agent/src/index.ts) |
 | `@lyness/lyn-api-account-controller` | `deepseekAccount` · `agents` | [`packages/api/account-controller/src/index.ts`](../packages/api/account-controller/src/index.ts) |
+| `@lyness/lyn-api-admin-audit-controller` | — | [`packages/api/admin-audit-controller/src/index.ts`](../packages/api/admin-audit-controller/src/index.ts) |
 | `@lyness/lyn-api-announcement-controller` | `announcements` | [`packages/api/announcement-controller/src/index.ts`](../packages/api/announcement-controller/src/index.ts) |
 | `@lyness/lyn-api-bots-controller` | — | [`packages/api/bots-controller/src/index.ts`](../packages/api/bots-controller/src/index.ts) |
 | `@lyness/lyn-api-credits-controller` | — | [`packages/api/credits-controller/src/index.ts`](../packages/api/credits-controller/src/index.ts) |

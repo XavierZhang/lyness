@@ -56,7 +56,7 @@ Each refusal arrives under its own code — `bots/not-permitted`, `bots/written`
 
 **The preset list comes from the roster too.** `presets` asks `ctx.managedBots.offers()` rather than reading the registry itself, because that is the list a save is validated against: a form offering one list while the roster checked another would refuse a choice it had just presented.
 
-**A team is maintained here and acts nowhere yet.** Team membership is what will grant one bot the right to ask another; until that operation lands, a team is a stored relation and nothing more. The refusal that matters already holds: a team may hold only its own organization's bots, or the right to ask would cross an organization boundary.
+**A team is maintained here and acts in [`lyn-bot-ask`](../../identity/bot-ask/README.md).** Team membership is what grants one bot the right to ask another and to hold a discussion with several, so the refusal this surface makes is the one that keeps that right inside an organization: a team may hold only its own organization's bots.
 
 **A refused call names the rule, not the prose.** Each reason maps to one code, and `bots/incomplete` carries the field so the form marks it.
 
@@ -88,7 +88,6 @@ No request prefix changes, because nothing here contributes to an assembled requ
 
 - **A conversation with a bot is opened elsewhere** — this surface maintains the records; naming the bot a session is with belongs to `session.create`.
 - **No pagination** — `list` and `teams` answer everything the standing administers in one reply, which an organization with hundreds of them would feel.
-- **A team changes nothing yet** — nothing asks a teammate, so a team is a record an administrator can keep and no bot can use.
 - **Nothing says why a preset is not offered** — a preset that cannot compose a session is simply absent from `presets`, without saying which row failed.
 - **No audit of its own** — the roster records who added a bot and when; this namespace adds nothing, so who changed a persona and when is not kept.
 
