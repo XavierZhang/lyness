@@ -14,13 +14,17 @@ import { afterEach, describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
 import Include from '@lyness/cordis-plugin-include'
+import AgentRegistry from '@lyness/lyn-agent'
 import SessionStore from '@lyness/lyn-session'
 import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import SystemPrompt from '@lyness/lyn-system-prompt'
 import StaticTenantDirectory from '@lyness/lyn-tenant-static'
 import StaticTenantConfigStore from '@lyness/lyn-tenant-config-static'
 import * as TenantSession from '../src/index.ts'
 import type { TenantSessionRecord } from '../src/index.ts'
 
+const AGENTS = '@lyness/lyn-agent'
+const PROMPT = '@lyness/lyn-system-prompt'
 const SESSIONS = '@lyness/lyn-session'
 const PROJECTIONS = '@lyness/lyn-session-projection'
 const DIRECTORY = '@lyness/lyn-tenant-static'
@@ -42,6 +46,8 @@ async function compose(): Promise<Context> {
   root = await mkdtemp(join(tmpdir(), 'lyn-tenant-session-'))
   const configPath = join(root, 'cordis.yml')
   await writeFile(configPath, [
+    `- name: '${AGENTS}'`,
+    `- name: '${PROMPT}'`,
     `- name: '${SESSIONS}'`,
     `- name: '${PROJECTIONS}'`,
     `- name: '${DIRECTORY}'`,
@@ -68,6 +74,8 @@ async function compose(): Promise<Context> {
   await context.plugin(Loader)
   context.loader.builtins.include = Include
   const modules = new Map<string, unknown>([
+    [AGENTS, AgentRegistry],
+    [PROMPT, SystemPrompt],
     [SESSIONS, SessionStore],
     [PROJECTIONS, SessionProjectionRegistry],
     [DIRECTORY, StaticTenantDirectory],

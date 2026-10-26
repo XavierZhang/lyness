@@ -107,7 +107,7 @@ export async function imageModelsOf(ctx: Context, tenantId: TenantId): Promise<r
 
 以下是当前的约束，不是任务清单。
 
-- **身份只有形状** —— 目前没有任何东西把 `constraints` 与 `personality` 合成进提示词；那要等记录会话身份的会话事件到位。
+- **身份是话，不是策略** —— [`lyn-tenant-session`](../tenant-session/README.zh.md) 记下租户贡献了什么，并把它合成进每个 agent 的提示词，于是 `constraints` 作为一句句「请遵守」的话到达模型。没有任何东西强制它们；必须被强制的规则需要一个权限 preset。
 - **没有用户层** —— 上述分层在组织与 Agent 之间还有一层用户，而本部署尚无用户记录可承载它。
 - **功能是 id，不是权限** —— 清单说明租户可用哪些功能，而不是哪位成员可用；角色要等有成员体系的管理界面。
 - **没有用量限制** —— 配额、预算与限流不属于这份配置。

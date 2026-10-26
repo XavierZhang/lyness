@@ -2,9 +2,11 @@
 
 import { describe, expect, it } from 'vitest'
 import { Context } from '@lyness/cordis'
+import AgentRegistry from '@lyness/lyn-agent'
 import SessionStore from '@lyness/lyn-session'
 import type { Session } from '@lyness/lyn-session'
 import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import SystemPrompt from '@lyness/lyn-system-prompt'
 import StaticTenantDirectory from '@lyness/lyn-tenant-static'
 import StaticTenantConfigStore from '@lyness/lyn-tenant-config-static'
 import * as TenantSession from '../src/index.ts'
@@ -27,6 +29,10 @@ async function bench(options: { configured?: boolean; before?: boolean } = {}): 
   const ctx = new Context()
   await ctx.plugin(SessionStore)
   await ctx.plugin(SessionProjectionRegistry)
+  // The plugin composes the recorded identity into each agent's prompt, so
+  // the registry it listens to has to be there for it to mount at all.
+  await ctx.plugin(AgentRegistry)
+  await ctx.plugin(SystemPrompt, {})
   await ctx.plugin(StaticTenantDirectory, ROSTER)
   if (options.configured === true) await ctx.plugin(StaticTenantConfigStore, CONFIGURED)
   if (options.before === true) ctx.sessions.create()
@@ -87,6 +93,8 @@ describe('tenant session stamp', () => {
     const ctx = new Context()
     await ctx.plugin(SessionStore)
     await ctx.plugin(SessionProjectionRegistry)
+    await ctx.plugin(AgentRegistry)
+    await ctx.plugin(SystemPrompt, {})
     await ctx.plugin(StaticTenantDirectory, ROSTER)
     await expect(ctx.plugin(TenantSession, { tenantId: 'acme corp' }).then(() => undefined)).rejects.toThrow(TypeError)
     await expect(ctx.plugin(TenantSession, { tenantId: 'globex' }).then(() => undefined))

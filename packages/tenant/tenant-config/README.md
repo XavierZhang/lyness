@@ -107,7 +107,7 @@ None; this package neither assembles nor sends a provider request.
 
 These are current constraints, not a task backlog.
 
-- **Identity is shape only** — nothing composes `constraints` and `personality` into a prompt yet; that arrives with the session event that records which identity a session ran under.
+- **Identity is prose, not policy** — [`lyn-tenant-session`](../tenant-session/README.md) records what a tenant contributed and composes it into each agent's prompt, so `constraints` reach the model as sentences it is asked to follow. Nothing enforces them; a rule that has to be enforced needs a permission preset.
 - **No user layer** — the layering above names a user between the organization and the agent, and this deployment has no user records to carry one.
 - **Features are ids, not permissions** — the list says which features a tenant may use, not which member may use them; roles arrive with an administration surface that has members.
 - **No usage limits** — quotas, budgets, and rate limits are not part of this configuration.

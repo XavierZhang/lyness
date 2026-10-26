@@ -15,6 +15,13 @@
  * already carries one — a fork, or a session this process resumed — keeps the
  * record it was created with rather than being re-stamped with today's.
  *
+ * The same plugin composes that text into each agent's system prompt, from
+ * the session's own record rather than from the configuration. Two halves of
+ * one fact: a record saying the identity reached the model while nothing
+ * composed it would be a log that claims what did not happen, and reading the
+ * configuration instead would mean a tenant editing its identity changed what
+ * a running conversation had already said.
+ *
  * Which tenant a session belongs to comes from the request that created it when
  * `ctx.requestTenant` is mounted, and otherwise from this plugin's config. A
  * deployment serving several organizations needs the former: the configured
@@ -28,6 +35,8 @@
 import { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
 import { z as zod } from 'zod'
+import type { Agent } from '@lyness/lyn-agent'
+import type {} from '@lyness/lyn-system-prompt'
 import { TenantId } from '@lyness/lyn-tenant'
 import type { Tenant } from '@lyness/lyn-tenant'
 import type { Session, SessionEvent } from '@lyness/lyn-session'
@@ -107,11 +116,64 @@ function recordOf(tenant: Tenant, config: TenantConfig | undefined): TenantSessi
   }
 }
 
+/** Prompt section carrying the voice one tenant asked for. */
+export const TENANT_PERSONALITY_SECTION = 'tenant:personality'
+
+/** Prompt section carrying the rules one tenant requires. */
+export const TENANT_CONSTRAINTS_SECTION = 'tenant:constraints'
+
+/**
+ * The rules one tenant requires, as the model reads them.
+ *
+ * Named as the organization's requirement rather than as a tenant's
+ * configuration: a prompt carries task-relevant concepts, and \"tenant\" is
+ * this deployment's word for its customers, not a word the model needs.
+ * @param constraints - the rules this tenant contributed, verbatim.
+ * @returns the section text, or the empty string when it contributed none.
+ */
+export function constraintsText(constraints: readonly string[]): string {
+  const stated = constraints.filter(rule => rule !== '')
+  if (stated.length === 0) return ''
+  return `The organization this conversation belongs to requires:\n\n${
+    stated.map(rule => `- ${rule}`).join('\n')}`
+}
+
+/**
+ * Compose one session's recorded tenant identity into its agent's prompt.
+ *
+ * Composed on the agent's own context, so it lasts exactly as long as that
+ * agent and cannot reach another tenant's conversation. Appended after the
+ * deployment's own persona and before its policy sections, which is what
+ * keeps text a customer wrote from widening what the agent may do.
+ * @param agentCtx - the agent scope to register the sections on.
+ * @param record - the tenant identity this session was created with.
+ * @returns the disposer that withdraws both sections.
+ */
+export function composeTenantIdentity(agentCtx: Context, record: TenantSessionRecord): () => void {
+  const withdrawals = [
+    agentCtx.systemPrompt.section({
+      name: TENANT_PERSONALITY_SECTION,
+      order: agentCtx.systemPrompt.getSectionOrder('TENANT_PERSONALITY'),
+      text: record.personality ?? '',
+    }),
+    agentCtx.systemPrompt.section({
+      name: TENANT_CONSTRAINTS_SECTION,
+      order: agentCtx.systemPrompt.getSectionOrder('TENANT_CONSTRAINTS'),
+      text: constraintsText(record.constraints),
+    }),
+  ]
+  return (): void => { for (const withdraw of withdrawals) withdraw() }
+}
+
 /** Stable Cordis plugin name. */
 export const name = 'tenant-session'
 
-/** The directory this plugin names its tenant in, the sessions it stamps, and the fold that reads the stamp back. */
-export const inject = ['sessionProjections', 'sessions', 'tenants']
+/**
+ * The directory this plugin names its tenant in, the sessions it stamps, the
+ * agents and prompt registry it composes the identity through, and the fold
+ * that reads the stamp back.
+ */
+export const inject = ['agents', 'sessionProjections', 'sessions', 'systemPrompt', 'tenants']
 
 /** Plugin config: which tenant this deployment's sessions belong to. */
 export interface Config {
@@ -166,4 +228,31 @@ export async function apply(ctx: Context, config: Config): Promise<void> {
   }
   ctx.on('session/created', stamp)
   for (const session of ctx.sessions.list()) stamp(session)
+
+  const composed = new Map<Agent, () => void>()
+  // Registered on the agent's own context, which is what puts the sections in
+  // that agent's scope: the loop assembles its prompt with the agent as the
+  // scope, so one conversation's identity is never assembled into another's.
+  const compose = (agent: Agent): void => {
+    const record = ctx.sessionProjections.stateOf(agent.session, 'tenant')
+    /* v8 ignore next -- `session/created` has stamped the session before
+       `agent/created` fires for it, so this names a broken order rather than
+       composing text the log does not hold. */
+    if (record === undefined || record === null) return
+    const withdraw = composeTenantIdentity(agent.ctx, record)
+    // Owned by the agent's scope as well, so disposing the agent takes the
+    // sections with it; this plugin keeps the disposer only for its own
+    // unmount, which that scope would not reach.
+    agent.ctx.effect(() => withdraw)
+    composed.set(agent, withdraw)
+  }
+  ctx.on('agent/created', ({ agent }) => { compose(agent) })
+  for (const agent of ctx.agents.list()) compose(agent)
+  ctx.on('agent/disposed', ({ agent }) => { composed.delete(agent) })
+  // Withdrawn when this plugin unmounts: the sections sit on agent contexts,
+  // which this one's teardown does not unwind.
+  ctx.effect(() => () => {
+    for (const withdraw of composed.values()) withdraw()
+    composed.clear()
+  })
 }

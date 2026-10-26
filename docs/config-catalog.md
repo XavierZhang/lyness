@@ -3551,7 +3551,7 @@ export interface Config {
 
 ## `@lyness/lyn-system-prompt`
 
-- `source`: [`packages/core/system-prompt/src/index.ts:272`](../packages/core/system-prompt/src/index.ts)
+- `source`: [`packages/core/system-prompt/src/index.ts:274`](../packages/core/system-prompt/src/index.ts)
 
 ```ts config-catalog
 /** Plugin config: the deployment-authored fragment of the system prompt (see {@link Config.personaPrefix} for its contract). */
@@ -3690,8 +3690,8 @@ export interface Config {
 
 ## `@lyness/lyn-tenant-session`
 
-- `inject`: `sessionProjections` · `sessions` · `tenants`
-- `source`: [`packages/tenant/tenant-session/src/index.ts:117`](../packages/tenant/tenant-session/src/index.ts)
+- `inject`: `agents` · `sessionProjections` · `sessions` · `systemPrompt` · `tenants`
+- `source`: [`packages/tenant/tenant-session/src/index.ts:179`](../packages/tenant/tenant-session/src/index.ts)
 
 ```ts config-catalog
 /** Plugin config: which tenant this deployment's sessions belong to. */

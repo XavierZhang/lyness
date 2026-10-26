@@ -156,7 +156,6 @@ const SENTENCE_MODEL_EXPERIENCE: Readonly<Record<string, SentenceContract>> = {
   'packages/tenant/tenant-config-static': { kind: 'none', reason: 'Host-side configuration rows from composition config; nothing here reaches a model request.' },
   'packages/tenant/tenant-config-store': { kind: 'none', reason: 'Host-side configuration records in the storage domain; nothing here reaches a model request.' },
   'packages/tenant/tenant-request': { kind: 'indirect', reason: 'Publishes the calling tenant; the session stamp and other consumers own every model-visible effect.' },
-  'packages/tenant/tenant-session': { kind: 'none', reason: 'Log-only attribution record; the identity text reaches a model through the assembled system prompt, which the log records separately.' },
   'packages/tenant/tenant-http': { kind: 'none', reason: 'Host-side HTTP resolution of the requesting tenant; nothing here reaches a model request.' },
   'packages/host/brand-fonts': { kind: 'none', reason: 'Ships font files for wordmark typesetting; registers nothing model-facing.' },
   'packages/bundle/brand-setup': { kind: 'none', reason: 'Operator page that writes brand files and a patch layer; mounts no model-facing row.' },

@@ -258,8 +258,8 @@
   en: 301c58a5f97c067d
   zh: 301c58a5f97c067d
 /session-persistence-event-catalog/events/tenant/tenant-identity-log-only:
-  en: 7075334c2d785c3d
-  zh: 1b1422218fe1ab39
+  en: 510a27e3004b8f77
+  zh: 4875d5b8e96b2758
 /session-persistence-event-catalog/events/todo:
   en: 308d4bb4b6b96e35
   zh: 308d4bb4b6b96e35
@@ -1254,8 +1254,8 @@
   en: 3c6735c5aa2aff37
   zh: d535ff065070f1bc
 /session-persistence-event-catalog/resolved-persistence-types/tenantsessionrecord:
-  en: aca197bd46d86c0c
-  zh: d138e5c055aba22d
+  en: 4597282896c91678
+  zh: ef602369e853d319
 /session-persistence-event-catalog/resolved-persistence-types/textblock:
   en: c5fcd2cdd37ea387
   zh: 9c678fbdea0bf25c

@@ -14522,6 +14522,21 @@ importers:
       '@lyness/cordis':
         specifier: workspace:~
         version: link:../../../vendor/cordis
+      '@lyness/lyn-agent':
+        specifier: workspace:*
+        version: link:../../core/agent
+      '@lyness/lyn-agent-loop':
+        specifier: workspace:*
+        version: link:../../core/agent-loop
+      '@lyness/lyn-llm':
+        specifier: workspace:*
+        version: link:../../llm/llm
+      '@lyness/lyn-tools':
+        specifier: workspace:*
+        version: link:../../core/tools
+      '@lyness/lyn-system-prompt':
+        specifier: workspace:*
+        version: link:../../core/system-prompt
       '@lyness/cordis-plugin-include':
         specifier: workspace:~
         version: link:../../../vendor/include

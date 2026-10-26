@@ -1188,7 +1188,7 @@ Source: [`packages/experimental/agent-team/src/types.ts:234`](../packages/experi
 'tenant/identity': TenantSessionRecord
 ```
 
-Source: [`packages/tenant/tenant-session/src/index.ts:64`](../packages/tenant/tenant-session/src/index.ts)
+Source: [`packages/tenant/tenant-session/src/index.ts:73`](../packages/tenant/tenant-session/src/index.ts)
 
 ### `todo/*`
 
@@ -5050,7 +5050,7 @@ One of:
 
 SHA-256: `dc01e8a50f086c60534af4eed608128772b2e97f7363dcd5115a9d17b6bf8b4c`
 
-Sources: [`packages/tenant/tenant-session/src/index.ts:42`](../packages/tenant/tenant-session/src/index.ts)
+Sources: [`packages/tenant/tenant-session/src/index.ts:51`](../packages/tenant/tenant-session/src/index.ts)
 
 | Property | Presence | Type |
 |---|---|---|

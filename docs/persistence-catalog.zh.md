@@ -1190,7 +1190,7 @@ export type SessionEvent<T extends SessionEventType = SessionEventType> = {
 'tenant/identity': TenantSessionRecord
 ```
 
-来源：[`packages/tenant/tenant-session/src/index.ts:64`](../packages/tenant/tenant-session/src/index.ts)
+来源：[`packages/tenant/tenant-session/src/index.ts:73`](../packages/tenant/tenant-session/src/index.ts)
 
 ### `todo/*`
 
@@ -5052,7 +5052,7 @@ SHA-256: `b2d2a01e51341a3bfec809198952c8c830a7899f4cb6ecd3c1dc0b5d9a2af943`
 
 SHA-256: `dc01e8a50f086c60534af4eed608128772b2e97f7363dcd5115a9d17b6bf8b4c`
 
-来源：[`packages/tenant/tenant-session/src/index.ts:42`](../packages/tenant/tenant-session/src/index.ts)
+来源：[`packages/tenant/tenant-session/src/index.ts:51`](../packages/tenant/tenant-session/src/index.ts)
 
 | 属性 | 存在性 | 类型 |
 |---|---|---|
