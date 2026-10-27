@@ -1,0 +1,25 @@
+# Bilingual-pair consistency record for 2026-10-28-the-personal-plane.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write .agents/notes/proposed/architecture/2026-10-28-the-personal-plane.md
+/agent-note-a-personal-plane-and-what-belongs-to-the-person:
+  en: cddc748e080bde2d
+  zh: a1269d3d86ae3e74
+/agent-note-a-personal-plane-and-what-belongs-to-the-person/problem:
+  en: 5043737bf749af87
+  zh: 00dbd9d4e5ab086e
+/agent-note-a-personal-plane-and-what-belongs-to-the-person/proposal:
+  en: 9e7a5b6a76b7c35f
+  zh: 4c9486d17355bf64
+/agent-note-a-personal-plane-and-what-belongs-to-the-person/proposal/where-each-concept-lands-and-who-decides:
+  en: 27b41504a559ba85
+  zh: 4811faae26943abf
+/agent-note-a-personal-plane-and-what-belongs-to-the-person/alternatives-considered:
+  en: e02fc8637d1ba23d
+  zh: cdfc51510d0f26e8
+/agent-note-a-personal-plane-and-what-belongs-to-the-person/acceptance-criteria:
+  en: 1c27eb54dfbafde4
+  zh: 5f51fba22a14b34a
+/agent-note-a-personal-plane-and-what-belongs-to-the-person/risks:
+  en: 06bc9600e1a99f5c
+  zh: 24c9f04fe02662cf
