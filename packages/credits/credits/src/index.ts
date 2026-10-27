@@ -19,7 +19,11 @@
 import { Service } from '@lyness/cordis'
 import type { Context } from '@lyness/cordis'
 import type { PersonId } from '@lyness/lyn-people'
-import type { CreditBalance, CreditDebit, CreditGrant, GrantReason } from './types.ts'
+import type { BudgetChange, BudgetState, OrganizationBudget } from './budget.ts'
+import type { CreditBalance, CreditDebit, CreditGrant, GrantReason, RefusalReason } from './types.ts'
+
+export { remainingOf } from './budget.ts'
+export type { BudgetChange, BudgetState, OrganizationBudget } from './budget.ts'
 
 export type {
   CreditBalance, CreditDebit, CreditGrant, DebitId, GrantId, GrantReason, RefusalReason,
@@ -34,6 +38,15 @@ declare module '@lyness/cordis' {
 
 /** A refused spend, carrying what a surface needs to explain it. */
 export class CreditsExhausted extends Error {
+  /**
+   * Which ceiling was reached.
+   *
+   * Two different answers for the customer: their own balance ran out, or
+   * their organization spent what it bought for this period. A surface that
+   * told one of them the other would send the wrong person looking.
+   */
+  readonly reason: RefusalReason
+
   /** Credits available when the spend was refused. */
   readonly available: number
 
@@ -41,14 +54,17 @@ export class CreditsExhausted extends Error {
   readonly nextGrantAt: string | undefined
 
   /**
+   * @param reason - which ceiling was reached.
    * @param available - credits available at the moment of refusal.
    * @param nextGrantAt - when the next periodic grant arrives, when one does.
    */
-  constructor(available: number, nextGrantAt?: string) {
+  constructor(reason: RefusalReason, available: number, nextGrantAt?: string) {
+    const subject = reason === 'organization-exhausted' ? 'this organization is out of credits' : 'out of credits'
     super(nextGrantAt === undefined
-      ? `out of credits (${String(available)} available)`
-      : `out of credits (${String(available)} available; the next grant arrives ${nextGrantAt})`)
+      ? `${subject} (${String(available)} available)`
+      : `${subject} (${String(available)} available; the next grant arrives ${nextGrantAt})`)
     this.name = 'CreditsExhausted'
+    this.reason = reason
     this.available = available
     this.nextGrantAt = nextGrantAt
   }
@@ -62,6 +78,13 @@ export interface SpendRequest {
   readonly amount: number
   /** The session that caused the spend, recorded on the debit. */
   readonly session: string
+  /**
+   * The organization this person was acting for, recorded on the debit.
+   *
+   * Absent for a spend by somebody acting for no organization, which is not
+   * counted against any budget.
+   */
+  readonly organization?: string | undefined
 }
 
 /** One grant an administrator or the deployment adds. */
@@ -129,6 +152,28 @@ export abstract class CreditLedger extends Service {
     readonly grants: readonly CreditGrant[]
     readonly debits: readonly CreditDebit[]
   }>
+
+  /**
+   * What one organization bought, and what is left of it this period.
+   *
+   * Read rather than drawn down from a stored total: a period that has turned
+   * starts at the ceiling again without anything having to run at the turn.
+   * @param organization - whose ceiling to read.
+   * @returns the ceiling and what is left, or undefined for an organization nobody set one for.
+   */
+  abstract budget(organization: string): Promise<BudgetState | undefined>
+
+  /**
+   * Set or replace one organization's ceiling.
+   *
+   * Nothing is authorized here. What an organization bought is a platform
+   * decision, and {@link CreditAdministration} is where that standing is
+   * judged — this records what it decided.
+   * @param change - the organization, the ceiling, and the period it applies to.
+   * @param by - who set it, recorded on the record.
+   * @returns the stored ceiling.
+   */
+  abstract setBudget(change: BudgetChange, by: PersonId): Promise<OrganizationBudget>
 }
 
 export default CreditLedger

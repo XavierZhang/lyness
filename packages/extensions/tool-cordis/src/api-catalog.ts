@@ -1044,6 +1044,13 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         throws: ['{Error} when the change names neither an organization nor a person, or that standing may not administer it.'],
       },
       {
+        signature: 'async setBudget(change: BudgetChange, by: Membership): Promise<OrganizationBudget>',
+        description: 'Set or replace what one organization may spend in total, on behalf of one standing.\n\nAuthorized against the platform rather than against the organization: a ceiling an organization can raise is not a ceiling. This is the one credit decision `administers` does not answer, because that predicate is true for a tenant administrator of the organization named.',
+        parameters: [{ name: 'change', description: 'the organization, the ceiling, and the period it applies to.' }, { name: 'by', description: 'the standing making the change.' }],
+        returns: 'the stored ceiling.',
+        throws: ['{Error} when the ceiling is negative or not whole, or that standing is not a platform one.'],
+      },
+      {
         signature: 'async overridesFor(person: PersonId): Promise<PersonOverrides>',
         description: 'The overrides that reach one person.\n\nRead without an authority check because this is what the ledger itself calls to work out a periodic grant; the decision it reports was already authorized when it was made.',
         parameters: [{ name: 'person', description: 'whose allowance to resolve.' }],
@@ -1086,6 +1093,18 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         description: 'Everything granted to and spent by one person, newest first.\n\nThe ledger is the product rather than an implementation detail: a customer reviewing a refusal reads this, and a balance they cannot account for is a support case.',
         parameters: [{ name: 'person', description: 'whose history to read.' }],
         returns: 'the grants and debits recorded for them.',
+      },
+      {
+        signature: 'abstract budget(organization: string): Promise<BudgetState | undefined>',
+        description: 'What one organization bought, and what is left of it this period.\n\nRead rather than drawn down from a stored total: a period that has turned starts at the ceiling again without anything having to run at the turn.',
+        parameters: [{ name: 'organization', description: 'whose ceiling to read.' }],
+        returns: 'the ceiling and what is left, or undefined for an organization nobody set one for.',
+      },
+      {
+        signature: 'abstract setBudget(change: BudgetChange, by: PersonId): Promise<OrganizationBudget>',
+        description: 'Set or replace one organization\'s ceiling.\n\nNothing is authorized here. What an organization bought is a platform decision, and CreditAdministration is where that standing is judged — this records what it decided.',
+        parameters: [{ name: 'change', description: 'the organization, the ceiling, and the period it applies to.' }, { name: 'by', description: 'who set it, recorded on the record.' }],
+        returns: 'the stored ceiling.',
       },
     ],
   },
@@ -1137,10 +1156,10 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
     description: 'Resolves the person a request is charged to.',
     methods: [
       {
-        signature: 'abstract current(): Promise<PersonId | undefined>',
+        signature: 'abstract current(): Promise<CreditSubjectIdentity | undefined>',
         description: 'The person the request being served is charged to.\n\nUndefined is a real answer, not a failure: a deployment\'s own maintenance work, a replay in a test, and a seeded session all issue requests that belong to nobody. Charging them to whoever happens to be signed in would be worse than not charging them.',
         parameters: [],
-        returns: 'the person to charge, or undefined when the request belongs to none.',
+        returns: 'the person to charge and the organization they act for, or undefined when the request belongs to nobody.',
       },
     ],
   },
@@ -5666,6 +5685,14 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export type BrowserUseProviderName = Branded<\'BrowserUseProviderName\'>;',
   },
   {
+    name: 'BudgetChange',
+    declaration: 'export interface BudgetChange {\n    readonly organization: string;\n    readonly periodicAmount: number;\n    readonly period: ResetPeriod;\n}',
+  },
+  {
+    name: 'BudgetState',
+    declaration: 'export interface BudgetState {\n    readonly organization: string;\n    readonly periodicAmount: number;\n    readonly period: ResetPeriod;\n    readonly spent: number;\n    readonly remaining: number;\n    readonly periodStartedAt: string;\n    readonly nextPeriodAt: string;\n}',
+  },
+  {
     name: 'BundleInfo',
     declaration: 'export interface BundleInfo {\n    name: string;\n    version?: string;\n    meta?: PluginLocalizedMeta;\n    description?: string;\n    enabled: boolean;\n    installed: boolean;\n    optional: boolean;\n    removable: boolean;\n    readOnlyReason?: ReadOnlyReason;\n    error?: ManagementError;\n    rows: BundleRowInfo[];\n    overrides: string[];\n}',
   },
@@ -6027,7 +6054,7 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   },
   {
     name: 'CreditDebit',
-    declaration: 'export interface CreditDebit {\n    readonly id: DebitId;\n    readonly person: PersonId;\n    readonly amount: number;\n    readonly at: string;\n    readonly session: string;\n}',
+    declaration: 'export interface CreditDebit {\n    readonly id: DebitId;\n    readonly person: PersonId;\n    readonly amount: number;\n    readonly at: string;\n    readonly session: string;\n    readonly organization?: string | undefined;\n}',
   },
   {
     name: 'CreditDebitView',
@@ -6044,6 +6071,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'CreditGrantView',
     declaration: 'export interface CreditGrantView {\n    readonly id: string;\n    readonly amount: number;\n    readonly grantedAt: string;\n    readonly expiresAt?: string;\n    readonly reason: \'periodic\' | \'administrator\' | \'purchase\';\n    readonly grantedBy?: string;\n}',
+  },
+  {
+    name: 'CreditSubjectIdentity',
+    declaration: 'export interface CreditSubjectIdentity {\n    readonly person: PersonId;\n    readonly organization?: string | undefined;\n}',
   },
   {
     name: 'CronInput',
@@ -7052,6 +7083,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'OptionalSessionSeq',
     declaration: 'export type OptionalSessionSeq = SessionSeq | null;',
+  },
+  {
+    name: 'OrganizationBudget',
+    declaration: 'export interface OrganizationBudget {\n    readonly organization: string;\n    readonly periodicAmount: number;\n    readonly period: ResetPeriod;\n    readonly setAt: string;\n    readonly setBy: PersonId;\n}',
   },
   {
     name: 'PackageResult',
@@ -8431,7 +8466,7 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   },
   {
     name: 'SpendRequest',
-    declaration: 'export interface SpendRequest {\n    readonly person: PersonId;\n    readonly amount: number;\n    readonly session: string;\n}',
+    declaration: 'export interface SpendRequest {\n    readonly person: PersonId;\n    readonly amount: number;\n    readonly session: string;\n    readonly organization?: string | undefined;\n}',
   },
   {
     name: 'SpillLocator',

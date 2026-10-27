@@ -25,6 +25,19 @@ declare module '@lyness/cordis' {
   }
 }
 
+/** Who one request is charged to: a person, and the organization they act for. */
+export interface CreditSubjectIdentity {
+  /** The person to charge. */
+  readonly person: PersonId
+  /**
+   * The organization whose budget the spend also counts against.
+   *
+   * Absent for a person who holds no standing in one, whose spending counts
+   * against their own balance and no ceiling above it.
+   */
+  readonly organization?: string | undefined
+}
+
 /** Resolves the person a request is charged to. */
 export abstract class CreditSubject extends Service {
   /**
@@ -41,9 +54,9 @@ export abstract class CreditSubject extends Service {
    * work, a replay in a test, and a seeded session all issue requests that
    * belong to nobody. Charging them to whoever happens to be signed in would
    * be worse than not charging them.
-   * @returns the person to charge, or undefined when the request belongs to none.
+   * @returns the person to charge and the organization they act for, or undefined when the request belongs to nobody.
    */
-  abstract current(): Promise<PersonId | undefined>
+  abstract current(): Promise<CreditSubjectIdentity | undefined>
 }
 
 export default CreditSubject

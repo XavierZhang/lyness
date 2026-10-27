@@ -17,7 +17,9 @@ import { afterEach, describe, expect, it } from 'vitest'
 import StoredCreditLedger from '../src/store.ts'
 import type { Config as LedgerConfig } from '../src/store.ts'
 import AdminAudit from '@lyness/lyn-admin-audit'
-import CreditAdministration, { NOT_PERMITTED, NOT_POSITIVE } from '../src/administration.ts'
+import CreditAdministration, {
+  NOT_A_CEILING, NOT_PERMITTED, NOT_PLATFORM, NOT_POSITIVE,
+} from '../src/administration.ts'
 
 const ADA = brandString<PersonId>('ada')
 const BOB = brandString<PersonId>('bob')
@@ -135,6 +137,84 @@ describe('granting credits', () => {
     const expiresAt = new Date(Date.now() - 1000).toISOString()
     await ctx.creditAdministration.grant({ person: ADA, amount: 100, expiresAt }, PLATFORM)
     expect((await ctx.credits.balance(ADA)).available).toBe(0)
+  })
+})
+
+describe('what an organization bought', () => {
+  it('is set by a platform standing and read back with what is left', async () => {
+    const ctx = await harness({ periodicAmount: 0 })
+
+    await ctx.creditAdministration.setBudget(
+      { organization: 'acme', periodicAmount: 50_000, period: 'monthly' },
+      PLATFORM,
+    )
+
+    expect(await ctx.credits.budget('acme')).toMatchObject({
+      organization: 'acme',
+      periodicAmount: 50_000,
+      period: 'monthly',
+      spent: 0,
+      remaining: 50_000,
+    })
+  })
+
+  it('is refused to a tenant administrator of that very organization', async () => {
+    const ctx = await harness({ periodicAmount: 0 })
+
+    // A ceiling an organization can raise is not a ceiling, so this is the one
+    // credit decision `administers` does not answer.
+    await expect(ctx.creditAdministration.setBudget(
+      { organization: 'acme', periodicAmount: 50_000, period: 'monthly' },
+      ACME_ADMIN,
+    )).rejects.toThrow(NOT_PLATFORM)
+    await expect(ctx.creditAdministration.setBudget(
+      { organization: 'acme', periodicAmount: 50_000, period: 'monthly' },
+      ADA_MEMBER,
+    )).rejects.toThrow(NOT_PLATFORM)
+    expect(await ctx.credits.budget('acme')).toBeUndefined()
+  })
+
+  it('is refused a ceiling that is negative or not whole', async () => {
+    const ctx = await harness({ periodicAmount: 0 })
+    for (const periodicAmount of [-1, 1.5]) {
+      await expect(ctx.creditAdministration.setBudget(
+        { organization: 'acme', periodicAmount, period: 'monthly' },
+        PLATFORM,
+      )).rejects.toThrow(NOT_A_CEILING)
+    }
+    // Zero is a decision: an organization that may spend nothing.
+    await expect(ctx.creditAdministration.setBudget(
+      { organization: 'acme', periodicAmount: 0, period: 'monthly' },
+      PLATFORM,
+    )).resolves.toMatchObject({ periodicAmount: 0 })
+  })
+
+  it('records the ceiling it replaced, outside any organization\'s own trail', async () => {
+    const ctx = await harness({ periodicAmount: 0 })
+    await ctx.creditAdministration.setBudget(
+      { organization: 'acme', periodicAmount: 50_000, period: 'monthly' },
+      PLATFORM,
+    )
+    await ctx.creditAdministration.setBudget(
+      { organization: 'acme', periodicAmount: 20_000, period: 'monthly' },
+      PLATFORM,
+    )
+    // Unchanged twice records nothing.
+    await ctx.creditAdministration.setBudget(
+      { organization: 'acme', periodicAmount: 20_000, period: 'monthly' },
+      PLATFORM,
+    )
+
+    const trail = await ctx.adminAudit.read({}, PLATFORM)
+    expect(trail.map(entry => [entry.kind, entry.action])).toEqual([
+      ['credit-budget', 'changed'], ['credit-budget', 'added'],
+    ])
+    expect(trail[0]?.changes).toEqual([
+      { field: 'periodicAmount', before: '50000', after: '20000' },
+    ])
+    // What an organization bought is the platform's own record, so it is not
+    // filed under that organization's trail.
+    expect(await ctx.adminAudit.read({ organization: 'acme' }, ACME_ADMIN)).toEqual([])
   })
 })
 

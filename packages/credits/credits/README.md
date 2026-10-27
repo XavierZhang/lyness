@@ -9,7 +9,7 @@ English | [中文](README.zh.md)
 
 ## Summary
 
-Use `lyn-credits` to meter a hosted deployment's free allowance. A balance is a ledger rather than a counter: grants and debits are both recorded, every debit names the session that spent it, and the balance is what they add up to. `./store` persists it and grants each period's allowance on first use. A spend that the balance cannot cover is refused rather than overdrawn. This exists only on the hosted shape; an enterprise installation mounts none of it.
+Use `lyn-credits` to meter a hosted deployment's free allowance. A balance is a ledger rather than a counter: grants and debits are both recorded, every debit names the session and the organization that spent it, and the balance is what they add up to. Two ceilings can stop a turn — a person's own balance, which their organization gives them, and their organization's budget, which it bought. A spend neither can cover is refused rather than overdrawn. This exists only on the hosted shape; an enterprise installation mounts none of it.
 
 ## Table of Contents
 
@@ -102,6 +102,16 @@ That is idempotent by construction rather than by a flag: a grant carries the in
 
 **An override is recorded in the trail, and a grant is not.** An override is replaced in place, so what it used to allow is only readable from [`lyn-admin-audit`](../../identity/admin-audit/README.md). A grant is already an immutable row naming who granted what to whom, so recording it again would be a second answer to one question. An override entry belongs to the organization of the standing that set it, so a tenant administrator reads back their own decisions.
 
+**A budget is not an allowance, and only the platform sets it.** An allowance is what an organization gives each of its own people; a budget is the ceiling on everything they spend together, and it is what the organization bought. So `setAllowance` is authorized against the organization and `setBudget` is authorized against the platform: a tenant administrator who could raise their own organization's ceiling would have no ceiling, which is also why the budget is neither an allowance override nor part of the configuration a tenant saves for itself.
+
+**A budget is read per period, not drawn down from a stored total.** What an organization spent since the period began is summed from the debits, because the ledger is the only record of what was spent and a counter beside it would be a second number that could disagree. A period that has turned starts at the ceiling again without anything having to run at the turn.
+
+**A debit records the organization it was spent for.** An organization's spending for a period is the sum of what was spent for it, and a person who moves to another organization must not take last month's spending with them. The organization comes from the standing the call acts in, as the directory holds it, never from anything a caller named.
+
+**An organization nobody set a ceiling for has none.** Not a ceiling of zero: a deployment that meters people without selling organizations a budget is the shape this shipped with, and reading an absent record as nothing-may-be-spent would stop every turn on it.
+
+**A refusal says which ceiling was reached.** `CreditsExhausted` carries `exhausted` or `organization-exhausted`, because a customer told the wrong one sends the wrong person looking — the member asks for more allowance, or the organization buys more.
+
 **Every debit names its session.** A refusal a customer cannot account for is a support case; a balance whose every debit names the session that caused it is answerable.
 
 -----
@@ -129,7 +139,10 @@ No request prefix changes. A permitted spend leaves the request untouched, and a
 
 - **One request can cost more than the balance it had** — the model is check, call, settle, so a call that owes more than remains settles to zero rather than failing a turn that already produced an answer. The defence is the check before the *next* request; removing the overshoot entirely needs pre-authorisation rather than settlement.
 - **Metering needs somebody to charge** — `./enforce` injects `creditSubject`, so a deployment without one leaves enforcement inactive, which a startup audit reports. The full chain is sign-in, an authenticated session, its acting context, and then that subject.
-- **No per-person cap yet** — an organization capping one of its members below the deployment's allowance needs a stored cap and a second authority in the refusal, which this version does not carry.
+- **An organization's spending is summed on every request** — the budget check scans the whole debit table for that organization and period, so it is linear in the organization's history and wants the same checkpoint the per-person balance does.
+- **No surface sets a budget** — `setBudget` is authorized and recorded, and no Remote namespace or settings page reaches it, so today a platform administrator sets a ceiling from code.
+- **One ceiling per organization** — the budget is one amount per period for everything its people spend; there is no per-modality, per-model or per-project ceiling under it.
+- **An organization can overshoot by one request** — the same check-call-settle that lets one person overshoot their balance lets one call take an organization past its ceiling; the defence is the check before the next request.
 - **The balance is recomputed from the whole ledger** — correct and auditable, but linear in a person's history, so a long-lived account will want a checkpoint.
 - **Grants and debits are never pruned** — the ledger is the product, so retention is a deployment policy rather than a default this package picks.
 

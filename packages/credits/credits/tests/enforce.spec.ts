@@ -22,6 +22,7 @@ import { afterEach, expect, it } from 'vitest'
 import { CreditsExhausted } from '../src/index.ts'
 import StoredCreditLedger from '../src/store.ts'
 import { CreditSubject } from '../src/subject.ts'
+import type { CreditSubjectIdentity } from '../src/subject.ts'
 import * as Enforce from '../src/enforce.ts'
 import { billableTokens, creditsFor } from '../src/pricing.ts'
 
@@ -63,6 +64,7 @@ class MeteredAdapter extends LlmAdapter {
 async function harness(options: {
   usage?: TokenUsage | undefined
   person?: PersonId | undefined
+  organization?: string | undefined
   periodicAmount?: number
   creditsPerMillion?: number
   minimumDebit?: number
@@ -70,7 +72,12 @@ async function harness(options: {
   const root = mkdtempSync(join(tmpdir(), 'lyn-meter-'))
   roots.push(root)
   const adapter = new MeteredAdapter(options.usage)
-  const subject = options.person
+  const subject: CreditSubjectIdentity | undefined = options.person === undefined
+    ? undefined
+    : {
+      person: options.person,
+      ...options.organization === undefined ? {} : { organization: options.organization },
+    }
   const ctx = new Context()
   await ctx.plugin(LlmRuntime)
   await ctx.plugin(Storage)
@@ -78,7 +85,7 @@ async function harness(options: {
   await ctx.plugin(StorageDomain, { backend: 'json' })
   await ctx.plugin(StoredCreditLedger, { periodicAmount: options.periodicAmount ?? 500 }).await()
   await ctx.plugin(class extends CreditSubject {
-    override current(): Promise<PersonId | undefined> {
+    override current(): Promise<CreditSubjectIdentity | undefined> {
       return Promise.resolve(subject)
     }
   }).await()
@@ -216,4 +223,69 @@ it('charges nothing more once the balance is already spent to zero', async () =>
   await expect(drain(ctx)).rejects.toBeInstanceOf(CreditsExhausted)
   expect(adapter.reached).toBe(1)
   expect((await ctx.credits.history(ADA)).debits).toHaveLength(1)
+})
+
+it('stops before the call when the organization spent its whole budget', async () => {
+  const { ctx, adapter } = await harness({
+    person: ADA,
+    organization: 'acme',
+    usage: { inputTokens: 1000, outputTokens: 0 },
+  })
+  await ctx.credits.setBudget({ organization: 'acme', periodicAmount: 1, period: 'monthly' }, ADA)
+  // One call to use the ceiling up, then the next one is stopped before it
+  // reaches a provider.
+  await drain(ctx)
+  const reached = adapter.reached
+
+  await expect(drain(ctx)).rejects.toMatchObject({ reason: 'organization-exhausted' })
+  expect(adapter.reached).toBe(reached)
+})
+
+it('leaves a person acting for no organization under their own balance alone', async () => {
+  const { ctx } = await harness({ person: ADA, usage: { inputTokens: 1000, outputTokens: 0 } })
+  // Nobody set a ceiling for nobody: a spend that belongs to no organization
+  // is counted against no budget.
+  await ctx.credits.setBudget({ organization: 'acme', periodicAmount: 0, period: 'monthly' }, ADA)
+
+  await drain(ctx)
+
+  expect((await ctx.credits.balance(ADA)).spent).toBeGreaterThan(0)
+})
+
+it('records the organization on the debit it charged', async () => {
+  const { ctx } = await harness({
+    person: ADA,
+    organization: 'acme',
+    usage: { inputTokens: 1000, outputTokens: 0 },
+  })
+
+  await drain(ctx)
+
+  const { debits } = await ctx.credits.history(ADA)
+  expect(debits[0]?.organization).toBe('acme')
+  // Which is what makes the organization's spending for the period readable
+  // without asking where that person works today.
+  expect((await ctx.credits.budget('acme'))).toBeUndefined()
+})
+
+it('counts what an organization spent this period against what it bought', async () => {
+  // The person's own allowance is raised out of the way, so what this pins is
+  // the organization's sum rather than the clamp on one balance.
+  const { ctx } = await harness({
+    person: ADA,
+    organization: 'acme',
+    periodicAmount: 10_000,
+    usage: { inputTokens: 1_000_000, outputTokens: 0 },
+  })
+  await ctx.credits.setBudget({ organization: 'acme', periodicAmount: 5000, period: 'monthly' }, ADA)
+
+  await drain(ctx)
+
+  expect(await ctx.credits.budget('acme')).toMatchObject({
+    organization: 'acme',
+    periodicAmount: 5000,
+    period: 'monthly',
+    spent: 1000,
+    remaining: 4000,
+  })
 })

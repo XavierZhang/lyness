@@ -24,6 +24,9 @@ import type { EffectiveAllowance } from './allowance.ts'
 import type {} from './administration.ts'
 import { nextPeriodStart, periodStart } from './period.ts'
 import type { ResetPeriod } from './period.ts'
+import { budgetDomain } from './budget-storage.ts'
+import { remainingOf } from './budget.ts'
+import type { BudgetChange, BudgetState, OrganizationBudget } from './budget.ts'
 import { creditsDomain } from './storage.ts'
 import type { CreditBalance, CreditDebit, CreditGrant, DebitId, GrantId } from './types.ts'
 
@@ -81,6 +84,7 @@ export class StoredCreditLedger extends CreditLedger {
 
   private readonly policy: ResolvedConfig
   private readonly ready: Promise<Domain<typeof creditsDomain>>
+  private readonly budgets: Promise<Domain<typeof budgetDomain>>
   private chain: Promise<unknown> = Promise.resolve()
 
   /**
@@ -91,9 +95,11 @@ export class StoredCreditLedger extends CreditLedger {
     super(ctx)
     this.policy = resolveConfig(config)
     this.ready = ctx.storageDomain.open(creditsDomain)
+    this.budgets = ctx.storageDomain.open(budgetDomain)
     ctx.effect(() => async () => {
       await this.chain // Failures reach their own callers; this only waits.
       await (await this.ready).close()
+      await (await this.budgets).close()
     })
   }
 
@@ -122,7 +128,7 @@ export class StoredCreditLedger extends CreditLedger {
       await this.grantPeriodIfDue(domain, request.person, now)
       const current = this.computeBalance(domain, request.person, now, await this.allowanceFor(request.person))
       if (current.available < request.amount) {
-        throw new CreditsExhausted(current.available, current.nextGrantAt)
+        throw new CreditsExhausted('exhausted', current.available, current.nextGrantAt)
       }
       const id = brandString<DebitId>(randomUUID())
       const debit = {
@@ -130,6 +136,7 @@ export class StoredCreditLedger extends CreditLedger {
         amount: request.amount,
         at: now.toISOString(),
         session: request.session,
+        ...request.organization === undefined ? {} : { organization: request.organization },
       }
       await domain.table('debits').put(id, debit)
       return { id, ...debit }
@@ -169,6 +176,54 @@ export class StoredCreditLedger extends CreditLedger {
       grants: grantsOf(domain, person).toReversed(),
       debits: debitsOf(domain, person).toReversed(),
     }
+  }
+
+  /**
+   * What one organization bought, and what is left of it this period.
+   * @param organization - whose ceiling to read.
+   * @returns the ceiling and what is left, or undefined where nobody set one.
+   */
+  async budget(organization: string): Promise<BudgetState | undefined> {
+    const stored = (await this.budgets).table('budgets').get(organization)
+    if (stored === undefined) return undefined
+    const now = new Date()
+    const started = periodStart(now, stored.period, this.policy.offsetHours)
+    const since = started.getTime()
+    // Summed from the debits rather than drawn down from a stored total: the
+    // ledger is the only record of what was spent, and a counter beside it
+    // would be a second number that could disagree with it.
+    const domain = await this.ready
+    const spent = [...domain.table('debits').entries()]
+      .map(([, debit]) => debit)
+      .filter(debit => debit.organization === organization && Date.parse(debit.at) >= since)
+      .reduce((total, debit) => total + debit.amount, 0)
+    return {
+      organization,
+      periodicAmount: stored.periodicAmount,
+      period: stored.period,
+      spent,
+      remaining: remainingOf(stored.periodicAmount, spent),
+      periodStartedAt: started.toISOString(),
+      nextPeriodAt: nextPeriodStart(now, stored.period, this.policy.offsetHours).toISOString(),
+    }
+  }
+
+  /**
+   * Set or replace one organization's ceiling.
+   * @param change - the organization, the ceiling, and the period it applies to.
+   * @param by - who set it, recorded on the record.
+   * @returns the stored ceiling.
+   */
+  async setBudget(change: BudgetChange, by: PersonId): Promise<OrganizationBudget> {
+    const record: OrganizationBudget = {
+      organization: change.organization,
+      periodicAmount: change.periodicAmount,
+      period: change.period,
+      setAt: new Date().toISOString(),
+      setBy: by,
+    }
+    await (await this.budgets).table('budgets').put(record.organization, record)
+    return record
   }
 
   /** Record one grant and return it with its new identity. */

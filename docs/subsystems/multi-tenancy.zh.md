@@ -394,6 +394,21 @@ async grant(request: AdministratorGrant, by: Membership): Promise<CreditGrant>
 async setAllowance(change: AllowanceChange, by: Membership): Promise<void>
 
 /**
+ * Set or replace what one organization may spend in total, on behalf of one
+ * standing.
+ *
+ * Authorized against the platform rather than against the organization: a
+ * ceiling an organization can raise is not a ceiling. This is the one credit
+ * decision `administers` does not answer, because that predicate is true for
+ * a tenant administrator of the organization named.
+ * @param change - the organization, the ceiling, and the period it applies to.
+ * @param by - the standing making the change.
+ * @returns the stored ceiling.
+ * @throws {Error} when the ceiling is negative or not whole, or that standing is not a platform one.
+ */
+async setBudget(change: BudgetChange, by: Membership): Promise<OrganizationBudget>
+
+/**
  * The overrides that reach one person.
  *
  * Read without an authority check because this is what the ledger itself
@@ -467,6 +482,28 @@ abstract grant(request: GrantRequest): Promise<CreditGrant>
  * @returns the grants and debits recorded for them.
  */
 abstract history(person: PersonId): Promise<{ readonly grants: readonly CreditGrant[] readonly debits: readonly CreditDebit[] }>
+
+/**
+ * What one organization bought, and what is left of it this period.
+ *
+ * Read rather than drawn down from a stored total: a period that has turned
+ * starts at the ceiling again without anything having to run at the turn.
+ * @param organization - whose ceiling to read.
+ * @returns the ceiling and what is left, or undefined for an organization nobody set one for.
+ */
+abstract budget(organization: string): Promise<BudgetState | undefined>
+
+/**
+ * Set or replace one organization's ceiling.
+ *
+ * Nothing is authorized here. What an organization bought is a platform
+ * decision, and {@link CreditAdministration} is where that standing is
+ * judged — this records what it decided.
+ * @param change - the organization, the ceiling, and the period it applies to.
+ * @param by - who set it, recorded on the record.
+ * @returns the stored ceiling.
+ */
+abstract setBudget(change: BudgetChange, by: PersonId): Promise<OrganizationBudget>
 ```
 
 Source: [`packages/credits/credits/src/index.ts`](../../packages/credits/credits/src/index.ts)
@@ -540,9 +577,9 @@ Resolves the person a request is charged to.
  * work, a replay in a test, and a seeded session all issue requests that
  * belong to nobody. Charging them to whoever happens to be signed in would
  * be worse than not charging them.
- * @returns the person to charge, or undefined when the request belongs to none.
+ * @returns the person to charge and the organization they act for, or undefined when the request belongs to nobody.
  */
-abstract current(): Promise<PersonId | undefined>
+abstract current(): Promise<CreditSubjectIdentity | undefined>
 ```
 
 Source: [`packages/credits/credits/src/subject.ts`](../../packages/credits/credits/src/subject.ts)

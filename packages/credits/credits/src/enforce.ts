@@ -12,6 +12,11 @@
  * charged, which is the right way round: the operator pays for a failed call
  * either way, and charging a person for one they cannot use would be worse.
  *
+ * Two ceilings are checked, not one. A person's own balance is what their
+ * organization gives them; their organization's budget is what it bought.
+ * Either can stop a turn, and the refusal says which, because a customer told
+ * the wrong one sends the wrong person looking.
+ *
  * @module @lyness/lyn-credits/enforce
  */
 
@@ -83,17 +88,26 @@ export function apply(ctx: Context, config: Config): void {
     options: GenerateOptions,
     next: () => AsyncIterable<StreamChunk>,
   ): AsyncIterable<StreamChunk> {
-    const person = await ctx.creditSubject.current()
-    if (person === undefined) {
+    const subject = await ctx.creditSubject.current()
+    if (subject === undefined) {
       // Nobody to charge: a deployment's own work, a replay, a seeded session.
       yield* next()
       return
     }
-    const balance = await ctx.credits.balance(person)
+    const balance = await ctx.credits.balance(subject.person)
     if (balance.available <= 0) {
       // Stop before the call: a turn that runs out mid-way must not overdraw,
       // and a person who can exceed a balance has no balance.
-      throw new CreditsExhausted(balance.available, balance.nextGrantAt)
+      throw new CreditsExhausted('exhausted', balance.available, balance.nextGrantAt)
+    }
+    // An organization nobody set a ceiling for has none, rather than a ceiling
+    // of zero: a deployment that meters people without selling organizations a
+    // budget is the shape this shipped with.
+    const budget = subject.organization === undefined
+      ? undefined
+      : await ctx.credits.budget(subject.organization)
+    if (budget !== undefined && budget.remaining <= 0) {
+      throw new CreditsExhausted('organization-exhausted', budget.remaining, budget.nextPeriodAt)
     }
     let usage: TokenUsage | undefined
     for await (const chunk of next()) {
@@ -108,9 +122,17 @@ export function apply(ctx: Context, config: Config): void {
     // balance it had; the defence against that is the check before the *next*
     // one, and removing it entirely would need pre-authorisation rather than
     // settlement.
-    const settled = Math.min(owed, (await ctx.credits.balance(person)).available)
+    const settled = Math.min(owed, (await ctx.credits.balance(subject.person)).available)
     if (settled <= 0) return
-    await ctx.credits.spend({ person, amount: settled, session: sessionOf(options) })
+    await ctx.credits.spend({
+      person: subject.person,
+      amount: settled,
+      session: sessionOf(options),
+      // Recorded on the debit so the organization's spending for a period is
+      // the sum of what was spent for it, whatever a person's standing is by
+      // the time somebody reads it.
+      ...subject.organization === undefined ? {} : { organization: subject.organization },
+    })
   })
 }
 

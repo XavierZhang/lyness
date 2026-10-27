@@ -13,6 +13,12 @@
  * organization. A member administers nobody, including themselves: being able
  * to grant yourself credits is the same as having no allowance.
  *
+ * One decision is not covered by that rule. What an organization may spend in
+ * total is what it bought from the operator, so only a platform standing sets
+ * it — a tenant administrator who could raise their own organization's
+ * ceiling would have no ceiling. That is why the budget is not an allowance
+ * override and not part of the configuration a tenant saves for itself.
+ *
  * @module @lyness/lyn-credits/administration
  */
 
@@ -26,6 +32,7 @@ import type { Membership, PersonId } from '@lyness/lyn-people'
 import { allowanceKey } from './allowance.ts'
 import type { AllowanceOverride, AllowanceRecord } from './allowance.ts'
 import { allowanceDomain } from './allowance-storage.ts'
+import type { BudgetChange, OrganizationBudget } from './budget.ts'
 import type { ResetPeriod } from './period.ts'
 import type { CreditGrant } from './types.ts'
 
@@ -41,6 +48,12 @@ export const NOT_PERMITTED = 'credits: this standing may not administer that per
 
 /** Message a grant of a non-positive amount is refused with. */
 export const NOT_POSITIVE = 'credits: an administrator grant must be positive'
+
+/** Message a budget change by anything but a platform standing is refused with. */
+export const NOT_PLATFORM = 'credits: only a platform standing sets what an organization bought'
+
+/** Message a budget with a negative ceiling is refused with. */
+export const NOT_A_CEILING = 'credits: an organization budget cannot be negative'
 
 /** What an administrator adds to one person. */
 export interface AdministratorGrant {
@@ -170,6 +183,42 @@ export class CreditAdministration extends Service {
   }
 
   /**
+   * Set or replace what one organization may spend in total, on behalf of one
+   * standing.
+   *
+   * Authorized against the platform rather than against the organization: a
+   * ceiling an organization can raise is not a ceiling. This is the one credit
+   * decision `administers` does not answer, because that predicate is true for
+   * a tenant administrator of the organization named.
+   * @param change - the organization, the ceiling, and the period it applies to.
+   * @param by - the standing making the change.
+   * @returns the stored ceiling.
+   * @throws {Error} when the ceiling is negative or not whole, or that standing is not a platform one.
+   */
+  async setBudget(change: BudgetChange, by: Membership): Promise<OrganizationBudget> {
+    if (by.role !== 'platform-administrator') throw new Error(NOT_PLATFORM)
+    if (!Number.isInteger(change.periodicAmount) || change.periodicAmount < 0) throw new Error(NOT_A_CEILING)
+    const existing = await this.ctx.credits.budget(change.organization)
+    const stored = await this.ctx.credits.setBudget(change, by.person)
+    const changes = fieldChanges(
+      existing === undefined ? undefined : ceilingFields(existing),
+      ceilingFields(stored),
+    )
+    if (existing !== undefined && changes.length === 0) return stored
+    await this.ctx.adminAudit.record({
+      kind: 'credit-budget',
+      subject: change.organization,
+      subjectName: change.organization,
+      action: existing === undefined ? 'added' : 'changed',
+      // Deliberately no organization on the entry: what an organization
+      // bought is the platform's own record, read with the whole trail rather
+      // than by the organization whose ceiling it is.
+      changes,
+    }, by)
+    return stored
+  }
+
+  /**
    * The overrides that reach one person.
    *
    * Read without an authority check because this is what the ledger itself
@@ -222,6 +271,16 @@ export class CreditAdministration extends Service {
   private async assertMayAdministerPerson(by: Membership, person: PersonId): Promise<void> {
     if (!await this.mayAdminister(by, person)) throw new Error(NOT_PERMITTED)
   }
+}
+
+/**
+ * One organization ceiling's audited fields.
+ *
+ * Only what the platform decided: how much per period and how long a period
+ * is. What has been spent against it is the ledger's answer, not a decision.
+ */
+function ceilingFields(record: { periodicAmount: number; period: ResetPeriod }): Record<string, string> {
+  return { periodicAmount: String(record.periodicAmount), period: record.period }
 }
 
 /**

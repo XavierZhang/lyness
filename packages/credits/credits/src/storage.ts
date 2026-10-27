@@ -29,6 +29,7 @@ export const debitSchema: z.ZodType<Omit<CreditDebit, 'id'>> = z.object({
   amount: z.number().positive(),
   at: storedInstant(),
   session: z.string().min(1),
+  organization: z.string().min(1).optional(),
 }).strict()
 
 /** Authoritative credit storage. */

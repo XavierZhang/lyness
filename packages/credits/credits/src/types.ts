@@ -66,6 +66,15 @@ export interface CreditDebit {
    * answerable.
    */
   readonly session: string
+  /**
+   * The organization this person was acting for when they spent it.
+   *
+   * Recorded rather than resolved later: an organization's spending for a
+   * period is the sum of what was spent for it, and a person who moves to
+   * another organization must not move last month's spending with them.
+   * Absent for a spend by somebody acting for no organization.
+   */
+  readonly organization?: string | undefined
 }
 
 /** What one person's balance is made of, at one instant. */
@@ -84,7 +93,7 @@ export interface CreditBalance {
 
 /** Why a spend was refused. */
 export type RefusalReason =
-  /** The balance reached zero. */
+  /** This person's own balance reached zero. */
   | 'exhausted'
-  /** The organization capped this person below what they would otherwise have. */
-  | 'capped'
+  /** The organization spent its whole budget for this period. */
+  | 'organization-exhausted'
