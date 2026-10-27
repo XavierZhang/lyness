@@ -116,6 +116,48 @@ export interface AllowanceView {
   readonly periods: readonly ResetPeriodView[]
 }
 
+/** What one organization bought, and what is left of it this period. */
+export interface BudgetView {
+  /** The organization this is the ceiling for. */
+  readonly organization: string
+  /**
+   * Credits its people may spend together in one period; absent when nobody
+   * set a ceiling, which is no ceiling rather than a ceiling of zero.
+   */
+  readonly periodicAmount?: number
+  /** How long one period is; absent with the ceiling. */
+  readonly period?: ResetPeriodView
+  /** What its people have spent together since this period began; absent with the ceiling. */
+  readonly spent?: number
+  /** What is left before the period turns; absent with the ceiling. */
+  readonly remaining?: number
+  /** When the current period began, as a UTC instant; absent with the ceiling. */
+  readonly periodStartedAt?: string
+  /** When it turns and the ceiling applies again, as a UTC instant; absent with the ceiling. */
+  readonly nextPeriodAt?: string
+  /** The periods a form may offer. */
+  readonly periods: readonly ResetPeriodView[]
+  /**
+   * Whether this caller may change the ceiling.
+   *
+   * Answered with the read so a surface renders its control from the same
+   * answer that fills it, instead of offering one the next call would refuse.
+   * Only a platform standing may: an organization that could raise its own
+   * ceiling would have none.
+   */
+  readonly settable: boolean
+}
+
+/** What a platform administrator sets as one organization's ceiling. */
+export interface BudgetInput {
+  /** The organization to set it for. */
+  readonly organization: string
+  /** Credits its people may spend together in one period; zero is a decision. */
+  readonly periodicAmount: number
+  /** How long one period is. */
+  readonly period: ResetPeriodView
+}
+
 /** What an administrator adds to one person. */
 export interface CreditGrantInput {
   /** Who receives the credits. */

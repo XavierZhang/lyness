@@ -14,7 +14,9 @@ import type { Context } from '@lyness/cordis'
 import { createSharedRead } from '@lyness/lyn-client-store'
 import type {} from '@lyness/lyn-api-remotes/client'
 import type {} from '@lyness/lyn-api-credits-controller/remote'
-import type { AllowanceInput, AllowanceView, CreditAccountView, CreditGrantInput } from '@lyness/lyn-api-credits-controller/types'
+import type {
+  AllowanceInput, AllowanceView, BudgetView, CreditAccountView, CreditGrantInput,
+} from '@lyness/lyn-api-credits-controller/types'
 
 /** What one Remote call answers: the value, or the code it refused with. */
 export type CallOutcome<T> =
@@ -29,6 +31,8 @@ export interface CreditsCalls {
   grant: (input: CreditGrantInput) => Promise<CallOutcome<CreditAccountView>>
   /** Set or replace one recurring-allowance override. */
   setAllowance: (input: AllowanceInput) => Promise<CallOutcome<AllowanceView>>
+  /** Read what the calling person's own organization bought. */
+  myBudget: () => Promise<CallOutcome<BudgetView | undefined>>
 }
 
 /** Where an outcome is published. */
@@ -37,6 +41,8 @@ export interface CreditsSink {
   begin: () => void
   /** A read returned this account. */
   succeed: (account: CreditAccountView) => void
+  /** A read returned the reader's own organization's ceiling, or none. */
+  budgeted: (budget: BudgetView | undefined) => void
   /** A read did not return an account. */
   fail: (status: 'failed' | 'unavailable') => void
   /** Drop the previous outcome before another attempt. */
@@ -77,12 +83,31 @@ export function creditsCallsOf(ctx: Context): CreditsCalls {
     mine: () => ctx.remote.credits.mine(),
     grant: input => ctx.remote.credits.grant(input),
     setAllowance: input => ctx.remote.credits.setAllowance(input),
+    myBudget: () => ctx.remote.credits.myBudget(),
   }
 }
 
 /** The message a refusal shows: the server's own, or its code when it sent none. */
 function reasonOf(outcome: { readonly error?: { readonly code?: string; readonly message?: string } | undefined }): string {
   return outcome.error?.message ?? outcome.error?.code ?? 'unknown'
+}
+
+/**
+ * Read the reader's own organization's ceiling, beside the account.
+ *
+ * Its own try: the section is for the account, so a ceiling that could not be
+ * read leaves the account on screen without one rather than turning the whole
+ * read into a failure.
+ * @param calls - performs the Remote calls.
+ * @param sink - where the outcome is published.
+ */
+async function readBudget(calls: CreditsCalls, sink: CreditsSink): Promise<void> {
+  try {
+    const budget = await calls.myBudget()
+    sink.budgeted(budget.ok ? budget.value : undefined)
+  } catch {
+    sink.budgeted(undefined)
+  }
 }
 
 /**
@@ -96,7 +121,14 @@ export function createCreditsOperations(calls: CreditsCalls, sink: CreditsSink):
     sink.begin()
     try {
       const result = await calls.mine()
-      if (result.ok) { sink.succeed(result.value); return }
+      if (result.ok) {
+        sink.succeed(result.value)
+        // Asked only of a standing that administers somebody: what an
+        // organization bought and has spent is its administrators' to see, so
+        // a member's read would be one refusal for nothing.
+        if (result.value.administrable) await readBudget(calls, sink)
+        return
+      }
       // A deployment that meters nothing is not a failure a reader can retry
       // out of, so it is reported as its own state rather than as a breakage.
       sink.fail(result.error?.code === 'credits/unavailable' ? 'unavailable' : 'failed')

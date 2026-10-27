@@ -8,7 +8,7 @@
 
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
-import type { CreditAccountView } from '@lyness/lyn-api-credits-controller/types'
+import type { BudgetView, CreditAccountView } from '@lyness/lyn-api-credits-controller/types'
 import { CreditsSection } from '../src/client/CreditsSection.tsx'
 import type { CreditsSectionProps } from '../src/client/CreditsSection.tsx'
 import type { CreditsSectionState } from '../src/client/store.ts'
@@ -49,13 +49,42 @@ function renderSection(state: CreditsSectionState, over: Partial<CreditsSectionP
   return { ...render(<CreditsSection {...props} />), load, retry, grant, setAllowance }
 }
 
-/** A ready state carrying one account. */
-function ready(account: CreditAccountView): CreditsSectionState {
-  return { status: 'ready', account, allowance: undefined, working: false, outcome: undefined }
+/** A ready state carrying one account, and whatever one test varies. */
+function ready(account: CreditAccountView, over: Partial<CreditsSectionState> = {}): CreditsSectionState {
+  return {
+    status: 'ready',
+    account,
+    allowance: undefined,
+    budget: undefined,
+    working: false,
+    outcome: undefined,
+    ...over,
+  }
 }
 
 const IDLE: CreditsSectionState = {
-  status: 'idle', account: undefined, allowance: undefined, working: false, outcome: undefined,
+  status: 'idle',
+  account: undefined,
+  allowance: undefined,
+  budget: undefined,
+  working: false,
+  outcome: undefined,
+}
+
+/** One organization's ceiling, with whatever one test varies. */
+function budgetOf(over: Partial<BudgetView> = {}): BudgetView {
+  return {
+    organization: 'acme',
+    periodicAmount: 5000,
+    period: 'monthly',
+    spent: 1000,
+    remaining: 4000,
+    periodStartedAt: '2026-10-01T00:00:00.000Z',
+    nextPeriodAt: '2026-11-01T00:00:00.000Z',
+    periods: ['daily', 'weekly', 'monthly'],
+    settable: false,
+    ...over,
+  }
 }
 
 /** The form under one heading, which is how each form's own fields are reached. */
@@ -244,5 +273,39 @@ describe('CreditsSection', () => {
   it('shows the loading notice while a read is in flight', () => {
     renderSection({ ...IDLE, status: 'loading' })
     expect(screen.getByText(zh.loading)).toBeDefined()
+  })
+})
+
+describe('what one organization bought', () => {
+  it('shows the ceiling, what it spent, and what is left', () => {
+    renderSection(ready({ ...ACCOUNT, administrable: true }, { budget: budgetOf() }))
+
+    expect(screen.getByText(zh.budget)).toBeDefined()
+    expect(screen.getByText('5000')).toBeDefined()
+    expect(screen.getByText('4000')).toBeDefined()
+    // Read-only whatever the standing: the ceiling is the platform's.
+    expect(screen.getByText(zh.budgetPlatformOnly)).toBeDefined()
+  })
+
+  it('says an organization nobody set a ceiling for has none', () => {
+    const { organization, periods, settable } = budgetOf()
+    renderSection(ready({ ...ACCOUNT, administrable: true }, { budget: { organization, periods, settable } }))
+
+    // No ceiling rather than a ceiling of zero.
+    expect(screen.getByText(zh.budgetNone)).toBeDefined()
+  })
+
+  it('leaves the turn-over line off a ceiling that reports no next period', () => {
+    const { nextPeriodAt: _turns, ...open } = budgetOf()
+    renderSection(ready({ ...ACCOUNT, administrable: true }, { budget: open }))
+
+    expect(screen.getByText('5000')).toBeDefined()
+    expect(screen.queryByText(zh.budgetTurns.replace('{at}', ''))).toBeNull()
+  })
+
+  it('shows no block at all to a reader whose standing answered none', () => {
+    renderSection(ready(ACCOUNT))
+
+    expect(screen.queryByText(zh.budget)).toBeNull()
   })
 })

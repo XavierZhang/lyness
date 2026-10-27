@@ -28,6 +28,7 @@ import CreditsController from '../src/index.ts'
 
 const ADA = brandString<PersonId>('ada')
 const BEA = brandString<PersonId>('bea')
+const DEE = brandString<PersonId>('dee')
 
 let root: string | undefined
 let context: Context | undefined
@@ -68,6 +69,9 @@ async function compose(): Promise<CreditsController> {
     '        displayName: Cai',
     '        role: member',
     '        organization: zenith',
+    '      - id: dee',
+    '        displayName: Dee',
+    '        role: platform-administrator',
     "- name: '@lyness/lyn-admin-audit'",
     "- name: '@lyness/lyn-credits/store'",
     '  config:',
@@ -209,4 +213,102 @@ it('refuses every call that presented no identity', async () => {
   const controller = await compose()
   const refused = await controller.mine().catch((error: unknown) => error)
   expect(remoteErrorOf(refused)?.code).toBe('credits/anonymous')
+})
+
+it('lets a platform standing set what an organization bought and read what is left', async () => {
+  const controller = await compose()
+  as(DEE, 'dee:platform-administrator')
+
+  const set = await controller.setBudget({ organization: 'acme', periodicAmount: 5000, period: 'monthly' })
+
+  expect(set).toMatchObject({
+    organization: 'acme',
+    periodicAmount: 5000,
+    period: 'monthly',
+    spent: 0,
+    remaining: 5000,
+    settable: true,
+  })
+  expect(set.periods).toEqual(['daily', 'weekly', 'monthly'])
+})
+
+it('shows an organization its own ceiling without offering the control', async () => {
+  const controller = await compose()
+  as(DEE, 'dee:platform-administrator')
+  await controller.setBudget({ organization: 'acme', periodicAmount: 5000, period: 'monthly' })
+
+  as(ADA, 'ada:tenant-administrator')
+  const read = await controller.budget('acme')
+
+  // Its own money and its own usage, and a control the next call would
+  // refuse is not offered.
+  expect(read).toMatchObject({ periodicAmount: 5000, remaining: 5000, settable: false })
+})
+
+it('refuses an organization raising its own ceiling', async () => {
+  const controller = await compose()
+  as(ADA, 'ada:tenant-administrator')
+
+  // A ceiling an organization can raise is not a ceiling.
+  const refused = await controller
+    .setBudget({ organization: 'acme', periodicAmount: 1_000_000, period: 'monthly' })
+    .catch((error: unknown) => error)
+  expect(remoteErrorOf(refused)?.code).toBe('credits/rejected')
+  expect((await controller.budget('acme')).periodicAmount).toBeUndefined()
+})
+
+it('refuses reading another organization\'s ceiling', async () => {
+  const controller = await compose()
+  as(ADA, 'ada:tenant-administrator')
+
+  const refused = await controller.budget('zenith').catch((error: unknown) => error)
+  expect(remoteErrorOf(refused)?.code).toBe('credits/not-permitted')
+})
+
+it('answers an organization nobody set a ceiling for as having none', async () => {
+  const controller = await compose()
+  as(DEE, 'dee:platform-administrator')
+
+  const read = await controller.budget('acme')
+
+  // No ceiling rather than a ceiling of zero: a surface that read zero would
+  // say its customer may spend nothing.
+  expect(read).toEqual({ organization: 'acme', periods: ['daily', 'weekly', 'monthly'], settable: true })
+})
+
+it('answers an administrator their own organization\'s ceiling without naming it', async () => {
+  const controller = await compose()
+  as(DEE, 'dee:platform-administrator')
+  await controller.setBudget({ organization: 'acme', periodicAmount: 5000, period: 'monthly' })
+
+  as(ADA, 'ada:tenant-administrator')
+  // The one organization somebody holds standing in is not a parameter.
+  expect(await controller.myBudget()).toMatchObject({
+    organization: 'acme',
+    periodicAmount: 5000,
+    remaining: 5000,
+    settable: false,
+  })
+})
+
+it('refuses a member the numbers behind their organization\'s ceiling', async () => {
+  const controller = await compose()
+  as(DEE, 'dee:platform-administrator')
+  await controller.setBudget({ organization: 'acme', periodicAmount: 5000, period: 'monthly' })
+
+  as(BEA, 'bea:member')
+  // What an organization bought and has spent is its administrators' to see.
+  // A member learns from the refusal that the organization is out, and that
+  // is the only part of it their own turn depends on.
+  const refused = await controller.myBudget().catch((error: unknown) => error)
+  expect(remoteErrorOf(refused)?.code).toBe('credits/not-permitted')
+})
+
+it('answers nothing to a standing that holds no organization', async () => {
+  const controller = await compose()
+  as(DEE, 'dee:platform-administrator')
+
+  // A platform standing is in no organization, so it has no own ceiling to
+  // read; it names the organization it wants instead.
+  expect(await controller.myBudget()).toBeUndefined()
 })

@@ -28,6 +28,7 @@ function actions(): CreditsActions & { readonly calls: string[] } {
     granted: (outcome) => { calls.push(`granted:${outcome.person}`) },
     allowed: (allowance) => { calls.push(`allowed:${allowance.person}`) },
     refused: (reason) => { calls.push(`refused:${reason}`) },
+    budgeted: (budget) => { calls.push(`budgeted:${budget?.organization ?? 'none'}`) },
   }
 }
 
@@ -41,6 +42,7 @@ function publishAll(binding: SectionBinding): void {
   binding.granted({ account: ACCOUNT, person: 'bea', amount: 1 })
   binding.allowed(ALLOWANCE)
   binding.refused('credits/rejected')
+  binding.budgeted(undefined)
 }
 
 describe('SectionBinding', () => {
@@ -57,7 +59,8 @@ describe('SectionBinding', () => {
     binding.bind(baked)
     publishAll(binding)
     expect(baked.calls).toEqual([
-      'begin', 'succeed:bea', 'fail:failed', 'reset', 'work', 'granted:bea', 'allowed:bea', 'refused:credits/rejected',
+      'begin', 'succeed:bea', 'fail:failed', 'reset', 'work', 'granted:bea', 'allowed:bea',
+      'refused:credits/rejected', 'budgeted:none',
     ])
   })
 

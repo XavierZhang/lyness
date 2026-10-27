@@ -1051,6 +1051,19 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         throws: ['{Error} when the ceiling is negative or not whole, or that standing is not a platform one.'],
       },
       {
+        signature: 'async budgetFor(organization: string, by: Membership): Promise<BudgetState | undefined>',
+        description: 'What one organization bought, and what is left of it, on behalf of one standing.\n\nAuthorized against the organization rather than the platform: an organization may see its own ceiling and what it has spent against it — that is its own money and its own usage — while only a platform standing changes the ceiling.',
+        parameters: [{ name: 'organization', description: 'whose ceiling to read.' }, { name: 'by', description: 'the standing asking.' }],
+        returns: 'the ceiling and what is left, or undefined where nobody set one.',
+        throws: ['{Error} when that standing may not administer that organization.'],
+      },
+      {
+        signature: 'maySetBudget(by: Membership): boolean',
+        description: 'Whether one standing may change what an organization bought.\n\nPublic because a surface that offers the control answers the same question the change does, and two copies of this rule would be one rule too many.',
+        parameters: [{ name: 'by', description: 'the standing asking.' }],
+        returns: 'true when it may set an organization\'s ceiling.',
+      },
+      {
         signature: 'async overridesFor(person: PersonId): Promise<PersonOverrides>',
         description: 'The overrides that reach one person.\n\nRead without an authority check because this is what the ledger itself calls to work out a periodic grant; the decision it reports was already authorized when it was made.',
         parameters: [{ name: 'person', description: 'whose allowance to resolve.' }],
@@ -1147,6 +1160,27 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         parameters: [{ name: 'person', description: 'whose allowance to resolve.' }],
         returns: 'the organization-wide and person-specific overrides, and the periods a form may offer.',
         throws: ['{RemoteError} `credits/anonymous`, `credits/unavailable`, or `credits/not-permitted`.'],
+      },
+      {
+        signature: '@Remote async myBudget(): Promise<BudgetView | undefined>',
+        description: 'Read what the calling person\'s own organization bought, and what is left.\n\nThe organization is resolved from the standing this call acts in rather than named by the caller, for the reason `mine` does not take a person: the one organization somebody holds standing in is not a parameter.',
+        parameters: [],
+        returns: 'their organization\'s ceiling, or undefined when they hold standing in none.',
+        throws: ['{RemoteError} `credits/anonymous`, `credits/unavailable`, or `credits/not-permitted` for a standing that may not administer its own organization — what it bought and has spent is its administrators\' to see.'],
+      },
+      {
+        signature: '@Remote async budget(organization: string): Promise<BudgetView>',
+        description: 'Read what one organization bought, and what is left of it this period.',
+        parameters: [{ name: 'organization', description: 'whose ceiling to read.' }],
+        returns: 'the ceiling, what is left, and whether this caller may change it.',
+        throws: ['{RemoteError} `credits/anonymous`, `credits/unavailable`, or `credits/not-permitted` when the calling standing may not administer that organization.'],
+      },
+      {
+        signature: '@Remote async setBudget(input: BudgetInput): Promise<BudgetView>',
+        description: 'Set or replace what one organization may spend in total.',
+        parameters: [{ name: 'input', description: 'the organization, the ceiling, and the period it applies to.' }],
+        returns: 'the ceiling as it now reads, with what has already been spent against it.',
+        throws: ['{RemoteError} `credits/anonymous`, `credits/unavailable`, `gateway/bad-request` for invalid fields, or `credits/rejected` when the calling standing is not a platform one.'],
       },
     ],
   },
@@ -5689,8 +5723,16 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export interface BudgetChange {\n    readonly organization: string;\n    readonly periodicAmount: number;\n    readonly period: ResetPeriod;\n}',
   },
   {
+    name: 'BudgetInput',
+    declaration: 'export interface BudgetInput {\n    readonly organization: string;\n    readonly periodicAmount: number;\n    readonly period: ResetPeriodView;\n}',
+  },
+  {
     name: 'BudgetState',
     declaration: 'export interface BudgetState {\n    readonly organization: string;\n    readonly periodicAmount: number;\n    readonly period: ResetPeriod;\n    readonly spent: number;\n    readonly remaining: number;\n    readonly periodStartedAt: string;\n    readonly nextPeriodAt: string;\n}',
+  },
+  {
+    name: 'BudgetView',
+    declaration: 'export interface BudgetView {\n    readonly organization: string;\n    readonly periodicAmount?: number;\n    readonly period?: ResetPeriodView;\n    readonly spent?: number;\n    readonly remaining?: number;\n    readonly periodStartedAt?: string;\n    readonly nextPeriodAt?: string;\n    readonly periods: readonly ResetPeriodView[];\n    readonly settable: boolean;\n}',
   },
   {
     name: 'BundleInfo',

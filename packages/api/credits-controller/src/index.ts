@@ -14,7 +14,7 @@
  */
 
 import { Context } from '@lyness/cordis'
-import type { CreditBalance, CreditDebit, CreditGrant } from '@lyness/lyn-credits'
+import type { BudgetState, CreditBalance, CreditDebit, CreditGrant } from '@lyness/lyn-credits'
 import type { AllowanceRecord } from '@lyness/lyn-credits/allowance'
 import { RESET_PERIODS } from '@lyness/lyn-credits/administration'
 import type { CreditAdministration, PersonOverrides } from '@lyness/lyn-credits/administration'
@@ -24,7 +24,7 @@ import type {} from '@lyness/lyn-request-principal'
 import { Remote, RemoteError, TypertRemoteService } from '@lyness/lyn-typert-protocol'
 import { z } from 'zod'
 import type {
-  AllowanceInput, AllowanceOverrideView, AllowanceView,
+  AllowanceInput, AllowanceOverrideView, AllowanceView, BudgetInput, BudgetView,
   CreditAccountView, CreditDebitView, CreditGrantInput, CreditGrantView,
 } from './types.ts'
 
@@ -47,6 +47,12 @@ const grantSchema = z.object({
   person: z.string().min(1),
   amount: z.number().int().positive(),
   expiresAt: z.iso.datetime().optional(),
+}).strict()
+
+const budgetSchema = z.object({
+  organization: z.string().min(1),
+  periodicAmount: z.number().int().nonnegative(),
+  period: z.enum(['daily', 'weekly', 'monthly']),
 }).strict()
 
 const allowanceSchema = z.object({
@@ -109,6 +115,34 @@ function allowanceView(person: string, overrides: PersonOverrides): AllowanceVie
     periods: RESET_PERIODS,
     ...organization === undefined ? {} : { organization: overrideView(organization) },
     ...own === undefined ? {} : { own: overrideView(own) },
+  }
+}
+
+/**
+ * Project one organization's ceiling onto its wire view.
+ *
+ * An organization nobody set a ceiling for answers with its name, the periods
+ * a form may offer, and nothing else: that is no ceiling rather than a
+ * ceiling of zero, and a surface that read zero would say its customer may
+ * spend nothing.
+ * @param organization - whose ceiling this describes.
+ * @param state - the ceiling and what is left, where one is set.
+ * @param settable - whether this caller may change it.
+ * @returns the wire budget, including the periods a form may offer.
+ */
+function budgetView(organization: string, state: BudgetState | undefined, settable: boolean): BudgetView {
+  return {
+    organization,
+    periods: RESET_PERIODS,
+    settable,
+    ...state === undefined ? {} : {
+      periodicAmount: state.periodicAmount,
+      period: state.period,
+      spent: state.spent,
+      remaining: state.remaining,
+      periodStartedAt: state.periodStartedAt,
+      nextPeriodAt: state.nextPeriodAt,
+    },
   }
 }
 
@@ -214,6 +248,59 @@ export default class CreditsController extends TypertRemoteService {
     return allowanceView(person, await this.administration().overridesFor(subject))
   }
 
+  /**
+   * Read what the calling person's own organization bought, and what is left.
+   *
+   * The organization is resolved from the standing this call acts in rather
+   * than named by the caller, for the reason `mine` does not take a person:
+   * the one organization somebody holds standing in is not a parameter.
+   * @returns their organization's ceiling, or undefined when they hold standing in none.
+   * @throws {RemoteError} `credits/anonymous`, `credits/unavailable`, or
+   * `credits/not-permitted` for a standing that may not administer its own
+   * organization — what it bought and has spent is its administrators' to see.
+   */
+  @Remote
+  async myBudget(): Promise<BudgetView | undefined> {
+    const by = await this.standing()
+    if (by.organization === undefined) return undefined
+    const seam = this.administration()
+    const organization = by.organization
+    const state = await refusals(organization, () => seam.budgetFor(organization, by))
+    return budgetView(organization, state, seam.maySetBudget(by))
+  }
+
+  /**
+   * Read what one organization bought, and what is left of it this period.
+   * @param organization - whose ceiling to read.
+   * @returns the ceiling, what is left, and whether this caller may change it.
+   * @throws {RemoteError} `credits/anonymous`, `credits/unavailable`, or
+   * `credits/not-permitted` when the calling standing may not administer that organization.
+   */
+  @Remote
+  async budget(organization: string): Promise<BudgetView> {
+    const by = await this.standing()
+    const seam = this.administration()
+    const state = await refusals(organization, () => seam.budgetFor(organization, by))
+    return budgetView(organization, state, seam.maySetBudget(by))
+  }
+
+  /**
+   * Set or replace what one organization may spend in total.
+   * @param input - the organization, the ceiling, and the period it applies to.
+   * @returns the ceiling as it now reads, with what has already been spent against it.
+   * @throws {RemoteError} `credits/anonymous`, `credits/unavailable`,
+   * `gateway/bad-request` for invalid fields, or `credits/rejected` when the
+   * calling standing is not a platform one.
+   */
+  @Remote
+  async setBudget(input: BudgetInput): Promise<BudgetView> {
+    const parsed = parse(budgetSchema, input)
+    const by = await this.standing()
+    const seam = this.administration()
+    await refusals(parsed.organization, () => seam.setBudget(parsed, by))
+    return budgetView(parsed.organization, await seam.budgetFor(parsed.organization, by), seam.maySetBudget(by))
+  }
+
   /** One person's balance and ledger, projected for the wire. */
   private async read(person: PersonId, administrable: boolean): Promise<CreditAccountView> {
     const ledger = this.ctx.get('credits')
@@ -312,11 +399,12 @@ function parse<T>(schema: z.ZodType<T>, input: unknown): T {
  * Run one administration call, turning its own refusals into routable codes.
  * @param person - who the call was about, for the refusal's details.
  * @param run - the administration call.
+ * @returns whatever that call answered.
  * @throws {RemoteError} `credits/not-permitted` or `credits/rejected`.
  */
-async function refusals(person: string, run: () => Promise<unknown>): Promise<void> {
+async function refusals<T>(person: string, run: () => Promise<T>): Promise<T> {
   try {
-    await run()
+    return await run()
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : String(error)
     if (message.endsWith('may not administer that person')) {

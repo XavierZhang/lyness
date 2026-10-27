@@ -72,6 +72,8 @@ export function mayOfferGranting(view: CreditAccountView): boolean {
 
 **A refusal carries its own code.** `credits/not-permitted` is a different answer from `credits/rejected`: the first says the same arguments would be accepted from another standing, the second says the seam's own rule refuses them. The seam is resolved before the wrapper that maps its refusals, so a deployment missing a ledger is never reported as a rejected request.
 
+**A ceiling is read by the organization and changed by the platform.** `budget` and `myBudget` authorize against the organization, so its administrators see what it bought and what is left; `setBudget` is refused to anyone but a platform standing, and the view says so in `settable` — a surface renders its control from the same answer that fills it rather than offering one the next call would refuse. `myBudget` resolves the organization from the standing for the reason `mine` takes no person: the one organization somebody holds standing in is not a parameter.
+
 **Views, not the ledger's types.** Ids are branded in the Host and plain strings on the wire, and the account adds one fact the ledger does not carry: whether the caller may administer here.
 
 -----

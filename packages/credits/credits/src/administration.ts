@@ -32,7 +32,7 @@ import type { Membership, PersonId } from '@lyness/lyn-people'
 import { allowanceKey } from './allowance.ts'
 import type { AllowanceOverride, AllowanceRecord } from './allowance.ts'
 import { allowanceDomain } from './allowance-storage.ts'
-import type { BudgetChange, OrganizationBudget } from './budget.ts'
+import type { BudgetChange, BudgetState, OrganizationBudget } from './budget.ts'
 import type { ResetPeriod } from './period.ts'
 import type { CreditGrant } from './types.ts'
 
@@ -196,7 +196,7 @@ export class CreditAdministration extends Service {
    * @throws {Error} when the ceiling is negative or not whole, or that standing is not a platform one.
    */
   async setBudget(change: BudgetChange, by: Membership): Promise<OrganizationBudget> {
-    if (by.role !== 'platform-administrator') throw new Error(NOT_PLATFORM)
+    if (!this.maySetBudget(by)) throw new Error(NOT_PLATFORM)
     if (!Number.isInteger(change.periodicAmount) || change.periodicAmount < 0) throw new Error(NOT_A_CEILING)
     const existing = await this.ctx.credits.budget(change.organization)
     const stored = await this.ctx.credits.setBudget(change, by.person)
@@ -216,6 +216,37 @@ export class CreditAdministration extends Service {
       changes,
     }, by)
     return stored
+  }
+
+  /**
+   * What one organization bought, and what is left of it, on behalf of one
+   * standing.
+   *
+   * Authorized against the organization rather than the platform: an
+   * organization may see its own ceiling and what it has spent against it —
+   * that is its own money and its own usage — while only a platform standing
+   * changes the ceiling.
+   * @param organization - whose ceiling to read.
+   * @param by - the standing asking.
+   * @returns the ceiling and what is left, or undefined where nobody set one.
+   * @throws {Error} when that standing may not administer that organization.
+   */
+  async budgetFor(organization: string, by: Membership): Promise<BudgetState | undefined> {
+    if (!administers(by, organization)) throw new Error(NOT_PERMITTED)
+    return this.ctx.credits.budget(organization)
+  }
+
+  /**
+   * Whether one standing may change what an organization bought.
+   *
+   * Public because a surface that offers the control answers the same
+   * question the change does, and two copies of this rule would be one rule
+   * too many.
+   * @param by - the standing asking.
+   * @returns true when it may set an organization's ceiling.
+   */
+  maySetBudget(by: Membership): boolean {
+    return by.role === 'platform-administrator'
   }
 
   /**

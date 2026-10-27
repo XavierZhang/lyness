@@ -409,6 +409,32 @@ async setAllowance(change: AllowanceChange, by: Membership): Promise<void>
 async setBudget(change: BudgetChange, by: Membership): Promise<OrganizationBudget>
 
 /**
+ * What one organization bought, and what is left of it, on behalf of one
+ * standing.
+ *
+ * Authorized against the organization rather than the platform: an
+ * organization may see its own ceiling and what it has spent against it —
+ * that is its own money and its own usage — while only a platform standing
+ * changes the ceiling.
+ * @param organization - whose ceiling to read.
+ * @param by - the standing asking.
+ * @returns the ceiling and what is left, or undefined where nobody set one.
+ * @throws {Error} when that standing may not administer that organization.
+ */
+async budgetFor(organization: string, by: Membership): Promise<BudgetState | undefined>
+
+/**
+ * Whether one standing may change what an organization bought.
+ *
+ * Public because a surface that offers the control answers the same
+ * question the change does, and two copies of this rule would be one rule
+ * too many.
+ * @param by - the standing asking.
+ * @returns true when it may set an organization's ceiling.
+ */
+maySetBudget(by: Membership): boolean
+
+/**
  * The overrides that reach one person.
  *
  * Read without an authority check because this is what the ledger itself
@@ -559,6 +585,38 @@ Host service backing the generated `ctx.remote.credits` namespace.
  * @throws {RemoteError} `credits/anonymous`, `credits/unavailable`, or `credits/not-permitted`.
  */
 @Remote async allowance(person: string): Promise<AllowanceView>
+
+/**
+ * Read what the calling person's own organization bought, and what is left.
+ *
+ * The organization is resolved from the standing this call acts in rather
+ * than named by the caller, for the reason `mine` does not take a person:
+ * the one organization somebody holds standing in is not a parameter.
+ * @returns their organization's ceiling, or undefined when they hold standing in none.
+ * @throws {RemoteError} `credits/anonymous`, `credits/unavailable`, or
+ * `credits/not-permitted` for a standing that may not administer its own
+ * organization — what it bought and has spent is its administrators' to see.
+ */
+@Remote async myBudget(): Promise<BudgetView | undefined>
+
+/**
+ * Read what one organization bought, and what is left of it this period.
+ * @param organization - whose ceiling to read.
+ * @returns the ceiling, what is left, and whether this caller may change it.
+ * @throws {RemoteError} `credits/anonymous`, `credits/unavailable`, or
+ * `credits/not-permitted` when the calling standing may not administer that organization.
+ */
+@Remote async budget(organization: string): Promise<BudgetView>
+
+/**
+ * Set or replace what one organization may spend in total.
+ * @param input - the organization, the ceiling, and the period it applies to.
+ * @returns the ceiling as it now reads, with what has already been spent against it.
+ * @throws {RemoteError} `credits/anonymous`, `credits/unavailable`,
+ * `gateway/bad-request` for invalid fields, or `credits/rejected` when the
+ * calling standing is not a platform one.
+ */
+@Remote async setBudget(input: BudgetInput): Promise<BudgetView>
 ```
 
 Source: [`packages/api/credits-controller/src/index.ts`](../../packages/api/credits-controller/src/index.ts)

@@ -12,7 +12,7 @@ import { describe, expect, it, vi } from 'vitest'
 import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
 import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
 import { TestRemote } from '@lyness/lyn-client-test-runtime'
-import type { AllowanceView, CreditAccountView } from '@lyness/lyn-api-credits-controller/types'
+import type { AllowanceView, BudgetView, CreditAccountView } from '@lyness/lyn-api-credits-controller/types'
 import { apply, creditsCallsOf, inject, NS } from '@lyness/lyn-client-ui-settings-credits/client'
 import { CreditsSection } from '../src/client/CreditsSection.tsx'
 import type { createCreditsSectionStore } from '../src/client/store.ts'
@@ -21,6 +21,18 @@ const SLOT = 'settings.section'
 
 const ACCOUNT: CreditAccountView = {
   person: 'bea', available: 10, granted: 10, spent: 0, grants: [], debits: [], administrable: true,
+}
+
+const BUDGET: BudgetView = {
+  organization: 'acme',
+  periodicAmount: 5000,
+  period: 'monthly',
+  spent: 0,
+  remaining: 5000,
+  periodStartedAt: '2026-10-01T00:00:00.000Z',
+  nextPeriodAt: '2026-11-01T00:00:00.000Z',
+  periods: ['daily', 'weekly', 'monthly'],
+  settable: false,
 }
 
 const ALLOWANCE: AllowanceView = { person: 'bea', periods: ['daily', 'weekly', 'monthly'] }
@@ -37,6 +49,7 @@ async function bench(mine: () => Promise<unknown> = () => Promise.resolve({ ok: 
       mine,
       grant: () => Promise.resolve({ ok: true, value: ACCOUNT }),
       setAllowance: () => Promise.resolve({ ok: true, value: ALLOWANCE }),
+      myBudget: () => Promise.resolve({ ok: true, value: undefined }),
     },
   })
   events.$host = { home: undefined, isLoopback: true }
@@ -91,13 +104,19 @@ describe('ui-settings-credits apply', () => {
     const calls = creditsCallsOf(ctx)
     expect(await calls.grant({ person: 'bea', amount: 1 })).toEqual({ ok: true, value: ACCOUNT })
     expect(await calls.setAllowance({ person: 'bea' })).toEqual({ ok: true, value: ALLOWANCE })
+    expect(await calls.myBudget()).toEqual({ ok: true, value: undefined })
   })
 
   it('declares a store the section reads through', async () => {
     const { slots } = await bench()
     const handle = entryOf(slots).store as Handle
     expect(handle.create().store.getSnapshot()).toEqual({
-      status: 'idle', account: undefined, allowance: undefined, working: false, outcome: undefined,
+      status: 'idle',
+      account: undefined,
+      allowance: undefined,
+      budget: undefined,
+      working: false,
+      outcome: undefined,
     })
   })
 
@@ -110,6 +129,12 @@ describe('ui-settings-credits apply', () => {
     expect(instance.store.getSnapshot()).toMatchObject({ status: 'ready', account: ACCOUNT })
     instance.actions.fail('unavailable')
     expect(instance.store.getSnapshot().status).toBe('unavailable')
+    // A standing that holds no organization answers nothing, which is not a
+    // failure the read has to report.
+    instance.actions.budgeted(BUDGET)
+    expect(instance.store.getSnapshot().budget).toEqual(BUDGET)
+    instance.actions.budgeted(undefined)
+    expect(instance.store.getSnapshot().budget).toBeUndefined()
     instance.actions.reset()
     expect(instance.store.getSnapshot().status).toBe('idle')
   })

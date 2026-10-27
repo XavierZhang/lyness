@@ -894,6 +894,8 @@ export const TYPE_LINK_EXEMPTIONS: Readonly<Record<string, string>> = {
   ActingContextClaim: 'one call claim about who it is and what it acts as is owned by packages/identity/acting-context/README.md',
   CreditBalance: 'what one person balance is made of is owned by packages/credits/credits/README.md',
   BudgetChange: 'what an administrator submits to set one organization ceiling is owned by packages/credits/credits/README.md',
+  BudgetView: 'one organization ceiling as the surface shows it is owned by packages/api/credits-controller/README.md',
+  BudgetInput: 'what a platform administrator sets as one organization ceiling is owned by packages/api/credits-controller/README.md',
   BudgetState: 'one organization ceiling and what is left of it is owned by packages/credits/credits/README.md',
   OrganizationBudget: 'what one organization bought is owned by packages/credits/credits/README.md',
   CreditSubjectIdentity: 'who one request is charged to is owned by packages/credits/credits/README.md',

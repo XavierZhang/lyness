@@ -6,12 +6,24 @@
  */
 
 import { describe, expect, it, vi } from 'vitest'
-import type { AllowanceView, CreditAccountView } from '@lyness/lyn-api-credits-controller/types'
+import type { AllowanceView, BudgetView, CreditAccountView } from '@lyness/lyn-api-credits-controller/types'
 import { createCreditsOperations } from '../src/client/operations.ts'
 import type { CallOutcome, CreditsCalls, CreditsSink } from '../src/client/operations.ts'
 
 const ACCOUNT: CreditAccountView = {
   person: 'bea', available: 10, granted: 10, spent: 0, grants: [], debits: [], administrable: true,
+}
+
+const BUDGET: BudgetView = {
+  organization: 'acme',
+  periodicAmount: 5000,
+  period: 'monthly',
+  spent: 1000,
+  remaining: 4000,
+  periodStartedAt: '2026-10-01T00:00:00.000Z',
+  nextPeriodAt: '2026-11-01T00:00:00.000Z',
+  periods: ['daily', 'weekly', 'monthly'],
+  settable: false,
 }
 
 const ALLOWANCE: AllowanceView = { person: 'bea', periods: ['daily', 'weekly', 'monthly'] }
@@ -30,6 +42,7 @@ function recorder(): { sink: CreditsSink; seen: string[] } {
       granted: (outcome) => { seen.push(`granted:${outcome.person}:${String(outcome.amount)}`) },
       allowed: (allowance) => { seen.push(`allowed:${allowance.person}`) },
       refused: (reason) => { seen.push(`refused:${reason}`) },
+      budgeted: (budget) => { seen.push(`budgeted:${budget?.organization ?? 'none'}`) },
     },
   }
 }
@@ -40,6 +53,7 @@ function calls(over: Partial<CreditsCalls> = {}): CreditsCalls {
     mine: () => Promise.resolve<CallOutcome<CreditAccountView>>({ ok: true, value: ACCOUNT }),
     grant: () => Promise.resolve<CallOutcome<CreditAccountView>>({ ok: true, value: ACCOUNT }),
     setAllowance: () => Promise.resolve<CallOutcome<AllowanceView>>({ ok: true, value: ALLOWANCE }),
+    myBudget: () => Promise.resolve<CallOutcome<BudgetView | undefined>>({ ok: true, value: BUDGET }),
     ...over,
   }
 }
@@ -48,7 +62,9 @@ describe('the credits read', () => {
   it('publishes the account it read', async () => {
     const { sink, seen } = recorder()
     await createCreditsOperations(calls(), sink).load()
-    expect(seen).toEqual(['begin', 'succeed:bea'])
+    // An administrator's read answers their own organization's ceiling beside
+    // the account, in one read rather than two the section has to sequence.
+    expect(seen).toEqual(['begin', 'succeed:bea', 'budgeted:acme'])
   })
 
   it('shares one in-flight read with every caller', async () => {
@@ -102,7 +118,7 @@ describe('the credits read', () => {
     const { sink, seen } = recorder()
     const operations = createCreditsOperations(calls(), sink)
     await operations.retry()
-    expect(seen).toEqual(['reset', 'begin', 'succeed:bea'])
+    expect(seen).toEqual(['reset', 'begin', 'succeed:bea', 'budgeted:acme'])
   })
 })
 
@@ -164,5 +180,37 @@ describe('the credits changes', () => {
       'work', 'refused:offline', 'work', 'refused:gone',
       'work', 'refused:offline', 'work', 'refused:gone',
     ])
+  })
+})
+
+describe('the organization ceiling beside the account', () => {
+  it('is not asked of a member, whose administrators own those numbers', async () => {
+    const myBudget = vi.fn(() => Promise.resolve<CallOutcome<BudgetView | undefined>>({ ok: true, value: BUDGET }))
+    const { sink, seen } = recorder()
+    await createCreditsOperations(
+      calls({ myBudget, mine: () => Promise.resolve({ ok: true, value: { ...ACCOUNT, administrable: false } }) }),
+      sink,
+    ).load()
+
+    expect(myBudget).not.toHaveBeenCalled()
+    expect(seen).toEqual(['begin', 'succeed:bea'])
+  })
+
+  it('leaves the account on screen when the ceiling could not be read', async () => {
+    const refusedSink = recorder()
+    await createCreditsOperations(
+      calls({ myBudget: () => Promise.resolve({ ok: false, error: { code: 'credits/not-permitted' } }) }),
+      refusedSink.sink,
+    ).load()
+    // The section is for the account; a ceiling that would not read leaves it
+    // without one rather than turning the whole read into a failure.
+    expect(refusedSink.seen).toEqual(['begin', 'succeed:bea', 'budgeted:none'])
+
+    const brokenSink = recorder()
+    await createCreditsOperations(
+      calls({ myBudget: () => Promise.reject(new Error('offline')) }),
+      brokenSink.sink,
+    ).load()
+    expect(brokenSink.seen).toEqual(['begin', 'succeed:bea', 'budgeted:none'])
   })
 })

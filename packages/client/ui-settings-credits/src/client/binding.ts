@@ -9,7 +9,7 @@
  * @module @lyness/lyn-client-ui-settings-credits/client/binding
  */
 
-import type { AllowanceView, CreditAccountView } from '@lyness/lyn-api-credits-controller/types'
+import type { AllowanceView, BudgetView, CreditAccountView } from '@lyness/lyn-api-credits-controller/types'
 import type { CreditsOperations, CreditsSink } from './operations.ts'
 import type { CreditsSectionInjected } from './CreditsSection.tsx'
 
@@ -42,6 +42,12 @@ export class SectionBinding implements CreditsSink {
    * @param account - the calling person's credits.
    */
   succeed(account: CreditAccountView): void { this.actions?.succeed(account) }
+
+  /**
+   * Report what the reader's own organization bought.
+   * @param budget - that ceiling, or undefined when they hold standing in no organization.
+   */
+  budgeted(budget: BudgetView | undefined): void { this.actions?.budgeted(budget) }
 
   /**
    * Report that a read did not return an account.

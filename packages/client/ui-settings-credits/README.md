@@ -51,6 +51,8 @@ Nothing else needs configuring. The section appears in Settings as soon as both 
 
 **A grant to somebody else does not replace the balance on screen.** The call answers with the granted person's account, which is this account only when an administrator granted to themselves; showing it otherwise would put another person's balance under this account's name.
 
+**The organization's ceiling is read beside the account, and only for an administrator.** One read answers both, so the section does not sequence two; it is asked only when the account says this caller administers somebody, because what an organization bought and has spent is its administrators' to see. A ceiling that would not read leaves the account on screen without one rather than turning the whole read into a failure, and the block is read-only whatever the standing: changing a ceiling is the platform's, and this section belongs to the person reading their own credits.
+
 **The forms refuse what the server would refuse.** A blank person and a non-positive amount never leave the browser. Every other rule is the server's, and its refusal is shown with the message the server gave.
 
 -----
@@ -82,6 +84,7 @@ No request prefix changes, because nothing here reaches an assembled request.
 - **An override cannot be removed** — the server replaces a row but never deletes one, so the form cannot offer "back to inherited".
 - **No purchase path** — the ledger knows a `purchase` reason that nothing in this section produces.
 - **The ledger is shown whole** — every grant and debit is rendered, with no paging, so a long-lived account grows the page.
+- **The ceiling is shown, not set** — a platform administrator reads an organization's ceiling here like anybody else and sets it through the Remote call; this section has no form for it, and no way to read another organization's.
 
 **Runtime invariant:** No companion is published. Everything rendered is projected from one Remote answer, so there is no second copy of a balance to disagree with it.
 

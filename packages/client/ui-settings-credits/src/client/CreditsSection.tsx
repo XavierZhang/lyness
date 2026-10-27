@@ -12,7 +12,7 @@ import { Button, Input, SegmentedControl } from '@lyness/lyn-client-ui-primitive
 import type { PropsLocale, PropsRuntime, PropsStore } from '@lyness/lyn-client-ui-slots'
 import type {} from '@lyness/lyn-client-ui-settings/client'
 import type {
-  AllowanceInput, AllowanceOverrideView, CreditAccountView, CreditGrantInput, ResetPeriodView,
+  AllowanceInput, AllowanceOverrideView, BudgetView, CreditAccountView, CreditGrantInput, ResetPeriodView,
 } from '@lyness/lyn-api-credits-controller/types'
 import type { createCreditsSectionStore } from './store.ts'
 import css from './CreditsSection.module.css'
@@ -118,6 +118,41 @@ function Ledger({ account, t }: { account: CreditAccountView; t: Translate }) {
           </ul>
         </section>
       )}
+    </div>
+  )
+}
+
+/**
+ * Render what one organization bought, and what is left of it this period.
+ *
+ * Read-only here whatever the standing: only the platform changes the
+ * ceiling, and this section belongs to the person reading their own credits.
+ * @param props - the ceiling and what to call things.
+ * @returns the block element tree.
+ */
+function Budget({ budget, t }: { budget: BudgetView; t: Translate }) {
+  return (
+    <div className={css.balance}>
+      {budget.periodicAmount === undefined ? <p className={css.notice}>{t('budgetNone')}</p> : (
+        <>
+          <div className={css.figure}>
+            <span className={css.figureValue}>{budget.periodicAmount}</span>
+            <span className={css.figureLabel}>{t('budgetCeiling')}</span>
+          </div>
+          <div className={css.figure}>
+            <span className={css.figureValue}>{budget.spent}</span>
+            <span className={css.figureLabel}>{t('budgetSpent')}</span>
+          </div>
+          <div className={css.figure}>
+            <span className={css.figureValue}>{budget.remaining}</span>
+            <span className={css.figureLabel}>{t('budgetRemaining')}</span>
+          </div>
+          {budget.nextPeriodAt === undefined ? null : (
+            <p className={css.next}>{t('budgetTurns', { at: new Date(budget.nextPeriodAt).toLocaleString() })}</p>
+          )}
+        </>
+      )}
+      <p className={css.next}>{t('budgetPlatformOnly')}</p>
     </div>
   )
 }
@@ -252,6 +287,7 @@ export function CreditsSection({ t, useStore, load, retry, grant, setAllowance }
   const status = useStore(state => state.status)
   const account = useStore(state => state.account)
   const allowance = useStore(state => state.allowance)
+  const budget = useStore(state => state.budget)
   const working = useStore(state => state.working)
   const outcome = useStore(state => state.outcome)
 
@@ -282,6 +318,12 @@ export function CreditsSection({ t, useStore, load, retry, grant, setAllowance }
             <h3 className={css.blockHeading}>{t('ledger')}</h3>
             <Ledger account={account} t={t} />
           </section>
+          {budget === undefined ? null : (
+            <section className={css.block}>
+              <h3 className={css.blockHeading}>{t('budget')}</h3>
+              <Budget budget={budget} t={t} />
+            </section>
+          )}
           {!account.administrable ? null : (
             <section className={css.block}>
               <h3 className={css.blockHeading}>{t('administration')}</h3>
