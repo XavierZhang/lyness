@@ -10,7 +10,17 @@ import type { CreditsActions } from '../src/client/binding.ts'
 import type { CreditsOperations } from '../src/client/operations.ts'
 
 const ACCOUNT: CreditAccountView = {
-  person: 'bea', available: 10, granted: 10, spent: 0, grants: [], debits: [], administrable: true,
+  person: 'bea',
+  available: 10,
+  granted: 10,
+  spent: 0,
+  periodicAmount: 10,
+  period: 'daily',
+  periodStartedAt: '2026-10-16T00:00:00.000Z',
+  spentThisPeriod: 0,
+  grants: [],
+  debits: [],
+  administrable: true,
 }
 
 const ALLOWANCE: AllowanceView = { person: 'bea', periods: ['daily', 'weekly', 'monthly'] }

@@ -38,13 +38,41 @@ export type CreditsSectionProps =
 type Translate = PropsLocale<'settings.credits'>['t']
 
 /**
- * Render the balance as three figures and the next allowance.
+ * The reader's word for one reset period.
+ *
+ * A period reads as a word in a sentence rather than as the wire's own token,
+ * because neither language this ships says "per monthly".
+ * @param period - the period as the wire names it.
+ * @param t - the translator.
+ * @returns the word to put in the limit line.
+ */
+export function periodWord(period: ResetPeriodView, t: Translate): string {
+  if (period === 'daily') return t('limitPeriodDaily')
+  if (period === 'weekly') return t('limitPeriodWeekly')
+  return t('limitPeriodMonthly')
+}
+
+/**
+ * Render what this person's limit is, what the period cost, and the balance
+ * it leaves them.
  * @param props - the account and the active translator.
  * @returns the balance element tree.
  */
 function Balance({ account, t }: { account: CreditAccountView; t: Translate }) {
   return (
     <div className={css.balance}>
+      <div className={css.figure}>
+        <span className={css.figureValue}>
+          {account.periodicAmount === 0
+            ? '—'
+            : t('limitPer', { amount: String(account.periodicAmount), period: periodWord(account.period, t) })}
+        </span>
+        <span className={css.figureLabel}>{t('limit')}</span>
+      </div>
+      <div className={css.figure}>
+        <span className={css.figureValue}>{account.spentThisPeriod}</span>
+        <span className={css.figureLabel}>{t('limitSpent')}</span>
+      </div>
       <div className={css.figure}>
         <span className={css.figureValue}>{account.available}</span>
         <span className={css.figureLabel}>{t('available')}</span>
@@ -57,9 +85,9 @@ function Balance({ account, t }: { account: CreditAccountView; t: Translate }) {
         <span className={css.figureValue}>{account.spent}</span>
         <span className={css.figureLabel}>{t('spent')}</span>
       </div>
-      {account.nextGrantAt === undefined ? null : (
-        <p className={css.next}>{t('nextGrant', { at: new Date(account.nextGrantAt).toLocaleString() })}</p>
-      )}
+      {account.nextGrantAt === undefined
+        ? <p className={css.next}>{t('limitNone')}</p>
+        : <p className={css.next}>{t('limitResets', { at: new Date(account.nextGrantAt).toLocaleString() })}</p>}
     </div>
   )
 }

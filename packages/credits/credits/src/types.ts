@@ -7,6 +7,7 @@
 
 import type { Branded } from '@lyness/lyn-brand'
 import type { PersonId } from '@lyness/lyn-people'
+import type { ResetPeriod } from './period.ts'
 
 /** Opaque identity of one grant. */
 export type GrantId = Branded<'GrantId'>
@@ -87,6 +88,20 @@ export interface CreditBalance {
   readonly granted: number
   /** Everything spent. */
   readonly spent: number
+  /**
+   * Credits this person receives each period, with every override applied.
+   *
+   * What an administrator decided for them, not what they have left: the two
+   * answer different questions, and a surface that showed only the balance
+   * leaves a person unable to tell a quiet day from a lowered allowance.
+   */
+  readonly periodicAmount: number
+  /** How long one period is. */
+  readonly period: ResetPeriod
+  /** When the current period began, as a UTC instant. */
+  readonly periodStartedAt: string
+  /** What this person has spent since the current period began. */
+  readonly spentThisPeriod: number
   /** When the next periodic grant is due, as a UTC instant. */
   readonly nextGrantAt?: string | undefined
 }

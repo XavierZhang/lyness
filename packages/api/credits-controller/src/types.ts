@@ -76,7 +76,21 @@ export interface CreditAccountView {
   readonly granted: number
   /** Everything spent. */
   readonly spent: number
-  /** When the next periodic grant is due, as a UTC instant. */
+  /**
+   * Credits this person receives each period, with every override applied.
+   *
+   * Sent to every reader, including one who administers nobody: a person
+   * cannot tell a quiet day from a lowered allowance without it, and their
+   * own limit is the one number they are always entitled to.
+   */
+  readonly periodicAmount: number
+  /** How long one period is. */
+  readonly period: ResetPeriodView
+  /** When the current period began, as a UTC instant. */
+  readonly periodStartedAt: string
+  /** What they have spent since the current period began. */
+  readonly spentThisPeriod: number
+  /** When the next periodic grant is due, as a UTC instant; absent when they receive none. */
   readonly nextGrantAt?: string
   /** Grants recorded for them, newest first. */
   readonly grants: readonly CreditGrantView[]

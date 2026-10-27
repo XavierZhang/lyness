@@ -288,12 +288,24 @@ export class StoredCreditLedger extends CreditLedger {
     const granted = grantsOf(domain, person)
       .filter(grant => grant.expiresAt === undefined || Date.parse(grant.expiresAt) > instant)
       .reduce((total, grant) => total + grant.amount, 0)
-    const spent = debitsOf(domain, person).reduce((total, debit) => total + debit.amount, 0)
+    const debits = debitsOf(domain, person)
+    const spent = debits.reduce((total, debit) => total + debit.amount, 0)
+    // What this period cost, beside what the account has cost in all: a person
+    // asking whether they are near their limit is asking the first.
+    const started = periodStart(now, allowance.period, this.policy.offsetHours)
+    const since = started.getTime()
+    const spentThisPeriod = debits
+      .filter(debit => Date.parse(debit.at) >= since)
+      .reduce((total, debit) => total + debit.amount, 0)
     return {
       person,
       available: Math.max(0, granted - spent),
       granted,
       spent,
+      periodicAmount: allowance.periodicAmount,
+      period: allowance.period,
+      periodStartedAt: started.toISOString(),
+      spentThisPeriod,
       ...allowance.periodicAmount === 0 ? {} : {
         nextGrantAt: nextPeriodStart(now, allowance.period, this.policy.offsetHours).toISOString(),
       },

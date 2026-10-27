@@ -6088,11 +6088,11 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   },
   {
     name: 'CreditAccountView',
-    declaration: 'export interface CreditAccountView {\n    readonly person: string;\n    readonly available: number;\n    readonly granted: number;\n    readonly spent: number;\n    readonly nextGrantAt?: string;\n    readonly grants: readonly CreditGrantView[];\n    readonly debits: readonly CreditDebitView[];\n    readonly administrable: boolean;\n}',
+    declaration: 'export interface CreditAccountView {\n    readonly person: string;\n    readonly available: number;\n    readonly granted: number;\n    readonly spent: number;\n    readonly periodicAmount: number;\n    readonly period: ResetPeriodView;\n    readonly periodStartedAt: string;\n    readonly spentThisPeriod: number;\n    readonly nextGrantAt?: string;\n    readonly grants: readonly CreditGrantView[];\n    readonly debits: readonly CreditDebitView[];\n    readonly administrable: boolean;\n}',
   },
   {
     name: 'CreditBalance',
-    declaration: 'export interface CreditBalance {\n    readonly person: PersonId;\n    readonly available: number;\n    readonly granted: number;\n    readonly spent: number;\n    readonly nextGrantAt?: string | undefined;\n}',
+    declaration: 'export interface CreditBalance {\n    readonly person: PersonId;\n    readonly available: number;\n    readonly granted: number;\n    readonly spent: number;\n    readonly periodicAmount: number;\n    readonly period: ResetPeriod;\n    readonly periodStartedAt: string;\n    readonly spentThisPeriod: number;\n    readonly nextGrantAt?: string | undefined;\n}',
   },
   {
     name: 'CreditDebit',

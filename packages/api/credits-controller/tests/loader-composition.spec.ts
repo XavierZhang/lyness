@@ -312,3 +312,46 @@ it('answers nothing to a standing that holds no organization', async () => {
   // read; it names the organization it wants instead.
   expect(await controller.myBudget()).toBeUndefined()
 })
+
+it('tells every reader their own limit, when it resets, and what this period cost', async () => {
+  const controller = await compose()
+  as(BEA, 'bea:member')
+
+  const account = await controller.mine()
+
+  // A member administers nobody and is still entitled to their own limit:
+  // without it they cannot tell a quiet day from a lowered allowance.
+  expect(account).toMatchObject({
+    person: 'bea',
+    administrable: false,
+    periodicAmount: 100,
+    period: 'daily',
+    spentThisPeriod: 0,
+  })
+  expect(Date.parse(account.periodStartedAt)).toBeLessThanOrEqual(Date.now())
+  expect(Date.parse(account.nextGrantAt ?? '')).toBeGreaterThan(Date.now())
+})
+
+it('tells an administrator acting as themselves the same numbers', async () => {
+  const controller = await compose()
+  as(DEE, 'dee:platform-administrator')
+
+  // A platform standing reading its own account is reading a person's
+  // account, so it answers the same way a member's does.
+  expect(await controller.mine()).toMatchObject({
+    person: 'dee', periodicAmount: 100, period: 'daily', spentThisPeriod: 0,
+  })
+})
+
+it('counts a lowered allowance against this period rather than the whole account', async () => {
+  const controller = await compose()
+  as(ADA, 'ada:tenant-administrator')
+  await controller.setAllowance({ person: 'bea', periodicAmount: 40 })
+
+  as(BEA, 'bea:member')
+  const account = await controller.mine()
+
+  // The limit a surface shows is the one in force for this person, overrides
+  // applied, not the deployment's own number.
+  expect(account.periodicAmount).toBe(40)
+})

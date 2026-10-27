@@ -21,6 +21,10 @@ const ACCOUNT: CreditAccountView = {
   available: 180,
   granted: 300,
   spent: 120,
+  periodicAmount: 100,
+  period: 'daily',
+  periodStartedAt: '2026-10-16T00:00:00.000Z',
+  spentThisPeriod: 120,
   nextGrantAt: '2026-10-17T00:00:00.000Z',
   grants: [
     { id: 'g1', amount: 100, grantedAt: '2026-10-15T08:00:00.000Z', reason: 'periodic' },
@@ -112,13 +116,35 @@ describe('CreditsSection', () => {
     expect(load).toHaveBeenCalledTimes(1)
   })
 
-  it('shows the three figures and when the next allowance arrives', () => {
+  it('shows the limit, what the period cost, the balance, and when it resets', () => {
     renderSection(ready(ACCOUNT))
+    // A member administers nobody and still reads their own limit: without it
+    // a quiet day and a lowered allowance look the same.
+    expect(screen.getByText('每天 100')).toBeDefined()
+    expect(screen.getByText(zh.limit)).toBeDefined()
+    expect(screen.getByText(zh.limitSpent)).toBeDefined()
     expect(screen.getByText('180')).toBeDefined()
     expect(screen.getByText('300')).toBeDefined()
-    expect(screen.getByText('120')).toBeDefined()
+    expect(screen.getAllByText('120')).toHaveLength(2)
     expect(screen.getByText(zh.available)).toBeDefined()
-    expect(screen.getByText(/下次额度/u)).toBeDefined()
+    expect(screen.getByText(/重置/u)).toBeDefined()
+  })
+
+  it('says so when no recurring credits are set for this person', () => {
+    const { nextGrantAt: _none, ...unmetered } = ACCOUNT
+    renderSection(ready({ ...unmetered, periodicAmount: 0, spentThisPeriod: 0 }))
+
+    expect(screen.getByText('—')).toBeDefined()
+    expect(screen.getByText(zh.limitNone)).toBeDefined()
+  })
+
+  it('names a weekly and a monthly period as words rather than as wire tokens', () => {
+    renderSection(ready({ ...ACCOUNT, period: 'weekly' }))
+    expect(screen.getByText('每周 100')).toBeDefined()
+    cleanup()
+
+    renderSection(ready({ ...ACCOUNT, period: 'monthly' }))
+    expect(screen.getByText('每月 100')).toBeDefined()
   })
 
   it('names each grant by why it was granted, and each debit by its session', () => {
