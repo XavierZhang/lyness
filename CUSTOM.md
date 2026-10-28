@@ -138,7 +138,8 @@ codemod 只改文本和路径。下面这些是它改完之后必然过期、必
 | 内置字标字体 | `packages/host/brand-fonts` | Inter SemiBold + Noto Sans CJK SC Medium（均 OFL-1.1，原样随附），覆盖拉丁／希腊／西里尔／中日韩；**只用于品牌字标**，不下发浏览器。声明走 `third-party-assets.json`（校验和 + 许可证 + 未登记字体文件即报错） |
 | 品牌引导命令 | `packages/bundle/brand-studio` | `lyn --profile brand-studio`：图标 PNG + 字体文件 → 三个 SVG，写入目标 profile（默认 `web`）补丁层的 `brand-deployment` 行。仅参数、仅上传路径；品牌方自带字体，须 `--accept-trademark` 与 `--accept-font-license` 确认（SaaS 只用平台内置字体，见 `.fork/BRAND-CONFIG.md` 字体一节）。[决策](.agents/notes/implemented/architecture/2026-09-15-brand-studio-profile.md) |
 | Web UI 品牌 | `packages/client/ui-brand-lyness` | 所有构建中填三个品牌 slot（lyness 图标 + inter-600 字标），页面带部署品牌时逐项让位。[决策](.agents/notes/implemented/architecture/2026-09-15-lyness-brand-in-the-web-client.md) |
-| 可重放的品牌改名 | `scripts/rebrand.ts` | 22 条有序规则（含 Python 包名规则 `python-package`、删除型规则 `shields-logo`，`--reverse` 跳过它）+ 保护路径 + 后置断言 + `--check`。**每次 sync upstream 后必须重跑**，否则上游带回的旧名会残留。设计见 [Agent Note](.agents/notes/implemented/process/2026-08-31-lyness-rebrand-codemod.md) |
+| 可重放的品牌改名 | `scripts/rebrand.ts` | 41 条有序规则（含 Python 包名规则 `python-package`、删除型规则 `shields-logo`，`--reverse` 跳过它）+ 保护路径 + 后置断言 + `--check`。**每次 sync upstream 后必须重跑**，否则上游带回的旧名会残留。设计见 [Agent Note](.agents/notes/implemented/process/2026-08-31-lyness-rebrand-codemod.md) |
+| 改名的往返门禁 | `scripts/rebrand-round-trip.spec.ts` | 钉住 `forward(backward(x)) === x`（文本与路径），确认反向不留哨兵、不产生带空格的路径（扫描全部受跟踪路径）。整条同步流程立足于这条性质，而它此前不成立——详见「反向改名的还原能力」一节 |
 | 可配置的 e2e 目标 | `packages/test-support/e2e-target` | `@lyness/lyn-e2e-target`：从产品同样读取的 `DEEPSEEK_BASE_URL`／`DEEPSEEK_MODELS` 解析 e2e 调用的平台与模型，未设置即官方；`official` 标志让官方独有功能的测试在别处跳过。[决策](.agents/notes/implemented/testing/2026-09-22-configurable-e2e-platform.md) |
 | fork 自己的 CI | `.github/workflows/fork-ci.yml` | push 到 `custom/main`（或手动触发）时在 GitHub 托管 runner 上照搬上游 `ci.yml` 的有用任务：static、Linux 覆盖率、benchmarks、snapshots and artifacts、Node 22.19/24.9/26 兼容、Python keyless SDK，以及 Windows 的 build／coverage／native tests／observational（observational 不阻断）。上游这些任务只在 PR 上、只在上游企业 runner 上跑，本 fork 两者都没有——Dependabot PR 的覆盖率任务曾空等 24 小时。并发参数按托管 4 核调小。`python-runtime` 需要 `DEEPSEEK_API_KEY_EXTERNAL` 密钥，只在仓库变量 `LYNESS_FORK_REAL_API` 为 `true` 时运行。真实 API 的 e2e 同样在 `LYNESS_FORK_REAL_API` 为 `true` 时运行，平台由仓库变量 `DEEPSEEK_BASE_URL`／`DEEPSEEK_MODELS` 决定；`python-runtime` 因上游文件钉死官方端点，只在未设置 `DEEPSEEK_BASE_URL` 时运行。未照搬：发布、上游 PR 治理、文档部署。Windows 分钟数按 Linux 的 2 倍计费。`fork-` 前缀让它永不与上游合并冲突 |
 | 二开任务清单 | `.fork/TASKS.md` | 需求拆解、7 处冲突裁决与分阶段计划 |
@@ -166,9 +167,12 @@ codemod 只改文本和路径。下面这些是它改完之后必然过期、必
 
 - **一个稳定标识符 → 屏蔽规则。** `dsh-session-title-llm` 是 `RESERVED_SOURCE_KINDS` 里的冻结
   改名目标，散在 23 个文件（含 15 个活的源码/测试）。对这些文件整体豁免 `dsh-token`，下次同步
-  它们新增的 `dsh` 会被静默跳过——正是要消灭的失效模式。改用 `released-title-producer-shield`，
+  它们新增的 `dsh` 会被静默跳过——正是要消灭的失效模式。改用 `released-title-producer-shield-*`，
   排在作用域规则**之后**、`dsh-token` 之前：那时 `@deepseek-ai/dsh-session-title-llm` 这个同名
-  包已改成 `@lyness/lyn-session-title-llm`，剩下的裸出现才是冻结标识。护的是名字，不是文件。
+  包已改成 `@lyness/lyn-session-title-llm`。护的是名字，不是文件。2026-10-28 进一步收窄为
+  **带引号**的两种写法（`'…'` 与 `"…"`）：冻结标识进入持久化数据时总是字符串字面量或 JSON
+  串值，而包名出现在作用域形式或文档代码跨距里；原先的裸写法把包名在自己 README 里的出现也
+  一起护住了，10 个文件的散文因此改不动。
 - **拼写无界 → `PROTECTED` 路径豁免。** office 引擎的寻址有 `@deepseek-ai/libreoffice-kit`、
   `'@deepseek-ai', 'libreoffice-kit'`、`@deepseek-ai\/libreoffice-kit-(?:darwin|win32|linux)`、
   `f"{office_modules}/@deepseek-ai"` 至少四种写法，按拼写补规则永远收敛不了（上一轮反复六轮的
@@ -179,6 +183,29 @@ codemod 只改文本和路径。下面这些是它改完之后必然过期、必
 验证方式不是「不报错」，而是在上游树（`477b4f4205`）跑一次 `--apply`：21 处包名照改、裸冻结标识
 保留、102 处 `dsh_session_log` 与 191 处 `@deepseek-ai/libreoffice-kit` 未动。现在 `--check` 报
 `post-state verified — no residue`，报出来就是真漏改。
+
+## 反向改名的还原能力（2026-10-28 修复）
+
+同步的流程是「反向改名 → 合并上游 → 正向改名」，所以 `forward(backward(x)) === x` 是整条流程
+的立足点，而它此前不成立。正向把 `DeepSeek Harness`、`deepseek-harness`、`deepseek_harness`
+三种写法都归到同一个分叉名，反向读 `to` 因此有歧义：排在最前的规则吃掉全部 `lyness`，其余
+一无所获。`ui-brand-lyness` 被还原成带空格的 `ui-brand-DeepSeek Harness`——这类路径对不上它
+来自的上游文件，同步时上游改动会被当作无关新增而静默丢弃。实测污染 501 个文件、8008 处文本、
+27 条路径（含 `python/sdk/src/`、`ui-brand-*` 两个整包目录）。
+
+哨兵对是同一个病的另一形态：shield 与 restore 合起来让被保护的名字原样不动，这对规则在反向
+本就无事可做；按正向顺序反向迭代时，restore 的逆会把哨兵盖到每一处残留的分叉 token 上，
+`lyn_home` 因此退化成 `dsh_home`。
+
+修法三项：碰撞规则各自声明带分隔符的反向拼写（`lyness-`／`-lyness`／`lyness_`／`src/lyness`）
+并排在规范规则之前；哨兵对在反向整体跳过；两个过度匹配的哨兵改为逐个点名。门禁是新增的
+[`scripts/rebrand-round-trip.spec.ts`](scripts/rebrand-round-trip.spec.ts)，它只写分叉侧字面量、
+上游侧由规则推导——直接写上游字面量的测试会被正向改名改成分叉名，两边读起来一样，测试就自我
+失效了。它还扫描全部受跟踪路径，确认反向不产生任何带空格的路径。
+
+全树实测残差从 88 个文件降到 3 个：`docs/persistence-catalog.{md,zh.md,i18n.yaml}`。它们是持久化
+目录的生成产物——第 1 列渲染裸标识符、第 4 列渲染带引号形式，收窄后的哨兵只护后者——由改名后
+清单里的重新生成负责，不属于分叉内容。
 
 ## 已知残留（codemod 未覆盖，非本次合并引入）
 
