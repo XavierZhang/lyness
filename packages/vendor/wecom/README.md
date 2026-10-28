@@ -3,13 +3,13 @@ description: "WeCom as a sign-in channel: a corporation signs in whichever of it
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-wecom
+# @lyness/lyn-wecom
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`dsh-wecom` offers WeCom as a redirect sign-in channel. It sends the browser to the corporation's own scan-code page, reads the member the corporation reports on the way back, and hands that identity to the deployment's admission rule — which decides who, if anyone, that member is allowed to be. It holds nothing: no tokens, no directory copy, no session of its own. The application secret is named as a credential reference rather than written into composition, so a cordis.yml never carries the one value that signs in a whole corporation.
+`lyn-wecom` offers WeCom as a redirect sign-in channel. It sends the browser to the corporation's own scan-code page, reads the member the corporation reports on the way back, and hands that identity to the deployment's admission rule — which decides who, if anyone, that member is allowed to be. It holds nothing: no tokens, no directory copy, no session of its own. The application secret is named as a credential reference rather than written into composition, so a cordis.yml never carries the one value that signs in a whole corporation.
 
 ## Table of Contents
 
@@ -29,13 +29,13 @@ Beside the sign-in registry and a credential store, with a binding for each memb
 
 ```yaml
 - id: wecom
-  name: '@deepseek-ai/dsh-wecom'
+  name: '@lyness/lyn-wecom'
   config:
     corpId: ww-your-corporation
     agentId: '1000002'
     secret: WECOM_APP_SECRET
 - id: sign-in-admission
-  name: '@deepseek-ai/dsh-sign-in/admission-roster'
+  name: '@lyness/lyn-sign-in/admission-roster'
   config:
     bindings:
       - channel: wecom
@@ -68,10 +68,10 @@ Reading a member's name and work address is off by default. A deployment whose a
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`dsh-sign-in`](../../identity/sign-in/README.md) — the channel seam and the admission rule.
-- [`dsh-sign-in-http`](../../identity/sign-in-http/README.md) — the routes that send the browser out and take the callback.
-- [`dsh-microsoft-entra`](../microsoft-entra/README.md) — the other redirect channel, whose flow this one follows.
-- [`dsh-credentials`](../../credentials/credentials/README.md) — where the application secret lives.
+- [`lyn-sign-in`](../../identity/sign-in/README.md) — the channel seam and the admission rule.
+- [`lyn-sign-in-http`](../../identity/sign-in-http/README.md) — the routes that send the browser out and take the callback.
+- [`lyn-microsoft-entra`](../microsoft-entra/README.md) — the other redirect channel, whose flow this one follows.
+- [`lyn-credentials`](../../credentials/credentials/README.md) — where the application secret lives.
 
 -----
 

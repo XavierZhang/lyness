@@ -31,16 +31,16 @@
  */
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import type { CSSProperties, ReactNode, RefObject } from 'react'
-import type { ShortcutCatalogEntry } from '@deepseek-ai/dsh-client-shortcuts/client'
-import { IconPanelLeftOutlineRegular, Tooltip } from '@deepseek-ai/dsh-client-ui-primitives'
+import type { ShortcutCatalogEntry } from '@lyness/lyn-client-shortcuts/client'
+import { IconPanelLeftOutlineRegular, Tooltip } from '@lyness/lyn-client-ui-primitives'
 import type {
   HostObservable, InjectFace, PropsLocale, PropsRenderSlots, PropsRuntime, PropsStore,
-} from '@deepseek-ai/dsh-client-ui-slots'
+} from '@lyness/lyn-client-ui-slots'
 import type {} from '../contract/slots.ts'
-import type { DockIntents, DockMode, FloatRect, TabId, TabRecord, TabRenderer } from '@deepseek-ai/dsh-client-ui-dockkit'
-import { canSplit, dockPaneIds, DockLayout, findPaneContentTab } from '@deepseek-ai/dsh-client-ui-dockkit'
-import type { HalvesFit, LayoutState, PaneId } from '@deepseek-ai/dsh-client-ui-dockkit'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import type { DockIntents, DockMode, FloatRect, TabId, TabRecord, TabRenderer } from '@lyness/lyn-client-ui-dockkit'
+import { canSplit, dockPaneIds, DockLayout, findPaneContentTab } from '@lyness/lyn-client-ui-dockkit'
+import type { HalvesFit, LayoutState, PaneId } from '@lyness/lyn-client-ui-dockkit'
+import type { SessionId } from '@lyness/lyn-session/types'
 import { GUIDE_KIND, pageAddress } from '../contract/seed.ts'
 import { dockLabels } from '../labels.ts'
 import type { SidebarRightOpenTabOptions } from '../service.ts'
@@ -321,7 +321,7 @@ function SidebarPanel(panel: PanelProps & { width: number; panelRef: RefObject<H
       ref={panelRef}
       className={css.panel}
       style={{ width: fullscreen ? '100vw' : width,
-        '--dsh-sidebar-width': fullscreen ? '100vw' : `${width}px` } as CSSProperties}
+        '--lyn-sidebar-width': fullscreen ? '100vw' : `${width}px` } as CSSProperties}
       data-sidebar-right-session={sessionId}
       data-sidebar-right-panel={fullscreen ? 'fullscreen' : 'push'}
       data-sidebar-right-open={expanded || undefined}

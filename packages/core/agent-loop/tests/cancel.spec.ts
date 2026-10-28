@@ -4,21 +4,21 @@
  * later wake after the active turn reaches quiescence. The suite
  * covers every landing window plus signal reset, `whenIdle()` quiescence, and
  * the cause each cancelled turn records.
- * @module dsh-agent-loop/tests/cancel
+ * @module lyn-agent-loop/tests/cancel
  */
-import * as NativeToolExecutor from '@deepseek-ai/dsh-tool-executor-native'
-import { ToolCallId, createUserMessage, expandAssistantStream } from '@deepseek-ai/dsh-llm'
+import * as NativeToolExecutor from '@lyness/lyn-tool-executor-native'
+import { ToolCallId, createUserMessage, expandAssistantStream } from '@lyness/lyn-llm'
 
 import { describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import LlmRuntime from '@deepseek-ai/dsh-llm'
-import SessionStore, { Session, SessionId, SessionLogOffset, TurnEndReason } from '@deepseek-ai/dsh-session'
-import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
-import ToolRuntime, { TOOL_ABORTED_BEFORE_DISPATCH } from '@deepseek-ai/dsh-tools'
-import { defineContentToolFixture } from '@deepseek-ai/dsh-tool-testkit'
-import AgentRegistry, { type Agent, type AgentCancelCause } from '@deepseek-ai/dsh-agent'
-import AgentLoop from '@deepseek-ai/dsh-agent-loop'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
+import { Context } from '@lyness/cordis'
+import LlmRuntime from '@lyness/lyn-llm'
+import SessionStore, { Session, SessionId, SessionLogOffset, TurnEndReason } from '@lyness/lyn-session'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime, { TOOL_ABORTED_BEFORE_DISPATCH } from '@lyness/lyn-tools'
+import { defineContentToolFixture } from '@lyness/lyn-tool-testkit'
+import AgentRegistry, { type Agent, type AgentCancelCause } from '@lyness/lyn-agent'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 import { MockAdapter, textResponse, toolCallResponse } from './mock-adapter.ts'
 
 function driverDone(agent: Agent): Promise<void> {
@@ -698,7 +698,7 @@ describe('Agent.cancel()', () => {
     const ctx = await harness(adapter)
     const agent = await ctx.agentLoop.create(SessionId('recovery-cancel'), { provider: 'mock', model: 'mock' })
     // Cancellation lands while agent/request-error is in flight — the window
-    // dsh-llm-retry opens when its backoff waits after appending llm/retry.
+    // lyn-llm-retry opens when its backoff waits after appending llm/retry.
     ctx.on('agent/request-error', async ({ agent: subject }) => {
       if (subject === agent) subject.cancel({ kind: 'user' })
     })

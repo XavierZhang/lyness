@@ -1,52 +1,52 @@
 .section {
   display: flex;
   flex-direction: column;
-  gap: var(--dsh-space-5);
+  gap: var(--lyn-space-5);
 }
 
 .header {
   display: flex;
   flex-direction: column;
-  gap: var(--dsh-space-1);
+  gap: var(--lyn-space-1);
 }
 
 .title {
   margin: 0;
-  font-size: var(--dsh-font-size-lg);
-  font-weight: var(--dsh-font-weight-medium);
+  font-size: var(--lyn-font-size-lg);
+  font-weight: var(--lyn-font-weight-medium);
 }
 
 .intro {
   margin: 0;
-  color: var(--dsh-color-text-secondary);
-  font-size: var(--dsh-font-size-sm);
+  color: var(--lyn-color-text-secondary);
+  font-size: var(--lyn-font-size-sm);
 }
 
 .notice {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--dsh-space-2);
+  gap: var(--lyn-space-2);
   margin: 0;
-  color: var(--dsh-color-text-secondary);
+  color: var(--lyn-color-text-secondary);
 }
 
 .block {
   display: flex;
   flex-direction: column;
-  gap: var(--dsh-space-3);
+  gap: var(--lyn-space-3);
 }
 
 .blockHeading {
   margin: 0;
-  font-size: var(--dsh-font-size-md);
-  font-weight: var(--dsh-font-weight-medium);
+  font-size: var(--lyn-font-size-md);
+  font-weight: var(--lyn-font-weight-medium);
 }
 
 .rows {
   display: flex;
   flex-direction: column;
-  gap: var(--dsh-space-3);
+  gap: var(--lyn-space-3);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -55,152 +55,152 @@
 .row {
   display: flex;
   flex-direction: column;
-  gap: var(--dsh-space-2);
-  padding: var(--dsh-space-4);
-  border: 1px solid var(--dsh-color-border-subtle);
-  border-radius: var(--dsh-radius-md);
+  gap: var(--lyn-space-2);
+  padding: var(--lyn-space-4);
+  border: 1px solid var(--lyn-color-border-subtle);
+  border-radius: var(--lyn-radius-md);
 }
 
 .rowMain {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--dsh-space-2);
+  gap: var(--lyn-space-2);
 }
 
 .rowName {
-  font-size: var(--dsh-font-size-md);
-  font-weight: var(--dsh-font-weight-medium);
+  font-size: var(--lyn-font-size-md);
+  font-weight: var(--lyn-font-weight-medium);
 }
 
 .rowFacts {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--dsh-space-3);
-  color: var(--dsh-color-text-secondary);
-  font-size: var(--dsh-font-size-sm);
+  gap: var(--lyn-space-3);
+  color: var(--lyn-color-text-secondary);
+  font-size: var(--lyn-font-size-sm);
 }
 
 .rowKind {
-  font-weight: var(--dsh-font-weight-medium);
+  font-weight: var(--lyn-font-weight-medium);
 }
 
 .rowScope {
-  color: var(--dsh-color-text-tertiary);
+  color: var(--lyn-color-text-tertiary);
 }
 
 .rowWhen {
-  color: var(--dsh-color-text-tertiary);
+  color: var(--lyn-color-text-tertiary);
 }
 
 .rowHint {
   margin: 0;
-  color: var(--dsh-color-text-tertiary);
-  font-size: var(--dsh-font-size-xs);
+  color: var(--lyn-color-text-tertiary);
+  font-size: var(--lyn-font-size-xs);
 }
 
 .rowId {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  gap: var(--dsh-space-2);
+  gap: var(--lyn-space-2);
   margin: 0;
-  color: var(--dsh-color-text-tertiary);
-  font-size: var(--dsh-font-size-xs);
+  color: var(--lyn-color-text-tertiary);
+  font-size: var(--lyn-font-size-xs);
 }
 
 .rowIdValue {
-  color: var(--dsh-color-text-secondary);
-  font-family: var(--dsh-font-family-mono);
+  color: var(--lyn-color-text-secondary);
+  font-family: var(--lyn-font-family-mono);
 }
 
 .rowActions {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--dsh-space-2);
+  gap: var(--lyn-space-2);
 }
 
 .form {
   display: flex;
   max-width: 32rem;
   flex-direction: column;
-  gap: var(--dsh-space-3);
-  padding: var(--dsh-space-4);
-  border: 1px solid var(--dsh-color-border-subtle);
-  border-radius: var(--dsh-radius-md);
+  gap: var(--lyn-space-3);
+  padding: var(--lyn-space-4);
+  border: 1px solid var(--lyn-color-border-subtle);
+  border-radius: var(--lyn-radius-md);
 }
 
 .formHeading {
   margin: 0;
-  font-size: var(--dsh-font-size-sm);
-  font-weight: var(--dsh-font-weight-medium);
+  font-size: var(--lyn-font-size-sm);
+  font-weight: var(--lyn-font-weight-medium);
 }
 
 .editingKind {
   display: flex;
   align-items: center;
-  gap: var(--dsh-space-2);
+  gap: var(--lyn-space-2);
   margin: 0;
 }
 
 .field {
   display: flex;
   flex-direction: column;
-  gap: var(--dsh-space-1);
+  gap: var(--lyn-space-1);
 }
 
 .fieldMarked {
   display: flex;
   flex-direction: column;
-  gap: var(--dsh-space-1);
-  padding-left: var(--dsh-space-2);
-  border-left: 2px solid var(--dsh-color-danger);
+  gap: var(--lyn-space-1);
+  padding-left: var(--lyn-space-2);
+  border-left: 2px solid var(--lyn-color-danger);
 }
 
 .fieldLabel {
-  font-size: var(--dsh-font-size-sm);
+  font-size: var(--lyn-font-size-sm);
 }
 
 .fieldHint {
-  color: var(--dsh-color-text-tertiary);
-  font-size: var(--dsh-font-size-xs);
+  color: var(--lyn-color-text-tertiary);
+  font-size: var(--lyn-font-size-xs);
 }
 
 .done {
   margin: 0;
-  color: var(--dsh-color-text-secondary);
-  font-size: var(--dsh-font-size-sm);
+  color: var(--lyn-color-text-secondary);
+  font-size: var(--lyn-font-size-sm);
 }
 
 .refused {
   margin: 0;
-  color: var(--dsh-color-danger);
-  font-size: var(--dsh-font-size-sm);
+  color: var(--lyn-color-danger);
+  font-size: var(--lyn-font-size-sm);
 }
 
 .persona {
   min-height: 6rem;
-  padding: var(--dsh-space-2);
-  border: 1px solid var(--dsh-color-border-subtle);
-  border-radius: var(--dsh-radius-sm);
-  background: var(--dsh-color-surface);
+  padding: var(--lyn-space-2);
+  border: 1px solid var(--lyn-color-border-subtle);
+  border-radius: var(--lyn-radius-sm);
+  background: var(--lyn-color-surface);
   color: inherit;
   font-family: inherit;
-  font-size: var(--dsh-font-size-sm);
-  line-height: var(--dsh-line-height-normal);
+  font-size: var(--lyn-font-size-sm);
+  line-height: var(--lyn-line-height-normal);
   resize: vertical;
 }
 
 .rowJob {
   margin: 0;
-  color: var(--dsh-color-text-secondary);
-  font-size: var(--dsh-font-size-sm);
+  color: var(--lyn-color-text-secondary);
+  font-size: var(--lyn-font-size-sm);
 }
 
 .members {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--dsh-space-3);
+  gap: var(--lyn-space-3);
   margin: 0;
   padding: 0;
   list-style: none;

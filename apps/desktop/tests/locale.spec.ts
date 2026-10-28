@@ -37,8 +37,8 @@ describe('desktop locale dictionaries', () => {
   it('fills the product names the build carries, and only those', () => {
     const built = resolveDesktopLocale('en').messages
     expect(en.startupAddressInUse).toContain('{brandAbbr}')
-    expect(built.startupAddressInUse).toContain('Another DSH instance')
-    expect(built.startupFailed).toBe('DeepSeek Harness is unavailable')
+    expect(built.startupAddressInUse).toContain('Another LYN instance')
+    expect(built.startupFailed).toBe('lyness is unavailable')
 
     const acme = resolveDesktopLocale('en', { brandName: 'Acme Agent', brandAbbr: 'ACME', brandNameZh: '艾可' }).messages
     expect(acme.startupFailed).toBe('Acme Agent is unavailable')

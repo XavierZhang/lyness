@@ -11,14 +11,14 @@
  * which a startup audit reports. The alternative — enforcement that quietly
  * meters nothing — is a metering system that silently bills no one.
  *
- * @module @deepseek-ai/dsh-credits/subject
+ * @module @lyness/lyn-credits/subject
  */
 
-import { Service } from '@deepseek-ai/cordis'
-import type { Context } from '@deepseek-ai/cordis'
-import type { PersonId } from '@deepseek-ai/dsh-people'
+import { Service } from '@lyness/cordis'
+import type { Context } from '@lyness/cordis'
+import type { PersonId } from '@lyness/lyn-people'
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Context {
     /** Whose credits the request being served spends; absent on a deployment that meters none. */
     creditSubject: CreditSubject

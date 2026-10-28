@@ -5,48 +5,48 @@
 /:
   en: 89c9b992aff39650
   zh: 94d371a24dedeec1
-/deepseek-harness-dsh-session-format-catalog:
+/lyness-lyn-session-format-catalog:
   en: 9cb476bdea2a4d77
   zh: 961e08795a87d293
-/deepseek-harness-dsh-session-format-catalog/summary:
+/lyness-lyn-session-format-catalog/summary:
   en: 53366706d4695bb8
   zh: c3263581af0592f8
-/deepseek-harness-dsh-session-format-catalog/table-of-contents:
+/lyness-lyn-session-format-catalog/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/deepseek-harness-dsh-session-format-catalog/use-this-package:
+/lyness-lyn-session-format-catalog/use-this-package:
   en: bbff250eba0f1b89
   zh: 0a618f05cc88ee2b
-/deepseek-harness-dsh-session-format-catalog/use-this-package/when-to-use-it:
+/lyness-lyn-session-format-catalog/use-this-package/when-to-use-it:
   en: 705e341a9189d58f
   zh: 849007446a7b8a46
-/deepseek-harness-dsh-session-format-catalog/use-this-package/entry-point:
+/lyness-lyn-session-format-catalog/use-this-package/entry-point:
   en: a459270b5116deac
   zh: 0a3cce30834e9d41
-/deepseek-harness-dsh-session-format-catalog/understand-the-implementation:
+/lyness-lyn-session-format-catalog/understand-the-implementation:
   en: cac81936d7b06de4
   zh: 6ec5b5af0c115464
-/deepseek-harness-dsh-session-format-catalog/further-exploration:
+/lyness-lyn-session-format-catalog/further-exploration:
   en: 0ec587d8afdf255c
   zh: a76d355c512eee17
-/deepseek-harness-dsh-session-format-catalog/model-experience:
+/lyness-lyn-session-format-catalog/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/deepseek-harness-dsh-session-format-catalog/model-experience/catalog-dispatch:
+/lyness-lyn-session-format-catalog/model-experience/catalog-dispatch:
   en: 370b9bf19d575dbd
   zh: e08724fcf4189634
-/deepseek-harness-dsh-session-format-catalog/model-experience/catalog-dispatch/what-the-model-sees:
+/lyness-lyn-session-format-catalog/model-experience/catalog-dispatch/what-the-model-sees:
   en: 53fa22f9082ca037
   zh: 81c5ebd439d9afdf
-/deepseek-harness-dsh-session-format-catalog/model-experience/catalog-dispatch/token-effect:
+/lyness-lyn-session-format-catalog/model-experience/catalog-dispatch/token-effect:
   en: f7d1eb359afe1932
   zh: 5fc82f0403c52d19
-/deepseek-harness-dsh-session-format-catalog/model-experience/catalog-dispatch/kv-cache-effect:
+/lyness-lyn-session-format-catalog/model-experience/catalog-dispatch/kv-cache-effect:
   en: 3796ca9965965a66
   zh: a6f655fa0d6e7aa4
-/deepseek-harness-dsh-session-format-catalog/known-limitations-and-deferred-work:
+/lyness-lyn-session-format-catalog/known-limitations-and-deferred-work:
   en: 9f86bd4bcaa5f43d
   zh: aef8d58f4d1e0370
-/deepseek-harness-dsh-session-format-catalog/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-session-format-catalog/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

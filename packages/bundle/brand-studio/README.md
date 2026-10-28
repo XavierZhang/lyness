@@ -3,13 +3,13 @@ description: "The brand-studio profile: generate a deployment brand from an icon
 kind: "package-bundle"
 ---
 
-# `@deepseek-ai/dsh-brand-studio`
+# `@lyness/lyn-brand-studio`
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-This bundle is `dsh --profile brand-studio`, a one-shot command a private deployment's operator runs on the server. It traces an icon PNG into the mark and favicon SVGs, typesets the product name in a font the operator supplies, writes the three files, and points the `brand-deployment` row of a profile's patch layer at them. Choose it to brand a deployment without hand-writing SVG or patch YAML. It mounts nothing that reaches a model.
+This bundle is `lyn --profile brand-studio`, a one-shot command a private deployment's operator runs on the server. It traces an icon PNG into the mark and favicon SVGs, typesets the product name in a font the operator supplies, writes the three files, and points the `brand-deployment` row of a profile's patch layer at them. Choose it to brand a deployment without hand-writing SVG or patch YAML. It mounts nothing that reaches a model.
 
 ## Table of Contents
 
@@ -26,22 +26,22 @@ This bundle is `dsh --profile brand-studio`, a one-shot command a private deploy
 ## Use this package
 
 ```sh
-dsh --profile brand-studio --name 领驭 --icon ./DeepSeek Harness.png --accept-trademark
+lyn --profile brand-studio --name 领驭 --icon ./lyness.png --accept-trademark
 
-dsh --profile brand-studio --name Acme --icon ./acme.png --font ./AcmeSans-Bold.otf \
+lyn --profile brand-studio --name Acme --icon ./acme.png --font ./AcmeSans-Bold.otf \
   --theme-color '#1a73e8' --accept-trademark --accept-font-license
 
-dsh --profile brand-studio --name 'Acme Agent' --abbreviation ACME --name-zh 艾可 \
+lyn --profile brand-studio --name 'Acme Agent' --abbreviation ACME --name-zh 艾可 \
   --icon ./acme.png --color blue=#1a73e8 --color blueDark=#11418a --accept-trademark
 ```
 
-`--name`, `--icon`, and `--accept-trademark` are required; `--font` needs `--accept-font-license` with it. The icon is a PNG at least 1024 pixels a side with a dark mark on a light or transparent background; `dsh-host-brand-icon` refuses anything else and names the reason. Without `--font`, the name is set in the built-in fonts from [`brand-fonts`](../../host/brand-fonts/README.md), which cover Latin, Greek, Cyrillic, Chinese, Japanese, and Korean. `--font` takes the brand owner's own TTF, OTF, WOFF, or WOFF2 file, which must cover every character of the name and carry a license permitting its glyphs in a logo; `--accept-font-license` confirms that. Either way the font serves the wordmark only: the studio reads it on the operator's server, neither copies nor distributes it, and writes outline artwork rather than font software. `--theme-color` takes a hex colour or a colour keyword; without it, a colour the row already names stays. `--abbreviation` and `--name-zh` carry the other two names product copy uses, which stand in for `DSH` and 领驭; omit either and the copy that would have used it reads the product name instead. Each name is one line of at most 64 characters and carries no brace, because the copy naming the product fills a placeholder. `--color token=value` replaces one palette token and repeats for more; the tokens are the ones [`brand-deployment`](../../host/brand-deployment/README.md) names, and a token the run does not name keeps its built-in colour.
+`--name`, `--icon`, and `--accept-trademark` are required; `--font` needs `--accept-font-license` with it. The icon is a PNG at least 1024 pixels a side with a dark mark on a light or transparent background; `lyn-host-brand-icon` refuses anything else and names the reason. Without `--font`, the name is set in the built-in fonts from [`brand-fonts`](../../host/brand-fonts/README.md), which cover Latin, Greek, Cyrillic, Chinese, Japanese, and Korean. `--font` takes the brand owner's own TTF, OTF, WOFF, or WOFF2 file, which must cover every character of the name and carry a license permitting its glyphs in a logo; `--accept-font-license` confirms that. Either way the font serves the wordmark only: the studio reads it on the operator's server, neither copies nor distributes it, and writes outline artwork rather than font software. `--theme-color` takes a hex colour or a colour keyword; without it, a colour the row already names stays. `--abbreviation` and `--name-zh` carry the other two names product copy uses, which stand in for `LYN` and 领驭; omit either and the copy that would have used it reads the product name instead. Each name is one line of at most 64 characters and carries no brace, because the copy naming the product fills a placeholder. `--color token=value` replaces one palette token and repeats for more; the tokens are the ones [`brand-deployment`](../../host/brand-deployment/README.md) names, and a token the run does not name keeps its built-in colour.
 
 ### What it writes
 
-The three SVGs go to `--asset-dir`, which defaults to `$DSH_HOME/brand`, as `mark.svg`, `wordmark.svg`, and `favicon.svg`. The brand row goes to the patch layer of `--target`, which defaults to `web`: `$DSH_HOME/profiles/web/cordis.patch.yml`. A shipped profile that has never launched is initialized first, exactly as its first launch would. The row sets `productName`, the other two names and the palette tokens the run carries, `themeColor`, `assetDirectory`, and the three file names; a palette token already on the row and not named by this run stays, and other config keys such as `showPoweredBy`, other rows, comments, and `!!js` values stay as written.
+The three SVGs go to `--asset-dir`, which defaults to `$LYNESS_HOME/brand`, as `mark.svg`, `wordmark.svg`, and `favicon.svg`. The brand row goes to the patch layer of `--target`, which defaults to `web`: `$LYNESS_HOME/profiles/web/cordis.patch.yml`. A shipped profile that has never launched is initialized first, exactly as its first launch would. The row sets `productName`, the other two names and the palette tokens the run carries, `themeColor`, `assetDirectory`, and the three file names; a palette token already on the row and not named by this run stays, and other config keys such as `showPoweredBy`, other rows, comments, and `!!js` values stay as written.
 
-Every input is checked, and the new layer is composed, before anything is written. The SVGs are written before the layer, so `dsh web`, which reloads its patch layer on change, applies the brand immediately and never reads a row naming a missing file. Another profile applies it on its next start.
+Every input is checked, and the new layer is composed, before anything is written. The SVGs are written before the layer, so `lyn web`, which reloads its patch layer on change, applies the brand immediately and never reads a row naming a missing file. Another profile applies it on its next start.
 
 -----
 
@@ -51,7 +51,7 @@ Every input is checked, and the new layer is composed, before anything is writte
 <details>
 <summary>Implementation internals — click to expand</summary>
 
-The bundle's patch inserts one row and does not layer over `dsh-base`, so the tree loads no model, session, or Web plugin. [`src/index.ts`](src/index.ts) parses the launcher's arguments with commander through `parseCmdline`, runs once, and requests exit through `ctx.appExit`: 0 after a report on stdout, 1 after the error on stderr. [`src/studio.ts`](src/studio.ts) holds the run. Each generated SVG must pass `isBrandSvg` before it is written. The layer is edited through the `yaml` document model, which keeps comments and unresolved `!!js` tags that a plain parse and dump would lose, and each file is replaced with `writeFileAtomic`.
+The bundle's patch inserts one row and does not layer over `lyn-base`, so the tree loads no model, session, or Web plugin. [`src/index.ts`](src/index.ts) parses the launcher's arguments with commander through `parseCmdline`, runs once, and requests exit through `ctx.appExit`: 0 after a report on stdout, 1 after the error on stderr. [`src/studio.ts`](src/studio.ts) holds the run. Each generated SVG must pass `isBrandSvg` before it is written. The layer is edited through the `yaml` document model, which keeps comments and unresolved `!!js` tags that a plain parse and dump would lose, and each file is replaced with `writeFileAtomic`.
 
 </details>
 
@@ -65,7 +65,7 @@ Read these pages to follow a brand from this command to the browser.
 - [brand-icon](../../host/brand-icon/README.md) — traces the PNG and defines the brand SVG grammar.
 - [brand-wordmark](../../host/brand-wordmark/README.md) — typesets the name and refuses fonts and names it cannot set.
 - [brand-deployment](../../host/brand-deployment/README.md) — serves the written files and injects the brand into the page.
-- [ui-brand-deepseek-harness](../../client/ui-brand-deepseek-harness/README.md) — draws the deployment brand in the Web client.
+- [ui-brand-lyness](../../client/ui-brand-lyness/README.md) — draws the deployment brand in the Web client.
 
 -----
 

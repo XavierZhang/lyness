@@ -2,18 +2,18 @@
 import { mkdtemp, mkdir, writeFile, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { expect, onTestFinished, vi } from 'vitest'
-import { createToolResultMessage, ToolCallId } from '@deepseek-ai/dsh-llm'
-import { appendPluginRecord, SessionId, type SessionEvent } from '@deepseek-ai/dsh-session'
-import { mountAgentLoopTestDependencies, mountAgentLoopTestHarness } from '@deepseek-ai/dsh-agent-loop-testkit'
-import Skills from '@deepseek-ai/dsh-skill'
-import * as SkillTool from '@deepseek-ai/dsh-tool-skill'
-import RemoteAccess from '@deepseek-ai/dsh-api-remote-access'
-import ActionCards from '@deepseek-ai/dsh-action-cards'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import type { BundleInfo, ChangeResult } from '@deepseek-ai/dsh-plugin-manager/types'
-import type { SubagentActivationSpec, SubagentResult } from '@deepseek-ai/dsh-subagent'
+import { createToolResultMessage, ToolCallId } from '@lyness/lyn-llm'
+import { appendPluginRecord, SessionId, type SessionEvent } from '@lyness/lyn-session'
+import { mountAgentLoopTestDependencies, mountAgentLoopTestHarness } from '@lyness/lyn-agent-loop-testkit'
+import Skills from '@lyness/lyn-skill'
+import * as SkillTool from '@lyness/lyn-tool-skill'
+import RemoteAccess from '@lyness/lyn-api-remote-access'
+import ActionCards from '@lyness/lyn-action-cards'
+import type { Agent } from '@lyness/lyn-agent'
+import type { BundleInfo, ChangeResult } from '@lyness/lyn-plugin-manager/types'
+import type { SubagentActivationSpec, SubagentResult } from '@lyness/lyn-subagent'
 import * as CreationRecommendations from '../src/index.ts'
 import type { PageData } from '../src/types.ts'
 
@@ -41,13 +41,13 @@ export function installedBundle(name: string): BundleInfo {
 
 export async function writeBundle(directory: string, name: string): Promise<void> {
   await writeFile(join(directory, 'package.json'), JSON.stringify({ name, version: '1.0.0', type: 'module',
-    main: './index.js', exports: { '.': './index.js', './client': './index.js' }, dsh: { bundle: { patch: './cordis.patch.yml' } } }))
+    main: './index.js', exports: { '.': './index.js', './client': './index.js' }, lyn: { bundle: { patch: './cordis.patch.yml' } } }))
   await writeFile(join(directory, 'cordis.patch.yml'), JSON.stringify([{ insert: [{ id: name + ':counter', name }] }]))
   await writeFile(join(directory, 'index.js'), 'export function apply(ctx) { ctx.provide("createdCounter", true) }\n')
 }
 
 export async function fixture(initial?: PageCardState) {
-  const directory = await mkdtemp(join(tmpdir(), 'dsh-creation-'))
+  const directory = await mkdtemp(join(tmpdir(), 'lyn-creation-'))
   const ctx = new Context()
   onTestFinished(async () => { await ctx.fiber.dispose(); await rm(directory, { recursive: true, force: true }) })
   await mountAgentLoopTestDependencies(ctx, { workingDirectory: true })

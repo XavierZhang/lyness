@@ -3,16 +3,16 @@
  * becomes `content`; sources prefer structured `search_results[]` and fall back to URL-only
  * `citations[]`. The wire format and native `fetch` client are provider-private and do not use
  * `ctx.llm`.
- * @module @deepseek-ai/dsh-web-search-perplexity/provider
+ * @module @lyness/lyn-web-search-perplexity/provider
  */
 
-import { WebError } from '@deepseek-ai/dsh-web'
+import { WebError } from '@lyness/lyn-web'
 import type {
   WebSearchProvider,
   WebSearchRequest,
   WebSearchResult,
   WebSearchSource,
-} from '@deepseek-ai/dsh-web'
+} from '@lyness/lyn-web'
 import type { PerplexityError, PerplexityResponse, PerplexitySearchResult } from './types.ts'
 
 /** Stable id this provider registers under. */
@@ -31,7 +31,7 @@ export const PERPLEXITY_DEFAULT_MAX_TOKENS = 1024
 export type PerplexityRecency = 'day' | 'week' | 'month' | 'year'
 
 /** Attribution header sent on every request. Bump with the package version. */
-const USER_AGENT = 'DeepSeek Harness/0.0.1'
+const USER_AGENT = 'lyness/0.0.1'
 
 /** Resolved provider options (the plugin's `apply` supplies env-var and constant defaults). */
 export interface PerplexitySearchProviderOptions {

@@ -5,90 +5,90 @@
 /:
   en: c6924d7c0d7c82ff
   zh: 95fbf06db428f532
-/deepseek-harness-dsh-llm-deepseek:
+/lyness-lyn-llm-deepseek:
   en: 2a8fa896a217a77e
   zh: eebe8e837a6427bf
-/deepseek-harness-dsh-llm-deepseek/summary:
+/lyness-lyn-llm-deepseek/summary:
   en: b5e42d1838146dee
   zh: fac145a24ce41f6b
-/deepseek-harness-dsh-llm-deepseek/table-of-contents:
+/lyness-lyn-llm-deepseek/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/deepseek-harness-dsh-llm-deepseek/use-this-package:
+/lyness-lyn-llm-deepseek/use-this-package:
   en: 1f81a4944a4931a7
   zh: 79cc27d0e1f49122
-/deepseek-harness-dsh-llm-deepseek/use-this-package/when-to-choose-it:
+/lyness-lyn-llm-deepseek/use-this-package/when-to-choose-it:
   en: 0b11313b4298bc45
   zh: ab14e5bc59e1229e
-/deepseek-harness-dsh-llm-deepseek/use-this-package/minimal-configuration:
+/lyness-lyn-llm-deepseek/use-this-package/minimal-configuration:
   en: 9ae33fec43584375
   zh: 195c7536c2b5961c
-/deepseek-harness-dsh-llm-deepseek/use-this-package/endpoint-and-wire-format:
+/lyness-lyn-llm-deepseek/use-this-package/endpoint-and-wire-format:
   en: fce88d2ebad6296c
   zh: 0c351f26b472d521
-/deepseek-harness-dsh-llm-deepseek/use-this-package/account-credentials:
+/lyness-lyn-llm-deepseek/use-this-package/account-credentials:
   en: 12fe87dcb1eba713
   zh: 78583391d91a3f90
-/deepseek-harness-dsh-llm-deepseek/use-this-package/another-deepseek-compatible-endpoint:
+/lyness-lyn-llm-deepseek/use-this-package/another-deepseek-compatible-endpoint:
   en: 181b34b6c312b445
   zh: 599c9e8c10577f74
-/deepseek-harness-dsh-llm-deepseek/use-this-package/streaming-with-thinking-and-images:
+/lyness-lyn-llm-deepseek/use-this-package/streaming-with-thinking-and-images:
   en: 9b82549c6ce25261
   zh: 22a3978c5022576b
-/deepseek-harness-dsh-llm-deepseek/use-this-package/dynamic-configuration:
+/lyness-lyn-llm-deepseek/use-this-package/dynamic-configuration:
   en: 49290fc5647136b4
   zh: 96fa9ce0f9e83c13
-/deepseek-harness-dsh-llm-deepseek/use-this-package/provider-specific-request-fields:
+/lyness-lyn-llm-deepseek/use-this-package/provider-specific-request-fields:
   en: f863390198cc177c
   zh: 8856c62ba3fb36ca
-/deepseek-harness-dsh-llm-deepseek/use-this-package/failures-and-recovery:
+/lyness-lyn-llm-deepseek/use-this-package/failures-and-recovery:
   en: 4a572ca307448f59
   zh: aed094a6d2031ffc
-/deepseek-harness-dsh-llm-deepseek/understand-the-implementation:
+/lyness-lyn-llm-deepseek/understand-the-implementation:
   en: 1598ac8a8bb9b6bf
   zh: fdd089c5ae7722cd
-/deepseek-harness-dsh-llm-deepseek/understand-the-implementation/design-philosophy:
+/lyness-lyn-llm-deepseek/understand-the-implementation/design-philosophy:
   en: 829203c4c282dc46
   zh: e05dada4a1420a95
-/deepseek-harness-dsh-llm-deepseek/understand-the-implementation/source-map:
+/lyness-lyn-llm-deepseek/understand-the-implementation/source-map:
   en: dc2d2409ad8c41cc
   zh: 51fc4ad65dab6378
-/deepseek-harness-dsh-llm-deepseek/understand-the-implementation/wire-flow:
+/lyness-lyn-llm-deepseek/understand-the-implementation/wire-flow:
   en: 9477d8af3d762450
   zh: 52a2967518509f94
-/deepseek-harness-dsh-llm-deepseek/further-exploration:
+/lyness-lyn-llm-deepseek/further-exploration:
   en: 53175471360f6984
   zh: f2ef774ebf3110a8
-/deepseek-harness-dsh-llm-deepseek/model-experience:
+/lyness-lyn-llm-deepseek/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/deepseek-harness-dsh-llm-deepseek/model-experience/deepseek-request:
+/lyness-lyn-llm-deepseek/model-experience/deepseek-request:
   en: 1dc50052999253c6
   zh: 7abf968fc18bffcd
-/deepseek-harness-dsh-llm-deepseek/model-experience/deepseek-request/what-the-model-sees:
+/lyness-lyn-llm-deepseek/model-experience/deepseek-request/what-the-model-sees:
   en: 14110610860656e8
   zh: 995e28d6931ebe4e
-/deepseek-harness-dsh-llm-deepseek/model-experience/deepseek-request/token-effect:
+/lyness-lyn-llm-deepseek/model-experience/deepseek-request/token-effect:
   en: 4f54c6e3a215277c
   zh: 203335cfaedb56f1
-/deepseek-harness-dsh-llm-deepseek/model-experience/deepseek-request/kv-cache-effect:
+/lyness-lyn-llm-deepseek/model-experience/deepseek-request/kv-cache-effect:
   en: 87ac92776176ee15
   zh: bb49edf3a68dda07
-/deepseek-harness-dsh-llm-deepseek/model-experience/deepseek-response:
+/lyness-lyn-llm-deepseek/model-experience/deepseek-response:
   en: 957d6665495e5ca5
   zh: 0aa72b2c2dc07167
-/deepseek-harness-dsh-llm-deepseek/model-experience/deepseek-response/what-the-model-sees:
+/lyness-lyn-llm-deepseek/model-experience/deepseek-response/what-the-model-sees:
   en: 36a3d0297d6ca209
   zh: bfc68b8300f61593
-/deepseek-harness-dsh-llm-deepseek/model-experience/deepseek-response/token-effect:
+/lyness-lyn-llm-deepseek/model-experience/deepseek-response/token-effect:
   en: 533309d1f93b89de
   zh: 4cc0b86f05c9be53
-/deepseek-harness-dsh-llm-deepseek/model-experience/deepseek-response/kv-cache-effect:
+/lyness-lyn-llm-deepseek/model-experience/deepseek-response/kv-cache-effect:
   en: ddfbea043596878d
   zh: 4fbf5864a684c053
-/deepseek-harness-dsh-llm-deepseek/known-limitations-and-deferred-work:
+/lyness-lyn-llm-deepseek/known-limitations-and-deferred-work:
   en: 82bc8d95ae48d93b
   zh: 90cf7ad16d0d9278
-/deepseek-harness-dsh-llm-deepseek/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-llm-deepseek/known-limitations-and-deferred-work/dev-note:
   en: a1dcfb113de53c3c
   zh: 84e06d60a9cb2536

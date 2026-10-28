@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-request-principal",
+  "name": "@lyness/lyn-request-principal",
   "description": "Publish who the call in progress is, resolved from the bearer identity it presents",
   "version": "0.1.7-rc.2",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/identity/request-principal"
   },
   "type": "module",
@@ -27,20 +27,20 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-auth-session": "workspace:*",
-    "@deepseek-ai/dsh-brand": "workspace:*",
-    "@deepseek-ai/dsh-client-connection": "workspace:*",
-    "@deepseek-ai/dsh-people": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-auth-session": "workspace:*",
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/lyn-client-connection": "workspace:*",
+    "@lyness/lyn-people": "workspace:*"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-auth-session": "workspace:*",
-    "@deepseek-ai/dsh-brand": "workspace:*",
-    "@deepseek-ai/dsh-client-connection": "workspace:*",
-    "@deepseek-ai/dsh-people": "workspace:*",
-    "@deepseek-ai/dsh-storage": "workspace:*",
-    "@deepseek-ai/dsh-storage-domain": "workspace:*",
-    "@deepseek-ai/dsh-storage-json": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-auth-session": "workspace:*",
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/lyn-client-connection": "workspace:*",
+    "@lyness/lyn-people": "workspace:*",
+    "@lyness/lyn-storage": "workspace:*",
+    "@lyness/lyn-storage-domain": "workspace:*",
+    "@lyness/lyn-storage-json": "workspace:*"
   }
 }

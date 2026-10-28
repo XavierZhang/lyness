@@ -5,7 +5,7 @@
 - heading "思考过程机器翻译" [level=3]
 - text: v{{version}} 实验性
 - paragraph:
-  - code: "@deepseek-ai/dsh-experimental-cot-translation-bundle"
+  - code: "@lyness/lyn-experimental-cot-translation-bundle"
 - paragraph: 机器翻译展开的思考内容；原文会发送给所选服务
 - region "详细介绍":
   - paragraph:
@@ -78,13 +78,13 @@
   - listitem:
     - text: 翻译服务 提供机器翻译，并复用会话中已保存的翻译结果。
     - code: translator
-    - code: "@deepseek-ai/dsh-experimental-translator"
+    - code: "@lyness/lyn-experimental-translator"
     - text: 运行中
     - switch "启用组件 翻译服务" [checked]
   - listitem:
     - text: 思考过程机器翻译 将展开的思考内容机器翻译为其他语言。
     - code: cot-translation
-    - code: "@deepseek-ai/dsh-experimental-client-ui-cot-translation"
+    - code: "@lyness/lyn-experimental-client-ui-cot-translation"
     - text: 运行中
     - switch "启用组件 思考过程机器翻译" [checked]
 - heading "来源信息" [level=4]

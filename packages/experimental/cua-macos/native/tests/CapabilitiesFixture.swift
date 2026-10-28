@@ -32,7 +32,7 @@ final class CapabilityPad: NSView {
 final class CapabilityTextView: NSTextView {
     var attemptedPaste: ((Bool) -> Void)?
     override func paste(_ sender: Any?) {
-        let owned = NSPasteboard.general.data(forType: NSPasteboard.PasteboardType("org.deepseek-harness.cua.clipboard-owner")) != nil
+        let owned = NSPasteboard.general.data(forType: NSPasteboard.PasteboardType("org.lyness.cua.clipboard-owner")) != nil
         attemptedPaste?(owned)
         if owned { super.paste(sender) }
     }
@@ -60,7 +60,7 @@ final class CapabilitiesFixture: NSObject, NSApplicationDelegate, NSWindowDelega
         window = NSWindow(contentRect: NSRect(x: 140, y: 160, width: 640, height: 500),
                           styleMask: [.titled, .closable], backing: .buffered, defer: false)
         window.delegate = self
-        window.title = "DSH CUA capability checks"
+        window.title = "LYN CUA capability checks"
         window.isReleasedWhenClosed = false
         window.animationBehavior = .none
         window.collectionBehavior = [.canJoinAllApplications, .stationary]
@@ -69,7 +69,7 @@ final class CapabilitiesFixture: NSObject, NSApplicationDelegate, NSWindowDelega
         text.isEditable = true
         text.font = .systemFont(ofSize: 18)
         text.string = "第一😀 target，第二😀 target."
-        text.setAccessibilityIdentifier("dsh-cua-rich-text")
+        text.setAccessibilityIdentifier("lyn-cua-rich-text")
         text.setAccessibilityLabel("Rich text fixture")
         text.delegate = self
         text.attemptedPaste = { [weak self] owned in self?.pasteAttempts.append(owned); self?.persist() }
@@ -87,7 +87,7 @@ final class CapabilitiesFixture: NSObject, NSApplicationDelegate, NSWindowDelega
             self.persist()
         }
         window.contentView!.addSubview(pad)
-        if Bundle.main.object(forInfoDictionaryKey: "DSHFixtureBackground") as? Bool == true {
+        if Bundle.main.object(forInfoDictionaryKey: "LYNFixtureBackground") as? Bool == true {
             window.orderFront(nil)
         } else {
             window.makeKeyAndOrderFront(nil)
@@ -124,7 +124,7 @@ final class CapabilitiesFixture: NSObject, NSApplicationDelegate, NSWindowDelega
         try! JSONSerialization.data(withJSONObject: result).write(to: URL(fileURLWithPath: statePath), options: .atomic)
     }
 }
-let statePath = CommandLine.arguments.dropFirst().first ?? Bundle.main.object(forInfoDictionaryKey: "DSHFixtureStatePath") as? String
+let statePath = CommandLine.arguments.dropFirst().first ?? Bundle.main.object(forInfoDictionaryKey: "LYNFixtureStatePath") as? String
 if let statePath {
     let application = NSApplication.shared
     application.setActivationPolicy(.regular)

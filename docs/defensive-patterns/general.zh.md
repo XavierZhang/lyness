@@ -132,7 +132,7 @@ const sessions = ctx.get('sessions')   // one owner, lifetime tied to the servic
 ```
 
 ```ts ignore-check
-globalThis.__dshCache = new Map()   // shared across instances, reclaimed never
+globalThis.__lynCache = new Map()   // shared across instances, reclaimed never
 ```
 
 反例让实例之间互相覆盖、回收时机不可控，并让状态在测试之间泄漏。
@@ -225,7 +225,7 @@ throw new EndpointError('not found')   // was: return { ok: false, code: 'not_fo
 
 ## 在分发器中隔离回调异常
 
-逐个捕获并报告监听器的异常，不让分发 promise 被 reject，也不让后续监听器失去执行机会。监听器的所有者必须按[错误处理规范](../../.agents/skills/dsh-error-handling/SKILL.md#catch-recover-or-stop)处置其修改的状态；仅捕获异常不会恢复状态。
+逐个捕获并报告监听器的异常，不让分发 promise 被 reject，也不让后续监听器失去执行机会。监听器的所有者必须按[错误处理规范](../../.agents/skills/lyn-error-handling/SKILL.md#catch-recover-or-stop)处置其修改的状态；仅捕获异常不会恢复状态。
 
 判定条件是：抛异常的监听器是否能让分发 promise 被 reject，或让其后的监听器不再运行。边界是调用方自己的 await——分发器有意抛给发起该操作的那条路径的错误，不属于隔离失败。
 

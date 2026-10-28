@@ -2,39 +2,39 @@
 # section, a hash of its English and Chinese blocks outside code blocks and generated regions.
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write docs/architecture.md
-/deepseek-harness-architecture:
+/lyness-architecture:
   en: da3731fe0e76335f
   zh: 0ea99b21860957fb
-/deepseek-harness-architecture/cordis:
+/lyness-architecture/cordis:
   en: e4f0cce53e916da4
   zh: f916bc9e0deb5096
-/deepseek-harness-architecture/product-shapes:
+/lyness-architecture/product-shapes:
   en: bdca359b747e1b62
   zh: 2cb81b07da2efc50
-/deepseek-harness-architecture/profiles-and-bundles:
+/lyness-architecture/profiles-and-bundles:
   en: 9883881e58133fce
   zh: 36a4e3a98c1ea992
-/deepseek-harness-architecture/application-launch:
+/lyness-architecture/application-launch:
   en: dc5411deeb8f530c
   zh: 22c8a31e58313e83
-/deepseek-harness-architecture/desktop-application:
+/lyness-architecture/desktop-application:
   en: 220943004e4c3d58
   zh: 91a89667c5bf3e74
-/deepseek-harness-architecture/core-packages:
+/lyness-architecture/core-packages:
   en: dfdfb8cce8a92313
   zh: e2eee6f6466e5bb7
-/deepseek-harness-architecture/events:
+/lyness-architecture/events:
   en: cf05cc941b1a777a
   zh: bc82cb1d90bb1627
-/deepseek-harness-architecture/turn-flow:
+/lyness-architecture/turn-flow:
   en: 9fc403d5f86d79f6
   zh: 61bcf0fc5cab8a12
-/deepseek-harness-architecture/session-log:
+/lyness-architecture/session-log:
   en: 473e2483137ed194
   zh: 4daa4c9a79e41f95
-/deepseek-harness-architecture/capability-seams:
+/lyness-architecture/capability-seams:
   en: ea6a99dde753111b
   zh: 6045d230c4efee85
-/deepseek-harness-architecture/where-new-behavior-goes:
+/lyness-architecture/where-new-behavior-goes:
   en: 78140ba5131bcf18
   zh: 7d4fed2d3ce05629

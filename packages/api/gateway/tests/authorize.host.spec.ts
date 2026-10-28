@@ -5,12 +5,13 @@
  */
 
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context, Service } from '@deepseek-ai/cordis'
-import { bindTypertRemote, Remote, remoteErrorOf } from '@deepseek-ai/dsh-typert-protocol'
-import type { RemoteAuthority } from '@deepseek-ai/dsh-typert-protocol'
-import TypertRegistry from '@deepseek-ai/dsh-typert-registry'
-import TypertGatewayService from '@deepseek-ai/dsh-api-gateway'
-import type { RemoteAuthorizationRequest } from '@deepseek-ai/dsh-api-gateway'
+import { Context, Service } from '@lyness/cordis'
+import { bindTypertRemote, Remote, remoteErrorOf } from '@lyness/lyn-typert-protocol'
+import type { RemoteAuthority } from '@lyness/lyn-typert-protocol'
+import TypertRegistry from '@lyness/lyn-typert-registry'
+import TypertGatewayService from '@lyness/lyn-api-gateway'
+import type { RemoteAuthorizationRequest } from '@lyness/lyn-api-gateway'
+import type { PeerId, PeerScope } from '@lyness/lyn-typert-protocol'
 
 const live: Context[] = []
 afterEach(async () => { for (const ctx of live.splice(0)) await ctx.fiber.dispose() })
@@ -73,7 +74,17 @@ async function bench(rule?: (call: RemoteAuthorizationRequest) => string | undef
 
 /** Invoke one endpoint through the Gateway. */
 function invoke(ctx: Context, namespace: string, method: string): Promise<unknown> {
-  return ctx.typertGateway.invoke({ namespace, method, args: {} })
+  // These assertions are about the authority point, which reads the standing
+  // from the rule rather than from the Peer, so one owner Peer serves them all.
+  const peer: PeerScope = {
+    id: 'authorize-spec-peer' as PeerId,
+    ctx,
+    principal: { kind: 'owner' },
+    interactions: 'answer',
+    signal: new AbortController().signal,
+    dispose: async () => {},
+  }
+  return ctx.typertGateway.invoke({ namespace, method, args: {}, peer })
 }
 
 describe('the Gateway authority point', () => {

@@ -11,10 +11,10 @@
  */
 
 import { useEffect } from 'react'
-import { Button } from '@deepseek-ai/dsh-client-ui-primitives'
-import type { PropsLocale, PropsRuntime, PropsStore } from '@deepseek-ai/dsh-client-ui-slots'
-import type {} from '@deepseek-ai/dsh-client-ui-layout/client'
-import type { ChannelOfferView } from '@deepseek-ai/dsh-api-identity-controller/types'
+import { Button } from '@lyness/lyn-client-ui-primitives'
+import type { PropsLocale, PropsRuntime, PropsStore } from '@lyness/lyn-client-ui-slots'
+import type {} from '@lyness/lyn-client-ui-layout/client'
+import type { ChannelOfferView } from '@lyness/lyn-api-identity-controller/types'
 import type { createViewerStore } from './store.ts'
 import css from './SignInScreen.module.css'
 

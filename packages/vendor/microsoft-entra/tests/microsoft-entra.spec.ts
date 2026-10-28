@@ -8,11 +8,11 @@ import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import WebServer from '@deepseek-ai/dsh-host-webserver'
-import AuthorizationService from '@deepseek-ai/dsh-authorization'
-import type { AuthorizationNotice } from '@deepseek-ai/dsh-authorization'
-import { LocalCredentialProvider } from '@deepseek-ai/dsh-credentials-local'
+import { Context } from '@lyness/cordis'
+import WebServer from '@lyness/lyn-host-webserver'
+import AuthorizationService from '@lyness/lyn-authorization'
+import type { AuthorizationNotice } from '@lyness/lyn-authorization'
+import { LocalCredentialProvider } from '@lyness/lyn-credentials-local'
 import MicrosoftEntra, {
   DEFAULT_AUTHORITY_HOST, DEFAULT_GRAPH_ORIGIN, DEFAULT_REDIRECT_PATH, DEFAULT_SCOPES,
   ENTRA_CREDENTIAL_KEY, EntraSignInError, createSecrets, resolveConfig, stateMatches,
@@ -184,7 +184,7 @@ async function harness(overrides: Record<string, unknown> = {}): Promise<{
   notices: AuthorizationNotice[]
   signIn: () => Promise<unknown>
 }> {
-  const home = await mkdtemp(join(tmpdir(), 'dsh-entra-'))
+  const home = await mkdtemp(join(tmpdir(), 'lyn-entra-'))
   cleanups.push(() => rm(home, { recursive: true, force: true }))
   const ctx = new Context()
   const web = ctx.plugin(WebServer, { host: '127.0.0.1', port: 0 })

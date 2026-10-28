@@ -1,8 +1,8 @@
 /** Agent-facing read-only listing of configured plugin market indexes. */
-import { assertNever } from '@deepseek-ai/dsh-util-values'
-import type { Context } from '@deepseek-ai/cordis'
-import type { LocalizedText } from '@deepseek-ai/dsh-package-manifest'
-import { defineTool } from '@deepseek-ai/dsh-tools'
+import { assertNever } from '@lyness/lyn-util-values'
+import type { Context } from '@lyness/cordis'
+import type { LocalizedText } from '@lyness/lyn-package-manifest'
+import { defineTool } from '@lyness/lyn-tools'
 import type { MarketListingVersion } from './index.ts'
 
 /** Required services for the listing tool; `pluginMarket` is awaited inside `apply`. */

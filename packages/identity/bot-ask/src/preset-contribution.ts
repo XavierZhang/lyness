@@ -9,11 +9,11 @@
  * This lives beside the service rather than in the module bundle so that the
  * plugin name a patch references resolves wherever the service does.
  *
- * @module @deepseek-ai/dsh-bot-ask/preset-contribution
+ * @module @lyness/lyn-bot-ask/preset-contribution
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import type {} from '@deepseek-ai/dsh-agent-preset-registry'
+import type { Context } from '@lyness/cordis'
+import type {} from '@lyness/lyn-agent-preset-registry'
 
 /** Cordis plugin name used by loader diagnostics. */
 export const name = 'bot-ask-preset-contribution'
@@ -22,7 +22,7 @@ export const name = 'bot-ask-preset-contribution'
 export const inject = ['agentPresets']
 
 /** The module this contribution belongs to, named in a collision diagnostic. */
-export const MODULE = '@deepseek-ai/dsh-module-accounts'
+export const MODULE = '@lyness/lyn-module-accounts'
 
 /** The centrally allocated row id the contributed tools take. */
 export const ROW_ID = 'module-accounts-bot-ask'
@@ -40,7 +40,7 @@ export async function apply(ctx: Context): Promise<void> {
   const withdraw = await ctx.agentPresets.contribute({
     id: ROW_ID,
     module: MODULE,
-    row: { name: '@deepseek-ai/dsh-bot-ask/tool' },
+    row: { name: '@lyness/lyn-bot-ask/tool' },
   })
   ctx.effect(() => withdraw)
 }

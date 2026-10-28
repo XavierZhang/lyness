@@ -2,10 +2,10 @@
 import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import type { Context } from '@deepseek-ai/cordis'
-import type { DomainFacility } from '@deepseek-ai/dsh-storage-domain'
-import { JsonStorageBackend } from '@deepseek-ai/dsh-storage-json'
-import { SessionId } from '@deepseek-ai/dsh-session'
+import type { Context } from '@lyness/cordis'
+import type { DomainFacility } from '@lyness/lyn-storage-domain'
+import { JsonStorageBackend } from '@lyness/lyn-storage-json'
+import { SessionId } from '@lyness/lyn-session'
 import { afterEach, beforeEach, expect, it, vi, type MockInstance } from 'vitest'
 import ScheduleService from '../src/index.ts'
 import { scheduleDomain } from '../src/storage.ts'
@@ -29,7 +29,7 @@ afterEach(async () => {
   if (errors.length > 0) throw new AggregateError(errors, 'Schedule recovery cleanup failed')
 })
 async function rootWith(tasks: Record<string, unknown>, bytes?: string) {
-  const root = await mkdtemp(join(tmpdir(), 'dsh-schedule-recovery-'))
+  const root = await mkdtemp(join(tmpdir(), 'lyn-schedule-recovery-'))
   roots.push(root)
   const path = join(root, 'schedule.json')
   if (bytes !== undefined || Object.keys(tasks).length > 0) {

@@ -12,14 +12,14 @@
  * for one sign-in. Holding the person's directory tokens would make this a
  * credential store with no one asking for the credential.
  *
- * @module @deepseek-ai/dsh-microsoft-entra/channel
+ * @module @lyness/lyn-microsoft-entra/channel
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
-import { channelId } from '@deepseek-ai/dsh-sign-in'
-import type { ExternalSubject, RedirectChannel, RedirectStart } from '@deepseek-ai/dsh-sign-in'
-import { AttemptBook } from '@deepseek-ai/dsh-sign-in/attempts'
+import type { Context } from '@lyness/cordis'
+import z from '@lyness/schemastery'
+import { channelId } from '@lyness/lyn-sign-in'
+import type { ExternalSubject, RedirectChannel, RedirectStart } from '@lyness/lyn-sign-in'
+import { AttemptBook } from '@lyness/lyn-sign-in/attempts'
 import { Config as EntraConfig, createSecrets, resolveConfig } from './index.ts'
 import type { Config as ServiceConfig, ResolvedConfig } from './index.ts'
 import { authorizeUrl } from './protocol.ts'

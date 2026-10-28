@@ -28,7 +28,7 @@ const DESCRIPTOR = { name: 'batch', version: 1, layout: 'per-record' as const, t
 
 const roots: string[] = []
 async function freshRoot(): Promise<string> {
-  const root = await mkdtemp(join(tmpdir(), 'dsh-per-record-batch-'))
+  const root = await mkdtemp(join(tmpdir(), 'lyn-per-record-batch-'))
   roots.push(root)
   return root
 }

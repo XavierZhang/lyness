@@ -1,11 +1,11 @@
 /** Browser attachment plugin: composer entries and independently replaceable image galleries. */
-import type { Context as ClientContext } from '@deepseek-ai/cordis'
-import type {} from '@deepseek-ai/dsh-client-ui-chat/client'
-import type {} from '@deepseek-ai/dsh-client-ui-conversation/client'
-import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
-import type {} from '@deepseek-ai/dsh-client-ui-tool/client'
-import type {} from '@deepseek-ai/dsh-client-ui-trajectory/client'
-import type {} from '@deepseek-ai/dsh-client-ui-file-drag/client'
+import type { Context as ClientContext } from '@lyness/cordis'
+import type {} from '@lyness/lyn-client-ui-chat/client'
+import type {} from '@lyness/lyn-client-ui-conversation/client'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
+import type {} from '@lyness/lyn-client-ui-tool/client'
+import type {} from '@lyness/lyn-client-ui-trajectory/client'
+import type {} from '@lyness/lyn-client-ui-file-drag/client'
 import { ComposerAttachments, type ComposerAttachmentsInjected } from './ComposerAttachments.tsx'
 import { MessageImages, MessageImagesContent } from './MessageImages.tsx'
 

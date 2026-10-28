@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-host-brand-deployment",
+  "name": "@lyness/lyn-host-brand-deployment",
   "description": "The deployment's own brand over the webserver index render: title, favicon, theme colour, and the asset files an operator places",
   "version": "0.1.7-rc.2",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/host/brand-deployment"
   },
   "type": "module",
@@ -27,14 +27,14 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/dsh-host-webserver": "workspace:*",
-    "@deepseek-ai/cordis": "workspace:~"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-host-webserver": "workspace:*"
   },
   "dependencies": {
-    "@deepseek-ai/schemastery": "workspace:~"
+    "@lyness/schemastery": "workspace:~"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-host-webserver": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-host-webserver": "workspace:*"
   }
 }

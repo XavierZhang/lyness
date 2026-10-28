@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-tenant-config-static",
+  "name": "@lyness/lyn-tenant-config-static",
   "description": "Tenant configuration backed by the deployment's composition config: models, providers, features, identity, and copy as patch-layer rows",
   "version": "0.1.7-rc.2",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/tenant/tenant-config-static"
   },
   "type": "module",
@@ -27,15 +27,15 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@deepseek-ai/dsh-credentials": "workspace:*",
-    "@deepseek-ai/dsh-tenant": "workspace:*",
-    "@deepseek-ai/dsh-tenant-config": "workspace:*",
-    "@deepseek-ai/schemastery": "workspace:~"
+    "@lyness/lyn-credentials": "workspace:*",
+    "@lyness/lyn-tenant": "workspace:*",
+    "@lyness/lyn-tenant-config": "workspace:*",
+    "@lyness/schemastery": "workspace:~"
   },
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~"
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~"
+    "@lyness/cordis": "workspace:~"
   }
 }

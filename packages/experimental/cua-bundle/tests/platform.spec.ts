@@ -1,8 +1,8 @@
 /** The shipped patch leaves shared entries available while skipping an absent native provider. */
 import { readFile } from 'node:fs/promises'
-import { Context } from '@deepseek-ai/cordis'
-import Loader, { interpolate, type EntryOptions } from '@deepseek-ai/cordis-plugin-loader'
-import { entryListSchema } from '@deepseek-ai/cordis-plugin-include'
+import { Context } from '@lyness/cordis'
+import Loader, { interpolate, type EntryOptions } from '@lyness/cordis-plugin-loader'
+import { entryListSchema } from '@lyness/cordis-plugin-include'
 import { load } from 'js-yaml'
 import { expect, it, vi } from 'vitest'
 
@@ -14,7 +14,7 @@ it.each(['darwin', 'win32', 'linux'])('loads the native provider only on Darwin 
   await ctx.plugin(Loader)
   if (!ctx.loader.internal) throw new Error('Loader module importer is unavailable')
   const imported = vi.spyOn(ctx.loader.internal, 'import').mockImplementation(async (name: string) => {
-    if (platform !== 'darwin' && name === '@deepseek-ai/dsh-experimental-cua-macos') {
+    if (platform !== 'darwin' && name === '@lyness/lyn-experimental-cua-macos') {
       throw new Error('native provider is absent from this installation')
     }
     return { name, apply: () => {} }
@@ -25,9 +25,9 @@ it.each(['darwin', 'win32', 'linux'])('loads the native provider only on Darwin 
     }
     await ctx.loader.await()
     const imports = imported.mock.calls.map(call => call[0])
-    expect(imports).toContain('@deepseek-ai/dsh-cua')
-    expect(imports).toContain('@deepseek-ai/dsh-computer-use')
-    expect(imports.includes('@deepseek-ai/dsh-experimental-cua-macos')).toBe(platform === 'darwin')
+    expect(imports).toContain('@lyness/lyn-cua')
+    expect(imports).toContain('@lyness/lyn-computer-use')
+    expect(imports.includes('@lyness/lyn-experimental-cua-macos')).toBe(platform === 'darwin')
   } finally {
     await ctx.fiber.dispose()
     imported.mockRestore()

@@ -2,10 +2,10 @@
  * Vocabulary for DingTalk sign-in: the two identities its directory answers
  * with, and the subject this integration hands a sign-in.
  *
- * @module @deepseek-ai/dsh-dingtalk/types
+ * @module @lyness/lyn-dingtalk/types
  */
 
-import type { Branded } from '@deepseek-ai/dsh-brand'
+import type { Branded } from '@lyness/lyn-brand'
 
 /** An organization's own id, which DingTalk calls `corpId`. */
 export type DingtalkCorpId = Branded<'DingtalkCorpId'>

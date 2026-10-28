@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-api-remote-authority",
+  "name": "@lyness/lyn-api-remote-authority",
   "description": "Whether one Remote call may be served, decided once where every wire call passes through",
   "version": "0.1.7-rc.2",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/api/remote-authority"
   },
   "type": "module",
@@ -27,17 +27,17 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-api-gateway": "workspace:*",
-    "@deepseek-ai/dsh-people": "workspace:*",
-    "@deepseek-ai/dsh-request-principal": "workspace:*",
-    "@deepseek-ai/dsh-typert-protocol": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-api-gateway": "workspace:*",
+    "@lyness/lyn-people": "workspace:*",
+    "@lyness/lyn-request-principal": "workspace:*",
+    "@lyness/lyn-typert-protocol": "workspace:*"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-api-gateway": "workspace:*",
-    "@deepseek-ai/dsh-people": "workspace:*",
-    "@deepseek-ai/dsh-request-principal": "workspace:*",
-    "@deepseek-ai/dsh-typert-protocol": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-api-gateway": "workspace:*",
+    "@lyness/lyn-people": "workspace:*",
+    "@lyness/lyn-request-principal": "workspace:*",
+    "@lyness/lyn-typert-protocol": "workspace:*"
   }
 }

@@ -9,15 +9,15 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { afterEach, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import Loader from '@deepseek-ai/cordis-plugin-loader'
-import Include from '@deepseek-ai/cordis-plugin-include'
-import SignIn from '@deepseek-ai/dsh-sign-in'
-import * as AdmissionRoster from '@deepseek-ai/dsh-sign-in/admission-roster'
-import * as StoredAuthSessions from '@deepseek-ai/dsh-auth-session/store'
-import Storage from '@deepseek-ai/dsh-storage'
-import * as StorageJson from '@deepseek-ai/dsh-storage-json'
-import * as StorageDomain from '@deepseek-ai/dsh-storage-domain'
+import { Context } from '@lyness/cordis'
+import Loader from '@lyness/cordis-plugin-loader'
+import Include from '@lyness/cordis-plugin-include'
+import SignIn from '@lyness/lyn-sign-in'
+import * as AdmissionRoster from '@lyness/lyn-sign-in/admission-roster'
+import * as StoredAuthSessions from '@lyness/lyn-auth-session/store'
+import Storage from '@lyness/lyn-storage'
+import * as StorageJson from '@lyness/lyn-storage-json'
+import * as StorageDomain from '@lyness/lyn-storage-domain'
 import * as Wecom from '../src/index.ts'
 import { CHANNEL_ID } from '../src/index.ts'
 
@@ -34,26 +34,26 @@ afterEach(async () => {
 
 /** Boot the rows through the real Loader. */
 async function compose(): Promise<Context> {
-  root = await mkdtemp(join(tmpdir(), 'dsh-wecom-'))
+  root = await mkdtemp(join(tmpdir(), 'lyn-wecom-'))
   const configPath = join(root, 'cordis.yml')
   await writeFile(configPath, [
-    "- name: '@deepseek-ai/dsh-storage'",
-    "- name: '@deepseek-ai/dsh-storage-json'",
+    "- name: '@lyness/lyn-storage'",
+    "- name: '@lyness/lyn-storage-json'",
     '  config:',
     `    root: ${JSON.stringify(join(root, 'state'))}`,
-    "- name: '@deepseek-ai/dsh-storage-domain'",
+    "- name: '@lyness/lyn-storage-domain'",
     '  config:',
     '    backend: json',
-    "- name: '@deepseek-ai/dsh-auth-session/store'",
-    "- name: '@deepseek-ai/dsh-sign-in/admission-roster'",
+    "- name: '@lyness/lyn-auth-session/store'",
+    "- name: '@lyness/lyn-sign-in/admission-roster'",
     '  config:',
     '    bindings:',
     '      - channel: wecom',
     '        issuer: ww-acme',
     '        subject: ada',
     '        person: ada',
-    "- name: '@deepseek-ai/dsh-sign-in'",
-    "- name: '@deepseek-ai/dsh-wecom'",
+    "- name: '@lyness/lyn-sign-in'",
+    "- name: '@lyness/lyn-wecom'",
     '  config:',
     '    corpId: ww-acme',
     '    agentId: "1000002"',
@@ -68,13 +68,13 @@ async function compose(): Promise<Context> {
   await ctx.plugin(Loader)
   ctx.loader.builtins.include = Include
   const modules = new Map<string, unknown>([
-    ['@deepseek-ai/dsh-storage', Storage],
-    ['@deepseek-ai/dsh-storage-json', StorageJson],
-    ['@deepseek-ai/dsh-storage-domain', StorageDomain],
-    ['@deepseek-ai/dsh-auth-session/store', StoredAuthSessions],
-    ['@deepseek-ai/dsh-sign-in/admission-roster', AdmissionRoster],
-    ['@deepseek-ai/dsh-sign-in', SignIn],
-    ['@deepseek-ai/dsh-wecom', Wecom],
+    ['@lyness/lyn-storage', Storage],
+    ['@lyness/lyn-storage-json', StorageJson],
+    ['@lyness/lyn-storage-domain', StorageDomain],
+    ['@lyness/lyn-auth-session/store', StoredAuthSessions],
+    ['@lyness/lyn-sign-in/admission-roster', AdmissionRoster],
+    ['@lyness/lyn-sign-in', SignIn],
+    ['@lyness/lyn-wecom', Wecom],
   ])
   const base = ctx.loader.internal
   if (base === undefined) throw new Error('this Node build exposes no internal module loader')
@@ -108,7 +108,7 @@ it('signs a bound member in, end to end through the registry', async () => {
     return Promise.resolve({ ok: true, status: 200, json: () => Promise.resolve(body) } as Response)
   })
 
-  const begun = await ctx.signIn.begin(CHANNEL_ID, 'https://dsh.example/oauth/callback/wecom')
+  const begun = await ctx.signIn.begin(CHANNEL_ID, 'https://lyn.example/oauth/callback/wecom')
   if (begun.kind !== 'redirect') throw new Error('a redirect channel began something else')
   expect(begun.start.to).toContain('login.work.weixin.qq.com')
 
@@ -130,7 +130,7 @@ it('refuses a member this deployment binds nobody to', async () => {
     return Promise.resolve({ ok: true, status: 200, json: () => Promise.resolve(body) } as Response)
   })
 
-  const begun = await ctx.signIn.begin(CHANNEL_ID, 'https://dsh.example/oauth/callback/wecom')
+  const begun = await ctx.signIn.begin(CHANNEL_ID, 'https://lyn.example/oauth/callback/wecom')
   if (begun.kind !== 'redirect') throw new Error('a redirect channel began something else')
   const refused = await ctx.signIn
     .resume(CHANNEL_ID, new URLSearchParams({ state: begun.start.attempt, code: 'c' }))
@@ -144,7 +144,7 @@ it('stops offering the channel when its plugin is unloaded', async () => {
   expect(registered).toHaveLength(1)
   // The registration is an effect of the channel's own fiber, so unloading
   // that row — an HMR edit, a disabled entry — takes the button with it.
-  const entry = [...ctx.loader.entries()].find(one => one.options.name === '@deepseek-ai/dsh-wecom')
+  const entry = [...ctx.loader.entries()].find(one => one.options.name === '@lyness/lyn-wecom')
   if (entry?.fiber === undefined) throw new Error('the Loader kept no live entry for the channel')
   await entry.fiber.dispose()
   expect(ctx.signIn.available()).toEqual([])

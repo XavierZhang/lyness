@@ -11,25 +11,25 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import Loader from '@deepseek-ai/cordis-plugin-loader'
-import Include from '@deepseek-ai/cordis-plugin-include'
-import AgentRegistry from '@deepseek-ai/dsh-agent'
-import SessionStore from '@deepseek-ai/dsh-session'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
-import StaticTenantDirectory from '@deepseek-ai/dsh-tenant-static'
-import StaticTenantConfigStore from '@deepseek-ai/dsh-tenant-config-static'
+import { Context } from '@lyness/cordis'
+import Loader from '@lyness/cordis-plugin-loader'
+import Include from '@lyness/cordis-plugin-include'
+import AgentRegistry from '@lyness/lyn-agent'
+import SessionStore from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import StaticTenantDirectory from '@lyness/lyn-tenant-static'
+import StaticTenantConfigStore from '@lyness/lyn-tenant-config-static'
 import * as TenantSession from '../src/index.ts'
 import type { TenantSessionRecord } from '../src/index.ts'
 
-const AGENTS = '@deepseek-ai/dsh-agent'
-const PROMPT = '@deepseek-ai/dsh-system-prompt'
-const SESSIONS = '@deepseek-ai/dsh-session'
-const PROJECTIONS = '@deepseek-ai/dsh-session-projection'
-const DIRECTORY = '@deepseek-ai/dsh-tenant-static'
-const CONFIG = '@deepseek-ai/dsh-tenant-config-static'
-const STAMP = '@deepseek-ai/dsh-tenant-session'
+const AGENTS = '@lyness/lyn-agent'
+const PROMPT = '@lyness/lyn-system-prompt'
+const SESSIONS = '@lyness/lyn-session'
+const PROJECTIONS = '@lyness/lyn-session-projection'
+const DIRECTORY = '@lyness/lyn-tenant-static'
+const CONFIG = '@lyness/lyn-tenant-config-static'
+const STAMP = '@lyness/lyn-tenant-session'
 
 let root: string | undefined
 let context: Context | undefined
@@ -43,7 +43,7 @@ afterEach(async () => {
 
 /** Boot the five rows through the real Loader. */
 async function compose(): Promise<Context> {
-  root = await mkdtemp(join(tmpdir(), 'dsh-tenant-session-'))
+  root = await mkdtemp(join(tmpdir(), 'lyn-tenant-session-'))
   const configPath = join(root, 'cordis.yml')
   await writeFile(configPath, [
     `- name: '${AGENTS}'`,

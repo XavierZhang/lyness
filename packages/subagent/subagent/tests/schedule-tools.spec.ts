@@ -10,18 +10,18 @@ import { mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { dirname, join } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
-import { Context } from '@deepseek-ai/cordis'
-import Loader from '@deepseek-ai/cordis-plugin-loader'
-import Include from '@deepseek-ai/cordis-plugin-include'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import AgentLoop from '@deepseek-ai/dsh-agent-loop'
-import { mountAgentLoopTestDependencies } from '@deepseek-ai/dsh-agent-loop-testkit'
-import AgentPresets from '@deepseek-ai/dsh-agent-preset-registry'
-import { SessionId } from '@deepseek-ai/dsh-session'
-import type { SessionEvent } from '@deepseek-ai/dsh-session'
+import { Context } from '@lyness/cordis'
+import Loader from '@lyness/cordis-plugin-loader'
+import Include from '@lyness/cordis-plugin-include'
+import type { Agent } from '@lyness/lyn-agent'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import { mountAgentLoopTestDependencies } from '@lyness/lyn-agent-loop-testkit'
+import AgentPresets from '@lyness/lyn-agent-preset-registry'
+import { SessionId } from '@lyness/lyn-session'
+import type { SessionEvent } from '@lyness/lyn-session'
 import * as JsonlSessionPersistence from '../../../session/session-persistence-jsonl/src/index.ts'
-import SubagentRuntime from '@deepseek-ai/dsh-subagent'
-import * as Spawn from '@deepseek-ai/dsh-subagent-spawn-in-process'
+import SubagentRuntime from '@lyness/lyn-subagent'
+import * as Spawn from '@lyness/lyn-subagent-spawn-in-process'
 import { MockAdapter, textResponse, toolCallResponse } from '../../../core/agent-loop/tests/mock-adapter.ts'
 import Storage from '../../../storage/storage/src/index.ts'
 import { DomainFacility } from '../../../storage/storage-domain/src/index.ts'
@@ -42,7 +42,7 @@ afterEach(async () => {
 async function setupScheduleHost(): Promise<{ ctx: Context; parent: Agent; dispatched: ReturnType<typeof vi.fn> }> {
   const ctx = new Context()
   contexts.push(ctx)
-  const root = mkdtempSync(join(tmpdir(), 'dsh-schedule-tools-'))
+  const root = mkdtempSync(join(tmpdir(), 'lyn-schedule-tools-'))
   roots.push(root)
   ctx.baseUrl = pathToFileURL(FIXTURES).href + '/'
   await ctx.plugin(Loader)

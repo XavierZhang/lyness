@@ -5,54 +5,54 @@
 /:
   en: 39fa1a3c8aa9e09c
   zh: 1c8bb5438c30f087
-/deepseek-harness-dsh-client-ui-theme:
+/lyness-lyn-client-ui-theme:
   en: f3899f492fc12633
   zh: b59c92c362422470
-/deepseek-harness-dsh-client-ui-theme/summary:
+/lyness-lyn-client-ui-theme/summary:
   en: 7382e1b007fd923e
   zh: c47de731ee82da8b
-/deepseek-harness-dsh-client-ui-theme/table-of-contents:
+/lyness-lyn-client-ui-theme/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/deepseek-harness-dsh-client-ui-theme/use-this-package:
+/lyness-lyn-client-ui-theme/use-this-package:
   en: 5d64b3d918d5edfa
   zh: fc929354a0faf33a
-/deepseek-harness-dsh-client-ui-theme/use-this-package/appearance-and-font-size:
+/lyness-lyn-client-ui-theme/use-this-package/appearance-and-font-size:
   en: 0b0177e1afefe4a7
   zh: 52d88f12a8369ee8
-/deepseek-harness-dsh-client-ui-theme/use-this-package/registering-a-theme:
+/lyness-lyn-client-ui-theme/use-this-package/registering-a-theme:
   en: 2cd32ccaba33b3e9
   zh: 53ea78d19929ea02
-/deepseek-harness-dsh-client-ui-theme/use-this-package/deployment-colour-overrides:
+/lyness-lyn-client-ui-theme/use-this-package/deployment-colour-overrides:
   en: 5f3564715a36d87e
   zh: 070050a77761089e
-/deepseek-harness-dsh-client-ui-theme/use-this-package/pre-plugin-palette:
+/lyness-lyn-client-ui-theme/use-this-package/pre-plugin-palette:
   en: 86853e4896227d78
   zh: 31841ac138ec0d3c
-/deepseek-harness-dsh-client-ui-theme/understand-the-implementation:
+/lyness-lyn-client-ui-theme/understand-the-implementation:
   en: 43162c8182e0748b
   zh: 8b48b74ab849f60b
-/deepseek-harness-dsh-client-ui-theme/understand-the-implementation/stylesheets:
+/lyness-lyn-client-ui-theme/understand-the-implementation/stylesheets:
   en: 2b1b86d156ce97dc
   zh: 757b54d9b7170106
-/deepseek-harness-dsh-client-ui-theme/understand-the-implementation/scrollbar-rebinding:
+/lyness-lyn-client-ui-theme/understand-the-implementation/scrollbar-rebinding:
   en: 259f5cff424cdc28
   zh: 4c3d950f72aa9b36
-/deepseek-harness-dsh-client-ui-theme/understand-the-implementation/preference-persistence:
+/lyness-lyn-client-ui-theme/understand-the-implementation/preference-persistence:
   en: 0bbee9e1ea79b14d
   zh: 22a5e587183da075
-/deepseek-harness-dsh-client-ui-theme/further-exploration:
+/lyness-lyn-client-ui-theme/further-exploration:
   en: f9d0ac4ea6559c2d
   zh: af679ab72509cda8
-/deepseek-harness-dsh-client-ui-theme/model-experience:
+/lyness-lyn-client-ui-theme/model-experience:
   en: 3120df665299c634
   zh: 1d9f365d091d0d2a
-/deepseek-harness-dsh-client-ui-theme/model-experience/kv-cache-effect:
+/lyness-lyn-client-ui-theme/model-experience/kv-cache-effect:
   en: ca75c51c89c2c9b0
   zh: de54f3467ef3b9be
-/deepseek-harness-dsh-client-ui-theme/known-limitations-and-deferred-work:
+/lyness-lyn-client-ui-theme/known-limitations-and-deferred-work:
   en: 0d328dbced31a041
   zh: 2951de356ba6bb82
-/deepseek-harness-dsh-client-ui-theme/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-client-ui-theme/known-limitations-and-deferred-work/dev-note:
   en: f1a2942985b11203
   zh: 8196d82321e024b0

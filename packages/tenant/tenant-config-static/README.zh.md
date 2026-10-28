@@ -3,7 +3,7 @@ description: "从组合配置读取的租户配置：每个租户的模型、供
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-tenant-config-static
+# @lyness/lyn-tenant-config-static
 
 [English](README.md) | 中文
 
@@ -27,7 +27,7 @@ kind: "package-reference"
 
 ```yaml
 - id: tenant-config
-  name: '@deepseek-ai/dsh-tenant-config-static'
+  name: '@lyness/lyn-tenant-config-static'
   config:
     tenants:
       - tenantId: acme

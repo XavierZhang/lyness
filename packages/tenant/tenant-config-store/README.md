@@ -3,7 +3,7 @@ description: "Durable tenant configuration: one record per tenant in the storage
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-tenant-config-store
+# @lyness/lyn-tenant-config-store
 
 English | [中文](README.zh.md)
 
@@ -27,25 +27,25 @@ This backend registers `ctx.tenantConfig` over the storage domain: each tenant's
 
 ```yaml
 - id: storage
-  name: '@deepseek-ai/dsh-storage'
+  name: '@lyness/lyn-storage'
 - id: storage-medium
-  name: '@deepseek-ai/dsh-storage-sqlite'
+  name: '@lyness/lyn-storage-sqlite'
   config:
-    path: /var/lib/dsh/data.db
+    path: /var/lib/lyn/data.db
 - id: storage-domain
-  name: '@deepseek-ai/dsh-storage-domain'
+  name: '@lyness/lyn-storage-domain'
   config:
     backend: sqlite
 - id: tenant-config
-  name: '@deepseek-ai/dsh-tenant-config-store'
+  name: '@lyness/lyn-tenant-config-store'
 ```
 
-It takes no configuration: the records are the configuration. Mount it instead of `@deepseek-ai/dsh-tenant-config-static`, never alongside it — the seam holds one store per context, and a second mount throws.
+It takes no configuration: the records are the configuration. Mount it instead of `@lyness/lyn-tenant-config-static`, never alongside it — the seam holds one store per context, and a second mount throws.
 
 Saving is the capability, not a method, so a consumer that works against either backend asks first:
 
 ```ts
-import type { TenantConfig, TenantConfigStore } from '@deepseek-ai/dsh-tenant-config'
+import type { TenantConfig, TenantConfigStore } from '@lyness/lyn-tenant-config'
 
 /**
  * Save when the mounted backend accepts saves.

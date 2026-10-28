@@ -1,13 +1,13 @@
 {
-  "name": "@deepseek-ai/dsh-agent-tool-presentation",
-  "description": "Deprecated tool presentation selector; use dsh-tool-executor-native or dsh-tool-executor-ptc directly",
+  "name": "@lyness/lyn-agent-tool-presentation",
+  "description": "Deprecated tool presentation selector; use lyn-tool-executor-native or lyn-tool-executor-ptc directly",
   "version": "0.2.1-rc.3",
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/core/agent-tool-presentation"
   },
   "type": "module",
@@ -29,21 +29,21 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@deepseek-ai/dsh-tool-executor-native": "workspace:*",
-    "@deepseek-ai/dsh-tool-executor-ptc": "workspace:*",
-    "@deepseek-ai/schemastery": "workspace:~"
+    "@lyness/lyn-tool-executor-native": "workspace:*",
+    "@lyness/lyn-tool-executor-ptc": "workspace:*",
+    "@lyness/schemastery": "workspace:~"
   },
   "peerDependencies": {
-    "@deepseek-ai/dsh-tools": "workspace:*",
-    "@deepseek-ai/cordis": "workspace:~"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-tools": "workspace:*"
   },
   "devDependencies": {
-    "@deepseek-ai/dsh-agent": "workspace:*",
-    "@deepseek-ai/dsh-ptc-runtime": "workspace:*",
-    "@deepseek-ai/dsh-scope": "workspace:*",
-    "@deepseek-ai/dsh-session": "workspace:*",
-    "@deepseek-ai/dsh-system-prompt": "workspace:*",
-    "@deepseek-ai/dsh-tools": "workspace:*",
-    "@deepseek-ai/cordis": "workspace:~"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/lyn-ptc-runtime": "workspace:*",
+    "@lyness/lyn-scope": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-system-prompt": "workspace:*",
+    "@lyness/lyn-tools": "workspace:*"
   }
 }

@@ -1,30 +1,30 @@
 /** MCP admission, token retention, recovery files, and PTC forwarding together. */
-import { executeToolFixture, executeModelToolFixture } from '@deepseek-ai/dsh-tool-testkit'
-import * as NativeToolExecutor from '@deepseek-ai/dsh-tool-executor-native'
-import * as PtcToolExecutor from '@deepseek-ai/dsh-tool-executor-ptc'
+import { executeToolFixture, executeModelToolFixture } from '@lyness/lyn-tool-testkit'
+import * as NativeToolExecutor from '@lyness/lyn-tool-executor-native'
+import * as PtcToolExecutor from '@lyness/lyn-tool-executor-ptc'
 import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { tmpdir } from 'node:os'
 import { describe, expect, it, onTestFinished, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import { provideWorkingDirectoryFixture } from '@deepseek-ai/dsh-agent-loop-testkit'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import AttachmentStore, { AttachmentId } from '@deepseek-ai/dsh-attachment'
-import type { ImageAttachmentRef, SaveImageAttachment, StoredImageAttachment } from '@deepseek-ai/dsh-attachment'
-import FileSystem from '@deepseek-ai/dsh-fs-local'
-import { LlmAdapter, LlmRuntime, ToolCallId } from '@deepseek-ai/dsh-llm'
-import type { GenerateOptions, StreamChunk, ImageBlock, LlmImageRequestPricing, LlmResolvedModelInfo } from '@deepseek-ai/dsh-llm'
-import { deepSeekImageTokens } from '@deepseek-ai/dsh-llm-deepseek'
-import { estimateContent } from '@deepseek-ai/dsh-token-meter/estimate'
-import { createMcpToolDefinition } from '@deepseek-ai/dsh-mcp-client'
-import { Session, SessionId } from '@deepseek-ai/dsh-session'
-import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
-import ToolRuntime from '@deepseek-ai/dsh-tools'
-import { defineContentToolFixture } from '@deepseek-ai/dsh-tool-testkit'
-import LocalSpillStore from '@deepseek-ai/dsh-spill-local'
-import { PtcRuntime } from '@deepseek-ai/dsh-ptc-runtime'
-import type { PtcRunRequest, PtcRunSpec, PtcRunResult } from '@deepseek-ai/dsh-ptc-runtime'
-import type { JsonValue } from '@deepseek-ai/dsh-util-values'
+import { Context } from '@lyness/cordis'
+import { provideWorkingDirectoryFixture } from '@lyness/lyn-agent-loop-testkit'
+import type { Agent } from '@lyness/lyn-agent'
+import AttachmentStore, { AttachmentId } from '@lyness/lyn-attachment'
+import type { ImageAttachmentRef, SaveImageAttachment, StoredImageAttachment } from '@lyness/lyn-attachment'
+import FileSystem from '@lyness/lyn-fs-local'
+import { LlmAdapter, LlmRuntime, ToolCallId } from '@lyness/lyn-llm'
+import type { GenerateOptions, StreamChunk, ImageBlock, LlmImageRequestPricing, LlmResolvedModelInfo } from '@lyness/lyn-llm'
+import { deepSeekImageTokens } from '@lyness/lyn-llm-deepseek'
+import { estimateContent } from '@lyness/lyn-token-meter/estimate'
+import { createMcpToolDefinition } from '@lyness/lyn-mcp-client'
+import { Session, SessionId } from '@lyness/lyn-session'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime from '@lyness/lyn-tools'
+import { defineContentToolFixture } from '@lyness/lyn-tool-testkit'
+import LocalSpillStore from '@lyness/lyn-spill-local'
+import { PtcRuntime } from '@lyness/lyn-ptc-runtime'
+import type { PtcRunRequest, PtcRunSpec, PtcRunResult } from '@lyness/lyn-ptc-runtime'
+import type { JsonValue } from '@lyness/lyn-util-values'
 import * as SpillPolicy from '../src/index.ts'
 
 const PNG = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAADElEQVQImWNgZGIGAAAOAAeCcsnOAAAAAElFTkSuQmCC', 'base64')
@@ -67,7 +67,7 @@ class VisionAdapter extends LlmAdapter {
 }
 
 async function setup(content: JsonValue[], maxInlineTokens: number, mode: 'native' | 'ptc' = 'native') {
-  const root = await mkdtemp(join(tmpdir(), 'dsh-multimodal-spill-'))
+  const root = await mkdtemp(join(tmpdir(), 'lyn-multimodal-spill-'))
   const ctx = new Context()
   provideWorkingDirectoryFixture(ctx, root)
   onTestFinished(async () => {

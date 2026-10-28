@@ -14,10 +14,10 @@
  * month's spending, and a month that has turned starts at the ceiling again
  * without anything having to run at the turn.
  *
- * @module @deepseek-ai/dsh-credits/budget
+ * @module @lyness/lyn-credits/budget
  */
 
-import type { PersonId } from '@deepseek-ai/dsh-people'
+import type { PersonId } from '@lyness/lyn-people'
 import type { ResetPeriod } from './period.ts'
 
 /** What one organization may spend together, as the deployment stores it. */

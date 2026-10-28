@@ -11,8 +11,8 @@ import { join } from 'node:path'
 import { afterEach, expect, it, vi } from 'vitest'
 import { runStudio } from '../src/studio.ts'
 
-vi.mock('@deepseek-ai/dsh-host-brand-icon', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('@deepseek-ai/dsh-host-brand-icon')>()
+vi.mock('@lyness/lyn-host-brand-icon', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@lyness/lyn-host-brand-icon')>()
   return {
     ...actual,
     vectorizeIcon: (png: Uint8Array) => ({ ...actual.vectorizeIcon(png), favicon: '<svg onload="alert(1)"></svg>' }),
@@ -30,7 +30,7 @@ it('refuses a generated SVG that is not a brand SVG and writes nothing', async (
   root = await mkdtemp(join(tmpdir(), 'brand-studio-'))
   const assetDirectory = join(root, 'brand')
   await expect(runStudio({
-    productName: 'HARNESS',
+    productName: 'lyness',
     productAbbreviation: undefined,
     productNameZh: undefined,
     colors: {},

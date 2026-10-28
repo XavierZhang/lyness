@@ -45,14 +45,14 @@ const resolved = resolveConfig(config())
 
 describe('the page a sign-in sends the browser to', () => {
   it('names the application, the scope, the callback, and the attempt', () => {
-    const url = authorizeUrl(resolved, 'attempt-1', 'https://dsh.example/oauth/callback/dingtalk')
+    const url = authorizeUrl(resolved, 'attempt-1', 'https://lyn.example/oauth/callback/dingtalk')
     expect(url.origin).toBe('https://login.dingtalk.com')
     expect(url.pathname).toBe('/oauth2/auth')
     expect(Object.fromEntries(url.searchParams)).toEqual({
       client_id: 'ding-app-key',
       response_type: 'code',
       scope: 'openid',
-      redirect_uri: 'https://dsh.example/oauth/callback/dingtalk',
+      redirect_uri: 'https://lyn.example/oauth/callback/dingtalk',
       state: 'attempt-1',
       prompt: 'consent',
     })
@@ -60,7 +60,7 @@ describe('the page a sign-in sends the browser to', () => {
 
   it('goes to the host and scope a deployment names instead', () => {
     const own = resolveConfig(config({ loginHost: 'login.dingtalk.acme.internal', scope: 'openid corpid' }))
-    const url = authorizeUrl(own, 's', 'https://dsh.example/cb')
+    const url = authorizeUrl(own, 's', 'https://lyn.example/cb')
     expect(url.origin).toBe('https://login.dingtalk.acme.internal')
     expect(url.searchParams.get('scope')).toBe('openid corpid')
   })

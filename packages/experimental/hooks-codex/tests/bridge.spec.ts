@@ -1,19 +1,19 @@
-import { executeToolFixture } from '@deepseek-ai/dsh-tool-testkit'
-import { createUserMessage, ToolCallId } from '@deepseek-ai/dsh-llm'
-import { provideWorkingDirectoryFixture, mountAgentLoopTestDependencies } from '@deepseek-ai/dsh-agent-loop-testkit'
+import { executeToolFixture } from '@lyness/lyn-tool-testkit'
+import { createUserMessage, ToolCallId } from '@lyness/lyn-llm'
+import { provideWorkingDirectoryFixture, mountAgentLoopTestDependencies } from '@lyness/lyn-agent-loop-testkit'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { chmodSync, existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { Context } from '@deepseek-ai/cordis'
-import Loader from '@deepseek-ai/cordis-plugin-loader'
-import { SessionId, type SessionEvent } from '@deepseek-ai/dsh-session'
-import { defineContentToolFixture } from '@deepseek-ai/dsh-tool-testkit'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import AgentLoop from '@deepseek-ai/dsh-agent-loop'
-import { LocalBashExecutor } from '@deepseek-ai/dsh-bash-local'
-import LocalSubprocessRuntime from '@deepseek-ai/dsh-subprocess-local'
-import * as HooksCodex from '@deepseek-ai/dsh-hooks-codex'
+import { Context } from '@lyness/cordis'
+import Loader from '@lyness/cordis-plugin-loader'
+import { SessionId, type SessionEvent } from '@lyness/lyn-session'
+import { defineContentToolFixture } from '@lyness/lyn-tool-testkit'
+import type { Agent } from '@lyness/lyn-agent'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import { LocalBashExecutor } from '@lyness/lyn-bash-local'
+import LocalSubprocessRuntime from '@lyness/lyn-subprocess-local'
+import * as HooksCodex from '@lyness/lyn-hooks-codex'
 import { MockAdapter, textResponse, toolCallResponse } from '../../../core/agent-loop/tests/mock-adapter.ts'
 
 /**
@@ -30,7 +30,7 @@ afterEach(async () => {
 })
 
 function configDir(): string {
-  const dir = mkdtempSync(join(tmpdir(), 'dsh-hooks-codex-'))
+  const dir = mkdtempSync(join(tmpdir(), 'lyn-hooks-codex-'))
   dirs.push(dir)
   return dir
 }

@@ -9,15 +9,15 @@
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { act, cleanup, screen } from '@testing-library/react'
-import type { TypertResourceKind } from '@deepseek-ai/dsh-api-remote-access/client'
-import { ClientAccessState } from '@deepseek-ai/dsh-api-remote-access/src/client/state.ts'
-import type { WorkspaceId } from '@deepseek-ai/dsh-api-workspace-controller/client'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
-import { createSnapshotStore } from '@deepseek-ai/dsh-client-store'
-import { LocaleRuntime } from '@deepseek-ai/dsh-client-locale/client'
-import type { PropsRenderSlots } from '@deepseek-ai/dsh-client-ui-slots'
-import { allowAllAccessPlugin, SlotTestRuntime, usePinnedBrowserLanguages } from '@deepseek-ai/dsh-client-test-runtime'
-import { apply, inject } from '@deepseek-ai/dsh-client-ui-workspace/client'
+import type { TypertResourceKind } from '@lyness/lyn-api-remote-access/client'
+import { ClientAccessState } from '@lyness/lyn-api-remote-access/src/client/state.ts'
+import type { WorkspaceId } from '@lyness/lyn-api-workspace-controller/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import { createSnapshotStore } from '@lyness/lyn-client-store'
+import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
+import type { PropsRenderSlots } from '@lyness/lyn-client-ui-slots'
+import { allowAllAccessPlugin, SlotTestRuntime, usePinnedBrowserLanguages } from '@lyness/lyn-client-test-runtime'
+import { apply, inject } from '@lyness/lyn-client-ui-workspace/client'
 
 usePinnedBrowserLanguages('zh-CN')
 

@@ -3,13 +3,13 @@ description: "The system-announcements row in General Settings, for deployments 
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-client-ui-settings-announcements
+# @lyness/lyn-client-ui-settings-announcements
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`dsh-client-ui-settings-announcements` adds the system-announcements row to General Settings, beside the current-version row. The row names the newest announcement's title and opens a reader listing all of them with their dates and the releases they describe. What it shows comes from the deployment the client connected to, read through `remote.announcements`, so a desktop install and a browser each read their own server. The read starts when the reader opens, because a deployment with nothing to say is the ordinary case.
+`lyn-client-ui-settings-announcements` adds the system-announcements row to General Settings, beside the current-version row. The row names the newest announcement's title and opens a reader listing all of them with their dates and the releases they describe. What it shows comes from the deployment the client connected to, read through `remote.announcements`, so a desktop install and a browser each read their own server. The read starts when the reader opens, because a deployment with nothing to say is the ordinary case.
 
 ## Table of Contents
 
@@ -27,7 +27,7 @@ English | [中文](README.zh.md)
 
 ```yaml
 - id: ui-settings-announcements
-  name: '@deepseek-ai/dsh-client-ui-settings-announcements'
+  name: '@lyness/lyn-client-ui-settings-announcements'
 ```
 
 It takes no configuration. The deployment needs an announcement source and the announcement controller mounted; without them the Remote namespace is absent and the row reports that the announcements could not be read.
@@ -48,9 +48,9 @@ It takes no configuration. The deployment needs an announcement source and the a
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`dsh-announcements`](../../host/announcements/README.md) — where the announcements are written.
-- [`dsh-api-announcement-controller`](../../api/announcement-controller/README.md) — the read this row performs.
-- [`dsh-client-ui-settings-general`](../ui-settings-general/README.md) — the section this row joins.
+- [`lyn-announcements`](../../host/announcements/README.md) — where the announcements are written.
+- [`lyn-api-announcement-controller`](../../api/announcement-controller/README.md) — the read this row performs.
+- [`lyn-client-ui-settings-general`](../ui-settings-general/README.md) — the section this row joins.
 
 -----
 
@@ -81,6 +81,6 @@ No request prefix changes, because nothing here reaches a model request.
 <details>
 <summary>Working context for maintainers — click to expand</summary>
 
-The Host half registers nothing. It exists so the package has a Host entry its client bundle is mounted beside, which is what `dsh.client` requires.
+The Host half registers nothing. It exists so the package has a Host entry its client bundle is mounted beside, which is what `lyn.client` requires.
 
 </details>

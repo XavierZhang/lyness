@@ -3,13 +3,13 @@ description: "The sign-in screen a deployment with accounts shows, and the row n
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-client-ui-sign-in
+# @lyness/lyn-client-ui-sign-in
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`dsh-client-ui-sign-in` is how a person gets into a deployment that serves named people: a screen that covers the product while nobody is signed in, offering one button per channel the deployment mounts, and a General Settings row naming whose session this is with the way out. Both read one answer from `remote.identity`, so opening Settings and loading the frame do not ask the deployment twice. On a deployment with no accounts both render nothing, and the single-operator shape sees no change.
+`lyn-client-ui-sign-in` is how a person gets into a deployment that serves named people: a screen that covers the product while nobody is signed in, offering one button per channel the deployment mounts, and a General Settings row naming whose session this is with the way out. Both read one answer from `remote.identity`, so opening Settings and loading the frame do not ask the deployment twice. On a deployment with no accounts both render nothing, and the single-operator shape sees no change.
 
 ## Table of Contents
 
@@ -29,9 +29,9 @@ The Web bundle mounts both halves beside the namespace they read:
 
 ```yaml
 - id: identity-controller
-  name: '@deepseek-ai/dsh-api-identity-controller'
+  name: '@lyness/lyn-api-identity-controller'
 - id: ui-sign-in
-  name: '@deepseek-ai/dsh-client-ui-sign-in'
+  name: '@lyness/lyn-client-ui-sign-in'
 ```
 
 Nothing else needs configuring. What appears follows from the answer: no accounts renders nothing, accounts with nobody signed in covers the product, and a signed-in viewer sees only the Settings row.
@@ -58,9 +58,9 @@ Nothing else needs configuring. What appears follows from the answer: no account
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`dsh-api-identity-controller`](../../api/identity-controller/README.md) — the namespace both surfaces read.
-- [`dsh-sign-in-http`](../../identity/sign-in-http/README.md) — the routes the links point at.
-- [`dsh-api-remote-authority`](../../api/remote-authority/README.md) — what actually refuses an unidentified caller.
+- [`lyn-api-identity-controller`](../../api/identity-controller/README.md) — the namespace both surfaces read.
+- [`lyn-sign-in-http`](../../identity/sign-in-http/README.md) — the routes the links point at.
+- [`lyn-api-remote-authority`](../../api/remote-authority/README.md) — what actually refuses an unidentified caller.
 
 -----
 

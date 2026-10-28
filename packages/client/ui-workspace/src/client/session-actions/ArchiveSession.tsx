@@ -7,15 +7,15 @@
  * live in the injected callbacks, not here.
  */
 import { useState } from 'react'
-import type { SessionActivity } from '@deepseek-ai/dsh-api-workspace-controller/client'
+import type { SessionActivity } from '@lyness/lyn-api-workspace-controller/client'
 // Type-only: the family keys each provider merges; a key this program did not compile takes the generic line.
-import type {} from '@deepseek-ai/dsh-agent/types'
-import type {} from '@deepseek-ai/dsh-jobs/view'
-import type {} from '@deepseek-ai/dsh-schedule/client'
-import type {} from '@deepseek-ai/dsh-subagent/client'
+import type {} from '@lyness/lyn-agent/types'
+import type {} from '@lyness/lyn-jobs/view'
+import type {} from '@lyness/lyn-schedule/client'
+import type {} from '@lyness/lyn-subagent/client'
 import {
   Button, IconArchiveOutlineRegular, IconUnarchiveOutlineRegular, MenuItemButton, Modal, Tooltip,
-} from '@deepseek-ai/dsh-client-ui-primitives'
+} from '@lyness/lyn-client-ui-primitives'
 import type {
   ArchiveSessionInjected, SessionArchiveConfirmInjected, SessionArchiveConfirmProps, SessionArchiveConfirmRequest,
   SessionMenuItemProps, SessionRowActionProps,

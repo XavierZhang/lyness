@@ -6,12 +6,12 @@
  * kind is momentarily absent from the composition must still be there when
  * that plugin comes back.
  *
- * @module @deepseek-ai/dsh-sign-in-channels/storage
+ * @module @lyness/lyn-sign-in-channels/storage
  */
 
 import { z } from 'zod'
-import { defineDomain, domainTable, storedId, storedInstant } from '@deepseek-ai/dsh-storage-domain'
-import type { PersonId } from '@deepseek-ai/dsh-people'
+import { defineDomain, domainTable, storedId, storedInstant } from '@lyness/lyn-storage-domain'
+import type { PersonId } from '@lyness/lyn-people'
 import type { ChannelRecord } from './types.ts'
 
 /** One stored channel. */

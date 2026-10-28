@@ -11,11 +11,11 @@ import zipfile
 from pathlib import Path
 from types import SimpleNamespace
 
-import deepseek_harness_runtime as runtime
+import lyness_runtime as runtime
 import pytest
-from deepseek_harness_runtime._resources import validate_resources
+from lyness_runtime._resources import validate_resources
 
-from deepseek_harness_runtime import (
+from lyness_runtime import (
     RUNTIME_MODE_ENV_VAR,
     bundled_package_dir,
     main,
@@ -25,7 +25,7 @@ from deepseek_harness_runtime import (
 
 def _resource_sidecars(executable: Path, native_targets: tuple[str, ...] = ("darwin-arm64", "darwin-x64", "win32-x64")) -> Path:
     office = executable.with_name(f"{executable.name.removesuffix('.exe')}-office")
-    tag = executable.name.removeprefix("deepseek-harness-sdk-runtime-").removesuffix(".exe")
+    tag = executable.name.removeprefix("lyness-sdk-runtime-").removesuffix(".exe")
     native = tag.replace("win-", "win32-").replace("macos-", "darwin-")
     engine = native if native in native_targets else "wasm"
     for required in ("@deepseek-ai/libreoffice-kit/package.json", f"@deepseek-ai/libreoffice-kit-{engine}/prebuilds.json"):
@@ -71,7 +71,7 @@ def test_unknown_explicit_mode_fails_loud() -> None:
 @pytest.mark.parametrize("target", ["linux-x64", "linux-arm64", "macos-arm64", "macos-x64", "win-x64"])
 @pytest.mark.parametrize("invalid", [None, "manifest", "platform", "python", "skills", "packages", "mode", "node", "node-mode"])
 def test_authoring_resources_validate_installed_and_wheel_payloads(tmp_path: Path, target: str, invalid: str | None) -> None:
-    executable = tmp_path / f"deepseek-harness-sdk-runtime-{target}"
+    executable = tmp_path / f"lyness-sdk-runtime-{target}"
     _resource_sidecars(executable)
     root = tmp_path / target
     python = root / "primary-runtime/dependencies/python" / ("python.exe" if target == "win-x64" else "bin/python3")
@@ -130,11 +130,11 @@ def test_runtime_requires_spawn_helper_only_on_macos(
 ) -> None:
     runtime_dir = tmp_path / "runtime"
     runtime_dir.mkdir()
-    linux = runtime_dir / "deepseek-harness-sdk-runtime-linux-x64"
+    linux = runtime_dir / "lyness-sdk-runtime-linux-x64"
     linux.touch()
     Path(f"{linux}-rg").touch()
     _resource_sidecars(linux)
-    macos = runtime_dir / "deepseek-harness-sdk-runtime-macos-arm64"
+    macos = runtime_dir / "lyness-sdk-runtime-macos-arm64"
     macos.touch()
     Path(f"{macos}-rg").touch()
     monkeypatch.setattr(runtime, "bundled_package_dir", lambda: tmp_path)
@@ -151,9 +151,9 @@ def test_windows_runtime_uses_exe_payload_and_exe_sidecar(
 ) -> None:
     runtime_dir = tmp_path / "runtime"
     runtime_dir.mkdir()
-    executable = runtime_dir / "deepseek-harness-sdk-runtime-win-x64.exe"
+    executable = runtime_dir / "lyness-sdk-runtime-win-x64.exe"
     executable.touch()
-    (runtime_dir / "deepseek-harness-sdk-runtime-win-x64-rg.exe").touch()
+    (runtime_dir / "lyness-sdk-runtime-win-x64-rg.exe").touch()
     _resource_sidecars(executable)
     monkeypatch.setattr(runtime, "bundled_package_dir", lambda: tmp_path)
     monkeypatch.setattr(runtime, "_current_platform_tag", lambda: "win-x64")
@@ -183,7 +183,7 @@ def test_runtime_requires_ripgrep_sidecar(
 ) -> None:
     runtime_dir = tmp_path / "runtime"
     runtime_dir.mkdir()
-    (runtime_dir / "deepseek-harness-sdk-runtime-linux-x64").touch()
+    (runtime_dir / "lyness-sdk-runtime-linux-x64").touch()
     monkeypatch.setattr(runtime, "bundled_package_dir", lambda: tmp_path)
     monkeypatch.setattr(runtime, "_current_platform_tag", lambda: "linux-x64")
 
@@ -194,7 +194,7 @@ def test_runtime_requires_ripgrep_sidecar(
 def test_runtime_requires_complete_resource_sidecars(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    executable = tmp_path / "runtime" / "deepseek-harness-sdk-runtime-linux-x64"
+    executable = tmp_path / "runtime" / "lyness-sdk-runtime-linux-x64"
     executable.parent.mkdir()
     executable.touch()
     Path(f"{executable}-rg").touch()
@@ -211,11 +211,11 @@ def test_runtime_requires_complete_resource_sidecars(
     assert runtime.bundled_runtime_path() == executable
 
 
-def test_node_mode_runs_the_deployed_dsh_cli(
+def test_node_mode_runs_the_deployed_lyn_cli(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     bin_js = tmp_path / "runtime" / "node" / "runtime-bootstrap.mjs"
-    bin_js = tmp_path / "runtime" / "node" / "node_modules" / "@DeepSeek Harness" / "dsh" / "lib" / "bin.js"
+    bin_js = tmp_path / "runtime" / "node" / "node_modules" / "@lyness" / "lyn" / "lib" / "bin.js"
     bin_js.parent.mkdir(parents=True)
     bin_js.touch()
     monkeypatch.setattr(runtime, "bundled_package_dir", lambda: tmp_path)
@@ -224,28 +224,28 @@ def test_node_mode_runs_the_deployed_dsh_cli(
     assert resolve_bundled_launch_args("node") == ("/node", str(bin_js))
 
 
-def test_python_dsh_command_requires_explicit_home(
+def test_python_lyn_command_requires_explicit_home(
     monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
 ) -> None:
-    monkeypatch.delenv("DSH_HOME", raising=False)
+    monkeypatch.delenv("LYNESS_HOME", raising=False)
 
     with pytest.raises(SystemExit) as excinfo:
         main()
 
     assert excinfo.value.code == 2
-    assert "explicit DSH_HOME" in capsys.readouterr().err
+    assert "explicit LYNESS_HOME" in capsys.readouterr().err
 
 
-def test_python_dsh_command_executes_the_bundled_cli(
+def test_python_lyn_command_executes_the_bundled_cli(
     monkeypatch: pytest.MonkeyPatch
 ) -> None:
     called: dict[str, object] = {}
-    monkeypatch.setenv("DSH_HOME", "/explicit/home")
+    monkeypatch.setenv("LYNESS_HOME", "/explicit/home")
     monkeypatch.setattr(runtime, "resolve_bundled_launch_args", lambda: ("/runtime",))
-    monkeypatch.setattr(runtime, "sys", SimpleNamespace(platform="linux", argv=["dsh", "plugin", "--profile", "sdk", "list"]))
+    monkeypatch.setattr(runtime, "sys", SimpleNamespace(platform="linux", argv=["lyn", "plugin", "--profile", "sdk", "list"]))
 
     def execvpe(file: str, args: tuple[str, ...], env: dict[str, str]) -> None:
-        called.update(file=file, args=args, home=env.get("DSH_HOME"))
+        called.update(file=file, args=args, home=env.get("LYNESS_HOME"))
 
     monkeypatch.setattr(runtime.os, "execvpe", execvpe)
 
@@ -260,8 +260,8 @@ def test_python_dsh_command_executes_the_bundled_cli(
 
 @pytest.mark.parametrize("returncode", [0, 37, 513])
 def test_windows_console_waits_and_forwards_runtime_status(monkeypatch: pytest.MonkeyPatch, returncode: int) -> None:
-    monkeypatch.setenv("DSH_HOME", "/explicit/home")
-    monkeypatch.setattr(runtime, "sys", SimpleNamespace(platform="win32", argv=["dsh", "plugin", "argument with spaces", "中文"]))
+    monkeypatch.setenv("LYNESS_HOME", "/explicit/home")
+    monkeypatch.setattr(runtime, "sys", SimpleNamespace(platform="win32", argv=["lyn", "plugin", "argument with spaces", "中文"]))
     monkeypatch.setattr(runtime, "resolve_bundled_launch_args", lambda: ("runtime.exe",))
     called = []
 
@@ -294,12 +294,12 @@ def test_windows_console_branch_preserves_real_child_io_and_completion(tmp_path:
         f"raise SystemExit({returncode})\n", encoding="utf-8",
     )
     driver = (
-        "import deepseek_harness_runtime as runtime; from types import SimpleNamespace; "
-        f"runtime.sys = SimpleNamespace(platform='win32', argv=['dsh', 'argument with spaces', '中文']); "
+        "import lyness_runtime as runtime; from types import SimpleNamespace; "
+        f"runtime.sys = SimpleNamespace(platform='win32', argv=['lyn', 'argument with spaces', '中文']); "
         f"runtime.resolve_bundled_launch_args = lambda: ({sys.executable!r}, {str(child)!r}); runtime.main()"
     )
     result = subprocess.run([sys.executable, "-c", driver], capture_output=True, text=True, encoding="utf-8",
-                            env={**os.environ, "DSH_HOME": str(tmp_path), "PYTHONIOENCODING": "utf-8"}, timeout=15)
+                            env={**os.environ, "LYNESS_HOME": str(tmp_path), "PYTHONIOENCODING": "utf-8"}, timeout=15)
     assert result.returncode == returncode, result.stderr
     assert result.stdout == "stdout-中文\n"
     assert result.stderr == "stderr-中文\n"
@@ -315,7 +315,7 @@ def test_runtime_starts_independently_of_office_engine(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch, target: str, native_targets: tuple[str, ...],
 ) -> None:
     extension = ".exe" if target.startswith("win-") else ""
-    executable = tmp_path / "runtime" / f"deepseek-harness-sdk-runtime-{target}{extension}"
+    executable = tmp_path / "runtime" / f"lyness-sdk-runtime-{target}{extension}"
     executable.parent.mkdir()
     executable.touch()
     executable.with_name(f"{executable.stem}-rg{extension}").touch()
@@ -342,13 +342,13 @@ def test_explicit_download_uses_runtime_without_a_harness_home(
 ) -> None:
     root = tmp_path / "中文缓存"
     root.mkdir()
-    _resource_sidecars(root / "deepseek-harness-sdk-runtime-linux-x64")
+    _resource_sidecars(root / "lyness-sdk-runtime-linux-x64")
     monkeypatch.setattr(runtime, "_current_platform_tag", lambda: "linux-x64")
     script = tmp_path / "download.py"
     destination = root / "linux-x64/primary-runtime" if resource == "primary" else root
-    script.write_text("import json,os,sys\n" + f"assert os.environ['DSH_RUNTIME_DOWNLOAD'] == {resource!r}\n"
+    script.write_text("import json,os,sys\n" + f"assert os.environ['LYNESS_RUNTIME_DOWNLOAD'] == {resource!r}\n"
                       + f"sys.stdout.buffer.write(json.dumps({str(destination)!r}, ensure_ascii=False).encode('utf-8'))\n", encoding="utf-8")
-    monkeypatch.delenv("DSH_HOME", raising=False)
+    monkeypatch.delenv("LYNESS_HOME", raising=False)
     monkeypatch.setattr(runtime, "resolve_bundled_launch_args", lambda: (sys.executable, str(script)))
     assert function() == destination
     script.write_text("import sys\nsys.stderr.buffer.write('下载失败'.encode('utf-8'))\nsys.exit(2)\n", encoding="utf-8")
@@ -361,7 +361,7 @@ def test_download_decodes_utf8_in_an_ascii_locale(tmp_path: Path) -> None:
     script = tmp_path / "download.py"
     destination = tmp_path / "中文缓存"
     script.write_text("import sys\nsys.stdout.buffer.write(" + json.dumps(str(destination), ensure_ascii=False).encode('utf-8').__repr__() + ")\n", encoding="utf-8")
-    code = ("import sys,locale,deepseek_harness_runtime as r; "
+    code = ("import sys,locale,lyness_runtime as r; "
             "assert locale.getpreferredencoding(False).lower() not in ('utf-8','utf8'); "
             f"r.resolve_bundled_launch_args=lambda:(sys.executable,{str(script)!a}); "
             f"assert str(r.download_office())=={str(destination)!a}")
@@ -375,7 +375,7 @@ def test_download_decodes_utf8_in_an_ascii_locale(tmp_path: Path) -> None:
 @pytest.mark.parametrize("missing", ["primary-runtime/runtime.json", "primary-runtime/dependencies/python/bin/python3",
                                      "primary-runtime/dependencies/node/bin/node", "office-skills/office-docx/SKILL.md"])
 def test_primary_download_rejects_an_incomplete_payload(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, missing: str) -> None:
-    _resource_sidecars(tmp_path / "deepseek-harness-sdk-runtime-linux-x64")
+    _resource_sidecars(tmp_path / "lyness-sdk-runtime-linux-x64")
     root = tmp_path / "linux-x64"
     (root / missing).unlink()
     monkeypatch.setattr(runtime, "_download", lambda resource: root / "primary-runtime")
@@ -385,13 +385,13 @@ def test_primary_download_rejects_an_incomplete_payload(tmp_path: Path, monkeypa
 
 
 def test_office_resolution_requires_explicit_download(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
-    from deepseek_harness_runtime._resources import office_launch_args
+    from lyness_runtime._resources import office_launch_args
 
-    executable = tmp_path / "deepseek-harness-sdk-runtime-linux-x64"
+    executable = tmp_path / "lyness-sdk-runtime-linux-x64"
     _resource_sidecars(executable)
     cache = tmp_path / "cache"
-    monkeypatch.setenv("DSH_RESOURCE_CACHE", str(cache))
-    monkeypatch.delenv("DSH_OFFICE_SIDECAR", raising=False)
+    monkeypatch.setenv("LYNESS_RESOURCE_CACHE", str(cache))
+    monkeypatch.delenv("LYNESS_OFFICE_SIDECAR", raising=False)
     with pytest.raises(FileNotFoundError, match=r"download_office\(\)"):
         office_launch_args(tmp_path / "linux-x64", "linux-x64")
     office = cache / ("a" * 64) / "office"
@@ -408,15 +408,15 @@ def test_office_resolution_requires_explicit_download(tmp_path: Path, monkeypatc
     (office / "complete").write_text("a" * 64, encoding="utf-8")
     assert office_launch_args(tmp_path / "linux-x64", "linux-x64") == (str(node), str(cli))
     (office / "complete").unlink()
-    monkeypatch.setenv("DSH_OFFICE_SIDECAR", str(office))
+    monkeypatch.setenv("LYNESS_OFFICE_SIDECAR", str(office))
     assert office_launch_args(tmp_path / "linux-x64", "linux-x64") == (str(node), str(cli))
 
 
 @pytest.mark.parametrize("invalid", ["target", "identity", "office", "pnpm", "skills"])
 def test_download_manifest_rejects_invalid_wheel_resources(tmp_path: Path, invalid: str) -> None:
-    from deepseek_harness_runtime._resources import validate_downloads
+    from lyness_runtime._resources import validate_downloads
 
-    _resource_sidecars(tmp_path / "deepseek-harness-sdk-runtime-linux-x64")
+    _resource_sidecars(tmp_path / "lyness-sdk-runtime-linux-x64")
     root = tmp_path / "linux-x64"
     path = root / "downloads.json"
     manifest = json.loads(path.read_text(encoding="utf-8"))

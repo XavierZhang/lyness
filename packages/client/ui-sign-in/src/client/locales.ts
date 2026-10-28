@@ -1,7 +1,7 @@
 /**
  * Copy for the sign-in screen and the row that names who is signed in.
  *
- * @module @deepseek-ai/dsh-client-ui-sign-in/client/locales
+ * @module @lyness/lyn-client-ui-sign-in/client/locales
  */
 
 /** English copy; the key set every locale answers. */

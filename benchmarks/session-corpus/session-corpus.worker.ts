@@ -4,27 +4,27 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { performance } from 'node:perf_hooks'
 import { scheduler } from 'node:timers/promises'
-import { Context } from '@deepseek-ai/cordis'
-import AgentLoop from '@deepseek-ai/dsh-agent-loop'
-import { mountAgentLoopTestDependencies } from '@deepseek-ai/dsh-agent-loop-testkit'
-import { agentPresetProjectionDefinition } from '@deepseek-ai/dsh-agent-preset-registry'
-import RemoteAccessService from '@deepseek-ai/dsh-api-remote-access'
-import type SessionController from '@deepseek-ai/dsh-api-session-controller'
-import { currentSessionMessageProjections } from '@deepseek-ai/dsh-session-format-catalog/message-projections'
-import { Session, SessionLogOffset } from '@deepseek-ai/dsh-session'
-import type { SessionId } from '@deepseek-ai/dsh-session'
-import * as JsonlSessionPersistence from '@deepseek-ai/dsh-session-persistence-jsonl'
-import SessionProjectionCache, { checkpointRecord, projectionCacheDomainSpec } from '@deepseek-ai/dsh-session-projection-cache'
-import type { CheckpointRecord } from '@deepseek-ai/dsh-session-projection-cache'
-import SqliteSessionQueryEngine from '@deepseek-ai/dsh-session-query-sqlite'
-import * as SessionStatsPlugin from '@deepseek-ai/dsh-session-stats'
-import SessionTitleService from '@deepseek-ai/dsh-session-title'
-import * as SessionTurnOutlinePlugin from '@deepseek-ai/dsh-session-turn-outline'
-import Storage from '@deepseek-ai/dsh-storage'
-import * as StorageDomain from '@deepseek-ai/dsh-storage-domain'
-import type { KvTable } from '@deepseek-ai/dsh-storage-domain'
-import * as StorageJson from '@deepseek-ai/dsh-storage-json'
-import TokenMeter from '@deepseek-ai/dsh-token-meter'
+import { Context } from '@lyness/cordis'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import { mountAgentLoopTestDependencies } from '@lyness/lyn-agent-loop-testkit'
+import { agentPresetProjectionDefinition } from '@lyness/lyn-agent-preset-registry'
+import RemoteAccessService from '@lyness/lyn-api-remote-access'
+import type SessionController from '@lyness/lyn-api-session-controller'
+import { currentSessionMessageProjections } from '@lyness/lyn-session-format-catalog/message-projections'
+import { Session, SessionLogOffset } from '@lyness/lyn-session'
+import type { SessionId } from '@lyness/lyn-session'
+import * as JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
+import SessionProjectionCache, { checkpointRecord, projectionCacheDomainSpec } from '@lyness/lyn-session-projection-cache'
+import type { CheckpointRecord } from '@lyness/lyn-session-projection-cache'
+import SqliteSessionQueryEngine from '@lyness/lyn-session-query-sqlite'
+import * as SessionStatsPlugin from '@lyness/lyn-session-stats'
+import SessionTitleService from '@lyness/lyn-session-title'
+import * as SessionTurnOutlinePlugin from '@lyness/lyn-session-turn-outline'
+import Storage from '@lyness/lyn-storage'
+import * as StorageDomain from '@lyness/lyn-storage-domain'
+import type { KvTable } from '@lyness/lyn-storage-domain'
+import * as StorageJson from '@lyness/lyn-storage-json'
+import TokenMeter from '@lyness/lyn-token-meter'
 import { assertBuiltBenchmarkRuntime } from '../support/built-worker.ts'
 import { serializeRecord } from '../../packages/storage/storage-json/src/format.ts'
 import { ANCHOR_COUNT } from './corpus-shape.ts'
@@ -360,10 +360,10 @@ async function measureFork(root: string, ranks: readonly number[]): Promise<Fork
 }
 
 assertBuiltBenchmarkRuntime(import.meta.url, Object.fromEntries([
-  '@deepseek-ai/dsh-api-session-controller',
-  '@deepseek-ai/dsh-session-persistence-jsonl',
-  '@deepseek-ai/dsh-session-query-sqlite',
-  '@deepseek-ai/dsh-session-projection-cache',
+  '@lyness/lyn-api-session-controller',
+  '@lyness/lyn-session-persistence-jsonl',
+  '@lyness/lyn-session-query-sqlite',
+  '@lyness/lyn-session-projection-cache',
 ].map(name => [name, import.meta.resolve(name)])))
 
 const USAGE = 'usage: session-corpus.worker.js <root> <anchors anchors...|seed name count|list count|search|fork ranks...>'

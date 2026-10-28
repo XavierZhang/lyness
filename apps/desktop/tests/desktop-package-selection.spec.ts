@@ -10,7 +10,7 @@ function fixture() {
   const run = { id: 42, run_attempt: 2, head_sha: 'a'.repeat(40), status: 'completed', conclusion: 'success',
     event: 'workflow_dispatch', path: '.github/workflows/macos-package.yml', repository: { full_name: 'owner/repo' } }
   const jobs = [{ name: 'package', runner_name: 'mini', conclusion: 'success' }]
-  const routes = { mini: { label: 'dsh-mini', target: 'mac-arm64' } }
+  const routes = { mini: { label: 'lyn-mini', target: 'mac-arm64' } }
   const calls: string[] = []
   const api = (path: string, paginate?: boolean) => {
     calls.push(path)
@@ -24,15 +24,15 @@ function fixture() {
 it('pins the latest successful attempt and finds the package job across pages', () => {
   const f = fixture()
   expect(selectDesktopPackage('owner/repo', { package_run_id: '42' }, f.routes, f.api))
-    .toMatchObject({ run: { run_attempt: 2 }, runnerName: 'mini', runnerLabel: 'dsh-mini' })
+    .toMatchObject({ run: { run_attempt: 2 }, runnerName: 'mini', runnerLabel: 'lyn-mini' })
   expect(f.calls).toContain('repos/owner/repo/actions/runs/42/attempts/2')
 })
 
 it('routes a Windows package through its own configured machine target', () => {
   const f = fixture()
   f.run.path = '.github/workflows/windows-package.yml'
-  const routes = { mini: { label: 'dsh-windows', target: 'win-x64' } }
-  expect(selectDesktopPackage('owner/repo', { package_run_id: '42' }, routes, f.api)).toMatchObject({ runnerLabel: 'dsh-windows' })
+  const routes = { mini: { label: 'lyn-windows', target: 'win-x64' } }
+  expect(selectDesktopPackage('owner/repo', { package_run_id: '42' }, routes, f.api)).toMatchObject({ runnerLabel: 'lyn-windows' })
   expect(() => selectDesktopPackage('owner/repo', { package_run_id: '42' }, f.routes, f.api)).toThrow(/no configured/u)
 })
 
@@ -80,7 +80,7 @@ it('resolves an old locally retained package with publishRequested=false without
       target: 'mac-arm64' as const, preset: 'test' as const, productVersion: '1.0.0', version: '1.0.0',
       testReleaseId: 'b'.repeat(32), publishRequested: false, qualification: 'notarized' as const }
     await retainDesktopRelease(join(root, 'releases'), source, [file])
-    const env = { GITHUB_REPOSITORY: 'owner/repo', RUNNER_NAME: 'mini', DSH_PACKAGING_CONFIG_DIR: join(root, 'packaging'),
+    const env = { GITHUB_REPOSITORY: 'owner/repo', RUNNER_NAME: 'mini', LYNESS_PACKAGING_CONFIG_DIR: join(root, 'packaging'),
       DESKTOP_PACKAGE_SELECTION: JSON.stringify(selection) }
     const apiCalls: string[] = []
     const api = (path: string) => {
@@ -109,10 +109,10 @@ it('resolves an old locally retained package with publishRequested=false without
       if (path.includes('/compare/')) throw new Error('branch deleted or missing')
       return api(path)
     })).rejects.toThrow(/branch deleted/u)
-    tagged.source.sourceRef = 'dsh-v1.0.0'
+    tagged.source.sourceRef = 'lyn-v1.0.0'
     await writeFile(manifestPath, JSON.stringify(tagged))
-    expect(await resolveRetainedDesktopPublication(env, api)).toMatchObject({ sourceRef: 'dsh-v1.0.0' })
-    await expect(resolveRetainedDesktopPublication(env, path => path.endsWith('/commits/refs%2Ftags%2Fdsh-v1.0.0') ? { sha: 'c'.repeat(40) } : api(path)))
+    expect(await resolveRetainedDesktopPublication(env, api)).toMatchObject({ sourceRef: 'lyn-v1.0.0' })
+    await expect(resolveRetainedDesktopPublication(env, path => path.endsWith('/commits/refs%2Ftags%2Flyn-v1.0.0') ? { sha: 'c'.repeat(40) } : api(path)))
       .rejects.toThrow(/source tag changed/u)
     await writeFile(manifestPath, original)
     await writeFile(join(root, 'releases/42/2/installer.dmg'), 'changed')

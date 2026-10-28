@@ -1,13 +1,13 @@
 /** Host file-upload service: streamed intake and Session-owned staged receipts. */
 
 import { randomUUID } from 'node:crypto'
-import type { Context } from '@deepseek-ai/cordis'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import type { ImageAttachmentRef } from '@deepseek-ai/dsh-attachment'
-import type {} from '@deepseek-ai/dsh-client-connection'
-import type { CommandFileReceiptResolver } from '@deepseek-ai/dsh-commands'
-import type { Session, SessionEvent, SessionId } from '@deepseek-ai/dsh-session'
-import { Remote, RemoteError, remoteErrorOf, TypertRemoteService } from '@deepseek-ai/dsh-typert-protocol'
+import type { Context } from '@lyness/cordis'
+import type { Agent } from '@lyness/lyn-agent'
+import type { ImageAttachmentRef } from '@lyness/lyn-attachment'
+import type {} from '@lyness/lyn-client-connection'
+import type { CommandFileReceiptResolver } from '@lyness/lyn-commands'
+import type { Session, SessionEvent, SessionId } from '@lyness/lyn-session'
+import { Remote, RemoteError, remoteErrorOf, TypertRemoteService } from '@lyness/lyn-typert-protocol'
 import { handleFileUploadHttp } from './http-route.ts'
 import { FILE_UPLOAD_PATH } from './protocol.ts'
 import type {
@@ -16,7 +16,7 @@ import type {
 
 export type * from './types.ts'
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Context {
     /** Host storage and staged-receipt service for browser file and image uploads. */
     fileUploads: FileUploads
@@ -66,15 +66,12 @@ export class FileUploads extends TypertRemoteService {
 
   /** @param ctx - Host context carrying Agent, attachment, command, and Connection services. */
   constructor(ctx: Context) {
-    super(ctx, 'fileUploads')
+    super(ctx, 'fileUploads', { requires: 'member' })
     // Commands accept staged files only; an image receipt is unknown to them.
     const resolve: CommandFileReceiptResolver = (agent, receiptId) => {
       const staged = this.resolve(agent, receiptId as FileUploadReceiptId)
       return staged?.type === 'file' ? staged.attachment : undefined
     }
-    super(ctx, 'fileUploads', { requires: 'member' })
-    const resolve: CommandFileReceiptResolver = (agent, receiptId) =>
-      this.resolve(agent, receiptId as FileUploadReceiptId)
     ctx.effect(
       () => ctx.commands.registerFileReceiptResolver(resolve),
       'file-upload: command file receipt resolver',

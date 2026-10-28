@@ -12,7 +12,7 @@ Remote 方法收到的是端点、载荷与调用方的取消信号，不包含�
 
 ## 决策
 
-Connection 新增一个扩展点：`ctx.connection.rpc.scope(scope)` 包裹所有通道上的每一次已解码调用，接收 HTTP 请求，并且必须调用 `run()` 且原样返回其结果。`@deepseek-ai/dsh-tenant-request` 注册一个这样的作用域，按与 HTTP 路由相同的顺序解析租户——请求头、主机名、子域名——并在调用期间以 `ctx.requestTenant` 发布该租户及其配置。
+Connection 新增一个扩展点：`ctx.connection.rpc.scope(scope)` 包裹所有通道上的每一次已解码调用，接收 HTTP 请求，并且必须调用 `run()` 且原样返回其结果。`@lyness/lyn-tenant-request` 注册一个这样的作用域，按与 HTTP 路由相同的顺序解析租户——请求头、主机名、子域名——并在调用期间以 `ctx.requestTenant` 发布该租户及其配置。
 
 四条裁定决定了它的形状。
 
@@ -38,7 +38,7 @@ Connection 新增一个扩展点：`ctx.connection.rpc.scope(scope)` 包裹所�
 
 ## 影响
 
-会话记录现在写的是创建该会话的那次调用所属的租户；只有在没有调用时才写配置的租户——CLI 运行、恢复的会话、子 Agent。正因为这些情形，`dsh-tenant-session` 的 `tenantId` 仍然必填。
+会话记录现在写的是创建该会话的那次调用所属的租户；只有在没有调用时才写配置的租户——CLI 运行、恢复的会话、子 Agent。正因为这些情形，`lyn-tenant-session` 的 `tenantId` 仍然必填。
 
 作用域覆盖的是一元 RPC。Remote 流与 `/api` 下的精确 Fetch 路由走另外的分发路径，看不到租户；这些路径上需要租户的界面必须自己解析，做法与 HTTP 路由相同。
 

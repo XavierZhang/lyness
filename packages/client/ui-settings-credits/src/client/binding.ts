@@ -6,10 +6,10 @@
  * that settles before that publishes to nobody rather than failing, which is
  * what lets the plugin start a read without waiting for a render.
  *
- * @module @deepseek-ai/dsh-client-ui-settings-credits/client/binding
+ * @module @lyness/lyn-client-ui-settings-credits/client/binding
  */
 
-import type { AllowanceView, BudgetView, CreditAccountView } from '@deepseek-ai/dsh-api-credits-controller/types'
+import type { AllowanceView, BudgetView, CreditAccountView } from '@lyness/lyn-api-credits-controller/types'
 import type { CreditsOperations, CreditsSink } from './operations.ts'
 import type { CreditsSectionInjected } from './CreditsSection.tsx'
 

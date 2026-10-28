@@ -1,13 +1,13 @@
 {
-  "name": "@deepseek-ai/dsh-web-fetch-http",
-  "description": "Anonymous HTTP(S) fetch provider for the DeepSeek Harness web capability seam (ctx.web)",
+  "name": "@lyness/lyn-web-fetch-http",
+  "description": "Anonymous HTTP(S) fetch provider for the lyness web capability seam (ctx.web)",
   "version": "0.2.1-rc.3",
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/web/web-fetch-http"
   },
   "type": "module",
@@ -29,18 +29,18 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-timeout": "workspace:*",
-    "@deepseek-ai/dsh-web": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-timeout": "workspace:*",
+    "@lyness/lyn-web": "workspace:*"
   },
   "dependencies": {
-    "@deepseek-ai/schemastery": "workspace:~",
+    "@lyness/schemastery": "workspace:~",
     "undici": "8.11.2"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-timeout": "workspace:*",
-    "@deepseek-ai/dsh-web": "workspace:*",
-    "@deepseek-ai/dsh-http-proxy": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-http-proxy": "workspace:*",
+    "@lyness/lyn-timeout": "workspace:*",
+    "@lyness/lyn-web": "workspace:*"
   }
 }

@@ -5,60 +5,60 @@
 /:
   en: 9d6f0f6ed42ff776
   zh: 61799875ef3f71f8
-/deepseek-harness-dsh-client-ui-subagent:
+/lyness-lyn-client-ui-subagent:
   en: 85d899b705c1e220
   zh: 1def655663223fb6
-/deepseek-harness-dsh-client-ui-subagent/summary:
+/lyness-lyn-client-ui-subagent/summary:
   en: 50f267d55833a683
   zh: 89d6b827576baa8b
-/deepseek-harness-dsh-client-ui-subagent/table-of-contents:
+/lyness-lyn-client-ui-subagent/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/deepseek-harness-dsh-client-ui-subagent/use-this-package:
+/lyness-lyn-client-ui-subagent/use-this-package:
   en: 1e96a2fed3ec4b67
   zh: 6b37cd008352e890
-/deepseek-harness-dsh-client-ui-subagent/use-this-package/browsing-the-tree:
+/lyness-lyn-client-ui-subagent/use-this-package/browsing-the-tree:
   en: 3508631091820123
   zh: ec7da9e5bedb22ba
-/deepseek-harness-dsh-client-ui-subagent/use-this-package/continuing-a-conversation:
+/lyness-lyn-client-ui-subagent/use-this-package/continuing-a-conversation:
   en: 876e7152c8b9c4a6
   zh: f89f5e2a812e8451
-/deepseek-harness-dsh-client-ui-subagent/use-this-package/the-reference-source:
+/lyness-lyn-client-ui-subagent/use-this-package/the-reference-source:
   en: 6a5f91b7dfcefafe
   zh: 2d11441952cfea53
-/deepseek-harness-dsh-client-ui-subagent/understand-the-implementation:
+/lyness-lyn-client-ui-subagent/understand-the-implementation:
   en: 004fec17254f18f4
   zh: 19ef1a477bb1257e
-/deepseek-harness-dsh-client-ui-subagent/understand-the-implementation/catalog-derivation:
+/lyness-lyn-client-ui-subagent/understand-the-implementation/catalog-derivation:
   en: 5e1c83ef8eb26c52
   zh: f5be8f1e78c74859
-/deepseek-harness-dsh-client-ui-subagent/understand-the-implementation/duration-completion-and-tokens:
+/lyness-lyn-client-ui-subagent/understand-the-implementation/duration-completion-and-tokens:
   en: b817e9907392f59c
   zh: e42feb97d572a989
-/deepseek-harness-dsh-client-ui-subagent/understand-the-implementation/composer-election:
+/lyness-lyn-client-ui-subagent/understand-the-implementation/composer-election:
   en: 1c15af4dd7c0b791
   zh: f789737ab4dd8cb2
-/deepseek-harness-dsh-client-ui-subagent/further-exploration:
+/lyness-lyn-client-ui-subagent/further-exploration:
   en: dc2f9c87c86c0dec
   zh: 3307d253232ff585
-/deepseek-harness-dsh-client-ui-subagent/model-experience:
+/lyness-lyn-client-ui-subagent/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/deepseek-harness-dsh-client-ui-subagent/model-experience/subagent-label-text-in-the-user-prompt:
+/lyness-lyn-client-ui-subagent/model-experience/subagent-label-text-in-the-user-prompt:
   en: 7207881f1c032278
   zh: 911d6e8b319da21a
-/deepseek-harness-dsh-client-ui-subagent/model-experience/subagent-label-text-in-the-user-prompt/what-the-model-sees:
+/lyness-lyn-client-ui-subagent/model-experience/subagent-label-text-in-the-user-prompt/what-the-model-sees:
   en: 5688696ee061a0e1
   zh: 7199ef8cb8697960
-/deepseek-harness-dsh-client-ui-subagent/model-experience/subagent-label-text-in-the-user-prompt/token-effect:
+/lyness-lyn-client-ui-subagent/model-experience/subagent-label-text-in-the-user-prompt/token-effect:
   en: bf3c483598710d54
   zh: 32742fbb880db1b2
-/deepseek-harness-dsh-client-ui-subagent/model-experience/subagent-label-text-in-the-user-prompt/kv-cache-effect:
+/lyness-lyn-client-ui-subagent/model-experience/subagent-label-text-in-the-user-prompt/kv-cache-effect:
   en: de2762a99572475f
   zh: 9b41107ad14ebf8a
-/deepseek-harness-dsh-client-ui-subagent/known-limitations-and-deferred-work:
+/lyness-lyn-client-ui-subagent/known-limitations-and-deferred-work:
   en: ee310ff3cd487639
   zh: 23793aa1c28a23af
-/deepseek-harness-dsh-client-ui-subagent/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-client-ui-subagent/known-limitations-and-deferred-work/dev-note:
   en: 3dd148cecbb1a4df
   zh: 626cc5ed9f65c72a

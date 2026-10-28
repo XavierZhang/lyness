@@ -1,8 +1,8 @@
 /** Computer Use presentation over the existing pending-question answer channel. */
-import type { PropsRenderFactories, PropsRuntime } from '@deepseek-ai/dsh-client-ui-slots'
-import type { ComposerChainProps } from '@deepseek-ai/dsh-client-ui-conversation/client'
-import type {} from '@deepseek-ai/dsh-client-ui-user-questions/client'
-import type {} from '@deepseek-ai/dsh-client-ui-approval/client'
+import type { PropsRenderFactories, PropsRuntime } from '@lyness/lyn-client-ui-slots'
+import type { ComposerChainProps } from '@lyness/lyn-client-ui-conversation/client'
+import type {} from '@lyness/lyn-client-ui-user-questions/client'
+import type {} from '@lyness/lyn-client-ui-approval/client'
 
 /**
  * Select only the provider's fixed application question; other interactions keep their renderer.

@@ -6,15 +6,15 @@
  * that keeps no trail told apart from a caller who may not read it and from a
  * read that broke.
  *
- * @module @deepseek-ai/dsh-client-ui-settings-history/client/operations
+ * @module @lyness/lyn-client-ui-settings-history/client/operations
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import { createSharedRead } from '@deepseek-ai/dsh-client-store'
-import type { RemoteFailure } from '@deepseek-ai/dsh-typert-protocol'
-import type {} from '@deepseek-ai/dsh-api-remotes/client'
-import type {} from '@deepseek-ai/dsh-api-admin-audit-controller/remote'
-import type { AuditEntryView, AuditQueryInput } from '@deepseek-ai/dsh-api-admin-audit-controller/types'
+import type { Context } from '@lyness/cordis'
+import { createSharedRead } from '@lyness/lyn-client-store'
+import type { RemoteFailure } from '@lyness/lyn-typert-protocol'
+import type {} from '@lyness/lyn-api-remotes/client'
+import type {} from '@lyness/lyn-api-admin-audit-controller/remote'
+import type { AuditEntryView, AuditQueryInput } from '@lyness/lyn-api-admin-audit-controller/types'
 
 /** What one Remote call answers: the value, or the failure it refused with. */
 export type CallOutcome<T> =

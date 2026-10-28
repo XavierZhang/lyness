@@ -1,20 +1,20 @@
 !include "LogicLib.nsh"
 
-Var dshFinalDirectory
-Var dshNewDirectory
-Var dshOldDirectory
-Var dshOldMoved
-Var dshNewMoved
-Var dshDirectoryError
-Var dshDirectorySource
-Var dshDirectoryDestination
-Var dshRestoreError
-Var dshDirectoryLogDirectory
-Var dshRecoveryStopped
+Var lynFinalDirectory
+Var lynNewDirectory
+Var lynOldDirectory
+Var lynOldMoved
+Var lynNewMoved
+Var lynDirectoryError
+Var lynDirectorySource
+Var lynDirectoryDestination
+Var lynRestoreError
+Var lynDirectoryLogDirectory
+Var lynRecoveryStopped
 
 ; MoveFileEx preserves the destination and exposes the Windows error before rollback changes it.
 ; Open files inside a directory can make its rename return access denied (5).
-!macro dshDirectoryOperation SOURCE DESTINATION RESULT PHASE
+!macro lynDirectoryOperation SOURCE DESTINATION RESULT PHASE
   Push $0
   Push $1
   Push $2
@@ -60,28 +60,28 @@ Var dshRecoveryStopped
   Pop $0
 !macroend
 
-!macro dshReportDirectoryFailure
-  ${If} $dshRestoreError != 0
-    StrCpy $dshRecoveryStopped "1"
+!macro lynReportDirectoryFailure
+  ${If} $lynRestoreError != 0
+    StrCpy $lynRecoveryStopped "1"
   ${EndIf}
   !ifmacrodef customInstallerDirectoryFailed
     !insertmacro customInstallerDirectoryFailed
   !else
-    DetailPrint "Directory operation failed ($dshDirectoryError): $dshDirectorySource -> $dshDirectoryDestination; restore error: $dshRestoreError"
+    DetailPrint "Directory operation failed ($lynDirectoryError): $lynDirectorySource -> $lynDirectoryDestination; restore error: $lynRestoreError"
   !endif
 !macroend
 
-!macro dshExtractPayload FILE
+!macro lynExtractPayload FILE
   !ifmacrodef customInstallerExtract
     !insertmacro customInstallerExtract "${FILE}"
   !else
-    nsExec::ExecToStack '"$PLUGINSDIR\dsh-7za.exe" x -y -bd -bb0 "-o$INSTDIR" "${FILE}"'
+    nsExec::ExecToStack '"$PLUGINSDIR\lyn-7za.exe" x -y -bd -bb0 "-o$INSTDIR" "${FILE}"'
     Pop $R0
     Pop $R1
   !endif
   ${If} $R0 != 0
     DetailPrint $R1
-    Call dshRollbackDirectories
+    Call lynRollbackDirectories
     !ifmacrodef customInstallerExtractFailed
       !insertmacro customInstallerExtractFailed "${FILE}"
     !else
@@ -92,133 +92,133 @@ Var dshRecoveryStopped
   ${EndIf}
 !macroend
 
-!macro dshStageApplication
-  !ifdef DSH_INSTALLER_LOG_DIR
+!macro lynStageApplication
+  !ifdef LYNESS_INSTALLER_LOG_DIR
     ; electron-builder defines the cache name after including our function bodies, before this section expands.
-    StrCpy $dshDirectoryLogDirectory "${DSH_INSTALLER_LOG_DIR}"
+    StrCpy $lynDirectoryLogDirectory "${LYNESS_INSTALLER_LOG_DIR}"
   !endif
-  StrCpy $dshFinalDirectory $INSTDIR
+  StrCpy $lynFinalDirectory $INSTDIR
   System::Call 'ole32::CoCreateGuid(g .r0) i .r1'
   ${If} $1 != 0
     SetErrorLevel 2
     Quit
   ${EndIf}
-  StrCpy $dshNewDirectory "$INSTDIR.new-$0"
-  StrCpy $dshOldDirectory "$INSTDIR.old-$0"
-  StrCpy $dshOldMoved ""
-  StrCpy $dshNewMoved ""
-  StrCpy $dshDirectoryError 0
-  StrCpy $dshRestoreError 0
-  StrCpy $dshRecoveryStopped ""
+  StrCpy $lynNewDirectory "$INSTDIR.new-$0"
+  StrCpy $lynOldDirectory "$INSTDIR.old-$0"
+  StrCpy $lynOldMoved ""
+  StrCpy $lynNewMoved ""
+  StrCpy $lynDirectoryError 0
+  StrCpy $lynRestoreError 0
+  StrCpy $lynRecoveryStopped ""
   ClearErrors
-  CreateDirectory $dshNewDirectory
+  CreateDirectory $lynNewDirectory
   ${If} ${Errors}
     SetErrorLevel 2
     Quit
   ${EndIf}
-  File /oname=$PLUGINSDIR\dsh-7za.exe "${DSH_SEVENZIP_PATH}"
-  StrCpy $INSTDIR $dshNewDirectory
+  File /oname=$PLUGINSDIR\lyn-7za.exe "${LYNESS_SEVENZIP_PATH}"
+  StrCpy $INSTDIR $lynNewDirectory
   SetOutPath $INSTDIR
   !insertmacro installApplicationFiles
-  !ifdef DSH_SEVENZIP_LICENSE_DIR
-    File /oname=7zip-installer-LICENSE.txt "${DSH_SEVENZIP_LICENSE_DIR}\LICENSE.txt"
-    File /oname=7zip-installer-COPYING.txt "${DSH_SEVENZIP_LICENSE_DIR}\COPYING"
+  !ifdef LYNESS_SEVENZIP_LICENSE_DIR
+    File /oname=7zip-installer-LICENSE.txt "${LYNESS_SEVENZIP_LICENSE_DIR}\LICENSE.txt"
+    File /oname=7zip-installer-COPYING.txt "${LYNESS_SEVENZIP_LICENSE_DIR}\COPYING"
   !endif
   !ifdef UNINSTALLER_ICON
     File /oname=uninstallerIcon.ico "${UNINSTALLER_ICON}"
   !endif
-  StrCpy $INSTDIR $dshFinalDirectory
+  StrCpy $INSTDIR $lynFinalDirectory
   SetOutPath $PLUGINSDIR
 !macroend
 
 Function .onGUIEnd
-  Call dshCleanupDirectories
+  Call lynCleanupDirectories
 FunctionEnd
 
-Function dshCleanupDirectories
-  ${If} $dshRecoveryStopped == "1"
+Function lynCleanupDirectories
+  ${If} $lynRecoveryStopped == "1"
     Return
   ${EndIf}
-  ${If} $dshFinalDirectory != ""
-    Call dshRollbackDirectories
+  ${If} $lynFinalDirectory != ""
+    Call lynRollbackDirectories
   ${EndIf}
 FunctionEnd
 
 ; Only directories created or renamed by this installer are removed during rollback.
-Function dshRollbackDirectories
+Function lynRollbackDirectories
   SetOutPath $PLUGINSDIR
-  ${If} $dshNewMoved == "1"
-    RMDir /r "\\?\$dshFinalDirectory"
-    StrCpy $dshNewMoved ""
+  ${If} $lynNewMoved == "1"
+    RMDir /r "\\?\$lynFinalDirectory"
+    StrCpy $lynNewMoved ""
   ${EndIf}
-  ${If} $dshOldMoved == "1"
-    !insertmacro dshDirectoryOperation "$dshOldDirectory" "$dshFinalDirectory" $dshRestoreError "restore"
-    ${If} $dshRestoreError != 0
+  ${If} $lynOldMoved == "1"
+    !insertmacro lynDirectoryOperation "$lynOldDirectory" "$lynFinalDirectory" $lynRestoreError "restore"
+    ${If} $lynRestoreError != 0
       ; Leave the complete backup in place if another process prevents restoration.
-      DetailPrint $dshOldDirectory
-      RMDir /r "\\?\$dshNewDirectory"
+      DetailPrint $lynOldDirectory
+      RMDir /r "\\?\$lynNewDirectory"
       Return
     ${EndIf}
-    StrCpy $dshOldMoved ""
+    StrCpy $lynOldMoved ""
   ${EndIf}
-  ${If} $dshNewDirectory != ""
-    RMDir /r "\\?\$dshNewDirectory"
+  ${If} $lynNewDirectory != ""
+    RMDir /r "\\?\$lynNewDirectory"
   ${EndIf}
-  StrCpy $INSTDIR $dshFinalDirectory
+  StrCpy $INSTDIR $lynFinalDirectory
 FunctionEnd
 
-Function dshPromoteDirectories
+Function lynPromoteDirectories
   !ifmacrodef InstallerPublishStage
     !insertmacro InstallerPublishStage 2
   !endif
   ; SetOutPath opens a directory handle; release it before either rename.
   SetOutPath $PLUGINSDIR
   ClearErrors
-  ${If} ${FileExists} "$dshFinalDirectory\*.*"
-    StrCpy $dshDirectorySource $dshFinalDirectory
-    StrCpy $dshDirectoryDestination $dshOldDirectory
-    !insertmacro dshDirectoryOperation "$dshDirectorySource" "$dshDirectoryDestination" $dshDirectoryError "backup"
-    ${If} $dshDirectoryError != 0
-      Call dshRollbackDirectories
-      !insertmacro dshReportDirectoryFailure
+  ${If} ${FileExists} "$lynFinalDirectory\*.*"
+    StrCpy $lynDirectorySource $lynFinalDirectory
+    StrCpy $lynDirectoryDestination $lynOldDirectory
+    !insertmacro lynDirectoryOperation "$lynDirectorySource" "$lynDirectoryDestination" $lynDirectoryError "backup"
+    ${If} $lynDirectoryError != 0
+      Call lynRollbackDirectories
+      !insertmacro lynReportDirectoryFailure
       SetErrors
       Return
     ${EndIf}
-    StrCpy $dshOldMoved "1"
+    StrCpy $lynOldMoved "1"
   ${Else}
     ; NSIS can create the destination before the install section starts.
-    StrCpy $dshDirectorySource $dshFinalDirectory
-    StrCpy $dshDirectoryDestination ""
-    !insertmacro dshDirectoryOperation "$dshDirectorySource" "" $dshDirectoryError "remove-empty"
-    ${If} $dshDirectoryError != 0
-      Call dshRollbackDirectories
-      !insertmacro dshReportDirectoryFailure
+    StrCpy $lynDirectorySource $lynFinalDirectory
+    StrCpy $lynDirectoryDestination ""
+    !insertmacro lynDirectoryOperation "$lynDirectorySource" "" $lynDirectoryError "remove-empty"
+    ${If} $lynDirectoryError != 0
+      Call lynRollbackDirectories
+      !insertmacro lynReportDirectoryFailure
       SetErrors
       Return
     ${EndIf}
   ${EndIf}
   ClearErrors
-  StrCpy $dshDirectorySource $dshNewDirectory
-  StrCpy $dshDirectoryDestination $dshFinalDirectory
-  !insertmacro dshDirectoryOperation "$dshDirectorySource" "$dshDirectoryDestination" $dshDirectoryError "promote"
-  ${If} $dshDirectoryError != 0
-    Call dshRollbackDirectories
-    !insertmacro dshReportDirectoryFailure
+  StrCpy $lynDirectorySource $lynNewDirectory
+  StrCpy $lynDirectoryDestination $lynFinalDirectory
+  !insertmacro lynDirectoryOperation "$lynDirectorySource" "$lynDirectoryDestination" $lynDirectoryError "promote"
+  ${If} $lynDirectoryError != 0
+    Call lynRollbackDirectories
+    !insertmacro lynReportDirectoryFailure
     SetErrors
     Return
   ${EndIf}
-  StrCpy $dshNewMoved "1"
-  SetOutPath $dshFinalDirectory
+  StrCpy $lynNewMoved "1"
+  SetOutPath $lynFinalDirectory
   !ifmacrodef InstallerPublishStage
     !insertmacro InstallerPublishStage 3
   !endif
   ClearErrors
 FunctionEnd
 
-!macro dshFinishDirectories
-  StrCpy $dshNewMoved ""
-  ${If} $dshOldMoved == "1"
-    RMDir /r "\\?\$dshOldDirectory"
-    StrCpy $dshOldMoved ""
+!macro lynFinishDirectories
+  StrCpy $lynNewMoved ""
+  ${If} $lynOldMoved == "1"
+    RMDir /r "\\?\$lynOldDirectory"
+    StrCpy $lynOldMoved ""
   ${EndIf}
 !macroend

@@ -1,16 +1,16 @@
-import { makeTranslate } from '@deepseek-ai/dsh-client-test-runtime'
+import { makeTranslate } from '@lyness/lyn-client-test-runtime'
 import { es, pt } from '../src/client/locales.ts'
 // @vitest-environment jsdom
 /** Trajectory ledger selection, details, status, and fold behavior. */
 
 import { afterEach, describe, expect, it, onTestFinished, vi } from 'vitest'
 import { act, cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
-import { AttachmentId } from '@deepseek-ai/dsh-attachment'
+import { AttachmentId } from '@lyness/lyn-attachment'
 import { useState, type ComponentProps, type ReactNode } from 'react'
-import { SessionId } from '@deepseek-ai/dsh-session/types'
-import { SlotTestRuntime } from '@deepseek-ai/dsh-client-test-runtime'
-import type { MessageImageLoader, MessageImagesOwnerProps } from '@deepseek-ai/dsh-client-ui-conversation/client'
-import type { PropsRenderSlots } from '@deepseek-ai/dsh-client-ui-slots'
+import { SessionId } from '@lyness/lyn-session/types'
+import { SlotTestRuntime } from '@lyness/lyn-client-test-runtime'
+import type { MessageImageLoader, MessageImagesOwnerProps } from '@lyness/lyn-client-ui-conversation/client'
+import type { PropsRenderSlots } from '@lyness/lyn-client-ui-slots'
 import { TrajectoryTable as LocalizedTrajectoryTable } from '../src/client/TrajectoryTable.tsx'
 import { deriveTrajectoryLayout, type TrajectoryTurnModel } from '../src/client/layout.ts'
 import { trajectoryRecordId } from '../src/client/trajectory-record.ts'

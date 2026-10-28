@@ -1,32 +1,32 @@
-/** Current-profile plugin and bundle management over shared dsh plugin operations. */
+/** Current-profile plugin and bundle management over shared lyn plugin operations. */
 import { randomUUID } from 'node:crypto'
 import { existsSync, readFileSync } from 'node:fs'
 import { readFile, rm } from 'node:fs/promises'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
-import { withFileLock, writeFileAtomic } from '@deepseek-ai/dsh-atomic-write'
-import { Context } from '@deepseek-ai/cordis'
-import type { EntryOptions } from '@deepseek-ai/cordis-plugin-loader'
-import type { PatchOptions } from '@deepseek-ai/cordis-plugin-include'
-import z from '@deepseek-ai/schemastery'
+import { withFileLock, writeFileAtomic } from '@lyness/lyn-atomic-write'
+import { Context } from '@lyness/cordis'
+import type { EntryOptions } from '@lyness/cordis-plugin-loader'
+import type { PatchOptions } from '@lyness/cordis-plugin-include'
+import z from '@lyness/schemastery'
 import semver from 'semver'
-import { TypertRemoteService, Remote, RemoteError, remoteErrorOf } from '@deepseek-ai/dsh-typert-protocol'
-import { detailImageResponse, NPM_FILE_SOURCES } from '@deepseek-ai/dsh-plugin-detail'
-import type { NpmFileSource } from '@deepseek-ai/dsh-plugin-detail/types'
-import { MAX_TIMER_DELAY_MS } from '@deepseek-ai/dsh-timeout'
-import type {} from '@deepseek-ai/dsh-client-connection'
+import { TypertRemoteService, Remote, RemoteError, remoteErrorOf } from '@lyness/lyn-typert-protocol'
+import { detailImageResponse, NPM_FILE_SOURCES } from '@lyness/lyn-plugin-detail'
+import type { NpmFileSource } from '@lyness/lyn-plugin-detail/types'
+import { MAX_TIMER_DELAY_MS } from '@lyness/lyn-timeout'
+import type {} from '@lyness/lyn-client-connection'
 import { readBundleDocument, readBundleImage, type BundleDetailOptions } from './bundle-detail.ts'
-import { pluginEntryId, readPluginInventory } from '@deepseek-ai/dsh-host-plugin-inventory'
+import { pluginEntryId, readPluginInventory } from '@lyness/lyn-host-plugin-inventory'
 import {
   readPluginMeta, readProfileManifest, resolveBundleDir, loadOverlayPatches, composeEntries,
   readProfilePatches, bundlePatchPaths,
   evaluatePluginCompatibility, readProfileCompatibility, readProfileVersionExemptions,
   setProfileVersionExemption, PROFILE_COMPATIBILITY_FILENAME,
-  getDshRuntimeVersion, ResolutionRestartRequired,
-} from '@deepseek-ai/dsh-app-boot'
-import { OPTIONAL_BUNDLES, OFFICIAL_ON_DEMAND_CATALOG, PROTECTED_PLUGINS } from '@deepseek-ai/dsh-official-bundles'
-import type {} from '@deepseek-ai/dsh-hmr'
-import type { ProfileContext, ProfileManifest } from '@deepseek-ai/dsh-app-boot'
+  getLynRuntimeVersion, ResolutionRestartRequired,
+} from '@lyness/lyn-app-boot'
+import { OPTIONAL_BUNDLES, OFFICIAL_ON_DEMAND_CATALOG, PROTECTED_PLUGINS } from '@lyness/lyn-official-bundles'
+import type {} from '@lyness/lyn-hmr'
+import type { ProfileContext, ProfileManifest } from '@lyness/lyn-app-boot'
 import { bundleManifest, readProfileRegistry, registryArguments, runProfilePnpm, saveManifest, viewProfilePackage } from './operations.ts'
 import { classifyInstallFailure } from './install-failure.ts'
 import { officialBundleInstallTarget } from './official-install-target.ts'
@@ -50,7 +50,7 @@ export { InvalidInstallSpecError, parseInstallSpec, type ParsedInstallSpec } fro
 
 /** The pnpm executable, registries, and limits for diagnostics, lookups and connection checks. */
 export interface Config {
-  /** The pnpm executable name or path; resolved through `PATH` like the `dsh plugin` command. */
+  /** The pnpm executable name or path; resolved through `PATH` like the `lyn plugin` command. */
   pnpmCommand?: string
   /** Maximum retained package-operation diagnostic bytes. */
   outputBytes?: number
@@ -96,7 +96,7 @@ const REGISTRY_URL = /^https?:\/\/\S+$/
 const RESTORED_FILES = ['package.json', 'pnpm-lock.yaml'] as const
 
 /** The manifest fields an inspection reads for a registry spec. */
-const INSPECT_FIELDS = ['name', 'version', 'description', 'dsh'] as const
+const INSPECT_FIELDS = ['name', 'version', 'description', 'lyn'] as const
 
 /** pnpm's colour escapes, which a JSON answer may be wrapped in. */
 const ANSI_SEQUENCE = /\x1b\[[0-9;]*m/g
@@ -133,15 +133,15 @@ function stringField(manifest: object, field: string): string | undefined {
   return typeof value === 'string' ? value : undefined
 }
 
-/** The fields of the dsh installation's own manifest the manager reads. */
+/** The fields of the lyn installation's own manifest the manager reads. */
 interface InstallationManifest {
   dependencies?: Record<string, string>
 }
 
 /** What a package manifest says about the package: identity, one-liner, and whether it is a bundle. */
 function inspectionOf(kind: 'registry' | 'path', manifest: object, registry: Registry): Extract<PluginSpecInspection, { status: 'accepted' }> {
-  const dsh = (manifest as { dsh?: unknown }).dsh
-  const declared = typeof dsh === 'object' && dsh !== null ? dsh as { bundle?: unknown } : undefined
+  const lyn = (manifest as { lyn?: unknown }).lyn
+  const declared = typeof lyn === 'object' && lyn !== null ? lyn as { bundle?: unknown } : undefined
   const bundle = declared !== undefined && typeof declared.bundle === 'object' && declared.bundle !== null
   const name = stringField(manifest, 'name')
   const version = stringField(manifest, 'version')
@@ -235,7 +235,7 @@ type Reload = Pick<ChangeResult, 'warnings' | 'restartReason'>
 
 /** The bundles a profile manifest selects. */
 function bundleSelection(manifest: ProfileManifest): readonly string[] {
-  return manifest.dsh?.profile?.bundles ?? []
+  return manifest.lyn?.profile?.bundles ?? []
 }
 
 /**
@@ -258,7 +258,7 @@ function specPackageName(spec: string, dependencies: Readonly<Record<string, str
 /** The package name a local directory declares, or `undefined` without a readable manifest. */
 function packageName(dir: string): string | undefined {
   try {
-    return readProfileManifest('dsh', dir).name
+    return readProfileManifest('lyn', dir).name
   } catch (_error) {
     // pnpm reports the unreadable directory itself.
     return undefined
@@ -276,7 +276,7 @@ function parsedForRegistry(spec: string): ParsedInstallSpec {
   }
 }
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Context {
     /** Persistent management of the current profile's composition and packages. */
     pluginManager: PluginManager
@@ -420,7 +420,7 @@ export class PluginManager extends TypertRemoteService {
 
   /** Grant or revoke one exact plugin/runtime exemption and reevaluate live plugins.
    * @param packageVersion Exact manifest package name followed by @ and its version; never an installation spec or alias.
-   * @param runtimeVersion Exact current DSH version for grants; revocation may name a previous runtime.
+   * @param runtimeVersion Exact current LYN version for grants; revocation may name a previous runtime.
    * @param enabled Whether to grant rather than revoke the exemption.
    * @param acceptRisk Required true for grants after the user accepts possible crashes and data loss.
    * @returns Saved and runtime outcomes. Startup-only profiles require restart.
@@ -438,7 +438,7 @@ export class PluginManager extends TypertRemoteService {
    */
   @Remote
   async listPlugins(): Promise<PluginInfo[]> {
-    const rows = flatten(composeEntries([readProfilePatches('dsh', this.profile)]))
+    const rows = flatten(composeEntries([readProfilePatches('lyn', this.profile)]))
     const snapshot = await readPluginInventory(this.ctx)
     return snapshot.entries.map((entry) => {
       const actual = [...this.ctx.loader.entries()].find(row => row.id === entry.entryId)
@@ -467,7 +467,7 @@ export class PluginManager extends TypertRemoteService {
 
   /** The bundle inventory before update eligibility, which is derived from each listed bundle. */
   private readBundles(): Omit<BundleInfo, 'updatable'>[] {
-    const manifest = readProfileManifest('dsh', this.profile.dir)
+    const manifest = readProfileManifest('lyn', this.profile.dir)
     const exemptions = readProfileVersionExemptions(this.profile.dir)
     const selected = bundleSelection(manifest)
     const recorded = manifest.dependencies ?? {}
@@ -476,7 +476,7 @@ export class PluginManager extends TypertRemoteService {
     const catalog = new Map(OFFICIAL_ON_DEMAND_CATALOG.map(entry => [entry.packageName, entry]))
     const names = [...new Set([...selected, ...dependencies, ...Object.keys(installation.dependencies ?? {}), ...catalog.keys()])]
     const bundles: Omit<BundleInfo, 'updatable'>[] = []
-    const runtimeVersion = getDshRuntimeVersion()
+    const runtimeVersion = getLynRuntimeVersion()
     for (const name of names) {
       const installed = dependencies.includes(name)
       const optional = OPTIONAL_BUNDLES.includes(name)
@@ -516,14 +516,14 @@ export class PluginManager extends TypertRemoteService {
           continue
         }
         version = info.version
-        const listedByDefault = info.dsh?.bundle?.listedByDefault
+        const listedByDefault = info.lyn?.bundle?.listedByDefault
         if (listedByDefault !== undefined) {
-          if (typeof listedByDefault !== 'boolean') throw new Error('dsh.bundle.listedByDefault must be a boolean')
+          if (typeof listedByDefault !== 'boolean') throw new Error('lyn.bundle.listedByDefault must be a boolean')
           listing = { listedByDefault }
         }
         const compatibility = evaluatePluginCompatibility(info, exemptions)
         if (compatibility !== undefined && !compatibility.exempted) throw new ManagementFailure('incompatible-version', [incompatiblePlugin(compatibility)])
-        const dir = resolveBundleDir('dsh', name, this.profile.installAnchor, this.profile.dir)
+        const dir = resolveBundleDir('lyn', name, this.profile.installAnchor, this.profile.dir)
         const meta = offered?.meta ?? readPluginMeta(info.name ?? name, pathToFileURL(join(dir, 'package.json')).href)
         bundles.push({ name, official, availability, ...listing, ...target, ...(version === undefined ? {} : { version }),
           ...(info.description === undefined || info.description === '' ? {} : { description: info.description }),
@@ -573,7 +573,7 @@ export class PluginManager extends TypertRemoteService {
       if (!(error instanceof InvalidInstallSpecError)) throw error
       return refused('invalid-spec', error.reason)
     }
-    const manifest = readProfileManifest('dsh', this.profile.dir)
+    const manifest = readProfileManifest('lyn', this.profile.dir)
     const installation = JSON.parse(readFileSync(this.profile.installAnchor, 'utf8')) as InstallationManifest
     const known = new Set([
       ...bundleSelection(manifest), ...Object.keys(manifest.dependencies ?? {}), ...Object.keys(installation.dependencies ?? {}),
@@ -596,7 +596,7 @@ export class PluginManager extends TypertRemoteService {
         const inspection = inspectionOf('path', read, registry)
         if (inspection.name === undefined) return refused('not-a-package', 'the package.json names no package')
         if (known.has(inspection.name)) return refused('already-installed', `${inspection.name} is already installed`)
-        if (!inspection.bundle) return refused('not-a-bundle', `${inspection.name} declares no dsh.bundle`)
+        if (!inspection.bundle) return refused('not-a-bundle', `${inspection.name} declares no lyn.bundle`)
         return inspection
       }
       case 'registry': {
@@ -609,19 +609,19 @@ export class PluginManager extends TypertRemoteService {
         if (typeof latest !== 'object' || latest === null) return { status: 'refused', problem: 'unknown', reason: 'pnpm view answered no package', registries }
         const inspection = inspectionOf('registry', latest, asked.registry)
         const named = inspection.name === undefined ? { ...inspection, name: parsed.name } : inspection
-        if (!named.bundle) return { status: 'refused', problem: 'not-a-bundle', reason: `${named.name} declares no dsh.bundle`, registries }
+        if (!named.bundle) return { status: 'refused', problem: 'not-a-bundle', reason: `${named.name} declares no lyn.bundle`, registries }
         return named
       }
     }
   }
 
   /** Read the published versions newer than an installed registry package's version, from the first registry that answers.
-   * Official bundles follow the DSH version and are not listed.
+   * Official bundles follow the LYN version and are not listed.
    * @param name Installed profile dependency name.
    * @param options The registry asked first; absent, the one the package was installed from in this process, else the configured one.
    * @param signal Ends the lookups early.
    * @returns At most `versionListLimit` newer versions, newest first, with their tags, deprecation, bundle declaration,
-   * and DSH compatibility, and the registry that answered; or why no list could be read, with every registry asked.
+   * and LYN compatibility, and the registry that answered; or why no list could be read, with every registry asked.
    */
   @Remote
   async listVersions(name: string, options?: ListVersionsOptions, signal?: AbortSignal): Promise<PluginVersionList> {
@@ -664,7 +664,7 @@ export class PluginManager extends TypertRemoteService {
 
   /**
    * Replace an installed registry bundle with a newer published version. The target is checked on the registry first:
-   * it must exist, declare a bundle, and accept the running DSH version, or nothing changes. With HMR the installed
+   * it must exist, declare a bundle, and accept the running LYN version, or nothing changes. With HMR the installed
    * version is removed, so its plugins stop, and the target is installed with the same selection; when that
    * installation fails or is cancelled, the removed version is installed again from the registry it came from.
    * Without HMR the target is installed over the running version and the result reports the restart.
@@ -820,7 +820,7 @@ export class PluginManager extends TypertRemoteService {
   }
 
   /**
-   * Install a package using the same pnpm implementation as dsh plugin. GitHub
+   * Install a package using the same pnpm implementation as lyn plugin. GitHub
    * repositories get a connection check bounded by githubConnectionTimeoutMs before pnpm starts;
    * only network failures or timeouts stop installation, while pnpm owns authentication and transport fallback. An
    * HTTP(S) Git URL on another host is installed over SSH instead when access probes bounded by gitTransportTimeoutMs
@@ -844,7 +844,7 @@ export class PluginManager extends TypertRemoteService {
     const result = this.change(async (result) => {
       if (spec.trim() === '' || spec.startsWith('-')) throw new ManagementFailure('invalid-spec')
       if (stopped()) throw new InstallCancelledError()
-      const before = readProfileManifest('dsh', this.profile.dir).dependencies ?? {}
+      const before = readProfileManifest('lyn', this.profile.dir).dependencies ?? {}
       // With HMR, an installed package is removed before another version is installed, so its plugins stop first.
       const known = specPackageName(spec, before, this.profile.dir)
       if (this.ownerContext.get('hmr') !== undefined && known !== undefined && Object.hasOwn(before, known)) {
@@ -922,7 +922,7 @@ export class PluginManager extends TypertRemoteService {
           }
           throw new Error(run.output)
         }
-        const after = readProfileManifest('dsh', this.profile.dir).dependencies ?? {}
+        const after = readProfileManifest('lyn', this.profile.dir).dependencies ?? {}
         const installed = Object.keys(after).filter(name => before[name] !== after[name])
         // Without HMR a repeated installation can leave the saved dependency as it was.
         if (installed.length === 0) {
@@ -932,12 +932,12 @@ export class PluginManager extends TypertRemoteService {
         const target = installed[0]
         if (installed.length !== 1 || target === undefined) throw new ManagementFailure('ambiguous-install')
         name = target
-        const dir = resolveBundleDir('dsh', name, this.profile.installAnchor, this.profile.dir)
+        const dir = resolveBundleDir('lyn', name, this.profile.installAnchor, this.profile.dir)
         const manifest = bundleManifest(name, this.profile.dir, this.profile.installAnchor)
-        if (manifest?.dsh?.bundle === undefined) throw new ManagementFailure('not-bundle')
+        if (manifest?.lyn?.bundle === undefined) throw new ManagementFailure('not-bundle')
         const compatibility = evaluatePluginCompatibility(manifest, readProfileVersionExemptions(this.profile.dir))
         if (compatibility !== undefined && !compatibility.exempted) throw new ManagementFailure('incompatible-version', [incompatiblePlugin(compatibility)])
-        for (const file of bundlePatchPaths(dir, manifest.dsh.bundle)) loadOverlayPatches('dsh', file)
+        for (const file of bundlePatchPaths(dir, manifest.lyn.bundle)) loadOverlayPatches('lyn', file)
         version = manifest.version
         this.installedFrom.set(name, used)
       } catch (error) {
@@ -956,7 +956,7 @@ export class PluginManager extends TypertRemoteService {
         // Without HMR the replaced package's plugins keep running until the restart the result already reports.
         if (Object.hasOwn(before, name) && this.ownerContext.get('hmr') === undefined) return
         // A selected bundle's own rows must start.
-        const selected = bundleSelection(readProfileManifest('dsh', this.profile.dir)).includes(name)
+        const selected = bundleSelection(readProfileManifest('lyn', this.profile.dir)).includes(name)
         Object.assign(result, await this.publishAndReload(selected ? this.bundleRows(name).map(row => row.id) : []))
       })
     }, { stage: 'install', target: spec, enabled: options?.enabled !== false }, 'install')
@@ -991,7 +991,7 @@ export class PluginManager extends TypertRemoteService {
     return { status: 'cancelled' }
   }
 
-  /** Unload and remove a profile-owned bundle dependency through dsh plugin's pnpm path; a selected name no
+  /** Unload and remove a profile-owned bundle dependency through lyn plugin's pnpm path; a selected name no
    * dependency holds is only deselected.
    * @param name Installed dependency or selected bundle name.
    * @returns Removal diagnostics and the remaining profile state.
@@ -1033,11 +1033,11 @@ export class PluginManager extends TypertRemoteService {
 
   /** The rows a bundle's patch inserts and the existing rows it changes; an unreadable patch throws. */
   private declaredRows(name: string, info: ProfileManifest): Pick<BundleInfo, 'rows' | 'overrides'> {
-    const bundle = info.dsh?.bundle
+    const bundle = info.lyn?.bundle
     /* v8 ignore next -- bundleManifest answers only manifests that declare a patch */
     if (bundle === undefined) return { rows: [], overrides: [] }
-    const dir = resolveBundleDir('dsh', name, this.profile.installAnchor, this.profile.dir)
-    const patches: PatchOptions[] = bundlePatchPaths(dir, bundle).flatMap(file => loadOverlayPatches('dsh', file))
+    const dir = resolveBundleDir('lyn', name, this.profile.installAnchor, this.profile.dir)
+    const patches: PatchOptions[] = bundlePatchPaths(dir, bundle).flatMap(file => loadOverlayPatches('lyn', file))
     // One entry per row id: the Loader keeps a single entry for an id, whichever layer declared it last.
     const live = new Map<string, { entryId: PluginEntryId; baseUrl: string | undefined }>()
     for (const entry of this.ctx.loader.entries()) {
@@ -1120,7 +1120,7 @@ export class PluginManager extends TypertRemoteService {
   }
 
   private async selectBundle(name: string, enabled: boolean): Promise<void> {
-    const manifest = readProfileManifest('dsh', this.profile.dir)
+    const manifest = readProfileManifest('lyn', this.profile.dir)
     const previous = bundleSelection(manifest)
     if (enabled || !previous.includes(name)) {
       const metadata = bundleManifest(name, this.profile.dir, this.profile.installAnchor)
@@ -1136,16 +1136,16 @@ export class PluginManager extends TypertRemoteService {
     }
     const bundles = enabled ? [...previous, ...previous.includes(name) ? [] : [name]] : previous.filter(item => item !== name)
     if (JSON.stringify(previous) === JSON.stringify(bundles)) return
-    manifest.dsh = { ...manifest.dsh, profile: { ...manifest.dsh?.profile, bundles } }
+    manifest.lyn = { ...manifest.lyn, profile: { ...manifest.lyn?.profile, bundles } }
     await saveManifest(this.profile.dir, manifest)
     if (enabled) this.protectsManager(name)
   }
 
   private bundleRows(name: string): EntryOptions[] {
     const info = bundleManifest(name, this.profile.dir, this.profile.installAnchor)
-    if (info?.dsh?.bundle === undefined) return []
-    const dir = resolveBundleDir('dsh', name, this.profile.installAnchor, this.profile.dir)
-    return flatten(composeEntries([bundlePatchPaths(dir, info.dsh.bundle).flatMap(file => loadOverlayPatches('dsh', file))]))
+    if (info?.lyn?.bundle === undefined) return []
+    const dir = resolveBundleDir('lyn', name, this.profile.installAnchor, this.profile.dir)
+    return flatten(composeEntries([bundlePatchPaths(dir, info.lyn.bundle).flatMap(file => loadOverlayPatches('lyn', file))]))
   }
 
   private protectsManager(name: string): boolean {
@@ -1171,7 +1171,7 @@ export class PluginManager extends TypertRemoteService {
    * current table. A publication that needs a restart waits for the restart the result already reports.
    */
   private async refreshPackages(): Promise<void> {
-    const selected = bundleSelection(readProfileManifest('dsh', this.profile.dir))
+    const selected = bundleSelection(readProfileManifest('lyn', this.profile.dir))
     if (this.profile.startedBundles.some(name => !selected.includes(name))) return
     try {
       const packages = this.ownerContext.get('pluginPackages')
@@ -1201,7 +1201,7 @@ export class PluginManager extends TypertRemoteService {
     const hmr = this.ownerContext.get('hmr')
     if (hmr === undefined) {
       // Startup-only profiles recompose at restart; the saved patches still have to compose.
-      composeEntries([readProfilePatches('dsh', this.profile)])
+      composeEntries([readProfilePatches('lyn', this.profile)])
       return { warnings: [] }
     }
     const { warnings, pending, restartReason } = await hmr.reconcileProfile(requiredIds)

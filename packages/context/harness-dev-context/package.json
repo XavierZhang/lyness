@@ -1,13 +1,13 @@
 {
-  "name": "@deepseek-ai/dsh-harness-dev-context",
-  "description": "Model context naming the DeepSeek Harness checkout and Web GUI URL without letting either change the system prompt",
+  "name": "@lyness/lyn-harness-dev-context",
+  "description": "Model context naming the lyness checkout and Web GUI URL without letting either change the system prompt",
   "version": "0.2.1-rc.3",
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/context/harness-dev-context"
   },
   "type": "module",
@@ -32,20 +32,20 @@
     "zod": "4.4.3"
   },
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-agent": "workspace:*",
-    "@deepseek-ai/dsh-session": "workspace:*",
-    "@deepseek-ai/dsh-session-projection": "workspace:*",
-    "@deepseek-ai/dsh-system-prompt": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-session-projection": "workspace:*",
+    "@lyness/lyn-system-prompt": "workspace:*"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-agent": "workspace:*",
-    "@deepseek-ai/dsh-agent-loop-testkit": "workspace:*",
-    "@deepseek-ai/dsh-llm": "workspace:*",
-    "@deepseek-ai/dsh-session": "workspace:*",
-    "@deepseek-ai/dsh-session-projection": "workspace:*",
-    "@deepseek-ai/dsh-system-prompt": "workspace:*",
-    "@deepseek-ai/dsh-web-app": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/lyn-agent-loop-testkit": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-session-projection": "workspace:*",
+    "@lyness/lyn-system-prompt": "workspace:*",
+    "@lyness/lyn-web-app": "workspace:*"
   }
 }

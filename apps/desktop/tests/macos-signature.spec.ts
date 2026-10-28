@@ -20,13 +20,13 @@ const { validateConfiguration } = require('app-builder-lib/out/util/config/confi
 }
 
 const RELEASE_ENVIRONMENT = {
-  DSH_DESKTOP_APP_ID: 'com.example.desktop',
-  DSH_DESKTOP_MANDATORY_UPDATE_TEST_ORIGIN: 'https://policy.example.com',
-  DSH_DESKTOP_MANDATORY_UPDATE_CONFIG: JSON.stringify({ allowedAuthOrigins: ['https://login.example.com'] }),
-  DSH_DESKTOP_TARGET_PLATFORM: 'darwin',
-  DSH_DESKTOP_TARGET_ARCH: 'arm64',
-  DSH_DESKTOP_MACOS_SIGNING_IDENTITY: 'Example Company (TEAMID1234)',
-  DSH_DESKTOP_MACOS_TEAM_ID: 'TEAMID1234',
+  LYNESS_DESKTOP_APP_ID: 'com.example.desktop',
+  LYNESS_DESKTOP_MANDATORY_UPDATE_TEST_ORIGIN: 'https://policy.example.com',
+  LYNESS_DESKTOP_MANDATORY_UPDATE_CONFIG: JSON.stringify({ allowedAuthOrigins: ['https://login.example.com'] }),
+  LYNESS_DESKTOP_TARGET_PLATFORM: 'darwin',
+  LYNESS_DESKTOP_TARGET_ARCH: 'arm64',
+  LYNESS_DESKTOP_MACOS_SIGNING_IDENTITY: 'Example Company (TEAMID1234)',
+  LYNESS_DESKTOP_MACOS_TEAM_ID: 'TEAMID1234',
   APPLE_API_KEY: '/private/credentials/AuthKey_TEST123456.p8',
   APPLE_API_KEY_ID: 'TEST123456',
   APPLE_API_ISSUER: '11111111-2222-3333-4444-555555555555',
@@ -49,7 +49,7 @@ describe('desktop macOS release signature', () => {
   it('loads release identifiers from the environment and requires code signing', async () => {
     const { createElectronBuilderConfig } = await import('../electron-builder.config.mjs')
     const config = createElectronBuilderConfig(RELEASE_ENVIRONMENT, 'darwin', 'arm64')
-    expect(config.protocols).toEqual([{ name: 'HARNESS', schemes: ['dsh'] }])
+    expect(config.protocols).toEqual([{ name: 'lyness', schemes: ['lyn'] }])
     expect(portablePath(config.directories.output)).toContain('/.desktop-build/targets/mac-arm64/artifacts')
     expect(config.mac.extendInfo.NSMicrophoneUsageDescription).toContain('microphone')
     expect(config.mac.extendInfo.CFBundleLocalizations).toEqual(SHIPPED_LOCALE_IDS.map(id => id === 'zh' ? 'zh_CN' : id))
@@ -62,25 +62,25 @@ describe('desktop macOS release signature', () => {
     expect(config.extraResources).toHaveLength(2)
     expect(config.extraResources[0]?.to).toBe('runtime')
     expect(portablePath(config.extraResources[0]?.from ?? '')).toContain('/.desktop-build/targets/mac-arm64/runtime')
-    const [dshFiles, dshNodeModules] = config.files.slice(-2)
-    if (!dshFiles || !dshNodeModules || typeof dshFiles === 'string' || typeof dshNodeModules === 'string') {
-      throw new Error('desktop DSH resources must use electron-builder file mappings')
+    const [lynFiles, lynNodeModules] = config.files.slice(-2)
+    if (!lynFiles || !lynNodeModules || typeof lynFiles === 'string' || typeof lynNodeModules === 'string') {
+      throw new Error('desktop LYN resources must use electron-builder file mappings')
     }
-    expect(portablePath(dshFiles.from)).toContain('/.desktop-build/targets/mac-arm64/dsh')
-    expect(dshFiles.to).toBe('dsh')
-    expect(portablePath(dshNodeModules.from)).toContain('/.desktop-build/targets/mac-arm64/dsh/node_modules')
-    expect(dshNodeModules.to).toBe('dsh/node_modules')
+    expect(portablePath(lynFiles.from)).toContain('/.desktop-build/targets/mac-arm64/lyn')
+    expect(lynFiles.to).toBe('lyn')
+    expect(portablePath(lynNodeModules.from)).toContain('/.desktop-build/targets/mac-arm64/lyn/node_modules')
+    expect(lynNodeModules.to).toBe('lyn/node_modules')
     expect(config.asarUnpack).toEqual(expect.arrayContaining([
       '**/*.{node,dylib,dll,so,exe}',
       '**/@vscode/ripgrep-*/bin/rg',
     ]))
     expect(config).toMatchObject({
-      appId: RELEASE_ENVIRONMENT.DSH_DESKTOP_APP_ID,
+      appId: RELEASE_ENVIRONMENT.LYNESS_DESKTOP_APP_ID,
       mac: {
-        identity: RELEASE_ENVIRONMENT.DSH_DESKTOP_MACOS_SIGNING_IDENTITY,
+        identity: RELEASE_ENVIRONMENT.LYNESS_DESKTOP_MACOS_SIGNING_IDENTITY,
         forceCodeSigning: true,
         notarize: true,
-        signIgnore: ['/Contents/Resources/app\\.asar\\.unpacked/dsh(?:/|$)', '/Contents/Resources/runtime/primary-runtime(?:/|$)', '\\.pak$'],
+        signIgnore: ['/Contents/Resources/app\\.asar\\.unpacked/lyn(?:/|$)', '/Contents/Resources/runtime/primary-runtime(?:/|$)', '\\.pak$'],
       },
       dmg: {
         format: 'ULMO',
@@ -89,7 +89,7 @@ describe('desktop macOS release signature', () => {
       },
       publish: [{
         provider: 'generic',
-        url: 'https://desktop-updates.example.com/dsh-desk/0123456789abcdef0123456789abcdef/feeds/mac-arm64/',
+        url: 'https://desktop-updates.example.com/lyn-desk/0123456789abcdef0123456789abcdef/feeds/mac-arm64/',
         channel: 'nightly',
       }],
     })
@@ -102,8 +102,8 @@ describe('desktop macOS release signature', () => {
       for (const unsigned of ['0', '1']) {
         const config = createElectronBuilderConfig({
           ...RELEASE_ENVIRONMENT,
-          DSH_DESKTOP_TARGET_ARCH: arch,
-          DSH_DESKTOP_UNSIGNED: unsigned,
+          LYNESS_DESKTOP_TARGET_ARCH: arch,
+          LYNESS_DESKTOP_UNSIGNED: unsigned,
         }, 'darwin', arch)
         expect(config.dmg.format).toBe('ULMO')
         await expect(validateConfiguration(config, { isEnabled: false })).resolves.toBeUndefined()
@@ -131,21 +131,21 @@ describe('desktop macOS release signature', () => {
   it('validates Windows signing without requiring macOS identifiers for a Windows target', async () => {
     const { createElectronBuilderConfig } = await import('../electron-builder.config.mjs')
     expect(() => createElectronBuilderConfig({
-      DSH_DESKTOP_APP_ID: RELEASE_ENVIRONMENT.DSH_DESKTOP_APP_ID,
-      DSH_DESKTOP_MANDATORY_UPDATE_TEST_ORIGIN: 'https://policy.example.com',
-      DSH_DESKTOP_MANDATORY_UPDATE_CONFIG: JSON.stringify({ allowedAuthOrigins: ['https://login.example.com'] }),
-      DSH_DESKTOP_TARGET_PLATFORM: 'win32',
-    }, 'win32')).toThrow(/DSH_DESKTOP_WINDOWS_CER_FILE/u)
+      LYNESS_DESKTOP_APP_ID: RELEASE_ENVIRONMENT.LYNESS_DESKTOP_APP_ID,
+      LYNESS_DESKTOP_MANDATORY_UPDATE_TEST_ORIGIN: 'https://policy.example.com',
+      LYNESS_DESKTOP_MANDATORY_UPDATE_CONFIG: JSON.stringify({ allowedAuthOrigins: ['https://login.example.com'] }),
+      LYNESS_DESKTOP_TARGET_PLATFORM: 'win32',
+    }, 'win32')).toThrow(/LYNESS_DESKTOP_WINDOWS_CER_FILE/u)
   })
 
   it('isolates unsigned Windows artifacts and omits updater metadata without release credentials', async () => {
     const { createElectronBuilderConfig } = await import('../electron-builder.config.mjs')
     const config = createElectronBuilderConfig({
-      DSH_DESKTOP_APP_ID: RELEASE_ENVIRONMENT.DSH_DESKTOP_APP_ID,
-      DSH_DESKTOP_MANDATORY_UPDATE_TEST_ORIGIN: 'https://policy.example.com',
-      DSH_DESKTOP_MANDATORY_UPDATE_CONFIG: JSON.stringify({ allowedAuthOrigins: ['https://login.example.com'] }),
-      DSH_DESKTOP_TARGET_PLATFORM: 'win32',
-      DSH_DESKTOP_UNSIGNED: '1',
+      LYNESS_DESKTOP_APP_ID: RELEASE_ENVIRONMENT.LYNESS_DESKTOP_APP_ID,
+      LYNESS_DESKTOP_MANDATORY_UPDATE_TEST_ORIGIN: 'https://policy.example.com',
+      LYNESS_DESKTOP_MANDATORY_UPDATE_CONFIG: JSON.stringify({ allowedAuthOrigins: ['https://login.example.com'] }),
+      LYNESS_DESKTOP_TARGET_PLATFORM: 'win32',
+      LYNESS_DESKTOP_UNSIGNED: '1',
     }, 'win32', 'x64')
     expect(portablePath(config.directories.output)).toContain('/targets/win-x64/unsigned-artifacts')
     expect(portablePath(config.nsis.include)).toMatch(/\/scripts\/installer\.nsh$/u)
@@ -158,29 +158,29 @@ describe('desktop macOS release signature', () => {
   it.each(['arm64', 'x64'])('builds local macOS %s DMGs without release credentials or update metadata', async (arch) => {
     const { createElectronBuilderConfig } = await import('../scripts/electron-builder-config.mjs')
     const config = createElectronBuilderConfig({
-      DSH_DESKTOP_APP_ID: RELEASE_ENVIRONMENT.DSH_DESKTOP_APP_ID,
-      DSH_DESKTOP_UNSIGNED: '1',
+      LYNESS_DESKTOP_APP_ID: RELEASE_ENVIRONMENT.LYNESS_DESKTOP_APP_ID,
+      LYNESS_DESKTOP_UNSIGNED: '1',
     }, 'darwin', arch)
     expect(portablePath(config.directories.output)).toContain(`/targets/mac-${arch}/unsigned-artifacts`)
-    expect(config.artifactName).toBe('deepseek-harness-${version}-${os}-${arch}-unsigned.${ext}')
+    expect(config.artifactName).toBe('lyness-${version}-${os}-${arch}-unsigned.${ext}')
     expect(config.mac).toMatchObject({ identity: '-', forceCodeSigning: false, notarize: false, target: ['dmg'] })
     expect(config.dmg).toMatchObject({ sign: false, writeUpdateInfo: false })
     expect(config.publish).toBeNull()
-    expect(config.extraMetadata).not.toHaveProperty('dshMandatoryUpdatePolicy')
+    expect(config.extraMetadata).not.toHaveProperty('lynMandatoryUpdatePolicy')
     await expect(config.afterSign({ electronPlatformName: 'darwin' } as Parameters<typeof config.afterSign>[0])).resolves.toBeUndefined()
     expect(config.artifactBuildCompleted({ file: '/tmp/local-unsigned.dmg' })).toBeUndefined()
   })
 
   it('omits mandatory-update policy from local macOS builds even when release settings are supplied', async () => {
     const { createElectronBuilderConfig } = await import('../scripts/electron-builder-config.mjs')
-    const config = createElectronBuilderConfig({ ...RELEASE_ENVIRONMENT, DSH_DESKTOP_UNSIGNED: '1' }, 'darwin', 'arm64')
-    expect(config.extraMetadata).not.toHaveProperty('dshMandatoryUpdatePolicy')
+    const config = createElectronBuilderConfig({ ...RELEASE_ENVIRONMENT, LYNESS_DESKTOP_UNSIGNED: '1' }, 'darwin', 'arm64')
+    expect(config.extraMetadata).not.toHaveProperty('lynMandatoryUpdatePolicy')
     expect(config.publish).toBeNull()
   })
 
   it('rejects malformed signing modes', async () => {
     const { createElectronBuilderConfig } = await import('../electron-builder.config.mjs')
-    expect(() => createElectronBuilderConfig({ ...RELEASE_ENVIRONMENT, DSH_DESKTOP_UNSIGNED: 'yes' }))
+    expect(() => createElectronBuilderConfig({ ...RELEASE_ENVIRONMENT, LYNESS_DESKTOP_UNSIGNED: 'yes' }))
       .toThrow(/must be 0 or 1/u)
   })
 
@@ -232,16 +232,16 @@ describe('desktop macOS release signature', () => {
   })
 
   it('rejects missing and malformed release identifiers', () => {
-    expect(() => resolveDesktopAppId({})).toThrow(/DSH_DESKTOP_APP_ID/u)
-    expect(() => resolveDesktopAppId({ DSH_DESKTOP_APP_ID: 'not-a-bundle-id' })).toThrow(/reverse-DNS/u)
-    expect(() => resolveMacOSSigningEnvironment({})).toThrow(/DSH_DESKTOP_MACOS_SIGNING_IDENTITY/u)
+    expect(() => resolveDesktopAppId({})).toThrow(/LYNESS_DESKTOP_APP_ID/u)
+    expect(() => resolveDesktopAppId({ LYNESS_DESKTOP_APP_ID: 'not-a-bundle-id' })).toThrow(/reverse-DNS/u)
+    expect(() => resolveMacOSSigningEnvironment({})).toThrow(/LYNESS_DESKTOP_MACOS_SIGNING_IDENTITY/u)
     expect(() => resolveMacOSSigningEnvironment({
-      DSH_DESKTOP_MACOS_SIGNING_IDENTITY: 'Developer ID Application: Example Company (TEAMID1234)',
-      DSH_DESKTOP_MACOS_TEAM_ID: 'TEAMID1234',
+      LYNESS_DESKTOP_MACOS_SIGNING_IDENTITY: 'Developer ID Application: Example Company (TEAMID1234)',
+      LYNESS_DESKTOP_MACOS_TEAM_ID: 'TEAMID1234',
     })).toThrow(/must omit/u)
     expect(() => resolveMacOSSigningEnvironment({
-      DSH_DESKTOP_MACOS_SIGNING_IDENTITY: 'Example Company (TEAMID1234)',
-      DSH_DESKTOP_MACOS_TEAM_ID: 'short',
+      LYNESS_DESKTOP_MACOS_SIGNING_IDENTITY: 'Example Company (TEAMID1234)',
+      LYNESS_DESKTOP_MACOS_TEAM_ID: 'short',
     })).toThrow(/10 uppercase/u)
   })
 
@@ -252,8 +252,8 @@ describe('desktop macOS release signature', () => {
       appleApiIssuer: RELEASE_ENVIRONMENT.APPLE_API_ISSUER,
     })
     expect(resolveMacOSNotarizationEnvironment({
-      APPLE_KEYCHAIN_PROFILE: 'dsh-notary',
-    })).toEqual({ keychainProfile: 'dsh-notary' })
+      APPLE_KEYCHAIN_PROFILE: 'lyn-notary',
+    })).toEqual({ keychainProfile: 'lyn-notary' })
     expect(() => resolveMacOSNotarizationEnvironment({})).toThrow(/macOS packaging requires/u)
     expect(() => resolveMacOSNotarizationEnvironment({ APPLE_API_KEY: '/tmp/key.p8' })).toThrow(/APPLE_API_KEY_ID/u)
   })
@@ -286,7 +286,7 @@ it('signs debugging artifacts without Apple credentials and isolates them from r
   const { createElectronBuilderConfig } = await import('../scripts/electron-builder-config.mjs')
   const config = createElectronBuilderConfig({ ...RELEASE_ENVIRONMENT,
     APPLE_API_KEY: undefined, APPLE_API_KEY_ID: undefined, APPLE_API_ISSUER: undefined,
-    DSH_DESKTOP_MACOS_SKIP_NOTARIZATION: '1',
+    LYNESS_DESKTOP_MACOS_SKIP_NOTARIZATION: '1',
   }, 'darwin', 'arm64')
   expect(config.mac.forceCodeSigning).toBe(true)
   expect(config.mac.notarize).toBe(false)
@@ -294,6 +294,6 @@ it('signs debugging artifacts without Apple credentials and isolates them from r
   expect(config.mac).toMatchObject({ target: ['dmg', 'zip'] })
   expect(config.artifactName).toContain('-unnotarized.')
   expect(portablePath(config.directories.output)).toContain('/unnotarized-artifacts')
-  expect(() => createElectronBuilderConfig({ ...RELEASE_ENVIRONMENT, DSH_DESKTOP_MACOS_SKIP_NOTARIZATION: 'yes' }, 'darwin', 'arm64')).toThrow(/must be 0 or 1/u)
-  expect(() => createElectronBuilderConfig({ ...RELEASE_ENVIRONMENT, DSH_DESKTOP_MACOS_SKIP_NOTARIZATION: '1', DSH_DESKTOP_UNSIGNED: '1' }, 'darwin', 'arm64')).toThrow(/requires a signed macOS build/u)
+  expect(() => createElectronBuilderConfig({ ...RELEASE_ENVIRONMENT, LYNESS_DESKTOP_MACOS_SKIP_NOTARIZATION: 'yes' }, 'darwin', 'arm64')).toThrow(/must be 0 or 1/u)
+  expect(() => createElectronBuilderConfig({ ...RELEASE_ENVIRONMENT, LYNESS_DESKTOP_MACOS_SKIP_NOTARIZATION: '1', LYNESS_DESKTOP_UNSIGNED: '1' }, 'darwin', 'arm64')).toThrow(/requires a signed macOS build/u)
 })

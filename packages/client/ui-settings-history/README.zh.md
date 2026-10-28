@@ -3,13 +3,13 @@ description: "设置里的历史区块：管理员改了什么、是谁改的，
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-client-ui-settings-history
+# @lyness/lyn-client-ui-settings-history
 
 [English](README.md) | 中文
 
 ## 概述
 
-`dsh-client-ui-settings-history` 是管理员读那份记录的设置区块。一次读答出他的身份可以看到的那些已记录的更改，最新的在前，每个条目显示哪条记录变了、它发生了什么、是谁做的，以及每个有差异字段的两边。它在构造上就是只读的：那份记录在服务端只会被追加，所以这里没有东西可编辑或删除。
+`lyn-client-ui-settings-history` 是管理员读那份记录的设置区块。一次读答出他的身份可以看到的那些已记录的更改，最新的在前，每个条目显示哪条记录变了、它发生了什么、是谁做的，以及每个有差异字段的两边。它在构造上就是只读的：那份记录在服务端只会被追加，所以这里没有东西可编辑或删除。
 
 ## 目录
 
@@ -29,7 +29,7 @@ Web 应用把它挂在它所展示其更改的那些区块旁边：
 
 ```yaml
 - id: ui-settings-history
-  name: '@deepseek-ai/dsh-client-ui-settings-history'
+  name: '@lyness/lyn-client-ui-settings-history'
 ```
 
 没有要配置的。这个区块以 order 50 注册进 `settings.section`，排在机器人之后，并在被打开时读 `remote.audit`。一次导出以下载的形式交给读者，浏览器和桌面外壳各自把它存到那个平台存下载的地方。
@@ -60,9 +60,9 @@ Web 应用把它挂在它所展示其更改的那些区块旁边：
 <a id="further-exploration"></a>
 ## 进一步探索
 
-- [`dsh-api-admin-audit-controller`](../../api/admin-audit-controller/README.zh.md) — 这个区块调用的那个命名空间，以及每一次拒绝的含义。
-- [`dsh-admin-audit`](../../identity/admin-audit/README.zh.md) — 它背后的那份记录，以及它记下什么。
-- [`dsh-client-ui-settings-bots`](../ui-settings-bots/README.zh.md) — 它所展示其更改的那两个区块之一。
+- [`lyn-api-admin-audit-controller`](../../api/admin-audit-controller/README.zh.md) — 这个区块调用的那个命名空间，以及每一次拒绝的含义。
+- [`lyn-admin-audit`](../../identity/admin-audit/README.zh.md) — 它背后的那份记录，以及它记下什么。
+- [`lyn-client-ui-settings-bots`](../ui-settings-bots/README.zh.md) — 它所展示其更改的那两个区块之一。
 
 -----
 

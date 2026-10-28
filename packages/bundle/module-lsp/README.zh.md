@@ -3,7 +3,7 @@ description: "语言服务器导航模块独立成一个 bundle，出厂是惰�
 kind: "package-bundle"
 ---
 
-# @deepseek-ai/dsh-module-lsp
+# @lyness/lyn-module-lsp
 
 [English](README.md) | 中文
 
@@ -70,13 +70,13 @@ kind: "package-bundle"
 
 | 行 | 模块 | 平面 | 角色 |
 |---|---|---|---|
-| `lsp` | `@deepseek-ai/dsh-lsp` | 宿主 | 接缝：按扩展名选择 provider，并归一化结果 |
-| `lsp-stdio` | `@deepseek-ai/dsh-lsp-stdio` | 宿主 | 把配置好的 stdio 服务器命令驱动为 provider |
-| `lsp-preset-contribution` | `@deepseek-ai/dsh-lsp/preset-contribution` | 贡献 | 把 `lsp` 工具行交给每个接受贡献的 preset |
+| `lsp` | `@lyness/lyn-lsp` | 宿主 | 接缝：按扩展名选择 provider，并归一化结果 |
+| `lsp-stdio` | `@lyness/lyn-lsp-stdio` | 宿主 | 把配置好的 stdio 服务器命令驱动为 provider |
+| `lsp-preset-contribution` | `@lyness/lyn-lsp/preset-contribution` | 贡献 | 把 `lsp` 工具行交给每个接受贡献的 preset |
 
 贡献插件放在接缝旁边而不是本 bundle 里，是为了让那个插件名在接缝被解析到的地方同样被解析到。一个把自己当插件来命名的 bundle，必须能从 Loader 读取它的地方被当作模块解析到，而一个只承载补丁的 bundle 本来从不需要这个性质。
 
-平面的拆分跟随所有权：一个语言服务器按工作区启动，由在其中工作的每个 agent 共享，所以接缝与 provider 由一个进程持有。只有工具是按 agent 的，因为一次工具调用属于发出它的那个 agent。这与 [`dsh-module-memory`](../module-memory/README.zh.md) 的拆分相同，而与 [`dsh-module-terminal`](../module-terminal/README.zh.md) 相反——后者的会话各自属于一个 agent。
+平面的拆分跟随所有权：一个语言服务器按工作区启动，由在其中工作的每个 agent 共享，所以接缝与 provider 由一个进程持有。只有工具是按 agent 的，因为一次工具调用属于发出它的那个 agent。这与 [`lyn-module-memory`](../module-memory/README.zh.md) 的拆分相同，而与 [`lyn-module-terminal`](../module-terminal/README.zh.md) 相反——后者的会话各自属于一个 agent。
 
 | 文件 | 角色 |
 |---|---|
@@ -90,7 +90,7 @@ kind: "package-bundle"
 
 - [`lsp/`](../../lsp/README.zh.md) —— 接缝、stdio provider 与那个工具。
 - [preset 行贡献](../../../.agents/notes/proposed/architecture/2026-10-10-preset-row-contributions.zh.md) —— 为什么一个模块贡献一行，而不是去改 preset。
-- [`dsh-module-schedule`](../module-schedule/README.zh.md) —— 另一个出厂可用但未激活的模块。
+- [`lyn-module-schedule`](../module-schedule/README.zh.md) —— 另一个出厂可用但未激活的模块。
 - [默认模块与两个视图](../../../.agents/notes/proposed/architecture/2026-10-08-default-modules-and-views.zh.md) —— 为什么每个默认模块各自一个 bundle。
 
 -----
@@ -98,7 +98,7 @@ kind: "package-bundle"
 <a id="model-experience"></a>
 ## 模型体验
 
-间接地，经由它插入的那些行：`dsh-tool-lsp` 拥有 `lsp` 工具的 schema、提示词指引与渲染后的结果，而本 bundle 只决定某个 preset 是否携带它们。
+间接地，经由它插入的那些行：`lyn-tool-lsp` 拥有 `lsp` 工具的 schema、提示词指引与渲染后的结果，而本 bundle 只决定某个 preset 是否携带它们。
 
 #### KV Cache effect
 

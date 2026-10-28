@@ -1,18 +1,18 @@
-import { executeToolFixture } from '@deepseek-ai/dsh-tool-testkit'
+import { executeToolFixture } from '@lyness/lyn-tool-testkit'
 import { describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import { createUserMessage, ToolCallId  } from '@deepseek-ai/dsh-llm'
-import type { ContextFormed } from '@deepseek-ai/dsh-llm'
-import { SessionId, type SessionEvent } from '@deepseek-ai/dsh-session'
-import { defineContentToolFixture } from '@deepseek-ai/dsh-tool-testkit'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import AgentLoop from '@deepseek-ai/dsh-agent-loop'
-import { mountAgentLoopTestDependencies } from '@deepseek-ai/dsh-agent-loop-testkit'
-import * as RepeatToolGuard from '@deepseek-ai/dsh-repeat-tool-reminder'
-import type { Config } from '@deepseek-ai/dsh-repeat-tool-reminder'
+import { Context } from '@lyness/cordis'
+import { createUserMessage, ToolCallId  } from '@lyness/lyn-llm'
+import type { ContextFormed } from '@lyness/lyn-llm'
+import { SessionId, type SessionEvent } from '@lyness/lyn-session'
+import { defineContentToolFixture } from '@lyness/lyn-tool-testkit'
+import type { Agent } from '@lyness/lyn-agent'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import { mountAgentLoopTestDependencies } from '@lyness/lyn-agent-loop-testkit'
+import * as RepeatToolGuard from '@lyness/lyn-repeat-tool-reminder'
+import type { Config } from '@lyness/lyn-repeat-tool-reminder'
 import { MockAdapter, textResponse, toolCallResponse } from '../../../core/agent-loop/tests/mock-adapter.ts'
 
-declare module '@deepseek-ai/dsh-llm' {
+declare module '@lyness/lyn-llm' {
   interface MessageSourceMap {
     'test': { kind: 'test' } & ContextFormed
   }

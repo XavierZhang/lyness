@@ -3,28 +3,28 @@ import { render, cleanup } from '@testing-library/react'
 import { $getRoot, $isTextNode, PASTE_COMMAND } from 'lexical'
 import { createUserTextFixture } from './user-text-component-fixture.client.tsx'
 import { registerComposerKeymap } from '../src/client/input/editor/keymap.ts'
-import { createSnapshotStore } from '@deepseek-ai/dsh-client-store'
+import { createSnapshotStore } from '@lyness/lyn-client-store'
 import { describe, expect, it, onTestFinished, vi } from 'vitest'
-import type { CommandContribution, CommandUiContract } from '@deepseek-ai/dsh-client-ui-commands/client'
-import type { ISession, SessionReference } from '@deepseek-ai/dsh-api-session-controller/client'
-import { LocaleRuntime } from '@deepseek-ai/dsh-client-locale/client'
-import * as messageQuotes from '@deepseek-ai/dsh-message-quotes/client'
-import type { ObservableSnapshot } from '@deepseek-ai/dsh-client-store'
+import type { CommandContribution, CommandUiContract } from '@lyness/lyn-client-ui-commands/client'
+import type { ISession, SessionReference } from '@lyness/lyn-api-session-controller/client'
+import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
+import * as messageQuotes from '@lyness/lyn-message-quotes/client'
+import type { ObservableSnapshot } from '@lyness/lyn-client-store'
 import {
   SlotTestRuntime, stubConfigForm, usePinnedBrowserLanguages,
-} from '@deepseek-ai/dsh-client-test-runtime'
-import type { SessionBehaviorOverrides } from '@deepseek-ai/dsh-client-test-runtime'
+} from '@lyness/lyn-client-test-runtime'
+import type { SessionBehaviorOverrides } from '@lyness/lyn-client-test-runtime'
 import {
   apply, inject, type ComposerBarInjected, type ConversationInjected,
   type ConversationSessionHeaderInjected, type ConversationSessionInjected, type ViewTab,
-} from '@deepseek-ai/dsh-client-ui-conversation/client'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
-import type { WorkspaceId } from '@deepseek-ai/dsh-workspace/types'
+} from '@lyness/lyn-client-ui-conversation/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { WorkspaceId } from '@lyness/lyn-workspace/types'
 import { createConversationStore } from '../src/client/stores.ts'
 import type { SessionInputShell } from '../src/client/input/facade.ts'
-import { RemoteError } from '@deepseek-ai/dsh-client-test-runtime'
+import { RemoteError } from '@lyness/lyn-client-test-runtime'
 
-declare module '@deepseek-ai/dsh-client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface SlotMap {
     'quote-probe': { kind: 'single'; scope: 'session' }
   }
@@ -332,7 +332,7 @@ describe('Conversation inject API', () => {
     let removeCustom: (() => void) | undefined
     try {
       await b.runtime.flush()
-      localStorage.setItem(`dsh.conversation.${ROOT}`, JSON.stringify({
+      localStorage.setItem(`lyn.conversation.${ROOT}`, JSON.stringify({
         draft: '', view: 'custom', viewRequest: null,
       }))
 
@@ -437,7 +437,7 @@ describe('Conversation inject API', () => {
     await browser.runtime.dispose()
 
     const paths = new Map([['project', '/Users/me/my project'], ['notes.md', '/Users/me/notes.md'], ['shot.png', '/Users/me/shot.png']])
-    vi.stubGlobal('__DSH_HOST_PATHS__', { pathFor: (file: File) => paths.get(file.name) ?? '' })
+    vi.stubGlobal('__LYNESS_HOST_PATHS__', { pathFor: (file: File) => paths.get(file.name) ?? '' })
     try {
       const desktop = await bench()
       const composer = desktop.composerApi(ROOT)
@@ -462,7 +462,7 @@ describe('Conversation inject API', () => {
   })
 
   it('preserves selected text and file order and restores pasted directory chips from the draft', async () => {
-    vi.stubGlobal('__DSH_HOST_PATHS__', { pathFor: (file: File) => `/proj/${file.name}` })
+    vi.stubGlobal('__LYNESS_HOST_PATHS__', { pathFor: (file: File) => `/proj/${file.name}` })
     onTestFinished(() => { vi.unstubAllGlobals(); cleanup() })
     const b = await bench()
     onTestFinished(() => b.runtime.dispose())
@@ -498,7 +498,7 @@ describe('Conversation inject API', () => {
   })
 
   it('rejects the whole file batch before changing the draft when a later path is unrepresentable', async () => {
-    vi.stubGlobal('__DSH_HOST_PATHS__', { pathFor: (file: File) => `/proj/${file.name}` })
+    vi.stubGlobal('__LYNESS_HOST_PATHS__', { pathFor: (file: File) => `/proj/${file.name}` })
     onTestFinished(() => { vi.unstubAllGlobals() })
     const b = await bench()
     onTestFinished(() => b.runtime.dispose())

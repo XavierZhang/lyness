@@ -1,8 +1,8 @@
 /** PTC execution plugin for the mounting Agent, preset, or deployment scope. @module */
-import type { Context } from '@deepseek-ai/cordis'
-import { RUN_CODE_NAME, ToolNotFoundError, projectToolSchema } from '@deepseek-ai/dsh-tools'
-import type { ToolDefinition, ToolExecutor, ToolModelInput, ToolPromptSection, ToolBatchInput, ToolBatchResult } from '@deepseek-ai/dsh-tools'
-import { ToolExecutionPipeline, executeToolBatch } from '@deepseek-ai/dsh-tools/pipeline'
+import type { Context } from '@lyness/cordis'
+import { RUN_CODE_NAME, ToolNotFoundError, projectToolSchema } from '@lyness/lyn-tools'
+import type { ToolDefinition, ToolExecutor, ToolModelInput, ToolPromptSection, ToolBatchInput, ToolBatchResult } from '@lyness/lyn-tools'
+import { ToolExecutionPipeline, executeToolBatch } from '@lyness/lyn-tools/pipeline'
 import { createRunCodeTool, requirePtcRuntime, type PtcSdkLanguage } from './ptc.ts'
 import { renderToolsSdk, type ToolSdkSchema } from './ts-types.ts'
 import { renderToolsSdkPy } from './py-types.ts'

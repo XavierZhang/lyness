@@ -5,48 +5,48 @@
 /:
   en: d88f75fc0178ba53
   zh: 52bc7ae9551ab1cf
-/deepseek-harness-dsh-client-ui-chat:
+/lyness-lyn-client-ui-chat:
   en: 1be711561244c0d8
   zh: 055400b3b2286175
-/deepseek-harness-dsh-client-ui-chat/summary:
+/lyness-lyn-client-ui-chat/summary:
   en: fba5b2fb8080e2dd
   zh: 32c337123b7dfbcb
-/deepseek-harness-dsh-client-ui-chat/table-of-contents:
+/lyness-lyn-client-ui-chat/table-of-contents:
   en: 41cd21266011d571
   zh: 3172d1a2acbb27b7
-/deepseek-harness-dsh-client-ui-chat/reference-previews:
+/lyness-lyn-client-ui-chat/reference-previews:
   en: 3fda3d75483ce7c1
   zh: 4d96ba654f70c021
-/deepseek-harness-dsh-client-ui-chat/hidden-chat-rows:
+/lyness-lyn-client-ui-chat/hidden-chat-rows:
   en: 5706ae03ceacf251
   zh: 2e59d0815351349f
-/deepseek-harness-dsh-client-ui-chat/command-and-failure-rows:
+/lyness-lyn-client-ui-chat/command-and-failure-rows:
   en: 2157fcd6b0d100b5
   zh: 9e865ac3953ebe30
-/deepseek-harness-dsh-client-ui-chat/turn-token-usage:
+/lyness-lyn-client-ui-chat/turn-token-usage:
   en: 29346bd0f9a5ff51
   zh: 54dbed55f67aeecd
-/deepseek-harness-dsh-client-ui-chat/completed-turn-footer:
+/lyness-lyn-client-ui-chat/completed-turn-footer:
   en: b4cd36e7ab91281e
   zh: 8ccf412b9dde61d5
-/deepseek-harness-dsh-client-ui-chat/turn-process-folding:
+/lyness-lyn-client-ui-chat/turn-process-folding:
   en: 1f9423e458311ca0
   zh: e2b37194dccbd961
-/deepseek-harness-dsh-client-ui-chat/grouped-rendering:
+/lyness-lyn-client-ui-chat/grouped-rendering:
   en: ab72de5ecbb92398
   zh: 3bd4980e4ec4df08
-/deepseek-harness-dsh-client-ui-chat/scroll-ownership:
+/lyness-lyn-client-ui-chat/scroll-ownership:
   en: 69b021c5a5d8b5a7
   zh: 091ae7986c7a8a20
-/deepseek-harness-dsh-client-ui-chat/model-experience:
+/lyness-lyn-client-ui-chat/model-experience:
   en: c17b4dd43a61c569
   zh: f7414309810c3a08
-/deepseek-harness-dsh-client-ui-chat/model-experience/kv-cache-effect:
+/lyness-lyn-client-ui-chat/model-experience/kv-cache-effect:
   en: 15a7151ff9268f15
   zh: 6eae68c718be579b
-/deepseek-harness-dsh-client-ui-chat/known-limitations-and-deferred-work:
+/lyness-lyn-client-ui-chat/known-limitations-and-deferred-work:
   en: a8171aac539fec5e
   zh: add75d2542114c77
-/deepseek-harness-dsh-client-ui-chat/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-client-ui-chat/known-limitations-and-deferred-work/dev-note:
   en: b8b7eeb4ae675d2a
   zh: fbe7022074ba81b9

@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-client-file-upload",
+  "name": "@lyness/lyn-client-file-upload",
   "description": "Agent-scoped browser file upload, streaming intake, and staged receipt service",
   "version": "0.2.1-rc.3",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/client/file-upload"
   },
   "type": "module",
@@ -38,10 +38,10 @@
     "./package.json": "./package.json",
     "./locale/*.json": "./locale/*.json"
   },
-  "dsh": {
+  "lyn": {
     "client": {
       "inject": [
-        "@deepseek-ai/dsh-api-remotes"
+        "@lyness/lyn-api-remotes"
       ],
       "platform": "web",
       "immediately": true
@@ -64,21 +64,21 @@
     "lib/typert.remote-client.d.ts"
   ],
   "dependencies": {
-    "zod": "4.4.3",
-    "@deepseek-ai/dsh-typert-protocol": "workspace:*",
-    "@deepseek-ai/dsh-brand": "workspace:*"
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/lyn-typert-protocol": "workspace:*",
+    "zod": "4.4.3"
   },
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~"
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-agent": "workspace:*",
-    "@deepseek-ai/dsh-client-connection": "workspace:*",
-    "@deepseek-ai/dsh-commands": "workspace:*",
-    "@deepseek-ai/dsh-util-crypto": "workspace:*",
-    "@deepseek-ai/dsh-api-remotes": "workspace:*",
-    "@deepseek-ai/dsh-session": "workspace:*",
-    "@deepseek-ai/dsh-attachment": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/lyn-api-remotes": "workspace:*",
+    "@lyness/lyn-attachment": "workspace:*",
+    "@lyness/lyn-client-connection": "workspace:*",
+    "@lyness/lyn-commands": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-util-crypto": "workspace:*"
   }
 }

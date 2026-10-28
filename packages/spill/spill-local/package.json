@@ -1,13 +1,13 @@
 {
-  "name": "@deepseek-ai/dsh-spill-local",
-  "description": "Local-filesystem implementation of the DeepSeek Harness spill storage seam (private session-scoped files)",
+  "name": "@lyness/lyn-spill-local",
+  "description": "Local-filesystem implementation of the lyness spill storage seam (private session-scoped files)",
   "version": "0.2.1-rc.3",
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/spill/spill-local"
   },
   "type": "module",
@@ -29,19 +29,19 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/dsh-spill": "workspace:*",
-    "@deepseek-ai/cordis": "workspace:~"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-spill": "workspace:*"
   },
   "dependencies": {
-    "@deepseek-ai/schemastery": "workspace:~"
+    "@lyness/schemastery": "workspace:~"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis-plugin-include": "workspace:~",
-    "@deepseek-ai/cordis-plugin-loader": "workspace:~",
-    "@deepseek-ai/dsh-brand": "workspace:*",
-    "@deepseek-ai/dsh-llm": "workspace:*",
-    "@deepseek-ai/dsh-session": "workspace:*",
-    "@deepseek-ai/dsh-spill": "workspace:*",
-    "@deepseek-ai/cordis": "workspace:~"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/cordis-plugin-include": "workspace:~",
+    "@lyness/cordis-plugin-loader": "workspace:~",
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-spill": "workspace:*"
   }
 }

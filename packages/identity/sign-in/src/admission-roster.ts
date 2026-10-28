@@ -10,13 +10,13 @@
  * A hosted deployment mounts a different rule, because its people arrive by
  * signing up rather than by an administrator's edit.
  *
- * @module @deepseek-ai/dsh-sign-in/admission-roster
+ * @module @lyness/lyn-sign-in/admission-roster
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { PersonId } from '@deepseek-ai/dsh-people'
+import type { Context } from '@lyness/cordis'
+import z from '@lyness/schemastery'
+import { brandString } from '@lyness/lyn-brand'
+import type { PersonId } from '@lyness/lyn-people'
 import { SignInAdmission } from './admission.ts'
 import type { ExternalSubject } from './types.ts'
 

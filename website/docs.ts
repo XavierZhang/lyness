@@ -108,7 +108,7 @@ const homeAndGuide = pairedPages([
   {
     source: 'docs/user/index.md',
     route: 'index.md',
-    label: { root: 'HARNESS', en: 'HARNESS' },
+    label: { root: 'lyness', en: 'lyness' },
     sidebar: { root: null, en: null },
     section: { root: '首页', en: 'Home' },
     order: 0,
@@ -139,15 +139,20 @@ const homeAndGuide = pairedPages([
     order: 3,
   },
   {
-    source: 'docs/user/guide/public-deployments.md',
-    route: 'guide/public-deployments.md',
-    label: { root: '公开部署', en: 'Public deployments' },
     source: 'docs/user/guide/standalone-administration.md',
     route: 'guide/standalone-administration.md',
     label: { root: '部署与管理', en: 'Deploy and administer' },
     sidebar: { root: 'zh-guide', en: 'en-guide' },
     section: { root: '入门', en: 'Guide' },
     order: 4,
+  },
+  {
+    source: 'docs/user/guide/public-deployments.md',
+    route: 'guide/public-deployments.md',
+    label: { root: '公开部署', en: 'Public deployments' },
+    sidebar: { root: 'zh-guide', en: 'en-guide' },
+    section: { root: '入门', en: 'Guide' },
+    order: 5,
   },
   {
     source: 'docs/user/guide/python-sdk.md',

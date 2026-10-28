@@ -3,15 +3,15 @@ import { mkdtempSync } from 'node:fs'
 import { rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { Context } from '@deepseek-ai/cordis'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import AgentLoop from '@deepseek-ai/dsh-agent-loop'
-import { mountAgentLoopTestDependencies } from '@deepseek-ai/dsh-agent-loop-testkit'
-import { createUserMessage } from '@deepseek-ai/dsh-llm'
-import { SessionId, type SessionEvent } from '@deepseek-ai/dsh-session'
-import * as JsonlSessionPersistence from '@deepseek-ai/dsh-session-persistence-jsonl'
-import SubagentService, { snapshotSubagentDescriptor } from '@deepseek-ai/dsh-subagent'
-import * as SubagentSpawn from '@deepseek-ai/dsh-subagent-spawn-in-process'
+import { Context } from '@lyness/cordis'
+import type { Agent } from '@lyness/lyn-agent'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import { mountAgentLoopTestDependencies } from '@lyness/lyn-agent-loop-testkit'
+import { createUserMessage } from '@lyness/lyn-llm'
+import { SessionId, type SessionEvent } from '@lyness/lyn-session'
+import * as JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
+import SubagentService, { snapshotSubagentDescriptor } from '@lyness/lyn-subagent'
+import * as SubagentSpawn from '@lyness/lyn-subagent-spawn-in-process'
 import { MockAdapter, textResponse } from '../../../core/agent-loop/tests/mock-adapter.ts'
 import { mountWorkingDirectoryFixture } from '../../../subagent/subagent/tests/working-directory-fixture.ts'
 import TeamService, { TeamId, TeamMessageId } from '../src/index.ts'
@@ -162,8 +162,8 @@ async function persistedChild(
 for (const backend of backends) {
   describe(`${backend.name} Agent Teams recovery`, () => {
     it('restores a directly accepted target inbox from its flushed crash prefix without Team intent', async () => {
-      const liveRoot = mkdtempSync(join(tmpdir(), 'dsh-team-live-'))
-      const crashRoot = mkdtempSync(join(tmpdir(), 'dsh-team-crash-'))
+      const liveRoot = mkdtempSync(join(tmpdir(), 'lyn-team-live-'))
+      const crashRoot = mkdtempSync(join(tmpdir(), 'lyn-team-crash-'))
       roots.push(liveRoot, crashRoot)
       const first = await stack(backend, liveRoot, ['hang'])
       const lead = await first.ctx.agentLoop.create(SessionId('direct-root'), { provider: 'mock', model: 'mock' })
@@ -198,7 +198,7 @@ for (const backend of backends) {
     it('reconciles a persisted child to active and a missing child to durable failed', {
       timeout: PERSISTENCE_TEST_TIMEOUT_MS,
     }, async () => {
-      const storageRoot = mkdtempSync(join(tmpdir(), `dsh-team-${backend.name.toLowerCase()}-`))
+      const storageRoot = mkdtempSync(join(tmpdir(), `lyn-team-${backend.name.toLowerCase()}-`))
       roots.push(storageRoot)
       const first = await stack(backend, storageRoot, [textResponse('initial child answer')])
       const activeRootId = SessionId(`${backend.name.toLowerCase()}-active-root`)
@@ -274,7 +274,7 @@ for (const backend of backends) {
     it('reconciles a provisioning child whose initial prompt is durably pending', {
       timeout: PERSISTENCE_TEST_TIMEOUT_MS,
     }, async () => {
-      const storageRoot = mkdtempSync(join(tmpdir(), `dsh-team-pending-${backend.name.toLowerCase()}-`))
+      const storageRoot = mkdtempSync(join(tmpdir(), `lyn-team-pending-${backend.name.toLowerCase()}-`))
       roots.push(storageRoot)
       const rootId = SessionId(`${backend.name.toLowerCase()}-pending-root`)
       const childId = SessionId(`${backend.name.toLowerCase()}-pending-child`)
@@ -315,7 +315,7 @@ for (const backend of backends) {
     it('keeps historical queued mail readable without delivering it after restart', {
       timeout: PERSISTENCE_TEST_TIMEOUT_MS,
     }, async () => {
-      const storageRoot = mkdtempSync(join(tmpdir(), `dsh-team-mail-${backend.name.toLowerCase()}-`))
+      const storageRoot = mkdtempSync(join(tmpdir(), `lyn-team-mail-${backend.name.toLowerCase()}-`))
       roots.push(storageRoot)
       const rootId = SessionId(`${backend.name.toLowerCase()}-mail-root`)
 

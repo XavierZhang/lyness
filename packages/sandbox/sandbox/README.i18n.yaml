@@ -5,87 +5,87 @@
 /:
   en: 4308065a46738364
   zh: 2eb6ab7314e74976
-/deepseek-harness-dsh-sandbox:
+/lyness-lyn-sandbox:
   en: 1730cab9a03e723f
   zh: f274fb102ea1e312
-/deepseek-harness-dsh-sandbox/summary:
+/lyness-lyn-sandbox/summary:
   en: 5b4bf135bb840e0b
   zh: 45093d9f105f253a
-/deepseek-harness-dsh-sandbox/table-of-contents:
+/lyness-lyn-sandbox/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/deepseek-harness-dsh-sandbox/use-this-package:
+/lyness-lyn-sandbox/use-this-package:
   en: 5fbf0b48effb1143
   zh: 5c570dcc1a17e0ad
-/deepseek-harness-dsh-sandbox/use-this-package/when-to-choose-it:
+/lyness-lyn-sandbox/use-this-package/when-to-choose-it:
   en: 4ddc504d2626fe3e
   zh: ceb3dd93fb3835db
-/deepseek-harness-dsh-sandbox/use-this-package/confining-a-command:
+/lyness-lyn-sandbox/use-this-package/confining-a-command:
   en: c5540889017b6a7f
   zh: 679bfbd5254bf92d
-/deepseek-harness-dsh-sandbox/use-this-package/modes-and-enforcement:
+/lyness-lyn-sandbox/use-this-package/modes-and-enforcement:
   en: ab093e9042b86b99
   zh: d173df7cb3649446
-/deepseek-harness-dsh-sandbox/use-this-package/denied-calls-and-escalation:
+/lyness-lyn-sandbox/use-this-package/denied-calls-and-escalation:
   en: 92cf42bad65d112c
   zh: 60fa2cb7e9c4c556
-/deepseek-harness-dsh-sandbox/use-this-package/fail-closed-behavior:
+/lyness-lyn-sandbox/use-this-package/fail-closed-behavior:
   en: 6bf240632a7a6bf5
   zh: ebf414f5cf435875
-/deepseek-harness-dsh-sandbox/understand-the-implementation:
+/lyness-lyn-sandbox/understand-the-implementation:
   en: 7e13d669ecc96d59
   zh: b5fe7ae65812d926
-/deepseek-harness-dsh-sandbox/understand-the-implementation/design-philosophy:
+/lyness-lyn-sandbox/understand-the-implementation/design-philosophy:
   en: 0fc96495c192b513
   zh: 38b51b9b3c208012
-/deepseek-harness-dsh-sandbox/understand-the-implementation/source-map:
+/lyness-lyn-sandbox/understand-the-implementation/source-map:
   en: 54cab3e684afb031
   zh: b49b476d2f965985
-/deepseek-harness-dsh-sandbox/understand-the-implementation/escalation-choreography:
+/lyness-lyn-sandbox/understand-the-implementation/escalation-choreography:
   en: 1b418d41f571ab3d
   zh: 62b289cdd6f4d272
-/deepseek-harness-dsh-sandbox/understand-the-implementation/writable-roots:
+/lyness-lyn-sandbox/understand-the-implementation/writable-roots:
   en: 956d3195cf7a35f8
   zh: f83d8342e22bb7cd
-/deepseek-harness-dsh-sandbox/further-exploration:
+/lyness-lyn-sandbox/further-exploration:
   en: fe6203e0c615a098
   zh: 154506f2d93ea166
-/deepseek-harness-dsh-sandbox/model-experience:
+/lyness-lyn-sandbox/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/deepseek-harness-dsh-sandbox/model-experience/confinement-error-indirectly:
+/lyness-lyn-sandbox/model-experience/confinement-error-indirectly:
   en: 35e1ea00601f4003
   zh: 08152430b840ea05
-/deepseek-harness-dsh-sandbox/model-experience/confinement-error-indirectly/what-the-model-sees:
+/lyness-lyn-sandbox/model-experience/confinement-error-indirectly/what-the-model-sees:
   en: f62966c2b1fa6c79
   zh: 2e1c5237b528414c
-/deepseek-harness-dsh-sandbox/model-experience/confinement-error-indirectly/what-the-model-sees/exact-error:
+/lyness-lyn-sandbox/model-experience/confinement-error-indirectly/what-the-model-sees/exact-error:
   en: e8b03df128b832a6
   zh: dc89500c436a39cf
-/deepseek-harness-dsh-sandbox/model-experience/confinement-error-indirectly/token-effect:
+/lyness-lyn-sandbox/model-experience/confinement-error-indirectly/token-effect:
   en: 8f514efe94edfa8a
   zh: a46f9f4cd4527f4e
-/deepseek-harness-dsh-sandbox/model-experience/confinement-error-indirectly/kv-cache-effect:
+/lyness-lyn-sandbox/model-experience/confinement-error-indirectly/kv-cache-effect:
   en: 2fbf2175168e8244
   zh: f681f89596f500f5
-/deepseek-harness-dsh-sandbox/model-experience/escalation-request-and-outcome:
+/lyness-lyn-sandbox/model-experience/escalation-request-and-outcome:
   en: 67c621ef55ec8320
   zh: ae4bb9162a49e9fb
-/deepseek-harness-dsh-sandbox/model-experience/escalation-request-and-outcome/what-the-model-sees:
+/lyness-lyn-sandbox/model-experience/escalation-request-and-outcome/what-the-model-sees:
   en: c20128fa8f79c491
   zh: 96173408d176b9e6
-/deepseek-harness-dsh-sandbox/model-experience/escalation-request-and-outcome/token-effect:
+/lyness-lyn-sandbox/model-experience/escalation-request-and-outcome/token-effect:
   en: 1a7b54d68b045beb
   zh: 5dc6e824110c8fd8
-/deepseek-harness-dsh-sandbox/model-experience/escalation-request-and-outcome/kv-cache-effect:
+/lyness-lyn-sandbox/model-experience/escalation-request-and-outcome/kv-cache-effect:
   en: ea21ed3a768ed4b8
   zh: 8e2f396a6875420e
-/deepseek-harness-dsh-sandbox/known-limitations-and-deferred-work:
+/lyness-lyn-sandbox/known-limitations-and-deferred-work:
   en: 63ff67b6fd13b4b0
   zh: 6c8efa9ee99ea9bf
-/deepseek-harness-dsh-sandbox/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-sandbox/known-limitations-and-deferred-work/dev-note:
   en: cc273320f6a1beaf
   zh: 5c57a312ddc50651
-/deepseek-harness-dsh-sandbox/known-limitations-and-deferred-work/dev-note/future-consumers-and-environments:
+/lyness-lyn-sandbox/known-limitations-and-deferred-work/dev-note/future-consumers-and-environments:
   en: 18eea90b232a580a
   zh: b427c8fc51dcdc2a

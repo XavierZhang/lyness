@@ -9,8 +9,8 @@
 
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { cleanup, fireEvent, render, screen, within } from '@testing-library/react'
-import type { PersonRowView } from '@deepseek-ai/dsh-api-people-controller/types'
-import type { ConfiguredChannelView } from '@deepseek-ai/dsh-api-sign-in-channel-controller/types'
+import type { PersonRowView } from '@lyness/lyn-api-people-controller/types'
+import type { ConfiguredChannelView } from '@lyness/lyn-api-sign-in-channel-controller/types'
 import { PeopleSection } from '../src/client/PeopleSection.tsx'
 import type { PeopleSectionProps } from '../src/client/PeopleSection.tsx'
 import type { PeopleSectionState } from '../src/client/store.ts'

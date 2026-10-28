@@ -1,9 +1,9 @@
 /** Runtime plugin trees shared by Agents selecting one preset revision. */
-import { Context, type Fiber } from '@deepseek-ai/cordis'
-import { EntryTree, type EntryOptions } from '@deepseek-ai/cordis-plugin-loader'
-import { prepareProfileEntries } from '@deepseek-ai/dsh-app-boot'
+import { Context, type Fiber } from '@lyness/cordis'
+import { EntryTree, type EntryOptions } from '@lyness/cordis-plugin-loader'
+import { prepareProfileEntries } from '@lyness/lyn-app-boot'
 import type { PresetDefinition } from './definition.ts'
-import { scopeOf, type ScopeKey } from '@deepseek-ai/dsh-scope'
+import { scopeOf, type ScopeKey } from '@lyness/lyn-scope'
 
 /** In-memory Loader tree; only the profile configuration editor persists definitions. */
 class PresetTree extends EntryTree {

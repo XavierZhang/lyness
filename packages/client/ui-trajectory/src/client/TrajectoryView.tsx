@@ -4,10 +4,10 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type {
   AssistantBlock, AssistantMessageNode, ConvViewProps, MessageImageLoader,
   ToolCallBlock,
-} from '@deepseek-ai/dsh-client-ui-conversation/client'
-import type { InjectFace, PropsLocale, PropsRenderSlots } from '@deepseek-ai/dsh-client-ui-slots'
-import type { SnapshotStore } from '@deepseek-ai/dsh-client-store'
-import type { JsonTreeProps } from '@deepseek-ai/dsh-client-ui-primitives'
+} from '@lyness/lyn-client-ui-conversation/client'
+import type { InjectFace, PropsLocale, PropsRenderSlots } from '@lyness/lyn-client-ui-slots'
+import type { SnapshotStore } from '@lyness/lyn-client-store'
+import type { JsonTreeProps } from '@lyness/lyn-client-ui-primitives'
 import {
   TrajectoryTable,
   type TrajectoryRequestNumber,

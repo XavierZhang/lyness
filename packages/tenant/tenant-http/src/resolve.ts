@@ -5,8 +5,8 @@
  * owns transport and this module owns the policy.
  */
 
-import { TENANT_ID_SYNTAX } from '@deepseek-ai/dsh-tenant'
-import type { Tenant, TenantDirectory } from '@deepseek-ai/dsh-tenant'
+import { TENANT_ID_SYNTAX } from '@lyness/lyn-tenant'
+import type { Tenant, TenantDirectory } from '@lyness/lyn-tenant'
 
 /** Header naming the tenant by id, as a gateway in front of this deployment sets it. */
 export const TENANT_HEADER = 'x-tenant-id'

@@ -8,11 +8,11 @@
  * licence to put the record there instead of in a cache the provider would
  * then have to keep, invalidate, and bound.
  *
- * @module @deepseek-ai/dsh-fs-desktop/targets
+ * @module @lyness/lyn-fs-desktop/targets
  */
 
-import { FsError, FsTargetKey } from '@deepseek-ai/dsh-fs'
-import type { FsTarget } from '@deepseek-ai/dsh-fs'
+import { FsError, FsTargetKey } from '@lyness/lyn-fs'
+import type { FsTarget } from '@lyness/lyn-fs'
 import { desktopTargetSchema } from './protocol.ts'
 import type { DesktopTarget } from './protocol.ts'
 

@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-skill-office",
+  "name": "@lyness/lyn-skill-office",
   "description": "Bundled Word, PowerPoint, and Excel workflows and LibreOffice Kit operations",
   "version": "0.2.1-rc.3",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/skill/skill-office"
   },
   "type": "module",
@@ -29,20 +29,20 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/dsh-skill": "workspace:*",
-    "@deepseek-ai/cordis": "workspace:~"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-skill": "workspace:*"
   },
   "devDependencies": {
-    "@deepseek-ai/dsh-skill": "workspace:*",
-    "@deepseek-ai/dsh-tool-executor-native": "workspace:*",
-    "@deepseek-ai/dsh-tool-executor-ptc": "workspace:*",
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/cordis-plugin-loader": "workspace:~",
-    "@deepseek-ai/cordis-plugin-include": "workspace:~"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/cordis-plugin-include": "workspace:~",
+    "@lyness/cordis-plugin-loader": "workspace:~",
+    "@lyness/lyn-skill": "workspace:*",
+    "@lyness/lyn-tool-executor-native": "workspace:*",
+    "@lyness/lyn-tool-executor-ptc": "workspace:*"
   },
   "dependencies": {
     "@deepseek-ai/libreoffice-kit": "^0.1.5",
-    "@deepseek-ai/schemastery": "workspace:~",
+    "@lyness/schemastery": "workspace:~",
     "yaml": "^2.4.2"
   }
 }

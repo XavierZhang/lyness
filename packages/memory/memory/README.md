@@ -3,13 +3,13 @@ description: "Durable agent memory with an explicit write path and a prompt cont
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-memory
+# @lyness/lyn-memory
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`dsh-memory` keeps facts across sessions: conventions, preferences, and other lasting detail a person or an agent asked to remember. Mount the service and every later request carries those facts as runtime context; mount `./tools` and the agent can write, list, and remove one when asked. Writes are explicit only — nothing here reads a transcript and decides what is worth keeping. Each entry is at most 2048 characters, retention drops the oldest first, and a store the service cannot validate fails the read instead of reporting an empty memory.
+`lyn-memory` keeps facts across sessions: conventions, preferences, and other lasting detail a person or an agent asked to remember. Mount the service and every later request carries those facts as runtime context; mount `./tools` and the agent can write, list, and remove one when asked. Writes are explicit only — nothing here reads a transcript and decides what is worth keeping. Each entry is at most 2048 characters, retention drops the oldest first, and a store the service cannot validate fails the read instead of reporting an empty memory.
 
 ## Table of Contents
 
@@ -25,16 +25,16 @@ English | [中文](README.zh.md)
 <a id="use-this-package"></a>
 ## Use this package
 
-Mount the service entry on the Host plane when the agent should start a session already knowing how this workspace works. It owns one durable store, so it must have exactly one owner: an agent preset cannot mount it, and a preset that tries is refused for want of an isolate realm. Mount only `./tools` inside a preset. It needs `ctx.storageDomain` for durability and `ctx.systemPrompt` for the contribution; a deployment with neither cannot mount it. Mount `@deepseek-ai/dsh-memory/tools` as well when the agent should write memories itself; omit it to keep the facts readable while only host code writes them.
+Mount the service entry on the Host plane when the agent should start a session already knowing how this workspace works. It owns one durable store, so it must have exactly one owner: an agent preset cannot mount it, and a preset that tries is refused for want of an isolate realm. Mount only `./tools` inside a preset. It needs `ctx.storageDomain` for durability and `ctx.systemPrompt` for the contribution; a deployment with neither cannot mount it. Mount `@lyness/lyn-memory/tools` as well when the agent should write memories itself; omit it to keep the facts readable while only host code writes them.
 
 ```yaml
 - id: memory
-  name: '@deepseek-ai/dsh-memory'
+  name: '@lyness/lyn-memory'
   config:
     maxEntries: 200
     contextOrder: 130
 - id: memory-tools
-  name: '@deepseek-ai/dsh-memory/tools'
+  name: '@lyness/lyn-memory/tools'
 ```
 
 | Field | Default | Meaning |
@@ -78,8 +78,8 @@ Retention runs inside the same durable write that added an entry, dropping the o
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`dsh-storage-domain`](../../storage/storage-domain/README.md) — the durable domain this service opens.
-- [`dsh-system-prompt`](../../core/system-prompt/README.md) — runtime-context ordering and assembly.
+- [`lyn-storage-domain`](../../storage/storage-domain/README.md) — the durable domain this service opens.
+- [`lyn-system-prompt`](../../core/system-prompt/README.md) — runtime-context ordering and assembly.
 - [Memory subsystem](../../../docs/subsystems/memory.md) — scope, governance, and how memory differs from the knowledge base.
 
 -----

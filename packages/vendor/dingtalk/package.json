@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-dingtalk",
+  "name": "@lyness/lyn-dingtalk",
   "description": "DingTalk as a sign-in channel: an organization signs in whichever of its people is at the browser",
   "version": "0.1.7-rc.2",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/vendor/dingtalk"
   },
   "type": "module",
@@ -40,21 +40,21 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@deepseek-ai/schemastery": "workspace:~",
+    "@lyness/schemastery": "workspace:~",
     "zod": "^4.4.3"
   },
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-brand": "workspace:*",
-    "@deepseek-ai/dsh-credentials": "workspace:*",
-    "@deepseek-ai/dsh-sign-in": "workspace:*",
-    "@deepseek-ai/dsh-util-crypto": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/lyn-credentials": "workspace:*",
+    "@lyness/lyn-sign-in": "workspace:*",
+    "@lyness/lyn-util-crypto": "workspace:*"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-brand": "workspace:*",
-    "@deepseek-ai/dsh-credentials": "workspace:*",
-    "@deepseek-ai/dsh-sign-in": "workspace:*",
-    "@deepseek-ai/dsh-util-crypto": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/lyn-credentials": "workspace:*",
+    "@lyness/lyn-sign-in": "workspace:*",
+    "@lyness/lyn-util-crypto": "workspace:*"
   }
 }

@@ -2,13 +2,13 @@
  * Reject a product name written literally into a locale dictionary.
  *
  * Product copy names the product through `{brandName}`, `{brandAbbr}` or
- * `{brandNameZh}`, which `dsh-client-locale` fills from the deployment brand.
- * One literal name leaves a private deployment reading as DeepSeek Harness in that
+ * `{brandNameZh}`, which `lyn-client-locale` fills from the deployment brand.
+ * One literal name leaves a private deployment reading as lyness in that
  * sentence, and the sentence nobody opens is where such a name survives —
  * every occurrence this check now covers reached a release that way.
  *
- * Package names (`@deepseek-ai/dsh-…`) are external identifiers and stay literal.
- * So does the `dsh` command, which this check never matches: it looks for the
+ * Package names (`@lyness/lyn-…`) are external identifiers and stay literal.
+ * So does the `lyn` command, which this check never matches: it looks for the
  * product's names, not its executable.
  */
 
@@ -33,18 +33,18 @@ const EXEMPT: Readonly<Record<string, string>> = {}
  * Dictionary values that name a product on purpose, by the file that writes them.
  *
  * Only the attribution line qualifies: it names the platform a deployment runs
- * on, so it must keep saying DeepSeek Harness while every other sentence takes the
+ * on, so it must keep saying lyness while every other sentence takes the
  * deployment's own name. An entry here is a decision, not a deferral.
  */
 const DELIBERATE: Readonly<Record<string, readonly string[]>> = {
-  'packages/client/ui-brand-deepseek-harness/src/client/locales.ts': ['Powered by DeepSeek Harness', '由领驭提供技术支持'],
+  'packages/client/ui-brand-lyness/src/client/locales.ts': ['Powered by lyness', '由领驭提供技术支持'],
 }
 
 /** Package names carrying the scope, removed before the names are looked for. */
-const PACKAGE_NAME = /@deepseek-ai\/[\w./-]+/gu
+const PACKAGE_NAME = /@lyness\/[\w./-]+/gu
 
 /** The product's names, each of which product copy writes as a placeholder. */
-const BRAND_NAME = /\bDSHESS\b|\bDSH\b|\bDeepSeek Harness\b|领驭/u
+const BRAND_NAME = /\bLYNESS\b|\bLYN\b|\blyness\b|领驭/u
 
 /** One literal product name in dictionary copy. */
 export interface BrandPlaceholderViolation {

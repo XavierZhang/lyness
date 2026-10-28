@@ -7,14 +7,14 @@
  * type-erased inject factory.
  */
 
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { describe, expect, it, vi } from 'vitest'
-import { SlotRegistry } from '@deepseek-ai/dsh-client-ui-renderer/client'
-import { LocaleRuntime } from '@deepseek-ai/dsh-client-locale/client'
-import { TestRemote } from '@deepseek-ai/dsh-client-test-runtime'
-import type { PersonRowView } from '@deepseek-ai/dsh-api-people-controller/types'
-import type { ConfiguredChannelView } from '@deepseek-ai/dsh-api-sign-in-channel-controller/types'
-import { apply, inject, NS, peopleCallsOf } from '@deepseek-ai/dsh-client-ui-settings-people/client'
+import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
+import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
+import { TestRemote } from '@lyness/lyn-client-test-runtime'
+import type { PersonRowView } from '@lyness/lyn-api-people-controller/types'
+import type { ConfiguredChannelView } from '@lyness/lyn-api-sign-in-channel-controller/types'
+import { apply, inject, NS, peopleCallsOf } from '@lyness/lyn-client-ui-settings-people/client'
 import { PeopleSection } from '../src/client/PeopleSection.tsx'
 import type { createPeopleSectionStore } from '../src/client/store.ts'
 

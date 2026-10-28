@@ -5,45 +5,45 @@
 /:
   en: ed2539c6d12f814a
   zh: 55a6c9d7f0d21fb7
-/deepseek-ai-dsh-cua:
+/deepseek-ai-lyn-cua:
   en: 0ef7ee882840cf1b
   zh: 01b9e768eff2d302
-/deepseek-ai-dsh-cua/summary:
+/deepseek-ai-lyn-cua/summary:
   en: f4d9cc48587d62a2
   zh: d1bac6c1fe7eb29e
-/deepseek-ai-dsh-cua/table-of-contents:
+/deepseek-ai-lyn-cua/table-of-contents:
   en: 5db4d4fea25493b9
   zh: 65ab64fc24eb0d09
-/deepseek-ai-dsh-cua/use-this-package:
+/deepseek-ai-lyn-cua/use-this-package:
   en: 4b4000d5eafc9256
   zh: 4eeae251ec7c8ec4
-/deepseek-ai-dsh-cua/use-this-package/permission-controls:
+/deepseek-ai-lyn-cua/use-this-package/permission-controls:
   en: 7315ac8d68cf5d02
   zh: 037407055d9f34a0
-/deepseek-ai-dsh-cua/understand-the-implementation:
+/deepseek-ai-lyn-cua/understand-the-implementation:
   en: a32743fc5b545ab3
   zh: e8842c589966202b
-/deepseek-ai-dsh-cua/further-exploration:
+/deepseek-ai-lyn-cua/further-exploration:
   en: b8b0aece886fadaa
   zh: ecd8c88d601f2179
-/deepseek-ai-dsh-cua/model-experience:
+/deepseek-ai-lyn-cua/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/deepseek-ai-dsh-cua/model-experience/authorized-application-operations:
+/deepseek-ai-lyn-cua/model-experience/authorized-application-operations:
   en: 0faf1e4d409d61aa
   zh: 1866dd0b702f2a26
-/deepseek-ai-dsh-cua/model-experience/authorized-application-operations/what-the-model-sees:
+/deepseek-ai-lyn-cua/model-experience/authorized-application-operations/what-the-model-sees:
   en: 4f90c4a6b121bce0
   zh: c36ab4b80985c76e
-/deepseek-ai-dsh-cua/model-experience/authorized-application-operations/token-effect:
+/deepseek-ai-lyn-cua/model-experience/authorized-application-operations/token-effect:
   en: 88463f0304c207bd
   zh: 6d3ae2f1b8e45747
-/deepseek-ai-dsh-cua/model-experience/authorized-application-operations/kv-cache-effect:
+/deepseek-ai-lyn-cua/model-experience/authorized-application-operations/kv-cache-effect:
   en: 2d5df52dafa1d940
   zh: 06e815759b9150c3
-/deepseek-ai-dsh-cua/known-limitations-and-deferred-work:
+/deepseek-ai-lyn-cua/known-limitations-and-deferred-work:
   en: ae98f1b2718b3b94
   zh: e6bf4e96ae08e669
-/deepseek-ai-dsh-cua/known-limitations-and-deferred-work/dev-note:
+/deepseek-ai-lyn-cua/known-limitations-and-deferred-work/dev-note:
   en: 0a1253c6f7b5e8b9
   zh: 9f56528562c7c914

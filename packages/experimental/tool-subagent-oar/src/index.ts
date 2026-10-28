@@ -1,9 +1,9 @@
 /** One delegation tool selects a configured external provider for each task. */
 
-import type { Context } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
-import { defineTool } from '@deepseek-ai/dsh-tools'
-import type {} from '@deepseek-ai/dsh-subagent'
+import type { Context } from '@lyness/cordis'
+import z from '@lyness/schemastery'
+import { defineTool } from '@lyness/lyn-tools'
+import type {} from '@lyness/lyn-subagent'
 
 export const name = 'experimental-tool-subagent-oar'
 export const inject = ['tools', 'subagents']

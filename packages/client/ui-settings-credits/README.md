@@ -3,13 +3,13 @@ description: "The credits section in Settings: a balance, a ledger, and the two 
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-client-ui-settings-credits
+# @lyness/lyn-client-ui-settings-credits
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`dsh-client-ui-settings-credits` is the Settings section a person reads their credits in: what this account may spend, everything granted to and spent by it, and — for a standing that administers somebody — a grant form and a recurring-allowance form. Everything comes from the deployment the client connected to, read through `remote.credits`, so a desktop install and a browser each show their own server's ledger. The administrator forms are rendered from the account's own `administrable` field, so the surface never offers a control the next call would refuse.
+`lyn-client-ui-settings-credits` is the Settings section a person reads their credits in: what this account may spend, everything granted to and spent by it, and — for a standing that administers somebody — a grant form and a recurring-allowance form. Everything comes from the deployment the client connected to, read through `remote.credits`, so a desktop install and a browser each show their own server's ledger. The administrator forms are rendered from the account's own `administrable` field, so the surface never offers a control the next call would refuse.
 
 ## Table of Contents
 
@@ -29,14 +29,14 @@ The Web bundle mounts both halves; the Host half contributes nothing of its own:
 
 ```yaml
 - id: credits-controller
-  name: '@deepseek-ai/dsh-api-credits-controller'
+  name: '@lyness/lyn-api-credits-controller'
 - id: ui-settings-credits
-  name: '@deepseek-ai/dsh-client-ui-settings-credits'
+  name: '@lyness/lyn-client-ui-settings-credits'
 ```
 
 Nothing else needs configuring. The section appears in Settings as soon as both rows are mounted, and names itself `Credits` in the navigation.
 
-`createCreditsOperations(calls, sink)` from `@deepseek-ai/dsh-client-ui-settings-credits/client` builds the read and the two changes from a `CreditsCalls` and a `CreditsSink`, so they are reachable without the slot registration — which is how they are tested, and how another surface could drive the same calls.
+`createCreditsOperations(calls, sink)` from `@lyness/lyn-client-ui-settings-credits/client` builds the read and the two changes from a `CreditsCalls` and a `CreditsSink`, so they are reachable without the slot registration — which is how they are tested, and how another surface could drive the same calls.
 
 -----
 
@@ -62,16 +62,16 @@ Nothing else needs configuring. The section appears in Settings as soon as both 
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`dsh-api-credits-controller`](../../api/credits-controller/README.md) — the namespace this section reads and writes.
-- [`dsh-credits`](../../credits/credits/README.md) — the ledger and the allowance arithmetic behind it.
-- [`dsh-client-ui-settings`](../ui-settings/README.md) — the section slot this registers into.
+- [`lyn-api-credits-controller`](../../api/credits-controller/README.md) — the namespace this section reads and writes.
+- [`lyn-credits`](../../credits/credits/README.md) — the ledger and the allowance arithmetic behind it.
+- [`lyn-client-ui-settings`](../ui-settings/README.md) — the section slot this registers into.
 
 -----
 
 <a id="model-experience"></a>
 ## Model Experience
 
-None, as this package registers no tool or prompt: it is a page a person reads, and the ledger's effect on a turn is the refusal `dsh-credits` raises inside `llm/stream`.
+None, as this package registers no tool or prompt: it is a page a person reads, and the ledger's effect on a turn is the refusal `lyn-credits` raises inside `llm/stream`.
 
 #### KV Cache effect
 

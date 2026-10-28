@@ -1,4 +1,4 @@
-import type { SignInAttemptId } from '@deepseek-ai/dsh-deepseek-account/types'
+import type { SignInAttemptId } from '@lyness/lyn-deepseek-account/types'
 /** Native welcome window and its presentation-only renderer. */
 
 import { join } from 'node:path'
@@ -44,7 +44,7 @@ export function welcomeWindowOptions(
     } as const : {}),
     webPreferences: {
       preload: fileURLToPath(new URL('./preload-welcome.cjs', import.meta.url)),
-      additionalArguments: [`--dsh-welcome-locale=${locale.id}`, ...desktopBrandArguments(brand)],
+      additionalArguments: [`--lyn-welcome-locale=${locale.id}`, ...desktopBrandArguments(brand)],
       nodeIntegration: false,
       contextIsolation: true,
       sandbox: true,
@@ -62,9 +62,6 @@ let disposeActiveHandlers: (() => void) | undefined
  * @param operations - credential write and this-launch-only skip actions.
  * @returns the visible window; a failed load destroys it before rejecting.
  */
-export async function openWelcomeWindow(locale: DesktopLocale, operations: WelcomeOperations): Promise<BrowserWindow> {
-  const options = welcomeWindowOptions(process.platform, locale)
-  const window = new BrowserWindow(options)
 export async function openWelcomeWindow(
   locale: DesktopLocale,
   operations: WelcomeOperations,

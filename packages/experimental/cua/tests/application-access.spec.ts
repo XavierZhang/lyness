@@ -1,9 +1,9 @@
 /** Application decisions are checked at dispatch and revocation cancels owned work. */
 import { setImmediate } from 'node:timers/promises'
-import { Context } from '@deepseek-ai/cordis'
-import { mountAgentLoopTestDependencies, mountAgentLoopTestHarness } from '@deepseek-ai/dsh-agent-loop-testkit'
-import { SessionId } from '@deepseek-ai/dsh-session'
-import UserQuestions, { UserQuestionError, type AskUserQuestionAnswer, type AskUserQuestionRequest } from '@deepseek-ai/dsh-user-questions'
+import { Context } from '@lyness/cordis'
+import { mountAgentLoopTestDependencies, mountAgentLoopTestHarness } from '@lyness/lyn-agent-loop-testkit'
+import { SessionId } from '@lyness/lyn-session'
+import UserQuestions, { UserQuestionError, type AskUserQuestionAnswer, type AskUserQuestionRequest } from '@lyness/lyn-user-questions'
 import { expect, it, onTestFinished, vi } from 'vitest'
 import { ApplicationAuthorizationResult, ApplicationAccess } from '../src/application-access.ts'
 import type { CuaApplicationGrant } from '../src/application-types.ts'
@@ -76,15 +76,15 @@ it.each([
   expect(question).toMatchObject({
     id: 'cua-app-access',
     question: 'Allow computer use to launch if needed, read, capture, and control Test application?',
-    detail: 'Session access lasts until DSH restarts or computer use is disabled.',
+    detail: 'Session access lasts until LYN restarts or computer use is disabled.',
     intent: { kind: 'approval', approve: 'Allow for this session', reject: 'Deny',
       subject: { name: 'Test application' }, display: {
         question: { en: 'Allow computer use to launch, read, capture and control this application?',
           zh: '允许 Computer Use 启动、读取、截图和控制此应用吗？',
           ja: 'Computer Use によるこのアプリの起動、読み取り、画面キャプチャ、操作を許可しますか？' },
-        detail: { en: 'Session access lasts until DSH restarts or computer use is disabled.',
-          zh: '会话授权在 DSH 重启或关闭 Computer Use 后失效。',
-          ja: 'セッションの許可は DSH の再起動または Computer Use の無効化まで有効です。' },
+        detail: { en: 'Session access lasts until LYN restarts or computer use is disabled.',
+          zh: '会话授权在 LYN 重启或关闭 Computer Use 后失效。',
+          ja: 'セッションの許可は LYN の再起動または Computer Use の無効化まで有効です。' },
         approve: { en: 'Allow for this session', zh: '本会话允许', ja: 'このセッションで許可',
           es: 'Permitir durante esta sesión', fr: 'Autoriser pour cette session', de: 'Für diese Sitzung zulassen',
           ru: 'Разрешить для этого сеанса', pt: 'Permitir nesta sessão' },

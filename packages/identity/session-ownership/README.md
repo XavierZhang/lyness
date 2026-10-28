@@ -3,13 +3,13 @@ description: "Whose conversation a session is, for hosted deployments answering 
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-session-ownership
+# @lyness/lyn-session-ownership
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`dsh-session-ownership` records whose conversation a session is — the person who opened it, and the standing they held it open under — and, through its `./visibility` row, decides who may read it afterwards. The record is written once, at creation, from the principal the call published, and never rewritten. A private deployment never needed either half: there is one person. A session opened by nobody, such as a CLI run or an inbound webhook, carries no owner rather than an invented one, and reads as the deployment's own.
+`lyn-session-ownership` records whose conversation a session is — the person who opened it, and the standing they held it open under — and, through its `./visibility` row, decides who may read it afterwards. The record is written once, at creation, from the principal the call published, and never rewritten. A private deployment never needed either half: there is one person. A session opened by nobody, such as a CLI run or an inbound webhook, carries no owner rather than an invented one, and reads as the deployment's own.
 
 ## Table of Contents
 
@@ -27,10 +27,10 @@ English | [中文](README.zh.md)
 
 ```yaml
 - id: session-ownership
-  name: '@deepseek-ai/dsh-session-ownership'
+  name: '@lyness/lyn-session-ownership'
 
 - id: session-visibility
-  name: '@deepseek-ai/dsh-session-ownership/visibility'
+  name: '@lyness/lyn-session-ownership/visibility'
 ```
 
 Neither row takes configuration. The stamp needs the sessions, the projection registry, and the request principal; the rule needs the directory as well, to tell a platform administrator from everyone else. Selecting the stamp without the rule records attribution that nothing acts on, which on a deployment serving several people means each of them can still list and open the others' conversations.
@@ -38,9 +38,9 @@ Neither row takes configuration. The stamp needs the sessions, the projection re
 A reader asks the session:
 
 ```ts
-import type { Context } from '@deepseek-ai/cordis'
-import type { Session } from '@deepseek-ai/dsh-session'
-import { ownerOf } from '@deepseek-ai/dsh-session-ownership'
+import type { Context } from '@lyness/cordis'
+import type { Session } from '@lyness/lyn-session'
+import { ownerOf } from '@lyness/lyn-session-ownership'
 
 declare const ctx: Context
 declare const session: Session
@@ -75,8 +75,8 @@ if (owner !== undefined) {
 ## Further Exploration
 
 - [Session ownership](../../../.agents/notes/proposed/architecture/2026-10-07-session-ownership.md) — the decision, including what removing a member does and does not change.
-- [`dsh-request-principal`](../request-principal/README.md) — where the opening person comes from.
-- [`dsh-tenant-session`](../../tenant/tenant-session/README.md) — the deployment-wide tenant stamp this one does not replace.
+- [`lyn-request-principal`](../request-principal/README.md) — where the opening person comes from.
+- [`lyn-tenant-session`](../../tenant/tenant-session/README.md) — the deployment-wide tenant stamp this one does not replace.
 
 -----
 

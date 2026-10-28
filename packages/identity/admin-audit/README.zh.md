@@ -3,13 +3,13 @@ description: "只追加的管理变更记录：谁改了哪条记录、什么时
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-admin-audit
+# @lyness/lyn-admin-audit
 
 [English](README.md) | 中文
 
 ## 概述
 
-`dsh-admin-audit` 存的是名册不存的那一半。名册存的是现在什么是真的，这够用来服务一个请求，但不够用来为它负责：一个组织被问起某人上个月为什么持有某个角色、或者一个 bot 的性格原来写的是什么，如果唯一的记录就是当前这条，它无从可读。对人、目录绑定、bot 和团队的每一次更改都记在这里，带上是谁改的、他以什么身份改的，以及被替换掉的那个值。条目只会被追加；没有东西重写或删除某一条。
+`lyn-admin-audit` 存的是名册不存的那一半。名册存的是现在什么是真的，这够用来服务一个请求，但不够用来为它负责：一个组织被问起某人上个月为什么持有某个角色、或者一个 bot 的性格原来写的是什么，如果唯一的记录就是当前这条，它无从可读。对人、目录绑定、bot 和团队的每一次更改都记在这里，带上是谁改的、他以什么身份改的，以及被替换掉的那个值。条目只会被追加；没有东西重写或删除某一条。
 
 ## 目录
 
@@ -29,7 +29,7 @@ kind: "package-reference"
 
 ```yaml
 - id: admin-audit
-  name: '@deepseek-ai/dsh-admin-audit'
+  name: '@lyness/lyn-admin-audit'
   config:
     maxValueLength: 2000
     maxEntries: 200
@@ -38,10 +38,10 @@ kind: "package-reference"
 然后，拥有可管理记录的一方记下自己的更改，界面把它们读回来：
 
 ```ts
-import type { Context } from '@deepseek-ai/cordis'
-import { fieldChanges } from '@deepseek-ai/dsh-admin-audit'
-import type {} from '@deepseek-ai/dsh-admin-audit'
-import type { Membership } from '@deepseek-ai/dsh-people'
+import type { Context } from '@lyness/cordis'
+import { fieldChanges } from '@lyness/lyn-admin-audit'
+import type {} from '@lyness/lyn-admin-audit'
+import type { Membership } from '@lyness/lyn-people'
 
 declare const ctx: Context
 declare const by: Membership
@@ -92,12 +92,12 @@ const history = await ctx.adminAudit.read({ organization: 'acme', subject: 'tria
 <a id="further-exploration"></a>
 ## 进一步探索
 
-- [`dsh-managed-people`](../managed-people/README.zh.md) — 它记录其更改的那些人和绑定。
-- [`dsh-managed-bots`](../managed-bots/README.zh.md) — 它记录其更改的那些 bot 和团队。
-- [`dsh-sign-in-channels`](../sign-in-channels/README.zh.md) — 它记录其更改的那些已配置目录，密钥除外。
-- [`dsh-credits`](../../credits/credits/README.zh.md) — 它记录其更改的那些额度覆盖；一次授予是它自己的记录。
-- [`dsh-people`](../people/README.zh.md) — 一次读所凭的那些身份。
-- [`dsh-module-accounts`](../../bundle/module-accounts/README.zh.md) — 把它和名册一起选上的那份组合。
+- [`lyn-managed-people`](../managed-people/README.zh.md) — 它记录其更改的那些人和绑定。
+- [`lyn-managed-bots`](../managed-bots/README.zh.md) — 它记录其更改的那些 bot 和团队。
+- [`lyn-sign-in-channels`](../sign-in-channels/README.zh.md) — 它记录其更改的那些已配置目录，密钥除外。
+- [`lyn-credits`](../../credits/credits/README.zh.md) — 它记录其更改的那些额度覆盖；一次授予是它自己的记录。
+- [`lyn-people`](../people/README.zh.md) — 一次读所凭的那些身份。
+- [`lyn-module-accounts`](../../bundle/module-accounts/README.zh.md) — 把它和名册一起选上的那份组合。
 
 -----
 

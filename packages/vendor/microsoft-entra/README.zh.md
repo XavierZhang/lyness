@@ -3,13 +3,13 @@ description: "经浏览器完成的 Microsoft Entra ID 登录，面向接入目�
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-microsoft-entra
+# @lyness/lyn-microsoft-entra
 
 [English](README.md) | 中文
 
 ## 概述
 
-`dsh-microsoft-entra` 让人通过自己所在的 Microsoft Entra 目录登录，并为其持有经过验证的主体。它注册一个授权流程：人在浏览器里打开目录的页面，返回到一个 loopback 回调，而兑换到的访问令牌被用一次，去问 Microsoft Graph 是谁登录了。主体来自那次**已认证的调用**而不是 id token 的声明，所以本包不验证任何令牌签名、也不持有任何密钥材料。配置目录与应用 id；两者都没配的部署无法挂载它。
+`lyn-microsoft-entra` 让人通过自己所在的 Microsoft Entra 目录登录，并为其持有经过验证的主体。它注册一个授权流程：人在浏览器里打开目录的页面，返回到一个 loopback 回调，而兑换到的访问令牌被用一次，去问 Microsoft Graph 是谁登录了。主体来自那次**已认证的调用**而不是 id token 的声明，所以本包不验证任何令牌签名、也不持有任何密钥材料。配置目录与应用 id；两者都没配的部署无法挂载它。
 
 ## 目录
 
@@ -29,7 +29,7 @@ kind: "package-reference"
 
 ```yaml
 - id: microsoft-entra
-  name: '@deepseek-ai/dsh-microsoft-entra'
+  name: '@lyness/lyn-microsoft-entra'
   config:
     directory: contoso.onmicrosoft.com
     clientId: 00000000-0000-0000-0000-000000000000
@@ -60,7 +60,7 @@ Entra 应用注册必须是公共客户端，并带 loopback 重定向 URI `http
 
 ```yaml
 - id: microsoft-entra-channel
-  name: '@deepseek-ai/dsh-microsoft-entra/channel'
+  name: '@lyness/lyn-microsoft-entra/channel'
   config:
     directory: contoso.onmicrosoft.com
     clientId: 00000000-0000-0000-0000-000000000000
@@ -97,8 +97,8 @@ Entra 应用注册必须是公共客户端，并带 loopback 重定向 URI `http
 <a id="further-exploration"></a>
 ## 进一步探索
 
-- [`dsh-authorization`](../../credentials/authorization/README.zh.md) —— 本包注册进去的那个流程接缝。
-- [`dsh-credentials`](../../credentials/credentials/README.zh.md) —— 授权存放之处。
+- [`lyn-authorization`](../../credentials/authorization/README.zh.md) —— 本包注册进去的那个流程接缝。
+- [`lyn-credentials`](../../credentials/credentials/README.zh.md) —— 授权存放之处。
 - [厂商集成](../../../docs/subsystems/vendor-integrations.zh.md) —— 身份面与渠道面，以及它们共享什么。
 
 -----

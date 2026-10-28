@@ -8,13 +8,13 @@ import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import LocalFileSystem from '@deepseek-ai/dsh-fs-local'
-import { FsTargetKey } from '@deepseek-ai/dsh-fs'
-import type { FileSystem, FsDirEntry, FsTarget } from '@deepseek-ai/dsh-fs'
-import type { JsonValue } from '@deepseek-ai/dsh-util-values'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { PersonId } from '@deepseek-ai/dsh-people'
+import { Context } from '@lyness/cordis'
+import LocalFileSystem from '@lyness/lyn-fs-local'
+import { FsTargetKey } from '@lyness/lyn-fs'
+import type { FileSystem, FsDirEntry, FsTarget } from '@lyness/lyn-fs'
+import type { JsonValue } from '@lyness/lyn-util-values'
+import { brandString } from '@lyness/lyn-brand'
+import type { PersonId } from '@lyness/lyn-people'
 import DesktopFileSystem from '../src/index.ts'
 import { desktopFsHandler } from '../src/handler.ts'
 import { encodeTarget } from '../src/targets.ts'
@@ -133,7 +133,7 @@ it('refuses a stream that ended without saying how it ended', async () => {
 
 /** The desktop's own filesystem, with one method replaced for the test. */
 async function desktopWith(overrides: Partial<FileSystem>): Promise<FileSystem> {
-  root = await mkdtemp(join(tmpdir(), 'dsh-fs-desktop-fail-'))
+  root = await mkdtemp(join(tmpdir(), 'lyn-fs-desktop-fail-'))
   const desktop = new Context()
   live.push(desktop)
   await desktop.plugin(LocalFileSystem, { cwd: root })

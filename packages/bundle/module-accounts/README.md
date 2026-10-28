@@ -3,7 +3,7 @@ description: "The accounts module as its own bundle, refusing to boot rather tha
 kind: "package-bundle"
 ---
 
-# @deepseek-ai/dsh-module-accounts
+# @lyness/lyn-module-accounts
 
 English | [中文](README.zh.md)
 
@@ -31,7 +31,7 @@ A deployment that selects it writes two things. Its people, as the `people` row'
 
 ```yaml
 - id: people
-  name: '@deepseek-ai/dsh-people/static'
+  name: '@lyness/lyn-people/static'
   config:
     people:
       - id: ada
@@ -43,7 +43,7 @@ And, once a sign-in channel is mounted, who each verified subject is allowed to 
 
 ```yaml
 - id: sign-in-admission
-  name: '@deepseek-ai/dsh-sign-in/admission-roster'
+  name: '@lyness/lyn-sign-in/admission-roster'
   config:
     bindings:
       - channel: microsoft-entra
@@ -68,9 +68,9 @@ And, once a sign-in channel is mounted, who each verified subject is allowed to 
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`dsh-people`](../../identity/people/README.md) — the directory and what each role may do.
-- [`dsh-sign-in`](../../identity/sign-in/README.md) — the channel registry and the admission rule.
-- [`dsh-module-credits`](../module-credits/README.md) — the ledger these people are charged against, where a deployment meters.
+- [`lyn-people`](../../identity/people/README.md) — the directory and what each role may do.
+- [`lyn-sign-in`](../../identity/sign-in/README.md) — the channel registry and the admission rule.
+- [`lyn-module-credits`](../module-credits/README.md) — the ledger these people are charged against, where a deployment meters.
 - [Diverging from the single-operator Host](../../../.agents/notes/proposed/architecture/2026-10-15-diverging-from-the-single-operator-host.md) — why the hosted shape needs any of this.
 
 -----
@@ -89,7 +89,7 @@ No request prefix changes, because no row here contributes instructions.
 <a id="known-limitations-and-deferred-work"></a>
 
 - **No channel ships with it** — until a deployment mounts one, nobody can sign in, and the admission bindings have nothing to match.
-- **The roster is composition config** — adding a person is an edit to cordis.yml and a restart, not a surface, because `dsh-people` has only a static directory.
+- **The roster is composition config** — adding a person is an edit to cordis.yml and a restart, not a surface, because `lyn-people` has only a static directory.
 - **No sign-up** — a hosted deployment's people arrive by signing up, which needs an admission rule that provisions on first sign-in within a tenant's own directory; this bundle carries the roster rule instead.
 - **Tenancy is not selected here** — the tenant directory, its configuration, and the request resolver are their own packages, and a hosted deployment composes them separately.
 - **No directory sync** — a deployment whose staff live in the directory it signs them in through still re-writes the roster by hand; nothing reads that directory's own member list.

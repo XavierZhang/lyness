@@ -6,20 +6,20 @@
  * installation keeps what it wrote. A written binding wins, for the reason
  * the written roster does: the next boot restores it either way.
  *
- * @module @deepseek-ai/dsh-managed-people/admission
+ * @module @lyness/lyn-managed-people/admission
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { PersonId } from '@deepseek-ai/dsh-people'
-import { SignInAdmission } from '@deepseek-ai/dsh-sign-in/admission'
-import { Config as rosterConfig } from '@deepseek-ai/dsh-sign-in/admission-roster'
-import type { Config } from '@deepseek-ai/dsh-sign-in/admission-roster'
-import type { ExternalSubject } from '@deepseek-ai/dsh-sign-in'
+import type { Context } from '@lyness/cordis'
+import { brandString } from '@lyness/lyn-brand'
+import type { PersonId } from '@lyness/lyn-people'
+import { SignInAdmission } from '@lyness/lyn-sign-in/admission'
+import { Config as rosterConfig } from '@lyness/lyn-sign-in/admission-roster'
+import type { Config } from '@lyness/lyn-sign-in/admission-roster'
+import type { ExternalSubject } from '@lyness/lyn-sign-in'
 import { bindingKey } from './index.ts'
 import type { BindingSubmission } from './types.ts'
 
-export type { Config } from '@deepseek-ai/dsh-sign-in/admission-roster'
+export type { Config } from '@lyness/lyn-sign-in/admission-roster'
 
 /**
  * Resolve the written bindings, rejecting one identity written twice.

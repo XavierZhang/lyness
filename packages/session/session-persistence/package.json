@@ -1,13 +1,13 @@
 {
-  "name": "@deepseek-ai/dsh-session-persistence",
-  "description": "Abstract durable session persistence seam (ctx.sessionPersistence) for the DeepSeek Harness",
+  "name": "@lyness/lyn-session-persistence",
+  "description": "Abstract durable session persistence seam (ctx.sessionPersistence) for the lyness",
   "version": "0.2.1-rc.3",
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/session/session-persistence"
   },
   "type": "module",
@@ -27,19 +27,19 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-brand": "workspace:*",
-    "@deepseek-ai/dsh-session": "workspace:*",
-    "@deepseek-ai/dsh-timeout": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-timeout": "workspace:*"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-brand": "workspace:*",
-    "@deepseek-ai/dsh-scope": "workspace:*",
-    "@deepseek-ai/dsh-session": "workspace:*",
-    "@deepseek-ai/dsh-timeout": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/lyn-scope": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-timeout": "workspace:*"
   },
   "dependencies": {
-    "@deepseek-ai/dsh-util-values": "workspace:*"
+    "@lyness/lyn-util-values": "workspace:*"
   }
 }

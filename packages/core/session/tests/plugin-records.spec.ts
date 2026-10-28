@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import { createUserMessage } from '@deepseek-ai/dsh-llm'
+import { Context } from '@lyness/cordis'
+import { createUserMessage } from '@lyness/lyn-llm'
 import SessionStore, {
   appendPluginRecord,
   buildForkSeed,
@@ -9,8 +9,8 @@ import SessionStore, {
   SessionId,
   SessionLogOffset,
   SessionSeq,
-} from '@deepseek-ai/dsh-session'
-import type { SessionEvent } from '@deepseek-ai/dsh-session'
+} from '@lyness/lyn-session'
+import type { SessionEvent } from '@lyness/lyn-session'
 import type { PluginRequestFixture } from './plugin-records.type-test.ts'
 
 /** One user turn opening, so a record lands between model-visible events. */

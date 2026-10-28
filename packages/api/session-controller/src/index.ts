@@ -2,21 +2,21 @@
 
 import { hostname } from 'node:os'
 import { resolve } from 'node:path'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import type {} from '@deepseek-ai/dsh-fs'
-import { Context, Service } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
-import { errorChain, ReasoningEffortId, type MessageSource } from '@deepseek-ai/dsh-llm'
-import type {} from '@deepseek-ai/dsh-client-file-upload'
-import { canOpenNativePath, nativeFileManager, nativeFileApplications, openNativeFileApplication, openNativeAssociatedPath, revealNativePath } from '@deepseek-ai/dsh-native-command'
-import type {} from '@deepseek-ai/dsh-session-ownership/visibility'
-import type { SessionId } from '@deepseek-ai/dsh-session'
-import type {} from '@deepseek-ai/dsh-session-projection-cache'
-import { SessionQueryError, type SessionObservation } from '@deepseek-ai/dsh-session-query'
-import { Remote, RemoteError, TypertRemoteService, principalOf, type TypertResourceResolveInput } from '@deepseek-ai/dsh-typert-protocol'
-import { canonicalClientTimeZone } from '@deepseek-ai/dsh-util-time'
-import { assertNever } from '@deepseek-ai/dsh-util-values'
-import type {} from '@deepseek-ai/dsh-api-remote-access'
+import type { Agent } from '@lyness/lyn-agent'
+import type {} from '@lyness/lyn-fs'
+import { Context, Service } from '@lyness/cordis'
+import z from '@lyness/schemastery'
+import { errorChain, ReasoningEffortId, type MessageSource } from '@lyness/lyn-llm'
+import type {} from '@lyness/lyn-client-file-upload'
+import { canOpenNativePath, nativeFileManager, nativeFileApplications, openNativeFileApplication, openNativeAssociatedPath, revealNativePath } from '@lyness/lyn-native-command'
+import type {} from '@lyness/lyn-session-ownership/visibility'
+import type { SessionId } from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-session-projection-cache'
+import { SessionQueryError, type SessionObservation } from '@lyness/lyn-session-query'
+import { Remote, RemoteError, TypertRemoteService, principalOf, type TypertResourceResolveInput } from '@lyness/lyn-typert-protocol'
+import { canonicalClientTimeZone } from '@lyness/lyn-util-time'
+import { assertNever } from '@lyness/lyn-util-values'
+import type {} from '@lyness/lyn-api-remote-access'
 import {
   ApiSessionAgentController,
   type ApiSessionAgentResult,
@@ -71,7 +71,7 @@ export { ApiSessionNotFound } from './agent.ts'
 export { SessionFileReferences } from './file-references.ts'
 export { SessionSkillCatalog } from './skill-catalog.ts'
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Context {
     /** Host Session business API and Remote namespace owner. */
     sessionController: SessionController
@@ -172,7 +172,7 @@ export class SessionController extends TypertRemoteService {
    * @param internals - host integrations replaceable by direct unit tests.
    */
   constructor(ctx: Context, config: Config, internals: SessionControllerInternals = {}) {
-    super(ctx, 'sessionController', { namespace: 'session' })
+    super(ctx, 'sessionController', { namespace: 'session', requires: 'member' })
     this.listWorkSliceMs = SessionController.Config(config).listWorkSliceMs
     this.fileApplications = internals.fileApplications ?? nativeFileApplications
     this.openFileApplication = internals.openFileApplication ?? openNativeFileApplication
@@ -185,8 +185,6 @@ export class SessionController extends TypertRemoteService {
   protected async [Service.init](): Promise<void> {
     const ctx = this.ctx
     ctx.typert.resources.register('session', { resolve: resolveSessionResource })
-    super(ctx, 'sessionController', { namespace: 'session', requires: 'member' })
-    installModelSelectionProjection(ctx)
     this.agents = new ApiSessionAgentController(ctx)
     this.agents.initialize()
     this.commands = new SessionCommandController(ctx, this.agents, process.cwd())

@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-experimental-browser-use-stagehand-native",
+  "name": "@lyness/lyn-experimental-browser-use-stagehand-native",
   "description": "Experimental Stagehand browser tools with separately configured native models",
   "version": "0.2.1-rc.3",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/experimental/browser-use-stagehand-native"
   },
   "type": "module",
@@ -34,39 +34,39 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-agent": "workspace:*",
-    "@deepseek-ai/dsh-browser-use": "workspace:*",
-    "@deepseek-ai/dsh-system-prompt": "workspace:*",
-    "@deepseek-ai/dsh-tools": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/lyn-browser-use": "workspace:*",
+    "@lyness/lyn-system-prompt": "workspace:*",
+    "@lyness/lyn-tools": "workspace:*"
   },
   "dependencies": {
     "@browserbasehq/stagehand": "4.1.0",
-    "@deepseek-ai/dsh-experimental-browser-use-runtime": "workspace:*",
-    "@deepseek-ai/dsh-mcp-client": "workspace:*",
-    "@deepseek-ai/dsh-util-values": "workspace:*",
-    "@deepseek-ai/schemastery": "workspace:~",
-    "zod": "4.4.3",
-    "@deepseek-ai/dsh-subprocess": "workspace:*",
-    "@puppeteer/browsers": "3.2.2"
+    "@lyness/lyn-experimental-browser-use-runtime": "workspace:*",
+    "@lyness/lyn-mcp-client": "workspace:*",
+    "@lyness/lyn-subprocess": "workspace:*",
+    "@lyness/lyn-util-values": "workspace:*",
+    "@lyness/schemastery": "workspace:~",
+    "@puppeteer/browsers": "3.2.2",
+    "zod": "4.4.3"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/cordis-plugin-include": "workspace:~",
-    "@deepseek-ai/cordis-plugin-loader": "workspace:~",
-    "@deepseek-ai/dsh-agent": "workspace:*",
-    "@deepseek-ai/dsh-agent-loop": "workspace:*",
-    "@deepseek-ai/dsh-agent-loop-testkit": "workspace:*",
-    "@deepseek-ai/dsh-attachment": "workspace:*",
-    "@deepseek-ai/dsh-attachment-local": "workspace:*",
-    "@deepseek-ai/dsh-browser-use": "workspace:*",
-    "@deepseek-ai/dsh-llm": "workspace:*",
-    "@deepseek-ai/dsh-session": "workspace:*",
-    "@deepseek-ai/dsh-session-projection": "workspace:*",
-    "@deepseek-ai/dsh-system-prompt": "workspace:*",
-    "@deepseek-ai/dsh-tool-executor-native": "workspace:*",
-    "@deepseek-ai/dsh-tool-testkit": "workspace:*",
-    "@deepseek-ai/dsh-tools": "workspace:*",
+    "@lyness/cordis": "workspace:~",
+    "@lyness/cordis-plugin-include": "workspace:~",
+    "@lyness/cordis-plugin-loader": "workspace:~",
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/lyn-agent-loop": "workspace:*",
+    "@lyness/lyn-agent-loop-testkit": "workspace:*",
+    "@lyness/lyn-attachment": "workspace:*",
+    "@lyness/lyn-attachment-local": "workspace:*",
+    "@lyness/lyn-browser-use": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-session-projection": "workspace:*",
+    "@lyness/lyn-system-prompt": "workspace:*",
+    "@lyness/lyn-tool-executor-native": "workspace:*",
+    "@lyness/lyn-tool-testkit": "workspace:*",
+    "@lyness/lyn-tools": "workspace:*",
     "tsx": "^4.23.13"
   }
 }

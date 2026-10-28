@@ -1,13 +1,13 @@
 {
-  "name": "@deepseek-ai/dsh-brand-studio",
-  "description": "The dsh brand-studio profile bundle: generate a deployment brand from an icon PNG and a font, and apply it to a profile",
+  "name": "@lyness/lyn-brand-studio",
+  "description": "The lyn brand-studio profile bundle: generate a deployment brand from an icon PNG and a font, and apply it to a profile",
   "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/bundle/brand-studio"
   },
   "type": "module",
@@ -28,28 +28,29 @@
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
-  "dsh": {
+  "lyn": {
     "bundle": {
       "patch": "./cordis.patch.yml"
     }
   },
   "dependencies": {
-    "@deepseek-ai/dsh-app-boot": "workspace:*",
-    "@deepseek-ai/dsh-atomic-write": "workspace:*",
-    "@deepseek-ai/dsh-cmdline": "workspace:*",
-    "@deepseek-ai/dsh-home-paths": "workspace:*",
-    "@deepseek-ai/dsh-host-brand-deployment": "workspace:*",
-    "@deepseek-ai/dsh-host-brand-fonts": "workspace:*",
-    "@deepseek-ai/dsh-host-brand-icon": "workspace:*",
-    "@deepseek-ai/dsh-host-brand-wordmark": "workspace:*",
+    "@lyness/lyn-app-boot": "workspace:*",
+    "@lyness/lyn-atomic-write": "workspace:*",
+    "@lyness/lyn-cmdline": "workspace:*",
+    "@lyness/lyn-home-paths": "workspace:*",
+    "@lyness/lyn-host-brand-deployment": "workspace:*",
+    "@lyness/lyn-host-brand-fonts": "workspace:*",
+    "@lyness/lyn-host-brand-icon": "workspace:*",
+    "@lyness/lyn-host-brand-wordmark": "workspace:*",
+    "@lyness/lyn-official-bundles": "workspace:*",
     "commander": "^15.0.0",
     "yaml": "^2.9.0"
   },
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~"
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
     "@fontsource/inter": "^5.3.0",
-    "@deepseek-ai/cordis": "workspace:~"
+    "@lyness/cordis": "workspace:~"
   }
 }

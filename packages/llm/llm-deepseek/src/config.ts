@@ -1,13 +1,13 @@
 /** Plugin configuration and complete request-local resolution for DeepSeek. */
-import type { Volatile } from '@deepseek-ai/cordis'
+import type { Volatile } from '@lyness/cordis'
 
-import z from '@deepseek-ai/schemastery'
-import { isVolatile } from '@deepseek-ai/cosmokit'
-import { deepEqualJson } from '@deepseek-ai/dsh-util-values'
-import { resolveRetryPolicy, RetryPolicySchema } from '@deepseek-ai/dsh-llm'
-import type { ModelModality, RetryPolicyConfig } from '@deepseek-ai/dsh-llm'
-import type { LaunchEnvironmentSnapshot } from '@deepseek-ai/dsh-launch-environment'
-import { MAX_TIMER_DELAY_MS } from '@deepseek-ai/dsh-timeout'
+import z from '@lyness/schemastery'
+import { isVolatile } from '@lyness/cosmokit'
+import { deepEqualJson } from '@lyness/lyn-util-values'
+import { resolveRetryPolicy, RetryPolicySchema } from '@lyness/lyn-llm'
+import type { ModelModality, RetryPolicyConfig } from '@lyness/lyn-llm'
+import type { LaunchEnvironmentSnapshot } from '@lyness/lyn-launch-environment'
+import { MAX_TIMER_DELAY_MS } from '@lyness/lyn-timeout'
 import type { DeepSeekCatalogModel, DeepSeekConnectionOptions } from './types.ts'
 import { DEFAULT_MODELS } from './models.ts'
 import { DEFAULT_STREAM_IDLE_TIMEOUT_MS, DEFAULT_CONTEXT_WINDOW, DEFAULT_MAX_TOKENS, DEFAULT_MAX_INLINE_REQUEST_IMAGE_BYTES, DEFAULT_IMAGE_OFFLOAD_BYTE_QUANTUM, DEFAULT_INLINE_IMAGE_OFFLOAD_BYTE_QUANTUM, DEFAULT_IMAGE_OFFLOAD_COUNT_QUANTUM, DEFAULT_FILE_EXPIRY_SECONDS, DEFAULT_FILE_REFRESH_MARGIN_SECONDS, DEFAULT_FILE_QUOTA_CLEANUP_BATCH, DEFAULT_FILES_API_TIMEOUT_MS } from './defaults.ts'
@@ -117,6 +117,41 @@ export const PUBLIC_BASE_URL = 'https://api.deepseek.com/anthropic'
 
 /** Environment variable naming this provider's endpoint, honored only from trusted layers. */
 const BASE_URL_ENV = 'DEEPSEEK_BASE_URL'
+
+/** Environment variable naming the models the configured endpoint serves, honored only from trusted layers. */
+export const MODELS_ENV = 'DEEPSEEK_MODELS'
+
+/** Environment variable capping the completion length the configured endpoint accepts, honored only from trusted layers. */
+export const MAX_TOKENS_ENV = 'DEEPSEEK_MAX_TOKENS'
+
+/**
+ * Read a model-id list in the form $DEEPSEEK_MODELS carries it.
+ * @param value - comma-separated model ids; whitespace around each id is ignored.
+ * @returns the ids in the order given; never empty.
+ * @throws {Error} when the list is empty or one entry is blank.
+ */
+export function parseModelIds(value: string): [string, ...string[]] {
+  const ids = value.split(',').map(id => id.trim())
+  if (ids.some(id => id === '')) {
+    throw new Error(`llm-deepseek: ${MODELS_ENV} must be a comma-separated list of model ids; got ${JSON.stringify(value)}`)
+  }
+  // `split` always yields at least one element, and every element is non-blank here.
+  return ids as [string, ...string[]]
+}
+
+/**
+ * Read a completion cap in the form $DEEPSEEK_MAX_TOKENS carries it.
+ * @param value - a positive integer in decimal.
+ * @returns the cap.
+ * @throws {Error} when the value is not a positive integer.
+ */
+export function parseMaxTokens(value: string): number {
+  const parsed = Number(value.trim())
+  if (!Number.isSafeInteger(parsed) || parsed <= 0) {
+    throw new Error(`llm-deepseek: ${MAX_TOKENS_ENV} must be a positive integer; got ${JSON.stringify(value)}`)
+  }
+  return parsed
+}
 
 /** Complete protocol settings captured for one request operation. */
 export type ResolvedDeepSeekOptions = DeepSeekConnectionOptions
@@ -309,6 +344,24 @@ export function resolveAdapterOptions(config: Options, environment?: LaunchEnvir
     throw new Error('llm-deepseek: fileQuotaCleanupBatch must be an integer from 1 through 1000')
   }
   const baseURL = config.baseURL ?? environment?.get(BASE_URL_ENV)?.value ?? PUBLIC_BASE_URL
+  // The endpoint the environment chose usually names its models differently and
+  // caps completions lower, and a catalog of bare ids carries no capacities, so
+  // both facts come from the same trusted layers rather than from the catalog.
+  const catalogValue = environment?.get(MODELS_ENV)?.value
+  const environmentCatalog = catalogValue === undefined
+    ? undefined
+    : parseModelIds(catalogValue).map(id => ({ id }))
+  // The variable replaces the built-in catalog, which is what a composition
+  // that names no models resolves to. A catalog someone did name — in the
+  // composition or saved through settings — outranks it. Schemastery fills
+  // every omitted field, so the resolved value is compared against the
+  // built-in list in the same normalized form: comparing ids alone would read
+  // a settings catalog that only renamed a built-in model as the default and
+  // discard the name the user typed.
+  const namedCatalog = config.models === undefined
+    || isBuiltInCatalog(resolveModels(config.models)) ? undefined : config.models
+  const capValue = environment?.get(MAX_TOKENS_ENV)?.value
+  const environmentMaxTokens = capValue === undefined ? undefined : parseMaxTokens(capValue)
   const parsed = new URL(baseURL)
   if (!['http:', 'https:'].includes(parsed.protocol) || parsed.username || parsed.password || parsed.search || parsed.hash) {
     throw new Error('llm-deepseek: Messages baseURL must be an HTTP(S) root without credentials, query, or fragment')
@@ -319,9 +372,9 @@ export function resolveAdapterOptions(config: Options, environment?: LaunchEnvir
       thinking: config.thinking,
       reasoningEffort: config.reasoningEffort,
     },
-    maxTokens: config.maxTokens ?? DEFAULT_MAX_TOKENS,
+    maxTokens: environmentMaxTokens ?? config.maxTokens ?? DEFAULT_MAX_TOKENS,
     defaultContextWindow: config.defaultContextWindow ?? DEFAULT_CONTEXT_WINDOW,
-    models: resolveModels(config.models),
+    models: resolveModels(namedCatalog ?? environmentCatalog),
     streamIdleTimeoutMs,
     maxRequestFilesBytes,
     maxInlineRequestImageBytes,

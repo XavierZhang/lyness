@@ -1,12 +1,12 @@
-import { Context } from '@deepseek-ai/cordis'
-import WorkingDirectory from '@deepseek-ai/dsh-working-directory'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import AgentLoop from '@deepseek-ai/dsh-agent-loop'
-import { mountAgentLoopTestDependencies } from '@deepseek-ai/dsh-agent-loop-testkit'
-import LocalFileSystem from '@deepseek-ai/dsh-fs-local'
-import * as FsPolicy from '@deepseek-ai/dsh-fs-observation-policy'
-import * as ToolFs from '@deepseek-ai/dsh-tool-fs'
-import * as LlmDeepSeek from '@deepseek-ai/dsh-llm-deepseek-api-key'
+import { Context } from '@lyness/cordis'
+import WorkingDirectory from '@lyness/lyn-working-directory'
+import type { Agent } from '@lyness/lyn-agent'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import { mountAgentLoopTestDependencies } from '@lyness/lyn-agent-loop-testkit'
+import LocalFileSystem from '@lyness/lyn-fs-local'
+import * as FsPolicy from '@lyness/lyn-fs-observation-policy'
+import * as ToolFs from '@lyness/lyn-tool-fs'
+import * as LlmDeepSeek from '@lyness/lyn-llm-deepseek-api-key'
 
 /**
  * Build the real fs-tool stack for with-key e2e tests. Agents have no session

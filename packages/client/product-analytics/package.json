@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-client-product-analytics",
+  "name": "@lyness/lyn-client-product-analytics",
   "description": "Desktop product event collection and authenticated Host reporting",
   "version": "0.2.1-rc.3",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/client/product-analytics"
   },
   "type": "module",
@@ -37,10 +37,10 @@
     },
     "./locale/*.json": "./locale/*.json"
   },
-  "dsh": {
+  "lyn": {
     "client": {
       "inject": [
-        "@deepseek-ai/dsh-api-gateway"
+        "@lyness/lyn-api-gateway"
       ],
       "platform": "web"
     }
@@ -51,22 +51,22 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~"
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-api-gateway": "workspace:*",
-    "@deepseek-ai/dsh-compaction": "workspace:*",
-    "@deepseek-ai/dsh-llm": "workspace:*",
-    "@deepseek-ai/dsh-session": "workspace:*",
-    "@deepseek-ai/dsh-host-product-telemetry-otel": "workspace:*",
-    "@deepseek-ai/dsh-deepseek-account": "workspace:*",
-    "@deepseek-ai/dsh-host-webserver": "workspace:*",
-    "@deepseek-ai/dsh-settings": "workspace:*",
-    "@deepseek-ai/cordis-plugin-loader": "workspace:~",
-    "@deepseek-ai/dsh-otel": "workspace:*",
-    "@deepseek-ai/dsh-app-boot": "workspace:*",
-    "@deepseek-ai/dsh-loader-smoke": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/cordis-plugin-loader": "workspace:~",
+    "@lyness/lyn-api-gateway": "workspace:*",
+    "@lyness/lyn-app-boot": "workspace:*",
+    "@lyness/lyn-compaction": "workspace:*",
+    "@lyness/lyn-deepseek-account": "workspace:*",
+    "@lyness/lyn-host-product-telemetry-otel": "workspace:*",
+    "@lyness/lyn-host-webserver": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-loader-smoke": "workspace:*",
+    "@lyness/lyn-otel": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-settings": "workspace:*"
   },
   "files": [
     "locale/*.json",
@@ -79,8 +79,8 @@
     "lib/typert.remote-client.d.ts"
   ],
   "dependencies": {
-    "@deepseek-ai/dsh-typert-protocol": "workspace:*",
-    "@deepseek-ai/schemastery": "workspace:~",
+    "@lyness/lyn-typert-protocol": "workspace:*",
+    "@lyness/schemastery": "workspace:~",
     "zod": "4.4.3"
   }
 }

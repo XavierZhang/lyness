@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-mcp-resources",
+  "name": "@lyness/lyn-mcp-resources",
   "description": "Scoped MCP resource discovery and reading through shared model tools",
   "version": "0.2.1-rc.3",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/mcp/mcp-resources"
   },
   "type": "module",
@@ -29,29 +29,29 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-llm": "workspace:*",
-    "@deepseek-ai/dsh-scope": "workspace:*",
-    "@deepseek-ai/dsh-system-prompt": "workspace:*",
-    "@deepseek-ai/dsh-tools": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-scope": "workspace:*",
+    "@lyness/lyn-system-prompt": "workspace:*",
+    "@lyness/lyn-tools": "workspace:*"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-llm": "workspace:*",
-    "@deepseek-ai/dsh-ptc-runtime": "workspace:*",
-    "@deepseek-ai/dsh-scope": "workspace:*",
-    "@deepseek-ai/dsh-tool-executor-native": "workspace:*",
-    "@deepseek-ai/dsh-tool-executor-ptc": "workspace:*",
-    "@deepseek-ai/dsh-tool-testkit": "workspace:*",
-    "@deepseek-ai/dsh-tools": "workspace:*",
-    "@deepseek-ai/dsh-system-prompt": "workspace:*",
-    "@deepseek-ai/dsh-agent": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-ptc-runtime": "workspace:*",
+    "@lyness/lyn-scope": "workspace:*",
+    "@lyness/lyn-system-prompt": "workspace:*",
+    "@lyness/lyn-tool-executor-native": "workspace:*",
+    "@lyness/lyn-tool-executor-ptc": "workspace:*",
+    "@lyness/lyn-tool-testkit": "workspace:*",
+    "@lyness/lyn-tools": "workspace:*"
   },
   "dependencies": {
-    "@deepseek-ai/dsh-util-values": "workspace:*"
+    "@lyness/lyn-util-values": "workspace:*"
   },
   "peerDependenciesMeta": {
-    "@deepseek-ai/dsh-system-prompt": {
+    "@lyness/lyn-system-prompt": {
       "optional": true
     }
   }

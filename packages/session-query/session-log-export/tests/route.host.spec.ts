@@ -1,11 +1,12 @@
-import { Context } from '@deepseek-ai/cordis'
-import { HostConnectionService } from '@deepseek-ai/dsh-client-connection'
-import type { BrowserAuth } from '@deepseek-ai/dsh-client-connection/src/browser-auth.ts'
-import { SESSION_FORMAT_VERSION } from '@deepseek-ai/dsh-session'
-import type { SessionHeader, SessionId } from '@deepseek-ai/dsh-session'
-import type { SessionHandle } from '@deepseek-ai/dsh-session-persistence'
+import { Context } from '@lyness/cordis'
+import { HostConnectionService } from '@lyness/lyn-client-connection'
+import type { BrowserAuth } from '@lyness/lyn-client-connection/src/browser-auth.ts'
+import { SESSION_FORMAT_VERSION } from '@lyness/lyn-session'
+import type { SessionHeader, SessionId } from '@lyness/lyn-session'
+import type { SessionHandle } from '@lyness/lyn-session-persistence'
 import { strFromU8, unzipSync } from 'fflate'
 import { describe, expect, it } from 'vitest'
+import type { PeerScope } from '@lyness/lyn-typert-protocol'
 import {
   Config,
   EXPORT_NOT_FOUND,
@@ -14,6 +15,9 @@ import {
   apply,
   inject,
 } from '../src/index.ts'
+
+/** These assertions are not about access, so every dispatch speaks for the owner. */
+const OWNER = { principal: { kind: 'owner' } } as PeerScope
 
 const sid = (value: string): SessionId => value as SessionId
 
@@ -97,13 +101,13 @@ describe('Session log export Fetch route', () => {
     const owned = await mounted(true, true)
     expect((await owned.connection.createSharedFetchHandler('/api').fetch(new Request(
       `http://host${SESSION_LOG_EXPORT_PATH}?sessionId=session-1`,
-    ))).status).toBe(200)
+    ), OWNER)).status).toBe(200)
     await owned.dispose()
 
     const theirs = await mounted(true, false)
     const refused = await theirs.connection.createSharedFetchHandler('/api').fetch(new Request(
       `http://host${SESSION_LOG_EXPORT_PATH}?sessionId=session-1`,
-    ))
+    ), OWNER)
     // The same answer a session that does not exist gets: a distinct refusal
     // would tell one person that another's conversation is there.
     expect(refused.status).toBe(404)
@@ -115,7 +119,7 @@ describe('Session log export Fetch route', () => {
     const { connection, dispose } = await mounted(true, true, false)
     const response = await connection.createSharedFetchHandler('/api').fetch(new Request(
       `http://host${SESSION_LOG_EXPORT_PATH}?sessionId=gone`,
-    ))
+    ), OWNER)
     expect(response.status).toBe(404)
     expect(await response.text()).toBe(EXPORT_NOT_FOUND)
     await dispose()

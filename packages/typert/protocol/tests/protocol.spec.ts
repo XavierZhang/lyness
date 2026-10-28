@@ -1,6 +1,6 @@
 import { execFileSync } from 'node:child_process'
 import { fileURLToPath } from 'node:url'
-import { Context, Service } from '@deepseek-ai/cordis'
+import { Context, Service } from '@lyness/cordis'
 import { describe, expect, expectTypeOf, it } from 'vitest'
 import {
   bindTypertRemote,
@@ -14,11 +14,12 @@ import {
   type TypertForwardableEventEntry,
   type TypertResource,
   type RemoteMethodOptions,
+  type RemoteWireArgs,
   type TypertLookup,
   type TypertRemoteEvent,
-} from '@deepseek-ai/dsh-typert-protocol'
+} from '@lyness/lyn-typert-protocol'
 
-const REMOTE_METHOD_DESCRIPTOR_KEY = '@deepseek-ai/dsh-typert-protocol/remote-methods'
+const REMOTE_METHOD_DESCRIPTOR_KEY = '@lyness/lyn-typert-protocol/remote-methods'
 
 interface MetaFixtureSubject {
   readonly subjectId: string
@@ -31,7 +32,7 @@ interface MetaFixtureRequest {
   readonly transform: (subject: MetaFixtureSubject) => Promise<MetaFixtureSubject | undefined>
 }
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Events {
     /**
      * Test-only one-way event: bound to no Scope and returning nothing.
@@ -63,7 +64,7 @@ declare module '@deepseek-ai/cordis' {
   }
 }
 
-declare module '@deepseek-ai/dsh-typert-protocol' {
+declare module '@lyness/lyn-typert-protocol' {
   interface TypertLookupMap {
     metaFixture: TypertLookup<MetaFixtureSubject, string>
   }
@@ -90,8 +91,8 @@ declare module '@deepseek-ai/dsh-typert-protocol' {
  * @param value - the object to pass as options.
  * @returns the same object, as the decorator's declared options.
  */
-function badOptions(value: object): RemoteMethodOptions {
-  return value
+function badOptions<Args extends unknown[]>(value: object): RemoteMethodOptions<RemoteWireArgs<Args>> {
+  return value as RemoteMethodOptions<RemoteWireArgs<Args>>
 }
 
 describe('typert-protocol Remote declarations', () => {
@@ -328,14 +329,12 @@ describe('typert-protocol Remote declarations', () => {
     expect(() => Remote({ mode: 'stream', extra: true } as unknown as { mode: 'stream' })).toThrow('Remote options require')
     const bogusMode: string = 'duplex'
     expect(() => Remote({ mode: bogusMode } as { mode: 'stream' }))
-      .toThrow('Remote options require name, mode: "stream", or resources')
+      .toThrow('Remote options require name, mode: "stream", resources, or requires')
     expect(() => Remote({})).toThrow('Remote options require')
-    expect(() => Remote(badOptions({ mode: 'unary' }))).toThrow('mode must be "stream"')
-    expect(() => Remote(badOptions({ mode: 'stream', extra: true }))).toThrow('do not accept extra')
-    expect(() => Remote(badOptions({}))).toThrow('must declare exportName, mode, or requires')
+    // The standing a method demands is checked where the decorator is written,
+    // because a JavaScript consumer writes the same argument.
     expect(() => Remote(badOptions({ requires: 'operator' }))).toThrow('requires must name a RemoteAuthority')
-    expect(() => Remote({ exportName: 'bad/name' })).toThrow('export name')
-    expect(() => Remote(badOptions({ exportName: 7 }))).toThrow('exportName must be a string')
+    expect(() => Remote({ name: 'bad/name' })).toThrow('export name')
     expect(() => RemoteScope('' as 'metaFixture')).toThrow('Scope key')
     expect(() => RemoteScope('metaFixture', 'bad/name')).toThrow('export name')
 

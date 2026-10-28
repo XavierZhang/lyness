@@ -5,66 +5,66 @@
 /:
   en: 48b7b8ee60e92601
   zh: 28dfac5ed11f58ce
-/deepseek-harness-dsh-llm-retry:
+/lyness-lyn-llm-retry:
   en: b8eca4b3e2d3f0e7
   zh: a07a829cbcf58b5e
-/deepseek-harness-dsh-llm-retry/summary:
+/lyness-lyn-llm-retry/summary:
   en: f41a25370ca09e9c
   zh: 1f18da633338a2ed
-/deepseek-harness-dsh-llm-retry/table-of-contents:
+/lyness-lyn-llm-retry/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/deepseek-harness-dsh-llm-retry/use-this-package:
+/lyness-lyn-llm-retry/use-this-package:
   en: ecee4f255eaa53bd
   zh: 2e7983fd7668fa00
-/deepseek-harness-dsh-llm-retry/use-this-package/when-to-choose-it:
+/lyness-lyn-llm-retry/use-this-package/when-to-choose-it:
   en: be90f4da15320318
   zh: 825e867cefc63974
-/deepseek-harness-dsh-llm-retry/use-this-package/minimal-configuration:
+/lyness-lyn-llm-retry/use-this-package/minimal-configuration:
   en: 95b1cf09ee2c77a9
   zh: 4d45e437db4988c7
-/deepseek-harness-dsh-llm-retry/use-this-package/what-you-can-observe:
+/lyness-lyn-llm-retry/use-this-package/what-you-can-observe:
   en: 21267b22ad48e012
   zh: 521bfad2c2d8e418
-/deepseek-harness-dsh-llm-retry/use-this-package/failures-and-recovery:
+/lyness-lyn-llm-retry/use-this-package/failures-and-recovery:
   en: 730567739a21a4d2
   zh: 3ea222c68d960948
-/deepseek-harness-dsh-llm-retry/understand-the-implementation:
+/lyness-lyn-llm-retry/understand-the-implementation:
   en: cef3289094f94c25
   zh: c7f40ff6e4e56de6
-/deepseek-harness-dsh-llm-retry/understand-the-implementation/design-philosophy:
+/lyness-lyn-llm-retry/understand-the-implementation/design-philosophy:
   en: fc4f15a14435698c
   zh: 3c6d83f5ba04ec0e
-/deepseek-harness-dsh-llm-retry/understand-the-implementation/source-map:
+/lyness-lyn-llm-retry/understand-the-implementation/source-map:
   en: f34b551859b68c88
   zh: 813ffa32497b1d9a
-/deepseek-harness-dsh-llm-retry/understand-the-implementation/recovery-flow:
+/lyness-lyn-llm-retry/understand-the-implementation/recovery-flow:
   en: 85bace285b029101
   zh: 6e0237450ca6ccc0
-/deepseek-harness-dsh-llm-retry/understand-the-implementation/waterfall-composition:
+/lyness-lyn-llm-retry/understand-the-implementation/waterfall-composition:
   en: 388e8db333e03cb1
   zh: 54b6446ac3584724
-/deepseek-harness-dsh-llm-retry/further-exploration:
+/lyness-lyn-llm-retry/further-exploration:
   en: df067c5291cd108a
   zh: 15c533022b003b33
-/deepseek-harness-dsh-llm-retry/model-experience:
+/lyness-lyn-llm-retry/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/deepseek-harness-dsh-llm-retry/model-experience/model-request-recovery:
+/lyness-lyn-llm-retry/model-experience/model-request-recovery:
   en: 8496b7aefbe6fa20
   zh: ed7b60ef09380ec4
-/deepseek-harness-dsh-llm-retry/model-experience/model-request-recovery/what-the-model-sees:
+/lyness-lyn-llm-retry/model-experience/model-request-recovery/what-the-model-sees:
   en: 9772b77e48e70dba
   zh: df3d4105f7b8c256
-/deepseek-harness-dsh-llm-retry/model-experience/model-request-recovery/token-effect:
+/lyness-lyn-llm-retry/model-experience/model-request-recovery/token-effect:
   en: f86254d7c2ed2444
   zh: 7e0f7b9e026e0bf2
-/deepseek-harness-dsh-llm-retry/model-experience/model-request-recovery/kv-cache-effect:
+/lyness-lyn-llm-retry/model-experience/model-request-recovery/kv-cache-effect:
   en: 82d6bdfc0ec747ea
   zh: 14269c9dcd086611
-/deepseek-harness-dsh-llm-retry/known-limitations-and-deferred-work:
+/lyness-lyn-llm-retry/known-limitations-and-deferred-work:
   en: bef1baa545592b9c
   zh: 61984a1e10de8294
-/deepseek-harness-dsh-llm-retry/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-llm-retry/known-limitations-and-deferred-work/dev-note:
   en: ff38027230617ebb
   zh: 4a7913e851407b0c

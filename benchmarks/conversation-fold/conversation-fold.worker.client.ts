@@ -1,13 +1,13 @@
 /** Compiled worker for Client history folding and live tool preparation. */
 
 import { performance } from 'node:perf_hooks'
-import { Context } from '@deepseek-ai/cordis'
-import { AssistantStreamAccumulator } from '@deepseek-ai/dsh-llm/assistant-stream'
-import { LlmAttemptId, ToolCallId } from '@deepseek-ai/dsh-llm/brand'
-import type { StreamChunk } from '@deepseek-ai/dsh-llm'
-import type { SessionEvent } from '@deepseek-ai/dsh-session/types'
-import type { ChatNode, ChatSnapshot } from '@deepseek-ai/dsh-client-ui-chat/client'
-import type { SessionEventLikeEntry } from '@deepseek-ai/dsh-api-session-controller/client'
+import { Context } from '@lyness/cordis'
+import { AssistantStreamAccumulator } from '@lyness/lyn-llm/assistant-stream'
+import { LlmAttemptId, ToolCallId } from '@lyness/lyn-llm/brand'
+import type { StreamChunk } from '@lyness/lyn-llm'
+import type { SessionEvent } from '@lyness/lyn-session/types'
+import type { ChatNode, ChatSnapshot } from '@lyness/lyn-client-ui-chat/client'
+import type { SessionEventLikeEntry } from '@lyness/lyn-api-session-controller/client'
 // These Client-only fold modules have no plain-Node package export and are compiled into this worker.
 import { ConversationNodeAssembler } from '../../packages/client/ui-conversation/src/client/conversation/assembler.ts'
 import { ConversationEventRegistry } from '../../packages/client/ui-conversation/src/client/conversation/event-registry.ts'
@@ -258,12 +258,12 @@ function preparingTool(tool: 'write' | 'bash', characters: number, definitions: 
 }
 
 assertBuiltBenchmarkRuntime(import.meta.url, {
-  '@deepseek-ai/dsh-brand': import.meta.resolve('@deepseek-ai/dsh-brand'),
-  '@deepseek-ai/dsh-client-store': import.meta.resolve('@deepseek-ai/dsh-client-store'),
-  '@deepseek-ai/dsh-llm/assistant-stream': import.meta.resolve('@deepseek-ai/dsh-llm/assistant-stream'),
-  '@deepseek-ai/dsh-session/surface': import.meta.resolve('@deepseek-ai/dsh-session/surface'),
-  '@deepseek-ai/dsh-token-meter/client': import.meta.resolve('@deepseek-ai/dsh-token-meter/client'),
-  '@deepseek-ai/dsh-util-values': import.meta.resolve('@deepseek-ai/dsh-util-values'),
+  '@lyness/lyn-brand': import.meta.resolve('@lyness/lyn-brand'),
+  '@lyness/lyn-client-store': import.meta.resolve('@lyness/lyn-client-store'),
+  '@lyness/lyn-llm/assistant-stream': import.meta.resolve('@lyness/lyn-llm/assistant-stream'),
+  '@lyness/lyn-session/surface': import.meta.resolve('@lyness/lyn-session/surface'),
+  '@lyness/lyn-token-meter/client': import.meta.resolve('@lyness/lyn-token-meter/client'),
+  '@lyness/lyn-util-values': import.meta.resolve('@lyness/lyn-util-values'),
 })
 const scope = new Context()
 try {

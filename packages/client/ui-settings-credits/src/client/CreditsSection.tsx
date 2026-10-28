@@ -8,12 +8,12 @@
  */
 
 import { useCallback, useEffect, useState } from 'react'
-import { Button, Input, SegmentedControl } from '@deepseek-ai/dsh-client-ui-primitives'
-import type { PropsLocale, PropsRuntime, PropsStore } from '@deepseek-ai/dsh-client-ui-slots'
-import type {} from '@deepseek-ai/dsh-client-ui-settings/client'
+import { Button, Input, SegmentedControl } from '@lyness/lyn-client-ui-primitives'
+import type { PropsLocale, PropsRuntime, PropsStore } from '@lyness/lyn-client-ui-slots'
+import type {} from '@lyness/lyn-client-ui-settings/client'
 import type {
   AllowanceInput, AllowanceOverrideView, BudgetView, CreditAccountView, CreditGrantInput, ResetPeriodView,
-} from '@deepseek-ai/dsh-api-credits-controller/types'
+} from '@lyness/lyn-api-credits-controller/types'
 import type { createCreditsSectionStore } from './store.ts'
 import css from './CreditsSection.module.css'
 

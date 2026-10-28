@@ -7,11 +7,12 @@
  */
 
 import { mkdtemp, rm, writeFile } from 'node:fs/promises'
+import type { PeerScope } from '@lyness/lyn-typert-protocol'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import HttpServer from '@deepseek-ai/dsh-host-webserver'
+import { Context } from '@lyness/cordis'
+import HttpServer from '@lyness/lyn-host-webserver'
 import * as BrandDeployment from '../src/index.ts'
 import type { Config } from '../src/index.ts'
 
@@ -20,11 +21,14 @@ const INDEX = [
   '<html lang="en">',
   '  <head>',
   '    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />',
-  '    <title>DSH Local Build</title>',
+  '    <title>LYN Local Build</title>',
   '  </head>',
   '  <body><div id="root"></div></body>',
   '</html>',
 ].join('\n')
+
+/** These assertions are about brand injection, so every render speaks for the owner. */
+const OWNER = { principal: { kind: 'owner' } } as PeerScope
 
 const directories: string[] = []
 let context: Context | undefined
@@ -37,7 +41,7 @@ afterEach(async () => {
 
 /** A fixture directory holding the named files, registered for removal. */
 async function assetDirectory(files: Readonly<Record<string, string>>): Promise<string> {
-  const directory = await mkdtemp(join(tmpdir(), 'dsh-brand-assets-'))
+  const directory = await mkdtemp(join(tmpdir(), 'lyn-brand-assets-'))
   directories.push(directory)
   for (const [name, body] of Object.entries(files)) await writeFile(join(directory, name), body)
   return directory
@@ -64,10 +68,10 @@ describe('deployment brand over the index render', () => {
   it('replaces the title, adds the theme colour, and publishes the brand global', async () => {
     const ctx = await server()
     await brand(ctx, { productName: 'Acme <Agent> & Co', themeColor: '#1f6feb' })
-    const html = ctx.webServer.renderIndex(INDEX)
+    const html = ctx.webServer.renderIndex(INDEX, OWNER)
 
     expect(html).toContain('<title>Acme &lt;Agent&gt; &amp; Co</title>')
-    expect(html).not.toContain('DSH Local Build')
+    expect(html).not.toContain('LYN Local Build')
     expect(html).toContain('<meta name="theme-color" content="#1f6feb" />')
     expect(html).toContain(`globalThis["${BrandDeployment.DEPLOYMENT_BRAND_GLOBAL}"]`)
     // The row renderer escapes `<` in the JSON, so a value cannot close the
@@ -81,14 +85,14 @@ describe('deployment brand over the index render', () => {
   it('adds a title to a head that declares none', async () => {
     const ctx = await server()
     await brand(ctx, { productName: 'Acme' })
-    expect(ctx.webServer.renderIndex('<head></head><body></body>')).toContain('<title>Acme</title>')
+    expect(ctx.webServer.renderIndex('<head></head><body></body>', OWNER)).toContain('<title>Acme</title>')
   })
 
   it('adds an icon link to a head that declares none', async () => {
     const directory = await assetDirectory({ 'logo.svg': '<svg/>' })
     const ctx = await server()
     await brand(ctx, { assetDirectory: directory, favicon: 'logo.svg' })
-    expect(ctx.webServer.renderIndex('<head></head><body></body>'))
+    expect(ctx.webServer.renderIndex('<head></head><body></body>', OWNER))
       .toContain('<head><link rel="icon" href="/brand/favicon.svg" />')
   })
 
@@ -115,7 +119,7 @@ describe('deployment brand over the index render', () => {
     const ctx = await server()
     await brand(ctx, { assetDirectory: directory, favicon: 'logo.svg', wordmark: 'word.png' })
 
-    const html = ctx.webServer.renderIndex(INDEX)
+    const html = ctx.webServer.renderIndex(INDEX, OWNER)
     expect(html).toContain('<link rel="icon" href="/brand/favicon.svg" />')
     expect(html).not.toContain('href="/favicon.svg"')
     expect(html).toContain('"wordmarkUrl":"/brand/wordmark.png"')
@@ -145,15 +149,15 @@ describe('deployment brand over the index render', () => {
     expect((await get(ctx, '/brand/favicon.svg')).status).toBe(200)
 
     await fiber.dispose()
-    expect(ctx.webServer.renderIndex(INDEX)).toContain('<title>DSH Local Build</title>')
+    expect(ctx.webServer.renderIndex(INDEX, OWNER)).toContain('<title>LYN Local Build</title>')
     expect((await get(ctx, '/brand/favicon.svg')).status).toBe(404)
   })
 
   it('mounts with no brand at all, leaving the shipped index untouched', async () => {
     const ctx = await server()
     await brand(ctx, {})
-    const html = ctx.webServer.renderIndex(INDEX)
-    expect(html).toContain('<title>DSH Local Build</title>')
+    const html = ctx.webServer.renderIndex(INDEX, OWNER)
+    expect(html).toContain('<title>LYN Local Build</title>')
     expect(html).toContain('href="/favicon.svg"')
     expect(html).not.toContain('theme-color')
     expect((await get(ctx, '/brand/favicon.svg')).status).toBe(404)
@@ -167,7 +171,7 @@ describe('deployment brand over the index render', () => {
   it('carries the colour tokens a deployment replaced and leaves the rest built in', async () => {
     const ctx = await server()
     await brand(ctx, { colors: { blue: '#1a73e8', gray50: 'whitesmoke' } })
-    const html = ctx.webServer.renderIndex(INDEX)
+    const html = ctx.webServer.renderIndex(INDEX, OWNER)
 
     expect(html).toContain('"colors":{"blue":"#1a73e8","gray50":"whitesmoke"}')
   })
@@ -176,7 +180,7 @@ describe('deployment brand over the index render', () => {
     const ctx = await server()
     await brand(ctx, { colors: {} })
 
-    expect(ctx.webServer.renderIndex(INDEX)).not.toContain('"colors"')
+    expect(ctx.webServer.renderIndex(INDEX, OWNER)).not.toContain('"colors"')
   })
 
   it('refuses a colour token an operator misspelled rather than dropping it', async () => {

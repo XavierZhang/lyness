@@ -1,7 +1,7 @@
 /** Contract behavior the seam itself owns: registration identity, id syntax, and typed refusal. */
 
 import { describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { isTenantSlug, TenantDirectory, TenantError, TenantId } from '../src/index.ts'
 import type { Tenant } from '../src/index.ts'
 

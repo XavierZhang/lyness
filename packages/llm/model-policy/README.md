@@ -3,13 +3,13 @@ description: "The models a deployment allows: the seam, the operator-written pro
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-model-policy
+# @lyness/lyn-model-policy
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-Use `dsh-model-policy` to make the allowed model list a deployment's decision rather than a user's. The seam answers which models the request being resolved may use and which authority decided that; `./static` serves one operator-written list; `./enforce` sits on the `llm/stream` waterfall and refuses any route the policy does not name. Mounting no provider leaves a deployment unrestricted, which is what a single-tenant developer install wants.
+Use `lyn-model-policy` to make the allowed model list a deployment's decision rather than a user's. The seam answers which models the request being resolved may use and which authority decided that; `./static` serves one operator-written list; `./enforce` sits on the `llm/stream` waterfall and refuses any route the policy does not name. Mounting no provider leaves a deployment unrestricted, which is what a single-tenant developer install wants.
 
 ## Table of Contents
 
@@ -29,14 +29,14 @@ An installation with one list — the enterprise shape — mounts the static pro
 
 ```yaml
 - id: model-policy
-  name: '@deepseek-ai/dsh-model-policy/static'
+  name: '@lyness/lyn-model-policy/static'
   config:
     authority: your IT administrator
     allowed:
       - provider: deepseek-official
         model: deepseek-flash
 - id: model-policy-enforce
-  name: '@deepseek-ai/dsh-model-policy/enforce'
+  name: '@lyness/lyn-model-policy/enforce'
 ```
 
 | Field | Default | Meaning |
@@ -50,7 +50,7 @@ An installation whose administrator changes models at runtime mounts `./store` i
 
 ```yaml
 - id: model-policy
-  name: '@deepseek-ai/dsh-model-policy/store'
+  name: '@lyness/lyn-model-policy/store'
   config:
     organization: acme
     initial:
@@ -84,8 +84,8 @@ The seam exists instead of reading tenant configuration directly because the two
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`dsh-llm`](../llm/README.md) — the runtime and the `llm/stream` waterfall this enforcement joins.
-- [`dsh-model-required`](../model-required/README.md) — the companion guard for a deployment that reaches no model at all.
+- [`lyn-llm`](../llm/README.md) — the runtime and the `llm/stream` waterfall this enforcement joins.
+- [`lyn-model-required`](../model-required/README.md) — the companion guard for a deployment that reaches no model at all.
 - [`tenant-config`](../../tenant/tenant-config/README.md) — the per-tenant roster a hosted provider reads.
 - [The model is a deployment decision](../../../.agents/notes/proposed/architecture/2026-10-14-the-model-is-a-deployment-decision.md) — why enforcement is here and not in a surface.
 

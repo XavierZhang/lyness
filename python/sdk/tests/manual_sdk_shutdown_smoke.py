@@ -8,18 +8,18 @@ from pathlib import Path
 from tempfile import mkdtemp
 from time import monotonic
 
-from deepseek_harness import DeepSeekHarness, DeepSeekHarnessConfig
+from lyness import Lyness, LynessConfig
 
-root = Path(mkdtemp(prefix="dsh-shutdown-"))
-config = DeepSeekHarnessConfig(
+root = Path(mkdtemp(prefix="lyn-shutdown-"))
+config = LynessConfig(
     profile="sdk-minimal",
-    dsh_home=str(root / "home"),
+    lyn_home=str(root / "home"),
     cwd=str(root),
     shutdown_timeout_seconds=1.0,
 )
 print("Test directory:", root)
 
-with DeepSeekHarness(config) as harness:
+with Lyness(config) as harness:
     result = harness.run("只回复 OK，不要调用工具。")
     started = monotonic()
 
@@ -31,6 +31,6 @@ print("History files:", list((root / "home" / "sessions").rglob("*.jsonl")))
 
 # Recovery gets a separate budget so its own shutdown does not repeat the test.
 config.shutdown_timeout_seconds = 30.0
-with DeepSeekHarness(config) as harness:
+with Lyness(config) as harness:
     harness.resume_session(result.session_id)
     print("History restored successfully:", result.session_id)

@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-tenant-session",
+  "name": "@lyness/lyn-tenant-session",
   "description": "Records the tenant a session belongs to, and the identity text that tenant contributed, as one durable session event",
   "version": "0.1.7-rc.2",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/tenant/tenant-session"
   },
   "type": "module",
@@ -27,32 +27,32 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@deepseek-ai/dsh-session": "workspace:*",
-    "@deepseek-ai/dsh-session-projection": "workspace:*",
-    "@deepseek-ai/dsh-tenant": "workspace:*",
-    "@deepseek-ai/dsh-tenant-config": "workspace:*",
-    "@deepseek-ai/schemastery": "workspace:~",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-session-projection": "workspace:*",
+    "@lyness/lyn-tenant": "workspace:*",
+    "@lyness/lyn-tenant-config": "workspace:*",
+    "@lyness/schemastery": "workspace:~",
     "zod": "^4.4.3"
   },
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-agent": "workspace:*",
-    "@deepseek-ai/dsh-system-prompt": "workspace:*",
-    "@deepseek-ai/dsh-tenant-request": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/lyn-system-prompt": "workspace:*",
+    "@lyness/lyn-tenant-request": "workspace:*"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-agent": "workspace:*",
-    "@deepseek-ai/dsh-system-prompt": "workspace:*",
-    "@deepseek-ai/dsh-agent-loop": "workspace:*",
-    "@deepseek-ai/dsh-llm": "workspace:*",
-    "@deepseek-ai/dsh-tools": "workspace:*",
-    "@deepseek-ai/cordis-plugin-include": "workspace:~",
-    "@deepseek-ai/cordis-plugin-loader": "workspace:~",
-    "@deepseek-ai/dsh-client-connection": "workspace:*",
-    "@deepseek-ai/dsh-credentials": "workspace:*",
-    "@deepseek-ai/dsh-tenant-config-static": "workspace:*",
-    "@deepseek-ai/dsh-tenant-request": "workspace:*",
-    "@deepseek-ai/dsh-tenant-static": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/cordis-plugin-include": "workspace:~",
+    "@lyness/cordis-plugin-loader": "workspace:~",
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/lyn-agent-loop": "workspace:*",
+    "@lyness/lyn-client-connection": "workspace:*",
+    "@lyness/lyn-credentials": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-system-prompt": "workspace:*",
+    "@lyness/lyn-tenant-config-static": "workspace:*",
+    "@lyness/lyn-tenant-request": "workspace:*",
+    "@lyness/lyn-tenant-static": "workspace:*",
+    "@lyness/lyn-tools": "workspace:*"
   }
 }

@@ -1,15 +1,13 @@
 {
-  "name": "@deepseek-ai/dsh-lsp",
-  "description": "Abstract LSP capability seam (ctx.lsp) for the DeepSeek Harness — language-server provider registry keyed by branded id and extension mapping, order-independent per-query selection, normalized definition/references/implementation/hover requests and results, and the LspError taxonomy",
+  "name": "@lyness/lyn-lsp",
+  "description": "Abstract LSP capability seam (ctx.lsp) for the lyness — language-server provider registry keyed by branded id and extension mapping, order-independent per-query selection, normalized definition/references/implementation/hover requests and results, and the LspError taxonomy",
   "version": "0.2.1-rc.3",
-  "description": "Abstract LSP capability seam (ctx.lsp) for the DeepSeek Harness \u2014 language-server provider registry keyed by branded id and extension mapping, order-independent per-query selection, normalized definition/references/implementation/hover requests and results, and the LspError taxonomy",
-  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/lsp/lsp"
   },
   "type": "module",
@@ -22,7 +20,6 @@
     },
     "./src/*": "./src/*",
     "./locale/*.json": "./locale/*.json",
-    "./package.json": "./package.json"
     "./package.json": "./package.json",
     "./preset-contribution": {
       "types": "./lib/types/preset-contribution.d.ts",
@@ -37,18 +34,18 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/dsh-brand": "workspace:*",
-    "@deepseek-ai/dsh-llm": "workspace:*",
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-agent-preset-registry": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-agent-preset-registry": "workspace:*",
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*"
   },
   "devDependencies": {
-    "@deepseek-ai/dsh-brand": "workspace:*",
-    "@deepseek-ai/dsh-llm": "workspace:*",
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-agent-preset-registry": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-agent-preset-registry": "workspace:*",
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*"
   },
   "dependencies": {
-    "@deepseek-ai/schemastery": "workspace:~"
+    "@lyness/schemastery": "workspace:~"
   }
 }

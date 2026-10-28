@@ -3,13 +3,13 @@ description: "The history section in Settings: what administrators changed, who 
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-client-ui-settings-history
+# @lyness/lyn-client-ui-settings-history
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`dsh-client-ui-settings-history` is the Settings section an administrator reads the trail in. One read answers the recorded changes their standing may see, newest first, and each entry shows which record changed, what happened to it, who did it, and both sides of every field that differs. It is read-only by construction: the trail is append-only on the server, so there is nothing here to edit or delete.
+`lyn-client-ui-settings-history` is the Settings section an administrator reads the trail in. One read answers the recorded changes their standing may see, newest first, and each entry shows which record changed, what happened to it, who did it, and both sides of every field that differs. It is read-only by construction: the trail is append-only on the server, so there is nothing here to edit or delete.
 
 ## Table of Contents
 
@@ -29,7 +29,7 @@ The Web app mounts it beside the sections whose changes it shows:
 
 ```yaml
 - id: ui-settings-history
-  name: '@deepseek-ai/dsh-client-ui-settings-history'
+  name: '@lyness/lyn-client-ui-settings-history'
 ```
 
 There is nothing to configure. The section registers into `settings.section` at order 50, after the bots, and reads `remote.audit` when it is opened. An export is handed to the reader as a download, which the browser and the desktop shell each save where that platform saves downloads.
@@ -60,9 +60,9 @@ There is nothing to configure. The section registers into `settings.section` at 
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`dsh-api-admin-audit-controller`](../../api/admin-audit-controller/README.md) — the namespace this section calls, and what each refusal means.
-- [`dsh-admin-audit`](../../identity/admin-audit/README.md) — the trail behind it, and what it records.
-- [`dsh-client-ui-settings-bots`](../ui-settings-bots/README.md) — one of the two sections whose changes it shows.
+- [`lyn-api-admin-audit-controller`](../../api/admin-audit-controller/README.md) — the namespace this section calls, and what each refusal means.
+- [`lyn-admin-audit`](../../identity/admin-audit/README.md) — the trail behind it, and what it records.
+- [`lyn-client-ui-settings-bots`](../ui-settings-bots/README.md) — one of the two sections whose changes it shows.
 
 -----
 

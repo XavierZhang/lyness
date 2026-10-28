@@ -6,20 +6,21 @@
  */
 
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import { ToolCallId } from '@deepseek-ai/dsh-llm'
-import type { PersonId } from '@deepseek-ai/dsh-people'
-import AgentRegistry from '@deepseek-ai/dsh-agent'
-import AgentLoop from '@deepseek-ai/dsh-agent-loop'
-import LlmRuntime from '@deepseek-ai/dsh-llm'
-import SessionStore, { SessionId } from '@deepseek-ai/dsh-session'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
-import ToolRuntime from '@deepseek-ai/dsh-tools'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import { botProjectionDefinition } from '@deepseek-ai/dsh-managed-bots'
-import type { EngagedBot, TeammateView } from '@deepseek-ai/dsh-managed-bots'
+import { Context } from '@lyness/cordis'
+import { brandString } from '@lyness/lyn-brand'
+import { ToolCallId } from '@lyness/lyn-llm'
+import type { PersonId } from '@lyness/lyn-people'
+import AgentRegistry from '@lyness/lyn-agent'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import LlmRuntime from '@lyness/lyn-llm'
+import SessionStore, { SessionId } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime from '@lyness/lyn-tools'
+import type { ToolBatchResult } from '@lyness/lyn-tools'
+import type { Agent } from '@lyness/lyn-agent'
+import { botProjectionDefinition } from '@lyness/lyn-managed-bots'
+import type { EngagedBot, TeammateView } from '@lyness/lyn-managed-bots'
 import * as BotAskTools from '../src/tool.ts'
 import { AnsweringAdapter, ANSWERING_PROVIDER } from './answering-adapter.ts'
 
@@ -91,16 +92,20 @@ let calls = 0
 function call(ctx: Context, name: string, args: unknown, agentOrNone: Agent | undefined) {
   return ctx.tools.execute({
     signal: SIGNAL,
-    callId: ToolCallId(`call-${String(++calls)}`),
-    name,
-    arguments: args,
+    calls: [{
+      type: 'tool-call' as const,
+      id: ToolCallId(`call-${String(++calls)}`),
+      name,
+      arguments: JSON.stringify(args),
+    }],
     ...agentOrNone === undefined ? {} : { agent: agentOrNone },
   })
 }
 
-/** The text one tool result carries. */
-function text(result: { content: { type: string; text?: string }[] }): string {
-  return result.content.filter(block => block.type === 'text').map(block => block.text).join('')
+/** The text the batch's one tool result carries. */
+function text(batch: ToolBatchResult): string {
+  const blocks = batch.results[0]?.result.content ?? []
+  return blocks.filter(block => block.type === 'text').map(block => block.type === 'text' ? block.text : '').join('')
 }
 
 describe('list_teammates', () => {

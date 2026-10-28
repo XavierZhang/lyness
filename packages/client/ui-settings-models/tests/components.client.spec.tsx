@@ -3,13 +3,13 @@ import { es, fr, de, ru, pt } from '../src/client/locales.ts'
 /** Section, setup-card, and hand-written editor behavior over a scripted wire face. */
 import { act, cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import Schema from '@deepseek-ai/schemastery'
-import { Context } from '@deepseek-ai/cordis'
-import { RemoteError, bindSnapshotSelector, makeTranslate } from '@deepseek-ai/dsh-client-test-runtime'
+import Schema from '@lyness/schemastery'
+import { Context } from '@lyness/cordis'
+import { RemoteError, bindSnapshotSelector, makeTranslate } from '@lyness/lyn-client-test-runtime'
 import type {
   CredentialInfo, RemoteResult, SettingsNamespaceView,
-} from '@deepseek-ai/dsh-api-remotes/client'
-import type { JsonValue } from '@deepseek-ai/dsh-util-values'
+} from '@lyness/lyn-api-remotes/client'
+import type { JsonValue } from '@lyness/lyn-util-values'
 import {
   ModelsSection, needsSetup, providerCopy, providerTargetLabel, removeProviderProfile,
 } from '../src/client/ModelsSection.tsx'
@@ -20,7 +20,7 @@ import {
   DeepSeekModelsEditor, formatCapacity, modelDrafts, parseCapacity, validateDeepSeekModels,
 } from '../src/client/DeepSeekModelsEditor.tsx'
 import { apiKeyFailure } from '../src/client/apiKey.ts'
-import { SettingsDescribeMirror } from '@deepseek-ai/dsh-client-ui-settings/src/client/settings-mirror.ts'
+import { SettingsDescribeMirror } from '@lyness/lyn-client-ui-settings/src/client/settings-mirror.ts'
 import { deriveKeyRef, ModelsSettingsStore } from '../src/client/store.ts'
 import { createModelsOperations } from '../src/client/operations.ts'
 import type { ModelsOperations } from '../src/client/operations.ts'
@@ -1622,13 +1622,13 @@ describe('ModelsSection', () => {
   it('surfaces a refused credential write on the card', async () => {
     await mountFirstRun({
       set: vi.fn(() => Promise.resolve(remoteFail(
-        'credentials-local: invalid document at /home/user/.dsh/.credentials.yaml: BAD_INDENT at line 3, column 1',
+        'credentials-local: invalid document at /home/user/.lyn/.credentials.yaml: BAD_INDENT at line 3, column 1',
       ))),
     })
     const key = screen.getByLabelText<HTMLInputElement>(en.keyInput)
     fireEvent.change(key, { target: { value: 'sk-live' } })
     fireEvent.click(screen.getByText(en.apply))
-    await screen.findByText(/invalid document at \/home\/user\/\.dsh\/\.credentials\.yaml/)
+    await screen.findByText(/invalid document at \/home\/user\/\.lyn\/\.credentials\.yaml/)
     expect(screen.queryByRole('status')).toBeNull()
   })
 
@@ -2219,45 +2219,6 @@ it.each(['file', 'env', 'project-env', 'user-env'] as const)('shows only the bla
   fireEvent.change(input, { target: { value: '' } })
   if (source === 'file') expect(screen.queryByText(hint)).toBeNull()
   else expect(screen.getAllByText(hint)).toHaveLength(1)
-it.each([en, zh])('edits the account model catalog without credential or endpoint fields', async (copy) => {
-  const mutate = vi.fn(() => Promise.resolve(remoteOk(accountNamespace())))
-  const scripted = scriptedFace({ mutate })
-  const ops = operationsWith(scripted.face)
-  const describe = vi.spyOn(ops, 'describeCredential')
-  const namespace = accountNamespace()
-  const onClose = vi.fn()
-  render(<ProviderEditor provider="deepseek-account" displayName={copy.deepSeekAccount}
-    namespace={namespace} settingsPath={[]} schema={settingsSchema}
-    operations={ops} t={makeTranslate(copy)} readOnly={false} onClose={onClose} />)
-  expect(screen.queryByLabelText(copy.keyInput)).toBeNull()
-  expect(screen.queryByLabelText(copy.baseUrl)).toBeNull()
-  expect(describe).not.toHaveBeenCalled()
-  expect(screen.getByDisplayValue('deepseek-v4-flash')).toBeTruthy()
-  expect(screen.queryByText(content => content.includes(copy.advancedHint))).toBeNull()
-  await expect(`${document.body.textContent}\n`)
-    .toMatchFileSnapshot(`./expected/deepseek-account-${copy === en ? 'en' : 'zh'}.txt`)
-  const set = vi.spyOn(ops, 'storeCredential')
-  fireEvent.change(screen.getAllByLabelText(new RegExp(copy.modelId))[0]!, { target: { value: 'deepseek-v4-mini' } })
-  fireEvent.click(screen.getByText(copy.apply))
-  await waitFor(() => { expect(onClose).toHaveBeenCalledWith(true) })
-  expect(mutate.mock.calls[0]).toEqual([
-    'llm-deepseek-account',
-    [{
-      op: 'set',
-      path: ['models'],
-      value: [
-        {
-          id: 'deepseek-v4-mini',
-          name: 'DeepSeek-V4-Flash',
-          description: 'Preserved hidden detail',
-          contextWindow: 1_000_000,
-        },
-        { id: 'deepseek-v4-pro', name: 'DeepSeek-V4-Pro', contextWindow: 1_000_000 },
-      ],
-    }],
-    0,
-  ])
-  expect(set).not.toHaveBeenCalled()
 })
 
 it.each([

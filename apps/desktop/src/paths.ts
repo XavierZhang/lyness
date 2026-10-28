@@ -1,7 +1,7 @@
 /** Filesystem ownership for the Electron-managed desktop installation. */
 
 import { join } from 'node:path'
-import { resolveDshHome } from '@deepseek-ai/dsh-home-paths'
+import { resolveLynHome } from '@lyness/lyn-home-paths'
 
 /** Stable desktop installation paths under the shared Harness home. */
 export interface DesktopPaths {
@@ -11,12 +11,12 @@ export interface DesktopPaths {
 
 /**
  * Resolve every Electron-owned path without changing the shared data roots.
- * @param dshHome - Harness home shared with npm-installed dsh.
+ * @param lynHome - Harness home shared with npm-installed lyn.
  * @returns immutable desktop path set.
  */
-export function resolveDesktopPaths(dshHome: string = resolveDshHome()): DesktopPaths {
+export function resolveDesktopPaths(lynHome: string = resolveLynHome()): DesktopPaths {
   return {
-    profile: join(dshHome, 'profiles', 'desktop'),
-    lock: join(dshHome, 'profiles', 'desktop', 'lock'),
+    profile: join(lynHome, 'profiles', 'desktop'),
+    lock: join(lynHome, 'profiles', 'desktop', 'lock'),
   }
 }

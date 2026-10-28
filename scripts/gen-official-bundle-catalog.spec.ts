@@ -17,16 +17,16 @@ function write(root: string, path: string, content: unknown): void {
   writeFileSync(join(root, path), typeof content === 'string' ? content : `${JSON.stringify(content)}\n`)
 }
 
-function directory(name: string): string { return `packages/subagent/${name.slice('@deepseek-ai/dsh-'.length)}` }
+function directory(name: string): string { return `packages/subagent/${name.slice('@lyness/lyn-'.length)}` }
 
 function fixture(): string {
-  const root = mkdtempSync(join(tmpdir(), 'dsh-official-catalog-'))
+  const root = mkdtempSync(join(tmpdir(), 'lyn-official-catalog-'))
   roots.push(root)
-  write(root, 'apps/cli/package.json', { name: '@deepseek-ai/dsh' })
+  write(root, 'apps/cli/package.json', { name: '@lyness/lyn' })
   for (const name of ON_DEMAND_BUNDLES) {
     const dir = directory(name)
     write(root, `${dir}/package.json`, {
-      name, type: 'module', version: '1.2.3', icon: './icon.svg', dsh: { bundle: { patch: './cordis.patch.yml' } },
+      name, type: 'module', version: '1.2.3', icon: './icon.svg', lyn: { bundle: { patch: './cordis.patch.yml' } },
       exports: { '.': './must-not-run.js', './package.json': './package.json', './locale/*.json': './locale/*.json' },
     })
     write(root, `${dir}/must-not-run.js`, "throw new Error('metadata must not evaluate a provider')")
@@ -64,18 +64,18 @@ describe('Official bundle catalog generation', () => {
     const root = fixture()
     const name = ON_DEMAND_BUNDLES[0]!
     if (kind === 'private') updateManifest(root, name, { private: true })
-    if (kind === 'not-bundle') updateManifest(root, name, { dsh: {} })
+    if (kind === 'not-bundle') updateManifest(root, name, { lyn: {} })
     if (kind === 'missing') rmSync(join(root, directory(name)), { recursive: true })
     if (kind === 'duplicate') write(root, 'packages/subagent/duplicate/package.json', { name })
-    expect(() => generateOfficialBundleCatalog(root)).toThrow(/public DSH bundle|duplicate workspace/)
+    expect(() => generateOfficialBundleCatalog(root)).toThrow(/public LYN bundle|duplicate workspace/)
   })
 
   it.each([false, true])('rejects an on-demand provider in the installed dependency closure (indirect=%s)', (indirect) => {
     const root = fixture()
     const name = ON_DEMAND_BUNDLES[0]!
-    write(root, 'apps/cli/package.json', { name: '@deepseek-ai/dsh', dependencies: { [indirect ? '@deepseek-ai/dsh-layer' : name]: '*' } })
-    if (indirect) write(root, 'packages/bundle/layer/package.json', { name: '@deepseek-ai/dsh-layer', dependencies: { [name]: '*' } })
-    expect(() => generateOfficialBundleCatalog(root)).toThrow('must not be installed by the DSH distribution')
+    write(root, 'apps/cli/package.json', { name: '@lyness/lyn', dependencies: { [indirect ? '@lyness/lyn-layer' : name]: '*' } })
+    if (indirect) write(root, 'packages/bundle/layer/package.json', { name: '@lyness/lyn-layer', dependencies: { [name]: '*' } })
+    expect(() => generateOfficialBundleCatalog(root)).toThrow('must not be installed by the LYN distribution')
   })
 
   it('requires distinct nonempty catalog admission', () => {

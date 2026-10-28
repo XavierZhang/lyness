@@ -1,15 +1,15 @@
 /** Background-job menu geometry over the normal Browser dock in the shipped Web composition. */
-import { executeToolFixture } from '@deepseek-ai/dsh-tool-testkit'
+import { executeToolFixture } from '@lyness/lyn-tool-testkit'
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import { join } from 'node:path'
 import type { Browser, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed } from 'vitest'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import { ToolCallId } from '@deepseek-ai/dsh-llm'
-import { SessionId } from '@deepseek-ai/dsh-session'
-import { JobId } from '@deepseek-ai/dsh-jobs'
+import type { Agent } from '@lyness/lyn-agent'
+import { ToolCallId } from '@lyness/lyn-llm'
+import { SessionId } from '@lyness/lyn-session'
+import { JobId } from '@lyness/lyn-jobs'
 import {
   assertFixtureInventory, compareOrRefreshGolden, launchWebScaffold, seedSession,
   watchConsole, webSnapshotMode, type WebScaffold,

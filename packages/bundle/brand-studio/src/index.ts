@@ -1,16 +1,16 @@
 /**
  * The brand-studio profile's command line: parse the operator's invocation,
  * run the studio once, report what it wrote, and request exit.
- * @module @deepseek-ai/dsh-brand-studio
+ * @module @lyness/lyn-brand-studio
  */
 
 import { resolve } from 'node:path'
 import { Command } from 'commander'
-import type { Context } from '@deepseek-ai/cordis'
-import { internals, parseCmdline } from '@deepseek-ai/dsh-cmdline'
-import { BRAND_COLOUR_TOKENS } from '@deepseek-ai/dsh-host-brand-deployment'
-import { BRAND_FONTS } from '@deepseek-ai/dsh-host-brand-fonts'
-import { dshHomePath, resolveDshHome } from '@deepseek-ai/dsh-home-paths'
+import type { Context } from '@lyness/cordis'
+import { internals, parseCmdline } from '@lyness/lyn-cmdline'
+import { BRAND_COLOUR_TOKENS } from '@lyness/lyn-host-brand-deployment'
+import { BRAND_FONTS } from '@lyness/lyn-host-brand-fonts'
+import { lynHomePath, resolveLynHome } from '@lyness/lyn-home-paths'
 import { resolveProfilePatch, runStudio } from './studio.ts'
 import type { StudioRequest, StudioResult } from './studio.ts'
 
@@ -44,7 +44,7 @@ interface StudioOptions {
  */
 function studioCommand(): Command {
   return new Command()
-    .name('dsh --profile brand-studio')
+    .name('lyn --profile brand-studio')
     .description('Generate a deployment brand from an icon PNG and a font, and apply it to a profile.')
     .requiredOption('--name <text>', 'product name, typeset as the wordmark')
     .requiredOption('--icon <png>', 'icon PNG: at least 1024px a side, a dark mark on a light or transparent background')
@@ -58,17 +58,17 @@ function studioCommand(): Command {
       (pair: string, collected: readonly string[]) => [...collected, pair],
       [],
     )
-    .option('--asset-dir <dir>', 'directory receiving the generated SVGs', dshHomePath('brand'))
+    .option('--asset-dir <dir>', 'directory receiving the generated SVGs', lynHomePath('brand'))
     .option('--target <profile>', 'profile whose patch layer receives the brand', 'web')
     .option('--accept-trademark', 'confirm that the name and the icon infringe no trademark')
     .option('--accept-font-license', 'confirm that your license for the font permits using its glyphs in a logo')
     .helpOption('-h, --help', 'show this help')
     .addHelpText('after', `
 Examples:
-  dsh --profile brand-studio --name 领驭 --icon ./DeepSeek Harness.png --accept-trademark
-  dsh --profile brand-studio --name Acme --icon ./acme.png --font ./AcmeSans-Bold.otf \\
+  lyn --profile brand-studio --name 领驭 --icon ./lyness.png --accept-trademark
+  lyn --profile brand-studio --name Acme --icon ./acme.png --font ./AcmeSans-Bold.otf \\
     --theme-color '#1a73e8' --accept-trademark --accept-font-license
-  dsh --profile brand-studio --name 'Acme Agent' --abbreviation ACME --name-zh 艾可 \\
+  lyn --profile brand-studio --name 'Acme Agent' --abbreviation ACME --name-zh 艾可 \\
     --icon ./acme.png --color blue=#1a73e8 --color blueDark=#11418a --accept-trademark
 `)
 }
@@ -88,7 +88,7 @@ function report(request: StudioRequest, result: StudioResult, target: string): s
     `  favicon   ${result.assets.favicon}`,
     `  font      ${request.fontPath ?? `built-in (${BRAND_FONTS.map(font => font.name).join(', ')})`}`,
     `  patch     ${request.patchPath}`,
-    `A running \`dsh --profile ${target}\` that reloads its patch layer applies the brand now; otherwise restart it.`,
+    `A running \`lyn --profile ${target}\` that reloads its patch layer applies the brand now; otherwise restart it.`,
     '',
   ].join('\n')
 }
@@ -125,7 +125,7 @@ async function run(options: StudioOptions): Promise<number> {
       fontPath: options.font === undefined ? undefined : resolve(options.font),
       themeColor: options.themeColor,
       assetDirectory: resolve(options.assetDir),
-      patchPath: resolveProfilePatch(options.target, resolveDshHome()),
+      patchPath: resolveProfilePatch(options.target, resolveLynHome()),
     }
     internals.stdout.write(report(request, await runStudio(request), options.target))
     return 0

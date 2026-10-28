@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-module-extensions",
+  "name": "@lyness/lyn-module-extensions",
   "description": "The runtime self-modification default module as its own bundle: the Cordis runners, the process-global inspect providers, and the browser view",
   "version": "0.1.7-rc.2",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/bundle/module-extensions"
   },
   "type": "module",
@@ -30,21 +30,21 @@
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
-  "dsh": {
+  "lyn": {
     "bundle": {
       "patch": "./cordis.patch.yml"
     }
   },
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~"
+    "@lyness/cordis": "workspace:~"
   },
   "dependencies": {
-    "@deepseek-ai/dsh-client-ui-cordis": "workspace:*",
-    "@deepseek-ai/dsh-cordis-client-runner": "workspace:*",
-    "@deepseek-ai/dsh-cordis-host-runner": "workspace:*",
-    "@deepseek-ai/dsh-tool-cordis": "workspace:*"
+    "@lyness/lyn-client-ui-cordis": "workspace:*",
+    "@lyness/lyn-cordis-client-runner": "workspace:*",
+    "@lyness/lyn-cordis-host-runner": "workspace:*",
+    "@lyness/lyn-tool-cordis": "workspace:*"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~"
+    "@lyness/cordis": "workspace:~"
   }
 }

@@ -10,13 +10,13 @@
  * setup wizard is refused by the same rule that refuses them in the
  * administration page, because it is the same rule in the same place.
  *
- * @module @deepseek-ai/dsh-model-policy/store
+ * @module @lyness/lyn-model-policy/store
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
-import type { Domain } from '@deepseek-ai/dsh-storage-domain'
-import type { Membership } from '@deepseek-ai/dsh-people'
+import type { Context } from '@lyness/cordis'
+import z from '@lyness/schemastery'
+import type { Domain } from '@lyness/lyn-storage-domain'
+import type { Membership } from '@lyness/lyn-people'
 import { ModelPolicy } from './index.ts'
 import { allowanceDomain } from './storage.ts'
 import type {

@@ -10,9 +10,9 @@ import { tmpdir } from 'node:os'
 import { isAbsolute, join, relative, resolve as resolvePath } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { ReasoningEffortId } from '@deepseek-ai/dsh-llm'
+import { ReasoningEffortId } from '@lyness/lyn-llm'
 import {
-  DeepSeekHarness,
+  Lyness,
   HarnessClient,
   HarnessSession,
   JsonRpcResponseError,
@@ -21,7 +21,7 @@ import {
   TransportClosedError,
   type HarnessNotification,
 } from '../src/index.ts'
-import { createProcessDeepSeekHarness, finalResponse, normalizeInput } from '../src/api.ts'
+import { createProcessLyness, finalResponse, normalizeInput } from '../src/api.ts'
 import { createProcessHarnessClient } from '../src/client.ts'
 import type { RuntimeProcessOptions } from '../src/launch.ts'
 
@@ -50,8 +50,8 @@ function processClient(options: RuntimeProcessOptions): HarnessClient {
   return createProcessHarnessClient(options)
 }
 
-function harnessWith(env: Record<string, string> = {}, extra: LaunchOverrides = {}): DeepSeekHarness {
-  const harness = createProcessDeepSeekHarness(fakeLaunch(env, extra))
+function harnessWith(env: Record<string, string> = {}, extra: LaunchOverrides = {}): Lyness {
+  const harness = createProcessLyness(fakeLaunch(env, extra))
   cleanups.push(() => harness.close())
   return harness
 }
@@ -62,7 +62,7 @@ async function tempDir(prefix: string): Promise<string> {
   return dir
 }
 
-describe('DeepSeekHarness', () => {
+describe('Lyness', () => {
   it('returns a restored handle that can run followups on the same identity', async () => {
     const harness = harnessWith()
     const session = await harness.resumeSession('saved-session')
@@ -138,7 +138,7 @@ describe('DeepSeekHarness', () => {
           async * [Symbol.asyncIterator]() {},
         }),
       },
-    } as unknown as DeepSeekHarness
+    } as unknown as Lyness
 
     const result = await new HarnessSession(harness, 'owned').run('go')
 
@@ -230,7 +230,7 @@ describe('DeepSeekHarness', () => {
           async * [Symbol.asyncIterator]() {},
         }),
       },
-    } as unknown as DeepSeekHarness
+    } as unknown as Lyness
 
     const result = await new HarnessSession(harness, 'owned').run('go')
 
@@ -293,7 +293,7 @@ describe('DeepSeekHarness', () => {
   it('sends the configured cwd/provider/model/reasoningEffort/maxTokens in the handshake exactly once', async () => {
     const dir = await tempDir('sdk-client-init-')
     const recordFile = join(dir, 'init.jsonl')
-    const harness = createProcessDeepSeekHarness(fakeLaunch({ FAKE_RECORD_INIT: recordFile }), {
+    const harness = createProcessLyness(fakeLaunch({ FAKE_RECORD_INIT: recordFile }), {
       cwd: dir,
       provider: 'custom-provider',
       model: 'custom-model',
@@ -319,14 +319,14 @@ describe('DeepSeekHarness', () => {
   it('resolves a relative launch cwd to an absolute workspace before the handshake', async () => {
     // vitest workers forbid chdir, so derive a RELATIVE path from the real
     // process cwd to a temp worker dir; resolution is lexical either way.
-    const dir = await mkdtemp(join(process.cwd(), '.dsh-sdk-client-relcwd-'))
+    const dir = await mkdtemp(join(process.cwd(), '.lyn-sdk-client-relcwd-'))
     cleanups.push(() => rm(dir, { recursive: true, force: true }))
     const recordFile = join(dir, 'init.jsonl')
     const inner = join(dir, 'worker')
     await mkdir(inner)
     const relativeCwd = relative(process.cwd(), inner)
     expect(isAbsolute(relativeCwd)).toBe(false)
-    const harness = createProcessDeepSeekHarness(
+    const harness = createProcessLyness(
       fakeLaunch({ FAKE_RECORD_INIT: recordFile, FAKE_ECHO_CWD_IN_INIT: '1' }, { cwd: relativeCwd }),
     )
     cleanups.push(() => harness.close())
@@ -361,12 +361,12 @@ describe('DeepSeekHarness', () => {
     const initialize = vi.spyOn(HarnessClient.prototype, 'initialize').mockRejectedValue(initializeError)
     const close = vi.spyOn(HarnessClient.prototype, 'close').mockRejectedValue(cleanupError)
     try {
-      const harness = createProcessDeepSeekHarness(fakeLaunch())
+      const harness = createProcessLyness(fakeLaunch())
       const failedClient = harness.client
       const failure = await harness.start().catch((error: unknown) => error)
       expect(failure).toBeInstanceOf(AggregateError)
       expect((failure as AggregateError).errors).toEqual([initializeError, cleanupError])
-      expect((failure as Error).message).toBe('DeepSeek Harness initialization and cleanup failed')
+      expect((failure as Error).message).toBe('lyness initialization and cleanup failed')
       expect(harness.client).toBe(failedClient)
     } finally {
       start.mockRestore()
@@ -382,7 +382,7 @@ describe('DeepSeekHarness', () => {
     const initialize = vi.spyOn(HarnessClient.prototype, 'initialize').mockReturnValue(initializeResult)
     const close = vi.spyOn(HarnessClient.prototype, 'close').mockResolvedValue()
     try {
-      const harness = createProcessDeepSeekHarness(fakeLaunch())
+      const harness = createProcessLyness(fakeLaunch())
       const original = harness.client
       const pending = harness.start()
       await harness.close()
@@ -418,9 +418,9 @@ describe('DeepSeekHarness', () => {
   })
 
   it('supports await using disposal', async () => {
-    let captured: DeepSeekHarness
+    let captured: Lyness
     {
-      await using harness = createProcessDeepSeekHarness(fakeLaunch())
+      await using harness = createProcessLyness(fakeLaunch())
       captured = harness
       const result = await harness.run('scoped')
       expect(result.finalResponse).toBe('hello from fake runtime')
@@ -429,8 +429,8 @@ describe('DeepSeekHarness', () => {
     await expect(captured.run('after')).rejects.toThrow(TransportClosedError)
   })
 
-  it('constructs the public dsh-backed client lazily', async () => {
-    const harness = new DeepSeekHarness()
+  it('constructs the public lyn-backed client lazily', async () => {
+    const harness = new Lyness()
     expect(harness.client).toBeInstanceOf(HarnessClient)
     await harness.close()
   })
@@ -441,7 +441,7 @@ describe('HarnessClient', () => {
     const client = processClient(fakeLaunch(
       { FAKE_HANG_INIT: '1' },
       {
-        description: 'dsh profile "profile-without-sdk-server"',
+        description: 'lyn profile "profile-without-sdk-server"',
         initializeTimeoutMs: 50,
         disposeEofGraceMs: 100,
         // Wide SIGKILL confirmation: the hang-init child may still be
@@ -452,7 +452,7 @@ describe('HarnessClient', () => {
     ))
     cleanups.push(() => client.close())
     await expect(client.initialize({ cwd: process.cwd(), provider: 'p', model: 'm' }))
-      .rejects.toThrow(/initialize timed out after 50ms waiting for dsh profile "profile-without-sdk-server"/)
+      .rejects.toThrow(/initialize timed out after 50ms waiting for lyn profile "profile-without-sdk-server"/)
     await client.close()
   })
 
@@ -523,15 +523,15 @@ describe('HarnessClient', () => {
     expect(String(failure)).toContain('no trailing newline')
   })
 
-  it('fails when the configured dsh CLI module does not exist', async () => {
-    const client = new HarnessClient({ dshBin: join(tmpdir(), 'dsh-no-such-runtime-bin') })
+  it('fails when the configured lyn CLI module does not exist', async () => {
+    const client = new HarnessClient({ lynBin: join(tmpdir(), 'lyn-no-such-runtime-bin') })
     cleanups.push(() => client.close())
     await expect(client.request('initialize', {}, 1_000)).rejects.toThrow(TransportClosedError)
   })
 
   it('reports a generic process spawn failure to internal transports', async () => {
     const client = processClient(fakeLaunch({}, {
-      command: join(tmpdir(), 'dsh-no-such-process-command'),
+      command: join(tmpdir(), 'lyn-no-such-process-command'),
       args: [],
     }))
     cleanups.push(() => client.close())
@@ -594,7 +594,7 @@ describe('HarnessClient', () => {
 
     // A bare unbounded request with omitted params sends `{}` on the wire.
     const identity = await client.request('initialize') as { serverInfo: { name: string } }
-    expect(identity.serverInfo.name).toBe('deepseek-harness-sdk-runtime')
+    expect(identity.serverInfo.name).toBe('lyness-sdk-runtime')
 
     // Async iteration consumes queued items and then parks.
     const collected: string[] = []

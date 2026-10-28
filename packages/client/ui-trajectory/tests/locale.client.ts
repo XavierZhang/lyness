@@ -1,6 +1,6 @@
-import { makeTranslate } from '@deepseek-ai/dsh-client-test-runtime'
-import { en as commonEn } from '@deepseek-ai/dsh-client-locale/src/locales/en.ts'
-import { zh as commonZh } from '@deepseek-ai/dsh-client-locale/src/locales/zh.ts'
+import { makeTranslate } from '@lyness/lyn-client-test-runtime'
+import { en as commonEn } from '@lyness/lyn-client-locale/src/locales/en.ts'
+import { zh as commonZh } from '@lyness/lyn-client-locale/src/locales/zh.ts'
 import { en, zh, type TrajectoryTranslate } from '../src/client/locales.ts'
 
 /** English trajectory translator for component and pure-layout tests. */

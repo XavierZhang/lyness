@@ -13,10 +13,10 @@ A deployment on your own hardware serves your own staff: it has accounts and no 
 Install Node.js, then create a profile from the `enterprise` template under a name of your own:
 
 ```sh
-npx @deepseek-ai/dsh --profile acme --from-default-profile enterprise
+npx @lyness/lyn --profile acme --from-default-profile enterprise
 ```
 
-That writes `$DSH_HOME/profiles/acme/` — a `package.json` holding the ordered bundle list, and a `cordis.patch.yml` holding your own composition layer. The first start refuses to boot, and the message says why: the deployment has not named its people. That refusal is the design, not a fault — nothing invents who administers an installation.
+That writes `$LYNESS_HOME/profiles/acme/` — a `package.json` holding the ordered bundle list, and a `cordis.patch.yml` holding your own composition layer. The first start refuses to boot, and the message says why: the deployment has not named its people. That refusal is the design, not a fault — nothing invents who administers an installation.
 
 ### Name your people
 
@@ -24,7 +24,7 @@ Write the roster into the profile's `cordis.patch.yml`:
 
 ```yaml
 - id: people
-  name: '@deepseek-ai/dsh-managed-people/directory'
+  name: '@lyness/lyn-managed-people/directory'
   config:
     people:
       - id: ada
@@ -47,14 +47,14 @@ The first administrator cannot configure anything before signing in, so their ch
 
 ```yaml
 - id: sign-in-channel-head-office
-  name: '@deepseek-ai/dsh-wecom'
+  name: '@lyness/lyn-wecom'
   config:
     corpId: ww-your-corp-id
     agentId: '1000002'
     secret: WECOM_APP_SECRET
 
 - id: sign-in-admission
-  name: '@deepseek-ai/dsh-managed-people/admission'
+  name: '@lyness/lyn-managed-people/admission'
   config:
     bindings:
       - channel: wecom
@@ -70,15 +70,15 @@ The first administrator cannot configure anything before signing in, so their ch
 `secret:` names a credential reference, never the secret itself. Before the first start there is no console to type it into, so the value comes from the environment:
 
 ```sh
-WECOM_APP_SECRET=... npx @deepseek-ai/dsh --profile acme
+WECOM_APP_SECRET=... npx @lyness/lyn --profile acme
 ```
 
-An inherited environment variable wins over everything else and cannot be edited from inside the product, which is what makes it the right place for a bootstrap secret. For a value that survives a restart, write `$DSH_HOME/.env` instead and give it mode `600`. Secrets saved from the console later live in `$DSH_HOME/.credentials.yaml`, which the product writes and reads itself.
+An inherited environment variable wins over everything else and cannot be edited from inside the product, which is what makes it the right place for a bootstrap secret. For a value that survives a restart, write `$LYNESS_HOME/.env` instead and give it mode `600`. Secrets saved from the console later live in `$LYNESS_HOME/.credentials.yaml`, which the product writes and reads itself.
 
 ### Start it
 
 ```sh
-npx @deepseek-ai/dsh --profile acme --port 8080 --no-open
+npx @lyness/lyn --profile acme --port 8080 --no-open
 ```
 
 Flags after the profile belong to the web app: `--host`, `--port`, `--trusted-host`, `--no-open`. To check the composed tree without starting anything, use `--dump-config`.
@@ -115,9 +115,9 @@ Removing a channel ends the way in for everybody who signed in through it and de
 
 ### Upgrade it
 
-Installing a newer dsh does not rewrite your profile, with one exception: when a release moves a capability into a different bundle, a profile whose bundle list is still exactly one this product shipped is brought forward to the current list. A list you edited — a plugin added, a bundle removed — is left exactly as you wrote it, and a profile already on the current list is not written at all.
+Installing a newer lyn does not rewrite your profile, with one exception: when a release moves a capability into a different bundle, a profile whose bundle list is still exactly one this product shipped is brought forward to the current list. A list you edited — a plugin added, a bundle removed — is left exactly as you wrote it, and a profile already on the current list is not written at all.
 
-So after an upgrade that changed the shape of a profile, check `$DSH_HOME/profiles/<name>/package.json` against the shipped list only if you have edited it; the release notes name what moved. An edited profile that misses a new bundle keeps working, except where the release moved rows between composition layers — the startup log names the rows it could not place.
+So after an upgrade that changed the shape of a profile, check `$LYNESS_HOME/profiles/<name>/package.json` against the shipped list only if you have edited it; the release notes name what moved. An edited profile that misses a new bundle keeps working, except where the release moved rows between composition layers — the startup log names the rows it could not place.
 
 ### Who can do what
 

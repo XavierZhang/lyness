@@ -1,20 +1,20 @@
-import { createUserMessage } from '@deepseek-ai/dsh-llm'
-import { provideWorkingDirectoryFixture, mountAgentLoopTestDependencies } from '@deepseek-ai/dsh-agent-loop-testkit'
+import { createUserMessage } from '@lyness/lyn-llm'
+import { provideWorkingDirectoryFixture, mountAgentLoopTestDependencies } from '@lyness/lyn-agent-loop-testkit'
 import { mkdtemp, mkdir, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import { SessionId } from '@deepseek-ai/dsh-session'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import AgentLoop from '@deepseek-ai/dsh-agent-loop'
-import * as LlmDeepSeek from '@deepseek-ai/dsh-llm-deepseek-api-key'
-import * as AgentInstructions from '@deepseek-ai/dsh-agent-instructions'
+import { Context } from '@lyness/cordis'
+import { SessionId } from '@lyness/lyn-session'
+import type { Agent } from '@lyness/lyn-agent'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import * as LlmDeepSeek from '@lyness/lyn-llm-deepseek-api-key'
+import * as AgentInstructions from '@lyness/lyn-agent-instructions'
 import { candidateScopeKey } from '../src/render.ts'
-import LocalFileSystem from '@deepseek-ai/dsh-fs-local'
-import * as ToolFs from '@deepseek-ai/dsh-tool-fs'
-import type { SessionEvent } from '@deepseek-ai/dsh-session'
-import { E2E_TARGET } from '@deepseek-ai/dsh-e2e-target'
+import LocalFileSystem from '@lyness/lyn-fs-local'
+import * as ToolFs from '@lyness/lyn-tool-fs'
+import type { SessionEvent } from '@lyness/lyn-session'
+import { E2E_TARGET } from '@lyness/lyn-e2e-target'
 
 const PROBE = 'banana-271828'
 const NESTED_PROBE = 'papaya-314159'
@@ -32,7 +32,7 @@ afterEach(async () => {
 })
 
 async function harness(): Promise<{ ctx: Context; agent: Agent }> {
-  workdir = await mkdtemp(join(tmpdir(), 'dsh-workspace-context-e2e-'))
+  workdir = await mkdtemp(join(tmpdir(), 'lyn-workspace-context-e2e-'))
   await mkdir(join(workdir, '.git'), { recursive: true })
   await writeFile(join(workdir, 'AGENTS.md'), `If the user asks for the workspace context handshake, reply with exactly this string and nothing else: ${PROBE}.\n`)
   ctx = new Context()
@@ -42,9 +42,9 @@ async function harness(): Promise<{ ctx: Context; agent: Agent }> {
   })
   await ctx.plugin(LocalFileSystem, { cwd: '/' })
   await ctx.plugin(ToolFs)
-  // Keep the developer's real ~/.dsh and ~/.agents out of the model-visible baseline.
-  vi.stubEnv('DSH_HOME', join(workdir, 'absent-dsh'))
-  vi.stubEnv('DSH_AGENTS_HOME', join(workdir, 'absent-agents'))
+  // Keep the developer's real ~/.lyn and ~/.agents out of the model-visible baseline.
+  vi.stubEnv('LYNESS_HOME', join(workdir, 'absent-lyn'))
+  vi.stubEnv('LYNESS_AGENTS_HOME', join(workdir, 'absent-agents'))
   await ctx.plugin(AgentInstructions, { maxBytes: 65536 })
   await ctx.plugin(AgentLoop, { agents: [] })
   await ctx.plugin(LlmDeepSeek, { models: [{ id: E2E_TARGET.model }] })

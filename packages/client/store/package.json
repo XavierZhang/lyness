@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-client-store",
+  "name": "@lyness/lyn-client-store",
   "description": "React-free observable and snapshot-store contracts with the shared Zustand/Immer engine",
   "version": "0.2.1-rc.3",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/client/store"
   },
   "type": "module",
@@ -23,12 +23,12 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~"
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "zustand": "~4.5.7",
-    "immer": "^10.1.1"
+    "@lyness/cordis": "workspace:~",
+    "immer": "^10.1.1",
+    "zustand": "~4.5.7"
   },
   "files": [
     "lib/index.js",

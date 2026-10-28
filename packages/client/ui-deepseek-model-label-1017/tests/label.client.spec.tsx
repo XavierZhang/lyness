@@ -1,9 +1,9 @@
 // @vitest-environment jsdom
 import { expect, it, onTestFinished } from 'vitest'
-import { LocaleRuntime } from '@deepseek-ai/dsh-client-locale/client'
-import { SlotTestRuntime } from '@deepseek-ai/dsh-client-test-runtime'
-import { SessionId } from '@deepseek-ai/dsh-session/types'
-import type { ModelLabelOwner } from '@deepseek-ai/dsh-client-ui-model-selection/client'
+import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
+import { SlotTestRuntime } from '@lyness/lyn-client-test-runtime'
+import { SessionId } from '@lyness/lyn-session/types'
+import type { ModelLabelOwner } from '@lyness/lyn-client-ui-model-selection/client'
 import * as HostPlugin from '../src/index.ts'
 import * as LabelPlugin from '../src/client/index.ts'
 

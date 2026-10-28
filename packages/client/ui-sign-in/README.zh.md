@@ -3,13 +3,13 @@ description: "有账户的部署给未登录者看的那块屏，以及说出谁
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-client-ui-sign-in
+# @lyness/lyn-client-ui-sign-in
 
 [English](README.md) | 中文
 
 ## 概述
 
-`dsh-client-ui-sign-in` 是一个人进入「服务有名有姓的人」的部署的方式：在没人登录时盖住产品的一块屏，按部署挂载的渠道各给一个按钮；以及通用设置里说出这是谁的会话、并提供出口的一行。两者读同一个来自 `remote.identity` 的答案，于是打开设置与加载框架不会问部署两次。在没有账户的部署上两者都不渲染，单操作者形态毫无变化。
+`lyn-client-ui-sign-in` 是一个人进入「服务有名有姓的人」的部署的方式：在没人登录时盖住产品的一块屏，按部署挂载的渠道各给一个按钮；以及通用设置里说出这是谁的会话、并提供出口的一行。两者读同一个来自 `remote.identity` 的答案，于是打开设置与加载框架不会问部署两次。在没有账户的部署上两者都不渲染，单操作者形态毫无变化。
 
 ## 目录
 
@@ -29,9 +29,9 @@ Web bundle 把两侧与它们读的那个命名空间并列挂上：
 
 ```yaml
 - id: identity-controller
-  name: '@deepseek-ai/dsh-api-identity-controller'
+  name: '@lyness/lyn-api-identity-controller'
 - id: ui-sign-in
-  name: '@deepseek-ai/dsh-client-ui-sign-in'
+  name: '@lyness/lyn-client-ui-sign-in'
 ```
 
 别的都不用配。出现什么由答案决定：没有账户就什么都不渲染，有账户而没人登录就盖住产品，已登录的访客只看到设置里那一行。
@@ -58,9 +58,9 @@ Web bundle 把两侧与它们读的那个命名空间并列挂上：
 <a id="further-exploration"></a>
 ## 延伸阅读
 
-- [`dsh-api-identity-controller`](../../api/identity-controller/README.zh.md) —— 两个界面读的那个命名空间。
-- [`dsh-sign-in-http`](../../identity/sign-in-http/README.zh.md) —— 链接所指向的那些路由。
-- [`dsh-api-remote-authority`](../../api/remote-authority/README.zh.md) —— 真正拒绝未出示身份调用的那一条规则。
+- [`lyn-api-identity-controller`](../../api/identity-controller/README.zh.md) —— 两个界面读的那个命名空间。
+- [`lyn-sign-in-http`](../../identity/sign-in-http/README.zh.md) —— 链接所指向的那些路由。
+- [`lyn-api-remote-authority`](../../api/remote-authority/README.zh.md) —— 真正拒绝未出示身份调用的那一条规则。
 
 -----
 

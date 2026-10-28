@@ -2,7 +2,7 @@
 
 [English](multi-tenancy.md) | 中文
 
-部署服务哪些租户，以及一个请求属于哪一个。租户是一个组织，其数据、配置与凭据与其他所有租户彼此分开；本子系统只拥有租户的身份与找到它的查找。`ctx.tenants` 是提供三种查法的目录，由 [dsh-tenant](../../packages/tenant/tenant) 定义，由组合配置中的清单支撑（[dsh-tenant-static](../../packages/tenant/tenant-static)），并由 [dsh-tenant-http](../../packages/tenant/tenant-http) 在 HTTP 上消费。三者都不挂载的部署即单租户，其余部分毫无变化。
+部署服务哪些租户，以及一个请求属于哪一个。租户是一个组织，其数据、配置与凭据与其他所有租户彼此分开；本子系统只拥有租户的身份与找到它的查找。`ctx.tenants` 是提供三种查法的目录，由 [lyn-tenant](../../packages/tenant/tenant) 定义，由组合配置中的清单支撑（[lyn-tenant-static](../../packages/tenant/tenant-static)），并由 [lyn-tenant-http](../../packages/tenant/tenant-http) 在 HTTP 上消费。三者都不挂载的部署即单租户，其余部分毫无变化。
 
 来源：[`packages/tenant/tenant/src/index.ts`](../../packages/tenant/tenant/src/index.ts)
 
@@ -47,7 +47,7 @@ interface Tenant {
 
 ## 租户配置
 
-`ctx.tenantConfig` 读取一个租户为自己配置的内容，由 [dsh-tenant-config](../../packages/tenant/tenant-config) 定义，其支撑要么是组合配置中的行（[dsh-tenant-config-static](../../packages/tenant/tenant-config-static)），要么是存储域中的记录（[dsh-tenant-config-store](../../packages/tenant/tenant-config-store)）。私有化部署与 SaaS 租户的配置方式完全相同，只是它只有一个租户。租户在此不配置的是品牌——标志、字标、favicon、产品名——那属于部署。
+`ctx.tenantConfig` 读取一个租户为自己配置的内容，由 [lyn-tenant-config](../../packages/tenant/tenant-config) 定义，其支撑要么是组合配置中的行（[lyn-tenant-config-static](../../packages/tenant/tenant-config-static)），要么是存储域中的记录（[lyn-tenant-config-store](../../packages/tenant/tenant-config-store)）。私有化部署与 SaaS 租户的配置方式完全相同，只是它只有一个租户。租户在此不配置的是品牌——标志、字标、favicon、产品名——那属于部署。
 
 ```ts type-equiv
 /** Everything one tenant configures for itself. */
@@ -94,7 +94,7 @@ interface TenantIdentity {
 
 ## 通过 RPC 配置租户
 
-`ctx.remote.tenant` 是管理界面读写租户配置的入口（[dsh-api-tenant-controller](../../packages/api/tenant-controller)）。`describe` 答复调用方租户自己的配置——模型、以凭据引用形式出现的授权、功能、身份、文案——外加 `writable`（本部署的后端是否接受保存）与 `configured`（区分「什么都没保存过的租户」与「把一切都保存为空的租户」）。`save` 整份替换配置；`TenantConfigInput` 不携带租户 id，因为租户就是这次调用所属的那个。
+`ctx.remote.tenant` 是管理界面读写租户配置的入口（[lyn-api-tenant-controller](../../packages/api/tenant-controller)）。`describe` 答复调用方租户自己的配置——模型、以凭据引用形式出现的授权、功能、身份、文案——外加 `writable`（本部署的后端是否接受保存）与 `configured`（区分「什么都没保存过的租户」与「把一切都保存为空的租户」）。`save` 整份替换配置；`TenantConfigInput` 不携带租户 id，因为租户就是这次调用所属的那个。
 
 租户永远不是方法参数。能指名自己租户的调用方也就能指名任何租户，因此两个方法都读 `ctx.requestTenant`，并以 `tenant/unresolved` 拒绝没有命名租户的调用。其余拒绝是：wire 字段不合法为 `gateway/bad-request`，未挂载存储为 `gateway/internal`，存储不接受保存为 `tenant/read-only`，能力缝规则拒绝该配置为 `tenant/rejected`（一次列出全部问题）。
 
@@ -102,9 +102,9 @@ interface TenantIdentity {
 
 ## 在会话日志里
 
-会话会记录它属于哪个租户，以及该租户贡献的身份文本——这是在创建时写入一次的仅日志事件 `tenant/identity`（[dsh-tenant-session](../../packages/tenant/tenant-session)，生成条目见[持久化目录](../persistence-catalog.zh.md#tenantidentity--log-only)）。归属要求会话结束很久之后仍能说清租户；重建要求记录文本本身，因为它会进入模型请求，而租户之后修改配置会让这个会话无法还原。fork 出来的会话与被恢复的会话保留其创建时的记录，`tenant` 会话投影把它折叠回来。
+会话会记录它属于哪个租户，以及该租户贡献的身份文本——这是在创建时写入一次的仅日志事件 `tenant/identity`（[lyn-tenant-session](../../packages/tenant/tenant-session)，生成条目见[持久化目录](../persistence-catalog.zh.md#tenantidentity--log-only)）。归属要求会话结束很久之后仍能说清租户；重建要求记录文本本身，因为它会进入模型请求，而租户之后修改配置会让这个会话无法还原。fork 出来的会话与被恢复的会话保留其创建时的记录，`tenant` 会话投影把它折叠回来。
 
-挂载了 [dsh-tenant-request](../../packages/tenant/tenant-request) 时，租户来自创建该会话的那个请求；否则来自插件配置。Remote 方法不携带自己到达时的请求，因此该插件在 Connection 上注册一个每请求作用域，在调用到达时一次性解析出租户与其配置，并在调用期间以 `ctx.requestTenant` 发布二者——这正是同步的会话创建监听器能读到它们的原因。在调用之外创建的会话仍以配置的租户为准：CLI 运行、恢复的会话、子 Agent。
+挂载了 [lyn-tenant-request](../../packages/tenant/tenant-request) 时，租户来自创建该会话的那个请求；否则来自插件配置。Remote 方法不携带自己到达时的请求，因此该插件在 Connection 上注册一个每请求作用域，在调用到达时一次性解析出租户与其配置，并在调用期间以 `ctx.requestTenant` 发布二者——这正是同步的会话创建监听器能读到它们的原因。在调用之外创建的会话仍以配置的租户为准：CLI 运行、恢复的会话、子 Agent。
 
 ## 租户清单
 
@@ -1073,6 +1073,8 @@ current(): Principal | undefined
  */
 as<T>(principal: Principal | undefined, run: () => T): T
 ```
+
+Types: [Principal](typert.zh.md)
 
 Source: [`packages/identity/request-principal/src/index.ts`](../../packages/identity/request-principal/src/index.ts)
 

@@ -7,13 +7,13 @@
  * person's — a desktop cannot attach as someone else, because the principal
  * comes from the session it presented rather than from anything it sends.
  *
- * @module @deepseek-ai/dsh-desktop-link/controller
+ * @module @lyness/lyn-desktop-link/controller
  */
 
-import { Context } from '@deepseek-ai/cordis'
-import { Remote, TypertRemoteService } from '@deepseek-ai/dsh-typert-protocol'
-import type { RemoteStream } from '@deepseek-ai/dsh-typert-protocol'
-import type {} from '@deepseek-ai/dsh-request-principal'
+import { Context } from '@lyness/cordis'
+import { Remote, TypertRemoteService } from '@lyness/lyn-typert-protocol'
+import type { RemoteStream } from '@lyness/lyn-typert-protocol'
+import type {} from '@lyness/lyn-request-principal'
 import type {} from './index.ts'
 import type { DesktopReply, DesktopRequest } from './types.ts'
 

@@ -5,57 +5,57 @@
 /:
   en: 7cfe3761eedff848
   zh: 80b0bed5743d0924
-/deepseek-harness-dsh-hook-protocol:
+/lyness-lyn-hook-protocol:
   en: 19008de3d07ab71c
   zh: 87822e783f639b3e
-/deepseek-harness-dsh-hook-protocol/summary:
+/lyness-lyn-hook-protocol/summary:
   en: db526d7002a41a0a
   zh: af6142c4085bab85
-/deepseek-harness-dsh-hook-protocol/table-of-contents:
+/lyness-lyn-hook-protocol/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/deepseek-harness-dsh-hook-protocol/use-this-package:
+/lyness-lyn-hook-protocol/use-this-package:
   en: 4408de2bd44a20ee
   zh: 33fb8506d07bd35e
-/deepseek-harness-dsh-hook-protocol/use-this-package/when-to-choose-it:
+/lyness-lyn-hook-protocol/use-this-package/when-to-choose-it:
   en: ab84bd32f7844208
   zh: 5666047aeea01624
-/deepseek-harness-dsh-hook-protocol/use-this-package/what-a-hook-can-do:
+/lyness-lyn-hook-protocol/use-this-package/what-a-hook-can-do:
   en: 043f54b3a5b518a7
   zh: a4115083a9b1cef1
-/deepseek-harness-dsh-hook-protocol/use-this-package/what-you-see-when-hooks-run:
+/lyness-lyn-hook-protocol/use-this-package/what-you-see-when-hooks-run:
   en: ba2d6ed1db063f53
   zh: ab1b8d72dccd2ff1
-/deepseek-harness-dsh-hook-protocol/understand-the-implementation:
+/lyness-lyn-hook-protocol/understand-the-implementation:
   en: 08b3960150e9c5e2
   zh: 6bb2f236d697de01
-/deepseek-harness-dsh-hook-protocol/understand-the-implementation/processing-pipeline:
+/lyness-lyn-hook-protocol/understand-the-implementation/processing-pipeline:
   en: e9f7514082af4ec8
   zh: 4d91f7d4ffe73416
-/deepseek-harness-dsh-hook-protocol/understand-the-implementation/hook-session-events:
+/lyness-lyn-hook-protocol/understand-the-implementation/hook-session-events:
   en: df385034792cc4b7
   zh: db098189111877c3
-/deepseek-harness-dsh-hook-protocol/understand-the-implementation/design-philosophy:
+/lyness-lyn-hook-protocol/understand-the-implementation/design-philosophy:
   en: f84d6ec047897ec9
   zh: 3d1088a4fa06bf01
-/deepseek-harness-dsh-hook-protocol/understand-the-implementation/source-map:
+/lyness-lyn-hook-protocol/understand-the-implementation/source-map:
   en: d613d9bd98d499fb
   zh: afe2939d7df250ea
-/deepseek-harness-dsh-hook-protocol/further-exploration:
+/lyness-lyn-hook-protocol/further-exploration:
   en: 15e8aeb4db821a80
   zh: d6fc26d3da0cbdb3
-/deepseek-harness-dsh-hook-protocol/model-experience:
+/lyness-lyn-hook-protocol/model-experience:
   en: de4d399e2cf45496
   zh: 05f163a237754329
-/deepseek-harness-dsh-hook-protocol/model-experience/kv-cache-effect:
+/lyness-lyn-hook-protocol/model-experience/kv-cache-effect:
   en: e290ccc9b3c92c08
   zh: cb3c8823f41e7afe
-/deepseek-harness-dsh-hook-protocol/known-limitations-and-deferred-work:
+/lyness-lyn-hook-protocol/known-limitations-and-deferred-work:
   en: fba05637add75d6a
   zh: fef1db91ce029009
-/deepseek-harness-dsh-hook-protocol/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-hook-protocol/known-limitations-and-deferred-work/dev-note:
   en: ac1d08360a93382b
   zh: 6c58749bae9a6e65
-/deepseek-harness-dsh-hook-protocol/known-limitations-and-deferred-work/dev-note/future-run-level-halt:
+/lyness-lyn-hook-protocol/known-limitations-and-deferred-work/dev-note/future-run-level-halt:
   en: bfb3db50de22c1d0
   zh: 2a979359b0edbbe7

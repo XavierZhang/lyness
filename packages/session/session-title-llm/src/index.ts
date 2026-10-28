@@ -3,14 +3,14 @@
  * preparation, input/token/time bounds, cancellation, exact auxiliary request
  * logging, and stream assembly. Title wording, length targets, reasoning
  * selection, and output interpretation belong to each provider.
- * @module @deepseek-ai/dsh-session-title-llm
+ * @module @lyness/lyn-session-title-llm
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
-import { createUserMessage, BlockAssembler } from '@deepseek-ai/dsh-llm'
-import type { ContextFormed } from '@deepseek-ai/dsh-llm'
-declare module '@deepseek-ai/dsh-llm' {
+import type { Context } from '@lyness/cordis'
+import z from '@lyness/schemastery'
+import { createUserMessage, BlockAssembler } from '@lyness/lyn-llm'
+import type { ContextFormed } from '@lyness/lyn-llm'
+declare module '@lyness/lyn-llm' {
   interface MessageSourceMap {
     'dsh-session-title-llm': { kind: 'dsh-session-title-llm' } & ContextFormed
   }
@@ -23,15 +23,15 @@ import type {
   LlmResolvedModelInfo,
   Message,
   ReasoningEffortId,
-} from '@deepseek-ai/dsh-llm'
-import { deadline, MAX_TIMER_DELAY_MS } from '@deepseek-ai/dsh-timeout'
-import { assertNever, deepFreeze } from '@deepseek-ai/dsh-util-values'
-import type { SessionSeq } from '@deepseek-ai/dsh-session'
-import { SessionTitleProviderId } from '@deepseek-ai/dsh-session-title'
+} from '@lyness/lyn-llm'
+import { deadline, MAX_TIMER_DELAY_MS } from '@lyness/lyn-timeout'
+import { assertNever, deepFreeze } from '@lyness/lyn-util-values'
+import type { SessionSeq } from '@lyness/lyn-session'
+import { SessionTitleProviderId } from '@lyness/lyn-session-title'
 import type {
   SessionTitleModelIdentity,
   SessionTitleProviderRequest,
-} from '@deepseek-ai/dsh-session-title'
+} from '@lyness/lyn-session-title'
 
 /** Exact model-visible request recorded before one auxiliary title dispatch. */
 export interface SessionTitleLlmRequestEventData {
@@ -51,7 +51,7 @@ export interface SessionTitleLlmRequestEventData {
   readonly reasoningEffort?: ReasoningEffortId
 }
 
-declare module '@deepseek-ai/dsh-session/types' {
+declare module '@lyness/lyn-session/types' {
   interface SessionEventMap {
     /** Log-only pre-dispatch record of one session-title model request. */
     'session/title-llm-request': SessionTitleLlmRequestEventData

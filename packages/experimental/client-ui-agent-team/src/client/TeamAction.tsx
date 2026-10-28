@@ -1,20 +1,20 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import type {} from '@deepseek-ai/dsh-agent/types'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import type {} from '@lyness/lyn-agent/types'
+import type { SessionId } from '@lyness/lyn-session/types'
 import type {
   TeamMemberProjection,
   TeamTaskView as TeamTask,
-} from '@deepseek-ai/dsh-experimental-agent-team/client'
-import type {} from '@deepseek-ai/dsh-api-session-controller/client'
+} from '@lyness/lyn-experimental-agent-team/client'
+import type {} from '@lyness/lyn-api-session-controller/client'
 import {
   IconChevronDownOutlineRegular,
   IconUserOutlineRegular, IconUsersOutlineRegular, StateDot, Tag, Tooltip,
   useAnchoredPosition, useDismissOnOutsidePointer, type StateDotState,
-} from '@deepseek-ai/dsh-client-ui-primitives'
-import type { PropsLocale, PropsRuntime } from '@deepseek-ai/dsh-client-ui-slots'
-import type { TranslateNS } from '@deepseek-ai/dsh-client-ui-slots'
-import type {} from '@deepseek-ai/dsh-client-ui-conversation/client'
+} from '@lyness/lyn-client-ui-primitives'
+import type { PropsLocale, PropsRuntime } from '@lyness/lyn-client-ui-slots'
+import type { TranslateNS } from '@lyness/lyn-client-ui-slots'
+import type {} from '@lyness/lyn-client-ui-conversation/client'
 import { NS, type TeamKey } from './locales.ts'
 import css from './TeamAction.module.css'
 

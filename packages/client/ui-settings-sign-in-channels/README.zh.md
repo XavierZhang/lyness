@@ -3,13 +3,13 @@ description: "管理员配置人们经由哪些目录登录的那个设置页。
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-client-ui-settings-sign-in-channels
+# @lyness/lyn-client-ui-settings-sign-in-channels
 
 [English](README.md) | 中文
 
 ## 概述
 
-`dsh-client-ui-settings-sign-in-channels` 加一个设置页：这套部署让人们经由哪些目录登录，以及增删改一个渠道的表单。表单的字段来自管理员选的那个种类，所以它不会去要一个目录根本不收的设置。应用密钥只进不出——这个页面读到的任何东西都产生不出一把密钥。
+`lyn-client-ui-settings-sign-in-channels` 加一个设置页：这套部署让人们经由哪些目录登录，以及增删改一个渠道的表单。表单的字段来自管理员选的那个种类，所以它不会去要一个目录根本不收的设置。应用密钥只进不出——这个页面读到的任何东西都产生不出一把密钥。
 
 ## 目录
 
@@ -29,7 +29,7 @@ Web bundle 把它挂在其余设置页旁边：
 
 ```yaml
 - id: ui-settings-sign-in-channels
-  name: '@deepseek-ai/dsh-client-ui-settings-sign-in-channels'
+  name: '@lyness/lyn-client-ui-settings-sign-in-channels'
 ```
 
 没有别的要配。页面打开时读 `remote.signInChannels`，并渲染四者之一：渠道与表单、一句「这个部署不配置登录渠道」、一句「只有管理员能配置」，或者一次失败加一个重试。
@@ -52,9 +52,9 @@ Web bundle 把它挂在其余设置页旁边：
 <a id="further-exploration"></a>
 ## 延伸阅读
 
-- [`dsh-api-sign-in-channel-controller`](../../api/sign-in-channel-controller/README.zh.md) —— 这个页面调用的命名空间，以及每种拒绝的含义。
-- [`dsh-sign-in-channels`](../../identity/sign-in-channels/README.zh.md) —— 它背后的记录，以及那条决定谁能改什么的规则。
-- [`dsh-client-ui-sign-in`](../ui-sign-in/README.zh.md) —— 配置好的渠道出现在哪块屏上。
+- [`lyn-api-sign-in-channel-controller`](../../api/sign-in-channel-controller/README.zh.md) —— 这个页面调用的命名空间，以及每种拒绝的含义。
+- [`lyn-sign-in-channels`](../../identity/sign-in-channels/README.zh.md) —— 它背后的记录，以及那条决定谁能改什么的规则。
+- [`lyn-client-ui-sign-in`](../ui-sign-in/README.zh.md) —— 配置好的渠道出现在哪块屏上。
 
 -----
 

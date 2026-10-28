@@ -43,19 +43,19 @@ const resolved = resolveConfig(config())
 
 describe('the page a sign-in sends the browser to', () => {
   it('names the application, the callback, and the attempt', () => {
-    const url = authorizeUrl(resolved, 'attempt-1', 'https://dsh.example/oauth/callback/feishu')
+    const url = authorizeUrl(resolved, 'attempt-1', 'https://lyn.example/oauth/callback/feishu')
     expect(url.origin).toBe('https://open.feishu.cn')
     expect(url.pathname).toBe('/open-apis/authen/v1/authorize')
     expect(Object.fromEntries(url.searchParams)).toEqual({
       app_id: 'cli-app-id',
-      redirect_uri: 'https://dsh.example/oauth/callback/feishu',
+      redirect_uri: 'https://lyn.example/oauth/callback/feishu',
       state: 'attempt-1',
     })
   })
 
   it('goes to the origin an international deployment names instead', () => {
     const lark = resolveConfig(config({ apiOrigin: 'https://open.larksuite.com' }))
-    expect(authorizeUrl(lark, 's', 'https://dsh.example/cb').origin).toBe('https://open.larksuite.com')
+    expect(authorizeUrl(lark, 's', 'https://lyn.example/cb').origin).toBe('https://open.larksuite.com')
   })
 })
 

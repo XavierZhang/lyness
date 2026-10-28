@@ -1,4 +1,4 @@
-// Real-host smoke: spawn `dsh web` with a real key, walk the full flow
+// Real-host smoke: spawn `lyn web` with a real key, walk the full flow
 // list in a real chromium, screenshot every screen into .artifacts/ for the
 // figma comparison pass. Self-skips without DEEPSEEK_API_KEY (repo e2e
 // convention); vitest.web.config.ts loads the repo-root .env before this file
@@ -56,7 +56,7 @@ function authenticatedWeb(launchUrl: string): Promise<{ origin: string; cookie: 
     const response = await fetch(launchUrl, { redirect: 'manual' })
     const setCookie = response.headers.get('set-cookie')
     if (response.status !== 303 || setCookie === null) {
-      throw new Error(`dsh web authentication returned HTTP ${String(response.status)}`)
+      throw new Error(`lyn web authentication returned HTTP ${String(response.status)}`)
     }
     return {
       origin: new URL(launchUrl).origin,
@@ -72,10 +72,10 @@ const comboMapUrl = (url: string): string => url.replace(/\/client\.js(?=,|&rev=
 function waitForReadyLine(child: ChildProcess): Promise<string> {
   return new Promise((resolveReady, reject) => {
     let out = ''
-    const timer = setTimeout(() => { reject(new Error(`dsh web not ready in 90s; output:\n${out}`)) }, 90_000)
+    const timer = setTimeout(() => { reject(new Error(`lyn web not ready in 90s; output:\n${out}`)) }, 90_000)
     const onData = (chunk: Buffer): void => {
       out += chunk.toString()
-      const match = /dsh web: (http:\/\/[^\s]+)/.exec(out)
+      const match = /lyn web: (http:\/\/[^\s]+)/.exec(out)
       if (match?.[1] !== undefined) {
         clearTimeout(timer)
         resolveReady(match[1])
@@ -85,7 +85,7 @@ function waitForReadyLine(child: ChildProcess): Promise<string> {
     child.stderr?.on('data', onData)
     child.once('exit', (code) => {
       clearTimeout(timer)
-      reject(new Error(`dsh web exited early (code ${code}); output:\n${out}`))
+      reject(new Error(`lyn web exited early (code ${code}); output:\n${out}`))
     })
   })
 }
@@ -295,7 +295,7 @@ async function detailsTrack(page: Page): Promise<number> {
   return Number(cols.split(' ').pop()!.replace('px', ''))
 }
 
-// Readiness gate: `dsh web` serves every production manifest plugin; until every UI
+// Readiness gate: `lyn web` serves every production manifest plugin; until every UI
 // plugin's client bundle exists and exports apply, the loader fail-louds and
 // the frame never appears.
 const UI_PLUGIN_DIRS = [
@@ -310,10 +310,10 @@ const notReady = UI_PLUGIN_DIRS.filter((dir) => {
 })
 if (notReady.length > 0) console.warn(`[smoke-real] skipped — client bundles not ready: ${notReady.join(', ')}`)
 
-describe('dsh web keyless CLI smoke', () => {
+describe('lyn web keyless CLI smoke', () => {
   it('serves a usable app from two immutable plugin batches', async () => {
     requireDist()
-    const sessionsDir = mkdtempSync(join(tmpdir(), 'dsh-web-keyless-'))
+    const sessionsDir = mkdtempSync(join(tmpdir(), 'lyn-web-keyless-'))
     const tsxLoader = pathToFileURL(createRequire(join(REPO_ROOT, 'package.json')).resolve('tsx')).href
     const child = spawn(
       process.execPath,
@@ -323,8 +323,8 @@ describe('dsh web keyless CLI smoke', () => {
         env: {
           ...process.env,
           DEEPSEEK_API_KEY: 'keyless-web-no-call',
-          DSH_HOME: join(sessionsDir, '.dsh'),
-          DSH_AGENTS_HOME: join(sessionsDir, '.agents'),
+          LYNESS_HOME: join(sessionsDir, '.lyn'),
+          LYNESS_AGENTS_HOME: join(sessionsDir, '.agents'),
           TSX_TSCONFIG_PATH: join(REPO_ROOT, 'tsconfig.json'),
         },
         stdio: ['ignore', 'pipe', 'pipe'],
@@ -361,7 +361,7 @@ describe('dsh web keyless CLI smoke', () => {
       // The bootstrap phase is the modules package alone; the application phase
       // is one combo. Upstream splits it in two because its map-form URL is
       // just over the 3 KiB limit, and this fork's names are shorter: the same
-      // 63 packages spell `@deepseek-ai/dsh-`, five bytes less each than the scope
+      // 63 packages spell `@lyness/lyn-`, five bytes less each than the scope
       // and segment upstream uses, which takes the script URL from 3081 to
       // 2766 bytes and puts the phase back inside one combo.
       expect(batchPaths).toHaveLength(2)
@@ -369,7 +369,7 @@ describe('dsh web keyless CLI smoke', () => {
         /^\/plugins\/\?\?.+\/client\.js,.+\/client\.js&rev=[a-f\d]{12}$/.test(path)
       ))).toHaveLength(1)
       expect(batchPaths).toContainEqual(expect.stringMatching(
-        /^\/plugins\/\?\?@deepseek-ai\/dsh-client-modules\/client\.js&rev=[a-f\d]{12}$/,
+        /^\/plugins\/\?\?@lyness\/lyn-client-modules\/client\.js&rev=[a-f\d]{12}$/,
       ))
       const readyOrigin = new URL(readyUrl).origin
       expect([...cacheHeaders.values()]).toEqual([
@@ -409,7 +409,7 @@ describe('dsh web keyless CLI smoke', () => {
 
   it('routes web runtime context and workspace instructions through the real CLI request', async () => {
     requireDist()
-    const workspace = mkdtempSync(join(tmpdir(), 'dsh-web-workspace-'))
+    const workspace = mkdtempSync(join(tmpdir(), 'lyn-web-workspace-'))
     mkdirSync(join(workspace, '.git'))
     writeFileSync(join(workspace, 'AGENTS.md'), 'web-workspace-context-probe\n')
 
@@ -448,8 +448,8 @@ describe('dsh web keyless CLI smoke', () => {
           ...process.env,
           DEEPSEEK_API_KEY: 'keyless-web-workspace',
           DEEPSEEK_BASE_URL: `http://127.0.0.1:${address.port}`,
-          DSH_HOME: join(workspace, '.dsh'),
-          DSH_AGENTS_HOME: join(workspace, '.agents'),
+          LYNESS_HOME: join(workspace, '.lyn'),
+          LYNESS_AGENTS_HOME: join(workspace, '.agents'),
           TSX_TSCONFIG_PATH: join(REPO_ROOT, 'tsconfig.json'),
         },
         stdio: ['ignore', 'pipe', 'pipe'],
@@ -483,7 +483,7 @@ describe('dsh web keyless CLI smoke', () => {
       expect(captured.messages?.filter(message => message.role === 'user')
         .flatMap(message => message.content ?? [])
         .some(block => block.type === 'text'
-          && block.text?.includes(`Current DeepSeek Harness Web GUI URL: ${JSON.stringify(new URL(baseUrl).origin)}.`)))
+          && block.text?.includes(`Current lyness Web GUI URL: ${JSON.stringify(new URL(baseUrl).origin)}.`)))
         .toBe(true)
       expect(workspaceMessage).toMatchInlineSnapshot(`
         {
@@ -519,7 +519,7 @@ describe('dsh web keyless CLI smoke', () => {
 
   it('retries a partial transport failure through the shipped Web composition', async () => {
     requireDist()
-    const workspace = mkdtempSync(join(tmpdir(), 'dsh-web-retry-'))
+    const workspace = mkdtempSync(join(tmpdir(), 'lyn-web-retry-'))
     const promptMarker = 'WEB_RETRY_REQUEST'
     const recoveredMarker = 'WEB_RETRY_RECOVERED'
     let mainAttempts = 0
@@ -561,7 +561,7 @@ describe('dsh web keyless CLI smoke', () => {
           ...process.env,
           DEEPSEEK_API_KEY: 'keyless-web-retry',
           DEEPSEEK_BASE_URL: `http://127.0.0.1:${address.port}`,
-          DSH_HOME: join(workspace, '.dsh'),
+          LYNESS_HOME: join(workspace, '.lyn'),
           TSX_TSCONFIG_PATH: join(REPO_ROOT, 'tsconfig.json'),
         },
         stdio: ['ignore', 'pipe', 'pipe'],
@@ -607,7 +607,7 @@ describe('dsh web keyless CLI smoke', () => {
 
   it.each(['native', 'ptc'] as const)('selects the %s executor through profile overlays and ignores the retired environment selector', async (mode) => {
     requireDist()
-    const workspace = mkdtempSync(join(tmpdir(), 'dsh-web-ptc-'))
+    const workspace = mkdtempSync(join(tmpdir(), 'lyn-web-ptc-'))
 
     interface PtcModeProviderRequest {
       system?: string
@@ -634,8 +634,6 @@ describe('dsh web keyless CLI smoke', () => {
     const tsxLoader = pathToFileURL(createRequire(join(REPO_ROOT, 'package.json')).resolve('tsx')).href
     const child = spawn(
       process.execPath,
-      ['--import', tsxLoader, join(REPO_ROOT, 'apps/cli/src/bin.ts'), 'web',
-        ...mode === 'ptc' ? ['--patch', join(REPO_ROOT, 'apps/cli/config/examples/ptc.yml')] : [],
       // The environment seam this scenario measures applies only to a preset
       // that declares no presentation row, so the overlay selects `standard`
       // rather than the shipped `work` default, which declares `mode: both`.
@@ -644,6 +642,7 @@ describe('dsh web keyless CLI smoke', () => {
         // Launcher flags come first: the first token the launcher does not own
         // starts the web app's own arguments.
         '--patch', fileURLToPath(new URL('./standard-preset-default.overlay.yml', import.meta.url)),
+        ...mode === 'ptc' ? ['--patch', join(REPO_ROOT, 'apps/cli/config/examples/ptc.yml')] : [],
         '--no-open', '--port', '0',
       ],
       {
@@ -652,9 +651,9 @@ describe('dsh web keyless CLI smoke', () => {
           ...process.env,
           DEEPSEEK_API_KEY: 'keyless-web-ptc',
           DEEPSEEK_BASE_URL: `http://127.0.0.1:${address.port}`,
-          DSH_TOOLS_MODE: mode === 'native' ? 'ptc' : 'native',
-          DSH_HOME: join(workspace, '.dsh'),
-          DSH_AGENTS_HOME: join(workspace, '.agents'),
+          LYNESS_TOOLS_MODE: mode === 'native' ? 'ptc' : 'native',
+          LYNESS_HOME: join(workspace, '.lyn'),
+          LYNESS_AGENTS_HOME: join(workspace, '.agents'),
           TSX_TSCONFIG_PATH: join(REPO_ROOT, 'tsconfig.json'),
         },
         stdio: ['ignore', 'pipe', 'pipe'],
@@ -706,10 +705,10 @@ describe.skipIf(!process.env.DEEPSEEK_API_KEY || notReady.length > 0)('web smoke
 
   beforeAll(async () => {
     requireDist()
-    sessionsDir = mkdtempSync(join(tmpdir(), 'dsh-web-w5-'))
+    sessionsDir = mkdtempSync(join(tmpdir(), 'lyn-web-w5-'))
     const port = await probeFreePort()
-    // tsx boot mirrors the runtime half of the root dsh script. Isolate
-    // the host-level DeepSeek Harness and shared-agent homes inside the temp world; tsx
+    // tsx boot mirrors the runtime half of the root lyn script. Isolate
+    // the host-level lyness and shared-agent homes inside the temp world; tsx
     // also needs the repo's loader and tsconfig paths pointed at explicitly.
     const tsxLoader = pathToFileURL(createRequire(join(REPO_ROOT, 'package.json')).resolve('tsx')).href
     child = spawn(
@@ -728,8 +727,8 @@ describe.skipIf(!process.env.DEEPSEEK_API_KEY || notReady.length > 0)('web smoke
         cwd: sessionsDir,
         env: {
           ...process.env,
-          DSH_HOME: join(sessionsDir, '.dsh'),
-          DSH_AGENTS_HOME: join(sessionsDir, '.agents'),
+          LYNESS_HOME: join(sessionsDir, '.lyn'),
+          LYNESS_AGENTS_HOME: join(sessionsDir, '.agents'),
           TSX_TSCONFIG_PATH: join(REPO_ROOT, 'tsconfig.json'),
         },
         stdio: ['ignore', 'pipe', 'pipe'],
@@ -764,7 +763,7 @@ describe.skipIf(!process.env.DEEPSEEK_API_KEY || notReady.length > 0)('web smoke
 
   it('empty-state first send completes a real model round', async () => {
     onTestFailed(() => saveFailureShot(page, 'w5-first-round'))
-    // This scenario spawns its own server against a fresh $DSH_HOME with the
+    // This scenario spawns its own server against a fresh $LYNESS_HOME with the
     // DeepSeek credential inherited from the environment, so no onboarding
     // step mounts and the page is immediately interactive.
     // Fresh world: connect a Workspace so the composer starts live.

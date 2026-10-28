@@ -1,23 +1,23 @@
 /** Register the card frame, the tool row, their copy and the body registry. */
-import type { Context } from '@deepseek-ai/cordis'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
-import type {} from '@deepseek-ai/dsh-api-remotes/client'
-import type {} from '@deepseek-ai/dsh-client-locale/client'
-import type {} from '@deepseek-ai/dsh-client-ui-session/client'
-import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
-import type {} from '@deepseek-ai/dsh-client-ui-tool/client'
-import type {} from '@deepseek-ai/dsh-action-cards/remote'
-import type { TypertRemoteContribution } from '@deepseek-ai/dsh-typert-protocol'
+import type { Context } from '@lyness/cordis'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type {} from '@lyness/lyn-api-remotes/client'
+import type {} from '@lyness/lyn-client-locale/client'
+import type {} from '@lyness/lyn-client-ui-session/client'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
+import type {} from '@lyness/lyn-client-ui-tool/client'
+import type {} from '@lyness/lyn-action-cards/remote'
+import type { TypertRemoteContribution } from '@lyness/lyn-typert-protocol'
 import { ActionCardTail, type TailInjected } from './Card.tsx'
 import { ProposeRow } from './ProposeRow.tsx'
 import { ActionCardRegistry } from './registry.ts'
 import { de, en, es, fr, ja, pt, ru, zh, type ActionCardKey } from './locales.ts'
 
-declare module '@deepseek-ai/dsh-client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface LocaleNamespaceMap { actionCards: ActionCardKey }
 }
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Context {
     /** Card bodies by action kind; kinds register theirs inside their own `ctx.effect`. */
     actionCards: ActionCardRegistry
@@ -46,7 +46,7 @@ export async function mountActionCards(ctx: Context, contribution: TypertRemoteC
 function registerUi(ctx: Context, registry: ActionCardRegistry): void {
   ctx.effect(() => ctx.locale.register('actionCards', { en, zh, ja, es, fr, de, ru, pt }), 'action-cards: locale')
   ctx.slots.inject('conversation.chat.turnTail', () => ctx.slots.register({
-    name: 'conversation.chat.turnTail', id: '@deepseek-ai/dsh-client-ui-action-cards', locale: 'actionCards',
+    name: 'conversation.chat.turnTail', id: '@lyness/lyn-client-ui-action-cards', locale: 'actionCards',
     inject: (sessionId: SessionId): TailInjected => ({
       sessionId,
       hooks: { bodies: registry.source },

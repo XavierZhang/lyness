@@ -1,16 +1,16 @@
 /** ui-subagent browser half: catalog actions and read-only composer routing. */
-import { createSnapshotStore } from '@deepseek-ai/dsh-client-store'
-import { Context } from '@deepseek-ai/cordis'
-import { stubConfigForm } from '@deepseek-ai/dsh-client-test-runtime'
+import { createSnapshotStore } from '@lyness/lyn-client-store'
+import { Context } from '@lyness/cordis'
+import { stubConfigForm } from '@lyness/lyn-client-test-runtime'
 import { describe, expect, it } from 'vitest'
 import type {
   SessionListState, SessionSnapshot, SessionSummary,
-} from '@deepseek-ai/dsh-api-session-controller/client'
-import type { SubagentAddress } from '@deepseek-ai/dsh-subagent/client'
-import { SlotRegistry } from '@deepseek-ai/dsh-client-ui-renderer/client'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
-import type { ComposerChainProps } from '@deepseek-ai/dsh-client-ui-conversation/client'
-import { apply as applyLocale, inject as localeInject } from '@deepseek-ai/dsh-client-locale/client'
+} from '@lyness/lyn-api-session-controller/client'
+import type { SubagentAddress } from '@lyness/lyn-subagent/client'
+import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { ComposerChainProps } from '@lyness/lyn-client-ui-conversation/client'
+import { apply as applyLocale, inject as localeInject } from '@lyness/lyn-client-locale/client'
 import {
   SubagentHeaderLineage, type SubagentCatalogInjected,
 } from '../src/client/SubagentHeaderLineage.tsx'
@@ -126,7 +126,7 @@ describe('apply', () => {
       {
         method: 'openResource',
         args: [
-          'dsh-resource://subagentchat/session/c1?parent=parent&mode=continuable',
+          'lyn-resource://subagentchat/session/c1?parent=parent&mode=continuable',
           { kind: 'subagentchat', preferNewPane: true },
         ],
       },

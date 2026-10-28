@@ -1,0 +1,220 @@
+# Bilingual-pair consistency record for LYNESS-BRAND-GUIDELINES.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write docs/LYNESS-BRAND-GUIDELINES.md
+/lyness-brand-guidelines:
+  en: e3088f9c7d456072
+  zh: a4e659fdbb492118
+/lyness-brand-guidelines/1-brand-definition:
+  en: 284c84ec4225be04
+  zh: e6eb48b34d5332be
+/lyness-brand-guidelines/2-brand-personality:
+  en: 51004dde385783d6
+  zh: da9ab77bb44f7490
+/lyness-brand-guidelines/2-brand-personality/core-phrase:
+  en: 0446cd22b18e9167
+  zh: 070a5765effd75ac
+/lyness-brand-guidelines/3-visual-strategy:
+  en: 92a62b80997cb4f3
+  zh: bf0c97f5d39d00cc
+/4-brand-color-system:
+  en: 5eb4d0464fd0d342
+  zh: e2803030b8a87f1d
+/4-brand-color-system/4-1-core-brand-colors:
+  en: adf8a89cd045bd4e
+  zh: 54200a274ef88615
+/4-brand-color-system/4-1-core-brand-colors/lyness-black:
+  en: c6417a509c4c3c48
+  zh: f69db5653a53bd5a
+/4-brand-color-system/4-1-core-brand-colors/lyness-blue:
+  en: 73e13a4607c07d03
+  zh: b3644746d70c18e3
+/4-brand-color-system/4-1-core-brand-colors/lyness-deep-blue:
+  en: 0dbf5f2c819bb2d3
+  zh: 46c1890dc157fe56
+/4-brand-color-system/4-1-core-brand-colors/lyness-cyan:
+  en: 36d74966f86b2866
+  zh: d6758fcefa9dde59
+/5-neutral-color-system:
+  en: 910d201629fefd98
+  zh: c0147689d13f317e
+/5-neutral-color-system/5-1-white:
+  en: ea96ca05a75baaa2
+  zh: e85e3abbe694949e
+/5-neutral-color-system/5-2-gray-50:
+  en: 8eccf942c627c7f1
+  zh: c26ca82f60dd4ca7
+/5-neutral-color-system/5-3-gray-200:
+  en: a0401895b2e50afa
+  zh: 176d4242c69cc62f
+/5-neutral-color-system/5-4-gray-600:
+  en: fdf23609b1554719
+  zh: 9d21261058075f60
+/5-neutral-color-system/5-5-gray-900:
+  en: 0f37d7d8d4ef0d10
+  zh: 06f26cde267034ff
+/6-semantic-colors:
+  en: 40ed2aba56975a6d
+  zh: 9839c7ec5a1d9c67
+/7-color-token-definition:
+  en: 7e69ae78785ccf9a
+  zh: 3fa2968288371a95
+/8-recommended-ui-color-hierarchy:
+  en: 3979704872a254fe
+  zh: 3ae8dea1f887672e
+/9-logo-rules:
+  en: 913a0ed9bb5d64dd
+  zh: 72e886ae4f2acde3
+/9-logo-rules/9-1-logo-color:
+  en: 303b9a0b71280410
+  zh: 711d41e30c0969d0
+/9-logo-rules/9-2-logo-must-not:
+  en: ff9823ba78c1bf2e
+  zh: ea7a4961fd1002fb
+/9-logo-rules/9-3-logo-concept:
+  en: e836f8ff270a3389
+  zh: 76b81783ac4e3963
+/10-typography:
+  en: 92f6066dfc7a66c8
+  zh: 77a46c94069f28f4
+/10-typography/10-1-general-principle:
+  en: d8675028b98b4f5f
+  zh: d8e1301791ff318c
+/10-typography/10-2-recommended-font-stack:
+  en: 9c1ea4fc06e66e6b
+  zh: f40559648419bf6e
+/10-typography/10-3-wordmark:
+  en: ae7b074cd9b1e5e4
+  zh: c53a8e60bce86471
+/11-layout-principles:
+  en: 74ddaa9396c0c9fa
+  zh: 0d2432423d33af36
+/12-border-radius:
+  en: a3def2bfe88b7ded
+  zh: 6a5826d41c04db00
+/13-borders:
+  en: 64aadc815ae90cb5
+  zh: c4f4d0f925681902
+/14-shadows:
+  en: fe0216fae6d0e6da
+  zh: e6fabf4950da8e37
+/15-button-system:
+  en: 4fbd3aaa352ceade
+  zh: d32203060cec8b18
+/15-button-system/primary:
+  en: b02eb4e0921a5b79
+  zh: 3db7ed3c64118d87
+/15-button-system/secondary:
+  en: 41fd84d2655aef7c
+  zh: 41fd84d2655aef7c
+/15-button-system/ghost:
+  en: 512d49a4518d71d4
+  zh: 512d49a4518d71d4
+/15-button-system/destructive:
+  en: 22d60e07e2c18656
+  zh: 7f9dc1fdbda8526a
+/16-agent-visual-language:
+  en: b25ec2cb71eb8775
+  zh: 762b1bad22e8ace6
+/17-agent-workflow-visualization:
+  en: 2bdb54e35c5e98fd
+  zh: 82ebd2b84f19a74d
+/18-ai-runtime-animation:
+  en: 29d7917535d23c55
+  zh: a87ed4744846fd3d
+/19-dark-mode:
+  en: b534d88f9663c301
+  zh: 6acc80e639fa0a57
+/20-web-design-rules:
+  en: e85c166bc592b561
+  zh: 5994d3cb8eecb956
+/21-app-design-rules:
+  en: 5ff629a2a87d2122
+  zh: f41622153fdc8aec
+/22-dashboard-design:
+  en: 797e8d54557a7097
+  zh: 457d58607c4b79a1
+/23-ai-generated-visual-ip-guidelines:
+  en: 04a35795a6de7eeb
+  zh: a4711b25b1258c01
+/23-ai-generated-visual-ip-guidelines/core-visual-concept:
+  en: 87d502b75757ab74
+  zh: 5d90cd8eb0411e82
+/24-ip-visual-style:
+  en: d9876da4ec5e40f9
+  zh: f057e3b9acab3900
+/25-ip-color-rules:
+  en: 851edbeb360e2e08
+  zh: 15e60c2bd5fd89c1
+/26-ai-image-generation-prompt-template:
+  en: c9fd122e7047c8d2
+  zh: 782c9afa9c5b98a0
+/27-ip-generation-negative-prompt:
+  en: 31dc379fb347754e
+  zh: faf92095bfe8d73d
+/28-ip-character-direction:
+  en: 899c27f14d89cdae
+  zh: 0c3de4c40236aea6
+/29-marketing-illustration-direction:
+  en: b9ee8aa4e26b3371
+  zh: 2fca11ecaeca7f8d
+/30-iconography:
+  en: b18d56011941a66e
+  zh: 08f0bd5d00a3e46a
+/31-gradient-rules:
+  en: 5f74a26297d1486c
+  zh: b77b7a8074feae62
+/32-forbidden-visual-language:
+  en: e19a614a7a0622c5
+  zh: 62c40aa0a0fa8adf
+/33-glassmorphism:
+  en: 40a08e2a342b5eef
+  zh: 31e70def7ab4f9ab
+/34-ai-coding-agent-rules:
+  en: a17f9fc507f76f7e
+  zh: 697e5392e8edcc6b
+/34-ai-coding-agent-rules/must:
+  en: 4e62c80796bb583b
+  zh: 9b6dc7c37c5f1a60
+/34-ai-coding-agent-rules/should:
+  en: ceb4a9afe5e91244
+  zh: 64f1d20290a9b6c0
+/34-ai-coding-agent-rules/must-not:
+  en: b10a74fc2a9b96eb
+  zh: 1734bd705dc2f3df
+/35-ai-design-agent-rules:
+  en: d772869bbaa7e81d
+  zh: c77c8f26296b840f
+/36-brand-decision-framework:
+  en: 64ff1d406e82eb40
+  zh: 9807f7d77d165643
+/37-typescript-design-tokens:
+  en: 7c863744a933be54
+  zh: bc6ec69b0a1437c6
+/38-tailwind-mapping:
+  en: 18ef196a5f43b2ea
+  zh: e7ee7083ff1a9a8f
+/39-component-naming:
+  en: e2d1d348c90afd69
+  zh: c720000442025459
+/40-project-level-agent-integration:
+  en: 0a629c0dd68ad88e
+  zh: 500b391208dc57cc
+/41-quick-reference:
+  en: f090f51b4ed1dcc6
+  zh: 4e37e4a357375faf
+/41-quick-reference/brand:
+  en: 1db1e6ec18b6fcf5
+  zh: a856cf53c18d609e
+/41-quick-reference/core-colors:
+  en: eb930da1e6b82ed4
+  zh: f46dd9876ba88697
+/41-quick-reference/neutral:
+  en: 7d433dfc9c8bea31
+  zh: 2b187bc6bba612a5
+/41-quick-reference/semantic:
+  en: 1f16b3d0c7cd4088
+  zh: bafa4dfdeb58f28b
+/42-one-line-brand-rule:
+  en: ecc8c21a20980a18
+  zh: dbc21527b292fffc

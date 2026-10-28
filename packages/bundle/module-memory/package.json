@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-module-memory",
+  "name": "@lyness/lyn-module-memory",
   "description": "The durable memory default module as its own bundle: the Host service and its contributed write tools",
   "version": "0.1.7-rc.2",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/bundle/module-memory"
   },
   "type": "module",
@@ -30,18 +30,18 @@
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
-  "dsh": {
+  "lyn": {
     "bundle": {
       "patch": "./cordis.patch.yml"
     }
   },
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~"
+    "@lyness/cordis": "workspace:~"
   },
   "dependencies": {
-    "@deepseek-ai/dsh-memory": "workspace:*"
+    "@lyness/lyn-memory": "workspace:*"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~"
+    "@lyness/cordis": "workspace:~"
   }
 }

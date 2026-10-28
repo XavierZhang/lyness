@@ -1,7 +1,7 @@
 /** The API-key route serves the official /models listing while its catalog is the built-in one. */
 import { afterEach, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import LlmRuntime from '@deepseek-ai/dsh-llm'
+import { Context } from '@lyness/cordis'
+import LlmRuntime from '@lyness/lyn-llm'
 import { liveConfig } from '../../../settings/settings/tests/live-config.ts'
 import * as ApiKey from '../src/index.ts'
 
@@ -13,7 +13,7 @@ const FLASH = {
   api_capabilities: { anthropic_messages: { system_prompt_update: 'in-history' } },
 }
 const PRO = { id: 'deepseek-v4-pro', name: 'DeepSeek-V4-Pro', context_window: 1_048_576, input_modalities: ['text'], ...MESSAGES }
-const requires = (version: string) => ({ client_requirements: { 'deepseek-harness': { min_version: version } } })
+const requires = (version: string) => ({ client_requirements: { 'lyness': { min_version: version } } })
 const BUILT_IN = ['deepseek-flash', 'deepseek-v4-pro']
 
 const contexts: Context[] = []

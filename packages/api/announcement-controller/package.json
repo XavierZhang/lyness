@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-api-announcement-controller",
+  "name": "@lyness/lyn-api-announcement-controller",
   "description": "Expose a deployment's own announcements over authenticated Remote",
   "version": "0.1.7-rc.2",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/api/announcement-controller"
   },
   "type": "module",
@@ -44,13 +44,13 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-announcements": "workspace:*",
-    "@deepseek-ai/dsh-typert-protocol": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-announcements": "workspace:*",
+    "@lyness/lyn-typert-protocol": "workspace:*"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-announcements": "workspace:*",
-    "@deepseek-ai/dsh-typert-protocol": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-announcements": "workspace:*",
+    "@lyness/lyn-typert-protocol": "workspace:*"
   }
 }

@@ -4,6 +4,13 @@
   "private": true,
   "type": "module",
   "main": "index.js",
-  "exports": { ".": "./index.js", "./client": "./client.js" },
-  "dsh": { "client": { "platform": "web" } }
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js"
+  },
+  "lyn": {
+    "client": {
+      "platform": "web"
+    }
+  }
 }

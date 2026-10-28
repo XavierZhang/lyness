@@ -5,66 +5,66 @@
 /:
   en: 2e7d205b959bad5b
   zh: 78111c063c98c309
-/deepseek-harness-dsh-fs-observation-policy:
+/lyness-lyn-fs-observation-policy:
   en: 5e1c4d8208b8aba4
   zh: 96ef78ffab5203b7
-/deepseek-harness-dsh-fs-observation-policy/summary:
+/lyness-lyn-fs-observation-policy/summary:
   en: 50aeeafa7f656733
   zh: 7120e0d3267b2e57
-/deepseek-harness-dsh-fs-observation-policy/table-of-contents:
+/lyness-lyn-fs-observation-policy/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/deepseek-harness-dsh-fs-observation-policy/use-this-package:
+/lyness-lyn-fs-observation-policy/use-this-package:
   en: fd2c8166198ccf13
   zh: d7a2f30d32993f2c
-/deepseek-harness-dsh-fs-observation-policy/use-this-package/minimal-composition:
+/lyness-lyn-fs-observation-policy/use-this-package/minimal-composition:
   en: d85e3b814b43768e
   zh: 89d3672dbb2f6d30
-/deepseek-harness-dsh-fs-observation-policy/use-this-package/what-changes-for-the-model:
+/lyness-lyn-fs-observation-policy/use-this-package/what-changes-for-the-model:
   en: 91686925a433794d
   zh: 9ac2a197203d6549
-/deepseek-harness-dsh-fs-observation-policy/use-this-package/failures-and-recovery:
+/lyness-lyn-fs-observation-policy/use-this-package/failures-and-recovery:
   en: 1ecc7b68f7c7b3f0
   zh: f6a9800786ed30c0
-/deepseek-harness-dsh-fs-observation-policy/understand-the-implementation:
+/lyness-lyn-fs-observation-policy/understand-the-implementation:
   en: 612e69f76edc8795
   zh: 55edab9956941616
-/deepseek-harness-dsh-fs-observation-policy/understand-the-implementation/design-concept:
+/lyness-lyn-fs-observation-policy/understand-the-implementation/design-concept:
   en: 100befb84dd894c2
   zh: 627f1c6e50983208
-/deepseek-harness-dsh-fs-observation-policy/understand-the-implementation/source-map:
+/lyness-lyn-fs-observation-policy/understand-the-implementation/source-map:
   en: 6a55bd72a91664bf
   zh: fc22345acfd9d850
-/deepseek-harness-dsh-fs-observation-policy/understand-the-implementation/decision-flow:
+/lyness-lyn-fs-observation-policy/understand-the-implementation/decision-flow:
   en: 79ddd675e3c27d62
   zh: b9b74b63aad5b42d
-/deepseek-harness-dsh-fs-observation-policy/understand-the-implementation/single-slot-first-wins:
+/lyness-lyn-fs-observation-policy/understand-the-implementation/single-slot-first-wins:
   en: 226bb7885eb147b8
   zh: 0b68d59ddc55fb07
-/deepseek-harness-dsh-fs-observation-policy/understand-the-implementation/lifecycle:
+/lyness-lyn-fs-observation-policy/understand-the-implementation/lifecycle:
   en: 02a1e3e7707706fb
   zh: eff587af0445d032
-/deepseek-harness-dsh-fs-observation-policy/further-exploration:
+/lyness-lyn-fs-observation-policy/further-exploration:
   en: 7fe5e255822e5c41
   zh: ad0d8c7845afab91
-/deepseek-harness-dsh-fs-observation-policy/model-experience:
+/lyness-lyn-fs-observation-policy/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/deepseek-harness-dsh-fs-observation-policy/model-experience/filesystem-tool-outcome:
+/lyness-lyn-fs-observation-policy/model-experience/filesystem-tool-outcome:
   en: ee1f02dc1bb69955
   zh: 9ba9205a9b15d132
-/deepseek-harness-dsh-fs-observation-policy/model-experience/filesystem-tool-outcome/what-the-model-sees:
+/lyness-lyn-fs-observation-policy/model-experience/filesystem-tool-outcome/what-the-model-sees:
   en: 9530ba33c8354366
   zh: 74d7258494761b1c
-/deepseek-harness-dsh-fs-observation-policy/model-experience/filesystem-tool-outcome/token-effect:
+/lyness-lyn-fs-observation-policy/model-experience/filesystem-tool-outcome/token-effect:
   en: 425ccc7dafa6218d
   zh: d2c1a29955a60e3d
-/deepseek-harness-dsh-fs-observation-policy/model-experience/filesystem-tool-outcome/kv-cache-effect:
+/lyness-lyn-fs-observation-policy/model-experience/filesystem-tool-outcome/kv-cache-effect:
   en: 2fbf2175168e8244
   zh: 3d6bc05b9eadfbc2
-/deepseek-harness-dsh-fs-observation-policy/known-limitations-and-deferred-work:
+/lyness-lyn-fs-observation-policy/known-limitations-and-deferred-work:
   en: bf511ef69abe8b03
   zh: e7643ad1b39241b5
-/deepseek-harness-dsh-fs-observation-policy/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-fs-observation-policy/known-limitations-and-deferred-work/dev-note:
   en: 9979632783da7b78
   zh: c42c1feec2905268

@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-module-deliverables",
+  "name": "@lyness/lyn-module-deliverables",
   "description": "The turn deliverables default module as its own bundle: the changed-files recorder, its card, and the contributed present tool",
   "version": "0.1.7-rc.2",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/bundle/module-deliverables"
   },
   "type": "module",
@@ -30,20 +30,20 @@
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
-  "dsh": {
+  "lyn": {
     "bundle": {
       "patch": "./cordis.patch.yml"
     }
   },
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~"
+    "@lyness/cordis": "workspace:~"
   },
   "dependencies": {
-    "@deepseek-ai/dsh-client-ui-deliverables": "workspace:*",
-    "@deepseek-ai/dsh-tool-present": "workspace:*",
-    "@deepseek-ai/dsh-workspace-changes": "workspace:*"
+    "@lyness/lyn-client-ui-deliverables": "workspace:*",
+    "@lyness/lyn-tool-present": "workspace:*",
+    "@lyness/lyn-workspace-changes": "workspace:*"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~"
+    "@lyness/cordis": "workspace:~"
   }
 }

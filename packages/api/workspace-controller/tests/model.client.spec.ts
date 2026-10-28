@@ -22,9 +22,9 @@ import type {
   WorkspaceId,
   WorkspaceView,
 } from '../src/types.ts'
-import { RemoteError, type RemoteFailure, type RemoteResult, type RemoteStreamHandle } from '@deepseek-ai/dsh-typert-protocol'
-import { streamHandle } from '@deepseek-ai/dsh-remote-mock'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import { RemoteError, type RemoteFailure, type RemoteResult, type RemoteStreamHandle } from '@lyness/lyn-typert-protocol'
+import { streamHandle } from '@lyness/lyn-remote-mock'
+import type { SessionId } from '@lyness/lyn-session/types'
 
 const sid = (id: string): SessionId => id as SessionId
 const wid = (id: string): WorkspaceId => id as WorkspaceId

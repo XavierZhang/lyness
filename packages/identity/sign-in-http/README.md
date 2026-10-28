@@ -3,13 +3,13 @@ description: "The browser-facing half of signing in, for deployments serving a s
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-sign-in-http
+# @lyness/lyn-sign-in-http
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`dsh-sign-in-http` is the four routes a browser sign-in needs: the channel list a page renders buttons from, the start that sends the browser to a directory, the callback the directory returns to, and the sign-out. It sets the session cookie `dsh-request-principal` reads back, and it binds one sign-in to one browser so a callback link handed to someone else cannot sign them in as whoever started it. `dsh-sign-in` stops at the session identity on purpose; where the directory returns, what the cookie's attributes are, and what a refusal looks like to a person are properties of being served over HTTP.
+`lyn-sign-in-http` is the four routes a browser sign-in needs: the channel list a page renders buttons from, the start that sends the browser to a directory, the callback the directory returns to, and the sign-out. It sets the session cookie `lyn-request-principal` reads back, and it binds one sign-in to one browser so a callback link handed to someone else cannot sign them in as whoever started it. `lyn-sign-in` stops at the session identity on purpose; where the directory returns, what the cookie's attributes are, and what a refusal looks like to a person are properties of being served over HTTP.
 
 ## Table of Contents
 
@@ -27,9 +27,9 @@ English | [中文](README.zh.md)
 
 ```yaml
 - id: sign-in-http
-  name: '@deepseek-ai/dsh-sign-in-http'
+  name: '@lyness/lyn-sign-in-http'
   config:
-    publicOrigin: 'https://DeepSeek Harness.example'
+    publicOrigin: 'https://lyness.example'
     secureCookies: true
     landingPath: '/'
 ```
@@ -73,9 +73,9 @@ A refusal answers JSON `{ error: <code> }` with 404 for an unknown channel, 403 
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`dsh-sign-in`](../sign-in/README.md) — the flow these routes drive.
-- [`dsh-request-principal`](../request-principal/README.md) — what reads the session cookie back on each later call.
-- [`dsh-auth-session`](../auth-session/README.md) — the sessions signing out revokes.
+- [`lyn-sign-in`](../sign-in/README.md) — the flow these routes drive.
+- [`lyn-request-principal`](../request-principal/README.md) — what reads the session cookie back on each later call.
+- [`lyn-auth-session`](../auth-session/README.md) — the sessions signing out revokes.
 
 -----
 

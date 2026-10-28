@@ -1,14 +1,14 @@
 /** Account-token authentication, the account model listing, and version gating for the DeepSeek account route. */
-import type {} from '@deepseek-ai/cordis-plugin-loader'
-import type { Context } from '@deepseek-ai/cordis'
-import { ACCOUNT_QUOTA_EXCEEDED_CODE, APP_IDENTITY, LlmError, QUOTA_EXCEEDED_CODE } from '@deepseek-ai/dsh-llm'
-import type {} from '@deepseek-ai/dsh-deepseek-account'
-import { launchEnvironmentOf } from '@deepseek-ai/dsh-launch-environment'
+import type {} from '@lyness/cordis-plugin-loader'
+import type { Context } from '@lyness/cordis'
+import { ACCOUNT_QUOTA_EXCEEDED_CODE, APP_IDENTITY, LlmError, QUOTA_EXCEEDED_CODE } from '@lyness/lyn-llm'
+import type {} from '@lyness/lyn-deepseek-account'
+import { launchEnvironmentOf } from '@lyness/lyn-launch-environment'
 import {
   catalogModelInfo, ModelListingCache, refuseListedModel, registerDeepSeekProvider, requestModelListing, resolveAdapterOptions,
   resolveListedCatalog,
-} from '@deepseek-ai/dsh-llm-deepseek'
-import type { DeepSeekRequestAuth, ListedCatalog, ListingView, ModelListing, ResolvedDeepSeekOptions } from '@deepseek-ai/dsh-llm-deepseek'
+} from '@lyness/lyn-llm-deepseek'
+import type { DeepSeekRequestAuth, ListedCatalog, ListingView, ModelListing, ResolvedDeepSeekOptions } from '@lyness/lyn-llm-deepseek'
 import { Config, plainAccountOptions, resolveAccountOptions } from './config.ts'
 
 export { Config } from './config.ts'
@@ -17,7 +17,7 @@ export const inject = ['llm']
 
 const PROVIDER = 'deepseek-account'
 /** Header carrying the account token on Messages, Files, and model-listing requests. */
-const TOKEN_HEADER = 'x-dsh-auth-token'
+const TOKEN_HEADER = 'x-lyn-auth-token'
 /** Console tag of listing diagnostics; product profiles mount no console exporter for `ctx.logger`. */
 const LOG_TAG = '[llm-deepseek-account]'
 

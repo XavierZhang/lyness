@@ -6,6 +6,6 @@
 
 - insert:
     - id: ptc-runtime
-      name: '@deepseek-ai/dsh-ptc-runtime-node'
+      name: '@lyness/lyn-ptc-runtime-node'
     - id: structured-denial-fixture
       name: './deny.mjs'

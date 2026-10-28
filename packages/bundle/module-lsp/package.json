@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-module-lsp",
+  "name": "@lyness/lyn-module-lsp",
   "description": "The language-server navigation default module as its own bundle: the LSP seam, its stdio provider, and the contributed tool",
   "version": "0.1.7-rc.2",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/bundle/module-lsp"
   },
   "type": "module",
@@ -30,20 +30,20 @@
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
-  "dsh": {
+  "lyn": {
     "bundle": {
       "patch": "./cordis.patch.yml"
     }
   },
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~"
+    "@lyness/cordis": "workspace:~"
   },
   "dependencies": {
-    "@deepseek-ai/dsh-lsp": "workspace:*",
-    "@deepseek-ai/dsh-lsp-stdio": "workspace:*",
-    "@deepseek-ai/dsh-tool-lsp": "workspace:*"
+    "@lyness/lyn-lsp": "workspace:*",
+    "@lyness/lyn-lsp-stdio": "workspace:*",
+    "@lyness/lyn-tool-lsp": "workspace:*"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~"
+    "@lyness/cordis": "workspace:~"
   }
 }

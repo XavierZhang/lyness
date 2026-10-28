@@ -11,7 +11,7 @@ Status: implemented
 
 人员与准入绑定变成由管理员维护的持久记录，与 composition 写下的那些并存，并且写下的那一半优先。
 
-`@deepseek-ai/dsh-managed-people` 在自己的 domain 里持有存储的那一半，并在同一处回答两个 seam：`./directory` 提供 `ctx.people`，`./admission` 提供 `ctx.signInAdmission`，两者读取的 `people` / `bindings` 配置与各自的静态对应物完全相同，并把每次查找转发给 `ctx.managedPeople`。已经写好名册的安装原样保留；`module-accounts` 改的只是这两行指名哪个插件。
+`@lyness/lyn-managed-people` 在自己的 domain 里持有存储的那一半，并在同一处回答两个 seam：`./directory` 提供 `ctx.people`，`./admission` 提供 `ctx.signInAdmission`，两者读取的 `people` / `bindings` 配置与各自的静态对应物完全相同，并把每次查找转发给 `ctx.managedPeople`。已经写好名册的安装原样保留；`module-accounts` 改的只是这两行指名哪个插件。
 
 composition 仍然写下第一个人，并且名册不得为空：空系统里没有管理员来添加第一个管理员，而那个写下的人也是「最后一个存储的管理员被移除」之后的恢复路径。对写下的人或绑定的修改以 `written` 被拒绝，而不是被接受，因为下一次启动会重新读那个文件，而界面已经报告了一件不真实的事。
 
@@ -23,7 +23,7 @@ composition 仍然写下第一个人，并且名册不得为空：空系统里�
 - 成员身份 id 只由人的 id 推出，因此改某人的角色不会移动一个已打开会话所记的成员身份 id。
 - 被移除的人连同他的 id 一起退场，于是他开过的对话仍归属于一个不再登录的人，而不会归到下一个被添加的人头上。
 
-`@deepseek-ai/dsh-api-people-controller` 把它投影到 `people` Remote 命名空间上，自己不做任何判定：解析这次调用所处的身份、交给服务、再把每种拒绝按自己的错误码汇报。`@deepseek-ai/dsh-client-ui-settings-people` 是那个 Settings 页面，挨着登录渠道那一页。
+`@lyness/lyn-api-people-controller` 把它投影到 `people` Remote 命名空间上，自己不做任何判定：解析这次调用所处的身份、交给服务、再把每种拒绝按自己的错误码汇报。`@lyness/lyn-client-ui-settings-people` 是那个 Settings 页面，挨着登录渠道那一页。
 
 ## 考虑过的替代方案
 
@@ -43,4 +43,4 @@ composition 仍然写下第一个人，并且名册不得为空：空系统里�
 
 一个人仍然只在一个组织里持一个身份，和写下的名册一直以来的做法相同。移除某人不会结束他已经建立的会话，也没有任何东西阻止最后一个存储的管理员被移除——写下的名册正是这件事可恢复的原因。
 
-在建第二个 Settings 页面的过程中，`messageOf` 被收归到 `dsh-client-store`，因为两个页面汇报载体层拒绝的方式完全相同。两个页面其余共享的东西是形状而不是实质——它们的词汇一个是渠道、一个是人员——因此标注为「刻意保持平行」，而不是硬压进一个必须同时指名两者的基类。
+在建第二个 Settings 页面的过程中，`messageOf` 被收归到 `lyn-client-store`，因为两个页面汇报载体层拒绝的方式完全相同。两个页面其余共享的东西是形状而不是实质——它们的词汇一个是渠道、一个是人员——因此标注为「刻意保持平行」，而不是硬压进一个必须同时指名两者的基类。

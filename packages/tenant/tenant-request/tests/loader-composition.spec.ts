@@ -10,21 +10,25 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import Loader from '@deepseek-ai/cordis-plugin-loader'
-import Include from '@deepseek-ai/cordis-plugin-include'
-import * as Connection from '@deepseek-ai/dsh-client-connection'
-import type { CredentialProvider, CredentialRecord } from '@deepseek-ai/dsh-credentials'
-import StaticTenantDirectory from '@deepseek-ai/dsh-tenant-static'
-import StaticTenantConfigStore from '@deepseek-ai/dsh-tenant-config-static'
+import { Context } from '@lyness/cordis'
+import Loader from '@lyness/cordis-plugin-loader'
+import Include from '@lyness/cordis-plugin-include'
+import * as Connection from '@lyness/lyn-client-connection'
+import type { CredentialProvider, CredentialRecord } from '@lyness/lyn-credentials'
+import StaticTenantDirectory from '@lyness/lyn-tenant-static'
+import StaticTenantConfigStore from '@lyness/lyn-tenant-config-static'
 import RequestTenantScope from '../src/index.ts'
 import type { RequestTenant } from '../src/index.ts'
+import type { PeerScope } from '@lyness/lyn-typert-protocol'
+
+/** These assertions are not about access, so every dispatch speaks for the owner. */
+const OWNER = { principal: { kind: 'owner' } } as PeerScope
 
 const CREDENTIALS = 'test:credentials'
-const CONNECTION = '@deepseek-ai/dsh-client-connection'
-const DIRECTORY = '@deepseek-ai/dsh-tenant-static'
-const CONFIG = '@deepseek-ai/dsh-tenant-config-static'
-const SCOPE = '@deepseek-ai/dsh-tenant-request'
+const CONNECTION = '@lyness/lyn-client-connection'
+const DIRECTORY = '@lyness/lyn-tenant-static'
+const CONFIG = '@lyness/lyn-tenant-config-static'
+const SCOPE = '@lyness/lyn-tenant-request'
 
 /** In-memory stand-in for the credential store Connection keeps its cookie secret in. */
 class MemoryCredentials {
@@ -74,7 +78,7 @@ afterEach(async () => {
  * @returns the booted context.
  */
 async function compose(configured: boolean): Promise<Context> {
-  root = await mkdtemp(join(tmpdir(), 'dsh-tenant-request-'))
+  root = await mkdtemp(join(tmpdir(), 'lyn-tenant-request-'))
   const configPath = join(root, 'cordis.yml')
   await writeFile(configPath, [
     `- name: '${CREDENTIALS}'`,
@@ -144,7 +148,7 @@ async function callSeeing(ctx: Context, headers: Record<string, string>): Promis
     method: 'POST',
     headers: { 'content-type': 'application/json', ...headers },
     body: JSON.stringify({ type: 'client-request', rpcId: 'r-1', method: 'probe/read', payload: {} }),
-  }))
+  }), OWNER)
   expect(response.status).toBe(200)
   return seen
 }

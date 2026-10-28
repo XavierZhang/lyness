@@ -8,19 +8,19 @@
  * requires the token this process prints to its own terminal and keeps only in
  * memory. The token dies with the process; there is no stored credential and no
  * second way in.
- * @module @deepseek-ai/dsh-brand-setup
+ * @module @lyness/lyn-brand-setup
  */
 
 import { randomBytes, timingSafeEqual } from 'node:crypto'
 import { readFile } from 'node:fs/promises'
 import type { IncomingMessage, ServerResponse } from 'node:http'
-import type { Context } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
+import type { Context } from '@lyness/cordis'
+import z from '@lyness/schemastery'
 // The Context merge (ctx.webServer) arrives with the reply helper.
-import { sendJson } from '@deepseek-ai/dsh-host-webserver'
-import { internals } from '@deepseek-ai/dsh-cmdline'
-import { dshHomePath, resolveDshHome } from '@deepseek-ai/dsh-home-paths'
-import { resolveProfilePatch, StudioError } from '@deepseek-ai/dsh-brand-studio'
+import { sendJson } from '@lyness/lyn-host-webserver'
+import { internals } from '@lyness/lyn-cmdline'
+import { lynHomePath, resolveLynHome } from '@lyness/lyn-home-paths'
+import { resolveProfilePatch, StudioError } from '@lyness/lyn-brand-studio'
 import { applySubmission, MAXIMUM_ICON_BYTES, parseSubmission, readCurrentBrand, SubmissionError } from './brand-request.ts'
 import { renderSetupPage } from './page.ts'
 import { createSerialiser } from './serialise.ts'
@@ -36,7 +36,7 @@ export const name = 'brand-setup'
 export const inject = ['webServer']
 
 /** Header the page sends its token in, so the token never rides a later URL. */
-export const TOKEN_HEADER = 'x-dsh-setup-token'
+export const TOKEN_HEADER = 'x-lyn-setup-token'
 
 /** Largest request body this page can produce: a base64 icon plus its fields. */
 const MAXIMUM_BODY_BYTES = Math.ceil(MAXIMUM_ICON_BYTES * 4 / 3) + 8 * 1024
@@ -45,7 +45,7 @@ const MAXIMUM_BODY_BYTES = Math.ceil(MAXIMUM_ICON_BYTES * 4 / 3) + 8 * 1024
 export interface Config {
   /** Profile whose patch layer receives the brand row. */
   target?: string
-  /** Absolute directory receiving the generated SVGs; omit for `$DSH_HOME/brand`. */
+  /** Absolute directory receiving the generated SVGs; omit for `$LYNESS_HOME/brand`. */
   assetDirectory?: string
 }
 
@@ -69,7 +69,7 @@ export const Config: z<Config> = z.object({
  * @returns the absolute directory.
  */
 function resolveAssetDirectory(configured: string | undefined): string {
-  return configured ?? dshHomePath('brand')
+  return configured ?? lynHomePath('brand')
 }
 
 /**
@@ -113,7 +113,7 @@ async function readBody(req: IncomingMessage): Promise<string> {
  */
 export function apply(ctx: Context, config: Config): void {
   const resolved = config as ResolvedConfig
-  const home = resolveDshHome()
+  const home = resolveLynHome()
   const patchPath = resolveProfilePatch(resolved.target, home)
   const assetDirectory = resolveAssetDirectory(resolved.assetDirectory)
   const token = randomBytes(32).toString('base64url')

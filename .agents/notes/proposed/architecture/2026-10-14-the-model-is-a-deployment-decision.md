@@ -8,7 +8,7 @@ English | [中文](2026-10-14-the-model-is-a-deployment-decision.zh.md)
 
 Today the model is whatever the person in front of the product says it is, and three consequences of that are wrong for both products this harness ships.
 
-**A deployment can finish with no model at all.** `dsh-base` mounts the DeepSeek adapter without a key and the pi-ai router with zero routes, so a boot with nothing configured succeeds, serves its interface, and creates sessions that cannot answer. The failure arrives at the first prompt, in front of a user, instead of at the deployment that caused it.
+**A deployment can finish with no model at all.** `lyn-base` mounts the DeepSeek adapter without a key and the pi-ai router with zero routes, so a boot with nothing configured succeeds, serves its interface, and creates sessions that cannot answer. The failure arrives at the first prompt, in front of a user, instead of at the deployment that caused it.
 
 **Every user can rewrite the model configuration.** The Models page writes provider routes and credential references for whoever opens it. For a hosted product that is a user editing the operator's cost base; for an enterprise install it is a user leaving the models their organization approved. The restriction that would prevent it is explicitly absent: the tenant configuration controller records that "restricting saves to administrators waits for user records", and this harness has no user records — `identity` holds an anonymous id and nothing else.
 
@@ -22,9 +22,9 @@ The model becomes a deployment decision. A user receives a choice among what the
 
 ### Two shipped shapes, two templates, not one switch
 
-DeepSeek Harness ships two products, and they differ in which subsystems exist rather than in how one subsystem behaves.
+lyness ships two products, and they differ in which subsystems exist rather than in how one subsystem behaves.
 
-The **hosted** shape serves many organizations: it has tenants, it meters credits, and DeepSeek Harness operates it. The **enterprise** shape runs on one customer's own servers for that customer's own staff: it has no tenants, no credits, and no payment of any kind, because the customer bought the system rather than usage of it.
+The **hosted** shape serves many organizations: it has tenants, it meters credits, and lyness operates it. The **enterprise** shape runs on one customer's own servers for that customer's own staff: it has no tenants, no credits, and no payment of any kind, because the customer bought the system rather than usage of it.
 
 That difference is a profile template, not a runtime mode. `PROFILE_TEMPLATES` already names a bundle list per shape, so the hosted template selects the tenancy and credit modules and the enterprise template does not select them at all. Credits are therefore absent from an enterprise install rather than disabled in one, which is the only version of "no quota" that cannot leak a balance into a surface, a log, or an error message.
 
@@ -50,7 +50,7 @@ The Models page becomes read-only wherever the deployment owns the configuration
 
 Read-only is not the same as hidden. A user still sees which models they may use and which is default, and still chooses among them per session; what they cannot do is add a provider, change an endpoint, or write a credential.
 
-Who the owning authority is differs by shape. On the hosted shape, DeepSeek Harness's own operators set the default that applies to every tenant and every direct user, and a tenant's administrator may change it for that tenant; an ordinary user only uses it. On the enterprise shape, the customer's administrator sets the list in an administration surface, and an authorized user chooses among it without being able to change it.
+Who the owning authority is differs by shape. On the hosted shape, lyness's own operators set the default that applies to every tenant and every direct user, and a tenant's administrator may change it for that tenant; an ordinary user only uses it. On the enterprise shape, the customer's administrator sets the list in an administration surface, and an authorized user chooses among it without being able to change it.
 
 Neither shape lets an ordinary user add a provider, change an endpoint, or write a credential. That is the single rule both shapes share, and it is the one the resolver enforces.
 
@@ -60,7 +60,7 @@ A single-tenant developer install keeps today's behaviour, because a deployment 
 
 This section describes the hosted shape only. An enterprise install mounts no credit module, so none of it exists there.
 
-The unit is **credits**, shown as 积分 in Chinese. A hosted deployment grants each user **500 credits per day**, counted against **UTC+8**, spent by model requests, and refuses service when the balance reaches zero. Both the grant size and the per-user cap are changeable — by DeepSeek Harness's operators for the deployment, and by a tenant's administrator for that tenant's own users — so 500 is a validated default, not a constant.
+The unit is **credits**, shown as 积分 in Chinese. A hosted deployment grants each user **500 credits per day**, counted against **UTC+8**, spent by model requests, and refuses service when the balance reaches zero. Both the grant size and the per-user cap are changeable — by lyness's operators for the deployment, and by a tenant's administrator for that tenant's own users — so 500 is a validated default, not a constant.
 
 The allowance is a balance with a ledger, not a counter. A refusal a customer cannot account for is a support case; a balance whose every debit names the session that caused it is answerable. This is the same reasoning the derived-memory note applied to invalidation: the record is the product, not an implementation detail.
 
@@ -74,19 +74,19 @@ Stopping is chosen over completing-and-overdrawing because an overdraw is a cost
 
 ### Credits are per user, and a tenant caps its own users
 
-A balance belongs to a user, because a grant arrives per login. A tenant additionally sets the allowance available to each of its users, so an organization controls its own consumption without DeepSeek Harness setting a per-member limit on its behalf.
+A balance belongs to a user, because a grant arrives per login. A tenant additionally sets the allowance available to each of its users, so an organization controls its own consumption without lyness setting a per-member limit on its behalf.
 
 Two authorities therefore bound one balance: the deployment's grant policy, and the tenant's per-user cap. The lower of the two applies, and a refusal names which one it hit — a user told only "out of credits" cannot tell whether to wait for tomorrow or ask their administrator.
 
 ### Who takes the money is a boundary, not a setting
 
-A tenant's users top up into **the tenant's own corporate bank account**. DeepSeek Harness charges the tenant a platform fee and nothing else. An administration surface therefore maintains a tenant's corporate account details, because the tenant is the party its own users pay.
+A tenant's users top up into **the tenant's own corporate bank account**. lyness charges the tenant a platform fee and nothing else. An administration surface therefore maintains a tenant's corporate account details, because the tenant is the party its own users pay.
 
-A user who belongs to no tenant is an ordinary user of the DeepSeek Harness service and follows DeepSeek Harness's own rules, including its own top-up path.
+A user who belongs to no tenant is an ordinary user of the lyness service and follows lyness's own rules, including its own top-up path.
 
-This is a liability boundary rather than a configuration choice, and it decides what the harness must never do: for a tenant's users, DeepSeek Harness does not hold funds, does not settle, and is not the merchant of record. The ledger records credits, which are a service unit; money moves between a tenant and its own users, on a path DeepSeek Harness provides the details for and does not stand in.
+This is a liability boundary rather than a configuration choice, and it decides what the harness must never do: for a tenant's users, lyness does not hold funds, does not settle, and is not the merchant of record. The ledger records credits, which are a service unit; money moves between a tenant and its own users, on a path lyness provides the details for and does not stand in.
 
-It follows that the two populations cannot share one top-up implementation. A tenant user's purchase is the tenant's transaction; a direct user's purchase is DeepSeek Harness's. The credit ledger is common; the payment path is not, and a design that merges them makes DeepSeek Harness the processor for every tenant by accident.
+It follows that the two populations cannot share one top-up implementation. A tenant user's purchase is the tenant's transaction; a direct user's purchase is lyness's. The credit ledger is common; the payment path is not, and a design that merges them makes lyness the processor for every tenant by accident.
 
 ### Onboarding asks nothing a deployment has already decided
 
@@ -112,7 +112,7 @@ What it was carrying — that this is an early build, and what changed — moves
 
 The decisions above fix the shape. Two values remain, and neither blocks building it.
 
-**The platform fee's own shape.** What DeepSeek Harness charges a tenant is a commercial decision that this note only constrains in one way: it is charged to the tenant, never to the tenant's users.
+**The platform fee's own shape.** What lyness charges a tenant is a commercial decision that this note only constrains in one way: it is charged to the tenant, never to the tenant's users.
 
 ## Acceptance criteria
 
@@ -124,7 +124,7 @@ The decisions above fix the shape. Two values remain, and neither blocks buildin
 - A hosted user's credit debits name the session that spent them, and an exhausted balance refuses with a reason a user can act on.
 - A turn that exhausts its balance stops without overdrawing, keeps the work already done, and starts no further request.
 - A refusal names whether the deployment's grant or the tenant's per-user cap was the limit reached.
-- A tenant's corporate account details are maintained through an administration surface, and no code path makes DeepSeek Harness the receiving party for a tenant user's top-up.
+- A tenant's corporate account details are maintained through an administration surface, and no code path makes lyness the receiving party for a tenant user's top-up.
 - The internal-testing dialog is gone, and the release notes plus the running version are reachable from a system announcement a user opens.
 - The enterprise template selects no credit module, and no balance, grant, ledger, or top-up text is reachable on an enterprise install.
 - On the hosted shape the daily grant defaults to 500 credits against UTC+8, and both the grant and a tenant's per-user cap are changeable by their respective authorities.
@@ -142,6 +142,6 @@ The decisions above fix the shape. Two values remain, and neither blocks buildin
 
 **An enterprise install must show no trace of credits, and traces hide in shared code.** Locale dictionaries, error vocabularies, and session events are shared between the shapes even when the module is not mounted. A credit-exhaustion message that lives in a shared dictionary, or a refusal reason a shared type can express, reaches an enterprise user who has no balance and no way to act on it. Keeping the module unmounted is necessary and not sufficient; its vocabulary has to live with it.
 
-**Two payment paths invite one implementation.** The ledger is shared and the top-up buttons look alike, so the cheapest next change is always to route a tenant user's payment through the same code as a direct user's. That single change makes DeepSeek Harness the merchant of record for every tenant's users, which is the one outcome this note forbids. The separation needs to be visible in the code, not only in this file.
+**Two payment paths invite one implementation.** The ledger is shared and the top-up buttons look alike, so the cheapest next change is always to route a tenant user's payment through the same code as a direct user's. That single change makes lyness the merchant of record for every tenant's users, which is the one outcome this note forbids. The separation needs to be visible in the code, not only in this file.
 
 **A tenant cap and a deployment grant can disagree silently.** Two authorities bounding one balance means a user can be stopped by a limit their administrator did not set, or keep working past one the administrator thought they had set. Naming the binding limit in the refusal is what makes that debuggable; omitting it produces support cases neither party can resolve.

@@ -3,13 +3,13 @@ description: "Microsoft Entra ID sign-in through the browser, for deployments co
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-microsoft-entra
+# @lyness/lyn-microsoft-entra
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`dsh-microsoft-entra` signs a person in through their own Microsoft Entra directory and holds the verified subject for them. It registers one authorization flow: the person opens the directory's page in a browser, returns to a loopback callback, and the redeemed access token is used once to ask Microsoft Graph who signed in. The subject comes from that authenticated call rather than from id-token claims, so this package verifies no token signature and holds no key material. Configure the directory and the application id; a deployment that configures neither cannot mount it.
+`lyn-microsoft-entra` signs a person in through their own Microsoft Entra directory and holds the verified subject for them. It registers one authorization flow: the person opens the directory's page in a browser, returns to a loopback callback, and the redeemed access token is used once to ask Microsoft Graph who signed in. The subject comes from that authenticated call rather than from id-token claims, so this package verifies no token signature and holds no key material. Configure the directory and the application id; a deployment that configures neither cannot mount it.
 
 ## Table of Contents
 
@@ -29,7 +29,7 @@ Mount it when people should sign in with their work account. It needs `ctx.autho
 
 ```yaml
 - id: microsoft-entra
-  name: '@deepseek-ai/dsh-microsoft-entra'
+  name: '@lyness/lyn-microsoft-entra'
   config:
     directory: contoso.onmicrosoft.com
     clientId: 00000000-0000-0000-0000-000000000000
@@ -60,7 +60,7 @@ The Entra app registration must be a public client with the loopback redirect UR
 
 ```yaml
 - id: microsoft-entra-channel
-  name: '@deepseek-ai/dsh-microsoft-entra/channel'
+  name: '@lyness/lyn-microsoft-entra/channel'
   config:
     directory: contoso.onmicrosoft.com
     clientId: 00000000-0000-0000-0000-000000000000
@@ -97,8 +97,8 @@ The subject is read from an authenticated Graph `/me` call over TLS, so the dire
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`dsh-authorization`](../../credentials/authorization/README.md) — the flow seam this package registers with.
-- [`dsh-credentials`](../../credentials/credentials/README.md) — where the grant is stored.
+- [`lyn-authorization`](../../credentials/authorization/README.md) — the flow seam this package registers with.
+- [`lyn-credentials`](../../credentials/credentials/README.md) — where the grant is stored.
 - [Vendor integrations](../../../docs/subsystems/vendor-integrations.md) — the identity and channel faces, and what they share.
 
 -----

@@ -1,20 +1,20 @@
 /** Optional Computer Use controls mounted through existing plugin-page and overlay slots. */
-import type { Context } from '@deepseek-ai/cordis'
-import type {} from '@deepseek-ai/dsh-cua/remote'
-import type { TypertRemoteContribution } from '@deepseek-ai/dsh-typert-protocol'
-import type {} from '@deepseek-ai/dsh-api-remotes/client'
-import type {} from '@deepseek-ai/dsh-client-locale/client'
-import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
-import type {} from '@deepseek-ai/dsh-client-ui-layout/client'
-import type {} from '@deepseek-ai/dsh-client-ui-plugin-manager/client'
-import type {} from '@deepseek-ai/dsh-client-ui-settings/client'
-import type { ComposerChainProps } from '@deepseek-ai/dsh-client-ui-conversation/client'
+import type { Context } from '@lyness/cordis'
+import type {} from '@lyness/lyn-cua/remote'
+import type { TypertRemoteContribution } from '@lyness/lyn-typert-protocol'
+import type {} from '@lyness/lyn-api-remotes/client'
+import type {} from '@lyness/lyn-client-locale/client'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
+import type {} from '@lyness/lyn-client-ui-layout/client'
+import type {} from '@lyness/lyn-client-ui-plugin-manager/client'
+import type {} from '@lyness/lyn-client-ui-settings/client'
+import type { ComposerChainProps } from '@lyness/lyn-client-ui-conversation/client'
 import { ApplicationApproval, selectApplicationApproval } from './ApplicationApproval.tsx'
 import { PermissionController } from './controller.ts'
 import { PermissionPanel, PermissionSetup, PermissionToast } from './PermissionPanel.tsx'
 import { en, ja, es, fr, de, ru, pt, NS, zh, type CuaPermissionLocaleKey } from './locales.ts'
 
-declare module '@deepseek-ai/dsh-client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface LocaleNamespaceMap {
     /** Native permission controls and application consent. */
     cuaPermissions: CuaPermissionLocaleKey
@@ -42,7 +42,7 @@ export async function mountCuaPermissions(ctx: Context, contribution: TypertRemo
       inject: () => ({ resolveText: (text: { en: string; [locale: string]: string }) => ctx.locale.resolveText(text) }),
     }, ApplicationApproval))
     ctx.inject(['pluginChanges'], (scope) => {
-      const changes = scope.pluginChanges.bundle('@deepseek-ai/dsh-cua-bundle')
+      const changes = scope.pluginChanges.bundle('@lyness/lyn-cua-bundle')
       const synchronize = () => { controller.setChanging(changes.getSnapshot()) }
       synchronize()
       scope.effect(() => {
@@ -67,10 +67,10 @@ export async function mountCuaPermissions(ctx: Context, contribution: TypertRemo
       if (namespace === controller.state.getSnapshot().applications.value?.settingsNamespace) face.refresh()
     }))
     ctx.slots.inject('plugins.bundle.config', () => ctx.slots.register({
-      name: 'plugins.bundle.config', key: '@deepseek-ai/dsh-cua-bundle', locale: NS, inject: () => settings,
+      name: 'plugins.bundle.config', key: '@lyness/lyn-cua-bundle', locale: NS, inject: () => settings,
     }, PermissionPanel))
     ctx.slots.inject('plugins.bundle.activation', () => ctx.slots.register({
-      name: 'plugins.bundle.activation', key: '@deepseek-ai/dsh-cua-bundle', locale: NS, inject: () => face,
+      name: 'plugins.bundle.activation', key: '@lyness/lyn-cua-bundle', locale: NS, inject: () => face,
     }, PermissionSetup))
     ctx.slots.inject('shell.overlay', () => ctx.slots.register({
       name: 'shell.overlay', id: 'cua-permission-outcome', locale: NS, inject: () => face,

@@ -5,33 +5,33 @@
 /:
   en: 5424f24b80e16ee6
   zh: d606d3e878de6e91
-/deepseek-harness-dsh-client-ui-settings-web-search:
+/lyness-lyn-client-ui-settings-web-search:
   en: 6a49c28a8a3019e4
   zh: 11adbf7d192e73e9
-/deepseek-harness-dsh-client-ui-settings-web-search/summary:
+/lyness-lyn-client-ui-settings-web-search/summary:
   en: c84451c5b4641b9f
   zh: 3197ee34071fcb27
-/deepseek-harness-dsh-client-ui-settings-web-search/table-of-contents:
+/lyness-lyn-client-ui-settings-web-search/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/deepseek-harness-dsh-client-ui-settings-web-search/use-this-package:
+/lyness-lyn-client-ui-settings-web-search/use-this-package:
   en: b9c740855d0886d8
   zh: f6e14f6bd01ffd23
-/deepseek-harness-dsh-client-ui-settings-web-search/understand-the-implementation:
+/lyness-lyn-client-ui-settings-web-search/understand-the-implementation:
   en: 90a3d55da6722763
   zh: 8fc0463c6543f100
-/deepseek-harness-dsh-client-ui-settings-web-search/further-exploration:
+/lyness-lyn-client-ui-settings-web-search/further-exploration:
   en: 2b5e20759f334832
   zh: 8ae51dcd3707a506
-/deepseek-harness-dsh-client-ui-settings-web-search/model-experience:
+/lyness-lyn-client-ui-settings-web-search/model-experience:
   en: 6b7c6f82ab6c8435
   zh: 4517689c899abcbe
-/deepseek-harness-dsh-client-ui-settings-web-search/model-experience/kv-cache-effect:
+/lyness-lyn-client-ui-settings-web-search/model-experience/kv-cache-effect:
   en: ca75c51c89c2c9b0
   zh: 6e1c9a8fdde89577
-/deepseek-harness-dsh-client-ui-settings-web-search/known-limitations-and-deferred-work:
+/lyness-lyn-client-ui-settings-web-search/known-limitations-and-deferred-work:
   en: 3fb1d37ebc9bf37a
   zh: d6ac7929cb19ff55
-/deepseek-harness-dsh-client-ui-settings-web-search/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-client-ui-settings-web-search/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: e88aeb617ffb74ea

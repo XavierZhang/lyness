@@ -5,10 +5,10 @@
  * operator's and may change, and a person comparing a balance against a task
  * cannot reason in a unit that moves.
  *
- * @module @deepseek-ai/dsh-credits/pricing
+ * @module @lyness/lyn-credits/pricing
  */
 
-import type { TokenUsage } from '@deepseek-ai/dsh-llm'
+import type { TokenUsage } from '@lyness/lyn-llm'
 
 /** Credits charged per million billable tokens before a deployment changes it. */
 export const DEFAULT_CREDITS_PER_MILLION = 1000

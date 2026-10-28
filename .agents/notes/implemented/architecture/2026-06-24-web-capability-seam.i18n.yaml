@@ -41,10 +41,10 @@
 /agent-note-web-capability-seam-stable-tools-over-multiple-providers/alternatives-considered/let-each-provider-register-its-own-model-facing-tool:
   en: e0d84a9b1b9c2123
   zh: 9e116a7b96751563
-/agent-note-web-capability-seam-stable-tools-over-multiple-providers/alternatives-considered/put-provider-dispatch-directly-in-dsh-tool-web:
+/agent-note-web-capability-seam-stable-tools-over-multiple-providers/alternatives-considered/put-provider-dispatch-directly-in-lyn-tool-web:
   en: 4975892c26ef0e5e
   zh: 09eb687fa0906599
-/agent-note-web-capability-seam-stable-tools-over-multiple-providers/alternatives-considered/split-search-and-fetch-into-two-seams-dsh-search-dsh-fetch:
+/agent-note-web-capability-seam-stable-tools-over-multiple-providers/alternatives-considered/split-search-and-fetch-into-two-seams-lyn-search-lyn-fetch:
   en: 0b8c91bc36ee81dc
   zh: d71eab922dbfff62
 /agent-note-web-capability-seam-stable-tools-over-multiple-providers/alternatives-considered/choose-the-first-registered-provider:

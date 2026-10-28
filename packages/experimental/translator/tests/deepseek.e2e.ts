@@ -1,36 +1,36 @@
 /** Explicitly enabled billed Flash smoke through the actual native official provider. */
-import type { ModuleLoaderV2 } from '@deepseek-ai/cordis-plugin-loader'
-import { boot } from '@deepseek-ai/dsh-app-boot'
-import LlmRuntime from '@deepseek-ai/dsh-llm'
-import SessionStore, { SessionId } from '@deepseek-ai/dsh-session'
-import * as JsonlPersistence from '@deepseek-ai/dsh-session-persistence-jsonl'
-import * as Official from '@deepseek-ai/dsh-llm-deepseek-api-key'
+import type { ModuleLoaderV2 } from '@lyness/cordis-plugin-loader'
+import { boot } from '@lyness/lyn-app-boot'
+import LlmRuntime from '@lyness/lyn-llm'
+import SessionStore, { SessionId } from '@lyness/lyn-session'
+import * as JsonlPersistence from '@lyness/lyn-session-persistence-jsonl'
+import * as Official from '@lyness/lyn-llm-deepseek-api-key'
 import { mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { expect, it } from 'vitest'
 import Translator from '../src/index.ts'
 
-const enabled = process.env.DSH_TRANSLATION_DEEPSEEK_LIVE === '1' && (process.env.DEEPSEEK_API_KEY?.length ?? 0) > 0
+const enabled = process.env.LYNESS_TRANSLATION_DEEPSEEK_LIVE === '1' && (process.env.DEEPSEEK_API_KEY?.length ?? 0) > 0
 
 it.skipIf(!enabled)('translates a small independent billed query with exact Flash and thinking off', async () => {
-  const root = await mkdtemp(join(tmpdir(), 'dsh-paid-translation-live-'))
-  const previousHome = process.env.DSH_HOME
-  process.env.DSH_HOME = root
+  const root = await mkdtemp(join(tmpdir(), 'lyn-paid-translation-live-'))
+  const previousHome = process.env.LYNESS_HOME
+  process.env.LYNESS_HOME = root
   let close: (() => Promise<void>) | undefined
   try {
     const configPath = join(root, 'cordis.yml')
     await writeFile(configPath, JSON.stringify([
-      { id: 'llm', name: '@deepseek-ai/dsh-llm' },
-      { id: 'sessions', name: '@deepseek-ai/dsh-session' },
-      { id: 'storage', name: '@deepseek-ai/dsh-session-persistence-jsonl', config: { root: join(root, 'sessions'), compression: 'none' } },
-      { id: 'official-live-owner', name: '@deepseek-ai/dsh-llm-deepseek-api-key' },
-      { id: 'translator', name: '@deepseek-ai/dsh-experimental-translator', config: { deepseekMaxOutputTokens: 128 } },
+      { id: 'llm', name: '@lyness/lyn-llm' },
+      { id: 'sessions', name: '@lyness/lyn-session' },
+      { id: 'storage', name: '@lyness/lyn-session-persistence-jsonl', config: { root: join(root, 'sessions'), compression: 'none' } },
+      { id: 'official-live-owner', name: '@lyness/lyn-llm-deepseek-api-key' },
+      { id: 'translator', name: '@lyness/lyn-experimental-translator', config: { deepseekMaxOutputTokens: 128 } },
     ]))
     const modules = new Map<string, unknown>([
-      ['@deepseek-ai/dsh-llm', LlmRuntime], ['@deepseek-ai/dsh-session', SessionStore],
-      ['@deepseek-ai/dsh-session-persistence-jsonl', JsonlPersistence],
-      ['@deepseek-ai/dsh-llm-deepseek-api-key', Official], ['@deepseek-ai/dsh-experimental-translator', Translator],
+      ['@lyness/lyn-llm', LlmRuntime], ['@lyness/lyn-session', SessionStore],
+      ['@lyness/lyn-session-persistence-jsonl', JsonlPersistence],
+      ['@lyness/lyn-llm-deepseek-api-key', Official], ['@lyness/lyn-experimental-translator', Translator],
     ])
     const ctx = await boot('paid-translation-live', configPath, [], (host) => {
       const source: ModuleLoaderV2 = {
@@ -65,8 +65,8 @@ it.skipIf(!enabled)('translates a small independent billed query with exact Flas
     expect(events[1]).toMatchObject({ type: 'plugin:translator/result', ignorable: true, data: { requestSeq: 0, text: result } })
   } finally {
     await close?.()
-    if (previousHome === undefined) Reflect.deleteProperty(process.env, 'DSH_HOME')
-    else process.env.DSH_HOME = previousHome
+    if (previousHome === undefined) Reflect.deleteProperty(process.env, 'LYNESS_HOME')
+    else process.env.LYNESS_HOME = previousHome
     await rm(root, { recursive: true, force: true })
   }
 })

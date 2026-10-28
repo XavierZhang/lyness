@@ -29,20 +29,20 @@
  * process serves one organization. The configured tenant stays the answer for
  * every session created outside a request — a CLI run, a resumed session, a
  * subagent — because those name no request to read.
- * @module @deepseek-ai/dsh-tenant-session
+ * @module @lyness/lyn-tenant-session
  */
 
-import { Context } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
+import { Context } from '@lyness/cordis'
+import z from '@lyness/schemastery'
 import { z as zod } from 'zod'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import type {} from '@deepseek-ai/dsh-system-prompt'
-import { TenantId } from '@deepseek-ai/dsh-tenant'
-import type { Tenant } from '@deepseek-ai/dsh-tenant'
-import type { Session, SessionEvent } from '@deepseek-ai/dsh-session'
-import type {} from '@deepseek-ai/dsh-session-projection'
-import type { TenantConfig } from '@deepseek-ai/dsh-tenant-config'
-import type {} from '@deepseek-ai/dsh-tenant-request/types'
+import type { Agent } from '@lyness/lyn-agent'
+import type {} from '@lyness/lyn-system-prompt'
+import { TenantId } from '@lyness/lyn-tenant'
+import type { Tenant } from '@lyness/lyn-tenant'
+import type { Session, SessionEvent } from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-session-projection'
+import type { TenantConfig } from '@lyness/lyn-tenant-config'
+import type {} from '@lyness/lyn-tenant-request/types'
 
 /** Shape version of {@link TenantSessionRecord}; a later field set changes it deliberately. */
 export const TENANT_SESSION_RECORD_VERSION = 1
@@ -61,7 +61,7 @@ export interface TenantSessionRecord {
   readonly personality?: string
 }
 
-declare module '@deepseek-ai/dsh-session/types' {
+declare module '@lyness/lyn-session/types' {
   interface SessionEventMap {
     /**
      * Records the tenant this session belongs to and the identity text that
@@ -74,14 +74,15 @@ declare module '@deepseek-ai/dsh-session/types' {
   }
 }
 
-declare module '@deepseek-ai/dsh-session-projection/types' {
+declare module '@lyness/lyn-session-projection/types' {
   interface SessionProjectionStateMap {
     /** The tenant record this session was created with, or null before it is written. */
     tenant: TenantSessionRecord | null
   }
 }
 
-const recordSchema: zod.ZodType<TenantSessionRecord | null> = zod.object({
+/** The tenant projection's stored state, for a reader validating what it folds back. */
+export const tenantSessionRecordSchema: zod.ZodType<TenantSessionRecord | null> = zod.object({
   version: zod.number(),
   tenantId: zod.string().min(1),
   slug: zod.string().min(1),
@@ -209,7 +210,7 @@ export async function apply(ctx: Context, config: Config): Promise<void> {
   ctx.sessionProjections.register({
     key: 'tenant',
     stateVersion: 1,
-    stateSchema: recordSchema,
+    stateSchema: tenantSessionRecordSchema,
     init: () => null,
     apply: applyTenantEvent,
   })
@@ -234,11 +235,18 @@ export async function apply(ctx: Context, config: Config): Promise<void> {
   // that agent's scope: the loop assembles its prompt with the agent as the
   // scope, so one conversation's identity is never assembled into another's.
   const compose = (agent: Agent): void => {
-    const record = ctx.sessionProjections.stateOf(agent.session, 'tenant')
+    // TODO(session-projection): read through the registration handle instead.
+    // Upstream 0.2.1 deprecated the keyed read and types it `unknown`; the
+    // fold state is parsed with the projection's own schema here, which is the
+    // same validation the registry performs when it reloads a checkpoint.
+    const state = ctx.sessionProjections.stateOf(agent.session, 'tenant')
     /* v8 ignore next -- `session/created` has stamped the session before
        `agent/created` fires for it, so this names a broken order rather than
        composing text the log does not hold. */
-    if (record === undefined || record === null) return
+    if (state === undefined || state === null) return
+    const record = tenantSessionRecordSchema.parse(state)
+    /* v8 ignore next -- the stamp writes a record, never null. */
+    if (record === null) return
     const withdraw = composeTenantIdentity(agent.ctx, record)
     // Owned by the agent's scope as well, so disposing the agent takes the
     // sections with it; this plugin keeps the disposer only for its own

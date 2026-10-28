@@ -1,20 +1,20 @@
-import { executeToolFixture } from '@deepseek-ai/dsh-tool-testkit'
-import * as NativeToolExecutor from '@deepseek-ai/dsh-tool-executor-native'
-import { provideWorkingDirectoryFixture } from '@deepseek-ai/dsh-agent-loop-testkit'
+import { executeToolFixture } from '@lyness/lyn-tool-testkit'
+import * as NativeToolExecutor from '@lyness/lyn-tool-executor-native'
+import { provideWorkingDirectoryFixture } from '@lyness/lyn-agent-loop-testkit'
 import { describe, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import Loader from '@deepseek-ai/cordis-plugin-loader'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import { ToolCallId } from '@deepseek-ai/dsh-llm'
-import { SessionId } from '@deepseek-ai/dsh-session'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import SubagentRuntime from '@deepseek-ai/dsh-subagent'
-import type { SubagentCapabilities, SubagentProvider, SubagentRun, SubagentStartRequest } from '@deepseek-ai/dsh-subagent'
-import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
-import ToolRuntime, { TOOL_ABORTED_BEFORE_DISPATCH } from '@deepseek-ai/dsh-tools'
-import type { ToolExecutionResult } from '@deepseek-ai/dsh-tools'
-import { WorkflowRunId, WorkflowEngine } from '@deepseek-ai/dsh-workflow'
-import type { WorkflowResult, WorkflowRun, WorkflowStartRequest } from '@deepseek-ai/dsh-workflow'
+import { Context } from '@lyness/cordis'
+import Loader from '@lyness/cordis-plugin-loader'
+import type { Agent } from '@lyness/lyn-agent'
+import { ToolCallId } from '@lyness/lyn-llm'
+import { SessionId } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import SubagentRuntime from '@lyness/lyn-subagent'
+import type { SubagentCapabilities, SubagentProvider, SubagentRun, SubagentStartRequest } from '@lyness/lyn-subagent'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime, { TOOL_ABORTED_BEFORE_DISPATCH } from '@lyness/lyn-tools'
+import type { ToolExecutionResult } from '@lyness/lyn-tools'
+import { WorkflowRunId, WorkflowEngine } from '@lyness/lyn-workflow'
+import type { WorkflowResult, WorkflowRun, WorkflowStartRequest } from '@lyness/lyn-workflow'
 import * as toolRalph from '../src/index.ts'
 
 const testToolSignal = new AbortController().signal
@@ -148,7 +148,7 @@ async function settleCompleted(
   return pending
 }
 
-describe('dsh-tool-ralph', () => {
+describe('lyn-tool-ralph', () => {
   it('starts the fixed workflow through the configured fresh provider and renders completion', async () => {
     const { ctx, engine, parent } = await setup({ config: { maxRounds: 9, maxHandoffChars: 9000 } })
     const pending = execute(ctx, { objective: '  Finish the migration.  ', maxRounds: 4 }, { agent: parent })

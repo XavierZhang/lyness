@@ -3,11 +3,11 @@ import { once } from 'node:events'
 import { queryObjects } from 'node:v8'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import WebSocket, { type RawData } from 'ws'
-import { Context, symbols } from '@deepseek-ai/cordis'
-import { apply as applyConnection, inject as connectionInject } from '@deepseek-ai/dsh-client-connection'
-import WebServer from '@deepseek-ai/dsh-host-webserver'
-import { MAX_TIMER_DELAY_MS } from '@deepseek-ai/dsh-timeout'
-import type { AppReady } from '@deepseek-ai/dsh-cmdline'
+import { Context, symbols } from '@lyness/cordis'
+import { apply as applyConnection, inject as connectionInject } from '@lyness/lyn-client-connection'
+import WebServer from '@lyness/lyn-host-webserver'
+import { MAX_TIMER_DELAY_MS } from '@lyness/lyn-timeout'
+import type { AppReady } from '@lyness/lyn-cmdline'
 import {
   Remote,
   remoteErrorOf,
@@ -19,11 +19,11 @@ import {
   type TypertContextMap,
   type TypertContextWire,
   RemoteError,
-} from '@deepseek-ai/dsh-typert-protocol'
-import TypertRegistry from '@deepseek-ai/dsh-typert-registry'
-import RemoteAccessService from '@deepseek-ai/dsh-api-remote-access'
+} from '@lyness/lyn-typert-protocol'
+import TypertRegistry from '@lyness/lyn-typert-registry'
+import RemoteAccessService from '@lyness/lyn-api-remote-access'
 
-declare module '@deepseek-ai/dsh-typert-protocol' {
+declare module '@lyness/lyn-typert-protocol' {
   interface RemoteErrorDetailsMap {
     'fixture/rejected': { readonly retryable: boolean }
     'fixture/broken': { readonly count: bigint }
@@ -36,7 +36,7 @@ import TypertGatewayService, {
   type TypertRemoteEventDispatch,
   type TypertRemoteEventInvocation,
   type TypertRemoteEventOutcome,
-} from '@deepseek-ai/dsh-api-gateway'
+} from '@lyness/lyn-api-gateway'
 import { z } from 'zod'
 import type {
   RemoteEventClientId,

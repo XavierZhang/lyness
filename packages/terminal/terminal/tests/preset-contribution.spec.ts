@@ -8,7 +8,7 @@
  * the shipped bundles. What is owned here is the contributed row.
  */
 
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { expect, it } from 'vitest'
 import * as PresetContribution from '../src/preset-contribution.ts'
 
@@ -56,7 +56,7 @@ it('contributes the persistent shell group under the allocated row id', async ()
   expect(recorded.contributions).toHaveLength(1)
   const [contribution] = recorded.contributions
   expect(contribution?.id).toBe('module-terminal-tool')
-  expect(contribution?.module).toBe('@deepseek-ai/dsh-module-terminal')
+  expect(contribution?.module).toBe('@lyness/lyn-module-terminal')
   // The group isolates terminals so one agent cannot read another's screen.
   expect(contribution?.row).toMatchObject({ name: 'cordis:group', group: true, isolate: { terminals: true } })
   expect(Object.keys(shellRows(contribution?.row))).toEqual(['pty', 'terminal-bash', 'terminal-pwsh', 'tool-terminal'])
@@ -104,7 +104,7 @@ it('withdraws the contribution when its fiber is disposed', async () => {
 it('names the module the registry reports in a collision', () => {
   // The diagnostic names the bundle a deployment would disable, not the
   // service package the row resolves through.
-  expect(PresetContribution.MODULE).toBe('@deepseek-ai/dsh-module-terminal')
+  expect(PresetContribution.MODULE).toBe('@lyness/lyn-module-terminal')
   expect(PresetContribution.ROW_ID).toBe('module-terminal-tool')
   expect(PresetContribution.name).toBe('terminal-preset-contribution')
   expect(PresetContribution.inject).toEqual(['agentPresets'])

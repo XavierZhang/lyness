@@ -4,7 +4,7 @@
  */
 
 import { describe, expect, it, vi } from 'vitest'
-import type { ConfiguredChannelView } from '@deepseek-ai/dsh-api-sign-in-channel-controller/types'
+import type { ConfiguredChannelView } from '@lyness/lyn-api-sign-in-channel-controller/types'
 import { SectionBinding, sectionFace } from '../src/client/binding.ts'
 import type { ChannelsActions } from '../src/client/binding.ts'
 import type { ChannelsOperations } from '../src/client/operations.ts'

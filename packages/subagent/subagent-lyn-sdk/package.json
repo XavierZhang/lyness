@@ -1,0 +1,66 @@
+{
+  "name": "@lyness/lyn-subagent-lyn-sdk",
+  "description": "Out-of-process SDK subagent backend: drives a child lyness runtime subprocess over stdio JSON-RPC through the TypeScript SDK client",
+  "version": "0.2.1-rc.3",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "directory": "packages/subagent/subagent-lyn-sdk"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./src/*": "./src/*",
+    "./locale/*.json": "./locale/*.json",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "locale/*.json",
+    "lib/index.js",
+    "lib/types/**/*.d.ts"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-sdk-client": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-subagent": "workspace:*",
+    "@lyness/lyn-subprocess": "workspace:*"
+  },
+  "dependencies": {
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/schemastery": "workspace:~"
+  },
+  "devDependencies": {
+    "@lyness/cordis": "workspace:~",
+    "@lyness/cordis-plugin-loader": "workspace:~",
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/lyn-agent-instructions": "workspace:*",
+    "@lyness/lyn-app-boot": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-llm-deepseek": "workspace:*",
+    "@lyness/lyn-llm-deepseek-api-key": "workspace:*",
+    "@lyness/lyn-loader-smoke": "workspace:*",
+    "@lyness/lyn-sdk-client": "workspace:*",
+    "@lyness/lyn-sdk-protocol": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-session-checkpoint-policy": "workspace:*",
+    "@lyness/lyn-session-persistence-jsonl": "workspace:*",
+    "@lyness/lyn-session-projection": "workspace:*",
+    "@lyness/lyn-skill-filesystem": "workspace:*",
+    "@lyness/lyn-subagent": "workspace:*",
+    "@lyness/lyn-subprocess": "workspace:*",
+    "@lyness/lyn-system-prompt": "workspace:*",
+    "@lyness/lyn-tool-subagent": "workspace:*"
+  }
+}

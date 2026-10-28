@@ -3,7 +3,7 @@ description: "定时跟进模块作为独立的出厂 bundle，面向选中它�
 kind: "package-bundle"
 ---
 
-# @deepseek-ai/dsh-module-schedule
+# @lyness/lyn-module-schedule
 
 [English](README.md) | 中文
 
@@ -57,8 +57,8 @@ kind: "package-bundle"
 <a id="further-exploration"></a>
 ## 进一步探索
 
-- [`dsh-schedule`](../../schedule/schedule/README.zh.md) —— 宿主服务、它的任务存储与投递。
-- [`dsh-client-ui-schedule`](../../client/ui-schedule/README.zh.md) —— 浏览器目录。
+- [`lyn-schedule`](../../schedule/schedule/README.zh.md) —— 宿主服务、它的任务存储与投递。
+- [`lyn-client-ui-schedule`](../../client/ui-schedule/README.zh.md) —— 浏览器目录。
 - [默认模块与视图切分](../../../.agents/notes/proposed/architecture/2026-10-08-default-modules-and-views.zh.md) —— 为什么每个默认模块各自是一个 bundle。
 
 -----
@@ -80,7 +80,7 @@ None, as this bundle contributes only composition rows; the Schedule service own
 
 - **出厂时是关闭的** —— 选中这个 bundle 让模块可用，不是让它生效。想要定时跟进的部署覆盖这两行。
 - **迁移只覆盖一个先前的元组** —— 被手工改过 bundle 列表的 profile 按设计不被触碰，所以手工改过的 profile 也要手工加上这个 bundle。
-- **只有 `web` 模板选中它** —— 自定义 profile 自己把它加进 `dsh.profile.bundles`。
+- **只有 `web` 模板选中它** —— 自定义 profile 自己把它加进 `lyn.profile.bundles`。
 
 **Runtime invariant:** No companion is published. 本 bundle 不拥有任何运行时状态；它插入的行由 Loader 观察，而 Schedule 服务发布它自己的 invariant。
 

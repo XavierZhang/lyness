@@ -2,7 +2,7 @@
 
 import { homedir } from 'node:os'
 import { posix, win32 } from 'node:path'
-import { runNativeCommand, type NativeCommandRunner } from '@deepseek-ai/dsh-native-command'
+import { runNativeCommand, type NativeCommandRunner } from '@lyness/lyn-native-command'
 import { DEFAULT_WORKSPACE_DIRECTORY } from './default-workspace.ts'
 
 /** Platform observations replaceable in directory-resolution tests. */
@@ -74,5 +74,5 @@ export async function defaultWorkspaceDirectory(
   }
   directory = validateDocumentsDirectory(directory, platform)
   signal.throwIfAborted()
-  return paths.join(directory, 'HARNESS', DEFAULT_WORKSPACE_DIRECTORY)
+  return paths.join(directory, 'lyness', DEFAULT_WORKSPACE_DIRECTORY)
 }

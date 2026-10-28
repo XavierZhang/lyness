@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-session-telemetry-otel",
+  "name": "@lyness/lyn-session-telemetry-otel",
   "description": "Feedback-authorized Session logs over byte-bounded OpenTelemetry HTTP requests",
   "version": "0.2.1-rc.3",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/session/session-telemetry-otel"
   },
   "type": "module",
@@ -29,36 +29,36 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@opentelemetry/api-logs": "0.222.0",
-    "@deepseek-ai/schemastery": "workspace:~"
+    "@lyness/schemastery": "workspace:~",
+    "@opentelemetry/api-logs": "0.222.0"
   },
   "peerDependencies": {
-    "@deepseek-ai/dsh-command-feedback": "workspace:*",
-    "@deepseek-ai/dsh-message-feedback": "workspace:*",
-    "@deepseek-ai/dsh-llm": "workspace:*",
-    "@deepseek-ai/dsh-session": "workspace:*",
-    "@deepseek-ai/dsh-session-telemetry": "workspace:*",
-    "@deepseek-ai/dsh-anonymous-user-id": "workspace:*",
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-otel": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-anonymous-user-id": "workspace:*",
+    "@lyness/lyn-command-feedback": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-message-feedback": "workspace:*",
+    "@lyness/lyn-otel": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-session-telemetry": "workspace:*"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis-plugin-logger-console": "workspace:~",
-    "@deepseek-ai/cordis-plugin-loader": "workspace:~",
-    "@deepseek-ai/dsh-app-boot": "workspace:*",
-    "@deepseek-ai/dsh-bash-local": "workspace:*",
-    "@deepseek-ai/dsh-command-feedback": "workspace:*",
-    "@deepseek-ai/dsh-message-feedback": "workspace:*",
-    "@deepseek-ai/dsh-llm": "workspace:*",
-    "@deepseek-ai/dsh-loader-smoke": "workspace:*",
-    "@deepseek-ai/dsh-session": "workspace:*",
-    "@deepseek-ai/dsh-session-checkpoint-policy": "workspace:*",
-    "@deepseek-ai/dsh-session-persistence-jsonl": "workspace:*",
-    "@deepseek-ai/dsh-session-telemetry": "workspace:*",
-    "@deepseek-ai/dsh-subprocess-local": "workspace:*",
-    "@deepseek-ai/dsh-anonymous-user-id": "workspace:*",
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-http-proxy": "workspace:*",
-    "@deepseek-ai/dsh-otel": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/cordis-plugin-loader": "workspace:~",
+    "@lyness/cordis-plugin-logger-console": "workspace:~",
+    "@lyness/lyn-anonymous-user-id": "workspace:*",
+    "@lyness/lyn-app-boot": "workspace:*",
+    "@lyness/lyn-bash-local": "workspace:*",
+    "@lyness/lyn-command-feedback": "workspace:*",
+    "@lyness/lyn-http-proxy": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-loader-smoke": "workspace:*",
+    "@lyness/lyn-message-feedback": "workspace:*",
+    "@lyness/lyn-otel": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-session-checkpoint-policy": "workspace:*",
+    "@lyness/lyn-session-persistence-jsonl": "workspace:*",
+    "@lyness/lyn-session-telemetry": "workspace:*",
+    "@lyness/lyn-subprocess-local": "workspace:*"
   }
 }

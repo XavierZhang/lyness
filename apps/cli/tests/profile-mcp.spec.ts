@@ -5,11 +5,11 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
-import { composeEntries, loadProfile } from '@deepseek-ai/dsh-app-boot'
-import { PROFILE_TEMPLATES } from '@deepseek-ai/dsh-official-bundles'
+import { composeEntries, loadProfile } from '@lyness/lyn-app-boot'
+import { PROFILE_TEMPLATES } from '@lyness/lyn-official-bundles'
 
 const installAnchor = fileURLToPath(new URL('../package.json', import.meta.url))
-const resourcePackage = '@deepseek-ai/dsh-mcp-resources'
+const resourcePackage = '@lyness/lyn-mcp-resources'
 
 describe('shipped MCP resource composition', () => {
   // The brand profiles are excluded: each is a standalone tree that mounts no
@@ -19,9 +19,9 @@ describe('shipped MCP resource composition', () => {
 
   it.each(Object.keys(PROFILE_TEMPLATES).filter(name => !STANDALONE.includes(name)))(
     '%s carries one shared resource consumer without a server', (name) => {
-      const home = mkdtempSync(join(tmpdir(), 'dsh-profile-mcp-'))
+      const home = mkdtempSync(join(tmpdir(), 'lyn-profile-mcp-'))
       try {
-        const profile = loadProfile('dsh', name, installAnchor, home)
+        const profile = loadProfile('lyn', name, installAnchor, home)
         const warnings: string[] = []
         const rows = composeEntries([
           ...profile.layers.map(layer => layer.patches),
@@ -31,7 +31,7 @@ describe('shipped MCP resource composition', () => {
         expect(rows.filter(row => row.name === resourcePackage)).toEqual([
           { id: 'mcp-resources', name: resourcePackage },
         ])
-        expect(rows.filter(row => row.name === '@deepseek-ai/dsh-mcp-client')).toEqual([])
+        expect(rows.filter(row => row.name === '@lyness/lyn-mcp-client')).toEqual([])
         // No template patches a row another bundle did not insert: a patch
         // layer cannot say "disable this if it exists", so rows that need two
         // bundles are selected with both.
@@ -44,7 +44,7 @@ describe('shipped MCP resource composition', () => {
           return manifest.dependencies?.[resourcePackage] !== undefined
         })
         expect(owners.map(owner => owner.packageName)).toEqual([
-          name === 'sdk-minimal' ? '@deepseek-ai/dsh-sdk-minimal' : '@deepseek-ai/dsh-base',
+          name === 'sdk-minimal' ? '@lyness/lyn-sdk-minimal' : '@lyness/lyn-base',
         ])
       } finally {
         rmSync(home, { recursive: true, force: true })

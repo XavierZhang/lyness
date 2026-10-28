@@ -1,6 +1,6 @@
 /** The Host half contributes nothing, which is what lets a browserless Host mount it. */
-import { Context } from '@deepseek-ai/cordis'
-import { FiberState } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
+import { FiberState } from '@lyness/cordis'
 import { afterEach, expect, it } from 'vitest'
 import * as hostPlugin from '../src/index.ts'
 

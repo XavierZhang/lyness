@@ -1,4 +1,4 @@
-/** The bundle package names the dsh installation selects, offers, installs on demand, or retires. */
+/** The bundle package names the lyn installation selects, offers, installs on demand, or retires. */
 
 /** Installation-owned defaults used when a shipped profile is first opened. */
 export interface ProfileTemplate {
@@ -29,14 +29,14 @@ export interface ProfileTemplate {
  */
 export const PROFILE_TEMPLATES: Record<string, ProfileTemplate> = {
   acp: {
-    bundles: ['@deepseek-ai/dsh-base', '@deepseek-ai/dsh-module-execution', '@deepseek-ai/dsh-acp-app'],
+    bundles: ['@lyness/lyn-base', '@lyness/lyn-module-execution', '@lyness/lyn-acp-app'],
   },
   web: {
-    bundles: ['@deepseek-ai/dsh-base', '@deepseek-ai/dsh-module-execution', '@deepseek-ai/dsh-web-app',
-      '@deepseek-ai/dsh-web-execution', '@deepseek-ai/dsh-module-deliverables',
-      '@deepseek-ai/dsh-module-extensions', '@deepseek-ai/dsh-module-lsp',
-      '@deepseek-ai/dsh-module-memory', '@deepseek-ai/dsh-module-schedule', '@deepseek-ai/dsh-module-terminal',
-      '@deepseek-ai/dsh-module-webhook'],
+    bundles: ['@lyness/lyn-base', '@lyness/lyn-module-execution', '@lyness/lyn-web-app',
+      '@lyness/lyn-web-execution', '@lyness/lyn-module-deliverables',
+      '@lyness/lyn-module-extensions', '@lyness/lyn-module-lsp',
+      '@lyness/lyn-module-memory', '@lyness/lyn-module-schedule', '@lyness/lyn-module-terminal',
+      '@lyness/lyn-module-webhook'],
   },
   /**
    * The enterprise shape: one customer's own servers, their own staff. It adds
@@ -53,14 +53,14 @@ export const PROFILE_TEMPLATES: Record<string, ProfileTemplate> = {
    * ([handbook](../../../../docs/user/guide/standalone-administration.md)).
    */
   enterprise: {
-    bundles: ['@deepseek-ai/dsh-base', '@deepseek-ai/dsh-module-execution', '@deepseek-ai/dsh-web-app',
-      '@deepseek-ai/dsh-web-execution', '@deepseek-ai/dsh-module-accounts', '@deepseek-ai/dsh-module-deliverables',
-      '@deepseek-ai/dsh-module-extensions', '@deepseek-ai/dsh-module-lsp',
-      '@deepseek-ai/dsh-module-memory', '@deepseek-ai/dsh-module-model-governance',
-      '@deepseek-ai/dsh-module-schedule', '@deepseek-ai/dsh-module-terminal', '@deepseek-ai/dsh-module-webhook'],
+    bundles: ['@lyness/lyn-base', '@lyness/lyn-module-execution', '@lyness/lyn-web-app',
+      '@lyness/lyn-web-execution', '@lyness/lyn-module-accounts', '@lyness/lyn-module-deliverables',
+      '@lyness/lyn-module-extensions', '@lyness/lyn-module-lsp',
+      '@lyness/lyn-module-memory', '@lyness/lyn-module-model-governance',
+      '@lyness/lyn-module-schedule', '@lyness/lyn-module-terminal', '@lyness/lyn-module-webhook'],
   },
   /**
-   * The hosted shape: DeepSeek Harness's own servers, many customers. It selects the
+   * The hosted shape: lyness's own servers, many customers. It selects the
    * control plane — accounts, credits, model governance, sessions — and
    * selects no execution bundle, so the runtime executes nothing on behalf of
    * anyone. Agent work that touches a machine runs on the person's own, and
@@ -76,25 +76,25 @@ export const PROFILE_TEMPLATES: Record<string, ProfileTemplate> = {
    */
   hosted: {
     hosted: true,
-    bundles: ['@deepseek-ai/dsh-base', '@deepseek-ai/dsh-web-app', '@deepseek-ai/dsh-module-accounts',
-      '@deepseek-ai/dsh-module-credits', '@deepseek-ai/dsh-module-deliverables',
-      '@deepseek-ai/dsh-module-memory', '@deepseek-ai/dsh-module-model-governance',
-      '@deepseek-ai/dsh-module-schedule', '@deepseek-ai/dsh-module-webhook'],
+    bundles: ['@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-module-accounts',
+      '@lyness/lyn-module-credits', '@lyness/lyn-module-deliverables',
+      '@lyness/lyn-module-memory', '@lyness/lyn-module-model-governance',
+      '@lyness/lyn-module-schedule', '@lyness/lyn-module-webhook'],
   },
   headless: {
-    bundles: ['@deepseek-ai/dsh-base', '@deepseek-ai/dsh-module-execution', '@deepseek-ai/dsh-headless'],
+    bundles: ['@lyness/lyn-base', '@lyness/lyn-module-execution', '@lyness/lyn-headless'],
   },
   sdk: {
-    bundles: ['@deepseek-ai/dsh-base', '@deepseek-ai/dsh-module-execution', '@deepseek-ai/dsh-sdk-app'],
+    bundles: ['@lyness/lyn-base', '@lyness/lyn-module-execution', '@lyness/lyn-sdk-app'],
   },
   'sdk-minimal': {
-    bundles: ['@deepseek-ai/dsh-sdk-minimal'],
+    bundles: ['@lyness/lyn-sdk-minimal'],
   },
   'brand-studio': {
-    bundles: ['@deepseek-ai/dsh-brand-studio'],
+    bundles: ['@lyness/lyn-brand-studio'],
   },
   'brand-setup': {
-    bundles: ['@deepseek-ai/dsh-brand-setup'],
+    bundles: ['@lyness/lyn-brand-setup'],
   },
 }
 
@@ -111,69 +111,69 @@ export const PROFILE_TEMPLATES: Record<string, ProfileTemplate> = {
 export const INSTALLATION_OWNED_PROFILE_TUPLES: Record<string, readonly (readonly string[])[]> = {
   acp: [
     // Before execution became its own bundle.
-    ['@deepseek-ai/dsh-base', '@deepseek-ai/dsh-acp-app'],
+    ['@lyness/lyn-base', '@lyness/lyn-acp-app'],
   ],
   sdk: [
     // Before execution became its own bundle.
-    ['@deepseek-ai/dsh-base', '@deepseek-ai/dsh-sdk-app'],
+    ['@lyness/lyn-base', '@lyness/lyn-sdk-app'],
   ],
   headless: [
-    ['@deepseek-ai/dsh-base', '@deepseek-ai/dsh-web-app', '@deepseek-ai/dsh-headless'],
+    ['@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-headless'],
     // Before execution became its own bundle. Also the list a profile that
     // spells it the pre-rescope way is rewritten from, rather than being left
     // depending on its legacy links.
-    ['@deepseek-ai/dsh-base', '@deepseek-ai/dsh-headless'],
+    ['@lyness/lyn-base', '@lyness/lyn-headless'],
   ],
   web: [
     // Before any default module became its own bundle. A profile spelling this
     // the pre-rescope way reaches it through `rescopedBundleName`.
-    ['@deepseek-ai/dsh-base', '@deepseek-ai/dsh-web-app'],
+    ['@lyness/lyn-base', '@lyness/lyn-web-app'],
     // After scheduled follow-ups, before durable memory.
-    ['@deepseek-ai/dsh-base', '@deepseek-ai/dsh-web-app', '@deepseek-ai/dsh-module-schedule'],
+    ['@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-module-schedule'],
     // After durable memory, before the persistent terminal.
-    ['@deepseek-ai/dsh-base', '@deepseek-ai/dsh-web-app', '@deepseek-ai/dsh-module-memory', '@deepseek-ai/dsh-module-schedule'],
+    ['@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-module-memory', '@lyness/lyn-module-schedule'],
     // After the persistent terminal, before code navigation.
-    ['@deepseek-ai/dsh-base', '@deepseek-ai/dsh-web-app', '@deepseek-ai/dsh-module-memory',
-      '@deepseek-ai/dsh-module-schedule', '@deepseek-ai/dsh-module-terminal'],
+    ['@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-module-memory',
+      '@lyness/lyn-module-schedule', '@lyness/lyn-module-terminal'],
     // After code navigation, before turn deliverables.
-    ['@deepseek-ai/dsh-base', '@deepseek-ai/dsh-web-app', '@deepseek-ai/dsh-module-lsp',
-      '@deepseek-ai/dsh-module-memory', '@deepseek-ai/dsh-module-schedule', '@deepseek-ai/dsh-module-terminal'],
+    ['@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-module-lsp',
+      '@lyness/lyn-module-memory', '@lyness/lyn-module-schedule', '@lyness/lyn-module-terminal'],
     // After turn deliverables, before runtime self-modification.
-    ['@deepseek-ai/dsh-base', '@deepseek-ai/dsh-web-app', '@deepseek-ai/dsh-module-deliverables',
-      '@deepseek-ai/dsh-module-lsp', '@deepseek-ai/dsh-module-memory', '@deepseek-ai/dsh-module-schedule',
-      '@deepseek-ai/dsh-module-terminal'],
+    ['@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-module-deliverables',
+      '@lyness/lyn-module-lsp', '@lyness/lyn-module-memory', '@lyness/lyn-module-schedule',
+      '@lyness/lyn-module-terminal'],
     // After runtime self-modification, before webhook ingress.
-    ['@deepseek-ai/dsh-base', '@deepseek-ai/dsh-web-app', '@deepseek-ai/dsh-module-deliverables',
-      '@deepseek-ai/dsh-module-extensions', '@deepseek-ai/dsh-module-lsp', '@deepseek-ai/dsh-module-memory',
-      '@deepseek-ai/dsh-module-schedule', '@deepseek-ai/dsh-module-terminal'],
+    ['@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-module-deliverables',
+      '@lyness/lyn-module-extensions', '@lyness/lyn-module-lsp', '@lyness/lyn-module-memory',
+      '@lyness/lyn-module-schedule', '@lyness/lyn-module-terminal'],
     // After webhook ingress, before execution became its own bundle.
-    ['@deepseek-ai/dsh-base', '@deepseek-ai/dsh-web-app', '@deepseek-ai/dsh-module-deliverables',
-      '@deepseek-ai/dsh-module-extensions', '@deepseek-ai/dsh-module-lsp', '@deepseek-ai/dsh-module-memory',
-      '@deepseek-ai/dsh-module-schedule', '@deepseek-ai/dsh-module-terminal', '@deepseek-ai/dsh-module-webhook'],
+    ['@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-module-deliverables',
+      '@lyness/lyn-module-extensions', '@lyness/lyn-module-lsp', '@lyness/lyn-module-memory',
+      '@lyness/lyn-module-schedule', '@lyness/lyn-module-terminal', '@lyness/lyn-module-webhook'],
     // After execution became its own bundle, before the Web execution plane
     // moved into one. A profile left on this list keeps the shell, filesystem,
     // workflow and ralph rows on the host plane while its presets mount their
     // own, which is the collision both planes exist to prevent.
-    ['@deepseek-ai/dsh-base', '@deepseek-ai/dsh-module-execution', '@deepseek-ai/dsh-web-app',
-      '@deepseek-ai/dsh-module-deliverables', '@deepseek-ai/dsh-module-extensions', '@deepseek-ai/dsh-module-lsp',
-      '@deepseek-ai/dsh-module-memory', '@deepseek-ai/dsh-module-schedule', '@deepseek-ai/dsh-module-terminal',
-      '@deepseek-ai/dsh-module-webhook'],
+    ['@lyness/lyn-base', '@lyness/lyn-module-execution', '@lyness/lyn-web-app',
+      '@lyness/lyn-module-deliverables', '@lyness/lyn-module-extensions', '@lyness/lyn-module-lsp',
+      '@lyness/lyn-module-memory', '@lyness/lyn-module-schedule', '@lyness/lyn-module-terminal',
+      '@lyness/lyn-module-webhook'],
   ],
   enterprise: [
     // The shape as first shipped: before it served named people, and before
     // the Web execution plane moved into its own bundle.
-    ['@deepseek-ai/dsh-base', '@deepseek-ai/dsh-module-execution', '@deepseek-ai/dsh-web-app',
-      '@deepseek-ai/dsh-module-deliverables', '@deepseek-ai/dsh-module-extensions', '@deepseek-ai/dsh-module-lsp',
-      '@deepseek-ai/dsh-module-memory', '@deepseek-ai/dsh-module-model-governance',
-      '@deepseek-ai/dsh-module-schedule', '@deepseek-ai/dsh-module-terminal', '@deepseek-ai/dsh-module-webhook'],
+    ['@lyness/lyn-base', '@lyness/lyn-module-execution', '@lyness/lyn-web-app',
+      '@lyness/lyn-module-deliverables', '@lyness/lyn-module-extensions', '@lyness/lyn-module-lsp',
+      '@lyness/lyn-module-memory', '@lyness/lyn-module-model-governance',
+      '@lyness/lyn-module-schedule', '@lyness/lyn-module-terminal', '@lyness/lyn-module-webhook'],
   ],
   hosted: [
     // Before the ledger became its own bundle, when the accounts module
     // carried it. A profile left on this list meters nobody.
-    ['@deepseek-ai/dsh-base', '@deepseek-ai/dsh-web-app', '@deepseek-ai/dsh-module-accounts',
-      '@deepseek-ai/dsh-module-deliverables', '@deepseek-ai/dsh-module-memory',
-      '@deepseek-ai/dsh-module-model-governance', '@deepseek-ai/dsh-module-schedule',
-      '@deepseek-ai/dsh-module-webhook'],
+    ['@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-module-accounts',
+      '@lyness/lyn-module-deliverables', '@lyness/lyn-module-memory',
+      '@lyness/lyn-module-model-governance', '@lyness/lyn-module-schedule',
+      '@lyness/lyn-module-webhook'],
   ],
 }
 
@@ -181,15 +181,15 @@ export const INSTALLATION_OWNED_PROFILE_TUPLES: Record<string, readonly (readonl
 export const RETIRED_BUNDLES: ReadonlySet<string> = new Set([
   // The Web composition mounts Schedule itself
   // ([upgrade guide](../../../../docs/upgrade-guide/v0.2.0-rc.2/schedule-bundle-retired/guide.md)).
-  '@deepseek-ai/dsh-experimental-schedule-bundle',
+  '@lyness/lyn-experimental-schedule-bundle',
 ])
 
-/** The bundle list a `dsh plugin` init uses for a name with no shipped template. */
-export const DEFAULT_PROFILE_BUNDLES: readonly string[] = ['@deepseek-ai/dsh-base']
+/** The bundle list a `lyn plugin` init uses for a name with no shipped template. */
+export const DEFAULT_PROFILE_BUNDLES: readonly string[] = ['@lyness/lyn-base']
 
 /**
- * The bundles the dsh installation ships for a person to switch on: each a
- * runtime dependency of the installation that declares `dsh.bundle.patch`,
+ * The bundles the lyn installation ships for a person to switch on: each a
+ * runtime dependency of the installation that declares `lyn.bundle.patch`,
  * an `icon`, and `./locale/*.json` display metadata, selected by no shipped
  * template, and offered switched off by the plugin manager except persistent
  * terminals, which have no page switch
@@ -197,24 +197,24 @@ export const DEFAULT_PROFILE_BUNDLES: readonly string[] = ['@deepseek-ai/dsh-bas
  * [admission](../../../../.agents/notes/implemented/architecture/2026-09-21-experimental-capabilities-as-optional-bundles.md)).
  */
 export const OPTIONAL_BUNDLES: readonly string[] = [
-  '@deepseek-ai/dsh-personalized-recommendations',
-  '@deepseek-ai/dsh-cua-bundle',
-  '@deepseek-ai/dsh-experimental-session-search',
-  '@deepseek-ai/dsh-experimental-ralph-bundle',
-  '@deepseek-ai/dsh-experimental-terminal-bundle',
-  '@deepseek-ai/dsh-experimental-badge-skill-bundle',
-  '@deepseek-ai/dsh-experimental-session-titles-bundle',
-  '@deepseek-ai/dsh-experimental-agent-team-profile',
-  '@deepseek-ai/dsh-experimental-voice-input-bundle',
-  '@deepseek-ai/dsh-experimental-cot-translation-bundle',
-  '@deepseek-ai/dsh-experimental-auto-review',
-  '@deepseek-ai/dsh-experimental-inspector-profile',
-  '@deepseek-ai/dsh-experimental-plugin-market-bundle',
-  '@deepseek-ai/dsh-experimental-tool-worktree',
+  '@lyness/lyn-personalized-recommendations',
+  '@lyness/lyn-cua-bundle',
+  '@lyness/lyn-experimental-session-search',
+  '@lyness/lyn-experimental-ralph-bundle',
+  '@lyness/lyn-experimental-terminal-bundle',
+  '@lyness/lyn-experimental-badge-skill-bundle',
+  '@lyness/lyn-experimental-session-titles-bundle',
+  '@lyness/lyn-experimental-agent-team-profile',
+  '@lyness/lyn-experimental-voice-input-bundle',
+  '@lyness/lyn-experimental-cot-translation-bundle',
+  '@lyness/lyn-experimental-auto-review',
+  '@lyness/lyn-experimental-inspector-profile',
+  '@lyness/lyn-experimental-plugin-market-bundle',
+  '@lyness/lyn-experimental-tool-worktree',
 ]
 
-/** Public DSH release members available through the ordinary on-demand bundle installer. */
+/** Public LYN release members available through the ordinary on-demand bundle installer. */
 export const ON_DEMAND_BUNDLES: readonly string[] = [
-  '@deepseek-ai/dsh-subagent-claude-code',
-  '@deepseek-ai/dsh-subagent-codex',
+  '@lyness/lyn-subagent-claude-code',
+  '@lyness/lyn-subagent-codex',
 ]

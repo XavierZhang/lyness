@@ -1,5 +1,5 @@
 /** Main-owned copy and responses; Escape is cancellation, never acceptance. */
-const api = window.dshUpdateDialog
+const api = window.lynUpdateDialog
 let view
 let responding = false
 function respond(index) {

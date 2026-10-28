@@ -5,57 +5,57 @@
 /:
   en: 5807aeb1022af801
   zh: 1b8715d41b159629
-/deepseek-harness-dsh-remote-mock:
+/lyness-lyn-remote-mock:
   en: d51dfb43f4410950
   zh: 14db4c6e7b4e8908
-/deepseek-harness-dsh-remote-mock/summary:
+/lyness-lyn-remote-mock/summary:
   en: 1be449d50cc22b2a
   zh: cb37aca59e4b77df
-/deepseek-harness-dsh-remote-mock/table-of-contents:
+/lyness-lyn-remote-mock/table-of-contents:
   en: 76368b6b1da79c80
   zh: 52384aee991ac542
-/deepseek-harness-dsh-remote-mock/use-this-package:
+/lyness-lyn-remote-mock/use-this-package:
   en: bbff250eba0f1b89
   zh: 0a618f05cc88ee2b
-/deepseek-harness-dsh-remote-mock/use-this-package/when-to-use-it:
+/lyness-lyn-remote-mock/use-this-package/when-to-use-it:
   en: 0d7cdedee1c07e7a
   zh: 2fef0c2109425f25
-/deepseek-harness-dsh-remote-mock/use-this-package/use-the-remote-proxy:
+/lyness-lyn-remote-mock/use-this-package/use-the-remote-proxy:
   en: 5dca47c5bedcf13b
   zh: 92cbe6b3fbb4ddfa
-/deepseek-harness-dsh-remote-mock/use-this-package/register-default-responses:
+/lyness-lyn-remote-mock/use-this-package/register-default-responses:
   en: c7022d673fbbb095
   zh: aa827878f3215388
-/deepseek-harness-dsh-remote-mock/use-this-package/drive-streams:
+/lyness-lyn-remote-mock/use-this-package/drive-streams:
   en: 0a466b4351c5ad4c
   zh: 602d87000880166f
-/deepseek-harness-dsh-remote-mock/use-this-package/connect-a-client:
+/lyness-lyn-remote-mock/use-this-package/connect-a-client:
   en: 302d3015e5d82fd8
   zh: 2e83a236952ba390
-/deepseek-harness-dsh-remote-mock/use-this-package/observe-and-assert:
+/lyness-lyn-remote-mock/use-this-package/observe-and-assert:
   en: 56fcb7912f6365ec
   zh: 299299e8afad0512
-/deepseek-harness-dsh-remote-mock/use-this-package/what-can-go-wrong:
+/lyness-lyn-remote-mock/use-this-package/what-can-go-wrong:
   en: 441ed8ae66b85a7d
   zh: b9eea1cbaeefa086
-/deepseek-harness-dsh-remote-mock/understand-the-implementation:
+/lyness-lyn-remote-mock/understand-the-implementation:
   en: 42b15ac6321706aa
   zh: 4ed0861911abaf5d
-/deepseek-harness-dsh-remote-mock/understand-the-implementation/design:
+/lyness-lyn-remote-mock/understand-the-implementation/design:
   en: 6385fe57822aa455
   zh: 53eda1b6a602f357
-/deepseek-harness-dsh-remote-mock/understand-the-implementation/source-map:
+/lyness-lyn-remote-mock/understand-the-implementation/source-map:
   en: ddecff98fb835572
   zh: 66a17c9059f79069
-/deepseek-harness-dsh-remote-mock/model-experience:
+/lyness-lyn-remote-mock/model-experience:
   en: 53b590e95981d312
   zh: 231c0245f6b6b827
-/deepseek-harness-dsh-remote-mock/model-experience/kv-cache-effect:
+/lyness-lyn-remote-mock/model-experience/kv-cache-effect:
   en: ca75c51c89c2c9b0
   zh: f57cc48a1b5cbfa9
-/deepseek-harness-dsh-remote-mock/known-limitations-and-deferred-work:
+/lyness-lyn-remote-mock/known-limitations-and-deferred-work:
   en: 281c77a33b08da46
   zh: 13f9efe0045b0f42
-/deepseek-harness-dsh-remote-mock/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-remote-mock/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

@@ -5,48 +5,48 @@
 /:
   en: e984a1ae0ffb6b97
   zh: f1246772a5b47191
-/deepseek-harness-dsh-agent-preset-registry:
+/lyness-lyn-agent-preset-registry:
   en: 675fb936aa19ced3
   zh: 6c30ae09e964f066
-/deepseek-harness-dsh-agent-preset-registry/summary:
+/lyness-lyn-agent-preset-registry/summary:
   en: a451ec1d5b54b334
   zh: 777d5043e9c2e9eb
-/deepseek-harness-dsh-agent-preset-registry/table-of-contents:
+/lyness-lyn-agent-preset-registry/table-of-contents:
   en: d152484eb41ac6b4
   zh: b3ad7867f23dad1c
-/deepseek-harness-dsh-agent-preset-registry/use-this-package:
+/lyness-lyn-agent-preset-registry/use-this-package:
   en: bbff250eba0f1b89
   zh: b20a47f82d8ab6e0
-/deepseek-harness-dsh-agent-preset-registry/use-this-package/minimal-configuration:
+/lyness-lyn-agent-preset-registry/use-this-package/minimal-configuration:
   en: c1fdadf332a86946
   zh: c06ff51b0ed51bb5
-/deepseek-harness-dsh-agent-preset-registry/understand-the-implementation:
+/lyness-lyn-agent-preset-registry/understand-the-implementation:
   en: 52206dd60c9ff35e
   zh: b069901079a168b3
-/deepseek-harness-dsh-agent-preset-registry/understand-the-implementation/contributed-rows:
+/lyness-lyn-agent-preset-registry/understand-the-implementation/contributed-rows:
   en: 77d25c624826dc96
   zh: c0e40972d1572ef4
-/deepseek-harness-dsh-agent-preset-registry/further-exploration:
+/lyness-lyn-agent-preset-registry/further-exploration:
   en: 46a74dd32cd1f490
   zh: 58e5ec11a723a8e4
-/deepseek-harness-dsh-agent-preset-registry/model-experience:
+/lyness-lyn-agent-preset-registry/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/deepseek-harness-dsh-agent-preset-registry/model-experience/preset-selection:
+/lyness-lyn-agent-preset-registry/model-experience/preset-selection:
   en: 9c05062c86e3d148
   zh: 2e894dd9d93b65ba
-/deepseek-harness-dsh-agent-preset-registry/model-experience/preset-selection/what-the-model-sees:
+/lyness-lyn-agent-preset-registry/model-experience/preset-selection/what-the-model-sees:
   en: 9266e780cd183409
   zh: b07bfe9fdb8b6f45
-/deepseek-harness-dsh-agent-preset-registry/model-experience/preset-selection/token-effect:
+/lyness-lyn-agent-preset-registry/model-experience/preset-selection/token-effect:
   en: 5bc14d87cbb67afd
   zh: 99f62bdfcb31ab90
-/deepseek-harness-dsh-agent-preset-registry/model-experience/preset-selection/kv-cache-effect:
+/lyness-lyn-agent-preset-registry/model-experience/preset-selection/kv-cache-effect:
   en: 5e043b0b4ee03719
   zh: a929e47776e209e0
-/deepseek-harness-dsh-agent-preset-registry/known-limitations-and-deferred-work:
+/lyness-lyn-agent-preset-registry/known-limitations-and-deferred-work:
   en: 8a32adf5c133fca3
   zh: a066085a05e9b103
-/deepseek-harness-dsh-agent-preset-registry/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-agent-preset-registry/known-limitations-and-deferred-work/dev-note:
   en: b84837a00b08ed7b
   zh: 9de7aee8b9357fe9

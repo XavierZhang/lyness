@@ -3,13 +3,13 @@ description: "The Settings section where an administrator maintains the bots an 
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-client-ui-settings-bots
+# @lyness/lyn-client-ui-settings-bots
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`dsh-client-ui-settings-bots` adds one Settings section: which bots this organization runs, what each one is for, and what it runs with. An administrator names a bot, writes its character and its job, and picks one of the agent presets the deployment offers; a bot the installation's own files name is shown without an edit, because the next boot reads that file again. A bot whose preset the deployment no longer offers is shown and marked rather than hidden, since the character somebody wrote outlives the row that ran it.
+`lyn-client-ui-settings-bots` adds one Settings section: which bots this organization runs, what each one is for, and what it runs with. An administrator names a bot, writes its character and its job, and picks one of the agent presets the deployment offers; a bot the installation's own files name is shown without an edit, because the next boot reads that file again. A bot whose preset the deployment no longer offers is shown and marked rather than hidden, since the character somebody wrote outlives the row that ran it.
 
 ## Table of Contents
 
@@ -29,7 +29,7 @@ The Web bundle mounts it beside the other Settings sections:
 
 ```yaml
 - id: ui-settings-bots
-  name: '@deepseek-ai/dsh-client-ui-settings-bots'
+  name: '@lyness/lyn-client-ui-settings-bots'
 ```
 
 There is nothing else to configure. The section reads `remote.bots` when it opens, and renders one of four things: the bots and the teams with their forms, a notice that this deployment maintains no bots of its own, a notice that the caller may not change them, or a failure with a retry. Each bot row also starts a conversation with that bot, through the Workspace navigation rather than by creating a session here, so it lands in the Workspace the reader is in and opens the way every other new session does.
@@ -58,9 +58,9 @@ There is nothing else to configure. The section reads `remote.bots` when it open
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`dsh-api-bots-controller`](../../api/bots-controller/README.md) — the namespace this section calls, and what each refusal means.
-- [`dsh-managed-bots`](../../identity/managed-bots/README.md) — the roster behind it, and the rules that decide who may change what.
-- [`dsh-client-ui-settings-people`](../ui-settings-people/README.md) — the sibling section for the people who sign in.
+- [`lyn-api-bots-controller`](../../api/bots-controller/README.md) — the namespace this section calls, and what each refusal means.
+- [`lyn-managed-bots`](../../identity/managed-bots/README.md) — the roster behind it, and the rules that decide who may change what.
+- [`lyn-client-ui-settings-people`](../ui-settings-people/README.md) — the sibling section for the people who sign in.
 
 -----
 

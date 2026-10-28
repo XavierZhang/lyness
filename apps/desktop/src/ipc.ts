@@ -1,41 +1,41 @@
 /** Typed preload operations exposed only by the Electron shell. */
 
-import type { DesktopKeyboardApi, DesktopShortcutsApi } from '@deepseek-ai/dsh-client-shortcuts/protocol'
+import type { DesktopKeyboardApi, DesktopShortcutsApi } from '@lyness/lyn-client-shortcuts/protocol'
 import type { IpcMainInvokeEvent } from 'electron'
-import type { DesktopBrowserBridge } from '@deepseek-ai/dsh-client-ui-sidebar-browser/types'
-import type { DesktopFileDrag } from '@deepseek-ai/dsh-util-file-drag'
+import type { DesktopBrowserBridge } from '@lyness/lyn-client-ui-sidebar-browser/types'
+import type { DesktopFileDrag } from '@lyness/lyn-util-file-drag'
 
 /** IPC channel names kept private to the desktop application bundle. */
 export const DESKTOP_IPC = {
-  shortcutsInput: 'dsh-desktop:shortcuts-input',
-  shortcutsCloseWindow: 'dsh-desktop:shortcuts-close-window',
-  shortcutsGet: 'dsh-desktop:shortcuts-get',
-  shortcutsEdit: 'dsh-desktop:shortcuts-edit',
-  shortcutsChanged: 'dsh-desktop:shortcuts-changed',
-  shortcutsRecording: 'dsh-desktop:shortcuts-recording',
-  boot: 'dsh-desktop:boot',
-  enterWorkspace: 'dsh-desktop:enter-workspace',
-  onboardingActive: 'dsh-desktop:onboarding-active',
-  onboardingApiKey: 'dsh-desktop:onboarding-api-key',
-  bootFailed: 'dsh-desktop:boot-failed',
-  browserAcquire: 'dsh-desktop:browser-acquire',
-  browserRelease: 'dsh-desktop:browser-release',
-  browserOpenRequested: 'dsh-desktop:browser-open-requested',
-  directoryPick: 'dsh-desktop:directory-pick',
-  fileDragPrepare: 'dsh-desktop:file-drag-prepare',
-  fileDragCancel: 'dsh-desktop:file-drag-cancel',
-  fileDragStart: 'dsh-desktop:file-drag-start',
-  fileDragRelease: 'dsh-desktop:file-drag-release',
-  deviceInfo: 'dsh-desktop:device-info',
-  localeBootstrap: 'dsh-desktop:locale-bootstrap',
-  localeChanged: 'dsh-desktop:locale-changed',
-  updatesStatus: 'dsh-desktop:updates-status',
-  updatesOpen: 'dsh-desktop:updates-open',
-  updatesPresentation: 'dsh-desktop:updates-presentation',
-  nativeThemeSet: 'dsh-desktop:native-theme-set',
-  windowFullscreen: 'dsh-desktop:window-fullscreen',
-  windowsAppearance: 'dsh-desktop:windows-appearance',
-  windowsMenu: 'dsh-desktop:windows-menu',
+  shortcutsInput: 'lyn-desktop:shortcuts-input',
+  shortcutsCloseWindow: 'lyn-desktop:shortcuts-close-window',
+  shortcutsGet: 'lyn-desktop:shortcuts-get',
+  shortcutsEdit: 'lyn-desktop:shortcuts-edit',
+  shortcutsChanged: 'lyn-desktop:shortcuts-changed',
+  shortcutsRecording: 'lyn-desktop:shortcuts-recording',
+  boot: 'lyn-desktop:boot',
+  enterWorkspace: 'lyn-desktop:enter-workspace',
+  onboardingActive: 'lyn-desktop:onboarding-active',
+  onboardingApiKey: 'lyn-desktop:onboarding-api-key',
+  bootFailed: 'lyn-desktop:boot-failed',
+  browserAcquire: 'lyn-desktop:browser-acquire',
+  browserRelease: 'lyn-desktop:browser-release',
+  browserOpenRequested: 'lyn-desktop:browser-open-requested',
+  directoryPick: 'lyn-desktop:directory-pick',
+  fileDragPrepare: 'lyn-desktop:file-drag-prepare',
+  fileDragCancel: 'lyn-desktop:file-drag-cancel',
+  fileDragStart: 'lyn-desktop:file-drag-start',
+  fileDragRelease: 'lyn-desktop:file-drag-release',
+  deviceInfo: 'lyn-desktop:device-info',
+  localeBootstrap: 'lyn-desktop:locale-bootstrap',
+  localeChanged: 'lyn-desktop:locale-changed',
+  updatesStatus: 'lyn-desktop:updates-status',
+  updatesOpen: 'lyn-desktop:updates-open',
+  updatesPresentation: 'lyn-desktop:updates-presentation',
+  nativeThemeSet: 'lyn-desktop:native-theme-set',
+  windowFullscreen: 'lyn-desktop:window-fullscreen',
+  windowsAppearance: 'lyn-desktop:windows-appearance',
+  windowsMenu: 'lyn-desktop:windows-menu',
 } as const
 
 /** Desktop release update state rendered by desktop-owned UI. */
@@ -75,7 +75,7 @@ export interface DesktopUpdatePresentation {
 }
 
 /** Product documents cannot supply update versions, package URLs, or installation authorization. */
-export interface DshDesktopProductApi {
+export interface LynDesktopProductApi {
   readonly protocolVersion: 1
   readonly browser: DesktopBrowserBridge
   readonly fileDrag: DesktopFileDrag
@@ -94,7 +94,7 @@ export interface DshDesktopProductApi {
 }
 
 /** Scheme of Desktop-owned application documents. */
-export const SCHEME = 'dsh-app'
+export const SCHEME = 'lyn-app'
 
 /**
  * Reject IPC outside the allowed Desktop document origins.
@@ -103,9 +103,9 @@ export const SCHEME = 'dsh-app'
  */
 export function assertDesktopSender(event: IpcMainInvokeEvent, hostnames: readonly string[]): void {
   const senderFrame = event.senderFrame
-  if (senderFrame === null) throw new Error('dsh desktop: rejected IPC without a sender frame')
+  if (senderFrame === null) throw new Error('lyn desktop: rejected IPC without a sender frame')
   const url = new URL(senderFrame.url)
   if (url.protocol !== `${SCHEME}:` || !hostnames.includes(url.hostname)) {
-    throw new Error('dsh desktop: rejected IPC from an unowned renderer')
+    throw new Error('lyn desktop: rejected IPC from an unowned renderer')
   }
 }

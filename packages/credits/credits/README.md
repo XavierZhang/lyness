@@ -3,13 +3,13 @@ description: "Credits a hosted deployment grants, spends, and refuses when exhau
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-credits
+# @lyness/lyn-credits
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-Use `dsh-credits` to meter a hosted deployment's free allowance. A balance is a ledger rather than a counter: grants and debits are both recorded, every debit names the session and the organization that spent it, and the balance is what they add up to. Two ceilings can stop a turn — a person's own balance, which their organization gives them, and their organization's budget, which it bought. A spend neither can cover is refused rather than overdrawn. This exists only on the hosted shape; an enterprise installation mounts none of it.
+Use `lyn-credits` to meter a hosted deployment's free allowance. A balance is a ledger rather than a counter: grants and debits are both recorded, every debit names the session and the organization that spent it, and the balance is what they add up to. Two ceilings can stop a turn — a person's own balance, which their organization gives them, and their organization's budget, which it bought. A spend neither can cover is refused rather than overdrawn. This exists only on the hosted shape; an enterprise installation mounts none of it.
 
 ## Table of Contents
 
@@ -27,13 +27,13 @@ Use `dsh-credits` to meter a hosted deployment's free allowance. A balance is a 
 
 ```yaml
 - id: credits
-  name: '@deepseek-ai/dsh-credits/store'
+  name: '@lyness/lyn-credits/store'
   config:
     periodicAmount: 500
     period: daily
     offsetHours: 8
 - id: credits-enforce
-  name: '@deepseek-ai/dsh-credits/enforce'
+  name: '@lyness/lyn-credits/enforce'
   config:
     creditsPerMillion: 1000
     minimumDebit: 1
@@ -55,14 +55,14 @@ A refused spend throws `CreditsExhausted`, carrying what is available and when t
 
 ```yaml
 - id: credits-administration
-  name: '@deepseek-ai/dsh-credits/administration'
+  name: '@lyness/lyn-credits/administration'
 ```
 
 It takes no configuration and needs the ledger, the people directory, and storage. Two operations, both taking the standing that makes them:
 
 ```ts
-import type { CreditAdministration } from '@deepseek-ai/dsh-credits/administration'
-import type { Membership, PersonId } from '@deepseek-ai/dsh-people'
+import type { CreditAdministration } from '@lyness/lyn-credits/administration'
+import type { Membership, PersonId } from '@lyness/lyn-people'
 
 declare const administration: CreditAdministration
 declare const by: Membership
@@ -100,7 +100,7 @@ That is idempotent by construction rather than by a flag: a grant carries the in
 
 **The ledger reads the administration service optionally.** A single-operator install mounts none, and the deployment's own numbers are then the whole answer; injecting it would make the ledger unavailable there.
 
-**An override is recorded in the trail, and a grant is not.** An override is replaced in place, so what it used to allow is only readable from [`dsh-admin-audit`](../../identity/admin-audit/README.md). A grant is already an immutable row naming who granted what to whom, so recording it again would be a second answer to one question. An override entry belongs to the organization of the standing that set it, so a tenant administrator reads back their own decisions.
+**An override is recorded in the trail, and a grant is not.** An override is replaced in place, so what it used to allow is only readable from [`lyn-admin-audit`](../../identity/admin-audit/README.md). A grant is already an immutable row naming who granted what to whom, so recording it again would be a second answer to one question. An override entry belongs to the organization of the standing that set it, so a tenant administrator reads back their own decisions.
 
 **A balance answers two questions, so it carries both.** What is left to spend is one number; what an administrator decided this person receives each period is another. A surface with only the first leaves a person unable to tell a quiet day from a lowered allowance, so every balance carries the effective allowance, the period it runs on, when that period began, and what it has cost so far. Everyone reads their own, whatever standing they hold.
 
@@ -123,7 +123,7 @@ That is idempotent by construction rather than by a flag: a grant carries the in
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`dsh-people`](../../identity/people/README.md) — whose credits these are.
+- [`lyn-people`](../../identity/people/README.md) — whose credits these are.
 - [The model is a deployment decision](../../../.agents/notes/proposed/architecture/2026-10-14-the-model-is-a-deployment-decision.md) — why credits exist on the hosted shape and nowhere else, and why money and credits are separate boundaries.
 
 -----

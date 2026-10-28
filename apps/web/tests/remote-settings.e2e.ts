@@ -8,7 +8,7 @@ import { chromium } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import {
   acknowledgeReloadConnectionLoss,
-  launchWebScaffold, watchConsole, webSnapshotMode, WELCOME_NOTICE_COPY,
+  launchWebScaffold, watchConsole, webSnapshotMode,
   type WebScaffold,
 } from './scaffold.ts'
 import { openSettings, ZH_BROWSER_LOCALE } from './support.ts'
@@ -28,7 +28,6 @@ async function expectOnboardingSettled(page: Page): Promise<Locator> {
   const dialog = page.getByRole('dialog', { name: '设置' })
   await dialog.getByRole('button', { name: '模型', exact: true }).click()
   await dialog.getByRole('button', { name: '添加模型提供商', exact: true }).waitFor({ timeout: 15_000 })
-  expect(await page.getByRole('dialog', { name: WELCOME_NOTICE_COPY.zh.title }).count()).toBe(0)
   return dialog
 }
 
@@ -41,7 +40,6 @@ describe.skipIf(MODE === 'record')('web e2e: trusted remote host preferences', (
   beforeAll(async () => {
     scaffold = await launchWebScaffold({
       remoteAuthority: 'remote.localhost',
-      welcomeNoticePending: true,
     })
     browser = await chromium.launch()
     page = await browser.newPage({
@@ -65,17 +63,10 @@ describe.skipIf(MODE === 'record')('web e2e: trusted remote host preferences', (
     acknowledgeReloadConnectionLoss(tripwire, warnings)
   }
 
-  it('persists welcome acknowledgement, model configuration, and appearance across reloads and browser contexts', async () => {
-    const welcome = page.getByRole('dialog', { name: WELCOME_NOTICE_COPY.zh.title })
-    await welcome.waitFor({ timeout: 15_000 })
-    expect(await page.locator('#root').evaluate(root => (root as HTMLElement).inert)).toBe(true)
-
-    await welcome.getByRole('button', { name: WELCOME_NOTICE_COPY.zh.continueLabel }).click()
-    await welcome.waitFor({ state: 'detached', timeout: 15_000 })
-    await expect.poll(
-      () => page.locator('#root').evaluate(root => (root as HTMLElement).inert),
-      { timeout: 15_000 },
-    ).toBe(false)
+  it('persists model configuration and appearance across reloads and browser contexts', async () => {
+    // Nothing stands between a first run and the surface: the preview notice
+    // was retired, so `#root` is interactive from the first paint.
+    expect(await page.locator('#root').evaluate(root => (root as HTMLElement).inert)).toBe(false)
     const settingsPath = join(scaffold.harnessHome, 'profiles', 'scaffold', 'cordis.patch.yml')
     await expect.poll(() => readFile(settingsPath, 'utf8'), { timeout: 10_000 })
       .toContain('welcomeNoticeVersion:')

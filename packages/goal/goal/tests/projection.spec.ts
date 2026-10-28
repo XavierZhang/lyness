@@ -9,19 +9,19 @@
  */
 
 import { describe, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import AgentRegistry, { agentEvents } from '@deepseek-ai/dsh-agent'
-import type { Agent, AgentStatus } from '@deepseek-ai/dsh-agent'
-import { createUserMessage } from '@deepseek-ai/dsh-llm'
-import type { ContextFormed } from '@deepseek-ai/dsh-llm'
-import SessionStore from '@deepseek-ai/dsh-session'
-import type { Session } from '@deepseek-ai/dsh-session'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import GoalService, { GoalId, applyGoalProjection, foldGoal, goalProjectionDefinition } from '@deepseek-ai/dsh-goal'
-import type { GoalProjection, GoalProjectionState, GoalRef } from '@deepseek-ai/dsh-goal'
-import { unsupportedModel, unsupportedInbox } from '@deepseek-ai/dsh-agent-loop-testkit'
+import { Context } from '@lyness/cordis'
+import AgentRegistry, { agentEvents } from '@lyness/lyn-agent'
+import type { Agent, AgentStatus } from '@lyness/lyn-agent'
+import { createUserMessage } from '@lyness/lyn-llm'
+import type { ContextFormed } from '@lyness/lyn-llm'
+import SessionStore from '@lyness/lyn-session'
+import type { Session } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import GoalService, { GoalId, applyGoalProjection, foldGoal, goalProjectionDefinition } from '@lyness/lyn-goal'
+import type { GoalProjection, GoalProjectionState, GoalRef } from '@lyness/lyn-goal'
+import { unsupportedModel, unsupportedInbox } from '@lyness/lyn-agent-loop-testkit'
 
-declare module '@deepseek-ai/dsh-llm' {
+declare module '@lyness/lyn-llm' {
   interface MessageSourceMap {
     'test': { kind: 'test' } & ContextFormed
   }

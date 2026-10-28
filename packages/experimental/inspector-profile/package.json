@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-experimental-inspector-profile",
+  "name": "@lyness/lyn-experimental-inspector-profile",
   "description": "Optional Web bundle for raw Session logs and Chat node inspection",
   "version": "0.2.1-rc.3",
   "icon": "./icon.svg",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/experimental/inspector-profile"
   },
   "type": "module",
@@ -33,21 +33,21 @@
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
-  "dsh": {
+  "lyn": {
     "bundle": {
       "patch": "./cordis.patch.yml"
     }
   },
   "dependencies": {
-    "@deepseek-ai/dsh-experimental-inspector": "workspace:*",
-    "@deepseek-ai/dsh-experimental-session-inspector": "workspace:*"
+    "@lyness/lyn-experimental-inspector": "workspace:*",
+    "@lyness/lyn-experimental-session-inspector": "workspace:*"
   },
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~"
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/cordis-plugin-include": "workspace:~",
+    "@lyness/cordis": "workspace:~",
+    "@lyness/cordis-plugin-include": "workspace:~",
     "js-yaml": "^4.3.2"
   }
 }

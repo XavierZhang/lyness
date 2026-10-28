@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-plugin-market",
+  "name": "@lyness/lyn-plugin-market",
   "description": "Configured plugin market indexes for the Web Discover page and the plugin_market agent tool",
   "version": "0.2.1-rc.3",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/boot/plugin-market"
   },
   "type": "module",
@@ -51,15 +51,15 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@deepseek-ai/dsh-app-boot": "workspace:*",
-    "@deepseek-ai/dsh-atomic-write": "workspace:*",
-    "@deepseek-ai/dsh-brand": "workspace:*",
-    "@deepseek-ai/dsh-package-manifest": "workspace:*",
-    "@deepseek-ai/dsh-plugin-detail": "workspace:*",
-    "@deepseek-ai/dsh-plugin-market-index": "workspace:*",
-    "@deepseek-ai/dsh-timeout": "workspace:*",
-    "@deepseek-ai/dsh-util-values": "workspace:*",
-    "@deepseek-ai/schemastery": "workspace:~",
+    "@lyness/lyn-app-boot": "workspace:*",
+    "@lyness/lyn-atomic-write": "workspace:*",
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/lyn-package-manifest": "workspace:*",
+    "@lyness/lyn-plugin-detail": "workspace:*",
+    "@lyness/lyn-plugin-market-index": "workspace:*",
+    "@lyness/lyn-timeout": "workspace:*",
+    "@lyness/lyn-util-values": "workspace:*",
+    "@lyness/schemastery": "workspace:~",
     "execa": "^10.0.1",
     "hosted-git-info": "^9.0.3",
     "minisearch": "^7.2.0",
@@ -67,35 +67,35 @@
     "zod": "^4.4.3"
   },
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/cordis-plugin-loader": "workspace:~",
-    "@deepseek-ai/dsh-plugin-manager": "workspace:*",
-    "@deepseek-ai/dsh-settings": "workspace:*",
-    "@deepseek-ai/dsh-subprocess": "workspace:*",
-    "@deepseek-ai/dsh-tools": "workspace:*",
-    "@deepseek-ai/dsh-typert-protocol": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/cordis-plugin-loader": "workspace:~",
+    "@lyness/lyn-plugin-manager": "workspace:*",
+    "@lyness/lyn-settings": "workspace:*",
+    "@lyness/lyn-subprocess": "workspace:*",
+    "@lyness/lyn-tools": "workspace:*",
+    "@lyness/lyn-typert-protocol": "workspace:*"
   },
   "peerDependenciesMeta": {
-    "@deepseek-ai/dsh-settings": {
+    "@lyness/lyn-settings": {
       "optional": true
     }
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/cordis-plugin-loader": "workspace:~",
-    "@deepseek-ai/cosmokit": "workspace:~",
-    "@deepseek-ai/dsh-app-boot": "workspace:*",
-    "@deepseek-ai/dsh-client-connection": "workspace:*",
-    "@deepseek-ai/dsh-config-editor": "workspace:*",
-    "@deepseek-ai/dsh-llm": "workspace:*",
-    "@deepseek-ai/dsh-plugin-manager": "workspace:*",
-    "@deepseek-ai/dsh-settings": "workspace:*",
-    "@deepseek-ai/dsh-subprocess": "workspace:*",
-    "@deepseek-ai/dsh-system-prompt": "workspace:*",
-    "@deepseek-ai/dsh-tool-executor-native": "workspace:*",
-    "@deepseek-ai/dsh-tool-testkit": "workspace:*",
-    "@deepseek-ai/dsh-tools": "workspace:*",
-    "@deepseek-ai/dsh-typert-protocol": "workspace:*",
+    "@lyness/cordis": "workspace:~",
+    "@lyness/cordis-plugin-loader": "workspace:~",
+    "@lyness/cosmokit": "workspace:~",
+    "@lyness/lyn-app-boot": "workspace:*",
+    "@lyness/lyn-client-connection": "workspace:*",
+    "@lyness/lyn-config-editor": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-plugin-manager": "workspace:*",
+    "@lyness/lyn-settings": "workspace:*",
+    "@lyness/lyn-subprocess": "workspace:*",
+    "@lyness/lyn-system-prompt": "workspace:*",
+    "@lyness/lyn-tool-executor-native": "workspace:*",
+    "@lyness/lyn-tool-testkit": "workspace:*",
+    "@lyness/lyn-tools": "workspace:*",
+    "@lyness/lyn-typert-protocol": "workspace:*",
     "@types/hosted-git-info": "^3.0.5",
     "@types/semver": "^7.8.0"
   }

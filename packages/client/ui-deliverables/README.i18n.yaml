@@ -5,54 +5,54 @@
 /:
   en: 91a4da87e2e078ed
   zh: 8d489c6cdf208c4d
-/deepseek-harness-dsh-client-ui-deliverables:
+/lyness-lyn-client-ui-deliverables:
   en: 29025a19ce7ba656
   zh: 8f501c2583414259
-/deepseek-harness-dsh-client-ui-deliverables/summary:
+/lyness-lyn-client-ui-deliverables/summary:
   en: a17b97d16803f911
   zh: ad80cf4bcb5a8018
-/deepseek-harness-dsh-client-ui-deliverables/table-of-contents:
+/lyness-lyn-client-ui-deliverables/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/deepseek-harness-dsh-client-ui-deliverables/use-this-package:
+/lyness-lyn-client-ui-deliverables/use-this-package:
   en: 4e752460f427286c
   zh: d3595963c415362d
-/deepseek-harness-dsh-client-ui-deliverables/use-this-package/explicit-deliveries:
+/lyness-lyn-client-ui-deliverables/use-this-package/explicit-deliveries:
   en: 52b71cb295bfc995
   zh: 39e291246744f8ed
-/deepseek-harness-dsh-client-ui-deliverables/use-this-package/the-changed-files-card:
+/lyness-lyn-client-ui-deliverables/use-this-package/the-changed-files-card:
   en: 4b279e2bddddc083
   zh: a3135393299c935b
-/deepseek-harness-dsh-client-ui-deliverables/use-this-package/the-review-tab:
+/lyness-lyn-client-ui-deliverables/use-this-package/the-review-tab:
   en: b5b9c6f694619a02
   zh: 95ffad9c12a6ff2c
-/deepseek-harness-dsh-client-ui-deliverables/use-this-package/inline-code-links:
+/lyness-lyn-client-ui-deliverables/use-this-package/inline-code-links:
   en: e36ccef8bf908ea4
   zh: 30e11327a55e5dfa
-/deepseek-harness-dsh-client-ui-deliverables/understand-the-implementation:
+/lyness-lyn-client-ui-deliverables/understand-the-implementation:
   en: 90258986788f716b
   zh: 5adc4817c524619b
-/deepseek-harness-dsh-client-ui-deliverables/further-exploration:
+/lyness-lyn-client-ui-deliverables/further-exploration:
   en: 8acae429cf8433d1
   zh: 310bf09042701e65
-/deepseek-harness-dsh-client-ui-deliverables/model-experience:
+/lyness-lyn-client-ui-deliverables/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/deepseek-harness-dsh-client-ui-deliverables/model-experience/clickable-file-reference-guidance:
+/lyness-lyn-client-ui-deliverables/model-experience/clickable-file-reference-guidance:
   en: eb244aa21a4e5210
   zh: e3450addfa19cea5
-/deepseek-harness-dsh-client-ui-deliverables/model-experience/clickable-file-reference-guidance/what-the-model-sees:
+/lyness-lyn-client-ui-deliverables/model-experience/clickable-file-reference-guidance/what-the-model-sees:
   en: 78339e353ae47a53
   zh: 582efa623a5dfd72
-/deepseek-harness-dsh-client-ui-deliverables/model-experience/clickable-file-reference-guidance/token-effect:
+/lyness-lyn-client-ui-deliverables/model-experience/clickable-file-reference-guidance/token-effect:
   en: 364f42e80be92ebc
   zh: dde2f9d6f4f75536
-/deepseek-harness-dsh-client-ui-deliverables/model-experience/clickable-file-reference-guidance/kv-cache-effect:
+/lyness-lyn-client-ui-deliverables/model-experience/clickable-file-reference-guidance/kv-cache-effect:
   en: 52626a05acc8b320
   zh: 6a8e62b0d47d5297
-/deepseek-harness-dsh-client-ui-deliverables/known-limitations-and-deferred-work:
+/lyness-lyn-client-ui-deliverables/known-limitations-and-deferred-work:
   en: b974d3a7923afa64
   zh: e25f7d9cc8befdce
-/deepseek-harness-dsh-client-ui-deliverables/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-client-ui-deliverables/known-limitations-and-deferred-work/dev-note:
   en: a55f817f597aa646
   zh: aba9a91ecde566ab

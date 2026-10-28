@@ -1,13 +1,13 @@
 {
-  "name": "@deepseek-ai/dsh-skill",
-  "description": "Agent skill provider registry for the DeepSeek Harness",
+  "name": "@lyness/lyn-skill",
+  "description": "Agent skill provider registry for the lyness",
   "version": "0.2.1-rc.3",
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/skill/skill"
   },
   "type": "module",
@@ -29,17 +29,17 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-llm": "workspace:*",
-    "@deepseek-ai/dsh-scope": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-scope": "workspace:*"
   },
   "dependencies": {
-    "@deepseek-ai/dsh-util-values": "workspace:*",
-    "@deepseek-ai/schemastery": "workspace:~"
+    "@lyness/lyn-util-values": "workspace:*",
+    "@lyness/schemastery": "workspace:~"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-llm": "workspace:*",
-    "@deepseek-ai/dsh-scope": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-scope": "workspace:*"
   }
 }

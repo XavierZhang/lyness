@@ -2,15 +2,15 @@
 
 import { performance } from 'node:perf_hooks'
 import { scheduler } from 'node:timers/promises'
-import type { Context } from '@deepseek-ai/cordis'
-import type {} from '@deepseek-ai/dsh-agent-preset-registry'
-import type { ImageAttachmentLimits } from '@deepseek-ai/dsh-attachment'
-import type { Session, SessionEvent, SessionHeader, SessionId } from '@deepseek-ai/dsh-session'
-import type { ProjectionSnapshot } from '@deepseek-ai/dsh-session-projection'
-import type {} from '@deepseek-ai/dsh-session-projection-cache'
-import { SessionQueryError, type SessionRecord, type SessionSearchCursor } from '@deepseek-ai/dsh-session-query'
-import type {} from '@deepseek-ai/dsh-session-ownership/visibility'
-import { RemoteError } from '@deepseek-ai/dsh-typert-protocol'
+import type { Context } from '@lyness/cordis'
+import type {} from '@lyness/lyn-agent-preset-registry'
+import type { ImageAttachmentLimits } from '@lyness/lyn-attachment'
+import type { Session, SessionEvent, SessionHeader, SessionId } from '@lyness/lyn-session'
+import type { ProjectionSnapshot } from '@lyness/lyn-session-projection'
+import type {} from '@lyness/lyn-session-projection-cache'
+import { SessionQueryError, type SessionRecord, type SessionSearchCursor } from '@lyness/lyn-session-query'
+import type {} from '@lyness/lyn-session-ownership/visibility'
+import { RemoteError } from '@lyness/lyn-typert-protocol'
 import { z } from 'zod'
 import {
   SESSION_SEARCH_RESULT_LIMIT,
@@ -170,7 +170,6 @@ export class ApiSessionList {
     return items
   }
 
-  private summarizeCold({ header, formatStatus }: SessionRecord): SessionSummary {
   /**
    * Keep only the conversations the call in progress may see.
    *
@@ -187,7 +186,7 @@ export class ApiSessionList {
     return await visibility.listable(records, record => record.header)
   }
 
-  private summarizeCold(header: SessionHeader): SessionSummary {
+  private summarizeCold({ header, formatStatus }: SessionRecord): SessionSummary {
     const projections = this.projectionsFor(header, undefined)
     const metadata = projections?.values.sessionListMetadata
     return {
@@ -216,7 +215,7 @@ export class ApiSessionList {
     if (provider === undefined) {
       throw new RemoteError(
         'gateway/internal',
-        'session search is unavailable: this deployment does not mount @deepseek-ai/dsh-session-query',
+        'session search is unavailable: this deployment does not mount @lyness/lyn-session-query',
         {},
       )
     }

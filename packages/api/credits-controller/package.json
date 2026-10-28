@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-api-credits-controller",
+  "name": "@lyness/lyn-api-credits-controller",
   "description": "A person reads their own balance; an administrator grants credits and sets allowances",
   "version": "0.1.7-rc.2",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/api/credits-controller"
   },
   "type": "module",
@@ -47,20 +47,20 @@
     "zod": "^4.4.3"
   },
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-brand": "workspace:*",
-    "@deepseek-ai/dsh-credits": "workspace:*",
-    "@deepseek-ai/dsh-people": "workspace:*",
-    "@deepseek-ai/dsh-request-principal": "workspace:*",
-    "@deepseek-ai/dsh-typert-protocol": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/lyn-credits": "workspace:*",
+    "@lyness/lyn-people": "workspace:*",
+    "@lyness/lyn-request-principal": "workspace:*",
+    "@lyness/lyn-typert-protocol": "workspace:*"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-admin-audit": "workspace:*",
-    "@deepseek-ai/dsh-brand": "workspace:*",
-    "@deepseek-ai/dsh-credits": "workspace:*",
-    "@deepseek-ai/dsh-people": "workspace:*",
-    "@deepseek-ai/dsh-request-principal": "workspace:*",
-    "@deepseek-ai/dsh-typert-protocol": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-admin-audit": "workspace:*",
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/lyn-credits": "workspace:*",
+    "@lyness/lyn-people": "workspace:*",
+    "@lyness/lyn-request-principal": "workspace:*",
+    "@lyness/lyn-typert-protocol": "workspace:*"
   }
 }

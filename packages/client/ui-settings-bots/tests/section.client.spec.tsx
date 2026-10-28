@@ -9,7 +9,7 @@
 
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { cleanup, fireEvent, render, screen, within } from '@testing-library/react'
-import type { BotRowView, PresetOptionView, TeamRowView } from '@deepseek-ai/dsh-api-bots-controller/types'
+import type { BotRowView, PresetOptionView, TeamRowView } from '@lyness/lyn-api-bots-controller/types'
 import { BotsSection } from '../src/client/BotsSection.tsx'
 import type { BotsSectionProps } from '../src/client/BotsSection.tsx'
 import type { BotsSectionState } from '../src/client/store.ts'

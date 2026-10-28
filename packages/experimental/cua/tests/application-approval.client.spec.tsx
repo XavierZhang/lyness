@@ -2,8 +2,8 @@
 /** Fixed decisions retain the caller's answer labels and pending-question lifetime. */
 import { cleanup, render } from '@testing-library/react'
 import { afterEach, expect, it, vi } from 'vitest'
-import type { ApprovalCardInput } from '@deepseek-ai/dsh-client-ui-approval/client'
-import { PendingQuestion, createWaterfallRequest } from '@deepseek-ai/dsh-client-ui-user-questions/src/client/contract/slots.ts'
+import type { ApprovalCardInput } from '@lyness/lyn-client-ui-approval/client'
+import { PendingQuestion, createWaterfallRequest } from '@lyness/lyn-client-ui-user-questions/src/client/contract/slots.ts'
 import { ApplicationApproval, selectApplicationApproval, type ApplicationApprovalProps } from '../src/client/ApplicationApproval.tsx'
 
 type AskUserQuestionItem = PendingQuestion['questions'][number]

@@ -19,7 +19,7 @@
       "sessionMode": "write",
       "allowsFork": true,
       "allowsFileUpload": true,
-      "dshVersion": "0.2.0-rc.2",
+      "lynVersion": "0.2.0-rc.2",
       "ownerInstanceId": "instance-one",
       "expiresAt": "2026-10-03T00:00:00.000Z",
       "connection": {

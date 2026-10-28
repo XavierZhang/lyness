@@ -1,11 +1,11 @@
 /** JSONL teardown preserves events emitted by an asynchronously disposing injected consumer. */
-import { Context } from '@deepseek-ai/cordis'
-import Loader from '@deepseek-ai/cordis-plugin-loader'
-import Include from '@deepseek-ai/cordis-plugin-include'
-import * as SessionPlugin from '@deepseek-ai/dsh-session'
-import { SessionId, type Session } from '@deepseek-ai/dsh-session'
-import * as JsonlPlugin from '@deepseek-ai/dsh-session-persistence-jsonl'
-import { SessionHandleClosedError } from '@deepseek-ai/dsh-session-persistence'
+import { Context } from '@lyness/cordis'
+import Loader from '@lyness/cordis-plugin-loader'
+import Include from '@lyness/cordis-plugin-include'
+import * as SessionPlugin from '@lyness/lyn-session'
+import { SessionId, type Session } from '@lyness/lyn-session'
+import * as JsonlPlugin from '@lyness/lyn-session-persistence-jsonl'
+import { SessionHandleClosedError } from '@lyness/lyn-session-persistence'
 import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
@@ -15,7 +15,7 @@ import { expect, it } from 'vitest'
 import { logPath } from '../src/format.ts'
 
 it('waits for injected consumer teardown, persists its final event, and releases listeners and leases', async () => {
-  const root = await mkdtemp(join(tmpdir(), 'dsh-jsonl-teardown-'))
+  const root = await mkdtemp(join(tmpdir(), 'lyn-jsonl-teardown-'))
   const ctx = new Context()
   const entered = Promise.withResolvers<undefined>()
   const release = Promise.withResolvers<undefined>()
@@ -48,9 +48,9 @@ it('waits for injected consumer teardown, persists its final event, and releases
     const configPath = join(root, 'cordis.yml')
     await writeFile(configPath, [
       '- id: sessions',
-      "  name: '@deepseek-ai/dsh-session'",
+      "  name: '@lyness/lyn-session'",
       '- id: persistence',
-      "  name: '@deepseek-ai/dsh-session-persistence-jsonl'",
+      "  name: '@lyness/lyn-session-persistence-jsonl'",
       '  config:',
       `    root: ${JSON.stringify(root)}`,
       '    compression: none',
@@ -66,8 +66,8 @@ it('waits for injected consumer teardown, persists its final event, and releases
       loadCache: new Map(),
       async import(specifier: string) {
         switch (specifier) {
-          case '@deepseek-ai/dsh-session': return SessionPlugin
-          case '@deepseek-ai/dsh-session-persistence-jsonl': return JsonlPlugin
+          case '@lyness/lyn-session': return SessionPlugin
+          case '@lyness/lyn-session-persistence-jsonl': return JsonlPlugin
           case 'async-persistence-consumer': return consumer
           default: throw new Error(`Unexpected plugin: ${specifier}`)
         }

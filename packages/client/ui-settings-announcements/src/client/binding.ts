@@ -6,10 +6,10 @@
  * settles before that publishes to nobody rather than failing, which is what
  * lets the plugin start a read without waiting for a render.
  *
- * @module @deepseek-ai/dsh-client-ui-settings-announcements/client/binding
+ * @module @lyness/lyn-client-ui-settings-announcements/client/binding
  */
 
-import type { Announcement } from '@deepseek-ai/dsh-announcements/types'
+import type { Announcement } from '@lyness/lyn-announcements/types'
 import type { AnnouncementsReader, ReaderSink } from './read.ts'
 import type { AnnouncementsRowInjected } from './AnnouncementsRow.tsx'
 

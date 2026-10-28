@@ -4,13 +4,13 @@
  * never rewritten afterwards.
  */
 
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { afterEach, describe, expect, it } from 'vitest'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { MembershipId, PersonId } from '@deepseek-ai/dsh-people'
-import SessionStore from '@deepseek-ai/dsh-session'
-import type { Session } from '@deepseek-ai/dsh-session'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
+import { brandString } from '@lyness/lyn-brand'
+import type { MembershipId, PersonId } from '@lyness/lyn-people'
+import SessionStore from '@lyness/lyn-session'
+import type { Session } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 import * as SessionOwnership from '../src/index.ts'
 import { ownerOf } from '../src/index.ts'
 import type { SessionOwnerRecord } from '../src/index.ts'

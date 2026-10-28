@@ -5,54 +5,54 @@
 /:
   en: 1a8099ab9b557ff7
   zh: 7054b2eab0e1fda8
-/deepseek-harness-dsh-lsp:
+/lyness-lyn-lsp:
   en: 55e858521873d38c
   zh: c53e501f9dda08e4
-/deepseek-harness-dsh-lsp/summary:
+/lyness-lyn-lsp/summary:
   en: 5fd234f343344ce9
   zh: 7c067de888de1733
-/deepseek-harness-dsh-lsp/table-of-contents:
+/lyness-lyn-lsp/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/deepseek-harness-dsh-lsp/use-this-package:
+/lyness-lyn-lsp/use-this-package:
   en: 39ddcc57203b5a43
   zh: ee46b6bb58434337
-/deepseek-harness-dsh-lsp/use-this-package/when-to-choose-it:
+/lyness-lyn-lsp/use-this-package/when-to-choose-it:
   en: 104953d3732e7d81
   zh: 54acd5d4742bd728
-/deepseek-harness-dsh-lsp/use-this-package/composing-a-navigation-stack:
+/lyness-lyn-lsp/use-this-package/composing-a-navigation-stack:
   en: c6a65d1a6a8a9b42
   zh: 4e1b821a8e3e56b0
-/deepseek-harness-dsh-lsp/use-this-package/the-four-operations:
+/lyness-lyn-lsp/use-this-package/the-four-operations:
   en: 201a9b2f8dfb13eb
   zh: c9041adde15602c1
-/deepseek-harness-dsh-lsp/use-this-package/failures-and-recovery:
+/lyness-lyn-lsp/use-this-package/failures-and-recovery:
   en: eeeff6f68bba6807
   zh: a83372441c505bb6
-/deepseek-harness-dsh-lsp/understand-the-implementation:
+/lyness-lyn-lsp/understand-the-implementation:
   en: 1e0acac55fc6c314
   zh: fe4ebe8a86dc480f
-/deepseek-harness-dsh-lsp/understand-the-implementation/design-philosophy:
+/lyness-lyn-lsp/understand-the-implementation/design-philosophy:
   en: 9ccd4990cbcb9eb4
   zh: 034d22e8d060142c
-/deepseek-harness-dsh-lsp/understand-the-implementation/source-map:
+/lyness-lyn-lsp/understand-the-implementation/source-map:
   en: 25af1e58f8ab8854
   zh: 90aec5ee2441bd96
-/deepseek-harness-dsh-lsp/understand-the-implementation/registration-and-selection-lifecycle:
+/lyness-lyn-lsp/understand-the-implementation/registration-and-selection-lifecycle:
   en: 549e97f436b1570c
   zh: df0436c58dd31175
-/deepseek-harness-dsh-lsp/further-exploration:
+/lyness-lyn-lsp/further-exploration:
   en: 9712c41aeba46901
   zh: c5360873e4327329
-/deepseek-harness-dsh-lsp/model-experience:
+/lyness-lyn-lsp/model-experience:
   en: 1333e47e23931a01
   zh: 246d251c125f9f17
-/deepseek-harness-dsh-lsp/model-experience/kv-cache-effect:
+/lyness-lyn-lsp/model-experience/kv-cache-effect:
   en: 94ac8c8fe22a0a4d
   zh: d74e7a4adefd2cb1
-/deepseek-harness-dsh-lsp/known-limitations-and-deferred-work:
+/lyness-lyn-lsp/known-limitations-and-deferred-work:
   en: e7ba99257e4da9e6
   zh: e384e82d4c707af1
-/deepseek-harness-dsh-lsp/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-lsp/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

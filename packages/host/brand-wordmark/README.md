@@ -3,7 +3,7 @@ description: "Typesets a brand name across supplied fonts into a single-colour S
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-host-brand-wordmark
+# @lyness/lyn-host-brand-wordmark
 
 English | [中文](README.zh.md)
 
@@ -31,7 +31,7 @@ This is a library, not a plugin: it registers nothing and reads no configuration
 
 ```ts
 import { readFile, writeFile } from 'node:fs/promises'
-import { typesetWordmark } from '@deepseek-ai/dsh-host-brand-wordmark'
+import { typesetWordmark } from '@lyness/lyn-host-brand-wordmark'
 
 const font = new Uint8Array(await readFile('/srv/acme/fonts/AcmeSans-Bold.otf'))
 const mark = typesetWordmark('acme', [font])

@@ -5,33 +5,33 @@
 /:
   en: 03dc41b8fb76229e
   zh: a66439c4378fc6fc
-/deepseek-harness-dsh-client-ui-agent-preset:
+/lyness-lyn-client-ui-agent-preset:
   en: 73b699cce9d44137
   zh: 10f18dca348db267
-/deepseek-harness-dsh-client-ui-agent-preset/summary:
+/lyness-lyn-client-ui-agent-preset/summary:
   en: 405fc7224ffd6c97
   zh: 4ff5930a4c5bc64a
-/deepseek-harness-dsh-client-ui-agent-preset/table-of-contents:
+/lyness-lyn-client-ui-agent-preset/table-of-contents:
   en: d152484eb41ac6b4
   zh: b3ad7867f23dad1c
-/deepseek-harness-dsh-client-ui-agent-preset/use-this-package:
+/lyness-lyn-client-ui-agent-preset/use-this-package:
   en: cf381c4f00b42c3f
   zh: 1b226687dcbd4875
-/deepseek-harness-dsh-client-ui-agent-preset/understand-the-implementation:
+/lyness-lyn-client-ui-agent-preset/understand-the-implementation:
   en: 7813f0063c15e241
   zh: 6eabc242edfc45ec
-/deepseek-harness-dsh-client-ui-agent-preset/further-exploration:
+/lyness-lyn-client-ui-agent-preset/further-exploration:
   en: 46a74dd32cd1f490
   zh: 58e5ec11a723a8e4
-/deepseek-harness-dsh-client-ui-agent-preset/model-experience:
+/lyness-lyn-client-ui-agent-preset/model-experience:
   en: ff77436515de40ff
   zh: 6c6a23f85ba318bc
-/deepseek-harness-dsh-client-ui-agent-preset/model-experience/kv-cache-effect:
+/lyness-lyn-client-ui-agent-preset/model-experience/kv-cache-effect:
   en: 713c6916c3dd7360
   zh: 9c582f94b926d51b
-/deepseek-harness-dsh-client-ui-agent-preset/known-limitations-and-deferred-work:
+/lyness-lyn-client-ui-agent-preset/known-limitations-and-deferred-work:
   en: 2c5e994e86b1ae4a
   zh: 8bc5a90d3a2133ba
-/deepseek-harness-dsh-client-ui-agent-preset/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-client-ui-agent-preset/known-limitations-and-deferred-work/dev-note:
   en: 6ce953763f1dc0f0
   zh: 2d8cabb28ccd151b

@@ -5,60 +5,60 @@
 /:
   en: 6fde8a2c01a13756
   zh: 63b06f1e5373a1f0
-/deepseek-harness-dsh-command-feedback:
+/lyness-lyn-command-feedback:
   en: e9b2dd351b8000d8
   zh: 695dae3bac01b044
-/deepseek-harness-dsh-command-feedback/summary:
+/lyness-lyn-command-feedback/summary:
   en: 95f4f91f7813e11a
   zh: ef0996d5b6c9d476
-/deepseek-harness-dsh-command-feedback/table-of-contents:
+/lyness-lyn-command-feedback/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/deepseek-harness-dsh-command-feedback/use-this-package:
+/lyness-lyn-command-feedback/use-this-package:
   en: f3b7e64960e97d78
   zh: 22ab56d1d9074fdc
-/deepseek-harness-dsh-command-feedback/use-this-package/the-feedback-command:
+/lyness-lyn-command-feedback/use-this-package/the-feedback-command:
   en: 645ee72ee1af491d
   zh: 32b86c39307093e3
-/deepseek-harness-dsh-command-feedback/use-this-package/the-web-feedback-dialog:
+/lyness-lyn-command-feedback/use-this-package/the-web-feedback-dialog:
   en: 21fae542942446d2
   zh: 34d83535891dabee
-/deepseek-harness-dsh-command-feedback/use-this-package/recording-feedback-from-your-own-ui:
+/lyness-lyn-command-feedback/use-this-package/recording-feedback-from-your-own-ui:
   en: c6ee98ae5229d76f
   zh: e058dae4cb5dd254
-/deepseek-harness-dsh-command-feedback/understand-the-implementation:
+/lyness-lyn-command-feedback/understand-the-implementation:
   en: 42b15ac6321706aa
   zh: 4ed0861911abaf5d
-/deepseek-harness-dsh-command-feedback/understand-the-implementation/design-concept:
+/lyness-lyn-command-feedback/understand-the-implementation/design-concept:
   en: 8363f597c28788d2
   zh: 9dda2a864a01f4ce
-/deepseek-harness-dsh-command-feedback/understand-the-implementation/how-a-remark-is-recorded:
+/lyness-lyn-command-feedback/understand-the-implementation/how-a-remark-is-recorded:
   en: 0c6ceecbb1f45224
   zh: 8138bb0fd3e68317
-/deepseek-harness-dsh-command-feedback/understand-the-implementation/source-map:
+/lyness-lyn-command-feedback/understand-the-implementation/source-map:
   en: 4fd622508f032a28
   zh: fa336bcbaabca58e
-/deepseek-harness-dsh-command-feedback/further-exploration:
+/lyness-lyn-command-feedback/further-exploration:
   en: 22c5b0830615e5bd
   zh: ff6f859740bbe604
-/deepseek-harness-dsh-command-feedback/model-experience:
+/lyness-lyn-command-feedback/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/deepseek-harness-dsh-command-feedback/model-experience/human-feedback-capture:
+/lyness-lyn-command-feedback/model-experience/human-feedback-capture:
   en: 987bab29bbe8ec43
   zh: 725efc45361172b5
-/deepseek-harness-dsh-command-feedback/model-experience/human-feedback-capture/what-the-model-sees:
+/lyness-lyn-command-feedback/model-experience/human-feedback-capture/what-the-model-sees:
   en: 6ad8e2a4f961d2f4
   zh: b510d05a74d6df0c
-/deepseek-harness-dsh-command-feedback/model-experience/human-feedback-capture/token-effect:
+/lyness-lyn-command-feedback/model-experience/human-feedback-capture/token-effect:
   en: 1fcbd4d84eff267f
   zh: 8da9902c44bf8dc4
-/deepseek-harness-dsh-command-feedback/model-experience/human-feedback-capture/kv-cache-effect:
+/lyness-lyn-command-feedback/model-experience/human-feedback-capture/kv-cache-effect:
   en: c72e7dfee7b0957a
   zh: b122fce5efccfafa
-/deepseek-harness-dsh-command-feedback/known-limitations-and-deferred-work:
+/lyness-lyn-command-feedback/known-limitations-and-deferred-work:
   en: b45e656a009e37b7
   zh: 4949bd712564ee54
-/deepseek-harness-dsh-command-feedback/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-command-feedback/known-limitations-and-deferred-work/dev-note:
   en: b4bf58d55f599bc2
   zh: fea7a6b69b0266e1

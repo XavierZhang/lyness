@@ -9,11 +9,11 @@ import { basename, dirname, extname, relative, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { JSDOM } from 'jsdom'
 import ts from 'typescript'
-import { applyEntryPatches, type PatchOptions } from '@DeepSeek Harness/cordis-plugin-include'
-import type { EntryOptions } from '@DeepSeek Harness/cordis-plugin-loader'
+import { applyEntryPatches, type PatchOptions } from '@lyness/cordis-plugin-include'
+import type { EntryOptions } from '@lyness/cordis-plugin-loader'
 import { loadOverlayPatches } from '../packages/boot/app-boot/src/index.ts'
 import { bundlePatchPaths, composeEntries } from '../packages/boot/app-boot/src/profile.ts'
-import type { DshBundleManifest } from '../packages/util/package-manifest/src/types.ts'
+import type { LynBundleManifest } from '../packages/util/package-manifest/src/types.ts'
 import { isAgentPresetEntry, isCordisGroupEntry, loadCordisYaml } from './cordis-yaml.ts'
 import {
   collectRuntimeLocalSourceSpecifiers,
@@ -21,7 +21,6 @@ import {
 } from './verify-client-packages.ts'
 
 import { isExperimentalPackageName } from './experimental-package-policy.ts'
-const EXPERIMENTAL_PREFIX = '@DeepSeek Harness/dsh-experimental-'
 // The independently published entry package owns platform-engine dependencies.
 const EXTERNAL_KIT_PACKAGES = new Set(['@deepseek-ai/libreoffice-kit'])
 const PROFILE_SOURCE = 'packages/util/official-bundles/src/bundles.ts'
@@ -36,7 +35,7 @@ interface Manifest {
   optionalDependencies?: Record<string, string>
   peerDependencies?: Record<string, string>
   devDependencies?: Record<string, string>
-  dsh?: { bundle?: DshBundleManifest; configTrees?: Array<{ path: string }> }
+  lyn?: { bundle?: LynBundleManifest; configTrees?: Array<{ path: string }> }
 }
 
 interface Package {
@@ -79,8 +78,8 @@ export function verifyDefaultProductIsolation(root: string): ProductIsolationRes
     if (!existsSync(resolve(root, path))) failures.push(`missing default product root ${path}`)
   }
   const cli = directories.get(resolve(root, 'apps/cli'))
-  if (cli?.manifest.name !== '@DeepSeek Harness/dsh') {
-    failures.push('apps/cli/package.json must identify @DeepSeek Harness/dsh')
+  if (cli?.manifest.name !== '@lyness/lyn') {
+    failures.push('apps/cli/package.json must identify @lyness/lyn')
   }
   // The bundles the launcher ships switched off: each a runtime dependency of the installation that is a bundle
   // with an icon and locale display metadata for the plugin manager's Official group, none a default.
@@ -92,8 +91,8 @@ export function verifyDefaultProductIsolation(root: string): ProductIsolationRes
       failures.push(`${PROFILE_SOURCE}: optional bundle ${name} must be a runtime dependency of apps/cli`)
     }
     const manifest = packages.get(name)?.manifest
-    if (manifest?.dsh?.bundle?.patch === undefined) {
-      failures.push(`${PROFILE_SOURCE}: optional bundle ${name} must declare dsh.bundle.patch`)
+    if (manifest?.lyn?.bundle?.patch === undefined) {
+      failures.push(`${PROFILE_SOURCE}: optional bundle ${name} must declare lyn.bundle.patch`)
     }
     if (typeof manifest?.icon !== 'string' && manifest?.exports?.['./icon'] == null) {
       failures.push(`${PROFILE_SOURCE}: optional bundle ${name} must declare icon or export ./icon`)
@@ -146,8 +145,8 @@ export function verifyDefaultProductIsolation(root: string): ProductIsolationRes
     else if (EXTERNAL_KIT_PACKAGES.has(packageName)) return
     // Two scopes reach here: the harness's own, and the vendor scope the
     // independently published office kit sits in. Upstream spelled both
-    // `@deepseek-ai/`, so the rename left the second one unchecked.
-    else if (packageName.startsWith('@DeepSeek Harness/') || packageName.startsWith('@deepseek-ai/')) {
+    // `@lyness/`, so the rename left the second one unchecked.
+    else if (packageName.startsWith('@lyness/') || packageName.startsWith('@lyness/')) {
       failures.push(`${origin}: unknown workspace package ${name}`)
     }
   }
@@ -204,7 +203,7 @@ export function verifyDefaultProductIsolation(root: string): ProductIsolationRes
       }
       if (isAgentPresetEntry(entry)) entry.config.plugins.forEach(visit)
       if (Array.isArray(entry.insert)) entry.insert.forEach(visit)
-      if ((entry.name === '@DeepSeek Harness/cordis-plugin-include' || entry.name === 'cordis:include') && isRecord(entry.config)) {
+      if ((entry.name === '@lyness/cordis-plugin-include' || entry.name === 'cordis:include') && isRecord(entry.config)) {
         if (!composedWeb && Array.isArray(entry.config.patches)) entry.config.patches.forEach(visit)
         const included = entry.config.path
         if (typeof included !== 'string') return
@@ -249,14 +248,14 @@ export function verifyDefaultProductIsolation(root: string): ProductIsolationRes
   if (selection !== undefined) {
     for (const name of selection.packages) {
       reference(name, PROFILE_SOURCE)
-      if (packages.get(name)?.manifest.dsh?.bundle?.patch === undefined) {
-        failures.push(`${PROFILE_SOURCE}: default bundle ${name} must declare dsh.bundle.patch`)
+      if (packages.get(name)?.manifest.lyn?.bundle?.patch === undefined) {
+        failures.push(`${PROFILE_SOURCE}: default bundle ${name} must declare lyn.bundle.patch`)
       }
       if (optionalBundles.has(name)) failures.push(`${PROFILE_SOURCE}: optional bundle ${name} must not be a default bundle`)
     }
     const webLayers = selection.webBundles.flatMap((name) => {
       const pkg = packages.get(name)
-      const bundle = pkg?.manifest.dsh?.bundle
+      const bundle = pkg?.manifest.lyn?.bundle
       if (pkg === undefined || bundle === undefined) return []
       return [bundlePatchPaths(pkg.directory, bundle).flatMap(file => loadOverlayPatches('verify-default-product-isolation', file))]
     })
@@ -304,8 +303,8 @@ export function verifyDefaultProductIsolation(root: string): ProductIsolationRes
         dependency(name, range, pkg, `${manifest.name} ${section}`)
       }
     }
-    for (const file of manifest.dsh?.bundle === undefined ? [] : bundlePatchPaths(pkg.directory, manifest.dsh.bundle)) scanConfig(file)
-    for (const tree of manifest.dsh?.configTrees ?? []) {
+    for (const file of manifest.lyn?.bundle === undefined ? [] : bundlePatchPaths(pkg.directory, manifest.lyn.bundle)) scanConfig(file)
+    for (const tree of manifest.lyn?.configTrees ?? []) {
       const treePath = resolve(pkg.directory, tree.path)
       const files = existsSync(treePath) && statSync(treePath).isDirectory()
         ? globSync('**/*.{yml,yaml}', { cwd: treePath, exclude: ['**/*.i18n.yaml', '**/preset.yml'] }) : []

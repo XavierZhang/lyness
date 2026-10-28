@@ -2,10 +2,10 @@
  * Vocabulary for Feishu sign-in: the two identities its directory answers
  * with, and the subject this integration hands a sign-in.
  *
- * @module @deepseek-ai/dsh-feishu/types
+ * @module @lyness/lyn-feishu/types
  */
 
-import type { Branded } from '@deepseek-ai/dsh-brand'
+import type { Branded } from '@lyness/lyn-brand'
 
 /** One tenant's own key, which Feishu calls `tenant_key`. */
 export type FeishuTenantKey = Branded<'FeishuTenantKey'>

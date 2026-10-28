@@ -51,7 +51,7 @@ describe('gen-tool-catalog collectToolCatalog', () => {
         expect((schema.parameters as unknown as JsonSchema).type).toBe('object')
       }
     }
-    const directory = catalog.find(entry => entry.pkg === '@deepseek-ai/dsh-tool-working-directory')
+    const directory = catalog.find(entry => entry.pkg === '@lyness/lyn-tool-working-directory')
     expect(directory?.sources.working_directory).toBe('packages/session/tool-working-directory/src/index.ts')
     const parameters = directory?.schemas[0]?.parameters
     expect(parameters).toHaveProperty('properties.cd.type', 'string')
@@ -71,11 +71,11 @@ describe('gen-tool-catalog collectToolCatalog', () => {
 
   it('attributes each harvested tool with its registering plugin source', async () => {
     const catalog = await collectToolCatalog()
-    const ptc = catalog.find(entry => entry.pkg === '@deepseek-ai/dsh-tool-executor-ptc')
+    const ptc = catalog.find(entry => entry.pkg === '@lyness/lyn-tool-executor-ptc')
     expect(ptc?.sources.run_code).toBe('packages/core/tool-executor-ptc/src/ptc.ts')
-    const bash = catalog.find(entry => entry.pkg === '@deepseek-ai/dsh-tool-bash')
+    const bash = catalog.find(entry => entry.pkg === '@lyness/lyn-tool-bash')
     expect(bash?.sources.bash).toBe('packages/shell/tool-bash/src/index.ts')
-    const control = catalog.find(entry => entry.pkg === '@deepseek-ai/dsh-tool-subagent-control')
+    const control = catalog.find(entry => entry.pkg === '@lyness/lyn-tool-subagent-control')
     expect(control?.sources).toEqual({
       interrupt_agent: 'packages/subagent/tool-subagent-control/src/index.ts',
       list_agents: 'packages/subagent/tool-subagent-control/src/list-agents.ts',
@@ -88,7 +88,7 @@ describe('gen-tool-catalog collectToolCatalog', () => {
     try {
       process.env.PATH = ''
       const catalog = await collectToolCatalog()
-      const search = catalog.find(entry => entry.pkg === '@deepseek-ai/dsh-tool-fs-search')
+      const search = catalog.find(entry => entry.pkg === '@lyness/lyn-tool-fs-search')
       expect(search?.schemas.map(s => s.name).sort()).toEqual(['glob', 'grep'])
     } finally {
       if (oldPath === undefined) delete process.env.PATH
@@ -100,7 +100,7 @@ describe('gen-tool-catalog collectToolCatalog', () => {
     // `tool-subagent`'s registered name is the load-time `toolName` config, so the shipped
     // agents surface this one package as both `subagent` and `subagent_fork`.
     const catalog = await collectToolCatalog()
-    const subagent = catalog.find(entry => entry.pkg === '@deepseek-ai/dsh-tool-subagent')
+    const subagent = catalog.find(entry => entry.pkg === '@lyness/lyn-tool-subagent')
     expect(subagent?.schemas.map(s => s.name)).toEqual(['list_subagent_models', 'subagent'])
     expect(subagent?.note).toMatch(/subagent_fork/)
   })
@@ -121,7 +121,7 @@ describe('gen-tool-catalog assertManifestComplete', () => {
 
 describe('gen-tool-catalog assertToolsHarvested', () => {
   const entry: ToolPackage = {
-    pkg: '@deepseek-ai/dsh-tool-demo',
+    pkg: '@lyness/lyn-tool-demo',
     dir: 'tool-demo',
     source: 'packages/demo/tool-demo/src/index.ts',
     requires: ['ctx.tools', 'ctx.somethingUnmounted'],
@@ -137,7 +137,7 @@ describe('gen-tool-catalog assertToolsHarvested', () => {
     // The failure this guards is silent by construction: the package is in the
     // manifest, its plugin merely stays PENDING on an unmounted service, and the
     // catalog would ship without its tools while every gate stays green.
-    expect(() => { assertToolsHarvested(entry, 0) }).toThrow(/@deepseek-ai\/dsh-tool-demo booted without registering a single tool/)
+    expect(() => { assertToolsHarvested(entry, 0) }).toThrow(/@lyness\/lyn-tool-demo booted without registering a single tool/)
     expect(() => { assertToolsHarvested(entry, 0) }).toThrow(/ctx.somethingUnmounted/)
   })
 })
@@ -146,7 +146,7 @@ describe('gen-tool-catalog render', () => {
   it('emits a package heading, a tool heading, and a json schema fence', () => {
     const catalog: ToolCatalog = [
       {
-        pkg: '@deepseek-ai/dsh-tool-demo',
+        pkg: '@lyness/lyn-tool-demo',
         sources: { demo: 'packages/demo/tool-demo/src/index.ts' },
         requires: ['ctx.tools'],
         writes: ['tool/result'],
@@ -154,8 +154,8 @@ describe('gen-tool-catalog render', () => {
       },
     ]
     const md = render(catalog)
-    expect(md).toContain('| `@deepseek-ai/dsh-tool-demo` | `demo` | `ctx.tools` | `tool/result` |')
-    expect(md).toContain('## `@deepseek-ai/dsh-tool-demo`')
+    expect(md).toContain('| `@lyness/lyn-tool-demo` | `demo` | `ctx.tools` | `tool/result` |')
+    expect(md).toContain('## `@lyness/lyn-tool-demo`')
     expect(md).toContain('### `demo`')
     expect(md).toContain('A demo tool.')
     expect(md).toContain('```json')

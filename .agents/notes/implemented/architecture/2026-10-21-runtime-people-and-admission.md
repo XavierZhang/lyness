@@ -11,7 +11,7 @@ A deployment with accounts read its people from composition: `people/static` hel
 
 The people and the admission bindings become durable records an administrator maintains, beside the ones composition writes, and the written half wins.
 
-`@deepseek-ai/dsh-managed-people` holds the stored half in its own domain and answers both seams from one place: `./directory` provides `ctx.people` and `./admission` provides `ctx.signInAdmission`, each reading the same `people` / `bindings` configuration its static counterpart did and forwarding every lookup to `ctx.managedPeople`. An installation that already wrote its roster keeps it verbatim; `module-accounts` only changes which plugin the two rows name.
+`@lyness/lyn-managed-people` holds the stored half in its own domain and answers both seams from one place: `./directory` provides `ctx.people` and `./admission` provides `ctx.signInAdmission`, each reading the same `people` / `bindings` configuration its static counterpart did and forwarding every lookup to `ctx.managedPeople`. An installation that already wrote its roster keeps it verbatim; `module-accounts` only changes which plugin the two rows name.
 
 Composition still names the first person, and the roster may not be empty: an empty system has no administrator to add the first administrator, and that written person is also the recovery path when the last stored administrator is removed. A change to a written person or binding is refused as `written` rather than accepted, because the next boot reads that file again and the surface would have reported something untrue.
 
@@ -23,7 +23,7 @@ The rules the service applies, each because something would otherwise be reachab
 - A standing's id is derived from the person's id alone, so changing somebody's role does not move the membership id an open session already names.
 - A removed person's id is retired with them, so the conversations they opened stay attributed to somebody who no longer signs in rather than to whoever is added next.
 
-`@deepseek-ai/dsh-api-people-controller` projects it onto the `people` Remote namespace and decides nothing: it resolves the standing the call acts in, hands it to the service, and reports each refusal under its own code. `@deepseek-ai/dsh-client-ui-settings-people` is the Settings section, beside the sign-in channels one.
+`@lyness/lyn-api-people-controller` projects it onto the `people` Remote namespace and decides nothing: it resolves the standing the call acts in, hands it to the service, and reports each refusal under its own code. `@lyness/lyn-client-ui-settings-people` is the Settings section, beside the sign-in channels one.
 
 ## Alternatives considered
 
@@ -43,4 +43,4 @@ An administrator adds a colleague, admits their directory identity, and that per
 
 One person still holds one standing in one organization, as the written roster always had it. Removing somebody does not end the sessions they already have, and nothing stops the last stored administrator from being removed — the written roster is why that is recoverable.
 
-`messageOf` moved to `dsh-client-store` while the second Settings section was built, because both sections reported a carrier rejection the same way. The rest of what the two sections share is shape rather than substance — their vocabularies are channels and people — and is marked as deliberately parallel instead of being pressed into one base that would have to name both.
+`messageOf` moved to `lyn-client-store` while the second Settings section was built, because both sections reported a carrier rejection the same way. The rest of what the two sections share is shape rather than substance — their vocabularies are channels and people — and is marked as deliberately parallel instead of being pressed into one base that would have to name both.

@@ -1,9 +1,9 @@
 /** Direct Messages transport with one cancellable lifecycle per model request. */
 
-import { attributionHeaders, LlmAdapter, LlmError } from '@deepseek-ai/dsh-llm'
-import type { GenerateOptions, ImageAttachmentAccessResolver, PreparedAdapterCall, StreamChunk } from '@deepseek-ai/dsh-llm'
-import type { DeepSeekLlmApiJson } from '@deepseek-ai/dsh-deepseek-llm-api-extensions'
-import { idleWatchdog, timeoutOf } from '@deepseek-ai/dsh-timeout'
+import { attributionHeaders, LlmAdapter, LlmError } from '@lyness/lyn-llm'
+import type { GenerateOptions, ImageAttachmentAccessResolver, PreparedAdapterCall, StreamChunk } from '@lyness/lyn-llm'
+import type { DeepSeekLlmApiJson } from '@lyness/lyn-deepseek-llm-api-extensions'
+import { idleWatchdog, timeoutOf } from '@lyness/lyn-timeout'
 import { modelInfo } from './model-info.ts'
 import type { DeepSeekAdapterOptions, DeepSeekConnectionOptions as Connection } from './types.ts'
 import { DeepSeekFileStore } from './file-store.ts'
@@ -15,7 +15,7 @@ import { serialize } from './serialize.ts'
 import { parseSse } from './sse.ts'
 import { translate } from './translate.ts'
 import { providerError, providerErrorDetail } from './transport.ts'
-import type { ImageAttachmentRef } from '@deepseek-ai/dsh-attachment'
+import type { ImageAttachmentRef } from '@lyness/lyn-attachment'
 import { resolveRequestImageTarget } from './request-pricing.ts'
 
 /** DeepSeek provider using Messages content and native thinking replay. */
@@ -143,9 +143,9 @@ export class DeepSeekAdapter<C extends Connection = Connection> extends LlmAdapt
             ...auth.headers,
             'anthropic-version': '2023-06-01',
             ...betas.length === 0 ? {} : { 'anthropic-beta': betas.join(',') },
-            'x-deepseek-harness-user-id': this.dependencies.resolveUserId(),
-            ...options.sessionId === undefined ? {} : { 'x-deepseek-harness-session-id': String(options.sessionId) },
-            ...options.purpose === 'compaction' ? { 'x-deepseek-harness-compact': '1' } : {},
+            'x-lyness-user-id': this.dependencies.resolveUserId(),
+            ...options.sessionId === undefined ? {} : { 'x-lyness-session-id': String(options.sessionId) },
+            ...options.purpose === 'compaction' ? { 'x-lyness-compact': '1' } : {},
           },
         })
         if (!response.ok) {

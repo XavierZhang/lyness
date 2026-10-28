@@ -10,20 +10,19 @@
 
 import { useEffect, useId, useRef, useState, type ReactNode } from 'react'
 import { createPortal } from 'react-dom'
-import type { PluginInstallFailureKind, Registry } from '@deepseek-ai/dsh-api-remotes/client'
+import type { PluginInstallFailureKind, Registry } from '@lyness/lyn-api-remotes/client'
 import {
   Button, IconCheckCircleFillRegular, IconChevronDownOutlineRegular, IconChevronLeftOutlineMedium,
   IconChevronRightOutlineRegular, IconCloseOutlineMedium,
-  IconDownloadOutlineRegular, IconInfoOutlineRegular, IconPlusOutlineRegular, IconRefreshOutlineRegular, IconTrashOutlineRegular,
+  IconDownloadOutlineRegular, IconInfoOutlineRegular, IconListPenOutlineRegular, IconPlusOutlineRegular,
+  IconRefreshOutlineRegular, IconTrashOutlineRegular,
   IconWarningOutlineRegular, Input, Menu, MenuItemButton, Modal, pointerModality,
-  IconListPenOutlineRegular, IconPlusOutlineRegular, IconRefreshOutlineRegular, IconTrashOutlineRegular,
-  IconWarningOutlineRegular, Input, Modal,
   PluginArtworkDefault, PluginArtworkLoop, PluginArtworkSearch, PluginArtworkSubagent, PluginArtworkTerminal,
   SegmentedTabs, StateDot, Switch, Tag, TerminalBlock, Toast, Tooltip, useAnchoredPosition, useDismissOnOutsidePointer,
   type IconProps, type StateDotState, type TerminalBlockLabels,
-} from '@deepseek-ai/dsh-client-ui-primitives'
-import type { InjectFace, PropsLocale, PropsRenderSlots, PropsRuntime, PropsStore } from '@deepseek-ai/dsh-client-ui-slots'
-import { EXTENSION_BUNDLES, HIDDEN_BUNDLES, MORE_BUNDLES } from '@deepseek-ai/dsh-official-bundles'
+} from '@lyness/lyn-client-ui-primitives'
+import type { InjectFace, PropsLocale, PropsRenderSlots, PropsRuntime, PropsStore } from '@lyness/lyn-client-ui-slots'
+import { EXTENSION_BUNDLES, HIDDEN_BUNDLES, MORE_BUNDLES } from '@lyness/lyn-official-bundles'
 import type { createNavigationStore } from './navigation-store.ts'
 import type { PluginHeaderLayoutFace } from './header-scroll.ts'
 import { DevGuideDialog } from './DevGuideDialog.tsx'
@@ -1620,6 +1619,7 @@ export function PluginManagerPage(props: PluginManagerPageProps): ReactNode {
 
   return (
     <section className={css.page} data-plugin-panel aria-busy={state.status === 'loading' || refreshing}>
+      {devGuideOpen ? <DevGuideDialog t={t} onClose={() => { setDevGuideOpen(false) }} /> : null}
       {showsMoreList ? (
         <header className={css.moreHead} data-window-drag>
           <Button size="sm" className={css.moreBack} aria-label={t('backToList')} onClick={() => { setView({ kind: 'list' }) }}>
@@ -1627,39 +1627,6 @@ export function PluginManagerPage(props: PluginManagerPageProps): ReactNode {
           </Button>
           <h1 className={css.pageTitle}>{t('moreTitle')}</h1>
         </header>
-    <section className={css.page} data-plugin-panel aria-busy={state.status === 'loading'}>
-      {devGuideOpen ? <DevGuideDialog t={t} onClose={() => { setDevGuideOpen(false) }} /> : null}
-      {showsCards
-        ? (
-          <header className={css.pageHead} data-window-drag>
-            <div>
-              <h1 className={css.pageTitle}>{t('title')}</h1>
-              <p className={css.pageIntro}>{t('intro')}</p>
-            </div>
-            <div className={css.toolbar}>
-              <button
-                type="button"
-                className={css.iconButton}
-                aria-label={t('devGuideOpen')}
-                title={t('devGuideOpen')}
-                onClick={() => { setDevGuideOpen(true) }}
-              >
-                <span className={css.iconWrap} aria-hidden="true"><IconListPenOutlineRegular /></span>
-              </button>
-              <button type="button" className={css.iconButton} aria-label={t('refresh')} title={t('refresh')} disabled={!loaded} onClick={props.refresh}>
-                <span className={css.iconWrap} aria-hidden="true"><IconRefreshOutlineRegular /></span>
-              </button>
-              <Button variant="primary" size="sm" className={css.addButton} icon={<IconPlusOutlineRegular size={13} />} disabled={!loaded} onClick={props.openInstall}>
-                {t(state.install.requestId === undefined ? 'addPlugin' : 'installViewTask')}
-              </Button>
-            </div>
-          </header>
-        )
-        : null}
-      {showsCards && state.status === 'loading' ? (
-        <p className={`${css.status} ${css.statusWithDot}`} role="status">
-          <StateDot state="ongoing" />{t('loading')}
-        </p>
       ) : null}
       <div className={css.pageBody} data-plugin-body>
         {showsMainList
@@ -1683,6 +1650,13 @@ export function PluginManagerPage(props: PluginManagerPageProps): ReactNode {
                 </div>
                 <div className={css.toolbar} data-plugin-toolbar data-plugin-header-part="toolbar" hidden={!onInstalled}>
                   {updates === undefined ? null : <span className={css.updatesNote} data-tone={updates.tone}>{updates.text}</span>}
+                  <Tooltip label={t('devGuideOpen')} delayMs={500} focusDelayMs={500} side="bottom" portal>
+                    <Button variant="outline" size="sm" className={css.addButton} aria-label={t('devGuideOpen')}
+                      onClick={() => { setDevGuideOpen(true) }}
+                      icon={<IconListPenOutlineRegular size={13} />}>
+                      <span className={css.toolbarLabel}>{t('devGuideOpen')}</span>
+                    </Button>
+                  </Tooltip>
                   <Tooltip label={t('refresh')} delayMs={500} focusDelayMs={500} side="bottom" portal disabled={!loaded || refreshing}>
                     <Button variant="outline" size="sm" className={css.addButton} aria-label={t('refresh')} aria-busy={refreshing}
                       disabled={!loaded || refreshing} onClick={props.refresh}

@@ -8,7 +8,7 @@
  * directories even though the authorization URLs and the token exchanges are
  * not, so it lives here and each channel keeps only what is its own.
  *
- * @module @deepseek-ai/dsh-sign-in/attempts
+ * @module @lyness/lyn-sign-in/attempts
  */
 
 /** One sign-in waiting for the directory to return the browser. */

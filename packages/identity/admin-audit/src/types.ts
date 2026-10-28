@@ -2,11 +2,11 @@
  * Vocabulary of the administrative trail: what one recorded change says, what
  * a caller submits for it, and what a reader asks for.
  *
- * @module @deepseek-ai/dsh-admin-audit/types
+ * @module @lyness/lyn-admin-audit/types
  */
 
-import type { Branded } from '@deepseek-ai/dsh-brand'
-import type { MembershipId, PersonId } from '@deepseek-ai/dsh-people'
+import type { Branded } from '@lyness/lyn-brand'
+import type { MembershipId, PersonId } from '@lyness/lyn-people'
 
 /** One entry's stable identity, which sorts newest-last as a string. */
 export type AuditEntryId = Branded<'audit-entry-id'>

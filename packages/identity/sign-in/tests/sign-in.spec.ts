@@ -6,14 +6,14 @@
 import { mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { Context } from '@deepseek-ai/cordis'
-import Storage from '@deepseek-ai/dsh-storage'
-import * as StorageDomain from '@deepseek-ai/dsh-storage-domain'
-import * as StorageJson from '@deepseek-ai/dsh-storage-json'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { PersonId } from '@deepseek-ai/dsh-people'
-import type { AuthSessionId } from '@deepseek-ai/dsh-auth-session'
-import StoredAuthSessions from '@deepseek-ai/dsh-auth-session/store'
+import { Context } from '@lyness/cordis'
+import Storage from '@lyness/lyn-storage'
+import * as StorageDomain from '@lyness/lyn-storage-domain'
+import * as StorageJson from '@lyness/lyn-storage-json'
+import { brandString } from '@lyness/lyn-brand'
+import type { PersonId } from '@lyness/lyn-people'
+import type { AuthSessionId } from '@lyness/lyn-auth-session'
+import StoredAuthSessions from '@lyness/lyn-auth-session/store'
 import { afterEach, describe, expect, it } from 'vitest'
 import SignIn, { DEFAULT_LIFETIME_MS, SignInRefused, channelId, resolveConfig } from '../src/index.ts'
 import type { Config, SignInChannel } from '../src/index.ts'
@@ -24,7 +24,7 @@ const ADA = brandString<PersonId>('ada')
 const ENTRA = channelId('microsoft-entra')
 // A self-driven channel ignores the callback address; the tests pass one
 // anyway so the call reads the same for both shapes.
-const UNUSED_CALLBACK = 'https://DeepSeek Harness.example/callback'
+const UNUSED_CALLBACK = 'https://lyness.example/callback'
 
 const roots: string[] = []
 const live: Context[] = []
@@ -89,7 +89,7 @@ async function harness(
   admits: PersonId | undefined,
   config: Config = {},
 ): Promise<Context> {
-  const root = mkdtempSync(join(tmpdir(), 'dsh-sign-in-'))
+  const root = mkdtempSync(join(tmpdir(), 'lyn-sign-in-'))
   roots.push(root)
   const ctx = new Context()
   await ctx.plugin(Storage)
@@ -199,17 +199,17 @@ describe('SignIn', () => {
   it('sends the browser to the directory for a redirect channel', async () => {
     const ctx = await harness(ADA)
     ctx.signIn.register(redirecting(SUBJECT))
-    const outcome = await ctx.signIn.begin(ENTRA, 'https://DeepSeek Harness.example/callback')
+    const outcome = await ctx.signIn.begin(ENTRA, 'https://lyness.example/callback')
     expect(outcome).toEqual({
       kind: 'redirect',
-      start: { to: 'https://login.example/?redirect_uri=https://DeepSeek Harness.example/callback', attempt: 'a1' },
+      start: { to: 'https://login.example/?redirect_uri=https://lyness.example/callback', attempt: 'a1' },
     })
   })
 
   it('establishes nothing until the directory returns', async () => {
     const ctx = await harness(ADA)
     ctx.signIn.register(redirecting(SUBJECT))
-    await ctx.signIn.begin(ENTRA, 'https://DeepSeek Harness.example/callback')
+    await ctx.signIn.begin(ENTRA, 'https://lyness.example/callback')
     const id = await ctx.signIn.resume(ENTRA, new URLSearchParams({ code: 'c' }))
     expect((await ctx.authSessions.read(id)).person).toBe(ADA)
   })

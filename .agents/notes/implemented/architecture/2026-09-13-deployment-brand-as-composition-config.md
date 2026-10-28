@@ -10,13 +10,13 @@ A deployment needs its own visual identity, and two of the obvious places to put
 
 The first is user settings. `settings.yaml` layers **above** composition, so anything a plugin exposes through the settings seam can be rewritten by the person using the deployment. A deployment's identity is exactly the fact that must hold against that person.
 
-The second is the build. Upstream brands itself through the `DSH_CLIENT_*` prefix, which is embedded into the browser artifacts at build time — `DSH_CLIENT_TITLE` is read straight out of `process.env` in the client bundle. That works for a product shipping one brand and turns every rebrand into a frontend rebuild, which a deployment script cannot do.
+The second is the build. Upstream brands itself through the `LYNESS_CLIENT_*` prefix, which is embedded into the browser artifacts at build time — `LYNESS_CLIENT_TITLE` is read straight out of `process.env` in the client bundle. That works for a product shipping one brand and turns every rebrand into a frontend rebuild, which a deployment script cannot do.
 
 ## Decision
 
 Brand values are **composition config** on a host plugin that registers no settings section, and they are **applied to each index response** rather than compiled in.
 
-`@deepseek-ai/dsh-host-brand-deployment` carries the product name, brand colour, and the three asset file names, validates all of it at load, serves the assets, and writes the brand into every index render. `dsh-web-app` mounts the row with nothing set, so a deployment brands itself by filling that row from its profile's patch layer and restarting.
+`@lyness/lyn-host-brand-deployment` carries the product name, brand colour, and the three asset file names, validates all of it at load, serves the assets, and writes the brand into every index render. `lyn-web-app` mounts the row with nothing set, so a deployment brands itself by filling that row from its profile's patch layer and restarting.
 
 Registering no settings section is the mechanism, not an omission: the settings seam layers a user's section over a plugin's entry config, and a plugin that contributes no section has no layer above its composition value.
 
@@ -26,7 +26,7 @@ The split between the two index mechanisms follows what each can express. The br
 
 **Put the brand in `settings.yaml`.** It is the repository's user-facing configuration file and needs no new package. It also sits above composition, so the person using a deployment could rename the product and replace its icon. For a multi-tenant deployment that is the whole property being bought.
 
-**Extend the build-time `DSH_CLIENT_*` path.** It is the mechanism upstream already uses, and the client reads those values with no server involvement. Every brand then needs its own frontend build, so a deployment script cannot change a title, and a hosted deployment serving several brands would need several artifact sets.
+**Extend the build-time `LYNESS_CLIENT_*` path.** It is the mechanism upstream already uses, and the client reads those values with no server involvement. Every brand then needs its own frontend build, so a deployment script cannot change a title, and a hosted deployment serving several brands would need several artifact sets.
 
 **Accept uploads and store assets per tenant.** It is what the requirements document asks for, and it is the only thing that gives a tenant a self-service logo. It also creates the intake route, the server-side format checks, and the cross-tenant execution surface that placing files as an operator removes entirely; the [two-tier split](../../../../.fork/BRAND-CONFIG.md) records why that trade lands where it does.
 

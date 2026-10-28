@@ -1,12 +1,12 @@
 /** Temporary 1017 badge for the two official DeepSeek model routes. */
-import type { Context } from '@deepseek-ai/cordis'
-import type {} from '@deepseek-ai/dsh-client-locale/client'
-import type {} from '@deepseek-ai/dsh-client-ui-model-selection/client'
-import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
+import type { Context } from '@lyness/cordis'
+import type {} from '@lyness/lyn-client-locale/client'
+import type {} from '@lyness/lyn-client-ui-model-selection/client'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
 import { DeepSeekModelLabel } from './DeepSeekModelLabel.tsx'
 import { en, ja, es, fr, de, ru, pt, zh, type LabelKey } from './locales.ts'
 
-declare module '@deepseek-ai/dsh-client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface LocaleNamespaceMap {
     /** The temporary model release badge. */
     'deepseek-model-label-1017': LabelKey

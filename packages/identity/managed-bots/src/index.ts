@@ -12,20 +12,22 @@
  * composition wrote cannot be changed here, because the next boot would bring
  * the written one back and the surface would have lied.
  *
- * @module @deepseek-ai/dsh-managed-bots
+ * @module @lyness/lyn-managed-bots
  */
 
-import { Service } from '@deepseek-ai/cordis'
-import type { Context } from '@deepseek-ai/cordis'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import { administers } from '@deepseek-ai/dsh-people'
-import type { Membership, PersonId, Role } from '@deepseek-ai/dsh-people'
-import { standingOf } from '@deepseek-ai/dsh-managed-people'
-import { fieldChanges } from '@deepseek-ai/dsh-admin-audit'
-import type { AuditSubmission } from '@deepseek-ai/dsh-admin-audit'
-import type {} from '@deepseek-ai/dsh-agent-preset-registry'
-import { randomUUID } from '@deepseek-ai/dsh-util-crypto'
-import type { Domain } from '@deepseek-ai/dsh-storage-domain'
+import { Service } from '@lyness/cordis'
+import type { Context } from '@lyness/cordis'
+import { brandString } from '@lyness/lyn-brand'
+import { administers } from '@lyness/lyn-people'
+import type { Membership, PersonId, Role } from '@lyness/lyn-people'
+import { standingOf } from '@lyness/lyn-managed-people'
+import { fieldChanges } from '@lyness/lyn-admin-audit'
+import type { AuditSubmission } from '@lyness/lyn-admin-audit'
+import type {} from '@lyness/lyn-agent-preset-registry'
+import { randomUUID } from '@lyness/lyn-util-crypto'
+import type { Domain } from '@lyness/lyn-storage-domain'
+import type { ProjectionHandle } from '@lyness/lyn-session-projection'
+import type { Session } from '@lyness/lyn-session'
 import { managedBotsDomain } from './storage.ts'
 import { botProjectionDefinition, composeBotPersona } from './session.ts'
 import type { EngagedBot } from './session.ts'
@@ -39,7 +41,7 @@ export { managedBotsDomain, botSchema, teamSchema } from './storage.ts'
 export { BOT_PERSONA_SECTION, botProjectionDefinition, composeBotPersona } from './session.ts'
 export type { EngagedBot } from './session.ts'
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Context {
     /** The bots administrators maintain at runtime; absent where a deployment maintains none. */
     managedBots: ManagedBots
@@ -111,6 +113,12 @@ export class ManagedBots extends Service {
 
   private readonly ready: Promise<Domain<typeof managedBotsDomain>>
 
+  /** The bot projection's registration, awaited before this service is usable. */
+  private readonly botProjection: Promise<ProjectionHandle<EngagedBot | null>>
+
+  /** The awaited reader, so a caller that has the service reads synchronously. */
+  private botReader: ProjectionHandle<EngagedBot | null> | undefined
+
   private readonly written = new Map<PersonId, DeclaredBot>()
 
   private readonly writtenTeams = new Map<string, DeclaredTeam>()
@@ -124,7 +132,7 @@ export class ManagedBots extends Service {
   constructor(ctx: Context) {
     super(ctx, 'managedBots')
     this.ready = ctx.storageDomain.open(managedBotsDomain)
-    ctx.sessionProjections.register(botProjectionDefinition)
+    this.botProjection = ctx.sessionProjections.register(botProjectionDefinition)
     ctx.effect(() => async () => {
       for (const withdraw of this.rostered.values()) withdraw()
       this.rostered.clear()
@@ -143,7 +151,24 @@ export class ManagedBots extends Service {
    */
   async [Service.init](): Promise<void> {
     const domain = await this.ready
+    this.botReader = await this.botProjection
     for (const [, record] of domain.table('bots').entries()) this.enrol(record)
+  }
+
+  /**
+   * The bot one conversation speaks as.
+   *
+   * This service owns the projection, so it answers for it: a reader that
+   * folded the key itself would carry a second copy of the fold and could
+   * disagree with the roster about what a session is.
+   * @param session - the conversation to read.
+   * @returns the bot it speaks as, or undefined when a person opened it.
+   */
+  botOf(session: Session): EngagedBot | undefined {
+    if (this.botReader === undefined) {
+      throw new Error('managed-bots: the bot projection is read only after this service has initialized')
+    }
+    return this.botReader.stateOf(session) ?? undefined
   }
 
   /**

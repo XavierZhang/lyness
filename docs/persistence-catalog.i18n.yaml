@@ -488,7 +488,7 @@
 /session-persistence-event-catalog/resolved-persistence-types/disposed:
   en: d951a060b1ab706f
   zh: d951a060b1ab706f
-/session-persistence-event-catalog/resolved-persistence-types/dsh-session-title-llm:
+/session-persistence-event-catalog/resolved-persistence-types/lyn-session-title-llm:
   en: 96f8cc5bfe68cf1e
   zh: 96f8cc5bfe68cf1e
 /session-persistence-event-catalog/resolved-persistence-types/edit:
@@ -1550,25 +1550,25 @@
 /session-persistence-event-catalog/resolved-persistence-types/kind-disposed:
   en: 70d5bdb48ced0ea9
   zh: fc950fee2c166ff0
-/session-persistence-event-catalog/resolved-persistence-types/kind-dsh-session-title-llm:
+/session-persistence-event-catalog/resolved-persistence-types/kind-lyn-session-title-llm:
   en: 428529e5dedc761d
   zh: 3ca0b54c9c521ea0
-/session-persistence-event-catalog/resolved-persistence-types/kind-dsh-session-title-llm-form-catalog:
+/session-persistence-event-catalog/resolved-persistence-types/kind-lyn-session-title-llm-form-catalog:
   en: cdfb0eb31ef0d09b
   zh: 414343b77acf9420
-/session-persistence-event-catalog/resolved-persistence-types/kind-dsh-session-title-llm-form-instructions:
+/session-persistence-event-catalog/resolved-persistence-types/kind-lyn-session-title-llm-form-instructions:
   en: 49e11fba42b43286
   zh: b1ba49504fbad67b
-/session-persistence-event-catalog/resolved-persistence-types/kind-dsh-session-title-llm-form-notice:
+/session-persistence-event-catalog/resolved-persistence-types/kind-lyn-session-title-llm-form-notice:
   en: c06edb76106d154b
   zh: 2548300ec417f887
-/session-persistence-event-catalog/resolved-persistence-types/kind-dsh-session-title-llm-form-recall:
+/session-persistence-event-catalog/resolved-persistence-types/kind-lyn-session-title-llm-form-recall:
   en: 22f8d8163871b64c
   zh: 3786a2304b51637f
-/session-persistence-event-catalog/resolved-persistence-types/kind-dsh-session-title-llm-form-relay:
+/session-persistence-event-catalog/resolved-persistence-types/kind-lyn-session-title-llm-form-relay:
   en: 6f35856ebaec9add
   zh: 605b9489095fe691
-/session-persistence-event-catalog/resolved-persistence-types/kind-dsh-session-title-llm-form-snapshot:
+/session-persistence-event-catalog/resolved-persistence-types/kind-lyn-session-title-llm-form-snapshot:
   en: 29c21a6572c4e3e9
   zh: f107d7c6342ae5d0
 /session-persistence-event-catalog/resolved-persistence-types/kind-fallback:

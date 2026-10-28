@@ -4,7 +4,7 @@ import { cleanup, fireEvent, render, screen, act } from '@testing-library/react'
 import { afterEach, expect, it, vi } from 'vitest'
 import { SignOutDialog } from '../src/client/SignOutDialog.tsx'
 import { en, zh } from '../src/client/locales.ts'
-import { makeTranslate } from '@deepseek-ai/dsh-client-test-runtime'
+import { makeTranslate } from '@lyness/lyn-client-test-runtime'
 
 afterEach(cleanup)
 function mount(running: boolean | 'unknown', copy: typeof en | typeof zh = en, signOut = vi.fn(async () => {})) {

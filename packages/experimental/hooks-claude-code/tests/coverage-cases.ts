@@ -1,25 +1,25 @@
-import { executeToolFixture } from '@deepseek-ai/dsh-tool-testkit'
-import { createUserMessage } from '@deepseek-ai/dsh-llm'
-import type { ContextFormed } from '@deepseek-ai/dsh-llm'
-import { provideWorkingDirectoryFixture, mountAgentLoopTestDependencies } from '@deepseek-ai/dsh-agent-loop-testkit'
+import { executeToolFixture } from '@lyness/lyn-tool-testkit'
+import { createUserMessage } from '@lyness/lyn-llm'
+import type { ContextFormed } from '@lyness/lyn-llm'
+import { provideWorkingDirectoryFixture, mountAgentLoopTestDependencies } from '@lyness/lyn-agent-loop-testkit'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { mkdtempSync, rmSync, writeFileSync, chmodSync, existsSync, mkdirSync, readFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { Context } from '@deepseek-ai/cordis'
-import { SessionId, type SessionEvent } from '@deepseek-ai/dsh-session'
-import * as JsonlSessionPersistence from '@deepseek-ai/dsh-session-persistence-jsonl'
-import { defineContentToolFixture } from '@deepseek-ai/dsh-tool-testkit'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import AgentLoop from '@deepseek-ai/dsh-agent-loop'
-import { LocalBashExecutor } from '@deepseek-ai/dsh-bash-local'
-import LocalSubprocessRuntime from '@deepseek-ai/dsh-subprocess-local'
-import { scopeTarget } from '@deepseek-ai/dsh-scope'
-import SubagentRuntime, { SubagentRunId } from '@deepseek-ai/dsh-subagent'
-import * as HooksClaude from '@deepseek-ai/dsh-hooks-claude-code'
+import { Context } from '@lyness/cordis'
+import { SessionId, type SessionEvent } from '@lyness/lyn-session'
+import * as JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
+import { defineContentToolFixture } from '@lyness/lyn-tool-testkit'
+import type { Agent } from '@lyness/lyn-agent'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import { LocalBashExecutor } from '@lyness/lyn-bash-local'
+import LocalSubprocessRuntime from '@lyness/lyn-subprocess-local'
+import { scopeTarget } from '@lyness/lyn-scope'
+import SubagentRuntime, { SubagentRunId } from '@lyness/lyn-subagent'
+import * as HooksClaude from '@lyness/lyn-hooks-claude-code'
 import { MockAdapter, textResponse, toolCallResponse } from '../../../core/agent-loop/tests/mock-adapter.ts'
 
-declare module '@deepseek-ai/dsh-llm' {
+declare module '@lyness/lyn-llm' {
   interface MessageSourceMap {
     'policy': { kind: 'policy' } & ContextFormed
   }
@@ -41,7 +41,7 @@ function subagentCarrier(ctx: Context) {
   return scopeTarget(ctx as unknown as SubagentRuntime, undefined)
 }
 
-function dir(): string { const d = mkdtempSync(join(tmpdir(), 'dsh-hc-cov-')); dirs.push(d); return d }
+function dir(): string { const d = mkdtempSync(join(tmpdir(), 'lyn-hc-cov-')); dirs.push(d); return d }
 function sh(d: string, name: string, body: string): string {
   const p = join(d, name); writeFileSync(p, body); chmodSync(p, 0o755); return p
 }
@@ -160,7 +160,7 @@ export function defineCoverageCases(group: CoverageGroup): void {
       const ctx = await harness(path, new MockAdapter([]))
       let ran = false
       ctx.tools.register(defineContentToolFixture({ name: 'echo', description: 'e', parameters: {}, async execute() { ran = true; return [{ type: 'text', text: 'x' }] } }))
-      const { ToolCallId } = await import('@deepseek-ai/dsh-llm')
+      const { ToolCallId } = await import('@lyness/lyn-llm')
       const result = await executeToolFixture(ctx, { signal: testToolSignal, callId: ToolCallId('c1'), name: 'echo', arguments: {} })
       expect(ran).toBe(false)
       expect(result.isError).toBe(true)
@@ -487,7 +487,7 @@ export function defineCoverageCases(group: CoverageGroup): void {
       const adapter = new MockAdapter([textResponse('ran')])
       const ctx = await harness(path, adapter) // NB: no projectDir
       // The factory create() path honors meta.cwd (the plain agentLoop.create() does not).
-      const { SessionId } = await import('@deepseek-ai/dsh-session')
+      const { SessionId } = await import('@lyness/lyn-session')
       const handle = await ctx.agents.create({ sessionId: SessionId('s1'), meta: { cwd: workspace }, agentOptions: { provider: 'mock', model: 'mock' } })
       handle.agent.followup(createUserMessage({ content: [{ type: 'text', text: 'go' }], source: { kind: 'user' } }))
       await waitForIdle(ctx, handle.agent)
@@ -689,7 +689,7 @@ export function defineCoverageCases(group: CoverageGroup): void {
       ctx.llm.registerAdapter(['mock'], adapter)
       ctx.tools.register(defineContentToolFixture({ name: 'echo', description: 'e', parameters: {}, async execute() { return [{ type: 'text', text: 'ok' }] } }))
 
-      const { SessionId } = await import('@deepseek-ai/dsh-session')
+      const { SessionId } = await import('@lyness/lyn-session')
       const handle = await ctx.agents.create({ sessionId: SessionId('s1'), meta: { cwd: sessionDir }, agentOptions: { provider: 'mock', model: 'mock' } })
       handle.agent.followup(createUserMessage({ content: [{ type: 'text', text: 'go' }], source: { kind: 'user' } }))
       await waitForIdle(ctx, handle.agent)
@@ -720,7 +720,7 @@ export function defineCoverageCases(group: CoverageGroup): void {
       await ctx.plugin(HooksClaude, { configPath: join(serverDir, 'hooks.json') })
       ctx.llm.registerAdapter(['mock'], new MockAdapter([]))
 
-      const { SessionId } = await import('@deepseek-ai/dsh-session')
+      const { SessionId } = await import('@lyness/lyn-session')
       const childHandle = await ctx.agents.create({ sessionId: SessionId('child-stop-session'), meta: { cwd: childDir }, agentOptions: { provider: 'mock', model: 'mock' } })
       const runId = SubagentRunId('run-stop')
       const identity = { runId, provider: 'inproc', id: childHandle.agent.id, local: true }

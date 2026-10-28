@@ -3,18 +3,18 @@
  * `web_search_20250305` server tool. Each search costs a model turn, but returns structured
  * result blocks; absence of those blocks is an error rather than a prose-scraping fallback.
  * The wire format and native `fetch` client are provider-private and do not use `ctx.llm`.
- * @module @deepseek-ai/dsh-web-search-deepseek/provider
+ * @module @lyness/lyn-web-search-deepseek/provider
  */
 
-import { WebError } from '@deepseek-ai/dsh-web'
+import { WebError } from '@lyness/lyn-web'
 import type {
   WebSearchProvider,
   WebSearchRequest,
   WebSearchResult,
   WebSearchSource,
-} from '@deepseek-ai/dsh-web'
-import type { CredentialRef } from '@deepseek-ai/dsh-credentials'
-import type {} from '@deepseek-ai/dsh-session'
+} from '@lyness/lyn-web'
+import type { CredentialRef } from '@lyness/lyn-credentials'
+import type {} from '@lyness/lyn-session'
 import type {
   AnthropicError,
   AnthropicResponse,
@@ -46,7 +46,7 @@ export const DEEPSEEK_DEFAULT_MAX_TOKENS = 4096
 export const DEEPSEEK_DEFAULT_MAX_USES = 5
 
 /** Attribution header sent on every request. Bump with the package version. */
-const USER_AGENT = 'DeepSeek Harness/0.0.1'
+const USER_AGENT = 'lyness/0.0.1'
 
 /**
  * Exact secret-free DeepSeek Messages request recorded immediately before one
@@ -83,7 +83,7 @@ export interface DeepSeekSearchLlmRequest {
   }
 }
 
-declare module '@deepseek-ai/dsh-session/types' {
+declare module '@lyness/lyn-session/types' {
   interface SessionEventMap {
     /** Secret-free auxiliary DeepSeek search request recorded before dispatch. */
     'web/deepseek-search-llm-request': DeepSeekSearchLlmRequest
@@ -94,7 +94,7 @@ declare module '@deepseek-ai/dsh-session/types' {
 export interface DeepSeekSearchProviderOptions {
   /**
    * Resolve the DeepSeek account token for one search endpoint. A token takes
-   * precedence over every API key and is sent only as `x-dsh-auth-token`;
+   * precedence over every API key and is sent only as `x-lyn-auth-token`;
    * `undefined` selects API-key authentication.
    */
   resolveAccountToken?: (endpoint: string) => Promise<string | undefined>
@@ -313,7 +313,7 @@ export class DeepSeekSearchProvider implements WebSearchProvider {
     const token = resolveAccountToken === undefined
       ? undefined
       : await resolveCredential(() => resolveAccountToken(endpoint), signal)
-    if (token !== undefined && token.length > 0) return { kind: 'account', headers: { 'x-dsh-auth-token': token } }
+    if (token !== undefined && token.length > 0) return { kind: 'account', headers: { 'x-lyn-auth-token': token } }
     const apiKey = await this.apiKey(options, signal)
     // Official DeepSeek expects `x-api-key`; an Anthropic-compatible proxy
     // may expect `Authorization: Bearer` — send both so either resolves.

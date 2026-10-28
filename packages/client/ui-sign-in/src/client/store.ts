@@ -5,12 +5,12 @@
  * product and the row that names who is signed in — because both answer the
  * same question and asking twice would ask the deployment twice.
  *
- * @module @deepseek-ai/dsh-client-ui-sign-in/client/store
+ * @module @lyness/lyn-client-ui-sign-in/client/store
  */
 
-import { defineStore } from '@deepseek-ai/dsh-client-store'
-import type { EngineStoreHandle } from '@deepseek-ai/dsh-client-store'
-import type { ViewerView } from '@deepseek-ai/dsh-api-identity-controller/types'
+import { defineStore } from '@lyness/lyn-client-store'
+import type { EngineStoreHandle } from '@lyness/lyn-client-store'
+import type { ViewerView } from '@lyness/lyn-api-identity-controller/types'
 
 /** What the surfaces render. */
 export interface ViewerState {

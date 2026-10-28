@@ -52,6 +52,13 @@
 | `scripts/gen-cordis-catalog.ts`、`scripts/gen-doc-graphs.ts`、`scripts/type-equiv.manifest.json`、`scripts/verify-package-readme-model-experience.ts`、`docs/subsystems/README.md`、`packages/README.md` | 登记 `ctx.tenants` 与 `ctx.tenantConfig`：服务→子系统页、类型→文档页、能力缝角色、类型等价清单、Model Experience、两处索引 | 新增 `ctx` 服务必须逐表登记，这些表都是写死的映射，没有扩展点；不登记则生成器直接报错 | 2026-09-17 |
 | `scripts/gen-third-party-notices.ts`、`lefthook.yml`、`scripts/check-workspace-constraints.ts` | 新增「内置第三方文件」段落；brand-fonts 的 `fonts/` 与清单加入可发布文件白名单：读各包 `third-party-assets.json`，校验 sha256、许可证（宽松或 OFL-1.1 字体）、未登记字体文件即报错 | 上游只声明 npm 依赖与 vendored 包，仓库内随附的字体文件没有声明入口；OFL 字体要合规分发必须被声明 | 2026-09-16 |
 | `packages/boot/app-boot/src/profile.ts`（+ `tests/profile.spec.ts`）、`apps/cli/package.json`、`docs/architecture{,.zh}.md` | `PROFILE_TEMPLATES` 新增 `brand-studio`；CLI 依赖该 bundle；应用清单加一项 | 随附 profile 名单是写死的表，没有注册接缝；不登记则 `lyn --profile brand-studio` 报 "does not exist" | 2026-09-15 |
+| `packages/util/official-bundles/src/bundles.ts` | `ProfileTemplate` 加 `hosted?: boolean`；`PROFILE_TEMPLATES` 换成本 fork 的 module-bundle 组成（14 个 `module-*` 与 `web-execution` 都是本 fork 新增的包）并加 enterprise／hosted／brand-studio／brand-setup 四个形态；`INSTALLATION_OWNED_PROFILE_TUPLES` 改成「每 profile 一组历史元组」，`app-boot/src/profile.ts` 的匹配器与 `rescopedBundleName` 随之带回 | 上游 0.2.1 把这些定义从 `app-boot/src/profile.ts` 搬进了这个新包。三种产品形态靠这张表选择模块，表不在我方手里就没有形态 | 2026-10-28 |
+| `packages/typert/protocol/src/index.ts` | `RemoteAuthority` 与 `requires` 重新挂到上游重写后的选项机制上（`RemoteMarkerOptions`、`markerOptions()`、`REMOTE_*_OPTION_KEYS`、marker 等值比较、命名空间绑定） | 上游把 `exportName` 改名 `name` 并引入 `resources` 读取器。两者互补：`resources` 说一次调用碰到哪些记录，`requires` 说这次调用要什么身份，都挂 Gateway | 2026-10-28 |
+| `packages/api/session-controller/src/{agent,commands}.ts` | bot engagement 重新挂到上游的 `createSession({...})`：`ApiSessionCreateRequest.engagement`、`composeAgent(presetId, engagement)`、`engageBot`、`botForObservation`；并让 `reusable` 在指定了 bot 时一律返回 false | 上游把会话创建改成「可复用空会话 + createSession」，`ensureSession` 不再存在。空会话以无人身份说话，而一个会话代表哪个 bot 是创建时写进它自己日志的 | 2026-10-28 |
+| `packages/client/ui-workspace/src/client/navigation.ts` | `StartSessionOptions` 加 `bot?: string` 并穿过 `connectBlank`／`openWorkspaceSession`／`createInWorkspace`／`createNamed`；带 bot 时不复用空会话、不并入同工作区的在途请求 | 上游重写了这里（草稿初始化 + `StartSessionOptions`），我方原先的 `StartOptions` 已不存在 | 2026-10-28 |
+| `packages/client/connection/src/rpc-host.ts` | 每请求作用域保留并与上游新增的 exact-route owner 校验并存：先校验 owner，再在作用域内调用路由；`rpcFetchHandler` 去掉我方的 `peer` 工厂参数（上游改为逐调用传入） | 上游给 exact route 加了 owner 校验，位置正好是我方作用域包裹的那一处 | 2026-10-28 |
+| `packages/client/ui-theme/src/styles/design-platform.css` | 标签色继续取品牌调色板，另采纳上游新增的 `--dsw-alias-label-shimmer` | 上游把中性色改成了 `--dsw-static-neutral-bluish-*` 体系 | 2026-10-28 |
+| `apps/desktop/src/locale.ts` | 品牌占位符与 `brandedMessages()` 保留，并穿过上游新的多语言 `dictionaries` 查找；更新文案采纳上游措辞但产品名走 `{brandName}` | 上游把 locale 解析从 zh/en 二选一改成多语言字典 | 2026-10-28 |
 | `apps/cli/tests/web-browser-open.expected.e2e.ts` | 四处写死的 `timeout: 30_000` 提为常量 `WEB_BOOT_TIMEOUT_MS = 90_000` | 上游在 16 核 runner 上标定这个预算，同文件兄弟用例已耗时 27.6s；4 核托管 runner 上启动 Web 树约 28s，30s 让门禁判的是机器速度而不是被测的浏览器交接 | 2026-09-23 |
 
 ## 上游可移植性缺陷（已在本地修复，**可反馈给上游**）
@@ -152,7 +159,8 @@ codemod 只改文本和路径。下面这些是它改完之后必然过期、必
 
 | 路径/配置 | 原因 | 上次确认仍被移除的日期 |
 |---|---|---|
-| `session-telemetry-otel` 的默认外发（`mode` + `exporter.url`） | 服务他人用户的部署不能默认把会话记录转发给厂商 | 2026-09-10 |
+| `session-telemetry-otel` 的默认外发（`mode` + `exporter.url`） | 服务他人用户的部署不能默认把会话记录转发给厂商 | 2026-10-28 |
+| 内测／预览版声明弹窗（`ui-settings-models` 的 `WelcomeNotice.tsx`、`welcome-store.ts`、`onboarding-copy.ts` 及两个测试，以及 `welcome*` 语言键） | 这个弹窗声明的是「DeepSeek Harness 面向 Harness 开发者内测」，它说的不是本产品的状态，首次访问的人第一眼不该看到它 | 2026-10-28：上游把它重写并扩充成 0.2 预览版弹窗（新版本号 `2026-09-28.1`、独立设置命名空间与确认字段），删除决定不变，已在 `scaffold.ts`、`onboarding-deepseek-config.e2e.ts`、`apply.client.spec.ts`、`src/client/index.ts` 四处一致移除；同处新增的 sign-in 步骤保留 |
 
 > 这张表靠人复查，人会忘。**待办**：为遥测项补一条行为测试（断言默认组合下不产生外发请求），
 > 把「每次合并后人工复查」变成 CI 自动拦截。测试检查行为而非文件路径，上游换实现也拦得住。
@@ -262,6 +270,114 @@ codemod 只改文本和路径。下面这些是它改完之后必然过期、必
 |---|---|---|---|---|
 | 2026-08-29 | 初始化克隆 | - | - | fork-init 建立基线 |
 | 2026-09-10 | `aa8262ec09`（0.1.2-alpha.1 → 0.1.5-rc.1，2151 个提交） | 0 | typecheck ✅ build ✅ install ✅ | 未走逐行合并：品牌替换是**再生成**的，不是可合并的。做法见下节 |
+| 2026-10-28 | `22ddee3792`（0.1.7-rc.2 → 0.2.1-rc.3，3912 个提交） | 1119（其中 944 为派生产物） | 见本节末 | 改用**真实三方合并**：先修好 `--reverse`，把全树还原为官方拼写再合并。做法见下节 |
+
+### 2026-10-28 合并方法（反向改名 → 真实合并 → 正向改名）
+
+上一轮用的是 `read-tree` 整树替换，因为那时 `--reverse` 不可用。这一轮先把 `--reverse`
+修成可还原的（见「反向改名的还原能力」一节），于是可以走**真实的三方合并**，保留真正的
+祖先关系与上游每个文件的改动，而不是整树替换后重打补丁。
+
+1. `rebrand --reverse --apply`，提交。改名造成的 3343 处冲突因此不进入三方合并。
+2. `git merge upstream/master` —— 实际冲突 1119 个。
+3. 按类别分流：960 个派生产物（双语配对哈希、生成目录、锁文件、expected 产物）取上游；
+   83 个清单／README／小改动走并集；26 个「我方小改动 + 上游大改写」取上游后补回我方增量；
+   31 个手工解。
+4. `rebrand --apply`，再按上面的收尾清单重录。
+
+**整树替换 vs 真实合并**：前者不需要 `--reverse` 正确，但会丢掉上游的逐文件历史，
+而且每次都要重新辨认「哪些补丁要重打」；后者把这件事交给 git，代价是 `--reverse`
+必须真的能还原——这也是这一轮先去修它的原因。
+
+**并集 JSON 要当心**：并集按冲突块保留两侧，接缝处会丢逗号、并产生重复键。本轮 9 个
+`package.json` 因此语法失效（`pnpm install` 报 `ERR_PNPM_JSON_PARSE`），`terminal` 的
+`version` 还重了两份（上游 `0.2.1-rc.3` 在前、我方 `0.1.7-rc.2` 在后，而 JSON 解析器取
+**最后**一个——照装会装回旧版本号）。处理：补逗号，再按「首个优先」合并重复键并重排依赖段。
+
+**并集还会留下指向已删包的依赖**。上游删掉一个包时，并集保留的我方那一侧仍然引用它，
+`pnpm install` 到那一行才报错，一次只报一个。别逐个试：把全部 manifest 的 `name` 收集成
+集合，再扫一遍所有 `workspace:` 依赖，一次列全（本轮两处）。同理要扫「有受跟踪文件但没有
+`package.json`」的残片目录——上游整包删除时，我方新增的文件（如一条 `README.i18n.yaml`）
+没有上游对应物，合并会把它留下来，变成一个没有 manifest 的空壳包。
+
+### 最隐蔽的一类：**没有冲突**的文件丢掉了 fork 的新增
+
+上游重写某个文件的一整段时，git 常常判为「一侧改动」而干净合并，于是 fork 加在那一段里的
+东西无声消失——**没有冲突标记，没有告警**。本轮五处都是这样丢的，全部靠「re-export 指向
+目标模块没有的名字」这条线索揪出来：
+
+| 丢掉的 | 在哪 | 怎么修 |
+|---|---|---|
+| `requires: RemoteAuthority` 的分析器支持 | `typert/generator/src/analyzer.ts` 的 `gatewayBindingArguments` 与 `remoteOptions`，以及 `REMOTE_AUTHORITIES` | 重新挂到上游重写后的两个校验器上。缺它时 `bindTypertRemote({ requires })` 直接被判为非法选项，授权机制整条失效 |
+| `MODELS_ENV`／`MAX_TOKENS_ENV`／`parseModelIds`／`parseMaxTokens` 与环境目录解析 | `llm/llm-deepseek/src/config.ts` | 重新挂到上游的 `resolveAdapterOptions`，默认目录判定改用上游的 `isBuiltInCatalog` |
+| `followShippedTemplate` | `boot/app-boot/src/profile.ts` | 恢复。桌面端的插件 profile 靠它跟随 `web` 模板 |
+| `SessionProjectionStateMap`（及 `checkpointState` 对它的引用） | `session/session-projection/src/types.ts` | 恢复类型与 index 的 import／export，并在 `gen-cordis-catalog.ts` 的 `linkedTypePages` 重新登记 |
+| `StartOptions` 的 re-export | `client/ui-workspace/src/client/index.ts` | 上游已用 `StartSessionOptions` 取代，改为导出它 |
+
+**并集对代码是错的工具，只对清单管用。** 并集按冲突块保留两侧，于是同一个函数会出现两份
+签名、同一个作用域的 `}` 会丢掉。本轮 14 个 `.ts`／`.tsx` 因此**连语法都不成立**，而
+`pnpm install`、生成器、typecheck 全都只能一次报一个，顺着报错爬了很久。正确做法：
+清单（`package.json`、`tsconfig`、`cordis.patch.yml`、语言字典）用并集；**代码一律回到
+真正的三方**——
+
+```sh
+git show $BASE:$up > base; git show $OURS:$up > ours; git show $THEIRS:$up > theirs
+git merge-file -p --diff3 ours base theirs > merged     # --diff3 把 base 也显示出来
+# 解完冲突后，单独给这个文件跑一遍改名（codemod 导出了 rewrite/renamePath）
+```
+
+`--diff3` 是关键：没有 base 那一列，看不出「上游是删掉了这段，还是改写了这段」——本轮
+`ui-settings-models` 的一个用例就是上游删除、我方恰好改过它，只看两侧会误判成两边都要留。
+文件在当前树里是分叉命名、三个 blob 是官方命名，所以解完要单独改名；`renamePath(f, RULES, true)`
+能把分叉路径换算回官方路径去取 blob。
+
+**语法扫描当门禁**：合并后先用 TypeScript 的 `createSourceFile` 把全树 parse 一遍
+（6660 个文件几秒钟），一次列全被拼坏的文件，不要让 install／生成器逐个暴露。
+
+**查法**（下次同步照做）：装依赖前先跑这三条扫描，它们各自一次就能列全，不必靠
+`pnpm install`／生成器逐个报错试出来——
+
+1. 所有 `workspace:` 依赖里指向不存在包的（上游删包 + 并集保留我方那侧）；
+2. 有受跟踪文件但没有 `package.json` 的残片目录（上游整包删除 + 我方新增文件被留下）；
+3. `export { X } from './y.ts'` 里 `./y.ts` 并不导出 `X` 的（上游重写模块 + 我方新增被吃掉）。
+   第 3 条误报较多（多行 `export type {}`、`export *` 转发都会误判），但真问题一定在里面。
+
+### 冲突裁决：Workspace follow 流上的两套过滤（2026-10-28，由 fork 所有者裁定）
+
+上游 0.2.1 在 `api/workspace-controller/src/index.ts` 里新增了一套访问过滤：
+`ctx.remoteAccess.allows({ kind: 'workspace' | 'session', id })`，不admitted 时发 `replace` 帧。
+本 fork 早先在同一条 follow 流的 `feed.ts` 里实现了另一套：`ctx.sessionVisibility`。
+
+**两者不是同一件事**，和 `requires`／`resources` 那一对同理：
+
+| | 问的问题 | 依据 |
+|---|---|---|
+| 上游 `remoteAccess` | 这个调用方被**授权**看这个资源吗 | 共享／协作授予 |
+| 本 fork `sessionVisibility` | 这段会话**是谁的**、这个人可读吗 | 账号归属（SaaS 租户与个人形态） |
+
+**裁定：两者都生效，取交集。** 一行会话只有同时通过「我有权看这个资源」和「这是我的／我可读的
+会话」才投递。实现上 `index.ts` 的 `follow` 每代解析一次归属可见集并传给 `baseline(owned)`，
+与 `access.allows` 组合；`feed.ts` 保留对增量的归属收窄。两套都不删。
+
+顺带把帧联合的口径理清：feed 既不产生 `baseline`（它开启一代）也不产生 `replace`（只有这两层
+过滤会发），所以内部类型是 `WorkspaceFeedIncrement = Exclude<WorkspaceFollowIncrement, {type:'replace'}>`。
+
+### 本轮的 API 漂移适配
+
+| 上游改了什么 | 分叉侧怎么跟 |
+|---|---|
+| `sessionProjections.stateOf(session, key)` 标为废弃并返回 `unknown`，新做法是「拥有该投影的领域服务暴露类型化读取」（上游自己的 `agents.turnBoundaryOf` 就是这样） | `managedBots` 按新做法改：保留 `register()` 返回的 handle，init 里 await，新增 `botOf(session)`；`bot-ask` 三处读取改走它。`session-ownership` 与 `tenant-session` 暂时仍用带 key 的读法，但用该投影自己的 schema 解析回来（与注册表重载 checkpoint 时做的校验相同，不引入 `as unknown`），各留一条 `TODO(session-projection)` 指向迁移 skill |
+| `workspaceView(workspace)` 回到单参数 | 恢复分叉的第二个参数与 `keepVisible` 过滤——Workspace 是共享的、它名下的会话不是，投影必须回答「这次调用能看见哪些」 |
+| `Remote()` 选项 `exportName` 改名 `name` | `llm/llm` 的 `discoverModels` 装饰器跟着改；`requires` 不受影响 |
+| `escapeInstructionFrameBody` 周边：上游把 `heading` 提成了文件而非渲染后的字符串 | 保留分叉返回 `{text, neutralized}` 的版本（标记要报告被中和的分隔符），按上游的形状在需要字符串处渲染 |
+| `PROFILE_TEMPLATES`／`ProfileTemplate` 迁入 `lyn-official-bundles` | `brand-studio` 与 `apps/desktop` 改从新包导入，并补上 workspace 依赖与 tsconfig references |
+
+### 本轮跟随上游退役的机制
+
+| 退役的 | 上游怎么做的 | 我们怎么做的 |
+|---|---|---|
+| `packages/runtime-diagnostics/invariants`（`./invariant` 机制） | 0.2.1 整体移除：包、`packages/AGENTS.md` 里的规则、`verify-package-invariants` 门禁，三者一起 | 跟随移除。合并只留下 2 个孤立 i18n 记录和 3 行 manifest 依赖，一并清掉；没有悬挂引用 |
+| `packages/subagent/subagent-in-process-driver` | 删除该包，自己的 `subagent-spawn-in-process` manifest 也不再列它 | 跟随移除 |
 
 ### 2026-09-10 合并方法（2151 个提交的处理方式）
 

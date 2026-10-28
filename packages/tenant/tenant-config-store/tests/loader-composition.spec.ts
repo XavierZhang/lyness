@@ -10,21 +10,21 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import Loader from '@deepseek-ai/cordis-plugin-loader'
-import Include from '@deepseek-ai/cordis-plugin-include'
-import Storage from '@deepseek-ai/dsh-storage'
-import * as StorageJson from '@deepseek-ai/dsh-storage-json'
-import * as StorageDomain from '@deepseek-ai/dsh-storage-domain'
-import { TenantId } from '@deepseek-ai/dsh-tenant'
-import { credentialRef } from '@deepseek-ai/dsh-credentials'
-import type { TenantConfig } from '@deepseek-ai/dsh-tenant-config'
+import { Context } from '@lyness/cordis'
+import Loader from '@lyness/cordis-plugin-loader'
+import Include from '@lyness/cordis-plugin-include'
+import Storage from '@lyness/lyn-storage'
+import * as StorageJson from '@lyness/lyn-storage-json'
+import * as StorageDomain from '@lyness/lyn-storage-domain'
+import { TenantId } from '@lyness/lyn-tenant'
+import { credentialRef } from '@lyness/lyn-credentials'
+import type { TenantConfig } from '@lyness/lyn-tenant-config'
 import StoredTenantConfigStore from '../src/index.ts'
 
-const STORAGE = '@deepseek-ai/dsh-storage'
-const JSON_MEDIUM = '@deepseek-ai/dsh-storage-json'
-const DOMAINS = '@deepseek-ai/dsh-storage-domain'
-const STORE = '@deepseek-ai/dsh-tenant-config-store'
+const STORAGE = '@lyness/lyn-storage'
+const JSON_MEDIUM = '@lyness/lyn-storage-json'
+const DOMAINS = '@lyness/lyn-storage-domain'
+const STORE = '@lyness/lyn-tenant-config-store'
 
 let root: string | undefined
 const contexts: Context[] = []
@@ -94,7 +94,7 @@ const CONFIG: TenantConfig = {
 
 describe('the composed durable store', () => {
   it('serves the seam and keeps a save for the next deployment of the same rows', async () => {
-    root = await mkdtemp(join(tmpdir(), 'dsh-tenant-config-store-'))
+    root = await mkdtemp(join(tmpdir(), 'lyn-tenant-config-store-'))
     const first = await compose(root)
     const capability = first.tenantConfig.capability()
     if (capability.kind !== 'writable') throw new Error('expected a writable capability')

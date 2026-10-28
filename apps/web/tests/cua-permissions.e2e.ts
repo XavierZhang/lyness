@@ -3,9 +3,9 @@ import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { ToolCallId } from '@deepseek-ai/dsh-llm'
-import type {} from '@deepseek-ai/dsh-user-approval'
-import type {} from '@deepseek-ai/dsh-agent-preset-registry'
+import { ToolCallId } from '@lyness/lyn-llm'
+import type {} from '@lyness/lyn-user-approval'
+import type {} from '@lyness/lyn-agent-preset-registry'
 import { chromium, type Browser } from 'playwright'
 import { expect, it, onTestFailed, onTestFinished, vi } from 'vitest'
 import { captureStableAria, compareOrRefreshGolden, launchWebScaffold, webSnapshotMode, watchConsole, type WebScaffold } from './scaffold.ts'
@@ -17,7 +17,7 @@ const expected = fileURLToPath(new URL('./expected/cua-permissions/missing.expec
 
 // System-permission onboarding belongs to the macOS-only bundle; rendering and policy units remain portable.
 it.skipIf(process.platform !== 'darwin')('keeps system requests pending until fresh observation and persists application revocation', async () => {
-  const root = await mkdtemp(join(tmpdir(), 'dsh-cua-permissions-web-'))
+  const root = await mkdtemp(join(tmpdir(), 'lyn-cua-permissions-web-'))
   const resources: { scaffold?: WebScaffold; browser?: Browser; closeFixture?: () => Promise<void> } = {}
   onTestFinished(async () => {
     try { await resources.browser?.close() } finally {
@@ -36,7 +36,7 @@ it.skipIf(process.platform !== 'darwin')('keeps system requests pending until fr
   const fixtureBundle = join(root, 'fixture-bundle')
   await mkdir(fixtureBundle)
   await writeFile(join(fixtureBundle, 'package.json'), JSON.stringify({ name: 'cua-permission-fixture', version: '1.0.0',
-    dsh: { bundle: { patch: 'cordis.patch.yml' } } }))
+    lyn: { bundle: { patch: 'cordis.patch.yml' } } }))
   await writeFile(join(fixtureBundle, 'cordis.patch.yml'), `- id: cua\n  config: ${JSON.stringify({ helperPath: helper })}\n`)
   const scaffold = await launchWebScaffold({
     profile: { packages: [{ dir: bundle, enabled: true }, { dir: fixtureBundle, enabled: true }] },
@@ -76,7 +76,7 @@ it.skipIf(process.platform !== 'darwin')('keeps system requests pending until fr
   expect((await grant).results).toMatchObject([{ result: { isError: false } }])
   await approval.waitFor({ state: 'hidden' })
   await page.getByRole('button', { name: 'Plugins', exact: true }).click()
-  const card = page.locator('[data-plugin-package="@deepseek-ai/dsh-cua-bundle"]')
+  const card = page.locator('[data-plugin-package="@lyness/lyn-cua-bundle"]')
   expect(await card.getByRole('button', { name: /Accessibility permission|Screen Recording permission/ }).count()).toBe(0)
   await page.setViewportSize({ width: 1680, height: 600 })
   const plugins = page.locator('[data-plugin-panel]')
@@ -219,7 +219,7 @@ it.skipIf(process.platform !== 'darwin')('keeps system requests pending until fr
   await diagnostic.waitFor()
   const diagnosticText = await diagnostic.innerText()
   const height = await panel.evaluate(element => element.getBoundingClientRect().height)
-  const rowToggle = plugins.getByRole('switch', { name: 'Enable component @deepseek-ai/dsh-experimental-cua-macos', exact: true })
+  const rowToggle = plugins.getByRole('switch', { name: 'Enable component @lyness/lyn-experimental-cua-macos', exact: true })
   const release = Promise.withResolvers<undefined>()
   const changeRow = scaffold.ctx.pluginManager.setPluginEnabled.bind(scaffold.ctx.pluginManager)
   let changing: ReturnType<typeof changeRow> | undefined

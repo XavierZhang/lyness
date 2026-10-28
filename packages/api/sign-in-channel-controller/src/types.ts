@@ -5,10 +5,10 @@
  * reference its secret is stored under, and that name never crosses the wire.
  * What crosses instead is what an administrator typed and whether the channel
  * it describes is serving.
- * @module @deepseek-ai/dsh-api-sign-in-channel-controller/types
+ * @module @lyness/lyn-api-sign-in-channel-controller/types
  */
 
-declare module '@deepseek-ai/dsh-typert-protocol' {
+declare module '@lyness/lyn-typert-protocol' {
   interface RemoteErrorDetailsMap {
     /**
      * The calling standing may not configure that channel: a tenant

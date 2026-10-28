@@ -1,15 +1,15 @@
 ---
-description: "Shared TypeScript declarations for package identity, runtime requirements, and DSH plugin metadata."
+description: "Shared TypeScript declarations for package identity, runtime requirements, and LYN plugin metadata."
 kind: "package-library"
 ---
 
-# @deepseek-ai/dsh-package-manifest
+# @lyness/lyn-package-manifest
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-Use `DshPackageManifest` for package metadata, `DshManifest` for the public fields under `dsh`, and member types such as `DshClientManifest` for one domain. Each reader owns JSON parsing, validation, and default resolution.
+Use `LynPackageManifest` for package metadata, `LynManifest` for the public fields under `lyn`, and member types such as `LynClientManifest` for one domain. Each reader owns JSON parsing, validation, and default resolution.
 
 ## Table of Contents
 
@@ -28,14 +28,14 @@ Use `DshPackageManifest` for package metadata, `DshManifest` for the public fiel
 Import from the package root. Use a development dependency when only checking your own source; use a production dependency if your published declarations reference these types.
 
 ```ts
-import type { DshClientManifest, DshPackageManifest } from '@deepseek-ai/dsh-package-manifest'
+import type { LynClientManifest, LynPackageManifest } from '@lyness/lyn-package-manifest'
 
-const client: DshClientManifest = { platform: 'web' }
-const manifest: DshPackageManifest = {
-  name: 'example-dsh-plugin',
+const client: LynClientManifest = { platform: 'web' }
+const manifest: LynPackageManifest = {
+  name: 'example-lyn-plugin',
   version: '1.0.0',
-  engines: { node: '>=24', dsh: '0.1.5-alpha.1' },
-  dsh: {
+  engines: { node: '>=24', lyn: '0.1.5-alpha.1' },
+  lyn: {
     manifestVersion: 1,
     bundle: { patch: './cordis.patch.yml' },
     client,
@@ -43,16 +43,16 @@ const manifest: DshPackageManifest = {
 }
 ```
 
-`DshPackageManifest` describes the package.json fields used by DSH, with required `name` and `version`; it includes dependency, peer, and optional dependency declarations but is not an exhaustive npm schema. Local profile readers use `Partial<DshPackageManifest>` because profiles need no published version. `DshManifest` describes only public author fields under `dsh`. `DshBundleManifest.patch` is one patch file path or an ordered list of them, each relative to the package root; the launcher applies a list in order as one bundle layer. TypeScript checks the example and erases `import type`; these interfaces do not parse JSON or write a file.
+`LynPackageManifest` describes the package.json fields used by LYN, with required `name` and `version`; it includes dependency, peer, and optional dependency declarations but is not an exhaustive npm schema. Local profile readers use `Partial<LynPackageManifest>` because profiles need no published version. `LynManifest` describes only public author fields under `lyn`. `LynBundleManifest.patch` is one patch file path or an ordered list of them, each relative to the package root; the launcher applies a list in order as one bundle layer. TypeScript checks the example and erases `import type`; these interfaces do not parse JSON or write a file.
 
-`DshBundleManifest.listedByDefault` is an optional boolean, defaulting to true. False hides an installation-carried bundle from the default GUI lists until the profile enables or installs it; the management inventory remains complete. [Plugin Manager](../../client/ui-plugin-manager/README.md#use-this-package) owns the display and explicit activation paths.
+`LynBundleManifest.listedByDefault` is an optional boolean, defaulting to true. False hides an installation-carried bundle from the default GUI lists until the profile enables or installs it; the management inventory remains complete. [Plugin Manager](../../client/ui-plugin-manager/README.md#use-this-package) owns the display and explicit activation paths.
 
 The following metadata fields are optional. Omitting them leaves the format version or compatible host versions undeclared; readers do not infer defaults.
 
 | Field | Meaning |
 |---|---|
-| `dsh.manifestVersion` | Manifest format identifier; the declared format is `1`, independent of the npm package version and Session format version. |
-| `engines.dsh` | Author-declared compatible DSH versions as a SemVer range, including exact prerelease versions. This field sits beside `engines.node` and `engines.npm`; an engines object may omit `dsh`. |
+| `lyn.manifestVersion` | Manifest format identifier; the declared format is `1`, independent of the npm package version and Session format version. |
+| `engines.lyn` | Author-declared compatible LYN versions as a SemVer range, including exact prerelease versions. This field sits beside `engines.node` and `engines.npm`; an engines object may omit `lyn`. |
 
 `LocalizedText` carries literal text or a language map with a required English fallback. `PluginLocalizedMeta` carries optional display title, description, an image data URL resolved from a package root's `package.json.icon` or an exported `<specifier>/icon`, and metadata diagnostics for installed plugins. [App boot](../../boot/app-boot/README.md) reads these values; this package only supplies their types.
 
@@ -92,7 +92,7 @@ Type declarations add no model input, so provider cache reuse is unaffected.
 <a id="known-limitations-and-deferred-work"></a>
 
 - **Static typing only.** Consumers read and validate the JSON fields they use, then adapt the shared declarations to their runtime data. The package supplies no parser, getter helpers, file checks, or defaults.
-- **Compatibility is declarative.** Current installers and loaders do not enforce `dsh.manifestVersion` or `engines.dsh`; declaring a range does not reject incompatible hosts or validate SemVer syntax.
+- **Compatibility is declarative.** Current installers and loaders do not enforce `lyn.manifestVersion` or `engines.lyn`; declaring a range does not reject incompatible hosts or validate SemVer syntax.
 
 <a id="dev-note"></a>
 ### Dev Note

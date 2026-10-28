@@ -12,7 +12,7 @@ Two consequences followed. The session stamp named its tenant from its own confi
 
 ## Decision
 
-The Connection gained one extension point: `ctx.connection.rpc.scope(scope)` wraps every decoded call on every channel, receives the HTTP request, and must call and return `run()` unchanged. `@deepseek-ai/dsh-tenant-request` registers one, resolves the tenant the same way the HTTP route does — header, then hostname, then subdomain — and publishes it with that tenant's configuration as `ctx.requestTenant` for the duration of the call.
+The Connection gained one extension point: `ctx.connection.rpc.scope(scope)` wraps every decoded call on every channel, receives the HTTP request, and must call and return `run()` unchanged. `@lyness/lyn-tenant-request` registers one, resolves the tenant the same way the HTTP route does — header, then hostname, then subdomain — and publishes it with that tenant's configuration as `ctx.requestTenant` for the duration of the call.
 
 Four rulings shape it.
 
@@ -38,7 +38,7 @@ Four rulings shape it.
 
 ## Consequences
 
-The session record now names the tenant of the call that created the session, and the configured tenant only when there is no call — a CLI run, a resumed session, a subagent. `tenantId` stays required on `dsh-tenant-session` for exactly those cases.
+The session record now names the tenant of the call that created the session, and the configured tenant only when there is no call — a CLI run, a resumed session, a subagent. `tenantId` stays required on `lyn-tenant-session` for exactly those cases.
 
 The scope covers unary RPC. A Remote stream and an exact Fetch route below `/api` are dispatched on other paths and see no tenant; a surface on those paths that needs one has to resolve it itself, the way the HTTP route does.
 

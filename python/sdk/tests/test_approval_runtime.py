@@ -9,7 +9,7 @@ from pathlib import Path
 import pytest
 from pydantic import BaseModel
 
-from deepseek_harness import ApprovalRequestParams, HarnessClient, HarnessConfig
+from lyness import ApprovalRequestParams, HarnessClient, HarnessConfig
 
 
 class EmptyResponse(BaseModel):
@@ -22,7 +22,7 @@ def test_python_approval_controls_runtime_operation(tmp_path: Path, outcome: str
     node = shutil.which("node")
     binary = repo / "apps/cli/lib/bin.js"
     if node is None or not binary.exists():
-        pytest.skip("requires Node and built dsh CLI")
+        pytest.skip("requires Node and built lyn CLI")
     fixture = repo / "packages/sdk/server/tests/fixtures/approval.mjs"
     marker = tmp_path / "approved.txt"
     patch = tmp_path / "approval.patch.yml"
@@ -33,8 +33,8 @@ def test_python_approval_controls_runtime_operation(tmp_path: Path, outcome: str
     with ThreadPoolExecutor(max_workers=1) as worker:
         with HarnessClient(
             HarnessConfig(cwd=str(repo), request_timeout_seconds=20, shutdown_timeout_seconds=20,
-                          env={"DSH_HOME": str(tmp_path / "home"), "DSH_PERMISSION_MODE": "workspace-write",
-                               "DSH_TELEMETRY_DISABLED": "1", "DEEPSEEK_API_KEY": "keyless-no-model-call"}),
+                          env={"LYNESS_HOME": str(tmp_path / "home"), "LYNESS_PERMISSION_MODE": "workspace-write",
+                               "LYNESS_TELEMETRY_DISABLED": "1", "DEEPSEEK_API_KEY": "keyless-no-model-call"}),
             _launch_args=(node, str(binary), "--profile", "sdk", "--patch", str(patch)),
         ) as client:
             client.initialize(cwd=str(tmp_path), provider="deepseek-official", model="deepseek-v4-flash",

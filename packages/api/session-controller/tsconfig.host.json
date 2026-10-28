@@ -114,7 +114,7 @@
     },
     {
       "path": "../../session/working-directory"
-    }
+    },
     { "path": "../../../vendor/cordis" },
     { "path": "../../../vendor/schemastery" },
     { "path": "../../core/agent" },

@@ -5,10 +5,10 @@
 
 import { z } from 'zod'
 import type { ZodType } from 'zod'
-import { credentialRef, isCredentialRefName } from '@deepseek-ai/dsh-credentials'
-import { defineDomain, domainTable } from '@deepseek-ai/dsh-storage-domain'
-import type { TenantId } from '@deepseek-ai/dsh-tenant'
-import type { TenantConfig } from '@deepseek-ai/dsh-tenant-config'
+import { credentialRef, isCredentialRefName } from '@lyness/lyn-credentials'
+import { defineDomain, domainTable } from '@lyness/lyn-storage-domain'
+import type { TenantId } from '@lyness/lyn-tenant'
+import type { TenantConfig } from '@lyness/lyn-tenant-config'
 
 const modelChoice = z.object({
   provider: z.string().min(1),

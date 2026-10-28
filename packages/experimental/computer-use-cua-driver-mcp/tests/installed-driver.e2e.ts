@@ -1,23 +1,23 @@
 /** Explicit opt-in compatibility check against an installed Cua Driver executable. */
-import { executeToolFixture } from '@deepseek-ai/dsh-tool-testkit'
-import * as NativeToolExecutor from '@deepseek-ai/dsh-tool-executor-native'
+import { executeToolFixture } from '@lyness/lyn-tool-testkit'
+import * as NativeToolExecutor from '@lyness/lyn-tool-executor-native'
 import { isAbsolute } from 'node:path'
-import { Context } from '@deepseek-ai/cordis'
-import ComputerUse from '@deepseek-ai/dsh-computer-use'
-import { ToolCallId } from '@deepseek-ai/dsh-llm'
-import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
-import ToolRuntime from '@deepseek-ai/dsh-tools'
+import { Context } from '@lyness/cordis'
+import ComputerUse from '@lyness/lyn-computer-use'
+import { ToolCallId } from '@lyness/lyn-llm'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime from '@lyness/lyn-tools'
 import { expect, it } from 'vitest'
 import * as Provider from '../src/index.ts'
 
-const executable = process.env.DSH_COMPUTER_USE_MCP_EXECUTABLE
+const executable = process.env.LYNESS_COMPUTER_USE_MCP_EXECUTABLE
 
 function driverArguments(): string[] {
-  const raw = process.env.DSH_COMPUTER_USE_MCP_ARGS
+  const raw = process.env.LYNESS_COMPUTER_USE_MCP_ARGS
   if (raw === undefined) return ['mcp']
   const args: unknown = JSON.parse(raw)
   if (!Array.isArray(args) || !args.every((arg: unknown): arg is string => typeof arg === 'string')) {
-    throw new Error('DSH_COMPUTER_USE_MCP_ARGS must be a JSON array of strings')
+    throw new Error('LYNESS_COMPUTER_USE_MCP_ARGS must be a JSON array of strings')
   }
   return args
 }
@@ -27,7 +27,7 @@ it.skipIf(executable === undefined || executable === '')(
   { retry: 0 },
   async ({ signal }) => {
     if (executable === undefined || !isAbsolute(executable)) {
-      throw new Error('DSH_COMPUTER_USE_MCP_EXECUTABLE must be an absolute executable path')
+      throw new Error('LYNESS_COMPUTER_USE_MCP_EXECUTABLE must be an absolute executable path')
     }
     const ctx = new Context()
     try {

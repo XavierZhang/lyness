@@ -4,8 +4,8 @@
 import type { Browser, Locator, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { expect, it } from 'vitest'
-import { SessionId } from '@deepseek-ai/dsh-session'
-import type {} from '@deepseek-ai/dsh-schedule'
+import { SessionId } from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-schedule'
 import { launchWebScaffold, watchConsole } from './scaffold.ts'
 
 const PHONE_TASK_SESSION = SessionId('schedule-phone-web-e2e')

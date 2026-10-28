@@ -10,8 +10,8 @@ import { mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { isMap, isSeq, parseDocument } from 'yaml'
-import { BRAND_COLOUR_TOKENS } from '@deepseek-ai/dsh-host-brand-deployment'
-import { BRAND_ROW_ID, runStudio, type StudioResult } from '@deepseek-ai/dsh-brand-studio'
+import { BRAND_COLOUR_TOKENS } from '@lyness/lyn-host-brand-deployment'
+import { BRAND_ROW_ID, runStudio, type StudioResult } from '@lyness/lyn-brand-studio'
 
 /**
  * Row config the page reads back, by key.
@@ -172,7 +172,7 @@ export async function applySubmission(
   assetDirectory: string,
   patchPath: string,
 ): Promise<StudioResult> {
-  const scratch = await mkdtemp(join(tmpdir(), 'dsh-brand-setup-'))
+  const scratch = await mkdtemp(join(tmpdir(), 'lyn-brand-setup-'))
   try {
     const iconPath = join(scratch, 'icon.png')
     await writeFile(iconPath, submitted.icon, { mode: 0o600 })

@@ -2,7 +2,7 @@
  * TypeScript project analyzer for the compiler-independent Typert model.
  * Programs, symbols, and syntax nodes remain extraction-only implementation
  * details; callers receive only the model declared in {@link ./model.ts}.
- * @module @deepseek-ai/dsh-typert-generator/analyzer
+ * @module @lyness/lyn-typert-generator/analyzer
  */
 
 import { existsSync, readFileSync, realpathSync, writeFileSync } from 'node:fs'
@@ -49,8 +49,19 @@ type WithoutId<T> = T extends { readonly id: TypeNodeId } ? Omit<T, 'id'> : neve
 
 type TypeNodeInput = WithoutId<TypeNodeModel>
 
+/**
+ * Every standing a Remote namespace or method may require.
+ *
+ * Restated here rather than imported from the protocol because the analyzer
+ * reads source text and must reject an unknown value without resolving the
+ * type graph it is still building.
+ */
+const REMOTE_AUTHORITIES: ReadonlySet<string> = new Set([
+  'anyone', 'member', 'tenant-administrator', 'platform-administrator',
+])
+
 const PUBLIC_REMOTE_TYPE_ROOTS = new Set([
-  '@deepseek-ai/dsh-util-values',
+  '@lyness/lyn-util-values',
 ])
 
 /** Analysis failure with a source-oriented diagnostic. */
@@ -740,7 +751,7 @@ class FaceAnalyzer {
       for (const statement of sourceFile.statements) {
         if (!ts.isModuleDeclaration(statement)
           || !ts.isStringLiteral(statement.name)
-          || statement.name.text !== '@deepseek-ai/cordis'
+          || statement.name.text !== '@lyness/cordis'
           || statement.body === undefined
           || !ts.isModuleBlock(statement.body)) continue
         for (const member of statement.body.statements) {
@@ -1368,12 +1379,23 @@ class FaceAnalyzer {
         this.fail(options, 'bindTypertRemote() options must be an object literal')
       }
       for (const propertyOption of options.properties) {
-        if (!ts.isPropertyAssignment(propertyOption)
-          || memberName(propertyOption.name) !== 'namespace') {
-          this.fail(propertyOption, 'bindTypertRemote() only supports a namespace option')
+        const option = ts.isPropertyAssignment(propertyOption) ? memberName(propertyOption.name) : undefined
+        if (option !== 'namespace' && option !== 'requires') {
+          this.fail(propertyOption, 'bindTypertRemote() only supports namespace and requires options')
         }
-        const value = stringLiteralValue(propertyOption.initializer)
-        if (value === undefined) this.fail(propertyOption.initializer, 'Gateway namespace must be a string literal')
+        const value = stringLiteralValue((propertyOption as ts.PropertyAssignment).initializer)
+        if (value === undefined) {
+          this.fail((propertyOption as ts.PropertyAssignment).initializer, `Gateway ${option} must be a string literal`)
+        }
+        // The standing a namespace requires is a composition fact the Gateway
+        // reads at dispatch, not a wire type, so the analyzer only checks that
+        // it is one of the declared values; the runtime marker carries it.
+        if (option === 'requires') {
+          if (!REMOTE_AUTHORITIES.has(value)) {
+            this.fail((propertyOption as ts.PropertyAssignment).initializer, 'Gateway requires must name a RemoteAuthority')
+          }
+          continue
+        }
         namespace = value
       }
     }
@@ -1450,8 +1472,8 @@ class FaceAnalyzer {
     decorator: 'Remote' | 'RemoteScope',
   ): { readonly exportName?: string; readonly mode?: 'stream' } {
     const requirement = decorator === 'Remote'
-      ? 'Remote() options require name, mode: "stream", or resources'
-      : 'RemoteScope() options require name or resources'
+      ? 'Remote() options require name, mode: "stream", resources, or requires'
+      : 'RemoteScope() options require name, resources, or requires'
     if (!ts.isObjectLiteralExpression(argument) || argument.properties.length === 0) this.fail(argument, requirement)
     let options: { readonly exportName?: string; readonly mode?: 'stream' } = {}
     for (const property of argument.properties) {
@@ -1463,6 +1485,11 @@ class FaceAnalyzer {
         const value = stringLiteralValue(property.initializer)
         if (value === undefined || !isRemoteSegment(value)) this.fail(property, `${decorator}() name must be an endpoint segment`)
         options = { ...options, exportName: value }
+      } else if (name === 'requires') {
+        const value = stringLiteralValue(property.initializer)
+        if (value === undefined || !REMOTE_AUTHORITIES.has(value)) {
+          this.fail(property, `${decorator}() requires must name a RemoteAuthority`)
+        }
       } else if (name !== 'resources') {
         this.fail(property, requirement)
       }
@@ -1586,7 +1613,7 @@ class FaceAnalyzer {
       for (const statement of sourceFile.statements) {
         if (!ts.isModuleDeclaration(statement)
           || !ts.isStringLiteral(statement.name)
-          || statement.name.text !== '@deepseek-ai/dsh-typert-protocol'
+          || statement.name.text !== '@lyness/lyn-typert-protocol'
           || statement.body === undefined
           || !ts.isModuleBlock(statement.body)) continue
         for (const nested of statement.body.statements) {
@@ -1714,7 +1741,7 @@ class FaceAnalyzer {
         const alias = type.aliasSymbol
         const aliasDeclaration = alias === undefined ? undefined : preferredDeclaration(this.resolveSymbol(alias))
         if (alias?.name === 'JsonValue' && aliasDeclaration !== undefined
-          && this.registrationForFile(aliasDeclaration.getSourceFile().fileName)?.name === '@deepseek-ai/dsh-util-values') {
+          && this.registrationForFile(aliasDeclaration.getSourceFile().fileName)?.name === '@lyness/lyn-util-values') {
           return add({ kind: 'keyword', name: 'unknown', json: true })
         }
         const flags = type.flags
@@ -2089,11 +2116,11 @@ class FaceAnalyzer {
     const declaration = preferredDeclaration(resolved)
     if (declaration === undefined) return false
     const registration = this.registrationForFile(declaration.getSourceFile().fileName)
-    if (registration?.name === '@deepseek-ai/dsh-typert-protocol') return true
+    if (registration?.name === '@lyness/lyn-typert-protocol') return true
     for (let current: ts.Node | undefined = declaration; current !== undefined; current = optionalParent(current)) {
       if (ts.isModuleDeclaration(current)
         && ts.isStringLiteral(current.name)
-        && current.name.text === '@deepseek-ai/dsh-typert-protocol') return true
+        && current.name.text === '@lyness/lyn-typert-protocol') return true
     }
     return false
   }
@@ -2918,7 +2945,7 @@ function sourceFileHasSurface(sourceFile: ts.SourceFile): boolean {
     }
     if (!ts.isModuleDeclaration(statement)
       || !ts.isStringLiteral(statement.name)
-      || statement.name.text !== '@deepseek-ai/cordis'
+      || statement.name.text !== '@lyness/cordis'
       || statement.body === undefined
       || !ts.isModuleBlock(statement.body)) continue
     if (statement.body.statements.some(member => ts.isInterfaceDeclaration(member)
@@ -2937,9 +2964,9 @@ function hasPackageSurface(model: PackageModel): boolean {
 }
 
 function isDualFacePackage(manifest: Record<string, unknown>): boolean {
-  const dsh = manifest.dsh
-  const client = dsh !== null && typeof dsh === 'object'
-    ? (dsh as Record<string, unknown>).client
+  const lyn = manifest.lyn
+  const client = lyn !== null && typeof lyn === 'object'
+    ? (lyn as Record<string, unknown>).client
     : undefined
   return client !== null
     && typeof client === 'object'
@@ -3199,7 +3226,7 @@ function stringLiteralValue(node: ts.Node | undefined): string | undefined {
 }
 
 function isRemoteSegment(value: string): boolean {
-  // Generation bootstraps workspace artifacts before dsh-typert-protocol is built,
+  // Generation bootstraps workspace artifacts before lyn-typert-protocol is built,
   // so this extraction-only copy must mirror isTypertRemoteSegment().
   return value !== '.' && value !== '..' && /^[A-Za-z0-9_$.-]+$/.test(value)
 }

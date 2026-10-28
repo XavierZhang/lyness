@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-api-workspace-controller",
+  "name": "@lyness/lyn-api-workspace-controller",
   "description": "Workspace Remote commands and reconnect-safe state transport",
   "version": "0.2.1-rc.3",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/api/workspace-controller"
   },
   "type": "module",
@@ -42,14 +42,14 @@
     "./package.json": "./package.json",
     "./locale/*.json": "./locale/*.json"
   },
-  "dsh": {
+  "lyn": {
     "client": {
       "external": [
-        "@deepseek-ai/dsh-api-gateway/client"
+        "@lyness/lyn-api-gateway/client"
       ],
       "inject": [
-        "@deepseek-ai/dsh-api-gateway",
-        "@deepseek-ai/dsh-client-connection"
+        "@lyness/lyn-api-gateway",
+        "@lyness/lyn-client-connection"
       ],
       "platform": "web"
     }
@@ -71,41 +71,41 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@deepseek-ai/dsh-deque": "workspace:*",
-    "@deepseek-ai/dsh-native-command": "workspace:*",
-    "@deepseek-ai/schemastery": "workspace:~",
+    "@lyness/lyn-deque": "workspace:*",
+    "@lyness/lyn-native-command": "workspace:*",
+    "@lyness/schemastery": "workspace:~",
     "zod": "4.4.3"
   },
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-api-gateway": "workspace:*",
-    "@deepseek-ai/dsh-client-connection": "workspace:*",
-    "@deepseek-ai/dsh-host-directory-picker": "workspace:*",
-    "@deepseek-ai/dsh-request-principal": "workspace:*",
-    "@deepseek-ai/dsh-session": "workspace:*",
-    "@deepseek-ai/dsh-session-ownership": "workspace:*",
-    "@deepseek-ai/dsh-session-query": "workspace:*",
-    "@deepseek-ai/dsh-storage-domain": "workspace:*",
-    "@deepseek-ai/dsh-typert-protocol": "workspace:*",
-    "@deepseek-ai/dsh-util-values": "workspace:*",
-    "@deepseek-ai/dsh-workspace": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-api-gateway": "workspace:*",
+    "@lyness/lyn-client-connection": "workspace:*",
+    "@lyness/lyn-host-directory-picker": "workspace:*",
+    "@lyness/lyn-request-principal": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-session-ownership": "workspace:*",
+    "@lyness/lyn-session-query": "workspace:*",
+    "@lyness/lyn-storage-domain": "workspace:*",
+    "@lyness/lyn-typert-protocol": "workspace:*",
+    "@lyness/lyn-util-values": "workspace:*",
+    "@lyness/lyn-workspace": "workspace:*"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-api-gateway": "workspace:*",
-    "@deepseek-ai/dsh-api-remote-access": "workspace:*",
-    "@deepseek-ai/dsh-client-connection": "workspace:*",
-    "@deepseek-ai/dsh-client-store": "workspace:*",
-    "@deepseek-ai/dsh-client-test-runtime": "workspace:*",
-    "@deepseek-ai/dsh-host-directory-picker": "workspace:*",
-    "@deepseek-ai/dsh-remote-mock": "workspace:*",
-    "@deepseek-ai/dsh-request-principal": "workspace:*",
-    "@deepseek-ai/dsh-session": "workspace:*",
-    "@deepseek-ai/dsh-session-ownership": "workspace:*",
-    "@deepseek-ai/dsh-session-query": "workspace:*",
-    "@deepseek-ai/dsh-storage-domain": "workspace:*",
-    "@deepseek-ai/dsh-typert-protocol": "workspace:*",
-    "@deepseek-ai/dsh-util-values": "workspace:*",
-    "@deepseek-ai/dsh-workspace": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-api-gateway": "workspace:*",
+    "@lyness/lyn-api-remote-access": "workspace:*",
+    "@lyness/lyn-client-connection": "workspace:*",
+    "@lyness/lyn-client-store": "workspace:*",
+    "@lyness/lyn-client-test-runtime": "workspace:*",
+    "@lyness/lyn-host-directory-picker": "workspace:*",
+    "@lyness/lyn-remote-mock": "workspace:*",
+    "@lyness/lyn-request-principal": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-session-ownership": "workspace:*",
+    "@lyness/lyn-session-query": "workspace:*",
+    "@lyness/lyn-storage-domain": "workspace:*",
+    "@lyness/lyn-typert-protocol": "workspace:*",
+    "@lyness/lyn-util-values": "workspace:*",
+    "@lyness/lyn-workspace": "workspace:*"
   }
 }

@@ -6,12 +6,12 @@
  * than in the component is what lets one in-flight read be shared by every
  * open surface.
  *
- * @module @deepseek-ai/dsh-client-ui-settings-credits/client/store
+ * @module @lyness/lyn-client-ui-settings-credits/client/store
  */
 
-import { defineStore } from '@deepseek-ai/dsh-client-store'
-import type { EngineStoreHandle } from '@deepseek-ai/dsh-client-store'
-import type { AllowanceView, BudgetView, CreditAccountView } from '@deepseek-ai/dsh-api-credits-controller/types'
+import { defineStore } from '@lyness/lyn-client-store'
+import type { EngineStoreHandle } from '@lyness/lyn-client-store'
+import type { AllowanceView, BudgetView, CreditAccountView } from '@lyness/lyn-api-credits-controller/types'
 
 /** Where a read or a change stands. */
 export type CreditsStatus = 'idle' | 'loading' | 'ready' | 'failed' | 'unavailable'

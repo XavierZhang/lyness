@@ -1,12 +1,12 @@
 import { describe, expect, it, vi } from 'vitest'
-import type { NativeCommandRunner } from '@deepseek-ai/dsh-native-command'
+import type { NativeCommandRunner } from '@lyness/lyn-native-command'
 import { defaultWorkspaceDirectory, validateDocumentsDirectory } from '../src/default-directory.ts'
 
 describe('system Documents directory', () => {
   it.each([
-    ['darwin', '/Users/a/文档/\n', '/Users/a/文档/DeepSeek Harness/default-workspace', 'osascript'],
-    ['win32', 'D:\\Redirected Documents\r\n', 'D:\\Redirected Documents\\DeepSeek Harness\\default-workspace', 'powershell.exe'],
-    ['linux', '/home/a/My Documents\n', '/home/a/My Documents/DeepSeek Harness/default-workspace', 'xdg-user-dir'],
+    ['darwin', '/Users/a/文档/\n', '/Users/a/文档/lyness/default-workspace', 'osascript'],
+    ['win32', 'D:\\Redirected Documents\r\n', 'D:\\Redirected Documents\\lyness\\default-workspace', 'powershell.exe'],
+    ['linux', '/home/a/My Documents\n', '/home/a/My Documents/lyness/default-workspace', 'xdg-user-dir'],
   ] as const)('uses the %s account directory and preserves spaces and Unicode', async (platform, stdout, path, command) => {
     const run = vi.fn<NativeCommandRunner>(async () => ({ stdout, stderr: '' }))
     const signal = new AbortController().signal
@@ -17,7 +17,7 @@ describe('system Documents directory', () => {
   it('uses the configured directory without a system lookup', async () => {
     const run = vi.fn<NativeCommandRunner>()
     await expect(defaultWorkspaceDirectory('/documents', new AbortController().signal, { platform: 'linux', run }))
-      .resolves.toBe('/documents/DeepSeek Harness/default-workspace')
+      .resolves.toBe('/documents/lyness/default-workspace')
     expect(run).not.toHaveBeenCalled()
   })
 

@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-session-format-v0-to-v1",
+  "name": "@lyness/lyn-session-format-v0-to-v1",
   "description": "Frozen released-v0 Session codec and identity migration to v1",
   "version": "0.2.1-rc.3",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/session/session-format-v0-to-v1"
   },
   "type": "module",
@@ -26,7 +26,7 @@
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
-  "dsh": {
+  "lyn": {
     "sessionFormatMigration": {
       "from": 0,
       "to": 1,
@@ -39,15 +39,15 @@
     }
   },
   "dependencies": {
-    "@deepseek-ai/dsh-session-format": "workspace:*",
-    "@deepseek-ai/dsh-util-time": "workspace:*",
-    "@deepseek-ai/dsh-util-values": "workspace:*"
+    "@lyness/lyn-session-format": "workspace:*",
+    "@lyness/lyn-util-time": "workspace:*",
+    "@lyness/lyn-util-values": "workspace:*"
   },
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~"
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-session": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-session": "workspace:*"
   }
 }

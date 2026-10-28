@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-client-shortcuts",
+  "name": "@lyness/lyn-client-shortcuts",
   "description": "Application keyboard command registry and physical-key routing",
   "version": "0.2.1-rc.3",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/client/shortcuts"
   },
   "type": "module",
@@ -30,10 +30,10 @@
     },
     "./locale/*.json": "./locale/*.json"
   },
-  "dsh": {
+  "lyn": {
     "client": {
       "inject": [
-        "@deepseek-ai/dsh-client-locale"
+        "@lyness/lyn-client-locale"
       ],
       "platform": "web"
     }
@@ -44,16 +44,16 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~"
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-client-locale": "workspace:*",
-    "@deepseek-ai/dsh-client-store": "workspace:*",
-    "@deepseek-ai/dsh-client-ui-primitives": "workspace:*",
-    "@deepseek-ai/dsh-brand": "workspace:*",
-    "@deepseek-ai/dsh-client-test-runtime": "workspace:*",
-    "@deepseek-ai/dsh-host-webserver": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/lyn-client-locale": "workspace:*",
+    "@lyness/lyn-client-store": "workspace:*",
+    "@lyness/lyn-client-test-runtime": "workspace:*",
+    "@lyness/lyn-client-ui-primitives": "workspace:*",
+    "@lyness/lyn-host-webserver": "workspace:*"
   },
   "files": [
     "locale/*.json",
@@ -63,8 +63,8 @@
     "lib/types/**/*.d.ts"
   ],
   "dependencies": {
-    "@deepseek-ai/dsh-util-crypto": "workspace:*",
-    "@deepseek-ai/dsh-util-values": "workspace:*",
-    "@deepseek-ai/schemastery": "workspace:~"
+    "@lyness/lyn-util-crypto": "workspace:*",
+    "@lyness/lyn-util-values": "workspace:*",
+    "@lyness/schemastery": "workspace:~"
   }
 }

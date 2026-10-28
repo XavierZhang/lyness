@@ -3,13 +3,13 @@ description: "把「当前这次调用是谁」发布出来，由它出示的持
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-request-principal
+# @lyness/lyn-request-principal
 
 [English](README.md) | 中文
 
 ## 概述
 
-挂上 `dsh-request-principal`，任何需要知道「这次调用是谁」的东西就读同一处，而不是各自再去解析一遍头。它注册一个 Connection 请求作用域，把出示的持有凭据解析成「签入的那个人」以及「他的会话当前生效的上下文」，并在这次调用期间发布它。它只解析、从不拒绝：一次没有出示会话、或出示了已失效会话的调用会以「没有 principal」继续，而要求 principal 的那个操作在能说明理由的地方拒绝它。
+挂上 `lyn-request-principal`，任何需要知道「这次调用是谁」的东西就读同一处，而不是各自再去解析一遍头。它注册一个 Connection 请求作用域，把出示的持有凭据解析成「签入的那个人」以及「他的会话当前生效的上下文」，并在这次调用期间发布它。它只解析、从不拒绝：一次没有出示会话、或出示了已失效会话的调用会以「没有 principal」继续，而要求 principal 的那个操作在能说明理由的地方拒绝它。
 
 ## 目录
 
@@ -27,13 +27,13 @@ kind: "package-reference"
 
 ```yaml
 - id: request-principal
-  name: '@deepseek-ai/dsh-request-principal'
+  name: '@lyness/lyn-request-principal'
 ```
 
 它不接受任何配置，需要一个会话存储以及宿主 connection。一个操作读取它正在服务的那次调用的 principal：
 
 ```ts
-import type { RequestPrincipal } from '@deepseek-ai/dsh-request-principal'
+import type { RequestPrincipal } from '@lyness/lyn-request-principal'
 
 declare const principals: RequestPrincipal
 
@@ -46,7 +46,7 @@ if (principal === undefined) throw new Error('this operation requires a signed-i
 <a id="understand-the-implementation"></a>
 ## 理解实现
 
-**两种凭据形式都读**，因为两类调用方都存在：浏览器持有 `dsh_identity` cookie，而桌面客户端或脚本发送 `Authorization: Bearer`。只读其中一种，会让另一种无声地变成匿名。两者都在时头优先，于是一个显式凭据胜过一个环境里的凭据。
+**两种凭据形式都读**，因为两类调用方都存在：浏览器持有 `lyn_identity` cookie，而桌面客户端或脚本发送 `Authorization: Bearer`。只读其中一种，会让另一种无声地变成匿名。两者都在时头优先，于是一个显式凭据胜过一个环境里的凭据。
 
 **它只解析、从不拒绝。** 该请求作用域在认证、主机信任与信封解码都已接受这次调用之后才运行，所以按约定它不是拒绝调用的地方。因此「未知会话」与「已失效会话」是同一个答案——这次调用不代表任何人——而拒绝属于要求 principal 的那个操作，那里也正是能给出理由的地方。
 
@@ -61,8 +61,8 @@ if (principal === undefined) throw new Error('this operation requires a signed-i
 <a id="further-exploration"></a>
 ## 进一步探索
 
-- [`dsh-auth-session`](../auth-session/README.zh.md) —— 本作用域所读取的那些会话。
-- [`dsh-credits`](../../credits/credits/README.zh.md) —— 第一个使用方：`./subject-request` 把一次调用计费给它所代表的那个人。
+- [`lyn-auth-session`](../auth-session/README.zh.md) —— 本作用域所读取的那些会话。
+- [`lyn-credits`](../../credits/credits/README.zh.md) —— 第一个使用方：`./subject-request` 把一次调用计费给它所代表的那个人。
 - [人、成员关系与调用所处的上下文](../../../.agents/notes/proposed/architecture/2026-10-08-people-memberships-and-acting-context.zh.md) —— 为什么上下文是会话状态、而不是一个请求字段。
 
 -----

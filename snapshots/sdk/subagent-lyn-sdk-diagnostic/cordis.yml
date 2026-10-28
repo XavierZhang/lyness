@@ -1,0 +1,65 @@
+# TypeScript SDK snapshot patch for automatic LYN SDK failure notices.
+
+- id: skill-filesystem
+  name: '@lyness/lyn-skill-filesystem'
+  config:
+    includeDefaultRoots: false
+
+- id: llm-deepseek
+  name: '@lyness/lyn-llm-deepseek-api-key'
+  config:
+    thinking: enabled
+    reasoningEffort: max
+
+- id: session-persistence-jsonl
+  name: '@lyness/lyn-session-persistence-jsonl'
+  config:
+    root: !!js lynHomePath('sessions')
+    compression: !!js "process.env.LYNESS_SNAPSHOT === undefined ? 'zstd' : 'none'"
+
+- id: session-log-deepseek
+  name: '@lyness/lyn-session-log-deepseek'
+  config:
+    enabled: true
+
+- insert:
+    - id: subagent-lyn-sdk-diagnostic
+      name: '@lyness/lyn-subagent-lyn-sdk'
+      config:
+        providerName: lyn-sdk-diagnostic
+        profile: sdk
+        patches:
+          - !!js process.env.LYNESS_TEST_CHILD_PATCH
+        lynHome: !!js lynHomePath('children/first')
+        provider: mock
+        model: mock-echo
+        env:
+          LYNESS_TELEMETRY_DISABLED: '1'
+          LYNESS_TEST_CHILD_FAILURE: '1'
+    - id: tool-subagent-lyn-sdk-diagnostic
+      name: '@lyness/lyn-tool-subagent'
+      config:
+        provider: lyn-sdk-diagnostic
+        toolName: subagent_lyn_sdk
+        maxDepth: provider-managed
+    - id: subagent-lyn-sdk-diagnostic-second
+      name: '@lyness/lyn-subagent-lyn-sdk'
+      config:
+        providerName: lyn-sdk-diagnostic-second
+        profile: sdk
+        patches:
+          - !!js process.env.LYNESS_TEST_CHILD_PATCH
+        lynHome: !!js lynHomePath('children/second')
+        provider: mock
+        model: mock-echo
+        env:
+          LYNESS_TELEMETRY_DISABLED: '1'
+          LYNESS_TEST_CHILD_FAILURE: '1'
+    - id: tool-subagent-lyn-sdk-diagnostic-second
+      name: '@lyness/lyn-tool-subagent'
+      config:
+        provider: lyn-sdk-diagnostic-second
+        toolName: subagent_lyn_sdk_second
+        maxDepth: provider-managed
+    - id: await-external-subagents
+      name: '../../../packages/test-support/session-snapshot/tests/fixtures/subagent-settlement-barrier.ts'

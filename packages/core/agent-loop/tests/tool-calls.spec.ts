@@ -2,27 +2,27 @@
  * Exercises scheduler ordering and cancellation with deterministic gated tools.
  * ACP expected outputs own transcript-facing coverage.
  */
-import type { ToolExecutionPipeline } from '@deepseek-ai/dsh-tools/pipeline'
+import type { ToolExecutionPipeline } from '@lyness/lyn-tools/pipeline'
 
-import * as NativeToolExecutor from '@deepseek-ai/dsh-tool-executor-native'
-import * as PtcToolExecutor from '@deepseek-ai/dsh-tool-executor-ptc'
+import * as NativeToolExecutor from '@lyness/lyn-tool-executor-native'
+import * as PtcToolExecutor from '@lyness/lyn-tool-executor-ptc'
 import { describe, expect, it, onTestFinished } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import { createUserMessage, ToolCallId, StreamChunk  } from '@deepseek-ai/dsh-llm'
-import SessionStore, { SessionEvent, SessionId, TOOL_NOT_STARTED, TOOL_OUTCOME_UNKNOWN } from '@deepseek-ai/dsh-session'
-import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
-import LlmRuntime from '@deepseek-ai/dsh-llm'
-import type { ContextFormed } from '@deepseek-ai/dsh-llm'
-import ToolRuntime, { TOOL_ABORTED_BEFORE_DISPATCH, type PostToolDecision, type PreToolDecision } from '@deepseek-ai/dsh-tools'
-import { defineContentToolFixture } from '@deepseek-ai/dsh-tool-testkit'
-import AgentRegistry, { type Agent } from '@deepseek-ai/dsh-agent'
-import AgentLoop from '@deepseek-ai/dsh-agent-loop'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
+import { Context } from '@lyness/cordis'
+import { createUserMessage, ToolCallId, StreamChunk  } from '@lyness/lyn-llm'
+import SessionStore, { SessionEvent, SessionId, TOOL_NOT_STARTED, TOOL_OUTCOME_UNKNOWN } from '@lyness/lyn-session'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import LlmRuntime from '@lyness/lyn-llm'
+import type { ContextFormed } from '@lyness/lyn-llm'
+import ToolRuntime, { TOOL_ABORTED_BEFORE_DISPATCH, type PostToolDecision, type PreToolDecision } from '@lyness/lyn-tools'
+import { defineContentToolFixture } from '@lyness/lyn-tool-testkit'
+import AgentRegistry, { type Agent } from '@lyness/lyn-agent'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 import { MockAdapter, textResponse } from './mock-adapter.ts'
-import { PtcRuntime } from '@deepseek-ai/dsh-ptc-runtime'
-import type { PtcRunRequest, PtcRunResult } from '@deepseek-ai/dsh-ptc-runtime'
+import { PtcRuntime } from '@lyness/lyn-ptc-runtime'
+import type { PtcRunRequest, PtcRunResult } from '@lyness/lyn-ptc-runtime'
 
-declare module '@deepseek-ai/dsh-llm' {
+declare module '@lyness/lyn-llm' {
   interface MessageSourceMap {
     'p': { kind: 'p' } & ContextFormed
   }
@@ -937,7 +937,7 @@ describe('tool-call scheduler: failure quiescence', () => {
 describe('PTC mode native-tool denial through the agent loop', () => {
   /** A minimal in-process PTC runtime for test purposes — never actually runs. */
   class FakePtcRuntime extends PtcRuntime {
-    resolve(request: import('@deepseek-ai/dsh-ptc-runtime').PtcRunRequest): import('@deepseek-ai/dsh-ptc-runtime').PtcRunSpec { return { ...request, cwd: request.cwd ?? process.cwd(), timeoutMs: request.timeoutMs ?? 120_000 } }
+    resolve(request: import('@lyness/lyn-ptc-runtime').PtcRunRequest): import('@lyness/lyn-ptc-runtime').PtcRunSpec { return { ...request, cwd: request.cwd ?? process.cwd(), timeoutMs: request.timeoutMs ?? 120_000 } }
 
     readonly language = 'typescript'
     readonly isolation = 'fake' as const

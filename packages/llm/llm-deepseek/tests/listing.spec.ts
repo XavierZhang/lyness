@@ -2,8 +2,8 @@
 import { createServer } from 'node:http'
 import type { IncomingMessage, Server, ServerResponse } from 'node:http'
 import { afterEach, describe, expect, it } from 'vitest'
-import { APP_IDENTITY } from '@deepseek-ai/dsh-llm'
-import { deadline } from '@deepseek-ai/dsh-timeout'
+import { APP_IDENTITY } from '@lyness/lyn-llm'
+import { deadline } from '@lyness/lyn-timeout'
 import { LISTING_TIMEOUT, parseModelListing, requestModelListing } from '../src/listing.ts'
 import type { ListedCapabilities } from '../src/listing.ts'
 
@@ -77,8 +77,8 @@ describe('parseModelListing', () => {
     [{ api_capabilities: { anthropic_messages: 'yes' } }, 'declares no api_capabilities.anthropic_messages'],
     [{ ...MESSAGES, output_modalities: ['image'] }, 'declares no text output'],
     [{ ...MESSAGES, output_modalities: 'text' }, 'declares no text output'],
-    [{ ...MESSAGES, input_modalities: ['audio'] }, 'declares no input modality DeepSeek Harness supports'],
-    [{ ...MESSAGES, input_modalities: 'text' }, 'declares no input modality DeepSeek Harness supports'],
+    [{ ...MESSAGES, input_modalities: ['audio'] }, 'declares no input modality lyness supports'],
+    [{ ...MESSAGES, input_modalities: 'text' }, 'declares no input modality lyness supports'],
     [{ ...MESSAGES, context_window: 0 }, 'declares an invalid context_window or max_output_tokens'],
     [{ ...MESSAGES, max_output_tokens: 1.5 }, 'declares an invalid context_window or max_output_tokens'],
   ])('marks %j unusable', (row, reason) => {
@@ -132,11 +132,11 @@ describe('requestModelListing', () => {
       headers = request.headers
       response.end(JSON.stringify(LISTING))
     })
-    const listing = await requestModelListing(url, { 'x-dsh-auth-token': 'fixture-token' }, AbortSignal.timeout(5_000))
+    const listing = await requestModelListing(url, { 'x-lyn-auth-token': 'fixture-token' }, AbortSignal.timeout(5_000))
     expect(listing.entries.map(entry => entry.id)).toEqual(['deepseek-flash', 'deepseek-v4-pro'])
     expect(headers).toMatchObject({
       'accept': 'application/json',
-      'x-dsh-auth-token': 'fixture-token',
+      'x-lyn-auth-token': 'fixture-token',
       'user-agent': expect.stringContaining(`${APP_IDENTITY.product}/${APP_IDENTITY.version}`) as string,
     })
   })

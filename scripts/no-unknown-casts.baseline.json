@@ -1790,7 +1790,7 @@
     "996a2d673209758e45b46af235339d8dccc9d20cfea97ea34f536d3ed8842812": 1,
     "b50b6842b3565ea7f1441afb3214ab0ccf027df0e44bb485005935849c46f8ea": 1
   },
-  "packages/subagent/subagent-dsh-sdk/tests/subagent-dsh-sdk.spec.ts": {
+  "packages/subagent/subagent-lyn-sdk/tests/subagent-lyn-sdk.spec.ts": {
     "daa15206e19d6a8fbae646d678889b2e6933ece824e48dd06c95d2096861d5c1": 2,
     "f77e5cbd2d2d911087f7faecc4b0b5bffdfb44ca5d0bcf7823ba9777feca7799": 1
   },

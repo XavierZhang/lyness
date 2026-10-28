@@ -9,15 +9,15 @@ import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { Membership, MembershipId, PersonId } from '@deepseek-ai/dsh-people'
-import SystemPrompt, { renderPrompt } from '@deepseek-ai/dsh-system-prompt'
-import Storage from '@deepseek-ai/dsh-storage'
-import * as StorageJson from '@deepseek-ai/dsh-storage-json'
-import * as StorageDomain from '@deepseek-ai/dsh-storage-domain'
-import AdminAudit from '@deepseek-ai/dsh-admin-audit'
-import ManagedPeople from '@deepseek-ai/dsh-managed-people'
+import { Context } from '@lyness/cordis'
+import { brandString } from '@lyness/lyn-brand'
+import type { Membership, MembershipId, PersonId } from '@lyness/lyn-people'
+import SystemPrompt, { renderPrompt } from '@lyness/lyn-system-prompt'
+import Storage from '@lyness/lyn-storage'
+import * as StorageJson from '@lyness/lyn-storage-json'
+import * as StorageDomain from '@lyness/lyn-storage-domain'
+import AdminAudit from '@lyness/lyn-admin-audit'
+import ManagedPeople from '@lyness/lyn-managed-people'
 import ManagedBots, {
   BOT_PERSONA_SECTION, BotsRefusedError, NOT_YOURS, botProjectionDefinition, composeBotPersona,
 } from '../src/index.ts'
@@ -44,7 +44,7 @@ const BY: Membership = {
 
 /** A deployment holding bots, with a prompt to compose into. */
 async function bench(): Promise<Context> {
-  const root = await mkdtemp(join(tmpdir(), 'dsh-bot-session-'))
+  const root = await mkdtemp(join(tmpdir(), 'lyn-bot-session-'))
   roots.push(root)
   const ctx = new Context()
   live.push(ctx)

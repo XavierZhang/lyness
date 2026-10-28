@@ -3,13 +3,13 @@ description: "Feishu as a sign-in channel: a tenant signs in whichever of its pe
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-feishu
+# @lyness/lyn-feishu
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`dsh-feishu` offers Feishu as a redirect sign-in channel. It sends the browser to Feishu's own sign-in page, buys the person's token with the application's own, reads who that token belongs to, and hands that identity to the deployment's admission rule — which decides who, if anyone, that person is allowed to be. It holds nothing: no tokens, no directory copy, no session of its own. The application secret is named as a credential reference rather than written into composition, so a cordis.yml never carries the one value that signs in every tenant the application is installed in.
+`lyn-feishu` offers Feishu as a redirect sign-in channel. It sends the browser to Feishu's own sign-in page, buys the person's token with the application's own, reads who that token belongs to, and hands that identity to the deployment's admission rule — which decides who, if anyone, that person is allowed to be. It holds nothing: no tokens, no directory copy, no session of its own. The application secret is named as a credential reference rather than written into composition, so a cordis.yml never carries the one value that signs in every tenant the application is installed in.
 
 ## Table of Contents
 
@@ -29,12 +29,12 @@ Beside the sign-in registry and a credential store, with a binding for each memb
 
 ```yaml
 - id: feishu
-  name: '@deepseek-ai/dsh-feishu'
+  name: '@lyness/lyn-feishu'
   config:
     appId: your-app-id
     secret: FEISHU_APP_SECRET
 - id: sign-in-admission
-  name: '@deepseek-ai/dsh-sign-in/admission-roster'
+  name: '@lyness/lyn-sign-in/admission-roster'
   config:
     bindings:
       - channel: feishu
@@ -60,7 +60,7 @@ An international deployment points `apiOrigin` at Lark's own origin, which serve
 
 **A person in somebody's tenant, or nobody.** A person the directory reports without a `tenant_key` is signing in with a personal Feishu account. No tenant holds them, so no binding could name them, and the sign-in completes nobody.
 
-**One callback is spent once.** The attempt is removed before the code is exchanged, so a replayed callback link finds nothing waiting. The book that holds attempts in flight is `dsh-sign-in`'s, shared with every other redirect channel.
+**One callback is spent once.** The attempt is removed before the code is exchanged, so a replayed callback link finds nothing waiting. The book that holds attempts in flight is `lyn-sign-in`'s, shared with every other redirect channel.
 
 **The tenant's own address wins.** Feishu publishes a personal address and one the tenant issued; a deployment showing a person's address means the work one, so `enterprise_email` is preferred and the personal address is the fallback.
 
@@ -69,11 +69,11 @@ An international deployment points `apiOrigin` at Lark's own origin, which serve
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`dsh-sign-in`](../../identity/sign-in/README.md) — the channel seam and the admission rule.
-- [`dsh-sign-in-http`](../../identity/sign-in-http/README.md) — the routes that send the browser out and take the callback.
-- [`dsh-wecom`](../wecom/README.md) and [`dsh-dingtalk`](../dingtalk/README.md) — the other Chinese-directory channels, which share this one's base class.
-- [`dsh-microsoft-entra`](../microsoft-entra/README.md) — the first redirect channel, which shares the attempt book.
-- [`dsh-credentials`](../../credentials/credentials/README.md) — where the application secret lives.
+- [`lyn-sign-in`](../../identity/sign-in/README.md) — the channel seam and the admission rule.
+- [`lyn-sign-in-http`](../../identity/sign-in-http/README.md) — the routes that send the browser out and take the callback.
+- [`lyn-wecom`](../wecom/README.md) and [`lyn-dingtalk`](../dingtalk/README.md) — the other Chinese-directory channels, which share this one's base class.
+- [`lyn-microsoft-entra`](../microsoft-entra/README.md) — the first redirect channel, which shares the attempt book.
+- [`lyn-credentials`](../../credentials/credentials/README.md) — where the application secret lives.
 
 -----
 

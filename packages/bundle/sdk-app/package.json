@@ -1,13 +1,13 @@
 {
-  "name": "@deepseek-ai/dsh-sdk-app",
-  "description": "The dsh SDK profile bundle: stdio JSON-RPC serving and process lifecycle over dsh-base",
+  "name": "@lyness/lyn-sdk-app",
+  "description": "The lyn SDK profile bundle: stdio JSON-RPC serving and process lifecycle over lyn-base",
   "version": "0.2.1-rc.3",
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/bundle/sdk-app"
   },
   "type": "module",
@@ -30,34 +30,34 @@
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
-  "dsh": {
+  "lyn": {
     "bundle": {
       "patch": "./cordis.patch.yml"
     }
   },
   "dependencies": {
-    "@deepseek-ai/dsh-cmdline": "workspace:*",
-    "@deepseek-ai/dsh-sdk-jsonrpc-server": "workspace:*",
-    "@deepseek-ai/schemastery": "workspace:~",
-    "commander": "^15.0.0",
-    "@deepseek-ai/dsh-skill-office": "workspace:*",
-    "@deepseek-ai/dsh-tool-workspace-dependencies": "workspace:*",
-    "@deepseek-ai/dsh-client-connection": "workspace:*",
-    "@deepseek-ai/dsh-client-file-upload": "workspace:*",
-    "@deepseek-ai/dsh-workspace": "workspace:*",
-    "@deepseek-ai/dsh-schedule": "workspace:*",
-    "@deepseek-ai/dsh-time-context": "workspace:*",
-    "@deepseek-ai/dsh-tool-schedule": "workspace:*",
-    "@deepseek-ai/dsh-tool-ask-user": "workspace:*",
-    "@deepseek-ai/dsh-tool-present": "workspace:*",
-    "@deepseek-ai/dsh-file-reference-local": "workspace:*",
-    "@deepseek-ai/dsh-deliverable-file-references": "workspace:*"
+    "@lyness/lyn-client-connection": "workspace:*",
+    "@lyness/lyn-client-file-upload": "workspace:*",
+    "@lyness/lyn-cmdline": "workspace:*",
+    "@lyness/lyn-deliverable-file-references": "workspace:*",
+    "@lyness/lyn-file-reference-local": "workspace:*",
+    "@lyness/lyn-schedule": "workspace:*",
+    "@lyness/lyn-sdk-jsonrpc-server": "workspace:*",
+    "@lyness/lyn-skill-office": "workspace:*",
+    "@lyness/lyn-time-context": "workspace:*",
+    "@lyness/lyn-tool-ask-user": "workspace:*",
+    "@lyness/lyn-tool-present": "workspace:*",
+    "@lyness/lyn-tool-schedule": "workspace:*",
+    "@lyness/lyn-tool-workspace-dependencies": "workspace:*",
+    "@lyness/lyn-workspace": "workspace:*",
+    "@lyness/schemastery": "workspace:~",
+    "commander": "^15.0.0"
   },
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~"
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis-plugin-include": "workspace:~",
-    "@deepseek-ai/cordis": "workspace:~"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/cordis-plugin-include": "workspace:~"
   }
 }

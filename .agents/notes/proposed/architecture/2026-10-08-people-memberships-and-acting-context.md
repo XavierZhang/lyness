@@ -6,7 +6,7 @@ English | [中文](2026-10-08-people-memberships-and-acting-context.zh.md)
 
 ## Problem
 
-Nothing in this tree knows a person. [`dsh-tenant-request`](../../../../packages/tenant/tenant-request/README.md) resolves a call to an organization — by the `x-tenant-id` header a gateway sets, by the hostname, or by a subdomain label — and stops there. The only user-shaped identifier is [`anonymous-user-id`](../../../../packages/identity/anonymous-user-id/README.md), which exists to correlate telemetry *without* identifying anyone. `TenantConfig` names an organization's models, providers, features and copy, and its own README records the gap: there is no user layer between the organization and the agent.
+Nothing in this tree knows a person. [`lyn-tenant-request`](../../../../packages/tenant/tenant-request/README.md) resolves a call to an organization — by the `x-tenant-id` header a gateway sets, by the hostname, or by a subdomain label — and stops there. The only user-shaped identifier is [`anonymous-user-id`](../../../../packages/identity/anonymous-user-id/README.md), which exists to correlate telemetry *without* identifying anyone. `TenantConfig` names an organization's models, providers, features and copy, and its own README records the gap: there is no user layer between the organization and the agent.
 
 Two proposals already depend on that missing layer. [Session ownership](2026-10-07-session-ownership.md) requires every call to state which person opened a conversation and which membership they were acting in. [Per-tenant brand](2026-10-07-per-tenant-brand.md) requires a tenant administrator who may change the brand, and a plan gate enforced where the change is saved. Neither can be built first.
 

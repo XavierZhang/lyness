@@ -2,19 +2,19 @@
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { beforeAll, afterAll, describe, expect, it } from 'vitest'
-import type { AgentHandle } from '@deepseek-ai/dsh-agent'
-import { createUserMessage } from '@deepseek-ai/dsh-llm'
-import { SessionId } from '@deepseek-ai/dsh-session'
-import type { Session } from '@deepseek-ai/dsh-session'
-import type {} from '@deepseek-ai/dsh-agent-preset-registry'
-import type {} from '@deepseek-ai/dsh-system-prompt'
+import type { AgentHandle } from '@lyness/lyn-agent'
+import { createUserMessage } from '@lyness/lyn-llm'
+import { SessionId } from '@lyness/lyn-session'
+import type { Session } from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-agent-preset-registry'
+import type {} from '@lyness/lyn-system-prompt'
 import { assertFixtureInventory, launchWebScaffold, type WebScaffold } from './scaffold.ts'
 
 const SNAPSHOT_DIR = fileURLToPath(new URL('../../../snapshots/web/work-preset', import.meta.url))
 const FIXTURE = join(SNAPSHOT_DIR, 'session.v4.jsonl')
 const PROMPT = "Use the bash tool to run exactly: printf 'WORK_BASH_CARD_OK\\n'. Then reply exactly WORK_PRESET_REQUEST_OK and stop."
 
-/** The explicit memory write path `@deepseek-ai/dsh-memory/tools` contributes. */
+/** The explicit memory write path `@lyness/lyn-memory/tools` contributes. */
 const MEMORY_TOOLS = ['memory_write', 'memory_list', 'memory_forget']
 
 /** The read-only recall tools `tool-session-query` contributes. */

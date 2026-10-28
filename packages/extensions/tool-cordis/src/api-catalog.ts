@@ -9,7 +9,7 @@
  * the same AST walk as docs/cordis-catalog, so this data and the rendered
  * docs cannot diverge.
  *
- * @module @deepseek-ai/dsh-tool-cordis/api-catalog
+ * @module @lyness/lyn-tool-cordis/api-catalog
  */
 
 /* jscpd:ignore-start */
@@ -82,6 +82,20 @@ export interface TypeApiEntry {
 /** Every harness `ctx.<key>` service, sorted by key. */
 export const SERVICE_API: readonly ServiceApiEntry[] = [
   {
+    key: 'actingContext',
+    summary: 'Resolves a declared context against the directory, or refuses it.',
+    description: 'Resolves a declared context against the directory, or refuses it.',
+    methods: [
+      {
+        signature: 'async resolve(claim: ActingContextClaim): Promise<ActingContext>',
+        description: 'Check one call\'s claim and return the context it acts in.',
+        parameters: [{ name: 'claim', description: 'who the caller is, what they declared, and what the address resolved to.' }],
+        returns: 'the permitted acting context.',
+        throws: ['{ActingContextRefused} when any of the three rules refuses it.'],
+      },
+    ],
+  },
+  {
     key: 'actionCards',
     summary: 'Card tool, kind registry, Session projection, user actions and status notices.',
     description: 'Card tool, kind registry, Session projection, user actions and status notices.',
@@ -110,6 +124,40 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         description: 'Apply a user action to a logged card. Shared checks run first, then the kind reconciles the card; `dismiss` is recorded here and every other verb goes to the card\'s kind. `dismiss` also works on an unstarted card whose kind is no longer registered. Concurrent actions on one card share one operation.',
         parameters: [{ name: 'agent', description: 'live root resolved from the displayed Session.' }, { name: 'callId', description: 'the card\'s `propose_action` call id.' }, { name: 'verb', description: '`dismiss` or one of the kind\'s verbs.' }, { name: 'payload', description: 'kind-defined fields such as a chosen location.' }],
         returns: 'acceptance of background work, the decision in effect, or a refusal.',
+      },
+    ],
+  },
+  {
+    key: 'adminAudit',
+    summary: 'The append-only trail of administrative changes.',
+    description: 'The append-only trail of administrative changes.',
+    methods: [
+      {
+        signature: 'async record(submission: AuditSubmission, by: Membership): Promise<AuditEntry>',
+        description: 'Record one change.\n\nNothing is authorized here. The operation that made the change already decided it was permitted, and a trail that could refuse an entry would be a trail with changes missing from it.',
+        parameters: [{ name: 'submission', description: 'what changed, and how it read before and after.' }, { name: 'by', description: 'the standing that made the change.' }],
+        returns: 'the entry as the trail now holds it.',
+      },
+      {
+        signature: 'async read(query: AuditQuery, by: Membership): Promise<readonly AuditEntry[]>',
+        description: 'Read the trail, newest first.',
+        parameters: [{ name: 'query', description: 'whose trail, which record, and how many entries.' }, { name: 'by', description: 'the standing asking for it.' }],
+        returns: 'the matching entries, newest first.',
+        throws: ['{AuditRefusedError} when this standing may not read that trail.'],
+      },
+    ],
+  },
+  {
+    key: 'adminAuditController',
+    summary: 'Host service backing the generated `ctx.remote.audit` namespace.',
+    description: 'Host service backing the generated `ctx.remote.audit` namespace.',
+    methods: [
+      {
+        signature: '@Remote async read(query: AuditQueryInput): Promise<readonly AuditEntryView[]>',
+        description: 'The recorded changes the calling standing may read, newest first.',
+        parameters: [{ name: 'query', description: 'whose trail, which record, and how many entries.' }],
+        returns: 'the matching entries, newest first.',
+        throws: ['{RemoteError} `audit/not-permitted` when the standing may not read that trail, `audit/no-standing` when the call establishes none, or `gateway/internal` when this deployment keeps no trail.'],
       },
     ],
   },
@@ -262,7 +310,7 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
   {
     key: 'agents',
     summary: 'Agent service (`ctx.agents`): tracks live agents and carries the initiating Agent through one process-local asynchronous driver chain.',
-    description: 'Agent service (`ctx.agents`): tracks live agents and carries the initiating Agent through one process-local asynchronous driver chain. Agent *creation* is provided by whichever plugin implements the AgentFactory (`@deepseek-ai/dsh-agent-loop`), registered via setFactory.\n\nInitiator methods provide same-process causal attribution only. Ambient presence is neither liveness proof nor authorization; subjects and owners remain explicit, as does identity at worker, process, persistence, and wire boundaries. Returned Promise boundaries drain during teardown, except a nested lineage that starts an owning-fiber unload is excluded from its own drain.',
+    description: 'Agent service (`ctx.agents`): tracks live agents and carries the initiating Agent through one process-local asynchronous driver chain. Agent *creation* is provided by whichever plugin implements the AgentFactory (`@lyness/lyn-agent-loop`), registered via setFactory.\n\nInitiator methods provide same-process causal attribution only. Ambient presence is neither liveness proof nor authorization; subjects and owners remain explicit, as does identity at worker, process, persistence, and wire boundaries. Returned Promise boundaries drain during teardown, except a nested lineage that starts an owning-fiber unload is excluded from its own drain.',
     methods: [
       {
         signature: 'turnBoundaryOf(session: Session): TurnBoundaryProjection',
@@ -435,6 +483,19 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
     ],
   },
   {
+    key: 'announcements',
+    summary: 'Abstract announcement source.',
+    description: 'Abstract announcement source. Subclass and implement the one read; a deployment mounts exactly one.\n\nA deployment that mounts none has nothing to announce, which is what a single-operator developer install is.',
+    methods: [
+      {
+        signature: 'abstract published(): Promise<readonly Announcement[]>',
+        description: 'Everything this deployment has published, newest first.\n\nOrdered here rather than by the surface so every surface agrees on what "latest" is; a list a reader has to sort themselves is a list two surfaces will sort differently.',
+        parameters: [],
+        returns: 'the announcements, newest first.',
+      },
+    ],
+  },
+  {
     key: 'approval',
     summary: 'Approval service that applies session policy before answerers and logs every ask/outcome pair to the requesting session.',
     description: 'Approval service that applies session policy before answerers and logs every ask/outcome pair to the requesting session. It exposes deterministic policy changes to the model through the runtime-context snapshot and switch notices.',
@@ -593,6 +654,121 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
     ],
   },
   {
+    key: 'authSessions',
+    summary: 'Abstract store of signed-in sessions.',
+    description: 'Abstract store of signed-in sessions. Subclass and implement the four operations for one source of truth; a deployment mounts exactly one.',
+    methods: [
+      {
+        signature: 'abstract establish(request: EstablishRequest): Promise<SignedInSession>',
+        description: 'Establish a session for a person who has just proved who they are.\n\nThe session opens on that person\'s personal context rather than on a membership, because opening on a standing would be the guess this design exists to avoid — even when the person holds exactly one.',
+        parameters: [{ name: 'request', description: 'who signed in, how, and for how long.' }],
+        returns: 'the established session.',
+      },
+      {
+        signature: 'abstract read(id: AuthSessionId): Promise<SignedInSession>',
+        description: 'Read one session by its bearer identity.',
+        parameters: [{ name: 'id', description: 'the bearer identity presented by a caller.' }],
+        returns: 'the session.',
+        throws: ['{SessionUnavailable} when no session carries that identity, or it has lapsed.'],
+      },
+      {
+        signature: 'abstract switchContext(id: AuthSessionId, acting: ActingContext): Promise<SignedInSession>',
+        description: 'Change the context one session acts in.\n\nThe new context is checked before it is stored, so a session can never hold a context its person may not act in — which would turn one bad switch into every later call being wrong.',
+        parameters: [{ name: 'id', description: 'the session to change.' }, { name: 'acting', description: 'the context to put in force, already checked.' }],
+        returns: 'the session with its new context.',
+        throws: ['{SessionUnavailable} when no session carries that identity, or it has lapsed.'],
+      },
+      {
+        signature: 'abstract revoke(id: AuthSessionId): Promise<boolean>',
+        description: 'End one session.\n\nEnding a session ends the bearer credential, not the identity: the person still exists and still holds every standing they held.',
+        parameters: [{ name: 'id', description: 'the session to end.' }],
+        returns: 'true when a session was ended, false when none carried that identity.',
+      },
+    ],
+  },
+  {
+    key: 'botAsk',
+    summary: 'One bot asking a teammate a question.',
+    description: 'One bot asking a teammate a question.',
+    methods: [
+      {
+        signature: 'async ask(asker: Agent, teammate: PersonId, question: string, signal: AbortSignal): Promise<Answer>',
+        description: 'Ask one teammate a question, and answer with what it said.\n\nThe asking agent\'s own session decides who is asking: a session that speaks as nobody has no teammates, so a person\'s own conversation cannot reach another bot this way.',
+        parameters: [{ name: 'asker', description: 'the agent asking, whose session names the asking bot.' }, { name: 'teammate', description: 'the bot to ask.' }, { name: 'question', description: 'what to ask it, sent verbatim as the answering turn\'s user message.' }, { name: 'signal', description: 'cancellation from the asking turn.' }],
+        returns: 'what the teammate answered.',
+        throws: ['{AskRefusedError} when the asking session speaks as no bot, the target is not a teammate, or the answering turn did not complete.'],
+      },
+    ],
+  },
+  {
+    key: 'botRoom',
+    summary: 'Several bots discussing one question.',
+    description: 'Several bots discussing one question.',
+    methods: [
+      {
+        signature: 'async hold(opener: Agent, request: RoomRequest, signal: AbortSignal): Promise<RoomResult>',
+        description: 'Hold one discussion and answer with what was said and concluded.',
+        parameters: [{ name: 'opener', description: 'the agent opening it, whose session names the opening bot.' }, { name: 'request', description: 'who to invite, what to discuss, and for how many rounds.' }, { name: 'signal', description: 'cancellation from the opening turn.' }],
+        returns: 'the room session, every remark, and the chair\'s conclusion.',
+        throws: ['{RoomRefusedError} when the opening session speaks as no bot, a participant is not a teammate, or nobody else was named.'],
+      },
+    ],
+  },
+  {
+    key: 'botsController',
+    summary: 'Host service backing the generated `ctx.remote.bots` namespace.',
+    description: 'Host service backing the generated `ctx.remote.bots` namespace.',
+    methods: [
+      {
+        signature: '@Remote async list(): Promise<readonly BotRowView[]>',
+        description: 'The bots the calling standing may change.',
+        parameters: [],
+        returns: 'the bots it administers, written ones first.',
+        throws: ['{RemoteError} `bots/no-standing` when the call establishes none, or `gateway/internal` when this deployment maintains no bots.'],
+      },
+      {
+        signature: '@Remote async presets(): Promise<readonly PresetOptionView[]>',
+        description: 'The agent presets a bot may be given.\n\nAnswered by the roster rather than read from the preset registry here, because that is the list a save is validated against: a form offering one list while the roster checked another would refuse a choice it had just presented.',
+        parameters: [],
+        returns: 'the presets on offer, in the registry\'s own order.',
+        throws: ['{RemoteError} `bots/no-standing` when the call establishes none, or `gateway/internal` when this deployment maintains no bots.'],
+      },
+      {
+        signature: '@Remote async save(input: BotInput): Promise<BotRowView>',
+        description: 'Add one bot, or change one this deployment maintains.',
+        parameters: [{ name: 'input', description: 'what the administrator filled in.' }],
+        returns: 'the bot as the deployment now reads it.',
+        throws: ['{RemoteError} `bots/not-permitted`, `bots/written`, `bots/unknown-preset`, `bots/incomplete`, `bots/no-standing`, or `gateway/internal`.'],
+      },
+      {
+        signature: '@Remote async remove(id: string): Promise<void>',
+        description: 'Remove one bot this deployment maintains.',
+        parameters: [{ name: 'id', description: 'the bot to remove.' }],
+        throws: ['{RemoteError} `bots/not-permitted`, `bots/written`, `bots/no-standing`, or `gateway/internal`.'],
+      },
+      {
+        signature: '@Remote async teams(): Promise<readonly TeamRowView[]>',
+        description: 'The teams the calling standing may change.',
+        parameters: [],
+        returns: 'the teams it administers, written ones first.',
+        throws: ['{RemoteError} `bots/no-standing` when the call establishes none, or `gateway/internal` when this deployment maintains no bots.'],
+      },
+      {
+        signature: '@Remote async saveTeam(input: TeamInput): Promise<TeamRowView>',
+        description: 'Add one team, or change one this deployment maintains.',
+        parameters: [{ name: 'input', description: 'what the administrator filled in.' }],
+        returns: 'the team as the deployment now reads it.',
+        throws: ['{RemoteError} `bots/not-permitted`, `bots/written`, `bots/unknown-bot`, `bots/incomplete`, `bots/no-standing`, or `gateway/internal`.'],
+      },
+      {
+        signature: '@Remote async removeTeam(id: string): Promise<void>',
+        description: 'Remove one team this deployment maintains.\n\nThe bots stay; what goes is the relation that let them ask each other.',
+        parameters: [{ name: 'id', description: 'the team to remove.' }],
+        throws: ['{RemoteError} `bots/not-permitted`, `bots/written`, `bots/no-standing`, or `gateway/internal`.'],
+      },
+    ],
+  },
+  {
     key: 'browserUse',
     summary: 'Owns one optional provider registration in the shared browser-use service.',
     description: 'Owns one optional provider registration in the shared browser-use service.',
@@ -633,14 +809,14 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
   },
   {
     key: 'clientModules',
-    summary: 'The web plugin table service: incremental `dsh.client` scan + wire composition + bundle and package-asset route + index injection rows.',
-    description: 'The web plugin table service: incremental `dsh.client` scan + wire composition + bundle and package-asset route + index injection rows. Construction runs the activation scan synchronously — a malformed declaration or missing bundle among the already-loaded entries aggregates into one loud throw (FAILED fiber; the boot activation audit reports it).',
+    summary: 'The web plugin table service: incremental `lyn.client` scan + wire composition + bundle and package-asset route + index injection rows.',
+    description: 'The web plugin table service: incremental `lyn.client` scan + wire composition + bundle and package-asset route + index injection rows. Construction runs the activation scan synchronously — a malformed declaration or missing bundle among the already-loaded entries aggregates into one loud throw (FAILED fiber; the boot activation audit reports it).',
     methods: [
       {
         signature: 'graph(): WebBootGraph',
         description: 'Current composed entry graph (stable object between changes).',
         parameters: [],
-        returns: 'the graph served as `window.__DSH_BOOT__`.',
+        returns: 'the graph served as `window.__LYNESS_BOOT__`.',
       },
       {
         signature: 'clientPath(id: string): string | undefined',
@@ -955,6 +1131,178 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
     ],
   },
   {
+    key: 'creditAdministration',
+    summary: 'Administrator credit decisions, authorized against the standing making them.',
+    description: 'Administrator credit decisions, authorized against the standing making them.',
+    methods: [
+      {
+        signature: 'async grant(request: AdministratorGrant, by: Membership): Promise<CreditGrant>',
+        description: 'Add credits to one person, on behalf of one standing.',
+        parameters: [{ name: 'request', description: 'who receives them, how many, and when they lapse.' }, { name: 'by', description: 'the standing making the grant.' }],
+        returns: 'the recorded grant.',
+        throws: ['{Error} when the amount is not positive, or that standing may not administer that person.'],
+      },
+      {
+        signature: 'async setAllowance(change: AllowanceChange, by: Membership): Promise<void>',
+        description: 'Set or replace one allowance override, on behalf of one standing.\n\nAn override for a whole organization is a decision about that organization, so it is authorized against the organization itself; one for a person is authorized against that person\'s standings.',
+        parameters: [{ name: 'change', description: 'what to change, and whose allowance it applies to.' }, { name: 'by', description: 'the standing making the change.' }],
+        throws: ['{Error} when the change names neither an organization nor a person, or that standing may not administer it.'],
+      },
+      {
+        signature: 'async setBudget(change: BudgetChange, by: Membership): Promise<OrganizationBudget>',
+        description: 'Set or replace what one organization may spend in total, on behalf of one standing.\n\nAuthorized against the platform rather than against the organization: a ceiling an organization can raise is not a ceiling. This is the one credit decision `administers` does not answer, because that predicate is true for a tenant administrator of the organization named.',
+        parameters: [{ name: 'change', description: 'the organization, the ceiling, and the period it applies to.' }, { name: 'by', description: 'the standing making the change.' }],
+        returns: 'the stored ceiling.',
+        throws: ['{Error} when the ceiling is negative or not whole, or that standing is not a platform one.'],
+      },
+      {
+        signature: 'async budgetFor(organization: string, by: Membership): Promise<BudgetState | undefined>',
+        description: 'What one organization bought, and what is left of it, on behalf of one standing.\n\nAuthorized against the organization rather than the platform: an organization may see its own ceiling and what it has spent against it — that is its own money and its own usage — while only a platform standing changes the ceiling.',
+        parameters: [{ name: 'organization', description: 'whose ceiling to read.' }, { name: 'by', description: 'the standing asking.' }],
+        returns: 'the ceiling and what is left, or undefined where nobody set one.',
+        throws: ['{Error} when that standing may not administer that organization.'],
+      },
+      {
+        signature: 'maySetBudget(by: Membership): boolean',
+        description: 'Whether one standing may change what an organization bought.\n\nPublic because a surface that offers the control answers the same question the change does, and two copies of this rule would be one rule too many.',
+        parameters: [{ name: 'by', description: 'the standing asking.' }],
+        returns: 'true when it may set an organization\'s ceiling.',
+      },
+      {
+        signature: 'async overridesFor(person: PersonId): Promise<PersonOverrides>',
+        description: 'The overrides that reach one person.\n\nRead without an authority check because this is what the ledger itself calls to work out a periodic grant; the decision it reports was already authorized when it was made.',
+        parameters: [{ name: 'person', description: 'whose allowance to resolve.' }],
+        returns: 'the organization-wide and person-specific overrides, where they exist.',
+      },
+      {
+        signature: 'async mayAdminister(by: Membership, person: PersonId): Promise<boolean>',
+        description: 'Whether one standing may act on one person\'s credits.\n\nA tenant administrator reaches a person only through a standing they share an organization with. Resolving that through the directory rather than trusting a caller-supplied organization is the point: the caller names who to act on, never the authority to do it.\n\nPublic because a surface that shows one person\'s ledger to another answers the same question a grant does, and two copies of this rule would be one rule too many.',
+        parameters: [{ name: 'by', description: 'the standing asking.' }, { name: 'person', description: 'the person it would affect.' }],
+        returns: 'true when that standing may administer that person.',
+      },
+    ],
+  },
+  {
+    key: 'credits',
+    summary: 'Abstract credit ledger.',
+    description: 'Abstract credit ledger. Subclass and implement the four operations for one source of truth; a hosted deployment mounts exactly one.',
+    methods: [
+      {
+        signature: 'abstract balance(person: PersonId): Promise<CreditBalance>',
+        description: 'What one person may spend now.',
+        parameters: [{ name: 'person', description: 'whose balance to read.' }],
+        returns: 'the balance, including what it is made of.',
+      },
+      {
+        signature: 'abstract spend(request: SpendRequest): Promise<CreditDebit>',
+        description: 'Spend credits, or refuse when the balance cannot cover it.\n\nRefusing rather than overdrawing is the whole point: an overdraw is a cost the operator did not agree to, and a person who can exceed a balance has no balance.',
+        parameters: [{ name: 'request', description: 'whose credits, how many, and which session.' }],
+        returns: 'the recorded debit.',
+        throws: ['{CreditsExhausted} when the available balance cannot cover the amount.'],
+      },
+      {
+        signature: 'abstract grant(request: GrantRequest): Promise<CreditGrant>',
+        description: 'Add credits to one person.',
+        parameters: [{ name: 'request', description: 'who receives them, how many, why, and when they lapse.' }],
+        returns: 'the recorded grant.',
+      },
+      {
+        signature: 'abstract history(person: PersonId): Promise<{ readonly grants: readonly CreditGrant[] readonly debits: readonly CreditDebit[] }>',
+        description: 'Everything granted to and spent by one person, newest first.\n\nThe ledger is the product rather than an implementation detail: a customer reviewing a refusal reads this, and a balance they cannot account for is a support case.',
+        parameters: [{ name: 'person', description: 'whose history to read.' }],
+        returns: 'the grants and debits recorded for them.',
+      },
+      {
+        signature: 'abstract budget(organization: string): Promise<BudgetState | undefined>',
+        description: 'What one organization bought, and what is left of it this period.\n\nRead rather than drawn down from a stored total: a period that has turned starts at the ceiling again without anything having to run at the turn.',
+        parameters: [{ name: 'organization', description: 'whose ceiling to read.' }],
+        returns: 'the ceiling and what is left, or undefined for an organization nobody set one for.',
+      },
+      {
+        signature: 'abstract setBudget(change: BudgetChange, by: PersonId): Promise<OrganizationBudget>',
+        description: 'Set or replace one organization\'s ceiling.\n\nNothing is authorized here. What an organization bought is a platform decision, and CreditAdministration is where that standing is judged — this records what it decided.',
+        parameters: [{ name: 'change', description: 'the organization, the ceiling, and the period it applies to.' }, { name: 'by', description: 'who set it, recorded on the record.' }],
+        returns: 'the stored ceiling.',
+      },
+    ],
+  },
+  {
+    key: 'creditsController',
+    summary: 'Host service backing the generated `ctx.remote.credits` namespace.',
+    description: 'Host service backing the generated `ctx.remote.credits` namespace.',
+    methods: [
+      {
+        signature: '@Remote async mine(): Promise<CreditAccountView>',
+        description: 'Read the calling person\'s own account.',
+        parameters: [],
+        returns: 'their balance and ledger, and whether they may administer anyone.',
+        throws: ['{RemoteError} `credits/anonymous` when the call presented no identity, or `credits/unavailable` when this deployment mounts no ledger.'],
+      },
+      {
+        signature: '@Remote async account(person: string): Promise<CreditAccountView>',
+        description: 'Read one person\'s account as an administrator.',
+        parameters: [{ name: 'person', description: 'whose account to read.' }],
+        returns: 'their balance and ledger.',
+        throws: ['{RemoteError} `credits/anonymous`, `credits/unavailable`, or `credits/not-permitted` when the calling standing may not act on that person.'],
+      },
+      {
+        signature: '@Remote async grant(input: CreditGrantInput): Promise<CreditAccountView>',
+        description: 'Add credits to one person.',
+        parameters: [{ name: 'input', description: 'who receives them, how many, and when they lapse.' }],
+        returns: 'that person\'s account as the ledger now reads it.',
+        throws: ['{RemoteError} `credits/anonymous`, `credits/unavailable`, `gateway/bad-request` for invalid fields, `credits/not-permitted`, or `credits/rejected` when the administration seam refuses the grant.'],
+      },
+      {
+        signature: '@Remote async setAllowance(input: AllowanceInput): Promise<AllowanceView>',
+        description: 'Set or replace one recurring-allowance override.',
+        parameters: [{ name: 'input', description: 'what to change, and whose allowance it applies to.' }],
+        returns: 'the overrides now reaching the named person, or the setter when the change was organization-wide.',
+        throws: ['{RemoteError} `credits/anonymous`, `credits/unavailable`, `gateway/bad-request` for invalid fields, `credits/not-permitted`, or `credits/rejected` when the change names neither an organization nor a person.'],
+      },
+      {
+        signature: '@Remote async allowance(person: string): Promise<AllowanceView>',
+        description: 'Read the overrides reaching one person.',
+        parameters: [{ name: 'person', description: 'whose allowance to resolve.' }],
+        returns: 'the organization-wide and person-specific overrides, and the periods a form may offer.',
+        throws: ['{RemoteError} `credits/anonymous`, `credits/unavailable`, or `credits/not-permitted`.'],
+      },
+      {
+        signature: '@Remote async myBudget(): Promise<BudgetView | undefined>',
+        description: 'Read what the calling person\'s own organization bought, and what is left.\n\nThe organization is resolved from the standing this call acts in rather than named by the caller, for the reason `mine` does not take a person: the one organization somebody holds standing in is not a parameter.',
+        parameters: [],
+        returns: 'their organization\'s ceiling, or undefined when they hold standing in none.',
+        throws: ['{RemoteError} `credits/anonymous`, `credits/unavailable`, or `credits/not-permitted` for a standing that may not administer its own organization — what it bought and has spent is its administrators\' to see.'],
+      },
+      {
+        signature: '@Remote async budget(organization: string): Promise<BudgetView>',
+        description: 'Read what one organization bought, and what is left of it this period.',
+        parameters: [{ name: 'organization', description: 'whose ceiling to read.' }],
+        returns: 'the ceiling, what is left, and whether this caller may change it.',
+        throws: ['{RemoteError} `credits/anonymous`, `credits/unavailable`, or `credits/not-permitted` when the calling standing may not administer that organization.'],
+      },
+      {
+        signature: '@Remote async setBudget(input: BudgetInput): Promise<BudgetView>',
+        description: 'Set or replace what one organization may spend in total.',
+        parameters: [{ name: 'input', description: 'the organization, the ceiling, and the period it applies to.' }],
+        returns: 'the ceiling as it now reads, with what has already been spent against it.',
+        throws: ['{RemoteError} `credits/anonymous`, `credits/unavailable`, `gateway/bad-request` for invalid fields, or `credits/rejected` when the calling standing is not a platform one.'],
+      },
+    ],
+  },
+  {
+    key: 'creditSubject',
+    summary: 'Resolves the person a request is charged to.',
+    description: 'Resolves the person a request is charged to.',
+    methods: [
+      {
+        signature: 'abstract current(): Promise<CreditSubjectIdentity | undefined>',
+        description: 'The person the request being served is charged to.\n\nUndefined is a real answer, not a failure: a deployment\'s own maintenance work, a replay in a test, and a seeded session all issue requests that belong to nobody. Charging them to whoever happens to be signed in would be worse than not charging them.',
+        parameters: [],
+        returns: 'the person to charge and the organization they act for, or undefined when the request belongs to nobody.',
+      },
+    ],
+  },
+  {
     key: 'cuaAccess',
     summary: 'Browser controls for provider-owned native permission and application decisions.',
     description: 'Browser controls for provider-owned native permission and application decisions.',
@@ -1116,6 +1464,32 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         description: 'Prepare every currently registered field from one immutable base request. A provider whose preparation throws, or whose value cannot be cloned, is omitted from this request; the first such failure per field is logged. Only cancellation rejects. Field values are cloned and frozen; providers retain no mutable alias to the outgoing request.',
         parameters: [{ name: 'request', description: 'exact serialized request facts before extension fields.' }],
         returns: 'detached fields and their idempotent joint acceptance transaction.',
+      },
+    ],
+  },
+  {
+    key: 'desktopLink',
+    summary: 'Links to signed-in people\'s own machines.',
+    description: 'Links to signed-in people\'s own machines.',
+    methods: [
+      {
+        signature: 'reachable(person: PersonId): boolean',
+        description: 'Whether this person currently has a desktop connected.',
+        parameters: [{ name: 'person', description: 'whose machine to ask about.' }],
+        returns: 'true while a desktop is attached for them.',
+      },
+      {
+        signature: 'async *serve( person: PersonId, replies: AsyncIterable<DesktopReply>, signal: AbortSignal, ): AsyncIterable<DesktopRequest>',
+        description: 'Serve one desktop: yield the work asked of it until its stream ends.\n\nOne link per person, and a second connection replaces the first rather than joining it. Two machines answering for one person would make "run this command on my laptop" ambiguous, and the newest connection is the one the person is sitting at.',
+        parameters: [{ name: 'person', description: 'the signed-in person this desktop belongs to.' }, { name: 'replies', description: 'the uplink the desktop answers on.' }, { name: 'signal', description: 'ends the link when the carrier does.' }],
+        returns: 'the requests this desktop should perform.',
+      },
+      {
+        signature: 'async *call( person: PersonId, capability: string, operation: string, payload: JsonValue, signal?: AbortSignal, ): AsyncIterable<JsonValue>',
+        description: 'Ask one person\'s desktop to perform an operation.\n\nThe result is an iterable because a call may produce many items before it finishes — a command\'s output arrives as it is produced, not after. A caller that wants only the final value iterates to the end.',
+        parameters: [{ name: 'person', description: 'whose machine to reach.' }, { name: 'capability', description: 'the capability the call belongs to.' }, { name: 'operation', description: 'the operation within it.' }, { name: 'payload', description: 'the operation\'s arguments.' }, { name: 'signal', description: 'cancels the call on the desktop.' }],
+        returns: 'each item the desktop sent, then its final value.',
+        throws: ['{DesktopUnavailable} when no desktop is connected, the desktop is lost, or the call fails there.'],
       },
     ],
   },
@@ -1465,6 +1839,19 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
     ],
   },
   {
+    key: 'identityController',
+    summary: 'Host service backing the generated `ctx.remote.identity` namespace.',
+    description: 'Host service backing the generated `ctx.remote.identity` namespace.',
+    methods: [
+      {
+        signature: '@Remote async viewer(): Promise<ViewerView>',
+        description: 'Describe the caller and what they may sign in with.',
+        parameters: [],
+        returns: 'whether this deployment has accounts, who the caller is, and the channels it offers.',
+      },
+    ],
+  },
+  {
     key: 'inspector',
     summary: 'Shared Host/Client service façade over the realm\'s source publisher.',
     description: 'Shared Host/Client service façade over the realm\'s source publisher.',
@@ -1613,7 +2000,7 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         returns: 'the advertised models, deduplicated in endpoint order.',
       },
       {
-        signature: '@Remote(\'discoverModels\') async remoteDiscoverModels( settingsNs: string, request: LlmModelDiscoveryRequest, signal: AbortSignal, ): Promise<LlmDiscoveredModel[]>',
+        signature: '@Remote({ name: \'discoverModels\', requires: \'platform-administrator\' }) async remoteDiscoverModels( settingsNs: string, request: LlmModelDiscoveryRequest, signal: AbortSignal, ): Promise<LlmDiscoveredModel[]>',
         description: 'Remote adapter for one draft provider interrogation.',
         parameters: [{ name: 'settingsNs', description: 'namespace whose registered discovery serves this draft.' }, { name: 'request', description: 'endpoint, protocol, and one-shot credential to use.' }, { name: 'signal', description: 'caller cancellation supplied by the Remote carrier.' }],
         returns: 'advertised models in endpoint order.',
@@ -1695,6 +2082,163 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
     ],
   },
   {
+    key: 'managedBots',
+    summary: 'The bots this deployment stores, and the written ones they may not shadow.',
+    description: 'The bots this deployment stores, and the written ones they may not shadow.',
+    methods: [
+      {
+        signature: 'declareBot(entry: DeclaredBot): () => void',
+        description: 'Declare one bot composition wrote.\n\nThe provider that read the roster registers it, so this service can refuse to shadow it and a surface can show it as the operator\'s.',
+        parameters: [{ name: 'entry', description: 'the bot, as composition names it.' }],
+        returns: 'the disposer that withdraws it.',
+      },
+      {
+        signature: 'declareTeam(entry: DeclaredTeam): () => void',
+        description: 'Declare one team composition wrote.',
+        parameters: [{ name: 'entry', description: 'the team, as composition names it.' }],
+        returns: 'the disposer that withdraws it.',
+      },
+      {
+        signature: 'async teams(by: Membership): Promise<readonly TeamView[]>',
+        description: 'The teams one standing administers, written and stored alike.',
+        parameters: [{ name: 'by', description: 'the standing asking.' }],
+        returns: 'the teams it administers, written ones first, then oldest stored first.',
+      },
+      {
+        signature: 'async saveTeam(submission: TeamSubmission, by: Membership): Promise<TeamView>',
+        description: 'Add one team, or change one this service holds.',
+        parameters: [{ name: 'submission', description: 'what the administrator filled in.' }, { name: 'by', description: 'the standing making the change.' }],
+        returns: 'the team as it now reads.',
+        throws: ['{BotsRefusedError} when the standing may not make the change, composition owns the team, or a member is not its organization\'s bot.'],
+      },
+      {
+        signature: 'async removeTeam(id: string, by: Membership): Promise<void>',
+        description: 'Remove one team this service holds.\n\nThe bots stay; what goes is the relation that let them ask each other.',
+        parameters: [{ name: 'id', description: 'the team to remove.' }, { name: 'by', description: 'the standing making the change.' }],
+        throws: ['{BotsRefusedError} when the standing may not remove it, or composition owns it.'],
+      },
+      {
+        signature: 'async teammates(bot: PersonId): Promise<readonly TeammateView[]>',
+        description: 'The teammates one bot may ask.\n\nShared team membership and nothing else: two bots in one organization that share no team are not teammates, because the relation an administrator wrote is the only thing that grants the right to ask.\n\nA bot in two teams with the same colleague reads that colleague once. The job and character come from the colleague\'s own record rather than from the team, so what a bot is for does not change with the company it is in.',
+        parameters: [{ name: 'bot', description: 'the bot asking.' }],
+        returns: 'its teammates, each once, in team order then member order.',
+      },
+      {
+        signature: 'async list(by: Membership): Promise<readonly BotView[]>',
+        description: 'The bots one standing administers, written and stored alike.',
+        parameters: [{ name: 'by', description: 'the standing asking.' }],
+        returns: 'the bots it administers, written ones first, then oldest stored first.',
+      },
+      {
+        signature: 'async offers(): Promise<readonly PresetOption[]>',
+        description: 'The agent presets a bot may be given.\n\nAnswered here rather than read from the preset registry by each caller, because this is the list save validates against: a surface offering one list while the service checked another would refuse a choice it had just presented.',
+        parameters: [],
+        returns: 'the presets on offer, in the registry\'s own order; a preset that cannot compose a session is left out.',
+      },
+      {
+        signature: 'async engage(id: PersonId, by: Membership): Promise<{ preset: string; engaged: EngagedBot } | undefined>',
+        description: 'What one bot runs as, for a session about to speak as it.\n\nThe character is read here and written into the session\'s own log by the caller, never looked up again on resume: an administrator who rewrites a bot\'s character changes what it says next, and must not change what it already said.\n\nA bot belongs to one organization, and speaking as it is reaching that organization\'s work. The standing asking has to hold a place in that organization — knowing a bot\'s id is not permission to be it.',
+        parameters: [{ name: 'id', description: 'the bot to engage.' }, { name: 'by', description: 'the standing the call acts in.' }],
+        returns: 'the preset it runs with and the character to record, or undefined when no such bot exists.',
+        throws: ['{BotsRefusedError} when that standing belongs to another organization.'],
+      },
+      {
+        signature: 'compose(agentCtx: Context, engaged: EngagedBot): () => void',
+        description: 'Put one bot\'s character into an agent\'s prompt.\n\nOffered on the service so a caller composing a session reaches it through the roster rather than importing this package: a deployment without bots has no roster, and nothing on the session path should have to carry code for one.',
+        parameters: [{ name: 'agentCtx', description: 'the agent scope the bot runs in, after its preset mounted.' }, { name: 'engaged', description: 'the bot and the character its own log records.' }],
+        returns: 'the disposer that withdraws the section.',
+      },
+      {
+        signature: 'async save(submission: BotSubmission, by: Membership): Promise<BotView>',
+        description: 'Add one bot, or change one this service holds.',
+        parameters: [{ name: 'submission', description: 'what the administrator filled in.' }, { name: 'by', description: 'the standing making the change.' }],
+        returns: 'the bot as it now reads.',
+        throws: ['{BotsRefusedError} when the standing may not make the change, composition owns the bot, or no such preset is offered.'],
+      },
+      {
+        signature: 'async remove(id: PersonId, by: Membership): Promise<void>',
+        description: 'Remove one bot this service holds.\n\nIts identity is not reused, so the conversations it opened stay attributed to a bot that no longer runs rather than to whichever one is added next.',
+        parameters: [{ name: 'id', description: 'the bot to remove.' }, { name: 'by', description: 'the standing making the change.' }],
+        throws: ['{BotsRefusedError} when the standing may not remove it, or composition owns it.'],
+      },
+    ],
+  },
+  {
+    key: 'managedPeople',
+    summary: 'The people and bindings this deployment stores, and the written ones they may not shadow.',
+    description: 'The people and bindings this deployment stores, and the written ones they may not shadow.',
+    methods: [
+      {
+        signature: 'declarePerson(entry: DeclaredPerson): () => void',
+        description: 'Declare one person another owner holds.\n\nThe provider that read the roster registers what composition wrote, and the bot roster registers its own entries, so this service can refuse to shadow either and a surface can show who holds them. A declared entry is answered by every lookup and is never stored here.',
+        parameters: [{ name: 'entry', description: 'the person, the standing they hold, and which kind they are.' }],
+        returns: 'the disposer that withdraws them.',
+      },
+      {
+        signature: 'declareBinding(entry: BindingSubmission): () => void',
+        description: 'Declare one admission binding composition wrote.',
+        parameters: [{ name: 'entry', description: 'the directory identity and who it signs in as.' }],
+        returns: 'the disposer that withdraws it.',
+      },
+      {
+        signature: 'async person(id: PersonId): Promise<Person | undefined>',
+        description: 'One person by identity, written or stored.',
+        parameters: [{ name: 'id', description: 'the person\'s stable identity.' }],
+        returns: 'the person, or undefined when neither half names them.',
+      },
+      {
+        signature: 'async membership(id: MembershipId): Promise<Membership | undefined>',
+        description: 'One standing by identity, written or stored.',
+        parameters: [{ name: 'id', description: 'the standing\'s stable identity.' }],
+        returns: 'the standing, or undefined when neither half holds it.',
+      },
+      {
+        signature: 'async memberships(person: PersonId): Promise<readonly Membership[]>',
+        description: 'Every standing one person holds.',
+        parameters: [{ name: 'person', description: 'the person whose standings to list.' }],
+        returns: 'their standings; one, or none when nobody holds that identity.',
+      },
+      {
+        signature: 'async admit(key: string): Promise<PersonId | undefined>',
+        description: 'The person one admitted directory identity signs in as.',
+        parameters: [{ name: 'key', description: 'the binding\'s lookup key, from {@link bindingKey}.' }],
+        returns: 'that person, or undefined when neither half admits the identity.',
+      },
+      {
+        signature: 'async list(by: Membership): Promise<readonly PersonView[]>',
+        description: 'The people one standing administers, written and stored alike.',
+        parameters: [{ name: 'by', description: 'the standing asking.' }],
+        returns: 'the people it administers, written ones first, then oldest stored first.',
+      },
+      {
+        signature: 'async save(submission: PersonSubmission, by: Membership): Promise<PersonView>',
+        description: 'Add one person, or change one this service holds.',
+        parameters: [{ name: 'submission', description: 'what the administrator filled in.' }, { name: 'by', description: 'the standing making the change.' }],
+        returns: 'the person as they now read.',
+        throws: ['{PeopleRefusedError} when the standing may not make the change, or composition owns the person.'],
+      },
+      {
+        signature: 'async remove(id: PersonId, by: Membership): Promise<void>',
+        description: 'Remove one person this service holds, and every binding that admitted them.\n\nTheir identity is not reused, so the conversations they opened stay attributed to somebody who no longer signs in rather than to whoever is added next.',
+        parameters: [{ name: 'id', description: 'the person to remove.' }, { name: 'by', description: 'the standing making the change.' }],
+        throws: ['{PeopleRefusedError} when the standing may not remove them, or composition owns them.'],
+      },
+      {
+        signature: 'async bind(submission: BindingSubmission, by: Membership): Promise<BindingView>',
+        description: 'Admit one directory identity as one person.',
+        parameters: [{ name: 'submission', description: 'the identity and who it signs in as.' }, { name: 'by', description: 'the standing making the change.' }],
+        returns: 'the binding as a surface shows it.',
+        throws: ['{PeopleRefusedError} when the standing may not make the change, nobody holds that identity, or it is already admitted.'],
+      },
+      {
+        signature: 'async unbind(submission: Omit<BindingSubmission, \'person\'>, by: Membership): Promise<void>',
+        description: 'Stop admitting one directory identity.',
+        parameters: [{ name: 'submission', description: 'the identity to stop admitting; its person is not read.' }, { name: 'by', description: 'the standing making the change.' }],
+        throws: ['{PeopleRefusedError} when the standing may not make the change, or composition owns the binding.'],
+      },
+    ],
+  },
+  {
     key: 'mcpResources',
     summary: 'Scoped resource access plus three tools shared by configured MCP servers.',
     description: 'Scoped resource access plus three tools shared by configured MCP servers.',
@@ -1704,6 +2248,32 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         description: 'Register one server and expose resource tools while that scope has providers.',
         parameters: [{ name: 'server', description: 'configured server name, unique in this scope.' }, { name: 'provider', description: 'connection-owned resource operations.' }],
         returns: 'the effect disposer for this exact registration.',
+      },
+    ],
+  },
+  {
+    key: 'memory',
+    summary: 'Durable memory with an explicit write path and a prompt contribution.',
+    description: 'Durable memory with an explicit write path and a prompt contribution.',
+    methods: [
+      {
+        signature: 'async remember(text: string, scope: MemoryScope = \'member\', supersedes?: MemoryId): Promise<MemoryRecord>',
+        description: 'Keep one fact. The only write path: there is no listener that stores anything a caller did not ask for.\n\n`supersedes` is how a remembered fact is corrected rather than contradicted. A store that can only append ends up holding both halves of a changed convention, and nothing in the text says which one is current; replacing the superseded entry in the same durable write leaves exactly one answer. An id that no longer exists is not an error — the fact it named is already gone, which is the outcome the caller wanted.',
+        parameters: [{ name: 'text', description: 'the fact to keep, trimmed and non-empty.' }, { name: 'scope', description: 'reach of the entry; defaults to the writing member.' }, { name: 'supersedes', description: 'an entry this one replaces, removed in the same write.' }],
+        returns: 'the stored record, including its new identity.',
+        throws: ['{TypeError} when the text is blank or longer than {@link MAX_ENTRY_CHARS}.'],
+      },
+      {
+        signature: 'async list(): Promise<readonly MemoryRecord[]>',
+        description: 'Read every kept fact, oldest first.',
+        parameters: [],
+        returns: 'the stored records in write order.',
+      },
+      {
+        signature: 'async forget(id: MemoryId): Promise<boolean>',
+        description: 'Remove one kept fact.',
+        parameters: [{ name: 'id', description: 'the record\'s identity.' }],
+        returns: 'true when an entry was removed, false when none carried that id.',
       },
     ],
   },
@@ -1729,6 +2299,44 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         description: 'Delete one item after checking its version; absence succeeds without an event.',
         parameters: [{ name: 'request', description: 'Session, message, and observed item version.' }],
         returns: 'the stable absent postcondition or an explicit failure.',
+      },
+    ],
+  },
+  {
+    key: 'microsoftEntra',
+    summary: 'Microsoft Entra sign-in.',
+    description: 'Microsoft Entra sign-in.',
+    methods: [
+      {
+        signature: 'async subject(): Promise<EntraSubject | undefined>',
+        description: 'The person this deployment signed in.',
+        parameters: [],
+        returns: 'the stored subject, or undefined while nobody has signed in.',
+      },
+    ],
+  },
+  {
+    key: 'modelPolicy',
+    summary: 'Abstract policy store.',
+    description: 'Abstract policy store. Subclass and implement allowance for one source of truth; a deployment mounts exactly one.',
+    methods: [
+      {
+        signature: 'abstract allowance(): Promise<ModelAllowance>',
+        description: 'The models allowed for the request being resolved.\n\nCalled per request rather than cached by the consumer, because a hosted deployment resolves a different tenant per request and an administrator\'s change should reach the next one.',
+        parameters: [],
+        returns: 'the allowed models and the authority that decided them.',
+      },
+      {
+        signature: 'abstract capability(): ModelPolicyCapability',
+        description: 'Whether this backend accepts a save, and whose administrators may make one.\n\nStated rather than discovered by failing, because an administration surface should show or hide saving instead of offering a button that always errors.',
+        parameters: [],
+        returns: 'the backend\'s save capability.',
+      },
+      {
+        signature: 'save(input: ModelAllowanceInput, by: Membership): Promise<void>',
+        description: 'Replace the allowance, on behalf of one standing.\n\nThe standing is a parameter rather than ambient state so the authority check lives with the write. An authorization check in a surface or an RPC handler is bypassed by the next caller — a maintenance task, a CLI, a setup wizard — while one here cannot be.\n\nA read-only backend refuses every save; the default implementation is that refusal, so a backend opts into writing rather than inheriting it.',
+        parameters: [{ name: 'input', description: 'the replacement allowance.' }, { name: 'by', description: 'the standing requesting the change.' }],
+        throws: ['{Error} when the backend is read-only or the standing may not administer it.'],
       },
     ],
   },
@@ -1779,6 +2387,70 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         description: 'Create an independent byte-bounded Session-log channel. Authorization and redaction precede reporting; the consumer owns shutdown and its outer deadline.',
         parameters: [{ name: 'options', description: 'transport, scope, resource, queue, and diagnostic settings selected by the consumer.' }],
         returns: 'the caller-owned channel, preserving complete accepted events within the request byte ceiling.',
+      },
+    ],
+  },
+  {
+    key: 'people',
+    summary: 'Abstract people directory.',
+    description: 'Abstract people directory. Subclass and implement the three lookups for one source of truth; a deployment mounts exactly one.\n\nA deployment that mounts none has no identities, which is what a single-operator developer install is: it is its own administrator.',
+    methods: [
+      {
+        signature: 'abstract person(id: PersonId): Promise<Person | undefined>',
+        description: 'One person by identity.',
+        parameters: [{ name: 'id', description: 'the person\'s stable identity.' }],
+        returns: 'the person, or undefined when no such identity exists.',
+      },
+      {
+        signature: 'abstract membership(id: MembershipId): Promise<Membership | undefined>',
+        description: 'One standing by identity.',
+        parameters: [{ name: 'id', description: 'the membership\'s stable identity.' }],
+        returns: 'the standing, or undefined when no such standing exists.',
+      },
+      {
+        signature: 'abstract memberships(person: PersonId): Promise<readonly Membership[]>',
+        description: 'Every standing one person holds.\n\nReturned rather than filtered by organization because a surface offering a context switch needs all of them, and an authorization check needs the one the call named — neither is served by a per-organization query.',
+        parameters: [{ name: 'person', description: 'the person whose standings to list.' }],
+        returns: 'their standings, in a stable order.',
+      },
+    ],
+  },
+  {
+    key: 'peopleController',
+    summary: 'Host service backing the generated `ctx.remote.people` namespace.',
+    description: 'Host service backing the generated `ctx.remote.people` namespace.',
+    methods: [
+      {
+        signature: '@Remote async list(): Promise<readonly PersonRowView[]>',
+        description: 'The people the calling standing may change.\n\nPeople only. The roster also answers the deployment\'s bots, because a bot owns the conversations it opens, and this surface is about who signs in: a bot listed here would be a row an administrator could neither change nor admit an identity as.',
+        parameters: [],
+        returns: 'the people it administers, written ones first.',
+        throws: ['{RemoteError} `people/no-standing` when the call establishes none, or `gateway/internal` when this deployment maintains no directory.'],
+      },
+      {
+        signature: '@Remote async save(input: PersonInput): Promise<PersonRowView>',
+        description: 'Add one person, or change one this deployment maintains.',
+        parameters: [{ name: 'input', description: 'what the administrator filled in.' }],
+        returns: 'the person as the deployment now reads them.',
+        throws: ['{RemoteError} `people/not-permitted`, `people/written`, `people/incomplete`, `people/no-standing`, or `gateway/internal`.'],
+      },
+      {
+        signature: '@Remote async remove(id: string): Promise<void>',
+        description: 'Remove one person, and every identity admitted as them.',
+        parameters: [{ name: 'id', description: 'the person to remove.' }],
+        throws: ['{RemoteError} `people/not-permitted`, `people/written`, `people/no-standing`, or `gateway/internal`.'],
+      },
+      {
+        signature: '@Remote async bind(input: BindingInput): Promise<void>',
+        description: 'Admit one directory identity as one person.',
+        parameters: [{ name: 'input', description: 'the identity and who it signs in as.' }],
+        throws: ['{RemoteError} `people/not-permitted`, `people/written`, `people/unknown-person`, `people/already-bound`, `people/not-a-person`, `people/no-standing`, or `gateway/internal`.'],
+      },
+      {
+        signature: '@Remote async unbind(input: IdentityInput): Promise<void>',
+        description: 'Stop admitting one directory identity.',
+        parameters: [{ name: 'input', description: 'the identity to stop admitting.' }],
+        throws: ['{RemoteError} `people/not-permitted`, `people/written`, `people/no-standing`, or `gateway/internal`.'],
       },
     ],
   },
@@ -1866,7 +2538,7 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
       {
         signature: '@Remote setVersionExemption(packageVersion: string, runtimeVersion: string, enabled: boolean, acceptRisk?: boolean): Promise<ChangeResult>',
         description: 'Grant or revoke one exact plugin/runtime exemption and reevaluate live plugins.',
-        parameters: [{ name: 'packageVersion', description: 'Exact manifest package name followed by @ and its version; never an installation spec or alias.' }, { name: 'runtimeVersion', description: 'Exact current DSH version for grants; revocation may name a previous runtime.' }, { name: 'enabled', description: 'Whether to grant rather than revoke the exemption.' }, { name: 'acceptRisk', description: 'Required true for grants after the user accepts possible crashes and data loss.' }],
+        parameters: [{ name: 'packageVersion', description: 'Exact manifest package name followed by @ and its version; never an installation spec or alias.' }, { name: 'runtimeVersion', description: 'Exact current LYN version for grants; revocation may name a previous runtime.' }, { name: 'enabled', description: 'Whether to grant rather than revoke the exemption.' }, { name: 'acceptRisk', description: 'Required true for grants after the user accepts possible crashes and data loss.' }],
         returns: 'Saved and runtime outcomes. Startup-only profiles require restart.',
       },
       {
@@ -1895,13 +2567,13 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
       },
       {
         signature: '@Remote async listVersions(name: string, options?: ListVersionsOptions, signal?: AbortSignal): Promise<PluginVersionList>',
-        description: 'Read the published versions newer than an installed registry package\'s version, from the first registry that answers. Official bundles follow the DSH version and are not listed.',
+        description: 'Read the published versions newer than an installed registry package\'s version, from the first registry that answers. Official bundles follow the LYN version and are not listed.',
         parameters: [{ name: 'name', description: 'Installed profile dependency name.' }, { name: 'options', description: 'The registry asked first; absent, the one the package was installed from in this process, else the configured one.' }, { name: 'signal', description: 'Ends the lookups early.' }],
-        returns: 'At most `versionListLimit` newer versions, newest first, with their tags, deprecation, bundle declaration, and DSH compatibility, and the registry that answered; or why no list could be read, with every registry asked.',
+        returns: 'At most `versionListLimit` newer versions, newest first, with their tags, deprecation, bundle declaration, and LYN compatibility, and the registry that answered; or why no list could be read, with every registry asked.',
       },
       {
         signature: '@Remote async updateBundle(name: string, version: string, options?: UpdateBundleOptions): Promise<PluginUpdateResult>',
-        description: 'Replace an installed registry bundle with a newer published version. The target is checked on the registry first: it must exist, declare a bundle, and accept the running DSH version, or nothing changes. With HMR the installed version is removed, so its plugins stop, and the target is installed with the same selection; when that installation fails or is cancelled, the removed version is installed again from the registry it came from. Without HMR the target is installed over the running version and the result reports the restart.',
+        description: 'Replace an installed registry bundle with a newer published version. The target is checked on the registry first: it must exist, declare a bundle, and accept the running LYN version, or nothing changes. With HMR the installed version is removed, so its plugins stop, and the target is installed with the same selection; when that installation fails or is cancelled, the removed version is installed again from the registry it came from. Without HMR the target is installed over the running version and the result reports the restart.',
         parameters: [{ name: 'name', description: 'Installed profile dependency name.' }, { name: 'version', description: 'Exact published version newer than the installed one.' }, { name: 'options', description: 'The registry asked first, as for `listVersions`, and the request id naming the progress and the target installation\'s logs and cancellation.' }],
         returns: 'The versions, the last step that ran with its result, and the reinstallation when one ran.',
       },
@@ -1919,7 +2591,7 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
       },
       {
         signature: '@Remote installBundle(spec: string, options?: InstallBundleOptions): Promise<ChangeResult>',
-        description: 'Install a package using the same pnpm implementation as dsh plugin. GitHub repositories get a connection check bounded by githubConnectionTimeoutMs before pnpm starts; only network failures or timeouts stop installation, while pnpm owns authentication and transport fallback. An HTTP(S) Git URL on another host is installed over SSH instead when access probes bounded by gitTransportTimeoutMs find that only SSH can read it. A run that fails, is cancelled, or adds a package without a bundle patch restores `package.json` and `pnpm-lock.yaml` as they were; downloaded files can stay.',
+        description: 'Install a package using the same pnpm implementation as lyn plugin. GitHub repositories get a connection check bounded by githubConnectionTimeoutMs before pnpm starts; only network failures or timeouts stop installation, while pnpm owns authentication and transport fallback. An HTTP(S) Git URL on another host is installed over SSH instead when access probes bounded by gitTransportTimeoutMs find that only SSH can read it. A run that fails, is cancelled, or adds a package without a bundle patch restores `package.json` and `pnpm-lock.yaml` as they were; downloaded files can stay.',
         parameters: [{ name: 'spec', description: 'One package spec, including local paths relative to the invocation directory.' }, { name: 'options', description: 'Whether to activate the installed bundle (defaults to true), the request id a cancellation names, the pending build scripts to allow, whether to save an exact dependency, and the registry asked first.' }],
         returns: 'Package-manager diagnostics, the registries asked, and the observed activation outcome.',
       },
@@ -1937,7 +2609,7 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
       },
       {
         signature: '@Remote removeBundle(name: string): Promise<ChangeResult>',
-        description: 'Unload and remove a profile-owned bundle dependency through dsh plugin\'s pnpm path; a selected name no dependency holds is only deselected.',
+        description: 'Unload and remove a profile-owned bundle dependency through lyn plugin\'s pnpm path; a selected name no dependency holds is only deselected.',
         parameters: [{ name: 'name', description: 'Installed dependency or selected bundle name.' }],
         returns: 'Removal diagnostics and the remaining profile state.',
       },
@@ -2069,7 +2741,7 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
       },
       {
         signature: 'readonly telemetryDisabledEnv: string | undefined',
-        description: 'Launch-time DSH_TELEMETRY_DISABLED value; any non-empty value opts out.',
+        description: 'Launch-time LYNESS_TELEMETRY_DISABLED value; any non-empty value opts out.',
         parameters: [],
       },
     ],
@@ -2081,7 +2753,7 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
     methods: [
       {
         signature: 'abstract readonly language: string',
-        description: 'The source language run expects `program` to be written in, as a lowercase identifier. Informational, not gating — a consumer that generates language-specific presentation (typed SDK stubs, usage instructions) switches on it and fails loud on a language it cannot present. Well-known values: `\'typescript\'` and `\'python\'`, those `dsh-tools` presents; the TypeScript backend is released, the Python backend is experimental and private (not published).',
+        description: 'The source language run expects `program` to be written in, as a lowercase identifier. Informational, not gating — a consumer that generates language-specific presentation (typed SDK stubs, usage instructions) switches on it and fails loud on a language it cannot present. Well-known values: `\'typescript\'` and `\'python\'`, those `lyn-tools` presents; the TypeScript backend is released, the Python backend is experimental and private (not published).',
         parameters: [],
       },
       {
@@ -2151,6 +2823,38 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         description: 'Stream the calling Peer\'s access snapshot: one baseline, then `upsert` and `remove` frames after each `invalidate()` and each policy registration or removal that changes a grant. The owner receives only `{ owner: true }`. The generation ends when `signal` aborts or this service unloads, so a reloaded service starts every reader from a fresh baseline.',
         parameters: [{ name: 'signal', description: 'generation cancellation.' }],
         returns: 'the access frames of one generation.',
+      },
+    ],
+  },
+  {
+    key: 'requestPrincipal',
+    summary: 'Resolves and publishes the principal of the call in progress.',
+    description: 'Resolves and publishes the principal of the call in progress.',
+    methods: [
+      {
+        signature: 'current(): Principal | undefined',
+        description: 'Who the call in progress is.',
+        parameters: [],
+        returns: 'the principal, or undefined outside a call and for a call presenting no live session.',
+      },
+      {
+        signature: 'as<T>(principal: Principal | undefined, run: () => T): T',
+        description: 'Run one continuation as a principal this call already resolved.\n\nA stream outlives the request that opened it: its later frames are produced by the transport\'s pump rather than by a call, so `current()` is empty there, and whatever request happens to share that task would otherwise answer for them. A generation captures its principal at the open and re-enters it per frame.\n\nThis resolves nobody and widens nothing: the only sound argument is a principal current returned, and an absent one is entered as absent so a re-entry can never inherit another call\'s identity.',
+        parameters: [{ name: 'principal', description: 'the principal captured while the call was in progress.' }, { name: 'run', description: 'the work to run as that principal.' }],
+        returns: 'whatever the work returned.',
+      },
+    ],
+  },
+  {
+    key: 'requestTenant',
+    summary: 'What a consumer may do with the tenant of the call in progress.',
+    description: 'What a consumer may do with the tenant of the call in progress.',
+    methods: [
+      {
+        signature: 'current(): RequestTenant | undefined',
+        description: 'The tenant of the call in progress.',
+        parameters: [],
+        returns: 'the resolved tenant, or undefined outside a call and for a call that named none.',
       },
     ],
   },
@@ -2469,6 +3173,12 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         returns: 'the viewed block, or `undefined` when no usable row exists for this lifecycle at the current Session format.',
       },
       {
+        signature: 'cachedCheckpoint(meta: SessionHeader): ProjectionCheckpoint | undefined',
+        description: 'The stored rows for a listed Session, without any log read.\n\nThe Host-only rung of cachedSnapshot: the stored record holds every registered unit\'s state, including units with no client view, so a Host rule that must decide something about a listed Session — whose conversation it is, for one — reads its own unit out of these rows with `sessionProjections.checkpointState` instead of publishing that state to the client to read it back. The same lifecycle identity governs it, so a record bound to another generation of this id answers nothing.',
+        parameters: [{ name: 'meta', description: 'the listed session\'s header (identity witness; no log read).' }],
+        returns: 'the stored rows, or `undefined` when no record is bound to this lifecycle.',
+      },
+      {
         signature: 'cachedPredecessorTitle(meta: SessionHeader): ProjectionSnapshot | undefined',
         description: 'Read only a predecessor checkpoint\'s title as a zero-I/O listing hint.\n\nThe authoritative Session header supplies the lifecycle identity. A cache checkpoint can lag that log but cannot lead it because writes flush the log first, so a matching predecessor title is a genuine (possibly stale) fact from this Session. The registry still requires the current title projection\'s row version and schema. No other predecessor projection is exposed: format normalization can change their current meaning, and the cachedSnapshot / hydration paths continue to reject them.',
         parameters: [{ name: 'meta', description: 'authoritative listed Session header.' }],
@@ -2546,6 +3256,12 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         description: 'The stored seq a restore tail read over `checkpoint` must start at: one event BELOW the lowest usable watermark (a row is usable when its `ver` matches the live unit\'s `stateVersion`; an absent or mismatched row pulls the floor to `0` — that key must refold the full log). The one-below anchor is load-bearing: the tail then proves how far the stored log still extends, so restore can detect a log that shrank below a row\'s watermark (crash-repair truncation) instead of serving the stale row as current — an empty tail read from the anchor yields an end below every watermark and the restore rejects for a full re-read.',
         parameters: [{ name: 'checkpoint', description: 'persisted rows for one session (possibly stale or empty).' }],
         returns: 'the offset for the stored-log suffix read (`SessionHandle.read`), or `undefined` when no unit is registered (no read needed — {@link restore} would serve empty values regardless).',
+      },
+      {
+        signature: 'checkpointState<K extends Extract<keyof SessionProjectionStateMap, string>>( checkpoint: ProjectionCheckpoint, key: K, ): SessionProjectionStateMap[K] | undefined',
+        description: 'Read one unit\'s stored state out of a checkpoint, without any log read.\n\nThe host-only rung beside viewCheckpoint: a checkpoint holds every registered unit\'s state, including units with no client view, and a Host rule that must decide something about a listed session reads its own unit\'s state here rather than putting that state on the wire to get it back. A row whose `ver` does not match the live unit, or whose value its schema rejects, reads as absent — the same answer a listing consumer already handles for a key it cannot serve.',
+        parameters: [{ name: 'checkpoint', description: 'persisted rows for one session (possibly stale or empty).' }, { name: 'key', description: 'the registered unit to read.' }],
+        returns: 'the stored state, or undefined when no usable row exists.',
       },
       {
         signature: 'viewCheckpoint( checkpoint: ProjectionCheckpoint, keys?: ProjectionKeySelection, ): Partial<SessionProjectionMap>',
@@ -2707,7 +3423,7 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
       },
       {
         signature: 'create(id?: SessionId, options?: CreateSessionOptions): Session',
-        description: 'Create a session owned by the calling fiber: disposing that fiber stops event notification and removes the session from the store. `options.seed` populates the session with a copy of those events (replay/fork); `options.meta` attaches creation metadata (validated absolute `cwd`, seed and parent lineage, and delegation depth) as the immutable SessionHeader (the store fills `version`/`id`/`createdAt`).\n\nFor an agent whose session must be torn down IN ORDER with its loop (so the loop\'s final events are published before the store attachment ends), do NOT use this — fold the session lifecycle into the agent\'s own effect via prepare + enter + announce (see `dsh-agent-loop`\'s creation transaction).',
+        description: 'Create a session owned by the calling fiber: disposing that fiber stops event notification and removes the session from the store. `options.seed` populates the session with a copy of those events (replay/fork); `options.meta` attaches creation metadata (validated absolute `cwd`, seed and parent lineage, and delegation depth) as the immutable SessionHeader (the store fills `version`/`id`/`createdAt`).\n\nFor an agent whose session must be torn down IN ORDER with its loop (so the loop\'s final events are published before the store attachment ends), do NOT use this — fold the session lifecycle into the agent\'s own effect via prepare + enter + announce (see `lyn-agent-loop`\'s creation transaction).',
         parameters: [{ name: 'id', description: 'the session id; omitted, the store mints `session-<n>`.' }, { name: 'options', description: 'seed events and/or creation metadata for the header.' }],
         returns: 'the live session, already entered and announced.',
         throws: ['if a session with `id` already exists, metadata is not a plain lossless-JSON record with valid scalar fields, or `meta.cwd` is a non-absolute path (storage backends key directories off it).'],
@@ -2834,6 +3550,43 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
     ],
   },
   {
+    key: 'sessionVisibility',
+    summary: 'Decide whether one call may see one conversation.',
+    description: 'Decide whether one call may see one conversation.',
+    methods: [
+      {
+        signature: 'mayRead(session: Session): Promise<boolean>',
+        description: 'Whether the call in progress may see one live conversation.\n\nAuthoritative: the owner comes from the session\'s own log rather than from a cache, so this is the answer an operation on one named session acts on.',
+        parameters: [{ name: 'session', description: 'the session the call named.' }],
+        returns: 'true when the call may see it.',
+      },
+      {
+        signature: 'mayReadObservation(observation: ObservedCut): Promise<boolean>',
+        description: 'Whether the call in progress may see the conversation one observed cut belongs to.\n\nAuthoritative, for a read that never resumes an Agent: a live session answers from its own projection, and a cold one from the events the observation already holds, so the hot path never materializes a log to find out who opened it.',
+        parameters: [{ name: 'observation', description: 'the cut a page, a follow, or a projection read holds.' }],
+        returns: 'true when the call may see it.',
+      },
+      {
+        signature: 'mayList(header: SessionHeader): Promise<boolean>',
+        description: 'Whether the call in progress may see one listed conversation.\n\nCheap: the owner comes from the durable projection cache, because a listing reads no logs. A row whose owner is not cached reads as unattributed, which keeps a listing from leaking one and leaves the authoritative answer to mayRead when somebody opens it.',
+        parameters: [{ name: 'header', description: 'the listed session\'s header.' }],
+        returns: 'true when the call may see it.',
+      },
+      {
+        signature: 'async mayReadFrom(reader: Session, target: SessionHeader): Promise<boolean>',
+        description: 'Whether the conversation one Agent runs in may read another.\n\nA tool call carries no request principal — an Agent is not a browser — so what bounds it is the conversation it is running in: it reaches what the person who opened that conversation could reach, and nothing else. An Agent in a conversation nobody opened is the deployment\'s own and is bounded by nothing here; an unattributed target is not the deployment answering for itself, so no Agent reads one it does not descend from.',
+        parameters: [{ name: 'reader', description: 'the session the Agent is running in.' }, { name: 'target', description: 'the session it wants to read.' }],
+        returns: 'true when that conversation may read this one.',
+      },
+      {
+        signature: 'async listable<Row>(items: readonly Row[], headerOf: (row: Row) => SessionHeader): Promise<Row[]>',
+        description: 'Keep only the conversations the call in progress may see.\n\nEvery corpus-wide read filters through here, so a row one face hides is hidden by all of them. A live session answers authoritatively from its own projection and a cold one from the durable cache, which is the only owner a listing can read without opening a log: a session opened moments ago has no cached owner yet, and answering it from the cache would hide it from the very person who opened it.',
+        parameters: [{ name: 'items', description: 'the rows to filter.' }, { name: 'headerOf', description: 'the header each row is about.' }],
+        returns: 'the rows this call may see, in their original order.',
+      },
+    ],
+  },
+  {
     key: 'settings',
     summary: 'Project Config schemas into forms and own optional instance-level UI policy.',
     description: 'Project Config schemas into forms and own optional instance-level UI policy.',
@@ -2880,7 +3633,7 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
     description: 'Host service backing the generated `ctx.remote.settings` namespace. Every remote read uses `redactSecrets: true`, so a `role(\'secret\')` field cannot ride a response. Writes expose the settings service\'s merge, replacement, and path-addressed operations, and classify every provider refusal as `settings/conflict` or `settings/rejected` with the service\'s message.',
     methods: [
       {
-        signature: '@Remote describe(): SettingsDescribeValue',
+        signature: '@Remote({ requires: \'member\' }) describe(): SettingsDescribeValue',
         description: 'Describe every registered namespace for a configuration page: redacted layered values plus the serialized schema the page renders its form from.',
         parameters: [],
         returns: 'provider writability, local-document presence, and one view per namespace.',
@@ -2938,8 +3691,8 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
   },
   {
     key: 'shellEnv',
-    summary: 'Registry (`ctx.shellEnv`) for trusted, per-execution `DSH_*` variables.',
-    description: 'Registry (`ctx.shellEnv`) for trusted, per-execution `DSH_*` variables. The namespace is rebuilt for every model shell call: ambient `DSH_*` values are discarded by the executor, then the registry\'s current snapshot is injected. Built-in shell facts remain owned by the registry itself while plugins can register additional, enumerable facts with effect-scoped disposal.',
+    summary: 'Registry (`ctx.shellEnv`) for trusted, per-execution `LYNESS_*` variables.',
+    description: 'Registry (`ctx.shellEnv`) for trusted, per-execution `LYNESS_*` variables. The namespace is rebuilt for every model shell call: ambient `LYNESS_*` values are discarded by the executor, then the registry\'s current snapshot is injected. Built-in shell facts remain owned by the registry itself while plugins can register additional, enumerable facts with effect-scoped disposal.',
     methods: [
       {
         signature: 'register(contributor: BashEnvContributor): () => void',
@@ -2948,8 +3701,8 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         returns: 'the disposer that unregisters the contribution.',
       },
       {
-        signature: 'collect(execution: ToolExecution): DshEnvironment',
-        description: 'Build the trusted `DSH_*` snapshot for one shell tool execution.',
+        signature: 'collect(execution: ToolExecution): LynEnvironment',
+        description: 'Build the trusted `LYNESS_*` snapshot for one shell tool execution.',
         parameters: [{ name: 'execution', description: 'the current tool execution.' }],
         returns: 'an immutable environment overlay containing built-ins and current contributions.',
       },
@@ -2958,6 +3711,138 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         description: 'Enumerate plugin-contributed variables without executing their resolvers.',
         parameters: [],
         returns: 'declarations sorted by environment variable name.',
+      },
+    ],
+  },
+  {
+    key: 'signIn',
+    summary: 'The channels a deployment offers, and the sign-in they perform.',
+    description: 'The channels a deployment offers, and the sign-in they perform.\n\nSessions and the admission rule are injected rather than read optionally: without either, a sign-in has nowhere to put its result or no rule for who may have one, and in both cases the right behaviour is to offer no sign-in at all rather than one that admits everybody.',
+    methods: [
+      {
+        signature: 'register(channel: SignInChannel): () => Promise<void>',
+        description: 'Offer one channel as a sign-in option.\n\nTwo channels of one id is a composition mistake rather than a runtime condition — a sign-in page would show two identical buttons leading to different directories — so it fails at registration.',
+        parameters: [{ name: 'channel', description: 'the channel to offer.' }],
+        returns: 'the disposer; the registering plugin owns it.',
+        throws: ['{Error} when a channel of that id is already registered.'],
+      },
+      {
+        signature: 'available(scope: ChannelScope = {}): readonly ChannelDescription[]',
+        description: 'The channels a surface may offer one caller, in registration order.',
+        parameters: [{ name: 'scope', description: 'the organization this request is for; absent asks for the deployment\'s own.' }],
+        returns: 'each channel that caller may be offered.',
+      },
+      {
+        signature: 'async begin(channel: ChannelId, returnTo: string): Promise<SignInOutcome>',
+        description: 'Begin a sign-in through one channel.\n\nA self-driven channel has a session by the time this returns; a redirect channel has only said where to send the browser, and resume finishes it. Both shapes reach the same admission and the same session, because the decision about who may use this deployment must not depend on which kind of client someone signed in from.',
+        parameters: [{ name: 'channel', description: 'the channel the person chose.' }, { name: 'returnTo', description: 'the deployment\'s own callback address; a self-driven channel ignores it.' }],
+        returns: 'their new session, or where to send the browser.',
+        throws: ['{SignInRefused} when the channel is unknown, the directory did not complete, or this deployment admits them as nobody.'],
+      },
+      {
+        signature: 'async resume(channel: ChannelId, parameters: URLSearchParams): Promise<AuthSessionId>',
+        description: 'Finish the sign-in a redirect channel\'s directory is returning from.',
+        parameters: [{ name: 'channel', description: 'the channel that started it.' }, { name: 'parameters', description: 'the query the directory came back with.' }],
+        returns: 'the bearer identity of their new session.',
+        throws: ['{SignInRefused} when the channel is unknown or self-driven, the return completes no sign-in, or this deployment admits them as nobody.'],
+      },
+    ],
+  },
+  {
+    key: 'signInAdmission',
+    summary: 'Abstract admission rule.',
+    description: 'Abstract admission rule. Subclass and implement the one decision; a deployment mounts exactly one.',
+    methods: [
+      {
+        signature: 'abstract admit(subject: ExternalSubject): Promise<PersonId | undefined>',
+        description: 'The person an authenticated subject is, if this deployment admits them.\n\nUndefined refuses the sign-in. It is deliberately the same answer for "this directory is not one we accept" and "this person is not on the roster": a sign-in page that distinguished them would report, to whoever asked, which addresses exist here.',
+        parameters: [{ name: 'subject', description: 'the subject a channel verified.' }],
+        returns: 'the person they are here, or undefined when this deployment admits them as nobody.',
+      },
+    ],
+  },
+  {
+    key: 'signInChannelController',
+    summary: 'Host service backing the generated `ctx.remote.signInChannels` namespace.',
+    description: 'Host service backing the generated `ctx.remote.signInChannels` namespace.',
+    methods: [
+      {
+        signature: '@Remote kinds(): readonly ChannelKindView[]',
+        description: 'The kinds of directory this deployment can configure a channel of.',
+        parameters: [],
+        returns: 'each mounted kind and the settings it needs.',
+      },
+      {
+        signature: '@Remote async list(): Promise<readonly ConfiguredChannelView[]>',
+        description: 'The configured channels the calling standing may change.',
+        parameters: [],
+        returns: 'the channels it administers, oldest first.',
+        throws: ['{RemoteError} `sign-in-channels/no-standing` when the call establishes none, or `gateway/internal` when this deployment stores no configured channels.'],
+      },
+      {
+        signature: '@Remote async save(input: ChannelInput): Promise<ConfiguredChannelView>',
+        description: 'Create one channel, or replace one that exists.',
+        parameters: [{ name: 'input', description: 'what the administrator filled in.' }],
+        returns: 'the channel as the deployment now reads it.',
+        throws: ['{RemoteError} `sign-in-channels/not-permitted`, `sign-in-channels/unknown-kind`, `sign-in-channels/incomplete`, `sign-in-channels/no-standing`, or `gateway/internal`.'],
+      },
+      {
+        signature: '@Remote async remove(id: string): Promise<void>',
+        description: 'Remove one channel, its secret with it.',
+        parameters: [{ name: 'id', description: 'the channel to remove.' }],
+        throws: ['{RemoteError} `sign-in-channels/not-permitted`, `sign-in-channels/no-standing`, or `gateway/internal`.'],
+      },
+    ],
+  },
+  {
+    key: 'signInChannels',
+    summary: 'Configured sign-in channels, mounted from what a deployment stored.',
+    description: 'Configured sign-in channels, mounted from what a deployment stored.',
+    methods: [
+      {
+        signature: 'async list(by: Membership): Promise<readonly ChannelView[]>',
+        description: 'The channels one standing may configure.\n\nA platform administrator sees every channel, including each tenant\'s; a tenant administrator sees only their own organization\'s. Nobody sees a secret, because nobody stores one here to see.',
+        parameters: [{ name: 'by', description: 'the standing asking.' }],
+        returns: 'the channels it may configure, oldest first.',
+      },
+      {
+        signature: 'async save(submission: ChannelSubmission, by: Membership): Promise<ChannelView>',
+        description: 'Create one channel, or replace one that exists.',
+        parameters: [{ name: 'submission', description: 'what the administrator filled in.' }, { name: 'by', description: 'the standing making the change.' }],
+        returns: 'the channel as it now reads.',
+        throws: ['{ChannelRefusedError} when the standing may not configure it, the kind is unknown, or a setting is missing.'],
+      },
+      {
+        signature: 'async remove(id: string, by: Membership): Promise<void>',
+        description: 'Remove one channel, its secret with it.',
+        parameters: [{ name: 'id', description: 'the channel to remove.' }, { name: 'by', description: 'the standing making the change.' }],
+        throws: ['{ChannelRefusedError} when the standing may not configure it.'],
+      },
+    ],
+  },
+  {
+    key: 'signInKinds',
+    summary: 'The kinds a deployment can be configured with.',
+    description: 'The kinds a deployment can be configured with.',
+    methods: [
+      {
+        signature: 'register(kind: ChannelKind): () => Promise<void>',
+        description: 'Offer one kind.\n\nTwo packages offering one kind id is a composition mistake rather than a runtime condition — a configured instance would reach whichever won, and an administrator reading their own configuration could not tell which — so it fails here.',
+        parameters: [{ name: 'kind', description: 'the kind to offer.' }],
+        returns: 'the disposer; the registering plugin owns it.',
+        throws: ['{Error} when that kind is already offered.'],
+      },
+      {
+        signature: 'get(id: string): ChannelKind | undefined',
+        description: 'The kind of that id, when one is offered.',
+        parameters: [{ name: 'id', description: 'the kind a configured instance names.' }],
+        returns: 'the kind, or undefined when nothing offers it.',
+      },
+      {
+        signature: 'available(): readonly ChannelKindDescription[]',
+        description: 'The kinds a configuration surface may offer, in registration order.',
+        parameters: [],
+        returns: 'each kind\'s id, name, and the settings it needs.',
       },
     ],
   },
@@ -3391,6 +4276,71 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         description: 'Assemble global and scoped providers, detach tool parameters, apply canonical ordering, then run the presentation waterfall. Scoped sections and variables shadow globals. The waterfall\'s text is authoritative except that an effective complete section is restored afterwards as the sole prompt section; tool declarations stay provider-owned.',
         parameters: [{ name: 'context', description: 'the optional scope, step tool set, and plugin-defined assembly fields.' }],
         returns: 'the post-waterfall assembly with ordered tool declarations and any complete prompt enforced.',
+      },
+    ],
+  },
+  {
+    key: 'tenantConfig',
+    summary: 'Abstract tenant-configuration store.',
+    description: 'Abstract tenant-configuration store. Subclass, implement the read and the capability, and load the subclass as a plugin — it registers as `ctx.tenantConfig` (one store per context; loading a second throws, cordis\' standard duplicate-service behavior).\n\nA tenant with no configuration reads as `undefined` rather than as an empty configuration: nothing configured and everything configured empty are the same answer to a consumer, and both mean the tenant may use nothing.',
+    methods: [
+      {
+        signature: 'abstract get(tenantId: TenantId): Promise<TenantConfig | undefined>',
+        description: 'Read one tenant\'s configuration.',
+        parameters: [{ name: 'tenantId', description: 'the tenant.' }],
+        returns: 'the configuration, or undefined when the tenant has none.',
+      },
+      {
+        signature: 'abstract capability(): TenantConfigCapability',
+        description: 'Whether this backend can be saved to.',
+        parameters: [],
+        returns: 'the discriminated capability consumers switch on.',
+      },
+    ],
+  },
+  {
+    key: 'tenantController',
+    summary: 'Host service backing the generated `ctx.remote.tenant` namespace.',
+    description: 'Host service backing the generated `ctx.remote.tenant` namespace.\n\nEvery method answers about the calling tenant and refuses a call that named none, because there is no tenant whose configuration it could be shown.',
+    methods: [
+      {
+        signature: '@Remote describe(): TenantConfigView',
+        description: 'Read the calling tenant\'s own configuration.',
+        parameters: [],
+        returns: 'who the caller is, whether this deployment accepts saves, and the configuration.',
+        throws: ['{RemoteError} `tenant/unresolved` when the call named no tenant.'],
+      },
+      {
+        signature: '@Remote async save(input: TenantConfigInput): Promise<TenantConfigView>',
+        description: 'Replace the calling tenant\'s whole configuration.',
+        parameters: [{ name: 'input', description: 'the complete configuration to store; it names no tenant, because the call already does.' }],
+        returns: 'the configuration as the store now reads it.',
+        throws: ['{RemoteError} `tenant/unresolved`, `gateway/bad-request` for invalid fields, `gateway/internal` when no store is mounted, `tenant/read-only` when the store refuses saves, or `tenant/rejected` when a seam rule refuses the configuration.'],
+      },
+    ],
+  },
+  {
+    key: 'tenants',
+    summary: 'Abstract tenant directory.',
+    description: 'Abstract tenant directory. Subclass, implement the three lookups, and load the subclass as a plugin — it registers as `ctx.tenants` (one directory per context; loading a second throws, cordis\' standard duplicate-service behavior).\n\nEvery lookup answers `undefined` for an unknown subject rather than throwing: not finding a tenant is an ordinary outcome of resolving an arbitrary request, and the Consumer decides what refusing looks like on its transport. Lookups are asynchronous because a directory may be a database.',
+    methods: [
+      {
+        signature: 'abstract get(id: TenantId): Promise<Tenant | undefined>',
+        description: 'Look one tenant up by its immutable id.',
+        parameters: [{ name: 'id', description: 'the tenant id.' }],
+        returns: 'the tenant, or undefined when this deployment serves no such tenant.',
+      },
+      {
+        signature: 'abstract byHost(hostname: string): Promise<Tenant | undefined>',
+        description: 'Look one tenant up by a hostname it is served on.',
+        parameters: [{ name: 'hostname', description: 'lowercase hostname without port.' }],
+        returns: 'the tenant, or undefined when no tenant claims that hostname.',
+      },
+      {
+        signature: 'abstract bySlug(slug: string): Promise<Tenant | undefined>',
+        description: 'Look one tenant up by its slug.',
+        parameters: [{ name: 'slug', description: 'the operator-facing handle, also the subdomain label.' }],
+        returns: 'the tenant, or undefined when no tenant carries that slug.',
       },
     ],
   },
@@ -3871,7 +4821,7 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
     methods: [
       {
         signature: 'getAdvertisedUrl(): string',
-        description: 'The URL this GUI advertises, also used for `DSH_WEB_URL` and the startup URL line.',
+        description: 'The URL this GUI advertises, also used for `LYNESS_WEB_URL` and the startup URL line.',
         parameters: [],
         returns: 'the configured `publicUrl`, otherwise the listener origin.',
       },
@@ -4246,7 +5196,7 @@ export const EVENT_API: readonly EventApiEntry[] = [
     signature: '\'agent/assistant-stream\'(this: Scoped<Agent>, payload: { agent: Agent; frame: AssistantStreamFrame }): void',
     summary: 'Process-local assistant-stream publication.',
     description: 'Process-local assistant-stream publication. Chunk frames are transient; the loop appends one final v2 `assistant/message` or `assistant/attempt` with the same stream before a committed end frame.',
-    parameters: [{ name: 'payload', description: '.frame - one ordered start, chunk, or end publication. Scope-filtered dispatch (`@deepseek-ai/dsh-scope`): agent-scoped listeners receive only that agent.' }],
+    parameters: [{ name: 'payload', description: '.frame - one ordered start, chunk, or end publication. Scope-filtered dispatch (`@lyness/lyn-scope`): agent-scoped listeners receive only that agent.' }],
   },
   {
     name: 'agent/created',
@@ -4254,7 +5204,7 @@ export const EVENT_API: readonly EventApiEntry[] = [
     signature: '\'agent/created\'(this: Scoped<Agent>, payload: { agent: Agent; source: SessionStartSource; signal?: AbortSignal }): undefined | Promise<undefined>',
     summary: 'An entered agent is ready for per-agent initialization after factory setup.',
     description: 'An entered agent is ready for per-agent initialization after factory setup. Listeners run in order and are awaited before creation resolves. AgentLoop holds queued input until all listeners finish. A throw or rejection fails creation and skips later listeners. Disposal retains the scope and session until dispatch settles; listeners must not await agent.whenIdle() or their own owner\'s disposal.',
-    parameters: [{ name: 'payload', description: '.signal - factory initialization cancellation signal, when provided. Scope-filtered dispatch (`@deepseek-ai/dsh-scope`): agent-scoped listeners receive only that agent.' }],
+    parameters: [{ name: 'payload', description: '.signal - factory initialization cancellation signal, when provided. Scope-filtered dispatch (`@lyness/lyn-scope`): agent-scoped listeners receive only that agent.' }],
   },
   {
     name: 'agent/disposed',
@@ -4262,7 +5212,7 @@ export const EVENT_API: readonly EventApiEntry[] = [
     signature: '\'agent/disposed\'(this: Scoped<Agent>, payload: { agent: Agent }): void',
     summary: 'An agent left the registry; AgentLoop emits this after driver quiescence and scoped-registration unwind, but before session detachment.',
     description: 'An agent left the registry; AgentLoop emits this after driver quiescence and scoped-registration unwind, but before session detachment. Custom registry users own their driver-ordering contract.',
-    parameters: [{ name: 'payload', description: '.agent - the exact agent removed from the registry. Scope-filtered dispatch (`@deepseek-ai/dsh-scope`): agent-scoped listeners receive only that agent.' }],
+    parameters: [{ name: 'payload', description: '.agent - the exact agent removed from the registry. Scope-filtered dispatch (`@lyness/lyn-scope`): agent-scoped listeners receive only that agent.' }],
   },
   {
     name: 'agent/error',
@@ -4270,7 +5220,7 @@ export const EVENT_API: readonly EventApiEntry[] = [
     signature: '\'agent/error\'(this: Scoped<Agent>, payload: { agent: Agent; turn: number; step: number; error: unknown }): void',
     summary: 'A step or turn errored.',
     description: 'A step or turn errored. The machine reports a failure here even when the error has no in-turn position for a durable record.',
-    parameters: [{ name: 'payload', description: '.error - the failure, verbatim. Scope-filtered dispatch (`@deepseek-ai/dsh-scope`): agent-scoped listeners receive only that agent.' }],
+    parameters: [{ name: 'payload', description: '.error - the failure, verbatim. Scope-filtered dispatch (`@lyness/lyn-scope`): agent-scoped listeners receive only that agent.' }],
   },
   {
     name: 'agent/inbox/claimed',
@@ -4278,7 +5228,7 @@ export const EVENT_API: readonly EventApiEntry[] = [
     signature: '\'agent/inbox/claimed\'(this: Scoped<Agent>, payload: { agent: Agent; message: UserMessage; turn: number }): void',
     summary: 'One message left the inbox inside its open turn.',
     description: 'One message left the inbox inside its open turn. If the proposed step is rejected, the claimed message ends here: it is neither discarded nor re-emitted as a user/message, and the turn closes without a step.',
-    parameters: [{ name: 'payload', description: '.turn - the owning turn. Scope-filtered dispatch (`@deepseek-ai/dsh-scope`): agent-scoped listeners receive only that agent.' }],
+    parameters: [{ name: 'payload', description: '.turn - the owning turn. Scope-filtered dispatch (`@lyness/lyn-scope`): agent-scoped listeners receive only that agent.' }],
   },
   {
     name: 'agent/inbox/discarded',
@@ -4286,7 +5236,7 @@ export const EVENT_API: readonly EventApiEntry[] = [
     signature: '\'agent/inbox/discarded\'(this: Scoped<Agent>, payload: { agent: Agent; message: UserMessage }): void',
     summary: 'One message was discarded from the live inbox.',
     description: 'One message was discarded from the live inbox.',
-    parameters: [{ name: 'payload', description: '.message - the discarded message. Scope-filtered dispatch (`@deepseek-ai/dsh-scope`): agent-scoped listeners receive only that agent.' }],
+    parameters: [{ name: 'payload', description: '.message - the discarded message. Scope-filtered dispatch (`@lyness/lyn-scope`): agent-scoped listeners receive only that agent.' }],
   },
   {
     name: 'agent/inbox/inserted',
@@ -4294,7 +5244,7 @@ export const EVENT_API: readonly EventApiEntry[] = [
     signature: '\'agent/inbox/inserted\'(this: Scoped<Agent>, payload: { agent: Agent; message: UserMessage }): void',
     summary: 'One message entered the live inbox.',
     description: 'One message entered the live inbox.',
-    parameters: [{ name: 'payload', description: '.message - the inserted message. Scope-filtered dispatch (`@deepseek-ai/dsh-scope`): agent-scoped listeners receive only that agent.' }],
+    parameters: [{ name: 'payload', description: '.message - the inserted message. Scope-filtered dispatch (`@lyness/lyn-scope`): agent-scoped listeners receive only that agent.' }],
   },
   {
     name: 'agent/pre-step',
@@ -4302,7 +5252,7 @@ export const EVENT_API: readonly EventApiEntry[] = [
     signature: '\'agent/pre-step\'(this: Scoped<Agent>, payload: { agent: Agent; messages: UserMessage[]; turn: number; step: number; signal: AbortSignal; modelSelection: Readonly<ModelSelection> }, next: () => Promise<PreStepDecision>): Promise<PreStepDecision>',
     summary: 'Reject a proposed step or replace the messages that enter it.',
     description: 'Reject a proposed step or replace the messages that enter it. Calling `next()` preserves the current messages.',
-    parameters: [{ name: 'payload', description: '.modelSelection - captured step selection, retained across retries; omitted effort uses adapter defaults. Scope-filtered dispatch (`@deepseek-ai/dsh-scope`): agent-scoped listeners receive only that agent.' }],
+    parameters: [{ name: 'payload', description: '.modelSelection - captured step selection, retained across retries; omitted effort uses adapter defaults. Scope-filtered dispatch (`@lyness/lyn-scope`): agent-scoped listeners receive only that agent.' }],
   },
   {
     name: 'agent/request-error',
@@ -4310,7 +5260,7 @@ export const EVENT_API: readonly EventApiEntry[] = [
     signature: '\'agent/request-error\'(this: Scoped<Agent>, payload: { agent: Agent; turn: number; step: number; provider: string; failure: LlmFailure; retryPolicy: ResolvedRetryPolicy | undefined; signal: AbortSignal }, next: () => Promise<RequestErrorAction>): Promise<RequestErrorAction>',
     summary: 'Handle one failed model-request attempt before the loop retries or closes its step.',
     description: 'Handle one failed model-request attempt before the loop retries or closes its step. A listener returns `{ kind: \'retry\' }` without calling `next()` when it owns recovery, or calls `next()` to delegate. The default `undefined` leaves the failure terminal.',
-    parameters: [{ name: 'payload', description: '.signal - the turn abort signal. Scope-filtered dispatch (`@deepseek-ai/dsh-scope`): agent-scoped listeners receive only that agent.' }],
+    parameters: [{ name: 'payload', description: '.signal - the turn abort signal. Scope-filtered dispatch (`@lyness/lyn-scope`): agent-scoped listeners receive only that agent.' }],
   },
   {
     name: 'agent/status',
@@ -4318,7 +5268,7 @@ export const EVENT_API: readonly EventApiEntry[] = [
     signature: '\'agent/status\'(this: Scoped<Agent>, payload: { agent: Agent; status: AgentStatus }): void',
     summary: 'Agent status changed (`idle` ⇄ `running`).',
     description: 'Agent status changed (`idle` ⇄ `running`). A waking delivery enters `running` synchronously after reserving cancellation; `idle` means no driver remains scheduled or active.',
-    parameters: [{ name: 'payload', description: '.status - the status just entered (the transition\'s destination). Scope-filtered dispatch (`@deepseek-ai/dsh-scope`): agent-scoped listeners receive only that agent.' }],
+    parameters: [{ name: 'payload', description: '.status - the status just entered (the transition\'s destination). Scope-filtered dispatch (`@lyness/lyn-scope`): agent-scoped listeners receive only that agent.' }],
   },
   {
     name: 'agent/turn-stopping',
@@ -4326,7 +5276,7 @@ export const EVENT_API: readonly EventApiEntry[] = [
     signature: '\'agent/turn-stopping\'(this: Scoped<Agent>, payload: { agent: Agent; turn: number; signal: AbortSignal }): Promise<void> | void',
     summary: 'The turn is about to close: the model owes no response (no live tool calls, no fresh steering).',
     description: 'The turn is about to close: the model owes no response (no live tool calls, no fresh steering). Awaited before the boundary commits — a listener that objects steers (`agent.steer(...)`) and the machine re-reads its inbox: fresh steering runs another step, none closes the turn. Data decides, so listener order cannot change the outcome. The inverse control (stop a tool loop early) is data too: a tool result carrying `concludesTurn` ends the turn at its step. The conclusion never short-circuits already-submitted next-step work: same-step `additionalContexts` or racing steering still runs, and the turn closes only when that inbox drains.',
-    parameters: [{ name: 'payload', description: '.signal - the current turn\'s explicit abort signal. Scope-filtered dispatch (`@deepseek-ai/dsh-scope`): agent-scoped listeners receive only that agent.' }],
+    parameters: [{ name: 'payload', description: '.signal - the current turn\'s explicit abort signal. Scope-filtered dispatch (`@lyness/lyn-scope`): agent-scoped listeners receive only that agent.' }],
   },
   {
     name: 'api-session/activity',
@@ -4381,7 +5331,7 @@ export const EVENT_API: readonly EventApiEntry[] = [
     mode: 'waterfall',
     signature: '\'approval/request\'( this: Scoped<Agent>, req: ApprovalRequestEvent, next: () => Promise<ApprovalOutcome>, ): Promise<ApprovalOutcome>',
     summary: 'Ask composed answerers for one decision.',
-    description: 'Ask composed answerers for one decision. Return an outcome to claim the request or call `next()` to delegate. Scope-filtered dispatch (`@deepseek-ai/dsh-scope`): agent-scoped listeners receive only that agent.',
+    description: 'Ask composed answerers for one decision. Return an outcome to claim the request or call `next()` to delegate. Scope-filtered dispatch (`@lyness/lyn-scope`): agent-scoped listeners receive only that agent.',
     parameters: [{ name: 'req', description: 'pending approval request.' }],
   },
   {
@@ -4555,9 +5505,9 @@ export const EVENT_API: readonly EventApiEntry[] = [
   {
     name: 'goal/changed',
     mode: 'emit',
-    signature: '\'goal/changed\'(this: import(\'@deepseek-ai/dsh-scope\').Scoped<Agent>, payload: { agent: Agent; change: GoalChanged }): void',
+    signature: '\'goal/changed\'(this: import(\'@lyness/lyn-scope\').Scoped<Agent>, payload: { agent: Agent; change: GoalChanged }): void',
     summary: 'Goal mutation accepted by one live agent.',
-    description: 'Goal mutation accepted by one live agent. The matching `goal/change` session event has already committed. Listener failures are contained. Scope-filtered dispatch (`@deepseek-ai/dsh-scope`): agent-scoped listeners receive only that agent.',
+    description: 'Goal mutation accepted by one live agent. The matching `goal/change` session event has already committed. Listener failures are contained. Scope-filtered dispatch (`@lyness/lyn-scope`): agent-scoped listeners receive only that agent.',
     parameters: [{ name: 'payload', description: '.change - fresh current projection or clear tombstone.' }],
   },
   {
@@ -4669,7 +5619,7 @@ export const EVENT_API: readonly EventApiEntry[] = [
     mode: 'emit',
     signature: '\'session/created\'(this: Scoped<Session>, session: Session): void',
     summary: 'Read-only creation announcement after store entry.',
-    description: 'Read-only creation announcement after store entry. New events reject until every synchronous listener has returned successfully. A synchronous throw vetoes creation and rolls back with a paired disposal; detach requested during dispatch is deferred. A returned-promise rejection is logged but cannot retroactively veto this synchronous boundary. Scope-filtered dispatch (`@deepseek-ai/dsh-scope`): agent-scoped listeners receive only sessions entered through that agent\'s context.',
+    description: 'Read-only creation announcement after store entry. New events reject until every synchronous listener has returned successfully. A synchronous throw vetoes creation and rolls back with a paired disposal; detach requested during dispatch is deferred. A returned-promise rejection is logged but cannot retroactively veto this synchronous boundary. Scope-filtered dispatch (`@lyness/lyn-scope`): agent-scoped listeners receive only sessions entered through that agent\'s context.',
     parameters: [{ name: 'session', description: 'the session just entered and announced.' }],
   },
   {
@@ -4677,7 +5627,7 @@ export const EVENT_API: readonly EventApiEntry[] = [
     mode: 'emit',
     signature: '\'session/disposed\'(this: Scoped<Session>, session: Session): void',
     summary: 'Emitted once when an announced session leaves the store, including publication rollback, but never for an entry whose creation announcement did not begin.',
-    description: 'Emitted once when an announced session leaves the store, including publication rollback, but never for an entry whose creation announcement did not begin. Listener failures are logged and contained. Scope-filtered dispatch (`@deepseek-ai/dsh-scope`) reuses the owner scope.',
+    description: 'Emitted once when an announced session leaves the store, including publication rollback, but never for an entry whose creation announcement did not begin. Listener failures are logged and contained. Scope-filtered dispatch (`@lyness/lyn-scope`) reuses the owner scope.',
     parameters: [{ name: 'session', description: 'the session that is no longer live in the store.' }],
   },
   {
@@ -4685,7 +5635,7 @@ export const EVENT_API: readonly EventApiEntry[] = [
     mode: 'emit',
     signature: '\'session/event\'(this: Scoped<Session>, session: Session, event: SessionEvent): void',
     summary: 'Post-commit, fire-and-forget append feed.',
-    description: 'Post-commit, fire-and-forget append feed. The listener snapshot resolves before the log push, but callbacks run after it; observer failures are logged and contained without making the committed append fail. Scope-filtered dispatch (`@deepseek-ai/dsh-scope`): agent-scoped listeners receive only events from sessions entered through that agent\'s context.',
+    description: 'Post-commit, fire-and-forget append feed. The listener snapshot resolves before the log push, but callbacks run after it; observer failures are logged and contained without making the committed append fail. Scope-filtered dispatch (`@lyness/lyn-scope`): agent-scoped listeners receive only events from sessions entered through that agent\'s context.',
     parameters: [{ name: 'session', description: 'the session whose log grew.' }, { name: 'event', description: 'the appended event, exactly as recorded.' }],
   },
   {
@@ -4693,7 +5643,7 @@ export const EVENT_API: readonly EventApiEntry[] = [
     mode: 'parallel',
     signature: '\'session/flush\'(this: Scoped<Session>, session: Session): Promise<void> | void',
     summary: 'Awaited parallel durability checkpoint: every listener runs and the caller awaits all of them, with no waterfall veto.',
-    description: 'Awaited parallel durability checkpoint: every listener runs and the caller awaits all of them, with no waterfall veto. Scope-filtered dispatch (`@deepseek-ai/dsh-scope`) reuses the session\'s owner scope.',
+    description: 'Awaited parallel durability checkpoint: every listener runs and the caller awaits all of them, with no waterfall veto. Scope-filtered dispatch (`@lyness/lyn-scope`) reuses the session\'s owner scope.',
     parameters: [{ name: 'session', description: 'the session whose buffered events must reach durable storage.' }],
   },
   {
@@ -4749,7 +5699,7 @@ export const EVENT_API: readonly EventApiEntry[] = [
     mode: 'waterfall',
     signature: '\'system-prompt/assemble\'(this: Scoped<SystemPrompt>, assembly: PromptPresentation, context: AssembleContext, next: () => Promise<PromptPresentation>): Promise<PromptPresentation>',
     summary: 'Presentation waterfall over assembled sections, contexts, and variables.',
-    description: 'Presentation waterfall over assembled sections, contexts, and variables. Scope-filtered dispatch (`@deepseek-ai/dsh-scope`): scoped listeners receive only that scope\'s assemblies. The returned text is authoritative; tool declarations remain provider-owned. A supplied signal controls only this explicit assembly request and must not be retained to control later turns. A registered complete section is restored after this waterfall, so listeners cannot add to or replace that scope\'s system prompt.',
+    description: 'Presentation waterfall over assembled sections, contexts, and variables. Scope-filtered dispatch (`@lyness/lyn-scope`): scoped listeners receive only that scope\'s assemblies. The returned text is authoritative; tool declarations remain provider-owned. A supplied signal controls only this explicit assembly request and must not be retained to control later turns. A registered complete section is restored after this waterfall, so listeners cannot add to or replace that scope\'s system prompt.',
     parameters: [{ name: 'assembly', description: 'the mutable assembly built from registered providers.' }, { name: 'context', description: 'the caller\'s per-assembly context.' }],
   },
   {
@@ -4773,7 +5723,7 @@ export const EVENT_API: readonly EventApiEntry[] = [
     mode: 'waterfall',
     signature: '\'tools/execute\'(this: Scoped<ToolsService>, exec: ToolDispatchExecution, next: () => Promise<ToolExecutionResult>): Promise<ToolExecutionResult>',
     summary: 'Around-dispatch waterfall for timeout, retry, or metrics.',
-    description: 'Around-dispatch waterfall for timeout, retry, or metrics. `next()` returns a normalized result; wrappers may change only `exec.signal`, while call identity remains immutable. The registry re-fuses the original caller signal before the body, so replacement cannot detach caller cancellation; wrappers must still restore their signal and reach quiescence. Scope-filtered dispatch (`@deepseek-ai/dsh-scope`): agent-scoped listeners receive only that agent\'s calls.',
+    description: 'Around-dispatch waterfall for timeout, retry, or metrics. `next()` returns a normalized result; wrappers may change only `exec.signal`, while call identity remains immutable. The registry re-fuses the original caller signal before the body, so replacement cannot detach caller cancellation; wrappers must still restore their signal and reach quiescence. Scope-filtered dispatch (`@lyness/lyn-scope`): agent-scoped listeners receive only that agent\'s calls.',
     parameters: [{ name: 'exec', description: 'the allowed call about to dispatch (name, parsed arguments, caller agent, signal).' }],
   },
   {
@@ -4781,7 +5731,7 @@ export const EVENT_API: readonly EventApiEntry[] = [
     mode: 'waterfall',
     signature: '\'tools/post-execute\'(this: Scoped<ToolsService>, exec: ToolExecution, result: Readonly<ToolExecutionResult>, next: () => Promise<PostToolDecision>): Promise<PostToolDecision>',
     summary: 'Accept, replace, enrich, or block a normalized dispatch result.',
-    description: 'Accept, replace, enrich, or block a normalized dispatch result. `next()` accepts it unchanged; thrown tools still reach this waterfall as errors. Async listeners must observe `exec.signal`; after they settle, caller cancellation replaces only a successful accepted outcome with the code selected by whether the tool body was invoked. Scope-filtered dispatch (`@deepseek-ai/dsh-scope`): agent-scoped listeners receive only that agent\'s calls.',
+    description: 'Accept, replace, enrich, or block a normalized dispatch result. `next()` accepts it unchanged; thrown tools still reach this waterfall as errors. Async listeners must observe `exec.signal`; after they settle, caller cancellation replaces only a successful accepted outcome with the code selected by whether the tool body was invoked. Scope-filtered dispatch (`@lyness/lyn-scope`): agent-scoped listeners receive only that agent\'s calls.',
     parameters: [{ name: 'exec', description: 'the call that just ran (name, parsed arguments, caller agent).' }, { name: 'result', description: 'the dispatch outcome a listener may accept, replace, or block.' }],
   },
   {
@@ -4789,7 +5739,7 @@ export const EVENT_API: readonly EventApiEntry[] = [
     mode: 'waterfall',
     signature: '\'tools/pre-execute\'(this: Scoped<ToolsService>, exec: ToolExecution, next: () => Promise<PreToolDecision>): Promise<PreToolDecision>',
     summary: 'Allow, deny, cancel, or ask before dispatch.',
-    description: 'Allow, deny, cancel, or ask before dispatch. `next()` delegates to allow; `cancel` selects the canonical pre-dispatch cancellation result, and missing approval support turns `ask` into denial. Async gates must observe `exec.signal`; the registry rechecks cancellation after they settle but never abandons their promise. Scope-filtered dispatch (`@deepseek-ai/dsh-scope`): agent-scoped listeners receive only that agent\'s calls.',
+    description: 'Allow, deny, cancel, or ask before dispatch. `next()` delegates to allow; `cancel` selects the canonical pre-dispatch cancellation result, and missing approval support turns `ask` into denial. Async gates must observe `exec.signal`; the registry rechecks cancellation after they settle but never abandons their promise. Scope-filtered dispatch (`@lyness/lyn-scope`): agent-scoped listeners receive only that agent\'s calls.',
     parameters: [{ name: 'exec', description: 'the pending call (name, parsed arguments, caller agent).' }],
   },
   {
@@ -4797,7 +5747,7 @@ export const EVENT_API: readonly EventApiEntry[] = [
     mode: 'waterfall',
     signature: '\'tools/ptc-dispatch-log\'(this: Scoped<ToolsService>, dispatch: PtcDispatchLog, next: () => Promise<ContentBlock[]>): Promise<ContentBlock[]>',
     summary: 'Allow a listener to replace content in the DURABLE LOG COPY of one `run_code` sub-dispatch outcome before the bridge appends its `tool/ptc-dispatch` event.',
-    description: 'Allow a listener to replace content in the DURABLE LOG COPY of one `run_code` sub-dispatch outcome before the bridge appends its `tool/ptc-dispatch` event. `next()` keeps the content unchanged; a listener may return replacement blocks (e.g. the spill policy\'s preview + locator for an oversized text result). Only the logged copy is affected — the program already received the complete value, and the model sees neither. A throwing listener is contained: the bridge falls back to logging the original settled content. Scope-filtered dispatch (`@deepseek-ai/dsh-scope`): agent-scoped listeners receive only that agent\'s dispatches.',
+    description: 'Allow a listener to replace content in the DURABLE LOG COPY of one `run_code` sub-dispatch outcome before the bridge appends its `tool/ptc-dispatch` event. `next()` keeps the content unchanged; a listener may return replacement blocks (e.g. the spill policy\'s preview + locator for an oversized text result). Only the logged copy is affected — the program already received the complete value, and the model sees neither. A throwing listener is contained: the bridge falls back to logging the original settled content. Scope-filtered dispatch (`@lyness/lyn-scope`): agent-scoped listeners receive only that agent\'s dispatches.',
     parameters: [{ name: 'dispatch', description: 'the parent execution, sub-call identity, and the settled content to log.' }],
   },
   {
@@ -4805,15 +5755,23 @@ export const EVENT_API: readonly EventApiEntry[] = [
     mode: 'emit',
     signature: '\'tools/result\'(this: Scoped<ToolsService>, exec: Readonly<ToolExecution>, result: Readonly<ToolExecutionResult>): undefined',
     summary: 'Observe the frozen, lossless-JSON final outcome.',
-    description: 'Observe the frozen, lossless-JSON final outcome. Listener failures are contained. Scope-filtered dispatch (`@deepseek-ai/dsh-scope`): keyed by `exec.agent`.',
+    description: 'Observe the frozen, lossless-JSON final outcome. Listener failures are contained. Scope-filtered dispatch (`@lyness/lyn-scope`): keyed by `exec.agent`.',
     parameters: [{ name: 'exec', description: 'the execution object that traversed the pipeline.' }, { name: 'result', description: 'a deep-frozen snapshot of the final returned result.' }],
+  },
+  {
+    name: 'typert/authorize',
+    mode: 'bail',
+    signature: '\'typert/authorize\'(call: RemoteAuthorizationRequest): string | undefined | Promise<string | undefined>',
+    summary: 'Decide whether one resolved Remote call may be served, before its arguments are resolved and before its method runs.',
+    description: 'Decide whether one resolved Remote call may be served, before its arguments are resolved and before its method runs.\n\nThe Gateway is the only place every wire call passes through, so it is the only place an authority rule cannot be reached around: a namespace\'s own method, a preset row, or a direct RPC all arrive here. The rule itself is not here — a deployment with no accounts has one operator, and refusing them their own installation would be the wrong answer, so the policy is a plugin a composition selects.',
+    parameters: [{ name: 'call', description: 'the endpoint, what it declared it requires, and the peer asking.' }],
   },
   {
     name: 'user-questions/request',
     mode: 'waterfall',
     signature: '\'user-questions/request\'( this: Scoped<Agent>, request: AskUserQuestionRequestEvent, next: () => Promise<AskUserQuestionAnswer>, ): Promise<AskUserQuestionAnswer>',
     summary: 'Ask composed answerers for structured user input.',
-    description: 'Ask composed answerers for structured user input. Return an answer to claim the request or call `next()` to delegate. Scope-filtered dispatch (`@deepseek-ai/dsh-scope`): agent-scoped listeners receive only that agent.',
+    description: 'Ask composed answerers for structured user input. Return an answer to claim the request or call `next()` to delegate. Scope-filtered dispatch (`@lyness/lyn-scope`): agent-scoped listeners receive only that agent.',
     parameters: [{ name: 'request', description: 'pending user-question request.' }],
   },
   {
@@ -4933,6 +5891,14 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export interface AccountWallet {\n    readonly currency: \'CNY\' | \'USD\';\n    readonly balance: string;\n}',
   },
   {
+    name: 'ActingContext',
+    declaration: 'export interface ActingContext {\n    readonly person: PersonId;\n    readonly membership?: MembershipId | undefined;\n}',
+  },
+  {
+    name: 'ActingContextClaim',
+    declaration: 'export interface ActingContextClaim {\n    readonly person: PersonId;\n    readonly declared?: DeclaredContext | undefined;\n    readonly organization?: string | undefined;\n}',
+  },
+  {
     name: 'ActionCardDecision',
     declaration: 'export interface ActionCardDecision {\n    readonly callId: ToolCallId;\n    readonly action: string;\n    readonly phase: string;\n    readonly data?: ActionCardFields | undefined;\n}',
   },
@@ -4967,6 +5933,14 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'AdapterRegistrationHandle',
     declaration: 'export interface AdapterRegistrationHandle {\n    (): void;\n    replace(providers: string[]): void;\n}',
+  },
+  {
+    name: 'AdministratorGrant',
+    declaration: 'export interface AdministratorGrant {\n    readonly person: PersonId;\n    readonly amount: number;\n    readonly expiresAt?: string | undefined;\n}',
+  },
+  {
+    name: 'AdmittedIdentityView',
+    declaration: 'export interface AdmittedIdentityView {\n    readonly channel: string;\n    readonly issuer: string;\n    readonly subject: string;\n    readonly written: boolean;\n}',
   },
   {
     name: 'AdmittedPromptContentPart',
@@ -5037,8 +6011,44 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export type AgentStatus = \'idle\' | \'running\';',
   },
   {
+    name: 'AllowanceChange',
+    declaration: 'export interface AllowanceChange extends AllowanceOverride {\n    readonly organization?: string | undefined;\n    readonly person?: PersonId | undefined;\n}',
+  },
+  {
+    name: 'AllowanceInput',
+    declaration: 'export interface AllowanceInput {\n    readonly organization?: string;\n    readonly person?: string;\n    readonly periodicAmount?: number;\n    readonly period?: ResetPeriodView;\n}',
+  },
+  {
+    name: 'AllowanceOverride',
+    declaration: 'export interface AllowanceOverride {\n    readonly periodicAmount?: number | undefined;\n    readonly period?: ResetPeriod | undefined;\n}',
+  },
+  {
+    name: 'AllowanceOverrideView',
+    declaration: 'export interface AllowanceOverrideView {\n    readonly periodicAmount?: number;\n    readonly period?: ResetPeriodView;\n    readonly setAt: string;\n    readonly setBy: string;\n}',
+  },
+  {
+    name: 'AllowanceRecord',
+    declaration: 'export interface AllowanceRecord extends AllowanceOverride {\n    readonly organization?: string | undefined;\n    readonly person?: PersonId | undefined;\n    readonly setAt: string;\n    readonly setBy: PersonId;\n}',
+  },
+  {
+    name: 'AllowanceView',
+    declaration: 'export interface AllowanceView {\n    readonly person: string;\n    readonly organization?: AllowanceOverrideView;\n    readonly own?: AllowanceOverrideView;\n    readonly periods: readonly ResetPeriodView[];\n}',
+  },
+  {
+    name: 'AllowedModel',
+    declaration: 'export interface AllowedModel {\n    readonly provider: string;\n    readonly model: string;\n}',
+  },
+  {
     name: 'AnalyticsPreset',
     declaration: 'export type AnalyticsPreset = \'creator\' | \'ptc\' | \'minimal\' | \'standard\';',
+  },
+  {
+    name: 'Announcement',
+    declaration: 'export interface Announcement {\n    readonly id: AnnouncementId;\n    readonly version?: string | undefined;\n    readonly publishedAt: string;\n    readonly title: string;\n    readonly body: string;\n    readonly url?: string | undefined;\n}',
+  },
+  {
+    name: 'AnnouncementId',
+    declaration: 'export type AnnouncementId = string;',
   },
   {
     name: 'AnonymousTranslationProvider',
@@ -5047,6 +6057,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'AnonymousTranslationSpec',
     declaration: 'export interface AnonymousTranslationSpec extends TranslationSpecFields {\n    readonly provider: AnonymousTranslationProvider;\n}',
+  },
+  {
+    name: 'Answer',
+    declaration: 'export interface Answer {\n    readonly teammate: PersonId;\n    readonly displayName: string;\n    readonly text: string;\n}',
   },
   {
     name: 'AnyHook',
@@ -5169,6 +6183,42 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export type AttachmentId = Branded<\'AttachmentId\'>;',
   },
   {
+    name: 'AuditAction',
+    declaration: 'export type AuditAction = \'added\' | \'changed\' | \'removed\';',
+  },
+  {
+    name: 'AuditChangeView',
+    declaration: 'export interface AuditChangeView {\n    readonly field: string;\n    readonly before?: string;\n    readonly after?: string;\n    readonly truncated?: boolean;\n    readonly redacted?: boolean;\n}',
+  },
+  {
+    name: 'AuditEntry',
+    declaration: 'export interface AuditEntry extends AuditSubmission {\n    readonly id: AuditEntryId;\n    readonly at: string;\n    readonly by: PersonId;\n    readonly standing: MembershipId;\n}',
+  },
+  {
+    name: 'AuditEntryId',
+    declaration: 'export type AuditEntryId = Branded<\'audit-entry-id\'>;',
+  },
+  {
+    name: 'AuditEntryView',
+    declaration: 'export interface AuditEntryView {\n    readonly id: string;\n    readonly at: string;\n    readonly by: string;\n    readonly standing: string;\n    readonly kind: string;\n    readonly subject: string;\n    readonly subjectName: string;\n    readonly action: \'added\' | \'changed\' | \'removed\';\n    readonly organization?: string;\n    readonly changes: readonly AuditChangeView[];\n}',
+  },
+  {
+    name: 'AuditFieldChange',
+    declaration: 'export interface AuditFieldChange {\n    readonly field: string;\n    readonly before?: string | undefined;\n    readonly after?: string | undefined;\n    readonly truncated?: boolean | undefined;\n    readonly redacted?: boolean | undefined;\n}',
+  },
+  {
+    name: 'AuditQuery',
+    declaration: 'export interface AuditQuery {\n    readonly organization?: string | undefined;\n    readonly subject?: string | undefined;\n    readonly limit?: number | undefined;\n    readonly before?: AuditEntryId | undefined;\n}',
+  },
+  {
+    name: 'AuditQueryInput',
+    declaration: 'export interface AuditQueryInput {\n    readonly organization?: string;\n    readonly subject?: string;\n    readonly limit?: number;\n    readonly before?: string;\n}',
+  },
+  {
+    name: 'AuditSubmission',
+    declaration: 'export interface AuditSubmission {\n    readonly kind: string;\n    readonly subject: string;\n    readonly subjectName: string;\n    readonly action: AuditAction;\n    readonly organization?: string | undefined;\n    readonly changes: readonly AuditFieldChange[];\n}',
+  },
+  {
     name: 'AuthorizationEntry',
     declaration: 'export interface AuthorizationEntry {\n    key: CredentialKey;\n    label: string;\n    methods: readonly AuthorizationMethod[];\n    inFlight: boolean;\n}',
   },
@@ -5217,12 +6267,16 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export type AuthorizationStatus = \'authorized\' | \'cancelled\';',
   },
   {
+    name: 'AuthSessionId',
+    declaration: 'export type AuthSessionId = Branded<\'AuthSessionId\'>;',
+  },
+  {
     name: 'BackendRegistry',
     declaration: 'export class BackendRegistry {\n    register(name: string, backend: StorageBackend): () => void;\n    get(name: string): StorageBackend;\n    names(): string[];\n}',
   },
   {
     name: 'BashEnvContributor',
-    declaration: 'export interface BashEnvContributor {\n    name: string;\n    variables: Readonly<Record<DshEnvironmentKey, BashEnvVariable>>;\n    resolve(execution: ToolExecution): Readonly<Partial<Record<DshEnvironmentKey, string>>>;\n}',
+    declaration: 'export interface BashEnvContributor {\n    name: string;\n    variables: Readonly<Record<LynEnvironmentKey, BashEnvVariable>>;\n    resolve(execution: ToolExecution): Readonly<Partial<Record<LynEnvironmentKey, string>>>;\n}',
   },
   {
     name: 'BashEnvVariable',
@@ -5230,7 +6284,35 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   },
   {
     name: 'BashEnvVariableInfo',
-    declaration: 'export interface BashEnvVariableInfo extends BashEnvVariable {\n    contributor: string;\n    key: DshEnvironmentKey;\n}',
+    declaration: 'export interface BashEnvVariableInfo extends BashEnvVariable {\n    contributor: string;\n    key: LynEnvironmentKey;\n}',
+  },
+  {
+    name: 'BindingInput',
+    declaration: 'export interface BindingInput extends IdentityInput {\n    readonly person: string;\n}',
+  },
+  {
+    name: 'BindingSubmission',
+    declaration: 'export interface BindingSubmission {\n    readonly channel: string;\n    readonly issuer: string;\n    readonly subject: string;\n    readonly person: PersonId;\n}',
+  },
+  {
+    name: 'BindingView',
+    declaration: 'export interface BindingView {\n    readonly channel: string;\n    readonly issuer: string;\n    readonly subject: string;\n    readonly written: boolean;\n}',
+  },
+  {
+    name: 'BotInput',
+    declaration: 'export interface BotInput {\n    readonly id?: string;\n    readonly displayName: string;\n    readonly organization: string;\n    readonly persona: string;\n    readonly job: string;\n    readonly preset: string;\n}',
+  },
+  {
+    name: 'BotRowView',
+    declaration: 'export interface BotRowView {\n    readonly id: string;\n    readonly displayName: string;\n    readonly organization: string;\n    readonly persona: string;\n    readonly job: string;\n    readonly preset: string;\n    readonly written: boolean;\n    readonly available: boolean;\n}',
+  },
+  {
+    name: 'BotSubmission',
+    declaration: 'export interface BotSubmission {\n    readonly id?: PersonId | undefined;\n    readonly displayName: string;\n    readonly organization: string;\n    readonly persona: string;\n    readonly job: string;\n    readonly preset: string;\n}',
+  },
+  {
+    name: 'BotView',
+    declaration: 'export interface BotView extends DeclaredBot {\n    readonly written: boolean;\n    readonly available: boolean;\n}',
   },
   {
     name: 'BoxProps',
@@ -5249,6 +6331,22 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export type BrowserUseProviderName = Branded<\'BrowserUseProviderName\'>;',
   },
   {
+    name: 'BudgetChange',
+    declaration: 'export interface BudgetChange {\n    readonly organization: string;\n    readonly periodicAmount: number;\n    readonly period: ResetPeriod;\n}',
+  },
+  {
+    name: 'BudgetInput',
+    declaration: 'export interface BudgetInput {\n    readonly organization: string;\n    readonly periodicAmount: number;\n    readonly period: ResetPeriodView;\n}',
+  },
+  {
+    name: 'BudgetState',
+    declaration: 'export interface BudgetState {\n    readonly organization: string;\n    readonly periodicAmount: number;\n    readonly period: ResetPeriod;\n    readonly spent: number;\n    readonly remaining: number;\n    readonly periodStartedAt: string;\n    readonly nextPeriodAt: string;\n}',
+  },
+  {
+    name: 'BudgetView',
+    declaration: 'export interface BudgetView {\n    readonly organization: string;\n    readonly periodicAmount?: number;\n    readonly period?: ResetPeriodView;\n    readonly spent?: number;\n    readonly remaining?: number;\n    readonly periodStartedAt?: string;\n    readonly nextPeriodAt?: string;\n    readonly periods: readonly ResetPeriodView[];\n    readonly settable: boolean;\n}',
+  },
+  {
     name: 'BundleDetail',
     declaration: 'export type BundleDetail = {\n    readonly status: \'found\';\n    readonly origin: \'locale\' | \'readme\';\n    readonly path: string;\n    readonly markdown: string;\n} | {\n    readonly status: \'none\';\n};',
   },
@@ -5265,8 +6363,56 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export interface ButtonProps {\n    readonly label: string;\n    readonly hotkey?: string | undefined;\n    readonly disabled?: boolean | undefined;\n    readonly onPress?: (() => unknown) | undefined;\n}',
   },
   {
+    name: 'CallId',
+    declaration: 'export type CallId = Branded<\'DesktopCallId\'>;',
+  },
+  {
     name: 'ChangeResult',
     declaration: 'export interface ChangeResult {\n    changed: boolean;\n    application: \'applied\' | \'restart-required\' | \'overridden\' | \'failed\' | \'cancelled\';\n    restartReason?: RestartReason;\n    stage: \'install\' | \'enable\' | \'remove\';\n    target: string;\n    enabled?: boolean;\n    error?: ManagementError;\n    warnings?: string[];\n    packageResult?: PackageResult;\n    bundle?: string;\n    version?: string;\n    pendingBuilds?: string[];\n    approvedBuilds?: string[];\n    registries?: Registry[];\n    failedAt?: \'registry\' | \'spec-host\';\n}',
+  },
+  {
+    name: 'ChannelDescription',
+    declaration: 'export interface ChannelDescription {\n    readonly id: ChannelId;\n    readonly displayName: string;\n    readonly kind: ChannelKind;\n    readonly organization?: string | undefined;\n}',
+  },
+  {
+    name: 'ChannelFieldView',
+    declaration: 'export interface ChannelFieldView {\n    readonly name: string;\n    readonly label: string;\n    readonly required: boolean;\n}',
+  },
+  {
+    name: 'ChannelId',
+    declaration: 'export type ChannelId = Branded<\'ChannelId\'>;',
+  },
+  {
+    name: 'ChannelInput',
+    declaration: 'export interface ChannelInput {\n    readonly id?: string;\n    readonly kind: string;\n    readonly displayName: string;\n    readonly organization?: string;\n    readonly settings: Readonly<Record<string, string>>;\n    readonly secret?: string;\n}',
+  },
+  {
+    name: 'ChannelKindDescription',
+    declaration: 'export interface ChannelKindDescription {\n    readonly id: string;\n    readonly displayName: string;\n    readonly fields: readonly ChannelKindField[];\n}',
+  },
+  {
+    name: 'ChannelKindField',
+    declaration: 'export interface ChannelKindField {\n    readonly name: string;\n    readonly label: string;\n    readonly required: boolean;\n}',
+  },
+  {
+    name: 'ChannelKindView',
+    declaration: 'export interface ChannelKindView {\n    readonly id: string;\n    readonly displayName: string;\n    readonly fields: readonly ChannelFieldView[];\n}',
+  },
+  {
+    name: 'ChannelOfferView',
+    declaration: 'export interface ChannelOfferView {\n    readonly id: string;\n    readonly displayName: string;\n    readonly redirect: boolean;\n}',
+  },
+  {
+    name: 'ChannelScope',
+    declaration: 'export interface ChannelScope {\n    readonly organization?: string | undefined;\n}',
+  },
+  {
+    name: 'ChannelSubmission',
+    declaration: 'export interface ChannelSubmission {\n    readonly id?: string | undefined;\n    readonly kind: string;\n    readonly displayName: string;\n    readonly organization?: string | undefined;\n    readonly settings: Readonly<Record<string, string>>;\n    readonly secret?: string | undefined;\n}',
+  },
+  {
+    name: 'ChannelView',
+    declaration: 'export interface ChannelView {\n    readonly id: string;\n    readonly kind: string;\n    readonly displayName: string;\n    readonly organization?: string | undefined;\n    readonly settings: Readonly<Record<string, string>>;\n    readonly configuredAt: string;\n    readonly configuredBy: string;\n    readonly mounted: boolean;\n}',
   },
   {
     name: 'ClientArtifactBaseline',
@@ -5361,6 +6507,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export type ConfigureCall = (controls: Readonly<LlmCallControls>, model: Readonly<LlmResolvedModelInfo>) => LlmCallControls;',
   },
   {
+    name: 'ConfiguredChannelView',
+    declaration: 'export interface ConfiguredChannelView {\n    readonly id: string;\n    readonly kind: string;\n    readonly displayName: string;\n    readonly organization?: string;\n    readonly settings: Readonly<Record<string, string>>;\n    readonly configuredAt: string;\n    readonly configuredBy: string;\n    readonly mounted: boolean;\n}',
+  },
+  {
     name: 'ConfinedArgv',
     declaration: 'export interface ConfinedArgv {\n    argv: string[];\n    enforcement: SandboxEnforcement;\n    denialSignatures: readonly string[];\n    runnerFailureRules: readonly RunnerFailureRule[];\n}',
   },
@@ -5399,6 +6549,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'ConnectionRequestRejection',
     declaration: 'export type ConnectionRequestRejection = 401 | 403 | undefined;',
+  },
+  {
+    name: 'ConnectionRequestScope',
+    declaration: 'export type ConnectionRequestScope = <Result>(request: Request, run: () => Promise<Result>) => Promise<Result>;',
   },
   {
     name: 'ConnectionRpcAttachment',
@@ -5577,6 +6731,38 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export type CredentialRef = Branded<\'CredentialRef\'>;',
   },
   {
+    name: 'CreditAccountView',
+    declaration: 'export interface CreditAccountView {\n    readonly person: string;\n    readonly available: number;\n    readonly granted: number;\n    readonly spent: number;\n    readonly periodicAmount: number;\n    readonly period: ResetPeriodView;\n    readonly periodStartedAt: string;\n    readonly spentThisPeriod: number;\n    readonly nextGrantAt?: string;\n    readonly grants: readonly CreditGrantView[];\n    readonly debits: readonly CreditDebitView[];\n    readonly administrable: boolean;\n}',
+  },
+  {
+    name: 'CreditBalance',
+    declaration: 'export interface CreditBalance {\n    readonly person: PersonId;\n    readonly available: number;\n    readonly granted: number;\n    readonly spent: number;\n    readonly periodicAmount: number;\n    readonly period: ResetPeriod;\n    readonly periodStartedAt: string;\n    readonly spentThisPeriod: number;\n    readonly nextGrantAt?: string | undefined;\n}',
+  },
+  {
+    name: 'CreditDebit',
+    declaration: 'export interface CreditDebit {\n    readonly id: DebitId;\n    readonly person: PersonId;\n    readonly amount: number;\n    readonly at: string;\n    readonly session: string;\n    readonly organization?: string | undefined;\n}',
+  },
+  {
+    name: 'CreditDebitView',
+    declaration: 'export interface CreditDebitView {\n    readonly id: string;\n    readonly amount: number;\n    readonly at: string;\n    readonly session: string;\n}',
+  },
+  {
+    name: 'CreditGrant',
+    declaration: 'export interface CreditGrant {\n    readonly id: GrantId;\n    readonly person: PersonId;\n    readonly amount: number;\n    readonly grantedAt: string;\n    readonly expiresAt?: string | undefined;\n    readonly reason: GrantReason;\n    readonly grantedBy?: PersonId | undefined;\n}',
+  },
+  {
+    name: 'CreditGrantInput',
+    declaration: 'export interface CreditGrantInput {\n    readonly person: string;\n    readonly amount: number;\n    readonly expiresAt?: string;\n}',
+  },
+  {
+    name: 'CreditGrantView',
+    declaration: 'export interface CreditGrantView {\n    readonly id: string;\n    readonly amount: number;\n    readonly grantedAt: string;\n    readonly expiresAt?: string;\n    readonly reason: \'periodic\' | \'administrator\' | \'purchase\';\n    readonly grantedBy?: string;\n}',
+  },
+  {
+    name: 'CreditSubjectIdentity',
+    declaration: 'export interface CreditSubjectIdentity {\n    readonly person: PersonId;\n    readonly organization?: string | undefined;\n}',
+  },
+  {
     name: 'CronInput',
     declaration: 'export interface CronInput {\n    readonly expression: string;\n    readonly time_zone: string;\n}',
   },
@@ -5617,6 +6803,26 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export interface DailyScheduleRecord {\n    readonly id: ScheduleId;\n    readonly kind: \'daily\';\n    readonly title: string;\n    readonly prompt: string;\n    readonly time: string;\n    readonly timeZone: string;\n    readonly scheduledAt: string;\n}',
   },
   {
+    name: 'DebitId',
+    declaration: 'export type DebitId = Branded<\'DebitId\'>;',
+  },
+  {
+    name: 'DeclaredBot',
+    declaration: 'export interface DeclaredBot {\n    readonly id: PersonId;\n    readonly displayName: string;\n    readonly organization: string;\n    readonly persona: string;\n    readonly job: string;\n    readonly preset: string;\n}',
+  },
+  {
+    name: 'DeclaredContext',
+    declaration: 'export type DeclaredContext = {\n    readonly kind: \'personal\';\n} | {\n    readonly kind: \'membership\';\n    readonly membership: MembershipId;\n};',
+  },
+  {
+    name: 'DeclaredPerson',
+    declaration: 'export interface DeclaredPerson {\n    readonly person: Person;\n    readonly membership: Membership;\n    readonly kind?: PersonKind | undefined;\n}',
+  },
+  {
+    name: 'DeclaredTeam',
+    declaration: 'export interface DeclaredTeam {\n    readonly id: string;\n    readonly displayName: string;\n    readonly organization: string;\n    readonly members: readonly PersonId[];\n}',
+  },
+  {
     name: 'DeepSeekLlmApiExtensionMap',
     declaration: 'export interface DeepSeekLlmApiExtensionMap {\n}',
   },
@@ -5635,6 +6841,14 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'DeliveryRetentionBounds',
     declaration: 'export interface DeliveryRetentionBounds {\n    readonly days: number;\n    readonly records: number;\n}',
+  },
+  {
+    name: 'DesktopReply',
+    declaration: 'export type DesktopReply = {\n    readonly kind: \'item\';\n    readonly id: CallId;\n    readonly value: JsonValue;\n} | {\n    readonly kind: \'done\';\n    readonly id: CallId;\n    readonly value: JsonValue;\n} | {\n    readonly kind: \'failed\';\n    readonly id: CallId;\n    readonly reason: string;\n};',
+  },
+  {
+    name: 'DesktopRequest',
+    declaration: 'export type DesktopRequest = {\n    readonly kind: \'call\';\n    readonly id: CallId;\n    readonly capability: string;\n    readonly operation: string;\n    readonly payload: JsonValue;\n} | {\n    readonly kind: \'cancel\';\n    readonly id: CallId;\n};',
   },
   {
     name: 'DeveloperMessage',
@@ -5721,14 +6935,6 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export interface DomainTableSpec<K extends string = string, V = unknown> {\n    readonly valueSchema: ZodType<V>;\n    readonly __key?: K;\n}',
   },
   {
-    name: 'DshEnvironment',
-    declaration: 'export type DshEnvironment = Readonly<Record<DshEnvironmentKey, string>>;',
-  },
-  {
-    name: 'DshEnvironmentKey',
-    declaration: 'export type DshEnvironmentKey = `${typeof DSH_ENV_PREFIX}${string}`;',
-  },
-  {
     name: 'DynamicCordisPackage',
     declaration: 'export interface DynamicCordisPackage {\n    pluginId: CordisDynamicPluginId;\n    packageId: CordisDynamicPackageId;\n    pluginRunId: CordisDynamicPluginRunId;\n    name: string;\n}',
   },
@@ -5761,8 +6967,28 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export interface EncodedImageAttachment {\n    mediaType: ImageMediaType;\n    data: string;\n    name?: string;\n}',
   },
   {
+    name: 'EngagedBot',
+    declaration: 'export interface EngagedBot {\n    readonly bot: string;\n    readonly displayName: string;\n    readonly persona: string;\n}',
+  },
+  {
+    name: 'EntraDirectoryId',
+    declaration: 'export type EntraDirectoryId = Branded<\'EntraDirectoryId\'>;',
+  },
+  {
+    name: 'EntraObjectId',
+    declaration: 'export type EntraObjectId = Branded<\'EntraObjectId\'>;',
+  },
+  {
+    name: 'EntraSubject',
+    declaration: 'export interface EntraSubject {\n    readonly objectId: EntraObjectId;\n    readonly directoryId: EntraDirectoryId;\n    readonly displayName?: string;\n    readonly address?: string;\n}',
+  },
+  {
     name: 'EpochHeader',
     declaration: 'export interface EpochHeader {\n    config: LlmCallConfig;\n    adapterDefaults?: LlmCallConfigAdapterDefaults;\n    tools?: ToolSchema[];\n    system?: never;\n}',
+  },
+  {
+    name: 'EstablishRequest',
+    declaration: 'export interface EstablishRequest {\n    readonly person: PersonId;\n    readonly method: string;\n    readonly lifetimeMs?: number | undefined;\n}',
   },
   {
     name: 'EventLogOptions',
@@ -5775,6 +7001,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'EveryScheduleRecord',
     declaration: 'export interface EveryScheduleRecord {\n    readonly id: ScheduleId;\n    readonly kind: \'every\';\n    readonly title: string;\n    readonly prompt: string;\n    readonly everySeconds: number;\n    readonly scheduledAt: string;\n}',
+  },
+  {
+    name: 'ExternalSubject',
+    declaration: 'export interface ExternalSubject {\n    readonly channel: ChannelId;\n    readonly issuer: string;\n    readonly subject: string;\n    readonly displayName?: string | undefined;\n    readonly address?: string | undefined;\n}',
   },
   {
     name: 'FeedbackCategory',
@@ -5921,8 +7151,20 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export interface GoalView extends GoalSnapshot {\n    readonly roundsStarted: number;\n    readonly createdAt: number;\n    readonly updatedAt: number;\n    readonly activation: GoalActivation;\n}',
   },
   {
+    name: 'GrantId',
+    declaration: 'export type GrantId = Branded<\'GrantId\'>;',
+  },
+  {
+    name: 'GrantReason',
+    declaration: 'export type GrantReason = \'periodic\' | \'administrator\' | \'purchase\';',
+  },
+  {
     name: 'GrantRecord',
     declaration: 'export interface GrantRecord {\n    readonly kind: \'grant\';\n    readonly payload: unknown;\n}',
+  },
+  {
+    name: 'GrantRequest',
+    declaration: 'export interface GrantRequest {\n    readonly person: PersonId;\n    readonly amount: number;\n    readonly reason: GrantReason;\n    readonly expiresAt?: string | undefined;\n    readonly grantedBy?: PersonId | undefined;\n}',
   },
   {
     name: 'HookBudget',
@@ -5954,7 +7196,11 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   },
   {
     name: 'HostConnectionRpc',
-    declaration: 'export interface HostConnectionRpc {\n    handle(channel: string, handler: ConnectionRpcHandler): () => Promise<void>;\n    intercept(channel: \'/api\', matches: ConnectionRpcEndpointMatcher, handler: ConnectionRpcHandler): () => Promise<void>;\n}',
+    declaration: 'export interface HostConnectionRpc {\n    handle(channel: string, handler: ConnectionRpcHandler): () => Promise<void>;\n    intercept(channel: \'/api\', matches: ConnectionRpcEndpointMatcher, handler: ConnectionRpcHandler): () => Promise<void>;\n    scope(scope: ConnectionRequestScope): () => Promise<void>;\n}',
+  },
+  {
+    name: 'IdentityInput',
+    declaration: 'export interface IdentityInput {\n    readonly channel: string;\n    readonly issuer: string;\n    readonly subject: string;\n}',
   },
   {
     name: 'ImageAttachmentLimits',
@@ -6282,7 +7528,7 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   },
   {
     name: 'LlmRuntime',
-    declaration: 'export class LlmRuntime extends TypertRemoteService {\n    constructor(ctx: Context);\n    registerAdapter(providers: string[], adapter: LlmAdapter): AdapterRegistrationHandle;\n    @Remote\n    listProviders(): LlmProviderInfo[];\n    registerConfigurableProviders(entries: readonly LlmConfigurableProvider[]): DirectoryRegistrationHandle;\n    @Remote\n    listConfigurableProviders(): LlmConfigurableProvider[];\n    registerModelDiscovery(settingsNs: string, discover: (request: LlmModelDiscoveryRequest, signal?: AbortSignal) => Promise<readonly LlmDiscoveredModel[]>): () => void;\n    async discoverModels(settingsNs: string, request: LlmModelDiscoveryRequest, signal?: AbortSignal): Promise<LlmDiscoveredModel[]>;\n    @Remote(\'discoverModels\')\n    async remoteDiscoverModels(settingsNs: string, request: LlmModelDiscoveryRequest, signal: AbortSignal): Promise<LlmDiscoveredModel[]>;\n    providerRetryPolicy(provider: string): ResolvedRetryPolicy;\n    imageRequestPricing(provider: string, model: string): LlmImageRequestPricing | undefined;\n    imageRequestTarget(provider: string, model: string, image: ImageAttachmentRef): ImageRequestTarget;\n    fileRequestText(ref: FileAttachmentRef): string;\n    async listModels(provider: string): Promise<LlmModelInfo[]>;\n    async resolveModelInfo(provider: string, model: string, signal?: AbortSignal): Promise<LlmResolvedModelInfo>;\n    async resolveCallConfig(config: LlmCallConfig, signal?: AbortSignal): Promise<LlmCallConfig>;\n    async prepareCall(conf /* …truncated — full shape in source */',
+    declaration: 'export class LlmRuntime extends TypertRemoteService {\n    constructor(ctx: Context);\n    registerAdapter(providers: string[], adapter: LlmAdapter): AdapterRegistrationHandle;\n    @Remote\n    listProviders(): LlmProviderInfo[];\n    registerConfigurableProviders(entries: readonly LlmConfigurableProvider[]): DirectoryRegistrationHandle;\n    @Remote\n    listConfigurableProviders(): LlmConfigurableProvider[];\n    registerModelDiscovery(settingsNs: string, discover: (request: LlmModelDiscoveryRequest, signal?: AbortSignal) => Promise<readonly LlmDiscoveredModel[]>): () => void;\n    async discoverModels(settingsNs: string, request: LlmModelDiscoveryRequest, signal?: AbortSignal): Promise<LlmDiscoveredModel[]>;\n    @Remote({ name: \'discoverModels\', requires: \'platform-administrator\' })\n    async remoteDiscoverModels(settingsNs: string, request: LlmModelDiscoveryRequest, signal: AbortSignal): Promise<LlmDiscoveredModel[]>;\n    providerRetryPolicy(provider: string): ResolvedRetryPolicy;\n    imageRequestPricing(provider: string, model: string): LlmImageRequestPricing | undefined;\n    imageRequestTarget(provider: string, model: string, image: ImageAttachmentRef): ImageRequestTarget;\n    fileRequestText(ref: FileAttachmentRef): string;\n    async listModels(provider: string): Promise<LlmModelInfo[]>;\n    async resolveModelInfo(provider: string, model: string, signal?: AbortSignal): Promise<LlmResolvedModelInfo>;\n    async resolveCallConfig(config: LlmCallConfig, signal?: AbortSignal): Prom /* …truncated — full shape in source */',
   },
   {
     name: 'LocalAtInput',
@@ -6337,6 +7583,14 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export interface LspRange {\n    readonly start: LspPosition;\n    readonly end: LspPosition;\n}',
   },
   {
+    name: 'LynEnvironment',
+    declaration: 'export type LynEnvironment = Readonly<Record<LynEnvironmentKey, string>>;',
+  },
+  {
+    name: 'LynEnvironmentKey',
+    declaration: 'export type LynEnvironmentKey = `${typeof LYNESS_ENV_PREFIX}${string}`;',
+  },
+  {
     name: 'ManagementError',
     declaration: 'export interface ManagementError {\n    code: ReadOnlyReason | \'unknown-plugin\' | \'invalid-spec\' | \'already-installed\' | \'ambiguous-install\' | \'not-bundle\' | \'not-removable\' | \'stop-profile\' | \'bundle-in-use\' | \'stale-approval\' | \'incompatible-version\' | \'operation-error\';\n    diagnostic?: string;\n    incompatible?: IncompatiblePlugin[];\n}',
   },
@@ -6354,7 +7608,7 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   },
   {
     name: 'MarketEngines',
-    declaration: 'export interface MarketEngines {\n    readonly dsh?: string;\n}',
+    declaration: 'export interface MarketEngines {\n    readonly lyn?: string;\n}',
   },
   {
     name: 'MarketIndexMetadata',
@@ -6431,6 +7685,30 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'McpResourceRequest',
     declaration: 'export type McpResourceRequest = {\n    method: \'resources/list\' | \'resources/templates/list\';\n    cursor?: string;\n} | {\n    method: \'resources/read\';\n    uri: string;\n};',
+  },
+  {
+    name: 'Membership',
+    declaration: 'export interface Membership {\n    readonly id: MembershipId;\n    readonly person: PersonId;\n    readonly organization?: string | undefined;\n    readonly role: Role;\n}',
+  },
+  {
+    name: 'MembershipId',
+    declaration: 'export type MembershipId = Branded<\'MembershipId\'>;',
+  },
+  {
+    name: 'MemoryEntry',
+    declaration: 'export interface MemoryEntry {\n    readonly text: string;\n    readonly scope: MemoryScope;\n    readonly writtenAt: string;\n}',
+  },
+  {
+    name: 'MemoryId',
+    declaration: 'export type MemoryId = Branded<\'MemoryId\'>;',
+  },
+  {
+    name: 'MemoryRecord',
+    declaration: 'export interface MemoryRecord extends MemoryEntry {\n    readonly id: MemoryId;\n}',
+  },
+  {
+    name: 'MemoryScope',
+    declaration: 'export type MemoryScope = \'member\' | \'shared\';',
   },
   {
     name: 'Message',
@@ -6525,8 +7803,24 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export interface MessageSourceMap {\n    user: {\n        kind: \'user\';\n    };\n    model: ModelMessageSource;\n    tool: ToolMessageSource;\n    \'system-prompt\': SystemPromptMessageSource;\n}',
   },
   {
+    name: 'Modality',
+    declaration: 'export type Modality = \'language\' | \'image\' | \'video\' | \'music\';',
+  },
+  {
+    name: 'ModalityModels',
+    declaration: 'export interface ModalityModels {\n    readonly available: readonly ModelChoice[];\n    readonly preferred?: ModelChoice | undefined;\n}',
+  },
+  {
     name: 'ModDefinition',
     declaration: 'export interface ModDefinition {\n    readonly name: string;\n    readonly version?: string;\n    readonly root?: string;\n    readonly options?: PluginOptions;\n    readonly register: ModRegister;\n}',
+  },
+  {
+    name: 'ModelAllowance',
+    declaration: 'export interface ModelAllowance {\n    readonly allowed: readonly AllowedModel[];\n    readonly authority: string;\n}',
+  },
+  {
+    name: 'ModelAllowanceInput',
+    declaration: 'export interface ModelAllowanceInput {\n    readonly allowed: readonly AllowedModel[];\n    readonly authority?: string | undefined;\n}',
   },
   {
     name: 'ModelCatalog',
@@ -6541,6 +7835,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export interface ModelCatalogModel {\n    readonly id: string;\n    readonly name: string;\n    readonly description?: string;\n    readonly reasoning?: ModelReasoning;\n}',
   },
   {
+    name: 'ModelChoice',
+    declaration: 'export interface ModelChoice {\n    readonly provider: string;\n    readonly model: string;\n    readonly reasoningEffort?: string | undefined;\n}',
+  },
+  {
     name: 'ModelMessageSource',
     declaration: 'export interface ModelMessageSource extends AssistantProviderMetadata {\n    kind: \'model\';\n}',
   },
@@ -6551,6 +7849,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'ModelModalityMap',
     declaration: 'export interface ModelModalityMap {\n    text: \'text\';\n    image: \'image\';\n}',
+  },
+  {
+    name: 'ModelPolicyCapability',
+    declaration: 'export interface ModelPolicyCapability {\n    readonly writable: boolean;\n    readonly organization?: string | undefined;\n}',
   },
   {
     name: 'ModelProviderGroup',
@@ -6605,6 +7907,14 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export type ObjectJsonSchema = JsonSchemaNode & {\n    type: \'object\';\n};',
   },
   {
+    name: 'ObservedCut',
+    declaration: 'export interface ObservedCut {\n    readonly header: SessionHeader;\n    readonly events: readonly ObservedEvent[];\n}',
+  },
+  {
+    name: 'ObservedEvent',
+    declaration: 'export interface ObservedEvent {\n    readonly type: string;\n    readonly data: unknown;\n}',
+  },
+  {
     name: 'OfficeExtension',
     declaration: 'export type OfficeExtension = \'doc\' | \'docx\' | \'xls\' | \'xlsx\' | \'ppt\' | \'pptx\';',
   },
@@ -6643,6 +7953,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'OptionalSessionSeq',
     declaration: 'export type OptionalSessionSeq = SessionSeq | null;',
+  },
+  {
+    name: 'OrganizationBudget',
+    declaration: 'export interface OrganizationBudget {\n    readonly organization: string;\n    readonly periodicAmount: number;\n    readonly period: ResetPeriod;\n    readonly setAt: string;\n    readonly setBy: PersonId;\n}',
   },
   {
     name: 'OTelEventRecord',
@@ -6691,6 +8005,38 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'PermissionCatalog',
     declaration: 'export interface PermissionCatalog {\n    options: PresetOption[];\n    defaultOptions: PresetOption[];\n    defaultPreset: string;\n}',
+  },
+  {
+    name: 'Person',
+    declaration: 'export interface Person {\n    readonly id: PersonId;\n    readonly displayName: string;\n}',
+  },
+  {
+    name: 'PersonId',
+    declaration: 'export type PersonId = Branded<\'PersonId\'>;',
+  },
+  {
+    name: 'PersonInput',
+    declaration: 'export interface PersonInput {\n    readonly id?: string;\n    readonly displayName: string;\n    readonly role: Role;\n    readonly organization?: string;\n}',
+  },
+  {
+    name: 'PersonKind',
+    declaration: 'export type PersonKind = \'person\' | \'bot\';',
+  },
+  {
+    name: 'PersonOverrides',
+    declaration: 'export interface PersonOverrides {\n    readonly organization?: AllowanceRecord | undefined;\n    readonly person?: AllowanceRecord | undefined;\n}',
+  },
+  {
+    name: 'PersonRowView',
+    declaration: 'export interface PersonRowView {\n    readonly id: string;\n    readonly displayName: string;\n    readonly role: Role;\n    readonly organization?: string;\n    readonly written: boolean;\n    readonly bindings: readonly AdmittedIdentityView[];\n}',
+  },
+  {
+    name: 'PersonSubmission',
+    declaration: 'export interface PersonSubmission {\n    readonly id?: PersonId | undefined;\n    readonly displayName: string;\n    readonly role: Role;\n    readonly organization?: string | undefined;\n}',
+  },
+  {
+    name: 'PersonView',
+    declaration: 'export interface PersonView {\n    readonly id: PersonId;\n    readonly kind: PersonKind;\n    readonly displayName: string;\n    readonly role: Role;\n    readonly organization?: string | undefined;\n    readonly written: boolean;\n    readonly bindings: readonly BindingView[];\n}',
   },
   {
     name: 'PlatformSession',
@@ -6822,11 +8168,11 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   },
   {
     name: 'PresetDefinition',
-    declaration: 'export interface PresetDefinition {\n    readonly id: string;\n    readonly name?: string;\n    readonly description?: string;\n    readonly order?: number;\n    readonly plugins: readonly (Omit<EntryOptions, \'id\' | \'disabled\'> & {\n        id?: string;\n        disabled?: EntryOptions[\'disabled\'] | JsExpr;\n    })[];\n}',
+    declaration: 'export interface PresetDefinition {\n    readonly id: string;\n    readonly name?: string;\n    readonly description?: string;\n    readonly order?: number;\n    readonly plugins: readonly (Omit<EntryOptions, \'id\' | \'disabled\'> & {\n        id?: string;\n        disabled?: EntryOptions[\'disabled\'] | JsExpr;\n    })[];\n    readonly acceptsContributions?: boolean;\n}',
   },
   {
-    name: 'PresetOption',
-    declaration: 'export interface PresetOption {\n    value: string;\n    name: string;\n    description?: string;\n}',
+    name: 'PresetOptionView',
+    declaration: 'export interface PresetOptionView {\n    readonly id: string;\n    readonly displayName?: string;\n    readonly description?: string;\n}',
   },
   {
     name: 'PresetSpec',
@@ -6839,10 +8185,6 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'PreToolDecision',
     declaration: 'export type PreToolDecision = {\n    kind: \'allow\';\n} | {\n    kind: \'deny\';\n    reason: string;\n    info?: ToolErrorInfo;\n} | {\n    kind: \'cancel\';\n} | {\n    kind: \'ask\';\n    reason?: string;\n    displayReason?: {\n        readonly en: string;\n        readonly [locale: string]: string;\n    };\n};',
-  },
-  {
-    name: 'Principal',
-    declaration: 'export type Principal = PrincipalMap[keyof PrincipalMap];',
   },
   {
     name: 'PrincipalMap',
@@ -6941,6 +8283,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export type PromptSubmitResult = {\n    text: string;\n    context?: readonly string[];\n    drop?: undefined;\n} | {\n    drop: string;\n    text?: undefined;\n    context?: undefined;\n};',
   },
   {
+    name: 'ProviderGrant',
+    declaration: 'export interface ProviderGrant {\n    readonly provider: string;\n    readonly credential: CredentialRef;\n    readonly baseUrl?: string | undefined;\n}',
+  },
+  {
     name: 'ProviderRequestId',
     declaration: 'export type ProviderRequestId = Branded<\'ProviderRequestId\'>;',
   },
@@ -7029,6 +8375,14 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export interface RedactedSecret {\n    path: string[];\n    set: boolean;\n}',
   },
   {
+    name: 'RedirectChannel',
+    declaration: 'export interface RedirectChannel extends ChannelDescription {\n    readonly kind: \'redirect\';\n    start(returnTo: string): Promise<RedirectStart>;\n    complete(parameters: URLSearchParams): Promise<ExternalSubject | undefined>;\n}',
+  },
+  {
+    name: 'RedirectStart',
+    declaration: 'export interface RedirectStart {\n    readonly to: string;\n    readonly attempt: string;\n}',
+  },
+  {
     name: 'Registry',
     declaration: 'export type Registry = string | null;',
   },
@@ -7097,8 +8451,16 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export interface RemoteAccessRole<K extends RemoteAccessResourceKind> {\n    readonly name: string;\n    readonly resource: K;\n    readonly actions: readonly RemoteAccessAction[];\n}',
   },
   {
+    name: 'RemoteAuthority',
+    declaration: 'export type RemoteAuthority = \'anyone\' | \'member\' | \'tenant-administrator\' | \'platform-administrator\';',
+  },
+  {
+    name: 'RemoteAuthorizationRequest',
+    declaration: 'export interface RemoteAuthorizationRequest {\n    readonly endpoint: string;\n    readonly namespace: string;\n    readonly method: string;\n    readonly requires: RemoteAuthority | undefined;\n}',
+  },
+  {
     name: 'RemoteError',
-    declaration: 'export class RemoteError<Code extends RemoteErrorCode = RemoteErrorCode> extends Error {\n    readonly isDSHRemoteError: true;\n    constructor(readonly code: Code, message: string, readonly details: RemoteErrorDetailsMap[Code], options?: ErrorOptions);\n}',
+    declaration: 'export class RemoteError<Code extends RemoteErrorCode = RemoteErrorCode> extends Error {\n    readonly isLYNRemoteError: true;\n    constructor(readonly code: Code, message: string, readonly details: RemoteErrorDetailsMap[Code], options?: ErrorOptions);\n}',
   },
   {
     name: 'RemoteErrorCode',
@@ -7153,8 +8515,20 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export type RequestRunOutcome = \'approved\' | \'completed\' | \'rejected\' | \'cancelled\' | \'failed\';',
   },
   {
+    name: 'RequestTenant',
+    declaration: 'export interface RequestTenant {\n    readonly tenant: Tenant;\n    readonly source: TenantSource;\n    readonly config?: TenantConfig | undefined;\n}',
+  },
+  {
     name: 'RequestUserInput',
     declaration: 'export interface RequestUserInput {\n    readonly role: \'user\';\n    readonly content: UserMessage[\'content\'];\n    readonly id?: never;\n    readonly source?: never;\n}',
+  },
+  {
+    name: 'ResetPeriod',
+    declaration: 'export type ResetPeriod = \'daily\' | \'weekly\' | \'monthly\';',
+  },
+  {
+    name: 'ResetPeriodView',
+    declaration: 'export type ResetPeriodView = \'daily\' | \'weekly\' | \'monthly\';',
   },
   {
     name: 'ResolvedAlwaysRetryPolicy',
@@ -7195,6 +8569,22 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'ResumeAgentOptions',
     declaration: 'export interface ResumeAgentOptions {\n    readonly resumeSessionId: SessionId;\n    readonly parentAgent?: Agent;\n    readonly agentOptions?: AgentOptions;\n    readonly signal?: AbortSignal;\n    readonly setup?: AgentSetup;\n}',
+  },
+  {
+    name: 'Role',
+    declaration: 'export type Role = \'platform-administrator\' | \'tenant-administrator\' | \'member\';',
+  },
+  {
+    name: 'RoomRemark',
+    declaration: 'export interface RoomRemark {\n    readonly bot: PersonId;\n    readonly displayName: string;\n    readonly text: string;\n}',
+  },
+  {
+    name: 'RoomRequest',
+    declaration: 'export interface RoomRequest {\n    readonly participants: readonly PersonId[];\n    readonly question: string;\n    readonly rounds: number;\n}',
+  },
+  {
+    name: 'RoomResult',
+    declaration: 'export interface RoomResult {\n    readonly sessionId: SessionId;\n    readonly remarks: readonly RoomRemark[];\n    readonly conclusion: string;\n}',
   },
   {
     name: 'RpcId',
@@ -7341,6 +8731,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export type SearchResultView = SearchMatchesResultView | SearchPathsResultView;',
   },
   {
+    name: 'SelfDrivenChannel',
+    declaration: 'export interface SelfDrivenChannel extends ChannelDescription {\n    readonly kind: \'self-driven\';\n    authenticate(): Promise<ExternalSubject | undefined>;\n}',
+  },
+  {
     name: 'SendTeamMessageRequest',
     declaration: 'export interface SendTeamMessageRequest {\n    readonly target: string;\n    readonly content: ContentBlock[];\n    readonly signal: AbortSignal;\n}',
   },
@@ -7434,11 +8828,11 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   },
   {
     name: 'SessionCreateRequest',
-    declaration: 'export interface SessionCreateRequest {\n    readonly workspaceId?: WorkspaceId;\n    readonly cwd?: string;\n    readonly sessionId?: SessionId;\n    readonly agentPreset?: string;\n}',
+    declaration: 'export interface SessionCreateRequest {\n    readonly workspaceId?: WorkspaceId;\n    readonly cwd?: string;\n    readonly sessionId?: SessionId;\n    readonly agentPreset?: string;\n    readonly bot?: string;\n}',
   },
   {
     name: 'SessionCreateValue',
-    declaration: 'export interface SessionCreateValue {\n    readonly sessionId: SessionId;\n    readonly agentPreset?: string;\n}',
+    declaration: 'export interface SessionCreateValue {\n    readonly sessionId: SessionId;\n    readonly agentPreset?: string;\n    readonly bot?: string;\n}',
   },
   {
     name: 'SessionEndInput',
@@ -7709,6 +9103,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export interface SessionProjectionsRequest {\n    readonly sessionId: SessionId;\n}',
   },
   {
+    name: 'SessionProjectionStateMap',
+    declaration: 'export interface SessionProjectionStateMap {\n}',
+  },
+  {
     name: 'SessionProjectionSummaryExcluded',
     declaration: 'export type SessionProjectionSummaryExcluded<T> = T & {\n    readonly [sessionProjectionSummaryExcluded]: true;\n};',
   },
@@ -7974,11 +9372,11 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   },
   {
     name: 'ShellExecRequest',
-    declaration: 'export interface ShellExecRequest {\n    command: string;\n    workdir?: string | undefined;\n    timeoutMs?: number | undefined;\n    onExpiry?: ShellExpiryPolicy | undefined;\n    stdoutMaxBytes?: number | undefined;\n    signal?: AbortSignal | undefined;\n    stdin?: string | undefined;\n    env?: Record<string, string> | undefined;\n    dshEnv?: DshEnvironment | undefined;\n    sandboxPolicy?: SandboxExecutionPolicy | undefined;\n}',
+    declaration: 'export interface ShellExecRequest {\n    command: string;\n    workdir?: string | undefined;\n    timeoutMs?: number | undefined;\n    onExpiry?: ShellExpiryPolicy | undefined;\n    stdoutMaxBytes?: number | undefined;\n    signal?: AbortSignal | undefined;\n    stdin?: string | undefined;\n    env?: Record<string, string> | undefined;\n    lynEnv?: LynEnvironment | undefined;\n    sandboxPolicy?: SandboxExecutionPolicy | undefined;\n}',
   },
   {
     name: 'ShellExecSpec',
-    declaration: 'export interface ShellExecSpec {\n    command: string;\n    workdir: string;\n    timeoutMs: number;\n    onExpiry: ShellExpiryPolicy;\n    stdoutMaxBytes: number;\n    signal?: AbortSignal | undefined;\n    stdin?: string | undefined;\n    env?: Record<string, string> | undefined;\n    dshEnv?: DshEnvironment | undefined;\n    sandboxPolicy: SandboxExecutionPolicy | undefined;\n}',
+    declaration: 'export interface ShellExecSpec {\n    command: string;\n    workdir: string;\n    timeoutMs: number;\n    onExpiry: ShellExpiryPolicy;\n    stdoutMaxBytes: number;\n    signal?: AbortSignal | undefined;\n    stdin?: string | undefined;\n    env?: Record<string, string> | undefined;\n    lynEnv?: LynEnvironment | undefined;\n    sandboxPolicy: SandboxExecutionPolicy | undefined;\n}',
   },
   {
     name: 'ShellExecution',
@@ -8013,6 +9411,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export interface ShellSandboxInfo {\n    mode: SandboxMode;\n    denied: boolean;\n    enforcement?: SandboxEnforcement;\n    runnerFailed?: boolean;\n}',
   },
   {
+    name: 'SignedInSession',
+    declaration: 'export interface SignedInSession {\n    readonly id: AuthSessionId;\n    readonly person: PersonId;\n    readonly acting: ActingContext;\n    readonly establishedAt: string;\n    readonly expiresAt?: string | undefined;\n    readonly method: string;\n}',
+  },
+  {
     name: 'SignInAttemptId',
     declaration: 'export type SignInAttemptId = Branded<\'SignInAttemptId\'>;',
   },
@@ -8021,8 +9423,16 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export interface SignInAttemptView {\n    readonly id: SignInAttemptId;\n    readonly phase: \'initializing\' | \'waiting-browser\' | \'exchanging\' | \'committing\' | \'succeeded\' | \'cancelled\' | \'expired\' | \'failed\';\n    readonly authorizeUrl?: string;\n    readonly expiresAt?: number;\n    readonly errorCode?: SignInErrorCode;\n}',
   },
   {
+    name: 'SignInChannel',
+    declaration: 'export type SignInChannel = SelfDrivenChannel | RedirectChannel;',
+  },
+  {
     name: 'SignInErrorCode',
     declaration: 'export type SignInErrorCode = \'no-response\' | \'network\' | \'protocol\' | \'expired\' | \'storage\';',
+  },
+  {
+    name: 'SignInOutcome',
+    declaration: 'export type SignInOutcome = {\n    readonly kind: \'session\';\n    readonly session: AuthSessionId;\n} | {\n    readonly kind: \'redirect\';\n    readonly start: RedirectStart;\n};',
   },
   {
     name: 'SkillCandidate',
@@ -8078,7 +9488,7 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   },
   {
     name: 'SkillSource',
-    declaration: 'export type SkillSource = \'project-dsh\' | \'project-agents\' | \'runtime\' | \'user-dsh\' | \'user-agents\' | \'custom\' | \'bundled\' | (string & {});',
+    declaration: 'export type SkillSource = \'project-lyn\' | \'project-agents\' | \'runtime\' | \'user-lyn\' | \'user-agents\' | \'custom\' | \'bundled\' | (string & {});',
   },
   {
     name: 'SkillSummary',
@@ -8167,6 +9577,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'SpeechSpec',
     declaration: 'export interface SpeechSpec extends SpeechInput {\n    readonly provider: SpeechProvider;\n}',
+  },
+  {
+    name: 'SpendRequest',
+    declaration: 'export interface SpendRequest {\n    readonly person: PersonId;\n    readonly amount: number;\n    readonly session: string;\n    readonly organization?: string | undefined;\n}',
   },
   {
     name: 'SpillLocator',
@@ -8417,12 +9831,28 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export type TeamId = Branded<\'TeamId\'>;',
   },
   {
+    name: 'TeamInput',
+    declaration: 'export interface TeamInput {\n    readonly id?: string;\n    readonly displayName: string;\n    readonly organization: string;\n    readonly members: readonly string[];\n}',
+  },
+  {
+    name: 'TeammateView',
+    declaration: 'export interface TeammateView {\n    readonly id: PersonId;\n    readonly displayName: string;\n    readonly job: string;\n    readonly persona: string;\n    readonly preset: string;\n}',
+  },
+  {
     name: 'TeamMembership',
     declaration: 'export interface TeamMembership {\n    readonly root: Agent;\n    readonly id: TeamId;\n    readonly role: \'lead\' | \'teammate\';\n    readonly name: string;\n}',
   },
   {
     name: 'TeamMemberView',
     declaration: 'export interface TeamMemberView {\n    readonly id: SessionId;\n    readonly name: string;\n    readonly role: \'lead\' | \'teammate\';\n    readonly status: \'running\' | \'inactive\' | \'provisioning\' | \'failed\';\n    readonly description?: string;\n    readonly provider?: string;\n    readonly context?: \'fresh\' | \'fork\';\n    readonly model?: string;\n    readonly diagnostics: string[];\n}',
+  },
+  {
+    name: 'TeamRowView',
+    declaration: 'export interface TeamRowView {\n    readonly id: string;\n    readonly displayName: string;\n    readonly organization: string;\n    readonly members: readonly string[];\n    readonly written: boolean;\n}',
+  },
+  {
+    name: 'TeamSubmission',
+    declaration: 'export interface TeamSubmission {\n    readonly id?: string | undefined;\n    readonly displayName: string;\n    readonly organization: string;\n    readonly members: readonly PersonId[];\n}',
   },
   {
     name: 'TeamTaskAction',
@@ -8441,8 +9871,60 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export interface TeamTaskView {\n    readonly id: TeamTaskId;\n    readonly revision: number;\n    readonly subject: string;\n    readonly description: string;\n    readonly status: TeamTaskStatus;\n    readonly blockedBy: TeamTaskId[];\n    readonly writeScopes: string[];\n    readonly ownerName?: string;\n    readonly ready: boolean;\n    readonly writeScopeWarnings: string[];\n}',
   },
   {
+    name: 'TeamView',
+    declaration: 'export interface TeamView extends DeclaredTeam {\n    readonly written: boolean;\n}',
+  },
+  {
     name: 'TeamWaitResult',
     declaration: 'export interface TeamWaitResult {\n    readonly timedOut: boolean;\n}',
+  },
+  {
+    name: 'Tenant',
+    declaration: 'export interface Tenant {\n    readonly id: TenantId;\n    readonly slug: string;\n    readonly displayName: string;\n}',
+  },
+  {
+    name: 'TenantConfig',
+    declaration: 'export interface TenantConfig {\n    readonly tenantId: TenantId;\n    readonly models: Readonly<Record<Modality, ModalityModels>>;\n    readonly providers: readonly ProviderGrant[];\n    readonly features: readonly string[];\n    readonly identity?: TenantIdentity | undefined;\n    readonly copy?: Readonly<Record<string, string>> | undefined;\n}',
+  },
+  {
+    name: 'TenantConfigCapability',
+    declaration: 'export type TenantConfigCapability = {\n    kind: \'read-only\';\n} | {\n    kind: \'writable\';\n    save(config: TenantConfig): Promise<void>;\n};',
+  },
+  {
+    name: 'TenantConfigInput',
+    declaration: 'export interface TenantConfigInput {\n    readonly models: Readonly<Record<string, TenantModalityView>>;\n    readonly providers: readonly TenantProviderView[];\n    readonly features: readonly string[];\n    readonly identity?: TenantIdentityView | undefined;\n    readonly copy?: Readonly<Record<string, string>> | undefined;\n}',
+  },
+  {
+    name: 'TenantConfigView',
+    declaration: 'export interface TenantConfigView {\n    readonly tenantId: string;\n    readonly slug: string;\n    readonly displayName: string;\n    readonly writable: boolean;\n    readonly configured: boolean;\n    readonly models: Readonly<Record<string, TenantModalityView>>;\n    readonly providers: readonly TenantProviderView[];\n    readonly features: readonly string[];\n    readonly identity?: TenantIdentityView;\n    readonly copy: Readonly<Record<string, string>>;\n}',
+  },
+  {
+    name: 'TenantId',
+    declaration: 'export type TenantId = Branded<\'TenantId\'>;',
+  },
+  {
+    name: 'TenantIdentity',
+    declaration: 'export interface TenantIdentity {\n    readonly constraints: readonly string[];\n    readonly personality?: string | undefined;\n}',
+  },
+  {
+    name: 'TenantIdentityView',
+    declaration: 'export interface TenantIdentityView {\n    readonly constraints: readonly string[];\n    readonly personality?: string;\n}',
+  },
+  {
+    name: 'TenantModalityView',
+    declaration: 'export interface TenantModalityView {\n    readonly available: readonly TenantModelView[];\n    readonly preferred?: TenantModelView;\n}',
+  },
+  {
+    name: 'TenantModelView',
+    declaration: 'export interface TenantModelView {\n    readonly provider: string;\n    readonly model: string;\n    readonly reasoningEffort?: string;\n}',
+  },
+  {
+    name: 'TenantProviderView',
+    declaration: 'export interface TenantProviderView {\n    readonly provider: string;\n    readonly credential: string;\n    readonly baseUrl?: string;\n}',
+  },
+  {
+    name: 'TenantSource',
+    declaration: 'export type TenantSource = \'header\' | \'host\' | \'subdomain\';',
   },
   {
     name: 'TerminalBackend',
@@ -8822,7 +10304,7 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   },
   {
     name: 'TypertGatewayBinding',
-    declaration: 'export interface TypertGatewayBinding<Service extends object = object> {\n    readonly service: Service;\n    readonly serviceKey: string;\n    readonly namespace: string;\n}',
+    declaration: 'export interface TypertGatewayBinding<Service extends object = object> {\n    readonly service: Service;\n    readonly serviceKey: string;\n    readonly namespace: string;\n    readonly requires?: RemoteAuthority;\n}',
   },
   {
     name: 'TypertGatewayWireStream',
@@ -8963,6 +10445,18 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'VerifiedWebhookDelivery',
     declaration: 'export interface VerifiedWebhookDelivery<K extends string = string> {\n    readonly kind: K;\n    readonly source: WebhookSourceId;\n    readonly deliveryId: WebhookDeliveryId;\n    readonly event: WebhookEventOf<K>;\n    readonly receivedAt: number;\n}',
+  },
+  {
+    name: 'ViewerPersonView',
+    declaration: 'export interface ViewerPersonView {\n    readonly id: string;\n    readonly displayName: string;\n}',
+  },
+  {
+    name: 'ViewerStandingView',
+    declaration: 'export interface ViewerStandingView {\n    readonly id: string;\n    readonly role: \'platform-administrator\' | \'tenant-administrator\' | \'member\';\n    readonly organization?: string;\n}',
+  },
+  {
+    name: 'ViewerView',
+    declaration: 'export interface ViewerView {\n    readonly accounts: boolean;\n    readonly person?: ViewerPersonView;\n    readonly standing?: ViewerStandingView;\n    readonly channels: readonly ChannelOfferView[];\n    readonly signInPrefix: string;\n    readonly signOutPath: string;\n}',
   },
   {
     name: 'WebBootBatch',

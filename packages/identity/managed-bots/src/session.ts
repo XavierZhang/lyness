@@ -9,13 +9,13 @@
  * says next, and must not change what it already said. A resumed session
  * rebuilds the prompt it actually ran with.
  *
- * @module @deepseek-ai/dsh-managed-bots/session
+ * @module @lyness/lyn-managed-bots/session
  */
 
-import type { Context } from '@deepseek-ai/cordis'
+import type { Context } from '@lyness/cordis'
 import { z } from 'zod'
-import type { ProjectionDefinition } from '@deepseek-ai/dsh-session-projection'
-import type {} from '@deepseek-ai/dsh-system-prompt'
+import type { ProjectionDefinition } from '@lyness/lyn-session-projection'
+import type {} from '@lyness/lyn-system-prompt'
 
 /** The bot one session speaks as, as its log records it. */
 export interface EngagedBot {
@@ -27,7 +27,7 @@ export interface EngagedBot {
   readonly persona: string
 }
 
-declare module '@deepseek-ai/dsh-session-projection/types' {
+declare module '@lyness/lyn-session-projection/types' {
   interface SessionProjectionStateMap {
     bot: EngagedBot | null
   }
@@ -37,7 +37,7 @@ declare module '@deepseek-ai/dsh-session-projection/types' {
   }
 }
 
-declare module '@deepseek-ai/dsh-session/types' {
+declare module '@lyness/lyn-session/types' {
   interface SessionEventMap {
     /**
      * This session speaks as one bot, with the character it carried when the

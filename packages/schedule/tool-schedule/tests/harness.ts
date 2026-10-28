@@ -1,7 +1,7 @@
 /** Agent-scoped Schedule tool tests reuse the Host Schedule harness and mount the tools under a scope. */
-import type { Context } from '@deepseek-ai/cordis'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import { createScope, type Scope } from '@deepseek-ai/dsh-scope'
+import type { Context } from '@lyness/cordis'
+import type { Agent } from '@lyness/lyn-agent'
+import { createScope, type Scope } from '@lyness/lyn-scope'
 import * as ToolSchedule from '../src/index.ts'
 
 export { agentFor, harness } from '../../schedule/tests/harness.ts'

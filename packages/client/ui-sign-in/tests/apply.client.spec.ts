@@ -3,13 +3,13 @@
  * the shared read behind both, and that nothing is read until something asks.
  */
 
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { describe, expect, it, vi } from 'vitest'
-import { SlotRegistry } from '@deepseek-ai/dsh-client-ui-renderer/client'
-import { LocaleRuntime } from '@deepseek-ai/dsh-client-locale/client'
-import { TestRemote } from '@deepseek-ai/dsh-client-test-runtime'
-import type { ViewerView } from '@deepseek-ai/dsh-api-identity-controller/types'
-import { apply, inject, NS, viewerReadOf } from '@deepseek-ai/dsh-client-ui-sign-in/client'
+import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
+import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
+import { TestRemote } from '@lyness/lyn-client-test-runtime'
+import type { ViewerView } from '@lyness/lyn-api-identity-controller/types'
+import { apply, inject, NS, viewerReadOf } from '@lyness/lyn-client-ui-sign-in/client'
 import { AccountRow } from '../src/client/AccountRow.tsx'
 import { SignInScreen } from '../src/client/SignInScreen.tsx'
 import type { createViewerStore } from '../src/client/store.ts'

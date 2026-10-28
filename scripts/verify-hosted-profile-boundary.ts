@@ -19,8 +19,9 @@
 import { globSync, readFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { loadOverlayPatches } from '../packages/boot/app-boot/src/index.ts'
-import { bundlePatchPaths, composeEntries, PROFILE_TEMPLATES } from '../packages/boot/app-boot/src/profile.ts'
-import type { DshBundleManifest } from '../packages/util/package-manifest/src/types.ts'
+import { bundlePatchPaths, composeEntries } from '../packages/boot/app-boot/src/profile.ts'
+import { PROFILE_TEMPLATES } from '../packages/util/official-bundles/src/bundles.ts'
+import type { LynBundleManifest } from '../packages/util/package-manifest/src/types.ts'
 
 const root = resolve(import.meta.dirname, '..')
 
@@ -34,13 +35,13 @@ const root = resolve(import.meta.dirname, '..')
 const workspaceBundles = new Map(globSync('packages/*/*/package.json', { cwd: root }).map((path) => {
   const manifest = JSON.parse(readFileSync(resolve(root, path), 'utf8')) as {
     name?: string
-    dsh?: { bundle?: DshBundleManifest }
+    lyn?: { bundle?: LynBundleManifest }
   }
-  return [manifest.name ?? path, { dir: dirname(resolve(root, path)), bundle: manifest.dsh?.bundle }]
+  return [manifest.name ?? path, { dir: dirname(resolve(root, path)), bundle: manifest.lyn?.bundle }]
 }))
 
 /** Bundles a hosted profile may never select, because every row in them reaches a machine. */
-export const EXECUTION_BUNDLES: readonly string[] = ['@deepseek-ai/dsh-module-execution']
+export const EXECUTION_BUNDLES: readonly string[] = ['@lyness/lyn-module-execution']
 
 /**
  * Plugins a hosted profile may never mount, whatever row id carries them.
@@ -50,26 +51,26 @@ export const EXECUTION_BUNDLES: readonly string[] = ['@deepseek-ai/dsh-module-ex
  * someone intended to execute with.
  */
 export const EXECUTION_PLUGINS: readonly string[] = [
-  '@deepseek-ai/dsh-fs-local',
-  '@deepseek-ai/dsh-fs-sandbox',
-  '@deepseek-ai/dsh-bash-local',
-  '@deepseek-ai/dsh-bash-sandbox',
-  '@deepseek-ai/dsh-pwsh-local',
-  '@deepseek-ai/dsh-pwsh-sandbox',
-  '@deepseek-ai/dsh-subprocess-local',
-  '@deepseek-ai/dsh-sandbox-local',
-  '@deepseek-ai/dsh-terminal-bash',
-  '@deepseek-ai/dsh-lsp-stdio',
-  '@deepseek-ai/dsh-ptc-runtime-node',
-  '@deepseek-ai/dsh-tool-fs',
-  '@deepseek-ai/dsh-tool-fs-search',
-  '@deepseek-ai/dsh-tool-str-replace-editor',
-  '@deepseek-ai/dsh-tool-bash',
-  '@deepseek-ai/dsh-tool-bash-persistent',
-  '@deepseek-ai/dsh-tool-pwsh',
-  '@deepseek-ai/dsh-tool-pwsh-persistent',
-  '@deepseek-ai/dsh-tool-terminal',
-  '@deepseek-ai/dsh-tool-lsp',
+  '@lyness/lyn-fs-local',
+  '@lyness/lyn-fs-sandbox',
+  '@lyness/lyn-bash-local',
+  '@lyness/lyn-bash-sandbox',
+  '@lyness/lyn-pwsh-local',
+  '@lyness/lyn-pwsh-sandbox',
+  '@lyness/lyn-subprocess-local',
+  '@lyness/lyn-sandbox-local',
+  '@lyness/lyn-terminal-bash',
+  '@lyness/lyn-lsp-stdio',
+  '@lyness/lyn-ptc-runtime-node',
+  '@lyness/lyn-tool-fs',
+  '@lyness/lyn-tool-fs-search',
+  '@lyness/lyn-tool-str-replace-editor',
+  '@lyness/lyn-tool-bash',
+  '@lyness/lyn-tool-bash-persistent',
+  '@lyness/lyn-tool-pwsh',
+  '@lyness/lyn-tool-pwsh-persistent',
+  '@lyness/lyn-tool-terminal',
+  '@lyness/lyn-tool-lsp',
 ]
 
 /** What auditing the hosted profiles found. */
@@ -104,7 +105,7 @@ export function auditHostedBoundary(): HostedBoundaryAudit {
     const layers = template.bundles.map((bundle) => {
       const found = workspaceBundles.get(bundle)
       if (found?.bundle === undefined) {
-        violations.push(`profile "${name}" selects ${bundle}, which declares no dsh.bundle`)
+        violations.push(`profile "${name}" selects ${bundle}, which declares no lyn.bundle`)
         return []
       }
       return bundlePatchPaths(found.dir, found.bundle)

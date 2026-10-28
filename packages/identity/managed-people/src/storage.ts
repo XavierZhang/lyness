@@ -5,13 +5,13 @@
  * every session they opened, and a binding outlives the channel record it
  * names, which an administrator may reconfigure without re-admitting anybody.
  *
- * @module @deepseek-ai/dsh-managed-people/storage
+ * @module @lyness/lyn-managed-people/storage
  */
 
 import { z } from 'zod'
-import { defineDomain, domainTable, storedId, storedInstant } from '@deepseek-ai/dsh-storage-domain'
-import { ROLES } from '@deepseek-ai/dsh-people'
-import type { PersonId, Role } from '@deepseek-ai/dsh-people'
+import { defineDomain, domainTable, storedId, storedInstant } from '@lyness/lyn-storage-domain'
+import { ROLES } from '@lyness/lyn-people'
+import type { PersonId, Role } from '@lyness/lyn-people'
 import type { BindingRecord, PersonRecord } from './types.ts'
 
 const role: z.ZodType<Role> = z.enum([...ROLES] as [Role, ...Role[]])

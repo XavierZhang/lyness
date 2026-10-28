@@ -20,15 +20,15 @@
  * one organization's data refuses, while a call that touches none does not need
  * to know. Refusing here would make every endpoint on every channel
  * tenant-only, which is not what mounting a directory says.
- * @module @deepseek-ai/dsh-tenant-request
+ * @module @lyness/lyn-tenant-request
  */
 
 import { AsyncLocalStorage } from 'node:async_hooks'
-import { Context, Service } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
-import type {} from '@deepseek-ai/dsh-client-connection'
-import { resolveTenant } from '@deepseek-ai/dsh-tenant-http'
-import type { RequestHeaders } from '@deepseek-ai/dsh-tenant-http'
+import { Context, Service } from '@lyness/cordis'
+import z from '@lyness/schemastery'
+import type {} from '@lyness/lyn-client-connection'
+import { resolveTenant } from '@lyness/lyn-tenant-http'
+import type { RequestHeaders } from '@lyness/lyn-tenant-http'
 import type { RequestTenant, RequestTenantReader } from './types.ts'
 
 export type { RequestTenant, RequestTenantReader } from './types.ts'

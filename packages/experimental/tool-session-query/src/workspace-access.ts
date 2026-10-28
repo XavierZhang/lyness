@@ -1,24 +1,24 @@
 /**
  * Caller identity, workspace authorization, and visible lineage projection.
  *
- * @module @deepseek-ai/dsh-tool-session-query/workspace-access
+ * @module @lyness/lyn-tool-session-query/workspace-access
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import { HarnessError } from '@deepseek-ai/dsh-llm'
+import type { Context } from '@lyness/cordis'
+import { brandString } from '@lyness/lyn-brand'
+import { HarnessError } from '@lyness/lyn-llm'
 import {
   type Session,
   type SessionHeader,
   type SessionId as SessionIdValue,
-} from '@deepseek-ai/dsh-session'
-import type {} from '@deepseek-ai/dsh-session-ownership/visibility'
-import type { TurnBoundaryProjection } from '@deepseek-ai/dsh-agent'
+} from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-session-ownership/visibility'
+import type { TurnBoundaryProjection } from '@lyness/lyn-agent'
 import type {
   SessionLineageNode,
   SessionRecord,
-} from '@deepseek-ai/dsh-session-query'
-import type { ToolRunContext } from '@deepseek-ai/dsh-tools'
+} from '@lyness/lyn-session-query'
+import type { ToolRunContext } from '@lyness/lyn-tools'
 import { serviceBoundary } from './service-boundary.ts'
 
 interface Caller {
@@ -67,9 +67,8 @@ function callerOf(exec: ToolRunContext, ctx: Context): Caller {
   return {
     id: agent.session.id,
     header: agent.session.header,
-    boundary: ctx.agents.turnBoundaryOf(agent.session),
     session: agent.session,
-    boundary: ctx.sessionProjections.stateOf(agent.session, 'turnBoundary'),
+    boundary: ctx.agents.turnBoundaryOf(agent.session),
   }
 }
 

@@ -1,12 +1,12 @@
 /** Forward file and folder recognition in original text, without Facts or discovery. */
-import type { UserTextRule } from '@deepseek-ai/dsh-client-ui-conversation/client'
+import type { UserTextRule } from '@lyness/lyn-client-ui-conversation/client'
 
 interface PathReferenceData {
   readonly path: string
   readonly label: string
 }
 
-declare module '@deepseek-ai/dsh-client-ui-conversation/client' {
+declare module '@lyness/lyn-client-ui-conversation/client' {
   interface UserTextDataMap {
     file: PathReferenceData
     folder: PathReferenceData

@@ -1,10 +1,10 @@
 /**
  * What a session records about whose conversation it is.
  *
- * @module @deepseek-ai/dsh-session-ownership/types
+ * @module @lyness/lyn-session-ownership/types
  */
 
-import type { MembershipId, PersonId } from '@deepseek-ai/dsh-people'
+import type { MembershipId, PersonId } from '@lyness/lyn-people'
 
 /** Format of the ownership record; a later shape bumps it. */
 export const SESSION_OWNER_RECORD_VERSION = 1

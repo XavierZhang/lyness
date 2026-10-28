@@ -5,45 +5,45 @@
 /:
   en: e9078600734bb588
   zh: 4b9b15913787c0d0
-/deepseek-harness-dsh-client-ui-trajectory:
+/lyness-lyn-client-ui-trajectory:
   en: 2a06fb1b743e7f49
   zh: a4eb8c2722ce4c68
-/deepseek-harness-dsh-client-ui-trajectory/summary:
+/lyness-lyn-client-ui-trajectory/summary:
   en: dc75677138d05dc6
   zh: 6e11553a5caf4716
-/deepseek-harness-dsh-client-ui-trajectory/table-of-contents:
+/lyness-lyn-client-ui-trajectory/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/deepseek-harness-dsh-client-ui-trajectory/use-this-package:
+/lyness-lyn-client-ui-trajectory/use-this-package:
   en: 4bd17d05b8385675
   zh: 5174e27f754f2a03
-/deepseek-harness-dsh-client-ui-trajectory/use-this-package/inspecting-records:
+/lyness-lyn-client-ui-trajectory/use-this-package/inspecting-records:
   en: 7befe43b0d0c63c7
   zh: 153d581c49cf3672
-/deepseek-harness-dsh-client-ui-trajectory/use-this-package/the-timing-overview:
+/lyness-lyn-client-ui-trajectory/use-this-package/the-timing-overview:
   en: 0331f90cbd904862
   zh: bdc2d4ed1c3c1f5e
-/deepseek-harness-dsh-client-ui-trajectory/understand-the-implementation:
+/lyness-lyn-client-ui-trajectory/understand-the-implementation:
   en: 925abc8e4b092cb3
   zh: ebe85c5acdbea3b1
-/deepseek-harness-dsh-client-ui-trajectory/understand-the-implementation/virtual-rows:
+/lyness-lyn-client-ui-trajectory/understand-the-implementation/virtual-rows:
   en: c85e342bc7eee4e6
   zh: 9feab66ef1755b94
-/deepseek-harness-dsh-client-ui-trajectory/understand-the-implementation/layout:
+/lyness-lyn-client-ui-trajectory/understand-the-implementation/layout:
   en: b9693a54b800d439
   zh: cd9b84382ae0b181
-/deepseek-harness-dsh-client-ui-trajectory/further-exploration:
+/lyness-lyn-client-ui-trajectory/further-exploration:
   en: ff2b9cab790dd99c
   zh: c5eaa38cc8577c3c
-/deepseek-harness-dsh-client-ui-trajectory/model-experience:
+/lyness-lyn-client-ui-trajectory/model-experience:
   en: 3120df665299c634
   zh: 1d9f365d091d0d2a
-/deepseek-harness-dsh-client-ui-trajectory/model-experience/kv-cache-effect:
+/lyness-lyn-client-ui-trajectory/model-experience/kv-cache-effect:
   en: ca75c51c89c2c9b0
   zh: de54f3467ef3b9be
-/deepseek-harness-dsh-client-ui-trajectory/known-limitations-and-deferred-work:
+/lyness-lyn-client-ui-trajectory/known-limitations-and-deferred-work:
   en: d7da620f56eb3c65
   zh: fb030b68322b94cd
-/deepseek-harness-dsh-client-ui-trajectory/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-client-ui-trajectory/known-limitations-and-deferred-work/dev-note:
   en: f1893e3a6c69cc58
   zh: b6e0dfe20567c35f

@@ -1,12 +1,12 @@
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import LlmRuntime, { createToolResultMessage, createUserMessage, ToolCallId, ReasoningEffortId } from '@deepseek-ai/dsh-llm'
-import type { Message, ToolSchema } from '@deepseek-ai/dsh-llm'
-import * as LlmPiAi from '@deepseek-ai/dsh-llm-pi-ai'
-import type { PiAiProviderProfile } from '@deepseek-ai/dsh-llm-pi-ai'
-import * as LlmDeepSeek from '@deepseek-ai/dsh-llm-deepseek-api-key'
+import { Context } from '@lyness/cordis'
+import LlmRuntime, { createToolResultMessage, createUserMessage, ToolCallId, ReasoningEffortId } from '@lyness/lyn-llm'
+import type { Message, ToolSchema } from '@lyness/lyn-llm'
+import * as LlmPiAi from '@lyness/lyn-llm-pi-ai'
+import type { PiAiProviderProfile } from '@lyness/lyn-llm-pi-ai'
+import * as LlmDeepSeek from '@lyness/lyn-llm-deepseek-api-key'
 import { assemble, type AssembledResult } from './assemble.ts'
-import { E2E_TARGET } from '@deepseek-ai/dsh-e2e-target'
+import { E2E_TARGET } from '@lyness/lyn-e2e-target'
 
 /**
  * Real-API e2e for the pi-ai-backed adapter: V4 Flash defaults and
@@ -14,7 +14,6 @@ import { E2E_TARGET } from '@deepseek-ai/dsh-e2e-target'
  * and exercises a replayed tool follow-up. Key-gated.
  */
 
-const FLASH = 'deepseek-flash'
 const FLASH = E2E_TARGET.model
 const contexts: Context[] = []
 

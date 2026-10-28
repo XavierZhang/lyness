@@ -1,11 +1,11 @@
 /**
  * Vocabulary for signing in through an external directory.
  *
- * @module @deepseek-ai/dsh-sign-in/types
+ * @module @lyness/lyn-sign-in/types
  */
 
-import type { AuthSessionId } from '@deepseek-ai/dsh-auth-session'
-import type { Branded } from '@deepseek-ai/dsh-brand'
+import type { AuthSessionId } from '@lyness/lyn-auth-session'
+import type { Branded } from '@lyness/lyn-brand'
 
 /** Opaque identity of one configured sign-in channel. */
 export type ChannelId = Branded<'ChannelId'>

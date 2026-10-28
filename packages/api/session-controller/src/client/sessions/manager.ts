@@ -1,9 +1,9 @@
 /** Host catalog, durable projection caches, and explicitly retained Client instances. */
 
-import type { SubagentAddress } from '@deepseek-ai/dsh-subagent/client'
-import { SessionSeq, type SessionId, type SessionSeqCursor } from '@deepseek-ai/dsh-session/types'
-import type { SessionProjectionMap, SessionProjectionViewValues } from '@deepseek-ai/dsh-session-projection/types'
-import type { WorkspaceId } from '@deepseek-ai/dsh-workspace/types'
+import type { SubagentAddress } from '@lyness/lyn-subagent/client'
+import { SessionSeq, type SessionId, type SessionSeqCursor } from '@lyness/lyn-session/types'
+import type { SessionProjectionMap, SessionProjectionViewValues } from '@lyness/lyn-session-projection/types'
+import type { WorkspaceId } from '@lyness/lyn-workspace/types'
 import type {
   SessionControlBaseline,
   SessionControlFrame,
@@ -12,15 +12,15 @@ import type {
   SessionSummary,
 } from '../../types.ts'
 import { mergeOrderedBaseline } from '../ordered-baseline.ts'
-import { isRemoteFailure } from '@deepseek-ai/dsh-api-gateway/client'
-import { assertNever } from '@deepseek-ai/dsh-util-values'
-import type { RemoteFailure, RemoteResult } from '@deepseek-ai/dsh-typert-protocol'
+import { isRemoteFailure } from '@lyness/lyn-api-gateway/client'
+import { assertNever } from '@lyness/lyn-util-values'
+import type { RemoteFailure, RemoteResult } from '@lyness/lyn-typert-protocol'
 import type { SessionListEntry, TitledSessionSummary } from './lineage.ts'
 import { flattenLineage } from './lineage.ts'
 // Type-only merge edge: the title domain's client-namespace outlet declares
 // the 'title' projection key this manager projects into list rows (and any
 // useProjection('title') consumer reads). Zero value imports by construction.
-import type {} from '@deepseek-ai/dsh-session-title/client'
+import type {} from '@lyness/lyn-session-title/client'
 import { Notifier } from './notifier.ts'
 import { ProjectionValueStore } from './projection-store.ts'
 import { Session } from './session.ts'
@@ -507,7 +507,9 @@ export class SessionManager {
    * Contract session.create; on success merge into summaries immediately (no
    * wait for the next refresh). A created session is blank by definition
    * (entity birth precedes the first message).
-   * @param opts - target workspace or working directory, an optional blank Session to reuse, and an optional Agent preset.
+   * @param opts - target workspace or working directory, an optional blank
+   *   Session to reuse, an optional Agent preset, and the bot this
+   *   conversation is with when it is with one.
    * @returns the create result, naming the Session the Host created or reused.
   */
   async create(
@@ -516,17 +518,13 @@ export class SessionManager {
       cwd?: string
       sessionId?: SessionId
       agentPreset?: string
+      bot?: string
     } = {},
   ): Promise<RemoteResult<{ sessionId: SessionId }>> {
     const shared = {
       ...(opts.sessionId === undefined ? {} : { sessionId: opts.sessionId }),
       ...(opts.agentPreset === undefined ? {} : { agentPreset: opts.agentPreset }),
-      bot?: string
-    } = {},
-  ): Promise<RemoteResult<{ sessionId: SessionId }>> {
-    const shared = {
-      ...opts.sessionId === undefined ? {} : { sessionId: opts.sessionId },
-      ...opts.bot === undefined ? {} : { bot: opts.bot },
+      ...(opts.bot === undefined ? {} : { bot: opts.bot }),
     }
     const payload = opts.workspaceId !== undefined
       ? { workspaceId: opts.workspaceId, ...shared }

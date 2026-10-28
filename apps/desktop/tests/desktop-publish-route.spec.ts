@@ -7,15 +7,15 @@ function fixture() {
   const source = { repository: 'owner/repo', runId: '42', attempt: '2', commit: run.head_sha, runnerName: 'mini',
     workflowCommit: run.head_sha, sourceRef: 'master', channel: 'nightly',
     target: 'mac-arm64', preset: 'test', publishRequested: true, qualification: 'notarized' }
-  const jobs = [{ name: 'package', runner_name: 'mini', conclusion: 'success', labels: ['self-hosted', 'dsh-mini'] }]
-  const routes = { mini: { label: 'dsh-mini', target: 'mac-arm64' } }
+  const jobs = [{ name: 'package', runner_name: 'mini', conclusion: 'success', labels: ['self-hosted', 'lyn-mini'] }]
+  const routes = { mini: { label: 'lyn-mini', target: 'mac-arm64' } }
   return { run, source, jobs, routes }
 }
 
 it('routes the exact successful attempt to its registered machine', () => {
   const f = fixture()
   expect(resolveDesktopPublishRoute('owner/repo', f.run, { source: f.source }, f.jobs, f.routes))
-    .toMatchObject({ runId: '42', attempt: '2', runnerLabel: 'dsh-mini', preset: 'test' })
+    .toMatchObject({ runId: '42', attempt: '2', runnerLabel: 'lyn-mini', preset: 'test' })
 })
 
 it.each(['test', 'production'])('explains how to rebuild debugging packages for %s', (preset) => {
@@ -42,7 +42,7 @@ it.each(['attempt', 'repository', 'commit', 'mode', 'runner', 'workflow'] as con
 it('fails closed when a publishing route or its unique label is missing', () => {
   const f = fixture()
   expect(() => resolveDesktopPublishRoute('owner/repo', f.run, { source: f.source }, f.jobs, {})).toThrow(/no configured/u)
-  const duplicates = { ...f.routes, laptop: { label: 'dsh-mini', target: 'mac-arm64' } }
+  const duplicates = { ...f.routes, laptop: { label: 'lyn-mini', target: 'mac-arm64' } }
   expect(() => resolveDesktopPublishRoute('owner/repo', f.run, { source: f.source }, f.jobs, duplicates)).toThrow(/unique runner label/u)
 })
 
@@ -50,9 +50,9 @@ it('fails closed when a publishing route or its unique label is missing', () => 
 it('keeps the packaged source separate from the workflow commit', () => {
   const f = fixture()
   f.source.commit = 'b'.repeat(40)
-  f.source.sourceRef = 'dsh-v1.0.0'
+  f.source.sourceRef = 'lyn-v1.0.0'
   expect(resolveDesktopPublishRoute('owner/repo', f.run, { source: f.source }, f.jobs, f.routes))
-    .toMatchObject({ commit: 'b'.repeat(40), sourceRef: 'dsh-v1.0.0', channel: 'nightly' })
+    .toMatchObject({ commit: 'b'.repeat(40), sourceRef: 'lyn-v1.0.0', channel: 'nightly' })
 })
 
 it('accepts a retained package that did not request publication during packaging', () => {

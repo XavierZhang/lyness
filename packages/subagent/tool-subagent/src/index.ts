@@ -3,23 +3,23 @@
  * Provider lifecycle controls tool registration and context-sensitive schema
  * wording. Every delegation starts a managed activation and returns its child
  * id; the subagent runtime owns result delivery and resource cleanup.
- * @module @deepseek-ai/dsh-tool-subagent
+ * @module @lyness/lyn-tool-subagent
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
-import { scopeChainOf, scopeOf } from '@deepseek-ai/dsh-scope'
-import { defineTool } from '@deepseek-ai/dsh-tools'
-import type { ToolDefinition } from '@deepseek-ai/dsh-tools'
-import type { Agent, AgentOptions } from '@deepseek-ai/dsh-agent'
-import { ReasoningEffortId } from '@deepseek-ai/dsh-llm'
-import type { ContentBlock } from '@deepseek-ai/dsh-llm'
+import type { Context } from '@lyness/cordis'
+import z from '@lyness/schemastery'
+import { scopeChainOf, scopeOf } from '@lyness/lyn-scope'
+import { defineTool } from '@lyness/lyn-tools'
+import type { ToolDefinition } from '@lyness/lyn-tools'
+import type { Agent, AgentOptions } from '@lyness/lyn-agent'
+import { ReasoningEffortId } from '@lyness/lyn-llm'
+import type { ContentBlock } from '@lyness/lyn-llm'
 import {
   assertSubagentMaxDepth,
   delegationDepthOf,
   parentAgentOptionsForDelegation,
-} from '@deepseek-ai/dsh-subagent'
-import type { SubagentProvider } from '@deepseek-ai/dsh-subagent'
+} from '@lyness/lyn-subagent'
+import type { SubagentProvider } from '@lyness/lyn-subagent'
 import {
   assertAllowedModelSelection,
   hasConfiguredLlmSelection,

@@ -11,21 +11,20 @@ import { afterEach, describe, expect, it } from 'vitest'
 import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { Context } from '@deepseek-ai/cordis'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import { turnBoundaryProjectionDefinition } from '@deepseek-ai/dsh-agent-loop'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import { createUserMessage, ToolCallId } from '@deepseek-ai/dsh-llm'
-import type { MembershipId, PersonId } from '@deepseek-ai/dsh-people'
-import SessionStore, { SessionId, type Session } from '@deepseek-ai/dsh-session'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import * as SessionOwnership from '@deepseek-ai/dsh-session-ownership'
-import SessionVisibility from '@deepseek-ai/dsh-session-ownership/visibility'
-import JsonlSessionPersistence from '@deepseek-ai/dsh-session-persistence-jsonl'
-import SqliteSessionQueryEngine from '@deepseek-ai/dsh-session-query-sqlite'
-import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
-import ToolRuntime from '@deepseek-ai/dsh-tools'
-import * as ToolSessionQuery from '@deepseek-ai/dsh-tool-session-query'
+import { Context } from '@lyness/cordis'
+import type { Agent } from '@lyness/lyn-agent'
+import { brandString } from '@lyness/lyn-brand'
+import { createUserMessage, ToolCallId } from '@lyness/lyn-llm'
+import type { MembershipId, PersonId } from '@lyness/lyn-people'
+import SessionStore, { SessionId, type Session } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import * as SessionOwnership from '@lyness/lyn-session-ownership'
+import SessionVisibility from '@lyness/lyn-session-ownership/visibility'
+import * as JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
+import SqliteSessionQueryEngine from '@lyness/lyn-session-query-sqlite'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime from '@lyness/lyn-tools'
+import * as ToolSessionQuery from '@lyness/lyn-tool-session-query'
 
 const ADA = brandString<PersonId>('ada')
 const BEA = brandString<PersonId>('bea')
@@ -47,13 +46,12 @@ async function deployment(): Promise<{
   readonly conversation: (id: string, text: string) => Session
   readonly run: (name: string, args: unknown, caller: Session) => Promise<string>
 }> {
-  const root = await mkdtemp(join(tmpdir(), 'dsh-tool-session-query-ownership-'))
+  const root = await mkdtemp(join(tmpdir(), 'lyn-tool-session-query-ownership-'))
   temporaryDirectories.push(root)
   const ctx = new Context()
   contexts.push(ctx)
   await ctx.plugin(SessionStore)
   await ctx.plugin(SessionProjectionRegistry)
-  ctx.sessionProjections.register(turnBoundaryProjectionDefinition)
   let person: PersonId | undefined
   ctx.provide('requestPrincipal', {
     current: () => person === undefined
@@ -89,14 +87,18 @@ async function deployment(): Promise<{
       return session
     },
     run: async (name: string, args: unknown, caller: Session) => {
-      const result = await ctx.tools.execute({
-        name,
-        arguments: args,
-        callId: ToolCallId(`ownership-${String(++call)}`),
+      const batch = await ctx.tools.execute({
+        calls: [{
+          type: 'tool-call' as const,
+          id: ToolCallId(`ownership-${String(++call)}`),
+          name,
+          arguments: JSON.stringify(args),
+        }],
         signal: new AbortController().signal,
         agent: { id: caller.id, session: caller, status: 'idle', ctx } as Agent,
       })
-      return result.content.map(block => block.type === 'text' ? block.text : '').join('\n')
+      const blocks = batch.results[0]?.result.content ?? []
+      return blocks.map(block => block.type === 'text' ? block.text : '').join('\n')
     },
   }
 }

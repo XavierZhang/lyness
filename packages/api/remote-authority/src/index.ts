@@ -14,14 +14,14 @@
  * here cannot be reached around, and the gate that holds every namespace to a
  * declaration makes forgetting one a build failure rather than a hole.
  *
- * @module @deepseek-ai/dsh-api-remote-authority
+ * @module @lyness/lyn-api-remote-authority
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import type { RemoteAuthorizationRequest } from '@deepseek-ai/dsh-api-gateway'
-import type { RemoteAuthority } from '@deepseek-ai/dsh-typert-protocol'
-import type { Membership, Role } from '@deepseek-ai/dsh-people'
-import type {} from '@deepseek-ai/dsh-request-principal'
+import type { Context } from '@lyness/cordis'
+import type { RemoteAuthorizationRequest } from '@lyness/lyn-api-gateway'
+import type { RemoteAuthority } from '@lyness/lyn-typert-protocol'
+import type { Membership, Role } from '@lyness/lyn-people'
+import type {} from '@lyness/lyn-request-principal'
 
 /** Cordis plugin name used by loader diagnostics. */
 export const name = 'remote-authority'

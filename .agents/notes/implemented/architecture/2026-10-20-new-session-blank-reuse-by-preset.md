@@ -6,7 +6,7 @@ English | [中文](2026-10-20-new-session-blank-reuse-by-preset.zh.md)
 
 ## Problem
 
-In 0.2.0-rc.2, New Session (the sidebar button, the Workspace "+" button, and the shortcut, all calling `uiWorkspace.startSession` without options) reused the Workspace's first blank Session. PR #5775, first released in `dsh-v0.2.1-alpha.2`, changed it to create a fresh Session and Agent on every call, so that New Session composes the current preset definition after the user changes one instead of keeping a reused blank's earlier composition ([upgrade guide](../../../../docs/upgrade-guide/v0.2.1-alpha.1/new-session-generations/guide.md)).
+In 0.2.0-rc.2, New Session (the sidebar button, the Workspace "+" button, and the shortcut, all calling `uiWorkspace.startSession` without options) reused the Workspace's first blank Session. PR #5775, first released in `lyn-v0.2.1-alpha.2`, changed it to create a fresh Session and Agent on every call, so that New Session composes the current preset definition after the user changes one instead of keeping a reused blank's earlier composition ([upgrade guide](../../../../docs/upgrade-guide/v0.2.1-alpha.1/new-session-generations/guide.md)).
 
 A blank Session that is not current is hidden from the Session tree, and New Session is the only way back to it. After that change, a user who types a draft into a blank Session, switches to another Session, and clicks New Session lands in another empty Session; the original draft stays in localStorage under the old Session id, but no control returns to it. 0.2.1-rc.2 therefore loses New Session's unsent drafts.
 

@@ -6,13 +6,13 @@
 import { mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { Context } from '@deepseek-ai/cordis'
-import Storage from '@deepseek-ai/dsh-storage'
-import * as StorageDomain from '@deepseek-ai/dsh-storage-domain'
-import * as StorageJson from '@deepseek-ai/dsh-storage-json'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { MembershipId, PersonId } from '@deepseek-ai/dsh-people'
-import StoredAuthSessions from '@deepseek-ai/dsh-auth-session/store'
+import { Context } from '@lyness/cordis'
+import Storage from '@lyness/lyn-storage'
+import * as StorageDomain from '@lyness/lyn-storage-domain'
+import * as StorageJson from '@lyness/lyn-storage-json'
+import { brandString } from '@lyness/lyn-brand'
+import type { MembershipId, PersonId } from '@lyness/lyn-people'
+import StoredAuthSessions from '@lyness/lyn-auth-session/store'
 import { afterEach, expect, it } from 'vitest'
 import RequestPrincipal, { IDENTITY_COOKIE } from '../src/index.ts'
 import type { Principal } from '../src/index.ts'
@@ -39,7 +39,7 @@ interface Harness {
 }
 
 async function harness(): Promise<Harness> {
-  const root = mkdtempSync(join(tmpdir(), 'dsh-principal-'))
+  const root = mkdtempSync(join(tmpdir(), 'lyn-principal-'))
   roots.push(root)
   const scopes: Scope[] = []
   const ctx = new Context()

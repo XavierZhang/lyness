@@ -5,81 +5,81 @@
 /:
   en: 5c47c9629036f119
   zh: 7730d7468a38b38d
-/deepseek-harness-dsh-compaction:
+/lyness-lyn-compaction:
   en: a12d24864b30374d
   zh: bdabd7af6d0baaae
-/deepseek-harness-dsh-compaction/summary:
+/lyness-lyn-compaction/summary:
   en: 222ae33d76c6ea44
   zh: aaabbc1a8056c4cc
-/deepseek-harness-dsh-compaction/table-of-contents:
+/lyness-lyn-compaction/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/deepseek-harness-dsh-compaction/use-this-package:
+/lyness-lyn-compaction/use-this-package:
   en: 7d1dad97626dbd2e
   zh: 075fef4e1844ad12
-/deepseek-harness-dsh-compaction/use-this-package/when-to-choose-it:
+/lyness-lyn-compaction/use-this-package/when-to-choose-it:
   en: 92ea3626d2f34a53
   zh: c8124b65092a05e2
-/deepseek-harness-dsh-compaction/use-this-package/what-condensation-looks-like:
+/lyness-lyn-compaction/use-this-package/what-condensation-looks-like:
   en: 0abbee3a3b929a90
   zh: 334736dffe93488d
-/deepseek-harness-dsh-compaction/use-this-package/turning-condensation-on:
+/lyness-lyn-compaction/use-this-package/turning-condensation-on:
   en: c3aed9cb8b53dc2f
   zh: f537fa3cba4c65f4
-/deepseek-harness-dsh-compaction/use-this-package/implementing-a-backend:
+/lyness-lyn-compaction/use-this-package/implementing-a-backend:
   en: 36235bec062334c1
   zh: 49abcefcd3fbc95e
-/deepseek-harness-dsh-compaction/use-this-package/recognizing-condensed-history:
+/lyness-lyn-compaction/use-this-package/recognizing-condensed-history:
   en: 35502487f2850f05
   zh: 333d2b86cc1d6eb0
-/deepseek-harness-dsh-compaction/understand-the-implementation:
+/lyness-lyn-compaction/understand-the-implementation:
   en: 321c3dc665ea03ff
   zh: f0fa408cde7b0454
-/deepseek-harness-dsh-compaction/understand-the-implementation/design-philosophy:
+/lyness-lyn-compaction/understand-the-implementation/design-philosophy:
   en: 1089190c1edce906
   zh: 8fdd0a084b20cb34
-/deepseek-harness-dsh-compaction/understand-the-implementation/service-api:
+/lyness-lyn-compaction/understand-the-implementation/service-api:
   en: 04de2000db04fca2
   zh: 504dfdc9a78e9ca8
-/deepseek-harness-dsh-compaction/understand-the-implementation/manual-failure-taxonomy:
+/lyness-lyn-compaction/understand-the-implementation/manual-failure-taxonomy:
   en: 8cbe7e29596f6045
   zh: 28a5929e3d32fbdc
-/deepseek-harness-dsh-compaction/understand-the-implementation/tool-pairing-boundaries:
+/lyness-lyn-compaction/understand-the-implementation/tool-pairing-boundaries:
   en: 15dad68a04d6c86b
   zh: 3b95acf1b7e503bf
-/deepseek-harness-dsh-compaction/understand-the-implementation/the-surface-contract:
+/lyness-lyn-compaction/understand-the-implementation/the-surface-contract:
   en: 9132946ae915b54b
   zh: 729532f372f12877
-/deepseek-harness-dsh-compaction/understand-the-implementation/source-map:
+/lyness-lyn-compaction/understand-the-implementation/source-map:
   en: 121139cf1878d7cf
   zh: f8f9d8d3eb9866b5
-/deepseek-harness-dsh-compaction/understand-the-implementation/locking-and-serialization:
+/lyness-lyn-compaction/understand-the-implementation/locking-and-serialization:
   en: 68caa51bed28bada
   zh: 3f8261f9dcba95ed
-/deepseek-harness-dsh-compaction/understand-the-implementation/events:
+/lyness-lyn-compaction/understand-the-implementation/events:
   en: 23eef3ae113d69ff
   zh: d2e7e214fd487829
-/deepseek-harness-dsh-compaction/further-exploration:
+/lyness-lyn-compaction/further-exploration:
   en: ddec8db12dddd5ec
   zh: 88fff43a81a1d005
-/deepseek-harness-dsh-compaction/model-experience:
+/lyness-lyn-compaction/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/deepseek-harness-dsh-compaction/model-experience/conversation-history-when-a-backend-is-invoked:
+/lyness-lyn-compaction/model-experience/conversation-history-when-a-backend-is-invoked:
   en: 94de97ed1e85db85
   zh: c8e37d8050609e63
-/deepseek-harness-dsh-compaction/model-experience/conversation-history-when-a-backend-is-invoked/what-the-model-sees:
+/lyness-lyn-compaction/model-experience/conversation-history-when-a-backend-is-invoked/what-the-model-sees:
   en: 3c4875a13da17814
   zh: 9b257950a9e2c7c1
-/deepseek-harness-dsh-compaction/model-experience/conversation-history-when-a-backend-is-invoked/token-effect:
+/lyness-lyn-compaction/model-experience/conversation-history-when-a-backend-is-invoked/token-effect:
   en: be91f4a4bbb9338b
   zh: 2b5de31d4d7caff1
-/deepseek-harness-dsh-compaction/model-experience/conversation-history-when-a-backend-is-invoked/kv-cache-effect:
+/lyness-lyn-compaction/model-experience/conversation-history-when-a-backend-is-invoked/kv-cache-effect:
   en: 40ba838a2309c44a
   zh: c609fc1587a0d666
-/deepseek-harness-dsh-compaction/known-limitations-and-deferred-work:
+/lyness-lyn-compaction/known-limitations-and-deferred-work:
   en: fee9ba06d3e5f35c
   zh: 2bb5241e2447d15d
-/deepseek-harness-dsh-compaction/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-compaction/known-limitations-and-deferred-work/dev-note:
   en: 270e23ae6414aff0
   zh: c6d219b8a547dbca

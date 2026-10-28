@@ -11,7 +11,7 @@
 /agent-note-incremental-tool-argument-scanning-and-argument-order-during-preparation/decision:
   en: a15c7c13f167e5ac
   zh: 63bcc2ef60c2f344
-/agent-note-incremental-tool-argument-scanning-and-argument-order-during-preparation/decision/a-lazily-computed-argument-view-lives-in-dsh-util-values:
+/agent-note-incremental-tool-argument-scanning-and-argument-order-during-preparation/decision/a-lazily-computed-argument-view-lives-in-lyn-util-values:
   en: eb004194b0c08464
   zh: d09c6353ed7138de
 /agent-note-incremental-tool-argument-scanning-and-argument-order-during-preparation/decision/parsing-happens-in-the-tool-definition-not-in-react:

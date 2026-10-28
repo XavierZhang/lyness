@@ -8,14 +8,14 @@ import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { Membership, MembershipId, PersonId, Role } from '@deepseek-ai/dsh-people'
-import type { ChannelId } from '@deepseek-ai/dsh-sign-in'
-import Storage from '@deepseek-ai/dsh-storage'
-import * as StorageJson from '@deepseek-ai/dsh-storage-json'
-import * as StorageDomain from '@deepseek-ai/dsh-storage-domain'
-import AdminAudit from '@deepseek-ai/dsh-admin-audit'
+import { Context } from '@lyness/cordis'
+import { brandString } from '@lyness/lyn-brand'
+import type { Membership, MembershipId, PersonId, Role } from '@lyness/lyn-people'
+import type { ChannelId } from '@lyness/lyn-sign-in'
+import Storage from '@lyness/lyn-storage'
+import * as StorageJson from '@lyness/lyn-storage-json'
+import * as StorageDomain from '@lyness/lyn-storage-domain'
+import AdminAudit from '@lyness/lyn-admin-audit'
 import ManagedPeople, {
   ALREADY_BOUND, NOT_PERMITTED, ORGANIZATION_REQUIRED, PeopleRefusedError, UNKNOWN_PERSON, WRITTEN,
   bindingKey, standingOf,
@@ -49,7 +49,7 @@ async function bench(options: {
   bindings?: { channel: string; issuer: string; subject: string; person: string }[]
   channels?: readonly string[]
 } = {}): Promise<Context> {
-  const root = await mkdtemp(join(tmpdir(), 'dsh-managed-people-'))
+  const root = await mkdtemp(join(tmpdir(), 'lyn-managed-people-'))
   roots.push(root)
   const ctx = new Context()
   live.push(ctx)

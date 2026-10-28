@@ -9,15 +9,15 @@
  * must be refused the moment it is presented, and a sweep that has not run
  * yet would let it through.
  *
- * @module @deepseek-ai/dsh-auth-session/store
+ * @module @lyness/lyn-auth-session/store
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import { randomUUID } from '@deepseek-ai/dsh-util-crypto'
-import type { Domain } from '@deepseek-ai/dsh-storage-domain'
-import type { ActingContext } from '@deepseek-ai/dsh-people'
+import type { Context } from '@lyness/cordis'
+import z from '@lyness/schemastery'
+import { brandString } from '@lyness/lyn-brand'
+import { randomUUID } from '@lyness/lyn-util-crypto'
+import type { Domain } from '@lyness/lyn-storage-domain'
+import type { ActingContext } from '@lyness/lyn-people'
 import { AuthSessionStore, SessionUnavailable } from './index.ts'
 import type { EstablishRequest } from './index.ts'
 import { sessionDomain } from './storage.ts'

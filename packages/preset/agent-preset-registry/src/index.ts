@@ -1,16 +1,16 @@
 /** Declarative Agent capability sets, activation and session binding. */
-import type { ProjectionHandle } from '@deepseek-ai/dsh-session-projection'
-import { Context, Service } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
-import { Remote, RemoteError, TypertRemoteService } from '@deepseek-ai/dsh-typert-protocol'
-import { bindScopeParent, createScope, scopeOf, scopeParentOf, type Scope, type ScopeKey, type ScopeParentBinding } from '@deepseek-ai/dsh-scope'
-import { entryListSchema } from '@deepseek-ai/cordis-plugin-include'
+import type { ProjectionHandle } from '@lyness/lyn-session-projection'
+import { Context, Service } from '@lyness/cordis'
+import z from '@lyness/schemastery'
+import { Remote, RemoteError, TypertRemoteService } from '@lyness/lyn-typert-protocol'
+import { bindScopeParent, createScope, scopeOf, scopeParentOf, type Scope, type ScopeKey, type ScopeParentBinding } from '@lyness/lyn-scope'
+import { entryListSchema } from '@lyness/cordis-plugin-include'
 import { dump } from 'js-yaml'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import type { Session } from '@deepseek-ai/dsh-session'
+import type { Agent } from '@lyness/lyn-agent'
+import type { Session } from '@lyness/lyn-session'
 // Type-only: the optional `settings` service this registry keeps off the generated pages.
-import type {} from '@deepseek-ai/dsh-settings'
-import type {} from '@deepseek-ai/dsh-tools'
+import type {} from '@lyness/lyn-settings'
+import type {} from '@lyness/lyn-tools'
 import type { AgentPresetDocument, AgentPresetRoster } from './types.ts'
 import { entryListProblem, type PresetDefinition } from './definition.ts'
 import { isContributionId, mergeContributions, type PresetContribution } from './contribution.ts'
@@ -21,16 +21,15 @@ import { activeCompositionModules, definitionComposition, mountedCompositionRows
 
 export { agentPresetProjectionDefinition } from './session.ts'
 export { entryListProblem, type PresetDefinition } from './definition.ts'
-export { auditRows, leakedServices, type PresetMount, type RowAudit } from './mount.ts'
 export type { AgentPresetInspection } from './composition-inventory.ts'
 export {
   CONTRIBUTION_ORDERS, isContributionId, mergeContributions,
   type ContributedRow, type ContributionId, type PresetContribution,
 } from './contribution.ts'
-export { auditRows, livePresetMounts, leakedServices, serviceForAgent, standingMountFor, type PresetMount, type RowAudit } from './mount.ts'
+export { auditRows, leakedServices, type PresetMount, type RowAudit } from './mount.ts'
 export type { AgentPreset, Config } from './preset.ts'
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Context {
     agentPresets: AgentPresetRegistry
   }
@@ -196,6 +195,8 @@ export class AgentPresetRegistry extends TypertRemoteService {
       modules: activeCompositionModules(mount.tree),
       leakedServices: leakedServices(this.owner, mount.fiber),
     }))
+  }
+
   /**
    * Add one row to every preset that accepts contributions.
    *

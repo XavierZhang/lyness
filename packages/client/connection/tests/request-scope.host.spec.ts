@@ -1,11 +1,15 @@
 /** Per-request scopes: nesting order, reach into the handler, and withdrawal. */
 
 import { AsyncLocalStorage } from 'node:async_hooks'
-import { Context } from '@deepseek-ai/cordis'
+import type { PeerScope } from '@lyness/lyn-typert-protocol'
+import { Context } from '@lyness/cordis'
 import { describe, expect, it } from 'vitest'
 import type { BrowserAuth } from '../src/browser-auth.ts'
 import { HostConnectionService } from '../src/rpc-host.ts'
 import type { ConnectionRpcResult } from '../src/rpc.ts'
+
+/** These assertions are about request scopes, so every dispatch speaks for the owner. */
+const OWNER = { principal: { kind: 'owner' } } as PeerScope
 
 async function mounted(): Promise<{
   readonly ctx: Context
@@ -39,7 +43,7 @@ async function call(
     method: 'POST',
     headers: { 'content-type': 'application/json', ...headers },
     body: JSON.stringify({ type: 'client-request', rpcId: 'r-1', method: 'probe/read', payload: {} }),
-  }))
+  }), OWNER)
   return response.json()
 }
 
@@ -61,8 +65,8 @@ describe('Connection per-request scopes', () => {
     const shared = connection.createSharedFetchHandler('/api')
     expect(await (await shared.fetch(new Request('http://host/api/download', {
       headers: { 'x-org': 'acme' },
-    }))).text()).toBe('acme')
-    expect(await (await shared.fetch(new Request('http://host/api/download'))).text()).toBe('none')
+    }), OWNER)).text()).toBe('acme')
+    expect(await (await shared.fetch(new Request('http://host/api/download'), OWNER)).text()).toBe('none')
     await dispose()
   })
 

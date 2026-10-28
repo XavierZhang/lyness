@@ -1,7 +1,7 @@
 /** Account sign-out policy over the latest logged request route. */
-import type { Context } from '@deepseek-ai/cordis'
-import { LlmError } from '@deepseek-ai/dsh-llm'
-import type { Agent } from '@deepseek-ai/dsh-agent'
+import type { Context } from '@lyness/cordis'
+import { LlmError } from '@lyness/lyn-llm'
+import type { Agent } from '@lyness/lyn-agent'
 import type {} from './index.ts'
 
 /**

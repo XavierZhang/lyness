@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-module-terminal",
+  "name": "@lyness/lyn-module-terminal",
   "description": "The persistent terminal default module as its own bundle: the per-agent shell group and its tools",
   "version": "0.1.7-rc.2",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/bundle/module-terminal"
   },
   "type": "module",
@@ -30,20 +30,20 @@
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
-  "dsh": {
+  "lyn": {
     "bundle": {
       "patch": "./cordis.patch.yml"
     }
   },
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~"
+    "@lyness/cordis": "workspace:~"
   },
   "dependencies": {
-    "@deepseek-ai/dsh-terminal": "workspace:*",
-    "@deepseek-ai/dsh-terminal-bash": "workspace:*",
-    "@deepseek-ai/dsh-tool-terminal": "workspace:*"
+    "@lyness/lyn-terminal": "workspace:*",
+    "@lyness/lyn-terminal-bash": "workspace:*",
+    "@lyness/lyn-tool-terminal": "workspace:*"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~"
+    "@lyness/cordis": "workspace:~"
   }
 }

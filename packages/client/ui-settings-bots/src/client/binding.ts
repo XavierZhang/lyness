@@ -7,10 +7,10 @@
  * that settles before that publishes to nobody rather than failing, which is
  * what lets the plugin start a read without waiting for a render.
  *
- * @module @deepseek-ai/dsh-client-ui-settings-bots/client/binding
+ * @module @lyness/lyn-client-ui-settings-bots/client/binding
  */
 
-import type { BotRowView, TeamRowView } from '@deepseek-ai/dsh-api-bots-controller/types'
+import type { BotRowView, TeamRowView } from '@lyness/lyn-api-bots-controller/types'
 import type { BotsOperations, BotsSink } from './operations.ts'
 import type { BotsRead } from './store.ts'
 import type { BotsSectionInjected } from './BotsSection.tsx'

@@ -2,11 +2,11 @@
  * Vocabulary for credits: what was granted, what was spent, and what a
  * balance is made of.
  *
- * @module @deepseek-ai/dsh-credits/types
+ * @module @lyness/lyn-credits/types
  */
 
-import type { Branded } from '@deepseek-ai/dsh-brand'
-import type { PersonId } from '@deepseek-ai/dsh-people'
+import type { Branded } from '@lyness/lyn-brand'
+import type { PersonId } from '@lyness/lyn-people'
 import type { ResetPeriod } from './period.ts'
 
 /** Opaque identity of one grant. */

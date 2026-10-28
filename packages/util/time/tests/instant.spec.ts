@@ -10,7 +10,7 @@ import {
   parseLocalCalendar,
   parseOffsetInstant,
   resolveLocalInstant,
-} from '@deepseek-ai/dsh-util-time'
+} from '@lyness/lyn-util-time'
 
 describe('parseLocalCalendar', () => {
   it('reads exact calendar fields and normalizes an absent fraction to zero', () => {

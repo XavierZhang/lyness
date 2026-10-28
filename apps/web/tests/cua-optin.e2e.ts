@@ -4,10 +4,10 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { chromium, type Browser } from 'playwright'
-import { readProfileManifest } from '@deepseek-ai/dsh-app-boot'
-import { SessionId } from '@deepseek-ai/dsh-session'
-import type {} from '@deepseek-ai/dsh-ptc-runtime'
-import type {} from '@deepseek-ai/dsh-agent-preset-registry'
+import { readProfileManifest } from '@lyness/lyn-app-boot'
+import { SessionId } from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-ptc-runtime'
+import type {} from '@lyness/lyn-agent-preset-registry'
 import { expect, it, vi } from 'vitest'
 import { captureStableAria, compareOrRefreshGolden, launchWebScaffold, webSnapshotMode, type WebScaffold } from './scaffold.ts'
 import { connectFreshWorkspaceZh, ZH_BROWSER_LOCALE } from './support.ts'
@@ -43,13 +43,13 @@ it.each([undefined, 'minimal'] as const)('adds CUA to PTC sessions while preserv
     expect(scaffold.ctx.ptcRuntime.programFormat).toBe('function-body')
     const settingsPath = join(scaffold.harnessHome, 'profiles/scaffold/cordis.patch.yml')
     const before = await readFile(settingsPath, 'utf8')
-    const selected = () => readProfileManifest('scaffold', join(scaffold.harnessHome, 'profiles/scaffold')).dsh?.profile?.bundles
+    const selected = () => readProfileManifest('scaffold', join(scaffold.harnessHome, 'profiles/scaffold')).lyn?.profile?.bundles
     await page.getByRole('navigation', { name: '全局面板' }).getByRole('button', { name: '插件', exact: true }).click()
     const plugins = page.locator('[data-plugin-panel]')
     await plugins.getByRole('button', { name: '更多', exact: true }).waitFor()
-    expect(await page.locator('[data-plugin-package="@deepseek-ai/dsh-cua-bundle"]').count()).toBe(0)
+    expect(await page.locator('[data-plugin-package="@lyness/lyn-cua-bundle"]').count()).toBe(0)
     await plugins.getByRole('button', { name: '更多', exact: true }).click()
-    const card = page.locator('[data-plugin-package="@deepseek-ai/dsh-cua-bundle"]')
+    const card = page.locator('[data-plugin-package="@lyness/lyn-cua-bundle"]')
     expect(await card.getByText('实验性', { exact: true }).count()).toBe(1)
     const toggle = card.getByRole('switch', { name: '启用 Computer Use', exact: true })
     expect(await toggle.getAttribute('aria-checked')).toBe('false')
@@ -67,7 +67,7 @@ it.each([undefined, 'minimal'] as const)('adds CUA to PTC sessions while preserv
       await card.getByRole('status').getByText('正在应用 Computer Use 的更改', { exact: true }).waitFor()
       expect(await toggle.isEnabled()).toBe(false)
       await compareOrRefreshGolden(fileURLToPath(new URL('./expected/cua-permissions/enabling.expected.md', import.meta.url)),
-        await captureStableAria(page, '[data-plugin-package="@deepseek-ai/dsh-cua-bundle"]', scaffold.workspaceCwd), webSnapshotMode())
+        await captureStableAria(page, '[data-plugin-package="@lyness/lyn-cua-bundle"]', scaffold.workspaceCwd), webSnapshotMode())
     } finally {
       enabling.resolve(undefined)
       enableCall.mockRestore()
@@ -80,7 +80,7 @@ it.each([undefined, 'minimal'] as const)('adds CUA to PTC sessions while preserv
     await setup.waitFor()
     expect(await setup.getByText('Computer Use 插件已开启，但暂时无法检测系统权限。请前往插件详情页查看原因并重试。', { exact: true }).count()).toBe(1)
     await setup.getByRole('button', { name: '稍后', exact: true }).click()
-    expect(selected()).toContain('@deepseek-ai/dsh-cua-bundle')
+    expect(selected()).toContain('@lyness/lyn-cua-bundle')
     expect(await readFile(settingsPath, 'utf8')).toBe(before)
     expect(runtimeFiber() === originalRuntimeFiber).toBe(true)
     expect(scaffold.ctx.ptcRuntime.programFormat).toBe('function-body')

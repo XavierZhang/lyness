@@ -5,72 +5,72 @@
 /:
   en: 954fc89a556f4c59
   zh: ffc7f6dac129c6cf
-/deepseek-harness-dsh-web-app:
+/lyness-lyn-web-app:
   en: 4ae75d82364659d4
   zh: 60255633ff588c62
-/deepseek-harness-dsh-web-app/summary:
+/lyness-lyn-web-app/summary:
   en: 7b54a3b4e63f7f19
   zh: 0cfc82c1a6d4bf33
-/deepseek-harness-dsh-web-app/table-of-contents:
+/lyness-lyn-web-app/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/deepseek-harness-dsh-web-app/use-this-package:
+/lyness-lyn-web-app/use-this-package:
   en: 3bd37b85139d2fa7
   zh: ba86c807eb83866e
-/deepseek-harness-dsh-web-app/use-this-package/starting-the-web-gui:
+/lyness-lyn-web-app/use-this-package/starting-the-web-gui:
   en: bcda7f3caef17973
   zh: dcfce2172a8e2f6c
-/deepseek-harness-dsh-web-app/use-this-package/configuration:
+/lyness-lyn-web-app/use-this-package/configuration:
   en: 5cbfbc72c7379df8
   zh: cc0388114c8cfd7e
-/deepseek-harness-dsh-web-app/use-this-package/lan-access-and-trusted-hosts:
+/lyness-lyn-web-app/use-this-package/lan-access-and-trusted-hosts:
   en: 2522c806db384ddc
   zh: 7e96f11194af9f9f
-/deepseek-harness-dsh-web-app/use-this-package/running-over-ssh:
+/lyness-lyn-web-app/use-this-package/running-over-ssh:
   en: f16fc523975f9e78
   zh: 559aade03fbfb00c
-/deepseek-harness-dsh-web-app/use-this-package/per-session-agent-setup:
+/lyness-lyn-web-app/use-this-package/per-session-agent-setup:
   en: 12f7ea6f6852ee15
   zh: a15ba80c9ddb8a83
-/deepseek-harness-dsh-web-app/understand-the-implementation:
+/lyness-lyn-web-app/understand-the-implementation:
   en: 06cfe42e8103ecd1
   zh: 3d4a9a412c5ea1f7
-/deepseek-harness-dsh-web-app/understand-the-implementation/patch-semantics:
+/lyness-lyn-web-app/understand-the-implementation/patch-semantics:
   en: 1e04e9b6703d1dfc
   zh: ae3fb7411934c84e
-/deepseek-harness-dsh-web-app/understand-the-implementation/readiness:
+/lyness-lyn-web-app/understand-the-implementation/readiness:
   en: 973128fd346869df
   zh: 54e6792f9f82a192
-/deepseek-harness-dsh-web-app/understand-the-implementation/lan-trust-sampling:
+/lyness-lyn-web-app/understand-the-implementation/lan-trust-sampling:
   en: b5ed8ff0056ca9da
   zh: fdc1fa4f14cb00b3
-/deepseek-harness-dsh-web-app/understand-the-implementation/source-map:
+/lyness-lyn-web-app/understand-the-implementation/source-map:
   en: 6c1e91a44719f5d2
   zh: 9f495e185a805f9c
-/deepseek-harness-dsh-web-app/understand-the-implementation/invariant-ownership:
+/lyness-lyn-web-app/understand-the-implementation/invariant-ownership:
   en: 34767bb4c0471622
   zh: e6d76e7c7a0b9ce8
-/deepseek-harness-dsh-web-app/further-exploration:
+/lyness-lyn-web-app/further-exploration:
   en: f367309058f8b299
   zh: f82edeccd8f6fc77
-/deepseek-harness-dsh-web-app/model-experience:
+/lyness-lyn-web-app/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/deepseek-harness-dsh-web-app/model-experience/harness-source-and-web-surface-context:
+/lyness-lyn-web-app/model-experience/harness-source-and-web-surface-context:
   en: e6febc53efe0f51d
   zh: 9177816a8678d65d
-/deepseek-harness-dsh-web-app/model-experience/harness-source-and-web-surface-context/what-the-model-sees:
+/lyness-lyn-web-app/model-experience/harness-source-and-web-surface-context/what-the-model-sees:
   en: 55ae031fb8cd59be
   zh: 02355138f8c414fd
-/deepseek-harness-dsh-web-app/model-experience/harness-source-and-web-surface-context/token-effect:
+/lyness-lyn-web-app/model-experience/harness-source-and-web-surface-context/token-effect:
   en: 908fc84d6849a830
   zh: 56fe5e418bab60ba
-/deepseek-harness-dsh-web-app/model-experience/harness-source-and-web-surface-context/kv-cache-effect:
+/lyness-lyn-web-app/model-experience/harness-source-and-web-surface-context/kv-cache-effect:
   en: da0f568d6d661c5e
   zh: 606919b7d37c95bf
-/deepseek-harness-dsh-web-app/known-limitations-and-deferred-work:
+/lyness-lyn-web-app/known-limitations-and-deferred-work:
   en: fead2f7bcd17e1ab
   zh: 80949c203c0a0732
-/deepseek-harness-dsh-web-app/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-web-app/known-limitations-and-deferred-work/dev-note:
   en: 3f81b4f3beb74a0d
   zh: 2e377ca40822d093

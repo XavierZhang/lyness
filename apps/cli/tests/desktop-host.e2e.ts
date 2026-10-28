@@ -10,10 +10,10 @@ import { expect, it, onTestFinished } from 'vitest'
 
 it.each([false, true])('settles startup after parent IPC disconnect (boot failure: %s)', async (fail) => {
   const root = mkdtempSync(join(tmpdir(), 'desktop-disconnect-'))
-  const modules = join(root, 'node_modules', '@deepseek-ai')
+  const modules = join(root, 'node_modules', '@lyness')
   const hostDirectory = fileURLToPath(new URL('../../desktop-host/', import.meta.url))
   const manifest = JSON.parse(readFileSync(join(hostDirectory, 'package.json'), 'utf8')) as { dependencies: Record<string, string> }
-  const stubbed = new Set(['@deepseek-ai/dsh-app-boot', '@deepseek-ai/dsh', '@deepseek-ai/dsh-home-paths'])
+  const stubbed = new Set(['@lyness/lyn-app-boot', '@lyness/lyn', '@lyness/lyn-home-paths'])
   for (const name of Object.keys(manifest.dependencies)) {
     const destination = join(root, 'node_modules', name)
     mkdirSync(dirname(destination), { recursive: true })
@@ -21,20 +21,20 @@ it.each([false, true])('settles startup after parent IPC disconnect (boot failur
     else symlinkSync(realpathSync(join(hostDirectory, 'node_modules', name)), destination, 'junction')
   }
   for (const [name, source] of [
-    ['dsh-home-paths', `export const resolveDshHome = () => ${JSON.stringify(root)}`],
+    ['lyn-home-paths', `export const resolveLynHome = () => ${JSON.stringify(root)}`],
   ] as const) {
     writeFileSync(join(modules, name, 'package.json'), '{"type":"module","exports":"./index.js"}')
     writeFileSync(join(modules, name, 'index.js'), source)
   }
   writeFileSync(join(root, 'package.json'), '{"type":"module"}')
-  writeFileSync(join(modules, 'dsh-app-boot', 'package.json'), '{"type":"module","exports":"./index.js"}')
-  writeFileSync(join(modules, 'dsh-app-boot', 'index.js'), `
+  writeFileSync(join(modules, 'lyn-app-boot', 'package.json'), '{"type":"module","exports":"./index.js"}')
+  writeFileSync(join(modules, 'lyn-app-boot', 'index.js'), `
     export const loadProfileDirectory = () => ({ skippedBundles: [] });
     export const reportSkippedBundles = () => {};
     export const loadLayeredEnv = () => ({});
   `)
-  writeFileSync(join(modules, 'dsh', 'package.json'), '{"type":"module","exports":{"./profile-boot":"./profile-boot.js"}}')
-  writeFileSync(join(modules, 'dsh', 'profile-boot.js'), `
+  writeFileSync(join(modules, 'lyn', 'package.json'), '{"type":"module","exports":{"./profile-boot":"./profile-boot.js"}}')
+  writeFileSync(join(modules, 'lyn', 'profile-boot.js'), `
     import { writeFileSync } from 'node:fs';
     export function runProfile(options) {
       process.send({ type: 'booting', packageManager: options.packageManager });

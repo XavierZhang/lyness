@@ -65,11 +65,11 @@ process.on('message', message => {
 `
 
 function projectWithHost(source = HTTP_HOST): string {
-  const project = mkdtempSync(join(tmpdir(), 'dsh-desktop-host-test-'))
+  const project = mkdtempSync(join(tmpdir(), 'lyn-desktop-host-test-'))
   roots.push(project)
-  const packageRoot = join(project, 'node_modules', '@deepseek-ai', 'dsh-desktop-host')
+  const packageRoot = join(project, 'node_modules', '@lyness', 'lyn-desktop-host')
   mkdirSync(join(packageRoot, 'lib'), { recursive: true })
-  writeFileSync(join(packageRoot, 'package.json'), '{"name":"@deepseek-ai/dsh-desktop-host","type":"module"}\n')
+  writeFileSync(join(packageRoot, 'package.json'), '{"name":"@lyness/lyn-desktop-host","type":"module"}\n')
   writeFileSync(join(packageRoot, 'lib', 'index.js'), source)
   return project
 }
@@ -200,7 +200,7 @@ describe('desktop host process', () => {
     const { url } = await host.start()
     await fetch(new URL('/crash', url))
     await expect.poll(() => failure.mock.calls.length).toBe(1)
-    expect(failure).toHaveBeenCalledWith(new Error('dsh desktop host exited with 7: plugin crashed'))
+    expect(failure).toHaveBeenCalledWith(new Error('lyn desktop host exited with 7: plugin crashed'))
   })
 
   it('retains only recent diagnostics from a noisy child', async () => {

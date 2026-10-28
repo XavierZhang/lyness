@@ -1,5 +1,5 @@
 /**
- * Profile machinery of `dsh-app-boot`: directory resolution and init,
+ * Profile machinery of `lyn-app-boot`: directory resolution and init,
  * manifest round-trips, two-anchor bundle resolution, patch-layer loading,
  * empty-root composition, and runtime package resolution.
  */
@@ -16,7 +16,7 @@ import {
   composeEntries,
   createRuntimeResolution,
   followShippedTemplate,
-  getDshRuntimeVersion,
+  getLynRuntimeVersion,
   initProfile,
   loadProfile,
   loadProfileDirectory,
@@ -32,7 +32,7 @@ import {
   type Profile,
   type RuntimeResolution,
 } from '../src/index.ts'
-import { PROFILE_TEMPLATES } from '@deepseek-ai/dsh-official-bundles'
+import { PROFILE_TEMPLATES } from '@lyness/lyn-official-bundles'
 import { installRuntimeInterception } from '../src/profile-resolution/resolver.ts'
 
 const tempRoots: string[] = []
@@ -41,7 +41,7 @@ afterAll(() => {
 })
 
 const tmp = (): string => {
-  const dir = realpathSync.native(mkdtempSync(join(tmpdir(), 'dsh-profile-')))
+  const dir = realpathSync.native(mkdtempSync(join(tmpdir(), 'lyn-profile-')))
   tempRoots.push(dir)
   return dir
 }
@@ -49,7 +49,7 @@ const tmp = (): string => {
 /** Stage a fake installed app: package.json with deps and a node_modules holding bundles. */
 function stageInstallation(
   bundles: Record<string, { patch?: string; deps?: Record<string, string> }>,
-  appName = 'dsh-app',
+  appName = 'lyn-app',
 ): string {
   const root = tmp()
   const appDir = join(root, 'app')
@@ -65,7 +65,7 @@ function stageInstallation(
       type: 'module',
       main: './index.js',
       dependencies: spec.deps ?? {},
-      ...spec.patch === undefined ? {} : { dsh: { bundle: { patch: './cordis.patch.yml' } } },
+      ...spec.patch === undefined ? {} : { lyn: { bundle: { patch: './cordis.patch.yml' } } },
     }))
     writeFileSync(join(dir, 'index.js'), `export const packageName = ${JSON.stringify(name)}\n`)
     if (spec.patch !== undefined) writeFileSync(join(dir, 'cordis.patch.yml'), spec.patch)
@@ -212,15 +212,15 @@ describe('initProfile', () => {
   it('creates manifest, user patch layer, and pnpm workspace once, never overwriting', () => {
     const home = tmp()
     const dir = resolveProfileDir('tui', home)
-    initProfile(dir, ['@deepseek-ai/dsh-base'])
+    initProfile(dir, ['@lyness/lyn-base'])
     const manifest = readProfileManifest('t', dir)
-    expect(manifest.dsh?.profile?.bundles).toEqual(['@deepseek-ai/dsh-base'])
+    expect(manifest.lyn?.profile?.bundles).toEqual(['@lyness/lyn-base'])
     expect(readFileSync(join(dir, PROFILE_PATCH_FILENAME), 'utf8')).toContain('[]')
     expect(readFileSync(join(dir, 'pnpm-workspace.yaml'), 'utf8')).toContain('nodeLinker: hoisted')
     // Re-init keeps user edits.
     writeFileSync(join(dir, PROFILE_PATCH_FILENAME), '- id: x\n  config: {}\n')
     initProfile(dir, ['other'])
-    expect(readProfileManifest('t', dir).dsh?.profile?.bundles).toEqual(['@deepseek-ai/dsh-base'])
+    expect(readProfileManifest('t', dir).lyn?.profile?.bundles).toEqual(['@lyness/lyn-base'])
     expect(readFileSync(join(dir, PROFILE_PATCH_FILENAME), 'utf8')).toContain('- id: x')
   })
 })
@@ -228,8 +228,8 @@ describe('initProfile', () => {
 describe('manifest round-trip', () => {
   it('writes and reads back, and fails loud on a broken manifest', () => {
     const dir = tmp()
-    writeProfileManifest(dir, { name: 'p', dsh: { profile: { bundles: ['a'] } } })
-    expect(readProfileManifest('t', dir).dsh?.profile?.bundles).toEqual(['a'])
+    writeProfileManifest(dir, { name: 'p', lyn: { profile: { bundles: ['a'] } } })
+    expect(readProfileManifest('t', dir).lyn?.profile?.bundles).toEqual(['a'])
     writeFileSync(join(dir, 'package.json'), '[]')
     expect(() => readProfileManifest('t', dir)).toThrow('must hold a JSON object')
     expect(() => readProfileManifest('t', join(dir, 'nope'))).toThrow('failed to read profile manifest')
@@ -262,7 +262,7 @@ describe('resolveBundleDir', () => {
       name: 'sealed-bundle',
       version: '0.0.0',
       exports: { '.': './index.js' },
-      dsh: { bundle: { patch: './cordis.patch.yml' } },
+      lyn: { bundle: { patch: './cordis.patch.yml' } },
     }))
     writeFileSync(join(dir, 'index.js'), '')
     writeFileSync(join(dir, 'cordis.patch.yml'), '[]\n')
@@ -281,7 +281,7 @@ describe('loadProfile', () => {
     expect(profile.layers.map(layer => layer.packageName)).toEqual(['bundle-a'])
   })
 
-  it('resolves each dsh.profile.bundles entry to its patch layer in order, plus the user layer', () => {
+  it('resolves each lyn.profile.bundles entry to its patch layer in order, plus the user layer', () => {
     const anchor = stageInstallation({
       'bundle-a': { patch: '- insert:\n    - id: a\n      name: pkg-a\n' },
       'bundle-b': { patch: '- id: a\n  config:\n    v: 2\n' },
@@ -298,7 +298,7 @@ describe('loadProfile', () => {
       profile.patches,
     ])
     expect(entries).toEqual([{ id: 'a', name: 'pkg-a', config: { v: 3 } }])
-    // A hand-made profile without the user layer file or dsh section: empty layers, no throw.
+    // A hand-made profile without the user layer file or lyn section: empty layers, no throw.
     rmSync(join(dir, PROFILE_PATCH_FILENAME))
     expect(loadProfile('t', 'demo', anchor, home).patches).toEqual([])
     writeProfileManifest(dir, { name: 'bare' })
@@ -306,18 +306,18 @@ describe('loadProfile', () => {
     expect(bare.layers).toEqual([])
   })
 
-  it('applies a dsh.bundle.patch list in order, anchoring inserted paths beside each file', () => {
+  it('applies a lyn.bundle.patch list in order, anchoring inserted paths beside each file', () => {
     const anchor = stageInstallation({ 'multi': { patch: '[]\n' }, 'broken': { patch: '[]\n' } })
     const bundleDir = join(anchor, '..', 'node_modules', 'multi')
     mkdirSync(join(bundleDir, 'layers'), { recursive: true })
     writeFileSync(join(bundleDir, 'package.json'), JSON.stringify({
       name: 'multi', version: '0.0.0', type: 'module', main: './index.js',
-      dsh: { bundle: { patch: ['./first.patch.yml', './layers/second.patch.yml'] } },
+      lyn: { bundle: { patch: ['./first.patch.yml', './layers/second.patch.yml'] } },
     }))
     writeFileSync(join(bundleDir, 'first.patch.yml'), '- insert:\n    - id: a\n      name: ./local.js\n      config: { v: 1 }\n')
     writeFileSync(join(bundleDir, 'layers', 'second.patch.yml'), '- id: a\n  config: { v: 2 }\n- insert:\n    - id: b\n      name: ./local.js\n')
     const brokenManifest = join(anchor, '..', 'node_modules', 'broken', 'package.json')
-    writeFileSync(brokenManifest, JSON.stringify({ name: 'broken', version: '0.0.0', dsh: { bundle: { patch: [1] } } }))
+    writeFileSync(brokenManifest, JSON.stringify({ name: 'broken', version: '0.0.0', lyn: { bundle: { patch: [1] } } }))
     const home = tmp()
     const dir = resolveProfileDir('demo', home)
     initProfile(dir, ['multi', 'broken'])
@@ -333,7 +333,7 @@ describe('loadProfile', () => {
       { id: 'b', name: pathToFileURL(join(bundleDir, 'layers', 'local.js')).href },
     ])
     expect(profile.skippedBundles).toEqual([
-      { packageName: 'broken', reason: 'Error: dsh.bundle.patch must be a file path or a list of file paths' },
+      { packageName: 'broken', reason: 'Error: lyn.bundle.patch must be a file path or a list of file paths' },
     ])
   })
 
@@ -342,69 +342,71 @@ describe('loadProfile', () => {
     const home = tmp()
     expect(() => loadProfile('t', 'custom', anchor, home))
       .toThrow('profile "custom" does not exist')
-    expect(PROFILE_TEMPLATES.web?.bundles).toContain('@deepseek-ai/dsh-base')
+    expect(PROFILE_TEMPLATES.web?.bundles).toContain('@lyness/lyn-base')
     expect(PROFILE_TEMPLATES.acp).toEqual({
-      bundles: ['@deepseek-ai/dsh-base', '@deepseek-ai/dsh-module-execution', '@deepseek-ai/dsh-acp-app'],
+      bundles: ['@lyness/lyn-base', '@lyness/lyn-module-execution', '@lyness/lyn-acp-app'],
     })
     expect(PROFILE_TEMPLATES.sdk).toEqual({
-      bundles: ['@deepseek-ai/dsh-base', '@deepseek-ai/dsh-module-execution', '@deepseek-ai/dsh-sdk-app'],
+      bundles: ['@lyness/lyn-base', '@lyness/lyn-module-execution', '@lyness/lyn-sdk-app'],
     })
     expect(PROFILE_TEMPLATES['sdk-minimal']).toEqual({
-      bundles: ['@deepseek-ai/dsh-sdk-minimal'],
+      bundles: ['@lyness/lyn-sdk-minimal'],
     })
-    expect(PROFILE_TEMPLATES['brand-studio']).toEqual({ bundles: ['@deepseek-ai/dsh-brand-studio'] })
-    expect(PROFILE_TEMPLATES['brand-setup']).toEqual({ bundles: ['@deepseek-ai/dsh-brand-setup'] })
+    expect(PROFILE_TEMPLATES['brand-studio']).toEqual({ bundles: ['@lyness/lyn-brand-studio'] })
+    expect(PROFILE_TEMPLATES['brand-setup']).toEqual({ bundles: ['@lyness/lyn-brand-setup'] })
     loadProfile('t', 'web', anchor, home)
-    expect(readProfileManifest('t', resolveProfileDir('web', home)).dsh?.profile?.bundles)
+    expect(readProfileManifest('t', resolveProfileDir('web', home)).lyn?.profile?.bundles)
       .toEqual([...PROFILE_TEMPLATES.web?.bundles ?? []])
   })
 
   it('normalizes only the exact installation-owned headless bundle tuple', () => {
     const anchor = stageInstallation({
-      '@deepseek-ai/dsh-base': { patch: '[]\n' },
-      '@deepseek-ai/dsh-web-app': { patch: '[]\n' },
-      '@deepseek-ai/dsh-headless': { patch: '[]\n' },
-      '@deepseek-ai/dsh-module-execution': { patch: '[]\n' },
+      '@lyness/lyn-base': { patch: '[]\n' },
+      '@lyness/lyn-web-app': { patch: '[]\n' },
+      '@lyness/lyn-headless': { patch: '[]\n' },
+      '@lyness/lyn-module-execution': { patch: '[]\n' },
       'custom-bundle': { patch: '[]\n' },
     })
     const home = tmp()
     const stock = resolveProfileDir('headless', home)
     initProfile(stock, [
-      '@deepseek-ai/dsh-base', '@deepseek-ai/dsh-web-app', '@deepseek-ai/dsh-headless',
+      '@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-headless',
     ])
     const retiredManifest = readProfileManifest('t', stock)
     writeProfileManifest(stock, retiredManifest)
     loadProfile('t', 'headless', anchor, home)
-    expect(readProfileManifest('t', stock).dsh?.profile).toEqual({
-      bundles: ['@deepseek-ai/dsh-base', '@deepseek-ai/dsh-module-execution', '@deepseek-ai/dsh-headless'],
+    expect(readProfileManifest('t', stock).lyn?.profile).toEqual({
+      bundles: ['@lyness/lyn-base', '@lyness/lyn-module-execution', '@lyness/lyn-headless'],
     })
 
     const customHome = tmp()
     const custom = resolveProfileDir('headless', customHome)
     initProfile(custom, [
-      '@deepseek-ai/dsh-base', '@deepseek-ai/dsh-web-app', '@deepseek-ai/dsh-headless', 'custom-bundle',
+      '@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-headless', 'custom-bundle',
     ])
     loadProfile('t', 'headless', anchor, customHome)
-    expect(readProfileManifest('t', custom).dsh?.profile?.bundles).toEqual([
-      '@deepseek-ai/dsh-base', '@deepseek-ai/dsh-web-app', '@deepseek-ai/dsh-headless', 'custom-bundle',
+    expect(readProfileManifest('t', custom).lyn?.profile?.bundles).toEqual([
+      '@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-headless', 'custom-bundle',
     ])
   })
 
   it('removes a retired bundle from an application-owned profile and keeps the rest of the manifest', () => {
     const anchor = stageInstallation({
-      '@deepseek-ai/dsh-base': { patch: '[]\n' },
+      '@lyness/lyn-base': { patch: '[]\n' },
       'custom-bundle': { patch: '[]\n' },
     })
     const dir = join(tmp(), 'app-profile')
-    initProfile(dir, ['@deepseek-ai/dsh-base', '@deepseek-ai/dsh-experimental-schedule-bundle', 'custom-bundle'])
+    initProfile(dir, ['@lyness/lyn-base', '@lyness/lyn-experimental-schedule-bundle', 'custom-bundle'])
     writeProfileManifest(dir, { ...readProfileManifest('t', dir), dependencies: { 'custom-bundle': '^1.0.0' } })
     const profile = loadProfileDirectory('t', dir, anchor)
     expect(profile.skippedBundles).toEqual([])
-    expect(profile.layers.map(layer => layer.packageName)).toEqual(['@deepseek-ai/dsh-base', 'custom-bundle'])
+    expect(profile.layers.map(layer => layer.packageName)).toEqual(['@lyness/lyn-base', 'custom-bundle'])
     expect(readProfileManifest('t', dir)).toMatchObject({
       dependencies: { 'custom-bundle': '^1.0.0' },
-      dsh: { profile: { bundles: ['@deepseek-ai/dsh-base', 'custom-bundle'] } },
+      lyn: { profile: { bundles: ['@lyness/lyn-base', 'custom-bundle'] } },
     })
+  })
+
   it('carries an existing profile through a template that gained a bundle', () => {
     // Every bundle both the superseded tuple and the current template name,
     // so resolution succeeds either way and the manifest is what is observed.
@@ -421,26 +423,26 @@ describe('loadProfile', () => {
     const home = tmp()
     const web = resolveProfileDir('web', home)
     initProfile(web, [
-      '@deepseek-ai/dsh-base', '@deepseek-ai/dsh-module-execution', '@deepseek-ai/dsh-web-app',
-      '@deepseek-ai/dsh-module-deliverables', '@deepseek-ai/dsh-module-extensions', '@deepseek-ai/dsh-module-lsp',
-      '@deepseek-ai/dsh-module-memory', '@deepseek-ai/dsh-module-schedule', '@deepseek-ai/dsh-module-terminal',
-      '@deepseek-ai/dsh-module-webhook',
+      '@lyness/lyn-base', '@lyness/lyn-module-execution', '@lyness/lyn-web-app',
+      '@lyness/lyn-module-deliverables', '@lyness/lyn-module-extensions', '@lyness/lyn-module-lsp',
+      '@lyness/lyn-module-memory', '@lyness/lyn-module-schedule', '@lyness/lyn-module-terminal',
+      '@lyness/lyn-module-webhook',
     ])
     loadProfile('t', 'web', anchor, home)
-    expect(readProfileManifest('t', web).dsh?.profile?.bundles)
+    expect(readProfileManifest('t', web).lyn?.profile?.bundles)
       .toEqual([...PROFILE_TEMPLATES['web']?.bundles ?? []])
 
     // A hosted profile created before the ledger became its own bundle.
     const hostedHome = tmp()
     const hosted = resolveProfileDir('hosted', hostedHome)
     initProfile(hosted, [
-      '@deepseek-ai/dsh-base', '@deepseek-ai/dsh-web-app', '@deepseek-ai/dsh-module-accounts',
-      '@deepseek-ai/dsh-module-deliverables', '@deepseek-ai/dsh-module-memory',
-      '@deepseek-ai/dsh-module-model-governance', '@deepseek-ai/dsh-module-schedule',
-      '@deepseek-ai/dsh-module-webhook',
+      '@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-module-accounts',
+      '@lyness/lyn-module-deliverables', '@lyness/lyn-module-memory',
+      '@lyness/lyn-module-model-governance', '@lyness/lyn-module-schedule',
+      '@lyness/lyn-module-webhook',
     ])
     loadProfile('t', 'hosted', anchor, hostedHome)
-    expect(readProfileManifest('t', hosted).dsh?.profile?.bundles)
+    expect(readProfileManifest('t', hosted).lyn?.profile?.bundles)
       .toEqual([...PROFILE_TEMPLATES['hosted']?.bundles ?? []])
 
     // One the owner edited keeps exactly what they wrote, and a profile
@@ -450,7 +452,7 @@ describe('loadProfile', () => {
     const own = [...PROFILE_TEMPLATES['web']?.bundles ?? [], 'custom-bundle']
     initProfile(edited, own)
     loadProfile('t', 'web', anchor, editedHome)
-    expect(readProfileManifest('t', edited).dsh?.profile?.bundles).toEqual(own)
+    expect(readProfileManifest('t', edited).lyn?.profile?.bundles).toEqual(own)
   })
 
   it('follows a named template for a profile stored under another name', () => {
@@ -461,65 +463,65 @@ describe('loadProfile', () => {
     expect(() => { followShippedTemplate('t', dir, 'web') }).not.toThrow()
 
     initProfile(dir, [
-      '@deepseek-ai/dsh-base', '@deepseek-ai/dsh-module-execution', '@deepseek-ai/dsh-web-app',
-      '@deepseek-ai/dsh-module-deliverables', '@deepseek-ai/dsh-module-extensions', '@deepseek-ai/dsh-module-lsp',
-      '@deepseek-ai/dsh-module-memory', '@deepseek-ai/dsh-module-schedule', '@deepseek-ai/dsh-module-terminal',
-      '@deepseek-ai/dsh-module-webhook',
+      '@lyness/lyn-base', '@lyness/lyn-module-execution', '@lyness/lyn-web-app',
+      '@lyness/lyn-module-deliverables', '@lyness/lyn-module-extensions', '@lyness/lyn-module-lsp',
+      '@lyness/lyn-module-memory', '@lyness/lyn-module-schedule', '@lyness/lyn-module-terminal',
+      '@lyness/lyn-module-webhook',
     ])
     followShippedTemplate('t', dir, 'web')
-    expect(readProfileManifest('t', dir).dsh?.profile?.bundles)
+    expect(readProfileManifest('t', dir).lyn?.profile?.bundles)
       .toEqual([...PROFILE_TEMPLATES['web']?.bundles ?? []])
 
     const owned = [...PROFILE_TEMPLATES['web']?.bundles ?? [], 'plugin']
     writeProfileManifest(dir, {
       ...readProfileManifest('t', dir),
-      dsh: { profile: { bundles: owned } },
+      lyn: { profile: { bundles: owned } },
     })
     followShippedTemplate('t', dir, 'web')
-    expect(readProfileManifest('t', dir).dsh?.profile?.bundles).toEqual(owned)
+    expect(readProfileManifest('t', dir).lyn?.profile?.bundles).toEqual(owned)
   })
 
   it('normalizes a tuple a profile spelled before the package rescope', () => {
     const anchor = stageInstallation({
-      '@deepseek-ai/dsh-base': { patch: '[]\n' },
-      '@deepseek-ai/dsh-web-app': { patch: '[]\n' },
-      '@deepseek-ai/dsh-module-memory': { patch: '[]\n' },
-      '@deepseek-ai/dsh-module-schedule': { patch: '[]\n' },
-      '@deepseek-ai/dsh-module-terminal': { patch: '[]\n' },
-      '@deepseek-ai/dsh-module-lsp': { patch: '[]\n' },
-      '@deepseek-ai/dsh-module-deliverables': { patch: '[]\n' },
-      '@deepseek-ai/dsh-module-extensions': { patch: '[]\n' },
-      '@deepseek-ai/dsh-module-webhook': { patch: '[]\n' },
+      '@lyness/lyn-base': { patch: '[]\n' },
+      '@lyness/lyn-web-app': { patch: '[]\n' },
+      '@lyness/lyn-module-memory': { patch: '[]\n' },
+      '@lyness/lyn-module-schedule': { patch: '[]\n' },
+      '@lyness/lyn-module-terminal': { patch: '[]\n' },
+      '@lyness/lyn-module-lsp': { patch: '[]\n' },
+      '@lyness/lyn-module-deliverables': { patch: '[]\n' },
+      '@lyness/lyn-module-extensions': { patch: '[]\n' },
+      '@lyness/lyn-module-webhook': { patch: '[]\n' },
     })
     const home = tmp()
     const dir = resolveProfileDir('web', home)
     // The spelling a profile created before the rescope still carries. Such a
     // profile boots, because its node_modules holds a legacy link per name, so
     // without this path it silently never receives a module shipped since.
-    initProfile(dir, ['@deepseek-ai/base', '@deepseek-ai/web-app'])
+    initProfile(dir, ['@lyness/base', '@lyness/web-app'])
 
     loadProfile('t', 'web', anchor, home)
 
-    expect(readProfileManifest('t', dir).dsh?.profile?.bundles)
+    expect(readProfileManifest('t', dir).lyn?.profile?.bundles)
       .toEqual([...PROFILE_TEMPLATES.web?.bundles ?? []])
   })
 
   it('leaves a pre-rescope list alone once it stops matching a recorded tuple', () => {
     const anchor = stageInstallation({
-      '@deepseek-ai/dsh-base': { patch: '[]\n' },
-      '@deepseek-ai/dsh-web-app': { patch: '[]\n' },
+      '@lyness/lyn-base': { patch: '[]\n' },
+      '@lyness/lyn-web-app': { patch: '[]\n' },
       'custom-bundle': { patch: '[]\n' },
     })
     const home = tmp()
     const dir = resolveProfileDir('web', home)
-    initProfile(dir, ['@deepseek-ai/base', '@deepseek-ai/web-app', 'custom-bundle'])
+    initProfile(dir, ['@lyness/base', '@lyness/web-app', 'custom-bundle'])
 
     loadProfile('t', 'web', anchor, home)
 
     // Mapping the spelling must not widen which lists are owned: a hand-edited
     // profile stays hand-edited.
-    expect(readProfileManifest('t', dir).dsh?.profile?.bundles)
-      .toEqual(['@deepseek-ai/base', '@deepseek-ai/web-app', 'custom-bundle'])
+    expect(readProfileManifest('t', dir).lyn?.profile?.bundles)
+      .toEqual(['@lyness/base', '@lyness/web-app', 'custom-bundle'])
   })
 
   it.each(['missing package', 'invalid manifest', 'not a bundle', 'missing patch', 'invalid patch'])(
@@ -558,7 +560,7 @@ describe('loadProfile', () => {
       const resolution = await createRuntimeResolution({ installAnchor: anchor, profile, home })
       const unavailable = failure === 'missing package' || failure === 'invalid manifest'
       expect(resolution.entries.map(entry => entry.name))
-        .toEqual(['dsh-app', 'before', ...unavailable ? [] : ['broken'], 'after'])
+        .toEqual(['lyn-app', 'before', ...unavailable ? [] : ['broken'], 'after'])
       mkdirSync(bundleDir, { recursive: true })
       writeFileSync(manifestPath, original)
       writeFileSync(patchPath, '[]\n')
@@ -567,24 +569,24 @@ describe('loadProfile', () => {
     },
   )
 
-  it('skips a bundle whose own dsh peers are incompatible until the profile exempts that exact pair', () => {
+  it('skips a bundle whose own lyn peers are incompatible until the profile exempts that exact pair', () => {
     const anchor = stageInstallation({
       guarded: { patch: '- insert: [{ id: a, name: pkg-a }]\n' },
       kept: { patch: '- insert: [{ id: b, name: pkg-b }]\n' },
     })
     const manifestPath = join(anchor, '..', 'node_modules', 'guarded', 'package.json')
     writeFileSync(manifestPath, JSON.stringify({
-      ...JSON.parse(readFileSync(manifestPath, 'utf8')) as object, peerDependencies: { '@deepseek-ai/dsh': '999.0.0' },
+      ...JSON.parse(readFileSync(manifestPath, 'utf8')) as object, peerDependencies: { '@lyness/lyn': '999.0.0' },
     }))
     const dir = resolveProfileDir('demo', tmp())
     initProfile(dir, ['guarded', 'kept'])
-    const denied = loadProfileDirectory('dsh', dir, anchor)
+    const denied = loadProfileDirectory('lyn', dir, anchor)
     expect(denied.layers.map(layer => layer.packageName)).toEqual(['kept'])
     expect(denied.skippedBundles).toEqual([{ packageName: 'guarded', reason: expect.stringContaining(
-      `Error: Plugin guarded@0.0.0 is incompatible with dsh ${getDshRuntimeVersion()}`,
+      `Error: Plugin guarded@0.0.0 is incompatible with lyn ${getLynRuntimeVersion()}`,
     ) as string }])
-    writeFileSync(join(dir, PROFILE_COMPATIBILITY_FILENAME), JSON.stringify({ 'guarded@0.0.0': [getDshRuntimeVersion()] }))
-    expect(loadProfileDirectory('dsh', dir, anchor).layers.map(layer => layer.packageName)).toEqual(['guarded', 'kept'])
+    writeFileSync(join(dir, PROFILE_COMPATIBILITY_FILENAME), JSON.stringify({ 'guarded@0.0.0': [getLynRuntimeVersion()] }))
+    expect(loadProfileDirectory('lyn', dir, anchor).layers.map(layer => layer.packageName)).toEqual(['guarded', 'kept'])
   })
 
   it('still rejects invalid profile manifests and user patches', () => {
@@ -629,7 +631,7 @@ describe('createRuntimeResolution', () => {
     writeFileSync(join(modules, 'dep-of-a', 'package.json'), JSON.stringify({ name: 'dep-of-a', version: '0.0.0' }))
     const home = tmp()
     const resolution = await createRuntimeResolution({ installAnchor: anchor, home })
-    expect(resolution.entries.map(entry => entry.name)).toEqual(['dsh-app', 'bundle-a', 'plain-lib', 'dep-of-a'])
+    expect(resolution.entries.map(entry => entry.name)).toEqual(['lyn-app', 'bundle-a', 'plain-lib', 'dep-of-a'])
     expect(resolution.entries.find(entry => entry.name === 'dep-of-a')?.packageDir).toBe(join(modules, 'dep-of-a'))
     expect(existsSync(join(home, 'profiles', 'node_modules'))).toBe(false)
     await expect(createRuntimeResolution({ installAnchor: anchor, home })).resolves.toEqual(resolution)
@@ -876,11 +878,11 @@ describe('removeLinkProjections', () => {
     writeFileSync(join(dir, 'package.json'), JSON.stringify({ name, version }))
   }
 
-  it('removes only the symlinks that point into .dsh-module-fallback and the directory itself', () => {
+  it('removes only the symlinks that point into .lyn-module-fallback and the directory itself', () => {
     const home = tmp()
     const profile = join(home, 'profiles', 'web')
     const modules = join(profile, 'node_modules')
-    const owned = join(profile, '.dsh-module-fallback', 'node_modules')
+    const owned = join(profile, '.lyn-module-fallback', 'node_modules')
     packageAt(join(modules, 'my-bundle'), 'my-bundle', '1.0.0')
     packageAt(join(modules, 'my-bundle', 'node_modules', 'bridge'), 'bridge', '1.0.0')
     packageAt(join(modules, '@scope', 'helper'), '@scope/helper', '1.0.0')
@@ -895,7 +897,7 @@ describe('removeLinkProjections', () => {
 
     removeLinkProjections(profile)
 
-    expect(existsSync(join(profile, '.dsh-module-fallback'))).toBe(false)
+    expect(existsSync(join(profile, '.lyn-module-fallback'))).toBe(false)
     expect(lstatSync(join(modules, 'bridge'), { throwIfNoEntry: false })).toBeUndefined()
     expect(lstatSync(join(modules, '@scope', 'tool'), { throwIfNoEntry: false })).toBeUndefined()
     expect(lstatSync(join(modules, 'my-bundle')).isDirectory()).toBe(true)
@@ -910,15 +912,15 @@ describe('removeLinkProjections', () => {
   it('removes the directory when the profile has no node_modules and keeps links whose target parent is gone', () => {
     const home = tmp()
     const profile = join(home, 'profiles', 'web')
-    mkdirSync(join(profile, '.dsh-module-fallback', 'node_modules'), { recursive: true })
+    mkdirSync(join(profile, '.lyn-module-fallback', 'node_modules'), { recursive: true })
     removeLinkProjections(profile)
-    expect(existsSync(join(profile, '.dsh-module-fallback'))).toBe(false)
+    expect(existsSync(join(profile, '.lyn-module-fallback'))).toBe(false)
 
     const other = join(home, 'profiles', 'other')
-    mkdirSync(join(other, '.dsh-module-fallback', 'node_modules'), { recursive: true })
+    mkdirSync(join(other, '.lyn-module-fallback', 'node_modules'), { recursive: true })
     link(join(home, 'missing-parent', 'pkg'), join(other, 'node_modules', 'orphan'))
     removeLinkProjections(other)
-    expect(existsSync(join(other, '.dsh-module-fallback'))).toBe(false)
+    expect(existsSync(join(other, '.lyn-module-fallback'))).toBe(false)
     expect(lstatSync(join(other, 'node_modules', 'orphan')).isSymbolicLink()).toBe(true)
   })
 

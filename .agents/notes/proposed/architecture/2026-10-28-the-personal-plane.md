@@ -12,9 +12,9 @@ The mixing hides a second gap. Three things a person is entitled to have no home
 
 Their own limit is one. Until this week an account answered a balance and nothing else, so a person could not tell a quiet day from a lowered allowance; the balance now carries the effective allowance, the period, when it began and what it has cost, and the credits section shows it to every reader. That is the pattern the rest should follow, not an exception.
 
-Their own instructions are the second. The recorded prompt layering is platform, organization, user, agent, and three of the four now exist: the deployment persona, the tenant identity composed from a session's own record, and the agent's own persona or a bot's. The user layer has never had a record to carry it. `dsh-agent-instructions` reads `AGENTS.md` from disk, which is the right answer for somebody sitting at their own machine and no answer at all for somebody using a browser against a hosted deployment.
+Their own instructions are the second. The recorded prompt layering is platform, organization, user, agent, and three of the four now exist: the deployment persona, the tenant identity composed from a session's own record, and the agent's own persona or a bot's. The user layer has never had a record to carry it. `lyn-agent-instructions` reads `AGENTS.md` from disk, which is the right answer for somebody sitting at their own machine and no answer at all for somebody using a browser against a hosted deployment.
 
-What is remembered about them is the third. `dsh-memory` already separates `member` from `shared` scope, so the facts a person asked to remember are distinguishable from the ones a workspace shares — and nothing shows a person either set, or lets them remove one.
+What is remembered about them is the third. `lyn-memory` already separates `member` from `shared` scope, so the facts a person asked to remember are distinguishable from the ones a workspace shares — and nothing shows a person either set, or lets them remove one.
 
 ## Proposal
 

@@ -2,20 +2,20 @@
 
 import { performance } from 'node:perf_hooks'
 import { scheduler } from 'node:timers/promises'
-import { Context } from '@deepseek-ai/cordis'
-import AgentLoop from '@deepseek-ai/dsh-agent-loop'
-import { mountAgentLoopTestDependencies } from '@deepseek-ai/dsh-agent-loop-testkit'
-import { agentPresetProjectionDefinition } from '@deepseek-ai/dsh-agent-preset-registry'
+import { Context } from '@lyness/cordis'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import { mountAgentLoopTestDependencies } from '@lyness/lyn-agent-loop-testkit'
+import { agentPresetProjectionDefinition } from '@lyness/lyn-agent-preset-registry'
 import SessionStore, {
   interruptedTurnClosers,
   SessionId,
   SessionLogOffset,
   SessionPreparation,
-} from '@deepseek-ai/dsh-session'
-import AgentRegistry, { type AgentHandle } from '@deepseek-ai/dsh-agent'
-import * as JsonlSessionPersistence from '@deepseek-ai/dsh-session-persistence-jsonl'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import SessionQueryEngine from '@deepseek-ai/dsh-session-query'
+} from '@lyness/lyn-session'
+import AgentRegistry, { type AgentHandle } from '@lyness/lyn-agent'
+import * as JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import SessionQueryEngine from '@lyness/lyn-session-query'
 import type {
   SessionEventSearchPage,
   SessionEventSearchRequest,
@@ -23,11 +23,11 @@ import type {
   SessionSearchHit,
   SessionSearchPage,
   SessionSearchRequest,
-} from '@deepseek-ai/dsh-session-query'
-import * as SessionStatsPlugin from '@deepseek-ai/dsh-session-stats'
-import SessionTitleService from '@deepseek-ai/dsh-session-title'
-import * as SessionTurnOutlinePlugin from '@deepseek-ai/dsh-session-turn-outline'
-import TokenMeter from '@deepseek-ai/dsh-token-meter'
+} from '@lyness/lyn-session-query'
+import * as SessionStatsPlugin from '@lyness/lyn-session-stats'
+import SessionTitleService from '@lyness/lyn-session-title'
+import * as SessionTurnOutlinePlugin from '@lyness/lyn-session-turn-outline'
+import TokenMeter from '@lyness/lyn-token-meter'
 // These Host-only adapters have no public Node export and are compiled into the benchmark worker.
 import { SessionHistoryController } from '../../packages/api/session-controller/src/history.ts'
 import { assertBuiltBenchmarkRuntime } from '../support/built-worker.ts'
@@ -289,7 +289,7 @@ class SessionBenchmarkHost {
 }
 
 assertBuiltBenchmarkRuntime(import.meta.url, {
-  '@deepseek-ai/dsh-session-persistence-jsonl': import.meta.resolve('@deepseek-ai/dsh-session-persistence-jsonl'),
+  '@lyness/lyn-session-persistence-jsonl': import.meta.resolve('@lyness/lyn-session-persistence-jsonl'),
 })
 
 const [root, scenarioValue] = process.argv.slice(2)

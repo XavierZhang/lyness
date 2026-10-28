@@ -11,23 +11,23 @@
  * attribution added in two steps would cost two format changes instead of
  * one ([decision](../../../../.agents/notes/proposed/architecture/2026-10-07-session-ownership.md)).
  *
- * @module @deepseek-ai/dsh-session-ownership
+ * @module @lyness/lyn-session-ownership
  */
 
-import type { Context } from '@deepseek-ai/cordis'
+import type { Context } from '@lyness/cordis'
 import * as zod from 'zod'
-import type { Session } from '@deepseek-ai/dsh-session'
-import type {} from '@deepseek-ai/dsh-session-projection'
-import type {} from '@deepseek-ai/dsh-request-principal'
-import { storedId, storedInstant } from '@deepseek-ai/dsh-storage-domain'
-import type { MembershipId, PersonId } from '@deepseek-ai/dsh-people'
+import type { Session } from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-session-projection'
+import type {} from '@lyness/lyn-request-principal'
+import { storedId, storedInstant } from '@lyness/lyn-storage-domain'
+import type { MembershipId, PersonId } from '@lyness/lyn-people'
 import { SESSION_OWNER_RECORD_VERSION } from './types.ts'
 import type { SessionOwnerRecord } from './types.ts'
 
 export type { SessionOwnerRecord } from './types.ts'
 export { SESSION_OWNER_RECORD_VERSION } from './types.ts'
 
-declare module '@deepseek-ai/dsh-session/types' {
+declare module '@lyness/lyn-session/types' {
   interface SessionEventMap {
     /**
      * Records whose conversation this is: the person who opened it and the
@@ -39,13 +39,13 @@ declare module '@deepseek-ai/dsh-session/types' {
      * @param owner - the person who opened the conversation.
      * @param membership - the standing they held it open under; absent when acting as themselves.
      * @param openedAt - when it was opened, as a UTC instant.
-     * @dshScopeScan unsupported
+     * @lynScopeScan unsupported
      */
     'session/owner': SessionOwnerRecord
   }
 }
 
-declare module '@deepseek-ai/dsh-session-projection/types' {
+declare module '@lyness/lyn-session-projection/types' {
   interface SessionProjectionStateMap {
     /** Whose conversation this is, or null before the record is written. */
     owner: SessionOwnerRecord | null
@@ -121,5 +121,11 @@ export function apply(ctx: Context): void {
  * @returns the record, or undefined for a session nobody is attributed to.
  */
 export function ownerOf(ctx: Context, session: Session): SessionOwnerRecord | undefined {
-  return ctx.sessionProjections.stateOf(session, 'owner') ?? undefined
+  // TODO(session-projection): read through the registration handle instead.
+  // Upstream 0.2.1 deprecated the keyed read and types it `unknown`; the fold
+  // state is parsed with the projection's own schema here, which is the same
+  // validation the registry performs when it reloads a checkpoint.
+  const state = ctx.sessionProjections.stateOf(session, 'owner')
+  if (state === null || state === undefined) return undefined
+  return recordSchema.parse(state) ?? undefined
 }

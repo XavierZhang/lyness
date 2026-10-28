@@ -28,9 +28,9 @@ function write(path: string, content: string): void {
 }
 
 function buildFixture(environment: Record<string, string>): string {
-  const root = mkdtempSync(join(tmpdir(), 'dsh-release-build-'))
+  const root = mkdtempSync(join(tmpdir(), 'lyn-release-build-'))
   roots.push(root)
-  write(join(root, 'package.json'), `${JSON.stringify({ version: environment.DSH_CLIENT_VERSION ?? '0.0.1' })}\n`)
+  write(join(root, 'package.json'), `${JSON.stringify({ version: environment.LYNESS_CLIENT_VERSION ?? '0.0.1' })}\n`)
   write(join(root, 'apps/web/dist/index.html'), '<main></main>')
   write(join(root, 'packages/client/example/lib/client.js'), 'module.exports = {}\n')
   writeClientBuildRecord(root, environment)
@@ -44,143 +44,143 @@ afterEach(() => {
 
 describe('release families', () => {
   it('publishes all current experimental packages', () => {
-    const members = releaseFamily('dsh').members(resolve(import.meta.dirname, '../..'))
+    const members = releaseFamily('lyn').members(resolve(import.meta.dirname, '../..'))
 
     expect(members
       .filter(member => member.directory.startsWith('packages/experimental/'))
       .map(member => member.name)).toEqual([
-      '@deepseek-ai/dsh-action-cards',
-      '@deepseek-ai/dsh-experimental-agent-team-profile',
-      '@deepseek-ai/dsh-experimental-agent-team',
-      '@deepseek-ai/dsh-experimental-api-speech-to-text',
-      '@deepseek-ai/dsh-experimental-auto-review',
-      '@deepseek-ai/dsh-experimental-badge-skill-bundle',
-      '@deepseek-ai/dsh-experimental-browser-use-chrome-devtools-mcp',
-      '@deepseek-ai/dsh-experimental-browser-use-playwright-mcp',
-      '@deepseek-ai/dsh-experimental-browser-use-runtime',
-      '@deepseek-ai/dsh-experimental-browser-use-stagehand-native',
-      '@deepseek-ai/dsh-experimental-claude-code-mods',
-      '@deepseek-ai/dsh-client-ui-action-cards',
-      '@deepseek-ai/dsh-experimental-client-ui-agent-team',
-      '@deepseek-ai/dsh-experimental-client-ui-claude-code-mods',
-      '@deepseek-ai/dsh-experimental-client-ui-cot-translation',
-      '@deepseek-ai/dsh-client-ui-creation-recommendations',
-      '@deepseek-ai/dsh-client-ui-plugin-recommendations',
-      '@deepseek-ai/dsh-experimental-client-ui-voice-input',
-      '@deepseek-ai/dsh-experimental-computer-use-cua-driver-mcp',
-      '@deepseek-ai/dsh-experimental-computer-use-cua-driver-native',
-      '@deepseek-ai/dsh-experimental-cot-translation-bundle',
-      '@deepseek-ai/dsh-creation-recommendations',
-      '@deepseek-ai/dsh-cua-bundle',
-      '@deepseek-ai/dsh-experimental-cua-macos',
-      '@deepseek-ai/dsh-cua',
-      '@deepseek-ai/dsh-hook-protocol',
-      '@deepseek-ai/dsh-hooks-claude-code',
-      '@deepseek-ai/dsh-hooks-codex',
-      '@deepseek-ai/dsh-experimental-inspector-profile',
-      '@deepseek-ai/dsh-experimental-inspector',
-      '@deepseek-ai/dsh-experimental-liveshare-protocol',
-      '@deepseek-ai/dsh-personalized-recommendations',
-      '@deepseek-ai/dsh-experimental-plugin-market-bundle',
-      '@deepseek-ai/dsh-plugin-recommendations',
-      '@deepseek-ai/dsh-experimental-ptc-runtime-python',
-      '@deepseek-ai/dsh-experimental-ralph-bundle',
-      '@deepseek-ai/dsh-experimental-session-inspector',
-      '@deepseek-ai/dsh-experimental-session-search',
-      '@deepseek-ai/dsh-session-title-all-prompts-llm',
-      '@deepseek-ai/dsh-experimental-session-titles-bundle',
-      '@deepseek-ai/dsh-skill-badge',
-      '@deepseek-ai/dsh-experimental-speech-to-text-sensevoice',
-      '@deepseek-ai/dsh-experimental-speech-to-text',
-      '@deepseek-ai/dsh-experimental-subagent-oar',
-      '@deepseek-ai/dsh-experimental-terminal-bundle',
-      '@deepseek-ai/dsh-experimental-tool-agent-team',
-      '@deepseek-ai/dsh-tool-ralph',
-      '@deepseek-ai/dsh-tool-session-query',
-      '@deepseek-ai/dsh-experimental-tool-subagent-oar',
-      '@deepseek-ai/dsh-tool-terminal',
-      '@deepseek-ai/dsh-experimental-tool-worktree',
-      '@deepseek-ai/dsh-experimental-translator',
-      '@deepseek-ai/dsh-experimental-voice-input-bundle',
-      '@deepseek-ai/dsh-webhook-github',
-      '@deepseek-ai/dsh-webhook',
-      '@deepseek-ai/dsh-experimental-webworker-packer',
-      '@deepseek-ai/dsh-experimental-webworker-runtime',
-      '@deepseek-ai/dsh-experimental-worktree',
+      '@lyness/lyn-action-cards',
+      '@lyness/lyn-experimental-agent-team-profile',
+      '@lyness/lyn-experimental-agent-team',
+      '@lyness/lyn-experimental-api-speech-to-text',
+      '@lyness/lyn-experimental-auto-review',
+      '@lyness/lyn-experimental-badge-skill-bundle',
+      '@lyness/lyn-experimental-browser-use-chrome-devtools-mcp',
+      '@lyness/lyn-experimental-browser-use-playwright-mcp',
+      '@lyness/lyn-experimental-browser-use-runtime',
+      '@lyness/lyn-experimental-browser-use-stagehand-native',
+      '@lyness/lyn-experimental-claude-code-mods',
+      '@lyness/lyn-client-ui-action-cards',
+      '@lyness/lyn-experimental-client-ui-agent-team',
+      '@lyness/lyn-experimental-client-ui-claude-code-mods',
+      '@lyness/lyn-experimental-client-ui-cot-translation',
+      '@lyness/lyn-client-ui-creation-recommendations',
+      '@lyness/lyn-client-ui-plugin-recommendations',
+      '@lyness/lyn-experimental-client-ui-voice-input',
+      '@lyness/lyn-experimental-computer-use-cua-driver-mcp',
+      '@lyness/lyn-experimental-computer-use-cua-driver-native',
+      '@lyness/lyn-experimental-cot-translation-bundle',
+      '@lyness/lyn-creation-recommendations',
+      '@lyness/lyn-cua-bundle',
+      '@lyness/lyn-experimental-cua-macos',
+      '@lyness/lyn-cua',
+      '@lyness/lyn-hook-protocol',
+      '@lyness/lyn-hooks-claude-code',
+      '@lyness/lyn-hooks-codex',
+      '@lyness/lyn-experimental-inspector-profile',
+      '@lyness/lyn-experimental-inspector',
+      '@lyness/lyn-experimental-liveshare-protocol',
+      '@lyness/lyn-personalized-recommendations',
+      '@lyness/lyn-experimental-plugin-market-bundle',
+      '@lyness/lyn-plugin-recommendations',
+      '@lyness/lyn-experimental-ptc-runtime-python',
+      '@lyness/lyn-experimental-ralph-bundle',
+      '@lyness/lyn-experimental-session-inspector',
+      '@lyness/lyn-experimental-session-search',
+      '@lyness/lyn-session-title-all-prompts-llm',
+      '@lyness/lyn-experimental-session-titles-bundle',
+      '@lyness/lyn-skill-badge',
+      '@lyness/lyn-experimental-speech-to-text-sensevoice',
+      '@lyness/lyn-experimental-speech-to-text',
+      '@lyness/lyn-experimental-subagent-oar',
+      '@lyness/lyn-experimental-terminal-bundle',
+      '@lyness/lyn-experimental-tool-agent-team',
+      '@lyness/lyn-tool-ralph',
+      '@lyness/lyn-tool-session-query',
+      '@lyness/lyn-experimental-tool-subagent-oar',
+      '@lyness/lyn-tool-terminal',
+      '@lyness/lyn-experimental-tool-worktree',
+      '@lyness/lyn-experimental-translator',
+      '@lyness/lyn-experimental-voice-input-bundle',
+      '@lyness/lyn-webhook-github',
+      '@lyness/lyn-webhook',
+      '@lyness/lyn-experimental-webworker-packer',
+      '@lyness/lyn-experimental-webworker-runtime',
+      '@lyness/lyn-experimental-worktree',
     ])
   })
 
   it('excludes private applications from the publish set', () => {
-    const root = mkdtempSync(join(tmpdir(), 'dsh-release-private-'))
+    const root = mkdtempSync(join(tmpdir(), 'lyn-release-private-'))
     roots.push(root)
-    write(join(root, 'apps/public/package.json'), '{"name":"@deepseek-ai/dsh-public","version":"0.0.1"}\n')
-    write(join(root, 'apps/private/package.json'), '{"name":"@deepseek-ai/dsh-private","version":"0.0.1","private":true}\n')
+    write(join(root, 'apps/public/package.json'), '{"name":"@lyness/lyn-public","version":"0.0.1"}\n')
+    write(join(root, 'apps/private/package.json'), '{"name":"@lyness/lyn-private","version":"0.0.1","private":true}\n')
 
-    expect(releaseFamily('dsh').members(root).map(entry => entry.name)).toEqual(['@deepseek-ai/dsh-public'])
+    expect(releaseFamily('lyn').members(root).map(entry => entry.name)).toEqual(['@lyness/lyn-public'])
   })
 
   it('publishes unlisted experimental packages while retaining private exclusions', () => {
-    const root = mkdtempSync(join(tmpdir(), 'dsh-release-experimental-'))
+    const root = mkdtempSync(join(tmpdir(), 'lyn-release-experimental-'))
     roots.push(root)
     write(join(root, 'packages/experimental/prototype/package.json'), JSON.stringify({
-      name: '@deepseek-ai/dsh-experimental-prototype',
+      name: '@lyness/lyn-experimental-prototype',
       version: '0.0.1',
       publishConfig: { access: 'public' },
     }))
     write(join(root, 'packages/experimental/inspector/package.json'), JSON.stringify({
-      name: '@deepseek-ai/dsh-experimental-inspector',
+      name: '@lyness/lyn-experimental-inspector',
       version: '0.0.1',
       private: true,
     }))
 
-    expect(releaseFamily('dsh').members(root).map(entry => entry.name)).toEqual([
-      '@deepseek-ai/dsh-experimental-prototype',
+    expect(releaseFamily('lyn').members(root).map(entry => entry.name)).toEqual([
+      '@lyness/lyn-experimental-prototype',
     ])
   })
 
-  it('bumps private dsh workspaces without adding release tags', () => {
-    const root = mkdtempSync(join(tmpdir(), 'dsh-release-version-'))
+  it('bumps private lyn workspaces without adding release tags', () => {
+    const root = mkdtempSync(join(tmpdir(), 'lyn-release-version-'))
     roots.push(root)
     write(join(root, 'package.json'), '{"version":"0.0.1"}\n')
     write(join(root, 'apps/desktop/package.json'), '{"version":"0.0.1","private":true}\n')
     write(join(root, 'packages/experimental/prototype/package.json'), '{"version":"0.0.1","private":true}\n')
     write(join(root, 'packages/core/unselected/package.json'), '{"version":"0.0.1"}\n')
 
-    const dsh = releaseFamily('dsh')
-    const published = member('packages/core/published', '@deepseek-ai/dsh-published')
-    const { planned } = planShared(dsh, root, [published], '0.0.2')
+    const lyn = releaseFamily('lyn')
+    const published = member('packages/core/published', '@lyness/lyn-published')
+    const { planned } = planShared(lyn, root, [published], '0.0.2')
 
     expect(planned.map(entry => ({ path: entry.manifestPath, tag: entry.tag }))).toEqual([
       { path: 'package.json', tag: undefined },
-      { path: 'packages/core/published/package.json', tag: 'dsh-v0.0.2' },
+      { path: 'packages/core/published/package.json', tag: 'lyn-v0.0.2' },
       { path: 'apps/desktop/package.json', tag: undefined },
       { path: 'packages/experimental/prototype/package.json', tag: undefined },
     ])
   })
 
   it.each(['0.0.2-alpha.1', '0.0.2-canary.1', '0.0.2-rc.1'])(
-    'accepts the explicit dsh prerelease version %s',
+    'accepts the explicit lyn prerelease version %s',
     (version) => {
-      const root = mkdtempSync(join(tmpdir(), 'dsh-release-prerelease-'))
+      const root = mkdtempSync(join(tmpdir(), 'lyn-release-prerelease-'))
       roots.push(root)
       write(join(root, 'package.json'), '{"version":"0.0.1"}\n')
 
-      const dsh = releaseFamily('dsh')
-      const published = member('packages/core/published', '@deepseek-ai/dsh-published')
-      const plan = planShared(dsh, root, [published], version)
+      const lyn = releaseFamily('lyn')
+      const published = member('packages/core/published', '@lyness/lyn-published')
+      const plan = planShared(lyn, root, [published], version)
 
       expect(plan.version).toBe(version)
-      expect(plan.planned[1]?.tag).toBe(`dsh-v${version}`)
+      expect(plan.planned[1]?.tag).toBe(`lyn-v${version}`)
     },
   )
 
-  it('names one tag for the whole dsh family and one per vendored package', () => {
-    const dsh = releaseFamily('dsh')
+  it('names one tag for the whole lyn family and one per vendored package', () => {
+    const lyn = releaseFamily('lyn')
     const vendor = releaseFamily('vendor')
-    const cli = member('apps/cli', '@deepseek-ai/dsh')
-    const cordis = { ...member('vendor/cordis', '@deepseek-ai/cordis'), version: '4.0.1' }
+    const cli = member('apps/cli', '@lyness/lyn')
+    const cordis = { ...member('vendor/cordis', '@lyness/cordis'), version: '4.0.1' }
 
-    expect(dsh.tagFor(cli)).toBe('dsh-v0.0.1')
+    expect(lyn.tagFor(cli)).toBe('lyn-v0.0.1')
     expect(vendor.tagFor(cordis)).toBe('vendor-cordis-v4.0.1')
     // The prefix is constructed, not recovered from a tag: a version with a
     // hyphen would defeat any suffix-stripping.
@@ -188,227 +188,227 @@ describe('release families', () => {
     expect(vendor.tagFor({ ...cordis, version: '4.0.0-rc.7' })).toBe('vendor-cordis-v4.0.0-rc.7')
   })
 
-  it('assigns alpha and canary dist-tags only to dsh releases', () => {
-    const dsh = releaseFamily('dsh')
+  it('assigns alpha and canary dist-tags only to lyn releases', () => {
+    const lyn = releaseFamily('lyn')
     const vendor = releaseFamily('vendor')
 
-    expect(dsh.distTagForVersion('0.0.2-alpha.1')).toBe('alpha')
-    expect(dsh.distTagForVersion('0.0.2-canary.1')).toBe('canary')
-    expect(dsh.distTagForVersion('0.0.2-rc.1')).toBe('next')
-    expect(dsh.distTagForVersion('0.0.2')).toBeUndefined()
+    expect(lyn.distTagForVersion('0.0.2-alpha.1')).toBe('alpha')
+    expect(lyn.distTagForVersion('0.0.2-canary.1')).toBe('canary')
+    expect(lyn.distTagForVersion('0.0.2-rc.1')).toBe('next')
+    expect(lyn.distTagForVersion('0.0.2')).toBeUndefined()
     expect(vendor.distTagForVersion('4.0.1-alpha.1')).toBe('next')
     expect(vendor.distTagForVersion('4.0.1-canary.1')).toBe('next')
   })
 
   it('rejects a family whose members disagree on the shared version', () => {
-    const dsh = releaseFamily('dsh')
-    const members = [member('apps/cli', '@deepseek-ai/dsh'), { ...member('apps/web', '@deepseek-ai/dsh-web-frontend'), version: '0.0.2' }]
+    const lyn = releaseFamily('lyn')
+    const members = [member('apps/cli', '@lyness/lyn'), { ...member('apps/web', '@lyness/lyn-web-frontend'), version: '0.0.2' }]
 
-    expect(() => { dsh.verifyVersions(members) }).toThrow(/must share one version/)
-    expect(() => { dsh.verifyVersions([members[0]!]) }).not.toThrow()
+    expect(() => { lyn.verifyVersions(members) }).toThrow(/must share one version/)
+    expect(() => { lyn.verifyVersions([members[0]!]) }).not.toThrow()
   })
 
   it('accepts independent vendored versions and rejects an unpublishable one', () => {
     const vendor = releaseFamily('vendor')
     const members = [
-      { ...member('vendor/cordis', '@deepseek-ai/cordis'), version: '4.0.1' },
-      { ...member('vendor/cosmokit', '@deepseek-ai/cosmokit'), version: '1.8.2' },
+      { ...member('vendor/cordis', '@lyness/cordis'), version: '4.0.1' },
+      { ...member('vendor/cosmokit', '@lyness/cosmokit'), version: '1.8.2' },
     ]
 
     expect(() => { vendor.verifyVersions(members) }).not.toThrow()
     expect(() => { vendor.verifyVersions([{ ...members[0]!, version: 'latest' }]) }).toThrow(/unpublishable version/)
   })
 
-  it('requires a current official client build only for dsh artifacts', () => {
-    const dsh = releaseFamily('dsh')
+  it('requires a current official client build only for lyn artifacts', () => {
+    const lyn = releaseFamily('lyn')
     const vendor = releaseFamily('vendor')
     const officialEnvironment = officialClientBuildEnvironment(resolve(import.meta.dirname, '../..'))
-    vi.stubEnv('DSH_CLIENT_COMMIT_HASH', officialEnvironment.DSH_CLIENT_COMMIT_HASH)
+    vi.stubEnv('LYNESS_CLIENT_COMMIT_HASH', officialEnvironment.LYNESS_CLIENT_COMMIT_HASH)
     const official = buildFixture(officialEnvironment)
     const defaultBuild = buildFixture({})
     const missing = join(defaultBuild, 'missing')
-    write(join(missing, 'package.json'), `${JSON.stringify({ version: officialEnvironment.DSH_CLIENT_VERSION })}\n`)
+    write(join(missing, 'package.json'), `${JSON.stringify({ version: officialEnvironment.LYNESS_CLIENT_VERSION })}\n`)
 
-    expect(() => { dsh.verifyBuildArtifacts(official) }).not.toThrow()
-    expect(() => { dsh.verifyBuildArtifacts(defaultBuild) }).toThrow(/DSH_CLIENT_TITLE/)
-    expect(() => { dsh.verifyBuildArtifacts(missing) }).toThrow(/record.*missing/)
+    expect(() => { lyn.verifyBuildArtifacts(official) }).not.toThrow()
+    expect(() => { lyn.verifyBuildArtifacts(defaultBuild) }).toThrow(/LYNESS_CLIENT_TITLE/)
+    expect(() => { lyn.verifyBuildArtifacts(missing) }).toThrow(/record.*missing/)
     expect(() => { vendor.verifyBuildArtifacts(missing) }).not.toThrow()
 
     write(join(official, 'packages/client/example/lib/client.js'), 'module.exports = { changed: true }\n')
-    expect(() => { dsh.verifyBuildArtifacts(official) }).toThrow(/artifacts differ/)
+    expect(() => { lyn.verifyBuildArtifacts(official) }).toThrow(/artifacts differ/)
   })
 
   it('publishes a dependency before its consumer, and orders ties by name', () => {
-    const dsh = releaseFamily('dsh')
+    const lyn = releaseFamily('lyn')
     const members = [
-      member('packages/a/consumer', '@deepseek-ai/dsh-consumer', { dependencies: { '@deepseek-ai/dsh-library': 'workspace:^' } }),
-      member('packages/a/library', '@deepseek-ai/dsh-library'),
-      member('packages/a/zebra', '@deepseek-ai/dsh-zebra'),
+      member('packages/a/consumer', '@lyness/lyn-consumer', { dependencies: { '@lyness/lyn-library': 'workspace:^' } }),
+      member('packages/a/library', '@lyness/lyn-library'),
+      member('packages/a/zebra', '@lyness/lyn-zebra'),
     ]
 
-    expect(dsh.publishOrder(members).order.map(entry => entry.name)).toEqual([
-      '@deepseek-ai/dsh-library',
-      '@deepseek-ai/dsh-consumer',
-      '@deepseek-ai/dsh-zebra',
+    expect(lyn.publishOrder(members).order.map(entry => entry.name)).toEqual([
+      '@lyness/lyn-library',
+      '@lyness/lyn-consumer',
+      '@lyness/lyn-zebra',
     ])
   })
 
-  it('publishes on-demand catalog members before dsh without adding installed dependencies', () => {
-    const dsh = member('apps/cli', '@deepseek-ai/dsh')
+  it('publishes on-demand catalog members before lyn without adding installed dependencies', () => {
+    const lyn = member('apps/cli', '@lyness/lyn')
     const providers = ON_DEMAND_BUNDLES.map(name => member(`packages/subagent/${name}`, name))
-    const plan = releaseFamily('dsh').publishOrder([dsh, ...providers])
-    expect(plan.order.map(entry => entry.name)).toEqual([...ON_DEMAND_BUNDLES, dsh.name])
-    expect(dsh.manifest).toEqual({})
+    const plan = releaseFamily('lyn').publishOrder([lyn, ...providers])
+    expect(plan.order.map(entry => entry.name)).toEqual([...ON_DEMAND_BUNDLES, lyn.name])
+    expect(lyn.manifest).toEqual({})
     expect(plan.droppedPeerEdges).toEqual([])
   })
 
   it('rejects an advertised provider missing from the public release family', () => {
-    expect(() => releaseFamily('dsh').publishOrder([member('apps/cli', '@deepseek-ai/dsh')]))
+    expect(() => releaseFamily('lyn').publishOrder([member('apps/cli', '@lyness/lyn')]))
       .toThrow('Official catalog prerequisite')
   })
 
-  it('keeps catalog prerequisites ahead of a dsh peer declaration', () => {
-    const dsh = member('apps/cli', '@deepseek-ai/dsh')
+  it('keeps catalog prerequisites ahead of a lyn peer declaration', () => {
+    const lyn = member('apps/cli', '@lyness/lyn')
     const providers = ON_DEMAND_BUNDLES.map(name => member(`packages/subagent/${name}`, name, {
-      peerDependencies: { '@deepseek-ai/dsh': 'workspace:*' },
+      peerDependencies: { '@lyness/lyn': 'workspace:*' },
     }))
-    const plan = releaseFamily('dsh').publishOrder([dsh, ...providers])
-    expect(plan.order.map(entry => entry.name)).toEqual([...ON_DEMAND_BUNDLES, dsh.name])
-    expect(plan.droppedPeerEdges).toEqual(ON_DEMAND_BUNDLES.map(name => ({ consumer: name, peer: dsh.name })))
+    const plan = releaseFamily('lyn').publishOrder([lyn, ...providers])
+    expect(plan.order.map(entry => entry.name)).toEqual([...ON_DEMAND_BUNDLES, lyn.name])
+    expect(plan.droppedPeerEdges).toEqual(ON_DEMAND_BUNDLES.map(name => ({ consumer: name, peer: lyn.name })))
   })
 
   it.each(['dependencies', 'optionalDependencies', 'peerDependencies'])(
-    'requires exact packed DSH %s while preserving external ranges', (section) => {
-      const pkg = member('packages/example/provider', '@deepseek-ai/dsh-provider')
-      const family = releaseFamily('dsh')
-      const manifest = { name: pkg.name, version: pkg.version, [section]: { '@deepseek-ai/dsh-tools': pkg.version, external: '^4.0.0' } }
+    'requires exact packed LYN %s while preserving external ranges', (section) => {
+      const pkg = member('packages/example/provider', '@lyness/lyn-provider')
+      const family = releaseFamily('lyn')
+      const manifest = { name: pkg.name, version: pkg.version, [section]: { '@lyness/lyn-tools': pkg.version, external: '^4.0.0' } }
       expect(() => { family.validatePackedManifest(pkg, manifest) }).not.toThrow()
       for (const range of ['workspace:*', '^0.0.1', '~0.0.1', '0.0.2', '*']) {
-        expect(() => { family.validatePackedManifest(pkg, { ...manifest, [section]: { '@deepseek-ai/dsh-tools': range } }) })
-          .toThrow(`packed ${section}.@deepseek-ai/dsh-tools must equal`)
+        expect(() => { family.validatePackedManifest(pkg, { ...manifest, [section]: { '@lyness/lyn-tools': range } }) })
+          .toThrow(`packed ${section}.@lyness/lyn-tools must equal`)
       }
     },
   )
 
   it('checks packed identities and preserves independent vendor versions', () => {
-    const pkg = member('vendor/example', '@deepseek-ai/example')
+    const pkg = member('vendor/example', '@lyness/example')
     const family = releaseFamily('vendor')
-    expect(() => { family.validatePackedManifest(pkg, { name: pkg.name, version: pkg.version, dependencies: { '@deepseek-ai/dsh-tools': '^4.0.0' } }) })
+    expect(() => { family.validatePackedManifest(pkg, { name: pkg.name, version: pkg.version, dependencies: { '@lyness/lyn-tools': '^4.0.0' } }) })
       .not.toThrow()
-    expect(() => { family.validatePackedManifest(pkg, { name: '@deepseek-ai/other', version: pkg.version }) }).toThrow('packed identity')
+    expect(() => { family.validatePackedManifest(pkg, { name: '@lyness/other', version: pkg.version }) }).toThrow('packed identity')
     expect(() => { family.validatePackedManifest(pkg, { name: pkg.name, version: '0.0.2' }) }).toThrow('packed identity')
   })
 
   it('reports a runtime dependency cycle instead of emitting an arbitrary order', () => {
-    const dsh = releaseFamily('dsh')
+    const lyn = releaseFamily('lyn')
     const members = [
-      member('packages/a/left', '@deepseek-ai/dsh-left', { dependencies: { '@deepseek-ai/dsh-right': 'workspace:^' } }),
-      member('packages/a/right', '@deepseek-ai/dsh-right', { dependencies: { '@deepseek-ai/dsh-left': 'workspace:^' } }),
+      member('packages/a/left', '@lyness/lyn-left', { dependencies: { '@lyness/lyn-right': 'workspace:^' } }),
+      member('packages/a/right', '@lyness/lyn-right', { dependencies: { '@lyness/lyn-left': 'workspace:^' } }),
     ]
 
-    expect(() => { dsh.publishOrder(members) }).toThrow(/dependency cycle/)
+    expect(() => { lyn.publishOrder(members) }).toThrow(/dependency cycle/)
   })
 
   it('publishes a peer before its consumer', () => {
-    const dsh = releaseFamily('dsh')
+    const lyn = releaseFamily('lyn')
     const members = [
-      member('packages/a/consumer', '@deepseek-ai/dsh-consumer', { peerDependencies: { '@deepseek-ai/dsh-zebra': 'workspace:^' } }),
-      member('packages/a/zebra', '@deepseek-ai/dsh-zebra'),
+      member('packages/a/consumer', '@lyness/lyn-consumer', { peerDependencies: { '@lyness/lyn-zebra': 'workspace:^' } }),
+      member('packages/a/zebra', '@lyness/lyn-zebra'),
     ]
 
     // Name order alone would place the consumer first; the peer edge moves it.
-    expect(dsh.publishOrder(members).order.map(entry => entry.name)).toEqual([
-      '@deepseek-ai/dsh-zebra',
-      '@deepseek-ai/dsh-consumer',
+    expect(lyn.publishOrder(members).order.map(entry => entry.name)).toEqual([
+      '@lyness/lyn-zebra',
+      '@lyness/lyn-consumer',
     ])
   })
 
   it('orders around a peer cycle rather than refusing to publish, and reports the edge it dropped', () => {
-    const dsh = releaseFamily('dsh')
+    const lyn = releaseFamily('lyn')
     const members = [
-      member('packages/a/left', '@deepseek-ai/dsh-left', { peerDependencies: { '@deepseek-ai/dsh-right': 'workspace:^' } }),
-      member('packages/a/right', '@deepseek-ai/dsh-right', { peerDependencies: { '@deepseek-ai/dsh-left': 'workspace:^' } }),
+      member('packages/a/left', '@lyness/lyn-left', { peerDependencies: { '@lyness/lyn-right': 'workspace:^' } }),
+      member('packages/a/right', '@lyness/lyn-right', { peerDependencies: { '@lyness/lyn-left': 'workspace:^' } }),
     ]
 
     // Sibling packages declare each other as peers, and npm treats an unmet peer
     // as a warning, so this pair has to publish rather than fail the release.
-    const plan = dsh.publishOrder(members)
+    const plan = lyn.publishOrder(members)
     expect(plan.order.map(entry => entry.name)).toEqual([
-      '@deepseek-ai/dsh-right',
-      '@deepseek-ai/dsh-left',
+      '@lyness/lyn-right',
+      '@lyness/lyn-left',
     ])
     // One of the two edges has to give, and which one it is belongs in the log.
     expect(plan.droppedPeerEdges).toEqual([
-      { consumer: '@deepseek-ai/dsh-right', peer: '@deepseek-ai/dsh-left' },
+      { consumer: '@lyness/lyn-right', peer: '@lyness/lyn-left' },
     ])
   })
 
   it('honours an install edge even when a peer cycle surrounds it', () => {
-    const dsh = releaseFamily('dsh')
+    const lyn = releaseFamily('lyn')
     const members = [
-      member('packages/a/base', '@deepseek-ai/dsh-base', { peerDependencies: { '@deepseek-ai/dsh-consumer': 'workspace:^' } }),
-      member('packages/a/consumer', '@deepseek-ai/dsh-consumer', {
-        dependencies: { '@deepseek-ai/dsh-base': 'workspace:^' },
-        peerDependencies: { '@deepseek-ai/dsh-base': 'workspace:^' },
+      member('packages/a/base', '@lyness/lyn-base', { peerDependencies: { '@lyness/lyn-consumer': 'workspace:^' } }),
+      member('packages/a/consumer', '@lyness/lyn-consumer', {
+        dependencies: { '@lyness/lyn-base': 'workspace:^' },
+        peerDependencies: { '@lyness/lyn-base': 'workspace:^' },
       }),
     ]
 
     // The install edge is absolute: base publishes first, and the peer edge that
     // would reverse it is the one dropped.
-    const plan = dsh.publishOrder(members)
+    const plan = lyn.publishOrder(members)
     expect(plan.order.map(entry => entry.name)).toEqual([
-      '@deepseek-ai/dsh-base',
-      '@deepseek-ai/dsh-consumer',
+      '@lyness/lyn-base',
+      '@lyness/lyn-consumer',
     ])
     expect(plan.droppedPeerEdges).toEqual([
-      { consumer: '@deepseek-ai/dsh-base', peer: '@deepseek-ai/dsh-consumer' },
+      { consumer: '@lyness/lyn-base', peer: '@lyness/lyn-consumer' },
     ])
   })
 
   it('refuses an order that would publish a consumer before a dependency it installs', () => {
-    const dsh = releaseFamily('dsh')
+    const lyn = releaseFamily('lyn')
     const members = [
-      member('packages/a/alpha', '@deepseek-ai/dsh-alpha', { peerDependencies: { '@deepseek-ai/dsh-bravo': 'workspace:^' } }),
-      member('packages/a/bravo', '@deepseek-ai/dsh-bravo', { peerDependencies: { '@deepseek-ai/dsh-charlie': 'workspace:^' } }),
-      member('packages/a/charlie', '@deepseek-ai/dsh-charlie', { dependencies: { '@deepseek-ai/dsh-alpha': 'workspace:^' } }),
+      member('packages/a/alpha', '@lyness/lyn-alpha', { peerDependencies: { '@lyness/lyn-bravo': 'workspace:^' } }),
+      member('packages/a/bravo', '@lyness/lyn-bravo', { peerDependencies: { '@lyness/lyn-charlie': 'workspace:^' } }),
+      member('packages/a/charlie', '@lyness/lyn-charlie', { dependencies: { '@lyness/lyn-alpha': 'workspace:^' } }),
     ]
 
     // A cycle of two peer edges closed by one install edge: dropping a peer edge
     // would order this, and the traversal drops the install edge instead. That
     // order would publish charlie before the alpha it installs, so it is refused
     // here rather than published.
-    expect(() => { dsh.publishOrder(members) }).toThrow(/no publish order honours @deepseek-ai\/dsh-charlie -> @deepseek-ai\/dsh-alpha/)
+    expect(() => { lyn.publishOrder(members) }).toThrow(/no publish order honours @lyness\/lyn-charlie -> @lyness\/lyn-alpha/)
   })
 
   it('ignores devDependencies when ordering', () => {
-    const dsh = releaseFamily('dsh')
+    const lyn = releaseFamily('lyn')
     const members = [
-      member('packages/a/alpha', '@deepseek-ai/dsh-alpha', { devDependencies: { '@deepseek-ai/dsh-zebra': 'workspace:^' } }),
-      member('packages/a/zebra', '@deepseek-ai/dsh-zebra'),
+      member('packages/a/alpha', '@lyness/lyn-alpha', { devDependencies: { '@lyness/lyn-zebra': 'workspace:^' } }),
+      member('packages/a/zebra', '@lyness/lyn-zebra'),
     ]
 
     // A dev dependency is absent from the published package, so it must not move
     // the consumer behind it.
-    expect(dsh.publishOrder(members).order.map(entry => entry.name)).toEqual([
-      '@deepseek-ai/dsh-alpha',
-      '@deepseek-ai/dsh-zebra',
+    expect(lyn.publishOrder(members).order.map(entry => entry.name)).toEqual([
+      '@lyness/lyn-alpha',
+      '@lyness/lyn-zebra',
     ])
   })
 
-  it('applies the harness payload policy to dsh and keeps upstream payloads for vendored packages', () => {
-    const dsh = releaseFamily('dsh')
+  it('applies the harness payload policy to lyn and keeps upstream payloads for vendored packages', () => {
+    const lyn = releaseFamily('lyn')
     const vendor = releaseFamily('vendor')
-    const harness = member('packages/a/library', '@deepseek-ai/dsh-library')
-    const vendored = member('vendor/cordis', '@deepseek-ai/cordis')
+    const harness = member('packages/a/library', '@lyness/lyn-library')
+    const vendored = member('vendor/cordis', '@lyness/cordis')
 
-    expect(() => { dsh.validatePayload(harness, ['package/lib/index.js', 'package/src/index.ts']) })
+    expect(() => { lyn.validatePayload(harness, ['package/lib/index.js', 'package/src/index.ts']) })
       .toThrow(/publishes source file/)
     expect(() => { vendor.validatePayload(vendored, ['package/lib/index.js', 'package/src/index.ts']) }).not.toThrow()
     expect(() => { vendor.validatePayload(vendored, []) }).toThrow(/empty tarball/)
   })
 
   it('drives the installed entry only for the family that publishes one', () => {
-    expect(releaseFamily('dsh').installedEntry).toEqual({ packageName: '@deepseek-ai/dsh', binPath: 'lib/bin.js' })
+    expect(releaseFamily('lyn').installedEntry).toEqual({ packageName: '@lyness/lyn', binPath: 'lib/bin.js' })
     expect(releaseFamily('vendor').installedEntry).toBeUndefined()
   })
 
@@ -469,10 +469,10 @@ describe('version precedence', () => {
 })
 
 describe('payload change judgement', () => {
-  const sourceShipping = member('vendor/cosmokit', '@deepseek-ai/cosmokit', {
+  const sourceShipping = member('vendor/cosmokit', '@lyness/cosmokit', {
     files: ['lib/index.js', 'lib/types/**/*.d.ts', 'src'],
   })
-  const buildOutputOnly = member('vendor/cordis', '@deepseek-ai/cordis', {
+  const buildOutputOnly = member('vendor/cordis', '@lyness/cordis', {
     files: ['lib/index.js', 'lib/types/**/*.d.ts', 'bin.js'],
   })
 
@@ -497,7 +497,7 @@ describe('payload change judgement', () => {
     // unnecessary patch bump, while under-reporting fails the next publish on a
     // version whose bytes moved.
     expect(reachesPayload(sourceShipping, 'vendor/cosmokit/README.i18n.yaml')).toBe(true)
-    expect(reachesPayload(member('packages/a/library', '@deepseek-ai/dsh-library', { files: ['lib/index.js'] }),
+    expect(reachesPayload(member('packages/a/library', '@lyness/lyn-library', { files: ['lib/index.js'] }),
       'packages/a/library/tests/library.spec.ts')).toBe(false)
   })
 })

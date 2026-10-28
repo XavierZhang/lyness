@@ -6,8 +6,8 @@
  * will call it and none of them will go through a page to do so.
  */
 
-import { Context } from '@deepseek-ai/cordis'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { Context } from '@lyness/cordis'
+import { brandString } from '@lyness/lyn-brand'
 import { expect, it } from 'vitest'
 import { ROLES, administers, isRole } from '../src/index.ts'
 import type { Membership, MembershipId, PersonId } from '../src/types.ts'

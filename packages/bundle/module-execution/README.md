@@ -3,13 +3,13 @@ description: "The execution module bundle, for deployments choosing which machin
 kind: "package-bundle"
 ---
 
-# @deepseek-ai/dsh-module-execution
+# @lyness/lyn-module-execution
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`dsh-module-execution` is the plane that touches a machine: the sandboxed filesystem provider, the subprocess and sandbox providers, the shell and file tools, and the code and workflow runtimes. Every shipped profile that works on the machine it runs on selects it, and it answers one question for a deployment — which machine does this agent work on — instead of a dozen separate ones. A profile that omits it has no `ctx.fs`, `ctx.shell`, `ctx.subprocess`, `ctx.sandbox` or `ctx.ptcRuntime`, so the tools that inject them never activate.
+`lyn-module-execution` is the plane that touches a machine: the sandboxed filesystem provider, the subprocess and sandbox providers, the shell and file tools, and the code and workflow runtimes. Every shipped profile that works on the machine it runs on selects it, and it answers one question for a deployment — which machine does this agent work on — instead of a dozen separate ones. A profile that omits it has no `ctx.fs`, `ctx.shell`, `ctx.subprocess`, `ctx.sandbox` or `ctx.ptcRuntime`, so the tools that inject them never activate.
 
 ## Table of Contents
 
@@ -25,10 +25,10 @@ English | [中文](README.zh.md)
 <a id="use-this-package"></a>
 ## Use this package
 
-It is a bundle, not a plugin: a profile selects it in `dsh.profile.bundles`, after `@deepseek-ai/dsh-base`.
+It is a bundle, not a plugin: a profile selects it in `lyn.profile.bundles`, after `@lyness/lyn-base`.
 
 ```json
-{ "dsh": { "profile": { "bundles": ["@deepseek-ai/dsh-base", "@deepseek-ai/dsh-headless", "@deepseek-ai/dsh-module-execution"] } } }
+{ "lyn": { "profile": { "bundles": ["@lyness/lyn-base", "@lyness/lyn-headless", "@lyness/lyn-module-execution"] } } }
 ```
 
 The `web`, `enterprise`, `headless`, `acp` and `sdk` templates all select it. `sdk-minimal` does not: it is a standalone bundle carrying its own execution rows.
@@ -46,9 +46,9 @@ The `web`, `enterprise`, `headless`, `acp` and `sdk` templates all select it. `s
 <a id="understand-the-implementation"></a>
 ## Understand the implementation
 
-**It left `dsh-base` so that a runtime can execute nothing at all.** A hosted deployment serving several customers from one process has no boundary between them: credits, roles and the model policy constrain the model request and nothing else, while a confined command still runs on the host, as the host's user, with the host's network. Until an organization gets a process, the only boundary that holds is the absence of these rows — and absence is the one form of "cannot execute" that a later patch layer cannot switch back on.
+**It left `lyn-base` so that a runtime can execute nothing at all.** A hosted deployment serving several customers from one process has no boundary between them: credits, roles and the model policy constrain the model request and nothing else, while a confined command still runs on the host, as the host's user, with the host's network. Until an organization gets a process, the only boundary that holds is the absence of these rows — and absence is the one form of "cannot execute" that a later patch layer cannot switch back on.
 
-**Absent rather than disabled.** A disabled row is a row an overlay re-enables; an unselected bundle is not in the composition at all. That difference is the whole point of making this a bundle rather than a `disabled: true` block in `dsh-base`.
+**Absent rather than disabled.** A disabled row is a row an overlay re-enables; an unselected bundle is not in the composition at all. That difference is the whole point of making this a bundle rather than a `disabled: true` block in `lyn-base`.
 
 **`approval` and `permission-presets` stayed behind.** They are the approval vocabulary every tool reads, not execution rows. A profile without this bundle still has them, and its permission presets still name sandbox modes — which nothing applies, because there is no sandbox.
 
@@ -61,14 +61,14 @@ The `web`, `enterprise`, `headless`, `acp` and `sdk` templates all select it. `s
 
 - [Leaving the single-operator Host](../../../.agents/notes/proposed/architecture/2026-10-15-diverging-from-the-single-operator-host.md) — why a composition that executes nothing has to be possible.
 - [Agent isolation and teams](../../../.agents/notes/proposed/architecture/2026-10-08-agent-isolation-and-teams.md) — the boundary this bundle's absence stands in for.
-- [`dsh-base`](../base/README.md) — the layer it left.
+- [`lyn-base`](../base/README.md) — the layer it left.
 
 -----
 
 <a id="model-experience"></a>
 ## Model Experience
 
-Indirectly, through the rows it inserts: `dsh-tool-bash`, `dsh-tool-pwsh`, `dsh-tool-fs`, `dsh-tool-fs-search`, `dsh-tool-workflow` and `dsh-tool-ralph` own their schemas and results, and this bundle decides only whether a profile carries them. The assembled schema text is sorted by tool name, so moving these rows out of `dsh-base` changed no model-visible text for a profile that still selects them.
+Indirectly, through the rows it inserts: `lyn-tool-bash`, `lyn-tool-pwsh`, `lyn-tool-fs`, `lyn-tool-fs-search`, `lyn-tool-workflow` and `lyn-tool-ralph` own their schemas and results, and this bundle decides only whether a profile carries them. The assembled schema text is sorted by tool name, so moving these rows out of `lyn-base` changed no model-visible text for a profile that still selects them.
 
 #### KV Cache effect
 
@@ -92,6 +92,6 @@ None for a profile that selects it: the same tools reach the same assembly in th
 <details>
 <summary>Working context for maintainers — click to expand</summary>
 
-Every profile template that selected `dsh-base` before this extraction has its pre-extraction bundle tuple recorded in `INSTALLATION_OWNED_PROFILE_TUPLES`, so an installed profile is rewritten to the current list instead of silently losing its tools.
+Every profile template that selected `lyn-base` before this extraction has its pre-extraction bundle tuple recorded in `INSTALLATION_OWNED_PROFILE_TUPLES`, so an installed profile is rewritten to the current list instead of silently losing its tools.
 
 </details>

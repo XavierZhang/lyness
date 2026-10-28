@@ -3,13 +3,13 @@ description: "宿主到桌面的链路，面向「回合跑在服务器、工作
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-desktop-link
+# @lyness/lyn-desktop-link
 
 [English](README.md) | 中文
 
 ## 概述
 
-`dsh-desktop-link` 是「每位已签入的人一条、经过认证的通道」，宿主通过它请求那个人自己的机器干活。新的地方在方向：其他所有 Remote 面都是客户端到宿主，而这一条是宿主到客户端——因为 agent 回合在服务器上，而它要操作的文件与进程在那台笔记本上。它不需要新的传输：一条 Remote 流本来就在同一条逻辑流上承载宿主下行项与客户端上行项，走的是桌面自己开的那条载体，所以一台在 NAT 后面的桌面无需监听任何东西就能被到达。
+`lyn-desktop-link` 是「每位已签入的人一条、经过认证的通道」，宿主通过它请求那个人自己的机器干活。新的地方在方向：其他所有 Remote 面都是客户端到宿主，而这一条是宿主到客户端——因为 agent 回合在服务器上，而它要操作的文件与进程在那台笔记本上。它不需要新的传输：一条 Remote 流本来就在同一条逻辑流上承载宿主下行项与客户端上行项，走的是桌面自己开的那条载体，所以一台在 NAT 后面的桌面无需监听任何东西就能被到达。
 
 ## 目录
 
@@ -29,16 +29,16 @@ kind: "package-reference"
 
 ```yaml
 - id: desktop-link
-  name: '@deepseek-ai/dsh-desktop-link'
+  name: '@lyness/lyn-desktop-link'
 - id: desktop-link-controller
-  name: '@deepseek-ai/dsh-desktop-link/controller'
+  name: '@lyness/lyn-desktop-link/controller'
 ```
 
 服务端的能力提供者通过 `ctx.desktopLink` 到达某个人的机器：
 
 ```ts
-import type { DesktopLink } from '@deepseek-ai/dsh-desktop-link'
-import type { PersonId } from '@deepseek-ai/dsh-people'
+import type { DesktopLink } from '@lyness/lyn-desktop-link'
+import type { PersonId } from '@lyness/lyn-people'
 
 declare const link: DesktopLink
 declare const person: PersonId
@@ -52,7 +52,7 @@ for await (const item of link.call(person, 'subprocess', 'spawn', { command: 'tr
 桌面经 `desktopLink` 这个 Remote 命名空间接入，并用它挂载的那些能力来应答调用：
 
 ```ts
-import { DesktopExecutor } from '@deepseek-ai/dsh-desktop-link/executor'
+import { DesktopExecutor } from '@lyness/lyn-desktop-link/executor'
 
 const executor = new DesktopExecutor()
 const stop = executor.register('subprocess', {
@@ -85,8 +85,8 @@ void stop
 ## 进一步探索
 
 - [离开单操作者 Host](../../../.agents/notes/proposed/architecture/2026-10-15-diverging-from-the-single-operator-host.zh.md) —— 为什么回合在服务器上、而工作不在。
-- [`dsh-request-principal`](../../identity/request-principal/README.zh.md) —— 接入者是谁从哪里来。
-- [`dsh-api-gateway`](../gateway/README.zh.md) —— 那条载体，以及覆盖它的那套测试。
+- [`lyn-request-principal`](../../identity/request-principal/README.zh.md) —— 接入者是谁从哪里来。
+- [`lyn-api-gateway`](../gateway/README.zh.md) —— 那条载体，以及覆盖它的那套测试。
 
 -----
 
@@ -103,7 +103,7 @@ void stop
 
 <a id="known-limitations-and-deferred-work"></a>
 
-- **只有一个能力搭乘它** —— [`dsh-fs-desktop`](../../fs/fs-desktop/README.zh.md)，而随包 profile 还没有组合它，所以这条链路在生产里什么都不运。
+- **只有一个能力搭乘它** —— [`lyn-fs-desktop`](../../fs/fs-desktop/README.zh.md)，而随包 profile 还没有组合它，所以这条链路在生产里什么都不运。
 - **没有输入方向** —— 一次调用只携带一次参数。运行途中还要被继续喂数据的能力——子进程的 stdin、终端的按键、一次改变窗口大小——没有通道可走，所以 `subprocess-desktop` 要先扩展请求词汇表才写得出来。
 - **所有东西共用一条队列** —— 每次调用的项都多路复用到同一条逻辑流上，所以一次话多的调用，与发往那台机器的其他所有调用共享队列。
 - **还没有执行器插件** —— `DesktopExecutor` 是一个由桌面组合驱动的类；开流并喂它的那个插件尚未写。

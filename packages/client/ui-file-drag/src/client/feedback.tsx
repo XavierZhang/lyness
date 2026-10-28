@@ -1,7 +1,7 @@
 /** File-drag failure presentation in the existing application overlay. */
-import { Toast } from '@deepseek-ai/dsh-client-ui-primitives'
-import type { ObservableSnapshot } from '@deepseek-ai/dsh-client-store'
-import type { InjectFace } from '@deepseek-ai/dsh-client-ui-slots'
+import { Toast } from '@lyness/lyn-client-ui-primitives'
+import type { ObservableSnapshot } from '@lyness/lyn-client-store'
+import type { InjectFace } from '@lyness/lyn-client-ui-slots'
 
 /** Localized transient failure, with identity for restarting its presentation lifetime. */
 export interface FileDragFailure {

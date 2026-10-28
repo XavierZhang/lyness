@@ -7,9 +7,9 @@ import { fileURLToPath } from 'node:url'
 import type { Browser, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed } from 'vitest'
-import type { StreamChunk } from '@deepseek-ai/dsh-llm'
-import type { ReplayEntry } from '@deepseek-ai/dsh-llm-replay'
-import { SessionId, type SessionEvent } from '@deepseek-ai/dsh-session'
+import type { StreamChunk } from '@lyness/lyn-llm'
+import type { ReplayEntry } from '@lyness/lyn-llm-replay'
+import { SessionId, type SessionEvent } from '@lyness/lyn-session'
 import {
   assertFixtureInventory, captureStableAria, compareOrRefreshGolden,
   launchWebScaffold, parseSeedFixture, seedSession,
@@ -65,7 +65,7 @@ describe('web e2e: exact-boundary fork seeds branch closers and continues', () =
   let forkAt: number
 
   beforeAll(async () => {
-    replayDir = await mkdtemp(join(tmpdir(), 'dsh-fork-mid-turn-replay-'))
+    replayDir = await mkdtemp(join(tmpdir(), 'lyn-fork-mid-turn-replay-'))
     const replayOverride = join(replayDir, 'replay.override.json')
     await writeFile(replayOverride, JSON.stringify(continuationScript()))
     scaffold = await launchWebScaffold({

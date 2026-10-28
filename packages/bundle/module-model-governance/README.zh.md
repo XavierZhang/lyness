@@ -3,7 +3,7 @@ description: "部署拥有模型这个模块独立成一个 bundle，并且 fail
 kind: "package-bundle"
 ---
 
-# @deepseek-ai/dsh-module-model-governance
+# @lyness/lyn-module-model-governance
 
 [English](README.md) | 中文
 
@@ -49,9 +49,9 @@ kind: "package-bundle"
 
 | 行 | 模块 | 角色 |
 |---|---|---|
-| `model-required` | `@deepseek-ai/dsh-model-required` | 启动时路由注册表为空则拒绝服务 |
-| `model-policy` | `@deepseek-ai/dsh-model-policy/static` | 管理员维护的那份允许列表 |
-| `model-policy-enforce` | `@deepseek-ai/dsh-model-policy/enforce` | 在 `llm/stream` waterfall 上拒绝不被允许的路由 |
+| `model-required` | `@lyness/lyn-model-required` | 启动时路由注册表为空则拒绝服务 |
+| `model-policy` | `@lyness/lyn-model-policy/static` | 管理员维护的那份允许列表 |
+| `model-policy-enforce` | `@lyness/lyn-model-policy/enforce` | 在 `llm/stream` waterfall 上拒绝不被允许的路由 |
 
 最重要的那条性质是它 **fail closed**，而做到这一点需要一次修正。`model-policy` 与 `model-policy-enforce` 被登记为必需启动条目。没有那个登记时，一个激活失败的策略行会让它的强制执行一直等一个永不到来的服务，于是部署会服务**每一个**模型、而不是它允许的那些——一个配置错误的门禁反而放大了访问，而不是停下启动。这是观察到的，不是推演的：一个空的 `allowed` 列表产生了一个在跑、却完全没有强制执行的服务器。
 
@@ -60,8 +60,8 @@ kind: "package-bundle"
 <a id="further-exploration"></a>
 ## 进一步探索
 
-- [`dsh-model-policy`](../../llm/model-policy/README.zh.md) —— 接缝、静态 provider 与强制执行。
-- [`dsh-model-required`](../../llm/model-required/README.zh.md) —— 启动门禁，以及它覆盖的那个较窄情形。
+- [`lyn-model-policy`](../../llm/model-policy/README.zh.md) —— 接缝、静态 provider 与强制执行。
+- [`lyn-model-required`](../../llm/model-required/README.zh.md) —— 启动门禁，以及它覆盖的那个较窄情形。
 - [模型是部署方的决定](../../../.agents/notes/proposed/architecture/2026-10-14-the-model-is-a-deployment-decision.zh.md) —— 为什么形态按模板区分、而不是靠一个运行时标志。
 
 -----

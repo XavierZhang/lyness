@@ -8,7 +8,7 @@ const read = (name: string): string =>
 
 describe('Turn tail slot spacing', () => {
   it('combines the flow and footer offsets around turn-tail content', () => {
-    expect(read('ChatView.module.css')).toMatch(/margin-top:\s*var\(--dsh-chat-flow-gap, 4px\)/)
+    expect(read('ChatView.module.css')).toMatch(/margin-top:\s*var\(--lyn-chat-flow-gap, 4px\)/)
     const tail = read('TurnTailNodeView.module.css')
     expect(tail).toMatch(/\.root\s*\{[^}]*gap:\s*16px/s)
     expect(tail).toMatch(/\.actions\s*\{[^}]*margin-top:\s*4px/s)
@@ -16,16 +16,16 @@ describe('Turn tail slot spacing', () => {
 
   it('keeps process rows inside and outside a group on the same gap', () => {
     const group = read('ChatGroupSeat.module.css')
-    expect(group).toMatch(/\.body \{[^}]*--dsh-chat-flow-gap: 4px;/s)
-    expect(group).toMatch(/margin-top:\s*var\(--dsh-chat-flow-gap, 4px\)/)
+    expect(group).toMatch(/\.body \{[^}]*--lyn-chat-flow-gap: 4px;/s)
+    expect(group).toMatch(/margin-top:\s*var\(--lyn-chat-flow-gap, 4px\)/)
   })
 
   it('keeps the tail slot above a marked steering batch start and out of neighbour gaps', () => {
     const view = read('ChatView.module.css')
     const marked = String.raw`:has\(> \[data-slot="conversation\.chat\.node"\] > \[data-chat-steering-batch`
-    expect(view).toMatch(new RegExp(String.raw`\.flowItem${marked}="start"\]\)\s*\{\s*--dsh-chat-flow-gap:\s*calc\(44px \+ var\(--dsh-content-font-delta, 0px\)\);`))
-    expect(view).toMatch(new RegExp(String.raw`:not\(\.running\):not\(${marked}\]\)\)\s*\{\s*--dsh-chat-flow-gap:\s*12px;`))
-    expect(view).toMatch(new RegExp(String.raw`:not\(\.running\):not\(\[data-submission-echo\], \[data-pending-steering\]\):not\(${marked}\]\)\)\s*\{\s*--dsh-chat-flow-gap:\s*16px;`))
+    expect(view).toMatch(new RegExp(String.raw`\.flowItem${marked}="start"\]\)\s*\{\s*--lyn-chat-flow-gap:\s*calc\(44px \+ var\(--lyn-content-font-delta, 0px\)\);`))
+    expect(view).toMatch(new RegExp(String.raw`:not\(\.running\):not\(${marked}\]\)\)\s*\{\s*--lyn-chat-flow-gap:\s*12px;`))
+    expect(view).toMatch(new RegExp(String.raw`:not\(\.running\):not\(\[data-submission-echo\], \[data-pending-steering\]\):not\(${marked}\]\)\)\s*\{\s*--lyn-chat-flow-gap:\s*16px;`))
   })
 
   it('keeps echoes after a running Turn\'s empty control at the input gap', () => {
@@ -43,15 +43,15 @@ describe('Turn tail slot spacing', () => {
 })
 
 describe('Running status move below the first output', () => {
-  const row = String.raw`calc\(24px \+ var\(--dsh-content-font-delta, 0px\)\)`
-  const travel = (gap: number) => String.raw`--dsh-running-follow: calc\(${gap}px \+ 24px \+ var\(--dsh-content-font-delta, 0px\)\);`
+  const row = String.raw`calc\(24px \+ var\(--lyn-content-font-delta, 0px\)\)`
+  const travel = (gap: number) => String.raw`--lyn-running-follow: calc\(${gap}px \+ 24px \+ var\(--lyn-content-font-delta, 0px\)\);`
 
   it('travels the first output row gap plus one font-scaled row', () => {
     const view = read('ChatView.module.css')
     // A process row or group header after a mid-Turn input: the default sits on the single-class
     // status rule, the lowest-specificity selector, so each variant below outranks it.
     expect(view).toMatch(new RegExp(String.raw`\n\.running \{[^}]*${travel(4)}`))
-    expect(view.match(/--dsh-running-follow: calc\(/g)).toHaveLength(3)
+    expect(view.match(/--lyn-running-follow: calc\(/g)).toHaveLength(3)
     // A response keeps its 12px clearance.
     expect(view).toMatch(new RegExp(String.raw`\)\)\)\)\[data-chat-group-part="response"\] ~ \.running \{\s*${travel(12)}`))
     // A new Turn's first output follows the empty running process control at its 16px clearance.
@@ -63,7 +63,7 @@ describe('Running status move below the first output', () => {
     expect(view).toMatch(new RegExp(String.raw`@media \(prefers-reduced-motion: no-preference\) \{\s*:where\(\.column > [^{]*\[data-chat-group-key\]\s*\)\) ~ \.running \{\s*`
       + String.raw`animation: running-follows-output 110ms cubic-bezier\(0\.4, 0, 0\.2, 1\);`))
     expect(view).toMatch(new RegExp(String.raw`@keyframes running-follows-output \{\s*from \{\s*opacity: 0;\s*`
-      + String.raw`translate: 0 calc\(-1 \* var\(--dsh-running-follow\)\);\s*\}\s*40% \{\s*opacity: 1;`))
+      + String.raw`translate: 0 calc\(-1 \* var\(--lyn-running-follow\)\);\s*\}\s*40% \{\s*opacity: 1;`))
   })
 
   it('lets input folds and the pinned tail change only the duration of a status move', () => {

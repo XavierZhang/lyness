@@ -3,13 +3,13 @@ description: "The surface administrators configure sign-in channels through, at 
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-api-sign-in-channel-controller
+# @lyness/lyn-api-sign-in-channel-controller
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`dsh-api-sign-in-channel-controller` owns the `signInChannels` Remote namespace: the kinds of directory this deployment can be configured with, the channels already configured, and the calls that create, replace, and remove one. It decides nothing about who may change what — `dsh-sign-in-channels` holds that rule, and this namespace hands it the standing the call acts in. The application secret crosses inward only; no answer can carry one, because what is stored is the reference the credential store keeps it under.
+`lyn-api-sign-in-channel-controller` owns the `signInChannels` Remote namespace: the kinds of directory this deployment can be configured with, the channels already configured, and the calls that create, replace, and remove one. It decides nothing about who may change what — `lyn-sign-in-channels` holds that rule, and this namespace hands it the standing the call acts in. The application secret crosses inward only; no answer can carry one, because what is stored is the reference the credential store keeps it under.
 
 ## Table of Contents
 
@@ -29,7 +29,7 @@ The accounts module mounts it beside the store it speaks for:
 
 ```yaml
 - id: sign-in-channel-controller
-  name: '@deepseek-ai/dsh-api-sign-in-channel-controller'
+  name: '@lyness/lyn-api-sign-in-channel-controller'
 ```
 
 A configuration surface asks what can be configured, then submits one of them:
@@ -37,7 +37,7 @@ A configuration surface asks what can be configured, then submits one of them:
 ```ts
 import type {
   ChannelInput, ChannelKindView, ConfiguredChannelView,
-} from '@deepseek-ai/dsh-api-sign-in-channel-controller/types'
+} from '@lyness/lyn-api-sign-in-channel-controller/types'
 
 /** The two calls one configuration form makes. */
 interface ChannelsRemote {
@@ -83,9 +83,9 @@ A saved channel is serving when the answer says `mounted: true`. A stored one th
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`dsh-sign-in-channels`](../../identity/sign-in-channels/README.md) — the records, the mounting, and the rule this namespace hands a standing to.
-- [`dsh-sign-in`](../../identity/sign-in/README.md) — the registry a configured channel lands in, and the kinds that build one.
-- [`dsh-api-remote-authority`](../remote-authority/README.md) — what `tenant-administrator` means on the wire.
+- [`lyn-sign-in-channels`](../../identity/sign-in-channels/README.md) — the records, the mounting, and the rule this namespace hands a standing to.
+- [`lyn-sign-in`](../../identity/sign-in/README.md) — the registry a configured channel lands in, and the kinds that build one.
+- [`lyn-api-remote-authority`](../remote-authority/README.md) — what `tenant-administrator` means on the wire.
 
 -----
 

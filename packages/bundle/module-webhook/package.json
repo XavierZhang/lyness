@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-module-webhook",
+  "name": "@lyness/lyn-module-webhook",
   "description": "The webhook ingress default module as its own bundle: the Host rule runtime and the GitHub adapter, shipped inert",
   "version": "0.1.7-rc.2",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/bundle/module-webhook"
   },
   "type": "module",
@@ -30,19 +30,19 @@
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
-  "dsh": {
+  "lyn": {
     "bundle": {
       "patch": "./cordis.patch.yml"
     }
   },
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~"
+    "@lyness/cordis": "workspace:~"
   },
   "dependencies": {
-    "@deepseek-ai/dsh-webhook": "workspace:*",
-    "@deepseek-ai/dsh-webhook-github": "workspace:*"
+    "@lyness/lyn-webhook": "workspace:*",
+    "@lyness/lyn-webhook-github": "workspace:*"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~"
+    "@lyness/cordis": "workspace:~"
   }
 }

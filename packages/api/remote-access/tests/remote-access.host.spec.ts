@@ -1,8 +1,8 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import TypertGatewayService from '@deepseek-ai/dsh-api-gateway'
-import { Peer } from '@deepseek-ai/dsh-client-connection'
-import type { IndexInjection } from '@deepseek-ai/dsh-host-webserver'
+import { Context } from '@lyness/cordis'
+import TypertGatewayService from '@lyness/lyn-api-gateway'
+import { Peer } from '@lyness/lyn-client-connection'
+import type { IndexInjection } from '@lyness/lyn-host-webserver'
 import {
   Remote,
   TypertRemoteService,
@@ -11,8 +11,8 @@ import {
   type PrincipalMap,
   type RemoteInvocation,
   type TypertResource,
-} from '@deepseek-ai/dsh-typert-protocol'
-import TypertRegistry from '@deepseek-ai/dsh-typert-registry'
+} from '@lyness/lyn-typert-protocol'
+import TypertRegistry from '@lyness/lyn-typert-registry'
 import RemoteAccessService, {
   REMOTE_ACCESS_SNAPSHOT_KEY,
   type RemoteAccessBinding,
@@ -26,7 +26,7 @@ import RemoteAccessService, {
   type RemoteAccessRole,
 } from '../src/index.ts'
 
-declare module '@deepseek-ai/dsh-typert-protocol' {
+declare module '@lyness/lyn-typert-protocol' {
   interface PrincipalMap {
     /** Test-only non-owner caller shared by the access specs. */
     'test-guest': { readonly kind: 'test-guest'; readonly guest: string }
@@ -397,7 +397,7 @@ describe('first snapshots', () => {
       type: 'baseline', owner: false, grants: [{ resource: GLOBAL, actions: ['notes/read', 'notes/rooms', 'notes/write'] }],
     })
     expect(access.snapshotFor(CREW)).toEqual({ type: 'baseline', owner: false, grants: [] })
-    expect(REMOTE_ACCESS_SNAPSHOT_KEY).toBe('__DSH_REMOTE_ACCESS__')
+    expect(REMOTE_ACCESS_SNAPSHOT_KEY).toBe('__LYNESS_REMOTE_ACCESS__')
   })
 
   it('injects the access snapshot of the Peer each index speaks for', async () => {
@@ -413,14 +413,14 @@ describe('first snapshots', () => {
     expect(render(OWNER)).toEqual([])
     ctx.provide('webServer', {} as Context['webServer'])
     await vi.waitFor(() => {
-      expect(render(OWNER)).toEqual([{ kind: 'global', name: '__DSH_REMOTE_ACCESS__', value: { type: 'baseline', owner: true } }])
+      expect(render(OWNER)).toEqual([{ kind: 'global', name: '__LYNESS_REMOTE_ACCESS__', value: { type: 'baseline', owner: true } }])
     })
-    expect(render(GUEST)).toEqual([{ kind: 'global', name: '__DSH_REMOTE_ACCESS__', value: {
+    expect(render(GUEST)).toEqual([{ kind: 'global', name: '__LYNESS_REMOTE_ACCESS__', value: {
       type: 'baseline', owner: false, grants: [{ resource: GLOBAL, actions: ['notes/read', 'notes/rooms', 'notes/write'] }],
     } }])
     // A grant change reaches the next render.
     policy.hold(GUEST)
-    expect(render(GUEST)).toEqual([{ kind: 'global', name: '__DSH_REMOTE_ACCESS__', value: { type: 'baseline', owner: false, grants: [] } }])
+    expect(render(GUEST)).toEqual([{ kind: 'global', name: '__LYNESS_REMOTE_ACCESS__', value: { type: 'baseline', owner: false, grants: [] } }])
   })
 
   it('lists per bound resource the endpoint actions decide() allows there without arguments, and no grant where none is allowed', async () => {

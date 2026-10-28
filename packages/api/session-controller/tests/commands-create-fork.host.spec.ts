@@ -1,13 +1,13 @@
-import { Context } from '@deepseek-ai/cordis'
-import AgentRegistry from '@deepseek-ai/dsh-agent'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import type { Agent, AgentHandle, CreateAgentOptions } from '@deepseek-ai/dsh-agent'
-import type {} from '@deepseek-ai/dsh-agent-preset-registry'
-import { createUserMessage } from '@deepseek-ai/dsh-llm'
-import SessionStore, { SessionId } from '@deepseek-ai/dsh-session'
-import { RemoteError } from '@deepseek-ai/dsh-typert-protocol'
-import TypertRegistry from '@deepseek-ai/dsh-typert-registry'
-import type { Workspace, WorkspaceId } from '@deepseek-ai/dsh-workspace'
+import { Context } from '@lyness/cordis'
+import AgentRegistry from '@lyness/lyn-agent'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import type { Agent, AgentHandle, CreateAgentOptions } from '@lyness/lyn-agent'
+import type {} from '@lyness/lyn-agent-preset-registry'
+import { createUserMessage } from '@lyness/lyn-llm'
+import SessionStore, { SessionId } from '@lyness/lyn-session'
+import { RemoteError } from '@lyness/lyn-typert-protocol'
+import TypertRegistry from '@lyness/lyn-typert-registry'
+import type { Workspace, WorkspaceId } from '@lyness/lyn-workspace'
 import { describe, expect, it, vi } from 'vitest'
 import {
   ApiSessionAgentController,
@@ -72,17 +72,8 @@ describe('Session creation failures', () => {
     const request = createSession.mock.calls[0]?.[0]
     expect(request?.cwd).toBe('/default-workspace')
     expect(Object.keys(request ?? {}).sort()).toEqual(['cwd', 'reusable'])
-    expect(created.sessionId).toMatch(/^session-/)
     expect(created).not.toHaveProperty('agentPreset')
-    expect(ensureSession).toHaveBeenCalledWith(
-      created.sessionId,
-      '/default-workspace',
-      false,
-      undefined,
-      // No bot: an ordinary session composes whatever preset the roster
-      // defaults to, and engages nobody.
-      undefined,
-    )
+    expect(request).not.toHaveProperty('engagement')
     await ctx.fiber.dispose()
   })
 

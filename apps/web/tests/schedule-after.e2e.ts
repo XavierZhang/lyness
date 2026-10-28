@@ -1,5 +1,5 @@
 /** Keyless assembled-Web evidence for conversational Schedule delivery. */
-import { executeToolFixture } from '@deepseek-ai/dsh-tool-testkit'
+import { executeToolFixture } from '@lyness/lyn-tool-testkit'
 
 import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
@@ -10,22 +10,22 @@ import type { Browser, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { dump } from 'js-yaml'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed } from 'vitest'
-import type { Agent, AgentHandle } from '@deepseek-ai/dsh-agent'
-import { entryListSchema } from '@deepseek-ai/cordis-plugin-include'
-import { bundlePatchPaths, composeEntries, loadOverlayPatches } from '@deepseek-ai/dsh-app-boot'
-import { PROFILE_TEMPLATES, bundlePatchPaths, composeEntries, loadOverlayPatches } from '@deepseek-ai/dsh-app-boot'
-import { MessageId, ToolCallId, createUserMessage, LlmAdapter } from '@deepseek-ai/dsh-llm'
+import type { Agent, AgentHandle } from '@lyness/lyn-agent'
+import { entryListSchema } from '@lyness/cordis-plugin-include'
+import { bundlePatchPaths, composeEntries, loadOverlayPatches } from '@lyness/lyn-app-boot'
+import { PROFILE_TEMPLATES } from '@lyness/lyn-official-bundles'
+import { MessageId, ToolCallId, createUserMessage, LlmAdapter } from '@lyness/lyn-llm'
 import { appendDelivery } from '../../../packages/schedule/schedule/src/delivery-history.ts'
-import type { ScheduleTask } from '@deepseek-ai/dsh-schedule'
-import type { ContextFormed, GenerateOptions, StreamChunk } from '@deepseek-ai/dsh-llm'
-import { SessionId, type SessionEvent } from '@deepseek-ai/dsh-session'
+import type { ScheduleTask } from '@lyness/lyn-schedule'
+import type { ContextFormed, GenerateOptions, StreamChunk } from '@lyness/lyn-llm'
+import { SessionId, type SessionEvent } from '@lyness/lyn-session'
 import {
   ScheduleId,
   createAfterScheduleRecord,
   createEveryScheduleRecord,
   foldScheduleEvents,
   type EveryScheduleRecord,
-} from '@deepseek-ai/dsh-schedule'
+} from '@lyness/lyn-schedule'
 import {
   assertFixtureInventory,
   captureStableAria,
@@ -43,7 +43,7 @@ import {
   saveFailureShot,
 } from './support.ts'
 
-declare module '@deepseek-ai/dsh-llm' {
+declare module '@lyness/lyn-llm' {
   interface MessageSourceMap {
     'schedule-web-e2e': { kind: 'schedule-web-e2e' } & ContextFormed
   }
@@ -74,8 +74,25 @@ const CATALOG_SNAPSHOT_DIR = fileURLToPath(new URL('../../../snapshots/web/sched
 const CATALOG_FIXTURE = join(CATALOG_SNAPSHOT_DIR, 'session.v3.jsonl')
 const CATALOG_EXPECTED = join(CATALOG_SNAPSHOT_DIR, 'catalog.expected.md')
 const BASE_PATCH = fileURLToPath(new URL('../../../packages/bundle/base/cordis.patch.yml', import.meta.url))
-const WEB_BUNDLE = fileURLToPath(new URL('../../../packages/bundle/web-app/', import.meta.url))
-const WEB_PATCHES = bundlePatchPaths(WEB_BUNDLE, (JSON.parse(readFileSync(join(WEB_BUNDLE, 'package.json'), 'utf8')) as { dsh: { bundle: { patch: string[] } } }).dsh.bundle)
+const BUNDLE_ROOT = fileURLToPath(new URL('../../../packages/bundle/', import.meta.url))
+/**
+ * Every patch file the `web` template selects after `lyn-base`, in template
+ * order.
+ *
+ * Reading the template rather than naming `web-app` is what keeps this roster
+ * assertion honest: a default module that moved into its own bundle is absent
+ * from the surface bundle's patch, so a list naming one bundle would stop
+ * seeing the rows it is here to pin.
+ */
+const WEB_PATCHES = (PROFILE_TEMPLATES.web?.bundles ?? [])
+  .filter(name => name !== '@lyness/lyn-base')
+  .flatMap((name) => {
+    const dir = join(BUNDLE_ROOT, name.replace('@lyness/lyn-', ''))
+    const manifest = JSON.parse(readFileSync(join(dir, 'package.json'), 'utf8')) as {
+      lyn: { bundle: { patch: string | string[] } }
+    }
+    return bundlePatchPaths(dir, manifest.lyn.bundle)
+  })
 
 /**
  * Write the overlay that makes every step carry a fresh clock reading.
@@ -105,25 +122,6 @@ async function writeEveryStepOverlay(dir: string): Promise<string> {
   return path
 }
 
-const BUNDLE_ROOT = fileURLToPath(new URL('../../../packages/bundle/', import.meta.url))
-/**
- * Every patch file the `web` template selects after `dsh-base`, in template
- * order.
- *
- * Reading the template rather than naming `web-app` is what keeps this roster
- * assertion honest: a default module that moved into its own bundle is absent
- * from the surface bundle's patch, so a list naming one bundle would stop
- * seeing the rows it is here to pin.
- */
-const WEB_PATCHES = (PROFILE_TEMPLATES.web?.bundles ?? [])
-  .filter(name => name !== '@deepseek-ai/dsh-base')
-  .flatMap((name) => {
-    const dir = join(BUNDLE_ROOT, name.replace('@deepseek-ai/dsh-', ''))
-    const manifest = JSON.parse(readFileSync(join(dir, 'package.json'), 'utf8')) as {
-      dsh: { bundle: { patch: string | string[] } }
-    }
-    return bundlePatchPaths(dir, manifest.dsh.bundle)
-  })
 const CATALOG_NOW = Date.parse('2099-08-25T12:00:00.000Z')
 const CATALOG_SESSION_ID = SessionId('schedule-catalog-web-e2e')
 const CATALOG_TITLE = 'Active schedule catalog'
@@ -326,7 +324,7 @@ describe.skipIf(MODE === 'record')('web e2e: conversational reminders', () => {
   const everyAdapter = new EveryReminderAdapter()
 
   beforeAll(async () => {
-    const root = await mkdtemp(join(tmpdir(), 'dsh-schedule-every-step-'))
+    const root = await mkdtemp(join(tmpdir(), 'lyn-schedule-every-step-'))
     overlayRoot = root
     scaffold = await launchWebScaffold({
       extraOverlayPath: [await writeEveryStepOverlay(root)],
@@ -350,7 +348,7 @@ describe.skipIf(MODE === 'record')('web e2e: conversational reminders', () => {
       locale: 'en-US',
       timezoneId: AT_BROWSER_ZONE,
     })
-    await page.addInitScript(() => { localStorage.setItem('dsh.locale', 'en') })
+    await page.addInitScript(() => { localStorage.setItem('lyn.locale', 'en') })
     tripwire = watchConsole(page)
     await page.goto(scaffold.authenticatedUrl, { waitUntil: 'load' })
     await page.waitForSelector('[class*="frame"]', { timeout: 30_000 })
@@ -782,7 +780,7 @@ describe.skipIf(MODE === 'record')('web e2e: active Schedule catalog', () => {
 
   beforeAll(async () => {
     const fixture = await readFile(CATALOG_FIXTURE, 'utf8')
-    const root = await mkdtemp(join(tmpdir(), 'dsh-schedule-catalog-'))
+    const root = await mkdtemp(join(tmpdir(), 'lyn-schedule-catalog-'))
     overlayRoot = root
     scaffold = await launchWebScaffold({
       extraOverlayPath: [await writeEveryStepOverlay(root)],
@@ -810,7 +808,7 @@ describe.skipIf(MODE === 'record')('web e2e: active Schedule catalog', () => {
       timezoneId: AT_BROWSER_ZONE,
     })
     await page.clock.setFixedTime(new Date(CATALOG_NOW))
-    await page.addInitScript(() => { localStorage.setItem('dsh.locale', 'en') })
+    await page.addInitScript(() => { localStorage.setItem('lyn.locale', 'en') })
     tripwire = watchConsole(page)
     await page.goto(scaffold.authenticatedUrl, { waitUntil: 'load' })
     await page.waitForSelector('[class*="frame"]', { timeout: 30_000 })
@@ -922,8 +920,8 @@ describe.skipIf(MODE === 'record')('web e2e: active Schedule catalog', () => {
     // The delivered composition carries the Schedule service and its task page;
     // the clock stays preset-level, so no Host row declares it.
     for (const row of [
-      { id: 'schedule', name: '@deepseek-ai/dsh-schedule' },
-      { id: 'ui-schedule', name: '@deepseek-ai/dsh-client-ui-schedule' },
+      { id: 'schedule', name: '@lyness/lyn-schedule' },
+      { id: 'ui-schedule', name: '@lyness/lyn-client-ui-schedule' },
     ]) {
       expect(shipped.filter(entry => entry.id === row.id && entry.name === row.name && entry.disabled !== true))
         .toHaveLength(1)
@@ -939,17 +937,17 @@ describe.skipIf(MODE === 'record')('web e2e: active Schedule catalog', () => {
     for (const id of ['preset-standard', 'preset-ptc', 'preset-cordis']) {
       const plugins = presetPlugins(id)
       expect(plugins.filter(row => row.id === 'time-context'
-        && row.name === '@deepseek-ai/dsh-time-context')).toHaveLength(1)
+        && row.name === '@lyness/lyn-time-context')).toHaveLength(1)
       expect(plugins.filter(row => row.id === 'tool-schedule'
-        && row.name === '@deepseek-ai/dsh-tool-schedule')).toHaveLength(1)
-      for (const name of ['@deepseek-ai/dsh-time-context', '@deepseek-ai/dsh-tool-schedule']) {
+        && row.name === '@lyness/lyn-tool-schedule')).toHaveLength(1)
+      for (const name of ['@lyness/lyn-time-context', '@lyness/lyn-tool-schedule']) {
         const matches = plugins.filter(row => row.name === name)
         expect(matches).toHaveLength(1)
         expect(matches[0]?.disabled).not.toBe(true)
       }
     }
-    expect(presetPlugins('preset-minimal').some(row => row.name === '@deepseek-ai/dsh-time-context'
-      || row.name === '@deepseek-ai/dsh-tool-schedule')).toBe(false)
+    expect(presetPlugins('preset-minimal').some(row => row.name === '@lyness/lyn-time-context'
+      || row.name === '@lyness/lyn-tool-schedule')).toBe(false)
 
     await page.getByRole('button', { name: 'Automation tasks', exact: true }).click()
     const manager = page.getByTestId('task-manager-page')

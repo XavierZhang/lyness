@@ -1,14 +1,14 @@
 /**
  * Durable and model-facing Schedule value types.
- * @module @deepseek-ai/dsh-schedule
+ * @module @lyness/lyn-schedule
  */
 
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
-import type { MessageId } from '@deepseek-ai/dsh-llm/brand'
-import type { Branded } from '@deepseek-ai/dsh-brand'
-import type {} from '@deepseek-ai/dsh-session/types'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { MessageId } from '@lyness/lyn-llm/brand'
+import type { Branded } from '@lyness/lyn-brand'
+import type {} from '@lyness/lyn-session/types'
 // Type-only: the Workspace registry's archive-admission family map this plugin merges `schedule` into.
-import type {} from '@deepseek-ai/dsh-workspace/types'
+import type {} from '@lyness/lyn-workspace/types'
 
 /** Stable globally unique reminder identity. */
 export type ScheduleId = Branded<'ScheduleId'>
@@ -355,14 +355,14 @@ export interface ScheduleDeleteInactiveResult {
   readonly deleted: number
 }
 
-declare module '@deepseek-ai/dsh-workspace/types' {
+declare module '@lyness/lyn-workspace/types' {
   interface SessionActivityKindMap {
     /** A scheduled follow-up for this session is still active. */
     schedule: true
   }
 }
 
-declare module '@deepseek-ai/dsh-session/types' {
+declare module '@lyness/lyn-session/types' {
   interface SessionEventMap {
     /**
      * Versioned Schedule mutation. The owning package validates the complete
@@ -476,7 +476,7 @@ export type ScheduleDeliveryHistoryResult =
   }
   | { readonly id: ScheduleId; readonly code: 'schedule_not_found' | 'delivery_cursor_not_found' }
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Events {
     /** Durable task set changed; clients refetch global task and Session-active catalogs.
      * @mode emit

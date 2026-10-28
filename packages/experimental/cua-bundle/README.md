@@ -3,7 +3,7 @@ description: "Enable optional macOS Computer Use and its permission page."
 kind: "package-bundle"
 ---
 
-# @deepseek-ai/dsh-cua-bundle
+# @lyness/lyn-cua-bundle
 
 English | [中文](README.zh.md)
 
@@ -28,7 +28,7 @@ This workflow targets developers running macOS Web or unpackaged Desktop from so
 
 ```sh
 pnpm run build
-pnpm dsh web
+pnpm lyn web
 ```
 
 For the source Desktop launcher and its separate development profile, follow [Desktop development](../../../apps/desktop/README.md). Enable Computer Use in each profile that needs it.
@@ -37,11 +37,11 @@ The switch saves bundle selection in the profile’s `package.json`. Computer Us
 
 Disabling unloads the provider and withdraws CUA tools from its Agent scopes. Runtime configuration, the new-session default and saved grants remain. Session-only application decisions end with provider disposal.
 
-Computer Use requires a macOS DSH Host. On other operating systems, installation omits the optional macOS provider and the bundle skips its Loader entry. Shared CUA logic and the permission-page entry remain available, but Computer Use operations require the provider. A browser on another operating system can connect to a supported Mac Host.
+Computer Use requires a macOS LYN Host. On other operating systems, installation omits the optional macOS provider and the bundle skips its Loader entry. Shared CUA logic and the permission-page entry remain available, but Computer Use operations require the provider. A browser on another operating system can connect to a supported Mac Host.
 
-If preparation fails, the saved selection remains and CUA operations stay unavailable. Read the Host startup diagnostic, correct its cause, then restart DSH.
+If preparation fails, the saved selection remains and CUA operations stay unavailable. Read the Host startup diagnostic, correct its cause, then restart LYN.
 
-Explicit activation runs a read-only permission check, which may start a helper without opening a system dialog. Open the [permission page](../cua/README.md) for system requests, settings navigation and automatic refresh. Tasks ask separately before accessing an application. Saved application decisions use the existing profile configuration; session decisions remain in memory across turns and connections until DSH restarts or Computer Use is disabled. Revoke access on the same page.
+Explicit activation runs a read-only permission check, which may start a helper without opening a system dialog. Open the [permission page](../cua/README.md) for system requests, settings navigation and automatic refresh. Tasks ask separately before accessing an application. Saved application decisions use the existing profile configuration; session decisions remain in memory across turns and connections until LYN restarts or Computer Use is disabled. Revoke access on the same page.
 
 -----
 

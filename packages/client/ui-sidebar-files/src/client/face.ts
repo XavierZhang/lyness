@@ -18,13 +18,13 @@
  * record goes away the bucket and the tab's listing bookkeeping are forgotten,
  * so no later settlement writes to it.
  */
-import type { ClientRemote, RemoteResult } from '@deepseek-ai/dsh-api-remotes/client'
-import type { BoundActions } from '@deepseek-ai/dsh-client-store'
-import type { TabId } from '@deepseek-ai/dsh-client-ui-dockkit'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import type { ClientRemote, RemoteResult } from '@lyness/lyn-api-remotes/client'
+import type { BoundActions } from '@lyness/lyn-client-store'
+import type { TabId } from '@lyness/lyn-client-ui-dockkit'
+import type { SessionId } from '@lyness/lyn-session/types'
 import type { DirLevel, createFilesStore } from './store.ts'
-import type { WorkspaceFileWatchFrame } from '@deepseek-ai/dsh-api-workspace-files/types'
-import { RemoteError } from '@deepseek-ai/dsh-typert-protocol'
+import type { WorkspaceFileWatchFrame } from '@lyness/lyn-api-workspace-files/types'
+import { RemoteError } from '@lyness/lyn-typert-protocol'
 import { DirectoryNode } from './directory-node.ts'
 
 /**

@@ -3,13 +3,13 @@ description: "签入会话：在签入时建立、持有当前生效的上下文
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-auth-session
+# @lyness/lyn-auth-session
 
 [English](README.md) | 中文
 
 ## 概述
 
-用 `dsh-auth-session` 持有「签入」所产生的东西。一个会话属于一个人、而不属于某个身份：当前生效的上下文是这个会话上的服务端状态，只能由一次显式切换改变。`./store` 持久化会话，于是一次重新部署不会把所有人签出；而一个已失效的会话在被出示的那一刻就被拒绝，而不是等某次清扫。会话标识是一张持有即生效的凭据，所以读取它是得知调用方身份的唯一途径，而吊销它是让其停止的唯一途径。
+用 `lyn-auth-session` 持有「签入」所产生的东西。一个会话属于一个人、而不属于某个身份：当前生效的上下文是这个会话上的服务端状态，只能由一次显式切换改变。`./store` 持久化会话，于是一次重新部署不会把所有人签出；而一个已失效的会话在被出示的那一刻就被拒绝，而不是等某次清扫。会话标识是一张持有即生效的凭据，所以读取它是得知调用方身份的唯一途径，而吊销它是让其停止的唯一途径。
 
 ## 目录
 
@@ -27,7 +27,7 @@ kind: "package-reference"
 
 ```yaml
 - id: auth-sessions
-  name: '@deepseek-ai/dsh-auth-session/store'
+  name: '@lyness/lyn-auth-session/store'
   config:
     lifetimeMs: 1209600000
 ```
@@ -39,8 +39,8 @@ kind: "package-reference"
 一个签入流程在证明了此人身份之后建立会话，并记录它是怎么证明的：
 
 ```ts
-import type { AuthSessionStore } from '@deepseek-ai/dsh-auth-session'
-import type { PersonId } from '@deepseek-ai/dsh-people'
+import type { AuthSessionStore } from '@lyness/lyn-auth-session'
+import type { PersonId } from '@lyness/lyn-people'
 
 declare const sessions: AuthSessionStore
 declare const provenPerson: PersonId
@@ -48,7 +48,7 @@ declare const provenPerson: PersonId
 const session = await sessions.establish({ person: provenPerson, method: 'sso:entra' })
 ```
 
-切换上下文要先经过 [`dsh-acting-context`](../acting-context/README.zh.md)：那个解析器决定该上下文是否被允许，而本存储只把一个已被校验过的上下文置为生效。
+切换上下文要先经过 [`lyn-acting-context`](../acting-context/README.zh.md)：那个解析器决定该上下文是否被允许，而本存储只把一个已被校验过的上下文置为生效。
 
 -----
 
@@ -70,8 +70,8 @@ const session = await sessions.establish({ person: provenPerson, method: 'sso:en
 <a id="further-exploration"></a>
 ## 进一步探索
 
-- [`dsh-acting-context`](../acting-context/README.zh.md) —— 决定一个上下文是否可以被置为生效。
-- [`dsh-people`](../people/README.zh.md) —— 一个会话所属的那些身份。
+- [`lyn-acting-context`](../acting-context/README.zh.md) —— 决定一个上下文是否可以被置为生效。
+- [`lyn-people`](../people/README.zh.md) —— 一个会话所属的那些身份。
 - [人、成员关系与调用所处的上下文](../../../.agents/notes/proposed/architecture/2026-10-08-people-memberships-and-acting-context.zh.md) —— 本包所实现的那个决定。
 
 -----

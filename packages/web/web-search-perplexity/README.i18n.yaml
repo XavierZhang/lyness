@@ -5,78 +5,78 @@
 /:
   en: 526b58d952111706
   zh: 463049f0091c6fa3
-/deepseek-harness-dsh-web-search-perplexity:
+/lyness-lyn-web-search-perplexity:
   en: 21fad155f71edd53
   zh: c4b857451aeecd4c
-/deepseek-harness-dsh-web-search-perplexity/summary:
+/lyness-lyn-web-search-perplexity/summary:
   en: 31d0ab8f412df55a
   zh: fe513e63de8f068b
-/deepseek-harness-dsh-web-search-perplexity/table-of-contents:
+/lyness-lyn-web-search-perplexity/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/deepseek-harness-dsh-web-search-perplexity/use-this-package:
+/lyness-lyn-web-search-perplexity/use-this-package:
   en: 1b854e582c65f3b4
   zh: 0e5dd9657ac6a721
-/deepseek-harness-dsh-web-search-perplexity/use-this-package/when-to-choose-it:
+/lyness-lyn-web-search-perplexity/use-this-package/when-to-choose-it:
   en: 194e1c83cf5a3281
   zh: c262d5dd92b62ea7
-/deepseek-harness-dsh-web-search-perplexity/use-this-package/minimal-configuration:
+/lyness-lyn-web-search-perplexity/use-this-package/minimal-configuration:
   en: 0825406d8ec98b9c
   zh: 5547fffdee99e6b8
-/deepseek-harness-dsh-web-search-perplexity/use-this-package/what-a-search-returns:
+/lyness-lyn-web-search-perplexity/use-this-package/what-a-search-returns:
   en: 99d01f74dcf5aed9
   zh: 3c7bdaa3bd35847f
-/deepseek-harness-dsh-web-search-perplexity/use-this-package/failures-and-recovery:
+/lyness-lyn-web-search-perplexity/use-this-package/failures-and-recovery:
   en: 5740595fa2cebf20
   zh: d99555411a131d2f
-/deepseek-harness-dsh-web-search-perplexity/understand-the-implementation:
+/lyness-lyn-web-search-perplexity/understand-the-implementation:
   en: 9842c69ad3636bb3
   zh: 3cdc3f816cbdd0cb
-/deepseek-harness-dsh-web-search-perplexity/understand-the-implementation/design-philosophy:
+/lyness-lyn-web-search-perplexity/understand-the-implementation/design-philosophy:
   en: aee86ee45c4635c0
   zh: 45cecc44ae467520
-/deepseek-harness-dsh-web-search-perplexity/understand-the-implementation/source-map:
+/lyness-lyn-web-search-perplexity/understand-the-implementation/source-map:
   en: f481a8541f09f1cf
   zh: c0c47902eae6973d
-/deepseek-harness-dsh-web-search-perplexity/understand-the-implementation/request-and-mapping-flow:
+/lyness-lyn-web-search-perplexity/understand-the-implementation/request-and-mapping-flow:
   en: ff5efa9c7b1a9cda
   zh: ca1e246eb8e7eaee
-/deepseek-harness-dsh-web-search-perplexity/further-exploration:
+/lyness-lyn-web-search-perplexity/further-exploration:
   en: f77ee3f35ec9fa03
   zh: e24596e3a502b00e
-/deepseek-harness-dsh-web-search-perplexity/model-experience:
+/lyness-lyn-web-search-perplexity/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/deepseek-harness-dsh-web-search-perplexity/model-experience/auxiliary-perplexity-request:
+/lyness-lyn-web-search-perplexity/model-experience/auxiliary-perplexity-request:
   en: 9d564a5863828a46
   zh: 143112cfc85fe3f3
-/deepseek-harness-dsh-web-search-perplexity/model-experience/auxiliary-perplexity-request/what-the-model-sees:
+/lyness-lyn-web-search-perplexity/model-experience/auxiliary-perplexity-request/what-the-model-sees:
   en: eacb10a5e907e796
   zh: 74fbd30db7c983a1
-/deepseek-harness-dsh-web-search-perplexity/model-experience/auxiliary-perplexity-request/token-effect:
+/lyness-lyn-web-search-perplexity/model-experience/auxiliary-perplexity-request/token-effect:
   en: 5f5b2bf40168d371
   zh: 25bc3b50bc74ff20
-/deepseek-harness-dsh-web-search-perplexity/model-experience/auxiliary-perplexity-request/kv-cache-effect:
+/lyness-lyn-web-search-perplexity/model-experience/auxiliary-perplexity-request/kv-cache-effect:
   en: ca308291b52b8028
   zh: 12e8f89f79a2756c
-/deepseek-harness-dsh-web-search-perplexity/model-experience/conversation-tool-result-indirectly:
+/lyness-lyn-web-search-perplexity/model-experience/conversation-tool-result-indirectly:
   en: 666f5753c99783ab
   zh: b44328e99bcc45c9
-/deepseek-harness-dsh-web-search-perplexity/model-experience/conversation-tool-result-indirectly/what-the-model-sees:
+/lyness-lyn-web-search-perplexity/model-experience/conversation-tool-result-indirectly/what-the-model-sees:
   en: 1849cf96412b9564
   zh: 059fb710a73e981d
-/deepseek-harness-dsh-web-search-perplexity/model-experience/conversation-tool-result-indirectly/token-effect:
+/lyness-lyn-web-search-perplexity/model-experience/conversation-tool-result-indirectly/token-effect:
   en: 8c5d9983ba129daf
   zh: 3e7889629bed353d
-/deepseek-harness-dsh-web-search-perplexity/model-experience/conversation-tool-result-indirectly/kv-cache-effect:
+/lyness-lyn-web-search-perplexity/model-experience/conversation-tool-result-indirectly/kv-cache-effect:
   en: f5d5f97a153f7c70
   zh: f681f89596f500f5
-/deepseek-harness-dsh-web-search-perplexity/known-limitations-and-deferred-work:
+/lyness-lyn-web-search-perplexity/known-limitations-and-deferred-work:
   en: 065b2bd69dee1c59
   zh: e461cd979cbb2fec
-/deepseek-harness-dsh-web-search-perplexity/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-web-search-perplexity/known-limitations-and-deferred-work/dev-note:
   en: 7f775cc79dbce94b
   zh: 12b8f68f9e7c48ca
-/deepseek-harness-dsh-web-search-perplexity/known-limitations-and-deferred-work/dev-note/future-wider-perplexity-control-surface:
+/lyness-lyn-web-search-perplexity/known-limitations-and-deferred-work/dev-note/future-wider-perplexity-control-surface:
   en: 86cd7f67c96e6b0e
   zh: ab991807ddf2f470

@@ -3,13 +3,13 @@
  * — for what nobody opened — only a platform administrator's.
  */
 
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { afterEach, describe, expect, it } from 'vitest'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { Membership, MembershipId, PersonId, Role } from '@deepseek-ai/dsh-people'
-import SessionStore, { SessionId } from '@deepseek-ai/dsh-session'
-import type { Session, SessionHeader } from '@deepseek-ai/dsh-session'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
+import { brandString } from '@lyness/lyn-brand'
+import type { Membership, MembershipId, PersonId, Role } from '@lyness/lyn-people'
+import SessionStore, { SessionId } from '@lyness/lyn-session'
+import type { Session, SessionHeader } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 import * as SessionOwnership from '../src/index.ts'
 import SessionVisibility from '../src/visibility.ts'
 import type { SessionOwnerRecord } from '../src/types.ts'

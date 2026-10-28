@@ -10,7 +10,7 @@ The tenant-configuration seam declared that a backend states whether it accepts 
 
 ## Decision
 
-`@deepseek-ai/dsh-tenant-config-store` registers `ctx.tenantConfig` over the storage domain: one record per tenant in the `tenant_config` domain, version 1, layout `per-record`. It reports a `writable` capability, validates a save against the seam's own `validateTenantConfig` before writing it, and takes no configuration of its own — the records are the configuration.
+`@lyness/lyn-tenant-config-store` registers `ctx.tenantConfig` over the storage domain: one record per tenant in the `tenant_config` domain, version 1, layout `per-record`. It reports a `writable` capability, validates a save against the seam's own `validateTenantConfig` before writing it, and takes no configuration of its own — the records are the configuration.
 
 Three rulings shape it.
 

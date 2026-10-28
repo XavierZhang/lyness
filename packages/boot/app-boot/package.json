@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-app-boot",
+  "name": "@lyness/lyn-app-boot",
   "description": "Shared boot glue for the app bins: .env loading, fail-loud Loader guards, snapshot-aware config resolution, and the Loader boot sequence",
   "version": "0.2.1-rc.3",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/boot/app-boot"
   },
   "type": "module",
@@ -32,10 +32,10 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@deepseek-ai/dsh-atomic-write": "workspace:*",
-    "@deepseek-ai/dsh-official-bundles": "workspace:*",
-    "@deepseek-ai/dsh-package-manifest": "workspace:*",
     "@eslint-community/regexpp": "^4.12.2",
+    "@lyness/lyn-atomic-write": "workspace:*",
+    "@lyness/lyn-official-bundles": "workspace:*",
+    "@lyness/lyn-package-manifest": "workspace:*",
     "ajv": "^8.20.0",
     "js-yaml": "^4.3.2",
     "node-addon-require-builtin": "^0.1.9",
@@ -43,24 +43,24 @@
     "semver": "^7.8.5"
   },
   "peerDependencies": {
-    "@deepseek-ai/cordis-plugin-group": "workspace:~",
-    "@deepseek-ai/cordis-plugin-include": "workspace:~",
-    "@deepseek-ai/cordis-plugin-loader": "workspace:~",
-    "@deepseek-ai/dsh-launch-environment": "workspace:*",
-    "@deepseek-ai/dsh-home-paths": "workspace:*",
-    "@deepseek-ai/cordis": "workspace:~"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/cordis-plugin-group": "workspace:~",
+    "@lyness/cordis-plugin-include": "workspace:~",
+    "@lyness/cordis-plugin-loader": "workspace:~",
+    "@lyness/lyn-home-paths": "workspace:*",
+    "@lyness/lyn-launch-environment": "workspace:*"
   },
   "devDependencies": {
-    "@deepseek-ai/schemastery": "workspace:~",
-    "@deepseek-ai/cordis-plugin-group": "workspace:~",
-    "@deepseek-ai/cordis-plugin-include": "workspace:~",
-    "@deepseek-ai/cordis-plugin-loader": "workspace:~",
-    "@deepseek-ai/cordis-plugin-timer": "workspace:~",
-    "@deepseek-ai/dsh-launch-environment": "workspace:*",
-    "@deepseek-ai/dsh-home-paths": "workspace:*",
-    "@deepseek-ai/dsh-system-prompt": "workspace:*",
+    "@lyness/cordis": "workspace:~",
+    "@lyness/cordis-plugin-group": "workspace:~",
+    "@lyness/cordis-plugin-include": "workspace:~",
+    "@lyness/cordis-plugin-loader": "workspace:~",
+    "@lyness/cordis-plugin-timer": "workspace:~",
+    "@lyness/lyn-home-paths": "workspace:*",
+    "@lyness/lyn-launch-environment": "workspace:*",
+    "@lyness/lyn-system-prompt": "workspace:*",
+    "@lyness/schemastery": "workspace:~",
     "@types/js-yaml": "^4.0.9",
-    "@types/semver": "^7.8.0",
-    "@deepseek-ai/cordis": "workspace:~"
+    "@types/semver": "^7.8.0"
   }
 }

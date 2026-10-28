@@ -3,13 +3,13 @@ description: "通过外部目录签入，面向接入 SSO 的部署方与新增�
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-sign-in
+# @lyness/lyn-sign-in
 
 [English](README.md) | 中文
 
 ## 概述
 
-`dsh-sign-in` 让一个人通过他本来就属于的目录签入，并交回一个会话。渠道在那里验证他是谁；部署自己的准入规则说他在这里是谁；然后为那个人建立会话。渠道要么自己掌管整趟浏览器往返（给客户端），要么是浏览器离开再回来的那一种（给网页版）——两者走到同一条准入。渠道是注册进来的，而不是在这里配置的，所以平台不支持的目录可以以插件的方式到达。没有会话存储或没有准入规则，就没有签入。
+`lyn-sign-in` 让一个人通过他本来就属于的目录签入，并交回一个会话。渠道在那里验证他是谁；部署自己的准入规则说他在这里是谁；然后为那个人建立会话。渠道要么自己掌管整趟浏览器往返（给客户端），要么是浏览器离开再回来的那一种（给网页版）——两者走到同一条准入。渠道是注册进来的，而不是在这里配置的，所以平台不支持的目录可以以插件的方式到达。没有会话存储或没有准入规则，就没有签入。
 
 ## 目录
 
@@ -29,11 +29,11 @@ kind: "package-reference"
 
 ```yaml
 - id: sign-in
-  name: '@deepseek-ai/dsh-sign-in'
+  name: '@lyness/lyn-sign-in'
   config:
     lifetimeMs: 43200000
 - id: sign-in-admission-roster
-  name: '@deepseek-ai/dsh-sign-in/admission-roster'
+  name: '@lyness/lyn-sign-in/admission-roster'
   config:
     bindings:
       - channel: microsoft-entra
@@ -53,8 +53,8 @@ kind: "package-reference"
 渠道插件注册一个对象，并持有它的 disposer：
 
 ```ts
-import type { Context } from '@deepseek-ai/cordis'
-import { channelId } from '@deepseek-ai/dsh-sign-in'
+import type { Context } from '@lyness/cordis'
+import { channelId } from '@lyness/lyn-sign-in'
 
 export const inject = ['signIn']
 
@@ -93,10 +93,10 @@ export function apply(ctx: Context): void {
 <a id="further-exploration"></a>
 ## 进一步探索
 
-- [`dsh-auth-session`](../auth-session/README.zh.md) —— 本流程所建立的那些会话。
-- [`dsh-people`](../people/README.zh.md) —— 准入规则把目录身份映射到的那份名册。
-- [`dsh-request-principal`](../request-principal/README.zh.md) —— 在其后每一次调用上把会话读回来的那一层。
-- [`dsh-microsoft-entra`](../../vendor/microsoft-entra) —— 一个可以成为渠道的目录签入。
+- [`lyn-auth-session`](../auth-session/README.zh.md) —— 本流程所建立的那些会话。
+- [`lyn-people`](../people/README.zh.md) —— 准入规则把目录身份映射到的那份名册。
+- [`lyn-request-principal`](../request-principal/README.zh.md) —— 在其后每一次调用上把会话读回来的那一层。
+- [`lyn-microsoft-entra`](../../vendor/microsoft-entra) —— 一个可以成为渠道的目录签入。
 
 -----
 
@@ -113,9 +113,9 @@ export function apply(ctx: Context): void {
 
 <a id="known-limitations-and-deferred-work"></a>
 
-- **随包发布了一个渠道，而它自带凭据** —— `@deepseek-ai/dsh-microsoft-entra/channel` 就是部署方注册的那个重定向渠道；它需要那套部署自己的目录注册，所以没有任何 bundle 能代它选中。面向另一个目录的渠道是一个遵循同样形状的新包。
+- **随包发布了一个渠道，而它自带凭据** —— `@lyness/lyn-microsoft-entra/channel` 就是部署方注册的那个重定向渠道；它需要那套部署自己的目录注册，所以没有任何 bundle 能代它选中。面向另一个目录的渠道是一个遵循同样形状的新包。
 - **还没有托管形态的准入规则** —— 名册是「独立安装」形态的答案。托管部署的人是注册进来的，这需要一条「在租户自己的目录内首次签入时建档」的规则。
-- **cookie 是别人的决定** —— `begin` 返回会话身份，而把它放进响应、并把一次签入绑定到一个浏览器的是 `dsh-sign-in-http`；属性与跳转目标都不在这里决定。
+- **cookie 是别人的决定** —— `begin` 返回会话身份，而把它放进响应、并把一次签入绑定到一个浏览器的是 `lyn-sign-in-http`；属性与跳转目标都不在这里决定。
 - **改绑定需要重启** —— 名册在加载时读取，所以管理员新增一个人是改组合配置，而不是在界面上操作。
 
 **Runtime invariant:** 不发布任何 companion。本包持有的每一个关系——一个渠道的注册、一条绑定对应的人——都只有一个观察者。

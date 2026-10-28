@@ -8,12 +8,12 @@
  */
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Button, Input, RiskConfirmation, SegmentedControl, Tag } from '@deepseek-ai/dsh-client-ui-primitives'
-import type { PropsLocale, PropsRuntime, PropsStore } from '@deepseek-ai/dsh-client-ui-slots'
-import type {} from '@deepseek-ai/dsh-client-ui-settings/client'
+import { Button, Input, RiskConfirmation, SegmentedControl, Tag } from '@lyness/lyn-client-ui-primitives'
+import type { PropsLocale, PropsRuntime, PropsStore } from '@lyness/lyn-client-ui-slots'
+import type {} from '@lyness/lyn-client-ui-settings/client'
 import type {
   ChannelInput, ChannelKindView, ConfiguredChannelView,
-} from '@deepseek-ai/dsh-api-sign-in-channel-controller/types'
+} from '@lyness/lyn-api-sign-in-channel-controller/types'
 import type { createChannelsSectionStore } from './store.ts'
 import css from './ChannelsSection.module.css'
 

@@ -6,9 +6,9 @@ import { sanitizeInstallInput } from './sanitize-install-input.ts'
  * after each action and after every `plugin-manager/changed` event, so a
  * change made on another surface shows here without a manual refresh.
  */
-import type {} from '@deepseek-ai/dsh-client-product-analytics/client'
-import { randomUUID } from '@deepseek-ai/dsh-util-crypto'
-import type { Context as ClientContext } from '@deepseek-ai/cordis'
+import type {} from '@lyness/lyn-client-product-analytics/client'
+import { randomUUID } from '@lyness/lyn-util-crypto'
+import type { Context as ClientContext } from '@lyness/cordis'
 import type {
   BundleInfo,
   ChangeResult,
@@ -31,18 +31,18 @@ import type {
   ReadOnlyReason,
   Registry,
   RestartReason,
-} from '@deepseek-ai/dsh-api-remotes/client'
-import { normalizeRegistry, NPMMIRROR_REGISTRY, OFFICIAL_NPM_REGISTRY, REGISTRY_URL } from '@deepseek-ai/dsh-plugin-manager/registry'
-import { createSnapshotStore, type SnapshotStore } from '@deepseek-ai/dsh-client-store'
-import type { HostObservable } from '@deepseek-ai/dsh-client-ui-slots'
-import type { LocalizedText, PluginLocalizedMeta } from '@deepseek-ai/dsh-package-manifest'
-import type { SettingsDescribeFace, ConfigForms } from '@deepseek-ai/dsh-client-ui-settings/client'
+} from '@lyness/lyn-api-remotes/client'
+import { normalizeRegistry, NPMMIRROR_REGISTRY, OFFICIAL_NPM_REGISTRY, REGISTRY_URL } from '@lyness/lyn-plugin-manager/registry'
+import { createSnapshotStore, type SnapshotStore } from '@lyness/lyn-client-store'
+import type { HostObservable } from '@lyness/lyn-client-ui-slots'
+import type { LocalizedText, PluginLocalizedMeta } from '@lyness/lyn-package-manifest'
+import type { SettingsDescribeFace, ConfigForms } from '@lyness/lyn-client-ui-settings/client'
 import type { ConfigLedger } from './config-ledger.ts'
 import type { PluginTabInstall } from './slot-contract.ts'
 import type { PluginTab } from './tab-ledger.ts'
 import { shortName } from './presentation.ts'
 import { BundleDetailController, type BundleDetailsState } from './detail-store.ts'
-import type { LocaleSnapshot } from '@deepseek-ai/dsh-client-locale/client'
+import type { LocaleSnapshot } from '@lyness/lyn-client-locale/client'
 
 /**
  * Read whether a bundle has a pending management action.
@@ -331,7 +331,7 @@ export type VersionCheck =
   | { readonly phase: 'done'; readonly list: PluginVersionList; readonly checkedAt: number }
 
 /**
- * The version an update offers first: the newest one that declares a bundle, accepts the running DSH version, and is
+ * The version an update offers first: the newest one that declares a bundle, accepts the running LYN version, and is
  * neither deprecated nor a prerelease.
  * @param list - the Host's version list.
  * @returns the version, or undefined when none qualifies or the list was refused.
@@ -344,7 +344,7 @@ export function updateCandidate(list: PluginVersionList): PluginVersion | undefi
 /**
  * Whether the Host can install a listed version in place of the installed one.
  * @param version - one listed version.
- * @returns true when it declares a bundle and accepts the running DSH version.
+ * @returns true when it declares a bundle and accepts the running LYN version.
  */
 export function installable(version: PluginVersion): boolean {
   return version.bundle && version.incompatible === undefined
@@ -664,7 +664,7 @@ export class PluginManagerController {
   readonly details: BundleDetailController
   /** The registry last used from this browser, kept across dialogs and page loads; null until one was used. */
   private readonly registryMemory: SnapshotStore<RegistryChoice | null> = createSnapshotStore<RegistryChoice | null>(null, {
-    persist: { name: 'dsh.plugin-manager.install-registry' },
+    persist: { name: 'lyn.plugin-manager.install-registry' },
   })
 
   /**

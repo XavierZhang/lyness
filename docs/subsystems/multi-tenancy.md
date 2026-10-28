@@ -2,7 +2,7 @@
 
 English | [中文](multi-tenancy.zh.md)
 
-Which tenants a deployment serves, and which one a request belongs to. A tenant is an organization whose data, configuration, and credentials stay separate from every other tenant's; this subsystem owns only its identity and the lookup that finds it. `ctx.tenants` is a directory of three lookups, provided by [dsh-tenant](../../packages/tenant/tenant), backed by a roster in composition config ([dsh-tenant-static](../../packages/tenant/tenant-static)), and consumed over HTTP by [dsh-tenant-http](../../packages/tenant/tenant-http). A deployment that mounts none of them is single-tenant, and nothing else changes.
+Which tenants a deployment serves, and which one a request belongs to. A tenant is an organization whose data, configuration, and credentials stay separate from every other tenant's; this subsystem owns only its identity and the lookup that finds it. `ctx.tenants` is a directory of three lookups, provided by [lyn-tenant](../../packages/tenant/tenant), backed by a roster in composition config ([lyn-tenant-static](../../packages/tenant/tenant-static)), and consumed over HTTP by [lyn-tenant-http](../../packages/tenant/tenant-http). A deployment that mounts none of them is single-tenant, and nothing else changes.
 
 Source: [`packages/tenant/tenant/src/index.ts`](../../packages/tenant/tenant/src/index.ts)
 
@@ -47,7 +47,7 @@ An unresolved request is refused. There is no fallback tenant: a tenant is an is
 
 ## Tenant configuration
 
-`ctx.tenantConfig` reads what one tenant configures for itself, provided by [dsh-tenant-config](../../packages/tenant/tenant-config) and backed either by rows in composition config ([dsh-tenant-config-static](../../packages/tenant/tenant-config-static)) or by records in the storage domain ([dsh-tenant-config-store](../../packages/tenant/tenant-config-store)). A private deployment configures the same way a SaaS tenant does; it simply has one tenant. What a tenant does not configure here is its brand — mark, wordmark, favicon, product name — which belongs to the deployment.
+`ctx.tenantConfig` reads what one tenant configures for itself, provided by [lyn-tenant-config](../../packages/tenant/tenant-config) and backed either by rows in composition config ([lyn-tenant-config-static](../../packages/tenant/tenant-config-static)) or by records in the storage domain ([lyn-tenant-config-store](../../packages/tenant/tenant-config-store)). A private deployment configures the same way a SaaS tenant does; it simply has one tenant. What a tenant does not configure here is its brand — mark, wordmark, favicon, product name — which belongs to the deployment.
 
 ```ts type-equiv
 /** Everything one tenant configures for itself. */
@@ -94,7 +94,7 @@ The two backends are alternatives, not layers: one store is mounted per context.
 
 ## Configuring a tenant over RPC
 
-`ctx.remote.tenant` is how an administration surface reads and writes a tenant's configuration ([dsh-api-tenant-controller](../../packages/api/tenant-controller)). `describe` answers the calling tenant's own configuration — models, grants as credential references, features, identity, copy — plus `writable`, which says whether this deployment's backend accepts a save, and `configured`, which distinguishes a tenant that has saved nothing from one that saved everything empty. `save` replaces the whole configuration; `TenantConfigInput` carries no tenant id, because the tenant is the one the call arrived for.
+`ctx.remote.tenant` is how an administration surface reads and writes a tenant's configuration ([lyn-api-tenant-controller](../../packages/api/tenant-controller)). `describe` answers the calling tenant's own configuration — models, grants as credential references, features, identity, copy — plus `writable`, which says whether this deployment's backend accepts a save, and `configured`, which distinguishes a tenant that has saved nothing from one that saved everything empty. `save` replaces the whole configuration; `TenantConfigInput` carries no tenant id, because the tenant is the one the call arrived for.
 
 The tenant is never a method parameter. A caller that could name its own tenant could name any tenant, so both methods read `ctx.requestTenant` and refuse a call that named none with `tenant/unresolved`. The other refusals are `gateway/bad-request` for a malformed wire field, `gateway/internal` when no store is mounted, `tenant/read-only` when the store does not accept saves, and `tenant/rejected` when a seam rule refuses the configuration, listing every problem at once.
 
@@ -102,9 +102,9 @@ What this does not yet enforce is who inside an organization may save. The only 
 
 ## In the session log
 
-A session records which tenant it belongs to and the identity text that tenant contributed, as the log-only `tenant/identity` event written once at creation ([dsh-tenant-session](../../packages/tenant/tenant-session), catalog entry in [persistence-catalog](../persistence-catalog.md#tenantidentity--log-only)). Attribution needs the tenant long after a session ends; reconstruction needs the text itself, because it reaches the model and a later edit to the tenant's configuration would otherwise leave the session unreadable. A fork or a resumed session keeps the record it was created with, and the `tenant` session projection folds it back.
+A session records which tenant it belongs to and the identity text that tenant contributed, as the log-only `tenant/identity` event written once at creation ([lyn-tenant-session](../../packages/tenant/tenant-session), catalog entry in [persistence-catalog](../persistence-catalog.md#tenantidentity--log-only)). Attribution needs the tenant long after a session ends; reconstruction needs the text itself, because it reaches the model and a later edit to the tenant's configuration would otherwise leave the session unreadable. A fork or a resumed session keeps the record it was created with, and the `tenant` session projection folds it back.
 
-The tenant comes from the request that created the session when [dsh-tenant-request](../../packages/tenant/tenant-request) is mounted, and otherwise from the plugin's configuration. Remote methods do not carry the request they arrived on, so that plugin registers a Connection request scope, resolves the tenant and its configuration once when the call arrives, and publishes both as `ctx.requestTenant` for the duration of the call — which is what lets the synchronous session-creation listener read them. The configured tenant stays the answer for every session created outside a call: a CLI run, a resumed session, a subagent.
+The tenant comes from the request that created the session when [lyn-tenant-request](../../packages/tenant/tenant-request) is mounted, and otherwise from the plugin's configuration. Remote methods do not carry the request they arrived on, so that plugin registers a Connection request scope, resolves the tenant and its configuration once when the call arrives, and publishes both as `ctx.requestTenant` for the duration of the call — which is what lets the synchronous session-creation listener read them. The configured tenant stays the answer for every session created outside a call: a CLI run, a resumed session, a subagent.
 
 ## The roster
 
@@ -1073,6 +1073,8 @@ current(): Principal | undefined
  */
 as<T>(principal: Principal | undefined, run: () => T): T
 ```
+
+Types: [Principal](typert.md)
 
 Source: [`packages/identity/request-principal/src/index.ts`](../../packages/identity/request-principal/src/index.ts)
 

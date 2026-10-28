@@ -1,6 +1,6 @@
 // Web e2e scenario: the configuration pages on the Plugins page — the official
 // pages a deployment's exposed host-plane namespaces produce, one field edited
-// through the real wire down to `$DSH_HOME/cordis.patch.yml`, the override badge
+// through the real wire down to `$LYNESS_HOME/cordis.patch.yml`, the override badge
 // and reset that layering produces, and a community bundle's row configuration
 // registered by its own browser half. Zero model calls: everything is client
 // state plus the settings document and the profile on a blank frame, so there
@@ -35,7 +35,7 @@ describe('web e2e: plugin configuration pages', () => {
     // below, that half registers its row's configuration into the page.
     scaffold = await launchWebScaffold({
       extraOverlayPath: fileURLToPath(new URL('./pin-browse-picker.overlay.yml', import.meta.url)),
-      deepSeekSearch: { apiKeyEnv: 'DSH_PLUGIN_CONFIG_E2E_UNUSED_KEY' },
+      deepSeekSearch: { apiKeyEnv: 'LYNESS_PLUGIN_CONFIG_E2E_UNUSED_KEY' },
       profile: { packages: [{ dir: join(FIXTURE_PLUGINS, 'fixture-live-client') }] },
     })
     browser = await chromium.launch()
@@ -112,7 +112,7 @@ describe('web e2e: plugin configuration pages', () => {
     await panel.getByRole('heading', { name: '实验性插件', exact: true, level: 1 }).waitFor()
     const bundles = await scaffold.ctx.pluginManager.listBundles()
     expect(await panel.locator('[data-plugin-group="more"] [data-plugin-package]').count())
-      .toBe(bundles.filter(bundle => bundle.name !== '@deepseek-ai/dsh-experimental-terminal-bundle'
+      .toBe(bundles.filter(bundle => bundle.name !== '@lyness/lyn-experimental-terminal-bundle'
         && bundle.official && (bundle.listedByDefault !== false || bundle.enabled || bundle.installed)).length)
     expect(await basic.count()).toBe(0)
     expect(await extensions.count()).toBe(0)

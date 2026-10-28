@@ -1,10 +1,10 @@
 /**
  * Vocabulary for the context a call declares and the refusals that follow.
  *
- * @module @deepseek-ai/dsh-acting-context/types
+ * @module @lyness/lyn-acting-context/types
  */
 
-import type { MembershipId } from '@deepseek-ai/dsh-people'
+import type { MembershipId } from '@lyness/lyn-people'
 
 /**
  * What a call says it is acting as.

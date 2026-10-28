@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-module-model-governance",
+  "name": "@lyness/lyn-module-model-governance",
   "description": "The deployment-owns-the-model module as its own bundle: the startup guard, the allowed-model policy, and its enforcement",
   "version": "0.1.7-rc.2",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/bundle/module-model-governance"
   },
   "type": "module",
@@ -30,19 +30,19 @@
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
-  "dsh": {
+  "lyn": {
     "bundle": {
       "patch": "./cordis.patch.yml"
     }
   },
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~"
+    "@lyness/cordis": "workspace:~"
   },
   "dependencies": {
-    "@deepseek-ai/dsh-model-policy": "workspace:*",
-    "@deepseek-ai/dsh-model-required": "workspace:*"
+    "@lyness/lyn-model-policy": "workspace:*",
+    "@lyness/lyn-model-required": "workspace:*"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~"
+    "@lyness/cordis": "workspace:~"
   }
 }

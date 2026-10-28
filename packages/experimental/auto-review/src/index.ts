@@ -5,14 +5,14 @@
  * Under the `ask` approval policy a reviewer denial asks the user; under
  * `never` it is final.
  *
- * @module @deepseek-ai/dsh-experimental-auto-review
+ * @module @lyness/lyn-experimental-auto-review
  */
 
-import type {} from '@deepseek-ai/dsh-tool-executor-ptc/types'
-import type {} from '@deepseek-ai/dsh-working-directory'
-import { FiberState, type Context } from '@deepseek-ai/cordis'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import type {} from '@deepseek-ai/dsh-agent-instructions'
+import type {} from '@lyness/lyn-tool-executor-ptc/types'
+import type {} from '@lyness/lyn-working-directory'
+import { FiberState, type Context } from '@lyness/cordis'
+import type { Agent } from '@lyness/lyn-agent'
+import type {} from '@lyness/lyn-agent-instructions'
 import {
   BlockAssembler,
   type ContentBlock,
@@ -22,17 +22,17 @@ import {
   type StreamChunk,
   type ToolCallId,
   type ToolSchema,
-} from '@deepseek-ai/dsh-llm'
-import { deepFreeze } from '@deepseek-ai/dsh-util-values'
-import { AUTO_PRESET } from '@deepseek-ai/dsh-permission-presets'
-import type { Session, SessionEvent } from '@deepseek-ai/dsh-session'
-import type {} from '@deepseek-ai/dsh-subagent'
-import type {} from '@deepseek-ai/dsh-user-approval'
+} from '@lyness/lyn-llm'
+import { deepFreeze } from '@lyness/lyn-util-values'
+import { AUTO_PRESET } from '@lyness/lyn-permission-presets'
+import type { Session, SessionEvent } from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-subagent'
+import type {} from '@lyness/lyn-user-approval'
 import {
   RUN_CODE_NAME,
   type PreToolDecision,
   type ToolExecution,
-} from '@deepseek-ai/dsh-tools'
+} from '@lyness/lyn-tools'
 import { deniedDisplayReason } from './locales.ts'
 
 /** Structured error name persisted for every final reviewer denial. */

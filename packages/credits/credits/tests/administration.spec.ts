@@ -6,17 +6,17 @@
 import { mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { Context } from '@deepseek-ai/cordis'
-import Storage from '@deepseek-ai/dsh-storage'
-import * as StorageDomain from '@deepseek-ai/dsh-storage-domain'
-import * as StorageJson from '@deepseek-ai/dsh-storage-json'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { Membership, MembershipId, PersonId } from '@deepseek-ai/dsh-people'
-import StaticPeople from '@deepseek-ai/dsh-people/static'
+import { Context } from '@lyness/cordis'
+import Storage from '@lyness/lyn-storage'
+import * as StorageDomain from '@lyness/lyn-storage-domain'
+import * as StorageJson from '@lyness/lyn-storage-json'
+import { brandString } from '@lyness/lyn-brand'
+import type { Membership, MembershipId, PersonId } from '@lyness/lyn-people'
+import StaticPeople from '@lyness/lyn-people/static'
 import { afterEach, describe, expect, it } from 'vitest'
 import StoredCreditLedger from '../src/store.ts'
 import type { Config as LedgerConfig } from '../src/store.ts'
-import AdminAudit from '@deepseek-ai/dsh-admin-audit'
+import AdminAudit from '@lyness/lyn-admin-audit'
 import CreditAdministration, {
   NOT_A_CEILING, NOT_PERMITTED, NOT_PLATFORM, NOT_POSITIVE,
 } from '../src/administration.ts'
@@ -60,7 +60,7 @@ afterEach(async () => {
 
 /** The ledger, a written roster, and the administration service over one store. */
 async function harness(ledger: LedgerConfig = {}): Promise<Context> {
-  const root = mkdtempSync(join(tmpdir(), 'dsh-credit-admin-'))
+  const root = mkdtempSync(join(tmpdir(), 'lyn-credit-admin-'))
   roots.push(root)
   const ctx = new Context()
   await ctx.plugin(Storage)

@@ -4,7 +4,7 @@
  */
 
 import { describe, expect, it, vi } from 'vitest'
-import type { Announcement } from '@deepseek-ai/dsh-announcements/types'
+import type { Announcement } from '@lyness/lyn-announcements/types'
 import { createAnnouncementsReader } from '../src/client/read.ts'
 import type { ReadOutcome, ReaderSink } from '../src/client/read.ts'
 

@@ -5,57 +5,57 @@
 /:
   en: 63086120d58bb5fd
   zh: 2c4e7dff7bb7a84a
-/deepseek-harness-dsh-client-ui-settings-models:
+/lyness-lyn-client-ui-settings-models:
   en: 7bcc4b7fc76f5a68
   zh: 3266ecbf10467c14
-/deepseek-harness-dsh-client-ui-settings-models/summary:
+/lyness-lyn-client-ui-settings-models/summary:
   en: f3880edefff49e4a
   zh: 14910bb4add30f6c
-/deepseek-harness-dsh-client-ui-settings-models/table-of-contents:
+/lyness-lyn-client-ui-settings-models/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/deepseek-harness-dsh-client-ui-settings-models/use-this-package:
+/lyness-lyn-client-ui-settings-models/use-this-package:
   en: 7f99c93960dfaf00
   zh: cb2852ab097a1a6a
-/deepseek-harness-dsh-client-ui-settings-models/use-this-package/api-keys:
+/lyness-lyn-client-ui-settings-models/use-this-package/api-keys:
   en: c2f2a5c06ef20d5b
   zh: 49a7eb0b66b4ed53
-/deepseek-harness-dsh-client-ui-settings-models/use-this-package/editing-a-provider:
+/lyness-lyn-client-ui-settings-models/use-this-package/editing-a-provider:
   en: ec0ba62a4e7185b4
   zh: 37d1e1e7a3817d12
-/deepseek-harness-dsh-client-ui-settings-models/use-this-package/adding-and-deleting-providers:
+/lyness-lyn-client-ui-settings-models/use-this-package/adding-and-deleting-providers:
   en: 9d533c65c82cd4a4
   zh: 0a5da334e127c035
-/deepseek-harness-dsh-client-ui-settings-models/use-this-package/first-run-dialogs:
+/lyness-lyn-client-ui-settings-models/use-this-package/first-run-dialogs:
   en: 34be2f8e8b118910
   zh: 95533e20b8ef6086
-/deepseek-harness-dsh-client-ui-settings-models/use-this-package/extension-slots:
+/lyness-lyn-client-ui-settings-models/use-this-package/extension-slots:
   en: 65e9d8822b67b6c2
   zh: 7e83be9defda28ee
-/deepseek-harness-dsh-client-ui-settings-models/understand-the-implementation:
+/lyness-lyn-client-ui-settings-models/understand-the-implementation:
   en: a87afbec5e339b36
   zh: 6348c81af7e650e1
-/deepseek-harness-dsh-client-ui-settings-models/understand-the-implementation/validation:
+/lyness-lyn-client-ui-settings-models/understand-the-implementation/validation:
   en: 071cbd6e484f9d19
   zh: 8d7aa714e33e460c
-/deepseek-harness-dsh-client-ui-settings-models/understand-the-implementation/concurrency-and-credentials:
+/lyness-lyn-client-ui-settings-models/understand-the-implementation/concurrency-and-credentials:
   en: 670b8c066aed9b7a
   zh: 2bedba9a2e0e3fee
-/deepseek-harness-dsh-client-ui-settings-models/understand-the-implementation/onboarding-coordinator:
+/lyness-lyn-client-ui-settings-models/understand-the-implementation/onboarding-coordinator:
   en: 65309f4378a7fb16
   zh: f9c8390013df0004
-/deepseek-harness-dsh-client-ui-settings-models/further-exploration:
+/lyness-lyn-client-ui-settings-models/further-exploration:
   en: 1a23f4957a1bc246
   zh: ff0e8a1ed4b3105a
-/deepseek-harness-dsh-client-ui-settings-models/model-experience:
+/lyness-lyn-client-ui-settings-models/model-experience:
   en: 3120df665299c634
   zh: 1d9f365d091d0d2a
-/deepseek-harness-dsh-client-ui-settings-models/model-experience/kv-cache-effect:
+/lyness-lyn-client-ui-settings-models/model-experience/kv-cache-effect:
   en: ca75c51c89c2c9b0
   zh: 9779c98fff4c949a
-/deepseek-harness-dsh-client-ui-settings-models/known-limitations-and-deferred-work:
+/lyness-lyn-client-ui-settings-models/known-limitations-and-deferred-work:
   en: cc69c9934bf22302
   zh: 4ea896f4b54aa203
-/deepseek-harness-dsh-client-ui-settings-models/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-client-ui-settings-models/known-limitations-and-deferred-work/dev-note:
   en: 4f6749870e661a48
   zh: 4953f3ea814546a4

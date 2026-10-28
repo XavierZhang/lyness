@@ -1,14 +1,14 @@
 /** Host-wide durable reminders and shared human/model management. */
 import { randomUUID } from 'node:crypto'
-import z from '@deepseek-ai/schemastery'
-import { Context, Service } from '@deepseek-ai/cordis'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import type {} from '@deepseek-ai/dsh-api-session-controller'
-import { TypertRemoteService, Remote } from '@deepseek-ai/dsh-typert-protocol'
-import type { Domain } from '@deepseek-ai/dsh-storage-domain'
-import { delegationDepthOf } from '@deepseek-ai/dsh-subagent'
-import type { SessionId } from '@deepseek-ai/dsh-session'
-import type { SessionActivity } from '@deepseek-ai/dsh-workspace'
+import z from '@lyness/schemastery'
+import { Context, Service } from '@lyness/cordis'
+import type { Agent } from '@lyness/lyn-agent'
+import type {} from '@lyness/lyn-api-session-controller'
+import { TypertRemoteService, Remote } from '@lyness/lyn-typert-protocol'
+import type { Domain } from '@lyness/lyn-storage-domain'
+import { delegationDepthOf } from '@lyness/lyn-subagent'
+import type { SessionId } from '@lyness/lyn-session'
+import type { SessionActivity } from '@lyness/lyn-workspace'
 import { ScheduleRuntime } from './runtime.ts'
 import { scheduleDomain } from './storage.ts'
 import { deliveryHistoryPage } from './delivery-history.ts'
@@ -63,7 +63,7 @@ export {
 } from './domain.ts'
 
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Events {
     /**
      * Restore a reminder's Session through its embedding's owning controller.

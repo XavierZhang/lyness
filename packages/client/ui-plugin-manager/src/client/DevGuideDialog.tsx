@@ -1,11 +1,11 @@
 /** The development manual is read-only help: it installs nothing and changes no bundle. */
 import { useId, useLayoutEffect, useRef, useState } from 'react'
 import type { KeyboardEvent, ReactNode } from 'react'
-import type { TranslateNS } from '@deepseek-ai/dsh-client-ui-slots'
+import type { TranslateNS } from '@lyness/lyn-client-ui-slots'
 import {
   Button, IconCloseOutlineRegular, MarkdownText, Modal, SegmentedTabs, trapReaderTab,
-} from '@deepseek-ai/dsh-client-ui-primitives'
-import type { SegmentedTab } from '@deepseek-ai/dsh-client-ui-primitives'
+} from '@lyness/lyn-client-ui-primitives'
+import type { SegmentedTab } from '@lyness/lyn-client-ui-primitives'
 import type { PluginDevGuideKey } from './guide-locales.ts'
 import css from './DevGuideDialog.module.css'
 

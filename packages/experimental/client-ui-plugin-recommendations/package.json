@@ -7,11 +7,11 @@
   "main": "lib/index.js",
   "types": "lib/types/index.d.ts",
   "license": "MIT",
-  "name": "@deepseek-ai/dsh-client-ui-plugin-recommendations",
+  "name": "@lyness/lyn-client-ui-plugin-recommendations",
   "description": "Official plugin card body with catalog text and enabling",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/experimental/client-ui-plugin-recommendations"
   },
   "exports": {
@@ -27,38 +27,38 @@
     },
     "./locale/*.json": "./locale/*.json"
   },
-  "dsh": {
+  "lyn": {
     "client": {
       "platform": "web",
       "inject": [
-        "@deepseek-ai/dsh-api-remotes",
-        "@deepseek-ai/dsh-client-locale",
-        "@deepseek-ai/dsh-client-ui-plugin-manager",
-        "@deepseek-ai/dsh-client-ui-action-cards"
+        "@lyness/lyn-api-remotes",
+        "@lyness/lyn-client-locale",
+        "@lyness/lyn-client-ui-plugin-manager",
+        "@lyness/lyn-client-ui-action-cards"
       ]
     }
   },
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~"
+    "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-llm": "workspace:*",
-    "@deepseek-ai/dsh-session": "workspace:*",
-    "@deepseek-ai/dsh-api-remotes": "workspace:*",
-    "@deepseek-ai/dsh-client-locale": "workspace:*",
-    "@deepseek-ai/dsh-client-ui-slots": "workspace:*",
-    "@deepseek-ai/dsh-client-ui-primitives": "workspace:*",
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-action-cards": "workspace:*",
+    "@lyness/lyn-api-remotes": "workspace:*",
+    "@lyness/lyn-client-locale": "workspace:*",
+    "@lyness/lyn-client-store": "workspace:*",
+    "@lyness/lyn-client-test-runtime": "workspace:*",
+    "@lyness/lyn-client-ui-action-cards": "workspace:*",
+    "@lyness/lyn-client-ui-plugin-manager": "workspace:*",
+    "@lyness/lyn-client-ui-primitives": "workspace:*",
+    "@lyness/lyn-client-ui-slots": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-package-manifest": "workspace:*",
+    "@lyness/lyn-plugin-recommendations": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-typert-protocol": "workspace:*",
     "react": "^18.2.0",
-    "@deepseek-ai/dsh-plugin-recommendations": "workspace:*",
-    "@deepseek-ai/dsh-client-store": "workspace:*",
-    "@deepseek-ai/dsh-client-ui-plugin-manager": "workspace:*",
-    "@deepseek-ai/dsh-typert-protocol": "workspace:*",
-    "@deepseek-ai/dsh-package-manifest": "workspace:*",
-    "@deepseek-ai/dsh-client-ui-action-cards": "workspace:*",
-    "@deepseek-ai/dsh-action-cards": "workspace:*",
-    "zod": "4.4.3",
-    "@deepseek-ai/dsh-client-test-runtime": "workspace:*"
+    "zod": "4.4.3"
   },
   "files": [
     "locale/*.json",

@@ -5,33 +5,33 @@
 /:
   en: 784741f61946fcbd
   zh: ace6f9811ab904c8
-/deepseek-harness-dsh-admin-audit:
+/lyness-lyn-admin-audit:
   en: b7816b5987a2cd02
   zh: fa27a7a15e40a2ed
-/deepseek-harness-dsh-admin-audit/summary:
+/lyness-lyn-admin-audit/summary:
   en: d15d4a2e276ccb98
   zh: 7152472147776ef3
-/deepseek-harness-dsh-admin-audit/table-of-contents:
+/lyness-lyn-admin-audit/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/deepseek-harness-dsh-admin-audit/use-this-package:
+/lyness-lyn-admin-audit/use-this-package:
   en: 7d31e2d0efae39be
   zh: 710f8372970b5129
-/deepseek-harness-dsh-admin-audit/understand-the-implementation:
+/lyness-lyn-admin-audit/understand-the-implementation:
   en: 03984ef4b2f1889b
   zh: a0f7c8f8a3ff2e16
-/deepseek-harness-dsh-admin-audit/further-exploration:
+/lyness-lyn-admin-audit/further-exploration:
   en: e0a3c0b4817b0151
   zh: 00d5c44ecc1fd533
-/deepseek-harness-dsh-admin-audit/model-experience:
+/lyness-lyn-admin-audit/model-experience:
   en: f72a72decf685038
   zh: 6ffb2c99a1cc4878
-/deepseek-harness-dsh-admin-audit/model-experience/kv-cache-effect:
+/lyness-lyn-admin-audit/model-experience/kv-cache-effect:
   en: e13faf79aaae30a9
   zh: aa962b627c47dd04
-/deepseek-harness-dsh-admin-audit/known-limitations-and-deferred-work:
+/lyness-lyn-admin-audit/known-limitations-and-deferred-work:
   en: fb6cf71269faa7fa
   zh: 71bb60eabdbd25e5
-/deepseek-harness-dsh-admin-audit/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-admin-audit/known-limitations-and-deferred-work/dev-note:
   en: dbfabfa24af16999
   zh: a4baa2caff2ac811

@@ -1,18 +1,18 @@
 // @vitest-environment jsdom
-import type { GlobalStandardProps } from '@deepseek-ai/dsh-client-ui-slots'
+import type { GlobalStandardProps } from '@lyness/lyn-client-ui-slots'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { act, cleanup, createEvent, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
-import { allowAllAccess, bindSnapshotSelector, makeTranslate } from '@deepseek-ai/dsh-client-test-runtime'
-import type { SessionListState, SessionSummary } from '@deepseek-ai/dsh-api-session-controller/client'
+import { allowAllAccess, bindSnapshotSelector, makeTranslate } from '@lyness/lyn-client-test-runtime'
+import type { SessionListState, SessionSummary } from '@lyness/lyn-api-session-controller/client'
 import type {
   WorkspaceId, WorkspaceSnapshot, WorkspaceView,
-} from '@deepseek-ai/dsh-api-workspace-controller/client'
+} from '@lyness/lyn-api-workspace-controller/client'
 import type {
   SessionPendingInteraction, SessionStatus, SessionStatusSnapshot,
-} from '@deepseek-ai/dsh-client-ui-session/client'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
-import type { MainPanelId } from '@deepseek-ai/dsh-client-ui-layout/client'
-import { zh as commonZh } from '@deepseek-ai/dsh-client-locale/src/locales/zh.ts'
+} from '@lyness/lyn-client-ui-session/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { MainPanelId } from '@lyness/lyn-client-ui-layout/client'
+import { zh as commonZh } from '@lyness/lyn-client-locale/src/locales/zh.ts'
 import type { DirectoryFlowOwnerProps, WorkspaceBrowserProps } from '../src/client/contract/slots.ts'
 import { createWorkspaceShortcutControls } from '../src/client/shortcuts.ts'
 import { createWorkspaceViewStore, FLAT_SESSION_ORDER_KEY } from '../src/client/stores.ts'
@@ -162,7 +162,7 @@ describe('WorkspaceBrowser', () => {
     preferences.actions.setSessionOrder(FLAT_SESSION_ORDER_KEY, ['older', 'newer'], {})
     preferences.actions.setGroupExpanded(account, true)
     preferences.actions.setGroupExpanded(UNGROUPED_KEY, true)
-    localStorage.setItem('dsh.workspace.view.v5', JSON.stringify({ ...preferences.getSnapshot(), orderBy: 'updated' }))
+    localStorage.setItem('lyn.workspace.view.v5', JSON.stringify({ ...preferences.getSnapshot(), orderBy: 'updated' }))
     const b = mount({
       useSessions: hook(sessionState([summary('newer', 100)])),
       useWorkspaces: hook(workspaceState(mode === 'ungrouped' ? [] : [workspace(account, ['older', 'newer'])])),
@@ -304,7 +304,7 @@ describe('WorkspaceBrowser', () => {
       const preferences = createWorkspaceViewStore().create()
       preferences.actions.setGroupBy(mode === 'flat' ? 'flat' : 'workspace')
       preferences.actions.setGroupExpanded(mode === 'ungrouped' ? UNGROUPED_KEY : 'alpha', true)
-      localStorage.setItem('dsh.workspace.view.v5', JSON.stringify(preferences.getSnapshot()))
+      localStorage.setItem('lyn.workspace.view.v5', JSON.stringify(preferences.getSnapshot()))
       mount({
         useSessions: hook(sessionState([summary('located', 1, { cwd: '/home/u/Documents/project' })])),
         useWorkspaces: hook(workspaceState(mode === 'ungrouped' ? [] : [workspace('alpha', ['located'])])),
@@ -416,7 +416,7 @@ describe('WorkspaceBrowser', () => {
 
   it('drops the obsolete timestamp ledger from persisted viewing state', async () => {
     localStorage.clear()
-    localStorage.setItem('dsh.workspace.view.v5', JSON.stringify({
+    localStorage.setItem('lyn.workspace.view.v5', JSON.stringify({
       groupBy: 'workspace',
       orderBy: 'manual',
       groupExpansion: {},
@@ -425,13 +425,13 @@ describe('WorkspaceBrowser', () => {
     }))
     mount()
     await waitFor(() => {
-      const persisted = JSON.parse(localStorage.getItem('dsh.workspace.view.v5') ?? '{}') as Record<string, unknown>
+      const persisted = JSON.parse(localStorage.getItem('lyn.workspace.view.v5') ?? '{}') as Record<string, unknown>
       expect(persisted).not.toHaveProperty('sessionUpdatedAtByAccount')
     })
   })
 
   it('hides archived Sessions when a persisted v5 view has no archived filter', () => {
-    const key = 'dsh.workspace.view.v5'
+    const key = 'lyn.workspace.view.v5'
     const previous = localStorage.getItem(key)
     try {
       localStorage.setItem(key, JSON.stringify({

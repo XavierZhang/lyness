@@ -3,7 +3,7 @@ description: "开启可选 macOS Computer Use 及权限页面。"
 kind: "package-bundle"
 ---
 
-# @deepseek-ai/dsh-cua-bundle
+# @lyness/lyn-cua-bundle
 
 [English](README.md) | 中文
 
@@ -28,7 +28,7 @@ kind: "package-bundle"
 
 ```sh
 pnpm run build
-pnpm dsh web
+pnpm lyn web
 ```
 
 源码 Desktop 的启动方式和独立开发配置档见[桌面开发说明](../../../apps/desktop/README.zh.md)。需要使用 Computer Use 的配置档分别开启该功能。
@@ -37,11 +37,11 @@ pnpm dsh web
 
 关闭会卸载提供方，并从其 Agent 作用域中撤回 CUA 工具。执行器配置、新会话默认值和已保存的授权保留。会话级应用授权随提供方卸载而失效。
 
-Computer Use 要求 DSH Host 运行在 macOS 上。其他系统安装时跳过可选的 macOS 提供方，组合包也不加载该提供方。共享 CUA 逻辑和权限页入口仍保留，Computer Use 操作需要提供方才能使用。其他操作系统上的浏览器可以连接受支持的 Mac Host。
+Computer Use 要求 LYN Host 运行在 macOS 上。其他系统安装时跳过可选的 macOS 提供方，组合包也不加载该提供方。共享 CUA 逻辑和权限页入口仍保留，Computer Use 操作需要提供方才能使用。其他操作系统上的浏览器可以连接受支持的 Mac Host。
 
-准备失败时，已保存的选择保留，CUA 操作不可用。查看 Host 的启动诊断，修复原因后重启 DSH。
+准备失败时，已保存的选择保留，CUA 操作不可用。查看 Host 的启动诊断，修复原因后重启 LYN。
 
-显式启用会进行只读权限检查，可能启动 helper，但不会打开系统授权弹窗。[权限页面](../cua/README.zh.md) 提供系统申请入口、设置跳转和自动检测。任务访问应用前会单独询问用户。长期应用授权保存在现有 profile 配置中，会话授权保存在内存中，跨 turn 和连接复用，重启 DSH 或关闭 Computer Use 后失效。可以在同一页面撤销授权。
+显式启用会进行只读权限检查，可能启动 helper，但不会打开系统授权弹窗。[权限页面](../cua/README.zh.md) 提供系统申请入口、设置跳转和自动检测。任务访问应用前会单独询问用户。长期应用授权保存在现有 profile 配置中，会话授权保存在内存中，跨 turn 和连接复用，重启 LYN 或关闭 Computer Use 后失效。可以在同一页面撤销授权。
 
 -----
 

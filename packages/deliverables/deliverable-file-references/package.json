@@ -1,13 +1,13 @@
 {
-  "name": "@deepseek-ai/dsh-deliverable-file-references",
-  "description": "Shared model guidance for file links and deliverables across DeepSeek Harness hosts",
+  "name": "@lyness/lyn-deliverable-file-references",
+  "description": "Shared model guidance for file links and deliverables across lyness hosts",
   "version": "0.2.1-rc.3",
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/deliverables/deliverable-file-references"
   },
   "type": "module",
@@ -29,11 +29,11 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-system-prompt": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-system-prompt": "workspace:*"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-system-prompt": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-system-prompt": "workspace:*"
   }
 }

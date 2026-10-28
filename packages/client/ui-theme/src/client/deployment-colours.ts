@@ -1,7 +1,7 @@
 /**
  * Deployment overrides for the brand colour tokens this package owns.
  *
- * `dsh-brand-deployment` assigns the deployment's brand to a page global before
+ * `lyn-brand-deployment` assigns the deployment's brand to a page global before
  * the client entry runs. The tokens live in this package's palette sheet, so
  * applying an override belongs here too — reading the global directly rather
  * than depending on the host package, which is how the other client readers of
@@ -12,10 +12,10 @@
  * redundant, because a value reaching `setProperty` is a value reaching the
  * stylesheet, and this side cannot see which host produced the page.
  */
-import type { Context } from '@deepseek-ai/cordis'
+import type { Context } from '@lyness/cordis'
 
-/** `globalThis` property `dsh-brand-deployment` assigns before the client entry runs. */
-const DEPLOYMENT_BRAND_GLOBAL = 'dshDeploymentBrand'
+/** `globalThis` property `lyn-brand-deployment` assigns before the client entry runs. */
+const DEPLOYMENT_BRAND_GLOBAL = 'lynDeploymentBrand'
 
 /**
  * Overridable token keys, and the custom property each one sets.
@@ -24,19 +24,19 @@ const DEPLOYMENT_BRAND_GLOBAL = 'dshDeploymentBrand'
  * map is the allowlist.
  */
 const TOKEN_PROPERTIES: Readonly<Record<string, string>> = {
-  black: '--deepseek-harness-black',
-  blue: '--deepseek-harness-blue',
-  blueDark: '--deepseek-harness-blue-dark',
-  cyan: '--deepseek-harness-cyan',
-  white: '--deepseek-harness-white',
-  gray50: '--deepseek-harness-gray-50',
-  gray200: '--deepseek-harness-gray-200',
-  gray600: '--deepseek-harness-gray-600',
-  gray900: '--deepseek-harness-gray-900',
-  success: '--deepseek-harness-success',
-  warning: '--deepseek-harness-warning',
-  error: '--deepseek-harness-error',
-  info: '--deepseek-harness-info',
+  black: '--lyness-black',
+  blue: '--lyness-blue',
+  blueDark: '--lyness-blue-dark',
+  cyan: '--lyness-cyan',
+  white: '--lyness-white',
+  gray50: '--lyness-gray-50',
+  gray200: '--lyness-gray-200',
+  gray600: '--lyness-gray-600',
+  gray900: '--lyness-gray-900',
+  success: '--lyness-success',
+  warning: '--lyness-warning',
+  error: '--lyness-error',
+  info: '--lyness-info',
 }
 
 /**

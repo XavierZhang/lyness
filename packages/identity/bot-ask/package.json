@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-bot-ask",
+  "name": "@lyness/lyn-bot-ask",
   "description": "One bot asking a teammate a question, answered in a conversation of the teammate's own",
   "version": "0.1.7-rc.2",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/identity/bot-ask"
   },
   "type": "module",
@@ -52,34 +52,34 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-agent": "workspace:*",
-    "@deepseek-ai/dsh-agent-default-model": "workspace:*",
-    "@deepseek-ai/dsh-agent-preset-registry": "workspace:*",
-    "@deepseek-ai/dsh-brand": "workspace:*",
-    "@deepseek-ai/dsh-llm": "workspace:*",
-    "@deepseek-ai/dsh-managed-bots": "workspace:*",
-    "@deepseek-ai/dsh-people": "workspace:*",
-    "@deepseek-ai/dsh-session": "workspace:*",
-    "@deepseek-ai/dsh-session-projection": "workspace:*",
-    "@deepseek-ai/dsh-tools": "workspace:*",
-    "@deepseek-ai/dsh-util-crypto": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/lyn-agent-default-model": "workspace:*",
+    "@lyness/lyn-agent-preset-registry": "workspace:*",
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-managed-bots": "workspace:*",
+    "@lyness/lyn-people": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-session-projection": "workspace:*",
+    "@lyness/lyn-tools": "workspace:*",
+    "@lyness/lyn-util-crypto": "workspace:*"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-admin-audit": "workspace:*",
-    "@deepseek-ai/dsh-agent": "workspace:*",
-    "@deepseek-ai/dsh-agent-default-model": "workspace:*",
-    "@deepseek-ai/dsh-agent-loop": "workspace:*",
-    "@deepseek-ai/dsh-agent-preset-registry": "workspace:*",
-    "@deepseek-ai/dsh-brand": "workspace:*",
-    "@deepseek-ai/dsh-llm": "workspace:*",
-    "@deepseek-ai/dsh-managed-bots": "workspace:*",
-    "@deepseek-ai/dsh-people": "workspace:*",
-    "@deepseek-ai/dsh-session": "workspace:*",
-    "@deepseek-ai/dsh-session-projection": "workspace:*",
-    "@deepseek-ai/dsh-system-prompt": "workspace:*",
-    "@deepseek-ai/dsh-tools": "workspace:*",
-    "@deepseek-ai/dsh-util-crypto": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-admin-audit": "workspace:*",
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/lyn-agent-default-model": "workspace:*",
+    "@lyness/lyn-agent-loop": "workspace:*",
+    "@lyness/lyn-agent-preset-registry": "workspace:*",
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-managed-bots": "workspace:*",
+    "@lyness/lyn-people": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-session-projection": "workspace:*",
+    "@lyness/lyn-system-prompt": "workspace:*",
+    "@lyness/lyn-tools": "workspace:*",
+    "@lyness/lyn-util-crypto": "workspace:*"
   }
 }

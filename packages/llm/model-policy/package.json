@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-model-policy",
+  "name": "@lyness/lyn-model-policy",
   "description": "The models a deployment allows: the seam, the static provider, and the waterfall that refuses the rest",
   "version": "0.1.7-rc.2",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/llm/model-policy"
   },
   "type": "module",
@@ -48,21 +48,21 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@deepseek-ai/schemastery": "workspace:~",
+    "@lyness/schemastery": "workspace:~",
     "zod": "^4.4.3"
   },
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-llm": "workspace:*",
-    "@deepseek-ai/dsh-people": "workspace:*",
-    "@deepseek-ai/dsh-storage-domain": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-people": "workspace:*",
+    "@lyness/lyn-storage-domain": "workspace:*"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-llm": "workspace:*",
-    "@deepseek-ai/dsh-people": "workspace:*",
-    "@deepseek-ai/dsh-storage-domain": "workspace:*",
-    "@deepseek-ai/dsh-storage": "workspace:*",
-    "@deepseek-ai/dsh-storage-json": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-people": "workspace:*",
+    "@lyness/lyn-storage": "workspace:*",
+    "@lyness/lyn-storage-domain": "workspace:*",
+    "@lyness/lyn-storage-json": "workspace:*"
   }
 }

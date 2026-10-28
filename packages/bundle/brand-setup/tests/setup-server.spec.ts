@@ -2,16 +2,16 @@
  * The setup server as an operator meets it: the page, the two routes it calls,
  * and the token that is the only way to any of them.
  *
- * The server is the real `dsh-host-webserver` on a loopback port, so these
+ * The server is the real `lyn-host-webserver` on a loopback port, so these
  * drive it over HTTP rather than calling the handlers.
  */
 import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { Context } from '@deepseek-ai/cordis'
-import { WebServer } from '@deepseek-ai/dsh-host-webserver'
-import { internals } from '@deepseek-ai/dsh-cmdline'
+import { Context } from '@lyness/cordis'
+import { WebServer } from '@lyness/lyn-host-webserver'
+import { internals } from '@lyness/lyn-cmdline'
 import { afterEach, describe, expect, it, onTestFinished, vi } from 'vitest'
 import { apply, Config, inject, MAXIMUM_ICON_BYTES, name, TOKEN_HEADER } from '../src/index.ts'
 
@@ -21,9 +21,9 @@ afterEach(() => { vi.unstubAllEnvs() })
 
 /** One running setup server, with the address and token it printed. */
 async function server(assetDirectory?: string): Promise<{ origin: string; token: string; home: string; printed: string }> {
-  const home = await mkdtemp(join(tmpdir(), 'dsh-brand-setup-home-'))
+  const home = await mkdtemp(join(tmpdir(), 'lyn-brand-setup-home-'))
   onTestFinished(async () => { await rm(home, { recursive: true, force: true }) })
-  vi.stubEnv('DSH_HOME', home)
+  vi.stubEnv('LYNESS_HOME', home)
 
   let printed = ''
   const stdout = internals.stdout
@@ -53,7 +53,7 @@ describe('brand-setup server', () => {
   })
 
   it('writes the artwork where the configuration names, in place of the home default', async () => {
-    const elsewhere = await mkdtemp(join(tmpdir(), 'dsh-brand-setup-assets-'))
+    const elsewhere = await mkdtemp(join(tmpdir(), 'lyn-brand-setup-assets-'))
     onTestFinished(async () => { await rm(elsewhere, { recursive: true, force: true }) })
     const subject = await server(join(elsewhere, 'brand'))
     expect(subject.printed).toContain(join(elsewhere, 'brand'))
@@ -73,7 +73,7 @@ describe('brand-setup server', () => {
     expect(page.status).toBe(200)
     expect(page.headers.get('content-type')).toContain('text/html')
     const html = await page.text()
-    expect(html).toContain('<title>DeepSeek Harness brand setup</title>')
+    expect(html).toContain('<title>lyness brand setup</title>')
     // The page drops the token from the address as soon as it has read it.
     expect(html).toContain('history.replaceState')
   })
@@ -149,7 +149,7 @@ describe('brand-setup server', () => {
   })
 
   it('keeps a failure no submission caused off the page', async () => {
-    const elsewhere = await mkdtemp(join(tmpdir(), 'dsh-brand-setup-blocked-'))
+    const elsewhere = await mkdtemp(join(tmpdir(), 'lyn-brand-setup-blocked-'))
     onTestFinished(async () => { await rm(elsewhere, { recursive: true, force: true }) })
     // A file where the artwork directory belongs: the write fails for a reason
     // the operator cannot act on from this page.

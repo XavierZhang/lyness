@@ -7,8 +7,8 @@ from pathlib import Path
 import pytest
 from pydantic import BaseModel
 
-from deepseek_harness import DeepSeekHarness, HarnessClient, HarnessConfig, UserQuestionRequest
-from deepseek_harness.errors import TransportClosedError
+from lyness import Lyness, HarnessClient, HarnessConfig, UserQuestionRequest
+from lyness.errors import TransportClosedError
 
 
 class Response(BaseModel):
@@ -164,7 +164,7 @@ def test_callback_failure_is_returned_to_runtime_and_reader_remains_usable(runti
 
 
 def test_high_level_config_installs_the_same_native_callback(runtime: Path, tmp_path: Path) -> None:
-    with DeepSeekHarness(
+    with Lyness(
         cwd=str(tmp_path), _launch_args=(sys.executable, str(runtime)),
         on_user_question=lambda _request, _cancelled: {"answers": [{"id": "format", "selected": [], "custom": "JSON"}]},
     ) as harness:

@@ -1,15 +1,13 @@
 {
-  "name": "@deepseek-ai/dsh-terminal",
-  "description": "Persistent PTY session seam for the DeepSeek Harness — owner-scoped ids, backend registry, interactive sends, reads, signals, and awaited cleanup",
+  "name": "@lyness/lyn-terminal",
+  "description": "Persistent PTY session seam for the lyness — owner-scoped ids, backend registry, interactive sends, reads, signals, and awaited cleanup",
   "version": "0.2.1-rc.3",
-  "description": "Persistent PTY session seam for the DeepSeek Harness \u2014 owner-scoped ids, backend registry, interactive sends, reads, signals, and awaited cleanup",
-  "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/terminal/terminal"
   },
   "type": "module",
@@ -22,7 +20,7 @@
     },
     "./src/*": "./src/*",
     "./package.json": "./package.json",
-    "./locale/*.json": "./locale/*.json"
+    "./locale/*.json": "./locale/*.json",
     "./preset-contribution": {
       "types": "./lib/types/preset-contribution.d.ts",
       "default": "./lib/types/preset-contribution.js"
@@ -36,20 +34,20 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/dsh-agent": "workspace:*",
-    "@deepseek-ai/dsh-brand": "workspace:*",
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-agent-preset-registry": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/lyn-agent-preset-registry": "workspace:*",
+    "@lyness/lyn-brand": "workspace:*"
   },
   "devDependencies": {
-    "@deepseek-ai/dsh-agent": "workspace:*",
-    "@deepseek-ai/dsh-agent-loop-testkit": "workspace:*",
-    "@deepseek-ai/dsh-brand": "workspace:*",
-    "@deepseek-ai/dsh-session": "workspace:*",
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-agent-preset-registry": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/lyn-agent-loop-testkit": "workspace:*",
+    "@lyness/lyn-agent-preset-registry": "workspace:*",
+    "@lyness/lyn-brand": "workspace:*",
+    "@lyness/lyn-session": "workspace:*"
   },
   "dependencies": {
-    "@deepseek-ai/schemastery": "workspace:~"
+    "@lyness/schemastery": "workspace:~"
   }
 }

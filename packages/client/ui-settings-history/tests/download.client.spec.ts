@@ -15,11 +15,11 @@ it('offers the file to the browser and releases the object URL after the click',
   const created = vi.spyOn(URL, 'createObjectURL').mockReturnValue('blob:history')
   const revoked = vi.spyOn(URL, 'revokeObjectURL').mockImplementation(() => undefined)
   const clicked: { download: string; href: string }[] = []
-  const anchor = document.createElement('a')
-  vi.spyOn(anchor, 'click').mockImplementation(() => {
-    clicked.push({ download: anchor.download, href: anchor.href })
+  // Observed on the prototype rather than by stubbing the element factory: the
+  // assertion is about the anchor this code offers, not about how it got one.
+  vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(function (this: HTMLAnchorElement) {
+    clicked.push({ download: this.download, href: this.href })
   })
-  vi.spyOn(document, 'createElement').mockReturnValue(anchor)
 
   deliverDownload('administrative-history.jsonl', '{"id":"one"}\n')
 

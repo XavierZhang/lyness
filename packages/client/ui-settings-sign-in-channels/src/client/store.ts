@@ -6,12 +6,12 @@
  * rather than in the component is what lets one in-flight read be shared by
  * every open surface.
  *
- * @module @deepseek-ai/dsh-client-ui-settings-sign-in-channels/client/store
+ * @module @lyness/lyn-client-ui-settings-sign-in-channels/client/store
  */
 
-import { defineStore } from '@deepseek-ai/dsh-client-store'
-import type { EngineStoreHandle } from '@deepseek-ai/dsh-client-store'
-import type { ChannelKindView, ConfiguredChannelView } from '@deepseek-ai/dsh-api-sign-in-channel-controller/types'
+import { defineStore } from '@lyness/lyn-client-store'
+import type { EngineStoreHandle } from '@lyness/lyn-client-store'
+import type { ChannelKindView, ConfiguredChannelView } from '@lyness/lyn-api-sign-in-channel-controller/types'
 
 /** Where the read stands. */
 export type ChannelsStatus = 'idle' | 'loading' | 'ready' | 'failed' | 'unavailable' | 'forbidden'

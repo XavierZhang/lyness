@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-model-required",
+  "name": "@lyness/lyn-model-required",
   "description": "Refuse to serve a deployment that reaches no model, at the earliest point an empty registry is conclusive",
   "version": "0.1.7-rc.2",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
     "directory": "packages/llm/model-required"
   },
   "type": "module",
@@ -27,13 +27,13 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-cmdline": "workspace:*",
-    "@deepseek-ai/dsh-llm": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-cmdline": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "workspace:~",
-    "@deepseek-ai/dsh-cmdline": "workspace:*",
-    "@deepseek-ai/dsh-llm": "workspace:*"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-cmdline": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*"
   }
 }

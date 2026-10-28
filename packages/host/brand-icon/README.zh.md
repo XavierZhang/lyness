@@ -3,7 +3,7 @@ description: "把品牌图标 PNG 转成部署提供的单色 SVG 图标与正�
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-host-brand-icon
+# @lyness/lyn-host-brand-icon
 
 [English](README.md) | 中文
 
@@ -31,7 +31,7 @@ kind: "package-reference"
 
 ```ts
 import { readFile, writeFile } from 'node:fs/promises'
-import { isBrandSvg, vectorizeIcon } from '@deepseek-ai/dsh-host-brand-icon'
+import { isBrandSvg, vectorizeIcon } from '@lyness/lyn-host-brand-icon'
 
 const traced = vectorizeIcon(new Uint8Array(await readFile('/srv/acme/upload/icon.png')))
 for (const [name, svg] of [['mark.svg', traced.icon], ['favicon.svg', traced.favicon]] as const) {

@@ -12,7 +12,7 @@ Identity had the same gap in the other direction. An organization wants its own 
 
 ## Decision
 
-`ctx.tenantConfig` reads what one tenant configures for itself: models per modality (language, image, video, music), the providers it reaches them through, the features it may use, the identity text it contributes, and the interface copy it overrides. `@deepseek-ai/dsh-tenant-config-static` provides it from composition config, and `@deepseek-ai/dsh-tenant-http` consumes it, adding the requesting tenant's features and copy to the answer it already gave.
+`ctx.tenantConfig` reads what one tenant configures for itself: models per modality (language, image, video, music), the providers it reaches them through, the features it may use, the identity text it contributes, and the interface copy it overrides. `@lyness/lyn-tenant-config-static` provides it from composition config, and `@lyness/lyn-tenant-http` consumes it, adding the requesting tenant's features and copy to the answer it already gave.
 
 Four rulings shape it.
 

@@ -17,7 +17,7 @@ export async function runSshHelperRuntime(): Promise<void> {
   // The operating system executes Landlock outside the SEA virtual filesystem.
   const nativeManifest = join(dirname(process.execPath), 'native', 'system', 'package.json')
   statSync(nativeManifest)
-  const platformPackage = `@deepseek-ai/node-addon-system-${process.platform}-${process.arch}/package.json`
+  const platformPackage = `@lyness/node-addon-system-${process.platform}-${process.arch}/package.json`
   registerHooks({
     resolve(specifier, context, nextResolve) {
       if (specifier === platformPackage) return { url: pathToFileURL(nativeManifest).href, shortCircuit: true }
@@ -25,15 +25,15 @@ export async function runSshHelperRuntime(): Promise<void> {
     },
   })
 
-  const selection = process.env.DSH_SUBPROCESS_RUNNER
-  Reflect.deleteProperty(process.env, 'DSH_SUBPROCESS_RUNNER')
-  if (process.env.DSH_PTC_RUNTIME_NODE === '1') {
-    Reflect.deleteProperty(process.env, 'DSH_PTC_RUNTIME_NODE')
-    await import('@deepseek-ai/dsh-ptc-runtime-node/process')
+  const selection = process.env.LYNESS_SUBPROCESS_RUNNER
+  Reflect.deleteProperty(process.env, 'LYNESS_SUBPROCESS_RUNNER')
+  if (process.env.LYNESS_PTC_RUNTIME_NODE === '1') {
+    Reflect.deleteProperty(process.env, 'LYNESS_PTC_RUNTIME_NODE')
+    await import('@lyness/lyn-ptc-runtime-node/process')
   } else if (selection !== undefined) {
-    const { runSelectedSubprocessRunner } = await import('@deepseek-ai/dsh-subprocess-local/runner')
+    const { runSelectedSubprocessRunner } = await import('@lyness/lyn-subprocess-local/runner')
     await runSelectedSubprocessRunner(selection)
   } else {
-    await import('@deepseek-ai/dsh-ssh/helper')
+    await import('@lyness/lyn-ssh/helper')
   }
 }

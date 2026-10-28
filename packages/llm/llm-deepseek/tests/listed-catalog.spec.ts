@@ -16,7 +16,7 @@ const PRO = {
   input_modalities: ['text'], output_modalities: ['text'],
   api_capabilities: { anthropic_messages: { system_prompt_update: 'leading-only' } },
 }
-const requires = (version: unknown) => ({ client_requirements: { 'deepseek-harness': { min_version: version } } })
+const requires = (version: unknown) => ({ client_requirements: { 'lyness': { min_version: version } } })
 const resolve = (rows: object[] | undefined, overrides: Record<string, ModelOverride> = {}) => resolveListedCatalog({
   listing: rows === undefined ? undefined : parseModelListing({ data: rows }).entries,
   supported: resolveAdapterOptions({}).models,

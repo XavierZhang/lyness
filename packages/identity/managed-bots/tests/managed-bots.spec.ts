@@ -9,14 +9,14 @@ import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { Membership, MembershipId, PersonId, Role } from '@deepseek-ai/dsh-people'
-import Storage from '@deepseek-ai/dsh-storage'
-import * as StorageJson from '@deepseek-ai/dsh-storage-json'
-import * as StorageDomain from '@deepseek-ai/dsh-storage-domain'
-import AdminAudit from '@deepseek-ai/dsh-admin-audit'
-import ManagedPeople, { NOT_A_PERSON, PeopleRefusedError, standingOf } from '@deepseek-ai/dsh-managed-people'
+import { Context } from '@lyness/cordis'
+import { brandString } from '@lyness/lyn-brand'
+import type { Membership, MembershipId, PersonId, Role } from '@lyness/lyn-people'
+import Storage from '@lyness/lyn-storage'
+import * as StorageJson from '@lyness/lyn-storage-json'
+import * as StorageDomain from '@lyness/lyn-storage-domain'
+import AdminAudit from '@lyness/lyn-admin-audit'
+import ManagedPeople, { NOT_A_PERSON, PeopleRefusedError, standingOf } from '@lyness/lyn-managed-people'
 import ManagedBots, {
   BOT_ROLE, BotsRefusedError, NOT_PERMITTED, ORGANIZATION_REQUIRED, UNKNOWN_BOT, UNKNOWN_PRESET, WRITTEN,
 } from '../src/index.ts'
@@ -58,7 +58,7 @@ function submission(over: Partial<BotSubmission> = {}): BotSubmission {
 async function bench(
   options: { presets?: readonly { id: string; name?: string; description?: string; broken?: string }[] } = {},
 ): Promise<Context> {
-  const root = await mkdtemp(join(tmpdir(), 'dsh-managed-bots-'))
+  const root = await mkdtemp(join(tmpdir(), 'lyn-managed-bots-'))
   roots.push(root)
   const ctx = new Context()
   live.push(ctx)
@@ -287,7 +287,7 @@ describe('what a bot never becomes', () => {
 
 describe('a restart', () => {
   it('finds the stored bots in the roster without anybody opening the surface', async () => {
-    const root = await mkdtemp(join(tmpdir(), 'dsh-managed-bots-'))
+    const root = await mkdtemp(join(tmpdir(), 'lyn-managed-bots-'))
     roots.push(root)
 
     /** One runtime over that storage. */

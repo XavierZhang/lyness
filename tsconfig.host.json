@@ -585,7 +585,7 @@
     { "path": "./packages/subagent/subagent-codex" },
     { "path": "./packages/experimental/subagent-oar" },
     { "path": "./packages/experimental/tool-subagent-oar" },
-    { "path": "./packages/subagent/subagent-dsh-sdk" },
+    { "path": "./packages/subagent/subagent-lyn-sdk" },
     { "path": "./packages/jobs/jobs" },
     { "path": "./packages/jobs/jobs-local" },
     { "path": "./packages/jobs/tool-jobs" },
