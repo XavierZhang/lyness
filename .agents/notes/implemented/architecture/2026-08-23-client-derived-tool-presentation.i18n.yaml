@@ -9,11 +9,11 @@
   en: 9f34c53e647c69ca
   zh: 551776c7cc9618b5
 /agent-note-client-derived-presentation-from-raw-session-tool-events/decision:
-  en: f8277c7369470034
-  zh: 0b99ea03edefc204
+  en: 69c87c98612b4fed
+  zh: 0b883bb8aecfa206
 /agent-note-client-derived-presentation-from-raw-session-tool-events/decision/goals-and-non-goals:
-  en: 1f690c5436a251be
-  zh: d3f0bd91ab6b4e97
+  en: f907afcddf2ead6c
+  zh: 6fd4d6ccf90d0de5
 /agent-note-client-derived-presentation-from-raw-session-tool-events/terminology:
   en: 021106dd41176715
   zh: 131caff7bd37251b
@@ -72,11 +72,11 @@
   en: f40f0a8ee8c055c0
   zh: 6957b7372956113c
 /agent-note-client-derived-presentation-from-raw-session-tool-events/client-card-model-design/generic-tool-row:
-  en: 20ff82b092325c5c
-  zh: 1afd5441a9816117
+  en: d336c77d1b09f349
+  zh: 6e613f9c9108058f
 /agent-note-client-derived-presentation-from-raw-session-tool-events/client-card-model-design/terminal-card:
-  en: eab7f366df331b6e
-  zh: d82499e2a982206f
+  en: ecba2fb6db92ee94
+  zh: 0aa994938562af04
 /agent-note-client-derived-presentation-from-raw-session-tool-events/client-card-model-design/diff-card:
   en: ea384415c94f82da
   zh: 5f146c6cb534e1db
@@ -99,8 +99,8 @@
   en: e5b42aa311079bd7
   zh: ec4cf97037ece7e0
 /agent-note-client-derived-presentation-from-raw-session-tool-events/presentation-equivalence-matrix:
-  en: 30915c26728eeafe
-  zh: eea04dea7b4604a5
+  en: 7974f20a6ac687ac
+  zh: cb4c350325a6da67
 /agent-note-client-derived-presentation-from-raw-session-tool-events/client-extension-contract:
   en: 96619dfd5ef299cf
   zh: 253df98eb42ad75e
@@ -183,8 +183,8 @@
   en: bc8905288acaa820
   zh: ff551936bd5ea93f
 /agent-note-client-derived-presentation-from-raw-session-tool-events/alternatives-considered/allow-presentation-enhancements:
-  en: fc01e3f3aa6bcbbb
-  zh: 49aef4247854f117
+  en: 8f2f196cc717978f
+  zh: 1e972c9aedc4e41d
 /agent-note-client-derived-presentation-from-raw-session-tool-events/alternatives-considered/accept-temporary-generic-degradation:
   en: 1a8fd108d32bd199
   zh: 5cd1c7adf3fe824d
@@ -222,8 +222,8 @@
   en: d7e581086940fafa
   zh: d452320fee6ef875
 /agent-note-client-derived-presentation-from-raw-session-tool-events/relationship-to-existing-decisions:
-  en: 936db0077050f72b
-  zh: 9f3fcfcc1fb39279
+  en: ff6c5ed2f79c5206
+  zh: bb63dfd8f89997c6
 /agent-note-client-derived-presentation-from-raw-session-tool-events/deferred:
-  en: dcd92bc33fbb1885
-  zh: 3d1ea8a6b3f3f3a7
+  en: a60c9007c9d26dfd
+  zh: 225b1f7544bca324

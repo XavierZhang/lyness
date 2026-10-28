@@ -3,11 +3,11 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-10-14-plugin-entry-customization.md
 /agent-note-plugin-entry-customization-region-owned-pins-and-more-menus:
-  en: 2fdf5b95d5603955
-  zh: bfdc61e7db5f5f5b
+  en: 23b5777971c77640
+  zh: 0850d23e25d35a90
 /agent-note-plugin-entry-customization-region-owned-pins-and-more-menus/problem:
-  en: 896876f139383cba
-  zh: 42a4aae7e5885780
+  en: fbb0ed364e9aea97
+  zh: b5e6dc699eed5b06
 /agent-note-plugin-entry-customization-region-owned-pins-and-more-menus/decision:
   en: a6cfc29cb9caa83c
   zh: 21bbeb6a7ab20018
@@ -18,14 +18,14 @@
   en: d6a2816ca55b1c38
   zh: 53217016f1595755
 /agent-note-plugin-entry-customization-region-owned-pins-and-more-menus/decision/package-changes-relative-to-release-lyn-0-2-1:
-  en: 18ed81fee1ca7d41
-  zh: fc298457e54b6488
+  en: 7289900cc318e9fc
+  zh: 614044c916e83aa9
 /agent-note-plugin-entry-customization-region-owned-pins-and-more-menus/decision/actions-slots-and-menu-content:
   en: c87e2fdd911714b5
   zh: 074426fdc7abafa9
 /agent-note-plugin-entry-customization-region-owned-pins-and-more-menus/decision/the-three-regions:
-  en: 770c6150e84742ba
-  zh: 1d619388c8f38646
+  en: 51546d64a3706850
+  zh: f981cadfa64b23e5
 /agent-note-plugin-entry-customization-region-owned-pins-and-more-menus/alternatives-considered:
   en: 79355028387c4094
   zh: 5b518166e4803ebe

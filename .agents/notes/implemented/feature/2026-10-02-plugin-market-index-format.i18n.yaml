@@ -3,17 +3,17 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/feature/2026-10-02-plugin-market-index-format.md
 /agent-note-plugin-market-index-format:
-  en: ee3515adb22d4af6
-  zh: 5dfd687255f64e95
+  en: d109a82767d6f77b
+  zh: c16ffc474a5aec73
 /agent-note-plugin-market-index-format/problem:
-  en: ce5e4a362f558af6
-  zh: 29d93e0655b99217
+  en: bec47d699a277ccb
+  zh: ac6738eafe3be39a
 /agent-note-plugin-market-index-format/decision:
-  en: 906ac925fc53dd87
-  zh: affcc405e186b0d7
+  en: 6abbca1ddea6d290
+  zh: b0204ab9f35efbc1
 /agent-note-plugin-market-index-format/decision/example:
-  en: 1b1c960c966cf912
-  zh: 97be87cb14893c26
+  en: f7a77e4d221ef955
+  zh: 43f9848dc5bd2c3e
 /agent-note-plugin-market-index-format/decision/root-fields:
   en: 4fac5a9b8261342d
   zh: f9168a8a4209feab
@@ -21,26 +21,26 @@
   en: b79abd05a957948b
   zh: b6f0c203ea8e4838
 /agent-note-plugin-market-index-format/decision/version-fields:
-  en: d6c0fa99e1cbb068
-  zh: 3d2a7b85299c679a
+  en: 241b779cc3b2c08b
+  zh: 51315d880a79b9a2
 /agent-note-plugin-market-index-format/decision/install-arguments:
-  en: c748cdc4d8ce349a
-  zh: 5740fa0d6106e637
+  en: 81a75abd19ee00f3
+  zh: 0619dc432cb08f76
 /agent-note-plugin-market-index-format/decision/lyn-compatibility:
-  en: 00fe507b9b5dfea7
-  zh: 55de6aaeb3865e84
+  en: a8eff5babc1ca930
+  zh: 1fe974fd8669fd49
 /agent-note-plugin-market-index-format/decision/generator-obligations:
-  en: 923849223cb1e70e
-  zh: f3daf398bc06c81a
+  en: 450cc49ac79d81e2
+  zh: a39e7b846b947124
 /agent-note-plugin-market-index-format/decision/reader-rules:
-  en: 92903cbe87d9c0ca
-  zh: 54af6cb33e9da252
+  en: c2d22b4722236018
+  zh: f6e41a009e3a36e2
 /agent-note-plugin-market-index-format/alternatives-considered:
-  en: 908407ed974101d2
-  zh: b4b7391c513bda60
+  en: f22c17d50e38df4c
+  zh: 837571497ccf9fda
 /agent-note-plugin-market-index-format/consequences:
-  en: 4aee5ff31901049a
-  zh: 8187b6216bb8b06b
+  en: 18a4005e1ef87ba6
+  zh: 9433296c201aec2e
 /agent-note-plugin-market-index-format/risks:
-  en: 41170d483b17df80
-  zh: 1bfd8f44e0f09036
+  en: 098a05be5304322e
+  zh: 09b8b4ab89b6d929

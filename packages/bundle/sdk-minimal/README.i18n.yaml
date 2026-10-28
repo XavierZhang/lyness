@@ -3,26 +3,26 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/bundle/sdk-minimal/README.md
 /:
-  en: ae5bdac5add26503
-  zh: 93cd37d41c05fc9c
+  en: b2fce08b0fa865da
+  zh: 97e214d87ded4b54
 /lyness-lyn-sdk-minimal:
   en: 078a29075edb2f0e
   zh: 40dfa7596fd7646f
 /lyness-lyn-sdk-minimal/summary:
-  en: 51fa25e43a9f69e3
-  zh: 39ea32e951b17315
+  en: 448cf04df9912b3f
+  zh: f98c0a045353b677
 /lyness-lyn-sdk-minimal/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
 /lyness-lyn-sdk-minimal/use-this-package:
-  en: c30575ec6ef52e93
-  zh: 49456d732b8109e9
+  en: b1cb4abc65841a1f
+  zh: fd4b8bf675d68c97
 /lyness-lyn-sdk-minimal/understand-the-implementation:
-  en: e852d06397b82485
-  zh: 318698382c83ac7f
+  en: 93f204bda5da8add
+  zh: 1f72007e051c45e1
 /lyness-lyn-sdk-minimal/understand-the-implementation/source-map:
-  en: d992e946f4928fa3
-  zh: 46d6b3d1aabdc3f4
+  en: 3784c554e96ab004
+  zh: 0a05d4fe1e26b3b1
 /lyness-lyn-sdk-minimal/further-exploration:
   en: bbe013d8e75f5880
   zh: c62e65f1f1ccdf87
@@ -33,17 +33,17 @@
   en: bd87e16b0c6e0506
   zh: c8ee5e3b4578754e
 /lyness-lyn-sdk-minimal/model-experience/minimal-coding-agent-composition/what-the-model-sees:
-  en: 64b1ecf871a436a5
-  zh: 84bf33ef6c463bf6
+  en: 339b0b832393c1df
+  zh: c0721072f4acf57a
 /lyness-lyn-sdk-minimal/model-experience/minimal-coding-agent-composition/token-effect:
-  en: 65613fb41fcc3151
-  zh: fc20a732aca8282c
+  en: 016097d114e3a536
+  zh: 76fac8a9ed308f54
 /lyness-lyn-sdk-minimal/model-experience/minimal-coding-agent-composition/kv-cache-effect:
-  en: 904ae09b5fdb87c1
-  zh: de6fcaaa12bd9733
+  en: dd887b6519f40ab3
+  zh: a98e56411fdc79df
 /lyness-lyn-sdk-minimal/known-limitations-and-deferred-work:
-  en: e8b65c80c6b950cc
-  zh: ebbfbdbe885542f5
+  en: c839b7839111d651
+  zh: 565f7055a6b1fb11
 /lyness-lyn-sdk-minimal/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: e88aeb617ffb74ea

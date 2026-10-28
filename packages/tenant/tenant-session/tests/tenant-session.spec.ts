@@ -11,6 +11,7 @@ import StaticTenantDirectory from '@lyness/lyn-tenant-static'
 import StaticTenantConfigStore from '@lyness/lyn-tenant-config-static'
 import * as TenantSession from '../src/index.ts'
 import type { TenantSessionRecord } from '../src/index.ts'
+import { tenantSessionProjectionDefinition } from '@lyness/lyn-tenant-session'
 
 const ROSTER = { tenants: [{ id: 'acme', slug: 'acme', displayName: 'Acme' }] }
 const CONFIGURED = {
@@ -78,11 +79,11 @@ describe('tenant session stamp', () => {
   it('reads the record back through the tenant projection, and stamps a session only once', async () => {
     const ctx = await bench({ configured: true })
     const session = ctx.sessions.create()
-    expect(ctx.sessionProjections.stateOf(session, 'tenant')).toMatchObject({ tenantId: 'acme' })
+    expect((await ctx.sessionProjections.register(tenantSessionProjectionDefinition)).stateOf(session)).toMatchObject({ tenantId: 'acme' })
 
     // Every other event leaves the record alone.
     session.append('turn/start', { turn: 1 })
-    expect(ctx.sessionProjections.stateOf(session, 'tenant')).toMatchObject({ tenantId: 'acme' })
+    expect((await ctx.sessionProjections.register(tenantSessionProjectionDefinition)).stateOf(session)).toMatchObject({ tenantId: 'acme' })
 
     // A second mount is a restart: the session keeps the record it was created with.
     await ctx.plugin(TenantSession, { tenantId: 'acme' }).await()

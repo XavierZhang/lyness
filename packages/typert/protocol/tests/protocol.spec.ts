@@ -92,7 +92,7 @@ declare module '@lyness/lyn-typert-protocol' {
  * @returns the same object, as the decorator's declared options.
  */
 function badOptions<Args extends unknown[]>(value: object): RemoteMethodOptions<RemoteWireArgs<Args>> {
-  return value as RemoteMethodOptions<RemoteWireArgs<Args>>
+  return value
 }
 
 describe('typert-protocol Remote declarations', () => {

@@ -15,8 +15,8 @@
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
 /lyness-lyn-tool-pwsh/use-this-package:
-  en: 276673e446454959
-  zh: 63c249f089201c0b
+  en: 0df4a4b846743670
+  zh: 9f85fa33f77c65b7
 /lyness-lyn-tool-pwsh/use-this-package/when-to-choose-it:
   en: f572447d92de7187
   zh: 0a6c566e99ca972e
@@ -24,11 +24,11 @@
   en: ab20024178cdfdb9
   zh: 42b59490449150f9
 /lyness-lyn-tool-pwsh/use-this-package/running-a-command:
-  en: 341e71d02c915712
-  zh: 127dbbd92d1bd32f
+  en: 4595bd8873b735a6
+  zh: c98d2817f9ff4284
 /lyness-lyn-tool-pwsh/use-this-package/foreground-commands-as-jobs:
-  en: 4a487e48ef146846
-  zh: 0a34dc49bffb03af
+  en: e2ac7a741c287b92
+  zh: a9e95c0a84671f45
 /lyness-lyn-tool-pwsh/use-this-package/windows-specific-sandbox-behavior:
   en: 76f3f791f53d1005
   zh: e5b262db24e6eb83
@@ -36,20 +36,20 @@
   en: 6ed671bbaf4e96cb
   zh: 7f2191a5c1658f60
 /lyness-lyn-tool-pwsh/understand-the-implementation:
-  en: 8d94a7381bca3fa9
-  zh: f4bd2866fff6fa8d
+  en: 165313776a851b51
+  zh: 828f48807036aff0
 /lyness-lyn-tool-pwsh/understand-the-implementation/design-philosophy:
-  en: d27dd66d5743d0a2
-  zh: c0d43831faaab56e
+  en: efad9e0b25cc18d8
+  zh: ded29f22fde8b81c
 /lyness-lyn-tool-pwsh/understand-the-implementation/source-map:
-  en: 09557aa79cbe3a7d
-  zh: e5f36b411d01f844
+  en: aa2adb29a0f27fcd
+  zh: 612829167064acd1
 /lyness-lyn-tool-pwsh/understand-the-implementation/rendering-and-exit-markers:
   en: 61144979c183c137
   zh: d59c103e0b1e49c0
 /lyness-lyn-tool-pwsh/further-exploration:
-  en: 1d8a0d8b5792f200
-  zh: 9d18dc2ace4db4cd
+  en: 234930f0f2533383
+  zh: 5607714375e47f2c
 /lyness-lyn-tool-pwsh/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
@@ -117,8 +117,8 @@
   en: f5d5f97a153f7c70
   zh: 31911b4f3506d6c8
 /lyness-lyn-tool-pwsh/known-limitations-and-deferred-work:
-  en: 8a1e5ad6f299a419
-  zh: 4b952ca2794aab5a
+  en: 8f14c365dd14f43a
+  zh: 46372077ee341f1b
 /lyness-lyn-tool-pwsh/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

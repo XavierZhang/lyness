@@ -15,17 +15,20 @@
   en: 87679c51aa3693f5
   zh: 11684a48a5806afb
 /lyness-lyn-plugin-manager/use-this-package:
-  en: 4484396f35048c19
-  zh: b9def8d222d1263d
+  en: d8fd684a73b7d62c
+  zh: c504fca7dfbf21af
 /lyness-lyn-plugin-manager/use-this-package/version-compatibility-and-exemptions:
-  en: fa5da98442357fbb
-  zh: 47bbbe10f4bde946
+  en: 73a9429762d425e2
+  zh: 158c4600deb9c3f2
 /lyness-lyn-plugin-manager/use-this-package/configuration:
-  en: 631d57fb6e1b0b89
-  zh: a00c505dcc7083fd
+  en: 09f5564b738c8a42
+  zh: cd357ea8198d7a41
+/lyness-lyn-plugin-manager/use-this-package/bundle-detail-documents:
+  en: e3ed1a3bd136b7e1
+  zh: dab2a3669f667b06
 /lyness-lyn-plugin-manager/understand-the-implementation:
-  en: a8d0ffb1a38cf1e1
-  zh: 6671853fc0a276be
+  en: 2a9d2d82a21277b9
+  zh: 23bd423a04462da4
 /lyness-lyn-plugin-manager/further-exploration:
   en: 30450b209a470ab3
   zh: 557d9670d8565de5
@@ -36,8 +39,8 @@
   en: 1815ec6ce56c80d4
   zh: 2d7ac75d3b25eb6b
 /lyness-lyn-plugin-manager/model-experience/management-tool/what-the-model-sees:
-  en: 5abbd830f709a3b5
-  zh: 6580eb7e1ab41919
+  en: 78b506cf9ab826f7
+  zh: f0f7270cedb3107b
 /lyness-lyn-plugin-manager/model-experience/management-tool/token-effect:
   en: bc70208bd361dbcd
   zh: bb651d6066066c6c
@@ -45,11 +48,11 @@
   en: c29f60be7f3edc1a
   zh: d9b9388b96ef95cc
 /lyness-lyn-plugin-manager/known-limitations-and-deferred-work:
-  en: ad45d8290a1e6c7e
-  zh: 9061a7f39371bb47
+  en: 1be2103fad8a3ce8
+  zh: 71a11791cefd6fc8
 /lyness-lyn-plugin-manager/known-limitations-and-deferred-work/failure-behavior:
-  en: 72e11d7be246a132
-  zh: 0431d5612e3280c8
+  en: 4df645c355cfde5c
+  zh: bc1327a1a652a98d
 /lyness-lyn-plugin-manager/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

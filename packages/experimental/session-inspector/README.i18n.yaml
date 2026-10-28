@@ -5,30 +5,30 @@
 /:
   en: 0a2bfa5b44f68150
   zh: b43dafddb48f1bf7
-/deepseek-ai-lyn-experimental-session-inspector:
-  en: 151ad1f553a733d7
-  zh: b2992178863a80c7
-/deepseek-ai-lyn-experimental-session-inspector/summary:
-  en: da1f12910d37aa6e
-  zh: a6aaf26eb598a80a
-/deepseek-ai-lyn-experimental-session-inspector/table-of-contents:
+/lyness-lyn-experimental-session-inspector:
+  en: 11a80fa488d61ea4
+  zh: 4d9f604375b3988b
+/lyness-lyn-experimental-session-inspector/summary:
+  en: 23883f64f34e94d5
+  zh: 3b5c38b4a9a50d0e
+/lyness-lyn-experimental-session-inspector/table-of-contents:
   en: 76368b6b1da79c80
   zh: 52384aee991ac542
-/deepseek-ai-lyn-experimental-session-inspector/use-this-package:
+/lyness-lyn-experimental-session-inspector/use-this-package:
   en: f8ee16e89f8b1d07
   zh: 85fb112b26ec0ccb
-/deepseek-ai-lyn-experimental-session-inspector/understand-the-implementation:
+/lyness-lyn-experimental-session-inspector/understand-the-implementation:
   en: 6d71dcef4dca024b
   zh: 17b24af15211fede
-/deepseek-ai-lyn-experimental-session-inspector/model-experience:
+/lyness-lyn-experimental-session-inspector/model-experience:
   en: 4059fc1908bc9c22
   zh: de0a5d8079e31c81
-/deepseek-ai-lyn-experimental-session-inspector/model-experience/kv-cache-effect:
+/lyness-lyn-experimental-session-inspector/model-experience/kv-cache-effect:
   en: 258d6659c6cb3789
   zh: a6517f274c596a7a
-/deepseek-ai-lyn-experimental-session-inspector/known-limitations-and-deferred-work:
+/lyness-lyn-experimental-session-inspector/known-limitations-and-deferred-work:
   en: 042b2cc65c722176
   zh: 1530b5fa68f2baa1
-/deepseek-ai-lyn-experimental-session-inspector/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-experimental-session-inspector/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 8ec3e73528ddb1a6

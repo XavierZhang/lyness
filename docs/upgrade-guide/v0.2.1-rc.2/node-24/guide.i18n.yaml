@@ -3,14 +3,14 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write docs/upgrade-guide/v0.2.1-rc.2/node-24/guide.md
 /:
-  en: 59f0a8ea5e09a902
-  zh: 2c4a18f247a8f36c
+  en: 9501c81258ba51bc
+  zh: c65666a48e6a129e
 /node-js-24-is-required:
-  en: 6de920b8f905304d
-  zh: 019e0df3bf4effe9
+  en: 8e348cc2aa99b536
+  zh: 42de4bf25498beb4
 /node-js-24-is-required/change:
-  en: ca2d29f4225a9883
-  zh: 13ec2ae202dd2e39
+  en: a6b9da0d85a3cb88
+  zh: be8f5db0737359e2
 /node-js-24-is-required/migration:
-  en: 375d422a3627042b
-  zh: 9455a6b87431050f
+  en: e5a5588774d19c91
+  zh: cc1b43beb8240eb2

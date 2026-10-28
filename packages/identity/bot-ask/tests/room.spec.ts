@@ -80,7 +80,7 @@ async function bench(): Promise<{ ctx: Context; model: TakingTurnsAdapter; log: 
     currentSelection: () => ({ provider: ANSWERING_PROVIDER, model: 'scripted' }),
     saveSelection: () => Promise.resolve(),
   } as never)
-  ctx.sessionProjections.register(botProjectionDefinition)
+  await ctx.sessionProjections.register(botProjectionDefinition)
   const log: Recorded[] = []
   ctx.on('session/event', (session, event) => { log.push({ session: session.id, type: event.type, data: event.data }) })
   await ctx.plugin(AdminAudit, {}).await()

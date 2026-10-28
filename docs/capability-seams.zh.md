@@ -79,6 +79,39 @@ flowchart LR
   pkg_llm_replay["llm-replay"]
   pkg_agent_loop["agent-loop"]
   pkg_compaction_basic["compaction-basic"]
+  pkg_model_policy["model-policy"]
+  svc_modelPolicy["ctx.modelPolicy<br/>Models a deployment allows"]
+  pkg_model_policy_static["model-policy/static"]
+  pkg_model_policy_enforce["model-policy/enforce"]
+  pkg_credits["credits"]
+  svc_creditSubject["ctx.creditSubject<br/>Whose credits a request spends"]
+  pkg_credits_enforce["credits/enforce"]
+  svc_credits["ctx.credits<br/>The allowance a hosted deployment meters"]
+  pkg_credits_store["credits/store"]
+  svc_creditAdministration["ctx.creditAdministration<br/>Administrator credit decisions"]
+  pkg_credits_administration["credits/administration"]
+  pkg_desktop_link["desktop-link"]
+  svc_desktopLink["ctx.desktopLink<br/>The link to a person own machine"]
+  pkg_desktop_link_controller["desktop-link/controller"]
+  pkg_announcements["announcements"]
+  svc_announcements["ctx.announcements<br/>What a deployment tells the people using it"]
+  pkg_announcements_static["announcements/static"]
+  pkg_api_announcement_controller["api-announcement-controller"]
+  pkg_sign_in["sign-in"]
+  svc_signIn["ctx.signIn<br/>Sign-in through an external directory"]
+  svc_signInAdmission["ctx.signInAdmission<br/>Who an authenticated directory subject is here"]
+  pkg_sign_in_admission_roster["sign-in/admission-roster"]
+  pkg_request_principal["request-principal"]
+  svc_requestPrincipal["ctx.requestPrincipal<br/>Who the call in progress is"]
+  pkg_credits_subject_request["credits/subject-request"]
+  pkg_auth_session["auth-session"]
+  svc_authSessions["ctx.authSessions<br/>Signed-in sessions"]
+  pkg_auth_session_store["auth-session/store"]
+  pkg_acting_context["acting-context"]
+  svc_actingContext["ctx.actingContext<br/>The context one call acts in"]
+  pkg_people["people"]
+  svc_people["ctx.people<br/>People and their standing in an organization"]
+  pkg_people_static["people/static"]
   pkg_deepseek_llm_api_extensions["deepseek-llm-api-extensions"]
   svc_deepseekLlmApiExtensions["ctx.deepseekLlmApiExtensions<br/>Official DeepSeek request extensions"]
   pkg_session_log_deepseek["session-log-deepseek"]
@@ -206,6 +239,10 @@ flowchart LR
   pkg_sdk_minimal["sdk-minimal"]
   pkg_schedule["schedule"]
   svc_schedule["ctx.schedule<br/>Host scheduled messages"]
+  pkg_microsoft_entra["microsoft-entra"]
+  svc_microsoftEntra["ctx.microsoftEntra<br/>Microsoft Entra sign-in"]
+  pkg_memory["memory"]
+  svc_memory["ctx.memory<br/>Durable cross-session memory"]
   pkg_goal["goal"]
   svc_goals["ctx.goals<br/>Same-session goal domain"]
   pkg_ssh["ssh"]
@@ -287,6 +324,48 @@ flowchart LR
   svc_directoryPicker["ctx.directoryPicker<br/>Workspace-directory picking seam"]
   pkg_host_directory_picker_native["host-directory-picker-native"]
   pkg_host_directory_picker_browse["host-directory-picker-browse"]
+  svc_signInKinds["ctx.signInKinds<br/>Sign-in channel kinds"]
+  pkg_wecom["wecom"]
+  pkg_dingtalk["dingtalk"]
+  pkg_feishu["feishu"]
+  pkg_sign_in_channels["sign-in-channels"]
+  svc_signInChannels["ctx.signInChannels<br/>Configured sign-in channels"]
+  pkg_bot_ask["bot-ask"]
+  svc_botRoom["ctx.botRoom<br/>Several bots discussing one question"]
+  svc_botAsk["ctx.botAsk<br/>One bot asking a teammate"]
+  pkg_admin_audit["admin-audit"]
+  svc_adminAudit["ctx.adminAudit<br/>The trail of administrative changes"]
+  pkg_managed_bots["managed-bots"]
+  svc_managedBots["ctx.managedBots<br/>The bots an administrator maintains"]
+  pkg_managed_people["managed-people"]
+  svc_managedPeople["ctx.managedPeople<br/>People and admission an administrator maintains"]
+  pkg_api_admin_audit_controller["api-admin-audit-controller"]
+  svc_adminAuditController["ctx.adminAuditController<br/>The trail an administrator reads"]
+  pkg_api_bots_controller["api-bots-controller"]
+  svc_botsController["ctx.botsController<br/>The bots an organization runs"]
+  pkg_api_people_controller["api-people-controller"]
+  svc_peopleController["ctx.peopleController<br/>Who may use this deployment"]
+  pkg_session_ownership["session-ownership"]
+  svc_sessionVisibility["ctx.sessionVisibility<br/>Whose conversation one call may see"]
+  pkg_api_sign_in_channel_controller["api-sign-in-channel-controller"]
+  svc_signInChannelController["ctx.signInChannelController<br/>Host sign-in channel Remote controller"]
+  pkg_api_identity_controller["api-identity-controller"]
+  svc_identityController["ctx.identityController<br/>Host viewer Remote controller"]
+  pkg_api_credits_controller["api-credits-controller"]
+  svc_creditsController["ctx.creditsController<br/>Host credits Remote controller"]
+  pkg_api_tenant_controller["api-tenant-controller"]
+  svc_tenantController["ctx.tenantController<br/>Host tenant-configuration Remote controller"]
+  pkg_tenant_request["tenant-request"]
+  svc_requestTenant["ctx.requestTenant<br/>Calling tenant of one RPC call"]
+  pkg_tenant_session["tenant-session"]
+  pkg_tenant_config["tenant-config"]
+  svc_tenantConfig["ctx.tenantConfig<br/>Tenant configuration seam"]
+  pkg_tenant_config_static["tenant-config-static"]
+  pkg_tenant_config_store["tenant-config-store"]
+  pkg_tenant_http["tenant-http"]
+  pkg_tenant["tenant"]
+  svc_tenants["ctx.tenants<br/>Tenant directory seam"]
+  pkg_tenant_static["tenant-static"]
   pkg_host_webserver["host-webserver"]
   svc_webServer["ctx.webServer<br/>HTTP route registration"]
   pkg_client_modules["client-modules"]
@@ -307,19 +386,30 @@ flowchart LR
   pkg_cordis_host_runner["cordis-host-runner"]
   svc_dynamicCordisRunner["ctx.dynamicCordisRunner<br/>Dynamic Cordis package host runner"]
   svc_cordisInspect["ctx.cordisInspect<br/>Dynamic Cordis inspect registry"]
+  pkg_acting_context --> svc_actingContext
   pkg_action_cards --> svc_actionCards
+  pkg_admin_audit --> svc_adminAudit
   pkg_agent --> svc_agents
   pkg_agent_default_model --> svc_agentDefaultModel
   pkg_agent_loop --> svc_agentLoop
   pkg_agent_preset_registry --> svc_agentPresets
+  pkg_announcements --> svc_announcements
+  pkg_announcements_static --> svc_announcements
+  pkg_api_admin_audit_controller --> svc_adminAuditController
+  pkg_api_bots_controller --> svc_botsController
+  pkg_api_credits_controller --> svc_creditsController
   pkg_api_gateway --> svc_typertGateway
+  pkg_api_identity_controller --> svc_identityController
   pkg_api_job_controller --> svc_jobController
+  pkg_api_people_controller --> svc_peopleController
   pkg_api_remote_access --> svc_remoteAccess
   pkg_api_session_controller --> svc_sessionController
   pkg_api_session_controller --> svc_sessionFileReferences
   pkg_api_session_controller --> svc_sessionSkillCatalog
   pkg_api_settings_controller --> svc_credentialsController
   pkg_api_settings_controller --> svc_settingsController
+  pkg_api_sign_in_channel_controller --> svc_signInChannelController
+  pkg_api_tenant_controller --> svc_tenantController
   pkg_api_terminal_controller --> svc_terminalController
   pkg_api_workspace_controller --> svc_directoryPickerController
   pkg_api_workspace_controller --> svc_workspaceController
@@ -327,9 +417,13 @@ flowchart LR
   pkg_app_boot --> svc_profileContext
   pkg_attachment --> svc_attachments
   pkg_attachment_local --> svc_attachments
+  pkg_auth_session --> svc_authSessions
+  pkg_auth_session_store --> svc_authSessions
   pkg_authorization --> svc_authorization
   pkg_bash_local --> svc_shell
   pkg_bash_sandbox --> svc_shell
+  pkg_bot_ask --> svc_botAsk
+  pkg_bot_ask --> svc_botRoom
   pkg_browser_use --> svc_browserUse
   pkg_client_connection --> svc_connection
   pkg_client_file_upload --> svc_fileUploads
@@ -347,10 +441,17 @@ flowchart LR
   pkg_cordis_host_runner --> svc_dynamicCordisRunner
   pkg_credentials --> svc_credentials
   pkg_credentials_local --> svc_credentials
+  pkg_credits --> svc_creditAdministration
+  pkg_credits --> svc_creditSubject
+  pkg_credits --> svc_credits
+  pkg_credits_administration --> svc_creditAdministration
+  pkg_credits_store --> svc_credits
   pkg_cua --> svc_cuaAccess
   pkg_deepseek_account --> svc_deepseekAccount
   pkg_deepseek_account_platform --> svc_deepseekAccount
   pkg_deepseek_llm_api_extensions --> svc_deepseekLlmApiExtensions
+  pkg_desktop_link --> svc_desktopLink
+  pkg_dingtalk --> svc_signInKinds
   pkg_experimental_agent_team --> svc_agentTeams
   pkg_experimental_api_speech_to_text --> svc_speechController
   pkg_experimental_browser_use_chrome_devtools_mcp --> svc_browserUse
@@ -365,6 +466,7 @@ flowchart LR
   pkg_experimental_speech_to_text_sensevoice --> svc_speechToText
   pkg_experimental_translator --> svc_translator
   pkg_experimental_worktree --> svc_worktrees
+  pkg_feishu --> svc_signInKinds
   pkg_file_reference --> svc_fileReferences
   pkg_file_reference_local --> svc_fileReferences
   pkg_fs --> svc_fs
@@ -388,11 +490,19 @@ flowchart LR
   pkg_llm_replay --> svc_llm
   pkg_lsp --> svc_lsp
   pkg_lsp_stdio --> svc_lsp
+  pkg_managed_bots --> svc_managedBots
+  pkg_managed_people --> svc_managedPeople
   pkg_mcp_client --> svc_mcpResources
   pkg_mcp_resources --> svc_mcpResources
+  pkg_memory --> svc_memory
   pkg_message_feedback --> svc_messageFeedback
+  pkg_microsoft_entra --> svc_microsoftEntra
+  pkg_model_policy --> svc_modelPolicy
+  pkg_model_policy_static --> svc_modelPolicy
   pkg_office_to_pdf --> svc_officeToPdf
   pkg_otel --> svc_otel
+  pkg_people --> svc_people
+  pkg_people_static --> svc_people
   pkg_permission_presets --> svc_permissionPresets
   pkg_plan_mode --> svc_planMode
   pkg_plugin_manager --> svc_pluginManager
@@ -402,6 +512,7 @@ flowchart LR
   pkg_ptc_runtime --> svc_ptcRuntime
   pkg_ptc_runtime_node --> svc_ptcRuntime
   pkg_pwsh_local --> svc_shell
+  pkg_request_principal --> svc_requestPrincipal
   pkg_sandbox --> svc_sandbox
   pkg_sandbox_local --> svc_sandbox
   pkg_sandbox_policy --> svc_sandboxPolicy
@@ -410,6 +521,7 @@ flowchart LR
   pkg_schedule --> svc_schedule
   pkg_session --> svc_sessions
   pkg_session_log_deepseek --> svc_deepseekLlmApiExtensions
+  pkg_session_ownership --> svc_sessionVisibility
   pkg_session_persistence --> svc_sessionPersistence
   pkg_session_persistence_jsonl --> svc_sessionPersistence
   pkg_session_projection --> svc_sessionProjections
@@ -425,6 +537,11 @@ flowchart LR
   pkg_settings --> svc_settings
   pkg_shell --> svc_shell
   pkg_shell_env --> svc_shellEnv
+  pkg_sign_in --> svc_signIn
+  pkg_sign_in --> svc_signInAdmission
+  pkg_sign_in --> svc_signInKinds
+  pkg_sign_in_admission_roster --> svc_signInAdmission
+  pkg_sign_in_channels --> svc_signInChannels
   pkg_skill --> svc_skills
   pkg_skill_badge --> svc_skills
   pkg_skill_filesystem --> svc_skills
@@ -440,13 +557,19 @@ flowchart LR
   pkg_subagent_acp --> svc_subagents
   pkg_subagent_claude_code --> svc_subagents
   pkg_subagent_codex --> svc_subagents
-  pkg_subagent_lyn_sdk --> svc_subagents
   pkg_subagent_fork_in_process --> svc_subagents
+  pkg_subagent_lyn_sdk --> svc_subagents
   pkg_subagent_spawn_in_process --> svc_subagents
   pkg_subprocess --> svc_subprocess
   pkg_subprocess_local --> svc_subprocess
   pkg_subprocess_ssh --> svc_subprocess
   pkg_system_prompt --> svc_systemPrompt
+  pkg_tenant --> svc_tenants
+  pkg_tenant_config --> svc_tenantConfig
+  pkg_tenant_config_static --> svc_tenantConfig
+  pkg_tenant_config_store --> svc_tenantConfig
+  pkg_tenant_request --> svc_requestTenant
+  pkg_tenant_static --> svc_tenants
   pkg_terminal --> svc_terminals
   pkg_terminal_bash --> svc_terminals
   pkg_token_meter --> svc_tokenMeter
@@ -463,6 +586,7 @@ flowchart LR
   pkg_web_search_exa --> svc_web
   pkg_web_search_perplexity --> svc_web
   pkg_webhook --> svc_webhookRuntime
+  pkg_wecom --> svc_signInKinds
   pkg_workflow --> svc_workflowEngine
   pkg_workflow_ptc --> svc_workflowEngine
   pkg_working_directory --> svc_workingDirectory
@@ -478,6 +602,7 @@ flowchart LR
   svc_agents --> pkg_acp
   svc_agents --> pkg_agent_loop
   svc_agents --> pkg_subagent
+  svc_announcements --> pkg_api_announcement_controller
   svc_approval --> pkg_acp
   svc_approval --> pkg_tool_bash
   svc_approval --> pkg_tools
@@ -501,10 +626,13 @@ flowchart LR
   svc_credentials --> pkg_api_settings_controller
   svc_credentials --> pkg_llm_deepseek
   svc_credentials --> pkg_llm_pi_ai
+  svc_creditAdministration --> pkg_credits_store
+  svc_creditSubject --> pkg_credits_enforce
   svc_cuaAccess --> pkg_cua
   svc_deepseekAccount --> pkg_api_account_controller
   svc_deepseekAccount --> pkg_llm_deepseek
   svc_deepseekLlmApiExtensions --> pkg_llm_deepseek
+  svc_desktopLink --> pkg_desktop_link_controller
   svc_directoryPicker --> pkg_api_workspace_controller
   svc_dynamicCordisRunner --> pkg_tool_cordis
   svc_fileReferences --> pkg_api_session_controller
@@ -521,6 +649,7 @@ flowchart LR
   svc_llm --> pkg_compaction_basic
   svc_lsp --> pkg_tool_lsp
   svc_mcpResources --> pkg_mcp_resources
+  svc_modelPolicy --> pkg_model_policy_enforce
   svc_officeToPdf --> pkg_client_ui_sidebar_documentpreview
   svc_otel --> pkg_host_product_telemetry_otel
   svc_otel --> pkg_session_telemetry_otel
@@ -536,6 +665,8 @@ flowchart LR
   svc_remoteAccess --> pkg_api_gateway
   svc_remoteAccess --> pkg_api_session_controller
   svc_remoteAccess --> pkg_api_workspace_controller
+  svc_requestPrincipal --> pkg_credits_subject_request
+  svc_requestTenant --> pkg_tenant_session
   svc_sandbox --> pkg_bash_sandbox
   svc_sandbox --> pkg_terminal_bash
   svc_sandboxPolicy --> pkg_bash_sandbox
@@ -556,6 +687,7 @@ flowchart LR
   svc_sessionProjections --> pkg_tool_todo
   svc_sessionQuery --> pkg_session_reference
   svc_sessionQuery --> pkg_tool_session_query
+  svc_sessionVisibility --> pkg_api_session_controller
   svc_sessions --> pkg_agent
   svc_sessions --> pkg_agent_loop
   svc_sessions --> pkg_message_feedback
@@ -570,6 +702,8 @@ flowchart LR
   svc_shell --> pkg_tool_pwsh
   svc_shellEnv --> pkg_tool_bash
   svc_shellEnv --> pkg_tool_pwsh
+  svc_signInAdmission --> pkg_sign_in
+  svc_signInKinds --> pkg_sign_in_channels
   svc_skills --> pkg_tool_skill
   svc_speechToText --> pkg_experimental_api_speech_to_text
   svc_spillStore --> pkg_spill_policy
@@ -594,6 +728,10 @@ flowchart LR
   svc_systemPrompt --> pkg_tool_terminal
   svc_systemPrompt --> pkg_tool_web
   svc_systemPrompt --> pkg_tools
+  svc_tenantConfig --> pkg_tenant_http
+  svc_tenantConfig --> pkg_tenant_request
+  svc_tenants --> pkg_tenant_http
+  svc_tenants --> pkg_tenant_request
   svc_terminals --> pkg_tool_terminal
   svc_tokenMeter --> pkg_compaction_basic
   svc_toolResultPruner --> pkg_compaction_basic
@@ -654,6 +792,18 @@ flowchart LR
 | `ctx.attachments` | `seam` | [`attachment`](../packages/attachment/attachment) | [`attachment-local`](../packages/attachment/attachment-local) | [`api-session-controller`](../packages/api/session-controller), [`tool-fs`](../packages/fs/tool-fs), [`llm-pi-ai`](../packages/llm/llm-pi-ai), [`llm-deepseek`](../packages/llm/llm-deepseek) | - | 宿主会在会话事件之前提交已接受的图片；提供方适配器将已授权的持久引用解析为提供方原生内容。 |
 | `ctx.fileUploads` | `core` | [`client-file-upload`](../packages/client/file-upload) | - | [`api-session-controller`](../packages/api/session-controller) | - | 负责流式接收、持久存储和暂存回执生命周期；Session Controller 将回执绑定到已接受的提交。 |
 | `ctx.llm` | `seam` | [`llm`](../packages/llm/llm) | [`llm-deepseek`](../packages/llm/llm-deepseek), [`llm-pi-ai`](../packages/llm/llm-pi-ai), [`llm-replay`](../packages/test-support/llm-replay) | [`agent-loop`](../packages/core/agent-loop), [`compaction-basic`](../packages/compaction/compaction-basic) | - | 适配器注册提供方实现；agent loop（智能体循环）与压缩功能调用提供方无关的流服务。 |
+| `ctx.modelPolicy` | `seam` | [`model-policy`](../packages/llm/model-policy) | `model-policy/static` | `model-policy/enforce` | - | 部署方声明一次请求可以使用哪些模型；强制执行坐在 llm/stream waterfall 上，所以一个 preset 行或一次直接 RPC 都无法绕过它。 |
+| `ctx.creditSubject` | `seam` | [`credits`](../packages/credits/credits) | - | `credits/enforce` | - | 一次流式调用携带的是路由与消息，不是人；这里没有 provider 时，强制执行保持未激活，而不是无声地什么都不计量。 |
+| `ctx.credits` | `seam` | [`credits`](../packages/credits/credits) | `credits/store` | - | - | 一本赠送与扣减的账，其和即余额；覆盖不了的一次消耗会被拒绝，而不是透支。 |
+| `ctx.creditAdministration` | `core` | [`credits`](../packages/credits/credits) | `credits/administration` | `credits/store` | - | 授予与额度覆盖，每一项都针对「作出它的那个身份」被授权；账本再把这些覆盖读回去。 |
+| `ctx.desktopLink` | `core` | [`desktop-link`](../packages/api/desktop-link) | [`desktop-link`](../packages/api/desktop-link) | `desktop-link/controller` | - | 每位已签入的人一条、经过认证的通道，沿桌面自己开的那条 Remote 流承载宿主到桌面的工作。 |
+| `ctx.announcements` | `seam` | [`announcements`](../packages/host/announcements) | `announcements/static` | [`api-announcement-controller`](../packages/api/announcement-controller) | - | 部署所发布的更新日志与通知，最新在前；每一条自带它所描述的版本，而不是由服务报告某一个当前版本。 |
+| `ctx.signIn` | `seam` | [`sign-in`](../packages/identity/sign-in) | [`sign-in`](../packages/identity/sign-in) | - | - | 渠道在某人自己的目录上验证他是谁，准入规则说他在这里是谁，然后为那个人建立一个会话。 |
+| `ctx.signInAdmission` | `seam` | [`sign-in`](../packages/identity/sign-in) | `sign-in/admission-roster` | [`sign-in`](../packages/identity/sign-in) | - | 认证与准入是两个决定；一个没有挂任何规则的部署谁都签不进来。 |
+| `ctx.requestPrincipal` | `core` | [`request-principal`](../packages/identity/request-principal) | - | `credits/subject-request` | - | 把被出示的持有凭据解析成一个人、以及他的会话所持有的上下文，并且只为那一次调用发布它；它只解析、从不拒绝。 |
+| `ctx.authSessions` | `seam` | [`auth-session`](../packages/identity/auth-session) | `auth-session/store` | - | - | 持有「签入」所产生的东西：会话属于一个人，而当前生效的上下文是只能由显式切换改变的服务端状态。 |
+| `ctx.actingContext` | `core` | [`acting-context`](../packages/identity/acting-context) | - | - | - | 判定一次声明的上下文是否「已声明、由调用方持有、且被地址允许」；这条规则只住在这一处。 |
+| `ctx.people` | `seam` | [`people`](../packages/identity/people) | `people/static` | - | - | 报告调用方是谁、以及他的身份携带三个角色中的哪一个；每个操作依据那个角色自行授权，而不是让目录去做决定。 |
 | `ctx.deepseekLlmApiExtensions` | `seam` | [`deepseek-llm-api-extensions`](../packages/llm/deepseek-llm-api-extensions) | [`session-log-deepseek`](../packages/session/session-log-deepseek), [`plugin-package-inventory-deepseek`](../packages/llm/plugin-package-inventory-deepseek) | [`llm-deepseek`](../packages/llm/llm-deepseek) | - | 插件准备彼此独立的顶层字段；官方适配器会合并这些字段，并在 HTTP 接受后提交其交付状态。 |
 | `ctx.tokenMeter` | `core` | [`token-meter`](../packages/llm/token-meter) | - | [`compaction-basic`](../packages/compaction/compaction-basic) | - | 拥有按会话隔离的回放折叠区；压力消费方共享不可变且带修订版本的测量结果。 |
 | `ctx.toolResultPruner` | `core` | [`compaction-tool-result-pruner`](../packages/compaction/compaction-tool-result-pruner) | - | [`compaction-basic`](../packages/compaction/compaction-basic) | - | 在摘要压缩前，通过可回放的单节点表层替换来改写过大的当前工具结果。 |
@@ -706,6 +856,8 @@ flowchart LR
 | `ctx.agentDefaultModel` | `core` | [`agent-default-model`](../packages/core/agent-default-model) | - | [`api-session-controller`](../packages/api/session-controller), [`headless`](../packages/bundle/headless) | - | Reads the default ModelSelection from volatile Config and saves selections through the profile editor. |
 | `ctx.agentLoop` | `bundle` | [`agent-loop`](../packages/core/agent-loop) | - | [`base`](../packages/bundle/base), [`sdk-minimal`](../packages/bundle/sdk-minimal) | - | 唯一的具体循环插件；扩展包依赖 lyn-agent 的事件和服务，而不依赖此包。 |
 | `ctx.schedule` | `core` | [`schedule`](../packages/schedule/schedule) | - | - | - | 独立于 Session 的加载状态存储任务，并将到期消息排入原 Session。 |
+| `ctx.microsoftEntra` | `core` | [`microsoft-entra`](../packages/vendor/microsoft-entra) | - | - | - | 注册一个授权流程，并从目录本身读取已登录的人，因此不验证任何令牌签名、也不持有密钥材料。 |
+| `ctx.memory` | `core` | [`memory`](../packages/memory/memory) | - | - | - | 把显式写入的事实存入存储域，并作为运行时上下文折进每个请求；写入从不来自会话记录的推断。 |
 | `ctx.goals` | `core` | [`goal`](../packages/goal/goal) | - | - | - | 从会话日志折叠带修订版本的目标状态，并将实时延续激活保留在进程本地。 |
 | `ctx.ssh` | `core` | [`ssh`](../packages/ssh/ssh) | - | [`fs-ssh`](../packages/ssh/fs-ssh), [`subprocess-ssh`](../packages/ssh/subprocess-ssh), [`sandbox-ssh`](../packages/ssh/sandbox-ssh) | - | 负责一条经过认证的 OpenSSH 连接、已安装辅助程序身份、独立程序流，以及配套远端提供方的断连清理。 |
 | `ctx.subprocess` | `seam` | [`subprocess`](../packages/subprocess/subprocess) | [`subprocess-local`](../packages/subprocess/subprocess-local), [`subprocess-ssh`](../packages/ssh/subprocess-ssh) | [`bash-local`](../packages/shell/bash-local), [`bash-sandbox`](../packages/shell/bash-sandbox), [`terminal-bash`](../packages/terminal/terminal-bash), [`lsp-stdio`](../packages/lsp/lsp-stdio), [`subagent-acp`](../packages/subagent/subagent-acp), [`subagent-codex`](../packages/subagent/subagent-codex), [`subagent-claude-code`](../packages/subagent/subagent-claude-code) | - | Bash 执行器、PTY shell 后端、LSP Host，以及进程外 ACP、Codex 和 Claude Code subagent 后端都通过 ctx.subprocess 执行 spawn；该服务负责进程坐标、进程树／会话生命周期、stdio 处置、终端机制和 kill 升级。 |
@@ -728,6 +880,24 @@ flowchart LR
 | `ctx.web` | `seam` | [`web`](../packages/web/web) | [`web-search-exa`](../packages/web/web-search-exa), [`web-search-perplexity`](../packages/web/web-search-perplexity), [`web-search-deepseek`](../packages/web/web-search-deepseek), [`web-deepseek-api`](../packages/web/web-deepseek-api), [`web-fetch-http`](../packages/web/web-fetch-http) | [`tool-web`](../packages/web/tool-web) | - | 搜索和抓取提供方注册到同一个 ctx.web seam；tool-web 负责稳定的面向模型名称。 |
 | `ctx.spillStore` | `seam` | [`spill`](../packages/spill/spill) | [`spill-local`](../packages/spill/spill-local) | [`spill-policy`](../packages/spill/spill-policy) | - | 后端保存过大的工具文本，并返回面向模型的定位信息和取回提示；spill-policy 是 tools/post-execute 消费方，负责决定何时 spill。 |
 | `ctx.directoryPicker` | `seam` | [`host-directory-picker`](../packages/host/directory-picker) | [`host-directory-picker-native`](../packages/host/directory-picker-native), [`host-directory-picker-browse`](../packages/host/directory-picker-browse) | [`api-workspace-controller`](../packages/api/workspace-controller) | - | 带判别标记的交互能力：原生后端在 Host 显示设备上打开一个操作系统选择器，浏览后端为应用内浏览器提供列表与创建原语；双端后端通过其浏览器侧填充 ui-workspace 目录流程的 slot（不通过协议发布）。 |
+| `ctx.signInKinds` | `seam` | [`sign-in`](../packages/identity/sign-in) | [`wecom`](../packages/vendor/wecom), [`dingtalk`](../packages/vendor/dingtalk), [`feishu`](../packages/vendor/feishu) | [`sign-in-channels`](../packages/identity/sign-in-channels) | - | 一个种类说出某个目录需要什么、以及怎么把一个实例建出来；它永远不知道一套部署有几个、分别属于谁，于是加一个客户是加一条存下的记录，而不是一次重新部署。 |
+| `ctx.signInChannels` | `core` | [`sign-in-channels`](../packages/identity/sign-in-channels) | - | - | - | 把存下的记录变成挂载的渠道、再变回来：平台管理员配置部署自己的，租户管理员只配置本组织的，而每个组织的登录页只被提供自己的那些、加上部署级的那些。 |
+| `ctx.botRoom` | `core` | [`bot-ask`](../packages/identity/bot-ask) | - | - | - | 用代码而不是通过某个参与者来主持这场讨论：轮询顺序、一条不管主持怎么想都会结束它的部署上界，以及一份在固定提示词下从说过的话里写出来的具名结论——而不是以任何参与者的口吻写的。 |
+| `ctx.botAsk` | `core` | [`bot-ask`](../packages/identity/bot-ask) | - | - | - | 在队友自己的一场会话里、以它自己的性格和 preset 跑作答那一轮，并以那场会话记录下来的那段话作答；团队成员身份就是全部的授权，两侧都够不到对方的对话。 |
+| `ctx.adminAudit` | `core` | [`admin-audit`](../packages/identity/admin-audit) | - | - | - | 存着谁改了哪条记录、什么时候，以及那次更改替换掉的那个值，放在一个只会被追加的、它自己的域里；两个名册都注入它，所以一个管理它们却不留历史的部署会加载不起来。 |
+| `ctx.managedBots` | `core` | [`managed-bots`](../packages/identity/managed-bots) | - | - | - | 存着运行时添加的那些 bot，并把每一个放进它所在组织的名册，在那里它持有一个成员身份、并拥有它开启的东西；准入会拒绝它，因为没有哪个目录能验证一个 bot。 |
+| `ctx.managedPeople` | `core` | [`managed-people`](../packages/identity/managed-people) | - | - | - | 持有运行时添加的人员与准入绑定，与 composition 写下的那些并存：写下的那一半在每次查找中优先，并且不能在这里改动，因为下一次启动会重新读那个文件。 |
+| `ctx.adminAuditController` | `core` | [`api-admin-audit-controller`](../packages/api/admin-audit-controller) | - | - | - | 在这次调用所处的身份上答出一页已记录的更改，并解析它唯一拥有的那件事：一次不点名的读指的是调用方自己的组织，于是租户管理员不必点名他唯一管理的那一个。 |
+| `ctx.botsController` | `core` | [`api-bots-controller`](../packages/api/bots-controller) | - | - | - | 把 bot 名册投影到生成的 Remote 命名空间上：它解析出这次调用所处的身份，交给那些决定谁管得着谁的规则，并答出那份名册用来校验一次保存的同一份 preset 列表。 |
+| `ctx.peopleController` | `core` | [`api-people-controller`](../packages/api/people-controller) | - | - | - | 把被管理的目录投影到生成的 Remote 命名空间上：它解析出这次调用所处的身份，交给那些决定谁管得着谁的规则，并把每种拒绝按自己的错误码汇报，好让表单禁用它点名的那一行。 |
+| `ctx.sessionVisibility` | `core` | [`session-ownership`](../packages/identity/session-ownership) | - | [`api-session-controller`](../packages/api/session-controller) | - | 把写入的归属读回来：一个人看得到自己开启的对话、看不到别人的；没有归属的那些只对平台管理员作答；而没有 principal 的调用是部署在对自己行事，它看得到全部。 |
+| `ctx.signInChannelController` | `core` | [`api-sign-in-channel-controller`](../packages/api/sign-in-channel-controller) | - | - | - | 把配置好的渠道存储投影到生成的 Remote 命名空间上：它解析出这次调用所处的身份，交给那条唯一决定谁管得着什么的规则，并把每种拒绝按自己的错误码汇报，好让表单标出它点名的那个字段。 |
+| `ctx.identityController` | `core` | [`api-identity-controller`](../packages/api/identity-controller) | - | - | - | 在任何人被分类之前，回答界面的那一个问题：这套部署有没有账户、调用者是谁、以什么身份行事、登录屏可以提供哪些渠道；登录与登出仍是 dsh-sign-in-http 拥有的浏览器跳转。 |
+| `ctx.creditsController` | `core` | [`api-credits-controller`](../packages/api/credits-controller) | - | - | - | 把账本与管理能力缝投影到生成的 Remote 命名空间：本人读自己的余额，管理员为自己身份管得着的人发放积分、设定额度；授权规则留在 dsh-credits，于是「能读」与「能发」不会各说各话。 |
+| `ctx.tenantController` | `core` | [`api-tenant-controller`](../packages/api/tenant-controller) | - | - | - | 把租户配置能力缝投影到生成的 Remote 命名空间：调用方租户读取并保存自己的配置；没有命名租户的调用会被拒绝，而不是被答复任何租户的信息。 |
+| `ctx.requestTenant` | `core` | [`tenant-request`](../packages/tenant/tenant-request) | - | [`tenant-session`](../packages/tenant/tenant-session) | - | 解析一次 Remote 调用到达时所属的租户，每次调用一次，并在调用期间连同该租户的配置一起发布；未命名租户的调用读到 undefined，而不是兜底租户。 |
+| `ctx.tenantConfig` | `seam` | [`tenant-config`](../packages/tenant/tenant-config) | [`tenant-config-static`](../packages/tenant/tenant-config-static), [`tenant-config-store`](../packages/tenant/tenant-config-store) | [`tenant-http`](../packages/tenant/tenant-http), [`tenant-request`](../packages/tenant/tenant-request) | - | 一个租户为自己配置什么——按模态的模型、携带凭据引用而非密钥的供应商授权、功能、身份文本与文案覆盖；后端会说明自己能否被写入，且所有后端据同一套规则校验。 |
+| `ctx.tenants` | `seam` | [`tenant`](../packages/tenant/tenant) | [`tenant-static`](../packages/tenant/tenant-static) | [`tenant-http`](../packages/tenant/tenant-http), [`tenant-request`](../packages/tenant/tenant-request) | - | 三种查法——不可变 id、主机名、子域名标识——对不认识的对象答复 undefined；请求的哪一部分可以指定租户属于调用方拥有的传输层知识，解析不到的请求会被拒绝，而不是用兜底租户服务。 |
 | `ctx.webServer` | `core` | [`host-webserver`](../packages/host/webserver) | - | [`client-connection`](../packages/client/connection), [`client-modules`](../packages/client/modules), [`client-hmr`](../packages/client/hmr) | - | 普通的 node:http 载体：具名路由注册表、索引转换 tap，以及静态 dist 回退；Web 传输插件注册自己的路由。 |
 | `ctx.webApp` | `core` | [`web-app`](../packages/bundle/web-app) | - | [`harness-dev-context`](../packages/context/harness-dev-context) | - | web-runtime 行为其 Web GUI 公告一个 URL：配置了 publicUrl 时用它，否则用监听器 origin；LYNESS_WEB_URL、启动 URL 与 harness-dev-context 读取同一个值。 |
 | `ctx.clientModules` | `core` | [`client-modules`](../packages/client/modules) | - | [`client-hmr`](../packages/client/hmr) | - | 通过增量 `lyn.client` 扫描组合 __LYNESS_BOOT__ 入口图，提供插件组合包，并通知重建／图变更订阅方。 |

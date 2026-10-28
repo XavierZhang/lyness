@@ -1,13 +1,13 @@
 # Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
 # section, a hash of its English and Chinese blocks outside code blocks and generated regions.
 # After editing either side, bring the other along and re-record with:
-#   pnpm run verify-translation-pairing --write packages/hooks/hooks-claude-code/README.md
+#   pnpm run verify-translation-pairing --write packages/experimental/hooks-claude-code/README.md
 /:
   en: 3570440302708236
   zh: 6e4217f2856879a1
 /lyness-lyn-hooks-claude-code:
-  en: bcea8b2b25ed09c3
-  zh: 73709dfc3005e327
+  en: 3180e4dd1ecb4230
+  zh: 718a0c1367a62665
 /lyness-lyn-hooks-claude-code/summary:
   en: d079ad2dab6b7e35
   zh: d48aacced28ad13e
@@ -15,8 +15,8 @@
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
 /lyness-lyn-hooks-claude-code/use-this-package:
-  en: af7c3b8bcce24e7f
-  zh: 6b5225e34cbd1c85
+  en: 7534e384c3ba85f2
+  zh: dd28c3a11d096796
 /lyness-lyn-hooks-claude-code/use-this-package/when-to-choose-it:
   en: 5fdf4ff17e6d9a2e
   zh: 82979c137758005d
@@ -27,8 +27,8 @@
   en: 6c3b126e6607c311
   zh: 33199f443edb2824
 /lyness-lyn-hooks-claude-code/use-this-package/how-hooks-run-and-fail:
-  en: 98d13f2e7207e3f3
-  zh: 4e0336b32c2775e9
+  en: d2da19a016554a19
+  zh: 5c579bc80b04e7a4
 /lyness-lyn-hooks-claude-code/understand-the-implementation:
   en: d33ddd080880b3f5
   zh: 64328f5239c26752
@@ -48,11 +48,11 @@
   en: e9dc2e482e9a7b50
   zh: 5fa4e92b75884f93
 /lyness-lyn-hooks-claude-code/understand-the-implementation/source-map:
-  en: e09d368cbacd0d37
-  zh: 1c5d9060facbe340
+  en: 0289ee9e374d3606
+  zh: b88841c10ad5c10f
 /lyness-lyn-hooks-claude-code/further-exploration:
-  en: 24218a343740d317
-  zh: fa11556bf7406f13
+  en: c0e12cb3e3b2d57f
+  zh: 095266aefad3f946
 /lyness-lyn-hooks-claude-code/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90

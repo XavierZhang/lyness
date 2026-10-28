@@ -9,8 +9,8 @@
   en: c5cbf1d8631349b0
   zh: f2d9f76270669fa8
 /lyness-lyn-ptc-runtime/summary:
-  en: 869686526cd673bf
-  zh: 446ce1cfdb0d0463
+  en: be496a8117fbd7c6
+  zh: 788125cc8a10e69d
 /lyness-lyn-ptc-runtime/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
@@ -18,11 +18,11 @@
   en: 984bc5ce1204ab0a
   zh: 3842ed1a6094d7eb
 /lyness-lyn-ptc-runtime/use-this-package/run-a-program:
-  en: 6f97019cebc2f417
-  zh: c56f18a690dbe814
+  en: c856760ebc15d59e
+  zh: dc093083b29794e0
 /lyness-lyn-ptc-runtime/use-this-package/choose-a-backend:
-  en: 41ca2e5de9d3b891
-  zh: 02877a3ff5ce8e7a
+  en: cd65845dca71aece
+  zh: 613dc8110d446d96
 /lyness-lyn-ptc-runtime/use-this-package/name-your-bindings-portably:
   en: 4e46c1672701b8df
   zh: 0353c5855c9ff6be
@@ -45,8 +45,8 @@
   en: 8175ae6f1f4a1c88
   zh: 27bd8966ddc7aed5
 /lyness-lyn-ptc-runtime/understand-the-implementation/source-map:
-  en: 73b7deab23f3b00d
-  zh: 780ddf5ff0dd5f65
+  en: 85b65ceb9be0c49f
+  zh: 52df7f06d4e49d6e
 /lyness-lyn-ptc-runtime/further-exploration:
   en: aaca5b2952cac834
   zh: 756ff403273604ba
@@ -57,14 +57,14 @@
   en: 40294c1c31b74824
   zh: 081cebc2e2650f03
 /lyness-lyn-ptc-runtime/known-limitations-and-deferred-work:
-  en: 7f30f78c5d427667
-  zh: 99d21160016deea2
+  en: e20364d073f78c60
+  zh: 6cac5c46ff91b3ca
 /lyness-lyn-ptc-runtime/known-limitations-and-deferred-work/dev-note:
   en: d56846da29ad869c
   zh: 0397151a7e29b8ba
-/lyness-lyn-ptc-runtime/known-limitations-and-deferred-work/dev-note/future-persistent-kernel-backend:
-  en: cfefaae6ed9705d5
-  zh: 3cca5b1bd92445b0
+/lyness-lyn-ptc-runtime/known-limitations-and-deferred-work/dev-note/retained-state:
+  en: cd86d95f288b86dc
+  zh: 2157b7a97eb62667
 /lyness-lyn-ptc-runtime/known-limitations-and-deferred-work/dev-note/future-container-backend:
   en: 2b94202842f0556c
   zh: 5aa0311fa621a018

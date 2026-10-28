@@ -6,38 +6,38 @@
   en: d88f75fc0178ba53
   zh: 52bc7ae9551ab1cf
 /lyness-lyn-client-ui-chat:
-  en: 1be711561244c0d8
-  zh: 055400b3b2286175
+  en: 3ccbe6df9d018229
+  zh: f087567cdab44f59
 /lyness-lyn-client-ui-chat/summary:
-  en: fba5b2fb8080e2dd
-  zh: 32c337123b7dfbcb
+  en: 4f2d50107db6c4f8
+  zh: ea7ccfcce8f1849e
 /lyness-lyn-client-ui-chat/table-of-contents:
   en: 41cd21266011d571
   zh: 3172d1a2acbb27b7
 /lyness-lyn-client-ui-chat/reference-previews:
-  en: 3fda3d75483ce7c1
-  zh: 4d96ba654f70c021
+  en: b02e730e0dd6b46b
+  zh: e35ced11d427ef29
 /lyness-lyn-client-ui-chat/hidden-chat-rows:
-  en: 5706ae03ceacf251
+  en: cbf1f0a2205046a5
   zh: 2e59d0815351349f
 /lyness-lyn-client-ui-chat/command-and-failure-rows:
-  en: 2157fcd6b0d100b5
-  zh: 9e865ac3953ebe30
+  en: 00d736159dddc758
+  zh: 89db96ddfb279765
 /lyness-lyn-client-ui-chat/turn-token-usage:
-  en: 29346bd0f9a5ff51
-  zh: 54dbed55f67aeecd
+  en: 0229f9cc34e87f4d
+  zh: 1ce0c7993b207089
 /lyness-lyn-client-ui-chat/completed-turn-footer:
-  en: b4cd36e7ab91281e
-  zh: 8ccf412b9dde61d5
+  en: 382821ca3ffa60dd
+  zh: 9840ffa07c13082a
 /lyness-lyn-client-ui-chat/turn-process-folding:
-  en: 1f9423e458311ca0
-  zh: e2b37194dccbd961
+  en: 428930c8ac4cadd4
+  zh: 55bf5487d33b7e23
 /lyness-lyn-client-ui-chat/grouped-rendering:
-  en: ab72de5ecbb92398
-  zh: 3bd4980e4ec4df08
+  en: a6d0567537b62db3
+  zh: 1cb2cf6769d8a61b
 /lyness-lyn-client-ui-chat/scroll-ownership:
-  en: 69b021c5a5d8b5a7
-  zh: 091ae7986c7a8a20
+  en: 7b038abf4d3fb977
+  zh: 914d624d6f5ab80d
 /lyness-lyn-client-ui-chat/model-experience:
   en: c17b4dd43a61c569
   zh: f7414309810c3a08
@@ -45,8 +45,8 @@
   en: 15a7151ff9268f15
   zh: 6eae68c718be579b
 /lyness-lyn-client-ui-chat/known-limitations-and-deferred-work:
-  en: a8171aac539fec5e
-  zh: add75d2542114c77
+  en: 400fa86c3f339e73
+  zh: edcd28441cc90e30
 /lyness-lyn-client-ui-chat/known-limitations-and-deferred-work/dev-note:
-  en: b8b7eeb4ae675d2a
-  zh: fbe7022074ba81b9
+  en: e67f633dc6fe7773
+  zh: e88aeb617ffb74ea

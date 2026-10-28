@@ -22,6 +22,7 @@ import StaticTenantDirectory from '@lyness/lyn-tenant-static'
 import StaticTenantConfigStore from '@lyness/lyn-tenant-config-static'
 import * as TenantSession from '../src/index.ts'
 import type { TenantSessionRecord } from '../src/index.ts'
+import { tenantSessionProjectionDefinition } from '@lyness/lyn-tenant-session'
 
 const AGENTS = '@lyness/lyn-agent'
 const PROMPT = '@lyness/lyn-system-prompt'
@@ -107,6 +108,6 @@ describe('the composed tenant stamp', () => {
       slug: 'acme',
       constraints: ['Never discuss unreleased figures.'],
     })
-    expect(ctx.sessionProjections.stateOf(session, 'tenant')).toMatchObject({ slug: 'acme' })
+    expect((await ctx.sessionProjections.register(tenantSessionProjectionDefinition)).stateOf(session)).toMatchObject({ slug: 'acme' })
   })
 })

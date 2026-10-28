@@ -17,12 +17,12 @@
 import { Service } from '@lyness/cordis'
 import type { Context } from '@lyness/cordis'
 import type { Session, SessionHeader } from '@lyness/lyn-session'
-import type {} from '@lyness/lyn-session-projection'
+import type { ProjectionHandle } from '@lyness/lyn-session-projection'
 import type {} from '@lyness/lyn-session-projection-cache'
 import type {} from '@lyness/lyn-request-principal'
 import type { PersonId, Role } from '@lyness/lyn-people'
 import type { SessionOwnerRecord } from './types.ts'
-import { applyOwnerEvent, ownerOf } from './index.ts'
+import { applyOwnerEvent, ownerOf, ownerProjectionDefinition } from './index.ts'
 
 declare module '@lyness/cordis' {
   interface Context {
@@ -64,10 +64,39 @@ export class SessionVisibility extends Service {
   static inject = ['sessionProjections', 'sessions', 'requestPrincipal', 'people']
 
   /**
+   * The owner projection's own registration.
+   *
+   * Registered here rather than read through the registry by key: a reader
+   * holds the handle its own registration returned, and registration is
+   * reference-counted, so this adds one reference beside the plugin's.
+   */
+  private owner: ProjectionHandle<SessionOwnerRecord | null> | undefined
+
+  /**
    * @param ctx - context carrying the projections, the principal, and the directory.
    */
   constructor(ctx: Context) {
     super(ctx, 'sessionVisibility')
+  }
+
+  /** Hold the owner projection before any rule reads it. */
+  async [Service.init](): Promise<void> {
+    this.owner = await this.ctx.sessionProjections.register(ownerProjectionDefinition)
+  }
+
+  /**
+   * Whose conversation one session is.
+   *
+   * This service owns the projection, so it answers for it: a consumer that
+   * folded the key itself would carry a second copy of the fold.
+   * @param session - the session to attribute.
+   * @returns the record, or undefined for a session nobody is attributed to.
+   */
+  ownerOf(session: Session): SessionOwnerRecord | undefined {
+    if (this.owner === undefined) {
+      throw new Error('session-ownership: the owner projection is read only after this service has initialized')
+    }
+    return ownerOf(this.owner, session)
   }
 
   /**
@@ -80,7 +109,7 @@ export class SessionVisibility extends Service {
    * @returns true when the call may see it.
    */
   mayRead(session: Session): Promise<boolean> {
-    return this.decide(ownerOf(this.ctx, session), session.header)
+    return this.decide(this.ownerOf(session), session.header)
   }
 
   /**
@@ -127,7 +156,7 @@ export class SessionVisibility extends Service {
    * @returns true when that conversation may read this one.
    */
   async mayReadFrom(reader: Session, target: SessionHeader): Promise<boolean> {
-    const subject = ownerOf(this.ctx, reader)
+    const subject = this.ownerOf(reader)
     if (subject === undefined) return true
     return await this.attribution(this.ownerAt(target), target, subject.owner, 0) === 'mine'
   }
@@ -174,7 +203,7 @@ export class SessionVisibility extends Service {
   /** What one session reads as, live where it is open and from the cache where it is not. */
   private ownerAt(header: SessionHeader): SessionOwnerRecord | undefined {
     const live = this.ctx.sessions.get(header.id)
-    return live === undefined ? this.cachedOwner(header) : ownerOf(this.ctx, live)
+    return live === undefined ? this.cachedOwner(header) : this.ownerOf(live)
   }
 
   /**
@@ -197,7 +226,7 @@ export class SessionVisibility extends Service {
     if (parent === undefined || depth >= LINEAGE_LIMIT) return 'unattributed'
     const live = this.ctx.sessions.get(parent)
     if (live === undefined) return 'unattributed'
-    return this.attribution(ownerOf(this.ctx, live), live.header, person, depth + 1)
+    return this.attribution(this.ownerOf(live), live.header, person, depth + 1)
   }
 
   /**

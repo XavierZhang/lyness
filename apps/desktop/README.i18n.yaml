@@ -2,69 +2,84 @@
 # section, a hash of its English and Chinese blocks outside code blocks and generated regions.
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write apps/desktop/README.md
+/:
+  en: 0d36989eb614345d
+  zh: a0a1a18c07621393
 /lyness-desktop:
-  en: 77ee1456fd420676
-  zh: 81f9a0700e3888a6
+  en: bfa483d564b99241
+  zh: 6df942ea33dad7a3
+/lyness-desktop/summary:
+  en: 7bc8bf30de693222
+  zh: e85993d8852b6cab
+/lyness-desktop/table-of-contents:
+  en: 05fd227f99ee535a
+  zh: 60d7d62bc0026973
+/lyness-desktop/application-overview:
+  en: 466a7b7b8c89a4a8
+  zh: ad8859e352fdf2e0
+/lyness-desktop/terminal-command:
+  en: eb2182b96e059839
+  zh: a05f2aa906035911
 /lyness-desktop/closing-the-window-and-quitting:
-  en: 493a63ec5a5e0aed
-  zh: 2ea93e246f67f9f9
+  en: 7e9e93e20b85742a
+  zh: a6b49e1dd8040f0c
 /lyness-desktop/key-technical-decisions:
-  en: b803f35c2064baca
+  en: 4835c99b0b44e8a6
   zh: 1d12dd2488451496
 /lyness-desktop/key-technical-decisions/bundled-workspace-dependencies:
-  en: fab1d9dfd0388af7
-  zh: 31c4d65b3af391c4
+  en: 2053b62966172253
+  zh: f3d666aee608d58e
+/lyness-desktop/bundled-command-runtime:
+  en: 34fd91794c64d241
+  zh: 6505ae0d9e824fa2
 /lyness-desktop/installation-ownership:
-  en: 757ec901525ca570
-  zh: 7342505cf42492be
+  en: 942acbb078f6de0c
+  zh: 641323e390cb8783
 /lyness-desktop/installation-ownership/runtime-and-plugin-activation:
-  en: aba3da55319b975d
-  zh: 30393070ef99a2b9
+  en: fa4757c3173b174f
+  zh: 019b1e8b4372e00a
+/lyness-desktop/installation-ownership/host-environment:
+  en: df9b2dd3330fe0a6
+  zh: 096b32607169a1c2
 /lyness-desktop/develop:
-  en: b5d16844e3dbb973
-  zh: 79c2f2043bc9a5f0
+  en: da98514edb4fff13
+  zh: ef7454c3c310d296
 /lyness-desktop/develop/startup-onboarding:
-  en: 8f06a3b3720d24a1
-  zh: 1a6274aa66cd6ee0
+  en: bb18173630543326
+  zh: c443ab43524badb1
 /lyness-desktop/develop/welcome-window-appearance:
-  en: 60696b7bf73f66a1
-  zh: b7017c98e0835382
+  en: fbf7c63c65aeceb6
+  zh: cd030c938555fb74
 /lyness-desktop/package:
-  en: 4cd8a8da6977928d
-  zh: 9f624855a2edac37
-/lyness-desktop/package/release-versions:
-  en: fc0bc6eeef61d041
-  zh: 8b73eea73e728211
-/lyness-desktop/package/runtime-file-selection:
-  en: d6bdec10b04ae75c
-  zh: 02d8b3f9a5bfb102
-/lyness-desktop/package/upload-updates:
-  en: fe34752be93aedc5
-  zh: a5cb86cde97229a0
-/lyness-desktop/package/unsigned-windows-test-installer:
+  en: f5dc96d93d3fb2a4
+  zh: 6d59ffd3467a2daa
+/lyness-desktop/windows-installer-interface:
+  en: a997b56894059059
+  zh: ba7790e2c6696b27
+/lyness-desktop/windows-installer-interface/unsigned-windows-test-installer:
   en: da21596a49d89d70
   zh: 0c764e738abcd1f2
-/lyness-desktop/package/windows-installer-interface:
-  en: 0f671d115cce29ea
-  zh: 90a2cec9bb032727
-/lyness-desktop/package/windows-ev-signing:
-  en: 5578aebcaeffc4e6
-  zh: de57e046ba90bfce
+/lyness-desktop/windows-installer-interface/windows-installer-interface:
+  en: 6a34822707ed8ad6
+  zh: 462a16e89f75398f
 /lyness-desktop/updates:
-  en: b767a51b8973c168
-  zh: 1dfd8a43aa53d98e
+  en: 26a97ac9e96b3680
+  zh: fd32b77592ea38ef
+/lyness-desktop/updates/local-desktop-settings:
+  en: 1a81285ba00b3a92
+  zh: 52afb78ba8b447cc
 /lyness-desktop/updates/mandatory-update-policy:
-  en: 15d7ed26ecfc84a2
-  zh: 57a39448bf24398e
+  en: b290796303e8f5d5
+  zh: bc876cdcbca71e86
 /lyness-desktop/updates/local-updater-qualification:
-  en: b66d0b56bea13270
-  zh: 5fbca2639b513f43
+  en: 306e917034b618f9
+  zh: c7b19fff9c192ef1
 /lyness-desktop/low-level-development-overrides:
-  en: afa1fde456921ecb
-  zh: c0eee85661503949
+  en: f02a0bd9b2773ad6
+  zh: aef8bedf838a8860
 /lyness-desktop/known-limitations:
-  en: 5a8273fab8d6da56
-  zh: 0ee8594ee57128d4
+  en: 8d10976c4d1a388b
+  zh: 7507e4f74f203eaf
 /lyness-desktop/dev-note:
   en: 7b2612aefa49adca
   zh: 1de5346126d018a9

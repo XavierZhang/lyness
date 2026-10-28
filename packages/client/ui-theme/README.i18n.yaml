@@ -3,47 +3,50 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/ui-theme/README.md
 /:
-  en: 39fa1a3c8aa9e09c
-  zh: 1c8bb5438c30f087
+  en: ad8028d07d71e313
+  zh: 30a52a8e858f64f6
 /lyness-lyn-client-ui-theme:
   en: f3899f492fc12633
   zh: b59c92c362422470
 /lyness-lyn-client-ui-theme/summary:
-  en: 7382e1b007fd923e
-  zh: c47de731ee82da8b
+  en: a1f16a66e9ed0668
+  zh: a04383adcec2ae5c
 /lyness-lyn-client-ui-theme/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
 /lyness-lyn-client-ui-theme/use-this-package:
-  en: 5d64b3d918d5edfa
-  zh: fc929354a0faf33a
+  en: 5a279269e31713c1
+  zh: dcd5c31fbdfd63e2
 /lyness-lyn-client-ui-theme/use-this-package/appearance-and-font-size:
-  en: 0b0177e1afefe4a7
-  zh: 52d88f12a8369ee8
+  en: 7dc280d0e36a3e7d
+  zh: f7a75164db34cf0a
+/lyness-lyn-client-ui-theme/use-this-package/fonts:
+  en: b45d5b48ca799c3a
+  zh: af65514b3759204f
 /lyness-lyn-client-ui-theme/use-this-package/registering-a-theme:
-  en: 2cd32ccaba33b3e9
-  zh: 53ea78d19929ea02
+  en: 5244fc168d0a03f8
+  zh: c7ab12fdf8c6c55b
 /lyness-lyn-client-ui-theme/use-this-package/deployment-colour-overrides:
   en: 5f3564715a36d87e
   zh: 070050a77761089e
 /lyness-lyn-client-ui-theme/use-this-package/pre-plugin-palette:
-  en: 86853e4896227d78
-  zh: 31841ac138ec0d3c
+  en: e47af697f484178f
+  zh: c1dd58c42bed62c5
 /lyness-lyn-client-ui-theme/understand-the-implementation:
-  en: 43162c8182e0748b
-  zh: 8b48b74ab849f60b
+  en: 0aaca4d17b4d22d6
+  zh: 43d7c99c5e00966d
 /lyness-lyn-client-ui-theme/understand-the-implementation/stylesheets:
-  en: 2b1b86d156ce97dc
-  zh: 757b54d9b7170106
+  en: e746b26dc0362c27
+  zh: 8620eeda162f9f95
 /lyness-lyn-client-ui-theme/understand-the-implementation/scrollbar-rebinding:
   en: 259f5cff424cdc28
   zh: 4c3d950f72aa9b36
 /lyness-lyn-client-ui-theme/understand-the-implementation/preference-persistence:
-  en: 0bbee9e1ea79b14d
-  zh: 22a5e587183da075
+  en: 14da406a8aaafc00
+  zh: 4bfc23a55aa16107
 /lyness-lyn-client-ui-theme/further-exploration:
-  en: f9d0ac4ea6559c2d
-  zh: af679ab72509cda8
+  en: a921e55cbe979076
+  zh: 2839f4ff21e68fd2
 /lyness-lyn-client-ui-theme/model-experience:
   en: 3120df665299c634
   zh: 1d9f365d091d0d2a
@@ -51,8 +54,8 @@
   en: ca75c51c89c2c9b0
   zh: de54f3467ef3b9be
 /lyness-lyn-client-ui-theme/known-limitations-and-deferred-work:
-  en: 0d328dbced31a041
-  zh: 2951de356ba6bb82
+  en: 2388061abb1dd40f
+  zh: 1a4ad9a8e12472df
 /lyness-lyn-client-ui-theme/known-limitations-and-deferred-work/dev-note:
-  en: f1a2942985b11203
-  zh: 8196d82321e024b0
+  en: e67f633dc6fe7773
+  zh: 3bb0c20c93f16f98

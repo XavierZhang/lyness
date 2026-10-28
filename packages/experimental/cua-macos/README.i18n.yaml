@@ -5,48 +5,48 @@
 /:
   en: a1503331d3f35516
   zh: fcb8e5220ff732e1
-/deepseek-ai-lyn-experimental-cua-macos:
-  en: 022ca213425e11ee
-  zh: d64631748ed91cc2
-/deepseek-ai-lyn-experimental-cua-macos/summary:
+/lyness-lyn-experimental-cua-macos:
+  en: 8bf4c137c51be51c
+  zh: afef13ed84c3934d
+/lyness-lyn-experimental-cua-macos/summary:
   en: 4549f02fc53854a5
   zh: 6f74f1130b6623a8
-/deepseek-ai-lyn-experimental-cua-macos/table-of-contents:
+/lyness-lyn-experimental-cua-macos/table-of-contents:
   en: 867d9ec544719acf
   zh: 92348599582dc33a
-/deepseek-ai-lyn-experimental-cua-macos/use-this-package:
-  en: 1a81b1ce425fa6dd
-  zh: c6ee0efef5fc3ed0
-/deepseek-ai-lyn-experimental-cua-macos/use-this-package/connect-an-external-execution-environment:
-  en: 786b8fd630b11e5f
-  zh: 55143f15486afce8
-/deepseek-ai-lyn-experimental-cua-macos/understand-the-implementation:
+/lyness-lyn-experimental-cua-macos/use-this-package:
+  en: 71de489d575377be
+  zh: 9a4a14c2715ec2ea
+/lyness-lyn-experimental-cua-macos/use-this-package/connect-an-external-execution-environment:
+  en: 3b86dcc106fb40de
+  zh: 095fc135f236be18
+/lyness-lyn-experimental-cua-macos/understand-the-implementation:
   en: 8b9ec208ca057a4a
   zh: e8dbb45891ad15b8
-/deepseek-ai-lyn-experimental-cua-macos/further-exploration:
-  en: ff9fac614001a98f
-  zh: 329678941154aaea
-/deepseek-ai-lyn-experimental-cua-macos/model-experience:
+/lyness-lyn-experimental-cua-macos/further-exploration:
+  en: 3dcdc4626b54145a
+  zh: 1b77c25a9a1defbb
+/lyness-lyn-experimental-cua-macos/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/deepseek-ai-lyn-experimental-cua-macos/model-experience/native-application-operations:
+/lyness-lyn-experimental-cua-macos/model-experience/native-application-operations:
   en: ab7cba4a42334ab9
   zh: f77cd9d84624b6c2
-/deepseek-ai-lyn-experimental-cua-macos/model-experience/native-application-operations/what-the-model-sees:
+/lyness-lyn-experimental-cua-macos/model-experience/native-application-operations/what-the-model-sees:
   en: c221fa5ce647b1dd
   zh: 9388c91a9f89e029
-/deepseek-ai-lyn-experimental-cua-macos/model-experience/native-application-operations/what-the-model-sees/operation-guidance-verbatim:
+/lyness-lyn-experimental-cua-macos/model-experience/native-application-operations/what-the-model-sees/operation-guidance-verbatim:
   en: 2dbc22ffd1f8a717
   zh: d4458872e75305d9
-/deepseek-ai-lyn-experimental-cua-macos/model-experience/native-application-operations/token-effect:
+/lyness-lyn-experimental-cua-macos/model-experience/native-application-operations/token-effect:
   en: ab52b46d874fa8b9
   zh: e87d3620ef77cb06
-/deepseek-ai-lyn-experimental-cua-macos/model-experience/native-application-operations/kv-cache-effect:
+/lyness-lyn-experimental-cua-macos/model-experience/native-application-operations/kv-cache-effect:
   en: a2c9acb5a4320dda
   zh: e8d1586af60215c4
-/deepseek-ai-lyn-experimental-cua-macos/known-limitations-and-deferred-work:
-  en: a54c9f7bc90cf8ec
-  zh: 6e7fac48c0b51ced
-/deepseek-ai-lyn-experimental-cua-macos/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-experimental-cua-macos/known-limitations-and-deferred-work:
+  en: 077a0b42c7544371
+  zh: 82180eb9bb1e25c0
+/lyness-lyn-experimental-cua-macos/known-limitations-and-deferred-work/dev-note:
   en: b836f01bd0bceb4a
   zh: 8122fa08b2aa95fa

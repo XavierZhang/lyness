@@ -9,14 +9,14 @@
   en: 85d899b705c1e220
   zh: 1def655663223fb6
 /lyness-lyn-client-ui-subagent/summary:
-  en: 50f267d55833a683
-  zh: 89d6b827576baa8b
+  en: 6e0bbf514ad3bef7
+  zh: 5a29d88c124d35cc
 /lyness-lyn-client-ui-subagent/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
 /lyness-lyn-client-ui-subagent/use-this-package:
-  en: 1e96a2fed3ec4b67
-  zh: 6b37cd008352e890
+  en: e48406425e7d177e
+  zh: 3e3b00af76405d23
 /lyness-lyn-client-ui-subagent/use-this-package/browsing-the-tree:
   en: 3508631091820123
   zh: ec7da9e5bedb22ba
@@ -27,20 +27,20 @@
   en: 6a5f91b7dfcefafe
   zh: 2d11441952cfea53
 /lyness-lyn-client-ui-subagent/understand-the-implementation:
-  en: 004fec17254f18f4
-  zh: 19ef1a477bb1257e
+  en: 52d33b4bcff59b1e
+  zh: 90e5f353b3a3bd68
 /lyness-lyn-client-ui-subagent/understand-the-implementation/catalog-derivation:
-  en: 5e1c83ef8eb26c52
-  zh: f5be8f1e78c74859
+  en: 5531dcc1fb976cff
+  zh: 6fe779f4f1c34266
 /lyness-lyn-client-ui-subagent/understand-the-implementation/duration-completion-and-tokens:
   en: b817e9907392f59c
   zh: e42feb97d572a989
 /lyness-lyn-client-ui-subagent/understand-the-implementation/composer-election:
-  en: 1c15af4dd7c0b791
-  zh: f789737ab4dd8cb2
+  en: a92cda818efce4ce
+  zh: 4105bafa4debf81e
 /lyness-lyn-client-ui-subagent/further-exploration:
-  en: dc2f9c87c86c0dec
-  zh: 3307d253232ff585
+  en: daf9ee5261005198
+  zh: 481e078a6ebd03d0
 /lyness-lyn-client-ui-subagent/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
@@ -60,5 +60,5 @@
   en: ee310ff3cd487639
   zh: 23793aa1c28a23af
 /lyness-lyn-client-ui-subagent/known-limitations-and-deferred-work/dev-note:
-  en: 3dd148cecbb1a4df
-  zh: 626cc5ed9f65c72a
+  en: e67f633dc6fe7773
+  zh: 3bb0c20c93f16f98

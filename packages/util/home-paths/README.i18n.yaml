@@ -3,14 +3,14 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/util/home-paths/README.md
 /:
-  en: 20e1dea99163f4e5
-  zh: 764f699d418d18fc
+  en: 4d11c541e5bef78f
+  zh: 7b6e76b49589062c
 /lyness-lyn-home-paths:
   en: 3600389ab4964f05
   zh: b32a66634916d1e6
 /lyness-lyn-home-paths/summary:
-  en: 11f849a86d6f9cc9
-  zh: 2cd129e5a380dfbe
+  en: 1e300e50b067a1d1
+  zh: 97c85c653b9dbb79
 /lyness-lyn-home-paths/table-of-contents:
   en: 80b31a934611cb4a
   zh: 05f3f7f9cb2fd881
@@ -20,9 +20,12 @@
 /lyness-lyn-home-paths/use-this-package/resolving-the-home:
   en: 88bcd9b74d0db457
   zh: c30aa365ed125edd
+/lyness-lyn-home-paths/use-this-package/resolving-the-shared-agents-root:
+  en: 02a97826ab551cbb
+  zh: 99cb2b035671dc5b
 /lyness-lyn-home-paths/use-this-package/displaying-a-home:
-  en: fc0a47fa25c83e72
-  zh: a1c7751580f83bfa
+  en: 16502702cb7d4f3d
+  zh: 1a23d8fb6bef025a
 /lyness-lyn-home-paths/use-this-package/expanding-user-paths:
   en: 80bf5dead177c1d8
   zh: 6faf257afbb9c246
@@ -30,14 +33,14 @@
   en: 55c5d8179de704c5
   zh: b86395e9605807cd
 /lyness-lyn-home-paths/understand-the-implementation:
-  en: a3896db883f77b47
-  zh: 45c71eccc31682b5
+  en: 3f97bd4606e12d4a
+  zh: 8f09f108141a478e
 /lyness-lyn-home-paths/understand-the-implementation/source-map:
-  en: ab001f10961a5a98
-  zh: 2209a79d2d5d9b68
+  en: 584610e67c4aa386
+  zh: 766f77e35c65193d
 /lyness-lyn-home-paths/understand-the-implementation/resolution-rules:
-  en: cf6a136f7d0acc42
-  zh: cc7befa3a316f0a8
+  en: 1868aa4c30faf852
+  zh: d2874668d7c8850e
 /lyness-lyn-home-paths/understand-the-implementation/canonicalization-mechanics:
   en: a79aecd162317dc2
   zh: 342f9bae0231c3de

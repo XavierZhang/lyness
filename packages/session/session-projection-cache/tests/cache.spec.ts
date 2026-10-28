@@ -537,7 +537,7 @@ describe('SessionProjectionCache listing read', () => {
       'cache-test/secret': { ver: 1, seq: SessionSeq(4), val: 'private prompt text' },
     })
     const { ctx, cache } = await harness({ root })
-    ctx.sessionProjections.register(secretUnit)
+    await ctx.sessionProjections.register(secretUnit)
     const header = headerOf(SessionId('host-read'))
 
     // The wire face keeps it off the wire; the Host face reads it, which is

@@ -9,38 +9,41 @@
   en: b8d4b0c080c33a1b
   zh: d0f663df9a33d706
 /lyness-lyn-ptc-runtime-node/summary:
-  en: 4d6be30d9289a58e
-  zh: b1b2b4d773d32029
+  en: 91379c5dc7f04630
+  zh: 6ae48abc2097a7ef
 /lyness-lyn-ptc-runtime-node/table-of-contents:
   en: d152484eb41ac6b4
   zh: 725b47765ee8f30b
 /lyness-lyn-ptc-runtime-node/use-this-package:
   en: 81b45b8f6f4eb3aa
-  zh: 955d69469ed8e3bc
+  zh: e063d0fcf225a462
 /lyness-lyn-ptc-runtime-node/use-this-package/configuration:
-  en: 0043bad8cc6cdcb7
-  zh: d8ed7624d9d5d8d0
+  en: 12c634e84ac220b5
+  zh: 268137f6245f858c
 /lyness-lyn-ptc-runtime-node/use-this-package/execution-and-results:
-  en: 6d65b39223ca9f7a
-  zh: 96f96341ecab1317
+  en: c79baab0c0a49ca7
+  zh: b90b78d0d75280fb
+/lyness-lyn-ptc-runtime-node/use-this-package/in-memory-mode:
+  en: d2ca0da864f4f92a
+  zh: e8e1b8f50b875160
 /lyness-lyn-ptc-runtime-node/use-this-package/deadlines-and-cancellation:
-  en: 5ae03de559378906
-  zh: 07d4268d7532eaac
+  en: 2a900d0abef35406
+  zh: 883ea470b9b14a22
 /lyness-lyn-ptc-runtime-node/use-this-package/failures:
-  en: 7682e50f9dcfa25c
-  zh: ddcb3502e12be06f
+  en: 0ba661c7030f368c
+  zh: dc2be3553eda447d
 /lyness-lyn-ptc-runtime-node/understand-the-implementation:
   en: 9020b491a39e4bf5
   zh: bcd1b2b1a3bde7f3
 /lyness-lyn-ptc-runtime-node/understand-the-implementation/launch-and-control:
-  en: 45527dad94dd9362
-  zh: c1e1179391e89a3f
+  en: 94e08458a48b8c16
+  zh: 48087aaa4ef028b6
 /lyness-lyn-ptc-runtime-node/understand-the-implementation/source-and-built-bootstraps:
-  en: c01071304a9d563a
-  zh: 2938a64b13a257d8
+  en: f9d796233bfb3b79
+  zh: f7c5803a6ccdf9c2
 /lyness-lyn-ptc-runtime-node/understand-the-implementation/source-map:
-  en: a6702856dec3d449
-  zh: 0c442a74c8005571
+  en: 6534d1c3a1e40c65
+  zh: 2aae909d97915ece
 /lyness-lyn-ptc-runtime-node/further-exploration:
   en: 7ad832dc64a64174
   zh: 357b743fb31a0352
@@ -51,8 +54,8 @@
   en: 40294c1c31b74824
   zh: d91e7b78c0619c7e
 /lyness-lyn-ptc-runtime-node/known-limitations-and-deferred-work:
-  en: 88eac5d4119c11f6
-  zh: ba0861bf07c5e9df
+  en: c99f20872d7694d0
+  zh: b3a3193572afd8f3
 /lyness-lyn-ptc-runtime-node/known-limitations-and-deferred-work/dev-note:
   en: f066b445788f2e0c
   zh: f61298b160a1d0e9

@@ -15,14 +15,17 @@
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
 /lyness-lyn-sdk-client/use-this-package:
-  en: e6e41cc79d57d4cd
-  zh: 5f13646bd859b9ff
+  en: fa769d5b39c53f6c
+  zh: 614c7d01c8b60d8d
 /lyness-lyn-sdk-client/use-this-package/running-agent-turns-with-lyness:
   en: 9ce6d1d7b29b9f27
   zh: 28ea4c96faa62618
 /lyness-lyn-sdk-client/use-this-package/lower-level-control-with-harnessclient:
-  en: 6c6d386a9d5a0ff4
-  zh: 5f9fa66707da8f77
+  en: e60a403f61bfb4de
+  zh: 47a7d4868420a941
+/lyness-lyn-sdk-client/use-this-package/native-user-questions:
+  en: a606c958980c5374
+  zh: d46d1273ca5a4bd0
 /lyness-lyn-sdk-client/understand-the-implementation:
   en: 8773f50c51da85f0
   zh: 4649ebc69357deb0
@@ -30,8 +33,8 @@
   en: 6334e8531c861394
   zh: f3d1121b56dc62f8
 /lyness-lyn-sdk-client/understand-the-implementation/source-map:
-  en: a9f045ec8a3845b2
-  zh: c2aca63334386274
+  en: 9a9066f897c49c8c
+  zh: 80d7c89041fc3c21
 /lyness-lyn-sdk-client/understand-the-implementation/owned-activity-flow:
   en: 94a42babac5f1c7d
   zh: df9e42ed02f7d002
@@ -48,8 +51,8 @@
   en: 7abe0be104a791e7
   zh: 445311f78b1069ca
 /lyness-lyn-sdk-client/known-limitations-and-deferred-work:
-  en: fe137ed6378f8386
-  zh: d6625f28afbefa53
+  en: 46937e5267751bbf
+  zh: adeb975b428a02d2
 /lyness-lyn-sdk-client/known-limitations-and-deferred-work/dev-note:
   en: 6177a56f053936a4
   zh: 0f4b20228c2d15da

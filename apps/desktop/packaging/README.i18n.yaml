@@ -6,8 +6,8 @@
   en: 9bc7767fc1bced33
   zh: 4f6198337a573cf4
 /desktop-packaging:
-  en: b35e10c88ade04fe
-  zh: a2d09add03407b91
+  en: 72a3cf10fe382b5e
+  zh: b22acb9818b9783d
 /desktop-packaging/summary:
   en: e98e516b9e1bd0f4
   zh: 1a2abd7d89ef78a1
@@ -15,44 +15,44 @@
   en: a6203dc2e690c7e1
   zh: 07b516549b8e3328
 /desktop-packaging/choose-a-build-path:
-  en: 0b35c7471c09b27a
-  zh: cc4a382b99fc3210
+  en: 713a537f97ad5d04
+  zh: e335c1fc35dfe11a
 /desktop-packaging/release-versions:
-  en: 3f38ab26ee195b39
-  zh: f00eddafa8f3b9ca
+  en: d8c19625caa86b32
+  zh: 12d0b39d0b290a51
 /desktop-packaging/configuration-and-local-builds:
-  en: 5b4f0f80a117f202
-  zh: ff05be196c181087
+  en: a725fa8b9affad03
+  zh: 3215ac04938f8557
 /desktop-packaging/windows-actions-packaging:
-  en: 364223725374d9ac
-  zh: c4d4cc58d7cbafbd
+  en: 5bbc922159a0fd9c
+  zh: f963557939a7cd0e
 /desktop-packaging/macos-self-hosted-packaging:
-  en: bb1dcdfef3f3a113
-  zh: 9c151800a61e2505
+  en: 8e51c9e49092fcf2
+  zh: 43fda84bad661a82
 /desktop-packaging/unsigned-windows-test-installer:
-  en: f429bc0c280e2dfa
-  zh: 4adbcc9e906bdf80
+  en: 3a043587dabdc89f
+  zh: a21a0f2aff5c05f5
 /desktop-packaging/local-macos-dmg-without-release-signing:
-  en: 2feaa0412247d81f
-  zh: 461dde8e13fd4734
+  en: c14ecc73bda0d635
+  zh: b220a7f3415209f5
 /desktop-packaging/macos-release-signing-and-diagnostics:
-  en: 29fa6bd8919f3ec0
-  zh: 9e31e037fa3d9378
+  en: 310594e4d500f89a
+  zh: 33a081e3ba007567
 /desktop-packaging/directory-builds-and-preparation:
-  en: 5860c306375ddd63
-  zh: a76e3cdbbe25c79e
+  en: a49c3921ae65ffe6
+  zh: aace843aa5413949
 /desktop-packaging/local-official-bundles-from-a-loopback-registry:
-  en: b42f103358d0dfd7
-  zh: a534164ad9eb00da
+  en: 390f39558367f753
+  zh: f68f03bdfcb96cf4
 /desktop-packaging/runtime-file-selection-and-installation-checks:
-  en: 83e1075417039410
-  zh: 3088a7ae0a2cc3c5
+  en: 9895c7af858ed4e0
+  zh: ea6596160c24cf18
 /desktop-packaging/desktop-runtime-preparation:
-  en: ab73b67d899e611d
-  zh: d77b0525c6b81e91
+  en: db3ada3895af6a9e
+  zh: d0e20e5897f60428
 /desktop-packaging/installation-and-release-verification:
-  en: eb35eb973b796643
-  zh: c1c52311632b7296
+  en: 0244c75ecc45e582
+  zh: 33ef4825d6db0f30
 /desktop-packaging/dev-note:
   en: 691194744993dfaa
   zh: e5798faf99546ff8

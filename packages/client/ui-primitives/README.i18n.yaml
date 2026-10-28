@@ -15,26 +15,26 @@
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
 /lyness-lyn-client-ui-primitives/use-this-package:
-  en: ddec1f6f9b018747
-  zh: 9555f132daf8901c
+  en: 10be7f75a1576575
+  zh: abf2905d89b0da48
 /lyness-lyn-client-ui-primitives/use-this-package/component-catalog:
-  en: b195c202964b407c
-  zh: 41f350dea12d8865
+  en: 2dcac3394dd0dbc6
+  zh: 114b70ef453b9079
 /lyness-lyn-client-ui-primitives/use-this-package/controls-and-icons:
-  en: 49e11bf8bc4ddfee
-  zh: 15f1cd91039c7488
+  en: 6809cf391d4ae72f
+  zh: 86c05e21391feac7
 /lyness-lyn-client-ui-primitives/use-this-package/rendering-agent-output:
-  en: 66967e0bc9768e12
-  zh: d12fe4e211e89290
+  en: 311f2d17c3cee9b2
+  zh: 141f81599eb9d703
 /lyness-lyn-client-ui-primitives/use-this-package/localizing-copy:
-  en: 4aef65dea11de083
-  zh: abc22cd7c65cdf38
+  en: a943603b74080ef5
+  zh: 43f7a0188aff271b
 /lyness-lyn-client-ui-primitives/understand-the-implementation:
-  en: 9cb6d404ba8e8b26
-  zh: 2c59637b1cb7ace2
+  en: 18cf9d440b83d5ed
+  zh: 604f1b04f1b2c677
 /lyness-lyn-client-ui-primitives/understand-the-implementation/source-map:
-  en: 44eb32370cbeafe8
-  zh: 728009c66375c6bb
+  en: fd510d34404eb090
+  zh: d05b0890db929ae6
 /lyness-lyn-client-ui-primitives/understand-the-implementation/input-modality:
   en: e9ca36e19864ba52
   zh: d40d46f4a6fe8422
@@ -42,11 +42,11 @@
   en: 8bbfa14c27f3bfd7
   zh: 88f7548ac3a114e1
 /lyness-lyn-client-ui-primitives/understand-the-implementation/geometry-and-overflow:
-  en: 49f6341d81ded00e
-  zh: cab87dc54a42ba69
+  en: 45f4cd1ef96bb6d2
+  zh: f264d25b780ad1dc
 /lyness-lyn-client-ui-primitives/further-exploration:
-  en: 8f5b9ea2f1ed5640
-  zh: 7ebe09a695e0dfd5
+  en: 8c6bd6d7b6cc2722
+  zh: ed9909dcd4904771
 /lyness-lyn-client-ui-primitives/model-experience:
   en: 3120df665299c634
   zh: 1d9f365d091d0d2a
@@ -54,8 +54,8 @@
   en: ca75c51c89c2c9b0
   zh: de54f3467ef3b9be
 /lyness-lyn-client-ui-primitives/known-limitations-and-deferred-work:
-  en: 258ad2c8bb82b0b2
-  zh: ebe28f0b1cfd3bb7
+  en: 7a6066bdc9ba773f
+  zh: 19450b65cc500caf
 /lyness-lyn-client-ui-primitives/known-limitations-and-deferred-work/dev-note:
-  en: ae1d5d1bcc80c932
-  zh: 15709ccdbfcdf26c
+  en: e67f633dc6fe7773
+  zh: 3bb0c20c93f16f98

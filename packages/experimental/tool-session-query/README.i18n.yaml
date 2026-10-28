@@ -1,16 +1,16 @@
 # Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
 # section, a hash of its English and Chinese blocks outside code blocks and generated regions.
 # After editing either side, bring the other along and re-record with:
-#   pnpm run verify-translation-pairing --write packages/session-query/tool-session-query/README.md
+#   pnpm run verify-translation-pairing --write packages/experimental/tool-session-query/README.md
 /:
   en: f6e08c67514237ad
   zh: cfcb09b6263a9b00
 /lyness-lyn-tool-session-query:
-  en: d0a25f27bf8f1295
-  zh: 25d368e21f72d07d
+  en: 34a91c38ad36e9a4
+  zh: 9d0425089d9cd84e
 /lyness-lyn-tool-session-query/summary:
-  en: baeeb2167c0f545d
-  zh: 64f7c0d116e427d3
+  en: 1af84de71d5d77e6
+  zh: 6906ec5499d748f8
 /lyness-lyn-tool-session-query/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
@@ -93,5 +93,5 @@
   en: d2f0d68fe29fb750
   zh: 323d21ee73a9e3f6
 /lyness-lyn-tool-session-query/known-limitations-and-deferred-work/dev-note/future-broader-workspace-semantics:
-  en: 540af3b250d4486d
-  zh: 5eae2bc1644b92b5
+  en: 10cb8ae346c8183f
+  zh: d37674a97b5f99d5

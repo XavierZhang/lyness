@@ -9,11 +9,14 @@
   en: a991ba4cf06e8314
   zh: 0ff90abcc8516959
 /agent-note-performance-baselines-for-tool-heavy-backend-continuation/decision:
-  en: 10339768c12d9b35
-  zh: a45dca1b182c4f06
+  en: 05c5eb2f3200c8b2
+  zh: a28b402058de2db8
 /agent-note-performance-baselines-for-tool-heavy-backend-continuation/calibration-evidence:
-  en: 81376377be8ea891
-  zh: 7baf3b7254d12890
+  en: 16498006f02baebb
+  zh: 7b64cb0629ee1753
+/agent-note-performance-baselines-for-tool-heavy-backend-continuation/calibration-evidence/sdk-minimal-checkpoint-calibration:
+  en: f4b52851e35cec56
+  zh: b419546dda8abf21
 /agent-note-performance-baselines-for-tool-heavy-backend-continuation/alternatives-considered:
   en: 3a61dff7c926eb22
   zh: 8f2633b16be78233

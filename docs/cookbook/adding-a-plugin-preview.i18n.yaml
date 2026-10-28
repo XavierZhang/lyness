@@ -3,8 +3,8 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write docs/cookbook/adding-a-plugin-preview.md
 /cookbook-add-a-plugin-feature-preview:
-  en: c37096cd3cdb886c
-  zh: fc6850d68c638898
+  en: 35e5526eac0df9a0
+  zh: acea42f528a2c4fc
 /cookbook-add-a-plugin-feature-preview/1-decide-whether-an-image-helps:
   en: ee84f52d834cbccf
   zh: 7bf3a425a231b5e6

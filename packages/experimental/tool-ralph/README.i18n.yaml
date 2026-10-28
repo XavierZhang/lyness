@@ -1,13 +1,13 @@
 # Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
 # section, a hash of its English and Chinese blocks outside code blocks and generated regions.
 # After editing either side, bring the other along and re-record with:
-#   pnpm run verify-translation-pairing --write packages/workflow/tool-ralph/README.md
+#   pnpm run verify-translation-pairing --write packages/experimental/tool-ralph/README.md
 /:
   en: e2a31cca62823561
   zh: c06ff93cf98b67e4
 /lyness-lyn-tool-ralph:
-  en: d5a6553cac1e858f
-  zh: 5097430633ccf725
+  en: 14de932b4bff8de6
+  zh: 5dff88b904f37fdc
 /lyness-lyn-tool-ralph/summary:
   en: 9821960147153443
   zh: 0b24aab94a5dc12b
@@ -30,8 +30,8 @@
   en: 0999ea3a4c9da48c
   zh: 83013ee36a8689af
 /lyness-lyn-tool-ralph/understand-the-implementation/design-concept:
-  en: bdb9f7fbca11b225
-  zh: 3e59349e494db09f
+  en: 3777bac0215c7366
+  zh: 18240f47506c67bd
 /lyness-lyn-tool-ralph/understand-the-implementation/fixed-script-and-routing:
   en: fa2cfda2d9d121e6
   zh: 75720bd6244a2c96
@@ -45,11 +45,11 @@
   en: 07e071bd44b1df65
   zh: 26f1cb2eab8c25b0
 /lyness-lyn-tool-ralph/understand-the-implementation/source-map:
-  en: b0cf0927913968fb
-  zh: 6170b4c8d2529a41
+  en: 1bc11234792b4e3f
+  zh: 872d2c5f8df37b72
 /lyness-lyn-tool-ralph/further-exploration:
-  en: b777f6b04a57077d
-  zh: c2a51ff0010e1a0a
+  en: 17e312847713917c
+  zh: 0a14efaf4e246abc
 /lyness-lyn-tool-ralph/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
@@ -93,8 +93,8 @@
   en: 8f28959dc87d1f2f
   zh: c034c5c0bdaf9bba
 /lyness-lyn-tool-ralph/known-limitations-and-deferred-work:
-  en: 922fd33532125ebb
-  zh: 27d508697ebc7668
+  en: 4e3629e8de05fe18
+  zh: 5b33af22079a2ca7
 /lyness-lyn-tool-ralph/known-limitations-and-deferred-work/dev-note:
   en: 8f24c317039e1974
   zh: c6209969ad21f16c

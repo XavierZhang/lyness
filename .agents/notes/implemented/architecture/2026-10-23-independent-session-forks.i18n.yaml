@@ -3,20 +3,20 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-10-23-independent-session-forks.md
 /agent-note-ordinary-forks-have-no-durable-creator-relationship:
-  en: 543a84d51e8aea24
-  zh: 24aeec7c3cdf5900
+  en: 2b7d8e37aca8b05b
+  zh: 4a797fa15e1b3a44
 /agent-note-ordinary-forks-have-no-durable-creator-relationship/problem:
   en: d2edaafdd83e5974
   zh: 57ce9ad368c404c2
 /agent-note-ordinary-forks-have-no-durable-creator-relationship/decision:
-  en: aae0053e9dc3be9f
-  zh: bd37095fd5c43c3d
+  en: 3e7a2d076642eb21
+  zh: 9275288e5fad95e0
 /agent-note-ordinary-forks-have-no-durable-creator-relationship/compatibility:
-  en: 8393e8526f927134
-  zh: c957cbde9dc6712d
+  en: 9bf2b02d8b465806
+  zh: 362925560dadbbee
 /agent-note-ordinary-forks-have-no-durable-creator-relationship/alternatives-considered:
   en: 748aa21283186e02
   zh: 51d3b0207b250784
 /agent-note-ordinary-forks-have-no-durable-creator-relationship/consequences:
-  en: adcb06ccf7503e55
-  zh: 30e02c6104eefe01
+  en: 3dda8a59014a216c
+  zh: e2adc818f4aebb0f

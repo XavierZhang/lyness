@@ -1,13 +1,13 @@
 # Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
 # section, a hash of its English and Chinese blocks outside code blocks and generated regions.
 # After editing either side, bring the other along and re-record with:
-#   pnpm run verify-translation-pairing --write packages/terminal/tool-terminal/README.md
+#   pnpm run verify-translation-pairing --write packages/experimental/tool-terminal/README.md
 /:
   en: fc74eecdf1f2ad5b
   zh: dc9c2a28ce96ce67
 /lyness-lyn-tool-terminal:
-  en: 4db307c6f00fd8a8
-  zh: 313bb2df99fb52de
+  en: 2c84054a61fa7b34
+  zh: ecde4a036c7d32a8
 /lyness-lyn-tool-terminal/summary:
   en: b1588b444c8e5aff
   zh: 0e668b3f5d8ea525
@@ -15,8 +15,8 @@
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
 /lyness-lyn-tool-terminal/use-this-package:
-  en: dcc6b2ac23494026
-  zh: f5b755ec75994458
+  en: 43b602baf5b35116
+  zh: caffb91711393c3b
 /lyness-lyn-tool-terminal/use-this-package/the-six-tools:
   en: 3e9b6211dd72ec64
   zh: aa4cd15195cb43d6
@@ -96,5 +96,5 @@
   en: 5883e1b81aa38ff0
   zh: 6a9704dd3bb70fd5
 /lyness-lyn-tool-terminal/known-limitations-and-deferred-work/dev-note:
-  en: a4c4901129addb49
-  zh: 78f339ece6da423b
+  en: e67f633dc6fe7773
+  zh: 3bb0c20c93f16f98

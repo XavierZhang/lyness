@@ -3,29 +3,29 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write docs/defensive-patterns/conversation-and-session.md
 /conversation-and-session-rules:
-  en: 499609ba1c6822d8
-  zh: 7429eabcce7d7c14
+  en: a17b6ee34ea5888e
+  zh: 63799f0180ff4008
 /conversation-and-session-rules/projection-is-the-only-read-and-compute-path:
-  en: 9fa9a332c93ba386
-  zh: ce01ccb47dfa5df7
+  en: d64abb9f54e4cfa1
+  zh: 2183032c52fd9163
 /conversation-and-session-rules/cold-reads-are-the-last-resort:
   en: 32991da738e47f7f
   zh: b138910f8c16d103
 /conversation-and-session-rules/retention-follows-one-lifecycle-rule:
-  en: fcb40a31d0881e84
-  zh: 779bc49cce81651e
+  en: 2451b7c137716ff9
+  zh: d100c48ba3a3614d
 /conversation-and-session-rules/node-computation-is-incremental-and-streaming-publication-is-batched:
-  en: 315c7ac2186d0721
-  zh: 06bb4e072b242fe1
+  en: 7e3bec2f960bde8d
+  zh: a70e7146a4e3df4b
 /conversation-and-session-rules/the-node-build-and-grouping-engine-carries-no-business-rule:
-  en: ebfa96408f32c3c1
-  zh: fb854b2b3e37aa9b
+  en: a50153959f74c09e
+  zh: fd6102448e688251
 /conversation-and-session-rules/the-node-list-and-seat-components-carry-no-business-branch:
-  en: f69c4c16f472adcc
-  zh: 4570a62aa3d934fb
+  en: 71eea01ba1b717e1
+  zh: 11e40f348b9b7992
 /conversation-and-session-rules/the-markdown-pipeline-carries-no-business-branch:
-  en: b124a7515404ed9e
-  zh: 4b544c2d1bbb6e76
+  en: 8dfe06966a5851b2
+  zh: f49c0a6594acc8c4
 /conversation-and-session-rules/the-user-message-model-and-rendering-carry-no-business-field:
-  en: 8f97bbeaba14be0d
-  zh: cfad05711395cbd2
+  en: 88ffb9b3d31a9186
+  zh: 96202925263c1f39

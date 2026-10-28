@@ -5,12 +5,21 @@
 /lyness-python-sdk:
   en: 90ab5455cc7442ec
   zh: f5c788c8122ce3a9
+/lyness-python-sdk/optional-office-operations:
+  en: 9fcdd91ab3ff6184
+  zh: 6f143072c3134484
 /lyness-python-sdk/start-a-runtime:
-  en: 44115cf8e22ca849
-  zh: 4dcfae4403b75c86
+  en: 23c965bdb08494b1
+  zh: c9a03dc1b90e06f9
+/lyness-python-sdk/client-approvals:
+  en: 3f3d0d11245f04a7
+  zh: 7ae0e40d3fd7898d
 /lyness-python-sdk/customize-plugins:
-  en: b00f81615d0fc8ef
-  zh: c47430731bad3b4e
+  en: 839b4315cecb41b8
+  zh: 2bb6505023441fd4
+/lyness-python-sdk/native-user-questions:
+  en: 103a1b3b3cb3f9ea
+  zh: ace4de93901df6a7
 /lyness-python-sdk/results-and-notifications:
-  en: 6c99398efac8010f
-  zh: bde5f3e8fbd67fe5
+  en: 2594ca5ef12d78ad
+  zh: d2f218824664654d

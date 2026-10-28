@@ -3,8 +3,8 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write docs/subsystems/session-telemetry.md
 /sessiontelemetrybackend:
-  en: 181ffd99d136d025
-  zh: 3ca617613aedc125
+  en: 6f69a5da6996fe8c
+  zh: bba195be7b8db3e2
 /sessiontelemetrybackend/the-logical-record:
   en: 1b6916e2c48c9f8c
   zh: 61c7ea33dfec8be8

@@ -3,26 +3,26 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/ui-settings-web-search/README.md
 /:
-  en: 5424f24b80e16ee6
-  zh: d606d3e878de6e91
+  en: e568f3724ab12e91
+  zh: 231b698b19fe22aa
 /lyness-lyn-client-ui-settings-web-search:
   en: 6a49c28a8a3019e4
   zh: 11adbf7d192e73e9
 /lyness-lyn-client-ui-settings-web-search/summary:
-  en: c84451c5b4641b9f
-  zh: 3197ee34071fcb27
+  en: f0f8d6a8f0f74de3
+  zh: 1926ea7e173eea51
 /lyness-lyn-client-ui-settings-web-search/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
 /lyness-lyn-client-ui-settings-web-search/use-this-package:
-  en: b9c740855d0886d8
-  zh: f6e14f6bd01ffd23
+  en: ee3220c742a22f71
+  zh: 5f0fbc07e43eb456
 /lyness-lyn-client-ui-settings-web-search/understand-the-implementation:
-  en: 90a3d55da6722763
-  zh: 8fc0463c6543f100
+  en: 4695da9b39a614a3
+  zh: 5ebe668df937e12e
 /lyness-lyn-client-ui-settings-web-search/further-exploration:
-  en: 2b5e20759f334832
-  zh: 8ae51dcd3707a506
+  en: f59159b48c2796fb
+  zh: 2882c83f54da957f
 /lyness-lyn-client-ui-settings-web-search/model-experience:
   en: 6b7c6f82ab6c8435
   zh: 4517689c899abcbe
@@ -30,8 +30,8 @@
   en: ca75c51c89c2c9b0
   zh: 6e1c9a8fdde89577
 /lyness-lyn-client-ui-settings-web-search/known-limitations-and-deferred-work:
-  en: 3fb1d37ebc9bf37a
-  zh: d6ac7929cb19ff55
+  en: 2f7f093f506401cd
+  zh: a9b748ae7d4c64e4
 /lyness-lyn-client-ui-settings-web-search/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: e88aeb617ffb74ea

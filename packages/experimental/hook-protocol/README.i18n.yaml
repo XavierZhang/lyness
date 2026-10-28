@@ -1,13 +1,13 @@
 # Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
 # section, a hash of its English and Chinese blocks outside code blocks and generated regions.
 # After editing either side, bring the other along and re-record with:
-#   pnpm run verify-translation-pairing --write packages/hooks/hook-protocol/README.md
+#   pnpm run verify-translation-pairing --write packages/experimental/hook-protocol/README.md
 /:
   en: 7cfe3761eedff848
   zh: 80b0bed5743d0924
 /lyness-lyn-hook-protocol:
-  en: 19008de3d07ab71c
-  zh: 87822e783f639b3e
+  en: b02aa7fa31d40185
+  zh: 256c4cb94ca91ce6
 /lyness-lyn-hook-protocol/summary:
   en: db526d7002a41a0a
   zh: af6142c4085bab85
@@ -30,20 +30,20 @@
   en: 08b3960150e9c5e2
   zh: 6bb2f236d697de01
 /lyness-lyn-hook-protocol/understand-the-implementation/processing-pipeline:
-  en: e9f7514082af4ec8
-  zh: 4d91f7d4ffe73416
+  en: 0bb25dcad98ce518
+  zh: 41aa98f6306d92d6
 /lyness-lyn-hook-protocol/understand-the-implementation/hook-session-events:
-  en: df385034792cc4b7
-  zh: db098189111877c3
+  en: 1e8d6a1b957d04a2
+  zh: 5a77ed82276facce
 /lyness-lyn-hook-protocol/understand-the-implementation/design-philosophy:
-  en: f84d6ec047897ec9
-  zh: 3d1088a4fa06bf01
+  en: 32efbd698ae24b21
+  zh: 00e210e2064e695a
 /lyness-lyn-hook-protocol/understand-the-implementation/source-map:
-  en: d613d9bd98d499fb
-  zh: afe2939d7df250ea
+  en: 0d8956a6d8608ee0
+  zh: 9f554284c4c0a36e
 /lyness-lyn-hook-protocol/further-exploration:
-  en: 15e8aeb4db821a80
-  zh: d6fc26d3da0cbdb3
+  en: 91125413af257648
+  zh: fa0370e7ac244622
 /lyness-lyn-hook-protocol/model-experience:
   en: de4d399e2cf45496
   zh: 05f163a237754329

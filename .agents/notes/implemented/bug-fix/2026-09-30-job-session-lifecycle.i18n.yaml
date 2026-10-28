@@ -3,14 +3,14 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/bug-fix/2026-09-30-job-session-lifecycle.md
 /agent-note-persist-owned-job-lifecycle-facts:
-  en: 79d83b765acf6e24
-  zh: afe6ea9af6d96d10
+  en: aa6b3a1588bb4dc6
+  zh: 1be76518f253e287
 /agent-note-persist-owned-job-lifecycle-facts/problem:
   en: b3d0591cc559e466
   zh: aa4c385e84f7eaa1
 /agent-note-persist-owned-job-lifecycle-facts/decision:
-  en: c982a59cbe5202d3
-  zh: 9315962d2e4b8f0a
+  en: 616463cd9e13583a
+  zh: a02b9fafd16e95ef
 /agent-note-persist-owned-job-lifecycle-facts/alternatives-considered:
   en: 140cf7152a35bb27
   zh: 001aa96687836914

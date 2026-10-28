@@ -3,14 +3,14 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-08-25-electron-desktop-packaging-and-updates.md
 /agent-note-package-and-update-the-electron-desktop-application:
-  en: abeebeff25c86b0f
-  zh: eb4f70cf6a7230b9
+  en: 1f5e62cb980218e2
+  zh: 23990447233e6507
 /agent-note-package-and-update-the-electron-desktop-application/problem:
   en: 31e95a43101559aa
   zh: 1e9df0ca4e6861ba
 /agent-note-package-and-update-the-electron-desktop-application/decision:
-  en: 11628f9779c312a2
-  zh: af09b171c0b3571d
+  en: 09e26e301d72ec32
+  zh: 0b3e68dba67aefe3
 /agent-note-package-and-update-the-electron-desktop-application/ownership:
   en: fe835467ef7979bb
   zh: 911a9a132886bc4b
@@ -21,11 +21,11 @@
   en: ce2f3b55b536c6c7
   zh: af8b82932ee5cfb4
 /agent-note-package-and-update-the-electron-desktop-application/updates-and-recovery:
-  en: a55f9d5288f5b8a1
-  zh: 030b08e7533df968
+  en: 4165740b8f3261fb
+  zh: a57924b706428271
 /agent-note-package-and-update-the-electron-desktop-application/security-and-release-policy:
-  en: 8a9ec9070701b9f3
-  zh: 2fe1f1d2b8812a9c
+  en: a7e926de174ee36b
+  zh: 03165686040c5ded
 /agent-note-package-and-update-the-electron-desktop-application/implementation:
   en: 128c88fc36b5f5da
   zh: 8a60899a0e610fa8

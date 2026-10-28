@@ -1,28 +1,28 @@
 # Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
 # section, a hash of its English and Chinese blocks outside code blocks and generated regions.
 # After editing either side, bring the other along and re-record with:
-#   pnpm run verify-translation-pairing --write packages/session/session-title-all-prompts-llm/README.md
+#   pnpm run verify-translation-pairing --write packages/experimental/session-title-all-prompts-llm/README.md
 /:
   en: 0718b02e4cdd4cc6
   zh: 2b5b4a729ce4d97e
 /lyness-lyn-session-title-all-prompts-llm:
-  en: fe06f288e22b1a03
-  zh: 27c17407221a13f1
+  en: 6bcc542ae5aa7ecd
+  zh: e68bf6d4085f3695
 /lyness-lyn-session-title-all-prompts-llm/summary:
-  en: da5c1b6fb34ae9e3
-  zh: 9d64aabeba68cf30
+  en: c339dc5d86d8b719
+  zh: 5819e15a70f5f84b
 /lyness-lyn-session-title-all-prompts-llm/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
 /lyness-lyn-session-title-all-prompts-llm/use-this-package:
-  en: a4963c750e4cebff
-  zh: caff877901a8be29
+  en: 61b7031654988b4f
+  zh: 006eec2b6f02293c
 /lyness-lyn-session-title-all-prompts-llm/use-this-package/when-titles-are-generated:
-  en: 3c9e14df96e6000e
-  zh: a13f12a3df426380
+  en: 5750c08ae93b2c07
+  zh: 130724e56a833217
 /lyness-lyn-session-title-all-prompts-llm/use-this-package/configuration:
-  en: 54321422280d7f3c
-  zh: 9227f4175aa93ae8
+  en: 17efbbf0d5308c3d
+  zh: 3c1c0f0fd9f78788
 /lyness-lyn-session-title-all-prompts-llm/use-this-package/failures-and-recovery:
   en: 6077a4665a4edb87
   zh: 539c4e5969f9bb9b
@@ -30,17 +30,17 @@
   en: 506933ffa7745b7d
   zh: a9bb6f06a32b7c18
 /lyness-lyn-session-title-all-prompts-llm/understand-the-implementation/design-concept:
-  en: f16a2de804c120f1
-  zh: 3d61bb647771ebba
+  en: 989f3d73f982370a
+  zh: 0a6d78287c69b1c1
 /lyness-lyn-session-title-all-prompts-llm/understand-the-implementation/source-map:
-  en: e7ae42597cc501a6
-  zh: 2e55e9b293b25958
+  en: 18bfd548b52deec1
+  zh: 85115c952ee14dec
 /lyness-lyn-session-title-all-prompts-llm/understand-the-implementation/scheduling:
   en: ca23821924af2b14
   zh: a384479d5e69b0f8
 /lyness-lyn-session-title-all-prompts-llm/further-exploration:
-  en: 508f0054d0b21ec4
-  zh: e73b3bcac3ad964a
+  en: cb425fbcf6d0ff27
+  zh: 9e96d55161454c5c
 /lyness-lyn-session-title-all-prompts-llm/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
@@ -48,17 +48,17 @@
   en: 42380e2d029288cf
   zh: e9c9f21ac00e3c9d
 /lyness-lyn-session-title-all-prompts-llm/model-experience/all-messages-title-request/what-the-model-sees:
-  en: 39cb7059a3ab1fe6
-  zh: a3fd93ac52f12a43
+  en: 3c03a04339ff4f72
+  zh: 8dea27ff49d6a9a7
 /lyness-lyn-session-title-all-prompts-llm/model-experience/all-messages-title-request/token-effect:
-  en: 1a075b8073c16ce3
-  zh: a51ff16156f9c137
+  en: 4f043655b7b2c8fc
+  zh: e4914d15ef9ff8b1
 /lyness-lyn-session-title-all-prompts-llm/model-experience/all-messages-title-request/kv-cache-effect:
   en: 6a70f43f38b8c075
   zh: 2b823aff93344134
 /lyness-lyn-session-title-all-prompts-llm/known-limitations-and-deferred-work:
-  en: d0486c65afaebb85
-  zh: 186a77e0d68bd968
+  en: 48baddec2b04e7d2
+  zh: 46e85efbead4a309
 /lyness-lyn-session-title-all-prompts-llm/known-limitations-and-deferred-work/dev-note:
-  en: 954d91e08a470fd6
-  zh: e11425f8ec88d40a
+  en: e67f633dc6fe7773
+  zh: 3bb0c20c93f16f98

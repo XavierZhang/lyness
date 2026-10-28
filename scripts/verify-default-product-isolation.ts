@@ -144,9 +144,10 @@ export function verifyDefaultProductIsolation(root: string): ProductIsolationRes
     if (pkg !== undefined) add(pkg, origin)
     else if (EXTERNAL_KIT_PACKAGES.has(packageName)) return
     // Two scopes reach here: the harness's own, and the vendor scope the
-    // independently published office kit sits in. Upstream spelled both
-    // `@lyness/`, so the rename left the second one unchecked.
-    else if (packageName.startsWith('@lyness/') || packageName.startsWith('@lyness/')) {
+    // independently published office kit sits in. Upstream spells those two
+    // scopes apart; the rename maps both onto this fork's one scope, so one
+    // check now covers what upstream needed two for.
+    else if (packageName.startsWith('@lyness/')) {
       failures.push(`${origin}: unknown workspace package ${name}`)
     }
   }

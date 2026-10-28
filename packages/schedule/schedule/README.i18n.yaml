@@ -15,27 +15,27 @@
   en: 23386452a66b2fbd
   zh: 4a8d91b2f313fead
 /lyness-lyn-schedule/use-this-package:
-  en: 7f7dbfbedb12e917
-  zh: 2f4f4d796370bb30
+  en: 1e20d2de8ffa9bad
+  zh: 2978a4601451f362
 /lyness-lyn-schedule/understand-the-implementation:
-  en: 1435a44ebcc4a3b5
-  zh: 01c6f47aff87343d
+  en: a207fa6522c9567a
+  zh: 3df041459380771f
 /lyness-lyn-schedule/further-exploration:
   en: a1e5fd698125fd3f
   zh: e4e4b46c2b43b38f
 /lyness-lyn-schedule/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/lyness-lyn-schedule/model-experience/tool-schemas-on-root-agents:
-  en: c4c31a3f6826626d
-  zh: 5aa01bfa311b2f4c
-/lyness-lyn-schedule/model-experience/tool-schemas-on-root-agents/what-the-model-sees:
-  en: 13d7a6f4354e62cf
-  zh: 930b35a851c9c1da
-/lyness-lyn-schedule/model-experience/tool-schemas-on-root-agents/token-effect:
+/lyness-lyn-schedule/model-experience/tool-schemas-in-mounted-presets:
+  en: 097a655a88e2a9f2
+  zh: 6612c58808186b1e
+/lyness-lyn-schedule/model-experience/tool-schemas-in-mounted-presets/what-the-model-sees:
+  en: d90872b2ad54e971
+  zh: 9f96d239d6ec53e5
+/lyness-lyn-schedule/model-experience/tool-schemas-in-mounted-presets/token-effect:
   en: ae0eb4d2609d4329
   zh: 4fe0a26e37c272dc
-/lyness-lyn-schedule/model-experience/tool-schemas-on-root-agents/kv-cache-effect:
+/lyness-lyn-schedule/model-experience/tool-schemas-in-mounted-presets/kv-cache-effect:
   en: 7bf33bbe17e1da03
   zh: 2af9a2f842b4f430
 /lyness-lyn-schedule/model-experience/tool-results-after-management-calls:
@@ -54,8 +54,8 @@
   en: 39a747e5d135e241
   zh: ad505b3d5bc27acf
 /lyness-lyn-schedule/model-experience/due-reminders-in-the-original-session/what-the-model-sees:
-  en: 7b05d635d4cc9714
-  zh: d1c908f51115e4f5
+  en: cdb4f0d0fe43bfe8
+  zh: 156c9db0652684ca
 /lyness-lyn-schedule/model-experience/due-reminders-in-the-original-session/what-the-model-sees/one-shot-framing:
   en: d8635e0075bacc3f
   zh: 685e16d812319f85
@@ -69,8 +69,8 @@
   en: 1006325fa610366d
   zh: 476215d8a3c70fe4
 /lyness-lyn-schedule/known-limitations-and-deferred-work:
-  en: fd511d607cbc7b8d
-  zh: f45a14991cfa47e6
+  en: 929db99de4398581
+  zh: 969d922d32bb7a27
 /lyness-lyn-schedule/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 8ec3e73528ddb1a6

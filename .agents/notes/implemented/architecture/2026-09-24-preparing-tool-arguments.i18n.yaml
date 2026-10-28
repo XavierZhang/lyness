@@ -3,17 +3,17 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-09-24-preparing-tool-arguments.md
 /agent-note-incremental-tool-argument-scanning-and-argument-order-during-preparation:
-  en: 07f6420c67ea2700
-  zh: b9b53250e050cf6e
+  en: 4bead146aa623b61
+  zh: e2632a1f9e7fb3c2
 /agent-note-incremental-tool-argument-scanning-and-argument-order-during-preparation/problem:
-  en: c97b3edd4ef1d063
-  zh: 5c8b6065e662f326
+  en: 94808fd4ff24b123
+  zh: 30b3d06409a09dce
 /agent-note-incremental-tool-argument-scanning-and-argument-order-during-preparation/decision:
   en: a15c7c13f167e5ac
   zh: 63bcc2ef60c2f344
 /agent-note-incremental-tool-argument-scanning-and-argument-order-during-preparation/decision/a-lazily-computed-argument-view-lives-in-lyn-util-values:
-  en: eb004194b0c08464
-  zh: d09c6353ed7138de
+  en: c92dae3adcb44d69
+  zh: fca12eaaabd75933
 /agent-note-incremental-tool-argument-scanning-and-argument-order-during-preparation/decision/parsing-happens-in-the-tool-definition-not-in-react:
   en: 518206f94d82993d
   zh: c6cab3b2f71dd18b

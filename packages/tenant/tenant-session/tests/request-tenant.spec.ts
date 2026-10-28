@@ -23,7 +23,7 @@ import StaticTenantConfigStore from '@lyness/lyn-tenant-config-static'
 import RequestTenantScope from '@lyness/lyn-tenant-request'
 import * as TenantSession from '../src/index.ts'
 import type { TenantSessionRecord } from '../src/index.ts'
-import { tenantSessionRecordSchema } from '@lyness/lyn-tenant-session'
+import { tenantSessionProjectionDefinition } from '@lyness/lyn-tenant-session'
 import type { PeerScope } from '@lyness/lyn-typert-protocol'
 
 /** These assertions are not about access, so every dispatch speaks for the owner. */
@@ -155,10 +155,10 @@ async function compose(): Promise<Context> {
  */
 async function createOverRpc(ctx: Context, tenantId: string): Promise<TenantSessionRecord | null | undefined> {
   let stamped: TenantSessionRecord | null | undefined
+  const tenantProjection = await ctx.sessionProjections.register(tenantSessionProjectionDefinition)
   const dispose = ctx.connection.rpc.intercept('/api', () => true, () => {
     const session = ctx.sessions.create()
-    const state = ctx.sessionProjections.stateOf(session, 'tenant')
-    stamped = state === undefined ? undefined : tenantSessionRecordSchema.parse(state)
+    stamped = tenantProjection.stateOf(session)
     return Promise.resolve({ ok: true, value: null })
   })
   const shared = ctx.connection.createSharedFetchHandler('/api')
@@ -186,7 +186,7 @@ describe('the tenant a created session is stamped with', () => {
   it('is the configured tenant for a session created outside any call', async () => {
     const ctx = await compose()
     const session = ctx.sessions.create()
-    expect(ctx.sessionProjections.stateOf(session, 'tenant')).toEqual({
+    expect((await ctx.sessionProjections.register(tenantSessionProjectionDefinition)).stateOf(session)).toEqual({
       version: 1,
       tenantId: 'acme',
       slug: 'acme',

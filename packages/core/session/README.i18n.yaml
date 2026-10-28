@@ -18,14 +18,17 @@
   en: 1d6492a5c1949877
   zh: 58564f39e5b97a96
 /lyness-lyn-session/use-this-package/create-and-inspect-sessions:
-  en: f80dab583fa3939d
-  zh: 5a9a79ebcef86119
+  en: 971e583b3d6c1af8
+  zh: c7da934ecb8f1e87
 /lyness-lyn-session/use-this-package/append-and-derive:
-  en: ad2181b0d758cd43
-  zh: c1a8fea497875b38
+  en: 4458f672cabdda85
+  zh: 0c4645568e3fa077
 /lyness-lyn-session/use-this-package/read-the-log:
-  en: d85134b84beb33ef
-  zh: e1055a182bea46a6
+  en: cf4d5e6f24732200
+  zh: c4e46f178cda484b
+/lyness-lyn-session/use-this-package/write-experimental-plugin-records:
+  en: d75f3aa150a340ba
+  zh: 7a9adf04d3747705
 /lyness-lyn-session/use-this-package/fork-a-session:
   en: 96dc70b455e039d9
   zh: 72bdde571dfe6694
@@ -42,14 +45,17 @@
   en: 6b6f4f8b595ad39e
   zh: 830ae1834ea53959
 /lyness-lyn-session/understand-the-implementation/source-map:
-  en: c2949df06ba658d7
-  zh: 4b0f745073d9174e
+  en: f8c7ce5b3b3e8ef8
+  zh: ff08eec40e0ad2e0
 /lyness-lyn-session/understand-the-implementation/append-validation:
   en: 5c09583bc8e1ffc6
   zh: 3b25552de2d1f9b6
+/lyness-lyn-session/understand-the-implementation/shared-recovery:
+  en: 9b5f1a0a737044f4
+  zh: bc41aafbfea18a32
 /lyness-lyn-session/understand-the-implementation/derived-history:
-  en: 0cc7a06f76bd7eca
-  zh: 1db25185b15cad23
+  en: 4a9861492a8c3869
+  zh: e9566de647206230
 /lyness-lyn-session/understand-the-implementation/the-request-header:
   en: 1349f47bea4dab00
   zh: 20cc03f2c87ec492
@@ -71,16 +77,16 @@
 /lyness-lyn-session/model-experience/derived-message-history/kv-cache-effect:
   en: 6c8079c7de029ed4
   zh: 634d6f93ce6373c4
-/lyness-lyn-session/model-experience/crash-repair-and-fork-results:
-  en: 4aa585f38846e017
-  zh: ef28f54125a9021d
-/lyness-lyn-session/model-experience/crash-repair-and-fork-results/what-the-model-sees:
-  en: c7836efbc038366e
-  zh: 381fa22d4a4a2f20
-/lyness-lyn-session/model-experience/crash-repair-and-fork-results/token-effect:
-  en: ac63e0f30175f72d
-  zh: 20f63deeffa249f2
-/lyness-lyn-session/model-experience/crash-repair-and-fork-results/kv-cache-effect:
+/lyness-lyn-session/model-experience/tool-result-recovery-and-fork-results:
+  en: 9c2efc3e9064e3c4
+  zh: 9a7783991b322750
+/lyness-lyn-session/model-experience/tool-result-recovery-and-fork-results/what-the-model-sees:
+  en: d15c350efc66e832
+  zh: b769ba23dbb374e7
+/lyness-lyn-session/model-experience/tool-result-recovery-and-fork-results/token-effect:
+  en: 1339facbd3d7cee0
+  zh: 9d392a053ef90032
+/lyness-lyn-session/model-experience/tool-result-recovery-and-fork-results/kv-cache-effect:
   en: f5d5f97a153f7c70
   zh: b84ef7f75f2e25d0
 /lyness-lyn-session/model-experience/logged-request-header:
@@ -96,8 +102,8 @@
   en: 5eb30cfb410d52c0
   zh: da56365b8ab896da
 /lyness-lyn-session/known-limitations-and-deferred-work:
-  en: 855cb0413cfaab24
-  zh: ef47dd080b5cb47b
+  en: 87619111f5626e6f
+  zh: 60e8aaf582b75385
 /lyness-lyn-session/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

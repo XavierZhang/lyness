@@ -3,47 +3,50 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/host/webserver/README.md
 /:
-  en: 40ce7ea7cd628127
-  zh: f4f1983ead36c8a4
+  en: 7b0123143b731803
+  zh: 0ef8ad760107d8f6
 /lyness-lyn-host-webserver:
   en: 5f1f98534d594287
   zh: 3bca7ee566708418
 /lyness-lyn-host-webserver/summary:
-  en: 95e4d788b0152352
-  zh: 3198f4ae60ba11da
+  en: 38073134ff846fd7
+  zh: 8d6cf9660b5f810e
 /lyness-lyn-host-webserver/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
 /lyness-lyn-host-webserver/use-this-package:
-  en: 0246258969a54c27
-  zh: ba67f4df89d049de
+  en: 1998834973f7cf17
+  zh: 63455a2f75d090ad
 /lyness-lyn-host-webserver/use-this-package/minimal-configuration:
-  en: 7016f10d53d3238e
-  zh: c7968dc08a6b8a41
+  en: eeb4865ed96338a5
+  zh: 08138a132e633e54
+/lyness-lyn-host-webserver/use-this-package/serving-https:
+  en: 90352948bfdc1d99
+  zh: 35d148bf3bfcf76f
 /lyness-lyn-host-webserver/use-this-package/registering-routes:
-  en: 296ffba200f0dc93
-  zh: 5d78d6b5f48634c9
+  en: 55b5f5751c46e0ee
+  zh: 6c609104f0798e01
 /lyness-lyn-host-webserver/use-this-package/the-fallback-seat:
-  en: cb98c577fd03f53c
-  zh: 858488cf400d22fd
+  en: f1e840459dbd2ecf
+  zh: 809c44f77f090090
 /lyness-lyn-host-webserver/use-this-package/behavior-under-failure:
-  en: 7ef1f5bedb859676
-  zh: b146ebf7ca3c0bfb
+  en: 1bfff905b600f694
+  zh: 73f3b7704af686dc
 /lyness-lyn-host-webserver/understand-the-implementation:
   en: 42b15ac6321706aa
   zh: 4ed0861911abaf5d
 /lyness-lyn-host-webserver/understand-the-implementation/design-concept:
-  en: 3eb8591cc484305d
-  zh: 53e427897fda8b7e
+  en: 88adbd5967b978d3
+  zh: b4fabfd6f5df1b71
 /lyness-lyn-host-webserver/understand-the-implementation/matching-and-lifecycle:
-  en: 70dc6875e07497dd
-  zh: a1d041236e361f84
+  en: 8589aba0cbaa1c76
+  zh: babf3b27b0cdb35e
 /lyness-lyn-host-webserver/understand-the-implementation/source-map:
-  en: 5b9e4c57f7865323
-  zh: edeb68dc544bef0a
+  en: 4a0b809827d92cb3
+  zh: 609885ab34257ff1
 /lyness-lyn-host-webserver/further-exploration:
-  en: 39f4d09ae74d822c
-  zh: f76996a4ab552f98
+  en: 8a284a3efff1310c
+  zh: 55201e717c1050c5
 /lyness-lyn-host-webserver/model-experience:
   en: 38887e1f9117e7e5
   zh: 6a6e1a002fac4624
@@ -51,8 +54,8 @@
   en: ca75c51c89c2c9b0
   zh: de54f3467ef3b9be
 /lyness-lyn-host-webserver/known-limitations-and-deferred-work:
-  en: a9f6492f80a6c26b
-  zh: 9177e3d3801e4668
+  en: 7c314f24f56de8af
+  zh: 53153290adac2bcd
 /lyness-lyn-host-webserver/known-limitations-and-deferred-work/dev-note:
-  en: e67f633dc6fe7773
-  zh: 3bb0c20c93f16f98
+  en: 245b35764295ba1e
+  zh: a15b132b111bfef0

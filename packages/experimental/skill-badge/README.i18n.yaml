@@ -1,34 +1,34 @@
 # Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
 # section, a hash of its English and Chinese blocks outside code blocks and generated regions.
 # After editing either side, bring the other along and re-record with:
-#   pnpm run verify-translation-pairing --write packages/skill/skill-badge/README.md
+#   pnpm run verify-translation-pairing --write packages/experimental/skill-badge/README.md
 /:
   en: 8e33a65b08a0f892
   zh: 22a4f8598d90e553
 /lyness-lyn-skill-badge:
-  en: 2ba6947a1a47bc9b
-  zh: e304e4823c225ef4
+  en: da281073bb176ef7
+  zh: 3ce215f47613f8ae
 /lyness-lyn-skill-badge/summary:
-  en: 1c6444fd7a607f44
-  zh: 4b3cf58f61aecec7
+  en: 411e88b5eae531f4
+  zh: 497e71e2c800c4ac
 /lyness-lyn-skill-badge/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
 /lyness-lyn-skill-badge/use-this-package:
-  en: e1b782c99d9e5dd1
-  zh: 7edd5353a21335c6
+  en: ee5a07dee759eaf4
+  zh: 11b6f6044845b733
 /lyness-lyn-skill-badge/use-this-package/when-to-choose-it:
-  en: b10fb8321a56a148
-  zh: 004f1d7e77a44b5a
+  en: c9372e4010b5de91
+  zh: 1e3ad7df95799497
 /lyness-lyn-skill-badge/use-this-package/enable-the-plugin:
-  en: a0f4aefe1bb58a87
-  zh: 3341a309510ee5e2
+  en: e9b9d3683d9fecbe
+  zh: 6ef6349578edf6fa
 /lyness-lyn-skill-badge/use-this-package/what-the-badge-skill-provides:
   en: 45b6aaf15b78dbfb
   zh: 197d2c09cac78e79
 /lyness-lyn-skill-badge/use-this-package/observable-success-and-failures:
-  en: 328836911159d355
-  zh: 13e4c44eb8863476
+  en: 45a0cd19ba492660
+  zh: 33bc5329b0b13992
 /lyness-lyn-skill-badge/understand-the-implementation:
   en: 63465b0133f30e85
   zh: 84bebb7c1fe0ceba
@@ -36,8 +36,8 @@
   en: c57eaebc8755225f
   zh: b9e137b52e0471f5
 /lyness-lyn-skill-badge/understand-the-implementation/source-map:
-  en: 26c7409fa6f15a17
-  zh: 01b21ff15879fb45
+  en: ad4c74d75ffa1106
+  zh: 4556ab3ffad8abbb
 /lyness-lyn-skill-badge/further-exploration:
   en: 92fb727bd5a6c983
   zh: dd4be1bdf1410396
@@ -45,8 +45,8 @@
   en: 91a0309dbf6bfa11
   zh: 9d472f83c682fb36
 /lyness-lyn-skill-badge/model-experience/kv-cache-effect:
-  en: 6a8366520852a607
-  zh: 453ec29827b82bbc
+  en: 5b5bcb4fc0513bef
+  zh: 67a1d939c6a18c2e
 /lyness-lyn-skill-badge/known-limitations-and-deferred-work:
   en: 8992e22c3ee3db67
   zh: 172c138b530ea9c0

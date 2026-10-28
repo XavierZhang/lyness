@@ -8,7 +8,7 @@ Status: proposed
 
 "一切皆是插件"是正确的原则，也是糟糕的默认值。它说清了运行时由什么构成，却没说清一个注册进来的客户实际拿到了什么；而在这棵树里，答案是"比已经建好的少"。
 
-有些能力已经存在、已有测试，却没有任何出厂 profile 挂载它们。[`tool-lsp`](../../../../packages/lsp/README.zh.md)、[`computer-use`](../../../../packages/computer-use/README.zh.md)、[`browser-use`](../../../../packages/browser-use/README.zh.md)、[`hooks-claude-code` 与 `hooks-codex`](../../../../packages/hooks/README.zh.md)，以及面向 agent 的 [`tool-terminal`](../../../../packages/terminal/README.zh.md)，只出现在快照组合里。[`webhook`](../../../../packages/webhook/README.zh.md) 只出现在一个 CLI 示例和一个测试 fixture 里。另一些只挂在恰好一个 profile 上：`schedule` 和 [`workspace-changes`](../../../../packages/deliverables/README.zh.md) 在 `web-app`，而 [`tool-cordis`](../../../../packages/extensions/README.zh.md) 只在创造模式预设内部。客户要够到其中任何一个，都得自己写一层补丁——那是开发者会做的事，客户永远不会做。
+有些能力已经存在、已有测试，却没有任何出厂 profile 挂载它们。[`tool-lsp`](../../../../packages/lsp/README.zh.md)、[`computer-use`](../../../../packages/computer-use/README.zh.md)、[`browser-use`](../../../../packages/browser-use/README.zh.md)、[`hooks-claude-code` 与 `hooks-codex`](../../../../packages/experimental/hooks-claude-code/README.zh.md)，以及面向 agent 的 [`tool-terminal`](../../../../packages/terminal/README.zh.md)，只出现在快照组合里。[`webhook`](../../../../packages/experimental/webhook/README.zh.md) 只出现在一个 CLI 示例和一个测试 fixture 里。另一些只挂在恰好一个 profile 上：`schedule` 和 [`workspace-changes`](../../../../packages/deliverables/README.zh.md) 在 `web-app`，而 [`tool-cordis`](../../../../packages/extensions/README.zh.md) 只在创造模式预设内部。客户要够到其中任何一个，都得自己写一层补丁——那是开发者会做的事，客户永远不会做。
 
 于是组合配置成了产品的功能清单，而没有任何人把它当成一份清单来定。每一行都是在需要它的地方被加进去的，然后就留在了落脚的地方。
 

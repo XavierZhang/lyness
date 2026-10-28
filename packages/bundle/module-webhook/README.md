@@ -71,7 +71,7 @@ The security boundary is worth stating precisely, because the shared secret is e
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`webhook/`](../../webhook/README.md) — the rule interface, the Session request, and the GitHub adapter.
+- [`webhook/`](../../experimental/webhook/README.md) — the rule interface, the Session request, and the GitHub adapter.
 - [GitHub review guide](../../../docs/user/guide/github-review.md) — a worked rule, port, secret, and routing setup.
 - [Inbound interfaces and the Session plane](../../../.agents/notes/proposed/architecture/2026-10-09-inbound-interfaces-and-the-session-plane.md) — why adapters authenticate and the plane authorizes.
 - [`lyn-module-lsp`](../module-lsp/README.md) — the other module whose inertness is structural.

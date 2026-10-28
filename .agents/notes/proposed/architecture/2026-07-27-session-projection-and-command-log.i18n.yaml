@@ -15,8 +15,8 @@
   en: e6c93d89a25f0d03
   zh: 65e1f5842bc74008
 /agent-note-session-projections-and-command-lifecycle-logging/proposal/host-projection-registry-lyn-session-projection-new-package:
-  en: d30fada608616164
-  zh: f4775ab32e932f64
+  en: fb8390a501dd9537
+  zh: 5ce47330129c8ef9
 /agent-note-session-projections-and-command-lifecycle-logging/proposal/shipped-consumer-the-subagent-identity-unit:
   en: 10093535660c3cae
   zh: a7f4ff9e71ee6751
@@ -33,17 +33,17 @@
   en: 7b536bd8a51cc5dc
   zh: 1ead63f6358b3799
 /agent-note-session-projections-and-command-lifecycle-logging/proposal/command-lifecycle-in-the-log:
-  en: d3533a3b0becef4b
-  zh: fea54effe32cdd6c
+  en: e803324f6d5f3861
+  zh: 23c929213376fcc8
 /agent-note-session-projections-and-command-lifecycle-logging/delivery-plan:
   en: ba86427520583db0
   zh: 0b99e174eef21c35
 /agent-note-session-projections-and-command-lifecycle-logging/alternatives-considered:
-  en: e945e84e8360e0c4
-  zh: becdeb100a4c5b6b
+  en: 4776bd01e7ec14f0
+  zh: 9b1c2db96e1120f6
 /agent-note-session-projections-and-command-lifecycle-logging/acceptance-criteria:
   en: 9dfcca30fffda225
   zh: 0beddb81d32e0ca7
 /agent-note-session-projections-and-command-lifecycle-logging/risks:
-  en: f0eb219b4119ca7d
-  zh: de870016c1623895
+  en: c3740b6e12eb7295
+  zh: b0b427b83c73dbba

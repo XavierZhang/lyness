@@ -15,20 +15,20 @@
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
 /lyness-lyn-tool-bash/use-this-package:
-  en: 5201ee6ed1fb6834
-  zh: 7aaca06acf93c9e6
+  en: 6493e02b16c804d6
+  zh: 792bb7d416bbe9e5
 /lyness-lyn-tool-bash/use-this-package/minimal-configuration:
   en: 311c32ef02971160
   zh: 7fcff5b7365cc2f6
 /lyness-lyn-tool-bash/use-this-package/running-a-command:
-  en: 92fd68a57eecc265
-  zh: 715f22986827b692
+  en: 7610fa7c373e339a
+  zh: e3001ca072f53734
 /lyness-lyn-tool-bash/use-this-package/running-long-commands-in-the-background:
   en: 6cf5ff04632a8b1c
   zh: 2925ba62a9a69816
 /lyness-lyn-tool-bash/use-this-package/foreground-commands-as-jobs:
-  en: 5eef538028ca60d6
-  zh: dc1c8ec24c81d2ca
+  en: d6da2d08afdca324
+  zh: 606b7b1da7447874
 /lyness-lyn-tool-bash/use-this-package/sandboxed-execution-and-escalation:
   en: af0e6a9505317780
   zh: 99559c34040b75d3
@@ -36,23 +36,23 @@
   en: 53cdf5fafbce7b36
   zh: ceb5594618268b7e
 /lyness-lyn-tool-bash/understand-the-implementation:
-  en: 8d94a7381bca3fa9
-  zh: f4bd2866fff6fa8d
+  en: 165313776a851b51
+  zh: 828f48807036aff0
 /lyness-lyn-tool-bash/understand-the-implementation/design-philosophy:
   en: 58acce57a3ccd80b
   zh: 9614426136338737
 /lyness-lyn-tool-bash/understand-the-implementation/source-map:
-  en: 5fe11138a292e82d
-  zh: e3e94af07b90b5ba
+  en: 0547d68864628d08
+  zh: 5adb79f945b17a0d
 /lyness-lyn-tool-bash/understand-the-implementation/request-resolution:
-  en: b03c1d84aa4b5cd4
-  zh: 111eba387b7082ae
+  en: 56dae7757fab0a79
+  zh: 7930235dc0490c73
 /lyness-lyn-tool-bash/understand-the-implementation/rendering-story:
   en: ad0f4ffeafe81857
   zh: ed60982b79fb974b
 /lyness-lyn-tool-bash/further-exploration:
-  en: faa59cf962b9c977
-  zh: 6568f953d1177b56
+  en: 157e16f3a418ab77
+  zh: 3e712db6269242e4
 /lyness-lyn-tool-bash/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90

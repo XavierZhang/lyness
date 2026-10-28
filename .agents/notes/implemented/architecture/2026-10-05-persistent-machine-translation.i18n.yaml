@@ -3,14 +3,14 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-10-05-persistent-machine-translation.md
 /agent-note-machine-translation-results-use-shared-session-records:
-  en: 0587db1f8b7b3c6d
-  zh: 63af01050024d4d1
+  en: 57fa0fdf43b9bc25
+  zh: 915f1e02e156fb3e
 /agent-note-machine-translation-results-use-shared-session-records/problem:
   en: 4194ba9786778876
   zh: 6b99613a4d0dd5d2
 /agent-note-machine-translation-results-use-shared-session-records/decision:
-  en: fb8800dede33177b
-  zh: b3f5098e54d5d982
+  en: 96b174909b57ace3
+  zh: 888b287271a2413b
 /agent-note-machine-translation-results-use-shared-session-records/alternatives-considered:
   en: 3f251877332d74cc
   zh: 61991d5fd4704a99

@@ -6,8 +6,8 @@
   en: 65c981be6a40344b
   zh: 468873de4e2db85f
 /lyness-lyn-client-ui-plugin-manager:
-  en: 5347662ae143af8b
-  zh: aebed937f065afce
+  en: d45148950d97ba12
+  zh: b110bc4d47341ac6
 /lyness-lyn-client-ui-plugin-manager/summary:
   en: 0dc67850ca5358de
   zh: 4ff1bb5bdc184e3e
@@ -15,35 +15,41 @@
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
 /lyness-lyn-client-ui-plugin-manager/use-this-package:
-  en: 7550310c2536f5d2
-  zh: 79265e8a2237e2be
+  en: eecd925dc6722481
+  zh: 4d0d9a247257cfe9
 /lyness-lyn-client-ui-plugin-manager/use-this-package/installing-a-bundle:
-  en: 92a8fee5eaf99864
-  zh: 0f3bbd7a0f421915
+  en: e101d5fffbb50a80
+  zh: 9e7899ec0c02ee63
+/lyness-lyn-client-ui-plugin-manager/use-this-package/updating-a-registry-bundle:
+  en: 9d43ce95f7ff612d
+  zh: b5a7936774496100
 /lyness-lyn-client-ui-plugin-manager/use-this-package/switching-a-bundle:
-  en: abc90531efa889d5
-  zh: 0562570f85e69c35
+  en: 390dc85aceac033a
+  zh: 746ceae45f70dd33
 /lyness-lyn-client-ui-plugin-manager/use-this-package/switching-one-row-of-a-bundle:
-  en: 620c6a3ee20848bd
-  zh: a9429f047a12bb4c
+  en: ec16630c0675d82b
+  zh: 6ef0bd35767393a9
 /lyness-lyn-client-ui-plugin-manager/use-this-package/configuration-pages:
-  en: 8e68c17572c5d447
-  zh: b7103adb9f6d3394
+  en: ba3fd50420a8c858
+  zh: 03b7e894e656a768
 /lyness-lyn-client-ui-plugin-manager/use-this-package/detail-page-extension-points:
-  en: 87f6d96467dc2383
-  zh: e0fb91aa4c4d5a12
+  en: 54d7666c630da471
+  zh: d7ded257d0fd5559
+/lyness-lyn-client-ui-plugin-manager/use-this-package/page-tabs:
+  en: da11ed0a00531ab5
+  zh: 77f3e67430319cf7
 /lyness-lyn-client-ui-plugin-manager/understand-the-implementation:
-  en: 8ca48e1365f18adf
-  zh: 91eadd683d2d8b5b
+  en: 203168fc87e939bd
+  zh: 72d0ccd2c54f3f44
 /lyness-lyn-client-ui-plugin-manager/understand-the-implementation/registration:
-  en: c5a1f14d37433d07
-  zh: 75014f10a155fadb
+  en: 93871919adaf1082
+  zh: 67c9ef0b500e6917
 /lyness-lyn-client-ui-plugin-manager/understand-the-implementation/the-store:
   en: 21a0bbe8eb92229c
   zh: 096ff63db61992bb
 /lyness-lyn-client-ui-plugin-manager/understand-the-implementation/configuration-slots:
-  en: a4b175f330e798bf
-  zh: e50ddd12a86eb991
+  en: ae8e7d2b104025c8
+  zh: 54f8edc9ce8f71b5
 /lyness-lyn-client-ui-plugin-manager/further-exploration:
   en: 5cde15fb265e9f2f
   zh: 15e93295a7617219
@@ -54,8 +60,8 @@
   en: ca75c51c89c2c9b0
   zh: 2064958b0754647e
 /lyness-lyn-client-ui-plugin-manager/known-limitations-and-deferred-work:
-  en: b3c2d90c641d7b2b
-  zh: 3195b23b7d27b36d
+  en: f49aa4758246048e
+  zh: 2a4f8ccf8c12b7f3
 /lyness-lyn-client-ui-plugin-manager/known-limitations-and-deferred-work/dev-note:
-  en: 3856b8f32b9d2655
-  zh: 8eae0dd37f198555
+  en: e67f633dc6fe7773
+  zh: 3bb0c20c93f16f98

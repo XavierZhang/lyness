@@ -18,17 +18,23 @@
   en: 97cc5a356813762f
   zh: 1f297bb088ece8cb
 /lyness-lyn-session-projection/use-this-package/when-to-choose-it:
-  en: 90b7c26cb45be52a
-  zh: 386e294ec09607c1
+  en: e16fd6f4fcace77c
+  zh: 4488f7f0b4751ea4
 /lyness-lyn-session-projection/use-this-package/define-a-projection-unit:
   en: 09758d1475fad86e
   zh: 473637cb34aebe72
 /lyness-lyn-session-projection/use-this-package/register-and-read:
-  en: 5e754e67dff07b02
-  zh: 2ba1bda464abaa45
+  en: 976fb019501a941b
+  zh: e15038a7205337c3
+/lyness-lyn-session-projection/use-this-package/deprecated-plugin-compatibility:
+  en: 670c1dda03e8dc3a
+  zh: 7b562df814dc63dd
 /lyness-lyn-session-projection/use-this-package/persisted-checkpoints:
-  en: 802f4c22207b1463
-  zh: be61b4a42fd67620
+  en: efb164d9bdf2a2dd
+  zh: 219f220a6c5d3cf3
+/lyness-lyn-session-projection/use-this-package/session-summaries:
+  en: bbdefde61fb3b02f
+  zh: c6871e05e63ff4ed
 /lyness-lyn-session-projection/understand-the-implementation:
   en: 3397f58d6f49bfda
   zh: efb85d382e25574d
@@ -36,8 +42,8 @@
   en: 8afa0fdb49898f6d
   zh: 6b2da34455963935
 /lyness-lyn-session-projection/understand-the-implementation/source-map:
-  en: 8b6672b48e7607d6
-  zh: 33611e7ea13219f1
+  en: c19f656b022506fa
+  zh: fdcba0083f08a76b
 /lyness-lyn-session-projection/understand-the-implementation/drive-and-checkpoint-flow:
   en: 8c7f7b01b53ca228
   zh: 5dfd8cc24cad2998
@@ -51,8 +57,8 @@
   en: 8a592dae9bc946ab
   zh: eca939995bb5f8e0
 /lyness-lyn-session-projection/known-limitations-and-deferred-work:
-  en: 36ebf6d21898ff92
-  zh: 05bd2683c5518010
+  en: b4a8c4b75b57a2b1
+  zh: 8b45b3249c24491b
 /lyness-lyn-session-projection/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

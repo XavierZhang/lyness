@@ -18,14 +18,14 @@
   en: 1f81a4944a4931a7
   zh: 79cc27d0e1f49122
 /lyness-lyn-llm-deepseek/use-this-package/when-to-choose-it:
-  en: 0b11313b4298bc45
-  zh: ab14e5bc59e1229e
+  en: 12683e27977a1be1
+  zh: ae0de6a7f329364d
 /lyness-lyn-llm-deepseek/use-this-package/minimal-configuration:
-  en: 9ae33fec43584375
-  zh: 195c7536c2b5961c
+  en: 88e1e6306aaa8ade
+  zh: 6ddacee0cf5a7f78
 /lyness-lyn-llm-deepseek/use-this-package/endpoint-and-wire-format:
-  en: fce88d2ebad6296c
-  zh: 0c351f26b472d521
+  en: 522e74b770e9d4ca
+  zh: a8b261b41677bfe7
 /lyness-lyn-llm-deepseek/use-this-package/account-credentials:
   en: 12fe87dcb1eba713
   zh: 78583391d91a3f90
@@ -33,17 +33,17 @@
   en: 181b34b6c312b445
   zh: 599c9e8c10577f74
 /lyness-lyn-llm-deepseek/use-this-package/streaming-with-thinking-and-images:
-  en: 9b82549c6ce25261
-  zh: 22a3978c5022576b
+  en: 81bf213499f015ba
+  zh: e9107ef322213e56
 /lyness-lyn-llm-deepseek/use-this-package/dynamic-configuration:
   en: 49290fc5647136b4
   zh: 96fa9ce0f9e83c13
 /lyness-lyn-llm-deepseek/use-this-package/provider-specific-request-fields:
-  en: f863390198cc177c
-  zh: 8856c62ba3fb36ca
+  en: f13f24b504dcfb50
+  zh: 69b0ed9e2adf3394
 /lyness-lyn-llm-deepseek/use-this-package/failures-and-recovery:
-  en: 4a572ca307448f59
-  zh: aed094a6d2031ffc
+  en: eabfabd1b1d54713
+  zh: 22b3240da84199b9
 /lyness-lyn-llm-deepseek/understand-the-implementation:
   en: 1598ac8a8bb9b6bf
   zh: fdd089c5ae7722cd
@@ -51,14 +51,14 @@
   en: 829203c4c282dc46
   zh: e05dada4a1420a95
 /lyness-lyn-llm-deepseek/understand-the-implementation/source-map:
-  en: dc2d2409ad8c41cc
-  zh: 51fc4ad65dab6378
+  en: 584698e2c7686997
+  zh: 2aed9608d5317d7b
 /lyness-lyn-llm-deepseek/understand-the-implementation/wire-flow:
   en: 9477d8af3d762450
   zh: 52a2967518509f94
 /lyness-lyn-llm-deepseek/further-exploration:
-  en: 53175471360f6984
-  zh: f2ef774ebf3110a8
+  en: 5966fe5499923426
+  zh: 14604bfdd69a3411
 /lyness-lyn-llm-deepseek/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
@@ -69,8 +69,8 @@
   en: 14110610860656e8
   zh: 995e28d6931ebe4e
 /lyness-lyn-llm-deepseek/model-experience/deepseek-request/token-effect:
-  en: 4f54c6e3a215277c
-  zh: 203335cfaedb56f1
+  en: 4a5d8eabb5b21ea9
+  zh: 8b49bc9809a7968f
 /lyness-lyn-llm-deepseek/model-experience/deepseek-request/kv-cache-effect:
   en: 87ac92776176ee15
   zh: bb49edf3a68dda07
@@ -87,8 +87,8 @@
   en: ddfbea043596878d
   zh: 4fbf5864a684c053
 /lyness-lyn-llm-deepseek/known-limitations-and-deferred-work:
-  en: 82bc8d95ae48d93b
-  zh: 90cf7ad16d0d9278
+  en: f8956d71df7769d6
+  zh: 182921a6b5ff94e8
 /lyness-lyn-llm-deepseek/known-limitations-and-deferred-work/dev-note:
-  en: a1dcfb113de53c3c
-  zh: 84e06d60a9cb2536
+  en: e409c3737599e05a
+  zh: cb9cb7d0865e2523

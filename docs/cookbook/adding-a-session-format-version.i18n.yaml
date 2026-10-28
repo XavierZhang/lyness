@@ -6,20 +6,20 @@
   en: 8df86068c4f2315b
   zh: c861016c67356eb1
 /cookbook-adding-a-session-log-format-version/summary:
-  en: 69b1296938be97d3
-  zh: 52d9268a15dd9d1f
+  en: 7f4551084d778d97
+  zh: 153976c1d5210892
 /cookbook-adding-a-session-log-format-version/table-of-contents:
   en: 6977fff29f49e4a4
   zh: 7ffb6f5490831dce
 /cookbook-adding-a-session-log-format-version/1-choose-the-version-and-release-base:
-  en: cee2a9f969ee25b4
-  zh: 34a3d824a1a894e4
+  en: d3324af5be497a1f
+  zh: 2896c0a19cea9035
 /cookbook-adding-a-session-log-format-version/2-add-an-identity-edge:
   en: 4410a90cae37ef1a
   zh: 330417047461b9df
 /cookbook-adding-a-session-log-format-version/3-implement-per-artifact-stages-and-validation:
-  en: dce2403f4c4e61eb
-  zh: d6e6a8d3912892a5
+  en: b7bf64a5787c7815
+  zh: 6549e04bfbb0230b
 /cookbook-adding-a-session-log-format-version/4-update-current-version-consumers:
   en: 2125f767347a6d32
   zh: bc06ee136519469f

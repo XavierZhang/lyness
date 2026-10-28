@@ -52,7 +52,7 @@ async function bench(asked: { answer?: string } = {}): Promise<{
   await ctx.plugin(AgentRegistry)
   await ctx.plugin(AgentLoop, { agents: [] })
   ctx.llm.registerAdapter([ANSWERING_PROVIDER], new AnsweringAdapter())
-  ctx.sessionProjections.register(botProjectionDefinition)
+  await ctx.sessionProjections.register(botProjectionDefinition)
   const asks: { teammate: string; question: string }[] = []
   ctx.provide('managedBots', { teammates: () => Promise.resolve([SCRIBE]) } as never)
   const discussions: { participants: readonly string[]; question: string; rounds: number }[] = []

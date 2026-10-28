@@ -9,20 +9,29 @@
   en: 955a73e7227dc98d
   zh: dabb80fc24be7e34
 /agent-note-frontend-large-session-performance-budgets/decision:
-  en: 81d9ae3d777a88a2
-  zh: 5ff86eb729c2b4c7
+  en: db85c39d41797ac1
+  zh: a535a7a8ce90c12b
 /agent-note-frontend-large-session-performance-budgets/calibration:
-  en: f3be2a0d346e80cc
-  zh: c49cc56e7714f68c
+  en: 2bbee3ec0bc9e618
+  zh: b4f937d7f4f09ae5
 /agent-note-frontend-large-session-performance-budgets/calibration/actual-ci-runs:
   en: 265a600ffefc97e3
   zh: 4b73a6773e489415
 /agent-note-frontend-large-session-performance-budgets/calibration/standard-hosted-expectations-and-input-scheduling:
-  en: 8cb6299dbb42a9fe
-  zh: 51ef49d4fcaeb92f
+  en: 346cd1b3d5acf0ea
+  zh: 42e08cd387f982c8
+/agent-note-frontend-large-session-performance-budgets/calibration/older-page-control-preparation:
+  en: de392f6c19df72ee
+  zh: 32cbabf9ebcacbcc
+/agent-note-frontend-large-session-performance-budgets/calibration/trajectory-readiness-polling:
+  en: bdcfefd7358e335b
+  zh: f718f66ca5944203
+/agent-note-frontend-large-session-performance-budgets/calibration/history-selector-invalidation:
+  en: 2d2f78f4cf6aad8a
+  zh: aec6af5f7c66de16
 /agent-note-frontend-large-session-performance-budgets/alternatives-considered:
-  en: 1472bd425ef0daec
-  zh: a89811758d70331e
+  en: 4d2a4a64ccd14507
+  zh: 8a4aaf4d4abea13d
 /agent-note-frontend-large-session-performance-budgets/consequences:
   en: e69e3c1a1fd876b2
   zh: a94528b770d24b40

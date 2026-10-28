@@ -9,23 +9,23 @@
   en: 7369c67386770bca
   zh: 50d6c96b7ddd397e
 /lyness-lyn-agent-instructions/summary:
-  en: ffa99948c6dbc12d
-  zh: 706f82c62b4590be
+  en: 24c76dc8e37cfded
+  zh: 7f0b1f1275dc02a3
 /lyness-lyn-agent-instructions/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
 /lyness-lyn-agent-instructions/use-this-package:
-  en: 80176880f6aee9ca
-  zh: dc0a5b0d7c20c086
+  en: aa77a27d20a74a1f
+  zh: 68e0643ebb0c66e4
 /lyness-lyn-agent-instructions/use-this-package/what-the-agent-gets:
-  en: cd9ecb358f335bea
-  zh: 16700048f8b35787
+  en: 3091e5a7551c9522
+  zh: c07d2c3dd9a7409c
 /lyness-lyn-agent-instructions/use-this-package/configuration:
-  en: b6f1db0e4a7e2c70
-  zh: 521f4a9423870378
+  en: 5b8984a48a36aeee
+  zh: bc35abb3253dfc51
 /lyness-lyn-agent-instructions/use-this-package/observing-the-budget:
-  en: 9797082b1e69b72c
-  zh: d26c00b1b90fe4ea
+  en: ab309b5684b3db15
+  zh: 07cea537c27da123
 /lyness-lyn-agent-instructions/understand-the-implementation:
   en: 724df7ff6d1d9fea
   zh: 91fb1013eb9178ec
@@ -33,8 +33,8 @@
   en: 4708b51bf8fe86f7
   zh: 869fc4b1f78383ee
 /lyness-lyn-agent-instructions/understand-the-implementation/source-map:
-  en: 737fdf08415bc08d
-  zh: 625d53b1418ab6bb
+  en: b54bdb371640d989
+  zh: fdf82b545c1a0c6e
 /lyness-lyn-agent-instructions/understand-the-implementation/main-flow:
   en: d881b9055f823929
   zh: 87b25f0bf8e204e9
@@ -60,8 +60,8 @@
   en: 0ced1c177da6d120
   zh: 6c61efb987e227fe
 /lyness-lyn-agent-instructions/model-experience/baseline-context/token-effect:
-  en: e7c0cc34065a1113
-  zh: a973ba9fac7a918d
+  en: 0a005863a59a9de1
+  zh: 4e29ade86023db3e
 /lyness-lyn-agent-instructions/model-experience/baseline-context/kv-cache-effect:
   en: c611902b9f369d86
   zh: d7da1dbe6c1ac7f1
@@ -69,8 +69,8 @@
   en: bbf8f11dbb279b78
   zh: eb537ade3fa1e573
 /lyness-lyn-agent-instructions/model-experience/newly-discovered-scope-context/what-the-model-sees:
-  en: 99226255009f8432
-  zh: 3b1661ca1a98ae4a
+  en: d806c4e1f67d7e94
+  zh: 46f1d1d149197f70
 /lyness-lyn-agent-instructions/model-experience/newly-discovered-scope-context/what-the-model-sees/additional-instruction-template:
   en: 50655306b787c8c6
   zh: bcdc631a35f9de91
@@ -90,14 +90,14 @@
   en: c78113708e7d7665
   zh: b10dcce1569febae
 /lyness-lyn-agent-instructions/model-experience/changed-or-removed-instruction-context/token-effect:
-  en: 436f2fb373e7822d
-  zh: 0a3173b4398530bd
+  en: 76b2419177a5de96
+  zh: 2d8ec672911aa125
 /lyness-lyn-agent-instructions/model-experience/changed-or-removed-instruction-context/kv-cache-effect:
   en: 2fbf2175168e8244
   zh: f681f89596f500f5
 /lyness-lyn-agent-instructions/known-limitations-and-deferred-work:
-  en: 62dcd2895d68d859
-  zh: fe0fdb8d31316c2c
+  en: 07b5f756d434e19b
+  zh: 8de5a92edeb401c9
 /lyness-lyn-agent-instructions/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

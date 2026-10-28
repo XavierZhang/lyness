@@ -9,8 +9,8 @@
   en: 7053fd0215a91a5a
   zh: bfe49facb7d3d435
 /lyness-lyn-agent-loop/summary:
-  en: 3dcb156680ca4aa6
-  zh: ac90979d978a1ddf
+  en: 85f07e5f15215843
+  zh: 1d070bf3d2084ca6
 /lyness-lyn-agent-loop/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
@@ -18,14 +18,14 @@
   en: cb856258f40dc27e
   zh: cbe90c9c638b113c
 /lyness-lyn-agent-loop/use-this-package/configure-declarative-agents:
-  en: 7002cb5be68271bd
-  zh: 41a2b11a9ca788df
+  en: 507f6a6b7da427e0
+  zh: 5536e9e5841e690e
 /lyness-lyn-agent-loop/use-this-package/create-or-resume-agents-programmatically:
   en: 82ec792637e8e57f
   zh: e32f8ec5ee17afcf
 /lyness-lyn-agent-loop/use-this-package/what-a-step-does:
-  en: 15ce4783b53532a2
-  zh: b04a18337281237a
+  en: b789acbbfd6a3094
+  zh: 85b4d093ae23ce7d
 /lyness-lyn-agent-loop/understand-the-implementation:
   en: ce7e776e9d516bdb
   zh: 59d2751743db7795
@@ -33,26 +33,26 @@
   en: 030202c112f89366
   zh: 621d53ed755cafa3
 /lyness-lyn-agent-loop/understand-the-implementation/request-headers-and-adapter-defaults:
-  en: 3d23cbebd7c1d258
-  zh: 7cdb4d948f9a1b08
+  en: 21547fd3591f1ff7
+  zh: 80b622e5a0827505
 /lyness-lyn-agent-loop/understand-the-implementation/source-map:
-  en: d7f6b2947ec9b2f3
-  zh: 8a3d566fb8cf2938
+  en: ec2bf804bd1a5439
+  zh: 316e767507e859ef
 /lyness-lyn-agent-loop/understand-the-implementation/creation-and-teardown:
-  en: 6bc52b8ef503eeda
-  zh: 3290052ebc47baf6
+  en: 25be2920f1de4f6f
+  zh: 279c60a6e1b1767a
 /lyness-lyn-agent-loop/understand-the-implementation/persistence-integration:
-  en: da056b9f0dde4ab3
-  zh: ba9ce3b19c17ca22
+  en: 3b48a480036bd5df
+  zh: 28cea2036b0dccee
 /lyness-lyn-agent-loop/understand-the-implementation/turn-and-step-flow:
-  en: ed5137ef858b3424
-  zh: af2ff3bc15576456
+  en: ebe2ea3562b9e303
+  zh: 80201ea6a56bc211
 /lyness-lyn-agent-loop/understand-the-implementation/failure-and-cancellation:
-  en: 8b8a48e6bb22ed33
-  zh: 03155f5f1c47f762
+  en: eea56903c4ff82f5
+  zh: c0d5abb5767780ed
 /lyness-lyn-agent-loop/further-exploration:
-  en: d59a66bdf41b2090
-  zh: 223feeb2cee32619
+  en: cb6a5e085aced763
+  zh: 082428952e8f635e
 /lyness-lyn-agent-loop/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
@@ -60,14 +60,14 @@
   en: 5507d83eb979c737
   zh: 0ffde85d627b3933
 /lyness-lyn-agent-loop/model-experience/complete-conversation-request/what-the-model-sees:
-  en: cd89b20032608049
-  zh: 1f57d4cecc30313b
+  en: ed0e841bed26a836
+  zh: f30d91bc5a64fa20
 /lyness-lyn-agent-loop/model-experience/complete-conversation-request/token-effect:
   en: ad93d8d61968a25d
   zh: 268ff858b0fa96e8
 /lyness-lyn-agent-loop/model-experience/complete-conversation-request/kv-cache-effect:
-  en: c002d27c825d04e8
-  zh: b0dbdd95d3b3b6b5
+  en: 12a2fc9e3654ddbf
+  zh: 133b7ca59925c82a
 /lyness-lyn-agent-loop/model-experience/retained-message-history:
   en: 50d33d852dec1e28
   zh: ec15695304f25f38
@@ -92,9 +92,21 @@
 /lyness-lyn-agent-loop/model-experience/undispatched-calls-after-cancellation/kv-cache-effect:
   en: 1750eea3cc5bf2d8
   zh: 519d37b0cb4467a7
+/lyness-lyn-agent-loop/model-experience/unanswered-calls-after-step-failure:
+  en: 0f150799ee294e40
+  zh: 4c283b07367dfa4a
+/lyness-lyn-agent-loop/model-experience/unanswered-calls-after-step-failure/what-the-model-sees:
+  en: a62feae35f09ff13
+  zh: d20a0172d86f6515
+/lyness-lyn-agent-loop/model-experience/unanswered-calls-after-step-failure/token-effect:
+  en: cefdf878a21a681a
+  zh: 96d8271b257478d6
+/lyness-lyn-agent-loop/model-experience/unanswered-calls-after-step-failure/kv-cache-effect:
+  en: 83531f2a13cc1f0e
+  zh: 81a780d637dd8c5d
 /lyness-lyn-agent-loop/known-limitations-and-deferred-work:
-  en: 51f09912fd2fa811
-  zh: 872d3ce021194a58
+  en: fbd0f9efb74db979
+  zh: 3d4377328d0be8b9
 /lyness-lyn-agent-loop/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

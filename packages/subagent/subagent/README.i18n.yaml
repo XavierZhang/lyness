@@ -9,53 +9,59 @@
   en: b0184399a17dc47e
   zh: 881125830728baf9
 /lyness-lyn-subagent/summary:
-  en: 2ba1ddb008591962
-  zh: 5822ab2b8eb1e4a5
+  en: c946a9ca2c7026d7
+  zh: ceca6043facfb931
 /lyness-lyn-subagent/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
 /lyness-lyn-subagent/use-this-package:
-  en: 4651aec03a1d2e21
-  zh: 7b6d1d604bdb1bf1
+  en: 924b8c15f9529028
+  zh: 9fb0c399b5a79e3e
 /lyness-lyn-subagent/use-this-package/enabling-delegation:
-  en: f66e74a5fa4e49b6
-  zh: 8c3a793cc29fcc1b
+  en: ce7c266621b64763
+  zh: 3cc19a0263896820
 /lyness-lyn-subagent/use-this-package/delegation-settings:
   en: 86c982223fab1a3a
   zh: 3d220d8ed84eab9a
-/lyness-lyn-subagent/use-this-package/continuable-capacity:
-  en: 758b12e9f3283720
-  zh: 7b607ceadf74f7a7
-/lyness-lyn-subagent/use-this-package/one-shot-and-continuable-children:
-  en: 10d0a7e0513bf04b
-  zh: 0cf2c2d81e85d7a9
+/lyness-lyn-subagent/use-this-package/activation-capacity:
+  en: 7c9548b9d02efe1f
+  zh: e23bd30b4c9cdabd
+/lyness-lyn-subagent/use-this-package/local-and-external-children:
+  en: 013644290e74493e
+  zh: 05014c3c3773edeb
+/lyness-lyn-subagent/use-this-package/child-presets:
+  en: cf791d0e10dc7871
+  zh: 36d2eb2d2e684877
 /lyness-lyn-subagent/use-this-package/messaging-interrupting-and-discovering:
-  en: ff41ac0e770ed865
-  zh: 27dcf055badf217d
+  en: 050177fbbaade432
+  zh: 99f2b9f98088314d
 /lyness-lyn-subagent/use-this-package/failure-and-recovery:
-  en: 782aaaf8639c211c
-  zh: e2a873eece366e74
+  en: 245fb0d5c3df5ccf
+  zh: e69eed9e5070ce25
 /lyness-lyn-subagent/understand-the-implementation:
   en: 74d91b364b23f88d
   zh: 19cc558105efe8df
 /lyness-lyn-subagent/understand-the-implementation/design-concept:
-  en: 26c4eb7592b77d14
-  zh: c166fb6ee1a1c7d8
+  en: ed526b6f34a3d6bf
+  zh: 47a90717b89d4c79
 /lyness-lyn-subagent/understand-the-implementation/source-map:
-  en: d9afc0d9548afe58
-  zh: 0e11526b6c001dc6
-/lyness-lyn-subagent/understand-the-implementation/one-shot-flow:
-  en: 6f1ad926d2851582
-  zh: 13da8a194b1961d4
-/lyness-lyn-subagent/understand-the-implementation/continuable-flow:
-  en: 7b3d4f388b811d14
-  zh: dfe72a67e3f6d135
+  en: 410b6215e3a29221
+  zh: d17d6ea102fe8f87
+/lyness-lyn-subagent/understand-the-implementation/provider-preparation-and-structured-output:
+  en: f78c5e931f3a3676
+  zh: 3c63f637dbaa8101
+/lyness-lyn-subagent/understand-the-implementation/activation-settlement:
+  en: 3cac7a3d58cda7ea
+  zh: 74e3234e5101bd1d
+/lyness-lyn-subagent/understand-the-implementation/restoring-child-composition:
+  en: d338e68edd438f57
+  zh: 0496090cc567b19d
 /lyness-lyn-subagent/understand-the-implementation/ownership-and-invariants:
-  en: b07c23a8d35f8bce
-  zh: bdc923e15016afd7
+  en: f17d602df2334549
+  zh: 094770a69f544ae4
 /lyness-lyn-subagent/further-exploration:
-  en: a406499846ec6989
-  zh: cae05d3eb4f66738
+  en: 9d4dc35f3b1730ec
+  zh: 431646a28d99740d
 /lyness-lyn-subagent/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
@@ -63,11 +69,11 @@
   en: f7cec22ba9d3fb4f
   zh: 67b1d40f9b136f71
 /lyness-lyn-subagent/model-experience/settlement-notice/what-the-model-sees:
-  en: 44ba290ef9896de9
-  zh: 21d207c31228c0ce
+  en: 8e28e4542cd6bcb6
+  zh: c840f65ffb8fcfbd
 /lyness-lyn-subagent/model-experience/settlement-notice/token-effect:
-  en: 45dc428c61f606f5
-  zh: 7e9a2587e98c8ca6
+  en: f98ad834e8ce8950
+  zh: cf509805dd934094
 /lyness-lyn-subagent/model-experience/settlement-notice/kv-cache-effect:
   en: d6b1d618083da79b
   zh: 9a28942b7d53c382
@@ -87,8 +93,8 @@
   en: 59e848fca82a46fb
   zh: fcd6a8a2bb58609f
 /lyness-lyn-subagent/known-limitations-and-deferred-work:
-  en: b2182809471f0780
-  zh: cfab217025442ae8
+  en: cd13db02147a9a89
+  zh: 8f51d005b83cd39d
 /lyness-lyn-subagent/known-limitations-and-deferred-work/dev-note:
   en: 25cc0909348666bb
   zh: 95517f12de100049

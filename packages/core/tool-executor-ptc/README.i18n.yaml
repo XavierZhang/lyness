@@ -5,48 +5,48 @@
 /:
   en: 93b346254eff025a
   zh: 69aa6364ca2ffa7d
-/deepseek-ai-lyn-tool-executor-ptc:
-  en: e253ed9cec03a396
-  zh: 922fde282e2b0fd2
-/deepseek-ai-lyn-tool-executor-ptc/summary:
+/lyness-lyn-tool-executor-ptc:
+  en: 483cbdbce7812568
+  zh: df4bfc5d5c3a228b
+/lyness-lyn-tool-executor-ptc/summary:
   en: 66e159c308afb6c1
   zh: 29b1a646ae7f918a
-/deepseek-ai-lyn-tool-executor-ptc/table-of-contents:
+/lyness-lyn-tool-executor-ptc/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/deepseek-ai-lyn-tool-executor-ptc/use-this-package:
-  en: b6b7ffab35e1a725
-  zh: fc5db2524e1507d6
-/deepseek-ai-lyn-tool-executor-ptc/understand-the-implementation:
+/lyness-lyn-tool-executor-ptc/use-this-package:
+  en: a6ae950318ffcc13
+  zh: 65bc678637c30c4f
+/lyness-lyn-tool-executor-ptc/understand-the-implementation:
   en: 9d4f61c351945d30
   zh: 1c575526230b0e02
-/deepseek-ai-lyn-tool-executor-ptc/understand-the-implementation/ptc-mode:
-  en: 11d32e05ba397f86
-  zh: 4e071ec4e6222d9d
-/deepseek-ai-lyn-tool-executor-ptc/further-exploration:
-  en: ee69078c38c655a9
-  zh: fb0873407f23c8c5
-/deepseek-ai-lyn-tool-executor-ptc/model-experience:
+/lyness-lyn-tool-executor-ptc/understand-the-implementation/ptc-mode:
+  en: 5ec42163e585a18e
+  zh: 15764c3add291675
+/lyness-lyn-tool-executor-ptc/further-exploration:
+  en: 2b0719be506a87e4
+  zh: 0c584372b115fa4e
+/lyness-lyn-tool-executor-ptc/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/deepseek-ai-lyn-tool-executor-ptc/model-experience/ptc-mode-schema-and-system-prompt:
+/lyness-lyn-tool-executor-ptc/model-experience/ptc-mode-schema-and-system-prompt:
   en: eaefd7303f22977d
   zh: 9c425f9501128224
-/deepseek-ai-lyn-tool-executor-ptc/model-experience/ptc-mode-schema-and-system-prompt/what-the-model-sees:
-  en: 4980bfab8310efc0
-  zh: ef318d5b8ac7bf76
-/deepseek-ai-lyn-tool-executor-ptc/model-experience/ptc-mode-schema-and-system-prompt/what-the-model-sees/typescript-ptc-mode-sdk-instructions-with-bash:
+/lyness-lyn-tool-executor-ptc/model-experience/ptc-mode-schema-and-system-prompt/what-the-model-sees:
+  en: 3cf429f3151e9ebb
+  zh: 3be0262699a523ba
+/lyness-lyn-tool-executor-ptc/model-experience/ptc-mode-schema-and-system-prompt/what-the-model-sees/typescript-ptc-mode-sdk-instructions-with-bash:
   en: 3a8df15e4ae32f9e
   zh: fc4a800ba363e835
-/deepseek-ai-lyn-tool-executor-ptc/model-experience/ptc-mode-schema-and-system-prompt/token-effect:
+/lyness-lyn-tool-executor-ptc/model-experience/ptc-mode-schema-and-system-prompt/token-effect:
   en: 12296fcafc14562c
   zh: f8e9351bb8c6437d
-/deepseek-ai-lyn-tool-executor-ptc/model-experience/ptc-mode-schema-and-system-prompt/kv-cache-effect:
+/lyness-lyn-tool-executor-ptc/model-experience/ptc-mode-schema-and-system-prompt/kv-cache-effect:
   en: 78906628d634441f
   zh: 492f133aea50cfe3
-/deepseek-ai-lyn-tool-executor-ptc/known-limitations-and-deferred-work:
+/lyness-lyn-tool-executor-ptc/known-limitations-and-deferred-work:
   en: 73836fc806368269
   zh: 943ecf50e19b3c69
-/deepseek-ai-lyn-tool-executor-ptc/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-tool-executor-ptc/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

@@ -3,44 +3,44 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/util/official-bundles/README.md
 /:
-  en: 6ef5705aaf6fee34
-  zh: e587b9572fc644bf
-/deepseek-ai-lyn-official-bundles:
-  en: 9095133679593012
-  zh: ac6b05dc3eff68b6
-/deepseek-ai-lyn-official-bundles/summary:
-  en: fa3e54ab1672f7ea
-  zh: 6ab2abb75f1365b4
-/deepseek-ai-lyn-official-bundles/table-of-contents:
+  en: c2fa265eb7f6f89d
+  zh: db8c2f5df13e3526
+/lyness-lyn-official-bundles:
+  en: c847c6669f3c8dc2
+  zh: 1acb23d89f88ee63
+/lyness-lyn-official-bundles/summary:
+  en: 4194cc8b27653c5e
+  zh: 71ec679dad43ac75
+/lyness-lyn-official-bundles/table-of-contents:
   en: 80b31a934611cb4a
   zh: 05f3f7f9cb2fd881
-/deepseek-ai-lyn-official-bundles/use-this-package:
+/lyness-lyn-official-bundles/use-this-package:
   en: 1cb89d16a6de115c
   zh: 75925ae7a16278ad
-/deepseek-ai-lyn-official-bundles/use-this-package/profile-templates:
-  en: 60ef21314c76c3ec
-  zh: f769091957235e12
-/deepseek-ai-lyn-official-bundles/use-this-package/optional-and-retired-bundles:
-  en: 8d94e2b44efb9c1d
-  zh: c049a19e471d188b
-/deepseek-ai-lyn-official-bundles/use-this-package/plugin-manager-lists:
-  en: 27c22abdfff69a41
-  zh: e60d828cdb75c263
-/deepseek-ai-lyn-official-bundles/use-this-package/on-demand-bundles:
+/lyness-lyn-official-bundles/use-this-package/profile-templates:
+  en: 5a4d38d893ca5dce
+  zh: e8503aa78d9d2984
+/lyness-lyn-official-bundles/use-this-package/optional-and-retired-bundles:
+  en: 3a8d7f5ac8173f17
+  zh: b2bcc7372ec8ef65
+/lyness-lyn-official-bundles/use-this-package/plugin-manager-lists:
+  en: 4153d41e759cfe5b
+  zh: 946bde3d43431989
+/lyness-lyn-official-bundles/use-this-package/on-demand-bundles:
   en: 10dac368736afde3
   zh: 7684ca22ba4b5a67
-/deepseek-ai-lyn-official-bundles/understand-the-implementation:
+/lyness-lyn-official-bundles/understand-the-implementation:
   en: 3fb2b58db529d8be
   zh: 46064459a23d458d
-/deepseek-ai-lyn-official-bundles/understand-the-implementation/source-map:
+/lyness-lyn-official-bundles/understand-the-implementation/source-map:
   en: bbd3b4f82e6349d9
   zh: f1e056d14620519d
-/deepseek-ai-lyn-official-bundles/further-exploration:
-  en: 16a331e64c81b2a5
-  zh: abfe9b1a1294b6b3
-/deepseek-ai-lyn-official-bundles/known-limitations-and-deferred-work:
-  en: 6631976cc7404166
-  zh: edb2094b17bc4009
-/deepseek-ai-lyn-official-bundles/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-official-bundles/further-exploration:
+  en: 6082141b6318652a
+  zh: 449ce50e17a75f84
+/lyness-lyn-official-bundles/known-limitations-and-deferred-work:
+  en: 93c1c9411a94d075
+  zh: c3b8d8370104d246
+/lyness-lyn-official-bundles/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

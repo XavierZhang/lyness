@@ -3,8 +3,8 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/feature/2026-10-15-chat-keep-assistant-replies.md
 /agent-note-keep-every-assistant-reply-when-a-turn-folds:
-  en: 813e0e2590457f2d
-  zh: 12b01305ae439712
+  en: 7a8a78053e51ee00
+  zh: 543f336c36621ed6
 /agent-note-keep-every-assistant-reply-when-a-turn-folds/problem:
   en: 967c8df85ef30286
   zh: 7cd5f219fe42f567
@@ -18,8 +18,8 @@
   en: 352c5bdf25c09c62
   zh: 24878584535b4d57
 /agent-note-keep-every-assistant-reply-when-a-turn-folds/decision/implementation:
-  en: e40156780daec8fe
-  zh: 4447a61c2b1574c8
+  en: 56d86d5d63ae8376
+  zh: 9977a469f4f33883
 /agent-note-keep-every-assistant-reply-when-a-turn-folds/alternatives-considered:
   en: 28694c0a82df72ac
   zh: 8f6f81c833cf8f2c

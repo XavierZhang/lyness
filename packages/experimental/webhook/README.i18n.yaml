@@ -1,13 +1,13 @@
 # Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
 # section, a hash of its English and Chinese blocks outside code blocks and generated regions.
 # After editing either side, bring the other along and re-record with:
-#   pnpm run verify-translation-pairing --write packages/webhook/webhook/README.md
+#   pnpm run verify-translation-pairing --write packages/experimental/webhook/README.md
 /:
   en: e4ac1bc2fef159c0
   zh: a2d724d2cffb6608
 /lyness-lyn-webhook:
-  en: 8793b7d50fb786fd
-  zh: a230a1467f9fa0bf
+  en: 84a26b2a3950dab5
+  zh: c7863253586878b7
 /lyness-lyn-webhook/summary:
   en: a4287de3e808e789
   zh: a194377e4f9ebb73
@@ -18,8 +18,8 @@
   en: d9674188535399ab
   zh: c52fe9b7ebe8fe79
 /lyness-lyn-webhook/session-request:
-  en: e4d096efc8633575
-  zh: b1bf7d45fe76c380
+  en: 61e5fd0df92f6467
+  zh: 39be823dd906b01a
 /lyness-lyn-webhook/composition:
   en: abe6cfee73eb4f36
   zh: 60c6afa97aae75c0

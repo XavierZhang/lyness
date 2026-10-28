@@ -18,17 +18,17 @@
   en: 799ef82cc5e6c77b
   zh: 6d9db26ff3992800
 /lyness-lyn-subagent-lyn-sdk/use-this-package/when-to-choose-it:
-  en: 92fc24beef94fa4f
-  zh: b48d9b1dda92e97d
+  en: d8e005d7bedb88de
+  zh: e70f364558770e88
 /lyness-lyn-subagent-lyn-sdk/use-this-package/configuration:
-  en: cc1c001a08dd9133
-  zh: 9cae5b6eee34fd9d
+  en: b52b0466d1b6d251
+  zh: aae2c89b6c94dbb7
 /lyness-lyn-subagent-lyn-sdk/use-this-package/what-you-get:
   en: b9ccfa85b40b07eb
   zh: 4f84e7327b4ff188
 /lyness-lyn-subagent-lyn-sdk/use-this-package/failure-and-recovery:
-  en: 21eb548e92fe20ce
-  zh: d865a29acf60018e
+  en: b5b22b2510551cc1
+  zh: 9ee1a8e592b76578
 /lyness-lyn-subagent-lyn-sdk/understand-the-implementation:
   en: 00d076edd7fee716
   zh: 7aea818c13fe3cc1
@@ -39,8 +39,8 @@
   en: 1bed6c1577997df6
   zh: 8c99f132377f6ca2
 /lyness-lyn-subagent-lyn-sdk/understand-the-implementation/run-flow:
-  en: f268db0520abf6f7
-  zh: 4517fc7ea6bd099c
+  en: 6c50e4e8dc5e0698
+  zh: 9d0011e28341bbde
 /lyness-lyn-subagent-lyn-sdk/understand-the-implementation/stop-reason-mapping:
   en: e040a57202916f91
   zh: 196bf38f0f0db310
@@ -57,8 +57,8 @@
   en: 05e6180f1498fdf9
   zh: 2b05d2b97bfa67da
 /lyness-lyn-subagent-lyn-sdk/model-experience/child-agent-request/what-the-model-sees:
-  en: df7729fa4e60d6f6
-  zh: 458094fbb7a7ea07
+  en: b8e656d956ac5bd2
+  zh: 26fa79357d1ce452
 /lyness-lyn-subagent-lyn-sdk/model-experience/child-agent-request/token-effect:
   en: c0b78d334d5d0a9c
   zh: 71d1a375a6ab4109
@@ -69,17 +69,17 @@
   en: 75d061c2151624a7
   zh: 71e58e020b60ff90
 /lyness-lyn-subagent-lyn-sdk/model-experience/parent-tool-result-indirectly/what-the-model-sees:
-  en: f0db97b3a39bb983
-  zh: 004a624ed38b582f
+  en: 308bd0c014af75f4
+  zh: d862c98dd4248160
 /lyness-lyn-subagent-lyn-sdk/model-experience/parent-tool-result-indirectly/token-effect:
-  en: 600ac97cdd163650
-  zh: d08f0a72321a9548
+  en: 4fae54e2ff0c4874
+  zh: 1574bfe874f66a1f
 /lyness-lyn-subagent-lyn-sdk/model-experience/parent-tool-result-indirectly/kv-cache-effect:
   en: f5d5f97a153f7c70
   zh: 3d6bc05b9eadfbc2
 /lyness-lyn-subagent-lyn-sdk/known-limitations-and-deferred-work:
-  en: 01cbee2a855b1d6a
-  zh: 701e7afc9a7fc862
+  en: 8f43f79098cfeb37
+  zh: a5ded4086e3d8773
 /lyness-lyn-subagent-lyn-sdk/known-limitations-and-deferred-work/dev-note:
-  en: 854b5d4640bb8c07
-  zh: acd7a2aa4a4f457c
+  en: 04a404ccea615ef3
+  zh: df2d9d901d75f024

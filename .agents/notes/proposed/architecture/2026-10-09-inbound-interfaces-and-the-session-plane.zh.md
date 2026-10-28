@@ -8,7 +8,7 @@ Status: proposed
 
 进来的路已经有好几条，而每一条都自己发明了一套"到达"。
 
-[`api/gateway`](../../../../packages/api/gateway/README.zh.md) 是 Web 与桌面客户端说的那个 Typert RPC 端点。[`sdk`](../../../../packages/sdk/README.zh.md) 是给程序用的 JSON-RPC。[`acp`](../../../../packages/acp/README.zh.md) 是另一个 agent 来驱动会话。[`webhook`](../../../../packages/webhook/README.zh.md) 把一个外部事件变成 Web 工作区里的一个根会话。[`schedule`](../../../../packages/schedule/schedule/README.zh.md) 会唤回一个冷会话，并把到期的那一次作为后续消息投递进那个会话。[钩子桥](../../../../packages/hooks/hook-protocol/README.zh.md)让外部 harness 能拦下一个提示词或附加上下文。
+[`api/gateway`](../../../../packages/api/gateway/README.zh.md) 是 Web 与桌面客户端说的那个 Typert RPC 端点。[`sdk`](../../../../packages/sdk/README.zh.md) 是给程序用的 JSON-RPC。[`acp`](../../../../packages/acp/README.zh.md) 是另一个 agent 来驱动会话。[`webhook`](../../../../packages/experimental/webhook/README.zh.md) 把一个外部事件变成 Web 工作区里的一个根会话。[`schedule`](../../../../packages/schedule/schedule/README.zh.md) 会唤回一个冷会话，并把到期的那一次作为后续消息投递进那个会话。[钩子桥](../../../../packages/experimental/hook-protocol/README.zh.md)让外部 harness 能拦下一个提示词或附加上下文。
 
 其中两条本来就做对了。schedule 投递进的是**原来那个**会话，并在它冷掉时唤回它；webhook 建的是一个普通的根会话，而不是某种特殊会话。所以"一切都落在同一个会话平面上"是这棵树已经半照着做、却从未写明的一条规则——也正因为没写明，照着做的那一半是被独立发现了两次。
 

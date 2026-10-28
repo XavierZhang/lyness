@@ -3,14 +3,14 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write apps/cli/reference/README.md
 /lyn-cli-behavior-reference:
-  en: dab173a10fc1dc16
-  zh: cf5fd77e1a0690a0
+  en: 6500487089ad1650
+  zh: 91676c4ec7ea83c9
 /lyn-cli-behavior-reference/profile-boot:
-  en: 7b0ebeee3e8fb9af
-  zh: 6938e3f9bcabd83b
+  en: 8d61d91c0b721955
+  zh: 4fbb5e7ac04181a1
 /lyn-cli-behavior-reference/profile-boot/app-arguments:
-  en: f53182f0221faee4
-  zh: 839fb5cb2dac5de9
+  en: 9871d56528402914
+  zh: 64b711af9f43c358
 /lyn-cli-behavior-reference/profile-boot/config-schema-dump:
   en: 3680b89265e3e185
   zh: cb447f1f5a9819f2
@@ -18,14 +18,14 @@
   en: 0eaf9c9f87f6c073
   zh: dd541b9505582480
 /lyn-cli-behavior-reference/plugin-management:
-  en: 63fce0676f6ba389
-  zh: 9e1168d3021aff5d
+  en: c402bd7b8a0e714b
+  zh: c46773bb24c10f77
 /lyn-cli-behavior-reference/web-profile:
-  en: 5198005b0f081c28
-  zh: b3edbbfafb205f51
+  en: 5ce9275999c716bd
+  zh: dd6396b5ca7f2244
 /lyn-cli-behavior-reference/shared-deployment-behavior:
-  en: d7b9711c2f4aab3a
-  zh: 1d55df0e06280bd1
+  en: c9db55d15720a88d
+  zh: 313c968362c32f69
 /lyn-cli-behavior-reference/source-execution:
   en: 07916b5de0aea994
   zh: 21bf02f7aa797091

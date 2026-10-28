@@ -3,8 +3,8 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-10-21-when-access.md
 /agent-note-whenaccess-registration-that-follows-access:
-  en: 2ef7cfef514c138a
-  zh: 064e3aecbfafcd9c
+  en: b447ee2ca3232a9d
+  zh: 9b72c9367fc487eb
 /agent-note-whenaccess-registration-that-follows-access/problem:
   en: 4f88d3ee7868eaa5
   zh: 72a4ce2dde13bef7
@@ -21,8 +21,8 @@
   en: ddc432b693608163
   zh: 620294d8812b0a31
 /agent-note-whenaccess-registration-that-follows-access/consequences:
-  en: de44fa92c49bc335
-  zh: 34436fe971ab013f
+  en: 97343e9257c25935
+  zh: 1a7c8c41f97b06be
 /agent-note-whenaccess-registration-that-follows-access/related:
-  en: 89073ffbfcff0641
-  zh: 736a180d13a08981
+  en: cc9a63b8f23471d8
+  zh: 7d0ed2d7f6b37011

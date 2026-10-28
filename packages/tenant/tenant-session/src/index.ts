@@ -40,7 +40,7 @@ import type {} from '@lyness/lyn-system-prompt'
 import { TenantId } from '@lyness/lyn-tenant'
 import type { Tenant } from '@lyness/lyn-tenant'
 import type { Session, SessionEvent } from '@lyness/lyn-session'
-import type {} from '@lyness/lyn-session-projection'
+import type { ProjectionDefinition } from '@lyness/lyn-session-projection'
 import type { TenantConfig } from '@lyness/lyn-tenant-config'
 import type {} from '@lyness/lyn-tenant-request/types'
 
@@ -166,6 +166,15 @@ export function composeTenantIdentity(agentCtx: Context, record: TenantSessionRe
   return (): void => { for (const withdraw of withdrawals) withdraw() }
 }
 
+/** Which organization a conversation belongs to, folded from its own log. */
+export const tenantSessionProjectionDefinition = {
+  key: 'tenant',
+  stateVersion: 1,
+  stateSchema: tenantSessionRecordSchema,
+  init: () => null,
+  apply: applyTenantEvent,
+} satisfies ProjectionDefinition<'tenant', TenantSessionRecord | null>
+
 /** Stable Cordis plugin name. */
 export const name = 'tenant-session'
 
@@ -207,19 +216,10 @@ export async function apply(ctx: Context, config: Config): Promise<void> {
   const configured = await ctx.get('tenantConfig')?.get(tenantId)
   const fallback = recordOf(tenant, configured)
 
-  ctx.sessionProjections.register({
-    key: 'tenant',
-    stateVersion: 1,
-    stateSchema: tenantSessionRecordSchema,
-    init: () => null,
-    apply: applyTenantEvent,
-  })
+  const tenantProjection = await ctx.sessionProjections.register(tenantSessionProjectionDefinition)
 
   const stamp = (session: Session): void => {
-    const state = ctx.sessionProjections.stateOf(session, 'tenant')
-    /* v8 ignore next -- the projection is registered above; stateOf answers undefined only for an unregistered key. */
-    if (state === undefined) throw new Error('tenant-session: the tenant session projection is not registered')
-    if (state !== null) return
+    if (tenantProjection.stateOf(session) !== null) return
     // Read at stamp time, not at load: whichever scope is mounted when the
     // session is created is the one that knows who created it.
     const requested = ctx.get('requestTenant')?.current()
@@ -237,15 +237,10 @@ export async function apply(ctx: Context, config: Config): Promise<void> {
   const compose = (agent: Agent): void => {
     // TODO(session-projection): read through the registration handle instead.
     // Upstream 0.2.1 deprecated the keyed read and types it `unknown`; the
-    // fold state is parsed with the projection's own schema here, which is the
-    // same validation the registry performs when it reloads a checkpoint.
-    const state = ctx.sessionProjections.stateOf(agent.session, 'tenant')
+    const record = tenantProjection.stateOf(agent.session)
     /* v8 ignore next -- `session/created` has stamped the session before
        `agent/created` fires for it, so this names a broken order rather than
        composing text the log does not hold. */
-    if (state === undefined || state === null) return
-    const record = tenantSessionRecordSchema.parse(state)
-    /* v8 ignore next -- the stamp writes a record, never null. */
     if (record === null) return
     const withdraw = composeTenantIdentity(agent.ctx, record)
     // Owned by the agent's scope as well, so disposing the agent takes the

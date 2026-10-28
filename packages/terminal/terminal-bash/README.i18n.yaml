@@ -15,8 +15,8 @@
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
 /lyness-lyn-terminal-bash/use-this-package:
-  en: 2d59ab0d0290162e
-  zh: e37c1830f721c14b
+  en: 698790b76a66f7bf
+  zh: c30748303b688cce
 /lyness-lyn-terminal-bash/use-this-package/when-to-choose-it:
   en: 9d8cc244535aa7a5
   zh: 533e28f3c60a607d
@@ -24,11 +24,11 @@
   en: 71449ef1985b2f1b
   zh: 562e9b5ef73cd5e1
 /lyness-lyn-terminal-bash/use-this-package/configuration:
-  en: 1b1f79e21cb9f6d0
-  zh: 4534976b5516e741
+  en: bcab35ab035f4b4b
+  zh: ef857fc44b612335
 /lyness-lyn-terminal-bash/use-this-package/shell-dialects-and-readiness:
-  en: bab340c3347f1794
-  zh: a4c32b651fea000d
+  en: 2cab01d85f524e3d
+  zh: 0d00b3e399a935b1
 /lyness-lyn-terminal-bash/use-this-package/sandboxing-and-safe-operation:
   en: 39e0f0b429b024a7
   zh: 440171193664d13b
@@ -39,8 +39,8 @@
   en: 97f4f07114f5a995
   zh: d30b07058a3103c7
 /lyness-lyn-terminal-bash/understand-the-implementation/design-concept:
-  en: 227efa256e8fff0b
-  zh: 5489214abb2c899a
+  en: 1801aaa763743049
+  zh: b8c8158a63ed6055
 /lyness-lyn-terminal-bash/understand-the-implementation/source-map:
   en: 9a525f7a7228a09b
   zh: d57537edfacc9f8b
@@ -54,8 +54,8 @@
   en: a88b693ec539ac28
   zh: a309bbe671166027
 /lyness-lyn-terminal-bash/further-exploration:
-  en: 0c875c2c5488dc55
-  zh: eb9f20f77a5f987c
+  en: ebc6add492ecfc19
+  zh: d424fa86deb37c1c
 /lyness-lyn-terminal-bash/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
@@ -87,5 +87,5 @@
   en: 2dc221de0d3a76a7
   zh: 822cef044e765459
 /lyness-lyn-terminal-bash/known-limitations-and-deferred-work/dev-note:
-  en: 979c4600ed8a81d5
-  zh: 4016ea615f638036
+  en: e67f633dc6fe7773
+  zh: 3bb0c20c93f16f98

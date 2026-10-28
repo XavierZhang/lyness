@@ -3,14 +3,14 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/util/plugin-market-index/README.md
 /:
-  en: be1a45173d5c1ce7
-  zh: a9a5a976e40e4a8a
+  en: 8d7056c95c3ef666
+  zh: aecd5b4d45c5e11e
 /lyn-plugin-market-index:
-  en: 78d8cc75e40d4e48
-  zh: 9db1a93fb07d4ded
+  en: 6ae9471931d42f77
+  zh: 4d5303f119b1dbb4
 /lyn-plugin-market-index/summary:
-  en: f68c94d63c1ec0e5
-  zh: 52db4114eef7454d
+  en: c522f6827a2c5b1b
+  zh: ca4e604745842e0a
 /lyn-plugin-market-index/table-of-contents:
   en: cd2a60a905c978d6
   zh: cc71d387d0cbd442
@@ -21,14 +21,14 @@
   en: e0e4444616427bf2
   zh: 3960a7602bb17705
 /lyn-plugin-market-index/model-experience:
-  en: c060b1659cf43243
-  zh: 4a2313822283291e
+  en: c96f2978e42736fc
+  zh: ae4ed4bc092ad965
 /lyn-plugin-market-index/model-experience/kv-cache-effect:
   en: a7a5484352ac021c
   zh: fe00da8797e85e06
 /lyn-plugin-market-index/known-limitations-and-deferred-work:
-  en: acfbb04ae4682367
-  zh: 48af36f974976528
+  en: b1616c68a3a0b1d0
+  zh: 14df382d6eeef474
 /lyn-plugin-market-index/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

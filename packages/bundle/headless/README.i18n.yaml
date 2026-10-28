@@ -18,14 +18,23 @@
   en: 4447012f4c84100d
   zh: faf579ae9f04c096
 /lyness-lyn-headless/use-this-package/running-a-one-shot-task:
-  en: 943a561aa6b0d28c
-  zh: 4a3ec1e53b6668f7
+  en: bab88ace58ef33a7
+  zh: 9f8fb72c9e87a743
+/lyness-lyn-headless/use-this-package/credentials:
+  en: 53e2631e174af4e7
+  zh: 8e59367646acac78
 /lyness-lyn-headless/use-this-package/choosing-the-session-identity:
-  en: dbaa2fac63910a4c
-  zh: 4fd5c17815ca444b
+  en: 85120c2d6db2cac4
+  zh: bac532df6c84e755
+/lyness-lyn-headless/use-this-package/supervising-implementation-tasks:
+  en: 240a283a09a01866
+  zh: d865c397d90d3b76
+/lyness-lyn-headless/use-this-package/experimental-auto-review:
+  en: b695861713ad6e50
+  zh: 30b822654e1f8a56
 /lyness-lyn-headless/use-this-package/machine-readable-output:
-  en: cd7cf1a9fcbc058f
-  zh: ff0064b568a4d774
+  en: 6c7a23f4d4227907
+  zh: 13fe8b1e6f25d09e
 /lyness-lyn-headless/use-this-package/when-to-use-it:
   en: 7779855c88df001a
   zh: 84d636152fd39634
@@ -36,20 +45,17 @@
   en: be1b73a6d0ee3902
   zh: bdba099685d68b27
 /lyness-lyn-headless/understand-the-implementation/run-flow:
-  en: 8541a122ded45706
-  zh: 60fb55f238b8030b
+  en: d0b2deb9353d263b
+  zh: fd0142197be94c57
 /lyness-lyn-headless/understand-the-implementation/patch-surface-over-base:
-  en: 172f844d4f20a5d3
-  zh: 3cd0df12b1463453
+  en: 072f7fc419ccf108
+  zh: dd9be70772d24d3f
 /lyness-lyn-headless/understand-the-implementation/exit-mapping:
-  en: a48c1383ac6d4103
-  zh: d61fac0a9be24916
+  en: 0b5a505a12d7fc55
+  zh: 122b239b35ca9482
 /lyness-lyn-headless/understand-the-implementation/source-map:
-  en: 4c45b48be04c2d8f
-  zh: c0bc27fbaed268a8
-/lyness-lyn-headless/understand-the-implementation/invariant-ownership:
-  en: 329f170dec4b2279
-  zh: bb40f8beda5b3a1c
+  en: 36a635fad25b9ef0
+  zh: e271db999b11f0ed
 /lyness-lyn-headless/further-exploration:
   en: 487ec5fad3e64fcd
   zh: c90356c08dd812e9
@@ -60,8 +66,8 @@
   en: 0b0f74b412c7c6d8
   zh: 6e8f918d0c4bf342
 /lyness-lyn-headless/known-limitations-and-deferred-work:
-  en: ec1414e56b045d43
-  zh: f17974e4d4ac6221
+  en: 8a7f726e6192e02f
+  zh: d8376e30c9603d39
 /lyness-lyn-headless/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

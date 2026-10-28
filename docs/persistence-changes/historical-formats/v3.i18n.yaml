@@ -435,14 +435,14 @@
   en: 397dcc4bcb4bc599
   zh: 219cbc291ae80ef1
 /session-v3-persistence-format/complete-schemas/resolved-persistence-types/event-hook-invoked-data:
-  en: bb052f16c932f4f1
-  zh: 26f5de2ee212b262
+  en: 7a707f7513c785bb
+  zh: cc6a7dfb6cd9aa46
 /session-v3-persistence-format/complete-schemas/resolved-persistence-types/event-hook-result:
   en: 10fd5b95b4cb85c5
   zh: b84b773df10df7ed
 /session-v3-persistence-format/complete-schemas/resolved-persistence-types/event-hook-result-data:
-  en: a5ed1ddeb5135af4
-  zh: f4b2d38016a3887b
+  en: 6e5cecdb73a7fdb3
+  zh: e0ae0b398d2865d2
 /session-v3-persistence-format/complete-schemas/resolved-persistence-types/event-image-offload:
   en: c2a204e46335b7e4
   zh: 50de7e6d42924ee4
@@ -968,9 +968,9 @@
 /session-v3-persistence-format/complete-schemas/resolved-persistence-types/packages-goal-goal-src-types-ts-goalsnapshot:
   en: ff21e17ac1c3a110
   zh: f9c05a92fd47e1f4
-/session-v3-persistence-format/complete-schemas/resolved-persistence-types/packages-hooks-hook-protocol-src-types-ts-hookdialect:
-  en: f7d0e7efbac812de
-  zh: ea5f9f1fdd57ea7d
+/session-v3-persistence-format/complete-schemas/resolved-persistence-types/packages-experimental-hook-protocol-src-types-ts-hookdialect:
+  en: d94c7f7638ecf7dc
+  zh: 514cfd1382e05b6c
 /session-v3-persistence-format/complete-schemas/resolved-persistence-types/packages-interaction-user-approval-src-index-ts-approvalpolicy:
   en: 2044a1198ef4f2b2
   zh: ad773b08c022587f

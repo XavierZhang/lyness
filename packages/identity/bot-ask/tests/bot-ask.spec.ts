@@ -84,7 +84,7 @@ async function bench(): Promise<{ ctx: Context; model: AnsweringAdapter; log: Re
     currentSelection: () => ({ provider: ANSWERING_PROVIDER, model: 'scripted' }),
     saveSelection: () => Promise.resolve(),
   } as never)
-  ctx.sessionProjections.register(botProjectionDefinition)
+  await ctx.sessionProjections.register(botProjectionDefinition)
   // The answering session is flushed and released once its turn settles, so
   // what it recorded is read from the event stream rather than from the
   // in-memory table it has already left.

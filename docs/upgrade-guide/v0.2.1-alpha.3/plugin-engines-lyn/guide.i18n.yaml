@@ -3,14 +3,14 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write docs/upgrade-guide/v0.2.1-alpha.3/plugin-engines-lyn/guide.md
 /:
-  en: 8b4090927cfab760
-  zh: 47917ce765e1930a
+  en: eff794ae151aee4f
+  zh: a443b053b34cba67
 /plugin-compatibility-reads-engines-lyn-first:
-  en: 99c73d9da5c7552d
-  zh: 9b7165d489c1960e
+  en: c14f69278be4cf64
+  zh: 8502a964681e43a9
 /plugin-compatibility-reads-engines-lyn-first/change:
-  en: 3f4e014fb77f956b
-  zh: 33faefae854d381e
+  en: 5dbaedc57a81a20a
+  zh: 222dfe6023490677
 /plugin-compatibility-reads-engines-lyn-first/migration:
-  en: 57676d075c62d8c9
-  zh: 460daff143c5d044
+  en: 648369068148db96
+  zh: 00262110cd0834a2

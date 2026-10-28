@@ -6,32 +6,32 @@
   en: 63086120d58bb5fd
   zh: 2c4e7dff7bb7a84a
 /lyness-lyn-client-ui-settings-models:
-  en: 7bcc4b7fc76f5a68
-  zh: 3266ecbf10467c14
+  en: d062378987618a31
+  zh: 74a36ddb37df0e53
 /lyness-lyn-client-ui-settings-models/summary:
-  en: f3880edefff49e4a
-  zh: 14910bb4add30f6c
+  en: 27cbb4d6c8343e5f
+  zh: 6c472a062d61e010
 /lyness-lyn-client-ui-settings-models/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
 /lyness-lyn-client-ui-settings-models/use-this-package:
-  en: 7f99c93960dfaf00
-  zh: cb2852ab097a1a6a
+  en: cb1206733f281353
+  zh: 551674bb77656fbb
 /lyness-lyn-client-ui-settings-models/use-this-package/api-keys:
-  en: c2f2a5c06ef20d5b
-  zh: 49a7eb0b66b4ed53
+  en: 6661f2d9426303ea
+  zh: 35311f4eea2b9035
 /lyness-lyn-client-ui-settings-models/use-this-package/editing-a-provider:
-  en: ec0ba62a4e7185b4
-  zh: 37d1e1e7a3817d12
+  en: a4ac56de00a7e59b
+  zh: 9b3f914dc43393c7
 /lyness-lyn-client-ui-settings-models/use-this-package/adding-and-deleting-providers:
-  en: 9d533c65c82cd4a4
-  zh: 0a5da334e127c035
+  en: c0b04b2b11af60d3
+  zh: d195eec281e445cb
 /lyness-lyn-client-ui-settings-models/use-this-package/first-run-dialogs:
   en: 34be2f8e8b118910
   zh: 95533e20b8ef6086
 /lyness-lyn-client-ui-settings-models/use-this-package/extension-slots:
-  en: 65e9d8822b67b6c2
-  zh: 7e83be9defda28ee
+  en: 4886d24fe2f42e77
+  zh: b0e2fedc37e9e130
 /lyness-lyn-client-ui-settings-models/understand-the-implementation:
   en: a87afbec5e339b36
   zh: 6348c81af7e650e1
@@ -39,11 +39,11 @@
   en: 071cbd6e484f9d19
   zh: 8d7aa714e33e460c
 /lyness-lyn-client-ui-settings-models/understand-the-implementation/concurrency-and-credentials:
-  en: 670b8c066aed9b7a
-  zh: 2bedba9a2e0e3fee
+  en: 6e04c00818f014cd
+  zh: 2d57f8d8944e67ed
 /lyness-lyn-client-ui-settings-models/understand-the-implementation/onboarding-coordinator:
-  en: 65309f4378a7fb16
-  zh: f9c8390013df0004
+  en: 935aa892f97a02ec
+  zh: 9ab65a327c95362c
 /lyness-lyn-client-ui-settings-models/further-exploration:
   en: 1a23f4957a1bc246
   zh: ff0e8a1ed4b3105a
@@ -57,5 +57,5 @@
   en: cc69c9934bf22302
   zh: 4ea896f4b54aa203
 /lyness-lyn-client-ui-settings-models/known-limitations-and-deferred-work/dev-note:
-  en: 4f6749870e661a48
-  zh: 4953f3ea814546a4
+  en: e67f633dc6fe7773
+  zh: 3bb0c20c93f16f98

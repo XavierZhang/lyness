@@ -9,8 +9,8 @@
   en: 38cbc518a0d582e8
   zh: f2a9b64efb7ace84
 /lyness-lyn-persona/summary:
-  en: 6e5e75609614f48f
-  zh: 7f9de7ea5565374e
+  en: 1eeaf3f9ac379c6a
+  zh: 0e8fed77d46eea86
 /lyness-lyn-persona/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
@@ -18,11 +18,11 @@
   en: 9b74e4172eaf5fdd
   zh: ab94a985d1f96523
 /lyness-lyn-persona/use-this-package/configuration:
-  en: 2631c56716f6c079
-  zh: e7ec5ad122ffd5ff
+  en: 8e08f095eb943bc5
+  zh: bbb45fa34ebf4e59
 /lyness-lyn-persona/use-this-package/persona-behavior:
-  en: 60a0513b27aa1204
-  zh: a5604819b059dd86
+  en: c2dc9192f0658eeb
+  zh: 7ce8414d9e1a5b5a
 /lyness-lyn-persona/use-this-package/when-to-use-it:
   en: 7ae42d252581943c
   zh: 07f1c561d0ca4483
@@ -36,8 +36,8 @@
   en: 14305e309cef9f36
   zh: 958ba6de0d5507a8
 /lyness-lyn-persona/understand-the-implementation/source-map:
-  en: 6d3b20dc423825bf
-  zh: 2ada808509e73edc
+  en: 45e09ad507fbe1fb
+  zh: 006ec9c79c1771a7
 /lyness-lyn-persona/further-exploration:
   en: 300a0bbaa1ed5724
   zh: 1e37b4ebd1ad2981
@@ -48,17 +48,17 @@
   en: 2b53c1d07ef68f24
   zh: 33a3c17ab56adf57
 /lyness-lyn-persona/model-experience/the-persona-section/what-the-model-sees:
-  en: 7f01b67034a26a2f
-  zh: 7f65b5eee49e71a4
+  en: 5c276dd49a9c5053
+  zh: be5a329928edde7a
 /lyness-lyn-persona/model-experience/the-persona-section/token-effect:
-  en: af8e73cbc540aa5a
-  zh: fa1182678427ab11
+  en: 346e80f3b7a8c7fd
+  zh: da0e19a955d56c51
 /lyness-lyn-persona/model-experience/the-persona-section/kv-cache-effect:
   en: e9f96cf496c544c7
   zh: b986f1b22d1beb70
 /lyness-lyn-persona/known-limitations-and-deferred-work:
-  en: dc09a92d00af8e8a
-  zh: 15f0f663ba6dc2cb
+  en: 9a7dba778a006276
+  zh: 3c2030dfcfe83e34
 /lyness-lyn-persona/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

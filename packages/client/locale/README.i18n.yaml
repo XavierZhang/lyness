@@ -3,14 +3,14 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/locale/README.md
 /:
-  en: d2aaa955e01c2679
-  zh: 9d264cf8be1536cf
+  en: 5dea50fae7364d1e
+  zh: dc788b9ce6ffd101
 /lyness-lyn-client-locale:
   en: 6c8e2452cfbb5d37
   zh: ead34ea40980c530
 /lyness-lyn-client-locale/summary:
-  en: 162a142fc19f01d6
-  zh: 17c7b450c1911910
+  en: b6663de99ae6efb5
+  zh: 1c6894fd065646a7
 /lyness-lyn-client-locale/table-of-contents:
   en: d152484eb41ac6b4
   zh: bda879a892f240f0
@@ -18,11 +18,11 @@
   en: 7fedfbcbc3ad8cea
   zh: e29ba5230e0b9ecb
 /lyness-lyn-client-locale/use-this-package/choosing-a-language:
-  en: 6c29f124fccac07f
-  zh: d86e1a4e55a9f39b
+  en: 48ba93551300df50
+  zh: 0afe63eca8a55269
 /lyness-lyn-client-locale/use-this-package/registering-a-dictionary:
-  en: 9b2fcfa8cae8dc4b
-  zh: 293012a4d364ef59
+  en: f19407c3ce8a94cc
+  zh: 3e5300ce7fa02987
 /lyness-lyn-client-locale/use-this-package/naming-the-product-in-copy:
   en: 31112220f0238871
   zh: c4c8861612e2eb3e
@@ -33,8 +33,8 @@
   en: aa4e9c70523339cc
   zh: 3359eddc4e9ef15e
 /lyness-lyn-client-locale/use-this-package/what-the-host-half-does:
-  en: 8fa91333f7fc3387
-  zh: 789a9cbb3eace3b0
+  en: d046b08433cef4c2
+  zh: d1da98098b623427
 /lyness-lyn-client-locale/understand-the-implementation:
   en: 288d8db39f9acfc5
   zh: d65cf2ffae8ad35c
@@ -42,17 +42,17 @@
   en: a57e83d59b7ac881
   zh: 93a3e7951e50caed
 /lyness-lyn-client-locale/understand-the-implementation/preference-resolution:
-  en: 4bc9dffa4629f537
-  zh: f51633c658b8d25b
+  en: d602d957654641c6
+  zh: 2db822b746a6471d
 /lyness-lyn-client-locale/understand-the-implementation/dictionary-lookup:
-  en: f8dcc4035830e738
-  zh: 8452ac63ee148c61
+  en: 68373e745761494c
+  zh: 43a5b8c19d03268a
 /lyness-lyn-client-locale/understand-the-implementation/source-map:
-  en: e8fd3a988c3f8727
-  zh: c7f148e6a513aa72
+  en: 414f76ad62a4e414
+  zh: c96863a568e9d52f
 /lyness-lyn-client-locale/further-exploration:
-  en: 5f78facf64110011
-  zh: aa80643a999a11b8
+  en: 8e51fa4d08220a50
+  zh: 4efa8bb06682f8b9
 /lyness-lyn-client-locale/model-experience:
   en: 209321ba2d2e6710
   zh: 21deb6c973f69b66
@@ -63,5 +63,5 @@
   en: 500ede048ef44c6a
   zh: f741fae55b29a627
 /lyness-lyn-client-locale/known-limitations-and-deferred-work/dev-note:
-  en: 82fb34d8a128a0ac
-  zh: fa3f40c900032aae
+  en: e67f633dc6fe7773
+  zh: 3bb0c20c93f16f98

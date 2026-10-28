@@ -21,11 +21,11 @@
   en: 7a083800eee7be9f
   zh: 0fae8d7cdb8b8e78
 /lyness-lyn-app-boot/use-this-package/starting-the-app:
-  en: 1099528bde0e2aee
-  zh: b68772bdb9bb7856
+  en: 65bf2834b81f87da
+  zh: c864ac60a3005b99
 /lyness-lyn-app-boot/use-this-package/profiles:
-  en: 95dd5497f2a25ffe
-  zh: d8d1efb2e492c39e
+  en: f3134aea274e502b
+  zh: 1ac64d39e56150b3
 /lyness-lyn-app-boot/use-this-package/previewing-the-effective-configuration:
   en: 646a0ccdd7881ad1
   zh: e3696acb1573dd7b
@@ -33,38 +33,35 @@
   en: ab47f7d1f00de699
   zh: 426c5bb39396af35
 /lyness-lyn-app-boot/use-this-package/reading-plugin-display-metadata:
-  en: e2369548f70f06ff
-  zh: 3530c4641fbc03fc
+  en: 9a0b0926edff3247
+  zh: a70e619237adafa8
 /lyness-lyn-app-boot/use-this-package/startup-and-reload-failures:
-  en: f83001cbb6f68e0c
-  zh: 4d859e0e7731369c
-/lyness-lyn-app-boot/use-this-package/telling-the-agent-where-the-harness-lives:
-  en: 35e34858ed4e5eac
-  zh: 79bdb2aec64e1679
+  en: 4ee5a8529792de74
+  zh: 1713e4827eed5a5f
 /lyness-lyn-app-boot/understand-the-implementation:
   en: f4a2695cb4c8a570
   zh: 89837235d2f376cf
 /lyness-lyn-app-boot/understand-the-implementation/design-notes:
-  en: 5e3ce508795f2ced
-  zh: 4bceb852053c7e15
+  en: 80a40d35a3756842
+  zh: 2ca925f5d597908d
 /lyness-lyn-app-boot/understand-the-implementation/helper-behavior:
-  en: f7bc3a8dd4b00bdd
-  zh: 30098428aa769ad0
+  en: 6fa850d1bb000d0e
+  zh: aa83a40a9d3db295
 /lyness-lyn-app-boot/understand-the-implementation/source-map:
-  en: 25602fd8eb9b2907
-  zh: 870a33dd34a52c32
+  en: 541700d5c39e0ab4
+  zh: 7522dbd9cd68c930
 /lyness-lyn-app-boot/further-exploration:
-  en: 7e35a31c4e87d9fd
-  zh: 7ae2ebf622f1182e
+  en: bc67b5eb08dc5853
+  zh: 280bd3def4ca0035
 /lyness-lyn-app-boot/model-experience:
-  en: 769777f1cb1a9408
-  zh: f02b2834179df50d
+  en: d2d0a21502d88c50
+  zh: 82a60c7a490a6834
 /lyness-lyn-app-boot/model-experience/kv-cache-effect:
-  en: c4d49630b68ae896
-  zh: 6f450ec6ba39bb81
+  en: 5a1d9344c8fdc790
+  zh: 0b32579f658b2ca1
 /lyness-lyn-app-boot/known-limitations-and-deferred-work:
-  en: bf1a49013cad8e9c
-  zh: 41b2b010f8650ec3
+  en: 1400c4f22a79b59a
+  zh: 269f6c91584aec3e
 /lyness-lyn-app-boot/known-limitations-and-deferred-work/dev-note:
   en: d2f0d68fe29fb750
   zh: 323d21ee73a9e3f6

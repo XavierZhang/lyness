@@ -6,8 +6,8 @@
   en: 431157e666a3bccc
   zh: f84a66a2cbf3532f
 /cookbook-adding-a-workspace-package/1-create-the-package:
-  en: ec2979767e4eda29
-  zh: b8848ab62abb3329
+  en: b4ca39eb14067efc
+  zh: 535535fb45690c74
 /cookbook-adding-a-workspace-package/2-register-it-in-the-root-configs:
   en: 6ea1000c520ac4fe
   zh: b4e60dd550158251
@@ -18,11 +18,11 @@
   en: aa0ed0f5bfdecc1d
   zh: 4b1143e8decaabc2
 /cookbook-adding-a-workspace-package/4-write-the-package-readme:
-  en: 51f60355a524928c
-  zh: 55a54e9d7c799b77
+  en: 29090c2c8d8bfc7d
+  zh: 124dc4ed27dfdfa5
 /cookbook-adding-a-workspace-package/5-add-optional-plugin-display-metadata:
-  en: 35497dd0ab28d017
-  zh: 2ac100403d946742
+  en: ee06bdf2a1fdbf39
+  zh: 23416a082cd66f7c
 /cookbook-adding-a-workspace-package/6-verify:
   en: e4f0cbbaa1de6357
   zh: e8809fc3f6f57347

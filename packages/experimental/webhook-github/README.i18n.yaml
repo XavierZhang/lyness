@@ -1,13 +1,13 @@
 # Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
 # section, a hash of its English and Chinese blocks outside code blocks and generated regions.
 # After editing either side, bring the other along and re-record with:
-#   pnpm run verify-translation-pairing --write packages/webhook/webhook-github/README.md
+#   pnpm run verify-translation-pairing --write packages/experimental/webhook-github/README.md
 /:
   en: 60db7ae899ed9fd9
   zh: 4fe10fa8823aa6d1
 /lyness-lyn-webhook-github:
-  en: 2b7e121fceabd4f6
-  zh: 5ac4f459353872ff
+  en: 712075ee9b2e6fb7
+  zh: 9f00bb4fcd481163
 /lyness-lyn-webhook-github/summary:
   en: d2b833e54f3355e1
   zh: ed74084641be31a0
@@ -21,8 +21,8 @@
   en: 2d8b5cb8d44bef8e
   zh: a98ec470d9d6bc2d
 /lyness-lyn-webhook-github/dedicated-listener-composition:
-  en: b2feeadc7ddd6573
-  zh: 4c9d7d788fbe591e
+  en: 21ae8b1d47d48467
+  zh: f32e4e5a3f0d5ed5
 /lyness-lyn-webhook-github/model-experience:
   en: 729befd12d1e83cc
   zh: 321d4f8fd738d0d6
@@ -33,5 +33,5 @@
   en: 0c3192c3e300bb46
   zh: 7c84d20e6a8a768e
 /lyness-lyn-webhook-github/known-limitations-and-deferred-work/dev-note:
-  en: bbd8c94f4d6a3c3d
-  zh: daeec1257fe65858
+  en: e67f633dc6fe7773
+  zh: e88aeb617ffb74ea

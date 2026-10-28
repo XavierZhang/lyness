@@ -3,14 +3,14 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write docs/upgrade-guide/v0.2.1-alpha.1/plugin-option-placement/guide.md
 /:
-  en: 3f9b48b2230ec6e4
-  zh: c1aad0e9121d46a4
+  en: 1395a9fdb5469925
+  zh: 657cdfe10cffe2aa
 /lyn-plugin-option-placement:
-  en: 3d717a2b7e9087d3
-  zh: e6004d015e6a4829
+  en: bdf65066aa33c3b3
+  zh: 793b17c9f3f8cef7
 /lyn-plugin-option-placement/change:
-  en: 15fe8cf74db0ba53
-  zh: c6ea1056aa7a6f77
+  en: 2ff224d25233cfc9
+  zh: 9d8e35a58f8b2c34
 /lyn-plugin-option-placement/migration:
-  en: b7239597ebc4d970
-  zh: fa45f851cf1f3af1
+  en: d85070d4b343fbe6
+  zh: 88d87286ecc9fb3b

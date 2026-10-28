@@ -5,45 +5,45 @@
 /:
   en: ed2539c6d12f814a
   zh: 55a6c9d7f0d21fb7
-/deepseek-ai-lyn-cua:
-  en: 0ef7ee882840cf1b
-  zh: 01b9e768eff2d302
-/deepseek-ai-lyn-cua/summary:
+/lyness-lyn-cua:
+  en: 9fe4e2e57a810bfc
+  zh: 7866c74da6fbf2d9
+/lyness-lyn-cua/summary:
   en: f4d9cc48587d62a2
   zh: d1bac6c1fe7eb29e
-/deepseek-ai-lyn-cua/table-of-contents:
+/lyness-lyn-cua/table-of-contents:
   en: 5db4d4fea25493b9
   zh: 65ab64fc24eb0d09
-/deepseek-ai-lyn-cua/use-this-package:
-  en: 4b4000d5eafc9256
-  zh: 4eeae251ec7c8ec4
-/deepseek-ai-lyn-cua/use-this-package/permission-controls:
-  en: 7315ac8d68cf5d02
-  zh: 037407055d9f34a0
-/deepseek-ai-lyn-cua/understand-the-implementation:
+/lyness-lyn-cua/use-this-package:
+  en: b4ded36898c05af3
+  zh: ea00d2c4655593b3
+/lyness-lyn-cua/use-this-package/permission-controls:
+  en: e0220cad73b5204f
+  zh: 4d320c65cde48f88
+/lyness-lyn-cua/understand-the-implementation:
   en: a32743fc5b545ab3
   zh: e8842c589966202b
-/deepseek-ai-lyn-cua/further-exploration:
-  en: b8b0aece886fadaa
-  zh: ecd8c88d601f2179
-/deepseek-ai-lyn-cua/model-experience:
+/lyness-lyn-cua/further-exploration:
+  en: bc9c5a3398196842
+  zh: ed3e87c9570b54c5
+/lyness-lyn-cua/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/deepseek-ai-lyn-cua/model-experience/authorized-application-operations:
+/lyness-lyn-cua/model-experience/authorized-application-operations:
   en: 0faf1e4d409d61aa
   zh: 1866dd0b702f2a26
-/deepseek-ai-lyn-cua/model-experience/authorized-application-operations/what-the-model-sees:
-  en: 4f90c4a6b121bce0
-  zh: c36ab4b80985c76e
-/deepseek-ai-lyn-cua/model-experience/authorized-application-operations/token-effect:
+/lyness-lyn-cua/model-experience/authorized-application-operations/what-the-model-sees:
+  en: 27fd3ee4caa9aefd
+  zh: 2fdff1849ad209fc
+/lyness-lyn-cua/model-experience/authorized-application-operations/token-effect:
   en: 88463f0304c207bd
   zh: 6d3ae2f1b8e45747
-/deepseek-ai-lyn-cua/model-experience/authorized-application-operations/kv-cache-effect:
+/lyness-lyn-cua/model-experience/authorized-application-operations/kv-cache-effect:
   en: 2d5df52dafa1d940
   zh: 06e815759b9150c3
-/deepseek-ai-lyn-cua/known-limitations-and-deferred-work:
-  en: ae98f1b2718b3b94
-  zh: e6bf4e96ae08e669
-/deepseek-ai-lyn-cua/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-cua/known-limitations-and-deferred-work:
+  en: 4ff4779fdfb940c7
+  zh: 5e23f4e6407f0e9a
+/lyness-lyn-cua/known-limitations-and-deferred-work/dev-note:
   en: 0a1253c6f7b5e8b9
   zh: 9f56528562c7c914

@@ -3,14 +3,14 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write apps/web/tests/README.md
 /apps-web-browser-e2e:
-  en: fadf0d9e5aa396f1
-  zh: c1f931770117e652
+  en: 7a4b1cc59ecfc58b
+  zh: 4dd5dc3c12cfd6a7
 /apps-web-browser-e2e/completion-observations:
-  en: 601eba1b99be7423
-  zh: ca93947901037798
+  en: 0142ba38fceb7d65
+  zh: 2682696daa85383a
 /apps-web-browser-e2e/these-are-host-face-tests:
-  en: 8c406d423c8e2137
-  zh: a66a144fd146f56c
+  en: 101d687b1d98c5b7
+  zh: f8c31115e8a15be7
 /apps-web-browser-e2e/do-not-import-lyness-lyn-client-here:
-  en: 2fb7a57f8293b6ea
-  zh: e140dca284d61b95
+  en: e07a7dcf94b6bd02
+  zh: ff7f570ff1bd4fea

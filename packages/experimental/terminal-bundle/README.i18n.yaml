@@ -5,33 +5,33 @@
 /:
   en: a7cd372176f1d476
   zh: 07276ed339e7bc02
-/deepseek-ai-lyn-experimental-terminal-bundle:
-  en: cc18693529aee09c
-  zh: fbf1c7d8388eeba8
-/deepseek-ai-lyn-experimental-terminal-bundle/summary:
+/lyness-lyn-experimental-terminal-bundle:
+  en: 854d3a89c53d4dd7
+  zh: bb88d687bc424fb5
+/lyness-lyn-experimental-terminal-bundle/summary:
   en: 50f2c8029ae3233d
   zh: 00db7cd933a08ef8
-/deepseek-ai-lyn-experimental-terminal-bundle/table-of-contents:
+/lyness-lyn-experimental-terminal-bundle/table-of-contents:
   en: d152484eb41ac6b4
   zh: 988e839059414d27
-/deepseek-ai-lyn-experimental-terminal-bundle/use-this-package:
-  en: 8b2d9dd5727d0a27
-  zh: ca6c9b8e3d196a54
-/deepseek-ai-lyn-experimental-terminal-bundle/understand-the-implementation:
-  en: 0da35df3f93e3b7f
-  zh: 481b786e161616ab
-/deepseek-ai-lyn-experimental-terminal-bundle/further-exploration:
-  en: 9956186ebda37273
-  zh: eb622f1391f61ad4
-/deepseek-ai-lyn-experimental-terminal-bundle/model-experience:
-  en: 33b928765f080dbf
-  zh: a0ed945765c3b62f
-/deepseek-ai-lyn-experimental-terminal-bundle/model-experience/kv-cache-effect:
+/lyness-lyn-experimental-terminal-bundle/use-this-package:
+  en: 497e18b8c14e3d66
+  zh: b1795f357b4311dd
+/lyness-lyn-experimental-terminal-bundle/understand-the-implementation:
+  en: 5c20ddcf7b757f8f
+  zh: 9df794e969b06857
+/lyness-lyn-experimental-terminal-bundle/further-exploration:
+  en: 57c1215dc98c1757
+  zh: 065a082b1a7f19c3
+/lyness-lyn-experimental-terminal-bundle/model-experience:
+  en: 816b0617ac1b3bc6
+  zh: 4e56ffcae491a75b
+/lyness-lyn-experimental-terminal-bundle/model-experience/kv-cache-effect:
   en: 25f20eda0e696067
   zh: 378c4a15a5704ba0
-/deepseek-ai-lyn-experimental-terminal-bundle/known-limitations-and-deferred-work:
+/lyness-lyn-experimental-terminal-bundle/known-limitations-and-deferred-work:
   en: 733d0915ef050bf3
   zh: 5a063b82230c73a4
-/deepseek-ai-lyn-experimental-terminal-bundle/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-experimental-terminal-bundle/known-limitations-and-deferred-work/dev-note:
   en: 279d01435256cd2a
   zh: 83780964e5de2f54

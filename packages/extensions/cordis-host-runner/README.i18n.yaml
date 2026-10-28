@@ -18,8 +18,11 @@
   en: bdaba8036acf80c9
   zh: 2dd8f972c3023a8a
 /lyness-lyn-cordis-host-runner/use-this-package/minimal-configuration:
-  en: 4e596eac2ebdbc9f
-  zh: 29ad8a10fb8217a3
+  en: b09249da8af44ba5
+  zh: a7a4d529fe55a292
+/lyness-lyn-cordis-host-runner/use-this-package/client-inspection:
+  en: b4a2fe9e7aa9dee7
+  zh: 56f55558809970da
 /lyness-lyn-cordis-host-runner/use-this-package/what-a-run-does:
   en: a3c86c081974a710
   zh: 180e1b7824c070d4
@@ -27,8 +30,8 @@
   en: d1a8777f171d22bb
   zh: 7f6aa4c2680557b1
 /lyness-lyn-cordis-host-runner/use-this-package/trust-stance:
-  en: 4196b6ca5da319de
-  zh: 33418bc5cbd9fb17
+  en: c813b7f42687e813
+  zh: 03e9fa4c29dd7413
 /lyness-lyn-cordis-host-runner/understand-the-implementation:
   en: b0a536c0d00cbdb8
   zh: 08e5d813aa6a612a
@@ -42,8 +45,8 @@
   en: 503b7396aff764d6
   zh: 7b42c48f8f750732
 /lyness-lyn-cordis-host-runner/further-exploration:
-  en: ca22830c7e5777db
-  zh: 6eac84a36bd21a81
+  en: b898b94db4d05d28
+  zh: cd3b0848ed2efac5
 /lyness-lyn-cordis-host-runner/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
@@ -63,5 +66,5 @@
   en: 1f10688ae249a077
   zh: ab2ff597e1769b81
 /lyness-lyn-cordis-host-runner/known-limitations-and-deferred-work/dev-note:
-  en: 8111315620c52980
-  zh: 261bf47eecf96bad
+  en: e67f633dc6fe7773
+  zh: 3bb0c20c93f16f98

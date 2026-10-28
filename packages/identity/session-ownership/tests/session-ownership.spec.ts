@@ -11,8 +11,8 @@ import type { MembershipId, PersonId } from '@lyness/lyn-people'
 import SessionStore from '@lyness/lyn-session'
 import type { Session } from '@lyness/lyn-session'
 import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import SessionVisibility from '../src/visibility.ts'
 import * as SessionOwnership from '../src/index.ts'
-import { ownerOf } from '../src/index.ts'
 import type { SessionOwnerRecord } from '../src/index.ts'
 
 const ADA = brandString<PersonId>('ada')
@@ -44,6 +44,9 @@ async function bench(options: {
   } as never)
   if (options.before === true) ctx.sessions.create()
   await ctx.plugin(SessionOwnership).await()
+  // The service that owns the projection is the one that answers for it.
+  ctx.provide('people', { memberships: () => Promise.resolve([]) } as never)
+  await ctx.plugin(SessionVisibility).await()
   live.push(ctx)
   return ctx
 }
@@ -75,7 +78,7 @@ describe('session ownership', () => {
     // no request principal opened; attribution invented here would be wrong
     // permanently.
     expect(records(ctx.sessions.create())).toEqual([])
-    expect(ownerOf(ctx, ctx.sessions.create())).toBeUndefined()
+    expect(ctx.sessionVisibility.ownerOf(ctx.sessions.create())).toBeUndefined()
   })
 
   it('stamps a session that already existed when the plugin mounted', async () => {
@@ -87,11 +90,11 @@ describe('session ownership', () => {
   it('reads the record back, and writes it exactly once', async () => {
     const ctx = await bench({ person: ADA, membership: ACME })
     const session = ctx.sessions.create()
-    expect(ownerOf(ctx, session)).toMatchObject({ owner: ADA, membership: ACME })
+    expect(ctx.sessionVisibility.ownerOf(session)).toMatchObject({ owner: ADA, membership: ACME })
 
     // Every other event leaves the attribution alone.
     session.append('turn/start', { turn: 1 })
-    expect(ownerOf(ctx, session)).toMatchObject({ owner: ADA })
+    expect(ctx.sessionVisibility.ownerOf(session)).toMatchObject({ owner: ADA })
 
     // A second mount is a restart: the session keeps what it was created with.
     await ctx.plugin(SessionOwnership).await()

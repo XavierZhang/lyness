@@ -18,20 +18,20 @@
   en: b0d8909bae28480f
   zh: 34845ac277b3c71e
 /lyness-lyn-system-prompt/use-this-package/configure-the-prompt:
-  en: d2da0976ddaf3c71
-  zh: c068b157bea5fe67
+  en: 89f68f521cc4338b
+  zh: 85bf1f317b792188
 /lyness-lyn-system-prompt/use-this-package/contribute-a-prompt-section:
-  en: 15d70e3b8eddd636
-  zh: a3a67cab60eee86f
+  en: ef415fcd9e1cf8bb
+  zh: 6ad4df288f91bdb1
 /lyness-lyn-system-prompt/use-this-package/contribute-a-prompt-variable:
-  en: 39050b92755ceb21
-  zh: 9ddc7d24914b8f2e
+  en: 4c28474e0a005d65
+  zh: 8b60054c6ce44667
 /lyness-lyn-system-prompt/use-this-package/contribute-tool-schemas:
   en: 009ef267dac2f270
   zh: e79c24bff5cd836f
 /lyness-lyn-system-prompt/use-this-package/suppress-runtime-context:
-  en: 61e2c1a3f18b48dd
-  zh: 29ecab2639f60103
+  en: a664608a3b37f8d7
+  zh: d6dd60772f4d72b8
 /lyness-lyn-system-prompt/understand-the-implementation:
   en: ce7e776e9d516bdb
   zh: 59d2751743db7795
@@ -39,11 +39,11 @@
   en: c91963b89a866fed
   zh: ef9ef4940145778f
 /lyness-lyn-system-prompt/understand-the-implementation/source-map:
-  en: a93197314e803d86
-  zh: 8cc650f60e868631
+  en: d9575bcb07a1145b
+  zh: 0f1a388780d055b1
 /lyness-lyn-system-prompt/understand-the-implementation/assembly-and-rendering:
-  en: 54977e6c431f851e
-  zh: ef60007054b97ff0
+  en: d51940213af9b87f
+  zh: f3a2540010624a79
 /lyness-lyn-system-prompt/understand-the-implementation/the-stable-and-volatile-tiers:
   en: 92dcdf446fe855b9
   zh: d2e0b44b36ab35f2
@@ -60,8 +60,8 @@
   en: cf78b9dd5596495f
   zh: bd44560f8c2435e8
 /lyness-lyn-system-prompt/model-experience/system-prompt/what-the-model-sees:
-  en: 9927fdee4f8aa8ec
-  zh: 3687314c357fa7f4
+  en: 622e83de7772dc1f
+  zh: 7b3c54f08a317e93
 /lyness-lyn-system-prompt/model-experience/system-prompt/what-the-model-sees/harness-identity:
   en: 40effd71cb503319
   zh: 9969356237a4f398
@@ -69,14 +69,14 @@
   en: 29722e212137deaa
   zh: 92cd0f1a16b10315
 /lyness-lyn-system-prompt/model-experience/system-prompt/kv-cache-effect:
-  en: 3c4a720c1d7a1984
-  zh: e6caea5a355b66ef
+  en: 487a1b3b66964553
+  zh: 34557690f6a23ecc
 /lyness-lyn-system-prompt/model-experience/tool-schemas:
   en: 3039bc5e7a796b21
   zh: 6b7a9eaf69c9ea53
 /lyness-lyn-system-prompt/model-experience/tool-schemas/what-the-model-sees:
-  en: 3c3ddcfecea1c844
-  zh: bb8684d833394aac
+  en: f37a6cfb17faf682
+  zh: 41f8fbcd131a9816
 /lyness-lyn-system-prompt/model-experience/tool-schemas/token-effect:
   en: f3a7d374c55e1720
   zh: 0ee48af678cb875f

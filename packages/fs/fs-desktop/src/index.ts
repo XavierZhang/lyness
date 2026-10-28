@@ -32,7 +32,7 @@ import type { SandboxExecutionPolicy } from '@lyness/lyn-sandbox'
 import type {} from '@lyness/lyn-agent'
 import type {} from '@lyness/lyn-desktop-link'
 import type {} from '@lyness/lyn-session-ownership'
-import { ownerOf } from '@lyness/lyn-session-ownership'
+import type {} from '@lyness/lyn-session-ownership/visibility'
 import type {} from '@lyness/lyn-request-principal'
 import type { PersonId } from '@lyness/lyn-people'
 import type { JsonValue } from '@lyness/lyn-util-values'
@@ -178,7 +178,10 @@ export class DesktopFileSystem extends FileSystem {
    */
   private person(): PersonId {
     const agent = this.ctx.get('agents')?.currentInitiator()
-    const owner = agent === undefined ? undefined : ownerOf(this.ctx, agent.session)
+    // Read through the owning service: it holds the projection's registration.
+    const owner = agent === undefined
+      ? undefined
+      : this.ctx.get('sessionVisibility')?.ownerOf(agent.session)
     const person = owner?.owner ?? this.ctx.get('requestPrincipal')?.current()?.person
     if (person === undefined) {
       throw new FsError('this call belongs to no signed-in person, so it reaches no desktop', 'FS_IO_ERROR')

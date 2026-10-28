@@ -3,14 +3,14 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/process/2026-10-20-weighted-approval-status-gate-with-check-run-label.md
 /agent-note-weighted-approval-keeps-its-commit-status-gate-and-publishes-the-decision-label-from-an-app:
-  en: 1ea2e345d6bc1058
-  zh: 65f872a0606660b8
+  en: 05b4d2098d0cabc9
+  zh: f816b5a00d94ff98
 /agent-note-weighted-approval-keeps-its-commit-status-gate-and-publishes-the-decision-label-from-an-app/problem:
   en: f2dc92b64d32bd68
   zh: 7f24eaaa49a5776f
 /agent-note-weighted-approval-keeps-its-commit-status-gate-and-publishes-the-decision-label-from-an-app/decision:
-  en: 5f7ebd56d43445cf
-  zh: 869e144309b85c28
+  en: 8daa4db68a508162
+  zh: d3dcb6ed0a005eb7
 /agent-note-weighted-approval-keeps-its-commit-status-gate-and-publishes-the-decision-label-from-an-app/verification:
   en: c80da76f52dac191
   zh: 1f7f8458211e1f5b

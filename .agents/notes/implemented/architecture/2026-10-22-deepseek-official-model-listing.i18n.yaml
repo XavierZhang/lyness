@@ -3,14 +3,14 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-10-22-deepseek-official-model-listing.md
 /agent-note-the-official-deepseek-route-follows-the-official-model-listing-until-its-catalog-is-customized:
-  en: 20de6c2a1bc643b4
-  zh: 2fe21450cebf7f32
+  en: 76af95c2c64b64b7
+  zh: 00267b294019d30c
 /agent-note-the-official-deepseek-route-follows-the-official-model-listing-until-its-catalog-is-customized/problem:
   en: 51a513e6134e6ad9
   zh: e0b19412c9b88e24
 /agent-note-the-official-deepseek-route-follows-the-official-model-listing-until-its-catalog-is-customized/decision:
-  en: ceb2f960085577c3
-  zh: 1bbc833b7cf24070
+  en: 2fd4d4ed2f2aa8c0
+  zh: e0f95d9cf50fc22a
 /agent-note-the-official-deepseek-route-follows-the-official-model-listing-until-its-catalog-is-customized/alternatives-considered:
   en: fa126e4f4e0790b4
   zh: c4f6d266d1ba6753
