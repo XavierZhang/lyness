@@ -26,6 +26,7 @@ test-support 组为仓库测试提供确定且无须密钥的真实产品测试�
 |---|---|
 | [`session-snapshot`](session-snapshot/README.zh.md) | 为 profile 驱动的测试提供 session-log 快照支持与协议适配器 |
 | [`agent-loop-testkit`](agent-loop-testkit/README.zh.md) | 为运行具体 AgentLoop 的测试提供共享先决服务 |
+| [`tool-testkit`](tool-testkit/README.zh.md) | 定义工具 fixture，并在测试中执行工具调用或执行器行为 |
 | [`e2e-target`](e2e-target/README.zh.md) | 根据产品读取的变量，解析真实 API e2e 测试调用哪个兼容 DeepSeek 的平台 |
 | [`client-runtime`](client-runtime/README.zh.md) | 为浏览器功能测试提供 jsdom slot 测试台 |
 | [`remote-mock`](remote-mock/README.zh.md) | 为整体客户端测试提供端点具名的 Typert Remote mock 与它们安装的 Connection 载体面 |
@@ -39,7 +40,6 @@ test-support 组为仓库测试提供确定且无须密钥的真实产品测试�
 ## 相关文档
 
 - [测试策略](../../docs/testing.zh.md)——这些 harness 所服务的无密钥快照层，以及何时必须使用该层。
-- [运行时不变式子系统](../../docs/subsystems/invariants.zh.md)——包自有运行时检查的注册与执行。
 - [包组](../README.zh.md)——支持组与产品组的关系。
 
 -----

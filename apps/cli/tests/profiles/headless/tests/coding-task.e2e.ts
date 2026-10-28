@@ -56,6 +56,7 @@ describe.skipIf(!process.env.DEEPSEEK_API_KEY)('coding task: fix a failing test 
     expect(before.status).not.toBe(0)
 
     ctx = await codingHarness(workdir, { personaPrefix: SYSTEM_PROMPT })
+    const agent = await ctx.agentLoop.create(SessionId('e2e-task'), { provider: 'deepseek-official', model: 'deepseek-v4-flash' }, { cwd: workdir })
     const agent = await ctx.agentLoop.create(SessionId('e2e-task'), { provider: 'deepseek-official', model: E2E_TARGET.model })
 
     agent.followup(createUserMessage({

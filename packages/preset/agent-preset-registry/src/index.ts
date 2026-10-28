@@ -1,11 +1,13 @@
 /** Declarative Agent capability sets, activation and session binding. */
-import { Context } from '@deepseek-ai/cordis'
+import type { ProjectionHandle } from '@deepseek-ai/dsh-session-projection'
+import { Context, Service } from '@deepseek-ai/cordis'
 import z from '@deepseek-ai/schemastery'
 import { Remote, RemoteError, TypertRemoteService } from '@deepseek-ai/dsh-typert-protocol'
-import { bindScopeParent, createScope, scopeOf, type Scope, type ScopeKey, type ScopeParentBinding } from '@deepseek-ai/dsh-scope'
+import { bindScopeParent, createScope, scopeOf, scopeParentOf, type Scope, type ScopeKey, type ScopeParentBinding } from '@deepseek-ai/dsh-scope'
 import { entryListSchema } from '@deepseek-ai/cordis-plugin-include'
 import { dump } from 'js-yaml'
 import type { Agent } from '@deepseek-ai/dsh-agent'
+import type { Session } from '@deepseek-ai/dsh-session'
 // Type-only: the optional `settings` service this registry keeps off the generated pages.
 import type {} from '@deepseek-ai/dsh-settings'
 import type {} from '@deepseek-ai/dsh-tools'
@@ -14,11 +16,13 @@ import { entryListProblem, type PresetDefinition } from './definition.ts'
 import { isContributionId, mergeContributions, type PresetContribution } from './contribution.ts'
 import type { AgentPreset, Config } from './preset.ts'
 import { agentPresetProjectionDefinition } from './session.ts'
-import { auditRows, mountPreset, standingMountFor, serviceForAgent, type PresetMount } from './mount.ts'
-import { definitionComposition, mountedCompositionRows, type AgentPresetComposition } from './composition-inventory.ts'
+import { auditRows, leakedServices, mountPreset, serviceForMount, type PresetMount } from './mount.ts'
+import { activeCompositionModules, definitionComposition, mountedCompositionRows, type AgentPresetComposition, type AgentPresetInspection } from './composition-inventory.ts'
 
 export { agentPresetProjectionDefinition } from './session.ts'
 export { entryListProblem, type PresetDefinition } from './definition.ts'
+export { auditRows, leakedServices, type PresetMount, type RowAudit } from './mount.ts'
+export type { AgentPresetInspection } from './composition-inventory.ts'
 export {
   CONTRIBUTION_ORDERS, isContributionId, mergeContributions,
   type ContributedRow, type ContributionId, type PresetContribution,
@@ -54,11 +58,12 @@ interface Binding {
 
 /** Registry of YAML-declared presets and the revisions live Agents retain. */
 export class AgentPresetRegistry extends TypertRemoteService {
-  static inject = ['loader', 'sessionProjections']
+  static inject = ['loader', 'sessionProjections', 'agents']
   static Config = z.object({
     default: z.string().required(),
     selectedDefault: z.string().volatile(),
   })
+  private agentPresetProjectionHandle!: ProjectionHandle<string | null>
   private readonly owner: Context
   private readonly definitions = new Map<string, Definition>()
   private readonly generations = new Map<ScopeKey, Generation>()
@@ -70,7 +75,11 @@ export class AgentPresetRegistry extends TypertRemoteService {
   constructor(ctx: Context, public config: Config) {
     super(ctx, 'agentPresets', { requires: 'member' })
     this.owner = ctx
-    ctx.sessionProjections.register(agentPresetProjectionDefinition)
+  }
+
+  protected async [Service.init](): Promise<void> {
+    const ctx = this.owner
+    this.agentPresetProjectionHandle = await ctx.sessionProjections.register(agentPresetProjectionDefinition)
     ctx.inject(['settings'], (child) => { child.effect(() => child.settings.configure({ auto: false }, ctx.fiber)) })
     ctx.on('session/event', (session, event) => {
       if (event.type === 'agent-preset/selected') ctx.emit('agent-preset/selected', session.id, event.data.agentPreset)
@@ -79,6 +88,15 @@ export class AgentPresetRegistry extends TypertRemoteService {
 
   /** Default preset for a subsequently created session. */
   get defaultId(): string { return this.config.selectedDefault.get() ?? this.config.default }
+
+  /**
+   * Read the preset recorded for a Session, including selections no longer in the roster.
+   * @param session - Session whose committed preset selection is read.
+   * @returns the recorded preset, or null when none was selected.
+   */
+  presetForSession(session: Session): string | null {
+    return this.agentPresetProjectionHandle.stateOf(session)
+  }
 
   /** Register and eagerly load a definition; activation failure remains visible in the roster.
    * @param definition Parsed configuration supplied by the declaring plugin.
@@ -118,7 +136,10 @@ export class AgentPresetRegistry extends TypertRemoteService {
       const context = scope.ctx.extend({ baseUrl: record.context.baseUrl })
       const mount = await mountPreset(context, record.config.id, plugins)
       const generation: Generation = { scope, key, mount, users: 0, retired: false }
-      this.generations.set(key, generation)
+      context.effect(() => {
+        this.generations.set(key, generation)
+        return () => { this.generations.delete(key) }
+      }, 'agent-preset.mount')
       record.generation = generation
     } catch (error) {
       record.broken = (error as Error).message
@@ -157,6 +178,24 @@ export class AgentPresetRegistry extends TypertRemoteService {
     await generation.scope.dispose()
   }
 
+  private generationFor(ctx: Context): Generation | undefined {
+    const key = scopeOf(ctx)
+    const parent = key === undefined ? undefined : scopeParentOf(key)
+    return parent === undefined ? undefined : this.generations.get(parent)
+  }
+
+  /** Inspect retained revisions, or the exact revision an Agent joined.
+   * @param ctx - optional Agent context; omission includes all retained revisions.
+   * @returns detached module references and isolation diagnostics; no match returns an empty list.
+   */
+  inspectCompositions(ctx?: Context): AgentPresetInspection[] {
+    const joined = ctx === undefined ? undefined : this.generationFor(ctx)
+    const generations = ctx === undefined ? [...this.generations.values()] : joined === undefined ? [] : [joined]
+    return generations.map(({ mount }) => ({
+      id: mount.presetId,
+      modules: activeCompositionModules(mount.tree),
+      leakedServices: leakedServices(this.owner, mount.fiber),
+    }))
   /**
    * Add one row to every preset that accepts contributions.
    *
@@ -330,23 +369,26 @@ export class AgentPresetRegistry extends TypertRemoteService {
    * @returns Inherited preset id, or undefined in a preset-free composition.
    */
   composeFrom(ctx: Context, parent: Context): string | undefined {
-    const mounted = standingMountFor(parent)
-    if (mounted === undefined) return undefined
-    const generation = this.generations.get(mounted.key)
-    if (generation === undefined) throw new Error('Parent preset revision is unavailable')
+    const generation = this.generationFor(parent)
+    if (generation === undefined) {
+      if (parent.get('agentPresets')?.composedPreset(parent) !== undefined) {
+        throw new Error('Parent preset revision is unavailable')
+      }
+      return undefined
+    }
     // A child has no existing binding, so this path has no asynchronous cleanup.
     const key = scopeOf(ctx)
     if (key === undefined) throw new Error('Child preset binding requires a scope')
     if (this.bindings.has(key)) throw new Error('Child already joined a preset')
     this.join(ctx, key, generation)
-    return mounted.presetId
+    return generation.mount.presetId
   }
 
   /** Read the preset a live Agent uses.
    * @param ctx Agent context.
    * @returns Its preset id, if bound.
    */
-  composedPreset(ctx: Context): string | undefined { return standingMountFor(ctx)?.presetId }
+  composedPreset(ctx: Context): string | undefined { return this.generationFor(ctx)?.mount.presetId }
 
   /** Read a service supplied inside an Agent's isolated preset group.
    * @param agent Agent whose composition is queried.
@@ -354,7 +396,8 @@ export class AgentPresetRegistry extends TypertRemoteService {
    * @returns The service, or undefined.
    */
   serviceFor<K extends string & keyof Context>(agent: { ctx: Context }, name: K): Context[K] | undefined {
-    return serviceForAgent(this.owner, agent, name)
+    const mount = this.generationFor(agent.ctx)?.mount
+    return mount === undefined ? undefined : serviceForMount(this.owner, mount, name)
   }
 
   /** Rebind a blank Agent; the caller owns the blank-session check.
@@ -369,7 +412,9 @@ export class AgentPresetRegistry extends TypertRemoteService {
     return preset
   }
 
-  /** Select a preset before a session starts its first turn.
+  /** Select a preset before a session starts its first turn. A Session whose
+   * log records the preset and whose Agent runs its current revision keeps its
+   * composition; nothing is logged or announced.
    * @param agent Target Agent.
    * @param agentPreset Requested identity.
    * @returns Committed preset identity.
@@ -377,10 +422,13 @@ export class AgentPresetRegistry extends TypertRemoteService {
   @Remote('select')
   async select(agent: Agent, agentPreset: string): Promise<string> {
     const turn = (this.switches.get(agent.id) ?? Promise.resolve()).then(async () => {
-      const boundary = this.owner.sessionProjections.stateOf(agent.session, 'turnBoundary')
-      if (boundary !== undefined && (boundary.openTurnStartSeq !== null || boundary.lastTurn > 0)) {
+      const boundary = this.owner.agents.turnBoundaryOf(agent.session)
+      if (boundary.openTurnStartSeq !== null || boundary.lastTurn > 0) {
         throw new RemoteError('agent-preset/locked', 'This session has already started', { sessionId: agent.id, agentPreset })
       }
+      const current = this.definitions.get(agentPreset)?.generation
+      if (current !== undefined && this.generationFor(agent.ctx) === current
+        && this.agentPresetProjectionHandle.stateOf(agent.session) === agentPreset) return agentPreset
       const preset = await this.recompose(agent.ctx, agentPreset)
       agent.session.append('agent-preset/selected', { agentPreset: preset.id })
       return preset.id

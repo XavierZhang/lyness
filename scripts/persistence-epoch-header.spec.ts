@@ -15,6 +15,7 @@ function property(nodes: readonly SchemaNode[], index: number, name: string): nu
   return field.type
 }
 
+it('requires compatibility review before request headers can carry retired system text', { timeout: 60_000 }, () => {
 // `extractPersistenceSchema` builds a TypeScript program over the repository's
 // event sources. That takes about four seconds on a developer machine and far
 // longer on a Windows coverage runner, where the instrumented compiler runs on
@@ -46,7 +47,7 @@ it('requires a version bump before request headers can carry retired system text
     path: 'event:request/header.data.header.system',
     kind: 'type-changed',
     description: 'type changed',
-    requiresVersionBump: true,
+    requiresCompatibilityReview: true,
   }])
   expect(() => { assertV4RowAdmission({ type: 'request/header', data: { header: { system: 'retired text' } } }) })
     .toThrow('format v4 request/header rejects retired header.system')

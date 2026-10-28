@@ -58,12 +58,12 @@
 
 /* Viewport fit: the card stops 12px short of the viewport's top/bottom edges
  * (the portal MARGIN in Menu.tsx; the top side widens to the frame's published
- * top clearance, the macOS window strip) and taller content scrolls inside
+ * overlay inset) and taller content scrolls inside
  * .viewport, so a pinned .footer stays visible. Menus with submenu rows skip
  * this class — the overflow clip would crop the side card, so they rely on
  * staying short. */
 .scrollable {
-  max-height: calc(100vh - 12px - max(12px, var(--dsh-frame-top-clearance, 12px)));
+  max-height: calc(100vh - 12px - max(12px, var(--dsh-frame-overlay-top, 12px)));
 }
 
 .viewport {
@@ -109,8 +109,10 @@
   text-align: left;
 }
 
-.item:hover:not(:disabled) {
-  background: var(--dsw-alias-interactive-bg-hover);
+@media (hover: hover) {
+  .item:hover:not(:disabled) {
+    background: var(--dsw-alias-interactive-bg-hover);
+  }
 }
 
 /* Arrow navigation moves real focus, so the row the keyboard is on carries the
@@ -206,6 +208,12 @@
   line-height: 16px;
 }
 
+@media (pointer: coarse) {
+  :global(html:not([data-input-modality='keyboard'])) .shortcut {
+    display: none;
+  }
+}
+
 .check {
   flex: none;
   color: var(--dsw-alias-label-primary);
@@ -231,8 +239,10 @@
   color: var(--dsw-alias-state-error-primary);
 }
 
-.danger:hover:not(:disabled) {
-  background: var(--dsw-alias-interactive-bg-hover-danger);
+@media (hover: hover) {
+  .danger:hover:not(:disabled) {
+    background: var(--dsw-alias-interactive-bg-hover-danger);
+  }
 }
 
 .danger:focus-visible:not(:disabled) {

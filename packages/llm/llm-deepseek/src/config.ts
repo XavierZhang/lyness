@@ -1,9 +1,9 @@
 /** Plugin configuration and complete request-local resolution for DeepSeek. */
 import type { Volatile } from '@deepseek-ai/cordis'
 
-import { isDeepStrictEqual } from 'node:util'
 import z from '@deepseek-ai/schemastery'
 import { isVolatile } from '@deepseek-ai/cosmokit'
+import { deepEqualJson } from '@deepseek-ai/dsh-util-values'
 import { resolveRetryPolicy, RetryPolicySchema } from '@deepseek-ai/dsh-llm'
 import type { ModelModality, RetryPolicyConfig } from '@deepseek-ai/dsh-llm'
 import type { LaunchEnvironmentSnapshot } from '@deepseek-ai/dsh-launch-environment'
@@ -27,7 +27,7 @@ export interface Config {
   maxTokens: Volatile<number>
   /** Positive context capacity used when the selected model has no exact value (default 1,000,000). */
   defaultContextWindow: Volatile<number>
-  /** Advisory models shown by discovery consumers; defaults to V41 Flash and V4 Pro. */
+  /** Advisory models shown by discovery consumers; defaults to V4.1 Flash and V4 Pro. */
   models: Volatile<DeepSeekCatalogModel[]>
   /** Maximum provider idle time while one stream read is outstanding (default five minutes). */
   streamIdleTimeoutMs: Volatile<number>
@@ -66,17 +66,26 @@ export function plainOptions(config: Config): Options {
   return Object.fromEntries(Object.entries(config).map(([key, value]) => [key, isVolatile(value) ? value.get() : value]))
 }
 
-const catalogModel: z<DeepSeekCatalogModel> = z.object({
-  id: z.string().required(),
+/**
+ * Schemas of the catalog-entry fields other than `id` and `inputModalities`,
+ * whose requiredness and defaults differ between a `models` entry and a
+ * provider's per-model overrides.
+ */
+export const catalogModelFields = {
   name: z.string(),
   description: z.string(),
   contextWindow: z.number().step(1).min(1),
   maxTokens: z.number().step(1).min(1),
-  inputModalities: z.array(z.union(MODEL_MODALITIES)).min(1).default(['text']),
   imagePixelBudget: z.union([z.number().step(1).min(1), 'low']),
   imageMaxBytes: z.number().step(1).min(1),
   systemPromptUpdate: z.const('in-history'),
   toolUpdate: z.union(['in-history', 'addition-only'] as const),
+}
+
+const catalogModel: z<DeepSeekCatalogModel> = z.object({
+  id: z.string().required(),
+  ...catalogModelFields,
+  inputModalities: z.array(z.union(MODEL_MODALITIES)).min(1).default(['text']),
 })
 
 /** Shared schema fields for Messages protocol options. */
@@ -109,49 +118,17 @@ export const PUBLIC_BASE_URL = 'https://api.deepseek.com/anthropic'
 /** Environment variable naming this provider's endpoint, honored only from trusted layers. */
 const BASE_URL_ENV = 'DEEPSEEK_BASE_URL'
 
-/** Environment variable naming the models the configured endpoint serves, honored only from trusted layers. */
-export const MODELS_ENV = 'DEEPSEEK_MODELS'
-
-/** Environment variable capping the completion length the configured endpoint accepts, honored only from trusted layers. */
-export const MAX_TOKENS_ENV = 'DEEPSEEK_MAX_TOKENS'
-
-/**
- * Read a model-id list in the form $DEEPSEEK_MODELS carries it.
- * @param value - comma-separated model ids; whitespace around each id is ignored.
- * @returns the ids in the order given; never empty.
- * @throws {Error} when the list is empty or one entry is blank.
- */
-export function parseModelIds(value: string): [string, ...string[]] {
-  const ids = value.split(',').map(id => id.trim())
-  if (ids.some(id => id === '')) {
-    throw new Error(`llm-deepseek: ${MODELS_ENV} must be a comma-separated list of model ids; got ${JSON.stringify(value)}`)
-  }
-  // `split` always yields at least one element, and every element is non-blank here.
-  return ids as [string, ...string[]]
-}
-
-/**
- * Read a completion cap in the form $DEEPSEEK_MAX_TOKENS carries it.
- * @param value - a positive integer in decimal.
- * @returns the cap.
- * @throws {Error} when the value is not a positive integer.
- */
-export function parseMaxTokens(value: string): number {
-  const parsed = Number(value.trim())
-  if (!Number.isSafeInteger(parsed) || parsed <= 0) {
-    throw new Error(`llm-deepseek: ${MAX_TOKENS_ENV} must be a positive integer; got ${JSON.stringify(value)}`)
-  }
-  return parsed
-}
-
 /** Complete protocol settings captured for one request operation. */
 export type ResolvedDeepSeekOptions = DeepSeekConnectionOptions
 
-/** The built-in catalog in resolved form, computed once for default detection. */
-let builtIn: DeepSeekCatalogModel[] | undefined
-function builtInCatalog(): DeepSeekCatalogModel[] {
-  builtIn ??= resolveModels(DEFAULT_MODELS)
-  return builtIn
+/**
+ * Whether a resolved catalog is the built-in one, which is what a `models`
+ * setting nobody customized resolves to.
+ * @param models - catalog resolved by {@link resolveAdapterOptions}.
+ * @returns whether `models` equals the resolved built-in catalog, entry by entry and in order.
+ */
+export function isBuiltInCatalog(models: readonly DeepSeekCatalogModel[]): boolean {
+  return deepEqualJson(models, resolveModels(DEFAULT_MODELS))
 }
 
 /** Resolve, validate, and detach the advisory model catalog. */
@@ -242,7 +219,8 @@ function resolveModels(models: readonly DeepSeekCatalogModel[] | undefined): Dee
  * the product CLI. Every layer may supply an endpoint: the product trusts the
  * project it is launched in, so a checkout can point its own agent at the
  * gateway that checkout is meant to use.
- * @returns validated protocol settings.
+ * @returns validated protocol settings; `models` holds one resolved entry per
+ * input model in input order, or the built-in catalog when `models` is absent.
  */
 export function resolveAdapterOptions(config: Options, environment?: LaunchEnvironmentSnapshot): ResolvedDeepSeekOptions {
   // Settings updates can reach this resolver without schema validation.
@@ -331,24 +309,6 @@ export function resolveAdapterOptions(config: Options, environment?: LaunchEnvir
     throw new Error('llm-deepseek: fileQuotaCleanupBatch must be an integer from 1 through 1000')
   }
   const baseURL = config.baseURL ?? environment?.get(BASE_URL_ENV)?.value ?? PUBLIC_BASE_URL
-  // The endpoint the environment chose usually names its models differently and
-  // caps completions lower, and a catalog of bare ids carries no capacities, so
-  // both facts come from the same trusted layers rather than from the catalog.
-  const catalogValue = environment?.get(MODELS_ENV)?.value
-  const environmentCatalog = catalogValue === undefined
-    ? undefined
-    : parseModelIds(catalogValue).map(id => ({ id }))
-  // The variable replaces the built-in catalog, which is what a composition
-  // that names no models resolves to. A catalog someone did name — in the
-  // composition or saved through settings — outranks it. Schemastery fills
-  // every omitted field, so the resolved value is compared against the
-  // built-in list in the same normalized form: comparing ids alone would read
-  // a settings catalog that only renamed a built-in model as the default and
-  // discard the name the user typed.
-  const namedCatalog = config.models === undefined
-    || isDeepStrictEqual(resolveModels(config.models), builtInCatalog()) ? undefined : config.models
-  const capValue = environment?.get(MAX_TOKENS_ENV)?.value
-  const environmentMaxTokens = capValue === undefined ? undefined : parseMaxTokens(capValue)
   const parsed = new URL(baseURL)
   if (!['http:', 'https:'].includes(parsed.protocol) || parsed.username || parsed.password || parsed.search || parsed.hash) {
     throw new Error('llm-deepseek: Messages baseURL must be an HTTP(S) root without credentials, query, or fragment')
@@ -359,9 +319,9 @@ export function resolveAdapterOptions(config: Options, environment?: LaunchEnvir
       thinking: config.thinking,
       reasoningEffort: config.reasoningEffort,
     },
-    maxTokens: environmentMaxTokens ?? config.maxTokens ?? DEFAULT_MAX_TOKENS,
+    maxTokens: config.maxTokens ?? DEFAULT_MAX_TOKENS,
     defaultContextWindow: config.defaultContextWindow ?? DEFAULT_CONTEXT_WINDOW,
-    models: resolveModels(namedCatalog ?? environmentCatalog),
+    models: resolveModels(config.models),
     streamIdleTimeoutMs,
     maxRequestFilesBytes,
     maxInlineRequestImageBytes,
