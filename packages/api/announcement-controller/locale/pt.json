@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "RPC de anúncios",
+    "description": "Expõe os anúncios próprios de uma instalação através de um Remote autenticado."
+  }
+}

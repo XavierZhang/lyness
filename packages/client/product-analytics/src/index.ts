@@ -43,7 +43,7 @@ export default class ProductAnalytics extends TypertRemoteService {
   private readonly listeners = new Set<() => void>()
 
   constructor(ctx: Context, private readonly config: Config) {
-    super(ctx, 'productAnalytics')
+    super(ctx, 'productAnalytics', { requires: 'member' })
     ctx.effect(() => async () => {
       this.active = false
       for (const listener of this.listeners) listener()

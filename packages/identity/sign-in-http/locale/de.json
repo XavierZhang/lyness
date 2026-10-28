@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Browserseite der Anmeldung",
+    "description": "Die browserseitige Hälfte der Anmeldung: die Routen für Anmeldung, Rückruf, Kanalliste und Abmeldung sowie das Sitzungs-Cookie."
+  }
+}

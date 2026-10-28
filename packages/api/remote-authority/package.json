@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-api-remote-authority",
   "description": "Whether one Remote call may be served, decided once where every wire call passes through",
-  "version": "0.1.7-rc.2",
+  "version": "0.2.1-rc.3",
   "publishConfig": {
     "access": "public"
   },

@@ -52,6 +52,11 @@
     - id: typert-gateway
       name: '@lyness/lyn-api-gateway'
 
+    # Method-level access control for non-owner Peers; the Gateway requires it,
+    # and its Client half publishes the standard access Hooks.
+    - id: remote-access
+      name: '@lyness/lyn-api-remote-access'
+
     - id: session-title
       name: '@lyness/lyn-session-title'
       config:
@@ -184,6 +189,13 @@
       config:
         writeEveryEvents: 200
         writeIntervalMs: 5000
+
+    # The shared OTLP transport the two telemetry consumers build channels on.
+    # Mounting it opens no queue, identity or connection: what leaves the
+    # process is decided entirely by the rows below and by the desktop
+    # product-analytics row, each of which needs an endpoint it is not given.
+    - id: otel
+      name: '@lyness/lyn-otel'
 
     # OTel releases a Session-log prefix only after explicit user feedback,
     # regardless of model provider. Ordinary activity never triggers capture.
@@ -323,9 +335,6 @@
     - id: tool-subagent-control
       name: '@lyness/lyn-tool-subagent-control'
 
-    - id: tool-subagent-list-agents
-      name: '@lyness/lyn-tool-subagent-control/list-agents'
-
     - id: tool-subagent
       name: '@lyness/lyn-tool-subagent'
       config:
@@ -411,6 +420,11 @@
 
     - id: web-search-deepseek
       name: '@lyness/lyn-web-search-deepseek'
+      config:
+        apiKeyEnv: DEEPSEEK_API_KEY
+
+    - id: web-deepseek-api
+      name: '@lyness/lyn-web-deepseek-api'
       config:
         apiKeyEnv: DEEPSEEK_API_KEY
 

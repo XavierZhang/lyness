@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Marque du déploiement",
+    "description": "La marque propre au déploiement appliquée au rendu de l’index du serveur web : titre, favicon, couleur de thème et les fichiers de ressources qu’un opérateur dépose."
+  }
+}

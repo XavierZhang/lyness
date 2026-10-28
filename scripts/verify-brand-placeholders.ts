@@ -37,7 +37,15 @@ const EXEMPT: Readonly<Record<string, string>> = {}
  * deployment's own name. An entry here is a decision, not a deferral.
  */
 const DELIBERATE: Readonly<Record<string, readonly string[]>> = {
-  'packages/client/ui-brand-lyness/src/client/locales.ts': ['Powered by lyness', '由领驭提供技术支持'],
+  'packages/client/ui-brand-lyness/src/client/locales.ts': [
+    'Powered by lyness',
+    '由领驭提供技术支持',
+    'Con tecnología de lyness',
+    'Propulsé par lyness',
+    'Betrieben mit lyness',
+    'Работает на lyness',
+    'Com tecnologia lyness',
+  ],
 }
 
 /** Package names carrying the scope, removed before the names are looked for. */

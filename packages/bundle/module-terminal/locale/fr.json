@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Terminal persistant",
+    "description": "Des shells interactifs qui conservent leur état d’un appel d’outil à l’autre, un jeu par agent."
+  }
+}

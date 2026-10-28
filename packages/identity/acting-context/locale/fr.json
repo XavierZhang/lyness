@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Contexte d’action",
+    "description": "Résout et vérifie le contexte dans lequel agit un appel : celui déclaré, celui détenu et celui que l’adresse autorise."
+  }
+}

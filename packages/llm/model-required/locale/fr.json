@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Modèle obligatoire",
+    "description": "Refuse de servir un déploiement qui n’atteint aucun modèle, au point le plus précoce où un registre vide est concluant."
+  }
+}

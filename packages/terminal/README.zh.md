@@ -28,6 +28,7 @@ kind: "package-group"
 |---|---|---|
 | [`terminal/`](terminal/README.zh.md) | 会话服务：限定所有者范围的会话、不透明 id、精确到所有者的限制与等待完成的清理 | `ctx.terminals` |
 | [`terminal-bash/`](terminal-bash/README.zh.md) | shell 后端：在共享沙箱策略下启动交互式 bash 或 pwsh，带就绪检测与有界输出 | 注册后端到 `ctx.terminals` |
+| [`tool-terminal/`](tool-terminal/README.zh.md) | 把持久终端工具交给模型，底层走会话服务 | 注册到 `ctx.tools` |
 
 -----
 
@@ -40,7 +41,7 @@ kind: "package-group"
 - [持久 PTY Agent Note](../../.agents/notes/implemented/feature/2026-07-16-persistent-pty-sessions.zh.md)——设计决策、备选方案与延期工作。
 - [能力 seam](../../docs/capability-seams.zh.md)——本家族遵循的 Service Definition / Service Provider / Consumer 拆分。
 
-实验性可选能力见 [`tool-terminal`](../experimental/tool-terminal/README.zh.md)。
+实验性可选能力见 [`tool-terminal`](../terminal/tool-terminal/README.zh.md)。
 
 <a id="dev-note"></a>
 ## 开发备注

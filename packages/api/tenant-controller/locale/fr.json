@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "RPC de configuration du locataire",
+    "description": "Le locataire appelant lit et enregistre sa propre configuration."
+  }
+}

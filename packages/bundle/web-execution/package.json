@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-web-execution",
   "description": "The Web execution plane as its own bundle: the execution bundle's host-plane tool rows move behind the Web profile's per-session presets",
-  "version": "0.1.7-rc.2",
+  "version": "0.2.1-rc.3",
   "publishConfig": {
     "access": "public"
   },

@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Marca do inquilino na sessão",
+    "description": "Registra a que inquilino pertence uma sessão, e o texto de identidade que esse inquilino contribuiu, como um único evento durável de sessão."
+  }
+}

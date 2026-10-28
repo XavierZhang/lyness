@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Interfaz de anuncios del sistema",
+    "description": "La fila de anuncios del sistema en los ajustes generales, leída del despliegue al que se conectó el cliente."
+  }
+}

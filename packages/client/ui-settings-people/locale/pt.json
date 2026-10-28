@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Interface de definições de pessoas",
+    "description": "A secção de pessoas nas definições: quem pode usar uma instalação e qual a identidade de diretório de cada um, mantido em tempo de execução."
+  }
+}

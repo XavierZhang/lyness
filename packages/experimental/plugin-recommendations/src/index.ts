@@ -52,7 +52,7 @@ export class PluginRecommendations extends TypertRemoteService {
   private readonly owner: Context['fiber']
 
   constructor(ctx: Context) {
-    super(ctx, 'pluginRecommendations')
+    super(ctx, 'pluginRecommendations', { requires: 'member' })
     this.owner = ctx.fiber
   }
 

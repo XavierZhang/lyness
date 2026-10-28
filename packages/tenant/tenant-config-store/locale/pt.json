@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Armazém de configuração do inquilino",
+    "description": "Configuração durável do inquilino: um registo por inquilino no domínio de armazenamento, gravável por uma superfície de administração."
+  }
+}

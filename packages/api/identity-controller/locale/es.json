@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "RPC de identidad",
+    "description": "Quién es quien llama, y con qué le permitiría iniciar sesión este despliegue."
+  }
+}

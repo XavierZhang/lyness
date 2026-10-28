@@ -10,7 +10,7 @@ Status: proposed
 
 **没有任何东西跨会话记住任何事。** 树里没有 memory 包。[`goal`](../../../../packages/goal/goal/README.zh.md)、`todo` 与 `plan` 持有的状态都在一个会话之内，随它一起结束。每次对话都让 agent 从零开始：这个组织怎么称呼事物、哪个仓库要紧、上周定了什么，全部重讲一遍。对一个卖给组织的产品而言，这就是"工具"与"同事"之间的差别。
 
-**检索建好了、测过了，一个地方都没挂。** [`lyn-tool-session-query`](../../../../packages/experimental/tool-session-query/README.zh.md) 给模型五个只读工具，用来搜索早先的会话、查看命中、追踪关系、读取精确事件，而跨会话访问只在目标会话的 `cwd` 与调用方完全一致时才被授权。[`session-query-sqlite`](../../../../packages/session-query/session-query-sqlite/README.zh.md) 是它的后端。没有任何出厂 profile 挂载这个工具，而 Web 补丁把索引钉在 `openAt: never`。能力存在而没有客户够得到——正是[默认模块笔记](2026-10-08-default-modules-and-views.zh.md)要修的那种失败。
+**检索建好了、测过了，一个地方都没挂。** [`lyn-tool-session-query`](../../../../packages/session-query/tool-session-query/README.zh.md) 给模型五个只读工具，用来搜索早先的会话、查看命中、追踪关系、读取精确事件，而跨会话访问只在目标会话的 `cwd` 与调用方完全一致时才被授权。[`session-query-sqlite`](../../../../packages/session-query/session-query-sqlite/README.zh.md) 是它的后端。没有任何出厂 profile 挂载这个工具，而 Web 补丁把索引钉在 `openAt: never`。能力存在而没有客户够得到——正是[默认模块笔记](2026-10-08-default-modules-and-views.zh.md)要修的那种失败。
 
 **提示词是组合出来的，但没有分层。** [`lyn-system-prompt`](../../../../packages/core/system-prompt/README.zh.md) 把段落、运行时事实与变量组装成一份有序的提示词，并在组合不合法时让组装失败，而不是发出一份畸形的提示词。它没有承载的是：哪些部分跨请求稳定、哪些每轮都变。于是缓存行为是附带产生的：一个易变事实和一个固定身份处在同一个有序列表里，所以任何会动的东西都可能让它之前的一切失效。
 

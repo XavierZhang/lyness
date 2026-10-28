@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-module-webhook",
   "description": "The webhook ingress default module as its own bundle: the Host rule runtime and the GitHub adapter, shipped inert",
-  "version": "0.1.7-rc.2",
+  "version": "0.2.1-rc.3",
   "publishConfig": {
     "access": "public"
   },

@@ -33,6 +33,14 @@ import { resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import ts from 'typescript'
 
+/**
+ * Buffer for a git listing of the whole repository, which outgrew Node's 1 MiB
+ * default. `execFileSync` and `spawnSync` kill the child with SIGTERM and
+ * report `ENOBUFS` or a bare signal once a listing passes `maxBuffer`, so the
+ * failure reads as a hang rather than as a size.
+ */
+const LISTING_BUFFER_BYTES = 64 * 1024 * 1024
+
 const root = resolve(import.meta.dirname, '..')
 
 /** One vendored package's directory, upstream npm name, and rescoped name. */
@@ -667,7 +675,7 @@ function main(): void {
   const mode = args.includes('--apply') ? 'apply' : args.includes('--check') ? 'check' : 'dry'
   const reverse = args.includes('--reverse')
   const all = patterns(reverse)
-  const files = execFileSync('git', ['ls-files', '-z'], { cwd: root, encoding: 'utf8' })
+  const files = execFileSync('git', ['ls-files', '-z'], { cwd: root, encoding: 'utf8', maxBuffer: LISTING_BUFFER_BYTES })
     .split('\0')
     .filter(file => file !== '' && !isRescopeExcluded(file))
 

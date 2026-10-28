@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "RPC de anuncios",
+    "description": "Expone los anuncios propios de un despliegue a través de un Remote autenticado."
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Connexion",
+    "description": "Connecte une personne via un annuaire externe, l’admet selon la règle propre au déploiement et établit sa session."
+  }
+}

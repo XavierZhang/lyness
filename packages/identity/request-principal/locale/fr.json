@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Principal de la requête",
+    "description": "Publie l’identité de l’appel en cours, résolue à partir de l’identité porteuse qu’il présente."
+  }
+}

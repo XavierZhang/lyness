@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Remote 权限裁决",
+    "description": "一次 Remote 调用是否可以被服务，在每个线上调用都要经过的那一处判定一次。"
+  }
+}

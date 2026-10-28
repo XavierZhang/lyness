@@ -32,7 +32,7 @@ interface StudioOptions {
   font?: string
   themeColor?: string
   color: readonly string[]
-  assetDir: string
+  assetDir?: string
   target: string
   acceptTrademark?: true
   acceptFontLicense?: true
@@ -58,7 +58,7 @@ function studioCommand(): Command {
       (pair: string, collected: readonly string[]) => [...collected, pair],
       [],
     )
-    .option('--asset-dir <dir>', 'directory receiving the generated SVGs', lynHomePath('brand'))
+    .option('--asset-dir <dir>', "directory receiving the generated SVGs; defaults to 'brand' under the harness home")
     .option('--target <profile>', 'profile whose patch layer receives the brand', 'web')
     .option('--accept-trademark', 'confirm that the name and the icon infringe no trademark')
     .option('--accept-font-license', 'confirm that your license for the font permits using its glyphs in a logo')
@@ -124,7 +124,7 @@ async function run(options: StudioOptions): Promise<number> {
       iconPath: resolve(options.icon),
       fontPath: options.font === undefined ? undefined : resolve(options.font),
       themeColor: options.themeColor,
-      assetDirectory: resolve(options.assetDir),
+      assetDirectory: options.assetDir === undefined ? lynHomePath('brand') : resolve(options.assetDir),
       patchPath: resolveProfilePatch(options.target, resolveLynHome()),
     }
     internals.stdout.write(report(request, await runStudio(request), options.target))

@@ -132,7 +132,7 @@ export class RemoteAccessService extends TypertRemoteService {
 
   /** @param ctx - owning Host plugin Context. */
   constructor(ctx: Context) {
-    super(ctx, 'remoteAccess')
+    super(ctx, 'remoteAccess', { requires: 'anyone' })
     ctx.effect(() => () => { this.lifetime.abort() }, 'remoteAccess: snapshot generations')
     // Every index opens with the access snapshot of the Peer it speaks for.
     ctx.inject(['webServer'], (webCtx) => {

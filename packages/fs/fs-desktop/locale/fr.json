@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Système de fichiers du bureau",
+    "description": "Les fichiers sur lesquels l’agent travaille sont sur la machine de la personne elle-même, pas sur celle du serveur."
+  }
+}

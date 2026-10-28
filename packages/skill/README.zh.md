@@ -29,6 +29,7 @@ skill 家族让 agent 和用户仅在需要时发现并加载可复用的任务�
 | [`skill-office/`](skill-office/README.zh.md) | 随包提供 Word、PowerPoint 和 Excel 工作流及文件结构检查 | 注册到 `ctx.skills` |
 | [`tool-skill/`](tool-skill/README.zh.md) | 发布会话 skill 目录与面向模型的 `skill` 加载工具 | 注册到 `ctx.tools` |
 | [`tool-workspace-dependencies/`](tool-workspace-dependencies/README.zh.md) | 为 Desktop 与 SDK 载体报告内置 Office 解释器路径和版本 | 注册到 `ctx.tools` |
+| [`skill-badge/`](skill-badge/README.zh.md) | 随包提供「由本产品驱动」的徽章 skill | 注册到 `ctx.skills` |
 
 -----
 
@@ -42,7 +43,7 @@ skill 家族让 agent 和用户仅在需要时发现并加载可复用的任务�
 
 -----
 
-实验性可选能力见 [`skill-badge`](../experimental/skill-badge/README.zh.md)。
+实验性可选能力见 [`skill-badge`](../skill/skill-badge/README.zh.md)。
 
 <a id="dev-note"></a>
 ## 开发备注

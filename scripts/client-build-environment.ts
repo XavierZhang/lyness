@@ -10,6 +10,13 @@ import {
 } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 
+/**
+ * Buffer for a git listing of the whole repository, which outgrew Node's 1 MiB
+ * default. `spawnSync` kills the child with SIGTERM and reports `ENOBUFS` once
+ * a listing passes `maxBuffer`, so the failure reads as a hang, not a size.
+ */
+const LISTING_BUFFER_BYTES = 64 * 1024 * 1024
+
 /** Prefix reserved for build-time values that may be embedded in browser artifacts. */
 const CLIENT_BUILD_ENV_PREFIX = 'LYNESS_CLIENT_'
 
@@ -101,6 +108,7 @@ export function repositoryGitDirty(root: string): boolean | undefined {
     cwd: root,
     encoding: 'utf8',
     stdio: ['ignore', 'pipe', 'pipe'],
+    maxBuffer: LISTING_BUFFER_BYTES,
   })
   if (status.error !== undefined) throw status.error
   if (status.status !== 0) {

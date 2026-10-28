@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Almacén de configuración del inquilino",
+    "description": "Configuración duradera del inquilino: un registro por inquilino en el dominio de almacenamiento, escribible desde una superficie de administración."
+  }
+}

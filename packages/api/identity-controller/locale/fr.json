@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "RPC d’identité",
+    "description": "Qui est l’appelant, et avec quoi ce déploiement le laisserait se connecter."
+  }
+}

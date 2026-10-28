@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Inicio de sesión",
+    "description": "Da acceso a una persona a través de un directorio externo, la admite por la regla propia del despliegue y establece su sesión."
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Brand setup",
+    "description": "A loopback page an operator brands a deployment from, reached through a one-time token the command prints."
+  }
+}

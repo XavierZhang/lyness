@@ -13,7 +13,7 @@ const root = fileURLToPath(new URL('../../../..', import.meta.url))
 const adapter = '@lyness/lyn-webhook-github'
 const runtime = '@lyness/lyn-webhook'
 const built = existsSync(join(root, 'apps/cli/lib/bin.js'))
-  && existsSync(join(root, 'packages/experimental/webhook-github/lib/index.js'))
+  && existsSync(join(root, 'packages/webhook/webhook-github/lib/index.js'))
 const secret = 'packed-webhook-test-secret'
 
 it.skipIf(!built)('loads the packed GitHub example with its explicitly installed runtime peer', {

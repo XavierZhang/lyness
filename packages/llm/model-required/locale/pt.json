@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Modelo obrigatório",
+    "description": "Recusa servir uma instalação que não alcança nenhum modelo, no ponto mais precoce em que um registo vazio é conclusivo."
+  }
+}

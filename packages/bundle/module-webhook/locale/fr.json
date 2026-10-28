@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Entrée de webhooks",
+    "description": "Transforme un événement externe en une nouvelle session d’agent, via des règles qu’un déploiement rédige."
+  }
+}

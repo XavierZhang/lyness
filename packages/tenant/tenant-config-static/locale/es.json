@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Configuración del inquilino (composición)",
+    "description": "Configuración del inquilino respaldada por la composición del despliegue: modelos, proveedores, funciones, identidad y textos como filas de la capa de parches."
+  }
+}

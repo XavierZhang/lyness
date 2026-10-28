@@ -25,3 +25,33 @@ declare module '@lyness/lyn-client-ui-slots' {
 export const en = {
   poweredBy: 'Powered by lyness',
 } satisfies Record<BrandAttributionKey, string>
+
+/** Japanese dictionary. The platform name stays literal here, as above. */
+export const ja = {
+  poweredBy: 'Powered by lyness',
+} satisfies Record<BrandAttributionKey, string>
+
+/** Spanish dictionary. */
+export const es = {
+  poweredBy: 'Con tecnología de lyness',
+} satisfies Record<BrandAttributionKey, string>
+
+/** French dictionary. */
+export const fr = {
+  poweredBy: 'Propulsé par lyness',
+} satisfies Record<BrandAttributionKey, string>
+
+/** German dictionary. */
+export const de = {
+  poweredBy: 'Betrieben mit lyness',
+} satisfies Record<BrandAttributionKey, string>
+
+/** Russian dictionary. */
+export const ru = {
+  poweredBy: 'Работает на lyness',
+} satisfies Record<BrandAttributionKey, string>
+
+/** Portuguese dictionary. */
+export const pt = {
+  poweredBy: 'Com tecnologia lyness',
+} satisfies Record<BrandAttributionKey, string>

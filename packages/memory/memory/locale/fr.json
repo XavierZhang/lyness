@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Mémoire de l’agent",
+    "description": "Mémoire durable de l’agent : des faits écrits explicitement, repliés comme contexte d’exécution dans chaque requête ultérieure."
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Interface des annonces système",
+    "description": "La ligne des annonces système dans les réglages généraux, lue depuis le déploiement auquel le client s’est connecté."
+  }
+}

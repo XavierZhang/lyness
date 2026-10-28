@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-client-ui-settings-announcements",
   "description": "The system-announcements row in General Settings, read from the deployment a client connected to",
-  "version": "0.1.7-rc.2",
+  "version": "0.2.1-rc.3",
   "publishConfig": {
     "access": "public"
   },
@@ -58,7 +58,6 @@
     "@lyness/lyn-client-ui-renderer": "workspace:*",
     "@lyness/lyn-client-ui-settings": "workspace:*",
     "@lyness/lyn-client-ui-slots": "workspace:*",
-    "@types/react": "~18.3.1",
     "react": "^18.2.0"
   }
 }

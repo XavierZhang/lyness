@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-announcements",
   "description": "What a deployment tells the people using it: release notes and notices, newest first",
-  "version": "0.1.7-rc.2",
+  "version": "0.2.1-rc.3",
   "publishConfig": {
     "access": "public"
   },

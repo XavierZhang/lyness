@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-module-accounts",
   "description": "The accounts module as its own bundle: who exists, how they sign in, and whose conversation is whose",
-  "version": "0.1.7-rc.2",
+  "version": "0.2.1-rc.3",
   "publishConfig": {
     "access": "public"
   },

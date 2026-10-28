@@ -21,7 +21,7 @@ import { SignInScreen } from './SignInScreen.tsx'
 import { ViewerBinding, rowFace, screenFace } from './binding.ts'
 import { createViewerReader, viewerReadOf } from './read.ts'
 import { createViewerStore } from './store.ts'
-import { en, zh } from './locales.ts'
+import { de, en, es, fr, ja, pt, ru, zh } from './locales.ts'
 import type { SignInKey } from './locales.ts'
 
 export type { SignInKey } from './locales.ts'
@@ -51,7 +51,7 @@ export const inject = ['slots', 'locale', 'remote', 'remote.identity']
  * @param ctx - client plugin context.
  */
 export function apply(ctx: Context): void {
-  ctx.effect(() => ctx.locale.register(NS, { en, zh }), 'sign-in: dictionaries')
+  ctx.effect(() => ctx.locale.register(NS, { en, zh, ja, es, fr, de, ru, pt }), 'sign-in: dictionaries')
   const binding = new ViewerBinding()
   const reader = createViewerReader(viewerReadOf(ctx), binding)
 

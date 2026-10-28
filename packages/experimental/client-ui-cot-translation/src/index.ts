@@ -34,7 +34,7 @@ export default class CotTranslationController extends TypertRemoteService {
   })
 
   constructor(ctx: Context, private readonly config: Config) {
-    super(ctx, 'cotTranslation', { namespace: 'cotTranslation' })
+    super(ctx, 'cotTranslation', { namespace: 'cotTranslation', requires: 'member' })
     ctx.inject(['settings'], (child) => { child.effect(() => child.settings.configure({ auto: false }, ctx.fiber)) })
   }
 
@@ -79,7 +79,6 @@ export default class CotTranslationController extends TypertRemoteService {
       })
       const cancelled = Promise.withResolvers<never>()
       using _listener = addAbortListener(signal, () => {
-        // oxlint-disable-next-line typescript/prefer-promise-reject-errors -- Preserve the caller's arbitrary cancellation reason.
         cancelled.reject(signal.reason)
       })
       await Promise.race([activation, cancelled.promise])

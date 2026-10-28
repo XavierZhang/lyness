@@ -13,7 +13,7 @@ English | [中文](2026-09-23-language-neutral-default-workspace-naming.zh.md)
 
 The directory name and the stored title are one fixed, language-neutral string; only the on-screen label follows the reader's language.
 
-`DEFAULT_WORKSPACE_DIRECTORY` (`default-workspace`) is owned by the [Workspace controller](../../../../packages/api/workspace-controller/README.md#first-use-workspace) and published from its own `./default-workspace` subpath — a pure fold with no imports, so client bundles inline it rather than requesting a module-table row the package does not publish. The Host joins it under `<Documents>/DeepSeek Harness`, and the registry titles the Workspace after the canonical directory's final segment, so the automatic title *is* that same name with no second source to keep in step.
+`DEFAULT_WORKSPACE_DIRECTORY` (`default-workspace`) is owned by the [Workspace controller](../../../../packages/api/workspace-controller/README.md#first-use-workspace) and published from its own `./default-workspace` subpath — a pure fold with no imports, so client bundles inline it rather than requesting a module-table row the package does not publish. The Host joins it under `<Documents>/deepseek-harness`, and the registry titles the Workspace after the canonical directory's final segment, so the automatic title *is* that same name with no second source to keep in step.
 
 `workspace.initializeDefault` therefore takes no request at all; `WorkspaceInitializeDefaultRequest` and its name validation are deleted, and the registry's resolver returns a path instead of a path and title. No language reaches the Host, so nothing there can disagree with the Client about naming.
 

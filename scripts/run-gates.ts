@@ -373,12 +373,7 @@ export function gatesForMode(selected: Mode): Gate[] {
 function ciSharedStaticGates(): Gate[] {
   return [
     pnpmScript('runtime-closure', 'verify-runtime-closure', { label: 'runtime closure' }),
-    pnpmScript('default-product-isolation', 'verify-default-product-isolation', { label: 'default product isolation' }),
-    pnpmScript('product-use', 'verify-product-use', { label: 'product package classification' }),
-    pnpmScript('official-bundle-catalog', 'verify-official-bundle-catalog', { label: 'Official bundle catalog' }),
-    pnpmScript('provider-data', 'verify-provider-data', { label: 'pi-ai provider metadata' }),
-    pnpmScript('hosted-profile-boundary', 'verify-hosted-profile-boundary', { label: 'hosted profile boundary' }),
-    pnpmScript('remote-authority', 'verify-remote-authority', { label: 'Remote authority declarations' }),
+    ...productDeclarationGates(),
     pnpmScript('application-entrypoints', 'verify-application-entrypoints', { label: 'application entrypoints' }),
     pnpmScript('constraints', 'constraints'),
     pnpmScript('package-dependencies', 'verify-package-dependencies', { label: 'package dependencies' }),
@@ -396,6 +391,24 @@ function i18nGates(includeDictionaries: boolean): Gate[] {
     pnpmScript('installer-locales', 'verify-installer-locales', { label: 'Windows installer locales' }),
     pnpmScript('locale-metadata', 'verify-locale-metadata', { label: 'plugin locale metadata' }),
     ...includeDictionaries ? [pnpmExec('locale-dictionaries', ['vitest', 'run', 'scripts/locale-dictionary-parity.spec.ts', 'scripts/shipped-locales.spec.ts', 'packages/client/locale/tests/apply.client.spec.ts'], { label: 'locale dictionaries' })] : [],
+  ]
+}
+
+/**
+ * What the shipped product declares about itself: which packages and profiles
+ * belong to it, which bundles and provider entries it publishes, and which
+ * Remote methods name the authority they need. Both the CI static set and the
+ * `hygiene` leaf run every one, so they share this list rather than each
+ * carrying its own copy.
+ */
+function productDeclarationGates(): Gate[] {
+  return [
+    pnpmScript('default-product-isolation', 'verify-default-product-isolation', { label: 'default product isolation' }),
+    pnpmScript('product-use', 'verify-product-use', { label: 'product package classification' }),
+    pnpmScript('official-bundle-catalog', 'verify-official-bundle-catalog', { label: 'Official bundle catalog' }),
+    pnpmScript('provider-data', 'verify-provider-data', { label: 'pi-ai provider metadata' }),
+    pnpmScript('hosted-profile-boundary', 'verify-hosted-profile-boundary', { label: 'hosted profile boundary' }),
+    pnpmScript('remote-authority', 'verify-remote-authority', { label: 'Remote authority declarations' }),
   ]
 }
 
@@ -435,12 +448,7 @@ function ciPrimaryGates(): Gate[] {
     // repeats the Host contract pass. Wait for all three consumers so build
     // neither races tsbuildinfo nor replaces declarations while they are read.
     ciBuildGate('build', { needs: ['typecheck', 'lint', 'doc-typecheck'] }),
-    pnpmScript('publint', 'publint', { needs: ['build'] }),
-    pnpmScript('node-next-types', 'verify-node-next-types', {
-      label: 'node-next types',
-      needs: ['build'],
-    }),
-    builtBinSmokeGate(),
+    ...builtTreeGates(),
   ]
 }
 
@@ -514,15 +522,27 @@ function ciStaticGates(options: { ownsBuild: boolean }): Gate[] {
   ]
 }
 
-function ciArtifactGates(): Gate[] {
+/**
+ * What only a built tree can answer: whether the published manifests are
+ * valid, whether a NodeNext consumer resolves the emitted types, and whether
+ * the shipped bin runs. Each one needs `build`, so both CI runs that produce
+ * artifacts append this list instead of repeating it.
+ */
+function builtTreeGates(): Gate[] {
   return [
-    ciBuildGate(),
     pnpmScript('publint', 'publint', { needs: ['build'] }),
     pnpmScript('node-next-types', 'verify-node-next-types', {
       label: 'node-next types',
       needs: ['build'],
     }),
     builtBinSmokeGate(),
+  ]
+}
+
+function ciArtifactGates(): Gate[] {
+  return [
+    ciBuildGate(),
+    ...builtTreeGates(),
   ]
 }
 
@@ -798,12 +818,7 @@ function hygieneLeafGates(options: { artifactNeeds?: string[] } = {}): Gate[] {
     pnpmScript('rescope-vendor', 'rescope-vendor:check', { label: 'vendor rescope' }),
     pnpmScript('publint', 'publint', artifactOptions),
     pnpmScript('constraints', 'constraints'),
-    pnpmScript('default-product-isolation', 'verify-default-product-isolation', { label: 'default product isolation' }),
-    pnpmScript('product-use', 'verify-product-use', { label: 'product package classification' }),
-    pnpmScript('official-bundle-catalog', 'verify-official-bundle-catalog', { label: 'Official bundle catalog' }),
-    pnpmScript('provider-data', 'verify-provider-data', { label: 'pi-ai provider metadata' }),
-    pnpmScript('hosted-profile-boundary', 'verify-hosted-profile-boundary', { label: 'hosted profile boundary' }),
-    pnpmScript('remote-authority', 'verify-remote-authority', { label: 'Remote authority declarations' }),
+    ...productDeclarationGates(),
     pnpmScript('package-dependencies', 'verify-package-dependencies', { label: 'package dependencies' }),
     pnpmScript('application-entrypoints', 'verify-application-entrypoints', { label: 'application entrypoints' }),
     pnpmScript('lyn-package-licenses', 'verify-lyn-package-licenses', { label: 'LYN package licenses' }),
@@ -1034,6 +1049,21 @@ export async function runGates(
   const running: RunningGate[] = []
   const abort = new AbortController()
   let abortCause: string | undefined
+  /**
+   * Settle every gate that never started, so each one is reported once and the
+   * scheduler leaves nothing `pending` behind. Both exits take it: the one that
+   * observes an already-set cause with nothing left running, and the one that
+   * sets the cause on a fail-fast failure.
+   */
+  const skipRemaining = (cause: string): void => {
+    for (const gate of gates) {
+      if (states.get(gate.id) !== 'pending') continue
+      const skipped = skippedByFailFast(gate, cause)
+      states.set(gate.id, 'skipped')
+      results.set(gate.id, skipped)
+      observe(skipped)
+    }
+  }
   // Host interruption (terminal Ctrl+C, runner cancellation) drains through
   // the same abort path as a gate failure, so detached trees are killed and
   // never orphaned. Handlers are removed before returning.
@@ -1064,13 +1094,7 @@ export async function runGates(
 
       if (running.length === 0) {
         if (abortCause !== undefined) {
-          for (const gate of gates) {
-            if (states.get(gate.id) !== 'pending') continue
-            const skipped = skippedByFailFast(gate, abortCause)
-            states.set(gate.id, 'skipped')
-            results.set(gate.id, skipped)
-            observe(skipped)
-          }
+          skipRemaining(abortCause)
           break
         }
         const pending = gates.filter(gate => states.get(gate.id) === 'pending')
@@ -1107,13 +1131,7 @@ export async function runGates(
           abortCause = `${observed.gate.label} failed`
           abort.abort()
           console.error(`run-gates: fail-fast aborting: ${abortCause}.`)
-          for (const gate of gates) {
-            if (states.get(gate.id) !== 'pending') continue
-            const skipped = skippedByFailFast(gate, abortCause)
-            states.set(gate.id, 'skipped')
-            results.set(gate.id, skipped)
-            observe(skipped)
-          }
+          skipRemaining(abortCause)
         }
       }
     }

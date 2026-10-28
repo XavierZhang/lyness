@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Principal de la solicitud",
+    "description": "Publica quién es la llamada en curso, resuelto a partir de la identidad portadora que presenta."
+  }
+}

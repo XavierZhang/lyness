@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Sistema de archivos del escritorio",
+    "description": "Los archivos en que trabaja el agente están en la máquina de la propia persona, no en la del servidor."
+  }
+}

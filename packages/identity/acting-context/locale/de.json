@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Handlungskontext",
+    "description": "Ermittelt und prüft den Kontext, in dem ein Aufruf handelt: den angegebenen, den gehaltenen und den von der Adresse erlaubten."
+  }
+}

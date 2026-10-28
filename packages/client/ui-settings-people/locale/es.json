@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Interfaz de ajustes de personas",
+    "description": "La sección de personas en los ajustes: quién puede usar un despliegue y qué identidad de directorio es cada uno, mantenido en tiempo de ejecución."
+  }
+}

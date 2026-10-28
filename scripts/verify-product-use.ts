@@ -285,6 +285,10 @@ function stringList(value: unknown, origin: string): string[] {
 function literalDeclaration(file: ts.SourceFile, name: string): unknown {
   const read = (node: ts.Expression): unknown => {
     if (ts.isStringLiteralLike(node)) return node.text
+    // A template may carry flags beside its package lists; `stringList` reads
+    // only the lists, so a boolean passes through as the value it is.
+    if (node.kind === ts.SyntaxKind.TrueKeyword) return true
+    if (node.kind === ts.SyntaxKind.FalseKeyword) return false
     if (ts.isArrayLiteralExpression(node)) return node.elements.map(read)
     if (ts.isObjectLiteralExpression(node)) return Object.fromEntries(node.properties.map((property) => {
       if (!ts.isPropertyAssignment(property) || !ts.isIdentifier(property.name) && !ts.isStringLiteralLike(property.name)) {

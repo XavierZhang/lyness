@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Mandantenstempel der Sitzung",
+    "description": "Hält fest, zu welchem Mandanten eine Sitzung gehört und welchen Identitätstext dieser Mandant beitrug, als ein dauerhaftes Sitzungsereignis."
+  }
+}

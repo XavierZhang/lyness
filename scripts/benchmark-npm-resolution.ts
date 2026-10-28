@@ -8,6 +8,14 @@ import { join, resolve } from 'node:path'
 import { performance } from 'node:perf_hooks'
 import { parseArgs } from 'node:util'
 
+/**
+ * Buffer for a git listing of the whole repository, which outgrew Node's 1 MiB
+ * default. `execFileSync` and `spawnSync` kill the child with SIGTERM and
+ * report `ENOBUFS` or a bare signal once a listing passes `maxBuffer`, so the
+ * failure reads as a hang rather than as a size.
+ */
+const LISTING_BUFFER_BYTES = 64 * 1024 * 1024
+
 const TARGET_PACKAGE = '@lyness/lyn'
 const DEFAULT_TIMEOUT_MS = 300_000
 const TERMINATION_GRACE_MS = 1_000
@@ -137,6 +145,7 @@ function workspaceManifestPath(path: string): boolean {
 function workspaceManifestPaths(root: string, ref: string | undefined): string[] {
   if (ref === undefined) return globSync(WORKSPACE_MANIFEST_GLOBS, { cwd: root }).sort()
   return execFileSync('git', ['ls-tree', '-r', '--name-only', ref, '--', 'apps', 'packages', 'vendor', 'native'], {
+    maxBuffer: LISTING_BUFFER_BYTES,
     cwd: root,
     encoding: 'utf8',
   }).split('\n').filter(workspaceManifestPath).sort()

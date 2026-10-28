@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "RPC für Guthaben",
+    "description": "Jede Person liest ihr eigenes Guthaben; ein Administrator gewährt Guthaben und setzt Kontingente."
+  }
+}

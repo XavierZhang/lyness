@@ -1,86 +1,15 @@
 {
   "formatVersion": 2,
   "roots": [
-    {
-      "key": "event:bot/engaged",
-      "kind": "event",
-      "event": "bot/engaged",
-      "surface": false,
-      "digest": "1d814f0805d00b9a45432779ad907e42e4be779ed300abbbe36a552356d2776d",
-      "schema": {
-        "root": 0,
-        "nodes": [
-          {
-            "kind": "object",
-            "properties": [
-              {
-                "name": "data",
-                "type": 1,
-                "optional": false
-              },
-              {
-                "name": "ignorable",
-                "type": 3,
-                "optional": true
-              },
-              {
-                "name": "seq",
-                "type": 4,
-                "optional": false
-              },
-              {
-                "name": "time",
-                "type": 4,
-                "optional": false
-              },
-              {
-                "name": "type",
-                "type": 5,
-                "optional": false
-              }
-            ],
-            "indices": []
-          },
-          {
-            "kind": "object",
-            "properties": [
-              {
-                "name": "bot",
-                "type": 2,
-                "optional": false
-              },
-              {
-                "name": "displayName",
-                "type": 2,
-                "optional": false
-              },
-              {
-                "name": "persona",
-                "type": 2,
-                "optional": false
-              }
-            ],
-            "indices": []
-          },
-          {
-            "kind": "primitive",
-            "type": "string"
-          },
-          {
-            "kind": "literal",
-            "value": true
-          },
-          {
-            "kind": "primitive",
-            "type": "number"
-          },
-          {
-            "kind": "literal",
-            "value": "bot/engaged"
-          }
-        ]
-      }
-    }
+    {"key":"event:bot/engaged","kind":"event","event":"bot/engaged","surface":false,"digest":"1d814f0805d00b9a45432779ad907e42e4be779ed300abbbe36a552356d2776d"}
   ],
-  "types": []
+  "types": [],
+  "nodes": {
+    "0657d3ca5ac4e7bf": {"kind":"primitive","type":"number"},
+    "1d814f0805d00b9a": {"kind":"object","properties":[{"name":"data","type":"cdfea4003dd9236c","optional":false},{"name":"ignorable","type":"dacf3d5f3e4ff619","optional":true},{"name":"seq","type":"0657d3ca5ac4e7bf","optional":false},{"name":"time","type":"0657d3ca5ac4e7bf","optional":false},{"name":"type","type":"5dc285f065310919","optional":false}],"indices":[]},
+    "4cd48f3e5108bd6e": {"kind":"primitive","type":"string"},
+    "5dc285f065310919": {"kind":"literal","value":"bot/engaged"},
+    "cdfea4003dd9236c": {"kind":"object","properties":[{"name":"bot","type":"4cd48f3e5108bd6e","optional":false},{"name":"displayName","type":"4cd48f3e5108bd6e","optional":false},{"name":"persona","type":"4cd48f3e5108bd6e","optional":false}],"indices":[]},
+    "dacf3d5f3e4ff619": {"kind":"literal","value":true}
+  }
 }

@@ -22,7 +22,7 @@ import { CreditsSection } from './CreditsSection.tsx'
 import { SectionBinding, sectionFace } from './binding.ts'
 import { createCreditsOperations, creditsCallsOf } from './operations.ts'
 import { createCreditsSectionStore } from './store.ts'
-import { en, zh } from './locales.ts'
+import { de, en, es, fr, ja, pt, ru, zh } from './locales.ts'
 import type { CreditsKey } from './locales.ts'
 
 export type { CreditsKey } from './locales.ts'
@@ -49,7 +49,7 @@ export const inject = ['slots', 'locale', 'remote', 'remote.credits']
  * @param ctx - client plugin context.
  */
 export function apply(ctx: Context): void {
-  ctx.effect(() => ctx.locale.register(NS, { en, zh }), 'credits: dictionaries')
+  ctx.effect(() => ctx.locale.register(NS, { en, zh, ja, es, fr, de, ru, pt }), 'credits: dictionaries')
   const store = createCreditsSectionStore()
   const binding = new SectionBinding()
   const operations = createCreditsOperations(creditsCallsOf(ctx), binding)

@@ -70,9 +70,8 @@ export class WorkspaceController extends TypertRemoteService {
    * @param config - first-use directory policy.
    */
   constructor(ctx: Context, config: Config = {}) {
-    super(ctx, 'workspaceController', { namespace: 'workspace' })
-    ctx.typert.resources.register('workspace', { field: 'workspaceId' })
     super(ctx, 'workspaceController', { namespace: 'workspace', requires: 'member' })
+    ctx.typert.resources.register('workspace', { field: 'workspaceId' })
     this.config = WorkspaceController.Config(config)
     if (this.config.documentsDirectory !== undefined) validateDocumentsDirectory(this.config.documentsDirectory)
     this.commands = new WorkspaceCommands(ctx)

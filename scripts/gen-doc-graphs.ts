@@ -1152,6 +1152,14 @@ const SERVICE_ROLES: ServiceRole[] = [
     note: 'Three lookups — immutable id, hostname, subdomain slug — answering undefined for an unknown subject; which part of a request may name a tenant is transport knowledge the consumer owns, and an unresolved request is refused rather than served a fallback tenant.',
   },
   {
+    key: 'brandSetupStartup',
+    pkg: 'brand-setup',
+    title: 'Brand-setup loopback bind',
+    mode: 'core',
+    consumers: ['host-webserver'],
+    note: 'The brand-setup command publishes its loopback host and port only on a successful parse, so `--help` and a rejected flag leave the server row inactive and open no port.',
+  },
+  {
     key: 'webServer',
     pkg: 'host-webserver',
     title: 'HTTP route registration',

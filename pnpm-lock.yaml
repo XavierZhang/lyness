@@ -108,13 +108,13 @@ importers:
         version: link:packages/core/tool-executor-ptc
       '@lyness/lyn-tool-ralph':
         specifier: workspace:*
-        version: link:packages/experimental/tool-ralph
+        version: link:packages/workflow/tool-ralph
       '@lyness/lyn-tool-session-query':
         specifier: workspace:*
-        version: link:packages/experimental/tool-session-query
+        version: link:packages/session-query/tool-session-query
       '@lyness/lyn-tool-terminal':
         specifier: workspace:*
-        version: link:packages/experimental/tool-terminal
+        version: link:packages/terminal/tool-terminal
       '@lyness/lyn-tool-working-directory':
         specifier: workspace:*
         version: link:packages/session/tool-working-directory
@@ -391,12 +391,6 @@ importers:
       '@lyness/lyn-home-paths':
         specifier: workspace:*
         version: link:../../packages/util/home-paths
-      '@lyness/lyn-hooks-claude-code':
-        specifier: workspace:*
-        version: link:../../packages/experimental/hooks-claude-code
-      '@lyness/lyn-hooks-codex':
-        specifier: workspace:*
-        version: link:../../packages/experimental/hooks-codex
       '@lyness/lyn-http-proxy':
         specifier: workspace:*
         version: link:../../packages/util/http-proxy
@@ -412,6 +406,12 @@ importers:
       '@lyness/lyn-mcp-resources':
         specifier: workspace:*
         version: link:../../packages/mcp/mcp-resources
+      '@lyness/lyn-module-accounts':
+        specifier: workspace:*
+        version: link:../../packages/bundle/module-accounts
+      '@lyness/lyn-module-credits':
+        specifier: workspace:*
+        version: link:../../packages/bundle/module-credits
       '@lyness/lyn-module-deliverables':
         specifier: workspace:*
         version: link:../../packages/bundle/module-deliverables
@@ -562,6 +562,9 @@ importers:
       '@lyness/lyn-web-app':
         specifier: workspace:*
         version: link:../../packages/bundle/web-app
+      '@lyness/lyn-web-execution':
+        specifier: workspace:*
+        version: link:../../packages/bundle/web-execution
       '@lyness/lyn-workflow-ptc':
         specifier: workspace:*
         version: link:../../packages/workflow/workflow-ptc
@@ -623,6 +626,12 @@ importers:
       '@lyness/lyn-fs-sandbox':
         specifier: workspace:*
         version: link:../../packages/fs/fs-sandbox
+      '@lyness/lyn-hooks-claude-code':
+        specifier: workspace:*
+        version: link:../../packages/experimental/hooks-claude-code
+      '@lyness/lyn-hooks-codex':
+        specifier: workspace:*
+        version: link:../../packages/experimental/hooks-codex
       '@lyness/lyn-host-frontend-static':
         specifier: workspace:*
         version: link:../../packages/host/frontend-static
@@ -688,7 +697,7 @@ importers:
         version: link:../../packages/shell/shell-env
       '@lyness/lyn-skill-badge':
         specifier: workspace:*
-        version: link:../../packages/experimental/skill-badge
+        version: link:../../packages/skill/skill-badge
       '@lyness/lyn-subagent':
         specifier: workspace:*
         version: link:../../packages/subagent/subagent
@@ -706,7 +715,7 @@ importers:
         version: link:../../packages/core/system-prompt
       '@lyness/lyn-tool-ralph':
         specifier: workspace:*
-        version: link:../../packages/experimental/tool-ralph
+        version: link:../../packages/workflow/tool-ralph
       '@lyness/lyn-tool-testkit':
         specifier: workspace:*
         version: link:../../packages/test-support/tool-testkit
@@ -718,10 +727,10 @@ importers:
         version: link:../../packages/interaction/user-approval
       '@lyness/lyn-webhook':
         specifier: workspace:*
-        version: link:../../packages/experimental/webhook
+        version: link:../../packages/webhook/webhook
       '@lyness/lyn-webhook-github':
         specifier: workspace:*
-        version: link:../../packages/experimental/webhook-github
+        version: link:../../packages/webhook/webhook-github
       '@types/js-yaml':
         specifier: ^4.0.9
         version: 4.0.9
@@ -2881,6 +2890,9 @@ importers:
       '@lyness/lyn-skill':
         specifier: workspace:*
         version: link:../../skill/skill
+      '@lyness/lyn-skill-badge':
+        specifier: workspace:*
+        version: link:../../skill/skill-badge
       '@lyness/lyn-skill-filesystem':
         specifier: workspace:*
         version: link:../../skill/skill-filesystem
@@ -2993,6 +3005,9 @@ importers:
       '@lyness/cordis':
         specifier: workspace:~
         version: link:../../../vendor/cordis
+      '@lyness/cordis-plugin-loader':
+        specifier: workspace:~
+        version: link:../../../vendor/loader
 
   packages/bundle/brand-setup:
     dependencies:
@@ -3014,6 +3029,9 @@ importers:
       '@lyness/schemastery':
         specifier: link:../../../vendor/schemastery
         version: link:../../../vendor/schemastery
+      commander:
+        specifier: ^15.0.0
+        version: 15.0.0
       yaml:
         specifier: ^2.9.0
         version: 2.9.0
@@ -3262,7 +3280,7 @@ importers:
         version: link:../../shell/tool-pwsh
       '@lyness/lyn-tool-ralph':
         specifier: workspace:*
-        version: link:../../experimental/tool-ralph
+        version: link:../../workflow/tool-ralph
       '@lyness/lyn-tool-workflow':
         specifier: workspace:*
         version: link:../../workflow/tool-workflow
@@ -3355,7 +3373,7 @@ importers:
         version: link:../../terminal/terminal-bash
       '@lyness/lyn-tool-terminal':
         specifier: workspace:*
-        version: link:../../experimental/tool-terminal
+        version: link:../../terminal/tool-terminal
     devDependencies:
       '@lyness/cordis':
         specifier: workspace:~
@@ -3365,10 +3383,10 @@ importers:
     dependencies:
       '@lyness/lyn-webhook':
         specifier: workspace:*
-        version: link:../../experimental/webhook
+        version: link:../../webhook/webhook
       '@lyness/lyn-webhook-github':
         specifier: workspace:*
-        version: link:../../experimental/webhook-github
+        version: link:../../webhook/webhook-github
     devDependencies:
       '@lyness/cordis':
         specifier: workspace:~
@@ -3965,13 +3983,13 @@ importers:
         version: link:../../shell/tool-pwsh-persistent
       '@lyness/lyn-tool-ralph':
         specifier: workspace:*
-        version: link:../../experimental/tool-ralph
+        version: link:../../workflow/tool-ralph
       '@lyness/lyn-tool-schedule':
         specifier: workspace:*
         version: link:../../schedule/tool-schedule
       '@lyness/lyn-tool-session-query':
         specifier: workspace:*
-        version: link:../../experimental/tool-session-query
+        version: link:../../session-query/tool-session-query
       '@lyness/lyn-tool-skill':
         specifier: workspace:*
         version: link:../../skill/tool-skill
@@ -3983,7 +4001,7 @@ importers:
         version: link:../../subagent/tool-subagent-control
       '@lyness/lyn-tool-terminal':
         specifier: workspace:*
-        version: link:../../experimental/tool-terminal
+        version: link:../../terminal/tool-terminal
       '@lyness/lyn-tool-todo':
         specifier: workspace:*
         version: link:../../todo/tool-todo
@@ -4513,9 +4531,6 @@ importers:
       '@testing-library/react':
         specifier: ^16.1.0
         version: 16.3.3(@testing-library/dom@10.4.2)(@types/react-dom@18.3.7(@types/react@18.3.31))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -6313,9 +6328,6 @@ importers:
       '@lyness/lyn-client-ui-slots':
         specifier: workspace:*
         version: link:../ui-slots
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -6358,9 +6370,6 @@ importers:
       '@lyness/lyn-typert-protocol':
         specifier: workspace:*
         version: link:../../typert/protocol
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -6397,9 +6406,6 @@ importers:
       '@lyness/lyn-client-ui-slots':
         specifier: workspace:*
         version: link:../ui-slots
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -6512,9 +6518,6 @@ importers:
       '@lyness/lyn-typert-protocol':
         specifier: workspace:*
         version: link:../../typert/protocol
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -6606,9 +6609,6 @@ importers:
       '@lyness/lyn-typert-protocol':
         specifier: workspace:*
         version: link:../../typert/protocol
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -6801,9 +6801,6 @@ importers:
       '@lyness/lyn-typert-protocol':
         specifier: workspace:*
         version: link:../../typert/protocol
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -7381,9 +7378,6 @@ importers:
       '@lyness/lyn-client-ui-slots':
         specifier: workspace:*
         version: link:../ui-slots
-      '@types/react':
-        specifier: ~18.3.1
-        version: 18.3.31
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -7654,10 +7648,10 @@ importers:
         version: link:../../jobs/tool-jobs
       '@lyness/lyn-tool-session-query':
         specifier: workspace:*
-        version: link:../../experimental/tool-session-query
+        version: link:../../session-query/tool-session-query
       '@lyness/lyn-tool-terminal':
         specifier: workspace:*
-        version: link:../../experimental/tool-terminal
+        version: link:../../terminal/tool-terminal
       '@lyness/lyn-tool-testkit':
         specifier: workspace:*
         version: link:../../test-support/tool-testkit
@@ -9423,7 +9417,7 @@ importers:
     dependencies:
       '@lyness/lyn-skill-badge':
         specifier: workspace:*
-        version: link:../skill-badge
+        version: link:../../skill/skill-badge
     devDependencies:
       '@lyness/cordis':
         specifier: workspace:~
@@ -11091,7 +11085,7 @@ importers:
     dependencies:
       '@lyness/lyn-tool-ralph':
         specifier: workspace:*
-        version: link:../tool-ralph
+        version: link:../../workflow/tool-ralph
       '@lyness/lyn-workflow-ptc':
         specifier: workspace:*
         version: link:../../workflow/workflow-ptc
@@ -11164,7 +11158,7 @@ importers:
         version: link:../../session-query/session-query-sqlite
       '@lyness/lyn-tool-session-query':
         specifier: workspace:*
-        version: link:../tool-session-query
+        version: link:../../session-query/tool-session-query
     devDependencies:
       '@lyness/cordis':
         specifier: workspace:~
@@ -11210,15 +11204,6 @@ importers:
       '@lyness/cordis':
         specifier: workspace:~
         version: link:../../../vendor/cordis
-
-  packages/experimental/skill-badge:
-    devDependencies:
-      '@lyness/cordis':
-        specifier: workspace:~
-        version: link:../../../vendor/cordis
-      '@lyness/lyn-skill':
-        specifier: workspace:*
-        version: link:../../skill/skill
 
   packages/experimental/speech-to-text:
     dependencies:
@@ -11371,7 +11356,7 @@ importers:
         version: link:../../terminal/terminal-bash
       '@lyness/lyn-tool-terminal':
         specifier: workspace:*
-        version: link:../tool-terminal
+        version: link:../../terminal/tool-terminal
     devDependencies:
       '@lyness/cordis':
         specifier: workspace:~
@@ -11441,128 +11426,6 @@ importers:
         specifier: workspace:*
         version: link:../../core/tools
 
-  packages/experimental/tool-ralph:
-    dependencies:
-      '@lyness/schemastery':
-        specifier: link:../../../vendor/schemastery
-        version: link:../../../vendor/schemastery
-    devDependencies:
-      '@lyness/cordis':
-        specifier: workspace:~
-        version: link:../../../vendor/cordis
-      '@lyness/cordis-plugin-loader':
-        specifier: workspace:~
-        version: link:../../../vendor/loader
-      '@lyness/lyn-agent':
-        specifier: workspace:*
-        version: link:../../core/agent
-      '@lyness/lyn-agent-loop':
-        specifier: workspace:*
-        version: link:../../core/agent-loop
-      '@lyness/lyn-agent-loop-testkit':
-        specifier: workspace:*
-        version: link:../../test-support/agent-loop-testkit
-      '@lyness/lyn-llm':
-        specifier: workspace:*
-        version: link:../../llm/llm
-      '@lyness/lyn-session':
-        specifier: workspace:*
-        version: link:../../core/session
-      '@lyness/lyn-session-persistence-jsonl':
-        specifier: workspace:*
-        version: link:../../session/session-persistence-jsonl
-      '@lyness/lyn-session-projection':
-        specifier: workspace:*
-        version: link:../../session/session-projection
-      '@lyness/lyn-subagent':
-        specifier: workspace:*
-        version: link:../../subagent/subagent
-      '@lyness/lyn-subagent-spawn-in-process':
-        specifier: workspace:*
-        version: link:../../subagent/subagent-spawn-in-process
-      '@lyness/lyn-system-prompt':
-        specifier: workspace:*
-        version: link:../../core/system-prompt
-      '@lyness/lyn-tool-executor-native':
-        specifier: workspace:*
-        version: link:../../core/tool-executor-native
-      '@lyness/lyn-tool-testkit':
-        specifier: workspace:*
-        version: link:../../test-support/tool-testkit
-      '@lyness/lyn-tools':
-        specifier: workspace:*
-        version: link:../../core/tools
-      '@lyness/lyn-workflow':
-        specifier: workspace:*
-        version: link:../../workflow/workflow
-      '@lyness/lyn-workflow-ptc':
-        specifier: workspace:*
-        version: link:../../workflow/workflow-ptc
-
-  packages/experimental/tool-session-query:
-    dependencies:
-      '@lyness/lyn-brand':
-        specifier: workspace:*
-        version: link:../../util/brand
-      '@lyness/schemastery':
-        specifier: link:../../../vendor/schemastery
-        version: link:../../../vendor/schemastery
-    devDependencies:
-      '@lyness/cordis':
-        specifier: workspace:~
-        version: link:../../../vendor/cordis
-      '@lyness/lyn-agent':
-        specifier: workspace:*
-        version: link:../../core/agent
-      '@lyness/lyn-agent-loop':
-        specifier: workspace:*
-        version: link:../../core/agent-loop
-      '@lyness/lyn-llm':
-        specifier: workspace:*
-        version: link:../../llm/llm
-      '@lyness/lyn-session':
-        specifier: workspace:*
-        version: link:../../core/session
-      '@lyness/lyn-session-ownership':
-        specifier: workspace:*
-        version: link:../../identity/session-ownership
-      '@lyness/lyn-session-persistence':
-        specifier: workspace:*
-        version: link:../../session/session-persistence
-      '@lyness/lyn-session-persistence-jsonl':
-        specifier: workspace:*
-        version: link:../../session/session-persistence-jsonl
-      '@lyness/lyn-session-projection':
-        specifier: workspace:*
-        version: link:../../session/session-projection
-      '@lyness/lyn-session-query':
-        specifier: workspace:*
-        version: link:../../session-query/session-query
-      '@lyness/lyn-session-query-sqlite':
-        specifier: workspace:*
-        version: link:../../session-query/session-query-sqlite
-      '@lyness/lyn-session-title':
-        specifier: workspace:*
-        version: link:../../session/session-title
-      '@lyness/lyn-system-prompt':
-        specifier: workspace:*
-        version: link:../../core/system-prompt
-      '@lyness/lyn-timeout':
-        specifier: workspace:*
-        version: link:../../util/timeout
-      '@lyness/lyn-tool-call-timeout-policy':
-        specifier: workspace:*
-        version: link:../../guard/timeout-policy
-      '@lyness/lyn-tool-executor-native':
-        specifier: workspace:*
-        version: link:../../core/tool-executor-native
-      '@lyness/lyn-tool-testkit':
-        specifier: workspace:*
-        version: link:../../test-support/tool-testkit
-      '@lyness/lyn-tools':
-        specifier: workspace:*
-        version: link:../../core/tools
-
   packages/experimental/tool-subagent-oar:
     dependencies:
       '@lyness/schemastery':
@@ -11593,82 +11456,6 @@ importers:
       '@lyness/lyn-tools':
         specifier: workspace:*
         version: link:../../core/tools
-
-  packages/experimental/tool-terminal:
-    dependencies:
-      '@lyness/schemastery':
-        specifier: link:../../../vendor/schemastery
-        version: link:../../../vendor/schemastery
-    devDependencies:
-      '@lyness/cordis':
-        specifier: workspace:~
-        version: link:../../../vendor/cordis
-      '@lyness/cordis-plugin-include':
-        specifier: workspace:~
-        version: link:../../../vendor/include
-      '@lyness/cordis-plugin-loader':
-        specifier: workspace:~
-        version: link:../../../vendor/loader
-      '@lyness/lyn-agent':
-        specifier: workspace:*
-        version: link:../../core/agent
-      '@lyness/lyn-agent-loop-testkit':
-        specifier: workspace:*
-        version: link:../../test-support/agent-loop-testkit
-      '@lyness/lyn-jobs':
-        specifier: workspace:*
-        version: link:../../jobs/jobs
-      '@lyness/lyn-jobs-local':
-        specifier: workspace:*
-        version: link:../../jobs/jobs-local
-      '@lyness/lyn-llm':
-        specifier: workspace:*
-        version: link:../../llm/llm
-      '@lyness/lyn-output-retention':
-        specifier: workspace:*
-        version: link:../../util/output-retention
-      '@lyness/lyn-sandbox':
-        specifier: workspace:*
-        version: link:../../sandbox/sandbox
-      '@lyness/lyn-sandbox-policy':
-        specifier: workspace:*
-        version: link:../../sandbox/sandbox-policy
-      '@lyness/lyn-session':
-        specifier: workspace:*
-        version: link:../../core/session
-      '@lyness/lyn-session-projection':
-        specifier: workspace:*
-        version: link:../../session/session-projection
-      '@lyness/lyn-subprocess-local':
-        specifier: workspace:*
-        version: link:../../subprocess/subprocess-local
-      '@lyness/lyn-system-prompt':
-        specifier: workspace:*
-        version: link:../../core/system-prompt
-      '@lyness/lyn-terminal':
-        specifier: workspace:*
-        version: link:../../terminal/terminal
-      '@lyness/lyn-terminal-bash':
-        specifier: workspace:*
-        version: link:../../terminal/terminal-bash
-      '@lyness/lyn-tool-executor-native':
-        specifier: workspace:*
-        version: link:../../core/tool-executor-native
-      '@lyness/lyn-tool-executor-ptc':
-        specifier: workspace:*
-        version: link:../../core/tool-executor-ptc
-      '@lyness/lyn-tool-jobs':
-        specifier: workspace:*
-        version: link:../../jobs/tool-jobs
-      '@lyness/lyn-tool-testkit':
-        specifier: workspace:*
-        version: link:../../test-support/tool-testkit
-      '@lyness/lyn-tools':
-        specifier: workspace:*
-        version: link:../../core/tools
-      '@lyness/lyn-working-directory':
-        specifier: workspace:*
-        version: link:../../session/working-directory
 
   packages/experimental/tool-worktree:
     dependencies:
@@ -11819,83 +11606,6 @@ importers:
       js-yaml:
         specifier: ^4.3.2
         version: 4.3.2
-
-  packages/experimental/webhook:
-    dependencies:
-      '@lyness/lyn-brand':
-        specifier: workspace:*
-        version: link:../../util/brand
-      '@lyness/lyn-util-values':
-        specifier: workspace:*
-        version: link:../../util/values
-    devDependencies:
-      '@lyness/cordis':
-        specifier: workspace:~
-        version: link:../../../vendor/cordis
-      '@lyness/cordis-plugin-include':
-        specifier: workspace:~
-        version: link:../../../vendor/include
-      '@lyness/cordis-plugin-loader':
-        specifier: workspace:~
-        version: link:../../../vendor/loader
-      '@lyness/lyn-agent':
-        specifier: workspace:*
-        version: link:../../core/agent
-      '@lyness/lyn-agent-default-model':
-        specifier: workspace:*
-        version: link:../../core/agent-default-model
-      '@lyness/lyn-agent-preset-registry':
-        specifier: workspace:*
-        version: link:../../preset/agent-preset-registry
-      '@lyness/lyn-llm':
-        specifier: workspace:*
-        version: link:../../llm/llm
-      '@lyness/lyn-permission-presets':
-        specifier: workspace:*
-        version: link:../../interaction/permission-presets
-      '@lyness/lyn-session':
-        specifier: workspace:*
-        version: link:../../core/session
-      '@lyness/lyn-session-title':
-        specifier: workspace:*
-        version: link:../../session/session-title
-      '@lyness/lyn-workspace':
-        specifier: workspace:*
-        version: link:../../workspace/workspace
-
-  packages/experimental/webhook-github:
-    dependencies:
-      '@lyness/lyn-util-values':
-        specifier: workspace:*
-        version: link:../../util/values
-      '@lyness/schemastery':
-        specifier: link:../../../vendor/schemastery
-        version: link:../../../vendor/schemastery
-      '@octokit/webhooks':
-        specifier: ^14.2.0
-        version: 14.2.0
-    devDependencies:
-      '@lyness/cordis':
-        specifier: workspace:~
-        version: link:../../../vendor/cordis
-      '@lyness/cordis-plugin-include':
-        specifier: workspace:~
-        version: link:../../../vendor/include
-      '@lyness/cordis-plugin-loader':
-        specifier: workspace:~
-        version: link:../../../vendor/loader
-      '@lyness/lyn-credentials':
-        specifier: workspace:*
-        version: link:../../credentials/credentials
-      '@lyness/lyn-host-webserver':
-        specifier: workspace:*
-        version: link:../../host/webserver
-      '@lyness/lyn-session':
-        specifier: workspace:*
-        version: link:../../core/session
-      '@lyness/lyn-webhook':
-        specifier: workspace:*
-        version: link:../webhook
 
   packages/experimental/webworker-packer:
     dependencies:
@@ -15248,6 +14958,70 @@ importers:
         specifier: workspace:*
         version: link:../session-query
 
+  packages/session-query/tool-session-query:
+    dependencies:
+      '@lyness/lyn-brand':
+        specifier: workspace:*
+        version: link:../../util/brand
+      '@lyness/schemastery':
+        specifier: link:../../../vendor/schemastery
+        version: link:../../../vendor/schemastery
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+      '@lyness/lyn-agent':
+        specifier: workspace:*
+        version: link:../../core/agent
+      '@lyness/lyn-agent-loop':
+        specifier: workspace:*
+        version: link:../../core/agent-loop
+      '@lyness/lyn-llm':
+        specifier: workspace:*
+        version: link:../../llm/llm
+      '@lyness/lyn-session':
+        specifier: workspace:*
+        version: link:../../core/session
+      '@lyness/lyn-session-ownership':
+        specifier: workspace:*
+        version: link:../../identity/session-ownership
+      '@lyness/lyn-session-persistence':
+        specifier: workspace:*
+        version: link:../../session/session-persistence
+      '@lyness/lyn-session-persistence-jsonl':
+        specifier: workspace:*
+        version: link:../../session/session-persistence-jsonl
+      '@lyness/lyn-session-projection':
+        specifier: workspace:*
+        version: link:../../session/session-projection
+      '@lyness/lyn-session-query':
+        specifier: workspace:*
+        version: link:../session-query
+      '@lyness/lyn-session-query-sqlite':
+        specifier: workspace:*
+        version: link:../session-query-sqlite
+      '@lyness/lyn-session-title':
+        specifier: workspace:*
+        version: link:../../session/session-title
+      '@lyness/lyn-system-prompt':
+        specifier: workspace:*
+        version: link:../../core/system-prompt
+      '@lyness/lyn-timeout':
+        specifier: workspace:*
+        version: link:../../util/timeout
+      '@lyness/lyn-tool-call-timeout-policy':
+        specifier: workspace:*
+        version: link:../../guard/timeout-policy
+      '@lyness/lyn-tool-executor-native':
+        specifier: workspace:*
+        version: link:../../core/tool-executor-native
+      '@lyness/lyn-tool-testkit':
+        specifier: workspace:*
+        version: link:../../test-support/tool-testkit
+      '@lyness/lyn-tools':
+        specifier: workspace:*
+        version: link:../../core/tools
+
   packages/session/message-quotes:
     devDependencies:
       '@lyness/cordis':
@@ -16417,6 +16191,15 @@ importers:
       '@lyness/lyn-scope':
         specifier: workspace:*
         version: link:../../core/scope
+
+  packages/skill/skill-badge:
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+      '@lyness/lyn-skill':
+        specifier: workspace:*
+        version: link:../skill
 
   packages/skill/skill-filesystem:
     dependencies:
@@ -17930,6 +17713,82 @@ importers:
         specifier: workspace:*
         version: link:../../session/working-directory
 
+  packages/terminal/tool-terminal:
+    dependencies:
+      '@lyness/schemastery':
+        specifier: link:../../../vendor/schemastery
+        version: link:../../../vendor/schemastery
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+      '@lyness/cordis-plugin-include':
+        specifier: workspace:~
+        version: link:../../../vendor/include
+      '@lyness/cordis-plugin-loader':
+        specifier: workspace:~
+        version: link:../../../vendor/loader
+      '@lyness/lyn-agent':
+        specifier: workspace:*
+        version: link:../../core/agent
+      '@lyness/lyn-agent-loop-testkit':
+        specifier: workspace:*
+        version: link:../../test-support/agent-loop-testkit
+      '@lyness/lyn-jobs':
+        specifier: workspace:*
+        version: link:../../jobs/jobs
+      '@lyness/lyn-jobs-local':
+        specifier: workspace:*
+        version: link:../../jobs/jobs-local
+      '@lyness/lyn-llm':
+        specifier: workspace:*
+        version: link:../../llm/llm
+      '@lyness/lyn-output-retention':
+        specifier: workspace:*
+        version: link:../../util/output-retention
+      '@lyness/lyn-sandbox':
+        specifier: workspace:*
+        version: link:../../sandbox/sandbox
+      '@lyness/lyn-sandbox-policy':
+        specifier: workspace:*
+        version: link:../../sandbox/sandbox-policy
+      '@lyness/lyn-session':
+        specifier: workspace:*
+        version: link:../../core/session
+      '@lyness/lyn-session-projection':
+        specifier: workspace:*
+        version: link:../../session/session-projection
+      '@lyness/lyn-subprocess-local':
+        specifier: workspace:*
+        version: link:../../subprocess/subprocess-local
+      '@lyness/lyn-system-prompt':
+        specifier: workspace:*
+        version: link:../../core/system-prompt
+      '@lyness/lyn-terminal':
+        specifier: workspace:*
+        version: link:../terminal
+      '@lyness/lyn-terminal-bash':
+        specifier: workspace:*
+        version: link:../terminal-bash
+      '@lyness/lyn-tool-executor-native':
+        specifier: workspace:*
+        version: link:../../core/tool-executor-native
+      '@lyness/lyn-tool-executor-ptc':
+        specifier: workspace:*
+        version: link:../../core/tool-executor-ptc
+      '@lyness/lyn-tool-jobs':
+        specifier: workspace:*
+        version: link:../../jobs/tool-jobs
+      '@lyness/lyn-tool-testkit':
+        specifier: workspace:*
+        version: link:../../test-support/tool-testkit
+      '@lyness/lyn-tools':
+        specifier: workspace:*
+        version: link:../../core/tools
+      '@lyness/lyn-working-directory':
+        specifier: workspace:*
+        version: link:../../session/working-directory
+
   packages/test-support/agent-loop-testkit:
     dependencies:
       '@lyness/lyn-tool-executor-native':
@@ -18894,6 +18753,141 @@ importers:
         specifier: workspace:*
         version: link:../web
 
+  packages/webhook/webhook:
+    dependencies:
+      '@lyness/lyn-brand':
+        specifier: workspace:*
+        version: link:../../util/brand
+      '@lyness/lyn-util-values':
+        specifier: workspace:*
+        version: link:../../util/values
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+      '@lyness/cordis-plugin-include':
+        specifier: workspace:~
+        version: link:../../../vendor/include
+      '@lyness/cordis-plugin-loader':
+        specifier: workspace:~
+        version: link:../../../vendor/loader
+      '@lyness/lyn-agent':
+        specifier: workspace:*
+        version: link:../../core/agent
+      '@lyness/lyn-agent-default-model':
+        specifier: workspace:*
+        version: link:../../core/agent-default-model
+      '@lyness/lyn-agent-preset-registry':
+        specifier: workspace:*
+        version: link:../../preset/agent-preset-registry
+      '@lyness/lyn-llm':
+        specifier: workspace:*
+        version: link:../../llm/llm
+      '@lyness/lyn-permission-presets':
+        specifier: workspace:*
+        version: link:../../interaction/permission-presets
+      '@lyness/lyn-session':
+        specifier: workspace:*
+        version: link:../../core/session
+      '@lyness/lyn-session-title':
+        specifier: workspace:*
+        version: link:../../session/session-title
+      '@lyness/lyn-workspace':
+        specifier: workspace:*
+        version: link:../../workspace/workspace
+
+  packages/webhook/webhook-github:
+    dependencies:
+      '@lyness/lyn-util-values':
+        specifier: workspace:*
+        version: link:../../util/values
+      '@lyness/schemastery':
+        specifier: link:../../../vendor/schemastery
+        version: link:../../../vendor/schemastery
+      '@octokit/webhooks':
+        specifier: ^14.2.0
+        version: 14.2.0
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+      '@lyness/cordis-plugin-include':
+        specifier: workspace:~
+        version: link:../../../vendor/include
+      '@lyness/cordis-plugin-loader':
+        specifier: workspace:~
+        version: link:../../../vendor/loader
+      '@lyness/lyn-credentials':
+        specifier: workspace:*
+        version: link:../../credentials/credentials
+      '@lyness/lyn-host-webserver':
+        specifier: workspace:*
+        version: link:../../host/webserver
+      '@lyness/lyn-session':
+        specifier: workspace:*
+        version: link:../../core/session
+      '@lyness/lyn-webhook':
+        specifier: workspace:*
+        version: link:../webhook
+
+  packages/workflow/tool-ralph:
+    dependencies:
+      '@lyness/schemastery':
+        specifier: link:../../../vendor/schemastery
+        version: link:../../../vendor/schemastery
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+      '@lyness/cordis-plugin-loader':
+        specifier: workspace:~
+        version: link:../../../vendor/loader
+      '@lyness/lyn-agent':
+        specifier: workspace:*
+        version: link:../../core/agent
+      '@lyness/lyn-agent-loop':
+        specifier: workspace:*
+        version: link:../../core/agent-loop
+      '@lyness/lyn-agent-loop-testkit':
+        specifier: workspace:*
+        version: link:../../test-support/agent-loop-testkit
+      '@lyness/lyn-llm':
+        specifier: workspace:*
+        version: link:../../llm/llm
+      '@lyness/lyn-session':
+        specifier: workspace:*
+        version: link:../../core/session
+      '@lyness/lyn-session-persistence-jsonl':
+        specifier: workspace:*
+        version: link:../../session/session-persistence-jsonl
+      '@lyness/lyn-session-projection':
+        specifier: workspace:*
+        version: link:../../session/session-projection
+      '@lyness/lyn-subagent':
+        specifier: workspace:*
+        version: link:../../subagent/subagent
+      '@lyness/lyn-subagent-spawn-in-process':
+        specifier: workspace:*
+        version: link:../../subagent/subagent-spawn-in-process
+      '@lyness/lyn-system-prompt':
+        specifier: workspace:*
+        version: link:../../core/system-prompt
+      '@lyness/lyn-tool-executor-native':
+        specifier: workspace:*
+        version: link:../../core/tool-executor-native
+      '@lyness/lyn-tool-testkit':
+        specifier: workspace:*
+        version: link:../../test-support/tool-testkit
+      '@lyness/lyn-tools':
+        specifier: workspace:*
+        version: link:../../core/tools
+      '@lyness/lyn-workflow':
+        specifier: workspace:*
+        version: link:../workflow
+      '@lyness/lyn-workflow-ptc':
+        specifier: workspace:*
+        version: link:../workflow-ptc
+
   packages/workflow/tool-workflow:
     dependencies:
       '@lyness/schemastery':
@@ -19112,6 +19106,9 @@ importers:
       '@lyness/lyn-acp':
         specifier: workspace:*
         version: link:../../packages/acp/acp
+      '@lyness/lyn-admin-audit':
+        specifier: workspace:*
+        version: link:../../packages/identity/admin-audit
       '@lyness/lyn-agent':
         specifier: workspace:*
         version: link:../../packages/core/agent
@@ -19148,6 +19145,9 @@ importers:
       '@lyness/lyn-attachment':
         specifier: workspace:*
         version: link:../../packages/attachment/attachment
+      '@lyness/lyn-auth-session':
+        specifier: workspace:*
+        version: link:../../packages/identity/auth-session
       '@lyness/lyn-authorization':
         specifier: workspace:*
         version: link:../../packages/credentials/authorization
@@ -19268,6 +19268,12 @@ importers:
       '@lyness/lyn-llm-retry':
         specifier: workspace:*
         version: link:../../packages/llm/llm-retry
+      '@lyness/lyn-managed-bots':
+        specifier: workspace:*
+        version: link:../../packages/identity/managed-bots
+      '@lyness/lyn-managed-people':
+        specifier: workspace:*
+        version: link:../../packages/identity/managed-people
       '@lyness/lyn-mcp-client':
         specifier: workspace:*
         version: link:../../packages/mcp/mcp-client
@@ -19286,6 +19292,9 @@ importers:
       '@lyness/lyn-output-retention':
         specifier: workspace:*
         version: link:../../packages/util/output-retention
+      '@lyness/lyn-people':
+        specifier: workspace:*
+        version: link:../../packages/identity/people
       '@lyness/lyn-permission-presets':
         specifier: workspace:*
         version: link:../../packages/interaction/permission-presets
@@ -19316,6 +19325,9 @@ importers:
       '@lyness/lyn-repeat-tool-reminder':
         specifier: workspace:*
         version: link:../../packages/guard/repeat-tool-reminder
+      '@lyness/lyn-request-principal':
+        specifier: workspace:*
+        version: link:../../packages/identity/request-principal
       '@lyness/lyn-sandbox':
         specifier: workspace:*
         version: link:../../packages/sandbox/sandbox
@@ -19346,6 +19358,9 @@ importers:
       '@lyness/lyn-session-log-deepseek':
         specifier: workspace:*
         version: link:../../packages/session/session-log-deepseek
+      '@lyness/lyn-session-ownership':
+        specifier: workspace:*
+        version: link:../../packages/identity/session-ownership
       '@lyness/lyn-session-persistence':
         specifier: workspace:*
         version: link:../../packages/session/session-persistence
@@ -19355,6 +19370,9 @@ importers:
       '@lyness/lyn-session-projection':
         specifier: workspace:*
         version: link:../../packages/session/session-projection
+      '@lyness/lyn-session-projection-cache':
+        specifier: workspace:*
+        version: link:../../packages/session/session-projection-cache
       '@lyness/lyn-session-query':
         specifier: workspace:*
         version: link:../../packages/session-query/session-query
@@ -19382,6 +19400,12 @@ importers:
       '@lyness/lyn-shell-env':
         specifier: workspace:*
         version: link:../../packages/shell/shell-env
+      '@lyness/lyn-sign-in':
+        specifier: workspace:*
+        version: link:../../packages/identity/sign-in
+      '@lyness/lyn-sign-in-channels':
+        specifier: workspace:*
+        version: link:../../packages/identity/sign-in-channels
       '@lyness/lyn-skill':
         specifier: workspace:*
         version: link:../../packages/skill/skill
@@ -19477,13 +19501,13 @@ importers:
         version: link:../../packages/shell/tool-pwsh-persistent
       '@lyness/lyn-tool-ralph':
         specifier: workspace:*
-        version: link:../../packages/experimental/tool-ralph
+        version: link:../../packages/workflow/tool-ralph
       '@lyness/lyn-tool-schedule':
         specifier: workspace:*
         version: link:../../packages/schedule/tool-schedule
       '@lyness/lyn-tool-session-query':
         specifier: workspace:*
-        version: link:../../packages/experimental/tool-session-query
+        version: link:../../packages/session-query/tool-session-query
       '@lyness/lyn-tool-skill':
         specifier: workspace:*
         version: link:../../packages/skill/tool-skill
@@ -19498,7 +19522,7 @@ importers:
         version: link:../../packages/subagent/tool-subagent-control
       '@lyness/lyn-tool-terminal':
         specifier: workspace:*
-        version: link:../../packages/experimental/tool-terminal
+        version: link:../../packages/terminal/tool-terminal
       '@lyness/lyn-tool-todo':
         specifier: workspace:*
         version: link:../../packages/todo/tool-todo

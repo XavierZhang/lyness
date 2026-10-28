@@ -16,7 +16,6 @@ export interface ProductPackagePolicy {
  * Optional integrations may be reached by an optional bundle without becoming default capabilities.
  */
 export const PRODUCT_PACKAGE_POLICY: Readonly<Record<string, ProductPackagePolicy>> = {
-  'packages/core/agent-tool-presentation': { category: 'optional', reason: 'Deprecated selector retained for existing executor configurations.' },
   'packages/browser-use/browser-use': { category: 'optional', reason: 'Service definition used by explicitly selected browser providers.' },
   'packages/computer-use/computer-use': { category: 'optional', reason: 'Service definition used by explicitly selected computer providers.' },
   'packages/lsp/lsp': { category: 'optional', reason: 'Service definition for deployment-configured language servers.' },
@@ -46,7 +45,35 @@ export const PRODUCT_PACKAGE_POLICY: Readonly<Record<string, ProductPackagePolic
   'packages/test-support/loader-smoke': { category: 'test', reason: 'Published plugin Loader smoke-test harness.' },
   'packages/test-support/remote-mock': { category: 'test', reason: 'Published typed Remote test proxies.' },
   'packages/test-support/session-snapshot': { category: 'test', reason: 'Published Session snapshot replay harness.' },
+  'packages/test-support/e2e-target': { category: 'test', reason: 'Shared end-to-end target fixtures for real-API suites.' },
   'packages/client/web': { category: 'web-distribution', reason: 'Browser boot kernel bundled into the Web distribution.' },
   'packages/client/ui-dockkit': { category: 'web-distribution', reason: 'Layout library bundled into the Web distribution.' },
   'packages/util/package-manifest': { category: 'declarations', reason: 'Shared package metadata declarations have no runtime mount.' },
+
+  // The multi-tenancy seam. A deployment that serves one customer mounts none
+  // of it, and absent is the only version of "single tenant" that no later
+  // patch layer can switch on
+  // ([seam](../.agents/notes/implemented/architecture/2026-09-17-tenant-directory-seam.md)).
+  'packages/tenant/tenant': { category: 'optional', reason: 'Tenant directory selected by a deployment serving more than one customer; unmounted means single-tenant.' },
+  'packages/tenant/tenant-static': { category: 'optional', reason: 'Composition-listed tenant directory, selected instead of the HTTP provider.' },
+  'packages/tenant/tenant-http': { category: 'optional', reason: 'Tenant directory read over HTTP, selected instead of the composition-listed provider.' },
+  'packages/tenant/tenant-config': { category: 'optional', reason: 'Per-tenant configuration seam mounted only where tenants exist.' },
+  'packages/tenant/tenant-config-static': { category: 'optional', reason: 'Read-only tenant configuration backend, selected instead of the store.' },
+  'packages/tenant/tenant-config-store': { category: 'optional', reason: 'Durable tenant configuration backend, selected instead of the read-only one.' },
+  'packages/tenant/tenant-request': { category: 'optional', reason: 'Resolves the calling tenant per request; only a multi-tenant deployment has one to resolve.' },
+  'packages/tenant/tenant-session': { category: 'optional', reason: 'Stamps the tenant into a new Session log; nothing to stamp on a single-tenant deployment.' },
+  'packages/api/tenant-controller': { category: 'optional', reason: 'Tenant configuration Remote namespace, mounted with the tenancy seam.' },
+
+  // Built and tested, composed by a deployment rather than shipped on.
+  'packages/vendor/microsoft-entra': { category: 'optional', reason: 'Sign-in channel kind selected by a deployment that uses Entra as its directory.' },
+  'packages/api/desktop-link': { category: 'optional', reason: 'Desktop pairing Remote namespace, mounted only by a desktop composition.' },
+  'packages/fs/fs-desktop': { category: 'optional', reason: 'Filesystem provider backed by the paired desktop, selected instead of a local or SSH provider.' },
+  'packages/client/ui-brand-official': { category: 'optional', reason: "Upstream's brand occupant, retained for merges; this installation's own brand package fills the slot." },
+
+  // The webhook module ships both its rows disabled: the GitHub adapter has
+  // four required fields, one of them a credential reference, so no shipped
+  // value would be right, and an enabled adapter is authenticated public HTTP
+  // ingress that creates root Sessions.
+  'packages/webhook/webhook': { category: 'optional', reason: 'Webhook ingress ships disabled; a route and its rules are a deployment decision.' },
+  'packages/webhook/webhook-github': { category: 'optional', reason: 'GitHub adapter ships disabled; it requires a shared-secret credential reference no default can supply.' },
 }

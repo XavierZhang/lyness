@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-module-model-governance",
   "description": "The deployment-owns-the-model module as its own bundle: the startup guard, the allowed-model policy, and its enforcement",
-  "version": "0.1.7-rc.2",
+  "version": "0.2.1-rc.3",
   "publishConfig": {
     "access": "public"
   },

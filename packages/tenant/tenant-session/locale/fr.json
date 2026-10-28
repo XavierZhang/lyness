@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Marque du locataire dans la session",
+    "description": "Enregistre à quel locataire appartient une session, et le texte d’identité que ce locataire a fourni, comme un seul événement durable de session."
+  }
+}

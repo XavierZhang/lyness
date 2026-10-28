@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-api-bots-controller",
   "description": "Remote owner of the bots surface: administrators maintain which bots their organization runs and what each one runs with",
-  "version": "0.1.7-rc.2",
+  "version": "0.2.1-rc.3",
   "publishConfig": {
     "access": "public"
   },

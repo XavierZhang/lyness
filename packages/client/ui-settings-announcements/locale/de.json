@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Oberfläche für Systemankündigungen",
+    "description": "Die Zeile mit Systemankündigungen in den allgemeinen Einstellungen, gelesen von der Installation, mit der sich der Client verbunden hat."
+  }
+}

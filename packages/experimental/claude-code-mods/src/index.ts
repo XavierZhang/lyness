@@ -216,7 +216,7 @@ export class ClaudeCodeMods extends TypertRemoteService {
   private readonly surfaces: SurfaceTable
 
   constructor(ctx: Context, config: Config) {
-    super(ctx, 'claudeCodeMods', { namespace: 'claudeCodeMods' })
+    super(ctx, 'claudeCodeMods', { namespace: 'claudeCodeMods', requires: 'member' })
     // The schema supplies every default; a direct construction passes the fields it needs.
     const { hookTimeoutMs = 10_000, catchTimeoutMs = 1_000, processTimeoutMs = 30_000, bandColumns = 120, bandRows = 10 } = config
     assertPositive('hookTimeoutMs', hookTimeoutMs)

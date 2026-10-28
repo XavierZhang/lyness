@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-module-deliverables",
   "description": "The turn deliverables default module as its own bundle: the changed-files recorder, its card, and the contributed present tool",
-  "version": "0.1.7-rc.2",
+  "version": "0.2.1-rc.3",
   "publishConfig": {
     "access": "public"
   },

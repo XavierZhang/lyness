@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Mandant je Anfrage",
+    "description": "Der Mandant, zu dem eine RPC-Anfrage gehört: einmal je Aufruf ermittelt und überall lesbar, wohin der Aufruf reicht."
+  }
+}

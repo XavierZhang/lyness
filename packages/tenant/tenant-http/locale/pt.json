@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Inquilino por pedido HTTP",
+    "description": "Determina a que inquilino pertence um pedido HTTP, pelo cabeçalho de inquilino, pelo nome de anfitrião ou por um identificador de subdomínio."
+  }
+}

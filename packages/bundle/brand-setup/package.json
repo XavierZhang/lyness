@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-brand-setup",
   "description": "The lyn brand-setup profile bundle: a loopback page an operator brands a deployment from, reached through a one-time token the command prints",
-  "version": "0.1.7-rc.2",
+  "version": "0.2.1-rc.3",
   "publishConfig": {
     "access": "public"
   },
@@ -18,12 +18,17 @@
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
     },
+    "./startup": {
+      "types": "./lib/types/startup.d.ts",
+      "default": "./lib/startup.js"
+    },
     "./cordis.patch.yml": "./cordis.patch.yml",
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
   "files": [
     "lib/index.js",
+    "lib/startup.js",
     "cordis.patch.yml",
     "lib/types/**/*.d.ts"
   ],
@@ -40,6 +45,7 @@
     "@lyness/lyn-host-brand-deployment": "workspace:*",
     "@lyness/lyn-host-webserver": "workspace:*",
     "@lyness/schemastery": "workspace:~",
+    "commander": "^15.0.0",
     "yaml": "^2.9.0"
   },
   "peerDependencies": {

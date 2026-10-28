@@ -30,6 +30,8 @@ flowchart LR
   cfg --> plugin_lyn_base_typert_loader
   plugin_lyn_base_typert_gateway["typert-gateway<br/>@lyness/lyn-api-gateway"]
   cfg --> plugin_lyn_base_typert_gateway
+  plugin_lyn_base_remote_access["remote-access<br/>@lyness/lyn-api-remote-access"]
+  cfg --> plugin_lyn_base_remote_access
   plugin_lyn_base_session_title["session-title<br/>@lyness/lyn-session-title"]
   cfg --> plugin_lyn_base_session_title
   plugin_lyn_base_session_title_llm["session-title-llm<br/>@lyness/lyn-session-title-first-prompt-llm"]
@@ -74,6 +76,8 @@ flowchart LR
   cfg --> plugin_lyn_base_storage_domain
   plugin_lyn_base_session_projection_cache["session-projection-cache<br/>@lyness/lyn-session-projection-cache"]
   cfg --> plugin_lyn_base_session_projection_cache
+  plugin_lyn_base_otel["otel<br/>@lyness/lyn-otel"]
+  cfg --> plugin_lyn_base_otel
   plugin_lyn_base_session_telemetry_otel["session-telemetry-otel<br/>@lyness/lyn-session-telemetry-otel"]
   cfg --> plugin_lyn_base_session_telemetry_otel
   plugin_lyn_base_approval["approval<br/>@lyness/lyn-user-approval"]
@@ -118,8 +122,6 @@ flowchart LR
   cfg --> plugin_lyn_base_subagent_fork_in_process
   plugin_lyn_base_tool_subagent_control["tool-subagent-control<br/>@lyness/lyn-tool-subagent-control"]
   cfg --> plugin_lyn_base_tool_subagent_control
-  plugin_lyn_base_tool_subagent_list_agents["tool-subagent-list-agents<br/>@lyness/lyn-tool-subagent-control/list-agents"]
-  cfg --> plugin_lyn_base_tool_subagent_list_agents
   plugin_lyn_base_tool_subagent["tool-subagent<br/>@lyness/lyn-tool-subagent"]
   cfg --> plugin_lyn_base_tool_subagent
   plugin_lyn_base_tool_subagent_fork["tool-subagent-fork<br/>@lyness/lyn-tool-subagent"]
@@ -146,6 +148,8 @@ flowchart LR
   cfg --> plugin_lyn_base_web
   plugin_lyn_base_web_search_deepseek["web-search-deepseek<br/>@lyness/lyn-web-search-deepseek"]
   cfg --> plugin_lyn_base_web_search_deepseek
+  plugin_lyn_base_web_deepseek_api["web-deepseek-api<br/>@lyness/lyn-web-deepseek-api"]
+  cfg --> plugin_lyn_base_web_deepseek_api
   plugin_lyn_base_web_fetch_http["web-fetch-http<br/>@lyness/lyn-web-fetch-http"]
   cfg --> plugin_lyn_base_web_fetch_http
   plugin_lyn_base_tool_web["tool-web<br/>@lyness/lyn-tool-web"]
@@ -177,6 +181,7 @@ flowchart LR
 | `typert` | `@lyness/lyn-typert-registry` |
 | `typert-loader` | `@lyness/lyn-typert-loader` |
 | `typert-gateway` | `@lyness/lyn-api-gateway` |
+| `remote-access` | `@lyness/lyn-api-remote-access` |
 | `session-title` | `@lyness/lyn-session-title` |
 | `session-title-llm` | `@lyness/lyn-session-title-first-prompt-llm` |
 | `user-questions` | `@lyness/lyn-user-questions` |
@@ -199,6 +204,7 @@ flowchart LR
 | `storage-json` | `@lyness/lyn-storage-json` |
 | `storage-domain` | `@lyness/lyn-storage-domain` |
 | `session-projection-cache` | `@lyness/lyn-session-projection-cache` |
+| `otel` | `@lyness/lyn-otel` |
 | `session-telemetry-otel` | `@lyness/lyn-session-telemetry-otel` |
 | `approval` | `@lyness/lyn-user-approval` |
 | `permission` | `@lyness/lyn-permission-presets` |
@@ -221,7 +227,6 @@ flowchart LR
 | `subagent-spawn-in-process` | `@lyness/lyn-subagent-spawn-in-process` |
 | `subagent-fork-in-process` | `@lyness/lyn-subagent-fork-in-process` |
 | `tool-subagent-control` | `@lyness/lyn-tool-subagent-control` |
-| `tool-subagent-list-agents` | `@lyness/lyn-tool-subagent-control/list-agents` |
 | `tool-subagent` | `@lyness/lyn-tool-subagent` |
 | `tool-subagent-fork` | `@lyness/lyn-tool-subagent` |
 | `timeout-policy` | `@lyness/lyn-tool-call-timeout-policy` |
@@ -235,6 +240,7 @@ flowchart LR
 | `repeat-tool-reminder` | `@lyness/lyn-repeat-tool-reminder` |
 | `web` | `@lyness/lyn-web` |
 | `web-search-deepseek` | `@lyness/lyn-web-search-deepseek` |
+| `web-deepseek-api` | `@lyness/lyn-web-deepseek-api` |
 | `web-fetch-http` | `@lyness/lyn-web-fetch-http` |
 | `tool-web` | `@lyness/lyn-tool-web` |
 | `mcp-resources` | `@lyness/lyn-mcp-resources` |

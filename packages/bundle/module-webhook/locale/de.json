@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Webhook-Eingang",
+    "description": "Verwandelt ein externes Ereignis in eine neue Agentensitzung, über Regeln, die eine Installation schreibt."
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "RPC für Mandantenkonfiguration",
+    "description": "Der aufrufende Mandant liest und speichert seine eigene Konfiguration."
+  }
+}

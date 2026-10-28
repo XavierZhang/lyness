@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Canaux de connexion",
+    "description": "Les canaux configurés qu’un déploiement sert, montés à partir de ce que ses administrateurs ont enregistré."
+  }
+}

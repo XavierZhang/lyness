@@ -17,6 +17,10 @@ const commitCandidate = /(?<![a-z0-9])[\da-f]{7,40}(?![a-z0-9])/gi
 // commits a merge has to be checked against, and the codemod's rule literals
 // are the upstream organization URL it rewrites. The codemod protects the first
 // two from rewriting for the same reason.
+// Lock files carry content digests and byte sizes, not references: a wheel's
+// recorded size is seven hex-looking digits that can abbreviate a commit by
+// arithmetic, and a digest is not a citation either.
+const lockFileNames = ['uv.lock', 'pnpm-lock.yaml', 'Cargo.lock', 'poetry.lock']
 const excludedPrefixes = ['vendor/', '.agents/notes/archived/', 'CUSTOM.md', '.fork/', 'scripts/rebrand.ts']
 const gitOutputLimit = 64 * 1024 * 1024
 // One 41-byte line per object; 1.2 million objects produce about 49 MiB.
@@ -33,6 +37,7 @@ export interface RepositoryReference {
 }
 
 function isMaintained(file: string): boolean {
+  if (lockFileNames.some(name => file === name || file.endsWith(`/${name}`))) return false
   return !excludedPrefixes.some(prefix => file.startsWith(prefix))
 }
 

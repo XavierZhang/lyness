@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-sign-in",
   "description": "Sign a person in through an external directory, admit them by a deployment's own rule, and establish their session",
-  "version": "0.1.7-rc.2",
+  "version": "0.2.1-rc.3",
   "publishConfig": {
     "access": "public"
   },

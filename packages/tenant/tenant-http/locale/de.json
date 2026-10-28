@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Mandant je HTTP-Anfrage",
+    "description": "Ermittelt, zu welchem Mandanten eine HTTP-Anfrage gehört, anhand des Mandanten-Headers, des Hostnamens oder einer Subdomain-Kennung."
+  }
+}

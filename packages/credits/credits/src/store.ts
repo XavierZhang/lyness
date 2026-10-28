@@ -96,6 +96,13 @@ export class StoredCreditLedger extends CreditLedger {
     this.policy = resolveConfig(config)
     this.ready = ctx.storageDomain.open(creditsDomain)
     this.budgets = ctx.storageDomain.open(budgetDomain)
+    // Observed at creation, not only in the disposer below: a teardown that
+    // begins while an open is still in flight rejects it, and Node reaches its
+    // unhandled-rejection checkpoint before the disposer awaits it — which the
+    // boot guard reports as a fatal load failure on a path that was already
+    // exiting. The handling stays in the disposer; this only stops the
+    // rejection from being unobserved until then.
+    for (const opening of [this.ready, this.budgets]) void opening.catch(() => {})
     ctx.effect(() => async () => {
       await this.chain // Failures reach their own callers; this only waits.
       await (await this.ready).close()

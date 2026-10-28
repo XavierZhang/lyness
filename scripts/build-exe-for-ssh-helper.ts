@@ -14,6 +14,14 @@ import { artifactManifestSchema, fileDigest, payloadFiles, SSH_HELPER_TARGETS, v
 import { probeHelper } from './ssh-helper/probe.ts'
 import { verifyNativePayload } from './ssh-helper/native.ts'
 
+/**
+ * Buffer for a git listing of the whole repository, which outgrew Node's 1 MiB
+ * default. `execFileSync` and `spawnSync` kill the child with SIGTERM and
+ * report `ENOBUFS` or a bare signal once a listing passes `maxBuffer`, so the
+ * failure reads as a hang rather than as a size.
+ */
+const LISTING_BUFFER_BYTES = 64 * 1024 * 1024
+
 const root = resolve(import.meta.dirname, '..')
 const closureDirectory = 'packages/ssh/ssh-helper-runtime'
 const closureName = '@lyness/lyn-ssh-helper-runtime'
@@ -155,7 +163,7 @@ export async function buildSshHelper(argv: string[]): Promise<void> {
     const metadata = artifactManifestSchema.parse({
       format: 1, version: definition.version, target,
       commit: execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim(),
-      dirty: execFileSync('git', ['status', '--porcelain'], { cwd: root, encoding: 'utf8' }).trim() !== '',
+      dirty: execFileSync('git', ['status', '--porcelain'], { cwd: root, encoding: 'utf8', maxBuffer: LISTING_BUFFER_BYTES }).trim() !== '',
       protocol: hello.protocol, nodeVersion: hello.nodeVersion,
       files: await Promise.all((await payloadFiles(product)).map(async path => ({
         path, sha256: await fileDigest(join(product, path)), mode: (await lstat(join(product, path))).mode & 0o777,

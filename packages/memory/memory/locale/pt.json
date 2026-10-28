@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Memória do agente",
+    "description": "Memória durável do agente: factos escritos explicitamente, incorporados como contexto de execução em cada pedido posterior."
+  }
+}

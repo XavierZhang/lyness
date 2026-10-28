@@ -142,6 +142,27 @@
     - id: settings-controller
       name: '@lyness/lyn-api-settings-controller'
 
+    # What this deployment has announced, read-only. Written where the
+    # deployment is configured, so a desktop install and a browser each read
+    # whatever their own server publishes.
+    - id: announcements
+      name: '@lyness/lyn-announcements/static'
+
+    - id: announcement-controller
+      name: '@lyness/lyn-api-announcement-controller'
+
+    # The credits namespace. It mounts on every deployment, metered or not: a
+    # deployment with no ledger answers `credits/unavailable`, which is what
+    # lets the Settings section say so instead of showing an empty balance.
+    - id: credits-controller
+      name: '@lyness/lyn-api-credits-controller'
+
+    # Who the viewer is, and what this deployment would let them sign in with.
+    # It mounts on every deployment, with accounts or without: a surface has
+    # to ask before it can know which of the two it is rendering.
+    - id: identity-controller
+      name: '@lyness/lyn-api-identity-controller'
+
     # Workspace commands and reconnect-safe projection over Typert Remote.
     - id: workspace-controller
       name: '@lyness/lyn-api-workspace-controller'
@@ -178,6 +199,16 @@
         compression: gzip
         compressionLevel: 1
         compressionThresholdBytes: 1024
+
+    # The deployment's own visual identity, mounted with nothing set: a served
+    # page keeps the built-in brand until a deployment's patch layer fills this
+    # row. Composition rather than user settings, because settings outrank
+    # composition and a deployment pins its identity against the people using
+    # it; this row registers no settings section, so nothing below the
+    # application reaches it. Applied per index response, so changing it is a
+    # patch edit and a restart, not a frontend rebuild.
+    - id: brand-deployment
+      name: '@lyness/lyn-host-brand-deployment'
 
     # Web glue owned by this bundle: resolves the built frontend dist (an
     # assembly fact of lyn-web-app, never user config), mounts the
@@ -300,6 +331,43 @@
 
     - id: ui-settings-general
       name: '@lyness/lyn-client-ui-settings-general'
+
+    - id: ui-settings-announcements
+      name: '@lyness/lyn-client-ui-settings-announcements'
+
+    - id: ui-settings-credits
+      name: '@lyness/lyn-client-ui-settings-credits'
+
+    # The channels an administrator configures at runtime. It renders a
+    # notice rather than a form where the deployment configures none or the
+    # caller may not, so the row is the same on every product shape.
+    - id: ui-settings-sign-in-channels
+      name: '@lyness/lyn-client-ui-settings-sign-in-channels'
+
+    # Who may use the deployment, maintained beside the channels they sign in
+    # through. Same notice-rather-than-form rule, so the row is the same on
+    # every product shape.
+    - id: ui-settings-people
+      name: '@lyness/lyn-client-ui-settings-people'
+
+    # The bots the organization runs, maintained beside the people: a bot
+    # holds a standing in the same roster, so the two pages answer the same
+    # question about different kinds of actor.
+    - id: ui-settings-bots
+      name: '@lyness/lyn-client-ui-settings-bots'
+
+    # The history of what either page changed, read-only because the trail is
+    # append-only: a page offering to edit an entry would offer something the
+    # deployment refuses. It renders a notice where no trail is kept, so the
+    # single-operator shape sees no change.
+    - id: ui-settings-history
+      name: '@lyness/lyn-client-ui-settings-history'
+
+    # The sign-in screen, and the row naming whose session this is. On a
+    # deployment with no accounts both render nothing, so the single-operator
+    # shape sees no change.
+    - id: ui-sign-in
+      name: '@lyness/lyn-client-ui-sign-in'
 
     - id: ui-settings-models
       name: '@lyness/lyn-client-ui-settings-models'

@@ -83,7 +83,7 @@ export class UserQuestionService extends TypertRemoteService {
   private readonly queuedReplies = new WeakMap<Session, Map<ToolCallId, QueuedReply>>()
 
   constructor(ctx: Context) {
-    super(ctx, 'userQuestions')
+    super(ctx, 'userQuestions', { requires: 'member' })
     ctx.effect(() => () => {
       for (const calls of this.waits.values()) {
         for (const wait of calls.values()) wait.close(abortedQuestion())

@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "RPC de configuração do inquilino",
+    "description": "O inquilino que chama lê e guarda a sua própria configuração."
+  }
+}

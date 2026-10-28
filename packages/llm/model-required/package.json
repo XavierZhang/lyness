@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-model-required",
   "description": "Refuse to serve a deployment that reaches no model, at the earliest point an empty registry is conclusive",
-  "version": "0.1.7-rc.2",
+  "version": "0.2.1-rc.3",
   "publishConfig": {
     "access": "public"
   },

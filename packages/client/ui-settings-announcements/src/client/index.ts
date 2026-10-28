@@ -22,7 +22,7 @@ import { AnnouncementsRow } from './AnnouncementsRow.tsx'
 import { RowBinding, rowFace } from './binding.ts'
 import { announcementsReadOf, createAnnouncementsReader } from './read.ts'
 import { createAnnouncementsRowStore } from './settings-store.ts'
-import { en, zh } from './locales.ts'
+import { de, en, es, fr, ja, pt, ru, zh } from './locales.ts'
 import type { AnnouncementsKey } from './locales.ts'
 
 export type { AnnouncementsKey } from './locales.ts'
@@ -49,7 +49,7 @@ export const inject = ['slots', 'locale', 'remote', 'remote.announcements']
  * @param ctx - client plugin context.
  */
 export function apply(ctx: Context): void {
-  ctx.effect(() => ctx.locale.register(NS, { en, zh }), 'announcements: dictionaries')
+  ctx.effect(() => ctx.locale.register(NS, { en, zh, ja, es, fr, de, ru, pt }), 'announcements: dictionaries')
   const store = createAnnouncementsRowStore()
   const binding = new RowBinding()
   const reader = createAnnouncementsReader(announcementsReadOf(ctx), binding)

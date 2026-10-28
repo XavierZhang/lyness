@@ -713,6 +713,17 @@ The bots this deployment stores, and the written ones they may not shadow.
 
 ```ts cordis-catalog
 /**
+ * The bot one conversation speaks as.
+ *
+ * This service owns the projection, so it answers for it: a reader that
+ * folded the key itself would carry a second copy of the fold and could
+ * disagree with the roster about what a session is.
+ * @param session - the conversation to read.
+ * @returns the bot it speaks as, or undefined when a person opened it.
+ */
+botOf(session: Session): EngagedBot | undefined
+
+/**
  * Declare one bot composition wrote.
  *
  * The provider that read the roster registers it, so this service can
@@ -843,7 +854,7 @@ async save(submission: BotSubmission, by: Membership): Promise<BotView>
 async remove(id: PersonId, by: Membership): Promise<void>
 ```
 
-Types: [PresetOption](permission-presets.md)
+Types: [PresetOption](permission-presets.md) · [Session](session.md)
 
 Source: [`packages/identity/managed-bots/src/index.ts`](../../packages/identity/managed-bots/src/index.ts)
 
@@ -1101,6 +1112,16 @@ Source: [`packages/tenant/tenant-request/src/types.ts`](../../packages/tenant/te
 Decide whether one call may see one conversation.
 
 ```ts cordis-catalog
+/**
+ * Whose conversation one session is.
+ *
+ * This service owns the projection, so it answers for it: a consumer that
+ * folded the key itself would carry a second copy of the fold.
+ * @param session - the session to attribute.
+ * @returns the record, or undefined for a session nobody is attributed to.
+ */
+ownerOf(session: Session): SessionOwnerRecord | undefined
+
 /**
  * Whether the call in progress may see one live conversation.
  *

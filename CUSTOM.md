@@ -37,6 +37,12 @@
 | 文件/目录 | 改了什么 | 为什么必须改官方文件 | 日期 |
 |---|---|---|---|
 | 全仓库 6000 个文件 | 品牌改名 | 改名本质上无法用新增文件表达 | 2026-08-31 |
+| `packages/bundle/brand-setup/{src/startup.ts,cordis.patch.yml,package.json}` | 新增 startup provider 接管命令行；服务行改为注入它，行 id 从全局必需的 `webserver` 改为 `brand-setup-webserver` | `brand-setup --help` 原本会真的起服务并绑端口、永不退出，`gen-cli-help` 因此一直挂住。`web-app` 同形只是靠「退出赢过必需项审计」这个时序侥幸，不能照抄 | 2026-10-28 |
+| `packages/bundle/brand-studio/src/index.ts` | `--asset-dir` 的默认值不再在构建命令时求值 | `lynHomePath('brand')` 把**本机临时目录的绝对路径**印进帮助文本，`gen-cli-help` 每次生成结果都不同 | 2026-10-28 |
+| `apps/cli/package.json` | 补 `module-accounts`、`module-credits`、`web-execution` 三个依赖；`hooks-claude-code`／`hooks-codex` 从 `dependencies` 移回 `devDependencies` | `hosted` 与 `enterprise` 模板选中那三个 bundle，但安装依赖里没有，启动器只是**警告跳过**——于是 hosted 形态实际上没有账户与积分 | 2026-10-28 |
+| `packages/credits/credits/src/store.ts` | 两个 readiness promise 在创建处就被观察 | `--help` 退出时若 storage open 还在飞行中，其拒绝会先触发 Node 的未处理拒绝，被 boot 守卫报成 `fatal load failure`。上游 7 个同形插件未改，只改实际会触发的这一个 | 2026-10-28 |
+| `scripts/verify-repository-references.ts` | 排除 lock 文件 | wheel 记录的字节数恰好是 7 位十六进制、又恰好缩写成本仓库某个 commit，纯随机碰撞 | 2026-10-28 |
+| `scripts/{gen-cordis-catalog,gen-doc-graphs,verify-product-use,product-package-policy,verify-brand-placeholders,doc-budgets.manifest}.ts` 等 | 登记 `brandSetupStartup`／`SessionOwnerRecord`；布尔字面量读取；15 条产品包分类；署名行 7 语言豁免；预算清单去重 | 新增 `ctx` 服务与新增包都要逐表登记，这些表都是写死的映射 | 2026-10-28 |
 | `scripts/verify-public-repository-links.spec.ts` | 失效仓库名改为片段拼接 | 整串字面量被 `slug` 规则改写，门禁会去查一个从未被链接过的仓库 | 2026-09-12 |
 | `scripts/lint-rule-fingerprint.spec.ts` | 三条 sha256 指纹 | `.oxlintrc.json` 有一句规则提示文案含包名，被改名后哈希变化；规则数 89/88/84 与上游一致，可证规则集未变 | 2026-09-12 |
 | `packages/bundle/base/tests/base.spec.ts` | 遥测默认值断言改为 `DISABLED` + 空端点 | 上游 0.1.5 新增此测试钉住自己的默认值；改为钉住本 fork 的，它就成了遥测守卫 | 2026-09-12 |
@@ -313,6 +319,11 @@ codemod 只改文本和路径。下面这些是它改完之后必然过期、必
 | `followShippedTemplate` | `boot/app-boot/src/profile.ts` | 恢复。桌面端的插件 profile 靠它跟随 `web` 模板 |
 | `SessionProjectionStateMap`（及 `checkpointState` 对它的引用） | `session/session-projection/src/types.ts` | 恢复类型与 index 的 import／export，并在 `gen-cordis-catalog.ts` 的 `linkedTypePages` 重新登记 |
 | `StartOptions` 的 re-export | `client/ui-workspace/src/client/index.ts` | 上游已用 `StartSessionOptions` 取代，改为导出它 |
+| `web-app/cordis.patch.yml` 里 fork 的 **12 行组装** | 公告／公告 RPC／积分 RPC／身份 RPC／部署品牌，以及 7 个客户端 UI 行（公告・积分・登录渠道・人员・机器人・历史・登录屏） | 整份文件被上游版本取代。按上游新结构逐块放回；依赖本来就都在 `web-app/package.json` 里，**所以只丢了行、没丢依赖，`pnpm install` 一声不响** |
+| `base/cordis.patch.yml` 的 `api-remote-access` 行 | 上游注释写着「Gateway requires it」 | 补回。fork 的 `workspace-controller` 与 `session-controller` 都 `inject: ['remoteAccess']`，缺它则**整个 API 控制面挂不起来**，包括所有者裁定的双过滤取交集 |
+| `base/cordis.patch.yml` 的 `otel` 行 | 上游 0.2.1 新拆出的传输提供者 | 补回（见下「遥测」一节）。`session-telemetry-otel` 声明 `inject: ['sessions','otel']`，缺它时 fork 那条遥测守卫钉在一条**永不激活**的行上 |
+| `base/cordis.patch.yml` 的 `web-deepseek-api` 行 | 上游在 `web-search-deepseek` 之后挂它 | 补回。缺它时 `verify-product-use` 报该包「无产品运行时使用」 |
+| `no-unknown-casts.baseline.json` 里上游的 **19 条指纹** | 13 个文件 | 基线是清单不是代码，取两代并集后再 `--prune` 到树里实际内容（518 文件／1061 指纹） |
 
 **并集对代码是错的工具，只对清单管用。** 并集按冲突块保留两侧，于是同一个函数会出现两份
 签名、同一个作用域的 `}` 会丢掉。本轮 14 个 `.ts`／`.tsx` 因此**连语法都不成立**，而
@@ -330,6 +341,33 @@ git merge-file -p --diff3 ours base theirs > merged     # --diff3 把 base 也�
 `ui-settings-models` 的一个用例就是上游删除、我方恰好改过它，只看两侧会误判成两边都要留。
 文件在当前树里是分叉命名、三个 blob 是官方命名，所以解完要单独改名；`renamePath(f, RULES, true)`
 能把分叉路径换算回官方路径去取 blob。
+
+**第四类：同一个段落的两代被并排留下。** Markdown 里没有冲突标记，读起来像两句话。
+`verify-md-wrap`（它要求一个段落占一个物理行）会把它报成「折行」，所以报错措辞指向的不是真问题。
+本轮 22 处（11 对中英），分布在 8 个文档。**两代常常各对一半**，不能二选一：
+`web-app/README` 一行说默认 preset 是 `standard`、另一行说是 `work`，而
+`cordis.patch.yml` 写的是 `default: standard`，`session_*` 工具却确实只在 `work`／`build` 里——
+只能按代码事实重写。判定哪一行属哪一代，用 `difflib` 对两个父提交的同名文件各算一次相似度即可
+（本轮 9 处判定全部一致：第一行是上游、第二行是 fork）。
+同一批报错里还混着**丢了段间空行的两个不同段落**（3 处），那是补空行，不是合并残留——先分类再动手。
+
+**第五类：JSON 对象里同一个键留了两代，解析器取后者。** `scripts/doc-budgets.manifest.json`
+同时带着两代的 `AGENTS.md`／`docs/AGENTS.md`／`docs/architecture.md`，于是上游调高的
+`docs/AGENTS.md` 上限与调低的 `architecture` 上限被静默吃掉，fork 自己的
+`docs/defensive-patterns.md` 那条则随上游拆成目录而丢失。扫法：对每个 JSON 按对象深度统计键名，
+3770 个文件里就这一处。
+
+**第二类无声损坏：同一条语句的两代被并排插入。** 并集在语句级也会出事，而且语法合法、
+typecheck 也过，只在运行时炸。本轮两处构造函数各被插入了**两次 `super(...)`**——上游那行带
+`namespace`，fork 那行带 `requires`——第二次调用在运行时抛
+`Super constructor may only be called once`，于是 `ScheduleService` 与 `WorkspaceController`
+根本构造不出来。查法是一次 AST 扫描（找构造函数里 `super()` 调用数 > 1），6660 个文件里就这两处。
+
+**第三类：同一个数组字面量里被串接了两代清单。** 也是语法合法。`run-gates.spec.ts` 的 hygiene
+期望清单、`gen-tool-catalog.spec.ts` 的工具名清单都被串成了「上游那代 + fork 那代」。查法：
+扫描所有元素全为字符串字面量的数组，找其中**重复出现的连续片段**（长度 ≥ 4）——6660 个文件
+3 处命中、1 处是真问题，误报是「两轮 × 四节点」这类本就重复的用例。改之前先把两代清单与
+代码的真实输出做差集，确认并集没有丢项（工具集 73 = 68 ∪ 70，一个没少）。
 
 **语法扫描当门禁**：合并后先用 TypeScript 的 `createSourceFile` 把全树 parse 一遍
 （6660 个文件几秒钟），一次列全被拼坏的文件，不要让 install／生成器逐个暴露。
@@ -372,12 +410,132 @@ git merge-file -p --diff3 ours base theirs > merged     # --diff3 把 base 也�
 | `escapeInstructionFrameBody` 周边：上游把 `heading` 提成了文件而非渲染后的字符串 | 保留分叉返回 `{text, neutralized}` 的版本（标记要报告被中和的分隔符），按上游的形状在需要字符串处渲染 |
 | `PROFILE_TEMPLATES`／`ProfileTemplate` 迁入 `lyn-official-bundles` | `brand-studio` 与 `apps/desktop` 改从新包导入，并补上 workspace 依赖与 tsconfig references |
 
+### 未解决：`session/created` 监听器里不能再 append（上游 0.2.1 新约束）
+
+上游给 Session 加了一条新前置条件：`announcement` 未到 `complete` 之前 append 直接抛
+`session "<id>" cannot append before session/created completes`
+（`packages/core/session/src/index.ts`，fork 那一代没有这条）。而 `complete` 是在
+**`session/created` 的所有监听器跑完之后**才置位的。
+
+本 fork 有两个插件正是在那个监听器里同步写入，于是全部失败：
+
+| 插件 | 写什么 |
+|---|---|
+| `identity/session-ownership` | `session/owner`——会话归属 |
+| `tenant/tenant-session` | `tenant/identity`——租户戳记 |
+
+连带 64 个测试失败，分布在 `session-ownership`、`tenant-session`、`bot-ask`、
+`api-session-controller`、`api-bots-controller`、`api-workspace-controller`、`api-gateway`。
+**合并前这一批是 351 个失败，本轮已降到 64 个，且本轮没有引入任何新失败**（用
+`git stash` 对照同一命令验证过）。
+
+要改的是戳记的时机，不是改回那条约束：两处都要从「在创建监听器里同步 append」改成
+「在创建完成之后写第一条」。这是设计改动，不是机械修复，留待下一步处理。
+
 ### 本轮跟随上游退役的机制
 
 | 退役的 | 上游怎么做的 | 我们怎么做的 |
 |---|---|---|
 | `packages/runtime-diagnostics/invariants`（`./invariant` 机制） | 0.2.1 整体移除：包、`packages/AGENTS.md` 里的规则、`verify-package-invariants` 门禁，三者一起 | 跟随移除。合并只留下 2 个孤立 i18n 记录和 3 行 manifest 依赖，一并清掉；没有悬挂引用 |
 | `packages/subagent/subagent-in-process-driver` | 删除该包，自己的 `subagent-spawn-in-process` manifest 也不再列它 | 跟随移除 |
+
+### 裁定：六个包的默认开关（2026-10-28，由 fork 所有者裁定）
+
+上游 0.2.1 把 `tool-ralph`、`tool-terminal`、`tool-session-query`、`skill-badge`、`webhook`、
+`webhook-github` 六个包移进 `packages/experimental/`，并在自己**所有** bundle 里一处都不再引用——
+它们整体退出了上游的默认产品，改由 `OPTIONAL_BUNDLES` 里默认关闭的 experimental bundle 承载。
+本 fork 的 `web`／`enterprise`／`hosted` profile 仍默认带着它们，于是 `constraints` 与
+`verify-default-product-isolation` 同时报错（实验包不得进入默认产品）。
+
+**裁定：把这六个包移出 `packages/experimental/`，留在默认产品里。** 理由是 lyness 既要兼容
+「一切皆插件」，也要让企业**拿来就用**——其中几项是对标竞品后加进默认能力的，默认界面也依赖它们。
+落点回到 fork 原来的产品目录：
+
+| 包 | 从 | 到 |
+|---|---|---|
+| `tool-ralph` | `packages/experimental/` | `packages/workflow/` |
+| `tool-terminal` | 同上 | `packages/terminal/` |
+| `tool-session-query` | 同上 | `packages/session-query/` |
+| `webhook`、`webhook-github` | 同上 | `packages/webhook/`（组 README 一并从 fork 原状恢复） |
+| `skill-badge` | 同上 | `packages/skill/` |
+
+**代价要记住：这六个包此后每次同步都会冲突**（上游的目录布局与我们相反）。连带要改的声明：
+`experimental-package-policy.ts` 的 6 条保名例外要删、`tsconfig.base.json` 与 `tsconfig.host.json`
+的 paths、`no-unknown-casts.baseline.json`、`gen-tool-catalog.ts`、
+`verify-package-readme-model-experience.ts`、`docs/persistence-schema.json`、
+`.github/workflows/ci-windows.yml` 与两个 e2e 的路径（本轮共 56 处）。
+
+`webhook` 与 `webhook-github` 虽在默认产品目录里，但 `module-webhook` 的两行**出厂即关闭**
+（GitHub 适配器有四个必填字段，其一是共享密钥的凭据引用；启用即是会创建根会话的公开 HTTP 入站），
+所以它们在 `PRODUCT_PACKAGE_POLICY` 里登记为 `optional` 并写明这个理由。
+
+### 裁定：遥测提供者 `otel`（2026-10-28，由 fork 所有者裁定）
+
+上游 0.2.1 把 OTLP 传输拆成独立的 `packages/telemetry/otel`（服务自述「挂载不创建队列、身份或
+网络连接」），两个消费者都 `inject` 它：
+
+- `session-telemetry-otel` —— 上传**对话本身**，仅在用户显式给出反馈时触发，带匿名用户 id。
+  这一条是本 fork 刻意关掉的（`mode: DISABLED` + 空端点，见「品牌替换清单」与「故意删除」两表）。
+- `host-product-telemetry-otel` + `client-product-analytics` —— 上传**使用事件**（事件名、环境
+  元数据、`device_id`／`user_id`／`app_version`），**不含对话内容**，仅桌面 profile，端点只来自
+  `LYNESS_PRODUCT_ANALYTICS_OTLP_URL`，**无出厂默认值**。
+
+`base/cordis.patch.yml` 里 `otel` 那一行在合并中丢了，于是两条链路都不激活：会话上传本来就关着
+没差别，但 fork 自己写了 `enabled: true` 的桌面产品分析**静默失效**，而守卫测试钉在一条永不运行
+的行上。
+
+**裁定：补回 `otel` 行，并把守卫从「盯配置值」升级为「盯行为」。** 新增
+`packages/bundle/base/tests/telemetry-silence.spec.ts`：读出厂行的配置、按 Loader 的方式求值
+`!!js`、接上真实的 `node:http` collector、走一遍 `recordFeedback`，断言**零外发**；同一文件里
+另有一条反向用例（显式 `FEEDBACK_ONLY` + 本地端点）证明这个守卫确实会红——否则它对一个「从不
+导出」的后端也会通过，什么都证明不了。第三条用例断言桌面产品分析行的 `endpoint` 在默认环境下
+为 `undefined`，上游若回填厂商默认值即失败。
+
+### 裁定：11 个 Remote 命名空间的 `requires`（2026-10-28，由 fork 所有者裁定）
+
+合并带进来 11 个未声明 `requires` 的命名空间（fork 自有门禁 `verify-remote-authority` 要求每个
+都声明）。**裁定：10 个 `member`，`remoteAccess` 用 `anyone`。**
+
+`schedule`、`userQuestions`、`pluginRecommendations`、`cuaAccess`、`cotTranslation`、
+`claudeCodeMods`、`actionCards`、`productAnalytics`、`pluginMarket`、`workspaceController`
+都是「已登录的人为自己行事」→ `member`。`remoteAccess` 是访问控制服务本身，要向尚未确认身份的
+peer 回答「你能做什么」，和早已声明 `anyone` 的 `identityController` 同理 → `anyone`。
+现在 46 个命名空间全部声明了所需身份。
+
+### 本轮的新门禁适配（上游 0.2.1 新增，fork 侧首次面对）
+
+| 上游新门禁 | fork 侧要做什么 |
+|---|---|
+| `verify-product-use`（每个非实验包都要有产品运行时挂载，或显式分类） | 15 条 `PRODUCT_PACKAGE_POLICY`：整个 tenant 缝 9 条（台账「租户能力缝」一行写着**不挂载即单租户**，正对应 `optional`）、`microsoft-entra`／`desktop-link`／`fs-desktop`／`ui-brand-official` 各 1 条、`e2e-target` 归 `test`。另外删掉上游对 `agent-tool-presentation` 的 `optional` 声明——fork 的 `work`／`build` preset 真的挂了它。该门禁的字面量读取器不认布尔，给它补了 `TrueKeyword`／`FalseKeyword` 分支（fork 的 `ProfileTemplate` 有 `hosted` 字段） |
+| `verify-locale-metadata`（每个声明 Cordis 插件的包都要有 `locale/*.json`，八种出厂语言齐备） | 44 个 fork 包补全 8 种、12 个 module bundle 补 6 种，共 **424 个文件**。约定：插件包 `en.json` 只带目录名作标题，说明从 `zh.json` 出并译成其余 6 种；bundle 的 `en` 自带标题与说明 |
+| 出厂语言从 2 种增到 8 种（`SHIPPED_LOCALE_IDS` 加了 ja/es/fr/de/ru/pt） | 8 个 fork 客户端包的 `locales.ts` 各补 6 份词典并改注册；插件开发手册 `guide-locales.ts` 也补齐 6 份，并让 `locales.ts` 按语言取对应那一份（原先 6 种统一铺 `guideEn`） |
+| `verify-brand-placeholders`（fork 自有，但合并带进大量新文案） | 388 处字面品牌名改为占位符（`LYN`→`{brandAbbr}`、`lyness`→`{brandName}`、`领驭`→`{brandNameZh}`），用门禁自己的 AST 判据改写以免误伤包名。署名行 `poweredBy` 刻意保留字面名，7 种语言全部登记进 `DELIBERATE` |
+
+另有两处与门禁无关、但属同类的修复：`ui-shortcuts` 的 6 个语言把 `{brandName}` 译成了
+「harness」这个普通名词（el arnés／le harnais／chicote），改回占位符；`ui-plugin-manager` 的
+`reasonIncompatibleVersion` 在 6 个语言里仍用上游改名前的 `{requirements}`，统一为 `{peers}`
+并补回上游新增的末句。
+
+### 上游把笔记移进 archive 时，改名的旧账会变成「被改动的冻结件」
+
+codemod 的 `PROTECTED` 已经冻结 `.agents/notes/archived/`，但那只保护**当时已在**归档里的文件。
+上游若把一条笔记从 `implemented/` 移进 `archived/`，而本 fork 早先在它还可改时已经改过名，
+移动之后它就成了一件「内容与封印不符」的冻结件，`verify-archived-agent-notes` 报
+`sealed content hash changed`，而 `--write` 只增不改、修不了它。
+
+本轮两条：`architecture/2026-06-21-mandatory-app-attribution-headers` 与
+`feature/2026-09-23-language-neutral-default-workspace-naming`。处理办法是**还原成上游原文**
+（`git show <upstream>:<path> > <path>`），因为归档笔记记的是写下时为真的事，不随改名走。
+
+顺带看清了一处改名的语义误伤：那条笔记写的是 `User-Agent` 里的**线上标识** `deepseek-harness`，
+codemod 把它当产品名改成了 `DeepSeek Harness`——标识与产品名是两回事，改了意思就变了。
+归档树以外若还有同类线上标识，属于「请求扩展字段名 ⛔」那一类，应进屏蔽规则而不是改名。
+
+### 我自己引入的缺陷（记下来免得重犯）
+
+把 `LISTING_BUFFER_BYTES` 追加在文件末尾——`const` 不提升，`main()` 在它之前调用，
+于是 `rescope-vendor` 报 `ReferenceError: Cannot access 'LISTING_BUFFER_BYTES' before initialization`。
+五个脚本同一个写法，全部移到 import 之后。
 
 ### 2026-09-10 合并方法（2151 个提交的处理方式）
 

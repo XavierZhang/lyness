@@ -28,6 +28,7 @@ This group contains one session service and one shell backend. Each child README
 |---|---|---|
 | [`terminal/`](terminal/README.md) | Session service: owner-scoped sessions with opaque ids, exact-owner fencing, and awaited cleanup | `ctx.terminals` |
 | [`terminal-bash/`](terminal-bash/README.md) | Shell backend: interactive bash or pwsh under the shared sandbox policy, with readiness detection and bounded output | registers a backend on `ctx.terminals` |
+| [`tool-terminal/`](tool-terminal/README.md) | Gives the model the persistent-terminal tools over the session service | registers on `ctx.tools` |
 
 -----
 
@@ -40,7 +41,7 @@ Start with the subsystem reference for the shared types and the service surface,
 - [Persistent PTY Agent Note](../../.agents/notes/implemented/feature/2026-07-16-persistent-pty-sessions.md) — the design decision, alternatives, and deferred work.
 - [Capability seams](../../docs/capability-seams.md) — the Service Definition / Service Provider / Consumer split this family follows.
 
-See [`tool-terminal`](../experimental/tool-terminal/README.md) for the experimental optional capability.
+See [`tool-terminal`](../terminal/tool-terminal/README.md) for the experimental optional capability.
 
 <a id="dev-note"></a>
 ## Dev Note

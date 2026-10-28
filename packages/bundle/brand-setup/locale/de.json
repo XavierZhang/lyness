@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Markeneinrichtung",
+    "description": "Eine Loopback-Seite, von der ein Betreiber eine Installation mit einer Marke versieht, erreichbar über ein Einmaltoken, das der Befehl ausgibt."
+  }
+}

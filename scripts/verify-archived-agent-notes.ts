@@ -13,6 +13,14 @@ import {
   type ArchiveManifest,
 } from './archived-agent-notes.ts'
 
+/**
+ * Buffer for a git listing of the whole repository, which outgrew Node's 1 MiB
+ * default. `execFileSync` and `spawnSync` kill the child with SIGTERM and
+ * report `ENOBUFS` or a bare signal once a listing passes `maxBuffer`, so the
+ * failure reads as a hang rather than as a size.
+ */
+const LISTING_BUFFER_BYTES = 64 * 1024 * 1024
+
 const args = process.argv.slice(2)
 const writeMode = args.length === 1 && args[0] === '--write'
 if (args.length > 0 && !writeMode) {
@@ -59,7 +67,7 @@ for (const kind of AGENT_NOTE_CLASSES) {
 errors.push(...validateArchiveArtifacts(artifacts))
 
 function runGit(args: string[]): string {
-  const result = spawnSync('git', args, { cwd: repoRoot, encoding: 'utf8' })
+  const result = spawnSync('git', args, { cwd: repoRoot, encoding: 'utf8', maxBuffer: LISTING_BUFFER_BYTES })
   if (result.error !== undefined) throw result.error
   if (result.status !== 0) throw new Error(result.stderr.trim() || `git exited with status ${result.status}`)
   return result.stdout

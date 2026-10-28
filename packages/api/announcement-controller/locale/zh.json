@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "公告 RPC",
+    "description": "把一个部署自己的公告，经认证的 Remote 暴露出去。"
+  }
+}

@@ -88,8 +88,7 @@ lyn --profile web --no-open --host "$(hostname -i | awk '{print $1}')" --public-
 
 ### 按会话的 agent 设置
 
-每个浏览器会话选择一个随发行版交付的 preset（默认 `standard`）。Agent 预设设置页可更改默认项并编辑预设的子插件；保存结果持久化到 `$LYNESS_HOME/profiles/web/cordis.patch.yml`。只有 Host 提供可编辑的 profile 时，标准模式和 Creator 才会启用插件管理工具。
-每个浏览器会话选择一个随发行版交付的 preset（默认 `work`）。`work` 与 `build` 两个 preset 带 `session_*` 检索工具，而 Web 补丁把派生搜索索引设为 `first-search` 打开，让它们有东西可读；官方四种模式所用的那四个 preset id 保持上游的工具集。Agent 预设设置页可更改默认项并编辑预设的子插件；保存结果持久化到 `$LYNESS_HOME/profiles/web/cordis.patch.yml`。只有 Host 提供可编辑的 profile 时，Creator 的插件管理工具才会启用。
+每个浏览器会话选择一个随发行版交付的 preset（默认 `standard`，由 `agent-preset-registry` 行给出）。`work` 与 `build` 两个 preset 带 `session_*` 检索工具，启用内容搜索的部署把派生索引改为在 `first-search` 时打开，让它们有东西可读。Agent 预设设置页可更改默认项并编辑预设的子插件；保存结果持久化到 `$LYNESS_HOME/profiles/web/cordis.patch.yml`。凡带插件管理工具的 preset，都只在 Host 提供可编辑 profile 时启用它。
 
 -----
 
@@ -99,8 +98,7 @@ lyn --profile web --no-open --host "$(hostname -i | awk '{print $1}')" --public-
 <details>
 <summary>实现细节——点击展开</summary>
 
-此 bundle 由一层五个文件的补丁和一个运行时胶水插件组成：`cordis.patch.yml` 承载宿主行和 preset 注册表，每个 `presets/<id>.patch.yml` 插入一条随发行版交付的 preset 声明，按 `lyn.bundle.patch` 列出的顺序应用。存储栈与投影缓存来自 `lyn-base`；Web 叠加层的工作区和消息反馈条目消费共享的 `storageDomain` 服务。补丁重述 base 有意省略的界面专用值，插入 Web 专用宿主条目和浏览器插件列表，再将 Agent 层移到预设后面。胶水插件负责 dist 服务、公告应用 URL、明文 HTTP 暴露警告、bash 变量和就绪通知。`office-to-pdf` 条目为宿主消费者挂载一个延迟创建引擎的 [Office 转换提供方](../../document/office-to-pdf/README.zh.md)，使用此 bundle 的 Desktop 组合也共享该提供方。 转换服务的 Remote 方法负责预览读取授权，Document Preview 负责 Office 查看器和客户端缓存。
-此 bundle 由一层七个文件的补丁和一个运行时胶水插件组成：`cordis.patch.yml` 承载宿主行和 preset 注册表，每个 `presets/<id>.patch.yml` 插入一条随发行版交付的 preset 声明，按 `lyn.bundle.patch` 列出的顺序应用。存储栈与投影缓存来自 `lyn-base`；Web 叠加层的工作区和消息反馈条目消费共享的 `storageDomain` 服务。补丁重述 base 有意省略的界面专用值，插入 Web 专用宿主条目和浏览器插件列表，再将 Agent 层移到预设后面。胶水插件负责 dist 服务、信任采样、提示词段落、bash 变量和就绪通知。`office-to-pdf` 条目为宿主消费者挂载一个延迟创建引擎的 [Office 转换提供方](../../document/office-to-pdf/README.zh.md)，使用此 bundle 的 Desktop 组合也共享该提供方。 转换服务的 Remote 方法负责预览读取授权，Document Preview 负责 Office 查看器和客户端缓存。
+此 bundle 由一层七个文件的补丁和一个运行时胶水插件组成：`cordis.patch.yml` 承载宿主行和 preset 注册表，每个 `presets/<id>.patch.yml` 插入一条随发行版交付的 preset 声明，按 `lyn.bundle.patch` 列出的顺序应用。存储栈与投影缓存来自 `lyn-base`；Web 覆盖层的工作区行与消息反馈行消费那个共享的 `storageDomain` 服务。该补丁重述基础层刻意省略的、属于本界面的值，插入仅限 Web 的宿主行与浏览器名册，再把 agent 面移到 preset 背后。胶水插件负责 dist 服务、`frontend-static` 兜底、对外公布的应用 URL、非环回暴露警告、bash 变量，以及就绪播报。`office-to-pdf` 行为宿主侧消费方挂载一个惰性的 [Office 转换提供方](../../document/office-to-pdf/README.zh.md)，包含使用本 bundle 的桌面组合。转换服务的 Remote 方法为预览读取授权，而文档预览自己拥有 Office 查看器与客户端缓存。
 
 ### patch 语义
 

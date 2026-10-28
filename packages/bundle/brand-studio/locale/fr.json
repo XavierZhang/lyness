@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Studio de marque",
+    "description": "Génère la marque d’un déploiement à partir d’un PNG d’icône et d’une police, puis l’applique à un profil."
+  }
+}

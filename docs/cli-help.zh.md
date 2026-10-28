@@ -14,10 +14,12 @@
 - [`lyn`](#lyn)
 - [`lyn plugin`](#lyn-plugin)
 - [`lyn acp`](#lyn-acp)
+- [`lyn brand-setup`](#lyn-brand-setup)
+- [`lyn brand-studio`](#lyn-brand-studio)
+- [`lyn enterprise`](#lyn-enterprise)
 - [`lyn headless`](#lyn-headless)
 - [`lyn sdk`](#lyn-sdk)
 - [`lyn sdk-minimal`](#lyn-sdk-minimal)
-- [`lyn web`](#lyn-web)
 
 <a id="lyn"></a>
 ## `lyn`
@@ -28,8 +30,8 @@
 Usage: lyn [--profile] <name> [options] [app-args...]
        lyn plugin --profile <name> <pnpm-args...>
 
-lyn: boot a lyness profile — an ordered stack of plugin-bundle patch
-layers under your own overrides.
+lyn: boot a lyness profile — an ordered stack of plugin-bundle patch layers
+under your own overrides.
 
 Arguments:
   args                           arguments for the booted profile's app (see:
@@ -96,6 +98,115 @@ Options:
 
 Example:
   lyn --profile acp     serve ACP until the client disconnects
+
+```
+
+<a id="lyn-brand-setup"></a>
+## `lyn brand-setup`
+
+调用方式: `lyn brand-setup --help`, `lyn --profile brand-setup --help`
+
+```text
+Usage: brand-setup [options]
+
+brand a deployment from a loopback page, reachable only through the token this
+command prints
+
+Options:
+  --port <port>  loopback port to bind; omitted takes an OS-assigned one
+  -h, --help     show this help
+
+Examples:
+  lyn --profile brand-setup
+  lyn --profile brand-setup --port 7345
+
+The page binds 127.0.0.1 only and ends with this process. It is reachable
+solely through the one-time token printed on start, so nothing on the network
+can reach it and no second visitor can.
+
+```
+
+<a id="lyn-brand-studio"></a>
+## `lyn brand-studio`
+
+调用方式: `lyn brand-studio --help`, `lyn --profile brand-studio --help`
+
+```text
+Usage: lyn --profile brand-studio [options]
+
+Generate a deployment brand from an icon PNG and a font, and apply it to a
+profile.
+
+Options:
+  --name <text>          product name, typeset as the wordmark
+  --icon <png>           icon PNG: at least 1024px a side, a dark mark on a
+                         light or transparent background
+  --abbreviation <text>  short form product copy abbreviates to; omit to
+                         abbreviate to the product name
+  --name-zh <text>       Chinese product name; omit to use the product name in
+                         Chinese copy
+  --font <file>          the brand owner's TTF, OTF, WOFF, or WOFF2 font; omit
+                         to use the built-in fonts
+  --theme-color <color>  brand colour as a hex colour or a colour keyword
+  --color <token=value>  replace one palette token; repeat for more (black,
+                         blue, blueDark, cyan, white, gray50, gray200, gray600,
+                         gray900, success, warning, error, info) (default: [])
+  --asset-dir <dir>      directory receiving the generated SVGs; defaults to
+                         'brand' under the harness home
+  --target <profile>     profile whose patch layer receives the brand (default:
+                         "web")
+  --accept-trademark     confirm that the name and the icon infringe no
+                         trademark
+  --accept-font-license  confirm that your license for the font permits using
+                         its glyphs in a logo
+  -h, --help             show this help
+
+Examples:
+  lyn --profile brand-studio --name 领驭 --icon ./lyness.png --accept-trademark
+  lyn --profile brand-studio --name Acme --icon ./acme.png --font ./AcmeSans-Bold.otf \
+    --theme-color '#1a73e8' --accept-trademark --accept-font-license
+  lyn --profile brand-studio --name 'Acme Agent' --abbreviation ACME --name-zh 艾可 \
+    --icon ./acme.png --color blue=#1a73e8 --color blueDark=#11418a --accept-trademark
+
+```
+
+<a id="lyn-enterprise"></a>
+## `lyn enterprise`
+
+调用方式: `lyn enterprise --help`, `lyn --profile enterprise --help`, `lyn hosted --help`, `lyn --profile hosted --help`, `lyn web --help`, `lyn --profile web --help`
+
+```text
+Usage: lyn --profile web [options]
+
+Serve the lyness browser UI.
+
+Options:
+  --host <host>                  bind address: one concrete IPv4 or IPv6 literal
+                                 of a local interface; wildcard addresses are
+                                 rejected
+  --no-open                      do not open the Web UI in the default browser
+  --port <port>                  listen port; pass 0 to let the OS pick a free
+                                 one
+  --public-url <url>             advertise this HTTP(S) root in the printed,
+                                 opened, runtime-context, and LYNESS_WEB_URL
+                                 forms; grants no trust
+  --trusted-host <authority...>  extra authority the /api browser-trust fence
+                                 accepts (host or host:port; repeatable)
+  --tls-cert <file>              PEM server certificate chain; requires
+                                 --tls-key
+  --tls-key <file>               unencrypted PEM private key; requires
+                                 --tls-cert
+  -h, --help                     show this help
+
+Examples:
+  lyn --profile web                          serve on the composed host and port
+  lyn --profile web --no-open                serve without opening a browser
+  lyn --profile web --port 8080              serve on another port
+  lyn --profile web --host 10.0.0.7          bind one local interface address
+  lyn --profile web --public-url https://app.example/ui/ --trusted-host app.example
+                                             advertise a prefix-stripping HTTPS proxy entry and admit its authority
+  lyn --profile web --tls-cert ./server-chain.pem --tls-key ./server-key.pem
+                                             serve HTTPS with an existing certificate and key
 
 ```
 
@@ -169,45 +280,5 @@ Options:
 
 Example:
   lyn --profile sdk-minimal     serve one SDK runtime until its client disconnects
-
-```
-
-<a id="lyn-web"></a>
-## `lyn web`
-
-调用方式: `lyn web --help`, `lyn --profile web --help`
-
-```text
-Usage: lyn --profile web [options]
-
-Serve the lyness browser UI.
-
-Options:
-  --host <host>                  bind address: one concrete IPv4 or IPv6 literal
-                                 of a local interface; wildcard addresses are
-                                 rejected
-  --no-open                      do not open the Web UI in the default browser
-  --port <port>                  listen port; pass 0 to let the OS pick a free
-                                 one
-  --public-url <url>             advertise this HTTP(S) root in the printed,
-                                 opened, runtime-context, and LYNESS_WEB_URL forms;
-                                 grants no trust
-  --trusted-host <authority...>  extra authority the /api browser-trust fence
-                                 accepts (host or host:port; repeatable)
-  --tls-cert <file>              PEM server certificate chain; requires
-                                 --tls-key
-  --tls-key <file>               unencrypted PEM private key; requires
-                                 --tls-cert
-  -h, --help                     show this help
-
-Examples:
-  lyn --profile web                          serve on the composed host and port
-  lyn --profile web --no-open                serve without opening a browser
-  lyn --profile web --port 8080              serve on another port
-  lyn --profile web --host 10.0.0.7          bind one local interface address
-  lyn --profile web --public-url https://app.example/ui/ --trusted-host app.example
-                                             advertise a prefix-stripping HTTPS proxy entry and admit its authority
-  lyn --profile web --tls-cert ./server-chain.pem --tls-key ./server-key.pem
-                                             serve HTTPS with an existing certificate and key
 
 ```

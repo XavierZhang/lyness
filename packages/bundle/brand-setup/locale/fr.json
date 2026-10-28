@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Configuration de la marque",
+    "description": "Une page en boucle locale depuis laquelle un opérateur personnalise la marque d’un déploiement, atteinte via un jeton à usage unique affiché par la commande."
+  }
+}

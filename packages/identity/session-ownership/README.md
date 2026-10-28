@@ -40,12 +40,12 @@ A reader asks the session:
 ```ts
 import type { Context } from '@lyness/cordis'
 import type { Session } from '@lyness/lyn-session'
-import { ownerOf } from '@lyness/lyn-session-ownership'
+import type {} from '@lyness/lyn-session-ownership/visibility'
 
 declare const ctx: Context
 declare const session: Session
 
-const owner = ownerOf(ctx, session)
+const owner = ctx.sessionVisibility.ownerOf(session)
 if (owner !== undefined) {
   // owner.owner is the person; owner.membership is the standing, when there was one
   void owner

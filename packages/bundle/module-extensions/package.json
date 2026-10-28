@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-module-extensions",
   "description": "The runtime self-modification default module as its own bundle: the Cordis runners, the process-global inspect providers, and the browser view",
-  "version": "0.1.7-rc.2",
+  "version": "0.2.1-rc.3",
   "publishConfig": {
     "access": "public"
   },

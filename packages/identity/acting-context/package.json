@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-acting-context",
   "description": "Resolve and check the context one call acts in: stated, held, and permitted by the address",
-  "version": "0.1.7-rc.2",
+  "version": "0.2.1-rc.3",
   "publishConfig": {
     "access": "public"
   },

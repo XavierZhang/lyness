@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Côté navigateur de la connexion",
+    "description": "La moitié de la connexion côté navigateur : les routes de connexion, de retour, de liste des canaux et de déconnexion, et le cookie de session."
+  }
+}

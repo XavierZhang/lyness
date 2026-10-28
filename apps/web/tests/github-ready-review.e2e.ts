@@ -22,7 +22,7 @@ import {
 import { saveFailureShot } from './support.ts'
 
 const MODE = webSnapshotMode()
-const OVERLAY = fileURLToPath(new URL('../../../packages/experimental/webhook-github/examples/github-review/cordis.yml', import.meta.url))
+const OVERLAY = fileURLToPath(new URL('../../../packages/webhook/webhook-github/examples/github-review/cordis.yml', import.meta.url))
 const EXPECTED = fileURLToPath(new URL('./expected/github-ready-review/conversation.expected.md', import.meta.url))
 const EXPANDED_EXPECTED = fileURLToPath(
   new URL('./expected/github-ready-review/conversation-expanded.expected.md', import.meta.url),
@@ -95,8 +95,8 @@ describe.skipIf(MODE === 'record')('web e2e: GitHub ready-for-review', () => {
     scaffold = await launchWebScaffold({
       extraOverlayPath: OVERLAY,
       profile: { packages: [
-        { dir: fileURLToPath(new URL('../../../packages/experimental/webhook', import.meta.url)) },
-        { dir: fileURLToPath(new URL('../../../packages/experimental/webhook-github', import.meta.url)) },
+        { dir: fileURLToPath(new URL('../../../packages/webhook/webhook', import.meta.url)) },
+        { dir: fileURLToPath(new URL('../../../packages/webhook/webhook-github', import.meta.url)) },
       ] },
     })
     scaffold.ctx.effect(

@@ -22,8 +22,8 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@lyness/lyn-api-gateway` | yes | Typert Remote Host dispatcher and Client API endpoint |
 | `@lyness/lyn-api-identity-controller` | no | Who the caller is, and what this deployment would let them sign in with |
 | `@lyness/lyn-api-job-controller` | yes | Job Remote observation stream and the reference-counted client job-output service |
-| `@lyness/lyn-api-remote-access` | no | Method-level Remote access control for non-owner Peers and the per-Peer access snapshot |
 | `@lyness/lyn-api-people-controller` | no | Remote owner of the people surface: administrators maintain who may use a deployment and which directory identity each of them is |
+| `@lyness/lyn-api-remote-access` | no | Method-level Remote access control for non-owner Peers and the per-Peer access snapshot |
 | `@lyness/lyn-api-remote-authority` | no | Whether one Remote call may be served, decided once where every wire call passes through |
 | `@lyness/lyn-api-remotes` | no | Remote BFF assembly for application-selected Host capabilities |
 | `@lyness/lyn-api-session-controller` | yes | Session Remote commands, cold reads, and live control transport |
@@ -244,12 +244,6 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@lyness/lyn-hooks-codex` | yes | Bridge plugin: run a Codex hooks.json hook config on the lyness interception seams |
 | `@lyness/lyn-plugin-recommendations` | no | Official plugin suggestions with explicit user activation and persistent conversation decisions |
 | `@lyness/lyn-session-title-all-prompts-llm` | yes | All-user-messages LLM provider plugin for lyness session titles |
-| `@lyness/lyn-skill-badge` | no | Bundled lyn badge skill provider for lyness |
-| `@lyness/lyn-tool-ralph` | yes | Model-facing fresh-agent Ralph loop over the workflow and subagent seams |
-| `@lyness/lyn-tool-session-query` | yes | Workspace-authorized model-facing session history search, trace, and event read tools |
-| `@lyness/lyn-tool-terminal` | yes | Six model-facing persistent PTY tools with owner isolation and generic background-job integration |
-| `@lyness/lyn-webhook` | no | Fire-and-forget webhook rule runtime that creates Workspace-backed lyness Sessions |
-| `@lyness/lyn-webhook-github` | yes | Signed GitHub HTTP webhook adapter for the lyness webhook runtime |
 
 ## extensions
 
@@ -440,6 +434,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 |---|---|---|
 | `@lyness/lyn-session-log-export` | yes | Web Session-log ZIP export and Session Markdown copy |
 | `@lyness/lyn-session-query-sqlite` | yes | Concrete ctx.sessionQuery backend with SQLite FTS5 search |
+| `@lyness/lyn-tool-session-query` | yes | Workspace-authorized model-facing session history search, trace, and event read tools |
 
 ## settings
 
@@ -466,6 +461,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | Package | Config | Description |
 |---|---|---|
 | `@lyness/lyn-skill` | yes | Agent skill provider registry for the lyness |
+| `@lyness/lyn-skill-badge` | no | Bundled lyn badge skill provider for lyness |
 | `@lyness/lyn-skill-filesystem` | yes | Local filesystem skill provider for the lyness |
 | `@lyness/lyn-skill-office` | yes | Bundled Word, PowerPoint, and Excel workflows and LibreOffice Kit operations |
 | `@lyness/lyn-tool-skill` | yes | Model-facing skill loading tool for the lyness |
@@ -521,6 +517,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | Package | Config | Description |
 |---|---|---|
 | `@lyness/lyn-otel` | no | Cordis service for independent ordinary-event and byte-bounded Session-log OTLP channels |
+
 ## tenant
 
 | Package | Config | Description |
@@ -538,6 +535,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 |---|---|---|
 | `@lyness/lyn-terminal` | no | Persistent PTY session seam for the lyness — owner-scoped ids, backend registry, interactive sends, reads, signals, and awaited cleanup |
 | `@lyness/lyn-terminal-bash` | yes | Persistent shell PTY backend over the lyness subprocess terminal primitive |
+| `@lyness/lyn-tool-terminal` | yes | Six model-facing persistent PTY tools with owner isolation and generic background-job integration |
 
 ## test-support
 
@@ -578,10 +576,18 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@lyness/lyn-web-search-exa` | yes | Exa-backed search provider for the lyness web capability seam (ctx.web) |
 | `@lyness/lyn-web-search-perplexity` | yes | Perplexity-backed search provider for the lyness web capability seam (ctx.web) |
 
+## webhook
+
+| Package | Config | Description |
+|---|---|---|
+| `@lyness/lyn-webhook` | no | Fire-and-forget webhook rule runtime that creates Workspace-backed lyness Sessions |
+| `@lyness/lyn-webhook-github` | yes | Signed GitHub HTTP webhook adapter for the lyness webhook runtime |
+
 ## workflow
 
 | Package | Config | Description |
 |---|---|---|
+| `@lyness/lyn-tool-ralph` | yes | Model-facing fresh-agent Ralph loop over the workflow and subagent seams |
 | `@lyness/lyn-tool-workflow` | yes | Model-facing workflow tool: run a JavaScript orchestration script over ctx.workflowEngine |
 | `@lyness/lyn-workflow-ptc` | yes | Workflow orchestration in the shared sandboxed Node PTC runtime |
 

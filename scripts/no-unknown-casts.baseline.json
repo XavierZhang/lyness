@@ -584,7 +584,6 @@
   },
   "packages/client/ui-settings-models/tests/apply.client.spec.ts": {
     "0464c472dfc74994388bf63a6b3c110df506ce44fe47a5040e93c67a5eb3b4ae": 1,
-    "04984a2ce1486250236e638e0197da0a1a840855ed3975c59130a85358c7e5fe": 4,
     "04984a2ce1486250236e638e0197da0a1a840855ed3975c59130a85358c7e5fe": 3,
     "5c8c41ba658c0576bea6c34b1226c27e7b0328c03c9eea0d6c920f940c9d8f5b": 1
   },
@@ -1108,40 +1107,40 @@
   "packages/experimental/ptc-runtime-python/src/index.ts": {
     "b121cee14635b00f7891217013e4682493cf96f676710be60722fdf8b862aea3": 1
   },
-  "packages/experimental/tool-ralph/src/index.ts": {
+  "packages/workflow/tool-ralph/src/index.ts": {
     "6fe9024d30e0d4757a348b83d246925b3f5aeaf2e79a0eff4bf12f3c9fb5826b": 1,
     "cec7714d93bd00a87b261199e97562ce99a73ae4b4e2414728d874d24bfed7a4": 1
   },
-  "packages/experimental/tool-ralph/tests/tool-ralph.spec.ts": {
+  "packages/workflow/tool-ralph/tests/tool-ralph.spec.ts": {
     "47df8a1ea0e482122f196eb20bb3ae93a50e59d7c80d822c5e8a29efd1c05eb8": 1
   },
-  "packages/experimental/tool-session-query/tests/sqlite-integration.spec.ts": {
+  "packages/session-query/tool-session-query/tests/sqlite-integration.spec.ts": {
     "a66cea6887fa5e33f4d504a7899fcb4b99d79958f6aed01288af1ad6ff557298": 1
   },
-  "packages/experimental/tool-session-query/tests/tool-session-query.spec.ts": {
+  "packages/session-query/tool-session-query/tests/tool-session-query.spec.ts": {
     "0ec8a91117e78ae941807094fc63035e115a3e02412917e632be4f34dbfddc62": 1,
     "6370792878103b8fe2963dfeb036963572c1da2bb6dd7fcc10681be1c866b490": 1,
     "a66cea6887fa5e33f4d504a7899fcb4b99d79958f6aed01288af1ad6ff557298": 1
   },
-  "packages/experimental/tool-terminal/tests/loader-composition.spec.ts": {
+  "packages/terminal/tool-terminal/tests/loader-composition.spec.ts": {
     "59c63f734e8bba862325f776e3fcbebd78a84cfb4161f8df41c216950d9bf351": 1
   },
-  "packages/experimental/webhook-github/tests/body.spec.ts": {
+  "packages/webhook/webhook-github/tests/body.spec.ts": {
     "130dbbbe723b0d72d5a736596b3513f42b65a6e3909164b05bce810393f36b96": 1
   },
-  "packages/experimental/webhook-github/tests/handler.spec.ts": {
+  "packages/webhook/webhook-github/tests/handler.spec.ts": {
     "171a57417a610abfca8b6ef7c8a8bfe71a2c5cc27f6a52158bb9de709d51c234": 1,
     "981ca4f4ab5668c2c8d0d0bddf9bff66535bbdd27c8bb47816a83e610b60432f": 1,
     "e60b9922c7a65986547062e8ce78ac09d83b0c0ac9533030deed3a596d3067b3": 2,
     "f4fa3c346edf323b9d6e18fa1fc720d828de054c14daf95822308634e0e7fe15": 1
   },
-  "packages/experimental/webhook-github/tests/loader-composition.spec.ts": {
+  "packages/webhook/webhook-github/tests/loader-composition.spec.ts": {
     "59c63f734e8bba862325f776e3fcbebd78a84cfb4161f8df41c216950d9bf351": 1
   },
-  "packages/experimental/webhook/tests/loader-composition.spec.ts": {
+  "packages/webhook/webhook/tests/loader-composition.spec.ts": {
     "59c63f734e8bba862325f776e3fcbebd78a84cfb4161f8df41c216950d9bf351": 1
   },
-  "packages/experimental/webhook/tests/session.spec.ts": {
+  "packages/webhook/webhook/tests/session.spec.ts": {
     "febbe0687d7079e44a15b802235157043bad5a5f188348db89fe00f50532bee8": 1
   },
   "packages/experimental/webworker-packer/src/preview.ts": {
@@ -1776,20 +1775,6 @@
   "packages/subagent/subagent-codex/tests/subagent-codex.spec.ts": {
     "fa05a5e504ed74b5a07cb6281c787b507eb6c44db768803f4dad034dd69cb3b9": 1
   },
-  "packages/subagent/subagent-in-process-driver/src/structured.ts": {
-    "2994ddac72096564a65b1d11cfe50c5b5f21de0cca775ed7b758d031b9a4df99": 1
-  },
-  "packages/subagent/subagent-in-process-driver/tests/structured.spec.ts": {
-    "647bbba1ee35ea6acd23faa1e2988e24c49f0284be571ab3e716ab36a11cc38c": 1,
-    "fd4628b951a78392c07e54a33588263377c3c85c90dc33ce0b7f78e904b1c2ad": 1
-  },
-  "packages/subagent/subagent-in-process-driver/tests/subagent-in-process-driver.spec.ts": {
-    "5bc99a74ad50605215a43105e8b5d19ab8126149a99bcafcb6cf20c9992874d4": 1,
-    "69d9dd6917cd45e70ef0ed273bea2e4a01fef7cb808458a7f0606b90f260cb2b": 1,
-    "79d2d214c7600ab9023c27b97ec626b9e3ce33f0b42f3f6233dfd142387fbdcf": 1,
-    "996a2d673209758e45b46af235339d8dccc9d20cfea97ea34f536d3ed8842812": 1,
-    "b50b6842b3565ea7f1441afb3214ab0ccf027df0e44bb485005935849c46f8ea": 1
-  },
   "packages/subagent/subagent-lyn-sdk/tests/subagent-lyn-sdk.spec.ts": {
     "daa15206e19d6a8fbae646d678889b2e6933ece824e48dd06c95d2096861d5c1": 2,
     "f77e5cbd2d2d911087f7faecc4b0b5bffdfb44ca5d0bcf7823ba9777feca7799": 1
@@ -2037,7 +2022,9 @@
   },
   "packages/typert/protocol/tests/protocol.spec.ts": {
     "418fc1acbd1aac8b6b9ba1ac25f30a4fc33d632e372085c73f396e76b9da883a": 1,
-    "539af7158f6057075289d3b1543bd5b692887755287d81f91d9b9c7cc14cf9cb": 1
+    "539af7158f6057075289d3b1543bd5b692887755287d81f91d9b9c7cc14cf9cb": 1,
+    "85021e9043b64008437cb4721acb1d64ad952c14aba76bc8059ba791b35c338b": 1,
+    "bed642b9b6ba281ec23215acf40fc1a7fe90046adaf01ddefa5741603325d0df": 1
   },
   "packages/typert/registry/tests/typert.spec.ts": {
     "caba799eb76218e59277c6f2147e73dd798ef9a0e3dfa15b9d11cc4c04bc1abe": 1

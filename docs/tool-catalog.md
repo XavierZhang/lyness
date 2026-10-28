@@ -44,6 +44,7 @@ This table connects model-visible tool names to the plugin package and service s
 | `@lyness/lyn-tool-subagent-control` | `interrupt_agent`, `list_agents`, `send_message` | `ctx.tools`, `ctx.subagents`, `ctx.agents` | `tool/call`, `tool/result`, `child session events through ctx.subagents` | - | The globally named discovery, interruption, and local-message tools over managed subagents: provider-bound `tool-subagent` instances register distinct delegation tools, while one instance of this package registers `send_message`, `interrupt_agent`, and `list_agents`. |
 | `@lyness/lyn-tool-jobs` | `job_kill`, `job_list`, `job_output` | `ctx.tools`, `ctx.jobs`, `ctx.systemPrompt` | `tool/call`, `tool/result`, `user/message via agent.inject() for background completion notices` | - | The kind-agnostic background-job controller: background bash commands and PTY sends are read, listed, and killed through the same three tools. Loading the plugin attaches the controller that arms producers' `ctx.jobs.start()`. |
 | `@lyness/lyn-experimental-tool-agent-team` | `interrupt_agent`, `list_agents`, `send_message`, `spawn_teammate`, `team_task_create`, `team_task_get`, `team_task_list`, `team_task_update`, `wait_agent` | `ctx.tools`, `ctx.systemPrompt`, `ctx.agentTeams`, `an exact live Team member Agent` | `tool/call`, `team/member`, `team/task`, `agent/inbox/spliced`, `user/message on inbox claim`, `tool/result` | - | All nine tools are scoped to implicit Team Leads and durable teammates. The shipped lyn-base bundle keeps the package disabled; the documented Agent Teams profile patch enables it while disabling the legacy continuable-child control names. |
+| `@lyness/lyn-bot-ask` | `ask_teammate`, `hold_discussion`, `list_teammates` | `ctx.tools`, `ctx.botAsk`, `ctx.botRoom`, `ctx.managedBots`, `ctx.sessionProjections`, `a calling Agent` | `tool/call`, `bot/asked`, `bot/answered`, `room/opened`, `room/said`, `room/concluded`, `tool/result` | - | Contributed into every preset that accepts rows rather than mounted as a preset row, because a patch cannot add one tool to a preset whose whole row list it would have to restate. Both an ask and a discussion run their turns in sessions of the teammates' own, so the tokens they spend are those sessions' and the calling request receives only the answer or the conclusion. |
 | `@lyness/lyn-tool-todo` | `todo_write` | `ctx.tools`, `owning Agent session` | `tool/call`, `todo/write`, `tool/result` | - | todo_write is session-owned state; UIs render the latest todo/write event as a checklist. `allowParallelInProgress` is required with no default, so the catalog states its choice: `true`, whose description invites several `in_progress` items. A deployment choosing `false` receives the same tool with a description asking for exactly one active task. |
 | `@lyness/lyn-tool-working-directory` | `working_directory` | `ctx.tools`, `ctx.workingDirectory` | `tool/call`, `working-directory/change`, `user context for directory changes`, `tool/result` | - | Reads or changes the calling Session directory. Existing shells and processes retain their own directories; origin metadata and permission roots stay fixed. |
 | `@lyness/lyn-experimental-tool-worktree` | `create_worktree` | `ctx.tools`, `ctx.worktrees`, `a calling Agent` | `tool/call`, `Git branch and checkout`, `working-directory/change`, `tool/result` | - | Explicit experimental composition only. Creates a new branch and checkout from a pinned local commit under existing write permissions, then changes the Session directory. Leaving retains the branch and checkout. |
@@ -1239,7 +1240,7 @@ Close one persistent terminal and wait until its captured owned process tree is 
 }
 ```
 
-Source: [`packages/experimental/tool-terminal/src/index.ts`](../packages/experimental/tool-terminal/src/index.ts)
+Source: [`packages/terminal/tool-terminal/src/index.ts`](../packages/terminal/tool-terminal/src/index.ts)
 
 ### `terminal_list`
 
@@ -1252,7 +1253,7 @@ List persistent terminal sessions owned by the current agent.
 }
 ```
 
-Source: [`packages/experimental/tool-terminal/src/index.ts`](../packages/experimental/tool-terminal/src/index.ts)
+Source: [`packages/terminal/tool-terminal/src/index.ts`](../packages/terminal/tool-terminal/src/index.ts)
 
 ### `terminal_open`
 
@@ -1281,7 +1282,7 @@ Create a persistent, owner-isolated terminal session from a registered backend t
 }
 ```
 
-Source: [`packages/experimental/tool-terminal/src/index.ts`](../packages/experimental/tool-terminal/src/index.ts)
+Source: [`packages/terminal/tool-terminal/src/index.ts`](../packages/terminal/tool-terminal/src/index.ts)
 
 ### `terminal_read`
 
@@ -1310,7 +1311,7 @@ Read a bounded page of retained output from a persistent terminal without sendin
 }
 ```
 
-Source: [`packages/experimental/tool-terminal/src/index.ts`](../packages/experimental/tool-terminal/src/index.ts)
+Source: [`packages/terminal/tool-terminal/src/index.ts`](../packages/terminal/tool-terminal/src/index.ts)
 
 ### `terminal_send`
 
@@ -1344,7 +1345,7 @@ Send text to a persistent terminal. By default Enter is submitted and the call w
 }
 ```
 
-Source: [`packages/experimental/tool-terminal/src/index.ts`](../packages/experimental/tool-terminal/src/index.ts)
+Source: [`packages/terminal/tool-terminal/src/index.ts`](../packages/terminal/tool-terminal/src/index.ts)
 
 ### `terminal_signal`
 
@@ -1377,7 +1378,7 @@ Send an allowed signal to the current foreground process group of a persistent t
 }
 ```
 
-Source: [`packages/experimental/tool-terminal/src/index.ts`](../packages/experimental/tool-terminal/src/index.ts)
+Source: [`packages/terminal/tool-terminal/src/index.ts`](../packages/terminal/tool-terminal/src/index.ts)
 
 The six terminal tools are opt-in and complement one-shot shell/filesystem tools. `terminal_send(run_in_background: true)` registers with `ctx.jobs`; TUI, named key sequences, BEL, resize, auto-start, and cross-agent sharing are absent from the schema.
 
@@ -1843,7 +1844,7 @@ Run a foreground fresh-agent Ralph loop toward one immutable objective. Use only
 }
 ```
 
-Source: [`packages/experimental/tool-ralph/src/index.ts`](../packages/experimental/tool-ralph/src/index.ts)
+Source: [`packages/workflow/tool-ralph/src/index.ts`](../packages/workflow/tool-ralph/src/index.ts)
 
 A fixed foreground workflow starts one fresh structured child per round; the model selects only the immutable objective and an optional round cap.
 
@@ -1907,7 +1908,7 @@ Read one full unabridged event and optional neighboring raw-event summaries from
 }
 ```
 
-Source: [`packages/experimental/tool-session-query/src/index.ts`](../packages/experimental/tool-session-query/src/index.ts)
+Source: [`packages/session-query/tool-session-query/src/index.ts`](../packages/session-query/tool-session-query/src/index.ts)
 
 ### `session_event_search`
 
@@ -1967,7 +1968,7 @@ Search prior events in one authorized session; the current session excludes the 
 }
 ```
 
-Source: [`packages/experimental/tool-session-query/src/index.ts`](../packages/experimental/tool-session-query/src/index.ts)
+Source: [`packages/session-query/tool-session-query/src/index.ts`](../packages/session-query/tool-session-query/src/index.ts)
 
 ### `session_event_trace`
 
@@ -1992,7 +1993,7 @@ Read every direct replacement and relationship to a cited source event for one e
 }
 ```
 
-Source: [`packages/experimental/tool-session-query/src/index.ts`](../packages/experimental/tool-session-query/src/index.ts)
+Source: [`packages/session-query/tool-session-query/src/index.ts`](../packages/session-query/tool-session-query/src/index.ts)
 
 ### `session_search`
 
@@ -2085,7 +2086,7 @@ Search prior sessions in the caller workspace and return the strongest matching 
 }
 ```
 
-Source: [`packages/experimental/tool-session-query/src/index.ts`](../packages/experimental/tool-session-query/src/index.ts)
+Source: [`packages/session-query/tool-session-query/src/index.ts`](../packages/session-query/tool-session-query/src/index.ts)
 
 ### `session_trace`
 
@@ -2103,7 +2104,7 @@ Read the authorized session lineage around one session, including complete visib
 }
 ```
 
-Source: [`packages/experimental/tool-session-query/src/index.ts`](../packages/experimental/tool-session-query/src/index.ts)
+Source: [`packages/session-query/tool-session-query/src/index.ts`](../packages/session-query/tool-session-query/src/index.ts)
 
 The five read-only tools hide provider cursors and authorize every result from the immutable calling agent session. The package is opt-in; compositions that need enforced deadlines or bounded inline output also mount the generic timeout or spill policies.
 
@@ -2647,6 +2648,85 @@ Wait for the next teammate status, message, or shared-task change after this cal
 Source: [`packages/experimental/tool-agent-team/src/index.ts`](../packages/experimental/tool-agent-team/src/index.ts)
 
 All nine tools are scoped to implicit Team Leads and durable teammates. The shipped lyn-base bundle keeps the package disabled; the documented Agent Teams profile patch enables it while disabling the legacy continuable-child control names.
+
+<a id="lynesslyn-bot-ask"></a>
+
+## `@lyness/lyn-bot-ask`
+
+### `ask_teammate`
+
+Ask one of your teammates a question and wait for its answer. It answers in a conversation of its own, with its own character and tools, and decides what to tell you. You receive prose written for your question — never its conversations. Both sides record the question and the answer.
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "teammate": {
+      "type": "string",
+      "description": "The id of a bot from list_teammates."
+    },
+    "question": {
+      "type": "string",
+      "description": "What to ask it. Include whatever context it needs: it cannot see your conversation."
+    }
+  },
+  "required": [
+    "teammate",
+    "question"
+  ]
+}
+```
+
+Source: [`packages/identity/bot-ask/src/tool.ts`](../packages/identity/bot-ask/src/tool.ts)
+
+### `hold_discussion`
+
+Discuss one question with several teammates at once and wait for the conclusion. Everyone speaks in turn, once per round, reading what was said before them; you speak first each round. A deployment chairs at most 5 rounds, and asking for more simply runs fewer. The conclusion is written by the chair from what was said, not by any participant. Use this when one answer is not enough because the teammates would disagree; use ask_teammate otherwise.
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "participants": {
+      "type": "array",
+      "description": "The ids of teammates from list_teammates. You are added as the first speaker.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "question": {
+      "type": "string",
+      "description": "What to discuss. Include whatever context it needs: nobody can see your conversation."
+    },
+    "rounds": {
+      "type": "number",
+      "description": "How many times each participant speaks, from 1 to 5."
+    }
+  },
+  "required": [
+    "participants",
+    "question",
+    "rounds"
+  ]
+}
+```
+
+Source: [`packages/identity/bot-ask/src/tool.ts`](../packages/identity/bot-ask/src/tool.ts)
+
+### `list_teammates`
+
+List the bots you may ask. Each entry says what that bot is for and how it answers, so you can pick the one whose job covers your question. You cannot see any of their conversations.
+
+```json
+{
+  "type": "object",
+  "properties": {}
+}
+```
+
+Source: [`packages/identity/bot-ask/src/tool.ts`](../packages/identity/bot-ask/src/tool.ts)
+
+Contributed into every preset that accepts rows rather than mounted as a preset row, because a patch cannot add one tool to a preset whose whole row list it would have to restate. Both an ask and a discussion run their turns in sessions of the teammates' own, so the tokens they spend are those sessions' and the calling request receives only the answer or the conclusion.
 
 <a id="lynesslyn-tool-todo"></a>
 

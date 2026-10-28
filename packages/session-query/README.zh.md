@@ -29,6 +29,7 @@ kind: "package-group"
 | [`session-query/`](session-query/README.zh.md) | 统一的会话历史查询服务：精确读取、关系追踪与过滤 | `ctx.sessionQuery` |
 | [`session-query-sqlite/`](session-query-sqlite/README.zh.md) | 基于 SQLite FTS5 索引的会话历史全文搜索 | 注册到 `ctx.sessionQuery` |
 | [`session-log-export/`](session-log-export/README.zh.md) | Web `/export` 命令与浏览器下载会话 ZIP | `ctx.sessionLogDownload`（浏览器） |
+| [`tool-session-query/`](tool-session-query/README.zh.md) | 把经 Workspace 授权的会话搜索、追踪与事件读取交给模型 | 注册到 `ctx.tools` |
 
 -----
 
@@ -37,7 +38,7 @@ kind: "package-group"
 
 先从子系统参考了解共享的查询词汇，再看追踪与搜索背后的设计记录。
 
-默认 Web 和 Desktop 使用这套共享查询、索引与导出基础设施。[实验性面向模型工具](../experimental/tool-session-query/README.zh.md)是独立的可选消费方。
+默认 Web 和 Desktop 使用这套共享查询、索引与导出基础设施。[实验性面向模型工具](../session-query/tool-session-query/README.zh.md)是独立的可选消费方。
 
 - [会话查询子系统参考](../../docs/subsystems/session-query.zh.md)——逻辑记录、过滤器、搜索页、血缘、有界读取与事件关系。
 - [会话查询关系追踪](../../.agents/notes/archived/feature/2026-07-13-session-query-tracing.md)——追踪语义与校验边界。

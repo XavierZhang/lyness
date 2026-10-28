@@ -46,14 +46,14 @@ The selected layer adds its global tools to every Agent in the Host, in every pr
 <a id="further-exploration"></a>
 ## Further Exploration
 
-[Capability implementation](../tool-terminal/README.md)
+[Capability implementation](../../terminal/tool-terminal/README.md)
 
 -----
 
 <a id="model-experience"></a>
 ## Model Experience
 
-Indirectly, through the [capability implementation](../tool-terminal/README.md), which owns model context and results.
+Indirectly, through the [capability implementation](../../terminal/tool-terminal/README.md), which owns model context and results.
 
 #### KV Cache effect
 

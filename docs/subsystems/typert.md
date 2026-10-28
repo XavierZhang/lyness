@@ -344,6 +344,12 @@ interface RemoteScopeOptions<WireArgs extends readonly unknown[] = never> {
    * access control never checks a resource they omit.
    */
   readonly resources?: TypertResourceReaders<WireArgs>
+  /**
+   * The standing this one method requires, where it differs from its
+   * namespace's. Raising it is the common case: one write, or one operation
+   * that reaches the machine, inside a namespace members otherwise read.
+   */
+  readonly requires?: RemoteAuthority
 }
 ```
 

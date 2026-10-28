@@ -79,6 +79,7 @@
     "@lyness/lyn-session-projection-cache": "workspace:*",
     "@lyness/lyn-session-query-sqlite": "workspace:*",
     "@lyness/lyn-session-telemetry-otel": "workspace:*",
+    "@lyness/lyn-skill-badge": "workspace:*",
     "@lyness/lyn-session-title": "workspace:*",
     "@lyness/lyn-session-title-first-prompt-llm": "workspace:*",
     "@lyness/lyn-settings": "workspace:*",
@@ -124,6 +125,7 @@
     "@lyness/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:~"
+    "@lyness/cordis": "workspace:~",
+    "@lyness/cordis-plugin-loader": "workspace:~"
   }
 }

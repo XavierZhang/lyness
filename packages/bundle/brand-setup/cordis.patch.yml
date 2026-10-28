@@ -5,10 +5,21 @@
 # writes a profile's patch layer and must not be reachable from the network.
 
 - insert:
-    - id: webserver
+    # The invocation provider owns the command line, so `--help` and a rejected
+    # flag write their text and exit before anything binds: the server row below
+    # injects what this row provides, and an invocation that provides nothing
+    # leaves that row inactive rather than opening a port to print help.
+    - id: brand-setup-startup
+      name: '@lyness/lyn-brand-setup/startup'
+    # Not the global `webserver` id: that id is on the required-entry list, and
+    # this row deliberately does not activate for `--help`. Under its own id a
+    # help run exits quietly, while a genuine failure still surfaces — the
+    # brand-setup row below waits for `webServer` and the diagnostic names it.
+    - id: brand-setup-webserver
       name: '@lyness/lyn-host-webserver'
+      inject: [brandSetupStartup]
       config:
-        host: 127.0.0.1
-        port: 0
+        host: !!js ctx.brandSetupStartup.host
+        port: !!js ctx.brandSetupStartup.port
     - id: brand-setup
       name: '@lyness/lyn-brand-setup'

@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Desktop-Dateisystem",
+    "description": "Die Dateien, an denen der Agent arbeitet, liegen auf dem eigenen Rechner der Person, nicht auf dem des Servers."
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Interface des réglages des personnes",
+    "description": "La section des personnes dans les réglages : qui peut utiliser un déploiement et quelle identité d’annuaire correspond à chacun, géré à l’exécution."
+  }
+}

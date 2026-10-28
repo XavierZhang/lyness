@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Inquilino por petición",
+    "description": "El inquilino al que pertenece una petición RPC: resuelto una vez por llamada y legible desde todo lo que la llamada alcanza."
+  }
+}

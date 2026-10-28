@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Memória durável",
+    "description": "Factos que o agente mantém entre sessões, escritos apenas por um ato explícito."
+  }
+}

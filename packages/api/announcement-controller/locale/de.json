@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "RPC für Ankündigungen",
+    "description": "Stellt die eigenen Ankündigungen einer Installation über ein authentifiziertes Remote bereit."
+  }
+}

@@ -1,91 +1,15 @@
 {
   "formatVersion": 2,
   "roots": [
-    {
-      "key": "event:session/owner",
-      "kind": "event",
-      "event": "session/owner",
-      "surface": false,
-      "digest": "6d5b72b6153d90f7cb549610592cd49e034a721f50f99b5b5e3ae89460fb6279",
-      "schema": {
-        "root": 0,
-        "nodes": [
-          {
-            "kind": "object",
-            "properties": [
-              {
-                "name": "data",
-                "type": 1,
-                "optional": false
-              },
-              {
-                "name": "ignorable",
-                "type": 4,
-                "optional": true
-              },
-              {
-                "name": "seq",
-                "type": 3,
-                "optional": false
-              },
-              {
-                "name": "time",
-                "type": 3,
-                "optional": false
-              },
-              {
-                "name": "type",
-                "type": 5,
-                "optional": false
-              }
-            ],
-            "indices": []
-          },
-          {
-            "kind": "object",
-            "properties": [
-              {
-                "name": "membership",
-                "type": 2,
-                "optional": true
-              },
-              {
-                "name": "openedAt",
-                "type": 2,
-                "optional": false
-              },
-              {
-                "name": "owner",
-                "type": 2,
-                "optional": false
-              },
-              {
-                "name": "version",
-                "type": 3,
-                "optional": false
-              }
-            ],
-            "indices": []
-          },
-          {
-            "kind": "primitive",
-            "type": "string"
-          },
-          {
-            "kind": "primitive",
-            "type": "number"
-          },
-          {
-            "kind": "literal",
-            "value": true
-          },
-          {
-            "kind": "literal",
-            "value": "session/owner"
-          }
-        ]
-      }
-    }
+    {"key":"event:session/owner","kind":"event","event":"session/owner","surface":false,"digest":"6d5b72b6153d90f7cb549610592cd49e034a721f50f99b5b5e3ae89460fb6279"}
   ],
-  "types": []
+  "types": [],
+  "nodes": {
+    "0657d3ca5ac4e7bf": {"kind":"primitive","type":"number"},
+    "4cd48f3e5108bd6e": {"kind":"primitive","type":"string"},
+    "6d5b72b6153d90f7": {"kind":"object","properties":[{"name":"data","type":"8b8eb3e412b34ec0","optional":false},{"name":"ignorable","type":"dacf3d5f3e4ff619","optional":true},{"name":"seq","type":"0657d3ca5ac4e7bf","optional":false},{"name":"time","type":"0657d3ca5ac4e7bf","optional":false},{"name":"type","type":"c993389e93a8c46e","optional":false}],"indices":[]},
+    "8b8eb3e412b34ec0": {"kind":"object","properties":[{"name":"membership","type":"4cd48f3e5108bd6e","optional":true},{"name":"openedAt","type":"4cd48f3e5108bd6e","optional":false},{"name":"owner","type":"4cd48f3e5108bd6e","optional":false},{"name":"version","type":"0657d3ca5ac4e7bf","optional":false}],"indices":[]},
+    "c993389e93a8c46e": {"kind":"literal","value":"session/owner"},
+    "dacf3d5f3e4ff619": {"kind":"literal","value":true}
+  }
 }

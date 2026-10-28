@@ -368,16 +368,13 @@ describe('gate graph validation', () => {
     const ids = withPnpmEntrypoint(() => gatesForMode('hygiene').map(subject => subject.id))
 
     expect(ids).toEqual([
-      'rescope-vendor', 'publint', 'constraints', 'default-product-isolation', 'product-use', 'official-bundle-catalog', 'provider-data', 'package-dependencies', 'application-entrypoints',
-      'lyn-package-licenses', 'node-next-types',
-      'optional-dependency-imports', 'client-packages', 'installer-locales', 'locale-metadata', 'client-ui-i18n', 'client-route-resolution', 'no-bare-dispatcher',
+      'rescope-vendor', 'publint', 'constraints',
+      'default-product-isolation', 'product-use', 'official-bundle-catalog', 'provider-data',
+      'hosted-profile-boundary', 'remote-authority',
+      'package-dependencies', 'application-entrypoints', 'lyn-package-licenses', 'node-next-types',
+      'optional-dependency-imports', 'client-packages', 'installer-locales', 'locale-metadata',
+      'client-ui-i18n', 'brand-placeholders', 'client-route-resolution', 'no-bare-dispatcher',
       'plugin-record-callers', 'no-unknown-casts', 'no-top-level-await',
-      'rescope-vendor', 'publint', 'constraints', 'default-product-isolation', 'hosted-profile-boundary',
-      'remote-authority', 'package-dependencies', 'application-entrypoints',
-      'lyn-package-licenses', 'package-invariants', 'built-package-invariants', 'node-next-types',
-      'optional-dependency-imports', 'client-packages', 'client-ui-i18n', 'brand-placeholders',
-      'client-route-resolution', 'no-bare-dispatcher',
-      'no-unknown-casts',
       'cordis-config', 'runtime-closure',
     ])
   })

@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Desktop-Verbindung",
+    "description": "Die Verbindung vom Host zum Desktop: ein authentifizierter Kanal je angemeldeter Person und der Ausführer, der darauf antwortet."
+  }
+}

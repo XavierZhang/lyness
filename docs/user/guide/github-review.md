@@ -34,7 +34,7 @@ pnpm lyn web --patch apps/cli/config/examples/github-review/cordis.yml
 
 The adapter distributes the example, which loads from the profile's installation directory so its rule module can resolve profile-installed peers. Do not run the rule from an arbitrary directory outside the profile. To customize it, copy both example files to `$LYNESS_HOME/profiles/web/github-review/`, edit the configuration, and point `--patch` at that copy of `cordis.yml`; use `~/.lyn` when `LYNESS_HOME` is unset.
 
-The repository example lives under `packages/experimental/webhook-github/examples/github-review/`. The CLI does not install webhook packages or list them as Official plugins; installing the packages and supplying the overlay are separate steps.
+The repository example lives under `packages/webhook/webhook-github/examples/github-review/`. The CLI does not install webhook packages or list them as Official plugins; installing the packages and supplying the overlay are separate steps.
 
 ## Expose the dedicated endpoint
 
@@ -64,8 +64,7 @@ Active:       yes
 
 ## Rule behavior
 
-The rule accepts only source `primary-github`, repository `deepseek-ai/lyness`, event `pull_request`, and action `ready_for_review`. It passes the exact head SHA plus selected PR fields to the review prompt, labeling the JSON as untrusted metadata and forbidding file, branch, PR, or GitHub mutation.
-The rule accepts only source `primary-github`, repository `lyness/lyness`, event `pull_request`, and action `ready_for_review`. It passes the exact head SHA plus selected PR fields to the review prompt, labeling the JSON as untrusted metadata and forbidding file, branch, PR, or GitHub mutation.
+The rule accepts only source `primary-github`, repository `XavierZhang/lyness`, event `pull_request`, and action `ready_for_review`. It passes the exact head SHA plus selected PR fields to the review prompt, labeling the JSON as untrusted metadata and forbidding file, branch, PR, or GitHub mutation.
 
 The Session request selects the `standard` agent preset and `read-only` permission preset. `workspacePath` is canonicalized through `WorkspaceRegistry.create()`, so the first matching delivery creates the Web Workspace when absent and later deliveries reuse it.
 
@@ -89,10 +88,8 @@ It can also map repositories to different local paths:
 
 ```js
 const workspacePath = {
-  'deepseek-ai/lyness': '/path/to/lyness',
-  'lyness/lyn-sdk': '/path/to/lyn-sdk',
-  'lyness/lyness': '/path/to/lyness',
-  'lyness/lyn-sdk': '/path/to/lyn-sdk',
+  'XavierZhang/lyness': '/path/to/lyness',
+  'XavierZhang/lyn-sdk': '/path/to/lyn-sdk',
 }[payload.repository.full_name]
 if (workspacePath === undefined) return null
 ```

@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Modelo obligatorio",
+    "description": "Rechaza servir un despliegue que no alcanza ningún modelo, en el punto más temprano en que un registro vacío es concluyente."
+  }
+}

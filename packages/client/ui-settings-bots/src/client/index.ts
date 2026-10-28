@@ -23,7 +23,7 @@ import { BotsSection } from './BotsSection.tsx'
 import { SectionBinding, sectionFace } from './binding.ts'
 import { botsCallsOf, createBotsOperations } from './operations.ts'
 import { createBotsSectionStore } from './store.ts'
-import { en, zh } from './locales.ts'
+import { de, en, es, fr, ja, pt, ru, zh } from './locales.ts'
 import type { BotsKey } from './locales.ts'
 
 export type { BotsKey } from './locales.ts'
@@ -63,7 +63,7 @@ export const inject = ['slots', 'locale', 'remote', 'remote.bots', 'uiWorkspace'
  * @param ctx - client plugin context.
  */
 export function apply(ctx: Context): void {
-  ctx.effect(() => ctx.locale.register(NS, { en, zh }), 'bots: dictionaries')
+  ctx.effect(() => ctx.locale.register(NS, { en, zh, ja, es, fr, de, ru, pt }), 'bots: dictionaries')
   const store = createBotsSectionStore()
   const binding = new SectionBinding()
   const operations = createBotsOperations(botsCallsOf(ctx), binding)

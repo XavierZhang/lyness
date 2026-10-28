@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "RPC des annonces",
+    "description": "Expose les annonces propres à un déploiement via un Remote authentifié."
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Locataire par requête HTTP",
+    "description": "Détermine à quel locataire appartient une requête HTTP, d’après l’en-tête de locataire, le nom d’hôte ou un identifiant de sous-domaine."
+  }
+}

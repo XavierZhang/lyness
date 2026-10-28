@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Entrada de webhooks",
+    "description": "Convierte un evento externo en una nueva sesión de agente, mediante reglas que redacta un despliegue."
+  }
+}

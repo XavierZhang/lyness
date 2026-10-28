@@ -46,14 +46,14 @@ With HMR enabled, enabling or disabling the bundle registers or removes its glob
 <a id="further-exploration"></a>
 ## Further Exploration
 
-[Capability implementation](../tool-ralph/README.md)
+[Capability implementation](../../workflow/tool-ralph/README.md)
 
 -----
 
 <a id="model-experience"></a>
 ## Model Experience
 
-Indirectly, through the [capability implementation](../tool-ralph/README.md), which owns model context and results.
+Indirectly, through the [capability implementation](../../workflow/tool-ralph/README.md), which owns model context and results.
 
 #### KV Cache effect
 

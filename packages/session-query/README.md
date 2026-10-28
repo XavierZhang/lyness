@@ -29,6 +29,7 @@ Each package README describes what you can do with its part of the family.
 | [`session-query/`](session-query/README.md) | Unified session-history query service: exact reads, relationship traces, and filters | `ctx.sessionQuery` |
 | [`session-query-sqlite/`](session-query-sqlite/README.md) | Full-text search across session history backed by a SQLite FTS5 index | registers on `ctx.sessionQuery` |
 | [`session-log-export/`](session-log-export/README.md) | Web `/export` command and browser download of a session ZIP | `ctx.sessionLogDownload` (browser) |
+| [`tool-session-query/`](tool-session-query/README.md) | Gives the model Workspace-authorized session search, trace, and event reads | registers on `ctx.tools` |
 
 -----
 
@@ -37,7 +38,7 @@ Each package README describes what you can do with its part of the family.
 
 Start with the subsystem reference for the shared query vocabulary, then the design records behind tracing and search.
 
-The default Web and Desktop use this shared query, index, and export infrastructure. The [experimental model-facing tools](../experimental/tool-session-query/README.md) are a separate optional consumer.
+The default Web and Desktop use this shared query, index, and export infrastructure. The [experimental model-facing tools](../session-query/tool-session-query/README.md) are a separate optional consumer.
 
 - [Session Query subsystem reference](../../docs/subsystems/session-query.md) — logical records, filters, search pages, lineage, bounded reads, and event relationships.
 - [Session query relationship tracing](../../.agents/notes/archived/feature/2026-07-13-session-query-tracing.md) — trace semantics and the validation boundary.

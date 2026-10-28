@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Modell erforderlich",
+    "description": "Verweigert den Dienst für eine Installation, die kein Modell erreicht, am frühesten Punkt, an dem eine leere Registrierung eindeutig ist."
+  }
+}

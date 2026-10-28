@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Stockage de la configuration du locataire",
+    "description": "Configuration durable du locataire : un enregistrement par locataire dans le domaine de stockage, modifiable depuis une surface d’administration."
+  }
+}

@@ -23,7 +23,7 @@ import { PeopleSection } from './PeopleSection.tsx'
 import { SectionBinding, sectionFace } from './binding.ts'
 import { createPeopleOperations, peopleCallsOf } from './operations.ts'
 import { createPeopleSectionStore } from './store.ts'
-import { en, zh } from './locales.ts'
+import { de, en, es, fr, ja, pt, ru, zh } from './locales.ts'
 import type { PeopleKey } from './locales.ts'
 
 export type { PeopleKey } from './locales.ts'
@@ -50,7 +50,7 @@ export const inject = ['slots', 'locale', 'remote', 'remote.people', 'remote.sig
  * @param ctx - client plugin context.
  */
 export function apply(ctx: Context): void {
-  ctx.effect(() => ctx.locale.register(NS, { en, zh }), 'people: dictionaries')
+  ctx.effect(() => ctx.locale.register(NS, { en, zh, ja, es, fr, de, ru, pt }), 'people: dictionaries')
   const store = createPeopleSectionStore()
   const binding = new SectionBinding()
   const operations = createPeopleOperations(peopleCallsOf(ctx), binding)

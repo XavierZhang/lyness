@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Configuración de marca",
+    "description": "Una página de bucle local desde la que un operador marca un despliegue, alcanzada con un token de un solo uso que imprime el comando."
+  }
+}

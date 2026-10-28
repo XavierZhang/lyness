@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "RPC de personas",
+    "description": "Los administradores mantienen quién puede usar un despliegue y qué identidad de directorio es cada uno."
+  }
+}

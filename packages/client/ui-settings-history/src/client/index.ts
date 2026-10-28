@@ -22,7 +22,7 @@ import { HistorySection } from './HistorySection.tsx'
 import { SectionBinding, sectionFace } from './binding.ts'
 import { createHistoryOperations, historyCallsOf } from './operations.ts'
 import { createHistorySectionStore } from './store.ts'
-import { en, zh } from './locales.ts'
+import { de, en, es, fr, ja, pt, ru, zh } from './locales.ts'
 import type { HistoryKey } from './locales.ts'
 
 export type { HistoryKey } from './locales.ts'
@@ -75,7 +75,7 @@ export const inject = ['slots', 'locale', 'remote', 'remote.audit']
  * @param ctx - client plugin context.
  */
 export function apply(ctx: Context): void {
-  ctx.effect(() => ctx.locale.register(NS, { en, zh }), 'history: dictionaries')
+  ctx.effect(() => ctx.locale.register(NS, { en, zh, ja, es, fr, de, ru, pt }), 'history: dictionaries')
   const store = createHistorySectionStore()
   const binding = new SectionBinding()
   const operations = createHistoryOperations(historyCallsOf(ctx), binding, deliverDownload)

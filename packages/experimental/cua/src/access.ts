@@ -40,7 +40,7 @@ export class CuaAccess extends TypertRemoteService {
    * @param control Serialized native permission dispatch.
    */
   constructor(ctx: Context, private readonly policy: ApplicationAccess,
-    private readonly settingsNamespace: string | null, private readonly control: Control) { super(ctx, 'cuaAccess') }
+    private readonly settingsNamespace: string | null, private readonly control: Control) { super(ctx, 'cuaAccess', { requires: 'member' }) }
 
   /** Read PTC execution state separately from native permission checks.
    * @returns Whether the shared runtime retains memory and has an editable profile entry.

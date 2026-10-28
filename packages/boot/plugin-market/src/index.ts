@@ -132,7 +132,7 @@ export default class PluginMarket extends TypertRemoteService {
   private readonly details: DetailReader
 
   constructor(ctx: Context, private readonly config: Config) {
-    super(ctx, 'pluginMarket')
+    super(ctx, 'pluginMarket', { requires: 'member' })
     this.entryId = ctx.fiber.entry?.options.id
     const profile = ctx.get('profileContext')
     const cacheDir = profile === undefined

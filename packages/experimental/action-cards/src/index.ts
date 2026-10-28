@@ -183,7 +183,7 @@ export class ActionCards extends TypertRemoteService {
    * @param config - Validated card limits; direct composition without a config gets the schema defaults.
    */
   constructor(ctx: Context, private readonly config: Config = Config.parse({})) {
-    super(ctx, 'actionCards')
+    super(ctx, 'actionCards', { requires: 'member' })
     this.owner = ctx.fiber
   }
 

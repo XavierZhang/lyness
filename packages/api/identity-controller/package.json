@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-api-identity-controller",
   "description": "Who the caller is, and what this deployment would let them sign in with",
-  "version": "0.1.7-rc.2",
+  "version": "0.2.1-rc.3",
   "publishConfig": {
     "access": "public"
   },

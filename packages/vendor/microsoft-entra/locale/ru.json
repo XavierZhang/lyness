@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Вход через Microsoft Entra",
+    "description": "Вход по Microsoft Entra ID: сторона личности в интеграции с поставщиком Microsoft."
+  }
+}

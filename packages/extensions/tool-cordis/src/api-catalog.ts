@@ -234,6 +234,13 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         returns: 'detached module references and isolation diagnostics; no match returns an empty list.',
       },
       {
+        signature: 'async contribute(contribution: PresetContribution): Promise<() => Promise<void>>',
+        description: 'Add one row to every preset that accepts contributions.\n\nBoot order puts a module bundle after the surface bundle that declares the presets, so a contribution normally arrives once they have already mounted. It therefore retires their current generation and activates a fresh one: an agent already bound keeps the retired generation until it finishes, and the next agent gets the row.',
+        parameters: [{ name: 'contribution', description: 'the allocated row id, the owning module, and the row.' }],
+        returns: 'the disposer the contributing plugin owns.',
+        throws: ['{Error} when the row id carries no central order allocation.'],
+      },
+      {
         signature: 'async list(): Promise<AgentPreset[]>',
         description: 'Read every declared preset, including activation failures.',
         parameters: [],
@@ -765,6 +772,23 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         description: 'Remove one team this deployment maintains.\n\nThe bots stay; what goes is the relation that let them ask each other.',
         parameters: [{ name: 'id', description: 'the team to remove.' }],
         throws: ['{RemoteError} `bots/not-permitted`, `bots/written`, `bots/no-standing`, or `gateway/internal`.'],
+      },
+    ],
+  },
+  {
+    key: 'brandSetupStartup',
+    summary: 'The loopback bind this invocation asked for.',
+    description: 'The loopback bind this invocation asked for.',
+    methods: [
+      {
+        signature: 'readonly host: string',
+        description: 'Loopback interface to bind; never a wildcard, because the page writes a profile.',
+        parameters: [],
+      },
+      {
+        signature: 'readonly port: number',
+        description: 'Port to bind, or 0 for an OS-assigned one.',
+        parameters: [],
       },
     ],
   },
@@ -2086,6 +2110,12 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
     summary: 'The bots this deployment stores, and the written ones they may not shadow.',
     description: 'The bots this deployment stores, and the written ones they may not shadow.',
     methods: [
+      {
+        signature: 'botOf(session: Session): EngagedBot | undefined',
+        description: 'The bot one conversation speaks as.\n\nThis service owns the projection, so it answers for it: a reader that folded the key itself would carry a second copy of the fold and could disagree with the roster about what a session is.',
+        parameters: [{ name: 'session', description: 'the conversation to read.' }],
+        returns: 'the bot it speaks as, or undefined when a person opened it.',
+      },
       {
         signature: 'declareBot(entry: DeclaredBot): () => void',
         description: 'Declare one bot composition wrote.\n\nThe provider that read the roster registers it, so this service can refuse to shadow it and a surface can show it as the operator\'s.',
@@ -3554,6 +3584,12 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
     summary: 'Decide whether one call may see one conversation.',
     description: 'Decide whether one call may see one conversation.',
     methods: [
+      {
+        signature: 'ownerOf(session: Session): SessionOwnerRecord | undefined',
+        description: 'Whose conversation one session is.\n\nThis service owns the projection, so it answers for it: a consumer that folded the key itself would carry a second copy of the fold.',
+        parameters: [{ name: 'session', description: 'the session to attribute.' }],
+        returns: 'the record, or undefined for a session nobody is attributed to.',
+      },
       {
         signature: 'mayRead(session: Session): Promise<boolean>',
         description: 'Whether the call in progress may see one live conversation.\n\nAuthoritative: the owner comes from the session\'s own log rather than from a cache, so this is the answer an operation on one named session acts on.',
@@ -6603,6 +6639,14 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export interface ContinuableCreateSpec {\n    readonly seed?: readonly SessionEvent[];\n}',
   },
   {
+    name: 'ContributedRow',
+    declaration: 'export type ContributedRow = PresetDefinition[\'plugins\'][number];',
+  },
+  {
+    name: 'ContributionId',
+    declaration: 'export type ContributionId = keyof typeof CONTRIBUTION_ORDERS;',
+  },
+  {
     name: 'CordisDynamicPackageId',
     declaration: 'export type CordisDynamicPackageId = Branded<\'CordisDynamicPackageId\'>;',
   },
@@ -8167,6 +8211,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export type PrepareSessionOptions = (CreateSessionOptions & {\n    readonly eventState?: undefined;\n}) | RestoredSessionOptions;',
   },
   {
+    name: 'PresetContribution',
+    declaration: 'export interface PresetContribution {\n    readonly id: ContributionId;\n    readonly module: string;\n    readonly row: Omit<ContributedRow, \'id\'>;\n}',
+  },
+  {
     name: 'PresetDefinition',
     declaration: 'export interface PresetDefinition {\n    readonly id: string;\n    readonly name?: string;\n    readonly description?: string;\n    readonly order?: number;\n    readonly plugins: readonly (Omit<EntryOptions, \'id\' | \'disabled\'> & {\n        id?: string;\n        disabled?: EntryOptions[\'disabled\'] | JsExpr;\n    })[];\n    readonly acceptsContributions?: boolean;\n}',
   },
@@ -9053,6 +9101,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'SessionOpenWorkspacePathValue',
     declaration: 'export interface SessionOpenWorkspacePathValue {\n    readonly opened: true;\n}',
+  },
+  {
+    name: 'SessionOwnerRecord',
+    declaration: 'export interface SessionOwnerRecord {\n    readonly version: number;\n    readonly owner: PersonId;\n    readonly membership?: MembershipId | undefined;\n    readonly openedAt: string;\n}',
   },
   {
     name: 'SessionPage',

@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-module-lsp",
   "description": "The language-server navigation default module as its own bundle: the LSP seam, its stdio provider, and the contributed tool",
-  "version": "0.1.7-rc.2",
+  "version": "0.2.1-rc.3",
   "publishConfig": {
     "access": "public"
   },

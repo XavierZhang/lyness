@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-people",
   "description": "People and their standing in an organization: the directory seam, the roles, and the operator-written provider",
-  "version": "0.1.7-rc.2",
+  "version": "0.2.1-rc.3",
   "publishConfig": {
     "access": "public"
   },

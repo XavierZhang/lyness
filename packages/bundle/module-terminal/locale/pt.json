@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Terminal persistente",
+    "description": "Shells interativas que mantêm o seu estado entre chamadas de ferramenta, um conjunto por agente."
+  }
+}

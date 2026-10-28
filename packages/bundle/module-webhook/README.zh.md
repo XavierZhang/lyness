@@ -71,7 +71,7 @@ kind: "package-bundle"
 <a id="further-exploration"></a>
 ## 进一步探索
 
-- [`webhook/`](../../experimental/webhook/README.zh.md) —— 规则接口、会话请求与 GitHub 适配器。
+- [`webhook/`](../../webhook/webhook/README.zh.md) —— 规则接口、会话请求与 GitHub 适配器。
 - [GitHub 评审指南](../../../docs/user/guide/github-review.zh.md) —— 一份可照做的规则、端口、密钥与路由设置。
 - [入站接口与会话平面](../../../.agents/notes/proposed/architecture/2026-10-09-inbound-interfaces-and-the-session-plane.zh.md) —— 为什么适配器负责认证、平面负责授权。
 - [`lyn-module-lsp`](../module-lsp/README.zh.md) —— 另一个惰性是结构性的模块。

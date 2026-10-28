@@ -9,8 +9,8 @@
   en: 9e2954ae4b7cd738
   zh: d2e95c8efaf37d82
 /lyn-cli-help/contents:
-  en: 1cdf1d98abef7c9d
-  zh: d3c6b0710bab3877
+  en: b9e5df37e3e03862
+  zh: 2f96cc776408c5ca
 /lyn-cli-help/lyn:
   en: f67c91b02f40262f
   zh: cf35586c854a72e9
@@ -18,8 +18,17 @@
   en: 9f3fb0d3d68e8e9f
   zh: 9d50bef95571d4cb
 /lyn-cli-help/lyn-acp:
-  en: 01e09e9c4e2bfe0b
-  zh: 353188fa9328062b
+  en: ec9e535c1a250ef4
+  zh: 11343b6a9536c855
+/lyn-cli-help/lyn-brand-setup:
+  en: bfdfa04125777ccb
+  zh: fbd49530ffed64c7
+/lyn-cli-help/lyn-brand-studio:
+  en: fd3c3e88579178a0
+  zh: 43062915d362dd32
+/lyn-cli-help/lyn-enterprise:
+  en: 27103250603137be
+  zh: bba88ff4b711bd19
 /lyn-cli-help/lyn-headless:
   en: 7e3059b85373cc36
   zh: e92b2c8325b9b82a
@@ -27,8 +36,5 @@
   en: a9a41c6cbf54d6e0
   zh: 659af956d86f14c9
 /lyn-cli-help/lyn-sdk-minimal:
-  en: 9fa22364d52e0566
-  zh: eaad5ba0774bcf7b
-/lyn-cli-help/lyn-web:
-  en: d596767f4ce262de
-  zh: e468ea373ca05157
+  en: f86e14aa3ae95b86
+  zh: fe9c6535435c1573

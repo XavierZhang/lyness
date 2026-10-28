@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-client-ui-settings-sign-in-channels",
   "description": "The sign-in channels section in Settings: what a deployment or a tenant signs its people in with, configured at runtime",
-  "version": "0.1.7-rc.2",
+  "version": "0.2.1-rc.3",
   "publishConfig": {
     "access": "public"
   },
@@ -58,7 +58,6 @@
     "@lyness/lyn-client-ui-settings": "workspace:*",
     "@lyness/lyn-client-ui-slots": "workspace:*",
     "@lyness/lyn-typert-protocol": "workspace:*",
-    "@types/react": "~18.3.1",
     "react": "^18.2.0"
   }
 }

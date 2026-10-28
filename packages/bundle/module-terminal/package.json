@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-module-terminal",
   "description": "The persistent terminal default module as its own bundle: the per-agent shell group and its tools",
-  "version": "0.1.7-rc.2",
+  "version": "0.2.1-rc.3",
   "publishConfig": {
     "access": "public"
   },

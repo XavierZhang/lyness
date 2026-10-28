@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Locataire par requête",
+    "description": "Le locataire auquel appartient une requête RPC : résolu une fois par appel et lisible partout où l’appel parvient."
+  }
+}

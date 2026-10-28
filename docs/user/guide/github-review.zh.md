@@ -34,7 +34,7 @@ pnpm lyn web --patch apps/cli/config/examples/github-review/cordis.yml
 
 示例随 GitHub 适配器发布，并从 profile 的安装目录加载，因此规则模块能解析该 profile 安装的 peer。不要把规则单独放到 profile 之外的任意目录运行。需要定制时，将示例的两个文件复制到 `$LYNESS_HOME/profiles/web/github-review/`，修改其配置并把 `--patch` 指向复制后的 `cordis.yml`；未设置 `LYNESS_HOME` 时使用 `~/.lyn`。
 
-仓库中的示例位于 `packages/experimental/webhook-github/examples/github-review/`。Webhook 包不随 CLI 安装，也不出现在官方插件列表中；安装包与提供 overlay 是两个独立步骤。
+仓库中的示例位于 `packages/webhook/webhook-github/examples/github-review/`。Webhook 包不随 CLI 安装，也不出现在官方插件列表中；安装包与提供 overlay 是两个独立步骤。
 
 ## 暴露专用端点
 
@@ -64,8 +64,7 @@ Active:       yes
 
 ## 规则行为
 
-规则只接受来源 `primary-github`、仓库 `deepseek-ai/lyness`、事件 `pull_request` 与动作 `ready_for_review`。它会把精确 head SHA 和选定 PR 字段传给评审提示词，把 JSON 标为不受信任的元数据，并禁止修改文件、分支、PR 或 GitHub 状态。
-规则只接受来源 `primary-github`、仓库 `lyness/lyness`、事件 `pull_request` 与动作 `ready_for_review`。它会把精确 head SHA 和选定 PR 字段传给评审提示词，把 JSON 标为不受信任的元数据，并禁止修改文件、分支、PR 或 GitHub 状态。
+规则只接受来源 `primary-github`、仓库 `XavierZhang/lyness`、事件 `pull_request` 与动作 `ready_for_review`。它会把精确 head SHA 和选定 PR 字段传给评审提示词，并把那份 JSON 标为不可信元数据，禁止对文件、分支、PR 或 GitHub 做任何改动。
 
 Session 请求选择 `standard` agent preset 与 `read-only` permission preset。`workspacePath` 通过 `WorkspaceRegistry.create()` 规范化，因此第一次匹配交付会在 Workspace 不存在时创建它，后续交付会复用它。
 
@@ -89,10 +88,8 @@ if (!response.ok || (await response.json()).automaticReview !== true) return nul
 
 ```js
 const workspacePath = {
-  'deepseek-ai/lyness': '/path/to/lyness',
-  'lyness/lyn-sdk': '/path/to/lyn-sdk',
-  'lyness/lyness': '/path/to/lyness',
-  'lyness/lyn-sdk': '/path/to/lyn-sdk',
+  'XavierZhang/lyness': '/path/to/lyness',
+  'XavierZhang/lyn-sdk': '/path/to/lyn-sdk',
 }[payload.repository.full_name]
 if (workspacePath === undefined) return null
 ```

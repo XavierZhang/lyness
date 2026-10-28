@@ -22,7 +22,7 @@ import { ChannelsSection } from './ChannelsSection.tsx'
 import { SectionBinding, sectionFace } from './binding.ts'
 import { channelsCallsOf, createChannelsOperations } from './operations.ts'
 import { createChannelsSectionStore } from './store.ts'
-import { en, zh } from './locales.ts'
+import { de, en, es, fr, ja, pt, ru, zh } from './locales.ts'
 import type { ChannelsKey } from './locales.ts'
 
 export type { ChannelsKey } from './locales.ts'
@@ -49,7 +49,7 @@ export const inject = ['slots', 'locale', 'remote', 'remote.signInChannels']
  * @param ctx - client plugin context.
  */
 export function apply(ctx: Context): void {
-  ctx.effect(() => ctx.locale.register(NS, { en, zh }), 'sign-in channels: dictionaries')
+  ctx.effect(() => ctx.locale.register(NS, { en, zh, ja, es, fr, de, ru, pt }), 'sign-in channels: dictionaries')
   const store = createChannelsSectionStore()
   const binding = new SectionBinding()
   const operations = createChannelsOperations(channelsCallsOf(ctx), binding)

@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Agentenspeicher",
+    "description": "Dauerhafter Agentenspeicher: ausdrücklich geschriebene Fakten, die als Laufzeitkontext in jede spätere Anfrage einfließen."
+  }
+}

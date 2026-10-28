@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Speicher für Mandantenkonfiguration",
+    "description": "Dauerhafte Mandantenkonfiguration: ein Datensatz je Mandant im Speicherbereich, beschreibbar von einer Verwaltungsoberfläche."
+  }
+}

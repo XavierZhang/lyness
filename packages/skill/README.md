@@ -29,6 +29,7 @@ The skill family lets agents and users discover and load reusable task instructi
 | [`skill-office/`](skill-office/README.md) | Bundles Word, PowerPoint, and Excel workflows with structural file checks | registers on `ctx.skills` |
 | [`tool-skill/`](tool-skill/README.md) | Publishes the session skill catalog and the model-facing `skill` loader tool | registers on `ctx.tools` |
 | [`tool-workspace-dependencies/`](tool-workspace-dependencies/README.md) | Reports bundled Office interpreter paths and versions for Desktop and SDK carriers | registers on `ctx.tools` |
+| [`skill-badge/`](skill-badge/README.md) | Ships the powered-by badge skill | registers on `ctx.skills` |
 
 -----
 
@@ -42,7 +43,7 @@ Start with the subsystem reference for the shared vocabulary, then read the Agen
 
 -----
 
-See [`skill-badge`](../experimental/skill-badge/README.md) for the experimental optional capability.
+See [`skill-badge`](../skill/skill-badge/README.md) for the experimental optional capability.
 
 <a id="dev-note"></a>
 ## Dev Note

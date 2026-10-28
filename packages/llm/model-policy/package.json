@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-model-policy",
   "description": "The models a deployment allows: the seam, the static provider, and the waterfall that refuses the rest",
-  "version": "0.1.7-rc.2",
+  "version": "0.2.1-rc.3",
   "publishConfig": {
     "access": "public"
   },

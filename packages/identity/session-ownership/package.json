@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-session-ownership",
   "description": "A session belongs to the person who opened it, and the standing they held it open under",
-  "version": "0.1.7-rc.2",
+  "version": "0.2.1-rc.3",
   "publishConfig": {
     "access": "public"
   },
