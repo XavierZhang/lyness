@@ -78,7 +78,11 @@ describe('rebrand round trip', () => {
     // list, so a path the backward spellings do not reach fails here instead of
     // at the next sync. A failure is answered with a backward spelling that
     // names the new form, not with an exception.
-    const tracked = execFileSync('git', ['ls-files'], { cwd: root, encoding: 'utf8' }).split('\n').filter(Boolean)
+    // Past Node's 1 MiB default, execFileSync kills git and reports a signal
+    // rather than the size, so the listing would read as a hang.
+    const tracked = execFileSync('git', ['ls-files'], {
+      cwd: root, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024,
+    }).split('\n').filter(Boolean)
     expect(tracked.length).toBeGreaterThan(10_000)
     expect(tracked.map(file => renamePath(file, RULES, true)).filter(file => file.includes(' '))).toEqual([])
   })

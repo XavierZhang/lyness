@@ -53,6 +53,16 @@ import { fileURLToPath } from 'node:url'
 
 const root = resolve(import.meta.dirname, '..')
 
+/**
+ * Buffer for the tracked-file listing, which outgrew Node's 1 MiB default.
+ *
+ * `execFileSync` kills the child with SIGTERM and throws once a listing passes
+ * `maxBuffer`, and the throw reports the signal rather than the size, so the
+ * failure reads as a hang or a timeout. One NUL-separated path averages about
+ * 80 bytes, so this holds a repository several times the size of this one.
+ */
+const LISTING_BUFFER_BYTES = 64 * 1024 * 1024
+
 /** The fork's GitHub owner and repository, which every upstream repo URL moves to. */
 const REPOSITORY = 'XavierZhang/lyness'
 
@@ -763,7 +773,9 @@ function main(): void {
   }
   const rules = only === undefined ? RULES : RULES.filter(rule => rule.id === only)
 
-  const tracked = execFileSync('git', ['ls-files', '-z'], { cwd: root, encoding: 'utf8' })
+  const tracked = execFileSync('git', ['ls-files', '-z'], {
+    cwd: root, encoding: 'utf8', maxBuffer: LISTING_BUFFER_BYTES,
+  })
     .split('\0')
     .filter(file => file !== '')
   // The content pass reads only the extensions it can rewrite; the path pass
