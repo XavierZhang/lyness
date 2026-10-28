@@ -1,10 +1,10 @@
-/** Package-owned filesystem event-data invariants. @module @lyness/lyn-fs/invariant */
+/** Package-owned filesystem event-data invariants. @module @deepseek-ai/dsh-fs/invariant */
 
-import type { Context } from '@lyness/cordis'
-import type { InvariantInstaller } from '@lyness/lyn-invariants'
+import type { Context } from '@deepseek-ai/cordis'
+import type { InvariantInstaller } from '@deepseek-ai/dsh-invariants'
 import type { FsObservation, FsTarget } from './types.ts'
 
-const PACKAGE_NAME = '@lyness/lyn-fs'
+const PACKAGE_NAME = '@deepseek-ai/dsh-fs'
 
 /** Cordis companion plugin name. */
 export const name = 'fs-invariant'

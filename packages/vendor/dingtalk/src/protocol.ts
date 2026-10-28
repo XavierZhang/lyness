@@ -9,7 +9,7 @@
  * carrying `code` and `message`, so a reader checks the status first and then
  * reads the body for what to say about it.
  *
- * @module @lyness/lyn-dingtalk/protocol
+ * @module @deepseek-ai/dsh-dingtalk/protocol
  */
 
 import { z } from 'zod'

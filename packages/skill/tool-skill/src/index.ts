@@ -1,16 +1,16 @@
 /**
  * Durable session skill catalog and model-facing `skill` loader tool.
  *
- * @module @lyness/lyn-tool-skill
+ * @module @deepseek-ai/dsh-tool-skill
  */
 
 import { createHash } from 'node:crypto'
-import type { Context } from '@lyness/cordis'
-import z from '@lyness/schemastery'
-import type { Agent, PreStepDecision } from '@lyness/lyn-agent'
-import { defineTool } from '@lyness/lyn-tools'
-import { createUserMessage } from '@lyness/lyn-llm'
-import { SessionSeq, type UserMessage } from '@lyness/lyn-session'
+import type { Context } from '@deepseek-ai/cordis'
+import z from '@deepseek-ai/schemastery'
+import type { Agent, PreStepDecision } from '@deepseek-ai/dsh-agent'
+import { defineTool } from '@deepseek-ai/dsh-tools'
+import { createUserMessage } from '@deepseek-ai/dsh-llm'
+import { SessionSeq, type UserMessage } from '@deepseek-ai/dsh-session'
 import {
   escapeText,
   isModelInvocable,
@@ -19,7 +19,7 @@ import {
   renderSkillContent,
   type SkillInvocationSource,
   type SkillSummary,
-} from '@lyness/lyn-skill'
+} from '@deepseek-ai/dsh-skill'
 
 export const name = 'tool-skill'
 export const inject = ['agents', 'tools', 'skills']
@@ -40,7 +40,7 @@ export interface SkillCatalogSource {
   readonly entries: readonly { readonly name: string; readonly description: string }[]
 }
 
-declare module '@lyness/lyn-llm' {
+declare module '@deepseek-ai/dsh-llm' {
   interface MessageSourceMap {
     'skill-catalog': SkillCatalogSource
   }

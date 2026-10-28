@@ -3,13 +3,13 @@ description: "人及其在组织中的身份：目录接缝、三个角色，以
 kind: "package-reference"
 ---
 
-# @lyness/lyn-people
+# @deepseek-ai/dsh-people
 
 [English](README.md) | 中文
 
 ## 概述
 
-用 `lyn-people` 回答「调用方是谁、他的身份允许做什么」。一个人持有一个身份，而 **membership** 是他在某一个组织中的身份，恰好携带三个角色之一。`./static` 提供一份由运营方书写的名册，这是独立部署在接入 SSO 之前的目录。该目录只报告角色、不做任何授权：每个操作自己依据 `administers` 作决定。
+用 `dsh-people` 回答「调用方是谁、他的身份允许做什么」。一个人持有一个身份，而 **membership** 是他在某一个组织中的身份，恰好携带三个角色之一。`./static` 提供一份由运营方书写的名册，这是独立部署在接入 SSO 之前的目录。该目录只报告角色、不做任何授权：每个操作自己依据 `administers` 作决定。
 
 ## 目录
 
@@ -29,7 +29,7 @@ kind: "package-reference"
 
 ```yaml
 - id: people
-  name: '@lyness/lyn-people/static'
+  name: '@deepseek-ai/dsh-people/static'
   config:
     people:
       - id: root
@@ -50,8 +50,8 @@ kind: "package-reference"
 一个把自己限制给管理员的操作去问那个判定，而不是比较角色：
 
 ```ts
-import { administers } from '@lyness/lyn-people'
-import type { Membership } from '@lyness/lyn-people'
+import { administers } from '@deepseek-ai/dsh-people'
+import type { Membership } from '@deepseek-ai/dsh-people'
 
 declare const standing: Membership
 declare const organization: string | undefined
@@ -79,7 +79,7 @@ if (!administers(standing, organization)) throw new Error('not permitted')
 
 - [人、成员关系与调用所处的上下文](../../../.agents/notes/proposed/architecture/2026-10-08-people-memberships-and-acting-context.zh.md) —— 本包所实现的那个决定，包括一次调用要声明的 acting context。
 - [`tenant-config`](../../tenant/tenant-config/README.zh.md) —— 管理员维护的那份按租户配置。
-- [`lyn-model-policy`](../../llm/model-policy/README.zh.md) —— 第一个会把自己限制给管理员的操作。
+- [`dsh-model-policy`](../../llm/model-policy/README.zh.md) —— 第一个会把自己限制给管理员的操作。
 
 -----
 

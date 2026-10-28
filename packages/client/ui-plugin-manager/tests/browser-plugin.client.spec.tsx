@@ -1,15 +1,15 @@
 // @vitest-environment jsdom
 import assert from 'node:assert/strict'
-import { Context, Service } from '@lyness/cordis'
+import { Context, Service } from '@deepseek-ai/cordis'
 import { afterEach, describe, expect, it, onTestFinished, vi } from 'vitest'
 import { cleanup, render } from '@testing-library/react'
-import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
-import { createSnapshotStore } from '@lyness/lyn-client-store'
-import type { ILayout, PanelInfo } from '@lyness/lyn-client-ui-layout/client'
-import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
-import { resolveSlotLabel } from '@lyness/lyn-client-ui-slots'
-import { TestRemote, usePinnedBrowserLanguages } from '@lyness/lyn-client-test-runtime'
-import * as settings from '@lyness/lyn-client-ui-settings/client'
+import { LocaleRuntime } from '@deepseek-ai/dsh-client-locale/client'
+import { createSnapshotStore } from '@deepseek-ai/dsh-client-store'
+import type { ILayout, PanelInfo } from '@deepseek-ai/dsh-client-ui-layout/client'
+import { SlotRegistry } from '@deepseek-ai/dsh-client-ui-renderer/client'
+import { resolveSlotLabel } from '@deepseek-ai/dsh-client-ui-slots'
+import { TestRemote, usePinnedBrowserLanguages } from '@deepseek-ai/dsh-client-test-runtime'
+import * as settings from '@deepseek-ai/dsh-client-ui-settings/client'
 import { apply, inject, NS, PANEL_ID } from '../src/client/index.ts'
 import { PluginManagerPage } from '../src/client/PluginManagerPage.tsx'
 import { PluginsPanelIcon } from '../src/client/PluginsPanelIcon.tsx'
@@ -67,17 +67,17 @@ describe('ui-plugin-manager browser plugin', () => {
     const entry = b.slots.entries('main')[0]!
     assert(entry.store && 'create' in entry.store)
     const navigation = entry.store.create()
-    b.ctx.pluginNavigation.openBundle('lyn-navigation-test')
+    b.ctx.pluginNavigation.openBundle('dsh-navigation-test')
     expect(b.panelInfo.getSnapshot().activePanelId).toBe(PANEL_ID)
-    expect(navigation.getSnapshot()).toEqual({ view: { kind: 'package', name: 'lyn-navigation-test' } })
+    expect(navigation.getSnapshot()).toEqual({ view: { kind: 'package', name: 'dsh-navigation-test' } })
     b.selectPanel(null)
     expect(navigation.getSnapshot()).toEqual({ view: { kind: 'list' } })
     b.selectPanel(PANEL_ID)
     expect(navigation.getSnapshot()).toEqual({ view: { kind: 'list' } })
-    b.ctx.pluginNavigation.openBundle('lyn-navigation-test')
+    b.ctx.pluginNavigation.openBundle('dsh-navigation-test')
     removeRoot()
     b.selectPanel(null)
-    expect(navigation.getSnapshot()).toEqual({ view: { kind: 'package', name: 'lyn-navigation-test' } })
+    expect(navigation.getSnapshot()).toEqual({ view: { kind: 'package', name: 'dsh-navigation-test' } })
   })
 
   it('declares only the services the page and its Remote methods use', () => {
@@ -90,11 +90,11 @@ describe('ui-plugin-manager browser plugin', () => {
     const fiber = b.ctx.plugin({ inject: [...inject], apply })
     await fiber.await()
 
-    b.ctx.pluginNavigation.openBundle('lyn-navigation-test')
+    b.ctx.pluginNavigation.openBundle('dsh-navigation-test')
     expect(b.selectPanel).toHaveBeenCalledWith(PANEL_ID)
     const entry = b.slots.entries('main')[0]!
     assert(entry.store && 'create' in entry.store)
-    expect(entry.store.create().getSnapshot()).toEqual({ view: { kind: 'package', name: 'lyn-navigation-test' } })
+    expect(entry.store.create().getSnapshot()).toEqual({ view: { kind: 'package', name: 'dsh-navigation-test' } })
     expect(entry.component).toBe(PluginManagerPage)
     expect(entry.options).toMatchObject({ key: PANEL_ID })
     expect(entry.locale).toBe(NS)

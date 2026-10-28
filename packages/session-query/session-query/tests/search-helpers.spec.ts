@@ -1,14 +1,14 @@
 import { describe, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import { createUserMessage, ToolCallId , createMessage, createToolResultMessage } from '@lyness/lyn-llm'
-import type { ContextFormed } from '@lyness/lyn-llm'
+import { Context } from '@deepseek-ai/cordis'
+import { createUserMessage, ToolCallId , createMessage, createToolResultMessage } from '@deepseek-ai/dsh-llm'
+import type { ContextFormed } from '@deepseek-ai/dsh-llm'
 import SessionStore, {
   SESSION_FORMAT_VERSION,
   SessionId,
   SessionSeq,
-} from '@lyness/lyn-session'
-import SessionProjectionRegistry from '@lyness/lyn-session-projection'
-import type { SessionEvent, SessionHeader } from '@lyness/lyn-session'
+} from '@deepseek-ai/dsh-session'
+import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
+import type { SessionEvent, SessionHeader } from '@deepseek-ai/dsh-session'
 import {
   buildSessionEventRecords,
   buildSessionEventSearchDocuments,
@@ -19,10 +19,10 @@ import {
   materializeSessionEventResultFilters,
   materializeSessionResultFilters,
   type SessionQueryErrorCode,
-} from '@lyness/lyn-session-query'
+} from '@deepseek-ai/dsh-session-query'
 import { TestSessionQueryEngine } from './test-service.ts'
 
-declare module '@lyness/lyn-llm' {
+declare module '@deepseek-ai/dsh-llm' {
   interface MessageSourceMap {
     'test': { kind: 'test' } & ContextFormed
   }

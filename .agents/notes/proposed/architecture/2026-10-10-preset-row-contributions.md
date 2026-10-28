@@ -8,7 +8,7 @@ English | [中文](2026-10-10-preset-row-contributions.zh.md)
 
 [Each default module is its own shipped bundle](2026-10-08-default-modules-and-views.md), which is what gives the platform an upgrade path for one module without a release of the whole product. Half the modules cannot be packaged that way.
 
-A module that contributes a model-facing tool has its row inside an agent preset. A preset is one `@lyness/lyn-agent-preset` row whose `config.plugins` holds the whole list, and [a patch replaces the targeted row's whole `config`](../../../../packages/bundle/web-app/README.md). So a separate bundle wanting to add one tool to `work` would have to restate every row `work` already has. That is not packaging; it is copying, and the copy goes stale the first time the preset changes.
+A module that contributes a model-facing tool has its row inside an agent preset. A preset is one `@deepseek-ai/dsh-agent-preset` row whose `config.plugins` holds the whole list, and [a patch replaces the targeted row's whole `config`](../../../../packages/bundle/web-app/README.md). So a separate bundle wanting to add one tool to `work` would have to restate every row `work` already has. That is not packaging; it is copying, and the copy goes stale the first time the preset changes.
 
 The split is clean and unhelpful. The agent terminal, language servers, computer use, browser use, turn deliverables, runtime self-modification, and durable memory's write tools all live on the preset plane. The remaining modules are host-plane and package as bundles today. Six of twelve are blocked on a mechanism that does not exist.
 
@@ -26,7 +26,7 @@ The four preset ids the official modes use receive no contributions. They are pr
 
 ### Position comes from a central allocation
 
-A contributed row's place in the tool order is allocated centrally, the way [`lyn-system-prompt`](../../../../packages/core/system-prompt/README.md) already allocates prompt-section and runtime-context positions. Arrival order must not decide it: the tool catalog's order is part of the request prefix, so two deployments with the same modules switched on have to produce the same catalog, in the same order, or they produce different caches for identical configuration.
+A contributed row's place in the tool order is allocated centrally, the way [`dsh-system-prompt`](../../../../packages/core/system-prompt/README.md) already allocates prompt-section and runtime-context positions. Arrival order must not decide it: the tool catalog's order is part of the request prefix, so two deployments with the same modules switched on have to produce the same catalog, in the same order, or they produce different caches for identical configuration.
 
 ### A duplicate id fails at mount
 

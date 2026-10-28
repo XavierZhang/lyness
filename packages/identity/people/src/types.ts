@@ -2,10 +2,10 @@
  * Vocabulary for people, their standing in an organization, and the context a
  * call acts in.
  *
- * @module @lyness/lyn-people/types
+ * @module @deepseek-ai/dsh-people/types
  */
 
-import type { Branded } from '@lyness/lyn-brand'
+import type { Branded } from '@deepseek-ai/dsh-brand'
 
 /** Opaque identity of one person, stable across every organization they belong to. */
 export type PersonId = Branded<'PersonId'>

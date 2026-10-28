@@ -6,7 +6,7 @@
  * text and the prompt ships the same literal (plain-text-reference decision;
  * see .agents/notes/archived/architecture/2026-07-25-web-input-machine-and-slash-pipeline.md);
  * determinism
- * lives host-side — the pre-step boundary (`lyn-tool-skill`) recognizes a
+ * lives host-side — the pre-step boundary (`dsh-tool-skill`) recognizes a
  * leading `/name` naming a user-invocable skill and injects the rendered
  * body for every entry point, including `disable-model-invocation` skills the
  * model-side catalog never lists (issue #1470). The RPC rides the plugin's
@@ -32,29 +32,29 @@
  * accent row derived only from each logged call/result slice.
  */
 // Type-only: the carrier types, the forwarded Host-event face and the ctx.remote merge.
-import type {} from '@lyness/lyn-client-ui-sidebar-right/client'
-import type { Context as ClientContext } from '@lyness/cordis'
-import type { SkillEntry } from '@lyness/lyn-api-remotes/client'
-import type {} from '@lyness/lyn-api-session-controller/client'
-import type { SessionId } from '@lyness/lyn-session/types'
-import type { InputTriggerServiceContract, InputTriggerSource } from '@lyness/lyn-client-ui-input-trigger/client'
-import { fileAddressFor } from '@lyness/lyn-util-workspace-path'
-import { rankByName } from '@lyness/lyn-client-ui-primitives'
+import type {} from '@deepseek-ai/dsh-client-ui-sidebar-right/client'
+import type { Context as ClientContext } from '@deepseek-ai/cordis'
+import type { SkillEntry } from '@deepseek-ai/dsh-api-remotes/client'
+import type {} from '@deepseek-ai/dsh-api-session-controller/client'
+import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import type { InputTriggerServiceContract, InputTriggerSource } from '@deepseek-ai/dsh-client-ui-input-trigger/client'
+import { fileAddressFor } from '@deepseek-ai/dsh-util-workspace-path'
+import { rankByName } from '@deepseek-ai/dsh-client-ui-primitives'
 // Type-only: pulls the locale plugin's Context merge (ctx.locale).
-import type {} from '@lyness/lyn-client-locale/client'
+import type {} from '@deepseek-ai/dsh-client-locale/client'
 // Type-only: pulls the SlotRegistry service merge (ctx.slots).
-import type {} from '@lyness/lyn-client-ui-renderer/client'
+import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
 import { SkillRow } from './SkillRow.tsx'
 import { en, NS, zh, type SkillKey } from './locales.ts'
 
-declare module '@lyness/lyn-api-session-controller/client' {
+declare module '@deepseek-ai/dsh-api-session-controller/client' {
   interface SessionReferenceSourceMap {
     /** A skill-catalog fetch waiting for initial history and its RPC result. */
     skillCatalog: unknown
   }
 }
 
-declare module '@lyness/lyn-client-ui-slots' {
+declare module '@deepseek-ai/dsh-client-ui-slots' {
   interface LocaleNamespaceMap {
     /** The dedicated skill tool row's copy. */
     skill: SkillKey
@@ -217,7 +217,7 @@ export function apply(ctx: ClientContext): void {
       // Plain-text-reference decision (web-input-machine note): the pick
       // lands plain text and the prompt ships the same
       // literal. Determinism lives host-side — the host's
-      // pre-step boundary (lyn-tool-skill) recognizes the leading /name and
+      // pre-step boundary (dsh-tool-skill) recognizes the leading /name and
       // injects the rendered body for every entry point. A name shared with a
       // host command still resolves to the command: adjudication claims the
       // line client-side before it ever becomes a prompt.

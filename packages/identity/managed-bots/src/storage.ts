@@ -6,12 +6,12 @@
  * is a table an administrator could attach prose to for a human. Keeping them
  * apart is what keeps a bot un-admittable and a colleague persona-less.
  *
- * @module @lyness/lyn-managed-bots/storage
+ * @module @deepseek-ai/dsh-managed-bots/storage
  */
 
 import { z } from 'zod'
-import { defineDomain, domainTable, storedId, storedInstant } from '@lyness/lyn-storage-domain'
-import type { PersonId } from '@lyness/lyn-people'
+import { defineDomain, domainTable, storedId, storedInstant } from '@deepseek-ai/dsh-storage-domain'
+import type { PersonId } from '@deepseek-ai/dsh-people'
 import type { BotRecord, TeamRecord } from './types.ts'
 
 /** One stored bot. */

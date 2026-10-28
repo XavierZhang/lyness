@@ -11,12 +11,12 @@
  * A deployment mounting no policy is unrestricted, so this plugin injects the
  * policy and stays inactive without one rather than inventing a default.
  *
- * @module @lyness/lyn-model-policy/enforce
+ * @module @deepseek-ai/dsh-model-policy/enforce
  */
 
-import type { Context } from '@lyness/cordis'
-import type { GenerateOptions, StreamChunk } from '@lyness/lyn-llm'
-import { LlmError } from '@lyness/lyn-llm'
+import type { Context } from '@deepseek-ai/cordis'
+import type { GenerateOptions, StreamChunk } from '@deepseek-ai/dsh-llm'
+import { LlmError } from '@deepseek-ai/dsh-llm'
 import type {} from './index.ts'
 import type { AllowedModel } from './types.ts'
 

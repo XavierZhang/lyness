@@ -1,12 +1,12 @@
 // PTC mode browser round trip with nested sub-calls and details selection.
-// Record: LYNESS_SNAPSHOT=record writes session.v3.jsonl, then a keyless
-// LYNESS_SNAPSHOT=refresh regenerates ui.expected.md.
+// Record: DSH_SNAPSHOT=record writes session.v3.jsonl, then a keyless
+// DSH_SNAPSHOT=refresh regenerates ui.expected.md.
 import { readFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import type { Browser, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed } from 'vitest'
-import type { SessionEvent } from '@lyness/lyn-session'
+import type { SessionEvent } from '@deepseek-ai/dsh-session'
 import {
   acknowledgeReloadConnectionLoss, captureExpandedTurnProcessAria, captureStableAria, compareOrRefreshGolden, fixtureUserPrompts,
   launchWebScaffold, recordFixture, watchConsole, webSnapshotMode, type WebScaffold,

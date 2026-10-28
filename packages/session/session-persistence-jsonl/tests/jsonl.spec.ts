@@ -1,14 +1,14 @@
-import { MessageId, createMessage } from '@lyness/lyn-llm'
+import { MessageId, createMessage } from '@deepseek-ai/dsh-llm'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { Context } from '@lyness/cordis'
+import { Context } from '@deepseek-ai/cordis'
 import { appendFile, mkdtemp, mkdir, rm, readFile, writeFile, readdir, stat, symlink } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { dirname, join, relative, resolve } from 'node:path'
 import { scheduler } from 'node:timers/promises'
-import { SESSION_FORMAT_VERSION, SessionLogOffset, SessionSeq, SessionId } from '@lyness/lyn-session'
-import type { SessionEvent, SessionHeader } from '@lyness/lyn-session'
-import type { SessionPersistence } from '@lyness/lyn-session-persistence'
-import JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
+import { SESSION_FORMAT_VERSION, SessionLogOffset, SessionSeq, SessionId } from '@deepseek-ai/dsh-session'
+import type { SessionEvent, SessionHeader } from '@deepseek-ai/dsh-session'
+import type { SessionPersistence } from '@deepseek-ai/dsh-session-persistence'
+import JsonlSessionPersistence from '@deepseek-ai/dsh-session-persistence-jsonl'
 import {
   assertNoRetiredHeaderFields, encodeSegment, eventLines, generationLogFilename, generationLogPath,
   logPath, parseGenerationLogFilename, projectDir, projectKey, scanLog, sessionDir, SessionLogScanner,
@@ -20,7 +20,7 @@ import {
 import { runLiveWritePathContract } from '../../session-persistence/tests/live-write-contract.ts'
 import { LIVE_WRITE_BATCH_MAX_DELAY_MS, type JsonlSessionHandle } from '../src/storage.ts'
 import { JsonlGenerationSourceChangedError } from '../src/generation.ts'
-import SessionStore from '@lyness/lyn-session'
+import SessionStore from '@deepseek-ai/dsh-session'
 
 const statRace = vi.hoisted(() => ({
   path: undefined as string | undefined,
@@ -135,7 +135,7 @@ async function expectCode(promise: Promise<unknown>, codes: readonly string[]): 
 }
 
 async function freshRoot(): Promise<string> {
-  const dir = await mkdtemp(join(tmpdir(), 'lyn-jsonl-'))
+  const dir = await mkdtemp(join(tmpdir(), 'dsh-jsonl-'))
   dirs.push(dir)
   return dir
 }
@@ -310,7 +310,7 @@ afterEach(async () => {
 })
 
 runPersistenceContract('jsonl-none', async () => {
-  const dir = await mkdtemp(join(tmpdir(), 'lyn-jsonl-'))
+  const dir = await mkdtemp(join(tmpdir(), 'dsh-jsonl-'))
   const instance = async (): Promise<{ persistence: SessionPersistence; dispose: () => Promise<void> }> => {
     const ctx = new Context()
     const fiber = await ctx.plugin(JsonlSessionPersistence, { root: dir, compression: 'none' })
@@ -336,7 +336,7 @@ runPersistenceContract('jsonl-none', async () => {
 })
 
 runLiveWritePathContract('jsonl', LIVE_WRITE_BATCH_MAX_DELAY_MS, async () => {
-  const dir = await mkdtemp(join(tmpdir(), 'lyn-jsonl-live-'))
+  const dir = await mkdtemp(join(tmpdir(), 'dsh-jsonl-live-'))
   dirs.push(dir)
   const mount = async (): Promise<Context> => {
     const ctx = new Context()
@@ -484,7 +484,7 @@ describe('JsonlSessionPersistence: format helpers', () => {
   })
 
   it('projectKey normalizes project paths into bounded readable names', () => {
-    expect(projectKey('/Users/qyj/work/lyness')).toBe('--Users-qyj-work-lyness--')
+    expect(projectKey('/Users/qyj/work/DeepSeek Harness')).toBe('--Users-qyj-work-DeepSeek Harness--')
     expect(projectKey('/a/b-c')).toBe(projectKey('/a-b/c'))
     expect(projectKey('C:\\work\\agent')).toBe('--C-work-agent--')
     expect(projectKey('/开发/~agent')).toBe('--~5F00~53D1-~007Eagent--')

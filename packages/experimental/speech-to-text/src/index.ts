@@ -1,15 +1,15 @@
 /** Named transcription providers with disposable registration and explicit routing. */
-import { Context, Service, type Volatile } from '@lyness/cordis'
-import z from '@lyness/schemastery'
+import { Context, Service, type Volatile } from '@deepseek-ai/cordis'
+import z from '@deepseek-ai/schemastery'
 // Type-only: the `settings` service that persists `configure()` into this plugin's profile entry, and the Loader's
 // entry and `loader/volatile-update` merges.
-import type {} from '@lyness/lyn-settings'
-import type {} from '@lyness/cordis-plugin-loader'
+import type {} from '@deepseek-ai/dsh-settings'
+import type {} from '@deepseek-ai/cordis-plugin-loader'
 import type { SpeechPreparationOptions, SpeechProvider, SpeechProviderId, SpeechProviderInfo, SpeechSnapshot, SpeechSelectionPatch, SpeechRequest, SpeechSpec, Transcript } from './types.ts'
 
 export type * from './types.ts'
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     /** Experimental speech recognition provider registry. */
     speechToText: SpeechToText

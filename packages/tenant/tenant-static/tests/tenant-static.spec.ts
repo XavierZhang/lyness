@@ -1,8 +1,8 @@
 /** What an operator's roster produces: the three lookups, and every refusal a malformed roster causes. */
 
 import { describe, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import { TenantId } from '@lyness/lyn-tenant'
+import { Context } from '@deepseek-ai/cordis'
+import { TenantId } from '@deepseek-ai/dsh-tenant'
 import StaticTenantDirectory from '../src/index.ts'
 import type { Config, TenantEntry } from '../src/index.ts'
 

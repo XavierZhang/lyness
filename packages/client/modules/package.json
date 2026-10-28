@@ -1,13 +1,13 @@
 {
-  "name": "@lyness/lyn-client-modules",
-  "description": "Client module system, dual-face: node half composes the __LYNESS_BOOT__ entry graph (incremental lyn.client scan, bundle route, index tap, webPlugins service); browser half is the lazy-CJS module table the vendored cordis Loader consumes as its internal seam",
+  "name": "@deepseek-ai/dsh-client-modules",
+  "description": "Client module system, dual-face: node half composes the __DSH_BOOT__ entry graph (incremental dsh.client scan, bundle route, index tap, webPlugins service); browser half is the lazy-CJS module table the vendored cordis Loader consumes as its internal seam",
   "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/client/modules"
   },
   "type": "module",
@@ -29,7 +29,7 @@
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
-  "lyn": {
+  "dsh": {
     "client": {
       "platform": "web",
       "inject": [],
@@ -42,12 +42,12 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@lyness/cordis-plugin-loader": "workspace:~",
-    "@lyness/lyn-host-webserver": "workspace:*",
-    "@lyness/lyn-invariants": "workspace:*",
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-package-manifest": "workspace:*",
-    "@lyness/lyn-client-store": "workspace:*"
+    "@deepseek-ai/cordis-plugin-loader": "workspace:~",
+    "@deepseek-ai/dsh-host-webserver": "workspace:*",
+    "@deepseek-ai/dsh-invariants": "workspace:*",
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-package-manifest": "workspace:*",
+    "@deepseek-ai/dsh-client-store": "workspace:*"
   },
   "files": [
     "lib/index.js",
@@ -56,6 +56,6 @@
     "lib/types/**/*.d.ts"
   ],
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~"
+    "@deepseek-ai/cordis": "workspace:~"
   }
 }

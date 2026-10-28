@@ -3,13 +3,13 @@ description: "设置里的积分分区：余额、账目，以及管理员要作
 kind: "package-reference"
 ---
 
-# @lyness/lyn-client-ui-settings-credits
+# @deepseek-ai/dsh-client-ui-settings-credits
 
 [English](README.md) | 中文
 
 ## 概述
 
-`lyn-client-ui-settings-credits` 是一个人读自己积分的那个设置分区：这个账户能花多少，发放给它与它花掉的全部记录，以及——对一个管得着人的身份——一个发放表单和一个周期额度表单。所有内容都来自客户端连上的那套部署，经 `remote.credits` 读取，于是桌面安装与浏览器各自展示自己服务器的账目。管理员表单依账户自带的 `administrable` 字段渲染，于是界面绝不会提供下一次调用会拒绝的控件。
+`dsh-client-ui-settings-credits` 是一个人读自己积分的那个设置分区：这个账户能花多少，发放给它与它花掉的全部记录，以及——对一个管得着人的身份——一个发放表单和一个周期额度表单。所有内容都来自客户端连上的那套部署，经 `remote.credits` 读取，于是桌面安装与浏览器各自展示自己服务器的账目。管理员表单依账户自带的 `administrable` 字段渲染，于是界面绝不会提供下一次调用会拒绝的控件。
 
 ## 目录
 
@@ -29,14 +29,14 @@ Web bundle 同时挂载两侧；宿主侧自己什么都不贡献：
 
 ```yaml
 - id: credits-controller
-  name: '@lyness/lyn-api-credits-controller'
+  name: '@deepseek-ai/dsh-api-credits-controller'
 - id: ui-settings-credits
-  name: '@lyness/lyn-client-ui-settings-credits'
+  name: '@deepseek-ai/dsh-client-ui-settings-credits'
 ```
 
 别的都不用配。两行挂上之后分区就出现在设置里，并在导航中自称「积分」。
 
-`@lyness/lyn-client-ui-settings-credits/client` 的 `createCreditsOperations(calls, sink)` 从一个 `CreditsCalls` 与一个 `CreditsSink` 构建出那次读取与那两次改动，于是它们不经过槽位注册也能到达——测试正是这样进行的，另一个界面也可以据此驱动同样的调用。
+`@deepseek-ai/dsh-client-ui-settings-credits/client` 的 `createCreditsOperations(calls, sink)` 从一个 `CreditsCalls` 与一个 `CreditsSink` 构建出那次读取与那两次改动，于是它们不经过槽位注册也能到达——测试正是这样进行的，另一个界面也可以据此驱动同样的调用。
 
 -----
 
@@ -62,16 +62,16 @@ Web bundle 同时挂载两侧；宿主侧自己什么都不贡献：
 <a id="further-exploration"></a>
 ## 延伸阅读
 
-- [`lyn-api-credits-controller`](../../api/credits-controller/README.zh.md) —— 本分区读写的那个命名空间。
-- [`lyn-credits`](../../credits/credits/README.zh.md) —— 它背后的账本与额度算术。
-- [`lyn-client-ui-settings`](../ui-settings/README.zh.md) —— 它注册进去的那个分区槽位。
+- [`dsh-api-credits-controller`](../../api/credits-controller/README.zh.md) —— 本分区读写的那个命名空间。
+- [`dsh-credits`](../../credits/credits/README.zh.md) —— 它背后的账本与额度算术。
+- [`dsh-client-ui-settings`](../ui-settings/README.zh.md) —— 它注册进去的那个分区槽位。
 
 -----
 
 <a id="model-experience"></a>
 ## 模型体验
 
-没有，因为本包不注册任何工具或提示词：它是一个人读的页面，而账本对一个回合的影响，是 `lyn-credits` 在 `llm/stream` 里抛出的那次拒绝。
+没有，因为本包不注册任何工具或提示词：它是一个人读的页面，而账本对一个回合的影响，是 `dsh-credits` 在 `llm/stream` 里抛出的那次拒绝。
 
 #### KV 缓存影响
 

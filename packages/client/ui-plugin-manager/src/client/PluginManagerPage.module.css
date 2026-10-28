@@ -36,7 +36,7 @@
    owns the window drag over its own box — clearance included — so this page's
    top strip drags without a frame band. */
 :global([data-platform='darwin']) .pageHead {
-  padding-top: calc(28px + var(--lyn-frame-top-clearance, 0px));
+  padding-top: calc(28px + var(--dsh-frame-top-clearance, 0px));
 }
 
 .pageTitle {
@@ -140,10 +140,10 @@
 
 /* The package an install just enabled: a ring that fades while the list scrolls to it. */
 .card[data-plugin-highlight] {
-  animation: lyn-plugin-highlight 2400ms ease-out;
+  animation: dsh-plugin-highlight 2400ms ease-out;
 }
 
-@keyframes lyn-plugin-highlight {
+@keyframes dsh-plugin-highlight {
   0%,
   55% {
     box-shadow: 0 0 0 2px var(--dsw-alias-state-business-primary);
@@ -186,8 +186,8 @@
   border-radius: var(--dsw-radius-xl);
   /* The page itself scrolls on the base surface. Anything that scrolls inside
      a card draws the l2 thumb (ui-theme styles/scrollbar.css rebinding contract). */
-  --lyn-scrollbar-thumb: var(--dsw-alias-scrollbar-bg-l2);
-  --lyn-scrollbar-thumb-hover: var(--dsw-alias-scrollbar-hover-l2);
+  --dsh-scrollbar-thumb: var(--dsw-alias-scrollbar-bg-l2);
+  --dsh-scrollbar-thumb-hover: var(--dsw-alias-scrollbar-hover-l2);
 }
 
 .cardHead {
@@ -1070,7 +1070,7 @@ label.registryOption {
 }
 
 :global([data-platform='darwin']) .detailTop {
-  padding-top: calc(28px + var(--lyn-frame-top-clearance, 0px));
+  padding-top: calc(28px + var(--dsh-frame-top-clearance, 0px));
 }
 
 .crumb {

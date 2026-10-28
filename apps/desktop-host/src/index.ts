@@ -2,12 +2,12 @@
 
 import { delimiter, join } from 'node:path'
 import { inspect } from 'node:util'
-import { loadLayeredEnv, loadProfileDirectory, reportSkippedBundles } from '@lyness/lyn-app-boot'
-import { runProfile } from '@lyness/lyn/profile-boot'
-import type {} from '@lyness/lyn-client-connection'
-import type {} from '@lyness/lyn-host-webserver'
-import type {} from '@lyness/lyn-deepseek-account'
-import { resolveLynHome } from '@lyness/lyn-home-paths'
+import { loadLayeredEnv, loadProfileDirectory, reportSkippedBundles } from '@deepseek-ai/dsh-app-boot'
+import { runProfile } from '@deepseek-ai/dsh/profile-boot'
+import type {} from '@deepseek-ai/dsh-client-connection'
+import type {} from '@deepseek-ai/dsh-host-webserver'
+import type {} from '@deepseek-ai/dsh-deepseek-account'
+import { resolveDshHome } from '@deepseek-ai/dsh-home-paths'
 import * as desktopOffice from './office.ts'
 
 import { installDesktopUpdateTaskControl } from './update-tasks.ts'
@@ -19,11 +19,11 @@ async function main(): Promise<void> {
   const runtimeDir = process.argv[2] as string
   const projectDir = process.argv[3] as string
   installOfficeEngineResolution(runtimeDir)
-  const installAnchor = join(runtimeDir, 'node_modules', '@lyness', 'lyn', 'package.json')
-  const profile = loadProfileDirectory('lyn', projectDir, installAnchor)
-  reportSkippedBundles('lyn', profile)
+  const installAnchor = join(runtimeDir, 'node_modules', '@deepseek-ai', 'dsh', 'package.json')
+  const profile = loadProfileDirectory('dsh', projectDir, installAnchor)
+  reportSkippedBundles('dsh', profile)
   const application = runProfile({
-    environment: loadLayeredEnv('lyn'),
+    environment: loadLayeredEnv('dsh'),
     profile: 'desktop',
     resolvedProfile: { profile, installAnchor },
     patchFiles: [],
@@ -34,7 +34,7 @@ async function main(): Promise<void> {
         args: ['--expose-internals', process.argv[5]],
         env: {
           ELECTRON_RUN_AS_NODE: '1',
-          LYNESS_DESKTOP_NODE_EXECUTABLE: process.execPath,
+          DSH_DESKTOP_NODE_EXECUTABLE: process.execPath,
           PATH: `${process.argv[6] ?? ''}${delimiter}${process.env.PATH ?? ''}`,
         },
       },
@@ -95,7 +95,7 @@ async function main(): Promise<void> {
   await ctx.plugin(desktopOffice, {
     runtimeDir,
     source: process.argv[4] ?? join(runtimeDir, '..', 'runtime', 'primary-runtime'),
-    root: join(resolveLynHome(), 'lyn-runtimes', 'lyn-primary-runtime'),
+    root: join(resolveDshHome(), 'dsh-runtimes', 'dsh-primary-runtime'),
   })
   installPlatformSessionPublisher(ctx, (session) => {
     if (process.connected) process.send?.({ type: 'platform-session', session })

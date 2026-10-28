@@ -4,7 +4,7 @@
  * a Host-only symbol, so a Client compilation face reads exactly the signatures
  * the Host emits.
  *
- * @module @lyness/lyn-host-directory-picker/types
+ * @module @deepseek-ai/dsh-host-directory-picker/types
  */
 
 /** One directory row: a listing child or a breadcrumb ancestor. */

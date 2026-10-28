@@ -1,10 +1,10 @@
 /** Shared projection of the live LLM registry into the browser model catalog. */
 
-import { RemoteError } from '@lyness/lyn-typert-protocol'
-import { credentialRef } from '@lyness/lyn-credentials'
-import type {} from '@lyness/lyn-settings'
-import type { LlmModelInfo } from '@lyness/lyn-llm'
-import type { Context } from '@lyness/cordis'
+import { RemoteError } from '@deepseek-ai/dsh-typert-protocol'
+import { credentialRef } from '@deepseek-ai/dsh-credentials'
+import type {} from '@deepseek-ai/dsh-settings'
+import type { LlmModelInfo } from '@deepseek-ai/dsh-llm'
+import type { Context } from '@deepseek-ai/cordis'
 import type {
   ModelCatalog,
   ModelReasoning,

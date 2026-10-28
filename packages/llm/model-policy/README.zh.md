@@ -3,13 +3,13 @@ description: "部署允许哪些模型：这条接缝、运营方书写的 provi
 kind: "package-reference"
 ---
 
-# @lyness/lyn-model-policy
+# @deepseek-ai/dsh-model-policy
 
 [English](README.md) | 中文
 
 ## 概述
 
-用 `lyn-model-policy` 把「允许的模型列表」变成部署方的决定，而不是用户的。这条接缝回答「正在解析的这次请求可以用哪些模型、以及是哪一方决定的」；`./static` 提供一份由运营方书写的列表；`./enforce` 挂在 `llm/stream` waterfall 上，拒绝策略没有点名的任何路由。不挂载任何 provider 则该部署不受限制——这正是单租户开发者安装想要的。
+用 `dsh-model-policy` 把「允许的模型列表」变成部署方的决定，而不是用户的。这条接缝回答「正在解析的这次请求可以用哪些模型、以及是哪一方决定的」；`./static` 提供一份由运营方书写的列表；`./enforce` 挂在 `llm/stream` waterfall 上，拒绝策略没有点名的任何路由。不挂载任何 provider 则该部署不受限制——这正是单租户开发者安装想要的。
 
 ## 目录
 
@@ -29,14 +29,14 @@ kind: "package-reference"
 
 ```yaml
 - id: model-policy
-  name: '@lyness/lyn-model-policy/static'
+  name: '@deepseek-ai/dsh-model-policy/static'
   config:
     authority: your IT administrator
     allowed:
       - provider: deepseek-official
         model: deepseek-flash
 - id: model-policy-enforce
-  name: '@lyness/lyn-model-policy/enforce'
+  name: '@deepseek-ai/dsh-model-policy/enforce'
 ```
 
 | 字段 | 默认 | 含义 |
@@ -50,7 +50,7 @@ kind: "package-reference"
 
 ```yaml
 - id: model-policy
-  name: '@lyness/lyn-model-policy/store'
+  name: '@deepseek-ai/dsh-model-policy/store'
   config:
     organization: acme
     initial:
@@ -84,8 +84,8 @@ kind: "package-reference"
 <a id="further-exploration"></a>
 ## 进一步探索
 
-- [`lyn-llm`](../llm/README.zh.md) —— 本强制执行所加入的那个运行时与 `llm/stream` waterfall。
-- [`lyn-model-required`](../model-required/README.zh.md) —— 针对「完全到达不了模型的部署」的那个配套门禁。
+- [`dsh-llm`](../llm/README.zh.md) —— 本强制执行所加入的那个运行时与 `llm/stream` waterfall。
+- [`dsh-model-required`](../model-required/README.zh.md) —— 针对「完全到达不了模型的部署」的那个配套门禁。
 - [`tenant-config`](../../tenant/tenant-config/README.zh.md) —— 托管 provider 会读取的那份按租户名册。
 - [模型是部署方的决定](../../../.agents/notes/proposed/architecture/2026-10-14-the-model-is-a-deployment-decision.zh.md) —— 为什么强制执行在这里、而不在某个界面里。
 

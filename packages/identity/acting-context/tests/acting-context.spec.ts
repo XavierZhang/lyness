@@ -6,10 +6,10 @@
  * next caller.
  */
 
-import { Context } from '@lyness/cordis'
-import { brandString } from '@lyness/lyn-brand'
-import type { MembershipId, PersonId } from '@lyness/lyn-people'
-import StaticPeopleDirectory from '@lyness/lyn-people/static'
+import { Context } from '@deepseek-ai/cordis'
+import { brandString } from '@deepseek-ai/dsh-brand'
+import type { MembershipId, PersonId } from '@deepseek-ai/dsh-people'
+import StaticPeopleDirectory from '@deepseek-ai/dsh-people/static'
 import { expect, it } from 'vitest'
 import ActingContextResolver, { ActingContextRefused } from '../src/index.ts'
 

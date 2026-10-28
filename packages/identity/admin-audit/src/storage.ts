@@ -7,12 +7,12 @@
  * records it audits would be removed by the same administrator action that
  * made it worth keeping.
  *
- * @module @lyness/lyn-admin-audit/storage
+ * @module @deepseek-ai/dsh-admin-audit/storage
  */
 
 import { z } from 'zod'
-import { defineDomain, domainTable, storedId, storedInstant } from '@lyness/lyn-storage-domain'
-import type { MembershipId, PersonId } from '@lyness/lyn-people'
+import { defineDomain, domainTable, storedId, storedInstant } from '@deepseek-ai/dsh-storage-domain'
+import type { MembershipId, PersonId } from '@deepseek-ai/dsh-people'
 import type { AuditEntry, AuditEntryId, AuditFieldChange } from './types.ts'
 
 /** One stored field change. */

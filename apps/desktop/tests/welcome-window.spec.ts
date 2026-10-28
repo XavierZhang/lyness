@@ -59,8 +59,8 @@ describe('desktop welcome window', () => {
         // The renderer resolves its own copy, so the window carries the product
         // names with the locale.
         additionalArguments: [
-          '--lyn-welcome-locale=zh-CN',
-          '--lyn-brand-name=lyness', '--lyn-brand-abbr=LYN', '--lyn-brand-name-zh=领驭',
+          '--dsh-welcome-locale=zh-CN',
+          '--dsh-brand-name=DeepSeek Harness', '--dsh-brand-abbr=DSH', '--dsh-brand-name-zh=领驭',
         ],
       },
     })

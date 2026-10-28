@@ -6,11 +6,11 @@
  * all arrive this way, and a filtered model picker would stop none of them.
  */
 
-import { Context } from '@lyness/cordis'
-import LlmRuntime, { LlmAdapter, LlmError } from '@lyness/lyn-llm'
+import { Context } from '@deepseek-ai/cordis'
+import LlmRuntime, { LlmAdapter, LlmError } from '@deepseek-ai/dsh-llm'
 import type {
   GenerateOptions, LlmModelInfo, LlmProviderInfo, LlmResolvedModelInfo, StreamChunk,
-} from '@lyness/lyn-llm'
+} from '@deepseek-ai/dsh-llm'
 import { expect, it } from 'vitest'
 import { ModelPolicy } from '../src/index.ts'
 import type { ModelAllowance, ModelPolicyCapability } from '../src/types.ts'

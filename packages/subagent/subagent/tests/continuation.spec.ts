@@ -2,24 +2,24 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import { mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { Context } from '@lyness/cordis'
+import { Context } from '@deepseek-ai/cordis'
 import { liveConfig } from '../../../settings/settings/tests/live-config.ts'
-import type { Agent } from '@lyness/lyn-agent'
-import AgentLoop from '@lyness/lyn-agent-loop'
-import { mountAgentLoopTestDependencies } from '@lyness/lyn-agent-loop-testkit'
-import { SessionId } from '@lyness/lyn-session'
-import type { SessionEvent, SessionEventMap } from '@lyness/lyn-session'
-import JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
-import ScheduleService from '@lyness/lyn-schedule'
-import Storage from '@lyness/lyn-storage'
-import * as StorageDomain from '@lyness/lyn-storage-domain'
-import * as StorageJson from '@lyness/lyn-storage-json'
-import * as SubagentSpawn from '@lyness/lyn-subagent-spawn-in-process'
-import * as SubagentFork from '@lyness/lyn-subagent-fork-in-process'
-import type { ContentBlock, GenerateOptions, MessageId, StreamChunk } from '@lyness/lyn-llm'
-import { ToolCallId, createUserMessage, LlmAdapter, ReasoningEffortId } from '@lyness/lyn-llm'
-import { defineTool } from '@lyness/lyn-tools'
-import InvariantRegistry from '@lyness/lyn-invariants'
+import type { Agent } from '@deepseek-ai/dsh-agent'
+import AgentLoop from '@deepseek-ai/dsh-agent-loop'
+import { mountAgentLoopTestDependencies } from '@deepseek-ai/dsh-agent-loop-testkit'
+import { SessionId } from '@deepseek-ai/dsh-session'
+import type { SessionEvent, SessionEventMap } from '@deepseek-ai/dsh-session'
+import JsonlSessionPersistence from '@deepseek-ai/dsh-session-persistence-jsonl'
+import ScheduleService from '@deepseek-ai/dsh-schedule'
+import Storage from '@deepseek-ai/dsh-storage'
+import * as StorageDomain from '@deepseek-ai/dsh-storage-domain'
+import * as StorageJson from '@deepseek-ai/dsh-storage-json'
+import * as SubagentSpawn from '@deepseek-ai/dsh-subagent-spawn-in-process'
+import * as SubagentFork from '@deepseek-ai/dsh-subagent-fork-in-process'
+import type { ContentBlock, GenerateOptions, MessageId, StreamChunk } from '@deepseek-ai/dsh-llm'
+import { ToolCallId, createUserMessage, LlmAdapter, ReasoningEffortId } from '@deepseek-ai/dsh-llm'
+import { defineTool } from '@deepseek-ai/dsh-tools'
+import InvariantRegistry from '@deepseek-ai/dsh-invariants'
 import { MockAdapter, maxTokensResponse, textResponse, toolCallResponse } from '../../../core/agent-loop/tests/mock-adapter.ts'
 import SubagentRuntime, {
   SubagentError,
@@ -81,7 +81,7 @@ afterEach(async () => {
 
 /** Mount the real Schedule service for root-only tool-registration assertions. */
 async function mountScheduleForOwnership(ctx: Context): Promise<void> {
-  const root = mkdtempSync(join(tmpdir(), 'lyn-subagent-schedule-'))
+  const root = mkdtempSync(join(tmpdir(), 'dsh-subagent-schedule-'))
   const fibers: Array<{ dispose(): Promise<void> }> = []
   cleanups.unshift(async () => {
     for (const fiber of fibers.toReversed()) await fiber.dispose()
@@ -108,7 +108,7 @@ async function setupWith(
   let disposePersistence: (() => Promise<void>) | undefined
   let root: string | undefined
   if (options.persistence !== false) {
-    root = mkdtempSync(join(tmpdir(), 'lyn-subagent-continuation-'))
+    root = mkdtempSync(join(tmpdir(), 'dsh-subagent-continuation-'))
     const persistedRoot = root
     const persistenceFiber = await ctx.plugin(JsonlSessionPersistence, { root })
     disposePersistence = () => persistenceFiber.dispose()
@@ -2818,7 +2818,7 @@ describe('continuable settlement delivery', () => {
       { chunks: textResponse('parent ack') },
     ])
     const { ctx, parent } = await setupWith(adapter)
-    // The shipped durability checkpoint (`lyn-session-checkpoint-policy`) is
+    // The shipped durability checkpoint (`dsh-session-checkpoint-policy`) is
     // fail-closed at the step boundary, so a rejected write ends the turn after
     // it claimed its messages and before it entered a step.
     ctx.on('agent/pre-step', async ({ agent: subject, turn }, next) => {
@@ -3581,7 +3581,7 @@ describe('continuable errors', () => {
     const adapter = new GatedAdapter([{ chunks: textResponse('child'), gate: hold.promise }])
     const ctx = new Context()
     await mountAgentLoopTestDependencies(ctx)
-    const root = mkdtempSync(join(tmpdir(), 'lyn-subagent-continuation-'))
+    const root = mkdtempSync(join(tmpdir(), 'dsh-subagent-continuation-'))
     const persistenceFiber = await ctx.plugin(JsonlSessionPersistence, { root })
     cleanups.push(async () => {
       await persistenceFiber.dispose()

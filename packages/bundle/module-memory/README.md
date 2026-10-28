@@ -3,7 +3,7 @@ description: "The durable memory module as its own bundle, whose write tools rea
 kind: "package-bundle"
 ---
 
-# @lyness/lyn-module-memory
+# @deepseek-ai/dsh-module-memory
 
 English | [中文](README.zh.md)
 
@@ -11,7 +11,7 @@ English | [中文](README.zh.md)
 
 This bundle is the durable memory default module: the Host [Memory service](../../memory/memory/README.md) and the preset contribution carrying its write tools into the agent catalog, as one unit a profile selects. It is the first user of the [preset row contribution](../../../.agents/notes/proposed/architecture/2026-10-10-preset-row-contributions.md) seam, so it is the worked example of adding a tool without restating a preset's row list.
 
-Unlike [`lyn-module-schedule`](../module-schedule/README.md), it ships switched **on**: an empty store contributes nothing to a request, so selecting it before anyone writes a fact costs zero prompt bytes.
+Unlike [`dsh-module-schedule`](../module-schedule/README.md), it ships switched **on**: an empty store contributes nothing to a request, so selecting it before anyone writes a fact costs zero prompt bytes.
 
 ## Table of Contents
 
@@ -49,12 +49,12 @@ Retention and prompt placement are the service's configuration, not this bundle'
 
 The bundle is its patch document. `src/index.ts` exports nothing and exists because the build pipeline resolves an entry for every package.
 
-The patch inserts two rows, and both name `@lyness/lyn-memory`:
+The patch inserts two rows, and both name `@deepseek-ai/dsh-memory`:
 
 | Row | Module | Role |
 |---|---|---|
-| `memory` | `@lyness/lyn-memory` | The Host service: one durable store, one domain owner |
-| `memory-preset-contribution` | `@lyness/lyn-memory/preset-contribution` | Contributes the `memory_*` tool row to every accepting preset |
+| `memory` | `@deepseek-ai/dsh-memory` | The Host service: one durable store, one domain owner |
+| `memory-preset-contribution` | `@deepseek-ai/dsh-memory/preset-contribution` | Contributes the `memory_*` tool row to every accepting preset |
 
 Neither row names this bundle. A bundle that named itself as a plugin would have to be resolvable as a module from wherever the Loader reads it, which a patch-carrying bundle otherwise never needs to be; naming the service package instead makes the contribution resolve exactly where the service already does.
 
@@ -72,7 +72,7 @@ The contribution arrives after the presets mount — module bundles load after t
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`lyn-memory`](../../memory/memory/README.md) — the service, its storage domain, and its tools.
+- [`dsh-memory`](../../memory/memory/README.md) — the service, its storage domain, and its tools.
 - [Preset row contributions](../../../.agents/notes/proposed/architecture/2026-10-10-preset-row-contributions.md) — why a module contributes a row instead of editing a preset.
 - [Memory, recall, and prompt assembly](../../../.agents/notes/proposed/architecture/2026-10-09-memory-recall-and-prompt-assembly.md) — what memory is for and what it is not.
 - [Default modules and the two views](../../../.agents/notes/proposed/architecture/2026-10-08-default-modules-and-views.md) — why each default module is its own bundle.
@@ -96,7 +96,7 @@ These limits define when this bundle needs special care. They are current constr
 
 - **The two rows are disabled independently** — nothing refuses the contribution row without the service. Turning off only one leaves tools whose calls fail at the session rather than at the boot.
 - **Migration covers the recorded previous tuples** — a profile whose bundle list was edited by hand is left alone, by design, so a hand-edited profile adds this bundle by hand too.
-- **Only the `web` template selects it** — a custom profile adds it to its own `lyn.profile.bundles`.
+- **Only the `web` template selects it** — a custom profile adds it to its own `dsh.profile.bundles`.
 - **Contribution order is centrally allocated** — this bundle's row sits at a fixed position the registry owns, so a deployment cannot reorder it relative to another module's contributed row.
 
 **Runtime invariant:** No companion is published. The bundle owns no runtime state; the rows it inserts are observed by the Loader, and the Memory service publishes its own.

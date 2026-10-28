@@ -8,7 +8,7 @@
  *
  * The check runs at successful startup rather than at load, and that is the
  * earliest point it can run: a route registers when its own row applies, and
- * `lyn-llm-pi-ai` registers its routes from the user settings document, so at
+ * `dsh-llm-pi-ai` registers its routes from the user settings document, so at
  * load time an empty registry is indistinguishable from one whose rows have
  * not applied yet. Load-time failure would be a false alarm; this is the
  * earliest resolvable point.
@@ -18,12 +18,12 @@
  * install that has not been given a key yet should still open its own Models
  * page.
  *
- * @module @lyness/lyn-model-required
+ * @module @deepseek-ai/dsh-model-required
  */
 
-import type { Context } from '@lyness/cordis'
-import type {} from '@lyness/lyn-llm'
-import type {} from '@lyness/lyn-cmdline'
+import type { Context } from '@deepseek-ai/cordis'
+import type {} from '@deepseek-ai/dsh-llm'
+import type {} from '@deepseek-ai/dsh-cmdline'
 
 /** Cordis plugin name used by loader diagnostics. */
 export const name = 'model-required'
@@ -48,7 +48,7 @@ export const NO_MODEL_EXIT_CODE = 78
  * empty does not say which of them was omitted.
  */
 export const NO_MODEL_DIAGNOSTIC = [
-  'lyn: this deployment reaches no model, so it cannot serve a session.',
+  'dsh: this deployment reaches no model, so it cannot serve a session.',
   '',
   'A deployment states its models before it serves anything. Check, in order:',
   '  1. a default model is declared (the `agent-default-model` row names a provider and model)',

@@ -2,23 +2,23 @@
 
 import { Readable } from 'node:stream'
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import { brandString } from '@lyness/lyn-brand'
-import AgentRegistry from '@lyness/lyn-agent'
+import { Context } from '@deepseek-ai/cordis'
+import { brandString } from '@deepseek-ai/dsh-brand'
+import AgentRegistry from '@deepseek-ai/dsh-agent'
 import type {
   Agent,
   AgentHandle,
   AssistantStreamFrame,
   CreateAgentOptions,
   ResumeAgentOptions,
-} from '@lyness/lyn-agent'
-import AgentDefaultModelConfig from '@lyness/lyn-agent-default-model'
-import { LlmAttemptId, ToolCallId, createAssistantMessage, createToolResultMessage, type MessageId, type StreamChunk } from '@lyness/lyn-llm'
-import SessionStore from '@lyness/lyn-session'
-import SessionProjectionRegistry from '@lyness/lyn-session-projection'
-import type { Session, SessionId, UserMessage } from '@lyness/lyn-session'
-import { SessionQueryError } from '@lyness/lyn-session-query'
-import { createInboxStub } from '@lyness/lyn-agent-loop-testkit'
+} from '@deepseek-ai/dsh-agent'
+import AgentDefaultModelConfig from '@deepseek-ai/dsh-agent-default-model'
+import { LlmAttemptId, ToolCallId, createAssistantMessage, createToolResultMessage, type MessageId, type StreamChunk } from '@deepseek-ai/dsh-llm'
+import SessionStore from '@deepseek-ai/dsh-session'
+import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
+import type { Session, SessionId, UserMessage } from '@deepseek-ai/dsh-session'
+import { SessionQueryError } from '@deepseek-ai/dsh-session-query'
+import { createInboxStub } from '@deepseek-ai/dsh-agent-loop-testkit'
 import { apply, Config } from '../src/index.ts'
 import { internals } from '../src/runner-internals.ts'
 
@@ -112,7 +112,7 @@ function appendTurn(
   })
 }
 
-/** Append the preset-selection event owned by lyn-agent-preset-registry. */
+/** Append the preset-selection event owned by dsh-agent-preset-registry. */
 function selectPreset(session: Session, agentPreset: string): void {
   const target = session as unknown as { append(type: string, data: unknown): void }
   target.append('agent-preset/selected', { agentPreset })
@@ -365,13 +365,13 @@ describe('headless runner', () => {
     const result = await running
     expect(streamed).toEqual({
       out: '',
-      err: 'lyn: reasoning:\nchecking the workspace safely\nsecond pass\n',
+      err: 'dsh: reasoning:\nchecking the workspace safely\nsecond pass\n',
       order: [],
     })
     expect(result).toEqual({
       code: 0,
       out: 'done\n',
-      err: 'lyn: reasoning:\nchecking the workspace safely\nsecond pass\n',
+      err: 'dsh: reasoning:\nchecking the workspace safely\nsecond pass\n',
       order: ['flush', 'exit'],
     })
     await test.ctx.fiber.dispose()
@@ -410,11 +410,11 @@ describe('headless runner', () => {
     })
     const running = test.run()
     await reasoningAppended.promise
-    expect(test.output().err).toBe('lyn: reasoning:\nunfinished reasoning')
+    expect(test.output().err).toBe('dsh: reasoning:\nunfinished reasoning')
 
     releaseEnd.resolve(undefined)
     await ended.promise
-    expect(test.output().err).toBe('lyn: reasoning:\nunfinished reasoning\n')
+    expect(test.output().err).toBe('dsh: reasoning:\nunfinished reasoning\n')
 
     finish.resolve(undefined)
     await expect(running).resolves.toMatchObject({ code: 1 })
@@ -445,7 +445,7 @@ describe('headless runner', () => {
     expect(await test.run()).toMatchObject({
       code: 1,
       out: '\n',
-      err: 'lyn: SERVER: provider unavailable\n',
+      err: 'dsh: SERVER: provider unavailable\n',
     })
     await test.ctx.fiber.dispose()
   })
@@ -468,7 +468,7 @@ describe('headless runner', () => {
     expect(await test.run()).toMatchObject({
       code: 1,
       out: '\n',
-      err: 'lyn: reasoning:\ntrying recovery\nlyn: SERVER: provider unavailable\n',
+      err: 'dsh: reasoning:\ntrying recovery\ndsh: SERVER: provider unavailable\n',
     })
     await test.ctx.fiber.dispose()
   })
@@ -493,7 +493,7 @@ describe('headless runner', () => {
     expect(result).toMatchObject({
       code: 1,
       out: '',
-      err: `lyn: headless summary cannot read seq 0 below captured length ${String(capturedLength)}\n`,
+      err: `dsh: headless summary cannot read seq 0 below captured length ${String(capturedLength)}\n`,
     })
     await test.ctx.fiber.dispose()
   })
@@ -516,7 +516,7 @@ describe('headless runner', () => {
     })
     expect(await test.run()).toMatchObject({
       code: 1,
-      err: 'lyn: a task is required, for example: lyn --profile headless "run the tests"\n',
+      err: 'dsh: a task is required, for example: dsh --profile headless "run the tests"\n',
     })
     await test.ctx.fiber.dispose()
   })
@@ -898,7 +898,7 @@ describe('headless runner', () => {
     })
     const result = await test.run()
     expect(result.code).toBe(1)
-    expect(result.err).toBe('lyn: log is corrupt\n')
+    expect(result.err).toBe('dsh: log is corrupt\n')
     await test.ctx.fiber.dispose()
   })
 
@@ -990,7 +990,7 @@ describe('headless runner', () => {
     ctx.provide('agents', { create: () => Promise.reject(new Error('factory exploded')) } as never)
     apply(ctx, { task: 't' })
     expect(await exited).toBe(1)
-    expect(err).toBe('lyn: factory exploded\n')
+    expect(err).toBe('dsh: factory exploded\n')
     await ctx.fiber.dispose()
   })
 
@@ -1012,7 +1012,7 @@ describe('headless runner', () => {
     ctx.provide('agents', { create: () => rejected } as never)
     apply(ctx, { task: 't' })
     expect(await exited).toBe(1)
-    expect(err).toBe('lyn: factory exploded\n')
+    expect(err).toBe('dsh: factory exploded\n')
     await ctx.fiber.dispose()
   })
 

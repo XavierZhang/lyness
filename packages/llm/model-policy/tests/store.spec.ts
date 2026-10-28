@@ -9,12 +9,12 @@
 import { mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { Context } from '@lyness/cordis'
-import Storage from '@lyness/lyn-storage'
-import * as StorageDomain from '@lyness/lyn-storage-domain'
-import * as StorageJson from '@lyness/lyn-storage-json'
-import { brandString } from '@lyness/lyn-brand'
-import type { Membership, MembershipId, PersonId } from '@lyness/lyn-people'
+import { Context } from '@deepseek-ai/cordis'
+import Storage from '@deepseek-ai/dsh-storage'
+import * as StorageDomain from '@deepseek-ai/dsh-storage-domain'
+import * as StorageJson from '@deepseek-ai/dsh-storage-json'
+import { brandString } from '@deepseek-ai/dsh-brand'
+import type { Membership, MembershipId, PersonId } from '@deepseek-ai/dsh-people'
 import { afterEach, expect, it } from 'vitest'
 import { NOT_PERMITTED, READ_ONLY_POLICY } from '../src/index.ts'
 import StoredModelPolicy, { resolveInitial } from '../src/store.ts'
@@ -35,7 +35,7 @@ function standing(role: Membership['role'], organization?: string): Membership {
 
 /** A context with durable JSON storage and a store-backed policy. */
 async function harness(config: { organization?: string; initial?: { provider: string; model: string }[] } = {},
-  root = mkdtempSync(join(tmpdir(), 'lyn-policy-'))): Promise<{ ctx: Context; root: string }> {
+  root = mkdtempSync(join(tmpdir(), 'dsh-policy-'))): Promise<{ ctx: Context; root: string }> {
   roots.push(root)
   const ctx = new Context()
   await ctx.plugin(Storage)

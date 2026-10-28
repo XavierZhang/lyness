@@ -3,9 +3,9 @@
  * serving, and one that reaches a model is left alone.
  */
 
-import { Context } from '@lyness/cordis'
-import LlmRuntime, { LlmAdapter } from '@lyness/lyn-llm'
-import type { LlmModelInfo, LlmProviderInfo, LlmResolvedModelInfo, StreamChunk } from '@lyness/lyn-llm'
+import { Context } from '@deepseek-ai/cordis'
+import LlmRuntime, { LlmAdapter } from '@deepseek-ai/dsh-llm'
+import type { LlmModelInfo, LlmProviderInfo, LlmResolvedModelInfo, StreamChunk } from '@deepseek-ai/dsh-llm'
 import { afterEach, expect, it, vi } from 'vitest'
 import * as ModelRequired from '../src/index.ts'
 
@@ -82,7 +82,7 @@ it('checks at startup rather than at mount, because a route registers later', as
   await ctx.plugin(ModelRequired).await()
 
   // A row that registers its route after this plugin mounted — which is what
-  // lyn-llm-pi-ai does when it reads the settings document — must not be
+  // dsh-llm-pi-ai does when it reads the settings document — must not be
   // reported as an absent model.
   ctx.effect(() => ctx.llm.registerAdapter(['late-route'], new RouteAdapter()))
   commitStartup()

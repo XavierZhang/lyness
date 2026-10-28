@@ -1,10 +1,10 @@
 /** One serial SenseVoice worker with request-owned cancellation and idle reclamation. */
 import { randomBytes } from 'node:crypto'
 import { mkdir } from 'node:fs/promises'
-import type { Context } from '@lyness/cordis'
-import type { SubprocessHandle } from '@lyness/lyn-subprocess'
-import type { SpeechPreparationOptions, SpeechInput, SpeechPreparationState, SpeechPreparationStep, SpeechPreparationStepKind, Transcript } from '@lyness/lyn-experimental-speech-to-text/types'
-import { deadline } from '@lyness/lyn-timeout'
+import type { Context } from '@deepseek-ai/cordis'
+import type { SubprocessHandle } from '@deepseek-ai/dsh-subprocess'
+import type { SpeechPreparationOptions, SpeechInput, SpeechPreparationState, SpeechPreparationStep, SpeechPreparationStepKind, Transcript } from '@deepseek-ai/dsh-experimental-speech-to-text/types'
+import { deadline } from '@deepseek-ai/dsh-timeout'
 import { z } from 'zod'
 import type { Config } from './config.ts'
 import { SpeechInputError } from './input.ts'
@@ -262,7 +262,7 @@ export class SenseVoiceWorker {
     const handle = this.ctx.subprocess.spawn({
       argv: [process.execPath, ...runtime.worker.endsWith('.ts') ? ['--import', import.meta.resolve('tsx/esm')] : [], runtime.worker, JSON.stringify(Object.assign({}, this.config, runtime))],
       cwd: this.config.dataRoot, graceMs: this.config.graceMs,
-      env: { LYNESS_SPEECH_TOKEN: token, ELECTRON_RUN_AS_NODE: '1' },
+      env: { DSH_SPEECH_TOKEN: token, ELECTRON_RUN_AS_NODE: '1' },
       stdio: { stdin: 'ignore', stdout: 'pipe', stderr: { maxBytes: this.config.maxLogBytes } },
     })
     try {

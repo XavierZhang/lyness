@@ -9,14 +9,14 @@
  * `Worker` to cross. The real browser Worker boundary is not exercised here.
  */
 import { afterEach, beforeEach, expect, it, vi } from 'vitest'
-import { MemoryVfs } from '@lyness/lyn-experimental-webworker-runtime/src/storage/memory.ts'
-import { setActiveVfs } from '@lyness/lyn-experimental-webworker-runtime/src/storage/active.ts'
-import { startProcess } from '@lyness/lyn-experimental-webworker-runtime/src/shell/process/host.ts'
-import { runShellProcess } from '@lyness/lyn-experimental-webworker-runtime/src/shell/process/child.ts'
-import { isShellStartFrame } from '@lyness/lyn-experimental-webworker-runtime/src/shell/process/protocol.ts'
-import type { FromProcessFrame, ToProcessFrame } from '@lyness/lyn-experimental-webworker-runtime/src/shell/process/protocol.ts'
+import { MemoryVfs } from '@deepseek-ai/dsh-experimental-webworker-runtime/src/storage/memory.ts'
+import { setActiveVfs } from '@deepseek-ai/dsh-experimental-webworker-runtime/src/storage/active.ts'
+import { startProcess } from '@deepseek-ai/dsh-experimental-webworker-runtime/src/shell/process/host.ts'
+import { runShellProcess } from '@deepseek-ai/dsh-experimental-webworker-runtime/src/shell/process/child.ts'
+import { isShellStartFrame } from '@deepseek-ai/dsh-experimental-webworker-runtime/src/shell/process/protocol.ts'
+import type { FromProcessFrame, ToProcessFrame } from '@deepseek-ai/dsh-experimental-webworker-runtime/src/shell/process/protocol.ts'
 
-const WORKSPACE = '/lyn/workspace'
+const WORKSPACE = '/dsh/workspace'
 const WORKER_URL = 'https://example.test/assets/worker.js'
 
 let vfs: MemoryVfs
@@ -104,7 +104,7 @@ async function run(script: string, stdin = ''): Promise<{ code: number; stdout: 
       script,
       argv: ['bash', '-c', script],
       cwd: WORKSPACE,
-      env: { HOME: '/lyn/home' },
+      env: { HOME: '/dsh/home' },
       stdin,
       onOutput: (stream, text) => {
         if (stream === 'stdout') stdout += text

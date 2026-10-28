@@ -1,18 +1,18 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { Context } from '@lyness/cordis'
-import AgentRegistry, { installModelSelection, type Agent, type ModelSelectionRef } from '@lyness/lyn-agent'
-import AgentLoop from '@lyness/lyn-agent-loop'
-import LlmRuntime, { createUserMessage, LlmError, type GenerateOptions } from '@lyness/lyn-llm'
-import { toPiContext } from '@lyness/lyn-llm-pi-ai/src/context.ts'
-import SessionStore, { Session, SessionId } from '@lyness/lyn-session'
-import SessionProjectionRegistry from '@lyness/lyn-session-projection'
-import SystemPrompt from '@lyness/lyn-system-prompt'
-import ToolRuntime, { defineContentToolFixture } from '@lyness/lyn-tools'
+import { Context } from '@deepseek-ai/cordis'
+import AgentRegistry, { installModelSelection, type Agent, type ModelSelectionRef } from '@deepseek-ai/dsh-agent'
+import AgentLoop from '@deepseek-ai/dsh-agent-loop'
+import LlmRuntime, { createUserMessage, LlmError, type GenerateOptions } from '@deepseek-ai/dsh-llm'
+import { toPiContext } from '@deepseek-ai/dsh-llm-pi-ai/src/context.ts'
+import SessionStore, { Session, SessionId } from '@deepseek-ai/dsh-session'
+import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
+import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
+import ToolRuntime, { defineContentToolFixture } from '@deepseek-ai/dsh-tools'
 import { MockAdapter, textResponse } from './mock-adapter.ts'
 
-declare module '@lyness/lyn-llm' {
+declare module '@deepseek-ai/dsh-llm' {
   interface MessageSourceMap {
-    'test-compaction': { kind: 'test-compaction' } & import('@lyness/lyn-llm').ContextFormed
+    'test-compaction': { kind: 'test-compaction' } & import('@deepseek-ai/dsh-llm').ContextFormed
   }
 }
 

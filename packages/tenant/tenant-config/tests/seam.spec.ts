@@ -1,9 +1,9 @@
 /** Contract behavior the seam owns: registration identity, the two capabilities, and every configuration rule. */
 
 import { describe, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import { credentialRef } from '@lyness/lyn-credentials'
-import { TenantId } from '@lyness/lyn-tenant'
+import { Context } from '@deepseek-ai/cordis'
+import { credentialRef } from '@deepseek-ai/dsh-credentials'
+import { TenantId } from '@deepseek-ai/dsh-tenant'
 import { MODALITIES, TenantConfigStore, validateTenantConfig } from '../src/index.ts'
 import type { Modality, ModalityModels, TenantConfig, TenantConfigCapability } from '../src/index.ts'
 

@@ -4,12 +4,12 @@
  * reaches a Host-only symbol, so a Client compilation face reads the same
  * `commands/change` signature the Host emits.
  *
- * @module @lyness/lyn-commands/types
+ * @module @deepseek-ai/dsh-commands/types
  */
 
-import type { SessionSeq } from '@lyness/lyn-session/types'
+import type { SessionSeq } from '@deepseek-ai/dsh-session/types'
 import type { CommandDefinitionId, CommandId } from './brand.ts'
-import type { EncodedImageAttachment } from '@lyness/lyn-attachment/types'
+import type { EncodedImageAttachment } from '@deepseek-ai/dsh-attachment/types'
 
 /** One browser-submitted command attachment: encoded image input or a staged file receipt. */
 export type CommandSubmitAttachment =
@@ -78,7 +78,7 @@ export interface CommandSourceMap {
 /** The union over {@link CommandSourceMap} — who issued a command line. */
 export type CommandSource = CommandSourceMap[keyof CommandSourceMap]
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Events {
     /**
      * A command was registered or unregistered. This is an unfiltered registry
@@ -90,7 +90,7 @@ declare module '@lyness/cordis' {
   }
 }
 
-declare module '@lyness/lyn-session/types' {
+declare module '@deepseek-ai/dsh-session/types' {
   interface SessionEventMap {
     /**
      * A resolved slash command entered its handler. Log-only (never model
@@ -113,7 +113,7 @@ declare module '@lyness/lyn-session/types' {
       commandId: CommandId
       kind: 'success' | 'error'
       text?: string
-      sourceEventSeq?: import('@lyness/lyn-session/types').SessionSeq
+      sourceEventSeq?: import('@deepseek-ai/dsh-session/types').SessionSeq
     }
   }
 }

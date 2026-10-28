@@ -17,15 +17,15 @@ import { dirname, isAbsolute, join, resolve } from 'node:path'
 import lefthookPackage from 'lefthook/package.json' with { type: 'json' }
 
 const MINIMUM_GIT = [2, 26, 0]
-const HOOKS_DIRECTORY = 'lyn-hooks'
-const OWNERSHIP_MARKER = '.lyn-lefthook-owned'
+const HOOKS_DIRECTORY = 'dsh-hooks'
+const OWNERSHIP_MARKER = '.dsh-lefthook-owned'
 const OWNERSHIP_MARKER_VERSION = 1
-const OWNERSHIP_MARKER_OWNER = 'lyness worktree-local lefthook hooks'
-const INSTALL_LOCK = 'lyn-lefthook-install.lock'
+const OWNERSHIP_MARKER_OWNER = 'DeepSeek Harness worktree-local lefthook hooks'
+const INSTALL_LOCK = 'dsh-lefthook-install.lock'
 const INSTALL_LOCK_TIMEOUT_MS = 30_000
 const INSTALL_LOCK_INITIALIZATION_TIMEOUT_MS = 5_000
 const INSTALL_LOCK_POLL_MS = 50
-const ALLOW_HOOKS_PATH_OVERRIDE = 'LYNESS_LEFTHOOK_ALLOW_HOOKS_PATH_OVERRIDE'
+const ALLOW_HOOKS_PATH_OVERRIDE = 'DSH_LEFTHOOK_ALLOW_HOOKS_PATH_OVERRIDE'
 const REPOSITORY_EXTENSION_PATTERN = '^extensions\\.'
 function errorCode(error) {
   return typeof error === 'object' && error !== null && 'code' in error
@@ -379,14 +379,14 @@ async function acquireInstallLock(commonDirectory) {
   const deadline = Date.now() + INSTALL_LOCK_TIMEOUT_MS
   const ownedRecord = `${String(process.pid)} ${randomUUID()}\n`
   let initializingLock
-  let observeBarrier = process.env.LYNESS_TEST_LEFTHOOK_LOCK_OBSERVE_BARRIER
+  let observeBarrier = process.env.DSH_TEST_LEFTHOOK_LOCK_OBSERVE_BARRIER
   while (true) {
     try {
       const lockHandle = openSync(lockPath, 'wx', 0o600)
       let ownedStat
       try {
         ownedStat = fstatSync(lockHandle)
-        const publicationBarrier = process.env.LYNESS_TEST_LEFTHOOK_LOCK_PUBLISH_BARRIER
+        const publicationBarrier = process.env.DSH_TEST_LEFTHOOK_LOCK_PUBLISH_BARRIER
         if (publicationBarrier !== undefined) await waitForLockTestBarrier(publicationBarrier)
         writeFileSync(lockHandle, ownedRecord)
       } finally {

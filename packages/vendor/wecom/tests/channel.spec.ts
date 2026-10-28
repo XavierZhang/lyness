@@ -5,12 +5,12 @@
  */
 
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { Context } from '@lyness/cordis'
-import { channelId } from '@lyness/lyn-sign-in'
+import { Context } from '@deepseek-ai/cordis'
+import { channelId } from '@deepseek-ai/dsh-sign-in'
 import { CHANNEL_ID, WecomChannel, WecomSignInError, asExternalSubject } from '../src/index.ts'
 import type { Config as WecomConfig } from '../src/index.ts'
 import type { WecomCorpId, WecomUserId } from '../src/types.ts'
-import { brandString } from '@lyness/lyn-brand'
+import { brandString } from '@deepseek-ai/dsh-brand'
 
 /** Overrides a test may make to the fixture corporation's configuration. */
 interface Over {
@@ -42,7 +42,7 @@ function config(over: Over = {}): WecomConfig {
 }
 
 
-const RETURN_TO = 'https://lyn.example/oauth/callback/wecom'
+const RETURN_TO = 'https://dsh.example/oauth/callback/wecom'
 
 /** One stubbed corporation: a reply per path, in the order the channel asks. */
 interface Corporation {

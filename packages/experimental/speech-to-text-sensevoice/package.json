@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/lyn-experimental-speech-to-text-sensevoice",
+  "name": "@deepseek-ai/dsh-experimental-speech-to-text-sensevoice",
   "description": "Local SenseVoice ONNX transcription with a managed sherpa-onnx process",
   "version": "0.1.7-rc.2",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/experimental/speech-to-text-sensevoice"
   },
   "type": "module",
@@ -33,21 +33,21 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@lyness/schemastery": "workspace:~",
-    "@lyness/lyn-timeout": "workspace:*",
+    "@deepseek-ai/schemastery": "workspace:~",
+    "@deepseek-ai/dsh-timeout": "workspace:*",
     "zod": "^4.4.3",
     "sherpa-onnx-node": "1.13.8"
   },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-experimental-speech-to-text": "workspace:*",
-    "@lyness/lyn-subprocess": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-experimental-speech-to-text": "workspace:*",
+    "@deepseek-ai/dsh-subprocess": "workspace:*"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-experimental-speech-to-text": "workspace:*",
-    "@lyness/lyn-subprocess": "workspace:*",
-    "@lyness/lyn-subprocess-local": "workspace:*",
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-experimental-speech-to-text": "workspace:*",
+    "@deepseek-ai/dsh-subprocess": "workspace:*",
+    "@deepseek-ai/dsh-subprocess-local": "workspace:*",
     "tsx": "^4.22.4"
   }
 }

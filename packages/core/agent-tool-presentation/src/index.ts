@@ -11,18 +11,18 @@
  * process. One row per composition, not one per session.
  *
  * A PTC mode needs a TypeScript PTC runtime, which is a host-plane service
- * ([`lyn-ptc-runtime-node`](../../../ptc-runtime/ptc-runtime-node/README.md)).
+ * ([`dsh-ptc-runtime-node`](../../../ptc-runtime/ptc-runtime-node/README.md)).
  * This row therefore waits for it rather than assuming it: a preset selecting
  * PTC mode against a deployment that composes no runtime fails at mount, named
  * in the preset's own activation audit, instead of at the first prompt.
- * @module @lyness/lyn-agent-tool-presentation
+ * @module @deepseek-ai/dsh-agent-tool-presentation
  */
 
-import type { Context } from '@lyness/cordis'
-import z from '@lyness/schemastery'
-import type { ToolPresentationMode } from '@lyness/lyn-tools'
+import type { Context } from '@deepseek-ai/cordis'
+import z from '@deepseek-ai/schemastery'
+import type { ToolPresentationMode } from '@deepseek-ai/dsh-tools'
 // Type-only: brings the `ctx.tools` Context merge into this program.
-import type {} from '@lyness/lyn-tools'
+import type {} from '@deepseek-ai/dsh-tools'
 
 /** Cordis plugin name. */
 export const name = 'tool-presentation'
@@ -65,7 +65,7 @@ export function apply(ctx: Context, config: Config): void {
     return
   }
   // The wait is the loud failure: an entry still pending on `ptcRuntime` is
-  // what `lyn-agent-preset-registry` reports as an unusable row, naming this id.
+  // what `dsh-agent-preset-registry` reports as an unusable row, naming this id.
   ctx.inject(['ptcRuntime'], (runtimeCtx: Context) => {
     runtimeCtx.tools.presentAs(config.mode)
   })

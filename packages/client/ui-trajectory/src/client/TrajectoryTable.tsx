@@ -21,12 +21,12 @@ import {
   StateDot,
   Tooltip,
   writeClipboard,
-} from '@lyness/lyn-client-ui-primitives'
-import type { JsonTreeLabels, JsonTreeProps, MarkdownLabels } from '@lyness/lyn-client-ui-primitives'
+} from '@deepseek-ai/dsh-client-ui-primitives'
+import type { JsonTreeLabels, JsonTreeProps, MarkdownLabels } from '@deepseek-ai/dsh-client-ui-primitives'
 import { structuredPatch } from 'diff'
 import type {
   AssistantRequestConfig, ConversationPromptSnapshot, RenderMessageImages,
-} from '@lyness/lyn-client-ui-conversation/client'
+} from '@deepseek-ai/dsh-client-ui-conversation/client'
 import type {
   AssistantMetricDetail, TrajectoryCellKind, TrajectoryCellProps, TrajectorySourceBlock,
 } from './trajectory-record.ts'

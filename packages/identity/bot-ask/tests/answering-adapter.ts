@@ -7,8 +7,8 @@
  * surface markers — is the shipping code's own.
  */
 
-import { LlmAdapter } from '@lyness/lyn-llm'
-import type { GenerateOptions, LlmResolvedModelInfo, StreamChunk } from '@lyness/lyn-llm'
+import { LlmAdapter } from '@deepseek-ai/dsh-llm'
+import type { GenerateOptions, LlmResolvedModelInfo, StreamChunk } from '@deepseek-ai/dsh-llm'
 
 /** The adapter route these tests register. */
 export const ANSWERING_PROVIDER = 'answering'

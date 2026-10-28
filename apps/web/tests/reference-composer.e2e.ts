@@ -8,16 +8,16 @@ import { join } from 'node:path'
 import type { Browser, Locator, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed } from 'vitest'
-import { createUserMessage } from '@lyness/lyn-llm'
-import { abbreviateHomePath } from '@lyness/lyn-util-workspace-path'
+import { createUserMessage } from '@deepseek-ai/dsh-llm'
+import { abbreviateHomePath } from '@deepseek-ai/dsh-util-workspace-path'
 import {
   SESSION_FORMAT_VERSION,
   Session,
   SessionId,
   SessionSeq,
-} from '@lyness/lyn-session'
-import type {} from '@lyness/lyn-session-reference/types'
-import type {} from '@lyness/lyn-session-title'
+} from '@deepseek-ai/dsh-session'
+import type {} from '@deepseek-ai/dsh-session-reference/types'
+import type {} from '@deepseek-ai/dsh-session-title'
 import {
   assertFixtureInventory,
   captureStableAria,

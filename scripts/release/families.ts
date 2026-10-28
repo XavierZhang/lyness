@@ -1,7 +1,7 @@
 /**
  * The three independent publish sequences this repository releases from
  * (`packages/` + `apps/`, `vendor/`, and `native/`) and the two this module
- * owns: `lyn` and `vendor`. Each family carries its own version baseline, tag
+ * owns: `dsh` and `vendor`. Each family carries its own version baseline, tag
  * naming, and publish set, so releasing one never republishes another
  * ([rationale](../../.agents/notes/implemented/process/2026-08-10-npm-release-sequences.md)).
  *
@@ -34,7 +34,7 @@ const INSTALL_SECTIONS = ['dependencies', 'optionalDependencies'] as const
 const PEER_SECTIONS = ['peerDependencies'] as const
 
 /** The workspace root manifest, which is never a release member. */
-const WORKSPACE_ROOT_PACKAGE = '@lyness/lyn-root'
+const WORKSPACE_ROOT_PACKAGE = '@deepseek-ai/dsh-root'
 
 /** One peer declaration the publish order leaves unordered. */
 interface DroppedPeerEdge {
@@ -132,7 +132,7 @@ export abstract class ReleaseFamily {
       const name = requireString(manifest, 'name', normalized)
       const version = requireString(manifest, 'version', normalized)
       if (name === WORKSPACE_ROOT_PACKAGE) throw new Error(`${normalized} selected the workspace root`)
-      if (!name.startsWith('@lyness/')) throw new Error(`${normalized} must name an @lyness package`)
+      if (!name.startsWith('@deepseek-ai/')) throw new Error(`${normalized} must name an @deepseek-ai package`)
       if (seen.has(name)) throw new Error(`${name} appears twice in release family ${this.id}`)
       seen.add(name)
       members.push({
@@ -319,13 +319,13 @@ export abstract class ReleaseFamily {
 }
 
 /** Release packages and apps: one shared version across the whole family. */
-class LynFamily extends ReleaseFamily {
-  readonly id = 'lyn'
+class DshFamily extends ReleaseFamily {
+  readonly id = 'dsh'
   readonly patterns = [
     'packages/*/*/package.json',
     'apps/*/package.json',
   ] as const
-  readonly tagPrefix = 'lyn-v'
+  readonly tagPrefix = 'dsh-v'
 
   /** Require current artifacts from a complete official client build. */
   override verifyBuildArtifacts(root: string): void {
@@ -340,13 +340,13 @@ class LynFamily extends ReleaseFamily {
     const versions = new Set(members.map(member => member.version))
     if (versions.size !== 1) {
       const detail = members.map(member => `${member.directory}: ${member.version}`).join('\n')
-      throw new Error(`lyn release members must share one version:\n${detail}`)
+      throw new Error(`dsh release members must share one version:\n${detail}`)
     }
   }
 
   /**
    * The single family prefix: every member shares one version, so one tag names it.
-   * @returns `lyn-v`.
+   * @returns `dsh-v`.
    */
   tagPrefixFor(): string {
     return this.tagPrefix
@@ -369,7 +369,7 @@ class LynFamily extends ReleaseFamily {
     validateTarballPayload(files, member.name)
   }
 
-  readonly installedEntry = { packageName: '@lyness/lyn', binPath: 'lib/bin.js' }
+  readonly installedEntry = { packageName: '@deepseek-ai/dsh', binPath: 'lib/bin.js' }
 }
 
 /** `vendor/*`: every package keeps its own version line, so every package has its own tag. */
@@ -396,7 +396,7 @@ class VendorFamily extends ReleaseFamily {
    * @returns `vendor-<unscoped name>-v`.
    */
   tagPrefixFor(member: ReleaseMember): string {
-    return `${this.tagPrefix}${member.name.replace('@lyness/', '')}-v`
+    return `${this.tagPrefix}${member.name.replace('@deepseek-ai/', '')}-v`
   }
 
   /**
@@ -421,7 +421,7 @@ class VendorFamily extends ReleaseFamily {
 
 /** Every release family this module owns, in workflow order. */
 function releaseFamilies(): readonly ReleaseFamily[] {
-  return [new LynFamily(), new VendorFamily()]
+  return [new DshFamily(), new VendorFamily()]
 }
 
 /**

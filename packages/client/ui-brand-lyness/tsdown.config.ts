@@ -1,3 +1,0 @@
-import { clientBundle } from '../tsdown.client.ts'
-
-export default clientBundle('@lyness/lyn-client-ui-brand-lyness', ['lib/types/index.js'])

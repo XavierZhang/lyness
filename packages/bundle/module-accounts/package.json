@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/lyn-module-accounts",
+  "name": "@deepseek-ai/dsh-module-accounts",
   "description": "The accounts module as its own bundle: who exists, how they sign in, and whose conversation is whose",
   "version": "0.1.7-rc.2",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/bundle/module-accounts"
   },
   "type": "module",
@@ -30,37 +30,37 @@
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
-  "lyn": {
+  "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml"
     }
   },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~"
+    "@deepseek-ai/cordis": "workspace:~"
   },
   "dependencies": {
-    "@lyness/lyn-acting-context": "workspace:*",
-    "@lyness/lyn-api-bots-controller": "workspace:*",
-    "@lyness/lyn-bot-ask": "workspace:*",
-    "@lyness/lyn-api-people-controller": "workspace:*",
-    "@lyness/lyn-api-remote-authority": "workspace:*",
-    "@lyness/lyn-api-sign-in-channel-controller": "workspace:*",
-    "@lyness/lyn-auth-session": "workspace:*",
-    "@lyness/lyn-dingtalk": "workspace:*",
-    "@lyness/lyn-feishu": "workspace:*",
-    "@lyness/lyn-managed-bots": "workspace:*",
-    "@lyness/lyn-admin-audit": "workspace:*",
-    "@lyness/lyn-api-admin-audit-controller": "workspace:*",
-    "@lyness/lyn-managed-people": "workspace:*",
-    "@lyness/lyn-people": "workspace:*",
-    "@lyness/lyn-request-principal": "workspace:*",
-    "@lyness/lyn-session-ownership": "workspace:*",
-    "@lyness/lyn-sign-in": "workspace:*",
-    "@lyness/lyn-sign-in-channels": "workspace:*",
-    "@lyness/lyn-sign-in-http": "workspace:*",
-    "@lyness/lyn-wecom": "workspace:*"
+    "@deepseek-ai/dsh-acting-context": "workspace:*",
+    "@deepseek-ai/dsh-api-bots-controller": "workspace:*",
+    "@deepseek-ai/dsh-bot-ask": "workspace:*",
+    "@deepseek-ai/dsh-api-people-controller": "workspace:*",
+    "@deepseek-ai/dsh-api-remote-authority": "workspace:*",
+    "@deepseek-ai/dsh-api-sign-in-channel-controller": "workspace:*",
+    "@deepseek-ai/dsh-auth-session": "workspace:*",
+    "@deepseek-ai/dsh-dingtalk": "workspace:*",
+    "@deepseek-ai/dsh-feishu": "workspace:*",
+    "@deepseek-ai/dsh-managed-bots": "workspace:*",
+    "@deepseek-ai/dsh-admin-audit": "workspace:*",
+    "@deepseek-ai/dsh-api-admin-audit-controller": "workspace:*",
+    "@deepseek-ai/dsh-managed-people": "workspace:*",
+    "@deepseek-ai/dsh-people": "workspace:*",
+    "@deepseek-ai/dsh-request-principal": "workspace:*",
+    "@deepseek-ai/dsh-session-ownership": "workspace:*",
+    "@deepseek-ai/dsh-sign-in": "workspace:*",
+    "@deepseek-ai/dsh-sign-in-channels": "workspace:*",
+    "@deepseek-ai/dsh-sign-in-http": "workspace:*",
+    "@deepseek-ai/dsh-wecom": "workspace:*"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:~"
+    "@deepseek-ai/cordis": "workspace:~"
   }
 }

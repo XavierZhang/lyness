@@ -1,13 +1,13 @@
 {
-  "name": "@lyness/lyn-brand-setup",
-  "description": "The lyn brand-setup profile bundle: a loopback page an operator brands a deployment from, reached through a one-time token the command prints",
+  "name": "@deepseek-ai/dsh-brand-setup",
+  "description": "The dsh brand-setup profile bundle: a loopback page an operator brands a deployment from, reached through a one-time token the command prints",
   "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/bundle/brand-setup"
   },
   "type": "module",
@@ -28,24 +28,24 @@
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
-  "lyn": {
+  "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml"
     }
   },
   "dependencies": {
-    "@lyness/lyn-brand-studio": "workspace:*",
-    "@lyness/lyn-cmdline": "workspace:*",
-    "@lyness/lyn-home-paths": "workspace:*",
-    "@lyness/lyn-host-brand-deployment": "workspace:*",
-    "@lyness/lyn-host-webserver": "workspace:*",
-    "@lyness/schemastery": "workspace:~",
+    "@deepseek-ai/dsh-brand-studio": "workspace:*",
+    "@deepseek-ai/dsh-cmdline": "workspace:*",
+    "@deepseek-ai/dsh-home-paths": "workspace:*",
+    "@deepseek-ai/dsh-host-brand-deployment": "workspace:*",
+    "@deepseek-ai/dsh-host-webserver": "workspace:*",
+    "@deepseek-ai/schemastery": "workspace:~",
     "yaml": "^2.9.0"
   },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~"
+    "@deepseek-ai/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:~"
+    "@deepseek-ai/cordis": "workspace:~"
   }
 }

@@ -11,15 +11,15 @@
  * signs nobody in. That is the fail-closed direction: an unanswered question
  * about who may use the system must keep people out, not let them all in.
  *
- * @module @lyness/lyn-sign-in/admission
+ * @module @deepseek-ai/dsh-sign-in/admission
  */
 
-import { Service } from '@lyness/cordis'
-import type { Context } from '@lyness/cordis'
-import type { PersonId } from '@lyness/lyn-people'
+import { Service } from '@deepseek-ai/cordis'
+import type { Context } from '@deepseek-ai/cordis'
+import type { PersonId } from '@deepseek-ai/dsh-people'
 import type { ExternalSubject } from './types.ts'
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     /** Who an authenticated directory subject is here; absent on a deployment that admits nobody. */
     signInAdmission: SignInAdmission

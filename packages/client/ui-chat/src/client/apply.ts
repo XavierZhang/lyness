@@ -1,25 +1,25 @@
 /** Register the Chat Conversation target, renderers, stats, and details surface. */
-import type { Context } from '@lyness/cordis'
-import type { ImageAttachmentRef } from '@lyness/lyn-attachment'
-import type {} from '@lyness/lyn-api-remotes/client'
-import type { SessionBinding } from '@lyness/lyn-api-session-controller/client'
-import type { GroupKey } from '@lyness/lyn-client-ui-conversation/client'
-import { createSnapshotStore, type ObservableSnapshot } from '@lyness/lyn-client-store'
-import type { SessionId } from '@lyness/lyn-session/types'
-import type {} from '@lyness/lyn-client-ui-sidebar-right/client'
-import type {} from '@lyness/lyn-client-ui-sidebar-browser/client'
-import type {} from '@lyness/lyn-client-ui-input-trigger/client'
+import type { Context } from '@deepseek-ai/cordis'
+import type { ImageAttachmentRef } from '@deepseek-ai/dsh-attachment'
+import type {} from '@deepseek-ai/dsh-api-remotes/client'
+import type { SessionBinding } from '@deepseek-ai/dsh-api-session-controller/client'
+import type { GroupKey } from '@deepseek-ai/dsh-client-ui-conversation/client'
+import { createSnapshotStore, type ObservableSnapshot } from '@deepseek-ai/dsh-client-store'
+import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import type {} from '@deepseek-ai/dsh-client-ui-sidebar-right/client'
+import type {} from '@deepseek-ai/dsh-client-ui-sidebar-browser/client'
+import type {} from '@deepseek-ai/dsh-client-ui-input-trigger/client'
 // The `file` entry of `SidebarRightResourceParamsMap`, which types `{ params: { line } }` below.
-import type {} from '@lyness/lyn-client-ui-sidebar-documentpreview/client'
-import { fileAddressFor } from '@lyness/lyn-util-workspace-path'
+import type {} from '@deepseek-ai/dsh-client-ui-sidebar-documentpreview/client'
+import { fileAddressFor } from '@deepseek-ai/dsh-util-workspace-path'
 // Type-only service and declaration merges used by the apply world.
-import type {} from '@lyness/lyn-client-locale/client'
-import type {} from '@lyness/lyn-client-ui-conversation/client'
-import type {} from '@lyness/lyn-client-ui-layout/client'
-import type {} from '@lyness/lyn-client-ui-renderer/client'
-import type {} from '@lyness/lyn-client-ui-session/client'
-import type {} from '@lyness/lyn-client-ui-settings/client'
-import type {} from '@lyness/lyn-client-ui-workspace/client'
+import type {} from '@deepseek-ai/dsh-client-locale/client'
+import type {} from '@deepseek-ai/dsh-client-ui-conversation/client'
+import type {} from '@deepseek-ai/dsh-client-ui-layout/client'
+import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
+import type {} from '@deepseek-ai/dsh-client-ui-session/client'
+import type {} from '@deepseek-ai/dsh-client-ui-settings/client'
+import type {} from '@deepseek-ai/dsh-client-ui-workspace/client'
 import type {
   ChatNodeInjected, ChatScrollPosition, ChatViewInjected, QuotaNoticeInjected, QuotaNoticeState, TurnTailOwnerProps,
 } from './contract/slots.ts'
@@ -204,7 +204,7 @@ export function apply(ctx: Context): void {
           // content stays in the product, beside the conversation that produced
           // it. A relative path, or an absolute one inside the session's
           // workspace, is addressed under this session's scope,
-          // `lyn-resource://file/session/<id>/<path>`; an absolute path
+          // `dsh-resource://file/session/<id>/<path>`; an absolute path
           // elsewhere keeps its absolute spelling in the same Session's address.
           // Which tab type claims the
           // address is the Sidebar's decision, not this call site's.

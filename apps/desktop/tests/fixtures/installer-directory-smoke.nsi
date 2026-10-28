@@ -8,12 +8,12 @@ LoadLanguageFile "${NSISDIR}\Contrib\Language files\English.nlf"
 LangString decompressionFailed ${LANG_ENGLISH} "Payload extraction failed"
 
 !macro installApplicationFiles
-  !insertmacro lynExtractPayload "${PAYLOAD_FILE}"
+  !insertmacro dshExtractPayload "${PAYLOAD_FILE}"
 !macroend
 !ifdef SOURCE_DLL
   LoadLanguageFile "${NSISDIR}\Contrib\Language files\SimpChinese.nlf"
   !include "..\..\installer\strings.nsh"
-  !define LYNESS_INSTALLER_LOG_DIR "${REPORT_DIR}"
+  !define DSH_INSTALLER_LOG_DIR "${REPORT_DIR}"
   !include "..\..\scripts\installer.nsh"
 !else
   !include "..\..\scripts\installer-directories.nsh"
@@ -25,19 +25,19 @@ Section
     File "/oname=$PLUGINSDIR\window-frame.dll" "${SOURCE_DLL}"
   !endif
   StrCpy $INSTDIR "${TARGET_DIR}"
-  !insertmacro lynStageApplication
+  !insertmacro dshStageApplication
   !ifdef CANCELLED
     SetErrorLevel 2
-    Call lynCleanupDirectories
+    Call dshCleanupDirectories
     Quit
   !endif
   !ifdef MISSING_STAGE
     ; A missing source makes the second rename fail after the old directory moved.
-    RMDir /r "\\?\$lynNewDirectory"
+    RMDir /r "\\?\$dshNewDirectory"
   !endif
-  Call lynPromoteDirectories
+  Call dshPromoteDirectories
   IfErrors failed
-  !insertmacro lynFinishDirectories
+  !insertmacro dshFinishDirectories
   SetErrorLevel 0
   Quit
   failed:

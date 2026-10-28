@@ -4,7 +4,7 @@
  * discipline), so `./client` projects the same single-source content
  * `./types` serves to host consumers — zero duplication.
  *
- * @module @lyness/lyn-tool-todo/client
+ * @module @deepseek-ai/dsh-tool-todo/client
  */
 
 export type * from './types.ts'

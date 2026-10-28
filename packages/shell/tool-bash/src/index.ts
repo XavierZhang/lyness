@@ -8,25 +8,25 @@
  *
  * TODO(permissions): deployment policy belongs in `tools/pre-execute` and
  * sandboxing executors; see docs/architecture.md § Where new behavior goes.
- * @module @lyness/lyn-tool-bash
+ * @module @deepseek-ai/dsh-tool-bash
  */
 
-import { FiberState } from '@lyness/cordis'
-import type { Context } from '@lyness/cordis'
-import z from '@lyness/schemastery'
+import { FiberState } from '@deepseek-ai/cordis'
+import type { Context } from '@deepseek-ai/cordis'
+import z from '@deepseek-ai/schemastery'
 import { isAbsolute, sep } from 'node:path'
-import { defineTool, TOOL_ABORTED } from '@lyness/lyn-tools'
-import type { GenericCallView, TerminalCallView, ToolDefinition, ToolExecution, ToolResult, ToolResultView } from '@lyness/lyn-tools'
-import { HarnessError } from '@lyness/lyn-llm'
-import type { Agent } from '@lyness/lyn-agent'
-import type { JobId, JobRegistry, JobView } from '@lyness/lyn-jobs'
-import type {} from '@lyness/lyn-user-approval'
-import type {} from '@lyness/lyn-shell-env'
-import type { SandboxExecutionPolicy, SandboxMode } from '@lyness/lyn-sandbox'
-import { ESCALATION_TARGETS, approveEscalation, sandboxPermissionsDescription, validateEscalationArgs } from '@lyness/lyn-sandbox'
-import type { SandboxPolicyService } from '@lyness/lyn-sandbox-policy'
-import { LYNESS_ENV_PREFIX } from '@lyness/lyn-shell'
-import type { ShellExecRequest, ShellExecSpec, ShellExecution, ShellRunResult } from '@lyness/lyn-shell'
+import { defineTool, TOOL_ABORTED } from '@deepseek-ai/dsh-tools'
+import type { GenericCallView, TerminalCallView, ToolDefinition, ToolExecution, ToolResult, ToolResultView } from '@deepseek-ai/dsh-tools'
+import { HarnessError } from '@deepseek-ai/dsh-llm'
+import type { Agent } from '@deepseek-ai/dsh-agent'
+import type { JobId, JobRegistry, JobView } from '@deepseek-ai/dsh-jobs'
+import type {} from '@deepseek-ai/dsh-user-approval'
+import type {} from '@deepseek-ai/dsh-shell-env'
+import type { SandboxExecutionPolicy, SandboxMode } from '@deepseek-ai/dsh-sandbox'
+import { ESCALATION_TARGETS, approveEscalation, sandboxPermissionsDescription, validateEscalationArgs } from '@deepseek-ai/dsh-sandbox'
+import type { SandboxPolicyService } from '@deepseek-ai/dsh-sandbox-policy'
+import { DSH_ENV_PREFIX } from '@deepseek-ai/dsh-shell'
+import type { ShellExecRequest, ShellExecSpec, ShellExecution, ShellRunResult } from '@deepseek-ai/dsh-shell'
 import { processJob, processOutcome, processSources, ringDelta } from './background.ts'
 import { parseExitStatus, renderJobRead, renderPromoted, renderResult } from './render.ts'
 
@@ -90,7 +90,7 @@ function validateBashArgs(args: BashToolArgs, effectiveMode: SandboxMode | undef
 function bashDescription(): string {
   return 'Execute a bash command (`bash -c`) and return its stdout/stderr. '
     + 'Each call runs in a fresh shell; pass `workdir` instead of using `cd`. '
-    + `Managed \`$${LYNESS_ENV_PREFIX}*\` variables expose current harness environment facts. `
+    + `Managed \`$${DSH_ENV_PREFIX}*\` variables expose current harness environment facts. `
     + 'Long output is truncated to its tail; the full output is saved to a file whose path is reported when available. '
     + 'Commands may run under a file sandbox; a blocked file operation is reported as `[sandbox: file access denied under <mode> mode]`, a policy denial: do not retry another way.'
 }
@@ -486,12 +486,12 @@ export function apply(ctx: Context, config: Config = {}): void {
           ? standingPolicy
           : { ...(standingPolicy as SandboxExecutionPolicy), mode: approvedMode }
         const workdir = resolveWorkdir(args.workdir, exec, standingPolicy?.workspaceRoot)
-        const lynEnv = ctx.shellEnv.collect(exec)
+        const dshEnv = ctx.shellEnv.collect(exec)
         const request: ShellExecRequest = {
           command: args.command,
           ...workdir !== undefined ? { workdir } : {},
           ...args.timeoutMs !== undefined ? { timeoutMs: args.timeoutMs } : {},
-          lynEnv,
+          dshEnv,
           ...policy !== undefined ? { sandboxPolicy: policy } : {},
         }
         if (args.run_in_background === true) {
@@ -500,7 +500,7 @@ export function apply(ctx: Context, config: Config = {}): void {
             throw new Error('run_in_background is disabled for this deployment (enableRunInBackground: false)')
           }
           if (jobs === undefined) {
-            throw new Error('background jobs unavailable: load @lyness/lyn-jobs and @lyness/lyn-tool-jobs')
+            throw new Error('background jobs unavailable: load @deepseek-ai/dsh-jobs and @deepseek-ai/dsh-tool-jobs')
           }
           // The caller owns cancellation until ctx.jobs commits detached ownership.
           if (exec.signal.aborted) throw toolAborted()

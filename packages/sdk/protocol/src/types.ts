@@ -1,16 +1,16 @@
 /**
- * Named wire types for the lyness SDK runtime protocol: the three
+ * Named wire types for the DeepSeek Harness SDK runtime protocol: the three
  * request/result pairs and the four server-to-client notification payloads
  * exchanged over the newline-delimited JSON-RPC stdio transport. The server
- * plugin (`@lyness/lyn-sdk-jsonrpc-server`) and SDK clients share these shapes;
- * `serverInfo.name` stays the wire-stable `lyness-sdk-runtime`.
+ * plugin (`@deepseek-ai/dsh-sdk-jsonrpc-server`) and SDK clients share these shapes;
+ * `serverInfo.name` stays the wire-stable `DeepSeek Harness-sdk-runtime`.
  *
- * @module @lyness/lyn-sdk-protocol/types
+ * @module @deepseek-ai/dsh-sdk-protocol/types
  */
 
-import type { ContentBlock, ReasoningEffortId } from '@lyness/lyn-llm'
-import type { SessionEvent } from '@lyness/lyn-session'
-import type { SubagentStopReason } from '@lyness/lyn-subagent'
+import type { ContentBlock, ReasoningEffortId } from '@deepseek-ai/dsh-llm'
+import type { SessionEvent } from '@deepseek-ai/dsh-session'
+import type { SubagentStopReason } from '@deepseek-ai/dsh-subagent'
 
 /** Parameters for the process-wide SDK handshake. */
 export interface InitializeParams {
@@ -28,7 +28,7 @@ export interface InitializeParams {
 
 /** Wire-stable server identity returned by initialization. */
 export interface InitializeResult {
-  /** Wire-stable server identity (`lyness-sdk-runtime`) and version. */
+  /** Wire-stable server identity (`DeepSeek Harness-sdk-runtime`) and version. */
   serverInfo: { name: string; version: string }
 }
 

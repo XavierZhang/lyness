@@ -3,7 +3,7 @@ description: "面向实现或排查 Windows ACL 沙箱与普通子进程 Job run
 kind: "package-library"
 ---
 
-# @lyness/lyn-win32-process
+# @deepseek-ai/dsh-win32-process
 
 [English](README.md) | 中文
 

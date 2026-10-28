@@ -4,8 +4,8 @@
  */
 
 import { describe, expect, it } from 'vitest'
-import { brandString } from '@lyness/lyn-brand'
-import type { PersonId } from '@lyness/lyn-people'
+import { brandString } from '@deepseek-ai/dsh-brand'
+import type { PersonId } from '@deepseek-ai/dsh-people'
 import { allowanceKey, effectiveAllowance } from '../src/allowance.ts'
 import type { EffectiveAllowance } from '../src/allowance.ts'
 

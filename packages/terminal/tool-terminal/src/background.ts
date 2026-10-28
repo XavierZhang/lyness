@@ -2,11 +2,11 @@
  * Generic-job adaptation for background terminal sends: the registry pull
  * source over the backend's consuming send reader.
  *
- * @module @lyness/lyn-tool-terminal/background
+ * @module @deepseek-ai/dsh-tool-terminal/background
  */
 
-import type { JobOutputSource } from '@lyness/lyn-jobs'
-import type { TerminalSendOperation } from '@lyness/lyn-terminal'
+import type { JobOutputSource } from '@deepseek-ai/dsh-jobs'
+import type { TerminalSendOperation } from '@deepseek-ai/dsh-terminal'
 import { renderSendRead } from './render.ts'
 
 /**

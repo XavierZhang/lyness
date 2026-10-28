@@ -7,11 +7,11 @@
  * a read that settles before a render publishes to whoever is bound by then
  * rather than failing.
  *
- * @module @lyness/lyn-client-ui-sign-in/client/binding
+ * @module @deepseek-ai/dsh-client-ui-sign-in/client/binding
  */
 
-import type { SharedRead } from '@lyness/lyn-client-store'
-import type { ViewerView } from '@lyness/lyn-api-identity-controller/types'
+import type { SharedRead } from '@deepseek-ai/dsh-client-store'
+import type { ViewerView } from '@deepseek-ai/dsh-api-identity-controller/types'
 import type { ViewerSink } from './read.ts'
 
 /** The store writes a surface performs, as the framework hands them over. */

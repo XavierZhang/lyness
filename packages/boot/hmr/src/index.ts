@@ -1,22 +1,22 @@
 /** Serialized module and profile-configuration reloads. */
 import { AsyncLocalStorage } from 'node:async_hooks'
 import { watchConfig as watchExactConfig } from './watch-config.ts'
-import { Context, Inject, Service, type Plugin } from '@lyness/cordis'
-import { ModuleLoader, type ModuleJob, type ResolveResult } from '@lyness/cordis-plugin-loader'
-import type { Include } from '@lyness/cordis-plugin-include'
+import { Context, Inject, Service, type Plugin } from '@deepseek-ai/cordis'
+import { ModuleLoader, type ModuleJob, type ResolveResult } from '@deepseek-ai/cordis-plugin-loader'
+import type { Include } from '@deepseek-ai/cordis-plugin-include'
 import { FSWatcher, watch, type ChokidarOptions } from 'chokidar'
 import { basename, dirname, join, relative, resolve } from 'node:path'
 import { readFileSync, realpathSync } from 'node:fs'
-import { readProfileManifest, readProfilePatches, reconcileProfilePatches, PROFILE_PATCH_FILENAME } from '@lyness/lyn-app-boot'
-import type {} from '@lyness/lyn-cmdline'
+import { readProfileManifest, readProfilePatches, reconcileProfilePatches, PROFILE_PATCH_FILENAME } from '@deepseek-ai/dsh-app-boot'
+import type {} from '@deepseek-ai/dsh-cmdline'
 import { handleError } from './error.ts'
-import type {} from '@lyness/cordis-plugin-timer'
+import type {} from '@deepseek-ai/cordis-plugin-timer'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { createRequire } from 'node:module'
 import picomatch from 'picomatch'
-import z from '@lyness/schemastery'
+import z from '@deepseek-ai/schemastery'
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     /** Serialized plugin-code and configuration reloads. */
     hmr: Hmr
@@ -216,7 +216,7 @@ class Hmr extends Service {
       let lastInputs: string | undefined
       let lastBundles = JSON.stringify(profile.startedBundles)
       const refresh = async (manifestOnly: boolean): Promise<void> => {
-        const bundles = JSON.stringify(readProfileManifest('lyn', profile.dir).lyn?.profile?.bundles ?? [])
+        const bundles = JSON.stringify(readProfileManifest('dsh', profile.dir).dsh?.profile?.bundles ?? [])
         if (manifestOnly && bundles === lastBundles) return
         const inputs = JSON.stringify([bundles, ...patchFiles.map((filename) => {
           try { return readFileSync(filename, 'utf8') }
@@ -226,8 +226,8 @@ class Hmr extends Service {
           }
         })])
         if (inputs === lastInputs) return
-        const patches = readProfilePatches('lyn', profile)
-        const warnings = await reconcileProfilePatches(this.ownerContext.root, patches, 'lyn')
+        const patches = readProfilePatches('dsh', profile)
+        const warnings = await reconcileProfilePatches(this.ownerContext.root, patches, 'dsh')
         lastInputs = inputs
         lastBundles = bundles
         for (const diagnostic of warnings) this.ctx.logger.warn(diagnostic)

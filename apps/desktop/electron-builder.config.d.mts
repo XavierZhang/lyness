@@ -4,7 +4,7 @@ import type { AfterPackContext, BeforePackContext } from 'app-builder-lib'
 export interface DesktopElectronBuilderConfig {
   readonly appId: string
   readonly artifactName: string
-  readonly protocols: readonly [{ readonly name: 'lyness'; readonly schemes: readonly ['lyn'] }]
+  readonly protocols: readonly [{ readonly name: 'HARNESS'; readonly schemes: readonly ['dsh'] }]
   readonly directories: {
     readonly output: string
   }
@@ -13,10 +13,10 @@ export interface DesktopElectronBuilderConfig {
     string,
     string,
     string,
-    { readonly from: string, readonly to: 'lyn', readonly filter: readonly ['**/*'] },
-    { readonly from: string, readonly to: 'lyn/node_modules', readonly filter: readonly ['**/*'] },
+    { readonly from: string, readonly to: 'dsh', readonly filter: readonly ['**/*'] },
+    { readonly from: string, readonly to: 'dsh/node_modules', readonly filter: readonly ['**/*'] },
   ]
-  readonly extraMetadata: { readonly lynDesktopAppId: string }
+  readonly extraMetadata: { readonly dshDesktopAppId: string }
   readonly asarUnpack: readonly string[]
   readonly extraResources: readonly [
     { readonly from: string, readonly to: 'runtime' },

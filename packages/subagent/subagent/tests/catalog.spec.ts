@@ -1,15 +1,15 @@
 import { describe, expect, it, vi } from 'vitest'
 import { z } from 'zod'
-import { Context } from '@lyness/cordis'
-import SessionStore from '@lyness/lyn-session'
-import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import { Context } from '@deepseek-ai/cordis'
+import SessionStore from '@deepseek-ai/dsh-session'
+import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
 import {
   SessionLogOffset,
   SessionSeq,
   SESSION_FORMAT_VERSION,
   SessionId,
-} from '@lyness/lyn-session'
-import type { SessionEvent, SessionHeader } from '@lyness/lyn-session'
+} from '@deepseek-ai/dsh-session'
+import type { SessionEvent, SessionHeader } from '@deepseek-ai/dsh-session'
 import {
   subagentCatalogProjectionDefinition,
 } from '../src/catalog.ts'

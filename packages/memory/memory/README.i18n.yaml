@@ -5,51 +5,51 @@
 /:
   en: 77be5b0e0240330b
   zh: a1bc247e3da1087c
-/lyness-lyn-memory:
+/DeepSeek Harness-dsh-memory:
   en: 83640aef42497fcb
   zh: d7d5b6435c8c1866
-/lyness-lyn-memory/summary:
+/DeepSeek Harness-dsh-memory/summary:
   en: 0690cc8f8d24c3e1
   zh: 548e0196b1c819ea
-/lyness-lyn-memory/table-of-contents:
+/DeepSeek Harness-dsh-memory/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/lyness-lyn-memory/use-this-package:
+/DeepSeek Harness-dsh-memory/use-this-package:
   en: 8f011fa0c6c4c1e1
   zh: ddff67208e47ec49
-/lyness-lyn-memory/use-this-package/the-service-api:
+/DeepSeek Harness-dsh-memory/use-this-package/the-service-api:
   en: 9b46e05ded4b53c5
   zh: 160b745c26a7f947
-/lyness-lyn-memory/understand-the-implementation:
+/DeepSeek Harness-dsh-memory/understand-the-implementation:
   en: 95e7e663d94ac063
   zh: 913e98de2ab85c9b
-/lyness-lyn-memory/further-exploration:
+/DeepSeek Harness-dsh-memory/further-exploration:
   en: f4d7fff81ef16652
   zh: 708e6710dea6a833
-/lyness-lyn-memory/model-experience:
+/DeepSeek Harness-dsh-memory/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/lyness-lyn-memory/model-experience/remembered-facts-in-the-request:
+/DeepSeek Harness-dsh-memory/model-experience/remembered-facts-in-the-request:
   en: 8557326ffaecd60a
   zh: 63bc8e8f035016e4
-/lyness-lyn-memory/model-experience/remembered-facts-in-the-request/what-the-model-sees:
+/DeepSeek Harness-dsh-memory/model-experience/remembered-facts-in-the-request/what-the-model-sees:
   en: 3014f774525ecede
   zh: fa1e44ba7d322674
-/lyness-lyn-memory/model-experience/remembered-facts-in-the-request/what-the-model-sees/the-remembered-facts-block:
+/DeepSeek Harness-dsh-memory/model-experience/remembered-facts-in-the-request/what-the-model-sees/the-remembered-facts-block:
   en: 71d7a80486e21ba3
   zh: b5749dd67f738cc9
-/lyness-lyn-memory/model-experience/remembered-facts-in-the-request/what-the-model-sees/the-tool-results:
+/DeepSeek Harness-dsh-memory/model-experience/remembered-facts-in-the-request/what-the-model-sees/the-tool-results:
   en: c38bc0a26bd7732f
   zh: 3f7b85fa06435c5b
-/lyness-lyn-memory/model-experience/remembered-facts-in-the-request/token-effect:
+/DeepSeek Harness-dsh-memory/model-experience/remembered-facts-in-the-request/token-effect:
   en: ffe1103f48a9c5ed
   zh: a46b28a98488aba7
-/lyness-lyn-memory/model-experience/remembered-facts-in-the-request/kv-cache-effect:
+/DeepSeek Harness-dsh-memory/model-experience/remembered-facts-in-the-request/kv-cache-effect:
   en: 1b69ee459a4ba374
   zh: ae9c39c2769fdb0b
-/lyness-lyn-memory/known-limitations-and-deferred-work:
+/DeepSeek Harness-dsh-memory/known-limitations-and-deferred-work:
   en: e53cecb62015e3cc
   zh: 7fbfd5fe860678af
-/lyness-lyn-memory/known-limitations-and-deferred-work/dev-note:
+/DeepSeek Harness-dsh-memory/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 6f5a05a57518223b

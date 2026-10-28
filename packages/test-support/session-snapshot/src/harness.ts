@@ -13,7 +13,7 @@
  *
  * See .agents/notes/implemented/testing/2026-06-19-acp-snapshot-tests.md.
  *
- * @module @lyness/lyn-session-snapshot/harness
+ * @module @deepseek-ai/dsh-session-snapshot/harness
  */
 
 import { cp, mkdtemp, readFile, readdir, rm } from 'node:fs/promises'
@@ -35,7 +35,7 @@ import {
   type AgentUnderTest,
   type LaunchedAcpTestAgent,
 } from './launcher.ts'
-import { clearedProxyEnv } from '@lyness/lyn-http-proxy'
+import { clearedProxyEnv } from '@deepseek-ai/dsh-http-proxy'
 import {
   assertPersistedSessionVersion,
   latestPersistedSessionPaths,
@@ -175,7 +175,7 @@ export interface RunOptions {
   /**
    * Recorded SUBAGENT child-session fixture paths (replay). A nested-agent
    * scenario ships one per child (`session.1.jsonl`, …); the harness forwards
-   * them to `lyn-llm-replay` via `$LYNESS_SNAPSHOT_CHILD_FILES` so each child
+   * them to `dsh-llm-replay` via `$DSH_SNAPSHOT_CHILD_FILES` so each child
    * session replays from its own recorded script. Empty for single-session
    * scenarios. Ignored in record mode (children are harvested, not replayed).
    */
@@ -224,7 +224,7 @@ export function snapshotSpillRoot(
   const scenario = basename(dirname(fixtureFile))
   const key = createHash('sha256').update(scenario).digest('hex').slice(0, 9)
   const root = platform === 'win32' ? '/t' : '/tmp'
-  return `${root}/lyn-acp-snap-${key}`
+  return `${root}/dsh-acp-snap-${key}`
 }
 
 /**
@@ -256,7 +256,7 @@ export async function runScenario(input: InputScript, opts: RunOptions): Promise
     }
     await opts.prepareWorkspace?.(cwd)
     const initialWorkspace = await captureWorkspaceSnapshot(cwd, {
-      ignoredRootEntries: ['.agents', '.lyn', '.lyn-profile-patches', '.lyn-snapshot-stream-ready'],
+      ignoredRootEntries: ['.agents', '.dsh', '.dsh-profile-patches', '.dsh-snapshot-stream-ready'],
     })
     const env: NodeJS.ProcessEnv = {
       ...opts.env,
@@ -266,16 +266,16 @@ export async function runScenario(input: InputScript, opts: RunOptions): Promise
       // host and record that proxy's error page as the expected output. `undefined` removes the
       // name from the child rather than setting it empty.
       ...clearedProxyEnv(),
-      LYNESS_SNAPSHOT: opts.mode,
-      LYNESS_SNAPSHOT_FILE: opts.fixtureFile,
-      LYNESS_SNAPSHOT_SESSIONS_ROOT: sessionsRoot,
-      LYNESS_SNAPSHOT_SPILL_ROOT: spillRoot,
-      LYNESS_SNAPSHOT_SPILL_LOCATOR_ROOT: snapshotSpillRoot(opts.fixtureFile),
-      LYNESS_HOME: join(cwd, '.lyn'),
-      LYNESS_AGENTS_HOME: join(cwd, '.agents'),
-      ...opts.overrideFile !== undefined ? { LYNESS_SNAPSHOT_OVERRIDE: opts.overrideFile } : {},
+      DSH_SNAPSHOT: opts.mode,
+      DSH_SNAPSHOT_FILE: opts.fixtureFile,
+      DSH_SNAPSHOT_SESSIONS_ROOT: sessionsRoot,
+      DSH_SNAPSHOT_SPILL_ROOT: spillRoot,
+      DSH_SNAPSHOT_SPILL_LOCATOR_ROOT: snapshotSpillRoot(opts.fixtureFile),
+      DSH_HOME: join(cwd, '.dsh'),
+      DSH_AGENTS_HOME: join(cwd, '.agents'),
+      ...opts.overrideFile !== undefined ? { DSH_SNAPSHOT_OVERRIDE: opts.overrideFile } : {},
       ...opts.childFiles !== undefined && opts.childFiles.length > 0
-        ? { LYNESS_SNAPSHOT_CHILD_FILES: opts.childFiles.join(delimiter) }
+        ? { DSH_SNAPSHOT_CHILD_FILES: opts.childFiles.join(delimiter) }
         : {},
     }
 
@@ -345,7 +345,7 @@ export async function runScenario(input: InputScript, opts: RunOptions): Promise
     // generated dirs still exist, ordered primary-first.
     sessionLogs = await harvestSessionLogs(sessionsRoot)
     const finalWorkspace = await captureWorkspaceSnapshot(cwd, {
-      ignoredRootEntries: ['.agents', '.lyn', '.lyn-profile-patches', '.lyn-snapshot-stream-ready'],
+      ignoredRootEntries: ['.agents', '.dsh', '.dsh-profile-patches', '.dsh-snapshot-stream-ready'],
     })
     return {
       rawStdout: launched.rawStdout(),
@@ -803,7 +803,7 @@ async function harvestSessionLogs(root: string): Promise<HarvestedLog[]> {
   // synchronously and strictly sequentially, so their createdAt values are
   // strictly ordered; the recordedId tiebreak only keeps a degenerate
   // same-millisecond collision (unreachable here) deterministic. This harvest
-  // order must match the replay load order in lyn-llm-replay's loadSessionScripts
+  // order must match the replay load order in dsh-llm-replay's loadSessionScripts
   // so session.<n>.jsonl maps to the same child on record and replay — replay
   // re-sorts childFiles by the same key, so the two stay consistent.
   logs.sort((a, b) => {

@@ -1,13 +1,13 @@
 /** Package-owned relationship invariant for webhook-origin prompt admission. */
 
-import type { Context } from '@lyness/cordis'
-import type {} from '@lyness/lyn-agent'
-import type { InvariantFailure, InvariantInstaller } from '@lyness/lyn-invariants'
-import type { Session, SessionEvent } from '@lyness/lyn-session'
-import type {} from '@lyness/lyn-workspace'
+import type { Context } from '@deepseek-ai/cordis'
+import type {} from '@deepseek-ai/dsh-agent'
+import type { InvariantFailure, InvariantInstaller } from '@deepseek-ai/dsh-invariants'
+import type { Session, SessionEvent } from '@deepseek-ai/dsh-session'
+import type {} from '@deepseek-ai/dsh-workspace'
 import type {} from './types.ts'
 
-const PACKAGE_NAME = '@lyness/lyn-webhook'
+const PACKAGE_NAME = '@deepseek-ai/dsh-webhook'
 
 /** Cordis invariant-companion plugin name. */
 export const name = 'webhook-invariant'

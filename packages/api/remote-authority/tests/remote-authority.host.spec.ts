@@ -4,13 +4,13 @@
  * classified.
  */
 
-import { Context } from '@lyness/cordis'
+import { Context } from '@deepseek-ai/cordis'
 import { afterEach, describe, expect, it } from 'vitest'
-import { brandString } from '@lyness/lyn-brand'
-import type { Membership, MembershipId, PersonId, Role } from '@lyness/lyn-people'
-import type { Principal } from '@lyness/lyn-request-principal'
-import type { RemoteAuthority } from '@lyness/lyn-typert-protocol'
-import type { RemoteAuthorizationRequest } from '@lyness/lyn-api-gateway'
+import { brandString } from '@deepseek-ai/dsh-brand'
+import type { Membership, MembershipId, PersonId, Role } from '@deepseek-ai/dsh-people'
+import type { Principal } from '@deepseek-ai/dsh-request-principal'
+import type { RemoteAuthority } from '@deepseek-ai/dsh-typert-protocol'
+import type { RemoteAuthorizationRequest } from '@deepseek-ai/dsh-api-gateway'
 import { ANONYMOUS, NO_STANDING, UNCLASSIFIED, apply, inject, refusal, satisfies } from '../src/index.ts'
 
 const ADA = brandString<PersonId>('ada')

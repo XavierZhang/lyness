@@ -3,13 +3,13 @@ description: "按调用方解析并惰性加载 CommonJS 兼容的 Host 依赖�
 kind: "package-library"
 ---
 
-# @lyness/lyn-lazy-require
+# @deepseek-ai/dsh-lazy-require
 
 [English](README.md) | 中文
 
 ## 概述
 
-`lyn-lazy-require` 会让 CommonJS 兼容的 Host 依赖保持未加载状态，直到首次实际操作。解析仍以消费方 package 为基准，同一进程 realm 会复用一次成功加载的模块值。
+`dsh-lazy-require` 会让 CommonJS 兼容的 Host 依赖保持未加载状态，直到首次实际操作。解析仍以消费方 package 为基准，同一进程 realm 会复用一次成功加载的模块值。
 
 ## 目录
 
@@ -28,7 +28,7 @@ kind: "package-library"
 传入依赖的字面量 specifier 与调用方的 `import.meta.url`：
 
 ```ts
-import { createLazyRequire } from '@lyness/lyn-lazy-require'
+import { createLazyRequire } from '@deepseek-ai/dsh-lazy-require'
 
 interface NativeModule { open(): void }
 const requireNative = createLazyRequire<NativeModule>('native-package', import.meta.url)

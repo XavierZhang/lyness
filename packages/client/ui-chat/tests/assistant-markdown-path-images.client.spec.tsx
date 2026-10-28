@@ -17,7 +17,7 @@ function textBlock(text: string): AssistantBlock {
 }
 
 const BASE = 'http://127.0.0.1:3080/'
-const MOUNTED_BASE = 'http://127.0.0.1:3080/tools/lyn/'
+const MOUNTED_BASE = 'http://127.0.0.1:3080/tools/dsh/'
 
 describe('localPathMediaUrl', () => {
   it('maps an absolute POSIX path to the file route of the document, root or mount', () => {
@@ -26,9 +26,9 @@ describe('localPathMediaUrl', () => {
       [BASE, BASE],
       ['https://127.0.0.1:3080/', 'https://127.0.0.1:3080/'],
       [MOUNTED_BASE, MOUNTED_BASE],
-      ['lyn-app://app/', 'lyn-app://app/'],
-      ['lyn-app://app/index.html', 'lyn-app://app/'],
-      ['http://127.0.0.1:3080/tools/lyn/index.html', MOUNTED_BASE],
+      ['dsh-app://app/', 'dsh-app://app/'],
+      ['dsh-app://app/index.html', 'dsh-app://app/'],
+      ['http://127.0.0.1:3080/tools/dsh/index.html', MOUNTED_BASE],
     ]) {
       expect(localPathMediaUrl(base!, '/tmp/graph.png')).toBe(`${root!}api/file?path=${path}`)
     }
@@ -36,7 +36,7 @@ describe('localPathMediaUrl', () => {
 
   it('keeps unsupported application transports inert', () => {
     expect(localPathMediaUrl('about:blank', '/tmp/graph.png')).toBeUndefined()
-    expect(localPathMediaUrl('lyn-app://shell/', '/tmp/graph.png')).toBeUndefined()
+    expect(localPathMediaUrl('dsh-app://shell/', '/tmp/graph.png')).toBeUndefined()
     expect(localPathMediaUrl('file:///app', '/tmp/graph.png')).toBeUndefined()
     expect(localPathMediaUrl('ws://127.0.0.1:3080/', '/tmp/graph.png')).toBeUndefined()
   })
@@ -55,7 +55,7 @@ describe('localPathMediaUrl', () => {
 })
 
 describe('AssistantMarkdown local-path images', () => {
-  it.each([BASE, 'lyn-app://app/'])('renders a local image in closing prose through %s', (base) => {
+  it.each([BASE, 'dsh-app://app/'])('renders a local image in closing prose through %s', (base) => {
     vi.spyOn(document, 'baseURI', 'get').mockReturnValue(base)
     const { container } = render(
       <AssistantMarkdown useDisclosure={useDisclosure}

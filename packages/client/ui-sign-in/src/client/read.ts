@@ -6,15 +6,15 @@
  * refused call and a thrown one reported the same way, and a retry that shows
  * the attempt rather than the failure it replaces.
  *
- * @module @lyness/lyn-client-ui-sign-in/client/read
+ * @module @deepseek-ai/dsh-client-ui-sign-in/client/read
  */
 
-import type { Context } from '@lyness/cordis'
-import { createOutcomeRead } from '@lyness/lyn-client-store'
-import type { SharedRead } from '@lyness/lyn-client-store'
-import type {} from '@lyness/lyn-api-remotes/client'
-import type {} from '@lyness/lyn-api-identity-controller/remote'
-import type { ViewerView } from '@lyness/lyn-api-identity-controller/types'
+import type { Context } from '@deepseek-ai/cordis'
+import { createOutcomeRead } from '@deepseek-ai/dsh-client-store'
+import type { SharedRead } from '@deepseek-ai/dsh-client-store'
+import type {} from '@deepseek-ai/dsh-api-remotes/client'
+import type {} from '@deepseek-ai/dsh-api-identity-controller/remote'
+import type { ViewerView } from '@deepseek-ai/dsh-api-identity-controller/types'
 
 /** What one Remote read answers: the viewer, or the reason it refused. */
 export type ReadOutcome =

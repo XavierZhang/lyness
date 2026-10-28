@@ -1,13 +1,13 @@
 {
-  "name": "@lyness/lyn-llm",
-  "description": "Provider-neutral LLM service interface for the lyness",
+  "name": "@deepseek-ai/dsh-llm",
+  "description": "Provider-neutral LLM service interface for the DeepSeek Harness",
   "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/llm/llm"
   },
   "type": "module",
@@ -61,20 +61,20 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~"
+    "@deepseek-ai/cordis": "workspace:~"
   },
   "dependencies": {
-    "@lyness/lyn-util-crypto": "workspace:*",
-    "@lyness/schemastery": "workspace:~",
+    "@deepseek-ai/dsh-util-crypto": "workspace:*",
+    "@deepseek-ai/schemastery": "workspace:~",
     "zod": "^4.4.3",
-    "@lyness/lyn-timeout": "workspace:*",
-    "@lyness/lyn-brand": "workspace:*",
-    "@lyness/lyn-util-values": "workspace:*",
-    "@lyness/lyn-typert-protocol": "workspace:*"
+    "@deepseek-ai/dsh-timeout": "workspace:*",
+    "@deepseek-ai/dsh-brand": "workspace:*",
+    "@deepseek-ai/dsh-util-values": "workspace:*",
+    "@deepseek-ai/dsh-typert-protocol": "workspace:*"
   },
   "devDependencies": {
-    "@lyness/lyn-attachment": "workspace:*",
-    "@lyness/lyn-invariants": "workspace:*",
-    "@lyness/cordis": "workspace:~"
+    "@deepseek-ai/dsh-attachment": "workspace:*",
+    "@deepseek-ai/dsh-invariants": "workspace:*",
+    "@deepseek-ai/cordis": "workspace:~"
   }
 }

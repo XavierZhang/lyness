@@ -8,7 +8,7 @@
 
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
-import type { ViewerView } from '@lyness/lyn-api-identity-controller/types'
+import type { ViewerView } from '@deepseek-ai/dsh-api-identity-controller/types'
 import { SignInScreen, signInHref } from '../src/client/SignInScreen.tsx'
 import type { SignInScreenProps } from '../src/client/SignInScreen.tsx'
 import type { ViewerState } from '../src/client/store.ts'

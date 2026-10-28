@@ -1,7 +1,7 @@
 [
   {
     "role": "hide",
-    "label": "Hide lyness"
+    "label": "Hide DeepSeek Harness"
   },
   {
     "role": "hideOthers",
@@ -13,6 +13,6 @@
   },
   {
     "role": "quit",
-    "label": "Quit lyness"
+    "label": "Quit DeepSeek Harness"
   }
 ]

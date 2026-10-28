@@ -1,30 +1,30 @@
 #!/usr/bin/env node
 /**
- * Command-line entry for lyn.
- * @module @lyness/lyn/bin
+ * Command-line entry for dsh.
+ * @module @deepseek-ai/dsh/bin
  */
 
 /* v8 ignore file -- built-bin acceptance exercises this self-executing dispatch. */
 
-import { getLynRuntimeVersion, loadLayeredEnv, StartupError } from '@lyness/lyn-app-boot'
-import { resolveLynHome } from '@lyness/lyn-home-paths'
-import { parseLynArgs } from './args.ts'
+import { getDshRuntimeVersion, loadLayeredEnv, StartupError } from '@deepseek-ai/dsh-app-boot'
+import { resolveDshHome } from '@deepseek-ai/dsh-home-paths'
+import { parseDshArgs } from './args.ts'
 import { reportStartupFailure } from './startup-diagnostics.ts'
 
 /**
- * Run the public lyn command-line interface.
+ * Run the public dsh command-line interface.
  * @returns a promise that settles when the selected command mode finishes.
  */
 export async function runCli(): Promise<void> {
-  const version = getLynRuntimeVersion()
-  const invocation = parseLynArgs(process.argv.slice(2), version)
+  const version = getDshRuntimeVersion()
+  const invocation = parseDshArgs(process.argv.slice(2), version)
 
   switch (invocation.mode) {
     case 'profile': {
       const { runProfile } = await import('./profile-boot.ts')
       try {
         await runProfile({
-          environment: loadLayeredEnv('lyn'),
+          environment: loadLayeredEnv('dsh'),
           profile: invocation.profile,
           fromDefaultProfile: invocation.fromDefaultProfile,
           patchFiles: invocation.patches,
@@ -32,7 +32,7 @@ export async function runCli(): Promise<void> {
         })
       } catch (error) {
         if (!(error instanceof StartupError)) throw error
-        await reportStartupFailure(error, { home: resolveLynHome(), version, profile: invocation.profile })
+        await reportStartupFailure(error, { home: resolveDshHome(), version, profile: invocation.profile })
         process.exit(1)
       }
       break
@@ -59,7 +59,7 @@ export async function runCli(): Promise<void> {
     }
     default:
       invocation satisfies never
-      throw new Error(`lyn: unhandled invocation mode ${JSON.stringify(invocation)}`)
+      throw new Error(`dsh: unhandled invocation mode ${JSON.stringify(invocation)}`)
   }
 }
 

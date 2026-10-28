@@ -1,7 +1,7 @@
 /** Which platform an environment table names, and what it refuses. */
 
 import { describe, expect, it } from 'vitest'
-import { PUBLIC_BASE_URL } from '@lyness/lyn-llm-deepseek'
+import { PUBLIC_BASE_URL } from '@deepseek-ai/dsh-llm-deepseek'
 import { E2E_TARGET, OFFICIAL_E2E_MODEL, resolveE2eTarget } from '../src/index.ts'
 
 describe('the e2e target', () => {

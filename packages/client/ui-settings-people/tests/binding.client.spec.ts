@@ -4,7 +4,7 @@
  */
 
 import { describe, expect, it, vi } from 'vitest'
-import type { PersonRowView } from '@lyness/lyn-api-people-controller/types'
+import type { PersonRowView } from '@deepseek-ai/dsh-api-people-controller/types'
 import { SectionBinding, sectionFace } from '../src/client/binding.ts'
 import type { PeopleActions } from '../src/client/binding.ts'
 import type { PeopleOperations } from '../src/client/operations.ts'

@@ -7,10 +7,10 @@
  * stream becomes.
  */
 
-import { Context } from '@lyness/cordis'
+import { Context } from '@deepseek-ai/cordis'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { brandString } from '@lyness/lyn-brand'
-import type { PersonId } from '@lyness/lyn-people'
+import { brandString } from '@deepseek-ai/dsh-brand'
+import type { PersonId } from '@deepseek-ai/dsh-people'
 import DesktopLink from '../src/index.ts'
 import DesktopLinkController, { NOT_A_REMOTE_CALL, NOT_SIGNED_IN } from '../src/controller.ts'
 import type { DesktopReply, DesktopRequest } from '../src/types.ts'

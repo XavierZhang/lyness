@@ -9,31 +9,31 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import Loader from '@lyness/cordis-plugin-loader'
-import Include from '@lyness/cordis-plugin-include'
-import * as Connection from '@lyness/lyn-client-connection'
-import type { CredentialProvider, CredentialRecord } from '@lyness/lyn-credentials'
-import AgentRegistry from '@lyness/lyn-agent'
-import SessionStore from '@lyness/lyn-session'
-import SessionProjectionRegistry from '@lyness/lyn-session-projection'
-import SystemPrompt from '@lyness/lyn-system-prompt'
-import StaticTenantDirectory from '@lyness/lyn-tenant-static'
-import StaticTenantConfigStore from '@lyness/lyn-tenant-config-static'
-import RequestTenantScope from '@lyness/lyn-tenant-request'
+import { Context } from '@deepseek-ai/cordis'
+import Loader from '@deepseek-ai/cordis-plugin-loader'
+import Include from '@deepseek-ai/cordis-plugin-include'
+import * as Connection from '@deepseek-ai/dsh-client-connection'
+import type { CredentialProvider, CredentialRecord } from '@deepseek-ai/dsh-credentials'
+import AgentRegistry from '@deepseek-ai/dsh-agent'
+import SessionStore from '@deepseek-ai/dsh-session'
+import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
+import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
+import StaticTenantDirectory from '@deepseek-ai/dsh-tenant-static'
+import StaticTenantConfigStore from '@deepseek-ai/dsh-tenant-config-static'
+import RequestTenantScope from '@deepseek-ai/dsh-tenant-request'
 import * as TenantSession from '../src/index.ts'
 import type { TenantSessionRecord } from '../src/index.ts'
 
 const CREDENTIALS = 'test:credentials'
-const CONNECTION = '@lyness/lyn-client-connection'
-const AGENTS = '@lyness/lyn-agent'
-const PROMPT = '@lyness/lyn-system-prompt'
-const SESSIONS = '@lyness/lyn-session'
-const PROJECTIONS = '@lyness/lyn-session-projection'
-const DIRECTORY = '@lyness/lyn-tenant-static'
-const CONFIG = '@lyness/lyn-tenant-config-static'
-const SCOPE = '@lyness/lyn-tenant-request'
-const STAMP = '@lyness/lyn-tenant-session'
+const CONNECTION = '@deepseek-ai/dsh-client-connection'
+const AGENTS = '@deepseek-ai/dsh-agent'
+const PROMPT = '@deepseek-ai/dsh-system-prompt'
+const SESSIONS = '@deepseek-ai/dsh-session'
+const PROJECTIONS = '@deepseek-ai/dsh-session-projection'
+const DIRECTORY = '@deepseek-ai/dsh-tenant-static'
+const CONFIG = '@deepseek-ai/dsh-tenant-config-static'
+const SCOPE = '@deepseek-ai/dsh-tenant-request'
+const STAMP = '@deepseek-ai/dsh-tenant-session'
 
 /** In-memory stand-in for the credential store Connection keeps its cookie secret in. */
 class MemoryCredentials {
@@ -77,7 +77,7 @@ afterEach(async () => {
 
 /** Boot a two-tenant deployment whose configured fallback is `acme`. */
 async function compose(): Promise<Context> {
-  root = await mkdtemp(join(tmpdir(), 'lyn-tenant-session-request-'))
+  root = await mkdtemp(join(tmpdir(), 'dsh-tenant-session-request-'))
   const configPath = join(root, 'cordis.yml')
   await writeFile(configPath, [
     `- name: '${CREDENTIALS}'`,

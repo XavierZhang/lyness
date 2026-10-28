@@ -10,17 +10,17 @@
  * way to learn who a caller is, and revoking one is the only way to stop them
  * — there is no second path that could disagree.
  *
- * @module @lyness/lyn-auth-session
+ * @module @deepseek-ai/dsh-auth-session
  */
 
-import { Service } from '@lyness/cordis'
-import type { Context } from '@lyness/cordis'
-import type { ActingContext, PersonId } from '@lyness/lyn-people'
+import { Service } from '@deepseek-ai/cordis'
+import type { Context } from '@deepseek-ai/cordis'
+import type { ActingContext, PersonId } from '@deepseek-ai/dsh-people'
 import type { AuthSessionId, SessionRefusal, SignedInSession } from './types.ts'
 
 export type { AuthSessionId, SessionRefusal, SignedInSession } from './types.ts'
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     /** Signed-in sessions; absent on a deployment that authenticates nobody. */
     authSessions: AuthSessionStore

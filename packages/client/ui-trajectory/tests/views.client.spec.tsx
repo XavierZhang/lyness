@@ -7,41 +7,41 @@
  * event ledger with its timing overview, and fiber disposal removes the tab.
  * Timeline projection and inclusive focus edge cases ride along.
  */
-import type { GlobalStandardProps } from '@lyness/lyn-client-ui-slots'
+import type { GlobalStandardProps } from '@deepseek-ai/dsh-client-ui-slots'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { act, cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { createElement, type ComponentProps, type FC, type ReactNode } from 'react'
-import { bindSnapshotSelector, SlotTestRuntime, stubConfigForm } from '@lyness/lyn-client-test-runtime'
-import { resolveSlotLabel } from '@lyness/lyn-client-ui-slots'
+import { bindSnapshotSelector, SlotTestRuntime, stubConfigForm } from '@deepseek-ai/dsh-client-test-runtime'
+import { resolveSlotLabel } from '@deepseek-ai/dsh-client-ui-slots'
 import {
   EMPTY_CONVERSATION_SNAPSHOT, UiConversation,
-} from '@lyness/lyn-client-ui-conversation/client'
+} from '@deepseek-ai/dsh-client-ui-conversation/client'
 import type {
   ConversationBinding, ConversationSnapshot, ConversationViewSnapshotMap, ConvViewProps,
   InputActions, InputState, RequestView, ViewTab,
-} from '@lyness/lyn-client-ui-conversation/client'
-import { EMPTY_CHAT_SNAPSHOT } from '@lyness/lyn-client-ui-chat/client'
+} from '@deepseek-ai/dsh-client-ui-conversation/client'
+import { EMPTY_CHAT_SNAPSHOT } from '@deepseek-ai/dsh-client-ui-chat/client'
 import type {
   ChatSnapshot, LegacyConversationSlice,
-} from '@lyness/lyn-client-ui-chat/client'
-import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
-import { createSnapshotStore } from '@lyness/lyn-client-store'
-import type { ObservableSnapshot } from '@lyness/lyn-client-store'
+} from '@deepseek-ai/dsh-client-ui-chat/client'
+import { SlotRegistry } from '@deepseek-ai/dsh-client-ui-renderer/client'
+import { createSnapshotStore } from '@deepseek-ai/dsh-client-store'
+import type { ObservableSnapshot } from '@deepseek-ai/dsh-client-store'
 import type {
   SessionBinding, SessionListState, SessionProjectionMap, SessionSnapshot, UseProjection,
-} from '@lyness/lyn-api-session-controller/client'
-import type { WorkspaceSnapshot } from '@lyness/lyn-api-workspace-controller/client'
-import type { SessionId } from '@lyness/lyn-session/types'
-import type { SessionStatusSnapshot } from '@lyness/lyn-client-ui-session/client'
+} from '@deepseek-ai/dsh-api-session-controller/client'
+import type { WorkspaceSnapshot } from '@deepseek-ai/dsh-api-workspace-controller/client'
+import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import type { SessionStatusSnapshot } from '@deepseek-ai/dsh-client-ui-session/client'
 import {
   ConversationSession, ConversationSessionHeader,
   type ConversationSessionHeaderProps, type ConversationSessionProps,
-} from '@lyness/lyn-client-ui-conversation/src/client/skeleton/ConversationSession.tsx'
-import { createConversationStore } from '@lyness/lyn-client-ui-conversation/src/client/stores.ts'
-import { zh as conversationZh } from '@lyness/lyn-client-ui-conversation/src/client/locales.ts'
-import * as localePlugin from '@lyness/lyn-client-locale/client'
-import { apply, inject } from '@lyness/lyn-client-ui-trajectory/client'
-import { apply as nodeApply } from '@lyness/lyn-client-ui-trajectory'
+} from '@deepseek-ai/dsh-client-ui-conversation/src/client/skeleton/ConversationSession.tsx'
+import { createConversationStore } from '@deepseek-ai/dsh-client-ui-conversation/src/client/stores.ts'
+import { zh as conversationZh } from '@deepseek-ai/dsh-client-ui-conversation/src/client/locales.ts'
+import * as localePlugin from '@deepseek-ai/dsh-client-locale/client'
+import { apply, inject } from '@deepseek-ai/dsh-client-ui-trajectory/client'
+import { apply as nodeApply } from '@deepseek-ai/dsh-client-ui-trajectory'
 import type { TrajectoryTurnModel } from '../src/client/layout.ts'
 import { TrajectoryTimeline as LocalizedTrajectoryTimeline } from '../src/client/TrajectoryTimeline.tsx'
 import {
@@ -486,8 +486,8 @@ describe('plugin registration', () => {
     expect(second.hooks.duration).toBe(first.hooks.duration)
     first.setActualDuration(true)
     expect(second.hooks.duration.getSnapshot()).toBe(true)
-    expect(localStorage.getItem('lyn.trajectory.duration')).toBe('true')
-    expect(localStorage.getItem(`lyn.trajectory.duration.${SID}`)).toBeNull()
+    expect(localStorage.getItem('dsh.trajectory.duration')).toBe('true')
+    expect(localStorage.getItem(`dsh.trajectory.duration.${SID}`)).toBeNull()
   })
 
   it('reports whether loading older history changed the Trajectory snapshot', async () => {
@@ -1480,7 +1480,7 @@ describe('TrajectoryView state', () => {
 
     expect(duration.getAttribute('aria-pressed')).toBe('false')
     fireEvent.click(duration)
-    expect(localStorage.getItem('lyn.trajectory.duration')).toBe('true')
+    expect(localStorage.getItem('dsh.trajectory.duration')).toBe('true')
     first.unmount()
 
     const restoredDuration = createTrajectoryDurationStore()

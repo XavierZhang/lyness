@@ -11,7 +11,7 @@
  * and undercount cancelled steps (aborted before the message assembles).
  *
  * The wall-time folds mirror the client window fold field by field
- * (`deriveStats` in lyn-client-ui-conversation, that fold's whole-window
+ * (`deriveStats` in dsh-client-ui-conversation, that fold's whole-window
  * fallback role): model time is `step/start` → `assistant/message`, first
  * token is the first non-empty delta chunk and survives an in-step
  * `llm/retry`, decode spans first token → assembled message on steps that
@@ -20,12 +20,12 @@
  * time stays uncounted in every time figure — matching the window, which
  * renders it as an untimed interrupted node.
  *
- * @module @lyness/lyn-session-stats/projection
+ * @module @deepseek-ai/dsh-session-stats/projection
  */
 
 import { z } from 'zod'
-import { assistantStreamFirstTokenTime } from '@lyness/lyn-llm'
-import type { ProjectionDefinition } from '@lyness/lyn-session-projection'
+import { assistantStreamFirstTokenTime } from '@deepseek-ai/dsh-llm'
+import type { ProjectionDefinition } from '@deepseek-ai/dsh-session-projection'
 
 
 /** Accumulated whole-log figures (the view is exactly these totals). */
@@ -63,7 +63,7 @@ interface SessionStatsState extends SessionStatsTotals {
   pendingCalls: Record<string, number>
 }
 
-declare module '@lyness/lyn-session-projection/types' {
+declare module '@deepseek-ai/dsh-session-projection/types' {
   interface SessionProjectionStateMap {
     sessionStats: SessionStatsState
   }

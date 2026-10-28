@@ -31,10 +31,10 @@ def test_wheel_verification_uses_distribution_metadata_not_nested_libraries(tmp_
     with zipfile.ZipFile(wheel, "w") as archive:
         archive.writestr("nested/library.dist-info/WHEEL", "Tag: cp312-cp312-linux_x86_64\n")
         archive.writestr("nested/library.dist-info/METADATA", "Name: library\nVersion: 0.0.1\n")
-        archive.writestr("lyness_sdk-1.2.3.dist-info/WHEEL", "Tag: py3-none-any\n")
-        archive.writestr("lyness_sdk-1.2.3.dist-info/METADATA",
-                         "Name: lyness-sdk\nVersion: 1.2.3\nLicense-Expression: MIT\n"
-                         "License-File: LICENSE\nRequires-Dist: lyness-runtime-bin==1.2.3\n")
+        archive.writestr("DeepSeek Harness_sdk-1.2.3.dist-info/WHEEL", "Tag: py3-none-any\n")
+        archive.writestr("DeepSeek Harness_sdk-1.2.3.dist-info/METADATA",
+                         "Name: DeepSeek Harness-sdk\nVersion: 1.2.3\nLicense-Expression: MIT\n"
+                         "License-File: LICENSE\nRequires-Dist: DeepSeek Harness-runtime-bin==1.2.3\n")
     build_python_release.verify_wheel(wheel, "sdk", "1.2.3", None)
 
 
@@ -72,15 +72,15 @@ def test_pep440_version_spells_a_prerelease_the_python_way() -> None:
 
 def test_macos_wheel_tag_does_not_claim_unsupported_node_platforms() -> None:
     assert build_python_release.PLATFORMS["macos-arm64"][0] == "macosx_14_0_arm64"
-    assert build_python_release.PLATFORMS["macos-arm64"][1] == "lyness-sdk-runtime-macos-arm64"
+    assert build_python_release.PLATFORMS["macos-arm64"][1] == "DeepSeek Harness-sdk-runtime-macos-arm64"
     assert build_python_release.PLATFORMS["macos-x64"][0] == "macosx_14_0_x86_64"
-    assert build_python_release.PLATFORMS["macos-x64"][1] == "lyness-sdk-runtime-macos-x64"
+    assert build_python_release.PLATFORMS["macos-x64"][1] == "DeepSeek Harness-sdk-runtime-macos-x64"
 
 
 def test_windows_wheel_tag_and_payload_are_x64_only() -> None:
     assert build_python_release.PLATFORMS["win-x64"] == (
         "win_amd64",
-        "lyness-sdk-runtime-win-x64.exe",
+        "DeepSeek Harness-sdk-runtime-win-x64.exe",
     )
     assert not any(name.startswith("win-") and name != "win-x64" for name in build_python_release.PLATFORMS)
 
@@ -99,26 +99,26 @@ def test_stage_sdk_keeps_distribution_module_and_runtime_pin_distinct(tmp_path: 
     build_python_release.stage_sdk(destination, "1.2.3")
 
     pyproject = (destination / "pyproject.toml").read_text()
-    assert 'name = "lyness-sdk"' in pyproject
+    assert 'name = "DeepSeek Harness-sdk"' in pyproject
     assert 'version = "1.2.3"' in pyproject
     assert 'license = "MIT"' in pyproject
-    assert '"lyness-runtime-bin==1.2.3"' in pyproject
+    assert '"DeepSeek Harness-runtime-bin==1.2.3"' in pyproject
     assert 'license-files = ["LICENSE"]' in pyproject
     assert (destination / "LICENSE").read_bytes() == (ROOT / "LICENSE").read_bytes()
-    assert (destination / "src" / "lyness" / "__init__.py").is_file()
+    assert (destination / "src" / "DeepSeek Harness" / "__init__.py").is_file()
 
 
 def test_copy_package_omits_generated_carriers_before_staging_one_target(tmp_path: Path) -> None:
     source = tmp_path / "source"
-    module = source / "src/lyness_runtime"
+    module = source / "src/DeepSeek Harness_runtime"
     for path in ("runtime/macos-arm64/primary-runtime/runtime.json", "runtime/node/package.json",
-                 "runtime/lyness-sdk-runtime-win-x64.exe", "__init__.py", "_resources.py"):
+                 "runtime/DeepSeek Harness-sdk-runtime-win-x64.exe", "__init__.py", "_resources.py"):
         file = module / path
         file.parent.mkdir(parents=True, exist_ok=True)
         file.touch()
     destination = tmp_path / "staged"
     build_python_release.copy_package(source, destination)
-    assert sorted(path.name for path in (destination / "src/lyness_runtime").iterdir()) == ["__init__.py", "_resources.py"]
+    assert sorted(path.name for path in (destination / "src/DeepSeek Harness_runtime").iterdir()) == ["__init__.py", "_resources.py"]
 
 
 @pytest.mark.parametrize(
@@ -128,7 +128,7 @@ def test_copy_package_omits_generated_carriers_before_staging_one_target(tmp_pat
 def test_stage_runtime_copies_platform_payload(
     tmp_path: Path, target: str, with_helper: bool
 ) -> None:
-    executable = tmp_path / f"lyness-sdk-runtime-{target}"
+    executable = tmp_path / f"DeepSeek Harness-sdk-runtime-{target}"
     executable.write_bytes(b"runtime")
     executable.chmod(0o755)
     expected = {executable.name: b"runtime"}
@@ -149,7 +149,7 @@ def test_stage_runtime_copies_platform_payload(
     office_asset = office / "node_modules" / "@deepseek-ai" / "libreoffice-kit-wasm" / "assets" / "soffice.data"
     office_asset.parent.mkdir(parents=True)
     office_asset.write_bytes(b"office data")
-    resources = executable.with_name(executable.name.removeprefix("lyness-sdk-runtime-").removesuffix(".exe"))
+    resources = executable.with_name(executable.name.removeprefix("DeepSeek Harness-sdk-runtime-").removesuffix(".exe"))
     resource = resources / "office-skills/scripts/check_office.py"
     resource.parent.mkdir(parents=True)
     resource.write_text("checker")
@@ -157,10 +157,10 @@ def test_stage_runtime_copies_platform_payload(
 
     build_python_release.stage_runtime(destination, "1.2.3", executable, executable.name)
 
-    runtime_dir = destination / "src" / "lyness_runtime" / "runtime"
+    runtime_dir = destination / "src" / "DeepSeek Harness_runtime" / "runtime"
     assert {
         path.name: path.read_bytes()
-        for path in runtime_dir.glob("lyness-sdk-runtime-*")
+        for path in runtime_dir.glob("DeepSeek Harness-sdk-runtime-*")
         if path.is_file()
     } == expected
     assert (runtime_dir / office.name / office_asset.relative_to(office)).read_bytes() == b"office data"
@@ -168,7 +168,7 @@ def test_stage_runtime_copies_platform_payload(
     pyproject = (destination / "pyproject.toml").read_text()
     assert 'license = "MIT"' in pyproject
     assert 'license-files = ["LICENSE", "THIRD_PARTY_NOTICES.md"]' in pyproject
-    assert 'lyn = "lyness_runtime:main"' in pyproject
+    assert 'dsh = "DeepSeek Harness_runtime:main"' in pyproject
     assert (destination / "platforms.json").read_bytes() == (
         ROOT / "python" / "sdk-runtime" / "platforms.json"
     ).read_bytes()
@@ -182,12 +182,12 @@ def test_stage_runtime_rejects_a_noncanonical_executable_name(tmp_path: Path) ->
     executable = tmp_path / "renamed.exe"
     executable.write_bytes(b"runtime")
 
-    with pytest.raises(ValueError, match="must be named lyness-sdk-runtime-win-x64.exe"):
+    with pytest.raises(ValueError, match="must be named DeepSeek Harness-sdk-runtime-win-x64.exe"):
         build_python_release.stage_runtime(
             tmp_path / "staging",
             "1.2.3",
             executable,
-            "lyness-sdk-runtime-win-x64.exe",
+            "DeepSeek Harness-sdk-runtime-win-x64.exe",
         )
 
 
@@ -208,10 +208,10 @@ def test_office_wheel_requires_only_target_engine(
     engine = ({"kind": "native", "executable": "bin/helper"} if native else
               {"kind": "wasm", "loader": "loader.cjs", "wasm": "engine.wasm", "data": "engine.data", "metadata": "fonts.json"})
     with zipfile.ZipFile(wheel, "w") as archive:
-        archive.writestr(f"{root}/@deepseek-ai/libreoffice-kit/package.json", json.dumps({
-            "optionalDependencies": {f"@deepseek-ai/libreoffice-kit-{selected}": "0.0.1"},
+        archive.writestr(f"{root}/ office-kit /package.json", json.dumps({
+            "optionalDependencies": {f" office-kit -{selected}": "0.0.1"},
         }))
-        base = f"{root}/@deepseek-ai/libreoffice-kit-{selected}"
+        base = f"{root}/ office-kit -{selected}"
         if invalid != "missing-engine":
             archive.writestr(f"{base}/prebuilds.json", json.dumps({"engine": engine}))
         for field in (("executable",) if native else ("loader", "wasm", "data", "metadata")):
@@ -222,7 +222,7 @@ def test_office_wheel_requires_only_target_engine(
             archive.writestr(asset, b"payload")
         if invalid == "foreign-engine":
             foreign = "wasm" if native else "darwin-arm64"
-            archive.writestr(f"{root}/@deepseek-ai/libreoffice-kit-{foreign}/prebuilds.json", "{}")
+            archive.writestr(f"{root}/ office-kit -{foreign}/prebuilds.json", "{}")
     with zipfile.ZipFile(wheel) as archive:
         if invalid is None:
             build_python_release.verify_office_payload(archive, root, platform_tag)

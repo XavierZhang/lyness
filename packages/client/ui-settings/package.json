@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/lyn-client-ui-settings",
+  "name": "@deepseek-ai/dsh-client-ui-settings",
   "description": "Settings domain base plugin: shared configuration forms and the canonical settings slot-type contract",
   "version": "0.1.7-rc.2",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/client/ui-settings"
   },
   "type": "module",
@@ -25,10 +25,10 @@
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
-  "lyn": {
+  "dsh": {
     "client": {
       "inject": [
-        "@lyness/lyn-api-remotes"
+        "@deepseek-ai/dsh-api-remotes"
       ],
       "platform": "web"
     }
@@ -39,18 +39,18 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~"
+    "@deepseek-ai/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-api-remotes": "workspace:*",
-    "@lyness/lyn-client-store": "workspace:*",
-    "@lyness/lyn-client-test-runtime": "workspace:*",
-    "@lyness/lyn-client-ui-slots": "workspace:*",
-    "@lyness/lyn-settings": "workspace:*",
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-api-remotes": "workspace:*",
+    "@deepseek-ai/dsh-client-store": "workspace:*",
+    "@deepseek-ai/dsh-client-test-runtime": "workspace:*",
+    "@deepseek-ai/dsh-client-ui-slots": "workspace:*",
+    "@deepseek-ai/dsh-settings": "workspace:*",
     "@types/react": "~18.3.1",
     "react": "^18.2.0",
-    "@lyness/lyn-util-values": "workspace:*"
+    "@deepseek-ai/dsh-util-values": "workspace:*"
   },
   "files": [
     "lib/index.js",
@@ -58,6 +58,6 @@
     "lib/types/**/*.d.ts"
   ],
   "dependencies": {
-    "@lyness/schemastery": "workspace:~"
+    "@deepseek-ai/schemastery": "workspace:~"
   }
 }

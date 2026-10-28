@@ -8,7 +8,7 @@ English | [中文](2026-10-08-agent-isolation-and-teams.zh.md)
 
 "Each agent runs in its own sandbox" is not what this tree does, and the gap between the phrase and the mechanism matters once customers share infrastructure.
 
-What exists is a file-effect policy. The [`sandbox/`](../../../../packages/sandbox/README.md) group confines **subprocess execution**: commands run `read-only`, write only under the session workspace, or run unrestricted, and `lyn-base` pins `workspace-write` by default. That confines what a command may touch on the filesystem. It is not a boundary between one agent and another, and it is not a boundary between one customer and another: a confined command still runs on the host, as the host's user, with the host's network.
+What exists is a file-effect policy. The [`sandbox/`](../../../../packages/sandbox/README.md) group confines **subprocess execution**: commands run `read-only`, write only under the session workspace, or run unrestricted, and `dsh-base` pins `workspace-write` by default. That confines what a command may touch on the filesystem. It is not a boundary between one agent and another, and it is not a boundary between one customer and another: a confined command still runs on the host, as the host's user, with the host's network.
 
 Agents are not separated either. A delegated child from [`subagent-fork-in-process`](../../../../packages/subagent/subagent-fork-in-process/README.md) runs in the parent's process by design, seeded with the parent's completed turns — which is what makes delegation cheap and lets a child see the work it is continuing.
 
@@ -51,10 +51,10 @@ So the isolation and the transport are chosen separately. A microVM-per-sandbox 
 Three questions are often run together and have three different answers here:
 
 - **An agent reaching a tool or a data source** is MCP. The repository already mounts `mcp-resources`, and connectors to a customer's own systems are MCP servers rather than plugins.
-- **One agent driving another agent's session** is ACP. [`packages/acp`](../../../../packages/acp/README.md) is the server — a program creates, resumes and closes lyness sessions over the standard protocol — and [`subagent-acp`](../../../../packages/subagent/subagent-acp/README.md) is the client, delegating to an ACP agent in its own subprocess with its own runtime, session, model and tools.
+- **One agent driving another agent's session** is ACP. [`packages/acp`](../../../../packages/acp/README.md) is the server — a program creates, resumes and closes DeepSeek Harness sessions over the standard protocol — and [`subagent-acp`](../../../../packages/subagent/subagent-acp/README.md) is the client, delegating to an ACP agent in its own subprocess with its own runtime, session, model and tools.
 - **Inside one team**, nothing: the subagent seam is direct, in-process delegation.
 
-A team collaborates in-process. Teams collaborate over ACP, which is also how a lyness agent reaches an agent that is not lyness at all. The protocol boundary and the process boundary therefore agree: anything that crosses a process crosses ACP.
+A team collaborates in-process. Teams collaborate over ACP, which is also how a DeepSeek Harness agent reaches an agent that is not DeepSeek Harness at all. The protocol boundary and the process boundary therefore agree: anything that crosses a process crosses ACP.
 
 **A2A is deliberately not adopted.** It answers a different question — how agents from different vendors discover each other and negotiate a task — and adopting it before there is a counterpart to negotiate with would add a protocol with no correspondent. ACP already carries delegation, including to other vendors' agents, and the ACP seam is built. This stays open: a customer who needs to reach an A2A agent is the reason to revisit, and the subagent seam is where it would attach.
 
@@ -93,7 +93,7 @@ Where an organization brings its own model credentials, usage is recorded for re
 - A runtime serves exactly one organization; its session root, its storage and its workspaces are not shared with another organization's runtime.
 - A main agent and the children it creates run in one process, and a child is seeded with the parent's completed turns as it is today.
 - A command runs inside a container whose filesystem is the session workspace and whose network reachability is what the organization permits; the file-effect policy still applies inside it.
-- Delegation across processes, including to a non-lyness agent, goes over ACP; no new agent-to-agent protocol is introduced.
+- Delegation across processes, including to a non-DeepSeek Harness agent, goes over ACP; no new agent-to-agent protocol is introduced.
 - A second provider family exists as its own package, declaring its own transport, authentication, and model capabilities, and the agent loop reads capabilities from the catalog rather than from a provider-specific branch.
 - An organization's own model credentials are tenant configuration resolved per request, not process environment.
 - Usage records the acting membership, not only the organization.

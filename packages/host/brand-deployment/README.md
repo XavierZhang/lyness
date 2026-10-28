@@ -3,7 +3,7 @@ description: "The deployment's own brand over the webserver index render: browse
 kind: "package-reference"
 ---
 
-# @lyness/lyn-host-brand-deployment
+# @deepseek-ai/dsh-host-brand-deployment
 
 English | [中文](README.zh.md)
 
@@ -25,13 +25,13 @@ Give one deployment its own visual identity without rebuilding the frontend. Con
 <a id="use-this-package"></a>
 ## Use this package
 
-[`lyn-web-app`](../../bundle/web-app/README.md) already mounts this row with nothing set, so a deployment brands itself by filling that row from a patch layer.
+[`dsh-web-app`](../../bundle/web-app/README.md) already mounts this row with nothing set, so a deployment brands itself by filling that row from a patch layer.
 
 ### Minimal configuration
 
 ```yaml
 - id: brand-deployment
-  name: '@lyness/lyn-host-brand-deployment'
+  name: '@deepseek-ai/dsh-host-brand-deployment'
   config:
     productName: Acme Agent
     productAbbreviation: ACME
@@ -49,7 +49,7 @@ Give one deployment its own visual identity without rebuilding the frontend. Con
 
 `colors` replaces brand colour tokens by name: `black`, `blue`, `blueDark`, `cyan`, `white`, `gray50`, `gray200`, `gray600`, `gray900`, `success`, `warning`, `error`, and `info`. An absent key keeps the built-in value, so a deployment that owns only a primary colour names that one. Each value takes the same forms `themeColor` does, and a key outside that list fails the row rather than being dropped — a misspelling an operator cannot see would otherwise leave the built-in colour in place with no sign of why. `themeColor` is separate and still owns the browser-chrome colour.
 
-`productName`, `productAbbreviation` and `productNameZh` are the three faces product copy says the product's name in: the full name, the short form the built-in brand writes as `LYN`, and the Chinese name it writes as 领驭. They resolve as one set — a deployment that names any of them gets the others from the one it named, never a built-in name beside its own, because copy that still read `LYN` next to Acme would show a brand the operator does not ship. A deployment that names none keeps all three built-in names. A name carrying a brace or a line break, or longer than 64 characters, fails the row at load: the page fills a placeholder with that name, where a brace would reopen substitution and a line break would split the sentence carrying it.
+`productName`, `productAbbreviation` and `productNameZh` are the three faces product copy says the product's name in: the full name, the short form the built-in brand writes as `DSH`, and the Chinese name it writes as 领驭. They resolve as one set — a deployment that names any of them gets the others from the one it named, never a built-in name beside its own, because copy that still read `DSH` next to Acme would show a brand the operator does not ship. A deployment that names none keeps all three built-in names. A name carrying a brace or a line break, or longer than 64 characters, fails the row at load: the page fills a placeholder with that name, where a brace would reopen substitution and a line break would split the sentence carrying it.
 
 `assetDirectory` is absolute and holds the three named files; the deployment script writes them there. Each file is addressed by its role, not its name: `favicon.svg` above is served as `/brand/favicon.svg`, and a wordmark named `wordmark.png` is served as `/brand/wordmark.png`. Serveable types are SVG, PNG, WebP, ICO, and JPEG.
 
@@ -59,7 +59,7 @@ Configuration resolves settings above composition ([ordering](../../../.agents/n
 
 ### What a browser receives
 
-The product name replaces the first `<title>`, or adds one when the head declares none. A configured favicon replaces the first `rel="icon"` link rather than adding a second, because a browser resolves competing icon links itself. The theme colour arrives as a `<meta name="theme-color">` row. The brand object arrives as `globalThis.lynDeploymentBrand`, carrying the three product names, the colour and its replaced palette tokens, the mark and wordmark URLs, and the attribution flag — absent members mean the deployment configured nothing and the page keeps its built-in presentation.
+The product name replaces the first `<title>`, or adds one when the head declares none. A configured favicon replaces the first `rel="icon"` link rather than adding a second, because a browser resolves competing icon links itself. The theme colour arrives as a `<meta name="theme-color">` row. The brand object arrives as `globalThis.dshDeploymentBrand`, carrying the three product names, the colour and its replaced palette tokens, the mark and wordmark URLs, and the attribution flag — absent members mean the deployment configured nothing and the page keeps its built-in presentation.
 
 Asset responses carry their image type and `cache-control: no-cache`. The URL is stable across deployments, so a redeploy that replaces the bytes must not keep serving the old ones.
 
@@ -101,9 +101,9 @@ A request never contributes a path segment to a filesystem read. `resolveAssets`
 Read these when the brand contract is not enough: the render surface it writes to, then the configuration ordering that decides where these fields live.
 
 - [Webserver](../webserver/README.md) — the injection table and index taps this plugin registers against.
-- [lyn-web-app bundle](../../bundle/web-app/README.md) — the application that mounts this row.
+- [dsh-web-app bundle](../../bundle/web-app/README.md) — the application that mounts this row.
 - [Configuration source ownership](../../../.agents/notes/implemented/architecture/2026-08-04-configuration-source-ownership.md) — why these fields are composition config rather than user settings.
-- [Generated configuration catalog](../../../docs/config-catalog.md#lynesslyn-host-brand-deployment) — every accepted config field and its source declaration.
+- [Generated configuration catalog](../../../docs/config-catalog.md#deepseek-aidsh-host-brand-deployment) — every accepted config field and its source declaration.
 
 -----
 

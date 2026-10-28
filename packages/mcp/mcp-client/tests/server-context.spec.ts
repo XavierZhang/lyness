@@ -1,10 +1,10 @@
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import SystemPrompt, { renderPrompt } from '@lyness/lyn-system-prompt'
-import ToolRuntime from '@lyness/lyn-tools'
-import { ToolCallId } from '@lyness/lyn-llm'
-import McpResources from '@lyness/lyn-mcp-resources'
-import { createScope } from '@lyness/lyn-scope'
+import { Context } from '@deepseek-ai/cordis'
+import SystemPrompt, { renderPrompt } from '@deepseek-ai/dsh-system-prompt'
+import ToolRuntime from '@deepseek-ai/dsh-tools'
+import { ToolCallId } from '@deepseek-ai/dsh-llm'
+import McpResources from '@deepseek-ai/dsh-mcp-resources'
+import { createScope } from '@deepseek-ai/dsh-scope'
 import { registerServerContext } from '../src/server-context.ts'
 
 const roots: Context[] = []

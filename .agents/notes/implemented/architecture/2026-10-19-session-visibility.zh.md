@@ -9,7 +9,7 @@ Status: implemented
 
 ## Decision
 
-`ctx.sessionVisibility`，也就是 `lyn-session-ownership` 的 `./visibility` 那一半，回答进行中的这次调用是否看得到某一场对话；Remote 会话界面在四个地方问它：`session/list` 与 `session/search` 共用的那次语料读取、每个由 Agent 支撑的端点所经的那次解析、历史的观察，以及投影读取。
+`ctx.sessionVisibility`，也就是 `dsh-session-ownership` 的 `./visibility` 那一半，回答进行中的这次调用是否看得到某一场对话；Remote 会话界面在四个地方问它：`session/list` 与 `session/search` 共用的那次语料读取、每个由 Agent 支撑的端点所经的那次解析、历史的观察，以及投影读取。
 
 规则是对「读到的归属」所作的一个函数：
 

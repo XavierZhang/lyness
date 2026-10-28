@@ -1,5 +1,5 @@
-import type { Context } from '@lyness/cordis'
-import type { CredentialProvider, CredentialRecord } from '@lyness/lyn-credentials'
+import type { Context } from '@deepseek-ai/cordis'
+import type { CredentialProvider, CredentialRecord } from '@deepseek-ai/dsh-credentials'
 
 /** Mutable credential-record double for Connection authentication tests. */
 export class RecordCredentials {

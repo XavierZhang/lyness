@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import { SessionId } from '@lyness/lyn-session'
-import JobRegistry, { JobId } from '@lyness/lyn-jobs'
-import type { JobEvent, JobEventFilter, JobEventListener, JobView } from '@lyness/lyn-jobs'
-import * as JobsInvariant from '@lyness/lyn-jobs/invariant'
-import InvariantRegistry from '@lyness/lyn-invariants'
+import { Context } from '@deepseek-ai/cordis'
+import { SessionId } from '@deepseek-ai/dsh-session'
+import JobRegistry, { JobId } from '@deepseek-ai/dsh-jobs'
+import type { JobEvent, JobEventFilter, JobEventListener, JobView } from '@deepseek-ai/dsh-jobs'
+import * as JobsInvariant from '@deepseek-ai/dsh-jobs/invariant'
+import InvariantRegistry from '@deepseek-ai/dsh-invariants'
 
 const ID = JobId('bash-1')
 

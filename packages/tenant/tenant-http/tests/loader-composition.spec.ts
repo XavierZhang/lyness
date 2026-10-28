@@ -12,18 +12,18 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import Loader from '@lyness/cordis-plugin-loader'
-import Include from '@lyness/cordis-plugin-include'
-import HttpServer from '@lyness/lyn-host-webserver'
-import StaticTenantDirectory from '@lyness/lyn-tenant-static'
-import StaticTenantConfigStore from '@lyness/lyn-tenant-config-static'
+import { Context } from '@deepseek-ai/cordis'
+import Loader from '@deepseek-ai/cordis-plugin-loader'
+import Include from '@deepseek-ai/cordis-plugin-include'
+import HttpServer from '@deepseek-ai/dsh-host-webserver'
+import StaticTenantDirectory from '@deepseek-ai/dsh-tenant-static'
+import StaticTenantConfigStore from '@deepseek-ai/dsh-tenant-config-static'
 import * as TenantHttp from '../src/index.ts'
 
-const WEBSERVER = '@lyness/lyn-host-webserver'
-const STATIC = '@lyness/lyn-tenant-static'
-const CONFIG = '@lyness/lyn-tenant-config-static'
-const HTTP = '@lyness/lyn-tenant-http'
+const WEBSERVER = '@deepseek-ai/dsh-host-webserver'
+const STATIC = '@deepseek-ai/dsh-tenant-static'
+const CONFIG = '@deepseek-ai/dsh-tenant-config-static'
+const HTTP = '@deepseek-ai/dsh-tenant-http'
 
 let root: string | undefined
 let context: Context | undefined
@@ -41,7 +41,7 @@ afterEach(async () => {
  * @returns the port the composed server listens on.
  */
 async function compose(options: { configured?: boolean } = {}): Promise<number> {
-  root = await mkdtemp(join(tmpdir(), 'lyn-tenant-http-'))
+  root = await mkdtemp(join(tmpdir(), 'dsh-tenant-http-'))
   const configPath = join(root, 'cordis.yml')
   await writeFile(configPath, [
     `- name: '${WEBSERVER}'`,

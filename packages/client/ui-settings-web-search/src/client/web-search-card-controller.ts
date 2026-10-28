@@ -9,14 +9,14 @@
  * covers everything the page shows.
  */
 
-import type { Context as ClientContext } from '@lyness/cordis'
+import type { Context as ClientContext } from '@deepseek-ai/cordis'
 // Type-only: pulls the ctx.remote merge into this program.
-import type {} from '@lyness/lyn-api-remotes/client'
-import type { SnapshotStore } from '@lyness/lyn-client-store'
+import type {} from '@deepseek-ai/dsh-api-remotes/client'
+import type { SnapshotStore } from '@deepseek-ai/dsh-client-store'
 import {
   SettingsFormModel, settingsNumberField, settingsTextField,
   type SettingsFieldState, type SettingsFormActions, type SettingsFormShell, type SettingsFormScope, type SettingsFormScopeSnapshot,
-} from '@lyness/lyn-client-ui-primitives'
+} from '@deepseek-ai/dsh-client-ui-primitives'
 
 /**
  * Namespace of the DeepSeek search provider. Spelled here rather than

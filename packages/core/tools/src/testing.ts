@@ -1,7 +1,7 @@
-/** Canonical tool-definition fixtures for repository tests. @module lyn-tools/testing */
+/** Canonical tool-definition fixtures for repository tests. @module dsh-tools/testing */
 
-import type { ContentBlock } from '@lyness/lyn-llm'
-import type { JsonValue } from '@lyness/lyn-util-values'
+import type { ContentBlock } from '@deepseek-ai/dsh-llm'
+import type { JsonValue } from '@deepseek-ai/dsh-util-values'
 import { defineTool } from './schema.ts'
 import type { DefineToolOptions, ParameterSchemaSpec } from './schema.ts'
 import type { ToolDefinition, ToolRunContext } from './index.ts'

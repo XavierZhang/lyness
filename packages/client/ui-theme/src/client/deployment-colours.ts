@@ -1,7 +1,7 @@
 /**
  * Deployment overrides for the brand colour tokens this package owns.
  *
- * `lyn-brand-deployment` assigns the deployment's brand to a page global before
+ * `dsh-brand-deployment` assigns the deployment's brand to a page global before
  * the client entry runs. The tokens live in this package's palette sheet, so
  * applying an override belongs here too — reading the global directly rather
  * than depending on the host package, which is how the other client readers of
@@ -12,10 +12,10 @@
  * redundant, because a value reaching `setProperty` is a value reaching the
  * stylesheet, and this side cannot see which host produced the page.
  */
-import type { Context } from '@lyness/cordis'
+import type { Context } from '@deepseek-ai/cordis'
 
-/** `globalThis` property `lyn-brand-deployment` assigns before the client entry runs. */
-const DEPLOYMENT_BRAND_GLOBAL = 'lynDeploymentBrand'
+/** `globalThis` property `dsh-brand-deployment` assigns before the client entry runs. */
+const DEPLOYMENT_BRAND_GLOBAL = 'dshDeploymentBrand'
 
 /**
  * Overridable token keys, and the custom property each one sets.
@@ -24,19 +24,19 @@ const DEPLOYMENT_BRAND_GLOBAL = 'lynDeploymentBrand'
  * map is the allowlist.
  */
 const TOKEN_PROPERTIES: Readonly<Record<string, string>> = {
-  black: '--lyness-black',
-  blue: '--lyness-blue',
-  blueDark: '--lyness-blue-dark',
-  cyan: '--lyness-cyan',
-  white: '--lyness-white',
-  gray50: '--lyness-gray-50',
-  gray200: '--lyness-gray-200',
-  gray600: '--lyness-gray-600',
-  gray900: '--lyness-gray-900',
-  success: '--lyness-success',
-  warning: '--lyness-warning',
-  error: '--lyness-error',
-  info: '--lyness-info',
+  black: '--DeepSeek Harness-black',
+  blue: '--DeepSeek Harness-blue',
+  blueDark: '--DeepSeek Harness-blue-dark',
+  cyan: '--DeepSeek Harness-cyan',
+  white: '--DeepSeek Harness-white',
+  gray50: '--DeepSeek Harness-gray-50',
+  gray200: '--DeepSeek Harness-gray-200',
+  gray600: '--DeepSeek Harness-gray-600',
+  gray900: '--DeepSeek Harness-gray-900',
+  success: '--DeepSeek Harness-success',
+  warning: '--DeepSeek Harness-warning',
+  error: '--DeepSeek Harness-error',
+  info: '--DeepSeek Harness-info',
 }
 
 /**

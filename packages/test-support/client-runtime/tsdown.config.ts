@@ -1,6 +1,6 @@
 import { clientLibrary } from '../../client/tsdown.client.ts'
 
 export default clientLibrary(
-  '@lyness/lyn-client-test-runtime',
+  '@deepseek-ai/dsh-client-test-runtime',
   ['lib/types/index.js'],
 )

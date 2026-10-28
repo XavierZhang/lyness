@@ -4,7 +4,7 @@
  */
 
 import { describe, expect, it, vi } from 'vitest'
-import type { Announcement } from '@lyness/lyn-announcements/types'
+import type { Announcement } from '@deepseek-ai/dsh-announcements/types'
 import { RowBinding, rowFace } from '../src/client/binding.ts'
 import type { AnnouncementActions } from '../src/client/binding.ts'
 import type { AnnouncementsReader } from '../src/client/read.ts'

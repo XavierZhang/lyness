@@ -8,14 +8,14 @@ import {
   createSystemMessage,
   createToolResultMessage,
   createUserMessage,
-} from '@lyness/lyn-llm'
+} from '@deepseek-ai/dsh-llm'
 import {
   SESSION_FORMAT_VERSION,
   Session,
   SessionId,
-} from '@lyness/lyn-session'
+} from '@deepseek-ai/dsh-session'
 // Carries the session/title event declaration into this fixture builder.
-import type {} from '@lyness/lyn-session-title'
+import type {} from '@deepseek-ai/dsh-session-title'
 
 /** Options for one deterministic long-chat fixture. */
 export interface ChatScrollFixtureOptions {

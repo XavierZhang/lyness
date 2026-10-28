@@ -7,7 +7,7 @@
 // command-row surfaces: the seeded manual `/compact` lifecycle folds into its
 // checkpoint, an Access-chip pick later runs `/permission` on the host, and
 // `/feedback` pins its expandable correlation ids. The seed is a recorded
-// fixture under the same record discipline as every other: LYNESS_SNAPSHOT=record drives the turn
+// fixture under the same record discipline as every other: DSH_SNAPSHOT=record drives the turn
 // live through the composer (real read tool against seeded workspace files)
 // and harvests session.v3.jsonl; replay/refresh seed it cold and only render.
 import { readFile, writeFile, mkdir } from 'node:fs/promises'
@@ -15,13 +15,13 @@ import { fileURLToPath } from 'node:url'
 import type { Browser, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed } from 'vitest'
-import { createLaunchEnvironmentSnapshot } from '@lyness/lyn-launch-environment'
-import { createUserMessage } from '@lyness/lyn-llm'
-import type { ContentBlock, ContextFormed, Message, MessageSource } from '@lyness/lyn-llm'
-import { deriveEventMessage, SessionId } from '@lyness/lyn-session'
-import type { SessionEvent } from '@lyness/lyn-session'
-import type { TokenMeter } from '@lyness/lyn-token-meter'
-import type {} from '@lyness/lyn-api-terminal-controller'
+import { createLaunchEnvironmentSnapshot } from '@deepseek-ai/dsh-launch-environment'
+import { createUserMessage } from '@deepseek-ai/dsh-llm'
+import type { ContentBlock, ContextFormed, Message, MessageSource } from '@deepseek-ai/dsh-llm'
+import { deriveEventMessage, SessionId } from '@deepseek-ai/dsh-session'
+import type { SessionEvent } from '@deepseek-ai/dsh-session'
+import type { TokenMeter } from '@deepseek-ai/dsh-token-meter'
+import type {} from '@deepseek-ai/dsh-api-terminal-controller'
 import { join } from 'node:path'
 import {
   acknowledgeReloadConnectionLoss, assertFixtureInventory, captureExpandedTurnProcessAria, captureStableAria,
@@ -31,7 +31,7 @@ import {
 } from './scaffold.ts'
 import { expandOwningTurnProcess, newEnglishPage, saveFailureShot } from './support.ts'
 
-declare module '@lyness/lyn-llm' {
+declare module '@deepseek-ai/dsh-llm' {
   interface MessageSourceMap {
     'fixture': { kind: 'fixture' } & ContextFormed
   }
@@ -749,8 +749,8 @@ describe('web e2e: seeded history renders through cold resume', () => {
 
   it.skipIf(MODE === 'record')('reports full feedback correlation ids in an expandable two-line row', async () => {
     onTestFailed(() => saveFailureShot(page, 'web-e2e-seeded-feedback-row'))
-    const previousLynHome = process.env.LYNESS_HOME
-    process.env.LYNESS_HOME = scaffold.harnessHome
+    const previousDshHome = process.env.DSH_HOME
+    process.env.DSH_HOME = scaffold.harnessHome
     try {
       const input = page.locator('[data-composer-input]').first()
       await input.fill('/feedback the diff view is unreadable')
@@ -783,8 +783,8 @@ describe('web e2e: seeded history renders through cold resume', () => {
         .split(userId).join('{{userId}}')
       await compareOrRefreshGolden(FEEDBACK_ROW_EXPECTED, snapshot, MODE)
     } finally {
-      if (previousLynHome === undefined) delete process.env.LYNESS_HOME
-      else process.env.LYNESS_HOME = previousLynHome
+      if (previousDshHome === undefined) delete process.env.DSH_HOME
+      else process.env.DSH_HOME = previousDshHome
     }
   }, 60_000)
 

@@ -1,7 +1,7 @@
 /**
  * Model text rendering and generic tool-call presentation.
  *
- * @module @lyness/lyn-tool-session-query/presentation
+ * @module @deepseek-ai/dsh-tool-session-query/presentation
  */
 
 import {
@@ -12,12 +12,12 @@ import {
   type SessionLineageTrace,
   type SessionRecord,
   type SessionSearchHit,
-} from '@lyness/lyn-session-query'
+} from '@deepseek-ai/dsh-session-query'
 import type {
   SessionEvent,
   SessionId,
-} from '@lyness/lyn-session'
-import type { GenericCallView } from '@lyness/lyn-tools'
+} from '@deepseek-ai/dsh-session'
+import type { GenericCallView } from '@deepseek-ai/dsh-tools'
 import { workspaceAccess } from './workspace-access.ts'
 
 type TitleView = Awaited<ReturnType<typeof workspaceAccess.readTitle>>

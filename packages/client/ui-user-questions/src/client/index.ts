@@ -12,16 +12,16 @@
  * separate chain entry per shape would race the same carrier, so the shape
  * choice lives inside this entry — see QuestionComposer.
  */
-import type { Context as ClientContext } from '@lyness/cordis'
-import type {} from '@lyness/lyn-api-remotes/client'
-import type { ISessions } from '@lyness/lyn-api-session-controller/client'
-import type { ComposerChainProps } from '@lyness/lyn-client-ui-conversation/client'
-import type {} from '@lyness/lyn-client-ui-renderer/client'
-import type { PendingInteractionPublisher } from '@lyness/lyn-client-ui-session/client'
-import type { TypertClientEventListener } from '@lyness/lyn-typert-protocol'
+import type { Context as ClientContext } from '@deepseek-ai/cordis'
+import type {} from '@deepseek-ai/dsh-api-remotes/client'
+import type { ISessions } from '@deepseek-ai/dsh-api-session-controller/client'
+import type { ComposerChainProps } from '@deepseek-ai/dsh-client-ui-conversation/client'
+import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
+import type { PendingInteractionPublisher } from '@deepseek-ai/dsh-client-ui-session/client'
+import type { TypertClientEventListener } from '@deepseek-ai/dsh-typert-protocol'
 // Type-only: pulls the locale plugin's Context merge (ctx.locale).
-import type {} from '@lyness/lyn-client-locale/client'
-import type {} from '@lyness/lyn-api-session-controller/client'
+import type {} from '@deepseek-ai/dsh-client-locale/client'
+import type {} from '@deepseek-ai/dsh-api-session-controller/client'
 import { PendingQuestion } from './contract/slots.ts'
 import { createQuestionDraftStore } from './draft-store.ts'
 import { QuestionComposer } from './QuestionComposer.tsx'
@@ -32,7 +32,7 @@ export type {
 } from './contract/slots.ts'
 export type { QuestionKey } from './locales.ts'
 
-declare module '@lyness/lyn-client-ui-slots' {
+declare module '@deepseek-ai/dsh-client-ui-slots' {
   interface LocaleNamespaceMap {
     /** The question composer's copy. */
     question: QuestionKey

@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/lyn-compaction-tool-result-pruner",
+  "name": "@deepseek-ai/dsh-compaction-tool-result-pruner",
   "description": "Replay-safe model-free head/middle/tail pruning for tool-result surface nodes",
   "version": "0.1.7-rc.2",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/compaction/compaction-tool-result-pruner"
   },
   "type": "module",
@@ -27,26 +27,26 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-compaction": "workspace:*",
-    "@lyness/lyn-llm": "workspace:*",
-    "@lyness/lyn-session": "workspace:*",
-    "@lyness/lyn-token-meter": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-compaction": "workspace:*",
+    "@deepseek-ai/dsh-llm": "workspace:*",
+    "@deepseek-ai/dsh-session": "workspace:*",
+    "@deepseek-ai/dsh-token-meter": "workspace:*"
   },
   "dependencies": {
-    "@lyness/lyn-util-values": "workspace:*",
-    "@lyness/schemastery": "workspace:~"
+    "@deepseek-ai/dsh-util-values": "workspace:*",
+    "@deepseek-ai/schemastery": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/cordis-plugin-include": "workspace:~",
-    "@lyness/cordis-plugin-loader": "workspace:~",
-    "@lyness/lyn-compaction": "workspace:*",
-    "@lyness/lyn-invariants": "workspace:*",
-    "@lyness/lyn-llm": "workspace:*",
-    "@lyness/lyn-session": "workspace:*",
-    "@lyness/lyn-session-projection": "workspace:*",
-    "@lyness/lyn-token-meter": "workspace:*",
-    "@lyness/lyn-compaction-image-offload": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/cordis-plugin-include": "workspace:~",
+    "@deepseek-ai/cordis-plugin-loader": "workspace:~",
+    "@deepseek-ai/dsh-compaction": "workspace:*",
+    "@deepseek-ai/dsh-invariants": "workspace:*",
+    "@deepseek-ai/dsh-llm": "workspace:*",
+    "@deepseek-ai/dsh-session": "workspace:*",
+    "@deepseek-ai/dsh-session-projection": "workspace:*",
+    "@deepseek-ai/dsh-token-meter": "workspace:*",
+    "@deepseek-ai/dsh-compaction-image-offload": "workspace:*"
   }
 }

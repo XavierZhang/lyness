@@ -19,7 +19,7 @@ export const guideZh = {
   devGuideOverviewTab: '从这里开始',
   devGuideOverview: [
     '### 插件是什么',
-    '一个插件是一个普通的 npm 包，它的 `package.json` 声明了 `lyn.bundle.patch`。那份 YAML 补丁往组合里插入插件行；包本身提供这些行所命名的代码。没有专用的插件格式，也不需要构建工具。',
+    '一个插件是一个普通的 npm 包，它的 `package.json` 声明了 `dsh.bundle.patch`。那份 YAML 补丁往组合里插入插件行；包本身提供这些行所命名的代码。没有专用的插件格式，也不需要构建工具。',
     '### 它装在哪里',
     '安装会把包加入当前 profile，并把它的补丁作为一层叠加在出厂各层之上。因此更改影响使用该 profile 的每一个会话，并在重启后仍然存在。开了热更新时立即生效，否则留到下次启动。',
     '### 两个面',
@@ -34,7 +34,7 @@ export const guideZh = {
   devGuideHost: [
     '### 清单',
     '只有宿主面的 bundle 不需要依赖、安装脚本或构建工具：',
-    '```json\n{\n  "name": "@local/my-plugin",\n  "version": "1.0.0",\n  "private": true,\n  "type": "module",\n  "exports": { ".": "./index.js" },\n  "lyn": { "bundle": { "patch": "./cordis.patch.yml" } }\n}\n```',
+    '```json\n{\n  "name": "@local/my-plugin",\n  "version": "1.0.0",\n  "private": true,\n  "type": "module",\n  "exports": { ".": "./index.js" },\n  "dsh": { "bundle": { "patch": "./cordis.patch.yml" } }\n}\n```',
     '### 补丁',
     '补丁插入以包命名的那一行。包名与行 id 都要唯一：',
     '```yaml\n- insert:\n    - id: my-plugin\n      name: \'@local/my-plugin\'\n      config: {}\n```',
@@ -48,8 +48,8 @@ export const guideZh = {
   devGuideUiTab: '界面插件',
   devGuideUi: [
     '### 清单多出一节',
-    '界面面在清单里加一个 `lyn.client` 节和一个 `./client` 导出：',
-    '```json\n{\n  "exports": { ".": "./index.js", "./client": "./client.js" },\n  "lyn": {\n    "bundle": { "patch": "./cordis.patch.yml" },\n    "client": {\n      "platform": "web",\n      "immediately": true,\n      "inject": ["@lyness/lyn-client-ui-conversation"]\n    }\n  }\n}\n```',
+    '界面面在清单里加一个 `dsh.client` 节和一个 `./client` 导出：',
+    '```json\n{\n  "exports": { ".": "./index.js", "./client": "./client.js" },\n  "dsh": {\n    "bundle": { "patch": "./cordis.patch.yml" },\n    "client": {\n      "platform": "web",\n      "immediately": true,\n      "inject": ["@deepseek-ai/dsh-client-ui-conversation"]\n    }\n  }\n}\n```',
     '### 选一个席位',
     '界面组件注册进**席位**。优先选一个本来就为你留了空间的席位，而不是围着宿主控件去规划一条浮动路径。只有在确实需要浮层且位置已确定时才用浮层席位。',
     '不要读另一个插件的 DOM、样式表或组件源码去推测位置；选一个已经分配了空间的席位。',
@@ -63,10 +63,10 @@ export const guideZh = {
   devGuideMcpTab: '接 MCP 服务器',
   devGuideMcp: [
     '### 不需要写代码',
-    '只做配置的 bundle 只需要一个唯一的名字、一个版本、和 `lyn.bundle.patch`——没有宿主或界面入口文件。',
+    '只做配置的 bundle 只需要一个唯一的名字、一个版本、和 `dsh.bundle.patch`——没有宿主或界面入口文件。',
     '### 补丁',
     '补丁插入已经装好的 MCP 客户端，并填上你的服务器：',
-    '```yaml\n- insert:\n    - id: my-mcp\n      name: \'@lyness/lyn-mcp-client\'\n      config:\n        serverName: demo\n        transport: streamable-http\n        url: https://mcp.example.com/\n        failOnStartupError: true\n```',
+    '```yaml\n- insert:\n    - id: my-mcp\n      name: \'@deepseek-ai/dsh-mcp-client\'\n      config:\n        serverName: demo\n        transport: streamable-http\n        url: https://mcp.example.com/\n        failOnStartupError: true\n```',
     'stdio 传输则用 `transport: stdio` 加 `command`，以及可选的 `args`、`env`、`cwd`。',
     '### 验证',
     '安装之后调用 `mcp__demo__ping` 或其他新出现的 `mcp__<serverName>__<工具>`。失败时修同一个 bundle，不要再建一个。',
@@ -106,7 +106,7 @@ export const guideEn = {
   devGuideOverviewTab: 'Start here',
   devGuideOverview: [
     '### What a plugin is',
-    'A plugin is an ordinary npm package whose `package.json` declares `lyn.bundle.patch`. That YAML patch inserts plugin rows into the composition; the package supplies the code those rows name. There is no special plugin format and no build tool is required.',
+    'A plugin is an ordinary npm package whose `package.json` declares `dsh.bundle.patch`. That YAML patch inserts plugin rows into the composition; the package supplies the code those rows name. There is no special plugin format and no build tool is required.',
     '### Where it installs',
     'Installing adds the package to the current profile and applies its patch as a layer over the shipped ones. Changes therefore affect every session using that profile and survive restart. With hot reload on they apply immediately; otherwise they wait for the next start.',
     '### Two faces',
@@ -121,7 +121,7 @@ export const guideEn = {
   devGuideHost: [
     '### The manifest',
     'A Host-only bundle needs no dependencies, install scripts, or build tool:',
-    '```json\n{\n  "name": "@local/my-plugin",\n  "version": "1.0.0",\n  "private": true,\n  "type": "module",\n  "exports": { ".": "./index.js" },\n  "lyn": { "bundle": { "patch": "./cordis.patch.yml" } }\n}\n```',
+    '```json\n{\n  "name": "@local/my-plugin",\n  "version": "1.0.0",\n  "private": true,\n  "type": "module",\n  "exports": { ".": "./index.js" },\n  "dsh": { "bundle": { "patch": "./cordis.patch.yml" } }\n}\n```',
     '### The patch',
     'The patch inserts a row named after the package. Both the package name and the row id must be unique:',
     '```yaml\n- insert:\n    - id: my-plugin\n      name: \'@local/my-plugin\'\n      config: {}\n```',
@@ -135,8 +135,8 @@ export const guideEn = {
   devGuideUiTab: 'Interface plugin',
   devGuideUi: [
     '### One more manifest section',
-    'The interface face adds a `lyn.client` section and a `./client` export:',
-    '```json\n{\n  "exports": { ".": "./index.js", "./client": "./client.js" },\n  "lyn": {\n    "bundle": { "patch": "./cordis.patch.yml" },\n    "client": {\n      "platform": "web",\n      "immediately": true,\n      "inject": ["@lyness/lyn-client-ui-conversation"]\n    }\n  }\n}\n```',
+    'The interface face adds a `dsh.client` section and a `./client` export:',
+    '```json\n{\n  "exports": { ".": "./index.js", "./client": "./client.js" },\n  "dsh": {\n    "bundle": { "patch": "./cordis.patch.yml" },\n    "client": {\n      "platform": "web",\n      "immediately": true,\n      "inject": ["@deepseek-ai/dsh-client-ui-conversation"]\n    }\n  }\n}\n```',
     '### Choose a slot',
     'Interface components register into **slots**. Prefer a slot that already allocates space to you over planning a floating path around host controls. Use an overlay slot only when the result genuinely needs an overlay and its placement is known.',
     'Do not read another plugin\'s DOM, stylesheet, or component source to estimate placement; choose a slot that already allocates space.',
@@ -150,10 +150,10 @@ export const guideEn = {
   devGuideMcpTab: 'Connect MCP',
   devGuideMcp: [
     '### No code needed',
-    'A configuration-only bundle needs a unique name, a version, and `lyn.bundle.patch` — no Host or interface entry files.',
+    'A configuration-only bundle needs a unique name, a version, and `dsh.bundle.patch` — no Host or interface entry files.',
     '### The patch',
     'The patch inserts the already installed MCP client and names your server:',
-    '```yaml\n- insert:\n    - id: my-mcp\n      name: \'@lyness/lyn-mcp-client\'\n      config:\n        serverName: demo\n        transport: streamable-http\n        url: https://mcp.example.com/\n        failOnStartupError: true\n```',
+    '```yaml\n- insert:\n    - id: my-mcp\n      name: \'@deepseek-ai/dsh-mcp-client\'\n      config:\n        serverName: demo\n        transport: streamable-http\n        url: https://mcp.example.com/\n        failOnStartupError: true\n```',
     'For stdio, use `transport: stdio` with `command`, plus optional `args`, `env`, and `cwd`.',
     '### Verify',
     'After installing, call `mcp__demo__ping` or another newly available `mcp__<serverName>__<tool>`. On failure repair the same bundle rather than creating a second one.',

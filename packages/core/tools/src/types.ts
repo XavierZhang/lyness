@@ -1,11 +1,11 @@
 /**
  * Durable Tool event vocabulary shared with type-only consumers.
  *
- * @module @lyness/lyn-tools/types
+ * @module @deepseek-ai/dsh-tools/types
  */
 
-import type { ToolCallId } from '@lyness/lyn-llm/brand'
-import type { ContentBlock } from '@lyness/lyn-llm/types'
+import type { ToolCallId } from '@deepseek-ai/dsh-llm/brand'
+import type { ContentBlock } from '@deepseek-ai/dsh-llm/types'
 
 /** Payload recorded when one nested PTC mode Tool dispatch starts. */
 export interface PtcDispatchStartEventData {
@@ -24,7 +24,7 @@ export interface PtcDispatchEventData extends PtcDispatchStartEventData {
   error?: { name: string; code: string; reason?: string }
 }
 
-declare module '@lyness/lyn-session/types' {
+declare module '@deepseek-ai/dsh-session/types' {
   interface SessionEventMap {
     /**
      * One sub-dispatch STARTING inside a `run_code` program: the parent

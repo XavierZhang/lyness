@@ -11,18 +11,18 @@
  * Mounting no provider leaves the deployment unrestricted, which is what a
  * single-tenant developer install wants: it is its own operator.
  *
- * @module @lyness/lyn-model-policy
+ * @module @deepseek-ai/dsh-model-policy
  */
 
-import { Service } from '@lyness/cordis'
-import type { Context } from '@lyness/cordis'
-import { administers } from '@lyness/lyn-people'
-import type { Membership } from '@lyness/lyn-people'
+import { Service } from '@deepseek-ai/cordis'
+import type { Context } from '@deepseek-ai/cordis'
+import { administers } from '@deepseek-ai/dsh-people'
+import type { Membership } from '@deepseek-ai/dsh-people'
 import type { ModelAllowance, ModelAllowanceInput, ModelPolicyCapability } from './types.ts'
 
 export type { AllowedModel, ModelAllowance, ModelAllowanceInput, ModelPolicyCapability } from './types.ts'
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     /** The models this deployment allows; absent means unrestricted. */
     modelPolicy: ModelPolicy

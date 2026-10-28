@@ -3,7 +3,7 @@ description: "The webhook ingress module as its own bundle, shipped inert becaus
 kind: "package-bundle"
 ---
 
-# @lyness/lyn-module-webhook
+# @deepseek-ai/dsh-module-webhook
 
 English | [中文](README.zh.md)
 
@@ -54,8 +54,8 @@ The bundle is its patch document. `src/index.ts` exports nothing and exists beca
 
 | Row | Module | Role |
 |---|---|---|
-| `webhook-runtime` | `@lyness/lyn-webhook` | The Host rule registry and the one built-in action, creating a root Session in a Web Workspace |
-| `webhook-github` | `@lyness/lyn-webhook-github` | One exact HTTP route that bounds and verifies GitHub's raw body, then dispatches |
+| `webhook-runtime` | `@deepseek-ai/dsh-webhook` | The Host rule registry and the one built-in action, creating a root Session in a Web Workspace |
+| `webhook-github` | `@deepseek-ai/dsh-webhook-github` | One exact HTTP route that bounds and verifies GitHub's raw body, then dispatches |
 
 The runtime loads on the Web Host plane after Agents, model defaults, agent presets, permission presets, titles, and the Workspace registry, which is the order this bundle's position in the template produces.
 
@@ -74,7 +74,7 @@ The security boundary is worth stating precisely, because the shared secret is e
 - [`webhook/`](../../webhook/README.md) — the rule interface, the Session request, and the GitHub adapter.
 - [GitHub review guide](../../../docs/user/guide/github-review.md) — a worked rule, port, secret, and routing setup.
 - [Inbound interfaces and the Session plane](../../../.agents/notes/proposed/architecture/2026-10-09-inbound-interfaces-and-the-session-plane.md) — why adapters authenticate and the plane authorizes.
-- [`lyn-module-lsp`](../module-lsp/README.md) — the other module whose inertness is structural.
+- [`dsh-module-lsp`](../module-lsp/README.md) — the other module whose inertness is structural.
 
 -----
 

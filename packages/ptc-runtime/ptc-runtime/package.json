@@ -1,13 +1,13 @@
 {
-  "name": "@lyness/lyn-ptc-runtime",
-  "description": "Abstract PTC execution seam (ctx.ptcRuntime) for the lyness",
+  "name": "@deepseek-ai/dsh-ptc-runtime",
+  "description": "Abstract PTC execution seam (ctx.ptcRuntime) for the DeepSeek Harness",
   "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/ptc-runtime/ptc-runtime"
   },
   "type": "module",
@@ -27,11 +27,11 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-sandbox": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-sandbox": "workspace:*"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-sandbox": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-sandbox": "workspace:*"
   }
 }

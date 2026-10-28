@@ -103,7 +103,7 @@ export class InspectorEndpoint {
     }
     if (pathname === '/json/version') {
       this.json(response, {
-        Browser: 'lyn-experimental-inspector/0',
+        Browser: 'dsh-experimental-inspector/0',
         'Protocol-Version': '1.3',
         webSocketDebuggerUrl: this.cdpUrl(),
       })
@@ -145,7 +145,7 @@ export class InspectorEndpoint {
     }
     const session = new CdpSession(
       transport,
-      { targetId: this.config.targetId, title: 'lyness Host' },
+      { targetId: this.config.targetId, title: 'DeepSeek Harness Host' },
       this.sources,
       this.network,
       this.realms,
@@ -224,9 +224,9 @@ export class InspectorEndpoint {
     return {
       id: this.config.targetId,
       type: 'page',
-      title: 'lyness Host',
+      title: 'DeepSeek Harness Host',
       description: 'Experimental cross-realm Inspector target',
-      url: 'lyn://host',
+      url: 'dsh://host',
       webSocketDebuggerUrl: this.cdpUrl(),
       devtoolsFrontendUrl: `devtools://devtools/bundled/devtools_app.html?ws=${this.config.host}:${this.boundPort()}/devtools/page/${this.config.targetId}&panel=elements&noJavaScriptCompletion=true`,
     }

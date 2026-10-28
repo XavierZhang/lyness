@@ -1,7 +1,7 @@
 /**
  * Browser-safe subagent projection and control vocabulary.
  *
- * @module @lyness/lyn-subagent/client
+ * @module @deepseek-ai/dsh-subagent/client
  */
 
 export type * from './control-types.ts'

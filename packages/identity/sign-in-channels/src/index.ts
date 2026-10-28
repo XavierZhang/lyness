@@ -14,29 +14,29 @@
  * coexist: a composition row and a configured record register into the same
  * registry, and a deployment may use either or both.
  *
- * @module @lyness/lyn-sign-in-channels
+ * @module @deepseek-ai/dsh-sign-in-channels
  */
 
-import { Service } from '@lyness/cordis'
-import type { Context } from '@lyness/cordis'
-import { credentialRef } from '@lyness/lyn-credentials'
-import type {} from '@lyness/lyn-credentials'
-import { fieldChanges, redactedChange } from '@lyness/lyn-admin-audit'
-import type { AuditSubmission } from '@lyness/lyn-admin-audit'
-import { administers } from '@lyness/lyn-people'
-import type { Membership } from '@lyness/lyn-people'
-import { channelId } from '@lyness/lyn-sign-in'
-import type { SignInChannel } from '@lyness/lyn-sign-in'
-import type { ChannelKind } from '@lyness/lyn-sign-in/kinds'
-import { randomUUID } from '@lyness/lyn-util-crypto'
-import type { Domain } from '@lyness/lyn-storage-domain'
+import { Service } from '@deepseek-ai/cordis'
+import type { Context } from '@deepseek-ai/cordis'
+import { credentialRef } from '@deepseek-ai/dsh-credentials'
+import type {} from '@deepseek-ai/dsh-credentials'
+import { fieldChanges, redactedChange } from '@deepseek-ai/dsh-admin-audit'
+import type { AuditSubmission } from '@deepseek-ai/dsh-admin-audit'
+import { administers } from '@deepseek-ai/dsh-people'
+import type { Membership } from '@deepseek-ai/dsh-people'
+import { channelId } from '@deepseek-ai/dsh-sign-in'
+import type { SignInChannel } from '@deepseek-ai/dsh-sign-in'
+import type { ChannelKind } from '@deepseek-ai/dsh-sign-in/kinds'
+import { randomUUID } from '@deepseek-ai/dsh-util-crypto'
+import type { Domain } from '@deepseek-ai/dsh-storage-domain'
 import { channelDomain } from './storage.ts'
 import type { ChannelRecord, ChannelSubmission, ChannelView } from './types.ts'
 
 export type * from './types.ts'
 export { channelDomain, channelSchema } from './storage.ts'
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     /** The configured sign-in channels; absent where a deployment configures none. */
     signInChannels: ConfiguredChannels

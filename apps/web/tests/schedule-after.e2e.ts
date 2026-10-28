@@ -7,19 +7,19 @@ import { fileURLToPath } from 'node:url'
 import type { Browser, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed } from 'vitest'
-import type { Agent, AgentHandle } from '@lyness/lyn-agent'
-import { PROFILE_TEMPLATES, bundlePatchPaths, composeEntries, loadOverlayPatches } from '@lyness/lyn-app-boot'
-import { MessageId, ToolCallId, createUserMessage, LlmAdapter } from '@lyness/lyn-llm'
+import type { Agent, AgentHandle } from '@deepseek-ai/dsh-agent'
+import { PROFILE_TEMPLATES, bundlePatchPaths, composeEntries, loadOverlayPatches } from '@deepseek-ai/dsh-app-boot'
+import { MessageId, ToolCallId, createUserMessage, LlmAdapter } from '@deepseek-ai/dsh-llm'
 import { appendDelivery } from '../../../packages/schedule/schedule/src/delivery-history.ts'
-import type { ScheduleTask } from '@lyness/lyn-schedule'
-import type { ContextFormed, GenerateOptions, StreamChunk } from '@lyness/lyn-llm'
-import { SessionId, type SessionEvent } from '@lyness/lyn-session'
+import type { ScheduleTask } from '@deepseek-ai/dsh-schedule'
+import type { ContextFormed, GenerateOptions, StreamChunk } from '@deepseek-ai/dsh-llm'
+import { SessionId, type SessionEvent } from '@deepseek-ai/dsh-session'
 import {
   ScheduleId,
   createEveryScheduleRecord,
   foldScheduleEvents,
   type EveryScheduleRecord,
-} from '@lyness/lyn-schedule'
+} from '@deepseek-ai/dsh-schedule'
 import {
   assertFixtureInventory,
   captureStableAria,
@@ -37,7 +37,7 @@ import {
   saveFailureShot,
 } from './support.ts'
 
-declare module '@lyness/lyn-llm' {
+declare module '@deepseek-ai/dsh-llm' {
   interface MessageSourceMap {
     'schedule-web-e2e': { kind: 'schedule-web-e2e' } & ContextFormed
   }
@@ -70,7 +70,7 @@ const CATALOG_EXPECTED = join(CATALOG_SNAPSHOT_DIR, 'catalog.expected.md')
 const BASE_PATCH = fileURLToPath(new URL('../../../packages/bundle/base/cordis.patch.yml', import.meta.url))
 const BUNDLE_ROOT = fileURLToPath(new URL('../../../packages/bundle/', import.meta.url))
 /**
- * Every patch file the `web` template selects after `lyn-base`, in template
+ * Every patch file the `web` template selects after `dsh-base`, in template
  * order.
  *
  * Reading the template rather than naming `web-app` is what keeps this roster
@@ -79,13 +79,13 @@ const BUNDLE_ROOT = fileURLToPath(new URL('../../../packages/bundle/', import.me
  * seeing the rows it is here to pin.
  */
 const WEB_PATCHES = (PROFILE_TEMPLATES.web?.bundles ?? [])
-  .filter(name => name !== '@lyness/lyn-base')
+  .filter(name => name !== '@deepseek-ai/dsh-base')
   .flatMap((name) => {
-    const dir = join(BUNDLE_ROOT, name.replace('@lyness/lyn-', ''))
+    const dir = join(BUNDLE_ROOT, name.replace('@deepseek-ai/dsh-', ''))
     const manifest = JSON.parse(readFileSync(join(dir, 'package.json'), 'utf8')) as {
-      lyn: { bundle: { patch: string | string[] } }
+      dsh: { bundle: { patch: string | string[] } }
     }
-    return bundlePatchPaths(dir, manifest.lyn.bundle)
+    return bundlePatchPaths(dir, manifest.dsh.bundle)
   })
 const CATALOG_NOW = Date.parse('2099-08-25T12:00:00.000Z')
 const CATALOG_SESSION_ID = SessionId('schedule-catalog-web-e2e')
@@ -310,7 +310,7 @@ describe.skipIf(MODE === 'record')('web e2e: conversational reminders', () => {
       locale: 'en-US',
       timezoneId: AT_BROWSER_ZONE,
     })
-    await page.addInitScript(() => { localStorage.setItem('lyn.locale', 'en') })
+    await page.addInitScript(() => { localStorage.setItem('dsh.locale', 'en') })
     tripwire = watchConsole(page)
     await page.goto(scaffold.authenticatedUrl, { waitUntil: 'load' })
     await page.waitForSelector('[class*="frame"]', { timeout: 30_000 })
@@ -752,7 +752,7 @@ describe.skipIf(MODE === 'record')('web e2e: active Schedule catalog', () => {
       timezoneId: AT_BROWSER_ZONE,
     })
     await page.clock.setFixedTime(new Date(CATALOG_NOW))
-    await page.addInitScript(() => { localStorage.setItem('lyn.locale', 'en') })
+    await page.addInitScript(() => { localStorage.setItem('dsh.locale', 'en') })
     tripwire = watchConsole(page)
     await page.goto(scaffold.authenticatedUrl, { waitUntil: 'load' })
     await page.waitForSelector('[class*="frame"]', { timeout: 30_000 })
@@ -858,12 +858,12 @@ describe.skipIf(MODE === 'record')('web e2e: active Schedule catalog', () => {
       ...WEB_PATCHES.map(file => loadOverlayPatches('Schedule catalog shipped roster', file)),
     ])
     expect(shipped.find(entry => entry.id === 'ui-schedule')).toMatchObject({
-      name: '@lyness/lyn-client-ui-schedule',
+      name: '@deepseek-ai/dsh-client-ui-schedule',
     })
     expect(shipped.find(entry => entry.id === 'ui-schedule')?.disabled).toBe(true)
     for (const row of [
-      { id: 'time-context', name: '@lyness/lyn-time-context' },
-      { id: 'schedule', name: '@lyness/lyn-schedule' },
+      { id: 'time-context', name: '@deepseek-ai/dsh-time-context' },
+      { id: 'schedule', name: '@deepseek-ai/dsh-schedule' },
     ]) {
       expect(shipped.filter(entry => entry.id === row.id && entry.name === row.name)).toHaveLength(1)
     }

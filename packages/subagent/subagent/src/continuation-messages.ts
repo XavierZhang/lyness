@@ -1,13 +1,13 @@
 /**
  * Model-visible messages owned by continuable-subagent orchestration.
  *
- * @module @lyness/lyn-subagent/continuation-messages
+ * @module @deepseek-ai/dsh-subagent/continuation-messages
  */
 
-import type { Agent } from '@lyness/lyn-agent'
-import { boundContextSummary, createUserMessage } from '@lyness/lyn-llm'
-import type { ContentBlock } from '@lyness/lyn-llm'
-import type { SessionId } from '@lyness/lyn-session'
+import type { Agent } from '@deepseek-ai/dsh-agent'
+import { boundContextSummary, createUserMessage } from '@deepseek-ai/dsh-llm'
+import type { ContentBlock } from '@deepseek-ai/dsh-llm'
+import type { SessionId } from '@deepseek-ai/dsh-session'
 import type { ActivationTerminal } from './lifecycle.ts'
 import type { SubagentResult } from './types.ts'
 
@@ -37,7 +37,7 @@ export interface SubagentSettledMessageSource {
   readonly senderSessionId: SessionId
 }
 
-declare module '@lyness/lyn-llm' {
+declare module '@deepseek-ai/dsh-llm' {
   interface MessageSourceMap {
     'agent-message': AgentMessageSource
     'subagent-settled': SubagentSettledMessageSource

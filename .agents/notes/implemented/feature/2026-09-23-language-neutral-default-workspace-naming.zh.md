@@ -12,7 +12,7 @@ Status: implemented
 
 目录名与存储标题是同一个固定的、语言中立的字符串；只有屏幕上的标签跟随读者语言。
 
-`DEFAULT_WORKSPACE_DIRECTORY`（`default-workspace`）由 [Workspace 控制器](../../../../packages/api/workspace-controller/README.zh.md#first-use-workspace)拥有，并通过其独立的 `./default-workspace` 子路径导出——它是一个没有任何 import 的纯折叠函数，因此 Client 包会内联它，而不是去请求本包并未发布的模块表条目。Host 将它拼接在 `<Documents>/lyness` 下，注册表则以规范目录的最后一段作为工作区标题，因此自动标题*就是*同一个名称，不存在需要同步的第二个来源。
+`DEFAULT_WORKSPACE_DIRECTORY`（`default-workspace`）由 [Workspace 控制器](../../../../packages/api/workspace-controller/README.zh.md#first-use-workspace)拥有，并通过其独立的 `./default-workspace` 子路径导出——它是一个没有任何 import 的纯折叠函数，因此 Client 包会内联它，而不是去请求本包并未发布的模块表条目。Host 将它拼接在 `<Documents>/DeepSeek Harness` 下，注册表则以规范目录的最后一段作为工作区标题，因此自动标题*就是*同一个名称，不存在需要同步的第二个来源。
 
 因此 `workspace.initializeDefault` 完全不接受请求参数；`WorkspaceInitializeDefaultRequest` 及其名称校验被删除，注册表的解析器返回路径而不是路径加标题。语言不会传到 Host，因此那里不可能与 Client 在命名上产生分歧。
 

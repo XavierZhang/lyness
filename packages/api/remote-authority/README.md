@@ -3,13 +3,13 @@ description: "Whether one Remote call may be served, decided once where every wi
 kind: "package-reference"
 ---
 
-# @lyness/lyn-api-remote-authority
+# @deepseek-ai/dsh-api-remote-authority
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`lyn-api-remote-authority` is the rule that refuses a Remote call the caller's standing does not reach. It listens on the Gateway's authority point, which every wire call passes through, and compares the standing the request acts in against what the endpoint declared — its method's requirement, else its namespace's. An endpoint nobody classified is refused rather than admitted. Whether any of this applies is a composition choice: an installation with one person at the keyboard mounts no accounts and no rule, and nothing refuses them their own machine.
+`dsh-api-remote-authority` is the rule that refuses a Remote call the caller's standing does not reach. It listens on the Gateway's authority point, which every wire call passes through, and compares the standing the request acts in against what the endpoint declared — its method's requirement, else its namespace's. An endpoint nobody classified is refused rather than admitted. Whether any of this applies is a composition choice: an installation with one person at the keyboard mounts no accounts and no rule, and nothing refuses them their own machine.
 
 ## Table of Contents
 
@@ -25,18 +25,18 @@ English | [中文](README.zh.md)
 <a id="use-this-package"></a>
 ## Use this package
 
-`@lyness/lyn-module-accounts` selects it beside the directory and the request principal; a composition that writes its own rows adds it the same way:
+`@deepseek-ai/dsh-module-accounts` selects it beside the directory and the request principal; a composition that writes its own rows adds it the same way:
 
 ```yaml
 - id: remote-authority
-  name: '@lyness/lyn-api-remote-authority'
+  name: '@deepseek-ai/dsh-api-remote-authority'
 ```
 
 It takes no configuration. What each endpoint requires is declared where that endpoint lives — a namespace states its default, and a method raises or lowers it:
 
 ```ts
-import { Remote, TypertRemoteService } from '@lyness/lyn-typert-protocol'
-import type { Context } from '@lyness/cordis'
+import { Remote, TypertRemoteService } from '@deepseek-ai/dsh-typert-protocol'
+import type { Context } from '@deepseek-ai/cordis'
 
 declare const nothing: unique symbol
 
@@ -79,9 +79,9 @@ export class LedgerController extends TypertRemoteService {
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`lyn-api-gateway`](../gateway/README.md) — the authority point this rides, and the `gateway/forbidden` refusal it produces.
-- [`lyn-people`](../../identity/people/README.md) — the standings and what each role may do.
-- [`lyn-module-accounts`](../../bundle/module-accounts/README.md) — the composition that selects it.
+- [`dsh-api-gateway`](../gateway/README.md) — the authority point this rides, and the `gateway/forbidden` refusal it produces.
+- [`dsh-people`](../../identity/people/README.md) — the standings and what each role may do.
+- [`dsh-module-accounts`](../../bundle/module-accounts/README.md) — the composition that selects it.
 - [Diverging from the single-operator Host](../../../.agents/notes/proposed/architecture/2026-10-15-diverging-from-the-single-operator-host.md) — why a shared runtime needs it.
 
 -----
@@ -100,7 +100,7 @@ No request prefix changes, because nothing here contributes to an assembled requ
 <a id="known-limitations-and-deferred-work"></a>
 
 - **Roles, not rows** — it answers whether a standing may call an operation, never whether it may touch a particular session, workspace, or job. One member reading another's conversation is an ownership question, and the owner is recorded but nothing filters by it yet.
-- **One organization is as good as another** — a tenant administrator of one organization satisfies a `tenant-administrator` endpoint whatever organization the call is about. Each namespace that acts on an organization still has to check which one, the way `lyn-credits` does.
+- **One organization is as good as another** — a tenant administrator of one organization satisfies a `tenant-administrator` endpoint whatever organization the call is about. Each namespace that acts on an organization still has to check which one, the way `dsh-credits` does.
 - **A declaration is per namespace, not per deployment** — a deployment that wants its members to configure something this repository classified as the platform's cannot lower it from composition.
 - **The refusal text reaches the caller** — it names the standing required and the one held, which tells an unauthorized caller that the endpoint exists. That is the same thing the endpoint list already tells them.
 - **Nothing is logged** — a refusal is answered, not recorded, so a deployment cannot yet review who was turned away.

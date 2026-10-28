@@ -5,12 +5,12 @@
  * ledger is what makes a refusal answerable: a balance a customer cannot
  * account for is a support case.
  *
- * @module @lyness/lyn-credits/storage
+ * @module @deepseek-ai/dsh-credits/storage
  */
 
 import { z } from 'zod'
-import { defineDomain, domainTable, storedId, storedInstant } from '@lyness/lyn-storage-domain'
-import type { PersonId } from '@lyness/lyn-people'
+import { defineDomain, domainTable, storedId, storedInstant } from '@deepseek-ai/dsh-storage-domain'
+import type { PersonId } from '@deepseek-ai/dsh-people'
 import type { CreditDebit, CreditGrant, DebitId, GrantId } from './types.ts'
 
 /** Stored grant; a non-positive amount is a malformed record, not an empty grant. */

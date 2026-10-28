@@ -8,19 +8,19 @@ import { fileURLToPath } from 'node:url'
 import { resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import * as yaml from 'js-yaml'
-import { entryListSchema } from '@lyness/cordis-plugin-include'
-import { evaluate } from '@lyness/cordis-plugin-loader'
+import { entryListSchema } from '@deepseek-ai/cordis-plugin-include'
+import { evaluate } from '@deepseek-ai/cordis-plugin-loader'
 
-describe('lyn-module-execution bundle', () => {
-  it('declares a parseable patch list through the lyn.bundle.patch manifest field', () => {
+describe('dsh-module-execution bundle', () => {
+  it('declares a parseable patch list through the dsh.bundle.patch manifest field', () => {
     const root = fileURLToPath(new URL('..', import.meta.url))
     const manifest = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8')) as {
       dependencies?: Record<string, string>
-      lyn?: { bundle?: { patch?: string } }
+      dsh?: { bundle?: { patch?: string } }
     }
-    expect(manifest.lyn?.bundle?.patch).toBe('./cordis.patch.yml')
+    expect(manifest.dsh?.bundle?.patch).toBe('./cordis.patch.yml')
     const parsed = yaml.load(
-      readFileSync(resolve(root, manifest.lyn!.bundle!.patch!), 'utf8'),
+      readFileSync(resolve(root, manifest.dsh!.bundle!.patch!), 'utf8'),
       { schema: entryListSchema },
     )
     expect(Array.isArray(parsed)).toBe(true)

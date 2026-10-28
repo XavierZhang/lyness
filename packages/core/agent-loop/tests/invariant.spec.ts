@@ -1,12 +1,12 @@
 import { describe, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import SessionStore, { SessionId } from '@lyness/lyn-session'
-import InvariantRegistry from '@lyness/lyn-invariants'
-import * as AgentLoopInvariant from '@lyness/lyn-agent-loop/invariant'
-import { createUserMessage, markAgentLoopRequest, type GenerateOptions  } from '@lyness/lyn-llm'
-import type { ContextFormed } from '@lyness/lyn-llm'
+import { Context } from '@deepseek-ai/cordis'
+import SessionStore, { SessionId } from '@deepseek-ai/dsh-session'
+import InvariantRegistry from '@deepseek-ai/dsh-invariants'
+import * as AgentLoopInvariant from '@deepseek-ai/dsh-agent-loop/invariant'
+import { createUserMessage, markAgentLoopRequest, type GenerateOptions  } from '@deepseek-ai/dsh-llm'
+import type { ContextFormed } from '@deepseek-ai/dsh-llm'
 
-declare module '@lyness/lyn-llm' {
+declare module '@deepseek-ai/dsh-llm' {
   interface MessageSourceMap {
     'x': { kind: 'x' } & ContextFormed
   }

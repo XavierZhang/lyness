@@ -64,25 +64,25 @@ describe.skipIf(!existsSync(preload('preload-app')))('built sandboxed Desktop pr
         if (id !== 'electron') throw new Error(`sandbox cannot load ${id}`)
         return electron
       },
-      process: { argv: ['electron', '--lyn-welcome-locale=en'] },
-      location: new URL('lyn-app://app/'),
+      process: { argv: ['electron', '--dsh-welcome-locale=en'] },
+      location: new URL('dsh-app://app/'),
       exports: {},
     })
     if (name === 'preload-app') {
       browser.loadTheme('dark')
-      expect(send).toHaveBeenCalledWith('lyn-desktop:native-theme-set', 'dark')
+      expect(send).toHaveBeenCalledWith('dsh-desktop:native-theme-set', 'dark')
       browser.changeTheme('light')
-      expect(send).toHaveBeenCalledWith('lyn-desktop:native-theme-set', 'light')
-      const bridge = exposed.get('__LYNESS_LOCALE__') as { read(): unknown; onChange(locale: string): void }
+      expect(send).toHaveBeenCalledWith('dsh-desktop:native-theme-set', 'light')
+      const bridge = exposed.get('__DSH_LOCALE__') as { read(): unknown; onChange(locale: string): void }
       bridge.read()
-      expect(invoke).toHaveBeenCalledWith('lyn-desktop:locale-bootstrap')
+      expect(invoke).toHaveBeenCalledWith('dsh-desktop:locale-bootstrap')
       bridge.onChange('zh')
-      expect(send).toHaveBeenCalledWith('lyn-desktop:locale-changed', 'zh')
+      expect(send).toHaveBeenCalledWith('dsh-desktop:locale-changed', 'zh')
     } else {
-      expect(exposed.has('lynWelcome')).toBe(true)
-      const bridge = exposed.get('lynWelcome') as { takeNotice(): Promise<unknown> }
+      expect(exposed.has('dshWelcome')).toBe(true)
+      const bridge = exposed.get('dshWelcome') as { takeNotice(): Promise<unknown> }
       void bridge.takeNotice()
-      expect(invoke).toHaveBeenCalledWith('lyn-welcome:take-notice')
+      expect(invoke).toHaveBeenCalledWith('dsh-welcome:take-notice')
     }
   })
 })

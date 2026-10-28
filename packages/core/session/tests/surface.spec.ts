@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import type { SessionEvent, SurfaceEvent, SurfaceEventType } from '@lyness/lyn-session'
+import type { SessionEvent, SurfaceEvent, SurfaceEventType } from '@deepseek-ai/dsh-session'
 import {
   Session,
   SessionId,
@@ -11,8 +11,8 @@ import {
   isReplacementSurfaceEvent,
   isSurfaceEligibleType,
   isSurfaceEvent,
-} from '@lyness/lyn-session'
-import { SurfaceManager } from '@lyness/lyn-session/surface'
+} from '@deepseek-ai/dsh-session'
+import { SurfaceManager } from '@deepseek-ai/dsh-session/surface'
 import {
   MessageId,
   ToolCallId,
@@ -22,10 +22,10 @@ import {
   createToolResultMessage,
   createUserMessage,
   freezeMessage,
-} from '@lyness/lyn-llm'
-import type { ContextFormed, MessageSource } from '@lyness/lyn-llm'
+} from '@deepseek-ai/dsh-llm'
+import type { ContextFormed, MessageSource } from '@deepseek-ai/dsh-llm'
 
-declare module '@lyness/lyn-llm' {
+declare module '@deepseek-ai/dsh-llm' {
   interface MessageSourceMap {
     'test': { kind: 'test' } & ContextFormed
     'watcher': { kind: 'watcher' } & ContextFormed

@@ -1,8 +1,8 @@
-import { Context } from '@lyness/cordis'
+import { Context } from '@deepseek-ai/cordis'
 import { afterEach, describe, expect, it } from 'vitest'
-import ToolRuntime from '@lyness/lyn-tools'
-import SystemPrompt from '@lyness/lyn-system-prompt'
-import UserQuestionService from '@lyness/lyn-user-questions'
+import ToolRuntime from '@deepseek-ai/dsh-tools'
+import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
+import UserQuestionService from '@deepseek-ai/dsh-user-questions'
 import { apply } from '../src/index.ts'
 
 let ctx: Context | undefined

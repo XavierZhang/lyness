@@ -10,12 +10,12 @@
  * A hosted deployment mounts a store-backed directory instead, because its
  * people arrive by sign-up rather than by an operator's edit.
  *
- * @module @lyness/lyn-people/static
+ * @module @deepseek-ai/dsh-people/static
  */
 
-import type { Context } from '@lyness/cordis'
-import z from '@lyness/schemastery'
-import { brandString } from '@lyness/lyn-brand'
+import type { Context } from '@deepseek-ai/cordis'
+import z from '@deepseek-ai/schemastery'
+import { brandString } from '@deepseek-ai/dsh-brand'
 import { PeopleDirectory, isRole } from './index.ts'
 import type { Membership, MembershipId, Person, PersonId, Role } from './types.ts'
 

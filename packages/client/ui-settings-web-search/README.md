@@ -1,9 +1,9 @@
 ---
-description: "The DeepSeek web-search provider's settings page on the lyn web client's Plugins page: its API key, endpoint, and per-request search budget."
+description: "The DeepSeek web-search provider's settings page on the dsh web client's Plugins page: its API key, endpoint, and per-request search budget."
 kind: "package-reference"
 ---
 
-# @lyness/lyn-client-ui-settings-web-search
+# @deepseek-ai/dsh-client-ui-settings-web-search
 
 English | [中文](README.zh.md)
 

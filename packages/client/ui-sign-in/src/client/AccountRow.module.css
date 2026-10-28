@@ -2,25 +2,25 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--lyn-space-3);
+  gap: var(--dsh-space-3);
 }
 
 .who {
   display: flex;
   min-width: 0;
   flex-direction: column;
-  gap: var(--lyn-space-1);
+  gap: var(--dsh-space-1);
 }
 
 .standing {
   overflow: hidden;
-  color: var(--lyn-color-text-secondary);
-  font-size: var(--lyn-font-size-sm);
+  color: var(--dsh-color-text-secondary);
+  font-size: var(--dsh-font-size-sm);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .signOut {
-  color: var(--lyn-color-text-secondary);
-  font-size: var(--lyn-font-size-sm);
+  color: var(--dsh-color-text-secondary);
+  font-size: var(--dsh-font-size-sm);
 }

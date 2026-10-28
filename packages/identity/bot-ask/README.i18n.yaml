@@ -5,78 +5,78 @@
 /:
   en: e59b72b78049a40c
   zh: a6b862256f86fa4a
-/lyness-lyn-bot-ask:
+/DeepSeek Harness-dsh-bot-ask:
   en: fdbc5ef31e5bbdae
   zh: 30fa4107bed27274
-/lyness-lyn-bot-ask/summary:
+/DeepSeek Harness-dsh-bot-ask/summary:
   en: 4485830fc5ddb709
   zh: b0a51415bdbba915
-/lyness-lyn-bot-ask/table-of-contents:
+/DeepSeek Harness-dsh-bot-ask/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/lyness-lyn-bot-ask/use-this-package:
+/DeepSeek Harness-dsh-bot-ask/use-this-package:
   en: db2d2b9c6172bce3
   zh: b28ae37dd10af61a
-/lyness-lyn-bot-ask/understand-the-implementation:
+/DeepSeek Harness-dsh-bot-ask/understand-the-implementation:
   en: 07374e86c3eee073
   zh: 5115b963999cced1
-/lyness-lyn-bot-ask/further-exploration:
+/DeepSeek Harness-dsh-bot-ask/further-exploration:
   en: 69d11c1cbee8f8d1
   zh: fc96d3cc4038982e
-/lyness-lyn-bot-ask/model-experience:
+/DeepSeek Harness-dsh-bot-ask/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/lyness-lyn-bot-ask/model-experience/tool-schema:
+/DeepSeek Harness-dsh-bot-ask/model-experience/tool-schema:
   en: e4c7376d4f29dbd5
   zh: 6b7a9eaf69c9ea53
-/lyness-lyn-bot-ask/model-experience/tool-schema/what-the-model-sees:
+/DeepSeek Harness-dsh-bot-ask/model-experience/tool-schema/what-the-model-sees:
   en: f66861a6fea9f7c0
   zh: 5de3f99e052c17fc
-/lyness-lyn-bot-ask/model-experience/tool-schema/token-effect:
+/DeepSeek Harness-dsh-bot-ask/model-experience/tool-schema/token-effect:
   en: f39efb5b588999ba
   zh: ae8b759f3ec03a3f
-/lyness-lyn-bot-ask/model-experience/tool-schema/kv-cache-effect:
+/DeepSeek Harness-dsh-bot-ask/model-experience/tool-schema/kv-cache-effect:
   en: 61e51afbee15640f
   zh: 836f11b2ff09c111
-/lyness-lyn-bot-ask/model-experience/teammate-catalog:
+/DeepSeek Harness-dsh-bot-ask/model-experience/teammate-catalog:
   en: 385ad52ea0a945d2
   zh: 3368ef765a2e1f37
-/lyness-lyn-bot-ask/model-experience/teammate-catalog/what-the-model-sees:
+/DeepSeek Harness-dsh-bot-ask/model-experience/teammate-catalog/what-the-model-sees:
   en: 09006600cf87056a
   zh: fbc00a08897d4d2b
-/lyness-lyn-bot-ask/model-experience/teammate-catalog/token-effect:
+/DeepSeek Harness-dsh-bot-ask/model-experience/teammate-catalog/token-effect:
   en: 005fc2af0c98ff5a
   zh: d981b75041166b1c
-/lyness-lyn-bot-ask/model-experience/teammate-catalog/kv-cache-effect:
+/DeepSeek Harness-dsh-bot-ask/model-experience/teammate-catalog/kv-cache-effect:
   en: 45c20995b8ace59a
   zh: ab33cde8c843c525
-/lyness-lyn-bot-ask/model-experience/discussion:
+/DeepSeek Harness-dsh-bot-ask/model-experience/discussion:
   en: 27acfc6db4102393
   zh: 201bd3f0a808723f
-/lyness-lyn-bot-ask/model-experience/discussion/what-the-model-sees:
+/DeepSeek Harness-dsh-bot-ask/model-experience/discussion/what-the-model-sees:
   en: 40a411485229aea4
   zh: ee378a4f3bb9a4a4
-/lyness-lyn-bot-ask/model-experience/discussion/token-effect:
+/DeepSeek Harness-dsh-bot-ask/model-experience/discussion/token-effect:
   en: 7b2c7a59a2f1528a
   zh: a7414a0aaf2d154b
-/lyness-lyn-bot-ask/model-experience/discussion/kv-cache-effect:
+/DeepSeek Harness-dsh-bot-ask/model-experience/discussion/kv-cache-effect:
   en: 8ec1827f3356196b
   zh: 07d5e0f93e7876bd
-/lyness-lyn-bot-ask/model-experience/answer:
+/DeepSeek Harness-dsh-bot-ask/model-experience/answer:
   en: 60af6bb3f5ec611c
   zh: 64fefff8e56b0a5f
-/lyness-lyn-bot-ask/model-experience/answer/what-the-model-sees:
+/DeepSeek Harness-dsh-bot-ask/model-experience/answer/what-the-model-sees:
   en: 93bb15f920b693b8
   zh: 4d5b0eb07f492e88
-/lyness-lyn-bot-ask/model-experience/answer/token-effect:
+/DeepSeek Harness-dsh-bot-ask/model-experience/answer/token-effect:
   en: edf9494bf115528f
   zh: ab07085d54f749de
-/lyness-lyn-bot-ask/model-experience/answer/kv-cache-effect:
+/DeepSeek Harness-dsh-bot-ask/model-experience/answer/kv-cache-effect:
   en: c710caee9bee0457
   zh: 59d95e5146057341
-/lyness-lyn-bot-ask/known-limitations-and-deferred-work:
+/DeepSeek Harness-dsh-bot-ask/known-limitations-and-deferred-work:
   en: a7b3b9c06a059c05
   zh: fb21c85129533d9d
-/lyness-lyn-bot-ask/known-limitations-and-deferred-work/dev-note:
+/DeepSeek Harness-dsh-bot-ask/known-limitations-and-deferred-work/dev-note:
   en: f7d9d0d4a989cbca
   zh: aa4ad1dbbbc7bd83

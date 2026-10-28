@@ -1,17 +1,17 @@
-import { createUserMessage } from '@lyness/lyn-llm'
+import { createUserMessage } from '@deepseek-ai/dsh-llm'
 /**
  * Keyless real-Loader-path smoke for the combined SQLite session-query service.
  *
- * @module @lyness/lyn-session-query-sqlite/tests/load-path
+ * @module @deepseek-ai/dsh-session-query-sqlite/tests/load-path
  */
 
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import Loader from '@lyness/cordis-plugin-loader'
-import SessionStore, { SessionSeq, SESSION_FORMAT_VERSION, SessionId } from '@lyness/lyn-session'
-import SessionProjectionRegistry from '@lyness/lyn-session-projection'
-import JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
-import SqliteSessionQueryEngine, * as queryModule from '@lyness/lyn-session-query-sqlite'
+import { Context } from '@deepseek-ai/cordis'
+import Loader from '@deepseek-ai/cordis-plugin-loader'
+import SessionStore, { SessionSeq, SESSION_FORMAT_VERSION, SessionId } from '@deepseek-ai/dsh-session'
+import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
+import JsonlSessionPersistence from '@deepseek-ai/dsh-session-persistence-jsonl'
+import SqliteSessionQueryEngine, * as queryModule from '@deepseek-ai/dsh-session-query-sqlite'
 import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
@@ -25,12 +25,12 @@ afterEach(async () => {
 })
 
 async function temporaryPath(name: string): Promise<string> {
-  const directory = await mkdtemp(join(tmpdir(), 'lyn-session-search-loader-'))
+  const directory = await mkdtemp(join(tmpdir(), 'dsh-session-search-loader-'))
   temporaryDirectories.push(directory)
   return join(directory, name)
 }
 
-describe('lyn-session-query-sqlite real Loader path', () => {
+describe('dsh-session-query-sqlite real Loader path', () => {
   it('unwraps, mounts, and searches the real persistence backend', async () => {
     const persistenceRoot = await temporaryPath('canonical')
     const searchPath = await temporaryPath('derived.db')

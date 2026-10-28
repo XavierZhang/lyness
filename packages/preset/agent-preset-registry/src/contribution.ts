@@ -5,7 +5,7 @@
  * replaces a targeted row's whole config, so a module bundle cannot add one
  * tool to a preset by patching it. It contributes the row instead, and the
  * registry merges contributions into every preset that accepts them.
- * @module @lyness/lyn-agent-preset-registry/contribution
+ * @module @deepseek-ai/dsh-agent-preset-registry/contribution
  */
 
 import type { PresetDefinition } from './definition.ts'

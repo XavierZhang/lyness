@@ -1,17 +1,17 @@
-import { createSnapshotStore } from '@lyness/lyn-client-store'
+import { createSnapshotStore } from '@deepseek-ai/dsh-client-store'
 /** Sidebar shell slot registration and its Session/layout callbacks. */
-import { Context, type Fiber } from '@lyness/cordis'
+import { Context, type Fiber } from '@deepseek-ai/cordis'
 import { afterEach, describe, expect, expectTypeOf, it, vi } from 'vitest'
-import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
-import type { PropsRenderSlots } from '@lyness/lyn-client-ui-slots'
-import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
+import { SlotRegistry } from '@deepseek-ai/dsh-client-ui-renderer/client'
+import type { PropsRenderSlots } from '@deepseek-ai/dsh-client-ui-slots'
+import { LocaleRuntime } from '@deepseek-ai/dsh-client-locale/client'
 // Relative, like every other import this spec makes of its own package: the
 // assertions compare component and store identity, and reaching the same file
 // through the package alias is a second module whenever the resolver prefers
 // the built entry.
 import { apply, inject } from '../src/client/index.ts'
 import type { SidebarRootInjected } from '../src/client/index.ts'
-import type { MainPanelId } from '@lyness/lyn-client-ui-layout/client'
+import type { MainPanelId } from '@deepseek-ai/dsh-client-ui-layout/client'
 import { HeaderLeadingControls } from '../src/client/HeaderLeadingControls.tsx'
 import { apply as hostApply } from '../src/index.ts'
 

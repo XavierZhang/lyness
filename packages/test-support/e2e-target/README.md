@@ -3,13 +3,13 @@ description: "Which DeepSeek-compatible platform the real-API e2e suites call, r
 kind: "package-reference"
 ---
 
-# @lyness/lyn-e2e-target
+# @deepseek-ai/dsh-e2e-target
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-Use `lyn-e2e-target` in a real-API e2e suite instead of naming a model. It resolves the platform a run calls from the variables the product itself reads — `DEEPSEEK_BASE_URL` for the endpoint and `DEEPSEEK_MODELS` for the models it serves — so the product and the suite always point at the same place. With neither set, the target is the official API and its default model. It also says whether the target is the official API, so a suite can skip elsewhere when it needs an official-only feature or when its adapter routes only official model ids.
+Use `dsh-e2e-target` in a real-API e2e suite instead of naming a model. It resolves the platform a run calls from the variables the product itself reads — `DEEPSEEK_BASE_URL` for the endpoint and `DEEPSEEK_MODELS` for the models it serves — so the product and the suite always point at the same place. With neither set, the target is the official API and its default model. It also says whether the target is the official API, so a suite can skip elsewhere when it needs an official-only feature or when its adapter routes only official model ids.
 
 ## Table of Contents
 
@@ -37,7 +37,7 @@ pnpm run test:e2e
 A suite reads the model from the target and gates official-only features on it:
 
 ```ts
-import { E2E_TARGET } from '@lyness/lyn-e2e-target'
+import { E2E_TARGET } from '@deepseek-ai/dsh-e2e-target'
 
 /** The agent options a real-API suite creates its agent with. */
 export const agentOptions = { provider: 'deepseek-official', model: E2E_TARGET.model }

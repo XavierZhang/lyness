@@ -3,13 +3,13 @@ description: "管理员维护「谁可以使用这个部署」的那个 Settings
 kind: "package-reference"
 ---
 
-# @lyness/lyn-client-ui-settings-people
+# @deepseek-ai/dsh-client-ui-settings-people
 
 [English](README.md) | 中文
 
 ## 概述
 
-`lyn-client-ui-settings-people` 增加一个 Settings 页面：谁可以使用这个部署、各自能做什么，以及哪个目录身份以他的身份登录。管理员添加一个人、给他一个身份，并准入为他做认证的那个目录身份；写在安装自己文件里的人只展示、不提供编辑，因为下一次启动会重新读那个文件。添加一个人并不准入任何人——在有身份被绑定到他之前他登录不进来，页面会在那一行写明这一点。
+`dsh-client-ui-settings-people` 增加一个 Settings 页面：谁可以使用这个部署、各自能做什么，以及哪个目录身份以他的身份登录。管理员添加一个人、给他一个身份，并准入为他做认证的那个目录身份；写在安装自己文件里的人只展示、不提供编辑，因为下一次启动会重新读那个文件。添加一个人并不准入任何人——在有身份被绑定到他之前他登录不进来，页面会在那一行写明这一点。
 
 ## 目录
 
@@ -29,7 +29,7 @@ Web bundle 把它挂在其他 Settings 页面旁边：
 
 ```yaml
 - id: ui-settings-people
-  name: '@lyness/lyn-client-ui-settings-people'
+  name: '@deepseek-ai/dsh-client-ui-settings-people'
 ```
 
 没有别的可配置项。页面打开时读取 `remote.people` 与 `remote.signInChannels`，并渲染四者之一：名册与表单；一条「这个部署不维护自己的目录」的提示；一条「调用方无权更改」的提示；或者一次失败加一个重试按钮。
@@ -54,9 +54,9 @@ Web bundle 把它挂在其他 Settings 页面旁边：
 <a id="further-exploration"></a>
 ## 进一步探索
 
-- [`lyn-api-people-controller`](../../api/people-controller/README.zh.md) —— 这个页面调用的命名空间，以及每种拒绝的含义。
-- [`lyn-managed-people`](../../identity/managed-people/README.zh.md) —— 它背后的目录，以及决定谁管得着谁的那些规则。
-- [`lyn-client-ui-settings-sign-in-channels`](../ui-settings-sign-in-channels/README.zh.md) —— 绑定所指名的渠道在哪里配置。
+- [`dsh-api-people-controller`](../../api/people-controller/README.zh.md) —— 这个页面调用的命名空间，以及每种拒绝的含义。
+- [`dsh-managed-people`](../../identity/managed-people/README.zh.md) —— 它背后的目录，以及决定谁管得着谁的那些规则。
+- [`dsh-client-ui-settings-sign-in-channels`](../ui-settings-sign-in-channels/README.zh.md) —— 绑定所指名的渠道在哪里配置。
 
 -----
 

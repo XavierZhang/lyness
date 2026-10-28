@@ -13,4 +13,4 @@ const api: MandatoryUpdateApi = {
     return () => { ipcRenderer.off(MANDATORY_IPC.state, handle) }
   },
 }
-if (location.href === 'lyn-app://shell/mandatory-update.html') contextBridge.exposeInMainWorld('lynMandatoryUpdate', api)
+if (location.href === 'dsh-app://shell/mandatory-update.html') contextBridge.exposeInMainWorld('dshMandatoryUpdate', api)

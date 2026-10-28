@@ -1,18 +1,18 @@
 /**
  * Agent-scoped model selection shared by runtime entry points.
- * @module @lyness/lyn-agent/model-selection
+ * @module @deepseek-ai/dsh-agent/model-selection
  */
 
-import type { Context } from '@lyness/cordis'
+import type { Context } from '@deepseek-ai/cordis'
 import {
   boundContextSummary,
   createUserMessage,
   type LlmCallConfig,
   type ReasoningEffortId,
-} from '@lyness/lyn-llm'
+} from '@deepseek-ai/dsh-llm'
 import type { PreStepDecision } from './runtime-types.ts'
-import type { ContextFormed } from '@lyness/lyn-llm'
-declare module '@lyness/lyn-llm' {
+import type { ContextFormed } from '@deepseek-ai/dsh-llm'
+declare module '@deepseek-ai/dsh-llm' {
   interface MessageSourceMap {
     'model-selection': { kind: 'model-selection' } & ContextFormed
   }

@@ -2,7 +2,7 @@
 description: "为 Linux arm64 提供预编译 Landlock 启动器和 POSIX flock addon。"
 kind: "package-library"
 ---
-# @lyness/node-addon-system-linux-arm64
+# @deepseek-ai/node-addon-system-linux-arm64
 
 [English](README.md) | 中文
 

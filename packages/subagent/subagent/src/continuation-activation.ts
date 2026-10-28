@@ -6,25 +6,25 @@
  * every mutable residency decision to this registry, so delivery and teardown
  * share one child lock and one Activation map.
  *
- * @module @lyness/lyn-subagent/continuation-activation
+ * @module @deepseek-ai/dsh-subagent/continuation-activation
  */
 
-import type { Context } from '@lyness/cordis'
+import type { Context } from '@deepseek-ai/cordis'
 import type {
   Agent,
   AgentHandle,
   AgentOptions,
   CreateAgentOptions,
-} from '@lyness/lyn-agent'
-import { errorChain } from '@lyness/lyn-llm'
-import type { MessageId } from '@lyness/lyn-llm'
+} from '@deepseek-ai/dsh-agent'
+import { errorChain } from '@deepseek-ai/dsh-llm'
+import type { MessageId } from '@deepseek-ai/dsh-llm'
 import type {
   SessionEvent,
   SessionId,
   SessionLogOffset as SessionLogOffsetType,
   UserMessage,
-} from '@lyness/lyn-session'
-import type { ToolRestriction } from '@lyness/lyn-tools'
+} from '@deepseek-ai/dsh-session'
+import type { ToolRestriction } from '@deepseek-ai/dsh-tools'
 import {
   appendDelegatedPolicyOverrides,
   applyChildComposition,

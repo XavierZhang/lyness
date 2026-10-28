@@ -4,11 +4,11 @@ import { mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
-import { Context } from '@lyness/cordis'
-import Include from '@lyness/cordis-plugin-include'
-import Loader from '@lyness/cordis-plugin-loader'
-import { loadOverlayPatches } from '@lyness/lyn-app-boot'
-import WebServer from '@lyness/lyn-host-webserver'
+import { Context } from '@deepseek-ai/cordis'
+import Include from '@deepseek-ai/cordis-plugin-include'
+import Loader from '@deepseek-ai/cordis-plugin-loader'
+import { loadOverlayPatches } from '@deepseek-ai/dsh-app-boot'
+import WebServer from '@deepseek-ai/dsh-host-webserver'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import * as Inspector from '../src/index.ts'
 
@@ -24,10 +24,10 @@ afterEach(async () => {
 
 describe('experimental Inspector through a real Loader composition', () => {
   it('mounts the bundle patch over a Web server row and releases its endpoint', async () => {
-    root = await mkdtemp(join(tmpdir(), 'lyn-inspector-loader-'))
+    root = await mkdtemp(join(tmpdir(), 'dsh-inspector-loader-'))
     const configPath = join(root, 'cordis.yml')
     await writeFile(configPath, [
-      "- name: '@lyness/lyn-host-webserver'",
+      "- name: '@deepseek-ai/dsh-host-webserver'",
       '  config:',
       "    host: '127.0.0.1'",
       '    port: 0',
@@ -37,7 +37,7 @@ describe('experimental Inspector through a real Loader composition', () => {
     // profile patch configures that id, as the Plugins page and a `--patch` overlay do.
     const bundlePatches = loadOverlayPatches('test', fileURLToPath(new URL('../cordis.patch.yml', import.meta.url)))
     expect(bundlePatches.flatMap(patch => patch.insert ?? [])).toEqual([
-      { id: 'experimental-inspector', name: '@lyness/lyn-experimental-inspector' },
+      { id: 'experimental-inspector', name: '@deepseek-ai/dsh-experimental-inspector' },
     ])
 
     context = new Context()
@@ -53,8 +53,8 @@ describe('experimental Inspector through a real Loader composition', () => {
     })
     context.loader.builtins.include = Include
     const modules = new Map<string, unknown>([
-      ['@lyness/lyn-host-webserver', WebServer],
-      ['@lyness/lyn-experimental-inspector', Inspector],
+      ['@deepseek-ai/dsh-host-webserver', WebServer],
+      ['@deepseek-ai/dsh-experimental-inspector', Inspector],
     ])
     context.loader.internal = {
       version: 'v2',
@@ -80,7 +80,7 @@ describe('experimental Inspector through a real Loader composition', () => {
     })
 
     const inspectorEntry = [...context.loader.entries()]
-      .find(entry => entry.options.name === '@lyness/lyn-experimental-inspector')
+      .find(entry => entry.options.name === '@deepseek-ai/dsh-experimental-inspector')
     expect(inspectorEntry?.fiber).toBeDefined()
     await inspectorEntry!.fiber!.dispose()
     expect(context.get('inspector')).toBeUndefined()

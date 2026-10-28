@@ -2,23 +2,23 @@
  * A conversation is its owner's: another person's does not appear in a list,
  * is not matched by a search, and answers every address as not found.
  *
- * The rule itself is pinned in `lyn-session-ownership`; what this spec pins
+ * The rule itself is pinned in `dsh-session-ownership`; what this spec pins
  * is that each of this controller's read paths asks it: the corpus read the
  * list and the search share, the resolution every Agent-backed endpoint goes
  * through, the history, and the projections.
  */
 
 import { describe, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import AgentRegistry from '@lyness/lyn-agent'
-import type { Agent } from '@lyness/lyn-agent'
-import { brandString } from '@lyness/lyn-brand'
-import type { MembershipId, PersonId } from '@lyness/lyn-people'
-import SessionStore, { SessionId } from '@lyness/lyn-session'
-import type { Session } from '@lyness/lyn-session'
-import SessionProjectionRegistry from '@lyness/lyn-session-projection'
-import * as SessionOwnership from '@lyness/lyn-session-ownership'
-import SessionVisibility from '@lyness/lyn-session-ownership/visibility'
+import { Context } from '@deepseek-ai/cordis'
+import AgentRegistry from '@deepseek-ai/dsh-agent'
+import type { Agent } from '@deepseek-ai/dsh-agent'
+import { brandString } from '@deepseek-ai/dsh-brand'
+import type { MembershipId, PersonId } from '@deepseek-ai/dsh-people'
+import SessionStore, { SessionId } from '@deepseek-ai/dsh-session'
+import type { Session } from '@deepseek-ai/dsh-session'
+import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
+import * as SessionOwnership from '@deepseek-ai/dsh-session-ownership'
+import SessionVisibility from '@deepseek-ai/dsh-session-ownership/visibility'
 import { createSessionTestController, createSessionTestRemote, type TestSessionRemote } from './test-remote.ts'
 import type SessionController from '../src/index.ts'
 

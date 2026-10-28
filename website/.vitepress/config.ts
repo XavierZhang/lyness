@@ -158,14 +158,14 @@ const sharedTheme: Pick<DefaultTheme.Config, 'search' | 'socialLinks' | 'editLin
     },
   },
   socialLinks: [
-    { icon: 'github', link: 'https://github.com/XavierZhang/lyness' },
+    { icon: 'github', link: 'https://github.com/deepseek-ai/deepseek-harness' },
   ],
   editLink: {
     pattern: ({ frontmatter }: PageData) => {
       const data: unknown = frontmatter
       const editSource: unknown = typeof data === 'object' && data !== null ? Reflect.get(data, 'editSource') : undefined
       if (typeof editSource !== 'string') throw new Error('Projected documentation page has no editSource frontmatter.')
-      return `https://github.com/XavierZhang/lyness/edit/master/${editSource}`
+      return `https://github.com/deepseek-ai/deepseek-harness/edit/master/${editSource}`
     },
     text: '在 GitHub 上编辑此页',
   },
@@ -176,17 +176,17 @@ const base = process.env.DOCS_BASE ?? '/'
 
 /** Site identity shared by the VitePress configuration and the llms.txt index. */
 const siteIdentity = {
-  title: 'lyness',
+  title: 'HARNESS',
   description: '用于构建 Agent Harness 的插件化 SDK',
 }
 
 /**
- * The lyness mark-and-wordmark lockup, inlined so its `currentColor` fills follow the active
+ * The DeepSeek Harness mark-and-wordmark lockup, inlined so its `currentColor` fills follow the active
  * theme. An `<img>` would freeze the mark at the colors the file declares.
  */
 const wordmark = readFileSync(resolve(import.meta.dirname, '../public/wordmark.svg'), 'utf8')
   .trim()
-  .replace('<svg ', '<svg class="lyn-wordmark" ')
+  .replace('<svg ', '<svg class="dsh-wordmark" ')
 
 /**
  * Head-injected styles for the site identity and sidebar scrollbar.
@@ -199,9 +199,9 @@ const wordmark = readFileSync(resolve(import.meta.dirname, '../public/wordmark.s
  * stay behind a query only Firefox answers.
  */
 const siteStyle = `
-.lyn-lockup { display: inline-flex; align-items: center; gap: 8px; min-width: 0; }
-.lyn-wordmark { display: block; height: 22px; width: auto; color: var(--vp-c-text-1); }
-.lyn-tag {
+.dsh-lockup { display: inline-flex; align-items: center; gap: 8px; min-width: 0; }
+.dsh-wordmark { display: block; height: 22px; width: auto; color: var(--vp-c-text-1); }
+.dsh-tag {
   display: inline-flex;
   align-items: center;
   border: 1px solid var(--vp-c-brand-soft);
@@ -252,14 +252,14 @@ const scrollbarScript = `
 `
 
 /**
- * Navigation-bar title: the lyness lockup and the release-stage tag.
+ * Navigation-bar title: the DeepSeek Harness lockup and the release-stage tag.
  * VitePress renders `siteTitle` as HTML.
  *
  * @param previewTag - Localized release-stage label.
  * @returns Markup placed beside the navigation-bar home link.
  */
 function siteTitle(previewTag: string): string {
-  return `<span class="lyn-lockup">${wordmark}<span class="lyn-tag">${previewTag}</span></span>`
+  return `<span class="dsh-lockup">${wordmark}<span class="dsh-tag">${previewTag}</span></span>`
 }
 
 export default withMermaid({
@@ -328,7 +328,7 @@ export default withMermaid({
             const data: unknown = frontmatter
             const editSource: unknown = typeof data === 'object' && data !== null ? Reflect.get(data, 'editSource') : undefined
             if (typeof editSource !== 'string') throw new Error('Projected documentation page has no editSource frontmatter.')
-            return `https://github.com/XavierZhang/lyness/edit/master/${editSource}`
+            return `https://github.com/deepseek-ai/deepseek-harness/edit/master/${editSource}`
           },
           text: 'Edit this page on GitHub',
         },
@@ -343,7 +343,7 @@ export default withMermaid({
     publicDir: resolve(import.meta.dirname, '../public'),
     plugins: [
       {
-        name: 'lyness-doc-projector',
+        name: 'DeepSeek Harness-doc-projector',
         configureServer(server) {
           watchCanonicalDocs(server)
           serveRawMarkdown(server)

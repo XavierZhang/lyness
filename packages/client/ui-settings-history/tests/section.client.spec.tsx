@@ -8,7 +8,7 @@
 
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
-import type { AuditEntryView } from '@lyness/lyn-api-admin-audit-controller/types'
+import type { AuditEntryView } from '@deepseek-ai/dsh-api-admin-audit-controller/types'
 import { actionLabel, HistorySection, kindLabel } from '../src/client/HistorySection.tsx'
 import type { HistorySectionProps } from '../src/client/HistorySection.tsx'
 import type { HistorySectionState } from '../src/client/store.ts'

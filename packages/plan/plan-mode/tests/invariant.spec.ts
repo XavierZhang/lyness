@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import SessionStore, { Session, SessionId, SessionSeq, type SessionEvent } from '@lyness/lyn-session'
-import * as PlanModeInvariant from '@lyness/lyn-plan-mode/invariant'
-import InvariantRegistry from '@lyness/lyn-invariants'
+import { Context } from '@deepseek-ai/cordis'
+import SessionStore, { Session, SessionId, SessionSeq, type SessionEvent } from '@deepseek-ai/dsh-session'
+import * as PlanModeInvariant from '@deepseek-ai/dsh-plan-mode/invariant'
+import InvariantRegistry from '@deepseek-ai/dsh-invariants'
 
 async function setup(): Promise<Context> {
   const ctx = new Context()

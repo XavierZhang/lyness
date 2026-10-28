@@ -2,14 +2,14 @@
  * Host owner of the `credentials` Remote namespace: the reference half of
  * `ctx.credentials` as a browser configuration page reads and writes it.
  *
- * @module @lyness/lyn-api-settings-controller/src/credentials.ts
+ * @module @deepseek-ai/dsh-api-settings-controller/src/credentials.ts
  */
 
-import { Context } from '@lyness/cordis'
-import { credentialRef } from '@lyness/lyn-credentials'
-import type { CredentialProvider } from '@lyness/lyn-credentials'
-import type { CredentialInfo } from '@lyness/lyn-credentials/types'
-import { Remote, RemoteError, TypertRemoteService } from '@lyness/lyn-typert-protocol'
+import { Context } from '@deepseek-ai/cordis'
+import { credentialRef } from '@deepseek-ai/dsh-credentials'
+import type { CredentialProvider } from '@deepseek-ai/dsh-credentials'
+import type { CredentialInfo } from '@deepseek-ai/dsh-credentials/types'
+import { Remote, RemoteError, TypertRemoteService } from '@deepseek-ai/dsh-typert-protocol'
 import { z } from 'zod'
 
 /**
@@ -50,7 +50,7 @@ function projectCredentialInfo(info: CredentialInfo): CredentialInfo {
   }
 }
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     /** Host owner of the `credentials` Remote namespace. */
     credentialsController: CredentialsController
@@ -123,7 +123,7 @@ export class CredentialsController extends TypertRemoteService {
     if (credentials === undefined) {
       throw new RemoteError(
         'gateway/internal',
-        'credentials service is absent: this deployment does not mount a credential provider (e.g. @lyness/lyn-credentials-local) in its composition',
+        'credentials service is absent: this deployment does not mount a credential provider (e.g. @deepseek-ai/dsh-credentials-local) in its composition',
         {},
       )
     }

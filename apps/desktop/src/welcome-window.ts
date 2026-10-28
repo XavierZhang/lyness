@@ -1,4 +1,4 @@
-import type { SignInAttemptId } from '@lyness/lyn-deepseek-account/types'
+import type { SignInAttemptId } from '@deepseek-ai/dsh-deepseek-account/types'
 /** Native welcome window and its presentation-only renderer. */
 
 import { join } from 'node:path'
@@ -44,7 +44,7 @@ export function welcomeWindowOptions(
     } as const : {}),
     webPreferences: {
       preload: fileURLToPath(new URL('./preload-welcome.cjs', import.meta.url)),
-      additionalArguments: [`--lyn-welcome-locale=${locale.id}`, ...desktopBrandArguments(brand)],
+      additionalArguments: [`--dsh-welcome-locale=${locale.id}`, ...desktopBrandArguments(brand)],
       nodeIntegration: false,
       contextIsolation: true,
       sandbox: true,

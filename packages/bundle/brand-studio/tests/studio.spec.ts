@@ -8,10 +8,10 @@ import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { createRequire } from 'node:module'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { PROFILE_TEMPLATES } from '@lyness/lyn-app-boot'
+import { PROFILE_TEMPLATES } from '@deepseek-ai/dsh-app-boot'
 import { afterEach, describe, expect, it } from 'vitest'
 import { parse } from 'yaml'
-import { isBrandSvg } from '@lyness/lyn-host-brand-icon'
+import { isBrandSvg } from '@deepseek-ai/dsh-host-brand-icon'
 import { ASSET_FILES, BRAND_PACKAGE, resolveProfilePatch, runStudio, StudioError, upsertBrandRow } from '../src/studio.ts'
 import type { StudioRequest } from '../src/studio.ts'
 
@@ -34,7 +34,7 @@ async function scratch(): Promise<string> {
 async function request(overrides: Partial<StudioRequest> = {}): Promise<StudioRequest> {
   const root = await scratch()
   return {
-    productName: 'lyness',
+    productName: 'HARNESS',
     productAbbreviation: undefined,
     productNameZh: undefined,
     colors: {},
@@ -100,8 +100,8 @@ describe('resolveProfilePatch', () => {
     const home = await scratch()
     const patch = resolveProfilePatch('web', home)
     expect(patch).toBe(join(home, 'profiles', 'web', 'cordis.patch.yml'))
-    const manifest = JSON.parse(readFileSync(join(home, 'profiles', 'web', 'package.json'), 'utf8')) as { lyn: unknown }
-    expect(manifest.lyn).toEqual({ profile: { bundles: PROFILE_TEMPLATES.web?.bundles } })
+    const manifest = JSON.parse(readFileSync(join(home, 'profiles', 'web', 'package.json'), 'utf8')) as { dsh: unknown }
+    expect(manifest.dsh).toEqual({ profile: { bundles: PROFILE_TEMPLATES.web?.bundles } })
   })
 
   it('uses an existing custom profile and refuses one that does not exist', async () => {
@@ -129,7 +129,7 @@ describe('runStudio', () => {
       id: 'brand-deployment',
       name: BRAND_PACKAGE,
       config: {
-        productName: 'lyness',
+        productName: 'HARNESS',
         themeColor: '#1a73e8',
         assetDirectory: subject.assetDirectory,
         mark: 'mark.svg',
@@ -191,7 +191,7 @@ describe('runStudio', () => {
   })
 
   it('sets a name in the built-in fonts when the brand supplies none', async () => {
-    const subject = await request({ productName: '领驭 lyness', fontPath: undefined })
+    const subject = await request({ productName: '领驭 DeepSeek Harness', fontPath: undefined })
     const result = await runStudio(subject)
     expect(isBrandSvg(await readFile(result.assets.wordmark, 'utf8'))).toBe(true)
   })

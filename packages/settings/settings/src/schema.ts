@@ -1,7 +1,7 @@
 /** Derive editable forms and plain values from plugin Config schemas. */
 import { redactSecrets } from './redact.ts'
-import z from '@lyness/schemastery'
-import { isVolatile } from '@lyness/cosmokit'
+import z from '@deepseek-ai/schemastery'
+import { isVolatile } from '@deepseek-ai/cosmokit'
 
 /** Remove runtime references from a configuration snapshot.
  * @param value Parsed Config output.

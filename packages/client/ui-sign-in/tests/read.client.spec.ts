@@ -4,7 +4,7 @@
  */
 
 import { describe, expect, it, vi } from 'vitest'
-import type { ViewerView } from '@lyness/lyn-api-identity-controller/types'
+import type { ViewerView } from '@deepseek-ai/dsh-api-identity-controller/types'
 import { ViewerBinding, rowFace, screenFace } from '../src/client/binding.ts'
 import type { ViewerActions } from '../src/client/binding.ts'
 import { createViewerReader } from '../src/client/read.ts'

@@ -1,9 +1,9 @@
 // @vitest-environment jsdom
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { Context } from '@lyness/cordis'
-import { stubConfigForm, type StubConfigForm } from '@lyness/lyn-client-test-runtime'
-import type { LocaleSettings, LocaleSnapshot } from '@lyness/lyn-client-locale/client'
-import { FALLBACK_LOCALE, LocaleRuntime } from '@lyness/lyn-client-locale/client'
+import { Context } from '@deepseek-ai/cordis'
+import { stubConfigForm, type StubConfigForm } from '@deepseek-ai/dsh-client-test-runtime'
+import type { LocaleSettings, LocaleSnapshot } from '@deepseek-ai/dsh-client-locale/client'
+import { FALLBACK_LOCALE, LocaleRuntime } from '@deepseek-ai/dsh-client-locale/client'
 const make = (host?: StubConfigForm<LocaleSettings>): {
   ctx: Context
   svc: LocaleRuntime
@@ -18,7 +18,7 @@ const make = (host?: StubConfigForm<LocaleSettings>): {
 /**
  * Pin the browser environment a fresh service reads its initial locale from.
  * This package's own specs stub the globals directly instead of using
- * `usePinnedBrowserLanguages` (lyn-client-test-runtime): they need the shapes
+ * `usePinnedBrowserLanguages` (dsh-client-test-runtime): they need the shapes
  * that helper deliberately cannot express — a missing `languages` list, a
  * list decoupled from `language`, and a non-browser run with no `window`.
  */
@@ -157,7 +157,7 @@ describe('LocaleRuntime', () => {
     expect(host.set).toHaveBeenLastCalledWith('preference', 'en')
   })
 
-  it('persists an explicit pick of the provisional locale, so a shared LYN home agrees', () => {
+  it('persists an explicit pick of the provisional locale, so a shared DSH home agrees', () => {
     // A browser naming no shipped language opens at FALLBACK_LOCALE with
     // nothing stored. Choosing that same language in the menu must become
     // durable, or a Chinese browser sharing the home still opens Chinese.

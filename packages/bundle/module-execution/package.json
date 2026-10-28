@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/lyn-module-execution",
+  "name": "@deepseek-ai/dsh-module-execution",
   "description": "The execution default module as its own bundle: the filesystem, subprocess and sandbox providers, the shell and file tools, and the code and workflow runtimes",
   "version": "0.1.7-rc.2",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/bundle/module-execution"
   },
   "type": "module",
@@ -30,33 +30,33 @@
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
-  "lyn": {
+  "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml"
     }
   },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~"
+    "@deepseek-ai/cordis": "workspace:~"
   },
   "dependencies": {
-    "@lyness/lyn-bash-sandbox": "workspace:*",
-    "@lyness/lyn-fs-observation-policy": "workspace:*",
-    "@lyness/lyn-fs-sandbox": "workspace:*",
-    "@lyness/lyn-ptc-runtime-node": "workspace:*",
-    "@lyness/lyn-pwsh-sandbox": "workspace:*",
-    "@lyness/lyn-sandbox-local": "workspace:*",
-    "@lyness/lyn-sandbox-policy": "workspace:*",
-    "@lyness/lyn-shell-env": "workspace:*",
-    "@lyness/lyn-subprocess-local": "workspace:*",
-    "@lyness/lyn-tool-bash": "workspace:*",
-    "@lyness/lyn-tool-fs": "workspace:*",
-    "@lyness/lyn-tool-fs-search": "workspace:*",
-    "@lyness/lyn-tool-pwsh": "workspace:*",
-    "@lyness/lyn-tool-ralph": "workspace:*",
-    "@lyness/lyn-tool-workflow": "workspace:*",
-    "@lyness/lyn-workflow-ptc": "workspace:*"
+    "@deepseek-ai/dsh-bash-sandbox": "workspace:*",
+    "@deepseek-ai/dsh-fs-observation-policy": "workspace:*",
+    "@deepseek-ai/dsh-fs-sandbox": "workspace:*",
+    "@deepseek-ai/dsh-ptc-runtime-node": "workspace:*",
+    "@deepseek-ai/dsh-pwsh-sandbox": "workspace:*",
+    "@deepseek-ai/dsh-sandbox-local": "workspace:*",
+    "@deepseek-ai/dsh-sandbox-policy": "workspace:*",
+    "@deepseek-ai/dsh-shell-env": "workspace:*",
+    "@deepseek-ai/dsh-subprocess-local": "workspace:*",
+    "@deepseek-ai/dsh-tool-bash": "workspace:*",
+    "@deepseek-ai/dsh-tool-fs": "workspace:*",
+    "@deepseek-ai/dsh-tool-fs-search": "workspace:*",
+    "@deepseek-ai/dsh-tool-pwsh": "workspace:*",
+    "@deepseek-ai/dsh-tool-ralph": "workspace:*",
+    "@deepseek-ai/dsh-tool-workflow": "workspace:*",
+    "@deepseek-ai/dsh-workflow-ptc": "workspace:*"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:~"
+    "@deepseek-ai/cordis": "workspace:~"
   }
 }

@@ -7,13 +7,13 @@
  * type-erased inject factory.
  */
 
-import { Context } from '@lyness/cordis'
+import { Context } from '@deepseek-ai/cordis'
 import { describe, expect, it, vi } from 'vitest'
-import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
-import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
-import { TestRemote } from '@lyness/lyn-client-test-runtime'
-import type { BotRowView, PresetOptionView, TeamRowView } from '@lyness/lyn-api-bots-controller/types'
-import { apply, botsCallsOf, inject, NS, startingBotConversation } from '@lyness/lyn-client-ui-settings-bots/client'
+import { SlotRegistry } from '@deepseek-ai/dsh-client-ui-renderer/client'
+import { LocaleRuntime } from '@deepseek-ai/dsh-client-locale/client'
+import { TestRemote } from '@deepseek-ai/dsh-client-test-runtime'
+import type { BotRowView, PresetOptionView, TeamRowView } from '@deepseek-ai/dsh-api-bots-controller/types'
+import { apply, botsCallsOf, inject, NS, startingBotConversation } from '@deepseek-ai/dsh-client-ui-settings-bots/client'
 import { BotsSection } from '../src/client/BotsSection.tsx'
 import type { createBotsSectionStore } from '../src/client/store.ts'
 

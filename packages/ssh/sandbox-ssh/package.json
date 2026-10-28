@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/lyn-sandbox-ssh",
+  "name": "@deepseek-ai/dsh-sandbox-ssh",
   "description": "Remote POSIX sandbox argv provider over the shared SSH helper",
   "version": "0.1.7-rc.2",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/ssh/sandbox-ssh"
   },
   "type": "module",
@@ -27,17 +27,17 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-ssh": "workspace:*",
-    "@lyness/lyn-sandbox": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-ssh": "workspace:*",
+    "@deepseek-ai/dsh-sandbox": "workspace:*"
   },
   "dependencies": {
-    "@lyness/schemastery": "workspace:~",
+    "@deepseek-ai/schemastery": "workspace:~",
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-ssh": "workspace:*",
-    "@lyness/lyn-sandbox": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-ssh": "workspace:*",
+    "@deepseek-ai/dsh-sandbox": "workspace:*"
   }
 }

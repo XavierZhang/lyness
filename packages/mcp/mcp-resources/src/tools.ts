@@ -1,12 +1,12 @@
 /**
  * Three shared tools adapt model arguments to scoped resource operations.
  *
- * @module @lyness/lyn-mcp-resources
+ * @module @deepseek-ai/dsh-mcp-resources
  */
 
-import type { Context } from '@lyness/cordis'
-import { defineTool, type ToolExecution } from '@lyness/lyn-tools'
-import type { JsonValue } from '@lyness/lyn-util-values'
+import type { Context } from '@deepseek-ai/cordis'
+import { defineTool, type ToolExecution } from '@deepseek-ai/dsh-tools'
+import type { JsonValue } from '@deepseek-ai/dsh-util-values'
 import type { McpResourceRequest } from './index.ts'
 import { renderResourceResult } from './render.ts'
 

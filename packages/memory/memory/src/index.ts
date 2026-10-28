@@ -8,23 +8,23 @@
  * so what the model saw stays reconstructable from the logged `system/message`
  * without a bespoke session event.
  *
- * @module @lyness/lyn-memory
+ * @module @deepseek-ai/dsh-memory
  */
 
-import { Service } from '@lyness/cordis'
-import type { Context } from '@lyness/cordis'
-import z from '@lyness/schemastery'
-import { brandString } from '@lyness/lyn-brand'
-import { randomUUID } from '@lyness/lyn-util-crypto'
-import type { Domain } from '@lyness/lyn-storage-domain'
-import type {} from '@lyness/lyn-system-prompt'
+import { Service } from '@deepseek-ai/cordis'
+import type { Context } from '@deepseek-ai/cordis'
+import z from '@deepseek-ai/schemastery'
+import { brandString } from '@deepseek-ai/dsh-brand'
+import { randomUUID } from '@deepseek-ai/dsh-util-crypto'
+import type { Domain } from '@deepseek-ai/dsh-storage-domain'
+import type {} from '@deepseek-ai/dsh-system-prompt'
 import { MAX_ENTRY_CHARS, memoryDomain } from './storage.ts'
 import type { MemoryEntry, MemoryId, MemoryRecord, MemoryScope } from './types.ts'
 
 export { MAX_ENTRY_CHARS, memoryDomain } from './storage.ts'
 export type { MemoryEntry, MemoryId, MemoryRecord, MemoryScope } from './types.ts'
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     /** Durable facts kept across sessions, written only by an explicit call. */
     memory: MemoryService

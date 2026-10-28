@@ -3,13 +3,13 @@ description: "The brand-setup profile: a loopback page one operator brands a dep
 kind: "package-bundle"
 ---
 
-# `@lyness/lyn-brand-setup`
+# `@deepseek-ai/dsh-brand-setup`
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-This bundle is `lyn --profile brand-setup`, a command a private deployment's operator runs on the server to brand it from a page instead of from flags. It opens a loopback HTTP server, prints one address carrying a token, and serves a form for the product's names, its palette, and its icon; applying runs the same generation [`brand-studio`](../brand-studio/README.md) does and writes the same `brand-deployment` row. Choose it over the studio when the operator would rather see the current brand and change part of it than restate every flag. It mounts nothing that reaches a model.
+This bundle is `dsh --profile brand-setup`, a command a private deployment's operator runs on the server to brand it from a page instead of from flags. It opens a loopback HTTP server, prints one address carrying a token, and serves a form for the product's names, its palette, and its icon; applying runs the same generation [`brand-studio`](../brand-studio/README.md) does and writes the same `brand-deployment` row. Choose it over the studio when the operator would rather see the current brand and change part of it than restate every flag. It mounts nothing that reaches a model.
 
 ## Table of Contents
 
@@ -26,7 +26,7 @@ This bundle is `lyn --profile brand-setup`, a command a private deployment's ope
 ## Use this package
 
 ```sh
-lyn --profile brand-setup
+dsh --profile brand-setup
 ```
 
 The command prints the one address that reaches the page:
@@ -34,11 +34,11 @@ The command prints the one address that reaches the page:
 ```text
 brand-setup: open this address on this machine; it is the only way in and it ends with this process.
   http://127.0.0.1:52341/?token=M5t0_…
-  writes   /home/acme/.lyn/profiles/web/cordis.patch.yml
-  assets   /home/acme/.lyn/brand
+  writes   /home/acme/.dsh/profiles/web/cordis.patch.yml
+  assets   /home/acme/.dsh/brand
 ```
 
-Open it on the server, or forward the port over SSH and open it locally. The page opens on the brand the row already names, so changing one colour means changing one field. Applying writes the three SVGs and the row; a running `lyn web`, which reloads its patch layer on change, shows the new brand at once, and any other profile applies it on its next start. The process keeps serving until you stop it, and the token dies with it.
+Open it on the server, or forward the port over SSH and open it locally. The page opens on the brand the row already names, so changing one colour means changing one field. Applying writes the three SVGs and the row; a running `dsh web`, which reloads its patch layer on change, shows the new brand at once, and any other profile applies it on its next start. The process keeps serving until you stop it, and the token dies with it.
 
 ### Why a token rather than a login
 
@@ -49,7 +49,7 @@ The page writes a profile's patch layer, which outranks every user setting ([ord
 | Key | Default | Meaning |
 |---|---|---|
 | `target` | `web` | Profile whose patch layer receives the brand row. |
-| `assetDirectory` | `$LYNESS_HOME/brand` | Absolute directory receiving the generated SVGs. |
+| `assetDirectory` | `$DSH_HOME/brand` | Absolute directory receiving the generated SVGs. |
 
 -----
 
@@ -59,7 +59,7 @@ The page writes a profile's patch layer, which outranks every user setting ([ord
 <details>
 <summary>Implementation internals — click to expand</summary>
 
-The bundle's patch inserts [`lyn-host-webserver`](../../host/webserver/README.md) on `127.0.0.1` with port `0`, so the OS picks a free port and nothing but this machine can connect, then this plugin on top of it. Three exact routes: `/` serves the document, `/state` answers the row's current names and palette tokens, and `/apply` takes one submission. The token comparison is constant-time and length-checked first. `/apply` caps the body at the largest icon the page accepts plus its fields, parses the submission in [`src/brand-request.ts`](src/brand-request.ts), writes the uploaded PNG into a private temporary directory, and hands it to `runStudio`, which owns every brand rule; the temporary directory goes whether the run succeeded or not. A refusal the operator can act on answers 400 with its message, and anything else answers 500 and goes to the log instead, because its text is this server's business rather than the operator's.
+The bundle's patch inserts [`dsh-host-webserver`](../../host/webserver/README.md) on `127.0.0.1` with port `0`, so the OS picks a free port and nothing but this machine can connect, then this plugin on top of it. Three exact routes: `/` serves the document, `/state` answers the row's current names and palette tokens, and `/apply` takes one submission. The token comparison is constant-time and length-checked first. `/apply` caps the body at the largest icon the page accepts plus its fields, parses the submission in [`src/brand-request.ts`](src/brand-request.ts), writes the uploaded PNG into a private temporary directory, and hands it to `runStudio`, which owns every brand rule; the temporary directory goes whether the run succeeded or not. A refusal the operator can act on answers 400 with its message, and anything else answers 500 and goes to the log instead, because its text is this server's business rather than the operator's.
 
 The document in [`src/page.ts`](src/page.ts) is one self-contained string: no bundler, no client plugin roster, and no origin but its own. It carries both shipped languages inline and picks one from the browser, because an operator tool reached from a terminal cannot reach the product's locale service.
 
@@ -94,7 +94,7 @@ None; this package neither assembles nor sends a provider request.
 
 These limits define what the page can brand today. They are current package constraints, not a comparison with the studio or a task backlog.
 
-- **No font upload** — the wordmark is set in the built-in fonts; a brand owner's own font file still needs `lyn --profile brand-studio --font`, which carries the licence confirmation that choice requires.
+- **No font upload** — the wordmark is set in the built-in fonts; a brand owner's own font file still needs `dsh --profile brand-studio --font`, which carries the licence confirmation that choice requires.
 - **No preview before applying** — the page shows the written files after a run, not the artwork before one; checking the mark means opening the written SVG.
 - **No conflict between two operators** — applies run one at a time, so two of them never interleave into a row naming one brand while the artwork is another's. Nothing else arbitrates: the token admits anyone who has it, the page does not notice a second writer, and two operators who apply in turn leave the later brand even where they changed different fields. This is a single-operator tool, which is what a self-hosted deployment is.
 

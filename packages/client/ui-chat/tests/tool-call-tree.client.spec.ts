@@ -1,4 +1,4 @@
-import type { SessionEvent } from '@lyness/lyn-session/types'
+import type { SessionEvent } from '@deepseek-ai/dsh-session/types'
 import { describe, expect, it } from 'vitest'
 import type { StartedToolCall, ToolCallBlock } from '../src/client/contract/snapshot.ts'
 import {

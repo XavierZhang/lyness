@@ -1,8 +1,8 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { Context } from '@lyness/cordis'
-import type { Agent } from '@lyness/lyn-agent'
-import type {} from '@lyness/lyn-agent-instructions'
-import { compactCheckpointSource, CompactionId } from '@lyness/lyn-compaction'
+import { Context } from '@deepseek-ai/cordis'
+import type { Agent } from '@deepseek-ai/dsh-agent'
+import type {} from '@deepseek-ai/dsh-agent-instructions'
+import { compactCheckpointSource, CompactionId } from '@deepseek-ai/dsh-compaction'
 import LlmRuntime, {
   createMessage,
   createSystemMessage,
@@ -14,35 +14,35 @@ import LlmRuntime, {
   type GenerateOptions,
   type StreamChunk,
   type ToolSchema,
-} from '@lyness/lyn-llm'
+} from '@deepseek-ai/dsh-llm'
 import PermissionPresetService, {
   AUTO_PRESET,
   type Config as PermissionConfig,
-} from '@lyness/lyn-permission-presets'
+} from '@deepseek-ai/dsh-permission-presets'
 import SessionStore, {
   SessionId,
   SessionLogOffset,
   type Session,
-} from '@lyness/lyn-session'
-import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+} from '@deepseek-ai/dsh-session'
+import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
 import SubagentRuntime, {
   NO_START_CAPABILITIES,
   resolveChildCwd,
   snapshotSubagentDescriptor,
   type ResolvedSubagentStartRequest,
-} from '@lyness/lyn-subagent'
-import type {} from '@lyness/lyn-shell'
-import SystemPrompt from '@lyness/lyn-system-prompt'
-import * as ToolSubagent from '@lyness/lyn-tool-subagent'
+} from '@deepseek-ai/dsh-subagent'
+import type {} from '@deepseek-ai/dsh-shell'
+import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
+import * as ToolSubagent from '@deepseek-ai/dsh-tool-subagent'
 import ToolRuntime, {
   defineContentToolFixture,
   RUN_CODE_NAME,
   TOOL_ABORTED_BEFORE_DISPATCH,
   type PreToolDecision,
   type ToolExecutionToken,
-} from '@lyness/lyn-tools'
-import ApprovalService, { setApprovalPolicy, type ApprovalOutcome } from '@lyness/lyn-user-approval'
-import * as AutoReview from '@lyness/lyn-experimental-auto-review'
+} from '@deepseek-ai/dsh-tools'
+import ApprovalService, { setApprovalPolicy, type ApprovalOutcome } from '@deepseek-ai/dsh-user-approval'
+import * as AutoReview from '@deepseek-ai/dsh-experimental-auto-review'
 
 const EXPECTED_REVIEW_POLICY = `REVIEW_POLICY
 You are the final authorization reviewer for exactly one pending tool call. Your decision replaces human approval for this call. If you allow it, the call executes immediately with full host access and no later confirmation.

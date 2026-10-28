@@ -12,17 +12,17 @@
  * shares this package's application registration and refresh path rather than
  * registering a second credential.
  *
- * @module @lyness/lyn-microsoft-entra
+ * @module @deepseek-ai/dsh-microsoft-entra
  */
 
 import { randomBytes, createHash, timingSafeEqual } from 'node:crypto'
-import z from '@lyness/schemastery'
-import { Service } from '@lyness/cordis'
-import type { Context } from '@lyness/cordis'
-import { credentialKey } from '@lyness/lyn-credentials'
-import type { CredentialKey } from '@lyness/lyn-credentials'
-import type { AuthorizationSession } from '@lyness/lyn-authorization'
-import type {} from '@lyness/lyn-host-webserver'
+import z from '@deepseek-ai/schemastery'
+import { Service } from '@deepseek-ai/cordis'
+import type { Context } from '@deepseek-ai/cordis'
+import { credentialKey } from '@deepseek-ai/dsh-credentials'
+import type { CredentialKey } from '@deepseek-ai/dsh-credentials'
+import type { AuthorizationSession } from '@deepseek-ai/dsh-authorization'
+import type {} from '@deepseek-ai/dsh-host-webserver'
 import { authorizeUrl } from './protocol.ts'
 import type { AttemptSecrets } from './protocol.ts'
 import { EntraSignInError, readSubject, redeemCode } from './exchange.ts'
@@ -31,7 +31,7 @@ import type { EntraSubject } from './types.ts'
 export type { EntraDirectoryId, EntraObjectId, EntraSubject } from './types.ts'
 export { EntraSignInError } from './exchange.ts'
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     /** Microsoft Entra sign-in and the person it authenticated. */
     microsoftEntra: MicrosoftEntra

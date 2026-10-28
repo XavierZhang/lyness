@@ -1,13 +1,13 @@
 {
-  "name": "@lyness/lyn-subprocess",
-  "description": "Subprocess seam (ctx.subprocess) for the lyness \u2014 managed process groups, bounded spill-backed output, and escalated kills behind one abstract service",
+  "name": "@deepseek-ai/dsh-subprocess",
+  "description": "Subprocess seam (ctx.subprocess) for the DeepSeek Harness \u2014 managed process groups, bounded spill-backed output, and escalated kills behind one abstract service",
   "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/subprocess/subprocess"
   },
   "type": "module",
@@ -32,12 +32,12 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-http-proxy": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-http-proxy": "workspace:*"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-http-proxy": "workspace:*",
-    "@lyness/lyn-launch-environment": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-http-proxy": "workspace:*",
+    "@deepseek-ai/dsh-launch-environment": "workspace:*"
   }
 }

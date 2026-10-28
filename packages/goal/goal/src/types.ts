@@ -1,17 +1,17 @@
 /**
  * Pure types of the goal domain: the ONE home of the `goal` projection-key
  * declaration plus the durable payload vocabulary it carries, free of this
- * package's host-side imports (cordis events, lyn-agent, lyn-llm, the
+ * package's host-side imports (cordis events, dsh-agent, dsh-llm, the
  * service). Two namespace projections serve it — `./types` for host
  * consumers, `./client` (the browser half-entry's re-export) for client
  * aggregates — with zero content duplication. Host-coupled domain
  * vocabulary (message sources, events, fold shapes) lives in ./domain.ts.
  *
- * @module @lyness/lyn-goal/types
+ * @module @deepseek-ai/dsh-goal/types
  */
 
-import type { Branded } from '@lyness/lyn-brand'
-import type { SessionId } from '@lyness/lyn-session/types'
+import type { Branded } from '@deepseek-ai/dsh-brand'
+import type { SessionId } from '@deepseek-ai/dsh-session/types'
 
 /** Identifies one goal across its durable revisions. */
 export type GoalId = Branded<'GoalId'>
@@ -125,7 +125,7 @@ export interface GoalProjectionState {
   readonly failure: string | null
 }
 
-declare module '@lyness/lyn-session-projection/types' {
+declare module '@deepseek-ai/dsh-session-projection/types' {
   interface SessionProjectionStateMap {
     goal: GoalProjectionState
   }
@@ -140,7 +140,7 @@ declare module '@lyness/lyn-session-projection/types' {
   }
 }
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Events {
     /**
      * Process-local goal activation changed for one session.

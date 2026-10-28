@@ -7,19 +7,19 @@
  * the slots the page declares (`slot-contract.ts`).
  */
 
-import type {} from '@lyness/lyn-client-locale/client'
-import type { Context as ClientContext } from '@lyness/cordis'
+import type {} from '@deepseek-ai/dsh-client-locale/client'
+import type { Context as ClientContext } from '@deepseek-ai/cordis'
 // Type-only: the root `main` keyed slot the page registers into, declared by
 // ui-layout with the panel id brand, and the `sidebar.panellist` list the
 // entry registers into, declared by ui-sidebar.
-import type { MainPanelId } from '@lyness/lyn-client-ui-layout/client'
-import type {} from '@lyness/lyn-client-ui-sidebar/client'
-import type {} from '@lyness/lyn-client-ui-renderer/client'
+import type { MainPanelId } from '@deepseek-ai/dsh-client-ui-layout/client'
+import type {} from '@deepseek-ai/dsh-client-ui-sidebar/client'
+import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
 // Type-only: the ctx.remote Context merge and the forwarded-event key face.
-import type {} from '@lyness/lyn-api-remotes/client'
+import type {} from '@deepseek-ai/dsh-api-remotes/client'
 // Type-only: the forwarded events' own declaration (`$on`'s key face resolves
 // through the owning package's client-safe types subpath).
-import type {} from '@lyness/lyn-plugin-manager/types'
+import type {} from '@deepseek-ai/dsh-plugin-manager/types'
 import { PluginManagerPage } from './PluginManagerPage.tsx'
 import { PluginsPanelIcon } from './PluginsPanelIcon.tsx'
 import { configLedgerSource } from './config-ledger.ts'
@@ -28,7 +28,7 @@ import { en, zh, type PluginManagerLocaleKey } from './locales.ts'
 import { createNavigationStore } from './navigation-store.ts'
 import type {} from './slot-contract.ts'
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     /** Cross-plugin navigation to the Plugins panel. */
     pluginNavigation: {
@@ -50,7 +50,7 @@ export type {
   ConfigPageForm, PluginActivationOwnerProps, PluginConfigViewProps, PluginDetailProps, PluginPackageRef, PluginRowRef, PluginsSubject,
 } from './slot-contract.ts'
 
-declare module '@lyness/lyn-client-ui-slots' {
+declare module '@deepseek-ai/dsh-client-ui-slots' {
   interface LocaleNamespaceMap {
     /** Plugin manager tab copy. */
     'pluginManager': PluginManagerLocaleKey

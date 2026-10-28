@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/lyn-client-ui-settings-credits",
+  "name": "@deepseek-ai/dsh-client-ui-settings-credits",
   "description": "The credits section in Settings: a balance, a ledger, and the two decisions an administrator makes",
   "version": "0.1.7-rc.2",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/client/ui-settings-credits"
   },
   "type": "module",
@@ -31,32 +31,32 @@
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
-  "lyn": {
+  "dsh": {
     "client": {
       "inject": [
-        "@lyness/lyn-client-locale",
-        "@lyness/lyn-client-ui-renderer",
-        "@lyness/lyn-client-ui-settings",
-        "@lyness/lyn-api-remotes"
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-client-ui-renderer",
+        "@deepseek-ai/dsh-client-ui-settings",
+        "@deepseek-ai/dsh-api-remotes"
       ],
       "platform": "web",
       "immediately": true
     }
   },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~"
+    "@deepseek-ai/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-api-credits-controller": "workspace:*",
-    "@lyness/lyn-api-remotes": "workspace:*",
-    "@lyness/lyn-client-locale": "workspace:*",
-    "@lyness/lyn-client-store": "workspace:*",
-    "@lyness/lyn-client-test-runtime": "workspace:*",
-    "@lyness/lyn-client-ui-primitives": "workspace:*",
-    "@lyness/lyn-client-ui-renderer": "workspace:*",
-    "@lyness/lyn-client-ui-settings": "workspace:*",
-    "@lyness/lyn-client-ui-slots": "workspace:*",
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-api-credits-controller": "workspace:*",
+    "@deepseek-ai/dsh-api-remotes": "workspace:*",
+    "@deepseek-ai/dsh-client-locale": "workspace:*",
+    "@deepseek-ai/dsh-client-store": "workspace:*",
+    "@deepseek-ai/dsh-client-test-runtime": "workspace:*",
+    "@deepseek-ai/dsh-client-ui-primitives": "workspace:*",
+    "@deepseek-ai/dsh-client-ui-renderer": "workspace:*",
+    "@deepseek-ai/dsh-client-ui-settings": "workspace:*",
+    "@deepseek-ai/dsh-client-ui-slots": "workspace:*",
     "@types/react": "~18.3.1",
     "react": "^18.2.0"
   }

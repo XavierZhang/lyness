@@ -3,15 +3,15 @@
  * @module
  */
 
-import { Context } from '@lyness/cordis'
+import { Context } from '@deepseek-ai/cordis'
 import { afterEach, describe, expect, it } from 'vitest'
-import { brandString } from '@lyness/lyn-brand'
-import type { PersonId } from '@lyness/lyn-people'
-import { bindingKey, indexBindings } from '@lyness/lyn-sign-in/src/admission-roster.ts'
-import type { BindingEntry } from '@lyness/lyn-sign-in/src/admission-roster.ts'
-import { RosterAdmission } from '@lyness/lyn-sign-in/src/admission-roster.ts'
-import { channelId } from '@lyness/lyn-sign-in/src/index.ts'
-import type { ExternalSubject } from '@lyness/lyn-sign-in/src/types.ts'
+import { brandString } from '@deepseek-ai/dsh-brand'
+import type { PersonId } from '@deepseek-ai/dsh-people'
+import { bindingKey, indexBindings } from '@deepseek-ai/dsh-sign-in/src/admission-roster.ts'
+import type { BindingEntry } from '@deepseek-ai/dsh-sign-in/src/admission-roster.ts'
+import { RosterAdmission } from '@deepseek-ai/dsh-sign-in/src/admission-roster.ts'
+import { channelId } from '@deepseek-ai/dsh-sign-in/src/index.ts'
+import type { ExternalSubject } from '@deepseek-ai/dsh-sign-in/src/types.ts'
 
 const ENTRA: BindingEntry = {
   channel: 'microsoft-entra',

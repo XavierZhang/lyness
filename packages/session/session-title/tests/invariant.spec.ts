@@ -1,14 +1,14 @@
 // Title-source invariant: `messageSeqs` is empty iff `source.kind` is `user`.
 // — the durable relationship every appended session/title event must keep.
 import { describe, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import * as SessionTitleInvariantCompanion from '@lyness/lyn-session-title/invariant'
-import InvariantRegistry, { InvariantError } from '@lyness/lyn-invariants'
-import SessionStore, { SessionId, SessionSeq } from '@lyness/lyn-session'
-import { createUserMessage } from '@lyness/lyn-llm'
-import type { ContextFormed } from '@lyness/lyn-llm'
+import { Context } from '@deepseek-ai/cordis'
+import * as SessionTitleInvariantCompanion from '@deepseek-ai/dsh-session-title/invariant'
+import InvariantRegistry, { InvariantError } from '@deepseek-ai/dsh-invariants'
+import SessionStore, { SessionId, SessionSeq } from '@deepseek-ai/dsh-session'
+import { createUserMessage } from '@deepseek-ai/dsh-llm'
+import type { ContextFormed } from '@deepseek-ai/dsh-llm'
 
-declare module '@lyness/lyn-llm' {
+declare module '@deepseek-ai/dsh-llm' {
   interface MessageSourceMap {
     'test': { kind: 'test' } & ContextFormed
   }
@@ -45,13 +45,13 @@ describe('session-title source invariant', () => {
       session.append('session/title', { title: 'auto', messageSeqs: [], source: { kind: 'fallback' } })
     }).toThrow(expect.objectContaining<Partial<InvariantError>>({
       code: 'INVARIANT',
-      packageName: '@lyness/lyn-session-title',
+      packageName: '@deepseek-ai/dsh-session-title',
     }))
     expect(() => {
       session.append('session/title', { title: 'named', messageSeqs: [source.seq], source: { kind: 'user' } })
     }).toThrow(expect.objectContaining<Partial<InvariantError>>({
       code: 'INVARIANT',
-      packageName: '@lyness/lyn-session-title',
+      packageName: '@deepseek-ai/dsh-session-title',
     }))
     expect(session.seq).toBe(1)
   })

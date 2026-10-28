@@ -8,18 +8,18 @@ import { readFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { isMap, isSeq, parseDocument, YAMLMap, YAMLSeq } from 'yaml'
 import type { Document } from 'yaml'
-import { initProfile, PROFILE_PATCH_FILENAME, PROFILE_TEMPLATES, resolveProfileDir } from '@lyness/lyn-app-boot'
-import { writeFileAtomic } from '@lyness/lyn-atomic-write'
-import { BRAND_COLOUR_TOKENS, isBrandColour, isBrandName } from '@lyness/lyn-host-brand-deployment'
-import { loadBrandFonts } from '@lyness/lyn-host-brand-fonts'
-import { isBrandSvg, vectorizeIcon } from '@lyness/lyn-host-brand-icon'
-import { typesetWordmark } from '@lyness/lyn-host-brand-wordmark'
+import { initProfile, PROFILE_PATCH_FILENAME, PROFILE_TEMPLATES, resolveProfileDir } from '@deepseek-ai/dsh-app-boot'
+import { writeFileAtomic } from '@deepseek-ai/dsh-atomic-write'
+import { BRAND_COLOUR_TOKENS, isBrandColour, isBrandName } from '@deepseek-ai/dsh-host-brand-deployment'
+import { loadBrandFonts } from '@deepseek-ai/dsh-host-brand-fonts'
+import { isBrandSvg, vectorizeIcon } from '@deepseek-ai/dsh-host-brand-icon'
+import { typesetWordmark } from '@deepseek-ai/dsh-host-brand-wordmark'
 
 /** Loader id of the row the Web application bundle mounts for the deployment brand. */
 export const BRAND_ROW_ID = 'brand-deployment'
 
 /** Package the brand row loads; the Loader skips a patch that names a different package. */
-export const BRAND_PACKAGE = '@lyness/lyn-host-brand-deployment'
+export const BRAND_PACKAGE = '@deepseek-ai/dsh-host-brand-deployment'
 
 /** File each generated SVG is written to inside the asset directory, by `brand-deployment` role. */
 export const ASSET_FILES = {
@@ -120,7 +120,7 @@ export function upsertBrandRow(
  * Locate a profile's patch layer, initializing a shipped profile that has never
  * launched exactly as its first launch would.
  * @param profile - profile name.
- * @param home - lyn home directory.
+ * @param home - dsh home directory.
  * @returns the absolute patch-layer path.
  * @throws {StudioError} when the profile neither exists nor is shipped.
  */
@@ -154,8 +154,8 @@ async function readLayer(path: string): Promise<string> {
  * @param request - the run's inputs.
  * @returns what the run wrote.
  * @throws {StudioError} for an unusable colour or patch layer.
- * @throws {import('@lyness/lyn-host-brand-icon').IconError} for an icon that cannot be traced.
- * @throws {import('@lyness/lyn-host-brand-wordmark').WordmarkError} for a name the font cannot typeset.
+ * @throws {import('@deepseek-ai/dsh-host-brand-icon').IconError} for an icon that cannot be traced.
+ * @throws {import('@deepseek-ai/dsh-host-brand-wordmark').WordmarkError} for a name the font cannot typeset.
  */
 export async function runStudio(request: StudioRequest): Promise<StudioResult> {
   if (request.themeColor !== undefined && !isBrandColour(request.themeColor)) {

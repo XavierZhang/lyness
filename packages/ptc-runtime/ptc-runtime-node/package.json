@@ -1,13 +1,13 @@
 {
-  "name": "@lyness/lyn-ptc-runtime-node",
-  "description": "Sandboxed Node process implementation of the lyness PTC execution capability",
+  "name": "@deepseek-ai/dsh-ptc-runtime-node",
+  "description": "Sandboxed Node process implementation of the DeepSeek Harness PTC execution capability",
   "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/ptc-runtime/ptc-runtime-node"
   },
   "type": "module",
@@ -31,31 +31,31 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-ptc-runtime": "workspace:*",
-    "@lyness/lyn-session": "workspace:*",
-    "@lyness/lyn-timeout": "workspace:*",
-    "@lyness/lyn-fs": "workspace:*",
-    "@lyness/lyn-subprocess": "workspace:*",
-    "@lyness/lyn-sandbox": "workspace:*",
-    "@lyness/lyn-sandbox-policy": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-ptc-runtime": "workspace:*",
+    "@deepseek-ai/dsh-session": "workspace:*",
+    "@deepseek-ai/dsh-timeout": "workspace:*",
+    "@deepseek-ai/dsh-fs": "workspace:*",
+    "@deepseek-ai/dsh-subprocess": "workspace:*",
+    "@deepseek-ai/dsh-sandbox": "workspace:*",
+    "@deepseek-ai/dsh-sandbox-policy": "workspace:*"
   },
   "dependencies": {
-    "@lyness/lyn-util-values": "workspace:*",
-    "@lyness/schemastery": "workspace:~"
+    "@deepseek-ai/dsh-util-values": "workspace:*",
+    "@deepseek-ai/schemastery": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-ptc-runtime": "workspace:*",
-    "@lyness/lyn-session": "workspace:*",
-    "@lyness/lyn-timeout": "workspace:*",
-    "@lyness/lyn-fs": "workspace:*",
-    "@lyness/lyn-subprocess": "workspace:*",
-    "@lyness/lyn-sandbox": "workspace:*",
-    "@lyness/lyn-sandbox-policy": "workspace:*",
-    "@lyness/lyn-fs-local": "workspace:*",
-    "@lyness/lyn-subprocess-local": "workspace:*",
-    "@lyness/lyn-session-projection": "workspace:*",
-    "@lyness/lyn-sandbox-local": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-ptc-runtime": "workspace:*",
+    "@deepseek-ai/dsh-session": "workspace:*",
+    "@deepseek-ai/dsh-timeout": "workspace:*",
+    "@deepseek-ai/dsh-fs": "workspace:*",
+    "@deepseek-ai/dsh-subprocess": "workspace:*",
+    "@deepseek-ai/dsh-sandbox": "workspace:*",
+    "@deepseek-ai/dsh-sandbox-policy": "workspace:*",
+    "@deepseek-ai/dsh-fs-local": "workspace:*",
+    "@deepseek-ai/dsh-subprocess-local": "workspace:*",
+    "@deepseek-ai/dsh-session-projection": "workspace:*",
+    "@deepseek-ai/dsh-sandbox-local": "workspace:*"
   }
 }

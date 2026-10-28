@@ -1,5 +1,5 @@
 /**
- * @lyness/lyn-cmdline — the command line a lyn launcher hands to the app
+ * @deepseek-ai/dsh-cmdline — the command line a dsh launcher hands to the app
  * it boots.
  *
  * The launcher parses only its own flags (`--profile`, `--patch`, the config
@@ -13,15 +13,15 @@
  * can inject that service and read it from lazily resolved config —
  * `port: !!js ctx.webStartup.port ?? 3080` — so a flag beats the value written
  * beside it. No row has launcher-level command-line status.
- * @module @lyness/lyn-cmdline
+ * @module @deepseek-ai/dsh-cmdline
  */
 
 import type { Command } from 'commander'
-import type { Context } from '@lyness/cordis'
+import type { Context } from '@deepseek-ai/cordis'
 
 /**
  * The invocation's inner arguments: everything after the launcher's own flags,
- * verbatim and in argv order. `lyn --profile tui --resume abc` yields
+ * verbatim and in argv order. `dsh --profile tui --resume abc` yields
  * `['--resume', 'abc']`.
  */
 export interface CmdlineArgs {
@@ -52,7 +52,7 @@ export interface AppReady {
   onReady(listener: () => void): () => void
 }
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     /** The invocation's inner arguments; provided by a launcher before the tree mounts. */
     cmdlineArgs?: CmdlineArgs

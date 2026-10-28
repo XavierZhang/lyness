@@ -2,11 +2,11 @@
  * The durable memory domain. Malformed entries reject opening it, so a
  * corrupt store fails loudly instead of silently dropping what a person asked
  * the agent to remember.
- * @module @lyness/lyn-memory/storage
+ * @module @deepseek-ai/dsh-memory/storage
  */
 
 import { z } from 'zod'
-import { defineDomain, domainTable, storedInstant } from '@lyness/lyn-storage-domain'
+import { defineDomain, domainTable, storedInstant } from '@deepseek-ai/dsh-storage-domain'
 import type { MemoryEntry, MemoryId } from './types.ts'
 
 /** Largest accepted entry, in UTF-16 code units. A memory is a fact, not a document. */

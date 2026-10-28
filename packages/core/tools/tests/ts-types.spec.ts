@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
-import { jsonSchemaToTs, renderToolsSdk } from '@lyness/lyn-tools/src/ts-types.ts'
-import type { ToolSdkSchema } from '@lyness/lyn-tools/src/ts-types.ts'
-import type { JsonSchemaNode } from '@lyness/lyn-tools/src/json-schema.ts'
-import { parameterSchemaSpecToJsonSchema } from '@lyness/lyn-tools'
+import { jsonSchemaToTs, renderToolsSdk } from '@deepseek-ai/dsh-tools/src/ts-types.ts'
+import type { ToolSdkSchema } from '@deepseek-ai/dsh-tools/src/ts-types.ts'
+import type { JsonSchemaNode } from '@deepseek-ai/dsh-tools/src/json-schema.ts'
+import { parameterSchemaSpecToJsonSchema } from '@deepseek-ai/dsh-tools'
 
 describe('jsonSchemaToTs', () => {
   it('maps every unified schema construct', () => {

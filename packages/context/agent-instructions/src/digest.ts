@@ -1,7 +1,7 @@
 /**
  * Content identity for workspace instruction duplicate suppression.
  *
- * @module @lyness/lyn-agent-instructions/digest
+ * @module @deepseek-ai/dsh-agent-instructions/digest
  */
 
 import { createHash } from 'node:crypto'

@@ -1,6 +1,6 @@
 /** Validated platform HTTP messages and restricted browser destinations. */
 import { z } from 'zod'
-import type { AccountBonusOrderId } from '@lyness/lyn-deepseek-account/types'
+import type { AccountBonusOrderId } from '@deepseek-ai/dsh-deepseek-account/types'
 
 /** Protocol errors expose a stable code, never a response body or authorization URL. */
 export class PlatformAuthError extends Error {
@@ -64,7 +64,7 @@ export function platformHeaders(values: Record<string, string>): Record<string, 
   const names = new Set<string>()
   for (const [name, value] of Object.entries(values)) {
     const key = name.toLowerCase()
-    if (['authorization', 'x-lyn-auth-token', 'host', 'content-length', 'transfer-encoding', 'connection', 'content-type'].includes(key)
+    if (['authorization', 'x-dsh-auth-token', 'host', 'content-length', 'transfer-encoding', 'connection', 'content-type'].includes(key)
       || names.has(key)) throw new Error('account: requestHeaders contains a reserved or duplicate header')
     names.add(key)
     try { headers.set(name, value) }
@@ -92,7 +92,7 @@ export const exchange = z.object({ token: z.string().regex(/^[\x21-\x7e]+$/), au
  */
 export async function requestPlatform(origin: string, method: string, body: unknown,
   signal: AbortSignal, headers: Record<string, string>): Promise<unknown> {
-  return platformRequest(`${origin}/auth-api/v0/lyn/${method}`, {
+  return platformRequest(`${origin}/auth-api/v0/dsh/${method}`, {
     method: 'POST', headers: { ...headers, 'content-type': 'application/json' }, body: JSON.stringify(body),
   }, signal)
 }
@@ -145,7 +145,7 @@ export function requestBonusNotified(origin: string, token: string, orderId: Acc
 
 // The grant is provider-owned; deployment requestHeaders cannot override it or the client identity.
 function accountHeaders(headers: Record<string, string>, token: string): Record<string, string> {
-  return { ...headers, 'x-lyn-auth-token': token }
+  return { ...headers, 'x-dsh-auth-token': token }
 }
 
 /**
@@ -159,7 +159,7 @@ function accountHeaders(headers: Record<string, string>, token: string): Record<
 export async function logoutAccount(origin: string, token: string,
   signal: AbortSignal, headers: Record<string, string>): Promise<void> {
   await platformRequest(`${origin}/auth-api/v0/users/logout`, {
-    method: 'POST', headers: { ...headers, 'x-lyn-auth-token': token },
+    method: 'POST', headers: { ...headers, 'x-dsh-auth-token': token },
   }, signal)
 }
 
@@ -174,7 +174,7 @@ async function platformRequest(url: string, init: RequestInit, signal: AbortSign
     throw new PlatformAuthError('network')
   }
   console.info('[deepseek-account] response', { path, status: response.status })
-  if (response.status === 401 && new Headers(init.headers).has('x-lyn-auth-token')) {
+  if (response.status === 401 && new Headers(init.headers).has('x-dsh-auth-token')) {
     await response.body?.cancel()
     throw new AccountUnauthorizedError()
   }
@@ -200,7 +200,7 @@ async function platformRequest(url: string, init: RequestInit, signal: AbortSign
     stage = 'parse-json'
     const payload: unknown = JSON.parse(Buffer.concat(chunks).toString('utf8'))
     const authorization = z.object({ code: z.literal(40003) }).safeParse(payload)
-    if (authorization.success && new Headers(init.headers).has('x-lyn-auth-token')) {
+    if (authorization.success && new Headers(init.headers).has('x-dsh-auth-token')) {
       throw new AccountUnauthorizedError()
     }
     const codes = z.object({ code: z.number().int(), data: z.object({ biz_code: z.number().int() }).optional() }).safeParse(payload)

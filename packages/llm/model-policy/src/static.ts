@@ -10,11 +10,11 @@
  * A hosted deployment mounts a tenant-resolving provider instead, because its
  * allowance differs per request.
  *
- * @module @lyness/lyn-model-policy/static
+ * @module @deepseek-ai/dsh-model-policy/static
  */
 
-import type { Context } from '@lyness/cordis'
-import z from '@lyness/schemastery'
+import type { Context } from '@deepseek-ai/cordis'
+import z from '@deepseek-ai/schemastery'
 import { ModelPolicy } from './index.ts'
 import type { AllowedModel, ModelAllowance, ModelPolicyCapability } from './types.ts'
 

@@ -6,14 +6,14 @@
  * continuation host in `./continuation.ts` — so this module stays the published
  * surface rather than a bag of everything type-shaped.
  *
- * @module @lyness/lyn-subagent/types
+ * @module @deepseek-ai/dsh-subagent/types
  */
 
-import type { Agent, AgentOptions } from '@lyness/lyn-agent'
-import type { Branded } from '@lyness/lyn-brand'
-import type { ContentBlock, MessageId } from '@lyness/lyn-llm'
-import type { SessionEvent, SessionId } from '@lyness/lyn-session'
-import type { ObjectJsonSchema, ToolRestriction } from '@lyness/lyn-tools'
+import type { Agent, AgentOptions } from '@deepseek-ai/dsh-agent'
+import type { Branded } from '@deepseek-ai/dsh-brand'
+import type { ContentBlock, MessageId } from '@deepseek-ai/dsh-llm'
+import type { SessionEvent, SessionId } from '@deepseek-ai/dsh-session'
+import type { ObjectJsonSchema, ToolRestriction } from '@deepseek-ai/dsh-tools'
 import type { SubagentDescriptorData } from './descriptor.ts'
 
 /** Identifies one accepted subagent run across its lifecycle event pair. */
@@ -165,7 +165,7 @@ export interface SubagentStartRequest {
    * Optional host-Agent provider, model, reasoning-effort, and output-token
    * overrides. Requires {@link SubagentCapabilities.agentOptions}; in-process
    * providers merge them over the parent Agent's options when they create the
-   * child, while the LYN SDK provider merges them over its instance defaults
+   * child, while the DSH SDK provider merges them over its instance defaults
    * before initializing the separate child runtime.
    */
   readonly agentOptions?: AgentOptions

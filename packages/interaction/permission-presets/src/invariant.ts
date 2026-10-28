@@ -1,11 +1,11 @@
-/** Package-owned permission-preset event invariants. @module @lyness/lyn-permission-presets/invariant */
+/** Package-owned permission-preset event invariants. @module @deepseek-ai/dsh-permission-presets/invariant */
 
-import type { Context } from '@lyness/cordis'
-import type { Session, SessionEvent } from '@lyness/lyn-session'
-import type { InvariantFailure, InvariantInstaller } from '@lyness/lyn-invariants'
+import type { Context } from '@deepseek-ai/cordis'
+import type { Session, SessionEvent } from '@deepseek-ai/dsh-session'
+import type { InvariantFailure, InvariantInstaller } from '@deepseek-ai/dsh-invariants'
 import { AUTO_PRESET } from './index.ts'
 
-const PACKAGE_NAME = '@lyness/lyn-permission-presets'
+const PACKAGE_NAME = '@deepseek-ai/dsh-permission-presets'
 
 /** Cordis companion plugin name. */
 export const name = 'permission-presets-invariant'

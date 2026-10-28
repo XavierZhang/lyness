@@ -3,13 +3,13 @@ description: "管理员读自己那些更改的历史所经过的那个界面。
 kind: "package-reference"
 ---
 
-# @lyness/lyn-api-admin-audit-controller
+# @deepseek-ai/dsh-api-admin-audit-controller
 
 [English](README.md) | 中文
 
 ## 概述
 
-`lyn-api-admin-audit-controller` 拥有 `audit` 这个 Remote 命名空间：一次读，答出某个身份可以看到的那些已记录的更改，最新的在前，带上每一次是谁做的，以及每个有差异字段的两边。谁可以读什么不由它决定——[`lyn-admin-audit`](../../identity/admin-audit/README.zh.md) 持有那条规则，这个命名空间把这次调用所处的身份交给它。它确实要解析的是：一次不点名的读指的是哪个组织——调用方自己的那个，这样租户管理员不必把自己唯一管理的那个组织往每次读里打一遍。
+`dsh-api-admin-audit-controller` 拥有 `audit` 这个 Remote 命名空间：一次读，答出某个身份可以看到的那些已记录的更改，最新的在前，带上每一次是谁做的，以及每个有差异字段的两边。谁可以读什么不由它决定——[`dsh-admin-audit`](../../identity/admin-audit/README.zh.md) 持有那条规则，这个命名空间把这次调用所处的身份交给它。它确实要解析的是：一次不点名的读指的是哪个组织——调用方自己的那个，这样租户管理员不必把自己唯一管理的那个组织往每次读里打一遍。
 
 ## 目录
 
@@ -29,13 +29,13 @@ kind: "package-reference"
 
 ```yaml
 - id: admin-audit-controller
-  name: '@lyness/lyn-api-admin-audit-controller'
+  name: '@deepseek-ai/dsh-api-admin-audit-controller'
 ```
 
 配置界面读一页，或者读某一条记录自己的历史：
 
 ```ts
-import type { AuditEntryView, AuditQueryInput } from '@lyness/lyn-api-admin-audit-controller/types'
+import type { AuditEntryView, AuditQueryInput } from '@deepseek-ai/dsh-api-admin-audit-controller/types'
 
 /** The one read a history view makes. */
 export interface HistoryView {
@@ -65,9 +65,9 @@ export interface HistoryView {
 <a id="further-exploration"></a>
 ## 进一步探索
 
-- [`lyn-admin-audit`](../../identity/admin-audit/README.zh.md) — 这个命名空间所读的那份记录，以及它把身份交给的那条规则。
-- [`lyn-request-principal`](../../identity/request-principal/README.zh.md) — 一次调用所处的身份从哪里来。
-- [`lyn-module-accounts`](../../bundle/module-accounts/README.zh.md) — 把它和那份记录一起选上的那份组合。
+- [`dsh-admin-audit`](../../identity/admin-audit/README.zh.md) — 这个命名空间所读的那份记录，以及它把身份交给的那条规则。
+- [`dsh-request-principal`](../../identity/request-principal/README.zh.md) — 一次调用所处的身份从哪里来。
+- [`dsh-module-accounts`](../../bundle/module-accounts/README.zh.md) — 把它和那份记录一起选上的那份组合。
 
 -----
 

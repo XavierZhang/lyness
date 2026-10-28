@@ -134,24 +134,24 @@ function thrownError(callback: () => unknown): Error & {
   throw new Error('expected callback to throw')
 }
 
-function fixture(name = '@lyness/lyn-core'): {
+function fixture(name = '@deepseek-ai/dsh-core'): {
   root: string
   installAnchor: string
   installed: string
   profile: Profile
 } {
-  // root plays $LYNESS_HOME; the running lyn lives in a global install outside the profiles tree.
+  // root plays $DSH_HOME; the running dsh lives in a global install outside the profiles tree.
   // Node reports resolved module paths through the native realpath: /private/var for a macOS tmpdir under /var,
   // and the long directory name for a Windows tmpdir spelled with an 8.3 short name.
-  const root = realpathSync.native(mkdtempSync(join(tmpdir(), 'lyn-profile-resolution-')))
+  const root = realpathSync.native(mkdtempSync(join(tmpdir(), 'dsh-profile-resolution-')))
   roots.push(root)
-  const installDir = join(root, 'global', 'node_modules', '@lyness', 'lyn')
+  const installDir = join(root, 'global', 'node_modules', '@deepseek-ai', 'dsh')
   const installed = join(installDir, 'node_modules', name)
-  const installAnchor = pkg(installDir, '@lyness/lyn', 0, { [name]: '*' })
+  const installAnchor = pkg(installDir, '@deepseek-ai/dsh', 0, { [name]: '*' })
   pkg(installed, name, 1)
   const profileDir = join(root, 'profiles', 'web')
   file(join(profileDir, 'package.json'), JSON.stringify({
-    name: 'lyn-profile-web', private: true, dependencies: { 'missing-local': '*' },
+    name: 'dsh-profile-web', private: true, dependencies: { 'missing-local': '*' },
   }))
   return {
     root,
@@ -229,7 +229,7 @@ describe('runtime resolution', { concurrent: false }, () => {
   it('computes an immutable runtime resolution without writing profile packages', async () => {
     const f = fixture()
     const resolution = await resolutionOf(f)
-    expect(resolution.entries.find(entry => entry.name === '@lyness/lyn-core')).toMatchObject({
+    expect(resolution.entries.find(entry => entry.name === '@deepseek-ai/dsh-core')).toMatchObject({
       packageDir: f.installed,
       version: '1.0.0',
       declarer: f.installAnchor,
@@ -249,7 +249,7 @@ describe('runtime resolution', { concurrent: false }, () => {
     expect(installationOnly.localPackageNames).toEqual([])
     const registration = installRuntimeInterception(installationOnly)
     registrations.push(registration)
-    expect(createRequire(join(installationOnly.profilesDir, 'entry.cjs'))('@lyness/lyn-core'))
+    expect(createRequire(join(installationOnly.profilesDir, 'entry.cjs'))('@deepseek-ai/dsh-core'))
       .toEqual({ marker: 1 })
   })
 
@@ -285,7 +285,7 @@ describe('runtime resolution', { concurrent: false }, () => {
       symlinkSync(dirname(f.installAnchor), dirname(installAnchor), 'junction')
     }
     if (origin === 'bundle') {
-      pkg(dirname(f.installAnchor), '@lyness/lyn', 0)
+      pkg(dirname(f.installAnchor), '@deepseek-ai/dsh', 0)
       f.profile.layers.push({
         packageName: 'bridge', packageDir: f.installed,
         patchPaths: [join(f.installed, 'cordis.patch.yml')], patches: [],
@@ -295,7 +295,7 @@ describe('runtime resolution', { concurrent: false }, () => {
     const resolution = await createRuntimeResolution({
       installAnchor, profile: f.profile, home: f.root,
     })
-    expect(resolution.entries.find(entry => entry.name === '@lyness/lyn')?.declarer).toBe(f.installAnchor)
+    expect(resolution.entries.find(entry => entry.name === '@deepseek-ai/dsh')?.declarer).toBe(f.installAnchor)
     expect(resolution.entries.find(entry => entry.name === 'middle')?.declarer)
       .toBe(join(bridge, 'package.json'))
     expect(resolution.entries.find(entry => entry.name === 'leaf')).toMatchObject({
@@ -355,15 +355,15 @@ describe('runtime resolution', { concurrent: false }, () => {
     const registration = installRuntimeInterception(await resolutionOf(f))
     registrations.push(registration)
     const require = createRequire(join(f.profile.dir, 'entry.cjs'))
-    expect(require('@lyness/lyn-core')).toEqual({ marker: 1 })
-    expect(require.resolve('@lyness/lyn-core')).toBe(join(f.installed, 'index.cjs'))
+    expect(require('@deepseek-ai/dsh-core')).toEqual({ marker: 1 })
+    expect(require.resolve('@deepseek-ai/dsh-core')).toBe(join(f.installed, 'index.cjs'))
     const parent = pathToFileURL(join(f.profile.dir, 'entry.mjs')).href
-    expect(resolveFrom('@lyness/lyn-core', parent)).toBe(pathToFileURL(join(f.installed, 'index.js')).href)
-    expect(resolveFrom('@lyness/lyn-core', parent, { type: 'javascript' }))
+    expect(resolveFrom('@deepseek-ai/dsh-core', parent)).toBe(pathToFileURL(join(f.installed, 'index.js')).href)
+    expect(resolveFrom('@deepseek-ai/dsh-core', parent, { type: 'javascript' }))
       .toBe(pathToFileURL(join(f.installed, 'index.js')).href)
-    expect(resolveFrom('@lyness/lyn-core', parent)).toBe(pathToFileURL(join(f.installed, 'index.js')).href)
-    expect(import.meta.resolve('@lyness/lyn-core', parent)).toBe(pathToFileURL(join(f.installed, 'index.js')).href)
-    expect(await importFrom('@lyness/lyn-core', parent)).toMatchObject({ marker: 1 })
+    expect(resolveFrom('@deepseek-ai/dsh-core', parent)).toBe(pathToFileURL(join(f.installed, 'index.js')).href)
+    expect(import.meta.resolve('@deepseek-ai/dsh-core', parent)).toBe(pathToFileURL(join(f.installed, 'index.js')).href)
+    expect(await importFrom('@deepseek-ai/dsh-core', parent)).toMatchObject({ marker: 1 })
   })
 
   it('routes a scoped CommonJS package through its containing node_modules directory', async () => {
@@ -393,7 +393,7 @@ describe('runtime resolution', { concurrent: false }, () => {
     const profileDir = join(f.root, 'application-profile')
     file(join(profileDir, 'package.json'), JSON.stringify({ name: 'application-profile', private: true }))
     // The first ancestor node_modules above the profile directory is the interception layer.
-    pkg(join(f.root, 'node_modules', '@lyness/lyn-core'), '@lyness/lyn-core', 2)
+    pkg(join(f.root, 'node_modules', '@deepseek-ai/dsh-core'), '@deepseek-ai/dsh-core', 2)
     const profile = {
       ...f.profile,
       dir: profileDir,
@@ -407,39 +407,39 @@ describe('runtime resolution', { concurrent: false }, () => {
     const registration = installRuntimeInterception(resolution)
     registrations.push(registration)
     const require = createRequire(join(profileDir, 'entry.cjs'))
-    expect(require('@lyness/lyn-core')).toEqual({ marker: 1 })
-    expect(require.resolve('@lyness/lyn-core', { paths: [profileDir] }))
-      .toBe(join(f.root, 'node_modules', '@lyness/lyn-core', 'index.cjs'))
+    expect(require('@deepseek-ai/dsh-core')).toEqual({ marker: 1 })
+    expect(require.resolve('@deepseek-ai/dsh-core', { paths: [profileDir] }))
+      .toBe(join(f.root, 'node_modules', '@deepseek-ai/dsh-core', 'index.cjs'))
     const parent = pathToFileURL(join(profileDir, 'entry.mjs')).href
-    expect(resolveFrom('@lyness/lyn-core', parent)).toBe(pathToFileURL(join(f.installed, 'index.js')).href)
-    expect(await importFrom('@lyness/lyn-core', parent)).toMatchObject({ marker: 1 })
-    expect(registration.packageDir('@lyness/lyn-core', parent)).toBe(f.installed)
-    expect(createRequire(join(f.root, 'outside.cjs'))('@lyness/lyn-core')).toEqual({ marker: 2 })
+    expect(resolveFrom('@deepseek-ai/dsh-core', parent)).toBe(pathToFileURL(join(f.installed, 'index.js')).href)
+    expect(await importFrom('@deepseek-ai/dsh-core', parent)).toMatchObject({ marker: 1 })
+    expect(registration.packageDir('@deepseek-ai/dsh-core', parent)).toBe(f.installed)
+    expect(createRequire(join(f.root, 'outside.cjs'))('@deepseek-ai/dsh-core')).toEqual({ marker: 2 })
   })
 
   it('does not reuse a default route for explicit CommonJS paths', async () => {
     const f = fixture()
     const alternative = join(f.root, 'alternative')
-    const alternativePackage = join(alternative, 'node_modules', '@lyness/lyn-core')
-    pkg(alternativePackage, '@lyness/lyn-core', 2)
+    const alternativePackage = join(alternative, 'node_modules', '@deepseek-ai/dsh-core')
+    pkg(alternativePackage, '@deepseek-ai/dsh-core', 2)
     const registration = installRuntimeInterception(await resolutionOf(f))
     registrations.push(registration)
     const require = createRequire(join(f.profile.dir, 'entry.cjs'))
-    expect(require.resolve('@lyness/lyn-core')).toBe(join(f.installed, 'index.cjs'))
-    expect(require.resolve('@lyness/lyn-core', { paths: [alternative] })).toBe(join(alternativePackage, 'index.cjs'))
-    expect(thrownError(() => require.resolve('@lyness/lyn-core', { paths: [f.profile.dir] })))
+    expect(require.resolve('@deepseek-ai/dsh-core')).toBe(join(f.installed, 'index.cjs'))
+    expect(require.resolve('@deepseek-ai/dsh-core', { paths: [alternative] })).toBe(join(alternativePackage, 'index.cjs'))
+    expect(thrownError(() => require.resolve('@deepseek-ai/dsh-core', { paths: [f.profile.dir] })))
       .toMatchObject({ code: 'MODULE_NOT_FOUND' })
-    expect(thrownError(() => require.resolve('@lyness/lyn-core', {
+    expect(thrownError(() => require.resolve('@deepseek-ai/dsh-core', {
       paths: [join(f.root, 'missing'), f.profile.dir],
     }))).toMatchObject({ code: 'MODULE_NOT_FOUND' })
     const relative = join(f.profile.dir, 'relative.cjs')
     file(relative, '')
     expect(require.resolve('./relative.cjs', { paths: [f.profile.dir] })).toBe(relative)
     const invalid = join(f.root, 'invalid')
-    file(join(invalid, 'node_modules', '@lyness/lyn-core', 'package.json'), '{')
-    expect(() => { require.resolve('@lyness/lyn-core', { paths: [invalid, f.profile.dir] }) })
+    file(join(invalid, 'node_modules', '@deepseek-ai/dsh-core', 'package.json'), '{')
+    expect(() => { require.resolve('@deepseek-ai/dsh-core', { paths: [invalid, f.profile.dir] }) })
       .toThrow(/Invalid package config/u)
-    expect(require.resolve('@lyness/lyn-core')).toBe(join(f.installed, 'index.cjs'))
+    expect(require.resolve('@deepseek-ai/dsh-core')).toBe(join(f.installed, 'index.cjs'))
   })
 
   it('keeps earlier explicit CommonJS paths ahead of a profile-local failure', async () => {
@@ -449,33 +449,33 @@ describe('runtime resolution', { concurrent: false }, () => {
       profile: f.profile,
       home: f.root,
     })
-    const local = join(f.profile.dir, 'node_modules', '@lyness/lyn-core')
+    const local = join(f.profile.dir, 'node_modules', '@deepseek-ai/dsh-core')
     file(join(local, 'package.json'), JSON.stringify({
-      name: '@lyness/lyn-core', version: '2.0.0', exports: './missing.cjs',
+      name: '@deepseek-ai/dsh-core', version: '2.0.0', exports: './missing.cjs',
     }))
     const alternative = join(f.root, 'alternative')
-    const selected = join(alternative, 'node_modules', '@lyness/lyn-core', 'index.cjs')
-    pkg(dirname(selected), '@lyness/lyn-core', 3)
+    const selected = join(alternative, 'node_modules', '@deepseek-ai/dsh-core', 'index.cjs')
+    pkg(dirname(selected), '@deepseek-ai/dsh-core', 3)
     const require = createRequire(join(f.profile.dir, 'entry.cjs'))
     const paths = [alternative, f.profile.dir]
-    expect(require.resolve('@lyness/lyn-core', { paths })).toBe(selected)
+    expect(require.resolve('@deepseek-ai/dsh-core', { paths })).toBe(selected)
 
     const registration = installRuntimeInterception(resolution)
     registrations.push(registration)
-    expect(require.resolve('@lyness/lyn-core', { paths })).toBe(selected)
+    expect(require.resolve('@deepseek-ai/dsh-core', { paths })).toBe(selected)
   })
 
   it('preserves a missing legacy main error before an explicit profile path', async () => {
     const f = fixture()
     const invalid = join(f.root, 'invalid')
-    const selected = join(invalid, 'node_modules', '@lyness/lyn-core')
-    file(join(selected, 'package.json'), JSON.stringify({ name: '@lyness/lyn-core', main: './missing.cjs' }))
+    const selected = join(invalid, 'node_modules', '@deepseek-ai/dsh-core')
+    file(join(selected, 'package.json'), JSON.stringify({ name: '@deepseek-ai/dsh-core', main: './missing.cjs' }))
     const require = createRequire(join(f.profile.dir, 'entry.cjs'))
     const paths = [invalid, f.profile.dir]
-    const nativeError = thrownError(() => require.resolve('@lyness/lyn-core', { paths }))
+    const nativeError = thrownError(() => require.resolve('@deepseek-ai/dsh-core', { paths }))
     const registration = installRuntimeInterception(await resolutionOf(f))
     registrations.push(registration)
-    const runtimeError = thrownError(() => require.resolve('@lyness/lyn-core', { paths }))
+    const runtimeError = thrownError(() => require.resolve('@deepseek-ai/dsh-core', { paths }))
 
     expect(runtimeError).toMatchObject({
       code: nativeError.code,
@@ -509,18 +509,18 @@ describe('runtime resolution', { concurrent: false }, () => {
 
   it('preserves a missing legacy main error for explicit paths when a runtime entry is unavailable', async () => {
     const f = fixture()
-    const selected = join(f.root, 'node_modules', '@lyness/lyn-core')
-    file(join(selected, 'package.json'), JSON.stringify({ name: '@lyness/lyn-core', main: './missing.cjs' }))
+    const selected = join(f.root, 'node_modules', '@deepseek-ai/dsh-core')
+    file(join(selected, 'package.json'), JSON.stringify({ name: '@deepseek-ai/dsh-core', main: './missing.cjs' }))
     const alternative = join(f.root, 'alternative')
-    pkg(join(alternative, 'node_modules', '@lyness/lyn-core'), '@lyness/lyn-core', 2)
+    pkg(join(alternative, 'node_modules', '@deepseek-ai/dsh-core'), '@deepseek-ai/dsh-core', 2)
     const resolution = await resolutionOf(f)
     rmSync(f.installed, { recursive: true })
     const require = createRequire(join(f.profile.dir, 'entry.cjs'))
     const paths = [f.profile.dir, alternative]
-    const nativeError = thrownError(() => require.resolve('@lyness/lyn-core', { paths }))
+    const nativeError = thrownError(() => require.resolve('@deepseek-ai/dsh-core', { paths }))
     const registration = installRuntimeInterception(resolution)
     registrations.push(registration)
-    const runtimeError = thrownError(() => require.resolve('@lyness/lyn-core', { paths }))
+    const runtimeError = thrownError(() => require.resolve('@deepseek-ai/dsh-core', { paths }))
 
     expect(runtimeError).toMatchObject({
       code: nativeError.code,
@@ -533,12 +533,12 @@ describe('runtime resolution', { concurrent: false }, () => {
   it('keeps a profile-local package ahead of the resolution', async () => {
     const f = fixture()
     file(join(f.profile.dir, 'package.json'), JSON.stringify({
-      name: 'lyn-profile-web',
+      name: 'dsh-profile-web',
       private: true,
-      dependencies: { '@lyness/lyn-core': '*', 'linked-local': '*' },
+      dependencies: { '@deepseek-ai/dsh-core': '*', 'linked-local': '*' },
     }))
-    const localResolution = join(f.profile.dir, 'node_modules', '@lyness/lyn-core')
-    pkg(localResolution, '@lyness/lyn-core', 2)
+    const localResolution = join(f.profile.dir, 'node_modules', '@deepseek-ai/dsh-core')
+    pkg(localResolution, '@deepseek-ai/dsh-core', 2)
     const linkedLocal = join(f.root, 'linked-local')
     pkg(linkedLocal, 'linked-local', 3)
     symlinkSync(
@@ -547,32 +547,32 @@ describe('runtime resolution', { concurrent: false }, () => {
       process.platform === 'win32' ? 'junction' : 'dir',
     )
     const resolution = await resolutionOf(f)
-    expect(resolution.localPackageNames).toEqual(['@lyness/lyn-core', 'linked-local'])
+    expect(resolution.localPackageNames).toEqual(['@deepseek-ai/dsh-core', 'linked-local'])
     const registration = installRuntimeInterception(resolution)
     registrations.push(registration)
     const require = createRequire(join(f.profile.dir, 'entry.cjs'))
-    expect(require('@lyness/lyn-core')).toEqual({ marker: 2 })
-    expect(require.resolve('@lyness/lyn-core', { paths: [f.profile.dir] }))
+    expect(require('@deepseek-ai/dsh-core')).toEqual({ marker: 2 })
+    expect(require.resolve('@deepseek-ai/dsh-core', { paths: [f.profile.dir] }))
       .toBe(join(localResolution, 'index.cjs'))
     const parent = pathToFileURL(join(f.profile.dir, 'entry.mjs')).href
-    expect(resolveFrom('@lyness/lyn-core', parent)).toBe(
-      pathToFileURL(join(f.profile.dir, 'node_modules', '@lyness/lyn-core', 'index.js')).href,
+    expect(resolveFrom('@deepseek-ai/dsh-core', parent)).toBe(
+      pathToFileURL(join(f.profile.dir, 'node_modules', '@deepseek-ai/dsh-core', 'index.js')).href,
     )
   })
 
   it('preserves an npm alias package self-reference', async () => {
     const f = fixture()
     file(f.installAnchor, JSON.stringify({
-      name: '@lyness/lyn',
+      name: '@deepseek-ai/dsh',
       version: '0.0.0',
       type: 'module',
       exports: { import: './index.js', require: './index.cjs' },
-      dependencies: { '@lyness/lyn-core': '*', 'real-name': '*' },
+      dependencies: { '@deepseek-ai/dsh-core': '*', 'real-name': '*' },
     }))
     const installedRealName = join(dirname(f.installAnchor), 'node_modules', 'real-name')
     pkg(installedRealName, 'real-name', 7)
     file(join(f.profile.dir, 'package.json'), JSON.stringify({
-      name: 'lyn-profile-web',
+      name: 'dsh-profile-web',
       private: true,
       dependencies: { alias: 'npm:real-name' },
     }))
@@ -592,9 +592,9 @@ describe('runtime resolution', { concurrent: false }, () => {
     )
     const invalidScope = join(f.profile.dir, 'node_modules', 'invalid-scope')
     file(join(invalidScope, 'package.json'), '{')
-    expect(() => createRequire(join(invalidScope, 'inside.cjs')).resolve('@lyness/lyn-core'))
+    expect(() => createRequire(join(invalidScope, 'inside.cjs')).resolve('@deepseek-ai/dsh-core'))
       .toThrow(/Invalid package config/u)
-    expect(() => resolveFrom('@lyness/lyn-core', pathToFileURL(join(invalidScope, 'inside.mjs')).href))
+    expect(() => resolveFrom('@deepseek-ai/dsh-core', pathToFileURL(join(invalidScope, 'inside.mjs')).href))
       .toThrow(/Invalid package config/u)
 
     const registration = installRuntimeInterception(resolution)
@@ -604,18 +604,18 @@ describe('runtime resolution', { concurrent: false }, () => {
     expect(resolveFrom('real-name', pathToFileURL(join(alias, 'inside-runtime.mjs')).href)).toBe(
       pathToFileURL(join(alias, 'index.js')).href,
     )
-    expect(() => createRequire(join(invalidScope, 'inside.cjs')).resolve('@lyness/lyn-core'))
+    expect(() => createRequire(join(invalidScope, 'inside.cjs')).resolve('@deepseek-ai/dsh-core'))
       .toThrow(/Invalid package config/u)
-    expect(() => resolveFrom('@lyness/lyn-core', pathToFileURL(join(invalidScope, 'inside.mjs')).href))
+    expect(() => resolveFrom('@deepseek-ai/dsh-core', pathToFileURL(join(invalidScope, 'inside.mjs')).href))
       .toThrow(/Invalid package config/u)
   })
 
   it('keeps package imports aliases on the resolution route', async () => {
     const f = fixture()
     file(join(f.profile.dir, 'package.json'), JSON.stringify({
-      name: 'lyn-profile-web',
+      name: 'dsh-profile-web',
       private: true,
-      imports: { '#@lyness/lyn-core': '@lyness/lyn-core' },
+      imports: { '#@deepseek-ai/dsh-core': '@deepseek-ai/dsh-core' },
     }))
     const resolution = await createRuntimeResolution({
       installAnchor: f.installAnchor,
@@ -625,22 +625,22 @@ describe('runtime resolution', { concurrent: false }, () => {
     const nested = join(f.profile.dir, 'nested')
     const require = createRequire(join(nested, 'entry.cjs'))
     const nativeParent = pathToFileURL(join(nested, 'entry-native.mjs')).href
-    expect(() => require.resolve('#@lyness/lyn-core')).toThrow(/Cannot find module/u)
-    expect(() => resolveFrom('#@lyness/lyn-core', nativeParent)).toThrow(/Cannot find package/u)
+    expect(() => require.resolve('#@deepseek-ai/dsh-core')).toThrow(/Cannot find module/u)
+    expect(() => resolveFrom('#@deepseek-ai/dsh-core', nativeParent)).toThrow(/Cannot find package/u)
 
     const registration = installRuntimeInterception(resolution)
     registrations.push(registration)
     const runtimeParent = pathToFileURL(join(nested, 'entry-runtime.mjs')).href
-    expect(require.resolve('#@lyness/lyn-core')).toBe(join(f.installed, 'index.cjs'))
-    expect(resolveFrom('#@lyness/lyn-core', runtimeParent)).toBe(pathToFileURL(join(f.installed, 'index.js')).href)
+    expect(require.resolve('#@deepseek-ai/dsh-core')).toBe(join(f.installed, 'index.cjs'))
+    expect(resolveFrom('#@deepseek-ai/dsh-core', runtimeParent)).toBe(pathToFileURL(join(f.installed, 'index.js')).href)
   })
 
   it('imports package aliases through the resolution and reports the original importer', async () => {
     const f = fixture()
     file(join(f.profile.dir, 'package.json'), JSON.stringify({
-      name: 'lyn-profile-web',
+      name: 'dsh-profile-web',
       private: true,
-      imports: { '#library': '@lyness/lyn-core', '#missing': '@lyness/lyn-core/missing' },
+      imports: { '#library': '@deepseek-ai/dsh-core', '#missing': '@deepseek-ai/dsh-core/missing' },
     }))
     const registration = installRuntimeInterception(await resolutionOf(f))
     registrations.push(registration)
@@ -655,7 +655,7 @@ describe('runtime resolution', { concurrent: false }, () => {
   it('leaves relative package imports targets and their diagnostics to Node', async () => {
     const f = fixture()
     file(join(f.profile.dir, 'package.json'), JSON.stringify({
-      name: 'lyn-profile-web',
+      name: 'dsh-profile-web',
       private: true,
       imports: { '#missing-relative': './missing.cjs' },
     }))
@@ -678,7 +678,7 @@ describe('runtime resolution', { concurrent: false }, () => {
   it('keeps local and native-after-resolution package imports targets in native order', async () => {
     const f = fixture()
     file(join(f.profile.dir, 'package.json'), JSON.stringify({
-      name: 'lyn-profile-web',
+      name: 'dsh-profile-web',
       private: true,
       imports: { '#local': 'local-import', '#ancestor': 'ancestor-import' },
     }))
@@ -713,62 +713,62 @@ describe('runtime resolution', { concurrent: false }, () => {
   it('does not inherit package imports across node_modules', async () => {
     const f = fixture()
     file(join(f.profile.dir, 'package.json'), JSON.stringify({
-      name: 'lyn-profile-web', private: true, imports: { '#@lyness/lyn-core': '@lyness/lyn-core' },
+      name: 'dsh-profile-web', private: true, imports: { '#@deepseek-ai/dsh-core': '@deepseek-ai/dsh-core' },
     }))
     const nested = join(f.profile.dir, 'node_modules', 'manifestless', 'entry.cjs')
     file(nested, '')
     const require = createRequire(nested)
-    const nativeMessage = thrownMessage(() => require.resolve('#@lyness/lyn-core'))
+    const nativeMessage = thrownMessage(() => require.resolve('#@deepseek-ai/dsh-core'))
     const registration = installRuntimeInterception(await resolutionOf(f))
     registrations.push(registration)
 
-    expect(thrownMessage(() => require.resolve('#@lyness/lyn-core'))).toBe(nativeMessage)
+    expect(thrownMessage(() => require.resolve('#@deepseek-ai/dsh-core'))).toBe(nativeMessage)
   })
 
   it('falls through a missing local CommonJS subpath to the resolution', async () => {
     const f = fixture()
     file(join(f.profile.dir, 'package.json'), JSON.stringify({
-      name: 'lyn-profile-web',
+      name: 'dsh-profile-web',
       private: true,
-      dependencies: { '@lyness/lyn-core': '*' },
+      dependencies: { '@deepseek-ai/dsh-core': '*' },
     }))
     file(join(f.installed, 'package.json'), JSON.stringify({
-      name: '@lyness/lyn-core', version: '1.0.0', type: 'module', main: './index.cjs',
+      name: '@deepseek-ai/dsh-core', version: '1.0.0', type: 'module', main: './index.cjs',
     }))
     file(join(f.installed, 'only-install.cjs'), 'module.exports = { marker: 8 }\n')
     file(join(f.installed, 'legacy-install.cjs'), 'module.exports = { marker: 9 }\n')
-    const local = join(f.profile.dir, 'node_modules', '@lyness/lyn-core')
+    const local = join(f.profile.dir, 'node_modules', '@deepseek-ai/dsh-core')
     file(join(local, 'package.json'), JSON.stringify({
-      name: '@lyness/lyn-core', version: '2.0.0', type: 'module', main: './index.cjs',
+      name: '@deepseek-ai/dsh-core', version: '2.0.0', type: 'module', main: './index.cjs',
     }))
     file(join(local, 'index.cjs'), 'module.exports = { marker: 2 }\n')
     const resolution = await resolutionOf(f)
-    expect(resolution.localPackageNames).toEqual(['@lyness/lyn-core'])
+    expect(resolution.localPackageNames).toEqual(['@deepseek-ai/dsh-core'])
     const registration = installRuntimeInterception(resolution)
     registrations.push(registration)
 
-    expect(createRequire(join(f.profile.dir, 'entry.cjs')).resolve('@lyness/lyn-core/only-install.cjs'))
+    expect(createRequire(join(f.profile.dir, 'entry.cjs')).resolve('@deepseek-ai/dsh-core/only-install.cjs'))
       .toBe(join(f.installed, 'only-install.cjs'))
     rmSync(join(local, 'package.json'))
-    expect(createRequire(join(f.profile.dir, 'entry.cjs')).resolve('@lyness/lyn-core/legacy-install.cjs'))
+    expect(createRequire(join(f.profile.dir, 'entry.cjs')).resolve('@deepseek-ai/dsh-core/legacy-install.cjs'))
       .toBe(join(f.installed, 'legacy-install.cjs'))
   })
 
   it('treats null exports as legacy CommonJS package resolution', async () => {
     const f = fixture()
     file(join(f.profile.dir, 'package.json'), JSON.stringify({
-      name: 'lyn-profile-web',
+      name: 'dsh-profile-web',
       private: true,
-      dependencies: { '@lyness/lyn-core': '*' },
+      dependencies: { '@deepseek-ai/dsh-core': '*' },
     }))
     file(join(f.installed, 'package.json'), JSON.stringify({
-      name: '@lyness/lyn-core', version: '1.0.0', type: 'module', exports: null,
+      name: '@deepseek-ai/dsh-core', version: '1.0.0', type: 'module', exports: null,
     }))
     const installedSubpath = join(f.installed, 'only-install.cjs')
     file(installedSubpath, 'module.exports = { marker: 8 }\n')
-    const local = join(f.profile.dir, 'node_modules', '@lyness/lyn-core')
+    const local = join(f.profile.dir, 'node_modules', '@deepseek-ai/dsh-core')
     file(join(local, 'package.json'), JSON.stringify({
-      name: '@lyness/lyn-core', version: '2.0.0', type: 'module', exports: null,
+      name: '@deepseek-ai/dsh-core', version: '2.0.0', type: 'module', exports: null,
     }))
     const resolution = await createRuntimeResolution({
       installAnchor: f.installAnchor,
@@ -776,17 +776,17 @@ describe('runtime resolution', { concurrent: false }, () => {
       home: f.root,
     })
     const require = createRequire(join(local, 'entry.cjs'))
-    expect(() => require.resolve('@lyness/lyn-core/only-install.cjs')).toThrow(/Cannot find module/u)
+    expect(() => require.resolve('@deepseek-ai/dsh-core/only-install.cjs')).toThrow(/Cannot find module/u)
 
     const registration = installRuntimeInterception(resolution)
     registrations.push(registration)
-    expect(require.resolve('@lyness/lyn-core/only-install.cjs')).toBe(installedSubpath)
+    expect(require.resolve('@deepseek-ai/dsh-core/only-install.cjs')).toBe(installedSubpath)
   })
 
   it('stops a local CommonJS probe before the resolution fallback position', async () => {
     const f = fixture()
     file(join(f.installed, 'package.json'), JSON.stringify({
-      name: '@lyness/lyn-core', version: '1.0.0', type: 'module', main: './index.cjs',
+      name: '@deepseek-ai/dsh-core', version: '1.0.0', type: 'module', main: './index.cjs',
     }))
     const installedSubpath = join(f.installed, 'only-install.cjs')
     file(installedSubpath, 'module.exports = { marker: 8 }\n')
@@ -795,21 +795,21 @@ describe('runtime resolution', { concurrent: false }, () => {
       profile: f.profile,
       home: f.root,
     })
-    file(join(f.profile.dir, 'node_modules', '@lyness/lyn-core', 'package.json'), JSON.stringify({
-      name: '@lyness/lyn-core', version: '2.0.0', main: './index.cjs',
+    file(join(f.profile.dir, 'node_modules', '@deepseek-ai/dsh-core', 'package.json'), JSON.stringify({
+      name: '@deepseek-ai/dsh-core', version: '2.0.0', main: './index.cjs',
     }))
-    file(join(f.profile.dir, 'node_modules', '@lyness/lyn-core', 'index.cjs'), 'module.exports = {}\n')
-    file(join(f.root, 'node_modules', '@lyness/lyn-core', 'package.json'), JSON.stringify({
-      name: '@lyness/lyn-core', version: '3.0.0', exports: './index.cjs',
+    file(join(f.profile.dir, 'node_modules', '@deepseek-ai/dsh-core', 'index.cjs'), 'module.exports = {}\n')
+    file(join(f.root, 'node_modules', '@deepseek-ai/dsh-core', 'package.json'), JSON.stringify({
+      name: '@deepseek-ai/dsh-core', version: '3.0.0', exports: './index.cjs',
     }))
-    file(join(f.root, 'node_modules', '@lyness/lyn-core', 'index.cjs'), 'module.exports = {}\n')
+    file(join(f.root, 'node_modules', '@deepseek-ai/dsh-core', 'index.cjs'), 'module.exports = {}\n')
     const require = createRequire(join(f.profile.dir, 'entry.cjs'))
-    expect(thrownError(() => require.resolve('@lyness/lyn-core/only-install.cjs')))
+    expect(thrownError(() => require.resolve('@deepseek-ai/dsh-core/only-install.cjs')))
       .toMatchObject({ code: 'ERR_PACKAGE_PATH_NOT_EXPORTED' })
 
     const registration = installRuntimeInterception(resolution)
     registrations.push(registration)
-    expect(require.resolve('@lyness/lyn-core/only-install.cjs')).toBe(installedSubpath)
+    expect(require.resolve('@deepseek-ai/dsh-core/only-install.cjs')).toBe(installedSubpath)
   })
 
   it('observes a profile-local package installed after an earlier miss', async () => {
@@ -866,59 +866,59 @@ describe('runtime resolution', { concurrent: false }, () => {
 
   it('keeps a legacy CommonJS package without a manifest ahead of the resolution', async () => {
     const f = fixture()
-    file(join(f.profile.dir, 'node_modules', '@lyness/lyn-core', 'index.js'), 'module.exports = { marker: 2 }\n')
+    file(join(f.profile.dir, 'node_modules', '@deepseek-ai/dsh-core', 'index.js'), 'module.exports = { marker: 2 }\n')
     const registration = installRuntimeInterception(await resolutionOf(f))
     registrations.push(registration)
-    expect(createRequire(join(f.profile.dir, 'entry.cjs'))('@lyness/lyn-core')).toEqual({ marker: 2 })
+    expect(createRequire(join(f.profile.dir, 'entry.cjs'))('@deepseek-ai/dsh-core')).toEqual({ marker: 2 })
   })
 
   it('keeps a manifestless local CommonJS subpath ahead of the resolution', async () => {
     const f = fixture()
-    const localSubpath = join(f.profile.dir, 'node_modules', '@lyness/lyn-core', 'sub.cjs')
+    const localSubpath = join(f.profile.dir, 'node_modules', '@deepseek-ai/dsh-core', 'sub.cjs')
     file(localSubpath, 'module.exports = { marker: 2 }\n')
     const require = createRequire(join(f.profile.dir, 'entry.cjs'))
-    expect(require.resolve('@lyness/lyn-core/sub.cjs')).toBe(localSubpath)
+    expect(require.resolve('@deepseek-ai/dsh-core/sub.cjs')).toBe(localSubpath)
 
     const registration = installRuntimeInterception(await resolutionOf(f))
     registrations.push(registration)
-    expect(require.resolve('@lyness/lyn-core/sub.cjs')).toBe(localSubpath)
+    expect(require.resolve('@deepseek-ai/dsh-core/sub.cjs')).toBe(localSubpath)
   })
 
   it('keeps a local extensionless CommonJS package ahead of the resolution', async () => {
     const f = fixture()
-    const local = join(f.profile.dir, 'node_modules', '@lyness/lyn-core')
+    const local = join(f.profile.dir, 'node_modules', '@deepseek-ai/dsh-core')
     file(local, 'module.exports = { marker: 2 }\n')
     const require = createRequire(join(f.profile.dir, 'entry.cjs'))
-    expect(require.resolve('@lyness/lyn-core')).toBe(local)
+    expect(require.resolve('@deepseek-ai/dsh-core')).toBe(local)
 
     const registration = installRuntimeInterception(await resolutionOf(f))
     registrations.push(registration)
-    expect(require.resolve('@lyness/lyn-core')).toBe(local)
+    expect(require.resolve('@deepseek-ai/dsh-core')).toBe(local)
   })
 
   it('keeps a local legacy main outside its package directory ahead of the resolution', async () => {
     const f = fixture()
-    const local = join(f.profile.dir, 'node_modules', '@lyness/lyn-core')
-    const outside = join(f.profile.dir, 'node_modules', '@lyness', 'outside.cjs')
-    file(join(local, 'package.json'), JSON.stringify({ name: '@lyness/lyn-core', main: '../outside.cjs' }))
+    const local = join(f.profile.dir, 'node_modules', '@deepseek-ai/dsh-core')
+    const outside = join(f.profile.dir, 'node_modules', '@deepseek-ai', 'outside.cjs')
+    file(join(local, 'package.json'), JSON.stringify({ name: '@deepseek-ai/dsh-core', main: '../outside.cjs' }))
     file(outside, 'module.exports = { marker: 2 }\n')
     const require = createRequire(join(f.profile.dir, 'entry.cjs'))
-    expect(require.resolve('@lyness/lyn-core')).toBe(outside)
+    expect(require.resolve('@deepseek-ai/dsh-core')).toBe(outside)
 
     const registration = installRuntimeInterception(await resolutionOf(f))
     registrations.push(registration)
-    expect(require.resolve('@lyness/lyn-core')).toBe(outside)
+    expect(require.resolve('@deepseek-ai/dsh-core')).toBe(outside)
   })
 
   it('keeps a missing local legacy main error ahead of the resolution', async () => {
     const f = fixture()
-    const local = join(f.profile.dir, 'node_modules', '@lyness/lyn-core')
-    file(join(local, 'package.json'), JSON.stringify({ name: '@lyness/lyn-core', main: './missing.cjs' }))
+    const local = join(f.profile.dir, 'node_modules', '@deepseek-ai/dsh-core')
+    file(join(local, 'package.json'), JSON.stringify({ name: '@deepseek-ai/dsh-core', main: './missing.cjs' }))
     const require = createRequire(join(f.profile.dir, 'entry.cjs'))
-    const nativeError = thrownError(() => require.resolve('@lyness/lyn-core'))
+    const nativeError = thrownError(() => require.resolve('@deepseek-ai/dsh-core'))
     const registration = installRuntimeInterception(await resolutionOf(f))
     registrations.push(registration)
-    const runtimeError = thrownError(() => require.resolve('@lyness/lyn-core'))
+    const runtimeError = thrownError(() => require.resolve('@deepseek-ai/dsh-core'))
 
     expect(runtimeError).toMatchObject({
       code: nativeError.code,
@@ -930,23 +930,23 @@ describe('runtime resolution', { concurrent: false }, () => {
 
   it('keeps a profile-local CommonJS package file ahead of the resolution', async () => {
     const f = fixture()
-    file(join(f.profile.dir, 'node_modules', '@lyness/lyn-core.js'), 'module.exports = { marker: 2 }\n')
+    file(join(f.profile.dir, 'node_modules', '@deepseek-ai/dsh-core.js'), 'module.exports = { marker: 2 }\n')
     const registration = installRuntimeInterception(await resolutionOf(f))
     registrations.push(registration)
-    expect(createRequire(join(f.profile.dir, 'entry.cjs'))('@lyness/lyn-core')).toEqual({ marker: 2 })
-    expect(resolveFrom('@lyness/lyn-core', pathToFileURL(join(f.profile.dir, 'entry.mjs')).href)).toBe(
+    expect(createRequire(join(f.profile.dir, 'entry.cjs'))('@deepseek-ai/dsh-core')).toEqual({ marker: 2 })
+    expect(resolveFrom('@deepseek-ai/dsh-core', pathToFileURL(join(f.profile.dir, 'entry.mjs')).href)).toBe(
       pathToFileURL(join(f.installed, 'index.js')).href,
     )
   })
 
   it('preserves the ESM and CommonJS behavior of an empty local package directory', async () => {
     const f = fixture()
-    mkdirSync(join(f.profile.dir, 'node_modules', '@lyness/lyn-core'), { recursive: true })
+    mkdirSync(join(f.profile.dir, 'node_modules', '@deepseek-ai/dsh-core'), { recursive: true })
     const registration = installRuntimeInterception(await resolutionOf(f))
     registrations.push(registration)
-    expect(createRequire(join(f.profile.dir, 'entry.cjs'))('@lyness/lyn-core')).toEqual({ marker: 1 })
+    expect(createRequire(join(f.profile.dir, 'entry.cjs'))('@deepseek-ai/dsh-core')).toEqual({ marker: 1 })
     expect(() => resolveFrom(
-      '@lyness/lyn-core', pathToFileURL(join(f.profile.dir, 'entry.mjs')).href,
+      '@deepseek-ai/dsh-core', pathToFileURL(join(f.profile.dir, 'entry.mjs')).href,
     )).toThrow(/Cannot find/u)
   })
 
@@ -986,12 +986,12 @@ describe('runtime resolution', { concurrent: false }, () => {
 
   it('keeps the resolution ahead of packages above the shared fallback position', async () => {
     const f = fixture()
-    pkg(join(f.root, 'node_modules', '@lyness/lyn-core'), '@lyness/lyn-core', 2)
+    pkg(join(f.root, 'node_modules', '@deepseek-ai/dsh-core'), '@deepseek-ai/dsh-core', 2)
     const registration = installRuntimeInterception(await resolutionOf(f))
     registrations.push(registration)
     const require = createRequire(join(f.profile.dir, 'entry.cjs'))
-    expect(require('@lyness/lyn-core')).toEqual({ marker: 1 })
-    expect(await importFrom('@lyness/lyn-core', pathToFileURL(join(f.profile.dir, 'entry.mjs')).href))
+    expect(require('@deepseek-ai/dsh-core')).toEqual({ marker: 1 })
+    expect(await importFrom('@deepseek-ai/dsh-core', pathToFileURL(join(f.profile.dir, 'entry.mjs')).href))
       .toMatchObject({ marker: 1 })
   })
 
@@ -1004,14 +1004,14 @@ describe('runtime resolution', { concurrent: false }, () => {
       dir: profileDir,
       patchPath: join(profileDir, 'cordis.patch.yml'),
     }
-    file(join(profileDir, 'package.json'), JSON.stringify({ name: 'lyn-profile-web', private: true }))
-    file(join(profileDir, 'node_modules', '@lyness/lyn-core', 'package.json'), JSON.stringify({
-      name: '@lyness/lyn-core', version: '2.0.0',
+    file(join(profileDir, 'package.json'), JSON.stringify({ name: 'dsh-profile-web', private: true }))
+    file(join(profileDir, 'node_modules', '@deepseek-ai/dsh-core', 'package.json'), JSON.stringify({
+      name: '@deepseek-ai/dsh-core', version: '2.0.0',
     }))
     file(join(f.installed, 'package.json'), JSON.stringify({
-      name: '@lyness/lyn-core', version: '1.0.0', type: 'module', main: './index.cjs',
+      name: '@deepseek-ai/dsh-core', version: '1.0.0', type: 'module', main: './index.cjs',
     }))
-    const ancestorSubpath = join(home, 'node_modules', '@lyness/lyn-core', 'sub.cjs')
+    const ancestorSubpath = join(home, 'node_modules', '@deepseek-ai/dsh-core', 'sub.cjs')
     file(ancestorSubpath, 'module.exports = { marker: 3 }\n')
     const resolution = await createRuntimeResolution({
       installAnchor: f.installAnchor,
@@ -1019,27 +1019,27 @@ describe('runtime resolution', { concurrent: false }, () => {
       home,
     })
     const require = createRequire(join(profileDir, 'entry.cjs'))
-    expect(() => require.resolve('@lyness/lyn-core')).toThrow(/Cannot find module/u)
-    expect(require.resolve('@lyness/lyn-core/sub.cjs')).toBe(ancestorSubpath)
+    expect(() => require.resolve('@deepseek-ai/dsh-core')).toThrow(/Cannot find module/u)
+    expect(require.resolve('@deepseek-ai/dsh-core/sub.cjs')).toBe(ancestorSubpath)
 
     const registration = installRuntimeInterception(resolution)
     registrations.push(registration)
-    expect(require.resolve('@lyness/lyn-core')).toBe(join(f.installed, 'index.cjs'))
-    expect(require.resolve('@lyness/lyn-core/sub.cjs')).toBe(ancestorSubpath)
+    expect(require.resolve('@deepseek-ai/dsh-core')).toBe(join(f.installed, 'index.cjs'))
+    expect(require.resolve('@deepseek-ai/dsh-core/sub.cjs')).toBe(ancestorSubpath)
   })
 
   it('uses later explicit CommonJS paths when the profile has no matching package', async () => {
     const f = fixture()
     file(join(f.installed, 'package.json'), JSON.stringify({
-      name: '@lyness/lyn-core', version: '1.0.0', type: 'module', main: './index.cjs',
+      name: '@deepseek-ai/dsh-core', version: '1.0.0', type: 'module', main: './index.cjs',
     }))
     const alternative = join(f.root, 'alternative')
-    const alternativeSubpath = join(alternative, 'node_modules', '@lyness/lyn-core', 'sub.cjs')
+    const alternativeSubpath = join(alternative, 'node_modules', '@deepseek-ai/dsh-core', 'sub.cjs')
     file(alternativeSubpath, 'module.exports = { marker: 4 }\n')
     const registration = installRuntimeInterception(await resolutionOf(f))
     registrations.push(registration)
 
-    expect(createRequire(join(f.profile.dir, 'entry.cjs')).resolve('@lyness/lyn-core/sub.cjs', {
+    expect(createRequire(join(f.profile.dir, 'entry.cjs')).resolve('@deepseek-ai/dsh-core/sub.cjs', {
       paths: [f.profile.dir, alternative],
     })).toBe(alternativeSubpath)
   })
@@ -1047,15 +1047,15 @@ describe('runtime resolution', { concurrent: false }, () => {
   it('occupies the interception layer package directory for a resolution hit and continues above it on a CommonJS subpath miss', async () => {
     const f = fixture()
     file(join(f.installed, 'package.json'), JSON.stringify({
-      name: '@lyness/lyn-core', version: '1.0.0', main: './index.cjs',
+      name: '@deepseek-ai/dsh-core', version: '1.0.0', main: './index.cjs',
     }))
     // Ordinary profile lookup replaces the shared copy with the runtime entry; explicit paths still read the shared copy.
-    const shared = join(f.root, 'profiles', 'node_modules', '@lyness/lyn-core')
-    file(join(shared, 'package.json'), JSON.stringify({ name: '@lyness/lyn-core', version: '9.0.0' }))
+    const shared = join(f.root, 'profiles', 'node_modules', '@deepseek-ai/dsh-core')
+    file(join(shared, 'package.json'), JSON.stringify({ name: '@deepseek-ai/dsh-core', version: '9.0.0' }))
     file(join(shared, 'sub.cjs'), 'module.exports = { marker: 9 }\n')
     file(join(shared, 'sub.js'), 'module.exports = { marker: 9 }\n')
-    const home = join(f.root, 'node_modules', '@lyness/lyn-core')
-    file(join(home, 'package.json'), JSON.stringify({ name: '@lyness/lyn-core', version: '3.0.0' }))
+    const home = join(f.root, 'node_modules', '@deepseek-ai/dsh-core')
+    file(join(home, 'package.json'), JSON.stringify({ name: '@deepseek-ai/dsh-core', version: '3.0.0' }))
     file(join(home, 'sub.cjs'), 'module.exports = { marker: 3 }\n')
     // A name without an entry sees the physical directory at the same layer.
     pkg(join(f.root, 'profiles', 'node_modules', 'left-pad'), 'left-pad', 9)
@@ -1063,23 +1063,23 @@ describe('runtime resolution', { concurrent: false }, () => {
     const registration = installRuntimeInterception(await resolutionOf(f))
     registrations.push(registration)
     const require = createRequire(join(f.profile.dir, 'entry.cjs'))
-    expect(require.resolve('@lyness/lyn-core')).toBe(join(f.installed, 'index.cjs'))
-    expect(require.resolve('@lyness/lyn-core/sub.cjs')).toBe(join(home, 'sub.cjs'))
-    expect(require('@lyness/lyn-core/sub.cjs')).toEqual({ marker: 3 })
-    expect(require.resolve('@lyness/lyn-core/sub.cjs', { paths: [f.profile.dir] })).toBe(join(shared, 'sub.cjs'))
+    expect(require.resolve('@deepseek-ai/dsh-core')).toBe(join(f.installed, 'index.cjs'))
+    expect(require.resolve('@deepseek-ai/dsh-core/sub.cjs')).toBe(join(home, 'sub.cjs'))
+    expect(require('@deepseek-ai/dsh-core/sub.cjs')).toEqual({ marker: 3 })
+    expect(require.resolve('@deepseek-ai/dsh-core/sub.cjs', { paths: [f.profile.dir] })).toBe(join(shared, 'sub.cjs'))
     expect(require('left-pad')).toEqual({ marker: 9 })
     // ESM resolves the subpath inside the selected package and never consults another copy.
     const parent = pathToFileURL(join(f.profile.dir, 'entry.mjs')).href
-    expect(resolveFrom('@lyness/lyn-core', parent)).toBe(pathToFileURL(join(f.installed, 'index.cjs')).href)
-    await expect(importFrom('@lyness/lyn-core/sub.js', parent)).rejects.toMatchObject({ code: 'ERR_MODULE_NOT_FOUND' })
+    expect(resolveFrom('@deepseek-ai/dsh-core', parent)).toBe(pathToFileURL(join(f.installed, 'index.cjs')).href)
+    await expect(importFrom('@deepseek-ai/dsh-core/sub.js', parent)).rejects.toMatchObject({ code: 'ERR_MODULE_NOT_FOUND' })
     expect(await importFrom('left-pad', parent)).toMatchObject({ marker: 9 })
   })
 
-  it.each(['profile', 'plugin'] as const)('uses the installation LYN package from a %s while a stale shared link remains', async (importer) => {
-    const name = '@lyness/lyn-core'
+  it.each(['profile', 'plugin'] as const)('uses the installation DSH package from a %s while a stale shared link remains', async (importer) => {
+    const name = '@deepseek-ai/dsh-core'
     const f = fixture(name)
     file(join(f.profile.dir, 'package.json'), JSON.stringify({
-      name: 'lyn-profile-web', private: true, dependencies: { [name]: '*' },
+      name: 'dsh-profile-web', private: true, dependencies: { [name]: '*' },
       imports: { '#library': name },
     }))
     const parentDir = importer === 'profile' ? f.profile.dir : join(f.profile.dir, 'node_modules', 'my-plugin')
@@ -1089,7 +1089,7 @@ describe('runtime resolution', { concurrent: false }, () => {
         name: 'my-plugin', type: 'module', dependencies: { [name]: '*' }, imports: { '#library': name },
       }))
     }
-    const target = join(f.root, 'old-lyn', 'node_modules', name)
+    const target = join(f.root, 'old-dsh', 'node_modules', name)
     pkg(target, name, 9)
     const shared = join(f.root, 'profiles', 'node_modules', name)
     mkdirSync(dirname(shared), { recursive: true })
@@ -1111,30 +1111,30 @@ describe('runtime resolution', { concurrent: false }, () => {
     expect(realpathSync(shared)).toBe(target)
   })
 
-  it('treats a profile symlink into .lyn-module-fallback as an ordinary local package', async () => {
+  it('treats a profile symlink into .dsh-module-fallback as an ordinary local package', async () => {
     const f = fixture()
     file(join(f.profile.dir, 'package.json'), JSON.stringify({
-      name: 'lyn-profile-web', private: true, dependencies: { '@lyness/lyn-core': '*' },
+      name: 'dsh-profile-web', private: true, dependencies: { '@deepseek-ai/dsh-core': '*' },
     }))
-    const target = join(f.root, 'old-lyn', 'node_modules', '@lyness', 'lyn-core')
-    pkg(target, '@lyness/lyn-core', 9)
-    const owned = join(f.profile.dir, '.lyn-module-fallback', 'node_modules', '@lyness/lyn-core')
-    const projected = join(f.profile.dir, 'node_modules', '@lyness/lyn-core')
+    const target = join(f.root, 'old-dsh', 'node_modules', '@deepseek-ai', 'dsh-core')
+    pkg(target, '@deepseek-ai/dsh-core', 9)
+    const owned = join(f.profile.dir, '.dsh-module-fallback', 'node_modules', '@deepseek-ai/dsh-core')
+    const projected = join(f.profile.dir, 'node_modules', '@deepseek-ai/dsh-core')
     mkdirSync(dirname(owned), { recursive: true })
     mkdirSync(dirname(projected), { recursive: true })
     symlinkSync(target, owned, process.platform === 'win32' ? 'junction' : 'dir')
     symlinkSync(owned, projected, process.platform === 'win32' ? 'junction' : 'dir')
     const resolution = await resolutionOf(f)
-    expect(resolution.localPackageNames).toEqual(['@lyness/lyn-core'])
+    expect(resolution.localPackageNames).toEqual(['@deepseek-ai/dsh-core'])
     const registration = installRuntimeInterception(resolution)
     registrations.push(registration)
     const require = createRequire(join(f.profile.dir, 'entry.cjs'))
     const parent = pathToFileURL(join(f.profile.dir, 'entry.mjs')).href
-    expect(require('@lyness/lyn-core')).toEqual({ marker: 9 })
-    expect(require.resolve('@lyness/lyn-core')).toBe(join(target, 'index.cjs'))
-    expect(resolveFrom('@lyness/lyn-core', parent)).toBe(pathToFileURL(join(target, 'index.js')).href)
-    expect(await importFrom('@lyness/lyn-core', parent)).toMatchObject({ marker: 9 })
-    expect(registration.packageDir('@lyness/lyn-core', parent)).toBe(projected)
+    expect(require('@deepseek-ai/dsh-core')).toEqual({ marker: 9 })
+    expect(require.resolve('@deepseek-ai/dsh-core')).toBe(join(target, 'index.cjs'))
+    expect(resolveFrom('@deepseek-ai/dsh-core', parent)).toBe(pathToFileURL(join(target, 'index.js')).href)
+    expect(await importFrom('@deepseek-ai/dsh-core', parent)).toMatchObject({ marker: 9 })
+    expect(registration.packageDir('@deepseek-ai/dsh-core', parent)).toBe(projected)
     expect(realpathSync(projected)).toBe(target)
   })
 
@@ -1150,7 +1150,7 @@ describe('runtime resolution', { concurrent: false }, () => {
     const middleDir = join(selected, 'node_modules', middle)
     const leafDir = join(middleDir, 'node_modules', leaf)
     file(join(f.profile.dir, 'package.json'), JSON.stringify({
-      name: 'lyn-profile-web', private: true, dependencies: { [plugin]: '*' },
+      name: 'dsh-profile-web', private: true, dependencies: { [plugin]: '*' },
     }))
     pkg(pluginDir, plugin, 1, { [dependency]: '*' })
     pkg(selected, dependency, 2, { [middle]: '*' })
@@ -1201,25 +1201,25 @@ describe('runtime resolution', { concurrent: false }, () => {
     const plugin = 'shared-plugin'
     for (const [bundle, marker] of [['bundle-a', 1], ['bundle-b', 2]] as const) {
       file(join(modules, bundle, 'package.json'), JSON.stringify({
-        name: bundle, version: '1.0.0', dependencies: { [plugin]: '*' }, lyn: { bundle: { patch: './cordis.patch.yml' } },
+        name: bundle, version: '1.0.0', dependencies: { [plugin]: '*' }, dsh: { bundle: { patch: './cordis.patch.yml' } },
       }))
       file(join(modules, bundle, 'cordis.patch.yml'), '[]\n')
       pkg(join(modules, bundle, 'node_modules', plugin), plugin, marker)
     }
     // A link-backend launch projected bundle-a's plugin while bundle-a was selected.
-    const owned = join(profileDir, '.lyn-module-fallback', 'node_modules', plugin)
+    const owned = join(profileDir, '.dsh-module-fallback', 'node_modules', plugin)
     mkdirSync(dirname(owned), { recursive: true })
     symlinkSync(join(modules, 'bundle-a', 'node_modules', plugin), owned, process.platform === 'win32' ? 'junction' : 'dir')
     symlinkSync(owned, join(modules, plugin), process.platform === 'win32' ? 'junction' : 'dir')
     file(join(profileDir, 'package.json'), JSON.stringify({
-      name: 'lyn-profile-web', private: true,
+      name: 'dsh-profile-web', private: true,
       dependencies: { 'bundle-a': '*', 'bundle-b': '*' },
-      lyn: { profile: { bundles: ['bundle-b'] } },
+      dsh: { profile: { bundles: ['bundle-b'] } },
     }))
 
-    const profile = loadProfile('lyn', 'web', f.installAnchor, f.root)
+    const profile = loadProfile('dsh', 'web', f.installAnchor, f.root)
     expect(profile.layers.map(layer => layer.packageName)).toEqual(['bundle-b'])
-    expect(existsSync(join(profileDir, '.lyn-module-fallback'))).toBe(false)
+    expect(existsSync(join(profileDir, '.dsh-module-fallback'))).toBe(false)
     expect(existsSync(join(modules, plugin))).toBe(false)
     const resolution = await createRuntimeResolution({ installAnchor: f.installAnchor, profile, home: f.root })
     expect(resolution.entries.find(entry => entry.name === plugin)).toMatchObject({
@@ -1240,8 +1240,8 @@ describe('runtime resolution', { concurrent: false }, () => {
       packageName: 'my-bundle', packageDir: bundle,
       patchPaths: [join(bundle, 'cordis.patch.yml')], patches: [],
     })
-    const target = join(f.root, 'old-lyn', 'node_modules', 'bridge')
-    const owned = join(f.profile.dir, '.lyn-module-fallback', 'node_modules', 'bridge')
+    const target = join(f.root, 'old-dsh', 'node_modules', 'bridge')
+    const owned = join(f.profile.dir, '.dsh-module-fallback', 'node_modules', 'bridge')
     const projected = join(f.profile.dir, 'node_modules', 'bridge')
     pkg(target, 'bridge', 9)
     mkdirSync(dirname(owned), { recursive: true })
@@ -1257,7 +1257,7 @@ describe('runtime resolution', { concurrent: false }, () => {
 
   it.each(lookupMatrix())('$title', async (matrixCase) => {
     const { importer, kind, layers, form } = matrixCase
-    const name = { installation: '@lyness/lyn-core', bundle: 'bridge', unlisted: 'left-pad' }[kind]
+    const name = { installation: '@deepseek-ai/dsh-core', bundle: 'bridge', unlisted: 'left-pad' }[kind]
     const f = fixture()
     const pluginDir = join(f.profile.dir, 'node_modules', 'my-plugin')
     pkg(pluginDir, 'my-plugin', 0)
@@ -1270,7 +1270,7 @@ describe('runtime resolution', { concurrent: false }, () => {
       patchPaths: [join(bundleDir, 'cordis.patch.yml')], patches: [],
     })
     file(join(f.profile.dir, 'package.json'), JSON.stringify({
-      name: 'lyn-profile-web', private: true, dependencies: { 'my-plugin': '*', 'my-bundle': '*' },
+      name: 'dsh-profile-web', private: true, dependencies: { 'my-plugin': '*', 'my-bundle': '*' },
     }))
     const logical: Record<LookupLayer, string> = {
       private: join(pluginDir, 'node_modules', name),
@@ -1326,7 +1326,7 @@ describe('runtime resolution', { concurrent: false }, () => {
   })
 
   it('uses shared packages in the canonicalized profiles tree before its ancestors', async () => {
-    const root = realpathSync.native(mkdtempSync(join(tmpdir(), 'lyn-profile-resolution-symlink-')))
+    const root = realpathSync.native(mkdtempSync(join(tmpdir(), 'dsh-profile-resolution-symlink-')))
     roots.push(root)
     const carrier = join(root, 'carrier')
     const profilesDir = join(root, 'home', 'profiles')
@@ -1438,14 +1438,14 @@ describe('runtime resolution', { concurrent: false }, () => {
     parent.paths = internal.Module._nodeModulePaths(f.profile.dir)
     const originalChildren = [...parent.children]
 
-    expect(internal.Module._resolveFilename('@lyness/lyn-core', parent, false)).toBe(join(f.installed, 'index.cjs'))
+    expect(internal.Module._resolveFilename('@deepseek-ai/dsh-core', parent, false)).toBe(join(f.installed, 'index.cjs'))
     expect(parent.children).toEqual(originalChildren)
   })
 
   it('reports routed CommonJS failures with the native require stack', async () => {
     const f = fixture()
     file(join(f.installed, 'package.json'), JSON.stringify({
-      name: '@lyness/lyn-core', version: '1.0.0', type: 'module', main: './index.cjs',
+      name: '@deepseek-ai/dsh-core', version: '1.0.0', type: 'module', main: './index.cjs',
     }))
     const resolution = await createRuntimeResolution({
       installAnchor: f.installAnchor,
@@ -1453,11 +1453,11 @@ describe('runtime resolution', { concurrent: false }, () => {
       home: f.root,
     })
     const nativeRequire = createRequire(join(f.profile.dir, 'entry-native.cjs'))
-    const nativeError = thrownError(() => nativeRequire.resolve('@lyness/lyn-core/missing.cjs'))
+    const nativeError = thrownError(() => nativeRequire.resolve('@deepseek-ai/dsh-core/missing.cjs'))
     const registration = installRuntimeInterception(resolution)
     registrations.push(registration)
     const runtimeRequire = createRequire(join(f.profile.dir, 'entry-runtime.cjs'))
-    const runtimeError = thrownError(() => runtimeRequire.resolve('@lyness/lyn-core/missing.cjs'))
+    const runtimeError = thrownError(() => runtimeRequire.resolve('@deepseek-ai/dsh-core/missing.cjs'))
 
     expect(runtimeError.requireStack).toEqual([
       join(f.profile.dir, 'entry-runtime.cjs'),
@@ -1479,7 +1479,7 @@ describe('runtime resolution', { concurrent: false }, () => {
     registrations.push(registration)
 
     expect(thrownMessage(() => resolveFrom('unavailable-lib', parent))).toBe(nativeMessage)
-    expect(thrownMessage(() => resolveFrom('@lyness/lyn-core/private', parent)))
+    expect(thrownMessage(() => resolveFrom('@deepseek-ai/dsh-core/private', parent)))
       .toContain(` imported from ${fileURLToPath(parent)}`)
   })
 
@@ -1494,11 +1494,11 @@ describe('runtime resolution', { concurrent: false }, () => {
       const missing = thrownError(() => resolveFrom('unavailable-lib', parent))
       expect(missing).toMatchObject({ code: 'ERR_MODULE_NOT_FOUND', message: nativeMessage })
       expect(missing.stack).toContain(nativeMessage)
-      const unexported = thrownError(() => resolveFrom('@lyness/lyn-core/private', parent))
+      const unexported = thrownError(() => resolveFrom('@deepseek-ai/dsh-core/private', parent))
       expect(unexported.code).toBe('ERR_PACKAGE_PATH_NOT_EXPORTED')
       expect(unexported.message).toContain(` imported from ${fileURLToPath(parent)}`)
       expect(unexported.stack).toContain(unexported.message)
-      const imported = importFrom('@lyness/lyn-core/private', parent)
+      const imported = importFrom('@deepseek-ai/dsh-core/private', parent)
       await expect(imported).rejects.toMatchObject({ code: 'ERR_PACKAGE_PATH_NOT_EXPORTED' })
       await expect(imported).rejects.toThrow(` imported from ${fileURLToPath(parent)}`)
     } finally {
@@ -1515,12 +1515,12 @@ describe('runtime resolution', { concurrent: false }, () => {
     })
     file(join(f.installed, 'package.json'), '{')
     const parent = pathToFileURL(join(f.profile.dir, 'entry.mjs')).href
-    expect(() => resolveFrom('@lyness/lyn-core', pathToFileURL(f.installAnchor).href))
+    expect(() => resolveFrom('@deepseek-ai/dsh-core', pathToFileURL(f.installAnchor).href))
       .toThrow(/Invalid package config/u)
     const registration = installRuntimeInterception(resolution)
     registrations.push(registration)
 
-    expect(() => resolveFrom('@lyness/lyn-core', parent)).toThrow(/Invalid package config/u)
+    expect(() => resolveFrom('@deepseek-ai/dsh-core', parent)).toThrow(/Invalid package config/u)
   })
 
   it('does not fall back after Node selects a broken profile-local package', async () => {
@@ -1541,28 +1541,28 @@ describe('runtime resolution', { concurrent: false }, () => {
   it('does not fall back after the resolution selects a missing exports target', async () => {
     const f = fixture()
     file(join(f.installed, 'package.json'), JSON.stringify({
-      name: '@lyness/lyn-core', version: '1.0.0', type: 'module', exports: './missing.cjs',
+      name: '@deepseek-ai/dsh-core', version: '1.0.0', type: 'module', exports: './missing.cjs',
     }))
-    pkg(join(f.root, 'node_modules', '@lyness/lyn-core'), '@lyness/lyn-core', 2)
+    pkg(join(f.root, 'node_modules', '@deepseek-ai/dsh-core'), '@deepseek-ai/dsh-core', 2)
     const registration = installRuntimeInterception(await resolutionOf(f))
     registrations.push(registration)
 
-    expect(() => createRequire(join(f.profile.dir, 'entry.cjs')).resolve('@lyness/lyn-core'))
+    expect(() => createRequire(join(f.profile.dir, 'entry.cjs')).resolve('@deepseek-ai/dsh-core'))
       .toThrow(/Cannot find module/u)
   })
 
   it('does not fall back after the resolution selects a missing legacy main', async () => {
     const f = fixture()
     file(join(f.installed, 'package.json'), JSON.stringify({
-      name: '@lyness/lyn-core', version: '1.0.0', type: 'module', main: './missing.cjs',
+      name: '@deepseek-ai/dsh-core', version: '1.0.0', type: 'module', main: './missing.cjs',
     }))
     unlinkSync(join(f.installed, 'index.cjs'))
     unlinkSync(join(f.installed, 'index.js'))
-    pkg(join(f.root, 'node_modules', '@lyness/lyn-core'), '@lyness/lyn-core', 2)
+    pkg(join(f.root, 'node_modules', '@deepseek-ai/dsh-core'), '@deepseek-ai/dsh-core', 2)
     const registration = installRuntimeInterception(await resolutionOf(f))
     registrations.push(registration)
 
-    expect(() => createRequire(join(f.profile.dir, 'entry.cjs')).resolve('@lyness/lyn-core'))
+    expect(() => createRequire(join(f.profile.dir, 'entry.cjs')).resolve('@deepseek-ai/dsh-core'))
       .toThrow(/valid "main" entry/u)
   })
 
@@ -1591,21 +1591,21 @@ describe('runtime resolution', { concurrent: false }, () => {
   it('rejects changing an existing package mapping without publishing it', async () => {
     const f = fixture()
     const second = join(f.root, 'second')
-    pkg(second, '@lyness/lyn-core', 2)
+    pkg(second, '@deepseek-ai/dsh-core', 2)
     const first = await resolutionOf(f)
     const registration = installRuntimeInterception(first)
     registrations.push(registration)
-    const alias = join(f.root, 'lyn-core-alias')
+    const alias = join(f.root, 'dsh-core-alias')
     symlinkSync(f.installed, alias, process.platform === 'win32' ? 'junction' : 'dir')
     registration.replace({
       ...first,
-      entries: first.entries.map(entry => entry.name === '@lyness/lyn-core'
+      entries: first.entries.map(entry => entry.name === '@deepseek-ai/dsh-core'
         ? { ...entry, packageDir: alias }
         : entry),
     })
     const changed = {
       ...first,
-      entries: first.entries.map(entry => entry.name === '@lyness/lyn-core'
+      entries: first.entries.map(entry => entry.name === '@deepseek-ai/dsh-core'
         ? { ...entry, packageDir: second, version: '2.0.0', declarer: join(second, 'package.json') }
         : entry),
     }
@@ -1613,16 +1613,16 @@ describe('runtime resolution', { concurrent: false }, () => {
     expect(() => {
       registration.replace({
         ...first,
-        entries: first.entries.map(entry => entry.name === '@lyness/lyn-core'
+        entries: first.entries.map(entry => entry.name === '@deepseek-ai/dsh-core'
           ? { ...entry, version: '9.0.0' }
           : entry),
       })
     }).toThrow(/requires a process restart/u)
     expect(() => {
-      registration.replace({ ...first, localPackageNames: ['@lyness/lyn-core'] })
+      registration.replace({ ...first, localPackageNames: ['@deepseek-ai/dsh-core'] })
     }).toThrow(/requires a process restart/u)
     expect(() => {
-      registration.replace({ ...first, entries: first.entries.filter(entry => entry.name !== '@lyness/lyn-core') })
+      registration.replace({ ...first, entries: first.entries.filter(entry => entry.name !== '@deepseek-ai/dsh-core') })
     }).toThrow(/requires a process restart/u)
     expect(() => {
       registration.replace({ ...first, profilesDir: join(f.root, 'other-profiles') })
@@ -1639,7 +1639,7 @@ describe('runtime resolution', { concurrent: false }, () => {
       registration.replace({ ...withLocal, linkedRoots: [{ ...linked, realPath: join(f.root, 'work', 'b') }] })
     }).toThrow(/relinking "linked-plugin" requires a process restart/u)
     expect(registration.packageDir(
-      '@lyness/lyn-core', pathToFileURL(join(f.profile.dir, 'entry.mjs')).href,
+      '@deepseek-ai/dsh-core', pathToFileURL(join(f.profile.dir, 'entry.mjs')).href,
     )).toBe(f.installed)
   })
 
@@ -1663,7 +1663,7 @@ describe('runtime resolution', { concurrent: false }, () => {
     expect(registration.packageDir('#internal', profileParent)).toBeUndefined()
     expect(registration.packageDir('@scope', profileParent)).toBeUndefined()
     expect(registration.packageDir('node:fs', profileParent)).toBeUndefined()
-    expect(registration.packageDir('@lyness/lyn-core/private', profileParent)).toBe(f.installed)
+    expect(registration.packageDir('@deepseek-ai/dsh-core/private', profileParent)).toBe(f.installed)
     expect(registration.packageDir('outside-lib', outsideParent)).toBe(outsidePackage)
     expect(registration.packageDir('outside-lib', outsideParent)).toBe(outsidePackage)
     expect(registration.packageDir('@scope/outside', outsideParent)).toBe(scopedPackage)
@@ -1686,14 +1686,14 @@ describe('runtime resolution', { concurrent: false }, () => {
       home: f.root,
     })).rejects.toThrow()
     expect(registration.packageDir(
-      '@lyness/lyn-core', pathToFileURL(join(f.profile.dir, 'entry.mjs')).href,
+      '@deepseek-ai/dsh-core', pathToFileURL(join(f.profile.dir, 'entry.mjs')).href,
     )).toBe(f.installed)
   })
 
   it('publishes and restores the resolution inherited by owned Workers', async () => {
     const f = fixture()
     const resolution = await resolutionOf(f)
-    const key = '@lyness/lyn-app-boot/profile-resolution'
+    const key = '@deepseek-ai/dsh-app-boot/profile-resolution'
     const previous = getEnvironmentData(key)
     const dispose = registerWorkerResolution(resolution)
     try {
@@ -1853,7 +1853,7 @@ describe('runtime resolution', { concurrent: false }, () => {
   )
 
   /** A plugin repository linked into the profile, with the manifest a plugin developer keeps for type checking. */
-  function linkedPluginFixture(peerDependencies: Record<string, string> | undefined = { '@lyness/lyn-core': '*' }): {
+  function linkedPluginFixture(peerDependencies: Record<string, string> | undefined = { '@deepseek-ai/dsh-core': '*' }): {
     f: ReturnType<typeof fixture>
     linkedRoot: string
     helper: string
@@ -1861,8 +1861,8 @@ describe('runtime resolution', { concurrent: false }, () => {
   } {
     const f = fixture()
     const installDir = dirname(f.installAnchor)
-    pkg(installDir, '@lyness/lyn', 0, { '@lyness/lyn-core': '*', '@lyness/lyn-util': '*' })
-    pkg(join(installDir, 'node_modules', '@lyness', 'lyn-util'), '@lyness/lyn-util', 2)
+    pkg(installDir, '@deepseek-ai/dsh', 0, { '@deepseek-ai/dsh-core': '*', '@deepseek-ai/dsh-util': '*' })
+    pkg(join(installDir, 'node_modules', '@deepseek-ai', 'dsh-util'), '@deepseek-ai/dsh-util', 2)
     const linkedRoot = join(f.root, 'work', 'my-plugin')
     const writeManifest = (peers: Record<string, string> | undefined): void => {
       file(join(linkedRoot, 'package.json'), JSON.stringify({
@@ -1870,24 +1870,24 @@ describe('runtime resolution', { concurrent: false }, () => {
         version: '30.0.0',
         type: 'module',
         exports: { import: './index.js', require: './index.cjs' },
-        imports: { '#core': '@lyness/lyn-core' },
-        dependencies: { 'zod': '*', '@lyness/lyn-util': '*', 'helper': '*' },
+        imports: { '#core': '@deepseek-ai/dsh-core' },
+        dependencies: { 'zod': '*', '@deepseek-ai/dsh-util': '*', 'helper': '*' },
         ...(peers === undefined ? {} : { peerDependencies: peers }),
-        devDependencies: { '@lyness/lyn-core': '*' },
+        devDependencies: { '@deepseek-ai/dsh-core': '*' },
       }))
     }
     writeManifest(peerDependencies)
     file(join(linkedRoot, 'index.js'), 'export const marker = 30\n')
     file(join(linkedRoot, 'index.cjs'), 'module.exports = { marker: 30 }\n')
-    // The devDependency copy a type checker needs, the plugin's own third-party version, and a lyn package
+    // The devDependency copy a type checker needs, the plugin's own third-party version, and a dsh package
     // declared as a plain dependency.
-    pkg(join(linkedRoot, 'node_modules', '@lyness', 'lyn-core'), '@lyness/lyn-core', 21)
+    pkg(join(linkedRoot, 'node_modules', '@deepseek-ai', 'dsh-core'), '@deepseek-ai/dsh-core', 21)
     pkg(join(linkedRoot, 'node_modules', 'zod'), 'zod', 22)
-    pkg(join(linkedRoot, 'node_modules', '@lyness', 'lyn-util'), '@lyness/lyn-util', 23)
+    pkg(join(linkedRoot, 'node_modules', '@deepseek-ai', 'dsh-util'), '@deepseek-ai/dsh-util', 23)
     pkg(join(f.root, 'work', 'node_modules', 'left-pad'), 'left-pad', 24)
     // A transitive dependency in pnpm's isolated layout, with a sibling of its own.
     const helper = join(linkedRoot, 'node_modules', '.pnpm', 'helper@1.0.0', 'node_modules', 'helper')
-    pkg(helper, 'helper', 25, { sibling: '*' }, { '@lyness/lyn-core': '*' })
+    pkg(helper, 'helper', 25, { sibling: '*' }, { '@deepseek-ai/dsh-core': '*' })
     pkg(join(dirname(helper), 'sibling'), 'sibling', 26)
     const linkType = process.platform === 'win32' ? 'junction' : 'dir'
     symlinkSync(helper, join(linkedRoot, 'node_modules', 'helper'), linkType)
@@ -1895,18 +1895,18 @@ describe('runtime resolution', { concurrent: false }, () => {
     mkdirSync(modules, { recursive: true })
     symlinkSync(linkedRoot, join(modules, 'my-plugin'), linkType)
     file(join(f.profile.dir, 'package.json'), JSON.stringify({
-      name: 'lyn-profile-web', private: true, dependencies: { 'my-plugin': '*' },
+      name: 'dsh-profile-web', private: true, dependencies: { 'my-plugin': '*' },
     }))
     return { f, linkedRoot, helper, writeManifest }
   }
 
   describe('linked root generations', () => {
-    const peer = '@lyness/lyn-core'
+    const peer = '@deepseek-ai/dsh-core'
 
     function unsavedFixture(): ReturnType<typeof linkedPluginFixture> {
       const result = linkedPluginFixture()
       file(join(result.f.profile.dir, 'package.json'), JSON.stringify({
-        name: 'lyn-profile-web', private: true, dependencies: {},
+        name: 'dsh-profile-web', private: true, dependencies: {},
       }))
       return result
     }
@@ -2209,8 +2209,8 @@ describe('runtime resolution', { concurrent: false }, () => {
       const { f, linkedRoot } = linkedPluginFixture()
       const intermediate = join(linkedRoot, directory)
       const queries = [
-        ['@lyness/lyn-core', 41],
-        ['@lyness/lyn-util', 42],
+        ['@deepseek-ai/dsh-core', 41],
+        ['@deepseek-ai/dsh-util', 42],
         ['left-pad', 43],
       ] as const
       for (const [name, marker] of queries) pkg(join(intermediate, 'node_modules', name), name, marker)
@@ -2260,7 +2260,7 @@ describe('runtime resolution', { concurrent: false }, () => {
         selected: join(installDir, 'node_modules', 'outer-peer'), marker: 3,
       },
     ]
-    pkg(installDir, '@lyness/lyn', 0, Object.fromEntries(queries.map(({ name }) => [name, '*'])))
+    pkg(installDir, '@deepseek-ai/dsh', 0, Object.fromEntries(queries.map(({ name }) => [name, '*'])))
     for (const [index, query] of queries.entries()) {
       pkg(join(installDir, 'node_modules', query.name), query.name, index + 1)
       pkg(query.nativeDir, query.name, query.nativeMarker)
@@ -2305,10 +2305,10 @@ describe('runtime resolution', { concurrent: false }, () => {
 
   it.each(['host', 'dependency', 'workspace-logical', 'workspace-real'] as const)(
     'keeps %s importers native inside a wide linked root', async (importer) => {
-      const name = '@lyness/lyn-core'
+      const name = '@deepseek-ai/dsh-core'
       const f = fixture(name)
       const installDir = dirname(f.installAnchor)
-      pkg(installDir, '@lyness/lyn', 0, {
+      pkg(installDir, '@deepseek-ai/dsh', 0, {
         [name]: '*', 'host-consumer': '*', 'workspace-consumer': '*',
       })
       const hostSource = join(installDir, 'src')
@@ -2396,13 +2396,13 @@ describe('runtime resolution', { concurrent: false }, () => {
       expect(registration.packageDir(name, from.parent), name).toBe(dir)
     }
     // The peer comes from the running installation; its devDependency copy is never read.
-    await expectResolution('@lyness/lyn-core', f.installed, 1)
+    await expectResolution('@deepseek-ai/dsh-core', f.installed, 1)
     // A cache-busting query on the importer, as hot module replacement re-imports it, changes nothing.
-    expect(resolveFrom('@lyness/lyn-core', `${parent}?t=1`)).toBe(pathToFileURL(join(f.installed, 'index.js')).href)
+    expect(resolveFrom('@deepseek-ai/dsh-core', `${parent}?t=1`)).toBe(pathToFileURL(join(f.installed, 'index.js')).href)
     expect(resolveFrom('zod', `${parent}?t=1`)).toBe(pathToFileURL(join(linkedRoot, 'node_modules', 'zod', 'index.js')).href)
-    // Plain dependencies keep the plugin's own copies, including a lyn package declared as one.
+    // Plain dependencies keep the plugin's own copies, including a dsh package declared as one.
     await expectResolution('zod', join(linkedRoot, 'node_modules', 'zod'), 22)
-    await expectResolution('@lyness/lyn-util', join(linkedRoot, 'node_modules', '@lyness', 'lyn-util'), 23)
+    await expectResolution('@deepseek-ai/dsh-util', join(linkedRoot, 'node_modules', '@deepseek-ai', 'dsh-util'), 23)
     // An undeclared name without an entry follows the real ancestor chain.
     await expectResolution('left-pad', join(f.root, 'work', 'node_modules', 'left-pad'), 24)
     // Package imports and self-references keep their Node semantics inside the linked package.
@@ -2413,7 +2413,7 @@ describe('runtime resolution', { concurrent: false }, () => {
     // A transitive dependency sees its own local layer first and the linked package's peers at the layer above.
     const helperImporter = { require: createRequire(join(helper, 'entry.cjs')), parent: pathToFileURL(join(helper, 'entry.mjs')).href }
     await expectResolution('sibling', join(dirname(helper), 'sibling'), 26, helperImporter)
-    await expectResolution('@lyness/lyn-core', f.installed, 1, helperImporter)
+    await expectResolution('@deepseek-ai/dsh-core', f.installed, 1, helperImporter)
     // The profile still reaches the linked plugin through Node's own symlink handling.
     const profileRequire = createRequire(join(f.profile.dir, 'entry.cjs'))
     expect(profileRequire.resolve('my-plugin')).toBe(join(linkedRoot, 'index.cjs'))
@@ -2423,23 +2423,23 @@ describe('runtime resolution', { concurrent: false }, () => {
 
   it('continues above a linked plugin after a CommonJS subpath miss in an occupied peer', async () => {
     const { f, linkedRoot } = linkedPluginFixture()
-    file(join(f.installed, 'package.json'), JSON.stringify({ name: '@lyness/lyn-core', version: '1.0.0', main: './index.cjs' }))
-    const above = join(f.root, 'work', 'node_modules', '@lyness', 'lyn-core')
-    file(join(above, 'package.json'), JSON.stringify({ name: '@lyness/lyn-core', version: '3.0.0' }))
+    file(join(f.installed, 'package.json'), JSON.stringify({ name: '@deepseek-ai/dsh-core', version: '1.0.0', main: './index.cjs' }))
+    const above = join(f.root, 'work', 'node_modules', '@deepseek-ai', 'dsh-core')
+    file(join(above, 'package.json'), JSON.stringify({ name: '@deepseek-ai/dsh-core', version: '3.0.0' }))
     file(join(above, 'sub.cjs'), 'module.exports = { marker: 3 }\n')
-    file(join(linkedRoot, 'node_modules', '@lyness', 'lyn-core', 'sub.cjs'), 'module.exports = { marker: 21 }\n')
+    file(join(linkedRoot, 'node_modules', '@deepseek-ai', 'dsh-core', 'sub.cjs'), 'module.exports = { marker: 21 }\n')
     const registration = installRuntimeInterception(await resolutionOf(f))
     registrations.push(registration)
     const require = createRequire(join(linkedRoot, 'entry.cjs'))
-    expect(require.resolve('@lyness/lyn-core')).toBe(join(f.installed, 'index.cjs'))
+    expect(require.resolve('@deepseek-ai/dsh-core')).toBe(join(f.installed, 'index.cjs'))
     // The occupied name never falls back to the devDependency copy at the same layer.
-    expect(require.resolve('@lyness/lyn-core/sub.cjs')).toBe(join(above, 'sub.cjs'))
-    expect(require('@lyness/lyn-core/sub.cjs')).toEqual({ marker: 3 })
+    expect(require.resolve('@deepseek-ai/dsh-core/sub.cjs')).toBe(join(above, 'sub.cjs'))
+    expect(require('@deepseek-ai/dsh-core/sub.cjs')).toEqual({ marker: 3 })
   })
 
   it('preserves the native require stack for a missing linked legacy subpath', async () => {
     const { f, linkedRoot } = linkedPluginFixture()
-    const name = '@lyness/lyn-core'
+    const name = '@deepseek-ai/dsh-core'
     file(join(f.installed, 'package.json'), JSON.stringify({
       name, version: '1.0.0', type: 'module', main: './index.cjs',
     }))
@@ -2468,35 +2468,35 @@ describe('runtime resolution', { concurrent: false }, () => {
     const { f, linkedRoot, writeManifest } = linkedPluginFixture({})
     const registration = installRuntimeInterception(await resolutionOf(f))
     registrations.push(registration)
-    const devCopy = join(linkedRoot, 'node_modules', '@lyness', 'lyn-core')
+    const devCopy = join(linkedRoot, 'node_modules', '@deepseek-ai', 'dsh-core')
     const require = createRequire(join(linkedRoot, 'entry.cjs'))
     const parent = pathToFileURL(join(linkedRoot, 'entry.mjs')).href
-    expect(require.resolve('@lyness/lyn-core')).toBe(join(devCopy, 'index.cjs'))
-    expect(resolveFrom('@lyness/lyn-core', parent)).toBe(pathToFileURL(join(devCopy, 'index.js')).href)
-    expect(registration.packageDir('@lyness/lyn-core', parent)).toBe(devCopy)
+    expect(require.resolve('@deepseek-ai/dsh-core')).toBe(join(devCopy, 'index.cjs'))
+    expect(resolveFrom('@deepseek-ai/dsh-core', parent)).toBe(pathToFileURL(join(devCopy, 'index.js')).href)
+    expect(registration.packageDir('@deepseek-ai/dsh-core', parent)).toBe(devCopy)
 
-    writeManifest({ '@lyness/lyn-core': '*' })
+    writeManifest({ '@deepseek-ai/dsh-core': '*' })
     // No memo holds for a linked importer, and the occupied name delegates from the entry's declaring manifest,
     // a parent Node has never resolved this request from.
-    expect(require.resolve('@lyness/lyn-core')).toBe(join(f.installed, 'index.cjs'))
-    expect(registration.packageDir('@lyness/lyn-core', parent)).toBe(f.installed)
-    expect(resolveFrom('@lyness/lyn-core', parent)).toBe(pathToFileURL(join(f.installed, 'index.js')).href)
-    expect(await importFrom('@lyness/lyn-core', parent)).toMatchObject({ marker: 1 })
+    expect(require.resolve('@deepseek-ai/dsh-core')).toBe(join(f.installed, 'index.cjs'))
+    expect(registration.packageDir('@deepseek-ai/dsh-core', parent)).toBe(f.installed)
+    expect(resolveFrom('@deepseek-ai/dsh-core', parent)).toBe(pathToFileURL(join(f.installed, 'index.js')).href)
+    expect(await importFrom('@deepseek-ai/dsh-core', parent)).toMatchObject({ marker: 1 })
 
     writeManifest({})
-    expect(require.resolve('@lyness/lyn-core')).toBe(join(devCopy, 'index.cjs'))
-    expect(resolveFrom('@lyness/lyn-core', parent)).toBe(pathToFileURL(join(devCopy, 'index.js')).href)
-    expect(registration.packageDir('@lyness/lyn-core', parent)).toBe(devCopy)
+    expect(require.resolve('@deepseek-ai/dsh-core')).toBe(join(devCopy, 'index.cjs'))
+    expect(resolveFrom('@deepseek-ai/dsh-core', parent)).toBe(pathToFileURL(join(devCopy, 'index.js')).href)
+    expect(registration.packageDir('@deepseek-ai/dsh-core', parent)).toBe(devCopy)
     writeManifest(undefined)
-    expect(require.resolve('@lyness/lyn-core')).toBe(join(devCopy, 'index.cjs'))
+    expect(require.resolve('@deepseek-ai/dsh-core')).toBe(join(devCopy, 'index.cjs'))
     // Without a manifest the linked package occupies nothing.
     rmSync(join(linkedRoot, 'package.json'))
-    expect(require.resolve('@lyness/lyn-core')).toBe(join(devCopy, 'index.cjs'))
+    expect(require.resolve('@deepseek-ai/dsh-core')).toBe(join(devCopy, 'index.cjs'))
   })
 
   it('reads ancestor peer declarations at every linked resolution', async () => {
     const { f, linkedRoot } = linkedPluginFixture({})
-    const name = '@lyness/lyn-core'
+    const name = '@deepseek-ai/dsh-core'
     rmSync(join(linkedRoot, 'node_modules', name), { recursive: true })
     const ancestor = dirname(linkedRoot)
     const ancestorCopy = join(ancestor, 'node_modules', name)
@@ -2530,9 +2530,9 @@ describe('runtime resolution', { concurrent: false }, () => {
     const registration = installRuntimeInterception(await resolutionOf(f))
     registrations.push(registration)
     const require = createRequire(join(f.profile.dir, 'entry.cjs'))
-    expect(require.resolve('@lyness/lyn-core')).toBe(join(f.installed, 'index.cjs'))
+    expect(require.resolve('@deepseek-ai/dsh-core')).toBe(join(f.installed, 'index.cjs'))
     registration.dispose()
     registrations.pop()
-    expect(() => { require.resolve('@lyness/lyn-core') }).toThrow(/Cannot find module/u)
+    expect(() => { require.resolve('@deepseek-ai/dsh-core') }).toThrow(/Cannot find module/u)
   })
 })

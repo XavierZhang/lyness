@@ -11,20 +11,20 @@
  * subagent, a scheduled follow-up — is the deployment itself rather than
  * somebody browsing it.
  *
- * @module @lyness/lyn-session-ownership/visibility
+ * @module @deepseek-ai/dsh-session-ownership/visibility
  */
 
-import { Service } from '@lyness/cordis'
-import type { Context } from '@lyness/cordis'
-import type { Session, SessionHeader } from '@lyness/lyn-session'
-import type {} from '@lyness/lyn-session-projection'
-import type {} from '@lyness/lyn-session-projection-cache'
-import type {} from '@lyness/lyn-request-principal'
-import type { PersonId, Role } from '@lyness/lyn-people'
+import { Service } from '@deepseek-ai/cordis'
+import type { Context } from '@deepseek-ai/cordis'
+import type { Session, SessionHeader } from '@deepseek-ai/dsh-session'
+import type {} from '@deepseek-ai/dsh-session-projection'
+import type {} from '@deepseek-ai/dsh-session-projection-cache'
+import type {} from '@deepseek-ai/dsh-request-principal'
+import type { PersonId, Role } from '@deepseek-ai/dsh-people'
 import type { SessionOwnerRecord } from './types.ts'
 import { applyOwnerEvent, ownerOf } from './index.ts'
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     /** Whose conversations the call in progress may see; absent where a deployment has no accounts. */
     sessionVisibility: SessionVisibility

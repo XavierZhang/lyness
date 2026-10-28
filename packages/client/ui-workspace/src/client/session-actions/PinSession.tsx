@@ -8,7 +8,7 @@
  */
 import {
   IconPinFillRegular, IconPinOutlineRegular, MenuItemButton, Tooltip,
-} from '@lyness/lyn-client-ui-primitives'
+} from '@deepseek-ai/dsh-client-ui-primitives'
 import type { PinSessionInjected, SessionMenuItemProps, SessionRowActionProps } from '../contract/slots.ts'
 import css from '../rows/Rows.module.css'
 

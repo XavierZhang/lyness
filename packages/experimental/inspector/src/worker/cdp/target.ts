@@ -22,11 +22,11 @@ export function handleScaffold(
   target: CdpTargetDescriptor,
 ): object | typeof CDP_METHOD_NOT_HANDLED {
   const frame = {
-    id: 'lyn-inspector-host-frame',
-    loaderId: 'lyn-inspector-loader',
-    url: 'lyn://host',
+    id: 'dsh-inspector-host-frame',
+    loaderId: 'dsh-inspector-loader',
+    url: 'dsh://host',
     domainAndRegistry: '',
-    securityOrigin: 'lyn://host',
+    securityOrigin: 'dsh://host',
     mimeType: 'text/html',
     secureContextType: 'Secure',
     crossOriginIsolatedContextType: 'NotIsolated',
@@ -66,9 +66,9 @@ export function handleScaffold(
     case 'Browser.getVersion':
       return {
         protocolVersion: '1.3',
-        product: 'lyn-experimental-inspector/0',
+        product: 'dsh-experimental-inspector/0',
         revision: '@experimental',
-        userAgent: 'lyn-experimental-inspector',
+        userAgent: 'dsh-experimental-inspector',
         jsVersion: process.versions.v8,
       }
     default:

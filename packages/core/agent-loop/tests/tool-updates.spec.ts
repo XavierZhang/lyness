@@ -1,14 +1,14 @@
 /** The loop logs tool changes as developer messages and carries session tool history to the runtime. */
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import AgentRegistry, { type Agent } from '@lyness/lyn-agent'
-import AgentLoop from '@lyness/lyn-agent-loop'
-import LlmRuntime, { createUserMessage } from '@lyness/lyn-llm'
-import type { GenerateOptions } from '@lyness/lyn-llm'
-import SessionStore, { SessionId } from '@lyness/lyn-session'
-import SessionProjectionRegistry from '@lyness/lyn-session-projection'
-import SystemPrompt from '@lyness/lyn-system-prompt'
-import ToolRuntime, { defineContentToolFixture } from '@lyness/lyn-tools'
+import { Context } from '@deepseek-ai/cordis'
+import AgentRegistry, { type Agent } from '@deepseek-ai/dsh-agent'
+import AgentLoop from '@deepseek-ai/dsh-agent-loop'
+import LlmRuntime, { createUserMessage } from '@deepseek-ai/dsh-llm'
+import type { GenerateOptions } from '@deepseek-ai/dsh-llm'
+import SessionStore, { SessionId } from '@deepseek-ai/dsh-session'
+import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
+import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
+import ToolRuntime, { defineContentToolFixture } from '@deepseek-ai/dsh-tools'
 import { MockAdapter, textResponse } from './mock-adapter.ts'
 
 const contexts: Context[] = []

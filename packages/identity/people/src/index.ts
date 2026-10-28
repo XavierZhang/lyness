@@ -11,17 +11,17 @@
  * against the role this directory reports — a directory that also authorized
  * would put every rule in one place and none of them where it is enforced.
  *
- * @module @lyness/lyn-people
+ * @module @deepseek-ai/dsh-people
  */
 
-import { Service } from '@lyness/cordis'
-import type { Context } from '@lyness/cordis'
+import { Service } from '@deepseek-ai/cordis'
+import type { Context } from '@deepseek-ai/cordis'
 import type { Membership, MembershipId, Person, PersonId, Role } from './types.ts'
 
 export type { ActingContext, Membership, MembershipId, Person, PersonId, Role } from './types.ts'
 export { ROLES } from './types.ts'
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     /** People and their standing in an organization; absent on a deployment with no identities. */
     people: PeopleDirectory

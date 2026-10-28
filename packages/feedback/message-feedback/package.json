@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/lyn-message-feedback",
+  "name": "@deepseek-ai/dsh-message-feedback",
   "description": "Canonical Session-log ratings and notes for finalized assistant messages",
   "version": "0.1.7-rc.2",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/feedback/message-feedback"
   },
   "type": "module",
@@ -44,28 +44,28 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/lyn-brand": "workspace:*",
-    "@lyness/lyn-llm": "workspace:*",
-    "@lyness/lyn-session": "workspace:*",
-    "@lyness/lyn-session-persistence": "workspace:*",
-    "@lyness/lyn-typert-protocol": "workspace:*",
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-command-feedback": "workspace:*"
+    "@deepseek-ai/dsh-brand": "workspace:*",
+    "@deepseek-ai/dsh-llm": "workspace:*",
+    "@deepseek-ai/dsh-session": "workspace:*",
+    "@deepseek-ai/dsh-session-persistence": "workspace:*",
+    "@deepseek-ai/dsh-typert-protocol": "workspace:*",
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-command-feedback": "workspace:*"
   },
   "dependencies": {
-    "@lyness/schemastery": "workspace:~",
+    "@deepseek-ai/schemastery": "workspace:~",
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@lyness/cordis-plugin-include": "workspace:~",
-    "@lyness/cordis-plugin-loader": "workspace:~",
-    "@lyness/lyn-brand": "workspace:*",
-    "@lyness/lyn-llm": "workspace:*",
-    "@lyness/lyn-session": "workspace:*",
-    "@lyness/lyn-session-persistence": "workspace:*",
-    "@lyness/lyn-session-persistence-jsonl": "workspace:*",
-    "@lyness/lyn-typert-protocol": "workspace:*",
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-command-feedback": "workspace:*"
+    "@deepseek-ai/cordis-plugin-include": "workspace:~",
+    "@deepseek-ai/cordis-plugin-loader": "workspace:~",
+    "@deepseek-ai/dsh-brand": "workspace:*",
+    "@deepseek-ai/dsh-llm": "workspace:*",
+    "@deepseek-ai/dsh-session": "workspace:*",
+    "@deepseek-ai/dsh-session-persistence": "workspace:*",
+    "@deepseek-ai/dsh-session-persistence-jsonl": "workspace:*",
+    "@deepseek-ai/dsh-typert-protocol": "workspace:*",
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-command-feedback": "workspace:*"
   }
 }

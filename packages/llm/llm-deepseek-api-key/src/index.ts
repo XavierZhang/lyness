@@ -1,9 +1,9 @@
 /** API-key authentication and discovery for the official DeepSeek route. */
-import type { Context } from '@lyness/cordis'
-import { assertUsableApiKey, LlmError } from '@lyness/lyn-llm'
-import type {} from '@lyness/cordis-plugin-loader'
-import { launchEnvironmentOf } from '@lyness/lyn-launch-environment'
-import { registerDeepSeekProvider, catalogModelInfo } from '@lyness/lyn-llm-deepseek'
+import type { Context } from '@deepseek-ai/cordis'
+import { assertUsableApiKey, LlmError } from '@deepseek-ai/dsh-llm'
+import type {} from '@deepseek-ai/cordis-plugin-loader'
+import { launchEnvironmentOf } from '@deepseek-ai/dsh-launch-environment'
+import { registerDeepSeekProvider, catalogModelInfo } from '@deepseek-ai/dsh-llm-deepseek'
 import { Config, plainOptions, resolveAdapterOptions } from './config.ts'
 import type { ResolvedDeepSeekOptions } from './config.ts'
 

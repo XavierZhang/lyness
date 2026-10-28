@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/lyn-api-bots-controller",
+  "name": "@deepseek-ai/dsh-api-bots-controller",
   "description": "Remote owner of the bots surface: administrators maintain which bots their organization runs and what each one runs with",
   "version": "0.1.7-rc.2",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/api/bots-controller"
   },
   "type": "module",
@@ -44,28 +44,28 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-agent-preset-registry": "workspace:*",
-    "@lyness/lyn-brand": "workspace:*",
-    "@lyness/lyn-managed-bots": "workspace:*",
-    "@lyness/lyn-people": "workspace:*",
-    "@lyness/lyn-request-principal": "workspace:*",
-    "@lyness/lyn-typert-protocol": "workspace:*",
-    "@lyness/lyn-util-values": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-agent-preset-registry": "workspace:*",
+    "@deepseek-ai/dsh-brand": "workspace:*",
+    "@deepseek-ai/dsh-managed-bots": "workspace:*",
+    "@deepseek-ai/dsh-people": "workspace:*",
+    "@deepseek-ai/dsh-request-principal": "workspace:*",
+    "@deepseek-ai/dsh-typert-protocol": "workspace:*",
+    "@deepseek-ai/dsh-util-values": "workspace:*"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-admin-audit": "workspace:*",
-    "@lyness/lyn-agent-preset-registry": "workspace:*",
-    "@lyness/lyn-brand": "workspace:*",
-    "@lyness/lyn-managed-bots": "workspace:*",
-    "@lyness/lyn-managed-people": "workspace:*",
-    "@lyness/lyn-people": "workspace:*",
-    "@lyness/lyn-request-principal": "workspace:*",
-    "@lyness/lyn-storage": "workspace:*",
-    "@lyness/lyn-storage-domain": "workspace:*",
-    "@lyness/lyn-storage-json": "workspace:*",
-    "@lyness/lyn-typert-protocol": "workspace:*",
-    "@lyness/lyn-util-values": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-admin-audit": "workspace:*",
+    "@deepseek-ai/dsh-agent-preset-registry": "workspace:*",
+    "@deepseek-ai/dsh-brand": "workspace:*",
+    "@deepseek-ai/dsh-managed-bots": "workspace:*",
+    "@deepseek-ai/dsh-managed-people": "workspace:*",
+    "@deepseek-ai/dsh-people": "workspace:*",
+    "@deepseek-ai/dsh-request-principal": "workspace:*",
+    "@deepseek-ai/dsh-storage": "workspace:*",
+    "@deepseek-ai/dsh-storage-domain": "workspace:*",
+    "@deepseek-ai/dsh-storage-json": "workspace:*",
+    "@deepseek-ai/dsh-typert-protocol": "workspace:*",
+    "@deepseek-ai/dsh-util-values": "workspace:*"
   }
 }

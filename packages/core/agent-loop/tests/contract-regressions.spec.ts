@@ -1,20 +1,20 @@
 import { describe, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import LlmRuntime, { type RequestMessage, createUserMessage, ToolCallId, LlmError, MessageSource, ProviderRequestId, StreamChunk  } from '@lyness/lyn-llm'
-import type { ContextFormed } from '@lyness/lyn-llm'
-import SessionStore, { Session, SessionEvent, SessionId, TurnEndReason, type UserMessage } from '@lyness/lyn-session'
-import SystemPrompt from '@lyness/lyn-system-prompt'
-import ToolRuntime, { defineContentToolFixture, type PostToolDecision } from '@lyness/lyn-tools'
-import AgentRegistry, { type Agent } from '@lyness/lyn-agent'
-import AgentLoop from '@lyness/lyn-agent-loop'
-import SessionProjectionRegistry from '@lyness/lyn-session-projection'
-import InvariantRegistry from '@lyness/lyn-invariants'
-import * as SessionInvariant from '@lyness/lyn-session/invariant'
-import * as AgentInvariant from '@lyness/lyn-agent/invariant'
-import * as AgentLoopInvariant from '@lyness/lyn-agent-loop/invariant'
+import { Context } from '@deepseek-ai/cordis'
+import LlmRuntime, { type RequestMessage, createUserMessage, ToolCallId, LlmError, MessageSource, ProviderRequestId, StreamChunk  } from '@deepseek-ai/dsh-llm'
+import type { ContextFormed } from '@deepseek-ai/dsh-llm'
+import SessionStore, { Session, SessionEvent, SessionId, TurnEndReason, type UserMessage } from '@deepseek-ai/dsh-session'
+import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
+import ToolRuntime, { defineContentToolFixture, type PostToolDecision } from '@deepseek-ai/dsh-tools'
+import AgentRegistry, { type Agent } from '@deepseek-ai/dsh-agent'
+import AgentLoop from '@deepseek-ai/dsh-agent-loop'
+import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
+import InvariantRegistry from '@deepseek-ai/dsh-invariants'
+import * as SessionInvariant from '@deepseek-ai/dsh-session/invariant'
+import * as AgentInvariant from '@deepseek-ai/dsh-agent/invariant'
+import * as AgentLoopInvariant from '@deepseek-ai/dsh-agent-loop/invariant'
 import { MockAdapter, textResponse, toolCallResponse } from './mock-adapter.ts'
 
-declare module '@lyness/lyn-llm' {
+declare module '@deepseek-ai/dsh-llm' {
   interface MessageSourceMap {
     'test': { kind: 'test' } & ContextFormed
   }
@@ -1020,7 +1020,7 @@ describe('turn and step boundary recovery', () => {
     expect(adapter.requests).toHaveLength(1)
     expect(errors.map(error => error.message)).toEqual([
       'reject first step-end',
-      'invariant violated by "@lyness/lyn-session": turn/end 1 while step 1 is still open',
+      'invariant violated by "@deepseek-ai/dsh-session": turn/end 1 while step 1 is still open',
     ])
     expect(boundaryCounts(agent)).toMatchObject({
       turnStart: 1,

@@ -6,11 +6,11 @@
  */
 import type {
   ModelCatalogFailure, ModelProviderGroup, ModelSelection, ModelSelectionProjection,
-} from '@lyness/lyn-api-session-controller/types'
-import type { SessionId } from '@lyness/lyn-api-remotes/client'
-import type { RemoteResult, TypertClientRemote } from '@lyness/lyn-typert-protocol'
-import type { ObservableSnapshot, SnapshotStore } from '@lyness/lyn-client-store'
-import { createSnapshotStore } from '@lyness/lyn-client-store'
+} from '@deepseek-ai/dsh-api-session-controller/types'
+import type { SessionId } from '@deepseek-ai/dsh-api-remotes/client'
+import type { RemoteResult, TypertClientRemote } from '@deepseek-ai/dsh-typert-protocol'
+import type { ObservableSnapshot, SnapshotStore } from '@deepseek-ai/dsh-client-store'
+import { createSnapshotStore } from '@deepseek-ai/dsh-client-store'
 import type { ModelCatalogDirectory } from './catalog.ts'
 
 /** Directory snapshot both entries render from. */

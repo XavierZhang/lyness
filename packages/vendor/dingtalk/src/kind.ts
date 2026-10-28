@@ -7,13 +7,13 @@
  * configures nothing by itself — a deployment with this row and no configured
  * instance offers no DingTalk sign-in at all.
  *
- * @module @lyness/lyn-dingtalk/kind
+ * @module @deepseek-ai/dsh-dingtalk/kind
  */
 
-import type { Context } from '@lyness/cordis'
-import type { ChannelKind, ConfiguredChannel } from '@lyness/lyn-sign-in/kinds'
-import { chosen, identityOf, offering } from '@lyness/lyn-sign-in/kinds'
-import type { SignInChannel } from '@lyness/lyn-sign-in'
+import type { Context } from '@deepseek-ai/cordis'
+import type { ChannelKind, ConfiguredChannel } from '@deepseek-ai/dsh-sign-in/kinds'
+import { chosen, identityOf, offering } from '@deepseek-ai/dsh-sign-in/kinds'
+import type { SignInChannel } from '@deepseek-ai/dsh-sign-in'
 import { DISPLAY_NAME, DingtalkChannel } from './index.ts'
 
 /** Cordis plugin name used by loader diagnostics. */

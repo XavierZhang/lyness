@@ -1,7 +1,7 @@
 /** Workspace command implementation and stable Remote failure mapping. */
 
-import type { Context } from '@lyness/cordis'
-import type { Workspace } from '@lyness/lyn-workspace'
+import type { Context } from '@deepseek-ai/cordis'
+import type { Workspace } from '@deepseek-ai/dsh-workspace'
 import {
   WorkspaceActiveSessionError,
   WorkspaceArchivedSessionPinError,
@@ -9,8 +9,8 @@ import {
   WorkspaceMoveInvalidError,
   WorkspaceOrderInvalidError,
   WorkspaceUnknownSessionError,
-} from '@lyness/lyn-workspace'
-import { RemoteError, remoteErrorOf } from '@lyness/lyn-typert-protocol'
+} from '@deepseek-ai/dsh-workspace'
+import { RemoteError, remoteErrorOf } from '@deepseek-ai/dsh-typert-protocol'
 import { workspaceView } from './feed.ts'
 import { keepVisible, names, visibleSessions } from './visible-sessions.ts'
 import type {

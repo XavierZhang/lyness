@@ -1,4 +1,4 @@
-import * as Protocol from '@lyness/lyn-llm-deepseek'
+import * as Protocol from '@deepseek-ai/dsh-llm-deepseek'
 /**
  * Real Messages round trips use the official root and require credentials.
  * System-update checks additionally require DEEPSEEK_IN_HISTORY_MODEL.
@@ -9,17 +9,17 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { createRequire } from 'node:module'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { Context, LoggerLevel } from '@lyness/cordis'
-import Loader from '@lyness/cordis-plugin-loader'
-import AgentRegistry from '@lyness/lyn-agent'
-import LocalAttachments from '@lyness/lyn-attachment-local'
-import DeepSeekLlmApiExtensionRegistry from '@lyness/lyn-deepseek-llm-api-extensions'
-import LlmRuntime, { BlockAssembler, createAssistantMessage, createSystemMessage, createToolResultMessage, ReasoningEffortId, ToolCallId } from '@lyness/lyn-llm'
-import type { Message } from '@lyness/lyn-llm'
-import * as PluginPackageInventoryDeepSeek from '@lyness/lyn-plugin-package-inventory-deepseek'
-import SessionStore, { SessionId } from '@lyness/lyn-session'
-import * as SessionLogDeepSeek from '@lyness/lyn-session-log-deepseek'
-import * as Messages from '@lyness/lyn-llm-deepseek-api-key'
+import { Context, LoggerLevel } from '@deepseek-ai/cordis'
+import Loader from '@deepseek-ai/cordis-plugin-loader'
+import AgentRegistry from '@deepseek-ai/dsh-agent'
+import LocalAttachments from '@deepseek-ai/dsh-attachment-local'
+import DeepSeekLlmApiExtensionRegistry from '@deepseek-ai/dsh-deepseek-llm-api-extensions'
+import LlmRuntime, { BlockAssembler, createAssistantMessage, createSystemMessage, createToolResultMessage, ReasoningEffortId, ToolCallId } from '@deepseek-ai/dsh-llm'
+import type { Message } from '@deepseek-ai/dsh-llm'
+import * as PluginPackageInventoryDeepSeek from '@deepseek-ai/dsh-plugin-package-inventory-deepseek'
+import SessionStore, { SessionId } from '@deepseek-ai/dsh-session'
+import * as SessionLogDeepSeek from '@deepseek-ai/dsh-session-log-deepseek'
+import * as Messages from '@deepseek-ai/dsh-llm-deepseek-api-key'
 import { DeepSeekFilesClient } from '../src/files-api.ts'
 import { MESSAGES_FILES_BETA } from '../src/messages-api.ts'
 import { assemble, options, user, sourceModuleLoader } from './helpers.ts'
@@ -32,9 +32,9 @@ afterEach(async () => {
   vi.unstubAllGlobals()
 })
 async function boot(models?: Messages.Options['models']) {
-  const home = await mkdtemp(join(tmpdir(), 'lyn-messages-e2e-'))
+  const home = await mkdtemp(join(tmpdir(), 'dsh-messages-e2e-'))
   cleanups.push(() => rm(home, { recursive: true, force: true }))
-  vi.stubEnv('LYNESS_HOME', home)
+  vi.stubEnv('DSH_HOME', home)
   const ctx = new Context()
   cleanups.push(() => ctx.fiber.dispose())
   await ctx.plugin(LlmRuntime)
@@ -148,12 +148,12 @@ describe.skipIf(!process.env.DEEPSEEK_API_KEY)('DeepSeek Messages real API', () 
     ctx.baseUrl = import.meta.url
     // Select the source module while Loader owns its active package entry.
     ctx.loader.internal = sourceModuleLoader(async (specifier) => {
-      if (specifier !== '@lyness/lyn-plugin-package-inventory-deepseek') throw new Error(`unexpected Loader import: ${specifier}`)
+      if (specifier !== '@deepseek-ai/dsh-plugin-package-inventory-deepseek') throw new Error(`unexpected Loader import: ${specifier}`)
       return PluginPackageInventoryDeepSeek
     })
-    await ctx.loader.create({ name: '@lyness/lyn-plugin-package-inventory-deepseek' })
+    await ctx.loader.create({ name: '@deepseek-ai/dsh-plugin-package-inventory-deepseek' })
     await ctx.loader.await()
-    const packagePath = createRequire(import.meta.url).resolve('@lyness/lyn-plugin-package-inventory-deepseek/package.json')
+    const packagePath = createRequire(import.meta.url).resolve('@deepseek-ai/dsh-plugin-package-inventory-deepseek/package.json')
     const packageIdentity = JSON.parse(await readFile(packagePath, 'utf8')) as { name: string; version: string }
     const session = ctx.sessions.create(SessionId(`real-messages-extensions-${randomUUID()}`))
     session.append('turn/start', { turn: 1 })
@@ -166,16 +166,16 @@ describe.skipIf(!process.env.DEEPSEEK_API_KEY)('DeepSeek Messages real API', () 
       if (url !== `${Protocol.PUBLIC_BASE_URL}/v1/messages`) return fetchImpl(input, init)
       if (typeof init?.body !== 'string') throw new Error('expected a JSON Messages request')
       const body = JSON.parse(init.body) as Record<string, unknown>
-      expect(body).toMatchObject({ dsh_plugin_packages: {
+      expect(body).toMatchObject({  deepseek-request-field plugin_packages: {
         version: 1, packages: [{ name: packageIdentity.name, version: packageIdentity.version }],
       } })
       if (enabled) {
-        expect(body).toMatchObject({ dsh_session_log: {
+        expect(body).toMatchObject({  deepseek-request-field session_log: {
           version: 1, sessionFormatVersion: session.header.version, session: { id: session.id },
           afterSeq, throughSeq,
           events: Array.from({ length: throughSeq - afterSeq }, (_, index) => ({ seq: afterSeq + index + 1 })),
         } })
-      } else expect(body).not.toHaveProperty('dsh_session_log')
+      } else expect(body).not.toHaveProperty(' deepseek-request-field session_log')
       expect(SessionLogDeepSeek.acceptedThrough(session)).toBe(afterSeq)
       const response = await fetchImpl(input, init)
       expect(response.ok).toBe(true)

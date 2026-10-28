@@ -1,8 +1,8 @@
 /** Browser-session authentication for the Host Connection carrier. */
 
 import { createHash, createHmac, randomBytes, timingSafeEqual } from 'node:crypto'
-import { credentialKey } from '@lyness/lyn-credentials'
-import type { CredentialProvider, CredentialRecord } from '@lyness/lyn-credentials'
+import { credentialKey } from '@deepseek-ai/dsh-credentials'
+import type { CredentialProvider, CredentialRecord } from '@deepseek-ai/dsh-credentials'
 import type {
   ConnectionIndexRequest,
   ConnectionIndexResponse,
@@ -13,7 +13,7 @@ const AUTH_RECORD_KEY = credentialKey('client-connection', 'browser-session')
 const DAY_MILLISECONDS = 24 * 60 * 60 * 1000
 const SECRET_BYTES = 32
 const TOKEN_QUERY = 'token'
-const COOKIE_PREFIX = 'lyn-auth-'
+const COOKIE_PREFIX = 'dsh-auth-'
 const COOKIE_PAYLOAD_VERSION = 1
 const STORED_SECRET_VERSION = 1
 const BASE64URL_PATTERN = /^[A-Za-z0-9_-]*$/
@@ -237,7 +237,7 @@ export class BrowserAuth {
    */
   authorizeIndex(req: ConnectionIndexRequest, res: ConnectionIndexResponse): boolean {
     /* v8 ignore next -- node:http always supplies url on server requests. */
-    const url = new URL(req.url ?? '/', 'http://lyn.invalid')
+    const url = new URL(req.url ?? '/', 'http://dsh.invalid')
     const tokens = url.searchParams.getAll(TOKEN_QUERY)
     if (tokens.length > 0) {
       const authority = requestAuthority(req.headers)
@@ -306,6 +306,6 @@ export class BrowserAuth {
     })
     res.end(req.method === 'HEAD'
       ? undefined
-      : 'lyn web authentication required; reopen the URL printed by lyn web.\n')
+      : 'dsh web authentication required; reopen the URL printed by dsh web.\n')
   }
 }

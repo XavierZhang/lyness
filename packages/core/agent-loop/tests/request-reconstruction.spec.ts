@@ -6,20 +6,20 @@
  */
 
 import { describe, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import LlmRuntime, { createUserMessage, LlmError, ReasoningEffortId  } from '@lyness/lyn-llm'
-import type { GenerateOptions, LlmModelReasoningInfo, LlmResolvedModelInfo, StreamChunk } from '@lyness/lyn-llm'
-import type { ContextFormed } from '@lyness/lyn-llm'
-import SessionStore, { Session, SessionId, foldRequestHeader } from '@lyness/lyn-session'
-import SystemPrompt from '@lyness/lyn-system-prompt'
-import ToolRuntime, { defineContentToolFixture } from '@lyness/lyn-tools'
-import AgentRegistry, { type Agent } from '@lyness/lyn-agent'
+import { Context } from '@deepseek-ai/cordis'
+import LlmRuntime, { createUserMessage, LlmError, ReasoningEffortId  } from '@deepseek-ai/dsh-llm'
+import type { GenerateOptions, LlmModelReasoningInfo, LlmResolvedModelInfo, StreamChunk } from '@deepseek-ai/dsh-llm'
+import type { ContextFormed } from '@deepseek-ai/dsh-llm'
+import SessionStore, { Session, SessionId, foldRequestHeader } from '@deepseek-ai/dsh-session'
+import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
+import ToolRuntime, { defineContentToolFixture } from '@deepseek-ai/dsh-tools'
+import AgentRegistry, { type Agent } from '@deepseek-ai/dsh-agent'
 
-import AgentLoop from '@lyness/lyn-agent-loop'
-import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import AgentLoop from '@deepseek-ai/dsh-agent-loop'
+import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
 import { MockAdapter, textResponse, toolCallResponse } from './mock-adapter.ts'
 
-declare module '@lyness/lyn-llm' {
+declare module '@deepseek-ai/dsh-llm' {
   interface MessageSourceMap {
     'outer-wrapper': { kind: 'outer-wrapper' } & ContextFormed
     'test': { kind: 'test' } & ContextFormed

@@ -3,5 +3,5 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "lyn": { "bundle": { "patch": "./cordis.patch.yml" } }
+  "dsh": { "bundle": { "patch": "./cordis.patch.yml" } }
 }

@@ -3,7 +3,7 @@ description: "The one-shot Claude Code subagent provider for users and maintaine
 kind: "package-bundle"
 ---
 
-# @lyness/lyn-subagent-claude-code
+# @deepseek-ai/dsh-subagent-claude-code
 
 English | [中文](README.zh.md)
 
@@ -32,9 +32,9 @@ Mount this provider when a delegation should run as a real Claude Code session i
 Install the package into the target Profile, then restart that Profile. The installation brings the pinned Agent SDK and one compatible platform CLI payload into the Profile; the declared patch layer registers only the dormant provider and starts no Claude process.
 
 ```sh
-lyn plugin --profile <name> add @lyness/lyn-subagent-claude-code
-lyn plugin --profile <name> remove @lyness/lyn-subagent-claude-code
-lyn --profile <name>
+dsh plugin --profile <name> add @deepseek-ai/dsh-subagent-claude-code
+dsh plugin --profile <name> remove @deepseek-ai/dsh-subagent-claude-code
+dsh --profile <name>
 ```
 
 Removing the package withdraws the provider and its private runtime closure on the next Profile start. Installation controls Host availability, not model permission: the model can only reach the provider through a delegation tool row you compose.
@@ -57,7 +57,7 @@ Removing the package withdraws the provider and its private runtime closure on t
 | `plan` | Run in native planning mode, deny execution approval, and return the completed plan as the final answer |
 | `bypassPermissions` | Explicitly set the SDK's dangerous confirmation and bypass permission checks |
 
-The generated [configuration catalog](../../../docs/config-catalog.md#lynesslyn-subagent-claude-code) is the exhaustive source for every accepted field and its JSDoc. A configured `model` passes unchanged to every query from that provider instance; omission leaves native model selection in force. Credential-shaped ambient variables are removed before the explicit `env` overlay, so an API key intended for the child must be supplied there. The provider omits the SDK `settingSources` option, so Claude Code reads the host's normal user, project, and local settings relative to the parent Session cwd. It does not copy or filter those files, create or modify login state, inspect `PATH`, or fall back to a host `claude` executable.
+The generated [configuration catalog](../../../docs/config-catalog.md#deepseek-aidsh-subagent-claude-code) is the exhaustive source for every accepted field and its JSDoc. A configured `model` passes unchanged to every query from that provider instance; omission leaves native model selection in force. Credential-shaped ambient variables are removed before the explicit `env` overlay, so an API key intended for the child must be supplied there. The provider omits the SDK `settingSources` option, so Claude Code reads the host's normal user, project, and local settings relative to the parent Session cwd. It does not copy or filter those files, create or modify login state, inspect `PATH`, or fall back to a host `claude` executable.
 
 ### Exposing the tool
 
@@ -65,11 +65,11 @@ Each delegation tool row names one provider and needs its own `toolName`, so the
 
 ```yaml
 - id: jobs
-  name: '@lyness/lyn-jobs-local'
+  name: '@deepseek-ai/dsh-jobs-local'
 - id: tool-jobs
-  name: '@lyness/lyn-tool-jobs'
+  name: '@deepseek-ai/dsh-tool-jobs'
 - id: tool-subagent-claude
-  name: '@lyness/lyn-tool-subagent'
+  name: '@deepseek-ai/dsh-tool-subagent'
   config:
     provider: claude-code
     toolName: subagent_claude_code
@@ -126,10 +126,10 @@ A start accepts only a non-empty sequence of text blocks and derives the child c
 Read these pages when the package-level contract is not enough. They move from this provider to the seam it plugs into and the sibling product provider.
 
 - [Subagent subsystem](../../../docs/subsystems/subagent.md) — the service contract, provider contract, and terminal result semantics.
-- [lyn-subagent seam](../subagent/README.md) — the registry and start API this provider registers on.
+- [dsh-subagent seam](../subagent/README.md) — the registry and start API this provider registers on.
 - [Codex subagent provider](../subagent-codex/README.md) — the sibling product backend over the official app-server protocol.
 - [Claude Code and Codex backends](../../../.agents/notes/implemented/feature/2026-08-04-claude-code-and-codex-subagent-backends.md) — the design record for the product providers.
-- [Generated configuration catalog](../../../docs/config-catalog.md#lynesslyn-subagent-claude-code) — every accepted config field and its source declaration.
+- [Generated configuration catalog](../../../docs/config-catalog.md#deepseek-aidsh-subagent-claude-code) — every accepted config field and its source declaration.
 
 -----
 
@@ -154,7 +154,7 @@ Independent of the parent request cache. Reuse depends only on Claude Code's own
 
 #### What the model sees
 
-Through `lyn-tool-subagent`, a foreground call gives the parent the strict final Claude Code answer or an error containing the stop reason and optional safe diagnostic for a non-completed result. That diagnostic can distinguish a coarse action category, lifecycle stage, and observed process outcome without copying raw product text or version-specific subtype names. A background call first returns a Job id; the generic job controls later deliver a completion notice, expose the same final answer or failed status detail through `job_output`, and let `job_kill` request cancellation. Claude Code reasoning, tool activity, intermediate messages, stderr, workspace diffs, usage, product ids, tool inputs, and raw protocol payloads are not copied into the parent Session.
+Through `dsh-tool-subagent`, a foreground call gives the parent the strict final Claude Code answer or an error containing the stop reason and optional safe diagnostic for a non-completed result. That diagnostic can distinguish a coarse action category, lifecycle stage, and observed process outcome without copying raw product text or version-specific subtype names. A background call first returns a Job id; the generic job controls later deliver a completion notice, expose the same final answer or failed status detail through `job_output`, and let `job_kill` request cancellation. Claude Code reasoning, tool activity, intermediate messages, stderr, workspace diffs, usage, product ids, tool inputs, and raw protocol payloads are not copied into the parent Session.
 
 #### Token effect
 

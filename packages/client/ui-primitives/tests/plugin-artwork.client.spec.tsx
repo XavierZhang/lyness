@@ -4,7 +4,7 @@ import { afterEach, describe, expect, it } from 'vitest'
 import {
   GuideArtworkBrowser, GuideArtworkFiles,
   PluginArtworkDefault, PluginArtworkLoop, PluginArtworkSearch, PluginArtworkSubagent, PluginArtworkTerminal,
-} from '@lyness/lyn-client-ui-primitives'
+} from '@deepseek-ai/dsh-client-ui-primitives'
 
 afterEach(cleanup)
 

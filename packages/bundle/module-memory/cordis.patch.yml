@@ -3,12 +3,12 @@
 # by restating a preset's whole row list
 # (../../../.agents/notes/proposed/architecture/2026-10-10-preset-row-contributions.md).
 #
-# Both rows name `@lyness/lyn-memory`, which resolves wherever the service
+# Both rows name `@deepseek-ai/dsh-memory`, which resolves wherever the service
 # does. A bundle that named itself would also have to be resolvable as a
 # module, which a patch-carrying bundle otherwise never needs to be.
 - insert:
     - id: memory
-      name: '@lyness/lyn-memory'
+      name: '@deepseek-ai/dsh-memory'
 
     - id: memory-preset-contribution
-      name: '@lyness/lyn-memory/preset-contribution'
+      name: '@deepseek-ai/dsh-memory/preset-contribution'

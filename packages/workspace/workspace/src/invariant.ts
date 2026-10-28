@@ -1,14 +1,14 @@
 /**
- * Package-owned invariant companion for `@lyness/lyn-workspace`.
- * @module @lyness/lyn-workspace/invariant
+ * Package-owned invariant companion for `@deepseek-ai/dsh-workspace`.
+ * @module @deepseek-ai/dsh-workspace/invariant
  */
 
-import type { Context } from '@lyness/cordis'
-import type { InvariantInstaller } from '@lyness/lyn-invariants'
-import type { DomainChanged } from '@lyness/lyn-storage-domain'
-import { WorkspaceId } from '@lyness/lyn-workspace'
+import type { Context } from '@deepseek-ai/cordis'
+import type { InvariantInstaller } from '@deepseek-ai/dsh-invariants'
+import type { DomainChanged } from '@deepseek-ai/dsh-storage-domain'
+import { WorkspaceId } from '@deepseek-ai/dsh-workspace'
 
-const PACKAGE_NAME = '@lyness/lyn-workspace'
+const PACKAGE_NAME = '@deepseek-ai/dsh-workspace'
 
 /** Cordis companion plugin name. */
 export const name = 'workspace-invariant'

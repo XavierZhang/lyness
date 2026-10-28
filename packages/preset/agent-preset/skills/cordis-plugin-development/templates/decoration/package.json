@@ -4,12 +4,12 @@
   "private": true,
   "type": "module",
   "exports": { ".": "./index.js", "./client": "./client.js" },
-  "lyn": {
+  "dsh": {
     "bundle": { "patch": "./cordis.patch.yml" },
     "client": {
       "platform": "web",
       "immediately": true,
-      "inject": ["@lyness/lyn-client-ui-conversation"]
+      "inject": ["@deepseek-ai/dsh-client-ui-conversation"]
     }
   }
 }

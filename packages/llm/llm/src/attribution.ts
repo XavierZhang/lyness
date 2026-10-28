@@ -4,7 +4,7 @@
  * `.agents/notes/implemented/architecture/2026-06-21-mandatory-app-attribution-headers.md`.
  *
  * App-attribution vocabulary for provider requests.
- * @module @lyness/lyn-llm/attribution
+ * @module @deepseek-ai/dsh-llm/attribution
  */
 
 import { createRequire } from 'node:module'
@@ -38,9 +38,9 @@ export interface AppIdentity {
  * can suppress attribution entirely.
  */
 export const APP_IDENTITY: AppIdentity = {
-  product: 'lyness',
+  product: 'HARNESS',
   version,
-  url: 'https://github.com/XavierZhang/lyness',
+  url: 'https://github.com/deepseek-ai/deepseek-harness',
 }
 
 /**

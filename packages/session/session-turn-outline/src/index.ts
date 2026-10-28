@@ -6,10 +6,10 @@
  * turn of a session and target history paging at exact seqs without holding
  * the events. The plugin owns only the fold; delivery is the seam's.
  *
- * @module @lyness/lyn-session-turn-outline
+ * @module @deepseek-ai/dsh-session-turn-outline
  */
 
-import type { Context } from '@lyness/cordis'
+import type { Context } from '@deepseek-ai/cordis'
 import { turnOutlineProjectionDefinition } from './projection.ts'
 
 export type * from './types.ts'

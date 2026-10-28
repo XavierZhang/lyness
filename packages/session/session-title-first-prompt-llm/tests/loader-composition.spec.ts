@@ -1,17 +1,17 @@
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import Loader from '@lyness/cordis-plugin-loader'
-import Include from '@lyness/cordis-plugin-include'
+import { Context } from '@deepseek-ai/cordis'
+import Loader from '@deepseek-ai/cordis-plugin-loader'
+import Include from '@deepseek-ai/cordis-plugin-include'
 import { mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
-import LlmRuntime, { createUserMessage, LlmAdapter  } from '@lyness/lyn-llm'
-import type { GenerateOptions, StreamChunk } from '@lyness/lyn-llm'
-import SessionStore, { SessionId } from '@lyness/lyn-session'
-import SessionProjectionRegistry from '@lyness/lyn-session-projection'
-import SessionTitleService from '@lyness/lyn-session-title'
-import * as providerPlugin from '@lyness/lyn-session-title-first-prompt-llm'
+import LlmRuntime, { createUserMessage, LlmAdapter  } from '@deepseek-ai/dsh-llm'
+import type { GenerateOptions, StreamChunk } from '@deepseek-ai/dsh-llm'
+import SessionStore, { SessionId } from '@deepseek-ai/dsh-session'
+import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
+import SessionTitleService from '@deepseek-ai/dsh-session-title'
+import * as providerPlugin from '@deepseek-ai/dsh-session-title-first-prompt-llm'
 
 let root: string | undefined
 let context: Context | undefined
@@ -34,18 +34,18 @@ afterEach(async () => {
 })
 
 async function loadComposition(): Promise<Context> {
-  root = await mkdtemp(join(tmpdir(), 'lyn-title-loader-'))
+  root = await mkdtemp(join(tmpdir(), 'dsh-title-loader-'))
   const configPath = join(root, 'cordis.yml')
   await writeFile(configPath, [
-    "- name: '@lyness/lyn-llm'",
-    "- name: '@lyness/lyn-session'",
-    "- name: '@lyness/lyn-session-projection'",
-    "- name: '@lyness/lyn-session-title'",
+    "- name: '@deepseek-ai/dsh-llm'",
+    "- name: '@deepseek-ai/dsh-session'",
+    "- name: '@deepseek-ai/dsh-session-projection'",
+    "- name: '@deepseek-ai/dsh-session-title'",
     '  config:',
     '    fallbackMaxWords: 5',
     '    fallbackMaxBytes: 40',
     '    maxTitleBytes: 80',
-    "- name: '@lyness/lyn-session-title-first-prompt-llm'",
+    "- name: '@deepseek-ai/dsh-session-title-first-prompt-llm'",
     '  config:',
     '    targetWords: 5',
     '    targetCjkCharacters: 10',
@@ -62,11 +62,11 @@ async function loadComposition(): Promise<Context> {
   await context.plugin(Loader)
   context.loader.builtins.include = Include
   const modules = new Map<string, unknown>([
-    ['@lyness/lyn-llm', LlmRuntime],
-    ['@lyness/lyn-session', SessionStore],
-    ['@lyness/lyn-session-projection', SessionProjectionRegistry],
-    ['@lyness/lyn-session-title', SessionTitleService],
-    ['@lyness/lyn-session-title-first-prompt-llm', providerPlugin],
+    ['@deepseek-ai/dsh-llm', LlmRuntime],
+    ['@deepseek-ai/dsh-session', SessionStore],
+    ['@deepseek-ai/dsh-session-projection', SessionProjectionRegistry],
+    ['@deepseek-ai/dsh-session-title', SessionTitleService],
+    ['@deepseek-ai/dsh-session-title-first-prompt-llm', providerPlugin],
   ])
   context.loader.internal = {
     version: 'v2',

@@ -1,8 +1,8 @@
 /** Host registry and HTTP adapter for generic Connection RPC channels. */
 
-import { Context, Service } from '@lyness/cordis'
-import type { WebRoute } from '@lyness/lyn-host-webserver'
-import type { PeerScope } from '@lyness/lyn-typert-protocol'
+import { Context, Service } from '@deepseek-ai/cordis'
+import type { WebRoute } from '@deepseek-ai/dsh-host-webserver'
+import type { PeerScope } from '@deepseek-ai/dsh-typert-protocol'
 import {
   RpcId,
   type ClientRequest,
@@ -53,7 +53,7 @@ interface ConnectionServerResponse {
   readonly result: ConnectionRpcResult<unknown>
 }
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     /** Host Connection transport and RPC registrations. */
     connection: HostConnectionHandle

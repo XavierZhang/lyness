@@ -3,19 +3,19 @@ import { existsSync, mkdirSync, mkdtempSync, realpathSync, rmSync } from 'node:f
 import { tmpdir } from 'node:os'
 import { basename, join } from 'node:path'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { Context } from '@lyness/cordis'
-import { brandString } from '@lyness/lyn-brand'
-import type { MembershipId, PersonId, Role } from '@lyness/lyn-people'
-import type { Principal } from '@lyness/lyn-request-principal'
-import SessionStore, { SessionId } from '@lyness/lyn-session'
-import SessionProjectionRegistry from '@lyness/lyn-session-projection'
-import * as SessionOwnership from '@lyness/lyn-session-ownership'
-import SessionVisibility from '@lyness/lyn-session-ownership/visibility'
-import Storage from '@lyness/lyn-storage'
-import { DomainFacility } from '@lyness/lyn-storage-domain'
-import { RemoteError } from '@lyness/lyn-typert-protocol'
-import WorkspaceRegistry from '@lyness/lyn-workspace'
-import type { WorkspaceId } from '@lyness/lyn-workspace/types'
+import { Context } from '@deepseek-ai/cordis'
+import { brandString } from '@deepseek-ai/dsh-brand'
+import type { MembershipId, PersonId, Role } from '@deepseek-ai/dsh-people'
+import type { Principal } from '@deepseek-ai/dsh-request-principal'
+import SessionStore, { SessionId } from '@deepseek-ai/dsh-session'
+import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
+import * as SessionOwnership from '@deepseek-ai/dsh-session-ownership'
+import SessionVisibility from '@deepseek-ai/dsh-session-ownership/visibility'
+import Storage from '@deepseek-ai/dsh-storage'
+import { DomainFacility } from '@deepseek-ai/dsh-storage-domain'
+import { RemoteError } from '@deepseek-ai/dsh-typert-protocol'
+import WorkspaceRegistry from '@deepseek-ai/dsh-workspace'
+import type { WorkspaceId } from '@deepseek-ai/dsh-workspace/types'
 import WorkspaceController from '../src/index.ts'
 import { DEFAULT_WORKSPACE_DIRECTORY } from '../src/default-workspace.ts'
 import { WorkspaceFeed } from '../src/feed.ts'
@@ -23,14 +23,14 @@ import type { WorkspaceFollowFrame } from '../src/types.ts'
 import { MemoryStorageBackend } from '../../../storage/storage-domain/tests/helpers/memory-backend.ts'
 
 // The controller relays whatever families the providers report; this suite merges its own.
-declare module '@lyness/lyn-workspace/types' {
+declare module '@deepseek-ai/dsh-workspace/types' {
   interface SessionActivityKindMap {
     probe: true
     'probe-items': true
   }
 }
 
-declare module '@lyness/lyn-typert-protocol' {
+declare module '@deepseek-ai/dsh-typert-protocol' {
   interface RemoteErrorDetailsMap {
     'fixture/failure': {}
   }
@@ -105,7 +105,7 @@ function accounts(ctx: Context, options: { corpus: boolean }): Accounts {
 }
 
 async function harness(options: { systemDocuments?: boolean; identity?: 'with-corpus' | 'no-corpus' } = {}) {
-  const root = realpathSync.native(mkdtempSync(join(tmpdir(), 'lyn-workspace-controller-')))
+  const root = realpathSync.native(mkdtempSync(join(tmpdir(), 'dsh-workspace-controller-')))
   tempDirs.push(root)
   const ctx = new Context()
   roots.push(ctx)
@@ -522,7 +522,7 @@ describe('first-use Remote', () => {
     const { controller, ctx, root } = await harness()
     const signal = new AbortController().signal
     const result = await controller.initializeDefault(signal)
-    expect(result!.workspace.path).toBe(join(root, 'lyness', DEFAULT_WORKSPACE_DIRECTORY))
+    expect(result!.workspace.path).toBe(join(root, 'HARNESS', DEFAULT_WORKSPACE_DIRECTORY))
     expect(result!.workspace.title).toBe(DEFAULT_WORKSPACE_DIRECTORY)
     expect(existsSync(result!.workspace.path)).toBe(true)
     expect(ctx.sessions.list()).toEqual([])

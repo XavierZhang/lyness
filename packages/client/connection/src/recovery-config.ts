@@ -1,5 +1,5 @@
 /** Shared validation for Host-configured and browser-local connection recovery. */
-import z from '@lyness/schemastery'
+import z from '@deepseek-ai/schemastery'
 
 /** Timing for generation readiness and automatic reconnection. */
 export interface ConnectionRecoveryConfig {

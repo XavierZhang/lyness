@@ -1,13 +1,13 @@
 /**
  * Agent-scoped consumers of the shared Host Schedule management service.
- * @module @lyness/lyn-schedule
+ * @module @deepseek-ai/dsh-schedule
  */
 
-import type { Context } from '@lyness/cordis'
-import type { Agent } from '@lyness/lyn-agent'
-import type { ContentBlock } from '@lyness/lyn-llm'
-import { defineTool } from '@lyness/lyn-tools'
-import type { GenericCallView } from '@lyness/lyn-tools'
+import type { Context } from '@deepseek-ai/cordis'
+import type { Agent } from '@deepseek-ai/dsh-agent'
+import type { ContentBlock } from '@deepseek-ai/dsh-llm'
+import { defineTool } from '@deepseek-ai/dsh-tools'
+import type { GenericCallView } from '@deepseek-ai/dsh-tools'
 import { MAX_TITLE_LENGTH, MIN_EVERY_INTERVAL_SECONDS, REQUIRED_TITLE_MESSAGE, ScheduleId, ScheduleInputError, scheduleView } from './domain.ts'
 import type {} from './index.ts'
 import type {

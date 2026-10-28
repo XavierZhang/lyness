@@ -1,13 +1,13 @@
 {
-  "name": "@lyness/lyn-http-proxy",
-  "description": "Process-wide outbound HTTP proxy policy for lyness: resolve it from the launch environment and install it as undici's global dispatcher",
+  "name": "@deepseek-ai/dsh-http-proxy",
+  "description": "Process-wide outbound HTTP proxy policy for DeepSeek Harness: resolve it from the launch environment and install it as undici's global dispatcher",
   "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/util/http-proxy"
   },
   "type": "module",
@@ -27,13 +27,13 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~"
+    "@deepseek-ai/cordis": "workspace:~"
   },
   "dependencies": {
     "undici": "^8.10.0"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-invariants": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-invariants": "workspace:*"
   }
 }

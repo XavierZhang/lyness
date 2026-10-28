@@ -87,7 +87,7 @@
   z-index: 1;
   display: flex;
   width: 800px;
-  height: min(800px, calc(100vh - 2 * max(24px, var(--lyn-frame-top-clearance, 24px))));
+  height: min(800px, calc(100vh - 2 * max(24px, var(--dsh-frame-top-clearance, 24px))));
   max-width: calc(100vw - 48px);
   border-radius: var(--dsw-radius-panel);
   overflow: hidden;
@@ -98,8 +98,8 @@
      elevation choice sits with the surface; the custom properties inherit
      down to whichever descendant scrolls (see ui-theme
      styles/scrollbar.css for the rebinding contract). */
-  --lyn-scrollbar-thumb: var(--dsw-alias-scrollbar-bg-l2);
-  --lyn-scrollbar-thumb-hover: var(--dsw-alias-scrollbar-hover-l2);
+  --dsh-scrollbar-thumb: var(--dsw-alias-scrollbar-bg-l2);
+  --dsh-scrollbar-thumb-hover: var(--dsw-alias-scrollbar-hover-l2);
 }
 
 .panel:focus {

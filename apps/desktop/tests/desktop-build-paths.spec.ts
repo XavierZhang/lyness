@@ -18,10 +18,10 @@ describe('desktop build paths', () => {
       'unsignedArtifacts',
       'runtime',
       'packageSet',
-      'lyn',
-      'lynPnpm',
+      'dsh',
+      'dshPnpm',
       'electron',
-      'packedLyn',
+      'packedDsh',
       'packedVendor',
       'packedLandlock',
     ] as const
@@ -30,7 +30,7 @@ describe('desktop build paths', () => {
       expect(new Set([arm64[key], x64[key], windows[key]]).size).toBe(3)
     }
     expect(arm64.artifacts).toContain(join('targets', 'mac-arm64', 'artifacts'))
-    expect(x64.lyn).toContain(join('targets', 'mac-x64', 'lyn'))
+    expect(x64.dsh).toContain(join('targets', 'mac-x64', 'dsh'))
     expect(windows.runtime).toContain(join('targets', 'win-x64', 'runtime'))
   })
 
@@ -59,8 +59,8 @@ describe('desktop build paths', () => {
 
   it('resolves environment overrides and rejects unsupported targets', () => {
     expect(resolveDesktopBuildTarget({
-      LYNESS_DESKTOP_TARGET_PLATFORM: 'darwin',
-      LYNESS_DESKTOP_TARGET_ARCH: 'x64',
+      DSH_DESKTOP_TARGET_PLATFORM: 'darwin',
+      DSH_DESKTOP_TARGET_ARCH: 'x64',
     }, 'darwin', 'arm64')).toBe('mac-x64')
     expect(resolveDesktopBuildTarget({}, 'win32', 'x64')).toBe('win-x64')
     expect(() => resolveDesktopBuildTarget({}, 'linux', 'x64')).toThrow(/unsupported target/u)

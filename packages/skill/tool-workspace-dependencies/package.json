@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/lyn-tool-workspace-dependencies",
+  "name": "@deepseek-ai/dsh-tool-workspace-dependencies",
   "description": "The load_workspace_dependencies tool: absolute paths into a bundled Python, Node.js, and pnpm payload",
   "version": "0.1.7-rc.2",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/skill/tool-workspace-dependencies"
   },
   "type": "module",
@@ -26,19 +26,19 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/lyn-tools": "workspace:*",
-    "@lyness/cordis": "workspace:~"
+    "@deepseek-ai/dsh-tools": "workspace:*",
+    "@deepseek-ai/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/lyn-tools": "workspace:*",
-    "@lyness/cordis": "workspace:~",
-    "@lyness/cordis-plugin-loader": "workspace:~",
-    "@lyness/cordis-plugin-include": "workspace:~",
-    "@lyness/lyn-agent": "workspace:*",
-    "@lyness/lyn-llm": "workspace:*",
-    "@lyness/lyn-system-prompt": "workspace:*"
+    "@deepseek-ai/dsh-tools": "workspace:*",
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/cordis-plugin-loader": "workspace:~",
+    "@deepseek-ai/cordis-plugin-include": "workspace:~",
+    "@deepseek-ai/dsh-agent": "workspace:*",
+    "@deepseek-ai/dsh-llm": "workspace:*",
+    "@deepseek-ai/dsh-system-prompt": "workspace:*"
   },
   "dependencies": {
-    "@lyness/schemastery": "workspace:~"
+    "@deepseek-ai/schemastery": "workspace:~"
   }
 }

@@ -3,7 +3,7 @@ description: "The deployment-owns-the-model module as its own bundle, failing cl
 kind: "package-bundle"
 ---
 
-# @lyness/lyn-module-model-governance
+# @deepseek-ai/dsh-module-model-governance
 
 English | [中文](README.zh.md)
 
@@ -49,9 +49,9 @@ The bundle is its patch document. `src/index.ts` exports nothing and exists beca
 
 | Row | Module | Role |
 |---|---|---|
-| `model-required` | `@lyness/lyn-model-required` | Refuses to serve when the route registry is empty at startup |
-| `model-policy` | `@lyness/lyn-model-policy/static` | The allowed list an administrator maintains |
-| `model-policy-enforce` | `@lyness/lyn-model-policy/enforce` | Refuses disallowed routes on the `llm/stream` waterfall |
+| `model-required` | `@deepseek-ai/dsh-model-required` | Refuses to serve when the route registry is empty at startup |
+| `model-policy` | `@deepseek-ai/dsh-model-policy/static` | The allowed list an administrator maintains |
+| `model-policy-enforce` | `@deepseek-ai/dsh-model-policy/enforce` | Refuses disallowed routes on the `llm/stream` waterfall |
 
 The property that matters most is that this fails **closed**, and it took a correction to get there. `model-policy` and `model-policy-enforce` are registered as required startup entries. Without that, a policy row that failed to activate left its enforcement waiting for a service that never arrived, and the deployment served *every* model instead of the ones it allowed — a misconfigured guard that widened access rather than stopping the startup. That was observed, not theorised: an empty `allowed` list produced a running server with no enforcement at all.
 
@@ -60,8 +60,8 @@ The property that matters most is that this fails **closed**, and it took a corr
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`lyn-model-policy`](../../llm/model-policy/README.md) — the seam, the static provider, and the enforcement.
-- [`lyn-model-required`](../../llm/model-required/README.md) — the startup guard and the narrow case it covers.
+- [`dsh-model-policy`](../../llm/model-policy/README.md) — the seam, the static provider, and the enforcement.
+- [`dsh-model-required`](../../llm/model-required/README.md) — the startup guard and the narrow case it covers.
 - [The model is a deployment decision](../../../.agents/notes/proposed/architecture/2026-10-14-the-model-is-a-deployment-decision.md) — why the shapes differ by template rather than by a runtime flag.
 
 -----

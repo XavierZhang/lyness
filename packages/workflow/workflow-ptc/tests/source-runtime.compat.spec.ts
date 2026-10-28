@@ -2,9 +2,9 @@
 import { readFile, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import SubagentRuntime from '@lyness/lyn-subagent'
-import type { SandboxMode } from '@lyness/lyn-sandbox'
+import { Context } from '@deepseek-ai/cordis'
+import SubagentRuntime from '@deepseek-ai/dsh-subagent'
+import type { SandboxMode } from '@deepseek-ai/dsh-sandbox'
 import PtcWorkflowEngine from '../src/index.ts'
 import { fakeParent, mountPtcRuntime } from './setup.ts'
 

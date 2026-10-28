@@ -1,11 +1,11 @@
-/** Package-owned scoped-dispatch invariants. @module @lyness/lyn-scope/invariant */
+/** Package-owned scoped-dispatch invariants. @module @deepseek-ai/dsh-scope/invariant */
 
-import type { Context } from '@lyness/cordis'
-import type { InvariantInstaller } from '@lyness/lyn-invariants'
-import { carrierKeyOf, isScopeCarrier } from '@lyness/lyn-scope'
+import type { Context } from '@deepseek-ai/cordis'
+import type { InvariantInstaller } from '@deepseek-ai/dsh-invariants'
+import { carrierKeyOf, isScopeCarrier } from '@deepseek-ai/dsh-scope'
 import { scopedSubjectResolverFor } from './scoped-events.generated.ts'
 
-const PACKAGE_NAME = '@lyness/lyn-scope'
+const PACKAGE_NAME = '@deepseek-ai/dsh-scope'
 
 /** Cordis companion plugin name. */
 export const name = 'scope-invariant'

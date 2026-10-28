@@ -1,11 +1,11 @@
 /**
  * Activation-local admission around one continuable subagent's Agent inbox.
  *
- * @module @lyness/lyn-subagent/inbox
+ * @module @deepseek-ai/dsh-subagent/inbox
  */
 
-import type { Agent } from '@lyness/lyn-agent'
-import type { UserMessage } from '@lyness/lyn-session'
+import type { Agent } from '@deepseek-ai/dsh-agent'
+import type { UserMessage } from '@deepseek-ai/dsh-session'
 import type { SubagentPromptRequest } from './control-types.ts'
 import { SubagentError } from './error.ts'
 

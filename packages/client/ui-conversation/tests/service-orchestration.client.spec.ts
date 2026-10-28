@@ -3,15 +3,15 @@
 // TestSessions mints tagged scopes through the production createScope, so the
 // service's scopeOf/binding path runs against production resolution (no local
 // tag probe).
-import type { UserMessage } from '@lyness/lyn-llm/types'
-import type { MessageId } from '@lyness/lyn-llm/brand'
-import { Context } from '@lyness/cordis'
+import type { UserMessage } from '@deepseek-ai/dsh-llm/types'
+import type { MessageId } from '@deepseek-ai/dsh-llm/brand'
+import { Context } from '@deepseek-ai/cordis'
 import { describe, expect, it, vi } from 'vitest'
-import { makeTranslate, RemoteError, SlotTestRuntime } from '@lyness/lyn-client-test-runtime'
+import { makeTranslate, RemoteError, SlotTestRuntime } from '@deepseek-ai/dsh-client-test-runtime'
 import type {
   BeginSubmissionInput, PendingSubmissionRetirement,
-} from '@lyness/lyn-api-session-controller/client'
-import type { SessionId } from '@lyness/lyn-session/types'
+} from '@deepseek-ai/dsh-api-session-controller/client'
+import type { SessionId } from '@deepseek-ai/dsh-session/types'
 import { ComposerBlockRegistry } from '../src/client/input/blocks.ts'
 import { InputHub } from '../src/client/input/hub.ts'
 import { ConversationController } from '../src/client/service.ts'

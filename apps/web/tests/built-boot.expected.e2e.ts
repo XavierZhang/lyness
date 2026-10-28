@@ -17,16 +17,16 @@ import { installAssembledBootEnv, mountAssembledApp } from './assembled-boot.ts'
 
 // Mirrored, not imported, because a Client package would pull its whole
 // TypeScript project into the Host build graph (see this directory's README).
-// import { WORDMARK_HEIGHT, WORDMARK_WIDTH } from '@lyness/lyn-client-ui-brand-lyness/src/client/artwork.ts'
-/** The viewBox `ui-brand-lyness` composes for the wordmark it fills the sidebar name slot with. */
-const LYNESS_WORDMARK_VIEWBOX = '0 0 60.53 24'
-/** `MARK_VIEWBOX`, the viewBox `ui-brand-lyness` gives the mark it fills the sidebar mark slot with. */
-const LYNESS_MARK_VIEWBOX = '0 0 717 619'
+// import { WORDMARK_HEIGHT, WORDMARK_WIDTH } from '@deepseek-ai/dsh-client-ui-brand-DeepSeek Harness/src/client/artwork.ts'
+/** The viewBox `ui-brand-DeepSeek Harness` composes for the wordmark it fills the sidebar name slot with. */
+const DSH_WORDMARK_VIEWBOX = '0 0 60.53 24'
+/** `MARK_VIEWBOX`, the viewBox `ui-brand-DeepSeek Harness` gives the mark it fills the sidebar mark slot with. */
+const DSH_MARK_VIEWBOX = '0 0 717 619'
 
 installAssembledBootEnv()
 
 /** The shell's own fallback product label, which a client carrying the brand package never shows. */
-const SHELL_LOCAL_BUILD_LABEL = 'LYN Local Build'
+const SHELL_LOCAL_BUILD_LABEL = 'DSH Local Build'
 
 it('boots the built plugin graph and renders a fixture session end to end', async () => {
   mountAssembledApp()
@@ -36,8 +36,8 @@ it('boots the built plugin graph and renders a fixture session end to end', asyn
   // The brand package fills both sidebar brand slots on every build profile, so
   // the shell's local-build fallback — its fish mark, product label and build
   // version — never reaches a browser running this client.
-  expect(document.querySelector(`svg[viewBox="${LYNESS_MARK_VIEWBOX}"]`)).not.toBeNull()
-  expect(document.querySelector(`svg[viewBox="${LYNESS_WORDMARK_VIEWBOX}"]`)).not.toBeNull()
+  expect(document.querySelector(`svg[viewBox="${DSH_MARK_VIEWBOX}"]`)).not.toBeNull()
+  expect(document.querySelector(`svg[viewBox="${DSH_WORDMARK_VIEWBOX}"]`)).not.toBeNull()
   expect(screen.queryByText(SHELL_LOCAL_BUILD_LABEL)).toBeNull()
   // The compact layout dropped group session counts; the fixture workspace
   // group row renders immediately with its sessions beneath it.
@@ -129,17 +129,17 @@ it('boots the built plugin graph and renders a fixture session end to end', asyn
   // Every bundle injected its plugin-owned style tag (the loader's CSS path).
   const styleOwners = [...document.head.querySelectorAll('style[data-plugin]')]
     .map(style => style.getAttribute('data-plugin'))
-  for (const plugin of ['@lyness/lyn-client-ui-layout', '@lyness/lyn-client-ui-sidebar', '@lyness/lyn-client-ui-conversation', '@lyness/lyn-client-ui-tool']) {
+  for (const plugin of ['@deepseek-ai/dsh-client-ui-layout', '@deepseek-ai/dsh-client-ui-sidebar', '@deepseek-ai/dsh-client-ui-conversation', '@deepseek-ai/dsh-client-ui-tool']) {
     expect(styleOwners).toContain(plugin)
   }
 })
 
 it('boots without ui-chat and does not select another conversation view implicitly', async () => {
-  mountAssembledApp({ exclude: ['@lyness/lyn-client-ui-chat'] })
+  mountAssembledApp({ exclude: ['@deepseek-ai/dsh-client-ui-chat'] })
 
   const tree = await screen.findByRole('tree', { name: 'Sessions' }, { timeout: 10_000 })
-  const boot = Reflect.get(window, '__LYNESS_BOOT__') as { entries: Array<{ id: string }> } | undefined
-  expect(boot?.entries.some(entry => entry.id === '@lyness/lyn-client-ui-chat')).toBe(false)
+  const boot = Reflect.get(window, '__DSH_BOOT__') as { entries: Array<{ id: string }> } | undefined
+  expect(boot?.entries.some(entry => entry.id === '@deepseek-ai/dsh-client-ui-chat')).toBe(false)
   const sessionTitle = await within(tree).findByText('Fixture 历史会话')
   fireEvent.click(sessionTitle)
   await waitFor(() => {

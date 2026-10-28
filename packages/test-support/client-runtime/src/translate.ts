@@ -8,20 +8,20 @@
  *
  * Brand placeholders fill like they do in the product, so a spec asserts the
  * text a reader sees rather than the template a dictionary writes. A spec
- * cannot take the values from `lyn-client-locale` the way the service does:
+ * cannot take the values from `dsh-client-locale` the way the service does:
  * this module ships as published JavaScript, and that package's client entry
  * carries the Cordis plugin graph. `brand-values.client.spec.ts` keeps the two
  * tables equal.
  */
 
 /**
- * The built-in brand names, as `lyn-client-locale` declares them for a
+ * The built-in brand names, as `dsh-client-locale` declares them for a
  * deployment that renamed nothing. Specs run with no deployment brand on the
  * page, so these are the names their assertions read.
  */
 const BUILT_IN_BRAND: Readonly<Record<string, string>> = {
-  brandName: 'lyness',
-  brandAbbr: 'LYN',
+  brandName: 'HARNESS',
+  brandAbbr: 'DSH',
   brandNameZh: '领驭',
 }
 

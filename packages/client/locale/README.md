@@ -3,13 +3,13 @@ description: "Localization for the web GUI: the zh/en preference, browser-derive
 kind: "package-reference"
 ---
 
-# @lyness/lyn-client-locale
+# @deepseek-ai/dsh-client-locale
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-Use `lyn-client-locale` to switch the web GUI between the shipped English and Chinese locales or languages added by client plugins. User selections take effect immediately; loopback pages persist them in `$LYNESS_HOME/cordis.patch.yml`, while non-loopback pages keep them only for the current process. New browsers use the first supported language requested by the browser until an allowed stored preference arrives. Plugin authors add typed namespace dictionaries and translate through the public locale API; slot-rendered copy updates without a reload.
+Use `dsh-client-locale` to switch the web GUI between the shipped English and Chinese locales or languages added by client plugins. User selections take effect immediately; loopback pages persist them in `$DSH_HOME/cordis.patch.yml`, while non-loopback pages keep them only for the current process. New browsers use the first supported language requested by the browser until an allowed stored preference arrives. Plugin authors add typed namespace dictionaries and translate through the public locale API; slot-rendered copy updates without a reload.
 
 ## Table of Contents
 
@@ -31,7 +31,7 @@ Use it wherever the web GUI needs a language switch or translated copy: the ship
 
 Open Settings → General and select a registered language. The active locale is applied immediately: the UI copy switches, `<html lang>` points at the external id or built-in document tag, and the choice is written to the durable settings section. A browser without an explicit Host preference selects the first registered language that matches `navigator` by full tag and then primary subtag, falling back to English. A stored external locale waits for its definition to register instead of becoming active while unavailable.
 
-Native shells may provide `__LYNESS_LOCALE__` with an asynchronous `read()` and an `onChange(locale)` callback. Initialization supplies the current Host preference and ordered OS languages before the Client mounts. Automatic selection stays provisional; only Settings selections write `locale.preference`. A fresh read on each page load prevents a stale preload preference after reload. Ordinary browsers keep navigator-based detection and their existing settings-scope policy.
+Native shells may provide `__DSH_LOCALE__` with an asynchronous `read()` and an `onChange(locale)` callback. Initialization supplies the current Host preference and ordered OS languages before the Client mounts. Automatic selection stays provisional; only Settings selections write `locale.preference`. A fresh read on each page load prevents a stale preload preference after reload. Ordinary browsers keep navigator-based detection and their existing settings-scope policy.
 
 ### Registering a dictionary
 
@@ -39,7 +39,7 @@ Call `ctx.locale.register(ns, { zh, en })` with a namespace merged into `LocaleN
 
 ### Naming the product in copy
 
-A dictionary writes the product's name as a placeholder — `{brandName}`, `{brandAbbr}` or `{brandNameZh}` — and never as a literal. Every translation fills them, including the calls that pass no parameters of their own, so a private deployment that configured [`brand-deployment`](../../host/brand-deployment/README.md) reads as its own product in every sentence rather than only the ones an operator thought to look at. The three names resolve as one set: a deployment that named any of them gets the others from the one it named. A page that names no brand gets the built-in `lyness`, `LYN` and 领驭. An unknown placeholder stays visible, so a literal brace in copy survives.
+A dictionary writes the product's name as a placeholder — `{brandName}`, `{brandAbbr}` or `{brandNameZh}` — and never as a literal. Every translation fills them, including the calls that pass no parameters of their own, so a private deployment that configured [`brand-deployment`](../../host/brand-deployment/README.md) reads as its own product in every sentence rather than only the ones an operator thought to look at. The three names resolve as one set: a deployment that named any of them gets the others from the one it named. A page that names no brand gets the built-in `DeepSeek Harness`, `DSH` and 领驭. An unknown placeholder stays visible, so a literal brace in copy survives.
 
 ### Resolving package text
 

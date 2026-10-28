@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/lyn-client-ui-permission-presets",
+  "name": "@deepseek-ai/dsh-client-ui-permission-presets",
   "description": "Permission surfaces: a new-session default in General settings and a current-session /permission popup over the permissions projection",
   "version": "0.1.7-rc.2",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/client/ui-permission-presets"
   },
   "type": "module",
@@ -25,16 +25,16 @@
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
-  "lyn": {
+  "dsh": {
     "client": {
       "inject": [
-        "@lyness/lyn-api-session-controller",
-        "@lyness/lyn-client-connection",
-        "@lyness/lyn-client-locale",
-        "@lyness/lyn-client-ui-commands",
-        "@lyness/lyn-client-ui-conversation",
-        "@lyness/lyn-api-remotes",
-        "@lyness/lyn-client-ui-settings"
+        "@deepseek-ai/dsh-api-session-controller",
+        "@deepseek-ai/dsh-client-connection",
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-client-ui-commands",
+        "@deepseek-ai/dsh-client-ui-conversation",
+        "@deepseek-ai/dsh-api-remotes",
+        "@deepseek-ai/dsh-client-ui-settings"
       ],
       "platform": "web"
     }
@@ -45,29 +45,29 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~"
+    "@deepseek-ai/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/lyn-remote-mock": "workspace:*",
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-api-remotes": "workspace:*",
-    "@lyness/lyn-api-session-controller": "workspace:*",
-    "@lyness/lyn-client-connection": "workspace:*",
-    "@lyness/lyn-client-locale": "workspace:*",
-    "@lyness/lyn-client-store": "workspace:*",
-    "@lyness/lyn-client-test-runtime": "workspace:*",
-    "@lyness/lyn-client-ui-commands": "workspace:*",
-    "@lyness/lyn-client-ui-conversation": "workspace:*",
-    "@lyness/lyn-client-ui-primitives": "workspace:*",
-    "@lyness/lyn-client-ui-settings": "workspace:*",
-    "@lyness/lyn-client-ui-input-trigger": "workspace:*",
-    "@lyness/lyn-client-ui-slots": "workspace:*",
-    "@lyness/lyn-permission-presets": "workspace:*",
+    "@deepseek-ai/dsh-remote-mock": "workspace:*",
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-api-remotes": "workspace:*",
+    "@deepseek-ai/dsh-api-session-controller": "workspace:*",
+    "@deepseek-ai/dsh-client-connection": "workspace:*",
+    "@deepseek-ai/dsh-client-locale": "workspace:*",
+    "@deepseek-ai/dsh-client-store": "workspace:*",
+    "@deepseek-ai/dsh-client-test-runtime": "workspace:*",
+    "@deepseek-ai/dsh-client-ui-commands": "workspace:*",
+    "@deepseek-ai/dsh-client-ui-conversation": "workspace:*",
+    "@deepseek-ai/dsh-client-ui-primitives": "workspace:*",
+    "@deepseek-ai/dsh-client-ui-settings": "workspace:*",
+    "@deepseek-ai/dsh-client-ui-input-trigger": "workspace:*",
+    "@deepseek-ai/dsh-client-ui-slots": "workspace:*",
+    "@deepseek-ai/dsh-permission-presets": "workspace:*",
     "@types/react": "~18.3.1",
     "clsx": "^2.0.0",
     "react": "^18.2.0",
-    "@lyness/lyn-client-ui-renderer": "workspace:*",
-    "@lyness/lyn-client-ui-session": "workspace:*"
+    "@deepseek-ai/dsh-client-ui-renderer": "workspace:*",
+    "@deepseek-ai/dsh-client-ui-session": "workspace:*"
   },
   "files": [
     "lib/index.js",

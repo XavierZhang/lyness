@@ -1,13 +1,13 @@
 {
-  "name": "@lyness/lyn-webhook",
-  "description": "Fire-and-forget webhook rule runtime that creates Workspace-backed lyness Sessions",
+  "name": "@deepseek-ai/dsh-webhook",
+  "description": "Fire-and-forget webhook rule runtime that creates Workspace-backed DeepSeek Harness Sessions",
   "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/webhook/webhook"
   },
   "type": "module",
@@ -37,33 +37,33 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-agent": "workspace:*",
-    "@lyness/lyn-agent-default-model": "workspace:*",
-    "@lyness/lyn-agent-preset-registry": "workspace:*",
-    "@lyness/lyn-invariants": "workspace:*",
-    "@lyness/lyn-llm": "workspace:*",
-    "@lyness/lyn-permission-presets": "workspace:*",
-    "@lyness/lyn-session": "workspace:*",
-    "@lyness/lyn-session-title": "workspace:*",
-    "@lyness/lyn-workspace": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-agent": "workspace:*",
+    "@deepseek-ai/dsh-agent-default-model": "workspace:*",
+    "@deepseek-ai/dsh-agent-preset-registry": "workspace:*",
+    "@deepseek-ai/dsh-invariants": "workspace:*",
+    "@deepseek-ai/dsh-llm": "workspace:*",
+    "@deepseek-ai/dsh-permission-presets": "workspace:*",
+    "@deepseek-ai/dsh-session": "workspace:*",
+    "@deepseek-ai/dsh-session-title": "workspace:*",
+    "@deepseek-ai/dsh-workspace": "workspace:*"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/cordis-plugin-include": "workspace:~",
-    "@lyness/cordis-plugin-loader": "workspace:~",
-    "@lyness/lyn-agent": "workspace:*",
-    "@lyness/lyn-agent-default-model": "workspace:*",
-    "@lyness/lyn-agent-preset-registry": "workspace:*",
-    "@lyness/lyn-invariants": "workspace:*",
-    "@lyness/lyn-llm": "workspace:*",
-    "@lyness/lyn-permission-presets": "workspace:*",
-    "@lyness/lyn-session": "workspace:*",
-    "@lyness/lyn-session-title": "workspace:*",
-    "@lyness/lyn-workspace": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/cordis-plugin-include": "workspace:~",
+    "@deepseek-ai/cordis-plugin-loader": "workspace:~",
+    "@deepseek-ai/dsh-agent": "workspace:*",
+    "@deepseek-ai/dsh-agent-default-model": "workspace:*",
+    "@deepseek-ai/dsh-agent-preset-registry": "workspace:*",
+    "@deepseek-ai/dsh-invariants": "workspace:*",
+    "@deepseek-ai/dsh-llm": "workspace:*",
+    "@deepseek-ai/dsh-permission-presets": "workspace:*",
+    "@deepseek-ai/dsh-session": "workspace:*",
+    "@deepseek-ai/dsh-session-title": "workspace:*",
+    "@deepseek-ai/dsh-workspace": "workspace:*"
   },
   "dependencies": {
-    "@lyness/lyn-brand": "workspace:*",
-    "@lyness/lyn-util-values": "workspace:*"
+    "@deepseek-ai/dsh-brand": "workspace:*",
+    "@deepseek-ai/dsh-util-values": "workspace:*"
   }
 }

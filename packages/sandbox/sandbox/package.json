@@ -1,13 +1,13 @@
 {
-  "name": "@lyness/lyn-sandbox",
-  "description": "Abstract process-sandbox seam (ctx.sandbox) for the lyness: same-world confinement vocabulary and the SandboxProvider contract",
+  "name": "@deepseek-ai/dsh-sandbox",
+  "description": "Abstract process-sandbox seam (ctx.sandbox) for the DeepSeek Harness: same-world confinement vocabulary and the SandboxProvider contract",
   "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/sandbox/sandbox"
   },
   "type": "module",
@@ -27,16 +27,16 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-llm": "workspace:*",
-    "@lyness/lyn-session": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-llm": "workspace:*",
+    "@deepseek-ai/dsh-session": "workspace:*"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-llm": "workspace:*",
-    "@lyness/lyn-session": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-llm": "workspace:*",
+    "@deepseek-ai/dsh-session": "workspace:*"
   },
   "dependencies": {
-    "@lyness/lyn-util-values": "workspace:*"
+    "@deepseek-ai/dsh-util-values": "workspace:*"
   }
 }

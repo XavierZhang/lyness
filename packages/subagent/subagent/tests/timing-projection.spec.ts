@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import SessionStore from '@lyness/lyn-session'
-import type { SessionEvent, TurnEndReason } from '@lyness/lyn-session'
-import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import { Context } from '@deepseek-ai/cordis'
+import SessionStore from '@deepseek-ai/dsh-session'
+import type { SessionEvent, TurnEndReason } from '@deepseek-ai/dsh-session'
+import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
 import SubagentRuntime from '../src/index.ts'
 import { subagentTimingProjectionDefinition, type TimingState } from '../src/projection.ts'
 

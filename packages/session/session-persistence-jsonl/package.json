@@ -1,13 +1,13 @@
 {
-  "name": "@lyness/lyn-session-persistence-jsonl",
-  "description": "JSONL durable session persistence backend for the lyness",
+  "name": "@deepseek-ai/dsh-session-persistence-jsonl",
+  "description": "JSONL durable session persistence backend for the DeepSeek Harness",
   "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/session/session-persistence-jsonl"
   },
   "type": "module",
@@ -28,23 +28,23 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/lyn-session": "workspace:*",
-    "@lyness/lyn-session-persistence": "workspace:*",
-    "@lyness/cordis": "workspace:~"
+    "@deepseek-ai/dsh-session": "workspace:*",
+    "@deepseek-ai/dsh-session-persistence": "workspace:*",
+    "@deepseek-ai/cordis": "workspace:~"
   },
   "dependencies": {
-    "@lyness/lyn-llm": "workspace:*",
-    "@lyness/lyn-session-format": "workspace:*",
-    "@lyness/lyn-session-format-catalog": "workspace:*",
-    "@lyness/lyn-session-format-v3-to-v4": "workspace:*",
-    "@lyness/node-addon-system": "workspace:~",
-    "@lyness/schemastery": "workspace:~",
+    "@deepseek-ai/dsh-llm": "workspace:*",
+    "@deepseek-ai/dsh-session-format": "workspace:*",
+    "@deepseek-ai/dsh-session-format-catalog": "workspace:*",
+    "@deepseek-ai/dsh-session-format-v3-to-v4": "workspace:*",
+    "@deepseek-ai/node-addon-system": "workspace:~",
+    "@deepseek-ai/schemastery": "workspace:~",
     "koffi": "^3.1.0"
   },
   "devDependencies": {
-    "@lyness/lyn-session": "workspace:*",
-    "@lyness/lyn-session-format-v0-to-v1": "workspace:*",
-    "@lyness/lyn-session-persistence": "workspace:*",
-    "@lyness/cordis": "workspace:~"
+    "@deepseek-ai/dsh-session": "workspace:*",
+    "@deepseek-ai/dsh-session-format-v0-to-v1": "workspace:*",
+    "@deepseek-ai/dsh-session-persistence": "workspace:*",
+    "@deepseek-ai/cordis": "workspace:~"
   }
 }

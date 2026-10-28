@@ -6,8 +6,8 @@
  * behavior for a bad historical stream.
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { SessionId, SessionSeq } from '@lyness/lyn-session'
-import type { SessionEvent } from '@lyness/lyn-session'
+import { SessionId, SessionSeq } from '@deepseek-ai/dsh-session'
+import type { SessionEvent } from '@deepseek-ai/dsh-session'
 import { harness } from './harness.ts'
 
 const tests: Awaited<ReturnType<typeof harness>>[] = []

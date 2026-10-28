@@ -3,7 +3,7 @@ description: "Tenant configuration read from composition config: each tenant's m
 kind: "package-reference"
 ---
 
-# @lyness/lyn-tenant-config-static
+# @deepseek-ai/dsh-tenant-config-static
 
 English | [中文](README.zh.md)
 
@@ -27,7 +27,7 @@ This backend registers `ctx.tenantConfig` from rows in the deployment's patch la
 
 ```yaml
 - id: tenant-config
-  name: '@lyness/lyn-tenant-config-static'
+  name: '@deepseek-ai/dsh-tenant-config-static'
   config:
     tenants:
       - tenantId: acme

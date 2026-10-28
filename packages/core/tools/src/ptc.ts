@@ -3,24 +3,24 @@
  * tools through nested executions scheduled under the native concurrency
  * contract; each sub-dispatch is logged for reconstruction, while only the
  * outer curated result enters model history.
- * @module @lyness/lyn-tools/src/ptc
+ * @module @deepseek-ai/dsh-tools/src/ptc
  */
 
-import { brandString } from '@lyness/lyn-brand'
-import { createUserMessage, HarnessError } from '@lyness/lyn-llm'
-declare module '@lyness/lyn-llm' {
+import { brandString } from '@deepseek-ai/dsh-brand'
+import { createUserMessage, HarnessError } from '@deepseek-ai/dsh-llm'
+declare module '@deepseek-ai/dsh-llm' {
   interface MessageSourceMap {
     /** Images deferred from a successful PTC subcall's final result. */
     'ptc-mode': { kind: 'ptc-mode' }
   }
 }
 
-import type { ContentBlock, ToolCallId, ToolSchema } from '@lyness/lyn-llm'
-import type { PtcBindingFunction, PtcRunResult, PtcRunSandbox, PtcRuntime } from '@lyness/lyn-ptc-runtime'
-import { approveEscalation, ESCALATION_TARGETS, validateEscalationArgs } from '@lyness/lyn-sandbox'
-import type { SandboxExecutionPolicy } from '@lyness/lyn-sandbox'
-import type { ApprovalService } from '@lyness/lyn-user-approval'
-import { deepFreeze, snapshotJsonValue, type JsonValue } from '@lyness/lyn-util-values'
+import type { ContentBlock, ToolCallId, ToolSchema } from '@deepseek-ai/dsh-llm'
+import type { PtcBindingFunction, PtcRunResult, PtcRunSandbox, PtcRuntime } from '@deepseek-ai/dsh-ptc-runtime'
+import { approveEscalation, ESCALATION_TARGETS, validateEscalationArgs } from '@deepseek-ai/dsh-sandbox'
+import type { SandboxExecutionPolicy } from '@deepseek-ai/dsh-sandbox'
+import type { ApprovalService } from '@deepseek-ai/dsh-user-approval'
+import { deepFreeze, snapshotJsonValue, type JsonValue } from '@deepseek-ai/dsh-util-values'
 import { defineTool, parameterSchemaSpecToJsonSchema } from './schema.ts'
 import { TOOL_RUNTIME_SCHEDULER } from './index.ts'
 import type { PtcDispatchLog, ToolDefinition, ToolExecutionResult, ToolRuntime, ToolRunContext } from './index.ts'
@@ -159,7 +159,7 @@ function resolveFlavor(peekRuntime: () => PtcRuntime | undefined): RunCodeFlavor
   const flavor = RUN_CODE_FLAVORS[runtime.language]
   if (!Object.hasOwn(RUN_CODE_FLAVORS, runtime.language) || flavor === undefined) {
     const known = Object.keys(RUN_CODE_FLAVORS).map(name => JSON.stringify(name)).join(', ')
-    throw new Error(`lyn-tools: no run_code schema flavor registered for runtime language ${JSON.stringify(runtime.language)} (known: ${known})`)
+    throw new Error(`dsh-tools: no run_code schema flavor registered for runtime language ${JSON.stringify(runtime.language)} (known: ${known})`)
   }
   return flavor
 }

@@ -1,11 +1,11 @@
 /** Live Session projection state with reconnect baselines. */
 
-import type { Context } from '@lyness/cordis'
-import { Deque } from '@lyness/lyn-deque'
+import type { Context } from '@deepseek-ai/cordis'
+import { Deque } from '@deepseek-ai/dsh-deque'
 import type {
   Session, SessionId,
-} from '@lyness/lyn-session'
-import type { JsonValue } from '@lyness/lyn-util-values'
+} from '@deepseek-ai/dsh-session'
+import type { JsonValue } from '@deepseek-ai/dsh-util-values'
 import type {
   SessionControlBaseline,
   SessionControlFrame,

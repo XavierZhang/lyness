@@ -16,12 +16,12 @@
  * that names itself as a plugin has to be resolvable as a module too, which a
  * patch-carrying bundle otherwise never needs to be.
  *
- * @module @lyness/lyn-lsp/preset-contribution
+ * @module @deepseek-ai/dsh-lsp/preset-contribution
  */
 
-import type { Context } from '@lyness/cordis'
-import z from '@lyness/schemastery'
-import type {} from '@lyness/lyn-agent-preset-registry'
+import type { Context } from '@deepseek-ai/cordis'
+import z from '@deepseek-ai/schemastery'
+import type {} from '@deepseek-ai/dsh-agent-preset-registry'
 
 /** Cordis plugin name used by loader diagnostics. */
 export const name = 'lsp-preset-contribution'
@@ -30,7 +30,7 @@ export const name = 'lsp-preset-contribution'
 export const inject = ['agentPresets']
 
 /** The module this contribution belongs to, named in a collision diagnostic. */
-export const MODULE = '@lyness/lyn-module-lsp'
+export const MODULE = '@deepseek-ai/dsh-module-lsp'
 
 /** The centrally allocated row id the contributed tools take. */
 export const ROW_ID = 'module-lsp-tool'
@@ -47,7 +47,7 @@ const DEFAULT_TIMEOUT_MS = 60_000
 /**
  * Deployment-owned result bounds for the contributed tools.
  *
- * These reach `lyn-tool-lsp` as its row config. They are carried here because
+ * These reach `dsh-tool-lsp` as its row config. They are carried here because
  * a contributed row has no id in any patch layer a deployment can target, so
  * this plugin's config is the only place a deployment can set them.
  */
@@ -104,7 +104,7 @@ export async function apply(ctx: Context, config: Config): Promise<void> {
   const withdraw = await ctx.agentPresets.contribute({
     id: ROW_ID,
     module: MODULE,
-    row: { name: '@lyness/lyn-tool-lsp', config: resolveConfig(config) },
+    row: { name: '@deepseek-ai/dsh-tool-lsp', config: resolveConfig(config) },
   })
   ctx.effect(() => withdraw)
 }

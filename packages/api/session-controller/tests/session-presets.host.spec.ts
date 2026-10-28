@@ -3,13 +3,13 @@
 import { mkdtempSync, realpathSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { Context } from '@lyness/cordis'
-import AgentRegistry from '@lyness/lyn-agent'
-import type { Agent, AgentFactory } from '@lyness/lyn-agent'
-import { agentPresetProjectionDefinition } from '@lyness/lyn-agent-preset-registry'
-import SessionStore, { SessionId } from '@lyness/lyn-session'
-import type { Session } from '@lyness/lyn-session'
-import { RemoteError } from '@lyness/lyn-typert-protocol'
+import { Context } from '@deepseek-ai/cordis'
+import AgentRegistry from '@deepseek-ai/dsh-agent'
+import type { Agent, AgentFactory } from '@deepseek-ai/dsh-agent'
+import { agentPresetProjectionDefinition } from '@deepseek-ai/dsh-agent-preset-registry'
+import SessionStore, { SessionId } from '@deepseek-ai/dsh-session'
+import type { Session } from '@deepseek-ai/dsh-session'
+import { RemoteError } from '@deepseek-ai/dsh-typert-protocol'
 import { afterEach, describe, expect, it } from 'vitest'
 import { createSessionTestRemote } from './test-remote.ts'
 
@@ -48,7 +48,7 @@ function roster(ids: readonly string[]): unknown {
 }
 
 async function harness(presets?: readonly string[]) {
-  const cwd = realpathSync(mkdtempSync(join(tmpdir(), 'lyn-session-preset-')))
+  const cwd = realpathSync(mkdtempSync(join(tmpdir(), 'dsh-session-preset-')))
   tempDirs.push(cwd)
   const ctx = new Context()
   contexts.push(ctx)

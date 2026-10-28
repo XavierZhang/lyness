@@ -2,7 +2,7 @@
  * Public records for exact reads and relationship traces over the
  * live-preferred logical session corpus.
  *
- * @module @lyness/lyn-session-query/types
+ * @module @deepseek-ai/dsh-session-query/types
  */
 
 import type {
@@ -14,8 +14,8 @@ import type {
   SessionSeq,
   OptionalSessionSeq,
   SurfaceEvent,
-} from '@lyness/lyn-session'
-import type { SessionTitleSnapshot } from '@lyness/lyn-session-title'
+} from '@deepseek-ai/dsh-session'
+import type { SessionTitleSnapshot } from '@deepseek-ai/dsh-session-title'
 import type { SessionSearchCursor } from './cursor.ts'
 
 export type { SessionSearchCursor } from './cursor.ts'

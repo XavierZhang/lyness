@@ -9,15 +9,15 @@
  * The read lives here rather than in the component so one in-flight read is
  * shared: opening the reader twice does not ask the deployment twice.
  *
- * @module @lyness/lyn-client-ui-settings-announcements/client
+ * @module @deepseek-ai/dsh-client-ui-settings-announcements/client
  */
 
-import type { Context } from '@lyness/cordis'
-import type {} from '@lyness/lyn-client-locale/client'
-import type {} from '@lyness/lyn-client-ui-settings/client'
-import type {} from '@lyness/lyn-client-ui-renderer/client'
-import type {} from '@lyness/lyn-api-remotes/client'
-import type {} from '@lyness/lyn-api-announcement-controller/remote'
+import type { Context } from '@deepseek-ai/cordis'
+import type {} from '@deepseek-ai/dsh-client-locale/client'
+import type {} from '@deepseek-ai/dsh-client-ui-settings/client'
+import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
+import type {} from '@deepseek-ai/dsh-api-remotes/client'
+import type {} from '@deepseek-ai/dsh-api-announcement-controller/remote'
 import { AnnouncementsRow } from './AnnouncementsRow.tsx'
 import { RowBinding, rowFace } from './binding.ts'
 import { announcementsReadOf, createAnnouncementsReader } from './read.ts'
@@ -34,7 +34,7 @@ export type { AnnouncementsReader, ReadOutcome, ReaderSink } from './read.ts'
 export { RowBinding, rowFace } from './binding.ts'
 export type { AnnouncementActions } from './binding.ts'
 
-declare module '@lyness/lyn-client-ui-slots' {
+declare module '@deepseek-ai/dsh-client-ui-slots' {
   interface LocaleNamespaceMap { 'settings.announcements': AnnouncementsKey }
 }
 

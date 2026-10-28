@@ -1,22 +1,22 @@
 import { mkdtemp, mkdir, rm } from 'node:fs/promises'
 import { homedir } from 'node:os'
 import { join } from 'node:path'
-import type { Context } from '@lyness/cordis'
-import type { Agent } from '@lyness/lyn-agent'
-import SessionStore from '@lyness/lyn-session'
-import SessionProjections from '@lyness/lyn-session-projection'
-import FileSystem from '@lyness/lyn-fs-local'
-import Subprocess from '@lyness/lyn-subprocess-local'
-import Sandbox from '@lyness/lyn-sandbox-local'
-import SandboxPolicy from '@lyness/lyn-sandbox-policy'
-import type { SandboxMode } from '@lyness/lyn-sandbox'
-import NodePtcRuntime from '@lyness/lyn-ptc-runtime-node'
-import type { Config as NodeRuntimeConfig } from '@lyness/lyn-ptc-runtime-node'
+import type { Context } from '@deepseek-ai/cordis'
+import type { Agent } from '@deepseek-ai/dsh-agent'
+import SessionStore from '@deepseek-ai/dsh-session'
+import SessionProjections from '@deepseek-ai/dsh-session-projection'
+import FileSystem from '@deepseek-ai/dsh-fs-local'
+import Subprocess from '@deepseek-ai/dsh-subprocess-local'
+import Sandbox from '@deepseek-ai/dsh-sandbox-local'
+import SandboxPolicy from '@deepseek-ai/dsh-sandbox-policy'
+import type { SandboxMode } from '@deepseek-ai/dsh-sandbox'
+import NodePtcRuntime from '@deepseek-ai/dsh-ptc-runtime-node'
+import type { Config as NodeRuntimeConfig } from '@deepseek-ai/dsh-ptc-runtime-node'
 import { onTestFinished } from 'vitest'
 
 /** Mount real Node execution services with a private working directory and awaited cleanup. */
 export async function mountPtcRuntime(ctx: Context, mode: SandboxMode = 'danger-full-access') {
-  const root = await mkdtemp(join(homedir(), '.lyn-workflow-test-'))
+  const root = await mkdtemp(join(homedir(), '.dsh-workflow-test-'))
   onTestFinished(async () => {
     await ctx.fiber.dispose()
     await rm(root, { recursive: true, force: true })

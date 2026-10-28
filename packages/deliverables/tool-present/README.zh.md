@@ -3,7 +3,7 @@ description: "通过 present 声明交付可访问的文件；配置、Session �
 kind: "package-reference"
 ---
 
-# @lyness/lyn-tool-present
+# @deepseek-ai/dsh-tool-present
 
 [English](README.md) | 中文
 
@@ -30,7 +30,7 @@ kind: "package-reference"
 在 Agent 的 Cordis 组合中挂载，并提供 `tools`、`fs` 和 `turnBoundary` Session 投影：
 
 ```yaml
-- name: '@lyness/lyn-tool-present'
+- name: '@deepseek-ai/dsh-tool-present'
   config:
     maxFiles: 8
 ```

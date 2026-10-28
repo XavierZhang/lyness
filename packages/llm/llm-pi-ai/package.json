@@ -1,13 +1,13 @@
 {
-  "name": "@lyness/lyn-llm-pi-ai",
-  "description": "pi-ai-backed DeepSeek adapter for the lyness LLM seam (design-verification twin of lyn-llm-deepseek)",
+  "name": "@deepseek-ai/dsh-llm-pi-ai",
+  "description": "pi-ai-backed DeepSeek adapter for the DeepSeek Harness LLM seam (design-verification twin of dsh-llm-deepseek)",
   "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/llm/llm-pi-ai"
   },
   "type": "module",
@@ -27,40 +27,40 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-attachment": "workspace:*",
-    "@lyness/lyn-authorization": "workspace:*",
-    "@lyness/lyn-credentials": "workspace:*",
-    "@lyness/lyn-fs": "workspace:*",
-    "@lyness/lyn-launch-environment": "workspace:*",
-    "@lyness/lyn-llm": "workspace:*",
-    "@lyness/lyn-timeout": "workspace:*",
-    "@lyness/cordis-plugin-loader": "workspace:~"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-attachment": "workspace:*",
+    "@deepseek-ai/dsh-authorization": "workspace:*",
+    "@deepseek-ai/dsh-credentials": "workspace:*",
+    "@deepseek-ai/dsh-fs": "workspace:*",
+    "@deepseek-ai/dsh-launch-environment": "workspace:*",
+    "@deepseek-ai/dsh-llm": "workspace:*",
+    "@deepseek-ai/dsh-timeout": "workspace:*",
+    "@deepseek-ai/cordis-plugin-loader": "workspace:~"
   },
   "dependencies": {
-    "@lyness/lyn-brand": "workspace:*",
-    "@lyness/lyn-util-values": "workspace:*",
-    "@lyness/schemastery": "workspace:~",
+    "@deepseek-ai/dsh-brand": "workspace:*",
+    "@deepseek-ai/dsh-util-values": "workspace:*",
+    "@deepseek-ai/schemastery": "workspace:~",
     "@earendil-works/pi-ai": "^0.85.1"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-attachment": "workspace:*",
-    "@lyness/lyn-authorization": "workspace:*",
-    "@lyness/lyn-credentials": "workspace:*",
-    "@lyness/lyn-e2e-target": "workspace:*",
-    "@lyness/lyn-fs": "workspace:*",
-    "@lyness/lyn-launch-environment": "workspace:*",
-    "@lyness/lyn-llm": "workspace:*",
-    "@lyness/lyn-llm-deepseek": "workspace:*",
-    "@lyness/lyn-llm-deepseek-api-key": "workspace:*",
-    "@lyness/lyn-timeout": "workspace:*",
-    "@lyness/lyn-http-proxy": "workspace:*",
-    "@lyness/cordis-plugin-loader": "workspace:~",
-    "@lyness/lyn-settings": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-attachment": "workspace:*",
+    "@deepseek-ai/dsh-authorization": "workspace:*",
+    "@deepseek-ai/dsh-credentials": "workspace:*",
+    "@deepseek-ai/dsh-e2e-target": "workspace:*",
+    "@deepseek-ai/dsh-fs": "workspace:*",
+    "@deepseek-ai/dsh-launch-environment": "workspace:*",
+    "@deepseek-ai/dsh-llm": "workspace:*",
+    "@deepseek-ai/dsh-llm-deepseek": "workspace:*",
+    "@deepseek-ai/dsh-llm-deepseek-api-key": "workspace:*",
+    "@deepseek-ai/dsh-timeout": "workspace:*",
+    "@deepseek-ai/dsh-http-proxy": "workspace:*",
+    "@deepseek-ai/cordis-plugin-loader": "workspace:~",
+    "@deepseek-ai/dsh-settings": "workspace:*"
   },
   "peerDependenciesMeta": {
-    "@lyness/cordis-plugin-loader": {
+    "@deepseek-ai/cordis-plugin-loader": {
       "optional": true
     }
   }

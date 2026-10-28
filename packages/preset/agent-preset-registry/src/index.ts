@@ -1,14 +1,14 @@
 /** Declarative Agent capability sets, activation and session binding. */
-import { Context } from '@lyness/cordis'
-import z from '@lyness/schemastery'
-import { Remote, RemoteError, TypertRemoteService } from '@lyness/lyn-typert-protocol'
-import { bindScopeParent, createScope, scopeOf, type Scope, type ScopeKey, type ScopeParentBinding } from '@lyness/lyn-scope'
-import { entryListSchema } from '@lyness/cordis-plugin-include'
+import { Context } from '@deepseek-ai/cordis'
+import z from '@deepseek-ai/schemastery'
+import { Remote, RemoteError, TypertRemoteService } from '@deepseek-ai/dsh-typert-protocol'
+import { bindScopeParent, createScope, scopeOf, type Scope, type ScopeKey, type ScopeParentBinding } from '@deepseek-ai/dsh-scope'
+import { entryListSchema } from '@deepseek-ai/cordis-plugin-include'
 import { dump } from 'js-yaml'
-import type { Agent } from '@lyness/lyn-agent'
+import type { Agent } from '@deepseek-ai/dsh-agent'
 // Type-only: the optional `settings` service this registry keeps off the generated pages.
-import type {} from '@lyness/lyn-settings'
-import type {} from '@lyness/lyn-tools'
+import type {} from '@deepseek-ai/dsh-settings'
+import type {} from '@deepseek-ai/dsh-tools'
 import type { AgentPresetDocument, AgentPresetRoster } from './types.ts'
 import { entryListProblem, type PresetDefinition } from './definition.ts'
 import { isContributionId, mergeContributions, type PresetContribution } from './contribution.ts'
@@ -26,7 +26,7 @@ export {
 export { auditRows, livePresetMounts, leakedServices, serviceForAgent, standingMountFor, type PresetMount, type RowAudit } from './mount.ts'
 export type { AgentPreset, Config } from './preset.ts'
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     agentPresets: AgentPresetRegistry
   }

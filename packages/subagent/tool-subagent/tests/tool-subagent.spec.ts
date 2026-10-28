@@ -2,27 +2,27 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import { mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import path from 'node:path'
-import { Context } from '@lyness/cordis'
-import Loader from '@lyness/cordis-plugin-loader'
-import { ToolCallId, ReasoningEffortId } from '@lyness/lyn-llm'
-import SystemPrompt from '@lyness/lyn-system-prompt'
-import ToolRuntime, { TOOL_ABORTED_BEFORE_DISPATCH } from '@lyness/lyn-tools'
-import { assembleContextFor, type Agent } from '@lyness/lyn-agent'
-import AgentRegistry from '@lyness/lyn-agent'
-import AgentLoop from '@lyness/lyn-agent-loop'
-import { mountAgentLoopTestDependencies } from '@lyness/lyn-agent-loop-testkit'
-import JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
-import SessionProjectionRegistry from '@lyness/lyn-session-projection'
-import SubagentRuntime from '@lyness/lyn-subagent'
-import type { SubagentStartRequest } from '@lyness/lyn-subagent'
-import LocalJobRegistry from '@lyness/lyn-jobs-local'
-import * as SubagentSpawn from '@lyness/lyn-subagent-spawn-in-process'
-import * as ToolJobs from '@lyness/lyn-tool-jobs'
+import { Context } from '@deepseek-ai/cordis'
+import Loader from '@deepseek-ai/cordis-plugin-loader'
+import { ToolCallId, ReasoningEffortId } from '@deepseek-ai/dsh-llm'
+import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
+import ToolRuntime, { TOOL_ABORTED_BEFORE_DISPATCH } from '@deepseek-ai/dsh-tools'
+import { assembleContextFor, type Agent } from '@deepseek-ai/dsh-agent'
+import AgentRegistry from '@deepseek-ai/dsh-agent'
+import AgentLoop from '@deepseek-ai/dsh-agent-loop'
+import { mountAgentLoopTestDependencies } from '@deepseek-ai/dsh-agent-loop-testkit'
+import JsonlSessionPersistence from '@deepseek-ai/dsh-session-persistence-jsonl'
+import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
+import SubagentRuntime from '@deepseek-ai/dsh-subagent'
+import type { SubagentStartRequest } from '@deepseek-ai/dsh-subagent'
+import LocalJobRegistry from '@deepseek-ai/dsh-jobs-local'
+import * as SubagentSpawn from '@deepseek-ai/dsh-subagent-spawn-in-process'
+import * as ToolJobs from '@deepseek-ai/dsh-tool-jobs'
 import { MockAdapter, textResponse } from '../../../core/agent-loop/tests/mock-adapter.ts'
 import { loadStoredSession } from '../../subagent/tests/persistence-helpers.ts'
 import * as mock from './scripted-provider.ts'
 import * as tool from '../src/index.ts'
-import { Session, SessionId } from '@lyness/lyn-session'
+import { Session, SessionId } from '@deepseek-ai/dsh-session'
 import {
   callSubagent,
   disposeSetupProvider,
@@ -41,7 +41,7 @@ async function projectedContext(): Promise<Context> {
 }
 
 /**
- * Drives the REAL plugin body: mounts `lyn-tool-subagent` on a real
+ * Drives the REAL plugin body: mounts `dsh-tool-subagent` on a real
  * `ToolRuntime` + `SubagentRuntime`, with a package-local scripted child
  * boundary, and invokes the registered `subagent` tool through
  * `ctx.tools.execute`. Everything downstream of the child boundary is the
@@ -49,7 +49,7 @@ async function projectedContext(): Promise<Context> {
  */
 
 
-describe('lyn-tool-subagent', () => {
+describe('dsh-tool-subagent', () => {
   it('rejects continuable background policy when the provider cannot prepare continuable children', async () => {
     let failure: unknown
     try {
@@ -799,7 +799,7 @@ describe('lyn-tool-subagent', () => {
   })
 })
 
-describe('lyn-tool-subagent background mode', () => {
+describe('dsh-tool-subagent background mode', () => {
   /** A live parent with a dedicated scope fiber for structural task cleanup. */
   async function ownerAgent(ctx: Context, sessionId: string, inject: (...args: unknown[]) => void = () => {}): Promise<Agent> {
     const scopeFiber = ctx.plugin(() => {})
@@ -928,7 +928,7 @@ describe('lyn-tool-subagent background mode', () => {
     const ctx = await setup({ provider: 'mock' })
     const result = await callSubagent(ctx, { description: 'd', prompt: 'p', run_in_background: true })
     expect(result.isError).toBe(true)
-    expect(text(result)).toContain('background jobs unavailable: load @lyness/lyn-jobs')
+    expect(text(result)).toContain('background jobs unavailable: load @deepseek-ai/dsh-jobs')
   })
 
   it('skips background startup when the tool signal is already aborted', async () => {
@@ -1175,7 +1175,7 @@ describe('lyn-tool-subagent background mode', () => {
 
 })
 
-describe('lyn-tool-subagent continuable background mode', () => {
+describe('dsh-tool-subagent continuable background mode', () => {
   const roots: string[] = []
   afterEach(() => {
     for (const root of roots.splice(0)) rmSync(root, { recursive: true, force: true })
@@ -1185,7 +1185,7 @@ describe('lyn-tool-subagent continuable background mode', () => {
   async function continuableSetup() {
     const ctx = new Context()
     await mountAgentLoopTestDependencies(ctx)
-    const root = mkdtempSync(path.join(tmpdir(), 'lyn-tool-subagent-continuable-'))
+    const root = mkdtempSync(path.join(tmpdir(), 'dsh-tool-subagent-continuable-'))
     roots.push(root)
     await ctx.plugin(JsonlSessionPersistence, { root })
     await ctx.plugin(AgentLoop, { agents: [] })

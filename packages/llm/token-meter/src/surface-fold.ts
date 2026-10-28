@@ -11,12 +11,12 @@
  * Nodes also carry durable attachment occurrences and their structural prices,
  * so `measure()` can price the request representation sent to the model.
  *
- * @module @lyness/lyn-token-meter/surface-fold
+ * @module @deepseek-ai/dsh-token-meter/surface-fold
  */
 
-import { deriveEventMessage } from '@lyness/lyn-session'
-import type { SessionSeq, SurfaceEvent } from '@lyness/lyn-session'
-import type { ContentBlock, ImageBlock, Message } from '@lyness/lyn-llm'
+import { deriveEventMessage } from '@deepseek-ai/dsh-session'
+import type { SessionSeq, SurfaceEvent } from '@deepseek-ai/dsh-session'
+import type { ContentBlock, ImageBlock, Message } from '@deepseek-ai/dsh-llm'
 import { estimateMessage, estimateStructuralBlock } from './estimate.ts'
 
 type FileAttachmentRef = Extract<ContentBlock, { type: 'file' }>['attachment']

@@ -1,7 +1,7 @@
-import type { Context } from '@lyness/cordis'
+import type { Context } from '@deepseek-ai/cordis'
 import type {
   ConversationMatch, ConversationNodeContext, ConversationNodeDefinition, TurnErrorNode,
-} from '@lyness/lyn-client-ui-conversation/client'
+} from '@deepseek-ai/dsh-client-ui-conversation/client'
 import { chatNode } from './common.ts'
 import { displayFailure } from './event-projection.ts'
 

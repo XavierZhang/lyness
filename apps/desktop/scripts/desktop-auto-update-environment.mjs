@@ -3,7 +3,7 @@
 import { valid } from 'semver'
 
 /** Environment variable that selects the Desktop update deployment. */
-export const DESKTOP_AUTO_UPDATE_ENV = 'LYNESS_DESKTOP_AUTO_UPDATE_ENV'
+export const DESKTOP_AUTO_UPDATE_ENV = 'DSH_DESKTOP_AUTO_UPDATE_ENV'
 
 const UPDATE_ENVIRONMENTS = {
   test: {
@@ -137,7 +137,7 @@ export function resolveDesktopAutoUpdateConfig(env, platform, arch) {
     if (originEnvName === undefined) throw new Error('desktop auto-update: selected deployment has no origin')
     origin = httpsOrigin(requiredEnvironmentValue(env, originEnvName), originEnvName)
   }
-  let releasePrefix = 'lyn-desk'
+  let releasePrefix = 'dsh-desk'
   if (environment === 'test') {
     const releaseId = requiredEnvironmentValue(env, 'DOWNLOAD_TEST_RELEASE_ID')
     if (!/^[a-f0-9]{32}$/u.test(releaseId)) {

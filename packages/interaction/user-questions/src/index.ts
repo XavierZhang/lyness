@@ -1,18 +1,18 @@
 /**
  * Service Definition for the user-questions capability seam (`ctx.userQuestions`): a UI-backed service for
  * pausing an agent tool call until the human answers a question. The model-
- * facing tool lives in `@lyness/lyn-tool-ask-user`; UI packages compose
+ * facing tool lives in `@deepseek-ai/dsh-tool-ask-user`; UI packages compose
  * answerers on the Agent-scoped Cordis waterfall.
  *
- * @module @lyness/lyn-user-questions
+ * @module @deepseek-ai/dsh-user-questions
  */
 
-import { Context, Service } from '@lyness/cordis'
-import type {} from '@lyness/lyn-agent'
-import { HarnessError } from '@lyness/lyn-llm'
-import { scopeTarget } from '@lyness/lyn-scope'
+import { Context, Service } from '@deepseek-ai/cordis'
+import type {} from '@deepseek-ai/dsh-agent'
+import { HarnessError } from '@deepseek-ai/dsh-llm'
+import { scopeTarget } from '@deepseek-ai/dsh-scope'
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     userQuestions: UserQuestionService
   }

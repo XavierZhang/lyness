@@ -3,7 +3,7 @@ description: "账户模块自成一个 bundle：宁可拒绝启动，也不替�
 kind: "package-bundle"
 ---
 
-# @lyness/lyn-module-accounts
+# @deepseek-ai/dsh-module-accounts
 
 [English](README.md) | 中文
 
@@ -31,7 +31,7 @@ kind: "package-bundle"
 
 ```yaml
 - id: people
-  name: '@lyness/lyn-people/static'
+  name: '@deepseek-ai/dsh-people/static'
   config:
     people:
       - id: ada
@@ -43,7 +43,7 @@ kind: "package-bundle"
 
 ```yaml
 - id: sign-in-admission
-  name: '@lyness/lyn-sign-in/admission-roster'
+  name: '@deepseek-ai/dsh-sign-in/admission-roster'
   config:
     bindings:
       - channel: microsoft-entra
@@ -68,9 +68,9 @@ kind: "package-bundle"
 <a id="further-exploration"></a>
 ## 延伸阅读
 
-- [`lyn-people`](../../identity/people/README.zh.md) —— 目录，以及每种角色能做什么。
-- [`lyn-sign-in`](../../identity/sign-in/README.zh.md) —— channel 注册表与准入规则。
-- [`lyn-module-credits`](../module-credits/README.zh.md) —— 在计量的部署上，这些人被记账的那本账。
+- [`dsh-people`](../../identity/people/README.zh.md) —— 目录，以及每种角色能做什么。
+- [`dsh-sign-in`](../../identity/sign-in/README.zh.md) —— channel 注册表与准入规则。
+- [`dsh-module-credits`](../module-credits/README.zh.md) —— 在计量的部署上，这些人被记账的那本账。
 - [离开单操作者 Host](../../../.agents/notes/proposed/architecture/2026-10-15-diverging-from-the-single-operator-host.zh.md) —— 托管形态为什么需要这些。
 
 -----
@@ -89,7 +89,7 @@ kind: "package-bundle"
 <a id="known-limitations-and-deferred-work"></a>
 
 - **它不随带 channel** —— 在部署挂上一个之前没人能登录，准入绑定也没有东西可匹配。
-- **名册是组合配置** —— 加一个人是改 cordis.yml 并重启，而不是一个界面，因为 `lyn-people` 只有静态目录。
+- **名册是组合配置** —— 加一个人是改 cordis.yml 并重启，而不是一个界面，因为 `dsh-people` 只有静态目录。
 - **没有注册** —— 托管部署的人是注册进来的，那需要一条「首次登录时在租户自己的目录里开户」的准入规则；本 bundle 携带的是名册规则。
 - **租户不在这里选** —— 租户目录、它的配置与请求解析器各自成包，托管部署单独组合它们。
 - **不与目录同步** —— 员工本就住在那个用来登录的目录里的部署，仍要手写名册；没有任何东西去读那个目录自己的成员名单。

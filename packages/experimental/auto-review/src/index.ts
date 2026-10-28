@@ -5,12 +5,12 @@
  * Under the `ask` approval policy a reviewer denial asks the user; under
  * `never` it is final.
  *
- * @module @lyness/lyn-experimental-auto-review
+ * @module @deepseek-ai/dsh-experimental-auto-review
  */
 
-import type { Context } from '@lyness/cordis'
-import type { Agent } from '@lyness/lyn-agent'
-import type {} from '@lyness/lyn-agent-instructions'
+import type { Context } from '@deepseek-ai/cordis'
+import type { Agent } from '@deepseek-ai/dsh-agent'
+import type {} from '@deepseek-ai/dsh-agent-instructions'
 import {
   BlockAssembler,
   type ContentBlock,
@@ -19,17 +19,17 @@ import {
   type StreamChunk,
   type ToolCallId,
   type ToolSchema,
-} from '@lyness/lyn-llm'
-import { deepFreeze } from '@lyness/lyn-util-values'
-import { AUTO_PRESET } from '@lyness/lyn-permission-presets'
-import type { SessionEvent } from '@lyness/lyn-session'
-import type {} from '@lyness/lyn-subagent'
-import type {} from '@lyness/lyn-user-approval'
+} from '@deepseek-ai/dsh-llm'
+import { deepFreeze } from '@deepseek-ai/dsh-util-values'
+import { AUTO_PRESET } from '@deepseek-ai/dsh-permission-presets'
+import type { SessionEvent } from '@deepseek-ai/dsh-session'
+import type {} from '@deepseek-ai/dsh-subagent'
+import type {} from '@deepseek-ai/dsh-user-approval'
 import {
   RUN_CODE_NAME,
   type PreToolDecision,
   type ToolExecution,
-} from '@lyness/lyn-tools'
+} from '@deepseek-ai/dsh-tools'
 
 /** Structured error name persisted for every final reviewer denial. */
 const AUTO_REVIEW_DENIED_ERROR_NAME = 'AutoReviewDeniedError'

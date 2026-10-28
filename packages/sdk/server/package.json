@@ -1,13 +1,13 @@
 {
-  "name": "@lyness/lyn-sdk-jsonrpc-server",
-  "description": "Stdio JSON-RPC server plugin for out-of-process lyness SDK clients",
+  "name": "@deepseek-ai/dsh-sdk-jsonrpc-server",
+  "description": "Stdio JSON-RPC server plugin for out-of-process DeepSeek Harness SDK clients",
   "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/sdk/server"
   },
   "type": "module",
@@ -27,34 +27,34 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@lyness/lyn-brand": "workspace:*",
-    "@lyness/schemastery": "workspace:~"
+    "@deepseek-ai/dsh-brand": "workspace:*",
+    "@deepseek-ai/schemastery": "workspace:~"
   },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-agent": "workspace:*",
-    "@lyness/lyn-attachment": "workspace:*",
-    "@lyness/lyn-llm": "workspace:*",
-    "@lyness/lyn-llm-deepseek-api-key": "workspace:*",
-    "@lyness/lyn-scope": "workspace:*",
-    "@lyness/lyn-sdk-protocol": "workspace:*",
-    "@lyness/lyn-session": "workspace:*",
-    "@lyness/lyn-subagent": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-agent": "workspace:*",
+    "@deepseek-ai/dsh-attachment": "workspace:*",
+    "@deepseek-ai/dsh-llm": "workspace:*",
+    "@deepseek-ai/dsh-llm-deepseek-api-key": "workspace:*",
+    "@deepseek-ai/dsh-scope": "workspace:*",
+    "@deepseek-ai/dsh-sdk-protocol": "workspace:*",
+    "@deepseek-ai/dsh-session": "workspace:*",
+    "@deepseek-ai/dsh-subagent": "workspace:*"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/cordis-plugin-loader": "workspace:~",
-    "@lyness/lyn-agent": "workspace:*",
-    "@lyness/lyn-agent-loop": "workspace:*",
-    "@lyness/lyn-agent-loop-testkit": "workspace:*",
-    "@lyness/lyn-attachment": "workspace:*",
-    "@lyness/lyn-llm": "workspace:*",
-    "@lyness/lyn-llm-deepseek-api-key": "workspace:*",
-    "@lyness/lyn-scope": "workspace:*",
-    "@lyness/lyn-sdk-protocol": "workspace:*",
-    "@lyness/lyn-session": "workspace:*",
-    "@lyness/lyn-session-persistence-jsonl": "workspace:*",
-    "@lyness/lyn-session-projection": "workspace:*",
-    "@lyness/lyn-subagent": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/cordis-plugin-loader": "workspace:~",
+    "@deepseek-ai/dsh-agent": "workspace:*",
+    "@deepseek-ai/dsh-agent-loop": "workspace:*",
+    "@deepseek-ai/dsh-agent-loop-testkit": "workspace:*",
+    "@deepseek-ai/dsh-attachment": "workspace:*",
+    "@deepseek-ai/dsh-llm": "workspace:*",
+    "@deepseek-ai/dsh-llm-deepseek-api-key": "workspace:*",
+    "@deepseek-ai/dsh-scope": "workspace:*",
+    "@deepseek-ai/dsh-sdk-protocol": "workspace:*",
+    "@deepseek-ai/dsh-session": "workspace:*",
+    "@deepseek-ai/dsh-session-persistence-jsonl": "workspace:*",
+    "@deepseek-ai/dsh-session-projection": "workspace:*",
+    "@deepseek-ai/dsh-subagent": "workspace:*"
   }
 }

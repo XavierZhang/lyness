@@ -4,11 +4,11 @@
  *
  * Everything here is I/O-free so the request shapes and the acceptance of a
  * directory's answers are checkable without a network or a browser.
- * @module @lyness/lyn-microsoft-entra/protocol
+ * @module @deepseek-ai/dsh-microsoft-entra/protocol
  */
 
 import { z } from 'zod'
-import { brandString } from '@lyness/lyn-brand'
+import { brandString } from '@deepseek-ai/dsh-brand'
 import type { EntraDirectoryId, EntraObjectId, EntraSubject } from './types.ts'
 import type { ResolvedConfig } from './index.ts'
 

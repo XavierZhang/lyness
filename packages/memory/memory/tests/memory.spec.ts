@@ -6,13 +6,13 @@
 import { mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { Context } from '@lyness/cordis'
-import Storage from '@lyness/lyn-storage'
-import * as StorageDomain from '@lyness/lyn-storage-domain'
-import * as StorageJson from '@lyness/lyn-storage-json'
-import SystemPrompt, { renderContextSnapshot, renderPrompt } from '@lyness/lyn-system-prompt'
-import Tools from '@lyness/lyn-tools'
-import { brandString } from '@lyness/lyn-brand'
+import { Context } from '@deepseek-ai/cordis'
+import Storage from '@deepseek-ai/dsh-storage'
+import * as StorageDomain from '@deepseek-ai/dsh-storage-domain'
+import * as StorageJson from '@deepseek-ai/dsh-storage-json'
+import SystemPrompt, { renderContextSnapshot, renderPrompt } from '@deepseek-ai/dsh-system-prompt'
+import Tools from '@deepseek-ai/dsh-tools'
+import { brandString } from '@deepseek-ai/dsh-brand'
 import { afterEach, describe, expect, it } from 'vitest'
 import MemoryService, { MEMORY_CONTEXT_NAME, renderEntries, resolveConfig } from '../src/index.ts'
 import * as MemoryTools from '../src/tools.ts'
@@ -28,7 +28,7 @@ afterEach(() => {
 
 /** Boot a context with durable JSON storage, the prompt surface, and memory. */
 async function harness(config: { maxEntries?: number } = {}): Promise<Context> {
-  const root = mkdtempSync(join(tmpdir(), 'lyn-memory-'))
+  const root = mkdtempSync(join(tmpdir(), 'dsh-memory-'))
   roots.push(root)
   return boot(root, config)
 }
@@ -121,7 +121,7 @@ describe('the memory service', () => {
   })
 
   it('survives a restart over the same storage root', async () => {
-    const root = mkdtempSync(join(tmpdir(), 'lyn-memory-restart-'))
+    const root = mkdtempSync(join(tmpdir(), 'dsh-memory-restart-'))
     roots.push(root)
     const first = await boot(root)
     await memoryOf(first).remember('persisted across restarts')
@@ -133,7 +133,7 @@ describe('the memory service', () => {
   })
 
   it('fails loudly on a corrupt store instead of reading it as empty', async () => {
-    const root = mkdtempSync(join(tmpdir(), 'lyn-memory-corrupt-'))
+    const root = mkdtempSync(join(tmpdir(), 'dsh-memory-corrupt-'))
     roots.push(root)
     // A blank text is exactly what a silent read would turn into "no memories".
     writeFileSync(join(root, 'memory.json'), `${JSON.stringify({

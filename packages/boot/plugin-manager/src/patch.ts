@@ -1,8 +1,8 @@
 /** Comment-preserving profile plugin enablement edits. */
 import { readFile } from 'node:fs/promises'
 import { isMap, isSeq, parseDocument } from 'yaml'
-import { loadOptionalPatches } from '@lyness/lyn-app-boot'
-import { writeFileAtomic } from '@lyness/lyn-atomic-write'
+import { loadOptionalPatches } from '@deepseek-ai/dsh-app-boot'
+import { writeFileAtomic } from '@deepseek-ai/dsh-atomic-write'
 
 /** Replace the last matching override or append one after existing insertions.
  * @param filename Current profile patch file.
@@ -25,7 +25,7 @@ export async function writePluginEnabled(filename: string, id: string, name: str
   const error = document.errors[0]
   if (error !== undefined) throw error
   if (!isSeq(document.contents)) throw new Error('Profile patch must be a YAML sequence')
-  loadOptionalPatches('lyn', filename)
+  loadOptionalPatches('dsh', filename)
   const items = document.contents.items
   const target = items.findLast((item, index) => {
     if (!isMap(item) || document.getIn([index, 'id']) !== id || item.has('insert')) return false

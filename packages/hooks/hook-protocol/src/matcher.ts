@@ -4,7 +4,7 @@
  * treats every non-empty pattern as an unanchored regex. Missing, empty, and
  * `*` match all. Runtime matching contains invalid regexes as non-matches;
  * config parsers use {@link matcherDiagnostic} to reject them with a diagnostic.
- * @module @lyness/lyn-hook-protocol/matcher
+ * @module @deepseek-ai/dsh-hook-protocol/matcher
  */
 
 import type { MatcherMode } from './types.ts'

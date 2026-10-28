@@ -3,13 +3,13 @@ description: "DingTalk as a sign-in channel: an organization signs in whichever 
 kind: "package-reference"
 ---
 
-# @lyness/lyn-dingtalk
+# @deepseek-ai/dsh-dingtalk
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`lyn-dingtalk` offers DingTalk as a redirect sign-in channel. It sends the browser to DingTalk's own sign-in page, exchanges the code for the person's own token, reads who that token belongs to, and hands that identity to the deployment's admission rule — which decides who, if anyone, that person is allowed to be. It holds nothing: no tokens, no directory copy, no session of its own. The application secret is named as a credential reference rather than written into composition, so a cordis.yml never carries the one value that signs in every organization the application is installed in.
+`dsh-dingtalk` offers DingTalk as a redirect sign-in channel. It sends the browser to DingTalk's own sign-in page, exchanges the code for the person's own token, reads who that token belongs to, and hands that identity to the deployment's admission rule — which decides who, if anyone, that person is allowed to be. It holds nothing: no tokens, no directory copy, no session of its own. The application secret is named as a credential reference rather than written into composition, so a cordis.yml never carries the one value that signs in every organization the application is installed in.
 
 ## Table of Contents
 
@@ -29,12 +29,12 @@ Beside the sign-in registry and a credential store, with a binding for each memb
 
 ```yaml
 - id: dingtalk
-  name: '@lyness/lyn-dingtalk'
+  name: '@deepseek-ai/dsh-dingtalk'
   config:
     appKey: your-app-key
     secret: DINGTALK_APP_SECRET
 - id: sign-in-admission
-  name: '@lyness/lyn-sign-in/admission-roster'
+  name: '@deepseek-ai/dsh-sign-in/admission-roster'
   config:
     bindings:
       - channel: dingtalk
@@ -56,7 +56,7 @@ Beside the sign-in registry and a credential store, with a binding for each memb
 
 **A person in somebody's directory, or nobody.** A token exchange that reports no `corpId` is a personal DingTalk account signing in. No organization holds them, so no binding could name them, and the sign-in completes nobody — without even asking who they are.
 
-**One callback is spent once.** The attempt is removed before the code is exchanged, so a replayed callback link finds nothing waiting. The book that holds attempts in flight is `lyn-sign-in`'s, shared with every other redirect channel.
+**One callback is spent once.** The attempt is removed before the code is exchanged, so a replayed callback link finds nothing waiting. The book that holds attempts in flight is `dsh-sign-in`'s, shared with every other redirect channel.
 
 **The code arrives under either name.** DingTalk's callback has carried it as `authCode` and as `code` across its own revisions, and a channel that read only one would simply stop signing people in. Both are read, `authCode` first.
 
@@ -65,10 +65,10 @@ Beside the sign-in registry and a credential store, with a binding for each memb
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`lyn-sign-in`](../../identity/sign-in/README.md) — the channel seam and the admission rule.
-- [`lyn-sign-in-http`](../../identity/sign-in-http/README.md) — the routes that send the browser out and take the callback.
-- [`lyn-wecom`](../wecom/README.md) and [`lyn-microsoft-entra`](../microsoft-entra/README.md) — the other redirect channels, which share this one's attempt book.
-- [`lyn-credentials`](../../credentials/credentials/README.md) — where the application secret lives.
+- [`dsh-sign-in`](../../identity/sign-in/README.md) — the channel seam and the admission rule.
+- [`dsh-sign-in-http`](../../identity/sign-in-http/README.md) — the routes that send the browser out and take the callback.
+- [`dsh-wecom`](../wecom/README.md) and [`dsh-microsoft-entra`](../microsoft-entra/README.md) — the other redirect channels, which share this one's attempt book.
+- [`dsh-credentials`](../../credentials/credentials/README.md) — where the application secret lives.
 
 -----
 

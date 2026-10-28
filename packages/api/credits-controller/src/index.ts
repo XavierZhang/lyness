@@ -3,25 +3,25 @@
  * balance, and an administrator grants credits and sets allowances.
  *
  * Every call acts for the standing the request arrived in, never for one the
- * caller names. The authority check itself stays in `lyn-credits` — the same
+ * caller names. The authority check itself stays in `dsh-credits` — the same
  * rule decides whether a grant is permitted and whether one person's ledger
  * may be shown to another, and two copies of it would be one too many.
  *
  * A read answers with `administrable` so a surface renders its administrator
  * controls from the same answer that fills them, instead of offering a
  * control the next call would refuse.
- * @module @lyness/lyn-api-credits-controller
+ * @module @deepseek-ai/dsh-api-credits-controller
  */
 
-import { Context } from '@lyness/cordis'
-import type { BudgetState, CreditBalance, CreditDebit, CreditGrant } from '@lyness/lyn-credits'
-import type { AllowanceRecord } from '@lyness/lyn-credits/allowance'
-import { RESET_PERIODS } from '@lyness/lyn-credits/administration'
-import type { CreditAdministration, PersonOverrides } from '@lyness/lyn-credits/administration'
-import type { Membership, PersonId } from '@lyness/lyn-people'
-import { brandString } from '@lyness/lyn-brand'
-import type {} from '@lyness/lyn-request-principal'
-import { Remote, RemoteError, TypertRemoteService } from '@lyness/lyn-typert-protocol'
+import { Context } from '@deepseek-ai/cordis'
+import type { BudgetState, CreditBalance, CreditDebit, CreditGrant } from '@deepseek-ai/dsh-credits'
+import type { AllowanceRecord } from '@deepseek-ai/dsh-credits/allowance'
+import { RESET_PERIODS } from '@deepseek-ai/dsh-credits/administration'
+import type { CreditAdministration, PersonOverrides } from '@deepseek-ai/dsh-credits/administration'
+import type { Membership, PersonId } from '@deepseek-ai/dsh-people'
+import { brandString } from '@deepseek-ai/dsh-brand'
+import type {} from '@deepseek-ai/dsh-request-principal'
+import { Remote, RemoteError, TypertRemoteService } from '@deepseek-ai/dsh-typert-protocol'
 import { z } from 'zod'
 import type {
   AllowanceInput, AllowanceOverrideView, AllowanceView, BudgetInput, BudgetView,
@@ -30,7 +30,7 @@ import type {
 
 export type * from './types.ts'
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     /** Host owner of the `credits` Remote namespace. */
     creditsController: CreditsController

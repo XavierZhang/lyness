@@ -59,7 +59,7 @@ function fixtureSignature(
 
 describe('translation pairing index reads', () => {
   it('reads staged bytes independently of the working tree', () => {
-    const root = mkdtempSync(join(tmpdir(), 'lyn-translation-pairing-index-'))
+    const root = mkdtempSync(join(tmpdir(), 'dsh-translation-pairing-index-'))
     try {
       execFileSync('git', ['init', '--quiet', root], {
         env: { ...process.env, GIT_DEFAULT_HASH: 'sha1' },
@@ -78,7 +78,7 @@ describe('translation pairing index reads', () => {
   })
 
   it('lists exact index files without treating a directory prefix as one entry', () => {
-    const root = mkdtempSync(join(tmpdir(), 'lyn-translation-pairing-index-'))
+    const root = mkdtempSync(join(tmpdir(), 'dsh-translation-pairing-index-'))
     try {
       execFileSync('git', ['init', '--quiet', root], {
         env: { ...process.env, GIT_DEFAULT_HASH: 'sha1' },
@@ -142,9 +142,9 @@ describe('translation pairing switchers', () => {
 
   it('accepts only the canonical public URL for an absolute switcher', () => {
     const targets = languageSwitcherTargets('python/sdk/README.zh.md')
-    const canonicalMarkdown = '# README\n\nEnglish | [中文](https://github.com/XavierZhang/lyness/blob/master/python/sdk/README.zh.md)\n'
+    const canonicalMarkdown = '# README\n\nEnglish | [中文](https://github.com/deepseek-ai/deepseek-harness/blob/master/python/sdk/README.zh.md)\n'
     const canonical = parseTranslationMarkdown(canonicalMarkdown)
-    const wrongMarkdown = '# README\n\nEnglish | [中文](https://github.com/XavierZhang/lyness/blob/master/other/README.zh.md)\n'
+    const wrongMarkdown = '# README\n\nEnglish | [中文](https://github.com/deepseek-ai/deepseek-harness/blob/master/other/README.zh.md)\n'
     const wrongPath = parseTranslationMarkdown(wrongMarkdown)
 
     expect(translationStructureSignature(canonical, targets, {
@@ -159,12 +159,12 @@ describe('translation pairing switchers', () => {
       isTranslationPairSource: fixturePairSource,
       markdown: wrongMarkdown,
     }).links).toEqual([
-      'https://github.com/XavierZhang/lyness/blob/master/other/README.zh.md',
+      'https://github.com/deepseek-ai/deepseek-harness/blob/master/other/README.zh.md',
     ])
   })
 
   it('excludes only the header switcher from the structural links', () => {
-    const root = mkdtempSync(join(tmpdir(), 'lyn-translation-switcher-'))
+    const root = mkdtempSync(join(tmpdir(), 'dsh-translation-switcher-'))
     try {
       writeFileSync(join(root, 'guide.md'), '# Guide\n')
       writeFileSync(join(root, 'guide.zh.md'), '# 指南\n')
@@ -176,7 +176,7 @@ describe('translation pairing switchers', () => {
           repoRoot: root, sourcePath: 'guide.zh.md',
           isTranslationPairSource: fixturePairSource, markdown,
         },
-      ).links).toEqual(['lyn-translation-target:guide.md'])
+      ).links).toEqual(['dsh-translation-target:guide.md'])
     } finally {
       rmSync(root, { recursive: true, force: true })
     }
@@ -284,7 +284,7 @@ describe('translation pairing records', () => {
       paths,
       record(en.replace(heading, english), zh.replace(heading === 'Intro.' ? '简介。' : '事件表。', chinese)),
     )
-    const root = mkdtempSync(join(tmpdir(), 'lyn-translation-pairing-merge-'))
+    const root = mkdtempSync(join(tmpdir(), 'dsh-translation-pairing-merge-'))
     try {
       writeFileSync(join(root, 'base'), renderTranslationPairingRecord(paths, record(en, zh)))
       writeFileSync(join(root, 'current'), edit('Intro.', 'New intro.', '新简介。'))
@@ -321,7 +321,7 @@ describe('translation scope discovery', () => {
     'docs/guide.md',
     'python/guide.md',
     'python/sdk-runtime/README.md',
-    'python/sdk-runtime/src/lyness_runtime/README.md',
+    'python/sdk-runtime/src/DeepSeek Harness_runtime/README.md',
   ])('includes %s', (file) => {
     expect(isTranslationScopeFile(file)).toBe(true)
   })
@@ -337,9 +337,9 @@ describe('translation scope discovery', () => {
     'packages/example/node_modules/dependency/README.md',
     'packages/example/lib/README.md',
     'coverage/report/README.md',
-    'python/sdk-runtime/src/lyness_runtime/runtime/lyness-sdk-runtime-macos-arm64/README.md',
-    'python/sdk-runtime/src/lyness_runtime/runtime/node/README.md',
-    'python/sdk-runtime/src/lyness_runtime/runtime/macos-arm64/office-skills/office-docx/SKILL.md',
+    'python/sdk-runtime/src/DeepSeek Harness_runtime/runtime/DeepSeek Harness-sdk-runtime-macos-arm64/README.md',
+    'python/sdk-runtime/src/DeepSeek Harness_runtime/runtime/node/README.md',
+    'python/sdk-runtime/src/DeepSeek Harness_runtime/runtime/macos-arm64/office-skills/office-docx/SKILL.md',
   ])('excludes non-source or non-README path %s', (file) => {
     expect(isTranslationScopeFile(file)).toBe(false)
   })
@@ -361,7 +361,7 @@ describe('translation structural signature', () => {
   })
 
   it('treats target-locale siblings as one semantic link target', () => {
-    const root = mkdtempSync(join(tmpdir(), 'lyn-translation-structure-'))
+    const root = mkdtempSync(join(tmpdir(), 'dsh-translation-structure-'))
     try {
       writeFileSync(join(root, 'reference.md'), '# Reference\n')
       writeFileSync(join(root, 'reference.zh.md'), '# 参考\n')
@@ -376,7 +376,7 @@ describe('translation structural signature', () => {
   })
 
   it('includes reference-style document links but excludes image-only definitions', () => {
-    const root = mkdtempSync(join(tmpdir(), 'lyn-translation-structure-'))
+    const root = mkdtempSync(join(tmpdir(), 'dsh-translation-structure-'))
     try {
       writeFileSync(join(root, 'reference.md'), '# Reference\n')
       writeFileSync(join(root, 'reference.zh.md'), '# 参考\n')
@@ -396,14 +396,14 @@ describe('translation structural signature', () => {
           repoRoot: root, sourcePath: 'guide.md',
           isTranslationPairSource: fixturePairSource, markdown,
         },
-      ).links).toEqual(['lyn-translation-target:reference.md'])
+      ).links).toEqual(['dsh-translation-target:reference.md'])
     } finally {
       rmSync(root, { recursive: true, force: true })
     }
   })
 
   it('compares the first duplicate reference definition that CommonMark resolves', () => {
-    const root = mkdtempSync(join(tmpdir(), 'lyn-translation-structure-'))
+    const root = mkdtempSync(join(tmpdir(), 'dsh-translation-structure-'))
     try {
       for (const name of ['reference', 'different', 'other']) {
         writeFileSync(join(root, `${name}.md`), `# ${name}\n`)
@@ -414,7 +414,7 @@ describe('translation structural signature', () => {
       const source = fixtureSignature(root, 'guide.md', sourceMarkdown, 'guide.zh.md')
       const counterpart = fixtureSignature(root, 'guide.zh.md', counterpartMarkdown, 'guide.md')
       expect(translationStructureDiff(source, counterpart)).toEqual([
-        'link target #1 diverges between the pair: "lyn-translation-target:reference.md" vs "lyn-translation-target:different.md"',
+        'link target #1 diverges between the pair: "dsh-translation-target:reference.md" vs "dsh-translation-target:different.md"',
       ])
     } finally {
       rmSync(root, { recursive: true, force: true })

@@ -1,9 +1,9 @@
 ---
-description: "lyn Web 客户端插件页上的终端执行器设置页：shell 命名空间的命令超时与单流输出上限。"
+description: "dsh Web 客户端插件页上的终端执行器设置页：shell 命名空间的命令超时与单流输出上限。"
 kind: "package-reference"
 ---
 
-# @lyness/lyn-client-ui-settings-shell
+# @deepseek-ai/dsh-client-ui-settings-shell
 
 [English](README.md) | 中文
 

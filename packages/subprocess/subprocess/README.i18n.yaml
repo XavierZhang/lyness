@@ -5,69 +5,69 @@
 /:
   en: 04735af7a998f2ae
   zh: ab6bf3d0f098877a
-/lyness-lyn-subprocess:
+/DeepSeek Harness-dsh-subprocess:
   en: 3886987287565e2c
   zh: f8153969f1f760c0
-/lyness-lyn-subprocess/summary:
+/DeepSeek Harness-dsh-subprocess/summary:
   en: a046b316650d3d2e
   zh: 971f260e40a0fb21
-/lyness-lyn-subprocess/table-of-contents:
+/DeepSeek Harness-dsh-subprocess/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/lyness-lyn-subprocess/use-this-package:
+/DeepSeek Harness-dsh-subprocess/use-this-package:
   en: a43391b5840a4c58
   zh: a0a9c3fa577d92c0
-/lyness-lyn-subprocess/use-this-package/mounting-the-service:
+/DeepSeek Harness-dsh-subprocess/use-this-package/mounting-the-service:
   en: 82be7c63ab95994f
   zh: 8810e7c489b444df
-/lyness-lyn-subprocess/use-this-package/starting-a-managed-process:
+/DeepSeek Harness-dsh-subprocess/use-this-package/starting-a-managed-process:
   en: 891cb74d5d35095c
   zh: 296cb1890116fb05
-/lyness-lyn-subprocess/use-this-package/choosing-how-output-is-delivered:
+/DeepSeek Harness-dsh-subprocess/use-this-package/choosing-how-output-is-delivered:
   en: c02fe7246326c164
   zh: 1d31096e31e1feee
-/lyness-lyn-subprocess/use-this-package/using-a-control-pipe:
+/DeepSeek Harness-dsh-subprocess/use-this-package/using-a-control-pipe:
   en: e8f60f9eda10ab5a
   zh: 7fd67f56cf8499be
-/lyness-lyn-subprocess/use-this-package/managing-process-lifetime:
+/DeepSeek Harness-dsh-subprocess/use-this-package/managing-process-lifetime:
   en: 83d662d278184411
   zh: 2c4e7fbe76823fa8
-/lyness-lyn-subprocess/use-this-package/running-a-terminal-session:
+/DeepSeek Harness-dsh-subprocess/use-this-package/running-a-terminal-session:
   en: e3631497344c2ebd
   zh: c4ebc7b08f0a316e
-/lyness-lyn-subprocess/use-this-package/environment-every-child-starts-from:
+/DeepSeek Harness-dsh-subprocess/use-this-package/environment-every-child-starts-from:
   en: 71485a81610b9189
   zh: bd5571b4b99d4fef
-/lyness-lyn-subprocess/use-this-package/what-can-go-wrong:
+/DeepSeek Harness-dsh-subprocess/use-this-package/what-can-go-wrong:
   en: 51f2f43087a1ed18
   zh: 6d2ebb099b707df3
-/lyness-lyn-subprocess/understand-the-implementation:
+/DeepSeek Harness-dsh-subprocess/understand-the-implementation:
   en: 25cd344c959cfd9e
   zh: 045880776ab82d1e
-/lyness-lyn-subprocess/understand-the-implementation/design-concept:
+/DeepSeek Harness-dsh-subprocess/understand-the-implementation/design-concept:
   en: 4b750f10a767ad75
   zh: acf72e35b74a2e14
-/lyness-lyn-subprocess/understand-the-implementation/source-map:
+/DeepSeek Harness-dsh-subprocess/understand-the-implementation/source-map:
   en: e3d84a1779ea55ce
   zh: 4e210cfd7cf06fb8
-/lyness-lyn-subprocess/understand-the-implementation/data-model-and-flow:
+/DeepSeek Harness-dsh-subprocess/understand-the-implementation/data-model-and-flow:
   en: 9998dc0a990fbcf1
   zh: ba179617f60cb9bc
-/lyness-lyn-subprocess/understand-the-implementation/lifecycle-and-invariants:
+/DeepSeek Harness-dsh-subprocess/understand-the-implementation/lifecycle-and-invariants:
   en: a132325eea7cadb4
   zh: 434cbbc61ff9cd0e
-/lyness-lyn-subprocess/further-exploration:
+/DeepSeek Harness-dsh-subprocess/further-exploration:
   en: edf9cf257b5bf410
   zh: 5c798659223f2c0f
-/lyness-lyn-subprocess/model-experience:
+/DeepSeek Harness-dsh-subprocess/model-experience:
   en: 36d8f1820f81de29
   zh: da18a4123bdd28b7
-/lyness-lyn-subprocess/model-experience/kv-cache-effect:
+/DeepSeek Harness-dsh-subprocess/model-experience/kv-cache-effect:
   en: e290ccc9b3c92c08
   zh: d75d48f485447a74
-/lyness-lyn-subprocess/known-limitations-and-deferred-work:
+/DeepSeek Harness-dsh-subprocess/known-limitations-and-deferred-work:
   en: 0b1c46aec1ba628d
   zh: cf2a0db9d0682155
-/lyness-lyn-subprocess/known-limitations-and-deferred-work/dev-note:
+/DeepSeek Harness-dsh-subprocess/known-limitations-and-deferred-work/dev-note:
   en: 56709c22873429b5
   zh: c0e86c62982a3e29

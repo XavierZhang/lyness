@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import { act, cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { useState } from 'react'
-import { makeTranslate } from '@lyness/lyn-client-test-runtime'
+import { makeTranslate } from '@deepseek-ai/dsh-client-test-runtime'
 import { afterEach, expect, it, vi } from 'vitest'
 import { DesktopOnboarding } from '../src/client/DesktopOnboarding.tsx'
 import type { DesktopOnboardingProps, DesktopOnboardingState } from '../src/client/onboarding-contract.ts'

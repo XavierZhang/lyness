@@ -1,17 +1,17 @@
 // Shared scaffold for the keyless browser e2e lane (Agent Note:
 // .agents/notes/implemented/testing/2026-07-24-web-gui-browser-e2e-lane.md).
-// Boots the REAL web composition — the lyn-base and lyn-web-app bundle
+// Boots the REAL web composition — the dsh-base and dsh-web-app bundle
 // patches over the empty profile root through the vendored Loader (the same
 // layer stack the profile boot composes), patched the
 // snapshot way — so a real chromium exercises the real HTTP uplink/WebSocket
-// downlink, api-gateway, agent loop, tools, and persistence. Modes ride $LYNESS_SNAPSHOT:
+// downlink, api-gateway, agent loop, tools, and persistence. Modes ride $DSH_SNAPSHOT:
 // replay (default, keyless: normally disables the direct DeepSeek rows and
-// inserts lyn-llm-replay in providers mode), record (real adapter + key,
+// inserts dsh-llm-replay in providers mode), record (real adapter + key,
 // harvests fixtures from live session memory), refresh (keyless replay that
 // rewrites goldens). A first-run option keeps the real adapter mounted while
 // masking its credential, without making a model call.
 //
-// Composition divergences from `lyn web`, all deliberate, all via include
+// Composition divergences from `dsh web`, all deliberate, all via include
 // patches after the shipped bundle layers, over the SAME tree (never a
 // second yml): temp persistenceRoot; host-level skill roots confined to the
 // temp workspace while project skill discovery remains real; agent-instructions
@@ -30,10 +30,10 @@ import { basename, dirname, join, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import type { Page } from 'playwright'
 import { expect } from 'vitest'
-import { Context } from '@lyness/cordis'
-import { LYNESS_LAUNCH_ENVIRONMENT_KEY, type LaunchEnvironmentSnapshot } from '@lyness/lyn-launch-environment'
-import Loader from '@lyness/cordis-plugin-loader'
-import { entryListSchema, type PatchOptions } from '@lyness/cordis-plugin-include'
+import { Context } from '@deepseek-ai/cordis'
+import { DSH_LAUNCH_ENVIRONMENT_KEY, type LaunchEnvironmentSnapshot } from '@deepseek-ai/dsh-launch-environment'
+import Loader from '@deepseek-ai/cordis-plugin-loader'
+import { entryListSchema, type PatchOptions } from '@deepseek-ai/cordis-plugin-include'
 import yaml from 'js-yaml'
 import {
   captureExpectedWorkspaceSnapshot,
@@ -56,37 +56,37 @@ import {
   stabilizeRefreshLog,
   writesCurrentSessionFixtures,
   type NormalizeContext,
-} from '@lyness/lyn-session-snapshot'
-import type { Profile, ProfileContext } from '@lyness/lyn-app-boot'
-import { lynHomePath } from '@lyness/lyn-home-paths'
-import { LlmAdapter } from '@lyness/lyn-llm'
+} from '@deepseek-ai/dsh-session-snapshot'
+import type { Profile, ProfileContext } from '@deepseek-ai/dsh-app-boot'
+import { dshHomePath } from '@deepseek-ai/dsh-home-paths'
+import { LlmAdapter } from '@deepseek-ai/dsh-llm'
 import type {
   LlmModelInfo, LlmProviderInfo, LlmResolvedModelInfo, RetryPolicyConfig, StreamChunk,
-} from '@lyness/lyn-llm'
-import type { ReplayHandle, ReplayProviderConfig } from '@lyness/lyn-llm-replay'
+} from '@deepseek-ai/dsh-llm'
+import type { ReplayHandle, ReplayProviderConfig } from '@deepseek-ai/dsh-llm-replay'
 import {
   installLlmReplay,
   parseSessionLog,
   prepareSessionSnapshotFixtureForComparison,
-} from '@lyness/lyn-llm-replay'
-import type { SessionFormatEvent } from '@lyness/lyn-session-format'
-import { sessionFormatCatalog } from '@lyness/lyn-session-format-catalog'
+} from '@deepseek-ai/dsh-llm-replay'
+import type { SessionFormatEvent } from '@deepseek-ai/dsh-session-format'
+import { sessionFormatCatalog } from '@deepseek-ai/dsh-session-format-catalog'
 import {
   SESSION_FORMAT_VERSION,
   SessionId,
   type Session,
   type SessionEvent,
   type SessionHeader,
-} from '@lyness/lyn-session'
-import JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
+} from '@deepseek-ai/dsh-session'
+import JsonlSessionPersistence from '@deepseek-ai/dsh-session-persistence-jsonl'
 // Empty type imports carry the webServer/agents/sessionPersistence Context merges.
-import type {} from '@lyness/lyn-host-webserver'
-import type {} from '@lyness/lyn-agent'
-import { provideCmdline } from '@lyness/lyn-cmdline'
+import type {} from '@deepseek-ai/dsh-host-webserver'
+import type {} from '@deepseek-ai/dsh-agent'
+import { provideCmdline } from '@deepseek-ai/dsh-cmdline'
 import { startPrefixProxy, type PrefixProxy } from './prefix-proxy.ts'
 import { REPO_ROOT, requireBuilt, requireDist } from './support.ts'
 
-type AppBoot = typeof import('@lyness/lyn-app-boot')
+type AppBoot = typeof import('@deepseek-ai/dsh-app-boot')
 let builtAppBoot: AppBoot | undefined
 
 /**
@@ -97,13 +97,13 @@ let builtAppBoot: AppBoot | undefined
  * helpers this module also exports load without one.
  */
 function appBoot(): AppBoot {
-  builtAppBoot ??= requireBuilt('@lyness/lyn-app-boot') as AppBoot
+  builtAppBoot ??= requireBuilt('@deepseek-ai/dsh-app-boot') as AppBoot
   return builtAppBoot
 }
 
 /** The installed bundle carrying the scaffold's deployment defaults; the plugin manager lists it beside fixture bundles. */
-export const SCAFFOLD_DEFAULTS_BUNDLE = 'lyn-web-scaffold-defaults'
-/** Snapshot mode for the lane, from $LYNESS_SNAPSHOT (same vocabulary as the other snapshot suites). */
+export const SCAFFOLD_DEFAULTS_BUNDLE = 'dsh-web-scaffold-defaults'
+/** Snapshot mode for the lane, from $DSH_SNAPSHOT (same vocabulary as the other snapshot suites). */
 export type WebSnapshotMode = 'replay' | 'record' | 'refresh'
 
 /**
@@ -111,10 +111,10 @@ export type WebSnapshotMode = 'replay' | 'record' | 'refresh'
  * @returns the active mode; unset/empty selects replay.
  */
 export function webSnapshotMode(): WebSnapshotMode {
-  const value = process.env.LYNESS_SNAPSHOT
+  const value = process.env.DSH_SNAPSHOT
   if (value === undefined || value === '' || value === 'replay') return 'replay'
   if (value === 'record' || value === 'refresh') return value
-  throw new Error(`LYNESS_SNAPSHOT must be replay, record, or refresh; got ${JSON.stringify(value)}`)
+  throw new Error(`DSH_SNAPSHOT must be replay, record, or refresh; got ${JSON.stringify(value)}`)
 }
 
 /**
@@ -189,22 +189,22 @@ const BASE_PATCH_PATH = join(REPO_ROOT, 'packages/bundle/base/cordis.patch.yml')
 
 /** One selected bundle's directory and its declared patch document. */
 function shippedBundle(name: string): { dir: string; bundle: { patch: string | string[] } } {
-  const dir = join(REPO_ROOT, 'packages/bundle', name.replace('@lyness/lyn-', ''))
+  const dir = join(REPO_ROOT, 'packages/bundle', name.replace('@deepseek-ai/dsh-', ''))
   const manifest = JSON.parse(readFileSync(join(dir, 'package.json'), 'utf8')) as {
-    lyn: { bundle: { patch: string | string[] } }
+    dsh: { bundle: { patch: string | string[] } }
   }
-  return { dir, bundle: manifest.lyn.bundle }
+  return { dir, bundle: manifest.dsh.bundle }
 }
 
 /**
- * The template's bundles after `lyn-base`, which the scaffold applies first.
+ * The template's bundles after `dsh-base`, which the scaffold applies first.
  *
  * Read through the built launcher copy, like everything else this scaffold
  * takes from app-boot, so the selection under test is the one a deployment
  * would get rather than a second list kept in step by hand.
  */
 function surfaceBundleNames(): readonly string[] {
-  return (appBoot().PROFILE_TEMPLATES.web?.bundles ?? []).filter(name => name !== '@lyness/lyn-base')
+  return (appBoot().PROFILE_TEMPLATES.web?.bundles ?? []).filter(name => name !== '@deepseek-ai/dsh-base')
 }
 /** The installation anchor whose dependency surface the runtime resolution mirrors. */
 const INSTALL_ANCHOR = join(REPO_ROOT, 'apps/cli/package.json')
@@ -295,7 +295,7 @@ export interface WebScaffold {
   workspaceCwd: string
   /** Temp persistence root (seeded sessions land here through the real API). */
   persistenceRoot: string
-  /** Isolated harness home the settings/credentials rows write ($LYNESS_HOME double). */
+  /** Isolated harness home the settings/credentials rows write ($DSH_HOME double). */
   harnessHome: string
   /** Send a browser-equivalent Host request with this scaffold's authenticated cookie. */
   hostFetch(path: string, init?: RequestInit): Promise<Response>
@@ -333,7 +333,7 @@ export interface LaunchOptions {
    * over the profile directory, whose manifest lists the shipped web bundles
    * and each package directory here as an installed dependency (`file:` in the
    * manifest, a symlink under the profile's `node_modules`); `enabled` also
-   * lists a bundle in `lyn.profile.bundles`. The plugin manager mounts on such
+   * lists a bundle in `dsh.profile.bundles`. The plugin manager mounts on such
    * a profile, and the root Include is mounted from the profile's own layers.
    * The base bundle's `hmr` row turns on with the profile context, so
    * configuration changes apply live; `hmr: false` disables that row through
@@ -348,7 +348,7 @@ export interface LaunchOptions {
     bundles?: readonly string[]
   }
   /**
-   * Replay fixture (session.jsonl) served by the inserted lyn-llm-replay row
+   * Replay fixture (session.jsonl) served by the inserted dsh-llm-replay row
    * in replay/refresh modes; ignored in record mode (the real adapter
    * answers). Omit for scenarios issuing no model calls — a stray stream then
    * fails loud with NO_ADAPTER (both direct adapters are disabled and no replay row
@@ -419,7 +419,7 @@ export interface LaunchOptions {
   /** Preset selection default and additional declarative definitions for this scenario. */
   agentPresets?: {
     default: string
-    definitions?: import('@lyness/lyn-agent-preset-registry').PresetDefinition[]
+    definitions?: import('@deepseek-ai/dsh-agent-preset-registry').PresetDefinition[]
   }
   /**
    * Patch the telemetry exporter URL while preserving the shipped enabled
@@ -443,7 +443,7 @@ export interface LaunchOptions {
    * composition grants no trust. The listen socket is unaffected.
    */
   publicMount?: {
-    /** Canonical mount prefix (default `tools/lyn/`, normalized to lead and end in `/`). */
+    /** Canonical mount prefix (default `tools/dsh/`, normalized to lead and end in `/`). */
     prefix?: string
   }
   /** Reuse an existing harness home so a second Host can verify user settings across origins. */
@@ -484,7 +484,7 @@ export async function launchWebScaffold(options: LaunchOptions = {}): Promise<We
   const publicHost = publicMount === undefined ? undefined : 'public.localhost'
   const publicPrefix = publicMount === undefined
     ? undefined
-    : `/${(publicMount.prefix ?? 'tools/lyn/').replace(/^\/+|\/+$/gu, '')}/`
+    : `/${(publicMount.prefix ?? 'tools/dsh/').replace(/^\/+|\/+$/gu, '')}/`
   const browserHost = options.remoteAuthority ?? '127.0.0.1'
   if (mode === 'record') {
     // Both owning vitest configs (web unconditionally, snapshot in record
@@ -508,25 +508,25 @@ export async function launchWebScaffold(options: LaunchOptions = {}): Promise<We
       process.env.DEEPSEEK_API_KEY = originalDeepSeekCredential
     }
   }
-  const workspaceCwd = await realpath(await mkdtemp(join(tmpdir(), 'lyn-web-e2e-ws-')))
-  // Isolated harness home: the settings/credentials rows resolve $LYNESS_HOME
+  const workspaceCwd = await realpath(await mkdtemp(join(tmpdir(), 'dsh-web-e2e-ws-')))
+  // Isolated harness home: the settings/credentials rows resolve $DSH_HOME
   // paths at load, and an in-process boot must NEVER touch the developer's
-  // real ~/.lyn document or credential file.
-  const harnessHome = options.harnessHome ?? join(workspaceCwd, '.lyn-home')
+  // real ~/.dsh document or credential file.
+  const harnessHome = options.harnessHome ?? join(workspaceCwd, '.dsh-home')
   // Skill discovery is model-visible input, and its roots now resolve inside a
   // PRESET — a subtree this lane's include patches cannot reach, because the
   // roster mounts it directly per session rather than as a row of the booted
   // tree. The row's documented fallback is the environment, so pin that: the
   // whole scaffold lifetime, not just the boot, since presets mount when a
-  // session is created. Without this a developer's real ~/.lyn/skills silently
-  // enters replay requests and goldens while CI sees none. `LYNESS_HOME` follows
+  // session is created. Without this a developer's real ~/.dsh/skills silently
+  // enters replay requests and goldens while CI sees none. `DSH_HOME` follows
   // the resolved harness home so a scaffold sharing another's home — the
   // cross-port persistence scenario — pins the same roots the settings and
   // credentials rows were configured with.
   const skillRootEnvironment = {
-    LYNESS_HOME: harnessHome,
-    LYNESS_AGENTS_HOME: join(workspaceCwd, '.agents-home'),
-    LYNESS_BUNDLED_SKILL_DIR: join(workspaceCwd, '.bundled-skills'),
+    DSH_HOME: harnessHome,
+    DSH_AGENTS_HOME: join(workspaceCwd, '.agents-home'),
+    DSH_BUNDLED_SKILL_DIR: join(workspaceCwd, '.bundled-skills'),
   }
   const originalSkillRootEnvironment = Object.fromEntries(
     Object.keys(skillRootEnvironment).map(key => [key, process.env[key]]),
@@ -543,7 +543,7 @@ export async function launchWebScaffold(options: LaunchOptions = {}): Promise<We
   Object.assign(process.env, skillRootEnvironment)
   let persistenceRoot: string
   try {
-    persistenceRoot = await mkdtemp(join(tmpdir(), 'lyn-web-e2e-sessions-'))
+    persistenceRoot = await mkdtemp(join(tmpdir(), 'dsh-web-e2e-sessions-'))
   } catch (error) {
     const failures: unknown[] = [error]
     await rm(workspaceCwd, { recursive: true, force: true }).catch((cleanupError: unknown) => failures.push(cleanupError))
@@ -554,7 +554,7 @@ export async function launchWebScaffold(options: LaunchOptions = {}): Promise<We
   if (maskDeepSeekCredential) Reflect.deleteProperty(process.env, 'DEEPSEEK_API_KEY')
 
   // The include patch set — the same layer stack the profile boot composes
-  // (bundle patches in lyn.profile.bundles order), applied over the SAME empty root (a
+  // (bundle patches in dsh.profile.bundles order), applied over the SAME empty root (a
   // patch id that stops matching a row fails the boot sweep loudly instead of
   // drifting).
   const basePatches = loadOverlayPatches('web e2e scaffold', BASE_PATCH_PATH)
@@ -588,20 +588,20 @@ export async function launchWebScaffold(options: LaunchOptions = {}): Promise<We
     // the seeded-session scenarios navigate by content search, and these e2e
     // runs are the assembled coverage for the opt-in search path.
     { id: 'session-query-sqlite', config: { path: ':memory:', openAt: 'first-search' } },
-    // storage-json's yml root is anchored to the real $LYNESS_HOME; pin the row
+    // storage-json's yml root is anchored to the real $DSH_HOME; pin the row
     // to an absolute temp root (removed with the workspace at close) so tests
     // never write the user's harness home.
-    { id: 'storage-json', config: { root: join(workspaceCwd, '.lyn-storages') } },
+    { id: 'storage-json', config: { root: join(workspaceCwd, '.dsh-storages') } },
     // First-use initialization must create directories only inside this scaffold's temporary world.
     { id: 'workspace-controller', config: { documentsDirectory: join(workspaceCwd, 'Documents') } },
     // Skill discovery is model-visible input. Pin every host-level root inside
-    // the owned temp world so ~/.lyn, ~/.agents, and a bundled-root env setting
+    // the owned temp world so ~/.dsh, ~/.agents, and a bundled-root env setting
     // cannot change replay requests or conversation goldens. Project roots stay
     // enabled against the same empty temp workspace, preserving the real seam.
     {
       id: 'skill-filesystem',
       config: {
-        lynHome: join(workspaceCwd, '.lyn-home'),
+        dshHome: join(workspaceCwd, '.dsh-home'),
         agentsHome: join(workspaceCwd, '.agents-home'),
         bundledSkillDir: join(workspaceCwd, '.bundled-skills'),
         watch: false,
@@ -613,7 +613,7 @@ export async function launchWebScaffold(options: LaunchOptions = {}): Promise<We
     { id: 'agent-instructions', disabled: true },
     { id: 'session-title-llm', disabled: true },
     // Fixture sessions must never leave the process: the shipped row defaults
-    // to the production OTLP endpoint (or whatever LYNESS_TELEMETRY_OTLP_URL
+    // to the production OTLP endpoint (or whatever DSH_TELEMETRY_OTLP_URL
     // names in the ambient environment). A scenario with a local collector
     // preserves the shipped disabled setting instead of overriding it.
     options.telemetryUrl === undefined
@@ -639,7 +639,7 @@ export async function launchWebScaffold(options: LaunchOptions = {}): Promise<We
       },
     },
     // The bundle's web-runtime row resolves the same built dist under test
-    // (apps/web IS @lyness/lyn-web-frontend); native browser opening and the
+    // (apps/web IS @deepseek-ai/dsh-web-frontend); native browser opening and the
     // URL line are disabled because this scaffold owns its Playwright browser.
     // Preserve the composed surface-context choice because a patch replaces
     // the row's complete config.
@@ -655,7 +655,7 @@ export async function launchWebScaffold(options: LaunchOptions = {}): Promise<We
           ],
         },
       }],
-    { id: 'credentials', config: { lynHome: harnessHome } },
+    { id: 'credentials', config: { dshHome: harnessHome } },
     // The shipped directory-picker row is the -auto chooser, which resolves
     // the interaction from the RUNNING host (display, SSH launch, bind). The
     // lane's goldens are interaction-specific (workspace-management drives
@@ -664,8 +664,8 @@ export async function launchWebScaffold(options: LaunchOptions = {}): Promise<We
     // disable+insert pair.
     { id: 'directory-picker', disabled: true },
     { insert: [
-      { id: 'directory-picker-browse', name: '@lyness/lyn-host-directory-picker-browse' },
-      { id: 'ui-directory-picker-browse', name: '@lyness/lyn-client-ui-directory-picker-browse' },
+      { id: 'directory-picker-browse', name: '@deepseek-ai/dsh-host-directory-picker-browse' },
+      { id: 'ui-directory-picker-browse', name: '@deepseek-ai/dsh-client-ui-directory-picker-browse' },
     ] },
     // Ordinary scenarios exclude host-dependent application discovery. The
     // Open In scenario supplies launch facts that suppress every native probe.
@@ -673,7 +673,7 @@ export async function launchWebScaffold(options: LaunchOptions = {}): Promise<We
     { id: 'ui-open-in-app', disabled: options.openInAppEnvironment === undefined },
     ...options.agentPresets === undefined ? [] : [
       { id: 'agent-preset-registry', config: { default: options.agentPresets.default } },
-      { insert: (options.agentPresets.definitions ?? []).map(config => ({ id: `preset-${config.id}`, name: '@lyness/lyn-agent-preset', config })) },
+      { insert: (options.agentPresets.definitions ?? []).map(config => ({ id: `preset-${config.id}`, name: '@deepseek-ai/dsh-agent-preset', config })) },
     ],
     ...options.toolsMode === undefined ? [] : [{ id: 'tools', config: { mode: options.toolsMode } }],
     ...options.deepSeekSearch === undefined
@@ -706,7 +706,7 @@ export async function launchWebScaffold(options: LaunchOptions = {}): Promise<We
   // the temp workspace so tool cwd, session cwd, and fixtures agree.
   const originalCwd = process.cwd()
   const ctx = new Context()
-  if (options.openInAppEnvironment !== undefined) ctx.provide(LYNESS_LAUNCH_ENVIRONMENT_KEY, options.openInAppEnvironment)
+  if (options.openInAppEnvironment !== undefined) ctx.provide(DSH_LAUNCH_ENVIRONMENT_KEY, options.openInAppEnvironment)
   const observedSessions = new Map<SessionId, Session>()
   const stopObservingSessions = ctx.on('session/created', (session) => {
     observedSessions.set(session.id, session)
@@ -731,7 +731,7 @@ export async function launchWebScaffold(options: LaunchOptions = {}): Promise<We
         throw new Error(`web scaffold extra install anchor has no package name: ${anchor}`)
       }
       const packageDir = dirname(anchor)
-      // A real profile already has each bundle installed by `lyn plugin add`.
+      // A real profile already has each bundle installed by `dsh plugin add`.
       // Reproduce that link so a private bundle can import its own plugin.
       const installedLink = join(profileDir, 'node_modules', manifest.name)
       await mkdir(dirname(installedLink), { recursive: true })
@@ -759,7 +759,7 @@ export async function launchWebScaffold(options: LaunchOptions = {}): Promise<We
     let profileContext: ProfileContext
     {
       // A real profile: the shipped web bundles plus each fixture package,
-      // installed the way `lyn plugin add` leaves them.
+      // installed the way `dsh plugin add` leaves them.
       const dependencies: Record<string, string> = {}
       // The profile's own selection is what `readProfilePatches` mounts, so
       // it has to be the template's complete list: a default module shipping
@@ -777,19 +777,19 @@ export async function launchWebScaffold(options: LaunchOptions = {}): Promise<We
       // Fixture deployment defaults remain below editable profile values.
       const fixtureDir = join(profileDir, 'node_modules', SCAFFOLD_DEFAULTS_BUNDLE)
       await mkdir(fixtureDir, { recursive: true })
-      await writeFile(join(fixtureDir, 'package.json'), JSON.stringify({ name: SCAFFOLD_DEFAULTS_BUNDLE, version: '1.0.0', lyn: { bundle: { patch: 'cordis.patch.yml' } } }))
+      await writeFile(join(fixtureDir, 'package.json'), JSON.stringify({ name: SCAFFOLD_DEFAULTS_BUNDLE, version: '1.0.0', dsh: { bundle: { patch: 'cordis.patch.yml' } } }))
       await writeFile(join(fixtureDir, 'cordis.patch.yml'), yaml.dump(formDefaults, { schema: entryListSchema }))
       bundles.push(SCAFFOLD_DEFAULTS_BUNDLE)
       dependencies[SCAFFOLD_DEFAULTS_BUNDLE] = `file:${fixtureDir}`
       initProfile(profileDir, bundles)
-      const manifest = readProfileManifest('lyn', profileDir)
+      const manifest = readProfileManifest('dsh', profileDir)
       manifest.dependencies = dependencies
       await writeFile(join(profileDir, 'package.json'), JSON.stringify(manifest, null, 2) + '\n')
       profileContext = {
         name: 'scaffold', dir: profileDir, patchPath: profile.patchPath, installAnchor: INSTALL_ANCHOR,
         ...options.profile?.packageManager === undefined ? {} : { packageManager: options.profile.packageManager },
         cwd: workspaceCwd, home: harnessHome,
-        startedBundles: loadProfileDirectory('lyn', profileDir, INSTALL_ANCHOR).layers.map(layer => layer.packageName),
+        startedBundles: loadProfileDirectory('dsh', profileDir, INSTALL_ANCHOR).layers.map(layer => layer.packageName),
         overlays: processOverlays, telemetryDisabledEnv: undefined,
       }
       // HMR gates file-driven reloads on application readiness, which the
@@ -798,7 +798,7 @@ export async function launchWebScaffold(options: LaunchOptions = {}): Promise<We
       ctx.provide('profileContext', profileContext)
     }
     // This direct Loader harness supplies the same root-path capability as app-boot.
-    ctx.provide('lynHomePath', lynHomePath)
+    ctx.provide('dshHomePath', dshHomePath)
     // A host with no command line still provides one: the web bundle's startup
     // row releases the rows waiting on it, and with no arguments each starts on
     // the values this scaffold composed above. An exit request can only come
@@ -813,7 +813,7 @@ export async function launchWebScaffold(options: LaunchOptions = {}): Promise<We
       resolution,
     })
     await ctx.plugin(Loader)
-    await mountRootInclude(ctx, rootConfig, readProfilePatches('lyn', profileContext))
+    await mountRootInclude(ctx, rootConfig, readProfilePatches('dsh', profileContext))
     await ctx.loader.await()
     await auditStartupEntries(ctx, 'web e2e scaffold')
     if (options.developerTools !== undefined) {
@@ -1687,7 +1687,7 @@ export async function compareOrRefreshGolden(goldenPath: string, actual: string,
     return
   }
   if (!existsSync(goldenPath)) {
-    throw new Error(`missing golden ${goldenPath} — run LYNESS_SNAPSHOT=refresh pnpm run test:web to generate it`)
+    throw new Error(`missing golden ${goldenPath} — run DSH_SNAPSHOT=refresh pnpm run test:web to generate it`)
   }
   expect(payload).toBe(await readFile(goldenPath, 'utf8'))
 }

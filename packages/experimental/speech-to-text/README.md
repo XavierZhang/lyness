@@ -3,7 +3,7 @@ description: "Named experimental transcription providers and cancellation owners
 kind: "package-reference"
 ---
 
-# @lyness/lyn-experimental-speech-to-text
+# @deepseek-ai/dsh-experimental-speech-to-text
 
 English | [中文](README.zh.md)
 

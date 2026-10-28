@@ -1,7 +1,7 @@
 /**
  * Default Agent driver over queued turns and step-boundary input. Every request
  * is derived from the session log.
- * @module lyn-agent-loop/agent
+ * @module dsh-agent-loop/agent
  */
 
 import type {
@@ -14,25 +14,25 @@ import type {
   InboxTarget,
   PreStepDecision,
   RequestErrorAction,
-} from '@lyness/lyn-agent'
-import { agentEvents, assembleContextFor } from '@lyness/lyn-agent'
-import type { GenerateOptions, LlmCallConfig, Message, PreparedLlmCall } from '@lyness/lyn-llm'
+} from '@deepseek-ai/dsh-agent'
+import { agentEvents, assembleContextFor } from '@deepseek-ai/dsh-agent'
+import type { GenerateOptions, LlmCallConfig, Message, PreparedLlmCall } from '@deepseek-ai/dsh-llm'
 import {
   LlmError,
   createAssistantMessage,
   createDeveloperMessage,
   errorChain,
   markAgentLoopRequest,
-} from '@lyness/lyn-llm'
-import { assertNever, deepFreeze } from '@lyness/lyn-util-values'
-import type { Scope } from '@lyness/lyn-scope'
-import { createScope } from '@lyness/lyn-scope'
-import type { EpochHeader, RequestContext, Session, SessionId, SessionSeq, TurnEndReason, UserMessage } from '@lyness/lyn-session'
-import { canonicalHeader, headerEquals } from '@lyness/lyn-session'
-import { joinContextSections, renderContextSections, renderPrompt } from '@lyness/lyn-system-prompt'
-import type { PromptAssembly } from '@lyness/lyn-system-prompt'
-import type {} from '@lyness/lyn-session-projection'
-import type { Context } from '@lyness/cordis'
+} from '@deepseek-ai/dsh-llm'
+import { assertNever, deepFreeze } from '@deepseek-ai/dsh-util-values'
+import type { Scope } from '@deepseek-ai/dsh-scope'
+import { createScope } from '@deepseek-ai/dsh-scope'
+import type { EpochHeader, RequestContext, Session, SessionId, SessionSeq, TurnEndReason, UserMessage } from '@deepseek-ai/dsh-session'
+import { canonicalHeader, headerEquals } from '@deepseek-ai/dsh-session'
+import { joinContextSections, renderContextSections, renderPrompt } from '@deepseek-ai/dsh-system-prompt'
+import type { PromptAssembly } from '@deepseek-ai/dsh-system-prompt'
+import type {} from '@deepseek-ai/dsh-session-projection'
+import type { Context } from '@deepseek-ai/cordis'
 import { ReactLoopInbox } from './inbox.ts'
 import { RuntimeContextProjection } from './runtime-context.ts'
 import { AssistantStreamAttempt } from './assistant-stream.ts'

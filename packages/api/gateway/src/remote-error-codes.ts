@@ -12,7 +12,7 @@ export interface TypertGatewayFaultDetails {
   readonly field?: string
 }
 
-declare module '@lyness/lyn-typert-protocol' {
+declare module '@deepseek-ai/dsh-typert-protocol' {
   interface RemoteErrorDetailsMap {
     'gateway/ambiguous-endpoint': TypertGatewayFaultDetails
     'gateway/arguments-invalid': TypertGatewayFaultDetails

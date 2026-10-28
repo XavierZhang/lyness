@@ -1,13 +1,13 @@
 {
-  "name": "@lyness/lyn-token-meter",
-  "description": "Replay-aware token measurement service (ctx.tokenMeter) for the lyness",
+  "name": "@deepseek-ai/dsh-token-meter",
+  "description": "Replay-aware token measurement service (ctx.tokenMeter) for the DeepSeek Harness",
   "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/llm/token-meter"
   },
   "type": "module",
@@ -36,26 +36,26 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-compaction": "workspace:*",
-    "@lyness/lyn-llm": "workspace:*",
-    "@lyness/lyn-llm-retry": "workspace:*",
-    "@lyness/lyn-session": "workspace:*",
-    "@lyness/lyn-session-projection": "workspace:*",
-    "@lyness/lyn-compaction-image-offload": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-compaction": "workspace:*",
+    "@deepseek-ai/dsh-llm": "workspace:*",
+    "@deepseek-ai/dsh-llm-retry": "workspace:*",
+    "@deepseek-ai/dsh-session": "workspace:*",
+    "@deepseek-ai/dsh-session-projection": "workspace:*",
+    "@deepseek-ai/dsh-compaction-image-offload": "workspace:*"
   },
   "dependencies": {
-    "@lyness/lyn-util-values": "workspace:*",
-    "@lyness/schemastery": "workspace:~",
+    "@deepseek-ai/dsh-util-values": "workspace:*",
+    "@deepseek-ai/schemastery": "workspace:~",
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-compaction": "workspace:*",
-    "@lyness/lyn-llm": "workspace:*",
-    "@lyness/lyn-llm-retry": "workspace:*",
-    "@lyness/lyn-session": "workspace:*",
-    "@lyness/lyn-session-projection": "workspace:*",
-    "@lyness/lyn-compaction-image-offload": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-compaction": "workspace:*",
+    "@deepseek-ai/dsh-llm": "workspace:*",
+    "@deepseek-ai/dsh-llm-retry": "workspace:*",
+    "@deepseek-ai/dsh-session": "workspace:*",
+    "@deepseek-ai/dsh-session-projection": "workspace:*",
+    "@deepseek-ai/dsh-compaction-image-offload": "workspace:*"
   }
 }

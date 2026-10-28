@@ -1,15 +1,15 @@
 /** Platform PKCE account provider; browser approval never bypasses local cancellation. */
 import { randomBytes, randomUUID, createHash, timingSafeEqual } from 'node:crypto'
 import type { ServerResponse } from 'node:http'
-import type {} from '@lyness/lyn-host-webserver'
+import type {} from '@deepseek-ai/dsh-host-webserver'
 import { arch, platform, release } from 'node:os'
 import { promises as streamPromises } from 'node:stream'
-import { Context, Service } from '@lyness/cordis'
-import Schema from '@lyness/schemastery'
+import { Context, Service } from '@deepseek-ai/cordis'
+import Schema from '@deepseek-ai/schemastery'
 import { z } from 'zod'
-import { DeepSeekAccount, installAccountTaskCancellation, mergePlatformCookies, platformClientHeaders, platformWireLocale, type AccountBonusBatch, type AccountBonusOrderId, type AccountClientMetadata, type AccountDetails, type AccountUserId, type AccountView, type PlatformSession, type SignInAttemptId, type SignInAttemptView } from '@lyness/lyn-deepseek-account'
-import { credentialKey } from '@lyness/lyn-credentials'
-import type { AuthorizationSession } from '@lyness/lyn-authorization'
+import { DeepSeekAccount, installAccountTaskCancellation, mergePlatformCookies, platformClientHeaders, platformWireLocale, type AccountBonusBatch, type AccountBonusOrderId, type AccountClientMetadata, type AccountDetails, type AccountUserId, type AccountView, type PlatformSession, type SignInAttemptId, type SignInAttemptView } from '@deepseek-ai/dsh-deepseek-account'
+import { credentialKey } from '@deepseek-ai/dsh-credentials'
+import type { AuthorizationSession } from '@deepseek-ai/dsh-authorization'
 import { profile, readAccountDetail, readUnnotifiedBonuses, sendBonusNotified } from './details.ts'
 import { revokeAccount, type LogoutRetryPolicy } from './logout.ts'
 import { AccountUnauthorizedError, PlatformAuthError, platformHeaders, platformOrigin, browserUrl, requestPlatform, initialization, exchange, loginOrigin } from './protocol.ts'
@@ -380,7 +380,7 @@ export class PlatformAccount extends DeepSeekAccount {
     if (!result.success) throw new PlatformAuthError('storage')
     // Development grants cannot authenticate production model or file requests.
     const issuer = new URL(result.data.issuer)
-    if (result.data.token.startsWith('lyn_mock_')) return undefined
+    if (result.data.token.startsWith(' deepseek-request-field mock_')) return undefined
     if (this.inferenceOrigin === 'https://api.deepseek.com') {
       if (['localhost', '127.0.0.1', '[::1]'].includes(issuer.hostname)) return undefined
     } else if (issuer.origin !== this.origin) return undefined
@@ -550,7 +550,7 @@ export class PlatformAccount extends DeepSeekAccount {
         login_source: attempt.loginSource,
       }, signal, attempt.clientHeaders), { reportInput: true })
       if (!init.success) this.rejectPayload('auth_init', init.error)
-      const authorizeUrl = browserUrl(init.data.authorize_url, this.origin, '/lyn/authorize', this.rewriteBrowserOrigin)
+      const authorizeUrl = browserUrl(init.data.authorize_url, this.origin, '/dsh/authorize', this.rewriteBrowserOrigin)
       authorizeId = init.data.authorize_id
       signal.throwIfAborted()
       const now = Date.now()
@@ -572,7 +572,7 @@ export class PlatformAccount extends DeepSeekAccount {
         device_id: identity.id, device_model: `${platform()}-${arch()}`, os_version: `${platform()} ${release()}`,
       }, signal, attempt.clientHeaders), { reportInput: true })
       if (!result.success) this.rejectPayload('auth_exchange', result.error)
-      const completionUrl = new URL(browserUrl(result.data.authorized_url, this.origin, '/lyn/authorized', this.rewriteBrowserOrigin))
+      const completionUrl = new URL(browserUrl(result.data.authorized_url, this.origin, '/dsh/authorized', this.rewriteBrowserOrigin))
       completionUrl.searchParams.set('login_source', attempt.loginSource)
       attempt.completionUrl = completionUrl.href
       if (Date.now() >= expiresAt) deadline.abort()

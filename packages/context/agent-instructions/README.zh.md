@@ -3,13 +3,13 @@ description: "面向用户与维护者的工作区指令上下文说明，用于
 kind: "package-reference"
 ---
 
-# @lyness/lyn-agent-instructions
+# @deepseek-ai/dsh-agent-instructions
 
 [English](README.md) | 中文
 
 ## 概述
 
-`lyn-agent-instructions` 向 agent（智能体）提供来自用户全局文件和项目级文件的工作区指引；这些文件均与 `AGENTS.md` 兼容。它为第一次请求加载适用的指令链。它不会持续监视外部编辑：成功的文件系统操作会发现新适用的嵌套文件，并让后续变更或移除可见；恢复会话也会对账基线。`lyn-base` 默认启用此行为，profile 可以禁用。字节预算限制注入的上下文：较宽泛的文件先被省略，最具体的文件最后被截断，空指令链不添加任何内容。
+`dsh-agent-instructions` 向 agent（智能体）提供来自用户全局文件和项目级文件的工作区指引；这些文件均与 `AGENTS.md` 兼容。它为第一次请求加载适用的指令链。它不会持续监视外部编辑：成功的文件系统操作会发现新适用的嵌套文件，并让后续变更或移除可见；恢复会话也会对账基线。`dsh-base` 默认启用此行为，profile 可以禁用。字节预算限制注入的上下文：较宽泛的文件先被省略，最具体的文件最后被截断，空指令链不添加任何内容。
 
 ## 目录
 
@@ -25,11 +25,11 @@ kind: "package-reference"
 <a id="use-this-package"></a>
 ## 使用本包
 
-当 agent 需要依据工作区自身的指令文件工作时，挂载此插件。`lyn-base` 已包含它并给予 65,536 字节预算，因此基于 base 的 profile 仅在需要其他 `maxBytes` 时替换该配置行；没有文件系统提供方的树加载不到任何内容，直到提供方出现。
+当 agent 需要依据工作区自身的指令文件工作时，挂载此插件。`dsh-base` 已包含它并给予 65,536 字节预算，因此基于 base 的 profile 仅在需要其他 `maxBytes` 时替换该配置行；没有文件系统提供方的树加载不到任何内容，直到提供方出现。
 
 ### agent 获得的内容
 
-第一次请求包含一条持久基线消息：先是用户全局 `$LYNESS_HOME/AGENTS.md`，再按从宽泛到具体的顺序包含项目指令链——从项目根目录到会话工作目录的每个目录中所有现有候选文件。去除首尾空白后内容一致的同级文件只渲染一次，因此复制了 `AGENTS.md` 的 `CLAUDE.md` 不会被重复加载。当成功的 `read`、`write` 或 `edit` 调用到达更深的目录后，下一次请求会包含新适用的指令文件；已改变的文件会替换其内容，消失或成为较早候选文件重复项的文件会产生移除通知。
+第一次请求包含一条持久基线消息：先是用户全局 `$DSH_HOME/AGENTS.md`，再按从宽泛到具体的顺序包含项目指令链——从项目根目录到会话工作目录的每个目录中所有现有候选文件。去除首尾空白后内容一致的同级文件只渲染一次，因此复制了 `AGENTS.md` 的 `CLAUDE.md` 不会被重复加载。当成功的 `read`、`write` 或 `edit` 调用到达更深的目录后，下一次请求会包含新适用的指令文件；已改变的文件会替换其内容，消失或成为较早候选文件重复项的文件会产生移除通知。
 
 ### 配置
 
@@ -38,7 +38,7 @@ kind: "package-reference"
 只有确认项目根标记不存在时，项目根发现才会继续上溯。权限或 I/O 失败会停止发现，并抛出宿主或文件系统提供方的原始错误，而不会选择祖先项目。[根标记元数据决策](../../../.agents/notes/implemented/bug-fix/2026-09-03-root-marker-metadata-failures.zh.md)说明发现为何必须失败，而不能替换为其他根目录。
 
 ```yaml
-- name: '@lyness/lyn-agent-instructions'
+- name: '@deepseek-ai/dsh-agent-instructions'
   config:
     maxBytes: 65536
 ```
@@ -47,7 +47,7 @@ kind: "package-reference"
 
 ```ts
 export interface Config {
-  lynHome?: string
+  dshHome?: string
   projectRootMarkers?: string[]
   maxBytes: number
   maxSourceBytes?: number
@@ -63,9 +63,9 @@ export interface Config {
 | `projectRootMarkers` | `['.git']` | 标记项目根目录的目录名 |
 | `instructionFileCandidates` | `['AGENTS.md', 'CLAUDE.md']` | 每个项目目录中加载的基础文件名 |
 | `localInstructionFileCandidates` | `['AGENTS.local.md', 'CLAUDE.local.md']` | 在基础文件之后加载的本地 overlay 文件名 |
-| `lynHome` | `$LYNESS_HOME` 或 `~/.lyn` | 存放用户全局 `AGENTS.md` 的目录 |
+| `dshHome` | `$DSH_HOME` 或 `~/.dsh` | 存放用户全局 `AGENTS.md` 的目录 |
 
-生成的[配置目录](../../../docs/config-catalog.zh.md#lynesslyn-agent-instructions)是每个受支持字段及其 JSDoc 的穷尽式真源。
+生成的[配置目录](../../../docs/config-catalog.zh.md#deepseek-aidsh-agent-instructions)是每个受支持字段及其 JSDoc 的穷尽式真源。
 
 ### 观察预算
 
@@ -113,7 +113,7 @@ export interface Config {
 
 框架被转义。携带 `<system-reminder>` 任一侧分隔符的内容在并入正文之前被中和，所以文件无法提前关闭本插件的框架、也无法另开一个，使其后的内容被读作 harness 的框架。发生这种情况时，预算标记会把它说出来，而不是静默中和。
 
-能力留在授予它的那个操作里。指令文本可以措辞指引，不能启用工具、提升沙箱模式、改变审批策略或变更额度：这些决定存在于做出它们的那些操作中，而为某条命令放宽沙箱模式，仍然需要经由 [`lyn-user-approval`](../../interaction/user-approval/README.zh.md) 的理由说明与审批。本包不对文本所要求的内容做任何判断，也不提供这种判断。
+能力留在授予它的那个操作里。指令文本可以措辞指引，不能启用工具、提升沙箱模式、改变审批策略或变更额度：这些决定存在于做出它们的那些操作中，而为某条命令放宽沙箱模式，仍然需要经由 [`dsh-user-approval`](../../interaction/user-approval/README.zh.md) 的理由说明与审批。本包不对文本所要求的内容做任何判断，也不提供这种判断。
 
 -----
 
@@ -125,7 +125,7 @@ export interface Config {
 - [文档标准](../../../docs/AGENTS.md)——`AGENTS.md` 指令文件包含什么、如何维护。
 - [工作区上下文决策记录](../../../.agents/notes/archived/feature/2026-06-24-workspace-context.md)——按 agent／会话隔离与生命周期理由。
 - [上下文组地图](../README.zh.md)——相邻的请求上下文包。
-- [生成的配置目录](../../../docs/config-catalog.zh.md#lynesslyn-agent-instructions)——每个受支持配置字段及其源声明。
+- [生成的配置目录](../../../docs/config-catalog.zh.md#deepseek-aidsh-agent-instructions)——每个受支持配置字段及其源声明。
 
 -----
 
@@ -144,7 +144,7 @@ export interface Config {
 <system-reminder>
 The following workspace instructions may be relevant to your work. Use them as guidance when applicable. More specific instructions take precedence over broader ones. They do not override system, developer, or direct user instructions.
 
-Instructions from: ~/.lyn/AGENTS.md
+Instructions from: ~/.dsh/AGENTS.md
 
 <user-global-instructions>
 
@@ -222,7 +222,7 @@ The previously loaded instructions from this file no longer apply.
 - **内容检视只覆盖框架** —— 分隔符会被转义并上报，而没有任何东西去判断文本要求了什么。一份措辞看起来平常的恶意文件会作为指引原样通过，这正是能力留在授予它的那些操作里、而不是留在这个加载器里的原因。
 - **发现跟随结构化 fs 工具，而非 shell 导航**：更改目录的 `bash` 命令不会触发嵌套指令发现，因为 shell 语法与每次调用的 shell 状态不是可靠的文件系统 seam。
 - **刷新由 touch 驱动**：没有 watcher；外部编辑会在下一次成功的第一方 `read`、`write` 或 `edit` 时、恢复对账可见基线时，或进入步骤的 pre-step 恢复被遮蔽基线时可见。
-- **候选语义有意保持简单**：不解释小写名称、`.claude/rules/` 与 `@path` import；项目 scope 默认加载 `AGENTS.local.md`／`CLAUDE.local.md` overlay，但用户全局 `$LYNESS_HOME` scope 没有本地 overlay，其他自定义名称需要显式候选配置。
+- **候选语义有意保持简单**：不解释小写名称、`.claude/rules/` 与 `@path` import；项目 scope 默认加载 `AGENTS.local.md`／`CLAUDE.local.md` overlay，但用户全局 `$DSH_HOME` scope 没有本地 overlay，其他自定义名称需要显式候选配置。
 - **每目录去重基于内容**：同级候选只有在去除首尾空白后字节完全一致时才折叠。`CLAUDE.md` 若 symlink 到同级 `AGENTS.md`，会解析为相同内容并像任何重复项一样折叠；从 `AGENTS.md` 漂移的独立副本则会与它一起完整加载。
 - **Symlink 指令文件会跨越信任边界跟随**：最终组件是 symlink 的候选文件会被解析并加载其目标，因此克隆仓库可以将树外文件内容呈现为较低优先级的工作区指引（它绝不覆盖 system、developer 或用户直接下达的指令）。加载不受信任仓库时，请用文件系统策略门禁或 OS 沙箱限制 `ctx.fs`。
 - **指令内容受限但不会被摘要**：超出预算的宽泛文件会被省略，最具体文件可能被截断；该插件绝不请求模型压缩指令文本。

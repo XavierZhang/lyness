@@ -1,6 +1,6 @@
 import {
   createSnapshotStore, type SnapshotStore,
-} from '@lyness/lyn-client-store'
+} from '@deepseek-ai/dsh-client-store'
 
 /**
  * Create the browser-wide trajectory duration preference source.
@@ -8,6 +8,6 @@ import {
  */
 export function createTrajectoryDurationStore(): SnapshotStore<boolean> {
   return createSnapshotStore(false, {
-    persist: { name: 'lyn.trajectory.duration' },
+    persist: { name: 'dsh.trajectory.duration' },
   })
 }

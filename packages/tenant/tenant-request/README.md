@@ -3,7 +3,7 @@ description: "The tenant one RPC call belongs to: resolved when the call arrives
 kind: "package-reference"
 ---
 
-# @lyness/lyn-tenant-request
+# @deepseek-ai/dsh-tenant-request
 
 English | [中文](README.zh.md)
 
@@ -29,14 +29,14 @@ Mount it after the Connection and the tenant directory, and before anything that
 
 ```yaml
 - id: tenants
-  name: '@lyness/lyn-tenant-static'
+  name: '@deepseek-ai/dsh-tenant-static'
   config:
     tenants:
       - id: acme
         slug: acme
         displayName: Acme
 - id: tenant-request
-  name: '@lyness/lyn-tenant-request'
+  name: '@deepseek-ai/dsh-tenant-request'
   config:
     baseDomain: example.com
 ```
@@ -46,9 +46,9 @@ Mount it after the Connection and the tenant directory, and before anything that
 Read it where the call is being served:
 
 ```ts
-import { RemoteError } from '@lyness/lyn-typert-protocol'
-import type { Context } from '@lyness/cordis'
-import type { RequestTenant } from '@lyness/lyn-tenant-request/types'
+import { RemoteError } from '@deepseek-ai/dsh-typert-protocol'
+import type { Context } from '@deepseek-ai/cordis'
+import type { RequestTenant } from '@deepseek-ai/dsh-tenant-request/types'
 
 /**
  * The tenant this call is allowed to act for.

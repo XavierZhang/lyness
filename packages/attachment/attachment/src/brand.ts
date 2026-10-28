@@ -1,6 +1,6 @@
-/** Attachment identifier brand. @module @lyness/lyn-attachment/brand */
+/** Attachment identifier brand. @module @deepseek-ai/dsh-attachment/brand */
 
-import type { Branded } from '@lyness/lyn-brand'
+import type { Branded } from '@deepseek-ai/dsh-brand'
 
 /** Opaque content-addressed identifier for one immutable attachment object. */
 export type AttachmentId = Branded<'AttachmentId'>

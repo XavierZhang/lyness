@@ -3,13 +3,13 @@ description: "签入面向浏览器的那一半，面向提供签入页的部署
 kind: "package-reference"
 ---
 
-# @lyness/lyn-sign-in-http
+# @deepseek-ai/dsh-sign-in-http
 
 [English](README.md) | 中文
 
 ## 概述
 
-`lyn-sign-in-http` 就是一次浏览器签入所需的四条路由：供页面渲染按钮的渠道列表、把浏览器送往目录的发起、目录返回时的回调，以及签出。它设置 `lyn-request-principal` 读回的那个会话 cookie，并把一次签入绑定到一个浏览器上，于是一条被转手给别人的回调链接无法让那个人以发起者的身份签入。`lyn-sign-in` 刻意止步于会话身份；目录返回到哪里、cookie 带什么属性、以及一次拒绝在人眼里是什么样，都是「被通过 HTTP 提供」这件事的属性。
+`dsh-sign-in-http` 就是一次浏览器签入所需的四条路由：供页面渲染按钮的渠道列表、把浏览器送往目录的发起、目录返回时的回调，以及签出。它设置 `dsh-request-principal` 读回的那个会话 cookie，并把一次签入绑定到一个浏览器上，于是一条被转手给别人的回调链接无法让那个人以发起者的身份签入。`dsh-sign-in` 刻意止步于会话身份；目录返回到哪里、cookie 带什么属性、以及一次拒绝在人眼里是什么样，都是「被通过 HTTP 提供」这件事的属性。
 
 ## 目录
 
@@ -27,9 +27,9 @@ kind: "package-reference"
 
 ```yaml
 - id: sign-in-http
-  name: '@lyness/lyn-sign-in-http'
+  name: '@deepseek-ai/dsh-sign-in-http'
   config:
-    publicOrigin: 'https://lyness.example'
+    publicOrigin: 'https://DeepSeek Harness.example'
     secureCookies: true
     landingPath: '/'
 ```
@@ -73,9 +73,9 @@ kind: "package-reference"
 <a id="further-exploration"></a>
 ## 进一步探索
 
-- [`lyn-sign-in`](../sign-in/README.zh.md) —— 这些路由所驱动的那个流程。
-- [`lyn-request-principal`](../request-principal/README.zh.md) —— 在其后每一次调用上把会话 cookie 读回来的那一层。
-- [`lyn-auth-session`](../auth-session/README.zh.md) —— 签出所吊销的那些会话。
+- [`dsh-sign-in`](../sign-in/README.zh.md) —— 这些路由所驱动的那个流程。
+- [`dsh-request-principal`](../request-principal/README.zh.md) —— 在其后每一次调用上把会话 cookie 读回来的那一层。
+- [`dsh-auth-session`](../auth-session/README.zh.md) —— 签出所吊销的那些会话。
 
 -----
 

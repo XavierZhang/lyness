@@ -1,8 +1,8 @@
 /** Model catalog and request-local dependencies for DeepSeek Messages. */
-import type { LlmModelInfo, ModelModality, SystemPromptUpdate, ToolUpdate, ResolvedRetryPolicy, ImageAttachmentAccess } from '@lyness/lyn-llm'
-import type { AttachmentStore, ImageAttachmentRef } from '@lyness/lyn-attachment'
-import type { AnonymousUserId } from '@lyness/lyn-anonymous-user-id'
-import type { DeepSeekLlmApiExtensionRequest, PreparedDeepSeekLlmApiExtensions } from '@lyness/lyn-deepseek-llm-api-extensions'
+import type { LlmModelInfo, ModelModality, SystemPromptUpdate, ToolUpdate, ResolvedRetryPolicy, ImageAttachmentAccess } from '@deepseek-ai/dsh-llm'
+import type { AttachmentStore, ImageAttachmentRef } from '@deepseek-ai/dsh-attachment'
+import type { AnonymousUserId } from '@deepseek-ai/dsh-anonymous-user-id'
+import type { DeepSeekLlmApiExtensionRequest, PreparedDeepSeekLlmApiExtensions } from '@deepseek-ai/dsh-deepseek-llm-api-extensions'
 import type { DeepSeekFileStore, DeepSeekFilePolicy } from './file-store.ts'
 
 /** One optional model entry advertised by the direct-fetch adapter. */

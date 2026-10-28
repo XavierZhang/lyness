@@ -3,13 +3,13 @@ description: "积分模块自成一个 bundle：一本账、一份周期额度�
 kind: "package-bundle"
 ---
 
-# @lyness/lyn-module-credits
+# @deepseek-ai/dsh-module-credits
 
 [English](README.md) | 中文
 
 ## 概述
 
-`lyn-module-credits` 是计量一套部署的人花了多少的那组编排：账本、周期额度、改动它的那些管理员决定，以及搭在 `llm/stream` 上的执行。它与 [`lyn-module-accounts`](../module-accounts/README.zh.md) 并列选中，而不是取而代之：一次请求记在谁头上，是从那次请求的主体读出来的，没有账户模块就没有主体可读。
+`dsh-module-credits` 是计量一套部署的人花了多少的那组编排：账本、周期额度、改动它的那些管理员决定，以及搭在 `llm/stream` 上的执行。它与 [`dsh-module-accounts`](../module-accounts/README.zh.md) 并列选中，而不是取而代之：一次请求记在谁头上，是从那次请求的主体读出来的，没有账户模块就没有主体可读。
 
 ## 目录
 
@@ -29,8 +29,8 @@ profile 把它与账户模块并列选上：
 
 ```yaml
 bundles:
-  - '@lyness/lyn-module-accounts'
-  - '@lyness/lyn-module-credits'
+  - '@deepseek-ai/dsh-module-accounts'
+  - '@deepseek-ai/dsh-module-credits'
 ```
 
 随产品发布的 `hosted` 模板正是这么做的。`enterprise` 模板只选账户、不选这一个，因为在客户自己掏钱买的机器上，按额度计量客户自己的员工，等于向他们收自己机器的钱。
@@ -39,7 +39,7 @@ bundles:
 
 ```yaml
 - id: credits
-  name: '@lyness/lyn-credits/store'
+  name: '@deepseek-ai/dsh-credits/store'
   config:
     periodicAmount: 1000
     period: daily
@@ -61,9 +61,9 @@ bundles:
 <a id="further-exploration"></a>
 ## 延伸阅读
 
-- [`lyn-credits`](../../credits/credits/README.zh.md) —— 账本、额度算术与授权规则。
-- [`lyn-module-accounts`](../module-accounts/README.zh.md) —— 本模块所计量的那些人，以及读出他们的那个主体。
-- [`lyn-api-credits-controller`](../../api/credits-controller/README.zh.md) —— 界面读余额所经的命名空间。
+- [`dsh-credits`](../../credits/credits/README.zh.md) —— 账本、额度算术与授权规则。
+- [`dsh-module-accounts`](../module-accounts/README.zh.md) —— 本模块所计量的那些人，以及读出他们的那个主体。
+- [`dsh-api-credits-controller`](../../api/credits-controller/README.zh.md) —— 界面读余额所经的命名空间。
 
 -----
 
@@ -93,6 +93,6 @@ bundles:
 <details>
 <summary>维护者工作上下文 —— 点击展开</summary>
 
-这四行原本住在 `lyn-module-accounts` 里，直到 enterprise 模板需要「要账户、不要计量」；这次拆分正是让「没有额度」继续意味着缺席，而不是被配成零。
+这四行原本住在 `dsh-module-accounts` 里，直到 enterprise 模板需要「要账户、不要计量」；这次拆分正是让「没有额度」继续意味着缺席，而不是被配成零。
 
 </details>

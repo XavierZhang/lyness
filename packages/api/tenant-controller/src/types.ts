@@ -5,10 +5,10 @@
  * is a branded reference in the Host and a plain string on the wire, and the
  * read adds facts the seam does not carry — who the calling tenant is, and
  * whether this deployment's backend accepts a save.
- * @module @lyness/lyn-api-tenant-controller/types
+ * @module @deepseek-ai/dsh-api-tenant-controller/types
  */
 
-declare module '@lyness/lyn-typert-protocol' {
+declare module '@deepseek-ai/dsh-typert-protocol' {
   interface RemoteErrorDetailsMap {
     /**
      * The call named no tenant: no directory resolved its header, hostname, or

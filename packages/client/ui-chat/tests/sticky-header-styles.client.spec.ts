@@ -52,13 +52,13 @@ describe('pinned collapsible headers', () => {
     // keeps a code banner clear of it must never drift apart, and sticky gives
     // no error when they do.
     expect(declarationsFrom(css, '.compactionRow')).toEqual(expect.arrayContaining([
-      '--lyn-compaction-header-height: calc(24px + var(--lyn-content-font-delta, 0px))',
+      '--dsh-compaction-header-height: calc(24px + var(--dsh-content-font-delta, 0px))',
     ]))
     expect(declarationsFrom(css, '.compactionButton')).toEqual(expect.arrayContaining([
-      'height: var(--lyn-compaction-header-height)',
+      'height: var(--dsh-compaction-header-height)',
     ]))
     expect(declarationsFrom(css, '.compactionBody :has(> [data-code-block-banner])')).toEqual(expect.arrayContaining([
-      'top: var(--lyn-compaction-header-height)',
+      'top: var(--dsh-compaction-header-height)',
     ]))
   })
 

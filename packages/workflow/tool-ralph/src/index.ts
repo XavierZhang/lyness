@@ -2,17 +2,17 @@
  * Model-facing foreground Ralph loop over the workflow and subagent seams. A
  * fixed script starts one fresh structured-output child per round, carrying
  * only the immutable objective and the previous bounded handoff between them.
- * @module @lyness/lyn-tool-ralph
+ * @module @deepseek-ai/dsh-tool-ralph
  */
 
-import type { Context } from '@lyness/cordis'
-import z from '@lyness/schemastery'
-import type { ContentBlock } from '@lyness/lyn-llm'
-import type { JsonValue } from '@lyness/lyn-util-values'
-import type { SubagentProvider } from '@lyness/lyn-subagent'
-import { defineTool } from '@lyness/lyn-tools'
-import type { ToolCallView, ToolResultView } from '@lyness/lyn-tools'
-import type { WorkflowResult, WorkflowRun } from '@lyness/lyn-workflow'
+import type { Context } from '@deepseek-ai/cordis'
+import z from '@deepseek-ai/schemastery'
+import type { ContentBlock } from '@deepseek-ai/dsh-llm'
+import type { JsonValue } from '@deepseek-ai/dsh-util-values'
+import type { SubagentProvider } from '@deepseek-ai/dsh-subagent'
+import { defineTool } from '@deepseek-ai/dsh-tools'
+import type { ToolCallView, ToolResultView } from '@deepseek-ai/dsh-tools'
+import type { WorkflowResult, WorkflowRun } from '@deepseek-ai/dsh-workflow'
 
 export const name = 'tool-ralph'
 export const inject = ['tools', 'workflowEngine', 'subagents', 'systemPrompt']

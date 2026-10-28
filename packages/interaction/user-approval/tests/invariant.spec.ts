@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import SessionStore, { Session, SessionId, SessionSeq } from '@lyness/lyn-session'
-import { ApprovalRequestId } from '@lyness/lyn-user-approval'
-import * as ApprovalInvariant from '@lyness/lyn-user-approval/invariant'
-import InvariantRegistry from '@lyness/lyn-invariants'
+import { Context } from '@deepseek-ai/cordis'
+import SessionStore, { Session, SessionId, SessionSeq } from '@deepseek-ai/dsh-session'
+import { ApprovalRequestId } from '@deepseek-ai/dsh-user-approval'
+import * as ApprovalInvariant from '@deepseek-ai/dsh-user-approval/invariant'
+import InvariantRegistry from '@deepseek-ai/dsh-invariants'
 
 async function setup(): Promise<Context> {
   const ctx = new Context()

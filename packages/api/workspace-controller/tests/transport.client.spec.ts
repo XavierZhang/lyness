@@ -5,11 +5,11 @@
  */
 
 import { describe, expect, onTestFinished, vi } from 'vitest'
-import { RemoteStreamCarrierError, type ClientRemote } from '@lyness/lyn-api-gateway/client'
-import { SessionId } from '@lyness/lyn-session/types'
-import { RemoteError } from '@lyness/lyn-typert-protocol'
-import { frames, openStream, type RemoteMock, type StreamScript } from '@lyness/lyn-remote-mock'
-import { createClientTest, type TestClient, webApp } from '@lyness/lyn-client-test-runtime/src/assembly/index.ts'
+import { RemoteStreamCarrierError, type ClientRemote } from '@deepseek-ai/dsh-api-gateway/client'
+import { SessionId } from '@deepseek-ai/dsh-session/types'
+import { RemoteError } from '@deepseek-ai/dsh-typert-protocol'
+import { frames, openStream, type RemoteMock, type StreamScript } from '@deepseek-ai/dsh-remote-mock'
+import { createClientTest, type TestClient, webApp } from '@deepseek-ai/dsh-client-test-runtime/src/assembly/index.ts'
 import {
   ClientWorkspaceModel,
   createWorkspaceStateStream,
@@ -21,11 +21,11 @@ import {
 import type { WorkspaceFollowFrame, WorkspaceId } from '../src/types.ts'
 import { FOLLOW, baseline, err, followGenerations, workspace, workspaceWorld } from './remote/workspace.client.ts'
 
-const SELF = '@lyness/lyn-api-workspace-controller'
+const SELF = '@deepseek-ai/dsh-api-workspace-controller'
 /** The plugin as the web bundle composes it: itself plus the Gateway client, the Connection, and the Typert registry. */
 const PLUGIN_ROSTER = webApp.closure([SELF])
 /** A stream or model built by hand talks through the Gateway client alone. */
-const API_ROSTER = webApp.closure(['@lyness/lyn-api-gateway'])
+const API_ROSTER = webApp.closure(['@deepseek-ai/dsh-api-gateway'])
 const pluginTest = createClientTest({ roster: PLUGIN_ROSTER })
 const it = createClientTest({ roster: API_ROSTER })
 /** The first client boot pays the cold module transform of the plugin cone. */
@@ -420,7 +420,7 @@ describe('WorkspaceController', () => {
 })
 
 // The wire relays whatever families the Host's providers report; this suite merges its own.
-declare module '@lyness/lyn-workspace/types' {
+declare module '@deepseek-ai/dsh-workspace/types' {
   interface SessionActivityKindMap {
     probe: true
     'probe-items': true

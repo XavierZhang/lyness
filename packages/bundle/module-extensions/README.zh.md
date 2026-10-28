@@ -3,7 +3,7 @@ description: "运行时自我修改模块独立成一个 bundle，其工具行�
 kind: "package-bundle"
 ---
 
-# @lyness/lyn-module-extensions
+# @deepseek-ai/dsh-module-extensions
 
 [English](README.md) | 中文
 
@@ -51,10 +51,10 @@ kind: "package-bundle"
 
 | 行 | 模块 | 平面 | 角色 |
 |---|---|---|---|
-| `cordis-host-runner` | `@lyness/lyn-cordis-host-runner` | 宿主 | 执行组合的读取与编辑 |
-| `cordis-inspect-providers` | `@lyness/lyn-tool-cordis/host` | 宿主 | 各个工具行读取的 inspect provider |
-| `cordis-client-runner` | `@lyness/lyn-cordis-client-runner` | 浏览器 | runner 的浏览器那一半 |
-| `ui-cordis` | `@lyness/lyn-client-ui-cordis` | 浏览器 | 组合视图 |
+| `cordis-host-runner` | `@deepseek-ai/dsh-cordis-host-runner` | 宿主 | 执行组合的读取与编辑 |
+| `cordis-inspect-providers` | `@deepseek-ai/dsh-tool-cordis/host` | 宿主 | 各个工具行读取的 inspect provider |
+| `cordis-client-runner` | `@deepseek-ai/dsh-cordis-client-runner` | 浏览器 | runner 的浏览器那一半 |
+| `ui-cordis` | `@deepseek-ai/dsh-client-ui-cordis` | 浏览器 | 组合视图 |
 
 那些 inspect provider 是进程级全局的：注册表会拒绝重复 id，所以它们在这里注册一次，而每个 preset 的 `tool-cordis` 行都读取它们。这正是它们是宿主行、而不是按 agent 的那个工具的一部分的原因。
 
@@ -73,14 +73,14 @@ kind: "package-bundle"
 - [`extensions/`](../../extensions/README.zh.md) —— 那些 runner、那个工具与那个视图。
 - [默认模块与两个视图](../../../.agents/notes/proposed/architecture/2026-10-08-default-modules-and-views.zh.md) —— 哪个视图携带哪项能力。
 - [preset 行贡献](../../../.agents/notes/proposed/architecture/2026-10-10-preset-row-contributions.zh.md) —— 本模块刻意不使用的那条接缝。
-- [`lyn-module-deliverables`](../module-deliverables/README.zh.md) —— 被贡献的行与 preset 声明行并存的那个模块。
+- [`dsh-module-deliverables`](../module-deliverables/README.zh.md) —— 被贡献的行与 preset 声明行并存的那个模块。
 
 -----
 
 <a id="model-experience"></a>
 ## 模型体验
 
-间接地，经由它插入的那些行：`lyn-tool-cordis` 拥有组合工具的 schema 与结果，而本 bundle 提供那些调用所依赖的宿主 runner 与 inspect provider。
+间接地，经由它插入的那些行：`dsh-tool-cordis` 拥有组合工具的 schema 与结果，而本 bundle 提供那些调用所依赖的宿主 runner 与 inspect provider。
 
 #### KV Cache effect
 

@@ -7,8 +7,8 @@ import { fileURLToPath } from 'node:url'
 import { connectDesktopWelcome } from '../../desktop/src/welcome-backend.ts'
 import { chromium, type Browser, type Page } from 'playwright'
 import { afterEach, beforeEach, describe, expect, it, onTestFailed } from 'vitest'
-import { credentialKey, credentialRef } from '@lyness/lyn-credentials'
-import type {} from '@lyness/lyn-settings'
+import { credentialKey, credentialRef } from '@deepseek-ai/dsh-credentials'
+import type {} from '@deepseek-ai/dsh-settings'
 import {
   acknowledgeReloadConnectionLoss, captureStableAria, compareOrRefreshGolden,
   launchWebScaffold, watchConsole, webSnapshotMode, type WebScaffold,
@@ -40,7 +40,7 @@ describe.skipIf(MODE === 'record')('web e2e: App-only desktop onboarding', () =>
     walletBalance = '0E-16'
     bonusBalance = '0'
     screenshots = undefined
-    root = await mkdtemp(join(tmpdir(), 'lyn-desktop-onboarding-'))
+    root = await mkdtemp(join(tmpdir(), 'dsh-desktop-onboarding-'))
     server = createServer((request, response) => {
       if (request.url !== '/auth-api/v0/users/current' && request.url !== '/api/v0/users/get_user_summary') {
         response.writeHead(404).end()
@@ -86,12 +86,12 @@ describe.skipIf(MODE === 'record')('web e2e: App-only desktop onboarding', () =>
     const welcome = await connectDesktopWelcome(scaffold.authenticatedUrl, (input, init) => scaffold.hostFetch(input, init))
     await opened.exposeFunction('__onboardingHasApiKey', async () => (await welcome.read()).hasApiKey)
     await opened.addInitScript(() => {
-      Object.defineProperty(globalThis, 'lynOnboarding', { value: {
+      Object.defineProperty(globalThis, 'dshOnboarding', { value: {
         hasApiKey: () => (globalThis as typeof globalThis & { __onboardingHasApiKey(): Promise<boolean> }).__onboardingHasApiKey(),
         setActive: () => {},
       } })
-      Object.defineProperty(globalThis, 'lynDesktop', { value: { protocolVersion: 1 } })
-      Object.defineProperty(globalThis, 'lynPlatform', { value: {
+      Object.defineProperty(globalThis, 'dshDesktop', { value: { protocolVersion: 1 } })
+      Object.defineProperty(globalThis, 'dshPlatform', { value: {
         open: async () => {}, setBounds: async () => {}, close: async () => {},
       } })
     })
@@ -243,11 +243,11 @@ describe.skipIf(MODE === 'record')('web e2e: App-only desktop onboarding', () =>
     expect(await page.locator('[data-desktop-onboarding]').evaluate(element => getComputedStyle(element).filter)).toBe('none')
     expect(await page.getByRole('dialog').evaluate(element => getComputedStyle(element.previousElementSibling!).backdropFilter)).toBe('none')
     await page.getByRole('button', { name: '前往充值', exact: true }).click()
-    await page.getByRole('button', { name: '返回 lyness', exact: true }).waitFor()
+    await page.getByRole('button', { name: '返回 DeepSeek Harness', exact: true }).waitFor()
     expect((scaffold.ctx.settings.describe().find(row => row.ns === NS)?.value as { step: string }).step).toBe('credit')
     balanceFailure = true
     const readsBefore = balanceReads
-    await page.getByRole('button', { name: '返回 lyness', exact: true }).click()
+    await page.getByRole('button', { name: '返回 DeepSeek Harness', exact: true }).click()
     await page.getByRole('heading', { name: '准备可用额度', exact: true }).waitFor()
     await expect.poll(() => balanceReads).toBeGreaterThan(readsBefore)
     await expect.poll(() => page.getByRole('button', { name: '下一步', exact: true }).isEnabled()).toBe(true)

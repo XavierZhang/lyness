@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/lyn-host-brand-fonts",
+  "name": "@deepseek-ai/dsh-host-brand-fonts",
   "description": "The platform's built-in wordmark fonts: Inter SemiBold and Noto Sans CJK SC Medium, in fallback order, under the SIL Open Font License",
   "version": "0.1.7-rc.2",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/host/brand-fonts"
   },
   "type": "module",
@@ -29,11 +29,11 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~"
+    "@deepseek-ai/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-host-brand-icon": "workspace:*",
-    "@lyness/lyn-host-brand-wordmark": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-host-brand-icon": "workspace:*",
+    "@deepseek-ai/dsh-host-brand-wordmark": "workspace:*"
   }
 }

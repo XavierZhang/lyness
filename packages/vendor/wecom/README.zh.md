@@ -3,13 +3,13 @@ description: "企业微信作为登录渠道：企业签入此刻在浏览器前
 kind: "package-reference"
 ---
 
-# @lyness/lyn-wecom
+# @deepseek-ai/dsh-wecom
 
 [English](README.md) | 中文
 
 ## 概述
 
-`lyn-wecom` 把企业微信作为一个重定向登录渠道提供出来。它把浏览器送到企业自己的扫码页，在回来的路上读出企业报告的那位成员，并把这个身份交给部署的准入规则——由它决定这位成员可以是谁，或者谁都不是。它什么都不留：不留令牌、不留目录副本、不留自己的会话。应用密钥以凭据引用的方式点名，而不写进组合文件，于是 cordis.yml 永远不会携带那个能签入整个企业的值。
+`dsh-wecom` 把企业微信作为一个重定向登录渠道提供出来。它把浏览器送到企业自己的扫码页，在回来的路上读出企业报告的那位成员，并把这个身份交给部署的准入规则——由它决定这位成员可以是谁，或者谁都不是。它什么都不留：不留令牌、不留目录副本、不留自己的会话。应用密钥以凭据引用的方式点名，而不写进组合文件，于是 cordis.yml 永远不会携带那个能签入整个企业的值。
 
 ## 目录
 
@@ -29,13 +29,13 @@ kind: "package-reference"
 
 ```yaml
 - id: wecom
-  name: '@lyness/lyn-wecom'
+  name: '@deepseek-ai/dsh-wecom'
   config:
     corpId: ww-your-corporation
     agentId: '1000002'
     secret: WECOM_APP_SECRET
 - id: sign-in-admission
-  name: '@lyness/lyn-sign-in/admission-roster'
+  name: '@deepseek-ai/dsh-sign-in/admission-roster'
   config:
     bindings:
       - channel: wecom
@@ -68,10 +68,10 @@ kind: "package-reference"
 <a id="further-exploration"></a>
 ## 延伸阅读
 
-- [`lyn-sign-in`](../../identity/sign-in/README.zh.md) —— 渠道能力缝与准入规则。
-- [`lyn-sign-in-http`](../../identity/sign-in-http/README.zh.md) —— 把浏览器送出去、以及接住回调的那些路由。
-- [`lyn-microsoft-entra`](../microsoft-entra/README.zh.md) —— 另一个重定向渠道，本渠道沿用它的流程。
-- [`lyn-credentials`](../../credentials/credentials/README.zh.md) —— 应用密钥放在哪里。
+- [`dsh-sign-in`](../../identity/sign-in/README.zh.md) —— 渠道能力缝与准入规则。
+- [`dsh-sign-in-http`](../../identity/sign-in-http/README.zh.md) —— 把浏览器送出去、以及接住回调的那些路由。
+- [`dsh-microsoft-entra`](../microsoft-entra/README.zh.md) —— 另一个重定向渠道，本渠道沿用它的流程。
+- [`dsh-credentials`](../../credentials/credentials/README.zh.md) —— 应用密钥放在哪里。
 
 -----
 

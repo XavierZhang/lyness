@@ -1,13 +1,13 @@
 import { describe, expect, it, vi } from 'vitest'
-import { Context } from '@lyness/cordis'
-import { ReasoningEffortId } from '@lyness/lyn-llm'
-import SystemPrompt from '@lyness/lyn-system-prompt'
-import ToolRuntime from '@lyness/lyn-tools'
-import type { Agent } from '@lyness/lyn-agent'
-import SubagentRuntime from '@lyness/lyn-subagent'
-import type { SubagentStartRequest } from '@lyness/lyn-subagent'
-import { Session, SessionId } from '@lyness/lyn-session'
-import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import { Context } from '@deepseek-ai/cordis'
+import { ReasoningEffortId } from '@deepseek-ai/dsh-llm'
+import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
+import ToolRuntime from '@deepseek-ai/dsh-tools'
+import type { Agent } from '@deepseek-ai/dsh-agent'
+import SubagentRuntime from '@deepseek-ai/dsh-subagent'
+import type { SubagentStartRequest } from '@deepseek-ai/dsh-subagent'
+import { Session, SessionId } from '@deepseek-ai/dsh-session'
+import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
 import { MockAdapter } from '../../../core/agent-loop/tests/mock-adapter.ts'
 import * as mock from './scripted-provider.ts'
 import * as tool from '../src/index.ts'
@@ -37,7 +37,7 @@ function parentWithRoute(
   return { id, options, session: Session.create(id) } as unknown as Agent
 }
 
-describe('lyn-tool-subagent model selection', () => {
+describe('dsh-tool-subagent model selection', () => {
   it('rejects empty route ids at the configuration boundary', () => {
     expect(() => { assertAllowedModelRoutes([{ provider: '', model: 'model' }]) })
       .toThrow('requires non-empty provider and model ids')

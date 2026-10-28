@@ -2,37 +2,37 @@ import { randomUUID } from 'node:crypto'
 import { chmod, mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { Context } from '@lyness/cordis'
-import type { Agent } from '@lyness/lyn-agent'
-import AgentLoop from '@lyness/lyn-agent-loop'
-import { mountAgentLoopTestDependencies } from '@lyness/lyn-agent-loop-testkit'
-import { SandboxBashExecutor } from '@lyness/lyn-bash-sandbox'
-import { NodePtcRuntime } from '@lyness/lyn-ptc-runtime-node'
-import * as FsObservationPolicy from '@lyness/lyn-fs-observation-policy'
-import { SandboxedFileSystem } from '@lyness/lyn-fs-sandbox'
+import { Context } from '@deepseek-ai/cordis'
+import type { Agent } from '@deepseek-ai/dsh-agent'
+import AgentLoop from '@deepseek-ai/dsh-agent-loop'
+import { mountAgentLoopTestDependencies } from '@deepseek-ai/dsh-agent-loop-testkit'
+import { SandboxBashExecutor } from '@deepseek-ai/dsh-bash-sandbox'
+import { NodePtcRuntime } from '@deepseek-ai/dsh-ptc-runtime-node'
+import * as FsObservationPolicy from '@deepseek-ai/dsh-fs-observation-policy'
+import { SandboxedFileSystem } from '@deepseek-ai/dsh-fs-sandbox'
 import {
   createUserMessage, isAgentLoopRequest, ToolCallId,
   type StreamChunk,
-} from '@lyness/lyn-llm'
-import * as LlmDeepSeek from '@lyness/lyn-llm-deepseek-api-key'
-import PermissionPresetService, { AUTO_PRESET } from '@lyness/lyn-permission-presets'
-import SandboxProvider, { type ConfinedArgv, type SandboxPolicy } from '@lyness/lyn-sandbox'
-import SandboxPolicyService from '@lyness/lyn-sandbox-policy'
-import { SessionId, type SessionEvent } from '@lyness/lyn-session'
-import * as ShellEnv from '@lyness/lyn-shell-env'
-import LocalSubprocessRuntime from '@lyness/lyn-subprocess-local'
-import * as ToolBash from '@lyness/lyn-tool-bash'
-import * as ToolFs from '@lyness/lyn-tool-fs'
-import { RUN_CODE_NAME } from '@lyness/lyn-tools'
-import ApprovalService, { setApprovalPolicy } from '@lyness/lyn-user-approval'
+} from '@deepseek-ai/dsh-llm'
+import * as LlmDeepSeek from '@deepseek-ai/dsh-llm-deepseek-api-key'
+import PermissionPresetService, { AUTO_PRESET } from '@deepseek-ai/dsh-permission-presets'
+import SandboxProvider, { type ConfinedArgv, type SandboxPolicy } from '@deepseek-ai/dsh-sandbox'
+import SandboxPolicyService from '@deepseek-ai/dsh-sandbox-policy'
+import { SessionId, type SessionEvent } from '@deepseek-ai/dsh-session'
+import * as ShellEnv from '@deepseek-ai/dsh-shell-env'
+import LocalSubprocessRuntime from '@deepseek-ai/dsh-subprocess-local'
+import * as ToolBash from '@deepseek-ai/dsh-tool-bash'
+import * as ToolFs from '@deepseek-ai/dsh-tool-fs'
+import { RUN_CODE_NAME } from '@deepseek-ai/dsh-tools'
+import ApprovalService, { setApprovalPolicy } from '@deepseek-ai/dsh-user-approval'
 import { expect, it, vi } from 'vitest'
-import * as AutoReview from '@lyness/lyn-experimental-auto-review'
+import * as AutoReview from '@deepseek-ai/dsh-experimental-auto-review'
 
 const PROVIDER = 'deepseek-official'
 const FLASH = 'deepseek-v4-flash'
 const PRO = 'deepseek-v4-pro'
 const VISION = 'deepseek-v4-flash-vision-exp'
-const REAL = process.env.LYNESS_AUTO_REVIEW_CERTIFICATION === '1'
+const REAL = process.env.DSH_AUTO_REVIEW_CERTIFICATION === '1'
 const DENIED = 'AUTO_REVIEW_DENIED'
 type Risk = 'low' | 'medium' | 'high'
 type Decision = 'allow' | 'deny'
@@ -128,7 +128,7 @@ async function* observe(
   observations.push(observation)
 }
 
-async function mount(ctx: Context, workspace: string, lynHome: string): Promise<void> {
+async function mount(ctx: Context, workspace: string, dshHome: string): Promise<void> {
   await mountAgentLoopTestDependencies(ctx, {
     systemPrompt: {}, tools: { mode: 'both' },
   })
@@ -139,7 +139,7 @@ async function mount(ctx: Context, workspace: string, lynHome: string): Promise<
   await ctx.plugin(SandboxedFileSystem, { cwd: workspace })
   await ctx.plugin(FsObservationPolicy)
   await ctx.plugin(LocalSubprocessRuntime)
-  await ctx.plugin(ShellEnv, { lynHome })
+  await ctx.plugin(ShellEnv, { dshHome })
   await ctx.plugin(SandboxBashExecutor, { cwd: workspace, timeoutMs: 30_000 })
   await ctx.plugin(ApprovalService, { policy: 'ask' })
   await ctx.plugin(PermissionPresetService, {
@@ -251,16 +251,16 @@ it('certifies eight Auto risk/authorization cases with zero retries and zero ski
   retry: 0, timeout: 1_800_000,
 }, async () => {
   if (REAL && !process.env.DEEPSEEK_API_KEY) throw new Error('Real Auto certification requires DEEPSEEK_API_KEY')
-  const root = await mkdtemp(join(tmpdir(), 'lyn-auto-review-'))
+  const root = await mkdtemp(join(tmpdir(), 'dsh-auto-review-'))
   const ctx = new Context()
   try {
     await chmod(root, 0o700)
     const workspace = join(root, 'workspace')
-    const lynHome = join(root, 'lyn-home')
+    const dshHome = join(root, 'dsh-home')
     await mkdir(workspace)
-    await mkdir(lynHome, { mode: 0o700 })
-    vi.stubEnv('LYNESS_HOME', lynHome)
-    await mount(ctx, workspace, lynHome)
+    await mkdir(dshHome, { mode: 0o700 })
+    vi.stubEnv('DSH_HOME', dshHome)
+    await mount(ctx, workspace, dshHome)
     const runner = orchestrate(ctx, REAL)
     const cases: CaseResult[] = []
     const runCase = async (
@@ -358,13 +358,13 @@ it('certifies eight Auto risk/authorization cases with zero retries and zero ski
 it.each(['native', 'ptc-inner'] as const)('feeds denial back, re-reviews a new call and accepts narrowed work through %s', {
   retry: 0,
 }, async (path) => {
-  const root = await mkdtemp(join(tmpdir(), 'lyn-auto-review-recovery-'))
+  const root = await mkdtemp(join(tmpdir(), 'dsh-auto-review-recovery-'))
   const ctx = new Context()
   try {
-    const lynHome = join(root, 'home')
-    await mkdir(lynHome)
-    vi.stubEnv('LYNESS_HOME', lynHome)
-    await mount(ctx, root, lynHome)
+    const dshHome = join(root, 'home')
+    await mkdir(dshHome)
+    vi.stubEnv('DSH_HOME', dshHome)
+    await mount(ctx, root, dshHome)
     const runner = orchestrate(ctx, false)
     const target = join(root, 'existing.txt')
     await writeFile(target, 'keep\n')

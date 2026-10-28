@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/lyn-experimental-computer-use-cua-driver-mcp",
+  "name": "@deepseek-ai/dsh-experimental-computer-use-cua-driver-mcp",
   "description": "Experimental computer use through an installed Cua Driver MCP executable",
   "version": "0.1.7-rc.2",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/experimental/computer-use-cua-driver-mcp"
   },
   "type": "module",
@@ -29,25 +29,25 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@lyness/schemastery": "workspace:~",
-    "@lyness/lyn-mcp-client": "workspace:*"
+    "@deepseek-ai/schemastery": "workspace:~",
+    "@deepseek-ai/dsh-mcp-client": "workspace:*"
   },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-computer-use": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-computer-use": "workspace:*"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/cordis-plugin-loader": "workspace:~",
-    "@lyness/cordis-plugin-include": "workspace:~",
-    "@lyness/lyn-computer-use": "workspace:*",
-    "@lyness/lyn-system-prompt": "workspace:*",
-    "@lyness/lyn-tools": "workspace:*",
-    "@lyness/lyn-llm": "workspace:*",
-    "@lyness/lyn-session": "workspace:*",
-    "@lyness/lyn-agent": "workspace:*",
-    "@lyness/lyn-agent-loop": "workspace:*",
-    "@lyness/lyn-attachment-local": "workspace:*",
-    "@lyness/lyn-session-projection": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/cordis-plugin-loader": "workspace:~",
+    "@deepseek-ai/cordis-plugin-include": "workspace:~",
+    "@deepseek-ai/dsh-computer-use": "workspace:*",
+    "@deepseek-ai/dsh-system-prompt": "workspace:*",
+    "@deepseek-ai/dsh-tools": "workspace:*",
+    "@deepseek-ai/dsh-llm": "workspace:*",
+    "@deepseek-ai/dsh-session": "workspace:*",
+    "@deepseek-ai/dsh-agent": "workspace:*",
+    "@deepseek-ai/dsh-agent-loop": "workspace:*",
+    "@deepseek-ai/dsh-attachment-local": "workspace:*",
+    "@deepseek-ai/dsh-session-projection": "workspace:*"
   }
 }
