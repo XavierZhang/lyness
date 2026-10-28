@@ -10,19 +10,19 @@
  * execution. No continuable path creates a Task or an intermediate
  * result-bearing wrapper.
  *
- * @module @lyness/lyn-subagent
+ * @module @deepseek-ai/dsh-subagent
  */
 
 import { randomUUID } from 'node:crypto'
-import type { Context } from '@lyness/cordis'
-import type { Agent } from '@lyness/lyn-agent'
-import { brandString } from '@lyness/lyn-brand'
-import { ReasoningEffortId, contentHasImage, createUserMessage } from '@lyness/lyn-llm'
-import type { ContentBlock, MessageId, MessageSource } from '@lyness/lyn-llm'
-import { SessionLogOffset } from '@lyness/lyn-session'
-import type { SessionId } from '@lyness/lyn-session'
-import type { SessionPersistence } from '@lyness/lyn-session-persistence'
-import type { SessionObservation, SessionQueryEngine } from '@lyness/lyn-session-query'
+import type { Context } from '@deepseek-ai/cordis'
+import type { Agent } from '@deepseek-ai/dsh-agent'
+import { brandString } from '@deepseek-ai/dsh-brand'
+import { ReasoningEffortId, contentHasImage, createUserMessage } from '@deepseek-ai/dsh-llm'
+import type { ContentBlock, MessageId, MessageSource } from '@deepseek-ai/dsh-llm'
+import { SessionLogOffset } from '@deepseek-ai/dsh-session'
+import type { SessionId } from '@deepseek-ai/dsh-session'
+import type { SessionPersistence } from '@deepseek-ai/dsh-session-persistence'
+import type { SessionObservation, SessionQueryEngine } from '@deepseek-ai/dsh-session-query'
 import {
   childSessionMeta,
   captureDelegatedPolicyOverrides,
@@ -529,7 +529,7 @@ export class SubagentContinuationManager {
     const persistence = this.ctx.get('sessionPersistence')
     if (persistence === undefined) {
       throw new SubagentError(
-        'continuable subagents require session persistence (load a lyn-session-persistence backend)',
+        'continuable subagents require session persistence (load a dsh-session-persistence backend)',
         'PERSISTENCE_UNAVAILABLE',
       )
     }
@@ -541,7 +541,7 @@ export class SubagentContinuationManager {
     const query = this.ctx.get('sessionQuery')
     if (query === undefined) {
       throw new SubagentError(
-        'continuable subagents require session query (load @lyness/lyn-session-query)',
+        'continuable subagents require session query (load @deepseek-ai/dsh-session-query)',
         'CONTINUATION_UNAVAILABLE',
       )
     }

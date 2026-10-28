@@ -82,8 +82,8 @@ async function mockPlatform() {
   const grant = (orderId: string, amount: string): void => {
     unnotified.unshift({
       orderId, amount,
-      zh_CN: `已赠送您 ${amount} 元 LYN 体验赠金。`,
-      en_US: `You received a CNY ${amount} LYN trial credit.`,
+      zh_CN: `已赠送您 ${amount} 元 DSH 体验赠金。`,
+      en_US: `You received a CNY ${amount} DSH trial credit.`,
     })
   }
   /** @param value - granted bonus. @param locale - request language. @returns its wire fields. */
@@ -100,7 +100,7 @@ async function mockPlatform() {
       res.writeHead(200, { 'content-type': 'application/json' })
       res.end(JSON.stringify(payload))
     }
-    if (req.headers['x-lyn-auth-token'] !== TOKEN) { res.writeHead(401).end(); return }
+    if (req.headers['x-dsh-auth-token'] !== TOKEN) { res.writeHead(401).end(); return }
     if (url.pathname === '/auth-api/v0/users/current') {
       // `email` is required by the provider's profile schema even when the account has none.
       reply({ code: 0, data: { biz_code: 0, biz_data: {
@@ -226,13 +226,13 @@ describe.skipIf(MODE === 'record')('web e2e: bonus notice', () => {
     const opened = await context.newPage()
     tripwires.push(watchConsole(opened))
     await opened.addInitScript(() => {
-      Object.defineProperty(globalThis, 'lynDesktop', { value: { protocolVersion: 1 } })
+      Object.defineProperty(globalThis, 'dshDesktop', { value: { protocolVersion: 1 } })
       // The embedded Platform view is a native child window owned by the Desktop shell.
       // The double answers immediately and records the calls, so the scenario observes
       // which page was opened and that returning destroyed the view.
       const calls: string[] = []
       Object.defineProperty(globalThis, '__bonusPlatformCalls', { value: calls })
-      Object.defineProperty(globalThis, 'lynPlatform', {
+      Object.defineProperty(globalThis, 'dshPlatform', {
         value: {
           open: (page: string) => { calls.push(`open:${page}`); return Promise.resolve() },
           setBounds: () => Promise.resolve(),
@@ -246,7 +246,7 @@ describe.skipIf(MODE === 'record')('web e2e: bonus notice', () => {
   beforeAll(async () => {
     platform = await mockPlatform()
     platform.grant(ORDER_FIRST, '5.00')
-    root = await mkdtemp(join(tmpdir(), 'lyn-bonus-notice-'))
+    root = await mkdtemp(join(tmpdir(), 'dsh-bonus-notice-'))
     const home = join(root, 'home')
     await mkdir(home, { recursive: true })
     // A stored grant bound to the double's origin starts the account credential-stored
@@ -273,9 +273,9 @@ describe.skipIf(MODE === 'record')('web e2e: bonus notice', () => {
   })
 
   it('acknowledges a notice shown under settings, refreshes once per entry, and localizes the request', async () => {
-    const zhFirst = '已赠送您 5.00 元 LYN 体验赠金。'
-    const zhLater = '已赠送您 8.00 元 LYN 体验赠金。'
-    const enBonus = 'You received a CNY 9.00 LYN trial credit.'
+    const zhFirst = '已赠送您 5.00 元 DSH 体验赠金。'
+    const zhLater = '已赠送您 8.00 元 DSH 体验赠金。'
+    const enBonus = 'You received a CNY 9.00 DSH trial credit.'
     const observations: string[] = []
     const page = await openDesktopPage('zh-CN')
     onTestFailed(() => saveFailureShot(page, 'web-e2e-bonus-notice'))
@@ -413,7 +413,7 @@ describe.skipIf(MODE === 'record')('web e2e: bonus notice', () => {
 
     // Returning from the native top-up view refreshes balance and notice once each, without
     // holding the panel open.
-    const zhTopUp = '已赠送您 11.00 元 LYN 体验赠金。'
+    const zhTopUp = '已赠送您 11.00 元 DSH 体验赠金。'
     const topUpGetsBefore = platform.gets.length
     const topUpSummariesBefore = platform.summaries.length
     await openSettings(page, 'zh')
@@ -424,7 +424,7 @@ describe.skipIf(MODE === 'record')('web e2e: bonus notice', () => {
     observations.push(`topup.open gets=${String(platform.gets.length - topUpGetsBefore)} summaries=${String(platform.summaries.length - topUpSummariesBefore)}`)
     const callsBefore = (await platformCalls(page)).length
     await topUpSettings.getByRole('link', { name: '充值', exact: true }).click()
-    const topUpOverlay = page.getByRole('dialog', { name: '返回 lyness', exact: true })
+    const topUpOverlay = page.getByRole('dialog', { name: '返回 DeepSeek Harness', exact: true })
     await topUpOverlay.waitFor()
     // Opening the native view reads nothing by itself.
     expect(platform.gets.length).toBe(topUpGetsBefore + 1)
@@ -436,7 +436,7 @@ describe.skipIf(MODE === 'record')('web e2e: bonus notice', () => {
     platform.grant(ORDER_TOPUP, '11.00')
     // Holding the notice read proves the return does not wait for the refresh it starts.
     platform.holdNextGet()
-    await topUpOverlay.getByRole('button', { name: '返回 lyness', exact: true }).click()
+    await topUpOverlay.getByRole('button', { name: '返回 DeepSeek Harness', exact: true }).click()
     await topUpOverlay.waitFor({ state: 'detached', timeout: 30_000 })
     const topUpCalls = (await platformCalls(page)).slice(callsBefore).join(',')
     observations.push(`topup.returned bridge=${topUpCalls} cards=${String(await noticeCards(page).count())}`)
@@ -464,7 +464,7 @@ describe.skipIf(MODE === 'record')('web e2e: bonus notice', () => {
 
     // A transient acknowledgement failure keeps the card and retries the same order after
     // the backoff; the pending retry is page state, not browser storage.
-    const zhRetry = '已赠送您 6.00 元 LYN 体验赠金。'
+    const zhRetry = '已赠送您 6.00 元 DSH 体验赠金。'
     platform.grant(ORDER_RETRY, '6.00')
     platform.failNextAcks(ORDER_RETRY, 1)
     await openSettings(page, 'zh')
@@ -492,7 +492,7 @@ describe.skipIf(MODE === 'record')('web e2e: bonus notice', () => {
 
     // Display follows each response: the double keeps serving an acknowledged order, which
     // is what makes a second display of the same order observable.
-    const zhRepeat = '已赠送您 7.00 元 LYN 体验赠金。'
+    const zhRepeat = '已赠送您 7.00 元 DSH 体验赠金。'
     const storedBeforeShown = await storageKeys()
     platform.setKeepUnnotified(true)
     platform.grant(ORDER_REPEAT, '7.00')
@@ -540,9 +540,9 @@ describe.skipIf(MODE === 'record')('web e2e: bonus notice', () => {
     // Returning from usage refreshes nothing, because only a payment changes the account.
     for (const index of [0, 1]) {
       await failedLinks.nth(index).click()
-      const usageOverlay = page.getByRole('dialog', { name: '返回 lyness', exact: true })
+      const usageOverlay = page.getByRole('dialog', { name: '返回 DeepSeek Harness', exact: true })
       await usageOverlay.waitFor()
-      await usageOverlay.getByRole('button', { name: '返回 lyness', exact: true }).click()
+      await usageOverlay.getByRole('button', { name: '返回 DeepSeek Harness', exact: true }).click()
       await usageOverlay.waitFor({ state: 'detached', timeout: 30_000 })
     }
     const failedUsages = (await platformCalls(page)).filter(call => call === 'open:usage').length - failedUsagesBefore

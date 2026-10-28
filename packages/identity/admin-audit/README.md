@@ -3,13 +3,13 @@ description: "The append-only trail of administrative changes: who changed which
 kind: "package-reference"
 ---
 
-# @lyness/lyn-admin-audit
+# @deepseek-ai/dsh-admin-audit
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`lyn-admin-audit` keeps the half a roster does not. A roster holds what is true now, which is enough to serve a request and not enough to answer for one: an organization asked why somebody held a role last month, or what a bot's character used to say, has nothing to read if the only record is the current one. Every change to a person, a directory binding, a bot or a team is recorded here with who made it, the standing they made it in, and the value it replaced. Entries are only ever appended; nothing rewrites or removes one.
+`dsh-admin-audit` keeps the half a roster does not. A roster holds what is true now, which is enough to serve a request and not enough to answer for one: an organization asked why somebody held a role last month, or what a bot's character used to say, has nothing to read if the only record is the current one. Every change to a person, a directory binding, a bot or a team is recorded here with who made it, the standing they made it in, and the value it replaced. Entries are only ever appended; nothing rewrites or removes one.
 
 ## Table of Contents
 
@@ -29,7 +29,7 @@ Before the rosters, because both of them inject it:
 
 ```yaml
 - id: admin-audit
-  name: '@lyness/lyn-admin-audit'
+  name: '@deepseek-ai/dsh-admin-audit'
   config:
     maxValueLength: 2000
     maxEntries: 200
@@ -38,10 +38,10 @@ Before the rosters, because both of them inject it:
 An owner of administrable records then records its own changes, and a surface reads them back:
 
 ```ts
-import type { Context } from '@lyness/cordis'
-import { fieldChanges } from '@lyness/lyn-admin-audit'
-import type {} from '@lyness/lyn-admin-audit'
-import type { Membership } from '@lyness/lyn-people'
+import type { Context } from '@deepseek-ai/cordis'
+import { fieldChanges } from '@deepseek-ai/dsh-admin-audit'
+import type {} from '@deepseek-ai/dsh-admin-audit'
+import type { Membership } from '@deepseek-ai/dsh-people'
 
 declare const ctx: Context
 declare const by: Membership
@@ -92,12 +92,12 @@ A tenant administrator reads their own organization's trail. Naming no organizat
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`lyn-managed-people`](../managed-people/README.md) — the people and bindings whose changes it records.
-- [`lyn-managed-bots`](../managed-bots/README.md) — the bots and teams whose changes it records.
-- [`lyn-sign-in-channels`](../sign-in-channels/README.md) — the configured directories whose changes it records, secrets excepted.
-- [`lyn-credits`](../../credits/credits/README.md) — the allowance overrides whose changes it records; a grant is its own record.
-- [`lyn-people`](../people/README.md) — the standings a read is authorized against.
-- [`lyn-module-accounts`](../../bundle/module-accounts/README.md) — the composition that selects it beside the rosters.
+- [`dsh-managed-people`](../managed-people/README.md) — the people and bindings whose changes it records.
+- [`dsh-managed-bots`](../managed-bots/README.md) — the bots and teams whose changes it records.
+- [`dsh-sign-in-channels`](../sign-in-channels/README.md) — the configured directories whose changes it records, secrets excepted.
+- [`dsh-credits`](../../credits/credits/README.md) — the allowance overrides whose changes it records; a grant is its own record.
+- [`dsh-people`](../people/README.md) — the standings a read is authorized against.
+- [`dsh-module-accounts`](../../bundle/module-accounts/README.md) — the composition that selects it beside the rosters.
 
 -----
 

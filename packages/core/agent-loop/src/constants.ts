@@ -1,5 +1,5 @@
 /** Shared agent-loop scheduler defaults.
- * @module lyn-agent-loop/constants
+ * @module dsh-agent-loop/constants
  */
 
 /** Default maximum in-flight parallel-safe calls per agent step. */

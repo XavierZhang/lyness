@@ -9,10 +9,10 @@
  * belongs to ui-tool's generic keyed tool view, so this package contributes
  * only the Turn-level card.
  */
-import { isAppendSurfaceEvent } from '@lyness/lyn-session/surface'
+import { isAppendSurfaceEvent } from '@deepseek-ai/dsh-session/surface'
 import type {
   ConversationMatch, ConversationNodeDefinition, ToolResultNode, TurnLocation,
-} from '@lyness/lyn-client-ui-conversation/client'
+} from '@deepseek-ai/dsh-client-ui-conversation/client'
 import { scheduleCreateCardModel } from './schedule-create-card.ts'
 
 /** Wire Tool name whose settled result carries one created task. */
@@ -26,7 +26,7 @@ export interface ScheduleTurnData {
   readonly created: readonly ScheduleCreatedTask[]
 }
 
-declare module '@lyness/lyn-client-ui-conversation/client' {
+declare module '@deepseek-ai/dsh-client-ui-conversation/client' {
   interface ConversationTurnDataMap {
     /** `schedule_create` results settled in this Turn, in settlement order. */
     'schedule-created': ScheduleTurnData

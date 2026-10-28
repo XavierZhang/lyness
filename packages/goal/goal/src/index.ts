@@ -1,21 +1,21 @@
 /**
  * Same-session goal domain: event-sourced state, compare-and-set mutations,
  * and process-local continuation activation.
- * @module @lyness/lyn-goal
+ * @module @deepseek-ai/dsh-goal
  */
 
 import { randomUUID } from 'node:crypto'
-import { Context } from '@lyness/cordis'
-import z from '@lyness/schemastery'
+import { Context } from '@deepseek-ai/cordis'
+import z from '@deepseek-ai/schemastery'
 import { z as zod } from 'zod'
 import type { ZodType } from 'zod'
-import { agentEvents } from '@lyness/lyn-agent'
-import type { Agent } from '@lyness/lyn-agent'
-import { SessionSeq } from '@lyness/lyn-session'
-import type { Session, SessionEvent, SessionLogOffset } from '@lyness/lyn-session'
-import { TypertRemoteService, Remote } from '@lyness/lyn-typert-protocol'
-import type {} from '@lyness/lyn-session-projection'
-import type { ProjectionDefinition } from '@lyness/lyn-session-projection'
+import { agentEvents } from '@deepseek-ai/dsh-agent'
+import type { Agent } from '@deepseek-ai/dsh-agent'
+import { SessionSeq } from '@deepseek-ai/dsh-session'
+import type { Session, SessionEvent, SessionLogOffset } from '@deepseek-ai/dsh-session'
+import { TypertRemoteService, Remote } from '@deepseek-ai/dsh-typert-protocol'
+import type {} from '@deepseek-ai/dsh-session-projection'
+import type { ProjectionDefinition } from '@deepseek-ai/dsh-session-projection'
 import {
   applyGoalEvent,
   goalChangeRef,
@@ -56,7 +56,7 @@ export type * from './domain.ts'
 export { GOAL_CHANGE_VERSION, GoalError, GoalId } from './runtime.ts'
 export { decodeGoalChange, foldGoal, goalChangeRef } from './fold.ts'
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     goals: GoalService
   }

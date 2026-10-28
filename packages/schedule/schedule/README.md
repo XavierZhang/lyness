@@ -3,7 +3,7 @@ description: "Host-wide durable reminders and shared Session-bound task manageme
 kind: "package-reference"
 ---
 
-# @lyness/lyn-schedule
+# @deepseek-ai/dsh-schedule
 
 English | [中文](README.zh.md)
 
@@ -94,7 +94,7 @@ The `schedule.archiveAdmission()` effect answers the Workspace registry's archiv
 
 #### What the model sees
 
-The [generated tool catalog](../../../docs/tool-catalog.md#lynesslyn-schedule) contains the descriptions and schemas for `schedule_create`, `schedule_list`, `schedule_delete`, and `schedule_update`, registered in live root Agent scopes while Schedule is loaded.
+The [generated tool catalog](../../../docs/tool-catalog.md#deepseek-aidsh-schedule) contains the descriptions and schemas for `schedule_create`, `schedule_list`, `schedule_delete`, and `schedule_update`, registered in live root Agent scopes while Schedule is loaded.
 
 #### Token effect
 

@@ -11,18 +11,18 @@
  * authorization stays where it belongs: whoever obtained the engagement was
  * judged for it, and this function grants nothing on its own.
  *
- * @module @lyness/lyn-bot-ask/turn
+ * @module @deepseek-ai/dsh-bot-ask/turn
  */
 
-import type { Context } from '@lyness/cordis'
-import { brandString } from '@lyness/lyn-brand'
-import { createUserMessage } from '@lyness/lyn-llm'
-import type { Session, SessionId } from '@lyness/lyn-session'
-import type {} from '@lyness/lyn-agent-default-model'
-import type {} from '@lyness/lyn-agent-preset-registry'
-import type {} from '@lyness/lyn-managed-bots'
-import type { EngagedBot } from '@lyness/lyn-managed-bots/session'
-import { randomUUID } from '@lyness/lyn-util-crypto'
+import type { Context } from '@deepseek-ai/cordis'
+import { brandString } from '@deepseek-ai/dsh-brand'
+import { createUserMessage } from '@deepseek-ai/dsh-llm'
+import type { Session, SessionId } from '@deepseek-ai/dsh-session'
+import type {} from '@deepseek-ai/dsh-agent-default-model'
+import type {} from '@deepseek-ai/dsh-agent-preset-registry'
+import type {} from '@deepseek-ai/dsh-managed-bots'
+import type { EngagedBot } from '@deepseek-ai/dsh-managed-bots/session'
+import { randomUUID } from '@deepseek-ai/dsh-util-crypto'
 
 /** What one bot runs with for one turn. */
 export interface BotTurnRequest {

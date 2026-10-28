@@ -45,6 +45,6 @@ Four defects in the codemod surfaced, each of which had been silently wrong sinc
 
 **The note recording the rename was rewritten by it.** A document whose subject is the rename must quote the upstream spelling, so the codemod turned every rule it documented into `X becomes X`. Documents of that kind — the ledger, the requirements, the codemod, and now this record — are protected.
 
-Dropping the product segment from package names keeps costing gates. Upstream separates its own packages from rescoped vendored ones by that segment; `@lyness/<name>` cannot. This sync brought three more name-prefix checks that need excluding by hand, and one of them had failed open — a prefix built by template produced a string no package matches, so the check passed while verifying nothing. Sorted fixtures also reorder, because the new names sort differently from the old.
+Dropping the product segment from package names keeps costing gates. Upstream separates its own packages from rescoped vendored ones by that segment; `@deepseek-ai/<name>` cannot. This sync brought three more name-prefix checks that need excluding by hand, and one of them had failed open — a prefix built by template produced a string no package matches, so the check passed while verifying nothing. Sorted fixtures also reorder, because the new names sort differently from the old.
 
 Three tests fail on this host. All three are new upstream code, and all three fail identically on a pristine upstream checkout, so they belong to upstream and this machine, not to the sync.

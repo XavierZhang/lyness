@@ -8,15 +8,15 @@
  * (and the reverse), the one-shared-state contract of the dual entry.
  * Scope disposal drops the directory (HMR safety).
  */
-import { Context } from '@lyness/cordis'
+import { Context } from '@deepseek-ai/cordis'
 import { describe, expect, it, vi } from 'vitest'
-import { createScope } from '@lyness/lyn-api-session-controller/client'
-import type { SessionId } from '@lyness/lyn-session/types'
-import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
-import { createSnapshotStore, type SnapshotStore } from '@lyness/lyn-client-store'
-import { makeTranslate, RemoteError, TestRemote } from '@lyness/lyn-client-test-runtime'
-import type { ModelSelection, ModelSelectionProjection } from '@lyness/lyn-api-session-controller/types'
-import type { CommandContribution, PopupSelectSpec, SelectOption } from '@lyness/lyn-client-ui-commands/client'
+import { createScope } from '@deepseek-ai/dsh-api-session-controller/client'
+import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import { LocaleRuntime } from '@deepseek-ai/dsh-client-locale/client'
+import { createSnapshotStore, type SnapshotStore } from '@deepseek-ai/dsh-client-store'
+import { makeTranslate, RemoteError, TestRemote } from '@deepseek-ai/dsh-client-test-runtime'
+import type { ModelSelection, ModelSelectionProjection } from '@deepseek-ai/dsh-api-session-controller/types'
+import type { CommandContribution, PopupSelectSpec, SelectOption } from '@deepseek-ai/dsh-client-ui-commands/client'
 import type { ModelSelectInjected } from '../src/client/slots.ts'
 import { apply, inject } from '../src/client/index.ts'
 import { zh } from '../src/client/locales.ts'

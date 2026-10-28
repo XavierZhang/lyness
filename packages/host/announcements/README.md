@@ -3,13 +3,13 @@ description: "What a deployment tells the people using it, for operators writing
 kind: "package-reference"
 ---
 
-# @lyness/lyn-announcements
+# @deepseek-ai/dsh-announcements
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`lyn-announcements` is where a deployment's own release notes and notices live. `./static` serves the ones an operator wrote in composition config, newest first, and a client reads them through the announcement controller. Each announcement carries the release it describes rather than the service reporting one current version: the Host cannot derive a version it can stand behind, while the newest announcement's version is one the deployment has actually claimed. A deployment that mounts no source has nothing to say, which is what a single-operator install is.
+`dsh-announcements` is where a deployment's own release notes and notices live. `./static` serves the ones an operator wrote in composition config, newest first, and a client reads them through the announcement controller. Each announcement carries the release it describes rather than the service reporting one current version: the Host cannot derive a version it can stand behind, while the newest announcement's version is one the deployment has actually claimed. A deployment that mounts no source has nothing to say, which is what a single-operator install is.
 
 ## Table of Contents
 
@@ -27,7 +27,7 @@ English | [中文](README.zh.md)
 
 ```yaml
 - id: announcements
-  name: '@lyness/lyn-announcements/static'
+  name: '@deepseek-ai/dsh-announcements/static'
   config:
     announcements:
       - id: v0-1-7
@@ -68,8 +68,8 @@ An empty list is a complete answer, unlike a roster, where emptiness would lock 
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`lyn-api-announcement-controller`](../../api/announcement-controller/README.md) — how a client reads them.
-- [`lyn-client-ui-settings-announcements`](../../client/ui-settings-announcements/README.md) — the row and reader that render them.
+- [`dsh-api-announcement-controller`](../../api/announcement-controller/README.md) — how a client reads them.
+- [`dsh-client-ui-settings-announcements`](../../client/ui-settings-announcements/README.md) — the row and reader that render them.
 
 -----
 

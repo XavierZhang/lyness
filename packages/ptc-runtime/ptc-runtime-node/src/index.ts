@@ -1,17 +1,17 @@
 /** Confined Node programs with host-owned bindings, output limits, and managed process cleanup. */
 import { stripTypeScriptTypes } from 'node:module'
 import { isAbsolute } from 'node:path'
-import { Context } from '@lyness/cordis'
-import z from '@lyness/schemastery'
-import { PtcRuntime } from '@lyness/lyn-ptc-runtime'
-import type { PtcBindingNamespace, PtcJsonValue, PtcRunFailure, PtcRunRequest, PtcRunResult, PtcRunSandbox, PtcRunSpec } from '@lyness/lyn-ptc-runtime'
-import { MAX_TIMER_DELAY_MS, clampTimeout } from '@lyness/lyn-timeout'
-import { SandboxUnavailableError, classifyRunnerFailure, isRunnerSpawnFailure } from '@lyness/lyn-sandbox'
-import type { ConfinedArgv, SandboxExecutionPolicy, SandboxMode } from '@lyness/lyn-sandbox'
-import type { SubprocessHandle, SubprocessOutcome } from '@lyness/lyn-subprocess'
-import type {} from '@lyness/lyn-sandbox-policy'
-import type {} from '@lyness/lyn-fs'
-import { snapshotJsonValue } from '@lyness/lyn-util-values'
+import { Context } from '@deepseek-ai/cordis'
+import z from '@deepseek-ai/schemastery'
+import { PtcRuntime } from '@deepseek-ai/dsh-ptc-runtime'
+import type { PtcBindingNamespace, PtcJsonValue, PtcRunFailure, PtcRunRequest, PtcRunResult, PtcRunSandbox, PtcRunSpec } from '@deepseek-ai/dsh-ptc-runtime'
+import { MAX_TIMER_DELAY_MS, clampTimeout } from '@deepseek-ai/dsh-timeout'
+import { SandboxUnavailableError, classifyRunnerFailure, isRunnerSpawnFailure } from '@deepseek-ai/dsh-sandbox'
+import type { ConfinedArgv, SandboxExecutionPolicy, SandboxMode } from '@deepseek-ai/dsh-sandbox'
+import type { SubprocessHandle, SubprocessOutcome } from '@deepseek-ai/dsh-subprocess'
+import type {} from '@deepseek-ai/dsh-sandbox-policy'
+import type {} from '@deepseek-ai/dsh-fs'
+import { snapshotJsonValue } from '@deepseek-ai/dsh-util-values'
 import { validateBindings } from './bindings.ts'
 import { JsonChannel } from './channel.ts'
 import { bootstrapArgs } from './launch.ts'
@@ -42,7 +42,7 @@ export interface Config extends LaunchConfig {
 
 type ResolvedConfig = Required<Omit<Config, 'bootstrapPath'>> & Pick<Config, 'bootstrapPath'>
 interface LiveRun { controller: AbortController; finished: Promise<void> }
-const STRIP_PREFIX = 'async function __lyn_program__() {\n'
+const STRIP_PREFIX = 'async function __dsh_program__() {\n'
 const STRIP_SUFFIX = '\n}'
 
 function messageOf(error: unknown): string { return error instanceof Error ? error.message : String(error) }
@@ -230,7 +230,7 @@ export class NodePtcRuntime extends PtcRuntime {
         .filter(key => !STARTUP_ENVIRONMENT_NAMES.has(key.toUpperCase()) && key.toUpperCase() !== 'ELECTRON_RUN_AS_NODE')
         .map(key => [key, undefined]))
       if (packaged) {
-        env.LYNESS_PTC_RUNTIME_NODE = '1'
+        env.DSH_PTC_RUNTIME_NODE = '1'
         env.NODE_OPTIONS = heapFlag
       }
       handle = this.ctx.subprocess.spawn({ argv: confined?.argv ?? argv, cwd: spec.cwd, env, stdio: { stdin: 'ignore', stdout: 'pipe', stderr: 'pipe', control: 'pipe' }, graceMs: this.config.graceMs, signal })

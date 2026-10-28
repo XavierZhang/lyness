@@ -1,4 +1,4 @@
-/* The brand palette from docs/LYNESS-BRAND-GUIDELINES.md section 7, verbatim
+/* The brand palette from docs/DSHESS-BRAND-GUIDELINES.md section 7, verbatim
    and in that document's names. These are constants, not theme-dependent: the
    per-mode alias blocks below pick which of them applies, and components read
    the aliases. They live in this file rather than their own so that a consumer
@@ -8,30 +8,30 @@
    backdrop. Nothing here is a semantic choice. */
 :root {
   /* Brand */
-  --lyness-black: #0B0D10;
-  --lyness-blue: #315BFF;
-  --lyness-blue-dark: #1937B8;
-  --lyness-cyan: #22B8D6;
+  --deepseek-harness-black: #0B0D10;
+  --deepseek-harness-blue: #315BFF;
+  --deepseek-harness-blue-dark: #1937B8;
+  --deepseek-harness-cyan: #22B8D6;
 
   /* Neutral */
-  --lyness-white: #FFFFFF;
-  --lyness-gray-50: #F5F7FA;
-  --lyness-gray-200: #E5EAF2;
-  --lyness-gray-600: #667085;
-  --lyness-gray-900: #1D2430;
+  --deepseek-harness-white: #FFFFFF;
+  --deepseek-harness-gray-50: #F5F7FA;
+  --deepseek-harness-gray-200: #E5EAF2;
+  --deepseek-harness-gray-600: #667085;
+  --deepseek-harness-gray-900: #1D2430;
 
   /* Semantic */
-  --lyness-success: #16A36A;
-  --lyness-warning: #D99000;
-  --lyness-error: #D64545;
-  --lyness-info: #315BFF;
+  --deepseek-harness-success: #16A36A;
+  --deepseek-harness-warning: #D99000;
+  --deepseek-harness-error: #D64545;
+  --deepseek-harness-info: #315BFF;
 
   /* Dark surfaces and secondary text, from section 19. That section names them
      for dark mode only, so they are not part of the thirteen above; they are
      written here rather than inline so the aliases keep citing a token. */
-  --lyness-dark-surface: #11151C;
-  --lyness-dark-surface-2: #171C25;
-  --lyness-dark-label-secondary: #AAB2C0;
+  --deepseek-harness-dark-surface: #11151C;
+  --deepseek-harness-dark-surface-2: #171C25;
+  --deepseek-harness-dark-label-secondary: #AAB2C0;
 }
 
 /* Figma font-weight 510 (an SF Pro variable-font weight) always renders as
@@ -200,7 +200,7 @@ body[data-ds-dark-theme] {
 }
 
 body {
-  --dsw-alias-bg-base: var(--lyness-gray-50);
+  --dsw-alias-bg-base: var(--deepseek-harness-gray-50);
   --dsw-alias-bg-document-preview: var(--dsw-static-neutral-bluish-100);
   --dsw-alias-label-document-preview: var(--dsw-static-neutral-bluish-700);
   --dsw-alias-bg-layer-1: var(--dsw-static-neutral-bluish-00);
@@ -224,7 +224,7 @@ body {
   --dsw-alias-border-l4: rgba(0, 0, 0, 0.16);
   --dsw-alias-brand-primary-invert: var(--dsw-static-neutral-bluish-1000);
   --dsw-alias-brand-primary-new-colorprimary-new-color: rgb(65, 118, 230);
-  --dsw-alias-brand-primary: var(--lyness-blue);
+  --dsw-alias-brand-primary: var(--deepseek-harness-blue);
   --dsw-alias-brand-text: var(--dsw-static-neutral-bluish-1000);
   --dsw-alias-button-contrast-fill: var(--dsw-static-neutral-bluish-700);
   --dsw-alias-button-elevated-fill: var(--dsw-static-neutral-bluish-00);
@@ -237,7 +237,7 @@ body {
   --dsw-alias-button-info-hover: var(--dsw-static-deepseek-400);
   --dsw-alias-button-primary-dimmed: var(--dsw-static-neutral-bluish-100);
   --dsw-alias-button-primary-fill: var(--dsw-alias-brand-primary);
-  --dsw-alias-button-primary-hover: var(--lyness-blue-dark);
+  --dsw-alias-button-primary-hover: var(--deepseek-harness-blue-dark);
   --dsw-alias-button-tool-bar-fill-invisible: rgba(31, 31, 31, 0.36);
   --dsw-alias-button-tool-bar-fill: rgba(84, 85, 87, 0.5);
   --dsw-alias-button-tool-bar-hover: rgba(84, 85, 87, 0.6);
@@ -250,11 +250,11 @@ body {
   --dsw-alias-label-dimmed: var(--dsw-static-neutral-bluish-200);
   --dsw-alias-label-primary-bluish: var(--dsw-static-blue-900);
   --dsw-alias-label-primary-dimmed: var(--dsw-static-neutral-bluish-950);
-  --dsw-alias-label-on-brand: var(--lyness-white);
+  --dsw-alias-label-on-brand: var(--deepseek-harness-white);
   --dsw-alias-label-primary-foreground: var(--dsw-static-neutral-bluish-00);
   --dsw-alias-label-primary-inverted: var(--dsw-static-neutral-bluish-00);
-  --dsw-alias-label-primary: var(--lyness-black);
-  --dsw-alias-label-secondary: var(--lyness-gray-600);
+  --dsw-alias-label-primary: var(--deepseek-harness-black);
+  --dsw-alias-label-secondary: var(--deepseek-harness-gray-600);
   --dsw-alias-label-tertiary: var(--dsw-static-neutral-bluish-600);
   --dsw-alias-menu-icon: var(--dsw-static-neutral-bluish-800);
   --dsw-alias-link: var(--dsw-static-deepseek-500);
@@ -280,10 +280,10 @@ body {
   --dsw-alias-file-diff-deleted-bg: rgb(252, 230, 226);
   --dsw-alias-file-diff-deleted-gutter: rgb(253, 236, 233);
   --dsw-alias-file-diff-deleted-marker: rgb(186, 39, 35);
-  --dsw-alias-state-error-primary: var(--lyness-error);
+  --dsw-alias-state-error-primary: var(--deepseek-harness-error);
   --dsw-alias-state-error-secondary: var(--dsw-static-red-400);
   --dsw-alias-state-idle-primary: var(--dsw-static-neutral-300);
-  --dsw-alias-state-success-primary: var(--lyness-success);
+  --dsw-alias-state-success-primary: var(--deepseek-harness-success);
   --dsw-alias-state-success-secondary: var(--dsw-static-green-400);
   --dsw-alias-state-success-tertiary: var(--dsw-static-green-100);
   --dsw-alias-state-warn-label: var(--dsw-static-amber-600);
@@ -311,11 +311,11 @@ body {
 }
 
 body[data-ds-dark-theme] {
-  --dsw-alias-bg-base: var(--lyness-black);
+  --dsw-alias-bg-base: var(--deepseek-harness-black);
   --dsw-alias-bg-document-preview: var(--dsw-static-neutral-bluish-950);
   --dsw-alias-label-document-preview: var(--dsw-static-neutral-bluish-300);
-  --dsw-alias-bg-layer-1: var(--lyness-dark-surface);
-  --dsw-alias-bg-layer-2: var(--lyness-dark-surface-2);
+  --dsw-alias-bg-layer-1: var(--deepseek-harness-dark-surface);
+  --dsw-alias-bg-layer-2: var(--deepseek-harness-dark-surface-2);
   --dsw-alias-bg-layer-3: var(--dsw-static-neutral-bluish-800);
   --dsw-alias-bg-mask-1: rgba(0, 0, 0, 0.5);
   --dsw-alias-bg-mask-2: rgba(0, 0, 0, 0.2);
@@ -335,7 +335,7 @@ body[data-ds-dark-theme] {
   --dsw-alias-border-l4: rgba(255, 255, 255, 0.2);
   --dsw-alias-brand-primary-invert: var(--dsw-static-neutral-bluish-50);
   --dsw-alias-brand-primary-new-colorprimary-new-color: var(--dsw-static-deepseek-450);
-  --dsw-alias-brand-primary: var(--lyness-blue);
+  --dsw-alias-brand-primary: var(--deepseek-harness-blue);
   --dsw-alias-brand-text: var(--dsw-static-neutral-bluish-50);
   --dsw-alias-button-contrast-fill: var(--dsw-static-neutral-bluish-50);
   --dsw-alias-button-elevated-fill: var(--dsw-static-neutral-bluish-750);
@@ -348,7 +348,7 @@ body[data-ds-dark-theme] {
   --dsw-alias-button-info-hover: var(--dsw-static-deepseek-500);
   --dsw-alias-button-primary-dimmed: var(--dsw-static-neutral-bluish-750);
   --dsw-alias-button-primary-fill: var(--dsw-alias-brand-primary);
-  --dsw-alias-button-primary-hover: var(--lyness-blue-dark);
+  --dsw-alias-button-primary-hover: var(--deepseek-harness-blue-dark);
   --dsw-alias-button-tool-bar-fill-invisible: rgba(31, 31, 31, 0.36);
   --dsw-alias-button-tool-bar-fill: rgba(84, 85, 87, 0.5);
   --dsw-alias-button-tool-bar-hover: rgba(84, 85, 87, 0.6);
@@ -361,11 +361,11 @@ body[data-ds-dark-theme] {
   --dsw-alias-label-dimmed: var(--dsw-static-neutral-bluish-750);
   --dsw-alias-label-primary-bluish: var(--dsw-static-neutral-bluish-50);
   --dsw-alias-label-primary-dimmed: var(--dsw-static-neutral-bluish-100);
-  --dsw-alias-label-on-brand: var(--lyness-white);
+  --dsw-alias-label-on-brand: var(--deepseek-harness-white);
   --dsw-alias-label-primary-foreground: var(--dsw-static-neutral-bluish-1000);
   --dsw-alias-label-primary-inverted: var(--dsw-static-neutral-bluish-800);
-  --dsw-alias-label-primary: var(--lyness-white);
-  --dsw-alias-label-secondary: var(--lyness-dark-label-secondary);
+  --dsw-alias-label-primary: var(--deepseek-harness-white);
+  --dsw-alias-label-secondary: var(--deepseek-harness-dark-label-secondary);
   --dsw-alias-label-tertiary: var(--dsw-static-neutral-bluish-400);
   --dsw-alias-menu-icon: var(--dsw-alias-label-primary-dimmed);
   --dsw-alias-link: var(--dsw-static-deepseek-400);
@@ -394,7 +394,7 @@ body[data-ds-dark-theme] {
   --dsw-alias-state-error-primary: var(--dsw-static-red-400);
   --dsw-alias-state-error-secondary: var(--dsw-static-red-400);
   --dsw-alias-state-idle-primary: var(--dsw-static-neutral-600);
-  --dsw-alias-state-success-primary: var(--lyness-success);
+  --dsw-alias-state-success-primary: var(--deepseek-harness-success);
   --dsw-alias-state-success-secondary: var(--dsw-static-green-400);
   --dsw-alias-state-success-tertiary: var(--dsw-static-green-900);
   --dsw-alias-state-warn-label: var(--dsw-static-amber-600);
@@ -407,7 +407,7 @@ body[data-ds-dark-theme] {
   --dsw-alias-tooltip-key-bg: color-mix(in srgb, var(--dsw-alias-tooltip-bg), white 18%);
   --dsw-specific-bubble-highlight: var(--dsw-static-neutral-bluish-750);
   --dsw-specific-bubble: var(--dsw-static-neutral-bluish-850);
-  --dsw-specific-input-major: var(--lyness-dark-surface-2);
+  --dsw-specific-input-major: var(--deepseek-harness-dark-surface-2);
   --dsw-specific-login-input: var(--dsw-static-neutral-bluish-900);
   --dsw-menu-surface-fill: rgba(67, 69, 74, 0.45);
   --dsw-specific-menu: var(--dsw-menu-surface-fill);

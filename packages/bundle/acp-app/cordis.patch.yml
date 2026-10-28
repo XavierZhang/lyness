@@ -1,4 +1,4 @@
-# The automation-only ACP application over lyn-base. Stdout belongs to ACP.
+# The automation-only ACP application over dsh-base. Stdout belongs to ACP.
 
 - id: system-prompt
   config:
@@ -11,10 +11,10 @@
 
 - insert:
     - id: acp-app-startup
-      name: '@lyness/lyn-acp-app'
+      name: '@deepseek-ai/dsh-acp-app'
 
     - id: acp
-      name: '@lyness/lyn-acp'
+      name: '@deepseek-ai/dsh-acp'
       inject: [acpAppStartup]
       config:
         provider: deepseek-official

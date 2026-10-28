@@ -11,27 +11,27 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { afterEach, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import Loader from '@lyness/cordis-plugin-loader'
-import Include from '@lyness/cordis-plugin-include'
-import { brandString } from '@lyness/lyn-brand'
-import AgentPreset from '@lyness/lyn-agent-preset'
-import AgentPresets from '@lyness/lyn-agent-preset-registry'
-import AdminAudit from '@lyness/lyn-admin-audit'
-import ManagedBots from '@lyness/lyn-managed-bots'
-import ManagedPeople from '@lyness/lyn-managed-people'
-import ManagedPeopleDirectory from '@lyness/lyn-managed-people/directory'
-import ManagedAdmission from '@lyness/lyn-managed-people/admission'
-import type { MembershipId, PersonId } from '@lyness/lyn-people'
-import SessionProjectionRegistry from '@lyness/lyn-session-projection'
-import type { ChannelId } from '@lyness/lyn-sign-in'
-import * as StoredAuthSessions from '@lyness/lyn-auth-session/store'
-import * as RequestPrincipal from '@lyness/lyn-request-principal'
-import { IDENTITY_COOKIE } from '@lyness/lyn-request-principal'
-import Storage from '@lyness/lyn-storage'
-import * as StorageJson from '@lyness/lyn-storage-json'
-import * as StorageDomain from '@lyness/lyn-storage-domain'
-import { RemoteError } from '@lyness/lyn-typert-protocol'
+import { Context } from '@deepseek-ai/cordis'
+import Loader from '@deepseek-ai/cordis-plugin-loader'
+import Include from '@deepseek-ai/cordis-plugin-include'
+import { brandString } from '@deepseek-ai/dsh-brand'
+import AgentPreset from '@deepseek-ai/dsh-agent-preset'
+import AgentPresets from '@deepseek-ai/dsh-agent-preset-registry'
+import AdminAudit from '@deepseek-ai/dsh-admin-audit'
+import ManagedBots from '@deepseek-ai/dsh-managed-bots'
+import ManagedPeople from '@deepseek-ai/dsh-managed-people'
+import ManagedPeopleDirectory from '@deepseek-ai/dsh-managed-people/directory'
+import ManagedAdmission from '@deepseek-ai/dsh-managed-people/admission'
+import type { MembershipId, PersonId } from '@deepseek-ai/dsh-people'
+import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
+import type { ChannelId } from '@deepseek-ai/dsh-sign-in'
+import * as StoredAuthSessions from '@deepseek-ai/dsh-auth-session/store'
+import * as RequestPrincipal from '@deepseek-ai/dsh-request-principal'
+import { IDENTITY_COOKIE } from '@deepseek-ai/dsh-request-principal'
+import Storage from '@deepseek-ai/dsh-storage'
+import * as StorageJson from '@deepseek-ai/dsh-storage-json'
+import * as StorageDomain from '@deepseek-ai/dsh-storage-domain'
+import { RemoteError } from '@deepseek-ai/dsh-typert-protocol'
 import BotsController from '../src/index.ts'
 
 const ADA = brandString<PersonId>('ada')
@@ -52,40 +52,40 @@ afterEach(async () => {
 
 /** Boot the rows through the real Loader, with Ada as the written administrator. */
 async function compose(): Promise<{ ctx: Context; scopes: Scope[] }> {
-  root = await mkdtemp(join(tmpdir(), 'lyn-bots-controller-'))
+  root = await mkdtemp(join(tmpdir(), 'dsh-bots-controller-'))
   const configPath = join(root, 'cordis.yml')
   await writeFile(configPath, [
-    "- name: '@lyness/lyn-storage'",
-    "- name: '@lyness/lyn-storage-json'",
+    "- name: '@deepseek-ai/dsh-storage'",
+    "- name: '@deepseek-ai/dsh-storage-json'",
     '  config:',
     `    root: ${JSON.stringify(join(root, 'state'))}`,
-    "- name: '@lyness/lyn-storage-domain'",
+    "- name: '@deepseek-ai/dsh-storage-domain'",
     '  config:',
     '    backend: json',
-    "- name: '@lyness/lyn-session-projection'",
-    "- name: '@lyness/lyn-agent-preset-registry'",
+    "- name: '@deepseek-ai/dsh-session-projection'",
+    "- name: '@deepseek-ai/dsh-agent-preset-registry'",
     '  config:',
     '    default: standard',
-    "- name: '@lyness/lyn-agent-preset'",
+    "- name: '@deepseek-ai/dsh-agent-preset'",
     '  config:',
     '    id: standard',
     '    name: Standard',
     '    plugins: []',
-    "- name: '@lyness/lyn-admin-audit'",
-    "- name: '@lyness/lyn-managed-people'",
-    "- name: '@lyness/lyn-managed-people/directory'",
+    "- name: '@deepseek-ai/dsh-admin-audit'",
+    "- name: '@deepseek-ai/dsh-managed-people'",
+    "- name: '@deepseek-ai/dsh-managed-people/directory'",
     '  config:',
     '    people:',
     '      - id: ada',
     '        displayName: Ada',
     '        role: platform-administrator',
-    "- name: '@lyness/lyn-managed-people/admission'",
+    "- name: '@deepseek-ai/dsh-managed-people/admission'",
     '  config:',
     '    bindings: []',
-    "- name: '@lyness/lyn-managed-bots'",
-    "- name: '@lyness/lyn-auth-session/store'",
-    "- name: '@lyness/lyn-request-principal'",
-    "- name: '@lyness/lyn-api-bots-controller'",
+    "- name: '@deepseek-ai/dsh-managed-bots'",
+    "- name: '@deepseek-ai/dsh-auth-session/store'",
+    "- name: '@deepseek-ai/dsh-request-principal'",
+    "- name: '@deepseek-ai/dsh-api-bots-controller'",
     '',
   ].join('\n'))
 
@@ -99,20 +99,20 @@ async function compose(): Promise<{ ctx: Context; scopes: Scope[] }> {
   await ctx.plugin(Loader)
   ctx.loader.builtins.include = Include
   const modules = new Map<string, unknown>([
-    ['@lyness/lyn-storage', Storage],
-    ['@lyness/lyn-storage-json', StorageJson],
-    ['@lyness/lyn-storage-domain', StorageDomain],
-    ['@lyness/lyn-session-projection', SessionProjectionRegistry],
-    ['@lyness/lyn-agent-preset-registry', AgentPresets],
-    ['@lyness/lyn-agent-preset', AgentPreset],
-    ['@lyness/lyn-admin-audit', AdminAudit],
-    ['@lyness/lyn-managed-people', ManagedPeople],
-    ['@lyness/lyn-managed-people/directory', ManagedPeopleDirectory],
-    ['@lyness/lyn-managed-people/admission', ManagedAdmission],
-    ['@lyness/lyn-managed-bots', ManagedBots],
-    ['@lyness/lyn-auth-session/store', StoredAuthSessions],
-    ['@lyness/lyn-request-principal', RequestPrincipal],
-    ['@lyness/lyn-api-bots-controller', BotsController],
+    ['@deepseek-ai/dsh-storage', Storage],
+    ['@deepseek-ai/dsh-storage-json', StorageJson],
+    ['@deepseek-ai/dsh-storage-domain', StorageDomain],
+    ['@deepseek-ai/dsh-session-projection', SessionProjectionRegistry],
+    ['@deepseek-ai/dsh-agent-preset-registry', AgentPresets],
+    ['@deepseek-ai/dsh-agent-preset', AgentPreset],
+    ['@deepseek-ai/dsh-admin-audit', AdminAudit],
+    ['@deepseek-ai/dsh-managed-people', ManagedPeople],
+    ['@deepseek-ai/dsh-managed-people/directory', ManagedPeopleDirectory],
+    ['@deepseek-ai/dsh-managed-people/admission', ManagedAdmission],
+    ['@deepseek-ai/dsh-managed-bots', ManagedBots],
+    ['@deepseek-ai/dsh-auth-session/store', StoredAuthSessions],
+    ['@deepseek-ai/dsh-request-principal', RequestPrincipal],
+    ['@deepseek-ai/dsh-api-bots-controller', BotsController],
   ])
   const base = ctx.loader.internal
   if (base === undefined) throw new Error('this Node build exposes no internal module loader')

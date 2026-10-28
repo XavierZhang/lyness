@@ -1808,12 +1808,12 @@
     },
     {
       "doc": "docs/subsystems/subprocess.md",
-      "symbol": "LynEnvironmentKey",
+      "symbol": "DshEnvironmentKey",
       "source": "packages/subprocess/subprocess/src/types.ts"
     },
     {
       "doc": "docs/subsystems/subprocess.md",
-      "symbol": "LynEnvironment",
+      "symbol": "DshEnvironment",
       "source": "packages/subprocess/subprocess/src/types.ts"
     },
     {

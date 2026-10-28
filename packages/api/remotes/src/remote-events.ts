@@ -6,12 +6,12 @@
  * type-only.
  */
 
-import type {} from '@lyness/lyn-api-session-controller/remote-events'
-import type {} from '@lyness/lyn-deepseek-account/types'
-import type {} from '@lyness/lyn-permission-presets/types'
-import type {} from '@lyness/lyn-plugin-manager/types'
-import type {} from '@lyness/lyn-schedule/client'
-import type { TypertForwardableEventEntry } from '@lyness/lyn-typert-protocol'
+import type {} from '@deepseek-ai/dsh-api-session-controller/remote-events'
+import type {} from '@deepseek-ai/dsh-deepseek-account/types'
+import type {} from '@deepseek-ai/dsh-permission-presets/types'
+import type {} from '@deepseek-ai/dsh-plugin-manager/types'
+import type {} from '@deepseek-ai/dsh-schedule/client'
+import type { TypertForwardableEventEntry } from '@deepseek-ai/dsh-typert-protocol'
 
 /**
  * Host events this application forwards without renaming. The explicit mode is

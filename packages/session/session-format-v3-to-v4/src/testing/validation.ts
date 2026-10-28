@@ -1,5 +1,5 @@
-import { SessionFormatEventCollector } from '@lyness/lyn-session-format'
-import type { SessionFormatArtifact } from '@lyness/lyn-session-format'
+import { SessionFormatEventCollector } from '@deepseek-ai/dsh-session-format'
+import type { SessionFormatArtifact } from '@deepseek-ai/dsh-session-format'
 import { releasedV4SessionFormatCodec } from '../codec.ts'
 
 /**

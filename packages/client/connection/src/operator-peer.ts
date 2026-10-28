@@ -2,13 +2,13 @@
  * The operator Peer: the one party this Host answers to. Connection owns it
  * for its own lifetime, admits every request as it, and hands it to each
  * Remote call as `invocation.peer`.
- * @module @lyness/lyn-client-connection/src/operator-peer
+ * @module @deepseek-ai/dsh-client-connection/src/operator-peer
  */
 
 import { randomUUID } from 'node:crypto'
-import type { Context } from '@lyness/cordis'
-import { createScope, type Scope } from '@lyness/lyn-scope'
-import type { PeerId, PeerScope } from '@lyness/lyn-typert-protocol'
+import type { Context } from '@deepseek-ai/cordis'
+import { createScope, type Scope } from '@deepseek-ai/dsh-scope'
+import type { PeerId, PeerScope } from '@deepseek-ai/dsh-typert-protocol'
 
 /**
  * The operator's scope. The instance is its own scope key, so `scopeOf(peer.ctx)`

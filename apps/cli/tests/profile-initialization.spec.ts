@@ -11,7 +11,7 @@ import {
   readProfileManifest,
   resolveProfileDir,
   writeProfileManifest,
-} from '@lyness/lyn-app-boot'
+} from '@deepseek-ai/dsh-app-boot'
 import { describe, expect, it } from 'vitest'
 import { execa } from 'execa'
 import { initializeProfileFromDefault } from '../src/profile-boot.ts'
@@ -31,7 +31,7 @@ async function waitForFile(file: string): Promise<void> {
 
 /** Run one assertion against a private Harness home and remove it afterwards. */
 function withHome(assertion: (home: string) => void): void {
-  const home = mkdtempSync(join(tmpdir(), 'lyn-profile-from-default-'))
+  const home = mkdtempSync(join(tmpdir(), 'dsh-profile-from-default-'))
   try {
     assertion(home)
   } finally {
@@ -48,10 +48,10 @@ describe('initializeProfileFromDefault', () => {
         const dir = resolveProfileDir('custom', home)
         const manifest = readProfileManifest('test', dir)
         expect(manifest).toEqual({
-          name: 'lyn-profile-custom',
+          name: 'dsh-profile-custom',
           private: true,
           dependencies: {},
-          lyn: { profile: { bundles: [...template.bundles] } },
+          dsh: { profile: { bundles: [...template.bundles] } },
         })
         expect(readFileSync(join(dir, PROFILE_PATCH_FILENAME), 'utf8')).toContain('[]')
         expect(readFileSync(join(dir, 'pnpm-workspace.yaml'), 'utf8')).toContain('nodeLinker: hoisted')
@@ -73,7 +73,7 @@ describe('initializeProfileFromDefault', () => {
       const targetDir = resolveProfileDir('rescue', home)
       const target = readProfileManifest('test', targetDir)
       expect(target.dependencies).toEqual({})
-      expect(target.lyn?.profile).toEqual({
+      expect(target.dsh?.profile).toEqual({
         bundles: [...PROFILE_TEMPLATES.web!.bundles],
       })
       expect(readFileSync(join(targetDir, PROFILE_PATCH_FILENAME), 'utf8')).not.toContain('local-only')
@@ -134,7 +134,7 @@ describe('initializeProfileFromDefault', () => {
   })
 
   it('allows only one of two synchronized processes to create the target', async () => {
-    const home = mkdtempSync(join(tmpdir(), 'lyn-profile-from-default-race-'))
+    const home = mkdtempSync(join(tmpdir(), 'dsh-profile-from-default-race-'))
     const gate = join(home, 'start')
     const ready = [join(home, 'ready-1'), join(home, 'ready-2')]
     const children = ready.map(marker => execa(
@@ -147,7 +147,7 @@ describe('initializeProfileFromDefault', () => {
       writeFileSync(gate, '')
       const results = await Promise.all(children)
       expect(results.map(result => result.exitCode).sort()).toEqual([0, 1])
-      expect(readProfileManifest('test', resolveProfileDir('rescue', home)).lyn?.profile)
+      expect(readProfileManifest('test', resolveProfileDir('rescue', home)).dsh?.profile)
         .toEqual(PROFILE_TEMPLATES.web)
     } finally {
       for (const child of children) child.kill('SIGKILL')

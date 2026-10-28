@@ -3,7 +3,7 @@ description: "Declare accessible files as deliverables with present; configurati
 kind: "package-reference"
 ---
 
-# @lyness/lyn-tool-present
+# @deepseek-ai/dsh-tool-present
 
 English | [中文](README.zh.md)
 
@@ -30,7 +30,7 @@ The `standard`, `ptc`, and `cordis` agent presets mount this plugin. Call `prese
 Mount it in an agent's Cordis composition with `tools`, `fs`, and the `turnBoundary` Session projection available:
 
 ```yaml
-- name: '@lyness/lyn-tool-present'
+- name: '@deepseek-ai/dsh-tool-present'
   config:
     maxFiles: 8
 ```

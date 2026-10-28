@@ -1,6 +1,6 @@
 /** Deterministic keyless Agent Teams adapter shared by profile snapshot and CLI e2e. */
 
-import { ToolCallId, LlmAdapter } from '@lyness/lyn-llm'
+import { ToolCallId, LlmAdapter } from '@deepseek-ai/dsh-llm'
 
 let nextCall = 0
 

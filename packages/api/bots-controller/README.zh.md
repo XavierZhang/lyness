@@ -3,13 +3,13 @@ description: "管理员在运行时维护自己组织那些 bot 的界面。"
 kind: "package-reference"
 ---
 
-# @lyness/lyn-api-bots-controller
+# @deepseek-ai/dsh-api-bots-controller
 
 [English](README.md) | 中文
 
 ## 概述
 
-`lyn-api-bots-controller` 拥有 `bots` 这个 Remote 命名空间：一个身份所管理的那些 bot、一个 bot 可以被给到的那些 agent preset、它们所在的那些团队，以及添加、修改和移除两者的那些调用。谁可以改什么，它一点也不决定——那些规则在 `lyn-managed-bots` 手里，这个命名空间把调用所处的身份交给它，再把它的回答报出来。每一行都会说明组合是否拥有它、以及它的 preset 是否仍被提供，于是界面会禁用自己改不了的那一行，并标出一个跑不起来的 bot。
+`dsh-api-bots-controller` 拥有 `bots` 这个 Remote 命名空间：一个身份所管理的那些 bot、一个 bot 可以被给到的那些 agent preset、它们所在的那些团队，以及添加、修改和移除两者的那些调用。谁可以改什么，它一点也不决定——那些规则在 `dsh-managed-bots` 手里，这个命名空间把调用所处的身份交给它，再把它的回答报出来。每一行都会说明组合是否拥有它、以及它的 preset 是否仍被提供，于是界面会禁用自己改不了的那一行，并标出一个跑不起来的 bot。
 
 ## 目录
 
@@ -29,13 +29,13 @@ kind: "package-reference"
 
 ```yaml
 - id: bots-controller
-  name: '@lyness/lyn-api-bots-controller'
+  name: '@deepseek-ai/dsh-api-bots-controller'
 ```
 
 一个配置界面先读出一个 bot 可以被给到什么，再添加一个：
 
 ```ts
-import type { BotInput, BotRowView, PresetOptionView } from '@lyness/lyn-api-bots-controller/types'
+import type { BotInput, BotRowView, PresetOptionView } from '@deepseek-ai/dsh-api-bots-controller/types'
 
 /** The two reads one bot form makes, and the call that saves it. */
 export interface BotForm {
@@ -56,7 +56,7 @@ export interface BotForm {
 
 **preset 列表也来自名册。**`presets` 问的是 `ctx.managedBots.offers()`，而不是自己去读注册表，因为那正是一次保存被校验所依据的那份列表：表单提供一份列表而名册校验的是另一份，会拒绝掉它刚刚自己给出的选项。
 
-**团队在这里维护，在 [`lyn-bot-ask`](../../identity/bot-ask/README.zh.md) 里起作用。**团队成员身份就是一个 bot 有权问另一个、以及有权和若干个一起开一场讨论的来源，所以这个界面做的那条拒绝，正是把那项权利留在一个组织里的那一条：一个团队只能装它自己组织的 bot。
+**团队在这里维护，在 [`dsh-bot-ask`](../../identity/bot-ask/README.zh.md) 里起作用。**团队成员身份就是一个 bot 有权问另一个、以及有权和若干个一起开一场讨论的来源，所以这个界面做的那条拒绝，正是把那项权利留在一个组织里的那一条：一个团队只能装它自己组织的 bot。
 
 **一次被拒绝的调用指明的是规则，不是文字。**每个原因对应一个错误码，而 `bots/incomplete` 带上字段，好让表单标出它。
 
@@ -67,9 +67,9 @@ export interface BotForm {
 <a id="further-exploration"></a>
 ## 进一步探索
 
-- [`lyn-managed-bots`](../../identity/managed-bots/README.zh.md) — 这个命名空间所代言的那份名册，以及它执行的每一条规则。
-- [`lyn-api-people-controller`](../people-controller/README.zh.md) — 面向那些会登录的人的同胞界面。
-- [`lyn-module-accounts`](../../bundle/module-accounts/README.zh.md) — 把两者都选上的那份组合。
+- [`dsh-managed-bots`](../../identity/managed-bots/README.zh.md) — 这个命名空间所代言的那份名册，以及它执行的每一条规则。
+- [`dsh-api-people-controller`](../people-controller/README.zh.md) — 面向那些会登录的人的同胞界面。
+- [`dsh-module-accounts`](../../bundle/module-accounts/README.zh.md) — 把两者都选上的那份组合。
 
 -----
 

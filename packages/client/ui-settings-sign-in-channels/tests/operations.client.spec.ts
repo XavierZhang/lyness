@@ -6,7 +6,7 @@
  */
 
 import { describe, expect, it, vi } from 'vitest'
-import type { ChannelKindView, ConfiguredChannelView } from '@lyness/lyn-api-sign-in-channel-controller/types'
+import type { ChannelKindView, ConfiguredChannelView } from '@deepseek-ai/dsh-api-sign-in-channel-controller/types'
 import { createChannelsOperations, statusOf } from '../src/client/operations.ts'
 import type { CallOutcome, ChannelsCalls, ChannelsSink } from '../src/client/operations.ts'
 

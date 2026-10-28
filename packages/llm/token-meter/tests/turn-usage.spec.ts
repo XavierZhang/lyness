@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import type { StreamChunk, TokenUsage } from '@lyness/lyn-llm'
-import type { SessionEvent } from '@lyness/lyn-session'
+import type { StreamChunk, TokenUsage } from '@deepseek-ai/dsh-llm'
+import type { SessionEvent } from '@deepseek-ai/dsh-session'
 import { deriveTurnTokenUsage } from '../src/turn-usage.ts'
 
 function event(seq: number, type: string, data: unknown): SessionEvent {

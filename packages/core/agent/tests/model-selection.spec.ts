@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import SystemPrompt from '@lyness/lyn-system-prompt'
+import { Context } from '@deepseek-ai/cordis'
+import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
 import {
   agentEvents,
   installModelSelection,
@@ -13,8 +13,8 @@ import {
   ReasoningEffortId,
   type LlmCallConfig,
   type UserMessage,
-} from '@lyness/lyn-llm'
-import { Session, SessionId } from '@lyness/lyn-session'
+} from '@deepseek-ai/dsh-llm'
+import { Session, SessionId } from '@deepseek-ai/dsh-session'
 
 const SIGNAL = new AbortController().signal
 const INPUT = createUserMessage({

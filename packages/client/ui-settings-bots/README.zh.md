@@ -3,13 +3,13 @@ description: "管理员在 Settings 里维护一个组织所运行的那些 bot 
 kind: "package-reference"
 ---
 
-# @lyness/lyn-client-ui-settings-bots
+# @deepseek-ai/dsh-client-ui-settings-bots
 
 [English](README.md) | 中文
 
 ## 概述
 
-`lyn-client-ui-settings-bots` 添加一个 Settings 区块：这个组织运行着哪些 bot、每一个是干什么的、以及它运行所用的是什么。管理员给一个 bot 起名、写下它的性格和职责，再从部署提供的那些 agent preset 里挑一个；被安装自己的文件写下的 bot 只展示、不提供编辑，因为下一次启动会把那个文件再读一遍。一个 preset 已不再被部署提供的 bot 会被展示并标出来，而不是藏起来，因为有人写下的那段性格比运行它的那一行活得更久。
+`dsh-client-ui-settings-bots` 添加一个 Settings 区块：这个组织运行着哪些 bot、每一个是干什么的、以及它运行所用的是什么。管理员给一个 bot 起名、写下它的性格和职责，再从部署提供的那些 agent preset 里挑一个；被安装自己的文件写下的 bot 只展示、不提供编辑，因为下一次启动会把那个文件再读一遍。一个 preset 已不再被部署提供的 bot 会被展示并标出来，而不是藏起来，因为有人写下的那段性格比运行它的那一行活得更久。
 
 ## 目录
 
@@ -29,7 +29,7 @@ Web bundle 把它挂在其他 Settings 区块旁边：
 
 ```yaml
 - id: ui-settings-bots
-  name: '@lyness/lyn-client-ui-settings-bots'
+  name: '@deepseek-ai/dsh-client-ui-settings-bots'
 ```
 
 没有别的要配置的。这个区块在打开时读 `remote.bots`，并渲染四样东西之一：那些 bot 和那些团队连同它们的表单、一条「这个部署不维护自己的机器人」的提示、一条「调用方不能更改它们」的提示，或者一次带重试的失败。每一个 bot 行还能和那个 bot 开一场对话——走工作区导航，而不是在这里创建会话，于是它落在读者所在的那个工作区，并像其他每一个新会话那样被打开。
@@ -58,9 +58,9 @@ Web bundle 把它挂在其他 Settings 区块旁边：
 <a id="further-exploration"></a>
 ## 进一步探索
 
-- [`lyn-api-bots-controller`](../../api/bots-controller/README.zh.md) — 这个区块调用的那个命名空间，以及每种拒绝的含义。
-- [`lyn-managed-bots`](../../identity/managed-bots/README.zh.md) — 它背后的那份名册，以及决定谁能改什么的那些规则。
-- [`lyn-client-ui-settings-people`](../ui-settings-people/README.zh.md) — 面向那些会登录的人的同胞区块。
+- [`dsh-api-bots-controller`](../../api/bots-controller/README.zh.md) — 这个区块调用的那个命名空间，以及每种拒绝的含义。
+- [`dsh-managed-bots`](../../identity/managed-bots/README.zh.md) — 它背后的那份名册，以及决定谁能改什么的那些规则。
+- [`dsh-client-ui-settings-people`](../ui-settings-people/README.zh.md) — 面向那些会登录的人的同胞区块。
 
 -----
 

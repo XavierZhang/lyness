@@ -1,130 +1,130 @@
 # Standalone minimal SDK application. Unlike the ordinary SDK profile, this
-# bundle does not layer over lyn-base: this insert is the complete Cordis tree.
+# bundle does not layer over dsh-base: this insert is the complete Cordis tree.
 # User profile, home, and invocation patches still apply above it.
 
 - insert:
     - id: sdk-app-startup
-      name: '@lyness/lyn-sdk-app'
+      name: '@deepseek-ai/dsh-sdk-app'
       config:
         profile: sdk-minimal
 
     - id: sdk-jsonrpc-server
-      name: '@lyness/lyn-sdk-jsonrpc-server'
+      name: '@deepseek-ai/dsh-sdk-jsonrpc-server'
       inject: [sdkAppStartup, loader]
       config:
         maxTokensAsSuccess: false
 
     - id: deepseek-llm-api-extensions
-      name: '@lyness/lyn-deepseek-llm-api-extensions'
+      name: '@deepseek-ai/dsh-deepseek-llm-api-extensions'
 
     - id: session-log-deepseek
-      name: '@lyness/lyn-session-log-deepseek'
+      name: '@deepseek-ai/dsh-session-log-deepseek'
 
     - id: plugin-package-inventory-deepseek
-      name: '@lyness/lyn-plugin-package-inventory-deepseek'
+      name: '@deepseek-ai/dsh-plugin-package-inventory-deepseek'
 
     - id: llm-deepseek
-      name: '@lyness/lyn-llm-deepseek-api-key'
+      name: '@deepseek-ai/dsh-llm-deepseek-api-key'
       config:
         apiKeyEnv: DEEPSEEK_API_KEY
-        defaultContextWindow: !!js Number(process.env.LYNESS_CONTEXT_WINDOW ?? 1000000)
+        defaultContextWindow: !!js Number(process.env.DSH_CONTEXT_WINDOW ?? 1000000)
         streamIdleTimeoutMs: 172800000
 
     - id: sandbox
-      name: '@lyness/lyn-sandbox-local'
+      name: '@deepseek-ai/dsh-sandbox-local'
 
     # Shared projection registry: sandbox-policy and terminal-bash fold
     # sandbox-mode state through its units and require it as a hard injection.
     - id: session-projection
-      name: '@lyness/lyn-session-projection'
+      name: '@deepseek-ai/dsh-session-projection'
 
     - id: sandbox-policy
-      name: '@lyness/lyn-sandbox-policy'
+      name: '@deepseek-ai/dsh-sandbox-policy'
       config:
         mode: danger-full-access
         workspaceRoot: !!js process.cwd()
 
     - id: subprocess
-      name: '@lyness/lyn-subprocess-local'
+      name: '@deepseek-ai/dsh-subprocess-local'
 
     - id: pty
-      name: '@lyness/lyn-terminal'
+      name: '@deepseek-ai/dsh-terminal'
 
     - id: terminal-bash
-      name: '@lyness/lyn-terminal-bash'
+      name: '@deepseek-ai/dsh-terminal-bash'
       disabled: !!js process.platform === 'win32'
       config:
         timeoutMs: 300000
 
     - id: terminal-pwsh
-      name: '@lyness/lyn-terminal-bash'
+      name: '@deepseek-ai/dsh-terminal-bash'
       disabled: !!js process.platform !== 'win32'
       config:
         shellDialect: pwsh
         timeoutMs: 300000
 
-    # Keep the minimal agent kernel explicit: unlike lyn-base, this profile
+    # Keep the minimal agent kernel explicit: unlike dsh-base, this profile
     # owns each service row and omits every optional producer it does not use.
     - id: timer
-      name: '@lyness/cordis-plugin-timer'
+      name: '@deepseek-ai/cordis-plugin-timer'
 
     - id: llm
-      name: '@lyness/lyn-llm'
+      name: '@deepseek-ai/dsh-llm'
 
     - id: session
-      name: '@lyness/lyn-session'
+      name: '@deepseek-ai/dsh-session'
 
     - id: session-title
-      name: '@lyness/lyn-session-title'
+      name: '@deepseek-ai/dsh-session-title'
       config:
         fallbackMaxWords: 5
         fallbackMaxBytes: 40
         maxTitleBytes: 80
 
     - id: system-prompt
-      name: '@lyness/lyn-system-prompt'
+      name: '@deepseek-ai/dsh-system-prompt'
       config:
         includeHarnessIdentity: false
         includeRuntimeContext: false
-        personaPrefix: !!js process.env.LYNESS_SYSTEM_PROMPT ?? 'You are a helpful software engineer assistant.'
+        personaPrefix: !!js process.env.DSH_SYSTEM_PROMPT ?? 'You are a helpful software engineer assistant.'
 
     - id: tools
-      name: '@lyness/lyn-tools'
+      name: '@deepseek-ai/dsh-tools'
 
     - id: mcp-resources
-      name: '@lyness/lyn-mcp-resources'
+      name: '@deepseek-ai/dsh-mcp-resources'
 
     - id: agent
-      name: '@lyness/lyn-agent'
+      name: '@deepseek-ai/dsh-agent'
 
     - id: llm-retry
-      name: '@lyness/lyn-llm-retry'
+      name: '@deepseek-ai/dsh-llm-retry'
 
     - id: jobs
-      name: '@lyness/lyn-jobs-local'
+      name: '@deepseek-ai/dsh-jobs-local'
 
     - id: invariants
-      name: '@lyness/lyn-invariants'
+      name: '@deepseek-ai/dsh-invariants'
 
     - id: session-invariant
-      name: '@lyness/lyn-session/invariant'
+      name: '@deepseek-ai/dsh-session/invariant'
 
     - id: agent-invariant
-      name: '@lyness/lyn-agent/invariant'
+      name: '@deepseek-ai/dsh-agent/invariant'
 
     - id: scope-invariant
-      name: '@lyness/lyn-scope/invariant'
+      name: '@deepseek-ai/dsh-scope/invariant'
 
     - id: agent-loop-invariant
-      name: '@lyness/lyn-agent-loop/invariant'
+      name: '@deepseek-ai/dsh-agent-loop/invariant'
 
     - id: agent-loop
-      name: '@lyness/lyn-agent-loop'
+      name: '@deepseek-ai/dsh-agent-loop'
       config:
         agents: []
 
     - id: persistent-bash
-      name: '@lyness/lyn-tool-bash-persistent'
+      name: '@deepseek-ai/dsh-tool-bash-persistent'
       disabled: !!js process.platform === 'win32'
       config:
         timeoutMs: 300000
@@ -138,7 +138,7 @@
           * Please run long lived commands in the background, e.g. 'sleep 10 &' or start a server in the background.
 
     - id: persistent-pwsh
-      name: '@lyness/lyn-tool-pwsh-persistent'
+      name: '@deepseek-ai/dsh-tool-pwsh-persistent'
       disabled: !!js process.platform !== 'win32'
       config:
         timeoutMs: 300000
@@ -152,7 +152,7 @@
           * Please run long lived commands in the background, e.g. 'Start-Job' or start a server with Start-Process.
 
     - id: sessions
-      name: '@lyness/lyn-session-persistence-jsonl'
+      name: '@deepseek-ai/dsh-session-persistence-jsonl'
       config:
-        root: !!js lynHomePath('sessions')
+        root: !!js dshHomePath('sessions')
         compression: none

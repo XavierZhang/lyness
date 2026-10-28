@@ -1,13 +1,13 @@
 {
-  "name": "@lyness/lyn-terminal",
-  "description": "Persistent PTY session seam for the lyness \u2014 owner-scoped ids, backend registry, interactive sends, reads, signals, and awaited cleanup",
+  "name": "@deepseek-ai/dsh-terminal",
+  "description": "Persistent PTY session seam for the DeepSeek Harness \u2014 owner-scoped ids, backend registry, interactive sends, reads, signals, and awaited cleanup",
   "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/terminal/terminal"
   },
   "type": "module",
@@ -32,20 +32,20 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/lyn-agent": "workspace:*",
-    "@lyness/lyn-brand": "workspace:*",
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-agent-preset-registry": "workspace:*"
+    "@deepseek-ai/dsh-agent": "workspace:*",
+    "@deepseek-ai/dsh-brand": "workspace:*",
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-agent-preset-registry": "workspace:*"
   },
   "devDependencies": {
-    "@lyness/lyn-agent": "workspace:*",
-    "@lyness/lyn-agent-loop-testkit": "workspace:*",
-    "@lyness/lyn-brand": "workspace:*",
-    "@lyness/lyn-session": "workspace:*",
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-agent-preset-registry": "workspace:*"
+    "@deepseek-ai/dsh-agent": "workspace:*",
+    "@deepseek-ai/dsh-agent-loop-testkit": "workspace:*",
+    "@deepseek-ai/dsh-brand": "workspace:*",
+    "@deepseek-ai/dsh-session": "workspace:*",
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-agent-preset-registry": "workspace:*"
   },
   "dependencies": {
-    "@lyness/schemastery": "workspace:~"
+    "@deepseek-ai/schemastery": "workspace:~"
   }
 }

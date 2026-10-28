@@ -1,15 +1,15 @@
 /**
  * Instruction-file discovery and bounded, abort-aware provider reads.
  *
- * @module @lyness/lyn-agent-instructions/files
+ * @module @deepseek-ai/dsh-agent-instructions/files
  */
 
 import { createReadStream } from 'node:fs'
 import { stat } from 'node:fs/promises'
 import { dirname, isAbsolute, join, relative, resolve } from 'node:path'
-import type { FileSystem, FsInfo, FsTarget, FsVersion } from '@lyness/lyn-fs'
-import { lynHomeDisplay } from '@lyness/lyn-home-paths'
-import { assertNever } from '@lyness/lyn-util-values'
+import type { FileSystem, FsInfo, FsTarget, FsVersion } from '@deepseek-ai/dsh-fs'
+import { dshHomeDisplay } from '@deepseek-ai/dsh-home-paths'
+import { assertNever } from '@deepseek-ai/dsh-util-values'
 import { resolveConfig, resolveDiscoveryConfig, type ResolvedConfig } from './config.ts'
 import { trimmedInstructionDigest } from './digest.ts'
 import {
@@ -48,7 +48,7 @@ export interface ProbedInstructionFile extends InstructionFile {
 
 interface DiscoverOptions {
   cwd: string
-  lynHome?: string
+  dshHome?: string
   projectRootMarkers?: string[]
   instructionFileCandidates?: string[]
   localInstructionFileCandidates?: string[]
@@ -282,13 +282,13 @@ async function discoverInstructionFiles(
     files.push(file)
   }
 
-  const userGlobal = join(config.lynHome, USER_GLOBAL_FILE)
+  const userGlobal = join(config.dshHome, USER_GLOBAL_FILE)
   const userGlobalProbe = await statFile(userGlobal, fileSystem, options.signal)
   switch (userGlobalProbe.kind) {
     case 'present':
       addFile({
         absolutePath: userGlobal,
-        displayPath: userGlobalDisplayPath(config.lynHome),
+        displayPath: userGlobalDisplayPath(config.dshHome),
         ...userGlobalProbe.info,
       })
       break
@@ -475,7 +475,7 @@ export async function probeScopeInstruction(
 ): Promise<ScopeInstructionProbe> {
   const { directory, candidateName } = decodeScopeKey(scope)
   const dir = directory === USER_GLOBAL_DIRECTORY
-    ? resolved.lynHome
+    ? resolved.dshHome
     : directory === '.' ? projectRoot : join(projectRoot, directory)
   const absolutePath = join(dir, candidateName)
   // resolve() follows a final-component symlink; stat then classifies the target.
@@ -493,7 +493,7 @@ export async function probeScopeInstruction(
   if (info?.type !== 'file') return { kind: 'absent' }
   const file: ProbedInstructionFile = {
     absolutePath,
-    displayPath: directory === USER_GLOBAL_DIRECTORY ? userGlobalDisplayPath(resolved.lynHome) : relativeDisplay(projectRoot, absolutePath),
+    displayPath: directory === USER_GLOBAL_DIRECTORY ? userGlobalDisplayPath(resolved.dshHome) : relativeDisplay(projectRoot, absolutePath),
     target,
     version: info.version,
     ...info.size === undefined ? {} : { size: info.size },
@@ -525,6 +525,6 @@ export async function readScopeInstruction(
   }
 }
 
-function userGlobalDisplayPath(lynHome: string): string {
-  return `${lynHomeDisplay(lynHome)}/AGENTS.md`
+function userGlobalDisplayPath(dshHome: string): string {
+  return `${dshHomeDisplay(dshHome)}/AGENTS.md`
 }

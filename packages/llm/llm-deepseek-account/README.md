@@ -3,7 +3,7 @@ description: "DeepSeek account authentication and model discovery."
 kind: "package-reference"
 ---
 
-# @lyness/lyn-llm-deepseek-account
+# @deepseek-ai/dsh-llm-deepseek-account
 
 English | [中文](README.zh.md)
 
@@ -11,7 +11,7 @@ English | [中文](README.zh.md)
 
 Register authentication and model discovery for `deepseek-account`. This plugin shares the [Messages transport](../llm-deepseek/README.md) and owns credential resolution and catalog availability.
 
-Authentication resolution returns `x-lyn-auth-token` and a failure callback capturing the same token. HTTP 401 classification and rejection stay in this provider; a rejected older request cannot clear a replacement login.
+Authentication resolution returns `x-dsh-auth-token` and a failure callback capturing the same token. HTTP 401 classification and rejection stay in this provider; a rejected older request cannot clear a replacement login.
 
 ## Table of Contents
 
@@ -29,7 +29,7 @@ Only `deepseekAccount.resolveToken(baseURL)` supplies the token; the account ser
 
 ```yaml
 - id: llm-deepseek-account
-  name: '@lyness/lyn-llm-deepseek-account'
+  name: '@deepseek-ai/dsh-llm-deepseek-account'
   config:
     reasoningEffort: high
 ```

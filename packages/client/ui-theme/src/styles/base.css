@@ -26,7 +26,7 @@ body {
   --dsw-alias-settings-card-stroke: var(--dsw-alias-border-l4);
 }
 
-[data-lyn-automatic-focus]:focus,
-[data-lyn-automatic-focus]:focus:focus-visible {
+[data-dsh-automatic-focus]:focus,
+[data-dsh-automatic-focus]:focus:focus-visible {
   outline: none;
 }

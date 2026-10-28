@@ -7,7 +7,7 @@ const shared = {
   fixedExtension: false,
   dts: false,
   deps: {
-    neverBundle: [/^@lyness\//],
+    neverBundle: [/^@deepseek-ai\//],
     onlyBundle: false as const,
   },
 }
@@ -17,14 +17,14 @@ export default defineConfig([
   {
     ...shared,
     entry: { 'terminal-io.worker': 'terminal-io/terminal-io.worker.ts' },
-    outDir: '.lyn-build/terminal-io',
+    outDir: '.dsh-build/terminal-io',
     clean: true,
     tsconfig: 'tsconfig.host.json',
   },
   {
     ...shared,
     entry: { 'reconnect.worker': 'active-stream-reconnect/reconnect.worker.client.ts' },
-    outDir: '.lyn-build/active-stream-reconnect',
+    outDir: '.dsh-build/active-stream-reconnect',
     clean: true,
     tsconfig: 'tsconfig.client.json',
   },
@@ -36,14 +36,14 @@ export default defineConfig([
       'profile-continuation.worker': 'agent-continuation/profile-continuation.worker.ts',
       'profile-adapter': 'agent-continuation/profile-adapter.ts',
     },
-    outDir: '.lyn-build/agent-continuation',
+    outDir: '.dsh-build/agent-continuation',
     clean: true,
     tsconfig: 'tsconfig.host.json',
   },
   {
     ...shared,
     entry: { 'session-open.worker': 'session-open/session-open.worker.ts' },
-    outDir: '.lyn-build/session-open',
+    outDir: '.dsh-build/session-open',
     clean: true,
     tsconfig: 'tsconfig.host.json',
   },
@@ -52,7 +52,7 @@ export default defineConfig([
     entry: {
       'conversation-fold.worker': 'conversation-fold/conversation-fold.worker.client.ts',
     },
-    outDir: '.lyn-build/conversation-fold',
+    outDir: '.dsh-build/conversation-fold',
     clean: true,
     tsconfig: 'tsconfig.client.json',
   },

@@ -1,21 +1,21 @@
 import { setImmediate } from 'node:timers/promises'
-import { Context } from '@lyness/cordis'
-import { createSnapshotStore } from '@lyness/lyn-client-store'
+import { Context } from '@deepseek-ai/cordis'
+import { createSnapshotStore } from '@deepseek-ai/dsh-client-store'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import type {
   ISessions, SessionListState, SessionReference, SessionSummary,
-} from '@lyness/lyn-api-session-controller/client'
-import { SessionCreateError } from '@lyness/lyn-api-session-controller/client'
-import type { SubagentAddress } from '@lyness/lyn-subagent/client'
+} from '@deepseek-ai/dsh-api-session-controller/client'
+import { SessionCreateError } from '@deepseek-ai/dsh-api-session-controller/client'
+import type { SubagentAddress } from '@deepseek-ai/dsh-subagent/client'
 import type {
   IWorkspaces, WorkspaceId, WorkspaceSnapshot, WorkspaceView,
-} from '@lyness/lyn-api-workspace-controller/client'
-import type { ClientRemote, DirectoryListing } from '@lyness/lyn-api-remotes/client'
-import { RemoteError } from '@lyness/lyn-client-test-runtime'
-import type { RemoteResult } from '@lyness/lyn-api-remotes/client'
-import { SessionId } from '@lyness/lyn-session/types'
-import { LayoutController } from '@lyness/lyn-client-ui-layout/client'
-import type { MainPanelId } from '@lyness/lyn-client-ui-layout/client'
+} from '@deepseek-ai/dsh-api-workspace-controller/client'
+import type { ClientRemote, DirectoryListing } from '@deepseek-ai/dsh-api-remotes/client'
+import { RemoteError } from '@deepseek-ai/dsh-client-test-runtime'
+import type { RemoteResult } from '@deepseek-ai/dsh-api-remotes/client'
+import { SessionId } from '@deepseek-ai/dsh-session/types'
+import { LayoutController } from '@deepseek-ai/dsh-client-ui-layout/client'
+import type { MainPanelId } from '@deepseek-ai/dsh-client-ui-layout/client'
 import type { RowToast } from '../src/client/contract/slots.ts'
 import { DirectoryBrowseError, UiWorkspaceService } from '../src/client/navigation.ts'
 import { createWorkspaceViewStore, FLAT_SESSION_ORDER_KEY } from '../src/client/stores.ts'
@@ -36,7 +36,7 @@ function persistSelection(selection: {
   readonly sessionId?: SessionId
   readonly subagentAddress?: SubagentAddress
 }): Map<string, string> {
-  const backing = new Map([['lyn.sessions.current', JSON.stringify(selection)]])
+  const backing = new Map([['dsh.sessions.current', JSON.stringify(selection)]])
   vi.stubGlobal('localStorage', {
     getItem: (key: string) => backing.get(key) ?? null,
     setItem: (key: string, value: string) => { backing.set(key, value) },
@@ -1018,7 +1018,7 @@ describe('UiWorkspaceService', () => {
 
     b.uiWorkspace.openSession(address.childSessionId)
 
-    expect(JSON.parse(backing.get('lyn.sessions.current')!)).toEqual({
+    expect(JSON.parse(backing.get('dsh.sessions.current')!)).toEqual({
       sessionId: address.childSessionId,
       subagentAddress: address,
     })

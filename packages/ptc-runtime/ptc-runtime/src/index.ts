@@ -1,12 +1,12 @@
 /**
  * Service Definition for the PTC execution capability seam that runs one model-written program against host async bindings.
  * Runtimes know nothing about tools or sessions; consumers own those concerns.
- * @module @lyness/lyn-ptc-runtime
+ * @module @deepseek-ai/dsh-ptc-runtime
  */
 
-import { Context, Service } from '@lyness/cordis'
+import { Context, Service } from '@deepseek-ai/cordis'
 import type { PtcRunRequest, PtcRunResult, PtcRunSpec } from './types.ts'
-import type { SandboxMode } from '@lyness/lyn-sandbox'
+import type { SandboxMode } from '@deepseek-ai/dsh-sandbox'
 
 export type {
   PtcBindingErrorClass,
@@ -23,7 +23,7 @@ export type {
 /**
  * Binding globals EVERY backend refuses because SOME backend owns the slot in
  * the program's namespace: `console` (Node's log capture), and
- * `__lyn_main__`/`__builtins__`/`__name__` (the Python backend's bootstrap
+ * `__dsh_main__`/`__builtins__`/`__name__` (the Python backend's bootstrap
  * wrapper and seeded module globals),
  * and `__debug__`. One shared set — rather than each backend refusing only its
  * own slots — keeps the portability promise real: a namespace list valid on
@@ -41,7 +41,7 @@ export type {
  */
 export const RESERVED_BINDING_GLOBALS: ReadonlySet<string> = new Set([
   'console',
-  '__lyn_main__', '__builtins__', '__name__', '__debug__',
+  '__dsh_main__', '__builtins__', '__name__', '__debug__',
 ])
 
 /**
@@ -88,7 +88,7 @@ export const PORTABLE_RESERVED_WORDS: ReadonlySet<string> = new Set([
   'global', 'is', 'lambda', 'nonlocal', 'not', 'or', 'pass', 'raise', 'match', 'type', '_',
 ])
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     ptcRuntime: PtcRuntime
   }
@@ -108,7 +108,7 @@ export abstract class PtcRuntime extends Service {
    * generates language-specific presentation (typed SDK stubs, usage
    * instructions) switches on it and fails loud on a language it cannot
    * present. Well-known values: `'typescript'` and `'python'`, those
-   * `lyn-tools` presents; the TypeScript backend is released, the Python
+   * `dsh-tools` presents; the TypeScript backend is released, the Python
    * backend is experimental and private (not published).
    */
   abstract readonly language: string

@@ -1,10 +1,10 @@
-/** Package-owned LLM stream-protocol invariants. @module @lyness/lyn-llm/invariant */
+/** Package-owned LLM stream-protocol invariants. @module @deepseek-ai/dsh-llm/invariant */
 
-import type { Context } from '@lyness/cordis'
-import type { InvariantFailure, InvariantInstaller } from '@lyness/lyn-invariants'
+import type { Context } from '@deepseek-ai/cordis'
+import type { InvariantFailure, InvariantInstaller } from '@deepseek-ai/dsh-invariants'
 import type { ContentBlockType, StreamChunk } from './types.ts'
 
-const PACKAGE_NAME = '@lyness/lyn-llm'
+const PACKAGE_NAME = '@deepseek-ai/dsh-llm'
 
 /** Cordis companion plugin name. */
 export const name = 'llm-invariant'

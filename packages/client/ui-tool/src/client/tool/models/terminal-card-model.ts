@@ -1,8 +1,8 @@
 /** Pure terminal-card derivation from raw Tool call and result fields. @module */
-import type { TerminalBlockLabels, TerminalBlockProps } from '@lyness/lyn-client-ui-primitives'
-import type { TranslateNS } from '@lyness/lyn-client-ui-slots'
-import { resolveWorkspacePath } from '@lyness/lyn-util-workspace-path'
-import { hasSpillNotice } from '@lyness/lyn-spill-policy/notice'
+import type { TerminalBlockLabels, TerminalBlockProps } from '@deepseek-ai/dsh-client-ui-primitives'
+import type { TranslateNS } from '@deepseek-ai/dsh-client-ui-slots'
+import { resolveWorkspacePath } from '@deepseek-ai/dsh-util-workspace-path'
+import { hasSpillNotice } from '@deepseek-ai/dsh-spill-policy/notice'
 import type { ToolCallBlock } from './tool-call-model.ts'
 import { parsedToolCall, singleResultText, validEscalationFields } from './raw-tool-call.ts'
 
@@ -191,7 +191,7 @@ function shellCall(name: string, args: Record<string, unknown>): ShellCall | nul
   if (background !== undefined && typeof background !== 'boolean') return null
   if (!validEscalationFields(args)) return null
   if (description === undefined) {
-    // Standard lyn-tool-bash and lyn-tool-pwsh schemas require `description`;
+    // Standard dsh-tool-bash and dsh-tool-pwsh schemas require `description`;
     // persistent shell providers omit it. Their parameter roots stay open, so
     // unrelated fields do not change their running-card behavior.
     return { kind: 'shell', command, description: undefined, workdir: undefined, persistent: true, background: false }
@@ -258,7 +258,7 @@ function terminalSendCall(name: string, args: Record<string, unknown>): Terminal
 }
 
 /**
- * Parse the marker literals owned by `@lyness/lyn-shell/render` without
+ * Parse the marker literals owned by `@deepseek-ai/dsh-shell/render` without
  * importing that Host-only package into the Client dependency graph.
  * @param text - rendered shell result text.
  * @returns output with a trailing exit-code or signal marker extracted.

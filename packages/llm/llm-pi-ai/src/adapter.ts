@@ -23,7 +23,7 @@
  * so a configuration change rebuilds the collection without forgetting who is
  * signed in.
  *
- * @module lyn-llm-pi-ai/adapter
+ * @module dsh-llm-pi-ai/adapter
  */
 
 import type {
@@ -43,7 +43,7 @@ import {
   LlmAdapter,
   LlmError,
   ReasoningEffortId,
-} from '@lyness/lyn-llm'
+} from '@deepseek-ai/dsh-llm'
 import type {
   GenerateOptions,
   ImageAttachmentAccess,
@@ -54,9 +54,9 @@ import type {
   ReasoningEffortId as ReasoningEffortIdType,
   ResolvedRetryPolicy,
   StreamChunk,
-} from '@lyness/lyn-llm'
-import type { AttachmentStore, ImageAttachmentRef } from '@lyness/lyn-attachment'
-import { idleWatchdog, timeoutOf } from '@lyness/lyn-timeout'
+} from '@deepseek-ai/dsh-llm'
+import type { AttachmentStore, ImageAttachmentRef } from '@deepseek-ai/dsh-attachment'
+import { idleWatchdog, timeoutOf } from '@deepseek-ai/dsh-timeout'
 import type { ResolvedPiAiProviderProfile } from './config.ts'
 import { toPiContext } from './context.ts'
 import { createModels, getSupportedThinkingLevels } from './models.ts'

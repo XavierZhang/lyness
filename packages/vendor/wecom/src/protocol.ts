@@ -9,7 +9,7 @@
  * `errcode`, so each reply is validated and then checked for a zero code; a
  * reader that trusted the status would treat every refusal as a success.
  *
- * @module @lyness/lyn-wecom/protocol
+ * @module @deepseek-ai/dsh-wecom/protocol
  */
 
 import { z } from 'zod'

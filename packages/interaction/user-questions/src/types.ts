@@ -1,8 +1,8 @@
-/** Client-safe question, answer, and event types. @module @lyness/lyn-user-questions/types */
+/** Client-safe question, answer, and event types. @module @deepseek-ai/dsh-user-questions/types */
 
-import type { Scoped } from '@lyness/lyn-scope'
-import type { Agent } from '@lyness/lyn-agent/types'
-import type { ToolCallId } from '@lyness/lyn-llm/brand'
+import type { Scoped } from '@deepseek-ai/dsh-scope'
+import type { Agent } from '@deepseek-ai/dsh-agent/types'
+import type { ToolCallId } from '@deepseek-ai/dsh-llm/brand'
 
 /** One selectable answer offered to the user. */
 export interface AskUserQuestionOption {
@@ -76,12 +76,12 @@ export interface AskUserQuestionRequestEvent {
   signal?: AbortSignal
 }
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Events {
     /**
      * Ask composed answerers for structured user input. Return an answer to
      * claim the request or call `next()` to delegate. Scope-filtered dispatch
-     * (`@lyness/lyn-scope`): agent-scoped listeners receive only that agent.
+     * (`@deepseek-ai/dsh-scope`): agent-scoped listeners receive only that agent.
      * @param request - pending user-question request.
      * @mode waterfall
      */

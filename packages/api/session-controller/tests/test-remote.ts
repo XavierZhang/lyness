@@ -1,15 +1,15 @@
 /** Test-only direct Remote face over the Session Controller's internal controllers. */
 import type { SessionControllerInternals } from '../src/index.ts'
 
-import { SessionLogOffset } from '@lyness/lyn-session'
-import type { Context } from '@lyness/cordis'
-import type { ModelSelection as AgentModelSelection } from '@lyness/lyn-agent'
+import { SessionLogOffset } from '@deepseek-ai/dsh-session'
+import type { Context } from '@deepseek-ai/cordis'
+import type { ModelSelection as AgentModelSelection } from '@deepseek-ai/dsh-agent'
 import type {
   AdmittedPromptContentPart,
   AttachmentAdmissionPart,
   ImageAttachmentLimits,
-} from '@lyness/lyn-attachment'
-import type { SessionEvent, SessionHeader, SessionId } from '@lyness/lyn-session'
+} from '@deepseek-ai/dsh-attachment'
+import type { SessionEvent, SessionHeader, SessionId } from '@deepseek-ai/dsh-session'
 import type { SessionProjectionsValue } from '../src/types.ts'
 import {
   SessionPersistenceNotFoundError,
@@ -22,15 +22,15 @@ import {
   type SessionPersistenceOpenOptions,
   type SessionPersistenceSnapshot,
   type SessionPersistenceStatOptions,
-} from '@lyness/lyn-session-persistence'
-import SessionProjectionRegistry from '@lyness/lyn-session-projection'
-import SessionQueryEngine from '@lyness/lyn-session-query'
+} from '@deepseek-ai/dsh-session-persistence'
+import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
+import SessionQueryEngine from '@deepseek-ai/dsh-session-query'
 import { vi } from 'vitest'
 import {
   RemoteError,
   remoteErrorOf,
   type RemoteResult,
-} from '@lyness/lyn-typert-protocol'
+} from '@deepseek-ai/dsh-typert-protocol'
 import SessionController from '../src/index.ts'
 import type {
   ModelCatalog,

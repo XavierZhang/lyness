@@ -1,12 +1,12 @@
 /** ui-theme apply wiring: service provision, settings dictionaries riding the
  * locale service, declaration-aware Appearance row registration, snapshot
  * projection into the row store, and HMR collapse recovery. */
-import { Context } from '@lyness/cordis'
+import { Context } from '@deepseek-ai/cordis'
 import { describe, expect, it, vi } from 'vitest'
-import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
-import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
-import { TestRemote } from '@lyness/lyn-client-test-runtime'
-import { apply as settingsApply, inject as settingsInject } from '@lyness/lyn-client-ui-settings/client'
+import { SlotRegistry } from '@deepseek-ai/dsh-client-ui-renderer/client'
+import { LocaleRuntime } from '@deepseek-ai/dsh-client-locale/client'
+import { TestRemote } from '@deepseek-ai/dsh-client-test-runtime'
+import { apply as settingsApply, inject as settingsInject } from '@deepseek-ai/dsh-client-ui-settings/client'
 // Relative, like every other import this spec makes of its own package: the
 // assertions compare component and store identity, and reaching the same file
 // through the package alias is a second module whenever the resolver prefers

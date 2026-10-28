@@ -18,16 +18,16 @@ import { BUILT_IN_BRAND } from './brand-names.ts'
 
 /** Manifest keys `electron-builder-config.mjs` writes into the packaged manifest. */
 const MANIFEST_KEYS = {
-  brandName: 'lynBrandName',
-  brandAbbr: 'lynBrandAbbr',
-  brandNameZh: 'lynBrandNameZh',
+  brandName: 'dshBrandName',
+  brandAbbr: 'dshBrandAbbr',
+  brandNameZh: 'dshBrandNameZh',
 } as const
 
 /** Window argument carrying each name to a renderer that resolves its own copy. */
 const BRAND_ARGUMENTS = {
-  brandName: '--lyn-brand-name=',
-  brandAbbr: '--lyn-brand-abbr=',
-  brandNameZh: '--lyn-brand-name-zh=',
+  brandName: '--dsh-brand-name=',
+  brandAbbr: '--dsh-brand-abbr=',
+  brandNameZh: '--dsh-brand-name-zh=',
 } as const
 
 /** One placeholder the shell's copy writes. */
@@ -59,7 +59,7 @@ function manifestName(manifest: object, key: string): string | undefined {
  * Resolve the three names a packaged build carries.
  *
  * They resolve as one set: a build that packaged any of them takes the others
- * from the one it named, so a build named Acme never shows `LYN` or 领驭 beside
+ * from the one it named, so a build named Acme never shows `DSH` or 领驭 beside
  * its own name. A build that packaged none shows all three built-in names.
  * @param manifest - the parsed packaged manifest, or any non-object when the
  * launch has none.

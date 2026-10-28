@@ -7,14 +7,14 @@
  * listeners on each Session context and owns the default-sink choreography: every session is a
  * real host entity, so the sink is one unconditional prompt path.
  */
-import type { Context } from '@lyness/cordis'
+import type { Context } from '@deepseek-ai/cordis'
 import type {
   ISessions, SessionBinding, SessionFace,
-} from '@lyness/lyn-api-session-controller/client'
-import type { SessionId } from '@lyness/lyn-session/types'
-import type { TranslateNS } from '@lyness/lyn-client-locale/client'
-import type { InboxState } from '@lyness/lyn-agent/types'
-import type { ObservableSnapshot } from '@lyness/lyn-client-store'
+} from '@deepseek-ai/dsh-api-session-controller/client'
+import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import type { TranslateNS } from '@deepseek-ai/dsh-client-locale/client'
+import type { InboxState } from '@deepseek-ai/dsh-agent/types'
+import type { ObservableSnapshot } from '@deepseek-ai/dsh-client-store'
 import type {
   DraftAttachmentId, DraftAttachmentSerializationResult, InputTriggerController,
   SessionInputResolver, SessionInput, SubmitOutcome,

@@ -3,13 +3,13 @@ description: "真实 API e2e 测试调用哪个兼容 DeepSeek 的平台，由�
 kind: "package-reference"
 ---
 
-# @lyness/lyn-e2e-target
+# @deepseek-ai/dsh-e2e-target
 
 [English](README.md) | 中文
 
 ## 概述
 
-在真实 API 的 e2e 测试里用 `lyn-e2e-target`，而不要写死模型名。它根据产品本身读取的变量——端点用 `DEEPSEEK_BASE_URL`，该端点提供的模型用 `DEEPSEEK_MODELS`——解析出这次运行调用的平台，因此产品与测试总是指向同一个地方。两者都未设置时，目标是官方 API 及其默认模型。它还会说明目标是否为官方 API：测试需要官方独有功能时，或其适配器只能路由官方模型 id 时，都可以据此在别处跳过。
+在真实 API 的 e2e 测试里用 `dsh-e2e-target`，而不要写死模型名。它根据产品本身读取的变量——端点用 `DEEPSEEK_BASE_URL`，该端点提供的模型用 `DEEPSEEK_MODELS`——解析出这次运行调用的平台，因此产品与测试总是指向同一个地方。两者都未设置时，目标是官方 API 及其默认模型。它还会说明目标是否为官方 API：测试需要官方独有功能时，或其适配器只能路由官方模型 id 时，都可以据此在别处跳过。
 
 ## 目录
 
@@ -37,7 +37,7 @@ pnpm run test:e2e
 测试从目标读取模型，并据此给官方独有功能加门槛：
 
 ```ts
-import { E2E_TARGET } from '@lyness/lyn-e2e-target'
+import { E2E_TARGET } from '@deepseek-ai/dsh-e2e-target'
 
 /** The agent options a real-API suite creates its agent with. */
 export const agentOptions = { provider: 'deepseek-official', model: E2E_TARGET.model }

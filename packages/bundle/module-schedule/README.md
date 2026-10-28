@@ -3,7 +3,7 @@ description: "The scheduled follow-ups module as its own bundle, for deployments
 kind: "package-bundle"
 ---
 
-# @lyness/lyn-module-schedule
+# @deepseek-ai/dsh-module-schedule
 
 English | [中文](README.zh.md)
 
@@ -57,8 +57,8 @@ The patch inserts the two rows the web patch used to carry. Their ids are unchan
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`lyn-schedule`](../../schedule/schedule/README.md) — the Host service, its task store, and delivery.
-- [`lyn-client-ui-schedule`](../../client/ui-schedule/README.md) — the browser catalog.
+- [`dsh-schedule`](../../schedule/schedule/README.md) — the Host service, its task store, and delivery.
+- [`dsh-client-ui-schedule`](../../client/ui-schedule/README.md) — the browser catalog.
 - [Default modules and the two views](../../../.agents/notes/proposed/architecture/2026-10-08-default-modules-and-views.md) — why each default module is its own bundle.
 
 -----
@@ -80,7 +80,7 @@ These limits define when this bundle needs special care. They are current constr
 
 - **It ships switched off** — selecting the bundle makes the module available, not active. A deployment that wants scheduled follow-ups overrides both rows.
 - **Migration covers one previous tuple** — a profile whose bundle list was edited by hand is left alone, by design, so a hand-edited profile adds this bundle by hand too.
-- **Only the `web` template selects it** — a custom profile adds it to its own `lyn.profile.bundles`.
+- **Only the `web` template selects it** — a custom profile adds it to its own `dsh.profile.bundles`.
 
 **Runtime invariant:** No companion is published. The bundle owns no runtime state; the rows it inserts are observed by the Loader, and the Schedule service publishes its own invariant.
 

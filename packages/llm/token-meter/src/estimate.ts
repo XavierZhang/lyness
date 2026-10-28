@@ -3,11 +3,11 @@
  * pure context-breakdown projection, so both surfaces price identical content
  * to identical numbers.
  *
- * @module @lyness/lyn-token-meter/estimate
+ * @module @deepseek-ai/dsh-token-meter/estimate
  */
 
-import type { ContentBlock, Message } from '@lyness/lyn-llm'
-import type { EpochHeader } from '@lyness/lyn-session'
+import type { ContentBlock, Message } from '@deepseek-ai/dsh-llm'
+import type { EpochHeader } from '@deepseek-ai/dsh-session'
 
 /** Fixed text-density estimate used until exact tokenization is needed. */
 const CHARS_PER_TOKEN = 4

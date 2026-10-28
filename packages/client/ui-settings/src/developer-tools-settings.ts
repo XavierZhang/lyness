@@ -1,5 +1,5 @@
 /** Shared Web and desktop developer-tool preference stored by the Host. */
-import z from '@lyness/schemastery'
+import z from '@deepseek-ai/schemastery'
 
 /** Namespace for developer UI and HTML preview capabilities. */
 export const DEVELOPER_TOOLS_NAMESPACE = 'ui-settings'

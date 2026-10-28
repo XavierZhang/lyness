@@ -3,7 +3,7 @@ description: "持久记忆模块独立成一个 bundle，其写入工具经由�
 kind: "package-bundle"
 ---
 
-# @lyness/lyn-module-memory
+# @deepseek-ai/dsh-module-memory
 
 [English](README.md) | 中文
 
@@ -11,7 +11,7 @@ kind: "package-bundle"
 
 本 bundle 就是持久记忆这个默认模块：宿主[记忆服务](../../memory/memory/README.zh.md)，加上把它的写入工具带进 agent 工具目录的那条 preset 贡献，作为 profile 选择的一个整体。它是[preset 行贡献](../../../.agents/notes/proposed/architecture/2026-10-10-preset-row-contributions.zh.md)接缝的第一个使用方，因此也是"添加工具而不必重述 preset 行列表"的样例。
 
-与 [`lyn-module-schedule`](../module-schedule/README.zh.md) 不同，它出厂就是**开着的**：一个空的存储对请求不贡献任何内容，所以在有人写下第一条事实之前就选上它，提示词代价是零字节。
+与 [`dsh-module-schedule`](../module-schedule/README.zh.md) 不同，它出厂就是**开着的**：一个空的存储对请求不贡献任何内容，所以在有人写下第一条事实之前就选上它，提示词代价是零字节。
 
 ## 目录
 
@@ -49,12 +49,12 @@ kind: "package-bundle"
 
 本 bundle 就是它那份补丁文档。`src/index.ts` 什么都不导出，它存在是因为构建流程要为每个包解析一个入口。
 
-补丁插入两行，而两行都指向 `@lyness/lyn-memory`：
+补丁插入两行，而两行都指向 `@deepseek-ai/dsh-memory`：
 
 | 行 | 模块 | 角色 |
 |---|---|---|
-| `memory` | `@lyness/lyn-memory` | 宿主服务：一份持久存储，一个域的所有者 |
-| `memory-preset-contribution` | `@lyness/lyn-memory/preset-contribution` | 向每个接受贡献的 preset 贡献那条 `memory_*` 工具行 |
+| `memory` | `@deepseek-ai/dsh-memory` | 宿主服务：一份持久存储，一个域的所有者 |
+| `memory-preset-contribution` | `@deepseek-ai/dsh-memory/preset-contribution` | 向每个接受贡献的 preset 贡献那条 `memory_*` 工具行 |
 
 两行都没有指向本 bundle 自己。一个把自己当插件来命名的 bundle，必须能从 Loader 读取它的地方被当作模块解析到，而一个只承载补丁的 bundle 本来从不需要这个性质；改为指向服务包，就让这条贡献恰好在服务已经解析得到的地方被解析到。
 
@@ -72,7 +72,7 @@ kind: "package-bundle"
 <a id="further-exploration"></a>
 ## 进一步探索
 
-- [`lyn-memory`](../../memory/memory/README.zh.md) —— 该服务、它的存储域，以及它的工具。
+- [`dsh-memory`](../../memory/memory/README.zh.md) —— 该服务、它的存储域，以及它的工具。
 - [preset 行贡献](../../../.agents/notes/proposed/architecture/2026-10-10-preset-row-contributions.zh.md) —— 为什么一个模块贡献一行，而不是去改 preset。
 - [记忆、检索与提示词组装](../../../.agents/notes/proposed/architecture/2026-10-09-memory-recall-and-prompt-assembly.zh.md) —— 记忆是做什么的，以及不是做什么的。
 - [默认模块与两个视图](../../../.agents/notes/proposed/architecture/2026-10-08-default-modules-and-views.zh.md) —— 为什么每个默认模块各自一个 bundle。
@@ -96,7 +96,7 @@ kind: "package-bundle"
 
 - **两行可以各自独立停用** —— 没有任何东西会拒绝"有贡献行而没有服务"。只关掉其中一行，会留下一批调用时才失败的工具，失败发生在会话里而不是启动时。
 - **迁移只覆盖被记录的那些此前元组** —— 一个 bundle 列表被手工编辑过的 profile 会按设计被放过，所以手工编辑过的 profile 也要手工加上本 bundle。
-- **只有 `web` 模板选择了它** —— 自定义 profile 要把它加进自己的 `lyn.profile.bundles`。
+- **只有 `web` 模板选择了它** —— 自定义 profile 要把它加进自己的 `dsh.profile.bundles`。
 - **贡献次序由中央分配** —— 本 bundle 那一行处在注册表所有的一个固定位置上，所以部署无法把它相对于另一个模块贡献的行重新排序。
 
 **Runtime invariant:** 不发布任何 companion。本 bundle 不拥有运行时状态；它插入的那些行由 Loader 观察，而记忆服务发布它自己的那份。

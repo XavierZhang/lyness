@@ -1,6 +1,6 @@
 import { clientLibrary } from '../../client/tsdown.client.ts'
 
 export default clientLibrary(
-  '@lyness/lyn-remote-mock',
+  '@deepseek-ai/dsh-remote-mock',
   ['lib/types/index.js'],
 )

@@ -1,15 +1,15 @@
-# Agent preset minimal: one `@lyness/lyn-agent-preset` declaration inserted
+# Agent preset minimal: one `@deepseek-ai/dsh-agent-preset` declaration inserted
 # after the web patch. Edits saved from the Web editor override this row's
 # `config.plugins` by id from the profile patch.
 - insert:
     - id: preset-minimal
-      name: '@lyness/lyn-agent-preset'
+      name: '@deepseek-ai/dsh-agent-preset'
       config:
         id: minimal
         order: 5
         plugins:
           - id: persona
-            name: '@lyness/lyn-persona'
+            name: '@deepseek-ai/dsh-persona'
             config:
               prefix: You are a helpful software engineer assistant.
               complete: true
@@ -21,14 +21,14 @@
               terminals: true
             config:
               - id: pty
-                name: '@lyness/lyn-terminal'
+                name: '@deepseek-ai/dsh-terminal'
               - id: terminal-bash
-                name: '@lyness/lyn-terminal-bash'
+                name: '@deepseek-ai/dsh-terminal-bash'
                 disabled: !!js process.platform === 'win32'
                 config:
                   timeoutMs: 300000
               - id: persistent-bash
-                name: '@lyness/lyn-tool-bash-persistent'
+                name: '@deepseek-ai/dsh-tool-bash-persistent'
                 disabled: !!js process.platform === 'win32'
                 config:
                   timeoutMs: 300000
@@ -41,13 +41,13 @@
                     * Please avoid commands that may produce a very large amount of output.
                     * Please run long lived commands in the background, e.g. 'sleep 10 &' or start a server in the background.
               - id: terminal-pwsh
-                name: '@lyness/lyn-terminal-bash'
+                name: '@deepseek-ai/dsh-terminal-bash'
                 disabled: !!js process.platform !== 'win32'
                 config:
                   shellDialect: pwsh
                   timeoutMs: 300000
               - id: persistent-pwsh
-                name: '@lyness/lyn-tool-pwsh-persistent'
+                name: '@deepseek-ai/dsh-tool-pwsh-persistent'
                 disabled: !!js process.platform !== 'win32'
                 config:
                   timeoutMs: 300000

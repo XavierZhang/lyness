@@ -5,33 +5,33 @@
 /:
   en: 6495519b54340d7c
   zh: 3858d5b00f3a0dc3
-/lyness-lyn-api-remote-authority:
+/deepseek-harness-dsh-api-remote-authority:
   en: 5a158a3dde9f138c
   zh: 95c692c3d6783da8
-/lyness-lyn-api-remote-authority/summary:
+/deepseek-harness-dsh-api-remote-authority/summary:
   en: 044a3819a4615083
   zh: f94d828a4114e7bf
-/lyness-lyn-api-remote-authority/table-of-contents:
+/deepseek-harness-dsh-api-remote-authority/table-of-contents:
   en: d152484eb41ac6b4
   zh: 2bca79d7b98e8031
-/lyness-lyn-api-remote-authority/use-this-package:
+/deepseek-harness-dsh-api-remote-authority/use-this-package:
   en: d62b43ef6fc5be24
   zh: fbdd19533a8f89d7
-/lyness-lyn-api-remote-authority/understand-the-implementation:
+/deepseek-harness-dsh-api-remote-authority/understand-the-implementation:
   en: 5494e70cd681de87
   zh: a1043f26cd138072
-/lyness-lyn-api-remote-authority/further-exploration:
+/deepseek-harness-dsh-api-remote-authority/further-exploration:
   en: 8dc9eb4abee1a75b
   zh: 5945109f58a53198
-/lyness-lyn-api-remote-authority/model-experience:
+/deepseek-harness-dsh-api-remote-authority/model-experience:
   en: 399be1b8c357e4ea
   zh: 5424439a1aef5c60
-/lyness-lyn-api-remote-authority/model-experience/kv-cache-effect:
+/deepseek-harness-dsh-api-remote-authority/model-experience/kv-cache-effect:
   en: e13faf79aaae30a9
   zh: 22a737e82ad5a34a
-/lyness-lyn-api-remote-authority/known-limitations-and-deferred-work:
+/deepseek-harness-dsh-api-remote-authority/known-limitations-and-deferred-work:
   en: a2591e4c3a44d2c1
   zh: 57b588b530913d85
-/lyness-lyn-api-remote-authority/known-limitations-and-deferred-work/dev-note:
+/deepseek-harness-dsh-api-remote-authority/known-limitations-and-deferred-work/dev-note:
   en: ab317cd33cc75a37
   zh: fabb28af3688d234

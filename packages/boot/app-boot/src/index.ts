@@ -1,9 +1,9 @@
 /**
- * Shared boot glue for `lyn` profiles, including the CLI packaged by the Python runtime wheel: load the gitignored
+ * Shared boot glue for `dsh` profiles, including the CLI packaged by the Python runtime wheel: load the gitignored
  * `.env`, install the fail-loud Loader guards, resolve the config path (snapshot-aware), load the
- * optional user patch layers from the Harness home (`~/.lyn`), expose its path resolver to
+ * optional user patch layers from the Harness home (`~/.dsh`), expose its path resolver to
  * config expressions, and drive the Cordis Loader against a leaf `cordis.yml` until the tree settles.
- * @module @lyness/lyn-app-boot
+ * @module @deepseek-ai/dsh-app-boot
  */
 
 import { pathToFileURL } from 'node:url'
@@ -11,15 +11,15 @@ import { readFileSync } from 'node:fs'
 import { inspect, parseEnv } from 'node:util'
 import { basename, dirname, isAbsolute, resolve } from 'node:path'
 import * as yaml from 'js-yaml'
-import { Context, type FiberState } from '@lyness/cordis'
-import Loader, { type Entry, type EntryOptions } from '@lyness/cordis-plugin-loader'
-import Include, { applyEntryPatches, entryListSchema, type PatchOptions } from '@lyness/cordis-plugin-include'
-import Group from '@lyness/cordis-plugin-group'
-import { lynHomePath, resolveLynHome } from '@lyness/lyn-home-paths'
-import { createLaunchEnvironmentSnapshot, type LaunchEnvironmentSnapshot } from '@lyness/lyn-launch-environment'
+import { Context, type FiberState } from '@deepseek-ai/cordis'
+import Loader, { type Entry, type EntryOptions } from '@deepseek-ai/cordis-plugin-loader'
+import Include, { applyEntryPatches, entryListSchema, type PatchOptions } from '@deepseek-ai/cordis-plugin-include'
+import Group from '@deepseek-ai/cordis-plugin-group'
+import { dshHomePath, resolveDshHome } from '@deepseek-ai/dsh-home-paths'
+import { createLaunchEnvironmentSnapshot, type LaunchEnvironmentSnapshot } from '@deepseek-ai/dsh-launch-environment'
 export { readProfilePatches, resolveTelemetryPatch, type ProfileContext, type ProfilePnpmInvocation } from './profile-context.ts'
 export { sanitizeProfile } from './profile-sanitize.ts'
-export { getLynRuntimeVersion, evaluatePluginCompatibility, pluginCompatibilityWarning, type PluginCompatibility } from './plugin-compatibility.ts'
+export { getDshRuntimeVersion, evaluatePluginCompatibility, pluginCompatibilityWarning, type PluginCompatibility } from './plugin-compatibility.ts'
 export {
   PROFILE_COMPATIBILITY_FILENAME, readProfileCompatibility, readProfileVersionExemptions,
   setProfileVersionExemption, type ProfileCompatibility,
@@ -30,17 +30,17 @@ export { readPluginMeta } from './package-meta.ts'
 export { generateConfigSchema, type ConfigSchemaDump, type NativeConfigSchema } from './config-schema/index.ts'
 export { createConfigProjector, LOADER_EXPRESSION_SCHEMA, type ConfigProjection } from './config-schema/projector.ts'
 export { isNativeConfigSchema } from './config-schema/native.ts'
-import type {} from '@lyness/lyn-system-prompt'
+import type {} from '@deepseek-ai/dsh-system-prompt'
 
 export {
   readProfilePlugins, reconcileProfilePlugins, writeProfileBundles,
   type ProfilePluginLocation, type ProfilePluginDependency, type ProfilePluginInventory, type ProfilePluginReconciliation,
 } from './profile-plugins.ts'
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     /** Harness-home path resolver available to Loader `!!js` config expressions. */
-    lynHomePath?: typeof lynHomePath
+    dshHomePath?: typeof dshHomePath
   }
 
   interface Events {
@@ -93,7 +93,7 @@ export {
  * Resolve the config to boot. Replay swaps a `cordis.yml` basename for
  * `cordis.snapshot.yml` in the same directory; every other mode keeps the path.
  * @param configPath - the requested config path (absolute, or relative to `cwd`).
- * @param snapshotMode - the bin's `$LYNESS_SNAPSHOT` value; only `'replay'` swaps the
+ * @param snapshotMode - the bin's `$DSH_SNAPSHOT` value; only `'replay'` swaps the
  *   basename.
  * @param cwd - the base a relative `configPath` resolves against.
  * @returns the absolute path of the config to boot.
@@ -154,12 +154,12 @@ const BOOTSTRAP_NAMES = new Set([
 ])
 
 /** Name prefixes no discovered file may set. */
-const BOOTSTRAP_PREFIXES = ['LYNESS_', 'XDG_', 'DYLD_', 'BASH_FUNC_']
+const BOOTSTRAP_PREFIXES = ['DSH_', 'XDG_', 'DYLD_', 'BASH_FUNC_']
 
 /**
  * The bootstrap names the Harness-home `.env` alone may set. A proxy chooses the route every
  * request takes, so the invoking directory's file — which arrives with a clone — keeps refusing
- * them; the home file is the user's own, and `LYNESS_HOME` is itself bootstrap-only, so no `.env` can
+ * them; the home file is the user's own, and `DSH_HOME` is itself bootstrap-only, so no `.env` can
  * relocate this exemption. The CA and TLS names in the same group stay refused everywhere: they
  * change what is trusted, not where traffic goes.
  */
@@ -236,7 +236,7 @@ export function loadLayeredEnv(
   binName: string, cwd: string = process.cwd(),
   warn: (line: string) => void = line => void process.stderr.write(line),
 ): LaunchEnvironmentSnapshot {
-  const home = resolveLynHome()
+  const home = resolveDshHome()
   const inherited = { ...process.env } as Record<string, string>
   // Parse both layers first: a rejection must not leave one file applied.
   const project = readEnvLayer(binName, cwd, warn, home)
@@ -304,7 +304,7 @@ export async function reconcileProfilePatches(
 
 /**
  * Load an optional patch-list file: a top-level YAML array of loader patch
- * entries (`@lyness/cordis-plugin-include`'s `PatchOptions`): id-targeted config
+ * entries (`@deepseek-ai/cordis-plugin-include`'s `PatchOptions`): id-targeted config
  * overrides and `insert` lists, with `!!js` expressions allowed. A missing
  * file means "no layer"; an unreadable, unparsable, or non-array file throws —
  * a present patch file that cannot apply is a misconfiguration and must fail
@@ -357,7 +357,7 @@ function anchorInsertedPluginNames(patches: PatchOptions[], file: string): Patch
 }
 /**
  * Parse one loader patch list: a top-level YAML array of
- * `@lyness/cordis-plugin-include` `PatchOptions` (id-targeted config overrides and
+ * `@deepseek-ai/cordis-plugin-include` `PatchOptions` (id-targeted config overrides and
  * `insert` lists, `!!js` expressions allowed). Every invalid field or value throws,
  * because a patch file that cannot be applied at all is a misconfiguration; a
  * single patch whose target row is absent stays a per-entry Loader warning, so
@@ -531,7 +531,7 @@ function groupedDump(
  * @param patches - initial app and user patches, applied in order.
  * @param bareModuleBaseUrl - optional installed-host base for bare package
  * names; relative names continue to resolve beside the configuration file.
- * @param binName - diagnostic prefix for a profile plugin denied by compatibility policy; defaults to `lyn`.
+ * @param binName - diagnostic prefix for a profile plugin denied by compatibility policy; defaults to `dsh`.
  * @returns the created root Include entry, or `undefined` when a surface
  * disposed the whole tree (taking the Loader service with it) while the
  * entry creation was in flight.
@@ -541,7 +541,7 @@ export async function mountRootInclude(
   absoluteConfigPath: string,
   patches: readonly PatchOptions[] = [],
   bareModuleBaseUrl?: string,
-  binName = 'lyn',
+  binName = 'dsh',
 ): Promise<Entry | undefined> {
   ctx.loader.builtins.include = bareModuleBaseUrl === undefined
     ? Include
@@ -558,7 +558,7 @@ export async function mountRootInclude(
     }
   // `cordis:group` alongside it: a group row is how a composition gives one
   // `isolate` realm to a provider and its consumers together, and an agent
-  // preset living outside this workspace cannot resolve `@lyness/cordis-plugin-group`
+  // preset living outside this workspace cannot resolve `@deepseek-ai/cordis-plugin-group`
   // by name. Both builtins load through the ambient module pipeline, so neither
   // depends on the included tree's own specifier resolution.
   ctx.loader.builtins.group = Group
@@ -738,7 +738,7 @@ const FIBER_FAILED = 3 as FiberState.FAILED
 const FIBER_DISPOSED = 4 as FiberState.DISPOSED
 
 /**
- * Entry ids whose presence defines a usable LYN application.
+ * Entry ids whose presence defines a usable DSH application.
  *
  * The list is global rather than profile metadata. Missing or disabled ids do
  * not affect startup; an enabled listed entry must activate. The list covers
@@ -914,7 +914,7 @@ function startupDiagnostic(binName: string, failures: readonly InactiveEntry[], 
 }
 
 /**
- * Apply LYN startup policy to a settled Loader tree.
+ * Apply DSH startup policy to a settled Loader tree.
  *
  * Inactive entries from the global required list reject startup. Other
  * inactive entries join that failure diagnostic, or produce one warning when
@@ -999,7 +999,7 @@ export async function boot(
   let stage = 'host preparation failed'
   try {
     ctx.baseUrl = pathToFileURL(dirname(absoluteConfigPath)).href + '/'
-    ctx.provide('lynHomePath', lynHomePath)
+    ctx.provide('dshHomePath', dshHomePath)
     // Fiber.update() discards the restart promise. Observe it before the
     // waterfall returns; activation audits still report the failed fiber.
     ctx.on('internal/update', (_config, _noSave, next: () => unknown) => {
@@ -1050,7 +1050,7 @@ export const HARNESS_SOURCE_SECTION = 'harness:source'
 /**
  * Add a global prompt section naming the on-disk harness source checkout while
  * explicitly distinguishing it from the task workspace and current working
- * directory. The self-referential `lyn-tool-cordis` toolset reads and edits this
+ * directory. The self-referential `dsh-tool-cordis` toolset reads and edits this
  * checkout. Call once on the settled boot context ({@link boot}); the section
  * uses the shared first-party placement after reusable instructions
  * and before the Web surface and persona suffix. A booted tree with no
@@ -1068,6 +1068,6 @@ export function addHarnessSourceSection(ctx: Context, sourceRoot: string): (() =
   return systemPrompt.section({
     name: HARNESS_SOURCE_SECTION,
     order: systemPrompt.getSectionOrder('HARNESS_SOURCE'),
-    text: `The lyness implementation checkout is at ${sourceRoot}. The checkout location and current working directory are separate values and may differ; never infer the working directory from this path. Use pwd to determine the current working directory. Use this checkout only to inspect or extend LYN itself.`,
+    text: `The DeepSeek Harness implementation checkout is at ${sourceRoot}. The checkout location and current working directory are separate values and may differ; never infer the working directory from this path. Use pwd to determine the current working directory. Use this checkout only to inspect or extend DSH itself.`,
   })
 }

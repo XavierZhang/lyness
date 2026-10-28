@@ -4,17 +4,17 @@
  * surface events; a separate replacement `user/message` carries the summary.
  * Backend packages own configuration and retention policy; see
  * `.agents/notes/implemented/feature/2026-06-18-compaction-capability-seam.md`.
- * @module @lyness/lyn-compaction/types
+ * @module @deepseek-ai/dsh-compaction/types
  */
 
-import type { ContentBlock, TokenUsage } from '@lyness/lyn-llm'
-import type { CommandId } from '@lyness/lyn-commands/brand'
-import type { SessionSeq } from '@lyness/lyn-session/types'
+import type { ContentBlock, TokenUsage } from '@deepseek-ai/dsh-llm'
+import type { CommandId } from '@deepseek-ai/dsh-commands/brand'
+import type { SessionSeq } from '@deepseek-ai/dsh-session/types'
 import type { CompactionId } from './brand.ts'
 
 export type { CompactionId }
 
-declare module '@lyness/lyn-session/types' {
+declare module '@deepseek-ai/dsh-session/types' {
   interface SessionEventMap {
     /**
      * Marks the start of a compaction — log-only, holds the lock until

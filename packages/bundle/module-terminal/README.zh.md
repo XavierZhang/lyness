@@ -3,13 +3,13 @@ description: "持久终端模块独立成一个 bundle，向每个接受贡献�
 kind: "package-bundle"
 ---
 
-# @lyness/lyn-module-terminal
+# @deepseek-ai/dsh-module-terminal
 
 [English](README.md) | 中文
 
 ## 概述
 
-本 bundle 就是持久终端这个默认模块：跨工具调用保持工作目录、环境变量与运行中子进程的交互式 shell。这项能力的每一行都是按 agent 的，所以与 [`lyn-module-memory`](../module-memory/README.zh.md) 不同，它不插入任何宿主行——它贡献一个隔离组，而这正是[preset 行贡献](../../../.agents/notes/proposed/architecture/2026-10-10-preset-row-contributions.zh.md)接缝所承载的东西。它出厂就是开着的；此前两个视图默认各自内联声明了这个组，把它搬到这里，正是让平台能把它与产品分开版本化的原因。
+本 bundle 就是持久终端这个默认模块：跨工具调用保持工作目录、环境变量与运行中子进程的交互式 shell。这项能力的每一行都是按 agent 的，所以与 [`dsh-module-memory`](../module-memory/README.zh.md) 不同，它不插入任何宿主行——它贡献一个隔离组，而这正是[preset 行贡献](../../../.agents/notes/proposed/architecture/2026-10-10-preset-row-contributions.zh.md)接缝所承载的东西。它出厂就是开着的；此前两个视图默认各自内联声明了这个组，把它搬到这里，正是让平台能把它与产品分开版本化的原因。
 
 ## 目录
 
@@ -51,16 +51,16 @@ kind: "package-bundle"
 
 本 bundle 就是它那份补丁文档。`src/index.ts` 什么都不导出，它存在是因为构建流程要为每个包解析一个入口。
 
-补丁插入一行 `@lyness/lyn-terminal/preset-contribution`，它在终端服务被解析到的地方同样被解析到。一个把自己当插件来命名的 bundle，必须能从 Loader 读取它的地方被当作模块解析到，而一个只承载补丁的 bundle 本来从不需要这个性质；改为指向服务包，就让这条贡献恰好在服务已经解析得到的地方被解析到。
+补丁插入一行 `@deepseek-ai/dsh-terminal/preset-contribution`，它在终端服务被解析到的地方同样被解析到。一个把自己当插件来命名的 bundle，必须能从 Loader 读取它的地方被当作模块解析到，而一个只承载补丁的 bundle 本来从不需要这个性质；改为指向服务包，就让这条贡献恰好在服务已经解析得到的地方被解析到。
 
 被贡献的那一行是一个带 `isolate: { terminals: true }` 的 `cordis:group`，有四个子行：
 
 | 子行 | 模块 | 角色 |
 |---|---|---|
-| `pty` | `@lyness/lyn-terminal` | 按所有者划分作用域的会话服务 |
-| `terminal-bash` | `@lyness/lyn-terminal-bash` | 交互式 bash；在 Windows 上停用 |
-| `terminal-pwsh` | `@lyness/lyn-terminal-bash` | 同一个插件的 pwsh 方言；在非 Windows 上停用 |
-| `tool-terminal` | `@lyness/lyn-tool-terminal` | 六个 `terminal_*` 工具 |
+| `pty` | `@deepseek-ai/dsh-terminal` | 按所有者划分作用域的会话服务 |
+| `terminal-bash` | `@deepseek-ai/dsh-terminal-bash` | 交互式 bash；在 Windows 上停用 |
+| `terminal-pwsh` | `@deepseek-ai/dsh-terminal-bash` | 同一个插件的 pwsh 方言；在非 Windows 上停用 |
+| `tool-terminal` | `@deepseek-ai/dsh-tool-terminal` | 六个 `terminal_*` 工具 |
 
 两个 shell 行都保留，而不是在这里把平台解析成一行，这样部署就能从更靠后的补丁层按 id 覆盖其中任一行。同时只有一个是启用的，因为两个会为一个 agent 开出两个 shell。
 
@@ -78,7 +78,7 @@ kind: "package-bundle"
 
 - [`terminal/`](../../terminal/README.zh.md) —— 会话服务、shell 后端与那些工具。
 - [preset 行贡献](../../../.agents/notes/proposed/architecture/2026-10-10-preset-row-contributions.zh.md) —— 为什么一个模块贡献一行，而不是去改 preset。
-- [`lyn-module-memory`](../module-memory/README.zh.md) —— 宿主平面的那一半，用来对照平面拆分。
+- [`dsh-module-memory`](../module-memory/README.zh.md) —— 宿主平面的那一半，用来对照平面拆分。
 - [默认模块与两个视图](../../../.agents/notes/proposed/architecture/2026-10-08-default-modules-and-views.zh.md) —— 为什么每个默认模块各自一个 bundle。
 
 -----
@@ -86,7 +86,7 @@ kind: "package-bundle"
 <a id="model-experience"></a>
 ## 模型体验
 
-间接地，经由它插入的那一行：`lyn-tool-terminal` 拥有那六个 `terminal_*` schema 与它们的结果，而本 bundle 只决定某个 preset 是否携带它们。
+间接地，经由它插入的那一行：`dsh-tool-terminal` 拥有那六个 `terminal_*` schema 与它们的结果，而本 bundle 只决定某个 preset 是否携带它们。
 
 #### KV Cache effect
 
@@ -101,7 +101,7 @@ kind: "package-bundle"
 - **会话不跨重启存活** —— 它们局限于一个 harness 进程，所以 profile 重启会丢掉每一个打开的 shell。这是该服务的性质，不是本 bundle 的。
 - **一个超时同时服务两种方言** —— 这个 config 字段同时到达 bash 与 pwsh；需要不同上限的部署改为按 id 覆盖某个 shell 行。
 - **迁移只覆盖被记录的那些此前元组** —— 一个 bundle 列表被手工编辑过的 profile 会按设计被放过，所以手工编辑过的 profile 也要手工加上本 bundle。
-- **只有 `web` 模板选择了它** —— 自定义 profile 要把它加进自己的 `lyn.profile.bundles`。
+- **只有 `web` 模板选择了它** —— 自定义 profile 要把它加进自己的 `dsh.profile.bundles`。
 - **贡献次序由中央分配** —— 本 bundle 那一行处在注册表所有的一个固定位置上，所以部署无法把它相对于另一个模块贡献的行重新排序。
 
 **Runtime invariant:** 不发布任何 companion。本 bundle 不拥有运行时状态；它插入的那一行由 Loader 观察，而终端服务发布它自己的那份。

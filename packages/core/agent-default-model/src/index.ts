@@ -1,19 +1,19 @@
 /**
  * Default model selection for an Agent without a session-specific selection.
  *
- * @module @lyness/lyn-agent-default-model
+ * @module @deepseek-ai/dsh-agent-default-model
  */
-import type {} from '@lyness/lyn-settings'
+import type {} from '@deepseek-ai/dsh-settings'
 
-import type { Volatile } from '@lyness/cordis'
+import type { Volatile } from '@deepseek-ai/cordis'
 
-import { Context, Service } from '@lyness/cordis'
-import z from '@lyness/schemastery'
-import type { ModelSelection } from '@lyness/lyn-agent'
-import { ReasoningEffortId } from '@lyness/lyn-llm'
-import type {} from '@lyness/lyn-config-editor'
+import { Context, Service } from '@deepseek-ai/cordis'
+import z from '@deepseek-ai/schemastery'
+import type { ModelSelection } from '@deepseek-ai/dsh-agent'
+import { ReasoningEffortId } from '@deepseek-ai/dsh-llm'
+import type {} from '@deepseek-ai/dsh-config-editor'
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     /** Default model selection for Agents created without an explicit model. */
     agentDefaultModel: AgentDefaultModelConfig

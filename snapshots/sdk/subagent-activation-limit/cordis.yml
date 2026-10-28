@@ -1,5 +1,5 @@
 - id: subagent
-  name: '@lyness/lyn-subagent'
+  name: '@deepseek-ai/dsh-subagent'
   config:
     maxActiveSubagents: 8
 

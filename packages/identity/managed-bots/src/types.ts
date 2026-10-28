@@ -2,10 +2,10 @@
  * Vocabulary of a bot roster: the bots a deployment stores, what an
  * administrator submits to change them, and what a surface shows.
  *
- * @module @lyness/lyn-managed-bots/types
+ * @module @deepseek-ai/dsh-managed-bots/types
  */
 
-import type { PersonId } from '@lyness/lyn-people'
+import type { PersonId } from '@deepseek-ai/dsh-people'
 
 /** One bot composition wrote, which an administrator may read and not change. */
 export interface DeclaredBot {

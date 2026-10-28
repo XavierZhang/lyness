@@ -12,7 +12,7 @@ afterEach(() => {
   for (const root of roots.splice(0)) rmSync(root, { recursive: true, force: true })
 })
 
-function fixture(runtimeName = 'lyn') {
+function fixture(runtimeName = 'dsh') {
   const root = mkdtempSync(join(tmpdir(), 'desktop-office-resolution-'))
   roots.push(root)
   const runtime = join(root, 'app.asar', runtimeName)
@@ -35,7 +35,7 @@ it('resolves engine manifests to physical directories and leaves unrelated modul
   const f = fixture()
   // Node 24.13 require.resolve bypasses hooks; Electron's require.resolve is covered by packaged Office smoke.
   expect(f.require('@deepseek-ai/libreoffice-kit-darwin-arm64/package.json'))
-    .toMatchObject({ path: realpathSync(dirname(join(f.root, 'app.asar.unpacked', 'lyn', f.manifest))) })
+    .toMatchObject({ path: realpathSync(dirname(join(f.root, 'app.asar.unpacked', 'dsh', f.manifest))) })
   expect((f.require('node:fs') as typeof import('node:fs')).realpathSync).toBe(realpathSync)
   expect(f.require('@deepseek-ai/libreoffice-kit/package.json')).toEqual({ name: '@deepseek-ai/libreoffice-kit' })
 })
@@ -49,7 +49,7 @@ it('rejects an engine missing from the unpacked tree instead of using its archiv
 it('leaves a prepared runtime without an archive unchanged', () => {
   const root = mkdtempSync(join(tmpdir(), 'desktop-office-prepared-'))
   roots.push(root)
-  expect(installOfficeEngineResolution(join(root, 'lyn'))).toBeUndefined()
+  expect(installOfficeEngineResolution(join(root, 'dsh'))).toBeUndefined()
 })
 
 it('preserves a renamed runtime directory when locating the unpacked engine', () => {
@@ -62,9 +62,9 @@ it('resolves an engine through a directory alias', () => {
   const f = fixture()
   const alias = join(f.root, 'alias')
   symlinkSync(join(f.root, 'app.asar'), alias, 'junction')
-  const require: (specifier: string) => unknown = createRequire(join(alias, 'lyn', 'package.json'))
+  const require: (specifier: string) => unknown = createRequire(join(alias, 'dsh', 'package.json'))
   expect(require('@deepseek-ai/libreoffice-kit-darwin-arm64/package.json'))
-    .toMatchObject({ path: realpathSync(dirname(join(f.root, 'app.asar.unpacked', 'lyn', f.manifest))) })
+    .toMatchObject({ path: realpathSync(dirname(join(f.root, 'app.asar.unpacked', 'dsh', f.manifest))) })
 })
 
 it('rejects an engine resolved elsewhere inside the archive', () => {

@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/lyn-host-brand-icon",
+  "name": "@deepseek-ai/dsh-host-brand-icon",
   "description": "Turns a brand icon PNG into the single-colour SVG icon and square favicon a deployment serves, and checks brand SVGs against the form this toolchain writes",
   "version": "0.1.7-rc.2",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/host/brand-icon"
   },
   "type": "module",
@@ -27,12 +27,12 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~"
+    "@deepseek-ai/cordis": "workspace:~"
   },
   "dependencies": {
     "@neplex/vectorizer": "0.1.0"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:~"
+    "@deepseek-ai/cordis": "workspace:~"
   }
 }

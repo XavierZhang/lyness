@@ -6,13 +6,13 @@ English | [中文](2026-09-15-brand-studio-profile.zh.md)
 
 ## Problem
 
-A private deployment brands itself through the `brand-deployment` row: an asset directory holding a mark, a wordmark, and a favicon, and a patch layer that names them. Producing those inputs by hand means writing SVG that passes the brand grammar and YAML that the Loader accepts. The tracer and the typesetter already exist as libraries, but nothing an operator can run connects them to the row. The repository admits Node applications only as `lyn` profiles, so a standalone script or package bin is not an option.
+A private deployment brands itself through the `brand-deployment` row: an asset directory holding a mark, a wordmark, and a favicon, and a patch layer that names them. Producing those inputs by hand means writing SVG that passes the brand grammar and YAML that the Loader accepts. The tracer and the typesetter already exist as libraries, but nothing an operator can run connects them to the row. The repository admits Node applications only as `dsh` profiles, so a standalone script or package bin is not an option.
 
 ## Decision
 
-`@lyness/lyn-brand-studio` is a bundle, launched as `lyn --profile brand-studio`, whose patch inserts one row and does not layer over `lyn-base`. The row parses the launcher's arguments with commander, runs once, and requests exit through `ctx.appExit`. It takes the product name, the icon PNG, the font file, an optional theme colour, an asset directory, and a target profile as flags, and it refuses to run without `--accept-trademark` and `--accept-font-license`.
+`@deepseek-ai/dsh-brand-studio` is a bundle, launched as `dsh --profile brand-studio`, whose patch inserts one row and does not layer over `dsh-base`. The row parses the launcher's arguments with commander, runs once, and requests exit through `ctx.appExit`. It takes the product name, the icon PNG, the font file, an optional theme colour, an asset directory, and a target profile as flags, and it refuses to run without `--accept-trademark` and `--accept-font-license`.
 
-A run validates the colour, traces the icon, typesets the name, checks each SVG with `isBrandSvg`, and composes the new patch layer before it writes anything. It then writes the three SVGs, and only then the layer, so `lyn web`, which reloads its layer on change, never reads a row that names a missing file. The layer it edits is the target profile's own, `web` by default; a shipped profile that has never launched is initialized first, as its first launch would do. The layer is edited through the `yaml` document model, setting the keys the studio owns on every `brand-deployment` row and leaving other keys, rows, comments, and `!!js` values in place.
+A run validates the colour, traces the icon, typesets the name, checks each SVG with `isBrandSvg`, and composes the new patch layer before it writes anything. It then writes the three SVGs, and only then the layer, so `dsh web`, which reloads its layer on change, never reads a row that names a missing file. The layer it edits is the target profile's own, `web` by default; a shipped profile that has never launched is initialized first, as its first launch would do. The layer is edited through the `yaml` document model, setting the keys the studio owns on every `brand-deployment` row and leaving other keys, rows, comments, and `!!js` values in place.
 
 A private deployment's brand owner supplies its own font, and the operator confirms with `--accept-font-license` that the license for it permits using its glyphs in a logo. The studio reads the font only on the operator's server; it neither copies nor distributes the file, and the wordmark it writes is outline artwork, not font software, so the platform takes on no obligation under the font's license. SaaS tenants cannot supply fonts, because tenants upload no files; they will use the platform's built-in fonts once those ship.
 
@@ -30,9 +30,9 @@ A private deployment's brand owner supplies its own font, and the operator confi
 
 ## Consequences
 
-`PROFILE_TEMPLATES` in `lyn-app-boot` gains a `brand-studio` entry and `apps/cli` depends on the bundle, so the shipped-profile tests and the application list in `docs/architecture.md` name it too.
+`PROFILE_TEMPLATES` in `dsh-app-boot` gains a `brand-studio` entry and `apps/cli` depends on the bundle, so the shipped-profile tests and the application list in `docs/architecture.md` name it too.
 
-`lyn-host-brand-deployment` exports `isBrandColour`, so the studio refuses a colour the deployment would refuse at load, before any file is written.
+`dsh-host-brand-deployment` exports `isBrandColour`, so the studio refuses a colour the deployment would refuse at load, before any file is written.
 
 Re-serializing a layer can normalize the quoting and blank lines of rows the studio does not touch.
 

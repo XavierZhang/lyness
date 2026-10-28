@@ -10,18 +10,18 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import Loader from '@lyness/cordis-plugin-loader'
-import Include from '@lyness/cordis-plugin-include'
-import HttpServer from '@lyness/lyn-host-webserver'
-import Storage from '@lyness/lyn-storage'
-import * as StorageJson from '@lyness/lyn-storage-json'
-import * as StorageDomain from '@lyness/lyn-storage-domain'
-import * as StoredAuthSessions from '@lyness/lyn-auth-session/store'
-import * as SignIn from '@lyness/lyn-sign-in'
-import { channelId } from '@lyness/lyn-sign-in'
-import type { ExternalSubject, RedirectChannel } from '@lyness/lyn-sign-in'
-import * as RosterAdmission from '@lyness/lyn-sign-in/admission-roster'
+import { Context } from '@deepseek-ai/cordis'
+import Loader from '@deepseek-ai/cordis-plugin-loader'
+import Include from '@deepseek-ai/cordis-plugin-include'
+import HttpServer from '@deepseek-ai/dsh-host-webserver'
+import Storage from '@deepseek-ai/dsh-storage'
+import * as StorageJson from '@deepseek-ai/dsh-storage-json'
+import * as StorageDomain from '@deepseek-ai/dsh-storage-domain'
+import * as StoredAuthSessions from '@deepseek-ai/dsh-auth-session/store'
+import * as SignIn from '@deepseek-ai/dsh-sign-in'
+import { channelId } from '@deepseek-ai/dsh-sign-in'
+import type { ExternalSubject, RedirectChannel } from '@deepseek-ai/dsh-sign-in'
+import * as RosterAdmission from '@deepseek-ai/dsh-sign-in/admission-roster'
 import * as SignInHttp from '../src/index.ts'
 import { ATTEMPT_COOKIE, SESSION_COOKIE, readCookie } from '../src/cookie.ts'
 
@@ -65,31 +65,31 @@ const TestChannel = {
 
 /** Boot the whole composition and answer the port it listens on. */
 async function compose(options: { admits?: boolean } = {}): Promise<number> {
-  root = await mkdtemp(join(tmpdir(), 'lyn-sign-in-http-'))
+  root = await mkdtemp(join(tmpdir(), 'dsh-sign-in-http-'))
   const configPath = join(root, 'cordis.yml')
   const bindings = options.admits === false
     ? []
     : [`      - { channel: ${CHANNEL}, issuer: ${ISSUER}, subject: person-1, person: ada }`]
   await writeFile(configPath, [
-    "- name: '@lyness/lyn-host-webserver'",
+    "- name: '@deepseek-ai/dsh-host-webserver'",
     '  config:',
     "    host: '127.0.0.1'",
     '    port: 0',
-    "- name: '@lyness/lyn-storage'",
-    "- name: '@lyness/lyn-storage-json'",
+    "- name: '@deepseek-ai/dsh-storage'",
+    "- name: '@deepseek-ai/dsh-storage-json'",
     '  config:',
     `    root: ${JSON.stringify(join(root, 'state'))}`,
-    "- name: '@lyness/lyn-storage-domain'",
+    "- name: '@deepseek-ai/dsh-storage-domain'",
     '  config:',
     '    backend: json',
-    "- name: '@lyness/lyn-auth-session/store'",
-    "- name: '@lyness/lyn-sign-in/admission-roster'",
+    "- name: '@deepseek-ai/dsh-auth-session/store'",
+    "- name: '@deepseek-ai/dsh-sign-in/admission-roster'",
     '  config:',
     '    bindings:',
     ...(bindings.length > 0 ? bindings : ['      []']),
-    "- name: '@lyness/lyn-sign-in'",
+    "- name: '@deepseek-ai/dsh-sign-in'",
     "- name: 'test-directory-channel'",
-    "- name: '@lyness/lyn-sign-in-http'",
+    "- name: '@deepseek-ai/dsh-sign-in-http'",
     '  config:',
     `    publicOrigin: '${ORIGIN}'`,
     '    secureCookies: false',
@@ -102,15 +102,15 @@ async function compose(options: { admits?: boolean } = {}): Promise<number> {
   await context.plugin(Loader)
   context.loader.builtins.include = Include
   const modules = new Map<string, unknown>([
-    ['@lyness/lyn-host-webserver', HttpServer],
-    ['@lyness/lyn-storage', Storage],
-    ['@lyness/lyn-storage-json', StorageJson],
-    ['@lyness/lyn-storage-domain', StorageDomain],
-    ['@lyness/lyn-auth-session/store', StoredAuthSessions],
-    ['@lyness/lyn-sign-in', SignIn],
-    ['@lyness/lyn-sign-in/admission-roster', RosterAdmission],
+    ['@deepseek-ai/dsh-host-webserver', HttpServer],
+    ['@deepseek-ai/dsh-storage', Storage],
+    ['@deepseek-ai/dsh-storage-json', StorageJson],
+    ['@deepseek-ai/dsh-storage-domain', StorageDomain],
+    ['@deepseek-ai/dsh-auth-session/store', StoredAuthSessions],
+    ['@deepseek-ai/dsh-sign-in', SignIn],
+    ['@deepseek-ai/dsh-sign-in/admission-roster', RosterAdmission],
     ['test-directory-channel', TestChannel],
-    ['@lyness/lyn-sign-in-http', SignInHttp],
+    ['@deepseek-ai/dsh-sign-in-http', SignInHttp],
   ])
   const base = context.loader.internal
   if (base === undefined) throw new Error('this Node build exposes no internal module loader')

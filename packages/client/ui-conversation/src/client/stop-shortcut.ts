@@ -1,9 +1,9 @@
 /** Fixed Escape routing into the current Conversation turn's scoped cancellation. */
-import type { ISessions, SessionBinding } from '@lyness/lyn-api-session-controller/client'
-import type { Shortcuts } from '@lyness/lyn-client-shortcuts/client'
-import type { UiSession } from '@lyness/lyn-client-ui-session/client'
-import type { SessionId } from '@lyness/lyn-session/types'
-import type { ObservableSnapshot } from '@lyness/lyn-client-store'
+import type { ISessions, SessionBinding } from '@deepseek-ai/dsh-api-session-controller/client'
+import type { Shortcuts } from '@deepseek-ai/dsh-client-shortcuts/client'
+import type { UiSession } from '@deepseek-ai/dsh-client-ui-session/client'
+import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import type { ObservableSnapshot } from '@deepseek-ai/dsh-client-store'
 import { StopSequence } from './stop-sequence.ts'
 
 /**

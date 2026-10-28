@@ -8,13 +8,13 @@
  * actions in `sidebar.footer.action` and the attribution line in
  * `sidebar.attribution`.
  */
-import type { InjectFace, PropsLocale, PropsRenderSlots, PropsRuntime } from '@lyness/lyn-client-ui-slots'
-import type { ObservableSnapshot } from '@lyness/lyn-client-store'
-import type { WorkspaceId } from '@lyness/lyn-api-workspace-controller/client'
-import type { ShortcutCatalogEntry } from '@lyness/lyn-client-shortcuts/client'
-import type { MainPanelId } from '@lyness/lyn-client-ui-layout/client'
+import type { InjectFace, PropsLocale, PropsRenderSlots, PropsRuntime } from '@deepseek-ai/dsh-client-ui-slots'
+import type { ObservableSnapshot } from '@deepseek-ai/dsh-client-store'
+import type { WorkspaceId } from '@deepseek-ai/dsh-api-workspace-controller/client'
+import type { ShortcutCatalogEntry } from '@deepseek-ai/dsh-client-shortcuts/client'
+import type { MainPanelId } from '@deepseek-ai/dsh-client-ui-layout/client'
 
-declare module '@lyness/lyn-client-ui-slots' {
+declare module '@deepseek-ai/dsh-client-ui-slots' {
   interface SlotMap {
     /** Non-interactive notification inside the collapsed sidebar expand button. */
     'sidebar.toggle.badge': { kind: 'single'; scope: 'root'; owner: Record<never, never> }

@@ -1,4 +1,4 @@
-/** Public lyn launch resolution for the TypeScript SDK. */
+/** Public dsh launch resolution for the TypeScript SDK. */
 
 import { existsSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
@@ -7,10 +7,10 @@ import { pathToFileURL } from 'node:url'
 import { afterEach, describe, expect, it } from 'vitest'
 import {
   DEFAULT_INITIALIZE_TIMEOUT_MS,
-  installedLynBin,
-  resolveLynNodeLaunchFromManifests,
-  resolveLynBinFromManifests,
-  resolveLynLaunch,
+  installedDshBin,
+  resolveDshNodeLaunchFromManifests,
+  resolveDshBinFromManifests,
+  resolveDshLaunch,
 } from '../src/launch.ts'
 
 const cleanups: string[] = []
@@ -18,25 +18,25 @@ afterEach(() => {
   for (const path of cleanups.splice(0)) rmSync(path, { recursive: true, force: true })
 })
 
-function manifestPair(lyn: object, client: object): { lynUrl: string; clientUrl: string; root: string } {
-  const root = mkdtempSync(join(tmpdir(), 'lyn-sdk-manifests-'))
+function manifestPair(dsh: object, client: object): { dshUrl: string; clientUrl: string; root: string } {
+  const root = mkdtempSync(join(tmpdir(), 'dsh-sdk-manifests-'))
   cleanups.push(root)
-  const lynPath = join(root, 'lyn-package.json')
+  const dshPath = join(root, 'dsh-package.json')
   const clientPath = join(root, 'client-package.json')
-  writeFileSync(lynPath, JSON.stringify(lyn))
+  writeFileSync(dshPath, JSON.stringify(dsh))
   writeFileSync(clientPath, JSON.stringify(client))
   return {
-    lynUrl: pathToFileURL(lynPath).href,
+    dshUrl: pathToFileURL(dshPath).href,
     clientUrl: pathToFileURL(clientPath).href,
     root,
   }
 }
 
-describe('SDK lyn launch resolution', () => {
-  it('resolves the same-version installed lyn entry by default', () => {
-    const bin = installedLynBin()
+describe('SDK dsh launch resolution', () => {
+  it('resolves the same-version installed dsh entry by default', () => {
+    const bin = installedDshBin()
     expect(bin.endsWith(join('apps', 'cli', 'lib', 'bin.js'))).toBe(true)
-    const launch = resolveLynLaunch()
+    const launch = resolveDshLaunch()
     expect(launch.command).toBe(process.execPath)
     expect(launch.args).toEqual(existsSync(bin)
       ? [bin, '--profile', 'sdk']
@@ -46,18 +46,18 @@ describe('SDK lyn launch resolution', () => {
         '--patch', resolve(bin, '..', '..', 'src/sdk-source.cordis.patch.yml'),
       ])
     expect(launch.initializeTimeoutMs).toBe(DEFAULT_INITIALIZE_TIMEOUT_MS)
-    expect(launch.description).toBe('lyn profile "sdk"')
+    expect(launch.description).toBe('dsh profile "sdk"')
   })
 
   it('makes every filesystem input absolute before spawn and preserves patch order', () => {
     const caller = resolve('/tmp', 'sdk-launch-caller')
-    const launch = resolveLynLaunch({
-      lynBin: './bin/lyn',
+    const launch = resolveDshLaunch({
+      dshBin: './bin/dsh',
       profile: 'custom-sdk',
       patches: ['./first.yml', '../second.yml'],
-      lynHome: './home',
+      dshHome: './home',
       processCwd: './worker',
-      env: { PATH: '/bin', LYNESS_HOME: '/stale' },
+      env: { PATH: '/bin', DSH_HOME: '/stale' },
       initializeTimeoutMs: 123,
       requestTimeoutMs: 456,
       shutdownTimeoutMs: 789,
@@ -67,20 +67,20 @@ describe('SDK lyn launch resolution', () => {
     expect(launch).toMatchObject({
       command: process.execPath,
       args: [
-        join(caller, 'bin/lyn'),
+        join(caller, 'bin/dsh'),
         '--profile', 'custom-sdk',
         '--patch', join(caller, 'first.yml'),
         '--patch', resolve(caller, '../second.yml'),
       ],
       cwd: join(caller, 'worker'),
-      description: 'lyn profile "custom-sdk"',
+      description: 'dsh profile "custom-sdk"',
       initializeTimeoutMs: 123,
       requestTimeoutMs: 456,
       shutdownTimeoutMs: 789,
       disposeEofGraceMs: 12,
       disposeGraceMs: 34,
     })
-    expect(launch.environment()).toEqual({ PATH: '/bin', LYNESS_HOME: join(caller, 'home') })
+    expect(launch.environment()).toEqual({ PATH: '/bin', DSH_HOME: join(caller, 'home') })
   })
 
   it('falls back to the same package source entry through an absolute tsx loader', () => {
@@ -93,13 +93,13 @@ describe('SDK lyn launch resolution', () => {
     writeFileSync(sourcePatch, '[]\n')
     writeFileSync(sourceTsconfig, '{}\n')
 
-    expect(resolveLynNodeLaunchFromManifests(pair.lynUrl, pair.clientUrl, 'file:///tsx-loader.mjs'))
+    expect(resolveDshNodeLaunchFromManifests(pair.dshUrl, pair.clientUrl, 'file:///tsx-loader.mjs'))
       .toEqual({
         nodeArgs: ['--import', 'file:///tsx-loader.mjs', sourceBin],
         patches: [sourcePatch],
         environment: { TSX_TSCONFIG_PATH: sourceTsconfig },
       })
-    expect(resolveLynNodeLaunchFromManifests(pair.lynUrl, pair.clientUrl))
+    expect(resolveDshNodeLaunchFromManifests(pair.dshUrl, pair.clientUrl))
       .toEqual({
         nodeArgs: ['--import', import.meta.resolve('tsx/esm'), sourceBin],
         patches: [sourcePatch],
@@ -113,7 +113,7 @@ describe('SDK lyn launch resolution', () => {
     mkdirSync(join(pair.root, 'lib'))
     writeFileSync(bin, '')
 
-    expect(resolveLynNodeLaunchFromManifests(pair.lynUrl, pair.clientUrl)).toEqual({
+    expect(resolveDshNodeLaunchFromManifests(pair.dshUrl, pair.clientUrl)).toEqual({
       nodeArgs: [bin],
       patches: [],
       environment: {},
@@ -125,45 +125,45 @@ describe('SDK lyn launch resolution', () => {
     mkdirSync(join(pair.root, 'src'))
     const sourceFiles = ['src/bin.ts', 'src/sdk-source.cordis.patch.yml', 'tsconfig.json']
     for (const source of sourceFiles.slice(0, presentCount)) writeFileSync(join(pair.root, source), '')
-    expect(() => resolveLynNodeLaunchFromManifests(pair.lynUrl, pair.clientUrl, 'file:///tsx-loader.mjs'))
+    expect(() => resolveDshNodeLaunchFromManifests(pair.dshUrl, pair.clientUrl, 'file:///tsx-loader.mjs'))
       .toThrow('is missing its built executable')
   })
 
   it('reads explicit and inherited environments when the child starts', () => {
     const explicit: NodeJS.ProcessEnv = { MARKER: 'before' }
-    const explicitLaunch = resolveLynLaunch({ lynBin: '/bin/lyn', env: explicit })
+    const explicitLaunch = resolveDshLaunch({ dshBin: '/bin/dsh', env: explicit })
     explicit.MARKER = 'after'
     expect(explicitLaunch.environment().MARKER).toBe('after')
 
-    const inheritedLaunch = resolveLynLaunch({ lynBin: '/bin/lyn' })
-    process.env.LYNESS_SDK_LATE_ENV_TEST = 'late'
+    const inheritedLaunch = resolveDshLaunch({ dshBin: '/bin/dsh' })
+    process.env.DSH_SDK_LATE_ENV_TEST = 'late'
     try {
-      expect(inheritedLaunch.environment().LYNESS_SDK_LATE_ENV_TEST).toBe('late')
+      expect(inheritedLaunch.environment().DSH_SDK_LATE_ENV_TEST).toBe('late')
     } finally {
-      delete process.env.LYNESS_SDK_LATE_ENV_TEST
+      delete process.env.DSH_SDK_LATE_ENV_TEST
     }
   })
 
   it.each([2, '2.0.0'])(
-    'rejects a lyn version that differs from the client (%j)',
+    'rejects a dsh version that differs from the client (%j)',
     (version) => {
       const pair = manifestPair({ version, bin: 'bin.js' }, { version: '1.0.0' })
-      expect(() => resolveLynBinFromManifests(pair.lynUrl, pair.clientUrl))
-        .toThrow(`requires the same lyn version, got ${String(version)}`)
+      expect(() => resolveDshBinFromManifests(pair.dshUrl, pair.clientUrl))
+        .toThrow(`requires the same dsh version, got ${String(version)}`)
     },
   )
 
   it('accepts the string npm bin form', () => {
     const pair = manifestPair({ version: '1.0.0', bin: './bin.js' }, { version: '1.0.0' })
-    expect(resolveLynBinFromManifests(pair.lynUrl, pair.clientUrl)).toBe(join(pair.root, 'bin.js'))
+    expect(resolveDshBinFromManifests(pair.dshUrl, pair.clientUrl)).toBe(join(pair.root, 'bin.js'))
   })
 
   it.each([null, {}, ''])(
-    'rejects a manifest without a usable lyn executable (%j)',
+    'rejects a manifest without a usable dsh executable (%j)',
     (bin) => {
       const pair = manifestPair({ version: '1.0.0', bin }, { version: '1.0.0' })
-      expect(() => resolveLynBinFromManifests(pair.lynUrl, pair.clientUrl))
-        .toThrow('declares no lyn executable')
+      expect(() => resolveDshBinFromManifests(pair.dshUrl, pair.clientUrl))
+        .toThrow('declares no dsh executable')
     },
   )
 })

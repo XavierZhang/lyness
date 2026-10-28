@@ -3,7 +3,7 @@ description: "Account screens use authenticated Remote commands and a snapshot s
 kind: "package-reference"
 ---
 
-# @lyness/lyn-api-account-controller
+# @deepseek-ai/dsh-api-account-controller
 
 English | [中文](README.zh.md)
 

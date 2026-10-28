@@ -1,22 +1,22 @@
 !include "LogicLib.nsh"
 
-Var lynFinalDirectory
-Var lynNewDirectory
-Var lynOldDirectory
-Var lynOldMoved
-Var lynNewMoved
+Var dshFinalDirectory
+Var dshNewDirectory
+Var dshOldDirectory
+Var dshOldMoved
+Var dshNewMoved
 
-!macro lynExtractPayload FILE
+!macro dshExtractPayload FILE
   !ifmacrodef customInstallerExtract
     !insertmacro customInstallerExtract "${FILE}"
   !else
-    nsExec::ExecToStack '"$PLUGINSDIR\lyn-7za.exe" x -y -bd -bb0 "-o$INSTDIR" "${FILE}"'
+    nsExec::ExecToStack '"$PLUGINSDIR\dsh-7za.exe" x -y -bd -bb0 "-o$INSTDIR" "${FILE}"'
     Pop $R0
     Pop $R1
   !endif
   ${If} $R0 != 0
     DetailPrint $R1
-    Call lynRollbackDirectories
+    Call dshRollbackDirectories
     !ifmacrodef customInstallerExtractFailed
       !insertmacro customInstallerExtractFailed "${FILE}"
     !else
@@ -27,109 +27,109 @@ Var lynNewMoved
   ${EndIf}
 !macroend
 
-!macro lynStageApplication
-  StrCpy $lynFinalDirectory $INSTDIR
+!macro dshStageApplication
+  StrCpy $dshFinalDirectory $INSTDIR
   System::Call 'ole32::CoCreateGuid(g .r0) i .r1'
   ${If} $1 != 0
     SetErrorLevel 2
     Quit
   ${EndIf}
-  StrCpy $lynNewDirectory "$INSTDIR.new-$0"
-  StrCpy $lynOldDirectory "$INSTDIR.old-$0"
-  StrCpy $lynOldMoved ""
-  StrCpy $lynNewMoved ""
+  StrCpy $dshNewDirectory "$INSTDIR.new-$0"
+  StrCpy $dshOldDirectory "$INSTDIR.old-$0"
+  StrCpy $dshOldMoved ""
+  StrCpy $dshNewMoved ""
   ClearErrors
-  CreateDirectory $lynNewDirectory
+  CreateDirectory $dshNewDirectory
   ${If} ${Errors}
     SetErrorLevel 2
     Quit
   ${EndIf}
-  File /oname=$PLUGINSDIR\lyn-7za.exe "${LYNESS_SEVENZIP_PATH}"
-  StrCpy $INSTDIR $lynNewDirectory
+  File /oname=$PLUGINSDIR\dsh-7za.exe "${DSH_SEVENZIP_PATH}"
+  StrCpy $INSTDIR $dshNewDirectory
   SetOutPath $INSTDIR
   !insertmacro installApplicationFiles
-  !ifdef LYNESS_SEVENZIP_LICENSE_DIR
-    File /oname=7zip-installer-LICENSE.txt "${LYNESS_SEVENZIP_LICENSE_DIR}\LICENSE.txt"
-    File /oname=7zip-installer-COPYING.txt "${LYNESS_SEVENZIP_LICENSE_DIR}\COPYING"
+  !ifdef DSH_SEVENZIP_LICENSE_DIR
+    File /oname=7zip-installer-LICENSE.txt "${DSH_SEVENZIP_LICENSE_DIR}\LICENSE.txt"
+    File /oname=7zip-installer-COPYING.txt "${DSH_SEVENZIP_LICENSE_DIR}\COPYING"
   !endif
   !ifdef UNINSTALLER_ICON
     File /oname=uninstallerIcon.ico "${UNINSTALLER_ICON}"
   !endif
-  StrCpy $INSTDIR $lynFinalDirectory
+  StrCpy $INSTDIR $dshFinalDirectory
   SetOutPath $PLUGINSDIR
 !macroend
 
 Function .onGUIEnd
-  Call lynCleanupDirectories
+  Call dshCleanupDirectories
 FunctionEnd
 
-Function lynCleanupDirectories
-  ${If} $lynFinalDirectory != ""
-    Call lynRollbackDirectories
+Function dshCleanupDirectories
+  ${If} $dshFinalDirectory != ""
+    Call dshRollbackDirectories
   ${EndIf}
 FunctionEnd
 
 ; Only directories created or renamed by this installer are removed during rollback.
-Function lynRollbackDirectories
+Function dshRollbackDirectories
   SetOutPath $PLUGINSDIR
-  ${If} $lynNewMoved == "1"
-    RMDir /r "\\?\$lynFinalDirectory"
-    StrCpy $lynNewMoved ""
+  ${If} $dshNewMoved == "1"
+    RMDir /r "\\?\$dshFinalDirectory"
+    StrCpy $dshNewMoved ""
   ${EndIf}
-  ${If} $lynOldMoved == "1"
+  ${If} $dshOldMoved == "1"
     ClearErrors
-    Rename $lynOldDirectory $lynFinalDirectory
+    Rename $dshOldDirectory $dshFinalDirectory
     ${If} ${Errors}
       ; Leave the complete backup in place if another process prevents restoration.
-      DetailPrint $lynOldDirectory
+      DetailPrint $dshOldDirectory
       Return
     ${EndIf}
-    StrCpy $lynOldMoved ""
+    StrCpy $dshOldMoved ""
   ${EndIf}
-  ${If} $lynNewDirectory != ""
-    RMDir /r "\\?\$lynNewDirectory"
+  ${If} $dshNewDirectory != ""
+    RMDir /r "\\?\$dshNewDirectory"
   ${EndIf}
-  StrCpy $INSTDIR $lynFinalDirectory
+  StrCpy $INSTDIR $dshFinalDirectory
 FunctionEnd
 
-Function lynPromoteDirectories
+Function dshPromoteDirectories
   !ifmacrodef InstallerPublishStage
     !insertmacro InstallerPublishStage 2
   !endif
   ; SetOutPath opens a directory handle; release it before either rename.
   SetOutPath $PLUGINSDIR
   ClearErrors
-  ${If} ${FileExists} "$lynFinalDirectory\*.*"
-    Rename $lynFinalDirectory $lynOldDirectory
+  ${If} ${FileExists} "$dshFinalDirectory\*.*"
+    Rename $dshFinalDirectory $dshOldDirectory
     ${If} ${Errors}
-      Call lynRollbackDirectories
+      Call dshRollbackDirectories
       SetErrors
       Return
     ${EndIf}
-    StrCpy $lynOldMoved "1"
+    StrCpy $dshOldMoved "1"
   ${Else}
     ; NSIS can create the destination before the install section starts.
-    RMDir $lynFinalDirectory
+    RMDir $dshFinalDirectory
   ${EndIf}
   ClearErrors
-  Rename $lynNewDirectory $lynFinalDirectory
+  Rename $dshNewDirectory $dshFinalDirectory
   ${If} ${Errors}
-    Call lynRollbackDirectories
+    Call dshRollbackDirectories
     SetErrors
     Return
   ${EndIf}
-  StrCpy $lynNewMoved "1"
-  SetOutPath $lynFinalDirectory
+  StrCpy $dshNewMoved "1"
+  SetOutPath $dshFinalDirectory
   !ifmacrodef InstallerPublishStage
     !insertmacro InstallerPublishStage 3
   !endif
   ClearErrors
 FunctionEnd
 
-!macro lynFinishDirectories
-  StrCpy $lynNewMoved ""
-  ${If} $lynOldMoved == "1"
-    RMDir /r "\\?\$lynOldDirectory"
-    StrCpy $lynOldMoved ""
+!macro dshFinishDirectories
+  StrCpy $dshNewMoved ""
+  ${If} $dshOldMoved == "1"
+    RMDir /r "\\?\$dshOldDirectory"
+    StrCpy $dshOldMoved ""
   ${EndIf}
 !macroend

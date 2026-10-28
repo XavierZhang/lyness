@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/lyn-sign-in",
+  "name": "@deepseek-ai/dsh-sign-in",
   "description": "Sign a person in through an external directory, admit them by a deployment's own rule, and establish their session",
   "version": "0.1.7-rc.2",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/identity/sign-in"
   },
   "type": "module",
@@ -52,23 +52,23 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-auth-session": "workspace:*",
-    "@lyness/lyn-brand": "workspace:*",
-    "@lyness/lyn-people": "workspace:*",
-    "@lyness/lyn-util-crypto": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-auth-session": "workspace:*",
+    "@deepseek-ai/dsh-brand": "workspace:*",
+    "@deepseek-ai/dsh-people": "workspace:*",
+    "@deepseek-ai/dsh-util-crypto": "workspace:*"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-auth-session": "workspace:*",
-    "@lyness/lyn-brand": "workspace:*",
-    "@lyness/lyn-people": "workspace:*",
-    "@lyness/lyn-storage": "workspace:*",
-    "@lyness/lyn-storage-domain": "workspace:*",
-    "@lyness/lyn-storage-json": "workspace:*",
-    "@lyness/lyn-util-crypto": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-auth-session": "workspace:*",
+    "@deepseek-ai/dsh-brand": "workspace:*",
+    "@deepseek-ai/dsh-people": "workspace:*",
+    "@deepseek-ai/dsh-storage": "workspace:*",
+    "@deepseek-ai/dsh-storage-domain": "workspace:*",
+    "@deepseek-ai/dsh-storage-json": "workspace:*",
+    "@deepseek-ai/dsh-util-crypto": "workspace:*"
   },
   "dependencies": {
-    "@lyness/schemastery": "workspace:~"
+    "@deepseek-ai/schemastery": "workspace:~"
   }
 }

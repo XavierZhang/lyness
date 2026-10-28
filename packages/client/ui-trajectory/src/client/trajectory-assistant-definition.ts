@@ -1,12 +1,12 @@
-import type { Context } from '@lyness/cordis'
+import type { Context } from '@deepseek-ai/cordis'
 import type {
   AssistantBlock, AssistantMessageNode, ConversationLocation,
   ConversationMatch, ConversationNodeContext, ConversationNodeDefinition,
   PartialAssistant, RequestView,
-} from '@lyness/lyn-client-ui-conversation/client'
-import type { StreamChunk } from '@lyness/lyn-llm'
-import { assistantStreamFirstTokenTime } from '@lyness/lyn-llm/assistant-stream'
-import type { SessionEvent } from '@lyness/lyn-session/types'
+} from '@deepseek-ai/dsh-client-ui-conversation/client'
+import type { StreamChunk } from '@deepseek-ai/dsh-llm'
+import { assistantStreamFirstTokenTime } from '@deepseek-ai/dsh-llm/assistant-stream'
+import type { SessionEvent } from '@deepseek-ai/dsh-session/types'
 import { trajectoryNode } from './trajectory-definition-common.ts'
 import {
   displayFailure, emptyAssistantBlock, isTokenDelta, toAssistantBlock, toAssistantBlocks,

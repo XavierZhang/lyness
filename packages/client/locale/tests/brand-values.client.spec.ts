@@ -7,12 +7,12 @@
  * name beside its own.
  */
 import { afterEach, describe, expect, it } from 'vitest'
-import { makeTranslate } from '@lyness/lyn-client-test-runtime'
+import { makeTranslate } from '@deepseek-ai/dsh-client-test-runtime'
 
 import { readBrandValues } from '../src/client/brand-values.ts'
 
-const GLOBAL = 'lynDeploymentBrand'
-const BUILT_IN = { brandName: 'lyness', brandAbbr: 'LYN', brandNameZh: '领驭' }
+const GLOBAL = 'dshDeploymentBrand'
+const BUILT_IN = { brandName: 'HARNESS', brandAbbr: 'DSH', brandNameZh: '领驭' }
 
 function withBrand(brand: unknown): void {
   Reflect.set(globalThis, GLOBAL, brand)

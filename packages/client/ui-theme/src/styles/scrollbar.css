@@ -8,21 +8,21 @@
  * so an `html` rule resolves them to the guaranteed-invalid value and
  * `scrollbar-color` falls back to `auto`.
  *
- * Surfaces pick their elevation by rebinding --lyn-scrollbar-thumb{,-hover}:
+ * Surfaces pick their elevation by rebinding --dsh-scrollbar-thumb{,-hover}:
  * the l1 pair here is the base-surface default, and an elevated surface
  * (menu, popover, dialog) rebinds to the l2 pair on its own container. A
  * scroll container may also rebind the three geometry variables below. */
 
 body {
-  --lyn-scrollbar-thumb: var(--dsw-alias-scrollbar-bg-l1);
-  --lyn-scrollbar-thumb-hover: var(--dsw-alias-scrollbar-hover-l1);
-  --lyn-scrollbar-thumb-border: 0px;
-  --lyn-scrollbar-track-margin: 0px;
+  --dsh-scrollbar-thumb: var(--dsw-alias-scrollbar-bg-l1);
+  --dsh-scrollbar-thumb-hover: var(--dsw-alias-scrollbar-hover-l1);
+  --dsh-scrollbar-thumb-border: 0px;
+  --dsh-scrollbar-track-margin: 0px;
   /* The WebKit bar's layout width, mirrored by the ::-webkit-scrollbar rule
      below. A surface that must align itself beside a space-consuming bar
      (ConversationRoot's overlay composer seat) reads this instead of
      hardcoding the number. */
-  --lyn-scrollbar-width: 5px;
+  --dsh-scrollbar-width: 5px;
 }
 
 /* The two paths are mutually exclusive, and the gate is load-bearing rather
@@ -45,7 +45,7 @@ body {
 @supports not selector(::-webkit-scrollbar) {
   /* Declared on every element rather than inherited from `body`. Inheriting
      would pass down the COLOUR already substituted at `body`, so a descendant
-     rebinding --lyn-scrollbar-thumb could not change it; re-declaring makes
+     rebinding --dsh-scrollbar-thumb could not change it; re-declaring makes
      each element substitute the variable as it sees it, which is what gives
      an elevated surface a working rebind. `scrollbar-width` is not an
      inherited property at all, so it needs the per-element declaration
@@ -56,7 +56,7 @@ body {
   body,
   body * {
     scrollbar-width: thin;
-    scrollbar-color: var(--lyn-scrollbar-thumb) transparent;
+    scrollbar-color: var(--dsh-scrollbar-thumb) transparent;
   }
 }
 
@@ -65,27 +65,27 @@ body {
    selector matching already does. Not inherited either, hence the unscoped
    selectors. */
 ::-webkit-scrollbar {
-  width: var(--lyn-scrollbar-width);
-  height: var(--lyn-scrollbar-width);
+  width: var(--dsh-scrollbar-width);
+  height: var(--dsh-scrollbar-width);
 }
 
 /* Track stays transparent so the thumb reads against whatever surface scrolls
    under it; only the thumb carries a token colour. */
 ::-webkit-scrollbar-track {
-  margin-block: var(--lyn-scrollbar-track-margin);
+  margin-block: var(--dsh-scrollbar-track-margin);
   background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  border: var(--lyn-scrollbar-thumb-border) solid transparent;
+  border: var(--dsh-scrollbar-thumb-border) solid transparent;
   border-radius: 999px;
   corner-shape: round;
-  background: var(--lyn-scrollbar-thumb);
+  background: var(--dsh-scrollbar-thumb);
   background-clip: content-box;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: var(--lyn-scrollbar-thumb-hover);
+  background-color: var(--dsh-scrollbar-thumb-hover);
 }
 
 /* Both scrollbars meeting in a corner: no separate token, so the corner

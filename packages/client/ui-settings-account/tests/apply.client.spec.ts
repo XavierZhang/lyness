@@ -1,16 +1,16 @@
 // @vitest-environment jsdom
 /** Desktop account operations and ordinary-browser isolation in the shipped client composition. */
 import { afterEach, beforeEach, expect, vi } from 'vitest'
-import { ok } from '@lyness/lyn-remote-mock'
-import { RemoteError } from '@lyness/lyn-typert-protocol'
-import { createClientTest, type TestClient, webApp } from '@lyness/lyn-client-test-runtime/src/assembly/index.ts'
+import { ok } from '@deepseek-ai/dsh-remote-mock'
+import { RemoteError } from '@deepseek-ai/dsh-typert-protocol'
+import { createClientTest, type TestClient, webApp } from '@deepseek-ai/dsh-client-test-runtime/src/assembly/index.ts'
 import type {
   AccountBonusBatch, AccountBonusOrderId, AccountDetails, AccountUserId, AccountView, SignInAttemptId,
-} from '@lyness/lyn-deepseek-account/types'
-import type { QuotaNoticeOwnerProps } from '@lyness/lyn-client-ui-chat/client'
-import type { ThemeRuntime } from '@lyness/lyn-client-ui-theme/client'
-import { resolveSlotLabel } from '@lyness/lyn-client-ui-slots'
-import type { JsonValue } from '@lyness/lyn-util-values'
+} from '@deepseek-ai/dsh-deepseek-account/types'
+import type { QuotaNoticeOwnerProps } from '@deepseek-ai/dsh-client-ui-chat/client'
+import type { ThemeRuntime } from '@deepseek-ai/dsh-client-ui-theme/client'
+import { resolveSlotLabel } from '@deepseek-ai/dsh-client-ui-slots'
+import type { JsonValue } from '@deepseek-ai/dsh-util-values'
 import { Config as OnboardingConfig } from '../src/index.ts'
 import { ChatSettingsSchema as ChatConfig } from '../../ui-chat/src/chat-settings.ts'
 import { DeveloperToolsSettingsSchema as SettingsConfig } from '../../ui-settings/src/developer-tools-settings.ts'
@@ -23,7 +23,7 @@ import { AccountQuotaNotice } from '../src/client/AccountQuotaNotice.tsx'
 import type { AccountQuotaNoticeInjected } from '../src/client/AccountQuotaNotice.tsx'
 
 const it = createClientTest({ roster: webApp })
-const SELF = '@lyness/lyn-client-ui-settings-account'
+const SELF = '@deepseek-ai/dsh-client-ui-settings-account'
 const view: AccountView = {
   status: 'signed-out', attempt: null,
   links: { usageUrl: 'https://platform.deepseek.com/usage', topUpUrl: 'https://platform.deepseek.com/top_up' },
@@ -57,7 +57,7 @@ function injectedOf(entry: { inject?: (() => object) | undefined }): object {
   const injected: object = entry.inject!()
   return injected
 }
-beforeEach(() => { vi.stubEnv('LYNESS_CLIENT_VERSION', '0.0.0-test') })
+beforeEach(() => { vi.stubEnv('DSH_CLIENT_VERSION', '0.0.0-test') })
 afterEach(() => { vi.unstubAllGlobals(); vi.unstubAllEnvs(); vi.restoreAllMocks() })
 
 it('keeps account UI and account RPC inactive in a plain browser, including after reload', async ({ start, mock }) => {
@@ -76,7 +76,7 @@ it('keeps account UI and account RPC inactive in a plain browser, including afte
 }, 60_000)
 
 it('claims account balance notices from the frame-wide quota chain and declines generic quota', async ({ start }) => {
-  vi.stubGlobal('lynDesktop', {})
+  vi.stubGlobal('dshDesktop', {})
   const c = await start()
   const entry = quotaNoticeEntry(c)
   expect(entry).toBeDefined()
@@ -91,7 +91,7 @@ it('claims account balance notices from the frame-wide quota chain and declines 
 it('shares account actions across seats, publishes dialog ownership, and opens contextual support', async ({ start }) => {
   vi.stubGlobal(CONTACT_CONFIG_GLOBAL, { contactFormUrl: 'https://example.test/form/', contactSource: 'harness' })
   const open = vi.spyOn(window, 'open').mockReturnValue(null)
-  vi.stubGlobal('lynDesktop', {})
+  vi.stubGlobal('dshDesktop', {})
   const c = await start()
   const actions = operations(c)
   expect(c.ctx.slots.entries('settings.models.sign-in')[0]!.inject!()).toBe(actions)
@@ -137,7 +137,7 @@ it('shares account actions across seats, publishes dialog ownership, and opens c
 }, 60_000)
 
 it('coalesces refreshes, publishes independent failures, and rejects stale responses after sign-out or unload', async ({ start }) => {
-  vi.stubGlobal('lynDesktop', {})
+  vi.stubGlobal('dshDesktop', {})
   const c = await start()
   const actions = operations(c)
   const pending = Promise.withResolvers<ReturnType<typeof ok<AccountDetails['profile'] | null>>>()
@@ -171,7 +171,7 @@ it('coalesces refreshes, publishes independent failures, and rejects stale respo
 
 it('uses the Desktop login carrier and exposes operation errors', async ({ start, mock }) => {
   vi.spyOn(window, 'open').mockReturnValue(null)
-  vi.stubGlobal('lynDesktop', {})
+  vi.stubGlobal('dshDesktop', {})
   const c = await start()
   const actions = operations(c)
   mock.remote.account.startSignIn.mockResolvedValue(ok(view))
@@ -193,11 +193,11 @@ it('uses the Desktop login carrier and exposes operation errors', async ({ start
 }, 60_000)
 
 it('uses the Desktop stream origin and exposes the native platform bridge', async ({ start, mock }) => {
-  vi.stubGlobal('lynDesktop', {})
+  vi.stubGlobal('dshDesktop', {})
   const c = await start()
-  vi.stubGlobal('__LYNESS_TRANSPORT__', { streamBaseUrl: 'http://localhost:9876/stream' })
+  vi.stubGlobal('__DSH_TRANSPORT__', { streamBaseUrl: 'http://localhost:9876/stream' })
   const platform = { open: vi.fn(), setBounds: vi.fn(), close: vi.fn() }
-  vi.stubGlobal('lynPlatform', platform)
+  vi.stubGlobal('dshPlatform', platform)
   await c.reload(SELF)
   const actions = operations(c)
   // The native commands reach the one shared host through the account page channel.
@@ -228,9 +228,9 @@ it('uses the Desktop stream origin and exposes the native platform bridge', asyn
 
 
 it('re-reads the account when the shared host returns from top-up, and not from usage or an absent page', async ({ start, mock }) => {
-  vi.stubGlobal('lynDesktop', {})
+  vi.stubGlobal('dshDesktop', {})
   const c = await start()
-  vi.stubGlobal('lynPlatform', { open: vi.fn(), setBounds: vi.fn(), close: vi.fn() })
+  vi.stubGlobal('dshPlatform', { open: vi.fn(), setBounds: vi.fn(), close: vi.fn() })
   await c.reload(SELF)
   const actions = operations(c)
   const host = injectedOf(platformHostEntry(c)!) as AccountPlatformHostInjected
@@ -266,9 +266,9 @@ it('re-reads the account when the shared host returns from top-up, and not from 
 }, 60_000)
 
 it('re-reads profile and balance but no bonus for the onboarding recharge return, and nothing on supersede or release', async ({ start }) => {
-  vi.stubGlobal('lynDesktop', {})
+  vi.stubGlobal('dshDesktop', {})
   const c = await start()
-  vi.stubGlobal('lynPlatform', { open: vi.fn(), setBounds: vi.fn(), close: vi.fn() })
+  vi.stubGlobal('dshPlatform', { open: vi.fn(), setBounds: vi.fn(), close: vi.fn() })
   await c.reload(SELF)
   const actions = operations(c)
   const onboarding = injectedOf(c.ctx.slots.entries('shell.overlay')
@@ -310,9 +310,9 @@ it('re-reads profile and balance but no bonus for the onboarding recharge return
 }, 60_000)
 
 it('waits for an in-flight pre-return read before the post-top-up read', async ({ start }) => {
-  vi.stubGlobal('lynDesktop', {})
+  vi.stubGlobal('dshDesktop', {})
   const c = await start()
-  vi.stubGlobal('lynPlatform', { open: vi.fn(), setBounds: vi.fn(), close: vi.fn() })
+  vi.stubGlobal('dshPlatform', { open: vi.fn(), setBounds: vi.fn(), close: vi.fn() })
   await c.reload(SELF)
   const actions = operations(c)
   const host = injectedOf(platformHostEntry(c)!) as AccountPlatformHostInjected
@@ -349,7 +349,7 @@ it('waits for an in-flight pre-return read before the post-top-up read', async (
 }, 60_000)
 
 it('reads the unnotified bonus in the active locale and acknowledges only after the card renders', async ({ start }) => {
-  vi.stubGlobal('lynDesktop', {})
+  vi.stubGlobal('dshDesktop', {})
   const c = await start()
   const actions = operations(c)
   const orderId = '4c1b0000-0000-4000-8000-000000000000'
@@ -371,7 +371,7 @@ it('reads the unnotified bonus in the active locale and acknowledges only after 
 }, 60_000)
 
 it('keeps the notice and its acknowledgement retry across repeated signed-in frames', async ({ start }) => {
-  vi.stubGlobal('lynDesktop', {})
+  vi.stubGlobal('dshDesktop', {})
   vi.stubGlobal(CONTACT_CONFIG_GLOBAL, { bonusAckRetryDelayMs: 1, bonusAckRetryMaxDelayMs: 4 })
   const c = await start()
   const actions = operations(c)
@@ -395,7 +395,7 @@ it('keeps the notice and its acknowledgement retry across repeated signed-in fra
 }, 60_000)
 
 it('keeps the notice absent when the bonus read is refused, then shows the next read', async ({ start }) => {
-  vi.stubGlobal('lynDesktop', {})
+  vi.stubGlobal('dshDesktop', {})
   const c = await start()
   const actions = operations(c)
   const orderId = '4c1b0000-0000-4000-8000-000000000000'
@@ -414,7 +414,7 @@ it('keeps the notice absent when the bonus read is refused, then shows the next 
 }, 60_000)
 
 it('drops the previous account notice and stops reading after sign-out', async ({ start }) => {
-  vi.stubGlobal('lynDesktop', {})
+  vi.stubGlobal('dshDesktop', {})
   const c = await start()
   const actions = operations(c)
   c.mock.remote.account.getUnnotifiedBonuses.mockResolvedValue(ok(bonus('4c1b0000-0000-4000-8000-000000000001')))
@@ -432,7 +432,7 @@ it('drops the previous account notice and stops reading after sign-out', async (
 }, 60_000)
 
 it('refreshes balances and the bonus read on one Settings entry, without polling', async ({ start }) => {
-  vi.stubGlobal('lynDesktop', {})
+  vi.stubGlobal('dshDesktop', {})
   const c = await start()
   const actions = operations(c)
   const balance: AccountDetails['balance'] = {
@@ -455,7 +455,7 @@ it('refreshes balances and the bonus read on one Settings entry, without polling
 }, 60_000)
 
 it('publishes a failed balance from a Settings entry without dropping the bonus read', async ({ start }) => {
-  vi.stubGlobal('lynDesktop', {})
+  vi.stubGlobal('dshDesktop', {})
   const c = await start()
   const actions = operations(c)
   c.mock.remote.account.getBalance.mockResolvedValueOnce({ ok: false, error: new RemoteError('gateway/internal', 'offline', {}) })
@@ -469,7 +469,7 @@ it('publishes a failed balance from a Settings entry without dropping the bonus 
 }, 60_000)
 
 it('publishes a terminal state-stream failure without mistaking it for plugin disposal', async ({ start }) => {
-  vi.stubGlobal('lynDesktop', {})
+  vi.stubGlobal('dshDesktop', {})
   const c = await start()
   const actions = operations(c)
   await c.mock.streams.opened('account/watch', 1)
@@ -478,7 +478,7 @@ it('publishes a terminal state-stream failure without mistaking it for plugin di
 }, 60_000)
 
 it('ignores a terminal stream error when plugin disposal already owns teardown', async ({ start }) => {
-  vi.stubGlobal('lynDesktop', {})
+  vi.stubGlobal('dshDesktop', {})
   const c = await start()
   let disposal: Promise<void> | undefined
   const original = c.ctx.remote.$stream.bind(c.ctx.remote)
@@ -498,7 +498,7 @@ it('ignores a terminal stream error when plugin disposal already owns teardown',
 }, 60_000)
 
 it('samples the build version, language, and UTC offset for every account call', async ({ start }) => {
-  vi.stubGlobal('lynDesktop', {})
+  vi.stubGlobal('dshDesktop', {})
   const c = await start()
   const actions = operations(c)
   const offset = vi.spyOn(Date.prototype, 'getTimezoneOffset').mockReturnValue(480)
@@ -517,7 +517,7 @@ it('samples the build version, language, and UTC offset for every account call',
 }, 60_000)
 
 it('reads the account task impact and reports a refused query', async ({ start, mock }) => {
-  vi.stubGlobal('lynDesktop', {})
+  vi.stubGlobal('dshDesktop', {})
   const c = await start()
   const actions = operations(c)
   mock.remote.account.hasRunningAccountTasks.mockResolvedValueOnce(ok(true))
@@ -528,7 +528,7 @@ it('reads the account task impact and reports a refused query', async ({ start, 
 
 
 it('forwards live account notices and removes their subscriptions', async ({ start }) => {
-  vi.stubGlobal('lynDesktop', {})
+  vi.stubGlobal('dshDesktop', {})
   const c = await start()
   const actions = operations(c)
   const expired = vi.fn()
@@ -551,9 +551,9 @@ it('forwards live account notices and removes their subscriptions', async ({ sta
   expect(unavailable).toHaveBeenCalledOnce()
 })
 for (const native of [false, true]) it(`exposes desktop progress actions and disposes its subscriptions (native platform: ${native})`, async ({ start, mock }) => {
-  vi.stubGlobal('lynDesktop', {})
+  vi.stubGlobal('dshDesktop', {})
   const platform = { open: vi.fn(), setBounds: vi.fn(), close: vi.fn() }
-  if (native) vi.stubGlobal('lynPlatform', platform)
+  if (native) vi.stubGlobal('dshPlatform', platform)
   const c = await start()
   const entry = c.ctx.slots.entries('shell.overlay').find(entry => entry.options.id === 'desktop-onboarding')!
   const injected = (entry.inject!() as object) as DesktopOnboardingInjected
@@ -571,7 +571,7 @@ for (const native of [false, true]) it(`exposes desktop progress actions and dis
 }, 60_000)
 
 it('applies API-key defaults through the desktop slot and shared configuration owners', async ({ start, mock }) => {
-  vi.stubGlobal('lynDesktop', {})
+  vi.stubGlobal('dshDesktop', {})
   const values: Record<string, object> = {
     'ui-settings-account': { version: 1, step: 'welcome', purpose: null, process: null, completion: null, usage: 'compact', developerTools: false },
     'ui-chat': { transcriptView: 'compact', performanceUsage: 'detailed', linkOpening: 'sidebar' },
@@ -583,7 +583,7 @@ it('applies API-key defaults through the desktop slot and shared configuration o
     writable: true, hasDocument: true, namespaces: Object.keys(schemas).map(ns => namespace(ns as keyof typeof schemas)),
   }))
   const hasApiKey = vi.fn(async () => true)
-  vi.stubGlobal('lynOnboarding', { hasApiKey })
+  vi.stubGlobal('dshOnboarding', { hasApiKey })
   mock.remote.settings.mutate.mockImplementation(async (ns, ops) => {
     const key = ns as keyof typeof schemas
     const value: Record<string, unknown> = { ...values[key] }

@@ -15,66 +15,66 @@ describe('desktop package-set selection', () => {
   })
 
   it('does not select a packaging target when imported as a library', async () => {
-    vi.stubEnv('LYNESS_DESKTOP_TARGET_PLATFORM', 'linux')
-    vi.stubEnv('LYNESS_DESKTOP_TARGET_ARCH', 'x64')
+    vi.stubEnv('DSH_DESKTOP_TARGET_PLATFORM', 'linux')
+    vi.stubEnv('DSH_DESKTOP_TARGET_ARCH', 'x64')
     vi.resetModules()
     await expect(import('../scripts/prepare-package-set.ts')).resolves.toHaveProperty('prepareDesktopPackageSet')
   })
 
   it('includes only the available internal production closure', () => {
     const available = new Map<string, PackedDesktopPackage>([
-      ['@lyness/lyn', packed('@lyness/lyn', {
-        dependencies: { '@lyness/lyn-base': '^1.0.0', external: '^2.0.0' },
-        optionalDependencies: { '@lyness/platform-package': '1.0.0', '@lyness/missing-platform': '1.0.0' },
+      ['@deepseek-ai/dsh', packed('@deepseek-ai/dsh', {
+        dependencies: { '@deepseek-ai/dsh-base': '^1.0.0', external: '^2.0.0' },
+        optionalDependencies: { '@deepseek-ai/platform-package': '1.0.0', '@deepseek-ai/missing-platform': '1.0.0' },
       })],
-      ['@lyness/lyn-desktop-host', packed('@lyness/lyn-desktop-host', {
-        dependencies: { '@lyness/lyn': '^1.0.0' },
+      ['@deepseek-ai/dsh-desktop-host', packed('@deepseek-ai/dsh-desktop-host', {
+        dependencies: { '@deepseek-ai/dsh': '^1.0.0' },
       })],
-      ['@lyness/lyn-base', packed('@lyness/lyn-base', {
-        peerDependencies: { '@lyness/cordis': '^1.0.0' },
+      ['@deepseek-ai/dsh-base', packed('@deepseek-ai/dsh-base', {
+        peerDependencies: { '@deepseek-ai/cordis': '^1.0.0' },
       })],
-      ['@lyness/cordis', packed('@lyness/cordis')],
-      ['@lyness/platform-package', packed('@lyness/platform-package')],
-      ['@lyness/unused', packed('@lyness/unused')],
+      ['@deepseek-ai/cordis', packed('@deepseek-ai/cordis')],
+      ['@deepseek-ai/platform-package', packed('@deepseek-ai/platform-package')],
+      ['@deepseek-ai/unused', packed('@deepseek-ai/unused')],
     ])
     expect(selectDesktopPackageClosure(available).map(entry => entry.manifest.name)).toEqual([
-      '@lyness/cordis',
-      '@lyness/lyn',
-      '@lyness/lyn-base',
-      '@lyness/lyn-desktop-host',
-      '@lyness/platform-package',
+      '@deepseek-ai/cordis',
+      '@deepseek-ai/dsh',
+      '@deepseek-ai/dsh-base',
+      '@deepseek-ai/dsh-desktop-host',
+      '@deepseek-ai/platform-package',
     ])
   })
 
   it.each([
-    '@lyness/lyn-base', '@lyness/cordis', '@lyness/node-addon-system',
+    '@deepseek-ai/dsh-base', '@deepseek-ai/cordis', '@deepseek-ai/node-addon-system',
   ])('rejects required prepared package %s absent from the packed release inputs', (dependency) => {
     const available = new Map<string, PackedDesktopPackage>([
-      ['@lyness/lyn', packed('@lyness/lyn', {
+      ['@deepseek-ai/dsh', packed('@deepseek-ai/dsh', {
         dependencies: { [dependency]: '^1.0.0' },
       })],
-      ['@lyness/lyn-desktop-host', packed('@lyness/lyn-desktop-host', {
-        dependencies: { '@lyness/lyn': '^1.0.0' },
+      ['@deepseek-ai/dsh-desktop-host', packed('@deepseek-ai/dsh-desktop-host', {
+        dependencies: { '@deepseek-ai/dsh': '^1.0.0' },
       })],
     ])
     expect(() => selectDesktopPackageClosure(available)).toThrow(/unpacked package/u)
     expect(() => selectDesktopPackageClosure(new Map([
-      ['@lyness/lyn', packed('@lyness/lyn')],
-    ]))).toThrow(/omit @lyness\/lyn-desktop-host/u)
+      ['@deepseek-ai/dsh', packed('@deepseek-ai/dsh')],
+    ]))).toThrow(/omit @deepseek-ai\/dsh-desktop-host/u)
   })
 
   it('leaves independently published Office packages to npm resolution', () => {
     const available = new Map<string, PackedDesktopPackage>([
-      ['@lyness/lyn', packed('@lyness/lyn', {
+      ['@deepseek-ai/dsh', packed('@deepseek-ai/dsh', {
         dependencies: {
           '@deepseek-ai/libreoffice-kit': '0.0.1',
           '@deepseek-ai/libreoffice-kit-wasm': '0.0.1',
         },
       })],
-      ['@lyness/lyn-desktop-host', packed('@lyness/lyn-desktop-host')],
+      ['@deepseek-ai/dsh-desktop-host', packed('@deepseek-ai/dsh-desktop-host')],
     ])
     expect(selectDesktopPackageClosure(available).map(entry => entry.manifest.name)).toEqual([
-      '@lyness/lyn', '@lyness/lyn-desktop-host',
+      '@deepseek-ai/dsh', '@deepseek-ai/dsh-desktop-host',
     ])
   })
 

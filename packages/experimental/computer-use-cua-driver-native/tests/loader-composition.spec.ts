@@ -5,19 +5,19 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { afterEach, expect, it, vi } from 'vitest'
-import { Context } from '@lyness/cordis'
-import Loader from '@lyness/cordis-plugin-loader'
-import Include from '@lyness/cordis-plugin-include'
-import AgentRegistry from '@lyness/lyn-agent'
-import AgentLoop from '@lyness/lyn-agent-loop'
-import ComputerUseRegistry from '@lyness/lyn-computer-use'
-import LocalAttachmentStore from '@lyness/lyn-attachment-local'
-import LlmRuntime, { LlmAdapter, ToolCallId, createUserMessage } from '@lyness/lyn-llm'
-import type { GenerateOptions, LlmResolvedModelInfo, StreamChunk } from '@lyness/lyn-llm'
-import SessionStore, { SessionId } from '@lyness/lyn-session'
-import SessionProjectionRegistry from '@lyness/lyn-session-projection'
-import SystemPrompt from '@lyness/lyn-system-prompt'
-import ToolRuntime from '@lyness/lyn-tools'
+import { Context } from '@deepseek-ai/cordis'
+import Loader from '@deepseek-ai/cordis-plugin-loader'
+import Include from '@deepseek-ai/cordis-plugin-include'
+import AgentRegistry from '@deepseek-ai/dsh-agent'
+import AgentLoop from '@deepseek-ai/dsh-agent-loop'
+import ComputerUseRegistry from '@deepseek-ai/dsh-computer-use'
+import LocalAttachmentStore from '@deepseek-ai/dsh-attachment-local'
+import LlmRuntime, { LlmAdapter, ToolCallId, createUserMessage } from '@deepseek-ai/dsh-llm'
+import type { GenerateOptions, LlmResolvedModelInfo, StreamChunk } from '@deepseek-ai/dsh-llm'
+import SessionStore, { SessionId } from '@deepseek-ai/dsh-session'
+import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
+import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
+import ToolRuntime from '@deepseek-ai/dsh-tools'
 import * as NativeProvider from '../src/index.ts'
 import { resetFixture, screenshotBase64 } from './fixtures/cua-driver.ts'
 
@@ -57,23 +57,23 @@ afterEach(async () => {
 
 it('loads from cordis.yml and logs the native screenshot before the next model request', async () => {
   resetFixture()
-  root = await mkdtemp(join(tmpdir(), 'lyn-native-composition-'))
+  root = await mkdtemp(join(tmpdir(), 'dsh-native-composition-'))
   const configPath = join(root, 'cordis.yml')
   const modules = new Map<string, unknown>([
-    ['@lyness/lyn-llm', LlmRuntime],
-    ['@lyness/lyn-session', SessionStore],
-    ['@lyness/lyn-session-projection', SessionProjectionRegistry],
-    ['@lyness/lyn-system-prompt', SystemPrompt],
-    ['@lyness/lyn-tools', ToolRuntime],
-    ['@lyness/lyn-agent', AgentRegistry],
-    ['@lyness/lyn-agent-loop', AgentLoop],
-    ['@lyness/lyn-attachment-local', LocalAttachmentStore],
-    ['@lyness/lyn-computer-use', ComputerUseRegistry],
-    ['@lyness/lyn-experimental-computer-use-cua-driver-native', NativeProvider],
+    ['@deepseek-ai/dsh-llm', LlmRuntime],
+    ['@deepseek-ai/dsh-session', SessionStore],
+    ['@deepseek-ai/dsh-session-projection', SessionProjectionRegistry],
+    ['@deepseek-ai/dsh-system-prompt', SystemPrompt],
+    ['@deepseek-ai/dsh-tools', ToolRuntime],
+    ['@deepseek-ai/dsh-agent', AgentRegistry],
+    ['@deepseek-ai/dsh-agent-loop', AgentLoop],
+    ['@deepseek-ai/dsh-attachment-local', LocalAttachmentStore],
+    ['@deepseek-ai/dsh-computer-use', ComputerUseRegistry],
+    ['@deepseek-ai/dsh-experimental-computer-use-cua-driver-native', NativeProvider],
   ])
   await writeFile(configPath, [...modules.keys()].flatMap(name => [
     `- name: '${name}'`,
-    ...name === '@lyness/lyn-attachment-local' ? ['  config:', `    lynHome: ${JSON.stringify(root)}`] : [],
+    ...name === '@deepseek-ai/dsh-attachment-local' ? ['  config:', `    dshHome: ${JSON.stringify(root)}`] : [],
   ]).join('\n') + '\n')
 
   const context = ctx = new Context()

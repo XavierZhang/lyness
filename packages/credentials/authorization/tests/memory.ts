@@ -1,4 +1,4 @@
-import { CredentialProvider } from '@lyness/lyn-credentials'
+import { CredentialProvider } from '@deepseek-ai/dsh-credentials'
 import type {
   CredentialInfo,
   CredentialKey,
@@ -7,7 +7,7 @@ import type {
   CredentialRecordInfo,
   CredentialRef,
   ResolvedCredential,
-} from '@lyness/lyn-credentials'
+} from '@deepseek-ai/dsh-credentials'
 
 /**
  * In-memory credentials provider for the authorization suite. Only the record

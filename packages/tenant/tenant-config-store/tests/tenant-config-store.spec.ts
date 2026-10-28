@@ -4,18 +4,18 @@ import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import { credentialRef } from '@lyness/lyn-credentials'
-import Storage from '@lyness/lyn-storage'
+import { Context } from '@deepseek-ai/cordis'
+import { credentialRef } from '@deepseek-ai/dsh-credentials'
+import Storage from '@deepseek-ai/dsh-storage'
 import {
   apply as jsonApply, Config as jsonConfig, inject as jsonInject, name as jsonName,
-} from '@lyness/lyn-storage-json'
+} from '@deepseek-ai/dsh-storage-json'
 import {
   apply as domainApply, Config as domainConfig, inject as domainInject, name as domainName,
-} from '@lyness/lyn-storage-domain'
-import { TenantId } from '@lyness/lyn-tenant'
-import { MODALITIES } from '@lyness/lyn-tenant-config'
-import type { Modality, ModalityModels, TenantConfig } from '@lyness/lyn-tenant-config'
+} from '@deepseek-ai/dsh-storage-domain'
+import { TenantId } from '@deepseek-ai/dsh-tenant'
+import { MODALITIES } from '@deepseek-ai/dsh-tenant-config'
+import type { Modality, ModalityModels, TenantConfig } from '@deepseek-ai/dsh-tenant-config'
 import StoredTenantConfigStore from '../src/index.ts'
 
 const FLASH = { provider: 'deepseek-official', model: 'deepseek-v4-flash' }
@@ -53,7 +53,7 @@ function config(overrides: Partial<TenantConfig> = {}): TenantConfig {
  * @returns the mounted store and the directory it writes into.
  */
 async function harness(root?: string): Promise<{ store: StoredTenantConfigStore; root: string }> {
-  const medium = root ?? await mkdtemp(join(tmpdir(), 'lyn-tenant-config-'))
+  const medium = root ?? await mkdtemp(join(tmpdir(), 'dsh-tenant-config-'))
   if (root === undefined) roots.push(medium)
   const ctx = new Context()
   contexts.push(ctx)

@@ -4,17 +4,17 @@
  */
 
 import { describe, expect, it, vi } from 'vitest'
-import { Context } from '@lyness/cordis'
-import { PtcRuntime } from '@lyness/lyn-ptc-runtime'
-import { createScope, type Scope } from '@lyness/lyn-scope'
+import { Context } from '@deepseek-ai/cordis'
+import { PtcRuntime } from '@deepseek-ai/dsh-ptc-runtime'
+import { createScope, type Scope } from '@deepseek-ai/dsh-scope'
 import { mkdirSync, mkdtempSync, rmSync, symlinkSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, sep } from 'node:path'
-import { turnBoundaryProjectionDefinition } from '@lyness/lyn-agent-loop'
-import { ToolCallId } from '@lyness/lyn-llm'
-import SystemPrompt, { renderPrompt } from '@lyness/lyn-system-prompt'
-import ToolRuntime, { type ToolResult } from '@lyness/lyn-tools'
-import { FileSystem, FsError, FsTargetKey, FsVersion } from '@lyness/lyn-fs'
+import { turnBoundaryProjectionDefinition } from '@deepseek-ai/dsh-agent-loop'
+import { ToolCallId } from '@deepseek-ai/dsh-llm'
+import SystemPrompt, { renderPrompt } from '@deepseek-ai/dsh-system-prompt'
+import ToolRuntime, { type ToolResult } from '@deepseek-ai/dsh-tools'
+import { FileSystem, FsError, FsTargetKey, FsVersion } from '@deepseek-ai/dsh-fs'
 import type {
   FsDirEntry,
   FsEditOutcome,
@@ -24,18 +24,18 @@ import type {
   FsTarget,
   FsWriteIntent,
   FsWriteOutcome,
-} from '@lyness/lyn-fs'
-import * as FsPolicy from '@lyness/lyn-fs-observation-policy'
-import * as ToolFs from '@lyness/lyn-tool-fs'
+} from '@deepseek-ai/dsh-fs'
+import * as FsPolicy from '@deepseek-ai/dsh-fs-observation-policy'
+import * as ToolFs from '@deepseek-ai/dsh-tool-fs'
 import { STREAM_MIN_SIZE } from '../src/read.ts'
 import { formatReadOutput } from '../src/read-render.ts'
 import type { FileReadOutcome } from '../src/read-render.ts'
 import { sessionCwd } from '../src/session-cwd.ts'
-import ApprovalService from '@lyness/lyn-user-approval'
-import type { SandboxExecutionPolicy, SandboxMode } from '@lyness/lyn-sandbox'
-import SandboxPolicyService from '@lyness/lyn-sandbox-policy'
-import { SessionId, SessionLogOffset, SessionSeq } from '@lyness/lyn-session'
-import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import ApprovalService from '@deepseek-ai/dsh-user-approval'
+import type { SandboxExecutionPolicy, SandboxMode } from '@deepseek-ai/dsh-sandbox'
+import SandboxPolicyService from '@deepseek-ai/dsh-sandbox-policy'
+import { SessionId, SessionLogOffset, SessionSeq } from '@deepseek-ai/dsh-session'
+import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
 
 const testToolSignal = new AbortController().signal
 
@@ -145,7 +145,7 @@ describe('session cwd resolution', () => {
     expect(sessionCwd(execution(cwd) as never)).toBe(cwd)
     expect(sessionCwd(execution(throughParent) as never)).toBe(throughParent)
 
-    const root = mkdtempSync(join(tmpdir(), 'lyn-tool-fs-session-cwd-'))
+    const root = mkdtempSync(join(tmpdir(), 'dsh-tool-fs-session-cwd-'))
     const physical = join(root, 'physical')
     const link = join(root, 'link')
     try {
@@ -1056,12 +1056,12 @@ describe('scope-aware filesystem guidance', () => {
 
 /** Preserve the default persona and exact section separators in the oracle. */
 function withPersona(...sections: string[]): string {
-  return ['You are an AI agent powered by lyness.', ...sections].join('\n\n')
+  return ['You are an AI agent powered by DeepSeek Harness.', ...sections].join('\n\n')
 }
 
 /** Schema assembly only: these cases never execute user code. */
 class GuidancePtcRuntime extends PtcRuntime {
-  resolve(request: import('@lyness/lyn-ptc-runtime').PtcRunRequest): import('@lyness/lyn-ptc-runtime').PtcRunSpec { return { ...request, cwd: request.cwd ?? process.cwd(), timeoutMs: request.timeoutMs ?? 120_000 } }
+  resolve(request: import('@deepseek-ai/dsh-ptc-runtime').PtcRunRequest): import('@deepseek-ai/dsh-ptc-runtime').PtcRunSpec { return { ...request, cwd: request.cwd ?? process.cwd(), timeoutMs: request.timeoutMs ?? 120_000 } }
 
   readonly language = 'typescript'
   readonly isolation = 'fake'

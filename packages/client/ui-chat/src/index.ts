@@ -1,9 +1,9 @@
 /** Host registration for browser Chat preferences. */
-import type {} from '@lyness/lyn-settings'
+import type {} from '@deepseek-ai/dsh-settings'
 
-import type { Volatile, Context } from '@lyness/cordis'
+import type { Volatile, Context } from '@deepseek-ai/cordis'
 import type { LinkOpening, TranscriptViewMode, PerformanceUsageMode } from './chat-settings.ts'
-import z from '@lyness/schemastery'
+import z from '@deepseek-ai/schemastery'
 import { TRANSCRIPT_VIEW_FIELD } from './chat-settings.ts'
 
 import { ChatSettingsFields } from './chat-settings.ts'

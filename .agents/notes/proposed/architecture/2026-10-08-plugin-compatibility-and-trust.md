@@ -8,7 +8,7 @@ English | [中文](2026-10-08-plugin-compatibility-and-trust.zh.md)
 
 Two questions about plugins have no answer today, and they pull in opposite directions.
 
-**An upstream plugin cannot be installed.** The rebrand renamed every package from the `@deepseek-ai/dsh-*` scope to `@lyness/lyn-*`. A plugin written for the upstream harness imports packages under the old scope and declares peer dependencies on them, and [`lyn-plugin-manager`](../../../../packages/boot/plugin-manager/README.md) judges compatibility by the LYN peers a package declares against the running LYN version. Neither the imports nor the peers resolve here, so an upstream plugin does not fail a version check — it fails to exist. Whatever the upstream ecosystem produces is unreachable from this product.
+**An upstream plugin cannot be installed.** The rebrand renamed every package from the `@deepseek-ai/dsh-*` scope to `@DeepSeek Harness/lyn-*`. A plugin written for the upstream harness imports packages under the old scope and declares peer dependencies on them, and [`lyn-plugin-manager`](../../../../packages/boot/plugin-manager/README.md) judges compatibility by the DSH peers a package declares against the running DSH version. Neither the imports nor the peers resolve here, so an upstream plugin does not fail a version check — it fails to exist. Whatever the upstream ecosystem produces is unreachable from this product.
 
 **A plugin is arbitrary code in the host process.** Installation runs a package manager, which runs install scripts, and the plugin then loads into the same process as every other row. On a developer's own machine that is the point. On shared hosted infrastructure serving many organizations, it is the ability to run arbitrary code next to other customers' conversations. The shipped product makes this reachable: of the four modes it offers — Standard, PTC, Minimal, and Creator — the last exists to let the agent write plugins and add features or UI through conversation. `lyn-base` keeps the plugin-manager tool `disabled: true`, so no agent installs anything by default, but Creator mode is exactly the switch that turns it on.
 
@@ -20,7 +20,7 @@ Reach the upstream ecosystem through an alias layer, and let what a plugin may d
 
 ### The alias layer
 
-Publish a set of packages under the upstream scope whose only content is a re-export of the lyness package that replaced it. An upstream plugin's imports and peer declarations then resolve, and it loads with no change to its source.
+Publish a set of packages under the upstream scope whose only content is a re-export of the DeepSeek Harness package that replaced it. An upstream plugin's imports and peer declarations then resolve, and it loads with no change to its source.
 
 The layer covers only the packages a plugin actually imports — the public surface the upstream harness documents for plugin authors — not all sixty-odd packages in the tree. A gate holds the list against what the upstream surface actually exports, because the alias layer tracks a moving target: every upstream merge may add, rename, or withdraw an export, and an alias that silently stops matching is worse than one that was never published.
 
@@ -50,7 +50,7 @@ Whether a plugin may be installed is checked where the installation happens, not
 
 **Publish every package under both scopes.** The most complete compatibility, and no separate layer to maintain. Rejected: it doubles the published surface of sixty-odd packages, and it re-introduces the upstream brand into the product's own dependency graph, which the rebrand deliberately removed.
 
-**Support only lyness-native plugins.** Simplest, and no moving target to track. Rejected: it gives up the upstream ecosystem, which is the main reason to stay compatible with upstream at all.
+**Support only deepseek-harness-native plugins.** Simplest, and no moving target to track. Rejected: it gives up the upstream ecosystem, which is the main reason to stay compatible with upstream at all.
 
 **Rewrite upstream plugins on install.** A codemod could rewrite imports as the package is installed. Rejected: it edits third-party code the author still supports, and the rewritten copy no longer matches what its author can reproduce or debug.
 

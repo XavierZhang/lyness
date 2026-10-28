@@ -1,12 +1,12 @@
-/** Content-block structure helpers. @module @lyness/lyn-llm/content */
+/** Content-block structure helpers. @module @deepseek-ai/dsh-llm/content */
 
 import type { ContentBlock, ImageBlock, LlmImageRequestBudget, ToolSchema, ToolUpdate, ToolHistory } from './types.ts'
 import type { RequestMessage } from './types.ts'
 import type { Message } from './message.ts'
 import type {
   AttachmentStore, FileAttachmentRef, ImageAttachmentRef, ImageMediaType, RequestImageAttachment,
-} from '@lyness/lyn-attachment'
-import { assertNever } from '@lyness/lyn-util-values'
+} from '@deepseek-ai/dsh-attachment'
+import { assertNever } from '@deepseek-ai/dsh-util-values'
 
 /** Execution-world path that model tools can use to read one normalized attachment. */
 export interface ImageAttachmentAccess {

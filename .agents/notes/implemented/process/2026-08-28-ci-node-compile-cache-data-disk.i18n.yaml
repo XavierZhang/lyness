@@ -20,7 +20,7 @@
 /agent-note-redirect-the-node-compile-cache-to-the-data-volume-runner-temp/alternatives-considered/why-not-disable-the-compile-cache-entirely:
   en: cee8de5b45031309
   zh: 6ce10a304e63bdbb
-/agent-note-redirect-the-node-compile-cache-to-the-data-volume-runner-temp/alternatives-considered/why-not-add-node-compile-cache-to-the-lyn-residue-sweep:
+/agent-note-redirect-the-node-compile-cache-to-the-data-volume-runner-temp/alternatives-considered/why-not-add-node-compile-cache-to-the-dsh-residue-sweep:
   en: 95e06ed0e37e8597
   zh: 303657e472abf143
 /agent-note-redirect-the-node-compile-cache-to-the-data-volume-runner-temp/alternatives-considered/why-not-job-level-env-or-gate-step-env-only:

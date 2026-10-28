@@ -6,8 +6,8 @@
  * change made on another surface shows here without a manual refresh.
  */
 
-import { randomUUID } from '@lyness/lyn-util-crypto'
-import type { Context as ClientContext } from '@lyness/cordis'
+import { randomUUID } from '@deepseek-ai/dsh-util-crypto'
+import type { Context as ClientContext } from '@deepseek-ai/cordis'
 import type {
   BundleInfo,
   ChangeResult,
@@ -24,12 +24,12 @@ import type {
   PluginSpecInspection,
   ReadOnlyReason,
   Registry,
-} from '@lyness/lyn-api-remotes/client'
-import { normalizeRegistry, NPMMIRROR_REGISTRY, OFFICIAL_NPM_REGISTRY, REGISTRY_URL } from '@lyness/lyn-plugin-manager/registry'
-import { createSnapshotStore, type SnapshotStore } from '@lyness/lyn-client-store'
-import type { HostObservable } from '@lyness/lyn-client-ui-slots'
-import type { LocalizedText, PluginLocalizedMeta } from '@lyness/lyn-package-manifest'
-import type { SettingsDescribeFace, ConfigForms } from '@lyness/lyn-client-ui-settings/client'
+} from '@deepseek-ai/dsh-api-remotes/client'
+import { normalizeRegistry, NPMMIRROR_REGISTRY, OFFICIAL_NPM_REGISTRY, REGISTRY_URL } from '@deepseek-ai/dsh-plugin-manager/registry'
+import { createSnapshotStore, type SnapshotStore } from '@deepseek-ai/dsh-client-store'
+import type { HostObservable } from '@deepseek-ai/dsh-client-ui-slots'
+import type { LocalizedText, PluginLocalizedMeta } from '@deepseek-ai/dsh-package-manifest'
+import type { SettingsDescribeFace, ConfigForms } from '@deepseek-ai/dsh-client-ui-settings/client'
 import type { ConfigLedger } from './config-ledger.ts'
 import { shortName } from './presentation.ts'
 
@@ -500,7 +500,7 @@ export class PluginManagerController {
   private registryRead: RegistryRead | undefined
   /** The registry last used from this browser, kept across dialogs and page loads; null until one was used. */
   private readonly registryMemory: SnapshotStore<RegistryChoice | null> = createSnapshotStore<RegistryChoice | null>(null, {
-    persist: { name: 'lyn.plugin-manager.install-registry' },
+    persist: { name: 'dsh.plugin-manager.install-registry' },
   })
 
   /**

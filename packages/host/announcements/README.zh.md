@@ -3,13 +3,13 @@ description: "一个部署对使用它的人说的话，面向撰写更新日志
 kind: "package-reference"
 ---
 
-# @lyness/lyn-announcements
+# @deepseek-ai/dsh-announcements
 
 [English](README.md) | 中文
 
 ## 概述
 
-`lyn-announcements` 是一个部署自己的更新日志与通知所在之处。`./static` 提供实施方写在组合配置里的那些，按最新在前，客户端经公告控制器读取它们。每条公告自带它所描述的版本，而不是由服务报告某一个「当前版本」：宿主推断不出一个它敢担保的版本，而最新那条公告的版本是这个部署确实声明过的。一个没挂任何来源的部署没有话要说——单操作者安装就是这样。
+`dsh-announcements` 是一个部署自己的更新日志与通知所在之处。`./static` 提供实施方写在组合配置里的那些，按最新在前，客户端经公告控制器读取它们。每条公告自带它所描述的版本，而不是由服务报告某一个「当前版本」：宿主推断不出一个它敢担保的版本，而最新那条公告的版本是这个部署确实声明过的。一个没挂任何来源的部署没有话要说——单操作者安装就是这样。
 
 ## 目录
 
@@ -27,7 +27,7 @@ kind: "package-reference"
 
 ```yaml
 - id: announcements
-  name: '@lyness/lyn-announcements/static'
+  name: '@deepseek-ai/dsh-announcements/static'
   config:
     announcements:
       - id: v0-1-7
@@ -68,8 +68,8 @@ kind: "package-reference"
 <a id="further-exploration"></a>
 ## 进一步探索
 
-- [`lyn-api-announcement-controller`](../../api/announcement-controller/README.zh.md) —— 客户端如何读取它们。
-- [`lyn-client-ui-settings-announcements`](../../client/ui-settings-announcements/README.zh.md) —— 渲染它们的那一行与那个阅读器。
+- [`dsh-api-announcement-controller`](../../api/announcement-controller/README.zh.md) —— 客户端如何读取它们。
+- [`dsh-client-ui-settings-announcements`](../../client/ui-settings-announcements/README.zh.md) —— 渲染它们的那一行与那个阅读器。
 
 -----
 

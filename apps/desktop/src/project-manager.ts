@@ -25,11 +25,11 @@ import { readDesktopRuntime } from './runtime-tree.ts'
 import {
   followShippedTemplate, initProfile, PROFILE_TEMPLATES, removeLinkProjections, sanitizeProfile,
   type ProfileTemplate,
-} from '@lyness/lyn-app-boot'
+} from '@deepseek-ai/dsh-app-boot'
 
-const PROJECT_NAME = '@lyness/lyn-desktop-runtime'
-const LYNESS_PACKAGE = '@lyness/lyn'
-const CORE_BUILD_PACKAGE = '@lyness/lyn-subprocess-local'
+const PROJECT_NAME = '@deepseek-ai/dsh-desktop-runtime'
+const DSH_PACKAGE = '@deepseek-ai/dsh'
+const CORE_BUILD_PACKAGE = '@deepseek-ai/dsh-subprocess-local'
 const WEB_PROFILE = PROFILE_TEMPLATES.web as ProfileTemplate
 const WORKSPACE_SETTINGS = 'nodeLinker: hoisted\nautoInstallPeers: false\n'
 function writeJson(path: string, value: unknown): void {
@@ -66,7 +66,7 @@ export class DesktopProjectManager {
    */
   constructor(
     readonly paths: DesktopPaths,
-    readonly runtime: { readonly lyn: string },
+    readonly runtime: { readonly dsh: string },
   ) {}
 
   /**
@@ -75,7 +75,7 @@ export class DesktopProjectManager {
    * @returns Backup path after the locked profile write, or undefined if the patch was absent.
    */
   async disableAllPlugins(): Promise<string | undefined> {
-    return this.withLock(() => sanitizeProfile('lyn', this.paths.profile, WEB_PROFILE.bundles))
+    return this.withLock(() => sanitizeProfile('dsh', this.paths.profile, WEB_PROFILE.bundles))
   }
 
   /**
@@ -84,13 +84,13 @@ export class DesktopProjectManager {
   async applyRelease(): Promise<void> {
     await this.withLock(() => {
       // Validation only: an unreadable or mismatched runtime descriptor stops preparation before the Host starts.
-      readDesktopRuntime(this.runtime.lyn)
+      readDesktopRuntime(this.runtime.dsh)
       migrateProfileSettings(this.paths.profile)
       createPluginProfile(this.paths.profile)
       // The plugin profile follows the Web template under the project's own
       // name, so a release that moved a bundle reaches it here: a list this
       // product shipped is brought forward, one its owner edited is not.
-      followShippedTemplate('lyn', this.paths.profile, 'web')
+      followShippedTemplate('dsh', this.paths.profile, 'web')
       removeLinkProjections(this.paths.profile)
     })
   }
@@ -144,7 +144,7 @@ export function createRuntimeProjectMetadata(projectDir: string, release: Deskto
     private: true,
     version: '0.0.0',
     dependencies: desktopCorePackageOverrides(packageSet),
-    lyn: { profile: { bundles: [...WEB_PROFILE.bundles] } },
+    dsh: { profile: { bundles: [...WEB_PROFILE.bundles] } },
   }
   writeJson(join(projectDir, 'package.json'), manifest)
   writeFileSync(
@@ -166,10 +166,10 @@ export function createDevelopmentProjectMetadata(projectDir: string, release: De
     private: true,
     version: '0.0.0',
     dependencies: {
-      [LYNESS_PACKAGE]: release.version,
+      [DSH_PACKAGE]: release.version,
       [DESKTOP_HOST_PACKAGE]: release.version,
     },
-    lyn: { profile: { bundles: [...WEB_PROFILE.bundles] } },
+    dsh: { profile: { bundles: [...WEB_PROFILE.bundles] } },
   }
   writeJson(join(projectDir, 'package.json'), manifest)
   writeFileSync(join(projectDir, 'pnpm-workspace.yaml'), workspaceFile(), { mode: 0o600 })

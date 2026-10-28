@@ -1,9 +1,9 @@
 {
-  "organization": "lyness",
-  "repository": "lyness",
+  "organization": "DeepSeek Harness",
+  "repository": "DeepSeek Harness",
   "projectNumber": 1,
-  "projectTitle": "LYN Issue Management",
-  "lifecycleActor": "lyn-issue-management",
+  "projectTitle": "DSH Issue Management",
+  "lifecycleActor": "dsh-issue-management",
   "priorityField": "Priority",
   "startDateField": "Start Date",
   "projectTimeZone": "Asia/Shanghai",

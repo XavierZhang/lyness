@@ -5,12 +5,12 @@
  * `updatedAt` stamping and invalid-account pruning happen exactly once.
  * Not re-exported from the package entrypoint — consumers see only the
  * `Workspace` interface.
- * @module @lyness/lyn-workspace/src/entity
+ * @module @deepseek-ai/dsh-workspace/src/entity
  */
 
 import { stat } from 'node:fs/promises'
-import type { SessionHeader, SessionId } from '@lyness/lyn-session'
-import type { KvTable } from '@lyness/lyn-storage-domain'
+import type { SessionHeader, SessionId } from '@deepseek-ai/dsh-session'
+import type { KvTable } from '@deepseek-ai/dsh-storage-domain'
 import type { WorkspaceRecord } from './spec.ts'
 import type { Workspace, WorkspaceId } from './types.ts'
 import { realpathNormalize } from './paths.ts'

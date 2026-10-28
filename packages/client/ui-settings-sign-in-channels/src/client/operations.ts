@@ -8,17 +8,17 @@
  * and from a read that broke, and a refusal reported with the fields the
  * server named so the form can mark them.
  *
- * @module @lyness/lyn-client-ui-settings-sign-in-channels/client/operations
+ * @module @deepseek-ai/dsh-client-ui-settings-sign-in-channels/client/operations
  */
 
-import type { Context } from '@lyness/cordis'
-import { createSharedRead, messageOf } from '@lyness/lyn-client-store'
-import type { RemoteFailure } from '@lyness/lyn-typert-protocol'
-import type {} from '@lyness/lyn-api-remotes/client'
-import type {} from '@lyness/lyn-api-sign-in-channel-controller/remote'
+import type { Context } from '@deepseek-ai/cordis'
+import { createSharedRead, messageOf } from '@deepseek-ai/dsh-client-store'
+import type { RemoteFailure } from '@deepseek-ai/dsh-typert-protocol'
+import type {} from '@deepseek-ai/dsh-api-remotes/client'
+import type {} from '@deepseek-ai/dsh-api-sign-in-channel-controller/remote'
 import type {
   ChannelInput, ChannelKindView, ConfiguredChannelView,
-} from '@lyness/lyn-api-sign-in-channel-controller/types'
+} from '@deepseek-ai/dsh-api-sign-in-channel-controller/types'
 import type { ChannelsRead } from './store.ts'
 
 /** What one Remote call answers: the value, or the failure it refused with. */

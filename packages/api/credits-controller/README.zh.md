@@ -3,13 +3,13 @@ description: "本人读自己的余额；管理员发放积分、设定额度。
 kind: "package-reference"
 ---
 
-# @lyness/lyn-api-credits-controller
+# @deepseek-ai/dsh-api-credits-controller
 
 [English](README.md) | 中文
 
 ## 概述
 
-`lyn-api-credits-controller` 拥有 `credits` 这个 Remote 命名空间：调用者读自己的余额与账目，管理员发放积分、设定周期额度、查看自己所管理之人的账户。每次调用都以请求抵达时所处的身份行事，而非调用方自己点名的身份；授权规则本身留在 `lyn-credits`，于是「能读」与「能发」不会各说各话。读取会一并回答 `administrable`，让界面用填充控件的同一个答案来决定是否渲染这些控件。
+`dsh-api-credits-controller` 拥有 `credits` 这个 Remote 命名空间：调用者读自己的余额与账目，管理员发放积分、设定周期额度、查看自己所管理之人的账户。每次调用都以请求抵达时所处的身份行事，而非调用方自己点名的身份；授权规则本身留在 `dsh-credits`，于是「能读」与「能发」不会各说各话。读取会一并回答 `administrable`，让界面用填充控件的同一个答案来决定是否渲染这些控件。
 
 ## 目录
 
@@ -29,13 +29,13 @@ kind: "package-reference"
 
 ```yaml
 - id: credits-controller
-  name: '@lyness/lyn-api-credits-controller'
+  name: '@deepseek-ai/dsh-api-credits-controller'
 ```
 
 浏览器像调用任何命名空间那样调用 `ctx.remote.credits.mine()`、`grant(input)`、`setAllowance(input)`、`account(person)` 与 `allowance(person)`，并把每个答案读作本包声明的视图：
 
 ```ts
-import type { CreditAccountView } from '@lyness/lyn-api-credits-controller/types'
+import type { CreditAccountView } from '@deepseek-ai/dsh-api-credits-controller/types'
 
 /**
  * Whether a credits page may offer granting on this answer.
@@ -83,16 +83,16 @@ export function mayOfferGranting(view: CreditAccountView): boolean {
 <a id="further-exploration"></a>
 ## 延伸阅读
 
-- [`lyn-credits`](../../credits/credits/README.zh.md) —— 账本、额度算术与授权规则。
-- [`lyn-people`](../../identity/people/README.zh.md) —— 一个身份与它的角色从哪里来。
-- [`lyn-request-principal`](../../identity/request-principal/README.zh.md) —— 一次调用如何得知自己是谁。
+- [`dsh-credits`](../../credits/credits/README.zh.md) —— 账本、额度算术与授权规则。
+- [`dsh-people`](../../identity/people/README.zh.md) —— 一个身份与它的角色从哪里来。
+- [`dsh-request-principal`](../../identity/request-principal/README.zh.md) —— 一次调用如何得知自己是谁。
 
 -----
 
 <a id="model-experience"></a>
 ## 模型体验
 
-没有，因为本包不注册任何工具或提示词：它回应的是一个人在读或改一个账户，而账本对一个回合的影响，是 `lyn-credits` 在 `llm/stream` 里抛出的那次拒绝。
+没有，因为本包不注册任何工具或提示词：它回应的是一个人在读或改一个账户，而账本对一个回合的影响，是 `dsh-credits` 在 `llm/stream` 里抛出的那次拒绝。
 
 #### KV 缓存影响
 
@@ -118,6 +118,6 @@ export function mayOfferGranting(view: CreditAccountView): boolean {
 <details>
 <summary>维护者工作上下文 —— 点击展开</summary>
 
-`refusals` 以尾部匹配识别管理 seam 的授权消息，因为 `lyn-credits` 把那条消息导出为 `NOT_PERMITTED` 而非一个带类型的错误；若那个 seam 将来有了带类型的拒绝，这里应改为对它分支。
+`refusals` 以尾部匹配识别管理 seam 的授权消息，因为 `dsh-credits` 把那条消息导出为 `NOT_PERMITTED` 而非一个带类型的错误；若那个 seam 将来有了带类型的拒绝，这里应改为对它分支。
 
 </details>

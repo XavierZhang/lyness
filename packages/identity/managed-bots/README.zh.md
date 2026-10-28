@@ -3,13 +3,13 @@ description: "部署的管理员在运行时维护的那些 bot，每一个都�
 kind: "package-reference"
 ---
 
-# @lyness/lyn-managed-bots
+# @deepseek-ai/dsh-managed-bots
 
 [English](README.md) | 中文
 
 ## 概述
 
-`lyn-managed-bots` 是在没人去改组合文件的情况下，一个部署的 bot 的来源。管理员给它起个名字，写下它的性格和它是干什么的，再从部署提供的那些 agent preset 里挑一个；这个 bot 随即加入它所在组织的名册，持有一个成员身份，并拥有它开启的那些会话。租户管理员维护自己组织的 bot，别人的维护不了。bot 永远不会变成一个会登录的人——没有哪个目录能验证一个 bot——也不会变成管理员，因为它的身份是在这里定死的，不是提交上来的。
+`dsh-managed-bots` 是在没人去改组合文件的情况下，一个部署的 bot 的来源。管理员给它起个名字，写下它的性格和它是干什么的，再从部署提供的那些 agent preset 里挑一个；这个 bot 随即加入它所在组织的名册，持有一个成员身份，并拥有它开启的那些会话。租户管理员维护自己组织的 bot，别人的维护不了。bot 永远不会变成一个会登录的人——没有哪个目录能验证一个 bot——也不会变成管理员，因为它的身份是在这里定死的，不是提交上来的。
 
 ## 目录
 
@@ -29,15 +29,15 @@ kind: "package-reference"
 
 ```yaml
 - id: managed-bots
-  name: '@lyness/lyn-managed-bots'
+  name: '@deepseek-ai/dsh-managed-bots'
 ```
 
 然后管理员把它们加进来：
 
 ```ts
-import type { Context } from '@lyness/cordis'
-import type {} from '@lyness/lyn-managed-bots'
-import type { Membership } from '@lyness/lyn-people'
+import type { Context } from '@deepseek-ai/cordis'
+import type {} from '@deepseek-ai/dsh-managed-bots'
+import type { Membership } from '@deepseek-ai/dsh-people'
 
 declare const ctx: Context
 declare const by: Membership
@@ -58,7 +58,7 @@ await ctx.managedBots.save({
 <a id="understand-the-implementation"></a>
 ## 理解实现
 
-**bot 是名册里的一条记录，不是一个进程里的对象。**它以 `bot` 这一类人的身份注册进 [`lyn-managed-people`](../managed-people/README.zh.md)，于是归属、可见性，以及每一个要解析拥有者的界面，都不需要第二套机制就能够到它。把它建模成一个进程本地的对象是那些多智能体框架的做法，而那会让 bot 成为这个产品里唯一一个没有身份、也没有任何东西被记在它名下的行动者。
+**bot 是名册里的一条记录，不是一个进程里的对象。**它以 `bot` 这一类人的身份注册进 [`dsh-managed-people`](../managed-people/README.zh.md)，于是归属、可见性，以及每一个要解析拥有者的界面，都不需要第二套机制就能够到它。把它建模成一个进程本地的对象是那些多智能体框架的做法，而那会让 bot 成为这个产品里唯一一个没有身份、也没有任何东西被记在它名下的行动者。
 
 **它的身份是定死的，不是提交的。**每个 bot 持有 `member`。人格是租户管理员写下的自由文本，而一个能管理什么的 bot，就是一个可以被说动去加人或改身份的 bot。一个部署从管理员 bot 那里能得到的任何东西，都不值这个代价。
 
@@ -78,7 +78,7 @@ await ctx.managedBots.save({
 
 **队友的职责来自它自己的记录，不来自团队。**一个在两个团队里的 bot，在两边读起来都一样。让团队重新陈述一个成员是干什么的，会让「它做什么」取决于它在哪个团队里，而那正是读者开始不信任两个答案的地方。
 
-**每一次更改都先记在别处，再从这里读回来。**名册存的是现在什么是真的；[`lyn-admin-audit`](../admin-audit/README.zh.md) 存的是谁改了它、那次更改替换掉了什么。它是硬注入，所以一个维护 bot 却不保留它们历史的部署会加载不起来，而不是默默什么都不记。一次没有改动任何字段的保存什么也不记，因为那是管理员没编辑就按了保存。
+**每一次更改都先记在别处，再从这里读回来。**名册存的是现在什么是真的；[`dsh-admin-audit`](../admin-audit/README.zh.md) 存的是谁改了它、那次更改替换掉了什么。它是硬注入，所以一个维护 bot 却不保留它们历史的部署会加载不起来，而不是默默什么都不记。一次没有改动任何字段的保存什么也不记，因为那是管理员没编辑就按了保存。
 
 **记录比运行它的那个 preset 活得长。**部署不再提供的 preset 会让 bot 留在存储里并标为 `available: false`。因为某一行离开了 profile 就把它删掉，会丢掉管理员写下的那个性格。
 
@@ -87,11 +87,11 @@ await ctx.managedBots.save({
 <a id="further-exploration"></a>
 ## 进一步探索
 
-- [`lyn-managed-people`](../managed-people/README.zh.md) — 它们加入的那份名册，以及拒绝它们的那张准入表。
-- [`lyn-admin-audit`](../admin-audit/README.zh.md) — 这里每一次更改被记进的那份记录。
-- [`lyn-agent-preset-registry`](../../preset/agent-preset-registry/README.zh.md) — bot 可以指名的那些 preset 从哪里来。
-- [`lyn-persona`](../../preset/persona/README.zh.md) — 给一个 agent 它自己的系统提示词的那一行，一个 preset 可以在 bot 的性格之外带着它。
-- [`lyn-api-session-controller`](../../api/session-controller/README.zh.md) — 一场对话在哪里指名它所面对的 bot。
+- [`dsh-managed-people`](../managed-people/README.zh.md) — 它们加入的那份名册，以及拒绝它们的那张准入表。
+- [`dsh-admin-audit`](../admin-audit/README.zh.md) — 这里每一次更改被记进的那份记录。
+- [`dsh-agent-preset-registry`](../../preset/agent-preset-registry/README.zh.md) — bot 可以指名的那些 preset 从哪里来。
+- [`dsh-persona`](../../preset/persona/README.zh.md) — 给一个 agent 它自己的系统提示词的那一行，一个 preset 可以在 bot 的性格之外带着它。
+- [`dsh-api-session-controller`](../../api/session-controller/README.zh.md) — 一场对话在哪里指名它所面对的 bot。
 - [bot、它所在的团队，和它说话的那个房间](../../../.agents/notes/proposed/architecture/2026-10-22-bots-their-teams-and-their-rooms.zh.md) — 这个包是其中第一部分的那份设计。
 
 -----

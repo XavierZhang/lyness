@@ -1,10 +1,10 @@
-import type { Context } from '@lyness/cordis'
+import type { Context } from '@deepseek-ai/cordis'
 import type {
   ConversationMatch, ConversationNodeContext, ConversationNodeDefinition, RunningToolCall, StartedToolCall,
   ToolCallBlock, ToolResultNode,
-} from '@lyness/lyn-client-ui-conversation/client'
-import { isAppendSurfaceEvent } from '@lyness/lyn-session/surface'
-import type {} from '@lyness/lyn-tools/types'
+} from '@deepseek-ai/dsh-client-ui-conversation/client'
+import { isAppendSurfaceEvent } from '@deepseek-ai/dsh-session/surface'
+import type {} from '@deepseek-ai/dsh-tools/types'
 import type { ChatNode, ToolChatData } from '../contract/chat-nodes.ts'
 import { CHAT_SYNTHETIC_SEQ_OFFSETS, chatNode, contextLocation } from './common.ts'
 

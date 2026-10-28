@@ -3,7 +3,7 @@ description: "Semantic session durability checkpoints for users and maintainers 
 kind: "package-reference"
 ---
 
-# @lyness/lyn-session-checkpoint-policy
+# @deepseek-ai/dsh-session-checkpoint-policy
 
 English | [中文](README.zh.md)
 
@@ -37,10 +37,10 @@ No configuration fields exist; the plugin is a single load beside one persistenc
 
 ```yaml
 - id: session-persistence
-  name: '@lyness/lyn-session-persistence-jsonl'
+  name: '@deepseek-ai/dsh-session-persistence-jsonl'
 
 - id: session-checkpoints
-  name: '@lyness/lyn-session-checkpoint-policy'
+  name: '@deepseek-ai/dsh-session-checkpoint-policy'
 ```
 
 ### What becomes durable
@@ -95,7 +95,7 @@ Read these pages when the package-level contract is not enough. They move from t
 
 #### What the model sees
 
-The plugin adds no prompt or tool schema. A hard crash after a tool checkpoint but before its result leaves a durable unmatched call; session recovery supplies the model-visible `TOOL_OUTCOME_UNKNOWN` result owned by `lyn-session`. The message permits retry for read-only or idempotent work and requires state verification or user confirmation for calls that may have side effects.
+The plugin adds no prompt or tool schema. A hard crash after a tool checkpoint but before its result leaves a durable unmatched call; session recovery supplies the model-visible `TOOL_OUTCOME_UNKNOWN` result owned by `dsh-session`. The message permits retry for read-only or idempotent work and requires state verification or user confirmation for calls that may have side effects.
 
 #### Token effect
 

@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/lyn-agent-instructions",
+  "name": "@deepseek-ai/dsh-agent-instructions",
   "description": "Workspace context loader for AGENTS.md/CLAUDE.md instruction files",
   "version": "0.1.7-rc.2",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/context/agent-instructions"
   },
   "type": "module",
@@ -27,36 +27,36 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-agent": "workspace:*",
-    "@lyness/lyn-fs": "workspace:*",
-    "@lyness/lyn-home-paths": "workspace:*",
-    "@lyness/lyn-llm": "workspace:*",
-    "@lyness/lyn-session": "workspace:*",
-    "@lyness/lyn-session-projection": "workspace:*",
-    "@lyness/lyn-tools": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-agent": "workspace:*",
+    "@deepseek-ai/dsh-fs": "workspace:*",
+    "@deepseek-ai/dsh-home-paths": "workspace:*",
+    "@deepseek-ai/dsh-llm": "workspace:*",
+    "@deepseek-ai/dsh-session": "workspace:*",
+    "@deepseek-ai/dsh-session-projection": "workspace:*",
+    "@deepseek-ai/dsh-tools": "workspace:*"
   },
   "dependencies": {
-    "@lyness/lyn-util-values": "workspace:*",
-    "@lyness/schemastery": "workspace:~"
+    "@deepseek-ai/dsh-util-values": "workspace:*",
+    "@deepseek-ai/schemastery": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/cordis-plugin-loader": "workspace:~",
-    "@lyness/lyn-agent": "workspace:*",
-    "@lyness/lyn-agent-loop": "workspace:*",
-    "@lyness/lyn-agent-loop-testkit": "workspace:*",
-    "@lyness/lyn-e2e-target": "workspace:*",
-    "@lyness/lyn-fs": "workspace:*",
-    "@lyness/lyn-fs-local": "workspace:*",
-    "@lyness/lyn-home-paths": "workspace:*",
-    "@lyness/lyn-llm": "workspace:*",
-    "@lyness/lyn-llm-deepseek": "workspace:*",
-    "@lyness/lyn-llm-deepseek-api-key": "workspace:*",
-    "@lyness/lyn-session": "workspace:*",
-    "@lyness/lyn-session-projection": "workspace:*",
-    "@lyness/lyn-system-prompt": "workspace:*",
-    "@lyness/lyn-tool-fs": "workspace:*",
-    "@lyness/lyn-tools": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/cordis-plugin-loader": "workspace:~",
+    "@deepseek-ai/dsh-agent": "workspace:*",
+    "@deepseek-ai/dsh-agent-loop": "workspace:*",
+    "@deepseek-ai/dsh-agent-loop-testkit": "workspace:*",
+    "@deepseek-ai/dsh-e2e-target": "workspace:*",
+    "@deepseek-ai/dsh-fs": "workspace:*",
+    "@deepseek-ai/dsh-fs-local": "workspace:*",
+    "@deepseek-ai/dsh-home-paths": "workspace:*",
+    "@deepseek-ai/dsh-llm": "workspace:*",
+    "@deepseek-ai/dsh-llm-deepseek": "workspace:*",
+    "@deepseek-ai/dsh-llm-deepseek-api-key": "workspace:*",
+    "@deepseek-ai/dsh-session": "workspace:*",
+    "@deepseek-ai/dsh-session-projection": "workspace:*",
+    "@deepseek-ai/dsh-system-prompt": "workspace:*",
+    "@deepseek-ai/dsh-tool-fs": "workspace:*",
+    "@deepseek-ai/dsh-tools": "workspace:*"
   }
 }

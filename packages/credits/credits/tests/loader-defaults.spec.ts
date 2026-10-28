@@ -14,14 +14,14 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { afterEach, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import Loader from '@lyness/cordis-plugin-loader'
-import Include from '@lyness/cordis-plugin-include'
-import Storage from '@lyness/lyn-storage'
-import * as StorageJson from '@lyness/lyn-storage-json'
-import * as StorageDomain from '@lyness/lyn-storage-domain'
-import { brandString } from '@lyness/lyn-brand'
-import type { PersonId } from '@lyness/lyn-people'
+import { Context } from '@deepseek-ai/cordis'
+import Loader from '@deepseek-ai/cordis-plugin-loader'
+import Include from '@deepseek-ai/cordis-plugin-include'
+import Storage from '@deepseek-ai/dsh-storage'
+import * as StorageJson from '@deepseek-ai/dsh-storage-json'
+import * as StorageDomain from '@deepseek-ai/dsh-storage-domain'
+import { brandString } from '@deepseek-ai/dsh-brand'
+import type { PersonId } from '@deepseek-ai/dsh-people'
 import * as StoredCreditLedger from '../src/store.ts'
 
 let root: string | undefined
@@ -35,17 +35,17 @@ afterEach(async () => {
 })
 
 it('grants the shipped daily allowance when a deployment states none', async () => {
-  root = await mkdtemp(join(tmpdir(), 'lyn-credits-loader-'))
+  root = await mkdtemp(join(tmpdir(), 'dsh-credits-loader-'))
   const configPath = join(root, 'cordis.yml')
   await writeFile(configPath, [
-    "- name: '@lyness/lyn-storage'",
-    "- name: '@lyness/lyn-storage-json'",
+    "- name: '@deepseek-ai/dsh-storage'",
+    "- name: '@deepseek-ai/dsh-storage-json'",
     '  config:',
     `    root: ${JSON.stringify(join(root, 'state'))}`,
-    "- name: '@lyness/lyn-storage-domain'",
+    "- name: '@deepseek-ai/dsh-storage-domain'",
     '  config:',
     '    backend: json',
-    "- name: '@lyness/lyn-credits/store'",
+    "- name: '@deepseek-ai/dsh-credits/store'",
     '',
   ].join('\n'))
 
@@ -54,10 +54,10 @@ it('grants the shipped daily allowance when a deployment states none', async () 
   await context.plugin(Loader)
   context.loader.builtins.include = Include
   const modules = new Map<string, unknown>([
-    ['@lyness/lyn-storage', Storage],
-    ['@lyness/lyn-storage-json', StorageJson],
-    ['@lyness/lyn-storage-domain', StorageDomain],
-    ['@lyness/lyn-credits/store', StoredCreditLedger],
+    ['@deepseek-ai/dsh-storage', Storage],
+    ['@deepseek-ai/dsh-storage-json', StorageJson],
+    ['@deepseek-ai/dsh-storage-domain', StorageDomain],
+    ['@deepseek-ai/dsh-credits/store', StoredCreditLedger],
   ])
   const base = context.loader.internal
   if (base === undefined) throw new Error('this Node build exposes no internal module loader')

@@ -1,18 +1,18 @@
 // @vitest-environment jsdom
 /** Detail adapters accept the exact recorded result text and retain safe fallback paths. */
 import { describe, expect, it } from 'vitest'
-import type { ToolResultNode } from '@lyness/lyn-client-ui-chat/client'
-import { makeTranslate } from '@lyness/lyn-client-test-runtime'
-import { en, zh } from '@lyness/lyn-client-ui-conversation/src/client/locales.ts'
-import { en as commonEn } from '@lyness/lyn-client-locale/src/locales/en.ts'
-import { zh as commonZh } from '@lyness/lyn-client-locale/src/locales/zh.ts'
-import { statusLine } from '@lyness/lyn-tool-jobs/src/render.ts'
-import { presentation } from '@lyness/lyn-tool-session-query/src/presentation.ts'
-import { renderList, renderRead, renderSpawn } from '@lyness/lyn-tool-terminal/src/render.ts'
-import { formatSpillNotice } from '@lyness/lyn-spill-policy/notice'
+import type { ToolResultNode } from '@deepseek-ai/dsh-client-ui-chat/client'
+import { makeTranslate } from '@deepseek-ai/dsh-client-test-runtime'
+import { en, zh } from '@deepseek-ai/dsh-client-ui-conversation/src/client/locales.ts'
+import { en as commonEn } from '@deepseek-ai/dsh-client-locale/src/locales/en.ts'
+import { zh as commonZh } from '@deepseek-ai/dsh-client-locale/src/locales/zh.ts'
+import { statusLine } from '@deepseek-ai/dsh-tool-jobs/src/render.ts'
+import { presentation } from '@deepseek-ai/dsh-tool-session-query/src/presentation.ts'
+import { renderList, renderRead, renderSpawn } from '@deepseek-ai/dsh-tool-terminal/src/render.ts'
+import { formatSpillNotice } from '@deepseek-ai/dsh-spill-policy/notice'
 import { detailBadge, detailJson, detailList, detailRecord, inspectionItems, nonempty } from '../src/client/tool/models/detail-model-shared.ts'
 import { detailsCardModel } from '../src/client/tool/models/details-card-model.ts'
-import { SpillLocator } from '@lyness/lyn-spill'
+import { SpillLocator } from '@deepseek-ai/dsh-spill'
 
 const t = makeTranslate(en, commonEn)
 

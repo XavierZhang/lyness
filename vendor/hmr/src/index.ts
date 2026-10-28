@@ -1,18 +1,18 @@
-import { Context, Inject, Service, type Plugin } from '@lyness/cordis'
-import type { Dict } from '@lyness/cosmokit'
-import { ModuleLoader, type ModuleJob, type ResolveResult } from '@lyness/cordis-plugin-loader'
-import type { Include } from '@lyness/cordis-plugin-include'
+import { Context, Inject, Service, type Plugin } from '@deepseek-ai/cordis'
+import type { Dict } from '@deepseek-ai/cosmokit'
+import { ModuleLoader, type ModuleJob, type ResolveResult } from '@deepseek-ai/cordis-plugin-loader'
+import type { Include } from '@deepseek-ai/cordis-plugin-include'
 import { FSWatcher, watch, type ChokidarOptions } from 'chokidar'
 import { relative, resolve } from 'node:path'
 import { realpath } from 'node:fs/promises'
 import { handleError } from './error.ts'
-import type {} from '@lyness/cordis-plugin-timer'
+import type {} from '@deepseek-ai/cordis-plugin-timer'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { createRequire } from 'node:module'
 import picomatch from 'picomatch'
-import z from '@lyness/schemastery'
+import z from '@deepseek-ai/schemastery'
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     hmr: Hmr
   }
@@ -419,7 +419,7 @@ namespace Hmr {
     ]),
     debounce: z.natural().role('ms').default(100),
   })
-  // [lyness] vendored modification: removed `.i18n({ 'en-US': enUS, 'zh-CN': zhCN })`
+  // [DeepSeek Harness] vendored modification: removed `.i18n({ 'en-US': enUS, 'zh-CN': zhCN })`
   // and the corresponding `./locales/*.yml` imports, to avoid a runtime YAML import hook
   // (@cordisjs/unyaml) that we don't vendor. See vendor/README.md.
 }

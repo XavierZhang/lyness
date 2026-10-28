@@ -18,13 +18,13 @@ function fixture(options: {
   invariantExport?: string
   runtimeChunk?: string
 } = {}): { root: string; loaderUrl: string } {
-  const root = mkdtempSync(join(tmpdir(), 'lyn-built-package-invariants-'))
+  const root = mkdtempSync(join(tmpdir(), 'dsh-built-package-invariants-'))
   roots.push(root)
   const packageDir = join(root, 'packages/core/probe')
   mkdirSync(join(packageDir, 'lib'), { recursive: true })
   const companion = options.companion ?? true
   writeFileSync(join(packageDir, 'package.json'), `${JSON.stringify({
-    name: '@lyness/lyn-probe',
+    name: '@deepseek-ai/dsh-probe',
     type: 'module',
     files: companion ? ['lib/invariant.js'] : [],
     exports: companion ? {
@@ -88,7 +88,7 @@ describe('built package invariant verifier', () => {
     const brokenExport = fixture({ invariantExport: './lib/missing.js' })
     const exportResult = verify(brokenExport.root, brokenExport.loaderUrl, task.timeout)
     expect(exportResult.status).toBe(1)
-    expect(exportResult.stderr).toContain('@lyness/lyn-probe')
+    expect(exportResult.stderr).toContain('@deepseek-ai/dsh-probe')
   })
 
   it('rejects an invariant bundle that needs an unstaged runtime chunk', ({ task }) => {

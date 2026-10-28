@@ -4,12 +4,12 @@
  * refusals, not just the happy path: a value that reached `setProperty`
  * unchecked would reach the stylesheet.
  */
-import { Context } from '@lyness/cordis'
+import { Context } from '@deepseek-ai/cordis'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import { installDeploymentColours, readDeploymentColours } from '../src/client/deployment-colours.ts'
 
-const GLOBAL = 'lynDeploymentBrand'
+const GLOBAL = 'dshDeploymentBrand'
 
 function withBrand(brand: unknown): void {
   Reflect.set(globalThis, GLOBAL, brand)
@@ -31,23 +31,23 @@ describe('deployment colour overrides', () => {
   it('maps each named token to the custom property the palette declares', () => {
     withBrand({ colors: { blue: '#123456', blueDark: 'navy', gray50: '#ABC', success: '#0f0f0fff' } })
     expect(readDeploymentColours()).toEqual([
-      ['--lyness-blue', '#123456'],
-      ['--lyness-blue-dark', 'navy'],
-      ['--lyness-gray-50', '#ABC'],
-      ['--lyness-success', '#0f0f0fff'],
+      ['--deepseek-harness-blue', '#123456'],
+      ['--deepseek-harness-blue-dark', 'navy'],
+      ['--deepseek-harness-gray-50', '#ABC'],
+      ['--deepseek-harness-success', '#0f0f0fff'],
     ])
   })
 
   it('refuses a key the palette does not declare', () => {
-    withBrand({ colors: { blue: '#123456', accent: '#ff0000', '--lyness-blue': '#ff0000' } })
-    expect(readDeploymentColours()).toEqual([['--lyness-blue', '#123456']])
+    withBrand({ colors: { blue: '#123456', accent: '#ff0000', '--deepseek-harness-blue': '#ff0000' } })
+    expect(readDeploymentColours()).toEqual([['--deepseek-harness-blue', '#123456']])
   })
 
   it.each([
     ['a declaration tail', 'red; position: fixed'],
     ['a url', 'url(data:,x)'],
     ['a function', 'rgb(1,2,3)'],
-    ['a var reference', 'var(--lyness-black)'],
+    ['a var reference', 'var(--deepseek-harness-black)'],
     ['an empty string', ''],
     ['a comment', '#fff/*x*/'],
     ['a five-digit hex', '#12345'],
@@ -68,7 +68,7 @@ describe('deployment colour overrides', () => {
 
   it('keeps the usable tokens when a sibling is unusable', () => {
     withBrand({ colors: { blue: '#123456', error: 'red; x: y' } })
-    expect(readDeploymentColours()).toEqual([['--lyness-blue', '#123456']])
+    expect(readDeploymentColours()).toEqual([['--deepseek-harness-blue', '#123456']])
   })
 
   it('registers nothing where the lane has no document, which the client-node tier is', () => {

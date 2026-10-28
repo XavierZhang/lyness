@@ -2,34 +2,34 @@ import { mkdtemp, mkdir, readFile, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it, onTestFinished, vi } from 'vitest'
-import { Context } from '@lyness/cordis'
-import LlmRuntime, { createUserMessage, ToolCallId, HarnessError  } from '@lyness/lyn-llm'
-import SessionStore, { SessionId } from '@lyness/lyn-session'
-import type { SessionEvent } from '@lyness/lyn-session'
-import SystemPrompt from '@lyness/lyn-system-prompt'
-import ToolRuntime, { RUN_CODE_NAME, defineTool } from '@lyness/lyn-tools'
-import type { ToolExecutionResult } from '@lyness/lyn-tools'
-import AgentRegistry, { type Agent } from '@lyness/lyn-agent'
+import { Context } from '@deepseek-ai/cordis'
+import LlmRuntime, { createUserMessage, ToolCallId, HarnessError  } from '@deepseek-ai/dsh-llm'
+import SessionStore, { SessionId } from '@deepseek-ai/dsh-session'
+import type { SessionEvent } from '@deepseek-ai/dsh-session'
+import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
+import ToolRuntime, { RUN_CODE_NAME, defineTool } from '@deepseek-ai/dsh-tools'
+import type { ToolExecutionResult } from '@deepseek-ai/dsh-tools'
+import AgentRegistry, { type Agent } from '@deepseek-ai/dsh-agent'
 
-import AgentLoop from '@lyness/lyn-agent-loop'
-import SessionProjectionRegistry from '@lyness/lyn-session-projection'
-import { LocalBashExecutor } from '@lyness/lyn-bash-local'
-import * as BashEnvPlugin from '@lyness/lyn-shell-env'
-import LocalSubprocessRuntime from '@lyness/lyn-subprocess-local'
-import * as ToolBash from '@lyness/lyn-tool-bash'
-import * as LlmDeepSeek from '@lyness/lyn-llm-deepseek-api-key'
-import NodeRuntime from '@lyness/lyn-ptc-runtime-node'
-import Sandbox from '@lyness/lyn-sandbox-local'
-import SandboxPolicy from '@lyness/lyn-sandbox-policy'
-import LocalFileSystem from '@lyness/lyn-fs-local'
-import * as ToolFs from '@lyness/lyn-tool-fs'
-import * as AgentInstructions from '@lyness/lyn-agent-instructions'
-import LocalJobRegistry from '@lyness/lyn-jobs-local'
-import * as ToolJobs from '@lyness/lyn-tool-jobs'
-import CordisHostRunner from '@lyness/lyn-cordis-host-runner'
-import * as ToolCordis from '@lyness/lyn-tool-cordis'
-import * as CordisInspectProviders from '@lyness/lyn-tool-cordis/host'
-import { E2E_TARGET } from '@lyness/lyn-e2e-target'
+import AgentLoop from '@deepseek-ai/dsh-agent-loop'
+import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
+import { LocalBashExecutor } from '@deepseek-ai/dsh-bash-local'
+import * as BashEnvPlugin from '@deepseek-ai/dsh-shell-env'
+import LocalSubprocessRuntime from '@deepseek-ai/dsh-subprocess-local'
+import * as ToolBash from '@deepseek-ai/dsh-tool-bash'
+import * as LlmDeepSeek from '@deepseek-ai/dsh-llm-deepseek-api-key'
+import NodeRuntime from '@deepseek-ai/dsh-ptc-runtime-node'
+import Sandbox from '@deepseek-ai/dsh-sandbox-local'
+import SandboxPolicy from '@deepseek-ai/dsh-sandbox-policy'
+import LocalFileSystem from '@deepseek-ai/dsh-fs-local'
+import * as ToolFs from '@deepseek-ai/dsh-tool-fs'
+import * as AgentInstructions from '@deepseek-ai/dsh-agent-instructions'
+import LocalJobRegistry from '@deepseek-ai/dsh-jobs-local'
+import * as ToolJobs from '@deepseek-ai/dsh-tool-jobs'
+import CordisHostRunner from '@deepseek-ai/dsh-cordis-host-runner'
+import * as ToolCordis from '@deepseek-ai/dsh-tool-cordis'
+import * as CordisInspectProviders from '@deepseek-ai/dsh-tool-cordis/host'
+import { E2E_TARGET } from '@deepseek-ai/dsh-e2e-target'
 
 /**
  * With-key PTC mode proof: a real model receives only `run_code`, composes two
@@ -205,7 +205,7 @@ describe('PTC mode typed values: keyless real-process contracts', () => {
   })
 
   it('returns a background job id, settles the outer run, and polls that id to completion', async () => {
-    workdir = await mkdtemp(join(tmpdir(), 'lyn-ptc-background-'))
+    workdir = await mkdtemp(join(tmpdir(), 'dsh-ptc-background-'))
     ctx = await backgroundPtcModeHarness(workdir)
 
     const jobId = completion(await runCode(ctx, `
@@ -228,7 +228,7 @@ describe('PTC mode typed values: keyless real-process contracts', () => {
   }, 15_000)
 
   it('pre-abort spawns nothing; post-publication abort leaves job_kill as the cancellation owner', async () => {
-    workdir = await mkdtemp(join(tmpdir(), 'lyn-ptc-task-cancel-'))
+    workdir = await mkdtemp(join(tmpdir(), 'dsh-ptc-task-cancel-'))
     ctx = await backgroundPtcModeHarness(workdir)
 
     const pre = new AbortController()
@@ -265,7 +265,7 @@ describe('PTC mode typed values: keyless real-process contracts', () => {
   }, 15_000)
 
   it('keeps foreground bash coupled to the outer signal', async () => {
-    workdir = await mkdtemp(join(tmpdir(), 'lyn-ptc-foreground-cancel-'))
+    workdir = await mkdtemp(join(tmpdir(), 'dsh-ptc-foreground-cancel-'))
     ctx = await backgroundPtcModeHarness(workdir)
     const controller = new AbortController()
     const startedAt = Date.now()
@@ -315,7 +315,7 @@ function waitForIdle(harness: Context, agent: Agent): Promise<void> {
 
 describe.skipIf(!process.env.DEEPSEEK_API_KEY)('PTC mode: real model writes a program over real tools', () => {
   it('collapses the wire tool list to [run_code], bridges sub-calls, and returns curated output', async () => {
-    workdir = await mkdtemp(join(tmpdir(), 'lyn-ptc-e2e-'))
+    workdir = await mkdtemp(join(tmpdir(), 'dsh-ptc-e2e-'))
     ctx = await ptcModeHarness(workdir)
     const agent = await ctx.agentLoop.create(SessionId('e2e-ptc'), { provider: 'deepseek-official', model: E2E_TARGET.model })
 
@@ -360,7 +360,7 @@ describe.skipIf(!process.env.DEEPSEEK_API_KEY)('PTC mode: real model writes a pr
   }, 180_000)
 
   it('projects nested workspace instructions discovered by an fs sub-call', async () => {
-    workdir = await mkdtemp(join(tmpdir(), 'lyn-ptc-workspace-e2e-'))
+    workdir = await mkdtemp(join(tmpdir(), 'dsh-ptc-workspace-e2e-'))
     await mkdir(join(workdir, '.git'), { recursive: true })
     await mkdir(join(workdir, 'pkg/deep'), { recursive: true })
     await writeFile(join(workdir, 'pkg/AGENTS.md'), `If asked for the PTC mode workspace handshake, reply with exactly ${WORKSPACE_PROBE} and nothing else.\n`)

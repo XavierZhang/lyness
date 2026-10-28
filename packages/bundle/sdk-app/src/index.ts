@@ -2,13 +2,13 @@
  * The SDK profile's command-line and stdin-lifetime provider. A successful
  * parse publishes {@link SDK_APP_STARTUP_SERVICE}; the JSON-RPC server waits
  * for that service, so help starts no transport.
- * @module @lyness/lyn-sdk-app
+ * @module @deepseek-ai/dsh-sdk-app
  */
 
 import { Command } from 'commander'
-import type { Context } from '@lyness/cordis'
-import z from '@lyness/schemastery'
-import { exitOnStdinEnd, parseCmdline } from '@lyness/lyn-cmdline'
+import type { Context } from '@deepseek-ai/cordis'
+import z from '@deepseek-ai/schemastery'
+import { exitOnStdinEnd, parseCmdline } from '@deepseek-ai/dsh-cmdline'
 
 /** Stable Cordis plugin name. */
 export const name = 'sdk-app-startup'
@@ -37,12 +37,12 @@ export const Config: z<Config> = z.object({
  */
 function sdkCommand(profile: string): Command {
   return new Command()
-    .name(`lyn --profile ${profile}`)
-    .description('Serve lyness SDK clients over stdio JSON-RPC.')
+    .name(`dsh --profile ${profile}`)
+    .description('Serve DeepSeek Harness SDK clients over stdio JSON-RPC.')
     .helpOption('-h, --help', 'show this help')
     .addHelpText('after', `
 Example:
-  lyn --profile ${profile}     serve one SDK runtime until its client disconnects
+  dsh --profile ${profile}     serve one SDK runtime until its client disconnects
 `)
 }
 

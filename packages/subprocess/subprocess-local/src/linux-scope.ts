@@ -9,7 +9,7 @@ import type {
   SubprocessOutcome,
   SubprocessSpawnSpec,
   SubprocessTerminalSpawnSpec,
-} from '@lyness/lyn-subprocess'
+} from '@deepseek-ai/dsh-subprocess'
 import { loadLinuxExecve } from './linux-execve.ts'
 import type { BoundProcessOwner, ManagedProcessLaunch } from './managed-owner.ts'
 import {
@@ -111,7 +111,7 @@ export function probeLinuxBootstrap(internals: LinuxScopeInternals = {}): boolea
  * @returns whether the current user manager supports the required scope invocation.
  */
 export function probeLinuxScope(internals: LinuxScopeInternals = {}): boolean {
-  const unitBase = unitStem('lyn-subprocess-probe')
+  const unitBase = unitStem('dsh-subprocess-probe')
   const result = (internals.spawnSync ?? spawnSync)(internals.systemdRun ?? 'systemd-run', [
     '--user',
     '--scope',
@@ -532,7 +532,7 @@ export function prepareLinuxTerminalScope(
   const invocation = internals.runnerInvocation ?? spawnRunnerInvocation()
   const files = createLinuxLaunchFiles({ cwd: spec.cwd, env: targetEnv })
   const startup = new LinuxScopeStartup(files, 'terminal')
-  const unitBase = unitStem('lyn-terminal')
+  const unitBase = unitStem('dsh-terminal')
   return {
     command: internals.systemdRun ?? 'systemd-run',
     args: scopeArgs(unitBase, invocation, spec.argv),
@@ -570,7 +570,7 @@ export function launchLinuxScope(
     ...spec.stdio.control === undefined ? {} : { control: spec.stdio.control },
   })
   const startup = new LinuxScopeStartup(files, 'subprocess')
-  const unitBase = unitStem('lyn-subprocess')
+  const unitBase = unitStem('dsh-subprocess')
   let child: ReturnType<typeof spawn>
   try {
     child = (internals.spawn ?? spawn)(internals.systemdRun ?? 'systemd-run', scopeArgs(

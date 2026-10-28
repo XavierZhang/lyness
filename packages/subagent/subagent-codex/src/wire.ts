@@ -4,13 +4,13 @@
  * product methods, current thread/turn association, unattended approval
  * responses, and terminal-answer selection.
  *
- * @module @lyness/lyn-subagent-codex/wire
+ * @module @deepseek-ai/dsh-subagent-codex/wire
  */
 
 import type { Readable, Writable } from 'node:stream'
-import type { ContentBlock } from '@lyness/lyn-llm'
-import type { SubagentResult } from '@lyness/lyn-subagent'
-import { JsonRpcLineTransport } from '@lyness/lyn-sdk-protocol'
+import type { ContentBlock } from '@deepseek-ai/dsh-llm'
+import type { SubagentResult } from '@deepseek-ai/dsh-subagent'
+import { JsonRpcLineTransport } from '@deepseek-ai/dsh-sdk-protocol'
 import type { CodexPermissionMode } from './run.ts'
 
 type JsonObject = Record<string, unknown>
@@ -267,8 +267,8 @@ export class CodexAppServerWire {
   async initialize(signal: AbortSignal): Promise<void> {
     object(await this.guarded(this.transport.request('initialize', {
       clientInfo: {
-        name: 'lyness',
-        title: 'lyness',
+        name: 'HARNESS',
+        title: 'HARNESS',
         version: '0.0.1',
       },
       capabilities: {

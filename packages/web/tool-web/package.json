@@ -1,13 +1,13 @@
 {
-  "name": "@lyness/lyn-tool-web",
-  "description": "Model-facing web tools (web_search, web_fetch) over the lyness web capability seam (ctx.web)",
+  "name": "@deepseek-ai/dsh-tool-web",
+  "description": "Model-facing web tools (web_search, web_fetch) over the DeepSeek Harness web capability seam (ctx.web)",
   "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/web/tool-web"
   },
   "type": "module",
@@ -27,33 +27,33 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-llm": "workspace:*",
-    "@lyness/lyn-system-prompt": "workspace:*",
-    "@lyness/lyn-tools": "workspace:*",
-    "@lyness/lyn-web": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-llm": "workspace:*",
+    "@deepseek-ai/dsh-system-prompt": "workspace:*",
+    "@deepseek-ai/dsh-tools": "workspace:*",
+    "@deepseek-ai/dsh-web": "workspace:*"
   },
   "dependencies": {
-    "@lyness/lyn-util-values": "workspace:*",
-    "@lyness/schemastery": "workspace:~",
+    "@deepseek-ai/dsh-util-values": "workspace:*",
+    "@deepseek-ai/schemastery": "workspace:~",
     "@joplin/turndown-plugin-gfm": "^1.0.67",
     "turndown": "^7.2.4"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-agent": "workspace:*",
-    "@lyness/lyn-llm": "workspace:*",
-    "@lyness/lyn-session": "workspace:*",
-    "@lyness/lyn-spill-local": "workspace:*",
-    "@lyness/lyn-spill-policy": "workspace:*",
-    "@lyness/lyn-system-prompt": "workspace:*",
-    "@lyness/lyn-tool-call-timeout-policy": "workspace:*",
-    "@lyness/lyn-tools": "workspace:*",
-    "@lyness/lyn-web": "workspace:*",
-    "@lyness/lyn-web-fetch-http": "workspace:*",
-    "@lyness/lyn-web-search-exa": "workspace:*",
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-agent": "workspace:*",
+    "@deepseek-ai/dsh-llm": "workspace:*",
+    "@deepseek-ai/dsh-session": "workspace:*",
+    "@deepseek-ai/dsh-spill-local": "workspace:*",
+    "@deepseek-ai/dsh-spill-policy": "workspace:*",
+    "@deepseek-ai/dsh-system-prompt": "workspace:*",
+    "@deepseek-ai/dsh-tool-call-timeout-policy": "workspace:*",
+    "@deepseek-ai/dsh-tools": "workspace:*",
+    "@deepseek-ai/dsh-web": "workspace:*",
+    "@deepseek-ai/dsh-web-fetch-http": "workspace:*",
+    "@deepseek-ai/dsh-web-search-exa": "workspace:*",
     "@types/turndown": "^5.0.6",
-    "@lyness/lyn-scope": "workspace:*",
-    "@lyness/lyn-token-meter": "workspace:*"
+    "@deepseek-ai/dsh-scope": "workspace:*",
+    "@deepseek-ai/dsh-token-meter": "workspace:*"
   }
 }

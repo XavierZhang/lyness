@@ -4,11 +4,11 @@ import fs from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import semver from 'semver'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { evaluatePluginCompatibility, getLynRuntimeVersion, pluginCompatibilityWarning } from '../src/plugin-compatibility.ts'
+import { evaluatePluginCompatibility, getDshRuntimeVersion, pluginCompatibilityWarning } from '../src/plugin-compatibility.ts'
 
 const runtime = '0.1.7-alpha.1'
 const identity = { name: '@example/plugin', version: '2.0.0' }
-const incompatible = { ...identity, peerDependencies: { '@lyness/lyn': '^0.2.0' } }
+const incompatible = { ...identity, peerDependencies: { '@deepseek-ai/dsh': '^0.2.0' } }
 
 function check(peerDependencies: object) {
   return evaluatePluginCompatibility({ ...identity, peerDependencies }, {}, runtime)
@@ -16,11 +16,11 @@ function check(peerDependencies: object) {
 
 afterEach(() => vi.restoreAllMocks())
 
-describe('lyn runtime version', () => {
+describe('dsh runtime version', () => {
   it('reads the exact version with a string path accepted by executable virtual filesystems', () => {
     const { version: expected } = JSON.parse(fs.readFileSync(new URL('../package.json', import.meta.url), 'utf8')) as { version: string }
     const read = vi.spyOn(fs, 'readFileSync')
-    expect(getLynRuntimeVersion()).toBe(expected)
+    expect(getDshRuntimeVersion()).toBe(expected)
     expect(semver.valid(expected)).not.toBeNull()
     expect(read).toHaveBeenCalledWith(fileURLToPath(new URL('../package.json', import.meta.url)), 'utf8')
   })
@@ -28,67 +28,67 @@ describe('lyn runtime version', () => {
   it.each([{}, { version: null }, { version: 1 }, { version: '' }, { version: 'not-semver' }])(
     'rejects an invalid or absent package version: %j', (manifest) => {
       vi.spyOn(fs, 'readFileSync').mockReturnValueOnce(JSON.stringify(manifest))
-      expect(() => getLynRuntimeVersion()).toThrow('Invalid lyn runtime version')
+      expect(() => getDshRuntimeVersion()).toThrow('Invalid dsh runtime version')
     },
   )
 
   it.each(['null', '[]', '1', '"text"'])('rejects non-object package JSON: %s', (contents) => {
     vi.spyOn(fs, 'readFileSync').mockReturnValueOnce(contents)
-    expect(() => getLynRuntimeVersion()).toThrow('app-boot package.json must be an object')
+    expect(() => getDshRuntimeVersion()).toThrow('app-boot package.json must be an object')
   })
 
   it('propagates malformed JSON and read failures', () => {
     const read = vi.spyOn(fs, 'readFileSync').mockReturnValueOnce('{')
-    expect(() => getLynRuntimeVersion()).toThrow(SyntaxError)
+    expect(() => getDshRuntimeVersion()).toThrow(SyntaxError)
     read.mockImplementationOnce(() => { throw new Error('manifest unavailable') })
-    expect(() => getLynRuntimeVersion()).toThrow('manifest unavailable')
+    expect(() => getDshRuntimeVersion()).toThrow('manifest unavailable')
   })
 })
 
 describe('plugin compatibility', () => {
   it('defaults to the installed runtime and needs no identity without mismatches', () => {
     expect(evaluatePluginCompatibility({})).toBeUndefined()
-    expect(evaluatePluginCompatibility({ peerDependencies: { '@lyness/lyn': getLynRuntimeVersion() } })).toBeUndefined()
+    expect(evaluatePluginCompatibility({ peerDependencies: { '@deepseek-ai/dsh': getDshRuntimeVersion() } })).toBeUndefined()
     expect(check({})).toBeUndefined()
   })
 
   it.each(['*', '^0.1.0', '~0.1.0', '>=0.1.0 <0.2.0', '0.1.x', '0.1.0 - 0.1.9', '^0.2.0 || ^0.1.0', runtime])(
     'includes prereleases in supported semver range %s', (range) => {
-      expect(check({ '@lyness/lyn': range, '@lyness/lyn-session': range })).toBeUndefined()
+      expect(check({ '@deepseek-ai/dsh': range, '@deepseek-ai/dsh-session': range })).toBeUndefined()
     },
   )
 
   it.each(['workspace:^', 'workspace:~', 'workspace:*'])('uses the source runtime for %s', (range) => {
-    expect(check({ '@lyness/lyn-session': range })).toBeUndefined()
+    expect(check({ '@deepseek-ai/dsh-session': range })).toBeUndefined()
   })
 
-  it('checks the intersection of lyn requirements and returns only mismatches', () => {
+  it('checks the intersection of dsh requirements and returns only mismatches', () => {
     expect(check({
-      '@lyness/lyn': '^0.1.0',
-      '@lyness/lyn-session': '>=0.2.0',
-      '@lyness/lyn-tools': '<0.1.0',
-      '@lyness/cordis': '^99.0.0',
+      '@deepseek-ai/dsh': '^0.1.0',
+      '@deepseek-ai/dsh-session': '>=0.2.0',
+      '@deepseek-ai/dsh-tools': '<0.1.0',
+      '@deepseek-ai/cordis': '^99.0.0',
     })).toEqual({
       ...identity,
       runtimeVersion: runtime,
-      peers: { '@lyness/lyn-session': '>=0.2.0', '@lyness/lyn-tools': '<0.1.0' },
+      peers: { '@deepseek-ai/dsh-session': '>=0.2.0', '@deepseek-ai/dsh-tools': '<0.1.0' },
       exempted: false,
     })
   })
 
-  it.each(['^0.2.0', '>=0.1.7', 'broken', '', ' ', 'workspace:>=0.2.0', 'file:../lyn', 'npm:lyn@*'])(
+  it.each(['^0.2.0', '>=0.1.7', 'broken', '', ' ', 'workspace:>=0.2.0', 'file:../dsh', 'npm:dsh@*'])(
     'fails closed for an incompatible or malformed range %j', (range) => {
-      expect(check({ '@lyness/lyn': range })?.peers).toEqual({ '@lyness/lyn': range })
+      expect(check({ '@deepseek-ai/dsh': range })?.peers).toEqual({ '@deepseek-ai/dsh': range })
     },
   )
 
   it('ignores unrelated names and dependency fields', () => {
     expect(check({
-      '@lyness/cordis': 'broken', '@lyness/cordis-plugin-loader': '^99',
-      '@other/lyn': '^99', '@lyness/dshx': '^99', lyn: '^99',
+      '@deepseek-ai/cordis': 'broken', '@deepseek-ai/cordis-plugin-loader': '^99',
+      '@other/dsh': '^99', '@deepseek-ai/dshx': '^99', dsh: '^99',
       constructor: '^99', hasOwnProperty: '^99', ['__proto__']: '^99',
     })).toBeUndefined()
-    expect(evaluatePluginCompatibility({ dependencies: { '@lyness/lyn': '^99' } }, {}, runtime)).toBeUndefined()
+    expect(evaluatePluginCompatibility({ dependencies: { '@deepseek-ai/dsh': '^99' } }, {}, runtime)).toBeUndefined()
   })
 
   it.each([null, [], 'bad', 1, false, undefined])('rejects malformed peerDependencies: %j', (peerDependencies) => {
@@ -96,7 +96,7 @@ describe('plugin compatibility', () => {
   })
 
   it.each([null, [], {}, 1, false, undefined])('rejects non-string peer ranges: %j', (range) => {
-    for (const name of ['@lyness/lyn', '@lyness/cordis']) {
+    for (const name of ['@deepseek-ai/dsh', '@deepseek-ai/cordis']) {
       expect(() => check({ [name]: range })).toThrow(`peerDependencies[${JSON.stringify(name)}] must be a string`)
     }
   })
@@ -116,11 +116,11 @@ describe('plugin compatibility', () => {
   it('ignores inherited peer declarations and inherited peer entries', () => {
     expect(evaluatePluginCompatibility(Object.create(incompatible) as object, {}, runtime)).toBeUndefined()
     expect(check(Object.create(incompatible.peerDependencies) as object)).toBeUndefined()
-    expect(check(Object.assign(Object.create({ '@lyness/lyn': '^99' }) as object, { '@lyness/lyn-session': '*' }))).toBeUndefined()
+    expect(check(Object.assign(Object.create({ '@deepseek-ai/dsh': '^99' }) as object, { '@deepseek-ai/dsh-session': '*' }))).toBeUndefined()
   })
 
   it('rejects an invalid explicit runtime even when no peers are declared', () => {
-    expect(() => evaluatePluginCompatibility({}, {}, 'invalid')).toThrow('Invalid lyn runtime version')
+    expect(() => evaluatePluginCompatibility({}, {}, 'invalid')).toThrow('Invalid dsh runtime version')
   })
 
   it('rejects array plugin manifests', () => {
@@ -156,7 +156,7 @@ describe('exact-version exemptions', () => {
   })
 
   it('does not produce issues for compatible exempted plugins', () => {
-    expect(evaluatePluginCompatibility({ ...identity, peerDependencies: { '@lyness/lyn': '*' } }, exemptions, runtime)).toBeUndefined()
+    expect(evaluatePluginCompatibility({ ...identity, peerDependencies: { '@deepseek-ai/dsh': '*' } }, exemptions, runtime)).toBeUndefined()
   })
 })
 
@@ -164,14 +164,14 @@ describe('compatibility warning', () => {
   it.each([false, true])('retains mismatch details and risk when exemption status is %s', (exempted) => {
     expect(pluginCompatibilityWarning({
       ...identity, runtimeVersion: runtime,
-      peers: { '@lyness/lyn': '^0.2.0', '@lyness/lyn-session': 'broken' }, exempted,
+      peers: { '@deepseek-ai/dsh': '^0.2.0', '@deepseek-ai/dsh-session': 'broken' }, exempted,
     })).toBe(
-      'Plugin @example/plugin@2.0.0 is incompatible with lyn 0.1.7-alpha.1: '
-      + 'peerDependencies {"@lyness/lyn":"^0.2.0","@lyness/lyn-session":"broken"}. '
+      'Plugin @example/plugin@2.0.0 is incompatible with dsh 0.1.7-alpha.1: '
+      + 'peerDependencies {"@deepseek-ai/dsh":"^0.2.0","@deepseek-ai/dsh-session":"broken"}. '
       + 'Running it may cause crashes or data loss. '
-      + 'Update the plugin or install a plugin version compatible with this lyn runtime. '
-      + 'To accept this risk explicitly, grant the exact-version exemption for @example/plugin@2.0.0 on lyn 0.1.7-alpha.1 '
-      + 'with `lyn plugin allow-version` or the plugin manager, then retry the installation or restart lyn. '
+      + 'Update the plugin or install a plugin version compatible with this dsh runtime. '
+      + 'To accept this risk explicitly, grant the exact-version exemption for @example/plugin@2.0.0 on dsh 0.1.7-alpha.1 '
+      + 'with `dsh plugin allow-version` or the plugin manager, then retry the installation or restart dsh. '
       + `Exact-version exemption: ${exempted ? 'active' : 'not active'}.`,
     )
   })

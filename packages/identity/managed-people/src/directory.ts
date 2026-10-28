@@ -8,18 +8,18 @@
  * composition is re-read at every boot, so a stored entry that shadowed one
  * would be the configuration for as long as nobody restarted.
  *
- * @module @lyness/lyn-managed-people/directory
+ * @module @deepseek-ai/dsh-managed-people/directory
  */
 
-import type { Context } from '@lyness/cordis'
-import { PeopleDirectory } from '@lyness/lyn-people'
-import { Config as rosterConfig, resolveEntry } from '@lyness/lyn-people/static'
-import type { Config } from '@lyness/lyn-people/static'
-import type { Membership, MembershipId, Person, PersonId } from '@lyness/lyn-people'
+import type { Context } from '@deepseek-ai/cordis'
+import { PeopleDirectory } from '@deepseek-ai/dsh-people'
+import { Config as rosterConfig, resolveEntry } from '@deepseek-ai/dsh-people/static'
+import type { Config } from '@deepseek-ai/dsh-people/static'
+import type { Membership, MembershipId, Person, PersonId } from '@deepseek-ai/dsh-people'
 import type {} from './index.ts'
 import type { DeclaredPerson } from './types.ts'
 
-export type { Config } from '@lyness/lyn-people/static'
+export type { Config } from '@deepseek-ai/dsh-people/static'
 
 /**
  * Resolve the written roster, rejecting what nobody could recover from.

@@ -8,9 +8,9 @@ Status: proposed
 
 会话是一个人与 agent 之间的持久对话。它身上没有任何东西记录这是谁的对话。
 
-最接近的记录是 [`lyn-tenant-session`](../../../../packages/tenant/tenant-session/README.zh.md) 在创建时写入的 `tenant/identity` 事件，而它记的是**本部署被配置的**租户，不是发起该请求所解析出的租户。在私有部署里两者是同一个，所以缺口看不见。在托管产品里一个进程服务许多组织，它存下的每个会话都会带着同一个租户——归属记录对除一个客户之外的所有人都是错的，而会话日志是持久的，于是这个错会永远留在那里。
+最接近的记录是 [`dsh-tenant-session`](../../../../packages/tenant/tenant-session/README.zh.md) 在创建时写入的 `tenant/identity` 事件，而它记的是**本部署被配置的**租户，不是发起该请求所解析出的租户。在私有部署里两者是同一个，所以缺口看不见。在托管产品里一个进程服务许多组织，它存下的每个会话都会带着同一个租户——归属记录对除一个客户之外的所有人都是错的，而会话日志是持久的，于是这个错会永远留在那里。
 
-组织之下根本没有身份。[`lyn-tenant-request`](../../../../packages/tenant/tenant-request/README.zh.md) 把一次调用解析到一个组织，而不是组织里的某个人；整棵树里唯一像"用户"的东西是 [`anonymous-user-id`](../../../../packages/identity/anonymous-user-id/README.zh.md)，而它存在的目的恰恰是在**不识别任何人**的前提下关联遥测。所以"谁打开了这个对话"这个问题，眼下还没有可记录的答案。
+组织之下根本没有身份。[`dsh-tenant-request`](../../../../packages/tenant/tenant-request/README.zh.md) 把一次调用解析到一个组织，而不是组织里的某个人；整棵树里唯一像"用户"的东西是 [`anonymous-user-id`](../../../../packages/identity/anonymous-user-id/README.zh.md)，而它存在的目的恰恰是在**不识别任何人**的前提下关联遥测。所以"谁打开了这个对话"这个问题，眼下还没有可记录的答案。
 
 有两件事让它紧迫而不只是不完整。会话日志是已发布数据：已提交的世代永不重写，因此记错的归属会一直错下去，而分两步补齐归属要付两次格式变更而不是一次。另外，一个说不出"是我们的哪个人打开了这个对话"的组织，无法为它负责——而这恰恰是企业客户对一个代其运行 agent 的平台提出的第一个要求。
 

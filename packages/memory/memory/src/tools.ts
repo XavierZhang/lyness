@@ -2,12 +2,12 @@
  * The model-facing write path for durable memory. Separate from the service
  * entry so a composition can keep memories readable in the prompt without
  * letting the agent write them.
- * @module @lyness/lyn-memory/tools
+ * @module @deepseek-ai/dsh-memory/tools
  */
 
-import type { Context } from '@lyness/cordis'
-import { defineTool } from '@lyness/lyn-tools'
-import { brandString } from '@lyness/lyn-brand'
+import type { Context } from '@deepseek-ai/cordis'
+import { defineTool } from '@deepseek-ai/dsh-tools'
+import { brandString } from '@deepseek-ai/dsh-brand'
 import type {} from './index.ts'
 import { MAX_ENTRY_CHARS } from './storage.ts'
 import type { MemoryId, MemoryRecord } from './types.ts'

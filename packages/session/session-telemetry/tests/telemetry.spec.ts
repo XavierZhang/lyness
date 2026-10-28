@@ -1,4 +1,4 @@
-import { createAssistantMessage, createToolResultMessage, createUserMessage, ToolCallId } from '@lyness/lyn-llm'
+import { createAssistantMessage, createToolResultMessage, createUserMessage, ToolCallId } from '@deepseek-ai/dsh-llm'
 /**
  * Coordinator semantics against a bare fake backend — the RFC's named unit
  * tier for the seam: adoption (fresh, seeded, re-adoption via the handoff
@@ -7,15 +7,15 @@ import { createAssistantMessage, createToolResultMessage, createUserMessage, Too
  */
 
 import { describe, expect, it, vi } from 'vitest'
-import { Context } from '@lyness/cordis'
+import { Context } from '@deepseek-ai/cordis'
 import SessionStore, {
   SESSION_FORMAT_VERSION,
   Session,
   SessionId,
   SessionLogOffset,
   type SessionEvent,
-} from '@lyness/lyn-session'
-import type { Agent } from '@lyness/lyn-agent'
+} from '@deepseek-ai/dsh-session'
+import type { Agent } from '@deepseek-ai/dsh-agent'
 import {
   SessionTelemetryCoordinator,
   type SessionTelemetrySink,
@@ -23,7 +23,7 @@ import {
   type SessionTelemetryRecord,
 } from '../src/index.ts'
 
-declare module '@lyness/lyn-session/types' {
+declare module '@deepseek-ai/dsh-session/types' {
   interface SessionEventMap {
     /**
      * Test-only merged event proving unknown types flow through unchanged.

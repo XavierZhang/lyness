@@ -1,5 +1,5 @@
 /**
- * @lyness/lyn-host-brand-deployment — the deployment's own brand over the
+ * @deepseek-ai/dsh-host-brand-deployment — the deployment's own brand over the
  * webserver's index render.
  *
  * A deployment owns its visual identity: the browser tab title, the favicon,
@@ -10,23 +10,23 @@
  * nothing below the composing application can reach these values.
  *
  * They are also served rather than built in. Upstream embeds its own brand at
- * build time through the `LYNESS_CLIENT_*` prefix, which requires rebuilding
+ * build time through the `DSH_CLIENT_*` prefix, which requires rebuilding
  * the frontend per brand. Everything here is applied to each index response,
  * so changing a patch layer and restarting is the whole operation.
  *
  * Assets are files the deployment places, never uploads: there is no intake
  * route, no server-side format check, and no path a request contributes to a
  * filesystem read — one fixed table maps a request to a configured file.
- * @module @lyness/lyn-host-brand-deployment
+ * @module @deepseek-ai/dsh-host-brand-deployment
  */
 
 import { readFile } from 'node:fs/promises'
 import { statSync } from 'node:fs'
 import type { IncomingMessage, ServerResponse } from 'node:http'
 import { extname, isAbsolute, join } from 'node:path'
-import type { Context } from '@lyness/cordis'
-import z from '@lyness/schemastery'
-import type {} from '@lyness/lyn-host-webserver'
+import type { Context } from '@deepseek-ai/cordis'
+import z from '@deepseek-ai/schemastery'
+import type {} from '@deepseek-ai/dsh-host-webserver'
 
 /** Stable Cordis plugin name. */
 export const name = 'brand-deployment'
@@ -38,7 +38,7 @@ export const inject = ['webServer']
 export const BRAND_ASSET_ROUTE = '/brand'
 
 /** `globalThis` property a served page reads its deployment brand from. */
-export const DEPLOYMENT_BRAND_GLOBAL = 'lynDeploymentBrand'
+export const DEPLOYMENT_BRAND_GLOBAL = 'dshDeploymentBrand'
 
 /**
  * What a served page can read about this deployment's brand.
@@ -46,14 +46,14 @@ export const DEPLOYMENT_BRAND_GLOBAL = 'lynDeploymentBrand'
  * Absent members mean the deployment configured nothing and the page keeps its
  * built-in presentation, which is what an unbranded development build shows.
  * The three product names are one set: a deployment that names any of them
- * gets no built-in name beside its own, because copy that still said `LYN` or
+ * gets no built-in name beside its own, because copy that still said `DSH` or
  * 领驭 next to the operator's name would read as a leaked upstream brand.
  */
 export interface DeploymentBrand {
   /** Product name for page and in-app presentation, or undefined to keep the built-in one. */
   readonly productName?: string | undefined
   /**
-   * Short form product copy uses where the built-in brand writes `LYN`, or
+   * Short form product copy uses where the built-in brand writes `DSH`, or
    * undefined to use {@link productName} there.
    */
   readonly productAbbreviation?: string | undefined

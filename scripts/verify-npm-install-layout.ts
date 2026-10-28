@@ -1,4 +1,4 @@
-/** Verify npm's physical package placement for two incompatible LYN releases. */
+/** Verify npm's physical package placement for two incompatible DSH releases. */
 
 import { readFileSync } from 'node:fs'
 import { posix, resolve } from 'node:path'
@@ -10,15 +10,15 @@ import {
   type RegistryIndex,
 } from './benchmark-npm-resolution.ts'
 
-const LYNESS_PACKAGE = '@lyness/lyn'
-const CORDIS_PACKAGE = '@lyness/cordis'
-const NESTED_LYNESS_ALIAS = 'lyn-previous'
-const NESTED_LYNESS_PATH = `node_modules/${NESTED_LYNESS_ALIAS}`
+const DSH_PACKAGE = '@deepseek-ai/dsh'
+const CORDIS_PACKAGE = '@deepseek-ai/cordis'
+const NESTED_DSH_ALIAS = 'dsh-previous'
+const NESTED_DSH_PATH = `node_modules/${NESTED_DSH_ALIAS}`
 const DEPENDENCY_FIELDS = ['dependencies', 'optionalDependencies', 'peerDependencies'] as const
 const TIMEOUT_MS = 300_000
 
 /** Synthetic incompatible versions used to expose cross-release placement errors. */
-export const SYNTHETIC_LYNESS_VERSIONS = ['0.1.0', '0.2.0'] as const
+export const SYNTHETIC_DSH_VERSIONS = ['0.1.0', '0.2.0'] as const
 
 interface MutableRegistryManifest {
   name: string
@@ -30,13 +30,13 @@ interface MutableRegistryManifest {
 }
 
 /** Summary of a verified two-release npm layout. */
-export interface LynInstallLayoutSummary {
-  readonly lynPackagesPerVersion: number
-  readonly checkedLynEdges: number
+export interface DshInstallLayoutSummary {
+  readonly dshPackagesPerVersion: number
+  readonly checkedDshEdges: number
 }
 
-function isLynPackage(name: string): boolean {
-  return name === LYNESS_PACKAGE || name.startsWith(`${LYNESS_PACKAGE}-`)
+function isDshPackage(name: string): boolean {
+  return name === DSH_PACKAGE || name.startsWith(`${DSH_PACKAGE}-`)
 }
 
 function cloneForVersion(manifest: object, version: string): MutableRegistryManifest {
@@ -46,35 +46,35 @@ function cloneForVersion(manifest: object, version: string): MutableRegistryMani
     const dependencies = cloned[field]
     if (dependencies === undefined) continue
     for (const name of Object.keys(dependencies)) {
-      if (isLynPackage(name)) dependencies[name] = `^${version}`
+      if (isDshPackage(name)) dependencies[name] = `^${version}`
     }
   }
   return cloned
 }
 
 /**
- * Replace the working release with two incompatible, internally consistent LYN releases.
+ * Replace the working release with two incompatible, internally consistent DSH releases.
  * @param index - Registry metadata containing the working release.
  * @param sourceVersion - Workspace version copied into each synthetic release.
- * @returns Registry metadata containing both synthetic LYN releases and unchanged external packages.
+ * @returns Registry metadata containing both synthetic DSH releases and unchanged external packages.
  */
-export function buildDualLynRegistry(index: RegistryIndex, sourceVersion: string): RegistryIndex {
+export function buildDualDshRegistry(index: RegistryIndex, sourceVersion: string): RegistryIndex {
   const output = new Map(index)
-  let lynPackages = 0
+  let dshPackages = 0
   for (const [name, versions] of index) {
-    if (!isLynPackage(name)) {
+    if (!isDshPackage(name)) {
       output.set(name, versions)
       continue
     }
     const source = versions.get(sourceVersion)
     if (source === undefined) throw new Error(`${name} has no workspace version ${sourceVersion}`)
-    lynPackages++
-    output.set(name, new Map(SYNTHETIC_LYNESS_VERSIONS.map(version => [
+    dshPackages++
+    output.set(name, new Map(SYNTHETIC_DSH_VERSIONS.map(version => [
       version,
       cloneForVersion(source, version),
     ])))
   }
-  if (lynPackages === 0) throw new Error('registry contains no LYN packages')
+  if (dshPackages === 0) throw new Error('registry contains no DSH packages')
   return output
 }
 
@@ -110,44 +110,44 @@ function setDifference(left: ReadonlySet<string>, right: ReadonlySet<string>): s
 }
 
 /**
- * Assert that npm isolates both LYN releases while sharing the Cordis runtime.
+ * Assert that npm isolates both DSH releases while sharing the Cordis runtime.
  * @param packageLock - Metadata-only package lock produced by npm.
- * @returns Counts for the verified LYN packages and dependency edges.
+ * @returns Counts for the verified DSH packages and dependency edges.
  */
-export function assertDualLynInstallLayout(packageLock: NpmPackageLock): LynInstallLayoutSummary {
-  const [nestedVersion, rootVersion] = SYNTHETIC_LYNESS_VERSIONS
+export function assertDualDshInstallLayout(packageLock: NpmPackageLock): DshInstallLayoutSummary {
+  const [nestedVersion, rootVersion] = SYNTHETIC_DSH_VERSIONS
   const errors: string[] = []
   const namesByVersion = new Map<string, Set<string>>([
     [nestedVersion, new Set()],
     [rootVersion, new Set()],
   ])
   const installed = Object.entries(packageLock.packages)
-  let checkedLynEdges = 0
+  let checkedDshEdges = 0
 
   for (const [path, manifest] of installed) {
     const name = packageNameAtPath(path, manifest)
     if (name === 'react' || name === 'react-dom') {
-      errors.push(`${path}: ${name} is a browser build input, not a dependency of the synthetic LYN-only consumer`)
+      errors.push(`${path}: ${name} is a browser build input, not a dependency of the synthetic DSH-only consumer`)
     }
-    if (name === undefined || !isLynPackage(name)) continue
+    if (name === undefined || !isDshPackage(name)) continue
     const version = manifest.version
     if (version !== nestedVersion && version !== rootVersion) {
-      errors.push(`${path}: expected LYN version ${nestedVersion} or ${rootVersion}, got ${String(version)}`)
+      errors.push(`${path}: expected DSH version ${nestedVersion} or ${rootVersion}, got ${String(version)}`)
       continue
     }
     namesByVersion.get(version)?.add(name)
     const expectedPath = version === rootVersion
       ? `node_modules/${name}`
-      : name === LYNESS_PACKAGE
-        ? NESTED_LYNESS_PATH
-        : `${NESTED_LYNESS_PATH}/node_modules/${name}`
+      : name === DSH_PACKAGE
+        ? NESTED_DSH_PATH
+        : `${NESTED_DSH_PATH}/node_modules/${name}`
     if (path !== expectedPath) {
       errors.push(`${path}: expected ${name}@${version} at ${expectedPath}`)
     }
 
     for (const field of DEPENDENCY_FIELDS) {
       for (const dependency of Object.keys(manifest[field] ?? {})) {
-        if (!isLynPackage(dependency)) continue
+        if (!isDshPackage(dependency)) continue
         const targetPath = resolvePackagePath(packageLock.packages, path, dependency)
         const optionalPeer = field === 'peerDependencies'
           && manifest.peerDependenciesMeta?.[dependency]?.optional === true
@@ -156,7 +156,7 @@ export function assertDualLynInstallLayout(packageLock: NpmPackageLock): LynInst
           errors.push(`${path}: ${field} ${dependency} does not resolve`)
           continue
         }
-        checkedLynEdges++
+        checkedDshEdges++
         const targetVersion = packageLock.packages[targetPath]?.version
         if (targetVersion !== version) {
           errors.push(
@@ -169,8 +169,8 @@ export function assertDualLynInstallLayout(packageLock: NpmPackageLock): LynInst
 
   const nestedNames = namesByVersion.get(nestedVersion) ?? new Set<string>()
   const rootNames = namesByVersion.get(rootVersion) ?? new Set<string>()
-  if (!nestedNames.has(LYNESS_PACKAGE)) errors.push(`${NESTED_LYNESS_PATH}: missing ${LYNESS_PACKAGE}@${nestedVersion}`)
-  if (!rootNames.has(LYNESS_PACKAGE)) errors.push(`node_modules/${LYNESS_PACKAGE}: missing ${LYNESS_PACKAGE}@${rootVersion}`)
+  if (!nestedNames.has(DSH_PACKAGE)) errors.push(`${NESTED_DSH_PATH}: missing ${DSH_PACKAGE}@${nestedVersion}`)
+  if (!rootNames.has(DSH_PACKAGE)) errors.push(`node_modules/${DSH_PACKAGE}: missing ${DSH_PACKAGE}@${rootVersion}`)
   const onlyNested = setDifference(nestedNames, rootNames)
   const onlyRoot = setDifference(rootNames, nestedNames)
   if (onlyNested.length > 0) errors.push(`only ${nestedVersion} contains: ${onlyNested.join(', ')}`)
@@ -183,7 +183,7 @@ export function assertDualLynInstallLayout(packageLock: NpmPackageLock): LynInst
   }
 
   if (errors.length > 0) throw new Error(`invalid npm install layout:\n${errors.map(error => `  - ${error}`).join('\n')}`)
-  return { lynPackagesPerVersion: rootNames.size, checkedLynEdges }
+  return { dshPackagesPerVersion: rootNames.size, checkedDshEdges }
 }
 
 function workspaceVersion(root: string): string {
@@ -194,17 +194,17 @@ function workspaceVersion(root: string): string {
 
 async function main(): Promise<void> {
   const root = resolve(import.meta.dirname, '..')
-  const index = buildDualLynRegistry(buildRegistryIndex(root), workspaceVersion(root))
-  const [nestedVersion, rootVersion] = SYNTHETIC_LYNESS_VERSIONS
+  const index = buildDualDshRegistry(buildRegistryIndex(root), workspaceVersion(root))
+  const [nestedVersion, rootVersion] = SYNTHETIC_DSH_VERSIONS
   const result = await resolveNpmPackageLock(index, {
-    [LYNESS_PACKAGE]: rootVersion,
-    [NESTED_LYNESS_ALIAS]: `npm:${LYNESS_PACKAGE}@${nestedVersion}`,
+    [DSH_PACKAGE]: rootVersion,
+    [NESTED_DSH_ALIAS]: `npm:${DSH_PACKAGE}@${nestedVersion}`,
   }, TIMEOUT_MS)
   if (result.archiveRequests !== 0) throw new Error(`npm requested ${String(result.archiveRequests)} package archive(s)`)
-  const summary = assertDualLynInstallLayout(result.packageLock)
+  const summary = assertDualDshInstallLayout(result.packageLock)
   console.log(
-    `verify-npm-install-layout: ${String(summary.lynPackagesPerVersion)} LYN package(s) per release and `
-    + `${String(summary.checkedLynEdges)} internal edge(s) verified in ${(result.durationMs / 1000).toFixed(2)} s; `
+    `verify-npm-install-layout: ${String(summary.dshPackagesPerVersion)} DSH package(s) per release and `
+    + `${String(summary.checkedDshEdges)} internal edge(s) verified in ${(result.durationMs / 1000).toFixed(2)} s; `
     + `both releases share one Cordis installation; ${String(result.unknownPackages.length)} unavailable optional `
     + 'package name(s) ignored by npm.',
   )

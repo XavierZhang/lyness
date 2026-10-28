@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/lyn-desktop-host",
+  "name": "@deepseek-ai/dsh-desktop-host",
   "description": "Private Node-mode host process for the Electron desktop application",
   "version": "0.1.7-rc.2",
   "private": true,
@@ -11,18 +11,18 @@
   ],
   "dependencies": {
     "@deepseek-ai/libreoffice-kit": "^0.1.1",
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn": "workspace:*",
-    "@lyness/lyn-agent": "workspace:*",
-    "@lyness/lyn-app-boot": "workspace:*",
-    "@lyness/lyn-client-connection": "workspace:*",
-    "@lyness/lyn-host-webserver": "workspace:*",
-    "@lyness/lyn-home-paths": "workspace:*",
-    "@lyness/lyn-jobs": "workspace:*",
-    "@lyness/lyn-schedule": "workspace:*",
-    "@lyness/lyn-tool-workspace-dependencies": "workspace:*",
-    "@lyness/lyn-skill-office": "workspace:*",
-    "@lyness/lyn-deepseek-account": "workspace:*",
-    "@lyness/lyn-workspace": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh": "workspace:*",
+    "@deepseek-ai/dsh-agent": "workspace:*",
+    "@deepseek-ai/dsh-app-boot": "workspace:*",
+    "@deepseek-ai/dsh-client-connection": "workspace:*",
+    "@deepseek-ai/dsh-host-webserver": "workspace:*",
+    "@deepseek-ai/dsh-home-paths": "workspace:*",
+    "@deepseek-ai/dsh-jobs": "workspace:*",
+    "@deepseek-ai/dsh-schedule": "workspace:*",
+    "@deepseek-ai/dsh-tool-workspace-dependencies": "workspace:*",
+    "@deepseek-ai/dsh-skill-office": "workspace:*",
+    "@deepseek-ai/dsh-deepseek-account": "workspace:*",
+    "@deepseek-ai/dsh-workspace": "workspace:*"
   }
 }

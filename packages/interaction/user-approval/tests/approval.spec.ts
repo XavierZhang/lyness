@@ -1,13 +1,13 @@
 import { describe, expect, it, vi } from 'vitest'
-import { Context } from '@lyness/cordis'
-import type { Agent } from '@lyness/lyn-agent'
-import { ToolCallId } from '@lyness/lyn-llm'
-import { carrierKeyOf, createScope } from '@lyness/lyn-scope'
-import type { Scope } from '@lyness/lyn-scope'
-import SessionStore, { Session, SessionId } from '@lyness/lyn-session'
-import type { SessionEvent } from '@lyness/lyn-session'
-import SystemPrompt from '@lyness/lyn-system-prompt'
-import ApprovalService, { ApprovalOutcome, ApprovalRequest, setApprovalPolicy } from '@lyness/lyn-user-approval'
+import { Context } from '@deepseek-ai/cordis'
+import type { Agent } from '@deepseek-ai/dsh-agent'
+import { ToolCallId } from '@deepseek-ai/dsh-llm'
+import { carrierKeyOf, createScope } from '@deepseek-ai/dsh-scope'
+import type { Scope } from '@deepseek-ai/dsh-scope'
+import SessionStore, { Session, SessionId } from '@deepseek-ai/dsh-session'
+import type { SessionEvent } from '@deepseek-ai/dsh-session'
+import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
+import ApprovalService, { ApprovalOutcome, ApprovalRequest, setApprovalPolicy } from '@deepseek-ai/dsh-user-approval'
 
 /**
  * A minimal Agent stand-in — the service only reaches `agent.session.append`

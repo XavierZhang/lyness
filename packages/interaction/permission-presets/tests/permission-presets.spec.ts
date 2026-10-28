@@ -1,15 +1,15 @@
 import { describe, expect, it, vi } from 'vitest'
-import { Context } from '@lyness/cordis'
+import { Context } from '@deepseek-ai/cordis'
 import SessionStore, {
   Session,
   SessionId,
-} from '@lyness/lyn-session'
-import SessionProjectionRegistry from '@lyness/lyn-session-projection'
-import type { SandboxMode } from '@lyness/lyn-sandbox'
-import type { ApprovalPolicy } from '@lyness/lyn-user-approval'
+} from '@deepseek-ai/dsh-session'
+import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
+import type { SandboxMode } from '@deepseek-ai/dsh-sandbox'
+import type { ApprovalPolicy } from '@deepseek-ai/dsh-user-approval'
 import PermissionPresetService, {
   AUTO_PRESET, CUSTOM_PRESET,
-} from '@lyness/lyn-permission-presets'
+} from '@deepseek-ai/dsh-permission-presets'
 import { liveConfig } from '../../../settings/settings/tests/live-config.ts'
 
 const configurations = new WeakMap<Context, Awaited<ReturnType<typeof liveConfig>>>()

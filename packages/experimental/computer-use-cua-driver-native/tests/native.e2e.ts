@@ -1,14 +1,14 @@
 /** Opt-in native SDK compatibility check without screenshots, input, or permission prompts. */
 
 import { expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import ComputerUseRegistry from '@lyness/lyn-computer-use'
-import { ToolCallId } from '@lyness/lyn-llm'
-import SystemPrompt from '@lyness/lyn-system-prompt'
-import ToolRuntime from '@lyness/lyn-tools'
+import { Context } from '@deepseek-ai/cordis'
+import ComputerUseRegistry from '@deepseek-ai/dsh-computer-use'
+import { ToolCallId } from '@deepseek-ai/dsh-llm'
+import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
+import ToolRuntime from '@deepseek-ai/dsh-tools'
 import * as NativeProvider from '../src/index.ts'
 
-it.skipIf(process.env.LYNESS_COMPUTER_USE_NATIVE_E2E !== '1')(
+it.skipIf(process.env.DSH_COMPUTER_USE_NATIVE_E2E !== '1')(
   'loads the installed native SDK, reads permission status without prompting, and shuts down',
   { retry: 0 },
   async ({ signal }) => {

@@ -1,16 +1,16 @@
-import { Context } from '@lyness/cordis'
+import { Context } from '@deepseek-ai/cordis'
 import { describe, expect, it, vi } from 'vitest'
-import LlmRuntime, { createUserMessage, markAgentLoopRequest } from '@lyness/lyn-llm'
-import { deepFreeze } from '@lyness/lyn-util-values'
-import SessionStore, { SessionId, SessionSeq } from '@lyness/lyn-session'
-import SessionProjectionRegistry from '@lyness/lyn-session-projection'
-import { turnBoundaryProjectionDefinition } from '@lyness/lyn-agent-loop'
+import LlmRuntime, { createUserMessage, markAgentLoopRequest } from '@deepseek-ai/dsh-llm'
+import { deepFreeze } from '@deepseek-ai/dsh-util-values'
+import SessionStore, { SessionId, SessionSeq } from '@deepseek-ai/dsh-session'
+import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
+import { turnBoundaryProjectionDefinition } from '@deepseek-ai/dsh-agent-loop'
 import SessionTitleService, {
   SessionTitleProviderId,
   type SessionTitleProvider,
   type SessionTitleProviderRequest,
   type SessionTitleProviderResult,
-} from '@lyness/lyn-session-title'
+} from '@deepseek-ai/dsh-session-title'
 
 const CONFIG = {
   fallbackMaxWords: 5,

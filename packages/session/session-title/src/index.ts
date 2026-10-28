@@ -1,24 +1,24 @@
 /**
  * Log-backed session title service, deterministic fallback, and provider contract.
- * @module @lyness/lyn-session-title
+ * @module @deepseek-ai/dsh-session-title
  */
 
-import { Context, FiberState, Service, type Fiber } from '@lyness/cordis'
-import z from '@lyness/schemastery'
+import { Context, FiberState, Service, type Fiber } from '@deepseek-ai/cordis'
+import z from '@deepseek-ai/schemastery'
 import { z as zod } from 'zod'
 import type { ZodType } from 'zod'
-import type { Branded } from '@lyness/lyn-brand'
-import { isAgentLoopRequest } from '@lyness/lyn-llm'
-import type { GenerateOptions } from '@lyness/lyn-llm'
-import { assertNever, deepFreeze } from '@lyness/lyn-util-values'
+import type { Branded } from '@deepseek-ai/dsh-brand'
+import { isAgentLoopRequest } from '@deepseek-ai/dsh-llm'
+import type { GenerateOptions } from '@deepseek-ai/dsh-llm'
+import { assertNever, deepFreeze } from '@deepseek-ai/dsh-util-values'
 import type {
   Session,
   SessionEvent,
-} from '@lyness/lyn-session'
-import { SessionSeq } from '@lyness/lyn-session'
-import type {} from '@lyness/lyn-session-projection'
-import type { ProjectionDefinition } from '@lyness/lyn-session-projection'
-import type {} from '@lyness/lyn-agent'
+} from '@deepseek-ai/dsh-session'
+import { SessionSeq } from '@deepseek-ai/dsh-session'
+import type {} from '@deepseek-ai/dsh-session-projection'
+import type { ProjectionDefinition } from '@deepseek-ai/dsh-session-projection'
+import type {} from '@deepseek-ai/dsh-agent'
 export type {
   SessionTitleEventData,
   SessionTitleModelIdentity,
@@ -62,13 +62,13 @@ export interface Config {
   readonly maxTitleBytes: number
 }
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     sessionTitle: SessionTitleService
   }
 }
 
-declare module '@lyness/lyn-session/types' {
+declare module '@deepseek-ai/dsh-session/types' {
   interface SessionEventMap {
     /**
      * Latest-wins session title snapshot. Log-only: it never enters the model

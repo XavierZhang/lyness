@@ -3,7 +3,7 @@ description: "Record speech and insert reviewable transcripts into the conversat
 kind: "package-reference"
 ---
 
-# @lyness/lyn-experimental-client-ui-voice-input
+# @deepseek-ai/dsh-experimental-client-ui-voice-input
 
 English | [中文](README.zh.md)
 

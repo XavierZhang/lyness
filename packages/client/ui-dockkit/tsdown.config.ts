@@ -1,6 +1,6 @@
 import { staticLinked } from '../tsdown.client.ts'
 
 export default staticLinked(
-  '@lyness/lyn-client-ui-dockkit',
+  '@deepseek-ai/dsh-client-ui-dockkit',
   ['lib/types/index.js'],
 )

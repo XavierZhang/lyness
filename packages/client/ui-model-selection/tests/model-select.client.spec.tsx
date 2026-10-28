@@ -1,15 +1,15 @@
 // @vitest-environment jsdom
 import { act, cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { makeTranslate, RemoteError } from '@lyness/lyn-client-test-runtime'
-import { SessionId } from '@lyness/lyn-session/types'
-import type { ModelSelection } from '@lyness/lyn-api-remotes/client'
-import { createSnapshotStore } from '@lyness/lyn-client-store'
+import { makeTranslate, RemoteError } from '@deepseek-ai/dsh-client-test-runtime'
+import { SessionId } from '@deepseek-ai/dsh-session/types'
+import type { ModelSelection } from '@deepseek-ai/dsh-api-remotes/client'
+import { createSnapshotStore } from '@deepseek-ai/dsh-client-store'
 import type { ComponentProps } from 'react'
 import type { ModelDirectoryState } from '../src/client/directory.ts'
 import { ModelSelect } from '../src/client/ModelSelect.tsx'
 import { en, zh } from '../src/client/locales.ts'
-import { zh as commonZh } from '@lyness/lyn-client-locale/src/locales/zh.ts'
+import { zh as commonZh } from '@deepseek-ai/dsh-client-locale/src/locales/zh.ts'
 
 // The seat's key domain is model ∪ common; the double resolves the same chain:
 // package dictionary, then common vocabulary, then the key.

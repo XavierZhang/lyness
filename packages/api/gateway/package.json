@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/lyn-api-gateway",
+  "name": "@deepseek-ai/dsh-api-gateway",
   "description": "Typert Remote Host dispatcher and Client API endpoint",
   "version": "0.1.7-rc.2",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/api/gateway"
   },
   "type": "module",
@@ -33,11 +33,11 @@
       "default": "./lib/types/stream-protocol.js"
     }
   },
-  "lyn": {
+  "dsh": {
     "client": {
       "inject": [
-        "@lyness/lyn-typert-registry",
-        "@lyness/lyn-client-connection"
+        "@deepseek-ai/dsh-typert-registry",
+        "@deepseek-ai/dsh-client-connection"
       ],
       "platform": "web",
       "immediately": true
@@ -55,26 +55,26 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@lyness/lyn-deque": "workspace:*",
-    "@lyness/lyn-timeout": "workspace:*",
-    "@lyness/schemastery": "workspace:~",
+    "@deepseek-ai/dsh-deque": "workspace:*",
+    "@deepseek-ai/dsh-timeout": "workspace:*",
+    "@deepseek-ai/schemastery": "workspace:~",
     "ws": "^8.21.0",
-    "@lyness/lyn-typert-protocol": "workspace:*"
+    "@deepseek-ai/dsh-typert-protocol": "workspace:*"
   },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-client-connection": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-client-connection": "workspace:*"
   },
   "devDependencies": {
-    "@lyness/lyn-brand": "workspace:*",
-    "@lyness/lyn-cmdline": "workspace:*",
-    "@lyness/lyn-client-connection": "workspace:*",
-    "@lyness/lyn-host-webserver": "workspace:*",
-    "@lyness/lyn-remote-mock": "workspace:*",
-    "@lyness/lyn-typert-registry": "workspace:*",
-    "@lyness/lyn-util-crypto": "workspace:*",
+    "@deepseek-ai/dsh-brand": "workspace:*",
+    "@deepseek-ai/dsh-cmdline": "workspace:*",
+    "@deepseek-ai/dsh-client-connection": "workspace:*",
+    "@deepseek-ai/dsh-host-webserver": "workspace:*",
+    "@deepseek-ai/dsh-remote-mock": "workspace:*",
+    "@deepseek-ai/dsh-typert-registry": "workspace:*",
+    "@deepseek-ai/dsh-util-crypto": "workspace:*",
     "@types/ws": "^8.18.1",
-    "@lyness/cordis": "workspace:~",
+    "@deepseek-ai/cordis": "workspace:~",
     "zod": "^4.4.3"
   }
 }

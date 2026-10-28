@@ -1,12 +1,12 @@
 /**
  * Exclusive named registration for the computer-use capability.
- * @module @lyness/lyn-computer-use
+ * @module @deepseek-ai/dsh-computer-use
  */
 
-import { Context, Service } from '@lyness/cordis'
+import { Context, Service } from '@deepseek-ai/cordis'
 import type { ComputerUseProviderName } from './brand.ts'
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     computerUse: ComputerUseRegistry
   }

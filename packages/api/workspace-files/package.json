@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/lyn-api-workspace-files",
+  "name": "@deepseek-ai/dsh-api-workspace-files",
   "description": "Workspace file service and Client resource provider: bounded reads, directory listing, and live metadata over the workspaceFiles Remote namespace",
   "version": "0.1.7-rc.2",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/api/workspace-files"
   },
   "type": "module",
@@ -37,11 +37,11 @@
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
-  "lyn": {
+  "dsh": {
     "client": {
       "inject": [
-        "@lyness/lyn-api-gateway",
-        "@lyness/lyn-client-resources"
+        "@deepseek-ai/dsh-api-gateway",
+        "@deepseek-ai/dsh-client-resources"
       ],
       "platform": "web"
     }
@@ -52,26 +52,26 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@lyness/lyn-deque": "workspace:*",
-    "@lyness/lyn-typert-protocol": "workspace:*",
-    "@lyness/schemastery": "workspace:~",
+    "@deepseek-ai/dsh-deque": "workspace:*",
+    "@deepseek-ai/dsh-typert-protocol": "workspace:*",
+    "@deepseek-ai/schemastery": "workspace:~",
     "zod": "^4.4.3"
   },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~"
+    "@deepseek-ai/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-api-gateway": "workspace:*",
-    "@lyness/lyn-client-connection": "workspace:*",
-    "@lyness/lyn-client-resources": "workspace:*",
-    "@lyness/lyn-client-ui-slots": "workspace:*",
-    "@lyness/lyn-fs": "workspace:*",
-    "@lyness/lyn-remote-mock": "workspace:*",
-    "@lyness/lyn-sandbox-policy": "workspace:*",
-    "@lyness/lyn-session": "workspace:*",
-    "@lyness/lyn-session-persistence": "workspace:*",
-    "@lyness/lyn-util-workspace-path": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-api-gateway": "workspace:*",
+    "@deepseek-ai/dsh-client-connection": "workspace:*",
+    "@deepseek-ai/dsh-client-resources": "workspace:*",
+    "@deepseek-ai/dsh-client-ui-slots": "workspace:*",
+    "@deepseek-ai/dsh-fs": "workspace:*",
+    "@deepseek-ai/dsh-remote-mock": "workspace:*",
+    "@deepseek-ai/dsh-sandbox-policy": "workspace:*",
+    "@deepseek-ai/dsh-session": "workspace:*",
+    "@deepseek-ai/dsh-session-persistence": "workspace:*",
+    "@deepseek-ai/dsh-util-workspace-path": "workspace:*"
   },
   "files": [
     "lib/index.js",

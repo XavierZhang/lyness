@@ -2,7 +2,7 @@
 
 import { createHmac } from 'node:crypto'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import type { CredentialProvider } from '@lyness/lyn-credentials'
+import type { CredentialProvider } from '@deepseek-ai/dsh-credentials'
 import { BrowserAuth } from '../src/browser-auth.ts'
 import type { ConnectionIndexRequest, ConnectionIndexResponse } from '../src/rpc.ts'
 import { RecordCredentials } from './browser-credentials.ts'
@@ -142,9 +142,9 @@ describe('BrowserAuth', () => {
 
   it('preserves the caller authority and mount while adding only this process token', async () => {
     const auth = await createAuth(new RecordCredentials())
-    const mounted = new URL(auth.authenticatedUrl('https://gateway.example/tools/lyn/'))
+    const mounted = new URL(auth.authenticatedUrl('https://gateway.example/tools/dsh/'))
     expect(mounted.origin).toBe('https://gateway.example')
-    expect(mounted.pathname).toBe('/tools/lyn/')
+    expect(mounted.pathname).toBe('/tools/dsh/')
     expect([...mounted.searchParams.keys()]).toEqual(['token'])
 
     const loopback = new URL(auth.authenticatedUrl('http://127.0.0.1:3080/'))
@@ -186,7 +186,7 @@ describe('BrowserAuth', () => {
       })
       expect(denied.state.body).toBe(candidate.method === 'HEAD'
         ? undefined
-        : 'lyn web authentication required; reopen the URL printed by lyn web.\n')
+        : 'dsh web authentication required; reopen the URL printed by dsh web.\n')
     }
   })
 

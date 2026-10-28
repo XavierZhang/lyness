@@ -13,21 +13,21 @@
     # The ledger. Its recurring allowance is a deployment decision, so the
     # numbers here are the ones an installation changes first.
     - id: credits
-      name: '@lyness/lyn-credits/store'
+      name: '@deepseek-ai/dsh-credits/store'
       config:
         periodicAmount: 1000
         period: daily
 
     # Who a request charges, resolved from its principal.
     - id: credit-subject
-      name: '@lyness/lyn-credits/subject-request'
+      name: '@deepseek-ai/dsh-credits/subject-request'
 
     # Grants and recurring-allowance overrides, authorized against the
     # standing making them.
     - id: credit-administration
-      name: '@lyness/lyn-credits/administration'
+      name: '@deepseek-ai/dsh-credits/administration'
 
     # Metering rides the llm/stream waterfall, so a preset row, a profile
     # patch, or a direct RPC cannot reach a model without being charged.
     - id: credits-enforce
-      name: '@lyness/lyn-credits/enforce'
+      name: '@deepseek-ai/dsh-credits/enforce'

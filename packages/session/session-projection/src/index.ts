@@ -14,20 +14,20 @@
  * carry the complete post-change state, never a bare delta — it keeps every
  * unit's transition trivially cheap and every served value self-describing.
  *
- * @module @lyness/lyn-session-projection
+ * @module @deepseek-ai/dsh-session-projection
  */
 
-import { Context, Service } from '@lyness/cordis'
+import { Context, Service } from '@deepseek-ai/cordis'
 import type { ZodType } from 'zod'
-import { SessionLogOffset, SessionSeq } from '@lyness/lyn-session'
+import { SessionLogOffset, SessionSeq } from '@deepseek-ai/dsh-session'
 import type {
   Session,
   SessionEvent,
   SessionHeader,
   SessionSeqCursor,
-} from '@lyness/lyn-session'
+} from '@deepseek-ai/dsh-session'
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     sessionProjections: SessionProjectionRegistry
   }

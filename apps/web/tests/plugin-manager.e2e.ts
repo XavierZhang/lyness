@@ -6,9 +6,9 @@ import { readFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import type { Browser, Page } from 'playwright'
 import { chromium } from 'playwright'
-import { FiberState } from '@lyness/cordis'
-import { OPTIONAL_BUNDLES, PROFILE_TEMPLATES } from '@lyness/lyn-app-boot'
-import { createUserMessage } from '@lyness/lyn-llm'
+import { FiberState } from '@deepseek-ai/cordis'
+import { OPTIONAL_BUNDLES, PROFILE_TEMPLATES } from '@deepseek-ai/dsh-app-boot'
+import { createUserMessage } from '@deepseek-ai/dsh-llm'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed } from 'vitest'
 import { join } from 'node:path'
 import {
@@ -116,8 +116,8 @@ describe('web e2e: plugin manager', () => {
       }), MODE)
     await toggle.click()
     await expect.poll(async () => (JSON.parse(await homeFile('profiles', 'scaffold', 'package.json')) as {
-      lyn: { profile: { bundles: string[] } }
-    }).lyn.profile.bundles, { timeout: 10_000 }).toEqual(SCAFFOLD_BUNDLES)
+      dsh: { profile: { bundles: string[] } }
+    }).dsh.profile.bundles, { timeout: 10_000 }).toEqual(SCAFFOLD_BUNDLES)
     await expect.poll(() => panel.getByText(/cannot resolve profile bundle/).count(), { timeout: 10_000 }).toBe(0)
     expect((await scaffold.ctx.pluginManager.listBundles()).some(row => row.name === '@fixture/missing-bundle')).toBe(false)
     expect(tripwire.pageErrors).toEqual([])
@@ -137,8 +137,8 @@ describe('web e2e: plugin manager', () => {
     expect(await panel.locator('[data-plugin-group="official"] [data-plugin-package]').count()).toBe(OPTIONAL_BUNDLES.length)
     expect(await panel.locator('[data-plugin-group="official"] [data-plugin-item]').count()).toBe(4)
     expect(await panel.getByText('实验性', { exact: true }).count())
-      .toBe(OPTIONAL_BUNDLES.filter(name => name.startsWith('@lyness/lyn-experimental-')).length)
-    expect(await panel.locator('[data-plugin-package="@lyness/lyn-experimental-inspector"]').count()).toBe(0)
+      .toBe(OPTIONAL_BUNDLES.filter(name => name.startsWith('@deepseek-ai/dsh-experimental-')).length)
+    expect(await panel.locator('[data-plugin-package="@deepseek-ai/dsh-experimental-inspector"]').count()).toBe(0)
     expect(await panel.getByRole('switch', { name: '启用 语音输入', exact: true }).getAttribute('aria-checked')).toBe('false')
     // A bundle that is off still shows the rows its patch declares, without switches.
     await panel.getByRole('button', { name: '查看 @fixture/bundle' }).click()
@@ -170,9 +170,9 @@ describe('web e2e: plugin manager', () => {
       images.push(`${label}: image, ${size.width}×${size.height}, decoded`)
     }
     await checkImage('[data-plugin-package="@fixture/bundle"]', fixtureIcon, 'Third-party bundle card')
-    const team = panel.locator('[data-plugin-package="@lyness/lyn-experimental-agent-team-profile"]')
+    const team = panel.locator('[data-plugin-package="@deepseek-ai/dsh-experimental-agent-team-profile"]')
     expect(await team.getByRole('switch').getAttribute('aria-checked')).toBe('false')
-    await checkImage('[data-plugin-package="@lyness/lyn-experimental-agent-team-profile"]', teamIcon, 'Disabled Agent Teams card')
+    await checkImage('[data-plugin-package="@deepseek-ai/dsh-experimental-agent-team-profile"]', teamIcon, 'Disabled Agent Teams card')
     try {
       for (const colorScheme of ['light', 'dark'] as const) {
         await page.emulateMedia({ colorScheme })
@@ -231,7 +231,7 @@ describe('web e2e: plugin manager', () => {
     const panel = await openPluginsPanel()
     await panel.getByRole('button', { name: '查看 智能体团队', exact: true }).click()
     const packageName = panel.locator('[data-plugin-name]')
-    expect(await packageName.textContent()).toBe('@lyness/lyn-experimental-agent-team-profile')
+    expect(await packageName.textContent()).toBe('@deepseek-ai/dsh-experimental-agent-team-profile')
     expect(await panel.getByText('启用团队协作、团队工具、成员列表和共享任务看板。').count()).toBe(1)
     const child = panel.locator('[data-plugin-row]', { hasText: 'tool-agent-team' })
     await child.getByText('团队工具', { exact: true }).waitFor()
@@ -239,7 +239,7 @@ describe('web e2e: plugin manager', () => {
     try {
       await setLanguage('en')
       await panel.getByRole('heading', { name: 'Agent Teams', exact: true }).waitFor()
-      expect(await packageName.textContent()).toBe('@lyness/lyn-experimental-agent-team-profile')
+      expect(await packageName.textContent()).toBe('@deepseek-ai/dsh-experimental-agent-team-profile')
       expect(await panel.getByText('Enable team collaboration, team tools, the member roster, and the shared task board.').count()).toBe(1)
       await child.getByText('Team Tools', { exact: true }).waitFor()
       expect(await child.getByText('Give agents tools to coordinate members, exchange messages, and manage shared tasks.', { exact: true }).count()).toBe(1)
@@ -296,9 +296,9 @@ describe('web e2e: plugin manager', () => {
         await teamPanel.getByText('暂无共享任务，可以通过对话创建').waitFor()
         await teamPanel.getByText('lead', { exact: true }).waitFor()
         const manifest = JSON.parse(await homeFile('profiles', 'scaffold', 'package.json')) as {
-          lyn: { profile: { bundles: string[] } }
+          dsh: { profile: { bundles: string[] } }
         }
-        expect(manifest.lyn.profile.bundles).toEqual([...SCAFFOLD_BUNDLES, '@lyness/lyn-experimental-agent-team-profile'])
+        expect(manifest.dsh.profile.bundles).toEqual([...SCAFFOLD_BUNDLES, '@deepseek-ai/dsh-experimental-agent-team-profile'])
         await panel.getByRole('button', { name: '查看 智能体团队', exact: true }).click()
         for (const id of ['agent-team', 'tool-agent-team', 'ui-agent-team']) {
           await panel.locator('[data-plugin-row]', { hasText: id }).first().waitFor()
@@ -358,8 +358,8 @@ describe('web e2e: plugin manager', () => {
     await toggle.click()
 
     const bundles = async () => (JSON.parse(await homeFile('profiles', 'scaffold', 'package.json')) as {
-      lyn: { profile: { bundles: string[] } }
-    }).lyn.profile.bundles
+      dsh: { profile: { bundles: string[] } }
+    }).dsh.profile.bundles
     await expect.poll(bundles, { timeout: 10_000 }).toEqual([...SCAFFOLD_BUNDLES, '@fixture/bundle'])
     // A live profile: the row mounts once the whole tree recomposed, the switch is on, and nothing waits for a restart.
     await expect.poll(() => mounted()?.fiber?.state, { timeout: 20_000 }).toBe(2)
@@ -416,7 +416,7 @@ describe('web e2e: startup-applied plugin management', () => {
       const mounted = () => [...scaffold.ctx.loader.entries()].find(entry => entry.options.id === 'fixture-row')
       const bundles = async () => {
         const text = await readFile(join(scaffold.harnessHome, 'profiles', 'scaffold', 'package.json'), 'utf8')
-        return (JSON.parse(text) as { lyn: { profile: { bundles: string[] } } }).lyn.profile.bundles
+        return (JSON.parse(text) as { dsh: { profile: { bundles: string[] } } }).dsh.profile.bundles
       }
       expect(mounted()?.fiber?.state).toBeUndefined()
       await toggle.click()

@@ -3,23 +3,23 @@ import { afterEach, describe, expect, it } from 'vitest'
 import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { Context } from '@lyness/cordis'
-import AgentLoop from '@lyness/lyn-agent-loop'
-import JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
-import { mountAgentLoopTestDependencies } from '@lyness/lyn-agent-loop-testkit'
-import { SessionId } from '@lyness/lyn-session'
-import { defineContentToolFixture } from '@lyness/lyn-tools'
-import { bindScopeParent, createScope, scopeOf } from '@lyness/lyn-scope'
-import LocalFileReference from '@lyness/lyn-file-reference-local'
-import SubagentRuntime from '@lyness/lyn-subagent'
-import * as SubagentSpawn from '@lyness/lyn-subagent-spawn-in-process'
-import * as SubagentTool from '@lyness/lyn-tool-subagent'
-import Selection from '@lyness/lyn-tool-subagent/model-selection-settings'
-import type { Agent } from '@lyness/lyn-agent'
-import { createUserMessage } from '@lyness/lyn-llm'
-import type { ContextFormed } from '@lyness/lyn-llm'
+import { Context } from '@deepseek-ai/cordis'
+import AgentLoop from '@deepseek-ai/dsh-agent-loop'
+import JsonlSessionPersistence from '@deepseek-ai/dsh-session-persistence-jsonl'
+import { mountAgentLoopTestDependencies } from '@deepseek-ai/dsh-agent-loop-testkit'
+import { SessionId } from '@deepseek-ai/dsh-session'
+import { defineContentToolFixture } from '@deepseek-ai/dsh-tools'
+import { bindScopeParent, createScope, scopeOf } from '@deepseek-ai/dsh-scope'
+import LocalFileReference from '@deepseek-ai/dsh-file-reference-local'
+import SubagentRuntime from '@deepseek-ai/dsh-subagent'
+import * as SubagentSpawn from '@deepseek-ai/dsh-subagent-spawn-in-process'
+import * as SubagentTool from '@deepseek-ai/dsh-tool-subagent'
+import Selection from '@deepseek-ai/dsh-tool-subagent/model-selection-settings'
+import type { Agent } from '@deepseek-ai/dsh-agent'
+import { createUserMessage } from '@deepseek-ai/dsh-llm'
+import type { ContextFormed } from '@deepseek-ai/dsh-llm'
 
-declare module '@lyness/lyn-llm' {
+declare module '@deepseek-ai/dsh-llm' {
   interface MessageSourceMap {
     'due-work': { kind: 'due-work'; plugin: string } & ContextFormed
   }
@@ -125,7 +125,7 @@ describe('serial creation listener integrations', () => {
   })
 
   it('starts due plugin work only after every creation listener finishes', async () => {
-    const root = await mkdtemp(join(tmpdir(), 'lyn-serial-due-'))
+    const root = await mkdtemp(join(tmpdir(), 'dsh-serial-due-'))
     roots.push(root)
     const ctx = await core(root)
     const sessionId = SessionId('review-due-work')

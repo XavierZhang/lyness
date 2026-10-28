@@ -7,12 +7,12 @@
  * apart also keeps a policy edit from touching the table a balance is read
  * from.
  *
- * @module @lyness/lyn-credits/allowance-storage
+ * @module @deepseek-ai/dsh-credits/allowance-storage
  */
 
 import { z } from 'zod'
-import { defineDomain, domainTable, storedId, storedInstant } from '@lyness/lyn-storage-domain'
-import type { PersonId } from '@lyness/lyn-people'
+import { defineDomain, domainTable, storedId, storedInstant } from '@deepseek-ai/dsh-storage-domain'
+import type { PersonId } from '@deepseek-ai/dsh-people'
 import type { AllowanceRecord } from './allowance.ts'
 
 /** Stored override; it states only the fields it changes. */

@@ -10,17 +10,17 @@
  */
 
 import { describe, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import LlmRuntime from '@lyness/lyn-llm'
-import { createUserMessage, LlmAdapter } from '@lyness/lyn-llm'
-import type { GenerateOptions, StreamChunk } from '@lyness/lyn-llm'
-import SessionStore, { SessionId } from '@lyness/lyn-session'
-import SystemPrompt from '@lyness/lyn-system-prompt'
-import ToolRuntime from '@lyness/lyn-tools'
-import AgentRegistry, { type Agent } from '@lyness/lyn-agent'
+import { Context } from '@deepseek-ai/cordis'
+import LlmRuntime from '@deepseek-ai/dsh-llm'
+import { createUserMessage, LlmAdapter } from '@deepseek-ai/dsh-llm'
+import type { GenerateOptions, StreamChunk } from '@deepseek-ai/dsh-llm'
+import SessionStore, { SessionId } from '@deepseek-ai/dsh-session'
+import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
+import ToolRuntime from '@deepseek-ai/dsh-tools'
+import AgentRegistry, { type Agent } from '@deepseek-ai/dsh-agent'
 
-import AgentLoop from '@lyness/lyn-agent-loop'
-import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import AgentLoop from '@deepseek-ai/dsh-agent-loop'
+import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
 import fc from 'fast-check'
 
 /** A never-exhausting adapter: every model call returns the same short reply. */

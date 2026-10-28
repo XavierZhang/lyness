@@ -1,14 +1,14 @@
 /** What a session carries afterwards: the tenant stamp, the identity text verbatim, and the refusals a misconfiguration causes. */
 
 import { describe, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import AgentRegistry from '@lyness/lyn-agent'
-import SessionStore from '@lyness/lyn-session'
-import type { Session } from '@lyness/lyn-session'
-import SessionProjectionRegistry from '@lyness/lyn-session-projection'
-import SystemPrompt from '@lyness/lyn-system-prompt'
-import StaticTenantDirectory from '@lyness/lyn-tenant-static'
-import StaticTenantConfigStore from '@lyness/lyn-tenant-config-static'
+import { Context } from '@deepseek-ai/cordis'
+import AgentRegistry from '@deepseek-ai/dsh-agent'
+import SessionStore from '@deepseek-ai/dsh-session'
+import type { Session } from '@deepseek-ai/dsh-session'
+import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
+import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
+import StaticTenantDirectory from '@deepseek-ai/dsh-tenant-static'
+import StaticTenantConfigStore from '@deepseek-ai/dsh-tenant-config-static'
 import * as TenantSession from '../src/index.ts'
 import type { TenantSessionRecord } from '../src/index.ts'
 

@@ -3,12 +3,12 @@ import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { act, cleanup, fireEvent, isInaccessible, render, screen, within } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { bindSnapshotSelector, makeTranslate, RemoteError } from '@lyness/lyn-client-test-runtime'
-import type { RemoteResult } from '@lyness/lyn-api-remotes/client'
-import type { SessionListState } from '@lyness/lyn-api-session-controller/client'
-import type { WorkspaceSnapshot } from '@lyness/lyn-api-workspace-controller/client'
-import type { ScheduleCatalogEntry, ScheduleDeleteResult, ScheduleId, ScheduleUpdateResult } from '@lyness/lyn-schedule/client'
-import type { SessionId } from '@lyness/lyn-session/types'
+import { bindSnapshotSelector, makeTranslate, RemoteError } from '@deepseek-ai/dsh-client-test-runtime'
+import type { RemoteResult } from '@deepseek-ai/dsh-api-remotes/client'
+import type { SessionListState } from '@deepseek-ai/dsh-api-session-controller/client'
+import type { WorkspaceSnapshot } from '@deepseek-ai/dsh-api-workspace-controller/client'
+import type { ScheduleCatalogEntry, ScheduleDeleteResult, ScheduleId, ScheduleUpdateResult } from '@deepseek-ai/dsh-schedule/client'
+import type { SessionId } from '@deepseek-ai/dsh-session/types'
 import { TaskManagerPage, type TaskManagerPageProps } from '../src/client/TaskManagerPage.tsx'
 import { TaskManagerIcon } from '../src/client/TaskManagerIcon.tsx'
 import { createCatalogSource, type CatalogSnapshot } from '../src/client/catalog-source.ts'
@@ -3663,7 +3663,7 @@ describe('Mock detail metrics shared with the task list', () => {
     // The Plugins page's macOS head clearance above that same row inset, so the
     // heading clears the hiddenInset titlebar and keeps the 76px total offset.
     expect(stylesheet).toMatch(
-      /\[data-platform='darwin'\][^{]*\.pageHeading\s*\{[^}]*padding-top:\s*calc\(28px \+ var\(--lyn-frame-top-clearance, 0px\)\);/,
+      /\[data-platform='darwin'\][^{]*\.pageHeading\s*\{[^}]*padding-top:\s*calc\(28px \+ var\(--dsh-frame-top-clearance, 0px\)\);/,
     )
     // The column keeps no top inset of its own, on either platform.
     expect(stylesheet).not.toMatch(

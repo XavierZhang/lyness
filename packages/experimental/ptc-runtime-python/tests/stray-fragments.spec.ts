@@ -1,4 +1,4 @@
-import { Context } from '@lyness/cordis'
+import { Context } from '@deepseek-ai/cordis'
 import { expect, it, vi } from 'vitest'
 import { logTruncationMarker } from '../src/protocol.ts'
 

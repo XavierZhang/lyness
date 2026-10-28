@@ -3,17 +3,17 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { afterEach, expect, it, vi } from 'vitest'
-import { Context } from '@lyness/cordis'
-import Loader from '@lyness/cordis-plugin-loader'
-import Include from '@lyness/cordis-plugin-include'
-import SessionStore, { SessionId } from '@lyness/lyn-session'
-import JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
-import MessageFeedback from '@lyness/lyn-message-feedback'
-import { recordFeedback } from '@lyness/lyn-command-feedback'
-import LlmRuntime, { createAssistantMessage, createUserMessage } from '@lyness/lyn-llm'
-import * as LlmDeepSeek from '@lyness/lyn-llm-deepseek-api-key'
-import DeepSeekLlmApiExtensions from '@lyness/lyn-deepseek-llm-api-extensions'
-import { startMockLlmServer, type MockLlmServer, type MockLlmServerOptions } from '@lyness/lyn-llm-mock-server'
+import { Context } from '@deepseek-ai/cordis'
+import Loader from '@deepseek-ai/cordis-plugin-loader'
+import Include from '@deepseek-ai/cordis-plugin-include'
+import SessionStore, { SessionId } from '@deepseek-ai/dsh-session'
+import JsonlSessionPersistence from '@deepseek-ai/dsh-session-persistence-jsonl'
+import MessageFeedback from '@deepseek-ai/dsh-message-feedback'
+import { recordFeedback } from '@deepseek-ai/dsh-command-feedback'
+import LlmRuntime, { createAssistantMessage, createUserMessage } from '@deepseek-ai/dsh-llm'
+import * as LlmDeepSeek from '@deepseek-ai/dsh-llm-deepseek-api-key'
+import DeepSeekLlmApiExtensions from '@deepseek-ai/dsh-deepseek-llm-api-extensions'
+import { startMockLlmServer, type MockLlmServer, type MockLlmServerOptions } from '@deepseek-ai/dsh-llm-mock-server'
 import * as SessionLogDeepSeek from '../src/index.ts'
 import type { DeepSeekSessionLogExtension } from '../src/types.ts'
 
@@ -33,29 +33,29 @@ afterEach(async () => {
 
 /** Boot the official upload route through the Loader with one session-log configuration. */
 async function boot(sessionLog: SessionLogDeepSeek.Config, mock: MockLlmServerOptions): Promise<{ ctx: Context; server: MockLlmServer }> {
-  root = await mkdtemp(join(tmpdir(), 'lyn-feedback-upload-'))
-  vi.stubEnv('LYNESS_HOME', root)
+  root = await mkdtemp(join(tmpdir(), 'dsh-feedback-upload-'))
+  vi.stubEnv('DSH_HOME', root)
   vi.stubEnv('DEEPSEEK_API_KEY', 'feedback-test-key')
   server = await startMockLlmServer(mock)
   const modules = new Map<string, unknown>([
-    ['@lyness/lyn-session', SessionStore],
-    ['@lyness/lyn-session-persistence-jsonl', JsonlSessionPersistence],
-    ['@lyness/lyn-message-feedback', MessageFeedback],
-    ['@lyness/lyn-llm', LlmRuntime],
-    ['@lyness/lyn-llm-deepseek-api-key', LlmDeepSeek],
-    ['@lyness/lyn-deepseek-llm-api-extensions', DeepSeekLlmApiExtensions],
-    ['@lyness/lyn-session-log-deepseek', SessionLogDeepSeek],
+    ['@deepseek-ai/dsh-session', SessionStore],
+    ['@deepseek-ai/dsh-session-persistence-jsonl', JsonlSessionPersistence],
+    ['@deepseek-ai/dsh-message-feedback', MessageFeedback],
+    ['@deepseek-ai/dsh-llm', LlmRuntime],
+    ['@deepseek-ai/dsh-llm-deepseek-api-key', LlmDeepSeek],
+    ['@deepseek-ai/dsh-deepseek-llm-api-extensions', DeepSeekLlmApiExtensions],
+    ['@deepseek-ai/dsh-session-log-deepseek', SessionLogDeepSeek],
   ])
   const config = join(root, 'cordis.yml')
   await writeFile(config, JSON.stringify([...modules.keys()].map(name => ({
     name,
-    ...name === '@lyness/lyn-session-persistence-jsonl'
+    ...name === '@deepseek-ai/dsh-session-persistence-jsonl'
       ? { config: { root: join(root!, 'sessions'), compression: 'none' } }
-      : name === '@lyness/lyn-message-feedback'
+      : name === '@deepseek-ai/dsh-message-feedback'
         ? { config: { maxNoteBytes: 1024 } }
-        : name === '@lyness/lyn-llm-deepseek-api-key'
+        : name === '@deepseek-ai/dsh-llm-deepseek-api-key'
           ? { config: { baseURL: server!.baseURL } }
-          : name === '@lyness/lyn-session-log-deepseek'
+          : name === '@deepseek-ai/dsh-session-log-deepseek'
             ? { config: sessionLog }
             : {},
   }))))

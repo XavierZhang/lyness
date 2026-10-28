@@ -15,10 +15,10 @@
  * requires it. A deployment that mounts it refuses what it cannot resolve
  * rather than falling back, because a tenant is an isolation boundary and a
  * wrong tenant is another organization's data.
- * @module @lyness/lyn-tenant
+ * @module @deepseek-ai/dsh-tenant
  */
 
-import { Context, Service } from '@lyness/cordis'
+import { Context, Service } from '@deepseek-ai/cordis'
 import type { Tenant, TenantId } from './types.ts'
 
 export { isTenantSlug, TenantId, TENANT_ID_SYNTAX, TENANT_SLUG_SYNTAX } from './brand.ts'
@@ -39,7 +39,7 @@ export class TenantError extends Error {
   }
 }
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     tenants: TenantDirectory
   }

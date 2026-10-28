@@ -1,7 +1,7 @@
 /** Browser command service, with one keyboard adapter per plugin lifetime. */
-import { Service } from '@lyness/cordis'
-import type { Context } from '@lyness/cordis'
-import type {} from '@lyness/lyn-client-locale/client'
+import { Service } from '@deepseek-ai/cordis'
+import type { Context } from '@deepseek-ai/cordis'
+import type {} from '@deepseek-ai/dsh-client-locale/client'
 import { ShortcutRegistry } from './registry.ts'
 import { detectEnvironment, installKeyboard } from './dom.ts'
 import { bindingIssue, initialShortcutConfig, normalizeBinding, overlappingBindings, presentBinding } from '../protocol.ts'
@@ -16,7 +16,7 @@ export type { ShortcutCatalogEntry, ShortcutCommand, ShortcutContext, ShortcutGe
 export type { ShortcutFixedInput, ShortcutFixedCommand, ShortcutFixedCatalogEntry } from './types.ts'
 export type { ShortcutBinding, ShortcutCommandId, ShortcutPlatform, ShortcutRuntime } from '../protocol.ts'
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     /** Window-local application commands and effective keycap catalog. */
     shortcuts: Shortcuts
@@ -42,13 +42,13 @@ export default class ShortcutsService extends Service implements Shortcuts {
   constructor(ctx: Context) {
     const environment = detectEnvironment(document, navigator)
     const keyboard = environment.runtime === 'desktop'
-      ? (window as Window & { lynDesktop?: { keyboard?: DesktopKeyboardApi } }).lynDesktop?.keyboard : undefined
+      ? (window as Window & { dshDesktop?: { keyboard?: DesktopKeyboardApi } }).dshDesktop?.keyboard : undefined
     if (environment.runtime === 'desktop' && keyboard === undefined) throw new Error('Desktop keyboard bridge unavailable')
     super(ctx, 'shortcuts')
     this.keyboard = keyboard
     this.runtime = environment.runtime
     this.platform = environment.platform
-    const config = Config((globalThis as { __LYNESS_SHORTCUTS_CONFIG__?: unknown }).__LYNESS_SHORTCUTS_CONFIG__ ?? {})
+    const config = Config((globalThis as { __DSH_SHORTCUTS_CONFIG__?: unknown }).__DSH_SHORTCUTS_CONFIG__ ?? {})
     this.stopSequenceMs = config.stopSequenceMs
     this.registry = new ShortcutRegistry(this.runtime, this.platform, initialShortcutConfig())
     this.catalog = this.registry.catalog

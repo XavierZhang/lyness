@@ -12,7 +12,7 @@ Status: implemented
 
 ## Decision
 
-`ctx.tenantConfig` 读取一个租户为自己配置的内容：按模态的模型（语言、图片、视频、音乐）、通过哪些供应商使用它们、可用的功能、它贡献的身份文本，以及它覆盖的界面文案。`@lyness/lyn-tenant-config-static` 从组合配置提供它，`@lyness/lyn-tenant-http` 消费它，在原有答复上加入发起请求方的功能与文案。
+`ctx.tenantConfig` 读取一个租户为自己配置的内容：按模态的模型（语言、图片、视频、音乐）、通过哪些供应商使用它们、可用的功能、它贡献的身份文本，以及它覆盖的界面文案。`@deepseek-ai/dsh-tenant-config-static` 从组合配置提供它，`@deepseek-ai/dsh-tenant-http` 消费它，在原有答复上加入发起请求方的功能与文案。
 
 四条裁决决定了它的形状。
 

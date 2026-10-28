@@ -12,17 +12,17 @@
  * address that resolves to an organization admits only that organization's
  * standings.
  *
- * @module @lyness/lyn-acting-context
+ * @module @deepseek-ai/dsh-acting-context
  */
 
-import { Service } from '@lyness/cordis'
-import type { Context } from '@lyness/cordis'
-import type { ActingContext, PersonId } from '@lyness/lyn-people'
+import { Service } from '@deepseek-ai/cordis'
+import type { Context } from '@deepseek-ai/cordis'
+import type { ActingContext, PersonId } from '@deepseek-ai/dsh-people'
 import type { DeclaredContext, RefusalCode } from './types.ts'
 
 export type { DeclaredContext, RefusalCode } from './types.ts'
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     /** Resolves the context one call acts in; absent on a deployment with no identities. */
     actingContext: ActingContextResolver

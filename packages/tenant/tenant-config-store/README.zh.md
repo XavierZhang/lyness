@@ -3,7 +3,7 @@ description: "持久化的租户配置：每个租户在存储域中占一条记
 kind: "package-reference"
 ---
 
-# @lyness/lyn-tenant-config-store
+# @deepseek-ai/dsh-tenant-config-store
 
 [English](README.md) | 中文
 
@@ -27,25 +27,25 @@ kind: "package-reference"
 
 ```yaml
 - id: storage
-  name: '@lyness/lyn-storage'
+  name: '@deepseek-ai/dsh-storage'
 - id: storage-medium
-  name: '@lyness/lyn-storage-sqlite'
+  name: '@deepseek-ai/dsh-storage-sqlite'
   config:
-    path: /var/lib/lyn/data.db
+    path: /var/lib/dsh/data.db
 - id: storage-domain
-  name: '@lyness/lyn-storage-domain'
+  name: '@deepseek-ai/dsh-storage-domain'
   config:
     backend: sqlite
 - id: tenant-config
-  name: '@lyness/lyn-tenant-config-store'
+  name: '@deepseek-ai/dsh-tenant-config-store'
 ```
 
-它不接受配置：记录本身就是配置。请用它替代 `@lyness/lyn-tenant-config-static`，而不是与之并存——能力缝在一个 context 中只容纳一个存储，挂载第二个会抛错。
+它不接受配置：记录本身就是配置。请用它替代 `@deepseek-ai/dsh-tenant-config-static`，而不是与之并存——能力缝在一个 context 中只容纳一个存储，挂载第二个会抛错。
 
 保存是一项能力而非方法，因此对两种后端都适用的消费方要先询问：
 
 ```ts
-import type { TenantConfig, TenantConfigStore } from '@lyness/lyn-tenant-config'
+import type { TenantConfig, TenantConfigStore } from '@deepseek-ai/dsh-tenant-config'
 
 /**
  * Save when the mounted backend accepts saves.

@@ -8,23 +8,23 @@
  * mounts.
  *
  * Signing in and out are not here. Both are browser navigations — one leaves
- * for a directory's own page, the other clears a cookie — and `lyn-sign-in-http`
+ * for a directory's own page, the other clears a cookie — and `dsh-sign-in-http`
  * owns the routes. This namespace only tells a surface where they are.
  *
- * @module @lyness/lyn-api-identity-controller
+ * @module @deepseek-ai/dsh-api-identity-controller
  */
 
-import { Context } from '@lyness/cordis'
-import { Remote, TypertRemoteService } from '@lyness/lyn-typert-protocol'
-import type {} from '@lyness/lyn-request-principal'
-import type { MembershipId, PersonId } from '@lyness/lyn-people'
-import type {} from '@lyness/lyn-sign-in'
-import { SIGN_OUT_PATH, START_PREFIX } from '@lyness/lyn-sign-in-http'
+import { Context } from '@deepseek-ai/cordis'
+import { Remote, TypertRemoteService } from '@deepseek-ai/dsh-typert-protocol'
+import type {} from '@deepseek-ai/dsh-request-principal'
+import type { MembershipId, PersonId } from '@deepseek-ai/dsh-people'
+import type {} from '@deepseek-ai/dsh-sign-in'
+import { SIGN_OUT_PATH, START_PREFIX } from '@deepseek-ai/dsh-sign-in-http'
 import type { ChannelOfferView, ViewerPersonView, ViewerStandingView, ViewerView } from './types.ts'
 
 export type * from './types.ts'
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     /** Host owner of the `identity` Remote namespace. */
     identityController: IdentityController

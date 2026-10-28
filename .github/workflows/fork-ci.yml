@@ -1,7 +1,7 @@
 # Fork-owned CI for custom/main.
 #
 # Upstream's ci.yml runs only on pull requests and targets upstream's
-# enterprise runner pools (lyn-ubuntu-24-04-16core, lyn-windows-2025-16core).
+# enterprise runner pools (dsh-ubuntu-24-04-16core, dsh-windows-2025-16core).
 # This fork commits to custom/main directly and has neither pool, so none of
 # those jobs ever ran here: a Dependabot PR's coverage job queued for 24 hours
 # waiting for a runner that does not exist. This workflow mirrors the useful
@@ -12,7 +12,7 @@
 #
 # Not mirrored: publishing, upstream PR governance, and docs deployment.
 #
-# Real-API lanes run only when the repository variable LYNESS_FORK_REAL_API is
+# Real-API lanes run only when the repository variable DSH_FORK_REAL_API is
 # 'true', and need the DEEPSEEK_API_KEY_EXTERNAL secret. Which platform they
 # call is configuration, not code: the repository variables DEEPSEEK_BASE_URL
 # and DEEPSEEK_MODELS reach the product and the suites as the environment
@@ -33,7 +33,7 @@ env:
   PRIMARY_NODE_VERSION: '24'
   # CI runs must never report to the production telemetry endpoint baked
   # into apps/cli/cordis.yml (AppCLIEntry disables the row when set).
-  LYNESS_TELEMETRY_DISABLED: '1'
+  DSH_TELEMETRY_DISABLED: '1'
 
 # A newer push supersedes an older run; only the latest tip's result matters.
 concurrency:
@@ -46,8 +46,8 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 60
     env:
-      LYNESS_GATE_CONCURRENCY: '3'
-      LYNESS_GATE_FAIL_FAST: '1'
+      DSH_GATE_CONCURRENCY: '3'
+      DSH_GATE_FAIL_FAST: '1'
     steps:
       - name: Use runner-owned temporary storage
         run: |
@@ -70,7 +70,7 @@ jobs:
           BEFORE: ${{ github.event.before }}
         run: |
           if [ -n "${BEFORE:-}" ] && [ "$BEFORE" != '0000000000000000000000000000000000000000' ]; then
-            echo "LYNESS_ARCHIVE_BASE_REF=$BEFORE" >> "$GITHUB_ENV"
+            echo "DSH_ARCHIVE_BASE_REF=$BEFORE" >> "$GITHUB_ENV"
           fi
 
       - uses: pnpm/action-setup@v4
@@ -108,16 +108,16 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 90
     env:
-      LYNESS_COVERAGE_MAX_WORKERS: '3'
-      LYNESS_COVERAGE_PARTITIONS: '2'
+      DSH_COVERAGE_MAX_WORKERS: '3'
+      DSH_COVERAGE_PARTITIONS: '2'
       # Upstream sets this on its Windows lane only, because its Linux pool is
       # fast enough for the 5s default even under v8 instrumentation. This lane
       # is not: two different cases have already timed out at exactly 5000ms
       # while doing ordinary work, one walking a fixture tree and one driving a
       # pwsh terminal. A test that hangs still fails, 90s later.
-      LYNESS_COVERAGE_TEST_TIMEOUT_MS: '90000'
-      LYNESS_GATE_CONCURRENCY: '2'
-      LYNESS_GATE_FAIL_FAST: '1'
+      DSH_COVERAGE_TEST_TIMEOUT_MS: '90000'
+      DSH_GATE_CONCURRENCY: '2'
+      DSH_GATE_FAIL_FAST: '1'
       # subprocess-local picks native containment when `systemd-run --user
       # --scope` answers, and this runner answers while the scope it creates
       # does not survive its own bootstrap — one run left the no-containment
@@ -231,11 +231,11 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Install benchmark browser and hosted dependencies
-        run: pnpm --filter @lyness/lyn-benchmarks exec playwright install --with-deps chromium
+        run: pnpm --filter @deepseek-ai/dsh-benchmarks exec playwright install --with-deps chromium
 
       - name: Run performance benchmarks
         env:
-          LYNESS_GATE_VERBOSE: '1'
+          DSH_GATE_VERBOSE: '1'
         run: pnpm run check:ci:bench
 
   consumers:
@@ -243,18 +243,18 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 90
     env:
-      # This aggregate boots whole `lyn` process trees, so its gates are
+      # This aggregate boots whole `dsh` process trees, so its gates are
       # latency-sensitive rather than throughput-bound. Upstream's 16 cores
       # across 10 gates leave 1.6 cores per gate; 3 gates on 4 cores left 1.33
       # and pushed two process expectations past their own deadlines. Two gates
       # restore the headroom the assertions were written against.
-      LYNESS_GATE_CONCURRENCY: '2'
-      LYNESS_NODE_COMPAT_SKIP_TYPECHECK: '1'
-      LYNESS_OXLINT_THREADS: '4'
-      LYNESS_PUBLINT_CONCURRENCY: '4'
-      LYNESS_WEB_SNAPSHOT_WORKERS: '2'
-      LYNESS_GATE_FAIL_FAST: '1'
-      LYNESS_SNAPSHOT_MAX_CONCURRENCY: '8'
+      DSH_GATE_CONCURRENCY: '2'
+      DSH_NODE_COMPAT_SKIP_TYPECHECK: '1'
+      DSH_OXLINT_THREADS: '4'
+      DSH_PUBLINT_CONCURRENCY: '4'
+      DSH_WEB_SNAPSHOT_WORKERS: '2'
+      DSH_GATE_FAIL_FAST: '1'
+      DSH_SNAPSHOT_MAX_CONCURRENCY: '8'
     steps:
       - name: Use runner-owned temporary storage
         run: |
@@ -313,7 +313,7 @@ jobs:
           exit "$sandbox_status"
 
       - name: Install Playwright Chromium and hosted dependencies
-        run: pnpm --filter @lyness/lyn-web-frontend exec playwright install --with-deps chromium webkit
+        run: pnpm --filter @deepseek-ai/dsh-web-frontend exec playwright install --with-deps chromium webkit
 
       # Upstream never saves this cache on a branch this fork builds.
       - uses: actions/cache/save@v4
@@ -330,9 +330,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     env:
-      LYNESS_GATE_CONCURRENCY: '1'
-      LYNESS_NODE_COMPAT_SKIP_TYPECHECK: '1'
-      LYNESS_GATE_FAIL_FAST: '1'
+      DSH_GATE_CONCURRENCY: '1'
+      DSH_NODE_COMPAT_SKIP_TYPECHECK: '1'
+      DSH_GATE_FAIL_FAST: '1'
     strategy:
       fail-fast: false
       matrix:
@@ -371,7 +371,7 @@ jobs:
 
       - name: Run compatibility smokes
         env:
-          LYNESS_BUILD_CLIENT_PROFILE: official
+          DSH_BUILD_CLIENT_PROFILE: official
         run: pnpm run check:node-compat
 
       - name: Check Loader internal shape detection
@@ -403,7 +403,7 @@ jobs:
   # runs only when this fork's target is the official API.
   python-runtime:
     name: python runtime / release-shaped matrix
-    if: vars.LYNESS_FORK_REAL_API == 'true' && vars.DEEPSEEK_BASE_URL == ''
+    if: vars.DSH_FORK_REAL_API == 'true' && vars.DEEPSEEK_BASE_URL == ''
     uses: ./.github/workflows/build-exe-for-python-sdk.yml
     with:
       targets: node24-linux-x64,node24-win-x64
@@ -416,7 +416,7 @@ jobs:
     runs-on: windows-2025
     timeout-minutes: 90
     env:
-      LYNESS_GATE_FAIL_FAST: '1'
+      DSH_GATE_FAIL_FAST: '1'
     steps:
       - uses: actions/checkout@v6
         with:
@@ -454,8 +454,8 @@ jobs:
         timeout-minutes: 15
         shell: pwsh
         env:
-          LYNESS_GATE_FAIL_FAST: ''
-          LYNESS_PUBLINT_CONCURRENCY: '4'
+          DSH_GATE_FAIL_FAST: ''
+          DSH_PUBLINT_CONCURRENCY: '4'
         run: pnpm run check:ci:windows-observational-ready
       - name: Report Windows observational failures
         continue-on-error: true
@@ -472,11 +472,11 @@ jobs:
     # Upstream allows 120 minutes on 16 cores; the hosted runner has 4.
     timeout-minutes: 240
     env:
-      LYNESS_COVERAGE_MAX_WORKERS: '3'
-      LYNESS_COVERAGE_PARTITIONS: '2'
-      LYNESS_COVERAGE_TEST_TIMEOUT_MS: '90000'
-      LYNESS_GATE_CONCURRENCY: '2'
-      LYNESS_GATE_FAIL_FAST: '1'
+      DSH_COVERAGE_MAX_WORKERS: '3'
+      DSH_COVERAGE_PARTITIONS: '2'
+      DSH_COVERAGE_TEST_TIMEOUT_MS: '90000'
+      DSH_GATE_CONCURRENCY: '2'
+      DSH_GATE_FAIL_FAST: '1'
     steps:
       - uses: actions/checkout@v6
         with:
@@ -624,9 +624,9 @@ jobs:
   # Non-blocking, as upstream marks it: a red run here does not fail the workflow.
   e2e:
     name: e2e (real API, configured platform)
-    if: vars.LYNESS_FORK_REAL_API == 'true'
+    if: vars.DSH_FORK_REAL_API == 'true'
     runs-on: ubuntu-24.04
-    # Profile e2e files can each own several complete lyn subprocess trees.
+    # Profile e2e files can each own several complete dsh subprocess trees.
     # Upstream runs four file workers; on this hosted 4-vCPU runner that made
     # ptc.e2e.ts fail three runs out of four, always on the same case — its
     # bounded 100 x 10ms wait for a background job to reach the host registry
@@ -704,6 +704,6 @@ jobs:
       - name: E2E tests (real API)
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY_EXTERNAL }}
-          LYNESS_E2E_MAX_WORKERS: 2
-          LYNESS_EXAMPLE_MODE: lib
+          DSH_E2E_MAX_WORKERS: 2
+          DSH_EXAMPLE_MODE: lib
         run: pnpm run test:e2e

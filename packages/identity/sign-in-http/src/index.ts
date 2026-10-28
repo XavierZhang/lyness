@@ -1,7 +1,7 @@
 /**
  * The browser-facing half of signing in: four routes and the cookie.
  *
- * It exists because `lyn-sign-in` deliberately stops at the session identity.
+ * It exists because `dsh-sign-in` deliberately stops at the session identity.
  * Something has to decide where the directory returns to, what the cookie's
  * attributes are, and what a refused sign-in looks like to a person rather
  * than to a caller — and all three are properties of being served over HTTP,
@@ -13,19 +13,19 @@
  * attacker obtained by starting their own sign-in and then handing the link
  * to someone else — which signs that person in as the attacker.
  *
- * @module @lyness/lyn-sign-in-http
+ * @module @deepseek-ai/dsh-sign-in-http
  */
 
 import type { IncomingMessage, ServerResponse } from 'node:http'
-import type { Context } from '@lyness/cordis'
-import z from '@lyness/schemastery'
-import { assertNever } from '@lyness/lyn-util-values'
-import { brandString } from '@lyness/lyn-brand'
-import { sendJson } from '@lyness/lyn-host-webserver'
-import type {} from '@lyness/lyn-host-webserver'
-import { SignInRefused, channelId } from '@lyness/lyn-sign-in'
-import type { ChannelId } from '@lyness/lyn-sign-in'
-import type { AuthSessionId } from '@lyness/lyn-auth-session'
+import type { Context } from '@deepseek-ai/cordis'
+import z from '@deepseek-ai/schemastery'
+import { assertNever } from '@deepseek-ai/dsh-util-values'
+import { brandString } from '@deepseek-ai/dsh-brand'
+import { sendJson } from '@deepseek-ai/dsh-host-webserver'
+import type {} from '@deepseek-ai/dsh-host-webserver'
+import { SignInRefused, channelId } from '@deepseek-ai/dsh-sign-in'
+import type { ChannelId } from '@deepseek-ai/dsh-sign-in'
+import type { AuthSessionId } from '@deepseek-ai/dsh-auth-session'
 import {
   ATTEMPT_COOKIE, SESSION_COOKIE, clearCookie, readCookie, setCookie,
 } from './cookie.ts'

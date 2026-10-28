@@ -5,7 +5,7 @@
  * activate, against that plugin context) and the entry `disabled` field (at
  * every mount decision, against the loader context). Every other entry
  * metadata field stays static, so an expression there remains truthy data and
- * silently changes composition. Shipped and test-only lyn overlays resolve
+ * silently changes composition. Shipped and test-only dsh overlays resolve
  * named plugins from the CLI application's owning manifest; package-owned
  * Loader fixtures resolve from their package manifest.
  */
@@ -14,7 +14,7 @@ import { existsSync, globSync, readdirSync, readFileSync } from 'node:fs'
 import { dirname, relative, resolve } from 'node:path'
 import { Script } from 'node:vm'
 import ts from 'typescript'
-import type { LynBundleManifest } from '../packages/util/package-manifest/src/types.ts'
+import type { DshBundleManifest } from '../packages/util/package-manifest/src/types.ts'
 import { bundlePatchFiles, bundlePatchPaths, PROFILE_TEMPLATES } from '../packages/boot/app-boot/src/profile.ts'
 import { cordisConfigFiles } from './cordis-config-files.ts'
 import { isAgentPresetEntry, presetDefinitions, isCordisGroupEntry, isJsExpr, loadCordisYaml } from './cordis-yaml.ts'
@@ -24,7 +24,7 @@ export interface PackageManifest {
   dependencies?: Record<string, string>
   devDependencies?: Record<string, string>
   optionalDependencies?: Record<string, string>
-  lyn?: { bundle?: LynBundleManifest }
+  dsh?: { bundle?: DshBundleManifest }
 }
 
 export interface PluginReference {
@@ -33,7 +33,7 @@ export interface PluginReference {
 }
 
 const root = resolve(import.meta.dirname, '..')
-// These overlays are consumed by the built lyn app, so their bare specifiers
+// These overlays are consumed by the built dsh app, so their bare specifiers
 // resolve from apps/cli.
 const appOverlayFiles = new Set([
   ...globSync('apps/cli/config/examples/**/*.yml', { cwd: root }),
@@ -41,7 +41,7 @@ const appOverlayFiles = new Set([
 const metadataFields = ['id', 'name', 'group', 'inject', 'intercept', 'isolate'] as const
 
 /** The adaptive directory-picker chooser package (mounts a backend row at boot). */
-const CHOOSER_PACKAGE = '@lyness/lyn-host-directory-picker-auto'
+const CHOOSER_PACKAGE = '@deepseek-ai/dsh-host-directory-picker-auto'
 
 /**
  * The packages the chooser mounts by runtime string (mirror of its exported
@@ -51,10 +51,10 @@ const CHOOSER_PACKAGE = '@lyness/lyn-host-directory-picker-auto'
  * until a macOS boot.
  */
 const CHOOSER_BACKEND_PACKAGES = [
-  '@lyness/lyn-host-directory-picker-native',
-  '@lyness/lyn-host-directory-picker-browse',
-  '@lyness/lyn-client-ui-directory-picker-browse',
-  '@lyness/lyn-client-ui-directory-picker-native',
+  '@deepseek-ai/dsh-host-directory-picker-native',
+  '@deepseek-ai/dsh-host-directory-picker-browse',
+  '@deepseek-ai/dsh-client-ui-directory-picker-browse',
+  '@deepseek-ai/dsh-client-ui-directory-picker-native',
 ]
 const errors: string[] = []
 const pluginReferences: PluginReference[] = []
@@ -93,7 +93,7 @@ if (import.meta.main) {
  * A browser plugin must declare the browser half it ships.
  *
  * The browser roster is discovered by scanning composed packages for a
- * `lyn.client` block, and the node half of a surface plugin is an empty
+ * `dsh.client` block, and the node half of a surface plugin is an empty
  * `apply`. A `packages/client` package that exports `./client` without that
  * block therefore composes, activates, and contributes nothing — its bundle is
  * never served and no error is raised anywhere. The mismatch is invisible in
@@ -101,20 +101,20 @@ if (import.meta.main) {
  * this group is checked: a Host package's `./client` export is the typed wire
  * face its browser consumers import, not a plugin the roster serves.
  * @returns one violation per client package whose `./client` export and
- * `lyn.client` declaration disagree.
+ * `dsh.client` declaration disagree.
  */
 function validateClientHalvesDeclared(): string[] {
   return globSync('packages/client/*/package.json', { cwd: root }).flatMap((manifestPath) => {
     const manifest = readManifest(manifestPath) as PackageManifest & {
       exports?: Record<string, unknown>
-      lyn?: { client?: unknown }
+      dsh?: { client?: unknown }
     }
     const shipsClient = manifest.exports !== undefined && Object.hasOwn(manifest.exports, './client')
-    const declaresClient = manifest.lyn?.client !== undefined
+    const declaresClient = manifest.dsh?.client !== undefined
     if (shipsClient === declaresClient) return []
     return [shipsClient
-      ? `${manifestPath}: exports "./client" but declares no lyn.client, so its browser half is never served`
-      : `${manifestPath}: declares lyn.client but exports no "./client" entry to serve`]
+      ? `${manifestPath}: exports "./client" but declares no dsh.client, so its browser half is never served`
+      : `${manifestPath}: declares dsh.client but exports no "./client" entry to serve`]
   })
 }
 
@@ -172,8 +172,8 @@ function shippedWebPatchFiles(): string[] {
     if (!entry.isDirectory()) continue
     const manifestPath = resolve(root, 'packages/bundle', entry.name, 'package.json')
     if (!existsSync(manifestPath)) continue
-    const manifest = JSON.parse(readFileSync(manifestPath, 'utf8')) as PackageManifest & { lyn?: { bundle?: LynBundleManifest } }
-    if (manifest.name !== undefined && manifest.lyn?.bundle !== undefined) {
+    const manifest = JSON.parse(readFileSync(manifestPath, 'utf8')) as PackageManifest & { dsh?: { bundle?: DshBundleManifest } }
+    if (manifest.name !== undefined && manifest.dsh?.bundle !== undefined) {
       directories.set(manifest.name, `packages/bundle/${entry.name}`)
     }
   }
@@ -181,8 +181,8 @@ function shippedWebPatchFiles(): string[] {
   for (const name of PROFILE_TEMPLATES['web']?.bundles ?? []) {
     const directory = directories.get(name)
     if (directory === undefined) continue
-    const manifest = JSON.parse(readFileSync(resolve(root, directory, 'package.json'), 'utf8')) as { lyn: { bundle: LynBundleManifest } }
-    files.push(...bundlePatchFiles(manifest.lyn.bundle).map(file => `${directory}/${file.replace(/^\.\//, '')}`))
+    const manifest = JSON.parse(readFileSync(resolve(root, directory, 'package.json'), 'utf8')) as { dsh: { bundle: DshBundleManifest } }
+    files.push(...bundlePatchFiles(manifest.dsh.bundle).map(file => `${directory}/${file.replace(/^\.\//, '')}`))
   }
   return files
 }
@@ -239,7 +239,7 @@ function validateEntry(value: unknown, file: string, path: string): void {
       validateEntry(value.insert[index], file, `${path}.insert[${index}]`)
     }
   }
-  if (value.name !== '@lyness/cordis-plugin-include') return
+  if (value.name !== '@deepseek-ai/cordis-plugin-include') return
   const config = value.config
   if (!isRecord(config) || !isUnknownArray(config.patches)) return
   for (let index = 0; index < config.patches.length; index++) {
@@ -263,7 +263,7 @@ function validateAppResolution(): string[] {
   const violations: string[] = []
   const bundleManifests = bundleManifestPaths()
   // App overlays (and any config left under apps/cli/config) resolve from the
-  // lyn app's own dependency surface — the runtime resolution mirrors it.
+  // dsh app's own dependency surface — the runtime resolution mirrors it.
   const appManifest = readManifest('apps/cli/package.json')
   const appDependencies = {
     ...appManifest.dependencies,
@@ -292,7 +292,7 @@ function validateAppResolution(): string[] {
   for (const manifestPath of bundleManifests) {
     const bundleDir = manifestPath.replace(/\/package\.json$/, '')
     const manifest = readManifest(manifestPath)
-    const bundle = manifest.lyn?.bundle
+    const bundle = manifest.dsh?.bundle
     if (bundle === undefined) continue
     const patchFiles = new Set(bundlePatchPaths(resolve(root, bundleDir), bundle)
       .map(file => relative(root, file).replaceAll('\\', '/')))
@@ -398,7 +398,7 @@ function packageTestManifestPath(file: string): string | undefined {
  */
 export function bundleManifestPaths(repoRoot: string = root): string[] {
   return globSync('packages/*/*/package.json', { cwd: repoRoot })
-    .filter(path => readManifest(path, repoRoot).lyn?.bundle?.patch !== undefined)
+    .filter(path => readManifest(path, repoRoot).dsh?.bundle?.patch !== undefined)
     .map(path => path.replaceAll('\\', '/'))
     .sort()
 }
@@ -425,7 +425,7 @@ export function bundlePluginDependencyErrors(
 
 /**
  * Every configured specifier of a local workspace package must resolve through
- * the tsconfig `paths` facade to a `.ts`/`.tsx` source file. The `lyn` source
+ * the tsconfig `paths` facade to a `.ts`/`.tsx` source file. The `dsh` source
  * launch (tsx) and vitest resolve in the source plane; without a `paths` match
  * they fall back to package `exports`, which reach built `lib/` — present on a
  * built dev tree, absent on a clean one — so a missing mapping boots locally

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
-import type { Agent } from '@lyness/lyn-agent'
-import { ReasoningEffortId } from '@lyness/lyn-llm'
-import { Session, SessionId } from '@lyness/lyn-session'
+import type { Agent } from '@deepseek-ai/dsh-agent'
+import { ReasoningEffortId } from '@deepseek-ai/dsh-llm'
+import { Session, SessionId } from '@deepseek-ai/dsh-session'
 import { resolveChildAgentOptions } from '../src/child-agent.ts'
 
 function parentAgent(): Agent {

@@ -26,12 +26,12 @@ function fixture(options: {
   indexSource?: string
   files?: Record<string, string>
 } = {}): string {
-  const root = mkdtempSync(join(tmpdir(), 'lyn-publint-all-'))
+  const root = mkdtempSync(join(tmpdir(), 'dsh-publint-all-'))
   roots.push(root)
   const packageDir = join(root, 'packages/core/probe')
   mkdirSync(join(packageDir, 'lib'), { recursive: true })
   writeFileSync(join(packageDir, 'package.json'), `${JSON.stringify({
-    name: '@lyness/lyn-probe',
+    name: '@deepseek-ai/dsh-probe',
     version: '0.0.1',
     type: 'module',
     license: 'MIT',

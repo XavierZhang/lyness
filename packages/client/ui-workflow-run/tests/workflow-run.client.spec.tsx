@@ -1,27 +1,27 @@
 // @vitest-environment jsdom
-import { createSnapshotStore } from '@lyness/lyn-client-store'
-import type { GlobalStandardProps } from '@lyness/lyn-client-ui-slots'
-import { Context } from '@lyness/cordis'
+import { createSnapshotStore } from '@deepseek-ai/dsh-client-store'
+import type { GlobalStandardProps } from '@deepseek-ai/dsh-client-ui-slots'
+import { Context } from '@deepseek-ai/cordis'
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import {
   ConversationNodeAssembler, UiConversation,
-} from '@lyness/lyn-client-ui-conversation/client'
+} from '@deepseek-ai/dsh-client-ui-conversation/client'
 import type {
   ConversationMatch, ConversationNodeDefinition, ConversationStartMatch,
   ConversationViewDefinition,
-} from '@lyness/lyn-client-ui-conversation/client'
-import type { ChatConversationViewNode } from '@lyness/lyn-client-ui-chat/client'
-import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
+} from '@deepseek-ai/dsh-client-ui-conversation/client'
+import type { ChatConversationViewNode } from '@deepseek-ai/dsh-client-ui-chat/client'
+import { SlotRegistry } from '@deepseek-ai/dsh-client-ui-renderer/client'
 import type {
   SessionListState, SessionLiveEventEntry,
-} from '@lyness/lyn-api-session-controller/client'
-import type { SessionEvent, SessionId } from '@lyness/lyn-session/types'
-import { apply as applyLocale, inject as localeInject } from '@lyness/lyn-client-locale/client'
+} from '@deepseek-ai/dsh-api-session-controller/client'
+import type { SessionEvent, SessionId } from '@deepseek-ai/dsh-session/types'
+import { apply as applyLocale, inject as localeInject } from '@deepseek-ai/dsh-client-locale/client'
 import {
   chatSnapshot as emptyChatSnapshot, conversationSnapshot, makeTranslate, sessionSnapshot,
   stubConfigForm, TestSessions, workspaceSnapshot,
-} from '@lyness/lyn-client-test-runtime'
+} from '@deepseek-ai/dsh-client-test-runtime'
 import {
   WorkflowRunPanel, type WorkflowRunInjected, type WorkflowRunPanelProps,
 } from '../src/client/WorkflowRunPanel.tsx'

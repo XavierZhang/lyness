@@ -1,10 +1,10 @@
 import { describe, expect, it, vi } from 'vitest'
-import type { RemoteResult } from '@lyness/lyn-api-remotes/client'
-import { RemoteError } from '@lyness/lyn-client-test-runtime'
+import type { RemoteResult } from '@deepseek-ai/dsh-api-remotes/client'
+import { RemoteError } from '@deepseek-ai/dsh-client-test-runtime'
 import type {
   ScheduleCatalogEntry, ScheduleDeleteResult, ScheduleId, ScheduleRecord,
-} from '@lyness/lyn-schedule/client'
-import type { SessionId } from '@lyness/lyn-session/types'
+} from '@deepseek-ai/dsh-schedule/client'
+import type { SessionId } from '@deepseek-ai/dsh-session/types'
 import type { CatalogSnapshot } from '../src/client/catalog-source.ts'
 import {
   createSessionScheduleSource, selectSessionScheduleFacts,

@@ -3,7 +3,7 @@ description: "Configure explicit product usage events, OTLP/HTTP routing, batchi
 kind: "package-reference"
 ---
 
-# @lyness/lyn-host-product-telemetry-otel
+# @deepseek-ai/dsh-host-product-telemetry-otel
 
 English | [中文](README.zh.md)
 
@@ -25,21 +25,21 @@ Send selected product usage events to an OTLP/HTTP collector. Events carry a nam
 <a id="use-this-package"></a>
 ## Use this package
 
-Mount the plugin in a Cordis composition with the application identity; override the collector endpoint when needed. The shipped profiles do not mount it. Set `LYNESS_APP_VERSION` to the running application release version in the launcher environment; the schema rejects an absent version.
+Mount the plugin in a Cordis composition with the application identity; override the collector endpoint when needed. The shipped profiles do not mount it. Set `DSH_APP_VERSION` to the running application release version in the launcher environment; the schema rejects an absent version.
 
 ```yaml
-- name: '@lyness/lyn-host-product-telemetry-otel'
+- name: '@deepseek-ai/dsh-host-product-telemetry-otel'
   config:
-    endpoint: https://lyn-otel-collector.deepseeksvc.com/v1/logs
-    serviceName: lyness
-    serviceVersion: !!js process.env.LYNESS_APP_VERSION
+    endpoint: https://dsh-otel-collector.deepseeksvc.com/v1/logs
+    serviceName: DeepSeek Harness
+    serviceVersion: !!js process.env.DSH_APP_VERSION
     compression: gzip
     scheduledDelayMillis: 30000
 ```
 
 | Field | Default | Meaning |
 |---|---|---|
-| `endpoint` | `https://lyn-otel-collector.deepseeksvc.com/v1/logs` | Full HTTP(S) logs URL |
+| `endpoint` | `https://dsh-otel-collector.deepseeksvc.com/v1/logs` | Full HTTP(S) logs URL |
 | `serviceName`, `serviceVersion` | required | Application identity on the OTel resource |
 | `channel` | `dsh_otel_report` | Collector `x-channel` header |
 | `compression` | SDK environment | `gzip` or `none`; omission honors OTel compression environment variables |

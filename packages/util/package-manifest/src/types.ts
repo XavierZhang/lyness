@@ -1,11 +1,11 @@
 /**
  * Shared declarations for package.json fields and plugin display metadata.
  * Each reader owns JSON validation and resolved defaults.
- * @module @lyness/lyn-package-manifest/types
+ * @module @deepseek-ai/dsh-package-manifest/types
  */
 
 /** Package identity and metadata; local profile readers may accept a partial declaration. */
-export interface LynPackageManifest {
+export interface DshPackageManifest {
   /** Published npm package name. */
   name: string
   /** Published npm package version. */
@@ -20,22 +20,22 @@ export interface LynPackageManifest {
   dependencies?: Record<string, string>
   /** Compatible versions of packages supplied by the consuming project. */
   peerDependencies?: Record<string, string>
-  /** Runtime requirements; LYN compatibility is declarative until a reader enforces it. */
-  engines?: LynEnginesManifest
-  /** LYN-specific author declarations. */
-  lyn?: LynManifest
+  /** Runtime requirements; DSH compatibility is declarative until a reader enforces it. */
+  engines?: DshEnginesManifest
+  /** DSH-specific author declarations. */
+  dsh?: DshManifest
 }
 
-/** Public author fields under `package.json.lyn`; a package may declare several roles. */
-export interface LynManifest {
+/** Public author fields under `package.json.dsh`; a package may declare several roles. */
+export interface DshManifest {
   /** Manifest format version, independent of the npm package and Session format versions. */
   manifestVersion?: 1
   /** Bundle metadata consumed by the profile launcher. */
-  bundle?: LynBundleManifest
+  bundle?: DshBundleManifest
   /** Profile metadata consumed by the profile launcher. */
-  profile?: LynProfileManifest
+  profile?: DshProfileManifest
   /** Client module loading and build metadata. */
-  client?: LynClientManifest
+  client?: DshClientManifest
 }
 
 /** Literal text or translations indexed by lowercase language id, with a required English fallback. */
@@ -54,9 +54,9 @@ export interface PluginLocalizedMeta {
 }
 
 /** Runtime version requirements under `package.json.engines`. */
-export interface LynEnginesManifest {
-  /** Compatible LYN versions as a SemVer range, including an exact version. */
-  lyn?: string
+export interface DshEnginesManifest {
+  /** Compatible DSH versions as a SemVer range, including an exact version. */
+  dsh?: string
   /** Compatible Node.js versions. */
   node?: string
   /** Compatible npm versions. */
@@ -66,19 +66,19 @@ export interface LynEnginesManifest {
 }
 
 /** The configuration layer exported by a bundle package. */
-export interface LynBundleManifest {
+export interface DshBundleManifest {
   /** One patch file path, or an ordered list applied in sequence, each relative to the declaring package root. */
   patch: string | string[]
 }
 
 /** The bundle composition declared by a profile directory. */
-export interface LynProfileManifest {
+export interface DshProfileManifest {
   /** Ordered bundle layer list, using installed package names. */
   bundles?: string[]
 }
 
 /** Client module declaration read by client-modules and the client build. */
-export interface LynClientManifest {
+export interface DshClientManifest {
   /** Client platform identifier; the Web consumer selects `web`. */
   platform: string
   /** Informational package-name dependencies, not Cordis service injection. */

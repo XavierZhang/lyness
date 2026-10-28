@@ -1,8 +1,8 @@
-import { Context } from '@lyness/cordis'
-import AgentRegistry from '@lyness/lyn-agent'
-import type { Agent } from '@lyness/lyn-agent'
-import { unsupportedInbox } from '@lyness/lyn-agent-loop-testkit'
-import { Session, SessionId } from '@lyness/lyn-session'
+import { Context } from '@deepseek-ai/cordis'
+import AgentRegistry from '@deepseek-ai/dsh-agent'
+import type { Agent } from '@deepseek-ai/dsh-agent'
+import { unsupportedInbox } from '@deepseek-ai/dsh-agent-loop-testkit'
+import { Session, SessionId } from '@deepseek-ai/dsh-session'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { SessionResources } from '../src/index.ts'
 

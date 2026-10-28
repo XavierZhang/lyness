@@ -1,6 +1,6 @@
 /**
  * Zero-dependency circular deque for queues that retain entries across asynchronous work.
- * @module @lyness/lyn-deque
+ * @module @deepseek-ai/dsh-deque
  */
 
 const MIN_CAPACITY = 16

@@ -1,9 +1,9 @@
 /** What the plugin owns beyond resolution: a refused config, and a route that leaves with its fiber. */
 
 import { describe, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import { TenantId } from '@lyness/lyn-tenant'
-import type { Tenant, TenantDirectory } from '@lyness/lyn-tenant'
+import { Context } from '@deepseek-ai/cordis'
+import { TenantId } from '@deepseek-ai/dsh-tenant'
+import type { Tenant, TenantDirectory } from '@deepseek-ai/dsh-tenant'
 import * as TenantHttp from '../src/index.ts'
 
 const ACME: Tenant = { id: TenantId('acme'), slug: 'acme', displayName: 'Acme' }

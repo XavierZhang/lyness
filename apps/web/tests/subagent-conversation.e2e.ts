@@ -5,13 +5,13 @@ import { join } from 'node:path'
 import type { Browser, Page } from 'playwright'
 import { chromium } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed } from 'vitest'
-import { prepareSessionSnapshotFixtureForComparison } from '@lyness/lyn-llm-replay'
+import { prepareSessionSnapshotFixtureForComparison } from '@deepseek-ai/dsh-llm-replay'
 import {
   SESSION_FORMAT_VERSION, SessionId as sessionId, SessionLogOffset, SessionSeq,
   type SessionEvent, type SessionHeader, type SessionId,
-} from '@lyness/lyn-session'
-import type {} from '@lyness/lyn-agent'
-import { snapshotSubagentDescriptor } from '@lyness/lyn-subagent'
+} from '@deepseek-ai/dsh-session'
+import type {} from '@deepseek-ai/dsh-agent'
+import { snapshotSubagentDescriptor } from '@deepseek-ai/dsh-subagent'
 import {
   acknowledgeReloadConnectionLoss, captureExpandedTurnProcessAria, captureStableAria,
   compareOrRefreshGolden,
@@ -110,7 +110,7 @@ describe('web e2e: persisted subagent conversation and human continuation', () =
     const baseFixture = prepareSessionSnapshotFixtureForComparison(
       await readFile(selectedBaseFixture, 'utf8'),
     )
-    sidecarRoot = await mkdtemp(join(tmpdir(), 'lyn-web-subagent-'))
+    sidecarRoot = await mkdtemp(join(tmpdir(), 'dsh-web-subagent-'))
     const childFixturePath = join(sidecarRoot, 'child.jsonl')
     await writeFile(childFixturePath, childFixture(baseFixture, 'recorded-subagent', true))
     scaffold = await launchWebScaffold({

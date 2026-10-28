@@ -8,7 +8,7 @@
 
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { cleanup, fireEvent, render, screen, within } from '@testing-library/react'
-import type { ChannelKindView, ConfiguredChannelView } from '@lyness/lyn-api-sign-in-channel-controller/types'
+import type { ChannelKindView, ConfiguredChannelView } from '@deepseek-ai/dsh-api-sign-in-channel-controller/types'
 import { ChannelsSection } from '../src/client/ChannelsSection.tsx'
 import type { ChannelsSectionProps } from '../src/client/ChannelsSection.tsx'
 import type { ChannelsSectionState } from '../src/client/store.ts'

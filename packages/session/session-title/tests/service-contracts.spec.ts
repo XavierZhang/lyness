@@ -1,15 +1,15 @@
-import { createUserMessage } from '@lyness/lyn-llm'
-import { Context, type Fiber } from '@lyness/cordis'
+import { createUserMessage } from '@deepseek-ai/dsh-llm'
+import { Context, type Fiber } from '@deepseek-ai/cordis'
 import { describe, expect, it, vi } from 'vitest'
-import SessionStore, { Session, SessionId, SessionSeq } from '@lyness/lyn-session'
-import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import SessionStore, { Session, SessionId, SessionSeq } from '@deepseek-ai/dsh-session'
+import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
 import SessionTitleService, {
   SessionTitleProviderId,
   type Config,
   type SessionTitleProvider,
   type SessionTitleProviderRequest,
   type SessionTitleProviderResult,
-} from '@lyness/lyn-session-title'
+} from '@deepseek-ai/dsh-session-title'
 
 const CONFIG = {
   fallbackMaxWords: 5,

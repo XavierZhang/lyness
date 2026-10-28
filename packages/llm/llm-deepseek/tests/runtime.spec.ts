@@ -1,12 +1,12 @@
-import * as Protocol from '@lyness/lyn-llm-deepseek'
+import * as Protocol from '@deepseek-ai/dsh-llm-deepseek'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { Context } from '@lyness/cordis'
-import { AttachmentId, ImageVariantId } from '@lyness/lyn-attachment'
-import type { AttachmentStore, ImageAttachmentRef, RequestImageAttachment } from '@lyness/lyn-attachment'
-import { createLaunchEnvironmentSnapshot } from '@lyness/lyn-launch-environment'
+import { Context } from '@deepseek-ai/cordis'
+import { AttachmentId, ImageVariantId } from '@deepseek-ai/dsh-attachment'
+import type { AttachmentStore, ImageAttachmentRef, RequestImageAttachment } from '@deepseek-ai/dsh-attachment'
+import { createLaunchEnvironmentSnapshot } from '@deepseek-ai/dsh-launch-environment'
 import LlmRuntime, { ToolCallId, createUserMessage,
   CONTEXT_WINDOW_EXCEEDED_CODE,
   createToolResultMessage,
@@ -16,16 +16,16 @@ import LlmRuntime, { ToolCallId, createUserMessage,
   QUOTA_EXCEEDED_CODE,
   ReasoningEffortId,
   userAgent,
-} from '@lyness/lyn-llm'
-import { MAX_TIMER_DELAY_MS } from '@lyness/lyn-timeout'
-import { getOrCreateAnonymousUserId, type AnonymousUserId } from '@lyness/lyn-anonymous-user-id'
-import { SessionId } from '@lyness/lyn-session'
-import DeepSeekLlmApiExtensionRegistry from '@lyness/lyn-deepseek-llm-api-extensions'
-import type { PreparedDeepSeekLlmApiExtensions } from '@lyness/lyn-deepseek-llm-api-extensions'
-import * as LlmDeepSeek from '@lyness/lyn-llm-deepseek-api-key'
+} from '@deepseek-ai/dsh-llm'
+import { MAX_TIMER_DELAY_MS } from '@deepseek-ai/dsh-timeout'
+import { getOrCreateAnonymousUserId, type AnonymousUserId } from '@deepseek-ai/dsh-anonymous-user-id'
+import { SessionId } from '@deepseek-ai/dsh-session'
+import DeepSeekLlmApiExtensionRegistry from '@deepseek-ai/dsh-deepseek-llm-api-extensions'
+import type { PreparedDeepSeekLlmApiExtensions } from '@deepseek-ai/dsh-deepseek-llm-api-extensions'
+import * as LlmDeepSeek from '@deepseek-ai/dsh-llm-deepseek-api-key'
 import { DeepSeekAdapter, resolveAdapterOptions, parseModelIds, parseMaxTokens }
-  from '@lyness/lyn-llm-deepseek'
-import type { ContextFormed } from '@lyness/lyn-llm'
+  from '@deepseek-ai/dsh-llm-deepseek'
+import type { ContextFormed } from '@deepseek-ai/dsh-llm'
 import { providerError } from '../src/transport.ts'
 import { resolveRequestImageTarget } from '../src/request-pricing.ts'
 import { assemble } from './assemble.ts'
@@ -33,7 +33,7 @@ import { closeMockServers, mockServer, textEvents } from './mock-server.ts'
 import type { Behavior } from './mock-server.ts'
 import { requestImageStore } from './helpers.ts'
 
-declare module '@lyness/lyn-llm' {
+declare module '@deepseek-ai/dsh-llm' {
   interface MessageSourceMap {
     'test': { kind: 'test' } & ContextFormed
   }
@@ -43,8 +43,8 @@ const TEST_USER_ID = '00000000-0000-4000-8000-000000000001' as AnonymousUserId
 let testHome: string
 
 beforeEach(() => {
-  testHome = mkdtempSync(join(tmpdir(), 'lyn-llm-deepseek-'))
-  vi.stubEnv('LYNESS_HOME', testHome)
+  testHome = mkdtempSync(join(tmpdir(), 'dsh-llm-deepseek-'))
+  vi.stubEnv('DSH_HOME', testHome)
 })
 
 afterEach(async () => {
@@ -211,7 +211,7 @@ describe('DeepSeekAdapter against a mock server', () => {
     const server = await mockServer([{ kind: 'sse', events: textEvents }])
     const accept = vi.fn()
     const prepareExtensions = vi.fn(async () => ({
-      fields: { lyn_test: { version: 1 } },
+      fields: { dsh_test: { version: 1 } },
       accept: async () => { accept() },
     }))
     const adapter = new DeepSeekAdapter({
@@ -222,7 +222,7 @@ describe('DeepSeekAdapter against a mock server', () => {
     })
 
     await drain(adapter.stream({ provider: 'deepseek-official', model: 'm', messages: [], sessionId: SessionId('s') }))
-    expect(server.requests[0]).toMatchObject({ lyn_test: { version: 1 } })
+    expect(server.requests[0]).toMatchObject({ dsh_test: { version: 1 } })
     expect(prepareExtensions).toHaveBeenCalledWith(expect.objectContaining({ sessionId: 's' }))
     expect(accept).toHaveBeenCalledOnce()
   })
@@ -324,7 +324,7 @@ describe('DeepSeekAdapter against a mock server', () => {
       options: () => resolveAdapterOptions({ baseURL: server.url }),
       resolveAuth: () => Promise.resolve({ headers: { 'x-api-key': 'k' } }),
       resolveUserId: () => TEST_USER_ID,
-      prepareExtensions: () => Promise.resolve({ fields: { lyn_test: 1 }, accept: async () => { accept() } }) as never,
+      prepareExtensions: () => Promise.resolve({ fields: { dsh_test: 1 }, accept: async () => { accept() } }) as never,
     })
     const request = { provider: 'deepseek-official', model: 'm', messages: [] }
 
@@ -342,7 +342,7 @@ describe('DeepSeekAdapter against a mock server', () => {
       resolveAuth: () => Promise.resolve({ headers: { 'x-api-key': 'k' } }),
       resolveUserId: () => TEST_USER_ID,
       prepareExtensions: () => Promise.resolve({
-        fields: { lyn_test: 1 },
+        fields: { dsh_test: 1 },
         accept: () => Promise.reject(failure),
       }) as never,
     })
@@ -376,12 +376,12 @@ describe('DeepSeekAdapter against a mock server', () => {
     })
     // App attribution and DeepSeek request identity are independent wire facts.
     expect(server.headers[0]?.['user-agent']).toBe(userAgent())
-    expect(server.headers[0]?.['x-lyness-user-id']).toBe(getOrCreateAnonymousUserId())
-    expect(server.headers[0]).not.toHaveProperty('x-lyness-session-id')
+    expect(server.headers[0]?.['x-deepseek-harness-user-id']).toBe(getOrCreateAnonymousUserId())
+    expect(server.headers[0]).not.toHaveProperty('x-deepseek-harness-session-id')
     expect(server.headers[0]).not.toHaveProperty('http-referer')
     expect(server.headers[0]).not.toHaveProperty('x-openrouter-title')
     expect(server.headers[0]).not.toHaveProperty('x-openrouter-categories')
-    expect(server.headers[0]).not.toHaveProperty('x-lyness-compact')
+    expect(server.headers[0]).not.toHaveProperty('x-deepseek-harness-compact')
   })
 
   it('uploads a durable image once and sends only its Files API id to the vision model', async () => {
@@ -421,7 +421,7 @@ describe('DeepSeekAdapter against a mock server', () => {
     expect(server.fileRequests).toEqual([{
       method: 'POST',
       path: '/v1/files',
-      filename: `lyn-${'a'.repeat(16)}-${'b'.repeat(8)}.png`,
+      filename: `dsh-${'a'.repeat(16)}-${'b'.repeat(8)}.png`,
       bytes: 3,
     }])
     expect(signalSeen[0]).toBeInstanceOf(AbortSignal)
@@ -741,7 +741,7 @@ describe('DeepSeekAdapter against a mock server', () => {
       { messages: [{ content: [expect.objectContaining({ type: 'text' }), { type: 'image', source: { type: 'file', file_id: 'file-api-1' } }] }] },
       { messages: [{ content: [expect.objectContaining({ type: 'text' }), { type: 'image', source: { type: 'file', file_id: 'file-api-1' } }] }] },
     ])
-    expect(server.headers[1]?.['x-lyness-compact']).toBe('1')
+    expect(server.headers[1]?.['x-deepseek-harness-compact']).toBe('1')
   })
 
   it('explains a provider rejection of a normalized image and retains the raw response as cause', async () => {
@@ -1167,8 +1167,8 @@ describe('DeepSeekAdapter against a mock server', () => {
       sessionId: SessionId('child-session'),
     })
 
-    expect(server.headers[0]?.['x-lyness-session-id']).toBe('child-session')
-    expect(server.headers[0]?.['x-lyness-user-id']).toBe(getOrCreateAnonymousUserId())
+    expect(server.headers[0]?.['x-deepseek-harness-session-id']).toBe('child-session')
+    expect(server.headers[0]?.['x-deepseek-harness-user-id']).toBe(getOrCreateAnonymousUserId())
   })
 
   it('marks the auxiliary compaction call on the wire', async () => {
@@ -1184,7 +1184,7 @@ describe('DeepSeekAdapter against a mock server', () => {
       purpose: 'compaction',
     })
 
-    expect(server.headers[0]?.['x-lyness-compact']).toBe('1')
+    expect(server.headers[0]?.['x-deepseek-harness-compact']).toBe('1')
   })
 
   it('switches dynamically from the configured low default through off to max', async () => {
@@ -2228,7 +2228,7 @@ describe('plugin registration and config', () => {
 
   it('takes DEEPSEEK_BASE_URL from any environment layer, with explicit config still on top', () => {
     const trusted = createLaunchEnvironmentSnapshot([
-      { source: 'user-env', path: '/home/.lyn/.env', values: { DEEPSEEK_BASE_URL: 'https://user.example' } },
+      { source: 'user-env', path: '/home/.dsh/.env', values: { DEEPSEEK_BASE_URL: 'https://user.example' } },
     ])
     expect(resolveAdapterOptions({}, trusted).baseURL).toBe('https://user.example')
     // The product trusts the project it is launched in, so a checkout can

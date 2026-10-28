@@ -1,12 +1,12 @@
 /** Real Web startup, mounted plugin package identities, and delivered Client graph isolation. */
 
-import { FiberState } from '@lyness/cordis'
-import type { WebBootGraph } from '@lyness/lyn-client-modules/client'
+import { FiberState } from '@deepseek-ai/cordis'
+import type { WebBootGraph } from '@deepseek-ai/dsh-client-modules/client'
 import { expect, it } from 'vitest'
 import { experimentalRuntimeReferences, modulePackage } from './runtime-roster.ts'
 import { withDefaultWeb, webGet } from './default-web-process.ts'
 
-const experimentalName = '@lyness/lyn-experimental-client-ui-agent-team'
+const experimentalName = '@deepseek-ai/dsh-experimental-client-ui-agent-team'
 
 it('boots default Web without experimental modules, scheduling, time context, or an active built-in Browser', async (test) => {
   await withDefaultWeb(test, async ({ url, request }) => {
@@ -16,24 +16,24 @@ it('boots default Web without experimental modules, scheduling, time context, or
     const page = await webGet(new URL('/', url), test.signal, { cookie: cookie! })
     expect(page.status).toBe(200)
     const html = page.text
-    const rawBoot = /globalThis\["__LYNESS_BOOT__"\] = ([\s\S]*?)<\/script>/u.exec(html)?.[1]
+    const rawBoot = /globalThis\["__DSH_BOOT__"\] = ([\s\S]*?)<\/script>/u.exec(html)?.[1]
     expect(rawBoot, html).toBeDefined()
     const delivered = JSON.parse(rawBoot!) as WebBootGraph
     const roster = await request('roster')
     expect(roster.client).toEqual(delivered)
     expect(roster.entries).toEqual(expect.arrayContaining([
-      expect.objectContaining({ name: '@lyness/lyn-host-webserver', state: FiberState.ACTIVE }),
-      expect.objectContaining({ name: '@lyness/lyn-client-modules', state: FiberState.ACTIVE }),
+      expect.objectContaining({ name: '@deepseek-ai/dsh-host-webserver', state: FiberState.ACTIVE }),
+      expect.objectContaining({ name: '@deepseek-ai/dsh-client-modules', state: FiberState.ACTIVE }),
     ]))
     expect(roster.entries.some(entry => entry.name.endsWith('/runtime-roster-observer.js') && entry.state === FiberState.ACTIVE)).toBe(true)
     expect(roster.plugins.length).toBeGreaterThan(roster.entries.length)
-    expect(roster.modules.some(url => modulePackage(url) === '@lyness/lyn')).toBe(true)
+    expect(roster.modules.some(url => modulePackage(url) === '@deepseek-ai/dsh')).toBe(true)
     expect(roster.client.entries.length).toBeGreaterThan(0)
     for (const name of [
-      '@lyness/lyn-client-ui-sidebar-browser',
-      '@lyness/lyn-time-context',
-      '@lyness/lyn-schedule',
-      '@lyness/lyn-client-ui-schedule',
+      '@deepseek-ai/dsh-client-ui-sidebar-browser',
+      '@deepseek-ai/dsh-time-context',
+      '@deepseek-ai/dsh-schedule',
+      '@deepseek-ai/dsh-client-ui-schedule',
     ]) {
       const entry = roster.entries.find(entry => entry.name === name)
       expect(entry, name).toBeDefined()

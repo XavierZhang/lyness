@@ -13,13 +13,13 @@ const root = process.argv[2]
 assert.ok(root)
 const project = join(root, 'project')
 const require = createRequire(join(project, 'package.json'))
-const { LlmAdapter, createUserMessage } = await import(pathToFileURL(require.resolve('@lyness/lyn-llm')).href)
+const { LlmAdapter, createUserMessage } = await import(pathToFileURL(require.resolve('@deepseek-ai/dsh-llm')).href)
 const observed = []
-const { runProfile } = await import(pathToFileURL(require.resolve('@lyness/lyn/profile-boot')).href)
-const { loadLayeredEnv, loadProfileDirectory } = await import(pathToFileURL(require.resolve('@lyness/lyn-app-boot')).href)
-const installAnchor = require.resolve('@lyness/lyn/package.json')
-const running = await runProfile({ environment: loadLayeredEnv('lyn'), profile: 'desktop',
-  resolvedProfile: { profile: loadProfileDirectory('lyn', project, installAnchor), installAnchor },
+const { runProfile } = await import(pathToFileURL(require.resolve('@deepseek-ai/dsh/profile-boot')).href)
+const { loadLayeredEnv, loadProfileDirectory } = await import(pathToFileURL(require.resolve('@deepseek-ai/dsh-app-boot')).href)
+const installAnchor = require.resolve('@deepseek-ai/dsh/package.json')
+const running = await runProfile({ environment: loadLayeredEnv('dsh'), profile: 'desktop',
+  resolvedProfile: { profile: loadProfileDirectory('dsh', project, installAnchor), installAnchor },
   patchFiles: [], args: ['--no-open', '--port', '0'] })
 const host = { updateTasks: installDesktopUpdateTaskControl(running.ctx), dispose: () => running.shutdown.shutdown(0) }
 const applicationUrl = running.ctx.connection.authenticatedUrl(`http://127.0.0.1:${running.ctx.webServer.port}`)

@@ -19,9 +19,9 @@ import {
 } from './verify-client-packages.ts'
 
 const GATE = 'verify-package-dependencies'
-const CORDIS = '@lyness/cordis'
+const CORDIS = '@deepseek-ai/cordis'
 function workspaceRange(name: string): 'workspace:*' | 'workspace:~' {
-  return name === '@lyness/lyn' || name.startsWith('@lyness/lyn-') ? 'workspace:*' : 'workspace:~'
+  return name === '@deepseek-ai/dsh' || name.startsWith('@deepseek-ai/dsh-') ? 'workspace:*' : 'workspace:~'
 }
 const RELEASE_MANIFEST_GLOB = 'packages/!(experimental)/*/package.json'
 const WORKSPACE_MANIFEST_GLOBS = [
@@ -43,7 +43,7 @@ export interface PackageDependencyManifest {
   optionalDependencies?: Record<string, string>
   peerDependencies?: Record<string, string>
   peerDependenciesMeta?: Record<string, unknown>
-  lyn?: { client?: { inject?: string[] } }
+  dsh?: { client?: { inject?: string[] } }
 }
 
 /** One workspace package and its source location. */
@@ -160,7 +160,7 @@ export function discoverPackageDependencyScope(
     if (exclude.has(name)) violations.push(`${name} appears in both clientFaceInclude and clientFaceExclude`)
     const pkg = byName.get(name)
     if (pkg !== undefined
-      && (pkg.manifestPath.startsWith('packages/client/') || hasClientDeclaration(pkg.manifest.lyn))) {
+      && (pkg.manifestPath.startsWith('packages/client/') || hasClientDeclaration(pkg.manifest.dsh))) {
       violations.push(`clientFaceInclude redundantly names automatically discovered package ${name}`)
     }
   }
@@ -168,15 +168,15 @@ export function discoverPackageDependencyScope(
     const pkg = byName.get(name)
     if (pkg !== undefined && pkg.manifestPath.startsWith('packages/client/')) {
       violations.push(`clientFaceExclude cannot exempt packages/client package ${name}`)
-    } else if (pkg !== undefined && !hasClientDeclaration(pkg.manifest.lyn)) {
-      violations.push(`clientFaceExclude names ${name}, which declares no lyn.client entry`)
+    } else if (pkg !== undefined && !hasClientDeclaration(pkg.manifest.dsh)) {
+      violations.push(`clientFaceExclude names ${name}, which declares no dsh.client entry`)
     }
   }
 
   const selected: Array<WorkspacePackageManifest & { role: PackageDependencyRole }> = []
   for (const pkg of packages) {
     const clientDirectory = pkg.manifestPath.startsWith('packages/client/')
-    const clientHost = (hasClientDeclaration(pkg.manifest.lyn) || include.has(pkg.name)) && !exclude.has(pkg.name)
+    const clientHost = (hasClientDeclaration(pkg.manifest.dsh) || include.has(pkg.name)) && !exclude.has(pkg.name)
     const clientOnly = clientDirectory && !clientHost
     const configuredHost = host.has(pkg.name)
     if (configuredHost && (clientHost || clientOnly)) {
@@ -218,7 +218,7 @@ export function collectRuntimeSourceExportUses(path: string, source: string): Ru
   for (const statement of sourceFile.statements) {
     if (!ts.isImportDeclaration(statement)
       || !ts.isStringLiteralLike(statement.moduleSpecifier)
-      || statement.moduleSpecifier.text !== '@lyness/lyn-lazy-require') continue
+      || statement.moduleSpecifier.text !== '@deepseek-ai/dsh-lazy-require') continue
     const bindings = statement.importClause?.namedBindings
     if (bindings !== undefined && ts.isNamespaceImport(bindings)) {
       lazyRequireNamespaces.add(bindings.name.text)
@@ -465,7 +465,7 @@ export function readPackageDependencyFacts(
   policy: PackageDependencyPolicy = PACKAGE_DEPENDENCY_POLICY,
   generatedHostSource?: string,
 ): PackageDependencyFacts {
-  const inject = pkg.manifest.lyn?.client?.inject ?? []
+  const inject = pkg.manifest.dsh?.client?.inject ?? []
   const hostRuntime = role === 'client-only'
     ? { packageUses: new Map<string, string[]>(), exportUses: [] }
     : readHostRuntimeUses(root, pkg, generatedHostSource)
@@ -608,7 +608,7 @@ export function expectedPackageDependencies(
     }
   }
   for (const name of facts.clientInject) {
-    if (facts.workspaceNames.has(name)) add(name, 'devDependencies', 'lyn.client.inject')
+    if (facts.workspaceNames.has(name)) add(name, 'devDependencies', 'dsh.client.inject')
   }
   for (const name of facts.configurationOnlyDevDependencies) {
     if (facts.workspaceNames.has(name)) add(name, 'devDependencies', 'configured development-only relationship')

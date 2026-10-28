@@ -1,9 +1,9 @@
 /** Model-facing discovery of LLM routes available to child Agents. */
 
-import type { Context } from '@lyness/cordis'
-import type LlmRuntime from '@lyness/lyn-llm'
-import type { LlmProviderInfo } from '@lyness/lyn-llm'
-import { defineTool } from '@lyness/lyn-tools'
+import type { Context } from '@deepseek-ai/cordis'
+import type LlmRuntime from '@deepseek-ai/dsh-llm'
+import type { LlmProviderInfo } from '@deepseek-ai/dsh-llm'
+import { defineTool } from '@deepseek-ai/dsh-tools'
 import type { ModelSelectionPolicy } from './model-selection.ts'
 
 interface ListSubagentModelsRequest {

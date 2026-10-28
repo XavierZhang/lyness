@@ -12,9 +12,9 @@ Status: implemented
 
 任务标签页保存到它最后显示任务的持久关联，并据此恢复刷新出的记录。
 
-关联键是 Sidebar Session 加布局记录自身的 id。`lyn.sidebar-right.v1.<sessionId>` 持久化标签记录以及铸造其 id 的计数器，因此记录刷新后保持 id，该布局之后铸造的记录也不会复用它。记录的 `contentId` 不能作为键：同一种页面类型的所有标签都记录在同一个 `sidebar://<kind>` 地址下，而页面去重按 pane 进行，两个 pane 可以各有一个任务标签。每条记录还保存写入时该记录的 `kind` 和 `contentId`；读取时若这一对与读取它的记录不一致，就删除该条并视为无关联。
+关联键是 Sidebar Session 加布局记录自身的 id。`dsh.sidebar-right.v1.<sessionId>` 持久化标签记录以及铸造其 id 的计数器，因此记录刷新后保持 id，该布局之后铸造的记录也不会复用它。记录的 `contentId` 不能作为键：同一种页面类型的所有标签都记录在同一个 `sidebar://<kind>` 地址下，而页面去重按 pane 进行，两个 pane 可以各有一个任务标签。每条记录还保存写入时该记录的 `kind` 和 `contentId`；读取时若这一对与读取它的记录不一致，就删除该条并视为无关联。
 
-每个 Session 一个 localStorage 文档，键为 `lyn.schedule.task-tab.v1.<sessionId>`，按 tab id 保存一条记录，把该页面映射到其最后任务的 Session 和 id。不保存任何任务内容。写入时只保留 Session 已提交布局仍然持有的标签对应的记录，该布局通过 `ctx.sidebarRight.tabsIn(sessionId)` 读取；布局未被采用的 Session 保持其记录不变。标签页出现之后成功的一次读取无法解析的记录会被删除，使该标签显示未关联页签提示，与从未有关联的标签相同。
+每个 Session 一个 localStorage 文档，键为 `dsh.schedule.task-tab.v1.<sessionId>`，按 tab id 保存一条记录，把该页面映射到其最后任务的 Session 和 id。不保存任何任务内容。写入时只保留 Session 已提交布局仍然持有的标签对应的记录，该布局通过 `ctx.sidebarRight.tabsIn(sessionId)` 读取；布局未被采用的 Session 保持其记录不变。标签页出现之后成功的一次读取无法解析的记录会被删除，使该标签显示未关联页签提示，与从未有关联的标签相同。
 
 只要一次导航携带本类型的参数，正文就在 effect 中写入该关联；只有记录完全没有导航参数时才读取它，其他类型的参数让记录停留在任务缺失状态。恢复出的身份随后遵循既有的渲染规则：保留的记录包含该任务时即显示详情，判据之后请求的读取仍未给出该任务时显示目录反馈，读取失败时显示带重试的查询失败状态。这样的读取仍无法解析的关联显示未关联页签提示，而不是加载反馈，也绝不产生任务缺失提示，因为该提示的含义是打开方指名了一个任务。
 

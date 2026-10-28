@@ -1,9 +1,9 @@
 /**
- * The browser roster of a `lyn --profile`, read from its bundle patch files
- * the way the launcher composes them: each bundle's `lyn.bundle.patch` file list is
+ * The browser roster of a `dsh --profile`, read from its bundle patch files
+ * the way the launcher composes them: each bundle's `dsh.bundle.patch` file list is
  * parsed with the include plugin's YAML dialect (`entryListSchema`) and
  * composed by its `applyEntryPatches`; every enabled row whose package
- * declares `lyn.client.platform === 'web'` becomes a roster row carrying that
+ * declares `dsh.client.platform === 'web'` becomes a roster row carrying that
  * declaration's `inject` and `immediately`; rows nested in Loader groups count
  * like the Loader counts them, a disabled group disabling every row beneath
  * it. A patch that matches nothing
@@ -11,26 +11,26 @@
  * bundle change is visible at the next import. Node only — the
  * whole-client tier runs under vitest, and this is the one place it reads the
  * repository.
- * @module @lyness/lyn-client-test-runtime/src/assembly/bundle-roster
+ * @module @deepseek-ai/dsh-client-test-runtime/src/assembly/bundle-roster
  */
 import { existsSync, readFileSync, realpathSync } from 'node:fs'
 import { createRequire } from 'node:module'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { evaluate, isJsExpr, type EntryOptions } from '@lyness/cordis-plugin-loader'
-import { applyEntryPatches, entryListSchema, type PatchOptions } from '@lyness/cordis-plugin-include'
-import { exactPackageSpecifier, parseLynClient } from '@lyness/lyn-client-modules/client'
+import { evaluate, isJsExpr, type EntryOptions } from '@deepseek-ai/cordis-plugin-loader'
+import { applyEntryPatches, entryListSchema, type PatchOptions } from '@deepseek-ai/cordis-plugin-include'
+import { exactPackageSpecifier, parseDshClient } from '@deepseek-ai/dsh-client-modules/client'
 import * as yaml from 'js-yaml'
 import { ClientRoster, type ClientRosterRow } from './roster.ts'
 
-/** The `web` profile's bundle layers, in the order `lyn --profile web` applies them (app-boot `PROFILE_TEMPLATES.web`). */
+/** The `web` profile's bundle layers, in the order `dsh --profile web` applies them (app-boot `PROFILE_TEMPLATES.web`). */
 export const WEB_PROFILE_BUNDLES: readonly string[] = [
-  '@lyness/lyn-base', '@lyness/lyn-module-execution', '@lyness/lyn-web-app',
+  '@deepseek-ai/dsh-base', '@deepseek-ai/dsh-module-execution', '@deepseek-ai/dsh-web-app',
 ]
 
 interface PackageManifest {
   name?: unknown
-  lyn?: { bundle?: { patch?: unknown }; client?: unknown }
+  dsh?: { bundle?: { patch?: unknown }; client?: unknown }
 }
 
 /** One bundle: where its package.json is (plugin names resolve from there) and its parsed patch list. */
@@ -74,7 +74,7 @@ export function bundleRoster(
     if (manifest.name !== name) {
       throw new Error(`client-test-runtime: ${manifestPath} names ${JSON.stringify(manifest.name)}, expected ${name}`)
     }
-    const declaration = parseLynClient(name, manifest.lyn?.client)
+    const declaration = parseDshClient(name, manifest.dsh?.client)
     if (declaration === undefined || declaration.platform !== 'web') continue
     if (disabled.some(value => value !== undefined && value !== null && typeof value !== 'boolean'
       && !(disabledContext !== undefined && isJsExpr(value)))) {
@@ -88,10 +88,10 @@ export function bundleRoster(
 function readLayer(bundle: string, anchor: string): BundleLayer {
   const manifestPath = locateManifest([anchor], bundle)
   if (manifestPath === undefined) throw new Error(`client-test-runtime: cannot resolve bundle ${bundle} from ${anchor}`)
-  const declared = readManifest(manifestPath).lyn?.bundle?.patch
+  const declared = readManifest(manifestPath).dsh?.bundle?.patch
   const files = typeof declared === 'string' ? [declared] : declared
   if (!Array.isArray(files) || !files.every(file => typeof file === 'string')) {
-    throw new Error(`client-test-runtime: bundle ${bundle} declares no lyn.bundle.patch file list in ${manifestPath}`)
+    throw new Error(`client-test-runtime: bundle ${bundle} declares no dsh.bundle.patch file list in ${manifestPath}`)
   }
   const patches = files.flatMap((patch) => {
     const file = join(dirname(manifestPath), patch)

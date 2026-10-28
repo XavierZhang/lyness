@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/lyn-client-ui-reference",
+  "name": "@deepseek-ai/dsh-client-ui-reference",
   "description": "Unified Web @file and @session reference source",
   "version": "0.1.7-rc.2",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/client/ui-reference"
   },
   "type": "module",
@@ -25,15 +25,15 @@
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
-  "lyn": {
+  "dsh": {
     "client": {
       "inject": [
-        "@lyness/lyn-api-remotes",
-        "@lyness/lyn-api-session-controller",
-        "@lyness/lyn-client-connection",
-        "@lyness/lyn-client-locale",
-        "@lyness/lyn-client-ui-input-trigger",
-        "@lyness/lyn-client-ui-sidebar-right"
+        "@deepseek-ai/dsh-api-remotes",
+        "@deepseek-ai/dsh-api-session-controller",
+        "@deepseek-ai/dsh-client-connection",
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-client-ui-input-trigger",
+        "@deepseek-ai/dsh-client-ui-sidebar-right"
       ],
       "platform": "web"
     }
@@ -44,23 +44,23 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~"
+    "@deepseek-ai/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/lyn-api-remotes": "workspace:*",
-    "@lyness/lyn-api-session-controller": "workspace:*",
-    "@lyness/lyn-client-connection": "workspace:*",
-    "@lyness/lyn-client-locale": "workspace:*",
-    "@lyness/lyn-client-test-runtime": "workspace:*",
-    "@lyness/lyn-client-ui-input-trigger": "workspace:*",
-    "@lyness/lyn-client-ui-primitives": "workspace:*",
-    "@lyness/lyn-client-ui-slots": "workspace:*",
-    "@lyness/lyn-file-reference": "workspace:*",
-    "@lyness/lyn-session-reference": "workspace:*",
-    "@lyness/lyn-typert-protocol": "workspace:*",
-    "@lyness/lyn-util-workspace-path": "workspace:*",
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-client-ui-sidebar-right": "workspace:*"
+    "@deepseek-ai/dsh-api-remotes": "workspace:*",
+    "@deepseek-ai/dsh-api-session-controller": "workspace:*",
+    "@deepseek-ai/dsh-client-connection": "workspace:*",
+    "@deepseek-ai/dsh-client-locale": "workspace:*",
+    "@deepseek-ai/dsh-client-test-runtime": "workspace:*",
+    "@deepseek-ai/dsh-client-ui-input-trigger": "workspace:*",
+    "@deepseek-ai/dsh-client-ui-primitives": "workspace:*",
+    "@deepseek-ai/dsh-client-ui-slots": "workspace:*",
+    "@deepseek-ai/dsh-file-reference": "workspace:*",
+    "@deepseek-ai/dsh-session-reference": "workspace:*",
+    "@deepseek-ai/dsh-typert-protocol": "workspace:*",
+    "@deepseek-ai/dsh-util-workspace-path": "workspace:*",
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-client-ui-sidebar-right": "workspace:*"
   },
   "files": [
     "lib/index.js",

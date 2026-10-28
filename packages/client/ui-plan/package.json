@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/lyn-client-ui-plan",
+  "name": "@deepseek-ai/dsh-client-ui-plan",
   "description": "Plan mode controls, persistent transcript plan cards, and sidebar Markdown previews",
   "version": "0.1.7-rc.2",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/client/ui-plan"
   },
   "type": "module",
@@ -25,17 +25,17 @@
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
-  "lyn": {
+  "dsh": {
     "client": {
       "inject": [
-        "@lyness/lyn-api-remotes",
-        "@lyness/lyn-client-locale",
-        "@lyness/lyn-client-ui-conversation",
-        "@lyness/lyn-client-ui-sidebar-right",
-        "@lyness/lyn-client-ui-chat",
-        "@lyness/lyn-client-ui-user-questions",
-        "@lyness/lyn-client-resources",
-        "@lyness/lyn-api-session-controller"
+        "@deepseek-ai/dsh-api-remotes",
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-client-ui-conversation",
+        "@deepseek-ai/dsh-client-ui-sidebar-right",
+        "@deepseek-ai/dsh-client-ui-chat",
+        "@deepseek-ai/dsh-client-ui-user-questions",
+        "@deepseek-ai/dsh-client-resources",
+        "@deepseek-ai/dsh-api-session-controller"
       ],
       "platform": "web"
     }
@@ -46,32 +46,32 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~"
+    "@deepseek-ai/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/lyn-client-store": "workspace:*",
-    "@lyness/lyn-api-remotes": "workspace:*",
-    "@lyness/lyn-client-locale": "workspace:*",
-    "@lyness/lyn-client-test-runtime": "workspace:*",
-    "@lyness/lyn-client-ui-conversation": "workspace:*",
-    "@lyness/lyn-client-ui-primitives": "workspace:*",
-    "@lyness/lyn-client-ui-slots": "workspace:*",
-    "@lyness/lyn-plan-mode": "workspace:*",
+    "@deepseek-ai/dsh-client-store": "workspace:*",
+    "@deepseek-ai/dsh-api-remotes": "workspace:*",
+    "@deepseek-ai/dsh-client-locale": "workspace:*",
+    "@deepseek-ai/dsh-client-test-runtime": "workspace:*",
+    "@deepseek-ai/dsh-client-ui-conversation": "workspace:*",
+    "@deepseek-ai/dsh-client-ui-primitives": "workspace:*",
+    "@deepseek-ai/dsh-client-ui-slots": "workspace:*",
+    "@deepseek-ai/dsh-plan-mode": "workspace:*",
     "@types/react": "~18.3.1",
-    "@lyness/cordis": "workspace:~",
+    "@deepseek-ai/cordis": "workspace:~",
     "react": "^18.2.0",
-    "@lyness/lyn-session": "workspace:*",
-    "@lyness/lyn-client-ui-renderer": "workspace:*",
-    "@lyness/lyn-client-ui-session": "workspace:*",
-    "@lyness/lyn-api-session-controller": "workspace:*",
-    "@lyness/lyn-client-ui-chat": "workspace:*",
-    "@lyness/lyn-client-ui-sidebar-right": "workspace:*",
-    "@lyness/lyn-client-ui-user-questions": "workspace:*",
-    "@lyness/lyn-client-resources": "workspace:*",
-    "@lyness/lyn-typert-protocol": "workspace:*",
-    "@lyness/lyn-llm": "workspace:*",
-    "@lyness/lyn-tools": "workspace:*",
-    "@lyness/lyn-util-crypto": "workspace:*"
+    "@deepseek-ai/dsh-session": "workspace:*",
+    "@deepseek-ai/dsh-client-ui-renderer": "workspace:*",
+    "@deepseek-ai/dsh-client-ui-session": "workspace:*",
+    "@deepseek-ai/dsh-api-session-controller": "workspace:*",
+    "@deepseek-ai/dsh-client-ui-chat": "workspace:*",
+    "@deepseek-ai/dsh-client-ui-sidebar-right": "workspace:*",
+    "@deepseek-ai/dsh-client-ui-user-questions": "workspace:*",
+    "@deepseek-ai/dsh-client-resources": "workspace:*",
+    "@deepseek-ai/dsh-typert-protocol": "workspace:*",
+    "@deepseek-ai/dsh-llm": "workspace:*",
+    "@deepseek-ai/dsh-tools": "workspace:*",
+    "@deepseek-ai/dsh-util-crypto": "workspace:*"
   },
   "files": [
     "lib/index.js",

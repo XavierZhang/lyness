@@ -1,12 +1,12 @@
-import { createUserMessage } from '@lyness/lyn-llm'
+import { createUserMessage } from '@deepseek-ai/dsh-llm'
 import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
-import type { Context } from '@lyness/cordis'
+import type { Context } from '@deepseek-ai/cordis'
 import { codingHarness, finalText, SYSTEM_PROMPT, waitForIdle } from './harness.ts'
-import { SessionId } from '@lyness/lyn-session'
-import { E2E_TARGET } from '@lyness/lyn-e2e-target'
+import { SessionId } from '@deepseek-ai/dsh-session'
+import { E2E_TARGET } from '@deepseek-ai/dsh-e2e-target'
 
 /**
  * The first place a REAL model meets the REAL bash tool: the cheap canary
@@ -28,7 +28,7 @@ afterEach(async () => {
 
 describe.skipIf(!process.env.DEEPSEEK_API_KEY)('full loop: real model + real bash tool', () => {
   it('runs a bash command on request and reports its output', async () => {
-    workdir = await mkdtemp(join(tmpdir(), 'lyn-full-loop-e2e-'))
+    workdir = await mkdtemp(join(tmpdir(), 'dsh-full-loop-e2e-'))
     ctx = await codingHarness(workdir, { personaPrefix: SYSTEM_PROMPT })
     const agent = await ctx.agentLoop.create(SessionId('e2e-loop'), { provider: 'deepseek-official', model: E2E_TARGET.model })
 

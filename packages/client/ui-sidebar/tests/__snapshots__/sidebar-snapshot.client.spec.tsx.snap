@@ -147,7 +147,7 @@ exports[`sidebar shell snapshots > renders Windows caption controls in expanded 
                 <span
                   class="localBuildTitle"
                 >
-                  LYN Local Build
+                  DSH Local Build
                 </span>
                 <span
                   class="buildVersion"
@@ -407,7 +407,7 @@ exports[`sidebar shell snapshots > renders the expanded column (wordmark, capsul
                 <span
                   class="localBuildTitle"
                 >
-                  LYN Local Build
+                  DSH Local Build
                 </span>
                 <span
                   class="buildVersion"

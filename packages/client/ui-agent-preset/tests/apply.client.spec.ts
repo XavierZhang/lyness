@@ -5,16 +5,16 @@
  * that are already showing, so a default set from one converges the other.
  */
 
-import { Context } from '@lyness/cordis'
+import { Context } from '@deepseek-ai/cordis'
 import { describe, expect, it, vi } from 'vitest'
-import { resolveSlotLabel } from '@lyness/lyn-client-ui-slots'
-import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
-import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
-import { createSnapshotStore, type ObservableSnapshot } from '@lyness/lyn-client-store'
-import { RemoteError, TestRemote } from '@lyness/lyn-client-test-runtime'
-import { SessionId } from '@lyness/lyn-session'
-import { apply as settingsApply, inject as settingsInject } from '@lyness/lyn-client-ui-settings/client'
-import { apply, inject } from '@lyness/lyn-client-ui-agent-preset/client'
+import { resolveSlotLabel } from '@deepseek-ai/dsh-client-ui-slots'
+import { SlotRegistry } from '@deepseek-ai/dsh-client-ui-renderer/client'
+import { LocaleRuntime } from '@deepseek-ai/dsh-client-locale/client'
+import { createSnapshotStore, type ObservableSnapshot } from '@deepseek-ai/dsh-client-store'
+import { RemoteError, TestRemote } from '@deepseek-ai/dsh-client-test-runtime'
+import { SessionId } from '@deepseek-ai/dsh-session'
+import { apply as settingsApply, inject as settingsInject } from '@deepseek-ai/dsh-client-ui-settings/client'
+import { apply, inject } from '@deepseek-ai/dsh-client-ui-agent-preset/client'
 import { AgentPresetLabel } from '../src/client/AgentPresetLabel.tsx'
 import type { AgentPresetLabelInjected } from '../src/client/AgentPresetLabel.tsx'
 import { AgentPresetSection } from '../src/client/AgentPresetSection.tsx'
@@ -1095,7 +1095,7 @@ describe('AgentPresetSeatController reconciliation', () => {
   })
 
   it('keeps the bare cause of a mount failure, not the frame that names the preset again', async () => {
-    const reason = 'failed to import loader entry ctx (@lyness/lyn-gone): Cannot find package'
+    const reason = 'failed to import loader entry ctx (@deepseek-ai/dsh-gone): Cannot find package'
     const controller = new AgentPresetSeatController({
       ...developerTools(),
       remote: {

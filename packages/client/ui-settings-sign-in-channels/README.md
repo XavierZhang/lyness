@@ -3,13 +3,13 @@ description: "The Settings section where an administrator configures the directo
 kind: "package-reference"
 ---
 
-# @lyness/lyn-client-ui-settings-sign-in-channels
+# @deepseek-ai/dsh-client-ui-settings-sign-in-channels
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`lyn-client-ui-settings-sign-in-channels` adds one Settings section: the channels this deployment signs people in through, and the form that adds, edits, and removes one. Its fields come from the kind the administrator picked, so it never asks for a setting a directory does not take. The application secret goes in and never comes back — nothing the section reads can produce one.
+`dsh-client-ui-settings-sign-in-channels` adds one Settings section: the channels this deployment signs people in through, and the form that adds, edits, and removes one. Its fields come from the kind the administrator picked, so it never asks for a setting a directory does not take. The application secret goes in and never comes back — nothing the section reads can produce one.
 
 ## Table of Contents
 
@@ -29,7 +29,7 @@ The Web bundle mounts it beside the other Settings sections:
 
 ```yaml
 - id: ui-settings-sign-in-channels
-  name: '@lyness/lyn-client-ui-settings-sign-in-channels'
+  name: '@deepseek-ai/dsh-client-ui-settings-sign-in-channels'
 ```
 
 There is nothing else to configure. The section reads `remote.signInChannels` when it opens, and renders one of four things: the channels and the form, a notice that this deployment configures none, a notice that the caller may not configure them, or a failure with a retry.
@@ -52,9 +52,9 @@ There is nothing else to configure. The section reads `remote.signInChannels` wh
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`lyn-api-sign-in-channel-controller`](../../api/sign-in-channel-controller/README.md) — the namespace this section calls, and what each refusal means.
-- [`lyn-sign-in-channels`](../../identity/sign-in-channels/README.md) — the records behind it, and the one rule that decides who may change what.
-- [`lyn-client-ui-sign-in`](../ui-sign-in/README.md) — the screen the configured channels appear on.
+- [`dsh-api-sign-in-channel-controller`](../../api/sign-in-channel-controller/README.md) — the namespace this section calls, and what each refusal means.
+- [`dsh-sign-in-channels`](../../identity/sign-in-channels/README.md) — the records behind it, and the one rule that decides who may change what.
+- [`dsh-client-ui-sign-in`](../ui-sign-in/README.md) — the screen the configured channels appear on.
 
 -----
 

@@ -3,13 +3,13 @@ description: "一个会话是谁的对话，面向需要为自己人的行为负
 kind: "package-reference"
 ---
 
-# @lyness/lyn-session-ownership
+# @deepseek-ai/dsh-session-ownership
 
 [English](README.md) | 中文
 
 ## 概述
 
-`lyn-session-ownership` 记录一个会话是谁的对话——开启它的那个人，以及他开启它时所处的身份——并通过它的 `./visibility` 行，决定此后谁读得到它。记录在创建时写入一次，取自那次调用所发布的 principal，并且永不改写。私有部署两半都不需要：那里只有一个人。由「没有人」开启的会话（比如一次 CLI 运行或一次入站 webhook）不带归属，而不是带一个编造出来的归属，并读作部署自己的。
+`dsh-session-ownership` 记录一个会话是谁的对话——开启它的那个人，以及他开启它时所处的身份——并通过它的 `./visibility` 行，决定此后谁读得到它。记录在创建时写入一次，取自那次调用所发布的 principal，并且永不改写。私有部署两半都不需要：那里只有一个人。由「没有人」开启的会话（比如一次 CLI 运行或一次入站 webhook）不带归属，而不是带一个编造出来的归属，并读作部署自己的。
 
 ## 目录
 
@@ -27,10 +27,10 @@ kind: "package-reference"
 
 ```yaml
 - id: session-ownership
-  name: '@lyness/lyn-session-ownership'
+  name: '@deepseek-ai/dsh-session-ownership'
 
 - id: session-visibility
-  name: '@lyness/lyn-session-ownership/visibility'
+  name: '@deepseek-ai/dsh-session-ownership/visibility'
 ```
 
 两行都不接受配置。写入那半需要会话、投影注册表与请求 principal；规则那半还需要目录，好把平台管理员与其余人区分开。只选写入、不选规则，等于记下了归属却没有任何东西据以行事——在服务多个人的部署上，这意味着他们各自仍能列出并打开别人的对话。
@@ -38,9 +38,9 @@ kind: "package-reference"
 读取方向会话发问：
 
 ```ts
-import type { Context } from '@lyness/cordis'
-import type { Session } from '@lyness/lyn-session'
-import { ownerOf } from '@lyness/lyn-session-ownership'
+import type { Context } from '@deepseek-ai/cordis'
+import type { Session } from '@deepseek-ai/dsh-session'
+import { ownerOf } from '@deepseek-ai/dsh-session-ownership'
 
 declare const ctx: Context
 declare const session: Session
@@ -75,8 +75,8 @@ if (owner !== undefined) {
 ## 进一步探索
 
 - [会话归属](../../../.agents/notes/proposed/architecture/2026-10-07-session-ownership.zh.md) —— 那个决定，包括「移除一个成员」改变什么、不改变什么。
-- [`lyn-request-principal`](../request-principal/README.zh.md) —— 开启者从哪里来。
-- [`lyn-tenant-session`](../../tenant/tenant-session/README.zh.md) —— 它并不取代的那个「部署级租户」印记。
+- [`dsh-request-principal`](../request-principal/README.zh.md) —— 开启者从哪里来。
+- [`dsh-tenant-session`](../../tenant/tenant-session/README.zh.md) —— 它并不取代的那个「部署级租户」印记。
 
 -----
 

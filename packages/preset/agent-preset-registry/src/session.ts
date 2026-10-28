@@ -11,13 +11,13 @@
  *
  * Reconstruction reads the `agentPreset` Session projection, never the header
  * alone.
- * @module @lyness/lyn-agent-preset-registry/session
+ * @module @deepseek-ai/dsh-agent-preset-registry/session
  */
 
-import type { ProjectionDefinition } from '@lyness/lyn-session-projection'
+import type { ProjectionDefinition } from '@deepseek-ai/dsh-session-projection'
 import { z } from 'zod'
 
-declare module '@lyness/lyn-session/types' {
+declare module '@deepseek-ai/dsh-session/types' {
   interface SessionEventMap {
     /**
      * The session's agent preset was chosen after creation, while the session

@@ -1,8 +1,8 @@
 /**
- * Generated scoped-event routing-subject resolvers for lyn-scope invariants.
+ * Generated scoped-event routing-subject resolvers for dsh-scope invariants.
  * Do not edit by hand; run `pnpm run gen-scoped-events`.
  *
- * @module @lyness/lyn-scope/scoped-events.generated
+ * @module @deepseek-ai/dsh-scope/scoped-events.generated
  */
 
 type ScopedSubjectResolver = (args: readonly unknown[]) => unknown

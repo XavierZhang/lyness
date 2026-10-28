@@ -6,23 +6,23 @@
  */
 
 import { describe, expect, it, vi, onTestFinished } from 'vitest'
-import { Context } from '@lyness/cordis'
-import AgentRegistry, { agentEvents } from '@lyness/lyn-agent'
-import type { Agent } from '@lyness/lyn-agent'
-import AttachmentStore from '@lyness/lyn-attachment'
-import LlmRuntime, { LlmAdapter, ReasoningEffortId } from '@lyness/lyn-llm'
+import { Context } from '@deepseek-ai/cordis'
+import AgentRegistry, { agentEvents } from '@deepseek-ai/dsh-agent'
+import type { Agent } from '@deepseek-ai/dsh-agent'
+import AttachmentStore from '@deepseek-ai/dsh-attachment'
+import LlmRuntime, { LlmAdapter, ReasoningEffortId } from '@deepseek-ai/dsh-llm'
 import type {
   GenerateOptions, LlmCallConfig, LlmCallConfigAdapterDefaults, LlmModelInfo,
   LlmModelReasoningInfo, LlmProviderInfo, LlmResolvedModelInfo, StreamChunk,
   UserMessage,
-} from '@lyness/lyn-llm'
-import SessionStore from '@lyness/lyn-session'
-import type { SessionId } from '@lyness/lyn-session'
+} from '@deepseek-ai/dsh-llm'
+import SessionStore from '@deepseek-ai/dsh-session'
+import type { SessionId } from '@deepseek-ai/dsh-session'
 import type { SessionPromptRequest, SessionRequestId } from '../src/types.ts'
 import { ApiSessionAgentController } from '../src/agent.ts'
 import { buildModelCatalog, hasProviderApiKey } from '../src/catalog.ts'
-import SystemPrompt from '@lyness/lyn-system-prompt'
-import { RemoteError } from '@lyness/lyn-typert-protocol'
+import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
+import { RemoteError } from '@deepseek-ai/dsh-typert-protocol'
 import { createSessionTestController, createSessionTestRemote } from './test-remote.ts'
 
 function request<P>(payload: P): P {

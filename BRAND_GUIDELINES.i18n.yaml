@@ -2,6 +2,6 @@
 # section, a hash of its English and Chinese blocks outside code blocks and generated regions.
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write BRAND_GUIDELINES.md
-/lyness-brand-asset-usage-guidelines:
+/deepseek-harness-brand-asset-usage-guidelines:
   en: 26a77c0f710724c2
   zh: 6a163f8700690fd8

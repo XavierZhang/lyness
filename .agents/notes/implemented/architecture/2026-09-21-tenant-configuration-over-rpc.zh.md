@@ -12,7 +12,7 @@
 
 ## 决策
 
-`@lyness/lyn-api-tenant-controller` 注册 `tenant` Remote 命名空间，含两个方法。`describe` 答复调用方租户自己的配置，外加能力缝本身不携带的两个事实：`writable`（本部署的后端是否接受保存）与 `configured`（该租户是否保存过任何东西）。`save` 整份替换配置，其输入不携带租户 id。
+`@deepseek-ai/dsh-api-tenant-controller` 注册 `tenant` Remote 命名空间，含两个方法。`describe` 答复调用方租户自己的配置，外加能力缝本身不携带的两个事实：`writable`（本部署的后端是否接受保存）与 `configured`（该租户是否保存过任何东西）。`save` 整份替换配置，其输入不携带租户 id。
 
 四条裁定决定了它的形状。
 

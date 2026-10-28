@@ -6,14 +6,14 @@
  * plus whether composition owns the entry — the one fact a surface needs to
  * know it must disable the row rather than offer an edit that would be undone
  * at the next boot.
- * @module @lyness/lyn-api-people-controller/types
+ * @module @deepseek-ai/dsh-api-people-controller/types
  */
 
-import type { Role } from '@lyness/lyn-people/types'
+import type { Role } from '@deepseek-ai/dsh-people/types'
 
-export type { Role } from '@lyness/lyn-people/types'
+export type { Role } from '@deepseek-ai/dsh-people/types'
 
-declare module '@lyness/lyn-typert-protocol' {
+declare module '@deepseek-ai/dsh-typert-protocol' {
   interface RemoteErrorDetailsMap {
     /**
      * The calling standing may not make that change: it reached for another

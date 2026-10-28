@@ -8,7 +8,7 @@
  * this records the allocated id and row the registry is asked to merge.
  */
 
-import { Context } from '@lyness/cordis'
+import { Context } from '@deepseek-ai/cordis'
 import { expect, it } from 'vitest'
 import * as PresetContribution from '../src/preset-contribution.ts'
 
@@ -41,8 +41,8 @@ it('contributes the memory tools under the allocated row id', async () => {
 
   expect(recorded.contributions).toEqual([{
     id: 'module-memory-tools',
-    module: '@lyness/lyn-module-memory',
-    row: { name: '@lyness/lyn-memory/tools' },
+    module: '@deepseek-ai/dsh-module-memory',
+    row: { name: '@deepseek-ai/dsh-memory/tools' },
   }])
 })
 
@@ -59,7 +59,7 @@ it('withdraws the contribution when its fiber is disposed', async () => {
 it('names the module the registry reports in a collision', () => {
   // The diagnostic names the bundle a deployment would disable, not the
   // service package the row resolves through.
-  expect(PresetContribution.MODULE).toBe('@lyness/lyn-module-memory')
+  expect(PresetContribution.MODULE).toBe('@deepseek-ai/dsh-module-memory')
   expect(PresetContribution.ROW_ID).toBe('module-memory-tools')
   expect(PresetContribution.name).toBe('memory-preset-contribution')
   expect(PresetContribution.inject).toEqual(['agentPresets'])

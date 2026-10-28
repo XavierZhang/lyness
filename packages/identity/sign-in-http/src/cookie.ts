@@ -6,14 +6,14 @@
  * both are `HttpOnly`, both are `SameSite=Lax`, and both carry `Secure`
  * exactly when the deployment says it is served over TLS.
  *
- * @module @lyness/lyn-sign-in-http/cookie
+ * @module @deepseek-ai/dsh-sign-in-http/cookie
  */
 
-/** The cookie holding the signed-in session; `lyn-request-principal` reads it. */
-export const SESSION_COOKIE = 'lyn_identity'
+/** The cookie holding the signed-in session; `dsh-request-principal` reads it. */
+export const SESSION_COOKIE = 'dsh_identity'
 
 /** The cookie binding one sign-in attempt to the browser that started it. */
-export const ATTEMPT_COOKIE = 'lyn_signin_attempt'
+export const ATTEMPT_COOKIE = 'dsh_signin_attempt'
 
 /** How one cookie is written. */
 export interface CookieTerms {

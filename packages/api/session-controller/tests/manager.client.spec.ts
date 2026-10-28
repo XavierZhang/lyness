@@ -4,15 +4,15 @@
  */
 
 import { describe, expect, onTestFinished, vi } from 'vitest'
-import type { SessionId } from '@lyness/lyn-api-remotes/client'
-import type { SubagentAddress } from '@lyness/lyn-subagent/client'
-import { SessionSeq } from '@lyness/lyn-session/types'
-import { RemoteError } from '@lyness/lyn-typert-protocol'
-import { ok, type RemoteMock } from '@lyness/lyn-remote-mock'
+import type { SessionId } from '@deepseek-ai/dsh-api-remotes/client'
+import type { SubagentAddress } from '@deepseek-ai/dsh-subagent/client'
+import { SessionSeq } from '@deepseek-ai/dsh-session/types'
+import { RemoteError } from '@deepseek-ai/dsh-typert-protocol'
+import { ok, type RemoteMock } from '@deepseek-ai/dsh-remote-mock'
 import {
   createClientTest, type ClientTestFixtures, webApp,
-} from '@lyness/lyn-client-test-runtime/src/assembly/index.ts'
-import type {} from '@lyness/lyn-session-title/client'
+} from '@deepseek-ai/dsh-client-test-runtime/src/assembly/index.ts'
+import type {} from '@deepseek-ai/dsh-session-title/client'
 import { SessionManager } from '../src/client/sessions/manager.ts'
 import type { SessionRemotes } from '../src/client/sessions/remotes.ts'
 import { entries, plainTurn } from './event-script.client.ts'
@@ -21,7 +21,7 @@ import { FOLLOW, err, followScript, sessionWorld } from './remote/session.client
 const S1 = 'fk-m1' as SessionId
 const S2 = 'fk-m2' as SessionId
 /** Gateway Client cone used by the subagent-catalog and connected-generation cases. */
-const API_ROSTER = webApp.closure(['@lyness/lyn-api-gateway'])
+const API_ROSTER = webApp.closure(['@deepseek-ai/dsh-api-gateway'])
 const it = createClientTest({ roster: API_ROSTER })
 
 type SummaryOver = Partial<{

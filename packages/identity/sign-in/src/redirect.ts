@@ -13,11 +13,11 @@
  * one outbound request may take are decisions every channel carries, and a
  * deployment should meet them under one set of names.
  *
- * @module @lyness/lyn-sign-in/redirect
+ * @module @deepseek-ai/dsh-sign-in/redirect
  */
 
-import z from '@lyness/schemastery'
-import { randomUUID } from '@lyness/lyn-util-crypto'
+import z from '@deepseek-ai/schemastery'
+import { randomUUID } from '@deepseek-ai/dsh-util-crypto'
 import { AttemptBook } from './attempts.ts'
 import type { ChannelId, ExternalSubject, RedirectStart } from './types.ts'
 import type { RedirectChannel } from './index.ts'

@@ -1,34 +1,34 @@
 /**
  * Shared route, framing, timeout, assembly, and validation policy for
  * model-backed session-title providers.
- * @module @lyness/lyn-session-title-llm
+ * @module @deepseek-ai/dsh-session-title-llm
  */
 
-import type { Context } from '@lyness/cordis'
-import z from '@lyness/schemastery'
-import { createUserMessage, BlockAssembler } from '@lyness/lyn-llm'
-import type { ContextFormed } from '@lyness/lyn-llm'
-declare module '@lyness/lyn-llm' {
+import type { Context } from '@deepseek-ai/cordis'
+import z from '@deepseek-ai/schemastery'
+import { createUserMessage, BlockAssembler } from '@deepseek-ai/dsh-llm'
+import type { ContextFormed } from '@deepseek-ai/dsh-llm'
+declare module '@deepseek-ai/dsh-llm' {
   interface MessageSourceMap {
     'dsh-session-title-llm': { kind: 'dsh-session-title-llm' } & ContextFormed
   }
 }
 
-import type { FinishReason, GenerateOptions, Message } from '@lyness/lyn-llm'
-import { deadline, MAX_TIMER_DELAY_MS } from '@lyness/lyn-timeout'
-import { deepFreeze } from '@lyness/lyn-util-values'
-import type { SessionSeq } from '@lyness/lyn-session'
+import type { FinishReason, GenerateOptions, Message } from '@deepseek-ai/dsh-llm'
+import { deadline, MAX_TIMER_DELAY_MS } from '@deepseek-ai/dsh-timeout'
+import { deepFreeze } from '@deepseek-ai/dsh-util-values'
+import type { SessionSeq } from '@deepseek-ai/dsh-session'
 import {
   normalizeSessionTitle,
   SessionTitleProviderId,
-} from '@lyness/lyn-session-title'
+} from '@deepseek-ai/dsh-session-title'
 import type {
   SessionTitleAutomaticMode,
   SessionTitleModelIdentity,
   SessionTitleProviderRequest,
   SessionTitleProviderResult,
   SessionTitleUserMessage,
-} from '@lyness/lyn-session-title'
+} from '@deepseek-ai/dsh-session-title'
 
 /** Exact model-visible request recorded before one auxiliary title dispatch. */
 export interface SessionTitleLlmRequestEventData {
@@ -46,7 +46,7 @@ export interface SessionTitleLlmRequestEventData {
   readonly maxTokens: number
 }
 
-declare module '@lyness/lyn-session/types' {
+declare module '@deepseek-ai/dsh-session/types' {
   interface SessionEventMap {
     /** Log-only pre-dispatch record of one session-title model request. */
     'session/title-llm-request': SessionTitleLlmRequestEventData

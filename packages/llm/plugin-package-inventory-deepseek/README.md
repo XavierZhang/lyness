@@ -3,7 +3,7 @@ description: "Active Loader package inventory metadata for deployments sending o
 kind: "package-reference"
 ---
 
-# @lyness/lyn-plugin-package-inventory-deepseek
+# @deepseek-ai/dsh-plugin-package-inventory-deepseek
 
 English | [中文](README.zh.md)
 

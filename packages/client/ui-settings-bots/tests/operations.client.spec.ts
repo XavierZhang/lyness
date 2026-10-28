@@ -6,7 +6,7 @@
  */
 
 import { describe, expect, it, vi } from 'vitest'
-import type { BotRowView, PresetOptionView, TeamRowView } from '@lyness/lyn-api-bots-controller/types'
+import type { BotRowView, PresetOptionView, TeamRowView } from '@deepseek-ai/dsh-api-bots-controller/types'
 import { createBotsOperations, statusOf } from '../src/client/operations.ts'
 import type { BotsCalls, BotsSink, CallOutcome } from '../src/client/operations.ts'
 

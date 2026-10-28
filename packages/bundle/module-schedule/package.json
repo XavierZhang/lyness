@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/lyn-module-schedule",
+  "name": "@deepseek-ai/dsh-module-schedule",
   "description": "The scheduled follow-ups default module as its own bundle: the Host Schedule service and its browser catalog",
   "version": "0.1.7-rc.2",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/bundle/module-schedule"
   },
   "type": "module",
@@ -30,19 +30,19 @@
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
-  "lyn": {
+  "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml"
     }
   },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~"
+    "@deepseek-ai/cordis": "workspace:~"
   },
   "dependencies": {
-    "@lyness/lyn-client-ui-schedule": "workspace:*",
-    "@lyness/lyn-schedule": "workspace:*"
+    "@deepseek-ai/dsh-client-ui-schedule": "workspace:*",
+    "@deepseek-ai/dsh-schedule": "workspace:*"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:~"
+    "@deepseek-ai/cordis": "workspace:~"
   }
 }

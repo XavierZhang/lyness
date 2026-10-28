@@ -3,17 +3,17 @@
  * deterministic ordering and labels, quoted-path suppression, pick projections, codec
  * round-trip, and registration lifecycle.
  */
-import { Context, Service } from '@lyness/cordis'
+import { Context, Service } from '@deepseek-ai/cordis'
 import { afterEach, beforeEach, describe, expect, it, onTestFinished, vi } from 'vitest'
-import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
-import type { SessionId } from '@lyness/lyn-session/types'
-import { RemoteError, TestSessions } from '@lyness/lyn-client-test-runtime'
-import type { SessionFixture } from '@lyness/lyn-client-test-runtime'
+import { LocaleRuntime } from '@deepseek-ai/dsh-client-locale/client'
+import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import { RemoteError, TestSessions } from '@deepseek-ai/dsh-client-test-runtime'
+import type { SessionFixture } from '@deepseek-ai/dsh-client-test-runtime'
 import type {
   CandidateRequest, ClientSessionContext, InputTriggerCandidate, InputTriggerSource,
-} from '@lyness/lyn-client-ui-input-trigger/client'
-import type { FileReferenceCandidate } from '@lyness/lyn-file-reference/types'
-import type { SessionReferenceMentionCandidate } from '@lyness/lyn-session-reference/types'
+} from '@deepseek-ai/dsh-client-ui-input-trigger/client'
+import type { FileReferenceCandidate } from '@deepseek-ai/dsh-file-reference/types'
+import type { SessionReferenceMentionCandidate } from '@deepseek-ai/dsh-session-reference/types'
 import { apply, inject } from '../src/client/index.ts'
 import { apply as nodeApply } from '../src/index.ts'
 
@@ -72,7 +72,7 @@ async function bench(
       cwd: `${HOME}/project`,
       sameWorkspace: false,
       createdAt: CREATED_AT,
-      mention: '@[Research](lyn-session:InNvdXJjZSI)',
+      mention: '@[Research](dsh-session:InNvdXJjZSI)',
     }],
   })),
   listed: Record<string, {
@@ -262,7 +262,7 @@ describe('candidates', () => {
             cwd: `${HOME}/project`,
             sameWorkspace: false,
             createdAt: CREATED_AT,
-            mention: '@[Research](lyn-session:InNvdXJjZSI)',
+            mention: '@[Research](dsh-session:InNvdXJjZSI)',
           }],
         })
       }
@@ -314,7 +314,7 @@ describe('candidates', () => {
         cwd: `${HOME}/project`,
         sameWorkspace: false,
         createdAt: CREATED_AT,
-        mention: '@[Research](lyn-session:InNvdXJjZSI)',
+        mention: '@[Research](dsh-session:InNvdXJjZSI)',
       }],
     }))
     const { source } = await bench(files, sessions)
@@ -382,7 +382,7 @@ describe('candidates', () => {
         label: 'same',
         sameWorkspace: false,
         createdAt: CREATED_AT,
-        mention: '@[same](lyn-session:InNhbWUi)',
+        mention: '@[same](dsh-session:InNhbWUi)',
       }],
     }))
     const { source } = await bench(files, sessions)
@@ -404,7 +404,7 @@ describe('candidates', () => {
         cwd: `${HOME}/project`,
         sameWorkspace: true,
         createdAt: CREATED_AT,
-        mention: '@[Unlisted run](lyn-session:InVubGlzdGVkIg)',
+        mention: '@[Unlisted run](dsh-session:InVubGlzdGVkIg)',
       }],
     }))
     // A row absent from the list has no durable activity time to read.
@@ -426,7 +426,7 @@ describe('candidates', () => {
           cwd: `${HOME}/project`,
           sameWorkspace: true,
           createdAt: CREATED_AT,
-          mention: '@[Ordinary title](lyn-session:Im9yZGluYXJ5Ig)',
+          mention: '@[Ordinary title](dsh-session:Im9yZGluYXJ5Ig)',
         },
         {
           sessionId: sid('worker'),
@@ -435,7 +435,7 @@ describe('candidates', () => {
           cwd: `${HOME}/project`,
           sameWorkspace: true,
           createdAt: CREATED_AT,
-          mention: '@[researcher](lyn-session:IndvcmtlciI)',
+          mention: '@[researcher](dsh-session:IndvcmtlciI)',
         },
       ],
     }))
@@ -463,10 +463,10 @@ describe('candidates', () => {
     })).toEqual({
       insert: {
         source: 'reference',
-        ref: '@[researcher](lyn-session:IndvcmtlciI)',
+        ref: '@[researcher](dsh-session:IndvcmtlciI)',
         label: 'researcher',
         appearance: 'session',
-        clipboardText: '@[researcher](lyn-session:IndvcmtlciI)',
+        clipboardText: '@[researcher](dsh-session:IndvcmtlciI)',
       },
     })
   })
@@ -481,7 +481,7 @@ describe('candidates', () => {
         cwd: `${HOME}/project`,
         sameWorkspace: true,
         createdAt: NOW - 1_000,
-        mention: '@[Just now](lyn-session:Imp1c3Qtbm93Ig)',
+        mention: '@[Just now](dsh-session:Imp1c3Qtbm93Ig)',
       }],
     }))
     const { source } = await bench(files, sessions, { 'just-now': { updatedAt: NOW - 1_000 } })
@@ -500,7 +500,7 @@ describe('candidates', () => {
         cwd: `${HOME}/project`,
         sameWorkspace: true,
         createdAt: CREATED_AT,
-        mention: '@[Sibling run](lyn-session:InNpYmxpbmdyIg)',
+        mention: '@[Sibling run](dsh-session:InNpYmxpbmdyIg)',
       }],
     }))
     const { source } = await bench(files, sessions)
@@ -627,7 +627,7 @@ describe('pick and codec', () => {
     const { source } = await bench()
     const candidates = await source.candidates(session, request(''))
     const candidate = candidates.find(item => item.name === 'Research')!
-    const mention = '@[Research](lyn-session:InNvdXJjZSI)'
+    const mention = '@[Research](dsh-session:InNvdXJjZSI)'
     expect(pick(source, candidate)).toEqual({
       insert: {
         source: 'reference',
@@ -653,10 +653,10 @@ describe('reference preview', () => {
     const openResource = vi.spyOn(ctx.sidebarRight, 'openResource')
     expect(source.openReference?.(session, { ref: '@notes/readme.md', appearance: 'file' })).toBe(true)
     expect(source.openReference?.(session, { ref: '@"docs/a b.md"', appearance: 'file' })).toBe(true)
-    expect(openResource).toHaveBeenNthCalledWith(1, 'lyn-resource://file/session/target/notes/readme.md')
-    expect(openResource).toHaveBeenNthCalledWith(2, 'lyn-resource://file/session/target/docs/a%20b.md')
+    expect(openResource).toHaveBeenNthCalledWith(1, 'dsh-resource://file/session/target/notes/readme.md')
+    expect(openResource).toHaveBeenNthCalledWith(2, 'dsh-resource://file/session/target/docs/a%20b.md')
     expect(source.openReference?.(session, { ref: '@docs/', appearance: 'folder' })).toBe(false)
-    expect(source.openReference?.(session, { ref: '@[Research](lyn-session:abc)', appearance: 'session' })).toBe(false)
+    expect(source.openReference?.(session, { ref: '@[Research](dsh-session:abc)', appearance: 'session' })).toBe(false)
     expect(openResource).toHaveBeenCalledTimes(2)
     await fiber.dispose()
   })

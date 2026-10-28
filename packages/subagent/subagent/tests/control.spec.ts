@@ -2,15 +2,15 @@
 // codes. Session Controller owns catalog observation and transport.
 
 import { describe, expect, it, vi } from 'vitest'
-import { Context } from '@lyness/cordis'
-import AttachmentStore, { AttachmentError } from '@lyness/lyn-attachment'
-import type { MessageId } from '@lyness/lyn-llm'
-import { SessionId } from '@lyness/lyn-session'
+import { Context } from '@deepseek-ai/cordis'
+import AttachmentStore, { AttachmentError } from '@deepseek-ai/dsh-attachment'
+import type { MessageId } from '@deepseek-ai/dsh-llm'
+import { SessionId } from '@deepseek-ai/dsh-session'
 import SubagentRuntime, {
   SubagentError,
   type SubagentPromptRequestId,
-} from '@lyness/lyn-subagent'
-import { deliverSubagentPrompt, type HostPromptDeliverer } from '@lyness/lyn-subagent/internal'
+} from '@deepseek-ai/dsh-subagent'
+import { deliverSubagentPrompt, type HostPromptDeliverer } from '@deepseek-ai/dsh-subagent/internal'
 
 const PARENT = SessionId('parent')
 const CHILD = SessionId('child')

@@ -16,7 +16,7 @@ import {
 } from './run-gates.ts'
 
 // Graph fixtures select their own browser pool instead of inheriting the CI host's pool.
-beforeEach(() => vi.stubEnv('LYNESS_WEB_SNAPSHOT_WORKERS', undefined))
+beforeEach(() => vi.stubEnv('DSH_WEB_SNAPSHOT_WORKERS', undefined))
 afterEach(() => vi.unstubAllEnvs())
 
 /**
@@ -144,48 +144,48 @@ describe('CI worker allocation', () => {
   it.each([1, 2, 4, 8, 16, 64])('shares a %i CPU coverage budget without multiplying pools', (cpus) => {
     const env = ciWorkerEnvironment('ci-coverage', {}, cpus)
     const exempt = Math.max(1, Math.floor(cpus / 3))
-    const instrumented = Number(env.LYNESS_COVERAGE_PARTITIONS ?? 1)
-    expect(Number(env.LYNESS_COVERAGE_MAX_WORKERS)).toBe(cpus)
+    const instrumented = Number(env.DSH_COVERAGE_PARTITIONS ?? 1)
+    expect(Number(env.DSH_COVERAGE_MAX_WORKERS)).toBe(cpus)
     expect(instrumented + exempt).toBe(Math.max(2, cpus))
     expect(defaultConcurrency('ci-coverage', 3, cpus).workers).toBe(Math.min(3, cpus))
-    if (cpus <= 2) expect(env.LYNESS_COVERAGE_PARTITIONS).toBeUndefined()
+    if (cpus <= 2) expect(env.DSH_COVERAGE_PARTITIONS).toBeUndefined()
   })
 
   it('bounds overlapping readers and lets the isolated browser pool use the runner', () => {
     const env = ciWorkerEnvironment('ci-consumers', {}, 16)
     expect(env).toMatchObject({
-      LYNESS_OXLINT_THREADS: '8',
-      LYNESS_PUBLINT_CONCURRENCY: '8',
-      LYNESS_SNAPSHOT_MAX_WORKERS: '1',
-      LYNESS_SNAPSHOT_MAX_CONCURRENCY: '8',
-      LYNESS_WEB_SNAPSHOT_WORKERS: '16',
+      DSH_OXLINT_THREADS: '8',
+      DSH_PUBLINT_CONCURRENCY: '8',
+      DSH_SNAPSHOT_MAX_WORKERS: '1',
+      DSH_SNAPSHOT_MAX_CONCURRENCY: '8',
+      DSH_WEB_SNAPSHOT_WORKERS: '16',
     })
   })
 
   it('preserves serial reference overrides on large hosts', () => {
     const inherited = {
-      LYNESS_GATE_CONCURRENCY: '1',
-      LYNESS_COVERAGE_MAX_WORKERS: '1',
-      LYNESS_OXLINT_THREADS: '1',
-      LYNESS_PUBLINT_CONCURRENCY: '1',
-      LYNESS_SNAPSHOT_MAX_CONCURRENCY: '1',
-      LYNESS_WEB_SNAPSHOT_WORKERS: '1',
+      DSH_GATE_CONCURRENCY: '1',
+      DSH_COVERAGE_MAX_WORKERS: '1',
+      DSH_OXLINT_THREADS: '1',
+      DSH_PUBLINT_CONCURRENCY: '1',
+      DSH_SNAPSHOT_MAX_CONCURRENCY: '1',
+      DSH_WEB_SNAPSHOT_WORKERS: '1',
     }
     const additions = ciWorkerEnvironment('ci-primary', inherited, 64)
-    expect(additions).toEqual({ LYNESS_SNAPSHOT_MAX_WORKERS: '1' })
-    expect(inherited.LYNESS_COVERAGE_MAX_WORKERS).toBe('1')
+    expect(additions).toEqual({ DSH_SNAPSHOT_MAX_WORKERS: '1' })
+    expect(inherited.DSH_COVERAGE_MAX_WORKERS).toBe('1')
   })
 
   it('honors an explicit coverage budget and partition override', () => {
-    expect(ciWorkerEnvironment('ci-coverage', { LYNESS_COVERAGE_MAX_WORKERS: '6' }, 16))
-      .toHaveProperty('LYNESS_COVERAGE_PARTITIONS', '4')
-    expect(ciWorkerEnvironment('ci-coverage', { LYNESS_COVERAGE_PARTITIONS: '3' }, 16))
-      .not.toHaveProperty('LYNESS_COVERAGE_PARTITIONS')
+    expect(ciWorkerEnvironment('ci-coverage', { DSH_COVERAGE_MAX_WORKERS: '6' }, 16))
+      .toHaveProperty('DSH_COVERAGE_PARTITIONS', '4')
+    expect(ciWorkerEnvironment('ci-coverage', { DSH_COVERAGE_PARTITIONS: '3' }, 16))
+      .not.toHaveProperty('DSH_COVERAGE_PARTITIONS')
   })
 
   it.each(['0', '-1', 'NaN', '2.5'])('rejects invalid worker budget %s', (raw) => {
-    expect(() => ciWorkerEnvironment('ci-coverage', { LYNESS_COVERAGE_MAX_WORKERS: raw }, 16))
-      .toThrow('LYNESS_COVERAGE_MAX_WORKERS must be a positive integer')
+    expect(() => ciWorkerEnvironment('ci-coverage', { DSH_COVERAGE_MAX_WORKERS: raw }, 16))
+      .toThrow('DSH_COVERAGE_MAX_WORKERS must be a positive integer')
   })
 
   it('keeps local documentation defaults unchanged', () => {
@@ -318,7 +318,7 @@ describe('gate graph validation', () => {
     expect(ids).toEqual([
       'rescope-vendor', 'publint', 'constraints', 'default-product-isolation', 'hosted-profile-boundary',
       'remote-authority', 'package-dependencies', 'application-entrypoints',
-      'lyn-package-licenses', 'package-invariants', 'built-package-invariants', 'node-next-types',
+      'dsh-package-licenses', 'package-invariants', 'built-package-invariants', 'node-next-types',
       'optional-dependency-imports', 'client-packages', 'client-ui-i18n', 'brand-placeholders',
       'client-route-resolution', 'no-bare-dispatcher',
       'no-unknown-casts',
@@ -355,11 +355,11 @@ describe('gate graph validation', () => {
   })
 
   it.each(['ci-primary', 'ci-static', 'check-all'] as const)(
-    'keeps the LYN package license policy in %s',
+    'keeps the DSH package license policy in %s',
     (mode) => {
       const ids = withPnpmEntrypoint(() => gatesForMode(mode).map(subject => subject.id))
 
-      expect(ids).toContain('lyn-package-licenses')
+      expect(ids).toContain('dsh-package-licenses')
     },
   )
 
@@ -521,7 +521,7 @@ describe('gate graph validation', () => {
   })
 
   it('applies one configured test, polling, and hook timeout to both coverage gates', () => {
-    const gates = withEnv('LYNESS_COVERAGE_TEST_TIMEOUT_MS', '15000', () =>
+    const gates = withEnv('DSH_COVERAGE_TEST_TIMEOUT_MS', '15000', () =>
       withPnpmEntrypoint(() => gatesForMode('ci-windows-complete')))
 
     for (const id of ['coverage', 'coverage-exempt-heavy']) {
@@ -534,7 +534,7 @@ describe('gate graph validation', () => {
   })
 
   it('keeps Vitest timeout defaults when the coverage override is absent', () => {
-    const gates = withEnv('LYNESS_COVERAGE_TEST_TIMEOUT_MS', undefined, () =>
+    const gates = withEnv('DSH_COVERAGE_TEST_TIMEOUT_MS', undefined, () =>
       withPnpmEntrypoint(() => gatesForMode('ci-windows-complete')))
 
     for (const id of ['coverage', 'coverage-exempt-heavy']) {
@@ -545,27 +545,27 @@ describe('gate graph validation', () => {
   })
 
   it('rejects an invalid coverage timeout before starting a gate', () => {
-    expect(() => withEnv('LYNESS_COVERAGE_TEST_TIMEOUT_MS', '0', () =>
+    expect(() => withEnv('DSH_COVERAGE_TEST_TIMEOUT_MS', '0', () =>
       withPnpmEntrypoint(() => gatesForMode('ci-windows-complete'))))
-      .toThrow('LYNESS_COVERAGE_TEST_TIMEOUT_MS must be a positive integer')
+      .toThrow('DSH_COVERAGE_TEST_TIMEOUT_MS must be a positive integer')
   })
 
   it('selects partitioned coverage only when explicitly configured', () => {
-    const coverage = withEnv('LYNESS_COVERAGE_PARTITIONS', '3', () =>
+    const coverage = withEnv('DSH_COVERAGE_PARTITIONS', '3', () =>
       withPnpmEntrypoint(() => gatesForMode('ci-windows-complete').find(subject => subject.id === 'coverage')))
 
     expect(coverage).toMatchObject({
-      displayCommand: 'LYNESS_COVERAGE_PARTITIONS=3 pnpm run test:coverage:partitioned',
+      displayCommand: 'DSH_COVERAGE_PARTITIONS=3 pnpm run test:coverage:partitioned',
       args: ['/private/pnpm.cjs', 'run', 'test:coverage:partitioned'],
-      env: { LYNESS_COVERAGE_EXEMPT_HEAVY: '1' },
+      env: { DSH_COVERAGE_EXEMPT_HEAVY: '1' },
       streamOutput: true,
     })
   })
 
   it('rejects an invalid coverage partition count before starting a gate', () => {
-    expect(() => withEnv('LYNESS_COVERAGE_PARTITIONS', '1', () =>
+    expect(() => withEnv('DSH_COVERAGE_PARTITIONS', '1', () =>
       withPnpmEntrypoint(() => gatesForMode('ci-windows-complete'))))
-      .toThrow('LYNESS_COVERAGE_PARTITIONS must be an integer greater than 1')
+      .toThrow('DSH_COVERAGE_PARTITIONS must be an integer greater than 1')
   })
 
   it.each([
@@ -627,7 +627,7 @@ describe('gate graph validation', () => {
 
 describe('Oxlint gate', () => {
   it('uses the package script when no worker bound is configured', () => {
-    const subject = withEnv('LYNESS_OXLINT_THREADS', undefined, () =>
+    const subject = withEnv('DSH_OXLINT_THREADS', undefined, () =>
       withPnpmEntrypoint(() => gatesForMode('ci-lint-contracts-ready')[0]))
 
     expect(subject).toMatchObject({
@@ -639,12 +639,12 @@ describe('Oxlint gate', () => {
   })
 
   it('surfaces the configured worker bound on the shared package script', () => {
-    const subject = withEnv('LYNESS_OXLINT_THREADS', '4', () =>
+    const subject = withEnv('DSH_OXLINT_THREADS', '4', () =>
       withPnpmEntrypoint(() => gatesForMode('ci-lint-contracts-ready')[0]))
 
     expect(subject).toMatchObject({
       id: 'lint',
-      displayCommand: 'LYNESS_OXLINT_THREADS=4 pnpm run lint:contracts-ready',
+      displayCommand: 'DSH_OXLINT_THREADS=4 pnpm run lint:contracts-ready',
       command: process.execPath,
       args: ['/private/pnpm.cjs', 'run', 'lint:contracts-ready'],
     })
@@ -653,7 +653,7 @@ describe('Oxlint gate', () => {
 
 describe('Typert contract preparation', () => {
   it('prepares primary source consumers once before they run', () => {
-    const subject = withEnv('LYNESS_OXLINT_THREADS', undefined, () =>
+    const subject = withEnv('DSH_OXLINT_THREADS', undefined, () =>
       withPnpmEntrypoint(() => gatesForMode('ci-primary')))
 
     expect(subject.find(item => item.id === 'typert-contracts')).toMatchObject({
@@ -746,10 +746,10 @@ describe('Node 24 lane ownership', () => {
     ])
     expect(subject.find(item => item.id === 'publint')?.needs).toEqual(['build'])
     expect(subject.find(item => item.id === 'build')?.env).toEqual({
-      LYNESS_BUILD_CLIENT_PROFILE: 'official',
+      DSH_BUILD_CLIENT_PROFILE: 'official',
     })
     expect(subject.find(item => item.id === 'node-compat')?.env).toEqual({
-      LYNESS_BUILD_CLIENT_PROFILE: 'official',
+      DSH_BUILD_CLIENT_PROFILE: 'official',
     })
     expect(subject.find(item => item.id === 'built-package-invariants')?.needs).toEqual(['build'])
     expect(subject.find(item => item.id === 'lint-and-duplication')?.needs).toEqual(['built-package-invariants'])
@@ -763,11 +763,11 @@ describe('Node 24 lane ownership', () => {
     ]) {
       expect(subject.find(item => item.id === id)?.needs).toEqual(['built-package-invariants'])
     }
-    expect(subject.find(item => item.id === 'snapshot')?.env).toEqual({ LYNESS_EXAMPLE_MODE: 'lib' })
-    expect(subject.find(item => item.id === 'expected-output')?.env).toEqual({ LYNESS_EXAMPLE_MODE: 'lib' })
-    expect(subject.find(item => item.id === 'built-bin-smoke')?.env).toEqual({ LYNESS_EXAMPLE_MODE: 'lib' })
+    expect(subject.find(item => item.id === 'snapshot')?.env).toEqual({ DSH_EXAMPLE_MODE: 'lib' })
+    expect(subject.find(item => item.id === 'expected-output')?.env).toEqual({ DSH_EXAMPLE_MODE: 'lib' })
+    expect(subject.find(item => item.id === 'built-bin-smoke')?.env).toEqual({ DSH_EXAMPLE_MODE: 'lib' })
     expect(subject.find(item => item.id === 'doc-typecheck')?.env).toEqual({
-      LYNESS_DOC_TYPECHECK_USE_BUILD_OUTPUT: '1',
+      DSH_DOC_TYPECHECK_USE_BUILD_OUTPUT: '1',
     })
     expect(subject.find(item => item.id === 'built-bin-smoke')?.args).toEqual(
       expect.arrayContaining([
@@ -779,8 +779,8 @@ describe('Node 24 lane ownership', () => {
       ]),
     )
     expect(subject.find(item => item.id === 'web-snapshot')).toMatchObject({
-      displayCommand: 'LYNESS_SNAPSHOT=replay pnpm run test:web:built',
-      env: { LYNESS_SNAPSHOT: 'replay' },
+      displayCommand: 'DSH_SNAPSHOT=replay pnpm run test:web:built',
+      env: { DSH_SNAPSHOT: 'replay' },
       after: [
         'publint',
         'lint-and-duplication',
@@ -800,8 +800,8 @@ describe('Linux primary graph', () => {
     const web = subject.find(item => item.id === 'web-snapshot')
 
     expect(web).toMatchObject({
-      displayCommand: 'LYNESS_SNAPSHOT=replay pnpm run test:web:built',
-      env: { LYNESS_SNAPSHOT: 'replay' },
+      displayCommand: 'DSH_SNAPSHOT=replay pnpm run test:web:built',
+      env: { DSH_SNAPSHOT: 'replay' },
       needs: ['built-package-invariants'],
     })
   })

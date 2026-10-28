@@ -3,9 +3,9 @@
  * Pack a Preview deployment from this repository: compose and lower the base
  * image, then write each named fixture overlay and their manifest.
  *
- * Usage: lyn-pack-vfs-image --out <file> [--profile web] [--root /lyn]
+ * Usage: dsh-pack-vfs-image --out <file> [--profile web] [--root /dsh]
  *        node --import tsx/esm src/bin.ts --out ../../apps/web/dist/preview/vfs-image.tar.gz
- * @module @lyness/lyn-experimental-webworker-packer/src/bin
+ * @module @deepseek-ai/dsh-experimental-webworker-packer/src/bin
  */
 import { mkdirSync, writeFileSync } from 'node:fs'
 import { dirname, isAbsolute, join, resolve } from 'node:path'
@@ -13,7 +13,7 @@ import { fileURLToPath } from 'node:url'
 import {
   PREVIEW_FIXTURE_MANIFEST_FILE, PREVIEW_FIXTURE_MANIFEST_VERSION,
   type PreviewFixtureManifest,
-} from '@lyness/lyn-experimental-webworker-runtime'
+} from '@deepseek-ai/dsh-experimental-webworker-runtime'
 import { packVfsImage } from './pack.ts'
 import {
   composeProfile, configTrees, describePack, indexWorkspacePackages, packPreviewFixture, previewFixtures,
@@ -31,11 +31,11 @@ function flag(name: string, fallback?: string): string {
   const index = process.argv.indexOf(`--${name}`)
   if (index === -1) {
     if (fallback !== undefined) return fallback
-    throw new Error(`lyn-pack-vfs-image: --${name} is required`)
+    throw new Error(`dsh-pack-vfs-image: --${name} is required`)
   }
   const value = process.argv[index + 1]
   if (value === undefined || value.startsWith('--')) {
-    throw new Error(`lyn-pack-vfs-image: --${name} needs a value`)
+    throw new Error(`dsh-pack-vfs-image: --${name} needs a value`)
   }
   return value
 }
@@ -48,7 +48,7 @@ const outputFile = isAbsolute(out) ? out : resolve(process.cwd(), out)
 const result = packVfsImage({
   config: composeProfile(repoRoot, profile),
   profile,
-  root: flag('root', '/lyn'),
+  root: flag('root', '/dsh'),
   workspaces: indexWorkspacePackages(repoRoot),
   resolveFrom: repoRoot,
   configTrees: configTrees(repoRoot),

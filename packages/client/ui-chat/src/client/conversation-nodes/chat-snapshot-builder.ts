@@ -1,9 +1,9 @@
-import type { Context } from '@lyness/cordis'
-import { notifySubscribers, type ObservableSnapshot } from '@lyness/lyn-client-store'
+import type { Context } from '@deepseek-ai/cordis'
+import { notifySubscribers, type ObservableSnapshot } from '@deepseek-ai/dsh-client-store'
 import type {
   ConversationLocation, ConversationNode, ConversationTimelineSnapshot, ConversationViewBuilder,
   ConversationViewDefinition, ConversationGroupInput, GroupNodePosition, NodeChange, NodeKey, PartialAssistant, RunningToolCall,
-} from '@lyness/lyn-client-ui-conversation/client'
+} from '@deepseek-ai/dsh-client-ui-conversation/client'
 import type { ChatConversationViewNode, ChatNode, ChatNodeDataMap, ChatNodeKind } from '../contract/chat-nodes.ts'
 import { isRunningTool } from '../contract/chat-nodes.ts'
 import { isVisibleChatNode } from '../contract/chat-visibility.ts'

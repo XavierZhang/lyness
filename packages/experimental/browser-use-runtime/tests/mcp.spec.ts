@@ -3,23 +3,23 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { Context } from '@lyness/cordis'
-import Loader from '@lyness/cordis-plugin-loader'
-import Include from '@lyness/cordis-plugin-include'
-import BrowserUse from '@lyness/lyn-browser-use'
-import SystemPrompt, { renderPrompt } from '@lyness/lyn-system-prompt'
-import Tools from '@lyness/lyn-tools'
-import McpResources from '@lyness/lyn-mcp-resources'
-import { PtcRuntime } from '@lyness/lyn-ptc-runtime'
-import Llm, { LlmAdapter, ToolCallId, createUserMessage } from '@lyness/lyn-llm'
-import type { GenerateOptions, LlmResolvedModelInfo, StreamChunk } from '@lyness/lyn-llm'
-import Sessions, { SessionId } from '@lyness/lyn-session'
-import JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
-import Agents from '@lyness/lyn-agent'
-import type { Agent } from '@lyness/lyn-agent'
-import AgentLoop from '@lyness/lyn-agent-loop'
-import Projections from '@lyness/lyn-session-projection'
-import { bindScopeParent } from '@lyness/lyn-scope'
+import { Context } from '@deepseek-ai/cordis'
+import Loader from '@deepseek-ai/cordis-plugin-loader'
+import Include from '@deepseek-ai/cordis-plugin-include'
+import BrowserUse from '@deepseek-ai/dsh-browser-use'
+import SystemPrompt, { renderPrompt } from '@deepseek-ai/dsh-system-prompt'
+import Tools from '@deepseek-ai/dsh-tools'
+import McpResources from '@deepseek-ai/dsh-mcp-resources'
+import { PtcRuntime } from '@deepseek-ai/dsh-ptc-runtime'
+import Llm, { LlmAdapter, ToolCallId, createUserMessage } from '@deepseek-ai/dsh-llm'
+import type { GenerateOptions, LlmResolvedModelInfo, StreamChunk } from '@deepseek-ai/dsh-llm'
+import Sessions, { SessionId } from '@deepseek-ai/dsh-session'
+import JsonlSessionPersistence from '@deepseek-ai/dsh-session-persistence-jsonl'
+import Agents from '@deepseek-ai/dsh-agent'
+import type { Agent } from '@deepseek-ai/dsh-agent'
+import AgentLoop from '@deepseek-ai/dsh-agent-loop'
+import Projections from '@deepseek-ai/dsh-session-projection'
+import { bindScopeParent } from '@deepseek-ai/dsh-scope'
 import { BrowserMcpConfig, mountSessionMcp, validateBrowserMcpConfig } from '../src/mcp.ts'
 
 const fixture = fileURLToPath(new URL('./mcp-fixture.mjs', import.meta.url))
@@ -62,7 +62,7 @@ class PresentationRuntime extends PtcRuntime {
 }
 
 async function load(exclusive = false, mode?: string, toolCallTimeoutMs?: number, toolOrder?: string[]) {
-  const root = await mkdtemp(join(tmpdir(), 'lyn-browser-mcp-'))
+  const root = await mkdtemp(join(tmpdir(), 'dsh-browser-mcp-'))
   roots.push(root)
   const model = new FixtureModel()
   const modules = new Map<string, unknown>([

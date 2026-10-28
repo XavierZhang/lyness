@@ -7,10 +7,10 @@
  * that settles before that publishes to nobody rather than failing, which is
  * what lets the plugin start a read without waiting for a render.
  *
- * @module @lyness/lyn-client-ui-settings-people/client/binding
+ * @module @deepseek-ai/dsh-client-ui-settings-people/client/binding
  */
 
-import type { PersonRowView } from '@lyness/lyn-api-people-controller/types'
+import type { PersonRowView } from '@deepseek-ai/dsh-api-people-controller/types'
 import type { PeopleOperations, PeopleSink } from './operations.ts'
 import type { PeopleRead } from './store.ts'
 import type { PeopleSectionInjected } from './PeopleSection.tsx'

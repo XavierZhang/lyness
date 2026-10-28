@@ -1,33 +1,33 @@
 // @vitest-environment jsdom
-import { createSnapshotStore } from '@lyness/lyn-client-store'
+import { createSnapshotStore } from '@deepseek-ai/dsh-client-store'
 import { describe, expect, it, vi } from 'vitest'
 import { act, fireEvent, render } from '@testing-library/react'
 import {
   SlotTestRuntime, stubConfigForm, usePinnedBrowserLanguages,
-} from '@lyness/lyn-client-test-runtime'
-import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
-import { resolveSlotLabel } from '@lyness/lyn-client-ui-slots'
-import type { ObservableSnapshot } from '@lyness/lyn-client-store'
-import type { SessionBinding } from '@lyness/lyn-api-session-controller/client'
-import type { SessionId } from '@lyness/lyn-session/types'
-import type { WorkspaceId } from '@lyness/lyn-workspace/types'
+} from '@deepseek-ai/dsh-client-test-runtime'
+import { LocaleRuntime } from '@deepseek-ai/dsh-client-locale/client'
+import { resolveSlotLabel } from '@deepseek-ai/dsh-client-ui-slots'
+import type { ObservableSnapshot } from '@deepseek-ai/dsh-client-store'
+import type { SessionBinding } from '@deepseek-ai/dsh-api-session-controller/client'
+import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import type { WorkspaceId } from '@deepseek-ai/dsh-workspace/types'
 import {
   apply as applyConversation, inject as injectConversation,
-} from '@lyness/lyn-client-ui-conversation/client'
+} from '@deepseek-ai/dsh-client-ui-conversation/client'
 import type {
   ConversationLocationDataSource, ConversationLocationDataStore, ConversationTurnDataMap,
-} from '@lyness/lyn-client-ui-conversation/client'
+} from '@deepseek-ai/dsh-client-ui-conversation/client'
 import {
   apply as applyChat, EMPTY_CHAT_SNAPSHOT, inject as injectChat,
-} from '@lyness/lyn-client-ui-chat/client'
+} from '@deepseek-ai/dsh-client-ui-chat/client'
 import type {
   ChatNodeInjected, ChatSnapshot, TranscriptViewRowInjected, UseChatNodeTurnData, UseDisclosure,
-} from '@lyness/lyn-client-ui-chat/client'
-import type { QuotaNoticeInjected } from '@lyness/lyn-client-ui-chat/client'
+} from '@deepseek-ai/dsh-client-ui-chat/client'
+import type { QuotaNoticeInjected } from '@deepseek-ai/dsh-client-ui-chat/client'
 import type { PerformanceUsageRowInjected } from '../src/client/settings/PerformanceUsageRow.tsx'
 import { CHAT_SETTINGS_NAMESPACE, type ChatSettings } from '../src/chat-settings.ts'
 
-declare module '@lyness/lyn-client-ui-conversation/client' {
+declare module '@deepseek-ai/dsh-client-ui-conversation/client' {
   interface ConversationTurnDataMap {
     metric: number
   }

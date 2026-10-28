@@ -4,12 +4,12 @@
  * Types only — no runtime code, and nothing here reaches the Connection. A
  * consumer that reads `ctx.requestTenant` therefore compiles against this
  * module alone, without taking on the web transport the scope is registered on.
- * @module @lyness/lyn-tenant-request/types
+ * @module @deepseek-ai/dsh-tenant-request/types
  */
 
-import type { Tenant } from '@lyness/lyn-tenant'
-import type { TenantConfig } from '@lyness/lyn-tenant-config'
-import type { TenantSource } from '@lyness/lyn-tenant-http'
+import type { Tenant } from '@deepseek-ai/dsh-tenant'
+import type { TenantConfig } from '@deepseek-ai/dsh-tenant-config'
+import type { TenantSource } from '@deepseek-ai/dsh-tenant-http'
 
 /** Everything the current call knows about the organization that made it. */
 export interface RequestTenant {
@@ -30,7 +30,7 @@ export interface RequestTenantReader {
   current(): RequestTenant | undefined
 }
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     requestTenant: RequestTenantReader
   }

@@ -6,16 +6,16 @@
  * offers the way out. Both answer the same question, so asking twice would
  * ask the deployment twice.
  *
- * @module @lyness/lyn-client-ui-sign-in/client
+ * @module @deepseek-ai/dsh-client-ui-sign-in/client
  */
 
-import type { Context } from '@lyness/cordis'
-import type {} from '@lyness/lyn-client-locale/client'
-import type {} from '@lyness/lyn-client-ui-layout/client'
-import type {} from '@lyness/lyn-client-ui-settings/client'
-import type {} from '@lyness/lyn-client-ui-renderer/client'
-import type {} from '@lyness/lyn-api-remotes/client'
-import type {} from '@lyness/lyn-api-identity-controller/remote'
+import type { Context } from '@deepseek-ai/cordis'
+import type {} from '@deepseek-ai/dsh-client-locale/client'
+import type {} from '@deepseek-ai/dsh-client-ui-layout/client'
+import type {} from '@deepseek-ai/dsh-client-ui-settings/client'
+import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
+import type {} from '@deepseek-ai/dsh-api-remotes/client'
+import type {} from '@deepseek-ai/dsh-api-identity-controller/remote'
 import { AccountRow } from './AccountRow.tsx'
 import { SignInScreen } from './SignInScreen.tsx'
 import { ViewerBinding, rowFace, screenFace } from './binding.ts'
@@ -36,7 +36,7 @@ export type { ReadOutcome, ViewerSink } from './read.ts'
 export { ViewerBinding, rowFace, screenFace } from './binding.ts'
 export type { ViewerActions } from './binding.ts'
 
-declare module '@lyness/lyn-client-ui-slots' {
+declare module '@deepseek-ai/dsh-client-ui-slots' {
   interface LocaleNamespaceMap { 'sign-in': SignInKey }
 }
 

@@ -1,21 +1,21 @@
-import { createUserMessage } from '@lyness/lyn-llm'
+import { createUserMessage } from '@deepseek-ai/dsh-llm'
 import { describe, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import Loader from '@lyness/cordis-plugin-loader'
-import AgentRegistry from '@lyness/lyn-agent'
-import { SessionId } from '@lyness/lyn-session'
-import AgentLoop from '@lyness/lyn-agent-loop'
-import { mountAgentLoopTestDependencies } from '@lyness/lyn-agent-loop-testkit'
-import InvariantRegistry from '@lyness/lyn-invariants'
-import * as SessionInvariant from '@lyness/lyn-session/invariant'
-import * as AgentInvariant from '@lyness/lyn-agent/invariant'
-import * as AgentLoopInvariant from '@lyness/lyn-agent-loop/invariant'
-import SubagentRuntime, { type SubagentStartRequest } from '@lyness/lyn-subagent'
-import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import { Context } from '@deepseek-ai/cordis'
+import Loader from '@deepseek-ai/cordis-plugin-loader'
+import AgentRegistry from '@deepseek-ai/dsh-agent'
+import { SessionId } from '@deepseek-ai/dsh-session'
+import AgentLoop from '@deepseek-ai/dsh-agent-loop'
+import { mountAgentLoopTestDependencies } from '@deepseek-ai/dsh-agent-loop-testkit'
+import InvariantRegistry from '@deepseek-ai/dsh-invariants'
+import * as SessionInvariant from '@deepseek-ai/dsh-session/invariant'
+import * as AgentInvariant from '@deepseek-ai/dsh-agent/invariant'
+import * as AgentLoopInvariant from '@deepseek-ai/dsh-agent-loop/invariant'
+import SubagentRuntime, { type SubagentStartRequest } from '@deepseek-ai/dsh-subagent'
+import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
 import { MockAdapter, textResponse, toolCallResponse } from '../../../core/agent-loop/tests/mock-adapter.ts'
-import type { StreamChunk } from '@lyness/lyn-llm'
+import type { StreamChunk } from '@deepseek-ai/dsh-llm'
 import * as fork from '../src/index.ts'
-import { STRUCTURED_OUTPUT_TOOL } from '@lyness/lyn-subagent-in-process-driver'
+import { STRUCTURED_OUTPUT_TOOL } from '@deepseek-ai/dsh-subagent-in-process-driver'
 
 type Script = ConstructorParameters<typeof MockAdapter>[0]
 
@@ -56,7 +56,7 @@ function text(blocks: readonly { type: string; text?: string }[]): string {
   return blocks.filter(b => b.type === 'text').map(b => b.text).join('')
 }
 
-describe('lyn-subagent-fork-in-process', () => {
+describe('dsh-subagent-fork-in-process', () => {
   it('emits subagent/start only after the seeded child is published', async () => {
     const { ctx, parent } = await setup([textResponse('child answer')])
     let childAtStart: ReturnType<typeof ctx.agents.get>

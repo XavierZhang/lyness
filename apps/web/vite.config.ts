@@ -8,10 +8,10 @@ import { clientBuildEnvironmentDefines } from '../../scripts/client-build-enviro
 import { productWebBundleIsolation } from './product-isolation.ts'
 
 const src = (rel: string): string => fileURLToPath(new URL(rel, import.meta.url))
-const STANDALONE_ERROR = 'apps/web is not a standalone application: bare Vite cannot inject window.__LYNESS_BOOT__. '
-  + 'From a repository checkout, run `pnpm lyn web`; an installed package uses `lyn web`. '
-  + 'For client-plugin HMR, run `pnpm run dev:web`, which starts `lyn web` and the rebuild watchers together.'
-const DEFAULT_CLIENT_TITLE = 'LYN Local Build'
+const STANDALONE_ERROR = 'apps/web is not a standalone application: bare Vite cannot inject window.__DSH_BOOT__. '
+  + 'From a repository checkout, run `pnpm dsh web`; an installed package uses `dsh web`. '
+  + 'For client-plugin HMR, run `pnpm run dev:web`, which starts `dsh web` and the rebuild watchers together.'
+const DEFAULT_CLIENT_TITLE = 'DSH Local Build'
 
 /** Escape build-time text before placing it in the HTML title element. */
 function escapeHtmlText(value: string): string {
@@ -20,11 +20,11 @@ function escapeHtmlText(value: string): string {
 
 /** Project the public build title into the initial HTML document. */
 function clientDocumentTitle(): Plugin {
-  const title = escapeHtmlText(process.env.LYNESS_CLIENT_TITLE ?? DEFAULT_CLIENT_TITLE)
+  const title = escapeHtmlText(process.env.DSH_CLIENT_TITLE ?? DEFAULT_CLIENT_TITLE)
   return {
-    name: 'lyn-client-document-title',
+    name: 'dsh-client-document-title',
     transformIndexHtml(html) {
-      return html.replace('<title>LYN Local Build</title>', `<title>${title}</title>`)
+      return html.replace('<title>DSH Local Build</title>', `<title>${title}</title>`)
     },
   }
 }
@@ -32,7 +32,7 @@ function clientDocumentTitle(): Plugin {
 /** Keep the redistribution license beside the bundled brand font. */
 function brandFontLicense(): Plugin {
   return {
-    name: 'lyn-brand-font-license',
+    name: 'dsh-brand-font-license',
     async generateBundle() {
       this.emitFile({
         type: 'asset',
@@ -46,7 +46,7 @@ function brandFontLicense(): Plugin {
 /** Fail before a Vite dev or preview server can expose the boot-manifest-free shell. */
 function rejectStandaloneServe(): Plugin {
   return {
-    name: 'lyn-reject-standalone-web-serve',
+    name: 'dsh-reject-standalone-web-serve',
     config(_config, env) {
       if (env.command === 'serve') throw new Error(STANDALONE_ERROR)
     },
@@ -66,7 +66,7 @@ function emitPreviewPage(): Plugin {
   let written = false
   let outputDirectory = ''
   return {
-    name: 'lyn-emit-preview-page',
+    name: 'dsh-emit-preview-page',
     configResolved(config) {
       write = config.build.write
       outputDirectory = resolve(config.root, config.build.outDir)

@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/lyn-client-ui-slots",
+  "name": "@deepseek-ai/dsh-client-ui-slots",
   "description": "Slot registry pure core: typed ordinary Slots and reusable Component Factories, derived props, Store seats, and renderer installation",
   "version": "0.1.7-rc.2",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/client/ui-slots"
   },
   "type": "module",
@@ -23,15 +23,15 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@lyness/lyn-client-store": "workspace:*",
+    "@deepseek-ai/dsh-client-store": "workspace:*",
     "@types/react": "~18.3.1",
-    "@lyness/cordis": "workspace:~"
+    "@deepseek-ai/cordis": "workspace:~"
   },
   "files": [
     "lib/index.js",
     "lib/types/**/*.d.ts"
   ],
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~"
+    "@deepseek-ai/cordis": "workspace:~"
   }
 }

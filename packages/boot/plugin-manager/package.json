@@ -1,13 +1,13 @@
 {
-  "name": "@lyness/lyn-plugin-manager",
-  "description": "Current-profile plugin and bundle management shared by lyn CLI, Web and agent tools",
+  "name": "@deepseek-ai/dsh-plugin-manager",
+  "description": "Current-profile plugin and bundle management shared by dsh CLI, Web and agent tools",
   "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/boot/plugin-manager"
   },
   "type": "module",
@@ -56,52 +56,52 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@lyness/lyn-app-boot": "workspace:*",
-    "@lyness/lyn-atomic-write": "workspace:*",
-    "@lyness/schemastery": "workspace:~",
+    "@deepseek-ai/dsh-app-boot": "workspace:*",
+    "@deepseek-ai/dsh-atomic-write": "workspace:*",
+    "@deepseek-ai/schemastery": "workspace:~",
     "execa": "^10.0.0",
     "yaml": "^2.9.0",
     "zod": "^4.4.3",
-    "@lyness/lyn-util-values": "workspace:*"
+    "@deepseek-ai/dsh-util-values": "workspace:*"
   },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/cordis-plugin-loader": "workspace:~",
-    "@lyness/lyn-host-plugin-inventory": "workspace:*",
-    "@lyness/lyn-subprocess": "workspace:*",
-    "@lyness/lyn-typert-protocol": "workspace:*",
-    "@lyness/lyn-tools": "workspace:*",
-    "@lyness/lyn-hmr": "workspace:*",
-    "@lyness/lyn-brand": "workspace:*",
-    "@lyness/lyn-sandbox-policy": "workspace:*",
-    "@lyness/lyn-sandbox": "workspace:*",
-    "@lyness/lyn-user-approval": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/cordis-plugin-loader": "workspace:~",
+    "@deepseek-ai/dsh-host-plugin-inventory": "workspace:*",
+    "@deepseek-ai/dsh-subprocess": "workspace:*",
+    "@deepseek-ai/dsh-typert-protocol": "workspace:*",
+    "@deepseek-ai/dsh-tools": "workspace:*",
+    "@deepseek-ai/dsh-hmr": "workspace:*",
+    "@deepseek-ai/dsh-brand": "workspace:*",
+    "@deepseek-ai/dsh-sandbox-policy": "workspace:*",
+    "@deepseek-ai/dsh-sandbox": "workspace:*",
+    "@deepseek-ai/dsh-user-approval": "workspace:*"
   },
   "peerDependenciesMeta": {
-    "@lyness/lyn-hmr": {
+    "@deepseek-ai/dsh-hmr": {
       "optional": true
     },
-    "@lyness/lyn-user-approval": {
+    "@deepseek-ai/dsh-user-approval": {
       "optional": true
     }
   },
   "devDependencies": {
-    "@lyness/lyn-package-manifest": "workspace:*",
-    "@lyness/cordis": "workspace:~",
-    "@lyness/cordis-plugin-loader": "workspace:~",
-    "@lyness/lyn-host-plugin-inventory": "workspace:*",
-    "@lyness/lyn-subprocess": "workspace:*",
-    "@lyness/lyn-typert-protocol": "workspace:*",
-    "@lyness/lyn-tools": "workspace:*",
-    "@lyness/lyn-system-prompt": "workspace:*",
-    "@lyness/lyn-hmr": "workspace:*",
-    "@lyness/cordis-plugin-timer": "workspace:~",
-    "@lyness/lyn-brand": "workspace:*",
-    "@lyness/lyn-sandbox-policy": "workspace:*",
-    "@lyness/lyn-agent": "workspace:*",
-    "@lyness/lyn-session": "workspace:*",
-    "@lyness/lyn-session-projection": "workspace:*",
-    "@lyness/lyn-sandbox": "workspace:*",
-    "@lyness/lyn-user-approval": "workspace:*"
+    "@deepseek-ai/dsh-package-manifest": "workspace:*",
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/cordis-plugin-loader": "workspace:~",
+    "@deepseek-ai/dsh-host-plugin-inventory": "workspace:*",
+    "@deepseek-ai/dsh-subprocess": "workspace:*",
+    "@deepseek-ai/dsh-typert-protocol": "workspace:*",
+    "@deepseek-ai/dsh-tools": "workspace:*",
+    "@deepseek-ai/dsh-system-prompt": "workspace:*",
+    "@deepseek-ai/dsh-hmr": "workspace:*",
+    "@deepseek-ai/cordis-plugin-timer": "workspace:~",
+    "@deepseek-ai/dsh-brand": "workspace:*",
+    "@deepseek-ai/dsh-sandbox-policy": "workspace:*",
+    "@deepseek-ai/dsh-agent": "workspace:*",
+    "@deepseek-ai/dsh-session": "workspace:*",
+    "@deepseek-ai/dsh-session-projection": "workspace:*",
+    "@deepseek-ai/dsh-sandbox": "workspace:*",
+    "@deepseek-ai/dsh-user-approval": "workspace:*"
   }
 }

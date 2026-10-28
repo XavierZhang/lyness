@@ -19,19 +19,19 @@
  * shows a spinner in place of its chevron, and each row whose value that
  * selection carries shows one in place of its check mark.
  */
-import { MenuSurface } from '@lyness/lyn-client-ui-primitives'
+import { MenuSurface } from '@deepseek-ai/dsh-client-ui-primitives'
 import {
   useEffect, useId, useLayoutEffect, useMemo, useRef, useState, useSyncExternalStore,
   type CSSProperties, type KeyboardEvent, type FocusEvent,
 } from 'react'
 import { createPortal } from 'react-dom'
 import clsx from 'clsx'
-import type { ModelReasoningEffort, ModelSelection } from '@lyness/lyn-api-remotes/client'
+import type { ModelReasoningEffort, ModelSelection } from '@deepseek-ai/dsh-api-remotes/client'
 import {
   IconCheckOutlineRegular, IconChevronDownOutlineRegular, IconChevronRightOutlineRegular,
   IconDataOutlineRegular, IconWarningOutlineRegular, StateDot, Toast,
-} from '@lyness/lyn-client-ui-primitives'
-import type { PropsLocale } from '@lyness/lyn-client-ui-slots'
+} from '@deepseek-ai/dsh-client-ui-primitives'
+import type { PropsLocale } from '@deepseek-ai/dsh-client-ui-slots'
 import type { ModelSelectInjected } from './slots.ts'
 import css from './ModelSelect.module.css'
 

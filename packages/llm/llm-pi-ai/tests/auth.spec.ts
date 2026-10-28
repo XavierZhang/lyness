@@ -2,18 +2,18 @@ import { mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { Context } from '@lyness/cordis'
-import LocalCredentialProvider from '@lyness/lyn-credentials-local'
-import { credentialKey, credentialRef } from '@lyness/lyn-credentials'
+import { Context } from '@deepseek-ai/cordis'
+import LocalCredentialProvider from '@deepseek-ai/dsh-credentials-local'
+import { credentialKey, credentialRef } from '@deepseek-ai/dsh-credentials'
 import { authContextFrom, credentialStoreFrom, recordKeyFor } from '../src/auth.ts'
 
 const CODEX = recordKeyFor('openai-codex')
 
 const dirs: string[] = []
 
-/** A context whose credential records live in a throwaway `$LYNESS_HOME`. */
+/** A context whose credential records live in a throwaway `$DSH_HOME`. */
 async function stored(): Promise<Context> {
-  const dir = await mkdtemp(join(tmpdir(), 'lyn-pi-auth-'))
+  const dir = await mkdtemp(join(tmpdir(), 'dsh-pi-auth-'))
   dirs.push(dir)
   const ctx = new Context()
   await ctx.plugin(LocalCredentialProvider, { path: join(dir, '.credentials.yaml'), watch: false })
@@ -196,7 +196,7 @@ describe('pi-ai ambient auth context', () => {
   })
 
   it('answers about the host filesystem, expanding a leading ~', async () => {
-    const dir = await mkdtemp(join(tmpdir(), 'lyn-pi-home-'))
+    const dir = await mkdtemp(join(tmpdir(), 'dsh-pi-home-'))
     dirs.push(dir)
     await writeFile(join(dir, 'creds'), 'x')
     // Both spellings of "home": os.homedir() reads HOME on POSIX and

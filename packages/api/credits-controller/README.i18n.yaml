@@ -5,36 +5,36 @@
 /:
   en: fbc81b0094d6773f
   zh: 80f275152a160348
-/lyness-lyn-api-credits-controller:
+/deepseek-harness-dsh-api-credits-controller:
   en: 6e2c2d9177b16e82
   zh: 97bf08883acbd810
-/lyness-lyn-api-credits-controller/summary:
+/deepseek-harness-dsh-api-credits-controller/summary:
   en: 19a4165708afc921
   zh: 5966b48ed43290b6
-/lyness-lyn-api-credits-controller/table-of-contents:
+/deepseek-harness-dsh-api-credits-controller/table-of-contents:
   en: d152484eb41ac6b4
   zh: 2bca79d7b98e8031
-/lyness-lyn-api-credits-controller/use-this-package:
+/deepseek-harness-dsh-api-credits-controller/use-this-package:
   en: c0031d0bb7caba2a
   zh: 2dc2e51d4e158d9e
-/lyness-lyn-api-credits-controller/use-this-package/what-it-refuses:
+/deepseek-harness-dsh-api-credits-controller/use-this-package/what-it-refuses:
   en: b130693f29b0412e
   zh: 36d760757eea6e78
-/lyness-lyn-api-credits-controller/understand-the-implementation:
+/deepseek-harness-dsh-api-credits-controller/understand-the-implementation:
   en: 0acd504a67a03a83
   zh: c67b60c4472cfa76
-/lyness-lyn-api-credits-controller/further-exploration:
+/deepseek-harness-dsh-api-credits-controller/further-exploration:
   en: 0e9f4db043b918ff
   zh: 098b8b1bccd2cc03
-/lyness-lyn-api-credits-controller/model-experience:
+/deepseek-harness-dsh-api-credits-controller/model-experience:
   en: 2b77542dd72db16c
   zh: be49b85f37db2aff
-/lyness-lyn-api-credits-controller/model-experience/kv-cache-effect:
+/deepseek-harness-dsh-api-credits-controller/model-experience/kv-cache-effect:
   en: 7a7a8a9292ba2200
   zh: 22a737e82ad5a34a
-/lyness-lyn-api-credits-controller/known-limitations-and-deferred-work:
+/deepseek-harness-dsh-api-credits-controller/known-limitations-and-deferred-work:
   en: 7dc310004efda67c
   zh: f2b48a841ae4dc52
-/lyness-lyn-api-credits-controller/known-limitations-and-deferred-work/dev-note:
+/deepseek-harness-dsh-api-credits-controller/known-limitations-and-deferred-work/dev-note:
   en: b6fe0fa9ed8cc9f7
   zh: ca890dfe23295e2a

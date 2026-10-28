@@ -3,7 +3,7 @@ description: "Webhook 入站模块独立成一个 bundle，出厂惰性，因为
 kind: "package-bundle"
 ---
 
-# @lyness/lyn-module-webhook
+# @deepseek-ai/dsh-module-webhook
 
 [English](README.md) | 中文
 
@@ -54,8 +54,8 @@ kind: "package-bundle"
 
 | 行 | 模块 | 角色 |
 |---|---|---|
-| `webhook-runtime` | `@lyness/lyn-webhook` | 宿主规则注册表与那一个内置动作：在某个 Web 工作区里创建一个根会话 |
-| `webhook-github` | `@lyness/lyn-webhook-github` | 一条确切的 HTTP 路由：限长并校验 GitHub 的原始 body，然后派发 |
+| `webhook-runtime` | `@deepseek-ai/dsh-webhook` | 宿主规则注册表与那一个内置动作：在某个 Web 工作区里创建一个根会话 |
+| `webhook-github` | `@deepseek-ai/dsh-webhook-github` | 一条确切的 HTTP 路由：限长并校验 GitHub 的原始 body，然后派发 |
 
 该运行时在 Web 宿主平面上、于 Agents、模型默认值、agent preset、权限预设、标题与工作区注册表之后加载，而这正是本 bundle 在模板中的位置所产生的次序。
 
@@ -74,7 +74,7 @@ kind: "package-bundle"
 - [`webhook/`](../../webhook/README.zh.md) —— 规则接口、会话请求与 GitHub 适配器。
 - [GitHub 评审指南](../../../docs/user/guide/github-review.zh.md) —— 一份可照做的规则、端口、密钥与路由设置。
 - [入站接口与会话平面](../../../.agents/notes/proposed/architecture/2026-10-09-inbound-interfaces-and-the-session-plane.zh.md) —— 为什么适配器负责认证、平面负责授权。
-- [`lyn-module-lsp`](../module-lsp/README.zh.md) —— 另一个惰性是结构性的模块。
+- [`dsh-module-lsp`](../module-lsp/README.zh.md) —— 另一个惰性是结构性的模块。
 
 -----
 

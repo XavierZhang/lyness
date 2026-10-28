@@ -6,10 +6,10 @@
  * a surface acts on — whether composition owns the entry, so the row is
  * shown rather than offered for editing, and whether its preset is one this
  * deployment still offers, so a bot that will not run says so.
- * @module @lyness/lyn-api-bots-controller/types
+ * @module @deepseek-ai/dsh-api-bots-controller/types
  */
 
-declare module '@lyness/lyn-typert-protocol' {
+declare module '@deepseek-ai/dsh-typert-protocol' {
   interface RemoteErrorDetailsMap {
     /**
      * The calling standing may not make that change: it reached for another

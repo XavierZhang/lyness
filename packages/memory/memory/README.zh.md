@@ -3,13 +3,13 @@ description: "带显式写入路径与提示词贡献的持久 agent 记忆，�
 kind: "package-reference"
 ---
 
-# @lyness/lyn-memory
+# @deepseek-ai/dsh-memory
 
 [English](README.md) | 中文
 
 ## 概述
 
-`lyn-memory` 跨会话保留事实：约定、偏好，以及人或 agent 要求记住的其他长期细节。挂载服务入口，之后每个请求都把这些事实作为运行时上下文带上；再挂载 `./tools`，agent 就能在被要求时写入、列出、移除某一条。写入只能是显式的——这里没有任何东西去读会话记录并自行判断什么值得保留。每条最多 2048 个字符，保留策略先丢最旧的一条，而服务无法校验的存储会让读取失败，而不是报告"没有记忆"。
+`dsh-memory` 跨会话保留事实：约定、偏好，以及人或 agent 要求记住的其他长期细节。挂载服务入口，之后每个请求都把这些事实作为运行时上下文带上；再挂载 `./tools`，agent 就能在被要求时写入、列出、移除某一条。写入只能是显式的——这里没有任何东西去读会话记录并自行判断什么值得保留。每条最多 2048 个字符，保留策略先丢最旧的一条，而服务无法校验的存储会让读取失败，而不是报告"没有记忆"。
 
 ## 目录
 
@@ -25,16 +25,16 @@ kind: "package-reference"
 <a id="use-this-package"></a>
 ## 使用本包
 
-当 agent 应当在会话一开始就已经知道这个工作区怎么运转时，把服务入口挂在宿主平面。它拥有唯一一份持久存储，所以必须只有一个所有者：agent preset 不能挂载它，试图挂载的 preset 会因缺少 isolate 领域而被拒绝。preset 里只挂 `./tools`。它需要 `ctx.storageDomain` 提供持久性、`ctx.systemPrompt` 承载贡献；两者都没有的部署无法挂载它。当 agent 应当自己写入记忆时，再挂载 `@lyness/lyn-memory/tools`；省略它，则这些事实仍然可读，但只有宿主代码能写。
+当 agent 应当在会话一开始就已经知道这个工作区怎么运转时，把服务入口挂在宿主平面。它拥有唯一一份持久存储，所以必须只有一个所有者：agent preset 不能挂载它，试图挂载的 preset 会因缺少 isolate 领域而被拒绝。preset 里只挂 `./tools`。它需要 `ctx.storageDomain` 提供持久性、`ctx.systemPrompt` 承载贡献；两者都没有的部署无法挂载它。当 agent 应当自己写入记忆时，再挂载 `@deepseek-ai/dsh-memory/tools`；省略它，则这些事实仍然可读，但只有宿主代码能写。
 
 ```yaml
 - id: memory
-  name: '@lyness/lyn-memory'
+  name: '@deepseek-ai/dsh-memory'
   config:
     maxEntries: 200
     contextOrder: 130
 - id: memory-tools
-  name: '@lyness/lyn-memory/tools'
+  name: '@deepseek-ai/dsh-memory/tools'
 ```
 
 | 字段 | 默认值 | 含义 |
@@ -78,8 +78,8 @@ kind: "package-reference"
 <a id="further-exploration"></a>
 ## 进一步探索
 
-- [`lyn-storage-domain`](../../storage/storage-domain/README.zh.md) —— 本服务打开的那个持久域。
-- [`lyn-system-prompt`](../../core/system-prompt/README.zh.md) —— 运行时上下文的排序与组装。
+- [`dsh-storage-domain`](../../storage/storage-domain/README.zh.md) —— 本服务打开的那个持久域。
+- [`dsh-system-prompt`](../../core/system-prompt/README.zh.md) —— 运行时上下文的排序与组装。
 - [记忆子系统](../../../docs/subsystems/memory.zh.md) —— 作用域、治理，以及记忆与知识库的区别。
 
 -----

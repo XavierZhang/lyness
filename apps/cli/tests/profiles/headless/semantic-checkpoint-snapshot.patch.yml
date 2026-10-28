@@ -15,10 +15,10 @@
 
 - insert:
     - id: replay
-      name: '@lyness/lyn-llm-replay'
+      name: '@deepseek-ai/dsh-llm-replay'
       config:
-        file: !!js process.env.LYNESS_SNAPSHOT_FILE
-        overrideFile: !!js process.env.LYNESS_SNAPSHOT_OVERRIDE
+        file: !!js process.env.DSH_SNAPSHOT_FILE
+        overrideFile: !!js process.env.DSH_SNAPSHOT_OVERRIDE
 
     # Publish the persisted agent before the driver selects the single root.
     - id: resumed-agent

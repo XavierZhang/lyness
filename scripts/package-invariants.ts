@@ -14,7 +14,7 @@ const OMITTED_COMPANION_REASON = /No (?:(?:runtime )?invariant )?companion is pu
 
 interface PackageManifest {
   name?: string
-  lyn?: unknown
+  dsh?: unknown
   exports?: Record<string, { types?: string; default?: string } | string | null | undefined>
   files?: string[]
   peerDependencies?: Record<string, string>
@@ -127,24 +127,24 @@ function checkManifest(
   if (!manifest.files?.includes('lib/invariant.js')) {
     addViolation(violations, owner.manifestPath, 'files must publish lib/invariant.js')
   }
-  if (owner.packageName === '@lyness/lyn-invariants') return
+  if (owner.packageName === '@deepseek-ai/dsh-invariants') return
   const developmentOnlyInvariant = usesFlattenedPackageDependencies(
     owner.manifestPath,
     owner.packageName,
-    manifest.lyn,
+    manifest.dsh,
   )
   const expectedRange = 'workspace:*'
-  const peerRange = manifest.peerDependencies?.['@lyness/lyn-invariants']
+  const peerRange = manifest.peerDependencies?.['@deepseek-ai/dsh-invariants']
   if (developmentOnlyInvariant ? peerRange !== undefined : peerRange !== expectedRange) {
     addViolation(violations, owner.manifestPath, developmentOnlyInvariant
-      ? '@lyness/lyn-invariants must not be a peerDependency under this package dependency policy'
-      : '@lyness/lyn-invariants must be a workspace:* peerDependency')
+      ? '@deepseek-ai/dsh-invariants must not be a peerDependency under this package dependency policy'
+      : '@deepseek-ai/dsh-invariants must be a workspace:* peerDependency')
   }
-  if (manifest.devDependencies?.['@lyness/lyn-invariants'] !== expectedRange) {
+  if (manifest.devDependencies?.['@deepseek-ai/dsh-invariants'] !== expectedRange) {
     addViolation(
       violations,
       owner.manifestPath,
-      `@lyness/lyn-invariants must be a ${expectedRange} devDependency`,
+      `@deepseek-ai/dsh-invariants must be a ${expectedRange} devDependency`,
     )
   }
 }
@@ -157,7 +157,7 @@ function checkBuild(
 ): void {
   const tsconfigPath = `${owner.dir}/tsconfig.json`
   if (hasCompanion
-    && owner.packageName !== '@lyness/lyn-invariants'
+    && owner.packageName !== '@deepseek-ai/dsh-invariants'
     && !projectReferencesInvariants(root, owner.dir, tsconfigPath)) {
     addViolation(
       violations,

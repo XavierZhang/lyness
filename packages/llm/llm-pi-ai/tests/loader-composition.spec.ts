@@ -5,13 +5,13 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { Context } from '@lyness/cordis'
-import Loader, { type ModuleLoaderV2 } from '@lyness/cordis-plugin-loader'
-import Include from '@lyness/cordis-plugin-include'
-import LlmRuntime, { createMessage, createUserMessage, userAgent } from '@lyness/lyn-llm'
-import LocalCredentialProvider from '@lyness/lyn-credentials-local'
+import { Context } from '@deepseek-ai/cordis'
+import Loader, { type ModuleLoaderV2 } from '@deepseek-ai/cordis-plugin-loader'
+import Include from '@deepseek-ai/cordis-plugin-include'
+import LlmRuntime, { createMessage, createUserMessage, userAgent } from '@deepseek-ai/dsh-llm'
+import LocalCredentialProvider from '@deepseek-ai/dsh-credentials-local'
 import { profileComposition } from '../../../settings/settings/tests/profile-composition.ts'
-import * as LlmPiAi from '@lyness/lyn-llm-pi-ai'
+import * as LlmPiAi from '@deepseek-ai/dsh-llm-pi-ai'
 import { assemble } from './assemble.ts'
 import { closeMockServers, mockServer, textEvents } from './mock-server.ts'
 
@@ -38,7 +38,7 @@ afterEach(async () => {
 
 /** Boot the dormant composition: a bare `llm-pi-ai` row with no config at all. */
 async function loadComposition(): Promise<{ ctx: Context; settingsPath: string }> {
-  root = await mkdtemp(join(tmpdir(), 'lyn-pi-composition-'))
+  root = await mkdtemp(join(tmpdir(), 'dsh-pi-composition-'))
   await writeFile(join(root, '.credentials.yaml'), 'version: 1\nrefs:\n  PI_COMPOSITION_KEY: key-from-store\n', { mode: 0o600 })
 
   const configPath = join(root, 'cordis.yml')
@@ -46,12 +46,12 @@ async function loadComposition(): Promise<{ ctx: Context; settingsPath: string }
     '- id: llm',
     "  name: 'test-llm-service'",
     '- id: credentials',
-    "  name: '@lyness/lyn-credentials-local'",
+    "  name: '@deepseek-ai/dsh-credentials-local'",
     '  config:',
     `    path: ${JSON.stringify(join(root, '.credentials.yaml'))}`,
     '    debounceMs: 10',
     '- id: llm-pi-ai',
-    "  name: '@lyness/lyn-llm-pi-ai'",
+    "  name: '@deepseek-ai/dsh-llm-pi-ai'",
     '',
   ].join('\n'))
 
@@ -62,8 +62,8 @@ async function loadComposition(): Promise<{ ctx: Context; settingsPath: string }
   ctx.loader.builtins.include = Include
   const modules = new Map<string, unknown>([
     ['test-llm-service', LlmRuntime],
-    ['@lyness/lyn-credentials-local', LocalCredentialProvider],
-    ['@lyness/lyn-llm-pi-ai', LlmPiAi],
+    ['@deepseek-ai/dsh-credentials-local', LocalCredentialProvider],
+    ['@deepseek-ai/dsh-llm-pi-ai', LlmPiAi],
   ])
   const internal: ModuleLoaderV2 = {
     version: 'v2',

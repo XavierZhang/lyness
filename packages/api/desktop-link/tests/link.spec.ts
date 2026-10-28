@@ -4,10 +4,10 @@
  * one person is resolved.
  */
 
-import { Context } from '@lyness/cordis'
+import { Context } from '@deepseek-ai/cordis'
 import { afterEach, describe, expect, it } from 'vitest'
-import { brandString } from '@lyness/lyn-brand'
-import type { PersonId } from '@lyness/lyn-people'
+import { brandString } from '@deepseek-ai/dsh-brand'
+import type { PersonId } from '@deepseek-ai/dsh-people'
 import DesktopLink from '../src/index.ts'
 import type { CallId, DesktopReply, DesktopRequest } from '../src/types.ts'
 

@@ -8,18 +8,18 @@
  */
 
 import { describe, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import AgentRegistry from '@lyness/lyn-agent'
-import type { Agent } from '@lyness/lyn-agent'
-import { createUserMessage } from '@lyness/lyn-llm'
-import SessionStore from '@lyness/lyn-session'
-import type { Session } from '@lyness/lyn-session'
-import type { TodoItem } from '@lyness/lyn-tool-todo'
-import SystemPrompt from '@lyness/lyn-system-prompt'
-import ToolRuntime from '@lyness/lyn-tools'
-import SessionProjectionRegistry from '@lyness/lyn-session-projection'
-import UserQuestionService from '@lyness/lyn-user-questions'
-import * as ToolTodo from '@lyness/lyn-tool-todo'
+import { Context } from '@deepseek-ai/cordis'
+import AgentRegistry from '@deepseek-ai/dsh-agent'
+import type { Agent } from '@deepseek-ai/dsh-agent'
+import { createUserMessage } from '@deepseek-ai/dsh-llm'
+import SessionStore from '@deepseek-ai/dsh-session'
+import type { Session } from '@deepseek-ai/dsh-session'
+import type { TodoItem } from '@deepseek-ai/dsh-tool-todo'
+import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
+import ToolRuntime from '@deepseek-ai/dsh-tools'
+import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
+import UserQuestionService from '@deepseek-ai/dsh-user-questions'
+import * as ToolTodo from '@deepseek-ai/dsh-tool-todo'
 
 interface Bench {
   ctx: Context

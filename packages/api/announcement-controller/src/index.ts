@@ -9,12 +9,12 @@
  * Read-only: an announcement is written where the deployment is configured, so
  * there is nothing here for a reader to change.
  *
- * @module @lyness/lyn-api-announcement-controller
+ * @module @deepseek-ai/dsh-api-announcement-controller
  */
 
-import { Context } from '@lyness/cordis'
-import { Remote, TypertRemoteService } from '@lyness/lyn-typert-protocol'
-import type {} from '@lyness/lyn-announcements'
+import { Context } from '@deepseek-ai/cordis'
+import { Remote, TypertRemoteService } from '@deepseek-ai/dsh-typert-protocol'
+import type {} from '@deepseek-ai/dsh-announcements'
 import type { Announcement } from './types.ts'
 
 /** The deployment's announcements, as a client reads them. */

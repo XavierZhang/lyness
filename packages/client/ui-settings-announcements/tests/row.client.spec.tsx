@@ -7,7 +7,7 @@
 
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
-import type { Announcement } from '@lyness/lyn-announcements/types'
+import type { Announcement } from '@deepseek-ai/dsh-announcements/types'
 import { AnnouncementsRow } from '../src/client/AnnouncementsRow.tsx'
 import type { AnnouncementsRowProps } from '../src/client/AnnouncementsRow.tsx'
 import type { AnnouncementsRowState } from '../src/client/settings-store.ts'

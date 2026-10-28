@@ -43,12 +43,12 @@ function fixture(options: {
   buildEntry?: boolean
   omissionReason?: boolean
 } = {}): string {
-  const root = mkdtempSync(join(tmpdir(), 'lyn-package-invariants-'))
+  const root = mkdtempSync(join(tmpdir(), 'dsh-package-invariants-'))
   roots.push(root)
   const packageDirectory = options.packageDirectory ?? 'packages/core/probe'
   const dir = join(root, packageDirectory)
   mkdirSync(join(dir, 'src'), { recursive: true })
-  const packageName = options.packageName ?? '@lyness/lyn-probe'
+  const packageName = options.packageName ?? '@deepseek-ai/dsh-probe'
   const companion = options.companion ?? true
   const invariantExport = options.invariantExport ?? companion
   const invariantFile = options.invariantFile ?? companion
@@ -67,22 +67,22 @@ function fixture(options: {
       },
     } : {}),
   }
-  const lyn = options.clientDeclaration === true ? { client: {} } : undefined
+  const dsh = options.clientDeclaration === true ? { client: {} } : undefined
   const developmentOnlyInvariant = usesFlattenedPackageDependencies(
     `${packageDirectory}/package.json`,
     packageName,
-    lyn,
+    dsh,
   )
   const manifest = {
     name: packageName,
-    ...(lyn === undefined ? {} : { lyn }),
+    ...(dsh === undefined ? {} : { dsh }),
     exports,
     files: ['lib/index.js', ...invariantFile ? ['lib/invariant.js'] : []],
     peerDependencies: !invariantDependency || developmentOnlyInvariant ? {} : {
-      '@lyness/lyn-invariants': options.invariantRange ?? 'workspace:*',
+      '@deepseek-ai/dsh-invariants': options.invariantRange ?? 'workspace:*',
     },
     devDependencies: !invariantDependency ? {} : {
-      '@lyness/lyn-invariants': options.invariantRange ?? 'workspace:*',
+      '@deepseek-ai/dsh-invariants': options.invariantRange ?? 'workspace:*',
     },
   }
   writeFileSync(join(dir, 'package.json'), `${JSON.stringify(manifest, null, 2)}\n`)
@@ -110,8 +110,8 @@ describe('package invariant gate', () => {
 
   it('rejects caret ranges for the invariant peer and development dependency', () => {
     expect(collectPackageInvariantViolations(fixture({ invariantRange: 'workspace:^' }))).toEqual([
-      { path: 'packages/core/probe/package.json', message: '@lyness/lyn-invariants must be a workspace:* peerDependency' },
-      { path: 'packages/core/probe/package.json', message: '@lyness/lyn-invariants must be a workspace:* devDependency' },
+      { path: 'packages/core/probe/package.json', message: '@deepseek-ai/dsh-invariants must be a workspace:* peerDependency' },
+      { path: 'packages/core/probe/package.json', message: '@deepseek-ai/dsh-invariants must be a workspace:* devDependency' },
     ])
   })
 
@@ -133,17 +133,17 @@ describe('package invariant gate', () => {
   })
 
   it('accepts development-only invariants for configured Host dependencies', () => {
-    expect(collectPackageInvariantViolations(fixture({ packageName: '@lyness/lyn-llm' }))).toEqual([])
+    expect(collectPackageInvariantViolations(fixture({ packageName: '@deepseek-ai/dsh-llm' }))).toEqual([])
   })
 
   it('accepts development-only invariants for client packages', () => {
     expect(collectPackageInvariantViolations(fixture({
-      packageName: '@lyness/lyn-client-probe',
+      packageName: '@deepseek-ai/dsh-client-probe',
       packageDirectory: 'packages/client/probe',
     }))).toEqual([])
   })
 
-  it('accepts development-only invariants for packages with a lyn.client entry', () => {
+  it('accepts development-only invariants for packages with a dsh.client entry', () => {
     expect(collectPackageInvariantViolations(fixture({ clientDeclaration: true, clientExport: true }))).toEqual([])
   })
 
@@ -151,7 +151,7 @@ describe('package invariant gate', () => {
     expect(collectPackageInvariantViolations(fixture({ clientExport: true }))).toEqual([])
   })
 
-  it('keeps invariant peers for experimental packages with a lyn.client entry', () => {
+  it('keeps invariant peers for experimental packages with a dsh.client entry', () => {
     expect(collectPackageInvariantViolations(fixture({
       packageDirectory: 'packages/experimental/probe',
       clientDeclaration: true,
@@ -213,7 +213,7 @@ export const inject = ['invariants']
 const selected = process.env.PACKAGE_NAME
 const install = (_ctx: unknown, fail: (message: string) => never) => { fail('probe') }
 export const apply = (ctx: { invariants: { register(name: string, install: typeof install): () => void } }) => {
-  ctx.invariants.register('@lyness/lyn-foreign', install)
+  ctx.invariants.register('@deepseek-ai/dsh-foreign', install)
   return ctx.invariants.register(selected!, install)
 }
 `
@@ -226,7 +226,7 @@ export const apply = (ctx: { invariants: { register(name: string, install: typeo
 
   it('rejects generated markers and reporter-free executable installers', () => {
     const generated = fixture({
-      source: `/** @generated */\n${handwrittenInvariant('@lyness/lyn-probe')}`,
+      source: `/** @generated */\n${handwrittenInvariant('@deepseek-ai/dsh-probe')}`,
     })
     expect(collectPackageInvariantViolations(generated).map(violation => violation.message))
       .toContain('invariant companions must be hand-owned and may not carry @generated markers')
@@ -237,7 +237,7 @@ export const name = 'probe-invariant'
 export const inject = ['invariants']
 const install = () => { void 0 }
 export const apply = (ctx: { invariants: { register(name: string, install: typeof install): () => void } }) =>
-  Promise.resolve(ctx.invariants.register('@lyness/lyn-probe', install))
+  Promise.resolve(ctx.invariants.register('@deepseek-ai/dsh-probe', install))
 `,
     })
     expect(collectPackageInvariantViolations(reporterFree).map(violation => violation.message))
@@ -249,7 +249,7 @@ export const name = 'probe-invariant'
 export const inject = ['invariants']
 const install = (_ctx: unknown, _fail: (message: string) => never) => { void 0 }
 export const apply = (ctx: { invariants: { register(name: string, install: typeof install): () => void } }) =>
-  Promise.resolve(ctx.invariants.register('@lyness/lyn-probe', install))
+  Promise.resolve(ctx.invariants.register('@deepseek-ai/dsh-probe', install))
 `,
     })
     expect(collectPackageInvariantViolations(unused).map(violation => violation.message))
@@ -263,7 +263,7 @@ export const name = 'probe-invariant'
 export const inject = ['invariants']
 const install = (_ctx: unknown, fail: (message: string) => never) => { fail('checked decoy') }
 export const apply = (ctx: { invariants: { register(name: string, install: () => void): () => void } }) =>
-  ctx.invariants.register('@lyness/lyn-probe', () => {})
+  ctx.invariants.register('@deepseek-ai/dsh-probe', () => {})
 `,
     })
     expect(collectPackageInvariantViolations(decoy).map(violation => violation.message))
@@ -274,7 +274,7 @@ export const apply = (ctx: { invariants: { register(name: string, install: () =>
     'export default { name, inject, apply }',
     "export * as default from './probe.ts'",
   ])('rejects a default export that would collapse the Loader namespace', (defaultExport) => {
-    const source = `${handwrittenInvariant('@lyness/lyn-probe')}\n${defaultExport}\n`
+    const source = `${handwrittenInvariant('@deepseek-ai/dsh-probe')}\n${defaultExport}\n`
     expect(collectPackageInvariantViolations(fixture({ source })).map(violation => violation.message))
       .toContain('must not default-export; Loader must retain the companion namespace')
   })
@@ -283,7 +283,7 @@ export const apply = (ctx: { invariants: { register(name: string, install: () =>
     const source = `
 export const name = 'probe-invariant'
 export const inject = ['invariants']
-const PACKAGE_NAME = '@lyness/lyn-probe'
+const PACKAGE_NAME = '@deepseek-ai/dsh-probe'
 const install = () => {}
 export const apply = (ctx: { invariants: { register(name: string, install: () => void): () => void } }) =>
   ctx.invariants.register(PACKAGE_NAME, install)

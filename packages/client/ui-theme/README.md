@@ -1,15 +1,15 @@
 ---
-description: "Theme and content-font-size settings for the lyn web client: --dsw-* token stylesheets, ThemeRuntime state, General settings rows, and the pre-plugin bootstrap."
+description: "Theme and content-font-size settings for the dsh web client: --dsw-* token stylesheets, ThemeRuntime state, General settings rows, and the pre-plugin bootstrap."
 kind: "package-reference"
 ---
 
-# @lyness/lyn-client-ui-theme
+# @deepseek-ai/dsh-client-ui-theme
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`lyn-client-ui-theme` lets Web GUI users choose `light`, `dark`, or `system` and set conversation content text from 12 to 17 px in Settings. A loopback client stores both values in the `ui-theme` settings namespace, which the local provider persists in `$LYNESS_HOME/cordis.patch.yml` by default. The plugin resolves `system` through `prefers-color-scheme` and publishes immutable `ThemeSnapshot`s; ui-layout applies each snapshot to the document. The package also ships the `--dsw-*` token stylesheets and injects a synchronous bootstrap so the selected palette and font size apply before the shell loads. Third-party themes can register alias-token overrides through `ctx.theme`.
+`dsh-client-ui-theme` lets Web GUI users choose `light`, `dark`, or `system` and set conversation content text from 12 to 17 px in Settings. A loopback client stores both values in the `ui-theme` settings namespace, which the local provider persists in `$DSH_HOME/cordis.patch.yml` by default. The plugin resolves `system` through `prefers-color-scheme` and publishes immutable `ThemeSnapshot`s; ui-layout applies each snapshot to the document. The package also ships the `--dsw-*` token stylesheets and injects a synchronous bootstrap so the selected palette and font size apply before the shell loads. Third-party themes can register alias-token overrides through `ctx.theme`.
 
 ## Table of Contents
 
@@ -43,7 +43,7 @@ The global is script-assigned page data, so each token is checked here as well a
 
 ### Pre-plugin palette
 
-When the host composition includes an HTTP server, the host half embeds the registered `ui-theme` settings, or schema defaults, into each index response. Head CSS selects the document canvas color scheme before any script runs, including a `prefers-color-scheme` query for the `system` preference. A body script then sets `body[data-ds-dark-theme]` and `--lyn-content-font-size` before the loading page and application scripts, so the first paint uses the selected palette and text size.
+When the host composition includes an HTTP server, the host half embeds the registered `ui-theme` settings, or schema defaults, into each index response. Head CSS selects the document canvas color scheme before any script runs, including a `prefers-color-scheme` query for the `system` preference. A body script then sets `body[data-ds-dark-theme]` and `--dsh-content-font-size` before the loading page and application scripts, so the first paint uses the selected palette and text size.
 
 -----
 
@@ -69,7 +69,7 @@ In pointer modality, `html[data-input-modality='pointer'] body :focus-visible:no
 
 Menu icons use `--dsw-alias-menu-icon`: neutral-bluish 800 in light mode and `label-primary-dimmed` in dark mode.
 
-`base.css` suppresses only the outline of focused elements marked `data-lyn-automatic-focus` by the [primitive focus helper](../ui-primitives/README.md); ordinary keyboard focus styling, borders, shadows, and error states remain intact.
+`base.css` suppresses only the outline of focused elements marked `data-dsh-automatic-focus` by the [primitive focus helper](../ui-primitives/README.md); ordinary keyboard focus styling, borders, shadows, and error states remain intact.
 
 System toasts use `--dsw-alias-toast-bg` and `--dsw-alias-toast-label` for a shared background and text color across callers. Document previews pair `--dsw-alias-bg-document-preview` with `--dsw-alias-label-document-preview` so the backdrop and status text follow the same theme. Tooltip keycaps use `--dsw-alias-tooltip-key-bg`, a lighter fill derived from the tooltip background in each palette.
 
@@ -77,7 +77,7 @@ System toasts use `--dsw-alias-toast-bg` and `--dsw-alias-toast-label` for a sha
 
 `corner-shape.css` smooths every rounded corner: inside `@supports (corner-shape: superellipse(1.5))` it defines `--dsw-corner-shape` and applies it to all elements and their `::before`/`::after` through the universal selector, so engines without `corner-shape` keep circular corners. Full-round shapes — `border-radius: 50%` circles and pill radii — pair `corner-shape: round` with their radius in the owning component sheet because a superellipse deforms them; the corner-shape stylesheet spec enforces that pairing across every package stylesheet.
 
-`gradient-shadow-text.css` derives `--lyn-content-font-delta` from `--lyn-content-font-size` and shifts the Markdown heading and base-text ladder by that increment. It also derives the secondary tier `--lyn-content-font-size-secondary` (setting −1 at ≤14, setting −2 above; 13px at the default) with its own `--lyn-content-font-delta-secondary` for the table variants and the flow rows one step under the body. Dense small and code variants stay fixed. Outside the ladder, the user bubble and composer draft read the body pair directly, and flow-row titles and summaries read the secondary pair. The sheet also owns the shadow scale (`--dsw-shadow-lv*`), the translucent-menu `--dsw-menu-backdrop-filter`, and the elevation tokens: `--dsw-elevation-stroke` draws a 0.5px hairline through the rebindable `--dsw-elevation-stroke-color`, and `--dsw-elevation-panel`/`--dsw-elevation-prominent`/`--dsw-elevation-soft` (the composer's larger-blur, lower-alpha tier) layer two faint soft shadows over that stroke, so elevated surfaces set `border: 0` and carry no layout-consuming outline; the derived tokens are re-declared per element so a surface's stroke-color rebind takes effect. An elevated surface that paints `--dsw-specific-menu` also applies `backdrop-filter: var(--dsw-menu-backdrop-filter)` ([decision](../../../.agents/notes/implemented/feature/2026-09-17-compact-translucent-menu-surfaces.md)). Dark menus use a 45%-opaque gray fill and the `border-l3` stroke; light menus retain their `border-l1` stroke.
+`gradient-shadow-text.css` derives `--dsh-content-font-delta` from `--dsh-content-font-size` and shifts the Markdown heading and base-text ladder by that increment. It also derives the secondary tier `--dsh-content-font-size-secondary` (setting −1 at ≤14, setting −2 above; 13px at the default) with its own `--dsh-content-font-delta-secondary` for the table variants and the flow rows one step under the body. Dense small and code variants stay fixed. Outside the ladder, the user bubble and composer draft read the body pair directly, and flow-row titles and summaries read the secondary pair. The sheet also owns the shadow scale (`--dsw-shadow-lv*`), the translucent-menu `--dsw-menu-backdrop-filter`, and the elevation tokens: `--dsw-elevation-stroke` draws a 0.5px hairline through the rebindable `--dsw-elevation-stroke-color`, and `--dsw-elevation-panel`/`--dsw-elevation-prominent`/`--dsw-elevation-soft` (the composer's larger-blur, lower-alpha tier) layer two faint soft shadows over that stroke, so elevated surfaces set `border: 0` and carry no layout-consuming outline; the derived tokens are re-declared per element so a surface's stroke-color rebind takes effect. An elevated surface that paints `--dsw-specific-menu` also applies `backdrop-filter: var(--dsw-menu-backdrop-filter)` ([decision](../../../.agents/notes/implemented/feature/2026-09-17-compact-translucent-menu-surfaces.md)). Dark menus use a 45%-opaque gray fill and the `border-l3` stroke; light menus retain their `border-l1` stroke.
 
 `brand-font.css` references the bundled `montserrat-regular.woff2` / `montserrat-light.woff2` / `montserrat-medium.woff2`, Montserrat Regular, Light, and Medium under the SIL Open Font License shipped with the stylesheet and WOFF2 under `lib/styles/`. `--dsw-font-family-brand` selects this face for brand text; ordinary UI keeps the system font stack. The source is Google Fonts' Montserrat distribution. The Web entry imports the package's `./brand-font.css` export so Vite emits and resolves the font asset; the Web build also includes its license. The Web application, including Desktop onboarding, loads the font offline. The native credential welcome retains its system font.
 
@@ -85,7 +85,7 @@ System toasts use `--dsw-alias-toast-bg` and `--dsw-alias-toast-label` for a sha
 
 ### Scrollbar rebinding
 
-`scrollbar.css` binds `--lyn-scrollbar-thumb` and `--lyn-scrollbar-thumb-hover` on `body` to the l1 base-surface tokens; an elevated surface (menu, popover, dialog) rebinds them to the l2 tokens on its own container, and the pair's other legal target is `transparent` (ui-sidebar rebinds its column that way while the pointer is elsewhere). WebKit-based browsers use a 5px default `--lyn-scrollbar-width` and also read `--lyn-scrollbar-thumb-border` and `--lyn-scrollbar-track-margin`; a scroll surface may rebind them to keep a wide draggable rail around a narrower visible thumb or to inset the track from rounded ends. The two rendering paths are mutually exclusive by construction: Firefox takes the standard thin scrollbar inside `@supports not selector(::-webkit-scrollbar)`, and WebKit-based engines take the pseudo-elements, so geometry and hover customization apply only through the pseudo-element path.
+`scrollbar.css` binds `--dsh-scrollbar-thumb` and `--dsh-scrollbar-thumb-hover` on `body` to the l1 base-surface tokens; an elevated surface (menu, popover, dialog) rebinds them to the l2 tokens on its own container, and the pair's other legal target is `transparent` (ui-sidebar rebinds its column that way while the pointer is elsewhere). WebKit-based browsers use a 5px default `--dsh-scrollbar-width` and also read `--dsh-scrollbar-thumb-border` and `--dsh-scrollbar-track-margin`; a scroll surface may rebind them to keep a wide draggable rail around a narrower visible thumb or to inset the track from rounded ends. The two rendering paths are mutually exclusive by construction: Firefox takes the standard thin scrollbar inside `@supports not selector(::-webkit-scrollbar)`, and WebKit-based engines take the pseudo-elements, so geometry and hover customization apply only through the pseudo-element path.
 
 ### Preference persistence
 
@@ -102,7 +102,7 @@ These pages cover the layout presenter, the token consumers, and the styling rul
 
 - [ui-layout](../ui-layout/README.md) — the presenter that applies the resolved theme snapshot.
 - [ui-sidebar](../ui-sidebar/README.md) — a consumer of the scrollbar rebinding contract.
-- [ui-conversation](../ui-conversation/README.md) — a consumer of `--lyn-scrollbar-width` for the composer seat.
+- [ui-conversation](../ui-conversation/README.md) — a consumer of `--dsh-scrollbar-width` for the composer seat.
 - [Web styling](../../../docs/web-styling.md) — the authoritative styling rules for web client components.
 - [Host-backed preferences](../../../.agents/notes/implemented/bug-fix/2026-08-06-host-backed-web-preferences.md) — the persistence boundary decision.
 

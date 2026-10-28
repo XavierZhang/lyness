@@ -14,13 +14,13 @@
  * and the interface copy it overrides. Models, provider grants, and credential
  * references stay out of it — this route authenticates nobody, so it answers
  * only with what the asking request's own hostname already implies.
- * @module @lyness/lyn-tenant-http
+ * @module @deepseek-ai/dsh-tenant-http
  */
 
-import { Context } from '@lyness/cordis'
-import z from '@lyness/schemastery'
-import { sendJson } from '@lyness/lyn-host-webserver'
-import type {} from '@lyness/lyn-tenant-config'
+import { Context } from '@deepseek-ai/cordis'
+import z from '@deepseek-ai/schemastery'
+import { sendJson } from '@deepseek-ai/dsh-host-webserver'
+import type {} from '@deepseek-ai/dsh-tenant-config'
 import type { IncomingMessage, ServerResponse } from 'node:http'
 import { resolveTenant } from './resolve.ts'
 

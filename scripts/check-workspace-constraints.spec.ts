@@ -9,12 +9,12 @@ import {
   PRIVATE_EXPERIMENTAL_PACKAGE_DIRECTORIES,
 } from './experimental-package-policy.ts'
 import {
-  checkLynFamilyVersion,
+  checkDshFamilyVersion,
   checkWorkspaceManifest,
   checkWorkspaceProtocol,
   checkExperimentalDependencyIsolation,
   checkExperimentalManifest,
-  expectedLynPackageFiles,
+  expectedDshPackageFiles,
   readWorkspaceManifests,
   type WorkspaceManifest,
 } from './check-workspace-constraints.ts'
@@ -22,17 +22,17 @@ import {
 const experimental = {
   dir: 'packages/experimental/prototype',
   manifest: {
-    name: '@lyness/lyn-experimental-prototype',
+    name: '@deepseek-ai/dsh-experimental-prototype',
     publishConfig: { access: 'public' },
   },
 } satisfies WorkspaceManifest
 
 describe('workspace dependency ranges', () => {
-  const dependency = { dir: 'packages/core/runtime', manifest: { name: '@lyness/lyn-runtime' } }
-  const cli = { dir: 'apps/cli', manifest: { name: '@lyness/lyn' } }
-  const vendor = { dir: 'vendor/cordis', manifest: { name: '@lyness/cordis' } }
-  const native = { dir: 'native/system', manifest: { name: '@lyness/node-addon-system' } }
-  const platform = { dir: 'native/system/packages/darwin-arm64', manifest: { name: '@lyness/node-addon-system-darwin-arm64' } }
+  const dependency = { dir: 'packages/core/runtime', manifest: { name: '@deepseek-ai/dsh-runtime' } }
+  const cli = { dir: 'apps/cli', manifest: { name: '@deepseek-ai/dsh' } }
+  const vendor = { dir: 'vendor/cordis', manifest: { name: '@deepseek-ai/cordis' } }
+  const native = { dir: 'native/system', manifest: { name: '@deepseek-ai/node-addon-system' } }
+  const platform = { dir: 'native/system/packages/darwin-arm64', manifest: { name: '@deepseek-ai/node-addon-system-darwin-arm64' } }
   const unrelated = { dir: 'tools/helper', manifest: { name: '@other/helper' } }
 
   describe.each([
@@ -41,14 +41,14 @@ describe('workspace dependency ranges', () => {
     'vendor/loader', 'native/system', 'native/system/packages/entry',
   ])('consumer %s', (dir) => {
     it.each(['dependencies', 'devDependencies', 'peerDependencies', 'optionalDependencies'] as const)(
-      'requires exact LYN and tilde vendor/native %s independently of the consumer name',
+      'requires exact DSH and tilde vendor/native %s independently of the consumer name',
       (section) => {
         const consumer = (name: string, range: string): WorkspaceManifest => ({
           dir, manifest: { name: 'consumer', [section]: { [name]: range } },
         })
         const check = (name: string, range: string): string[] =>
           checkWorkspaceProtocol([dependency, cli, vendor, native, platform, unrelated, consumer(name, range)])
-        for (const name of ['@lyness/lyn', '@lyness/lyn-runtime']) {
+        for (const name of ['@deepseek-ai/dsh', '@deepseek-ai/dsh-runtime']) {
           expect(check(name, 'workspace:*')).toEqual([])
           for (const range of ['workspace:^', 'workspace:~', 'workspace:^0.1.7', '^0.1.7', '*']) {
             expect(check(name, range)).toEqual([
@@ -56,7 +56,7 @@ describe('workspace dependency ranges', () => {
             ])
           }
         }
-        for (const name of ['@lyness/cordis', '@lyness/node-addon-system', '@lyness/node-addon-system-darwin-arm64']) {
+        for (const name of ['@deepseek-ai/cordis', '@deepseek-ai/node-addon-system', '@deepseek-ai/node-addon-system-darwin-arm64']) {
           expect(check(name, 'workspace:~')).toEqual([])
           for (const range of ['workspace:*', 'workspace:^', '^4.0.3', '~4.0.3']) {
             expect(check(name, range)).toEqual([
@@ -78,7 +78,7 @@ describe('workspace dependency ranges', () => {
 
 describe('workspace manifest discovery', () => {
   it('checks root, app, runtime, tooling, and newly declared members while honoring exclusions', () => {
-    const root = mkdtempSync(join(tmpdir(), 'lyn-workspace-ranges-'))
+    const root = mkdtempSync(join(tmpdir(), 'dsh-workspace-ranges-'))
     onTestFinished(() => { rmSync(root, { recursive: true, force: true }) })
     const consumers = ['.', 'apps/cli', 'apps/web', 'apps/desktop', 'apps/desktop-host', 'benchmarks', 'website', 'python/sdk-runtime', 'tools/probe']
     writeFileSync(join(root, 'pnpm-workspace.yaml'), [
@@ -88,18 +88,18 @@ describe('workspace manifest discovery', () => {
     for (const dir of [...consumers, 'tools/excluded', 'unlisted/probe', 'packages/core/runtime']) {
       mkdirSync(join(root, dir), { recursive: true })
       writeFileSync(join(root, dir, 'package.json'), JSON.stringify(dir === 'packages/core/runtime'
-        ? { name: '@lyness/lyn-runtime' }
-        : { dependencies: { '@lyness/lyn-runtime': 'workspace:^' } }))
+        ? { name: '@deepseek-ai/dsh-runtime' }
+        : { dependencies: { '@deepseek-ai/dsh-runtime': 'workspace:^' } }))
     }
     const manifests = readWorkspaceManifests(root)
     expect(manifests.map(entry => entry.dir).sort()).toEqual([...consumers, 'packages/core/runtime'].sort())
     expect(checkWorkspaceProtocol(manifests).sort()).toEqual(consumers.map(dir =>
-      `${dir}: dependencies.@lyness/lyn-runtime must use workspace:*, got workspace:^`).sort())
+      `${dir}: dependencies.@deepseek-ai/dsh-runtime must use workspace:*, got workspace:^`).sort())
   })
 
   it.each(['', 'null', '{}', 'packages: []', 'packages: [false]', 'packages: [""]', 'packages: wrong'])(
     'rejects an invalid workspace declaration: %s', (contents) => {
-      const root = mkdtempSync(join(tmpdir(), 'lyn-workspace-ranges-'))
+      const root = mkdtempSync(join(tmpdir(), 'dsh-workspace-ranges-'))
       onTestFinished(() => { rmSync(root, { recursive: true, force: true }) })
       writeFileSync(join(root, 'pnpm-workspace.yaml'), contents)
       expect(() => readWorkspaceManifests(root)).toThrow('packages must be a non-empty list of workspace patterns')
@@ -107,7 +107,7 @@ describe('workspace manifest discovery', () => {
   )
 
   it('rejects a declaration that matches no workspace members', () => {
-    const root = mkdtempSync(join(tmpdir(), 'lyn-workspace-ranges-'))
+    const root = mkdtempSync(join(tmpdir(), 'dsh-workspace-ranges-'))
     onTestFinished(() => { rmSync(root, { recursive: true, force: true }) })
     writeFileSync(join(root, 'pnpm-workspace.yaml'), 'packages: [missing/*]')
     expect(() => readWorkspaceManifests(root)).toThrow('packages matched no workspace manifests')
@@ -118,9 +118,9 @@ describe('experimental workspace constraints', () => {
   it('requires the experimental package-name prefix', () => {
     expect(checkExperimentalManifest({
       ...experimental,
-      manifest: { ...experimental.manifest, name: '@lyness/lyn-prototype' },
+      manifest: { ...experimental.manifest, name: '@deepseek-ai/dsh-prototype' },
     })).toEqual([
-      '@lyness/lyn-prototype: experimental package name must start with "@lyness/lyn-experimental-"',
+      '@deepseek-ai/dsh-prototype: experimental package name must start with "@deepseek-ai/dsh-experimental-"',
     ])
   })
 
@@ -130,8 +130,8 @@ describe('experimental workspace constraints', () => {
       ...experimental,
       manifest: { name: experimental.manifest.name, private: true },
     })).toEqual([
-      '@lyness/lyn-experimental-prototype: public experimental package must not set "private": true',
-      '@lyness/lyn-experimental-prototype: public experimental package must set publishConfig.access to "public"',
+      '@deepseek-ai/dsh-experimental-prototype: public experimental package must not set "private": true',
+      '@deepseek-ai/dsh-experimental-prototype: public experimental package must set publishConfig.access to "public"',
     ])
   })
 
@@ -170,28 +170,28 @@ describe('experimental workspace constraints', () => {
       expect(checkExperimentalDependencyIsolation([experimental, {
         dir: 'packages/core/consumer',
         manifest: {
-          name: '@lyness/lyn-consumer',
-          [section]: { '@lyness/lyn-experimental-prototype': 'workspace:^' },
+          name: '@deepseek-ai/dsh-consumer',
+          [section]: { '@deepseek-ai/dsh-experimental-prototype': 'workspace:^' },
         },
       }])).toEqual([
-        `@lyness/lyn-consumer: ${section}.@lyness/lyn-experimental-prototype must not reference an experimental package`,
+        `@deepseek-ai/dsh-consumer: ${section}.@deepseek-ai/dsh-experimental-prototype must not reference an experimental package`,
       ])
     },
   )
 
-  it('allows the lyn installation to ship the optional bundles the launcher names, and nothing else experimental', () => {
-    const listed = { '@lyness/lyn-experimental-prototype': 'workspace:^' }
-    const installation = { dir: 'apps/cli', manifest: { name: '@lyness/lyn', dependencies: listed } } satisfies WorkspaceManifest
-    expect(checkExperimentalDependencyIsolation([experimental, installation], ['@lyness/lyn-experimental-prototype'])).toEqual([])
+  it('allows the dsh installation to ship the optional bundles the launcher names, and nothing else experimental', () => {
+    const listed = { '@deepseek-ai/dsh-experimental-prototype': 'workspace:^' }
+    const installation = { dir: 'apps/cli', manifest: { name: '@deepseek-ai/dsh', dependencies: listed } } satisfies WorkspaceManifest
+    expect(checkExperimentalDependencyIsolation([experimental, installation], ['@deepseek-ai/dsh-experimental-prototype'])).toEqual([])
     expect(checkExperimentalDependencyIsolation([experimental, installation], [])).toEqual([
-      '@lyness/lyn: dependencies.@lyness/lyn-experimental-prototype must not reference an experimental package',
+      '@deepseek-ai/dsh: dependencies.@deepseek-ai/dsh-experimental-prototype must not reference an experimental package',
     ])
     // Only a plain dependency edge is offered; a peer would make the bundle a requirement of every consumer.
     expect(checkExperimentalDependencyIsolation([experimental, {
       dir: 'apps/cli',
-      manifest: { name: '@lyness/lyn', peerDependencies: listed },
-    }], ['@lyness/lyn-experimental-prototype'])).toEqual([
-      '@lyness/lyn: peerDependencies.@lyness/lyn-experimental-prototype must not reference an experimental package',
+      manifest: { name: '@deepseek-ai/dsh', peerDependencies: listed },
+    }], ['@deepseek-ai/dsh-experimental-prototype'])).toEqual([
+      '@deepseek-ai/dsh: peerDependencies.@deepseek-ai/dsh-experimental-prototype must not reference an experimental package',
     ])
   })
 
@@ -199,64 +199,64 @@ describe('experimental workspace constraints', () => {
     const manifests: WorkspaceManifest[] = [experimental, {
       dir: 'packages/core/test-only',
       manifest: {
-        name: '@lyness/lyn-test-only',
-        devDependencies: { '@lyness/lyn-experimental-prototype': 'workspace:^' },
+        name: '@deepseek-ai/dsh-test-only',
+        devDependencies: { '@deepseek-ai/dsh-experimental-prototype': 'workspace:^' },
       },
     }, {
       dir: 'packages/experimental/consumer',
       manifest: {
-        name: '@lyness/lyn-experimental-consumer',
-        dependencies: { '@lyness/lyn-experimental-prototype': 'workspace:^' },
+        name: '@deepseek-ai/dsh-experimental-consumer',
+        dependencies: { '@deepseek-ai/dsh-experimental-prototype': 'workspace:^' },
       },
     }, {
       dir: 'python/sdk-runtime',
       manifest: {
-        name: '@lyness/lyn-python-runtime',
-        dependencies: { '@lyness/lyn-experimental-prototype': 'workspace:^' },
+        name: '@deepseek-ai/dsh-python-runtime',
+        dependencies: { '@deepseek-ai/dsh-experimental-prototype': 'workspace:^' },
       },
     }]
 
     expect(checkExperimentalDependencyIsolation(manifests)).toEqual([
-      '@lyness/lyn-python-runtime: dependencies.@lyness/lyn-experimental-prototype must not reference an experimental package',
+      '@deepseek-ai/dsh-python-runtime: dependencies.@deepseek-ai/dsh-experimental-prototype must not reference an experimental package',
     ])
   })
 })
 
-describe('lyn family version coherence', () => {
+describe('dsh family version coherence', () => {
   it('rejects a package carrying a stale shared version', () => {
-    expect(checkLynFamilyVersion(
-      { name: '@lyness/lyn-http-proxy', version: '0.1.2-alpha.5' },
+    expect(checkDshFamilyVersion(
+      { name: '@deepseek-ai/dsh-http-proxy', version: '0.1.2-alpha.5' },
       '0.1.2-rc.1',
-    )).toBe('@lyness/lyn-http-proxy: package.json version must match root version 0.1.2-rc.1')
+    )).toBe('@deepseek-ai/dsh-http-proxy: package.json version must match root version 0.1.2-rc.1')
   })
 
   it('rejects the root-named CLI app on a stale shared version', () => {
-    expect(checkLynFamilyVersion(
-      { name: '@lyness/lyn', version: '0.1.2-alpha.5' },
+    expect(checkDshFamilyVersion(
+      { name: '@deepseek-ai/dsh', version: '0.1.2-alpha.5' },
       '0.1.2-rc.1',
-    )).toBe('@lyness/lyn: package.json version must match root version 0.1.2-rc.1')
+    )).toBe('@deepseek-ai/dsh: package.json version must match root version 0.1.2-rc.1')
   })
 
   it('accepts a manifest carrying the shared version', () => {
-    expect(checkLynFamilyVersion(
-      { name: '@lyness/lyn-http-proxy', version: '0.1.2-rc.1' },
+    expect(checkDshFamilyVersion(
+      { name: '@deepseek-ai/dsh-http-proxy', version: '0.1.2-rc.1' },
       '0.1.2-rc.1',
     )).toBeUndefined()
   })
 
   it('leaves other sequences to their own version lines', () => {
-    expect(checkLynFamilyVersion({ name: '@lyness/cordis', version: '4.0.1' }, '0.1.2-rc.1')).toBeUndefined()
-    expect(checkLynFamilyVersion(
-      { name: '@lyness/node-addon-system', version: '0.1.1' },
+    expect(checkDshFamilyVersion({ name: '@deepseek-ai/cordis', version: '4.0.1' }, '0.1.2-rc.1')).toBeUndefined()
+    expect(checkDshFamilyVersion(
+      { name: '@deepseek-ai/node-addon-system', version: '0.1.1' },
       '0.1.2-rc.1',
     )).toBeUndefined()
-    expect(checkLynFamilyVersion({ version: '0.1.2-alpha.5' }, '0.1.2-rc.1')).toBeUndefined()
+    expect(checkDshFamilyVersion({ version: '0.1.2-alpha.5' }, '0.1.2-rc.1')).toBeUndefined()
   })
 })
 
 describe('package payload constraints', () => {
   it.each(['./art/icon.svg', 'art/icon.svg'])('includes declared icon %s in the canonical payload', (icon) => {
-    expect(expectedLynPackageFiles({ icon, exports: { './locale/*.json': './locale/*.json' } })).toEqual([
+    expect(expectedDshPackageFiles({ icon, exports: { './locale/*.json': './locale/*.json' } })).toEqual([
       'art/icon.svg', 'locale/*.json', 'lib/index.js', 'lib/types/**/*.d.ts',
     ])
   })
@@ -277,13 +277,13 @@ describe('package payload constraints', () => {
     { exports: { './locale/*.json': './locale/*.json', './search/locale/*.json': './locale/*.json' }, resources: ['locale/*.json'] },
     { exports: { './search/locale/*.json': './z/*.json', './locale/*.json': './a/*.json' }, resources: ['a/*.json', 'z/*.json'] },
   ])('includes declared locale resources in the canonical payload: $exports', ({ exports, resources }) => {
-    expect(expectedLynPackageFiles({ name: '@lyness/lyn-localized', exports })).toEqual([
+    expect(expectedDshPackageFiles({ name: '@deepseek-ai/dsh-localized', exports })).toEqual([
       ...resources, 'lib/index.js', 'lib/types/**/*.d.ts',
     ])
   })
 
   it('does not infer locale payloads from unrelated or non-JSON exports', () => {
-    expect(expectedLynPackageFiles({
+    expect(expectedDshPackageFiles({
       exports: {
         './config.json': './config.json',
         './locale/README.md': './locale/README.md',
@@ -315,17 +315,17 @@ describe('package payload constraints', () => {
   })
 
   it('includes a declared profile patch without a package-name allowlist', () => {
-    expect(expectedLynPackageFiles({
-      name: '@lyness/lyn-private-profile',
-      lyn: { bundle: { patch: './cordis.patch.yml' } },
+    expect(expectedDshPackageFiles({
+      name: '@deepseek-ai/dsh-private-profile',
+      dsh: { bundle: { patch: './cordis.patch.yml' } },
     })).toEqual([
       'lib/index.js',
       'cordis.patch.yml',
       'lib/types/**/*.d.ts',
     ])
-    expect(expectedLynPackageFiles({
-      name: '@lyness/lyn-private-profile',
-      lyn: { bundle: { patch: ['./cordis.patch.yml', './layers/web.patch.yml'] } },
+    expect(expectedDshPackageFiles({
+      name: '@deepseek-ai/dsh-private-profile',
+      dsh: { bundle: { patch: ['./cordis.patch.yml', './layers/web.patch.yml'] } },
     })).toEqual([
       'lib/index.js',
       'cordis.patch.yml',
@@ -347,7 +347,7 @@ it('publishes CLI runtime declarations and rejects a payload that omits them', (
   const manifest = JSON.parse(readFileSync(new URL('../apps/cli/package.json', import.meta.url), 'utf8')) as WorkspaceManifest['manifest']
   expect(checkWorkspaceManifest({ dir: 'apps/cli', manifest })).toEqual([])
   expect(checkWorkspaceManifest({ dir: 'apps/cli', manifest: { ...manifest, files: ['lib/*.js'] } }))
-    .toEqual([expect.stringContaining('@lyness/lyn: package.json files must be ["lib/*.js","lib/types/*.d.ts"]')])
+    .toEqual([expect.stringContaining('@deepseek-ai/dsh: package.json files must be ["lib/*.js","lib/types/*.d.ts"]')])
 })
 
 it('requires the shared Web injection entry in the published payload', () => {

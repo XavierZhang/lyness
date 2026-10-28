@@ -1,5 +1,5 @@
 /** Browser-local shell preference; Host discovery decides whether the saved path is usable. */
-const KEY = 'lyn.terminal.shell'
+const KEY = 'dsh.terminal.shell'
 
 /**
  * Read the browser preference.

@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/lyn-office-to-pdf",
+  "name": "@deepseek-ai/dsh-office-to-pdf",
   "description": "Shared Office-to-PDF conversion with bounded queues and caching",
   "version": "0.1.7-rc.2",
   "publishConfig": {
@@ -11,7 +11,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/document/office-to-pdf"
   },
   "exports": {
@@ -44,21 +44,21 @@
     "lib/typert.remote-client.d.ts"
   ],
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~"
+    "@deepseek-ai/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/cordis-plugin-loader": "workspace:~",
-    "@lyness/cordis-plugin-include": "workspace:~",
-    "@lyness/lyn-api-workspace-files": "workspace:*",
-    "@lyness/lyn-fs": "workspace:*",
-    "@lyness/lyn-session": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/cordis-plugin-loader": "workspace:~",
+    "@deepseek-ai/cordis-plugin-include": "workspace:~",
+    "@deepseek-ai/dsh-api-workspace-files": "workspace:*",
+    "@deepseek-ai/dsh-fs": "workspace:*",
+    "@deepseek-ai/dsh-session": "workspace:*"
   },
   "dependencies": {
     "@deepseek-ai/libreoffice-kit": "^0.1.1",
-    "@lyness/schemastery": "workspace:~",
-    "@lyness/lyn-brand": "workspace:*",
-    "@lyness/lyn-typert-protocol": "workspace:*",
+    "@deepseek-ai/schemastery": "workspace:~",
+    "@deepseek-ai/dsh-brand": "workspace:*",
+    "@deepseek-ai/dsh-typert-protocol": "workspace:*",
     "zod": "^4.4.3"
   }
 }

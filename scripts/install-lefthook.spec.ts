@@ -69,7 +69,7 @@ import { join } from 'node:path'
 if (process.argv.slice(2).join(' ') !== 'install --force') process.exit(64)
 const rootOutput = execFileSync('git', ['rev-parse', '--show-toplevel'], { encoding: 'utf8' })
 const root = rootOutput.endsWith('\\n') ? rootOutput.slice(0, -1) : rootOutput
-const forbiddenConfigKey = process.env.LYNESS_TEST_FORBIDDEN_GIT_CONFIG_KEY
+const forbiddenConfigKey = process.env.DSH_TEST_FORBIDDEN_GIT_CONFIG_KEY
 if (forbiddenConfigKey !== undefined) {
   try {
     execFileSync('git', ['config', '--get', forbiddenConfigKey], { encoding: 'utf8' })
@@ -86,11 +86,11 @@ try {
 } catch {
   process.exit(91)
 }
-const delay = Number(process.env.LYNESS_TEST_LEFTHOOK_DELAY_MS ?? 0)
+const delay = Number(process.env.DSH_TEST_LEFTHOOK_DELAY_MS ?? 0)
 if (delay > 0) Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, delay)
-const replaceLockPath = process.env.LYNESS_TEST_LEFTHOOK_REPLACE_LOCK_PATH
+const replaceLockPath = process.env.DSH_TEST_LEFTHOOK_REPLACE_LOCK_PATH
 if (replaceLockPath !== undefined) writeFileSync(replaceLockPath, 'replacement owner\\n')
-const shouldFail = process.env.LYNESS_TEST_LEFTHOOK_FAIL === '1'
+const shouldFail = process.env.DSH_TEST_LEFTHOOK_FAIL === '1'
 if (!shouldFail) {
   const binary = join(root, 'node_modules', '.bin', process.platform === 'win32' ? 'lefthook.cmd' : 'lefthook')
   const config = readFileSync(join(root, 'lefthook.yml'), 'utf8').trim()
@@ -98,7 +98,7 @@ if (!shouldFail) {
   for (const name of ['pre-commit', 'pre-merge-commit', 'pre-push']) writeFileSync(join(hooksPath, name), hook, { mode: 0o755 })
 }
 if (existsSync(running)) unlinkSync(running)
-if (process.env.LYNESS_TEST_LEFTHOOK_BREAK_WORKTREE_CONFIG === '1') {
+if (process.env.DSH_TEST_LEFTHOOK_BREAK_WORKTREE_CONFIG === '1') {
   const configPath = execFileSync('git', ['rev-parse', '--git-path', 'config.worktree'], { encoding: 'utf8' }).trim()
   writeFileSync(configPath, '[invalid\\n')
 }
@@ -123,7 +123,7 @@ function installFakeLefthook(root: string): void {
 }
 
 function createFixture(names: { main?: string; linked?: string } = {}): Fixture {
-  const container = mkdtempSync(join(tmpdir(), 'lyn-lefthook-'))
+  const container = mkdtempSync(join(tmpdir(), 'dsh-lefthook-'))
   fixtures.push(container)
   const main = join(container, names.main ?? 'main')
   const linked = join(container, names.linked ?? 'linked')
@@ -164,11 +164,11 @@ function commonDirectory(fixture: Fixture): string {
 }
 
 function hooksPath(fixture: Fixture, root: string): string {
-  return join(gitDirectory(fixture, root), 'lyn-hooks')
+  return join(gitDirectory(fixture, root), 'dsh-hooks')
 }
 
 function installLockPath(fixture: Fixture): string {
-  return join(commonDirectory(fixture), 'lyn-lefthook-install.lock')
+  return join(commonDirectory(fixture), 'dsh-lefthook-install.lock')
 }
 
 async function waitForPath(path: string): Promise<void> {
@@ -201,7 +201,7 @@ function runInstaller(
 
 // Every case builds scratch worktrees and drives them through spawned Git and
 // Node subprocesses, so the suite is bound by process creation rather than by
-// its assertions. The value matches LYNESS_COVERAGE_TEST_TIMEOUT_MS, which the
+// its assertions. The value matches DSH_COVERAGE_TEST_TIMEOUT_MS, which the
 // Windows coverage lane passes as --testTimeout: a describe value overrides that
 // flag rather than yielding to it, so a smaller one here lowers what the lane
 // grants every case in this file, none of which carries an allowance of its own.
@@ -301,7 +301,7 @@ describe('worktree-local Lefthook installer', { timeout: 90_000 }, () => {
 
   it('serializes concurrent installs and keeps repeated output stable', async () => {
     const fixture = createFixture()
-    const delayed = { LYNESS_TEST_LEFTHOOK_DELAY_MS: '150' }
+    const delayed = { DSH_TEST_LEFTHOOK_DELAY_MS: '150' }
     const first = await Promise.all([
       runInstaller(fixture, fixture.main, delayed),
       runInstaller(fixture, fixture.linked, delayed),
@@ -316,7 +316,7 @@ describe('worktree-local Lefthook installer', { timeout: 90_000 }, () => {
     ])
     for (const result of repeated) expect(result.status, result.stderr).toBe(0)
     expect(readFileSync(mainHookPath, 'utf8')).toBe(initialHook)
-    expect(existsSync(join(commonDirectory(fixture), 'lyn-lefthook-install.lock'))).toBe(false)
+    expect(existsSync(join(commonDirectory(fixture), 'dsh-lefthook-install.lock'))).toBe(false)
     expect(existsSync(join(hooksPath(fixture, fixture.main), '.fake-lefthook-running'))).toBe(false)
   })
 
@@ -326,7 +326,7 @@ describe('worktree-local Lefthook installer', { timeout: 90_000 }, () => {
     const publicationBarrier = join(fixture.container, 'lock-publication')
     const observationBarrier = join(fixture.container, 'lock-observation')
     const publishing = runInstaller(fixture, fixture.main, {
-      LYNESS_TEST_LEFTHOOK_LOCK_PUBLISH_BARRIER: publicationBarrier,
+      DSH_TEST_LEFTHOOK_LOCK_PUBLISH_BARRIER: publicationBarrier,
     })
     let waiting: Promise<CommandResult> | undefined
     const release = (): void => {
@@ -337,7 +337,7 @@ describe('worktree-local Lefthook installer', { timeout: 90_000 }, () => {
       await waitForPath(`${publicationBarrier}.ready`)
       expect(readFileSync(lockPath, 'utf8')).toBe('')
       waiting = runInstaller(fixture, fixture.linked, {
-        LYNESS_TEST_LEFTHOOK_LOCK_OBSERVE_BARRIER: observationBarrier,
+        DSH_TEST_LEFTHOOK_LOCK_OBSERVE_BARRIER: observationBarrier,
       })
       await waitForPath(`${observationBarrier}.ready`)
       expect(readFileSync(lockPath, 'utf8')).toBe('')
@@ -368,7 +368,7 @@ describe('worktree-local Lefthook installer', { timeout: 90_000 }, () => {
     expect(git(fixture, movedRoot, ['config', '--worktree', '--get', 'core.hooksPath'])).toBe(movedHooks)
     const canonicalMoved = git(fixture, movedRoot, ['rev-parse', '--show-toplevel'])
     expect(readFileSync(join(movedHooks, 'pre-commit'), 'utf8')).toContain(`# root=${canonicalMoved}`)
-    expect(readFileSync(join(movedHooks, '.lyn-lefthook-owned'), 'utf8')).toContain(
+    expect(readFileSync(join(movedHooks, '.dsh-lefthook-owned'), 'utf8')).toContain(
       JSON.stringify(movedHooks),
     )
   })
@@ -379,7 +379,7 @@ describe('worktree-local Lefthook installer', { timeout: 90_000 }, () => {
     const first = await runInstaller(fixture, oldRoot)
     expect(first.status, first.stderr).toBe(0)
     const oldHooks = hooksPath(fixture, oldRoot)
-    const markerName = '.lyn-lefthook-owned'
+    const markerName = '.dsh-lefthook-owned'
     const externalMarker = join(fixture.container, 'external-marker')
     linkSync(join(oldHooks, markerName), externalMarker)
     const externalContent = readFileSync(externalMarker, 'utf8')
@@ -420,12 +420,12 @@ describe('worktree-local Lefthook installer', { timeout: 90_000 }, () => {
     const first = await runInstaller(fixture, oldRoot)
     expect(first.status, first.stderr).toBe(0)
     const oldHooks = hooksPath(fixture, oldRoot)
-    const markerName = '.lyn-lefthook-owned'
+    const markerName = '.dsh-lefthook-owned'
     const previousMarker = readFileSync(join(oldHooks, markerName), 'utf8')
     const movedRoot = join(fixture.container, 'moved-main')
     renameSync(oldRoot, movedRoot)
 
-    const failed = await runInstaller(fixture, movedRoot, { LYNESS_TEST_LEFTHOOK_FAIL: '1' })
+    const failed = await runInstaller(fixture, movedRoot, { DSH_TEST_LEFTHOOK_FAIL: '1' })
 
     expect(failed.status).toBe(1)
     expect(failed.stderr).toContain('exit status 77')
@@ -437,13 +437,13 @@ describe('worktree-local Lefthook installer', { timeout: 90_000 }, () => {
   it('refuses dormant repository extensions before upgrading the repository format', async () => {
     const fixture = createFixture()
     const commonConfig = join(commonDirectory(fixture), 'config')
-    git(fixture, fixture.main, ['config', 'extensions.lynUnknown', 'true'])
+    git(fixture, fixture.main, ['config', 'extensions.dshUnknown', 'true'])
     expect(gitResult(fixture, fixture.main, ['status', '--porcelain']).status).toBe(0)
 
     const result = await runInstaller(fixture, fixture.main)
 
     expect(result.status).toBe(1)
-    expect(result.stderr).toContain('dormant repository extension extensions.lynunknown')
+    expect(result.stderr).toContain('dormant repository extension extensions.dshunknown')
     expect(git(fixture, fixture.main, [
       'config', '--file', commonConfig, '--get', 'core.repositoryFormatVersion',
     ])).toBe('0')
@@ -526,7 +526,7 @@ describe('worktree-local Lefthook installer', { timeout: 90_000 }, () => {
     const lockPath = installLockPath(fixture)
     // The fake child replaces the record while the installer holds the lock.
     const result = await runInstaller(fixture, fixture.main, {
-      LYNESS_TEST_LEFTHOOK_REPLACE_LOCK_PATH: lockPath,
+      DSH_TEST_LEFTHOOK_REPLACE_LOCK_PATH: lockPath,
     })
 
     expect(result.status).toBe(1)
@@ -553,13 +553,13 @@ describe('worktree-local Lefthook installer', { timeout: 90_000 }, () => {
     const refused = await runInstaller(fixture, fixture.main)
     expect(refused.status).toBe(1)
     expect(refused.stderr).toContain('refusing to replace user-owned core.hooksPath')
-    expect(refused.stderr).toContain('LYNESS_LEFTHOOK_ALLOW_HOOKS_PATH_OVERRIDE=1')
+    expect(refused.stderr).toContain('DSH_LEFTHOOK_ALLOW_HOOKS_PATH_OVERRIDE=1')
     expect(git(fixture, fixture.main, ['config', '--get', 'core.hooksPath'])).toBe('custom-hooks')
     expect(readFileSync(customHook, 'utf8')).toBe('#!/bin/sh\n# custom hook\n')
     expect(gitResult(fixture, fixture.main, ['config', '--get', 'extensions.worktreeConfig']).status).toBe(1)
 
     const optedIn = await runInstaller(fixture, fixture.main, {
-      LYNESS_LEFTHOOK_ALLOW_HOOKS_PATH_OVERRIDE: '1',
+      DSH_LEFTHOOK_ALLOW_HOOKS_PATH_OVERRIDE: '1',
     })
     expect(optedIn.status, optedIn.stderr).toBe(0)
     expect(git(fixture, fixture.main, ['config', '--worktree', '--get', 'core.hooksPath'])).toBe(hooksPath(fixture, fixture.main))
@@ -569,7 +569,7 @@ describe('worktree-local Lefthook installer', { timeout: 90_000 }, () => {
 
     git(fixture, fixture.linked, ['config', '--worktree', 'core.hooksPath', 'linked-custom-hooks'])
     const explicitWorktreePath = await runInstaller(fixture, fixture.linked, {
-      LYNESS_LEFTHOOK_ALLOW_HOOKS_PATH_OVERRIDE: '1',
+      DSH_LEFTHOOK_ALLOW_HOOKS_PATH_OVERRIDE: '1',
     })
     expect(explicitWorktreePath.status).toBe(1)
     expect(git(fixture, fixture.linked, ['config', '--worktree', '--get', 'core.hooksPath'])).toBe('linked-custom-hooks')
@@ -581,10 +581,10 @@ describe('worktree-local Lefthook installer', { timeout: 90_000 }, () => {
     expect(mainInstall.status, mainInstall.stderr).toBe(0)
     const externalHooks = join(fixture.container, 'external-owned-hooks')
     write(
-      join(externalHooks, '.lyn-lefthook-owned'),
+      join(externalHooks, '.dsh-lefthook-owned'),
       `${JSON.stringify({
         version: 1,
-        owner: 'lyness worktree-local lefthook hooks',
+        owner: 'DeepSeek Harness worktree-local lefthook hooks',
         hooksPath: externalHooks,
       })}\n`,
       0o600,
@@ -642,7 +642,7 @@ describe('worktree-local Lefthook installer', { timeout: 90_000 }, () => {
   })
 
   for (const includeKey of ['include.path', 'includeIf.onbranch:conditional.path']) {
-    for (const key of ['core.worktree', 'core.bare', 'extensions.lynunknown']) {
+    for (const key of ['core.worktree', 'core.bare', 'extensions.dshunknown']) {
       it(`ignores ${key} loaded through ${includeKey}`, async () => {
         const fixture = createFixture()
         const commonConfig = join(commonDirectory(fixture), 'config')
@@ -690,7 +690,7 @@ describe('worktree-local Lefthook installer', { timeout: 90_000 }, () => {
     write(sentinel, '#!/bin/sh\n# command-scope sentinel\n', 0o755)
 
     const result = await runInstaller(fixture, fixture.main, {
-      LYNESS_LEFTHOOK_ALLOW_HOOKS_PATH_OVERRIDE: '1',
+      DSH_LEFTHOOK_ALLOW_HOOKS_PATH_OVERRIDE: '1',
       GIT_CONFIG_COUNT: '1',
       GIT_CONFIG_KEY_0: 'core.hooksPath',
       GIT_CONFIG_VALUE_0: commandHooks,
@@ -707,9 +707,9 @@ describe('worktree-local Lefthook installer', { timeout: 90_000 }, () => {
     const fixture = createFixture()
 
     const result = await runInstaller(fixture, fixture.main, {
-      LYNESS_TEST_FORBIDDEN_GIT_CONFIG_KEY: 'lyn.testSentinel',
+      DSH_TEST_FORBIDDEN_GIT_CONFIG_KEY: 'dsh.testSentinel',
       GIT_CONFIG_COUNT: '1',
-      GIT_CONFIG_KEY_0: 'lyn.testSentinel',
+      GIT_CONFIG_KEY_0: 'dsh.testSentinel',
       GIT_CONFIG_VALUE_0: 'must-not-reach-lefthook',
     })
 
@@ -731,7 +731,7 @@ describe('worktree-local Lefthook installer', { timeout: 90_000 }, () => {
     git(fixture, fixture.main, ['config', '--file', worktreeConfig, 'include.path', includedConfig])
 
     const result = await runInstaller(fixture, fixture.main, {
-      LYNESS_LEFTHOOK_ALLOW_HOOKS_PATH_OVERRIDE: '1',
+      DSH_LEFTHOOK_ALLOW_HOOKS_PATH_OVERRIDE: '1',
     })
 
     expect(result.status).toBe(1)
@@ -747,7 +747,7 @@ describe('worktree-local Lefthook installer', { timeout: 90_000 }, () => {
     const legacyHook = join(common, 'hooks/pre-push')
     write(legacyHook, '#!/bin/sh\n# legacy pre-push\n', 0o755)
 
-    const result = await runInstaller(fixture, fixture.main, { LYNESS_TEST_LEFTHOOK_FAIL: '1' })
+    const result = await runInstaller(fixture, fixture.main, { DSH_TEST_LEFTHOOK_FAIL: '1' })
     expect(result.status).toBe(1)
     expect(result.stderr).toContain('exit status 77')
     expect(gitResult(fixture, fixture.main, ['config', '--worktree', '--get', 'core.hooksPath']).status).toBe(1)
@@ -759,8 +759,8 @@ describe('worktree-local Lefthook installer', { timeout: 90_000 }, () => {
     const fixture = createFixture()
 
     const result = await runInstaller(fixture, fixture.main, {
-      LYNESS_TEST_LEFTHOOK_BREAK_WORKTREE_CONFIG: '1',
-      LYNESS_TEST_LEFTHOOK_FAIL: '1',
+      DSH_TEST_LEFTHOOK_BREAK_WORKTREE_CONFIG: '1',
+      DSH_TEST_LEFTHOOK_FAIL: '1',
     })
 
     expect(result.status).toBe(1)

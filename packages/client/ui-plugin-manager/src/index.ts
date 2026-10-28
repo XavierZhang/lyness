@@ -1,11 +1,11 @@
 /** Host registry-response probing for the plugin installation dialog. */
 
-import type { Context } from '@lyness/cordis'
-import z from '@lyness/schemastery'
-import { MAX_TIMER_DELAY_MS } from '@lyness/lyn-timeout'
-import { Remote, TypertRemoteService } from '@lyness/lyn-typert-protocol'
+import type { Context } from '@deepseek-ai/cordis'
+import z from '@deepseek-ai/schemastery'
+import { MAX_TIMER_DELAY_MS } from '@deepseek-ai/dsh-timeout'
+import { Remote, TypertRemoteService } from '@deepseek-ai/dsh-typert-protocol'
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     pluginRegistryProbe: PluginRegistryProbe
   }

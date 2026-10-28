@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/lyn-module-credits",
+  "name": "@deepseek-ai/dsh-module-credits",
   "description": "The credits module as its own bundle: a ledger, a recurring allowance, and metering a model request cannot go around",
   "version": "0.1.7-rc.2",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/bundle/module-credits"
   },
   "type": "module",
@@ -30,18 +30,18 @@
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
-  "lyn": {
+  "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml"
     }
   },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~"
+    "@deepseek-ai/cordis": "workspace:~"
   },
   "dependencies": {
-    "@lyness/lyn-credits": "workspace:*"
+    "@deepseek-ai/dsh-credits": "workspace:*"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:~"
+    "@deepseek-ai/cordis": "workspace:~"
   }
 }

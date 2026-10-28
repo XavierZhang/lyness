@@ -7,13 +7,13 @@ import { describe, expect, it } from 'vitest'
 import { loadOverlayPatches } from '../packages/boot/app-boot/src/index.ts'
 import { readPluginMeta } from '../packages/boot/app-boot/src/package-meta.ts'
 import { OPTIONAL_BUNDLES, bundlePatchPaths, composeEntries } from '../packages/boot/app-boot/src/profile.ts'
-import type { LynBundleManifest } from '../packages/util/package-manifest/src/types.ts'
+import type { DshBundleManifest } from '../packages/util/package-manifest/src/types.ts'
 
 const root = resolve(import.meta.dirname, '..')
 
 interface Manifest {
   name: string
-  lyn?: { bundle?: LynBundleManifest }
+  dsh?: { bundle?: DshBundleManifest }
 }
 
 const bundles = new Map(globSync('packages/*/*/package.json', { cwd: root }).map((path) => {
@@ -23,14 +23,14 @@ const bundles = new Map(globSync('packages/*/*/package.json', { cwd: root }).map
 
 function bundle(name: string): { dir: string; patches: ReturnType<typeof loadOverlayPatches> } {
   const entry = bundles.get(name)
-  if (entry?.manifest.lyn?.bundle === undefined) throw new Error(`${name} is not a workspace bundle`)
-  return { dir: entry.dir, patches: bundlePatchPaths(entry.dir, entry.manifest.lyn.bundle).flatMap(path => loadOverlayPatches('test', path)) }
+  if (entry?.manifest.dsh?.bundle === undefined) throw new Error(`${name} is not a workspace bundle`)
+  return { dir: entry.dir, patches: bundlePatchPaths(entry.dir, entry.manifest.dsh.bundle).flatMap(path => loadOverlayPatches('test', path)) }
 }
 
 describe('optional bundles', () => {
-  // The execution layer sits between them, because `lyn-web-app` overrides the
-  // Host shell-tool rows that `lyn-module-execution` inserts.
-  const shipped = ['@lyness/lyn-base', '@lyness/lyn-module-execution', '@lyness/lyn-web-app']
+  // The execution layer sits between them, because `dsh-web-app` overrides the
+  // Host shell-tool rows that `dsh-module-execution` inserts.
+  const shipped = ['@deepseek-ai/dsh-base', '@deepseek-ai/dsh-module-execution', '@deepseek-ai/dsh-web-app']
     .map(name => bundle(name).patches)
 
   it('ships at least one bundle switched off', () => {
@@ -38,7 +38,7 @@ describe('optional bundles', () => {
   })
 
   it('keeps the Inspector out of the default plugin list', () => {
-    expect(OPTIONAL_BUNDLES).not.toContain('@lyness/lyn-experimental-inspector')
+    expect(OPTIONAL_BUNDLES).not.toContain('@deepseek-ai/dsh-experimental-inspector')
   })
 
   it.each(OPTIONAL_BUNDLES)('%s composes over the Web profile without a skipped patch', (name) => {

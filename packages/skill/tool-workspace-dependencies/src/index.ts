@@ -2,9 +2,9 @@
 
 import { cp, lstat, mkdir, mkdtemp, readFile, rename, rm, stat } from 'node:fs/promises'
 import { dirname, isAbsolute, join } from 'node:path'
-import type { Context } from '@lyness/cordis'
-import z from '@lyness/schemastery'
-import { defineTool } from '@lyness/lyn-tools'
+import type { Context } from '@deepseek-ai/cordis'
+import z from '@deepseek-ai/schemastery'
+import { defineTool } from '@deepseek-ai/dsh-tools'
 
 /** Cordis plugin identity. */
 export const name = 'tool-workspace-dependencies'

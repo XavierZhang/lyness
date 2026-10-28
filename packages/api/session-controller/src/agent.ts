@@ -1,22 +1,22 @@
 /** Agent activation, composition, and model-selection policy owned by API Session. */
 
 import { mkdir } from 'node:fs/promises'
-import type { Context } from '@lyness/cordis'
-import { installModelSelection } from '@lyness/lyn-agent'
+import type { Context } from '@deepseek-ai/cordis'
+import { installModelSelection } from '@deepseek-ai/dsh-agent'
 import type {
   Agent, AgentOptions, AgentSetup, ModelSelection as AgentModelSelection, ModelSelectionRef,
-} from '@lyness/lyn-agent'
-import type {} from '@lyness/lyn-agent-default-model'
-import type {} from '@lyness/lyn-agent-preset-registry'
-import { ReasoningEffortId } from '@lyness/lyn-llm'
-import type { Session, SessionId } from '@lyness/lyn-session'
-import type { SessionInspection } from '@lyness/lyn-session-persistence'
-import { SessionQueryError, type SessionObservation } from '@lyness/lyn-session-query'
-import { RemoteError } from '@lyness/lyn-typert-protocol'
-import type {} from '@lyness/lyn-typert-registry'
-import type {} from '@lyness/lyn-session-ownership/visibility'
-import type {} from '@lyness/lyn-managed-bots'
-import type { EngagedBot } from '@lyness/lyn-managed-bots/session'
+} from '@deepseek-ai/dsh-agent'
+import type {} from '@deepseek-ai/dsh-agent-default-model'
+import type {} from '@deepseek-ai/dsh-agent-preset-registry'
+import { ReasoningEffortId } from '@deepseek-ai/dsh-llm'
+import type { Session, SessionId } from '@deepseek-ai/dsh-session'
+import type { SessionInspection } from '@deepseek-ai/dsh-session-persistence'
+import { SessionQueryError, type SessionObservation } from '@deepseek-ai/dsh-session-query'
+import { RemoteError } from '@deepseek-ai/dsh-typert-protocol'
+import type {} from '@deepseek-ai/dsh-typert-registry'
+import type {} from '@deepseek-ai/dsh-session-ownership/visibility'
+import type {} from '@deepseek-ai/dsh-managed-bots'
+import type { EngagedBot } from '@deepseek-ai/dsh-managed-bots/session'
 
 /**
  * One bot a session is about to speak as.

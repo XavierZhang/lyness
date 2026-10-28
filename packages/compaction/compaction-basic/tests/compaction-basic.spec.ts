@@ -1,20 +1,20 @@
 import { describe, expect, expectTypeOf, it, vi } from 'vitest'
-import { Context } from '@lyness/cordis'
-import { AttachmentId } from '@lyness/lyn-attachment'
-import BasicCompactionEngine from '@lyness/lyn-compaction-basic'
-import type { BasicCompactionConfig } from '@lyness/lyn-compaction-basic'
-import { selectCompactableRange } from '@lyness/lyn-compaction-basic/src/region.ts'
-import { frameSummary } from '@lyness/lyn-compaction-basic/src/summarizer.ts'
-import type { SummarizationInput, SummaryResult } from '@lyness/lyn-compaction-basic/src/summarizer.ts'
-import { CompactionId, toolPairingBalancedAfter, toolPairingBalancedBefore } from '@lyness/lyn-compaction'
+import { Context } from '@deepseek-ai/cordis'
+import { AttachmentId } from '@deepseek-ai/dsh-attachment'
+import BasicCompactionEngine from '@deepseek-ai/dsh-compaction-basic'
+import type { BasicCompactionConfig } from '@deepseek-ai/dsh-compaction-basic'
+import { selectCompactableRange } from '@deepseek-ai/dsh-compaction-basic/src/region.ts'
+import { frameSummary } from '@deepseek-ai/dsh-compaction-basic/src/summarizer.ts'
+import type { SummarizationInput, SummaryResult } from '@deepseek-ai/dsh-compaction-basic/src/summarizer.ts'
+import { CompactionId, toolPairingBalancedAfter, toolPairingBalancedBefore } from '@deepseek-ai/dsh-compaction'
 import {
   resolveCompactSpec,
   resolveConfig,
   resolveTargetPolicy,
-} from '@lyness/lyn-compaction-basic/src/config.ts'
-import type { CompactionResult } from '@lyness/lyn-compaction'
-import LlmRuntime, { createUserMessage, ToolCallId, CONTEXT_WINDOW_EXCEEDED_CODE, createSystemMessage, createToolResultMessage, LlmAdapter , createMessage } from '@lyness/lyn-llm'
-import type { ContextFormed } from '@lyness/lyn-llm'
+} from '@deepseek-ai/dsh-compaction-basic/src/config.ts'
+import type { CompactionResult } from '@deepseek-ai/dsh-compaction'
+import LlmRuntime, { createUserMessage, ToolCallId, CONTEXT_WINDOW_EXCEEDED_CODE, createSystemMessage, createToolResultMessage, LlmAdapter , createMessage } from '@deepseek-ai/dsh-llm'
+import type { ContextFormed } from '@deepseek-ai/dsh-llm'
 import type {
   ContentBlock,
   GenerateOptions,
@@ -23,14 +23,14 @@ import type {
   Message,
   StreamChunk,
   TokenUsage,
-} from '@lyness/lyn-llm'
-import SessionStore, { Session, SessionId, SessionSeq } from '@lyness/lyn-session'
-import SessionProjectionRegistry from '@lyness/lyn-session-projection'
-import TokenMeter from '@lyness/lyn-token-meter'
-import { agentEvents, type Agent, type RequestErrorAction } from '@lyness/lyn-agent'
-import ToolResultPruner from '@lyness/lyn-compaction-tool-result-pruner'
+} from '@deepseek-ai/dsh-llm'
+import SessionStore, { Session, SessionId, SessionSeq } from '@deepseek-ai/dsh-session'
+import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
+import TokenMeter from '@deepseek-ai/dsh-token-meter'
+import { agentEvents, type Agent, type RequestErrorAction } from '@deepseek-ai/dsh-agent'
+import ToolResultPruner from '@deepseek-ai/dsh-compaction-tool-result-pruner'
 
-declare module '@lyness/lyn-llm' {
+declare module '@deepseek-ai/dsh-llm' {
   interface MessageSourceMap {
     'test': { kind: 'test' } & ContextFormed
   }

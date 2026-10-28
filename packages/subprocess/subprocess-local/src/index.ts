@@ -5,7 +5,7 @@
  * phase force-stops any ranges the service still owns. It has no config: every
  * disposition and limit arrives on the spec, so deployment-varying choices
  * stay with the caller's config (the bash executor's, the LSP host's, …).
- * @module @lyness/lyn-subprocess-local
+ * @module @deepseek-ai/dsh-subprocess-local
  */
 
 import { constants } from 'node:fs'
@@ -13,18 +13,18 @@ import { access, stat } from 'node:fs/promises'
 import { userInfo } from 'node:os'
 import { delimiter, extname, isAbsolute, resolve } from 'node:path'
 import type { Duplex } from 'node:stream'
-import { Context } from '@lyness/cordis'
+import { Context } from '@deepseek-ai/cordis'
 import type * as NodePty from 'node-pty'
 import type { IPtyForkOptions } from 'node-pty'
-import { createLazyRequire } from '@lyness/lyn-lazy-require'
-import { SubprocessRuntime, SubprocessExecutableNotFoundError } from '@lyness/lyn-subprocess'
+import { createLazyRequire } from '@deepseek-ai/dsh-lazy-require'
+import { SubprocessRuntime, SubprocessExecutableNotFoundError } from '@deepseek-ai/dsh-subprocess'
 import type {
   SubprocessHandle,
   SubprocessSpawnSpec,
   SubprocessTerminalHandle,
   SubprocessTerminalEnvironment,
   SubprocessTerminalSpawnSpec,
-} from '@lyness/lyn-subprocess'
+} from '@deepseek-ai/dsh-subprocess'
 import {
   bindManagedProcess,
   childEnv,

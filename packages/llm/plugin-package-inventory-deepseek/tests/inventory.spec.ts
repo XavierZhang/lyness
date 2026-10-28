@@ -3,16 +3,16 @@ import { mkdtemp, mkdir, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
-import { Context } from '@lyness/cordis'
-import Loader from '@lyness/cordis-plugin-loader'
-import Include from '@lyness/cordis-plugin-include'
-import AgentRegistry, { type Agent } from '@lyness/lyn-agent'
-import { SessionId } from '@lyness/lyn-session'
-import SessionProjectionRegistry from '@lyness/lyn-session-projection'
-import { createScope } from '@lyness/lyn-scope'
-import AgentPresets from '@lyness/lyn-agent-preset-registry'
-import { PluginPackages } from '@lyness/lyn-app-boot'
-import DeepSeekLlmApiExtensionRegistry from '@lyness/lyn-deepseek-llm-api-extensions'
+import { Context } from '@deepseek-ai/cordis'
+import Loader from '@deepseek-ai/cordis-plugin-loader'
+import Include from '@deepseek-ai/cordis-plugin-include'
+import AgentRegistry, { type Agent } from '@deepseek-ai/dsh-agent'
+import { SessionId } from '@deepseek-ai/dsh-session'
+import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
+import { createScope } from '@deepseek-ai/dsh-scope'
+import AgentPresets from '@deepseek-ai/dsh-agent-preset-registry'
+import { PluginPackages } from '@deepseek-ai/dsh-app-boot'
+import DeepSeekLlmApiExtensionRegistry from '@deepseek-ai/dsh-deepseek-llm-api-extensions'
 import * as PluginInventory from '../src/index.ts'
 
 const contexts: Context[] = []
@@ -40,7 +40,7 @@ async function packagePlugin(
 async function harness(
   enabled?: boolean, packageService = false,
 ): Promise<{ ctx: Context; root: string; disposeInventory: () => Promise<void> }> {
-  const root = await mkdtemp(join(tmpdir(), 'lyn-plugin-packages-'))
+  const root = await mkdtemp(join(tmpdir(), 'dsh-plugin-packages-'))
   roots.push(root)
   const ctx = new Context()
   contexts.push(ctx)

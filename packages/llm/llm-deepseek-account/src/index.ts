@@ -1,11 +1,11 @@
 /** Account-token authentication and discovery for the DeepSeek account route. */
-import type {} from '@lyness/cordis-plugin-loader'
-import type { Context } from '@lyness/cordis'
-import { ACCOUNT_QUOTA_EXCEEDED_CODE, LlmError, QUOTA_EXCEEDED_CODE } from '@lyness/lyn-llm'
-import type {} from '@lyness/lyn-deepseek-account'
-import { launchEnvironmentOf } from '@lyness/lyn-launch-environment'
-import { plainOptions, resolveAdapterOptions, registerDeepSeekProvider, catalogModelInfo } from '@lyness/lyn-llm-deepseek'
-import type { DeepSeekRequestAuth, ResolvedDeepSeekOptions } from '@lyness/lyn-llm-deepseek'
+import type {} from '@deepseek-ai/cordis-plugin-loader'
+import type { Context } from '@deepseek-ai/cordis'
+import { ACCOUNT_QUOTA_EXCEEDED_CODE, LlmError, QUOTA_EXCEEDED_CODE } from '@deepseek-ai/dsh-llm'
+import type {} from '@deepseek-ai/dsh-deepseek-account'
+import { launchEnvironmentOf } from '@deepseek-ai/dsh-launch-environment'
+import { plainOptions, resolveAdapterOptions, registerDeepSeekProvider, catalogModelInfo } from '@deepseek-ai/dsh-llm-deepseek'
+import type { DeepSeekRequestAuth, ResolvedDeepSeekOptions } from '@deepseek-ai/dsh-llm-deepseek'
 
 import { Config } from './config.ts'
 export { Config } from './config.ts'
@@ -22,7 +22,7 @@ export function apply(ctx: Context, config: Config): void {
     const token = await account?.resolveToken(connection.baseURL)
     if (token === undefined) throw new LlmError('Sign in to DeepSeek to use the account provider. The request destination must allow account authentication.', 'ACCOUNT_SIGN_IN_REQUIRED')
     return {
-      headers: { 'x-lyn-auth-token': token },
+      headers: { 'x-dsh-auth-token': token },
       onRequestError: async (error) => {
         if (!(error instanceof LlmError)) return error
         if (error.code === QUOTA_EXCEEDED_CODE) {

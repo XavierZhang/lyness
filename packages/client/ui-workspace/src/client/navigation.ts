@@ -1,21 +1,21 @@
 /** Workspace archive and directory UI capability. */
 
-import { Service, type Context } from '@lyness/cordis'
-import type { ClientRemote, DirectoryListing, RemoteFailure } from '@lyness/lyn-api-remotes/client'
+import { Service, type Context } from '@deepseek-ai/cordis'
+import type { ClientRemote, DirectoryListing, RemoteFailure } from '@deepseek-ai/dsh-api-remotes/client'
 import type {
   ISessions,
   SessionCreateError,
   SessionReference,
   SessionTarget,
   SessionListState,
-} from '@lyness/lyn-api-session-controller/client'
-import { createSnapshotStore } from '@lyness/lyn-client-store'
-import type { SubagentAddress } from '@lyness/lyn-subagent/client'
+} from '@deepseek-ai/dsh-api-session-controller/client'
+import { createSnapshotStore } from '@deepseek-ai/dsh-client-store'
+import type { SubagentAddress } from '@deepseek-ai/dsh-subagent/client'
 import type {
   IWorkspaces, WorkspaceId, WorkspaceSnapshot, WorkspaceView,
-} from '@lyness/lyn-api-workspace-controller/client'
-import type { SessionId } from '@lyness/lyn-session/types'
-import type {} from '@lyness/lyn-client-ui-layout/client'
+} from '@deepseek-ai/dsh-api-workspace-controller/client'
+import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import type {} from '@deepseek-ai/dsh-client-ui-layout/client'
 import type { RowToast } from './contract/slots.ts'
 import { pinOrderAccounts, pinOrderSource } from './pin-order.ts'
 import type { WorkspaceViewStoreActions } from './stores.ts'
@@ -124,7 +124,7 @@ export interface UiWorkspace {
   createDirectory(path: string, name: string): Promise<string>
 }
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     /** Cross-Controller Workspace navigation and directory UI capability. */
     uiWorkspace: UiWorkspace
@@ -146,7 +146,7 @@ class UiWorkspaceService extends Service implements UiWorkspace {
   private readonly connecting = new Map<WorkspaceId, Promise<SessionId>>()
   private readonly lifetime = new AbortController()
   private readonly selection = createSnapshotStore<MainSelection>(
-    {}, { persist: { name: 'lyn.sessions.current' } },
+    {}, { persist: { name: 'dsh.sessions.current' } },
   )
   private mainReference: SessionReference | undefined
 

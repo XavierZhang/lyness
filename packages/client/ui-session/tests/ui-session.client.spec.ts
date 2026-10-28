@@ -1,4 +1,4 @@
-import { Context } from '@lyness/cordis'
+import { Context } from '@deepseek-ai/cordis'
 import type {
   AgentContext,
   ISessions,
@@ -7,11 +7,11 @@ import type {
   SessionReference,
   SessionRetainInfo,
   SessionSnapshot,
-} from '@lyness/lyn-api-session-controller/client'
-import { MutableSessionEventSource } from '@lyness/lyn-api-session-controller/client'
-import { createSnapshotStore } from '@lyness/lyn-client-store'
-import type { HostObservable, RootStandardSourceContribution } from '@lyness/lyn-client-ui-slots'
-import type { SessionId } from '@lyness/lyn-session/types'
+} from '@deepseek-ai/dsh-api-session-controller/client'
+import { MutableSessionEventSource } from '@deepseek-ai/dsh-api-session-controller/client'
+import { createSnapshotStore } from '@deepseek-ai/dsh-client-store'
+import type { HostObservable, RootStandardSourceContribution } from '@deepseek-ai/dsh-client-ui-slots'
+import type { SessionId } from '@deepseek-ai/dsh-session/types'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import {
   apply,

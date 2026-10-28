@@ -2,27 +2,27 @@ import { mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterAll, describe, expect, it, vi } from 'vitest'
-import { Context } from '@lyness/cordis'
-import { ToolCallId } from '@lyness/lyn-llm'
-import { ShellExecutor } from '@lyness/lyn-shell'
-import type { ShellExecRequest, ShellExecSpec, ShellExecution, ShellProcess, ShellRunResult } from '@lyness/lyn-shell'
-import SystemPrompt from '@lyness/lyn-system-prompt'
-import ToolRuntime, { TOOL_ABORTED, TOOL_ABORTED_BEFORE_DISPATCH } from '@lyness/lyn-tools'
-import AgentRegistry from '@lyness/lyn-agent'
-import type { Agent } from '@lyness/lyn-agent'
-import { turnBoundaryProjectionDefinition } from '@lyness/lyn-agent-loop'
-import { SessionId } from '@lyness/lyn-session'
-import LocalJobRegistry from '@lyness/lyn-jobs-local'
-import * as ToolJobs from '@lyness/lyn-tool-jobs'
-import ApprovalService from '@lyness/lyn-user-approval'
-import type { ApprovalOutcome } from '@lyness/lyn-user-approval'
-import { LocalBashExecutor } from '@lyness/lyn-bash-local'
-import LocalSubprocessRuntime from '@lyness/lyn-subprocess-local'
-import SandboxPolicyService from '@lyness/lyn-sandbox-policy'
-import { escalationHintMarker, sandboxDenialMarker } from '@lyness/lyn-sandbox'
-import SessionProjectionRegistry from '@lyness/lyn-session-projection'
-import * as ToolBash from '@lyness/lyn-tool-bash'
-import * as BashEnvPlugin from '@lyness/lyn-shell-env'
+import { Context } from '@deepseek-ai/cordis'
+import { ToolCallId } from '@deepseek-ai/dsh-llm'
+import { ShellExecutor } from '@deepseek-ai/dsh-shell'
+import type { ShellExecRequest, ShellExecSpec, ShellExecution, ShellProcess, ShellRunResult } from '@deepseek-ai/dsh-shell'
+import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
+import ToolRuntime, { TOOL_ABORTED, TOOL_ABORTED_BEFORE_DISPATCH } from '@deepseek-ai/dsh-tools'
+import AgentRegistry from '@deepseek-ai/dsh-agent'
+import type { Agent } from '@deepseek-ai/dsh-agent'
+import { turnBoundaryProjectionDefinition } from '@deepseek-ai/dsh-agent-loop'
+import { SessionId } from '@deepseek-ai/dsh-session'
+import LocalJobRegistry from '@deepseek-ai/dsh-jobs-local'
+import * as ToolJobs from '@deepseek-ai/dsh-tool-jobs'
+import ApprovalService from '@deepseek-ai/dsh-user-approval'
+import type { ApprovalOutcome } from '@deepseek-ai/dsh-user-approval'
+import { LocalBashExecutor } from '@deepseek-ai/dsh-bash-local'
+import LocalSubprocessRuntime from '@deepseek-ai/dsh-subprocess-local'
+import SandboxPolicyService from '@deepseek-ai/dsh-sandbox-policy'
+import { escalationHintMarker, sandboxDenialMarker } from '@deepseek-ai/dsh-sandbox'
+import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
+import * as ToolBash from '@deepseek-ai/dsh-tool-bash'
+import * as BashEnvPlugin from '@deepseek-ai/dsh-shell-env'
 import { processOutcome } from '../src/background.ts'
 import { renderJobRead, renderResult } from '../src/render.ts'
 
@@ -31,7 +31,7 @@ const silentReader = { readFrom: (fromByte: number) => ({ text: '', nextOffset: 
 
 const testToolSignal = new AbortController().signal
 
-const spillDir = mkdtempSync(join(tmpdir(), 'lyn-tool-bash-spec-'))
+const spillDir = mkdtempSync(join(tmpdir(), 'dsh-tool-bash-spec-'))
 
 afterAll(() => {
   rmSync(spillDir, { recursive: true, force: true })
@@ -322,7 +322,7 @@ describe('bash tool', () => {
 
   it('surfaces spawn failures as isError', async () => {
     const ctx = await setup()
-    const result = await call(ctx, 'bash', { command: 'true', description: 'test command', workdir: '/nonexistent-lyn' })
+    const result = await call(ctx, 'bash', { command: 'true', description: 'test command', workdir: '/nonexistent-dsh' })
     expect(result.isError).toBe(true)
     expect(text(result)).toMatch(/ENOENT/)
   })
@@ -597,7 +597,7 @@ describe('background execution through the job runtime', () => {
     const ctx = await setup() // no LocalJobRegistry / ToolJobs
     const result = await call(ctx, 'bash', { command: 'sleep 60', description: 'test command', run_in_background: true })
     expect(result.isError).toBe(true)
-    expect(text(result)).toContain('background jobs unavailable: load @lyness/lyn-jobs and @lyness/lyn-tool-jobs')
+    expect(text(result)).toContain('background jobs unavailable: load @deepseek-ai/dsh-jobs and @deepseek-ai/dsh-tool-jobs')
   })
 
   it('a pre-aborted call is skipped before the process starts', async () => {
@@ -1248,7 +1248,7 @@ describe('tool-owned UI presentation (presentCall / presentResult)', () => {
 })
 
 describe('the model-facing bash tool builds its request from named args only (no {...args} forward)', () => {
-  const recordingLynHome = join(spillDir, 'lyn-home')
+  const recordingDshHome = join(spillDir, 'dsh-home')
 
   /**
    * Records every {@link ShellExecRequest} the consumer hands to `resolve()`, so a
@@ -1259,7 +1259,7 @@ describe('the model-facing bash tool builds its request from named args only (no
    * future refactor that blindly forwards `...args` — which would silently thread
    * model input into the post-scrub `env` merge or per-run capture budget — NOT
    * to defend a trust boundary
-   * (the credential scrub in lyn-bash-local is the security control; see the
+   * (the credential scrub in dsh-bash-local is the security control; see the
    * bash-stdin-env Agent Note). Foreground `run()` returns a canned result; `start()`
    * hands back an already-settled fake handle so the task registration completes.
    */
@@ -1276,7 +1276,7 @@ describe('the model-facing bash tool builds its request from named args only (no
         ...request.signal ? { signal: request.signal } : {},
         ...request.stdin !== undefined ? { stdin: request.stdin } : {},
         ...request.env !== undefined ? { env: request.env } : {},
-        ...request.lynEnv !== undefined ? { lynEnv: request.lynEnv } : {},
+        ...request.dshEnv !== undefined ? { dshEnv: request.dshEnv } : {},
         sandboxPolicy: request.sandboxPolicy,
       }
     }
@@ -1303,7 +1303,7 @@ describe('the model-facing bash tool builds its request from named args only (no
     await ctx.plugin(AgentRegistry)
     await ctx.plugin(LocalJobRegistry)
     await ctx.plugin(ToolJobs)
-    await ctx.plugin(BashEnvPlugin, { lynHome: recordingLynHome })
+    await ctx.plugin(BashEnvPlugin, { dshHome: recordingDshHome })
     await ctx.plugin(RecordingBashExecutor)
     await ctx.plugin(ToolBash)
     return { ctx, bash: ctx.shell as RecordingBashExecutor }
@@ -1312,13 +1312,13 @@ describe('the model-facing bash tool builds its request from named args only (no
   it('describes the managed harness environment namespace to the model', async () => {
     const { ctx } = await setupRecording()
     const description = ctx.tools.get('bash')?.description ?? ''
-    expect(description).toContain('$LYNESS_*')
+    expect(description).toContain('$DSH_*')
   })
 
   it('injects built-ins and the stable session id into a foreground request', async () => {
     const { ctx, bash } = await setupRecording()
     const agent = await registerFakeAgent(ctx, 'request-fg', () => undefined)
-    const ambient = process.env.LYNESS_SESSION_ID
+    const ambient = process.env.DSH_SESSION_ID
 
     await ctx.tools.execute({
       signal: testToolSignal,
@@ -1328,12 +1328,12 @@ describe('the model-facing bash tool builds its request from named args only (no
       agent,
     })
 
-    expect(bash.requests[0]?.lynEnv).toEqual({
-      LYNESS_HOME: recordingLynHome,
-      LYNESS_SESSION_ID: 'request-fg',
-      LYNESS_SHELL: '1',
+    expect(bash.requests[0]?.dshEnv).toEqual({
+      DSH_HOME: recordingDshHome,
+      DSH_SESSION_ID: 'request-fg',
+      DSH_SHELL: '1',
     })
-    expect(process.env.LYNESS_SESSION_ID).toBe(ambient)
+    expect(process.env.DSH_SESSION_ID).toBe(ambient)
   })
 
   it('injects the same trusted variables into a background request without forwarding model env', async () => {
@@ -1348,16 +1348,16 @@ describe('the model-facing bash tool builds its request from named args only (no
         command: 'sleep 1',
         description: 'run command',
         run_in_background: true,
-        env: { LYNESS_SESSION_ID: 'spoofed' },
+        env: { DSH_SESSION_ID: 'spoofed' },
       },
       agent,
     })
 
     expect(bash.requests[0]?.env).toBeUndefined()
-    expect(bash.requests[0]?.lynEnv).toEqual({
-      LYNESS_HOME: recordingLynHome,
-      LYNESS_SESSION_ID: 'request-bg',
-      LYNESS_SHELL: '1',
+    expect(bash.requests[0]?.dshEnv).toEqual({
+      DSH_HOME: recordingDshHome,
+      DSH_SESSION_ID: 'request-bg',
+      DSH_SHELL: '1',
     })
   })
 
@@ -1376,16 +1376,16 @@ describe('the model-facing bash tool builds its request from named args only (no
       })
     }
 
-    expect(bash.requests.map(request => request.lynEnv)).toEqual([
+    expect(bash.requests.map(request => request.dshEnv)).toEqual([
       {
-        LYNESS_HOME: recordingLynHome,
-        LYNESS_SESSION_ID: 'request-parent',
-        LYNESS_SHELL: '1',
+        DSH_HOME: recordingDshHome,
+        DSH_SESSION_ID: 'request-parent',
+        DSH_SHELL: '1',
       },
       {
-        LYNESS_HOME: recordingLynHome,
-        LYNESS_SESSION_ID: 'request-child',
-        LYNESS_SHELL: '1',
+        DSH_HOME: recordingDshHome,
+        DSH_SESSION_ID: 'request-child',
+        DSH_SHELL: '1',
       },
     ])
   })

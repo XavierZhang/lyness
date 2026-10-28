@@ -3,7 +3,7 @@ description: "Account consumers read stored login state, start or cancel a brows
 kind: "package-reference"
 ---
 
-# @lyness/lyn-deepseek-account
+# @deepseek-ai/dsh-deepseek-account
 
 English | [中文](README.zh.md)
 

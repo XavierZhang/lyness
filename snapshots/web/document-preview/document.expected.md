@@ -37,7 +37,7 @@
 ## PDF
 
 - Viewer menu hidden: true
-- Worker: lyn-pdf
+- Worker: dsh-pdf
 - Continuous pages: 2
 - Zoom reveal: hidden -> bottom hover -> delayed hidden
 - Zoom modes: fit width -> 100% -> 150% -> fit width
@@ -79,7 +79,7 @@
 ## Office unavailable
 
 - DOC, DOCX, PPT, PPTX viewer menus: 0 | 0 | 0 | 0
-- Guidance: Read failed: Office previews are unavailable. Enable the document preview service on the computer running lyness.
+- Guidance: Read failed: Office previews are unavailable. Enable the document preview service on the computer running DeepSeek Harness.
 - Binary text shown: false
 - Plain-text option and viewer picker: hidden
 

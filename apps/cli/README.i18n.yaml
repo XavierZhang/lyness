@@ -2,21 +2,21 @@
 # section, a hash of its English and Chinese blocks outside code blocks and generated regions.
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write apps/cli/README.md
-/lyness-lyn:
+/deepseek-harness-dsh:
   en: f0beb9619d6d2e4b
   zh: e61714bbadb0b4f4
-/lyness-lyn/entry-modes:
+/deepseek-harness-dsh/entry-modes:
   en: f07b8f1e416c255d
   zh: f5e6d8d546272742
-/lyness-lyn/app-arguments:
+/deepseek-harness-dsh/app-arguments:
   en: f09790fad7fbfc52
   zh: 9ef1e4527403fb4d
-/lyness-lyn/profiles:
+/deepseek-harness-dsh/profiles:
   en: 2a212cffd2c08092
   zh: 60f69be7f6c71814
-/lyness-lyn/optional-overlays:
+/deepseek-harness-dsh/optional-overlays:
   en: 41e84271d0ecd153
   zh: ea6e3846ee419dfb
-/lyness-lyn/development:
+/deepseek-harness-dsh/development:
   en: 9df798f0ec805af3
   zh: eb59ef92c4ba0558

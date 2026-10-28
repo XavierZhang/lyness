@@ -6,7 +6,7 @@
 import { describe, expect, it, vi } from 'vitest'
 import { DesktopExecutor, failureReason, unknownCapability } from '../src/executor.ts'
 import type { DesktopReply, DesktopRequest } from '../src/types.ts'
-import { brandString } from '@lyness/lyn-brand'
+import { brandString } from '@deepseek-ai/dsh-brand'
 import type { CallId } from '../src/types.ts'
 
 const CALL = brandString<CallId>('c1')

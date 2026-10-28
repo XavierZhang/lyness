@@ -5,60 +5,60 @@
 /:
   en: f172767891b86bf4
   zh: e66e1cc8c96cc259
-/lyness-lyn-sandbox-local:
+/deepseek-harness-dsh-sandbox-local:
   en: ceba6805c908fe84
   zh: feff3d4bc3fbec67
-/lyness-lyn-sandbox-local/summary:
+/deepseek-harness-dsh-sandbox-local/summary:
   en: 192e00835bc3c93f
   zh: 739b1d1d80f36080
-/lyness-lyn-sandbox-local/table-of-contents:
+/deepseek-harness-dsh-sandbox-local/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/lyness-lyn-sandbox-local/use-this-package:
+/deepseek-harness-dsh-sandbox-local/use-this-package:
   en: 3759ad594d0a27fb
   zh: 722010d952b9f87f
-/lyness-lyn-sandbox-local/use-this-package/when-to-choose-it:
+/deepseek-harness-dsh-sandbox-local/use-this-package/when-to-choose-it:
   en: 722ad601000b13c7
   zh: d2723f3743fe160b
-/lyness-lyn-sandbox-local/use-this-package/minimal-configuration:
+/deepseek-harness-dsh-sandbox-local/use-this-package/minimal-configuration:
   en: 4a2bd0dffcee7ebb
   zh: db15e509afdea4e6
-/lyness-lyn-sandbox-local/use-this-package/confined-execution-and-enforcement:
+/deepseek-harness-dsh-sandbox-local/use-this-package/confined-execution-and-enforcement:
   en: 7282c9ec77fd6f01
   zh: 10e385a9489105e3
-/lyness-lyn-sandbox-local/use-this-package/failures-and-recovery:
+/deepseek-harness-dsh-sandbox-local/use-this-package/failures-and-recovery:
   en: 3808edb37dde5761
   zh: a8fef8a4fd33e364
-/lyness-lyn-sandbox-local/understand-the-implementation:
+/deepseek-harness-dsh-sandbox-local/understand-the-implementation:
   en: 15db6ec303151ccc
   zh: 91f62c1f64192f92
-/lyness-lyn-sandbox-local/understand-the-implementation/runner-selection:
+/deepseek-harness-dsh-sandbox-local/understand-the-implementation/runner-selection:
   en: f0c44248c2ca6acc
   zh: 554e9f706671d222
-/lyness-lyn-sandbox-local/understand-the-implementation/platform-profiles:
+/deepseek-harness-dsh-sandbox-local/understand-the-implementation/platform-profiles:
   en: a40f611b41a5148b
   zh: b1a8b3ade9c4dd84
-/lyness-lyn-sandbox-local/understand-the-implementation/denial-and-runner-failure-dialects:
+/deepseek-harness-dsh-sandbox-local/understand-the-implementation/denial-and-runner-failure-dialects:
   en: 62adfc9229c656cc
   zh: 11b1534b6d61e5de
-/lyness-lyn-sandbox-local/understand-the-implementation/source-map:
+/deepseek-harness-dsh-sandbox-local/understand-the-implementation/source-map:
   en: 8ab5bcc8dd97df3c
   zh: ee7a6a237a142cbd
-/lyness-lyn-sandbox-local/further-exploration:
+/deepseek-harness-dsh-sandbox-local/further-exploration:
   en: 28cf45ff7ec4422c
   zh: ed00b96d57e54e5f
-/lyness-lyn-sandbox-local/model-experience:
+/deepseek-harness-dsh-sandbox-local/model-experience:
   en: 34aa2db5e52b4ac1
   zh: cc47626ea1dedc90
-/lyness-lyn-sandbox-local/model-experience/kv-cache-effect:
+/deepseek-harness-dsh-sandbox-local/model-experience/kv-cache-effect:
   en: e290ccc9b3c92c08
   zh: 469589ac12cdadab
-/lyness-lyn-sandbox-local/known-limitations-and-deferred-work:
+/deepseek-harness-dsh-sandbox-local/known-limitations-and-deferred-work:
   en: b2a6a72e340bc620
   zh: 9d9b2894850a131d
-/lyness-lyn-sandbox-local/known-limitations-and-deferred-work/dev-note:
+/deepseek-harness-dsh-sandbox-local/known-limitations-and-deferred-work/dev-note:
   en: cc273320f6a1beaf
   zh: 5c57a312ddc50651
-/lyness-lyn-sandbox-local/known-limitations-and-deferred-work/dev-note/future-environment-coherent-groups:
+/deepseek-harness-dsh-sandbox-local/known-limitations-and-deferred-work/dev-note/future-environment-coherent-groups:
   en: 1f30e05aeb219f61
   zh: 3ba4fdf5c1b33cd3

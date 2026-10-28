@@ -7,10 +7,10 @@
  * that settles before that publishes to nobody rather than failing, which is
  * what lets the plugin start a read without waiting for a render.
  *
- * @module @lyness/lyn-client-ui-settings-sign-in-channels/client/binding
+ * @module @deepseek-ai/dsh-client-ui-settings-sign-in-channels/client/binding
  */
 
-import type { ConfiguredChannelView } from '@lyness/lyn-api-sign-in-channel-controller/types'
+import type { ConfiguredChannelView } from '@deepseek-ai/dsh-api-sign-in-channel-controller/types'
 import type { ChannelsOperations, ChannelsSink } from './operations.ts'
 import type { ChannelsRead } from './store.ts'
 import type { ChannelsSectionInjected } from './ChannelsSection.tsx'

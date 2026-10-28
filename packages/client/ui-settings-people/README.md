@@ -3,13 +3,13 @@ description: "The Settings section where an administrator maintains who may use 
 kind: "package-reference"
 ---
 
-# @lyness/lyn-client-ui-settings-people
+# @deepseek-ai/dsh-client-ui-settings-people
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`lyn-client-ui-settings-people` adds one Settings section: who may use this deployment, what each of them may do, and which directory identity signs in as them. An administrator adds somebody, gives them a standing, and admits the identity that authenticates them; a person the installation's own files name is shown without an edit, because the next boot reads that file again. Adding somebody admits nobody until an identity is bound to them, and the section says so on the row.
+`dsh-client-ui-settings-people` adds one Settings section: who may use this deployment, what each of them may do, and which directory identity signs in as them. An administrator adds somebody, gives them a standing, and admits the identity that authenticates them; a person the installation's own files name is shown without an edit, because the next boot reads that file again. Adding somebody admits nobody until an identity is bound to them, and the section says so on the row.
 
 ## Table of Contents
 
@@ -29,7 +29,7 @@ The Web bundle mounts it beside the other Settings sections:
 
 ```yaml
 - id: ui-settings-people
-  name: '@lyness/lyn-client-ui-settings-people'
+  name: '@deepseek-ai/dsh-client-ui-settings-people'
 ```
 
 There is nothing else to configure. The section reads `remote.people` and `remote.signInChannels` when it opens, and renders one of four things: the roster and the forms, a notice that this deployment maintains no directory of its own, a notice that the caller may not change it, or a failure with a retry.
@@ -54,9 +54,9 @@ There is nothing else to configure. The section reads `remote.people` and `remot
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`lyn-api-people-controller`](../../api/people-controller/README.md) — the namespace this section calls, and what each refusal means.
-- [`lyn-managed-people`](../../identity/managed-people/README.md) — the directory behind it, and the rules that decide who may change whom.
-- [`lyn-client-ui-settings-sign-in-channels`](../ui-settings-sign-in-channels/README.md) — where the channels a binding names are configured.
+- [`dsh-api-people-controller`](../../api/people-controller/README.md) — the namespace this section calls, and what each refusal means.
+- [`dsh-managed-people`](../../identity/managed-people/README.md) — the directory behind it, and the rules that decide who may change whom.
+- [`dsh-client-ui-settings-sign-in-channels`](../ui-settings-sign-in-channels/README.md) — where the channels a binding names are configured.
 
 -----
 

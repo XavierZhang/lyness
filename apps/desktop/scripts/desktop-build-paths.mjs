@@ -18,8 +18,8 @@ export function resolveDesktopBuildTarget(
   hostPlatform = process.platform,
   hostArch = process.arch,
 ) {
-  const platform = env.LYNESS_DESKTOP_TARGET_PLATFORM ?? env.npm_config_platform ?? hostPlatform
-  const arch = env.LYNESS_DESKTOP_TARGET_ARCH ?? env.npm_config_arch
+  const platform = env.DSH_DESKTOP_TARGET_PLATFORM ?? env.npm_config_platform ?? hostPlatform
+  const arch = env.DSH_DESKTOP_TARGET_ARCH ?? env.npm_config_arch
     ?? (platform === 'win32' || platform === 'win' ? 'x64' : hostArch)
   const os = platform === 'darwin' ? 'mac' : platform === 'win32' || platform === 'win' ? 'win' : platform
   const target = `${os}-${arch}`
@@ -38,7 +38,7 @@ function assertSupportedTarget(target) {
 /**
  * Return the mutable preparation and artifact directories owned by one release target.
  * @param {'mac-arm64' | 'mac-x64' | 'win-x64'} target - Supported Desktop target name.
- * @returns {{ root: string, artifacts: string, unsignedArtifacts: string, runtime: string, packageSet: string, lyn: string, lynPnpm: string, electron: string, packedLyn: string, packedVendor: string, packedLandlock: string, downloads: string }} Target paths plus the shared immutable download cache.
+ * @returns {{ root: string, artifacts: string, unsignedArtifacts: string, runtime: string, packageSet: string, dsh: string, dshPnpm: string, electron: string, packedDsh: string, packedVendor: string, packedLandlock: string, downloads: string }} Target paths plus the shared immutable download cache.
  */
 export function desktopTargetBuildPaths(target) {
   assertSupportedTarget(target)
@@ -50,10 +50,10 @@ export function desktopTargetBuildPaths(target) {
     unsignedArtifacts: join(root, 'unsigned-artifacts'),
     runtime: join(root, 'runtime'),
     packageSet: join(root, 'package-set'),
-    lyn: join(root, 'lyn'),
-    lynPnpm: join(root, 'lyn-pnpm'),
+    dsh: join(root, 'dsh'),
+    dshPnpm: join(root, 'dsh-pnpm'),
     electron: join(root, 'electron'),
-    packedLyn: join(packed, 'lyn'),
+    packedDsh: join(packed, 'dsh'),
     packedVendor: join(packed, 'vendor'),
     packedLandlock: join(packed, 'landlock'),
     downloads: join(BUILD_ROOT, 'downloads'),

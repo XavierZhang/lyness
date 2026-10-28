@@ -1,12 +1,12 @@
 /** Host-wide durable reminders and shared human/model management. */
 import { randomUUID } from 'node:crypto'
-import z from '@lyness/schemastery'
-import { Context, Service } from '@lyness/cordis'
-import { TypertRemoteService, Remote } from '@lyness/lyn-typert-protocol'
-import type { Domain } from '@lyness/lyn-storage-domain'
-import type {} from '@lyness/lyn-api-session-controller'
-import type { SessionId } from '@lyness/lyn-session'
-import type { SessionActivity } from '@lyness/lyn-workspace'
+import z from '@deepseek-ai/schemastery'
+import { Context, Service } from '@deepseek-ai/cordis'
+import { TypertRemoteService, Remote } from '@deepseek-ai/dsh-typert-protocol'
+import type { Domain } from '@deepseek-ai/dsh-storage-domain'
+import type {} from '@deepseek-ai/dsh-api-session-controller'
+import type { SessionId } from '@deepseek-ai/dsh-session'
+import type { SessionActivity } from '@deepseek-ai/dsh-workspace'
 import { ScheduleRuntime } from './runtime.ts'
 import { registerScheduleTools } from './tools.ts'
 import { scheduleDomain } from './storage.ts'
@@ -62,7 +62,7 @@ export {
 } from './domain.ts'
 
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     /** Durable Host-wide reminder management. */
     schedule: ScheduleService
@@ -165,8 +165,8 @@ export class ScheduleService extends TypertRemoteService {
       return cleanup
     })
     const registered = new WeakSet<object>()
-    const attached = new Map<import('@lyness/lyn-agent').Agent, () => Promise<void>>()
-    const attach = (agent: import('@lyness/lyn-agent').Agent): void => {
+    const attached = new Map<import('@deepseek-ai/dsh-agent').Agent, () => Promise<void>>()
+    const attach = (agent: import('@deepseek-ai/dsh-agent').Agent): void => {
       if (this.stopping || registered.has(agent) || !ctx.agents.roots().includes(agent)) return
       registered.add(agent)
       // The plugin-scope effect is what tears the Agent-scoped registration down when this

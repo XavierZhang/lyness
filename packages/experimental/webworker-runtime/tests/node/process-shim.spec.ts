@@ -17,18 +17,18 @@ afterEach(() => {
 
 describe('process shim', () => {
   it('publishes cwd, env, and version zero for the loader probe', () => {
-    const shim = installProcessGlobal({ cwd: '/lyn', env: { LYNESS_HOME: '/lyn/home' } })
-    expect(shim.cwd()).toBe('/lyn')
-    expect(shim.env.LYNESS_HOME).toBe('/lyn/home')
-    expect(shim.title).toBe('lyn-webworker')
+    const shim = installProcessGlobal({ cwd: '/dsh', env: { DSH_HOME: '/dsh/home' } })
+    expect(shim.cwd()).toBe('/dsh')
+    expect(shim.env.DSH_HOME).toBe('/dsh/home')
+    expect(shim.title).toBe('dsh-webworker')
     // "0.0.0" keeps the vendored Loader off Node internals so the worker owns
     // the module seam.
     expect(shim.versions.node).toBe('0.0.0')
   })
 
   it('exposes an executable identity without enabling Node programs', () => {
-    const shim = installProcessGlobal({ cwd: '/lyn', env: {} })
-    expect(shim.execPath).toBe('/lyn/bin/node')
+    const shim = installProcessGlobal({ cwd: '/dsh', env: {} })
+    expect(shim.execPath).toBe('/dsh/bin/node')
     expect(spawnSync(shim.execPath, ['--eval', 'throw new Error("must not execute")']).error?.code).toBe('ENOENT')
   })
 
@@ -39,14 +39,14 @@ describe('process shim', () => {
     // same object every time.
     const factory = (): unknown => fs
     const vfs = new MemoryVfs()
-    vfs.seedDirectory('/lyn')
+    vfs.seedDirectory('/dsh')
     const loader = new WorkerModuleLoader({
       vfs,
-      root: '/lyn',
+      root: '/dsh',
       staticModules: { 'node:fs': factory, 'fs': factory },
     })
     setActiveModuleLoader(loader)
-    const shim = installProcessGlobal({ cwd: '/lyn', env: {} })
+    const shim = installProcessGlobal({ cwd: '/dsh', env: {} })
     // The shim calls the factory: a caller receives the module, never the thunk.
     expect(shim.getBuiltinModule('fs')).toBe(fs)
     expect(shim.getBuiltinModule('node:fs')).toBe(fs)

@@ -14,10 +14,10 @@
  * would report the platform, not the code. So does a suite whose adapter
  * routes through a model catalog that describes the official ids alone, since
  * another platform's id has no route there at all.
- * @module @lyness/lyn-e2e-target
+ * @module @deepseek-ai/dsh-e2e-target
  */
 
-import { MODELS_ENV, PUBLIC_BASE_URL, parseModelIds } from '@lyness/lyn-llm-deepseek'
+import { MODELS_ENV, PUBLIC_BASE_URL, parseModelIds } from '@deepseek-ai/dsh-llm-deepseek'
 
 /**
  * The model the suites call when the environment names none.

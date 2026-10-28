@@ -1,18 +1,18 @@
 /**
  * Continuation integration markers and host adapters outside the public
  * Service Definition and model-facing Agent messaging contract.
- * @module @lyness/lyn-subagent/internal
+ * @module @deepseek-ai/dsh-subagent/internal
  */
 
-import type { Agent } from '@lyness/lyn-agent'
-import type { ContentBlock, MessageId, MessageSource } from '@lyness/lyn-llm'
-import type { SessionId } from '@lyness/lyn-session'
-import type { ToolDefinition } from '@lyness/lyn-tools'
+import type { Agent } from '@deepseek-ai/dsh-agent'
+import type { ContentBlock, MessageId, MessageSource } from '@deepseek-ai/dsh-llm'
+import type { SessionId } from '@deepseek-ai/dsh-session'
+import type { ToolDefinition } from '@deepseek-ai/dsh-tools'
 import type SubagentRuntime from './index.ts'
 import type { SubagentDelivery } from './inbox.ts'
 
 /** Process-stable identity carried only by the standard adjacent-Agent messaging tool. */
-export const adjacentAgentSendMessageTool = Symbol.for('lyn.subagent.adjacentAgentSendMessageTool')
+export const adjacentAgentSendMessageTool = Symbol.for('dsh.subagent.adjacentAgentSendMessageTool')
 
 /**
  * Mark the standard adjacent-Agent messaging tool without changing its model-visible schema.
@@ -39,7 +39,7 @@ export function isAdjacentAgentSendMessageTool(definition: ToolDefinition | unde
  * entry and this unbundled internal subpath.
  * @internal
  */
-export const deliverSubagentPrompt = Symbol.for('lyn.subagent.deliverPrompt')
+export const deliverSubagentPrompt = Symbol.for('dsh.subagent.deliverPrompt')
 
 /** Runtime face required by the host-only prompt adapters. */
 export interface HostPromptDeliverer {

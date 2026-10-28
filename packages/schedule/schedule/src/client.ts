@@ -1,2 +1,2 @@
-/** Browser-safe Schedule vocabulary. @module @lyness/lyn-schedule/client */
+/** Browser-safe Schedule vocabulary. @module @deepseek-ai/dsh-schedule/client */
 export type * from './types.ts'

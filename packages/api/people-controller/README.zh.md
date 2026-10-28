@@ -3,13 +3,13 @@ description: "管理员在运行时维护「谁可以使用这个部署」的那
 kind: "package-reference"
 ---
 
-# @lyness/lyn-api-people-controller
+# @deepseek-ai/dsh-api-people-controller
 
 [English](README.md) | 中文
 
 ## 概述
 
-`lyn-api-people-controller` 拥有 `people` Remote 命名空间：某个身份所管理的人，以及添加一个人、修改一个人、移除一个人、准入或撤回以他身份登录的目录身份这些调用。谁能改什么不在这里决定——那些规则由 `lyn-managed-people` 持有，本命名空间把这次调用所处的身份交给它，并汇报它的回答。每一行都说明它是否由 composition 拥有，于是界面会禁用自己改不了的东西，而不是给出一个下次启动就会被回退的编辑入口。
+`dsh-api-people-controller` 拥有 `people` Remote 命名空间：某个身份所管理的人，以及添加一个人、修改一个人、移除一个人、准入或撤回以他身份登录的目录身份这些调用。谁能改什么不在这里决定——那些规则由 `dsh-managed-people` 持有，本命名空间把这次调用所处的身份交给它，并汇报它的回答。每一行都说明它是否由 composition 拥有，于是界面会禁用自己改不了的东西，而不是给出一个下次启动就会被回退的编辑入口。
 
 ## 目录
 
@@ -29,13 +29,13 @@ kind: "package-reference"
 
 ```yaml
 - id: people-controller
-  name: '@lyness/lyn-api-people-controller'
+  name: '@deepseek-ai/dsh-api-people-controller'
 ```
 
 配置界面先列出自己能改的人，然后添加一个人，并说明他是哪个目录身份：
 
 ```ts
-import type { BindingInput, PersonInput, PersonRowView } from '@lyness/lyn-api-people-controller/types'
+import type { BindingInput, PersonInput, PersonRowView } from '@deepseek-ai/dsh-api-people-controller/types'
 
 /** The two calls one person form makes. */
 interface PeopleRemote {
@@ -83,9 +83,9 @@ export async function admit(
 <a id="further-exploration"></a>
 ## 进一步探索
 
-- [`lyn-managed-people`](../../identity/managed-people/README.zh.md) —— 它所代言的目录，以及它施加的每条规则。
-- [`lyn-api-sign-in-channel-controller`](../sign-in-channel-controller/README.zh.md) —— 绑定所指名的渠道。
-- [`lyn-module-accounts`](../../bundle/module-accounts/README.zh.md) —— 把这一切选上的那份 composition。
+- [`dsh-managed-people`](../../identity/managed-people/README.zh.md) —— 它所代言的目录，以及它施加的每条规则。
+- [`dsh-api-sign-in-channel-controller`](../sign-in-channel-controller/README.zh.md) —— 绑定所指名的渠道。
+- [`dsh-module-accounts`](../../bundle/module-accounts/README.zh.md) —— 把这一切选上的那份 composition。
 
 -----
 

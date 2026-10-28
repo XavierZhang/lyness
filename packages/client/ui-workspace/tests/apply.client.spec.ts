@@ -1,15 +1,15 @@
-import { createSnapshotStore } from '@lyness/lyn-client-store'
-import { Context } from '@lyness/cordis'
+import { createSnapshotStore } from '@deepseek-ai/dsh-client-store'
+import { Context } from '@deepseek-ai/cordis'
 import { describe, expect, it, onTestFinished, vi } from 'vitest'
 import type {
   SessionListState, SessionReference, SessionSummary,
-} from '@lyness/lyn-api-session-controller/client'
-import type { WorkspaceId, WorkspaceSnapshot, WorkspaceView } from '@lyness/lyn-api-workspace-controller/client'
-import type { SessionId } from '@lyness/lyn-session/types'
-import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
-import type { StoredEntry } from '@lyness/lyn-client-ui-slots'
-import { RemoteError, TestRemote } from '@lyness/lyn-client-test-runtime'
-import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
+} from '@deepseek-ai/dsh-api-session-controller/client'
+import type { WorkspaceId, WorkspaceSnapshot, WorkspaceView } from '@deepseek-ai/dsh-api-workspace-controller/client'
+import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import { SlotRegistry } from '@deepseek-ai/dsh-client-ui-renderer/client'
+import type { StoredEntry } from '@deepseek-ai/dsh-client-ui-slots'
+import { RemoteError, TestRemote } from '@deepseek-ai/dsh-client-test-runtime'
+import { LocaleRuntime } from '@deepseek-ai/dsh-client-locale/client'
 // Relative, like every other import this spec makes of its own package: the
 // assertions compare component identity, and reaching the same file through
 // the package alias is a second module whenever the resolver prefers the

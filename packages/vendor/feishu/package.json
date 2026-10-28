@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/lyn-feishu",
+  "name": "@deepseek-ai/dsh-feishu",
   "description": "Feishu as a sign-in channel: a tenant signs in whichever of its people is at the browser",
   "version": "0.1.7-rc.2",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/vendor/feishu"
   },
   "type": "module",
@@ -40,21 +40,21 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@lyness/schemastery": "workspace:~",
+    "@deepseek-ai/schemastery": "workspace:~",
     "zod": "^4.4.3"
   },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-brand": "workspace:*",
-    "@lyness/lyn-credentials": "workspace:*",
-    "@lyness/lyn-sign-in": "workspace:*",
-    "@lyness/lyn-util-crypto": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-brand": "workspace:*",
+    "@deepseek-ai/dsh-credentials": "workspace:*",
+    "@deepseek-ai/dsh-sign-in": "workspace:*",
+    "@deepseek-ai/dsh-util-crypto": "workspace:*"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-brand": "workspace:*",
-    "@lyness/lyn-credentials": "workspace:*",
-    "@lyness/lyn-sign-in": "workspace:*",
-    "@lyness/lyn-util-crypto": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-brand": "workspace:*",
+    "@deepseek-ai/dsh-credentials": "workspace:*",
+    "@deepseek-ai/dsh-sign-in": "workspace:*",
+    "@deepseek-ai/dsh-util-crypto": "workspace:*"
   }
 }

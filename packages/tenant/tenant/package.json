@@ -1,13 +1,13 @@
 {
-  "name": "@lyness/lyn-tenant",
-  "description": "Abstract tenant-directory seam (ctx.tenants) naming which tenants a lyness deployment serves",
+  "name": "@deepseek-ai/dsh-tenant",
+  "description": "Abstract tenant-directory seam (ctx.tenants) naming which tenants a DeepSeek Harness deployment serves",
   "version": "0.1.7-rc.2",
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/tenant/tenant"
   },
   "type": "module",
@@ -32,12 +32,12 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@lyness/lyn-brand": "workspace:*"
+    "@deepseek-ai/dsh-brand": "workspace:*"
   },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~"
+    "@deepseek-ai/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:~"
+    "@deepseek-ai/cordis": "workspace:~"
   }
 }

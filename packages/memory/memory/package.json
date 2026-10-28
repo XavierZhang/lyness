@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/lyn-memory",
+  "name": "@deepseek-ai/dsh-memory",
   "description": "Durable agent memory: explicitly written facts folded into every later request as runtime context",
   "version": "0.1.7-rc.2",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/memory/memory"
   },
   "type": "module",
@@ -36,27 +36,27 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/lyn-agent-preset-registry": "workspace:*",
-    "@lyness/lyn-brand": "workspace:*",
-    "@lyness/lyn-storage-domain": "workspace:*",
-    "@lyness/lyn-system-prompt": "workspace:*",
-    "@lyness/lyn-tools": "workspace:*",
-    "@lyness/lyn-util-crypto": "workspace:*",
-    "@lyness/cordis": "workspace:~"
+    "@deepseek-ai/dsh-agent-preset-registry": "workspace:*",
+    "@deepseek-ai/dsh-brand": "workspace:*",
+    "@deepseek-ai/dsh-storage-domain": "workspace:*",
+    "@deepseek-ai/dsh-system-prompt": "workspace:*",
+    "@deepseek-ai/dsh-tools": "workspace:*",
+    "@deepseek-ai/dsh-util-crypto": "workspace:*",
+    "@deepseek-ai/cordis": "workspace:~"
   },
   "dependencies": {
-    "@lyness/schemastery": "workspace:~",
+    "@deepseek-ai/schemastery": "workspace:~",
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@lyness/lyn-agent-preset-registry": "workspace:*",
-    "@lyness/lyn-brand": "workspace:*",
-    "@lyness/lyn-storage": "workspace:*",
-    "@lyness/lyn-storage-domain": "workspace:*",
-    "@lyness/lyn-storage-json": "workspace:*",
-    "@lyness/lyn-system-prompt": "workspace:*",
-    "@lyness/lyn-tools": "workspace:*",
-    "@lyness/lyn-util-crypto": "workspace:*",
-    "@lyness/cordis": "workspace:~"
+    "@deepseek-ai/dsh-agent-preset-registry": "workspace:*",
+    "@deepseek-ai/dsh-brand": "workspace:*",
+    "@deepseek-ai/dsh-storage": "workspace:*",
+    "@deepseek-ai/dsh-storage-domain": "workspace:*",
+    "@deepseek-ai/dsh-storage-json": "workspace:*",
+    "@deepseek-ai/dsh-system-prompt": "workspace:*",
+    "@deepseek-ai/dsh-tools": "workspace:*",
+    "@deepseek-ai/dsh-util-crypto": "workspace:*",
+    "@deepseek-ai/cordis": "workspace:~"
   }
 }
