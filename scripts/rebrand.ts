@@ -82,9 +82,39 @@ interface Rule {
    * carry the brand too.
    */
   readonly boundary?: true
+  /**
+   * How this rule runs backwards: the spellings it matches and writes, in
+   * order, or `'skip'` when the backward pass must leave the text alone.
+   *
+   * A rule needs this when reading `to` backwards is not its inverse. Two
+   * cases arise. `DeepSeek Harness`, `deepseek-harness`, and `deepseek_harness`
+   * all become the one fork name, so forward is many-to-one and the first of
+   * those rules to run backwards claims every occurrence while the rest find
+   * nothing; each non-canonical one states the qualified spelling that
+   * identifies its own form and sits before the canonical rule, which takes
+   * what is left. A shield and its restore are the other case: together they
+   * leave their protected name exactly as it was, so the pair has no backward
+   * work, and running the restore backwards would instead stamp its sentinel
+   * over every surviving occurrence of the fork token.
+   */
+  readonly backward?: readonly { readonly from: string; readonly to: string }[] | 'skip'
 }
 
-const RULES: readonly Rule[] = [
+/**
+ * The substitutions one rule makes in the running direction, in order.
+ * @param rule - the rule to read.
+ * @param reverse - whether the rename is running backwards.
+ * @returns The text to find and write for each substitution; empty when the
+ * rule does not run in this direction.
+ */
+function direction(rule: Rule, reverse: boolean): readonly { from: string; to: string }[] {
+  if (!reverse) return [{ from: rule.from, to: rule.to }]
+  if (rule.backward === 'skip') return []
+  return rule.backward ?? [{ from: rule.to, to: rule.from }]
+}
+
+/** Every rename, in the order a forward run applies them. */
+export const RULES: readonly Rule[] = [
   {
     id: 'repo-url',
     from: 'github.com/deepseek-ai/deepseek-harness',
@@ -105,54 +135,70 @@ const RULES: readonly Rule[] = [
   },
   {
     id: 'deepseek-request-field-shield-session-log',
+    backward: 'skip',
     from: 'dsh_session_log',
     to: '\u0000deepseek-request-field\u0000session_log',
     note: 'A field name the official DeepSeek service owns, not a brand. The incremental session-log upload that `session-log-deepseek` registers on the official DeepSeek request. The server matches these keys literally, so a renamed key is silently dropped and the feature stops working against the real endpoint while every mock-server test still passes. Restored by `deepseek-request-field-restore` after `dsh-token` has run.',
   },
   {
     id: 'deepseek-request-field-shield-plugin-packages',
+    backward: 'skip',
     from: 'dsh_plugin_packages',
     to: '\u0000deepseek-request-field\u0000plugin_packages',
     note: 'A field name the official DeepSeek service owns, not a brand. The installed-plugin inventory that `plugin-package-inventory-deepseek` registers on the official DeepSeek request. The server matches these keys literally, so a renamed key is silently dropped and the feature stops working against the real endpoint while every mock-server test still passes. Restored by `deepseek-request-field-restore` after `dsh-token` has run.',
   },
   {
     id: 'deepseek-request-field-shield-otel-report',
+    backward: 'skip',
     from: 'dsh_otel_report',
     to: '\u0000deepseek-request-field\u0000otel_report',
     note: 'A field name the official DeepSeek service owns, not a brand. The `x-channel` header value the OpenTelemetry exporter sends to the official collector. The server matches these keys literally, so a renamed key is silently dropped and the feature stops working against the real endpoint while every mock-server test still passes. Restored by `deepseek-request-field-restore` after `dsh-token` has run.',
   },
   {
     id: 'deepseek-request-field-shield-feedback',
+    backward: 'skip',
     from: 'dsh_feedback',
     to: '\u0000deepseek-request-field\u0000feedback',
     note: 'A field name the official DeepSeek service owns, not a brand. The message-feedback field the official API accepts; a spec asserts the session-log path never emits it. The server matches these keys literally, so a renamed key is silently dropped and the feature stops working against the real endpoint while every mock-server test still passes. Restored by `deepseek-request-field-restore` after `dsh-token` has run.',
   },
   {
     id: 'deepseek-request-field-shield-login-bonus',
+    backward: 'skip',
     from: 'dsh_login_bonus',
     to: '\u0000deepseek-request-field\u0000login_bonus',
     note: 'A field name the official DeepSeek service owns, not a brand. A campaign id the account platform issues; the fork reads it back verbatim from the vendor response. The server matches these keys literally, so a renamed key is silently dropped and the feature stops working against the real endpoint while every mock-server test still passes. Restored by `deepseek-request-field-restore` after `dsh-token` has run.',
   },
   {
     id: 'deepseek-request-field-shield-bonus-notice-test',
+    backward: 'skip',
     from: 'dsh_bonus_notice_test',
     to: '\u0000deepseek-request-field\u0000bonus_notice_test',
     note: 'A field name the official DeepSeek service owns, not a brand. The bonus-notice token the account platform fixtures replay against that same campaign vocabulary. The server matches these keys literally, so a renamed key is silently dropped and the feature stops working against the real endpoint while every mock-server test still passes. Restored by `deepseek-request-field-restore` after `dsh-token` has run.',
   },
   {
-    id: 'persistence-hash-domain-shield',
-    from: 'dsh-persistence-',
-    to: '\u0000persistence-domain\u0000',
-    note: 'A hash domain, not a brand. These strings are the SHA-256 domain separators for persisted Session schemas and finalization records, and every digest recorded in the committed format archives under docs/persistence-changes/ was computed with the upstream spelling. Renaming it changes all 570 of them at once, so verify-persistence-formats reads the whole archive as corrupt. Restored by `persistence-hash-domain-restore` after every rule has run.',
+    id: 'persistence-hash-domain-shield-schema',
+    backward: 'skip',
+    from: 'dsh-persistence-schema-v',
+    to: '\u0000persistence-domain\u0000schema-v',
+    note: 'A hash domain, not a brand. This string is the SHA-256 domain separator for persisted Session schemas, and every digest recorded in the committed format archives under docs/persistence-changes/ was computed with the upstream spelling. Renaming it changes all 570 of them at once, so verify-persistence-formats reads the whole archive as corrupt. Named in full rather than shielded by its `dsh-persistence-` prefix, which also prefixes the temporary-directory names four persistence specs build and which therefore follow the rename. Restored by `persistence-hash-domain-restore` after every rule has run.',
+  },
+  {
+    id: 'persistence-hash-domain-shield-finalization',
+    backward: 'skip',
+    from: 'dsh-persistence-finalization-record-v1',
+    to: '\u0000persistence-domain\u0000finalization-record-v1',
+    note: 'The second hash domain, separating finalization records. Same reason as `persistence-hash-domain-shield-schema`, and named in full for the same reason.',
   },
   {
     id: 'external-office-kit-segment-shield',
+    backward: 'skip',
     from: "'@deepseek-ai', 'libreoffice-kit'",
     to: "'\u0000office-kit-segment\u0000'",
     note: 'The same external packages addressed as path segments, where the scope stands alone and the slashed rules cannot see it. `libreoffice-packages.mjs` joins them to reach the installed engine, so renaming the segment sends the Python SDK build at a directory that does not exist.',
   },
   {
     id: 'external-office-kit-shield',
+    backward: 'skip',
     from: '@deepseek-ai/libreoffice-kit',
     to: '\u0000office-kit\u0000',
     note: 'NOT the harness scope. `@deepseek-ai/libreoffice-kit*` are packages published to npm by the vendor and consumed like any other dependency, so renaming them names packages that do not exist — pnpm\'s minimumReleaseAge allowlist stopped matching and the install refused the lockfile. A literal rule cannot express "every @deepseek-ai/ except this one", so the name is parked out of reach of the three scope rules and restored by `external-office-kit-restore` right after them.',
@@ -183,21 +229,31 @@ const RULES: readonly Rule[] = [
   },
   {
     id: 'external-office-kit-segment-restore',
+    backward: 'skip',
     from: "'\u0000office-kit-segment\u0000'",
     to: "'@deepseek-ai', 'libreoffice-kit'",
     note: 'Puts back what `external-office-kit-segment-shield` parked, once the scope rules have run.',
   },
   {
     id: 'external-office-kit-restore',
+    backward: 'skip',
     from: '\u0000office-kit\u0000',
     to: '@deepseek-ai/libreoffice-kit',
     note: 'Puts back what `external-office-kit-shield` parked, once `pkg-scope`, `vendor-scope`, and `scope-bare` have all run. The pair leaves no sentinel behind: `--check` fails loudly if one survives.',
   },
   {
-    id: 'released-title-producer-shield',
-    from: 'dsh-session-title-llm',
-    to: '\u0000released-producer\u0000',
-    note: 'A released Session source kind, not a package. RESERVED_SOURCE_KINDS freezes it as a rename target: the current build writes it, committed generations carry it, and the V0 and V3 migrations, the persistence catalog, the persistence schema, and the headless expected fixtures all name it verbatim. Renaming it makes every migration stop recognising real logs. Runs after the scope rules on purpose — by here `@deepseek-ai/dsh-session-title-llm`, the package that shares the spelling, has already become `@lyness/lyn-session-title-llm`, so only the bare kind is left to park. Restored by `released-title-producer-restore` after `dsh-token`.',
+    id: 'released-title-producer-shield-apostrophe',
+    backward: 'skip',
+    from: "'dsh-session-title-llm'",
+    to: "'\u0000released-producer\u0000'",
+    note: 'A released Session source kind, not a package. RESERVED_SOURCE_KINDS freezes it as a rename target: the current build writes it, committed generations carry it, and the V0 and V3 migrations, the persistence catalog, the persistence schema, and the headless expected fixtures all name it verbatim. Renaming it makes every migration stop recognising real logs. Matched with its quotes, which is how the kind reaches every one of those places and the package name reaches none: a TypeScript literal and a JSON string value carry the kind, while the package is written scoped or in a documentation code span. The bare spelling would park both, so the package name would survive the rename inside its own README. Restored by `released-title-producer-restore` after `dsh-token`.',
+  },
+  {
+    id: 'released-title-producer-shield-quote',
+    backward: 'skip',
+    from: '"dsh-session-title-llm"',
+    to: '"\u0000released-producer\u0000"',
+    note: 'The same released source kind as a JSON string value, in the persistence catalogs and the headless expected fixtures.',
   },
   {
     id: 'boot-wordmark',
@@ -210,12 +266,6 @@ const RULES: readonly Rule[] = [
     from: 'DeepSeekHarness',
     to: 'Lyness',
     note: 'The SDK product class and its companions (`DeepSeekHarnessConfig`, `createProcessDeepSeekHarness`). Carries no space, so `product-name` cannot reach it. The class is the product, so the redundant `Harness` segment drops.',
-  },
-  {
-    id: 'product-name',
-    from: 'DeepSeek Harness',
-    to: 'lyness',
-    note: 'Requires the word `Harness`, so it cannot match the model vendor.',
   },
   {
     id: 'punctuated-product-name',
@@ -233,13 +283,21 @@ const RULES: readonly Rule[] = [
     id: 'slug',
     from: 'deepseek-harness',
     to: 'lyness',
-    note: 'Requires the `-harness` suffix, so it cannot match `deepseek-ai`, `llm-deepseek`, or `api.deepseek.com`.',
+    backward: [{ from: 'lyness-', to: 'deepseek-harness-' }, { from: '-lyness', to: '-deepseek-harness' }],
+    note: 'Requires the `-harness` suffix, so it cannot match `deepseek-ai`, `llm-deepseek`, or `api.deepseek.com`. Sits before `product-name` so the backward pass claims the hyphenated form first, on either side: a compound name such as `ui-brand-lyness` carries the product last and is still the slug, in a path and in the references to it alike. Forward the patterns cannot overlap, so their order is free.',
   },
   {
     id: 'python-package',
     from: 'deepseek_harness',
     to: 'lyness',
-    note: 'The Python import packages (`deepseek_harness`, `deepseek_harness_runtime`) and the underscore form distribution names take inside wheel file names. The underscore spelling never names the model vendor, whose packages and endpoints carry no underscore.',
+    backward: [{ from: 'lyness_', to: 'deepseek_harness_' }, { from: 'src/lyness', to: 'src/deepseek_harness' }],
+    note: 'The Python import packages (`deepseek_harness`, `deepseek_harness_runtime`) and the underscore form distribution names take inside wheel file names. The underscore spelling never names the model vendor, whose packages and endpoints carry no underscore. Sits before `product-name` for the same reason as `slug`. The second backward spelling reaches the SDK import package, the one place the product names a directory with no separator after it; every other `src/` holds TypeScript, where no file carries the product name alone.',
+  },
+  {
+    id: 'product-name',
+    from: 'DeepSeek Harness',
+    to: 'lyness',
+    note: 'Requires the word `Harness`, so it cannot match the model vendor. Runs after `slug` and `python-package`: all three collapse onto the one fork name, and this is the form the backward pass claims last, once the qualified spellings have taken theirs.',
   },
   {
     id: 'env-prefix',
@@ -304,21 +362,24 @@ const RULES: readonly Rule[] = [
   },
   {
     id: 'deepseek-request-field-restore',
+    backward: 'skip',
     from: '\u0000deepseek-request-field\u0000',
     to: 'dsh_',
     note: 'Puts back every name the `deepseek-request-field-shield-*` rules parked, after `dsh-token` has run. The pair leaves no sentinel behind: `--check` fails loudly if one survives.',
   },
   {
     id: 'released-title-producer-restore',
+    backward: 'skip',
     from: '\u0000released-producer\u0000',
     to: 'dsh-session-title-llm',
-    note: 'Puts back what `released-title-producer-shield` parked, after `dsh-token` has run. The pair leaves no sentinel behind: `--check` fails loudly if one survives.',
+    note: 'Puts back what the two `released-title-producer-shield-*` rules parked, after `dsh-token` has run. The set leaves no sentinel behind: `--check` fails loudly if one survives.',
   },
   {
     id: 'persistence-hash-domain-restore',
+    backward: 'skip',
     from: '\u0000persistence-domain\u0000',
     to: 'dsh-persistence-',
-    note: 'Puts back what `persistence-hash-domain-shield` parked, after `dsh-token` has run. The pair leaves no sentinel behind: `--check` fails loudly if one survives.',
+    note: 'Puts back what the two `persistence-hash-domain-shield-*` rules parked, after `dsh-token` has run. The set leaves no sentinel behind: `--check` fails loudly if one survives.',
   },
 ]
 
@@ -360,6 +421,16 @@ const PROTECTED: readonly Protection[] = [
     rules: ['repo-url', 'repo-url-org', 'slug'],
   },
   { prefix: 'CUSTOM.md', why: 'The fork ledger names both the upstream and fork values on purpose; rewriting it erases the mapping it exists to record.' },
+  {
+    prefix: '.agents/notes/proposed/architecture/2026-10-08-plugin-compatibility-and-trust',
+    why: 'States what the rename did by naming the upstream scope and product segment it renamed away from. Rewriting them leaves the sentence saying a package moved from its own name to its own name, which is the one claim the note exists to refute. Every other name in it is already a fork name, so no skipped rule has work here.',
+    rules: ['pkg-scope-escaped', 'pkg-scope', 'vendor-scope', 'scope-bare', 'dsh-token'],
+  },
+  {
+    prefix: 'scripts/rename-order-and-wrapping.spec.ts',
+    why: 'Names both spellings of one tool to show where a rename moved it in a sorted list, so the pre-rename spelling is the evidence. Renaming it collapses the pair and the comment stops explaining what the check guards.',
+    rules: ['dsh-token'],
+  },
   { prefix: '.fork/', why: 'Fork configuration recording the upstream identity it forked from.' },
   {
     prefix: 'docs/persistence-changes/',
@@ -630,13 +701,14 @@ export function rewrite(
   const out = text.split('\n').map((line) => {
     let current = line
     for (const rule of rules) {
-      const from = reverse ? rule.to : rule.from
-      const to = reverse ? rule.from : rule.to
-      // A deletion rule has no text to find backwards; an empty `from` would match between every character.
-      if (skip.has(rule.id) || from === '') continue
-      const next = applyPreservingArchivedReferences(current, rule, from, to)
-      if (next !== current) hits.set(rule.id, (hits.get(rule.id) ?? 0) + 1)
-      current = next
+      if (skip.has(rule.id)) continue
+      for (const { from, to } of direction(rule, reverse)) {
+        // A deletion rule has no text to find backwards; an empty `from` would match between every character.
+        if (from === '') continue
+        const next = applyPreservingArchivedReferences(current, rule, from, to)
+        if (next !== current) hits.set(rule.id, (hits.get(rule.id) ?? 0) + 1)
+        current = next
+      }
     }
     return current
   })
@@ -658,12 +730,15 @@ export function renamePath(file: string, rules: readonly Rule[], reverse: boolea
   if (skip === 'all') return file
   let out = file
   for (const rule of rules) {
-    const from = reverse ? rule.to : rule.from
-    if (skip.has(rule.id) || from === '') continue
-    out = applyRule(out, rule, from, reverse ? rule.from : rule.to)
+    if (skip.has(rule.id)) continue
+    for (const { from, to } of direction(rule, reverse)) {
+      if (from === '') continue
+      out = applyRule(out, rule, from, to)
+    }
   }
   return out
 }
+
 
 function classify(file: string): string {
   if (file.endsWith('package.json')) return 'package manifests'
