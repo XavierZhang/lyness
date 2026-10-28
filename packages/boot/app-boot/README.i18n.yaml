@@ -3,71 +3,68 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/boot/app-boot/README.md
 /:
-  en: 8faf4582ae88ecfe
-  zh: 0c5a7502e22c6b3c
-/DeepSeek Harness-dsh-app-boot:
-  en: 3f60d467ee156d0c
-  zh: b2f25eb4aa3e0e48
-/DeepSeek Harness-dsh-app-boot/summary:
-  en: f47ac382087ce13b
-  zh: 728433be1ef9bf3f
-/DeepSeek Harness-dsh-app-boot/table-of-contents:
+  en: 822ef8977098c703
+  zh: c0673e854310840f
+/deepseek-ai-dsh-app-boot:
+  en: fdb73259898590a5
+  zh: aee057cd436da2e2
+/deepseek-ai-dsh-app-boot/summary:
+  en: e5db70f7cdcdbe9c
+  zh: 6852efb61109a349
+/deepseek-ai-dsh-app-boot/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/DeepSeek Harness-dsh-app-boot/use-this-package:
+/deepseek-ai-dsh-app-boot/use-this-package:
   en: f6fa378225009c8f
   zh: 324c0e4640bb1358
-/DeepSeek Harness-dsh-app-boot/use-this-package/when-to-use-it:
-  en: 7a083800eee7be9f
-  zh: 0fae8d7cdb8b8e78
-/DeepSeek Harness-dsh-app-boot/use-this-package/starting-the-app:
-  en: 1099528bde0e2aee
-  zh: b68772bdb9bb7856
-/DeepSeek Harness-dsh-app-boot/use-this-package/profiles:
-  en: 95dd5497f2a25ffe
-  zh: d8d1efb2e492c39e
-/DeepSeek Harness-dsh-app-boot/use-this-package/previewing-the-effective-configuration:
+/deepseek-ai-dsh-app-boot/use-this-package/when-to-use-it:
+  en: 2fdfe02f2ed4a258
+  zh: d748228ece579c4a
+/deepseek-ai-dsh-app-boot/use-this-package/starting-the-app:
+  en: 65bf2834b81f87da
+  zh: c864ac60a3005b99
+/deepseek-ai-dsh-app-boot/use-this-package/profiles:
+  en: 0a1b5f4f40d835a7
+  zh: d8f4b54160aa033b
+/deepseek-ai-dsh-app-boot/use-this-package/previewing-the-effective-configuration:
   en: 646a0ccdd7881ad1
   zh: e3696acb1573dd7b
-/DeepSeek Harness-dsh-app-boot/use-this-package/inspecting-plugin-configuration-schemas:
-  en: ab47f7d1f00de699
-  zh: 426c5bb39396af35
-/DeepSeek Harness-dsh-app-boot/use-this-package/reading-plugin-display-metadata:
-  en: e2369548f70f06ff
-  zh: 3530c4641fbc03fc
-/DeepSeek Harness-dsh-app-boot/use-this-package/startup-and-reload-failures:
-  en: f83001cbb6f68e0c
-  zh: 4d859e0e7731369c
-/DeepSeek Harness-dsh-app-boot/use-this-package/telling-the-agent-where-the-harness-lives:
-  en: 35e34858ed4e5eac
-  zh: 79bdb2aec64e1679
-/DeepSeek Harness-dsh-app-boot/understand-the-implementation:
+/deepseek-ai-dsh-app-boot/use-this-package/inspecting-plugin-configuration-schemas:
+  en: c4a301652b851ce9
+  zh: 784871e19cd9db0a
+/deepseek-ai-dsh-app-boot/use-this-package/reading-plugin-display-metadata:
+  en: 91d80c444ac0cfe5
+  zh: e7db496043528ffb
+/deepseek-ai-dsh-app-boot/use-this-package/startup-and-reload-failures:
+  en: dc13dfa1f79292e4
+  zh: d51682ced7a18ac2
+/deepseek-ai-dsh-app-boot/understand-the-implementation:
   en: f4a2695cb4c8a570
   zh: 89837235d2f376cf
-/DeepSeek Harness-dsh-app-boot/understand-the-implementation/design-notes:
-  en: 5e3ce508795f2ced
-  zh: 4bceb852053c7e15
-/DeepSeek Harness-dsh-app-boot/understand-the-implementation/helper-behavior:
-  en: f7bc3a8dd4b00bdd
-  zh: 30098428aa769ad0
-/DeepSeek Harness-dsh-app-boot/understand-the-implementation/source-map:
-  en: 25602fd8eb9b2907
-  zh: 870a33dd34a52c32
-/DeepSeek Harness-dsh-app-boot/further-exploration:
-  en: 7e35a31c4e87d9fd
-  zh: 7ae2ebf622f1182e
-/DeepSeek Harness-dsh-app-boot/model-experience:
-  en: 769777f1cb1a9408
-  zh: f02b2834179df50d
-/DeepSeek Harness-dsh-app-boot/model-experience/kv-cache-effect:
-  en: c4d49630b68ae896
-  zh: 6f450ec6ba39bb81
-/DeepSeek Harness-dsh-app-boot/known-limitations-and-deferred-work:
-  en: bf1a49013cad8e9c
-  zh: 41b2b010f8650ec3
-/DeepSeek Harness-dsh-app-boot/known-limitations-and-deferred-work/dev-note:
+/deepseek-ai-dsh-app-boot/understand-the-implementation/design-notes:
+  en: 9ecb744556705fd1
+  zh: d83aaf2ebb91d0fc
+/deepseek-ai-dsh-app-boot/understand-the-implementation/helper-behavior:
+  en: 6fa850d1bb000d0e
+  zh: aa83a40a9d3db295
+/deepseek-ai-dsh-app-boot/understand-the-implementation/source-map:
+  en: 541700d5c39e0ab4
+  zh: 7522dbd9cd68c930
+/deepseek-ai-dsh-app-boot/further-exploration:
+  en: 401269cc5ea8593e
+  zh: cd337c356b320565
+/deepseek-ai-dsh-app-boot/model-experience:
+  en: d2d0a21502d88c50
+  zh: 82a60c7a490a6834
+/deepseek-ai-dsh-app-boot/model-experience/kv-cache-effect:
+  en: 5a1d9344c8fdc790
+  zh: 0b32579f658b2ca1
+/deepseek-ai-dsh-app-boot/known-limitations-and-deferred-work:
+  en: 1400c4f22a79b59a
+  zh: 269f6c91584aec3e
+/deepseek-ai-dsh-app-boot/known-limitations-and-deferred-work/dev-note:
   en: d2f0d68fe29fb750
   zh: 323d21ee73a9e3f6
-/DeepSeek Harness-dsh-app-boot/known-limitations-and-deferred-work/dev-note/open-yaml-config-dump-stability:
-  en: 319a62823b41008b
-  zh: 2d52e1592ac805f4
+/deepseek-ai-dsh-app-boot/known-limitations-and-deferred-work/dev-note/open-yaml-config-dump-stability:
+  en: 032f14ed5cd78efa
+  zh: ecc81f819f0bc39b

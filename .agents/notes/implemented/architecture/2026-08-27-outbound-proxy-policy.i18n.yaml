@@ -3,20 +3,20 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-08-27-outbound-proxy-policy.md
 /agent-note-one-outbound-proxy-policy-installed-before-anything-can-request:
-  en: 76b41b0e6707eabd
-  zh: f13110b410d661cb
+  en: b19652a0e1cc1826
+  zh: 4d3511e4f0db5b9d
 /agent-note-one-outbound-proxy-policy-installed-before-anything-can-request/problem:
-  en: a72c24ec6243aab2
-  zh: 827d12dea95df4c7
+  en: 6379f0a2522f4c46
+  zh: c45ffeb5089be274
 /agent-note-one-outbound-proxy-policy-installed-before-anything-can-request/decision:
-  en: e5fd8367515105ab
-  zh: 68875fa469e8f749
+  en: 6435c336ab53ca0f
+  zh: 57070799a7061f85
 /agent-note-one-outbound-proxy-policy-installed-before-anything-can-request/alternatives-considered:
-  en: db19cd99741ed46c
-  zh: f438a90033589f0f
+  en: df6c078f239a11f5
+  zh: 914da26836aa373b
 /agent-note-one-outbound-proxy-policy-installed-before-anything-can-request/consequences:
-  en: 1f812b0c3d2f06ec
-  zh: 6f81762be97f281d
+  en: ff1898a64e5db79c
+  zh: 0a77d02385fb3506
 /agent-note-one-outbound-proxy-policy-installed-before-anything-can-request/testing:
-  en: 0d7eaa666c94a5cd
-  zh: 210fa098f154d137
+  en: fddb0be6abbd809e
+  zh: 88843f0f3ea60555

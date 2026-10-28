@@ -5,27 +5,27 @@
 /:
   en: 5bf871fc6ff3da7c
   zh: eae970e01432a92a
-/DeepSeek Harness-dsh-experimental-webworker-packer:
-  en: cc62f257ab536ed8
-  zh: b5a64a89272e76e1
-/DeepSeek Harness-dsh-experimental-webworker-packer/summary:
-  en: e338a7749313212d
-  zh: 7a14c924d126f603
-/DeepSeek Harness-dsh-experimental-webworker-packer/table-of-contents:
+/deepseek-ai-dsh-experimental-webworker-packer:
+  en: 7ecd0d6282f6ccf1
+  zh: 782c000a57a5e3d8
+/deepseek-ai-dsh-experimental-webworker-packer/summary:
+  en: 511b69c241632e21
+  zh: a59afd79170fcae7
+/deepseek-ai-dsh-experimental-webworker-packer/table-of-contents:
   en: 4e53164159b5ce41
   zh: 89582dc0294d0776
-/DeepSeek Harness-dsh-experimental-webworker-packer/use-this-package:
-  en: 2c51a566e07c0d6f
-  zh: 87827e5cf2bb2609
-/DeepSeek Harness-dsh-experimental-webworker-packer/model-experience:
+/deepseek-ai-dsh-experimental-webworker-packer/use-this-package:
+  en: 6a4ec925ea6681f5
+  zh: 4af12d1d3de38dbd
+/deepseek-ai-dsh-experimental-webworker-packer/model-experience:
   en: e16b355530dadc1c
   zh: 8488e03b253b7b33
-/DeepSeek Harness-dsh-experimental-webworker-packer/model-experience/kv-cache-effect:
+/deepseek-ai-dsh-experimental-webworker-packer/model-experience/kv-cache-effect:
   en: ca75c51c89c2c9b0
   zh: 64715dc7e6d02f71
-/DeepSeek Harness-dsh-experimental-webworker-packer/known-limitations-and-deferred-work:
-  en: b6b89e8081f853ed
-  zh: d4c479ecf0d6eb19
-/DeepSeek Harness-dsh-experimental-webworker-packer/known-limitations-and-deferred-work/dev-note:
-  en: 46176f90f22845c7
-  zh: 8e6ba8ba2958fba3
+/deepseek-ai-dsh-experimental-webworker-packer/known-limitations-and-deferred-work:
+  en: 6cd07b34072a2d61
+  zh: 44c4017e727c19ff
+/deepseek-ai-dsh-experimental-webworker-packer/known-limitations-and-deferred-work/dev-note:
+  en: e67f633dc6fe7773
+  zh: e88aeb617ffb74ea

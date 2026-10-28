@@ -3,23 +3,23 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/feature/2026-08-26-generic-file-upload.md
 /agent-note-generic-file-upload:
-  en: 0064cc89636cef3f
-  zh: d6f7058114ea90cc
+  en: e82308b967a63c32
+  zh: 743f8f4eda638827
 /agent-note-generic-file-upload/problem:
   en: e7c3b5d7702714fe
   zh: 268f162b553b37d1
 /agent-note-generic-file-upload/decision:
-  en: 89719ac21698eee6
-  zh: bf02fc744287cf54
+  en: 1769950d73d30dca
+  zh: bf296b920ea9b997
 /agent-note-generic-file-upload/alternatives-considered:
-  en: eabbb29efc5c5c83
-  zh: ceb3df4d72513624
+  en: 23f386b05e4e79ef
+  zh: 0756c4fa30e8d0eb
 /agent-note-generic-file-upload/consequences:
-  en: 83ff544b82fd57d9
-  zh: 038d6b9599ddcd5c
+  en: e07df040738c45bb
+  zh: 9de3b560cb104bd3
 /agent-note-generic-file-upload/testing:
   en: 3a50ac370d51cda9
   zh: d490f58922f8795b
 /agent-note-generic-file-upload/related:
-  en: 3ed454c80e8458ca
-  zh: cc6dc95896548851
+  en: 14e8659b89dc08a8
+  zh: dec5baa11f168e91

@@ -6,23 +6,23 @@
   en: f93b976ffb43210a
   zh: a2959c2d0cee4154
 /job-controller:
-  en: 13ac55ad2385a423
-  zh: b8e0467523895f00
+  en: a647945219b3ea55
+  zh: 75a87645d584c0b2
 /job-controller/summary:
-  en: 12b2641a18d7bea5
-  zh: d544c0f4d69497c4
+  en: 54fd4daff976b0ee
+  zh: 1c12e12e265e8304
 /job-controller/table-of-contents:
   en: 4e53164159b5ce41
   zh: 89582dc0294d0776
 /job-controller/use-this-package:
-  en: 98978d72d9e7659a
-  zh: e5cdd5e3ea10f7d7
+  en: 11192d7e3d26b0d2
+  zh: bdff631b0ae45ba0
 /job-controller/use-this-package/config:
-  en: 9e084bb52ff26ca0
-  zh: 77caadd590a4fb71
+  en: e9099f7e4b35e24c
+  zh: e4069155f10b3b66
 /job-controller/model-experience:
-  en: 610e267d95408fea
-  zh: e7cf1b2aa31409f6
+  en: 45162a45bf535f11
+  zh: 3eeae8c7a02bbef5
 /job-controller/model-experience/kv-cache-effect:
   en: e71bac9439326121
   zh: 9f1a50f452658818
@@ -30,5 +30,5 @@
   en: c0f98753f7ba6b9b
   zh: 4022148512051bfe
 /job-controller/known-limitations-and-deferred-work/dev-note:
-  en: 223d51a5f5959764
-  zh: a730b76cb965a969
+  en: e67f633dc6fe7773
+  zh: 3bb0c20c93f16f98

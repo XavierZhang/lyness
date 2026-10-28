@@ -3,50 +3,50 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/ui-renderer/README.md
 /:
-  en: c20ac3d0baadd0af
-  zh: e1a9a8a857567bb1
-/DeepSeek Harness-dsh-client-ui-renderer:
-  en: c0187590c0cab27e
-  zh: f89075ebf504b0b4
-/DeepSeek Harness-dsh-client-ui-renderer/summary:
-  en: c35c24f06ad40316
-  zh: 4706217118f0ee2a
-/DeepSeek Harness-dsh-client-ui-renderer/table-of-contents:
+  en: 06bd9d926c743736
+  zh: 39acdcb577fd8c6d
+/deepseek-ai-dsh-client-ui-renderer:
+  en: 9ec624489bbbdf7e
+  zh: 076b6a71841ea0cf
+/deepseek-ai-dsh-client-ui-renderer/summary:
+  en: 1ba1a4112d222f62
+  zh: c1b7601dfe949711
+/deepseek-ai-dsh-client-ui-renderer/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/DeepSeek Harness-dsh-client-ui-renderer/use-this-package:
-  en: e7a2c304563e4699
-  zh: baa0a1d208aaa4f0
-/DeepSeek Harness-dsh-client-ui-renderer/use-this-package/what-mounting-does:
+/deepseek-ai-dsh-client-ui-renderer/use-this-package:
+  en: 39d5f36f7cb7d680
+  zh: a61f0aa8b339e06f
+/deepseek-ai-dsh-client-ui-renderer/use-this-package/what-mounting-does:
   en: 1d5350799ce072d0
   zh: 942e543fdab51818
-/DeepSeek Harness-dsh-client-ui-renderer/use-this-package/for-business-plugins:
+/deepseek-ai-dsh-client-ui-renderer/use-this-package/for-business-plugins:
   en: 15a2bfee2c0bd051
   zh: 0c5b336fc5afbbc6
-/DeepSeek Harness-dsh-client-ui-renderer/understand-the-implementation:
+/deepseek-ai-dsh-client-ui-renderer/understand-the-implementation:
   en: 0de0a8ad857b93f6
   zh: 98a0fae2d6606a7d
-/DeepSeek Harness-dsh-client-ui-renderer/understand-the-implementation/activation-and-mount:
-  en: 8d25aaca20afe7e3
-  zh: aaaab85ebf99c591
-/DeepSeek Harness-dsh-client-ui-renderer/understand-the-implementation/slot-bindings:
+/deepseek-ai-dsh-client-ui-renderer/understand-the-implementation/activation-and-mount:
+  en: 002496a4609490f6
+  zh: bab3626fbe30ff55
+/deepseek-ai-dsh-client-ui-renderer/understand-the-implementation/slot-bindings:
   en: 6ab26cf5744a23d4
   zh: 84a531322a724a84
-/DeepSeek Harness-dsh-client-ui-renderer/understand-the-implementation/identity:
+/deepseek-ai-dsh-client-ui-renderer/understand-the-implementation/identity:
   en: 2a349d500ead79cb
   zh: ac49c8b1d73dcd6c
-/DeepSeek Harness-dsh-client-ui-renderer/further-exploration:
-  en: 7c8249a37579951b
-  zh: 34597aea8a73ab39
-/DeepSeek Harness-dsh-client-ui-renderer/model-experience:
+/deepseek-ai-dsh-client-ui-renderer/further-exploration:
+  en: 9c13fe9139ad4add
+  zh: 137924a6c57edfd4
+/deepseek-ai-dsh-client-ui-renderer/model-experience:
   en: ca4e29db08d34e6d
   zh: de6ec680414b1d54
-/DeepSeek Harness-dsh-client-ui-renderer/model-experience/kv-cache-effect:
+/deepseek-ai-dsh-client-ui-renderer/model-experience/kv-cache-effect:
   en: ca75c51c89c2c9b0
   zh: de54f3467ef3b9be
-/DeepSeek Harness-dsh-client-ui-renderer/known-limitations-and-deferred-work:
+/deepseek-ai-dsh-client-ui-renderer/known-limitations-and-deferred-work:
   en: 5ebaf02736035a44
   zh: 3c04f28da7ec6c40
-/DeepSeek Harness-dsh-client-ui-renderer/known-limitations-and-deferred-work/dev-note:
+/deepseek-ai-dsh-client-ui-renderer/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

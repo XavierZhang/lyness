@@ -3,62 +3,65 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/experimental/auto-review/README.md
 /:
-  en: 4f245200f5345e3c
-  zh: 221e9996e8ce2963
-/DeepSeek Harness-dsh-experimental-auto-review:
-  en: c1fc0dac8bd1fc58
-  zh: 27f2c107c8f4bc46
-/DeepSeek Harness-dsh-experimental-auto-review/summary:
-  en: 548ffbd418c30cb3
-  zh: 2f0ba366191fabbe
-/DeepSeek Harness-dsh-experimental-auto-review/table-of-contents:
+  en: fdb9237f7c9ddfa6
+  zh: 3bb572e4a945183f
+/deepseek-ai-dsh-experimental-auto-review:
+  en: 566562e610f1b52b
+  zh: 88796a19ab0b98b8
+/deepseek-ai-dsh-experimental-auto-review/summary:
+  en: 10e8e61034f7706a
+  zh: 439e21bcff62a12d
+/deepseek-ai-dsh-experimental-auto-review/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/DeepSeek Harness-dsh-experimental-auto-review/use-this-package:
-  en: bbff250eba0f1b89
-  zh: 0a618f05cc88ee2b
-/DeepSeek Harness-dsh-experimental-auto-review/use-this-package/install-into-a-profile:
-  en: e50134d36cf91a1f
-  zh: fdacbbfb481b0a1b
-/DeepSeek Harness-dsh-experimental-auto-review/use-this-package/what-you-get:
-  en: ed03b2b8b819616a
-  zh: ab0d84be072cb172
-/DeepSeek Harness-dsh-experimental-auto-review/understand-the-implementation:
-  en: 08b6f602ec89bb3f
-  zh: 7915376111ba2a58
-/DeepSeek Harness-dsh-experimental-auto-review/further-exploration:
-  en: d637302851855643
-  zh: a33e2e7e063b4add
-/DeepSeek Harness-dsh-experimental-auto-review/model-experience:
+/deepseek-ai-dsh-experimental-auto-review/use-this-package:
+  en: 8f9e85817f05aa4d
+  zh: f60136fb39abcf29
+/deepseek-ai-dsh-experimental-auto-review/use-this-package/install-into-a-profile:
+  en: 6198fc176a1e77fc
+  zh: f486661a0658f313
+/deepseek-ai-dsh-experimental-auto-review/use-this-package/headless-supervision:
+  en: 599d308cb426b48d
+  zh: 946e5d2dae183b2e
+/deepseek-ai-dsh-experimental-auto-review/use-this-package/what-you-get:
+  en: 68fbe81265de3d55
+  zh: ad41f2353ba94a07
+/deepseek-ai-dsh-experimental-auto-review/understand-the-implementation:
+  en: 0d76e9a60573ee84
+  zh: 3297ae0898852b7d
+/deepseek-ai-dsh-experimental-auto-review/further-exploration:
+  en: 8b81d32ea370ecd3
+  zh: dc53ff4da78232ac
+/deepseek-ai-dsh-experimental-auto-review/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/DeepSeek Harness-dsh-experimental-auto-review/model-experience/per-call-reviewer:
+/deepseek-ai-dsh-experimental-auto-review/model-experience/per-call-reviewer:
   en: 7ec217b1012cd8fa
   zh: 6188796b4990f2ef
-/DeepSeek Harness-dsh-experimental-auto-review/model-experience/per-call-reviewer/what-the-model-sees:
-  en: b3e50d879db13221
-  zh: 81f9c8f2793bea0d
-/DeepSeek Harness-dsh-experimental-auto-review/model-experience/per-call-reviewer/token-effect:
+/deepseek-ai-dsh-experimental-auto-review/model-experience/per-call-reviewer/what-the-model-sees:
+  en: d1670b32b5be6795
+  zh: d6a6456f415b0daa
+/deepseek-ai-dsh-experimental-auto-review/model-experience/per-call-reviewer/token-effect:
   en: 9c3e575c061d53fe
   zh: 74db1c5a77b2d2a7
-/DeepSeek Harness-dsh-experimental-auto-review/model-experience/per-call-reviewer/kv-cache-effect:
-  en: 67b73d97f22f3c75
-  zh: 4dd263e571043cf4
-/DeepSeek Harness-dsh-experimental-auto-review/model-experience/tool-denial:
+/deepseek-ai-dsh-experimental-auto-review/model-experience/per-call-reviewer/kv-cache-effect:
+  en: 941f6afc75f896e7
+  zh: 54800fb8feaa6718
+/deepseek-ai-dsh-experimental-auto-review/model-experience/tool-denial:
   en: f9b4d7b686f14fc5
   zh: a2fac9a8eaf5e2a3
-/DeepSeek Harness-dsh-experimental-auto-review/model-experience/tool-denial/what-the-model-sees:
+/deepseek-ai-dsh-experimental-auto-review/model-experience/tool-denial/what-the-model-sees:
   en: a0b93e8eebc1b497
   zh: aec11cfbf6c1ec75
-/DeepSeek Harness-dsh-experimental-auto-review/model-experience/tool-denial/token-effect:
+/deepseek-ai-dsh-experimental-auto-review/model-experience/tool-denial/token-effect:
   en: 679cb3d82e97022f
   zh: 15c98505e75ff881
-/DeepSeek Harness-dsh-experimental-auto-review/model-experience/tool-denial/kv-cache-effect:
+/deepseek-ai-dsh-experimental-auto-review/model-experience/tool-denial/kv-cache-effect:
   en: 8da1089dee147f94
   zh: 87361347bfd10c6c
-/DeepSeek Harness-dsh-experimental-auto-review/known-limitations-and-deferred-work:
-  en: 8ca8954b8f925b3b
-  zh: 5bd6c142d4cb3d0c
-/DeepSeek Harness-dsh-experimental-auto-review/known-limitations-and-deferred-work/dev-note:
+/deepseek-ai-dsh-experimental-auto-review/known-limitations-and-deferred-work:
+  en: 6ab80358ea26c1c3
+  zh: b80dc28e3c3524bf
+/deepseek-ai-dsh-experimental-auto-review/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

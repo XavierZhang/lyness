@@ -70,6 +70,10 @@ async function copyPdfText(page: Page, preview: Locator, expected: string): Prom
   const text = preview.locator('[data-pdf-text] span:not(.markedContent)').filter({ hasText: expected }).first()
   await text.waitFor({ state: 'visible' })
   await expect.poll(() => text.evaluate(node => getComputedStyle(node).userSelect)).toBe('text')
+  await expect.poll(() => text.evaluate(node => ({
+    background: getComputedStyle(node, '::selection').backgroundColor,
+    color: getComputedStyle(node, '::selection').color,
+  }))).toEqual({ background: 'color(srgb 0.231373 0.509804 0.964706 / 0.4)', color: 'rgba(0, 0, 0, 0)' })
   await text.click({ clickCount: 3 })
   await expect.poll(() => page.evaluate(() => window.getSelection()?.toString().trim())).toBe(expected)
   await page.context().grantPermissions(['clipboard-read', 'clipboard-write'], { origin: new URL(page.url()).origin })
@@ -267,15 +271,23 @@ it.skipIf(MODE === 'record').each(['en-US', 'zh-CN'])('fills the spreadsheet pan
     const meetingCanvas = await canvas.elementHandle()
     if (meetingCanvas === null) throw new Error('meeting spreadsheet canvas is unavailable')
     await expectExcelLayout(excel)
-    await excel.locator('.fortune-sheet-overlay').click({ position: { x: 60, y: 40 } })
-    await expect.poll(() => formula.innerText()).toBe('会议纪要')
+    // Arrow keys pick the cell from committed state, so a later render cannot re-resolve it
+    // against the reflowed grid the way it re-resolves a pointer press.
+    const overlay = excel.locator('.fortune-sheet-overlay')
+    await overlay.focus()
+    await expect.poll(() => overlay.evaluate(node => document.activeElement === node)).toBe(true)
+    await page.keyboard.press('ArrowRight')
+    await expect.poll(() => selection.innerText()).toBe('B1')
+    await expect.poll(() => formula.innerText()).toBe('')
+    await page.keyboard.press('ArrowLeft')
     await expect.poll(() => selection.innerText()).toBe('A1')
+    await expect.poll(() => formula.innerText()).toBe('会议纪要')
     for (const width of [1000, 360, 1000, 360]) {
       await layout.evaluate((node, width) => { node.textContent = `[data-sidebar-right-panel] { width: ${width}px !important; }` }, width)
       await expect.poll(async () => Math.round((await panel.boundingBox())!.width)).toBe(width)
       await expectExcelLayout(excel)
       expect(await meetingCanvas.evaluate(node => node.isConnected)).toBe(true)
-      expect(await selection.innerText()).toBe('A1')
+      await expect.poll(() => selection.innerText()).toBe('A1')
       await expect.poll(() => excel.locator('.fortune-sheettab-scroll').count()).toBe(width === 360 ? 2 : 0)
     }
     const gridOffset = await excel.locator('.luckysheet-scrollbar-x').evaluate(node => node.scrollLeft)
@@ -598,7 +610,10 @@ else process.exit(1);
       await mkdir(SHOT_DIR, { recursive: true })
       await saveFailureShot(page, `screenshots/0908-document-preview/smoke-${process.pid}`)
     })
-    expect(await page.locator('[data-slot="conversation.hero.agentPreset"] button').count()).toBe(0)
+    await page.locator('[data-slot="conversation.hero.agentPreset"]').getByRole('button', { name: 'Standard mode', exact: true }).click()
+    await expect.poll(() => page.getByRole('menuitem').count()).toBe(2)
+    expect(await page.getByRole('menuitem', { name: /^PTC mode|^Minimal mode/ }).count()).toBe(0)
+    await page.keyboard.press('Escape')
     expect(scaffold.ctx.settings.describe().find(row => row.ns === 'ui-settings')?.value).toEqual({ enabled: false })
     const settled = scaffold.whenTurnSettled()
     const input = page.locator('[data-composer-input]').first()
@@ -837,8 +852,8 @@ else process.exit(1);
     ].join('\n'))
     await openSettings(page, 'en')
     const settings = page.getByRole('dialog', { name: 'Settings' })
-    await settings.getByRole('switch', { name: 'Coding Tools' }).click()
-    await expect.poll(() => settings.getByRole('switch', { name: 'Coding Tools' }).getAttribute('aria-checked')).toBe('true')
+    await settings.getByRole('switch', { name: 'Show coding view' }).click()
+    await expect.poll(() => settings.getByRole('switch', { name: 'Show coding view' }).getAttribute('aria-checked')).toBe('true')
     await successShot(page, 'developer-tools-setting')
     await settings.getByRole('button', { name: 'Close', exact: true }).click()
     await expect.poll(() => iframe.getAttribute('sandbox')).toBe('allow-scripts')
@@ -938,6 +953,7 @@ else process.exit(1);
       await page.emulateMedia({ colorScheme })
       await expect.poll(() => page.locator('body').getAttribute('data-ds-dark-theme')).toBe(colorScheme === 'dark' ? '' : null)
       await expectPdfPageSpacing(preview)
+      await copyPdfText(page, preview, 'Selectable PDF text')
       await successShot(page, `pdf-spacing-${colorScheme}`)
     }
     expect(await body.evaluate(node => node.scrollWidth <= node.clientWidth)).toBe(true)
@@ -1033,14 +1049,16 @@ else process.exit(1);
     expect(forward).toContain('THREE TASKS')
     expect(forward).not.toContain('REFLECTION')
     expect(forward).not.toContain('AFTER TABLE')
+    expect(await page.evaluate(() => window.getSelection()?.toString())).toBe(forward)
     const backward = await drag(priority, start)
     expect(backward).toContain('THREE TASKS')
     expect(backward).not.toContain('REFLECTION')
     expect(backward).not.toContain('AFTER TABLE')
+    expect(await page.evaluate(() => window.getSelection()?.toString())).toBe(backward)
     expect(await selectionLayer.locator('br').first().evaluate(node => getComputedStyle(node, '::selection').backgroundColor))
       .toBe('rgba(0, 0, 0, 0)')
     await successShot(page, 'pdf-drag-selection')
-    sections.push('## PDF drag selection\n\n- Table selection: forward and backward drags exclude later sections\n- Line-break highlight: transparent')
+    sections.push('## PDF drag selection\n\n- Table selection: forward and backward drags exclude later sections\n- Line-break highlight: transparent\n- Text selection: translucent blue in light and dark themes; canvas text remains visible\n- Mouse release preserves the selected text')
 
     const pngResponse = page.waitForResponse(response => new URL(response.url()).pathname === '/api/workspaceFiles/readBytes'
       && (response.request().postDataJSON() as { payload: { args: { path: string } } }).payload.args.path === 'tiny.png')
@@ -1064,7 +1082,7 @@ else process.exit(1);
       width: (node as HTMLImageElement).naturalWidth,
       height: (node as HTMLImageElement).naturalHeight,
       draggable: (node as HTMLImageElement).draggable,
-    }))).toEqual({ width: 1, height: 1, draggable: false })
+    }))).toEqual({ width: 1, height: 1, draggable: true })
     const centering = await tinyImage.evaluate((node) => {
       const image = node.getBoundingClientRect()
       const scroller = node.closest('[data-textpreview-body]')?.getBoundingClientRect()
@@ -1087,6 +1105,47 @@ else process.exit(1);
     await page.getByRole('menuitem', { name: 'Fit width', exact: true }).click()
     await expect.poll(() => imageZoom.innerText()).toBe('100%')
 
+    await tinyImage.dragTo(input)
+    const draggedPreview = page.getByRole('group', { name: 'Pending attachments', exact: true }).getByRole('img')
+    await draggedPreview.waitFor({ state: 'visible', timeout: 5000 })
+    const draggedBytes = await draggedPreview.evaluate(async (node: HTMLImageElement) =>
+      Array.from(new Uint8Array(await (await fetch(node.src)).arrayBuffer())))
+    expect(Buffer.from(draggedBytes)).toEqual(TINY_PNG)
+    expect(await input.innerText()).toBe('')
+    await page.getByRole('button', { name: 'Remove image tiny.png', exact: true }).click()
+    const endedDrag = await tinyImage.evaluateHandle((node) => {
+      const proof = { token: '', started: false, ended: false }
+      window.addEventListener('dragstart', (event) => {
+        proof.token = event.dataTransfer!.getData('application/x-dsh-file')
+        proof.started = event.isTrusted && proof.token !== ''
+      }, { once: true })
+      node.addEventListener('dragend', (event) => { proof.ended = event.isTrusted && !node.isConnected }, { once: true })
+      return proof
+    })
+    const tinyRect = (await tinyImage.boundingBox())!
+    const inputRect = (await input.boundingBox())!
+    await page.mouse.move(tinyRect.x + tinyRect.width / 2, tinyRect.y + tinyRect.height / 2)
+    await page.mouse.down()
+    await page.mouse.move(tinyRect.x - 20, tinyRect.y, { steps: 4 })
+    await expect.poll(() => endedDrag.evaluate(proof => proof.started)).toBe(true)
+    const tinyTab = column.locator('[data-dockkit-tab]').filter({ has: page.getByText('tiny.png', { exact: true }) })
+    await tinyTab.locator('[data-dockkit-tab-close]').evaluate((button: HTMLElement) => { button.click() })
+    await tinyImage.waitFor({ state: 'detached' })
+    await page.mouse.move(inputRect.x + inputRect.width / 2, inputRect.y + inputRect.height / 2, { steps: 5 })
+    await page.mouse.up()
+    await draggedPreview.waitFor({ state: 'visible', timeout: 5000 })
+    expect(Buffer.from(await draggedPreview.evaluate(async (node: HTMLImageElement) =>
+      Array.from(new Uint8Array(await (await fetch(node.src)).arrayBuffer()))))).toEqual(TINY_PNG)
+    await expect.poll(() => endedDrag.evaluate(proof => proof.ended)).toBe(true)
+    await page.getByRole('button', { name: 'Remove image tiny.png', exact: true }).click()
+    const retiredToken = await endedDrag.evaluate(proof => proof.token)
+    await input.evaluate((node, token) => {
+      const dataTransfer = new DataTransfer()
+      dataTransfer.setData('application/x-dsh-file', token)
+      node.dispatchEvent(new DragEvent('drop', { bubbles: true, dataTransfer }))
+    }, retiredToken)
+    expect(await draggedPreview.count()).toBe(0)
+    await endedDrag.dispose()
     await openFile('large.svg')
     await expect.poll(() => viewer.innerText()).toBe('Image')
     await viewer.click()
@@ -1125,6 +1184,17 @@ else process.exit(1);
     await page.getByRole('menuitem', { name: '100%', exact: true }).click()
     await expect.poll(async () => (await largeImage.boundingBox())!.width).toBeCloseTo(1200, 0)
     expect(await imageScrollport.evaluate(node => node.scrollWidth > node.clientWidth)).toBe(true)
+    await imageScrollport.evaluate((node) => { node.scrollLeft = 0; node.scrollTop = 0 })
+    const panBox = await imageScrollport.boundingBox()
+    if (panBox === null) throw new Error('image viewport missing')
+    await expect.poll(() => largeImage.evaluate(node => getComputedStyle(node).cursor)).toBe('grab')
+    await page.mouse.move(panBox.x + 180, panBox.y + 180)
+    await page.mouse.down()
+    await page.mouse.move(panBox.x + 100, panBox.y + 100, { steps: 8 })
+    await expect.poll(() => imageScrollport.evaluate(node => [node.scrollLeft, node.scrollTop])).toEqual([80, 80])
+    await expect.poll(() => largeImage.evaluate(node => getComputedStyle(node).cursor)).toBe('grabbing')
+    await page.mouse.up()
+    await expect.poll(() => largeImage.evaluate(node => getComputedStyle(node).cursor)).toBe('grab')
     svgZoom = await revealDocumentZoom(page, preview)
     await svgZoom.click()
     await page.getByRole('menuitem', { name: 'Fit width', exact: true }).click()
@@ -1133,9 +1203,11 @@ else process.exit(1);
     expect(await page.locator('html').getAttribute('data-image-preview-escape')).toBeNull()
     sections.push([
       '## Image zoom', '',
+      '- Contained sidebar PNG drags into the composer as an original-byte image attachment',
       '- Small PNG fit width remains at intrinsic size; 200% doubles it',
       '- SVG fit width -> 100% -> fit width toggles horizontal overflow: false -> true -> false',
       '- Image and Blob identities remain stable while zoom changes',
+      '- Overflowing image drag pans both axes by 80px; releasing restores the grab cursor',
     ].join('\n'))
 
     const releaseRead = Promise.withResolvers<undefined>()
@@ -1584,6 +1656,7 @@ describe.skipIf(MODE === 'record')('web e2e: Host Office preview', () => {
         await expect.poll(() => preview.locator('[data-pdf-preview]').evaluate(node => getComputedStyle(node).backgroundColor))
           .toBe(colorScheme === 'dark' ? 'rgb(21, 21, 23)' : 'rgb(235, 238, 242)')
         await expectPdfPageSpacing(preview)
+        await copyPdfText(page, preview, '中文文档')
         await successShot(page, `office-background-${colorScheme}`)
       }
       await (await revealDocumentZoom(page, preview)).click()
@@ -1695,6 +1768,7 @@ describe.skipIf(MODE === 'record')('web e2e: Host Office preview', () => {
       await compareOrRefreshGolden(fileURLToPath(new URL('./expected/office-font-notice.md', import.meta.url)), [
         '# Office font warning', '',
         '- Document preparation: centered 28px spinner with visible rendering status in both themes',
+        '- Text selection: translucent blue with transparent overlay text in both themes; Chinese text copies unchanged',
         '- Document backdrop: cool light grey in light mode; matte black in dark mode',
         '- Word and PowerPoint paper layout: 12px page gaps and outer backdrop insets',
         '- Warning precedes reload in the same toolbar: true',
@@ -1719,6 +1793,7 @@ describe.skipIf(MODE === 'record')('web e2e: Host Office preview', () => {
         await officeZoom.click()
         await page.getByRole('menuitem', { name: '150%', exact: true }).click()
         await expectPdfResolution(canvas)
+        if (extension === 'pptx') await copyPdfText(page, preview, '中文文档')
         if (['doc', 'ppt'].includes(extension)) expect(await warning.count()).toBe(0)
         if (extension === 'pptx') {
           await preview.locator('[data-document-zoom-scrollport]').evaluate((node) => {

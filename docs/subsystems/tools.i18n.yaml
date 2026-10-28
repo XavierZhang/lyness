@@ -3,8 +3,8 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write docs/subsystems/tools.md
 /tools:
-  en: faa7d966fdba50c8
-  zh: ecbd98cf72aa0fd1
+  en: e3ecdbc9d7078226
+  zh: 82d609bfd382311e
 /tools/tooldefinition-a-registered-tool:
   en: e5ebf149f6783674
   zh: 062aa8477376f953
@@ -14,12 +14,18 @@
 /tools/toolrestriction-one-scope-s-live-filter-over-what-it-inherits:
   en: 8c3fc4ca26f7e314
   zh: 2e27263cb25243b9
+/tools/conditional-activation-step-owned-admission:
+  en: 472eefe8fab01e57
+  zh: 0b98e74f87a6c9c0
+/tools/executors-and-raw-call-batches:
+  en: 14522295539ea2fb
+  zh: 572c462f2c6b70ad
 /tools/execution-extensible-waterfalls-plus-monotonic-policy:
-  en: 1ff922c9803d5456
-  zh: 983d71cbbff7b702
+  en: 356bf8128685d0fe
+  zh: a28541da29c3deed
 /tools/the-enforced-raw-json-schema-subset:
   en: 28e354bfa2f9cebb
   zh: be1f75abccf8afdf
 /tools/tool-presentation-ui-vocabulary:
-  en: 1d31a5555882edf8
-  zh: b84b7fb5952d4e2d
+  en: 078fac733842b847
+  zh: e8bc6e56ad1932fe

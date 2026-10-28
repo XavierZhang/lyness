@@ -12,7 +12,7 @@ import {
   type TypertContext,
   type TypertForwardableEvent,
   type TypertForwardableEventEntry,
-  type RemoteMethodOptions,
+  type TypertResource,
   type TypertLookup,
   type TypertRemoteEvent,
 } from '@deepseek-ai/dsh-typert-protocol'
@@ -72,20 +72,13 @@ declare module '@deepseek-ai/dsh-typert-protocol' {
     otherFixture: TypertContext<string>
   }
 
+  interface TypertResourceMap {
+    /** Test-only resource kind read from fixture event payloads. */
+    'meta-fixture-id': TypertResource<string>
+  }
+
   interface TypertRemoteEventSelection extends
     Record<'meta-fixture/forwardable' | 'meta-fixture/waterfall' | 'meta-fixture/absent', true> {}
-}
-
-/**
- * One options object a JavaScript caller could pass that the declared type
- * forbids. Every declared option is optional, so only a literal is refused;
- * passing the same object through a parameter the compiler does not inspect
- * for excess properties is what lets the test reach the runtime validation.
- * @param value - the object to pass as options.
- * @returns the same object, as the decorator's declared options.
- */
-function badOptions(value: object): RemoteMethodOptions {
-  return value
 }
 
 describe('typert-protocol Remote declarations', () => {
@@ -258,7 +251,7 @@ describe('typert-protocol Remote declarations', () => {
       follow(): void {}
     }
     const initializers: Array<(this: Jobs) => void> = []
-    Remote({ mode: 'stream' })(Reflect.get(Jobs.prototype, 'follow'), methodContext('follow', initializers))
+    Remote<Jobs, unknown[], unknown>({ mode: 'stream' })(Reflect.get(Jobs.prototype, 'follow'), methodContext('follow', initializers))
     const jobs = new Jobs()
     for (const initialize of initializers) initialize.call(jobs)
     expect(remoteMethods(jobs)).toEqual([
@@ -318,12 +311,12 @@ describe('typert-protocol Remote declarations', () => {
     expect(() => Remote('bad name')).toThrow('export name')
     expect(() => Remote('.')).toThrow('export name')
     expect(() => Remote('..')).toThrow('export name')
-    expect(() => Remote(badOptions({ mode: 'unary' }))).toThrow('mode must be "stream"')
-    expect(() => Remote(badOptions({ mode: 'stream', extra: true }))).toThrow('do not accept extra')
-    expect(() => Remote(badOptions({}))).toThrow('must declare exportName, mode, or requires')
-    expect(() => Remote(badOptions({ requires: 'operator' }))).toThrow('requires must name a RemoteAuthority')
-    expect(() => Remote({ exportName: 'bad/name' })).toThrow('export name')
-    expect(() => Remote(badOptions({ exportName: 7 }))).toThrow('exportName must be a string')
+    expect(() => Remote({ mode: 'unary' } as unknown as { mode: 'stream' })).toThrow('Remote options require')
+    expect(() => Remote({ mode: 'stream', extra: true } as unknown as { mode: 'stream' })).toThrow('Remote options require')
+    const bogusMode: string = 'duplex'
+    expect(() => Remote({ mode: bogusMode } as { mode: 'stream' }))
+      .toThrow('Remote options require name, mode: "stream", or resources')
+    expect(() => Remote({})).toThrow('Remote options require')
     expect(() => RemoteScope('' as 'metaFixture')).toThrow('Scope key')
     expect(() => RemoteScope('metaFixture', 'bad/name')).toThrow('export name')
 
@@ -334,6 +327,23 @@ describe('typert-protocol Remote declarations', () => {
     ]) {
       expect(() => { Remote(method, context) })
         .toThrow('public instance method')
+    }
+  })
+
+  it('retains transport identity and mode for renamed streams', async () => {
+    const ctx = new Context()
+    class ItemsService extends TypertRemoteService {
+      constructor(owner: Context) { super(owner, 'itemsFixture') }
+
+      @Remote({ name: 'items', mode: 'stream' })
+      async *read(): AsyncIterable<string> { yield 'first' }
+    }
+    try {
+      expect(remoteMethods(new ItemsService(ctx))).toEqual([{
+        method: 'read', exportName: 'items', mode: 'stream', invocation: { kind: 'direct' },
+      }])
+    } finally {
+      await ctx.fiber.dispose()
     }
   })
 
@@ -402,6 +412,12 @@ describe('typert-protocol Remote declarations', () => {
     expect(() => { directSecond[0]!.call(reverseService) }).toThrow('conflicting invocation markers')
   })
 
+  it('leaves bindings without a Cordis Context free of an invocation accessor', () => {
+    const service = { ctx: {} }
+    expect(bindTypertRemote(service, 'plain')).toEqual({ service, serviceKey: 'plain', namespace: 'plain' })
+    expect(Object.hasOwn(service.ctx, 'invocation')).toBe(false)
+  })
+
   it('rejects ambiguous binding names', () => {
     expect(() => bindTypertRemote({}, '')).toThrow('service key')
     expect(() => bindTypertRemote({}, 'goals', { namespace: 'api/goals' })).toThrow('namespace')
@@ -425,6 +441,25 @@ describe('typert-protocol Remote declarations', () => {
       .toExtend<TypertForwardableEventEntry>()
     expectTypeOf<{ event: 'meta-fixture/waterfall'; mode: 'emit' }>()
       .not.toExtend<TypertForwardableEventEntry>()
+  })
+
+  it('types the resource readers of an emit entry by its own event parameters', () => {
+    const entries = [
+      {
+        event: 'meta-fixture/forwardable',
+        mode: 'emit',
+        resources: { 'meta-fixture-id': (value) => { expectTypeOf(value).toEqualTypeOf<string>(); return value } },
+      },
+      { event: 'meta-fixture/waterfall', mode: 'waterfall' },
+    ] as const satisfies readonly TypertForwardableEventEntry[]
+    const wrong = [{
+      event: 'meta-fixture/forwardable',
+      mode: 'emit',
+      // @ts-expect-error -- a reader returns the kind's identity type, not the payload's length.
+      resources: { 'meta-fixture-id': value => value.length },
+    }] as const satisfies readonly TypertForwardableEventEntry[]
+    expect(entries[0].resources['meta-fixture-id']('s1')).toBe('s1')
+    expect(wrong).toHaveLength(1)
   })
 
   it('derives Client Context arguments from the selected Cordis waterfall declaration', () => {

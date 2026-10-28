@@ -5,63 +5,63 @@
 /:
   en: f83c75aa73ae21dd
   zh: e8873aafd23a8038
-/DeepSeek Harness-dsh-api-workspace-files:
-  en: 12e2c6d9d4e544d8
-  zh: 6fcc2ff3581f7131
-/DeepSeek Harness-dsh-api-workspace-files/summary:
+/deepseek-ai-dsh-api-workspace-files:
+  en: d2885c72d12d9924
+  zh: e111f03d02383229
+/deepseek-ai-dsh-api-workspace-files/summary:
   en: 27c562441286bdbf
   zh: 205dfac32c96873b
-/DeepSeek Harness-dsh-api-workspace-files/table-of-contents:
+/deepseek-ai-dsh-api-workspace-files/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/DeepSeek Harness-dsh-api-workspace-files/use-this-package:
-  en: d5924f87433b4dcf
-  zh: 1d7503f52a97face
-/DeepSeek Harness-dsh-api-workspace-files/use-this-package/addressing-and-paths:
+/deepseek-ai-dsh-api-workspace-files/use-this-package:
+  en: 874054ed5e950973
+  zh: e8b55d62939c4c2f
+/deepseek-ai-dsh-api-workspace-files/use-this-package/addressing-and-paths:
   en: b9565cfa7a1da451
   zh: fc4078a58322fc7f
-/DeepSeek Harness-dsh-api-workspace-files/use-this-package/pages:
+/deepseek-ai-dsh-api-workspace-files/use-this-package/pages:
   en: 9cd68b8be3390c80
   zh: 26049ce447f00452
-/DeepSeek Harness-dsh-api-workspace-files/use-this-package/binary-reads:
+/deepseek-ai-dsh-api-workspace-files/use-this-package/binary-reads:
   en: 93ca9e832fbfd632
   zh: 69412adba259c6f8
-/DeepSeek Harness-dsh-api-workspace-files/use-this-package/file-read-and-directory-checks:
+/deepseek-ai-dsh-api-workspace-files/use-this-package/file-read-and-directory-checks:
   en: aa85c7754557a22f
   zh: c576d06749fbe0a5
-/DeepSeek Harness-dsh-api-workspace-files/use-this-package/the-change-feed:
+/deepseek-ai-dsh-api-workspace-files/use-this-package/the-change-feed:
   en: 8bd2d820a512d461
   zh: 0614ddd842ae7526
-/DeepSeek Harness-dsh-api-workspace-files/use-this-package/configuration:
-  en: 9a96877ec701c91d
-  zh: cc3aa508ca0939bf
-/DeepSeek Harness-dsh-api-workspace-files/use-this-package/failures:
+/deepseek-ai-dsh-api-workspace-files/use-this-package/configuration:
+  en: e606e8b22ac6e0d0
+  zh: 13a7214448036d7b
+/deepseek-ai-dsh-api-workspace-files/use-this-package/failures:
   en: c53d597c8f255e69
   zh: 1e00318f9a34f3bb
-/DeepSeek Harness-dsh-api-workspace-files/use-this-package/client-file-resources:
-  en: 72b92a36cce97d7a
-  zh: 8d69a24b772c953a
-/DeepSeek Harness-dsh-api-workspace-files/understand-the-implementation:
+/deepseek-ai-dsh-api-workspace-files/use-this-package/client-file-resources:
+  en: 9b4bf7a30016f856
+  zh: 30127a6ada65e715
+/deepseek-ai-dsh-api-workspace-files/understand-the-implementation:
   en: 42b15ac6321706aa
   zh: ce1d25bffb6948cd
-/DeepSeek Harness-dsh-api-workspace-files/understand-the-implementation/design-concept:
+/deepseek-ai-dsh-api-workspace-files/understand-the-implementation/design-concept:
   en: c3a8852c33dcc0e9
   zh: d24fd47da7faaa29
-/DeepSeek Harness-dsh-api-workspace-files/understand-the-implementation/source-map:
-  en: 2394243d582bb452
-  zh: 763e56ca827efa0d
-/DeepSeek Harness-dsh-api-workspace-files/further-exploration:
-  en: f18b6524e688b09a
-  zh: 33086ffa256275a9
-/DeepSeek Harness-dsh-api-workspace-files/model-experience:
+/deepseek-ai-dsh-api-workspace-files/understand-the-implementation/source-map:
+  en: 596a75f43bfafda3
+  zh: 3cb267a0946cd75e
+/deepseek-ai-dsh-api-workspace-files/further-exploration:
+  en: 71f00fb919d12181
+  zh: 1e3819cd90dfca31
+/deepseek-ai-dsh-api-workspace-files/model-experience:
   en: 37b4264c8301323f
   zh: 74ea89b3383ff7da
-/DeepSeek Harness-dsh-api-workspace-files/model-experience/kv-cache-effect:
+/deepseek-ai-dsh-api-workspace-files/model-experience/kv-cache-effect:
   en: ca75c51c89c2c9b0
   zh: 03126f3b1aac5859
-/DeepSeek Harness-dsh-api-workspace-files/known-limitations-and-deferred-work:
-  en: c93f1200d92d52b1
-  zh: 0cb1ece644460d5f
-/DeepSeek Harness-dsh-api-workspace-files/known-limitations-and-deferred-work/dev-note:
+/deepseek-ai-dsh-api-workspace-files/known-limitations-and-deferred-work:
+  en: ee05e55f5d16f253
+  zh: 0c937eeac8fa3f08
+/deepseek-ai-dsh-api-workspace-files/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: e88aeb617ffb74ea

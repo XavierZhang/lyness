@@ -3,8 +3,8 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-08-15-client-shells-and-dynamic-packages.md
 /agent-note-client-shell-layering-and-dynamic-package-boundaries:
-  en: 19d0013428ea913a
-  zh: cdedbef697d6d0db
+  en: c8976de4e5547fdd
+  zh: 3d1bcb3273993af4
 /agent-note-client-shell-layering-and-dynamic-package-boundaries/problem:
   en: bd5f38c7aba648dc
   zh: 3c28670556b3b34d
@@ -12,20 +12,20 @@
   en: a15c7c13f167e5ac
   zh: a15c7c13f167e5ac
 /agent-note-client-shell-layering-and-dynamic-package-boundaries/decision/layers-and-build-forms:
-  en: dad71284583a339c
-  zh: cda686efc02c9e08
+  en: a1750de2d48551af
+  zh: ffea0b75c292f186
 /agent-note-client-shell-layering-and-dynamic-package-boundaries/decision/shared-module-requests:
-  en: ac07e87db402a965
-  zh: ca71f84eefd9e52d
+  en: 96661da17622132a
+  zh: dab3424093130c2f
 /agent-note-client-shell-layering-and-dynamic-package-boundaries/decision/parser-preloading-and-react-handoff:
-  en: ea733f9e08422326
-  zh: e49445ad14152e5d
+  en: 4b503618b271fc28
+  zh: e2148f44efa769d2
 /agent-note-client-shell-layering-and-dynamic-package-boundaries/decision/dependency-declarations:
-  en: 6d0ab11fc636b3b5
-  zh: 6b2023b17f51f55d
+  en: 47c332b836c2933b
+  zh: ed190dbb14b98911
 /agent-note-client-shell-layering-and-dynamic-package-boundaries/alternatives-considered:
   en: 2257178f8f474757
   zh: 7da85b5899b91520
 /agent-note-client-shell-layering-and-dynamic-package-boundaries/consequences:
-  en: af95ba1bdca244be
-  zh: 0e103e7f6db2f1c9
+  en: c7653b12059aebd7
+  zh: a79b63f28d18f8c4

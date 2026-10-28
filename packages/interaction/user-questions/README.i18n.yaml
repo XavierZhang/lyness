@@ -5,39 +5,30 @@
 /:
   en: 49ea5bf7d681936e
   zh: e65549bc2fc385a4
-/DeepSeek Harness-dsh-user-questions:
-  en: f4df9ce3d9eec101
-  zh: 2e7e3913a97ad90b
-/DeepSeek Harness-dsh-user-questions/summary:
-  en: d27ce8b495269248
-  zh: 691a7cc7f3d892d0
-/DeepSeek Harness-dsh-user-questions/table-of-contents:
-  en: ad3919bb107cc38d
-  zh: 557af29a8318b65c
-/DeepSeek Harness-dsh-user-questions/service-userquestionservice-ctx-key-userquestions:
-  en: 1ba3467a2588da42
-  zh: 74f6e516f71116d9
-/DeepSeek Harness-dsh-user-questions/service-userquestionservice-ctx-key-userquestions/public-api:
-  en: f7c183c8728b05cd
-  zh: f0104632d8eb2938
-/DeepSeek Harness-dsh-user-questions/service-userquestionservice-ctx-key-userquestions/key-types:
-  en: 10637ca40891d520
-  zh: 015662eb651d19cb
-/DeepSeek Harness-dsh-user-questions/service-userquestionservice-ctx-key-userquestions/presentation-intent:
-  en: 09922024926009de
-  zh: f04810dd58d8d18e
-/DeepSeek Harness-dsh-user-questions/role:
-  en: 9ca9cd984803b84b
-  zh: f09a569dea1e8487
-/DeepSeek Harness-dsh-user-questions/model-experience:
-  en: d7ecb2fd5bbe273a
-  zh: 8777492de29125ac
-/DeepSeek Harness-dsh-user-questions/model-experience/kv-cache-effect:
+/deepseek-ai-dsh-user-questions:
+  en: 79d2910e509a2512
+  zh: 7af1982658f00d64
+/deepseek-ai-dsh-user-questions/summary:
+  en: 2c1ade8d86e6a8c7
+  zh: 97d43dcf997d6ff7
+/deepseek-ai-dsh-user-questions/table-of-contents:
+  en: 382a21c0ea17b2e4
+  zh: 1a4335e571de92dd
+/deepseek-ai-dsh-user-questions/ask-a-question:
+  en: 2898b11dff62d4d9
+  zh: 09b6d9c75476a3a5
+/deepseek-ai-dsh-user-questions/role:
+  en: 1a321b5a204dc4dd
+  zh: 5e30055a3774e606
+/deepseek-ai-dsh-user-questions/model-experience:
+  en: 95167d0c957a0ab5
+  zh: 582c04395648786c
+/deepseek-ai-dsh-user-questions/model-experience/kv-cache-effect:
   en: 40294c1c31b74824
   zh: cd40bdfe1a1c37dc
-/DeepSeek Harness-dsh-user-questions/known-limitations-and-deferred-work:
-  en: 9c2d868427856d56
-  zh: f0d19979fd90d826
-/DeepSeek Harness-dsh-user-questions/known-limitations-and-deferred-work/dev-note:
-  en: f5f2c82d2e085ccf
-  zh: d04ca73d1db0ef0f
+/deepseek-ai-dsh-user-questions/known-limitations-and-deferred-work:
+  en: a2334c0fcb02d2d8
+  zh: 4592c204397387ac
+/deepseek-ai-dsh-user-questions/known-limitations-and-deferred-work/dev-note:
+  en: 23f77437b2447181
+  zh: 30115a0a4bda7a61

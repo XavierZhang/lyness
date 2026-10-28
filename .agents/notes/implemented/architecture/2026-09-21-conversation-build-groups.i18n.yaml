@@ -3,20 +3,20 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-09-21-conversation-build-groups.md
 /agent-note-definition-owned-grouping-with-generic-node-group-assembly:
-  en: a9e9d6f7e28601d5
-  zh: 67e99003fe0a7331
+  en: 011f264e0aea8d0c
+  zh: d0ad8b4334af619e
 /agent-note-definition-owned-grouping-with-generic-node-group-assembly/problem:
   en: 83dd98f48ee30a1a
   zh: 66dec35b4b54f291
 /agent-note-definition-owned-grouping-with-generic-node-group-assembly/decision:
-  en: bd82008cf0f584f1
-  zh: 94eb80a094b2c8a3
+  en: d4216ce4d80382e8
+  zh: 9ee608af410e81e0
 /agent-note-definition-owned-grouping-with-generic-node-group-assembly/decision/responsibilities:
   en: d7cf1bd544f163ee
   zh: 2433f3faa5f5abcb
 /agent-note-definition-owned-grouping-with-generic-node-group-assembly/decision/related-decisions:
-  en: 9241fe2b202708a8
-  zh: 81dee33aec3f0acc
+  en: 0889aeb088ed31b2
+  zh: 539f03253b48c59b
 /agent-note-definition-owned-grouping-with-generic-node-group-assembly/definition-input-state-and-registration:
   en: 9fb89bddbfd75627
   zh: 950c319db123c637

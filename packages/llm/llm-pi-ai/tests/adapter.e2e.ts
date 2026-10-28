@@ -14,6 +14,7 @@ import { E2E_TARGET } from '@deepseek-ai/dsh-e2e-target'
  * and exercises a replayed tool follow-up. Key-gated.
  */
 
+const FLASH = 'deepseek-flash'
 const FLASH = E2E_TARGET.model
 const contexts: Context[] = []
 

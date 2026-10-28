@@ -3,17 +3,20 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write docs/web-styling.md
 /web-ui-style-reference:
-  en: 68c5d5c4a4036851
-  zh: f828cc32662ef028
+  en: aab8007f4e9287d7
+  zh: 158960e753f32a91
 /web-ui-style-reference/ownership:
-  en: 1d1647fcf6299c38
-  zh: 9322b91d9125c0c5
+  en: dc8c41fbf9869179
+  zh: e45976a585cb9c86
 /web-ui-style-reference/component-rules:
-  en: 0c60e1193369aba1
-  zh: 4c1d5c4e9c9735d7
+  en: 4ee4a6fd2917306a
+  zh: d7d68c140a698ab0
+/web-ui-style-reference/input-capabilities:
+  en: bf2e98bce68743e2
+  zh: fc58dcbb60bb944a
 /web-ui-style-reference/corner-radii-and-settings-cards:
-  en: 3097da49ae3445c3
-  zh: 9a164bda0f9d0567
+  en: 118972f6c2bd6ce4
+  zh: 85f8416b03e4dd8b
 /web-ui-style-reference/changing-the-system:
-  en: 5019a8a033096773
-  zh: 344a99bc318b6d7d
+  en: 71501119492a3ad4
+  zh: 87bf6c9406d0d9ed

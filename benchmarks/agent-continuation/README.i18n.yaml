@@ -3,8 +3,8 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write benchmarks/agent-continuation/README.md
 /backend-continuation-benchmarks:
-  en: 6105002addc1bbee
-  zh: ccad47c76687c9fb
+  en: 5617153059c8a2da
+  zh: ea0f0023d3c9dd63
 /backend-continuation-benchmarks/summary:
   en: 211ad192bd000827
   zh: a7b9422642a21f9e
@@ -12,11 +12,11 @@
   en: 66a769ce60d49ff3
   zh: 7e0bfa7c598157fa
 /backend-continuation-benchmarks/run:
-  en: a12d274d516b14fc
-  zh: 76e36c1b3ea9d604
+  en: a9a943044795029c
+  zh: 45c8257f51ec658a
 /backend-continuation-benchmarks/measurements:
-  en: 4959ae8098271c3f
-  zh: cacf3b3f0cc0835f
+  en: 84301730c56f0614
+  zh: 6e90a8d6574fa896
 /backend-continuation-benchmarks/dev-note:
   en: b75c8458928b72b9
   zh: 003ba4e17b4b5269

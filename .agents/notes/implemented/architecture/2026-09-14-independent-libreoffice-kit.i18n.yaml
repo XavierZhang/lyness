@@ -3,14 +3,14 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-09-14-independent-libreoffice-kit.md
 /agent-note-independent-libreoffice-kit-ownership:
-  en: dc16b8f88fa4d88a
-  zh: e84e64ae905e0b82
+  en: ee1625b5a309d9e6
+  zh: c3e78e1b1aa92fd8
 /agent-note-independent-libreoffice-kit-ownership/problem:
   en: 2fc4ac7bdd4a3474
   zh: 21ebdd3ac9264132
 /agent-note-independent-libreoffice-kit-ownership/decision:
-  en: 37d16c8dbdccb34a
-  zh: 145860a53737ab58
+  en: 0d8e05bcb940f88f
+  zh: b5b55f4ee82cf6a3
 /agent-note-independent-libreoffice-kit-ownership/alternatives-considered:
   en: 55175bb30630bf0c
   zh: 788853ddd5f7a4e9

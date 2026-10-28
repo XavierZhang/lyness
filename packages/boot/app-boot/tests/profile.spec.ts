@@ -22,7 +22,6 @@ import {
   loadProfileDirectory,
   PROFILE_COMPATIBILITY_FILENAME,
   PROFILE_PATCH_FILENAME,
-  PROFILE_TEMPLATES,
   readProfileManifest,
   readProfilePatches,
   removeLinkProjections,
@@ -33,6 +32,7 @@ import {
   type Profile,
   type RuntimeResolution,
 } from '../src/index.ts'
+import { PROFILE_TEMPLATES } from '@deepseek-ai/dsh-official-bundles'
 import { installRuntimeInterception } from '../src/profile-resolution/resolver.ts'
 
 const tempRoots: string[] = []
@@ -390,6 +390,21 @@ describe('loadProfile', () => {
     ])
   })
 
+  it('removes a retired bundle from an application-owned profile and keeps the rest of the manifest', () => {
+    const anchor = stageInstallation({
+      '@deepseek-ai/dsh-base': { patch: '[]\n' },
+      'custom-bundle': { patch: '[]\n' },
+    })
+    const dir = join(tmp(), 'app-profile')
+    initProfile(dir, ['@deepseek-ai/dsh-base', '@deepseek-ai/dsh-experimental-schedule-bundle', 'custom-bundle'])
+    writeProfileManifest(dir, { ...readProfileManifest('t', dir), dependencies: { 'custom-bundle': '^1.0.0' } })
+    const profile = loadProfileDirectory('t', dir, anchor)
+    expect(profile.skippedBundles).toEqual([])
+    expect(profile.layers.map(layer => layer.packageName)).toEqual(['@deepseek-ai/dsh-base', 'custom-bundle'])
+    expect(readProfileManifest('t', dir)).toMatchObject({
+      dependencies: { 'custom-bundle': '^1.0.0' },
+      dsh: { profile: { bundles: ['@deepseek-ai/dsh-base', 'custom-bundle'] } },
+    })
   it('carries an existing profile through a template that gained a bundle', () => {
     // Every bundle both the superseded tuple and the current template name,
     // so resolution succeeds either way and the manifest is what is observed.
@@ -618,6 +633,7 @@ describe('createRuntimeResolution', () => {
     expect(resolution.entries.find(entry => entry.name === 'dep-of-a')?.packageDir).toBe(join(modules, 'dep-of-a'))
     expect(existsSync(join(home, 'profiles', 'node_modules'))).toBe(false)
     await expect(createRuntimeResolution({ installAnchor: anchor, home })).resolves.toEqual(resolution)
+    await expect(resolution.computeLatestResolution()).resolves.toEqual(resolution)
   })
 
   it('keeps selected bundle closures profile-local without overriding installation packages', async () => {

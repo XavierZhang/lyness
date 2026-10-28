@@ -3,29 +3,29 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/README.md
 /:
-  en: ee0abed4c4ee46b3
-  zh: df4a34469f71a24d
+  en: b2be0c61aa2780eb
+  zh: c308e935e481f211
 /packages:
-  en: 88ee44430e41c626
-  zh: cfe74d5911f5c850
+  en: 9f8cdc7bf95bed2b
+  zh: 9e25684a309f580a
 /packages/summary:
-  en: ccd3273b56bdfc27
-  zh: 9987ed9d60c0c57a
+  en: 299fb58abec76411
+  zh: e9fdd53d39b755de
 /packages/table-of-contents:
   en: ffc55792d6e922e1
   zh: 83bd759638857e2d
 /packages/package-groups:
-  en: dfa10c9ea053ebd0
-  zh: f33a5358e3ce98e0
+  en: c397fc0c1885058a
+  zh: c720d0e91dd1d15e
 /packages/release-expectations:
-  en: 1ab880da3642bde1
-  zh: 6e168322f026a9cf
+  en: 236081c1659b25ab
+  zh: 809110adf003802e
 /packages/dependencies:
-  en: 879364c7fa60c208
-  zh: 4745848fffe2d209
+  en: 9576e7c486bf123f
+  zh: fedd18da3e27ad00
 /packages/package-readme-contracts:
-  en: 52ada7eacaee014f
-  zh: b78d390a8c17c11b
+  en: 9f35ef77d1b4c388
+  zh: 39cdc988e87a96c2
 /packages/dev-note:
   en: 5de1d6304e00c58f
   zh: 8d8225361cfa29e5

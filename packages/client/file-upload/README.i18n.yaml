@@ -5,33 +5,33 @@
 /:
   en: c983fa9f5976bac3
   zh: b3c2c2fdf19b461e
-/DeepSeek Harness-dsh-client-file-upload:
-  en: 233f3a100bc3160c
-  zh: b892328f23e5007c
-/DeepSeek Harness-dsh-client-file-upload/summary:
-  en: 430b79a11643da11
-  zh: 5fbab8d425b7f15a
-/DeepSeek Harness-dsh-client-file-upload/table-of-contents:
+/deepseek-ai-dsh-client-file-upload:
+  en: a6c9f156174554e1
+  zh: cd1a126905ad859b
+/deepseek-ai-dsh-client-file-upload/summary:
+  en: e53f2cfb8285a578
+  zh: 1930ea2638e59a34
+/deepseek-ai-dsh-client-file-upload/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/DeepSeek Harness-dsh-client-file-upload/use-this-package:
-  en: 9d5bbf52599b0d00
-  zh: 7907542ce1e34549
-/DeepSeek Harness-dsh-client-file-upload/understand-the-implementation:
-  en: 361ef09d959ec793
-  zh: 7c148e9c7f238f44
-/DeepSeek Harness-dsh-client-file-upload/further-exploration:
-  en: 98f19ff2c7ed3527
-  zh: a13919a5a32e5f1b
-/DeepSeek Harness-dsh-client-file-upload/model-experience:
+/deepseek-ai-dsh-client-file-upload/use-this-package:
+  en: 7c19ce780c0d1357
+  zh: 2d295b8b872b5f9f
+/deepseek-ai-dsh-client-file-upload/understand-the-implementation:
+  en: 8a03794416a84817
+  zh: 7b2510135b751f97
+/deepseek-ai-dsh-client-file-upload/further-exploration:
+  en: ac94eb9da9ecc296
+  zh: 25cc3362e2bea330
+/deepseek-ai-dsh-client-file-upload/model-experience:
   en: a928c345333d4d93
   zh: 710172520aacfbe1
-/DeepSeek Harness-dsh-client-file-upload/model-experience/kv-cache-effect:
+/deepseek-ai-dsh-client-file-upload/model-experience/kv-cache-effect:
   en: ca75c51c89c2c9b0
   zh: f57cc48a1b5cbfa9
-/DeepSeek Harness-dsh-client-file-upload/known-limitations-and-deferred-work:
+/deepseek-ai-dsh-client-file-upload/known-limitations-and-deferred-work:
   en: 8592a9aab413e5dc
   zh: ae12d9777eda0b63
-/DeepSeek Harness-dsh-client-file-upload/known-limitations-and-deferred-work/dev-note:
+/deepseek-ai-dsh-client-file-upload/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: e88aeb617ffb74ea

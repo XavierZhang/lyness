@@ -3,41 +3,41 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/ui-brand-official/README.md
 /:
-  en: ef55e381b8ce395e
-  zh: 73d5985ec4de8359
-/DeepSeek Harness-dsh-client-ui-brand-official:
-  en: 8f5a5e398eb8603a
-  zh: 2f6f130e5f749551
-/DeepSeek Harness-dsh-client-ui-brand-official/summary:
-  en: 004b48dd74a42cf4
-  zh: 46a757e89f7bb1b4
-/DeepSeek Harness-dsh-client-ui-brand-official/table-of-contents:
+  en: a031cd88e552dc89
+  zh: 76c1af2393cb6983
+/deepseek-ai-dsh-client-ui-brand-official:
+  en: 7cee1be833cea807
+  zh: 9953e1b38cb23d34
+/deepseek-ai-dsh-client-ui-brand-official/summary:
+  en: cb6bf0a4eabd271b
+  zh: 181cf091ff44c194
+/deepseek-ai-dsh-client-ui-brand-official/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/DeepSeek Harness-dsh-client-ui-brand-official/use-this-package:
+/deepseek-ai-dsh-client-ui-brand-official/use-this-package:
   en: 716dc268f98996db
   zh: 7372a67ef81a0d5e
-/DeepSeek Harness-dsh-client-ui-brand-official/use-this-package/choosing-the-profile:
-  en: ac9477f5355972f0
-  zh: 257ea3ce1f004edf
-/DeepSeek Harness-dsh-client-ui-brand-official/use-this-package/replacing-the-brand:
+/deepseek-ai-dsh-client-ui-brand-official/use-this-package/choosing-the-profile:
+  en: 3f3f96d6adf98193
+  zh: 0b8691656a8532a0
+/deepseek-ai-dsh-client-ui-brand-official/use-this-package/replacing-the-brand:
   en: 6a923aa630d01d65
   zh: 5df0c24eebd9d0d0
-/DeepSeek Harness-dsh-client-ui-brand-official/understand-the-implementation:
-  en: 53d551f7976a2f7d
-  zh: f89495b8db821a7a
-/DeepSeek Harness-dsh-client-ui-brand-official/further-exploration:
-  en: ab6fb5067501ca22
-  zh: ce98ad66bc278df0
-/DeepSeek Harness-dsh-client-ui-brand-official/model-experience:
+/deepseek-ai-dsh-client-ui-brand-official/understand-the-implementation:
+  en: 4e4aa617edd7f4ad
+  zh: ea4e2d6d4a39535e
+/deepseek-ai-dsh-client-ui-brand-official/further-exploration:
+  en: c9ae240d8e831cc0
+  zh: a7c9170bae79824f
+/deepseek-ai-dsh-client-ui-brand-official/model-experience:
   en: 618008c7641070e7
   zh: 7233febb4d92ccfb
-/DeepSeek Harness-dsh-client-ui-brand-official/model-experience/kv-cache-effect:
+/deepseek-ai-dsh-client-ui-brand-official/model-experience/kv-cache-effect:
   en: ca75c51c89c2c9b0
   zh: f57cc48a1b5cbfa9
-/DeepSeek Harness-dsh-client-ui-brand-official/known-limitations-and-deferred-work:
-  en: e66429dacdfffed0
-  zh: 2cddf12dfc483a03
-/DeepSeek Harness-dsh-client-ui-brand-official/known-limitations-and-deferred-work/dev-note:
-  en: e368635c2e69b577
-  zh: 6b0fcfc1e089e5d6
+/deepseek-ai-dsh-client-ui-brand-official/known-limitations-and-deferred-work:
+  en: 89e2b4bd095a0265
+  zh: a002f0c8a60267ad
+/deepseek-ai-dsh-client-ui-brand-official/known-limitations-and-deferred-work/dev-note:
+  en: e67f633dc6fe7773
+  zh: 3bb0c20c93f16f98

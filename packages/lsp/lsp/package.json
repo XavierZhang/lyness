@@ -1,5 +1,7 @@
 {
   "name": "@deepseek-ai/dsh-lsp",
+  "description": "Abstract LSP capability seam (ctx.lsp) for the DeepSeek Harness — language-server provider registry keyed by branded id and extension mapping, order-independent per-query selection, normalized definition/references/implementation/hover requests and results, and the LspError taxonomy",
+  "version": "0.2.1-rc.3",
   "description": "Abstract LSP capability seam (ctx.lsp) for the DeepSeek Harness \u2014 language-server provider registry keyed by branded id and extension mapping, order-independent per-query selection, normalized definition/references/implementation/hover requests and results, and the LspError taxonomy",
   "version": "0.1.7-rc.2",
   "publishConfig": {
@@ -19,6 +21,8 @@
       "default": "./lib/index.js"
     },
     "./src/*": "./src/*",
+    "./locale/*.json": "./locale/*.json",
+    "./package.json": "./package.json"
     "./package.json": "./package.json",
     "./preset-contribution": {
       "types": "./lib/types/preset-contribution.d.ts",
@@ -26,6 +30,7 @@
     }
   },
   "files": [
+    "locale/*.json",
     "lib/index.js",
     "lib/types/**/*.js",
     "lib/types/**/*.d.ts"

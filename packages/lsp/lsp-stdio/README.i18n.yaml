@@ -5,54 +5,54 @@
 /:
   en: c9eac4288ae5293a
   zh: fb718ad3c2da3e49
-/DeepSeek Harness-dsh-lsp-stdio:
-  en: 47b71299dfa77204
-  zh: 27d0396803b832de
-/DeepSeek Harness-dsh-lsp-stdio/summary:
-  en: 8db64f9e646e904e
-  zh: f7c3b83b95cf6604
-/DeepSeek Harness-dsh-lsp-stdio/table-of-contents:
+/deepseek-ai-dsh-lsp-stdio:
+  en: 79147f5b588a6d6a
+  zh: 12d7ab50d6fe0850
+/deepseek-ai-dsh-lsp-stdio/summary:
+  en: 9bb3631289433c95
+  zh: 4b30c9a4aa5186b8
+/deepseek-ai-dsh-lsp-stdio/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/DeepSeek Harness-dsh-lsp-stdio/use-this-package:
-  en: 1874592a84463b60
-  zh: b391c7a0789fb31e
-/DeepSeek Harness-dsh-lsp-stdio/use-this-package/minimal-configuration:
-  en: fece5eb4d1b40979
-  zh: c1559b553e5d3b92
-/DeepSeek Harness-dsh-lsp-stdio/use-this-package/what-a-query-does:
+/deepseek-ai-dsh-lsp-stdio/use-this-package:
+  en: c632954ac645e57e
+  zh: 646525beedbdb97c
+/deepseek-ai-dsh-lsp-stdio/use-this-package/minimal-configuration:
+  en: 3cf011ee27d835e8
+  zh: f1a8fbf0f26b8f98
+/deepseek-ai-dsh-lsp-stdio/use-this-package/what-a-query-does:
   en: 41363baf8fdba020
   zh: d1a6193b1aa813ba
-/DeepSeek Harness-dsh-lsp-stdio/use-this-package/observable-success-and-failures:
+/deepseek-ai-dsh-lsp-stdio/use-this-package/observable-success-and-failures:
   en: 57f3a82c014af107
   zh: 770fc617c1ab0eab
-/DeepSeek Harness-dsh-lsp-stdio/use-this-package/security-boundary:
+/deepseek-ai-dsh-lsp-stdio/use-this-package/security-boundary:
   en: f1f7fef771bcaa6d
   zh: f11dcf771a6fecfc
-/DeepSeek Harness-dsh-lsp-stdio/understand-the-implementation:
+/deepseek-ai-dsh-lsp-stdio/understand-the-implementation:
   en: 8a5efa64f5b12f88
   zh: 451548c05c045c22
-/DeepSeek Harness-dsh-lsp-stdio/understand-the-implementation/design-philosophy:
+/deepseek-ai-dsh-lsp-stdio/understand-the-implementation/design-philosophy:
   en: 7e5e63f993a287f2
   zh: a5a01b22551e5d46
-/DeepSeek Harness-dsh-lsp-stdio/understand-the-implementation/source-map:
-  en: c1eb566e6aa64d09
-  zh: 6fa10484e329e570
-/DeepSeek Harness-dsh-lsp-stdio/understand-the-implementation/protocol-behavior:
+/deepseek-ai-dsh-lsp-stdio/understand-the-implementation/source-map:
+  en: 601baa446f830c66
+  zh: 8aaebaaae7081c82
+/deepseek-ai-dsh-lsp-stdio/understand-the-implementation/protocol-behavior:
   en: 0f9bac88ad9448b8
   zh: f5d3a2e61a596003
-/DeepSeek Harness-dsh-lsp-stdio/further-exploration:
-  en: 1e19942179953b24
-  zh: 42d396b39fc3cd68
-/DeepSeek Harness-dsh-lsp-stdio/model-experience:
-  en: 250de7f59fcd5f41
-  zh: b45adde3ad5a02d1
-/DeepSeek Harness-dsh-lsp-stdio/model-experience/kv-cache-effect:
-  en: 94ac8c8fe22a0a4d
-  zh: d74e7a4adefd2cb1
-/DeepSeek Harness-dsh-lsp-stdio/known-limitations-and-deferred-work:
+/deepseek-ai-dsh-lsp-stdio/further-exploration:
+  en: 2b280b85054f6b9f
+  zh: 6e609d42db7da87c
+/deepseek-ai-dsh-lsp-stdio/model-experience:
+  en: b366d0dfbfeb2d91
+  zh: 72a7a8d957b13eb4
+/deepseek-ai-dsh-lsp-stdio/model-experience/kv-cache-effect:
+  en: 64354484a5367fbc
+  zh: aec3e5c7933389b6
+/deepseek-ai-dsh-lsp-stdio/known-limitations-and-deferred-work:
   en: dc4fc5797b3b2d38
   zh: f04e4159ce280218
-/DeepSeek Harness-dsh-lsp-stdio/known-limitations-and-deferred-work/dev-note:
+/deepseek-ai-dsh-lsp-stdio/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

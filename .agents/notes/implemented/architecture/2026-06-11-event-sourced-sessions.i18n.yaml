@@ -3,8 +3,8 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-06-11-event-sourced-sessions.md
 /agent-note-event-sourced-sessions-with-derived-message-history:
-  en: 3546c08ff8b5ceec
-  zh: c415e4bbc6c7f4b8
+  en: da3abc821101e4b3
+  zh: c206fa4830920592
 /agent-note-event-sourced-sessions-with-derived-message-history/problem:
   en: 63b684d349a48a15
   zh: 7603f64b445db129
@@ -15,5 +15,5 @@
   en: 73541e0833eb9559
   zh: ddca382d54e498e5
 /agent-note-event-sourced-sessions-with-derived-message-history/consequences:
-  en: c9f540b24e59a7ba
-  zh: 91fa96e9f7ff25e9
+  en: 0b534fa20cdf9711
+  zh: 0a89b988816b9266

@@ -5,69 +5,69 @@
 /:
   en: 6509c63744950c59
   zh: b7d4e056e0591155
-/DeepSeek Harness-dsh-goal:
-  en: e946758ea99a2041
-  zh: 978970d2bbe7181e
-/DeepSeek Harness-dsh-goal/summary:
-  en: b197f7f57147ccb0
-  zh: 5e6701400468e1bd
-/DeepSeek Harness-dsh-goal/table-of-contents:
+/deepseek-ai-dsh-goal:
+  en: b8f42df479869337
+  zh: 76a71bddc87da324
+/deepseek-ai-dsh-goal/summary:
+  en: 31ad6391c24650bd
+  zh: e52f84b741d192b4
+/deepseek-ai-dsh-goal/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/DeepSeek Harness-dsh-goal/use-this-package:
-  en: 529b9bb2e651ceb7
-  zh: 60f6571146b4adea
-/DeepSeek Harness-dsh-goal/use-this-package/when-to-use-it:
+/deepseek-ai-dsh-goal/use-this-package:
+  en: 95829ddf63e72e3e
+  zh: 9bd77a0ce737b2b0
+/deepseek-ai-dsh-goal/use-this-package/when-to-use-it:
   en: 44fbecf68641514a
   zh: afa1720f5128cf1b
-/DeepSeek Harness-dsh-goal/use-this-package/set-up-the-service:
-  en: fdff28c78f203666
-  zh: 9aea7a79358c0f8a
-/DeepSeek Harness-dsh-goal/use-this-package/session-projection:
-  en: 75c30522ab0127df
-  zh: d3af2880457581f9
-/DeepSeek Harness-dsh-goal/use-this-package/drive-the-lifecycle:
+/deepseek-ai-dsh-goal/use-this-package/set-up-the-service:
+  en: 81d959eecdec4bbd
+  zh: ff47fb2cba8f1e73
+/deepseek-ai-dsh-goal/use-this-package/session-projection:
+  en: 67b924c4f6902dc1
+  zh: 99ed177a06126895
+/deepseek-ai-dsh-goal/use-this-package/drive-the-lifecycle:
   en: 622890ced87a44e9
   zh: 6ba1f3f872400452
-/DeepSeek Harness-dsh-goal/use-this-package/what-survives-and-what-does-not:
+/deepseek-ai-dsh-goal/use-this-package/what-survives-and-what-does-not:
   en: e5cd2097500a9027
   zh: 3ecae388f839c944
-/DeepSeek Harness-dsh-goal/use-this-package/observing-a-goal:
+/deepseek-ai-dsh-goal/use-this-package/observing-a-goal:
   en: 3074e4c76de81d22
   zh: 10134afe344dafb3
-/DeepSeek Harness-dsh-goal/understand-the-implementation:
+/deepseek-ai-dsh-goal/understand-the-implementation:
   en: 592af7e68423bd1c
   zh: 9b1f08393db1b14e
-/DeepSeek Harness-dsh-goal/understand-the-implementation/design:
+/deepseek-ai-dsh-goal/understand-the-implementation/design:
   en: 6f19e891ffc79754
   zh: 9599e3b142f1e6b5
-/DeepSeek Harness-dsh-goal/understand-the-implementation/source-map:
-  en: f0451101cf73da7d
-  zh: 73176ab69bb63a7f
-/DeepSeek Harness-dsh-goal/understand-the-implementation/events-and-attribution:
+/deepseek-ai-dsh-goal/understand-the-implementation/source-map:
+  en: aef62dff93f32796
+  zh: dba79da0466218a7
+/deepseek-ai-dsh-goal/understand-the-implementation/events-and-attribution:
   en: 502cf61dba8b22ca
   zh: 2b6f672bb2ac84ba
-/DeepSeek Harness-dsh-goal/further-exploration:
-  en: faac71f235e6add1
-  zh: 3d613c2a9a650122
-/DeepSeek Harness-dsh-goal/model-experience:
+/deepseek-ai-dsh-goal/further-exploration:
+  en: 11e7ecd3115d0b6b
+  zh: d1dff8b7d05a2f09
+/deepseek-ai-dsh-goal/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/DeepSeek Harness-dsh-goal/model-experience/goal-state-mutations:
+/deepseek-ai-dsh-goal/model-experience/goal-state-mutations:
   en: 6e6274de7991ef9e
   zh: be2048ca18b3cbab
-/DeepSeek Harness-dsh-goal/model-experience/goal-state-mutations/what-the-model-sees:
+/deepseek-ai-dsh-goal/model-experience/goal-state-mutations/what-the-model-sees:
   en: 7f3f6cf3e85ca188
   zh: 758596ce93635eab
-/DeepSeek Harness-dsh-goal/model-experience/goal-state-mutations/token-effect:
+/deepseek-ai-dsh-goal/model-experience/goal-state-mutations/token-effect:
   en: 5c3d2b320679252b
   zh: 67156a0cec8c8e60
-/DeepSeek Harness-dsh-goal/model-experience/goal-state-mutations/kv-cache-effect:
+/deepseek-ai-dsh-goal/model-experience/goal-state-mutations/kv-cache-effect:
   en: 5fcc49f70cf6604d
   zh: 39a3ba8fcdfba009
-/DeepSeek Harness-dsh-goal/known-limitations-and-deferred-work:
-  en: 78e0c4db99356982
-  zh: fd9a170987b9843f
-/DeepSeek Harness-dsh-goal/known-limitations-and-deferred-work/dev-note:
+/deepseek-ai-dsh-goal/known-limitations-and-deferred-work:
+  en: c116ddcdd86c93df
+  zh: aa0430d35e8604ff
+/deepseek-ai-dsh-goal/known-limitations-and-deferred-work/dev-note:
   en: 0b672d0c3b09cd5d
   zh: 8f5d79353a6e5d63

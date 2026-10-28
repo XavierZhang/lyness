@@ -3,35 +3,35 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/proposed/architecture/2026-07-24-domain-kv-storage-and-workspace.md
 /agent-note-domain-kv-storage-capability-seam-and-the-workspace-entity:
-  en: 58f6065e1afb0638
-  zh: 398c17e5e44a4806
+  en: e1792a25ca5d684d
+  zh: ddb20d72b56eebf8
 /agent-note-domain-kv-storage-capability-seam-and-the-workspace-entity/problem:
-  en: 486f2d63b502d4fc
-  zh: 4819c222f78afdbc
+  en: 22a80335f54b17e9
+  zh: 6c0d695a4dba7f0d
 /agent-note-domain-kv-storage-capability-seam-and-the-workspace-entity/proposal:
-  en: dcb8d6385ae6370d
-  zh: 66e621bf9845fa6a
+  en: 34e5bde1535a2bb1
+  zh: 559deb25b2ec50ba
 /agent-note-domain-kv-storage-capability-seam-and-the-workspace-entity/proposal/dsh-storage-the-storage-hub:
-  en: 2beba524d6bdb83d
-  zh: d65f5a212793c2db
+  en: 191afc01a150e4a0
+  zh: da3fbc33875a4f60
 /agent-note-domain-kv-storage-capability-seam-and-the-workspace-entity/proposal/dsh-storage-json:
-  en: 3e32da1bda6bb915
-  zh: 8bbaa0a74e599954
+  en: a18ec1e534a5488b
+  zh: 2f5beb445e30554b
 /agent-note-domain-kv-storage-capability-seam-and-the-workspace-entity/proposal/dsh-storage-sqlite:
-  en: 547018047c772faa
-  zh: ee52e3ad973e5184
+  en: 6a26dd7ef357db74
+  zh: 951b31136e2415f9
 /agent-note-domain-kv-storage-capability-seam-and-the-workspace-entity/proposal/dsh-domain-the-domain-data-form:
-  en: 133ba36297b0a551
-  zh: fa90acbd9c37485f
+  en: 2ee24f36cd93f7dd
+  zh: 45c83bd745de41f9
 /agent-note-domain-kv-storage-capability-seam-and-the-workspace-entity/proposal/future-work-session-side-deletion-design-settled-not-implemented-this-phase:
   en: a3824326587b6539
   zh: 9736e3060bd57651
 /agent-note-domain-kv-storage-capability-seam-and-the-workspace-entity/proposal/dsh-workspace:
-  en: 4a78d6ae090ff43b
-  zh: 256f566cfc3ccd7e
+  en: 13e68c6072cbfc98
+  zh: 5f111dd13038b535
 /agent-note-domain-kv-storage-capability-seam-and-the-workspace-entity/proposal/reuse-and-the-session-backend-migration-outlook:
-  en: 9939afb429987831
-  zh: 863bc33410298db1
+  en: e586acdb16085b91
+  zh: 4fae53c5b9e4fd5b
 /agent-note-domain-kv-storage-capability-seam-and-the-workspace-entity/proposal/test-matrix:
   en: 4f8560110ec03322
   zh: 574d611d6e086e96

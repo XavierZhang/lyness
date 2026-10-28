@@ -5,63 +5,66 @@
 /:
   en: 31868a4f15364a93
   zh: 86824e1a18e237a7
-/DeepSeek Harness-dsh-web:
-  en: 44ba0a92ac593fe1
-  zh: c3226d514a43d1b2
-/DeepSeek Harness-dsh-web/summary:
-  en: 753f19019f2222e2
-  zh: f571531b1bc6eeca
-/DeepSeek Harness-dsh-web/table-of-contents:
+/deepseek-ai-dsh-web:
+  en: 638e10f75ba99e83
+  zh: 048f07902d57284b
+/deepseek-ai-dsh-web/summary:
+  en: 1b5907fc6e19e082
+  zh: 7e9ec25da5405e31
+/deepseek-ai-dsh-web/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/DeepSeek Harness-dsh-web/use-this-package:
-  en: e999586af2a15656
-  zh: e83396968cdd4e1d
-/DeepSeek Harness-dsh-web/use-this-package/when-to-choose-it:
-  en: 63833410c94e07ea
-  zh: 31d6f786dc21ce73
-/DeepSeek Harness-dsh-web/use-this-package/minimal-configuration:
-  en: e566b34da72f0762
-  zh: 8e35b65c61929fa5
-/DeepSeek Harness-dsh-web/use-this-package/searching-and-fetching:
-  en: dadb69d5e0a36d13
-  zh: dfc64d6c0b6f7868
-/DeepSeek Harness-dsh-web/use-this-package/provider-selection:
-  en: a1d16fc8e3d3d7eb
-  zh: d7c91ce0bbd5e0e7
-/DeepSeek Harness-dsh-web/use-this-package/failures-and-recovery:
+/deepseek-ai-dsh-web/use-this-package:
+  en: 785a97708cc9181c
+  zh: 0d39ff291d483102
+/deepseek-ai-dsh-web/use-this-package/when-to-choose-it:
+  en: 557a8a3f2dfebae4
+  zh: 3c85382484e4b717
+/deepseek-ai-dsh-web/use-this-package/minimal-configuration:
+  en: 71517ad8040d3c0c
+  zh: 003068238cb40fa5
+/deepseek-ai-dsh-web/use-this-package/searching-and-fetching:
+  en: 713944abf68263cd
+  zh: c428cb53b8708e99
+/deepseek-ai-dsh-web/use-this-package/provider-selection:
+  en: ae79ba193456b380
+  zh: dfc1003554d88aa3
+/deepseek-ai-dsh-web/use-this-package/search-and-fetch-readiness:
+  en: 30fec45dfb417eed
+  zh: 253f887aeb3deeea
+/deepseek-ai-dsh-web/use-this-package/failures-and-recovery:
   en: d8d09ed3839f6474
   zh: 7164d902f333592a
-/DeepSeek Harness-dsh-web/understand-the-implementation:
+/deepseek-ai-dsh-web/understand-the-implementation:
   en: a3364d8193deb7f0
   zh: d1c4afbf25a7ae4d
-/DeepSeek Harness-dsh-web/understand-the-implementation/design-philosophy:
+/deepseek-ai-dsh-web/understand-the-implementation/design-philosophy:
   en: c4d5437cfb1e2157
   zh: 411b1b398de73426
-/DeepSeek Harness-dsh-web/understand-the-implementation/source-map:
-  en: 75e450b263def321
-  zh: 7f28ff78ba2a5f03
-/DeepSeek Harness-dsh-web/understand-the-implementation/data-model:
-  en: d85ed328e64c1b7d
-  zh: c3c4a426781e53eb
-/DeepSeek Harness-dsh-web/understand-the-implementation/selection-flow:
-  en: 07dcd35a0a6369b2
-  zh: 927fe797d9079547
-/DeepSeek Harness-dsh-web/further-exploration:
-  en: 431e541ab9396c28
-  zh: e3544d8f02d26858
-/DeepSeek Harness-dsh-web/model-experience:
-  en: 73c745bafa84b95e
-  zh: 786fd40e84738580
-/DeepSeek Harness-dsh-web/model-experience/kv-cache-effect:
+/deepseek-ai-dsh-web/understand-the-implementation/source-map:
+  en: 1b59d389c50ddf21
+  zh: 1f571b07350e3dbe
+/deepseek-ai-dsh-web/understand-the-implementation/data-model:
+  en: 300340ff8465a03e
+  zh: 34ab66eb6969dc94
+/deepseek-ai-dsh-web/understand-the-implementation/selection-flow:
+  en: d5cd4851d81892e6
+  zh: 18266b0bc8b1d1ae
+/deepseek-ai-dsh-web/further-exploration:
+  en: 65bba2a79c267230
+  zh: a0782630bd093bf1
+/deepseek-ai-dsh-web/model-experience:
+  en: cbc7053cba173085
+  zh: 73828c1f1ec82d50
+/deepseek-ai-dsh-web/model-experience/kv-cache-effect:
   en: 40294c1c31b74824
   zh: d75d48f485447a74
-/DeepSeek Harness-dsh-web/known-limitations-and-deferred-work:
-  en: ed5891ad4b44ad42
-  zh: b3c26ea2a54a3fab
-/DeepSeek Harness-dsh-web/known-limitations-and-deferred-work/dev-note:
+/deepseek-ai-dsh-web/known-limitations-and-deferred-work:
+  en: 5d6031e60a6242af
+  zh: 1869764b4e486895
+/deepseek-ai-dsh-web/known-limitations-and-deferred-work/dev-note:
   en: 7f775cc79dbce94b
   zh: 12b8f68f9e7c48ca
-/DeepSeek Harness-dsh-web/known-limitations-and-deferred-work/dev-note/future-observing-provider-state:
+/deepseek-ai-dsh-web/known-limitations-and-deferred-work/dev-note/future-observing-provider-state:
   en: 855f97574a820579
   zh: 360ff6cd2ed82904

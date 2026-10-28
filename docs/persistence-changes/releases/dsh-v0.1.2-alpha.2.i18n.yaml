@@ -3,11 +3,11 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write docs/persistence-changes/releases/dsh-v0.1.2-alpha.2.md
 /:
-  en: b2e3aae4c3bcae72
-  zh: ba592cfa556dd694
+  en: c277ccd0019e3c34
+  zh: d0eb2167e9e8b60a
 /persistence-release-dsh-v0-1-2-alpha-2:
-  en: 0a1db70cd11234db
-  zh: 6c8e8cb56864918e
+  en: 8c8eb7eebbfa8a45
+  zh: 14ad431653f25b9f
 /persistence-release-dsh-v0-1-2-alpha-2/summary:
   en: 081f92559c7d6000
   zh: 3c19182ea0fa5b72
@@ -15,14 +15,14 @@
   en: 0ff4a6f3c6af323f
   zh: f5c7bd70cc1585c7
 /persistence-release-dsh-v0-1-2-alpha-2/release-evidence:
-  en: 67a9f02644ec5fd0
-  zh: 957600b0740e9a66
+  en: ad1202354e915e64
+  zh: af897ed40c031e47
 /persistence-release-dsh-v0-1-2-alpha-2/declaration:
   en: af9cea43334ee692
   zh: c6c8bd0d6a17718a
 /persistence-release-dsh-v0-1-2-alpha-2/structural-changes:
-  en: 28cb9fbbfbc761af
-  zh: f3345b2dc10920b1
+  en: aeca9db54d4a5ea4
+  zh: fa2e354c039b8381
 /persistence-release-dsh-v0-1-2-alpha-2/verification:
   en: 8ccca317964523b1
   zh: 2c8b3e70a3320778

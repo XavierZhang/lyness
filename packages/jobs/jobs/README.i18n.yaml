@@ -5,57 +5,57 @@
 /:
   en: 4055a3bc920e4ac2
   zh: 3bc99f3b5bc2fd71
-/DeepSeek Harness-dsh-jobs:
-  en: 3beda6459798a805
-  zh: 2d00394702d510dd
-/DeepSeek Harness-dsh-jobs/summary:
-  en: cbea89544bc65adf
-  zh: 6bbb5f7a990d9388
-/DeepSeek Harness-dsh-jobs/table-of-contents:
+/deepseek-ai-dsh-jobs:
+  en: 721d849fde0fbebe
+  zh: 9578ffb37edc5d7b
+/deepseek-ai-dsh-jobs/summary:
+  en: eea29995f4b49a6d
+  zh: acdded5ddee3a974
+/deepseek-ai-dsh-jobs/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/DeepSeek Harness-dsh-jobs/use-this-package:
-  en: 527425c450bd20d6
-  zh: fdf6a35a9e2ffe85
-/DeepSeek Harness-dsh-jobs/use-this-package/what-a-background-job-gives-you:
-  en: 3ca33299863e0e8c
-  zh: 568e5d87ca184842
-/DeepSeek Harness-dsh-jobs/use-this-package/the-ownership-boundary:
-  en: 873494750b38dae5
-  zh: 2e6142ab889f7a8b
-/DeepSeek Harness-dsh-jobs/use-this-package/starting-background-work-needs-a-controller:
-  en: d8153038d1f1a889
-  zh: 61d3ae5001e58bcb
-/DeepSeek Harness-dsh-jobs/use-this-package/smallest-working-composition:
-  en: 972dc1635b70cc1f
-  zh: f07f4b03f86f4c28
-/DeepSeek Harness-dsh-jobs/use-this-package/what-can-go-wrong:
+/deepseek-ai-dsh-jobs/use-this-package:
+  en: 1246c880d1c61927
+  zh: 157c703fd2da6b9c
+/deepseek-ai-dsh-jobs/use-this-package/what-a-background-job-gives-you:
+  en: 3df0e02f9928afb2
+  zh: 63cae8da533ec266
+/deepseek-ai-dsh-jobs/use-this-package/the-ownership-boundary:
+  en: 167ab1eab8fad704
+  zh: 7da554826fb483c1
+/deepseek-ai-dsh-jobs/use-this-package/starting-background-work-needs-a-controller:
+  en: 68075d00cde8763d
+  zh: 4bc42c01d9e4dc8d
+/deepseek-ai-dsh-jobs/use-this-package/smallest-working-composition:
+  en: cce846c7e3b0c33e
+  zh: 17f353d970b4216d
+/deepseek-ai-dsh-jobs/use-this-package/what-can-go-wrong:
   en: fcfee3f72ea703ac
   zh: 80299901bd44783b
-/DeepSeek Harness-dsh-jobs/understand-the-implementation:
+/deepseek-ai-dsh-jobs/understand-the-implementation:
   en: 7e13d669ecc96d59
   zh: b5fe7ae65812d926
-/DeepSeek Harness-dsh-jobs/understand-the-implementation/design-philosophy:
-  en: dca8dcb758fde564
-  zh: 7e9d653a3a07d1b6
-/DeepSeek Harness-dsh-jobs/understand-the-implementation/source-map:
-  en: 2416d5be526d4dba
-  zh: 1090a9373258d7bb
-/DeepSeek Harness-dsh-jobs/understand-the-implementation/service-operations:
-  en: 9c74e1fb05be9205
-  zh: a773d9836e6aa1e5
-/DeepSeek Harness-dsh-jobs/further-exploration:
-  en: dea91a5f754b572f
-  zh: cf96a8306ac8532a
-/DeepSeek Harness-dsh-jobs/model-experience:
+/deepseek-ai-dsh-jobs/understand-the-implementation/design-philosophy:
+  en: 2a42e1e06dfc469e
+  zh: 5c2c77eca52846f0
+/deepseek-ai-dsh-jobs/understand-the-implementation/source-map:
+  en: c9a58b4340999ae4
+  zh: ef68a0b71a06d183
+/deepseek-ai-dsh-jobs/understand-the-implementation/service-operations:
+  en: b2e4ef34ccf1e749
+  zh: 128b57b57ed09316
+/deepseek-ai-dsh-jobs/further-exploration:
+  en: e8ef9de5f929d7e8
+  zh: 850c4aefbdd40c44
+/deepseek-ai-dsh-jobs/model-experience:
   en: efb58cac0fc08163
   zh: 838791f77fd79917
-/DeepSeek Harness-dsh-jobs/model-experience/kv-cache-effect:
+/deepseek-ai-dsh-jobs/model-experience/kv-cache-effect:
   en: e290ccc9b3c92c08
   zh: d75d48f485447a74
-/DeepSeek Harness-dsh-jobs/known-limitations-and-deferred-work:
+/deepseek-ai-dsh-jobs/known-limitations-and-deferred-work:
   en: bf4e5e0bd25d579e
   zh: ed995c02012f0c72
-/DeepSeek Harness-dsh-jobs/known-limitations-and-deferred-work/dev-note:
+/deepseek-ai-dsh-jobs/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

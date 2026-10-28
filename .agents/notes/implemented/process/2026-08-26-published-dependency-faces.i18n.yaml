@@ -3,8 +3,8 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/process/2026-08-26-published-dependency-faces.md
 /agent-note-published-dependency-faces-and-bounded-peer-relays:
-  en: ec0e231bce21139a
-  zh: 23b28aa5096c34d6
+  en: 553313933867d0f4
+  zh: 11288efed41eea50
 /agent-note-published-dependency-faces-and-bounded-peer-relays/problem:
   en: a8357e7e0735ad71
   zh: 5217d99a4ef921c7
@@ -12,20 +12,20 @@
   en: a15c7c13f167e5ac
   zh: 63bcc2ef60c2f344
 /agent-note-published-dependency-faces-and-bounded-peer-relays/decision/package-selection:
-  en: e7b1437a2c3e1a73
-  zh: 95fa7ca6a44e79db
+  en: 931b678bcdb42dbe
+  zh: 95dbebdb03c50d1f
 /agent-note-published-dependency-faces-and-bounded-peer-relays/decision/dependency-sections:
-  en: 3977441ab752df05
-  zh: ac591b08660453bb
+  en: d34ebac6c1c7642b
+  zh: 2cf3a60df14b072a
 /agent-note-published-dependency-faces-and-bounded-peer-relays/decision/maintainer-workflow:
-  en: 17d5dbd3bc12df0a
-  zh: af287286d63041c1
+  en: 5983475fa551ca90
+  zh: a5519f4817f65e8c
 /agent-note-published-dependency-faces-and-bounded-peer-relays/decision/performance-verification:
-  en: ea31282133041f5f
-  zh: 33c20333f5025899
+  en: 4ef3cc92457794fd
+  zh: 16ac73ea9760223b
 /agent-note-published-dependency-faces-and-bounded-peer-relays/alternatives-considered:
-  en: 31f5e5b4c0768b72
-  zh: e05a6bf27c4a1094
+  en: e1c6f1cebc9dc6d2
+  zh: 8c4b1959cdd6b3f2
 /agent-note-published-dependency-faces-and-bounded-peer-relays/consequences:
   en: 70e475315e0898e2
   zh: bcb54a35da49fc99

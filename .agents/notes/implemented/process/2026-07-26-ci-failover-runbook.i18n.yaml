@@ -3,32 +3,32 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/process/2026-07-26-ci-failover-runbook.md
 /agent-note-ci-failover-runbook-hosted-pools-in-house-pool:
-  en: 06b608fc91dd8859
-  zh: 40d208804d40fc88
+  en: 677b522817e84e2f
+  zh: f8518a7033b0fd54
 /agent-note-ci-failover-runbook-hosted-pools-in-house-pool/problem:
-  en: d5c9203b5a382a7b
-  zh: 7c2f51d9c33016a5
+  en: bcdd24f3c39d593c
+  zh: 3e576d09c8c3bfd4
 /agent-note-ci-failover-runbook-hosted-pools-in-house-pool/decision:
-  en: 1d6db22f0026f5db
-  zh: 3bc146b6e0947249
+  en: fed13ca92e488b69
+  zh: 9e5c9cdc118ab84e
 /agent-note-ci-failover-runbook-hosted-pools-in-house-pool/decision/release-rehearsals-share-the-linux-switch:
-  en: c72b8c82fcd64003
-  zh: 7b4847b805087cc5
+  en: 01e74068e0a96375
+  zh: aa811861ce30cb47
 /agent-note-ci-failover-runbook-hosted-pools-in-house-pool/decision/what-the-in-house-pool-is:
   en: 00d8934ed30e838c
   zh: bdb5584fbaf27c7d
 /agent-note-ci-failover-runbook-hosted-pools-in-house-pool/decision/what-the-in-house-pool-is/windows-pool:
-  en: b61e6b8e582b5c1e
-  zh: 65233c1048c69f45
+  en: f395af725d1deaf1
+  zh: 896cedbb36c13758
 /agent-note-ci-failover-runbook-hosted-pools-in-house-pool/decision/switch-any-repository-writer-1-minute-no-merge:
-  en: 5f25115562033d77
-  zh: cc20016f5592d886
+  en: 2e3829fd72d6b1b0
+  zh: 563f0abade7974f9
 /agent-note-ci-failover-runbook-hosted-pools-in-house-pool/capacity-during-failover:
-  en: 8f03e8b553e864d2
-  zh: 106d870f3e4a9cb0
+  en: 3dffe12ecf2356c2
+  zh: 7e2385fcabab1398
 /agent-note-ci-failover-runbook-hosted-pools-in-house-pool/capacity-during-failover/switch-back:
-  en: 284a3c7ca736c177
-  zh: df0cac9541c7ce33
+  en: 63cf911019db8d2f
+  zh: 5eb3903b0ceb30db
 /agent-note-ci-failover-runbook-hosted-pools-in-house-pool/capacity-during-failover/trust-boundary:
   en: c05bc0ceba304ff0
   zh: 19ae9a2d70f25d33
@@ -36,5 +36,5 @@
   en: e68b70d7caca52f1
   zh: e6f0be792105a9e6
 /agent-note-ci-failover-runbook-hosted-pools-in-house-pool/consequences:
-  en: 22e8ff70bc38cb24
-  zh: f84fe399eca10aed
+  en: d6de79eb73b7a6a2
+  zh: 329d8ed8e3e02f7b

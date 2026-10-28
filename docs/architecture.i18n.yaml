@@ -2,39 +2,36 @@
 # section, a hash of its English and Chinese blocks outside code blocks and generated regions.
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write docs/architecture.md
-/DeepSeek Harness-architecture:
-  en: da3731fe0e76335f
-  zh: 0ea99b21860957fb
-/DeepSeek Harness-architecture/cordis:
-  en: e4f0cce53e916da4
-  zh: f916bc9e0deb5096
-/DeepSeek Harness-architecture/product-shapes:
-  en: bdca359b747e1b62
-  zh: 2cb81b07da2efc50
-/DeepSeek Harness-architecture/profiles-and-bundles:
-  en: 9883881e58133fce
-  zh: 36a4e3a98c1ea992
-/DeepSeek Harness-architecture/application-launch:
-  en: dc5411deeb8f530c
-  zh: 22c8a31e58313e83
-/DeepSeek Harness-architecture/desktop-application:
-  en: 220943004e4c3d58
-  zh: 91a89667c5bf3e74
-/DeepSeek Harness-architecture/core-packages:
-  en: dfdfb8cce8a92313
-  zh: e2eee6f6466e5bb7
-/DeepSeek Harness-architecture/events:
-  en: cf05cc941b1a777a
-  zh: bc82cb1d90bb1627
-/DeepSeek Harness-architecture/turn-flow:
-  en: 9fc403d5f86d79f6
-  zh: 61bcf0fc5cab8a12
-/DeepSeek Harness-architecture/session-log:
-  en: 473e2483137ed194
-  zh: 4daa4c9a79e41f95
-/DeepSeek Harness-architecture/capability-seams:
-  en: ea6a99dde753111b
-  zh: 6045d230c4efee85
-/DeepSeek Harness-architecture/where-new-behavior-goes:
-  en: 78140ba5131bcf18
-  zh: 7d4fed2d3ce05629
+/deepseek-harness-architecture:
+  en: 20678ed3f962afba
+  zh: 87a2b81675d93346
+/deepseek-harness-architecture/cordis:
+  en: da5060e577578ea7
+  zh: 2e77d570e32d8938
+/deepseek-harness-architecture/profiles-and-bundles:
+  en: 21423f481b18b0be
+  zh: 5343bd7ea0fae5bc
+/deepseek-harness-architecture/application-launch:
+  en: 334b4f390b6e376b
+  zh: ce094f24c6162be3
+/deepseek-harness-architecture/desktop-application:
+  en: b9eeb18645121a8b
+  zh: 70d87a12c43e042a
+/deepseek-harness-architecture/core-packages:
+  en: 20ef882e44b06a10
+  zh: c10c3934ed5570e9
+/deepseek-harness-architecture/events:
+  en: 693407efb233f961
+  zh: 37b9dd0677d4405c
+/deepseek-harness-architecture/turn-flow:
+  en: 1a79a70b62c04cdb
+  zh: c86d765e21430405
+/deepseek-harness-architecture/session-log:
+  en: 8a7f19b95d426c99
+  zh: d5bb0538404e20ea
+/deepseek-harness-architecture/capability-seams:
+  en: a5bc20c3f2a1b370
+  zh: 91773a281410b2f4
+/deepseek-harness-architecture/where-new-behavior-goes:
+  en: ee73b1861378b099
+  zh: 9a182be609485f67

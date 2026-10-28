@@ -5,36 +5,36 @@
 /:
   en: 265778d19fe0dd76
   zh: 78b0a191a4bd4e4e
-/DeepSeek Harness-dsh-client-ui-schedule:
-  en: 50a2f7786ed21566
-  zh: 77ebc175b6476a01
-/DeepSeek Harness-dsh-client-ui-schedule/summary:
+/deepseek-ai-dsh-client-ui-schedule:
+  en: 862120984d5392eb
+  zh: eb3e5d5a802da592
+/deepseek-ai-dsh-client-ui-schedule/summary:
   en: 8dfc371c14bb4415
-  zh: 9b3545c1a7468a7a
-/DeepSeek Harness-dsh-client-ui-schedule/table-of-contents:
+  zh: 5e2fa588983524ed
+/deepseek-ai-dsh-client-ui-schedule/table-of-contents:
   en: d152484eb41ac6b4
   zh: 405b30feaf48c087
-/DeepSeek Harness-dsh-client-ui-schedule/use-this-package:
-  en: 7a4ea26953c8358f
-  zh: 63b458a45355e327
-/DeepSeek Harness-dsh-client-ui-schedule/use-this-package/time-zone-data-source:
-  en: 51ac7f781145fd39
-  zh: 576cd161b6432f79
-/DeepSeek Harness-dsh-client-ui-schedule/understand-the-implementation:
-  en: 370245de63a78b2d
-  zh: c91f134ab6040d2f
-/DeepSeek Harness-dsh-client-ui-schedule/further-exploration:
-  en: 2671bb18d05bc7e3
-  zh: 76965dd1146ca67a
-/DeepSeek Harness-dsh-client-ui-schedule/model-experience:
+/deepseek-ai-dsh-client-ui-schedule/use-this-package:
+  en: fccffd577fcf93f2
+  zh: 4719236f7d89e0a8
+/deepseek-ai-dsh-client-ui-schedule/use-this-package/time-zone-data-source:
+  en: 47cd16c142e82385
+  zh: 181849a3c7a167fd
+/deepseek-ai-dsh-client-ui-schedule/understand-the-implementation:
+  en: 959145f9a08c3913
+  zh: 7c0afb742790c474
+/deepseek-ai-dsh-client-ui-schedule/further-exploration:
+  en: 06e265120b05dbf5
+  zh: 08ab1ef979b8ea40
+/deepseek-ai-dsh-client-ui-schedule/model-experience:
   en: a8838aba5fd29fd8
   zh: b9f67d82c81dd030
-/DeepSeek Harness-dsh-client-ui-schedule/model-experience/kv-cache-effect:
+/deepseek-ai-dsh-client-ui-schedule/model-experience/kv-cache-effect:
   en: 4b81350950285d47
   zh: 6dc3d5cf7ca8a622
-/DeepSeek Harness-dsh-client-ui-schedule/known-limitations-and-deferred-work:
-  en: ee71bd5780bd77ca
-  zh: ccee6ad04fdd634a
-/DeepSeek Harness-dsh-client-ui-schedule/known-limitations-and-deferred-work/dev-note:
+/deepseek-ai-dsh-client-ui-schedule/known-limitations-and-deferred-work:
+  en: ce8cd6e03f4763ae
+  zh: 65ad26aad74d83ca
+/deepseek-ai-dsh-client-ui-schedule/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: a4b126f9a4eaca6f

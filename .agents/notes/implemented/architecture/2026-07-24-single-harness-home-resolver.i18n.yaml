@@ -3,17 +3,17 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-07-24-single-harness-home-resolver.md
 /agent-note-one-harness-home-resolver:
-  en: 83d32f1b8db546da
-  zh: d1b992a27610ebc5
+  en: 4177acbdd51411da
+  zh: 53f10d4c54b431b2
 /agent-note-one-harness-home-resolver/problem:
-  en: aa959aff7dd526cd
-  zh: a33c1899a2f7bea1
+  en: fa4d3622fb18dd58
+  zh: 2b98640594c8344b
 /agent-note-one-harness-home-resolver/decision:
-  en: fd0550f4218e3814
-  zh: 8ad58237161bc678
+  en: 816e5109718bc4ae
+  zh: af3f08f07c3cb761
 /agent-note-one-harness-home-resolver/alternatives-considered:
-  en: 736ac4e2bec1ee66
-  zh: 61b570c3854fdfa1
+  en: b1c9535540171d47
+  zh: 7df816d42945db94
 /agent-note-one-harness-home-resolver/consequences:
-  en: 3d25abed2e39f0c4
-  zh: 8c8ecc7594b4d20d
+  en: 7d0f569b98feadf5
+  zh: 5c84624e7cc8d1d4
