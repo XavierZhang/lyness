@@ -53,6 +53,7 @@
     "@lyness/lyn-tenant-config-static": "workspace:*",
     "@lyness/lyn-tenant-request": "workspace:*",
     "@lyness/lyn-tenant-static": "workspace:*",
+    "@lyness/lyn-tool-executor-native": "workspace:*",
     "@lyness/lyn-tools": "workspace:*"
   }
 }

@@ -16,6 +16,7 @@ import SessionStore, { SessionId } from '@lyness/lyn-session'
 import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 import SystemPrompt, { renderPrompt } from '@lyness/lyn-system-prompt'
 import ToolRuntime from '@lyness/lyn-tools'
+import * as NativeToolExecutor from '@lyness/lyn-tool-executor-native'
 import StaticTenantDirectory from '@lyness/lyn-tenant-static'
 import StaticTenantConfigStore from '@lyness/lyn-tenant-config-static'
 import type { Config as StaticTenantConfig } from '@lyness/lyn-tenant-config-static'
@@ -61,6 +62,9 @@ async function unstamped(config: StaticTenantConfig = CONFIGURED): Promise<Conte
   await ctx.plugin(SessionProjectionRegistry)
   await ctx.plugin(SystemPrompt, { personaPrefix: 'Deployment.' })
   await ctx.plugin(ToolRuntime, {})
+  // Upstream 0.2.1 split tool execution out of the runtime: an agent cannot
+  // be created in a composition that mounts no executor.
+  await ctx.plugin(NativeToolExecutor)
   await ctx.plugin(AgentRegistry)
   await ctx.plugin(AgentLoop, { agents: [] })
   ctx.llm.registerAdapter([PROVIDER], new Scripted())

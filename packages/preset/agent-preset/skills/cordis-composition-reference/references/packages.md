@@ -23,6 +23,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@lyness/lyn-api-identity-controller` | no | Who the caller is, and what this deployment would let them sign in with |
 | `@lyness/lyn-api-job-controller` | yes | Job Remote observation stream and the reference-counted client job-output service |
 | `@lyness/lyn-api-people-controller` | no | Remote owner of the people surface: administrators maintain who may use a deployment and which directory identity each of them is |
+| `@lyness/lyn-api-personal-instructions-controller` | no | What one person told their own agents, read and written by that person alone |
 | `@lyness/lyn-api-remote-access` | no | Method-level Remote access control for non-owner Peers and the per-Peer access snapshot |
 | `@lyness/lyn-api-remote-authority` | no | Whether one Remote call may be served, decided once where every wire call passes through |
 | `@lyness/lyn-api-remotes` | no | Remote BFF assembly for application-selected Host capabilities |
@@ -117,6 +118,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@lyness/lyn-client-ui-settings-credits` | no | The credits section in Settings: a balance, a ledger, and the two decisions an administrator makes |
 | `@lyness/lyn-client-ui-settings-general` | no | Settings ownerless-copy and product onboarding plugin: the General section, shell trigger/header chrome content, settings dictionaries, and the versioned welcome notice |
 | `@lyness/lyn-client-ui-settings-history` | no | The history section in Settings: what administrators changed, who changed it, and what the change replaced |
+| `@lyness/lyn-client-ui-settings-instructions` | no | The instructions section in Settings: what a person tells their own agents |
 | `@lyness/lyn-client-ui-settings-models` | yes | Models settings and shared product-onboarding dialogs over existing settings and credential joins |
 | `@lyness/lyn-client-ui-settings-people` | no | The people section in Settings: who may use a deployment and which directory identity each of them is, maintained at runtime |
 | `@lyness/lyn-client-ui-settings-plugin-inventory` | no | Read-only Cordis Loader inventory tab in Web Plugins settings |
@@ -313,6 +315,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@lyness/lyn-bot-ask` | no | One bot asking a teammate a question, answered in a conversation of the teammate's own |
 | `@lyness/lyn-managed-bots` | no | The bots a deployment's administrators maintain at runtime |
 | `@lyness/lyn-managed-people` | no | The people and admission bindings a deployment's administrators maintain at runtime |
+| `@lyness/lyn-personal-instructions` | yes | What a person tells their own agents, kept for them and recorded on every session they open |
 | `@lyness/lyn-request-principal` | no | Publish who the call in progress is, resolved from the bearer identity it presents |
 | `@lyness/lyn-session-ownership` | no | A session belongs to the person who opened it, and the standing they held it open under |
 | `@lyness/lyn-sign-in` | yes | Sign a person in through an external directory, admit them by a deployment's own rule, and establish their session |

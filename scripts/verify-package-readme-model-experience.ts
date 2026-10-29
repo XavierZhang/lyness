@@ -306,6 +306,8 @@ const SENTENCE_MODEL_EXPERIENCE: Readonly<Record<string, SentenceContract>> = {
   'packages/client/ui-settings-credits': { kind: 'none', reason: 'A Settings page a person reads; it registers no prompt, tool, or session event.' },
   'packages/client/ui-sign-in': { kind: 'none', reason: 'What a person sees before a session exists; it registers no prompt, tool, or session event.' },
   'packages/client/ui-viewer': { kind: 'none', reason: 'Answers who is at the browser; it registers no prompt, tool, or session event.' },
+  'packages/api/personal-instructions-controller': { kind: 'none', reason: 'Transports a stored text; lyn-personal-instructions owns how that text reaches a model request.' },
+  'packages/client/ui-settings-instructions': { kind: 'none', reason: 'An editor over a stored text; lyn-personal-instructions owns how that text reaches a model request.' },
   'packages/api/workspace-controller': { kind: 'none', reason: 'Workspace API and state projection owner; it registers no prompt, tool, or session event.' },
   'packages/api/workspace-files': { kind: 'none', reason: 'Workspace file read API and its Client resource provider; it registers no prompt, tool, or session event.' },
   'packages/typert/protocol': { kind: 'none', reason: 'Compiler-independent Remote protocol declarations; registers nothing model-facing.' },

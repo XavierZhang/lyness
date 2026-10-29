@@ -1,0 +1,15 @@
+{
+  "formatVersion": 2,
+  "roots": [
+    {"key":"event:person/instructions","kind":"event","event":"person/instructions","surface":false,"digest":"04968946798e4e967c48aec7dab6a73f58e8e5a2979bb2b0edd98a84ee327828"}
+  ],
+  "types": [],
+  "nodes": {
+    "04968946798e4e96": {"kind":"object","properties":[{"name":"data","type":"7e5a8277cd340397","optional":false},{"name":"ignorable","type":"dacf3d5f3e4ff619","optional":true},{"name":"seq","type":"0657d3ca5ac4e7bf","optional":false},{"name":"time","type":"0657d3ca5ac4e7bf","optional":false},{"name":"type","type":"c6f42558ec4a3074","optional":false}],"indices":[]},
+    "0657d3ca5ac4e7bf": {"kind":"primitive","type":"number"},
+    "4cd48f3e5108bd6e": {"kind":"primitive","type":"string"},
+    "7e5a8277cd340397": {"kind":"object","properties":[{"name":"owner","type":"4cd48f3e5108bd6e","optional":false},{"name":"text","type":"4cd48f3e5108bd6e","optional":false},{"name":"version","type":"0657d3ca5ac4e7bf","optional":false},{"name":"writtenAt","type":"4cd48f3e5108bd6e","optional":true}],"indices":[]},
+    "c6f42558ec4a3074": {"kind":"literal","value":"person/instructions"},
+    "dacf3d5f3e4ff619": {"kind":"literal","value":true}
+  }
+}

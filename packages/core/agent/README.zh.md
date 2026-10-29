@@ -115,6 +115,7 @@ await handle.agent.whenIdle()
 | [`src/runtime-types.ts`](src/runtime-types.ts) | `Agent`、结构化 `Inbox`、`AgentStatus` 与 `agent/*` 事件声明 |
 | [`src/types.ts`](src/types.ts) | `AgentOptions`、取消原因与收件箱投影词汇 |
 | [`src/dispatch.ts`](src/dispatch.ts) | `agentEvents` 融合分发器与 `assembleContextFor(agent)` |
+| [`src/per-agent.ts`](src/per-agent.ts) | `composePerAgent(ctx, contribute)`：每个 agent 一份贡献，现在的与之后的都有，随 agent 与随贡献方一起撤回 |
 | [`src/model-selection.ts`](src/model-selection.ts) | `AgentModel`、持久投影与 `installModelSelection` 切换提示 |
 | [`src/consumed-work.ts`](src/consumed-work.ts) | `foldConsumedWork(events)`：日志消费掉的工作最终怎样了 |
 | [`src/archive-admission.ts`](src/archive-admission.ts) | Workspace 注册表归档准入中的 `turn` 族：运行中的回合及其用户原因取消 |

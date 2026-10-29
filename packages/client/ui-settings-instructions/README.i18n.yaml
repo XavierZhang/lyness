@@ -1,0 +1,37 @@
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write packages/client/ui-settings-instructions/README.md
+/:
+  en: d91f80f2b2154d9d
+  zh: e509c1b9d57883e6
+/lyness-lyn-client-ui-settings-instructions:
+  en: f0615107918cd763
+  zh: ad4bf79837c96ffb
+/lyness-lyn-client-ui-settings-instructions/summary:
+  en: f1268548fed0b77b
+  zh: cc633f206ff23b02
+/lyness-lyn-client-ui-settings-instructions/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 2bca79d7b98e8031
+/lyness-lyn-client-ui-settings-instructions/use-this-package:
+  en: c5af72c220134f21
+  zh: 119ccb7eb5bc61e2
+/lyness-lyn-client-ui-settings-instructions/understand-the-implementation:
+  en: 05c1697152420e5f
+  zh: e0626f7cdeaaeaa0
+/lyness-lyn-client-ui-settings-instructions/further-exploration:
+  en: 28f870628082df71
+  zh: e2aeaba01d3e6b05
+/lyness-lyn-client-ui-settings-instructions/model-experience:
+  en: c5365a81a65af313
+  zh: 2a41b89413850209
+/lyness-lyn-client-ui-settings-instructions/model-experience/kv-cache-effect:
+  en: 3621618ffb0c6eb1
+  zh: b21c0fe8da3a1553
+/lyness-lyn-client-ui-settings-instructions/known-limitations-and-deferred-work:
+  en: 8b147854cb09c06c
+  zh: 20ed0371bf669121
+/lyness-lyn-client-ui-settings-instructions/known-limitations-and-deferred-work/dev-note:
+  en: 0dd697343eaac2c9
+  zh: c22dc7b2947acdc4

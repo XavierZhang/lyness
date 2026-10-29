@@ -159,6 +159,7 @@
     { "path": "./packages/client/ui-settings-credits/tsconfig.client.json" },
     { "path": "./packages/client/ui-settings-bots/tsconfig.client.json" },
     { "path": "./packages/client/ui-settings-history/tsconfig.client.json" },
+    { "path": "./packages/client/ui-settings-instructions/tsconfig.client.json" },
     { "path": "./packages/client/ui-settings-people/tsconfig.client.json" },
     { "path": "./packages/client/ui-settings-sign-in-channels/tsconfig.client.json" },
     { "path": "./packages/client/ui-sign-in/tsconfig.client.json" },

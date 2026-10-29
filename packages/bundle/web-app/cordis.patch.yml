@@ -163,6 +163,16 @@
     - id: identity-controller
       name: '@lyness/lyn-api-identity-controller'
 
+    # What a person tells their own agents, kept for them and recorded on
+    # every session they open. It mounts on every deployment: the shape with
+    # no accounts has one operator, who has instructions of their own like
+    # anybody else.
+    - id: personal-instructions
+      name: '@lyness/lyn-personal-instructions'
+
+    - id: personal-instructions-controller
+      name: '@lyness/lyn-api-personal-instructions-controller'
+
     # Workspace commands and reconnect-safe projection over Typert Remote.
     - id: workspace-controller
       name: '@lyness/lyn-api-workspace-controller'
@@ -368,6 +378,11 @@
     # all render from this one answer.
     - id: ui-viewer
       name: '@lyness/lyn-client-ui-viewer'
+
+    # The personal plane's instructions page: the person's own control over
+    # what their agents are told, which nobody else sets for them.
+    - id: ui-settings-instructions
+      name: '@lyness/lyn-client-ui-settings-instructions'
 
     # The sign-in screen, and the row naming whose session this is. On a
     # deployment with no accounts both render nothing, so the single-operator

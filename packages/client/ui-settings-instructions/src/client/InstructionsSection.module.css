@@ -1,0 +1,90 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lyn-space-5);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lyn-space-1);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--lyn-font-size-lg);
+  font-weight: var(--lyn-font-weight-medium);
+}
+
+.intro {
+  margin: 0;
+  color: var(--lyn-color-text-secondary);
+  font-size: var(--lyn-font-size-sm);
+}
+
+.notice {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--lyn-space-2);
+  margin: 0;
+  color: var(--lyn-color-text-secondary);
+}
+
+.editor {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lyn-space-3);
+}
+
+/* Tall enough for a short list of instructions without scrolling, and it
+   grows with the panel rather than with the text: a field that resized on
+   every keystroke would move the buttons under the pointer. */
+.field {
+  min-height: 180px;
+  padding: var(--lyn-space-3);
+  box-sizing: border-box;
+  border: 1px solid var(--lyn-color-border-subtle);
+  border-radius: var(--lyn-radius-md);
+  background: var(--lyn-color-surface);
+  color: var(--lyn-color-text-primary);
+  font-family: inherit;
+  font-size: var(--lyn-font-size-sm);
+  line-height: 1.6;
+  resize: vertical;
+}
+
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--lyn-space-3);
+}
+
+.counter {
+  margin: 0;
+  color: var(--lyn-color-text-secondary);
+  font-size: var(--lyn-font-size-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.over {
+  color: var(--lyn-color-text-danger);
+}
+
+.actions {
+  display: flex;
+  gap: var(--lyn-space-2);
+  margin-left: auto;
+}
+
+.outcome {
+  margin: 0;
+  color: var(--lyn-color-text-secondary);
+  font-size: var(--lyn-font-size-sm);
+}
+
+.refused {
+  color: var(--lyn-color-text-danger);
+}

@@ -349,6 +349,10 @@ flowchart LR
   svc_signInChannelController["ctx.signInChannelController<br/>Host sign-in channel Remote controller"]
   pkg_api_identity_controller["api-identity-controller"]
   svc_identityController["ctx.identityController<br/>Host viewer Remote controller"]
+  pkg_personal_instructions["personal-instructions"]
+  svc_personalInstructions["ctx.personalInstructions<br/>What each person told their own agents"]
+  pkg_api_personal_instructions_controller["api-personal-instructions-controller"]
+  svc_personalInstructionsController["ctx.personalInstructionsController<br/>Host personal-instructions Remote controller"]
   pkg_api_credits_controller["api-credits-controller"]
   svc_creditsController["ctx.creditsController<br/>Host credits Remote controller"]
   pkg_api_tenant_controller["api-tenant-controller"]
@@ -402,6 +406,7 @@ flowchart LR
   pkg_api_identity_controller --> svc_identityController
   pkg_api_job_controller --> svc_jobController
   pkg_api_people_controller --> svc_peopleController
+  pkg_api_personal_instructions_controller --> svc_personalInstructionsController
   pkg_api_remote_access --> svc_remoteAccess
   pkg_api_session_controller --> svc_sessionController
   pkg_api_session_controller --> svc_sessionFileReferences
@@ -505,6 +510,7 @@ flowchart LR
   pkg_people --> svc_people
   pkg_people_static --> svc_people
   pkg_permission_presets --> svc_permissionPresets
+  pkg_personal_instructions --> svc_personalInstructions
   pkg_plan_mode --> svc_planMode
   pkg_plugin_manager --> svc_pluginManager
   pkg_plugin_market --> svc_pluginMarket
@@ -895,6 +901,8 @@ flowchart LR
 | `ctx.sessionVisibility` | `core` | [`session-ownership`](../packages/identity/session-ownership) | - | [`api-session-controller`](../packages/api/session-controller) | - | Reads back the attribution the stamp wrote: a person sees the conversations they opened and no others, an unattributed one answers only to a platform administrator, and a call with no principal is the deployment acting on itself and sees everything. |
 | `ctx.signInChannelController` | `core` | [`api-sign-in-channel-controller`](../packages/api/sign-in-channel-controller) | - | - | - | Projects the configured-channel store onto the generated Remote namespace: it resolves the standing one call acts in, hands it to the one rule that decides who administers what, and reports each refusal under its own code so a form can mark the field it names. |
 | `ctx.identityController` | `core` | [`api-identity-controller`](../packages/api/identity-controller) | - | - | - | Answers one surface question before anybody is classified: whether this deployment has accounts, who the caller is, the standing they act in, and the channels a sign-in screen may offer; signing in and out stay browser navigations lyn-sign-in-http owns. |
+| `ctx.personalInstructions` | `core` | [`personal-instructions`](../packages/identity/personal-instructions) | - | - | - | The user layer of the prompt: it stores what one person tells their own agents, writes that text into every session they open as one durable log event, and composes it from that record between the organization layer and the agent layer, so editing it never changes what a running conversation already said. |
+| `ctx.personalInstructionsController` | `core` | [`api-personal-instructions-controller`](../packages/api/personal-instructions-controller) | - | - | - | Projects the instructions store onto the generated Remote namespace for the person who owns it: whose record a call acts on is derived from the published principal rather than taken as a parameter, so no caller can name another record. |
 | `ctx.creditsController` | `core` | [`api-credits-controller`](../packages/api/credits-controller) | - | - | - | Projects the ledger and the administration seam onto the generated Remote namespace: a person reads their own balance, an administrator grants credits and sets allowances for the people their standing reaches, and the authority rule stays in lyn-credits so a read and a grant cannot disagree. |
 | `ctx.tenantController` | `core` | [`api-tenant-controller`](../packages/api/tenant-controller) | - | - | - | Projects the tenant-configuration seam onto the generated Remote namespace: the calling tenant reads and saves its own configuration, and a call that named no tenant is refused rather than answered about any tenant. |
 | `ctx.requestTenant` | `core` | [`tenant-request`](../packages/tenant/tenant-request) | - | [`tenant-session`](../packages/tenant/tenant-session) | - | Resolves the tenant a Remote call arrived for, once per call, and publishes it with that tenant's configuration for the duration of the call; a call that named none reads as undefined rather than as a fallback tenant. |

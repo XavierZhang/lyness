@@ -138,6 +138,10 @@ const SECTION_ORDERS = {
   DEPLOYMENT_PERSONA_PREFIX: 0,
   TENANT_PERSONALITY: 50,
   TENANT_CONSTRAINTS: 60,
+  // The person's own instructions sit between the organization's rules and
+  // the agent's persona: text a person writes cannot widen what the layers
+  // above it set, and the agent it is addressed to is composed after it.
+  PERSON_INSTRUCTIONS: 70,
   BOT_PERSONA: 100,
   PLAN_POLICY: 500,
   TEAM_POLICY: 600,

@@ -1,0 +1,46 @@
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write packages/identity/personal-instructions/README.md
+/:
+  en: b0e7cf40d5cdc31b
+  zh: bd0b1f01310ff5e3
+/lyness-lyn-personal-instructions:
+  en: 33cd2867849767ca
+  zh: 3484e7e3231f17e2
+/lyness-lyn-personal-instructions/summary:
+  en: f8c966d2fe91bdb3
+  zh: 2d0bf68ab1a7ab23
+/lyness-lyn-personal-instructions/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 2bca79d7b98e8031
+/lyness-lyn-personal-instructions/use-this-package:
+  en: 0dd8898f4c5005ee
+  zh: 2ae22f8a400dc126
+/lyness-lyn-personal-instructions/understand-the-implementation:
+  en: 43a76bd4778710f3
+  zh: e8c894b06b6e5596
+/lyness-lyn-personal-instructions/further-exploration:
+  en: ce1a55eefe1c92fa
+  zh: 66f1ea5811824908
+/lyness-lyn-personal-instructions/model-experience:
+  en: 215e7ba838619b7b
+  zh: a311da3843709f90
+/lyness-lyn-personal-instructions/model-experience/the-person-s-own-instructions:
+  en: 1056cc8fa718815d
+  zh: b86e4acf5d03eb83
+/lyness-lyn-personal-instructions/model-experience/the-person-s-own-instructions/what-the-model-sees:
+  en: 11a5b2d6ad37e2df
+  zh: b1f99d5c0378fa67
+/lyness-lyn-personal-instructions/model-experience/the-person-s-own-instructions/token-effect:
+  en: 15eb4e5bb42c071d
+  zh: d882d0707f495d52
+/lyness-lyn-personal-instructions/model-experience/the-person-s-own-instructions/kv-cache-effect:
+  en: baa443202441243c
+  zh: 8be1215da97f028c
+/lyness-lyn-personal-instructions/known-limitations-and-deferred-work:
+  en: 579cadff7876f033
+  zh: a5602e6206ce0c53
+/lyness-lyn-personal-instructions/known-limitations-and-deferred-work/dev-note:
+  en: e68dfbed8631af1e
+  zh: dee327cf29c5ee7c

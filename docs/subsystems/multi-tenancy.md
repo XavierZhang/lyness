@@ -1053,6 +1053,79 @@ Host service backing the generated `ctx.remote.people` namespace.
 
 Source: [`packages/api/people-controller/src/index.ts`](../../packages/api/people-controller/src/index.ts)
 
+<a id="ctxpersonalinstructions--personalinstructions"></a>
+
+### `ctx.personalInstructions` — `PersonalInstructions`
+
+What each person told their own agents.
+
+```ts cordis-catalog
+/**
+ * The owner key whose instructions this call acts on.
+ *
+ * A deployment that mounts no principal service has one operator and no
+ * person to name, so it stores under {@link SOLE_OPERATOR}. One that mounts
+ * the service names the signed-in person, and answers undefined for a call
+ * that presented no identity rather than falling back to a shared record.
+ * @returns the key, or undefined when this call speaks for nobody.
+ */
+ownerOfCall(): InstructionsOwnerId | undefined
+
+/**
+ * Read one owner's instructions.
+ *
+ * Synchronous, because the domain holds its records in memory once open and
+ * the session stamp has no tick to wait: callers await {@link ready} once
+ * and read directly afterwards.
+ * @param owner - whose instructions to read.
+ * @returns the stored entry, or undefined when that owner has written none.
+ * @throws {Error} when called before {@link ready} has settled.
+ */
+get(owner: InstructionsOwnerId): InstructionsEntry | undefined
+
+/**
+ * Replace one owner's instructions.
+ *
+ * Blank text removes the record rather than storing an empty one: a person
+ * clearing what they wrote is asking for no instructions, and a stored
+ * empty string would be a record saying they wrote nothing.
+ * @param owner - whose instructions to write.
+ * @param text - the new instructions; blank removes them.
+ * @returns the stored entry, or undefined when the text was blank.
+ * @throws {TypeError} when the text is longer than this deployment accepts.
+ */
+async save(owner: InstructionsOwnerId, text: string): Promise<InstructionsEntry | undefined>
+```
+
+Source: [`packages/identity/personal-instructions/src/index.ts`](../../packages/identity/personal-instructions/src/index.ts)
+
+<a id="ctxpersonalinstructionscontroller--personalinstructionscontroller"></a>
+
+### `ctx.personalInstructionsController` — `PersonalInstructionsController`
+
+Host service backing the generated `ctx.remote.personalInstructions` namespace.
+
+```ts cordis-catalog
+/**
+ * Read this caller's own instructions.
+ * @returns the saved text and what this deployment accepts.
+ */
+@Remote describe(): InstructionsView
+
+/**
+ * Replace this caller's own instructions.
+ *
+ * Blank text clears them. The answer is read back from the store rather
+ * than echoed, so the page shows what was kept rather than what was sent.
+ * @param text - the new instructions; blank clears them.
+ * @returns the stored state after the write.
+ * @throws {Error} when the call speaks for nobody, or the text exceeds what this deployment accepts.
+ */
+@Remote async save(text: string): Promise<InstructionsView>
+```
+
+Source: [`packages/api/personal-instructions-controller/src/index.ts`](../../packages/api/personal-instructions-controller/src/index.ts)
+
 <a id="ctxrequestprincipal--requestprincipal"></a>
 
 ### `ctx.requestPrincipal` — `RequestPrincipal`

@@ -2669,6 +2669,26 @@ export interface Config {
 ```
 <!-- END GENERATED config-catalog:@lyness/lyn-persona -->
 
+<!-- BEGIN GENERATED config-catalog:@lyness/lyn-personal-instructions -->
+<a id="lynesslyn-personal-instructions"></a>
+
+## `@lyness/lyn-personal-instructions`
+
+- `inject`: `agents` · `sessionProjections` · `sessions` · `storageDomain` · `systemPrompt`
+- `source`: [`packages/identity/personal-instructions/src/index.ts:123`](../packages/identity/personal-instructions/src/index.ts)
+
+```ts config-catalog
+/** Deployment-owned ceiling on what one person may store. */
+export interface Config {
+  /**
+   * Largest text one person may save, in UTF-16 code units. Defaults to
+   * {@link MAX_INSTRUCTIONS_CHARS}, which the store accepts at most.
+   */
+  maxChars?: number
+}
+```
+<!-- END GENERATED config-catalog:@lyness/lyn-personal-instructions -->
+
 <!-- BEGIN GENERATED config-catalog:@lyness/lyn-plan-mode -->
 <a id="lynesslyn-plan-mode"></a>
 
@@ -3906,7 +3926,7 @@ export interface Config {
 
 ## `@lyness/lyn-system-prompt`
 
-- `source`: [`packages/core/system-prompt/src/index.ts:290`](../packages/core/system-prompt/src/index.ts)
+- `source`: [`packages/core/system-prompt/src/index.ts:294`](../packages/core/system-prompt/src/index.ts)
 
 ```ts config-catalog
 /** Plugin config: the deployment-authored fragment of the system prompt (see {@link Config.personaPrefix} for its contract). */
@@ -5150,6 +5170,7 @@ export interface Config {
 | `@lyness/lyn-api-credits-controller` | — | [`packages/api/credits-controller/src/index.ts`](../packages/api/credits-controller/src/index.ts) |
 | `@lyness/lyn-api-identity-controller` | — | [`packages/api/identity-controller/src/index.ts`](../packages/api/identity-controller/src/index.ts) |
 | `@lyness/lyn-api-people-controller` | — | [`packages/api/people-controller/src/index.ts`](../packages/api/people-controller/src/index.ts) |
+| `@lyness/lyn-api-personal-instructions-controller` | `personalInstructions` | [`packages/api/personal-instructions-controller/src/index.ts`](../packages/api/personal-instructions-controller/src/index.ts) |
 | `@lyness/lyn-api-remote-access` | — | [`packages/api/remote-access/src/index.ts`](../packages/api/remote-access/src/index.ts) |
 | `@lyness/lyn-api-remote-authority` | `requestPrincipal` · `people` | [`packages/api/remote-authority/src/index.ts`](../packages/api/remote-authority/src/index.ts) |
 | `@lyness/lyn-api-remotes` | `typertGateway` | [`packages/api/remotes/src/index.ts`](../packages/api/remotes/src/index.ts) |
@@ -5203,6 +5224,7 @@ export interface Config {
 | `@lyness/lyn-client-ui-settings-credits` | — | [`packages/client/ui-settings-credits/src/index.ts`](../packages/client/ui-settings-credits/src/index.ts) |
 | `@lyness/lyn-client-ui-settings-general` | — | [`packages/client/ui-settings-general/src/index.ts`](../packages/client/ui-settings-general/src/index.ts) |
 | `@lyness/lyn-client-ui-settings-history` | — | [`packages/client/ui-settings-history/src/index.ts`](../packages/client/ui-settings-history/src/index.ts) |
+| `@lyness/lyn-client-ui-settings-instructions` | — | [`packages/client/ui-settings-instructions/src/index.ts`](../packages/client/ui-settings-instructions/src/index.ts) |
 | `@lyness/lyn-client-ui-settings-people` | — | [`packages/client/ui-settings-people/src/index.ts`](../packages/client/ui-settings-people/src/index.ts) |
 | `@lyness/lyn-client-ui-settings-plugin-inventory` | — | [`packages/client/ui-settings-plugin-inventory/src/index.ts`](../packages/client/ui-settings-plugin-inventory/src/index.ts) |
 | `@lyness/lyn-client-ui-settings-plugins` | — | [`packages/client/ui-settings-plugins/src/index.ts`](../packages/client/ui-settings-plugins/src/index.ts) |

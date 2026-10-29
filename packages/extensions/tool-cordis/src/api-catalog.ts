@@ -2529,6 +2529,63 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
     ],
   },
   {
+    key: 'personalInstructions',
+    summary: 'What each person told their own agents.',
+    description: 'What each person told their own agents.',
+    methods: [
+      {
+        signature: 'readonly maxChars: number',
+        description: 'Largest text this deployment accepts, in UTF-16 code units.',
+        parameters: [],
+      },
+      {
+        signature: 'readonly ready: Promise<void>',
+        description: 'Settles once the domain is open. The session stamp awaits it before it subscribes, so every later read of a stored record is synchronous: the stamp runs on the microtask after a creation announcement and has no tick to spend on storage.',
+        parameters: [],
+      },
+      {
+        signature: 'ownerOfCall(): InstructionsOwnerId | undefined',
+        description: 'The owner key whose instructions this call acts on.\n\nA deployment that mounts no principal service has one operator and no person to name, so it stores under SOLE_OPERATOR. One that mounts the service names the signed-in person, and answers undefined for a call that presented no identity rather than falling back to a shared record.',
+        parameters: [],
+        returns: 'the key, or undefined when this call speaks for nobody.',
+      },
+      {
+        signature: 'get(owner: InstructionsOwnerId): InstructionsEntry | undefined',
+        description: 'Read one owner\'s instructions.\n\nSynchronous, because the domain holds its records in memory once open and the session stamp has no tick to wait: callers await ready once and read directly afterwards.',
+        parameters: [{ name: 'owner', description: 'whose instructions to read.' }],
+        returns: 'the stored entry, or undefined when that owner has written none.',
+        throws: ['{Error} when called before {@link ready} has settled.'],
+      },
+      {
+        signature: 'async save(owner: InstructionsOwnerId, text: string): Promise<InstructionsEntry | undefined>',
+        description: 'Replace one owner\'s instructions.\n\nBlank text removes the record rather than storing an empty one: a person clearing what they wrote is asking for no instructions, and a stored empty string would be a record saying they wrote nothing.',
+        parameters: [{ name: 'owner', description: 'whose instructions to write.' }, { name: 'text', description: 'the new instructions; blank removes them.' }],
+        returns: 'the stored entry, or undefined when the text was blank.',
+        throws: ['{TypeError} when the text is longer than this deployment accepts.'],
+      },
+    ],
+  },
+  {
+    key: 'personalInstructionsController',
+    summary: 'Host service backing the generated `ctx.remote.personalInstructions` namespace.',
+    description: 'Host service backing the generated `ctx.remote.personalInstructions` namespace.',
+    methods: [
+      {
+        signature: '@Remote describe(): InstructionsView',
+        description: 'Read this caller\'s own instructions.',
+        parameters: [],
+        returns: 'the saved text and what this deployment accepts.',
+      },
+      {
+        signature: '@Remote async save(text: string): Promise<InstructionsView>',
+        description: 'Replace this caller\'s own instructions.\n\nBlank text clears them. The answer is read back from the store rather than echoed, so the page shows what was kept rather than what was sent.',
+        parameters: [{ name: 'text', description: 'the new instructions; blank clears them.' }],
+        returns: 'the stored state after the write.',
+        throws: ['{Error} when the call speaks for nobody, or the text exceeds what this deployment accepts.'],
+      },
+    ],
+  },
+  {
     key: 'planMode',
     summary: '`ctx.planMode`: owns logged plan state, applies and narrates selected state at step start, the `plan:policy` section, the `/plan` command, and the conditional exit tool.',
     description: '`ctx.planMode`: owns logged plan state, applies and narrates selected state at step start, the `plan:policy` section, the `/plan` command, and the conditional exit tool. Client carriers expose the projection\'s cropped `{ active, pending }` view. Agent prompt assembly fails while the projection reader is not ready; callers must await plugin activation before running an agent.',
@@ -7313,6 +7370,18 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'InstallSpecKind',
     declaration: 'export type InstallSpecKind = \'registry\' | \'path\' | \'git\' | \'tarball\';',
+  },
+  {
+    name: 'InstructionsEntry',
+    declaration: 'export interface InstructionsEntry {\n    readonly text: string;\n    readonly writtenAt: string;\n}',
+  },
+  {
+    name: 'InstructionsOwnerId',
+    declaration: 'export type InstructionsOwnerId = Branded<\'InstructionsOwnerId\'>;',
+  },
+  {
+    name: 'InstructionsView',
+    declaration: 'export interface InstructionsView {\n    readonly owned: boolean;\n    readonly text: string;\n    readonly writtenAt?: string;\n    readonly maxChars: number;\n}',
   },
   {
     name: 'InternalScheduleError',

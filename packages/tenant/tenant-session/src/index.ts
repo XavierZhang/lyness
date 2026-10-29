@@ -35,7 +35,7 @@
 import { Context } from '@lyness/cordis'
 import z from '@lyness/schemastery'
 import { z as zod } from 'zod'
-import type { Agent } from '@lyness/lyn-agent'
+import { composePerAgent } from '@lyness/lyn-agent'
 import type {} from '@lyness/lyn-system-prompt'
 import { TenantId } from '@lyness/lyn-tenant'
 import type { Tenant } from '@lyness/lyn-tenant'
@@ -233,32 +233,15 @@ export async function apply(ctx: Context, config: Config): Promise<void> {
   ctx.on('session/created', (session) => { queueMicrotask(() => { stamp(session) }) })
   for (const session of ctx.sessions.list()) stamp(session)
 
-  const composed = new Map<Agent, () => void>()
-  // Registered on the agent's own context, which is what puts the sections in
+  // Composed on each agent's own context, which is what puts the sections in
   // that agent's scope: the loop assembles its prompt with the agent as the
   // scope, so one conversation's identity is never assembled into another's.
-  const compose = (agent: Agent): void => {
-    // TODO(session-projection): read through the registration handle instead.
-    // Upstream 0.2.1 deprecated the keyed read and types it `unknown`; the
+  composePerAgent(ctx, (agent) => {
     const record = tenantProjection.stateOf(agent.session)
     /* v8 ignore next -- `session/created` has stamped the session before
        `agent/created` fires for it, so this names a broken order rather than
        composing text the log does not hold. */
-    if (record === null) return
-    const withdraw = composeTenantIdentity(agent.ctx, record)
-    // Owned by the agent's scope as well, so disposing the agent takes the
-    // sections with it; this plugin keeps the disposer only for its own
-    // unmount, which that scope would not reach.
-    agent.ctx.effect(() => withdraw)
-    composed.set(agent, withdraw)
-  }
-  ctx.on('agent/created', ({ agent }) => { compose(agent) })
-  for (const agent of ctx.agents.list()) compose(agent)
-  ctx.on('agent/disposed', ({ agent }) => { composed.delete(agent) })
-  // Withdrawn when this plugin unmounts: the sections sit on agent contexts,
-  // which this one's teardown does not unwind.
-  ctx.effect(() => () => {
-    for (const withdraw of composed.values()) withdraw()
-    composed.clear()
+    if (record === null) return undefined
+    return composeTenantIdentity(agent.ctx, record)
   })
 }
