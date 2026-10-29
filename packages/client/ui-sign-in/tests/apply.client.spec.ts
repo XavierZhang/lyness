@@ -1,6 +1,7 @@
 /**
- * The surface's wiring: where each half registers, the stores they declare,
- * the shared read behind both, and that nothing is read until something asks.
+ * The surface's wiring: where each half registers, the face they are handed,
+ * the one shared read behind both, and that nothing is read until something
+ * asks.
  */
 
 import { Context } from '@lyness/cordis'
@@ -9,10 +10,10 @@ import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
 import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
 import { TestRemote } from '@lyness/lyn-client-test-runtime'
 import type { ViewerView } from '@lyness/lyn-api-identity-controller/types'
-import { apply, inject, NS, viewerReadOf } from '@lyness/lyn-client-ui-sign-in/client'
+import * as viewerPlugin from '@lyness/lyn-client-ui-viewer/client'
+import { apply, inject, NS } from '@lyness/lyn-client-ui-sign-in/client'
 import { AccountRow } from '../src/client/AccountRow.tsx'
 import { SignInScreen } from '../src/client/SignInScreen.tsx'
-import type { createViewerStore } from '../src/client/store.ts'
 
 const VIEWER: ViewerView = {
   accounts: true,
@@ -21,10 +22,14 @@ const VIEWER: ViewerView = {
   signOutPath: '/auth/sign-out',
 }
 
-/** The store handle one registered surface declared. */
-type Handle = ReturnType<typeof createViewerStore>
+/** The business face one registered surface was handed, as the ledger stores it. */
+function faceOf(entry: { inject?: ((...args: never[]) => Record<string, unknown>) | undefined } | undefined) {
+  const inject = entry?.inject
+  if (inject === undefined) throw new Error('expected the surface to declare an inject face')
+  return inject()
+}
 
-/** A context with the slot registry, a locale, and both surfaces mounted. */
+/** A context with the slot registry, a locale, the viewer service, and both surfaces. */
 async function bench(viewer: () => Promise<unknown> = () => Promise.resolve({ ok: true, value: VIEWER })) {
   const ctx = new Context()
   await ctx.plugin(SlotRegistry).await()
@@ -44,6 +49,7 @@ async function bench(viewer: () => Promise<unknown> = () => Promise.resolve({ ok
     } as never,
     () => null,
   )
+  await ctx.plugin({ inject: [...viewerPlugin.inject], apply: viewerPlugin.apply }).await()
   const fiber = ctx.plugin({ inject: [...inject], apply })
   await fiber.await()
   return { ctx, slots, locale, declared, fiber }
@@ -67,29 +73,14 @@ describe('ui-sign-in apply', () => {
     expect(locale.bind(NS)('title')).toBe('登录')
   })
 
-  it('declares a store for each surface to read through', async () => {
-    const { slots } = await bench()
-    for (const [slot, component] of [['shell.overlay', SignInScreen], ['settings.general.item', AccountRow]] as const) {
-      const entry = slots.entries(slot).find(one => one.component === component)
-      const handle = entry?.store as Handle
-      expect(handle.create().store.getSnapshot()).toEqual({ status: 'idle', viewer: undefined })
-    }
-  })
-
-  it('declares a store whose writes move the read through its states', async () => {
-    const { slots } = await bench()
-    const entry = slots.entries('shell.overlay').find(one => one.component === SignInScreen)
-    const instance = (entry?.store as Handle).create()
-    instance.actions.begin()
-    expect(instance.store.getSnapshot().status).toBe('loading')
-    instance.actions.succeed(VIEWER)
-    expect(instance.store.getSnapshot()).toEqual({ status: 'ready', viewer: VIEWER })
-    instance.actions.fail()
-    // The viewer it already read stays: a surface that blanked on a failed
-    // refresh would cover a signed-in person's product with a sign-in screen.
-    expect(instance.store.getSnapshot()).toMatchObject({ status: 'failed', viewer: VIEWER })
-    instance.actions.reset()
-    expect(instance.store.getSnapshot().status).toBe('idle')
+  it('hands both surfaces the one snapshot the viewer service owns', async () => {
+    const { ctx, slots } = await bench()
+    const screen = slots.entries('shell.overlay').find(one => one.component === SignInScreen)
+    const row = slots.entries('settings.general.item').find(one => one.component === AccountRow)
+    const screenHooks = faceOf(screen).hooks as { viewer: unknown }
+    const rowHooks = faceOf(row).hooks as { viewer: unknown }
+    expect(screenHooks.viewer).toBe(ctx.uiViewer.state)
+    expect(rowHooks.viewer).toBe(ctx.uiViewer.state)
   })
 
   it('reads nothing until a surface asks', async () => {
@@ -98,11 +89,28 @@ describe('ui-sign-in apply', () => {
     expect(viewer).not.toHaveBeenCalled()
   })
 
-  it('reads through the Remote namespace the deployment answers on', async () => {
+  it('reads once for both surfaces when each asks', async () => {
     const viewer = vi.fn(() => Promise.resolve({ ok: true as const, value: VIEWER }))
-    const { ctx } = await bench(viewer)
-    expect(await viewerReadOf(ctx)()).toEqual({ ok: true, value: VIEWER })
+    const { ctx, slots } = await bench(viewer)
+    const screen = slots.entries('shell.overlay').find(one => one.component === SignInScreen)
+    const row = slots.entries('settings.general.item').find(one => one.component === AccountRow)
+    const screenLoad = faceOf(screen).load as () => Promise<void>
+    const rowLoad = faceOf(row).load as () => Promise<void>
+    await Promise.all([screenLoad(), rowLoad()])
     expect(viewer).toHaveBeenCalledOnce()
+    expect(ctx.uiViewer.state.getSnapshot()).toMatchObject({ status: 'ready', viewer: VIEWER })
+  })
+
+  it('gives the screen, and only the screen, a way to ask again', async () => {
+    const viewer = vi.fn(() => Promise.resolve({ ok: true as const, value: VIEWER }))
+    const { slots } = await bench(viewer)
+    const screen = slots.entries('shell.overlay').find(one => one.component === SignInScreen)
+    const row = slots.entries('settings.general.item').find(one => one.component === AccountRow)
+    expect(faceOf(row).retry).toBeUndefined()
+    const screenFace = faceOf(screen)
+    await (screenFace.load as () => Promise<void>)()
+    await (screenFace.retry as () => Promise<void>)()
+    expect(viewer).toHaveBeenCalledTimes(2)
   })
 
   it('stops offering both surfaces when its plugin is unloaded', async () => {

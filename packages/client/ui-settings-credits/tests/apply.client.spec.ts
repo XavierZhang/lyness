@@ -17,7 +17,7 @@ import { apply, creditsCallsOf, inject, NS } from '@lyness/lyn-client-ui-setting
 import { CreditsSection } from '../src/client/CreditsSection.tsx'
 import type { createCreditsSectionStore } from '../src/client/store.ts'
 
-const SLOT = 'settings.section'
+const SLOT = 'settings.administration.section'
 
 const ACCOUNT: CreditAccountView = {
   person: 'bea',

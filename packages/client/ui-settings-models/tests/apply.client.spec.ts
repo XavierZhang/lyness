@@ -55,7 +55,7 @@ function declare(slots: SlotRegistry): () => void {
     {
       name: 'root',
       children: {
-        'settings.section': { kind: 'list', scope: 'root' },
+        'settings.administration.section': { kind: 'list', scope: 'root' },
         'settings.onboarding': { kind: 'list', scope: 'root' },
       },
     } as never,
@@ -79,7 +79,7 @@ describe('ui-settings-models apply', () => {
       expect(slots.entries('settings.onboarding').map(entry => entry.options.id)).toEqual(['deepseek-official'])
       const onboarding = slots.entries('settings.onboarding').find(entry => entry.options.id === 'deepseek-official')!
       expect((onboarding.inject as () => { automatic: boolean })().automatic).toBe(false)
-      expect(slots.entries('settings.section').map(entry => entry.options.id)).toEqual(['models'])
+      expect(slots.entries('settings.administration.section').map(entry => entry.options.id)).toEqual(['models'])
       await plugin.dispose()
       expect(slots.entries('settings.onboarding')).toEqual([])
       await host.dispose()
@@ -114,7 +114,7 @@ describe('ui-settings-models apply', () => {
     const before = await bench()
     declare(before.slots)
     await before.ctx.plugin({ inject: [...inject], apply }).await()
-    const entry = before.slots.entries('settings.section')[0]!
+    const entry = before.slots.entries('settings.administration.section')[0]!
     expect(entry.component).toBe(ModelsSection)
     expect(entry.options).toMatchObject({ id: 'models', order: 10 })
     // The section claims its two extension seats in the same registration.
@@ -147,14 +147,14 @@ describe('ui-settings-models apply', () => {
 
     const after = await bench()
     await after.ctx.plugin({ inject: [...inject], apply }).await()
-    expect(after.slots.entries('settings.section')).toHaveLength(0)
+    expect(after.slots.entries('settings.administration.section')).toHaveLength(0)
     expect(after.slots.entries('settings.onboarding')).toHaveLength(0)
     declare(after.slots)
     await Promise.resolve()
-    expect(after.slots.entries('settings.section')[0]!.component).toBe(ModelsSection)
+    expect(after.slots.entries('settings.administration.section')[0]!.component).toBe(ModelsSection)
     expect(after.slots.entries('settings.onboarding')).toHaveLength(1)
     // The self-inflicted ledger notifications hit the duplicate guard.
-    expect(after.slots.entries('settings.section')).toHaveLength(1)
+    expect(after.slots.entries('settings.administration.section')).toHaveLength(1)
   })
 
   it('the label thunk follows the active locale without re-registration', async () => {
@@ -162,11 +162,11 @@ describe('ui-settings-models apply', () => {
     declare(b.slots)
     await b.ctx.plugin({ inject: [...inject], apply }).await()
     b.locale.setLocale('en')
-    expect(resolveSlotLabel(b.slots.entries('settings.section')[0]!.options.label)).toBe('Models')
-    const injected = b.slots.entries('settings.section')[0]!.inject as unknown as () => import('../src/client/ModelsSection.tsx').ModelsSectionInjected
+    expect(resolveSlotLabel(b.slots.entries('settings.administration.section')[0]!.options.label)).toBe('Models')
+    const injected = b.slots.entries('settings.administration.section')[0]!.inject as unknown as () => import('../src/client/ModelsSection.tsx').ModelsSectionInjected
     expect(injected().t('deleteTitle')).toBe('Delete {provider}?')
     b.locale.setLocale('zh')
-    expect(resolveSlotLabel(b.slots.entries('settings.section')[0]!.options.label)).toBe('模型')
+    expect(resolveSlotLabel(b.slots.entries('settings.administration.section')[0]!.options.label)).toBe('模型')
     expect(injected().t('deleteTitle')).toBe('删除 {provider}？')
   })
 
@@ -174,7 +174,7 @@ describe('ui-settings-models apply', () => {
     const b = await bench()
     await b.ctx.plugin({ inject: [...inject], apply }).await()
     b.locale.setLocale('en')
-    expect(b.slots.entries('settings.section')).toHaveLength(0)
+    expect(b.slots.entries('settings.administration.section')).toHaveLength(0)
     b.locale.setLocale('zh')
   })
 
@@ -182,19 +182,19 @@ describe('ui-settings-models apply', () => {
     const b = await bench()
     const redeclare = declare(b.slots)
     await b.ctx.plugin({ inject: [...inject], apply }).await()
-    expect(b.slots.entries('settings.section')).toHaveLength(1)
+    expect(b.slots.entries('settings.administration.section')).toHaveLength(1)
     // Declarer unload: the cascade removes our entry while our local
     // disposer variable goes stale.
     redeclare()
-    expect(b.slots.entries('settings.section')).toHaveLength(0)
+    expect(b.slots.entries('settings.administration.section')).toHaveLength(0)
     expect(b.slots.entries('settings.onboarding')).toHaveLength(0)
     declare(b.slots)
     await Promise.resolve()
-    expect(b.slots.entries('settings.section')[0]!.component).toBe(ModelsSection)
+    expect(b.slots.entries('settings.administration.section')[0]!.component).toBe(ModelsSection)
     expect(b.slots.entries('settings.onboarding')).toHaveLength(1)
     // The locale path also recovers through the same ledger re-check.
     b.locale.setLocale('en')
-    expect(resolveSlotLabel(b.slots.entries('settings.section')[0]!.options.label)).toBe('Models')
+    expect(resolveSlotLabel(b.slots.entries('settings.administration.section')[0]!.options.label)).toBe('Models')
     b.locale.setLocale('zh')
   })
 
@@ -227,7 +227,7 @@ describe('ui-settings-models apply', () => {
     await fiber.await()
     expect(b.locale.bind('settings.models')('nav')).toBe('模型')
     await fiber.dispose()
-    expect(b.slots.entries('settings.section')).toHaveLength(0)
+    expect(b.slots.entries('settings.administration.section')).toHaveLength(0)
     expect(b.slots.entries('settings.onboarding')).toHaveLength(0)
     // The (ns, locale) seats are free again — the dictionary disposers ran.
     expect(() => b.locale.register('settings.models', 'zh', {})).not.toThrow()
@@ -290,7 +290,7 @@ describe('pushed invalidations', () => {
     const b = await bench(mock, { listProviders })
     declare(b.slots)
     await b.ctx.plugin({ inject: [...inject], apply }).await()
-    const entry = b.slots.entries('settings.section')
+    const entry = b.slots.entries('settings.administration.section')
       .find(candidate => candidate.options.id === 'models')!
     const injected = (
       entry.inject as unknown as

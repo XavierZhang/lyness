@@ -30,7 +30,7 @@ export interface AgentPresetSectionInjected {
   makeDefault: (id: string) => Promise<void>
 }
 /** Props assembled by the settings renderer. */
-export type AgentPresetSectionProps = PropsRuntime<'settings.section'> & PropsLocale<'settings.agentPreset'> & InjectFace<AgentPresetSectionInjected>
+export type AgentPresetSectionProps = PropsRuntime<'settings.administration.section'> & PropsLocale<'settings.agentPreset'> & InjectFace<AgentPresetSectionInjected>
 
 function CardDescription({ text }: { text: string }): ReactNode {
   const ref = useRef<HTMLSpanElement | null>(null)

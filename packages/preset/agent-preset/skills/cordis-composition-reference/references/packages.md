@@ -140,6 +140,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@lyness/lyn-client-ui-tool` | no | Client Tool call-tree renderer and keyed per-tool presentation slot |
 | `@lyness/lyn-client-ui-trajectory` | no | Trajectory event ledger with an interactive timing overview: pure-consumer plugin registering into the conversation ViewMap (no service) |
 | `@lyness/lyn-client-ui-user-questions` | no | Web ask_user_question composer takeover and plan-review presentation UI |
+| `@lyness/lyn-client-ui-viewer` | no | The shared viewer read: who is signed in, and which Settings planes that standing is offered |
 | `@lyness/lyn-client-ui-workflow-run` | no | Durable workflow-run Conversation Node and nested member disclosure for lyn web |
 | `@lyness/lyn-client-ui-workspace` | no | Workspace picker plugin: one WorkspacePicker registered into the sidebar and empty-state workspace slots |
 

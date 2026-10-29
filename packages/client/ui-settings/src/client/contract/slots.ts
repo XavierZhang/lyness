@@ -56,6 +56,21 @@ declare module '@lyness/lyn-client-ui-slots' {
      */
     'settings.section': { kind: 'list'; scope: 'root'; owner: SettingsSectionOwnerProps }
     /**
+     * One settings page of the administration plane — same entry, same owner
+     * share, different plane. A page lands here when what it shows is decided
+     * by somebody else and maintained by an administrator (models, people,
+     * bots, sign-in channels, agent presets, plugins); a page a person
+     * themselves controls stays in `settings.section`. The plane is the slot a
+     * registrant chooses rather than a flag it passes, so a composition that
+     * leaves the administration plane unrendered leaves those pages out
+     * entirely, and moving a page between planes is one name in its own
+     * registration. The shell offers this plane only to a standing that
+     * administers something; every call those pages make keeps its own
+     * authority check, so the grouping decides what is offered and never what
+     * is permitted.
+     */
+    'settings.administration.section': { kind: 'list'; scope: 'root'; owner: SettingsSectionOwnerProps }
+    /**
      * One page inside the Plugins settings section. The section owner renders
      * localized entry labels as tabs and mounts each contribution inside its
      * corresponding tab panel. Options: `id` (tab key), `order` (tab order),

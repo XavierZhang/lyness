@@ -10,7 +10,7 @@ A version appears here once it has a tag. An entry is written when the change la
 
 ### Added
 
-- **Personal plane in Settings.** A person reads and changes what is theirs — their own instructions, their memories, what they may use, and their own conversation data — separately from what an administrator maintains. Administration pages appear only for a standing that administers something.
+- **Personal plane in Settings.** A person reads and changes what is theirs — their own instructions, their memories, what they may use, and their own conversation data — separately from what an administrator maintains. The navigation now groups its sections into a personal plane and an administration plane, and offers the administration plane only to a standing that administers something: a deployment with no accounts, or a role above `member`. The split is navigation, not authority — every administrative call keeps its own check.
 - **Japanese, Spanish, French, German, Russian and Portuguese** across the browser and desktop clients, alongside English and Chinese. Every shipped plugin now carries its name and description in all eight.
 - **Brand setup from a loopback page.** `lyn --profile brand-setup` prints a one-time token and serves a page that writes a deployment's own brand — name, icon, theme colour — into a profile's patch layer. It binds `127.0.0.1` only and ends with the process.
 

@@ -30,7 +30,7 @@ export interface HistorySectionInjected {
 
 /** Full component props: runtime share + store share + locale seat + injected face. */
 export type HistorySectionProps =
-  PropsRuntime<'settings.section'> & PropsStore<ReturnType<typeof createHistorySectionStore>>
+  PropsRuntime<'settings.administration.section'> & PropsStore<ReturnType<typeof createHistorySectionStore>>
   & PropsLocale<'settings.history'> & HistorySectionInjected
 
 /** The translator this section's parts are handed. */

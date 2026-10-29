@@ -9,7 +9,7 @@
 
 // Type-only: pulls the locale plugin's Context merge (ctx.locale).
 import type {} from '@lyness/lyn-client-locale/client'
-// Type-only: the settings shell's SlotMap merge (the 'settings.section'
+// Type-only: the settings shell's SlotMap merge (the 'settings.administration.section'
 // entry). Cross-plugin collaboration goes through slots, never a value import
 // (client bundle purity gate).
 import type {} from '@lyness/lyn-client-ui-settings/client'
@@ -73,8 +73,8 @@ export function apply(ctx: ClientContext): void {
 
   // This package owns the one Built-in plugins navigation entry and the tab
   // chrome; feature plugins contribute pages without competing for Settings nav rows.
-  ctx.slots.inject('settings.section', () => ctx.slots.register({
-    name: 'settings.section',
+  ctx.slots.inject('settings.administration.section', () => ctx.slots.register({
+    name: 'settings.administration.section',
     id: 'plugins',
     order: 15,
     label: () => t('nav'),

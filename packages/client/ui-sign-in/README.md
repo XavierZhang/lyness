@@ -9,7 +9,7 @@ English | [中文](README.zh.md)
 
 ## Summary
 
-`lyn-client-ui-sign-in` is how a person gets into a deployment that serves named people: a screen that covers the product while nobody is signed in, offering one button per channel the deployment mounts, and a General Settings row naming whose session this is with the way out. Both read one answer from `remote.identity`, so opening Settings and loading the frame do not ask the deployment twice. On a deployment with no accounts both render nothing, and the single-operator shape sees no change.
+`lyn-client-ui-sign-in` is how a person gets into a deployment that serves named people: a screen that covers the product while nobody is signed in, offering one button per channel the deployment mounts, and a General Settings row naming whose session this is with the way out. Both render the one answer the `uiViewer` service holds, so opening Settings and loading the frame do not ask the deployment twice — and neither disagrees with the Settings navigation, which decides its planes from the same read. On a deployment with no accounts both render nothing, and the single-operator shape sees no change.
 
 ## Table of Contents
 
@@ -30,6 +30,8 @@ The Web bundle mounts both halves beside the namespace they read:
 ```yaml
 - id: identity-controller
   name: '@lyness/lyn-api-identity-controller'
+- id: ui-viewer
+  name: '@lyness/lyn-client-ui-viewer'
 - id: ui-sign-in
   name: '@lyness/lyn-client-ui-sign-in'
 ```
@@ -49,16 +51,17 @@ Nothing else needs configuring. What appears follows from the answer: no account
 
 **A channel is a link, not a call.** Signing in leaves for the directory's own page and signing out clears a cookie; neither can happen inside an RPC, so both are navigations to the paths the deployment reported.
 
-**One read, two surfaces.** The screen and the row answer the same question, and the binding publishes one outcome to every store the framework has baked. A viewer who signs in sees the screen go away and the row fill in from the same answer.
+**Neither surface owns the read.** The screen and the row answer the same question the Settings navigation does, so the read, its outcome and the plane it decides live in `lyn-client-ui-viewer`; both surfaces take its snapshot through their `hooks` compartment and drive its shared `load`. A viewer who signs in sees the screen go away and the row fill in from the same answer.
 
-**A failed refresh keeps what it already read.** Blanking the viewer on a failure would cover a signed-in person's product with a sign-in screen because the network blinked.
+**A failed read shows the failure, not a guess.** The screen offers the retry, and the row has none: a failure covers the product, and the screen is where somebody tries again.
 
 -----
 
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`lyn-api-identity-controller`](../../api/identity-controller/README.md) — the namespace both surfaces read.
+- [`lyn-client-ui-viewer`](../ui-viewer/README.md) — the service that owns the read both surfaces render.
+- [`lyn-api-identity-controller`](../../api/identity-controller/README.md) — the namespace behind it.
 - [`lyn-sign-in-http`](../../identity/sign-in-http/README.md) — the routes the links point at.
 - [`lyn-api-remote-authority`](../../api/remote-authority/README.md) — what actually refuses an unidentified caller.
 
@@ -83,7 +86,7 @@ No request prefix changes, because nothing here contributes to an assembled requ
 - **Nothing says why a sign-in failed** — the callback route reports its own refusal, and the screen a person returns to just shows the channels again.
 - **It does not refresh on its own** — the answer is read when a surface mounts, so a session that lapses in another tab shows as signed in until something asks again.
 
-**Runtime invariant:** No companion is published. Both surfaces render one read's outcome, and the binding is its only publisher.
+**Runtime invariant:** No companion is published. Both surfaces render one read's outcome, and `uiViewer` is its only publisher.
 
 -----
 
@@ -93,6 +96,6 @@ No request prefix changes, because nothing here contributes to an assembled requ
 <details>
 <summary>Working context for maintainers — click to expand</summary>
 
-The binding holds a set rather than one slot, unlike the single-surface packages it is modelled on: two surfaces register, so two stores are baked, and a read that reached only the last one bound would leave the other blank.
+Both surfaces take the snapshot through `hooks` rather than declaring a store of their own: the framework bakes one store per registration, and two baked stores would be two answers to one question.
 
 </details>

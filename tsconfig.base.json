@@ -385,6 +385,7 @@
       "@lyness/lyn-client-ui-settings-announcements": ["./packages/client/ui-settings-announcements/src"],
       "@lyness/lyn-client-ui-settings-credits": ["./packages/client/ui-settings-credits/src"],
       "@lyness/lyn-client-ui-sign-in": ["./packages/client/ui-sign-in/src"],
+      "@lyness/lyn-client-ui-viewer": ["./packages/client/ui-viewer/src"],
       "@lyness/lyn-client-ui-settings-general": ["./packages/client/ui-settings-general/src"],
       "@lyness/lyn-client-ui-settings-general/types": ["./packages/client/ui-settings-general/src/types.ts"],
       "@lyness/lyn-client-ui-settings-models": ["./packages/client/ui-settings-models/src"],

@@ -13,7 +13,7 @@
  * is active. Visible dialog chrome belongs to the step, so a
  * mounted-but-deciding step paints nothing here.
  */
-import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from 'react'
+import { Fragment, useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import clsx from 'clsx'
 import {
@@ -41,8 +41,17 @@ function navIcon(id: string) {
   return <IconSettingsOutlineMedium className={css.navIcon} size={16} />
 }
 
-type PanelProps = {
+/** One navigation group: a plane's heading and the sections it holds. */
+type NavPlane = {
+  /** Which slot the group's sections are registered in. */
+  slot: 'settings.section' | 'settings.administration.section'
+  /** Localized group heading, shown only when both planes render. */
+  heading: string
   rows: readonly SettingsSectionRow[]
+}
+
+type PanelProps = {
+  planes: readonly NavPlane[]
   renderSlot: SettingsRootComponentProps['renderSlot']
   activeId: string | undefined
   onSelect: (id: string) => void
@@ -54,11 +63,16 @@ type PanelProps = {
  * header button, a mask click, and document-level Escape (mounted only while
  * open, so the listener lifetime is the panel's).
  */
-function SettingsPanel({ rows, renderSlot, activeId, onSelect, onClose }: PanelProps) {
-  // Entries can unmount underneath the requested id, so the render-time
-  // projection falls back to the first row when the id is gone.
-  const active = rows.find(r => r.id === activeId)?.id ?? rows[0]?.id
+function SettingsPanel({ planes, renderSlot, activeId, onSelect, onClose }: PanelProps) {
+  // Entries can unmount underneath the requested id, and a plane can stop
+  // rendering altogether, so the render-time projection falls back to the
+  // first row of the first plane that has one when the id is gone.
+  const shown = planes.filter(plane => plane.rows.length > 0)
+  const activePlane = shown.find(plane => plane.rows.some(row => row.id === activeId)) ?? shown[0]
+  const active = activePlane?.rows.find(row => row.id === activeId)?.id ?? activePlane?.rows[0]?.id
   const titleId = useId()
+  // One plane needs no heading to tell it from the other.
+  const headings = shown.length > 1
 
   const panel = useRef<HTMLDivElement>(null)
   useModalLayer(panel, true, onClose)
@@ -77,20 +91,30 @@ function SettingsPanel({ rows, renderSlot, activeId, onSelect, onClose }: PanelP
         <div className={css.navTitle} id={titleId} tabIndex={-1}
           data-modal-autofocus={active === undefined ? '' : undefined}>{renderSlot('settings.header', {})}</div>
         <nav className={css.nav}>
+          {/* One list, however many planes: the rail scrolls as a whole, so a
+              long plane cannot scroll the other one out of reach, and the
+              narrow strip stays a single row. A plane heading is an ordinary
+              heading in the list rather than a wrapper, which is what keeps
+              the cells one flex run. */}
           <div className={css.navList}>
-            {rows.map(row => (
-              <button
-                key={row.id}
-                type="button"
-                className={clsx(css.navCell, row.id === active && css.active)}
-                aria-current={row.id === active ? 'true' : undefined}
-                data-modal-autofocus={row.id === active ? '' : undefined}
-                onFocus={(event) => { event.currentTarget.scrollIntoView({ block: 'nearest', inline: 'nearest' }) }}
-                onClick={() => { onSelect(row.id) }}
-              >
-                {navIcon(row.id)}
-                <span className={css.navLabel}>{row.label}</span>
-              </button>
+            {shown.map(plane => (
+              <Fragment key={plane.slot}>
+                {headings && <h2 className={css.navGroupLabel}>{plane.heading}</h2>}
+                {plane.rows.map(row => (
+                  <button
+                    key={row.id}
+                    type="button"
+                    className={clsx(css.navCell, row.id === active && css.active)}
+                    aria-current={row.id === active ? 'true' : undefined}
+                    data-modal-autofocus={row.id === active ? '' : undefined}
+                    onFocus={(event) => { event.currentTarget.scrollIntoView({ block: 'nearest', inline: 'nearest' }) }}
+                    onClick={() => { onSelect(row.id) }}
+                  >
+                    {navIcon(row.id)}
+                    <span className={css.navLabel}>{row.label}</span>
+                  </button>
+                ))}
+              </Fragment>
             ))}
           </div>
         </nav>
@@ -102,7 +126,8 @@ function SettingsPanel({ rows, renderSlot, activeId, onSelect, onClose }: PanelP
           </button>
         </div>
         <div className={css.options}>
-          {active !== undefined && renderSlot('settings.section', { close: onClose }, { only: active })}
+          {active !== undefined && activePlane !== undefined
+            && renderSlot(activePlane.slot, { close: onClose }, { only: active })}
         </div>
       </div>
     </div>
@@ -116,7 +141,8 @@ function SettingsPanel({ rows, renderSlot, activeId, onSelect, onClose }: PanelP
  */
 export function SettingsRoot(props: SettingsRootComponentProps) {
   const {
-    wide, reconnect, useConnectionState, useSections, useOnboardingSteps, useSessions, renderSlot, t,
+    wide, reconnect, useConnectionState, useSections, useAdministrationSections, useAdministers,
+    useOnboardingSteps, useSessions, renderSlot, t,
     useDesktopUpdate, openDesktopUpdate, useStore, actions, useShortcuts,
   } = props
   const { open, activeId } = useStore(state => state)
@@ -132,6 +158,8 @@ export function SettingsRoot(props: SettingsRootComponentProps) {
   // freshly localized text on locale change, and the trigger/header/close
   // seats re-render through their own outlets' subscriptions.
   const rows = useSections(s => s)
+  const administrationRows = useAdministrationSections(s => s)
+  const administers = useAdministers(s => s)
   const desktopUpdate = useDesktopUpdate(state => state)
   const connectionState = useConnectionState(state => state)
   const previousConnectionState = useRef(connectionState)
@@ -250,7 +278,13 @@ export function SettingsRoot(props: SettingsRootComponentProps) {
       </div>
       {open && (
         <SettingsPanel
-          rows={rows}
+          planes={[
+            { slot: 'settings.section', heading: t('plane.personal'), rows },
+            // A standing that administers nothing is offered no page it would
+            // be refused; the pages' own calls still check their authority.
+            { slot: 'settings.administration.section', heading: t('plane.administration'),
+              rows: administers ? administrationRows : [] },
+          ]}
           renderSlot={renderSlot}
           activeId={activeId}
           onSelect={actions.select}

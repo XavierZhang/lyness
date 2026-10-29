@@ -7,22 +7,25 @@
  */
 
 import { useEffect } from 'react'
-import type { PropsLocale, PropsRuntime, PropsStore } from '@lyness/lyn-client-ui-slots'
+import type { HostObservable, InjectFace, PropsLocale, PropsRuntime } from '@lyness/lyn-client-ui-slots'
 import type {} from '@lyness/lyn-client-ui-settings/client'
 import type { ViewerStandingView } from '@lyness/lyn-api-identity-controller/types'
-import type { createViewerStore } from './store.ts'
+import type { ViewerSnapshot } from '@lyness/lyn-client-ui-viewer/client'
 import css from './AccountRow.module.css'
 
-/** Injected business face: the read. */
+/** Injected business face: the shared read and the snapshot it fills. */
 export interface AccountRowInjected {
   /** Read who the viewer is, or join the read already running. */
   load: () => Promise<void>
+  hooks: {
+    /** The shared viewer snapshot, owned by the `uiViewer` service. */
+    viewer: HostObservable<ViewerSnapshot>
+  }
 }
 
-/** Full component props: runtime share + store share + locale seat + injected face. */
+/** Full component props: runtime share + locale seat + injected face. */
 export type AccountRowProps =
-  PropsRuntime<'settings.general.item'> & PropsStore<ReturnType<typeof createViewerStore>>
-  & PropsLocale<'sign-in'> & AccountRowInjected
+  PropsRuntime<'settings.general.item'> & PropsLocale<'sign-in'> & InjectFace<AccountRowInjected>
 
 /** The translator this row's parts are handed. */
 type Translate = PropsLocale<'sign-in'>['t']
@@ -51,8 +54,8 @@ export function standingLabel(standing: ViewerStandingView | undefined, t: Trans
  * @param props - composed slot props.
  * @returns the row element tree, or null.
  */
-export function AccountRow({ t, useStore, load }: AccountRowProps) {
-  const viewer = useStore(state => state.viewer)
+export function AccountRow({ t, useViewer, load }: AccountRowProps) {
+  const viewer = useViewer(state => state.viewer)
 
   // The screen asks too, and one read is shared; asking here as well is what
   // keeps the row filled when Settings is opened before the screen ever was.

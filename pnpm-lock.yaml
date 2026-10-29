@@ -3825,6 +3825,9 @@ importers:
       '@lyness/lyn-client-ui-user-questions':
         specifier: workspace:*
         version: link:../../client/ui-user-questions
+      '@lyness/lyn-client-ui-viewer':
+        specifier: workspace:*
+        version: link:../../client/ui-viewer
       '@lyness/lyn-client-ui-workflow-run':
         specifier: workspace:*
         version: link:../../client/ui-workflow-run
@@ -6467,6 +6470,9 @@ importers:
       '@lyness/lyn-client-ui-slots':
         specifier: workspace:*
         version: link:../ui-slots
+      '@lyness/lyn-client-ui-viewer':
+        specifier: workspace:*
+        version: link:../ui-viewer
       '@lyness/lyn-remote-mock':
         specifier: workspace:*
         version: link:../../test-support/remote-mock
@@ -7351,15 +7357,9 @@ importers:
       '@lyness/lyn-api-identity-controller':
         specifier: workspace:*
         version: link:../../api/identity-controller
-      '@lyness/lyn-api-remotes':
-        specifier: workspace:*
-        version: link:../../api/remotes
       '@lyness/lyn-client-locale':
         specifier: workspace:*
         version: link:../locale
-      '@lyness/lyn-client-store':
-        specifier: workspace:*
-        version: link:../store
       '@lyness/lyn-client-test-runtime':
         specifier: workspace:*
         version: link:../../test-support/client-runtime
@@ -7378,6 +7378,9 @@ importers:
       '@lyness/lyn-client-ui-slots':
         specifier: workspace:*
         version: link:../ui-slots
+      '@lyness/lyn-client-ui-viewer':
+        specifier: workspace:*
+        version: link:../ui-viewer
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -7826,6 +7829,24 @@ importers:
       react:
         specifier: ^18.2.0
         version: 18.3.1
+
+  packages/client/ui-viewer:
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+      '@lyness/lyn-api-identity-controller':
+        specifier: workspace:*
+        version: link:../../api/identity-controller
+      '@lyness/lyn-api-remotes':
+        specifier: workspace:*
+        version: link:../../api/remotes
+      '@lyness/lyn-client-store':
+        specifier: workspace:*
+        version: link:../store
+      '@lyness/lyn-client-test-runtime':
+        specifier: workspace:*
+        version: link:../../test-support/client-runtime
 
   packages/client/ui-workflow-run:
     devDependencies:

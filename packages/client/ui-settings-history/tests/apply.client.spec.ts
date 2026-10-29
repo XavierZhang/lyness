@@ -17,7 +17,7 @@ import { apply, historyCallsOf, inject, NS } from '@lyness/lyn-client-ui-setting
 import { HistorySection } from '../src/client/HistorySection.tsx'
 import type { createHistorySectionStore } from '../src/client/store.ts'
 
-const SLOT = 'settings.section'
+const SLOT = 'settings.administration.section'
 
 const ENTRY: AuditEntryView = {
   id: '2026-10-26T00:00:00.000Z:one',

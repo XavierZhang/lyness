@@ -199,7 +199,7 @@ function declareRoot(slots: SlotRegistry): () => void {
     name: 'root',
     children: {
       'settings.general.item': { kind: 'list', scope: 'root' },
-      'settings.section': { kind: 'list', scope: 'root' },
+      'settings.administration.section': { kind: 'list', scope: 'root' },
       conversation: { kind: 'single', scope: 'root' },
     },
   } as never, () => null)
@@ -295,7 +295,7 @@ async function settingsWithoutChip(initialPreset: string, settingsRosterGate?: P
   b.ctx.provide('sessions', sessions as never)
   const feature = b.ctx.plugin({ inject: [...inject], apply })
   await feature.await()
-  const section = (b.slots.entries('settings.section')[0]!
+  const section = (b.slots.entries('settings.administration.section')[0]!
     .inject as unknown as () => AgentPresetSectionInjected)()
   await section.load()
   expect(b.slots.entries('conversation.hero.agentPreset')).toHaveLength(0)
@@ -361,7 +361,7 @@ describe('ui-agent-preset apply', () => {
     // The default preset is edited in the section, where the roster is
     // visible; a General row would duplicate the same settings field.
     expect(slots.entries('settings.general.item')).toHaveLength(0)
-    const section = slots.entries('settings.section')[0]!
+    const section = slots.entries('settings.administration.section')[0]!
     expect(section.component).toBe(AgentPresetSection)
     expect(section.options).toMatchObject({ id: 'agent-presets', order: 20 })
     // The nav label is a locale-following thunk; owners resolve it at read time.
@@ -375,7 +375,7 @@ describe('ui-agent-preset apply', () => {
 
     declareRoot(slots)
 
-    await vi.waitFor(() => { expect(slots.entries('settings.section')).toHaveLength(1) })
+    await vi.waitFor(() => { expect(slots.entries('settings.administration.section')).toHaveLength(1) })
   })
 
   it('binds the Add plugin menu item to the roster and Creator flow and removes it with the feature', async () => {
@@ -384,7 +384,7 @@ describe('ui-agent-preset apply', () => {
       slots.register({
         name: 'root',
         children: {
-          'settings.section': { kind: 'list', scope: 'root' },
+          'settings.administration.section': { kind: 'list', scope: 'root' },
           conversation: { kind: 'single', scope: 'root' },
           'plugins.add.actions': { kind: 'list', scope: 'root' },
         },
@@ -424,7 +424,7 @@ describe('ui-agent-preset apply', () => {
     declareRoot(slots)
     await ctx.plugin({ inject: [...inject], apply }).await()
 
-    const section = (slots.entries('settings.section')[0]!.inject as unknown as () => AgentPresetSectionInjected)()
+    const section = (slots.entries('settings.administration.section')[0]!.inject as unknown as () => AgentPresetSectionInjected)()
 
     expect(section.hooks.developerTools).toBe(ctx.configForms.developerTools.enabled)
     await setDeveloperTools(false)
@@ -445,7 +445,7 @@ describe('ui-agent-preset apply', () => {
     ctx.provide('sessions', sessionsDouble(ctx, { byId: {} }) as never)
     declareRoot(slots)
     await ctx.plugin({ inject: [...inject], apply }).await()
-    const section = (slots.entries('settings.section')[0]!.inject as unknown as () => AgentPresetSectionInjected)()
+    const section = (slots.entries('settings.administration.section')[0]!.inject as unknown as () => AgentPresetSectionInjected)()
     await section.load()
     const before = calls.length
 
@@ -469,7 +469,7 @@ describe('ui-agent-preset apply', () => {
     ctx.provide('sessions', sessionsDouble(ctx, { byId: {} }) as never)
     ctx.provide('uiWorkspace', uiWorkspaceDouble() as never)
     await ctx.plugin({ inject: [...inject], apply }).await()
-    const section = (slots.entries('settings.section')[0]!.inject as unknown as () => AgentPresetSectionInjected)()
+    const section = (slots.entries('settings.administration.section')[0]!.inject as unknown as () => AgentPresetSectionInjected)()
     await section.load()
     const before = calls.length
 
@@ -513,7 +513,7 @@ describe('ui-agent-preset apply', () => {
     await fiber.dispose()
     expect(slots.entries('conversation.hero.agentPreset')).toHaveLength(0)
     expect(slots.entries('conversation.session.header.actions')).toHaveLength(0)
-    expect(slots.entries('settings.section')).toHaveLength(0)
+    expect(slots.entries('settings.administration.section')).toHaveLength(0)
     conversation()
   })
 
@@ -652,7 +652,7 @@ describe('ui-agent-preset apply', () => {
     ctx.provide('sessions', sessions as never)
     ctx.provide('uiWorkspace', uiWorkspaceDouble() as never)
     await ctx.plugin({ inject: [...inject, 'conversation', 'sessions', 'uiWorkspace'], apply }).await()
-    const section = (slots.entries('settings.section')[0]!
+    const section = (slots.entries('settings.administration.section')[0]!
       .inject as unknown as () => AgentPresetSectionInjected)()
     await section.load()
 
@@ -676,7 +676,7 @@ describe('ui-agent-preset apply', () => {
     ctx.provide('sessions', sessions as never)
     ctx.provide('uiWorkspace', uiWorkspaceDouble() as never)
     await ctx.plugin({ inject: [...inject, 'conversation', 'sessions', 'uiWorkspace'], apply }).await()
-    const section = (slots.entries('settings.section')[0]!
+    const section = (slots.entries('settings.administration.section')[0]!
       .inject as unknown as () => AgentPresetSectionInjected)()
     const seat = (slots.entries('conversation.hero.agentPreset')[0]!
       .inject as unknown as (sessionId: SessionId) => AgentPresetSeatInjected)(SessionId('s1'))
@@ -700,7 +700,7 @@ describe('ui-agent-preset apply', () => {
     ctx.provide('sessions', sessionsDouble(ctx, { byId: {} }) as never)
     declareRoot(slots)
     await ctx.plugin({ inject: [...inject], apply }).await()
-    const section = (slots.entries('settings.section')[0]!
+    const section = (slots.entries('settings.administration.section')[0]!
       .inject as unknown as () => AgentPresetSectionInjected)()
     await section.load()
     expect(section.hooks.agentPresetSection.getSnapshot().rows)
@@ -904,7 +904,7 @@ describe('ui-agent-preset apply', () => {
     declareRoot(b.slots)
     await b.ctx.plugin({ inject: [...inject], apply }).await()
     await vi.waitFor(() => { expect(b.calls.filter(call => call.startsWith('settings:'))).toEqual(['settings:{"selectedDefault":"standard"}']) })
-    const section = (b.slots.entries('settings.section')[0]!.inject as () => AgentPresetSectionInjected & Record<string, unknown>)()
+    const section = (b.slots.entries('settings.administration.section')[0]!.inject as () => AgentPresetSectionInjected & Record<string, unknown>)()
     await vi.waitFor(() => { expect(section.hooks.agentPresetSection.getSnapshot().rows.find(row => row.isDefault)?.id).toBe('standard') })
     await b.setDeveloperTools(true)
     expect(b.calls.filter(call => call.startsWith('settings:'))).toEqual(['settings:{"selectedDefault":"standard"}'])
@@ -921,7 +921,7 @@ describe('ui-agent-preset apply', () => {
       b.ctx.provide('sessions', sessionsDouble(b.ctx, { byId: {} }) as never)
       declareRoot(b.slots)
       await b.ctx.plugin({ inject: [...inject], apply }).await()
-      const section = (b.slots.entries('settings.section')[0]!.inject as () => AgentPresetSectionInjected & Record<string, unknown>)()
+      const section = (b.slots.entries('settings.administration.section')[0]!.inject as () => AgentPresetSectionInjected & Record<string, unknown>)()
       await section.load()
       await Promise.resolve()
       expect(b.calls.filter(call => call.startsWith('settings:'))).toEqual([])
@@ -996,7 +996,7 @@ describe('ui-agent-preset apply', () => {
       expect(b.calls.filter(call => call.startsWith('select:'))).toEqual([])
       expect(chip.hooks.agentPresetSeat.getSnapshot().current).toBe(preset)
       if (blank) {
-        const section = (b.slots.entries('settings.section')[0]!.inject as () => AgentPresetSectionInjected & Record<string, unknown>)()
+        const section = (b.slots.entries('settings.administration.section')[0]!.inject as () => AgentPresetSectionInjected & Record<string, unknown>)()
         await section.makeDefault('cordis')
         expect(b.calls.filter(call => call.startsWith('select:'))).toEqual(preset === 'cordis' ? [] : ['select:cordis'])
         expect(chip.hooks.agentPresetSeat.getSnapshot().current).toBe('cordis')
@@ -1025,7 +1025,7 @@ describe('ui-agent-preset apply', () => {
     b.ctx.provide('sessions', sessionsDouble(b.ctx, { byId: {} }) as never)
     declareRoot(b.slots)
     await b.ctx.plugin({ inject: [...inject], apply }).await()
-    const section = (b.slots.entries('settings.section')[0]!.inject as () => AgentPresetSectionInjected & Record<string, unknown>)()
+    const section = (b.slots.entries('settings.administration.section')[0]!.inject as () => AgentPresetSectionInjected & Record<string, unknown>)()
     await b.setDeveloperTools(false)
     await vi.waitFor(() => { expect(section.hooks.agentPresetSection.getSnapshot().error).toBe('settings write disconnected') })
     expect(b.calls.filter(call => call.startsWith('settings:'))).toEqual(['settings:{"selectedDefault":"standard"}'])
@@ -1059,7 +1059,7 @@ describe('ui-agent-preset apply', () => {
     const uiWorkspace = uiWorkspaceDouble()
     ctx.provide('uiWorkspace', uiWorkspace as never)
     await ctx.plugin({ inject: [...inject, 'conversation', 'sessions', 'uiWorkspace'], apply }).await()
-    const section = (slots.entries('settings.section')[0]!.inject as unknown as () => AgentPresetSectionInjected)()
+    const section = (slots.entries('settings.administration.section')[0]!.inject as unknown as () => AgentPresetSectionInjected)()
     const injectSeat = slots.entries('conversation.hero.agentPreset')[0]!
       .inject as unknown as (sessionId?: SessionId) => AgentPresetSeatInjected
     const seat = injectSeat()
@@ -1099,7 +1099,7 @@ describe('ui-agent-preset apply', () => {
     const uiWorkspace = uiWorkspaceDouble()
     ctx.provide('uiWorkspace', uiWorkspace as never)
     await ctx.plugin({ inject: [...inject, 'conversation', 'sessions', 'uiWorkspace'], apply }).await()
-    const section = (slots.entries('settings.section')[0]!.inject as unknown as () => AgentPresetSectionInjected)()
+    const section = (slots.entries('settings.administration.section')[0]!.inject as unknown as () => AgentPresetSectionInjected)()
     const injectSeat = slots.entries('conversation.hero.agentPreset')[0]!
       .inject as unknown as (sessionId?: SessionId) => AgentPresetSeatInjected
     const seat = injectSeat(SessionId('s1'))
@@ -1144,7 +1144,7 @@ describe('ui-agent-preset apply', () => {
     ctx.provide('sessions', sessions as never)
     ctx.provide('uiWorkspace', uiWorkspaceDouble() as never)
     await ctx.plugin({ inject: [...inject, 'conversation', 'sessions', 'uiWorkspace'], apply }).await()
-    const section = (slots.entries('settings.section')[0]!.inject as unknown as () => AgentPresetSectionInjected)()
+    const section = (slots.entries('settings.administration.section')[0]!.inject as unknown as () => AgentPresetSectionInjected)()
     const injectSeat = slots.entries('conversation.hero.agentPreset')[0]!
       .inject as unknown as (sessionId?: SessionId) => AgentPresetSeatInjected
     const unboundSeat = injectSeat()
@@ -1189,7 +1189,7 @@ describe('ui-agent-preset apply', () => {
 
     // No conversation scope mounted: the face omits the affordance and the
     // section hides its button rather than staging into nowhere.
-    const section = (slots.entries('settings.section')[0]!.inject as unknown as () => AgentPresetSectionInjected)()
+    const section = (slots.entries('settings.administration.section')[0]!.inject as unknown as () => AgentPresetSectionInjected)()
     expect(section.startCreatorDraft).toBeUndefined()
   })
 })
@@ -1332,7 +1332,7 @@ describe('agent preset switch analytics', () => {
   it('does not report a default change or its blank-Session synchronization', async () => {
     const b = await analyticsBench({}, { preset: 'standard', blank: true })
     try {
-      const section = (b.slots.entries('settings.section')[0]!.inject as
+      const section = (b.slots.entries('settings.administration.section')[0]!.inject as
         () => AgentPresetSectionInjected & Record<string, unknown>)()
       await section.load()
       await section.makeDefault('minimal')

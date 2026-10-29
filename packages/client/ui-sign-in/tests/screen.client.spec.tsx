@@ -11,7 +11,7 @@ import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import type { ViewerView } from '@lyness/lyn-api-identity-controller/types'
 import { SignInScreen, signInHref } from '../src/client/SignInScreen.tsx'
 import type { SignInScreenProps } from '../src/client/SignInScreen.tsx'
-import type { ViewerState } from '../src/client/store.ts'
+import type { ViewerSnapshot } from '@lyness/lyn-client-ui-viewer/client'
 import { zh } from '../src/client/locales.ts'
 
 afterEach(cleanup)
@@ -34,28 +34,28 @@ const t = ((key: keyof typeof zh, values?: Record<string, string>) => {
     : text.replace(/\{(\w+)\}/gu, (_, name: string) => values[name] ?? '')
 }) as SignInScreenProps['t']
 
-/** One rendered screen over a fixed state. */
-function renderScreen(state: ViewerState, over: Partial<SignInScreenProps> = {}) {
+/** One rendered screen over a fixed snapshot. */
+function renderScreen(state: ViewerSnapshot, over: Partial<SignInScreenProps> = {}) {
   const load = vi.fn(() => Promise.resolve())
   const retry = vi.fn(() => Promise.resolve())
-  const useStore = (<T,>(select: (value: ViewerState) => T) => select(state)) as SignInScreenProps['useStore']
-  const props = { t, useStore, load, retry, ...over } as SignInScreenProps
+  const useViewer = (<T,>(select: (value: ViewerSnapshot) => T) => select(state)) as SignInScreenProps['useViewer']
+  const props = { t, useViewer, load, retry, ...over } as SignInScreenProps
   return { ...render(<SignInScreen {...props} />), load, retry }
 }
 
-/** A ready state carrying one viewer. */
-function ready(viewer: ViewerView): ViewerState {
-  return { status: 'ready', viewer }
+/** A ready snapshot carrying one viewer. */
+function ready(viewer: ViewerView): ViewerSnapshot {
+  return { status: 'ready', viewer, administers: false }
 }
 
 describe('SignInScreen', () => {
   it('asks who the viewer is as soon as the frame is up', () => {
-    const { load } = renderScreen({ status: 'idle', viewer: undefined })
+    const { load } = renderScreen({ status: 'idle', viewer: undefined, administers: false })
     expect(load).toHaveBeenCalledTimes(1)
   })
 
   it('shows nothing while the read has not answered', () => {
-    const { container } = renderScreen({ status: 'loading', viewer: undefined })
+    const { container } = renderScreen({ status: 'loading', viewer: undefined, administers: false })
     expect(container.textContent).toBe('')
   })
 
@@ -93,7 +93,7 @@ describe('SignInScreen', () => {
   })
 
   it('offers a retry when the deployment could not be reached', () => {
-    const { retry } = renderScreen({ status: 'failed', viewer: undefined })
+    const { retry } = renderScreen({ status: 'failed', viewer: undefined, administers: false })
     expect(screen.getByText(zh.failed)).toBeDefined()
     fireEvent.click(screen.getByText(zh.retry))
     expect(retry).toHaveBeenCalledTimes(1)

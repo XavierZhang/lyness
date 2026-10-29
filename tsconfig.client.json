@@ -162,6 +162,7 @@
     { "path": "./packages/client/ui-settings-people/tsconfig.client.json" },
     { "path": "./packages/client/ui-settings-sign-in-channels/tsconfig.client.json" },
     { "path": "./packages/client/ui-sign-in/tsconfig.client.json" },
+    { "path": "./packages/client/ui-viewer/tsconfig.client.json" },
     { "path": "./packages/client/ui-settings-general/tsconfig.client.json" },
     { "path": "./packages/client/ui-settings-models" },
     { "path": "./packages/client/ui-plugin-manager/tsconfig.client.json" },

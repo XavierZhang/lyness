@@ -31,7 +31,7 @@ export interface ChannelsSectionInjected {
 
 /** Full component props: runtime share + store share + locale seat + injected face. */
 export type ChannelsSectionProps =
-  PropsRuntime<'settings.section'> & PropsStore<ReturnType<typeof createChannelsSectionStore>>
+  PropsRuntime<'settings.administration.section'> & PropsStore<ReturnType<typeof createChannelsSectionStore>>
   & PropsLocale<'settings.sign-in-channels'> & ChannelsSectionInjected
 
 /** The translator this section's parts are handed. */

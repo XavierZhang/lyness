@@ -55,8 +55,8 @@ export function apply(ctx: Context): void {
   const operations = createCreditsOperations(creditsCallsOf(ctx), binding)
   const t = ctx.locale.bind(NS)
 
-  ctx.slots.inject('settings.section', () => ctx.slots.register({
-    name: 'settings.section',
+  ctx.slots.inject('settings.administration.section', () => ctx.slots.register({
+    name: 'settings.administration.section',
     id: 'credits',
     // After the models section, because what a model costs is read after
     // which models this deployment offers.

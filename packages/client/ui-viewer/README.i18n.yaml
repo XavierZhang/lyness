@@ -1,0 +1,37 @@
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write packages/client/ui-viewer/README.md
+/:
+  en: f273eefcbeca8162
+  zh: 9a7d1518d6269acc
+/lyness-lyn-client-ui-viewer:
+  en: ef898aa9ecb4c541
+  zh: a0876db4f97fec5b
+/lyness-lyn-client-ui-viewer/summary:
+  en: 8c433528f5dc59ce
+  zh: 4d12cca296a423ad
+/lyness-lyn-client-ui-viewer/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 2bca79d7b98e8031
+/lyness-lyn-client-ui-viewer/use-this-package:
+  en: cb032335d0f9968b
+  zh: a7c1030da3905d06
+/lyness-lyn-client-ui-viewer/understand-the-implementation:
+  en: ea32a7784bc1be69
+  zh: 0f6eac367084b031
+/lyness-lyn-client-ui-viewer/further-exploration:
+  en: 2e7e9c586d6005f2
+  zh: 00d9a47b8f2bddc1
+/lyness-lyn-client-ui-viewer/model-experience:
+  en: bbfb2148452617f8
+  zh: 0c28c2f5a592e989
+/lyness-lyn-client-ui-viewer/model-experience/kv-cache-effect:
+  en: e13faf79aaae30a9
+  zh: 41e7a3447d0df917
+/lyness-lyn-client-ui-viewer/known-limitations-and-deferred-work:
+  en: 3e8b34368f2f5328
+  zh: 0bef8c1bc557a65d
+/lyness-lyn-client-ui-viewer/known-limitations-and-deferred-work/dev-note:
+  en: def8ca63e06353c7
+  zh: 9e13bd5221e66c44

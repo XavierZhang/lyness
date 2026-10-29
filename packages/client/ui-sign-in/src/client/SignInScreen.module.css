@@ -59,6 +59,8 @@
   text-decoration: none;
 }
 
-.channel:hover {
-  border-color: var(--lyn-color-border-strong);
+@media (hover: hover) {
+  .channel:hover {
+    border-color: var(--lyn-color-border-strong);
+  }
 }

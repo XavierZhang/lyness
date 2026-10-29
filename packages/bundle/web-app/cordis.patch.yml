@@ -363,6 +363,12 @@
     - id: ui-settings-history
       name: '@lyness/lyn-client-ui-settings-history'
 
+    # Who the viewer is, read once and shared: the row naming whose session
+    # this is, the sign-in screen, and the Settings navigation's plane split
+    # all render from this one answer.
+    - id: ui-viewer
+      name: '@lyness/lyn-client-ui-viewer'
+
     # The sign-in screen, and the row naming whose session this is. On a
     # deployment with no accounts both render nothing, so the single-operator
     # shape sees no change.

@@ -7,6 +7,8 @@
  */
 import { describe, expect, onTestFinished, vi } from 'vitest'
 import type {} from '@lyness/lyn-client-ui-renderer/client'
+// Type-only: pulls the ctx.uiViewer merge the shell reads its plane from.
+import type {} from '@lyness/lyn-client-ui-viewer/client'
 import { createClientTest, type TestClient, webApp } from '@lyness/lyn-client-test-runtime/src/assembly/index.ts'
 import { inject } from '../src/client/index.ts'
 import type { SettingsRootInjected } from '../src/client/shell-contract.ts'
@@ -33,19 +35,26 @@ const CHILD_SPECS = {
   'settings.action': { kind: 'list', scope: 'root' },
   'settings.close': { kind: 'single', scope: 'root' },
   'settings.section': { kind: 'list', scope: 'root' },
+  'settings.administration.section': { kind: 'list', scope: 'root' },
   'settings.onboarding': { kind: 'list', scope: 'root' },
 } as const
 const CHILD_NAMES = Object.keys(CHILD_SPECS) as Array<keyof typeof CHILD_SPECS>
 
 /**
- * Section ids the web-app roster registers, in nav order: this package, then
- * ui-settings-models, ui-settings-plugins, ui-agent-preset, and last the
- * administrator's own sign-in channels. A plugin adding a section changes
- * this list.
+ * Personal-plane section ids the web-app roster registers, in nav order. The
+ * Account section joins it while a credential is stored. A plugin adding a
+ * personal section changes this list.
  */
-const PRODUCT_SECTIONS: readonly string[] = [
-  'general', 'models', 'plugins', 'credits', 'agent-presets', 'sign-in-channels', 'people', 'bots',
-  'history',
+const PRODUCT_SECTIONS: readonly string[] = ['general']
+/**
+ * Administration-plane section ids the web-app roster registers, in nav
+ * order: ui-settings-models, ui-settings-plugins, ui-settings-credits,
+ * ui-agent-preset, then the administrator's own sign-in channels, people,
+ * bots and history. The shell offers the whole group only to a standing that
+ * administers something.
+ */
+const PRODUCT_ADMINISTRATION: readonly string[] = [
+  'models', 'plugins', 'credits', 'agent-presets', 'sign-in-channels', 'people', 'bots', 'history',
 ]
 /** Onboarding steps the web-app roster registers, in coordinator order; both come from ui-settings-models. */
 const PRODUCT_ONBOARDING: readonly { id: string; order: number }[] = [
@@ -95,11 +104,12 @@ describe('ui-settings-general shell', () => {
     expect(c.ctx.slots.entries('sidebar.settings')).toEqual([])
   }, COLD_BOOT_TIMEOUT_MS)
 
-  it('projects the section ledger: product sections in order, defaults for bare rows, stable snapshots', async ({ start }) => {
+  it('projects each plane separately: product sections in order, defaults for bare rows, stable snapshots', async ({ start }) => {
     const c = await start()
-    const { sections } = injectedOf(c).hooks
+    const { sections, administrationSections } = injectedOf(c).hooks
     const product = sections.getSnapshot()
     expect(product.map(row => row.id)).toEqual(PRODUCT_SECTIONS)
+    expect(administrationSections.getSnapshot().map(row => row.id)).toEqual(PRODUCT_ADMINISTRATION)
     c.ctx.slots.register({ name: 'settings.section', id: 'z', order: 1_000, label: 'Z' } as never, () => null)
     // No order and no label: both projection defaults apply, and order 0 sorts among the product rows.
     c.ctx.slots.register({ name: 'settings.section', id: 'a' } as never, () => null)
@@ -115,6 +125,18 @@ describe('ui-settings-general shell', () => {
     await Promise.resolve()
     expect(listener).toHaveBeenCalled()
     expect(sections.getSnapshot()).not.toBe(rows)
+    off()
+  })
+
+  it('offers the administration plane to the shape with no accounts, from the shared viewer read', async ({ start }) => {
+    const c = await start()
+    const { administers } = injectedOf(c).hooks
+    // Nothing has subscribed yet, so nothing has been read: the plane starts
+    // withheld rather than guessed.
+    expect(administers.getSnapshot()).toBe(false)
+    const off = administers.subscribe(() => {})
+    await vi.waitFor(() => { expect(administers.getSnapshot()).toBe(true) })
+    expect(c.ctx.uiViewer.state.getSnapshot().viewer?.accounts).toBe(false)
     off()
   })
 

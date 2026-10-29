@@ -141,6 +141,21 @@
   color: var(--dsw-alias-label-primary);
 }
 
+/* Plane heading inside the cell stack; rendered only when both planes are on
+   the rail, and dropped entirely on the horizontal strip. */
+.navGroupLabel {
+  margin: 0;
+  padding: 4px 12px 6px;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 500;
+  color: var(--dsw-alias-label-tertiary);
+}
+
+.navCell + .navGroupLabel {
+  padding-top: 12px;
+}
+
 /* Cell stack (figma 501:29961): gap 4. */
 .navList {
   display: flex;
@@ -284,6 +299,12 @@
 
   :global(html:not([data-windows-titlebar]):not([data-platform='darwin'])) .nav {
     padding: 0;
+  }
+
+  /* The strip is one row, so the planes run on after one another and their
+     headings drop out; the grouping returns with the vertical rail. */
+  :global(html:not([data-windows-titlebar]):not([data-platform='darwin'])) .navGroupLabel {
+    display: none;
   }
 
   /* The strip runs edge to edge and pads its own ends, so the first cell lines

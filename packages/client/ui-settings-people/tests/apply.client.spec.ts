@@ -18,7 +18,7 @@ import { apply, inject, NS, peopleCallsOf } from '@lyness/lyn-client-ui-settings
 import { PeopleSection } from '../src/client/PeopleSection.tsx'
 import type { createPeopleSectionStore } from '../src/client/store.ts'
 
-const SLOT = 'settings.section'
+const SLOT = 'settings.administration.section'
 
 const PERSON: PersonRowView = {
   id: 'bea',

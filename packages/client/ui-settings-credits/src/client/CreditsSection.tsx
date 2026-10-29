@@ -31,7 +31,7 @@ export interface CreditsSectionInjected {
 
 /** Full component props: runtime share + store share + locale seat + injected face. */
 export type CreditsSectionProps =
-  PropsRuntime<'settings.section'> & PropsStore<ReturnType<typeof createCreditsSectionStore>>
+  PropsRuntime<'settings.administration.section'> & PropsStore<ReturnType<typeof createCreditsSectionStore>>
   & PropsLocale<'settings.credits'> & CreditsSectionInjected
 
 /** The translator this section's parts are handed. */

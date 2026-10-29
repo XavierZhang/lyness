@@ -17,8 +17,9 @@ export const remoteDefaultResponses: RemoteTable = {
     'workspace/initializeDefault': ok(undefined),
     // ui-settings `mirror.ensure()` at apply and again on `connection/reset`.
     'settings/describe': ok({ writable: true, hasDocument: false, namespaces: [] }),
-    // ui-sign-in's screen and row on first mount; a deployment with no
-    // accounts is what a boot with no identity rows composes to.
+    // ui-viewer's shared read, driven by the settings shell, the sign-in
+    // screen and the account row; a deployment with no accounts is what a
+    // boot with no identity rows composes to.
     'identity/viewer': ok({
       accounts: false,
       channels: [],

@@ -17,7 +17,7 @@ import { apply, botsCallsOf, inject, NS, startingBotConversation } from '@lyness
 import { BotsSection } from '../src/client/BotsSection.tsx'
 import type { createBotsSectionStore } from '../src/client/store.ts'
 
-const SLOT = 'settings.section'
+const SLOT = 'settings.administration.section'
 
 const BOT: BotRowView = {
   id: 'triage',

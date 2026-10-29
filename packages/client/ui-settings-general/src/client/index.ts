@@ -27,10 +27,15 @@ import type {} from '@lyness/lyn-client-locale/client'
 import type {} from '@lyness/lyn-client-ui-renderer/client'
 import type {} from '@lyness/lyn-client-ui-session/client'
 import type {} from '@lyness/lyn-client-product-analytics/client'
+// Type-only: pulls the ctx.uiViewer merge. The service is optional — a
+// composition without a directory has nobody to hide administration from —
+// so the shell reads it through ctx.get rather than declaring it in inject.
+import type {} from '@lyness/lyn-client-ui-viewer/client'
 import type {
   SettingsOnboardingStep, SettingsRootInjected, SettingsSectionRow,
 } from './shell-contract.ts'
 import type { ShortcutCommandId } from '@lyness/lyn-client-shortcuts/client'
+import { administersSource } from './administers.ts'
 import { createSettingsShellStore } from './shell-store.ts'
 import { SettingsRoot } from './SettingsRoot.tsx'
 import { DesktopUpdateBadge } from './DesktopUpdateIndicator.tsx'
@@ -129,9 +134,44 @@ export function apply(ctx: ClientContext): void {
   // source (uSES contract: getSnapshot returns the cached rows until the
   // ledger version moves). Labels may be locale-following thunks, so the cache
   // key includes the locale revision and subscribers ride both sources.
-  let rowsVersion = -1
-  let rowsRevision = -1
-  let rows: readonly SettingsSectionRow[] = []
+  const planeRows = (slot: 'settings.section' | 'settings.administration.section') => {
+    let version = -1
+    let revision = -1
+    let rows: readonly SettingsSectionRow[] = []
+    return {
+      getSnapshot: (): readonly SettingsSectionRow[] => {
+        const nextVersion = ctx.slots.getVersion(slot)
+        const nextRevision = ctx.locale.getSnapshot().revision
+        if (nextVersion !== version || nextRevision !== revision) {
+          version = nextVersion
+          revision = nextRevision
+          rows = ctx.slots.entries(slot)
+            .map(e => ({
+              /* v8 ignore next -- list-slot registration requires id (SlotCore rejects an entry without one) */
+              id: e.options.id ?? '',
+              order: e.options.order ?? 0,
+              label: resolveSlotLabel(e.options.label) ?? '',
+            }))
+            .sort((a, b) => a.order - b.order)
+        }
+        return rows
+      },
+      subscribe: (listener: () => void) => {
+        const offLedger = ctx.slots.subscribe(slot, listener)
+        const offLocale = ctx.locale.subscribe(listener)
+        return () => {
+          offLedger()
+          offLocale()
+        }
+      },
+    }
+  }
+  const sections = planeRows('settings.section')
+  const administrationSections = planeRows('settings.administration.section')
+  // The viewer service owns the read; the account row drives it too, and one
+  // read answers both. A composition without the service offers every plane:
+  // it has no directory, so it has nobody to hide a page from.
+  const administers = administersSource(ctx.get('uiViewer'))
   let onboardingVersion = -1
   let onboardingSteps: readonly SettingsOnboardingStep[] = []
   const shellInjected = (): SettingsRootInjected => ({
@@ -141,33 +181,9 @@ export function apply(ctx: ClientContext): void {
       shortcuts: ctx.shortcuts.catalog,
       desktopUpdate: desktopUpdate.store,
       connectionState: connection.state,
-      sections: {
-        getSnapshot: () => {
-          const version = ctx.slots.getVersion('settings.section')
-          const revision = ctx.locale.getSnapshot().revision
-          if (version !== rowsVersion || revision !== rowsRevision) {
-            rowsVersion = version
-            rowsRevision = revision
-            rows = ctx.slots.entries('settings.section')
-              .map(e => ({
-                /* v8 ignore next -- list-slot registration requires id (SlotCore rejects an entry without one) */
-                id: e.options.id ?? '',
-                order: e.options.order ?? 0,
-                label: resolveSlotLabel(e.options.label) ?? '',
-              }))
-              .sort((a, b) => a.order - b.order)
-          }
-          return rows
-        },
-        subscribe: (listener) => {
-          const offLedger = ctx.slots.subscribe('settings.section', listener)
-          const offLocale = ctx.locale.subscribe(listener)
-          return () => {
-            offLedger()
-            offLocale()
-          }
-        },
-      },
+      sections,
+      administrationSections,
+      administers,
       onboardingSteps: {
         getSnapshot: () => {
           const version = ctx.slots.getVersion('settings.onboarding')
@@ -223,6 +239,7 @@ export function apply(ctx: ClientContext): void {
           'settings.action': { kind: 'list', scope: 'root' },
           'settings.close': { kind: 'single', scope: 'root' },
           'settings.section': { kind: 'list', scope: 'root' },
+          'settings.administration.section': { kind: 'list', scope: 'root' },
           'settings.onboarding': { kind: 'list', scope: 'root' },
         },
         inject: shellInjected,

@@ -39,7 +39,7 @@ export interface BotsSectionInjected {
 
 /** Full component props: runtime share + store share + locale seat + injected face. */
 export type BotsSectionProps =
-  PropsRuntime<'settings.section'> & PropsStore<ReturnType<typeof createBotsSectionStore>>
+  PropsRuntime<'settings.administration.section'> & PropsStore<ReturnType<typeof createBotsSectionStore>>
   & PropsLocale<'settings.bots'> & BotsSectionInjected
 
 /** The translator this section's parts are handed. */

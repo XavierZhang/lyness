@@ -16,13 +16,7 @@
       "path": "../../api/identity-controller"
     },
     {
-      "path": "../../api/remotes/tsconfig.client.json"
-    },
-    {
       "path": "../locale/tsconfig.client.json"
-    },
-    {
-      "path": "../store"
     },
     {
       "path": "../ui-primitives"
@@ -35,6 +29,9 @@
     },
     {
       "path": "../ui-settings/tsconfig.client.json"
+    },
+    {
+      "path": "../ui-viewer/tsconfig.client.json"
     },
     {
       "path": "../ui-layout"

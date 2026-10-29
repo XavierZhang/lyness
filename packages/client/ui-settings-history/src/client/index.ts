@@ -81,8 +81,8 @@ export function apply(ctx: Context): void {
   const operations = createHistoryOperations(historyCallsOf(ctx), binding, deliverDownload)
   const t = ctx.locale.bind(NS)
 
-  ctx.slots.inject('settings.section', () => ctx.slots.register({
-    name: 'settings.section',
+  ctx.slots.inject('settings.administration.section', () => ctx.slots.register({
+    name: 'settings.administration.section',
     id: 'history',
     // After the bots: the history is what those two sections changed, so it
     // is read after the records it describes.

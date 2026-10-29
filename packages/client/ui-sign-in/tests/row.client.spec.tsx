@@ -8,9 +8,9 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { cleanup, render, screen } from '@testing-library/react'
 import type { ViewerStandingView, ViewerView } from '@lyness/lyn-api-identity-controller/types'
+import type { ViewerSnapshot } from '@lyness/lyn-client-ui-viewer/client'
 import { AccountRow, standingLabel } from '../src/client/AccountRow.tsx'
 import type { AccountRowProps } from '../src/client/AccountRow.tsx'
-import type { ViewerState } from '../src/client/store.ts'
 import { zh } from '../src/client/locales.ts'
 
 afterEach(cleanup)
@@ -30,21 +30,21 @@ const t = ((key: keyof typeof zh, values?: Record<string, string>) => {
     : text.replace(/\{(\w+)\}/gu, (_, name: string) => values[name] ?? '')
 }) as AccountRowProps['t']
 
-/** One rendered row over a fixed state. */
-function renderRow(state: ViewerState) {
+/** One rendered row over a fixed snapshot. */
+function renderRow(state: ViewerSnapshot) {
   const load = vi.fn(() => Promise.resolve())
-  const useStore = (<T,>(select: (value: ViewerState) => T) => select(state)) as AccountRowProps['useStore']
-  return { ...render(<AccountRow {...{ t, useStore, load } as AccountRowProps} />), load }
+  const useViewer = (<T,>(select: (value: ViewerSnapshot) => T) => select(state)) as AccountRowProps['useViewer']
+  return { ...render(<AccountRow {...{ t, useViewer, load } as AccountRowProps} />), load }
 }
 
-/** A ready state carrying one viewer. */
-function ready(viewer: ViewerView): ViewerState {
-  return { status: 'ready', viewer }
+/** A ready snapshot carrying one viewer. */
+function ready(viewer: ViewerView): ViewerSnapshot {
+  return { status: 'ready', viewer, administers: false }
 }
 
 describe('AccountRow', () => {
   it('asks who the viewer is when Settings opens, even if the screen never did', () => {
-    const { load } = renderRow({ status: 'idle', viewer: undefined })
+    const { load } = renderRow({ status: 'idle', viewer: undefined, administers: false })
     expect(load).toHaveBeenCalledTimes(1)
   })
 

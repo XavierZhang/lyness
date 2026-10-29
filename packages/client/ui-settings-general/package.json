@@ -73,6 +73,7 @@
     "@lyness/lyn-client-ui-settings": "workspace:*",
     "@lyness/lyn-client-ui-sidebar": "workspace:*",
     "@lyness/lyn-client-ui-slots": "workspace:*",
+    "@lyness/lyn-client-ui-viewer": "workspace:*",
     "@lyness/lyn-remote-mock": "workspace:*",
     "@lyness/lyn-settings": "workspace:*",
     "clsx": "^2.0.0",

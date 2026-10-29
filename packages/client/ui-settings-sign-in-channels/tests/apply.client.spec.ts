@@ -17,7 +17,7 @@ import { apply, channelsCallsOf, inject, NS } from '@lyness/lyn-client-ui-settin
 import { ChannelsSection } from '../src/client/ChannelsSection.tsx'
 import type { createChannelsSectionStore } from '../src/client/store.ts'
 
-const SLOT = 'settings.section'
+const SLOT = 'settings.administration.section'
 
 const KIND: ChannelKindView = {
   id: 'wecom',

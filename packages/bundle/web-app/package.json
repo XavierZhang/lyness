@@ -145,6 +145,7 @@
     "@lyness/lyn-client-ui-tool": "workspace:*",
     "@lyness/lyn-client-ui-trajectory": "workspace:*",
     "@lyness/lyn-client-ui-user-questions": "workspace:*",
+    "@lyness/lyn-client-ui-viewer": "workspace:*",
     "@lyness/lyn-client-ui-workflow-run": "workspace:*",
     "@lyness/lyn-client-ui-workspace": "workspace:*",
     "@lyness/lyn-cmdline": "workspace:*",

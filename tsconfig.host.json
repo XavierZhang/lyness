@@ -384,6 +384,7 @@
     { "path": "./packages/client/ui-settings-people/tsconfig.host.json" },
     { "path": "./packages/client/ui-settings-sign-in-channels/tsconfig.host.json" },
     { "path": "./packages/client/ui-sign-in/tsconfig.host.json" },
+    { "path": "./packages/client/ui-viewer/tsconfig.host.json" },
     { "path": "./packages/api/announcement-controller" },
     { "path": "./packages/api/credits-controller" },
     { "path": "./packages/api/identity-controller" },

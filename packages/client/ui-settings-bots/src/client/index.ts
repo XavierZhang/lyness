@@ -69,8 +69,8 @@ export function apply(ctx: Context): void {
   const operations = createBotsOperations(botsCallsOf(ctx), binding)
   const t = ctx.locale.bind(NS)
 
-  ctx.slots.inject('settings.section', () => ctx.slots.register({
-    name: 'settings.section',
+  ctx.slots.inject('settings.administration.section', () => ctx.slots.register({
+    name: 'settings.administration.section',
     id: 'bots',
     // After the people: a bot holds a standing in the same roster, and who
     // the deployment's people are is read before what it runs on their behalf.

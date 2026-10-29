@@ -55,8 +55,8 @@ export function apply(ctx: Context): void {
   const operations = createChannelsOperations(channelsCallsOf(ctx), binding)
   const t = ctx.locale.bind(NS)
 
-  ctx.slots.inject('settings.section', () => ctx.slots.register({
-    name: 'settings.section',
+  ctx.slots.inject('settings.administration.section', () => ctx.slots.register({
+    name: 'settings.administration.section',
     id: 'sign-in-channels',
     // After credits, because how people sign in is an administrator's
     // concern and the sections above it are every reader's.

@@ -56,8 +56,8 @@ export function apply(ctx: Context): void {
   const operations = createPeopleOperations(peopleCallsOf(ctx), binding)
   const t = ctx.locale.bind(NS)
 
-  ctx.slots.inject('settings.section', () => ctx.slots.register({
-    name: 'settings.section',
+  ctx.slots.inject('settings.administration.section', () => ctx.slots.register({
+    name: 'settings.administration.section',
     id: 'people',
     // After the sign-in channels: admitting somebody names the channel that
     // authenticates them, so the channel is configured first.

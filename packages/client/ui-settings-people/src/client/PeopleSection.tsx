@@ -36,7 +36,7 @@ export interface PeopleSectionInjected {
 
 /** Full component props: runtime share + store share + locale seat + injected face. */
 export type PeopleSectionProps =
-  PropsRuntime<'settings.section'> & PropsStore<ReturnType<typeof createPeopleSectionStore>>
+  PropsRuntime<'settings.administration.section'> & PropsStore<ReturnType<typeof createPeopleSectionStore>>
   & PropsLocale<'settings.people'> & PeopleSectionInjected
 
 /** The translator this section's parts are handed. */

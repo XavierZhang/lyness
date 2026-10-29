@@ -50,8 +50,16 @@ export type SettingsRootInjected = {
     desktopUpdate: HostObservable<DesktopUpdateView>
     /** Connection-owned state for the current Host connection. */
     connectionState: HostObservable<ConnectionState | undefined>
-    /** settings.section ledger projected into ordered nav rows. */
+    /** settings.section ledger projected into ordered nav rows (personal plane). */
     sections: HostObservable<readonly SettingsSectionRow[]>
+    /** settings.administration.section ledger projected into ordered nav rows. */
+    administrationSections: HostObservable<readonly SettingsSectionRow[]>
+    /**
+     * Whether the administration plane belongs to this viewer. A composition
+     * without the viewer service answers true: it has no directory to ask, so
+     * it has nobody to hide those pages from.
+     */
+    administers: HostObservable<boolean>
     /** settings.onboarding ledger projected into coordinator order. */
     onboardingSteps: HostObservable<readonly SettingsOnboardingStep[]>
   }
@@ -72,6 +80,7 @@ export type SettingsRootComponentProps =
     | 'settings.action'
     | 'settings.close'
     | 'settings.section'
+    | 'settings.administration.section'
     | 'settings.onboarding'
   >
   & InjectFace<SettingsRootInjected>

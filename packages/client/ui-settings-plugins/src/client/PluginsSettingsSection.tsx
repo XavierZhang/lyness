@@ -24,7 +24,7 @@ export interface PluginsSettingsSectionInjected {
 
 /** Props the renderer binds for the section. */
 export type PluginsSettingsSectionProps =
-  PropsRuntime<'settings.section'>
+  PropsRuntime<'settings.administration.section'>
   & PropsLocale<'settings.plugins'>
   & PropsRenderSlots<'settings.plugins.tab'>
   & InjectFace<PluginsSettingsSectionInjected>

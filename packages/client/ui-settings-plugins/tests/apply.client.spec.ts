@@ -26,7 +26,7 @@ async function bench() {
 function declareRoot(slots: SlotRegistry): () => void {
   return slots.register({
     name: 'root',
-    children: { 'settings.section': { kind: 'list', scope: 'root' } },
+    children: { 'settings.administration.section': { kind: 'list', scope: 'root' } },
   } as never, () => null)
 }
 
@@ -45,7 +45,7 @@ describe('ui-settings-plugins apply', () => {
 
     await ctx.plugin({ inject: [...inject], apply }).await()
 
-    const section = slots.entries('settings.section')[0]!
+    const section = slots.entries('settings.administration.section')[0]!
     expect(section.options).toMatchObject({ id: 'plugins', order: 15 })
     // The nav label is a locale-following thunk; owners resolve it at read time.
     expect(resolveSlotLabel(section.options.label)).toBe('内置插件')
@@ -58,7 +58,7 @@ describe('ui-settings-plugins apply', () => {
     declareRoot(slots)
     await ctx.plugin({ inject: [...inject], apply }).await()
 
-    const section = slots.entries('settings.section')[0]!
+    const section = slots.entries('settings.administration.section')[0]!
     const sectionFace = (section.inject as () => Pick<PluginsSettingsSectionInjected, 'hooks'>)()
     const initialTabs = sectionFace.hooks.tabs.getSnapshot()
     expect(initialTabs).toEqual([])
@@ -81,7 +81,7 @@ describe('ui-settings-plugins apply', () => {
 
     declareRoot(slots)
 
-    await vi.waitFor(() => { expect(slots.entries('settings.section')).toHaveLength(1) })
+    await vi.waitFor(() => { expect(slots.entries('settings.administration.section')).toHaveLength(1) })
   })
 
   it('collapses the section on teardown', async () => {
@@ -89,10 +89,10 @@ describe('ui-settings-plugins apply', () => {
     declareRoot(slots)
     const fiber = ctx.plugin({ inject: [...inject], apply })
     await fiber.await()
-    expect(slots.entries('settings.section')).toHaveLength(1)
+    expect(slots.entries('settings.administration.section')).toHaveLength(1)
 
     await fiber.dispose()
 
-    expect(slots.entries('settings.section')).toHaveLength(0)
+    expect(slots.entries('settings.administration.section')).toHaveLength(0)
   })
 })

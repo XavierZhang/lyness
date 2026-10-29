@@ -12,24 +12,27 @@
 
 import { useEffect } from 'react'
 import { Button } from '@lyness/lyn-client-ui-primitives'
-import type { PropsLocale, PropsRuntime, PropsStore } from '@lyness/lyn-client-ui-slots'
+import type { HostObservable, InjectFace, PropsLocale, PropsRuntime } from '@lyness/lyn-client-ui-slots'
 import type {} from '@lyness/lyn-client-ui-layout/client'
 import type { ChannelOfferView } from '@lyness/lyn-api-identity-controller/types'
-import type { createViewerStore } from './store.ts'
+import type { ViewerSnapshot } from '@lyness/lyn-client-ui-viewer/client'
 import css from './SignInScreen.module.css'
 
-/** Injected business face: the read and the retry. */
+/** Injected business face: the shared read, the retry, and the snapshot. */
 export interface SignInScreenInjected {
   /** Read who the viewer is, or join the read already running. */
   load: () => Promise<void>
   /** Read again after a failure. */
   retry: () => Promise<void>
+  hooks: {
+    /** The shared viewer snapshot, owned by the `uiViewer` service. */
+    viewer: HostObservable<ViewerSnapshot>
+  }
 }
 
-/** Full component props: runtime share + store share + locale seat + injected face. */
+/** Full component props: runtime share + locale seat + injected face. */
 export type SignInScreenProps =
-  PropsRuntime<'shell.overlay'> & PropsStore<ReturnType<typeof createViewerStore>>
-  & PropsLocale<'sign-in'> & SignInScreenInjected
+  PropsRuntime<'shell.overlay'> & PropsLocale<'sign-in'> & InjectFace<SignInScreenInjected>
 
 /**
  * Where a surface sends the browser to begin one channel's sign-in.
@@ -46,9 +49,9 @@ export function signInHref(prefix: string, channel: ChannelOfferView): string {
  * @param props - composed slot props.
  * @returns the screen element tree, or null.
  */
-export function SignInScreen({ t, useStore, load, retry }: SignInScreenProps) {
-  const status = useStore(state => state.status)
-  const viewer = useStore(state => state.viewer)
+export function SignInScreen({ t, useViewer, load, retry }: SignInScreenProps) {
+  const status = useViewer(state => state.status)
+  const viewer = useViewer(state => state.viewer)
 
   // Asked as soon as the frame is up: every other surface's calls depend on
   // the answer, so waiting for an interaction would mean waiting through a
