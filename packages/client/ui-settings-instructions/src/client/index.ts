@@ -17,6 +17,7 @@ import type {} from '@lyness/lyn-client-ui-settings/client'
 import type {} from '@lyness/lyn-client-ui-renderer/client'
 import type {} from '@lyness/lyn-api-remotes/client'
 import type {} from '@lyness/lyn-api-personal-instructions-controller/remote'
+import instructionsRemote from '@lyness/lyn-api-personal-instructions-controller/remote'
 import { InstructionsSection } from './InstructionsSection.tsx'
 import { SectionBinding, sectionFace } from './binding.ts'
 import { createInstructionsOperations, instructionsCallsOf } from './operations.ts'
@@ -43,28 +44,40 @@ declare module '@lyness/lyn-client-ui-slots' {
 export const NS = 'settings.instructions'
 
 /** Services required by the instructions section. */
-export const inject = ['slots', 'locale', 'remote', 'remote.personalInstructions']
+export const inject = ['slots', 'locale', 'remote']
 
 /**
- * Register the section.
+ * Mount the namespace and register the section while it is there.
+ *
+ * The namespace is mounted here rather than in the client's core Remote
+ * assembly: this package is its only consumer, so the page and the call it
+ * makes arrive and leave together.
  * @param ctx - client plugin context.
+ * @returns the disposer, which withdraws the section before the namespace.
  */
-export function apply(ctx: Context): void {
-  ctx.effect(() => ctx.locale.register(NS, { en, zh, ja, es, fr, de, ru, pt }), 'instructions: dictionaries')
-  const store = createInstructionsSectionStore()
-  const binding = new SectionBinding()
-  const operations = createInstructionsOperations(instructionsCallsOf(ctx), binding)
-  const t = ctx.locale.bind(NS)
+export async function apply(ctx: Context): Promise<() => Promise<void>> {
+  const unmount = await ctx.remote.$mount(instructionsRemote)
+  const section = ctx.inject(['remote.personalInstructions'], (scope: Context) => {
+    scope.effect(() => scope.locale.register(NS, { en, zh, ja, es, fr, de, ru, pt }), 'instructions: dictionaries')
+    const store = createInstructionsSectionStore()
+    const binding = new SectionBinding()
+    const operations = createInstructionsOperations(instructionsCallsOf(scope), binding)
+    const t = scope.locale.bind(NS)
 
-  ctx.slots.inject('settings.section', () => ctx.slots.register({
-    name: 'settings.section',
-    id: 'instructions',
-    // After General and the account row it sits beside: who this is comes
-    // before what they told their agents.
-    order: 10,
-    label: () => t('nav'),
-    store,
-    locale: NS,
-    inject: sectionFace(binding, operations),
-  }, InstructionsSection))
+    scope.slots.inject('settings.section', () => scope.slots.register({
+      name: 'settings.section',
+      id: 'instructions',
+      // After General and the account row it sits beside: who this is comes
+      // before what they told their agents.
+      order: 10,
+      label: () => t('nav'),
+      store,
+      locale: NS,
+      inject: sectionFace(binding, operations),
+    }, InstructionsSection))
+  })
+  return async () => {
+    await section.dispose()
+    await unmount()
+  }
 }

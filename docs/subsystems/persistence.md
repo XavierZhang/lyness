@@ -348,6 +348,68 @@ The shipped provider implements the abstract `SessionPersistence` contract (`cre
 
 Generated from source by `scripts/gen-cordis-catalog.ts` (verified fresh by `pnpm run verify-cordis-catalog` in doc-sync; regenerate with `pnpm run gen-cordis-catalog`) — the language sides differ only in locale-specific paired document paths. Signature blocks use a `ts cordis-catalog` fence and keep the original source JSDoc; dispatch modes are defined in the [primer](../cordis-primer.md#dispatch-modes), and the framework-inherited `ctx` API lives in [cordis-api/inherited.md](../cordis-api/inherited.md).
 
+<a id="ctxsessiondatacontroller--sessiondatacontroller"></a>
+
+### `ctx.sessionDataController` — `SessionDataController`
+
+Host service backing the generated `ctx.remote.sessionData` namespace.
+
+```ts cordis-catalog
+/**
+ * Delete one of this caller's own conversations, with every subagent
+ * session beneath it.
+ *
+ * Nothing is recoverable afterwards, and no other surface undoes it. What
+ * goes is the stored logs and the projections cached about them; bytes a
+ * conversation only referred to — an uploaded file's stored object, which
+ * is addressed by its content and may be shared with another conversation —
+ * are not this call's to remove, and the page that offers the control says
+ * so rather than leaving a person to assume either way.
+ * @param sessionId - the conversation, as a listing reported its id.
+ * @returns the stored sessions that were removed.
+ * @throws {RemoteError} `session-data/not-found` when this caller has no
+ *   such conversation, and `session-data/open` while it is still open.
+ */
+@Remote async delete(sessionId: string): Promise<SessionDeleteValue>
+```
+
+Source: [`packages/api/session-data-controller/src/index.ts`](../../packages/api/session-data-controller/src/index.ts)
+
+<a id="ctxsessiondeletion--sessiondeletion"></a>
+
+### `ctx.sessionDeletion` — `SessionDeletion`
+
+Deletes one conversation's stored logs and what was cached about them.
+
+```ts cordis-catalog
+/**
+ * Delete one conversation: the named session's stored log, every subagent
+ * log beneath it, and the cached projections of each.
+ *
+ * A conversation that is open is refused rather than removed underneath
+ * itself, and the refusal names the member that is live. The trace is one
+ * observation, so a member that goes live after it is caught by the
+ * backend's own write exclusion instead — either way nothing is removed
+ * from under a writer.
+ *
+ * Members go deepest first. Lineage is read from each log's own parent
+ * field, so removing a parent before its children would leave them in the
+ * corpus with nothing to find them by; this order keeps a failed deletion
+ * retryable as the same conversation.
+ * @param id - the conversation's own session.
+ * @param signal - cancellation, observed between members and before each removal.
+ * @returns what was removed.
+ * @throws {SessionDeletionLiveError} when the conversation or a subagent beneath it is open.
+ * @throws {SessionPersistenceNotFoundError} when the named session has no stored log.
+ * @throws {SessionAlreadyOwnedError} when a member went live, or another process writes it.
+ */
+async delete(id: SessionId, signal?: AbortSignal): Promise<SessionDeletionResult>
+```
+
+Types: [SessionId](core.md)
+
+Source: [`packages/session/session-deletion/src/index.ts`](../../packages/session/session-deletion/src/index.ts)
+
 <a id="ctxsessionpersistence--sessionpersistence-abstract-seam"></a>
 
 ### `ctx.sessionPersistence` — `SessionPersistence` (abstract seam)
@@ -420,6 +482,35 @@ abstract stat(id: SessionId, options?: SessionPersistenceStatOptions): Promise<S
  * @returns one snapshot per stored session.
  */
 abstract list(options?: SessionPersistenceListOptions): Promise<readonly SessionPersistenceSnapshot[]>
+
+/**
+ * Remove one stored session permanently, with every format generation of
+ * its log.
+ *
+ * This is the one operation that destroys released session data, so its
+ * guarantees are narrow and exact. It removes the named session alone: a
+ * sub-session is a stored session of its own, and a caller that means a
+ * whole conversation removes each member itself. Removal is not atomic
+ * across backends or across members; a failure part way through leaves
+ * every session it has not reached stored, so a caller retries rather than
+ * assuming either outcome. Afterwards the session reads as one that never
+ * existed: `stat` answers undefined, `list` omits it, and `open` throws
+ * {@link SessionPersistenceNotFoundError}. Nothing is recoverable, and no
+ * backend keeps a tombstone — an id is a slot, and a later session may
+ * take the same one.
+ *
+ * Derived stores are not this method's to clear. A search index, a
+ * projection cache or anything else folded out of the log is owned by its
+ * own service, which the caller tells.
+ * @param id - the stored session to remove.
+ * @param options - optional cancellation.
+ * @returns resolution once the session is gone from this backend.
+ * @throws {SessionPersistenceNotFoundError} when the session does not exist.
+ * @throws {SessionAlreadyOwnedError} while a writer holds the session, here
+ *   or in another process: a live conversation is removed after it ends,
+ *   never underneath itself.
+ */
+abstract delete(id: SessionId, options?: SessionPersistenceDeleteOptions): Promise<void>
 ```
 
 Types: [SessionId](core.md)

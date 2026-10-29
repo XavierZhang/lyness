@@ -1,0 +1,83 @@
+{
+  "name": "@lyness/lyn-api-session-data-controller",
+  "description": "A person's own conversations: the deletion they can ask for, bounded by what they may see",
+  "version": "0.2.1-rc.3",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "directory": "packages/api/session-data-controller"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./types": {
+      "types": "./lib/types/types.d.ts",
+      "default": "./lib/types/types.js"
+    },
+    "./typert": {
+      "types": "./lib/typert.host.d.ts",
+      "default": "./lib/typert.host.js"
+    },
+    "./remote": {
+      "types": "./lib/typert.remote-client.d.ts",
+      "default": "./lib/typert.remote-client.js"
+    },
+    "./src/*": "./src/*",
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json"
+  },
+  "files": [
+    "locale/*.json",
+    "lib/index.js",
+    "lib/types/**/*.js",
+    "lib/types/**/*.d.ts",
+    "lib/typert.host.js",
+    "lib/typert.host.d.ts",
+    "lib/typert.remote-client.js",
+    "lib/typert.remote-client.d.ts"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-session-deletion": "workspace:*",
+    "@lyness/lyn-session-ownership": "workspace:*",
+    "@lyness/lyn-session-persistence": "workspace:*",
+    "@lyness/lyn-session-query": "workspace:*",
+    "@lyness/lyn-typert-protocol": "workspace:*"
+  },
+  "devDependencies": {
+    "@lyness/cordis": "workspace:~",
+    "@lyness/cordis-plugin-include": "workspace:~",
+    "@lyness/cordis-plugin-loader": "workspace:~",
+    "@lyness/lyn-agent": "workspace:*",
+    "@lyness/lyn-agent-loop": "workspace:*",
+    "@lyness/lyn-auth-session": "workspace:*",
+    "@lyness/lyn-llm": "workspace:*",
+    "@lyness/lyn-people": "workspace:*",
+    "@lyness/lyn-request-principal": "workspace:*",
+    "@lyness/lyn-session": "workspace:*",
+    "@lyness/lyn-session-deletion": "workspace:*",
+    "@lyness/lyn-session-ownership": "workspace:*",
+    "@lyness/lyn-session-persistence": "workspace:*",
+    "@lyness/lyn-session-persistence-jsonl": "workspace:*",
+    "@lyness/lyn-session-projection": "workspace:*",
+    "@lyness/lyn-session-projection-cache": "workspace:*",
+    "@lyness/lyn-session-query": "workspace:*",
+    "@lyness/lyn-session-query-sqlite": "workspace:*",
+    "@lyness/lyn-storage": "workspace:*",
+    "@lyness/lyn-storage-domain": "workspace:*",
+    "@lyness/lyn-storage-json": "workspace:*",
+    "@lyness/lyn-tool-executor-native": "workspace:*",
+    "@lyness/lyn-tools": "workspace:*",
+    "@lyness/lyn-typert-protocol": "workspace:*"
+  }
+}

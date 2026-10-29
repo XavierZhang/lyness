@@ -327,6 +327,27 @@ export class SessionProjectionCache extends Service {
   }
 
 
+  /**
+   * Remove one session's stored record.
+   *
+   * For a session whose log is being deleted. Every other read here is
+   * fail-soft because a wrong or absent row only costs a longer replay, and
+   * this one is not: the record holds every registered unit's state,
+   * attribution included, so a row left behind is a fact about a deleted
+   * conversation that nothing will ever replace. A failure is therefore the
+   * caller's to see.
+   *
+   * This is removal, not invalidation: the caller has removed the log the
+   * rows were folded from. A session that is still stored keeps its record,
+   * and nothing here needs to be told to forget a stale one — the lifecycle
+   * identity already refuses a record bound to another generation.
+   * @param id - the session whose record goes.
+   * @returns whether a record was stored under the id.
+   */
+  async forget(id: SessionId): Promise<boolean> {
+    return await this.requireTable().delete(id)
+  }
+
   // --- write-behind (throttle + mandatory points) ---
 
   private installWritePath(): void {

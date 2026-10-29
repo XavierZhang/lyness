@@ -869,3 +869,28 @@ describe('SessionProjectionCache summary reads', () => {
     expect(cache.cachedSnapshot(headerOf(SessionId('summary-absent')), summaryKeys)).toBeUndefined()
   })
 })
+
+describe('SessionProjectionCache.forget', () => {
+  it('removes one session\'s stored record and leaves every other', async () => {
+    const { ctx, root } = await harness()
+    const going = SessionId('forget-going')
+    const staying = SessionId('forget-staying')
+    await seedRecord(root, String(going), { 'cache-test/marks': { ver: 1, seq: SessionSeq(0), val: { marks: ['a'] } } })
+    await seedRecord(root, String(staying), { 'cache-test/marks': { ver: 1, seq: SessionSeq(0), val: { marks: ['b'] } } })
+    // The seeded documents are read at open, so the domain is reopened over them.
+    await ctx.fiber.dispose()
+    const reopened = await harness({ root })
+
+    expect(await reopened.cache.forget(going)).toBe(true)
+
+    expect(reopened.cache.cachedSnapshot(headerOf(going))).toBeUndefined()
+    expect(reopened.cache.cachedSnapshot(headerOf(staying))).toBeDefined()
+    expect(await storedRecord(root, going)).toBeUndefined()
+    expect(await storedRecord(root, staying)).toBeDefined()
+  })
+
+  it('reports that no record was stored under an id it never recorded', async () => {
+    const { cache } = await harness()
+    expect(await cache.forget(SessionId('forget-absent'))).toBe(false)
+  })
+})

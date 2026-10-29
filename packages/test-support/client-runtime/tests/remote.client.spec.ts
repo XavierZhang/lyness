@@ -34,11 +34,14 @@ describe('TestRemote', () => {
     await ctx.fiber.dispose()
   })
 
-  it('refuses $mount, which needs the real Client Remote service', async () => {
+  it('records a mounted contribution and withdraws it on disposal', async () => {
     const ctx = new Context()
     const remote = new TestRemote(ctx)
-    await expect(remote.$mount()).rejects.toThrow('needs the real Client Remote service')
-    await ctx.fiber.dispose()
+    const contribution = { package: '@lyness/lyn-example' }
+    const unmount = await remote.$mount(contribution)
+    expect(remote.mounted).toEqual([contribution])
+    await unmount()
+    expect(remote.mounted).toEqual([])
   })
 
   it('reaches a scripted namespace as ctx.remote.<name> and as its own service', async () => {

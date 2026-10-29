@@ -1,0 +1,19 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "lib/types"
+  },
+  "include": [
+    "src"
+  ],
+  "references": [
+    { "path": "../../../vendor/cordis" },
+    { "path": "../../core/session" },
+    { "path": "../../identity/session-ownership" },
+    { "path": "../../session/session-deletion" },
+    { "path": "../../session/session-persistence" },
+    { "path": "../../session-query/session-query" },
+    { "path": "../../typert/protocol" }
+  ]
+}

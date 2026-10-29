@@ -28,6 +28,7 @@ import {
   type SessionAccess, type SessionHandle,
   type SessionHandleReadResult,
   type SessionLocation, type SessionPersistenceCreateOptions,
+  type SessionPersistenceDeleteOptions,
   type SessionPersistenceListOptions, type SessionPersistenceOpenOptions,
   type SessionPersistenceSnapshot, type SessionPersistenceStatOptions,
   type SessionPersistenceRevision as PersistenceRevision,
@@ -561,6 +562,50 @@ class JsonlSessionPersistence extends SessionPersistence {
     }
     signal?.throwIfAborted()
     return snapshots
+  }
+
+  /**
+   * Remove one stored session's directory, with every generation of its log
+   * and its lock file.
+   *
+   * Two exclusions have to hold before a byte goes, and each is taken rather
+   * than tested: the in-process write claim, which no active handle shares,
+   * and the directory's kernel lock, which no other process's writer shares.
+   * A claim that cannot be taken is somebody writing, which is the refusal
+   * this operation owes its caller rather than a race to remove the log out
+   * from under them.
+   * @param id - the stored session to remove.
+   * @param options - optional cancellation, observed before the claim.
+   * @returns resolution once the directory is gone.
+   * @throws {SessionPersistenceNotFoundError} when no artifact holds the id.
+   * @throws {SessionAlreadyOwnedError} while a writer holds the session here or in another process.
+   */
+  async delete(id: SessionId, options?: SessionPersistenceDeleteOptions): Promise<void> {
+    options?.signal?.throwIfAborted()
+    await this.ensureRootEncoding()
+    options?.signal?.throwIfAborted()
+    // A created-but-unmaterialized session is held by its own write handle,
+    // so the claim below refuses it; there is no artifact to remove either.
+    this.tracker.claimWrite(id)
+    try {
+      const selected = await this.findLog(id, options?.signal)
+      if (selected === undefined) throw new SessionPersistenceNotFoundError(id)
+      const directory = dirname(selected.sourcePath)
+      // Taking the kernel lock is what proves no other process is appending.
+      // Removing the directory takes its lock file with it, which forfeits
+      // POSIX exclusion for anybody who locked the same inode — nobody can
+      // have, because this lock is held.
+      const lease = await SessionWriteLease.acquire(directory, id)
+      try {
+        await rm(directory, { recursive: true, force: true })
+      } finally {
+        await lease.release()
+      }
+      this.coldLogMemo.delete(id)
+      this.migrationPreparations.delete(id)
+    } finally {
+      this.tracker.releaseClaim(id)
+    }
   }
 
   // --- handle-facing storage internals (package-private via the handle class below) ---

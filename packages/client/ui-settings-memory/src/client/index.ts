@@ -18,6 +18,7 @@ import type {} from '@lyness/lyn-client-ui-settings/client'
 import type {} from '@lyness/lyn-client-ui-renderer/client'
 import type {} from '@lyness/lyn-api-remotes/client'
 import type {} from '@lyness/lyn-api-memory-controller/remote'
+import memoriesRemote from '@lyness/lyn-api-memory-controller/remote'
 import { MemorySection } from './MemorySection.tsx'
 import { SectionBinding, sectionFace } from './binding.ts'
 import { createMemoryOperations, memoryCallsOf } from './operations.ts'
@@ -42,28 +43,40 @@ declare module '@lyness/lyn-client-ui-slots' {
 export const NS = 'settings.memory'
 
 /** Services required by the memory section. */
-export const inject = ['slots', 'locale', 'remote', 'remote.memories']
+export const inject = ['slots', 'locale', 'remote']
 
 /**
- * Register the section.
+ * Mount the namespace and register the section while it is there.
+ *
+ * The namespace is mounted here rather than in the client's core Remote
+ * assembly: this package is its only consumer, so the page and the call it
+ * makes arrive and leave together.
  * @param ctx - client plugin context.
+ * @returns the disposer, which withdraws the section before the namespace.
  */
-export function apply(ctx: Context): void {
-  ctx.effect(() => ctx.locale.register(NS, { en, zh, ja, es, fr, de, ru, pt }), 'memory: dictionaries')
-  const store = createMemorySectionStore()
-  const binding = new SectionBinding()
-  const operations = createMemoryOperations(memoryCallsOf(ctx), binding)
-  const t = ctx.locale.bind(NS)
+export async function apply(ctx: Context): Promise<() => Promise<void>> {
+  const unmount = await ctx.remote.$mount(memoriesRemote)
+  const section = ctx.inject(['remote.memories'], (scope: Context) => {
+    scope.effect(() => scope.locale.register(NS, { en, zh, ja, es, fr, de, ru, pt }), 'memory: dictionaries')
+    const store = createMemorySectionStore()
+    const binding = new SectionBinding()
+    const operations = createMemoryOperations(memoryCallsOf(scope), binding)
+    const t = scope.locale.bind(NS)
 
-  ctx.slots.inject('settings.section', () => ctx.slots.register({
-    name: 'settings.section',
-    id: 'memory',
-    // After the instructions: what a person told their agents comes before
-    // what those agents kept.
-    order: 20,
-    label: () => t('nav'),
-    store,
-    locale: NS,
-    inject: sectionFace(binding, operations),
-  }, MemorySection))
+    scope.slots.inject('settings.section', () => scope.slots.register({
+      name: 'settings.section',
+      id: 'memory',
+      // After the instructions: what a person told their agents comes before
+      // what those agents kept.
+      order: 20,
+      label: () => t('nav'),
+      store,
+      locale: NS,
+      inject: sectionFace(binding, operations),
+    }, MemorySection))
+  })
+  return async () => {
+    await section.dispose()
+    await unmount()
+  }
 }

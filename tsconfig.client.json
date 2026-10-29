@@ -161,6 +161,7 @@
     { "path": "./packages/client/ui-settings-history/tsconfig.client.json" },
     { "path": "./packages/client/ui-settings-instructions/tsconfig.client.json" },
     { "path": "./packages/client/ui-settings-memory/tsconfig.client.json" },
+    { "path": "./packages/client/ui-settings-data/tsconfig.client.json" },
     { "path": "./packages/client/ui-settings-capabilities/tsconfig.client.json" },
     { "path": "./packages/client/ui-settings-people/tsconfig.client.json" },
     { "path": "./packages/client/ui-settings-sign-in-channels/tsconfig.client.json" },

@@ -30,6 +30,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@lyness/lyn-api-remote-authority` | no | Whether one Remote call may be served, decided once where every wire call passes through |
 | `@lyness/lyn-api-remotes` | no | Remote BFF assembly for application-selected Host capabilities |
 | `@lyness/lyn-api-session-controller` | yes | Session Remote commands, cold reads, and live control transport |
+| `@lyness/lyn-api-session-data-controller` | no | A person's own conversations: the deletion they can ask for, bounded by what they may see |
 | `@lyness/lyn-api-settings-controller` | yes | Remote owner for the configuration surfaces over the settings-domain seams |
 | `@lyness/lyn-api-sign-in-channel-controller` | no | Remote owner of the sign-in channel surface: administrators configure the directories a deployment signs people in with |
 | `@lyness/lyn-api-tenant-controller` | no | Remote owner of the tenant-configuration surface: the calling tenant reads and saves its own configuration |
@@ -119,6 +120,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@lyness/lyn-client-ui-settings-bots` | no | The bots section in Settings: which bots an organization runs and what each one runs with, maintained at runtime |
 | `@lyness/lyn-client-ui-settings-capabilities` | no | The what-you-may-use section in Settings: a reader's models, connections, skills and tools |
 | `@lyness/lyn-client-ui-settings-credits` | no | The credits section in Settings: a balance, a ledger, and the two decisions an administrator makes |
+| `@lyness/lyn-client-ui-settings-data` | no | The data section in Settings: a person's own conversations, with the export and the deletion they own |
 | `@lyness/lyn-client-ui-settings-general` | no | Settings ownerless-copy and product onboarding plugin: the General section, shell trigger/header chrome content, settings dictionaries, and the versioned welcome notice |
 | `@lyness/lyn-client-ui-settings-history` | no | The history section in Settings: what administrators changed, who changed it, and what the change replaced |
 | `@lyness/lyn-client-ui-settings-instructions` | no | The instructions section in Settings: what a person tells their own agents |
@@ -424,6 +426,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 |---|---|---|
 | `@lyness/lyn-message-quotes` | no | Selected-text quotation and Markdown blockquote presentation |
 | `@lyness/lyn-session-checkpoint-policy` | no | Semantic session durability checkpoints before model requests and tool side effects |
+| `@lyness/lyn-session-deletion` | no | Delete one conversation: its stored log, every sub-session log beneath it, and the projections cached about them |
 | `@lyness/lyn-session-log-deepseek` | yes | Incremental lossless session-log request extension for the official DeepSeek LLM API |
 | `@lyness/lyn-session-persistence-jsonl` | yes | JSONL durable session persistence backend for the lyness |
 | `@lyness/lyn-session-projection` | no | Session-projection seam: the merge-extensible projection type table, the provider contract, and the ctx.sessionProjections registry serving whole current values of log-derived per-session state |

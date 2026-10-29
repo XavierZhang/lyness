@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Eliminação de conversas",
+    "description": "Elimina uma conversa: o seu registo guardado, cada registo de subsessão abaixo dela e as projeções em cache sobre eles."
+  }
+}

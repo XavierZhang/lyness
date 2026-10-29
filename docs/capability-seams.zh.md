@@ -359,6 +359,10 @@ flowchart LR
   svc_memoryController["ctx.memoryController<br/>Host memory Remote controller"]
   pkg_api_agent_capabilities_controller["api-agent-capabilities-controller"]
   svc_agentCapabilitiesController["ctx.agentCapabilitiesController<br/>Host agent-capabilities Remote controller"]
+  pkg_session_deletion["session-deletion"]
+  svc_sessionDeletion["ctx.sessionDeletion<br/>Conversation deletion"]
+  pkg_api_session_data_controller["api-session-data-controller"]
+  svc_sessionDataController["ctx.sessionDataController<br/>Host conversation-data Remote controller"]
   pkg_api_credits_controller["api-credits-controller"]
   svc_creditsController["ctx.creditsController<br/>Host credits Remote controller"]
   pkg_api_tenant_controller["api-tenant-controller"]
@@ -419,6 +423,7 @@ flowchart LR
   pkg_api_session_controller --> svc_sessionController
   pkg_api_session_controller --> svc_sessionFileReferences
   pkg_api_session_controller --> svc_sessionSkillCatalog
+  pkg_api_session_data_controller --> svc_sessionDataController
   pkg_api_settings_controller --> svc_credentialsController
   pkg_api_settings_controller --> svc_settingsController
   pkg_api_sign_in_channel_controller --> svc_signInChannelController
@@ -535,6 +540,7 @@ flowchart LR
   pkg_sandbox_windows_acl --> svc_skills
   pkg_schedule --> svc_schedule
   pkg_session --> svc_sessions
+  pkg_session_deletion --> svc_sessionDeletion
   pkg_session_log_deepseek --> svc_deepseekLlmApiExtensions
   pkg_session_ownership --> svc_sessionVisibility
   pkg_session_persistence --> svc_sessionPersistence
@@ -913,6 +919,8 @@ flowchart LR
 | `ctx.personalInstructionsController` | `core` | [`api-personal-instructions-controller`](../packages/api/personal-instructions-controller) | - | - | - | 把指令存储投影到生成的 Remote 命名空间上，交给拥有它的那个人：一次调用作用在谁的记录上，由发布的身份推出，而不是当作参数接收，于是没有调用方能指名另一条记录。 |
 | `ctx.memoryController` | `core` | [`api-memory-controller`](../packages/api/memory-controller) | - | - | - | 把一个人自己的记忆投影到生成的 Remote 命名空间上：owner 由发布的身份推出，删除由存储对着那个 owner 校验，而这个部署的共享条目不被服务，因为它们不是任何一个人该审阅的。 |
 | `ctx.agentCapabilitiesController` | `core` | [`api-agent-capabilities-controller`](../packages/api/agent-capabilities-controller) | - | - | - | 在被问的那一刻投影读者的 agent 真正会读的工具与 skill 注册表：它不持有自己的清单，为这次读取取得预设自己的作用域，并通过把该作用域视图与部署全局视图相比来判定每一项能力是谁给的。 |
+| `ctx.sessionDeletion` | `core` | [`session-deletion`](../packages/session/session-deletion) | - | - | - | 按 ZIP 导出归档的同一范围删除一段对话：取得谱系的那个会话连同它下面的 subagent 日志，最深的先走，使失败的删除仍可重试，每份日志先于关于它缓存的记录被移除，而开着的对话被拒绝、不在它脚下被移走。 |
+| `ctx.sessionDataController` | `core` | [`api-session-data-controller`](../packages/api/session-data-controller) | - | - | - | 把这次删除投影到生成的 Remote 命名空间上，交给这段对话属于的那个人：在移除任何东西之前从对话自己的日志决定可见性，属于别人的对话得到的回答与一段从未存在过的完全相同。 |
 | `ctx.creditsController` | `core` | [`api-credits-controller`](../packages/api/credits-controller) | - | - | - | 把账本与管理能力缝投影到生成的 Remote 命名空间：本人读自己的余额，管理员为自己身份管得着的人发放积分、设定额度；授权规则留在 dsh-credits，于是「能读」与「能发」不会各说各话。 |
 | `ctx.tenantController` | `core` | [`api-tenant-controller`](../packages/api/tenant-controller) | - | - | - | 把租户配置能力缝投影到生成的 Remote 命名空间：调用方租户读取并保存自己的配置；没有命名租户的调用会被拒绝，而不是被答复任何租户的信息。 |
 | `ctx.requestTenant` | `core` | [`tenant-request`](../packages/tenant/tenant-request) | - | [`tenant-session`](../packages/tenant/tenant-session) | - | 解析一次 Remote 调用到达时所属的租户，每次调用一次，并在调用期间连同该租户的配置一起发布；未命名租户的调用读到 undefined，而不是兜底租户。 |

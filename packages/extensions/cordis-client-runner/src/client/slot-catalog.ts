@@ -3413,6 +3413,7 @@ export const CLIENT_SLOT_API: readonly ClientSlotEntry[] = [
     occupants: [
       'client-ui-settings-account AccountSection id \'account\'',
       'client-ui-settings-capabilities CapabilitiesSection id \'capabilities\'',
+      'client-ui-settings-data DataSection id \'data\'',
       'client-ui-settings-general GeneralSection id \'general\'',
       'client-ui-settings-instructions InstructionsSection id \'instructions\'',
       'client-ui-settings-memory MemorySection id \'memory\'',

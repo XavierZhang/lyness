@@ -33,7 +33,7 @@ seam 随产品交付 [JSONL](../session-persistence-jsonl/README.zh.md) 后端�
 
 ### 服务提供什么
 
-挂载后端后，五个服务方法寻址已存储会话：
+挂载后端后，六个服务方法寻址已存储会话：
 
 ```text
 const handle = await ctx.sessionPersistence.create(header)     // store a new session, take write ownership
@@ -42,7 +42,10 @@ const reader = await ctx.sessionPersistence.open(id, 'read')   // observe withou
 const snap = await ctx.sessionPersistence.stat(id)             // header + revision (+ eventCount / sizeBytes) without a log read
 const all = await ctx.sessionPersistence.list()                // one snapshot per visible stored session
 await ctx.sessionPersistence.flush()                           // backend-wide durability barrier over every active write handle
+await ctx.sessionPersistence.delete(id)                        // remove one stored session permanently, with every generation of its log
 ```
+
+`delete(id)` 是唯一一个销毁已发布会话数据的操作，因此它的承诺很窄。它只移除被指名的那个会话——子会话是它自己的一份存储会话，想删掉整段对话的调用方要自己逐个移除成员——并且不可恢复，没有后端留墓碑：id 只是一个槽位，后来的会话可以占用。会话不存在时它以 `SessionPersistenceNotFoundError` 拒绝，有写者持有它时（无论在本进程还是另一个进程）以 `SessionAlreadyOwnedError` 拒绝，所以活着的对话是在结束之后被移除、而不是在它脚下被移走。派生存储不归它清理：搜索索引、投影缓存，以及任何别的从日志折叠出来的东西，都归它们自己的服务所有，由调用方去通知。[`lyn-session-deletion`](../session-deletion/README.zh.md) 就是替整段对话把这两件事都做了的那个服务。
 
 服务级 `flush()` 排空每个活跃写句柄已路由的事件并把其会话实体化，效果与各句柄自己的 `flush` 完全相同；失败按会话聚合为一个 `AggregateError` 而不中途放弃清扫，清扫途中被关闭的句柄视同已 flush，因为 close 本身会持久排空。
 

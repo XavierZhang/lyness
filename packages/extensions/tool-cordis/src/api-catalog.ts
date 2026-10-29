@@ -3223,6 +3223,34 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
     ],
   },
   {
+    key: 'sessionDataController',
+    summary: 'Host service backing the generated `ctx.remote.sessionData` namespace.',
+    description: 'Host service backing the generated `ctx.remote.sessionData` namespace.',
+    methods: [
+      {
+        signature: '@Remote async delete(sessionId: string): Promise<SessionDeleteValue>',
+        description: 'Delete one of this caller\'s own conversations, with every subagent session beneath it.\n\nNothing is recoverable afterwards, and no other surface undoes it. What goes is the stored logs and the projections cached about them; bytes a conversation only referred to — an uploaded file\'s stored object, which is addressed by its content and may be shared with another conversation — are not this call\'s to remove, and the page that offers the control says so rather than leaving a person to assume either way.',
+        parameters: [{ name: 'sessionId', description: 'the conversation, as a listing reported its id.' }],
+        returns: 'the stored sessions that were removed.',
+        throws: ['{RemoteError} `session-data/not-found` when this caller has no such conversation, and `session-data/open` while it is still open.'],
+      },
+    ],
+  },
+  {
+    key: 'sessionDeletion',
+    summary: 'Deletes one conversation\'s stored logs and what was cached about them.',
+    description: 'Deletes one conversation\'s stored logs and what was cached about them.',
+    methods: [
+      {
+        signature: 'async delete(id: SessionId, signal?: AbortSignal): Promise<SessionDeletionResult>',
+        description: 'Delete one conversation: the named session\'s stored log, every subagent log beneath it, and the cached projections of each.\n\nA conversation that is open is refused rather than removed underneath itself, and the refusal names the member that is live. The trace is one observation, so a member that goes live after it is caught by the backend\'s own write exclusion instead — either way nothing is removed from under a writer.\n\nMembers go deepest first. Lineage is read from each log\'s own parent field, so removing a parent before its children would leave them in the corpus with nothing to find them by; this order keeps a failed deletion retryable as the same conversation.',
+        parameters: [{ name: 'id', description: 'the conversation\'s own session.' }, { name: 'signal', description: 'cancellation, observed between members and before each removal.' }],
+        returns: 'what was removed.',
+        throws: ['{SessionDeletionLiveError} when the conversation or a subagent beneath it is open.', '{SessionPersistenceNotFoundError} when the named session has no stored log.', '{SessionAlreadyOwnedError} when a member went live, or another process writes it.'],
+      },
+    ],
+  },
+  {
     key: 'sessionFeedback',
     summary: 'Host Remote through which a product surface records a Session-level remark.',
     description: 'Host Remote through which a product surface records a Session-level remark.',
@@ -3291,6 +3319,13 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         parameters: [{ name: 'options', description: 'optional cancellation.' }],
         returns: 'one snapshot per stored session.',
       },
+      {
+        signature: 'abstract delete(id: SessionId, options?: SessionPersistenceDeleteOptions): Promise<void>',
+        description: 'Remove one stored session permanently, with every format generation of its log.\n\nThis is the one operation that destroys released session data, so its guarantees are narrow and exact. It removes the named session alone: a sub-session is a stored session of its own, and a caller that means a whole conversation removes each member itself. Removal is not atomic across backends or across members; a failure part way through leaves every session it has not reached stored, so a caller retries rather than assuming either outcome. Afterwards the session reads as one that never existed: `stat` answers undefined, `list` omits it, and `open` throws SessionPersistenceNotFoundError. Nothing is recoverable, and no backend keeps a tombstone — an id is a slot, and a later session may take the same one.\n\nDerived stores are not this method\'s to clear. A search index, a projection cache or anything else folded out of the log is owned by its own service, which the caller tells.',
+        parameters: [{ name: 'id', description: 'the stored session to remove.' }, { name: 'options', description: 'optional cancellation.' }],
+        returns: 'resolution once the session is gone from this backend.',
+        throws: ['{SessionPersistenceNotFoundError} when the session does not exist.', '{SessionAlreadyOwnedError} while a writer holds the session, here or in another process: a live conversation is removed after it ends, never underneath itself.'],
+      },
     ],
   },
   {
@@ -3333,6 +3368,12 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
         description: 'Cold-read one session\'s projections from its complete log. Each unit is seeded from the identity-checked cached rows — the registry skips `apply` for the already-folded prefix (events at or below the row\'s `seq`) — and the refreshed checkpoint is written back (fail-soft, fire-and-forget), so the first cold read creates the cache row and later ones seed from it. The caller supplies the complete log in seq order: this service never consults the persistence layer.',
         parameters: [{ name: 'meta', description: 'the stored session header (identity witness).' }, { name: 'inheritedEventCount', description: 'exact inherited prefix length for projection initialization and identity.' }, { name: 'events', description: 'the session\'s complete log, in seq order.' }],
         returns: 'the projection cut at the log end.',
+      },
+      {
+        signature: 'async forget(id: SessionId): Promise<boolean>',
+        description: 'Remove one session\'s stored record.\n\nFor a session whose log is being deleted. Every other read here is fail-soft because a wrong or absent row only costs a longer replay, and this one is not: the record holds every registered unit\'s state, attribution included, so a row left behind is a fact about a deleted conversation that nothing will ever replace. A failure is therefore the caller\'s to see.\n\nThis is removal, not invalidation: the caller has removed the log the rows were folded from. A session that is still stored keeps its record, and nothing here needs to be told to forget a stale one — the lifecycle identity already refuses a record bound to another generation.',
+        parameters: [{ name: 'id', description: 'the session whose record goes.' }],
+        returns: 'whether a record was stored under the id.',
       },
     ],
   },
@@ -9021,6 +9062,14 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export interface SessionCreateValue {\n    readonly sessionId: SessionId;\n    readonly agentPreset?: string;\n    readonly bot?: string;\n}',
   },
   {
+    name: 'SessionDeleteValue',
+    declaration: 'export interface SessionDeleteValue {\n    readonly removed: readonly string[];\n}',
+  },
+  {
+    name: 'SessionDeletionResult',
+    declaration: 'export interface SessionDeletionResult {\n    readonly removed: readonly SessionId[];\n    readonly forgotten: readonly SessionId[];\n}',
+  },
+  {
     name: 'SessionEndInput',
     declaration: 'export interface SessionEndInput {\n    reason: \'clear\' | \'logout\' | \'prompt_input_exit\' | \'resume\' | \'other\';\n    sessionId: string;\n}',
   },
@@ -9255,6 +9304,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'SessionPersistenceCreateOptions',
     declaration: 'export interface SessionPersistenceCreateOptions {\n    readonly signal?: AbortSignal;\n    readonly inheritedEventCount?: SessionLogOffset;\n}',
+  },
+  {
+    name: 'SessionPersistenceDeleteOptions',
+    declaration: 'export interface SessionPersistenceDeleteOptions {\n    readonly signal?: AbortSignal;\n}',
   },
   {
     name: 'SessionPersistenceListOptions',

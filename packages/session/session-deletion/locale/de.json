@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Löschen von Unterhaltungen",
+    "description": "Löscht eine Unterhaltung: ihr gespeichertes Log, jedes Log einer Untersitzung darunter und die dazu zwischengespeicherten Projektionen."
+  }
+}

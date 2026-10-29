@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Suppression de conversation",
+    "description": "Supprime une conversation : son journal stocké, chaque journal de sous-session en dessous, et les projections mises en cache à leur sujet."
+  }
+}

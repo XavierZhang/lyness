@@ -1,0 +1,22 @@
+# Bilingual-pair consistency record for 2026-10-30-deleting-a-conversation.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write .agents/notes/proposed/architecture/2026-10-30-deleting-a-conversation.md
+/agent-note-deleting-a-conversation-means-deleting-it:
+  en: bcf77f41f505af6c
+  zh: e002d5838010e52f
+/agent-note-deleting-a-conversation-means-deleting-it/problem:
+  en: 53a59e6c3f7da6d3
+  zh: e78e4a10e39913ac
+/agent-note-deleting-a-conversation-means-deleting-it/proposal:
+  en: f066acda444020bc
+  zh: 9c9b6a414655119a
+/agent-note-deleting-a-conversation-means-deleting-it/alternatives-considered:
+  en: b879c4d152f48d36
+  zh: ab9356363baa0b8e
+/agent-note-deleting-a-conversation-means-deleting-it/acceptance-criteria:
+  en: fd4edf2865324844
+  zh: 7613b7b79a9c8540
+/agent-note-deleting-a-conversation-means-deleting-it/risks:
+  en: b7d4e3c929ffe88e
+  zh: 69a081bb0ee3e359

@@ -357,6 +357,10 @@ flowchart LR
   svc_memoryController["ctx.memoryController<br/>Host memory Remote controller"]
   pkg_api_agent_capabilities_controller["api-agent-capabilities-controller"]
   svc_agentCapabilitiesController["ctx.agentCapabilitiesController<br/>Host agent-capabilities Remote controller"]
+  pkg_session_deletion["session-deletion"]
+  svc_sessionDeletion["ctx.sessionDeletion<br/>Conversation deletion"]
+  pkg_api_session_data_controller["api-session-data-controller"]
+  svc_sessionDataController["ctx.sessionDataController<br/>Host conversation-data Remote controller"]
   pkg_api_credits_controller["api-credits-controller"]
   svc_creditsController["ctx.creditsController<br/>Host credits Remote controller"]
   pkg_api_tenant_controller["api-tenant-controller"]
@@ -417,6 +421,7 @@ flowchart LR
   pkg_api_session_controller --> svc_sessionController
   pkg_api_session_controller --> svc_sessionFileReferences
   pkg_api_session_controller --> svc_sessionSkillCatalog
+  pkg_api_session_data_controller --> svc_sessionDataController
   pkg_api_settings_controller --> svc_credentialsController
   pkg_api_settings_controller --> svc_settingsController
   pkg_api_sign_in_channel_controller --> svc_signInChannelController
@@ -533,6 +538,7 @@ flowchart LR
   pkg_sandbox_windows_acl --> svc_skills
   pkg_schedule --> svc_schedule
   pkg_session --> svc_sessions
+  pkg_session_deletion --> svc_sessionDeletion
   pkg_session_log_deepseek --> svc_deepseekLlmApiExtensions
   pkg_session_ownership --> svc_sessionVisibility
   pkg_session_persistence --> svc_sessionPersistence
@@ -911,6 +917,8 @@ flowchart LR
 | `ctx.personalInstructionsController` | `core` | [`api-personal-instructions-controller`](../packages/api/personal-instructions-controller) | - | - | - | Projects the instructions store onto the generated Remote namespace for the person who owns it: whose record a call acts on is derived from the published principal rather than taken as a parameter, so no caller can name another record. |
 | `ctx.memoryController` | `core` | [`api-memory-controller`](../packages/api/memory-controller) | - | - | - | Projects one person own memories onto the generated Remote namespace: the owner is derived from the published principal, a removal is checked against that owner by the store, and the deployment shared entries are not served because they are nobody own to review. |
 | `ctx.agentCapabilitiesController` | `core` | [`api-agent-capabilities-controller`](../packages/api/agent-capabilities-controller) | - | - | - | Projects the tool and skill registries a reader agents actually read, at the moment the question is asked: it keeps no list of its own, acquires the preset own scope for the read, and decides who gave each capability by comparing that scope view with the deployment wide one. |
+| `ctx.sessionDeletion` | `core` | [`session-deletion`](../packages/session/session-deletion) | - | - | - | Deletes one conversation as the ZIP export archives it: the traced session and the subagent logs beneath it, deepest first so a failed deletion stays retryable, each log removed before the record cached about it, and an open conversation refused rather than removed underneath itself. |
+| `ctx.sessionDataController` | `core` | [`api-session-data-controller`](../packages/api/session-data-controller) | - | - | - | Projects the deletion onto the generated Remote namespace for the person whose conversation it is: visibility is decided from the conversation own log before anything is removed, and a conversation belonging to somebody else is answered exactly as one that never existed. |
 | `ctx.creditsController` | `core` | [`api-credits-controller`](../packages/api/credits-controller) | - | - | - | Projects the ledger and the administration seam onto the generated Remote namespace: a person reads their own balance, an administrator grants credits and sets allowances for the people their standing reaches, and the authority rule stays in lyn-credits so a read and a grant cannot disagree. |
 | `ctx.tenantController` | `core` | [`api-tenant-controller`](../packages/api/tenant-controller) | - | - | - | Projects the tenant-configuration seam onto the generated Remote namespace: the calling tenant reads and saves its own configuration, and a call that named no tenant is refused rather than answered about any tenant. |
 | `ctx.requestTenant` | `core` | [`tenant-request`](../packages/tenant/tenant-request) | - | [`tenant-session`](../packages/tenant/tenant-session) | - | Resolves the tenant a Remote call arrived for, once per call, and publishes it with that tenant's configuration for the duration of the call; a call that named none reads as undefined rather than as a fallback tenant. |

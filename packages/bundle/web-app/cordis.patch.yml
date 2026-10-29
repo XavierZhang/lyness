@@ -173,6 +173,15 @@
     - id: personal-instructions-controller
       name: '@lyness/lyn-api-personal-instructions-controller'
 
+    # Deleting one's own conversation: the stored logs and what was cached
+    # about them. It mounts on every deployment, with accounts or without,
+    # because a conversation belongs to whoever opened it in both shapes.
+    - id: session-deletion
+      name: '@lyness/lyn-session-deletion'
+
+    - id: session-data-controller
+      name: '@lyness/lyn-api-session-data-controller'
+
     # Workspace commands and reconnect-safe projection over Typert Remote.
     - id: workspace-controller
       name: '@lyness/lyn-api-workspace-controller'
@@ -401,6 +410,11 @@
     # what their agents are told, which nobody else sets for them.
     - id: ui-settings-instructions
       name: '@lyness/lyn-client-ui-settings-instructions'
+
+    # The personal plane's data page: the conversations this person can open,
+    # each with the copy they can take and the deletion they can ask for.
+    - id: ui-settings-data
+      name: '@lyness/lyn-client-ui-settings-data'
 
     # The sign-in screen, and the row naming whose session this is. On a
     # deployment with no accounts both render nothing, so the single-operator

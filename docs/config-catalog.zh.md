@@ -3141,7 +3141,7 @@ export type SessionLogCompressionLevel = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
 
 ## `@lyness/lyn-session-persistence-jsonl`
 
-- `source`: [`packages/session/session-persistence-jsonl/src/index.ts:94`](../packages/session/session-persistence-jsonl/src/index.ts)
+- `source`: [`packages/session/session-persistence-jsonl/src/index.ts:95`](../packages/session/session-persistence-jsonl/src/index.ts)
 
 ```ts config-catalog
 /** Plugin config for the JSONL backend's root, physical encoding, and listing concurrency. */
@@ -5176,6 +5176,7 @@ export interface Config {
 | `@lyness/lyn-api-remote-access` | — | [`packages/api/remote-access/src/index.ts`](../packages/api/remote-access/src/index.ts) |
 | `@lyness/lyn-api-remote-authority` | `requestPrincipal` · `people` | [`packages/api/remote-authority/src/index.ts`](../packages/api/remote-authority/src/index.ts) |
 | `@lyness/lyn-api-remotes` | `typertGateway` | [`packages/api/remotes/src/index.ts`](../packages/api/remotes/src/index.ts) |
+| `@lyness/lyn-api-session-data-controller` | `sessionDeletion` · `sessionQuery` | [`packages/api/session-data-controller/src/index.ts`](../packages/api/session-data-controller/src/index.ts) |
 | `@lyness/lyn-api-sign-in-channel-controller` | — | [`packages/api/sign-in-channel-controller/src/index.ts`](../packages/api/sign-in-channel-controller/src/index.ts) |
 | `@lyness/lyn-api-tenant-controller` | — | [`packages/api/tenant-controller/src/index.ts`](../packages/api/tenant-controller/src/index.ts) |
 | `@lyness/lyn-authorization` | `credentials` | [`packages/credentials/authorization/src/index.ts`](../packages/credentials/authorization/src/index.ts) |
@@ -5225,6 +5226,7 @@ export interface Config {
 | `@lyness/lyn-client-ui-settings-bots` | — | [`packages/client/ui-settings-bots/src/index.ts`](../packages/client/ui-settings-bots/src/index.ts) |
 | `@lyness/lyn-client-ui-settings-capabilities` | — | [`packages/client/ui-settings-capabilities/src/index.ts`](../packages/client/ui-settings-capabilities/src/index.ts) |
 | `@lyness/lyn-client-ui-settings-credits` | — | [`packages/client/ui-settings-credits/src/index.ts`](../packages/client/ui-settings-credits/src/index.ts) |
+| `@lyness/lyn-client-ui-settings-data` | — | [`packages/client/ui-settings-data/src/index.ts`](../packages/client/ui-settings-data/src/index.ts) |
 | `@lyness/lyn-client-ui-settings-general` | — | [`packages/client/ui-settings-general/src/index.ts`](../packages/client/ui-settings-general/src/index.ts) |
 | `@lyness/lyn-client-ui-settings-history` | — | [`packages/client/ui-settings-history/src/index.ts`](../packages/client/ui-settings-history/src/index.ts) |
 | `@lyness/lyn-client-ui-settings-instructions` | — | [`packages/client/ui-settings-instructions/src/index.ts`](../packages/client/ui-settings-instructions/src/index.ts) |
@@ -5293,6 +5295,7 @@ export interface Config {
 | `@lyness/lyn-sandbox-ssh` | `ssh` | [`packages/ssh/sandbox-ssh/src/index.ts`](../packages/ssh/sandbox-ssh/src/index.ts) |
 | `@lyness/lyn-session` | — | [`packages/core/session/src/index.ts`](../packages/core/session/src/index.ts) |
 | `@lyness/lyn-session-checkpoint-policy` | `llm` · `sessionPersistence` · `sessions` · `tools` | [`packages/session/session-checkpoint-policy/src/index.ts`](../packages/session/session-checkpoint-policy/src/index.ts) |
+| `@lyness/lyn-session-deletion` | `sessionPersistence` · `sessionQuery` | [`packages/session/session-deletion/src/index.ts`](../packages/session/session-deletion/src/index.ts) |
 | `@lyness/lyn-session-ownership` | `sessionProjections` · `sessions` · `requestPrincipal` | [`packages/identity/session-ownership/src/index.ts`](../packages/identity/session-ownership/src/index.ts) |
 | `@lyness/lyn-session-projection` | — | [`packages/session/session-projection/src/index.ts`](../packages/session/session-projection/src/index.ts) |
 | `@lyness/lyn-session-stats` | `sessionProjections` | [`packages/session/session-stats/src/index.ts`](../packages/session/session-stats/src/index.ts) |

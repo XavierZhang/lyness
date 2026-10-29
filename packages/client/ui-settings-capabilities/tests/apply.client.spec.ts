@@ -52,7 +52,7 @@ async function bench(
   )
   const fiber = ctx.plugin({ inject: [...inject], apply })
   await fiber.await()
-  return { ctx, slots, locale, declared, fiber }
+  return { ctx, slots, locale, declared, fiber, remote: events }
 }
 
 /** The store handle this section registered. */
@@ -66,6 +66,11 @@ function entryOf(slots: SlotRegistry) {
 }
 
 describe('ui-settings-capabilities apply', () => {
+  it('mounts the namespace it calls rather than relying on another plugin to', async () => {
+    const { remote } = await bench()
+    expect(remote.mounted).toHaveLength(1)
+  })
+
   it('registers last in the personal plane', async () => {
     const { slots } = await bench()
     expect(entryOf(slots).options).toMatchObject({ id: 'capabilities', order: 30 })

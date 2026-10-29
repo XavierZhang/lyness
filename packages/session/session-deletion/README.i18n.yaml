@@ -1,0 +1,43 @@
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write packages/session/session-deletion/README.md
+/:
+  en: 29d5f406bacdfd96
+  zh: 41b1940937865dca
+/lyness-lyn-session-deletion:
+  en: fd192e108d689651
+  zh: e939735a2af4e5f3
+/lyness-lyn-session-deletion/summary:
+  en: e422772ef8110858
+  zh: f27cd5f7f11366db
+/lyness-lyn-session-deletion/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 2bca79d7b98e8031
+/lyness-lyn-session-deletion/use-this-package:
+  en: 97f0fafb04e571fa
+  zh: a79bee769a508ef3
+/lyness-lyn-session-deletion/use-this-package/what-it-removes-and-what-it-does-not:
+  en: 00cb61382c657765
+  zh: 652d39b762bc9007
+/lyness-lyn-session-deletion/use-this-package/failures:
+  en: 25d9d292eeb030f2
+  zh: e2847c5514926590
+/lyness-lyn-session-deletion/understand-the-implementation:
+  en: 6035ec41759b039d
+  zh: 42054164fe4c788c
+/lyness-lyn-session-deletion/further-exploration:
+  en: 52ce970495160f5c
+  zh: 6254acfcf09b2c92
+/lyness-lyn-session-deletion/model-experience:
+  en: c7371ab389fc914e
+  zh: 40a0e6262ebe9cfb
+/lyness-lyn-session-deletion/model-experience/kv-cache-effect:
+  en: a98cefc45d9031bd
+  zh: 0e078051ac706ba6
+/lyness-lyn-session-deletion/known-limitations-and-deferred-work:
+  en: 415ff2c9b9de4abc
+  zh: 32ccd3c23b78e56f
+/lyness-lyn-session-deletion/known-limitations-and-deferred-work/dev-note:
+  en: 12bf08a0745557f3
+  zh: c8b72185ce577983

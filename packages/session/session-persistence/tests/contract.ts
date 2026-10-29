@@ -610,5 +610,111 @@ export function runPersistenceContract(name: string, make: () => Promise<Contrac
         await dispose()
       }
     })
+
+    it('delete removes a stored session; afterwards it reads as one that never existed', async () => {
+      const backend = await make()
+      try {
+        const m = meta('deleted', '/work')
+        const kept = meta('kept', '/work')
+        const writer = await backend.persistence.create(m)
+        await writer.append(oneTurnLog())
+        await writer.close()
+        const other = await backend.persistence.create(kept)
+        await other.append(oneTurnLog())
+        await other.close()
+
+        await backend.persistence.delete(m.id)
+
+        expect(await backend.persistence.stat(m.id)).toBeUndefined()
+        expect((await backend.persistence.list()).map(one => one.header.id)).toEqual([kept.id])
+        await expect(backend.persistence.open(m.id, 'read')).rejects.toThrow(SessionPersistenceNotFoundError)
+        // A deletion is permanent on the storage, not only in this instance.
+        if (backend.reopen !== undefined) {
+          const fresh = await backend.reopen()
+          try {
+            expect(await fresh.persistence.stat(m.id)).toBeUndefined()
+          } finally {
+            await fresh.dispose()
+          }
+        }
+      } finally {
+        await backend.dispose()
+      }
+    })
+
+    it('delete refuses a session that does not exist', async () => {
+      const { persistence, dispose } = await make()
+      try {
+        await expect(persistence.delete(SessionId('absent-delete')))
+          .rejects.toThrow(SessionPersistenceNotFoundError)
+      } finally {
+        await dispose()
+      }
+    })
+
+    it('delete refuses while a writer holds the session, and stores it still', async () => {
+      const { persistence, dispose } = await make()
+      try {
+        const m = meta('held', '/work')
+        const writer = await persistence.create(m)
+        await writer.append(oneTurnLog())
+
+        await expect(persistence.delete(m.id)).rejects.toThrow(SessionAlreadyOwnedError)
+        expect(await persistence.stat(m.id)).toBeDefined()
+
+        // The refusal releases whatever it claimed, so the deletion succeeds
+        // once the writer is gone.
+        await writer.close()
+        await persistence.delete(m.id)
+        expect(await persistence.stat(m.id)).toBeUndefined()
+      } finally {
+        await dispose()
+      }
+    })
+
+    it('delete refuses a created-but-unmaterialized session', async () => {
+      const { persistence, dispose } = await make()
+      try {
+        const m = meta('pending-delete', '/work')
+        const writer = await persistence.create(m)
+        await expect(persistence.delete(m.id)).rejects.toThrow(SessionAlreadyOwnedError)
+        await writer.close()
+      } finally {
+        await dispose()
+      }
+    })
+
+    it('a session id is a slot: the same id stores a new session after a deletion', async () => {
+      const { persistence, dispose } = await make()
+      try {
+        const m = meta('reused', '/work')
+        const first = await persistence.create(m)
+        await first.append(oneTurnLog())
+        await first.close()
+        await persistence.delete(m.id)
+
+        const second = await persistence.create(m)
+        await second.append(oneTurnLog())
+        const read = await second.read()
+        expect(read.events.map(event => event.seq)).toEqual(oneTurnLog().map(event => event.seq))
+        await second.close()
+      } finally {
+        await dispose()
+      }
+    })
+
+    it('delete observes an already aborted signal before removing anything', async () => {
+      const { persistence, dispose } = await make()
+      try {
+        const m = meta('cancelled-delete', '/work')
+        const writer = await persistence.create(m)
+        await writer.append(oneTurnLog())
+        await writer.close()
+        await expect(persistence.delete(m.id, { signal: AbortSignal.abort() })).rejects.toThrow()
+        expect(await persistence.stat(m.id)).toBeDefined()
+      } finally {
+        await dispose()
+      }
+    })
   })
 }

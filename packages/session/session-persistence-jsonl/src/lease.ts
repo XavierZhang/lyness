@@ -15,8 +15,10 @@
  * verifies the locked inode is still the file at the lock path and retries
  * otherwise: an unlinked-and-recreated lock file carries a fresh inode, and
  * a lock on the orphaned one proves nothing. Removing a live session's lock
- * file therefore forfeits exclusion on POSIX (nothing in the harness does
- * so); Windows has no lock file at all. Readers never touch the lock.
+ * file therefore forfeits exclusion on POSIX; the one place the harness
+ * removes it is `SessionPersistence.delete`, which holds this lock while it
+ * removes the directory, so no live locker can be the one it forfeits
+ * against. Windows has no lock file at all. Readers never touch the lock.
  * The lock is acquired at write-open of an existing artifact and, for a
  * created session, only right before its first materializing write — an
  * unmaterialized session has no filesystem footprint. Release never removes

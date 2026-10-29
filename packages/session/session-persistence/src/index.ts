@@ -115,6 +115,12 @@ export interface SessionPersistenceListOptions {
   readonly signal?: AbortSignal
 }
 
+/** Options for {@link SessionPersistence.delete}. */
+export interface SessionPersistenceDeleteOptions {
+  /** Optional cancellation observed before any byte is removed. */
+  readonly signal?: AbortSignal
+}
+
 declare module '@lyness/cordis' {
   interface Context {
     sessionPersistence: SessionPersistence
@@ -208,6 +214,35 @@ export abstract class SessionPersistence extends Service {
    * @returns one snapshot per stored session.
    */
   abstract list(options?: SessionPersistenceListOptions): Promise<readonly SessionPersistenceSnapshot[]>
+
+  /**
+   * Remove one stored session permanently, with every format generation of
+   * its log.
+   *
+   * This is the one operation that destroys released session data, so its
+   * guarantees are narrow and exact. It removes the named session alone: a
+   * sub-session is a stored session of its own, and a caller that means a
+   * whole conversation removes each member itself. Removal is not atomic
+   * across backends or across members; a failure part way through leaves
+   * every session it has not reached stored, so a caller retries rather than
+   * assuming either outcome. Afterwards the session reads as one that never
+   * existed: `stat` answers undefined, `list` omits it, and `open` throws
+   * {@link SessionPersistenceNotFoundError}. Nothing is recoverable, and no
+   * backend keeps a tombstone — an id is a slot, and a later session may
+   * take the same one.
+   *
+   * Derived stores are not this method's to clear. A search index, a
+   * projection cache or anything else folded out of the log is owned by its
+   * own service, which the caller tells.
+   * @param id - the stored session to remove.
+   * @param options - optional cancellation.
+   * @returns resolution once the session is gone from this backend.
+   * @throws {SessionPersistenceNotFoundError} when the session does not exist.
+   * @throws {SessionAlreadyOwnedError} while a writer holds the session, here
+   *   or in another process: a live conversation is removed after it ends,
+   *   never underneath itself.
+   */
+  abstract delete(id: SessionId, options?: SessionPersistenceDeleteOptions): Promise<void>
 }
 
 export default SessionPersistence

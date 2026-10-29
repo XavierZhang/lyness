@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "API des données de conversation",
+    "description": "Les conversations d’une personne : la suppression qu’elle peut demander, bornée à ce qu’elle peut voir."
+  }
+}

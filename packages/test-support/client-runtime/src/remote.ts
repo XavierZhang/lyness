@@ -32,6 +32,8 @@ export class TestRemote {
    */
   $host: { home: string | undefined; isLoopback: boolean } = { home: undefined, isLoopback: true }
 
+  private readonly contributions = new Map<symbol, unknown>()
+
   /**
    * Register the double as `ctx.remote`, plus one service per scripted
    * namespace so a plugin injecting `remote.<name>` also unparks.
@@ -56,7 +58,7 @@ export class TestRemote {
   private validateNamespaces(namespaces: Readonly<Record<string, object>>): void {
     for (const name of Object.keys(namespaces)) {
       // A namespace named after one of the double's own members would replace
-      // it, and `$mount`'s rejection is the contract a spec relies on.
+      // it, and a spec relies on every one of those members.
       if (name in this) {
         throw new TypeError(`TestRemote: scripted namespace "${name}" would shadow the double's own member`)
       }
@@ -94,10 +96,26 @@ export class TestRemote {
   }
 
   /**
-   * Generated-namespace mount, unsupported by this double.
-   * @returns never; always rejects.
+   * Accept one generated Remote contribution.
+   *
+   * Nothing is installed from it: this double's namespaces are scripted by
+   * its constructor, so a mount is only the record that a plugin asked for
+   * one. A spec reads {@link mounted} to assert that a page mounts the
+   * namespace it calls instead of relying on somebody else to.
+   * @param contribution - the generated contribution, kept verbatim.
+   * @returns the disposer, which withdraws that record.
    */
-  $mount(): Promise<() => Promise<void>> {
-    return Promise.reject(new Error('TestRemote: $mount needs the real Client Remote service'))
+  $mount(contribution: unknown): Promise<() => Promise<void>> {
+    const token = Symbol('TestRemote.$mount')
+    this.contributions.set(token, contribution)
+    return Promise.resolve(() => {
+      this.contributions.delete(token)
+      return Promise.resolve()
+    })
+  }
+
+  /** Generated Remote contributions mounted on this double, in mount order. */
+  get mounted(): readonly unknown[] {
+    return [...this.contributions.values()]
   }
 }

@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Eliminación de conversaciones",
+    "description": "Elimina una conversación: su registro almacenado, cada registro de subsesión bajo ella y las proyecciones en caché sobre ellos."
+  }
+}
