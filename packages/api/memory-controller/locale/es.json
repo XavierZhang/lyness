@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "API de memoria",
+    "description": "Lo que este despliegue recuerda de una persona, leído y eliminado solo por ella."
+  }
+}

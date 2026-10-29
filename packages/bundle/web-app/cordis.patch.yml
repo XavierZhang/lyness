@@ -379,6 +379,13 @@
     - id: ui-viewer
       name: '@lyness/lyn-client-ui-viewer'
 
+    # The personal plane's memory page: what this deployment remembers about
+    # the person reading it, and the removal they can ask for. The store is
+    # the memory module's; without that module the namespace answers nothing
+    # and the page says so.
+    - id: ui-settings-memory
+      name: '@lyness/lyn-client-ui-settings-memory'
+
     # The personal plane's instructions page: the person's own control over
     # what their agents are told, which nobody else sets for them.
     - id: ui-settings-instructions

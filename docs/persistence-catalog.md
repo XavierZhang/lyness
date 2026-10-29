@@ -1024,7 +1024,7 @@ Source: [`packages/core/session/src/types.ts:435`](../packages/core/session/src/
 'session/owner': SessionOwnerRecord
 ```
 
-Source: [`packages/identity/session-ownership/src/index.ts:44`](../packages/identity/session-ownership/src/index.ts)
+Source: [`packages/identity/session-ownership/src/index.ts:43`](../packages/identity/session-ownership/src/index.ts)
 
 <a id="sessiontitle--log-only"></a>
 

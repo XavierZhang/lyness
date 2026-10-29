@@ -27,6 +27,10 @@
     "./visibility": {
       "types": "./lib/types/visibility.d.ts",
       "default": "./lib/types/visibility.js"
+    },
+    "./projection": {
+      "types": "./lib/types/projection.d.ts",
+      "default": "./lib/types/projection.js"
     }
   },
   "files": [

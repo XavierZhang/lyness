@@ -12,3 +12,10 @@
 
     - id: memory-preset-contribution
       name: '@lyness/lyn-memory/preset-contribution'
+
+    # The Remote namespace a person reads their own memories through. It
+    # mounts with the store rather than with the GUI, because without the
+    # store there is nothing to serve; the Settings page injects the namespace
+    # and therefore appears only where this module is selected.
+    - id: memory-controller
+      name: '@lyness/lyn-api-memory-controller'

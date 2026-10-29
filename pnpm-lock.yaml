@@ -1637,6 +1637,69 @@ importers:
         specifier: workspace:*
         version: link:../../typert/registry
 
+  packages/api/memory-controller:
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+      '@lyness/cordis-plugin-include':
+        specifier: workspace:~
+        version: link:../../../vendor/include
+      '@lyness/cordis-plugin-loader':
+        specifier: workspace:~
+        version: link:../../../vendor/loader
+      '@lyness/lyn-agent':
+        specifier: workspace:*
+        version: link:../../core/agent
+      '@lyness/lyn-agent-loop':
+        specifier: workspace:*
+        version: link:../../core/agent-loop
+      '@lyness/lyn-auth-session':
+        specifier: workspace:*
+        version: link:../../identity/auth-session
+      '@lyness/lyn-brand':
+        specifier: workspace:*
+        version: link:../../util/brand
+      '@lyness/lyn-llm':
+        specifier: workspace:*
+        version: link:../../llm/llm
+      '@lyness/lyn-memory':
+        specifier: workspace:*
+        version: link:../../memory/memory
+      '@lyness/lyn-people':
+        specifier: workspace:*
+        version: link:../../identity/people
+      '@lyness/lyn-request-principal':
+        specifier: workspace:*
+        version: link:../../identity/request-principal
+      '@lyness/lyn-session':
+        specifier: workspace:*
+        version: link:../../core/session
+      '@lyness/lyn-session-projection':
+        specifier: workspace:*
+        version: link:../../session/session-projection
+      '@lyness/lyn-storage':
+        specifier: workspace:*
+        version: link:../../storage/storage
+      '@lyness/lyn-storage-domain':
+        specifier: workspace:*
+        version: link:../../storage/storage-domain
+      '@lyness/lyn-storage-json':
+        specifier: workspace:*
+        version: link:../../storage/storage-json
+      '@lyness/lyn-system-prompt':
+        specifier: workspace:*
+        version: link:../../core/system-prompt
+      '@lyness/lyn-tool-executor-native':
+        specifier: workspace:*
+        version: link:../../core/tool-executor-native
+      '@lyness/lyn-tools':
+        specifier: workspace:*
+        version: link:../../core/tools
+      '@lyness/lyn-typert-protocol':
+        specifier: workspace:*
+        version: link:../../typert/protocol
+
   packages/api/people-controller:
     devDependencies:
       '@lyness/cordis':
@@ -3380,6 +3443,9 @@ importers:
 
   packages/bundle/module-memory:
     dependencies:
+      '@lyness/lyn-api-memory-controller':
+        specifier: workspace:*
+        version: link:../../api/memory-controller
       '@lyness/lyn-memory':
         specifier: workspace:*
         version: link:../../memory/memory
@@ -3813,6 +3879,9 @@ importers:
       '@lyness/lyn-client-ui-settings-instructions':
         specifier: workspace:*
         version: link:../../client/ui-settings-instructions
+      '@lyness/lyn-client-ui-settings-memory':
+        specifier: workspace:*
+        version: link:../../client/ui-settings-memory
       '@lyness/lyn-client-ui-settings-models':
         specifier: workspace:*
         version: link:../../client/ui-settings-models
@@ -6596,6 +6665,45 @@ importers:
       '@lyness/lyn-api-personal-instructions-controller':
         specifier: workspace:*
         version: link:../../api/personal-instructions-controller
+      '@lyness/lyn-api-remotes':
+        specifier: workspace:*
+        version: link:../../api/remotes
+      '@lyness/lyn-client-locale':
+        specifier: workspace:*
+        version: link:../locale
+      '@lyness/lyn-client-store':
+        specifier: workspace:*
+        version: link:../store
+      '@lyness/lyn-client-test-runtime':
+        specifier: workspace:*
+        version: link:../../test-support/client-runtime
+      '@lyness/lyn-client-ui-primitives':
+        specifier: workspace:*
+        version: link:../ui-primitives
+      '@lyness/lyn-client-ui-renderer':
+        specifier: workspace:*
+        version: link:../ui-renderer
+      '@lyness/lyn-client-ui-settings':
+        specifier: workspace:*
+        version: link:../ui-settings
+      '@lyness/lyn-client-ui-slots':
+        specifier: workspace:*
+        version: link:../ui-slots
+      '@lyness/lyn-typert-protocol':
+        specifier: workspace:*
+        version: link:../../typert/protocol
+      react:
+        specifier: ^18.2.0
+        version: 18.3.1
+
+  packages/client/ui-settings-memory:
+    devDependencies:
+      '@lyness/cordis':
+        specifier: workspace:~
+        version: link:../../../vendor/cordis
+      '@lyness/lyn-api-memory-controller':
+        specifier: workspace:*
+        version: link:../../api/memory-controller
       '@lyness/lyn-api-remotes':
         specifier: workspace:*
         version: link:../../api/remotes
@@ -14376,12 +14484,24 @@ importers:
       '@lyness/cordis':
         specifier: workspace:~
         version: link:../../../vendor/cordis
+      '@lyness/lyn-agent':
+        specifier: workspace:*
+        version: link:../../core/agent
       '@lyness/lyn-agent-preset-registry':
         specifier: workspace:*
         version: link:../../preset/agent-preset-registry
       '@lyness/lyn-brand':
         specifier: workspace:*
         version: link:../../util/brand
+      '@lyness/lyn-people':
+        specifier: workspace:*
+        version: link:../../identity/people
+      '@lyness/lyn-session-ownership':
+        specifier: workspace:*
+        version: link:../../identity/session-ownership
+      '@lyness/lyn-session-projection':
+        specifier: workspace:*
+        version: link:../../session/session-projection
       '@lyness/lyn-storage':
         specifier: workspace:*
         version: link:../../storage/storage
@@ -14394,6 +14514,9 @@ importers:
       '@lyness/lyn-system-prompt':
         specifier: workspace:*
         version: link:../../core/system-prompt
+      '@lyness/lyn-tool-executor-native':
+        specifier: workspace:*
+        version: link:../../core/tool-executor-native
       '@lyness/lyn-tools':
         specifier: workspace:*
         version: link:../../core/tools

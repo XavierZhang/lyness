@@ -1026,7 +1026,7 @@ export type SessionEvent<T extends SessionEventType = SessionEventType> = {
 'session/owner': SessionOwnerRecord
 ```
 
-来源：[`packages/identity/session-ownership/src/index.ts:44`](../packages/identity/session-ownership/src/index.ts)
+来源：[`packages/identity/session-ownership/src/index.ts:43`](../packages/identity/session-ownership/src/index.ts)
 
 <a id="sessiontitle--log-only"></a>
 

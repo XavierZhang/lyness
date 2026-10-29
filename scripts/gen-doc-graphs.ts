@@ -1125,6 +1125,15 @@ const SERVICE_ROLES: ServiceRole[] = [
     note: 'Projects the instructions store onto the generated Remote namespace for the person who owns it: whose record a call acts on is derived from the published principal rather than taken as a parameter, so no caller can name another record.',
   },
   {
+    key: 'memoryController',
+    pkg: 'api-memory-controller',
+    title: 'Host memory Remote controller',
+    mode: 'core',
+    implementations: [],
+    consumers: [],
+    note: 'Projects one person own memories onto the generated Remote namespace: the owner is derived from the published principal, a removal is checked against that owner by the store, and the deployment shared entries are not served because they are nobody own to review.',
+  },
+  {
     key: 'creditsController',
     pkg: 'api-credits-controller',
     title: 'Host credits Remote controller',

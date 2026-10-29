@@ -22,6 +22,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@lyness/lyn-api-gateway` | yes | Typert Remote Host dispatcher and Client API endpoint |
 | `@lyness/lyn-api-identity-controller` | no | Who the caller is, and what this deployment would let them sign in with |
 | `@lyness/lyn-api-job-controller` | yes | Job Remote observation stream and the reference-counted client job-output service |
+| `@lyness/lyn-api-memory-controller` | no | What this deployment remembers about one person, read and removed by that person alone |
 | `@lyness/lyn-api-people-controller` | no | Remote owner of the people surface: administrators maintain who may use a deployment and which directory identity each of them is |
 | `@lyness/lyn-api-personal-instructions-controller` | no | What one person told their own agents, read and written by that person alone |
 | `@lyness/lyn-api-remote-access` | no | Method-level Remote access control for non-owner Peers and the per-Peer access snapshot |
@@ -119,6 +120,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@lyness/lyn-client-ui-settings-general` | no | Settings ownerless-copy and product onboarding plugin: the General section, shell trigger/header chrome content, settings dictionaries, and the versioned welcome notice |
 | `@lyness/lyn-client-ui-settings-history` | no | The history section in Settings: what administrators changed, who changed it, and what the change replaced |
 | `@lyness/lyn-client-ui-settings-instructions` | no | The instructions section in Settings: what a person tells their own agents |
+| `@lyness/lyn-client-ui-settings-memory` | no | The memory section in Settings: what a deployment remembers about one person |
 | `@lyness/lyn-client-ui-settings-models` | yes | Models settings and shared product-onboarding dialogs over existing settings and credential joins |
 | `@lyness/lyn-client-ui-settings-people` | no | The people section in Settings: who may use a deployment and which directory identity each of them is, maintained at runtime |
 | `@lyness/lyn-client-ui-settings-plugin-inventory` | no | Read-only Cordis Loader inventory tab in Web Plugins settings |

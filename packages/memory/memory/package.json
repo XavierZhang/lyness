@@ -37,8 +37,12 @@
   "license": "MIT",
   "peerDependencies": {
     "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-agent": "workspace:*",
     "@lyness/lyn-agent-preset-registry": "workspace:*",
     "@lyness/lyn-brand": "workspace:*",
+    "@lyness/lyn-people": "workspace:*",
+    "@lyness/lyn-session-ownership": "workspace:*",
+    "@lyness/lyn-session-projection": "workspace:*",
     "@lyness/lyn-storage-domain": "workspace:*",
     "@lyness/lyn-system-prompt": "workspace:*",
     "@lyness/lyn-tools": "workspace:*",
@@ -50,12 +54,17 @@
   },
   "devDependencies": {
     "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-agent": "workspace:*",
     "@lyness/lyn-agent-preset-registry": "workspace:*",
     "@lyness/lyn-brand": "workspace:*",
+    "@lyness/lyn-people": "workspace:*",
+    "@lyness/lyn-session-ownership": "workspace:*",
+    "@lyness/lyn-session-projection": "workspace:*",
     "@lyness/lyn-storage": "workspace:*",
     "@lyness/lyn-storage-domain": "workspace:*",
     "@lyness/lyn-storage-json": "workspace:*",
     "@lyness/lyn-system-prompt": "workspace:*",
+    "@lyness/lyn-tool-executor-native": "workspace:*",
     "@lyness/lyn-tools": "workspace:*",
     "@lyness/lyn-util-crypto": "workspace:*"
   }

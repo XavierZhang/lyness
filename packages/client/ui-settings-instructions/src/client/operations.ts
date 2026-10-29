@@ -10,7 +10,7 @@
  */
 
 import type { Context } from '@lyness/cordis'
-import { createSharedRead, messageOf } from '@lyness/lyn-client-store'
+import { createOutcomeRead, messageOf } from '@lyness/lyn-client-store'
 import type { RemoteFailure } from '@lyness/lyn-typert-protocol'
 import type {} from '@lyness/lyn-api-remotes/client'
 import type {} from '@lyness/lyn-api-personal-instructions-controller/remote'
@@ -83,17 +83,10 @@ export function createInstructionsOperations(
   calls: InstructionsCalls,
   sink: InstructionsSink,
 ): InstructionsOperations {
-  const shared = createSharedRead(async () => {
-    sink.begin()
-    try {
-      const result = await calls.describe()
-      if (!result.ok) { sink.fail(); return }
-      sink.succeed(result.value)
-    } catch {
-      // The reason belongs to the transport, and a reader can only retry.
-      sink.fail()
-    }
-  }, () => { sink.reset() })
+  // The shared read's own helper: a refused call and a thrown one come out
+  // the same, because a reader who can only retry has nothing to do with the
+  // difference.
+  const shared = createOutcomeRead(calls.describe, sink)
 
   return {
     load: shared.load,

@@ -2475,8 +2475,8 @@ export interface ReconnectConfig {
 
 ## `@lyness/lyn-memory`
 
-- `inject`: `storageDomain` · `systemPrompt`
-- `source`: [`packages/memory/memory/src/index.ts:78`](../packages/memory/memory/src/index.ts)
+- `inject`: `agents` · `sessionProjections` · `storageDomain` · `systemPrompt`
+- `source`: [`packages/memory/memory/src/index.ts:87`](../packages/memory/memory/src/index.ts)
 
 ```ts config-catalog
 /** Deployment-owned retention and prompt placement. Invalid values fail plugin load. */
@@ -5169,6 +5169,7 @@ export interface Config {
 | `@lyness/lyn-api-bots-controller` | — | [`packages/api/bots-controller/src/index.ts`](../packages/api/bots-controller/src/index.ts) |
 | `@lyness/lyn-api-credits-controller` | — | [`packages/api/credits-controller/src/index.ts`](../packages/api/credits-controller/src/index.ts) |
 | `@lyness/lyn-api-identity-controller` | — | [`packages/api/identity-controller/src/index.ts`](../packages/api/identity-controller/src/index.ts) |
+| `@lyness/lyn-api-memory-controller` | `memory` | [`packages/api/memory-controller/src/index.ts`](../packages/api/memory-controller/src/index.ts) |
 | `@lyness/lyn-api-people-controller` | — | [`packages/api/people-controller/src/index.ts`](../packages/api/people-controller/src/index.ts) |
 | `@lyness/lyn-api-personal-instructions-controller` | `personalInstructions` | [`packages/api/personal-instructions-controller/src/index.ts`](../packages/api/personal-instructions-controller/src/index.ts) |
 | `@lyness/lyn-api-remote-access` | — | [`packages/api/remote-access/src/index.ts`](../packages/api/remote-access/src/index.ts) |
@@ -5225,6 +5226,7 @@ export interface Config {
 | `@lyness/lyn-client-ui-settings-general` | — | [`packages/client/ui-settings-general/src/index.ts`](../packages/client/ui-settings-general/src/index.ts) |
 | `@lyness/lyn-client-ui-settings-history` | — | [`packages/client/ui-settings-history/src/index.ts`](../packages/client/ui-settings-history/src/index.ts) |
 | `@lyness/lyn-client-ui-settings-instructions` | — | [`packages/client/ui-settings-instructions/src/index.ts`](../packages/client/ui-settings-instructions/src/index.ts) |
+| `@lyness/lyn-client-ui-settings-memory` | — | [`packages/client/ui-settings-memory/src/index.ts`](../packages/client/ui-settings-memory/src/index.ts) |
 | `@lyness/lyn-client-ui-settings-people` | — | [`packages/client/ui-settings-people/src/index.ts`](../packages/client/ui-settings-people/src/index.ts) |
 | `@lyness/lyn-client-ui-settings-plugin-inventory` | — | [`packages/client/ui-settings-plugin-inventory/src/index.ts`](../packages/client/ui-settings-plugin-inventory/src/index.ts) |
 | `@lyness/lyn-client-ui-settings-plugins` | — | [`packages/client/ui-settings-plugins/src/index.ts`](../packages/client/ui-settings-plugins/src/index.ts) |

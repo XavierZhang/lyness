@@ -2295,15 +2295,47 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
       },
       {
         signature: 'async list(): Promise<readonly MemoryRecord[]>',
-        description: 'Read every kept fact, oldest first.',
+        description: 'Read every fact this reader may see, oldest first.\n\nWhat the current conversation\'s agent may see, which is the deployment\'s shared entries plus its own person\'s. The model-facing `memory_list` is the caller this matters for: it must report exactly the facts the prompt already carries, or an agent would be told about a fact it cannot act on.',
         parameters: [],
-        returns: 'the stored records in write order.',
+        returns: 'the visible records in write order.',
+      },
+      {
+        signature: 'async listOwnedBy(owner: MemoryOwnerId): Promise<readonly MemoryRecord[]>',
+        description: 'Read one person\'s own facts, oldest first.\n\nSeparate from list because the caller is different: a person reading their own page is not inside a conversation, and the shared entries are not theirs to review here.',
+        parameters: [{ name: 'owner', description: 'whose entries to read.' }],
+        returns: 'that owner\'s records in write order.',
+      },
+      {
+        signature: 'async forgetOwnedBy(owner: MemoryOwnerId, id: MemoryId): Promise<boolean>',
+        description: 'Remove one of a person\'s own facts.\n\nThe owner is a parameter here and the id is checked against it, so a caller holding somebody else\'s id removes nothing.',
+        parameters: [{ name: 'owner', description: 'whose entry is being removed.' }, { name: 'id', description: 'the entry\'s identity.' }],
+        returns: 'true when that owner held an entry with that id.',
       },
       {
         signature: 'async forget(id: MemoryId): Promise<boolean>',
         description: 'Remove one kept fact.',
         parameters: [{ name: 'id', description: 'the record\'s identity.' }],
         returns: 'true when an entry was removed, false when none carried that id.',
+      },
+    ],
+  },
+  {
+    key: 'memoryController',
+    summary: 'Host service backing the generated `ctx.remote.memories` namespace.',
+    description: 'Host service backing the generated `ctx.remote.memories` namespace.',
+    methods: [
+      {
+        signature: '@Remote async list(): Promise<MemoriesView>',
+        description: 'Read what is remembered about this caller.',
+        parameters: [],
+        returns: 'their own entries, oldest first.',
+      },
+      {
+        signature: '@Remote async forget(id: string): Promise<MemoriesView>',
+        description: 'Remove one of this caller\'s own memories.',
+        parameters: [{ name: 'id', description: 'the entry\'s identity, as a read reported it.' }],
+        returns: 'what remains after the removal.',
+        throws: ['{Error} when the call speaks for nobody.'],
       },
     ],
   },
@@ -7808,16 +7840,28 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export type MembershipId = Branded<\'MembershipId\'>;',
   },
   {
+    name: 'MemoriesView',
+    declaration: 'export interface MemoriesView {\n    readonly owned: boolean;\n    readonly entries: readonly MemoryEntryView[];\n}',
+  },
+  {
     name: 'MemoryEntry',
     declaration: 'export interface MemoryEntry {\n    readonly text: string;\n    readonly scope: MemoryScope;\n    readonly writtenAt: string;\n}',
+  },
+  {
+    name: 'MemoryEntryView',
+    declaration: 'export interface MemoryEntryView {\n    readonly id: string;\n    readonly text: string;\n    readonly writtenAt: string;\n}',
   },
   {
     name: 'MemoryId',
     declaration: 'export type MemoryId = Branded<\'MemoryId\'>;',
   },
   {
+    name: 'MemoryOwnerId',
+    declaration: 'export type MemoryOwnerId = Branded<\'MemoryOwnerId\'>;',
+  },
+  {
     name: 'MemoryRecord',
-    declaration: 'export interface MemoryRecord extends MemoryEntry {\n    readonly id: MemoryId;\n}',
+    declaration: 'export interface MemoryRecord extends MemoryEntry {\n    readonly id: MemoryId;\n    readonly owner?: MemoryOwnerId | undefined;\n}',
   },
   {
     name: 'MemoryScope',

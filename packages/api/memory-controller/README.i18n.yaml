@@ -1,0 +1,37 @@
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write packages/api/memory-controller/README.md
+/:
+  en: 7b766aed94f6adff
+  zh: 672ac6e29536bda9
+/lyness-lyn-api-memory-controller:
+  en: 26cfde2f9e5b7f0d
+  zh: f2a6972e83968f47
+/lyness-lyn-api-memory-controller/summary:
+  en: 12526da7dcbb3e26
+  zh: b697ff398bab7f2d
+/lyness-lyn-api-memory-controller/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 2bca79d7b98e8031
+/lyness-lyn-api-memory-controller/use-this-package:
+  en: 5ec3c75d4397dd52
+  zh: c4ab58ca251462a7
+/lyness-lyn-api-memory-controller/understand-the-implementation:
+  en: c35bcf555e9d46b0
+  zh: 6afe1a0700f72ac5
+/lyness-lyn-api-memory-controller/further-exploration:
+  en: 179bf9078e89fff8
+  zh: 8d55fd583e735e78
+/lyness-lyn-api-memory-controller/model-experience:
+  en: 98749d7230f5b47b
+  zh: 00cbe9aa16a663b2
+/lyness-lyn-api-memory-controller/model-experience/kv-cache-effect:
+  en: e5e714ba9949f854
+  zh: 2925a0c75f36e736
+/lyness-lyn-api-memory-controller/known-limitations-and-deferred-work:
+  en: 475bfcfc1d41ba58
+  zh: 341c85f3c67d0fcf
+/lyness-lyn-api-memory-controller/known-limitations-and-deferred-work/dev-note:
+  en: 561582d2ad2ea8fb
+  zh: 89f289138014b6e3

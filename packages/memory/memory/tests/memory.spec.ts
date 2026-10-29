@@ -12,6 +12,9 @@ import * as StorageDomain from '@lyness/lyn-storage-domain'
 import * as StorageJson from '@lyness/lyn-storage-json'
 import SystemPrompt, { renderContextSnapshot, renderPrompt } from '@lyness/lyn-system-prompt'
 import Tools from '@lyness/lyn-tools'
+import * as NativeToolExecutor from '@lyness/lyn-tool-executor-native'
+import AgentRegistry from '@lyness/lyn-agent'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 import { brandString } from '@lyness/lyn-brand'
 import { afterEach, describe, expect, it } from 'vitest'
 import MemoryService, { MEMORY_CONTEXT_NAME, renderEntries, resolveConfig } from '../src/index.ts'
@@ -41,6 +44,12 @@ async function boot(root: string, config: { maxEntries?: number } = {}): Promise
   await ctx.plugin(StorageDomain, { backend: 'json' })
   await ctx.plugin(SystemPrompt).await()
   await ctx.plugin(Tools).await()
+  // A memory now belongs to a person, and whose conversation one session is
+  // comes from its ownership projection, so the registries the service reads
+  // have to be there for it to mount.
+  await ctx.plugin(NativeToolExecutor)
+  await ctx.plugin(SessionProjectionRegistry)
+  await ctx.plugin(AgentRegistry)
   await ctx.plugin(MemoryService, config).await()
   return ctx
 }
@@ -132,7 +141,7 @@ describe('the memory service', () => {
     await second.fiber.dispose()
   })
 
-  it('fails loudly on a corrupt store instead of reading it as empty', async () => {
+  it('refuses to mount on a corrupt store instead of reading it as empty', async () => {
     const root = mkdtempSync(join(tmpdir(), 'lyn-memory-corrupt-'))
     roots.push(root)
     // A blank text is exactly what a silent read would turn into "no memories".
@@ -147,11 +156,12 @@ describe('the memory service', () => {
     await ctx.plugin(StorageJson, { root })
     await ctx.plugin(StorageDomain, { backend: 'json' })
     await ctx.plugin(SystemPrompt).await()
-    await ctx.plugin(MemoryService, {}).await()
-    await expect(memoryOf(ctx).list()).rejects.toThrow()
-    // A write over the same corrupt store settles the serialisation chain
-    // through its rejection path instead of leaving it pending at teardown.
-    await expect(memoryOf(ctx).remember('ignored')).rejects.toThrow()
+    await ctx.plugin(SessionProjectionRegistry)
+    await ctx.plugin(AgentRegistry)
+    // The service finishes mounting only once the store is open, so a corrupt
+    // store is reported where a deployment sees it rather than on whichever
+    // read happens to come first.
+    await expect(ctx.plugin(MemoryService, {}).await()).rejects.toThrow()
     await ctx.fiber.dispose()
   })
 })

@@ -39,6 +39,7 @@
     "@lyness/cordis": "workspace:~"
   },
   "dependencies": {
+    "@lyness/lyn-api-memory-controller": "workspace:*",
     "@lyness/lyn-memory": "workspace:*"
   },
   "devDependencies": {

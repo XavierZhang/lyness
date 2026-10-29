@@ -47,9 +47,11 @@ Mount the service entry on the Host plane when the agent should start a session 
 
 | Member | Contract |
 |---|---|
-| `remember(text, scope?, supersedes?)` | Store one fact. Trims the text; rejects a blank one and one longer than `MAX_ENTRY_CHARS`. `scope` is `member` (default) or `shared`. `supersedes` removes the entry it names in the same durable write, so a changed convention leaves one answer rather than two; an id already gone is not an error. Returns the stored record with its new id. |
-| `list()` | Every stored record, oldest first. |
-| `forget(id)` | Remove one record; `true` when one was removed, `false` when no record carried that id. |
+| `remember(text, scope?, supersedes?)` | Store one fact. Trims the text; rejects a blank one and one longer than `MAX_ENTRY_CHARS`. `scope` is `member` (default) or `shared`; a `member` write belongs to the person whose conversation asked for it, and a conversation with no owner writes the shared table. `supersedes` removes the entry it names in the same durable write, so a changed convention leaves one answer rather than two; an id already gone is not an error. Returns the stored record with its new id. |
+| `list()` | Every record the current conversation may see, oldest first: the deployment's shared entries plus its own person's. |
+| `forget(id)` | Remove one record the current conversation may see; `true` when one was removed, `false` when it may see none with that id. |
+| `listOwnedBy(owner)` | One person's own records, oldest first. The personal page's read; shared entries are not theirs to review there. |
+| `forgetOwnedBy(owner, id)` | Remove one of that owner's own records; an id belonging to anybody else removes nothing. |
 
 Durable mutations run one at a time, so two concurrent writes cannot interleave their retention passes.
 
@@ -125,8 +127,9 @@ The block sits in the system prompt, so a write changes the reusable request pre
 
 These limits define when this package is a poor fit or needs special care. They are current package constraints, not a task backlog.
 
-- **One store per deployment** — entries carry a `scope` field, but nothing here resolves a person: a deployment serving several people shares one memory. Membership scoping arrives with the acting-context work and reads the existing `scope` without a stored-format change.
-- **No human surface** — only host code and the tools read or remove entries. An organization cannot yet review what is held from the product's own settings.
+- **Entries written before owners were recorded stay shared** — they are in the shared table, so every reader keeps seeing them, which is what they have always been. They belong to nobody's page, and only an agent's `memory_forget` reaches them.
+- **A shared entry is removable from any conversation** — `memory_forget` takes any entry its caller can see, and that includes the deployment's shared ones. A deployment that needs those protected needs a permission preset, not a scope.
+- **An organization still has no review surface** — a person reviews their own; nothing lists the deployment's shared entries for an administrator.
 - **Retention is a count, not a relevance judgement** — the oldest entry is dropped even when it is the most useful one.
 - **Written facts are never re-validated** — a convention that stops being true stays in every request until someone removes it.
 

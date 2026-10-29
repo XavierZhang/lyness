@@ -15,17 +15,16 @@
  */
 
 import type { Context } from '@lyness/cordis'
-import * as zod from 'zod'
 import type { Session } from '@lyness/lyn-session'
-import type { ProjectionDefinition, ProjectionHandle } from '@lyness/lyn-session-projection'
+import type { ProjectionHandle } from '@lyness/lyn-session-projection'
 import type {} from '@lyness/lyn-request-principal'
-import { storedId, storedInstant } from '@lyness/lyn-storage-domain'
-import type { MembershipId, PersonId } from '@lyness/lyn-people'
+import { ownerProjectionDefinition } from './projection.ts'
 import { SESSION_OWNER_RECORD_VERSION } from './types.ts'
 import type { SessionOwnerRecord } from './types.ts'
 
 export type { SessionOwnerRecord } from './types.ts'
 export { SESSION_OWNER_RECORD_VERSION } from './types.ts'
+export { applyOwnerEvent, ownerProjectionDefinition, ownerRecordSchema } from './projection.ts'
 
 declare module '@lyness/lyn-session/types' {
   interface SessionEventMap {
@@ -52,26 +51,6 @@ declare module '@lyness/lyn-session-projection/types' {
   }
 }
 
-const recordSchema: zod.ZodType<SessionOwnerRecord | null> = zod.object({
-  version: zod.number(),
-  owner: storedId<PersonId>(),
-  membership: storedId<MembershipId>().optional(),
-  openedAt: storedInstant(),
-}).strict().nullable()
-
-/**
- * Fold the ownership event into the session's state.
- * @param state - the state so far.
- * @param event - one session event.
- * @returns the record once it has been written, otherwise the state unchanged.
- */
-export function applyOwnerEvent(
-  state: SessionOwnerRecord | null,
-  event: { type: string; data: unknown },
-): SessionOwnerRecord | null {
-  return event.type === 'session/owner' ? event.data as SessionOwnerRecord : state
-}
-
 /** Stable Cordis plugin name. */
 export const name = 'session-ownership'
 
@@ -82,15 +61,6 @@ export const inject = ['sessionProjections', 'sessions', 'requestPrincipal']
  * Stamp every session with the person who opened it.
  * @param ctx - plugin context carrying the sessions, the projection registry, and the principal.
  */
-/** Whose conversation a session is, folded from its own log. */
-export const ownerProjectionDefinition = {
-  key: 'owner',
-  stateVersion: 1,
-  stateSchema: recordSchema,
-  init: () => null,
-  apply: applyOwnerEvent,
-} satisfies ProjectionDefinition<'owner', SessionOwnerRecord | null>
-
 export async function apply(ctx: Context): Promise<void> {
   const owner = await ctx.sessionProjections.register(ownerProjectionDefinition)
 

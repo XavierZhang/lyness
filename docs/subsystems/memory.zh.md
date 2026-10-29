@@ -78,10 +78,37 @@ Durable memory with an explicit write path and a prompt contribution.
 async remember(text: string, scope: MemoryScope = 'member', supersedes?: MemoryId): Promise<MemoryRecord>
 
 /**
- * Read every kept fact, oldest first.
- * @returns the stored records in write order.
+ * Read every fact this reader may see, oldest first.
+ *
+ * What the current conversation's agent may see, which is the deployment's
+ * shared entries plus its own person's. The model-facing `memory_list` is
+ * the caller this matters for: it must report exactly the facts the prompt
+ * already carries, or an agent would be told about a fact it cannot act on.
+ * @returns the visible records in write order.
  */
 async list(): Promise<readonly MemoryRecord[]>
+
+/**
+ * Read one person's own facts, oldest first.
+ *
+ * Separate from {@link list} because the caller is different: a person
+ * reading their own page is not inside a conversation, and the shared
+ * entries are not theirs to review here.
+ * @param owner - whose entries to read.
+ * @returns that owner's records in write order.
+ */
+async listOwnedBy(owner: MemoryOwnerId): Promise<readonly MemoryRecord[]>
+
+/**
+ * Remove one of a person's own facts.
+ *
+ * The owner is a parameter here and the id is checked against it, so a
+ * caller holding somebody else's id removes nothing.
+ * @param owner - whose entry is being removed.
+ * @param id - the entry's identity.
+ * @returns true when that owner held an entry with that id.
+ */
+async forgetOwnedBy(owner: MemoryOwnerId, id: MemoryId): Promise<boolean>
 
 /**
  * Remove one kept fact.
@@ -92,4 +119,28 @@ async forget(id: MemoryId): Promise<boolean>
 ```
 
 Source: [`packages/memory/memory/src/index.ts`](../../packages/memory/memory/src/index.ts)
+
+<a id="ctxmemorycontroller--memorycontroller"></a>
+
+### `ctx.memoryController` — `MemoryController`
+
+Host service backing the generated `ctx.remote.memories` namespace.
+
+```ts cordis-catalog
+/**
+ * Read what is remembered about this caller.
+ * @returns their own entries, oldest first.
+ */
+@Remote async list(): Promise<MemoriesView>
+
+/**
+ * Remove one of this caller's own memories.
+ * @param id - the entry's identity, as a read reported it.
+ * @returns what remains after the removal.
+ * @throws {Error} when the call speaks for nobody.
+ */
+@Remote async forget(id: string): Promise<MemoriesView>
+```
+
+Source: [`packages/api/memory-controller/src/index.ts`](../../packages/api/memory-controller/src/index.ts)
 <!-- END GENERATED cordis-surface -->
