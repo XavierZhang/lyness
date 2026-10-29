@@ -634,6 +634,27 @@ The full presentation field docs live in [`packages/core/tools/src/presentation.
 
 Generated from source by `scripts/gen-cordis-catalog.ts` (verified fresh by `pnpm run verify-cordis-catalog` in doc-sync; regenerate with `pnpm run gen-cordis-catalog`) — the language sides differ only in locale-specific paired document paths. Signature blocks use a `ts cordis-catalog` fence and keep the original source JSDoc; dispatch modes are defined in the [primer](../cordis-primer.md#dispatch-modes), and the framework-inherited `ctx` API lives in [cordis-api/inherited.md](../cordis-api/inherited.md).
 
+<a id="ctxagentcapabilitiescontroller--agentcapabilitiescontroller"></a>
+
+### `ctx.agentCapabilitiesController` — `AgentCapabilitiesController`
+
+Host service backing the generated `ctx.remote.agentCapabilities` namespace.
+
+```ts cordis-catalog
+/**
+ * Describe what this reader's agents may use.
+ *
+ * The preset's own scope is acquired for the read and released after it, so
+ * what is reported is the view an agent of that preset would see rather
+ * than the deployment's bare registrations. A deployment that mounts no
+ * preset registry reports the deployment view, which is the only one it has.
+ * @returns the tools, connections and skills available, each naming who gave it.
+ */
+@Remote async describe(): Promise<AgentCapabilitiesView>
+```
+
+Source: [`packages/api/agent-capabilities-controller/src/index.ts`](../../packages/api/agent-capabilities-controller/src/index.ts)
+
 <a id="ctxtools--toolsservice"></a>
 
 ### `ctx.tools` — `ToolsService`

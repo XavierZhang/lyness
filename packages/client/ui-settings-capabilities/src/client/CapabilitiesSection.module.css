@@ -1,0 +1,84 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lyn-space-5);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lyn-space-1);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--lyn-font-size-lg);
+  font-weight: var(--lyn-font-weight-medium);
+}
+
+.intro {
+  margin: 0;
+  color: var(--lyn-color-text-secondary);
+  font-size: var(--lyn-font-size-sm);
+}
+
+.notice {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--lyn-space-2);
+  margin: 0;
+  color: var(--lyn-color-text-secondary);
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lyn-space-3);
+}
+
+.blockHeading {
+  margin: 0;
+  font-size: var(--lyn-font-size-md);
+  font-weight: var(--lyn-font-weight-medium);
+}
+
+.rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lyn-space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--lyn-space-2);
+  padding: var(--lyn-space-3);
+  border: 1px solid var(--lyn-color-border-subtle);
+  border-radius: var(--lyn-radius-md);
+}
+
+.rowName {
+  font-weight: var(--lyn-font-weight-medium);
+  overflow-wrap: anywhere;
+}
+
+/* The description takes the rest of the line and wraps: this page is read, so
+   a clipped sentence is a fact the reader cannot check. */
+.rowDetail {
+  flex: 1;
+  min-width: 12ch;
+  color: var(--lyn-color-text-secondary);
+  font-size: var(--lyn-font-size-sm);
+  overflow-wrap: anywhere;
+}
+
+.rowSource {
+  color: var(--lyn-color-text-tertiary);
+  font-size: var(--lyn-font-size-sm);
+  white-space: nowrap;
+}

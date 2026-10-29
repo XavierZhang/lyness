@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "API für Agentenfähigkeiten",
+    "description": "Was die Agenten einer Person nutzen können und wer es entschieden hat, im Moment der Abfrage aus den Registrierungen projiziert, die der Agent selbst liest."
+  }
+}

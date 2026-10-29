@@ -357,6 +357,8 @@ flowchart LR
   svc_personalInstructionsController["ctx.personalInstructionsController<br/>Host personal-instructions Remote controller"]
   pkg_api_memory_controller["api-memory-controller"]
   svc_memoryController["ctx.memoryController<br/>Host memory Remote controller"]
+  pkg_api_agent_capabilities_controller["api-agent-capabilities-controller"]
+  svc_agentCapabilitiesController["ctx.agentCapabilitiesController<br/>Host agent-capabilities Remote controller"]
   pkg_api_credits_controller["api-credits-controller"]
   svc_creditsController["ctx.creditsController<br/>Host credits Remote controller"]
   pkg_api_tenant_controller["api-tenant-controller"]
@@ -404,6 +406,7 @@ flowchart LR
   pkg_announcements --> svc_announcements
   pkg_announcements_static --> svc_announcements
   pkg_api_admin_audit_controller --> svc_adminAuditController
+  pkg_api_agent_capabilities_controller --> svc_agentCapabilitiesController
   pkg_api_bots_controller --> svc_botsController
   pkg_api_credits_controller --> svc_creditsController
   pkg_api_gateway --> svc_typertGateway
@@ -909,6 +912,7 @@ flowchart LR
 | `ctx.personalInstructions` | `core` | [`personal-instructions`](../packages/identity/personal-instructions) | - | - | - | 提示词里的用户层：保存一个人对自己 agent 说的话，在他开的每一段会话里写一条持久日志事件，并从那条记录把它组装在组织层与 agent 层之间，于是修改它永不改变一段正在进行的对话此前说过的话。 |
 | `ctx.personalInstructionsController` | `core` | [`api-personal-instructions-controller`](../packages/api/personal-instructions-controller) | - | - | - | 把指令存储投影到生成的 Remote 命名空间上，交给拥有它的那个人：一次调用作用在谁的记录上，由发布的身份推出，而不是当作参数接收，于是没有调用方能指名另一条记录。 |
 | `ctx.memoryController` | `core` | [`api-memory-controller`](../packages/api/memory-controller) | - | - | - | 把一个人自己的记忆投影到生成的 Remote 命名空间上：owner 由发布的身份推出，删除由存储对着那个 owner 校验，而这个部署的共享条目不被服务，因为它们不是任何一个人该审阅的。 |
+| `ctx.agentCapabilitiesController` | `core` | [`api-agent-capabilities-controller`](../packages/api/agent-capabilities-controller) | - | - | - | 在被问的那一刻投影读者的 agent 真正会读的工具与 skill 注册表：它不持有自己的清单，为这次读取取得预设自己的作用域，并通过把该作用域视图与部署全局视图相比来判定每一项能力是谁给的。 |
 | `ctx.creditsController` | `core` | [`api-credits-controller`](../packages/api/credits-controller) | - | - | - | 把账本与管理能力缝投影到生成的 Remote 命名空间：本人读自己的余额，管理员为自己身份管得着的人发放积分、设定额度；授权规则留在 dsh-credits，于是「能读」与「能发」不会各说各话。 |
 | `ctx.tenantController` | `core` | [`api-tenant-controller`](../packages/api/tenant-controller) | - | - | - | 把租户配置能力缝投影到生成的 Remote 命名空间：调用方租户读取并保存自己的配置；没有命名租户的调用会被拒绝，而不是被答复任何租户的信息。 |
 | `ctx.requestTenant` | `core` | [`tenant-request`](../packages/tenant/tenant-request) | - | [`tenant-session`](../packages/tenant/tenant-session) | - | 解析一次 Remote 调用到达时所属的租户，每次调用一次，并在调用期间连同该租户的配置一起发布；未命名租户的调用读到 undefined，而不是兜底租户。 |

@@ -355,6 +355,8 @@ flowchart LR
   svc_personalInstructionsController["ctx.personalInstructionsController<br/>Host personal-instructions Remote controller"]
   pkg_api_memory_controller["api-memory-controller"]
   svc_memoryController["ctx.memoryController<br/>Host memory Remote controller"]
+  pkg_api_agent_capabilities_controller["api-agent-capabilities-controller"]
+  svc_agentCapabilitiesController["ctx.agentCapabilitiesController<br/>Host agent-capabilities Remote controller"]
   pkg_api_credits_controller["api-credits-controller"]
   svc_creditsController["ctx.creditsController<br/>Host credits Remote controller"]
   pkg_api_tenant_controller["api-tenant-controller"]
@@ -402,6 +404,7 @@ flowchart LR
   pkg_announcements --> svc_announcements
   pkg_announcements_static --> svc_announcements
   pkg_api_admin_audit_controller --> svc_adminAuditController
+  pkg_api_agent_capabilities_controller --> svc_agentCapabilitiesController
   pkg_api_bots_controller --> svc_botsController
   pkg_api_credits_controller --> svc_creditsController
   pkg_api_gateway --> svc_typertGateway
@@ -907,6 +910,7 @@ flowchart LR
 | `ctx.personalInstructions` | `core` | [`personal-instructions`](../packages/identity/personal-instructions) | - | - | - | The user layer of the prompt: it stores what one person tells their own agents, writes that text into every session they open as one durable log event, and composes it from that record between the organization layer and the agent layer, so editing it never changes what a running conversation already said. |
 | `ctx.personalInstructionsController` | `core` | [`api-personal-instructions-controller`](../packages/api/personal-instructions-controller) | - | - | - | Projects the instructions store onto the generated Remote namespace for the person who owns it: whose record a call acts on is derived from the published principal rather than taken as a parameter, so no caller can name another record. |
 | `ctx.memoryController` | `core` | [`api-memory-controller`](../packages/api/memory-controller) | - | - | - | Projects one person own memories onto the generated Remote namespace: the owner is derived from the published principal, a removal is checked against that owner by the store, and the deployment shared entries are not served because they are nobody own to review. |
+| `ctx.agentCapabilitiesController` | `core` | [`api-agent-capabilities-controller`](../packages/api/agent-capabilities-controller) | - | - | - | Projects the tool and skill registries a reader agents actually read, at the moment the question is asked: it keeps no list of its own, acquires the preset own scope for the read, and decides who gave each capability by comparing that scope view with the deployment wide one. |
 | `ctx.creditsController` | `core` | [`api-credits-controller`](../packages/api/credits-controller) | - | - | - | Projects the ledger and the administration seam onto the generated Remote namespace: a person reads their own balance, an administrator grants credits and sets allowances for the people their standing reaches, and the authority rule stays in lyn-credits so a read and a grant cannot disagree. |
 | `ctx.tenantController` | `core` | [`api-tenant-controller`](../packages/api/tenant-controller) | - | - | - | Projects the tenant-configuration seam onto the generated Remote namespace: the calling tenant reads and saves its own configuration, and a call that named no tenant is refused rather than answered about any tenant. |
 | `ctx.requestTenant` | `core` | [`tenant-request`](../packages/tenant/tenant-request) | - | [`tenant-session`](../packages/tenant/tenant-session) | - | Resolves the tenant a Remote call arrived for, once per call, and publishes it with that tenant's configuration for the duration of the call; a call that named none reads as undefined rather than as a fallback tenant. |

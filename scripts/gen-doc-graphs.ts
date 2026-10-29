@@ -1134,6 +1134,15 @@ const SERVICE_ROLES: ServiceRole[] = [
     note: 'Projects one person own memories onto the generated Remote namespace: the owner is derived from the published principal, a removal is checked against that owner by the store, and the deployment shared entries are not served because they are nobody own to review.',
   },
   {
+    key: 'agentCapabilitiesController',
+    pkg: 'api-agent-capabilities-controller',
+    title: 'Host agent-capabilities Remote controller',
+    mode: 'core',
+    implementations: [],
+    consumers: [],
+    note: 'Projects the tool and skill registries a reader agents actually read, at the moment the question is asked: it keeps no list of its own, acquires the preset own scope for the read, and decides who gave each capability by comparing that scope view with the deployment wide one.',
+  },
+  {
     key: 'creditsController',
     pkg: 'api-credits-controller',
     title: 'Host credits Remote controller',

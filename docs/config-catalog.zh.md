@@ -5165,6 +5165,7 @@ export interface Config {
 | `@lyness/lyn-agent` | `sessionProjections` | [`packages/core/agent/src/index.ts`](../packages/core/agent/src/index.ts) |
 | `@lyness/lyn-api-account-controller` | `deepseekAccount` · `agents` | [`packages/api/account-controller/src/index.ts`](../packages/api/account-controller/src/index.ts) |
 | `@lyness/lyn-api-admin-audit-controller` | — | [`packages/api/admin-audit-controller/src/index.ts`](../packages/api/admin-audit-controller/src/index.ts) |
+| `@lyness/lyn-api-agent-capabilities-controller` | `tools` | [`packages/api/agent-capabilities-controller/src/index.ts`](../packages/api/agent-capabilities-controller/src/index.ts) |
 | `@lyness/lyn-api-announcement-controller` | `announcements` | [`packages/api/announcement-controller/src/index.ts`](../packages/api/announcement-controller/src/index.ts) |
 | `@lyness/lyn-api-bots-controller` | — | [`packages/api/bots-controller/src/index.ts`](../packages/api/bots-controller/src/index.ts) |
 | `@lyness/lyn-api-credits-controller` | — | [`packages/api/credits-controller/src/index.ts`](../packages/api/credits-controller/src/index.ts) |
@@ -5222,6 +5223,7 @@ export interface Config {
 | `@lyness/lyn-client-ui-settings-agent-loop` | — | [`packages/client/ui-settings-agent-loop/src/index.ts`](../packages/client/ui-settings-agent-loop/src/index.ts) |
 | `@lyness/lyn-client-ui-settings-announcements` | — | [`packages/client/ui-settings-announcements/src/index.ts`](../packages/client/ui-settings-announcements/src/index.ts) |
 | `@lyness/lyn-client-ui-settings-bots` | — | [`packages/client/ui-settings-bots/src/index.ts`](../packages/client/ui-settings-bots/src/index.ts) |
+| `@lyness/lyn-client-ui-settings-capabilities` | — | [`packages/client/ui-settings-capabilities/src/index.ts`](../packages/client/ui-settings-capabilities/src/index.ts) |
 | `@lyness/lyn-client-ui-settings-credits` | — | [`packages/client/ui-settings-credits/src/index.ts`](../packages/client/ui-settings-credits/src/index.ts) |
 | `@lyness/lyn-client-ui-settings-general` | — | [`packages/client/ui-settings-general/src/index.ts`](../packages/client/ui-settings-general/src/index.ts) |
 | `@lyness/lyn-client-ui-settings-history` | — | [`packages/client/ui-settings-history/src/index.ts`](../packages/client/ui-settings-history/src/index.ts) |

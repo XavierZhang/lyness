@@ -16,6 +16,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 |---|---|---|
 | `@lyness/lyn-api-account-controller` | no | Expose safe account operations over authenticated Remote |
 | `@lyness/lyn-api-admin-audit-controller` | no | Remote owner of the administrative trail surface: an administrator reads what was changed, by whom, and from what |
+| `@lyness/lyn-api-agent-capabilities-controller` | no | What one reader's agents may use, and who decided each part of it |
 | `@lyness/lyn-api-announcement-controller` | no | Expose a deployment's own announcements over authenticated Remote |
 | `@lyness/lyn-api-bots-controller` | no | Remote owner of the bots surface: administrators maintain which bots their organization runs and what each one runs with |
 | `@lyness/lyn-api-credits-controller` | no | A person reads their own balance; an administrator grants credits and sets allowances |
@@ -116,6 +117,7 @@ Every package below exports a Cordis plugin that a bundle patch can name in a Lo
 | `@lyness/lyn-client-ui-settings-agent-loop` | no | Settings page of the agent loop on the lyn web client's Plugins page: the parallel tool-call cap of the agent-loop namespace |
 | `@lyness/lyn-client-ui-settings-announcements` | no | The system-announcements row in General Settings, read from the deployment a client connected to |
 | `@lyness/lyn-client-ui-settings-bots` | no | The bots section in Settings: which bots an organization runs and what each one runs with, maintained at runtime |
+| `@lyness/lyn-client-ui-settings-capabilities` | no | The what-you-may-use section in Settings: a reader's models, connections, skills and tools |
 | `@lyness/lyn-client-ui-settings-credits` | no | The credits section in Settings: a balance, a ledger, and the two decisions an administrator makes |
 | `@lyness/lyn-client-ui-settings-general` | no | Settings ownerless-copy and product onboarding plugin: the General section, shell trigger/header chrome content, settings dictionaries, and the versioned welcome notice |
 | `@lyness/lyn-client-ui-settings-history` | no | The history section in Settings: what administrators changed, who changed it, and what the change replaced |

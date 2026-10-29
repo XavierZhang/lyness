@@ -1,0 +1,37 @@
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write packages/api/agent-capabilities-controller/README.md
+/:
+  en: 66594302c60698cd
+  zh: bf4f9b6ac048ee56
+/lyness-lyn-api-agent-capabilities-controller:
+  en: 5a8040e5b1ec0fde
+  zh: 6a46ac4b3a8fa0d3
+/lyness-lyn-api-agent-capabilities-controller/summary:
+  en: 5c7a6506cb37b85b
+  zh: 1194c432ff4520f5
+/lyness-lyn-api-agent-capabilities-controller/table-of-contents:
+  en: d152484eb41ac6b4
+  zh: 2bca79d7b98e8031
+/lyness-lyn-api-agent-capabilities-controller/use-this-package:
+  en: edf1d950dc08c8c4
+  zh: 9e181b5e6e57fe1c
+/lyness-lyn-api-agent-capabilities-controller/understand-the-implementation:
+  en: cb0417dec3a05c80
+  zh: c1569ab8dc48ae73
+/lyness-lyn-api-agent-capabilities-controller/further-exploration:
+  en: dcd746f33d139389
+  zh: 24f51f8f6863ccdc
+/lyness-lyn-api-agent-capabilities-controller/model-experience:
+  en: 8e023eb787964cc0
+  zh: 82c097700fa08226
+/lyness-lyn-api-agent-capabilities-controller/model-experience/kv-cache-effect:
+  en: e13faf79aaae30a9
+  zh: 41e7a3447d0df917
+/lyness-lyn-api-agent-capabilities-controller/known-limitations-and-deferred-work:
+  en: 396408ecc18c6d67
+  zh: 758bbcd37f4fe476
+/lyness-lyn-api-agent-capabilities-controller/known-limitations-and-deferred-work/dev-note:
+  en: 3eb393720bb1ca42
+  zh: a80b3b10fedee71c

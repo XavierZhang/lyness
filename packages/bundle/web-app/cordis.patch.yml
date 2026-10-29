@@ -379,6 +379,17 @@
     - id: ui-viewer
       name: '@lyness/lyn-client-ui-viewer'
 
+    # What a reader's agents may use, projected from the registries an agent
+    # itself reads. It mounts here with the GUI because the page is its only
+    # consumer; a headless deployment has nobody to show it to.
+    - id: agent-capabilities-controller
+      name: '@lyness/lyn-api-agent-capabilities-controller'
+
+    # The personal plane's read-only entry: the one answer to the question the
+    # administration pages otherwise answer with a refusal notice.
+    - id: ui-settings-capabilities
+      name: '@lyness/lyn-client-ui-settings-capabilities'
+
     # The personal plane's memory page: what this deployment remembers about
     # the person reading it, and the removal they can ask for. The store is
     # the memory module's; without that module the namespace answers nothing

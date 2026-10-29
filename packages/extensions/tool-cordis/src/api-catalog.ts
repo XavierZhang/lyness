@@ -162,6 +162,19 @@ export const SERVICE_API: readonly ServiceApiEntry[] = [
     ],
   },
   {
+    key: 'agentCapabilitiesController',
+    summary: 'Host service backing the generated `ctx.remote.agentCapabilities` namespace.',
+    description: 'Host service backing the generated `ctx.remote.agentCapabilities` namespace.',
+    methods: [
+      {
+        signature: '@Remote async describe(): Promise<AgentCapabilitiesView>',
+        description: 'Describe what this reader\'s agents may use.\n\nThe preset\'s own scope is acquired for the read and released after it, so what is reported is the view an agent of that preset would see rather than the deployment\'s bare registrations. A deployment that mounts no preset registry reports the deployment view, which is the only one it has.',
+        parameters: [],
+        returns: 'the tools, connections and skills available, each naming who gave it.',
+      },
+    ],
+  },
+  {
     key: 'agentDefaultModel',
     summary: 'Owns the default model selection independently of any Host or transport.',
     description: 'Owns the default model selection independently of any Host or transport. Each operation reads the owning Config references.',
@@ -6084,6 +6097,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export type AgentCancelCause = {\n    readonly kind: \'user\';\n} | {\n    readonly kind: \'parent\';\n} | {\n    readonly kind: \'hook\';\n    readonly reason: string;\n} | {\n    readonly kind: \'disposed\';\n};',
   },
   {
+    name: 'AgentCapabilitiesView',
+    declaration: 'export interface AgentCapabilitiesView {\n    readonly preset?: string;\n    readonly tools: readonly ToolAvailabilityView[];\n    readonly connections: readonly ConnectionAvailabilityView[];\n    readonly skills?: readonly SkillAvailabilityView[];\n}',
+  },
+  {
     name: 'AgentFactory',
     declaration: 'export interface AgentFactory {\n    createAgent(ownerCtx: Context, options: CreateAgentOptions): Promise<AgentHandle>;\n    resume(ownerCtx: Context, options: ResumeAgentOptions): Promise<AgentHandle>;\n}',
   },
@@ -6492,6 +6509,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export type CallId = Branded<\'DesktopCallId\'>;',
   },
   {
+    name: 'CapabilitySource',
+    declaration: 'export type CapabilitySource = \'deployment\' | \'preset\';',
+  },
+  {
     name: 'ChangeResult',
     declaration: 'export interface ChangeResult {\n    changed: boolean;\n    application: \'applied\' | \'restart-required\' | \'overridden\' | \'failed\' | \'cancelled\';\n    restartReason?: RestartReason;\n    stage: \'install\' | \'enable\' | \'remove\';\n    target: string;\n    enabled?: boolean;\n    error?: ManagementError;\n    warnings?: string[];\n    packageResult?: PackageResult;\n    bundle?: string;\n    version?: string;\n    pendingBuilds?: string[];\n    approvedBuilds?: string[];\n    registries?: Registry[];\n    failedAt?: \'registry\' | \'spec-host\';\n}',
   },
@@ -6646,6 +6667,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'ConnectionAdmission',
     declaration: 'export type ConnectionAdmission = {\n    readonly peer: PeerScope;\n    readonly release: () => Promise<void>;\n} | {\n    readonly rejection: 401 | 403 | 409;\n};',
+  },
+  {
+    name: 'ConnectionAvailabilityView',
+    declaration: 'export interface ConnectionAvailabilityView {\n    readonly server: string;\n    readonly tools: number;\n    readonly source: CapabilitySource;\n}',
   },
   {
     name: 'ConnectionFetchHandler',
@@ -9600,6 +9625,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
     declaration: 'export type SignInOutcome = {\n    readonly kind: \'session\';\n    readonly session: AuthSessionId;\n} | {\n    readonly kind: \'redirect\';\n    readonly start: RedirectStart;\n};',
   },
   {
+    name: 'SkillAvailabilityView',
+    declaration: 'export interface SkillAvailabilityView {\n    readonly name: string;\n    readonly description: string;\n    readonly origin: string;\n    readonly provider: string;\n}',
+  },
+  {
     name: 'SkillCandidate',
     declaration: 'export interface SkillCandidate extends SkillSummary {\n    readonly rank: number;\n    readonly locator: unknown;\n    readonly metadata?: Readonly<Record<string, unknown>>;\n}',
   },
@@ -10234,6 +10263,10 @@ export const TYPE_API: readonly TypeApiEntry[] = [
   {
     name: 'ToolAdditionBlock',
     declaration: 'export interface ToolAdditionBlock {\n    type: \'tool-addition\';\n    toolName: string;\n    tool?: never;\n}',
+  },
+  {
+    name: 'ToolAvailabilityView',
+    declaration: 'export interface ToolAvailabilityView {\n    readonly name: string;\n    readonly description: string;\n    readonly source: CapabilitySource;\n}',
   },
   {
     name: 'ToolBatchInput',

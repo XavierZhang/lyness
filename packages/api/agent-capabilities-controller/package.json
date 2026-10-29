@@ -1,0 +1,63 @@
+{
+  "name": "@lyness/lyn-api-agent-capabilities-controller",
+  "description": "What one reader's agents may use, and who decided each part of it",
+  "version": "0.2.1-rc.3",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "directory": "packages/api/agent-capabilities-controller"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./types": {
+      "types": "./lib/types/types.d.ts",
+      "default": "./lib/types/types.js"
+    },
+    "./typert": {
+      "types": "./lib/typert.host.d.ts",
+      "default": "./lib/typert.host.js"
+    },
+    "./remote": {
+      "types": "./lib/typert.remote-client.d.ts",
+      "default": "./lib/typert.remote-client.js"
+    },
+    "./src/*": "./src/*",
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json"
+  },
+  "files": [
+    "locale/*.json",
+    "lib/index.js",
+    "lib/types/**/*.js",
+    "lib/types/**/*.d.ts",
+    "lib/typert.host.js",
+    "lib/typert.host.d.ts",
+    "lib/typert.remote-client.js",
+    "lib/typert.remote-client.d.ts"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-agent-preset-registry": "workspace:*",
+    "@lyness/lyn-skill": "workspace:*",
+    "@lyness/lyn-tools": "workspace:*",
+    "@lyness/lyn-typert-protocol": "workspace:*"
+  },
+  "devDependencies": {
+    "@lyness/cordis": "workspace:~",
+    "@lyness/lyn-agent-preset-registry": "workspace:*",
+    "@lyness/lyn-skill": "workspace:*",
+    "@lyness/lyn-system-prompt": "workspace:*",
+    "@lyness/lyn-tools": "workspace:*",
+    "@lyness/lyn-typert-protocol": "workspace:*"
+  }
+}
