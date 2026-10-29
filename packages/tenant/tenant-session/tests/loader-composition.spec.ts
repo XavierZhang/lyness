@@ -98,7 +98,10 @@ async function compose(): Promise<Context> {
 describe('the composed tenant stamp', () => {
   it('leaves every created session attributable and its identity reconstructable', async () => {
     const ctx = await compose()
+    // The stamp runs on the microtask after the read-only creation
+    // announcement, so reading the log waits that turn.
     const session = ctx.sessions.create()
+    await Promise.resolve()
 
     const stamped = session.ownEvents().filter(event => event.type === 'tenant/identity')
     expect(stamped).toHaveLength(1)

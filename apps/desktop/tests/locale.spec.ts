@@ -1,22 +1,36 @@
 import { SHIPPED_LOCALE_IDS } from '../../../scripts/shipped-locales.ts'
 import { describe, expect, it } from 'vitest'
 import { en, formatDesktopMessage, resolveDesktopLocale, resolveDesktopStartupLocale, ja, zh, es, fr, de, ru, pt } from '../src/locale.ts'
+import { BUILT_IN_BRAND } from '../src/brand-names.ts'
+import type { DesktopMessages } from '../src/locale.ts'
+
+/**
+ * One dictionary as a reader sees it: product-name placeholders filled, every
+ * other placeholder left for its own per-call substitution. `resolveDesktopLocale`
+ * fills the names before returning, so this is what its result equals.
+ * @param messages - one shipped dictionary.
+ * @returns the same dictionary with the built-in product names applied.
+ */
+function asRead(messages: DesktopMessages): DesktopMessages {
+  return Object.fromEntries(Object.entries(messages)
+    .map(([key, message]) => [key, formatDesktopMessage(message, BUILT_IN_BRAND)])) as DesktopMessages
+}
 
 describe('desktop locale dictionaries', () => {
   it('ships baseline and Japanese keys and falls back for unsupported languages', () => {
     expect(Object.keys(zh)).toEqual(Object.keys(en))
     expect(Object.keys(ja)).toEqual(Object.keys(en))
-    expect(resolveDesktopLocale('JA-jp')).toEqual({ id: 'ja', messages: ja })
-    expect(resolveDesktopLocale('zh-Hans-CN').messages).toEqual(zh)
-    expect(resolveDesktopLocale('en-US').messages).toEqual(en)
-    expect(resolveDesktopLocale('it-IT').messages).toEqual(en)
+    expect(resolveDesktopLocale('JA-jp')).toEqual({ id: 'ja', messages: asRead(ja) })
+    expect(resolveDesktopLocale('zh-Hans-CN').messages).toEqual(asRead(zh))
+    expect(resolveDesktopLocale('en-US').messages).toEqual(asRead(en))
+    expect(resolveDesktopLocale('it-IT').messages).toEqual(asRead(en))
   })
 
   it.each([
     ['es', 'es-MX', es], ['fr', 'fr-CA', fr], ['de', 'de-DE', de],
     ['ru', 'ru-RU', ru], ['pt', 'pt-BR', pt],
   ] as const)('resolves %s, preserves placeholders, and honors saved preferences', (id, tag, messages) => {
-    expect(resolveDesktopLocale(tag.toUpperCase())).toEqual({ id, messages })
+    expect(resolveDesktopLocale(tag.toUpperCase())).toEqual({ id, messages: asRead(messages) })
     expect(resolveDesktopStartupLocale(id, ['zh-CN']).id).toBe(id)
     expect(resolveDesktopStartupLocale(null, ['it-IT', tag, 'en-US']).id).toBe(id)
     expect(Object.keys(messages)).toEqual(Object.keys(en))
@@ -30,7 +44,7 @@ describe('desktop locale dictionaries', () => {
     expect(resolveDesktopLocale(id).id).toBe(id === 'zh' ? 'zh-CN' : id)
     expect(resolveDesktopStartupLocale(null, [id]).id).toBe(id === 'zh' ? 'zh-CN' : id)
     expect(Object.keys(resolveDesktopLocale('zh-Hans-CN').messages)).toEqual(Object.keys(zh))
-    expect(resolveDesktopLocale('en-US').messages).toEqual(resolveDesktopLocale('fr-FR').messages)
+    expect(resolveDesktopLocale('fr-FR').messages).not.toEqual(resolveDesktopLocale('en-US').messages)
     expect(resolveDesktopLocale('zh-Hans-CN').messages).not.toEqual(resolveDesktopLocale('en-US').messages)
   })
 
@@ -43,8 +57,10 @@ describe('desktop locale dictionaries', () => {
     const acme = resolveDesktopLocale('en', { brandName: 'Acme Agent', brandAbbr: 'ACME', brandNameZh: '艾可' }).messages
     expect(acme.startupFailed).toBe('Acme Agent is unavailable')
     expect(acme.startupAddressInUse).toContain('Another ACME instance')
-    // A per-call value is still the caller's to fill.
-    expect(acme.updateDownloadedTitle).toBe('Acme Agent v{version} downloaded')
+    // A per-call value is still the caller's to fill: brand filling passes
+    // `{version}` through untouched.
+    expect(acme.updateDownloadedTitle).toBe(en.updateDownloadedTitle)
+    expect(acme.updateDownloadedTitle).toContain('{version}')
   })
 
   it('formats named values without consuming unknown placeholders', () => {

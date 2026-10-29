@@ -9,6 +9,7 @@ import { Context, Service } from '@lyness/cordis'
 import { bindTypertRemote, Remote, remoteErrorOf } from '@lyness/lyn-typert-protocol'
 import type { RemoteAuthority } from '@lyness/lyn-typert-protocol'
 import TypertRegistry from '@lyness/lyn-typert-registry'
+import RemoteAccessService from '@lyness/lyn-api-remote-access'
 import TypertGatewayService from '@lyness/lyn-api-gateway'
 import type { RemoteAuthorizationRequest } from '@lyness/lyn-api-gateway'
 import type { PeerId, PeerScope } from '@lyness/lyn-typert-protocol'
@@ -59,6 +60,9 @@ async function bench(rule?: (call: RemoteAuthorizationRequest) => string | undef
   const ctx = new Context()
   live.push(ctx)
   await ctx.plugin(TypertRegistry)
+  // The Gateway requires remoteAccess: it is the method-level access point
+  // every wire call passes through, so without it the service never activates.
+  await ctx.plugin(RemoteAccessService)
   await ctx.plugin(TypertGatewayService)
   await ctx.plugin(LedgerService)
   await ctx.plugin(LooseService)

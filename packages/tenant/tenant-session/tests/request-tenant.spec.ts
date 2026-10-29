@@ -156,10 +156,13 @@ async function compose(): Promise<Context> {
 async function createOverRpc(ctx: Context, tenantId: string): Promise<TenantSessionRecord | null | undefined> {
   let stamped: TenantSessionRecord | null | undefined
   const tenantProjection = await ctx.sessionProjections.register(tenantSessionProjectionDefinition)
-  const dispose = ctx.connection.rpc.intercept('/api', () => true, () => {
+  const dispose = ctx.connection.rpc.intercept('/api', () => true, async () => {
+    // Awaited inside the intercepted call: the request tenant this stamp reads
+    // is published for the call's duration, so the turn passes before it ends.
     const session = ctx.sessions.create()
+    await Promise.resolve()
     stamped = tenantProjection.stateOf(session)
-    return Promise.resolve({ ok: true, value: null })
+    return { ok: true, value: null }
   })
   const shared = ctx.connection.createSharedFetchHandler('/api')
   await shared.fetch(new Request('http://host/api/session/create', {
@@ -186,6 +189,7 @@ describe('the tenant a created session is stamped with', () => {
   it('is the configured tenant for a session created outside any call', async () => {
     const ctx = await compose()
     const session = ctx.sessions.create()
+    await Promise.resolve()
     expect((await ctx.sessionProjections.register(tenantSessionProjectionDefinition)).stateOf(session)).toEqual({
       version: 1,
       tenantId: 'acme',

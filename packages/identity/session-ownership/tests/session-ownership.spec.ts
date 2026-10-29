@@ -21,6 +21,22 @@ const ACME = brandString<MembershipId>('ada:acme')
 const live: Context[] = []
 afterEach(async () => { for (const ctx of live.splice(0)) await ctx.fiber.dispose() })
 
+/**
+ * Create a session and wait for its stamp.
+ *
+ * The stamp runs on the microtask after the read-only creation announcement,
+ * because an append inside that announcement is refused. Production paths all
+ * await between the announcement and handing the session to a caller; a test
+ * that reads synchronously has to wait the same turn.
+ * @param ctx - the bench context owning the store.
+ * @returns the created session, stamped.
+ */
+async function opened(ctx: Context): Promise<Session> {
+  const session = ctx.sessions.create()
+  await Promise.resolve()
+  return session
+}
+
 /** Every ownership record in one session's own log. */
 function records(session: Session): SessionOwnerRecord[] {
   return session.ownEvents()
@@ -54,19 +70,19 @@ async function bench(options: {
 describe('session ownership', () => {
   it('records the person who opened the conversation', async () => {
     const ctx = await bench({ person: ADA })
-    const [record] = records(ctx.sessions.create())
+    const [record] = records(await opened(ctx))
     expect(record).toMatchObject({ version: 1, owner: ADA })
     expect(Date.parse(record?.openedAt ?? '')).not.toBeNaN()
   })
 
   it('records the standing they held it open under', async () => {
     const ctx = await bench({ person: ADA, membership: ACME })
-    expect(records(ctx.sessions.create())[0]).toMatchObject({ owner: ADA, membership: ACME })
+    expect(records(await opened(ctx))[0]).toMatchObject({ owner: ADA, membership: ACME })
   })
 
   it('names no standing for someone acting as themselves', async () => {
     const ctx = await bench({ person: ADA })
-    const [record] = records(ctx.sessions.create())
+    const [record] = records(await opened(ctx))
     // Absent rather than null: an individual's conversation belongs to no
     // organization, and nothing stands in for one.
     expect(record !== undefined && 'membership' in record).toBe(false)
@@ -77,8 +93,8 @@ describe('session ownership', () => {
     // A CLI run, a subagent and an inbound webhook all create sessions that
     // no request principal opened; attribution invented here would be wrong
     // permanently.
-    expect(records(ctx.sessions.create())).toEqual([])
-    expect(ctx.sessionVisibility.ownerOf(ctx.sessions.create())).toBeUndefined()
+    expect(records(await opened(ctx))).toEqual([])
+    expect(ctx.sessionVisibility.ownerOf(await opened(ctx))).toBeUndefined()
   })
 
   it('stamps a session that already existed when the plugin mounted', async () => {
@@ -89,7 +105,7 @@ describe('session ownership', () => {
 
   it('reads the record back, and writes it exactly once', async () => {
     const ctx = await bench({ person: ADA, membership: ACME })
-    const session = ctx.sessions.create()
+    const session = await opened(ctx)
     expect(ctx.sessionVisibility.ownerOf(session)).toMatchObject({ owner: ADA, membership: ACME })
 
     // Every other event leaves the attribution alone.

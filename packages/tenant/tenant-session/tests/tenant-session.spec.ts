@@ -55,7 +55,10 @@ function records(session: Session): TenantSessionRecord[] {
 describe('tenant session stamp', () => {
   it('records the tenant and its identity text on a new session', async () => {
     const ctx = await bench({ configured: true })
+    // The stamp runs on the microtask after the read-only creation announcement,
+    // so reading the record waits that turn.
     const session = ctx.sessions.create()
+    await Promise.resolve()
     expect(records(session)).toEqual([{
       version: 1,
       tenantId: 'acme',
@@ -67,7 +70,9 @@ describe('tenant session stamp', () => {
 
   it('records the tenant alone when the deployment configures no identity', async () => {
     const ctx = await bench()
-    expect(records(ctx.sessions.create())).toEqual([{ version: 1, tenantId: 'acme', slug: 'acme', constraints: [] }])
+    const session = ctx.sessions.create()
+    await Promise.resolve()
+    expect(records(session)).toEqual([{ version: 1, tenantId: 'acme', slug: 'acme', constraints: [] }])
   })
 
   it('stamps a session that already existed when the plugin mounted', async () => {

@@ -410,27 +410,49 @@ typecheck 也过，只在运行时炸。本轮两处构造函数各被插入了*
 | `escapeInstructionFrameBody` 周边：上游把 `heading` 提成了文件而非渲染后的字符串 | 保留分叉返回 `{text, neutralized}` 的版本（标记要报告被中和的分隔符），按上游的形状在需要字符串处渲染 |
 | `PROFILE_TEMPLATES`／`ProfileTemplate` 迁入 `lyn-official-bundles` | `brand-studio` 与 `apps/desktop` 改从新包导入，并补上 workspace 依赖与 tsconfig references |
 
-### 未解决：`session/created` 监听器里不能再 append（上游 0.2.1 新约束）
+### 已解决：`session/created` 监听器里不能再 append（上游 0.2.1 新约束）
 
-上游给 Session 加了一条新前置条件：`announcement` 未到 `complete` 之前 append 直接抛
-`session "<id>" cannot append before session/created completes`
-（`packages/core/session/src/index.ts`，fork 那一代没有这条）。而 `complete` 是在
-**`session/created` 的所有监听器跑完之后**才置位的。
+上游给 Session 加了一条前置条件：`announcement` 未到 `complete` 之前 append 直接抛
+`session "<id>" cannot append before session/created completes`（fork 那一代没有这条）。
+而 `complete` 是在**所有 `session/created` 监听器返回之后**才置位的。
 
-本 fork 有两个插件正是在那个监听器里同步写入，于是全部失败：
+**这不是测试问题。** 直接跑产品代码即可看到后果：挂上 `session-ownership` 之后
 
-| 插件 | 写什么 |
+```
+CREATE FAILED: session "session-1" cannot append before session/created completes
+```
+
+事件契约写明监听器里的同步抛出「vetoes creation and rolls back with a paired disposal」，
+所以**会话根本创建不出来**——坏在会话归属上，而那正是 `sessionVisibility` 读的东西。
+
+两处 fork 插件在那个只读宣告里同步写：`identity/session-ownership`（`session/owner`）与
+`tenant/tenant-session`（`tenant/identity`）。上游无一例如此。
+
+**修法（已实测确认）**：契约说「New events reject until every synchronous listener has
+returned successfully」，所以宣告之后的那个微任务就是最早可写的时点——
+
+| 时点 | append |
 |---|---|
-| `identity/session-ownership` | `session/owner`——会话归属 |
-| `tenant/tenant-session` | `tenant/identity`——租户戳记 |
+| `session/created` 监听器内 | 被拒 |
+| 宣告之后的微任务 | 成功 |
+| `create()` 同步返回后 | 成功 |
 
-连带 64 个测试失败，分布在 `session-ownership`、`tenant-session`、`bot-ask`、
-`api-session-controller`、`api-bots-controller`、`api-workspace-controller`、`api-gateway`。
-**合并前这一批是 351 个失败，本轮已降到 64 个，且本轮没有引入任何新失败**（用
-`git stash` 对照同一命令验证过）。
+两处都改成 `ctx.on('session/created', session => { queueMicrotask(() => stamp(session)) })`。
+每条生产路径在宣告与把会话交给调用方之间都有 `await`（`agent-loop` 里 `announce` 紧跟
+`await raceAbort(setup?.(...))`），所以读到归属之前记录已经落地。
 
-要改的是戳记的时机，不是改回那条约束：两处都要从「在创建监听器里同步 append」改成
-「在创建完成之后写第一条」。这是设计改动，不是机械修复，留待下一步处理。
+**代价要记住**：`ctx.sessions.create()` **同步返回后的那一瞬**归属尚未写入。测试里凡
+「创建后立刻读」都要等一个 `await Promise.resolve()`；若将来有同步读归属的生产路径，
+它会读到「无主」——那种路径必须自己等这一个 turn。
+
+同一轮里另外两类相关失败也已修：
+- `apps/desktop/tests/locale.spec.ts` 钉的是「解析结果 == 原始字典」，而
+  `resolveDesktopLocale` 会先填充品牌占位符。改为与「读者看到的那份」比较后，反而暴露出
+  真问题：`welcomeKeyDescription` 有 7 种语言把 `{brandName}` 丢了或译成了「Harness」这个
+  普通名词；同文件还有一条 fork 自己写反的断言（断言英文 == 法文，本意是不等）。
+- `packages/api/gateway/tests/authorize.host.spec.ts` 没挂 `remoteAccess`，而 Gateway
+  `inject: ['typert','remoteAccess']`，于是服务永远挂不起来（`ctx.typertGateway` 为
+  undefined）。这是我把 `remoteAccess` 行补回 base 之后暴露的测试缺依赖。
 
 ### 本轮跟随上游退役的机制
 

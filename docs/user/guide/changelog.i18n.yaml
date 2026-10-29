@@ -1,0 +1,22 @@
+# Bilingual-pair consistency record for changelog.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write docs/user/guide/changelog.md
+/what-changed-in-each-release:
+  en: f231918ccbd4561b
+  zh: 00371b49b49abefb
+/what-changed-in-each-release/unreleased:
+  en: c00d56f788b8b087
+  zh: 165db13c87e712b5
+/what-changed-in-each-release/unreleased/added:
+  en: 6ad2d199ec6e1a3a
+  zh: da516743b51edcdf
+/what-changed-in-each-release/unreleased/changed:
+  en: 099fd829f7871b4e
+  zh: 710096e76591851f
+/what-changed-in-each-release/unreleased/fixed:
+  en: eb08a7dd577454ae
+  zh: cc8489107298f954
+/what-changed-in-each-release/how-to-read-an-entry:
+  en: c62d272ca25f410f
+  zh: 31133ff9ed5e3b8c

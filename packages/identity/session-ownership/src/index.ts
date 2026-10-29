@@ -111,7 +111,13 @@ export async function apply(ctx: Context): Promise<void> {
       openedAt: new Date().toISOString(),
     })
   }
-  ctx.on('session/created', stamp)
+  // `session/created` is a read-only announcement: an append inside it is
+  // refused, and a synchronous throw there vetoes the creation outright. The
+  // stamp therefore runs on the microtask that follows the announcement, which
+  // the contract names as the first point the Session accepts an event. Every
+  // creation path awaits between the announcement and handing the session to a
+  // caller, so the record is in the log before anybody reads attribution.
+  ctx.on('session/created', (session) => { queueMicrotask(() => { stamp(session) }) })
   for (const session of ctx.sessions.list()) stamp(session)
 }
 

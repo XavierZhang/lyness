@@ -227,7 +227,10 @@ export async function apply(ctx: Context, config: Config): Promise<void> {
       ? fallback
       : recordOf(requested.tenant, requested.config))
   }
-  ctx.on('session/created', stamp)
+  // Deferred for the reason `session-ownership` defers its own stamp: the
+  // creation announcement is read-only, so the event is written on the
+  // microtask that follows it rather than inside the listener.
+  ctx.on('session/created', (session) => { queueMicrotask(() => { stamp(session) }) })
   for (const session of ctx.sessions.list()) stamp(session)
 
   const composed = new Map<Agent, () => void>()

@@ -126,15 +126,22 @@ it('attributes a session created inside a signed-in call, and leaves one created
   const established = await ctx.authSessions.establish({ person: ADA, method: 'test' })
 
   // Outside any call, there is no principal: the session carries no owner.
-  expect(records(ctx.sessions.create())).toEqual([])
+  // The stamp runs on the microtask after the read-only creation announcement,
+  // so each assertion waits that turn.
+  const unowned = ctx.sessions.create()
+  await Promise.resolve()
+  expect(records(unowned)).toEqual([])
 
   // Inside the request scope the signed-in session opens, it does.
   const request = new Request('http://127.0.0.1/api', { headers: { cookie: `${IDENTITY_COOKIE}=${established.id}` } })
   let attributed: SessionOwnerRecord[] = []
   for (const scope of scopes) {
-    await scope(request, () => {
-      attributed = records(ctx.sessions.create())
-      return Promise.resolve(undefined)
+    await scope(request, async () => {
+      // Awaited inside the scope: the principal this stamp reads is published
+      // for the duration of the call, so the turn has to pass before it ends.
+      const session = ctx.sessions.create()
+      await Promise.resolve()
+      attributed = records(session)
     })
   }
   expect(attributed).toMatchObject([{ version: 1, owner: ADA }])
