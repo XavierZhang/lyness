@@ -560,7 +560,7 @@ codemod 的 `PROTECTED` 已经冻结 `.agents/notes/archived/`，但那只保护
 codemod 把它当产品名改成了 `DeepSeek Harness`——标识与产品名是两回事，改了意思就变了。
 归档树以外若还有同类线上标识，属于「请求扩展字段名 ⛔」那一类，应进屏蔽规则而不是改名。
 
-### 我自己引入的缺陷（记下来免得重犯）
+### 我自己引入的缺陷：`const` 不提升（记下来免得重犯）
 
 把 `LISTING_BUFFER_BYTES` 追加在文件末尾——`const` 不提升，`main()` 在它之前调用，
 于是 `rescope-vendor` 报 `ReferenceError: Cannot access 'LISTING_BUFFER_BYTES' before initialization`。
@@ -574,7 +574,7 @@ codemod 把它当产品名改成了 `DeepSeek Harness`——标识与产品名�
 与个人平面五步的改动无关，是 0.2.1 合并留下的组合债。修它要补 headless profile 的
 `working-directory` 与执行器行，属于单独一次变更。
 
-### 我自己引入的缺陷（记下来免得重犯）
+### 我自己引入的缺陷：页面不挂自己的 Remote 命名空间（记下来免得重犯）
 
 客户端页面注入 `remote.<ns>` 却没有人挂那个命名空间，插件会永远 park 在缺失服务上，
 页面根本不出现。`packages/api/remotes` 的客户端装配只挂一份手写的核心清单，新增
@@ -604,3 +604,34 @@ codemod 把它当产品名改成了 `DeepSeek Harness`——标识与产品名�
 `@deepseek-ai` 三个源都映射到 `@lyness`），转义类规则反向还会把 `(?:-|$)` 当字面量插回源码。
 
 备份分支：`backup/before-merge-20260910-170839`。
+
+## 分支清理与 dependabot 分支的裁定（2026-10-30）
+
+清理前除主线外有 3 个本地分支、9 个 `origin` 上的 dependabot 分支，**没有任何未关闭的 PR**。
+
+| 分支 | 处理 | 依据 |
+|---|---|---|
+| `backup/before-merge-20261028-100501`（`bdf2151c6b`） | 删除 | 已是 `custom/main` 的祖先，`git rev-list --count custom/main..` 为 0，没有可合并的内容 |
+| `backup/before-merge-20261028-113038`（`20667301d3`） | 删除 | 同上 |
+| `wip/merge-attempt-1`（`4986803846`） | `-s ours` 并入主线后删除 | 它的两个提交此前只靠分支指针存活；但内容是把改名整树还原成官方拼写的那次失败尝试，树不能取。`-s ours` 让提交永久可达、祖先关系记下它被否决，而树与 `921c77e014` 逐字节相同 |
+
+dependabot 每天 04:00（Asia/Shanghai）在 fork 上跑 npm／uv／github-actions 三个生态，
+所以**删掉分支不会丢信号**——依赖仍然落后时次日会重新建出来。九个分支逐个核过：
+
+| dependabot 分支 | 裁定 | 依据 |
+|---|---|---|
+| `npm_and_yarn/acorn-8.18.0`（`15cbb1066c`） | 废弃 | 主线已是 `^8.18.0`，0.2.1 合并带入 |
+| `npm_and_yarn/lightningcss-1.33.0`（`1152358c8c`） | 废弃 | 主线已是 `^1.33.0` |
+| `npm_and_yarn/noble/hashes-2.4.0`（`3b9b6135aa`） | 废弃 | 主线已是 `^2.4.0` |
+| `npm_and_yarn/vitest/spy-4.1.11`（`b7a4cdc8bf`） | 废弃 | 主线已是 `^4.1.11` |
+| `uv/python/sdk/pydantic-2.13.5`（`e10e07d405`） | 废弃，且并进来有害 | 主线 `uv.lock` 已是 2.13.5；三方合并的净效果只剩**删掉** `exceptiongroup` 对 `typing-extensions` 的 `python_full_version < '3.13'` 标记 |
+| `npm_and_yarn/koffi-3.1.6`（`c90e18642e`） | 暂不取，跟随上游 | 上游在 8 个包里把 koffi **精确钉在 `3.1.1`**；且该分支的 `pnpm-lock.yaml` 基点是 09-25（0.2.1 之前），并进来会把锁文件整体拖回旧版 |
+| `uv/python/sdk/hatchling-1.32.4`（`eec3265172`） | 暂不取，跟随上游 | 上游 `python/sdk` 与 `python/sdk-runtime` **两处**都钉 `hatchling==1.32.0`，dependabot 只改了一处，取了就是不对称 |
+| `github_actions/actions/cache-6`（`e9fac525f2`） | 暂不取，跟随上游 | 上游自己是 `@v4`×1 + `@v6`×2 的混用；主线剩下的 `@v4` 全在 fork 自己的 `build-exe-for-ssh-helper`／`fork-ci`／`publish-ssh-helper` 三个工作流里 |
+| `github_actions/pnpm/action-setup-6`（`fe82e587c7`） | 暂不取，跟随上游 | 上游是 `@v4`×2 + `@v5`×36，没有往 v6 走 |
+
+后四条是**与上游取向冲突的待办**，不是遗漏：上游没有动，fork 单方面跟 dependabot 走，
+下次同步时每条各制造一处冲突。要推进就单独一次变更，并且 koffi 那条必须先手插锁文件块
+（`koffi@3.1.6` 的 integrity 为
+`sha512-ln60chEb3o7Du1ayjwl6BFiNN1wZK+3cTM2wWGiHLEzCY/FdTIN1ER5VWDwHq7J/j4tSnnrHaH5ABS1EO6+6ag==`）
+再跑 `pnpm install --frozen-lockfile`，不能跑裸 `pnpm install`。
