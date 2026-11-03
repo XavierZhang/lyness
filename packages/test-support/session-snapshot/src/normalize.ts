@@ -46,6 +46,16 @@ const EVENT_READ_TARGET_REGION_RE
 const PATH_TEXT_BOUNDARY_RE = /[\s<>'"`()\[\]{},;:!?=]/
 const FILE_URI_PATH_PREFIX_RE = /(?:^|[^a-z0-9+.-])file:\/\/\/?$/i
 
+/**
+ * The git object id a worktree result reports.
+ *
+ * The run creates the base commit, so its id is new every time and cannot be
+ * recorded. Keyed on the field name rather than on the 40-hex shape, so a
+ * commit a model or a tool quoted in prose stays regression-visible.
+ */
+const BASE_COMMIT_RE = /("baseCommit"\s*:\s*\\?")[0-9a-f]{40}/g
+const BASE_COMMIT = '{{commit}}'
+
 /** A UUID v4 string, the shape `randomUUID()` produces for session ids. */
 const UUID_RE = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/gi
 const SHORT_JOB_ID_RE = /-[0-9a-f]{16}$/i
@@ -189,6 +199,7 @@ function scrubString(
     out = out.replace(CWD_ROOTED_PATH_RE, path => path.replaceAll('\\', '/'))
     out = canonicalizeEmbeddedPaths(out)
   }
+  out = out.replace(BASE_COMMIT_RE, `$1${BASE_COMMIT}`)
   out = out.replace(LOCAL_SPILL_PATH_RE, (_match, name: string) => `{{spillLocator:${name}}}`)
   out = out.replace(SNAPSHOT_SPILL_PATH_RE, (_match, name: string) => `{{spillLocator:${name}}}`)
   // Exact event-read results render the target as pretty JSON inside a

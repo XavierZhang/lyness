@@ -60,6 +60,8 @@ const stop = executor.register('fs', desktopFsHandler(ctx.fs))
 
 **Confinement stays on the desktop.** The server may pass on a policy a tool already resolved, and the desktop's own backend enforces it. The server does not get a say in what a person's own machine allows, so this provider reports no sandbox mode of its own.
 
+**A move is two effects, and the wire keeps them apart.** `moveFile` publishes the destination and then removes the source, and a published destination whose source survived is a final outcome rather than an error — so the reply carries `sourceDeleted: false` with the removal's own code beside it. Collapsing that into a thrown failure would tell the caller the move did not happen when half of it did.
+
 **Reads stream.** The link delivers items as they are produced, so `streamText` yields each chunk when it lands and reads the last reply as the outcome — which is how a read that fails after its first bytes are already out still reports the failure.
 
 -----

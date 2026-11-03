@@ -5,63 +5,63 @@
 /:
   en: 65c981be6a40344b
   zh: 468873de4e2db85f
-/deepseek-ai-lyn-client-ui-plugin-manager:
-  en: 719d90bd71d7b957
-  zh: 492767e7ea9f88f8
-/deepseek-ai-lyn-client-ui-plugin-manager/summary:
+/lyness-lyn-client-ui-plugin-manager:
+  en: d45148950d97ba12
+  zh: b110bc4d47341ac6
+/lyness-lyn-client-ui-plugin-manager/summary:
   en: 0dc67850ca5358de
   zh: 4ff1bb5bdc184e3e
-/deepseek-ai-lyn-client-ui-plugin-manager/table-of-contents:
+/lyness-lyn-client-ui-plugin-manager/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/deepseek-ai-lyn-client-ui-plugin-manager/use-this-package:
-  en: 01ba764b51f010e8
-  zh: e43a158a5b09d987
-/deepseek-ai-lyn-client-ui-plugin-manager/use-this-package/installing-a-bundle:
-  en: cd4e17d62c407541
-  zh: 9610d3ee55c0e56a
-/deepseek-ai-lyn-client-ui-plugin-manager/use-this-package/updating-a-registry-bundle:
-  en: 9312d8b1b381378f
-  zh: 8d0ae7ad26ada2ac
-/deepseek-ai-lyn-client-ui-plugin-manager/use-this-package/switching-a-bundle:
+/lyness-lyn-client-ui-plugin-manager/use-this-package:
+  en: 49c9ac0aa2eecebf
+  zh: d7d9d9c08ac9f2b5
+/lyness-lyn-client-ui-plugin-manager/use-this-package/installing-a-bundle:
+  en: 26e7a743ed54ea37
+  zh: 89cc9c9bbafa12d5
+/lyness-lyn-client-ui-plugin-manager/use-this-package/updating-a-registry-bundle:
+  en: 9d43ce95f7ff612d
+  zh: b5a7936774496100
+/lyness-lyn-client-ui-plugin-manager/use-this-package/switching-a-bundle:
   en: 390dc85aceac033a
   zh: 746ceae45f70dd33
-/deepseek-ai-lyn-client-ui-plugin-manager/use-this-package/switching-one-row-of-a-bundle:
-  en: d3627d4dba5e6cc2
-  zh: e0d0eada4c20331f
-/deepseek-ai-lyn-client-ui-plugin-manager/use-this-package/configuration-pages:
-  en: e9da90f03691101b
-  zh: 902cda935a4ce3c8
-/deepseek-ai-lyn-client-ui-plugin-manager/use-this-package/detail-page-extension-points:
+/lyness-lyn-client-ui-plugin-manager/use-this-package/switching-one-row-of-a-bundle:
+  en: ec16630c0675d82b
+  zh: 6ef0bd35767393a9
+/lyness-lyn-client-ui-plugin-manager/use-this-package/configuration-pages:
+  en: ba3fd50420a8c858
+  zh: 03b7e894e656a768
+/lyness-lyn-client-ui-plugin-manager/use-this-package/detail-page-extension-points:
   en: d5e3cad5c31cae59
   zh: 6dc38f09b410d247
-/deepseek-ai-lyn-client-ui-plugin-manager/use-this-package/page-tabs:
-  en: fc469bab4fbd6028
-  zh: 8f5a04e1b9a46471
-/deepseek-ai-lyn-client-ui-plugin-manager/understand-the-implementation:
+/lyness-lyn-client-ui-plugin-manager/use-this-package/page-tabs:
+  en: da11ed0a00531ab5
+  zh: 77f3e67430319cf7
+/lyness-lyn-client-ui-plugin-manager/understand-the-implementation:
   en: 203168fc87e939bd
   zh: 72d0ccd2c54f3f44
-/deepseek-ai-lyn-client-ui-plugin-manager/understand-the-implementation/registration:
+/lyness-lyn-client-ui-plugin-manager/understand-the-implementation/registration:
   en: 93871919adaf1082
   zh: 67c9ef0b500e6917
-/deepseek-ai-lyn-client-ui-plugin-manager/understand-the-implementation/the-store:
+/lyness-lyn-client-ui-plugin-manager/understand-the-implementation/the-store:
   en: ef7ab41b4119c7b9
   zh: 3166661bf84415e5
-/deepseek-ai-lyn-client-ui-plugin-manager/understand-the-implementation/configuration-slots:
-  en: 45e324f5663be635
-  zh: 674ddf55c1581569
-/deepseek-ai-lyn-client-ui-plugin-manager/further-exploration:
-  en: f9a42dfed0360d6a
-  zh: 455a70bcb6c69624
-/deepseek-ai-lyn-client-ui-plugin-manager/model-experience:
+/lyness-lyn-client-ui-plugin-manager/understand-the-implementation/configuration-slots:
+  en: 6d1ac944188cf375
+  zh: 31987d34e6083a01
+/lyness-lyn-client-ui-plugin-manager/further-exploration:
+  en: 5cde15fb265e9f2f
+  zh: 15e93295a7617219
+/lyness-lyn-client-ui-plugin-manager/model-experience:
   en: 8dcc6c6fbfb567d2
   zh: 43690ae350f1d6a7
-/deepseek-ai-lyn-client-ui-plugin-manager/model-experience/kv-cache-effect:
+/lyness-lyn-client-ui-plugin-manager/model-experience/kv-cache-effect:
   en: ca75c51c89c2c9b0
   zh: 2064958b0754647e
-/deepseek-ai-lyn-client-ui-plugin-manager/known-limitations-and-deferred-work:
-  en: 59bdd1e0bab0001a
-  zh: e3c96402be2e0687
-/deepseek-ai-lyn-client-ui-plugin-manager/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-client-ui-plugin-manager/known-limitations-and-deferred-work:
+  en: 195aab8ff290579f
+  zh: 48d1bda0281a587d
+/lyness-lyn-client-ui-plugin-manager/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

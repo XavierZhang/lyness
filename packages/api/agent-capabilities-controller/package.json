@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-api-agent-capabilities-controller",
   "description": "What one reader's agents may use, and who decided each part of it",
-  "version": "0.2.1-rc.3",
+  "version": "0.2.2-alpha.3",
   "publishConfig": {
     "access": "public"
   },

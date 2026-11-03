@@ -3,17 +3,17 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-09-17-standalone-schedules.md
 /agent-note-standalone-schedules-and-session-targets:
-  en: ce8ed282ec843da0
-  zh: a5ca78422ea009ec
+  en: b4c99753b8455dda
+  zh: 943760ad9a20d873
 /agent-note-standalone-schedules-and-session-targets/problem:
   en: 2a6769cd378455bb
   zh: 84cfb0f2e1fde8e1
 /agent-note-standalone-schedules-and-session-targets/decision:
-  en: 73ed15d2219f2898
-  zh: db8ea6ae79a95241
+  en: e3228cd8ccfa5ab6
+  zh: 90fb4390008212c4
 /agent-note-standalone-schedules-and-session-targets/alternatives-considered:
   en: 1def5c19511fc59e
   zh: 84f0f5d568272c39
 /agent-note-standalone-schedules-and-session-targets/consequences:
-  en: bda079e488b5374b
-  zh: d5ffe96b33e8e65d
+  en: 38891bcbbc77aa47
+  zh: 781ced306f6130cc

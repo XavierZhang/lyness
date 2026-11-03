@@ -41,7 +41,7 @@ export default class SessionToolResults extends TypertRemoteService {
    * @param config - Validated per-Session retention limit.
    */
   constructor(ctx: Context, config: Config) {
-    super(ctx, 'sessionToolResults', { namespace: 'toolResults' })
+    super(ctx, 'sessionToolResults', { namespace: 'toolResults', requires: 'member' })
     ctx.on('tools/result', (exec, result) => {
       const session = exec.agent?.session
       if (result.isError || session === undefined || ctx.sessions.get(session.id) !== session) return

@@ -188,6 +188,14 @@ Additional instructions from: nested\AGENTS.md`,
     expect(normalizeStdout(raw, ctx)).toContain('{{sessionId}}')
   })
 
+  it('scrubs the base commit a worktree result reports, and no other commit id', () => {
+    const sha = 'a'.repeat(40)
+    const quoted = JSON.stringify({ jsonrpc: '2.0', method: 'x', params: { text: `{"baseCommit":"${sha}"}` } })
+    expect(normalizeStdout(quoted, ctx)).toContain('{{commit}}')
+    const prose = JSON.stringify({ jsonrpc: '2.0', method: 'x', params: { text: `the fix landed in ${sha}` } })
+    expect(normalizeStdout(prose, ctx)).toContain(sha)
+  })
+
   it('leaves notification frames without an id untouched in id-space', () => {
     const raw = JSON.stringify({ jsonrpc: '2.0', method: 'session/update', params: {} })
     const out = normalizeStdout(raw, ctx)

@@ -404,6 +404,8 @@ const SERVICE_ROLES: ServiceRole[] = [
     implementations: ['people/static'],
     consumers: [],
     note: 'Reports who a caller is and which of three roles their standing carries; each operation authorizes itself against that role rather than asking the directory to decide.',
+  },
+  {
     key: 'sessionLogDeepSeek',
     pkg: 'session-log-deepseek',
     title: 'Session-log upload policy',

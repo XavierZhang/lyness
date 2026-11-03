@@ -3,14 +3,14 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/simplification/2026-10-29-inbox-only-agent-wait.md
 /agent-note-inbox-only-agent-waits:
-  en: 8a451f9706af8dea
-  zh: 9818b5abdee12a9c
+  en: 3fc52856c48e9ede
+  zh: 9d5ad7c439ee4ad1
 /agent-note-inbox-only-agent-waits/problem:
   en: 7a6e28745bda3305
   zh: e862166572cb9a9f
 /agent-note-inbox-only-agent-waits/decision:
-  en: 553a1e166dd7e7e9
-  zh: c05f16577fa6753c
+  en: 64348d3c14c2f8c2
+  zh: 0defd709e35f1043
 /agent-note-inbox-only-agent-waits/alternatives-considered:
   en: 64a44ad3884a90c3
   zh: 1fffe0c6fd78acbe

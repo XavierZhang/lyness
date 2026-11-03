@@ -176,7 +176,7 @@ export class SessionController extends TypertRemoteService {
    * @param internals - host integrations replaceable by direct unit tests.
    */
   constructor(ctx: Context, config: Config, internals: SessionControllerInternals = {}) {
-    super(ctx, 'sessionController', { namespace: 'session' })
+    super(ctx, 'sessionController', { namespace: 'session', requires: 'member' })
     this.listWorkSliceMs = SessionController.Config(config).listWorkSliceMs
     this.fileApplications = internals.fileApplications ?? nativeFileApplications
     this.openFileApplication = internals.openFileApplication ?? openNativeFileApplication

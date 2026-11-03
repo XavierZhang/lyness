@@ -5,72 +5,72 @@
 /:
   en: 97d39db1617684ea
   zh: de11ba354583a044
-/deepseek-ai-lyn-client-modules:
-  en: ee2f6f3ccafafa13
-  zh: 3a37d4c4b69708dd
-/deepseek-ai-lyn-client-modules/summary:
-  en: ab7ece5891dd6289
-  zh: b9b5baab328be517
-/deepseek-ai-lyn-client-modules/table-of-contents:
+/lyness-lyn-client-modules:
+  en: e1f1574e8cc18d98
+  zh: 39e41125c416191d
+/lyness-lyn-client-modules/summary:
+  en: 6a3d83e2c4de5ae7
+  zh: 848c591647bd6e51
+/lyness-lyn-client-modules/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/deepseek-ai-lyn-client-modules/use-this-package:
-  en: 25f536f156ec0bcc
-  zh: a522355b3e0edeae
-/deepseek-ai-lyn-client-modules/use-this-package/declaring-a-client-plugin:
-  en: cc0eb2c35a7a0998
-  zh: 0e1df23869410c7a
-/deepseek-ai-lyn-client-modules/use-this-package/package-assets:
+/lyness-lyn-client-modules/use-this-package:
+  en: b23e4dbef92534e8
+  zh: 3c8d5c51d04188d9
+/lyness-lyn-client-modules/use-this-package/declaring-a-client-plugin:
+  en: e1204174e03bdc77
+  zh: 07d3f7c1c8cae1b0
+/lyness-lyn-client-modules/use-this-package/package-assets:
   en: 529af1eb8bf1acf2
   zh: 7d891a5dfa90c625
-/deepseek-ai-lyn-client-modules/use-this-package/what-the-browser-loads:
+/lyness-lyn-client-modules/use-this-package/what-the-browser-loads:
   en: 1383d68472b3c057
   zh: 94dd7d9abbdbccf3
-/deepseek-ai-lyn-client-modules/use-this-package/live-plugin-composition:
+/lyness-lyn-client-modules/use-this-package/live-plugin-composition:
   en: 45740a56e931d094
   zh: fa44cf77c86019af
-/deepseek-ai-lyn-client-modules/use-this-package/host-release-changes:
+/lyness-lyn-client-modules/use-this-package/host-release-changes:
   en: 5c0aa6f1d8df8e1c
   zh: 34005131c9bdce3b
-/deepseek-ai-lyn-client-modules/use-this-package/sharing-modules:
-  en: 1778b5a63ecde5e8
-  zh: 537b4f8c755af8ad
-/deepseek-ai-lyn-client-modules/use-this-package/build-requirements:
+/lyness-lyn-client-modules/use-this-package/sharing-modules:
+  en: 766acc5defe22f3f
+  zh: 762ecc786b4ef78e
+/lyness-lyn-client-modules/use-this-package/build-requirements:
   en: b6a4d3b901c89efe
   zh: 615b5f3eec41f281
-/deepseek-ai-lyn-client-modules/understand-the-implementation:
+/lyness-lyn-client-modules/understand-the-implementation:
   en: 7ab11d2c2bdc6eaa
   zh: 54c3c9091cf59711
-/deepseek-ai-lyn-client-modules/understand-the-implementation/design-concept:
-  en: 49dcadc166c2d06e
-  zh: bbf67c6dc47f4ead
-/deepseek-ai-lyn-client-modules/understand-the-implementation/lazy-cjs-model:
+/lyness-lyn-client-modules/understand-the-implementation/design-concept:
+  en: b1c686b59accb209
+  zh: 5e12f20352e2d9c2
+/lyness-lyn-client-modules/understand-the-implementation/lazy-cjs-model:
   en: 6d16b74acb333e3b
   zh: fcb3a20cc8c39e4a
-/deepseek-ai-lyn-client-modules/understand-the-implementation/incremental-composition:
-  en: 99483432e6390ca4
-  zh: f92c018273aa07e4
-/deepseek-ai-lyn-client-modules/understand-the-implementation/boot-manifest-injection:
+/lyness-lyn-client-modules/understand-the-implementation/incremental-composition:
+  en: 6cd17e5cfdfaa5f9
+  zh: b86242afe06955a8
+/lyness-lyn-client-modules/understand-the-implementation/boot-manifest-injection:
   en: 253d9f265cd83ed0
   zh: 9d0f8df84d9d3ac9
-/deepseek-ai-lyn-client-modules/understand-the-implementation/entry-ownership:
+/lyness-lyn-client-modules/understand-the-implementation/entry-ownership:
   en: 608a25c52159629f
   zh: c5ef242899cb32c1
-/deepseek-ai-lyn-client-modules/understand-the-implementation/source-map:
-  en: d8b5407a0279a3f9
-  zh: 27af3437fad78672
-/deepseek-ai-lyn-client-modules/further-exploration:
-  en: 7e5b283efe4f1d16
-  zh: 79472b64a0d759fe
-/deepseek-ai-lyn-client-modules/model-experience:
+/lyness-lyn-client-modules/understand-the-implementation/source-map:
+  en: 6ccf60ac728a91a2
+  zh: e6a75a1098238515
+/lyness-lyn-client-modules/further-exploration:
+  en: c00cdb5620810548
+  zh: 93c2d89a788c6b3a
+/lyness-lyn-client-modules/model-experience:
   en: abb2fc0416e1482c
   zh: 0e8a913d424a0c28
-/deepseek-ai-lyn-client-modules/model-experience/kv-cache-effect:
+/lyness-lyn-client-modules/model-experience/kv-cache-effect:
   en: ca75c51c89c2c9b0
   zh: de54f3467ef3b9be
-/deepseek-ai-lyn-client-modules/known-limitations-and-deferred-work:
+/lyness-lyn-client-modules/known-limitations-and-deferred-work:
   en: 97127ddc35daf6d4
   zh: 1417b06046b01067
-/deepseek-ai-lyn-client-modules/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-client-modules/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

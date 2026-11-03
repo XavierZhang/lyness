@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-api-session-data-controller",
   "description": "A person's own conversations: the deletion they can ask for, bounded by what they may see",
-  "version": "0.2.1-rc.3",
+  "version": "0.2.2-alpha.3",
   "publishConfig": {
     "access": "public"
   },

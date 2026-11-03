@@ -3,17 +3,17 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/bug-fix/2026-10-21-subagent-end-turn-guidance.md
 /agent-note-subagent-end-turn-guidance-stays-in-the-delegation-paragraph:
-  en: bfafb6d348cf2d21
-  zh: 191bedbfa12b6329
+  en: 7690917ea232ffae
+  zh: 90400a429a748292
 /agent-note-subagent-end-turn-guidance-stays-in-the-delegation-paragraph/problem:
   en: 36ff1fff46915956
   zh: 198c8ca7efaeb5b6
 /agent-note-subagent-end-turn-guidance-stays-in-the-delegation-paragraph/decision:
-  en: 47b44ed9313c2ccf
-  zh: 7ad254f8ef88351d
+  en: 413790f66921ac9b
+  zh: 0045db37a7058b04
 /agent-note-subagent-end-turn-guidance-stays-in-the-delegation-paragraph/alternatives-considered:
-  en: 3153c1e7563a3357
-  zh: 9841db2b0156075b
+  en: 2042724139554c77
+  zh: 45bf5ee51ee1136b
 /agent-note-subagent-end-turn-guidance-stays-in-the-delegation-paragraph/verification:
   en: be076216381ea64d
   zh: 2da8d9819c20e2fe

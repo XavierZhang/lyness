@@ -5,105 +5,105 @@
 /:
   en: e969ee395f6b7c28
   zh: f860753b409ba6b3
-/deepseek-ai-lyn-schedule:
-  en: 83c1ed891080cce4
-  zh: ac08407f9bb63531
-/deepseek-ai-lyn-schedule/summary:
+/lyness-lyn-schedule:
+  en: 257060615ed41988
+  zh: 23be9b70693789b2
+/lyness-lyn-schedule/summary:
   en: 0e2b1edae18118aa
   zh: 97d443780e929856
-/deepseek-ai-lyn-schedule/table-of-contents:
+/lyness-lyn-schedule/table-of-contents:
   en: d152484eb41ac6b4
   zh: 1db86285abf6c499
-/deepseek-ai-lyn-schedule/use-this-package:
-  en: bb1b2e7cdb4acda7
-  zh: 16a87c9090b4a414
-/deepseek-ai-lyn-schedule/understand-the-implementation:
+/lyness-lyn-schedule/use-this-package:
+  en: 08e0dfc74247d96f
+  zh: 2cb4d87fb93e4b9b
+/lyness-lyn-schedule/understand-the-implementation:
   en: 2eff756820c6825c
   zh: df7fab103eeb9545
-/deepseek-ai-lyn-schedule/understand-the-implementation/configuration-and-management-api:
-  en: 1b728ed2f3128f6f
-  zh: b7aa31c91a65ef34
-/deepseek-ai-lyn-schedule/understand-the-implementation/storage-format-and-upgrades:
-  en: b82a5f8e27a0adaa
-  zh: 3b7f212b7852ccea
-/deepseek-ai-lyn-schedule/understand-the-implementation/storage-format-and-upgrades/timing-record-fields:
+/lyness-lyn-schedule/understand-the-implementation/configuration-and-management-api:
+  en: c910409be2411967
+  zh: 74961b6b1c139353
+/lyness-lyn-schedule/understand-the-implementation/storage-format-and-upgrades:
+  en: 2e467beb190bade0
+  zh: 4568a020c7cc8028
+/lyness-lyn-schedule/understand-the-implementation/storage-format-and-upgrades/timing-record-fields:
   en: 93d9eb94a142fc0c
   zh: c997efbe182ab062
-/deepseek-ai-lyn-schedule/understand-the-implementation/storage-format-and-upgrades/when-stored-tasks-upgrade:
+/lyness-lyn-schedule/understand-the-implementation/storage-format-and-upgrades/when-stored-tasks-upgrade:
   en: 11bb6b4934f12479
   zh: f84ba5dcd2eee489
-/deepseek-ai-lyn-schedule/understand-the-implementation/storage-format-and-upgrades/future-versions:
-  en: 3f70e357501fad06
-  zh: 430d24e125268650
-/deepseek-ai-lyn-schedule/understand-the-implementation/dispatch-and-lifecycle:
-  en: fdf1d2e347420fab
-  zh: fd7257b8e843fc83
-/deepseek-ai-lyn-schedule/further-exploration:
-  en: 5c98e7a8bd720560
-  zh: dc1d41e7762b067a
-/deepseek-ai-lyn-schedule/model-experience:
+/lyness-lyn-schedule/understand-the-implementation/storage-format-and-upgrades/future-versions:
+  en: 301485a06d188a10
+  zh: 0bbd6c962e4f0b52
+/lyness-lyn-schedule/understand-the-implementation/dispatch-and-lifecycle:
+  en: 24eadfeeae6f3d2c
+  zh: b6fa6795c9d48b88
+/lyness-lyn-schedule/further-exploration:
+  en: f6d96f65a0f7a2c2
+  zh: 15cffd189b413e45
+/lyness-lyn-schedule/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/deepseek-ai-lyn-schedule/model-experience/tool-schemas-in-mounted-presets:
+/lyness-lyn-schedule/model-experience/tool-schemas-in-mounted-presets:
   en: 097a655a88e2a9f2
   zh: 6612c58808186b1e
-/deepseek-ai-lyn-schedule/model-experience/tool-schemas-in-mounted-presets/what-the-model-sees:
-  en: 1c3efc4aac14c8a6
-  zh: 93f34dbb10a6a7d5
-/deepseek-ai-lyn-schedule/model-experience/tool-schemas-in-mounted-presets/token-effect:
+/lyness-lyn-schedule/model-experience/tool-schemas-in-mounted-presets/what-the-model-sees:
+  en: 9493f7149cb6e747
+  zh: 4db36e3e3da4d821
+/lyness-lyn-schedule/model-experience/tool-schemas-in-mounted-presets/token-effect:
   en: ae0eb4d2609d4329
   zh: 4fe0a26e37c272dc
-/deepseek-ai-lyn-schedule/model-experience/tool-schemas-in-mounted-presets/kv-cache-effect:
+/lyness-lyn-schedule/model-experience/tool-schemas-in-mounted-presets/kv-cache-effect:
   en: 7bf33bbe17e1da03
   zh: 2af9a2f842b4f430
-/deepseek-ai-lyn-schedule/model-experience/tool-results-after-management-calls:
+/lyness-lyn-schedule/model-experience/tool-results-after-management-calls:
   en: 2a940dee68296bc7
   zh: 5ad3f71bd69b3c4c
-/deepseek-ai-lyn-schedule/model-experience/tool-results-after-management-calls/what-the-model-sees:
-  en: 888f50167c074ba1
-  zh: ddd2643d505c26e0
-/deepseek-ai-lyn-schedule/model-experience/tool-results-after-management-calls/token-effect:
+/lyness-lyn-schedule/model-experience/tool-results-after-management-calls/what-the-model-sees:
+  en: 1e26be071cdf8868
+  zh: c0bb5c4d51f26746
+/lyness-lyn-schedule/model-experience/tool-results-after-management-calls/token-effect:
   en: b538367888e60b2a
   zh: 04aa3dd1ba691aec
-/deepseek-ai-lyn-schedule/model-experience/tool-results-after-management-calls/kv-cache-effect:
+/lyness-lyn-schedule/model-experience/tool-results-after-management-calls/kv-cache-effect:
   en: 589d2d6339da0b7d
   zh: 6ae3a992abe1a91a
-/deepseek-ai-lyn-schedule/model-experience/due-reminders-in-the-target-session:
+/lyness-lyn-schedule/model-experience/due-reminders-in-the-target-session:
   en: bcb172c9e1b1d958
   zh: 0f09b31223e14fb7
-/deepseek-ai-lyn-schedule/model-experience/due-reminders-in-the-target-session/what-the-model-sees:
+/lyness-lyn-schedule/model-experience/due-reminders-in-the-target-session/what-the-model-sees:
   en: 98a8f7d8ee457ee0
   zh: b6603cb2c163f152
-/deepseek-ai-lyn-schedule/model-experience/due-reminders-in-the-target-session/what-the-model-sees/one-shot-framing:
+/lyness-lyn-schedule/model-experience/due-reminders-in-the-target-session/what-the-model-sees/one-shot-framing:
   en: d8635e0075bacc3f
   zh: 685e16d812319f85
-/deepseek-ai-lyn-schedule/model-experience/due-reminders-in-the-target-session/what-the-model-sees/batch-framing:
+/lyness-lyn-schedule/model-experience/due-reminders-in-the-target-session/what-the-model-sees/batch-framing:
   en: 97696a06565526bd
   zh: d642d26efb33fce8
-/deepseek-ai-lyn-schedule/model-experience/due-reminders-in-the-target-session/token-effect:
+/lyness-lyn-schedule/model-experience/due-reminders-in-the-target-session/token-effect:
   en: 00b9dd5a0266f97d
   zh: 7b518b4fcdc3ad0b
-/deepseek-ai-lyn-schedule/model-experience/due-reminders-in-the-target-session/kv-cache-effect:
+/lyness-lyn-schedule/model-experience/due-reminders-in-the-target-session/kv-cache-effect:
   en: 7f75bfa484baaa5f
   zh: f60e81285e2228e7
-/deepseek-ai-lyn-schedule/model-experience/change-notices-in-involved-sessions:
+/lyness-lyn-schedule/model-experience/change-notices-in-involved-sessions:
   en: 4c6fcd0b338a4fc7
   zh: 77a94c6c6f77d38d
-/deepseek-ai-lyn-schedule/model-experience/change-notices-in-involved-sessions/what-the-model-sees:
+/lyness-lyn-schedule/model-experience/change-notices-in-involved-sessions/what-the-model-sees:
   en: 7d076db63ac4e170
   zh: b33cde17afd45256
-/deepseek-ai-lyn-schedule/model-experience/change-notices-in-involved-sessions/what-the-model-sees/change-notice-framing:
+/lyness-lyn-schedule/model-experience/change-notices-in-involved-sessions/what-the-model-sees/change-notice-framing:
   en: a087f75cf359234a
   zh: cdd46e0554317e5f
-/deepseek-ai-lyn-schedule/model-experience/change-notices-in-involved-sessions/token-effect:
+/lyness-lyn-schedule/model-experience/change-notices-in-involved-sessions/token-effect:
   en: 147b2a6688f450c2
   zh: 492e3b90c68c2746
-/deepseek-ai-lyn-schedule/model-experience/change-notices-in-involved-sessions/kv-cache-effect:
+/lyness-lyn-schedule/model-experience/change-notices-in-involved-sessions/kv-cache-effect:
   en: ded4518f433d2ed9
   zh: 8a9fb97f9926189c
-/deepseek-ai-lyn-schedule/known-limitations-and-deferred-work:
+/lyness-lyn-schedule/known-limitations-and-deferred-work:
   en: 86e89ea7b6abaa5d
   zh: d2ec559c625a370d
-/deepseek-ai-lyn-schedule/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-schedule/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: e88aeb617ffb74ea

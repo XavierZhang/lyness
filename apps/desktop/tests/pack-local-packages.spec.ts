@@ -72,13 +72,18 @@ afterEach(async () => {
   for (const root of roots.splice(0)) removeFixtureSafely(root)
 }, testTimeout)
 
+/** The fixture package's name, which `pnpm pack` also spells into the archive's filename. */
+const probePackageName = '@lyness/lyn-probe'
+
 it('packs local client artifacts without a release publication record', async () => {
   const root = fixture()
   const result = await pack(root)
   expect(result.code, result.output).toBe(0)
-  expect(readdirSync(join(root, 'packed'))).toEqual(['deepseek-ai-lyn-probe-1.2.3.tgz'])
-  expect(packedIdentity(join(root, 'packed/deepseek-ai-lyn-probe-1.2.3.tgz')))
-    .toEqual({ name: '@lyness/lyn-probe', version: '1.2.3' })
+  // `pnpm pack` names the archive after the manifest, with the scope flattened.
+  const archive = `${probePackageName.replace('@', '').replace('/', '-')}-1.2.3.tgz`
+  expect(readdirSync(join(root, 'packed'))).toEqual([archive])
+  expect(packedIdentity(join(root, 'packed', archive)))
+    .toEqual({ name: probePackageName, version: '1.2.3' })
   expect(existsSync(join(root, 'packed', PUBLISH_ORDER_FILE))).toBe(false)
 }, testTimeout)
 

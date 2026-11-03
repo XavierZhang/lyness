@@ -19,15 +19,18 @@
 import { posix, win32 } from 'node:path'
 import { FileSystem, FsError, FsVersion } from '@lyness/lyn-fs'
 import type {
+  FsDeleteOutcome,
   FsDirEntry,
   FsEditOutcome,
   FsEditRequest,
   FsInfo,
+  FsMoveOutcome,
   FsPathInfo,
   FsTarget,
   FsWriteIntent,
   FsWriteOutcome,
 } from '@lyness/lyn-fs'
+import type { PatchHunk } from '@lyness/lyn-fs-patch'
 import type { SandboxExecutionPolicy } from '@lyness/lyn-sandbox'
 import type {} from '@lyness/lyn-agent'
 import type {} from '@lyness/lyn-desktop-link'
@@ -39,10 +42,12 @@ import type { JsonValue } from '@lyness/lyn-util-values'
 import { z } from 'zod'
 import {
   FS_CAPABILITY,
+  deleteOutcomeSchema,
   desktopTargetSchema,
   dirEntrySchema,
   editOutcomeSchema,
   infoSchema,
+  moveOutcomeSchema,
   pathInfoSchema,
   failureSchema,
   successOf,
@@ -64,6 +69,8 @@ const replies = {
   entries: successOf(z.array(dirEntrySchema)),
   write: successOf(writeOutcomeSchema),
   edit: successOf(editOutcomeSchema),
+  delete: successOf(deleteOutcomeSchema),
+  move: successOf(moveOutcomeSchema),
   end: successOf(z.null()),
 }
 
@@ -166,6 +173,76 @@ export class DesktopFileSystem extends FileSystem {
       signal,
     )
     return { ...outcome, version: FsVersion(outcome.version) }
+  }
+
+  override async patchText(
+    target: FsTarget,
+    hunks: readonly PatchHunk[],
+    expected?: { version: FsVersion },
+    signal?: AbortSignal,
+    sandboxPolicy?: SandboxExecutionPolicy,
+  ): Promise<FsEditOutcome> {
+    const outcome = await this.request(
+      'patchText',
+      {
+        target: decodeTarget(target),
+        hunks: hunks.map(hunk => ({ ...hunk })),
+        expected: expected ?? null,
+        policy: policyPayload(sandboxPolicy),
+      },
+      replies.edit,
+      signal,
+    )
+    return { ...outcome, version: FsVersion(outcome.version) }
+  }
+
+  override async deleteFile(
+    target: FsTarget,
+    expected?: { version: FsVersion },
+    signal?: AbortSignal,
+    sandboxPolicy?: SandboxExecutionPolicy,
+  ): Promise<FsDeleteOutcome> {
+    return await this.request(
+      'deleteFile',
+      { target: decodeTarget(target), expected: expected ?? null, policy: policyPayload(sandboxPolicy) },
+      replies.delete,
+      signal,
+    )
+  }
+
+  override async moveFile(
+    source: FsTarget,
+    destination: FsTarget,
+    options: {
+      hunks?: readonly PatchHunk[]
+      expectedSource?: { version: FsVersion }
+      expectedDestination?: FsWriteIntent
+    },
+    signal?: AbortSignal,
+    sandboxPolicy?: SandboxExecutionPolicy,
+  ): Promise<FsMoveOutcome> {
+    const outcome = await this.request(
+      'moveFile',
+      {
+        source: decodeTarget(source),
+        destination: decodeTarget(destination),
+        hunks: options.hunks === undefined ? null : options.hunks.map(hunk => ({ ...hunk })),
+        expectedSource: options.expectedSource ?? null,
+        expectedDestination: options.expectedDestination ?? null,
+        policy: policyPayload(sandboxPolicy),
+      },
+      replies.move,
+      signal,
+    )
+    const published = { ...outcome.destination, version: FsVersion(outcome.destination.version) }
+    return outcome.sourceDeleted
+      ? { sourceBefore: outcome.sourceBefore, destination: published, sourceDeleted: true }
+      : {
+        sourceBefore: outcome.sourceBefore,
+        destination: published,
+        sourceDeleted: false,
+        sourceFailure: outcome.sourceFailure,
+      }
   }
 
   /**

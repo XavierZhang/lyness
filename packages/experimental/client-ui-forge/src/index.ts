@@ -86,7 +86,7 @@ export class ForgePanelController extends TypertRemoteService {
   private readonly stopStates: () => Promise<void>
 
   constructor(ctx: Context, config: Config) {
-    super(ctx, 'forgePanel')
+    super(ctx, 'forgePanel', { requires: 'member' })
     const resolved = config as Required<Config>
     if (resolved.gitCommand.trim().length === 0) throw new Error('forge-panel: gitCommand must not be empty')
     for (const key of ['gitTimeoutMs', 'graceMs', 'maxOutputBytes', 'readinessTimeoutMs'] as const) {

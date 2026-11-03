@@ -3,38 +3,38 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write docs/subsystems/filesystem.md
 /filesystem:
-  en: 7f7941ec6f70a8b8
-  zh: 450937984b6a8748
+  en: 5b7db8566f94b591
+  zh: e4e90c29290b2459
 /filesystem/target-identity-and-metadata-provider-contract:
   en: 1e55f1c74f0ade3f
   zh: faecf389a2fb0a93
 /filesystem/patch-syntax-records:
-  en: 3ab3a02918d41178
-  zh: 78ff80be8599ba43
+  en: 72f0594c525424cd
+  zh: 70b1fbd223b14059
 /filesystem/write-and-edit-guards-provider-contract:
   en: a7c449176367a0d6
   zh: ecb49a885304db62
 /filesystem/the-fs-policy-events-provider-contract-vocabulary:
-  en: b25951ca185a890e
-  zh: 42a1344a2cc860a9
+  en: b4067cb6ca6906c0
+  zh: 3f89b00a609fc0c7
 /filesystem/execution-context-policy-plugin:
-  en: a23c12fc81bb4786
-  zh: 9dc12d18f9c97e6a
+  en: 715700f51cd294a8
+  zh: 0e94cccedd18f74b
 /filesystem/read-outcome-consumer-read-rendering:
-  en: 9315d84e53db33e9
-  zh: 86426ffbfa487504
+  en: dd1aa29e38d3dc58
+  zh: 09e2487497dd5f57
 /filesystem/observed-file-state-policy-plugin:
-  en: cfa56ed5d1eb2ff9
-  zh: 04be764f3dc8a48c
+  en: b1cb077ac51e9464
+  zh: ae04ea1e0ebbbcc4
 /filesystem/patch-execution-consumer:
-  en: 7b462db42ab89b10
-  zh: 968219ded2b55d69
+  en: 7e4422ab66591718
+  zh: 3476ab7107718d04
 /filesystem/error-taxonomy-provider-contract:
-  en: ca206569d4e2528d
-  zh: e36d70ad39a73570
+  en: 8a8c39520eed833c
+  zh: 6dc0dbe97e9ff05d
 /filesystem/no-timeouts-on-file-io:
-  en: ae18af906f3f7e50
-  zh: 24a1aa6f903fe08d
+  en: c1b2be4ca1654daa
+  zh: 86a4f67e5e4a7729
 /filesystem/the-service-and-the-plugin:
-  en: a5e2474038c20e73
-  zh: 0b8c7a9f504226b8
+  en: ea5d4cfc5cb0c43f
+  zh: 80e96d824bb601e6

@@ -3,14 +3,14 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/feature/2026-10-21-floating-window-edge-recovery.md
 /agent-note-spring-based-edge-recovery-for-floating-dock-panels:
-  en: 73438e22c1bef8d3
-  zh: 5f817eb06259f8ef
+  en: 0ffb898fc2f5f461
+  zh: 06222814d69b61ff
 /agent-note-spring-based-edge-recovery-for-floating-dock-panels/problem:
-  en: c3b007f5cce80d8b
-  zh: c08b07f7e71eaa5f
+  en: 4925a41bf2517199
+  zh: 05cb103765463f2e
 /agent-note-spring-based-edge-recovery-for-floating-dock-panels/decision:
-  en: f88f165ca80a57b8
-  zh: 98559f2239b03445
+  en: 294f8281a606df74
+  zh: 0953b441d897256f
 /agent-note-spring-based-edge-recovery-for-floating-dock-panels/decision/legal-region-and-displayed-position:
   en: 6dea90dc406eacf5
   zh: 6ecae0fdad78c855
@@ -24,8 +24,8 @@
   en: 7e29bf1c45b5386d
   zh: c913a2ce6d1722d1
 /agent-note-spring-based-edge-recovery-for-floating-dock-panels/decision/change-scope:
-  en: 6459103379aefe41
-  zh: 501dee08a977b6a0
+  en: e734aa77cde21163
+  zh: 1c220067fcdada00
 /agent-note-spring-based-edge-recovery-for-floating-dock-panels/testing:
   en: da3b2b6781aa99f3
   zh: 37e49fa22f72fb84

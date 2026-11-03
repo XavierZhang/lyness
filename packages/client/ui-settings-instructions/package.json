@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-client-ui-settings-instructions",
   "description": "The instructions section in Settings: what a person tells their own agents",
-  "version": "0.2.1-rc.3",
+  "version": "0.2.2-alpha.3",
   "publishConfig": {
     "access": "public"
   },

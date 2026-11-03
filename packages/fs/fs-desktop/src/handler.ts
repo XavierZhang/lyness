@@ -17,6 +17,7 @@
 
 import { FsError, FsTargetKey, FsVersion } from '@lyness/lyn-fs'
 import type { FileSystem, FsTarget, FsWriteIntent } from '@lyness/lyn-fs'
+import type { PatchHunk } from '@lyness/lyn-fs-patch'
 import { brandString } from '@lyness/lyn-brand'
 import type { SessionId } from '@lyness/lyn-session'
 import type { SandboxExecutionPolicy } from '@lyness/lyn-sandbox'
@@ -26,6 +27,7 @@ import { z } from 'zod'
 import {
   desktopTargetSchema,
   editRequestSchema,
+  patchHunkSchema,
   sandboxPolicySchema,
   writeIntentSchema,
 } from './protocol.ts'
@@ -48,6 +50,26 @@ const editArg = z.object({
   target: desktopTargetSchema,
   edit: editRequestSchema,
   expected: z.object({ version: z.string() }).strict().nullable(),
+  policy: sandboxPolicySchema.nullable(),
+}).strict()
+
+const patchArg = z.object({
+  target: desktopTargetSchema,
+  hunks: z.array(patchHunkSchema),
+  expected: z.object({ version: z.string() }).strict().nullable(),
+  policy: sandboxPolicySchema.nullable(),
+}).strict()
+const deleteArg = z.object({
+  target: desktopTargetSchema,
+  expected: z.object({ version: z.string() }).strict().nullable(),
+  policy: sandboxPolicySchema.nullable(),
+}).strict()
+const moveArg = z.object({
+  source: desktopTargetSchema,
+  destination: desktopTargetSchema,
+  hunks: z.array(patchHunkSchema).nullable(),
+  expectedSource: z.object({ version: z.string() }).strict().nullable(),
+  expectedDestination: writeIntentSchema.nullable(),
   policy: sandboxPolicySchema.nullable(),
 }).strict()
 
@@ -132,8 +154,57 @@ async function* run(fs: FileSystem, operation: string, payload: JsonValue, signa
       yield ok({ ...outcome, version: String(outcome.version) })
       return
     }
+    case 'patchText': {
+      const { target, hunks, expected, policy } = patchArg.parse(payload)
+      const guard = expected === null ? undefined : { version: FsVersion(expected.version) }
+      const outcome = await fs.patchText(rebuild(target), hunks.map(hunk), guard, signal, confinement(policy))
+      yield ok({ ...outcome, version: String(outcome.version) })
+      return
+    }
+    case 'deleteFile': {
+      const { target, expected, policy } = deleteArg.parse(payload)
+      const guard = expected === null ? undefined : { version: FsVersion(expected.version) }
+      const outcome = await fs.deleteFile(rebuild(target), guard, signal, confinement(policy))
+      yield ok({ before: outcome.before })
+      return
+    }
+    case 'moveFile': {
+      const { source, destination, hunks, expectedSource, expectedDestination, policy } = moveArg.parse(payload)
+      const destinationGuard = intent(expectedDestination)
+      const outcome = await fs.moveFile(rebuild(source), rebuild(destination), {
+        ...hunks === null ? {} : { hunks: hunks.map(hunk) },
+        ...expectedSource === null ? {} : { expectedSource: { version: FsVersion(expectedSource.version) } },
+        ...destinationGuard === undefined ? {} : { expectedDestination: destinationGuard },
+      }, signal, confinement(policy))
+      const published = {
+        operation: outcome.destination.operation,
+        version: String(outcome.destination.version),
+        before: outcome.destination.before,
+        after: outcome.destination.after,
+      }
+      yield ok(outcome.sourceDeleted
+        ? { sourceBefore: outcome.sourceBefore, destination: published, sourceDeleted: true }
+        : {
+          sourceBefore: outcome.sourceBefore,
+          destination: published,
+          sourceDeleted: false,
+          sourceFailure: { code: outcome.sourceFailure.code, message: outcome.sourceFailure.message },
+        })
+      return
+    }
     default:
       throw new FsError(`this desktop's filesystem serves no "${operation}" operation`, 'FS_IO_ERROR')
+  }
+}
+
+/** One parsed hunk as `PatchHunk` spells it: an absent anchor is omitted, not undefined. */
+function hunk(parsed: z.infer<typeof patchHunkSchema>): PatchHunk {
+  return {
+    lineNumber: parsed.lineNumber,
+    oldLines: parsed.oldLines,
+    newLines: parsed.newLines,
+    isEndOfFile: parsed.isEndOfFile,
+    ...parsed.context === undefined ? {} : { context: parsed.context },
   }
 }
 

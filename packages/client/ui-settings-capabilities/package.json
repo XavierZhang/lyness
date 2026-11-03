@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-client-ui-settings-capabilities",
   "description": "The what-you-may-use section in Settings: a reader's models, connections, skills and tools",
-  "version": "0.2.1-rc.3",
+  "version": "0.2.2-alpha.3",
   "publishConfig": {
     "access": "public"
   },

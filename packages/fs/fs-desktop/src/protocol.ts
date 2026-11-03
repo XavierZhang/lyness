@@ -86,6 +86,41 @@ export const editOutcomeSchema = z.object({
   after: z.string(),
 }).strict()
 
+/** One parsed patch hunk, as the Host sends it for a patch or a patched move. */
+export const patchHunkSchema = z.object({
+  lineNumber: z.number(),
+  context: z.string().optional(),
+  oldLines: z.array(z.string()),
+  newLines: z.array(z.string()),
+  isEndOfFile: z.boolean(),
+}).strict()
+
+/** The outcome of a guarded removal; `before` is the bounded basis or null. */
+export const deleteOutcomeSchema = z.object({
+  before: z.string().nullable(),
+}).strict()
+
+/**
+ * The outcome of a move.
+ *
+ * The two effects are separate on the wire exactly as they are in the
+ * Service Definition: a published destination whose source survived is a
+ * final outcome carrying the removal's own failure, not an error.
+ */
+export const moveOutcomeSchema = z.discriminatedUnion('sourceDeleted', [
+  z.object({
+    sourceBefore: z.string().nullable(),
+    destination: writeOutcomeSchema,
+    sourceDeleted: z.literal(true),
+  }).strict(),
+  z.object({
+    sourceBefore: z.string().nullable(),
+    destination: writeOutcomeSchema,
+    sourceDeleted: z.literal(false),
+    sourceFailure: z.object({ code: z.enum(FS_ERROR_CODES), message: z.string() }).strict(),
+  }).strict(),
+])
+
 /** A literal-replacement edit request. */
 export const editRequestSchema = z.object({
   oldString: z.string(),

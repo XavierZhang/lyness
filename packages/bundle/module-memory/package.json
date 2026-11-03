@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-module-memory",
   "description": "The durable memory default module as its own bundle: the Host service and its contributed write tools",
-  "version": "0.2.1-rc.3",
+  "version": "0.2.2-alpha.3",
   "publishConfig": {
     "access": "public"
   },

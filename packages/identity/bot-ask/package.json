@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-bot-ask",
   "description": "One bot asking a teammate a question, answered in a conversation of the teammate's own",
-  "version": "0.2.1-rc.3",
+  "version": "0.2.2-alpha.3",
   "publishConfig": {
     "access": "public"
   },

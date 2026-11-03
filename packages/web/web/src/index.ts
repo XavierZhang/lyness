@@ -96,7 +96,7 @@ export class WebRuntime extends TypertRemoteService {
   private readonly fetchProviderEnv: string | undefined
 
   constructor(ctx: Context, private readonly config: WebRuntimeConfig) {
-    super(ctx, 'web')
+    super(ctx, 'web', { requires: 'member' })
     this.searchProviderEnv = process.env.LYNESS_WEB_SEARCH_PROVIDER
     this.fetchProviderEnv = process.env.LYNESS_WEB_FETCH_PROVIDER
   }

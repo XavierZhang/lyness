@@ -553,10 +553,10 @@ const POSTCONDITIONS: readonly PostCondition[] = [
   { file: 'vendor/cordis/package.json', text: '"name": "@lyness/cordis"', count: 1 },
   // The upstream repositories each pinned copy was taken from.
   { file: 'vendor/README.md', text: 'github.com/deepseek-harness/cosmokit', count: 1 },
-  { file: 'vendor/README.md', text: 'github.com/deepseek-harness/cordis', count: 5 },
+  { file: 'vendor/README.md', text: 'github.com/deepseek-harness/cordis', count: 3 },
   // The model vendor must be untouched wherever the product reaches it.
   { file: 'packages/bundle/base/cordis.patch.yml', text: 'api.deepseek.com', count: 0 },
-  { file: 'CUSTOM.md', text: 'DeepSeek Harness', count: 3 },
+  { file: 'CUSTOM.md', text: 'DeepSeek Harness', count: 9 },
 ]
 
 /**

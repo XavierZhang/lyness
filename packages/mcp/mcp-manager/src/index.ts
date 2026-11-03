@@ -218,7 +218,7 @@ export default class McpServerManager extends TypertRemoteService {
    * @param config - resolved manager configuration with live references.
    */
   constructor(ctx: Context, public config: Config) {
-    super(ctx, 'mcpManager')
+    super(ctx, 'mcpManager', { requires: 'platform-administrator' })
     this.ownerContext = ctx
     validateEntries(config.servers.get())
   }

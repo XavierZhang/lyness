@@ -3,17 +3,17 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-10-29-cua-dev-signing-identity.md
 /agent-note-development-signing-identity-for-source-built-cua-helpers:
-  en: 472c4efd47184a32
-  zh: 49f64628531970e9
+  en: 7fb2eb2ef3969f80
+  zh: 2df98ca555fed953
 /agent-note-development-signing-identity-for-source-built-cua-helpers/problem:
-  en: a24857a312482724
-  zh: dbac75d363670e86
+  en: 65c1205c29c9dece
+  zh: d4305f6f74561332
 /agent-note-development-signing-identity-for-source-built-cua-helpers/decision:
-  en: d2265f9ec5fb7a79
-  zh: 05da2479b024a4bb
+  en: 29c96f458ae35dff
+  zh: 949594b9aa4ddd8c
 /agent-note-development-signing-identity-for-source-built-cua-helpers/alternatives-considered:
-  en: e30db5bc9c7aab43
-  zh: fa84883b5527334e
+  en: 3c18e3acac5f09a0
+  zh: 0b43b7000e81e13b
 /agent-note-development-signing-identity-for-source-built-cua-helpers/consequences:
-  en: fb0e8fe44890bdf9
-  zh: d9e9ace1a4c10060
+  en: 6b56208702ced400
+  zh: 2548810e080c5be7

@@ -3,26 +3,26 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write python/sdk/README.md
 /lyness-python-sdk:
-  en: 43f7de064985e731
-  zh: 9ad59629660b1f13
+  en: 90ab5455cc7442ec
+  zh: f5c788c8122ce3a9
 /lyness-python-sdk/optional-office-operations:
-  en: ddf4dabea526cef1
-  zh: 6e31cab10d2f3ed8
+  en: 9fcdd91ab3ff6184
+  zh: 6f143072c3134484
 /lyness-python-sdk/start-a-runtime:
-  en: ac793c588b13ce87
-  zh: 502015cda46de3ac
+  en: bd39a2137ea65567
+  zh: 823d91b201f09b7a
 /lyness-python-sdk/run-text-and-commands:
-  en: b2c847c1452e137d
-  zh: c595c5e82151d0cb
+  en: 7444239c5ee43f98
+  zh: 1fd56fab41d4d45d
 /lyness-python-sdk/client-approvals:
-  en: 1d18c09832dd4a42
-  zh: 6e7260b650a1f987
+  en: aaf2d20b4d1451b4
+  zh: 77955e195d21b0cb
 /lyness-python-sdk/customize-plugins:
-  en: 0cfa22d329a704db
-  zh: ff04b5e01e2c5936
+  en: 52e68252c5ea9520
+  zh: 4b92c93ed18966b0
 /lyness-python-sdk/native-user-questions:
-  en: 979ad00fe498b2be
-  zh: 4b656bd268292a13
+  en: ab90b6b50572dd40
+  zh: f68f0ea0fdd8f657
 /lyness-python-sdk/results-and-notifications:
-  en: 6b81899ea865ffd2
-  zh: d9e326a3fb04e696
+  en: 7e72cfe614cf4d58
+  zh: 9c5c9ed65e670b99

@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-api-memory-controller",
   "description": "What this deployment remembers about one person, read and removed by that person alone",
-  "version": "0.2.1-rc.3",
+  "version": "0.2.2-alpha.3",
   "publishConfig": {
     "access": "public"
   },

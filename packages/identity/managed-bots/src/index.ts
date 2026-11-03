@@ -109,7 +109,7 @@ export class BotsRefusedError extends Error {
 
 /** The bots this deployment stores, and the written ones they may not shadow. */
 export class ManagedBots extends Service {
-  static inject = ['storageDomain', 'managedPeople', 'agentPresets', 'sessionProjections']
+  static inject = ['storageDomain', 'managedPeople', 'agentPresets', 'sessionProjections', 'adminAudit']
 
   private readonly ready: Promise<Domain<typeof managedBotsDomain>>
 

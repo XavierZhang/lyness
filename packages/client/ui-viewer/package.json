@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-client-ui-viewer",
   "description": "The shared viewer read: who is signed in, and which Settings planes that standing is offered",
-  "version": "0.2.1-rc.3",
+  "version": "0.2.2-alpha.3",
   "publishConfig": {
     "access": "public"
   },

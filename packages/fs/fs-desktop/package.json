@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-fs-desktop",
   "description": "The files the agent works on are on the person's own machine, not the server's",
-  "version": "0.2.1-rc.3",
+  "version": "0.2.2-alpha.3",
   "publishConfig": {
     "access": "public"
   },
@@ -48,6 +48,7 @@
     "@lyness/lyn-brand": "workspace:*",
     "@lyness/lyn-desktop-link": "workspace:*",
     "@lyness/lyn-fs": "workspace:*",
+    "@lyness/lyn-fs-patch": "workspace:*",
     "@lyness/lyn-people": "workspace:*",
     "@lyness/lyn-request-principal": "workspace:*",
     "@lyness/lyn-sandbox": "workspace:*",
@@ -62,6 +63,7 @@
     "@lyness/lyn-brand": "workspace:*",
     "@lyness/lyn-desktop-link": "workspace:*",
     "@lyness/lyn-fs": "workspace:*",
+    "@lyness/lyn-fs-patch": "workspace:*",
     "@lyness/lyn-people": "workspace:*",
     "@lyness/lyn-request-principal": "workspace:*",
     "@lyness/lyn-sandbox": "workspace:*",

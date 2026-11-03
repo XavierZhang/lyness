@@ -160,15 +160,6 @@
         path: ':memory:'
         openAt: never
 
-    # Shared projection registry: subagent catalog identity (mode/label) folds
-    # through its registered units, so the `list_agents` surface below fails
-    # loud without it; web layers reuse this same mount for list rows.
-    - id: working-directory
-      name: '@lyness/lyn-working-directory'
-
-    - id: tool-working-directory
-      name: '@lyness/lyn-tool-working-directory'
-
     - id: session-projection
       name: '@lyness/lyn-session-projection'
 
@@ -238,31 +229,6 @@
           maxExportBatchSize: 2048
           exportTimeoutMillis: 1500
 
-    - id: subprocess
-      name: '@lyness/lyn-subprocess-local'
-
-    # Every shipped CLI mode starts with the same file-effect boundary.
-    # The environment remains an explicit deployment override; otherwise fresh
-    # sessions pin workspace-write + ask through the permission service below.
-    - id: sandbox
-      name: '@lyness/lyn-sandbox-local'
-
-    - id: sandbox-policy
-      name: '@lyness/lyn-sandbox-policy'
-      config:
-        mode: !!js process.env.LYNESS_PERMISSION_MODE ?? 'workspace-write'
-        workspaceRoot: !!js process.cwd()
-
-    - id: bash-sandbox
-      name: '@lyness/lyn-bash-sandbox'
-      disabled: !!js process.platform === 'win32'
-      config:
-        timeoutMs: 60000
-
-    - id: pwsh-sandbox
-      name: '@lyness/lyn-pwsh-sandbox'
-      disabled: !!js process.platform !== 'win32'
-
     - id: approval
       name: '@lyness/lyn-user-approval'
       config:
@@ -282,34 +248,8 @@
             sandbox: danger-full-access
             approval: never
 
-    - id: shell-env
-      name: '@lyness/lyn-shell-env'
-
-    - id: tool-bash
-      name: '@lyness/lyn-tool-bash'
-      disabled: !!js process.platform === 'win32'
-
-    - id: tool-pwsh
-      name: '@lyness/lyn-tool-pwsh'
-      disabled: !!js process.platform !== 'win32'
-
     - id: tool-jobs
       name: '@lyness/lyn-tool-jobs'
-
-    - id: fs-observation-policy
-      name: '@lyness/lyn-fs-observation-policy'
-      disabled: true
-
-    - id: tool-fs
-      name: '@lyness/lyn-tool-fs'
-      config:
-        # Set false to drop the apply_patch tool beside edit.
-        applyPatch: false
-
-    - id: tool-fs-search
-      name: '@lyness/lyn-tool-fs-search'
-      config:
-        sampleOverCapGlobResults: false
 
     - id: agent-instructions
       name: '@lyness/lyn-agent-instructions'
@@ -413,17 +353,6 @@
         provider: fork
         toolName: subagent_fork
 
-    - id: ptc-runtime
-      name: '@lyness/lyn-ptc-runtime-node'
-
-    - id: workflow-ptc
-      name: '@lyness/lyn-workflow-ptc'
-      config:
-        provider: spawn
-
-    - id: tool-workflow
-      name: '@lyness/lyn-tool-workflow'
-
     - id: timeout-policy
       name: '@lyness/lyn-tool-call-timeout-policy'
 
@@ -518,16 +447,11 @@
 
     # ── rows every mode mounts, whose values each overlay may state ──────────────
 
-    # Shared tool definitions and the deployment’s native executor.
+    # The tool registry. Presentation mode is a deployment choice; omitting it here
+    # keeps the schema default (native). The native executor itself belongs to
+    # `lyn-module-execution`: a hosted profile mounts this registry and no executor.
     - id: tools
       name: '@lyness/lyn-tools'
-
-    - id: tool-executor-native
-      name: '@lyness/lyn-tool-executor-native'
-
-    - id: tool-executor-ptc
-      name: '@lyness/lyn-tool-executor-ptc'
-      disabled: true
 
     # The deployment persona is a deployment choice; plan-mode and tool plugins own
     # their own prompt sections.
@@ -542,11 +466,6 @@
       name: '@lyness/lyn-agent-loop'
       config:
         agents: []
-
-    # The sandboxed filesystem provider. `cwd` defaults to `process.cwd()`; an
-    # overlay can pin another workspace.
-    - id: fs-sandbox
-      name: '@lyness/lyn-fs-sandbox'
 
     # The native DeepSeek adapter. No key or endpoint is inlined: both resolve per
     # request from the `llm-deepseek:` settings section over this entry, with the

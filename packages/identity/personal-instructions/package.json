@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-personal-instructions",
   "description": "What a person tells their own agents, kept for them and recorded on every session they open",
-  "version": "0.2.1-rc.3",
+  "version": "0.2.2-alpha.3",
   "publishConfig": {
     "access": "public"
   },

@@ -284,6 +284,7 @@ codemod 只改文本和路径。下面这些是它改完之后必然过期、必
 | 2026-08-29 | 初始化克隆 | - | - | fork-init 建立基线 |
 | 2026-09-10 | `aa8262ec09`（0.1.2-alpha.1 → 0.1.5-rc.1，2151 个提交） | 0 | typecheck ✅ build ✅ install ✅ | 未走逐行合并：品牌替换是**再生成**的，不是可合并的。做法见下节 |
 | 2026-10-28 | `22ddee3792`（0.1.7-rc.2 → 0.2.1-rc.3，3912 个提交） | 1119（其中 944 为派生产物） | 见本节末 | 改用**真实三方合并**：先修好 `--reverse`，把全树还原为官方拼写再合并。做法见下节 |
+| 2026-11-03 | `8bd073392e`（0.2.1-rc.3 → 0.2.2-alpha.3+555，1654 个提交） | 367（其中 276 为派生产物与品牌噪声） | typecheck 5/5 ✅ build 8/8 ✅ 其余见本节末 | 同一条路；本轮量化了 `--reverse` 的保真缺陷，并修掉上一轮丢失的 18 条组合行 |
 
 ### 2026-10-28 合并方法（反向改名 → 真实合并 → 正向改名）
 
@@ -543,7 +544,9 @@ peer 回答「你能做什么」，和早已声明 `anyone` 的 `identityControl
 另有两处与门禁无关、但属同类的修复：`ui-shortcuts` 的 6 个语言把 `{brandName}` 译成了
 「harness」这个普通名词（el arnés／le harnais／chicote），改回占位符；`ui-plugin-manager` 的
 `reasonIncompatibleVersion` 在 6 个语言里仍用上游改名前的 `{requirements}`，统一为 `{peers}`
-并补回上游新增的末句。
+并补回上游新增的末句。**⚠️ 这一条后来证明是错的**：`presentation.ts` 传给 `t()` 的键一直是
+`requirements`，`{peers}` 会原样显示给用户；那句「末句」也和 `reasonIncompatibleInstalled`
+重复。2026-11-03 已全部改回 `{requirements}` 并删掉重复句（见下）。
 
 ### 上游把笔记移进 archive 时，改名的旧账会变成「被改动的冻结件」
 
@@ -566,13 +569,12 @@ codemod 把它当产品名改成了 `DeepSeek Harness`——标识与产品名�
 于是 `rescope-vendor` 报 `ReferenceError: Cannot access 'LISTING_BUFFER_BYTES' before initialization`。
 五个脚本同一个写法，全部移到 import 之后。
 
-### 遗留债：`test:snapshot` 的 headless 组合（本轮确认，非本轮引入）
+### 已结：`test:snapshot` 的 headless 组合（病因见 2026-11-03 那节）
 
-`pnpm run test:snapshot` 现在 3 个文件失败（194 条）。`lyn --profile headless` 启动时
-报 `15 entries did not activate`——`workingDirectory` 与工具执行器没挂上，于是
-`The selected tool executor is unavailable`。**已用 `git stash` 在 HEAD（efbdcefa4b）上复现**，
-与个人平面五步的改动无关，是 0.2.1 合并留下的组合债。修它要补 headless profile 的
-`working-directory` 与执行器行，属于单独一次变更。
+`lyn --profile headless` 报 `15 entries did not activate`，`workingDirectory` 与工具执行器没挂上，随后
+`The selected tool executor is unavailable`。当时记的判断是「要补 headless profile 的行」，**位置找错了**：
+缺的不是 profile，是 2026-10-15 那次搬迁从 `lyn-base` 删掉却没有任何 bundle 接手的 4 行。
+2026-11-03 已补进 `@lyness/lyn-module-execution`。
 
 ### 我自己引入的缺陷：页面不挂自己的 Remote 命名空间（记下来免得重犯）
 
@@ -635,3 +637,176 @@ dependabot 每天 04:00（Asia/Shanghai）在 fork 上跑 npm／uv／github-acti
 （`koffi@3.1.6` 的 integrity 为
 `sha512-ln60chEb3o7Du1ayjwl6BFiNN1wZK+3cTM2wWGiHLEzCY/FdTIN1ER5VWDwHq7J/j4tSnnrHaH5ABS1EO6+6ag==`）
 再跑 `pnpm install --frozen-lockfile`，不能跑裸 `pnpm install`。
+
+### 2026-11-03 合并方法（与 10-28 同路，但这次先量化了保真缺陷）
+
+路子不变：反向改名 → 真实三方合并 → 正向改名 → 收尾清单。1654 个提交、4861 个文件、367 个冲突（上一轮 1119）。
+
+**分流前先量化。** 把每个冲突文件的「基点 vs 我方」拿去做品牌归一化比较（把两侧所有品牌拼写折叠成同一个记号），结果：只有 7 个是纯品牌噪声，353 个有真实内容差异。再按路径分一层才看清大头：251 份翻译配对记录、18 份生成产物。**先量化再分流，省掉了逐个打开 276 个文件。**
+
+**`--reverse` 的保真缺陷（新发现，与往返性是两件事）。** 往返门禁证明 `forward(backward(x)) === x`，但那不等于 `backward(x)` 逐字等于上游原文。裸 `lyness` 后面不跟 `-`／`_` 时，反向走的是产品名规则，于是 `deepseek-harness/0.0.1`（User-Agent 里的线上标识）被还原成 `DeepSeek Harness/0.0.1`。后果只是噪声不是损坏（正向会改回正确值），但它会制造假冲突。本轮有 7 个文件、约 7700 处。**要修的是给反向补一条「裸 `lyness` 跟在 `/` 前」的规则，并把门禁从往返性扩展到「与上游原文逐字相等」。**
+
+### 订正一条我自己写错的裁决：base bundle 少的 19 行是**故意搬走**的
+
+`packages/bundle/base/cordis.patch.yml` 三侧条目数是 **97 / 79 / 99**（基点 / 我方 / 上游）。我一开始把 18 行的差值读成「上一轮合并取了我方，丢了上游的行」，于是整块取上游。**这个判断是错的**，而且把一条安全边界改回去了。
+
+真相：fork 在 2026-10-15 把执行平面的 19 行从 `lyn-base` **搬进了** `@lyness/lyn-module-execution`，让托管部署能组合出一个「什么都执行不了」的运行时（决策见 `.agents/notes/proposed/architecture/2026-10-15-diverging-from-the-single-operator-host.md`）。整块取上游之后 `verify-hosted-profile-boundary` 立刻报出 10 个执行插件又回到了 `hosted` profile：
+
+```
+verify-hosted-profile-boundary: a hosted profile can execute:
+  profile "hosted" mounts @lyness/lyn-subprocess-local as row "subprocess"
+  ... 共 10 行
+```
+
+**这条门禁救了这次合并。** 行数差值能告出「有行不见了」，但告不出「搬到哪去了」——下一轮必须先问「这些行是不是在另一个 bundle 里」，再决定要不要「恢复」。
+
+**而台账里的 `test:snapshot` headless 组合债，病因是那次搬迁漏了 4 行。** 19 行里有 15 行落到了 `module-execution`，`working-directory`、`tool-working-directory`、`tool-executor-native`、`tool-executor-ptc` 这 4 行从 base 删掉之后**没有任何 bundle 接手**。headless = `base` + `module-execution` + `headless`，所以它启动时 `workingDirectory` 与工具执行器根本没挂上，随后 `The selected tool executor is unavailable`——和当时记的症状逐字对得上。
+
+本轮的最终裁决：
+
+| 文件 | 结果 | 做法 |
+|---|---|---|
+| `bundle/base/cordis.patch.yml` | 81 行 | 上游 99 行减去搬走的 19 行，加回 fork 的 `skill-badge`，并重新落上遥测那条裁决 |
+| `bundle/module-execution/cordis.patch.yml` | 16 → 20 行 | 补上漏掉的 4 行，位置按上游 base 里的相对次序 |
+| `bundle/base/package.json` | −12 | 与我方上一轮的清单一致（另 7 个 `tool-*` 依赖保留，`web-app` 层的行要靠它们解析） |
+| `bundle/module-execution/package.json` | +4 | 锁文件的 `link:` 手插，再 `pnpm install --frozen-lockfile` |
+
+`base` 的 `tools` 行注释也要跟着改：上游那句「共享工具定义与本部署的原生执行器」在 fork 这边只剩前半句，执行器属于 `module-execution`。
+
+**顺带以官方为准的两处行为变更（见下「以官方为准」表）：** 上游把 `fs-observation-policy` 行改成 `disabled: true`、`tool-fs` 的 `applyPatch` 写成 `false`，fork 的 `module-execution` 副本停在旧默认值上，本轮跟随上游。
+
+**JSON 清单仍然用数据层三方合并**（以上游文档为底，叠加我方相对基点新增的键，字典与数组一律递归），并打印每一条 `ours adds` / `NOTE ours dropped`。行级并集对 JSON 不可用：两侧各自的末尾项会产生重复键与语法错误。
+
+### 本轮跟随上游退役／改写的 fork 内容
+
+| 项 | 处理 | 理由 |
+|---|---|---|
+| `maxOutputTokens: 64`（会话标题模型） | 回到上游的 4096 | 台账无记录；上游注释说明 reasoning 也计入输出，64 对推理模型会产出空标题 |
+| `FS_ERROR_CODES` 的 `CODE_KEYS` 派生写法 | 删除，取上游字面数组 | 两边各自解决同一问题；上游的「数组为真源、类型从中派生」同样防漂移且只有一处声明，还多两个新码 |
+| `scripts/rescope-vendor.ts` 的内联清单 + 64 MiB 缓冲常量 | 取上游 `listRescopeFiles()` | 本仓库 `git ls-files` 输出 1.29 MB，上游的 16 MiB 有 13 倍余量 |
+| `web-search-exa`、`web-search-perplexity` | 跟随删除 | 上游移除这两个提供者（见 `web-search-default-provider` 升级指南） |
+| `ui-deepseek-model-label-1017` | 跟随删除 | `model-badge-package-removal` 升级指南 |
+| `experimental/agent-team*` | 跟随上游升级进 `packages/team/` | 不再是 experimental |
+| `apps/cli` 对 `agent-team-profile` 的依赖 | 删除 | 上游 `a57e5e0d3e` 退役了该包，fork 侧只剩清单一行残留，无代码引用 |
+| `fs-observation-policy` 行默认开启 | 跟随上游改成 `disabled: true` | 上游 0.2.2-alpha.2 把「先读后写」从默认行为改成了可选（升级指南 `fs-observation-policy-default-off`）。**这是一次行为放宽**：`write` 直接覆盖、`edit` 直接替换、`apply_patch` 只按上下文匹配。要恢复旧行为，在 profile 的 `cordis.patch.yml` 里写 `- id: fs-observation-policy` / `disabled: false` |
+| `tool-fs` 的 `applyPatch` | 跟随上游写成 `false` | 上游 base 当前就是 `false`（升级指南写的是 alpha.2 时的 `true`，master 之后又改回去了）。fork 的 `module-execution` 副本原先没有 `config`，等于用 schema 默认值 |
+
+### 我自己引入的缺陷：行级并集会切断对象字面量
+
+用「去掉冲突标记、两侧都留」解决冲突时，如果冲突边界落在一个对象字面量或 JSDoc 注释**内部**，并集会丢掉闭合符号。本轮撞了两次：
+
+- `ui-settings/contract/slots.ts`：上游那段 JSDoc 的 `/**` 开头被吃掉，注释体裸露在代码里。
+- `scripts/gen-doc-graphs.ts`：`people` 条目的 `},` 被吃掉，它和 `sessionLogDeepSeek` 合成一个对象、`key` 被后者覆盖。`gen-doc-graphs` 因此报 `missing service role classification: people`——**报的是缺失，真因是结构被粘连**。
+
+**教训：并集解析之后必须做结构校验**，不能只看「冲突标记没了」。本轮用的办法是按 `\n  },?\n` 切分表格区域，检查每个对象里 `key:` 只出现一次。
+
+### 既有状态（非本轮引入）：`rebrand:check` 的 4 处残留与一条死链
+
+台账上面写过「现在 `--check` 报 `post-state verified — no residue`」——**这句已经过期**。2026-10-28 把 `released-title-producer-shield-*` 收窄为「带引号的两种写法」之后，`docs/persistence-catalog.{md,zh.md,i18n.yaml}` 第 1 列渲染的**裸** `dsh-session-title-llm` 就不再受保护，于是 `--check` 稳定报 4 处残留（含 `THIRD_PARTY_NOTICES.md`）。合并前的 fork HEAD 里同样是 7 行裸写法，**所以这不是本轮带进来的**。
+
+`rebrand` 没有注册进 `scripts/run-gates.ts`，所以它不拦门禁；但这意味着**顺序必须是「改名 → 生成器」，且之后不能再 `--apply`**。本轮我多跑了一次 `--apply`，它把两份生成产物改坏了（目录第 1 列变成 `lyn-session-title-llm`、kit 仓库链接变成 `lyn-libreoffice-kit`），靠重跑 `gen-persistence-catalog` 与 `gen-third-party-notices` 恢复。
+
+顺带发现一条**死链**，也是既有的：`scripts/gen-third-party-notices.ts:922` 与 `docs/subsystems/office-to-pdf.{md,zh.md}` 里的外部 kit 仓库 URL 被改成了 `github.com/deepseek-ai/lyn-libreoffice-kit`，而真实仓库是 `dsh-libreoffice-kit`。office 引擎的寻址本来就在 `PROTECTED` 豁免里，但豁免覆盖的是作用域形式，没覆盖**仓库名**那一种拼写。修它要先给 office 的 PROTECTED 补上 `dsh-libreoffice-kit`，再改这 3 处——改文本而不改 codemod 等于下轮又被改回去。单独一次变更。
+
+`vendor/README.md` 的 `github.com/deepseek-harness/cordis` postcondition 从 5 改成 3：上游合并了自己的 vendored 行（基点时是 4，master 是 3）。这条计数**必须跟着上游走**。
+
+### 补上游新增的抽象成员：`fs-desktop` 的三个方法
+
+上游给 `FileSystem` 加了 `patchText`、`deleteFile`、`moveFile` 三个抽象成员，fork 自有的 `@lyness/lyn-fs-desktop`（桌面链路上的文件系统 provider）因此编译不过。三处端到端补齐：`protocol.ts` 加 `patchHunkSchema`／`deleteOutcomeSchema`／`moveOutcomeSchema`，`index.ts` 加三个 `override`，`handler.ts` 加三个 case，并新增 `@lyness/lyn-fs-patch` 依赖（手插锁文件的 `link:`，再 `pnpm install --frozen-lockfile`）。
+
+两处值得记住的类型约束：zod 解析出的可选字段是 `context?: string | undefined`，而 `PatchHunk` 在 `exactOptionalPropertyTypes` 下要求**省略**而不是 `undefined`，所以要走条件展开；`FsDeleteOutcome`／`FsMoveOutcome` 是接口，不能直接当 `JsonValue` 传，要显式构造字面量。
+
+`moveFile` 的语义在协议里原样保留：发布目标与移除源是两件事，一个已发布目标却留下了源是**最终结果**而不是错误，所以回复带 `sourceDeleted: false` 和那次移除自己的错误码。
+
+### 本轮的门禁适配（2026-11-03）
+
+| 门禁 | 报什么 | 做了什么 |
+|---|---|---|
+| `constraints` | 78 个包的 `version` 还是 `0.2.1-rc.3`，而根版本已随上游到 `0.2.2-alpha.3` | 这 78 个全是 fork 自有包（上游没有它们，所以上游的版本提升扫不到）。统一改成根版本。**以后每轮合并，根版本一变就要扫一遍 fork 自有包** |
+| `constraints` | `bundle/web-app` 的 `files` 次序不对 | fork 新增的 `presets/work.patch.yml`、`presets/build.patch.yml` 追加在了末尾；门禁按「preset 在前、`lib/*` 在后」推导期望值，调整次序即可 |
+| `verify-remote-authority` | 7 个命名空间没声明 `requires` | 见下节裁定 |
+| `verify-brand-placeholders` | `experimental/liveshare` 的词典里有 16 处字面 `LYN` | 上游新包，正向改名把它的 `DSH` 写成了 `LYN`。8 种语言各 2 个键改成 `{brandAbbr}` |
+| `verify-no-unknown-casts` | 56 处「新」断言 | 合并把 `scripts/no-unknown-casts.baseline.json` 整块取了上游（497 文件／1264 处），丢掉 fork 的 21 个文件／72 处。按「两侧基线取大者」把它们补回去（任何**两侧都没有**的条目会被拒绝——实测 0 条），再 `--prune` 清掉上游重构后失效的旧路径。现为 506 文件／1275 处 |
+| `verify-doc-budgets` | `AGENTS.md` 2181/2180、`packages/README.md` 1000/994 | `AGENTS.md` 压掉 2 个词（产品形态那条的「on both the browser and the desktop client」→「on both browser and desktop clients」）。`packages/README.md` 把上限提到 1000 并记在此处：fork 比上游多一个包组（`tenant/`），那一行就是超出的全部来源，没有可压缩的冗余 |
+| `verify-repository-references` | `.lyn-build/client-build-environment.json:4` 带 commit hash | 见下节「我自己引入的缺陷」 |
+
+### 裁定：7 个 Remote 命名空间的 `requires`（2026-11-03）
+
+| 命名空间 | 裁定 | 依据 |
+|---|---|---|
+| `sessionController` | `member`（**恢复**） | fork 2026-10-28 已裁定为 `member`，本轮合并取上游时把它丢了。这是一条可见性边界，不是新决定 |
+| `web` | `member` | 上游新把 `packages/web/web` 变成 Remote 服务；它是每个人自己的搜索／抓取设置，与 `llm` 同类 |
+| `agentTeams` | `member` | 与 `subagent`、`goal` 同类：已登录的人为自己行事 |
+| `liveshareShares` | `member` | 分享的**所有者侧**（create／stop／permissions／relay），观众走另一条路 |
+| `forgePanel` | `member` | 客户端面板 |
+| `sessionToolResults` | `member` | 会话自己的工具结果 |
+| `mcpManager` | `platform-administrator` | 不是我新定的分类：fork 自己的 `liveshare/endpoint-classification.ts` 早就把 `mcpManager/probe|restart|watch` 三条标成 `owner-only`，而 `plugin-manager`、`plugin-inventory` 这类运维面都是 `platform-administrator`。`restart` 会重挂整个部署共用的 MCP 实例 |
+
+现在 56 个命名空间全部声明了所需身份。
+
+### 上游自身的两处缺陷（本轮在 fork 侧绕开，**可反馈给上游**）
+
+两处都让上游自己的 `rescope-vendor --check` 过不去，说明上游没有把它接进常跑门禁（fork 这边它在 `hygiene` 里）。
+
+| 缺陷 | 细节 | fork 侧做法 |
+|---|---|---|
+| postcondition 与文档不同步 | `scripts/rescope-vendor.ts` 要求 `vendor/README.md` 里出现 `17. **\`@deepseek-ai\` rescope**`，而上游已经把那份清单改成 `- **V17 · ...**` 编号，字面量对不上 | postcondition 改成 `**V17 · \`@lyness\` rescope**` |
+| preset id `cordis` 被当成包名 | 上游新文案里 `cordis` 是 **agent preset 的 id**（`` `ptc` 与 `cordis` preset 保持 applyPatch: false ``），不是 vendored 包名，于是 5 个文件稳定报 residue | `docs/tool-catalog.{md,zh.md}`、`scripts/gen-tool-catalog.ts`、`docs/upgrade-guide/v0.2.2-alpha.2/fs-observation-policy-default-off/guide.{md,zh.md}` 加进 `GENERIC_SKIPS`，与已有的 preset-id 豁免同一写法 |
+
+### 我自己引入的缺陷：`git add -A` 把 `.lyn-build/` 带进了版本库
+
+`.lyn-build/` 在 `.gitignore` 第 41 行，但反向改名那次提交（`32cc87ce97`）用了 `git add -A --no-verify`，
+把 `.lyn-build/client-build-environment.json` 这份构建环境记录提交了进去。它带着 commit hash，
+`verify-repository-references` 因此报错。已 `git rm --cached` 取消跟踪。
+
+**教训：`--no-verify` 跳过的是 pre-commit，不是 `.gitignore`——但 `git add -A` 对**已跟踪**文件无视 ignore，
+而一旦有人先 `git add -f` 过或路径刚进 ignore，`-A` 就会把它钉住。改名提交这种全树改动，
+提交前要 `git status --porcelain | grep -f <(git check-ignore --stdin ...)` 对一遍。
+
+### 怎么把「合并带进来的失败」和「既有的 fork 债」分开（2026-11-03 定下的办法）
+
+`pnpm run test` 报 48 个文件、135 条失败。单看日志没法判断哪些是合并带进来的，
+所以**建了一个 pre-merge 的 worktree 当基线**：
+
+```sh
+git worktree add --detach <tmp>/baseline 4c3e2e612c
+cd <tmp>/baseline && pnpm install --frozen-lockfile
+npx vitest run $(cat fail-files.txt)      # 只跑那 48 个文件
+```
+
+结果：**42 个文件在合并前就已经失败**（109 条）。真正由合并带进来的只有 6 个。
+「spec 和它的 `src/` 都没被合并碰过」这条启发式先筛掉了 15 个，但对 `scripts/`
+（整目录 107 个文件都动过）和 `apps/desktop/` 无能为力 —— **所以基线 worktree 这一步省不掉**。
+
+以后每轮合并都照这个做：先全跑一次拿到失败清单，再在基线 worktree 上只跑这份清单。
+
+| 真正由合并带进来的 | 真因 | 修法 |
+|---|---|---|
+| `managed-bots`×2、`bots-controller.host` | vendored Cordis 升级后 `ctx.adminAudit` 的属性访问必须声明 `inject`，而 `managed-bots` 从来没声明 | `static inject` 补 `'adminAudit'`，与 `managed-people`、`sign-in-channels`、`credits/administration` 同写法。19 条归零 |
+| `locale-dictionary-parity` | `ui-plugin-manager` 的 `reasonIncompatibleVersion` 在 6 个语言里写 `{peers}`，而 `presentation.ts` 传的是 `requirements` —— 占位符会原样显示给用户。那 6 个语言还多了一句与 `reasonIncompatibleInstalled` 重复的安装建议 | 八个语言统一 `{requirements}`，删掉重复句。**2026-10-28 那条「统一为 `{peers}`」的台账记录是错的，已订正** |
+| `verify-repository-references` | 本轮冲突解析保留了 fork 的「锁文件整类豁免」，而上游新增了按字节数识别的机制 —— 正是 fork 当初要绕的那个问题 | 以官方为准删掉 `lockFileNames`，保留 fork 的 `CUSTOM.md`／`.fork/`／`scripts/rebrand.ts` 豁免 |
+| `cua-helper/payload` | 改名漏了「scope 压平」这种拼写：`deepseek-ai-dsh-…tgz` 只被改成 `deepseek-ai-lyn-…tgz` | 不再硬编码归档名，从清单名推导。同一漏洞的第二处在 `apps/desktop/tests/pack-local-packages.spec.ts`（属既有失败），一并修掉 |
+
+**改名的新盲区：scope 压平形式。** `pnpm pack` 把 `@scope/name` 写成 `scope-name-版本.tgz`，
+这种拼写里 `deepseek-ai` 和 `dsh` 之间隔着连字符而不是 `/`，codemod 的 token 规则认不出来。
+本轮两处都改成从清单名推导，所以仓库里已经没有这种字面量了；**将来再出现，优先改成推导而不是加规则**。
+
+### `test:snapshot` 收尾：每台机器都会失败的一处上游缺陷
+
+修好 headless 组合之后快照只剩 2 个文件、5 条失败，全部是改名导致的期望漂移，用
+`pnpm run test:snapshot:refresh`（无需 API key）重录即可。但要注意两件事：
+
+1. **refresh 会连噪声一起重写。** 本轮它动了 16 个文件，其中 10 个 `writer.expected.jsonl`
+   只差墙钟时间戳、`dt` 抖动和 `durationMs`。这些要挑出来还原，否则 diff 里全是噪声。
+   判据：把 `1[0-9]{12}`、`"dt":[...]`、`"durationMs":...` 规一化后两边相同即为噪声。
+2. **`snapshots/session/worktree` 记录了 `baseCommit`**，那是用例自己新建的提交，每次运行都不一样，
+   而 `session-snapshot` 的归一化器没有遮罩它 —— 这个 fixture 在任何机器上都会失败。
+   已按**字段名**（而不是 40 位十六进制形状）加遮罩规则：`"baseCommit":"<40 hex>"` → `{{commit}}`，
+   这样别人在正文里引用的 commit 仍然是回归可见的。正反两例都补进了 `normalize.spec.ts`。**可反馈给上游。**
+
+留下来的期望漂移只有 6 个文件，每一处都能解释：`agent-instructions` 多出上游新增的
+「neutralized a system-reminder delimiter」提示；`agent-instructions-budget` 的截断字节数
+292 → 286、`manual-compact` 的标题截断与 token 数 3825 → 3826，都是 `$LYNESS_HOME`
+比 `$DSH_HOME` 长 6 字节的直接后果；`subagent-lyn-sdk-diagnostic` 的系统提示里
+委派工具改成了 `subagent_fork` 在前 —— 因为 `subagent_lyn_sdk` 按字母序排在它之后，
+而上游的 `subagent_dsh_sdk` 排在它之前。

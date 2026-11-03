@@ -45,7 +45,7 @@ export class LiveshareShares extends TypertRemoteService {
    * @param operations - Owner operations implemented in the Host's `apply()` closure.
    */
   constructor(ctx: Context, private readonly operations: OwnerShareOperations) {
-    super(ctx, 'liveshareShares')
+    super(ctx, 'liveshareShares', { requires: 'member' })
   }
 
   /**

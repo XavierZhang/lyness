@@ -181,8 +181,7 @@
     "ajv": "^8.20.0",
     "execa": "^10.0.1",
     "ws": "8.21.3",
-    "@lyness/lyn-e2e-target": "workspace:*",
-    "@lyness/lyn-experimental-agent-team-profile": "workspace:*"
+    "@lyness/lyn-e2e-target": "workspace:*"
   },
   "exports": {
     "./profile-boot": {

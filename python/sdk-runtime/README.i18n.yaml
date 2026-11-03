@@ -3,17 +3,17 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write python/sdk-runtime/README.md
 /lyness-runtime-bin:
-  en: 1ea1d8e6d2c14b02
-  zh: 8e0b9903158667a1
+  en: b7228fcb357cf5e8
+  zh: 3b9169c4b16b3495
 /lyness-runtime-bin/installed-commands-and-artifacts:
-  en: 68407e833c62ee1f
-  zh: 9590f73d7daf8032
+  en: 3e0167781dde1c5b
+  zh: 6dc4c4f1e9c74ae1
 /lyness-runtime-bin/python-module-api:
-  en: 78a200e328d96637
-  zh: f3b7a0b69b7a39e0
+  en: b3342082269e2246
+  zh: 80827c84a45cd87c
 /lyness-runtime-bin/packaged-profile-resolution:
-  en: 0f476fb87a1a3349
-  zh: 359dbd9b24b18b46
+  en: d8f01dbdbe89d578
+  zh: 94dff888fa353754
 /lyness-runtime-bin/build-and-distribution:
-  en: 2512cd7c3624ef6e
-  zh: 455f6a528e5f9d61
+  en: 06d296095b41afb1
+  zh: f0a7231a439dfcdd

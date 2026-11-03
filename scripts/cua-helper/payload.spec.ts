@@ -61,6 +61,9 @@ it.skipIf(process.platform === 'win32')('verifies staged and repacked provider b
   await expect(verifyCuaHelperTarball(tarball, identity)).rejects.toThrow('digest')
 })
 
+/** The provider manifest's name, which `pnpm pack` also spells into the archive's filename. */
+const providerPackageName = '@lyness/lyn-experimental-cua-macos'
+
 it.skipIf(process.platform === 'win32')('keeps npm tarball bytes when reusing a helper and changes them after re-signing', async ({ signal }) => {
   const f = fixture()
   const require = createRequire(import.meta.url)
@@ -72,7 +75,7 @@ it.skipIf(process.platform === 'win32')('keeps npm tarball bytes when reusing a 
     mkdirSync(output)
     stageCuaHelperPayload(f.payload, packageRoot, identity)
     writeFileSync(join(packageRoot, 'package.json'), JSON.stringify({
-      name: '@lyness/lyn-experimental-cua-macos', version: identity.version, type: 'module',
+      name: providerPackageName, version: identity.version, type: 'module',
       files: ['lib/index.js', 'native/bin', CUA_MANIFEST],
     }))
     writeFileSync(join(packageRoot, 'lib/index.js'), 'export const provider = "fixture";\n')
@@ -85,7 +88,7 @@ it.skipIf(process.platform === 'win32')('keeps npm tarball bytes when reusing a 
     expect(result.isCanceled).toBe(false)
     expect(result.signal).toBeUndefined()
     expect(result.exitCode, result.stderr).toBe(0)
-    const tarball = join(output, 'deepseek-ai-lyn-experimental-cua-macos-1.0.0.tgz')
+    const tarball = join(output, `${providerPackageName.replace('@', '').replace('/', '-')}-${identity.version}.tgz`)
     await verifyCuaHelperTarball(tarball, identity)
     return readFileSync(tarball)
   }

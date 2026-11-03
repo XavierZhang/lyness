@@ -3,32 +3,32 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/feature/2026-10-15-deepseek-search-fetch-api.md
 /agent-note-direct-deepseek-search-and-fetch-apis:
-  en: fb19be7e7fc65810
-  zh: 865aaed5b7f802cc
+  en: b49cc7b233b0ffb2
+  zh: 0dc1a423364d2bd2
 /agent-note-direct-deepseek-search-and-fetch-apis/problem:
   en: d1aad580a4db9872
   zh: 1eb3bac59353291d
 /agent-note-direct-deepseek-search-and-fetch-apis/decision:
-  en: 43298ccae4f7a6d4
-  zh: eb7ef46b6f290c15
+  en: 427fa6c84bc626c3
+  zh: 27b6ca4d31b6af01
 /agent-note-direct-deepseek-search-and-fetch-apis/decision/protocol-selection-and-deployment:
-  en: 90e5031d0d2fa9e4
-  zh: a9c0229b20555d9e
+  en: d3c99f53c0174c41
+  zh: 805113ffc7a6d2ca
 /agent-note-direct-deepseek-search-and-fetch-apis/decision/search-results-and-model-input:
-  en: ad7b3e4fbe528cf2
-  zh: 8ab8779bfdaaa4fa
+  en: 4f84e8ae72b738c1
+  zh: e0c37379e6a9c628
 /agent-note-direct-deepseek-search-and-fetch-apis/decision/fetch-metadata-and-ownership:
   en: 7566e400f9ab3a51
   zh: 118b2e84d0030480
 /agent-note-direct-deepseek-search-and-fetch-apis/decision/default-migration:
-  en: cb2f0910955b6730
-  zh: 7df057048acd7858
+  en: 61cde72947107b62
+  zh: 938b1a6429e59495
 /agent-note-direct-deepseek-search-and-fetch-apis/decision/legacy-messages-search:
-  en: 0dcc97d8105fab60
-  zh: d80d40ae3a0c601d
+  en: 543a94549af83f5d
+  zh: 3b9a02298d7a5323
 /agent-note-direct-deepseek-search-and-fetch-apis/alternatives-considered:
-  en: 907e0b8424943d43
-  zh: f45e583e7cb4eb63
+  en: bca2c55346a0b44c
+  zh: fa147547e94b997a
 /agent-note-direct-deepseek-search-and-fetch-apis/consequences:
   en: 7ec21c5b1124e5f8
   zh: af769dbdb4face9f

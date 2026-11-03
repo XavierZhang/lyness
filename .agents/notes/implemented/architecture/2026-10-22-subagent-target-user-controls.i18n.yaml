@@ -3,17 +3,17 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-10-22-subagent-target-user-controls.md
 /agent-note-user-controls-address-the-target-subagent:
-  en: d7dcf54ddb311881
-  zh: 5f388447737c5414
+  en: e94db18f58f2195e
+  zh: 3091fdf92c52b3cf
 /agent-note-user-controls-address-the-target-subagent/problem:
   en: 962c75771235903c
   zh: 203b651c0830310e
 /agent-note-user-controls-address-the-target-subagent/decision:
-  en: 13a2617e28445744
-  zh: 75d193ef7d8c7804
+  en: 0560b414636c2929
+  zh: c674d4e3fd96f2ab
 /agent-note-user-controls-address-the-target-subagent/alternatives-considered:
   en: 447adb24280bf2bb
   zh: 08d95a93b14aa5c7
 /agent-note-user-controls-address-the-target-subagent/consequences:
-  en: 98e784f55775247d
-  zh: 1c62d2ebc71b658f
+  en: 0e08513a86204b66
+  zh: ae25200063c4ea5d

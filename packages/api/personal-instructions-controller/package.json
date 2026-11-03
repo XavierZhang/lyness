@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-api-personal-instructions-controller",
   "description": "What one person told their own agents, read and written by that person alone",
-  "version": "0.2.1-rc.3",
+  "version": "0.2.2-alpha.3",
   "publishConfig": {
     "access": "public"
   },

@@ -1,7 +1,7 @@
 {
   "name": "@lyness/lyn-client-ui-settings-data",
   "description": "The data section in Settings: a person's own conversations, with the export and the deletion they own",
-  "version": "0.2.1-rc.3",
+  "version": "0.2.2-alpha.3",
   "publishConfig": {
     "access": "public"
   },

@@ -3,35 +3,35 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/util/package-manifest/README.md
 /:
-  en: 8cffb2f57844db66
-  zh: 20b158511886ac50
-/deepseek-ai-lyn-package-manifest:
-  en: 90fdf4daddb42135
-  zh: 42350a2d78d2bd81
-/deepseek-ai-lyn-package-manifest/summary:
-  en: f68bfdd934eb4af6
-  zh: 41a873a9f251c814
-/deepseek-ai-lyn-package-manifest/table-of-contents:
+  en: 1fa4896e6b55da2c
+  zh: 40f622eca0672c1c
+/lyness-lyn-package-manifest:
+  en: dd3459fdfd96531e
+  zh: 2bd20f7c2ab472bc
+/lyness-lyn-package-manifest/summary:
+  en: c4d9b17315a3425b
+  zh: 92018b2f492fc507
+/lyness-lyn-package-manifest/table-of-contents:
   en: d152484eb41ac6b4
   zh: 1db86285abf6c499
-/deepseek-ai-lyn-package-manifest/use-this-package:
-  en: ac9b9f0adac9bbfa
-  zh: 0c6a9548836e756e
-/deepseek-ai-lyn-package-manifest/understand-the-implementation:
+/lyness-lyn-package-manifest/use-this-package:
+  en: 6cb9b698ffddd30c
+  zh: ee71589a57c54310
+/lyness-lyn-package-manifest/understand-the-implementation:
   en: 41ec449dee927f04
   zh: ec1b583bd9025d84
-/deepseek-ai-lyn-package-manifest/further-exploration:
-  en: f2352ec5d94ac3bd
-  zh: c2eb0889554f1a7f
-/deepseek-ai-lyn-package-manifest/model-experience:
+/lyness-lyn-package-manifest/further-exploration:
+  en: 980aff9a3f7eae99
+  zh: 5ce7c1bc449d37af
+/lyness-lyn-package-manifest/model-experience:
   en: 0b5aaa4787068a57
   zh: bdb5dabe0b33ff9d
-/deepseek-ai-lyn-package-manifest/model-experience/kv-cache-effect:
+/lyness-lyn-package-manifest/model-experience/kv-cache-effect:
   en: 2ed74a2a33958543
   zh: 7d63c3a3801bef13
-/deepseek-ai-lyn-package-manifest/known-limitations-and-deferred-work:
-  en: e64464780f3e36b6
-  zh: fec64944da4710ce
-/deepseek-ai-lyn-package-manifest/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-package-manifest/known-limitations-and-deferred-work:
+  en: 470c9c0e7e6d641d
+  zh: d7f3488f70024fe1
+/lyness-lyn-package-manifest/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

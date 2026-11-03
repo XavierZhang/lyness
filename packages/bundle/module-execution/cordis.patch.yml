@@ -26,6 +26,15 @@
 # `approval` and `permission-presets` stay in `lyn-base`: they are the
 # approval vocabulary every tool uses, not an execution row.
 - insert:
+    # The working directory every file and shell row resolves against, and the
+    # tool that moves it. They left `lyn-base` with the rest of this plane: a
+    # profile that mounts no machine has no directory to work in.
+    - id: working-directory
+      name: '@lyness/lyn-working-directory'
+
+    - id: tool-working-directory
+      name: '@lyness/lyn-tool-working-directory'
+
     - id: subprocess
       name: '@lyness/lyn-subprocess-local'
 
@@ -63,11 +72,19 @@
       name: '@lyness/lyn-tool-pwsh'
       disabled: !!js process.platform !== 'win32'
 
+    # Read-before-mutation guard, mounted disabled: `write` overwrites, `edit`
+    # replaces literal text, and `apply_patch` applies hunks on context match
+    # alone. A deployment that wants the refusals sets `disabled: false` on this
+    # row (docs/upgrade-guide/v0.2.2-alpha.2/fs-observation-policy-default-off/guide.md).
     - id: fs-observation-policy
       name: '@lyness/lyn-fs-observation-policy'
+      disabled: true
 
     - id: tool-fs
       name: '@lyness/lyn-tool-fs'
+      config:
+        # Set false to drop the apply_patch tool beside edit.
+        applyPatch: false
 
     - id: tool-fs-search
       name: '@lyness/lyn-tool-fs-search'
@@ -98,6 +115,17 @@
       config:
         subagentProvider: spawn
         maxRounds: 64
+
+    # The executors that run a tool call. `tool-executor-ptc` ships disabled;
+    # the PTC profiles enable it. A profile without this bundle mounts the tool
+    # registry from `lyn-base` and no executor at all, which is why a hosted
+    # runtime answers that no tool executor is available rather than running one.
+    - id: tool-executor-native
+      name: '@lyness/lyn-tool-executor-native'
+
+    - id: tool-executor-ptc
+      name: '@lyness/lyn-tool-executor-ptc'
+      disabled: true
 
     # The sandboxed filesystem provider. `cwd` defaults to `process.cwd()`; an
     # overlay can pin another workspace.

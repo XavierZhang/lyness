@@ -58,7 +58,7 @@ export class TeamService extends TypertRemoteService {
   private tasks!: TeamTaskBoard
 
   constructor(ctx: Context, config: Config = {}) {
-    super(ctx, 'agentTeams')
+    super(ctx, 'agentTeams', { requires: 'member' })
     for (const key of REMOVED_CONFIG_KEYS) {
       if (Object.hasOwn(config, key)) {
         throw new TeamError(
