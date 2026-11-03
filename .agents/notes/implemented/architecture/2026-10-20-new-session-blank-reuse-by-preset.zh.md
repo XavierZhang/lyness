@@ -6,7 +6,7 @@ Status: implemented
 
 ## 问题
 
-0.2.0-rc.2 中，新会话（左侧栏按钮、工作区“+”和快捷键，均调用不带选项的 `uiWorkspace.startSession`）复用工作区内第一个空白会话。PR #5775（首次发布于 `dsh-v0.2.1-alpha.2`）改为每次新建 Session 与 Agent，目的是在用户修改预设定义后，新会话按当前定义装配，而不是沿用复用空白会话的旧装配（[升级指南](../../../../docs/upgrade-guide/v0.2.1-alpha.1/new-session-generations/guide.zh.md)）。
+0.2.0-rc.2 中，新会话（左侧栏按钮、工作区“+”和快捷键，均调用不带选项的 `uiWorkspace.startSession`）复用工作区内第一个空白会话。PR #5775（首次发布于 `lyn-v0.2.1-alpha.2`）改为每次新建 Session 与 Agent，目的是在用户修改预设定义后，新会话按当前定义装配，而不是沿用复用空白会话的旧装配（[升级指南](../../../../docs/upgrade-guide/v0.2.1-alpha.1/new-session-generations/guide.zh.md)）。
 
 空白会话不是当前会话时不在 Session 树中显示，返回它的唯一入口是新会话。改为每次新建后，用户在空白会话中写下草稿、切到其他会话再点新会话，会进入另一个空的 Session；原草稿仍按会话 id 保存在 localStorage，但没有界面入口可以回到它。0.2.1-rc.2 因此丢失新会话的未发送草稿。
 

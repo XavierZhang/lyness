@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { contextMenuHook } from '@deepseek-ai/dsh-client-test-runtime'
+import { contextMenuHook } from '@lyness/lyn-client-test-runtime'
 import { cleanup, fireEvent, render } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { MarkdownDelegateProvider } from '../src/index.ts'
@@ -64,7 +64,7 @@ describe('Markdown file links', () => {
   })
 
   it.each([
-    ['D:\\dsh\\toc-agent\\.deploy\\notes.md', 'D:\\dsh\\toc-agent\\.deploy\\notes.md', undefined],
+    ['D:\\lyn\\toc-agent\\.deploy\\notes.md', 'D:\\lyn\\toc-agent\\.deploy\\notes.md', undefined],
     ['<D:\\My Files\\.config\\a_b.md>', 'D:\\My Files\\.config\\a_b.md', undefined],
     ['D:\\.deploy\\notes.md#L4', 'D:\\.deploy\\notes.md', { line: 4 }],
     ['D:/repo\\.github\\ci.yml', 'D:/repo\\.github\\ci.yml', undefined],

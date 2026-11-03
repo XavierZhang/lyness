@@ -3,7 +3,7 @@ description: "无需导入 React 组件即可向右键菜单添加操作"
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-client-ui-context-menu
+# @lyness/lyn-client-ui-context-menu
 
 [English](README.md) | 中文
 
@@ -25,7 +25,7 @@ kind: "package-reference"
 <a id="use-this-package"></a>
 ## 使用本包
 
-Web 应用 bundle 挂载此客户端插件。外部客户端插件在 `dsh.client.inject` 声明本包，导入 `/client` 类型，并注入 `contextMenus` 服务。`resolutionTimeoutMs` 限制每个提供方的准备时长（默认 1000ms）；超时后取消并忽略该提供方，显示失败提示。
+Web 应用 bundle 挂载此客户端插件。外部客户端插件在 `lyn.client.inject` 声明本包，导入 `/client` 类型，并注入 `contextMenus` 服务。`resolutionTimeoutMs` 限制每个提供方的准备时长（默认 1000ms）；超时后取消并忽略该提供方，显示失败提示。
 
 插件通过 `ctx.slots.provideRoot` 向每个 Slot 作用域注入 `useContextMenu`。组件调用一次 `const { getTriggerProps } = useContextMenu()`，再将 `getTriggerProps(target, handlers?)` 展开到各个触发元素上。该工厂是普通函数，可以在循环中调用；它统一处理右键、Shift+F10、ContextMenu 键、视口坐标及无滚动聚焦。已有处理器先运行，`preventDefault()` 保留其处理权，并防止组合或嵌套绑定重复处理。重复、输入法组合及无关按键保持原状。传入 `undefined` 保留原生行为，也可传入目标解析函数，在手势开始时读取业务状态。解析后的对象会在焦点变化前捕获。普通子组件通过 props 或现有 delegate 接收事件 props 或工厂，无需额外 React Context。特殊编辑器和 Canvas 可直接调用 `ctx.contextMenus.open()`。
 
@@ -37,7 +37,7 @@ Web 应用 bundle 挂载此客户端插件。外部客户端插件在 `dsh.clien
 
 贡献可通过 `observe(target)` 声明权限、成员状态或本地化标签的数据源。数据源更新时，针对同一捕获目标重新解析该贡献并替换回调；过期的异步准备会被取消。关闭菜单和卸载插件都会释放所有订阅。
 
-通过对 `@deepseek-ai/dsh-client-ui-context-menu/client` 的声明合并扩展 `ContextMenuTargetMap`，即可增加目标类别；`ContextMenuTarget` 从该映射派生 `{ kind, value }` 联合类型。通过 `ctx.contextMenus.open(target, { x, y })` 打开目标。目标值使用不可变、可 JSON 序列化的标识与元数据。执行回调捕获该值，并在操作前重新检查可变资源。新注册项在下次打开时生效。注销会移除可见操作并取消待处理的元数据查询。
+通过对 `@lyness/lyn-client-ui-context-menu/client` 的声明合并扩展 `ContextMenuTargetMap`，即可增加目标类别；`ContextMenuTarget` 从该映射派生 `{ kind, value }` 联合类型。通过 `ctx.contextMenus.open(target, { x, y })` 打开目标。目标值使用不可变、可 JSON 序列化的标识与元数据。执行回调捕获该值，并在操作前重新检查可变资源。新注册项在下次打开时生效。注销会移除可见操作并取消待处理的元数据查询。
 
 `ctx.contextMenus.resolve(target)` 为其他渲染器提供独立菜单实例。订阅不可变操作视图，选择已发布的 ID，并在所属界面关闭时释放。视图仅包含展示字段。回调保留在注册表中，最多执行一次。关闭和替换菜单会取消元数据查询，已选中操作则自行管理执行与取消。提供方或操作拒绝时由持久的覆盖层提示；操作的本地化 `failureLabel` 提供具体的恢复建议。
 

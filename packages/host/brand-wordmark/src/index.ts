@@ -1,5 +1,5 @@
 /**
- * @deepseek-ai/dsh-host-brand-wordmark — typesets a brand name into a single-colour
+ * @lyness/lyn-host-brand-wordmark — typesets a brand name into a single-colour
  * SVG wordmark sized for the Web shell's sidebar brand row.
  *
  * A wordmark is set in a font rather than drawn by an image model: a model
@@ -7,7 +7,7 @@
  * font renders exactly the characters it is given. The output holds paths
  * only, with no text element and no font reference, so it renders the same
  * wherever it is served and carries nothing a brand-asset allowlist rejects.
- * @module @deepseek-ai/dsh-host-brand-wordmark
+ * @module @lyness/lyn-host-brand-wordmark
  */
 
 import * as fontkit from 'fontkit'

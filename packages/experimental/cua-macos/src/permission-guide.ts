@@ -1,6 +1,6 @@
 /** macOS permission guide copy and private native request parameters. */
 import { z } from 'zod'
-import type { CuaBackend } from '@deepseek-ai/dsh-cua'
+import type { CuaBackend } from '@lyness/lyn-cua'
 
 /** Native-only fields for opening the selected privacy pane. */
 export const PermissionSettingsParameters = z.object({ settingsMessage: z.string().min(1) })

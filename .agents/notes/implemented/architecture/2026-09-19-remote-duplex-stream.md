@@ -8,7 +8,7 @@ English | [中文](2026-09-19-remote-duplex-stream.zh.md)
 
 ### Current state
 
-`dsh-api-gateway` multiplexes Typert Remote streams over one WebSocket at `/api/remote.mux`. A Host method declares both directions with `@Remote({ mode: 'stream' })` and `RemoteStream<Out, In>`; the generated Client method returns `RemoteStreamHandle<Out, In>`. Existing `Iterable` and `AsyncIterable` return types declare downlink-only methods. The optional final `signal: AbortSignal` is supplied by the Gateway and does not enter the wire arguments.
+`lyn-api-gateway` multiplexes Typert Remote streams over one WebSocket at `/api/remote.mux`. A Host method declares both directions with `@Remote({ mode: 'stream' })` and `RemoteStream<Out, In>`; the generated Client method returns `RemoteStreamHandle<Out, In>`. Existing `Iterable` and `AsyncIterable` return types declare downlink-only methods. The optional final `signal: AbortSignal` is supplied by the Gateway and does not enter the wire arguments.
 
 Both directions share one `streamId`:
 
@@ -94,7 +94,7 @@ Every Remote stream accepts a Client uplink. The method's return type `RemoteStr
 ### Type signatures
 
 ```text
-// @deepseek-ai/dsh-typert-protocol
+// @lyness/lyn-typert-protocol
 /**
  * One Remote stream. Host face: the method returns it, and at runtime it is AsyncIterable<Out>.
  * On the Client face the generated method returns RemoteStreamHandle<Out, In>; each name has exactly one meaning.
@@ -151,7 +151,7 @@ export interface RemoteInvocation {
   uplink<In = unknown>(): AsyncIterable<In>
 }
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Context {
     /** The Remote call this Context was derived for; undefined on a Context not derived from a Remote call. */
     readonly invocation: RemoteInvocation | undefined
@@ -194,7 +194,7 @@ export interface PeerScope {
 }
 ```
 
-`@deepseek-ai/dsh-client-connection` implements the one Peer class, `Peer(owner, { principal, interactions? })`, with `createScope(owner, peer)`, the same mechanism an Agent uses to create its own scope: the Peer object is the ScopeKey, `peer.ctx` carries connection-lifetime effects, `peer.signal` aborts when the scope ends, and `dispose()` quiets the fiber. Connection creates `connection.browserPeer` with the owner principal when the service applies; [Peer principals and method-level Remote access control](../../implemented/architecture/2026-10-12-peer-principal-and-remote-access.md) owns principals, `createPeer()`, and access checks.
+`@lyness/lyn-client-connection` implements the one Peer class, `Peer(owner, { principal, interactions? })`, with `createScope(owner, peer)`, the same mechanism an Agent uses to create its own scope: the Peer object is the ScopeKey, `peer.ctx` carries connection-lifetime effects, `peer.signal` aborts when the scope ends, and `dispose()` quiets the fiber. Connection creates `connection.browserPeer` with the owner principal when the service applies; [Peer principals and method-level Remote access control](../../implemented/architecture/2026-10-12-peer-principal-and-remote-access.md) owns principals, `createPeer()`, and access checks.
 
 | Member | Semantics |
 | --- | --- |
@@ -335,7 +335,7 @@ export type RemoteStream<Out, In = never> = AsyncIterable<Out> & { readonly [STR
 export type PeerId = Branded<'PeerId'>
 export interface PeerScope { readonly id: PeerId; readonly ctx: Context; readonly principal: Principal; readonly signal: AbortSignal; dispose(): Promise<void> }
 export interface RemoteInvocation { … }              // see Host face
-declare module '@deepseek-ai/cordis' { interface Context { readonly invocation: RemoteInvocation | undefined } }
+declare module '@lyness/cordis' { interface Context { readonly invocation: RemoteInvocation | undefined } }
 
 export interface InvocationDescriptor {
   // existing fields unchanged; mode still has only 'stream'
@@ -352,13 +352,13 @@ The `Remote` decorator, `RemoteMethodOptions`, and `RemoteMethodMarker` recogniz
 ### typert generator (`packages/typert/generator/src`)
 
 - `model.ts`: `InvocationModel.uplink?: { boundary: RemoteBoundaryModel }`.
-- `analyzer.ts` `remoteResultType`: for `mode: 'stream'`, the accepted return-type wrappers are `Iterable<Out>`, `AsyncIterable<Out>`, and `RemoteStream<Out, In?>`. `RemoteStream` is recognized the same way as the standard library's `AsyncIterable`: by symbol name plus declaring file (`types.ts` of `@deepseek-ai/dsh-typert-protocol`). The first type argument is the downlink item; when the second is present and is not `never`, an `uplink` boundary is generated under the key `${endpoint}:uplink`.
+- `analyzer.ts` `remoteResultType`: for `mode: 'stream'`, the accepted return-type wrappers are `Iterable<Out>`, `AsyncIterable<Out>`, and `RemoteStream<Out, In?>`. `RemoteStream` is recognized the same way as the standard library's `AsyncIterable`: by symbol name plus declaring file (`types.ts` of `@lyness/lyn-typert-protocol`). The first type argument is the downlink item; when the second is present and is not `never`, an `uplink` boundary is generated under the key `${endpoint}:uplink`.
 - `emitter.ts`: the descriptor literal emits `uplink: { codec }`; the generated Client signature returns `RemoteStreamHandle<Out, In>`.
 - The parameter loop recognizes no parameter named `uplink`.
 
 ### Two names, one entry point
 
-A Host method declares a stream with `RemoteStream<Out, In>`; the Client holds a `RemoteStreamHandle<Out, In>`. Both are exported from the main entry point of `@deepseek-ai/dsh-typert-protocol`, and the handle interface has no Host dependency. The generated Client contract writes the return type as `RemoteStreamHandle<Out, In>`. One name has one meaning: the `RemoteStream` that Client code obtains from the main entry point is always the declaration type and is never confused with the handle.
+A Host method declares a stream with `RemoteStream<Out, In>`; the Client holds a `RemoteStreamHandle<Out, In>`. Both are exported from the main entry point of `@lyness/lyn-typert-protocol`, and the handle interface has no Host dependency. The generated Client contract writes the return type as `RemoteStreamHandle<Out, In>`. One name has one meaning: the `RemoteStream` that Client code obtains from the main entry point is always the declaration type and is never confused with the handle.
 
 ### Gateway Host (`packages/api/gateway/src`)
 
@@ -452,13 +452,13 @@ cancel : missing → ignore; otherwise control.abort(new Error('Remote stream ca
 
 | Package | Carries |
 | --- | --- |
-| `dsh-typert-protocol` (`types.ts`, `index.ts`) | `RemoteStream`, `RemoteStreamHandle`, `PeerId`, `PeerScope`, `RemoteInvocation`, the `ctx.invocation` declaration merge, `InvocationDescriptor.uplink`; the decorator recognizes only `mode: 'stream'`; `TypertRemoteService` registers the `invocation` accessor when constructed |
-| `dsh-typert-registry` | Load-time validation that `uplink.codec` is a valid strict codec |
-| `dsh-typert-generator` (`model.ts`, `analyzer.ts`, `emitter.ts`) | `remoteResultType` recognizes `RemoteStream<Out, In>` and generates the `uplink` boundary; the descriptor emits `uplink: { codec }`; the generated Client signature returns `RemoteStreamHandle<Out, In>`; the parameter loop accepts only business parameters and a final `signal` |
-| `dsh-client-connection` (`peer.ts`, `rpc.ts`, `rpc-host.ts`, `index.ts`) | The `Peer` class; `connection.browserPeer` and `admit`; the `/api` and upgrade routes obtain the Peer through `admit`; the optional `uplink` of `rpc.open` |
-| `dsh-api-gateway` Host (`stream-protocol.ts`, `stream-server.ts`, `types.ts`, `index.ts`) | `item` / `end` frames; `UplinkInbox`; `Config.streamInboxBytes` and `Config.websocketCompression`; `GatewayInvocation` and `extend({ invocation })`; `UplinkDecoder`; `handleUpgrade(req, socket, head, peer)` |
-| `dsh-api-gateway` Client (`client/index.ts`, `client/stream-client.ts`) | `invokeStream` returns the handle; the uplink pump is driven by the handle's queue |
-| `dsh-webworker-runtime`, `dsh-remote-mock` | The worker tunnel's two uplink frames and the `serveStream` assembly; `StreamHandle.uplink`; the direct proxy returns the real handle |
+| `lyn-typert-protocol` (`types.ts`, `index.ts`) | `RemoteStream`, `RemoteStreamHandle`, `PeerId`, `PeerScope`, `RemoteInvocation`, the `ctx.invocation` declaration merge, `InvocationDescriptor.uplink`; the decorator recognizes only `mode: 'stream'`; `TypertRemoteService` registers the `invocation` accessor when constructed |
+| `lyn-typert-registry` | Load-time validation that `uplink.codec` is a valid strict codec |
+| `lyn-typert-generator` (`model.ts`, `analyzer.ts`, `emitter.ts`) | `remoteResultType` recognizes `RemoteStream<Out, In>` and generates the `uplink` boundary; the descriptor emits `uplink: { codec }`; the generated Client signature returns `RemoteStreamHandle<Out, In>`; the parameter loop accepts only business parameters and a final `signal` |
+| `lyn-client-connection` (`peer.ts`, `rpc.ts`, `rpc-host.ts`, `index.ts`) | The `Peer` class; `connection.browserPeer` and `admit`; the `/api` and upgrade routes obtain the Peer through `admit`; the optional `uplink` of `rpc.open` |
+| `lyn-api-gateway` Host (`stream-protocol.ts`, `stream-server.ts`, `types.ts`, `index.ts`) | `item` / `end` frames; `UplinkInbox`; `Config.streamInboxBytes` and `Config.websocketCompression`; `GatewayInvocation` and `extend({ invocation })`; `UplinkDecoder`; `handleUpgrade(req, socket, head, peer)` |
+| `lyn-api-gateway` Client (`client/index.ts`, `client/stream-client.ts`) | `invokeStream` returns the handle; the uplink pump is driven by the handle's queue |
+| `lyn-webworker-runtime`, `lyn-remote-mock` | The worker tunnel's two uplink frames and the `serveStream` assembly; `StreamHandle.uplink`; the direct proxy returns the real handle |
 | Documentation | The READMEs of gateway, the api group, connection, protocol, and generator; `docs/api-gateway`; the type-equiv blocks of `docs/subsystems/typert`; the config and Cordis catalogs |
 
 ## Key sequences

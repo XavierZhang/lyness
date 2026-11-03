@@ -3,13 +3,13 @@ description: "Coordinate subagents through a durable shared task board in Team-e
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-agent-team
+# @lyness/lyn-agent-team
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`dsh-agent-team` adds a durable shared task board to an existing subagent tree. Members use standard subagent tools to discover and contact one another. Team adds compare-and-set task ownership. Mount `dsh-tool-agent-team` for task tools. Members share one checkout.
+`lyn-agent-team` adds a durable shared task board to an existing subagent tree. Members use standard subagent tools to discover and contact one another. Team adds compare-and-set task ownership. Mount `lyn-tool-agent-team` for task tools. Members share one checkout.
 
 ## Table of Contents
 
@@ -31,7 +31,7 @@ Set `defaultEnabled: true` to enable new root Sessions, including ordinary forks
 
 Mode changes take effect without waiting for queued task mutations. Each mutation checks the current mode when it starts: an admitted operation finishes, while queued work is rejected if Team is still off when it starts. Enabling again permits subsequent operations. A failed save leaves an appended selection active; retrying the same selection saves without another mode record.
 
-Add this package when subagents need durable shared task ownership and dependencies. Mount it with `@deepseek-ai/dsh-tool-agent-team` for model tools.
+Add this package when subagents need durable shared task ownership and dependencies. Mount it with `@lyness/lyn-tool-agent-team` for model tools.
 
 ### When to choose it
 
@@ -41,12 +41,12 @@ Choose it when delegated agents must divide and track shared work. Plain subagen
 
 <a id="smallest-working-setup"></a>
 
-Mount both Team packages in a composition that already provides continuable subagents, their messaging tools, and durable session storage, such as a profile built on `@deepseek-ai/dsh-base`:
+Mount both Team packages in a composition that already provides continuable subagents, their messaging tools, and durable session storage, such as a profile built on `@lyness/lyn-base`:
 
 ```yaml
 # smallest Team addition over a composition with continuable subagents
-- name: '@deepseek-ai/dsh-agent-team'
-- name: '@deepseek-ai/dsh-tool-agent-team'
+- name: '@lyness/lyn-agent-team'
+- name: '@lyness/lyn-tool-agent-team'
 ```
 
 For example, ask the model to start a subagent to review the diff and track its work on the task board. Configuration fields are optional and validated at startup:
@@ -56,7 +56,7 @@ For example, ask the model to start a subagent to review the diff and track its 
 | `maxTasks` | `256` | Maximum non-deleted tasks on the board |
 | `defaultEnabled` | `false` | Save Team mode on for new roots without an existing selection |
 
-The generated [configuration catalog](../../../docs/config-catalog.md#deepseek-aidsh-agent-team) is the exhaustive source for every accepted field and its JSDoc. A row that sets `maxMembers`, `maxMessageBytes`, or `disposalTimeoutMs` does not activate, and dsh names the key in its startup warning; the [upgrade guide](../../../docs/upgrade-guide/v0.2.1-rc.2/agent-team-subagents/guide.md) lists the replacements.
+The generated [configuration catalog](../../../docs/config-catalog.md#lynesslyn-agent-team) is the exhaustive source for every accepted field and its JSDoc. A row that sets `maxMembers`, `maxMessageBytes`, or `disposalTimeoutMs` does not activate, and lyn names the key in its startup warning; the [upgrade guide](../../../docs/upgrade-guide/v0.2.1-rc.2/agent-team-subagents/guide.md) lists the replacements.
 
 ### Teammates
 

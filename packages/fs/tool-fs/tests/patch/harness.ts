@@ -2,22 +2,22 @@
 import { mkdir, mkdtemp, readFile, realpath, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
-import { Context } from '@deepseek-ai/cordis'
-import { provideWorkingDirectoryFixture } from '@deepseek-ai/dsh-agent-loop-testkit'
-import { FsVersion } from '@deepseek-ai/dsh-fs'
-import type { FsObservation } from '@deepseek-ai/dsh-fs'
-import { LocalFileSystem } from '@deepseek-ai/dsh-fs-local'
-import { SandboxedFileSystem } from '@deepseek-ai/dsh-fs-sandbox'
-import * as FsPolicy from '@deepseek-ai/dsh-fs-observation-policy'
-import { ToolCallId } from '@deepseek-ai/dsh-llm'
-import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
-import ToolRuntime from '@deepseek-ai/dsh-tools'
-import * as NativeToolExecutor from '@deepseek-ai/dsh-tool-executor-native'
-import * as PtcToolExecutor from '@deepseek-ai/dsh-tool-executor-ptc'
-import type { ToolExecution, ToolExecutionToken } from '@deepseek-ai/dsh-tools'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import SandboxPolicyService from '@deepseek-ai/dsh-sandbox-policy'
-import type { SandboxMode } from '@deepseek-ai/dsh-sandbox'
+import { Context } from '@lyness/cordis'
+import { provideWorkingDirectoryFixture } from '@lyness/lyn-agent-loop-testkit'
+import { FsVersion } from '@lyness/lyn-fs'
+import type { FsObservation } from '@lyness/lyn-fs'
+import { LocalFileSystem } from '@lyness/lyn-fs-local'
+import { SandboxedFileSystem } from '@lyness/lyn-fs-sandbox'
+import * as FsPolicy from '@lyness/lyn-fs-observation-policy'
+import { ToolCallId } from '@lyness/lyn-llm'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime from '@lyness/lyn-tools'
+import * as NativeToolExecutor from '@lyness/lyn-tool-executor-native'
+import * as PtcToolExecutor from '@lyness/lyn-tool-executor-ptc'
+import type { ToolExecution, ToolExecutionToken } from '@lyness/lyn-tools'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import SandboxPolicyService from '@lyness/lyn-sandbox-policy'
+import type { SandboxMode } from '@lyness/lyn-sandbox'
 import { onTestFinished, vi } from 'vitest'
 import * as ToolFs from '../../src/index.ts'
 import { executePatch } from '../../src/patch/index.ts'
@@ -32,7 +32,7 @@ export const move = (source: string, destination: string, before = 'old', after 
   `*** Update File: ${source}\n*** Move to: ${destination}\n@@\n-${before}\n+${after}`
 
 export async function setup(options: { policy?: boolean; mode?: SandboxMode; provider?: typeof LocalFileSystem; applyPatch?: boolean; toolMode?: 'native' | 'ptc' } = {}) {
-  const root = await realpath(await mkdtemp(join(tmpdir(), 'dsh-patch-executor-')))
+  const root = await realpath(await mkdtemp(join(tmpdir(), 'lyn-patch-executor-')))
   onTestFinished(() => rm(root, { recursive: true, force: true }))
   const workspace = join(root, 'workspace')
   const providerRoot = join(root, 'provider')

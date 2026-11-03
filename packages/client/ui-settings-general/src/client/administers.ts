@@ -6,10 +6,10 @@
  * registration — a composition with no directory offering every plane, and a
  * shell that asks once however often it remounts.
  *
- * @module @deepseek-ai/dsh-client-ui-settings-general/client/administers
+ * @module @lyness/lyn-client-ui-settings-general/client/administers
  */
 
-import type { HostObservable } from '@deepseek-ai/dsh-client-ui-slots'
+import type { HostObservable } from '@lyness/lyn-client-ui-slots'
 
 /**
  * What the shell reads from the viewer service: the shared read it drives and

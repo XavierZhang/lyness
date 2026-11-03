@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import type { ConnectionHandle, ConnectionRpcResult } from '@deepseek-ai/dsh-client-connection/client'
+import type { ConnectionHandle, ConnectionRpcResult } from '@lyness/lyn-client-connection/client'
 import { installViewerPluginWarnings, installViewerRpcWarnings } from '../src/client/viewer-plugin-warning.ts'
 
 const t = ((key: string, values?: { plugin?: string }) => key === 'viewer.pluginUnsupported'

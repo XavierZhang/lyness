@@ -2,7 +2,7 @@
 // verbatim, and hostile shapes (cycles, empty messages, bare values) cannot
 // break the status text they feed.
 import { describe, expect, it } from 'vitest'
-import { describeError, redactSecrets } from '@deepseek-ai/dsh-mcp-client/src/diagnostic.ts'
+import { describeError, redactSecrets } from '@lyness/lyn-mcp-client/src/diagnostic.ts'
 
 describe('describeError', () => {
   it('keeps a plain error as its own string', () => {

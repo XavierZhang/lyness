@@ -7,7 +7,7 @@
 
 - id: llm-deepseek
   config:
-    baseURL: !!js process.env.DSH_SNAPSHOT_BASE_URL
+    baseURL: !!js process.env.LYNESS_SNAPSHOT_BASE_URL
     thinking: enabled
     reasoningEffort: low
     # The server these cases run against sends a keep-alive every 60ms, so 150
@@ -35,5 +35,5 @@
 - id: sandbox-policy
   inject: []
   config:
-    mode: !!js process.env.DSH_PERMISSION_MODE ?? 'workspace-write'
+    mode: !!js process.env.LYNESS_PERMISSION_MODE ?? 'workspace-write'
     workspaceRoot: !!js process.cwd()

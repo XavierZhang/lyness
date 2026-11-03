@@ -6,8 +6,8 @@
  * covered by session.client.spec.ts.
  */
 import { describe, expect, it } from 'vitest'
-import type { SessionId } from '@deepseek-ai/dsh-api-remotes/client'
-import { RemoteMock } from '@deepseek-ai/dsh-remote-mock'
+import type { SessionId } from '@lyness/lyn-api-remotes/client'
+import { RemoteMock } from '@lyness/lyn-remote-mock'
 import { Session } from '../src/client/sessions/session.ts'
 import type { SessionRemotes } from '../src/client/sessions/remotes.ts'
 

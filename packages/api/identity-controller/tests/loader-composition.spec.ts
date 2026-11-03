@@ -9,20 +9,20 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { afterEach, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import Loader from '@deepseek-ai/cordis-plugin-loader'
-import Include from '@deepseek-ai/cordis-plugin-include'
-import { StaticPeopleDirectory } from '@deepseek-ai/dsh-people/static'
-import SignIn from '@deepseek-ai/dsh-sign-in'
-import * as AdmissionRoster from '@deepseek-ai/dsh-sign-in/admission-roster'
-import * as StoredAuthSessions from '@deepseek-ai/dsh-auth-session/store'
-import * as RequestPrincipal from '@deepseek-ai/dsh-request-principal'
-import { IDENTITY_COOKIE } from '@deepseek-ai/dsh-request-principal'
-import Storage from '@deepseek-ai/dsh-storage'
-import * as StorageJson from '@deepseek-ai/dsh-storage-json'
-import * as StorageDomain from '@deepseek-ai/dsh-storage-domain'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { PersonId } from '@deepseek-ai/dsh-people'
+import { Context } from '@lyness/cordis'
+import Loader from '@lyness/cordis-plugin-loader'
+import Include from '@lyness/cordis-plugin-include'
+import { StaticPeopleDirectory } from '@lyness/lyn-people/static'
+import SignIn from '@lyness/lyn-sign-in'
+import * as AdmissionRoster from '@lyness/lyn-sign-in/admission-roster'
+import * as StoredAuthSessions from '@lyness/lyn-auth-session/store'
+import * as RequestPrincipal from '@lyness/lyn-request-principal'
+import { IDENTITY_COOKIE } from '@lyness/lyn-request-principal'
+import Storage from '@lyness/lyn-storage'
+import * as StorageJson from '@lyness/lyn-storage-json'
+import * as StorageDomain from '@lyness/lyn-storage-domain'
+import { brandString } from '@lyness/lyn-brand'
+import type { PersonId } from '@lyness/lyn-people'
 import IdentityController from '../src/index.ts'
 
 const ADA = brandString<PersonId>('ada')
@@ -42,30 +42,30 @@ type Scope = (request: Request, run: () => Promise<unknown>) => Promise<unknown>
 
 /** Boot the rows through the real Loader, and keep the request scope they registered. */
 async function compose(): Promise<{ ctx: Context; scopes: Scope[] }> {
-  root = await mkdtemp(join(tmpdir(), 'dsh-identity-controller-'))
+  root = await mkdtemp(join(tmpdir(), 'lyn-identity-controller-'))
   const configPath = join(root, 'cordis.yml')
   await writeFile(configPath, [
-    "- name: '@deepseek-ai/dsh-storage'",
-    "- name: '@deepseek-ai/dsh-storage-json'",
+    "- name: '@lyness/lyn-storage'",
+    "- name: '@lyness/lyn-storage-json'",
     '  config:',
     `    root: ${JSON.stringify(join(root, 'state'))}`,
-    "- name: '@deepseek-ai/dsh-storage-domain'",
+    "- name: '@lyness/lyn-storage-domain'",
     '  config:',
     '    backend: json',
-    "- name: '@deepseek-ai/dsh-people/static'",
+    "- name: '@lyness/lyn-people/static'",
     '  config:',
     '    people:',
     '      - id: ada',
     '        displayName: Ada',
     '        role: tenant-administrator',
     '        organization: acme',
-    "- name: '@deepseek-ai/dsh-auth-session/store'",
-    "- name: '@deepseek-ai/dsh-sign-in/admission-roster'",
+    "- name: '@lyness/lyn-auth-session/store'",
+    "- name: '@lyness/lyn-sign-in/admission-roster'",
     '  config:',
     '    bindings: []',
-    "- name: '@deepseek-ai/dsh-sign-in'",
-    "- name: '@deepseek-ai/dsh-request-principal'",
-    "- name: '@deepseek-ai/dsh-api-identity-controller'",
+    "- name: '@lyness/lyn-sign-in'",
+    "- name: '@lyness/lyn-request-principal'",
+    "- name: '@lyness/lyn-api-identity-controller'",
     '',
   ].join('\n'))
 
@@ -79,15 +79,15 @@ async function compose(): Promise<{ ctx: Context; scopes: Scope[] }> {
   await ctx.plugin(Loader)
   ctx.loader.builtins.include = Include
   const modules = new Map<string, unknown>([
-    ['@deepseek-ai/dsh-storage', Storage],
-    ['@deepseek-ai/dsh-storage-json', StorageJson],
-    ['@deepseek-ai/dsh-storage-domain', StorageDomain],
-    ['@deepseek-ai/dsh-people/static', StaticPeopleDirectory],
-    ['@deepseek-ai/dsh-auth-session/store', StoredAuthSessions],
-    ['@deepseek-ai/dsh-sign-in/admission-roster', AdmissionRoster],
-    ['@deepseek-ai/dsh-sign-in', SignIn],
-    ['@deepseek-ai/dsh-request-principal', RequestPrincipal],
-    ['@deepseek-ai/dsh-api-identity-controller', IdentityController],
+    ['@lyness/lyn-storage', Storage],
+    ['@lyness/lyn-storage-json', StorageJson],
+    ['@lyness/lyn-storage-domain', StorageDomain],
+    ['@lyness/lyn-people/static', StaticPeopleDirectory],
+    ['@lyness/lyn-auth-session/store', StoredAuthSessions],
+    ['@lyness/lyn-sign-in/admission-roster', AdmissionRoster],
+    ['@lyness/lyn-sign-in', SignIn],
+    ['@lyness/lyn-request-principal', RequestPrincipal],
+    ['@lyness/lyn-api-identity-controller', IdentityController],
   ])
   const base = ctx.loader.internal
   if (base === undefined) throw new Error('this Node build exposes no internal module loader')

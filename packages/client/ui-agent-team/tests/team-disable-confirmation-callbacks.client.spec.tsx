@@ -3,15 +3,15 @@
 import type { ComponentProps } from 'react'
 import { afterEach, expect, it, onTestFinished, vi } from 'vitest'
 import { act, cleanup, fireEvent, render, screen } from '@testing-library/react'
-import { SessionId } from '@deepseek-ai/dsh-session'
-import { makeTranslate } from '@deepseek-ai/dsh-client-test-runtime'
-import type { Button } from '@deepseek-ai/dsh-client-ui-primitives'
+import { SessionId } from '@lyness/lyn-session'
+import { makeTranslate } from '@lyness/lyn-client-test-runtime'
+import type { Button } from '@lyness/lyn-client-ui-primitives'
 import { TeamDisableConfirmation, type TeamDisableConfirmationProps } from '../src/client/TeamDisableConfirmation.tsx'
 import { zh } from '../src/client/locales.ts'
 
 vi.mock('../src/client/TeamDisableConfirmation.module.css', () => ({ default: {} }))
-vi.mock('@deepseek-ai/dsh-client-ui-primitives', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('@deepseek-ai/dsh-client-ui-primitives')>()
+vi.mock('@lyness/lyn-client-ui-primitives', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@lyness/lyn-client-ui-primitives')>()
   return {
     ...actual,
     // Deliver repeated activations to the form even while its native button would suppress them.

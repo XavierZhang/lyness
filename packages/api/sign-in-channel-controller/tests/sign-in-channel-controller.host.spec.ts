@@ -8,19 +8,19 @@ import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { Membership, MembershipId, PersonId, Role } from '@deepseek-ai/dsh-people'
-import Storage from '@deepseek-ai/dsh-storage'
-import * as StorageJson from '@deepseek-ai/dsh-storage-json'
-import * as StorageDomain from '@deepseek-ai/dsh-storage-domain'
-import SignIn from '@deepseek-ai/dsh-sign-in'
-import ChannelKindRegistry from '@deepseek-ai/dsh-sign-in/kinds'
-import type { ChannelKind, ConfiguredChannel } from '@deepseek-ai/dsh-sign-in/kinds'
-import type { SignInChannel } from '@deepseek-ai/dsh-sign-in'
-import AdminAudit from '@deepseek-ai/dsh-admin-audit'
-import ConfiguredChannels from '@deepseek-ai/dsh-sign-in-channels'
-import { RemoteError } from '@deepseek-ai/dsh-typert-protocol'
+import { Context } from '@lyness/cordis'
+import { brandString } from '@lyness/lyn-brand'
+import type { Membership, MembershipId, PersonId, Role } from '@lyness/lyn-people'
+import Storage from '@lyness/lyn-storage'
+import * as StorageJson from '@lyness/lyn-storage-json'
+import * as StorageDomain from '@lyness/lyn-storage-domain'
+import SignIn from '@lyness/lyn-sign-in'
+import ChannelKindRegistry from '@lyness/lyn-sign-in/kinds'
+import type { ChannelKind, ConfiguredChannel } from '@lyness/lyn-sign-in/kinds'
+import type { SignInChannel } from '@lyness/lyn-sign-in'
+import AdminAudit from '@lyness/lyn-admin-audit'
+import ConfiguredChannels from '@lyness/lyn-sign-in-channels'
+import { RemoteError } from '@lyness/lyn-typert-protocol'
 import SignInChannelController from '../src/index.ts'
 import type { ChannelInput } from '../src/types.ts'
 
@@ -70,7 +70,7 @@ interface Mounted {
 
 /** The deployment, with one standing calling it. */
 async function harness(by: Membership | 'none', mounted: Mounted = {}): Promise<SignInChannelController> {
-  root ??= await mkdtemp(join(tmpdir(), 'dsh-sign-in-channel-controller-'))
+  root ??= await mkdtemp(join(tmpdir(), 'lyn-sign-in-channel-controller-'))
   const ctx = new Context()
   live.push(ctx)
   const secrets = new Map<string, string>()

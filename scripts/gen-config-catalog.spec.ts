@@ -10,7 +10,7 @@ import { generatedRegions } from './translation-pairing.ts'
 
 const roots: string[] = []
 const sharedSchema = `
-import Schema from '@deepseek-ai/schemastery'
+import Schema from '@lyness/schemastery'
 export interface LaunchConfig {
   /** Browser ownership mode. */
   mode: 'launch'
@@ -31,7 +31,7 @@ export const Shared = Schema.union([
 `
 
 function fixture(schema = sharedSchema) {
-  const root = mkdtempSync(join(tmpdir(), 'dsh-config-catalog-'))
+  const root = mkdtempSync(join(tmpdir(), 'lyn-config-catalog-'))
   roots.push(root)
   const write = (path: string, value: string): void => {
     const file = join(root, path)
@@ -88,7 +88,7 @@ export function apply(ctx: unknown, config: Config): void {}
 
   it.each([false, true])('checks fields spread from an imported object schema (undeclared field: %s)', (invalid) => {
     const { root, write } = fixture(`
-import Schema from '@deepseek-ai/schemastery'
+import Schema from '@lyness/schemastery'
 export interface SharedOptions {
   /** Maximum result count. */
   limit: number
@@ -96,7 +96,7 @@ export interface SharedOptions {
 export const Shared = Schema.object({ limit: Schema.number(), ${invalid ? 'hidden: Schema.string(),' : ''} })
 `)
     write('packages/test/provider/src/index.ts', `
-import Schema from '@deepseek-ai/schemastery'
+import Schema from '@lyness/schemastery'
 import { Shared as SharedConfig, type SharedOptions } from '@test/runtime/config'
 export interface Config extends SharedOptions {
   /** Signature selected for a source build. */
@@ -113,7 +113,7 @@ export function apply(ctx: unknown, config: Config): void {}
   it.each(['SharedConfig.dict', 'unknownFields'])('rejects a spread without an object schema: %s', (spread) => {
     const { root, write } = fixture()
     write('packages/test/provider/src/index.ts', `
-import Schema from '@deepseek-ai/schemastery'
+import Schema from '@lyness/schemastery'
 import { Shared as SharedConfig, type BrowserConfig } from '@test/runtime/config'
 export type Config = BrowserConfig
 export const Config = Schema.object({ ...${spread} })
@@ -124,7 +124,7 @@ export function apply(ctx: unknown, config: Config): void {}
 
   it('rejects a recursive object-schema dict spread', () => {
     const { root } = fixture(`
-import Schema from '@deepseek-ai/schemastery'
+import Schema from '@lyness/schemastery'
 export interface BrowserConfig { mode: string }
 export const Shared = Schema.object({ ...Shared.dict, mode: Schema.string() })
 `)
@@ -145,7 +145,7 @@ export const Shared = Schema.object({ ...Shared.dict, mode: Schema.string() })
   it.each([false, true])('checks a class Config imported from a sibling module (invalid field: %s)', (invalid) => {
     const { root, write } = fixture()
     write('packages/test/provider/src/config.ts', `
-import Schema from '@deepseek-ai/schemastery'
+import Schema from '@lyness/schemastery'
 export interface Config {
   /** Maximum result count. */
   limit: number
@@ -229,14 +229,14 @@ export const Shared = Schema.union([MissingSchema])
 describe('config catalog rendering', () => {
   const entries = (inject: string[]): CatalogEntry[] => [
     {
-      pkg: '@deepseek-ai/dsh-demo',
+      pkg: '@lyness/lyn-demo',
       dir: 'packages/demo/demo',
       entry: 'packages/demo/demo/src/index.ts',
       kind: 'config',
       inject,
       pastes: [{ text: 'export interface DemoConfig {}', source: 'packages/demo/demo/src/index.ts:3' }],
     },
-    { pkg: '@deepseek-ai/dsh-plain', dir: 'packages/demo/plain', entry: 'packages/demo/plain/src/index.ts', kind: 'no-config', inject },
+    { pkg: '@lyness/lyn-plain', dir: 'packages/demo/plain', entry: 'packages/demo/plain/src/index.ts', kind: 'no-config', inject },
   ]
   const paths = translationPairPaths('docs/config-catalog.md')
   const record = (inject: string[]) => computeTranslationPairingRecord(
@@ -249,7 +249,7 @@ describe('config catalog rendering', () => {
   it('keeps package data in generated regions shared by both languages', () => {
     const en = generatedRegions(render(entries(['jobs']), 'en')).map(region => region.text)
     expect(en.map(region => region.split('\n')[0])).toEqual([
-      '<!-- BEGIN GENERATED config-catalog:@deepseek-ai/dsh-demo -->',
+      '<!-- BEGIN GENERATED config-catalog:@lyness/lyn-demo -->',
       '<!-- BEGIN GENERATED config-catalog:no-config -->',
       '<!-- BEGIN GENERATED config-catalog:seam -->',
       '<!-- BEGIN GENERATED config-catalog:library -->',
@@ -260,6 +260,6 @@ describe('config catalog rendering', () => {
 
   it('leaves the consistency record unchanged when only package data changes', () => {
     expect(record(['jobs', 'typert'])).toEqual(record(['jobs']))
-    expect([...record(['jobs']).keys()].some(key => key.includes('dsh-demo'))).toBe(false)
+    expect([...record(['jobs']).keys()].some(key => key.includes('lyn-demo'))).toBe(false)
   })
 })

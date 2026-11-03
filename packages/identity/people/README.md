@@ -3,13 +3,13 @@ description: "People and their standing in an organization: the directory seam, 
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-people
+# @lyness/lyn-people
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-Use `dsh-people` to answer who a caller is and what their standing permits. A person holds one identity and a **membership** is their standing in one organization, carrying exactly one of three roles. `./static` serves a roster an operator writes, which is an enterprise installation's directory before SSO is connected. The directory reports a role and authorizes nothing: each operation decides for itself, against `administers`.
+Use `lyn-people` to answer who a caller is and what their standing permits. A person holds one identity and a **membership** is their standing in one organization, carrying exactly one of three roles. `./static` serves a roster an operator writes, which is an enterprise installation's directory before SSO is connected. The directory reports a role and authorizes nothing: each operation decides for itself, against `administers`.
 
 ## Table of Contents
 
@@ -29,7 +29,7 @@ An installation whose administrator maintains the roster mounts the static provi
 
 ```yaml
 - id: people
-  name: '@deepseek-ai/dsh-people/static'
+  name: '@lyness/lyn-people/static'
   config:
     people:
       - id: root
@@ -50,8 +50,8 @@ Only the people a roster names may use that installation, so an unknown identity
 An operation restricting itself to administrators asks the predicate rather than comparing roles:
 
 ```ts
-import { administers } from '@deepseek-ai/dsh-people'
-import type { Membership } from '@deepseek-ai/dsh-people'
+import { administers } from '@lyness/lyn-people'
+import type { Membership } from '@lyness/lyn-people'
 
 declare const standing: Membership
 declare const organization: string | undefined
@@ -79,7 +79,7 @@ The directory decides nothing. Whether a standing may perform an operation is th
 
 - [People, memberships, and the acting context](../../../.agents/notes/proposed/architecture/2026-10-08-people-memberships-and-acting-context.md) — the decision this package implements, including the acting context a call states.
 - [`tenant-config`](../../tenant/tenant-config/README.md) — the per-tenant configuration an administrator maintains.
-- [`dsh-model-policy`](../../llm/model-policy/README.md) — the first operation that will restrict itself to administrators.
+- [`lyn-model-policy`](../../llm/model-policy/README.md) — the first operation that will restrict itself to administrators.
 
 -----
 

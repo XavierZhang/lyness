@@ -19,16 +19,16 @@
  * ceiling would have no ceiling. That is why the budget is not an allowance
  * override and not part of the configuration a tenant saves for itself.
  *
- * @module @deepseek-ai/dsh-credits/administration
+ * @module @lyness/lyn-credits/administration
  */
 
-import { Service } from '@deepseek-ai/cordis'
-import type { Context } from '@deepseek-ai/cordis'
-import type { Domain } from '@deepseek-ai/dsh-storage-domain'
-import { fieldChanges } from '@deepseek-ai/dsh-admin-audit'
-import type {} from '@deepseek-ai/dsh-admin-audit'
-import { administers } from '@deepseek-ai/dsh-people'
-import type { Membership, PersonId } from '@deepseek-ai/dsh-people'
+import { Service } from '@lyness/cordis'
+import type { Context } from '@lyness/cordis'
+import type { Domain } from '@lyness/lyn-storage-domain'
+import { fieldChanges } from '@lyness/lyn-admin-audit'
+import type {} from '@lyness/lyn-admin-audit'
+import { administers } from '@lyness/lyn-people'
+import type { Membership, PersonId } from '@lyness/lyn-people'
 import { allowanceKey } from './allowance.ts'
 import type { AllowanceOverride, AllowanceRecord } from './allowance.ts'
 import { allowanceDomain } from './allowance-storage.ts'
@@ -36,7 +36,7 @@ import type { BudgetChange, BudgetState, OrganizationBudget } from './budget.ts'
 import type { ResetPeriod } from './period.ts'
 import type { CreditGrant } from './types.ts'
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Context {
     /** Administrator credit decisions; absent on a deployment nobody administers credits on. */
     creditAdministration: CreditAdministration

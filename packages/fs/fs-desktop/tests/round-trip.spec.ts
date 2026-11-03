@@ -9,14 +9,14 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { afterEach, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import LocalFileSystem from '@deepseek-ai/dsh-fs-local'
-import { FsVersion } from '@deepseek-ai/dsh-fs'
-import type { FileSystem } from '@deepseek-ai/dsh-fs'
-import type { JsonValue } from '@deepseek-ai/dsh-util-values'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { PersonId } from '@deepseek-ai/dsh-people'
-import type { SessionId } from '@deepseek-ai/dsh-session'
+import { Context } from '@lyness/cordis'
+import LocalFileSystem from '@lyness/lyn-fs-local'
+import { FsVersion } from '@lyness/lyn-fs'
+import type { FileSystem } from '@lyness/lyn-fs'
+import type { JsonValue } from '@lyness/lyn-util-values'
+import { brandString } from '@lyness/lyn-brand'
+import type { PersonId } from '@lyness/lyn-people'
+import type { SessionId } from '@lyness/lyn-session'
 import DesktopFileSystem from '../src/index.ts'
 import { desktopFsHandler } from '../src/handler.ts'
 
@@ -33,7 +33,7 @@ afterEach(async () => {
 
 /** The Host's filesystem, wired to a desktop handler over a real local one. */
 async function joined(): Promise<{ fs: FileSystem; workspace: string; seen: string[] }> {
-  root = await mkdtemp(join(tmpdir(), 'dsh-fs-desktop-rt-'))
+  root = await mkdtemp(join(tmpdir(), 'lyn-fs-desktop-rt-'))
   await mkdir(join(root, 'workspace'), { recursive: true })
   const workspace = await realpath(join(root, 'workspace'))
 

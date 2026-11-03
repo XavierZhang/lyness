@@ -4,7 +4,7 @@
  */
 
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import ChannelKindRegistry, { chosen, identityOf, offering } from '../src/kinds.ts'
 import type { ChannelKind } from '../src/kinds.ts'
 import { channelId } from '../src/index.ts'

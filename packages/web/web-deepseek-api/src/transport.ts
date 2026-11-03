@@ -2,12 +2,12 @@
  * Authentication and redirect-rejecting transport shared by the Search and
  * Fetch API providers in this package
  * ([rationale](../../../../.agents/notes/implemented/feature/2026-10-15-deepseek-search-fetch-api.md)).
- * @module @deepseek-ai/dsh-web-deepseek-api/transport
+ * @module @lyness/lyn-web-deepseek-api/transport
  */
-import type { CredentialRef } from '@deepseek-ai/dsh-credentials'
-import { WebError } from '@deepseek-ai/dsh-web'
+import type { CredentialRef } from '@lyness/lyn-credentials'
+import { WebError } from '@lyness/lyn-web'
 
-const USER_AGENT = 'deepseek-harness/0.0.1'
+const USER_AGENT = 'lyness/0.0.1'
 
 /** Account token tried before the API key of an operation. */
 interface DeepSeekWebAccountAuth {
@@ -262,7 +262,7 @@ async function authHeaders(
     const endpoint = joinPath(account.baseURL, request.path)
     const token = await resolveCredential(() => account.resolveToken(endpoint), signal)
     if (token !== undefined && token.length > 0) return {
-      kind: 'account', endpoint, headers: { 'x-dsh-auth-token': token },
+      kind: 'account', endpoint, headers: { 'x-lyn-auth-token': token },
       reject: async () => { await account.rejectToken(token) },
     }
   }

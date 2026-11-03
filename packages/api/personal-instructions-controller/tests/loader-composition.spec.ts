@@ -10,23 +10,23 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { afterEach, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import Loader from '@deepseek-ai/cordis-plugin-loader'
-import Include from '@deepseek-ai/cordis-plugin-include'
-import { StaticPeopleDirectory } from '@deepseek-ai/dsh-people/static'
-import * as StoredAuthSessions from '@deepseek-ai/dsh-auth-session/store'
-import * as RequestPrincipal from '@deepseek-ai/dsh-request-principal'
-import { IDENTITY_COOKIE } from '@deepseek-ai/dsh-request-principal'
-import Storage from '@deepseek-ai/dsh-storage'
-import * as StorageJson from '@deepseek-ai/dsh-storage-json'
-import * as StorageDomain from '@deepseek-ai/dsh-storage-domain'
-import * as PersonalInstructions from '@deepseek-ai/dsh-personal-instructions'
-import AgentRegistry from '@deepseek-ai/dsh-agent'
-import SessionStore from '@deepseek-ai/dsh-session'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { PersonId } from '@deepseek-ai/dsh-people'
+import { Context } from '@lyness/cordis'
+import Loader from '@lyness/cordis-plugin-loader'
+import Include from '@lyness/cordis-plugin-include'
+import { StaticPeopleDirectory } from '@lyness/lyn-people/static'
+import * as StoredAuthSessions from '@lyness/lyn-auth-session/store'
+import * as RequestPrincipal from '@lyness/lyn-request-principal'
+import { IDENTITY_COOKIE } from '@lyness/lyn-request-principal'
+import Storage from '@lyness/lyn-storage'
+import * as StorageJson from '@lyness/lyn-storage-json'
+import * as StorageDomain from '@lyness/lyn-storage-domain'
+import * as PersonalInstructions from '@lyness/lyn-personal-instructions'
+import AgentRegistry from '@lyness/lyn-agent'
+import SessionStore from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import { brandString } from '@lyness/lyn-brand'
+import type { PersonId } from '@lyness/lyn-people'
 import PersonalInstructionsController from '../src/index.ts'
 
 const ADA = brandString<PersonId>('ada')
@@ -47,31 +47,31 @@ type Scope = (request: Request, run: () => Promise<unknown>) => Promise<unknown>
 
 /** Boot the rows through the real Loader, and keep the request scope they registered. */
 async function compose(): Promise<{ ctx: Context; scopes: Scope[] }> {
-  root = await mkdtemp(join(tmpdir(), 'dsh-personal-instructions-'))
+  root = await mkdtemp(join(tmpdir(), 'lyn-personal-instructions-'))
   const configPath = join(root, 'cordis.yml')
   await writeFile(configPath, [
-    "- name: '@deepseek-ai/dsh-storage'",
-    "- name: '@deepseek-ai/dsh-storage-json'",
+    "- name: '@lyness/lyn-storage'",
+    "- name: '@lyness/lyn-storage-json'",
     '  config:',
     `    root: ${JSON.stringify(join(root, 'state'))}`,
-    "- name: '@deepseek-ai/dsh-storage-domain'",
+    "- name: '@lyness/lyn-storage-domain'",
     '  config:',
     '    backend: json',
-    "- name: '@deepseek-ai/dsh-people/static'",
+    "- name: '@lyness/lyn-people/static'",
     '  config:',
     '    people:',
     '      - id: ada',
     '        displayName: Ada',
     '      - id: bo',
     '        displayName: Bo',
-    "- name: '@deepseek-ai/dsh-auth-session/store'",
-    "- name: '@deepseek-ai/dsh-request-principal'",
-    "- name: '@deepseek-ai/dsh-session'",
-    "- name: '@deepseek-ai/dsh-session-projection'",
-    "- name: '@deepseek-ai/dsh-agent'",
-    "- name: '@deepseek-ai/dsh-system-prompt'",
-    "- name: '@deepseek-ai/dsh-personal-instructions'",
-    "- name: '@deepseek-ai/dsh-api-personal-instructions-controller'",
+    "- name: '@lyness/lyn-auth-session/store'",
+    "- name: '@lyness/lyn-request-principal'",
+    "- name: '@lyness/lyn-session'",
+    "- name: '@lyness/lyn-session-projection'",
+    "- name: '@lyness/lyn-agent'",
+    "- name: '@lyness/lyn-system-prompt'",
+    "- name: '@lyness/lyn-personal-instructions'",
+    "- name: '@lyness/lyn-api-personal-instructions-controller'",
     '',
   ].join('\n'))
 
@@ -85,18 +85,18 @@ async function compose(): Promise<{ ctx: Context; scopes: Scope[] }> {
   await ctx.plugin(Loader)
   ctx.loader.builtins.include = Include
   const modules = new Map<string, unknown>([
-    ['@deepseek-ai/dsh-storage', Storage],
-    ['@deepseek-ai/dsh-storage-json', StorageJson],
-    ['@deepseek-ai/dsh-storage-domain', StorageDomain],
-    ['@deepseek-ai/dsh-people/static', StaticPeopleDirectory],
-    ['@deepseek-ai/dsh-auth-session/store', StoredAuthSessions],
-    ['@deepseek-ai/dsh-request-principal', RequestPrincipal],
-    ['@deepseek-ai/dsh-session', SessionStore],
-    ['@deepseek-ai/dsh-session-projection', SessionProjectionRegistry],
-    ['@deepseek-ai/dsh-agent', AgentRegistry],
-    ['@deepseek-ai/dsh-system-prompt', SystemPrompt],
-    ['@deepseek-ai/dsh-personal-instructions', PersonalInstructions],
-    ['@deepseek-ai/dsh-api-personal-instructions-controller', PersonalInstructionsController],
+    ['@lyness/lyn-storage', Storage],
+    ['@lyness/lyn-storage-json', StorageJson],
+    ['@lyness/lyn-storage-domain', StorageDomain],
+    ['@lyness/lyn-people/static', StaticPeopleDirectory],
+    ['@lyness/lyn-auth-session/store', StoredAuthSessions],
+    ['@lyness/lyn-request-principal', RequestPrincipal],
+    ['@lyness/lyn-session', SessionStore],
+    ['@lyness/lyn-session-projection', SessionProjectionRegistry],
+    ['@lyness/lyn-agent', AgentRegistry],
+    ['@lyness/lyn-system-prompt', SystemPrompt],
+    ['@lyness/lyn-personal-instructions', PersonalInstructions],
+    ['@lyness/lyn-api-personal-instructions-controller', PersonalInstructionsController],
   ])
   const base = ctx.loader.internal
   if (base === undefined) throw new Error('this Node build exposes no internal module loader')

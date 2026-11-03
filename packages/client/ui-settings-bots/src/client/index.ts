@@ -9,16 +9,16 @@
  * The calls live here rather than in the component so one in-flight read is
  * shared: opening the section twice does not ask the deployment twice.
  *
- * @module @deepseek-ai/dsh-client-ui-settings-bots/client
+ * @module @lyness/lyn-client-ui-settings-bots/client
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import type {} from '@deepseek-ai/dsh-client-locale/client'
-import type {} from '@deepseek-ai/dsh-client-ui-settings/client'
-import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
-import type {} from '@deepseek-ai/dsh-api-remotes/client'
-import type {} from '@deepseek-ai/dsh-api-bots-controller/remote'
-import type {} from '@deepseek-ai/dsh-client-ui-workspace/client'
+import type { Context } from '@lyness/cordis'
+import type {} from '@lyness/lyn-client-locale/client'
+import type {} from '@lyness/lyn-client-ui-settings/client'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
+import type {} from '@lyness/lyn-api-remotes/client'
+import type {} from '@lyness/lyn-api-bots-controller/remote'
+import type {} from '@lyness/lyn-client-ui-workspace/client'
 import { BotsSection } from './BotsSection.tsx'
 import { SectionBinding, sectionFace } from './binding.ts'
 import { botsCallsOf, createBotsOperations } from './operations.ts'
@@ -35,7 +35,7 @@ export type { BotsCalls, BotsOperations, BotsSink, CallOutcome } from './operati
 export { SectionBinding, sectionFace } from './binding.ts'
 export type { BotsActions } from './binding.ts'
 
-declare module '@deepseek-ai/dsh-client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface LocaleNamespaceMap { 'settings.bots': BotsKey }
 }
 

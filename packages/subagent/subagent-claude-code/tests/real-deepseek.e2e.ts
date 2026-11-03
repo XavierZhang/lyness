@@ -12,15 +12,15 @@ import { tmpdir } from 'node:os'
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { promisify } from 'node:util'
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { mountAgentLoopTestDependencies, mountAgentLoopTestHarness } from '@deepseek-ai/dsh-agent-loop-testkit'
-import SubagentRuntime from '@deepseek-ai/dsh-subagent'
-import { SessionId } from '@deepseek-ai/dsh-session'
-import type { SubprocessHandle } from '@deepseek-ai/dsh-subprocess'
-import LocalSubprocessRuntime from '@deepseek-ai/dsh-subprocess-local'
+import { mountAgentLoopTestDependencies, mountAgentLoopTestHarness } from '@lyness/lyn-agent-loop-testkit'
+import SubagentRuntime from '@lyness/lyn-subagent'
+import { SessionId } from '@lyness/lyn-session'
+import type { SubprocessHandle } from '@lyness/lyn-subprocess'
+import LocalSubprocessRuntime from '@lyness/lyn-subprocess-local'
 import * as claudeCode from '../src/index.ts'
-import { E2E_TARGET } from '@deepseek-ai/dsh-e2e-target'
+import { E2E_TARGET } from '@lyness/lyn-e2e-target'
 
 const execFileAsync = promisify(execFile)
 const OFFICIAL_DEEPSEEK_MESSAGES_BASE_URL = 'https://api.deepseek.com/anthropic'
@@ -67,7 +67,7 @@ describe.skipIf(!process.env.DEEPSEEK_API_KEY || !E2E_TARGET.official)(
     it('returns one unique nonce through the production provider and real SDK/CLI', async () => {
       const apiKey = process.env.DEEPSEEK_API_KEY
       if (apiKey === undefined) throw new Error('e2e ran without DEEPSEEK_API_KEY')
-      const root = mkdtempSync(join(tmpdir(), 'dsh-claude-deepseek-e2e-'))
+      const root = mkdtempSync(join(tmpdir(), 'lyn-claude-deepseek-e2e-'))
       roots.push(root)
       const workspace = join(root, 'workspace')
       const claudeConfig = join(root, 'claude-config')
@@ -132,7 +132,7 @@ describe.skipIf(!process.env.DEEPSEEK_API_KEY || !E2E_TARGET.official)(
       })
       expect(version.stdout.trim()).toBe('2.1.263 (Claude Code)')
 
-      const nonce = `DSH_CLAUDE_DEEPSEEK_${randomUUID()}`
+      const nonce = `LYNESS_CLAUDE_DEEPSEEK_${randomUUID()}`
       const parent = await harness.create(SessionId('deepseek-e2e-parent'), {}, { cwd: workspace })
       const run = await startExternalActivation(ctx, 'claude-code', {
         prompt: [{

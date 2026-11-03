@@ -5,18 +5,18 @@ import { mkdir, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { monitorEventLoopDelay, performance } from 'node:perf_hooks'
 import { scheduler, setTimeout as delay } from 'node:timers/promises'
-import { Context } from '@deepseek-ai/cordis'
-import AgentRegistry from '@deepseek-ai/dsh-agent'
-import RemoteAccessService from '@deepseek-ai/dsh-api-remote-access'
-import type SessionController from '@deepseek-ai/dsh-api-session-controller'
-import SessionStore, { SESSION_FORMAT_VERSION, SessionId, SessionLogOffset, type SessionHeader } from '@deepseek-ai/dsh-session'
-import * as JsonlSessionPersistence from '@deepseek-ai/dsh-session-persistence-jsonl'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import SessionProjectionCache, { projectionCacheDomainSpec } from '@deepseek-ai/dsh-session-projection-cache'
-import SqliteSessionQueryEngine from '@deepseek-ai/dsh-session-query-sqlite'
-import Storage from '@deepseek-ai/dsh-storage'
-import * as StorageDomain from '@deepseek-ai/dsh-storage-domain'
-import * as StorageJson from '@deepseek-ai/dsh-storage-json'
+import { Context } from '@lyness/cordis'
+import AgentRegistry from '@lyness/lyn-agent'
+import RemoteAccessService from '@lyness/lyn-api-remote-access'
+import type SessionController from '@lyness/lyn-api-session-controller'
+import SessionStore, { SESSION_FORMAT_VERSION, SessionId, SessionLogOffset, type SessionHeader } from '@lyness/lyn-session'
+import * as JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import SessionProjectionCache, { projectionCacheDomainSpec } from '@lyness/lyn-session-projection-cache'
+import SqliteSessionQueryEngine from '@lyness/lyn-session-query-sqlite'
+import Storage from '@lyness/lyn-storage'
+import * as StorageDomain from '@lyness/lyn-storage-domain'
+import * as StorageJson from '@lyness/lyn-storage-json'
 import { z } from 'zod'
 import { generationLogPath, sessionDir, toHeaderLine } from '../../packages/session/session-persistence-jsonl/src/format.ts'
 import { compressZstdFrame } from '../../packages/session/session-persistence-jsonl/src/zstd.ts'
@@ -53,7 +53,7 @@ const stateSchema = z.object({
 const viewSchema = z.object({ sessionOrdinal: z.number().int(), rows: z.number().int(), requests: z.number().int(), tokens: z.number().int() })
 type ProjectionState = z.infer<typeof stateSchema>
 
-declare module '@deepseek-ai/dsh-session-projection/types' {
+declare module '@lyness/lyn-session-projection/types' {
   interface SessionProjectionMap { syntheticProjectionList: z.infer<typeof viewSchema> }
 }
 
@@ -289,10 +289,10 @@ async function measure(controller: SessionController, observation: ViewObservati
 }
 
 assertBuiltBenchmarkRuntime(import.meta.url, {
-  controller: import.meta.resolve('@deepseek-ai/dsh-api-session-controller'),
-  registry: import.meta.resolve('@deepseek-ai/dsh-session-projection'),
-  cache: import.meta.resolve('@deepseek-ai/dsh-session-projection-cache'),
-  persistence: import.meta.resolve('@deepseek-ai/dsh-session-persistence-jsonl'),
+  controller: import.meta.resolve('@lyness/lyn-api-session-controller'),
+  registry: import.meta.resolve('@lyness/lyn-session-projection'),
+  cache: import.meta.resolve('@lyness/lyn-session-projection-cache'),
+  persistence: import.meta.resolve('@lyness/lyn-session-persistence-jsonl'),
 })
 const [root, workload, sliceArgument] = process.argv.slice(2)
 if (root === undefined || (workload !== 'modest' && workload !== 'tail' && workload !== 'cheap')) throw new Error('usage: projection-list.worker.js <private-root> <modest|tail|cheap> [work-slice-ms]')

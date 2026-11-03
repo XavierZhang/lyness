@@ -30,7 +30,7 @@ This rule narrows the readers covered by [Session observations](2026-08-25-sessi
 
 Knowing a valid image reference and having permission to invoke the endpoint for the supplied Session resource permits reading that object across Sessions. The local ID is the SHA-256 of normalized bytes. For known PNG, JPEG, or WebP bytes that admission preserves unchanged, a caller can calculate the ID, derive the format, byte length, and dimensions, and use an authorized read to test whether the object exists. The required reference fields need not come from a Session log.
 
-Image isolation requires separate Host instances with separate `DSH_HOME` directories. The shipped composition uses one attachment store per Host and does not select a store by Session. Authentication, Gateway action/resource checks, fixed storage paths, digest verification, and explicit failures remain required.
+Image isolation requires separate Host instances with separate `LYNESS_HOME` directories. The shipped composition uses one attachment store per Host and does not select a store by Session. Authentication, Gateway action/resource checks, fixed storage paths, digest verification, and explicit failures remain required.
 
 Image reads no longer depend on history length or Session materialization. File reading, integrity verification, encoding, and transport still cost time; this change makes no claim about upload or model inference latency. Existing Session data and fork references need no migration.
 
@@ -42,7 +42,7 @@ The diagnostic is [`image-read.perf.ts`](../../../../packages/api/session-contro
 
 ```sh
 pnpm exec tsdown --config-loader native --config packages/api/session-controller/tests/image-read.perf.config.ts
-(cd packages/api/session-controller && node --expose-gc .dsh-build/image-read/image-read.perf.js --expect-no-history)
+(cd packages/api/session-controller && node --expose-gc .lyn-build/image-read/image-read.perf.js --expect-no-history)
 ```
 
 Run the separately compiled baseline worker without `--expect-no-history`; its diagnostic request must match the baseline controller's ID-only request fields. The baseline negative control adds `--sample typical --expect-no-history` and must fail because that implementation queries and traverses history. The parent process runs each workload in five fresh child processes, each with a loaded Session and a first uncached read of every image. Images are deterministic synthetic 1024 × 768 PNGs; the two workloads contain 120 turns, 960 events, and 8 images, or 2,000 turns, 16,000 events, and 32 images. Fixture writes can leave the operating system's file cache warm.

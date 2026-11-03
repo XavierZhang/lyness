@@ -1,7 +1,7 @@
 /** Raw retention and candidate evaluation preserve the running plugin's config identity. */
-import { Context, type Fiber } from '@deepseek-ai/cordis'
-import Loader from '@deepseek-ai/cordis-plugin-loader'
-import z from '@deepseek-ai/schemastery'
+import { Context, type Fiber } from '@lyness/cordis'
+import Loader from '@lyness/cordis-plugin-loader'
+import z from '@lyness/schemastery'
 import { describe, expect, it, onTestFinished, vi } from 'vitest'
 
 function root(): Context {

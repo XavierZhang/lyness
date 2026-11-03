@@ -9,26 +9,26 @@
  * its own `*BaseURL` or `*ApiKeyEnv` uses only that endpoint and key instead
  * ([rationale](../../../../.agents/notes/implemented/architecture/2026-10-29-web-provider-selection.md#credential-resolution)).
  * Both providers report themselves not ready when their next operation would have no credential.
- * @module @deepseek-ai/dsh-web-deepseek-api
+ * @module @lyness/lyn-web-deepseek-api
  */
-import { FiberState, type Context, type Volatile } from '@deepseek-ai/cordis'
-import type {} from '@deepseek-ai/cordis-plugin-loader'
-import z from '@deepseek-ai/schemastery'
-import type {} from '@deepseek-ai/dsh-agent'
-import { credentialRef, type CredentialRef } from '@deepseek-ai/dsh-credentials'
-import { launchEnvironmentOf } from '@deepseek-ai/dsh-launch-environment'
-import type {} from '@deepseek-ai/dsh-llm'
+import { FiberState, type Context, type Volatile } from '@lyness/cordis'
+import type {} from '@lyness/cordis-plugin-loader'
+import z from '@lyness/schemastery'
+import type {} from '@lyness/lyn-agent'
+import { credentialRef, type CredentialRef } from '@lyness/lyn-credentials'
+import { launchEnvironmentOf } from '@lyness/lyn-launch-environment'
+import type {} from '@lyness/lyn-llm'
 import {
   deepSeekApiKeyConfigured, rejectDeepSeekAccountToken, resolveDeepSeekAccountToken, resolveDeepSeekApiKey,
-} from '@deepseek-ai/dsh-llm-deepseek'
+} from '@lyness/lyn-llm-deepseek'
 import {
   plainAccountOptions, resolveAccountOptions, type Config as AccountRouteConfig,
-} from '@deepseek-ai/dsh-llm-deepseek-account'
+} from '@lyness/lyn-llm-deepseek-account'
 import {
   plainOptions as plainOfficialOptions, resolveAdapterOptions as resolveOfficialOptions, type Config as OfficialRouteConfig,
-} from '@deepseek-ai/dsh-llm-deepseek-api-key'
-import type { Session } from '@deepseek-ai/dsh-session'
-import type {} from '@deepseek-ai/dsh-web'
+} from '@lyness/lyn-llm-deepseek-api-key'
+import type { Session } from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-web'
 import { DeepSeekFetchApiProvider } from './fetch.ts'
 import {
   DEEPSEEK_DEFAULT_COUNT, DEEPSEEK_SEARCH_REQUESTS_PER_SECOND, DEEPSEEK_WEB_API_BASE_URL, DeepSeekSearchApiProvider,
@@ -129,8 +129,8 @@ const ACCOUNT_PROVIDER = 'deepseek-account'
 
 /** Loader package that registers each model route. */
 const ROUTE_PACKAGES = {
-  'deepseek-official': '@deepseek-ai/dsh-llm-deepseek-api-key',
-  'deepseek-account': '@deepseek-ai/dsh-llm-deepseek-account',
+  'deepseek-official': '@lyness/lyn-llm-deepseek-api-key',
+  'deepseek-account': '@lyness/lyn-llm-deepseek-account',
 } as const
 
 /** Display and configuration names of each capability. */

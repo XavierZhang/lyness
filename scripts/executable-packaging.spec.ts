@@ -6,7 +6,7 @@ import { restoreLegacyHoists, verifyStagedDependencies } from './executable-pack
 import { materializeStagedLinks } from './build-exe-for-python-sdk-staging.ts'
 
 async function fixture() {
-  const root = await mkdtemp(join(tmpdir(), 'dsh-exe-deploy-'))
+  const root = await mkdtemp(join(tmpdir(), 'lyn-exe-deploy-'))
   onTestFinished(() => rm(root, { recursive: true, force: true }))
   const source = join(root, 'source')
   const staging = join(root, 'staging')

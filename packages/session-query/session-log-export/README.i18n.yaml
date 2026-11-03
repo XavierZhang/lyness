@@ -5,81 +5,81 @@
 /:
   en: 2ed4e25828621cc5
   zh: e9aa38b58d716093
-/deepseek-harness-dsh-session-log-export:
+/lyness-lyn-session-log-export:
   en: 962c540c0a85d3f0
   zh: 9391be411d8b3e9c
-/deepseek-harness-dsh-session-log-export/summary:
+/lyness-lyn-session-log-export/summary:
   en: 13d307e6bc6cc5f2
   zh: 48220daeec702fe3
-/deepseek-harness-dsh-session-log-export/table-of-contents:
+/lyness-lyn-session-log-export/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/deepseek-harness-dsh-session-log-export/use-this-package:
+/lyness-lyn-session-log-export/use-this-package:
   en: 41fd55c85ed1e9ed
   zh: 5912045c12afc67a
-/deepseek-harness-dsh-session-log-export/use-this-package/copy-session-as-markdown:
+/lyness-lyn-session-log-export/use-this-package/copy-session-as-markdown:
   en: 55c163a4ae5b8d5d
   zh: c1dac154ed1fa56d
-/deepseek-harness-dsh-session-log-export/use-this-package/when-to-choose-it:
+/lyness-lyn-session-log-export/use-this-package/when-to-choose-it:
   en: 4011f686afd24f09
   zh: 2710b9995c80ba1f
-/deepseek-harness-dsh-session-log-export/use-this-package/backend-conversion:
+/lyness-lyn-session-log-export/use-this-package/backend-conversion:
   en: 252bc78a7850557a
   zh: e695658a94c8c2bf
-/deepseek-harness-dsh-session-log-export/use-this-package/composition:
+/lyness-lyn-session-log-export/use-this-package/composition:
   en: 5beaf5ff0a1b61a8
   zh: dd3e26988fdf199a
-/deepseek-harness-dsh-session-log-export/use-this-package/configuration:
+/lyness-lyn-session-log-export/use-this-package/configuration:
   en: 377a0d8860c46f63
   zh: 9eb7698f813b2fa3
-/deepseek-harness-dsh-session-log-export/use-this-package/command-contract:
+/lyness-lyn-session-log-export/use-this-package/command-contract:
   en: 26329688b9a924a7
   zh: 94e21c10fdcfc1ac
-/deepseek-harness-dsh-session-log-export/use-this-package/what-to-expect:
+/lyness-lyn-session-log-export/use-this-package/what-to-expect:
   en: 44be1f1d1903d12a
   zh: c8f1eb5b92b71a30
-/deepseek-harness-dsh-session-log-export/use-this-package/deployments-with-accounts:
+/lyness-lyn-session-log-export/use-this-package/deployments-with-accounts:
   en: 397a290130b8829f
   zh: a96159dd4a9f188e
-/deepseek-harness-dsh-session-log-export/use-this-package/failures:
+/lyness-lyn-session-log-export/use-this-package/failures:
   en: e92a382bebfe99e3
   zh: 671178b06808bfb9
-/deepseek-harness-dsh-session-log-export/understand-the-implementation:
+/lyness-lyn-session-log-export/understand-the-implementation:
   en: 7cb82a6851405f95
   zh: b8c525170d19dc6c
-/deepseek-harness-dsh-session-log-export/understand-the-implementation/design-split:
+/lyness-lyn-session-log-export/understand-the-implementation/design-split:
   en: 3bb8e18b107c353f
   zh: 3cc45ce2b5699066
-/deepseek-harness-dsh-session-log-export/understand-the-implementation/download-flow:
+/lyness-lyn-session-log-export/understand-the-implementation/download-flow:
   en: bd46d2fa1273a6a4
   zh: 4d3eb2cf0a9bf12b
-/deepseek-harness-dsh-session-log-export/understand-the-implementation/markdown-copy-flow:
+/lyness-lyn-session-log-export/understand-the-implementation/markdown-copy-flow:
   en: d4e02b56ffb8ee8a
   zh: 0a329039788a13ee
-/deepseek-harness-dsh-session-log-export/further-exploration:
+/lyness-lyn-session-log-export/further-exploration:
   en: 610f5dd48daeef1b
   zh: bde23601154bc5fa
-/deepseek-harness-dsh-session-log-export/model-experience:
+/lyness-lyn-session-log-export/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/deepseek-harness-dsh-session-log-export/model-experience/human-export-and-copy-controls:
+/lyness-lyn-session-log-export/model-experience/human-export-and-copy-controls:
   en: fc738fb50c699115
   zh: d9184c11b904d36c
-/deepseek-harness-dsh-session-log-export/model-experience/human-export-and-copy-controls/what-the-model-sees:
+/lyness-lyn-session-log-export/model-experience/human-export-and-copy-controls/what-the-model-sees:
   en: e7784b93213942e5
   zh: 598c2ce6af076d2f
-/deepseek-harness-dsh-session-log-export/model-experience/human-export-and-copy-controls/token-effect:
+/lyness-lyn-session-log-export/model-experience/human-export-and-copy-controls/token-effect:
   en: 312b2def8b2cd7d4
   zh: 9af5e3a7cd12ce65
-/deepseek-harness-dsh-session-log-export/model-experience/human-export-and-copy-controls/kv-cache-effect:
+/lyness-lyn-session-log-export/model-experience/human-export-and-copy-controls/kv-cache-effect:
   en: 61e7dbf79010d071
   zh: 29294355598c0476
-/deepseek-harness-dsh-session-log-export/known-limitations-and-deferred-work:
+/lyness-lyn-session-log-export/known-limitations-and-deferred-work:
   en: 9fa197530a6c0747
   zh: aea781afa60f6282
-/deepseek-harness-dsh-session-log-export/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-session-log-export/known-limitations-and-deferred-work/dev-note:
   en: 4ee4d24c26c127bf
   zh: 1facdfbfa3ccefbc
-/deepseek-harness-dsh-session-log-export/known-limitations-and-deferred-work/dev-note/future-export-destinations-beyond-the-browser:
+/lyness-lyn-session-log-export/known-limitations-and-deferred-work/dev-note/future-export-destinations-beyond-the-browser:
   en: 820a5a5f2c5471cd
   zh: 59d5852372a1f3ed

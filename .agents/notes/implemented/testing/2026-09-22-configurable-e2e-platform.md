@@ -12,7 +12,7 @@ The obvious fix — an overlay per suite that swaps the catalog — would have m
 
 ## Decision
 
-The platform is chosen by the variables the product already reads. `@deepseek-ai/dsh-llm-deepseek` gains `DEEPSEEK_MODELS`, a comma-separated catalog read from the same trusted environment layers as `DEEPSEEK_BASE_URL`, and the new test-support package `@deepseek-ai/dsh-e2e-target` resolves the model a suite sends from that same variable. Environment variables reach every process a suite spawns, so the web and profile suites need no edits at all.
+The platform is chosen by the variables the product already reads. `@lyness/lyn-llm-deepseek` gains `DEEPSEEK_MODELS`, a comma-separated catalog read from the same trusted environment layers as `DEEPSEEK_BASE_URL`, and the new test-support package `@lyness/lyn-e2e-target` resolves the model a suite sends from that same variable. Environment variables reach every process a suite spawns, so the web and profile suites need no edits at all.
 
 Four rulings shape it.
 
@@ -28,7 +28,7 @@ Four rulings shape it.
 
 **An overlay per suite that swaps the catalog.** No product change. It touches forty to fifty upstream test files and every future suite has to remember it.
 
-**A test-only variable such as `DSH_E2E_MODEL`.** Simple to add. It lets the suites and the product disagree — a suite asking for one model while the app offers another — which is the failure this work removes.
+**A test-only variable such as `LYNESS_E2E_MODEL`.** Simple to add. It lets the suites and the product disagree — a suite asking for one model while the app offers another — which is the failure this work removes.
 
 **A logical-to-wire model name mapping in the provider.** The suites could keep saying `deepseek-v4-flash` while the provider sends the platform's name. It invents an aliasing concept the provider does not have, for which the only consumer is the test suite.
 

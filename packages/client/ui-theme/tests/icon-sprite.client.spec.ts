@@ -1,11 +1,11 @@
 // @vitest-environment jsdom
 /** Icon sprite: default symbols, theme replacements, replacement validation, and disposal. */
 import { describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import { stubConfigForm } from '@deepseek-ai/dsh-client-test-runtime'
-import { ICON_SYMBOLS } from '@deepseek-ai/dsh-client-ui-primitives'
-import type { ThemeSettings } from '@deepseek-ai/dsh-client-ui-theme/client'
-import { ThemeRuntime } from '@deepseek-ai/dsh-client-ui-theme/client'
+import { Context } from '@lyness/cordis'
+import { stubConfigForm } from '@lyness/lyn-client-test-runtime'
+import { ICON_SYMBOLS } from '@lyness/lyn-client-ui-primitives'
+import type { ThemeSettings } from '@lyness/lyn-client-ui-theme/client'
+import { ThemeRuntime } from '@lyness/lyn-client-ui-theme/client'
 import { installIconSprite } from '../src/client/icon-sprite.ts'
 
 const SEARCH = 'dsw-icon-search-outline-regular'
@@ -16,7 +16,7 @@ async function mount() {
   const theme = new ThemeRuntime(ctx, stubConfigForm<ThemeSettings>().scope)
   const fiber = ctx.plugin({ apply(scope) { installIconSprite(scope, theme.getTheme().active.icons) } })
   await fiber.await()
-  const sprite = (): SVGSVGElement | null => document.querySelector('svg[data-dsh-icon-sprite]')
+  const sprite = (): SVGSVGElement | null => document.querySelector('svg[data-lyn-icon-sprite]')
   const symbol = (id: string): Element | null => sprite()?.querySelector(`symbol[id="${id}"]`) ?? null
   return { ctx, theme, fiber, sprite, symbol }
 }

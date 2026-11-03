@@ -1,10 +1,10 @@
 import { access, mkdir, readFile, stat, symlink, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import { SandboxUnavailableError } from '@deepseek-ai/dsh-sandbox'
-import LocalSandbox from '@deepseek-ai/dsh-sandbox-local'
-import { setSandboxMode } from '@deepseek-ai/dsh-sandbox-policy'
+import { Context } from '@lyness/cordis'
+import { SandboxUnavailableError } from '@lyness/lyn-sandbox'
+import LocalSandbox from '@lyness/lyn-sandbox-local'
+import { setSandboxMode } from '@lyness/lyn-sandbox-policy'
 import { hasBranch, inspectCheckout, listBranches } from '../src/git.ts'
 import type { GitConfig } from '../src/git.ts'
 import { commitAt, git, gitContext, plainSession, repository, sandboxRecord, scratch, script } from './harness.ts'
@@ -20,7 +20,7 @@ afterEach(async () => {
   for (const cleanup of cleanups.splice(0).reverse()) await cleanup()
 })
 
-async function directory(prefix = 'dsh-forge-git-'): Promise<string> {
+async function directory(prefix = 'lyn-forge-git-'): Promise<string> {
   const { path, remove } = await scratch(prefix)
   cleanups.push(remove)
   return path
@@ -388,11 +388,11 @@ describe('hasBranch', () => {
     const ctx = await context(record, repo)
 
     await expect(hasBranch(ctx, CONFIG, session(repo), repo, 'newer', live())).resolves.toBe(true)
-    await expect(hasBranch(ctx, CONFIG, session(repo), repo, 'dsh/0a1b2c3d', live())).resolves.toBe(false)
+    await expect(hasBranch(ctx, CONFIG, session(repo), repo, 'lyn/0a1b2c3d', live())).resolves.toBe(false)
 
     expect(record.calls.map(call => call.argv.slice(1 + GIT_PREFIX.length).join(' '))).toEqual([
       'show-ref --verify --quiet refs/heads/newer',
-      'show-ref --verify --quiet refs/heads/dsh/0a1b2c3d',
+      'show-ref --verify --quiet refs/heads/lyn/0a1b2c3d',
     ])
     for (const call of record.calls) {
       expect(call.policy).toMatchObject({ mode: 'workspace-write', workspaceRoot: repo })

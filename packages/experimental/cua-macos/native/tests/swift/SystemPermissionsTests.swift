@@ -145,7 +145,7 @@ func unavailablePermissionApplicationsStillOpenSettings(identified: Bool) throws
 }
 
 @Test func theDragSourceRejectsReplacedAndMissingApplications() throws {
-    let root = FileManager.default.temporaryDirectory.appendingPathComponent("dsh-guide-" + UUID().uuidString)
+    let root = FileManager.default.temporaryDirectory.appendingPathComponent("lyn-guide-" + UUID().uuidString)
     defer { try? FileManager.default.removeItem(at: root) }
     let app = root.appendingPathComponent("Helper.app")
     let contents = app.appendingPathComponent("Contents")

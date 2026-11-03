@@ -3,13 +3,13 @@ description: "The authenticated Remote read of a deployment's announcements, for
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-api-announcement-controller
+# @lyness/lyn-api-announcement-controller
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`dsh-api-announcement-controller` exposes one read: what this deployment has announced, newest first. It is a controller rather than something a client builds in, because the answer belongs to the server that client connected to — a desktop install and a browser each reach their own deployment, so what they should read is whatever that deployment publishes rather than whatever was baked into a client bundle. Read-only: an announcement is written where the deployment is configured, so there is nothing here for a reader to change.
+`lyn-api-announcement-controller` exposes one read: what this deployment has announced, newest first. It is a controller rather than something a client builds in, because the answer belongs to the server that client connected to — a desktop install and a browser each reach their own deployment, so what they should read is whatever that deployment publishes rather than whatever was baked into a client bundle. Read-only: an announcement is written where the deployment is configured, so there is nothing here for a reader to change.
 
 ## Table of Contents
 
@@ -27,13 +27,13 @@ English | [中文](README.zh.md)
 
 ```yaml
 - id: announcement-controller
-  name: '@deepseek-ai/dsh-api-announcement-controller'
+  name: '@lyness/lyn-api-announcement-controller'
 ```
 
 It takes no configuration and needs an announcement source. A client calls it through the `announcements` Remote namespace:
 
 ```ts
-import type { Announcement } from '@deepseek-ai/dsh-api-announcement-controller/types'
+import type { Announcement } from '@lyness/lyn-api-announcement-controller/types'
 
 declare const remote: { announcements: { published: () => Promise<readonly Announcement[]> } }
 
@@ -54,8 +54,8 @@ const announcements = await remote.announcements.published()
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`dsh-announcements`](../../host/announcements/README.md) — the source this reads.
-- [`dsh-client-ui-settings-announcements`](../../client/ui-settings-announcements/README.md) — the only consumer.
+- [`lyn-announcements`](../../host/announcements/README.md) — the source this reads.
+- [`lyn-client-ui-settings-announcements`](../../client/ui-settings-announcements/README.md) — the only consumer.
 
 -----
 

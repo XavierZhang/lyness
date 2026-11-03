@@ -5,17 +5,17 @@ import { readFile, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { promisify } from 'node:util'
-import { FiberState } from '@deepseek-ai/cordis'
-import { ToolCallId } from '@deepseek-ai/dsh-llm'
-import type {} from '@deepseek-ai/dsh-experimental-worktree'
-import type {} from '@deepseek-ai/dsh-experimental-client-ui-forge'
+import { FiberState } from '@lyness/cordis'
+import { ToolCallId } from '@lyness/lyn-llm'
+import type {} from '@lyness/lyn-experimental-worktree'
+import type {} from '@lyness/lyn-experimental-client-ui-forge'
 import { chromium } from 'playwright'
 import { expect, it, onTestFailed, onTestFinished } from 'vitest'
 import { launchWebScaffold, watchConsole } from './scaffold.ts'
 import { connectFreshWorkspace, newEnglishPage, PLUGIN_TOGGLE_SETTLE_MS, saveFailureShot } from './support.ts'
 
-const BUNDLE = '@deepseek-ai/dsh-experimental-forge-bundle'
-const STANDALONE = '@deepseek-ai/dsh-experimental-tool-worktree'
+const BUNDLE = '@lyness/lyn-experimental-forge-bundle'
+const STANDALONE = '@lyness/lyn-experimental-tool-worktree'
 const exec = promisify(execFile)
 
 it('persists the unified review and worktree switch and retains checkouts after disabling', async () => {
@@ -60,9 +60,9 @@ it('persists the unified review and worktree switch and retains checkouts after 
     .filter(entry => ['worktree', 'tool-worktree'].includes(entry.options.id) && entry.fiber?.state === FiberState.ACTIVE)
   const selectedBundles = async (): Promise<string[]> => {
     const manifest = JSON.parse(await readFile(join(scaffold.harnessHome, 'profiles/scaffold/package.json'), 'utf8')) as {
-      dsh: { profile: { bundles: string[] } }
+      lyn: { profile: { bundles: string[] } }
     }
-    return manifest.dsh.profile.bundles
+    return manifest.lyn.profile.bundles
   }
   const openPlugins = async () => {
     await page.getByRole('navigation', { name: 'Global panels' }).getByRole('button', { name: 'Plugins', exact: true }).click()

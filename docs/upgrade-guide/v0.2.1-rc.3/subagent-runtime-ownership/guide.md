@@ -9,7 +9,7 @@ English | [中文](guide.zh.md)
 
 ## Change
 
-`@deepseek-ai/dsh-agent` removes the create/resume runtime-owner parameter (`parentAgent` or `ownerAgent`), `AgentRegistry.isOwnedBy()`, `AgentRegistry.roots()`, and the owner argument of `enter()`. Direct factory creation no longer enrolls an Agent in a managed subagent tree. Custom factories no longer implement runtime tree ownership.
+`@lyness/lyn-agent` removes the create/resume runtime-owner parameter (`parentAgent` or `ownerAgent`), `AgentRegistry.isOwnedBy()`, `AgentRegistry.roots()`, and the owner argument of `enter()`. Direct factory creation no longer enrolls an Agent in a managed subagent tree. Custom factories no longer implement runtime tree ownership.
 
 The subagent service resolves runtime membership from its existing Activations through `rootOf(agent)`. The Session format and Cordis context ownership of handles are unchanged.
 

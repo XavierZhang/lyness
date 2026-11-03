@@ -12,16 +12,16 @@
  * server that could widen it would be deciding what a person's own machine
  * allows.
  *
- * @module @deepseek-ai/dsh-fs-desktop/handler
+ * @module @lyness/lyn-fs-desktop/handler
  */
 
-import { FsError, FsTargetKey, FsVersion } from '@deepseek-ai/dsh-fs'
-import type { FileSystem, FsTarget, FsWriteIntent } from '@deepseek-ai/dsh-fs'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { SessionId } from '@deepseek-ai/dsh-session'
-import type { SandboxExecutionPolicy } from '@deepseek-ai/dsh-sandbox'
-import type { DesktopHandler } from '@deepseek-ai/dsh-desktop-link/executor'
-import type { JsonValue } from '@deepseek-ai/dsh-util-values'
+import { FsError, FsTargetKey, FsVersion } from '@lyness/lyn-fs'
+import type { FileSystem, FsTarget, FsWriteIntent } from '@lyness/lyn-fs'
+import { brandString } from '@lyness/lyn-brand'
+import type { SessionId } from '@lyness/lyn-session'
+import type { SandboxExecutionPolicy } from '@lyness/lyn-sandbox'
+import type { DesktopHandler } from '@lyness/lyn-desktop-link/executor'
+import type { JsonValue } from '@lyness/lyn-util-values'
 import { z } from 'zod'
 import {
   desktopTargetSchema,

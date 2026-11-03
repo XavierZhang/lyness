@@ -3,13 +3,13 @@ description: "删除一段对话：它的存储日志、它下面每一份子会
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-session-deletion
+# @lyness/lyn-session-deletion
 
 [English](README.md) | 中文
 
 ## 概述
 
-`dsh-session-deletion` 提供 `ctx.sessionDeletion`，它唯一的方法删除一段对话：被指名会话的存储日志、它下面每一份 subagent 日志，以及每个成员缓存的投影。它移除的范围与 ZIP 导出归档的范围完全一致，所以一个人先导出再删除，手里就握着被拿走的全部内容。删除之后无法恢复，也不留墓碑。还开着的对话会被拒绝，而不是在它脚下被移走。需要让一个人或一位操作者删除自己历史的部署挂上它；不挂它，部署就保留它存过的每一段对话。
+`lyn-session-deletion` 提供 `ctx.sessionDeletion`，它唯一的方法删除一段对话：被指名会话的存储日志、它下面每一份 subagent 日志，以及每个成员缓存的投影。它移除的范围与 ZIP 导出归档的范围完全一致，所以一个人先导出再删除，手里就握着被拿走的全部内容。删除之后无法恢复，也不留墓碑。还开着的对话会被拒绝，而不是在它脚下被移走。需要让一个人或一位操作者删除自己历史的部署挂上它；不挂它，部署就保留它存过的每一段对话。
 
 ## 目录
 
@@ -27,15 +27,15 @@ kind: "package-reference"
 
 ```yaml
 - id: session-deletion
-  name: '@deepseek-ai/dsh-session-deletion'
+  name: '@lyness/lyn-session-deletion'
 ```
 
 它不接受配置，需要持久化后端与查询服务。投影缓存一并挂着时，每个被删成员缓存的记录随它的日志一起消失。
 
 ```ts
-import type { Context } from '@deepseek-ai/cordis'
-import type { SessionId } from '@deepseek-ai/dsh-session'
-import type {} from '@deepseek-ai/dsh-session-deletion'
+import type { Context } from '@lyness/cordis'
+import type { SessionId } from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-session-deletion'
 
 declare const ctx: Context
 declare const conversation: SessionId
@@ -80,10 +80,10 @@ const { removed } = await ctx.sessionDeletion.delete(conversation)
 <a id="further-exploration"></a>
 ## 延伸阅读
 
-- [`dsh-session-persistence`](../session-persistence/README.zh.md) —— 这个服务调用的 `delete` 操作，以及每个后端对它的承诺。
-- [`dsh-session-projection-cache`](../session-projection-cache/README.zh.md) —— 随每份日志一起移除的缓存记录。
-- [`dsh-session-log-export`](../../session-query/session-log-export/README.zh.md) —— 这次删除所对齐的那份归档。
-- [`dsh-api-session-data-controller`](../../api/session-data-controller/README.zh.md) —— 一个人经由哪个 Remote 命名空间触达它。
+- [`lyn-session-persistence`](../session-persistence/README.zh.md) —— 这个服务调用的 `delete` 操作，以及每个后端对它的承诺。
+- [`lyn-session-projection-cache`](../session-projection-cache/README.zh.md) —— 随每份日志一起移除的缓存记录。
+- [`lyn-session-log-export`](../../session-query/session-log-export/README.zh.md) —— 这次删除所对齐的那份归档。
+- [`lyn-api-session-data-controller`](../../api/session-data-controller/README.zh.md) —— 一个人经由哪个 Remote 命名空间触达它。
 
 -----
 

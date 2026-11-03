@@ -1,17 +1,17 @@
 /** Reference observation through Cordis services without a platform shell or CLI process. */
 
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import type { Context } from '@deepseek-ai/cordis'
-import AgentRegistry from '@deepseek-ai/dsh-agent'
-import AgentLoop from '@deepseek-ai/dsh-agent-loop'
-import LlmRuntime, { ToolCallId } from '@deepseek-ai/dsh-llm'
-import { pluginRecordOf, SessionId } from '@deepseek-ai/dsh-session'
-import ShellExecutor from '@deepseek-ai/dsh-shell'
-import type { ShellExecRequest, ShellExecSpec, ShellExecution, ShellRunResult } from '@deepseek-ai/dsh-shell'
-import * as ShellEnv from '@deepseek-ai/dsh-shell-env'
-import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
-import ToolRuntime from '@deepseek-ai/dsh-tools'
-import type { ToolExecution, ToolExecutionResult, ToolExecutionToken } from '@deepseek-ai/dsh-tools'
+import type { Context } from '@lyness/cordis'
+import AgentRegistry from '@lyness/lyn-agent'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import LlmRuntime, { ToolCallId } from '@lyness/lyn-llm'
+import { pluginRecordOf, SessionId } from '@lyness/lyn-session'
+import ShellExecutor from '@lyness/lyn-shell'
+import type { ShellExecRequest, ShellExecSpec, ShellExecution, ShellRunResult } from '@lyness/lyn-shell'
+import * as ShellEnv from '@lyness/lyn-shell-env'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime from '@lyness/lyn-tools'
+import type { ToolExecution, ToolExecutionResult, ToolExecutionToken } from '@lyness/lyn-tools'
 import { bench, pullUrl } from './fixtures.ts'
 
 const contexts: Context[] = []
@@ -63,7 +63,7 @@ async function fixture() {
   await ctx.plugin(LlmRuntime)
   await ctx.plugin(AgentRegistry)
   await ctx.plugin(AgentLoop, { agents: [] })
-  await ctx.plugin(ShellEnv, { dshHome: process.cwd() })
+  await ctx.plugin(ShellEnv, { lynHome: process.cwd() })
   await ctx.plugin(LookupShell)
   const { agent } = await ctx.agents.create({ sessionId: SessionId('reference-observer') })
   const controller = new AbortController()
@@ -94,7 +94,7 @@ describe('PR reference lookup', () => {
     await vi.waitFor(() => { expect(f.records()).toEqual([{ action: 'reference', url: pullUrl(9) }]) })
     expect(resolve).toHaveBeenCalledWith(expect.objectContaining({
       command: 'env gh pr view 9 --repo octo/demo --json url', workdir: process.cwd(), timeoutMs: 1_234,
-      dshEnv: f.ctx.shellEnv.collect(f.exec),
+      lynEnv: f.ctx.shellEnv.collect(f.exec),
     }))
     f.ctx.forgeSession.dismiss(f.agent.session, pullUrl(9))
     f.emit()

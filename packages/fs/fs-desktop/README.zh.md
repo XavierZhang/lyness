@@ -3,13 +3,13 @@ description: "这一回合属于谁，文件就在谁自己的机器上；服务
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-fs-desktop
+# @lyness/lyn-fs-desktop
 
 [English](README.md) | 中文
 
 ## 概述
 
-`dsh-fs-desktop` 是这样一台服务器的 `fs` 提供方：它跑智能体循环，却不拥有任何文件。循环必须在服务器上——积分与模型策略没有别处可落——而文件在使用者正坐着的那台笔记本上。本后端把每一次文件系统操作沿桌面链路送到那台机器，再把答案带回来，失败自己的错误码一并带回。两端都在本包里：宿主侧 provider 与桌面侧 handler；会各自漂移的两端，就是会在生产而非构建时失败的两端。
+`lyn-fs-desktop` 是这样一台服务器的 `fs` 提供方：它跑智能体循环，却不拥有任何文件。循环必须在服务器上——积分与模型策略没有别处可落——而文件在使用者正坐着的那台笔记本上。本后端把每一次文件系统操作沿桌面链路送到那台机器，再把答案带回来，失败自己的错误码一并带回。两端都在本包里：宿主侧 provider 与桌面侧 handler；会各自漂移的两端，就是会在生产而非构建时失败的两端。
 
 ## 目录
 
@@ -29,17 +29,17 @@ kind: "package-reference"
 
 ```yaml
 - id: desktop-link
-  name: '@deepseek-ai/dsh-desktop-link'
+  name: '@lyness/lyn-desktop-link'
 - id: fs-desktop
-  name: '@deepseek-ai/dsh-fs-desktop'
+  name: '@lyness/lyn-fs-desktop'
 ```
 
 在桌面端，handler 对着本机自己的文件系统注册：
 
 ```ts
-import { DesktopExecutor } from '@deepseek-ai/dsh-desktop-link/executor'
-import { desktopFsHandler } from '@deepseek-ai/dsh-fs-desktop/handler'
-import type { Context } from '@deepseek-ai/cordis'
+import { DesktopExecutor } from '@lyness/lyn-desktop-link/executor'
+import { desktopFsHandler } from '@lyness/lyn-fs-desktop/handler'
+import type { Context } from '@lyness/cordis'
 
 declare const ctx: Context
 declare const executor: DesktopExecutor
@@ -52,7 +52,7 @@ const stop = executor.register('fs', desktopFsHandler(ctx.fs))
 <a id="understand-the-implementation"></a>
 ## 理解实现
 
-**会话说出这是谁的机器。** `FileSystem` 从不问这个问题——它是为只有一台机器的 harness 写的。回合之中，答案来自会话记下的归属人（`@deepseek-ai/dsh-session-ownership`）；回合之外，来自这次请求认证出的人。两者皆无的调用直接失败，而不是猜一台机器：猜，意味着把一个人的文件写到另一个人的磁盘上。
+**会话说出这是谁的机器。** `FileSystem` 从不问这个问题——它是为只有一台机器的 harness 写的。回合之中，答案来自会话记下的归属人（`@lyness/lyn-session-ownership`）；回合之外，来自这次请求认证出的人。两者皆无的调用直接失败，而不是猜一台机器：猜，意味着把一个人的文件写到另一个人的磁盘上。
 
 **同步成员要的东西，由目标键携带。** `processPath`、`fileUrl` 与 `contains` 无法往返，于是桌面端在每个目标旁一并送来进程路径、文件 URL 和它自己的路径风格，键把它们收着。键按约定就是不透明的，这正是把这份记录放进键里、而不是放进一份还要失效与设限的缓存里的依据。
 
@@ -68,9 +68,9 @@ const stop = executor.register('fs', desktopFsHandler(ctx.fs))
 ## 延伸阅读
 
 - [离开单操作者 Host](../../../.agents/notes/proposed/architecture/2026-10-15-diverging-from-the-single-operator-host.zh.md) —— 循环与文件为何在不同机器上。
-- [`dsh-desktop-link`](../../api/desktop-link/README.zh.md) —— 它所搭乘的通道。
-- [`dsh-session-ownership`](../../identity/session-ownership/README.zh.md) —— 「这一回合替谁工作」从哪里来。
-- [`dsh-fs-ssh`](../../ssh/fs-ssh/README.zh.md) —— 另一个远端后端，它的执行世界由配置点名，而非由调用方决定。
+- [`lyn-desktop-link`](../../api/desktop-link/README.zh.md) —— 它所搭乘的通道。
+- [`lyn-session-ownership`](../../identity/session-ownership/README.zh.md) —— 「这一回合替谁工作」从哪里来。
+- [`lyn-fs-ssh`](../../ssh/fs-ssh/README.zh.md) —— 另一个远端后端，它的执行世界由配置点名，而非由调用方决定。
 
 -----
 
@@ -103,6 +103,6 @@ const stop = executor.register('fs', desktopFsHandler(ctx.fs))
 <details>
 <summary>维护者工作上下文 —— 点击展开</summary>
 
-`FS_ERROR_CODES` 放在 `@deepseek-ai/dsh-fs`，由一个「一码一键」的对象派生，`satisfies` 保证它不缺项；两个远端后端据此校验收到的错误码。给 `FsErrorCode` 加一个分支，构建就会来要那个键。
+`FS_ERROR_CODES` 放在 `@lyness/lyn-fs`，由一个「一码一键」的对象派生，`satisfies` 保证它不缺项；两个远端后端据此校验收到的错误码。给 `FsErrorCode` 加一个分支，构建就会来要那个键。
 
 </details>

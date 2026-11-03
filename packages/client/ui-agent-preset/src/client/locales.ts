@@ -134,11 +134,11 @@ export const zh: Record<AgentPresetSettingsKey, string> = {
 
 }
 
-// The resolution itself is the shared fold in `dsh-agent-preset-registry/display`,
+// The resolution itself is the shared fold in `lyn-agent-preset-registry/display`,
 // re-exported here so every surface in this plugin reads one path; the
 // Settings plugin list inlines the same fold over this plugin's dictionaries.
-export { isBuiltInPreset, presetDisplayText } from '@deepseek-ai/dsh-agent-preset-registry/display'
-export type { PresetDisplaySource, PresetDisplayText } from '@deepseek-ai/dsh-agent-preset-registry/display'
+export { isBuiltInPreset, presetDisplayText } from '@lyness/lyn-agent-preset-registry/display'
+export type { PresetDisplaySource, PresetDisplayText } from '@lyness/lyn-agent-preset-registry/display'
 
 /** Japanese copy, checked against the English keys. */
 export const ja = {

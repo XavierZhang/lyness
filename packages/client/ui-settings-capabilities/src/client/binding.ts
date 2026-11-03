@@ -7,7 +7,7 @@
  * that settles before that publishes to nobody rather than failing, which is
  * what lets the plugin start a read without waiting for a render.
  *
- * @module @deepseek-ai/dsh-client-ui-settings-capabilities/client/binding
+ * @module @lyness/lyn-client-ui-settings-capabilities/client/binding
  */
 
 import type { CapabilitiesOperations, CapabilitiesSink } from './operations.ts'

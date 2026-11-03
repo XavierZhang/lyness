@@ -12,13 +12,13 @@
  * taken. The two surfaces read one lineage answer rather than each deciding
  * what a conversation is.
  *
- * @module @deepseek-ai/dsh-session-deletion
+ * @module @lyness/lyn-session-deletion
  */
 
-import { Context, Service } from '@deepseek-ai/cordis'
-import type { SessionId } from '@deepseek-ai/dsh-session'
-import type {} from '@deepseek-ai/dsh-session-persistence'
-import type {} from '@deepseek-ai/dsh-session-projection-cache'
+import { Context, Service } from '@lyness/cordis'
+import type { SessionId } from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-session-persistence'
+import type {} from '@lyness/lyn-session-projection-cache'
 import { SessionDeletionLiveError } from './errors.ts'
 import { liveMemberOf, membersOf } from './members.ts'
 import type { SessionDeletionResult } from './types.ts'
@@ -27,7 +27,7 @@ export { SessionDeletionLiveError } from './errors.ts'
 export { liveMemberOf, membersOf } from './members.ts'
 export type * from './types.ts'
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Context {
     sessionDeletion: SessionDeletion
   }

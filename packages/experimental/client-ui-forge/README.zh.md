@@ -3,7 +3,7 @@ description: "展示 Session 创建的变更请求、并让新 Session 以 workt
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-experimental-client-ui-forge
+# @lyness/lyn-experimental-client-ui-forge
 
 [English](README.md) | 中文
 
@@ -29,7 +29,7 @@ kind: "package-reference"
 
 面板文案跟随应用语言，支持中文、英文、日语、西班牙语、法语、德语、俄语和葡萄牙语。
 
-- **工作树选项**——在新会话页面上，“新建工作树”与当前分支一起位于工作区与模式选择器那一行的右端。不在 Git 检出中时，两者均隐藏。分支默认为只读展示；勾选“新建工作树”后，它变为基准分支选择器，菜单列出最近的本地分支。权限阻止已有请求时，仍只读显示已选基准，并允许取消请求。悬停、聚焦或轻点只读分支或基准会显示完整说明。Session 为只读，或检出及其 Git 目录不在 Session 的可写根内（例如项目本身就是链接 worktree）时，该选项不可用，提示中说明原因。发送第一条消息后，消息立即交给 Session 并在那里等待，同时从基准分支在仓库的 `.agents/worktrees/` 下创建分支 `dsh-<Session id 前 8 位十六进制数>-<4 位随机十六进制数>`，并把它的检出设为 Session 的工作目录；worktree 建好后这条消息的这一轮才开始。
+- **工作树选项**——在新会话页面上，“新建工作树”与当前分支一起位于工作区与模式选择器那一行的右端。不在 Git 检出中时，两者均隐藏。分支默认为只读展示；勾选“新建工作树”后，它变为基准分支选择器，菜单列出最近的本地分支。权限阻止已有请求时，仍只读显示已选基准，并允许取消请求。悬停、聚焦或轻点只读分支或基准会显示完整说明。Session 为只读，或检出及其 Git 目录不在 Session 的可写根内（例如项目本身就是链接 worktree）时，该选项不可用，提示中说明原因。发送第一条消息后，消息立即交给 Session 并在那里等待，同时从基准分支在仓库的 `.agents/worktrees/` 下创建分支 `lyn-<Session id 前 8 位十六进制数>-<4 位随机十六进制数>`，并把它的检出设为 Session 的工作目录；worktree 建好后这条消息的这一轮才开始。
 - **创建卡片**——创建 worktree 期间，输入框上方的卡片显示新分支以及“创建分支”“检出文件”两个步骤；“更多详情”会列出分支与基准。“取消”停止这次尝试。尝试被停止或失败后，消息继续等待，失败时卡片显示原因：“重试”换一个新分支名再试；“不使用工作树”撤回请求，消息在当前检出中继续发送。
 - **工作树已被删除**——Session 所在的 worktree 在 Session 之外被删除后，输入框上方的卡片会说明这一点；此期间发送的消息会等待、不开始这一轮，直到该 worktree 被恢复或离开，卡片也会说明消息之后会接着发送。“恢复工作树”（标签页中的“恢复”与之相同）在原目录重新检出该分支；分支也已删除时，从它开始时的提交重新创建分支；恢复期间卡片显示“准备工作树”“检出文件”两个步骤，标签页中的“恢复”变为加载状态。“在项目目录继续”把 Session 移回源检出。此期间标签页顶部一行显示警示图标。
 - **代码审查和变更**——右侧栏起始页中的入口，与会话标题栏按钮打开同一个变更请求标签页。
@@ -43,7 +43,7 @@ kind: "package-reference"
 
 diff 按文件树的深度优先顺序排列：同层目录在前、文件在后，各组按显示名称以区分大小写的 UTF-16 码元顺序排序。压缩目录链作为一个完整名称参与比较。筛选或折叠文件树不会改变 diff 的顺序。点击 diff 内容区可将焦点移入。左右方向键按 diff 顺序跳到上一个、下一个文件并展开它；到达首尾时停留。上下方向键保留原有滚动行为。手动滚动后，文件跳转从视口顶部的文件继续。文本编辑、非折叠文本选区、组合键、菜单与文件树控件保留各自的键盘行为。
 
-`gitCommand`、`gitTimeoutMs`、`graceMs`、`maxOutputBytes`、`readinessTimeoutMs`、`maxBranches`、`worktreePrefix`、`maxDiffBytes`、`maxUntrackedFiles` 与 `maxCachedDiffBytes` 列在[配置目录](../../../docs/config-catalog.zh.md#deepseek-aidsh-experimental-client-ui-forge)中。
+`gitCommand`、`gitTimeoutMs`、`graceMs`、`maxOutputBytes`、`readinessTimeoutMs`、`maxBranches`、`worktreePrefix`、`maxDiffBytes`、`maxUntrackedFiles` 与 `maxCachedDiffBytes` 列在[配置目录](../../../docs/config-catalog.zh.md#lynesslyn-experimental-client-ui-forge)中。
 
 “全部文件”打开可搜索的目录树；只有一个子目录的路径会合并显示，重命名文件也可以按旧路径搜索。较宽的变更面板会在 diff 旁显示同一棵树，工具栏的“文件树”按钮按“左侧 → 右侧 → 隐藏”循环切换，默认显示在左侧。按钮的无障碍名称说明下一步操作，移动或隐藏文件树时焦点仍留在按钮上。移动或隐藏文件树，以及切换标签页与 Session 时保留搜索、折叠状态、选中文件和宽度。拖动分隔线，或聚焦分隔线后使用方向键，可以调整文件树宽度。文件与文件夹预留相同的展开箭头列，子项相对父目录向内缩进。本地变更与每个 PR 保留独立标签页。划选代码文字或通过行号选择同一已显示 hunk、同一侧的连续行，文字划选与复制都限定在起始侧。点击“＋”才打开纯文本评论框。评论框支持换行和输入法组合输入，只有点击操作按钮才提交。可拖动底边调整高度。“添加到输入框”将评论作为可移除的引用加入主输入框，多条引用只会在用户发送主输入框时一起发送。GitHub 分段按钮用于开始或加入待提交评审，下拉菜单可以立即发布单条评论。评论在引用、暂存或发布后保留在对应代码旁，暂存评论可在那里编辑或删除。“请求更改”需要填写评审总结，弹窗在总结输入框旁说明此要求，并在切换评审决定时播报。PR 标题栏中的“提交评审”打开居中弹窗，只显示待提交数量、总结以及“评论”“批准”“请求更改”选项。新建和删除文件只显示有内容的一侧行号。待提交评审与评论记录按 Session 和页签保存在当前浏览器，包括最初评审的 head。切换 Session 或隐藏面板时保留；关闭页签会清空该页签的评论、总结与评审决定，重新打开从空评审开始。已发布到 GitHub 的评论与已加入主输入框的引用不受影响。head 变化后需要重新选择评论行。代码变化后的记录保留在文件末尾；文件已不在 diff 中时，记录显示在 diff 之后。页签保持打开时，结果不明的提交在重新加载后仍会阻止重复发送，直到用户检查 GitHub 并明确允许再次提交。
 
@@ -70,7 +70,7 @@ Session 在所创建的 worktree 中工作时，`localDiff` 以它的 `baseCommi
 
 `changeRequestStates` 为会话列表推送调用方可读的、已列出的 Session 所绑定的每个变更请求的最近编号、标题、状态、草稿标记、检查汇总、评审结论与可合并性：先是一个 `baseline` 帧，之后是 `changed` 帧。所有流共用一次运行。初始化之前和帧之间均响应取消；最后一条流结束及插件卸载会等待初始化与已接受的写入完成，再关闭本次运行的存储域。后续运行会等待该域关闭后重新打开，并读取已存状态。列举期间收到的绑定更新优先于初始快照。它经 `sessionQuery` 列出 Session 而不加载它们，已加载 Session 的可见绑定取自 `ctx.forgeSession`，其他 Session 的取自缓存的 `forgeChangeRequests` 摘要；它跟随已加载 Session 的绑定变化，并经 `ctx.forge.watch` 订阅每个已绑定的变更请求；已关闭的按空闲间隔轮询，已合并的保留订阅以接收显式刷新结果。每个变化了的状态以其 URL 的 SHA-256 摘要为键存入 `forge_panel_change_requests` 存储域，仅在所有已列出 Session 的绑定均已知时删除无人绑定的已存状态；写入失败时记录日志，状态仍保留在内存中。宿主缺少 Session 查询、投影缓存、存储或 Session 存储服务时，流以失败结束。
 
-浏览器入口先挂载 Remote，再挂载界面。每个 Session 一条流，同时供给标签页、标题栏按钮、新会话选项与创建卡片；第一个订阅方出现时打开，最后一个离开时关闭，传输重置后重新打开，在 Session scope 保留期间保存最后的状态。释放该 scope 时关闭流并移除缓存状态。新会话选项填入 `conversation.hero.options`，worktree 卡片填入 `conversation.input.dock`。worktree 卡片显示正在进行的创建，有消息在等待时“取消”调用 `stopCreation`；或显示消息等待时失败或被停止的那次尝试，“重试”调用 `retryWorktree`，“不使用工作树”调用 `cancelWorktree`。标签页用 Remote 宿主信息中的宿主主目录缩短路径，每次传输重置后重新读取。标签页把自己是否可见报告给标题栏按钮的按下状态。标题栏按钮收起停靠的标签页，或关闭其浮动标签页。toast 位于 `shell.overlay` 条目中，因此比标签页存在得更久。只要 `sidebar.session.row.trailing` 中的会话行图标或 `sidebar.session.row.hover` 中的悬浮卡片部分有一个已挂载，就由同一条变更请求状态流供给它们；两者都从会话列表的摘要值中读取 Session 的 worktree 与绑定。变更请求卡片接收变更请求、它的快照与可选操作，其他界面可以复用。变更视图是 `forge-changes` 资源标签页类型：它的地址 `dsh-resource://forge-changes/<session>/local` 与 `dsh-resource://forge-changes/<session>/change/<url>` 指明来源，导航参数可以指定要滚动到的文件。标签页类型启用 `keepMounted`，将访问过的正文及其所属 Session 引用保留至标签页记录结束。它的 keyed panel hook 仅为可见正文订阅；其他面板界面仍可能保持共享 Session 流开启。它的正文用 slot store 按标签页保存范围与布局选择，经 Remote 读取，并用共享的代码高亮器高亮各行；标签页标题显示变更图标与视图名称。
+浏览器入口先挂载 Remote，再挂载界面。每个 Session 一条流，同时供给标签页、标题栏按钮、新会话选项与创建卡片；第一个订阅方出现时打开，最后一个离开时关闭，传输重置后重新打开，在 Session scope 保留期间保存最后的状态。释放该 scope 时关闭流并移除缓存状态。新会话选项填入 `conversation.hero.options`，worktree 卡片填入 `conversation.input.dock`。worktree 卡片显示正在进行的创建，有消息在等待时“取消”调用 `stopCreation`；或显示消息等待时失败或被停止的那次尝试，“重试”调用 `retryWorktree`，“不使用工作树”调用 `cancelWorktree`。标签页用 Remote 宿主信息中的宿主主目录缩短路径，每次传输重置后重新读取。标签页把自己是否可见报告给标题栏按钮的按下状态。标题栏按钮收起停靠的标签页，或关闭其浮动标签页。toast 位于 `shell.overlay` 条目中，因此比标签页存在得更久。只要 `sidebar.session.row.trailing` 中的会话行图标或 `sidebar.session.row.hover` 中的悬浮卡片部分有一个已挂载，就由同一条变更请求状态流供给它们；两者都从会话列表的摘要值中读取 Session 的 worktree 与绑定。变更请求卡片接收变更请求、它的快照与可选操作，其他界面可以复用。变更视图是 `forge-changes` 资源标签页类型：它的地址 `lyn-resource://forge-changes/<session>/local` 与 `lyn-resource://forge-changes/<session>/change/<url>` 指明来源，导航参数可以指定要滚动到的文件。标签页类型启用 `keepMounted`，将访问过的正文及其所属 Session 引用保留至标签页记录结束。它的 keyed panel hook 仅为可见正文订阅；其他面板界面仍可能保持共享 Session 流开启。它的正文用 slot store 按标签页保存范围与布局选择，经 Remote 读取，并用共享的代码高亮器高亮各行；标签页标题显示变更图标与视图名称。
 
 | 源码 | 职责 |
 |---|---|

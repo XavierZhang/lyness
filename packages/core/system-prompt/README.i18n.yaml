@@ -5,87 +5,87 @@
 /:
   en: 51d99b2500db958f
   zh: 91f2b113ba7989fd
-/deepseek-harness-dsh-system-prompt:
+/lyness-lyn-system-prompt:
   en: 229cb902b53ce9dc
   zh: 47c6523278dc8034
-/deepseek-harness-dsh-system-prompt/summary:
+/lyness-lyn-system-prompt/summary:
   en: 3627e88bd6fc2d74
   zh: 0b0576d15eb70493
-/deepseek-harness-dsh-system-prompt/table-of-contents:
+/lyness-lyn-system-prompt/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/deepseek-harness-dsh-system-prompt/use-this-package:
+/lyness-lyn-system-prompt/use-this-package:
   en: b0d8909bae28480f
   zh: 34845ac277b3c71e
-/deepseek-harness-dsh-system-prompt/use-this-package/configure-the-prompt:
+/lyness-lyn-system-prompt/use-this-package/configure-the-prompt:
   en: 89f68f521cc4338b
   zh: 85bf1f317b792188
-/deepseek-harness-dsh-system-prompt/use-this-package/contribute-a-prompt-section:
+/lyness-lyn-system-prompt/use-this-package/contribute-a-prompt-section:
   en: ef415fcd9e1cf8bb
   zh: 6ad4df288f91bdb1
-/deepseek-harness-dsh-system-prompt/use-this-package/contribute-a-prompt-variable:
+/lyness-lyn-system-prompt/use-this-package/contribute-a-prompt-variable:
   en: 4c28474e0a005d65
   zh: 8b60054c6ce44667
-/deepseek-harness-dsh-system-prompt/use-this-package/contribute-tool-schemas:
+/lyness-lyn-system-prompt/use-this-package/contribute-tool-schemas:
   en: 009ef267dac2f270
   zh: e79c24bff5cd836f
-/deepseek-harness-dsh-system-prompt/use-this-package/suppress-runtime-context:
+/lyness-lyn-system-prompt/use-this-package/suppress-runtime-context:
   en: a664608a3b37f8d7
   zh: d6dd60772f4d72b8
-/deepseek-harness-dsh-system-prompt/understand-the-implementation:
+/lyness-lyn-system-prompt/understand-the-implementation:
   en: ce7e776e9d516bdb
   zh: 59d2751743db7795
-/deepseek-harness-dsh-system-prompt/understand-the-implementation/design-concept:
+/lyness-lyn-system-prompt/understand-the-implementation/design-concept:
   en: c91963b89a866fed
   zh: ef9ef4940145778f
-/deepseek-harness-dsh-system-prompt/understand-the-implementation/source-map:
+/lyness-lyn-system-prompt/understand-the-implementation/source-map:
   en: d9575bcb07a1145b
   zh: 0f1a388780d055b1
-/deepseek-harness-dsh-system-prompt/understand-the-implementation/assembly-and-rendering:
+/lyness-lyn-system-prompt/understand-the-implementation/assembly-and-rendering:
   en: d51940213af9b87f
   zh: f3a2540010624a79
-/deepseek-harness-dsh-system-prompt/understand-the-implementation/the-stable-and-volatile-tiers:
+/lyness-lyn-system-prompt/understand-the-implementation/the-stable-and-volatile-tiers:
   en: 92dcdf446fe855b9
   zh: d2e0b44b36ab35f2
-/deepseek-harness-dsh-system-prompt/understand-the-implementation/scoping:
+/lyness-lyn-system-prompt/understand-the-implementation/scoping:
   en: 1100ab1dfe961631
   zh: c510275c893951b4
-/deepseek-harness-dsh-system-prompt/further-exploration:
+/lyness-lyn-system-prompt/further-exploration:
   en: ea34361c9bc01cb6
   zh: 2b1860e039bceb0a
-/deepseek-harness-dsh-system-prompt/model-experience:
+/lyness-lyn-system-prompt/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/deepseek-harness-dsh-system-prompt/model-experience/system-prompt:
+/lyness-lyn-system-prompt/model-experience/system-prompt:
   en: cf78b9dd5596495f
   zh: bd44560f8c2435e8
-/deepseek-harness-dsh-system-prompt/model-experience/system-prompt/what-the-model-sees:
+/lyness-lyn-system-prompt/model-experience/system-prompt/what-the-model-sees:
   en: 622e83de7772dc1f
   zh: 7b3c54f08a317e93
-/deepseek-harness-dsh-system-prompt/model-experience/system-prompt/what-the-model-sees/harness-identity:
+/lyness-lyn-system-prompt/model-experience/system-prompt/what-the-model-sees/harness-identity:
   en: 40effd71cb503319
   zh: 9969356237a4f398
-/deepseek-harness-dsh-system-prompt/model-experience/system-prompt/token-effect:
+/lyness-lyn-system-prompt/model-experience/system-prompt/token-effect:
   en: 29722e212137deaa
   zh: 92cd0f1a16b10315
-/deepseek-harness-dsh-system-prompt/model-experience/system-prompt/kv-cache-effect:
+/lyness-lyn-system-prompt/model-experience/system-prompt/kv-cache-effect:
   en: 487a1b3b66964553
   zh: 34557690f6a23ecc
-/deepseek-harness-dsh-system-prompt/model-experience/tool-schemas:
+/lyness-lyn-system-prompt/model-experience/tool-schemas:
   en: 3039bc5e7a796b21
   zh: 6b7a9eaf69c9ea53
-/deepseek-harness-dsh-system-prompt/model-experience/tool-schemas/what-the-model-sees:
+/lyness-lyn-system-prompt/model-experience/tool-schemas/what-the-model-sees:
   en: f37a6cfb17faf682
   zh: 41f8fbcd131a9816
-/deepseek-harness-dsh-system-prompt/model-experience/tool-schemas/token-effect:
+/lyness-lyn-system-prompt/model-experience/tool-schemas/token-effect:
   en: f3a7d374c55e1720
   zh: 0ee48af678cb875f
-/deepseek-harness-dsh-system-prompt/model-experience/tool-schemas/kv-cache-effect:
+/lyness-lyn-system-prompt/model-experience/tool-schemas/kv-cache-effect:
   en: ebd329e360f0d143
   zh: 9d67fe503a6a095a
-/deepseek-harness-dsh-system-prompt/known-limitations-and-deferred-work:
+/lyness-lyn-system-prompt/known-limitations-and-deferred-work:
   en: 23bb9f59ceb1620c
   zh: be34f1770fa2e027
-/deepseek-harness-dsh-system-prompt/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-system-prompt/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

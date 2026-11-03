@@ -13,14 +13,14 @@
  * unusable configuration is refused at the surface that asked for it rather
  * than discovered by a request that resolves to a model the tenant has no key
  * for.
- * @module @deepseek-ai/dsh-tenant-config-store
+ * @module @lyness/lyn-tenant-config-store
  */
 
-import { Service } from '@deepseek-ai/cordis'
-import type { KvTable } from '@deepseek-ai/dsh-storage-domain'
-import { TenantConfigStore, validateTenantConfig } from '@deepseek-ai/dsh-tenant-config'
-import type { TenantConfig, TenantConfigCapability } from '@deepseek-ai/dsh-tenant-config'
-import type { TenantId } from '@deepseek-ai/dsh-tenant'
+import { Service } from '@lyness/cordis'
+import type { KvTable } from '@lyness/lyn-storage-domain'
+import { TenantConfigStore, validateTenantConfig } from '@lyness/lyn-tenant-config'
+import type { TenantConfig, TenantConfigCapability } from '@lyness/lyn-tenant-config'
+import type { TenantId } from '@lyness/lyn-tenant'
 import { tenantConfigDomainSpec } from './spec.ts'
 
 export { tenantConfigDomainSpec, tenantConfigRecord } from './spec.ts'

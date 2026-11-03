@@ -3,14 +3,14 @@
  * locale namespace, and that nothing is read until the section opens.
  */
 
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { describe, expect, it, vi } from 'vitest'
-import { SlotRegistry } from '@deepseek-ai/dsh-client-ui-renderer/client'
-import { LocaleRuntime } from '@deepseek-ai/dsh-client-locale/client'
-import { TestRemote } from '@deepseek-ai/dsh-client-test-runtime'
-import type { AgentCapabilitiesView } from '@deepseek-ai/dsh-api-agent-capabilities-controller/types'
-import type { ModelCatalog } from '@deepseek-ai/dsh-api-session-controller/types'
-import { apply, capabilitiesCallsOf, inject, NS } from '@deepseek-ai/dsh-client-ui-settings-capabilities/client'
+import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
+import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
+import { TestRemote } from '@lyness/lyn-client-test-runtime'
+import type { AgentCapabilitiesView } from '@lyness/lyn-api-agent-capabilities-controller/types'
+import type { ModelCatalog } from '@lyness/lyn-api-session-controller/types'
+import { apply, capabilitiesCallsOf, inject, NS } from '@lyness/lyn-client-ui-settings-capabilities/client'
 import { CapabilitiesSection } from '../src/client/CapabilitiesSection.tsx'
 import type { createCapabilitiesSectionStore } from '../src/client/store.ts'
 

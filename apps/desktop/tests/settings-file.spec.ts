@@ -1,6 +1,6 @@
 import { mkdtemp, mkdir, readFile, writeFile, rm } from 'node:fs/promises'
 import * as fs from 'node:fs/promises'
-import * as atomic from '@deepseek-ai/dsh-atomic-write'
+import * as atomic from '@lyness/lyn-atomic-write'
 import { tmpdir } from 'node:os'
 import { join, dirname } from 'node:path'
 import { afterEach, expect, it, onTestFinished, vi } from 'vitest'
@@ -9,7 +9,7 @@ import { readDesktopSettings } from '../src/settings.ts'
 import { DesktopUpdateSettings } from '../src/update-settings.ts'
 
 vi.mock('node:fs/promises', async original => ({ ...await original<typeof import('node:fs/promises')>() }))
-vi.mock('@deepseek-ai/dsh-atomic-write', async original => ({ ...await original<typeof import('@deepseek-ai/dsh-atomic-write')>() }))
+vi.mock('@lyness/lyn-atomic-write', async original => ({ ...await original<typeof import('@lyness/lyn-atomic-write')>() }))
 afterEach(() => { vi.restoreAllMocks() })
 
 async function fixture(raw?: string) {

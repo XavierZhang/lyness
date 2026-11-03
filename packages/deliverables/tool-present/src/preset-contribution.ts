@@ -6,7 +6,7 @@
  * agent that made it.
  *
  * Only presets that accept contributions take the tool this way. The four
- * official modes declare `@deepseek-ai/dsh-tool-present` as a row of their own, as
+ * official modes declare `@lyness/lyn-tool-present` as a row of their own, as
  * upstream ships them, and keep it: a contribution reaching them would be a
  * second row registering one tool name. So the standard, PTC, and creator
  * modes carry the declared row while the view defaults carry this
@@ -17,11 +17,11 @@
  * that names itself as a plugin has to be resolvable as a module too, which a
  * patch-carrying bundle otherwise never needs to be.
  *
- * @module @deepseek-ai/dsh-tool-present/preset-contribution
+ * @module @lyness/lyn-tool-present/preset-contribution
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import type {} from '@deepseek-ai/dsh-agent-preset-registry'
+import type { Context } from '@lyness/cordis'
+import type {} from '@lyness/lyn-agent-preset-registry'
 
 /** Cordis plugin name used by loader diagnostics. */
 export const name = 'deliverables-preset-contribution'
@@ -30,7 +30,7 @@ export const name = 'deliverables-preset-contribution'
 export const inject = ['agentPresets']
 
 /** The module this contribution belongs to, named in a collision diagnostic. */
-export const MODULE = '@deepseek-ai/dsh-module-deliverables'
+export const MODULE = '@lyness/lyn-module-deliverables'
 
 /** The centrally allocated row id the contributed tool takes. */
 export const ROW_ID = 'module-deliverables-tool'
@@ -48,7 +48,7 @@ export async function apply(ctx: Context): Promise<void> {
   const withdraw = await ctx.agentPresets.contribute({
     id: ROW_ID,
     module: MODULE,
-    row: { name: '@deepseek-ai/dsh-tool-present' },
+    row: { name: '@lyness/lyn-tool-present' },
   })
   ctx.effect(() => withdraw)
 }

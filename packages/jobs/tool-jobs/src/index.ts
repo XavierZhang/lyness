@@ -7,23 +7,23 @@
  * unless `maxConsecutiveWakes` caps it per owner. A notice carries the job's
  * output and result when it fits `inlineOutputBytes`, and `job_output`
  * withdraws a notice still pending.
- * @module @deepseek-ai/dsh-tool-jobs
+ * @module @lyness/lyn-tool-jobs
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
-import { boundContextSummary, createUserMessage, type ContentBlock } from '@deepseek-ai/dsh-llm'
-import type { ContextFormed, MessageId } from '@deepseek-ai/dsh-llm'
-import { TextRetainer } from '@deepseek-ai/dsh-output-retention'
-import { defineTool } from '@deepseek-ai/dsh-tools'
-import type { GenericCallView, ToolDefinition, ToolExecution } from '@deepseek-ai/dsh-tools'
-import { JobId } from '@deepseek-ai/dsh-jobs'
-import type { JobEvent, JobView, JobRead } from '@deepseek-ai/dsh-jobs'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import type {} from '@deepseek-ai/dsh-agent'
+import type { Context } from '@lyness/cordis'
+import z from '@lyness/schemastery'
+import { boundContextSummary, createUserMessage, type ContentBlock } from '@lyness/lyn-llm'
+import type { ContextFormed, MessageId } from '@lyness/lyn-llm'
+import { TextRetainer } from '@lyness/lyn-output-retention'
+import { defineTool } from '@lyness/lyn-tools'
+import type { GenericCallView, ToolDefinition, ToolExecution } from '@lyness/lyn-tools'
+import { JobId } from '@lyness/lyn-jobs'
+import type { JobEvent, JobView, JobRead } from '@lyness/lyn-jobs'
+import type { Agent } from '@lyness/lyn-agent'
+import type {} from '@lyness/lyn-agent'
 import { publicJob, renderModelDelta, statusLine } from './render.ts'
 import type { PublicJobSnapshot } from './render.ts'
-declare module '@deepseek-ai/dsh-llm' {
+declare module '@lyness/lyn-llm' {
   interface MessageSourceMap {
     'tool-jobs': { kind: 'tool-jobs' } & ContextFormed
   }

@@ -6,10 +6,10 @@
  * so the bot's own readers can see what it has been asked for. Neither event
  * carries the other side's conversation.
  *
- * @module @deepseek-ai/dsh-bot-ask/session
+ * @module @lyness/lyn-bot-ask/session
  */
 
-declare module '@deepseek-ai/dsh-session/types' {
+declare module '@lyness/lyn-session/types' {
   interface SessionEventMap {
     /**
      * This session asked a teammate a question and received an answer. Recorded

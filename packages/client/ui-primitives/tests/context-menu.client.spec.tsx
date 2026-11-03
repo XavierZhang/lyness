@@ -1,20 +1,20 @@
 // @vitest-environment jsdom
-import { contextMenuHook } from '@deepseek-ai/dsh-client-test-runtime'
+import { contextMenuHook } from '@lyness/lyn-client-test-runtime'
 import { cleanup, fireEvent, render, waitFor } from '@testing-library/react'
 import { afterEach, expect, it, vi } from 'vitest'
 import { Menu, MenuItemButton } from '../src/Menu.tsx'
 import { ReferenceChip } from '../src/user-text.tsx'
 
-afterEach(() => { vi.restoreAllMocks(); cleanup(); document.documentElement.style.removeProperty('--dsh-frame-top-clearance') })
+afterEach(() => { vi.restoreAllMocks(); cleanup(); document.documentElement.style.removeProperty('--lyn-frame-top-clearance') })
 
 it('places pointer menus at the cursor above the frame inset and focuses after portal placement', async () => {
-  document.documentElement.style.setProperty('--dsh-frame-top-clearance', '96px')
+  document.documentElement.style.setProperty('--lyn-frame-top-clearance', '96px')
   const close = vi.fn()
   const view = render(<Menu open portal autoFocus contextual anchor={null} onClose={close}
     getAnchorRect={() => new DOMRect(200, 20, 0, 0)} items={[{ id: 'copy', label: 'Copy' }]} />)
   const menu = view.getByRole('menu')
   expect(menu.style.top).toBe('24px')
-  expect(menu.style.getPropertyValue('--dsh-anchored-max-height')).toBe(`${window.innerHeight - 24}px`)
+  expect(menu.style.getPropertyValue('--lyn-anchored-max-height')).toBe(`${window.innerHeight - 24}px`)
   await waitFor(() => { expect(document.activeElement).toBe(view.getByRole('menuitem')) })
   fireEvent.pointerDown(document.body, { button: 2 })
   expect(close).not.toHaveBeenCalled()

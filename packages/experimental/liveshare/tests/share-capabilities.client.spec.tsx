@@ -23,7 +23,7 @@ const OFFERED: readonly OfferedPlugin[] = [
 describe('plugin names', () => {
   const group: OfferedPlugin = {
     plugin: 'forgePanel',
-    package: '@deepseek-ai/dsh-experimental-client-ui-forge',
+    package: '@lyness/lyn-experimental-client-ui-forge',
     titles: { zh: '变更请求面板', en: 'Change request panel' },
     endpoints: ['forgePanel/follow'],
   }
@@ -33,7 +33,7 @@ describe('plugin names', () => {
     expect(pluginDisplayName(group, 'fr')).toBe('Change request panel')
     expect(pluginDisplayName({
       plugin: 'officeToPdf',
-      package: '@deepseek-ai/dsh-office-to-pdf',
+      package: '@lyness/lyn-office-to-pdf',
       titles: { en: 'office-to-pdf' },
       endpoints: ['officeToPdf/render'],
     }, 'zh')).toBe('Office to pdf')

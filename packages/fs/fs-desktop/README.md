@@ -3,13 +3,13 @@ description: "The filesystem of the person whose turn it is, on their own machin
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-fs-desktop
+# @lyness/lyn-fs-desktop
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`dsh-fs-desktop` is the `fs` provider for a server that runs the agent loop but owns none of the files. The loop has to be on the server — credits and the model policy have nowhere else to hold — while the files are on the laptop the person is sitting at. This backend sends every filesystem operation down the desktop link to that machine and brings the answer back, the failure's own code intact. Both halves live here, Host provider and desktop handler, because two ends that can drift fail in production rather than at build time.
+`lyn-fs-desktop` is the `fs` provider for a server that runs the agent loop but owns none of the files. The loop has to be on the server — credits and the model policy have nowhere else to hold — while the files are on the laptop the person is sitting at. This backend sends every filesystem operation down the desktop link to that machine and brings the answer back, the failure's own code intact. Both halves live here, Host provider and desktop handler, because two ends that can drift fail in production rather than at build time.
 
 ## Table of Contents
 
@@ -29,17 +29,17 @@ On the server, it is the `fs` provider, and it takes no configuration:
 
 ```yaml
 - id: desktop-link
-  name: '@deepseek-ai/dsh-desktop-link'
+  name: '@lyness/lyn-desktop-link'
 - id: fs-desktop
-  name: '@deepseek-ai/dsh-fs-desktop'
+  name: '@lyness/lyn-fs-desktop'
 ```
 
 On the desktop, the handler registers against the machine's own filesystem:
 
 ```ts
-import { DesktopExecutor } from '@deepseek-ai/dsh-desktop-link/executor'
-import { desktopFsHandler } from '@deepseek-ai/dsh-fs-desktop/handler'
-import type { Context } from '@deepseek-ai/cordis'
+import { DesktopExecutor } from '@lyness/lyn-desktop-link/executor'
+import { desktopFsHandler } from '@lyness/lyn-fs-desktop/handler'
+import type { Context } from '@lyness/cordis'
 
 declare const ctx: Context
 declare const executor: DesktopExecutor
@@ -52,7 +52,7 @@ const stop = executor.register('fs', desktopFsHandler(ctx.fs))
 <a id="understand-the-implementation"></a>
 ## Understand the implementation
 
-**The session says whose machine.** `FileSystem` never asks — it was written for a harness that had one. During a turn the answer comes from the session's recorded owner (`@deepseek-ai/dsh-session-ownership`); outside one, from the person the request authenticated as. A call that is neither fails rather than guessing a machine, because guessing means writing one person's file onto another person's disk.
+**The session says whose machine.** `FileSystem` never asks — it was written for a harness that had one. During a turn the answer comes from the session's recorded owner (`@lyness/lyn-session-ownership`); outside one, from the person the request authenticated as. A call that is neither fails rather than guessing a machine, because guessing means writing one person's file onto another person's disk.
 
 **The target key carries what the synchronous members need.** `processPath`, `fileUrl` and `contains` cannot round-trip, so the desktop sends the process path, the file URL and its own path flavour along with each target, and the key holds them. The key is opaque by contract, which is exactly the licence to put the record there instead of in a cache that would then need invalidating and bounding.
 
@@ -68,9 +68,9 @@ const stop = executor.register('fs', desktopFsHandler(ctx.fs))
 ## Further Exploration
 
 - [Diverging from the single-operator Host](../../../.agents/notes/proposed/architecture/2026-10-15-diverging-from-the-single-operator-host.md) — why the loop and the files are on different machines.
-- [`dsh-desktop-link`](../../api/desktop-link/README.md) — the channel this rides.
-- [`dsh-session-ownership`](../../identity/session-ownership/README.md) — where "whose turn is this" comes from.
-- [`dsh-fs-ssh`](../../ssh/fs-ssh/README.md) — the other remote backend, whose execution world is named by configuration rather than by the caller.
+- [`lyn-desktop-link`](../../api/desktop-link/README.md) — the channel this rides.
+- [`lyn-session-ownership`](../../identity/session-ownership/README.md) — where "whose turn is this" comes from.
+- [`lyn-fs-ssh`](../../ssh/fs-ssh/README.md) — the other remote backend, whose execution world is named by configuration rather than by the caller.
 
 -----
 
@@ -103,6 +103,6 @@ No request prefix changes, because the provider contributes no instructions; a d
 <details>
 <summary>Working context for maintainers — click to expand</summary>
 
-`FS_ERROR_CODES` lives in `@deepseek-ai/dsh-fs`, derived from a key-per-code object a `satisfies` clause keeps complete, so the two remote backends validate a received code against one list; add an arm to `FsErrorCode` and the build asks for the key.
+`FS_ERROR_CODES` lives in `@lyness/lyn-fs`, derived from a key-per-code object a `satisfies` clause keeps complete, so the two remote backends validate a received code against one list; add an arm to `FsErrorCode` and the build asks for the key.
 
 </details>

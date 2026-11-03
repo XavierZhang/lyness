@@ -5,11 +5,11 @@ import { resolveDesktopLocale } from '../src/locale.ts'
 /** The copy a reader sees, in both shipped languages. */
 const en = resolveDesktopLocale('en').messages
 const zh = resolveDesktopLocale('zh').messages
-import type { DesktopUpdateState, DshDesktopProductApi } from '../src/ipc.ts'
-import type { DesktopUpdateBridge } from '@deepseek-ai/dsh-client-ui-settings-general/types'
+import type { DesktopUpdateState, LynDesktopProductApi } from '../src/ipc.ts'
+import type { DesktopUpdateBridge } from '@lyness/lyn-client-ui-settings-general/types'
 
 it('keeps the Electron preload assignable to the product consumer', () => {
-  const assign = (bridge: DshDesktopProductApi['updates']): DesktopUpdateBridge => bridge
+  const assign = (bridge: LynDesktopProductApi['updates']): DesktopUpdateBridge => bridge
   expect(assign).toBeTypeOf('function')
 })
 

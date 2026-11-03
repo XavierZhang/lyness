@@ -3,7 +3,7 @@ description: "Model selection for the Web GUI: the /model popup and the composer
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-client-ui-model-selection
+# @lyness/lyn-client-ui-model-selection
 
 English | [中文](README.zh.md)
 
@@ -59,7 +59,7 @@ Catalog availability does not block sending with a saved selection; request exec
 
 ### Selection failures
 
-When another writer owns the Session, model-selection failures tell the user to quit other running DSH instances and retry.
+When another writer owns the Session, model-selection failures tell the user to quit other running LYN instances and retry.
 
 The session-scoped `conversation.input.model.options` list slot appends controls below model and reasoning selection. Owner props expose `locked`, `reportFailure(message)`, and `dismiss()`, which closes the menu and synchronously focuses its trigger before another overlay opens; contributions read their own projections and supply narrow commands. Enabled switch buttons participate in the menu’s keyboard navigation.
 
@@ -88,7 +88,7 @@ Read these pages when the model surface is not enough. They move from the browse
 
 - [ui-commands](../ui-commands/README.md) — the popupSelect shell the `/model` contribution registers into.
 - [ui-conversation](../ui-conversation/README.md) — declares the composer's `conversation.input.model` seat.
-- [dsh-agent-default-model](../../core/agent-default-model/README.md) — the default-model service for sessions that never choose.
+- [lyn-agent-default-model](../../core/agent-default-model/README.md) — the default-model service for sessions that never choose.
 - [Client package map](../README.md) — adjacent browser UI packages.
 
 -----

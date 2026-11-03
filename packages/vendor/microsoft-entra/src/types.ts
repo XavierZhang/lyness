@@ -1,9 +1,9 @@
 /**
  * The authenticated person a Microsoft Entra sign-in establishes.
- * @module @deepseek-ai/dsh-microsoft-entra/types
+ * @module @lyness/lyn-microsoft-entra/types
  */
 
-import type { Branded } from '@deepseek-ai/dsh-brand'
+import type { Branded } from '@lyness/lyn-brand'
 
 /** Entra's stable object id for one person, unique within its directory. */
 export type EntraObjectId = Branded<'EntraObjectId'>

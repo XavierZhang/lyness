@@ -1,29 +1,29 @@
 /** Real Loader composition preserves retrievable source text outside the bounded preview. */
-import { executeToolFixture } from '@deepseek-ai/dsh-tool-testkit'
+import { executeToolFixture } from '@lyness/lyn-tool-testkit'
 
-import * as NativeToolExecutor from '@deepseek-ai/dsh-tool-executor-native'
+import * as NativeToolExecutor from '@lyness/lyn-tool-executor-native'
 import { mkdtemp, readFile, readdir, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { dirname, join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import Loader from '@deepseek-ai/cordis-plugin-loader'
-import Include from '@deepseek-ai/cordis-plugin-include'
-import { agentEvents, type Agent } from '@deepseek-ai/dsh-agent'
-import { createUserMessage, ToolCallId } from '@deepseek-ai/dsh-llm'
-import * as systemPromptPlugin from '@deepseek-ai/dsh-system-prompt'
-import * as toolsPlugin from '@deepseek-ai/dsh-tools'
-import * as fsPlugin from '@deepseek-ai/dsh-fs-local'
-import * as toolFsPlugin from '@deepseek-ai/dsh-tool-fs'
-import * as sessionPlugin from '@deepseek-ai/dsh-session'
-import * as sessionProjectionPlugin from '@deepseek-ai/dsh-session-projection'
-import * as workingDirectoryPlugin from '@deepseek-ai/dsh-working-directory'
-import { Session, SessionId } from '@deepseek-ai/dsh-session'
-import * as queryPlugin from '@deepseek-ai/dsh-session-query-sqlite'
-import * as referencePlugin from '@deepseek-ai/dsh-session-reference'
-import * as spillPlugin from '@deepseek-ai/dsh-spill-local'
-import { sessionDir } from '@deepseek-ai/dsh-spill-local'
+import { Context } from '@lyness/cordis'
+import Loader from '@lyness/cordis-plugin-loader'
+import Include from '@lyness/cordis-plugin-include'
+import { agentEvents, type Agent } from '@lyness/lyn-agent'
+import { createUserMessage, ToolCallId } from '@lyness/lyn-llm'
+import * as systemPromptPlugin from '@lyness/lyn-system-prompt'
+import * as toolsPlugin from '@lyness/lyn-tools'
+import * as fsPlugin from '@lyness/lyn-fs-local'
+import * as toolFsPlugin from '@lyness/lyn-tool-fs'
+import * as sessionPlugin from '@lyness/lyn-session'
+import * as sessionProjectionPlugin from '@lyness/lyn-session-projection'
+import * as workingDirectoryPlugin from '@lyness/lyn-working-directory'
+import { Session, SessionId } from '@lyness/lyn-session'
+import * as queryPlugin from '@lyness/lyn-session-query-sqlite'
+import * as referencePlugin from '@lyness/lyn-session-reference'
+import * as spillPlugin from '@lyness/lyn-spill-local'
+import { sessionDir } from '@lyness/lyn-spill-local'
 import * as sourcePlugin from './fixtures/source-session.ts'
 
 let context: Context | undefined
@@ -48,17 +48,17 @@ describe('session-reference real Loader composition', () => {
     await ctx.plugin(Loader)
     ctx.loader.builtins.include = Include
     const modules = new Map<string, unknown>([
-      ['@deepseek-ai/dsh-session', sessionPlugin],
-      ['@deepseek-ai/dsh-session-projection', sessionProjectionPlugin],
-      ['@deepseek-ai/dsh-working-directory', workingDirectoryPlugin],
-      ['@deepseek-ai/dsh-system-prompt', systemPromptPlugin],
-      ['@deepseek-ai/dsh-tools', toolsPlugin],
-      ['@deepseek-ai/dsh-tool-executor-native', NativeToolExecutor],
-      ['@deepseek-ai/dsh-fs-local', fsPlugin],
-      ['@deepseek-ai/dsh-tool-fs', toolFsPlugin],
-      ['@deepseek-ai/dsh-session-query-sqlite', queryPlugin],
-      ['@deepseek-ai/dsh-session-reference', referencePlugin],
-      ['@deepseek-ai/dsh-spill-local', spillPlugin],
+      ['@lyness/lyn-session', sessionPlugin],
+      ['@lyness/lyn-session-projection', sessionProjectionPlugin],
+      ['@lyness/lyn-working-directory', workingDirectoryPlugin],
+      ['@lyness/lyn-system-prompt', systemPromptPlugin],
+      ['@lyness/lyn-tools', toolsPlugin],
+      ['@lyness/lyn-tool-executor-native', NativeToolExecutor],
+      ['@lyness/lyn-fs-local', fsPlugin],
+      ['@lyness/lyn-tool-fs', toolFsPlugin],
+      ['@lyness/lyn-session-query-sqlite', queryPlugin],
+      ['@lyness/lyn-session-reference', referencePlugin],
+      ['@lyness/lyn-spill-local', spillPlugin],
       ['./source-session.ts', sourcePlugin],
     ])
     ctx.loader.internal = {

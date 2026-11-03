@@ -1,52 +1,52 @@
 .section {
   display: flex;
   flex-direction: column;
-  gap: var(--dsh-space-5);
+  gap: var(--lyn-space-5);
 }
 
 .header {
   display: flex;
   flex-direction: column;
-  gap: var(--dsh-space-1);
+  gap: var(--lyn-space-1);
 }
 
 .title {
   margin: 0;
-  font-size: var(--dsh-font-size-lg);
-  font-weight: var(--dsh-font-weight-medium);
+  font-size: var(--lyn-font-size-lg);
+  font-weight: var(--lyn-font-weight-medium);
 }
 
 .intro {
   margin: 0;
-  color: var(--dsh-color-text-secondary);
-  font-size: var(--dsh-font-size-sm);
+  color: var(--lyn-color-text-secondary);
+  font-size: var(--lyn-font-size-sm);
 }
 
 .notice {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--dsh-space-2);
+  gap: var(--lyn-space-2);
   margin: 0;
-  color: var(--dsh-color-text-secondary);
+  color: var(--lyn-color-text-secondary);
 }
 
 .toolbar {
   display: flex;
   align-items: center;
-  gap: var(--dsh-space-3);
+  gap: var(--lyn-space-3);
 }
 
 .hint {
   margin: 0;
-  color: var(--dsh-color-text-secondary);
-  font-size: var(--dsh-font-size-sm);
+  color: var(--lyn-color-text-secondary);
+  font-size: var(--lyn-font-size-sm);
 }
 
 .list {
   display: flex;
   flex-direction: column;
-  gap: var(--dsh-space-3);
+  gap: var(--lyn-space-3);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -55,29 +55,29 @@
 .entry {
   display: flex;
   flex-direction: column;
-  gap: var(--dsh-space-2);
-  padding: var(--dsh-space-3);
-  border: 1px solid var(--dsh-color-border);
-  border-radius: var(--dsh-radius-md);
+  gap: var(--lyn-space-2);
+  padding: var(--lyn-space-3);
+  border: 1px solid var(--lyn-color-border);
+  border-radius: var(--lyn-radius-md);
 }
 
 .entryMain {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--dsh-space-2);
+  gap: var(--lyn-space-2);
 }
 
 .entryName {
-  font-weight: var(--dsh-font-weight-medium);
+  font-weight: var(--lyn-font-weight-medium);
 }
 
 .entryFacts {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--dsh-space-2);
-  color: var(--dsh-color-text-secondary);
-  font-size: var(--dsh-font-size-sm);
+  gap: var(--lyn-space-2);
+  color: var(--lyn-color-text-secondary);
+  font-size: var(--lyn-font-size-sm);
 }
 
 .entryTime {
@@ -87,7 +87,7 @@
 .changes {
   display: flex;
   flex-direction: column;
-  gap: var(--dsh-space-1);
+  gap: var(--lyn-space-1);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -97,34 +97,34 @@
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  gap: var(--dsh-space-2);
-  font-size: var(--dsh-font-size-sm);
+  gap: var(--lyn-space-2);
+  font-size: var(--lyn-font-size-sm);
 }
 
 .changeField {
-  font-weight: var(--dsh-font-weight-medium);
+  font-weight: var(--lyn-font-weight-medium);
 }
 
 .changeLabel {
-  color: var(--dsh-color-text-secondary);
+  color: var(--lyn-color-text-secondary);
 }
 
 .changeValue {
   overflow-wrap: anywhere;
-  font-family: var(--dsh-font-family-mono);
+  font-family: var(--lyn-font-family-mono);
 }
 
 .entryId {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  gap: var(--dsh-space-2);
+  gap: var(--lyn-space-2);
   margin: 0;
-  color: var(--dsh-color-text-secondary);
-  font-size: var(--dsh-font-size-sm);
+  color: var(--lyn-color-text-secondary);
+  font-size: var(--lyn-font-size-sm);
 }
 
 .entryIdValue {
   overflow-wrap: anywhere;
-  font-family: var(--dsh-font-family-mono);
+  font-family: var(--lyn-font-family-mono);
 }

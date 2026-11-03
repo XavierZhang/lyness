@@ -3,9 +3,9 @@
  * organization they act for — and charging nobody when it speaks for nobody.
  */
 
-import { Context } from '@deepseek-ai/cordis'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { Membership, MembershipId, PersonId } from '@deepseek-ai/dsh-people'
+import { Context } from '@lyness/cordis'
+import { brandString } from '@lyness/lyn-brand'
+import type { Membership, MembershipId, PersonId } from '@lyness/lyn-people'
 import { expect, it } from 'vitest'
 import RequestCreditSubject from '../src/subject-request.ts'
 

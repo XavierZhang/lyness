@@ -18,7 +18,7 @@ V4 reader 仅在已验证的继承区间中允许其他 Session 的投递 ID。�
 
 这是没有声明持久化类型变化的同版本行为变更。生成清单报告没有 schema 转换，因此不需要新增类型确认或定稿检查点。已有普通 fork 和子代理日志保留其含义，新 reader 接受有父关系及无父关系的 seed，且不改写任一种。冻结 schema 与历史代际保持不变。
 
-已发布的 `dsh-v0.2.0-rc.2` 校验器与所审查 master 基线具有相同的依赖父关系的投递检查。修改此检查之前，真实的普通及压缩 JSONL 探针验证：无父关系的普通和嵌套 fork 在 read、write 打开时都被拒绝，之后文件字节完全一致。拒绝发生在完整日志的关系校验期间，早于授予句柄或尾部修复。旧 reader 报告损坏而非升级诊断；[升级指南](../../../../docs/upgrade-guide/v0.2.1-rc.3/independent-session-forks/guide.zh.md)明确说明这一诊断限制。没有活动继承投递标记的无父关系 seed 仍然可读。这一已观察到的接纳行为满足[安全拒绝规则](../process/2026-10-08-session-reader-compatibility-review.zh.md)；可选字段本身不是依据。
+已发布的 `lyn-v0.2.0-rc.2` 校验器与所审查 master 基线具有相同的依赖父关系的投递检查。修改此检查之前，真实的普通及压缩 JSONL 探针验证：无父关系的普通和嵌套 fork 在 read、write 打开时都被拒绝，之后文件字节完全一致。拒绝发生在完整日志的关系校验期间，早于授予句柄或尾部修复。旧 reader 报告损坏而非升级诊断；[升级指南](../../../../docs/upgrade-guide/v0.2.1-rc.3/independent-session-forks/guide.zh.md)明确说明这一诊断限制。没有活动继承投递标记的无父关系 seed 仍然可读。这一已观察到的接纳行为满足[安全拒绝规则](../process/2026-10-08-session-reader-compatibility-review.zh.md)；可选字段本身不是依据。
 
 ## 考虑过的替代方案
 

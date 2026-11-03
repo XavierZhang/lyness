@@ -2,7 +2,7 @@
  * Copy for the people section: who may use this deployment, what each of them
  * may do, and which directory identity signs in as them.
  *
- * @module @deepseek-ai/dsh-client-ui-settings-people/client/locales
+ * @module @lyness/lyn-client-ui-settings-people/client/locales
  */
 
 /** English copy; the key set every locale answers. */

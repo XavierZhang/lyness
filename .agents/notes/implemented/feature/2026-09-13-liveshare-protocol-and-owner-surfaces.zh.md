@@ -1,4 +1,4 @@
-# Agent Note: Liveshare —— 把 DSH 会话分享给同事看
+# Agent Note: Liveshare —— 把 LYN 会话分享给同事看
 
 Status: implemented
 
@@ -6,27 +6,27 @@ Status: implemented
 
 ## Problem
 
-DSH 会话跑在你自己的电脑上。同事有时需要在你工作的同时看某个会话——跟着一起排查问题，或者看看一个长任务进展到哪了。现在没有这个能力。把会话日志发过去并不等价：对方要有你的插件、配置和沙箱才能渲染出来，而且会话只有在你机器上运行时才有意义。
+LYN 会话跑在你自己的电脑上。同事有时需要在你工作的同时看某个会话——跟着一起排查问题，或者看看一个长任务进展到哪了。现在没有这个能力。把会话日志发过去并不等价：对方要有你的插件、配置和沙箱才能渲染出来，而且会话只有在你机器上运行时才有意义。
 
 所以一次分享要同时解决三件事：一个**同事用浏览器打开就能看的页面**，看到你机器上正在跑的会话，但不需要连到你的机器；一个**对页面能做什么的限制**，从"能读、不能写文件"开始——页面多给一个你没同意的操作就是安全漏洞，不是便利；以及一个**"这是谁分享的"的答案**，因为说不清归属的页面，打开它的人无从信任。
 
-这条 Note 覆盖 owner 自己 DSH 里运行的那一半——分享对话框、背后的 owner 端服务、本包的浏览器端，以及读者打开的页面——以及双方共用的协议包。中间的 Liveshare 服务端是独立的包（`@deepseek-ai/dsh-experimental-liveshare-relay`），单独审查与部署。
+这条 Note 覆盖 owner 自己 LYN 里运行的那一半——分享对话框、背后的 owner 端服务、本包的浏览器端，以及读者打开的页面——以及双方共用的协议包。中间的 Liveshare 服务端是独立的包（`@lyness/lyn-experimental-liveshare-relay`），单独审查与部署。
 
 ## Decision
 
 ### 一次分享是什么
 
-owner 在 DSH 里为某一个会话创建分享。分享发布到 Liveshare 服务端（双方都能访问的服务）后，DSH 返回一个链接。打开链接看到的是 owner 自己的 DSH 用自己插件渲染出的会话，读者不需要 owner 的配置。读者列表包含源会话，以及该读者通过分享创建的子会话。工作区名称、成员和顺序裁剪为这些会话；无关会话和工作区保持不可见。
+owner 在 LYN 里为某一个会话创建分享。分享发布到 Liveshare 服务端（双方都能访问的服务）后，LYN 返回一个链接。打开链接看到的是 owner 自己的 LYN 用自己插件渲染出的会话，读者不需要 owner 的配置。读者列表包含源会话，以及该读者通过分享创建的子会话。工作区名称、成员和顺序裁剪为这些会话；无关会话和工作区保持不可见。
 
-从 DSH 分享弹窗新建的分享是**组织内持链接**分享：它携带 `accessMode: 'open'`，组织内拿到链接的人都能看。部署级 `LIVESHARE_ALLOWED_SUBJECTS` 会并入每份分享的 ACL：对 `open` 分享，它把准入收窄到列出的主体；对已存储的 `selected` 记录，它把列出的主体加在记录自己的选择旁边。
+从 LYN 分享弹窗新建的分享是**组织内持链接**分享：它携带 `accessMode: 'open'`，组织内拿到链接的人都能看。部署级 `LIVESHARE_ALLOWED_SUBJECTS` 会并入每份分享的 ACL：对 `open` 分享，它把准入收窄到列出的主体；对已存储的 `selected` 记录，它把列出的主体加在记录自己的选择旁边。
 
 **指定同事（`selected`）与更早的 `approval` 拼写是旧版持久记录。** Host 仍按记录里的 ACL 读取它们并展示访问摘要，Liveshare 服务端仍按该 ACL 接纳它们的查看者，但随版本发布的分享弹窗不提供新建入口。`liveshareShares.create` 的 `accessMode` 与 `allowedSubjectIds` 字段保留给这些记录以及直接调用该 Remote 的调用方；随版本发布的弹窗两个都不发送。
 
 ### 读者能做什么
 
-读者页面就是正常的 DSH 客户端，不是精简版：侧栏、会话列表、展开折叠、选择都在，因为浏览本来就是"看"的一部分。缺的只是读者无权执行的动作——创建无关会话、重命名、归档、删除、管理工作区。分支遵循分享自己的 fork 开关；发送消息在两档里都可用，并在该档的沙箱内运行；附件上传跟随读者可见的会话。管理权限与档位和 fork 开关都保持独立。
+读者页面就是正常的 LYN 客户端，不是精简版：侧栏、会话列表、展开折叠、选择都在，因为浏览本来就是"看"的一部分。缺的只是读者无权执行的动作——创建无关会话、重命名、归档、删除、管理工作区。分支遵循分享自己的 fork 开关；发送消息在两档里都可用，并在该档的沙箱内运行；附件上传跟随读者可见的会话。管理权限与档位和 fork 开关都保持独立。
 
-这些动作不是用 CSS 藏起来的。页面能做什么由一份访问快照决定：remote-access 客户端跟随读者自己的 `remoteAccess/follow`，每个按钮和菜单项经 `useRemoteAccess`、`useAccess` 或 `useSessionAccess`、`useWorkspaceAccess` 读取其端点在全局资源、某个会话或某个工作区上的答案，答案变化时重新渲染。owner 的 DSH 依据该分享的 `share-viewer` 策略计算快照，因此 owner 收回某项能力时，对应入口不用重新加载页面就会关闭——而且服务端本来就会拒绝这些操作，页面只是不去提供注定被拒绝的按钮。读者收到的 index 已带上读者的首份快照，因此页面在确认允许之前不会显示任何入口；快照流失败后，所有答案都为拒绝。owner 自己的页面以 owner 基线打开，行为与普通 DSH 完全一致。快照不包含逐会话的拒绝原因：页面陈述页面级原因（分享模式、停止、过期、失去访问权）和通用的只读文案。拿不到分享正文时，页面顶部直接陈述该状态，并且每一档都给出读者自己能做的动作（重试、重新登录、回到分享列表，或明确指引联系分享者），不会停在空白外壳或错误码上。
+这些动作不是用 CSS 藏起来的。页面能做什么由一份访问快照决定：remote-access 客户端跟随读者自己的 `remoteAccess/follow`，每个按钮和菜单项经 `useRemoteAccess`、`useAccess` 或 `useSessionAccess`、`useWorkspaceAccess` 读取其端点在全局资源、某个会话或某个工作区上的答案，答案变化时重新渲染。owner 的 LYN 依据该分享的 `share-viewer` 策略计算快照，因此 owner 收回某项能力时，对应入口不用重新加载页面就会关闭——而且服务端本来就会拒绝这些操作，页面只是不去提供注定被拒绝的按钮。读者收到的 index 已带上读者的首份快照，因此页面在确认允许之前不会显示任何入口；快照流失败后，所有答案都为拒绝。owner 自己的页面以 owner 基线打开，行为与普通 LYN 完全一致。快照不包含逐会话的拒绝原因：页面陈述页面级原因（分享模式、停止、过期、失去访问权）和通用的只读文案。拿不到分享正文时，页面顶部直接陈述该状态，并且每一档都给出读者自己能做的动作（重试、重新登录、回到分享列表，或明确指引联系分享者），不会停在空白外壳或错误码上。
 
 ### 两档驱动
 
@@ -49,13 +49,13 @@ fork 不是一档。分享自带独立的 `allowsFork` 开关，与档位无关�
 
 ### 默认可见性
 
-本包作为运行时依赖随每个 dsh 安装一同交付，但默认安装必须在插件管理器里完全不显示它：**内置插件配置**下不显示，**实验性插件**下不显示，**更多**页也不显示。用户主动启用它——在当前 profile 的 `cordis.patch.yml` 中插入组合包的行，或在 `dsh.profile.bundles` 中选中该组合包；两条启用路径由[包 README](../../../../packages/experimental/liveshare/README.zh.md)负责。该包仍必须随版本发布、保持可安装，且在此规则之前已启用的用户继续能看到它。
+本包作为运行时依赖随每个 lyn 安装一同交付，但默认安装必须在插件管理器里完全不显示它：**内置插件配置**下不显示，**实验性插件**下不显示，**更多**页也不显示。用户主动启用它——在当前 profile 的 `cordis.patch.yml` 中插入组合包的行，或在 `lyn.profile.bundles` 中选中该组合包；两条启用路径由[包 README](../../../../packages/experimental/liveshare/README.zh.md)负责。该包仍必须随版本发布、保持可安装，且在此规则之前已启用的用户继续能看到它。
 
 Host 的组合包 `enabled` 标志表示 profile 是否选中了这个组合包，这与它的插件是否在运行并不等价：通过 `cordis.patch.yml` 插入组合包的行会让插件运行，而组合包本身仍未选中；因此以 `enabled` 为准的可见性规则会把用户刚刚启用的组合包隐藏起来，使写入文档的启用路径失效。
 
-因此管理器维护一个 `HIDDEN_UNTIL_RUNNING` 组合包名集合——当前只有 `@deepseek-ai/dsh-experimental-liveshare`——集合中的组合包只有在它 patch 声明的行至少有一条在运行时才会被列出（`pkg.rows.some(row => row.enabled)`）。过滤发生在两个列表派生之前，因此在满足条件前，它不会出现在主"实验性插件"组、**更多**页、**内置插件配置**和"已安装插件"组中。该集合是 `PluginManagerPage.tsx` 中的客户端数据；Host 的 `listBundles` 契约、profile 格式和已安装包集合都保持不变。`BundleInfo.rows` 已把每条声明的行与当前承载它的 Loader 条目关联起来，客户端的 `PackageView` 携带该条目是否在运行，因此行状态就是两条启用路径的有效答案：删除这些行、把它们置为 disabled，或取消选中组合包，都会让它们停止运行，卡片随之从两个列表消失。
+因此管理器维护一个 `HIDDEN_UNTIL_RUNNING` 组合包名集合——当前只有 `@lyness/lyn-experimental-liveshare`——集合中的组合包只有在它 patch 声明的行至少有一条在运行时才会被列出（`pkg.rows.some(row => row.enabled)`）。过滤发生在两个列表派生之前，因此在满足条件前，它不会出现在主"实验性插件"组、**更多**页、**内置插件配置**和"已安装插件"组中。该集合是 `PluginManagerPage.tsx` 中的客户端数据；Host 的 `listBundles` 契约、profile 格式和已安装包集合都保持不变。`BundleInfo.rows` 已把每条声明的行与当前承载它的 Loader 条目关联起来，客户端的 `PackageView` 携带该条目是否在运行，因此行状态就是两条启用路径的有效答案：删除这些行、把它们置为 disabled，或取消选中组合包，都会让它们停止运行，卡片随之从两个列表消失。
 
-卡片隐藏期间组合包 ID 仍可按 ID 打开：`openPkg` 会从未过滤的 Host 组合包列表中解析隐藏的组合包，因此 `pluginNavigation.openBundle('@deepseek-ai/dsh-experimental-liveshare')` 仍能渲染其详情。其它按 ID 链接组合包的界面因此继续可用，组合包页也像其它未选中组合包的页面一样列出各行及其关闭状态。
+卡片隐藏期间组合包 ID 仍可按 ID 打开：`openPkg` 会从未过滤的 Host 组合包列表中解析隐藏的组合包，因此 `pluginNavigation.openBundle('@lyness/lyn-experimental-liveshare')` 仍能渲染其详情。其它按 ID 链接组合包的界面因此继续可用，组合包页也像其它未选中组合包的页面一样列出各行及其关闭状态。
 
 ### 分享工作如何限制在授权范围内
 
@@ -71,15 +71,15 @@ Owner 而不是查看页或 Liveshare 服务端授权每次会话操作。子会
 
 ### owner 是谁
 
-只有已验证的 owner 才能创建分享。对话框显示 owner 的 DSH 回读到的身份——名字、有效期、何时续期——没有显示名时用身份派生出来的标签。创建分享的代码本身也会拒绝未验证的 owner，不是只看按钮能不能点。
+只有已验证的 owner 才能创建分享。对话框显示 owner 的 LYN 回读到的身份——名字、有效期、何时续期——没有显示名时用身份派生出来的标签。创建分享的代码本身也会拒绝未验证的 owner，不是只看按钮能不能点。
 
-登录只做一次，且发生在 owner 点击时页面预留的窗口里。DSH 生成一个短寿命事务，绑定 Liveshare 服务端地址、Liveshare 服务端实例，以及允许完成它的页面；页面打开 DSH 指定的登录页，只接受来自该 origin、该窗口、该事务的一次性 code，并把它交回自己的 DSH。
+登录只做一次，且发生在 owner 点击时页面预留的窗口里。LYN 生成一个短寿命事务，绑定 Liveshare 服务端地址、Liveshare 服务端实例，以及允许完成它的页面；页面打开 LYN 指定的登录页，只接受来自该 origin、该窗口、该事务的一次性 code，并把它交回自己的 LYN。
 
 Owner 使用自己保留的校验值兑换代码，以仅所有者可读写的权限保存凭据，并只向签发它的 Liveshare 服务端地址发送。首次登记需要已验证凭据；已有分享重连使用分享管理 token，显式身份认领保留该分享的 ACL、模式、过期时间和 token。分享指定的同事是 owner 的存储选择加上部署自身的允许列表；不会从显示身份派生任何内容。
 
 ### 读者页面顶部显示什么
 
-被服务的页面复用侧栏原有的品牌行，而不是在应用上再压一条横条：原本的 Harness 标记，加上一个 LiveShare 入口，写明是谁分享的、对方跑的是哪个 DSH 版本（Liveshare 服务端自己的 release 另行标注）。点击它回到"我能看的分享"列表页。
+被服务的页面复用侧栏原有的品牌行，而不是在应用上再压一条横条：原本的 Harness 标记，加上一个 LiveShare 入口，写明是谁分享的、对方跑的是哪个 LYN 版本（Liveshare 服务端自己的 release 另行标注）。点击它回到"我能看的分享"列表页。
 
 ### 连接断开时
 
@@ -93,11 +93,11 @@ Owner 使用自己保留的校验值兑换代码，以仅所有者可读写的�
 
 ### 本包对外提供什么
 
-本包交付一个 Host 程序和一个浏览器端。公开入口包括 Host 导出（`lib/index.js`）、`./client`（`lib/client.js`，closure-factory bundle）、`./viewer-declarations`、分享管理 Remote 的 `./typert` 与 `./remote` 两个面、`./types`、组合包 patch `./cordis.patch.yml`，以及 locale JSON 文件。manifest 以 `dsh.client` 声明浏览器端，`platform` 为 `web`，并列出它需要的客户端服务；该入口读取 `__DSH_LIVESHARE_VIEWER__`：在被服务的查看页上挂载查看页 session 插件及其品牌、模型、权限、会话行与分享路径界面，否则先挂载 owner 生成的 Remote，再挂载 Session 头部操作。
+本包交付一个 Host 程序和一个浏览器端。公开入口包括 Host 导出（`lib/index.js`）、`./client`（`lib/client.js`，closure-factory bundle）、`./viewer-declarations`、分享管理 Remote 的 `./typert` 与 `./remote` 两个面、`./types`、组合包 patch `./cordis.patch.yml`，以及 locale JSON 文件。manifest 以 `lyn.client` 声明浏览器端，`platform` 为 `web`，并列出它需要的客户端服务；该入口读取 `__LYNESS_LIVESHARE_VIEWER__`：在被服务的查看页上挂载查看页 session 插件及其品牌、模型、权限、会话行与分享路径界面，否则先挂载 owner 生成的 Remote，再挂载 Session 头部操作。
 
 分享管理是一个 `liveshareShares` Typert Remote，共十二个方法——`create`、`list`、`stop`、`updatePermissions`、`setCapabilities`、`capabilities`、`relay`、`setRelay`、`identity`、`audit`、`testRelay` 与 `testPublish`——背后是 owner 宿主执行的操作。仅存的同源 HTTP 路由是四条 owner 登录与凭据路由：`/api/liveshare.ownerLoginStart`、`/api/liveshare.ownerLoginRedeem`、`/api/liveshare.ownerLoginCancel` 与 `/api/liveshare.ownerCredential`。
 
-出站网关是受监督的子进程，源码入口为 `src/owner-gateway/cli.ts`，发布入口为 `lib/owner-gateway/cli.js`；目录名让它与 DSH API gateway 明确区分。
+出站网关是受监督的子进程，源码入口为 `src/owner-gateway/cli.ts`，发布入口为 `lib/owner-gateway/cli.js`；目录名让它与 LYN API gateway 明确区分。
 
 ## Alternatives considered
 
@@ -123,7 +123,7 @@ Owner 使用自己保留的校验值兑换代码，以仅所有者可读写的�
 ## Verification
 
 - 读者页面保留正常导航，且在共享会话与任何分支上都不会出现读者无权执行的动作。
-- 没有 Liveshare bundle 的 DSH 以及 owner 自己的页面，行为与以前完全一致。
+- 没有 Liveshare bundle 的 LYN 以及 owner 自己的页面，行为与以前完全一致。
 - 分享使用两档之一及该档的沙箱；未知模式、读不懂的应答、没有模式的分享仍可读取，但绝不会被驱动。
 - 没有已验证的 owner 身份，就无法创建分享。
 - 弹窗创建的分享携带 `open`；已存储的 `selected` 或 `approval` 记录保留记录中的 ACL 与访问摘要，`create` 仍会存储调用方请求的 `selected` 模式及其主体。
@@ -139,9 +139,9 @@ Owner 使用自己保留的校验值兑换代码，以仅所有者可读写的�
 
 ## Consequences
 
-读者页面只能准确到服务端告诉它的程度。能力回答、owner 身份状态、会话模式、owner 的 DSH 版本、登录端点，都由 owner 的 DSH 与 Liveshare 服务端提供；在与本层一起部署之前，页面保持最保守的状态——只读，且登录无法完成——而不是去猜。
+读者页面只能准确到服务端告诉它的程度。能力回答、owner 身份状态、会话模式、owner 的 LYN 版本、登录端点，都由 owner 的 LYN 与 Liveshare 服务端提供；在与本层一起部署之前，页面保持最保守的状态——只读，且登录无法完成——而不是去猜。
 
-页面不是安全边界。无论页面做什么，owner 的 DSH 与 Liveshare 服务端都会拒绝读者的写入；这份访问快照的作用只是让页面不去提供注定被拒绝的按钮。
+页面不是安全边界。无论页面做什么，owner 的 LYN 与 Liveshare 服务端都会拒绝读者的写入；这份访问快照的作用只是让页面不去提供注定被拒绝的按钮。
 
 已有 ACL 保持不变。无模式记录仍可读取，但不会被驱动；互相矛盾的模式字段被拒绝。没有归属的分享显示为“未验证历史”。
 

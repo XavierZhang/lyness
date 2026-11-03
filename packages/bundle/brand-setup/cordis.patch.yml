@@ -1,6 +1,6 @@
 # The standalone brand-setup application: a loopback page one operator brands a
 # deployment from. It needs no model, session, or product Web row, so it does
-# not layer over dsh-base: this insert is the complete Cordis tree. The server
+# not layer over lyn-base: this insert is the complete Cordis tree. The server
 # binds the loopback interface and takes an OS-assigned port, because the page
 # writes a profile's patch layer and must not be reachable from the network.
 
@@ -10,16 +10,16 @@
     # injects what this row provides, and an invocation that provides nothing
     # leaves that row inactive rather than opening a port to print help.
     - id: brand-setup-startup
-      name: '@deepseek-ai/dsh-brand-setup/startup'
+      name: '@lyness/lyn-brand-setup/startup'
     # Not the global `webserver` id: that id is on the required-entry list, and
     # this row deliberately does not activate for `--help`. Under its own id a
     # help run exits quietly, while a genuine failure still surfaces — the
     # brand-setup row below waits for `webServer` and the diagnostic names it.
     - id: brand-setup-webserver
-      name: '@deepseek-ai/dsh-host-webserver'
+      name: '@lyness/lyn-host-webserver'
       inject: [brandSetupStartup]
       config:
         host: !!js ctx.brandSetupStartup.host
         port: !!js ctx.brandSetupStartup.port
     - id: brand-setup
-      name: '@deepseek-ai/dsh-brand-setup'
+      name: '@lyness/lyn-brand-setup'

@@ -1,6 +1,6 @@
-import type { Context } from '@deepseek-ai/cordis'
-import type { GenerateOptions, StreamChunk } from '@deepseek-ai/dsh-llm'
-import { ToolCallId, LlmAdapter } from '@deepseek-ai/dsh-llm'
+import type { Context } from '@lyness/cordis'
+import type { GenerateOptions, StreamChunk } from '@lyness/lyn-llm'
+import { ToolCallId, LlmAdapter } from '@lyness/lyn-llm'
 
 /** Script one delegation, then acknowledge the receipt and the completion notice. */
 class MockDelegatingAdapter extends LlmAdapter {

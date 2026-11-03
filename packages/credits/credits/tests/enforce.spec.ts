@@ -8,16 +8,16 @@
 import { mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { Context } from '@deepseek-ai/cordis'
-import LlmRuntime, { LlmAdapter } from '@deepseek-ai/dsh-llm'
+import { Context } from '@lyness/cordis'
+import LlmRuntime, { LlmAdapter } from '@lyness/lyn-llm'
 import type {
   GenerateOptions, LlmModelInfo, LlmProviderInfo, LlmResolvedModelInfo, StreamChunk, TokenUsage,
-} from '@deepseek-ai/dsh-llm'
-import Storage from '@deepseek-ai/dsh-storage'
-import * as StorageDomain from '@deepseek-ai/dsh-storage-domain'
-import * as StorageJson from '@deepseek-ai/dsh-storage-json'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { PersonId } from '@deepseek-ai/dsh-people'
+} from '@lyness/lyn-llm'
+import Storage from '@lyness/lyn-storage'
+import * as StorageDomain from '@lyness/lyn-storage-domain'
+import * as StorageJson from '@lyness/lyn-storage-json'
+import { brandString } from '@lyness/lyn-brand'
+import type { PersonId } from '@lyness/lyn-people'
 import { afterEach, expect, it } from 'vitest'
 import { CreditsExhausted } from '../src/index.ts'
 import StoredCreditLedger from '../src/store.ts'
@@ -69,7 +69,7 @@ async function harness(options: {
   creditsPerMillion?: number
   minimumDebit?: number
 } = {}): Promise<{ ctx: Context; adapter: MeteredAdapter }> {
-  const root = mkdtempSync(join(tmpdir(), 'dsh-meter-'))
+  const root = mkdtempSync(join(tmpdir(), 'lyn-meter-'))
   roots.push(root)
   const adapter = new MeteredAdapter(options.usage)
   const subject: CreditSubjectIdentity | undefined = options.person === undefined

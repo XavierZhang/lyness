@@ -60,11 +60,11 @@ describe('shareableViewerCatalog', () => {
 
   it('reads the plugin package locale titles', () => {
     const groups = shareableViewerCatalog(registryOf(
-      '@deepseek-ai/dsh-experimental-client-ui-forge', 'forgePanel/follow',
+      '@lyness/lyn-experimental-client-ui-forge', 'forgePanel/follow',
     ))
     expect(groups[0]).toMatchObject({
       plugin: 'forgePanel',
-      package: '@deepseek-ai/dsh-experimental-client-ui-forge',
+      package: '@lyness/lyn-experimental-client-ui-forge',
       titles: { zh: '变更请求面板', en: 'Change request panel' },
     })
   })
@@ -99,7 +99,7 @@ describe('shareableViewerCatalog', () => {
     ])
   })
 
-  it('excludes DSH core services and LiveShare management', () => {
+  it('excludes LYN core services and LiveShare management', () => {
     for (const namespace of ['session', 'workspaceFiles', 'settings', 'credentials', 'terminal', 'pluginManager', 'liveshareShares']) {
       expect(EXCLUDED_SHARE_NAMESPACES.has(namespace)).toBe(true)
     }
@@ -122,9 +122,9 @@ describe('shareableViewerCatalog', () => {
   })
 
   it('keeps the package name when the installed package ships no titles', () => {
-    expect(shareableViewerCatalog(registryOf('@deepseek-ai/dsh-brand', 'brand/key')).at(0)).toEqual({
+    expect(shareableViewerCatalog(registryOf('@lyness/lyn-brand', 'brand/key')).at(0)).toEqual({
       plugin: 'brand',
-      package: '@deepseek-ai/dsh-brand',
+      package: '@lyness/lyn-brand',
       endpoints: ['brand/key'],
     })
   })
@@ -155,7 +155,7 @@ describe('shareableViewerCatalog', () => {
   it('omits components mounted by a core profile bundle', () => {
     expect(shareableViewerCatalog(registry('webRuntime/info'), () => ({
       package: '@fixture/core',
-      bundle: '@deepseek-ai/dsh-web-app',
+      bundle: '@lyness/lyn-web-app',
       core: true,
     }))).toEqual([])
   })
@@ -205,8 +205,8 @@ describe('packageRoot', () => {
   })
 
   it('uses the resolver search paths when none are supplied', () => {
-    expect(packageRoot('@deepseek-ai/dsh-experimental-client-ui-forge'))
-      .toMatch(/dsh-experimental-client-ui-forge$/u)
+    expect(packageRoot('@lyness/lyn-experimental-client-ui-forge'))
+      .toMatch(/lyn-experimental-client-ui-forge$/u)
     expect(packageRoot('fs')).toBeUndefined()
   })
 })

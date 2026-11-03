@@ -5,99 +5,99 @@
 /:
   en: 3e005f834284c249
   zh: d51d06d0ea2c30ca
-/deepseek-harness-dsh-agent-instructions:
+/lyness-lyn-agent-instructions:
   en: 7369c67386770bca
   zh: 50d6c96b7ddd397e
-/deepseek-harness-dsh-agent-instructions/summary:
+/lyness-lyn-agent-instructions/summary:
   en: 24c76dc8e37cfded
   zh: 7f0b1f1275dc02a3
-/deepseek-harness-dsh-agent-instructions/table-of-contents:
+/lyness-lyn-agent-instructions/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/deepseek-harness-dsh-agent-instructions/use-this-package:
+/lyness-lyn-agent-instructions/use-this-package:
   en: aa77a27d20a74a1f
   zh: 68e0643ebb0c66e4
-/deepseek-harness-dsh-agent-instructions/use-this-package/what-the-agent-gets:
+/lyness-lyn-agent-instructions/use-this-package/what-the-agent-gets:
   en: 3091e5a7551c9522
   zh: c07d2c3dd9a7409c
-/deepseek-harness-dsh-agent-instructions/use-this-package/configuration:
+/lyness-lyn-agent-instructions/use-this-package/configuration:
   en: 5b8984a48a36aeee
   zh: bc35abb3253dfc51
-/deepseek-harness-dsh-agent-instructions/use-this-package/observing-the-budget:
+/lyness-lyn-agent-instructions/use-this-package/observing-the-budget:
   en: ab309b5684b3db15
   zh: 07cea537c27da123
-/deepseek-harness-dsh-agent-instructions/understand-the-implementation:
+/lyness-lyn-agent-instructions/understand-the-implementation:
   en: 724df7ff6d1d9fea
   zh: 91fb1013eb9178ec
-/deepseek-harness-dsh-agent-instructions/understand-the-implementation/design-concept:
+/lyness-lyn-agent-instructions/understand-the-implementation/design-concept:
   en: 4708b51bf8fe86f7
   zh: 869fc4b1f78383ee
-/deepseek-harness-dsh-agent-instructions/understand-the-implementation/source-map:
+/lyness-lyn-agent-instructions/understand-the-implementation/source-map:
   en: b54bdb371640d989
   zh: fdf82b545c1a0c6e
-/deepseek-harness-dsh-agent-instructions/understand-the-implementation/main-flow:
+/lyness-lyn-agent-instructions/understand-the-implementation/main-flow:
   en: d881b9055f823929
   zh: 87b25f0bf8e204e9
-/deepseek-harness-dsh-agent-instructions/understand-the-implementation/invariants:
+/lyness-lyn-agent-instructions/understand-the-implementation/invariants:
   en: 7aaf379fcc183e2b
   zh: ef1a6d0f44852ce2
-/deepseek-harness-dsh-agent-instructions/understand-the-implementation/what-instruction-content-can-never-do:
+/lyness-lyn-agent-instructions/understand-the-implementation/what-instruction-content-can-never-do:
   en: 39c9ab78d27c7e91
   zh: 28f49e16f2d14b79
-/deepseek-harness-dsh-agent-instructions/further-exploration:
+/lyness-lyn-agent-instructions/further-exploration:
   en: d1d505f16333b93a
   zh: 3c46b8276aefb3b3
-/deepseek-harness-dsh-agent-instructions/model-experience:
+/lyness-lyn-agent-instructions/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/deepseek-harness-dsh-agent-instructions/model-experience/baseline-context:
+/lyness-lyn-agent-instructions/model-experience/baseline-context:
   en: 41690f63ce8a7e6a
   zh: 6cff922d5afef38f
-/deepseek-harness-dsh-agent-instructions/model-experience/baseline-context/what-the-model-sees:
+/lyness-lyn-agent-instructions/model-experience/baseline-context/what-the-model-sees:
   en: 41ad1efcf640edf2
   zh: 3d06e265788fc2b7
-/deepseek-harness-dsh-agent-instructions/model-experience/baseline-context/what-the-model-sees/baseline-instruction-template:
+/lyness-lyn-agent-instructions/model-experience/baseline-context/what-the-model-sees/baseline-instruction-template:
   en: 0ced1c177da6d120
   zh: 6c61efb987e227fe
-/deepseek-harness-dsh-agent-instructions/model-experience/baseline-context/token-effect:
+/lyness-lyn-agent-instructions/model-experience/baseline-context/token-effect:
   en: 0a005863a59a9de1
   zh: 4e29ade86023db3e
-/deepseek-harness-dsh-agent-instructions/model-experience/baseline-context/kv-cache-effect:
+/lyness-lyn-agent-instructions/model-experience/baseline-context/kv-cache-effect:
   en: c611902b9f369d86
   zh: d7da1dbe6c1ac7f1
-/deepseek-harness-dsh-agent-instructions/model-experience/newly-discovered-scope-context:
+/lyness-lyn-agent-instructions/model-experience/newly-discovered-scope-context:
   en: bbf8f11dbb279b78
   zh: eb537ade3fa1e573
-/deepseek-harness-dsh-agent-instructions/model-experience/newly-discovered-scope-context/what-the-model-sees:
+/lyness-lyn-agent-instructions/model-experience/newly-discovered-scope-context/what-the-model-sees:
   en: d806c4e1f67d7e94
   zh: 46f1d1d149197f70
-/deepseek-harness-dsh-agent-instructions/model-experience/newly-discovered-scope-context/what-the-model-sees/additional-instruction-template:
+/lyness-lyn-agent-instructions/model-experience/newly-discovered-scope-context/what-the-model-sees/additional-instruction-template:
   en: 50655306b787c8c6
   zh: bcdc631a35f9de91
-/deepseek-harness-dsh-agent-instructions/model-experience/newly-discovered-scope-context/token-effect:
+/lyness-lyn-agent-instructions/model-experience/newly-discovered-scope-context/token-effect:
   en: 793319101bb39edf
   zh: f05af12ab9574a4d
-/deepseek-harness-dsh-agent-instructions/model-experience/newly-discovered-scope-context/kv-cache-effect:
+/lyness-lyn-agent-instructions/model-experience/newly-discovered-scope-context/kv-cache-effect:
   en: 2fbf2175168e8244
   zh: f681f89596f500f5
-/deepseek-harness-dsh-agent-instructions/model-experience/changed-or-removed-instruction-context:
+/lyness-lyn-agent-instructions/model-experience/changed-or-removed-instruction-context:
   en: b668990682ea0069
   zh: 6468918ca6b31a45
-/deepseek-harness-dsh-agent-instructions/model-experience/changed-or-removed-instruction-context/what-the-model-sees:
+/lyness-lyn-agent-instructions/model-experience/changed-or-removed-instruction-context/what-the-model-sees:
   en: 16afe8870b4de832
   zh: f0cdf8ea51ec148a
-/deepseek-harness-dsh-agent-instructions/model-experience/changed-or-removed-instruction-context/what-the-model-sees/removal-notice:
+/lyness-lyn-agent-instructions/model-experience/changed-or-removed-instruction-context/what-the-model-sees/removal-notice:
   en: c78113708e7d7665
   zh: b10dcce1569febae
-/deepseek-harness-dsh-agent-instructions/model-experience/changed-or-removed-instruction-context/token-effect:
+/lyness-lyn-agent-instructions/model-experience/changed-or-removed-instruction-context/token-effect:
   en: 76b2419177a5de96
   zh: 2d8ec672911aa125
-/deepseek-harness-dsh-agent-instructions/model-experience/changed-or-removed-instruction-context/kv-cache-effect:
+/lyness-lyn-agent-instructions/model-experience/changed-or-removed-instruction-context/kv-cache-effect:
   en: 2fbf2175168e8244
   zh: f681f89596f500f5
-/deepseek-harness-dsh-agent-instructions/known-limitations-and-deferred-work:
+/lyness-lyn-agent-instructions/known-limitations-and-deferred-work:
   en: 07b5f756d434e19b
   zh: 8de5a92edeb401c9
-/deepseek-harness-dsh-agent-instructions/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-agent-instructions/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

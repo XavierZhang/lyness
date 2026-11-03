@@ -2,10 +2,10 @@
 import { chmod, mkdir, mkdtemp, readFile, rm, stat, symlink, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { Context } from '@deepseek-ai/cordis'
-import { FsVersion } from '@deepseek-ai/dsh-fs'
-import type { FsTarget } from '@deepseek-ai/dsh-fs'
-import { parsePatch } from '@deepseek-ai/dsh-fs-patch'
+import { Context } from '@lyness/cordis'
+import { FsVersion } from '@lyness/lyn-fs'
+import type { FsTarget } from '@lyness/lyn-fs'
+import { parsePatch } from '@lyness/lyn-fs-patch'
 import { describe, expect, it, onTestFinished, vi } from 'vitest'
 import * as fsio from '../src/fsio.ts'
 import { LocalFileSystem } from '../src/index.ts'
@@ -17,7 +17,7 @@ function hunks(old = 'old', replacement = 'new', context?: string) {
 }
 
 async function setup(diffBasisMaxBytes = 1024) {
-  const root = await mkdtemp(join(tmpdir(), 'dsh-patch-provider-'))
+  const root = await mkdtemp(join(tmpdir(), 'lyn-patch-provider-'))
   onTestFinished(() => rm(root, { recursive: true, force: true }))
   const ctx = new Context()
   onTestFinished(() => ctx.fiber.dispose())

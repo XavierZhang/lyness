@@ -3,13 +3,13 @@ import { mkdtempSync } from 'node:fs'
 import { rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { Context } from '@deepseek-ai/cordis'
-import AgentLoop from '@deepseek-ai/dsh-agent-loop'
-import { mountAgentLoopTestDependencies } from '@deepseek-ai/dsh-agent-loop-testkit'
-import { SessionId } from '@deepseek-ai/dsh-session'
-import * as JsonlSessionPersistence from '@deepseek-ai/dsh-session-persistence-jsonl'
-import SubagentService from '@deepseek-ai/dsh-subagent'
-import * as SubagentSpawn from '@deepseek-ai/dsh-subagent-spawn-in-process'
+import { Context } from '@lyness/cordis'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import { mountAgentLoopTestDependencies } from '@lyness/lyn-agent-loop-testkit'
+import { SessionId } from '@lyness/lyn-session'
+import * as JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
+import SubagentService from '@lyness/lyn-subagent'
+import * as SubagentSpawn from '@lyness/lyn-subagent-spawn-in-process'
 import { MockAdapter, textResponse } from '../../../core/agent-loop/tests/mock-adapter.ts'
 import { mountWorkingDirectoryFixture } from '../../../subagent/subagent/tests/working-directory-fixture.ts'
 import TeamService, { TeamId, TeamMessageId, TeamTaskId } from '../src/index.ts'
@@ -92,7 +92,7 @@ async function stack(
 for (const backend of backends) {
   describe(`${backend.name} Agent Teams recovery`, () => {
     it.each([undefined, false, true])('preserves saved mode %s when resumed with the opposite default', async (enabled) => {
-      const storageRoot = mkdtempSync(join(tmpdir(), 'dsh-team-default-'))
+      const storageRoot = mkdtempSync(join(tmpdir(), 'lyn-team-default-'))
       roots.push(storageRoot)
       const id = SessionId('configured-resume')
       const first = await stack(backend, storageRoot, [], { defaultEnabled: enabled === true })
@@ -113,7 +113,7 @@ for (const backend of backends) {
     })
 
     it('restores the saved mode and retains tasks while disabled', async () => {
-      const storageRoot = mkdtempSync(join(tmpdir(), 'dsh-team-mode-'))
+      const storageRoot = mkdtempSync(join(tmpdir(), 'lyn-team-mode-'))
       roots.push(storageRoot)
       const id = SessionId('saved-mode')
       const first = await stack(backend, storageRoot, [])
@@ -135,7 +135,7 @@ for (const backend of backends) {
     it('restores continuable teammates and tasks from the Lead log after restart', {
       timeout: PERSISTENCE_TEST_TIMEOUT_MS,
     }, async () => {
-      const storageRoot = mkdtempSync(join(tmpdir(), `dsh-team-restart-${backend.name.toLowerCase()}-`))
+      const storageRoot = mkdtempSync(join(tmpdir(), `lyn-team-restart-${backend.name.toLowerCase()}-`))
       roots.push(storageRoot)
       const rootId = SessionId(`${backend.name.toLowerCase()}-restart-root`)
 
@@ -177,7 +177,7 @@ for (const backend of backends) {
     it('restores tasks after historical roster and mailbox records without recovering teammates or mail', {
       timeout: PERSISTENCE_TEST_TIMEOUT_MS,
     }, async () => {
-      const storageRoot = mkdtempSync(join(tmpdir(), `dsh-team-mail-${backend.name.toLowerCase()}-`))
+      const storageRoot = mkdtempSync(join(tmpdir(), `lyn-team-mail-${backend.name.toLowerCase()}-`))
       roots.push(storageRoot)
       const rootId = SessionId(`${backend.name.toLowerCase()}-mail-root`)
       const childId = SessionId('historical-worker')

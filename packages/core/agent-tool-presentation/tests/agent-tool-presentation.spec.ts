@@ -5,21 +5,21 @@
  * inherited executor.
  */
 
-import * as NativeToolExecutor from '@deepseek-ai/dsh-tool-executor-native'
+import * as NativeToolExecutor from '@lyness/lyn-tool-executor-native'
 import { describe, expect, it, onTestFinished } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import { createScope } from '@deepseek-ai/dsh-scope'
-import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
-import { PtcRuntime } from '@deepseek-ai/dsh-ptc-runtime'
-import type { PtcRunRequest, PtcRunResult } from '@deepseek-ai/dsh-ptc-runtime'
-import ToolRuntime, { RUN_CODE_NAME, defineTool } from '@deepseek-ai/dsh-tools'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import { SessionId } from '@deepseek-ai/dsh-session'
-import { apply, Config, inject, name } from '@deepseek-ai/dsh-agent-tool-presentation'
+import { Context } from '@lyness/cordis'
+import { createScope } from '@lyness/lyn-scope'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import { PtcRuntime } from '@lyness/lyn-ptc-runtime'
+import type { PtcRunRequest, PtcRunResult } from '@lyness/lyn-ptc-runtime'
+import ToolRuntime, { RUN_CODE_NAME, defineTool } from '@lyness/lyn-tools'
+import type { Agent } from '@lyness/lyn-agent'
+import { SessionId } from '@lyness/lyn-session'
+import { apply, Config, inject, name } from '@lyness/lyn-agent-tool-presentation'
 
 /** A runtime that never runs anything: presentation never dispatches. */
 class StubRuntime extends PtcRuntime {
-  resolve(request: import('@deepseek-ai/dsh-ptc-runtime').PtcRunRequest): import('@deepseek-ai/dsh-ptc-runtime').PtcRunSpec { return { ...request, cwd: request.cwd ?? process.cwd(), timeoutMs: request.timeoutMs ?? 120_000 } }
+  resolve(request: import('@lyness/lyn-ptc-runtime').PtcRunRequest): import('@lyness/lyn-ptc-runtime').PtcRunSpec { return { ...request, cwd: request.cwd ?? process.cwd(), timeoutMs: request.timeoutMs ?? 120_000 } }
 
   readonly language = 'typescript'
   readonly isolation = 'stub'

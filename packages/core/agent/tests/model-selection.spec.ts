@@ -1,15 +1,15 @@
 import { describe, expect, it, onTestFinished } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import {
   agentEvents,
   installModelSelection,
   type Agent,
   type AgentOptions,
   type ModelSelection,
-} from '@deepseek-ai/dsh-agent'
-import { createUserMessage, ReasoningEffortId, type UserMessage } from '@deepseek-ai/dsh-llm'
-import SessionStore, { Session, SessionId, type EpochHeader } from '@deepseek-ai/dsh-session'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
+} from '@lyness/lyn-agent'
+import { createUserMessage, ReasoningEffortId, type UserMessage } from '@lyness/lyn-llm'
+import SessionStore, { Session, SessionId, type EpochHeader } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 import { AgentModel, modelSelectionProjectionDefinition } from '../src/model-selection.ts'
 
 const INITIAL = { provider: 'alpha', model: 'a0' }

@@ -2,9 +2,9 @@
 
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import type { Context } from '@deepseek-ai/cordis'
-import { BrowserMcpConfig, mountSessionMcp, validateBrowserMcpConfig } from '@deepseek-ai/dsh-experimental-browser-use-runtime/mcp'
-import type {} from '@deepseek-ai/dsh-working-directory'
+import type { Context } from '@lyness/cordis'
+import { BrowserMcpConfig, mountSessionMcp, validateBrowserMcpConfig } from '@lyness/lyn-experimental-browser-use-runtime/mcp'
+import type {} from '@lyness/lyn-working-directory'
 
 /** Cordis identity for the Playwright MCP browser provider. */
 export const name = 'experimental-browser-use-playwright-mcp'
@@ -20,7 +20,7 @@ export const Config: typeof BrowserMcpConfig = BrowserMcpConfig
 
 /**
  * Expose Playwright's upstream tools in each live Session's scope.
- * The pinned npm server runs under the current Node executable; browser state is not persisted by DSH.
+ * The pinned npm server runs under the current Node executable; browser state is not persisted by LYN.
  * @param ctx - provider context supplying browser use, Agents, and tools.
  * @param config - validated browser choice and optional tool timeout.
  */

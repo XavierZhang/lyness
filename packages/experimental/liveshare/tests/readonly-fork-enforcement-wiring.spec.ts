@@ -11,11 +11,11 @@ import { mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import { createScope } from '@deepseek-ai/dsh-scope'
-import { FsTargetKey, FsVersion, type FsEditOutcome, type FsTarget, type FsWriteOutcome } from '@deepseek-ai/dsh-fs'
-import type { PreToolDecision, ToolDefinition } from '@deepseek-ai/dsh-tools'
-import { SessionId } from '@deepseek-ai/dsh-session'
+import { Context } from '@lyness/cordis'
+import { createScope } from '@lyness/lyn-scope'
+import { FsTargetKey, FsVersion, type FsEditOutcome, type FsTarget, type FsWriteOutcome } from '@lyness/lyn-fs'
+import type { PreToolDecision, ToolDefinition } from '@lyness/lyn-tools'
+import { SessionId } from '@lyness/lyn-session'
 import {
   installForkEnforcement,
   installForkEnforcementForAgent,

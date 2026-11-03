@@ -6,9 +6,9 @@ Status: implemented
 
 ## 问题
 
-`release/dsh-0.2.1` 的 Web 应用在三个区域显示插件入口：左侧栏的面板按钮（`sidebar.panellist`）、会话头部的 View 标签（`conversation.view`）和右侧栏起始页的工具卡片（右侧栏 tab 注册表的 guide 入口）。三处都按注册顺序显示全部入口，用户不能收起不常用的入口，插件越多三处越挤；用户也不能在这些位置直接浏览更多插件或开始创建插件。
+`release/lyn-0.2.1` 的 Web 应用在三个区域显示插件入口：左侧栏的面板按钮（`sidebar.panellist`）、会话头部的 View 标签（`conversation.view`）和右侧栏起始页的工具卡片（右侧栏 tab 注册表的 guide 入口）。三处都按注册顺序显示全部入口，用户不能收起不常用的入口，插件越多三处越挤；用户也不能在这些位置直接浏览更多插件或开始创建插件。
 
-该功能随 `release/dsh-0.2.1` 发布，之后随 release 合回 master，因此相对 release 的改动要尽量少：不修改 slot 框架（`ui-slots`、`ui-renderer`），不新增 Cordis 服务，`ui-layout` 保持不变，client 插件包之间只共享类型（[Client 包导出规则](../../../../packages/client/AGENTS.md)）。持久化的数据要能被以后在 slot 层统一保存手动顺序与 Pin 状态的实现直接沿用。
+该功能随 `release/lyn-0.2.1` 发布，之后随 release 合回 master，因此相对 release 的改动要尽量少：不修改 slot 框架（`ui-slots`、`ui-renderer`），不新增 Cordis 服务，`ui-layout` 保持不变，client 插件包之间只共享类型（[Client 包导出规则](../../../../packages/client/AGENTS.md)）。持久化的数据要能被以后在 slot 层统一保存手动顺序与 Pin 状态的实现直接沿用。
 
 ## 决策
 
@@ -43,7 +43,7 @@ ui-entry-customization (default-loaded)
 
 依赖方向：三个区域不依赖插件包，只增加 `client-store` 与 `ui-primitives` 的既有用法；`ui-entry-customization` 依赖三个区域（slot 类型）、`ui-plugin-manager` 与 `ui-workspace`（服务类型），运行时通过 `ctx.pluginNavigation` 与 `ctx.uiWorkspace` 调用。各包之间不新增运行时值导入。
 
-### 各包改动（相对 release/dsh-0.2.1）
+### 各包改动（相对 release/lyn-0.2.1）
 
 | 包 | 改动 |
 |---|---|
@@ -53,7 +53,7 @@ ui-entry-customization (default-loaded)
 | `ui-entry-customization`（新包） | 往三个 actions slot 注册菜单内容组件；`entryCustomization` 文案命名空间；不保存状态 |
 | `ui-plugin-manager` | `pluginNavigation` 增加 `openList()`：切到插件页主列表的“已安装”标签，不打开对话框，不改变当前会话 |
 | `ui-primitives` | `Menu` 增加 `minWidthFromAnchor`，让右侧栏菜单不窄于卡片；新增 `IconAppsAddOutlineRegular` / `IconAppsAddOutlineMedium`（`compact` 用于卡片尺寸），供左侧栏和右侧栏的按钮共用 |
-| `@deepseek-ai/dsh-web-app` | 默认加载 `ui-entry-customization` |
+| `@lyness/lyn-web-app` | 默认加载 `ui-entry-customization` |
 
 ### actions slot 与菜单内容
 
@@ -83,14 +83,14 @@ interface SidebarPanelActionsOwnerProps {
 | 入口来源 | 现有的 `panels`（来自 `sidebar.panellist`） | 现有的 View 列表（来自 `conversation.view`，未开启开发者工具时去掉 Trajectory） | 现有的 tab 注册表 `guide()` |
 | 入口 id | 面板 id | View id | `kind:入口id` |
 | fixed | `plugins` | `chat` | kind 为 `files` 的入口 |
-| localStorage 键 | `dsh.slot.manual-order.sidebar.panellist.v1` | `dsh.slot.manual-order.conversation.view.v1` | `dsh.slot.manual-order.sidebar.right.tab.guide.list.v1` |
+| localStorage 键 | `lyn.slot.manual-order.sidebar.panellist.v1` | `lyn.slot.manual-order.conversation.view.v1` | `lyn.slot.manual-order.sidebar.right.tab.guide.list.v1` |
 | actions slot | `sidebar.panellist.actions` | `conversation.session.header.views.actions` | `sidebar.right.tab.guide.actions` |
 | “更多”按钮 | 与面板按钮同样式；展开时显示文字，收起时显示 Tooltip | 头部样式的小按钮，带 Tooltip | 卡片样式，菜单不窄于卡片并右对齐 |
 | `onOpen` | `selectPanel(id)` | 本会话的 `selectView(id)` | 按 id 找到入口后 `openTab(kind, { replaceTab: true })` |
 
 每个区域用一个模块常量定义 fixed。unpinned 列表在 apply 中用 client-store 的 `createSnapshotStore(…, { persist })` 创建，与会话无关，值为 `{ "unpinned": string[] }`，经 inject 的 `hooks.entryPins` 交给区域根组件，`setPinned` 作为 inject 回调，对 fixed 入口不生效。读取时只接受字符串数组，其他值按空列表处理，避免损坏的 localStorage 内容影响渲染。`unpinned` 中已不存在的 id 保留，同一入口重新注册后保持收起。actions slot 是否有注册项经 `hooks.entryActions` 交给根组件。
 
-localStorage 键统一为 `dsh.slot.manual-order.<list slot key>.v1`，按入口所在的 list slot 命名，不按区域包命名：左侧栏与会话头部使用现有的 `sidebar.panellist`、`conversation.view`；右侧栏的 guide 入口来自 tab 注册表，release 中还没有对应的 list slot，键名使用为它预留的 `sidebar.right.tab.guide.list`。以后在 slot 层统一保存同一 list slot 的手动顺序与 Pin 状态时，直接沿用这些键和 id，已保存的 `unpinned` 不需要迁移；新增的字段在旧值中缺失时按空列表处理。
+localStorage 键统一为 `lyn.slot.manual-order.<list slot key>.v1`，按入口所在的 list slot 命名，不按区域包命名：左侧栏与会话头部使用现有的 `sidebar.panellist`、`conversation.view`；右侧栏的 guide 入口来自 tab 注册表，release 中还没有对应的 list slot，键名使用为它预留的 `sidebar.right.tab.guide.list`。以后在 slot 层统一保存同一 list slot 的手动顺序与 Pin 状态时，直接沿用这些键和 id，已保存的 `unpinned` 不需要迁移；新增的字段在旧值中缺失时按空列表处理。
 
 右侧栏 id 使用 `kind` 而不是 `providerId`：扩展接管某个 kind 时 `providerId` 会改变，`kind` 不变，持久化的 Pin 状态在接管后仍然有效。
 

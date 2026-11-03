@@ -1,5 +1,5 @@
 /** Existing retained bootstrap entry delegates to the shared Node evaluation loop. */
-import type { PtcProgramFormat } from '@deepseek-ai/dsh-ptc-runtime'
+import type { PtcProgramFormat } from '@lyness/lyn-ptc-runtime'
 import type { Duplex } from 'node:stream'
 import { runNodeMain } from './process.ts'
 import type { ProgramProcess } from './process.ts'

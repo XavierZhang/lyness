@@ -1,9 +1,9 @@
-# Publish the dsh release sequence to npm. This workflow is manual-only
+# Publish the lyn release sequence to npm. This workflow is manual-only
 # (workflow_dispatch) and intentionally does not listen to pull_request or push:
-# publication is an explicit, reviewed act; dsh-v* tag validation is enabled by
+# publication is an explicit, reviewed act; lyn-v* tag validation is enabled by
 # default and may be skipped through the dispatch input. It never appears as a PR check. It repacks the current tree before publishing
 # so the bytes uploaded are exactly what this dispatch produced.
-name: Release publish (dsh)
+name: Release publish (lyn)
 
 on:
   workflow_dispatch:
@@ -29,11 +29,11 @@ permissions:
 
 env:
   PRIMARY_NODE_VERSION: '24'
-  DSH_TELEMETRY_DISABLED: '1'
+  LYNESS_TELEMETRY_DISABLED: '1'
 
 jobs:
   cua-helper:
-    if: (startsWith(github.ref, 'refs/tags/dsh-v') || inputs.skip-tag-check) && inputs.cua_run_id == '' && inputs.cua_run_attempt == ''
+    if: (startsWith(github.ref, 'refs/tags/lyn-v') || inputs.skip-tag-check) && inputs.cua_run_id == '' && inputs.cua_run_attempt == ''
     uses: ./.github/workflows/cua-helper-package.yml
     with:
       source_ref: ${{ github.ref }}
@@ -85,7 +85,7 @@ jobs:
       - name: Verify release version
         env:
           RELEASE_PUBLISH: 'true'
-        run: pnpm run release:verify --family dsh ${{ inputs.skip-tag-check && '--skip-tag-check' || '' }}
+        run: pnpm run release:verify --family lyn ${{ inputs.skip-tag-check && '--skip-tag-check' || '' }}
 
       - name: Select retained CUA helper
         if: inputs.cua_run_id != '' || inputs.cua_run_attempt != ''
@@ -126,12 +126,12 @@ jobs:
         run: |
           {
             printf 'CUA helper: run `%s`, attempt `%s`.\n\n' "$CUA_RUN_ID" "$CUA_RUN_ATTEMPT"
-            printf '%s\n\n' 'npm 部分发布失败时，只重跑 Publish to npm job，复用原 dsh-npm-tarballs；不要重跑全部 job。'
+            printf '%s\n\n' 'npm 部分发布失败时，只重跑 Publish to npm job，复用原 lyn-npm-tarballs；不要重跑全部 job。'
             printf '若需新建发布运行，填写 `cua_run_id=%s`、`cua_run_attempt=%s`，并使用相同源码 commit 和版本。\n' "$CUA_RUN_ID" "$CUA_RUN_ATTEMPT"
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Pack release tarballs
-        run: pnpm run release:pack --family dsh --out dist/npm
+        run: pnpm run release:pack --family lyn --out dist/npm
 
       # The harness packages declare the vendored framework as a peer, and this
       # verification must not depend on the registry already carrying matching
@@ -141,7 +141,7 @@ jobs:
       - name: Pack the vendored framework for verification
         run: pnpm run release:pack --family vendor --out dist/npm-vendor
 
-      # dsh-sandbox-local declares the Landlock entry as a runtime dependency, so
+      # lyn-sandbox-local declares the Landlock entry as a runtime dependency, so
       # the verification needs its tarball. Its platform packages stay out: they
       # are optional, and building them needs a musl toolchain per architecture.
       - name: Pack the Landlock entry for verification
@@ -150,11 +150,11 @@ jobs:
           pnpm --dir native/system/packages/entry pack --pack-destination "$PWD/dist/npm-landlock"
 
       - name: Verify packed install
-        run: pnpm run release:verify-packed-install --family dsh --from dist/npm --from dist/npm-vendor --from dist/npm-landlock
+        run: pnpm run release:verify-packed-install --family lyn --from dist/npm --from dist/npm-vendor --from dist/npm-landlock
 
       - uses: actions/upload-artifact@v7.0.1
         with:
-          name: dsh-npm-tarballs
+          name: lyn-npm-tarballs
           path: dist/npm/*
           if-no-files-found: error
           retention-days: 7
@@ -192,10 +192,10 @@ jobs:
 
       - uses: actions/download-artifact@v8.0.1
         with:
-          name: dsh-npm-tarballs
+          name: lyn-npm-tarballs
           path: dist/npm
 
       - name: Publish tarballs
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: pnpm run release:publish --family dsh --from dist/npm
+        run: pnpm run release:publish --family lyn --from dist/npm

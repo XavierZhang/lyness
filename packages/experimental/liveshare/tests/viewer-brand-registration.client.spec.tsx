@@ -9,9 +9,9 @@
  * shipped brand keeps rendering.
  */
 
-import type { Context as ClientContext } from '@deepseek-ai/cordis'
-import { LocaleRuntime } from '@deepseek-ai/dsh-client-locale/client'
-import { SlotTestRuntime } from '@deepseek-ai/dsh-client-test-runtime'
+import type { Context as ClientContext } from '@lyness/cordis'
+import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
+import { SlotTestRuntime } from '@lyness/lyn-client-test-runtime'
 import { afterEach, describe, expect, it, onTestFinished } from 'vitest'
 import { cleanup } from '@testing-library/react'
 import { en, NS, zh } from '../src/client/locales.ts'

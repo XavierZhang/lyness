@@ -1,15 +1,15 @@
 ---
-description: "通过独立的 Liveshare 服务端分享 DSH 会话，提供已验证的所有者登录、查看者控制和受限执行。"
+description: "通过独立的 Liveshare 服务端分享 LYN 会话，提供已验证的所有者登录、查看者控制和受限执行。"
 kind: "package-bundle"
 ---
 
-# @deepseek-ai/dsh-experimental-liveshare
+# @lyness/lyn-experimental-liveshare
 
 [English](README.md) | 中文
 
 ## 概述
 
-通过常规 DSH 浏览器界面向同事分享会话。所有者选择查看或受限写入，并单独决定是否允许分叉会话；所有者主机执行这些选择。附件上传属于分享本身：查看者可见的会话都可以接收文件。这个可选组合包增加所有者登录、分享控件、出站网关，以及所有者自身 Web 页面中的查看页界面。默认 Web profile 不包含它。单独部署的 Liveshare 服务端验证查看者并传输请求；其 OAuth、数据库、路由和部署实现不属于本包。
+通过常规 LYN 浏览器界面向同事分享会话。所有者选择查看或受限写入，并单独决定是否允许分叉会话；所有者主机执行这些选择。附件上传属于分享本身：查看者可见的会话都可以接收文件。这个可选组合包增加所有者登录、分享控件、出站网关，以及所有者自身 Web 页面中的查看页界面。默认 Web profile 不包含它。单独部署的 Liveshare 服务端验证查看者并传输请求；其 OAuth、数据库、路由和部署实现不属于本包。
 
 ## 目录
 
@@ -27,7 +27,7 @@ kind: "package-bundle"
 
 ### Profile 与构建要求
 
-manifest（元数据清单）声明可安装的 `dsh.bundle` 层和浏览器端入口。该组合包在被 profile 启用前保持隐藏，见[默认可见性与启用](#default-visibility-and-enabling)；受支持的应用仍通过 `dsh --profile` 启动。
+manifest（元数据清单）声明可安装的 `lyn.bundle` 层和浏览器端入口。该组合包在被 profile 启用前保持隐藏，见[默认可见性与启用](#default-visibility-and-enabling)；受支持的应用仍通过 `lyn --profile` 启动。
 
 Owner、查看页和 Liveshare 服务端必须使用匹配的协议版本。构建包含 Owner 网关进程；查看页没有单独的构建。包版本、导出和发布内容由 [package.json](package.json) 声明。
 
@@ -35,14 +35,14 @@ Owner、查看页和 Liveshare 服务端必须使用匹配的协议版本。构�
 
 ### 默认可见性与启用
 
-dsh 安装会把本包作为运行时依赖一起安装，但没有任何随发行版交付的 profile 选中它的组合包，因此它的插件一条都不会运行，插件管理器既不会在**内置插件配置**里列出它，也不会在**实验性插件**（含**更多**页）里列出。组合包 ID 仍可按 ID 打开，因此按 ID 打开组合包的页面仍能到达它的详情。
+lyn 安装会把本包作为运行时依赖一起安装，但没有任何随发行版交付的 profile 选中它的组合包，因此它的插件一条都不会运行，插件管理器既不会在**内置插件配置**里列出它，也不会在**实验性插件**（含**更多**页）里列出。组合包 ID 仍可按 ID 打开，因此按 ID 打开组合包的页面仍能到达它的详情。
 
-要启用它，把它的一条条目插入当前 profile 的 patch 文件 `$DSH_HOME/profiles/<profile>/cordis.patch.yml`。该文件是一个 YAML 序列的 Loader patch；这一条就是组合包自己的 [patch](cordis.patch.yml) 插入的条目，其中允许使用 `!!js` 表达式：
+要启用它，把它的一条条目插入当前 profile 的 patch 文件 `$LYNESS_HOME/profiles/<profile>/cordis.patch.yml`。该文件是一个 YAML 序列的 Loader patch；这一条就是组合包自己的 [patch](cordis.patch.yml) 插入的条目，其中允许使用 `!!js` 表达式：
 
 ```yaml
 - insert:
     - id: liveshare-share-host
-      name: '@deepseek-ai/dsh-experimental-liveshare'
+      name: '@lyness/lyn-experimental-liveshare'
       config:
         ownerIdentityProvider: <provider-id>
         ownerIdentityTenant: <tenant-id>
@@ -51,11 +51,11 @@ dsh 安装会把本包作为运行时依赖一起安装，但没有任何随发�
         ownerStateFile: /path/to/owner-shares.json
 ```
 
-把每个 `<...>` 占位符换成部署自己的值：身份 provider、tenant 与 subject 是该部署的 Liveshare 服务端配置使用的值，示例中的都是占位符而非真实身份。环境层同样可用：在 `$DSH_HOME/.env` 里设置 `LIVESHARE_*`，并保留组合包自己的 `!!js process.env.…` 表达式。Liveshare 服务端地址不属于这里的配置：首次使用时由所有者在分享弹窗里填写，见下文的所有者配置。
+把每个 `<...>` 占位符换成部署自己的值：身份 provider、tenant 与 subject 是该部署的 Liveshare 服务端配置使用的值，示例中的都是占位符而非真实身份。环境层同样可用：在 `$LYNESS_HOME/.env` 里设置 `LIVESHARE_*`，并保留组合包自己的 `!!js process.env.…` 表达式。Liveshare 服务端地址不属于这里的配置：首次使用时由所有者在分享弹窗里填写，见下文的所有者配置。
 
-profile 也可以改为选中组合包：在 `$DSH_HOME/profiles/<profile>/package.json` 的 `dsh.profile.bundles` 里加入 `"@deepseek-ai/dsh-experimental-liveshare"`；卡片可见后，卡片上的开关执行的就是这次写入。
+profile 也可以改为选中组合包：在 `$LYNESS_HOME/profiles/<profile>/package.json` 的 `lyn.profile.bundles` 里加入 `"@lyness/lyn-experimental-liveshare"`；卡片可见后，卡片上的开关执行的就是这次写入。
 
-两条路线都只在重新组合时生效。profile 的 HMR 行开启时，改动在 profile 被重新读取后应用；没有 HMR 时，等下一次 `dsh` 启动才应用。只要组合包声明的行有一条在运行，它的卡片就会出现在**实验性插件**下，也出现在**更多**页。删除这些条目、把它们置为 disabled，或把组合包从 `dsh.profile.bundles` 移除，都会停止这些行，卡片也随之从两个列表消失。
+两条路线都只在重新组合时生效。profile 的 HMR 行开启时，改动在 profile 被重新读取后应用；没有 HMR 时，等下一次 `lyn` 启动才应用。只要组合包声明的行有一条在运行，它的卡片就会出现在**实验性插件**下，也出现在**更多**页。删除这些条目、把它们置为 disabled，或把组合包从 `lyn.profile.bundles` 移除，都会停止这些行，卡片也随之从两个列表消失。
 
 ### 所有者配置
 
@@ -64,7 +64,7 @@ profile 也可以改为选中组合包：在 `$DSH_HOME/profiles/<profile>/packa
 | `LIVESHARE_OWNER_PROVIDER_ID` / `LIVESHARE_OWNER_TENANT_ID` / `LIVESHARE_OWNER_SUBJECT_ID` | 未设置 | 用于旧主体匹配的所有者身份；不替代 Liveshare 服务端签发的凭据 |
 | `LIVESHARE_OWNER_DISPLAY_NAME` | 未设置 | 配置身份的显示标签 |
 | `LIVESHARE_ALLOWED_SUBJECTS` | 空 | 分享访问规则之外的部署级主体允许列表 |
-| `LIVESHARE_OWNER_STATE_FILE` | `$DSH_HOME/liveshare/owner-shares.json` | 保存分享元数据、已保存的 Liveshare 服务端地址、实例身份和管理 token |
+| `LIVESHARE_OWNER_STATE_FILE` | `$LYNESS_HOME/liveshare/owner-shares.json` | 保存分享元数据、已保存的 Liveshare 服务端地址、实例身份和管理 token |
 | `LIVESHARE_OWNER_CREDENTIAL_FILE` | 状态文件旁的 `owner-credential.json` | 保存绑定至签发它的 Liveshare 服务端的凭据 |
 
 Liveshare 服务端地址在首次使用时设置：在分享弹窗的地址输入框里填写并保存。保存的地址持久化在 owner state 文件中，之后创建的分享都发布到该地址；已经等待注册的发布在注册信息、持久记录和返回链接中保留起始服务端地址，已有分享保留记录中的 Liveshare 服务端地址。经分享管理 Remote 清除保存的地址后，这个宿主就没有地址可用——此时创建分享会明确要求先保存地址，而不是回退到某个部署默认值。读者看到的分享者名称来自 Relay 验证凭据上的显示名，本地配置不能覆盖它；凭据只带主体时显示主体标签。提供方应用密钥属于 Liveshare 服务端，不属于这里的配置。
@@ -91,7 +91,7 @@ Liveshare 服务端地址在首次使用时设置：在分享弹窗的地址输�
 附件上传既不是档位，也不属于分叉开关：它跟随可见性。无论分享处于哪个档位、是否允许分叉，已准入的查看者都可以向共享会话以及自己通过本分享分叉出的会话上传附件。所有者没有单独的附件开关。
 
 
-可分享给 viewer 的方法是已安装插件注册的 Remote 方法，由 Host 的 Typert registry 在 [`shareable-catalog.ts`](src/host/shareable-catalog.ts) 动态枚举。DSH 核心命名空间（Session、Workspace、terminal、settings、credentials、插件管理、LiveShare 管理）被排除；用户安装的插件和 DSH 实验性插件保留。所有者可以一次性开放全部已安装插件，也可以按插件设为不可用、全部方法或部分方法。这里没有读写之分：只有当前目录与该 share 的策略同时点名某个方法、且资源对读者可见时，该方法才可被调用。
+可分享给 viewer 的方法是已安装插件注册的 Remote 方法，由 Host 的 Typert registry 在 [`shareable-catalog.ts`](src/host/shareable-catalog.ts) 动态枚举。LYN 核心命名空间（Session、Workspace、terminal、settings、credentials、插件管理、LiveShare 管理）被排除；用户安装的插件和 LYN 实验性插件保留。所有者可以一次性开放全部已安装插件，也可以按插件设为不可用、全部方法或部分方法。这里没有读写之分：只有当前目录与该 share 的策略同时点名某个方法、且资源对读者可见时，该方法才可被调用。
 
 Owner Gateway 按调用指明的 Session 与工作区判定每次调用，并拒绝目标缺失或无效的调用。查看页的会话列表和工作区成员裁剪为源会话及该查看者自己的分叉会话。页面从读者的访问快照读取每个会话自己的答案，因此切换选择不会把前一会话的权限带过去。未知或无法读取的模式默认拒绝。Owner 为源会话与分叉会话调用重新检查准入；撤权会取消受影响的调用和流，分享准入收窄时还会停止共享会话正在运行的轮次。页面区分认证、访问、过期、停止分享、所有者离线和传输失败，仅重试明确分类为可重试的失败。
 
@@ -103,7 +103,7 @@ Owner Gateway 按调用指明的 Session 与工作区判定每次调用，并拒
 <details>
 <summary>实现内部机制 — 点击展开</summary>
 
-查看页就是 Owner 自己的 Web shell。Liveshare 服务端通过 `asset` 读取取得 Owner 渲染好的 index 文档，并把 [viewer-carrier.ts](../liveshare-protocol/src/viewer-carrier.ts) 生成的载体脚本放在文档最前面。Shell 资源、客户端插件 bundle，以及 index 相对文档基准引用的三个确切顶层文件（`manifest.webmanifest`、`favicon.svg`、`favicon-dark.svg`）都经同一读取取得，来自 Owner 的前端读取服务和客户端模块注册表，因此页面以 Owner 的版本运行 Owner 的全部插件。任何 asset 路径上的 source map 都被拒绝，且该判定是权威的：经 Liveshare 服务端转发的 `asset` 读取会原样到达这里，因此 Liveshare 服务端侧的同名规则只覆盖它自己的页面资源路由；被服务的文档还会去掉自己的 manifest 链接，否则浏览器会不带凭据地抓取它。载体把 Connection 调用和 Gateway 流转换为 `POST {base}/__share/rpc` 请求，并把 Liveshare 服务端无法作答的只读页面源 Owner 路由（`/open-in-app/apps` 与 `/api/present.host`）也经该通道转发，而不是留给 Liveshare 服务端尾部。Liveshare 服务端在不透明请求体之外提供已认证主体。Owner 读取处理器把每位读者的调用和流以「每个分享、每位读者一个 Peer」分派进自己的 Connection 与 Gateway，该 Peer 的 `share-viewer` principal 携带分享与服务端断言的身份。Gateway 依据本包注册的 `share-viewer` 策略，经 [`dsh-api-remote-access`](../../api/remote-access/README.zh.md) 判定该 Peer 的调用以及转发给它的会话通知：受服务的读者持有共享会话、其自己的 fork 及包含它们的工作区上的读取角色，持有条件按分享档位与其自身 fork 开关判定的 fork 与写入角色，此外别无授权；附件上传随读取角色生效。读取处理器保留分享生命周期拒绝、Liveshare 服务端授权刷新、冷会话准备和 fork 编排，在准备或分派提示词与停止之前读取策略的写入规则，并在授权结束、分享停止或过期、或复检拒绝时释放读者的 Peer。读者索取页面或打开流时也会开始准备该分享的源会话，因此宿主重启时该会话的 agent 尚未存活也能补上驱动所需的层；无法被 confine 的分享会如实说明该状态，而不再声明只读。存在载体写入的 `__DSH_LIVESHARE_VIEWER__` 全局变量时，本包的浏览器端挂载查看页界面，否则挂载分享操作。读者收到的 index 把读者自己的访问快照赋给每个 index 设为所有者基线的同一全局变量，页面随后跟随读者的 `remoteAccess/follow` 快照；CSS 隐藏不构成授权。
+查看页就是 Owner 自己的 Web shell。Liveshare 服务端通过 `asset` 读取取得 Owner 渲染好的 index 文档，并把 [viewer-carrier.ts](../liveshare-protocol/src/viewer-carrier.ts) 生成的载体脚本放在文档最前面。Shell 资源、客户端插件 bundle，以及 index 相对文档基准引用的三个确切顶层文件（`manifest.webmanifest`、`favicon.svg`、`favicon-dark.svg`）都经同一读取取得，来自 Owner 的前端读取服务和客户端模块注册表，因此页面以 Owner 的版本运行 Owner 的全部插件。任何 asset 路径上的 source map 都被拒绝，且该判定是权威的：经 Liveshare 服务端转发的 `asset` 读取会原样到达这里，因此 Liveshare 服务端侧的同名规则只覆盖它自己的页面资源路由；被服务的文档还会去掉自己的 manifest 链接，否则浏览器会不带凭据地抓取它。载体把 Connection 调用和 Gateway 流转换为 `POST {base}/__share/rpc` 请求，并把 Liveshare 服务端无法作答的只读页面源 Owner 路由（`/open-in-app/apps` 与 `/api/present.host`）也经该通道转发，而不是留给 Liveshare 服务端尾部。Liveshare 服务端在不透明请求体之外提供已认证主体。Owner 读取处理器把每位读者的调用和流以「每个分享、每位读者一个 Peer」分派进自己的 Connection 与 Gateway，该 Peer 的 `share-viewer` principal 携带分享与服务端断言的身份。Gateway 依据本包注册的 `share-viewer` 策略，经 [`lyn-api-remote-access`](../../api/remote-access/README.zh.md) 判定该 Peer 的调用以及转发给它的会话通知：受服务的读者持有共享会话、其自己的 fork 及包含它们的工作区上的读取角色，持有条件按分享档位与其自身 fork 开关判定的 fork 与写入角色，此外别无授权；附件上传随读取角色生效。读取处理器保留分享生命周期拒绝、Liveshare 服务端授权刷新、冷会话准备和 fork 编排，在准备或分派提示词与停止之前读取策略的写入规则，并在授权结束、分享停止或过期、或复检拒绝时释放读者的 Peer。读者索取页面或打开流时也会开始准备该分享的源会话，因此宿主重启时该会话的 agent 尚未存活也能补上驱动所需的层；无法被 confine 的分享会如实说明该状态，而不再声明只读。存在载体写入的 `__LYNESS_LIVESHARE_VIEWER__` 全局变量时，本包的浏览器端挂载查看页界面，否则挂载分享操作。读者收到的 index 把读者自己的访问快照赋给每个 index 设为所有者基线的同一全局变量，页面随后跟随读者的 `remoteAccess/follow` 快照；CSS 隐藏不构成授权。
 
 Fork 请求绑定主体、分享、源会话、操作身份和已完成前缀。持久化预留记录与已记录的分叉会话使重试已记录的操作时重放同一分叉会话；owner 的 `SessionForkRequest` 自己生成分叉会话 id，因此在分叉会话已创建、但尚未记录时中断的请求会再次 fork。注册表变更为异步操作，仅在加锁的读取、修改与原子发布后完成；调用方必须等待预留、记录与撤销。冷态激活使用 Host 常规 Agent lookup，由串行 `agent/created` 在排队输入运行前安装限制，不使用 Remote `session/prepare` 端点。分叉会话作用域保留单个默认拒绝的 guard；重连替换其限制安装，释放旧安装不会移除继任。
 
@@ -156,7 +156,7 @@ viewer 的 prompt 以普通用户输入进入共享会话，因此扩展的是�
 - 所有者无法拒绝已准入查看者的附件上传：能读取某条会话的查看者也可以向它附加文件，与档位和分叉开关无关。这是已接受的风险。
 - 查看者的文件操作按获授根目录做路径检查，若本地进程在检查与打开之间把获授范围内的目录换成符号链接，读写可能被改指别处；目录句柄锚定留待单独变更引入。查看者工具仅限受限的读取与检索面（`read`、`read_image`、`glob`、`grep`、`present`）、无本地文件副作用的工具（`todo_write`、`skill`、`web_search`、`web_fetch`），以及 write 档下的有界 `edit` 与 `write`；不授予 `bash`、`pwsh`、`cua`、`plugin_manager`、`schedule_*` 及该工具面未列出的任何工具。
 - 查看页没有独立工作区文件编辑界面，也没有管理权限。
-- 端点能力从 Typert registry 枚举已安装插件的 Remote 方法（见 [`shareable-catalog.ts`](src/host/shareable-catalog.ts)），DSH 核心服务命名空间被排除。方法调用不经过沙箱，也没有读写分类：开放一个方法即信任该已安装插件的代码，它在 Host 进程中执行。被选中的方法会在 policy 绑定的资源上被任意已认证分享读者调用，覆盖 `global`、`session`、`workspace` 三种资源种类。
+- 端点能力从 Typert registry 枚举已安装插件的 Remote 方法（见 [`shareable-catalog.ts`](src/host/shareable-catalog.ts)），LYN 核心服务命名空间被排除。方法调用不经过沙箱，也没有读写分类：开放一个方法即信任该已安装插件的代码，它在 Host 进程中执行。被选中的方法会在 policy 绑定的资源上被任意已认证分享读者调用，覆盖 `global`、`session`、`workspace` 三种资源种类。
 - owner 在分享面板里通过全局开关和按插件行选择已安装插件的方法。全局开关为“不可用”（全部关闭）、“自定义”（按插件列表）或“全部允许”（开放当前目录全部方法）。每个插件再设为不可用、全部方法或部分方法；部分选择保存显式方法列表，因此目录之后新增的方法不会自动开放，直到 owner 再次保存。插件行优先显示包内本地化名称，取不到时回退到包名末段或 namespace；搜索与限高滚动让大目录仍可操作。选择是分享级的：每位已准入查看者都可以在 policy 绑定的资源上调用被选中的方法，尚未建立逐查看者方法级别。方法授权独立于会话档位，Session 与 Workspace 调用仍由核心分享角色决定。目录不再提供的方法即使留在记录里也不暴露。
 - 工作区不再包含读者可见的会话后，要到该工作区或工作区顺序下次变化时才离开读者的工作区订阅（[remote access 限制](../../api/remote-access/README.zh.md#known-limitations-and-deferred-work)）。
 - 注册表文件锁防止并发文件写入丢失持久条目，但每个注册表读取自身内存快照。多个 Host 之间不协调 Owner 分享状态更新与网关归属；每个 home 只使用一个活动 Owner Host。这不是多宿主授权服务。

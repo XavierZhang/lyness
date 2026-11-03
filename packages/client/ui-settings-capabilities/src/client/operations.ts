@@ -6,16 +6,16 @@
  * own without taking the rest of the page down — a deployment whose provider
  * list is broken still has tools and skills worth reading.
  *
- * @module @deepseek-ai/dsh-client-ui-settings-capabilities/client/operations
+ * @module @lyness/lyn-client-ui-settings-capabilities/client/operations
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import { createSharedRead } from '@deepseek-ai/dsh-client-store'
-import type { RemoteFailure } from '@deepseek-ai/dsh-typert-protocol'
-import type {} from '@deepseek-ai/dsh-api-remotes/client'
-import type {} from '@deepseek-ai/dsh-api-agent-capabilities-controller/remote'
-import type { AgentCapabilitiesView } from '@deepseek-ai/dsh-api-agent-capabilities-controller/types'
-import type { ModelCatalog } from '@deepseek-ai/dsh-api-session-controller/types'
+import type { Context } from '@lyness/cordis'
+import { createSharedRead } from '@lyness/lyn-client-store'
+import type { RemoteFailure } from '@lyness/lyn-typert-protocol'
+import type {} from '@lyness/lyn-api-remotes/client'
+import type {} from '@lyness/lyn-api-agent-capabilities-controller/remote'
+import type { AgentCapabilitiesView } from '@lyness/lyn-api-agent-capabilities-controller/types'
+import type { ModelCatalog } from '@lyness/lyn-api-session-controller/types'
 import type { CapabilitiesRead } from './store.ts'
 
 /** What one Remote call answers: the value, or the failure it refused with. */

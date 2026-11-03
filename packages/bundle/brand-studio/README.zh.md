@@ -3,13 +3,13 @@ description: "brand-studio profile：由图标 PNG 与字体生成部署品牌�
 kind: "package-bundle"
 ---
 
-# `@deepseek-ai/dsh-brand-studio`
+# `@lyness/lyn-brand-studio`
 
 [English](README.md) | 中文
 
 ## 概述
 
-本 bundle 即 `dsh --profile brand-studio`，是私有化部署运营方在服务器上运行的一次性命令。它把图标 PNG 描成标志与 favicon 两个 SVG，用运营方提供的字体排版产品名，写出这三个文件，并让某个 profile 补丁层中的 `brand-deployment` 行指向它们。需要给部署换品牌、又不想手写 SVG 或 patch YAML 时选择它。它挂载的任何内容都不会到达模型。
+本 bundle 即 `lyn --profile brand-studio`，是私有化部署运营方在服务器上运行的一次性命令。它把图标 PNG 描成标志与 favicon 两个 SVG，用运营方提供的字体排版产品名，写出这三个文件，并让某个 profile 补丁层中的 `brand-deployment` 行指向它们。需要给部署换品牌、又不想手写 SVG 或 patch YAML 时选择它。它挂载的任何内容都不会到达模型。
 
 ## 目录
 
@@ -26,22 +26,22 @@ kind: "package-bundle"
 ## 使用本包
 
 ```sh
-dsh --profile brand-studio --name 领驭 --icon ./DeepSeek Harness.png --accept-trademark
+lyn --profile brand-studio --name 领驭 --icon ./lyness.png --accept-trademark
 
-dsh --profile brand-studio --name Acme --icon ./acme.png --font ./AcmeSans-Bold.otf \
+lyn --profile brand-studio --name Acme --icon ./acme.png --font ./AcmeSans-Bold.otf \
   --theme-color '#1a73e8' --accept-trademark --accept-font-license
 
-dsh --profile brand-studio --name 'Acme Agent' --abbreviation ACME --name-zh 艾可 \
+lyn --profile brand-studio --name 'Acme Agent' --abbreviation ACME --name-zh 艾可 \
   --icon ./acme.png --color blue=#1a73e8 --color blueDark=#11418a --accept-trademark
 ```
 
-`--name`、`--icon` 与 `--accept-trademark` 为必填；使用 `--font` 时须同时给出 `--accept-font-license`。图标须是边长不小于 1024 像素的 PNG，浅色或透明背景上的深色图形；其他情况 `dsh-host-brand-icon` 会拒绝并给出原因。不带 `--font` 时，名称用 [`brand-fonts`](../../host/brand-fonts/README.zh.md) 的内置字体排版，覆盖拉丁字母、希腊文、西里尔文、中文、日文与韩文。`--font` 接收品牌方自有的 TTF、OTF、WOFF 或 WOFF2 文件，它须覆盖名称中的每个字符，且其授权须允许把字形用于 logo，由 `--accept-font-license` 确认。两种情况下字体都只服务于字标：本工具在运营方的服务器上读取它，既不复制也不分发该文件，写出的是轮廓图形而非字体软件。`--theme-color` 接受十六进制颜色或颜色关键字；不传时保留该行已有的颜色。`--abbreviation` 与 `--name-zh` 给出产品文案用到的另外两个名字，它们顶替内置的 `DSH` 与「领驭」；任一不给，本该用它的文案就改用产品名。三个名字各为一行、不超过 64 个字符、不含花括号，因为称呼产品的文案填的是占位符。`--color token=value` 替换一个调色板令牌，可重复给出；令牌取 [`brand-deployment`](../../host/brand-deployment/README.zh.md) 命名的那一组，本次未命名的令牌保留内置颜色。
+`--name`、`--icon` 与 `--accept-trademark` 为必填；使用 `--font` 时须同时给出 `--accept-font-license`。图标须是边长不小于 1024 像素的 PNG，浅色或透明背景上的深色图形；其他情况 `lyn-host-brand-icon` 会拒绝并给出原因。不带 `--font` 时，名称用 [`brand-fonts`](../../host/brand-fonts/README.zh.md) 的内置字体排版，覆盖拉丁字母、希腊文、西里尔文、中文、日文与韩文。`--font` 接收品牌方自有的 TTF、OTF、WOFF 或 WOFF2 文件，它须覆盖名称中的每个字符，且其授权须允许把字形用于 logo，由 `--accept-font-license` 确认。两种情况下字体都只服务于字标：本工具在运营方的服务器上读取它，既不复制也不分发该文件，写出的是轮廓图形而非字体软件。`--theme-color` 接受十六进制颜色或颜色关键字；不传时保留该行已有的颜色。`--abbreviation` 与 `--name-zh` 给出产品文案用到的另外两个名字，它们顶替内置的 `LYN` 与「领驭」；任一不给，本该用它的文案就改用产品名。三个名字各为一行、不超过 64 个字符、不含花括号，因为称呼产品的文案填的是占位符。`--color token=value` 替换一个调色板令牌，可重复给出；令牌取 [`brand-deployment`](../../host/brand-deployment/README.zh.md) 命名的那一组，本次未命名的令牌保留内置颜色。
 
 ### 写出的内容
 
-三个 SVG 以 `mark.svg`、`wordmark.svg`、`favicon.svg` 写入 `--asset-dir`，默认 `$DSH_HOME/brand`。品牌行写入 `--target` 的补丁层，默认 `web`：`$DSH_HOME/profiles/web/cordis.patch.yml`。从未启动过的随附 profile 会先被初始化，与其首次启动时完全相同。该行设置 `productName`、本次给出的另外两个名字与调色板令牌、`themeColor`、`assetDirectory` 与三个文件名；该行已有而本次未命名的调色板令牌保留，`showPoweredBy` 等其他配置键、其他行、注释与 `!!js` 值保持原样。
+三个 SVG 以 `mark.svg`、`wordmark.svg`、`favicon.svg` 写入 `--asset-dir`，默认 `$LYNESS_HOME/brand`。品牌行写入 `--target` 的补丁层，默认 `web`：`$LYNESS_HOME/profiles/web/cordis.patch.yml`。从未启动过的随附 profile 会先被初始化，与其首次启动时完全相同。该行设置 `productName`、本次给出的另外两个名字与调色板令牌、`themeColor`、`assetDirectory` 与三个文件名；该行已有而本次未命名的调色板令牌保留，`showPoweredBy` 等其他配置键、其他行、注释与 `!!js` 值保持原样。
 
-在写入任何内容之前，所有输入都已检查、新的补丁层也已组装完毕。SVG 先于补丁层写入，因此会在补丁层变化时重载的 `dsh web` 立即应用品牌，且不会读到指向缺失文件的行。其他 profile 在下次启动时应用。
+在写入任何内容之前，所有输入都已检查、新的补丁层也已组装完毕。SVG 先于补丁层写入，因此会在补丁层变化时重载的 `lyn web` 立即应用品牌，且不会读到指向缺失文件的行。其他 profile 在下次启动时应用。
 
 -----
 
@@ -51,7 +51,7 @@ dsh --profile brand-studio --name 'Acme Agent' --abbreviation ACME --name-zh 艾
 <details>
 <summary>实现细节——点击展开</summary>
 
-本 bundle 的 patch 只插入一行，且不叠加在 `dsh-base` 之上，因此配置树不加载任何模型、会话或 Web 插件。[`src/index.ts`](src/index.ts) 通过 `parseCmdline` 用 commander 解析 launcher 传入的参数，运行一次，并经 `ctx.appExit` 请求退出：成功时在 stdout 输出报告并以 0 退出，失败时在 stderr 输出错误并以 1 退出。[`src/studio.ts`](src/studio.ts) 承载一次运行。每个生成的 SVG 须先通过 `isBrandSvg` 才会写入。补丁层通过 `yaml` 的文档模型编辑，它会保留普通解析再输出时会丢失的注释与未解析的 `!!js` 标签；每个文件都用 `writeFileAtomic` 替换。
+本 bundle 的 patch 只插入一行，且不叠加在 `lyn-base` 之上，因此配置树不加载任何模型、会话或 Web 插件。[`src/index.ts`](src/index.ts) 通过 `parseCmdline` 用 commander 解析 launcher 传入的参数，运行一次，并经 `ctx.appExit` 请求退出：成功时在 stdout 输出报告并以 0 退出，失败时在 stderr 输出错误并以 1 退出。[`src/studio.ts`](src/studio.ts) 承载一次运行。每个生成的 SVG 须先通过 `isBrandSvg` 才会写入。补丁层通过 `yaml` 的文档模型编辑，它会保留普通解析再输出时会丢失的注释与未解析的 `!!js` 标签；每个文件都用 `writeFileAtomic` 替换。
 
 </details>
 
@@ -65,7 +65,7 @@ dsh --profile brand-studio --name 'Acme Agent' --abbreviation ACME --name-zh 艾
 - [brand-icon](../../host/brand-icon/README.zh.md)——描边 PNG，并定义品牌 SVG 语法。
 - [brand-wordmark](../../host/brand-wordmark/README.zh.md)——排版名称，并拒绝无法排版的字体与名称。
 - [brand-deployment](../../host/brand-deployment/README.zh.md)——提供写出的文件，并把品牌注入页面。
-- [ui-brand-deepseek-harness](../../client/ui-brand-deepseek-harness/README.zh.md)——在 Web 客户端中绘制部署品牌。
+- [ui-brand-lyness](../../client/ui-brand-lyness/README.zh.md)——在 Web 客户端中绘制部署品牌。
 
 -----
 

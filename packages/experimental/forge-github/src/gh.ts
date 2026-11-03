@@ -1,6 +1,6 @@
 /** Runs the GitHub CLI on the host with a scrubbed, non-interactive environment. */
 
-import { scrubbedParentEnv } from '@deepseek-ai/dsh-subprocess'
+import { scrubbedParentEnv } from '@lyness/lyn-subprocess'
 import { execa } from 'execa'
 
 /** Complete output of one `gh` invocation that ran to an exit code. */

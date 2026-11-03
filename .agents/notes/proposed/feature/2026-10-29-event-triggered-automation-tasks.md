@@ -86,10 +86,10 @@ Configuration has two layers. Provider code decides what can be observed and how
 
 ### Event triggers as infrastructure
 
-The trigger layer is shared infrastructure for DSH, not a feature of the automation page. A feature that watches something and hands changes to an agent becomes a task on this layer instead of building its own polling, state, records, and notifications.
+The trigger layer is shared infrastructure for LYN, not a feature of the automation page. A feature that watches something and hands changes to an agent becomes a task on this layer instead of building its own polling, state, records, and notifications.
 
-- **DSH's own state as sources**: a Session turn ending in an error, a background job settling, and, once memory lands, a memory consolidation pass finishing or memory entries changing.
-- **Features on those sources**: plugin recommendations, where a workflow the user repeats by hand shows up after consolidation and the agent proposes a plugin on an action card, and task recommendations, where a review of the day's Sessions proposes follow-up work. Each is a template task with a DSH source, an instruction, and the same notify step. The plugin recommendations package, which proposes cards from conversation turns today, can move onto such a source once consolidation lands.
+- **LYN's own state as sources**: a Session turn ending in an error, a background job settling, and, once memory lands, a memory consolidation pass finishing or memory entries changing.
+- **Features on those sources**: plugin recommendations, where a workflow the user repeats by hand shows up after consolidation and the agent proposes a plugin on an action card, and task recommendations, where a review of the day's Sessions proposes follow-up work. Each is a template task with a LYN source, an instruction, and the same notify step. The plugin recommendations package, which proposes cards from conversation turns today, can move onto such a source once consolidation lands.
 - **What every consumer keeps**: change detection and condition matching in code, run records, Session modes, read-only event turns, and notify as the only way a task reaches the user.
 
 ### Delivery order
@@ -97,7 +97,7 @@ The trigger layer is shared infrastructure for DSH, not a feature of the automat
 1. Task–Session decoupling with the three Session modes.
 2. The trigger layer with time as its first provider and the task-domain migration; existing scheduled tasks behave as before.
 3. The GitHub provider for pull request checks, reviews, and comments; the event-turn tool set and `automation_notify`; action cards leave experimental status or ship with the automation bundle.
-4. Mail and IM providers and official templates, then DSH's own sources.
+4. Mail and IM providers and official templates, then LYN's own sources.
 
 ## Alternatives considered
 

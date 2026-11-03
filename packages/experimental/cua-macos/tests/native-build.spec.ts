@@ -4,12 +4,12 @@ import { mkdtemp, mkdir, readFile, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { dirname, join } from 'node:path'
 import { expect, it, onTestFinished, vi } from 'vitest'
-import type { SubprocessHandle, SubprocessOutcome, SubprocessSpawnSpec } from '@deepseek-ai/dsh-subprocess'
+import type { SubprocessHandle, SubprocessOutcome, SubprocessSpawnSpec } from '@lyness/lyn-subprocess'
 import { buildNativeExecutable, isSourcePackage, nativeExecutablePath, nativeHostArchitecture, prepareNativeExecutable } from '../src/native-build.ts'
 
 async function publish(directory: string, bytes: Buffer, variant: 'release' | 'dev'): Promise<string> {
   const bundle = createHash('sha256').update(bytes).digest('hex')
-  const executable = join(directory, bundle, variant === 'dev' ? 'DSH Computer Use Dev.app' : 'DSH Computer Use.app', 'Contents/MacOS/dsh-cua-native')
+  const executable = join(directory, bundle, variant === 'dev' ? 'LYN Computer Use Dev.app' : 'LYN Computer Use.app', 'Contents/MacOS/lyn-cua-native')
   await mkdir(dirname(executable), { recursive: true })
   await writeFile(executable, bytes, { mode: 0o755 })
   await writeFile(join(directory, 'current.json'), JSON.stringify({ bundle }))
@@ -53,11 +53,11 @@ async function fixture(diagnostics = true) {
 it('recognizes only the repository-owned package location as a source build', async () => {
   const f = await fixture()
   expect(await isSourcePackage(f.spec.packageRoot)).toBe(false)
-  for (const value of [null, 2, {}, { name: 'another-project' }, { name: '@deepseek-ai/dsh-root' }]) {
+  for (const value of [null, 2, {}, { name: 'another-project' }, { name: '@lyness/lyn-root' }]) {
     await writeFile(join(f.root, 'package.json'), JSON.stringify(value))
-    expect(await isSourcePackage(f.spec.packageRoot)).toBe(typeof value === 'object' && value !== null && 'name' in value && value.name === '@deepseek-ai/dsh-root')
+    expect(await isSourcePackage(f.spec.packageRoot)).toBe(typeof value === 'object' && value !== null && 'name' in value && value.name === '@lyness/lyn-root')
   }
-  expect(await isSourcePackage(join(f.root, 'node_modules/@deepseek-ai/dsh-cua'))).toBe(false)
+  expect(await isSourcePackage(join(f.root, 'node_modules/@lyness/lyn-cua'))).toBe(false)
   await writeFile(join(f.root, 'package.json'), '{')
   await expect(isSourcePackage(f.spec.packageRoot)).rejects.toThrow()
 })
@@ -73,7 +73,7 @@ it('builds the development variant and returns its executable only after the man
   const f = await fixture()
   const path = await buildNativeExecutable(f.spec)
   expect(await readFile(path)).toEqual(f.output)
-  expect(path).toContain(join('DSH Computer Use Dev.app', 'Contents', 'MacOS'))
+  expect(path).toContain(join('LYN Computer Use Dev.app', 'Contents', 'MacOS'))
   expect(f.spawn.mock.calls[0]![0].argv).toEqual([
     '/usr/bin/xcrun', 'python3', join(f.spec.packageRoot, 'native/build_app.py'),
     '--scratch-path', join(f.spec.packageRoot, 'native/.build/runtime-arm64'),
@@ -85,7 +85,7 @@ it('builds the development variant and returns its executable only after the man
 
 it('checks source builds on activation and maps Intel architecture to the compiler target', async () => {
   const f = await fixture()
-  await writeFile(join(f.root, 'package.json'), '{"name":"@deepseek-ai/dsh-root"}')
+  await writeFile(join(f.root, 'package.json'), '{"name":"@lyness/lyn-root"}')
   const path = await prepareNativeExecutable({ ...f.spec, architecture: 'x64' })
   expect(f.spawn.mock.calls[0]![0].argv).toContain('x86_64')
   expect(f.spawn.mock.calls[0]![0].argv.slice(-2)).toEqual(['--identity', '-'])
@@ -100,7 +100,7 @@ it('uses a configured certificate in the specified keychain', async () => {
   expect(argv.slice(argv.indexOf('--identity'))).toEqual([
     '--identity', 'Apple Development: Example', '--keychain', keychain,
   ])
-  expect(argv).not.toContain('--dsh-home')
+  expect(argv).not.toContain('--lyn-home')
   expect(argv).not.toContain('--signing')
 })
 
@@ -115,15 +115,15 @@ it.each(['ad-hoc', { identity: 'Apple Development: Example', keychain: '/keychai
 
 it('reads an application that an Electron archive installation keeps beside app.asar', async () => {
   const f = await fixture()
-  const archived = join(f.root, 'Resources/app.asar/dsh/node_modules/@deepseek-ai/dsh-experimental-cua-macos')
-  const path = await publish(join(f.root, 'Resources/app.asar.unpacked/dsh/node_modules/@deepseek-ai/dsh-experimental-cua-macos/native/bin/darwin-arm64'), f.output, 'release')
+  const archived = join(f.root, 'Resources/app.asar/lyn/node_modules/@lyness/lyn-experimental-cua-macos')
+  const path = await publish(join(f.root, 'Resources/app.asar.unpacked/lyn/node_modules/@lyness/lyn-experimental-cua-macos/native/bin/darwin-arm64'), f.output, 'release')
   expect(await prepareNativeExecutable({ ...f.spec, packageRoot: archived })).toBe(path)
   expect(f.spawn).not.toHaveBeenCalled()
 })
 
 it('names the expected directory when an installed package carries no helper application', async () => {
   const f = await fixture()
-  const installed = join(f.root, 'node_modules/@deepseek-ai/dsh-experimental-cua-macos.asar/package')
+  const installed = join(f.root, 'node_modules/@lyness/lyn-experimental-cua-macos.asar/package')
   const directory = join(installed, 'native/bin/darwin-arm64')
   await expect(prepareNativeExecutable({ ...f.spec, packageRoot: installed })).rejects.toThrow(
     `Computer use helper application is missing from ${directory}; this installation does not include the signed helper`)

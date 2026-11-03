@@ -1,10 +1,10 @@
 /** Remote translation enforces accepted routing and sanitizes provider failures. */
-import { Context } from '@deepseek-ai/cordis'
-import { SessionId } from '@deepseek-ai/dsh-session/types'
+import { Context } from '@lyness/cordis'
+import { SessionId } from '@lyness/lyn-session/types'
 import { afterEach, expect, it, vi } from 'vitest'
-import { TranslationError } from '@deepseek-ai/dsh-experimental-translator'
-import { RemoteError } from '@deepseek-ai/dsh-typert-protocol'
-import type { TranslationProvider, TranslationRequest } from '@deepseek-ai/dsh-experimental-translator/types'
+import { TranslationError } from '@lyness/lyn-experimental-translator'
+import { RemoteError } from '@lyness/lyn-typert-protocol'
+import type { TranslationProvider, TranslationRequest } from '@lyness/lyn-experimental-translator/types'
 import type { CotTranslationPreferences } from '../src/preferences.ts'
 import CotTranslationController from '../src/index.ts'
 

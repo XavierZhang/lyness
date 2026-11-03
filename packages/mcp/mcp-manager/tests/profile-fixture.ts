@@ -5,11 +5,11 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { onTestFinished } from 'vitest'
-import type { Context } from '@deepseek-ai/cordis'
-import Loader from '@deepseek-ai/cordis-plugin-loader'
-import { initProfile, mountRootInclude, readProfilePatches, type ProfileContext } from '@deepseek-ai/dsh-app-boot'
-import ConfigEditor from '@deepseek-ai/dsh-config-editor'
-import Settings from '@deepseek-ai/dsh-settings'
+import type { Context } from '@lyness/cordis'
+import Loader from '@lyness/cordis-plugin-loader'
+import { initProfile, mountRootInclude, readProfilePatches, type ProfileContext } from '@lyness/lyn-app-boot'
+import ConfigEditor from '@lyness/lyn-config-editor'
+import Settings from '@lyness/lyn-settings'
 import McpServerManager from '../src/index.ts'
 
 /**
@@ -19,7 +19,7 @@ import McpServerManager from '../src/index.ts'
  * @returns The profile and manager entry owned by the test.
  */
 export async function managerProfile(ctx: Context, options: { id?: string; base?: unknown; user?: unknown } = {}) {
-  const home = realpathSync(mkdtempSync(join(tmpdir(), 'dsh-mcp-manager-')))
+  const home = realpathSync(mkdtempSync(join(tmpdir(), 'lyn-mcp-manager-')))
   const contexts: Context[] = []
   onTestFinished(async () => {
     for (const context of contexts) await context.fiber.dispose()
@@ -30,7 +30,7 @@ export async function managerProfile(ctx: Context, options: { id?: string; base?
   const bundle = join(dir, 'node_modules', 'test-mcp-bundle')
   mkdirSync(bundle, { recursive: true })
   writeFileSync(join(home, 'package.json'), '{"name":"test-installation"}\n')
-  writeFileSync(join(bundle, 'package.json'), JSON.stringify({ name: 'test-mcp-bundle', version: '1.0.0', dsh: { bundle: { patch: 'cordis.patch.yml' } } }))
+  writeFileSync(join(bundle, 'package.json'), JSON.stringify({ name: 'test-mcp-bundle', version: '1.0.0', lyn: { bundle: { patch: 'cordis.patch.yml' } } }))
   const id = options.id ?? 'mcp'
   writeFileSync(join(bundle, 'cordis.patch.yml'), JSON.stringify([{ insert: [
     { id, name: 'cordis:mcp-manager', config: options.base ?? {} },

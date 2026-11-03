@@ -5,33 +5,33 @@
 /:
   en: 6a19f6d3fdfe0db2
   zh: a361afe6b8cd3010
-/deepseek-harness-dsh-api-terminal-controller:
+/lyness-lyn-api-terminal-controller:
   en: f41294bf55501e29
   zh: 6ba89f36c70ecc57
-/deepseek-harness-dsh-api-terminal-controller/summary:
+/lyness-lyn-api-terminal-controller/summary:
   en: afcf6f0d2f899ecc
   zh: e38e2c0830e42ac9
-/deepseek-harness-dsh-api-terminal-controller/table-of-contents:
+/lyness-lyn-api-terminal-controller/table-of-contents:
   en: d152484eb41ac6b4
   zh: 1fa9a72d1ee045cc
-/deepseek-harness-dsh-api-terminal-controller/use-this-package:
+/lyness-lyn-api-terminal-controller/use-this-package:
   en: 2f9b755a9e976392
   zh: 2282e467a893ecd3
-/deepseek-harness-dsh-api-terminal-controller/understand-the-implementation:
+/lyness-lyn-api-terminal-controller/understand-the-implementation:
   en: bab712a0a3d34b7e
   zh: 80074a6d3a8c0165
-/deepseek-harness-dsh-api-terminal-controller/further-exploration:
+/lyness-lyn-api-terminal-controller/further-exploration:
   en: 7863ea5ca0489dc2
   zh: d733b61d45b4a9d2
-/deepseek-harness-dsh-api-terminal-controller/model-experience:
+/lyness-lyn-api-terminal-controller/model-experience:
   en: 84e714afe7550c4f
   zh: baf99fb849fc529e
-/deepseek-harness-dsh-api-terminal-controller/model-experience/kv-cache-effect:
+/lyness-lyn-api-terminal-controller/model-experience/kv-cache-effect:
   en: be6f8e99d307c7ac
   zh: 7dd4dcc0429e766c
-/deepseek-harness-dsh-api-terminal-controller/known-limitations-and-deferred-work:
+/lyness-lyn-api-terminal-controller/known-limitations-and-deferred-work:
   en: e6d5beb6f7d2411d
   zh: 729a63eb14fef5dd
-/deepseek-harness-dsh-api-terminal-controller/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-api-terminal-controller/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 7aeea62eda52b83b

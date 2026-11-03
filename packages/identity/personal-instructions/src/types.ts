@@ -1,9 +1,9 @@
 /**
  * Wire and storage vocabulary of a person's own instructions.
- * @module @deepseek-ai/dsh-personal-instructions/types
+ * @module @lyness/lyn-personal-instructions/types
  */
 
-import type { Branded } from '@deepseek-ai/dsh-brand'
+import type { Branded } from '@lyness/lyn-brand'
 
 /** Whose instructions one stored record holds. */
 export type InstructionsOwnerId = Branded<'InstructionsOwnerId'>

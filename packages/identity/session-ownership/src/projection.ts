@@ -8,13 +8,13 @@
  * key share a single unit and are counted, so reading it here neither
  * duplicates the fold nor takes it from the plugin that writes the record.
  *
- * @module @deepseek-ai/dsh-session-ownership/projection
+ * @module @lyness/lyn-session-ownership/projection
  */
 
 import * as zod from 'zod'
-import { storedId, storedInstant } from '@deepseek-ai/dsh-storage-domain'
-import type { MembershipId, PersonId } from '@deepseek-ai/dsh-people'
-import type { ProjectionDefinition } from '@deepseek-ai/dsh-session-projection'
+import { storedId, storedInstant } from '@lyness/lyn-storage-domain'
+import type { MembershipId, PersonId } from '@lyness/lyn-people'
+import type { ProjectionDefinition } from '@lyness/lyn-session-projection'
 import type { SessionOwnerRecord } from './types.ts'
 
 /** The projection's stored state, for a reader validating what it folds back. */

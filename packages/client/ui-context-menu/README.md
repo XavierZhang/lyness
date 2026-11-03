@@ -3,7 +3,7 @@ description: "Add actions to right-click menus without importing a React compone
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-client-ui-context-menu
+# @lyness/lyn-client-ui-context-menu
 
 English | [中文](README.zh.md)
 
@@ -25,7 +25,7 @@ Add actions to right-click menus without importing a React component. Targets re
 <a id="use-this-package"></a>
 ## Use this package
 
-The Web application bundle mounts this Client plugin. External Client plugins declare the package in `dsh.client.inject`, import its `/client` types, and inject the `contextMenus` service. `resolutionTimeoutMs` bounds each provider’s preparation (1000ms by default); timed-out providers are aborted and omitted with visible failure feedback.
+The Web application bundle mounts this Client plugin. External Client plugins declare the package in `lyn.client.inject`, import its `/client` types, and inject the `contextMenus` service. `resolutionTimeoutMs` bounds each provider’s preparation (1000ms by default); timed-out providers are aborted and omitted with visible failure feedback.
 
 The plugin injects `useContextMenu` into every Slot scope through `ctx.slots.provideRoot`. Call `const { getTriggerProps } = useContextMenu()` once in the component and spread `getTriggerProps(target, handlers?)` onto each trigger. The factory is an ordinary function and can run in loops. It handles right-click, Shift+F10, the ContextMenu key, viewport coordinates, and focus without scrolling. Existing handlers run first; `preventDefault()` keeps their ownership and prevents duplicate handling by composed or nested bindings. Repeated, composing, and unrelated key events remain untouched. Pass `undefined` to retain native behavior, or a target resolver to read business state when the gesture begins. The resolved object is captured before focus changes. Plain children receive event props or a factory through props or an existing delegate; no additional React Context is needed. Special editors and canvases can call `ctx.contextMenus.open()` directly.
 
@@ -37,7 +37,7 @@ An action’s optional `commandId` associates it with an existing shortcut comma
 
 A contribution can declare `observe(target)` sources for permissions, membership, or localized labels. Source updates re-resolve that contribution against the same captured target and replace its callbacks; outdated asynchronous preparations are cancelled. Dismissal and plugin unload release every subscription.
 
-Extend `ContextMenuTargetMap` through declaration merging on `@deepseek-ai/dsh-client-ui-context-menu/client` for a new target family; `ContextMenuTarget` derives the `{ kind, value }` union from that map. Open a target with `ctx.contextMenus.open(target, { x, y })`. Keep target values as immutable JSON-compatible identifiers and metadata. Execution callbacks capture that value; they must recheck mutable resources before acting. New registrations participate in the next opening. Unregistering removes visible actions and cancels pending metadata.
+Extend `ContextMenuTargetMap` through declaration merging on `@lyness/lyn-client-ui-context-menu/client` for a new target family; `ContextMenuTarget` derives the `{ kind, value }` union from that map. Open a target with `ctx.contextMenus.open(target, { x, y })`. Keep target values as immutable JSON-compatible identifiers and metadata. Execution callbacks capture that value; they must recheck mutable resources before acting. New registrations participate in the next opening. Unregistering removes visible actions and cancels pending metadata.
 
 `ctx.contextMenus.resolve(target)` gives a separate occurrence for another renderer. Subscribe to its immutable action views, select a published ID, and dispose it when its owner closes. Views contain presentation fields only. Callbacks remain in the registry and execute at most once. Dismissal and replacement cancel metadata, but an action already selected owns its own execution and cancellation. Rejected providers and actions produce a persistent overlay toast; an action’s localized `failureLabel` supplies operation-specific recovery guidance.
 

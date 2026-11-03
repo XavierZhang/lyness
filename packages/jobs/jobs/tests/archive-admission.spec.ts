@@ -1,9 +1,9 @@
 import { describe, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import { SessionId } from '@deepseek-ai/dsh-session'
-import { JobId, JobRegistry } from '@deepseek-ai/dsh-jobs'
-import type { JobEvents, JobOutputRead, JobRead, JobSpec, JobStatus, JobView } from '@deepseek-ai/dsh-jobs'
-import type { SessionActivity } from '@deepseek-ai/dsh-workspace'
+import { Context } from '@lyness/cordis'
+import { SessionId } from '@lyness/lyn-session'
+import { JobId, JobRegistry } from '@lyness/lyn-jobs'
+import type { JobEvents, JobOutputRead, JobRead, JobSpec, JobStatus, JobView } from '@lyness/lyn-jobs'
+import type { SessionActivity } from '@lyness/lyn-workspace'
 
 interface Row {
   readonly id: string

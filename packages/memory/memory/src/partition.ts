@@ -7,11 +7,11 @@
  * builds the stored key, so the two paths cannot disagree about where a
  * memory lives.
  *
- * @module @deepseek-ai/dsh-memory/partition
+ * @module @lyness/lyn-memory/partition
  */
 
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { PersonId } from '@deepseek-ai/dsh-people'
+import { brandString } from '@lyness/lyn-brand'
+import type { PersonId } from '@lyness/lyn-people'
 import type { MemoryId, MemoryOwnerId, MemoryPartitionKey } from './types.ts'
 
 /** Separator between the owner and the entry id inside a personal key. */

@@ -4,17 +4,17 @@
  * cap, the stability-window budget reset, and disposal stopping reconnection.
  * Isolated file so vi.mock of the MCP SDK doesn't pollute other test suites.
  */
-import { executeToolFixture } from '@deepseek-ai/dsh-tool-testkit'
-import * as NativeToolExecutor from '@deepseek-ai/dsh-tool-executor-native'
+import { executeToolFixture } from '@lyness/lyn-tool-testkit'
+import * as NativeToolExecutor from '@lyness/lyn-tool-executor-native'
 import { describe, expect, it, vi, beforeEach, onTestFinished } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import type { Transport } from '@modelcontextprotocol/client'
-import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
-import ToolRuntime from '@deepseek-ai/dsh-tools'
-import McpResources from '@deepseek-ai/dsh-mcp-resources'
-import { ToolCallId } from '@deepseek-ai/dsh-llm'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime from '@lyness/lyn-tools'
+import McpResources from '@lyness/lyn-mcp-resources'
+import { ToolCallId } from '@lyness/lyn-llm'
 import { TestCredentials } from './credential-fixture.ts'
-import type { Config } from '@deepseek-ai/dsh-mcp-client'
+import type { Config } from '@lyness/lyn-mcp-client'
 
 // ---- Mock MCP SDK ----
 
@@ -85,10 +85,10 @@ vi.mock('@modelcontextprotocol/client/stdio', () => ({
 
 // vi.mock is hoisted above static imports, so the modules under test see the
 // mocked SDK even through a static import.
-import { Config as ConfigSchema, apply, connectionStatusOf } from '@deepseek-ai/dsh-mcp-client/src/index.ts'
-import { RECONNECT_DEFAULTS, resolveReconnectPolicy, startConnection } from '@deepseek-ai/dsh-mcp-client/src/connection.ts'
-import { McpStatusCell } from '@deepseek-ai/dsh-mcp-client/src/status.ts'
-import { McpGeneration } from '@deepseek-ai/dsh-mcp-client/src/generation.ts'
+import { Config as ConfigSchema, apply, connectionStatusOf } from '@lyness/lyn-mcp-client/src/index.ts'
+import { RECONNECT_DEFAULTS, resolveReconnectPolicy, startConnection } from '@lyness/lyn-mcp-client/src/connection.ts'
+import { McpStatusCell } from '@lyness/lyn-mcp-client/src/status.ts'
+import { McpGeneration } from '@lyness/lyn-mcp-client/src/generation.ts'
 
 // ---- Helpers ----
 

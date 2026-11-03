@@ -1,7 +1,7 @@
 /** Tree mutation reports and detached patch inputs across the Loader/Include upgrade. */
-import { Context, FiberState } from '@deepseek-ai/cordis'
-import Loader, { Group, type EntryChange, type EntryOptions } from '@deepseek-ai/cordis-plugin-loader'
-import { applyEntryPatches } from '@deepseek-ai/cordis-plugin-include'
+import { Context, FiberState } from '@lyness/cordis'
+import Loader, { Group, type EntryChange, type EntryOptions } from '@lyness/cordis-plugin-loader'
+import { applyEntryPatches } from '@lyness/cordis-plugin-include'
 import { describe, expect, it, onTestFinished, vi } from 'vitest'
 
 async function fixture() {

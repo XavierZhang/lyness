@@ -3,13 +3,13 @@ description: "交互式 UI 的面向用户斜杠命令注册表：插件拥有�
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-commands
+# @lyness/lyn-commands
 
 [English](README.md) | 中文
 
 ## 概述
 
-`dsh-commands` 让用户能在交互式 Harness UI 中运行 `/command [input]` 操作，且不会把命令或结果变成模型消息。命令可以展示输入提示、接受附件，并只针对一个 agent 生效，同时为其他 agent 保留同名的全局命令。每次通过准入的执行都会记录到接收 agent 的会话日志中，UI 则在模型历史之外渲染结算结果。它适合为 `dsh` CLI（命令行界面）或 Web 客户端提供直接面向用户的控制；无 UI 的演示与 ACP（Agent Client Protocol）自动化不提供此命令面。
+`lyn-commands` 让用户能在交互式 Harness UI 中运行 `/command [input]` 操作，且不会把命令或结果变成模型消息。命令可以展示输入提示、接受附件，并只针对一个 agent 生效，同时为其他 agent 保留同名的全局命令。每次通过准入的执行都会记录到接收 agent 的会话日志中，UI 则在模型历史之外渲染结算结果。它适合为 `lyn` CLI（命令行界面）或 Web 客户端提供直接面向用户的控制；无 UI 的演示与 ACP（Agent Client Protocol）自动化不提供此命令面。
 
 ## 目录
 
@@ -61,7 +61,7 @@ ctx.commands.register({
 
 交互式适配器调用 `execute(agent, line, attachments, signal)`，传入确切的接收 agent、完整命令行与本次提交的有序附件。它返回已结算的 `CommandExecution`——规范化结果加生命周期配对 `commandId`——语法无效或名称未知时返回 `undefined`。`list(agent)` 与 `find(agent, name)` 在应用 agent 作用域遮蔽后用于命令发现。
 
-无状态入口 `@deepseek-ai/dsh-commands/builtin` 为 Host 和 Client 适配器共享第一方身份、中英文输入 token 及描述符解析。`builtinCommandName()` 根据定义识别能力，不依赖注册名；`resolveCommand()` 保留精确名称优先级，并按定义 ID 解析别名。支持范围由适配器决定，注册器本身仍接受任意定义。
+无状态入口 `@lyness/lyn-commands/builtin` 为 Host 和 Client 适配器共享第一方身份、中英文输入 token 及描述符解析。`builtinCommandName()` 根据定义识别能力，不依赖注册名；`resolveCommand()` 保留精确名称优先级，并按定义 ID 解析别名。支持范围由适配器决定，注册器本身仍接受任意定义。
 
 ### 取消
 
@@ -121,7 +121,7 @@ ctx.commands.register({
 
 #### 模型看到的内容
 
-注册表自身不会提交任何内容。已知斜杠命令在 UI 命令平面执行，其 `CommandResult` 文本不会作为用户消息提交。已交付的适配器会拒绝未知斜杠命令输入，而不是将其变成模型提示词。命令生产方可以显式使用接收命令的 `Agent`；例如，[`dsh-plan-mode`](../../plan/plan-mode/README.zh.md#model-and-human-interactions)在选择 plan mode 后，会提交 `/plan [message]` 中的可选消息与有序附件。执行器只负责把附件准入为持久化对象，是否以及如何成为模型可见消息由声明接受的生产方决定。
+注册表自身不会提交任何内容。已知斜杠命令在 UI 命令平面执行，其 `CommandResult` 文本不会作为用户消息提交。已交付的适配器会拒绝未知斜杠命令输入，而不是将其变成模型提示词。命令生产方可以显式使用接收命令的 `Agent`；例如，[`lyn-plan-mode`](../../plan/plan-mode/README.zh.md#model-and-human-interactions)在选择 plan mode 后，会提交 `/plan [message]` 中的可选消息与有序附件。执行器只负责把附件准入为持久化对象，是否以及如何成为模型可见消息由声明接受的生产方决定。
 
 #### Token 影响
 

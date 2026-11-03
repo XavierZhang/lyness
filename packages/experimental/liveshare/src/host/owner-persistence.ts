@@ -3,13 +3,13 @@
  *
  * One JSON document holds everything this host must survive a restart with, and every write is
  * serialized per file so the newest content is the one that lands last.
- * @module @deepseek-ai/dsh-experimental-liveshare/src/host/owner-persistence
+ * @module @lyness/lyn-experimental-liveshare/src/host/owner-persistence
  */
 
 import { randomBytes } from 'node:crypto'
 import { base64Url } from './base64-url.ts'
 import { existsSync, readFileSync } from 'node:fs'
-import { writeFileAtomic } from '@deepseek-ai/dsh-atomic-write'
+import { writeFileAtomic } from '@lyness/lyn-atomic-write'
 import type { ShareAccessSelection, ViewerPluginAccess } from '../share-api-types.ts'
 import type { ViewerSessionMode } from './fork-policy.ts'
 import { normalizeRelayUrl } from './relay-url.ts'
@@ -209,7 +209,7 @@ function isPendingRelayRemoval(value: unknown): value is PendingRelayRemoval {
     && typeof value.gatewayToken === 'string' && value.gatewayToken !== ''
 }
 
-/** One owner DSH instance id, minted on first use and kept in the owner state file. */
+/** One owner LYN instance id, minted on first use and kept in the owner state file. */
 function newInstanceId(): string {
   return base64Url(randomBytes(9))
 }

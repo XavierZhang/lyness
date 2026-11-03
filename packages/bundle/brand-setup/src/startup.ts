@@ -7,18 +7,18 @@
  * bad flag — never reaches a bind: commander writes its text, the launcher
  * exits, and the loopback port is never opened.
  *
- * @module @deepseek-ai/dsh-brand-setup/startup
+ * @module @lyness/lyn-brand-setup/startup
  */
 
 import { Command } from 'commander'
-import { Context } from '@deepseek-ai/cordis'
-import { parseCmdline } from '@deepseek-ai/dsh-cmdline'
-import type {} from '@deepseek-ai/dsh-cmdline'
+import { Context } from '@lyness/cordis'
+import { parseCmdline } from '@lyness/lyn-cmdline'
+import type {} from '@lyness/lyn-cmdline'
 
 /** Service provided by this ordinary plugin and injected by the server row. */
 export const BRAND_SETUP_STARTUP_SERVICE = 'brandSetupStartup'
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Context {
     /** Where the brand-setup page binds, provided only on a successful parse. */
     brandSetupStartup: BrandSetupStartup
@@ -53,8 +53,8 @@ function setupCommand(): Command {
     .helpOption('-h, --help', 'show this help')
     .addHelpText('after', `
 Examples:
-  dsh --profile brand-setup
-  dsh --profile brand-setup --port 7345
+  lyn --profile brand-setup
+  lyn --profile brand-setup --port 7345
 
 The page binds 127.0.0.1 only and ends with this process. It is reachable
 solely through the one-time token printed on start, so nothing on the network

@@ -5,13 +5,13 @@
  */
 
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import { brandString } from '@deepseek-ai/dsh-brand'
+import { Context } from '@lyness/cordis'
+import { brandString } from '@lyness/lyn-brand'
 import { CHANNEL_ID, DingtalkChannel, DingtalkSignInError, asExternalSubject } from '../src/index.ts'
 import type { Config as DingtalkConfig } from '../src/index.ts'
 import type { DingtalkCorpId, DingtalkUnionId } from '../src/types.ts'
 
-const RETURN_TO = 'https://dsh.example/oauth/callback/dingtalk'
+const RETURN_TO = 'https://lyn.example/oauth/callback/dingtalk'
 
 /** Overrides a test may make to the fixture organization's configuration. */
 interface Over {

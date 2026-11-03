@@ -10,19 +10,19 @@
  * assembly: this package is the only consumer, so the page and the call it
  * makes arrive and leave together.
  *
- * @module @deepseek-ai/dsh-client-ui-settings-data/client
+ * @module @lyness/lyn-client-ui-settings-data/client
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import { SessionId } from '@deepseek-ai/dsh-session/types'
-import { createSnapshotStore } from '@deepseek-ai/dsh-client-store'
-import type {} from '@deepseek-ai/dsh-client-locale/client'
-import type {} from '@deepseek-ai/dsh-client-ui-settings/client'
-import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
-import type {} from '@deepseek-ai/dsh-api-remotes/client'
-import type {} from '@deepseek-ai/dsh-api-session-controller/client'
-import type {} from '@deepseek-ai/dsh-session-log-export/client'
-import sessionDataRemote from '@deepseek-ai/dsh-api-session-data-controller/remote'
+import type { Context } from '@lyness/cordis'
+import { SessionId } from '@lyness/lyn-session/types'
+import { createSnapshotStore } from '@lyness/lyn-client-store'
+import type {} from '@lyness/lyn-client-locale/client'
+import type {} from '@lyness/lyn-client-ui-settings/client'
+import type {} from '@lyness/lyn-client-ui-renderer/client'
+import type {} from '@lyness/lyn-api-remotes/client'
+import type {} from '@lyness/lyn-api-session-controller/client'
+import type {} from '@lyness/lyn-session-log-export/client'
+import sessionDataRemote from '@lyness/lyn-api-session-data-controller/remote'
 import { DataSection } from './DataSection.tsx'
 import { SectionBinding, sectionFace } from './binding.ts'
 import { createDataOperations, dataCallsOf } from './operations.ts'
@@ -42,7 +42,7 @@ export type { ConversationRow, ConversationSource } from './rows.ts'
 export { SectionBinding, sectionFace } from './binding.ts'
 export type { DataActions } from './binding.ts'
 
-declare module '@deepseek-ai/dsh-client-ui-slots' {
+declare module '@lyness/lyn-client-ui-slots' {
   interface LocaleNamespaceMap { 'settings.data': DataKey }
 }
 

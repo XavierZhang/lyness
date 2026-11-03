@@ -34,9 +34,9 @@ async function main(): Promise<void> {
     target: 'cua-helper', version, commit,
   })
   console.log(`CUA_PACKAGING_RECORD ${journal.directory}`)
-  const scratch = mkdtempSync(join(tmpdir(), 'dsh-cua-package-'))
-  const previousDirectory = process.env.DSH_DESKTOP_PACKAGING_RUN_DIR
-  process.env.DSH_DESKTOP_PACKAGING_RUN_DIR = journal.directory
+  const scratch = mkdtempSync(join(tmpdir(), 'lyn-cua-package-'))
+  const previousDirectory = process.env.LYNESS_DESKTOP_PACKAGING_RUN_DIR
+  process.env.LYNESS_DESKTOP_PACKAGING_RUN_DIR = journal.directory
   const controller = new AbortController()
   const stop = (): void => { controller.abort() }
   process.once('SIGINT', stop)
@@ -48,7 +48,7 @@ async function main(): Promise<void> {
   }
   const verify = async (application: string, architecture: 'arm64' | 'x64'): Promise<void> => {
     verifyMacOSRuntimeCode(application, signing)
-    await run('/usr/bin/lipo', ['-verify_arch', architecture === 'x64' ? 'x86_64' : 'arm64', join(application, 'Contents/MacOS/dsh-cua-native')])
+    await run('/usr/bin/lipo', ['-verify_arch', architecture === 'x64' ? 'x86_64' : 'arm64', join(application, 'Contents/MacOS/lyn-cua-native')])
     await run('/usr/bin/xcrun', ['stapler', 'validate', application])
     await run('/usr/sbin/spctl', ['--assess', '--type', 'execute', '--verbose=4', application])
   }
@@ -91,8 +91,8 @@ async function main(): Promise<void> {
   } finally {
     process.off('SIGINT', stop)
     process.off('SIGTERM', stop)
-    if (previousDirectory === undefined) delete process.env.DSH_DESKTOP_PACKAGING_RUN_DIR
-    else process.env.DSH_DESKTOP_PACKAGING_RUN_DIR = previousDirectory
+    if (previousDirectory === undefined) delete process.env.LYNESS_DESKTOP_PACKAGING_RUN_DIR
+    else process.env.LYNESS_DESKTOP_PACKAGING_RUN_DIR = previousDirectory
     rmSync(scratch, { recursive: true, force: true })
   }
   journal.finish(true)

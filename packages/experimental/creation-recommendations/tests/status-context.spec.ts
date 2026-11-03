@@ -1,6 +1,6 @@
 import { expect, it, vi } from 'vitest'
-import { agentEvents, type Agent, type PreStepDecision } from '@deepseek-ai/dsh-agent'
-import { createUserMessage, ToolCallId } from '@deepseek-ai/dsh-llm'
+import { agentEvents, type Agent, type PreStepDecision } from '@lyness/lyn-agent'
+import { createUserMessage, ToolCallId } from '@lyness/lyn-llm'
 import { fixture, callId, proposal, recordCard, ACTION } from './fixture.ts'
 import * as CreationRecommendations from '../src/index.ts'
 

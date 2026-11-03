@@ -10,30 +10,30 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { afterEach, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import Loader from '@deepseek-ai/cordis-plugin-loader'
-import Include from '@deepseek-ai/cordis-plugin-include'
-import { StaticPeopleDirectory } from '@deepseek-ai/dsh-people/static'
-import * as StoredAuthSessions from '@deepseek-ai/dsh-auth-session/store'
-import * as RequestPrincipal from '@deepseek-ai/dsh-request-principal'
-import { IDENTITY_COOKIE } from '@deepseek-ai/dsh-request-principal'
-import Storage from '@deepseek-ai/dsh-storage'
-import * as StorageJson from '@deepseek-ai/dsh-storage-json'
-import * as StorageDomain from '@deepseek-ai/dsh-storage-domain'
-import MemoryService, { memoryOwnerOfPerson } from '@deepseek-ai/dsh-memory'
-import AgentRegistry from '@deepseek-ai/dsh-agent'
-import ToolRuntime from '@deepseek-ai/dsh-tools'
-import AgentLoop from '@deepseek-ai/dsh-agent-loop'
-import LlmRuntime, { LlmAdapter } from '@deepseek-ai/dsh-llm'
-import type { GenerateOptions, LlmResolvedModelInfo, StreamChunk } from '@deepseek-ai/dsh-llm'
-import { SessionId } from '@deepseek-ai/dsh-session'
-import { SESSION_OWNER_RECORD_VERSION } from '@deepseek-ai/dsh-session-ownership/types'
-import * as NativeToolExecutor from '@deepseek-ai/dsh-tool-executor-native'
-import SessionStore from '@deepseek-ai/dsh-session'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { PersonId } from '@deepseek-ai/dsh-people'
+import { Context } from '@lyness/cordis'
+import Loader from '@lyness/cordis-plugin-loader'
+import Include from '@lyness/cordis-plugin-include'
+import { StaticPeopleDirectory } from '@lyness/lyn-people/static'
+import * as StoredAuthSessions from '@lyness/lyn-auth-session/store'
+import * as RequestPrincipal from '@lyness/lyn-request-principal'
+import { IDENTITY_COOKIE } from '@lyness/lyn-request-principal'
+import Storage from '@lyness/lyn-storage'
+import * as StorageJson from '@lyness/lyn-storage-json'
+import * as StorageDomain from '@lyness/lyn-storage-domain'
+import MemoryService, { memoryOwnerOfPerson } from '@lyness/lyn-memory'
+import AgentRegistry from '@lyness/lyn-agent'
+import ToolRuntime from '@lyness/lyn-tools'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import LlmRuntime, { LlmAdapter } from '@lyness/lyn-llm'
+import type { GenerateOptions, LlmResolvedModelInfo, StreamChunk } from '@lyness/lyn-llm'
+import { SessionId } from '@lyness/lyn-session'
+import { SESSION_OWNER_RECORD_VERSION } from '@lyness/lyn-session-ownership/types'
+import * as NativeToolExecutor from '@lyness/lyn-tool-executor-native'
+import SessionStore from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import { brandString } from '@lyness/lyn-brand'
+import type { PersonId } from '@lyness/lyn-people'
 import MemoryController from '../src/index.ts'
 
 /** An adapter no turn in this spec runs; the loop needs a route to exist. */
@@ -66,17 +66,17 @@ type Scope = (request: Request, run: () => Promise<unknown>) => Promise<unknown>
 
 /** Boot the rows through the real Loader, and keep the request scope they registered. */
 async function compose(): Promise<{ ctx: Context; scopes: Scope[] }> {
-  root = await mkdtemp(join(tmpdir(), 'dsh-memory-controller-'))
+  root = await mkdtemp(join(tmpdir(), 'lyn-memory-controller-'))
   const configPath = join(root, 'cordis.yml')
   await writeFile(configPath, [
-    "- name: '@deepseek-ai/dsh-storage'",
-    "- name: '@deepseek-ai/dsh-storage-json'",
+    "- name: '@lyness/lyn-storage'",
+    "- name: '@lyness/lyn-storage-json'",
     '  config:',
     `    root: ${JSON.stringify(join(root, 'state'))}`,
-    "- name: '@deepseek-ai/dsh-storage-domain'",
+    "- name: '@lyness/lyn-storage-domain'",
     '  config:',
     '    backend: json',
-    "- name: '@deepseek-ai/dsh-people/static'",
+    "- name: '@lyness/lyn-people/static'",
     '  config:',
     '    people:',
     '      - id: ada',
@@ -87,20 +87,20 @@ async function compose(): Promise<{ ctx: Context; scopes: Scope[] }> {
     '        displayName: Bo',
     '        role: member',
     '        organization: acme',
-    "- name: '@deepseek-ai/dsh-auth-session/store'",
-    "- name: '@deepseek-ai/dsh-request-principal'",
-    "- name: '@deepseek-ai/dsh-session'",
-    "- name: '@deepseek-ai/dsh-session-projection'",
-    "- name: '@deepseek-ai/dsh-system-prompt'",
-    "- name: '@deepseek-ai/dsh-tools'",
-    "- name: '@deepseek-ai/dsh-tool-executor-native'",
-    "- name: '@deepseek-ai/dsh-llm'",
-    "- name: '@deepseek-ai/dsh-agent'",
-    "- name: '@deepseek-ai/dsh-agent-loop'",
+    "- name: '@lyness/lyn-auth-session/store'",
+    "- name: '@lyness/lyn-request-principal'",
+    "- name: '@lyness/lyn-session'",
+    "- name: '@lyness/lyn-session-projection'",
+    "- name: '@lyness/lyn-system-prompt'",
+    "- name: '@lyness/lyn-tools'",
+    "- name: '@lyness/lyn-tool-executor-native'",
+    "- name: '@lyness/lyn-llm'",
+    "- name: '@lyness/lyn-agent'",
+    "- name: '@lyness/lyn-agent-loop'",
     '  config:',
     '    agents: []',
-    "- name: '@deepseek-ai/dsh-memory'",
-    "- name: '@deepseek-ai/dsh-api-memory-controller'",
+    "- name: '@lyness/lyn-memory'",
+    "- name: '@lyness/lyn-api-memory-controller'",
     '',
   ].join('\n'))
 
@@ -114,22 +114,22 @@ async function compose(): Promise<{ ctx: Context; scopes: Scope[] }> {
   await ctx.plugin(Loader)
   ctx.loader.builtins.include = Include
   const modules = new Map<string, unknown>([
-    ['@deepseek-ai/dsh-storage', Storage],
-    ['@deepseek-ai/dsh-storage-json', StorageJson],
-    ['@deepseek-ai/dsh-storage-domain', StorageDomain],
-    ['@deepseek-ai/dsh-people/static', StaticPeopleDirectory],
-    ['@deepseek-ai/dsh-auth-session/store', StoredAuthSessions],
-    ['@deepseek-ai/dsh-request-principal', RequestPrincipal],
-    ['@deepseek-ai/dsh-session', SessionStore],
-    ['@deepseek-ai/dsh-session-projection', SessionProjectionRegistry],
-    ['@deepseek-ai/dsh-system-prompt', SystemPrompt],
-    ['@deepseek-ai/dsh-tools', ToolRuntime],
-    ['@deepseek-ai/dsh-tool-executor-native', NativeToolExecutor],
-    ['@deepseek-ai/dsh-llm', LlmRuntime],
-    ['@deepseek-ai/dsh-agent', AgentRegistry],
-    ['@deepseek-ai/dsh-agent-loop', AgentLoop],
-    ['@deepseek-ai/dsh-memory', MemoryService],
-    ['@deepseek-ai/dsh-api-memory-controller', MemoryController],
+    ['@lyness/lyn-storage', Storage],
+    ['@lyness/lyn-storage-json', StorageJson],
+    ['@lyness/lyn-storage-domain', StorageDomain],
+    ['@lyness/lyn-people/static', StaticPeopleDirectory],
+    ['@lyness/lyn-auth-session/store', StoredAuthSessions],
+    ['@lyness/lyn-request-principal', RequestPrincipal],
+    ['@lyness/lyn-session', SessionStore],
+    ['@lyness/lyn-session-projection', SessionProjectionRegistry],
+    ['@lyness/lyn-system-prompt', SystemPrompt],
+    ['@lyness/lyn-tools', ToolRuntime],
+    ['@lyness/lyn-tool-executor-native', NativeToolExecutor],
+    ['@lyness/lyn-llm', LlmRuntime],
+    ['@lyness/lyn-agent', AgentRegistry],
+    ['@lyness/lyn-agent-loop', AgentLoop],
+    ['@lyness/lyn-memory', MemoryService],
+    ['@lyness/lyn-api-memory-controller', MemoryController],
   ])
   const base = ctx.loader.internal
   if (base === undefined) throw new Error('this Node build exposes no internal module loader')

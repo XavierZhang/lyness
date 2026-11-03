@@ -10,15 +10,15 @@
  * it until asked again.
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import { TimerService } from '@deepseek-ai/cordis-plugin-timer'
+import type { Context } from '@lyness/cordis'
+import { TimerService } from '@lyness/cordis-plugin-timer'
 import type {
   ApprovalRequestId, CordisDynamicPluginId, DynamicCordisInvokeResult,
   DynamicCordisInventoryRow,
-} from '@deepseek-ai/dsh-api-remotes/client'
-import type { ClientModuleSystem } from '@deepseek-ai/dsh-client-modules/client'
-import type { SlotRegistry } from '@deepseek-ai/dsh-client-ui-renderer/client'
-import type { JsonValue } from '@deepseek-ai/dsh-util-values'
+} from '@lyness/lyn-api-remotes/client'
+import type { ClientModuleSystem } from '@lyness/lyn-client-modules/client'
+import type { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
+import type { JsonValue } from '@lyness/lyn-util-values'
 // The Client Remote assembly is the one place the two planes meet: it mounts the
 // `dynamicCordisRunner` namespace and re-exports its payload vocabulary, so this
 // package names what it sends without importing a Host package.
@@ -54,7 +54,7 @@ export type { DynamicCordisGuardEnv, DynamicCordisSlotLedgerRow } from './guard.
 export type {
   ApprovalRequestId, CordisDynamicPackageId, CordisDynamicPluginId, CordisDynamicPluginRunId,
   DynamicCordisPackage,
-} from '@deepseek-ai/dsh-api-remotes/client'
+} from '@lyness/lyn-api-remotes/client'
 
 
 /**
@@ -122,7 +122,7 @@ export interface CordisRunnerFace {
   isLoaded(pluginId: CordisDynamicPluginId): boolean
 }
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Context {
     /** Run orchestration and page-local load state: what run surfaces read and call. */
     dynamicCordisRunner: CordisRunnerFace

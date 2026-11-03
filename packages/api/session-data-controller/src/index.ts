@@ -12,21 +12,21 @@
  * somebody else's id is told exactly what a caller holding an id that never
  * existed is told.
  *
- * @module @deepseek-ai/dsh-api-session-data-controller
+ * @module @lyness/lyn-api-session-data-controller
  */
 
-import { Context } from '@deepseek-ai/cordis'
-import { Remote, RemoteError, TypertRemoteService } from '@deepseek-ai/dsh-typert-protocol'
-import { SessionId } from '@deepseek-ai/dsh-session'
-import { SessionDeletionLiveError } from '@deepseek-ai/dsh-session-deletion'
-import { SessionAlreadyOwnedError, SessionPersistenceNotFoundError } from '@deepseek-ai/dsh-session-persistence'
-import { SessionQueryError } from '@deepseek-ai/dsh-session-query'
-import type {} from '@deepseek-ai/dsh-session-ownership/visibility'
+import { Context } from '@lyness/cordis'
+import { Remote, RemoteError, TypertRemoteService } from '@lyness/lyn-typert-protocol'
+import { SessionId } from '@lyness/lyn-session'
+import { SessionDeletionLiveError } from '@lyness/lyn-session-deletion'
+import { SessionAlreadyOwnedError, SessionPersistenceNotFoundError } from '@lyness/lyn-session-persistence'
+import { SessionQueryError } from '@lyness/lyn-session-query'
+import type {} from '@lyness/lyn-session-ownership/visibility'
 import type { SessionDeleteValue } from './types.ts'
 
 export type * from './types.ts'
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Context {
     /** Host owner of the `sessionData` Remote namespace. */
     sessionDataController: SessionDataController

@@ -1,15 +1,15 @@
 - tree "Sessions":
   - treeitem "{{workspace}}" [expanded]
-  - treeitem "Review deepseek-ai/DeepSeek Harness#314 Session actions for Review deepseek-ai/DeepSeek Harness#314 Archive session Pin session" [selected]:
-    - text: Review deepseek-ai/DeepSeek Harness#314
-    - button "Session actions for Review deepseek-ai/DeepSeek Harness#314"
+  - treeitem "Review deepseek-ai/lyness#314 Session actions for Review deepseek-ai/lyness#314 Archive session Pin session" [selected]:
+    - text: Review deepseek-ai/lyness#314
+    - button "Session actions for Review deepseek-ai/lyness#314"
     - button "Archive session"
     - button "Pin session"
 
 ---
 
 - banner:
-  - navigation "Session hierarchy": Review deepseek-ai/DeepSeek Harness#314
+  - navigation "Session hierarchy": Review deepseek-ai/lyness#314
   - text: Standard mode
   - button "More actions"
   - button "Open right sidebar"

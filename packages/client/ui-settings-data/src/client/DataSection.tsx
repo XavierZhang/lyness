@@ -9,10 +9,10 @@
  * may belong to another conversation too.
  */
 
-import { Button } from '@deepseek-ai/dsh-client-ui-primitives'
-import type { ObservableSnapshot } from '@deepseek-ai/dsh-client-store'
-import type { InjectFace, PropsLocale, PropsRuntime, PropsStore } from '@deepseek-ai/dsh-client-ui-slots'
-import type {} from '@deepseek-ai/dsh-client-ui-settings/client'
+import { Button } from '@lyness/lyn-client-ui-primitives'
+import type { ObservableSnapshot } from '@lyness/lyn-client-store'
+import type { InjectFace, PropsLocale, PropsRuntime, PropsStore } from '@lyness/lyn-client-ui-slots'
+import type {} from '@lyness/lyn-client-ui-settings/client'
 import type { ConversationRow } from './rows.ts'
 import type { createDataSectionStore } from './store.ts'
 import css from './DataSection.module.css'

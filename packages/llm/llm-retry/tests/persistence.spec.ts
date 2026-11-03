@@ -2,10 +2,10 @@ import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import SessionStore, { SessionId } from '@deepseek-ai/dsh-session'
-import * as JsonlSessionPersistence from '@deepseek-ai/dsh-session-persistence-jsonl'
-import { RetryId } from '@deepseek-ai/dsh-llm-retry'
+import { Context } from '@lyness/cordis'
+import SessionStore, { SessionId } from '@lyness/lyn-session'
+import * as JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
+import { RetryId } from '@lyness/lyn-llm-retry'
 import type {} from '../src/index.ts'
 
 const dirs: string[] = []
@@ -17,7 +17,7 @@ afterEach(async () => {
 async function backend(): Promise<Context> {
   const ctx = new Context()
   await ctx.plugin(SessionStore)
-  const root = await mkdtemp(join(tmpdir(), 'dsh-llm-retry-jsonl-'))
+  const root = await mkdtemp(join(tmpdir(), 'lyn-llm-retry-jsonl-'))
   dirs.push(root)
   await ctx.plugin(JsonlSessionPersistence, { root })
   return ctx

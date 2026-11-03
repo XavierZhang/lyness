@@ -3,7 +3,7 @@ description: "创建和管理定时指令，将其投递到已有或新建对话
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-schedule
+# @lyness/lyn-schedule
 
 [English](README.md) | 中文
 
@@ -58,7 +58,7 @@ Schedule 拥有任务存储与投递。Agent 工具和 Web UI 使用同一管理
 | `deliveryHistoryRecords` | `200` | 每个任务保留最新的 1–10,000 条回执。 |
 | `newSessionIntervalSeconds` | `60` | `new` 目标的最小投递间隔，范围 60–604,800 秒。 |
 
-[配置目录](../../../docs/config-catalog.zh.md#deepseek-aidsh-schedule)定义全部字段。Remote `deliveryLimits()` 向 UI 提示提供实际的新 Session 投递间隔。
+[配置目录](../../../docs/config-catalog.zh.md#lynesslyn-schedule)定义全部字段。Remote `deliveryLimits()` 向 UI 提示提供实际的新 Session 投递间隔。
 
 通过 `create({ title, prompt, timing, target? }, actorSessionId?, signal?)` 创建任务。`timing.kind` 选择 `after`、`at`、`every`、`daily`、`weekly`、`cron` 或 `rrule`；只接受该类型对应的选择器。[Schedule 参考](../../../docs/subsystems/schedule.zh.md#recurrence-rules)定义各选择器及其边界。例如：
 
@@ -79,7 +79,7 @@ RRULE 时间规则使用 `{ kind: "rrule", rrule: "DTSTART:…\nRRULE:…" }`。
 <a id="storage-format"></a>
 ### 存储格式与升级
 
-`schedule` 领域声明 `version: 2, compatibleVersions: [1]`，使用配置的后端和整单元布局。JSON 使用 `<DSH_HOME>/storages/schedule.json`。SQLite 将下述完整任务以 JSON 文本存入 `u_schedule_tasks.value`，并将其 id 存入主键列 `key`。物理 schema 版本 **1**（`PRAGMA user_version`）与原有表保持不变；只有 `units.version` 中的 `schedule` 行在首次成功写入时改为 **2**。无需 SQL DDL 迁移。
+`schedule` 领域声明 `version: 2, compatibleVersions: [1]`，使用配置的后端和整单元布局。JSON 使用 `<LYNESS_HOME>/storages/schedule.json`。SQLite 将下述完整任务以 JSON 文本存入 `u_schedule_tasks.value`，并将其 id 存入主键列 `key`。物理 schema 版本 **1**（`PRAGMA user_version`）与原有表保持不变；只有 `units.version` 中的 `schedule` 行在首次成功写入时改为 **2**。无需 SQL DDL 迁移。
 
 Schedule 在 Host 打开时将全部任务载入内存并校验。任务查找、按活动状态/到期时间/目标筛选、排序、分页与历史查询均使用该内存。SQLite 不查询 JSON 内部，也不维护独立的时间、状态或目标列；其任务操作只有首次全表读取及按键写入/删除。分页限制响应，不限制载入的已存行数。任务解码器约束下述 JSON 字段；SQLite 将 `value` 视为不透明文本。
 
@@ -198,7 +198,7 @@ v2 写入后，v1 程序会拒绝该存储。无效或有歧义的回执会被�
 
 #### 模型看到什么
 
-[生成的工具目录](../../../docs/tool-catalog.zh.md#deepseek-aidsh-tool-schedule) 包含 `schedule_create`、`schedule_list`、`schedule_view` 和 `schedule_edit` 的描述与 schema；这些工具由 [`@deepseek-ai/dsh-tool-schedule`](../tool-schedule/README.zh.md) 贡献给挂载它的 preset。
+[生成的工具目录](../../../docs/tool-catalog.zh.md#lynesslyn-tool-schedule) 包含 `schedule_create`、`schedule_list`、`schedule_view` 和 `schedule_edit` 的描述与 schema；这些工具由 [`@lyness/lyn-tool-schedule`](../tool-schedule/README.zh.md) 贡献给挂载它的 preset。
 
 #### Token 影响
 

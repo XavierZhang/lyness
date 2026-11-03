@@ -20,7 +20,7 @@ Status: proposed
 
 **而任何地方都没有一个经过认证的人。** [`packages/identity`](../../../../packages/identity/anonymous-user-id/README.zh.md) 持有的是一个匿名安装标识，用于遥测关联，并且按设计"不含任何机器或账号数据"。树里没有任何东西确立一个人是谁。这正是下文那个绑定不得不从手工开始的原因：没有目录可读。
 
-而修这件事的机制已经建好了，只是只有一家供应方。[`dsh-authorization`](../../../../packages/credentials/authorization/README.zh.md) 是刻意做成供应方无关的——"本包自身不提供任何供应方专用方法"——而 [`deepseek-account-platform`](../../../../packages/credentials/deepseek-account-platform/README.zh.md) 是它唯一的集成，跑的是完整的 OAuth 2.0 授权码流程加 S256 PKCE：在既有 Host web 服务器上注册 `/oauth/callback`、校验 `state`、一次性兑换 code、提交 grant。本笔记需要的每一家供应方登录，都是同一个流程对着不同的签发方。
+而修这件事的机制已经建好了，只是只有一家供应方。[`lyn-authorization`](../../../../packages/credentials/authorization/README.zh.md) 是刻意做成供应方无关的——"本包自身不提供任何供应方专用方法"——而 [`deepseek-account-platform`](../../../../packages/credentials/deepseek-account-platform/README.zh.md) 是它唯一的集成，跑的是完整的 OAuth 2.0 授权码流程加 S256 PKCE：在既有 Host web 服务器上注册 `/oauth/callback`、校验 `state`、一次性兑换 code、提交 grant。本笔记需要的每一家供应方登录，都是同一个流程对着不同的签发方。
 
 **而入站这个方向没有归属。** [默认模块笔记](2026-10-08-default-modules-and-views.zh.md)把连接器目录给了 MCP 服务器——那是 agent 去够客户的系统。反方向，即客户的人与系统把活儿交给 agent，不在那份清单里。这个遗漏就是本笔记存在的理由，而它恰恰是客户最先要的方向：他们要的是从公司已经在用的那个聊天工具里够到 agent，而不是只能从本产品自己的页面进。
 

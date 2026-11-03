@@ -187,7 +187,7 @@ export async function publishRelease(familyId: string, directory: string, distTa
     return { tarball, ...packedIdentity(tarball) }
   })
   for (const member of order) {
-    if (member.name !== '@deepseek-ai/dsh-experimental-cua-macos') continue
+    if (member.name !== '@lyness/lyn-experimental-cua-macos') continue
     const commit = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim()
     await verifyCuaHelperTarball(member.tarball, { version: member.version, commit })
   }
@@ -235,7 +235,7 @@ async function main(): Promise<void> {
     allowPositionals: false,
   })
   if (values.family === undefined || values.from === undefined) {
-    throw new Error('usage: publish.ts --family <dsh|vendor> --from <packed directory> [--dist-tag <tag>]')
+    throw new Error('usage: publish.ts --family <lyn|vendor> --from <packed directory> [--dist-tag <tag>]')
   }
   await publishRelease(values.family, resolve(process.cwd(), values.from), values['dist-tag'])
 }

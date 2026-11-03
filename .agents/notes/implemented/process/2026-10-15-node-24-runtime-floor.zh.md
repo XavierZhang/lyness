@@ -6,11 +6,11 @@ Status: implemented
 
 ## 问题
 
-根 `engines.node` 范围承诺安装后的工作区支持其允许的每一个运行时。其下限必须覆盖 DSH 使用的运行时 API 和所安装依赖声明的要求。否则，严格安装可能会在 DSH 启动前拒绝一个受支持的版本。
+根 `engines.node` 范围承诺安装后的工作区支持其允许的每一个运行时。其下限必须覆盖 LYN 使用的运行时 API 和所安装依赖声明的要求。否则，严格安装可能会在 LYN 启动前拒绝一个受支持的版本。
 
 ## 决策
 
-将 `engines.node` 设为 `>=24.9.0`。Node 24.9 是 DSH 及其开发载体的下限，也允许实验性 OAR 子代理集成使用要求 Node 24 的 `@botiverse/oar` 库。此决策取代 [Node 22.19 下限](../../archived/process/2026-07-06-node-engine-floor.md)；Node 23 仍被排除，下文的声明策略也仍比运行时下限更窄。迁移说明见[升级指南](../../../../docs/upgrade-guide/v0.2.1-rc.2/node-24/guide.zh.md)。
+将 `engines.node` 设为 `>=24.9.0`。Node 24.9 是 LYN 及其开发载体的下限，也允许实验性 OAR 子代理集成使用要求 Node 24 的 `@botiverse/oar` 库。此决策取代 [Node 22.19 下限](../../archived/process/2026-07-06-node-engine-floor.md)；Node 23 仍被排除，下文的声明策略也仍比运行时下限更窄。迁移说明见[升级指南](../../../../docs/upgrade-guide/v0.2.1-rc.2/node-24/guide.zh.md)。
 
 主要的 Node 24 任务负责完整的类型检查和单元测试覆盖率。聚焦的兼容性任务在固定的 Node 24.9 和 Node 26 上运行。Node 24.9 支持现有 `import.meta.main` 脚本入口和原生 TypeScript 类型剥离。固定 24.9 能验证这个已验证的下限及其 v1 私有模块加载器；主要任务跟随最新的 Node 24，验证 24.12.0 引入的 v2 加载器。浮动的 `24` 兼容性任务会重复主要任务的加载器覆盖，并停止验证下限。
 
@@ -20,7 +20,7 @@ Node 24.9 兼容性任务还构建产物，并检查随产品提供的 Web CLI �
 
 ## 后果
 
-- 使用 Node 22 的安装必须先升级，才能运行 DSH。内嵌运行时的打包应用不要求升级系统 Node。
+- 使用 Node 22 的安装必须先升级，才能运行 LYN。内嵌运行时的打包应用不要求升级系统 Node。
 - 受支持的运行时无需启用标志即可使用 `node:sqlite` 和原生 TypeScript 类型剥离。源码 CLI 仍使用声明的 `tsx/esm` 启动器。
 - 兼容性任务图保留受支持 Node 版本使用的两种私有加载器接口。
 - 后续提升运行时下限时，必须一起更新 `engines.node`、兼容性任务、当前文档、本文和升级指南。

@@ -1,7 +1,7 @@
 /**
  * Client-safe MCP connection status and probe outcomes. Types only — no runtime code.
  *
- * @module @deepseek-ai/dsh-mcp-client/types
+ * @module @lyness/lyn-mcp-client/types
  */
 
 /** Transport closure and local cleanup are reported independently. */

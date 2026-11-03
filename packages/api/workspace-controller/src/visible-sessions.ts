@@ -12,13 +12,13 @@
  * see. It reuses the Session corpus rather than a second rule: an id this
  * call cannot list is an id a Workspace frame does not name.
  *
- * @module @deepseek-ai/dsh-api-workspace-controller/src/visible-sessions
+ * @module @lyness/lyn-api-workspace-controller/src/visible-sessions
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
-import type {} from '@deepseek-ai/dsh-session-query'
-import type {} from '@deepseek-ai/dsh-session-ownership/visibility'
+import type { Context } from '@lyness/cordis'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type {} from '@lyness/lyn-session-query'
+import type {} from '@lyness/lyn-session-ownership/visibility'
 
 /**
  * The conversations one call may name, or `undefined` where nothing filters.

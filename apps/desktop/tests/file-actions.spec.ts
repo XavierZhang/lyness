@@ -19,7 +19,7 @@ afterEach(async () => {
   vi.useRealTimers(); vi.unstubAllEnvs()
   await Promise.all(roots.splice(0).map(path => rm(path, { recursive: true, force: true }))); vi.clearAllMocks(); vi.unstubAllGlobals()
 })
-async function directory() { const path = await mkdtemp(join(tmpdir(), 'dsh-file-actions-')); roots.push(path); return path }
+async function directory() { const path = await mkdtemp(join(tmpdir(), 'lyn-file-actions-')); roots.push(path); return path }
 
 function harness(root: string) {
   const owner = Object.assign(new EventEmitter(), {
@@ -65,7 +65,7 @@ it('returns the completed destination and releases download listeners', async ()
   expect(f.owner.webContents.listenerCount('did-start-navigation')).toBe(0)
 })
 
-it.each(['file:///private/data', 'dsh-app://app/api/private', 'javascript:alert(1)'])('rejects unsupported URL %s', async (url) => {
+it.each(['file:///private/data', 'lyn-app://app/api/private', 'javascript:alert(1)'])('rejects unsupported URL %s', async (url) => {
   const root = await directory(), f = harness(root)
   await expect(f.invoke(DESKTOP_IPC.fileSave, { url, mode: 'download' })).rejects.toThrow('Unsupported')
   expect(await readdir(root)).toEqual([])
@@ -106,7 +106,7 @@ it('cancels pending downloads when the owning document changes', async () => {
   const f = harness(await directory())
   const pending = f.invoke(DESKTOP_IPC.fileSave, { url: 'https://images.example/a', mode: 'download' })
   const download = f.item()
-  f.owner.webContents.emit('did-start-navigation', {}, 'dsh-app://app/', false, true)
+  f.owner.webContents.emit('did-start-navigation', {}, 'lyn-app://app/', false, true)
   await expect(pending).resolves.toEqual({ status: 'cancelled' })
   expect(download.cancel).toHaveBeenCalledOnce()
   download.emit('done', {}, 'cancelled')
@@ -129,7 +129,7 @@ it('matches overlapping downloads of the same source to their captured requests'
 })
 
 it('retires timed-out downloads and cancels items arriving after their window closes', async () => {
-  vi.useFakeTimers(); vi.stubEnv('DSH_DESKTOP_FILE_DOWNLOAD_TIMEOUT_MS', '1000')
+  vi.useFakeTimers(); vi.stubEnv('LYNESS_DESKTOP_FILE_DOWNLOAD_TIMEOUT_MS', '1000')
   const root = await directory(), f = harness(root)
   const pending = f.invoke(DESKTOP_IPC.fileSave, { url: 'https://images.example/a', mode: 'download' })
   const rejected = expect(pending).rejects.toThrow('timed out')
@@ -151,7 +151,7 @@ it('retires timed-out downloads and cancels items arriving after their window cl
 })
 
 it('allows the native save dialog to remain open beyond the download startup deadline', async () => {
-  vi.useFakeTimers(); vi.stubEnv('DSH_DESKTOP_FILE_DOWNLOAD_TIMEOUT_MS', '1000')
+  vi.useFakeTimers(); vi.stubEnv('LYNESS_DESKTOP_FILE_DOWNLOAD_TIMEOUT_MS', '1000')
   const f = harness(await directory())
   const pending = f.invoke(DESKTOP_IPC.fileSave, { url: 'https://images.example/a', mode: 'saveAs' })
   const download = f.item()
@@ -177,7 +177,7 @@ it('aborts original-image reads on window navigation and releases lifecycle list
     signal.addEventListener('abort', () => { reject(new DOMException('Aborted', 'AbortError')) }, { once: true })
   })))
   const reading = f.invoke(DESKTOP_IPC.clipboardImageRead, 'https://images.example/original.gif')
-  f.owner.webContents.emit('did-start-navigation', {}, 'dsh-app://app/', false, true)
+  f.owner.webContents.emit('did-start-navigation', {}, 'lyn-app://app/', false, true)
   await expect(reading).rejects.toThrow('Aborted')
   expect(signal.aborted).toBe(true)
   expect(f.owner.listenerCount('closed')).toBe(0)
@@ -189,7 +189,7 @@ it('preserves pending downloads across iframe and same-document navigation', asy
   const pending = f.invoke(DESKTOP_IPC.fileSave, { url: 'https://images.example/a', mode: 'saveAs' })
   const download = f.item()
   f.owner.webContents.emit('did-start-navigation', {}, 'https://example.org', false, false)
-  f.owner.webContents.emit('did-start-navigation', {}, 'dsh-app://app/#tab', true, true)
+  f.owner.webContents.emit('did-start-navigation', {}, 'lyn-app://app/#tab', true, true)
   download.setSavePath(join(root, 'chosen.gif'))
   download.emit('done', {}, 'completed')
   await expect(pending).resolves.toEqual({ status: 'saved', path: join(root, 'chosen.gif') })

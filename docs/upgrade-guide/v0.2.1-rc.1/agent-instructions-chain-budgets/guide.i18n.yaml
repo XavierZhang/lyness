@@ -5,12 +5,12 @@
 /:
   en: 6163b5a8b473f15a
   zh: fcc49b2949adad3f
-/size-maxbytes-of-deepseek-harness-dsh-agent-instructions-per-instruction-chain:
+/size-maxbytes-of-lyness-lyn-agent-instructions-per-instruction-chain:
   en: deb29587b7795808
   zh: 48cfad0d60457e2a
-/size-maxbytes-of-deepseek-harness-dsh-agent-instructions-per-instruction-chain/change:
+/size-maxbytes-of-lyness-lyn-agent-instructions-per-instruction-chain/change:
   en: c3277bb13e30359f
   zh: b90bb7ca475a08cf
-/size-maxbytes-of-deepseek-harness-dsh-agent-instructions-per-instruction-chain/migration:
+/size-maxbytes-of-lyness-lyn-agent-instructions-per-instruction-chain/migration:
   en: 87b859558cccb1a8
   zh: 59143bc776a835e9

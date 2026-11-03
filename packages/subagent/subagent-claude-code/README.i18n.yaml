@@ -5,78 +5,78 @@
 /:
   en: 098697371ce8b694
   zh: 1cf5aee9be614a5d
-/deepseek-harness-dsh-subagent-claude-code:
+/lyness-lyn-subagent-claude-code:
   en: 0b56c07c64bf2ece
   zh: 07bc181d6b50b66a
-/deepseek-harness-dsh-subagent-claude-code/summary:
+/lyness-lyn-subagent-claude-code/summary:
   en: 498d97a8dd913e53
   zh: d76f0cd25940c540
-/deepseek-harness-dsh-subagent-claude-code/table-of-contents:
+/lyness-lyn-subagent-claude-code/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/deepseek-harness-dsh-subagent-claude-code/use-this-package:
+/lyness-lyn-subagent-claude-code/use-this-package:
   en: 8e614ec7785cbaae
   zh: dd5b2ffff8d513c7
-/deepseek-harness-dsh-subagent-claude-code/use-this-package/installing-the-bundle:
+/lyness-lyn-subagent-claude-code/use-this-package/installing-the-bundle:
   en: 04840b552da7afaa
   zh: 38bc00c18f79b4d6
-/deepseek-harness-dsh-subagent-claude-code/use-this-package/configuration:
+/lyness-lyn-subagent-claude-code/use-this-package/configuration:
   en: 0a8e2bedb3c9cfd0
   zh: e27a24fe329e3672
-/deepseek-harness-dsh-subagent-claude-code/use-this-package/exposing-the-tool:
+/lyness-lyn-subagent-claude-code/use-this-package/exposing-the-tool:
   en: ebf6ba7fef393ebb
   zh: fad30b829e2e4188
-/deepseek-harness-dsh-subagent-claude-code/use-this-package/what-you-get:
+/lyness-lyn-subagent-claude-code/use-this-package/what-you-get:
   en: a731eabea54893d5
   zh: e370dba101b3a7e8
-/deepseek-harness-dsh-subagent-claude-code/use-this-package/failure-and-recovery:
+/lyness-lyn-subagent-claude-code/use-this-package/failure-and-recovery:
   en: 3cfe78175e68269e
   zh: 478666ce1fcb4e59
-/deepseek-harness-dsh-subagent-claude-code/understand-the-implementation:
+/lyness-lyn-subagent-claude-code/understand-the-implementation:
   en: a04818121f31d222
   zh: 2ed476ab086c1686
-/deepseek-harness-dsh-subagent-claude-code/understand-the-implementation/design-concept:
+/lyness-lyn-subagent-claude-code/understand-the-implementation/design-concept:
   en: c01f4a013f7f1a2f
   zh: 92221e45d438334d
-/deepseek-harness-dsh-subagent-claude-code/understand-the-implementation/source-map:
+/lyness-lyn-subagent-claude-code/understand-the-implementation/source-map:
   en: 4826e5016f7d9655
   zh: 9b80696313be1816
-/deepseek-harness-dsh-subagent-claude-code/understand-the-implementation/run-flow:
+/lyness-lyn-subagent-claude-code/understand-the-implementation/run-flow:
   en: 4dd16da30209644e
   zh: 7ea63e1bf4cee29d
-/deepseek-harness-dsh-subagent-claude-code/further-exploration:
+/lyness-lyn-subagent-claude-code/further-exploration:
   en: c57652de4799fbc5
   zh: 64fd39a1e9905131
-/deepseek-harness-dsh-subagent-claude-code/model-experience:
+/lyness-lyn-subagent-claude-code/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/deepseek-harness-dsh-subagent-claude-code/model-experience/child-request:
+/lyness-lyn-subagent-claude-code/model-experience/child-request:
   en: 1796fa78833bfc2b
   zh: d925d4c0d6c46552
-/deepseek-harness-dsh-subagent-claude-code/model-experience/child-request/what-the-model-sees:
+/lyness-lyn-subagent-claude-code/model-experience/child-request/what-the-model-sees:
   en: 3edc725966ed48c2
   zh: 2ec900cc7a4ae459
-/deepseek-harness-dsh-subagent-claude-code/model-experience/child-request/token-effect:
+/lyness-lyn-subagent-claude-code/model-experience/child-request/token-effect:
   en: 631f762d31c31a3d
   zh: f32ad086756bf33d
-/deepseek-harness-dsh-subagent-claude-code/model-experience/child-request/kv-cache-effect:
+/lyness-lyn-subagent-claude-code/model-experience/child-request/kv-cache-effect:
   en: 1f37a0a78ef63223
   zh: b6543531dda88e22
-/deepseek-harness-dsh-subagent-claude-code/model-experience/parent-scheduling-and-results-indirectly:
+/lyness-lyn-subagent-claude-code/model-experience/parent-scheduling-and-results-indirectly:
   en: 4c391bb16e3cd380
   zh: ab3847efe35fa6dc
-/deepseek-harness-dsh-subagent-claude-code/model-experience/parent-scheduling-and-results-indirectly/what-the-model-sees:
+/lyness-lyn-subagent-claude-code/model-experience/parent-scheduling-and-results-indirectly/what-the-model-sees:
   en: 6367fed222129ff9
   zh: 10ace84fdc82533a
-/deepseek-harness-dsh-subagent-claude-code/model-experience/parent-scheduling-and-results-indirectly/token-effect:
+/lyness-lyn-subagent-claude-code/model-experience/parent-scheduling-and-results-indirectly/token-effect:
   en: 0c436fb0897a6eca
   zh: 7ec0a953d0232af2
-/deepseek-harness-dsh-subagent-claude-code/model-experience/parent-scheduling-and-results-indirectly/kv-cache-effect:
+/lyness-lyn-subagent-claude-code/model-experience/parent-scheduling-and-results-indirectly/kv-cache-effect:
   en: 19f1316ea4bb1bb9
   zh: 181231ddffdc8494
-/deepseek-harness-dsh-subagent-claude-code/known-limitations-and-deferred-work:
+/lyness-lyn-subagent-claude-code/known-limitations-and-deferred-work:
   en: 421cfbcfb55c7e2b
   zh: df54ab7743cf6e33
-/deepseek-harness-dsh-subagent-claude-code/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-subagent-claude-code/known-limitations-and-deferred-work/dev-note:
   en: 185beb4ff55f0946
   zh: 068ca7c57137eb33

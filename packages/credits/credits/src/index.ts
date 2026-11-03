@@ -13,12 +13,12 @@
  * customer cannot account for is a support case while a balance whose every
  * debit names its session is answerable.
  *
- * @module @deepseek-ai/dsh-credits
+ * @module @lyness/lyn-credits
  */
 
-import { Service } from '@deepseek-ai/cordis'
-import type { Context } from '@deepseek-ai/cordis'
-import type { PersonId } from '@deepseek-ai/dsh-people'
+import { Service } from '@lyness/cordis'
+import type { Context } from '@lyness/cordis'
+import type { PersonId } from '@lyness/lyn-people'
 import type { BudgetChange, BudgetState, OrganizationBudget } from './budget.ts'
 import type { CreditBalance, CreditDebit, CreditGrant, GrantReason, RefusalReason } from './types.ts'
 
@@ -29,7 +29,7 @@ export type {
   CreditBalance, CreditDebit, CreditGrant, DebitId, GrantId, GrantReason, RefusalReason,
 } from './types.ts'
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Context {
     /** Credits one person may spend; absent on a deployment that meters none. */
     credits: CreditLedger

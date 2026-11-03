@@ -1,1 +1,1 @@
-![DSH badge skill feature preview](preview.svg)
+![LYN badge skill feature preview](preview.svg)

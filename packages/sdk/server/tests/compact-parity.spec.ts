@@ -4,17 +4,17 @@ import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import AgentLoop from '@deepseek-ai/dsh-agent-loop'
-import { mountAgentLoopTestDependencies } from '@deepseek-ai/dsh-agent-loop-testkit'
-import CommandRuntime from '@deepseek-ai/dsh-commands'
-import * as CommandCompact from '@deepseek-ai/dsh-command-compact'
-import BasicCompactionEngine from '@deepseek-ai/dsh-compaction-basic'
-import { LlmAdapter } from '@deepseek-ai/dsh-llm'
-import type { GenerateOptions, LlmResolvedModelInfo, StreamChunk } from '@deepseek-ai/dsh-llm'
-import { SessionId } from '@deepseek-ai/dsh-session'
-import TokenMeter from '@deepseek-ai/dsh-token-meter'
-import { defineTool } from '@deepseek-ai/dsh-tools'
+import { Context } from '@lyness/cordis'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import { mountAgentLoopTestDependencies } from '@lyness/lyn-agent-loop-testkit'
+import CommandRuntime from '@lyness/lyn-commands'
+import * as CommandCompact from '@lyness/lyn-command-compact'
+import BasicCompactionEngine from '@lyness/lyn-compaction-basic'
+import { LlmAdapter } from '@lyness/lyn-llm'
+import type { GenerateOptions, LlmResolvedModelInfo, StreamChunk } from '@lyness/lyn-llm'
+import { SessionId } from '@lyness/lyn-session'
+import TokenMeter from '@lyness/lyn-token-meter'
+import { defineTool } from '@lyness/lyn-tools'
 import { HarnessSdkJsonRpcServer } from '../src/server.ts'
 
 const HISTORY = 'Preserve the migration requirement: keep the existing public file format and validate the result. '.repeat(80)
@@ -112,7 +112,7 @@ async function compactAndContinue(path: 'sdk' | 'native', cwd: string) {
 }
 
 it('preserves native compact model inputs and turn boundaries through the SDK command entry', async () => {
-  const cwd = await mkdtemp(join(tmpdir(), 'dsh-sdk-compact-parity-'))
+  const cwd = await mkdtemp(join(tmpdir(), 'lyn-sdk-compact-parity-'))
   try {
     const native = await compactAndContinue('native', cwd)
     const sdk = await compactAndContinue('sdk', cwd)

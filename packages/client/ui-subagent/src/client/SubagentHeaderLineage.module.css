@@ -156,12 +156,12 @@
   display: flex;
   flex-direction: column;
   width: 360px;
-  max-width: min(calc(100vw - 32px), var(--dsh-anchored-max-width, 100vw));
-  max-height: min(560px, calc(100vh - 140px), var(--dsh-anchored-max-height, 100vh));
+  max-width: min(calc(100vw - 32px), var(--lyn-anchored-max-width, 100vw));
+  max-height: min(560px, calc(100vh - 140px), var(--lyn-anchored-max-height, 100vh));
   padding: 6px;
   overflow: hidden;
-  --dsh-scrollbar-thumb: var(--dsw-alias-scrollbar-bg-l2);
-  --dsh-scrollbar-thumb-hover: var(--dsw-alias-scrollbar-hover-l2);
+  --lyn-scrollbar-thumb: var(--dsw-alias-scrollbar-bg-l2);
+  --lyn-scrollbar-thumb-hover: var(--dsw-alias-scrollbar-hover-l2);
   --dsw-elevation-stroke-color: var(--dsw-alias-border-l1);
   box-shadow: var(--dsw-elevation-prominent);
 }
@@ -173,13 +173,13 @@
   min-height: 0;
   overflow: auto;
   scrollbar-gutter: stable;
-  --dsh-scrollbar-track-margin: 6px;
+  --lyn-scrollbar-track-margin: 6px;
 }
 
 /* Keep the shared WebKit scrollbar in the menu's right inset, not its content column. */
 @supports selector(::-webkit-scrollbar) {
   .menuBody {
-    margin-right: calc(-1 * var(--dsh-scrollbar-width));
+    margin-right: calc(-1 * var(--lyn-scrollbar-width));
   }
 }
 

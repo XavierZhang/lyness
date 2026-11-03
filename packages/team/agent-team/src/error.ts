@@ -1,6 +1,6 @@
 /** Typed Agent Teams failures. */
 
-import { HarnessError } from '@deepseek-ai/dsh-llm'
+import { HarnessError } from '@lyness/lyn-llm'
 
 /** Stable failure raised by the Team domain. */
 export class TeamError extends HarnessError {

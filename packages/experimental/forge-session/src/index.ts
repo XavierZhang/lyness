@@ -1,13 +1,13 @@
 /** Binds change requests to the Session that created, pushed, or tracked them, and watches the bound ones. */
 
-import { Context, Service } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
-import { changeRequestKey } from '@deepseek-ai/dsh-experimental-forge'
-import type { ChangeRequestKey, ChangeRequestRef, ForgeRepository } from '@deepseek-ai/dsh-experimental-forge'
-import { appendPluginRecord, pluginRecordOf } from '@deepseek-ai/dsh-session'
-import type { Session, SessionEvent } from '@deepseek-ai/dsh-session'
-import type { ProjectionHandle } from '@deepseek-ai/dsh-session-projection'
-import { deadline, MAX_TIMER_DELAY_MS } from '@deepseek-ai/dsh-timeout'
+import { Context, Service } from '@lyness/cordis'
+import z from '@lyness/schemastery'
+import { changeRequestKey } from '@lyness/lyn-experimental-forge'
+import type { ChangeRequestKey, ChangeRequestRef, ForgeRepository } from '@lyness/lyn-experimental-forge'
+import { appendPluginRecord, pluginRecordOf } from '@lyness/lyn-session'
+import type { Session, SessionEvent } from '@lyness/lyn-session'
+import type { ProjectionHandle } from '@lyness/lyn-session-projection'
+import { deadline, MAX_TIMER_DELAY_MS } from '@lyness/lyn-timeout'
 import { sameChangeRequestUrl } from './commands.ts'
 import { BINDING_RECORD, forgeChangeRequestsProjection } from './projection.ts'
 import { observeReferences } from './reference-lookup.ts'
@@ -15,7 +15,7 @@ import type { BindingState, Config, ForgeChangeRequestsState, SessionChangeReque
 
 export type * from './types.ts'
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Context {
     forgeSession: ForgeSessionService
   }

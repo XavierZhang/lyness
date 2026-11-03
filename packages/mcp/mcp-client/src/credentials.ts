@@ -1,7 +1,7 @@
 /** Runtime template resolution and secret redaction for one MCP instance. */
 
-import type { Context } from '@deepseek-ai/cordis'
-import type { CredentialRef } from '@deepseek-ai/dsh-credentials'
+import type { Context } from '@lyness/cordis'
+import type { CredentialRef } from '@lyness/lyn-credentials'
 import { assertTemplateSyntax, credentialRefsIn, resolveTemplateString } from './templates.ts'
 import { describeError, McpLocalError, redactSecrets } from './diagnostic.ts'
 import type { Config } from './index.ts'

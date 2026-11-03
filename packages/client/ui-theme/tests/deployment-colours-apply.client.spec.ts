@@ -4,11 +4,11 @@
  * brand plugin that unloads must leave the built-in palette behind, so the
  * removal matters as much as the set.
  */
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { afterEach, describe, expect, it } from 'vitest'
 import { installDeploymentColours } from '../src/client/deployment-colours.ts'
 
-const GLOBAL = 'dshDeploymentBrand'
+const GLOBAL = 'lynDeploymentBrand'
 
 function withBrand(brand: unknown): void {
   Reflect.set(globalThis, GLOBAL, brand)
@@ -27,9 +27,9 @@ describe('deployment colour overrides on the page', () => {
     await fiber.await()
 
     const style = document.documentElement.style
-    expect(style.getPropertyValue('--deepseek-harness-blue')).toBe('#123456')
-    expect(style.getPropertyValue('--deepseek-harness-gray-50')).toBe('white')
-    expect(style.getPropertyValue('--deepseek-harness-grey')).toBe('')
+    expect(style.getPropertyValue('--lyness-blue')).toBe('#123456')
+    expect(style.getPropertyValue('--lyness-gray-50')).toBe('white')
+    expect(style.getPropertyValue('--lyness-grey')).toBe('')
 
     await fiber.dispose()
     expect(document.documentElement.getAttribute('style')).toBe('')

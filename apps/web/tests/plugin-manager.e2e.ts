@@ -7,9 +7,9 @@ import { tmpdir } from 'node:os'
 import { fileURLToPath } from 'node:url'
 import type { Browser, Locator, Page } from 'playwright'
 import { chromium } from 'playwright'
-import { FiberState } from '@deepseek-ai/cordis'
-import { readProfileManifest } from '@deepseek-ai/dsh-app-boot'
-import { HIDDEN_BUNDLES, PROFILE_TEMPLATES } from '@deepseek-ai/dsh-official-bundles'
+import { FiberState } from '@lyness/cordis'
+import { readProfileManifest } from '@lyness/lyn-app-boot'
+import { HIDDEN_BUNDLES, PROFILE_TEMPLATES } from '@lyness/lyn-official-bundles'
 import { afterAll, beforeAll, describe, expect, it, onTestFailed, onTestFinished, vi } from 'vitest'
 import { join } from 'node:path'
 import {
@@ -259,7 +259,7 @@ describe('web e2e: plugin manager', () => {
 
   it('uses icon actions before shrinking tabs and wraps only when both still cannot fit', async () => {
     const compactScaffold = await launchWebScaffold({
-      profile: { packages: [], bundles: ['@deepseek-ai/dsh-experimental-plugin-market-bundle'] },
+      profile: { packages: [], bundles: ['@lyness/lyn-experimental-plugin-market-bundle'] },
     })
     const context = await browser.newContext({ viewport: { width: 1280, height: 480 }, locale: 'en-US', reducedMotion: 'reduce' })
     try {
@@ -420,7 +420,7 @@ describe('web e2e: plugin manager', () => {
   it('aligns the first-read skeleton with the loaded plugin cards', async () => {
     const facts: string[] = []
     let aria = ''
-    const shots = MODE === 'refresh' ? await mkdtemp(join(tmpdir(), 'dsh-plugin-loading-')) : undefined
+    const shots = MODE === 'refresh' ? await mkdtemp(join(tmpdir(), 'lyn-plugin-loading-')) : undefined
     for (const width of [1680, 1000]) {
       const context = await browser.newContext({ viewport: { width, height: 1000 }, locale: ZH_BROWSER_LOCALE })
       const release = Promise.withResolvers<undefined>()
@@ -771,8 +771,8 @@ describe('web e2e: plugin manager', () => {
       }), MODE)
     await toggle.click()
     await expect.poll(async () => (JSON.parse(await homeFile('profiles', 'scaffold', 'package.json')) as {
-      dsh: { profile: { bundles: string[] } }
-    }).dsh.profile.bundles, { timeout: 10_000 }).toEqual(SCAFFOLD_BUNDLES)
+      lyn: { profile: { bundles: string[] } }
+    }).lyn.profile.bundles, { timeout: 10_000 }).toEqual(SCAFFOLD_BUNDLES)
     await expect.poll(() => panel.getByText(/cannot resolve profile bundle/).count(), { timeout: 10_000 }).toBe(0)
     expect((await scaffold.ctx.pluginManager.listBundles()).some(row => row.name === '@fixture/missing-bundle')).toBe(false)
     expect(tripwire.pageErrors).toEqual([])
@@ -842,34 +842,34 @@ describe('web e2e: plugin manager', () => {
     // Profile bundles stay in Installed; configuration pages and offered bundles have their own groups.
     expect(await panel.locator('[data-plugin-group="bundles"] [data-plugin-package]').count()).toBe(2)
     expect(await panel.locator('[data-plugin-group="basic"] [data-plugin-item]').count()).toBe(4)
-    expect(await panel.locator('[data-plugin-package="@deepseek-ai/dsh-experimental-inspector"]').count()).toBe(0)
+    expect(await panel.locator('[data-plugin-package="@lyness/lyn-experimental-inspector"]').count()).toBe(0)
     expect(await panel.getByRole('switch', { name: '启用 语音输入', exact: true }).getAttribute('aria-checked')).toBe('false')
     expect(await panel.getByRole('switch', { name: '启用 自定义插件索引', exact: true }).getAttribute('aria-checked')).toBe('false')
     expect(await panel.getByRole('switch', { name: '启用 开发者工具', exact: true }).count()).toBe(0)
     expect(await panel.getByText(/Cordis|Chrome DevTools/).count()).toBe(0)
     // A bundle the installation ships but the profile runs no row of stays out of both lists: the
     // LiveShare card appears only once its own plugins run (covered by the visibility scenario below).
-    expect(await panel.locator('[data-plugin-group="extensions"] [data-plugin-package="@deepseek-ai/dsh-experimental-liveshare"]').count()).toBe(0)
+    expect(await panel.locator('[data-plugin-group="extensions"] [data-plugin-package="@lyness/lyn-experimental-liveshare"]').count()).toBe(0)
     await panel.getByRole('button', { name: '更多', exact: true }).click()
     await panel.getByRole('heading', { name: '实验性插件', exact: true, level: 1 }).waitFor()
     expect(await panel.getByText(experimentalBundleDescription('inspector-profile', 'zh'), { exact: true }).count()).toBe(1)
     const bundles = await scaffold.ctx.pluginManager.listBundles()
-    expect(bundles.some(bundle => bundle.name === '@deepseek-ai/dsh-experimental-terminal-bundle')).toBe(true)
+    expect(bundles.some(bundle => bundle.name === '@lyness/lyn-experimental-terminal-bundle')).toBe(true)
     expect(await panel.getByRole('switch', { name: '启用 持久终端', exact: true }).count()).toBe(0)
     // The More list also omits LiveShare until its rows run, so the offered count is one lower than
     // the eligible installed optional-bundle list.
-    expect(await panel.locator('[data-plugin-group="more"] [data-plugin-package="@deepseek-ai/dsh-experimental-liveshare"]').count()).toBe(0)
+    expect(await panel.locator('[data-plugin-group="more"] [data-plugin-package="@lyness/lyn-experimental-liveshare"]').count()).toBe(0)
     expect(await panel.locator('[data-plugin-group="more"] [data-plugin-package]').count())
       .toBe(bundles.filter(bundle => !HIDDEN_BUNDLES.has(bundle.name)
-        && bundle.name !== '@deepseek-ai/dsh-experimental-liveshare'
+        && bundle.name !== '@lyness/lyn-experimental-liveshare'
         && bundle.official && (bundle.listedByDefault !== false || bundle.enabled || bundle.installed)).length)
     // Computer Use ships with the installation and is listed only on the macOS Hosts it supports.
     const cuaSupported = process.platform === 'darwin'
-    expect(bundles.find(bundle => bundle.name === '@deepseek-ai/dsh-cua-bundle'))
+    expect(bundles.find(bundle => bundle.name === '@lyness/lyn-cua-bundle'))
       .toMatchObject({ enabled: false, optional: true, availability: 'installation', ...cuaSupported ? {} : { listedByDefault: false } })
-    expect(await panel.locator('[data-plugin-group="more"] [data-plugin-package="@deepseek-ai/dsh-cua-bundle"]').count())
+    expect(await panel.locator('[data-plugin-group="more"] [data-plugin-package="@lyness/lyn-cua-bundle"]').count())
       .toBe(cuaSupported ? 1 : 0)
-    for (const name of ['@deepseek-ai/dsh-experimental-session-search', '@deepseek-ai/dsh-experimental-ralph-bundle']) {
+    for (const name of ['@lyness/lyn-experimental-session-search', '@lyness/lyn-experimental-ralph-bundle']) {
       expect((await scaffold.ctx.pluginManager.listBundles()).find(bundle => bundle.name === name))
         .toMatchObject({ enabled: false, optional: true, availability: 'installation', listedByDefault: false })
       expect(await panel.locator(`[data-plugin-package="${name}"]`).count()).toBe(0)
@@ -879,18 +879,18 @@ describe('web e2e: plugin manager', () => {
       await card.getAttribute('data-plugin-package'),
       await card.getByText('实验性', { exact: true }).count(),
     ]))).toEqual([
-      ['@deepseek-ai/dsh-experimental-voice-input-bundle', 1],
-      ['@deepseek-ai/dsh-experimental-plugin-market-bundle', 1],
-      ['@deepseek-ai/dsh-experimental-auto-review', 1],
-      ['@deepseek-ai/dsh-experimental-forge-bundle', 1],
-      ['@deepseek-ai/dsh-personalized-recommendations', 1],
-      ['@deepseek-ai/dsh-experimental-inspector-profile', 1],
-      ...cuaSupported ? [['@deepseek-ai/dsh-cua-bundle', 1]] : [],
-      ['@deepseek-ai/dsh-experimental-cot-translation-bundle', 1],
-      ['@deepseek-ai/dsh-experimental-session-titles-bundle', 1],
-      ['@deepseek-ai/dsh-experimental-badge-skill-bundle', 1],
-      ['@deepseek-ai/dsh-subagent-codex', 0],
-      ['@deepseek-ai/dsh-subagent-claude-code', 0],
+      ['@lyness/lyn-experimental-voice-input-bundle', 1],
+      ['@lyness/lyn-experimental-plugin-market-bundle', 1],
+      ['@lyness/lyn-experimental-auto-review', 1],
+      ['@lyness/lyn-experimental-forge-bundle', 1],
+      ['@lyness/lyn-personalized-recommendations', 1],
+      ['@lyness/lyn-experimental-inspector-profile', 1],
+      ...cuaSupported ? [['@lyness/lyn-cua-bundle', 1]] : [],
+      ['@lyness/lyn-experimental-cot-translation-bundle', 1],
+      ['@lyness/lyn-experimental-session-titles-bundle', 1],
+      ['@lyness/lyn-experimental-badge-skill-bundle', 1],
+      ['@lyness/lyn-subagent-codex', 0],
+      ['@lyness/lyn-subagent-claude-code', 0],
     ])
     expect(await panel.locator('[data-plugin-group="bundles"]').count()).toBe(0)
     await panel.getByRole('button', { name: '返回插件', exact: true }).click()
@@ -911,10 +911,10 @@ describe('web e2e: plugin manager', () => {
   it('enables both default-hidden shipped bundles by name without adding a profile dependency', async () => {
     onTestFailed(() => saveFailureShot(page, 'web-e2e-plugin-manager-bundled-enable'))
     const profileDir = join(scaffold.harnessHome, 'profiles', 'scaffold')
-    const before = readProfileManifest('dsh', profileDir).dependencies
+    const before = readProfileManifest('lyn', profileDir).dependencies
     for (const [name, title] of [
-      ['@deepseek-ai/dsh-experimental-session-search', '会话搜索'],
-      ['@deepseek-ai/dsh-experimental-ralph-bundle', 'Ralph 循环'],
+      ['@lyness/lyn-experimental-session-search', '会话搜索'],
+      ['@lyness/lyn-experimental-ralph-bundle', 'Ralph 循环'],
     ] as const) {
       const panel = await openPluginsPanel()
       expect(await panel.locator(`[data-plugin-package="${name}"]`).count()).toBe(0)
@@ -922,7 +922,7 @@ describe('web e2e: plugin manager', () => {
       const dialog = page.getByRole('dialog', { name: '添加插件', exact: true })
       await dialog.getByRole('textbox', { name: '包名或地址', exact: true }).fill(name)
       await dialog.getByRole('button', { name: '安装', exact: true }).click()
-      const ready = page.getByRole('dialog', { name: '插件已随 DSH 提供', exact: true })
+      const ready = page.getByRole('dialog', { name: '插件已随 LYN 提供', exact: true })
       await ready.waitFor()
       expect((await scaffold.ctx.pluginManager.listBundles()).find(bundle => bundle.name === name)?.enabled).toBe(false)
       expect(await ready.getByText('无需下载，启用即可使用', { exact: true }).count()).toBe(1)
@@ -930,7 +930,7 @@ describe('web e2e: plugin manager', () => {
       const card = panel.locator(`[data-plugin-package="${name}"]`)
       await card.waitFor()
       expect((await scaffold.ctx.pluginManager.listBundles()).find(bundle => bundle.name === name)?.enabled).toBe(true)
-      expect(readProfileManifest('dsh', profileDir).dependencies).toEqual(before)
+      expect(readProfileManifest('lyn', profileDir).dependencies).toEqual(before)
       await card.getByRole('switch', { name: `启用 ${title}`, exact: true }).click()
       await card.waitFor({ state: 'hidden' })
       expect((await scaffold.ctx.pluginManager.listBundles()).find(bundle => bundle.name === name)?.enabled).toBe(false)
@@ -996,9 +996,9 @@ describe('web e2e: plugin manager', () => {
       images.push(`${label}: image, ${size.width}×${size.height}, decoded`)
     }
     await checkImage('[data-plugin-package="@fixture/bundle"]', fixtureIcon, 'Third-party bundle card')
-    const team = panel.locator('[data-plugin-package="@deepseek-ai/dsh-experimental-voice-input-bundle"]')
+    const team = panel.locator('[data-plugin-package="@lyness/lyn-experimental-voice-input-bundle"]')
     expect(await team.getByRole('switch').getAttribute('aria-checked')).toBe('false')
-    await checkImage('[data-plugin-package="@deepseek-ai/dsh-experimental-voice-input-bundle"]', voiceIcon, 'Disabled Voice Input card')
+    await checkImage('[data-plugin-package="@lyness/lyn-experimental-voice-input-bundle"]', voiceIcon, 'Disabled Voice Input card')
     try {
       for (const colorScheme of ['light', 'dark'] as const) {
         await page.emulateMedia({ colorScheme })
@@ -1030,9 +1030,9 @@ describe('web e2e: plugin manager', () => {
     onTestFailed(() => saveFailureShot(page, 'web-e2e-plugin-manager-preview'))
     const panel = await openPluginsPanel()
     await panel.getByRole('button', { name: '更多', exact: true }).click()
-    await panel.getByRole('button', { name: '查看 DSH 徽章技能', exact: true }).click()
+    await panel.getByRole('button', { name: '查看 LYN 徽章技能', exact: true }).click()
     const detail = panel.locator('[data-plugin-detail]')
-    const preview = detail.locator('[data-detail-document]').getByRole('img', { name: 'DSH 徽章技能功能预览', exact: true })
+    const preview = detail.locator('[data-detail-document]').getByRole('img', { name: 'LYN 徽章技能功能预览', exact: true })
     await preview.waitFor()
     await preview.evaluate(async (image: HTMLImageElement) => { await image.decode() })
     expect(await preview.evaluate((image: HTMLImageElement) => image.naturalWidth)).toBe(640)
@@ -1053,7 +1053,7 @@ describe('web e2e: plugin manager', () => {
     try {
       await setLanguage('en')
       const englishPreview = detail.locator('[data-detail-document]')
-        .getByRole('img', { name: 'DSH badge skill feature preview', exact: true })
+        .getByRole('img', { name: 'LYN badge skill feature preview', exact: true })
       await englishPreview.waitFor()
       await englishPreview.evaluate(async (image: HTMLImageElement) => { await image.decode() })
       expect(await englishPreview.evaluate((image: HTMLImageElement) => image.naturalWidth)).toBe(640)
@@ -1160,12 +1160,12 @@ describe('web e2e: plugin manager', () => {
     const panel = await openPluginsPanel()
     await panel.getByRole('button', { name: '查看 语音输入', exact: true }).click()
     const packageName = panel.locator('[data-plugin-name]')
-    expect(await packageName.textContent()).toBe('@deepseek-ai/dsh-experimental-voice-input-bundle')
+    expect(await packageName.textContent()).toBe('@lyness/lyn-experimental-voice-input-bundle')
     expect(await panel.getByText('在本机使用 SenseVoice 转写录音，首次使用需安装依赖。').count()).toBe(1)
     try {
       await setLanguage('en')
       await panel.getByRole('heading', { name: 'Voice input', exact: true }).waitFor()
-      expect(await packageName.textContent()).toBe('@deepseek-ai/dsh-experimental-voice-input-bundle')
+      expect(await packageName.textContent()).toBe('@lyness/lyn-experimental-voice-input-bundle')
       expect(await panel.getByText('Transcribe recordings locally with SenseVoice; first use requires installing dependencies').count()).toBe(1)
       await panel.getByRole('button', { name: 'Back to plugins' }).click()
       await panel.getByRole('button', { name: 'View Voice input', exact: true }).waitFor()
@@ -1188,7 +1188,7 @@ describe('web e2e: plugin manager', () => {
     onTestFinished(closeSettings)
     const panel = await openPluginsPanel()
     expect(await panel.getByRole('switch', { name: '启用 智能体团队', exact: true }).count()).toBe(0)
-    expect(await panel.locator('[data-plugin-package="@deepseek-ai/dsh-experimental-agent-team-profile"]').count()).toBe(0)
+    expect(await panel.locator('[data-plugin-package="@lyness/lyn-experimental-agent-team-profile"]').count()).toBe(0)
     expect([...scaffold.ctx.loader.entries()].filter(entry =>
       ['agent-team', 'tool-agent-team', 'ui-agent-team'].includes(entry.options.id)
         && entry.fiber?.state === FiberState.ACTIVE)).toHaveLength(3)
@@ -1393,16 +1393,16 @@ describe('web e2e: plugin manager', () => {
     const install = dialog.getByRole('button', { name: '安装', exact: true })
     expect(await install.isDisabled()).toBe(true)
     expect(await dialog.getByRole('note').textContent()).toContain('请确认插件来源可信')
-    expect(await dialog.getByRole('note').textContent()).toContain('按需安装的官方插件会在版本与 DSH 不同时提供“更新”')
+    expect(await dialog.getByRole('note').textContent()).toContain('按需安装的官方插件会在版本与 LYN 不同时提供“更新”')
     expect(await dialog.getByRole('note').textContent()).toContain('其他插件请先卸载再安装新版')
     await dialog.getByRole('button', { name: '插件安装引导和示例' }).click()
     // The guide carries the package-name example only; the former template strings keep their replacement reminder.
     await expect.poll(() => dialog.getByRole('listitem').count()).toBe(1)
-    await dialog.getByRole('button', { name: '填入示例 dsh-plugin-whale-pet' }).click()
-    expect(await field.inputValue()).toBe('dsh-plugin-whale-pet')
+    await dialog.getByRole('button', { name: '填入示例 lyn-plugin-whale-pet' }).click()
+    expect(await field.inputValue()).toBe('lyn-plugin-whale-pet')
     expect(await dialog.getByRole('status').count()).toBe(0)
     for (const [example, hint] of [
-      ['https://github.com/author/dsh-plugin', '请替换为实际的 Git 仓库地址'],
+      ['https://github.com/author/lyn-plugin', '请替换为实际的 Git 仓库地址'],
       ['/Users/name/my-plugin', '请替换为本机插件目录的实际路径'],
     ] as const) {
       await field.fill(example)
@@ -1442,8 +1442,8 @@ describe('web e2e: plugin manager', () => {
     await toggle.click()
 
     const bundles = async () => (JSON.parse(await homeFile('profiles', 'scaffold', 'package.json')) as {
-      dsh: { profile: { bundles: string[] } }
-    }).dsh.profile.bundles
+      lyn: { profile: { bundles: string[] } }
+    }).lyn.profile.bundles
     await expect.poll(bundles, { timeout: PLUGIN_TOGGLE_SETTLE_MS }).toEqual([...SCAFFOLD_BUNDLES, '@fixture/bundle'])
     // A live profile: the row mounts once the whole tree recomposed, the switch is on, and nothing waits for a restart.
     await expect.poll(() => mounted()?.fiber?.state, { timeout: 20_000 }).toBe(2)
@@ -1483,7 +1483,7 @@ describe('web e2e: plugin manager', () => {
       await probe.getByRole('button', { name: '插件', exact: true }).click()
       const panel = probe.locator('[data-plugin-panel]')
       await panel.getByRole('heading', { name: '插件', exact: true }).waitFor({ timeout: 20_000 })
-      const liveShare = '@deepseek-ai/dsh-experimental-liveshare'
+      const liveShare = '@lyness/lyn-experimental-liveshare'
       const card = panel.locator(`[data-plugin-package="${liveShare}"]`)
       // The profile is a managed one (the plugin manager lists its bundles) whose base bundle keeps HMR
       // on, so writing the patch file recomposes the running loader; each step first waits for that
@@ -1509,7 +1509,7 @@ describe('web e2e: plugin manager', () => {
       await writeFile(patchFile, [
         '- insert:',
         '    - id: liveshare-share-host',
-        "      name: '@deepseek-ai/dsh-experimental-liveshare'",
+        "      name: '@lyness/lyn-experimental-liveshare'",
         '',
       ].join('\n'))
       await expect.poll(shareHostRow, {
@@ -1572,14 +1572,14 @@ describe('web e2e: startup-applied plugin management', () => {
       const mounted = () => [...scaffold.ctx.loader.entries()].find(entry => entry.options.id === 'fixture-row')
       const bundles = async () => {
         const text = await readFile(join(scaffold.harnessHome, 'profiles', 'scaffold', 'package.json'), 'utf8')
-        return (JSON.parse(text) as { dsh: { profile: { bundles: string[] } } }).dsh.profile.bundles
+        return (JSON.parse(text) as { lyn: { profile: { bundles: string[] } } }).lyn.profile.bundles
       }
       expect(mounted()?.fiber?.state).toBeUndefined()
       await toggle.click()
       // The selection is saved and the switch turns on, but nothing mounts before the next start; a toast says so.
       await expect.poll(bundles, { timeout: PLUGIN_TOGGLE_SETTLE_MS }).toEqual([...SCAFFOLD_BUNDLES, '@fixture/bundle'])
       await expect.poll(() => toggle.getAttribute('aria-checked'), { timeout: PLUGIN_TOGGLE_SETTLE_MS }).toBe('true')
-      await page.getByText('请重启 DSH 使更改生效。这个 profile 只在启动时应用更改。', { exact: true }).waitFor({ timeout: 10_000 })
+      await page.getByText('请重启 LYN 使更改生效。这个 profile 只在启动时应用更改。', { exact: true }).waitFor({ timeout: 10_000 })
       expect(mounted()?.fiber?.state).toBeUndefined()
       // The pack's page lists its rows from their declarations, with no live entry to switch.
       await panel.getByRole('button', { name: '查看 @fixture/bundle' }).click()

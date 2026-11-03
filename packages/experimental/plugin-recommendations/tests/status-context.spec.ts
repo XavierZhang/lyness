@@ -1,5 +1,5 @@
 import { expect, it, vi } from 'vitest'
-import { agentEvents, type Agent, type PreStepDecision } from '@deepseek-ai/dsh-agent'
+import { agentEvents, type Agent, type PreStepDecision } from '@lyness/lyn-agent'
 import * as PluginRecommendations from '../src/index.ts'
 import { callId, fixture } from './fixture.ts'
 

@@ -9,9 +9,9 @@ from pathlib import Path
 
 import pytest
 
-from deepseek_harness import DeepSeekHarness, Notification
+from lyness import Lyness, Notification
 import test_commands_runtime as runtime_helpers
-from test_commands_runtime import _Completion, _ModelServer, _dsh_bin, _of_type, _read_events
+from test_commands_runtime import _Completion, _ModelServer, _lyn_bin, _of_type, _read_events
 
 
 _EXAMPLE = Path(__file__).resolve().parents[1] / "examples/plan.py"
@@ -42,20 +42,20 @@ def test_plan_example_reports_truncation_and_accepts_explicit_dismissal(
         monkeypatch.setattr(runtime_helpers, "_messages_response", truncated_response)
     terminal_input = tmp_path / "stdin.txt"
     terminal_input.write_text("d\n", encoding="utf-8")
-    monkeypatch.setenv("DSH_TELEMETRY_DISABLED", "1")
-    monkeypatch.setenv("DSH_TOOLS_MODE", "native")
-    monkeypatch.setattr(sys, "argv", [str(_EXAMPLE), "--dsh-home", str(tmp_path / "home"),
+    monkeypatch.setenv("LYNESS_TELEMETRY_DISABLED", "1")
+    monkeypatch.setenv("LYNESS_TOOLS_MODE", "native")
+    monkeypatch.setattr(sys, "argv", [str(_EXAMPLE), "--lyn-home", str(tmp_path / "home"),
                                      "--workspace", str(workspace), "Plan a small change."])
     with terminal_input.open(encoding="utf-8") as terminal, _ModelServer([completion]) as model:
         monkeypatch.setattr(sys, "stdin", terminal)
-        def configured_harness(**options: object) -> DeepSeekHarness:
-            return DeepSeekHarness(
-                **options, dsh_bin=_dsh_bin(), patches=(str(patch),),
+        def configured_harness(**options: object) -> Lyness:
+            return Lyness(
+                **options, lyn_bin=_lyn_bin(), patches=(str(patch),),
                 base_url=model.url, api_key="keyless-plan-example",
                 initialize_timeout_seconds=30, request_timeout_seconds=20, shutdown_timeout_seconds=20,
             )
 
-        monkeypatch.setitem(example["main"].__globals__, "DeepSeekHarness", configured_harness)
+        monkeypatch.setitem(example["main"].__globals__, "Lyness", configured_harness)
         if outcome == "max-tokens":
             with pytest.raises(RuntimeError, match="max-tokens"):
                 example["main"]()

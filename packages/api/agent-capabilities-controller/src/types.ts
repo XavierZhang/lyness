@@ -1,6 +1,6 @@
 /**
  * Wire vocabulary of the read-only "what you may use" surface.
- * @module @deepseek-ai/dsh-api-agent-capabilities-controller/types
+ * @module @lyness/lyn-api-agent-capabilities-controller/types
  */
 
 /** Who decided that one capability is available. */

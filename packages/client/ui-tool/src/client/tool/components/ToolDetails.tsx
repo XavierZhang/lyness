@@ -2,9 +2,9 @@
 import { useState } from 'react'
 import {
   CodeBlock, MarkdownText, IconCheckOutlineRegular, IconChevronRightOutlineRegular, IconPlayOutlineRegular,
-} from '@deepseek-ai/dsh-client-ui-primitives'
-import type { TranslateNS } from '@deepseek-ai/dsh-client-ui-slots'
-import type { OpenFileOptions } from '@deepseek-ai/dsh-client-ui-chat/client'
+} from '@lyness/lyn-client-ui-primitives'
+import type { TranslateNS } from '@lyness/lyn-client-ui-slots'
+import type { OpenFileOptions } from '@lyness/lyn-client-ui-chat/client'
 import { codeToolbarLabels, markdownLabels } from '../models/primitive-labels.ts'
 import css from './ToolDetails.module.css'
 

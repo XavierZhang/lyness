@@ -2,7 +2,7 @@
 # browser Session-header action. Shipped profiles do not include this layer.
 - insert:
     - id: liveshare-share-host
-      name: '@deepseek-ai/dsh-experimental-liveshare'
+      name: '@lyness/lyn-experimental-liveshare'
       config:
         ownerIdentityProvider: !!js process.env.LIVESHARE_OWNER_PROVIDER_ID
         ownerIdentityTenant: !!js process.env.LIVESHARE_OWNER_TENANT_ID

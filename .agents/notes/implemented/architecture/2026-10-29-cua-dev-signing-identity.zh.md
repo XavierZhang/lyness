@@ -6,21 +6,21 @@ Status: implemented
 
 ## 问题
 
-源码检出用临时签名编译 `DSH Computer Use.app`。macOS 按 Bundle ID 和被授权代码的指定要求保存辅助功能与屏幕录制授权，临时签名的指定要求就是代码哈希。因此每次构建内容变化、每换一个 worktree，都需要重新授权；这些构建还与正式 helper 共用 Bundle ID，会替换正式版的授权条目。
+源码检出用临时签名编译 `LYN Computer Use.app`。macOS 按 Bundle ID 和被授权代码的指定要求保存辅助功能与屏幕录制授权，临时签名的指定要求就是代码哈希。因此每次构建内容变化、每换一个 worktree，都需要重新授权；这些构建还与正式 helper 共用 Bundle ID，会替换正式版的授权条目。
 
 ## 决策
 
-Host 以开发版构建源码检出，Bundle ID 为 `com.deepseek.harness.computer-use.dev`，名称为 `DSH Computer Use Dev`，应用包文件名为 `DSH Computer Use Dev.app`。macOS 隐私列表和 helper 返回的启动应用名称使用应用包文件名，因此文件名也需包含 Dev。正式版及其打包流程不变。按[共享 helper 决策](2026-10-09-cua-shared-native-helper.zh.md)的要求，授权仍归经 LaunchServices 启动的 helper 应用。
+Host 以开发版构建源码检出，Bundle ID 为 `com.deepseek.harness.computer-use.dev`，名称为 `LYN Computer Use Dev`，应用包文件名为 `LYN Computer Use Dev.app`。macOS 隐私列表和 helper 返回的启动应用名称使用应用包文件名，因此文件名也需包含 Dev。正式版及其打包流程不变。按[共享 helper 决策](2026-10-09-cua-shared-native-helper.zh.md)的要求，授权仍归经 LaunchServices 启动的 helper 应用。
 
-`sourceSigning` 由 macOS provider 定义，只接受默认的 `ad-hoc` 和指定已有证书及钥匙串绝对路径的 `{ identity, keychain }`。构建不创建、解锁或移除身份。开发者凭据与面向用户的 DSH home 分开，后者只保存选择证书的配置；共享 `cua` 包不持有 macOS 签名配置。
+`sourceSigning` 由 macOS provider 定义，只接受默认的 `ad-hoc` 和指定已有证书及钥匙串绝对路径的 `{ identity, keychain }`。构建不创建、解锁或移除身份。开发者凭据与面向用户的 LYN home 分开，后者只保存选择证书的配置；共享 `cua` 包不持有 macOS 签名配置。
 
-[开发者签名 skill](../../../skills/dsh-cua-macos-signing/SKILL.md)指导 Agent 在 `~/.cua-macos-keys/` 创建、复用和解锁独立身份，将证书指纹和钥匙串路径写入用户配置。工具把随机密码存入 `0600` 文件，允许 codesign 访问私钥，并把专用钥匙串加入用户搜索列表。文件锁让同一目录的初始化和移除串行执行；已有记录但钥匙串缺失时保留记录并报错。目录标记将身份管理限制在明确占用的初始空目录中。发现无关文件或身份文件软链接时，初始化和移除都会在修改前停止，避免开发者指定的路径导致无关内容被删除。
+[开发者签名 skill](../../../skills/lyn-cua-macos-signing/SKILL.md)指导 Agent 在 `~/.cua-macos-keys/` 创建、复用和解锁独立身份，将证书指纹和钥匙串路径写入用户配置。工具把随机密码存入 `0600` 文件，允许 codesign 访问私钥，并把专用钥匙串加入用户搜索列表。文件锁让同一目录的初始化和移除串行执行；已有记录但钥匙串缺失时保留记录并报错。目录标记将身份管理限制在明确占用的初始空目录中。发现无关文件或身份文件软链接时，初始化和移除都会在修改前停止，避免开发者指定的路径导致无关内容被删除。
 
 即使不使用时间戳服务器，证书签名也包含签名时间。开发构建记录每份未签名内容与身份对应的已签名目录，再次构建相同内容时复用该目录，保持可执行文件摘要和共享服务一致。缓存使用证书指纹；按证书名称选择时每次签名，避免续期后复用旧证书。签名失败会中止发布。开发者工具的诊断不包含密码或完整命令参数；构建 CLI 默认 `--identity -`，支持指定证书，正式打包也可省略 `--keychain`。
 
 ## 考虑过的替代方案
 
-**把权限交给启动终端。** 直接启动服务时，macOS 把权限归属到启动 DSH 的终端或编辑器。该应用运行的所有程序，包括模型执行的命令，都会带上这些权限。
+**把权限交给启动终端。** 直接启动服务时，macOS 把权限归属到启动 LYN 的终端或编辑器。该应用运行的所有程序，包括模型执行的命令，都会带上这些权限。
 
 **源码构建自动创建固定身份。** 这会让普通启动生成开发者私钥，并把身份生命周期绑定到用户数据目录。显式开发者操作保留了减少重新授权的选择，也让证书的创建、移除和使用范围由开发者决定。
 
@@ -32,4 +32,4 @@ Host 以开发版构建源码检出，Bundle ID 为 `com.deepseek.harness.comput
 
 ## 后果
 
-同一证书签出的开发构建共用签名要求；授权后重建和跨 worktree 的实际权限保持仍需验证。同一用户的进程可读取保存的密码并使用该身份签名，正式 helper 使用不同的 Bundle ID。删除 DSH home 只移除配置，不删除开发者身份；删除该身份后应清理所有引用它的配置。真实签名 e2e 验证复用、解锁、不同输出目录的签名要求和移除后的搜索列表恢复。
+同一证书签出的开发构建共用签名要求；授权后重建和跨 worktree 的实际权限保持仍需验证。同一用户的进程可读取保存的密码并使用该身份签名，正式 helper 使用不同的 Bundle ID。删除 LYN home 只移除配置，不删除开发者身份；删除该身份后应清理所有引用它的配置。真实签名 e2e 验证复用、解锁、不同输出目录的签名要求和移除后的搜索列表恢复。

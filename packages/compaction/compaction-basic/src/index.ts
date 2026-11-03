@@ -1,21 +1,21 @@
 /**
  * Basic replay-aware compaction backend.
  *
- * @module @deepseek-ai/dsh-compaction-basic
+ * @module @lyness/lyn-compaction-basic
  */
 
-import { Context } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
-import { CompactionEngine, ManualCompactionError } from '@deepseek-ai/dsh-compaction'
-import type { CompactionResult, CompactionTrigger } from '@deepseek-ai/dsh-compaction'
-import type { EpochHeader, Session, SessionSeq } from '@deepseek-ai/dsh-session'
-import { CONTEXT_WINDOW_EXCEEDED_CODE, LlmError } from '@deepseek-ai/dsh-llm'
-import type { LlmCallConfig } from '@deepseek-ai/dsh-llm'
-import { assertNever } from '@deepseek-ai/dsh-util-values'
-import type { Agent, PreStepDecision } from '@deepseek-ai/dsh-agent'
-import type { CommandId } from '@deepseek-ai/dsh-commands/brand'
+import { Context } from '@lyness/cordis'
+import z from '@lyness/schemastery'
+import { CompactionEngine, ManualCompactionError } from '@lyness/lyn-compaction'
+import type { CompactionResult, CompactionTrigger } from '@lyness/lyn-compaction'
+import type { EpochHeader, Session, SessionSeq } from '@lyness/lyn-session'
+import { CONTEXT_WINDOW_EXCEEDED_CODE, LlmError } from '@lyness/lyn-llm'
+import type { LlmCallConfig } from '@lyness/lyn-llm'
+import { assertNever } from '@lyness/lyn-util-values'
+import type { Agent, PreStepDecision } from '@lyness/lyn-agent'
+import type { CommandId } from '@lyness/lyn-commands/brand'
 // Type-only: makes the optional sibling service available to `ctx.get()`.
-import type {} from '@deepseek-ai/dsh-compaction-tool-result-pruner'
+import type {} from '@lyness/lyn-compaction-tool-result-pruner'
 import {
   resolveCompactSpec,
   resolveConfig,

@@ -6,9 +6,9 @@
         sessionQuery: true
       config:
         - id: optional-session-query-sqlite
-          name: '@deepseek-ai/dsh-session-query-sqlite'
+          name: '@lyness/lyn-session-query-sqlite'
           config:
             path: ':memory:'
             openAt: first-search
         - id: optional-tool-session-query
-          name: '@deepseek-ai/dsh-tool-session-query'
+          name: '@lyness/lyn-tool-session-query'

@@ -5,7 +5,7 @@
  */
 
 import { describe, expect, it, vi } from 'vitest'
-import type { AuditEntryView } from '@deepseek-ai/dsh-api-admin-audit-controller/types'
+import type { AuditEntryView } from '@lyness/lyn-api-admin-audit-controller/types'
 import {
   createHistoryOperations, EXPORT_FILE_NAME, MAX_EXPORT_ENTRIES, statusOf, trailFile,
 } from '../src/client/operations.ts'

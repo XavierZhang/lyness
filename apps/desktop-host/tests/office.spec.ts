@@ -1,21 +1,21 @@
-import * as NativeToolExecutor from '@deepseek-ai/dsh-tool-executor-native'
+import * as NativeToolExecutor from '@lyness/lyn-tool-executor-native'
 import { cp, mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join, sep } from 'node:path'
 import { pathToFileURL } from 'node:url'
-import { Context } from '@deepseek-ai/cordis'
-import Loader from '@deepseek-ai/cordis-plugin-loader'
-import Include from '@deepseek-ai/cordis-plugin-include'
-import AgentRegistry from '@deepseek-ai/dsh-agent'
-import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
-import SkillRegistry from '@deepseek-ai/dsh-skill'
-import ToolRuntime from '@deepseek-ai/dsh-tools'
+import { Context } from '@lyness/cordis'
+import Loader from '@lyness/cordis-plugin-loader'
+import Include from '@lyness/cordis-plugin-include'
+import AgentRegistry from '@lyness/lyn-agent'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import SkillRegistry from '@lyness/lyn-skill'
+import ToolRuntime from '@lyness/lyn-tools'
 import { expect, it, vi } from 'vitest'
 import * as desktopOffice from '../src/office.ts'
 
 it('loads Desktop Office CLI paths and removes them on disposal', async () => {
   const root = await mkdtemp(join(tmpdir(), 'desktop-office-'))
-  vi.stubEnv('DSH_HOME', root)
+  vi.stubEnv('LYNESS_HOME', root)
   const ctx = new Context()
 
   try {
@@ -45,7 +45,7 @@ it('loads Desktop Office CLI paths and removes them on disposal', async () => {
       '- name: agents', '- name: systemPrompt', '- name: tools', '- name: skills', '- name: office',
       '  config:', `    source: ${JSON.stringify(join(root, 'runtime', 'primary-runtime'))}`,
       `    root: ${JSON.stringify(join(root, 'installed'))}`,
-      `    runtimeDir: ${JSON.stringify(join(root, 'dsh'))}`, '',
+      `    runtimeDir: ${JSON.stringify(join(root, 'lyn'))}`, '',
     ].join('\n'))
     await ctx.loader.create({ name: 'cordis:include', config: { path: pathToFileURL(config).href } })
     await ctx.loader.await()

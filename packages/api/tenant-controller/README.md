@@ -3,7 +3,7 @@ description: "Remote owner of the tenant-configuration surface: the calling tena
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-api-tenant-controller
+# @lyness/lyn-api-tenant-controller
 
 English | [中文](README.zh.md)
 
@@ -29,24 +29,24 @@ It takes no configuration, and it needs the request scope to know who is calling
 
 ```yaml
 - id: tenants
-  name: '@deepseek-ai/dsh-tenant-static'
+  name: '@lyness/lyn-tenant-static'
   config:
     tenants:
       - id: acme
         slug: acme
         displayName: Acme
 - id: tenant-config
-  name: '@deepseek-ai/dsh-tenant-config-store'
+  name: '@lyness/lyn-tenant-config-store'
 - id: tenant-request
-  name: '@deepseek-ai/dsh-tenant-request'
+  name: '@lyness/lyn-tenant-request'
 - id: tenant-controller
-  name: '@deepseek-ai/dsh-api-tenant-controller'
+  name: '@lyness/lyn-api-tenant-controller'
 ```
 
 A browser calls `ctx.remote.tenant.describe()` and `ctx.remote.tenant.save(input)` the way it calls any namespace, and reads the answer as the view this package declares:
 
 ```ts
-import type { TenantConfigView } from '@deepseek-ai/dsh-api-tenant-controller/types'
+import type { TenantConfigView } from '@lyness/lyn-api-tenant-controller/types'
 
 /**
  * Whether a settings page may offer saving for this answer.

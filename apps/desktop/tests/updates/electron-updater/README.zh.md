@@ -14,8 +14,8 @@ description: "Electron updater 适配层的平台版本记录与本地验证。"
 
 ```sh
 pnpm install --frozen-lockfile
-pnpm --filter @deepseek-ai/dsh-desktop exec install-electron
-pnpm --filter @deepseek-ai/dsh-desktop run test:updates:channels --record
+pnpm --filter @lyness/lyn-desktop exec install-electron
+pnpm --filter @lyness/lyn-desktop run test:updates:channels --record
 ```
 
 需要先构建 workspace 依赖（新检出目录运行 `pnpm run build:artifacts`）。最后一条命令重新构建 Desktop，启动不打开窗口的 Electron，并且只在成功退出后记录当前平台。将 JSON 改动与依赖或适配层改动一起提交。不带 `--record` 可只测试、不改记录。轻量检查只比较版本；版本未变不代表修改后的适配层已经通过验证。

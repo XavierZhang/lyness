@@ -1,8 +1,8 @@
 /** What the target key carries, and the containment it lets the Host answer without a round-trip. */
 
 import { describe, expect, it } from 'vitest'
-import { FsTargetKey } from '@deepseek-ai/dsh-fs'
-import type { FsTarget } from '@deepseek-ai/dsh-fs'
+import { FsTargetKey } from '@lyness/lyn-fs'
+import type { FsTarget } from '@lyness/lyn-fs'
 import { containsPath } from '../src/index.ts'
 import { decodeTarget, encodeTarget } from '../src/targets.ts'
 import type { DesktopTarget } from '../src/protocol.ts'

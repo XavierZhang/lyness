@@ -6,14 +6,14 @@
  * a thrown one reported the same way, and a retry that shows the attempt
  * rather than the failure it replaces.
  *
- * @module @deepseek-ai/dsh-client-ui-settings-announcements/client/read
+ * @module @lyness/lyn-client-ui-settings-announcements/client/read
  */
 
-import type { Context } from '@deepseek-ai/cordis'
-import type {} from '@deepseek-ai/dsh-api-remotes/client'
-import type {} from '@deepseek-ai/dsh-api-announcement-controller/remote'
-import { createOutcomeRead } from '@deepseek-ai/dsh-client-store'
-import type { Announcement } from '@deepseek-ai/dsh-announcements/types'
+import type { Context } from '@lyness/cordis'
+import type {} from '@lyness/lyn-api-remotes/client'
+import type {} from '@lyness/lyn-api-announcement-controller/remote'
+import { createOutcomeRead } from '@lyness/lyn-client-store'
+import type { Announcement } from '@lyness/lyn-announcements/types'
 
 /** What one Remote read answers: the list, or the reason it refused. */
 export type ReadOutcome =

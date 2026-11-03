@@ -1,9 +1,9 @@
 /**
  * Durable memory types: the stored entry and its opaque identity.
- * @module @deepseek-ai/dsh-memory/types
+ * @module @lyness/lyn-memory/types
  */
 
-import type { Branded } from '@deepseek-ai/dsh-brand'
+import type { Branded } from '@lyness/lyn-brand'
 
 /** Opaque identity of one stored memory, shown to the model so it can remove one. */
 export type MemoryId = Branded<'MemoryId'>

@@ -11,7 +11,7 @@ from pathlib import Path
 
 import pytest
 
-from deepseek_harness import DeepSeekHarness
+from lyness import Lyness
 
 
 _EXAMPLE = Path(__file__).resolve().parents[1] / "examples/goal.py"
@@ -67,17 +67,17 @@ for line in sys.stdin:
         raise AssertionError(method)
 ''', encoding="utf-8")
     example = runpy.run_path(str(_EXAMPLE))
-    harnesses: list[DeepSeekHarness] = []
+    harnesses: list[Lyness] = []
 
-    def configured_harness(**options: object) -> DeepSeekHarness:
-        harness = DeepSeekHarness(
+    def configured_harness(**options: object) -> Lyness:
+        harness = Lyness(
             **options, _launch_args=(sys.executable, str(peer), pending, str(observed)),
             initialize_timeout_seconds=10, shutdown_timeout_seconds=10,
         )
         harnesses.append(harness)
         return harness
 
-    monkeypatch.setitem(example["main"].__globals__, "DeepSeekHarness", configured_harness)
+    monkeypatch.setitem(example["main"].__globals__, "Lyness", configured_harness)
     if pending == "interrupt":
         entered = threading.Event()
         display = example["display"]
@@ -96,7 +96,7 @@ for line in sys.stdin:
         monkeypatch.setitem(example["main"].__globals__, "display", observe)
         monkeypatch.setitem(example["main"].__globals__, "ThreadPoolExecutor", InterruptedExecutor)
     timeout = "1" if pending in {"command", "activity"} else "10"
-    monkeypatch.setattr(sys, "argv", [str(_EXAMPLE), "--dsh-home", str(tmp_path / "home"),
+    monkeypatch.setattr(sys, "argv", [str(_EXAMPLE), "--lyn-home", str(tmp_path / "home"),
                                      "--workspace", str(tmp_path), "--timeout-seconds", timeout, "Finish this task"])
     with ThreadPoolExecutor(max_workers=1) as workers:
         execution = workers.submit(example["main"])
@@ -130,7 +130,7 @@ def test_goal_example_rejects_unbounded_or_nonpositive_timeout(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str], timeout: str,
 ) -> None:
     example = runpy.run_path(str(_EXAMPLE))
-    monkeypatch.setattr(sys, "argv", [str(_EXAMPLE), "--dsh-home", str(tmp_path / "home"),
+    monkeypatch.setattr(sys, "argv", [str(_EXAMPLE), "--lyn-home", str(tmp_path / "home"),
                                      f"--timeout-seconds={timeout}", "Finish this task"])
     with pytest.raises(SystemExit) as error:
         example["main"]()

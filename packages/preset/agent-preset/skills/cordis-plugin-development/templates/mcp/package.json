@@ -12,7 +12,7 @@
     "locale/*.json",
     "icon.svg"
   ],
-  "dsh": {
+  "lyn": {
     "bundle": {
       "patch": "./cordis.patch.yml"
     }

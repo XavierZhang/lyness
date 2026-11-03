@@ -1,16 +1,16 @@
 /** Real Loader/native adapters with fixture-owned credentials and a bounded loopback wire. */
-import type { ModuleLoaderV2 } from '@deepseek-ai/cordis-plugin-loader'
-import { boot } from '@deepseek-ai/dsh-app-boot'
-import LlmRuntime from '@deepseek-ai/dsh-llm'
-import SessionStore, { SESSION_FORMAT_VERSION, SessionId, SessionSeq, type Session, type SessionEvent, type SessionHeader } from '@deepseek-ai/dsh-session'
-import * as JsonlPersistence from '@deepseek-ai/dsh-session-persistence-jsonl'
-import SqliteSessionQuery from '@deepseek-ai/dsh-session-query-sqlite'
-import * as Official from '@deepseek-ai/dsh-llm-deepseek-api-key'
-import * as Account from '@deepseek-ai/dsh-llm-deepseek-account'
-import type { DeepSeekAccount } from '@deepseek-ai/dsh-deepseek-account'
-import DeepSeekLlmApiExtensionRegistry from '@deepseek-ai/dsh-deepseek-llm-api-extensions'
-import * as SessionLogDeepSeek from '@deepseek-ai/dsh-session-log-deepseek'
-import { createLaunchEnvironmentSnapshot } from '@deepseek-ai/dsh-launch-environment'
+import type { ModuleLoaderV2 } from '@lyness/cordis-plugin-loader'
+import { boot } from '@lyness/lyn-app-boot'
+import LlmRuntime from '@lyness/lyn-llm'
+import SessionStore, { SESSION_FORMAT_VERSION, SessionId, SessionSeq, type Session, type SessionEvent, type SessionHeader } from '@lyness/lyn-session'
+import * as JsonlPersistence from '@lyness/lyn-session-persistence-jsonl'
+import SqliteSessionQuery from '@lyness/lyn-session-query-sqlite'
+import * as Official from '@lyness/lyn-llm-deepseek-api-key'
+import * as Account from '@lyness/lyn-llm-deepseek-account'
+import type { DeepSeekAccount } from '@lyness/lyn-deepseek-account'
+import DeepSeekLlmApiExtensionRegistry from '@lyness/lyn-deepseek-llm-api-extensions'
+import * as SessionLogDeepSeek from '@lyness/lyn-session-log-deepseek'
+import { createLaunchEnvironmentSnapshot } from '@lyness/lyn-launch-environment'
 import { once } from 'node:events'
 import { createServer, type ServerResponse } from 'node:http'
 import { mkdtemp, readFile, readdir, rm, writeFile } from 'node:fs/promises'
@@ -71,13 +71,13 @@ export interface RestartOptions {
 
 /** Boot actual native provider rows; cleanup is registered as soon as resources exist. */
 export async function paidFixture(cleanups: Array<() => Promise<void>>, options: FixtureOptions = {}) {
-  const root = await mkdtemp(join(tmpdir(), 'dsh-paid-translator-'))
+  const root = await mkdtemp(join(tmpdir(), 'lyn-paid-translator-'))
   cleanups.push(async () => { await rm(root, { recursive: true, force: true }) })
-  const previousHome = process.env.DSH_HOME
-  process.env.DSH_HOME = root
+  const previousHome = process.env.LYNESS_HOME
+  process.env.LYNESS_HOME = root
   cleanups.push(async () => {
-    if (previousHome === undefined) Reflect.deleteProperty(process.env, 'DSH_HOME')
-    else process.env.DSH_HOME = previousHome
+    if (previousHome === undefined) Reflect.deleteProperty(process.env, 'LYNESS_HOME')
+    else process.env.LYNESS_HOME = previousHome
   })
   const requests: NativeRequest[] = [], errors: unknown[] = [], handlers = new Set<Promise<void>>()
   let auditId = SessionId('paid-translation')
@@ -97,8 +97,8 @@ export async function paidFixture(cleanups: Array<() => Promise<void>>, options:
       const payload: unknown = JSON.parse(Buffer.concat(chunks).toString('utf8'))
       if (typeof payload !== 'object' || payload === null || Array.isArray(payload)) throw new Error('Expected native Messages request object')
       const input: NativeRequest = { path: request.url ?? '', body: payload as Record<string, unknown>,
-        accountAuth: request.headers['x-dsh-auth-token'] !== undefined, officialAuth: request.headers['x-api-key'] !== undefined,
-        sessionHeader: request.headers['x-deepseek-harness-session-id'] !== undefined,
+        accountAuth: request.headers['x-lyn-auth-token'] !== undefined, officialAuth: request.headers['x-api-key'] !== undefined,
+        sessionHeader: request.headers['x-lyness-session-id'] !== undefined,
         audit: await readEvents(auditId) }
       requests.push(input)
       response.writeHead(options.responseStatus ?? 200, { 'content-type': 'text/event-stream' })
@@ -126,30 +126,30 @@ export async function paidFixture(cleanups: Array<() => Promise<void>>, options:
   const configPath = join(root, 'cordis.yml'), storedRoot = join(root, 'sessions')
   let translator = options.translator ?? {}, withNativeOwners = true
   const rows = () => [
-    { id: 'llm', name: '@deepseek-ai/dsh-llm' },
-    { id: 'session', name: '@deepseek-ai/dsh-session' },
-    { id: 'storage', name: '@deepseek-ai/dsh-session-persistence-jsonl', config: { root: storedRoot, compression: 'none' } },
-    { id: 'official-custom-id', name: options.officialName ?? '@deepseek-ai/dsh-llm-deepseek-api-key', disabled: !withNativeOwners, config: {
+    { id: 'llm', name: '@lyness/lyn-llm' },
+    { id: 'session', name: '@lyness/lyn-session' },
+    { id: 'storage', name: '@lyness/lyn-session-persistence-jsonl', config: { root: storedRoot, compression: 'none' } },
+    { id: 'official-custom-id', name: options.officialName ?? '@lyness/lyn-llm-deepseek-api-key', disabled: !withNativeOwners, config: {
       baseURL, apiKeyEnv: 'PAID_TRANSLATION_FIXTURE_KEY', models: options.officialModels ?? [{ id: 'deepseek-flash', name: 'Flash version-independent name' }],
     } },
-    { id: 'account-custom-id', name: '@deepseek-ai/dsh-llm-deepseek-account', disabled: !withNativeOwners, config: { baseURL } },
-    { id: 'translator', name: '@deepseek-ai/dsh-experimental-translator', config: translator },
+    { id: 'account-custom-id', name: '@lyness/lyn-llm-deepseek-account', disabled: !withNativeOwners, config: { baseURL } },
+    { id: 'translator', name: '@lyness/lyn-experimental-translator', config: translator },
     ...options.withSessionQuery === true ? [
-      { id: 'query', name: '@deepseek-ai/dsh-session-query-sqlite', config: { path: join(root, 'query.sqlite'), openAt: 'never' } },
+      { id: 'query', name: '@lyness/lyn-session-query-sqlite', config: { path: join(root, 'query.sqlite'), openAt: 'never' } },
     ] : [],
     ...options.withSessionLog === true ? [
-      { id: 'deepseek-llm-api-extensions', name: '@deepseek-ai/dsh-deepseek-llm-api-extensions' },
-      { id: 'session-log-deepseek', name: '@deepseek-ai/dsh-session-log-deepseek' },
+      { id: 'deepseek-llm-api-extensions', name: '@lyness/lyn-deepseek-llm-api-extensions' },
+      { id: 'session-log-deepseek', name: '@lyness/lyn-session-log-deepseek' },
     ] : [],
   ]
   await writeFile(configPath, JSON.stringify(rows()))
   const modules = new Map<string, unknown>([
-    ['@deepseek-ai/dsh-llm', LlmRuntime], ['@deepseek-ai/dsh-session', SessionStore],
-    ['@deepseek-ai/dsh-session-persistence-jsonl', JsonlPersistence], ['@deepseek-ai/dsh-session-query-sqlite', SqliteSessionQuery],
-    [options.officialName ?? '@deepseek-ai/dsh-llm-deepseek-api-key', Official],
-    ['@deepseek-ai/dsh-llm-deepseek-account', Account], ['@deepseek-ai/dsh-experimental-translator', Translator],
-    ['@deepseek-ai/dsh-deepseek-llm-api-extensions', DeepSeekLlmApiExtensionRegistry],
-    ['@deepseek-ai/dsh-session-log-deepseek', SessionLogDeepSeek],
+    ['@lyness/lyn-llm', LlmRuntime], ['@lyness/lyn-session', SessionStore],
+    ['@lyness/lyn-session-persistence-jsonl', JsonlPersistence], ['@lyness/lyn-session-query-sqlite', SqliteSessionQuery],
+    [options.officialName ?? '@lyness/lyn-llm-deepseek-api-key', Official],
+    ['@lyness/lyn-llm-deepseek-account', Account], ['@lyness/lyn-experimental-translator', Translator],
+    ['@lyness/lyn-deepseek-llm-api-extensions', DeepSeekLlmApiExtensionRegistry],
+    ['@lyness/lyn-session-log-deepseek', SessionLogDeepSeek],
   ])
   const start = () => boot('paid-translator-composition', configPath, [], (host) => {
     const sourceModules: ModuleLoaderV2 = {

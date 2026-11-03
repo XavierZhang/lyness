@@ -5,36 +5,36 @@
 /:
   en: d11ca88bdc409249
   zh: d11ca88bdc409249
-/dsh-cli-help:
+/lyn-cli-help:
   en: 9e2954ae4b7cd738
   zh: d2e95c8efaf37d82
-/dsh-cli-help/contents:
+/lyn-cli-help/contents:
   en: b9e5df37e3e03862
   zh: 2f96cc776408c5ca
-/dsh-cli-help/dsh:
+/lyn-cli-help/lyn:
   en: f67c91b02f40262f
   zh: cf35586c854a72e9
-/dsh-cli-help/dsh-plugin:
+/lyn-cli-help/lyn-plugin:
   en: 9f3fb0d3d68e8e9f
   zh: 9d50bef95571d4cb
-/dsh-cli-help/dsh-acp:
+/lyn-cli-help/lyn-acp:
   en: ec9e535c1a250ef4
   zh: 11343b6a9536c855
-/dsh-cli-help/dsh-brand-setup:
+/lyn-cli-help/lyn-brand-setup:
   en: bfdfa04125777ccb
   zh: fbd49530ffed64c7
-/dsh-cli-help/dsh-brand-studio:
+/lyn-cli-help/lyn-brand-studio:
   en: fd3c3e88579178a0
   zh: 43062915d362dd32
-/dsh-cli-help/dsh-enterprise:
+/lyn-cli-help/lyn-enterprise:
   en: 27103250603137be
   zh: bba88ff4b711bd19
-/dsh-cli-help/dsh-headless:
+/lyn-cli-help/lyn-headless:
   en: 7e3059b85373cc36
   zh: e92b2c8325b9b82a
-/dsh-cli-help/dsh-sdk:
+/lyn-cli-help/lyn-sdk:
   en: a9a41c6cbf54d6e0
   zh: 659af956d86f14c9
-/dsh-cli-help/dsh-sdk-minimal:
+/lyn-cli-help/lyn-sdk-minimal:
   en: f86e14aa3ae95b86
   zh: fe9c6535435c1573

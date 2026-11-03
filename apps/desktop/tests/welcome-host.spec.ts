@@ -29,7 +29,7 @@ function transport(preference?: string) {
 }
 
 const url = 'http://127.0.0.1:19387/'
-const cookie = 'dsh-auth-fixture=signed'
+const cookie = 'lyn-auth-fixture=signed'
 
 describe('desktop welcome Web operations', () => {
   it('authenticates with the explicit Host cookie and stores only through the configured credential reference', async () => {

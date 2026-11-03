@@ -3,13 +3,13 @@ description: "一个人对自己的 agent 说的话，为他保存，并记录�
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-personal-instructions
+# @lyness/lyn-personal-instructions
 
 [English](README.md) | 中文
 
 ## 概述
 
-`dsh-personal-instructions` 是提示词里的用户层。部署的人格与组织的规则都有自己的落脚处，夹在中间的那个人却没有——因为托管形态下的人没有文件可编辑。这个插件保存每个人对自己 agent 说的话，在他开的每一段会话里写一条持久日志事件，并从那条记录把文本组装进每个 agent 的提示词——位置在组织的规则之后、agent 自己的人格之前。
+`lyn-personal-instructions` 是提示词里的用户层。部署的人格与组织的规则都有自己的落脚处，夹在中间的那个人却没有——因为托管形态下的人没有文件可编辑。这个插件保存每个人对自己 agent 说的话，在他开的每一段会话里写一条持久日志事件，并从那条记录把文本组装进每个 agent 的提示词——位置在组织的规则之后、agent 自己的人格之前。
 
 ## 目录
 
@@ -29,14 +29,14 @@ kind: "package-reference"
 
 ```yaml
 - id: personal-instructions
-  name: '@deepseek-ai/dsh-personal-instructions'
+  name: '@lyness/lyn-personal-instructions'
   config:
     maxChars: 4000
 ```
 
 `maxChars` 是单个人可保存文本的上限；默认取存储所接受的上限，想收紧 token 预算的部署可以设得更小。别的都不用配：一段会话的指令取自谁，由创建它的调用方身份决定。
 
-设置页通过 `dsh-api-personal-instructions-controller` 读写。Host 侧的调用方直接用服务：`ctx.personalInstructions.ownerOfCall()` 回答这次调用作用在谁身上，`get` 与 `save` 接受那个 owner。
+设置页通过 `lyn-api-personal-instructions-controller` 读写。Host 侧的调用方直接用服务：`ctx.personalInstructions.ownerOfCall()` 回答这次调用作用在谁身上，`get` 与 `save` 接受那个 owner。
 
 -----
 
@@ -58,10 +58,10 @@ kind: "package-reference"
 <a id="further-exploration"></a>
 ## 延伸阅读
 
-- [`dsh-api-personal-instructions-controller`](../../api/personal-instructions-controller/README.zh.md)：界面读它所经由的 Remote 命名空间。
-- [`dsh-client-ui-settings-instructions`](../../client/ui-settings-instructions/README.zh.md)：一个人编辑它们的那张设置页。
-- [`dsh-tenant-session`](../../tenant/tenant-session/README.zh.md)：本层所紧跟的组织层，做法相同。
-- [`dsh-session-ownership`](../session-ownership/README.zh.md)：一段会话属于谁，本插件的 owner 问题跟随它。
+- [`lyn-api-personal-instructions-controller`](../../api/personal-instructions-controller/README.zh.md)：界面读它所经由的 Remote 命名空间。
+- [`lyn-client-ui-settings-instructions`](../../client/ui-settings-instructions/README.zh.md)：一个人编辑它们的那张设置页。
+- [`lyn-tenant-session`](../../tenant/tenant-session/README.zh.md)：本层所紧跟的组织层，做法相同。
+- [`lyn-session-ownership`](../session-ownership/README.zh.md)：一段会话属于谁，本插件的 owner 问题跟随它。
 
 -----
 

@@ -1,13 +1,13 @@
 /** Conditionally available task-board tools and guidance for Agent Teams. */
 
-import type { Context } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import { SessionId } from '@deepseek-ai/dsh-session'
-import { SubagentError } from '@deepseek-ai/dsh-subagent'
-import { TeamTaskId } from '@deepseek-ai/dsh-agent-team'
-import { defineTool } from '@deepseek-ai/dsh-tools'
-import type { InferValue, ValueSchemaSpec } from '@deepseek-ai/dsh-tools'
+import type { Context } from '@lyness/cordis'
+import z from '@lyness/schemastery'
+import type { Agent } from '@lyness/lyn-agent'
+import { SessionId } from '@lyness/lyn-session'
+import { SubagentError } from '@lyness/lyn-subagent'
+import { TeamTaskId } from '@lyness/lyn-agent-team'
+import { defineTool } from '@lyness/lyn-tools'
+import type { InferValue, ValueSchemaSpec } from '@lyness/lyn-tools'
 
 /** Cordis plugin name. */
 export const name = 'tool-agent-team'

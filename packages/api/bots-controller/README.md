@@ -3,13 +3,13 @@ description: "The surface administrators maintain their organization's bots thro
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-api-bots-controller
+# @lyness/lyn-api-bots-controller
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`dsh-api-bots-controller` owns the `bots` Remote namespace: the bots a standing administers, the agent presets one may be given, the teams they work in, and the calls that add, change and remove either. It decides nothing about who may change what — `dsh-managed-bots` holds those rules, and this namespace hands it the standing the call acts in and reports what it answered. Each row says whether composition owns it and whether its preset is still offered, so a surface disables what it cannot change and marks a bot that will not run.
+`lyn-api-bots-controller` owns the `bots` Remote namespace: the bots a standing administers, the agent presets one may be given, the teams they work in, and the calls that add, change and remove either. It decides nothing about who may change what — `lyn-managed-bots` holds those rules, and this namespace hands it the standing the call acts in and reports what it answered. Each row says whether composition owns it and whether its preset is still offered, so a surface disables what it cannot change and marks a bot that will not run.
 
 ## Table of Contents
 
@@ -29,13 +29,13 @@ The accounts module mounts it beside the roster it speaks for:
 
 ```yaml
 - id: bots-controller
-  name: '@deepseek-ai/dsh-api-bots-controller'
+  name: '@lyness/lyn-api-bots-controller'
 ```
 
 A configuration surface reads what a bot may be given, then adds one:
 
 ```ts
-import type { BotInput, BotRowView, PresetOptionView } from '@deepseek-ai/dsh-api-bots-controller/types'
+import type { BotInput, BotRowView, PresetOptionView } from '@lyness/lyn-api-bots-controller/types'
 
 /** The two reads one bot form makes, and the call that saves it. */
 export interface BotForm {
@@ -56,7 +56,7 @@ Each refusal arrives under its own code — `bots/not-permitted`, `bots/written`
 
 **The preset list comes from the roster too.** `presets` asks `ctx.managedBots.offers()` rather than reading the registry itself, because that is the list a save is validated against: a form offering one list while the roster checked another would refuse a choice it had just presented.
 
-**A team is maintained here and acts in [`dsh-bot-ask`](../../identity/bot-ask/README.md).** Team membership is what grants one bot the right to ask another and to hold a discussion with several, so the refusal this surface makes is the one that keeps that right inside an organization: a team may hold only its own organization's bots.
+**A team is maintained here and acts in [`lyn-bot-ask`](../../identity/bot-ask/README.md).** Team membership is what grants one bot the right to ask another and to hold a discussion with several, so the refusal this surface makes is the one that keeps that right inside an organization: a team may hold only its own organization's bots.
 
 **A refused call names the rule, not the prose.** Each reason maps to one code, and `bots/incomplete` carries the field so the form marks it.
 
@@ -67,9 +67,9 @@ Each refusal arrives under its own code — `bots/not-permitted`, `bots/written`
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`dsh-managed-bots`](../../identity/managed-bots/README.md) — the roster this namespace speaks for, and every rule it enforces.
-- [`dsh-api-people-controller`](../people-controller/README.md) — the sibling surface for the people who sign in.
-- [`dsh-module-accounts`](../../bundle/module-accounts/README.md) — the composition that selects both.
+- [`lyn-managed-bots`](../../identity/managed-bots/README.md) — the roster this namespace speaks for, and every rule it enforces.
+- [`lyn-api-people-controller`](../people-controller/README.md) — the sibling surface for the people who sign in.
+- [`lyn-module-accounts`](../../bundle/module-accounts/README.md) — the composition that selects both.
 
 -----
 

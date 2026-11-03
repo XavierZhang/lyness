@@ -3,13 +3,13 @@ description: "The surface administrators maintain who may use a deployment throu
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-api-people-controller
+# @lyness/lyn-api-people-controller
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`dsh-api-people-controller` owns the `people` Remote namespace: the people a standing administers, and the calls that add one, change one, remove one, and admit or withdraw the directory identities that sign in as them. It decides nothing about who may change what — `dsh-managed-people` holds those rules, and this namespace hands it the standing the call acts in and reports what it answered. Each row says whether composition owns it, so a surface disables what it cannot change rather than offering an edit the next boot would undo.
+`lyn-api-people-controller` owns the `people` Remote namespace: the people a standing administers, and the calls that add one, change one, remove one, and admit or withdraw the directory identities that sign in as them. It decides nothing about who may change what — `lyn-managed-people` holds those rules, and this namespace hands it the standing the call acts in and reports what it answered. Each row says whether composition owns it, so a surface disables what it cannot change rather than offering an edit the next boot would undo.
 
 ## Table of Contents
 
@@ -29,13 +29,13 @@ The accounts module mounts it beside the directory it speaks for:
 
 ```yaml
 - id: people-controller
-  name: '@deepseek-ai/dsh-api-people-controller'
+  name: '@lyness/lyn-api-people-controller'
 ```
 
 A configuration surface lists who it may change, then adds somebody and says which directory identity they are:
 
 ```ts
-import type { BindingInput, PersonInput, PersonRowView } from '@deepseek-ai/dsh-api-people-controller/types'
+import type { BindingInput, PersonInput, PersonRowView } from '@lyness/lyn-api-people-controller/types'
 
 /** The two calls one person form makes. */
 interface PeopleRemote {
@@ -83,9 +83,9 @@ The channel a binding names is one of the configured channels the `signInChannel
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`dsh-managed-people`](../../identity/managed-people/README.md) — the directory this speaks for, and every rule it applies.
-- [`dsh-api-sign-in-channel-controller`](../sign-in-channel-controller/README.md) — the channels a binding names.
-- [`dsh-module-accounts`](../../bundle/module-accounts/README.md) — the composition that selects all of it.
+- [`lyn-managed-people`](../../identity/managed-people/README.md) — the directory this speaks for, and every rule it applies.
+- [`lyn-api-sign-in-channel-controller`](../sign-in-channel-controller/README.md) — the channels a binding names.
+- [`lyn-module-accounts`](../../bundle/module-accounts/README.md) — the composition that selects all of it.
 
 -----
 

@@ -1,13 +1,13 @@
 /** Desktop-only analytics RPC and live compaction collection. */
-import { type Context, type Volatile } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
-import { Remote, TypertRemoteService } from '@deepseek-ai/dsh-typert-protocol'
-import type {} from '@deepseek-ai/dsh-host-product-telemetry-otel'
-import type {} from '@deepseek-ai/dsh-deepseek-account'
-import type {} from '@deepseek-ai/dsh-settings'
-import type {} from '@deepseek-ai/cordis-plugin-loader'
-import type {} from '@deepseek-ai/dsh-session'
-import type {} from '@deepseek-ai/dsh-compaction/types'
+import { type Context, type Volatile } from '@lyness/cordis'
+import z from '@lyness/schemastery'
+import { Remote, TypertRemoteService } from '@lyness/lyn-typert-protocol'
+import type {} from '@lyness/lyn-host-product-telemetry-otel'
+import type {} from '@lyness/lyn-deepseek-account'
+import type {} from '@lyness/lyn-settings'
+import type {} from '@lyness/cordis-plugin-loader'
+import type {} from '@lyness/lyn-session'
+import type {} from '@lyness/lyn-compaction/types'
 import type { ProductEvent } from './events.ts'
 import { collectEnvironment, type EnvironmentAttributes } from './environment.ts'
 
@@ -23,7 +23,7 @@ export interface Config {
   environmentQueryMaxOutputBytes: number
 }
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Context {
     productAnalytics: ProductAnalytics
   }

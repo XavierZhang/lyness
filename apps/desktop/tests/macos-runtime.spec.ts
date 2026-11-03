@@ -28,7 +28,7 @@ it('signs Mach-O files in their final locations and verifies each signature', as
   expect(verifyMacOSRuntimeCode).toHaveBeenCalledWith(join(path, 'addon.node'), identity)
 })
 
-const helperBundle = 'node_modules/@deepseek-ai/dsh-experimental-cua-macos/native/bin/darwin-arm64/generation/DSH Computer Use.app'
+const helperBundle = 'node_modules/@deepseek-ai/lyn-experimental-cua-macos/native/bin/darwin-arm64/generation/LYN Computer Use.app'
 function machO(path: string): void {
   mkdirSync(join(path, '..'), { recursive: true })
   writeFileSync(path, Buffer.from('cffaedfe00000000', 'hex'))
@@ -36,7 +36,7 @@ function machO(path: string): void {
 
 it('verifies the notarized Computer Use helper as a bundle and signs other bundles per file', async () => {
   const path = root()
-  machO(join(path, helperBundle, 'Contents/MacOS/dsh-cua-native'))
+  machO(join(path, helperBundle, 'Contents/MacOS/lyn-cua-native'))
   writeFileSync(join(path, helperBundle, 'Contents/Info.plist'), '<plist/>')
   // LibreOffice ships an unsigned application bundle whose executables are signed in place.
   const office = join(path, 'node_modules/@deepseek-ai/libreoffice-kit-darwin-arm64/program/LibreOfficeDev.app/Contents/MacOS/soffice')
@@ -49,7 +49,7 @@ it('verifies the notarized Computer Use helper as a bundle and signs other bundl
 
 it('rejects a helper bundle that fails notarized-application verification before signing any file', async () => {
   const path = root()
-  machO(join(path, helperBundle, 'Contents/MacOS/dsh-cua-native'))
+  machO(join(path, helperBundle, 'Contents/MacOS/lyn-cua-native'))
   machO(join(path, 'addon.node'))
   vi.mocked(verifyMacOSNotarizedApplication).mockImplementationOnce(() => { throw new Error('stapler validate exited with 65') })
   await expect(signMacOSRuntime(path, 'com.example.app', identity, 'arm64')).rejects.toThrow('stapler validate')

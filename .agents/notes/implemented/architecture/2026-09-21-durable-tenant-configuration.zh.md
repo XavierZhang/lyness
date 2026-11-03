@@ -10,7 +10,7 @@
 
 ## 决策
 
-`@deepseek-ai/dsh-tenant-config-store` 在存储域之上注册 `ctx.tenantConfig`：每个租户在 `tenant_config` 存储域中占一条记录，版本 1，布局 `per-record`。它报告 `writable` 能力，写入前先用能力缝自己的 `validateTenantConfig` 校验，并且自身不接受任何配置——记录本身就是配置。
+`@lyness/lyn-tenant-config-store` 在存储域之上注册 `ctx.tenantConfig`：每个租户在 `tenant_config` 存储域中占一条记录，版本 1，布局 `per-record`。它报告 `writable` 能力，写入前先用能力缝自己的 `validateTenantConfig` 校验，并且自身不接受任何配置——记录本身就是配置。
 
 三条裁定决定了它的形状。
 

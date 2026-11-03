@@ -2,19 +2,19 @@
 import { readFile, realpath, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import { provideWorkingDirectoryFixture } from '@deepseek-ai/dsh-agent-loop-testkit'
-import { FsError } from '@deepseek-ai/dsh-fs'
-import { LocalFileSystem } from '@deepseek-ai/dsh-fs-local'
-import * as FsPolicy from '@deepseek-ai/dsh-fs-observation-policy'
-import { ToolCallId, createAssistantMessage, createToolResultMessage } from '@deepseek-ai/dsh-llm'
-import SessionStore, { SessionId } from '@deepseek-ai/dsh-session'
-import LocalSubprocessRuntime from '@deepseek-ai/dsh-subprocess-local'
-import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
-import * as ToolFs from '@deepseek-ai/dsh-tool-fs'
-import { executeToolFixture } from '@deepseek-ai/dsh-tool-testkit'
-import * as NativeToolExecutor from '@deepseek-ai/dsh-tool-executor-native'
-import ToolRuntime from '@deepseek-ai/dsh-tools'
+import { Context } from '@lyness/cordis'
+import { provideWorkingDirectoryFixture } from '@lyness/lyn-agent-loop-testkit'
+import { FsError } from '@lyness/lyn-fs'
+import { LocalFileSystem } from '@lyness/lyn-fs-local'
+import * as FsPolicy from '@lyness/lyn-fs-observation-policy'
+import { ToolCallId, createAssistantMessage, createToolResultMessage } from '@lyness/lyn-llm'
+import SessionStore, { SessionId } from '@lyness/lyn-session'
+import LocalSubprocessRuntime from '@lyness/lyn-subprocess-local'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import * as ToolFs from '@lyness/lyn-tool-fs'
+import { executeToolFixture } from '@lyness/lyn-tool-testkit'
+import * as NativeToolExecutor from '@lyness/lyn-tool-executor-native'
+import ToolRuntime from '@lyness/lyn-tools'
 import * as captures from '../src/capture.ts'
 import * as WorkspaceChanges from '../src/index.ts'
 import { changes, endTurn, scratchDir, settle, startTurn } from './support.ts'
@@ -34,7 +34,7 @@ const move = (path: string, destination: string, before = 'old') =>
   `*** Update File: ${path}\n*** Move to: ${destination}\n@@\n-${before}\n+moved`
 
 async function boot(environment: string) {
-  const cwd = await realpath(await scratchDir('dsh-patch-review-', cleanups))
+  const cwd = await realpath(await scratchDir('lyn-patch-review-', cleanups))
   const ctx = new Context()
   cleanups.push(() => ctx.fiber.dispose())
   await ctx.plugin(SessionStore)

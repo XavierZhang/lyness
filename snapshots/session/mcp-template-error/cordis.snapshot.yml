@@ -3,7 +3,7 @@
 
 - insert:
     - id: llm-replay
-      name: '@deepseek-ai/dsh-llm-replay'
+      name: '@lyness/lyn-llm-replay'
       config:
         providers:
           - id: deepseek-official
@@ -21,14 +21,14 @@
 
 - insert:
     - id: mcp-template-error
-      name: '@deepseek-ai/dsh-mcp-client'
+      name: '@lyness/lyn-mcp-client'
       inject: [credentials]
       config:
         transport: streamable-http
         serverName: protected
-        url: !!js process.env.DSH_MCP_DEMO_URL
+        url: !!js process.env.LYNESS_MCP_DEMO_URL
         headers:
-          Authorization: 'Bearer ${credential:DSH_MCP_TEMPLATE_TOKEN}'
+          Authorization: 'Bearer ${credential:LYNESS_MCP_TEMPLATE_TOKEN}'
         expandTemplates: true
         failOnStartupError: true
         reconnect:

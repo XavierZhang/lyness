@@ -1,17 +1,17 @@
 /**
  * Generic-job adaptation for pwsh process handles — the shell-agnostic twin
- * of `dsh-tool-bash`'s background adaptation: the terminal
+ * of `lyn-tool-bash`'s background adaptation: the terminal
  * outcome the registry records and the pull sources it pumps.
  *
- * @module @deepseek-ai/dsh-tool-pwsh/background
+ * @module @lyness/lyn-tool-pwsh/background
  */
 
-import type { SandboxMode } from '@deepseek-ai/dsh-sandbox'
-import { escalationHintMarker, sandboxDenialMarker } from '@deepseek-ai/dsh-sandbox'
-import type { ShellProcess, ShellSandboxInfo } from '@deepseek-ai/dsh-shell'
-import type { JobChunk, JobHooks, JobOutcome, JobOutputSource } from '@deepseek-ai/dsh-jobs'
+import type { SandboxMode } from '@lyness/lyn-sandbox'
+import { escalationHintMarker, sandboxDenialMarker } from '@lyness/lyn-sandbox'
+import type { ShellProcess, ShellSandboxInfo } from '@lyness/lyn-shell'
+import type { JobChunk, JobHooks, JobOutcome, JobOutputSource } from '@lyness/lyn-jobs'
 
-/* jscpd:ignore-start -- deliberate twin of dsh-tool-bash/background.ts (Agent Note). */
+/* jscpd:ignore-start -- deliberate twin of lyn-tool-bash/background.ts (Agent Note). */
 
 /**
  * Sandbox facts worth the terminal detail: a runner that never ran the

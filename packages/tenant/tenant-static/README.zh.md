@@ -3,7 +3,7 @@ description: "租户目录，其清单即组合配置：运营方可以在部署
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-tenant-static
+# @lyness/lyn-tenant-static
 
 [English](README.md) | 中文
 
@@ -27,7 +27,7 @@ kind: "package-reference"
 
 ```yaml
 - id: tenants
-  name: '@deepseek-ai/dsh-tenant-static'
+  name: '@lyness/lyn-tenant-static'
   config:
     tenants:
       - id: acme

@@ -14,14 +14,14 @@
  * that is what lets an unsupported directory arrive as a plugin rather than as
  * a change here.
  *
- * @module @deepseek-ai/dsh-sign-in
+ * @module @lyness/lyn-sign-in
  */
 
-import { Service } from '@deepseek-ai/cordis'
-import type { Context } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import type { AuthSessionId } from '@deepseek-ai/dsh-auth-session'
+import { Service } from '@lyness/cordis'
+import type { Context } from '@lyness/cordis'
+import z from '@lyness/schemastery'
+import { brandString } from '@lyness/lyn-brand'
+import type { AuthSessionId } from '@lyness/lyn-auth-session'
 import type {
   ChannelDescription, ChannelId, ExternalSubject, RedirectStart, SignInOutcome, SignInRefusal,
 } from './types.ts'
@@ -32,7 +32,7 @@ export type {
 } from './types.ts'
 export { SignInAdmission } from './admission.ts'
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Context {
     /** Sign-in through an external directory; absent on a deployment with no directory. */
     signIn: SignIn

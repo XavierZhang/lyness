@@ -6,13 +6,13 @@
  * account row, the sign-in screen and the Settings navigation answer it from
  * one read instead of three.
  *
- * @module @deepseek-ai/dsh-client-ui-viewer/client
+ * @module @lyness/lyn-client-ui-viewer/client
  */
 
-import type { Context } from '@deepseek-ai/cordis'
+import type { Context } from '@lyness/cordis'
 // Type-only: pulls the ctx.remote merge and the identity namespace it carries.
-import type {} from '@deepseek-ai/dsh-api-remotes/client'
-import type {} from '@deepseek-ai/dsh-api-identity-controller/remote'
+import type {} from '@lyness/lyn-api-remotes/client'
+import type {} from '@lyness/lyn-api-identity-controller/remote'
 import { UiViewer } from './viewer.ts'
 
 export { UiViewer } from './viewer.ts'

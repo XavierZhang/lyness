@@ -6,9 +6,9 @@ English | [中文](2026-10-07-per-tenant-brand.zh.md)
 
 ## Problem
 
-A deployment's brand is composition config. `dsh-host-brand-deployment` reads one `productName`, one palette, and one asset directory from a profile's patch layer, and writes the result into `globalThis.dshDeploymentBrand` as every index renders. One process therefore serves exactly one brand, which is what a private deployment is: the operator who runs the server is the brand owner, and [configuration outranking user settings](../../implemented/architecture/2026-08-04-configuration-source-ownership.md) is what keeps their identity from being edited by the people using it.
+A deployment's brand is composition config. `lyn-host-brand-deployment` reads one `productName`, one palette, and one asset directory from a profile's patch layer, and writes the result into `globalThis.lynDeploymentBrand` as every index renders. One process therefore serves exactly one brand, which is what a private deployment is: the operator who runs the server is the brand owner, and [configuration outranking user settings](../../implemented/architecture/2026-08-04-configuration-source-ownership.md) is what keeps their identity from being edited by the people using it.
 
-The hosted product is not that. One process serves many customers, each resolved per request by [`dsh-tenant-request`](../../../../packages/tenant/tenant-request/README.md) from a header, a hostname, or a subdomain. A customer on a business plan expects the product to carry their mark, their name, and their colours; a customer on an individual plan expects nothing of the sort and must not be able to take the platform's attribution down. Today neither is expressible: `TenantConfig` already carries `displayName` and a `copy` override map, so a tenant can change words, but every visual — mark, wordmark, favicon, palette — comes from the one host row and is identical for every tenant the process serves.
+The hosted product is not that. One process serves many customers, each resolved per request by [`lyn-tenant-request`](../../../../packages/tenant/tenant-request/README.md) from a header, a hostname, or a subdomain. A customer on a business plan expects the product to carry their mark, their name, and their colours; a customer on an individual plan expects nothing of the sort and must not be able to take the platform's attribution down. Today neither is expressible: `TenantConfig` already carries `displayName` and a `copy` override map, so a tenant can change words, but every visual — mark, wordmark, favicon, palette — comes from the one host row and is identical for every tenant the process serves.
 
 The gap is not only missing fields. Three mechanisms assume a single brand: the index injection resolves before any tenant is known, the brand assets are served from one directory under one URL, and `showPoweredBy` is a plain boolean an operator sets. Adding per-tenant fields without changing those would serve one tenant's artwork to another.
 
@@ -20,7 +20,7 @@ Make the brand part of what a tenant configures about itself, resolved per reque
 
 `TenantConfig` gains a `brand` member beside `copy`: the three product names, the palette tokens this tenant replaces, and a reference to each of the three assets. The rules are the ones that already exist — `isBrandName` for the names, `BRAND_COLOUR_TOKENS` and `isBrandColour` for the palette — stated once in `validateTenantConfig`, which a read-only store checks at load and a writable one checks before it saves. Nothing new decides what a usable brand is.
 
-The names resolve as one set, the way they already do on the page: a tenant that names any of the three takes the others from the one it named, and a tenant that names none takes the platform's. The same rule applies one level up — a tenant brand overrides the deployment brand, which overrides the built-in DeepSeek Harness values — so a half-configured tenant never reads as a mixture of its own name and the platform's.
+The names resolve as one set, the way they already do on the page: a tenant that names any of the three takes the others from the one it named, and a tenant that names none takes the platform's. The same rule applies one level up — a tenant brand overrides the deployment brand, which overrides the built-in lyness values — so a half-configured tenant never reads as a mixture of its own name and the platform's.
 
 ### The index injection resolves per request
 
@@ -41,7 +41,7 @@ A tenant administrator changes the brand from the product's own settings, which 
 Two entries in the tenant's existing `features` list carry the decision:
 
 - `brand.customize` — the settings surface appears, and `brand` saves are accepted. An individual-plan tenant has neither.
-- `brand.remove-attribution` — `showPoweredBy` may be turned off. Without it the attribution stays on whatever the tenant asks for, so an individual-plan tenant always shows `Powered by DeepSeek Harness` in the [`sidebar.attribution`](../../../../packages/client/ui-sidebar/README.md) seat.
+- `brand.remove-attribution` — `showPoweredBy` may be turned off. Without it the attribution stays on whatever the tenant asks for, so an individual-plan tenant always shows `Powered by lyness` in the [`sidebar.attribution`](../../../../packages/client/ui-sidebar/README.md) seat.
 
 Both are enforced inside `tenant.save()`. A settings page that hides a control is presentation; the decision belongs in the operation that makes it, because a direct Remote caller reaches the same save.
 
@@ -64,7 +64,7 @@ Tenants are reached at `<slug>.<base domain>`, which `tenant-request` already re
 ## Acceptance criteria
 
 - `TenantConfig.brand` exists, `validateTenantConfig` refuses an unusable name, an unknown palette token, and an unusable colour, and the refusal names the field.
-- A request acting for an organization with a brand gets that brand in its index injection, whether the organization was named by the address or by the acting context; a request acting for an organization without one, or acting for none, gets the deployment brand; a deployment with no brand gets the built-in DeepSeek Harness values.
+- A request acting for an organization with a brand gets that brand in its index injection, whether the organization was named by the address or by the acting context; a request acting for an organization without one, or acting for none, gets the deployment brand; a deployment with no brand gets the built-in lyness values.
 - Two tenants configured with different marks are served different asset bytes, and neither URL can answer for the other.
 - `tenant.save()` refuses a `brand` change from a tenant without `brand.customize`, and refuses `showPoweredBy: false` from a tenant without `brand.remove-attribution`, in both cases through the Remote call rather than through the page.
 - An individual-plan tenant renders the attribution line, whatever its stored configuration says.

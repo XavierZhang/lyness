@@ -7,13 +7,13 @@
  * type-erased inject factory.
  */
 
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { describe, expect, it, vi } from 'vitest'
-import { SlotRegistry } from '@deepseek-ai/dsh-client-ui-renderer/client'
-import { LocaleRuntime } from '@deepseek-ai/dsh-client-locale/client'
-import { TestRemote } from '@deepseek-ai/dsh-client-test-runtime'
-import type { InstructionsView } from '@deepseek-ai/dsh-api-personal-instructions-controller/types'
-import { apply, inject, instructionsCallsOf, NS } from '@deepseek-ai/dsh-client-ui-settings-instructions/client'
+import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
+import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
+import { TestRemote } from '@lyness/lyn-client-test-runtime'
+import type { InstructionsView } from '@lyness/lyn-api-personal-instructions-controller/types'
+import { apply, inject, instructionsCallsOf, NS } from '@lyness/lyn-client-ui-settings-instructions/client'
 import { InstructionsSection } from '../src/client/InstructionsSection.tsx'
 import type { createInstructionsSectionStore } from '../src/client/store.ts'
 

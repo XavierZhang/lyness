@@ -1,14 +1,14 @@
 import { useState } from 'react'
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
-import type { TeamTaskView, TeamTaskId } from '@deepseek-ai/dsh-agent-team/client'
-import type {} from '@deepseek-ai/dsh-api-session-controller/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { TeamTaskView, TeamTaskId } from '@lyness/lyn-agent-team/client'
+import type {} from '@lyness/lyn-api-session-controller/client'
 import {
   IconChecklistOutlineRegular, IconChevronDownOutlineRegular,
   StateDot, Tooltip, type StateDotState,
-} from '@deepseek-ai/dsh-client-ui-primitives'
-import type { PropsLocale, PropsRuntime } from '@deepseek-ai/dsh-client-ui-slots'
-import type {} from '@deepseek-ai/dsh-client-ui-subagent/client'
-import type {} from '@deepseek-ai/dsh-client-ui-conversation/client'
+} from '@lyness/lyn-client-ui-primitives'
+import type { PropsLocale, PropsRuntime } from '@lyness/lyn-client-ui-slots'
+import type {} from '@lyness/lyn-client-ui-subagent/client'
+import type {} from '@lyness/lyn-client-ui-conversation/client'
 import { NS, type TeamKey } from './locales.ts'
 import css from './TeamBoard.module.css'
 

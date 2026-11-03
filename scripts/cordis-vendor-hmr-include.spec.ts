@@ -3,18 +3,18 @@ import { mkdtempSync, realpathSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
-import { Context, type Plugin } from '@deepseek-ai/cordis'
-import Loader from '@deepseek-ai/cordis-plugin-loader'
-import Include from '@deepseek-ai/cordis-plugin-include'
-import Timer from '@deepseek-ai/cordis-plugin-timer'
+import { Context, type Plugin } from '@lyness/cordis'
+import Loader from '@lyness/cordis-plugin-loader'
+import Include from '@lyness/cordis-plugin-include'
+import Timer from '@lyness/cordis-plugin-timer'
 import { expect, it, onTestFinished, vi } from 'vitest'
 
 // A literal import would add vendor HMR's `Context.hmr` declaration to the
-// repository type program, where DSH HMR declares the same property.
-const vendorHmr: string = '@deepseek-ai/cordis-plugin-hmr'
+// repository type program, where LYN HMR declares the same property.
+const vendorHmr: string = '@lyness/cordis-plugin-hmr'
 
 it('logs a rejected Include refresh instead of leaving it unhandled', async () => {
-  const dir = realpathSync(mkdtempSync(join(tmpdir(), 'dsh-vendor-hmr-include-')))
+  const dir = realpathSync(mkdtempSync(join(tmpdir(), 'lyn-vendor-hmr-include-')))
   const ctx = new Context()
   ctx.baseUrl = pathToFileURL(dir).href + '/'
   onTestFinished(async () => { await ctx.fiber.dispose(); rmSync(dir, { recursive: true, force: true }) })

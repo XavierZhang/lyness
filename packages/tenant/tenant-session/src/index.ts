@@ -29,20 +29,20 @@
  * process serves one organization. The configured tenant stays the answer for
  * every session created outside a request — a CLI run, a resumed session, a
  * subagent — because those name no request to read.
- * @module @deepseek-ai/dsh-tenant-session
+ * @module @lyness/lyn-tenant-session
  */
 
-import { Context } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
+import { Context } from '@lyness/cordis'
+import z from '@lyness/schemastery'
 import { z as zod } from 'zod'
-import { composePerAgent } from '@deepseek-ai/dsh-agent'
-import type {} from '@deepseek-ai/dsh-system-prompt'
-import { TenantId } from '@deepseek-ai/dsh-tenant'
-import type { Tenant } from '@deepseek-ai/dsh-tenant'
-import type { Session, SessionEvent } from '@deepseek-ai/dsh-session'
-import type { ProjectionDefinition } from '@deepseek-ai/dsh-session-projection'
-import type { TenantConfig } from '@deepseek-ai/dsh-tenant-config'
-import type {} from '@deepseek-ai/dsh-tenant-request/types'
+import { composePerAgent } from '@lyness/lyn-agent'
+import type {} from '@lyness/lyn-system-prompt'
+import { TenantId } from '@lyness/lyn-tenant'
+import type { Tenant } from '@lyness/lyn-tenant'
+import type { Session, SessionEvent } from '@lyness/lyn-session'
+import type { ProjectionDefinition } from '@lyness/lyn-session-projection'
+import type { TenantConfig } from '@lyness/lyn-tenant-config'
+import type {} from '@lyness/lyn-tenant-request/types'
 
 /** Shape version of {@link TenantSessionRecord}; a later field set changes it deliberately. */
 export const TENANT_SESSION_RECORD_VERSION = 1
@@ -61,7 +61,7 @@ export interface TenantSessionRecord {
   readonly personality?: string
 }
 
-declare module '@deepseek-ai/dsh-session/types' {
+declare module '@lyness/lyn-session/types' {
   interface SessionEventMap {
     /**
      * Records the tenant this session belongs to and the identity text that
@@ -74,7 +74,7 @@ declare module '@deepseek-ai/dsh-session/types' {
   }
 }
 
-declare module '@deepseek-ai/dsh-session-projection/types' {
+declare module '@lyness/lyn-session-projection/types' {
   interface SessionProjectionStateMap {
     /** The tenant record this session was created with, or null before it is written. */
     tenant: TenantSessionRecord | null

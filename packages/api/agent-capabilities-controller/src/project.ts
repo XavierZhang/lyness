@@ -6,19 +6,19 @@
  * loose tools, and who gave a tool is decided by comparing the scope's view
  * with the deployment's rather than by any field a registration carries.
  *
- * @module @deepseek-ai/dsh-api-agent-capabilities-controller/project
+ * @module @lyness/lyn-api-agent-capabilities-controller/project
  */
 
-import type { ToolDefinition } from '@deepseek-ai/dsh-tools'
+import type { ToolDefinition } from '@lyness/lyn-tools'
 import type { CapabilitySource, ConnectionAvailabilityView, ToolAvailabilityView } from './types.ts'
 
-/** Prefix `dsh-mcp-client` gives every tool it registers for one server. */
+/** Prefix `lyn-mcp-client` gives every tool it registers for one server. */
 export const MCP_TOOL_PREFIX = 'mcp__'
 
 /**
  * The MCP server one tool name belongs to.
  *
- * `dsh-mcp-client` names each tool `mcp__<server>__<raw>`, so the server is
+ * `lyn-mcp-client` names each tool `mcp__<server>__<raw>`, so the server is
  * the segment between the two separators. A name carrying the prefix without
  * a second separator is not one that package wrote, and is reported as an
  * ordinary tool rather than attributed to a server nobody configured.

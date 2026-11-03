@@ -3,7 +3,7 @@ description: "The language-server navigation module as its own bundle, shipped i
 kind: "package-bundle"
 ---
 
-# @deepseek-ai/dsh-module-lsp
+# @lyness/lyn-module-lsp
 
 English | [中文](README.zh.md)
 
@@ -70,13 +70,13 @@ The bundle is its patch document. `src/index.ts` exports nothing and exists beca
 
 | Row | Module | Plane | Role |
 |---|---|---|---|
-| `lsp` | `@deepseek-ai/dsh-lsp` | Host | The seam: provider selection by extension and normalized results |
-| `lsp-stdio` | `@deepseek-ai/dsh-lsp-stdio` | Host | Drives configured stdio server commands as providers |
-| `lsp-preset-contribution` | `@deepseek-ai/dsh-lsp/preset-contribution` | contributes | Hands the `lsp` tool row to every accepting preset |
+| `lsp` | `@lyness/lyn-lsp` | Host | The seam: provider selection by extension and normalized results |
+| `lsp-stdio` | `@lyness/lyn-lsp-stdio` | Host | Drives configured stdio server commands as providers |
+| `lsp-preset-contribution` | `@lyness/lyn-lsp/preset-contribution` | contributes | Hands the `lsp` tool row to every accepting preset |
 
 The contribution plugin lives beside the seam rather than in this bundle so that the plugin name resolves wherever the seam does. A bundle that named itself as a plugin would have to be resolvable as a module from wherever the Loader reads it, which a patch-carrying bundle otherwise never needs to be.
 
-The plane split follows ownership: a language server is started per workspace and shared by every agent working in it, so one process owns the seam and the provider. Only the tool is per-agent, because a tool call belongs to the agent that made it. That is the same split [`dsh-module-memory`](../module-memory/README.md) uses, and the opposite of [`dsh-module-terminal`](../module-terminal/README.md), whose sessions belong to one agent each.
+The plane split follows ownership: a language server is started per workspace and shared by every agent working in it, so one process owns the seam and the provider. Only the tool is per-agent, because a tool call belongs to the agent that made it. That is the same split [`lyn-module-memory`](../module-memory/README.md) uses, and the opposite of [`lyn-module-terminal`](../module-terminal/README.md), whose sessions belong to one agent each.
 
 | File | Role |
 |---|---|
@@ -90,7 +90,7 @@ The plane split follows ownership: a language server is started per workspace an
 
 - [`lsp/`](../../lsp/README.md) — the seam, the stdio provider, and the tool.
 - [Preset row contributions](../../../.agents/notes/proposed/architecture/2026-10-10-preset-row-contributions.md) — why a module contributes a row instead of editing a preset.
-- [`dsh-module-schedule`](../module-schedule/README.md) — the other module that ships available but inactive.
+- [`lyn-module-schedule`](../module-schedule/README.md) — the other module that ships available but inactive.
 - [Default modules and the two views](../../../.agents/notes/proposed/architecture/2026-10-08-default-modules-and-views.md) — why each default module is its own bundle.
 
 -----
@@ -98,7 +98,7 @@ The plane split follows ownership: a language server is started per workspace an
 <a id="model-experience"></a>
 ## Model Experience
 
-Indirectly, through the rows it inserts: `dsh-tool-lsp` owns the `lsp` tool's schema, prompt guidance, and rendered results, and this bundle decides only whether a preset carries them.
+Indirectly, through the rows it inserts: `lyn-tool-lsp` owns the `lsp` tool's schema, prompt guidance, and rendered results, and this bundle decides only whether a preset carries them.
 
 #### KV Cache effect
 

@@ -2,7 +2,7 @@
  * What a deployment's written announcements resolve to, and what they refuse.
  */
 
-import { Context } from '@deepseek-ai/cordis'
+import { Context } from '@lyness/cordis'
 import { afterEach, describe, expect, it } from 'vitest'
 import { newestFirst } from '../src/index.ts'
 import type { Announcement } from '../src/index.ts'

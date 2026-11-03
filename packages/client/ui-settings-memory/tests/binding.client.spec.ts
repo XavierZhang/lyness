@@ -4,7 +4,7 @@
  */
 
 import { describe, expect, it, vi } from 'vitest'
-import type { MemoriesView } from '@deepseek-ai/dsh-api-memory-controller/types'
+import type { MemoriesView } from '@lyness/lyn-api-memory-controller/types'
 import { SectionBinding, sectionFace } from '../src/client/binding.ts'
 import type { MemoryOperations } from '../src/client/operations.ts'
 

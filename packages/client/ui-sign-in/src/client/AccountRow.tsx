@@ -7,10 +7,10 @@
  */
 
 import { useEffect } from 'react'
-import type { HostObservable, InjectFace, PropsLocale, PropsRuntime } from '@deepseek-ai/dsh-client-ui-slots'
-import type {} from '@deepseek-ai/dsh-client-ui-settings/client'
-import type { ViewerStandingView } from '@deepseek-ai/dsh-api-identity-controller/types'
-import type { ViewerSnapshot } from '@deepseek-ai/dsh-client-ui-viewer/client'
+import type { HostObservable, InjectFace, PropsLocale, PropsRuntime } from '@lyness/lyn-client-ui-slots'
+import type {} from '@lyness/lyn-client-ui-settings/client'
+import type { ViewerStandingView } from '@lyness/lyn-api-identity-controller/types'
+import type { ViewerSnapshot } from '@lyness/lyn-client-ui-viewer/client'
 import css from './AccountRow.module.css'
 
 /** Injected business face: the shared read and the snapshot it fills. */

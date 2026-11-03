@@ -13,5 +13,5 @@ description: "DeepSeek 网页搜索与获取从 DeepSeek 模型路由取得端�
 
 ## 迁移
 
-1. 在 `web-deepseek-api` 条目上设置过 `baseURL`、`apiKeyEnv` 或字面 `apiKey` 的用户：对 Search 与 Fetch 分别比较原端点和密钥与路由现在发送的值，即 DeepSeek 模型提供方基础地址的 origin 加 `/v1/tools`，以及该提供方的 `apiKeyEnv`。两者都一致时，删除旧字段。否则把成对字段 `searchBaseURL` 与 `searchApiKeyEnv`（Fetch 为 `fetchBaseURL` 与 `fetchApiKeyEnv`）设为原端点和原密钥引用；即使其中一个原值与路由的值相同，也要两个字段都设置：成对字段中未设置的一项回退到 `https://api.deepseek.com/v1/tools` 或 `DEEPSEEK_API_KEY`，不会继承路由的值。设置过字面 `apiKey` 时，把该值以某个引用存入凭据存储或启动环境，并使用该引用。单独配置的能力从不发送账号令牌。确认：`dsh` 正常启动，且搜索和抓取都到达预期端点，没有凭据错误。
+1. 在 `web-deepseek-api` 条目上设置过 `baseURL`、`apiKeyEnv` 或字面 `apiKey` 的用户：对 Search 与 Fetch 分别比较原端点和密钥与路由现在发送的值，即 DeepSeek 模型提供方基础地址的 origin 加 `/v1/tools`，以及该提供方的 `apiKeyEnv`。两者都一致时，删除旧字段。否则把成对字段 `searchBaseURL` 与 `searchApiKeyEnv`（Fetch 为 `fetchBaseURL` 与 `fetchApiKeyEnv`）设为原端点和原密钥引用；即使其中一个原值与路由的值相同，也要两个字段都设置：成对字段中未设置的一项回退到 `https://api.deepseek.com/v1/tools` 或 `DEEPSEEK_API_KEY`，不会继承路由的值。设置过字面 `apiKey` 时，把该值以某个引用存入凭据存储或启动环境，并使用该引用。单独配置的能力从不发送账号令牌。确认：`lyn` 正常启动，且搜索和抓取都到达预期端点，没有凭据错误。
 2. 设置了 `DEEPSEEK_BASE_URL` 或为 DeepSeek 模型提供方设置了自定义基础地址、且该主机不提供 `/v1/tools` 的用户：把同一对字段设为 `https://api.deepseek.com/v1/tools` 和该端点接受的密钥引用。确认：搜索返回结果。

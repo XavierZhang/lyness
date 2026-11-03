@@ -1,6 +1,6 @@
 /**
  * Wire vocabulary of the personal-instructions surface.
- * @module @deepseek-ai/dsh-api-personal-instructions-controller/types
+ * @module @lyness/lyn-api-personal-instructions-controller/types
  */
 
 /** What one person's own instructions page reads. */

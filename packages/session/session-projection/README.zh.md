@@ -3,13 +3,13 @@ description: "面向开发者与维护者的会话投影注册表说明，用于
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-session-projection
+# @lyness/lyn-session-projection
 
 [English](README.md) | 中文
 
 ## 概述
 
-当客户端需要当前的逐会话状态（例如待办事项、目标或对话统计）而不应自行重放原始事件日志时，使用 `dsh-session-projection`。领域根据已提交的会话事件定义同步投影，客户端则通过快照与变更通知接收经过 schema 校验的完整 JSON 值。快照标明所有返回值共同反映到的最后一个事件，因此载体可以把状态与对应的历史切面配对。投影状态可以通过检查点加快冷读，而仅供 host 使用的投影不会暴露给客户端。
+当客户端需要当前的逐会话状态（例如待办事项、目标或对话统计）而不应自行重放原始事件日志时，使用 `lyn-session-projection`。领域根据已提交的会话事件定义同步投影，客户端则通过快照与变更通知接收经过 schema 校验的完整 JSON 值。快照标明所有返回值共同反映到的最后一个事件，因此载体可以把状态与对应的历史切面配对。投影状态可以通过检查点加快冷读，而仅供 host 使用的投影不会暴露给客户端。
 
 ## 目录
 
@@ -25,7 +25,7 @@ kind: "package-reference"
 <a id="use-this-package"></a>
 ## 使用本包
 
-在客户端载体需要日志派生会话状态的当前值处挂载 `dsh-session-projection`。领域插件注册单元；载体读取快照并订阅变更流；两侧互不相识。
+在客户端载体需要日志派生会话状态的当前值处挂载 `lyn-session-projection`。领域插件注册单元；载体读取快照并订阅变更流；两侧互不相识。
 
 ### 何时选择
 
@@ -170,7 +170,7 @@ Session 摘要包含每个已注册客户端视图，但排除 `SessionProjectio
 - **主动驱动逐事件触达每个单元**——按构造开销很低（全量值规则与 state/view 引用闸门），但若出现热点路径，可加按单元的事件类型预过滤。
 - **已释放单元的检查点行停止推进**——最后一个注册方释放 key 后，`checkpoint(session)` 保留每个 Session 的最后一个 cell，直到该 key 再次注册。在正常关停之外，这期间追加的事件会让存储的行落后于日志，冷列表读到的是这个较旧的值。
 - **已释放的前任会继续引用其定义**——注册表持有已释放单元的定义闭包，直到同一 key 再次注册；因此重载后改名或不再注册的 key 会在进程生命周期内一直引用旧模块。cell 以 Session 为弱键，不会保留 Session。
-- **注册表 cell 只活在内存里**——重启后首次触达时靠折叠日志重建；挂载了 `dsh-session-projection-cache` 的组合改由持久行播种该折叠。
+- **注册表 cell 只活在内存里**——重启后首次触达时靠折叠日志重建；挂载了 `lyn-session-projection-cache` 的组合改由持久行播种该折叠。
 - **单元同步纪律只有部分可机械把关**——`wire.viewSchema.parse` 能拒绝返回 Promise 的 view，但阻塞的 `apply`、或读取撕裂的非会话状态的 `apply`，只能靠评审把关。
 
 <a id="dev-note"></a>

@@ -16,7 +16,7 @@ This supersedes the executable/signature identity choice in [application consent
 
 The identity prefixes separate new grants from old path/signature, process-instance and executable-content digests. Old grants remain removable but do not grant access to new bundle identities; users decide again before permission covers other installations.
 
-Apple’s [PPPC configuration](https://support.apple.com/guide/deployment/privacy-preferences-policy-control-payload-dep38df53c2a/web) supports bundle-ID or path selectors and separately requires a code-signing requirement. [TN3127](https://developer.apple.com/documentation/technotes/tn3127-inside-code-signing-requirements) explains that designated requirements track code identity across versions, while unsigned and ad-hoc code cannot provide the same stability. DSH adopts the selector alternatives for application management without requiring publisher authentication.
+Apple’s [PPPC configuration](https://support.apple.com/guide/deployment/privacy-preferences-policy-control-payload-dep38df53c2a/web) supports bundle-ID or path selectors and separately requires a code-signing requirement. [TN3127](https://developer.apple.com/documentation/technotes/tn3127-inside-code-signing-requirements) explains that designated requirements track code identity across versions, while unsigned and ad-hoc code cannot provide the same stability. LYN adopts the selector alternatives for application management without requiring publisher authentication.
 
 ## Alternatives considered
 

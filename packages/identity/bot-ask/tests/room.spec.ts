@@ -11,23 +11,23 @@ import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@deepseek-ai/cordis'
-import AgentRegistry from '@deepseek-ai/dsh-agent'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import AgentLoop from '@deepseek-ai/dsh-agent-loop'
-import { brandString } from '@deepseek-ai/dsh-brand'
-import LlmRuntime from '@deepseek-ai/dsh-llm'
-import type { Membership, MembershipId, PersonId } from '@deepseek-ai/dsh-people'
-import SessionStore, { SessionId } from '@deepseek-ai/dsh-session'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
-import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
-import ToolRuntime from '@deepseek-ai/dsh-tools'
-import Storage from '@deepseek-ai/dsh-storage'
-import * as StorageJson from '@deepseek-ai/dsh-storage-json'
-import * as StorageDomain from '@deepseek-ai/dsh-storage-domain'
-import AdminAudit from '@deepseek-ai/dsh-admin-audit'
-import ManagedPeople from '@deepseek-ai/dsh-managed-people'
-import ManagedBots, { botProjectionDefinition } from '@deepseek-ai/dsh-managed-bots'
+import { Context } from '@lyness/cordis'
+import AgentRegistry from '@lyness/lyn-agent'
+import type { Agent } from '@lyness/lyn-agent'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import { brandString } from '@lyness/lyn-brand'
+import LlmRuntime from '@lyness/lyn-llm'
+import type { Membership, MembershipId, PersonId } from '@lyness/lyn-people'
+import SessionStore, { SessionId } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
+import SystemPrompt from '@lyness/lyn-system-prompt'
+import ToolRuntime from '@lyness/lyn-tools'
+import Storage from '@lyness/lyn-storage'
+import * as StorageJson from '@lyness/lyn-storage-json'
+import * as StorageDomain from '@lyness/lyn-storage-domain'
+import AdminAudit from '@lyness/lyn-admin-audit'
+import ManagedPeople from '@lyness/lyn-managed-people'
+import ManagedBots, { botProjectionDefinition } from '@lyness/lyn-managed-bots'
 import BotRoom, {
   MAX_ROUNDS, NOBODY_TO_DISCUSS_WITH, NOT_A_BOT, NOT_A_TEAMMATE, RoomRefusedError, briefing, rounds,
 } from '../src/room.ts'
@@ -56,7 +56,7 @@ interface Recorded {
 
 /** A deployment with a roster, the production loop and a turn-taking model. */
 async function bench(): Promise<{ ctx: Context; model: TakingTurnsAdapter; log: Recorded[] }> {
-  const root = await mkdtemp(join(tmpdir(), 'dsh-bot-room-'))
+  const root = await mkdtemp(join(tmpdir(), 'lyn-bot-room-'))
   roots.push(root)
   const ctx = new Context()
   live.push(ctx)

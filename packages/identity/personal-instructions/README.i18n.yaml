@@ -5,42 +5,42 @@
 /:
   en: b0e7cf40d5cdc31b
   zh: bd0b1f01310ff5e3
-/deepseek-harness-dsh-personal-instructions:
+/lyness-lyn-personal-instructions:
   en: 33cd2867849767ca
   zh: 3484e7e3231f17e2
-/deepseek-harness-dsh-personal-instructions/summary:
+/lyness-lyn-personal-instructions/summary:
   en: f8c966d2fe91bdb3
   zh: 2d0bf68ab1a7ab23
-/deepseek-harness-dsh-personal-instructions/table-of-contents:
+/lyness-lyn-personal-instructions/table-of-contents:
   en: d152484eb41ac6b4
   zh: 2bca79d7b98e8031
-/deepseek-harness-dsh-personal-instructions/use-this-package:
+/lyness-lyn-personal-instructions/use-this-package:
   en: 0dd8898f4c5005ee
   zh: 2ae22f8a400dc126
-/deepseek-harness-dsh-personal-instructions/understand-the-implementation:
+/lyness-lyn-personal-instructions/understand-the-implementation:
   en: 43a76bd4778710f3
   zh: e8c894b06b6e5596
-/deepseek-harness-dsh-personal-instructions/further-exploration:
+/lyness-lyn-personal-instructions/further-exploration:
   en: ce1a55eefe1c92fa
   zh: 66f1ea5811824908
-/deepseek-harness-dsh-personal-instructions/model-experience:
+/lyness-lyn-personal-instructions/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/deepseek-harness-dsh-personal-instructions/model-experience/the-person-s-own-instructions:
+/lyness-lyn-personal-instructions/model-experience/the-person-s-own-instructions:
   en: 1056cc8fa718815d
   zh: b86e4acf5d03eb83
-/deepseek-harness-dsh-personal-instructions/model-experience/the-person-s-own-instructions/what-the-model-sees:
+/lyness-lyn-personal-instructions/model-experience/the-person-s-own-instructions/what-the-model-sees:
   en: 11a5b2d6ad37e2df
   zh: b1f99d5c0378fa67
-/deepseek-harness-dsh-personal-instructions/model-experience/the-person-s-own-instructions/token-effect:
+/lyness-lyn-personal-instructions/model-experience/the-person-s-own-instructions/token-effect:
   en: 15eb4e5bb42c071d
   zh: d882d0707f495d52
-/deepseek-harness-dsh-personal-instructions/model-experience/the-person-s-own-instructions/kv-cache-effect:
+/lyness-lyn-personal-instructions/model-experience/the-person-s-own-instructions/kv-cache-effect:
   en: baa443202441243c
   zh: 8be1215da97f028c
-/deepseek-harness-dsh-personal-instructions/known-limitations-and-deferred-work:
+/lyness-lyn-personal-instructions/known-limitations-and-deferred-work:
   en: 579cadff7876f033
   zh: a5602e6206ce0c53
-/deepseek-harness-dsh-personal-instructions/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-personal-instructions/known-limitations-and-deferred-work/dev-note:
   en: e68dfbed8631af1e
   zh: dee327cf29c5ee7c

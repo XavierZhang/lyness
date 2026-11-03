@@ -18,7 +18,7 @@ import { resolve } from 'node:path'
 const ROOT = resolve(import.meta.dirname, '..')
 const CHANGELOG = 'docs/user/guide/changelog.md'
 /** Tag prefix this installation releases under; upstream tags carry its own. */
-const RELEASE_TAG_PREFIX = 'dsh-v'
+const RELEASE_TAG_PREFIX = 'lyn-v'
 /** The heading that collects changes not yet under a version. */
 const UNRELEASED = 'Unreleased'
 /** Section names an entry may use, in the order an entry presents them. */
@@ -45,7 +45,7 @@ export function changelogSections(source: string): string[] {
 /**
  * Versions this installation has released.
  * @param root - repository root.
- * @returns each `dsh-v<version>` tag's version, without the prefix.
+ * @returns each `lyn-v<version>` tag's version, without the prefix.
  */
 export function releasedVersions(root: string): string[] {
   const listed = execFileSync('git', ['tag', '--list', `${RELEASE_TAG_PREFIX}*`], {

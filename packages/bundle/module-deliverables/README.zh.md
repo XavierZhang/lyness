@@ -3,7 +3,7 @@ description: "回合交付物模块独立成一个 bundle：改动文件记录�
 kind: "package-bundle"
 ---
 
-# @deepseek-ai/dsh-module-deliverables
+# @lyness/lyn-module-deliverables
 
 [English](README.md) | 中文
 
@@ -49,11 +49,11 @@ kind: "package-bundle"
 
 | 行 | 模块 | 平面 | 角色 |
 |---|---|---|---|
-| `ui-deliverables` | `@deepseek-ai/dsh-client-ui-deliverables` | 浏览器 | 回合尾部的改动文件卡与交付卡 |
-| `workspace-changes` | `@deepseek-ai/dsh-workspace-changes` | 宿主 | 从 git 快照记录每个回合改动的文件 |
-| `deliverables-preset-contribution` | `@deepseek-ai/dsh-tool-present/preset-contribution` | 贡献 | 把 `present` 行交给每个接受贡献的 preset |
+| `ui-deliverables` | `@lyness/lyn-client-ui-deliverables` | 浏览器 | 回合尾部的改动文件卡与交付卡 |
+| `workspace-changes` | `@lyness/lyn-workspace-changes` | 宿主 | 从 git 快照记录每个回合改动的文件 |
+| `deliverables-preset-contribution` | `@lyness/lyn-tool-present/preset-contribution` | 贡献 | 把 `present` 行交给每个接受贡献的 preset |
 
-这条贡献只到达接受贡献的 preset，而这种不对称是刻意的。官方那四个模式按上游出厂的样子，各自把 `@deepseek-ai/dsh-tool-present` 声明为自己的一行并保留它；一条到达它们的贡献会变成第二行去注册同一个工具名。所以 `standard`、`ptc`、`cordis` 携带声明行，而两个视图默认携带这条贡献，每个 preset 最终都只有一行。
+这条贡献只到达接受贡献的 preset，而这种不对称是刻意的。官方那四个模式按上游出厂的样子，各自把 `@lyness/lyn-tool-present` 声明为自己的一行并保留它；一条到达它们的贡献会变成第二行去注册同一个工具名。所以 `standard`、`ptc`、`cordis` 携带声明行，而两个视图默认携带这条贡献，每个 preset 最终都只有一行。
 
 | 文件 | 角色 |
 |---|---|
@@ -75,7 +75,7 @@ kind: "package-bundle"
 <a id="model-experience"></a>
 ## 模型体验
 
-间接地，经由它插入的那些行：`dsh-tool-present` 拥有 `present` 的 schema 与它的结果，而记录器贡献一个只由客户端读取的持久事件。
+间接地，经由它插入的那些行：`lyn-tool-present` 拥有 `present` 的 schema 与它的结果，而记录器贡献一个只由客户端读取的持久事件。
 
 #### KV Cache effect
 

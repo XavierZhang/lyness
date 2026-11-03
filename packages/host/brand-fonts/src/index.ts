@@ -1,5 +1,5 @@
 /**
- * @deepseek-ai/dsh-host-brand-fonts — the fonts the platform typesets wordmarks in
+ * @lyness/lyn-host-brand-fonts — the fonts the platform typesets wordmarks in
  * when a brand supplies none of its own.
  *
  * The fonts are distributed unmodified under the SIL Open Font License 1.1,
@@ -8,7 +8,7 @@
  * checksum for the third-party notices. Together they draw Latin, Greek,
  * Cyrillic, and Vietnamese text in Inter, and Chinese, Japanese kana and kanji,
  * and Korean Hangul in Noto Sans CJK.
- * @module @deepseek-ai/dsh-host-brand-fonts
+ * @module @lyness/lyn-host-brand-fonts
  */
 
 import { readFileSync } from 'node:fs'

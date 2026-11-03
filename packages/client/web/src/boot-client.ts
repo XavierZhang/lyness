@@ -2,11 +2,11 @@
  * Production client composition without the page: mount the Loader over a
  * module system, create every manifest row, wait for quiescence, and audit
  * activation. `AppWebEntry` and the whole-client test carrier both call it.
- * @module @deepseek-ai/dsh-client-web/src/boot-client
+ * @module @lyness/lyn-client-web/src/boot-client
  */
-import type { Context, Fiber } from '@deepseek-ai/cordis'
-import Loader from '@deepseek-ai/cordis-plugin-loader'
-import type { BootManifest, ClientModuleLoader } from '@deepseek-ai/dsh-client-modules/client'
+import type { Context, Fiber } from '@lyness/cordis'
+import Loader from '@lyness/cordis-plugin-loader'
+import type { BootManifest, ClientModuleLoader } from '@lyness/lyn-client-modules/client'
 import { STATE_LABELS } from './loader-status.ts'
 
 /** Entry state label as the boot page renders it. */
@@ -23,13 +23,13 @@ export type EntryStateLabel = (typeof STATE_LABELS)[keyof typeof STATE_LABELS] |
  * inactive, so that entry's failure also rejects startup.
  */
 const requiredClientEntryNames = new Set<string>([
-  '@deepseek-ai/dsh-client-modules',
-  '@deepseek-ai/dsh-api-session-controller',
-  '@deepseek-ai/dsh-client-ui-renderer',
-  '@deepseek-ai/dsh-client-ui-layout',
-  '@deepseek-ai/dsh-client-ui-session',
-  '@deepseek-ai/dsh-client-ui-chat',
-  '@deepseek-ai/dsh-client-ui-sidebar',
+  '@lyness/lyn-client-modules',
+  '@lyness/lyn-api-session-controller',
+  '@lyness/lyn-client-ui-renderer',
+  '@lyness/lyn-client-ui-layout',
+  '@lyness/lyn-client-ui-session',
+  '@lyness/lyn-client-ui-chat',
+  '@lyness/lyn-client-ui-sidebar',
 ])
 
 /** Inputs of {@link bootClient}. */

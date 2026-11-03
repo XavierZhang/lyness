@@ -2,11 +2,11 @@
  * The durable instructions domain. A malformed record rejects opening it, so
  * a corrupt store fails loudly instead of silently dropping what a person
  * wrote for their own agents.
- * @module @deepseek-ai/dsh-personal-instructions/storage
+ * @module @lyness/lyn-personal-instructions/storage
  */
 
 import { z } from 'zod'
-import { defineDomain, domainTable, storedInstant } from '@deepseek-ai/dsh-storage-domain'
+import { defineDomain, domainTable, storedInstant } from '@lyness/lyn-storage-domain'
 import type { InstructionsEntry, InstructionsOwnerId } from './types.ts'
 
 /**

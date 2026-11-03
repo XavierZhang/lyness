@@ -1,9 +1,9 @@
 /**
  * What a deletion answers.
- * @module @deepseek-ai/dsh-session-deletion/types
+ * @module @lyness/lyn-session-deletion/types
  */
 
-import type { SessionId } from '@deepseek-ai/dsh-session'
+import type { SessionId } from '@lyness/lyn-session'
 
 /** What one deletion removed. */
 export interface SessionDeletionResult {

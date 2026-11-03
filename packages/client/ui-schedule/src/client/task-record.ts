@@ -1,6 +1,6 @@
 /** Catalog vocabulary shared by the Session surfaces and Host task management. */
-import type { SessionId } from '@deepseek-ai/dsh-session/types'
-import type { ScheduleCatalogEntry, RRuleScheduleRecord } from '@deepseek-ai/dsh-schedule/client'
+import type { SessionId } from '@lyness/lyn-session/types'
+import type { ScheduleCatalogEntry, RRuleScheduleRecord } from '@lyness/lyn-schedule/client'
 
 /** Earliest scheduled delivery after applying the Host's current admission interval.
  * @param task - Catalog entry with its scheduled occurrence and optional delivery floor.

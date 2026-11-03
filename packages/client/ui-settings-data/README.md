@@ -3,13 +3,13 @@ description: "The data section in Settings: a person's own conversations, with t
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-client-ui-settings-data
+# @lyness/lyn-client-ui-settings-data
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`dsh-client-ui-settings-data` is the personal plane's data page: one row per conversation the person reading it can open, with the two things they own over each — a downloaded copy, and its deletion. The rows are the session catalog's own rows, so this page and the sidebar can never disagree about what exists. Deleting asks once on the row itself, is permanent, and the page states what it does not take: an uploaded file's bytes are stored by their contents and may belong to another conversation too.
+`lyn-client-ui-settings-data` is the personal plane's data page: one row per conversation the person reading it can open, with the two things they own over each — a downloaded copy, and its deletion. The rows are the session catalog's own rows, so this page and the sidebar can never disagree about what exists. Deleting asks once on the row itself, is permanent, and the page states what it does not take: an uploaded file's bytes are stored by their contents and may belong to another conversation too.
 
 ## Table of Contents
 
@@ -29,12 +29,12 @@ The Web bundle mounts it beside the deletion service and its namespace:
 
 ```yaml
 - id: ui-settings-data
-  name: '@deepseek-ai/dsh-client-ui-settings-data'
+  name: '@lyness/lyn-client-ui-settings-data'
 ```
 
 Nothing else needs configuring. The page mounts the `sessionData` namespace itself and registers the section while that namespace is there, so a deployment without the deletion rows shows no data page rather than one whose buttons refuse.
 
-The download is another plugin's. Where `dsh-session-log-export` is mounted, each row offers it and the ZIP is the same archive the Session header's own action downloads; where it is not, the page says so and the deletion still works.
+The download is another plugin's. Where `lyn-session-log-export` is mounted, each row offers it and the ZIP is the same archive the Session header's own action downloads; where it is not, the page says so and the deletion still works.
 
 -----
 
@@ -58,9 +58,9 @@ The download is another plugin's. Where `dsh-session-log-export` is mounted, eac
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`dsh-api-session-data-controller`](../../api/session-data-controller/README.md) — the namespace this page calls and the refusals it renders.
-- [`dsh-session-deletion`](../../session/session-deletion/README.md) — what a deletion removes and what it leaves.
-- [`dsh-session-log-export`](../../session-query/session-log-export/README.md) — the download each row offers.
+- [`lyn-api-session-data-controller`](../../api/session-data-controller/README.md) — the namespace this page calls and the refusals it renders.
+- [`lyn-session-deletion`](../../session/session-deletion/README.md) — what a deletion removes and what it leaves.
+- [`lyn-session-log-export`](../../session-query/session-log-export/README.md) — the download each row offers.
 - [A personal plane](../../../.agents/notes/proposed/architecture/2026-10-28-the-personal-plane.md) — why this page is personal and what else belongs there.
 
 -----

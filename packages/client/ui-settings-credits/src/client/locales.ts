@@ -2,7 +2,7 @@
  * Copy for the credits section: the balance a person reads, and the two
  * decisions an administrator makes.
  *
- * @module @deepseek-ai/dsh-client-ui-settings-credits/client/locales
+ * @module @lyness/lyn-client-ui-settings-credits/client/locales
  */
 
 /** English copy; the key set every locale answers. */

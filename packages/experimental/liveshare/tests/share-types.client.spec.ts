@@ -26,9 +26,9 @@ describe('confirmed share access', () => {
 describe('viewer endpoint catalog', () => {
   it('reads one plugin entry with its package and endpoint list', () => {
     expect(readOfferedPlugins([{
-      plugin: 'ui-chat', package: '@deepseek-ai/dsh-client-ui-chat', endpoints: ['session/list'],
+      plugin: 'ui-chat', package: '@lyness/lyn-client-ui-chat', endpoints: ['session/list'],
     }])).toEqual([{
-      plugin: 'ui-chat', package: '@deepseek-ai/dsh-client-ui-chat', endpoints: ['session/list'],
+      plugin: 'ui-chat', package: '@lyness/lyn-client-ui-chat', endpoints: ['session/list'],
     }])
   })
 

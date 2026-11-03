@@ -1,12 +1,12 @@
-import { Context } from '@deepseek-ai/cordis'
-import { HostConnectionService } from '@deepseek-ai/dsh-client-connection'
-import type { BrowserAuth } from '@deepseek-ai/dsh-client-connection/src/browser-auth.ts'
-import { SESSION_FORMAT_VERSION } from '@deepseek-ai/dsh-session'
-import type { SessionHeader, SessionId } from '@deepseek-ai/dsh-session'
-import type { SessionHandle } from '@deepseek-ai/dsh-session-persistence'
+import { Context } from '@lyness/cordis'
+import { HostConnectionService } from '@lyness/lyn-client-connection'
+import type { BrowserAuth } from '@lyness/lyn-client-connection/src/browser-auth.ts'
+import { SESSION_FORMAT_VERSION } from '@lyness/lyn-session'
+import type { SessionHeader, SessionId } from '@lyness/lyn-session'
+import type { SessionHandle } from '@lyness/lyn-session-persistence'
 import { strFromU8, unzipSync } from 'fflate'
 import { describe, expect, it } from 'vitest'
-import type { PeerScope } from '@deepseek-ai/dsh-typert-protocol'
+import type { PeerScope } from '@lyness/lyn-typert-protocol'
 import {
   Config,
   EXPORT_NOT_FOUND,

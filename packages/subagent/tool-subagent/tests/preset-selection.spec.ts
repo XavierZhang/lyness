@@ -3,18 +3,18 @@ import { mountWorkingDirectoryFixture } from '../../subagent/tests/working-direc
 import { mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import * as JsonlSessionPersistence from '@deepseek-ai/dsh-session-persistence-jsonl'
-import { Context } from '@deepseek-ai/cordis'
-import Loader from '@deepseek-ai/cordis-plugin-loader'
-import Include from '@deepseek-ai/cordis-plugin-include'
-import AgentLoop from '@deepseek-ai/dsh-agent-loop'
-import { mountAgentLoopTestDependencies } from '@deepseek-ai/dsh-agent-loop-testkit'
-import AgentPresets from '@deepseek-ai/dsh-agent-preset-registry'
-import SubagentRuntime, { applyChildComposition } from '@deepseek-ai/dsh-subagent'
-import { assembleContextFor } from '@deepseek-ai/dsh-agent'
-import { SessionId } from '@deepseek-ai/dsh-session'
-import { createUserMessage } from '@deepseek-ai/dsh-llm'
-import * as SubagentSpawn from '@deepseek-ai/dsh-subagent-spawn-in-process'
+import * as JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
+import { Context } from '@lyness/cordis'
+import Loader from '@lyness/cordis-plugin-loader'
+import Include from '@lyness/cordis-plugin-include'
+import AgentLoop from '@lyness/lyn-agent-loop'
+import { mountAgentLoopTestDependencies } from '@lyness/lyn-agent-loop-testkit'
+import AgentPresets from '@lyness/lyn-agent-preset-registry'
+import SubagentRuntime, { applyChildComposition } from '@lyness/lyn-subagent'
+import { assembleContextFor } from '@lyness/lyn-agent'
+import { SessionId } from '@lyness/lyn-session'
+import { createUserMessage } from '@lyness/lyn-llm'
+import * as SubagentSpawn from '@lyness/lyn-subagent-spawn-in-process'
 import { MockAdapter, textResponse } from '../../../core/agent-loop/tests/mock-adapter.ts'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import * as tool from '../src/index.ts'
@@ -33,7 +33,7 @@ afterEach(async () => {
 })
 
 async function mountSpawn(ctx: Context, providerName: string): Promise<void> {
-  const root = mkdtempSync(join(tmpdir(), 'dsh-tool-preset-'))
+  const root = mkdtempSync(join(tmpdir(), 'lyn-tool-preset-'))
   roots.push(root)
   await ctx.plugin(JsonlSessionPersistence, { root })
   await ctx.plugin(SubagentSpawn, { providerName })

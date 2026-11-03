@@ -3,13 +3,13 @@ description: "Teammates working together: one bot asking another, and several of
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-bot-ask
+# @lyness/lyn-bot-ask
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`dsh-bot-ask` is how teammates work together. One bot asks another a question and waits for the answer; several of them discuss one question in a room a chair runs. Every turn happens in a conversation of its own bot, under that bot's character and preset, and what comes back is prose written for the question — never a transcript of anybody's conversation. Team membership is the whole authorization, and each side keeps its own record.
+`lyn-bot-ask` is how teammates work together. One bot asks another a question and waits for the answer; several of them discuss one question in a room a chair runs. Every turn happens in a conversation of its own bot, under that bot's character and preset, and what comes back is prose written for the question — never a transcript of anybody's conversation. Team membership is the whole authorization, and each side keeps its own record.
 
 ## Table of Contents
 
@@ -29,11 +29,11 @@ The accounts module mounts both services beside the roster, and contributes the 
 
 ```yaml
 - id: bot-ask
-  name: '@deepseek-ai/dsh-bot-ask'
+  name: '@lyness/lyn-bot-ask'
 - id: bot-room
-  name: '@deepseek-ai/dsh-bot-ask/room'
+  name: '@lyness/lyn-bot-ask/room'
 - id: bot-ask-tools
-  name: '@deepseek-ai/dsh-bot-ask/preset-contribution'
+  name: '@lyness/lyn-bot-ask/preset-contribution'
 ```
 
 There is nothing to configure. A bot's own conversation then carries `list_teammates`, `ask_teammate` and `hold_discussion`; a conversation a person opened carries them too and reads an empty team, because it speaks as no bot.
@@ -66,9 +66,9 @@ There is nothing to configure. A bot's own conversation then carries `list_teamm
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`dsh-managed-bots`](../managed-bots/README.md) — the roster, the team relation, and the teammate catalog this reads.
-- [`dsh-session-ownership`](../session-ownership/README.md) — the rule an ask must not become a way around.
-- [`dsh-module-accounts`](../../bundle/module-accounts/README.md) — the composition that selects both halves.
+- [`lyn-managed-bots`](../managed-bots/README.md) — the roster, the team relation, and the teammate catalog this reads.
+- [`lyn-session-ownership`](../session-ownership/README.md) — the rule an ask must not become a way around.
+- [`lyn-module-accounts`](../../bundle/module-accounts/README.md) — the composition that selects both halves.
 
 -----
 
@@ -79,7 +79,7 @@ There is nothing to configure. A bot's own conversation then carries `list_teamm
 
 #### What the model sees
 
-The generated [schemas](../../../docs/tool-catalog.md#deepseek-aidsh-bot-ask): `list_teammates` takes no arguments; `ask_teammate` takes `teammate` and `question`. The `ask_teammate` description states what it will not return — the teammate's conversations — and that the question must carry its own context, because the teammate cannot see the asking conversation.
+The generated [schemas](../../../docs/tool-catalog.md#lynesslyn-bot-ask): `list_teammates` takes no arguments; `ask_teammate` takes `teammate` and `question`. The `ask_teammate` description states what it will not return — the teammate's conversations — and that the question must carry its own context, because the teammate cannot see the asking conversation.
 
 #### Token effect
 

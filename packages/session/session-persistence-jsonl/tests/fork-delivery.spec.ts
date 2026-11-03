@@ -1,7 +1,7 @@
 /** Fork history retains delivery ownership without requiring a source relationship. */
-import { Context } from '@deepseek-ai/cordis'
-import SessionStore, { Session, SessionId, SessionSeq } from '@deepseek-ai/dsh-session'
-import * as JsonlSessionPersistence from '@deepseek-ai/dsh-session-persistence-jsonl'
+import { Context } from '@lyness/cordis'
+import SessionStore, { Session, SessionId, SessionSeq } from '@lyness/lyn-session'
+import * as JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
 import { mkdtemp, readFile, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
@@ -9,7 +9,7 @@ import { describe, expect, it, onTestFinished } from 'vitest'
 import { generationLogPath } from '../src/format.ts'
 
 async function fixture(compression: 'none' | 'zstd') {
-  const root = await mkdtemp(join(tmpdir(), 'dsh-fork-delivery-'))
+  const root = await mkdtemp(join(tmpdir(), 'lyn-fork-delivery-'))
   const ctx = new Context()
   onTestFinished(async () => {
     await ctx.fiber.dispose()

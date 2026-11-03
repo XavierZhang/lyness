@@ -1,9 +1,9 @@
 /**
  * DeepSeek Fetch API provider: page Markdown through one direct request, without
  * a model request.
- * @module @deepseek-ai/dsh-web-deepseek-api/fetch
+ * @module @lyness/lyn-web-deepseek-api/fetch
  */
-import type { WebFetchProvider, WebFetchRequest, WebFetchResult } from '@deepseek-ai/dsh-web'
+import type { WebFetchProvider, WebFetchRequest, WebFetchResult } from '@lyness/lyn-web'
 import {
   dispatchDeepSeekWeb, hasDeepSeekWebCredential, invalidResponse, isRecord,
   type DeepSeekWebAuth, type DeepSeekWebGuidance,

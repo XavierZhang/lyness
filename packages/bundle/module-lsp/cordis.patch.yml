@@ -29,13 +29,13 @@
 #     disabled: false
 - insert:
     - id: lsp
-      name: '@deepseek-ai/dsh-lsp'
+      name: '@lyness/lyn-lsp'
       disabled: true
 
     - id: lsp-stdio
-      name: '@deepseek-ai/dsh-lsp-stdio'
+      name: '@lyness/lyn-lsp-stdio'
       disabled: true
 
     - id: lsp-preset-contribution
-      name: '@deepseek-ai/dsh-lsp/preset-contribution'
+      name: '@lyness/lyn-lsp/preset-contribution'
       disabled: true

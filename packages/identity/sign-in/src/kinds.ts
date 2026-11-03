@@ -12,16 +12,16 @@
  * one needs" — and something else holds the configured instances. The kind
  * knows how to build one; it never knows how many there are or whose they are.
  *
- * @module @deepseek-ai/dsh-sign-in/kinds
+ * @module @lyness/lyn-sign-in/kinds
  */
 
-import { Service } from '@deepseek-ai/cordis'
-import type { Context } from '@deepseek-ai/cordis'
+import { Service } from '@lyness/cordis'
+import type { Context } from '@lyness/cordis'
 import type { ChannelId } from './types.ts'
 import type { SignInChannel } from './index.ts'
 import type { ChannelIdentity } from './redirect.ts'
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Context {
     /** The channel kinds this deployment can be configured with; absent where none is mounted. */
     signInKinds: ChannelKindRegistry

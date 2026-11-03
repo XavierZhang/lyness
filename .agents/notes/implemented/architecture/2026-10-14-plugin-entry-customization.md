@@ -6,9 +6,9 @@ English | [中文](2026-10-14-plugin-entry-customization.zh.md)
 
 ## Problem
 
-The `release/dsh-0.2.1` Web app shows plugin entries in three regions: the left sidebar's panel buttons (`sidebar.panellist`), the Conversation header's View tabs (`conversation.view`), and the right sidebar guide's tool cards (guide entries from the right-sidebar tab registry). Each region shows every entry in registration order, so users cannot hide entries they rarely use, and every installed plugin makes the regions more crowded. Users also cannot browse more plugins or start creating a plugin from these positions.
+The `release/lyn-0.2.1` Web app shows plugin entries in three regions: the left sidebar's panel buttons (`sidebar.panellist`), the Conversation header's View tabs (`conversation.view`), and the right sidebar guide's tool cards (guide entries from the right-sidebar tab registry). Each region shows every entry in registration order, so users cannot hide entries they rarely use, and every installed plugin makes the regions more crowded. Users also cannot browse more plugins or start creating a plugin from these positions.
 
-The feature ships in `release/dsh-0.2.1` and is later merged back to master with the release, so it changes as little as possible relative to the release: no changes to the slot framework (`ui-slots`, `ui-renderer`), no new Cordis service, `ui-layout` unchanged, and client plugin packages share only types ([Client package export rules](../../../../packages/client/AGENTS.md)). Persisted data must be readable without migration by a later slot-level store for manual order and pin state.
+The feature ships in `release/lyn-0.2.1` and is later merged back to master with the release, so it changes as little as possible relative to the release: no changes to the slot framework (`ui-slots`, `ui-renderer`), no new Cordis service, `ui-layout` unchanged, and client plugin packages share only types ([Client package export rules](../../../../packages/client/AGENTS.md)). Persisted data must be readable without migration by a later slot-level store for manual order and pin state.
 
 ## Decision
 
@@ -43,7 +43,7 @@ ui-entry-customization (default-loaded)
 
 Dependency direction: the three regions do not depend on the plugin package and only add uses of `client-store` and `ui-primitives` they already depend on. `ui-entry-customization` depends on the three regions (slot types) and on `ui-plugin-manager` and `ui-workspace` (service types), and calls `ctx.pluginNavigation` and `ctx.uiWorkspace` at runtime. No package gains a new runtime value import from another package.
 
-### Package changes relative to release/dsh-0.2.1
+### Package changes relative to release/lyn-0.2.1
 
 | Package | Change |
 |---|---|
@@ -53,7 +53,7 @@ Dependency direction: the three regions do not depend on the plugin package and 
 | `ui-entry-customization` (new package) | Registers the menu-content component into the three actions slots; owns the `entryCustomization` locale namespace; keeps no state |
 | `ui-plugin-manager` | Adds `openList()` to `pluginNavigation`: selects the Installed tab of the Plugins main list without opening a dialog or changing the current Session |
 | `ui-primitives` | Adds `minWidthFromAnchor` to `Menu` so the right-sidebar menu is never narrower than its card; adds `IconAppsAddOutlineRegular` / `IconAppsAddOutlineMedium` (`compact` for card size), shared by the left-sidebar and right-sidebar buttons |
-| `@deepseek-ai/dsh-web-app` | Loads `ui-entry-customization` by default |
+| `@lyness/lyn-web-app` | Loads `ui-entry-customization` by default |
 
 ### Actions slots and menu content
 
@@ -83,14 +83,14 @@ The region decides its More button's styling, accessible name ("More", "More con
 | Entry source | Existing `panels` (from `sidebar.panellist`) | Existing View list (from `conversation.view`; Trajectory is removed while developer tools are off) | Existing tab registry `guide()` |
 | Entry id | Panel id | View id | `kind:entryId` |
 | Fixed | `plugins` | `chat` | Entries of kind `files` |
-| localStorage key | `dsh.slot.manual-order.sidebar.panellist.v1` | `dsh.slot.manual-order.conversation.view.v1` | `dsh.slot.manual-order.sidebar.right.tab.guide.list.v1` |
+| localStorage key | `lyn.slot.manual-order.sidebar.panellist.v1` | `lyn.slot.manual-order.conversation.view.v1` | `lyn.slot.manual-order.sidebar.right.tab.guide.list.v1` |
 | Actions slot | `sidebar.panellist.actions` | `conversation.session.header.views.actions` | `sidebar.right.tab.guide.actions` |
 | More button | Panel-button styling; shows its label when expanded and a Tooltip when collapsed | Small header button with a Tooltip | Card styling; the menu is at least as wide as the card and aligned to its end |
 | `onOpen` | `selectPanel(id)` | The Session's `selectView(id)` | Finds the entry by id, then `openTab(kind, { replaceTab: true })` |
 
 Each region defines its fixed entry in a module constant. The unpinned list is created in apply with client-store's `createSnapshotStore(…, { persist })`, is independent of Sessions, and stores `{ "unpinned": string[] }`. It reaches the region's root component through the inject `hooks.entryPins`; `setPinned` is an inject callback and ignores the fixed entry. Reads accept only an array of strings and treat any other value as an empty list, so corrupted localStorage content cannot break rendering. Ids that are no longer registered stay in `unpinned`, so an entry registered again stays hidden. Whether the actions slot has registrations reaches the root component through `hooks.entryActions`.
 
-Every localStorage key has the form `dsh.slot.manual-order.<list slot key>.v1`, named after the list slot that holds the entries rather than after the region package: the left sidebar and the Conversation header use the existing `sidebar.panellist` and `conversation.view`. The right-sidebar guide entries come from the tab registry and have no list slot in the release, so their key uses the name reserved for one, `sidebar.right.tab.guide.list`. A later slot-level store for the manual order and pin state of a list slot reads these keys and ids directly; saved `unpinned` values need no migration, and fields added later default to empty lists when absent from saved values.
+Every localStorage key has the form `lyn.slot.manual-order.<list slot key>.v1`, named after the list slot that holds the entries rather than after the region package: the left sidebar and the Conversation header use the existing `sidebar.panellist` and `conversation.view`. The right-sidebar guide entries come from the tab registry and have no list slot in the release, so their key uses the name reserved for one, `sidebar.right.tab.guide.list`. A later slot-level store for the manual order and pin state of a list slot reads these keys and ids directly; saved `unpinned` values need no migration, and fields added later default to empty lists when absent from saved values.
 
 Right-sidebar ids use `kind` instead of `providerId`: when an extension takes over a kind, `providerId` changes while `kind` stays the same, so persisted pin state remains valid after the takeover.
 

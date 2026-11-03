@@ -7,8 +7,8 @@
 
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { cleanup, render, screen } from '@testing-library/react'
-import type { ViewerStandingView, ViewerView } from '@deepseek-ai/dsh-api-identity-controller/types'
-import type { ViewerSnapshot } from '@deepseek-ai/dsh-client-ui-viewer/client'
+import type { ViewerStandingView, ViewerView } from '@lyness/lyn-api-identity-controller/types'
+import type { ViewerSnapshot } from '@lyness/lyn-client-ui-viewer/client'
 import { AccountRow, standingLabel } from '../src/client/AccountRow.tsx'
 import type { AccountRowProps } from '../src/client/AccountRow.tsx'
 import { zh } from '../src/client/locales.ts'

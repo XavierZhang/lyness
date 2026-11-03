@@ -3,13 +3,13 @@ description: "队友之间协作：一个 bot 问另一个，以及若干个一�
 kind: "package-reference"
 ---
 
-# @deepseek-ai/dsh-bot-ask
+# @lyness/lyn-bot-ask
 
 [English](README.md) | 中文
 
 ## 概述
 
-`dsh-bot-ask` 是队友之间协作的方式。一个 bot 向另一个提一个问题并等它的答复；若干个在一间由主持运行的房间里讨论同一个问题。每一轮都发生在它自己那个 bot 的一场对话里、以那个 bot 的性格和 preset 进行，回来的是为那个问题写的一段话——绝不是任何人的对话记录。团队成员身份就是全部的授权，而每一边都留着自己的那份记录。
+`lyn-bot-ask` 是队友之间协作的方式。一个 bot 向另一个提一个问题并等它的答复；若干个在一间由主持运行的房间里讨论同一个问题。每一轮都发生在它自己那个 bot 的一场对话里、以那个 bot 的性格和 preset 进行，回来的是为那个问题写的一段话——绝不是任何人的对话记录。团队成员身份就是全部的授权，而每一边都留着自己的那份记录。
 
 ## 目录
 
@@ -29,11 +29,11 @@ kind: "package-reference"
 
 ```yaml
 - id: bot-ask
-  name: '@deepseek-ai/dsh-bot-ask'
+  name: '@lyness/lyn-bot-ask'
 - id: bot-room
-  name: '@deepseek-ai/dsh-bot-ask/room'
+  name: '@lyness/lyn-bot-ask/room'
 - id: bot-ask-tools
-  name: '@deepseek-ai/dsh-bot-ask/preset-contribution'
+  name: '@lyness/lyn-bot-ask/preset-contribution'
 ```
 
 没有要配置的。于是一个 bot 自己的对话里带上了 `list_teammates`、`ask_teammate` 和 `hold_discussion`；人打开的对话也带着它们，并读到一个空团队，因为那场对话不以任何 bot 的身份说话。
@@ -66,9 +66,9 @@ kind: "package-reference"
 <a id="further-exploration"></a>
 ## 进一步探索
 
-- [`dsh-managed-bots`](../managed-bots/README.zh.md) — 这里读的那份名册、团队关系和队友名录。
-- [`dsh-session-ownership`](../session-ownership/README.zh.md) — 一次提问绝不能绕开的那条规则。
-- [`dsh-module-accounts`](../../bundle/module-accounts/README.zh.md) — 把两半都选上的那份组合。
+- [`lyn-managed-bots`](../managed-bots/README.zh.md) — 这里读的那份名册、团队关系和队友名录。
+- [`lyn-session-ownership`](../session-ownership/README.zh.md) — 一次提问绝不能绕开的那条规则。
+- [`lyn-module-accounts`](../../bundle/module-accounts/README.zh.md) — 把两半都选上的那份组合。
 
 -----
 
@@ -79,7 +79,7 @@ kind: "package-reference"
 
 #### 模型看到什么
 
-生成的[那些 schema](../../../docs/tool-catalog.zh.md#deepseek-aidsh-bot-ask)：`list_teammates` 不取参数；`ask_teammate` 取 `teammate` 和 `question`；`hold_discussion` 取那些 id、一个问题和一个轮数。`ask_teammate` 的描述说明了它不会返回什么——队友的那些对话——以及问题必须自带上下文，因为队友看不到提问方的对话。
+生成的[那些 schema](../../../docs/tool-catalog.zh.md#lynesslyn-bot-ask)：`list_teammates` 不取参数；`ask_teammate` 取 `teammate` 和 `question`；`hold_discussion` 取那些 id、一个问题和一个轮数。`ask_teammate` 的描述说明了它不会返回什么——队友的那些对话——以及问题必须自带上下文，因为队友看不到提问方的对话。
 
 #### Token 影响
 

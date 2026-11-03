@@ -7,7 +7,7 @@
  * sees the product, and a signed-out viewer of one with accounts sees a
  * sign-in screen. Asking separately would render the wrong one first.
  *
- * @module @deepseek-ai/dsh-api-identity-controller/types
+ * @module @lyness/lyn-api-identity-controller/types
  */
 
 /** One sign-in channel a surface may offer. */

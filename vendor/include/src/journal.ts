@@ -1,5 +1,5 @@
-import type { EntryChange, EntryOptions } from '@deepseek-ai/cordis-plugin-loader'
-import { deepEqual, type Dict, omit } from '@deepseek-ai/cosmokit'
+import type { EntryChange, EntryOptions } from '@lyness/cordis-plugin-loader'
+import { deepEqual, type Dict, omit } from '@lyness/cosmokit'
 
 /** One tree-side mutation that has not reached the file yet, keyed by entry id. */
 export type JournalRecord = JournalRecord.Remove | JournalRecord.Upsert

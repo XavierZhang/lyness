@@ -1,17 +1,17 @@
 /**
  * Model-facing persistent `bash` tool over the owner-scoped PTY seam.
- * @module @deepseek-ai/dsh-tool-bash-persistent
+ * @module @lyness/lyn-tool-bash-persistent
  */
 
-import type {} from '@deepseek-ai/dsh-working-directory'
+import type {} from '@lyness/lyn-working-directory'
 import { randomUUID } from 'node:crypto'
-import type { Context } from '@deepseek-ai/cordis'
-import z from '@deepseek-ai/schemastery'
-import type { Agent } from '@deepseek-ai/dsh-agent'
-import { truncateWithoutSplittingSurrogatePair } from '@deepseek-ai/dsh-output-retention'
-import type { TerminalReadResult, TerminalSessionId } from '@deepseek-ai/dsh-terminal'
-import { deadline, timeoutOf } from '@deepseek-ai/dsh-timeout'
-import { defineTool } from '@deepseek-ai/dsh-tools'
+import type { Context } from '@lyness/cordis'
+import z from '@lyness/schemastery'
+import type { Agent } from '@lyness/lyn-agent'
+import { truncateWithoutSplittingSurrogatePair } from '@lyness/lyn-output-retention'
+import type { TerminalReadResult, TerminalSessionId } from '@lyness/lyn-terminal'
+import { deadline, timeoutOf } from '@lyness/lyn-timeout'
+import { defineTool } from '@lyness/lyn-tools'
 
 // TODO: Replace the file-search advice; arbitrary command output need not come from a searchable file.
 const TRUNCATED_MESSAGE = '<response clipped><NOTE>To save on context only part of this file has been shown to you. You should retry this tool after you have searched inside the file with `grep -n` in order to find the line numbers of what you are looking for.</NOTE>'
@@ -66,8 +66,8 @@ function maybeTruncate(content: string, maxOutputChars: number, incomplete = fal
 function markers(): CommandMarkers {
   const nonce = randomUUID()
   return {
-    start: `__DSH_PERSISTENT_BASH_START_${nonce}__`,
-    end: `__DSH_PERSISTENT_BASH_END_${nonce}:`,
+    start: `__LYNESS_PERSISTENT_BASH_START_${nonce}__`,
+    end: `__LYNESS_PERSISTENT_BASH_END_${nonce}:`,
   }
 }
 
@@ -83,7 +83,7 @@ function wrapCommand(command: string, marker: CommandMarkers): string {
   // Keep the wrapper on one physical line. An interactive bash prints PS2 for
   // embedded newlines before executing the buffer, which would leak terminal
   // prompts and marker source text into the model-facing result.
-  return `printf '%s\\n' ${quoteForBash(marker.start)}; eval -- ${quoteForBash(command)}; __dsh_persistent_bash_status=$?; printf '%s%s\\n' ${quoteForBash(marker.end)} "$__dsh_persistent_bash_status"`
+  return `printf '%s\\n' ${quoteForBash(marker.start)}; eval -- ${quoteForBash(command)}; __lyn_persistent_bash_status=$?; printf '%s%s\\n' ${quoteForBash(marker.end)} "$__lyn_persistent_bash_status"`
 }
 
 function trimTrailingNewline(text: string): string {

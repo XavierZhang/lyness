@@ -19,13 +19,13 @@ function fixture() {
     const directory = join(payload, 'native/bin', `darwin-${architecture}`)
     const application = join(directory, 'unsigned', CUA_APPLICATION)
     for (const [path, bytes] of Object.entries({
-      'Contents/Info.plist': 'fixture identity', 'Contents/MacOS/dsh-cua-native': `executable ${architecture}`,
-      'Contents/Resources/DSHComputerUse.icns': 'icon', 'Contents/_CodeSignature/CodeResources': 'signature',
+      'Contents/Info.plist': 'fixture identity', 'Contents/MacOS/lyn-cua-native': `executable ${architecture}`,
+      'Contents/Resources/LYNComputerUse.icns': 'icon', 'Contents/_CodeSignature/CodeResources': 'signature',
     })) {
       mkdirSync(join(application, path, '..'), { recursive: true })
       writeFileSync(join(application, path), bytes)
     }
-    chmodSync(join(application, 'Contents/MacOS/dsh-cua-native'), 0o755)
+    chmodSync(join(application, 'Contents/MacOS/lyn-cua-native'), 0o755)
     return { architecture, bundle: sealCuaApplication(directory, application) }
   })
   const manifest = { schemaVersion: 1, ...identity, teamId: 'ABCDEFGHIJ', applications }
@@ -56,7 +56,7 @@ it.skipIf(process.platform === 'win32')('verifies staged and repacked provider b
   await create({ file: tarball, cwd: f.root, gzip: true, portable: true }, ['package'])
   await verifyCuaHelperTarball(tarball, identity)
   const application = readCuaApplication(join(packageRoot, 'native/bin/darwin-arm64')).application
-  writeFileSync(join(application, 'Contents/MacOS/dsh-cua-native'), 'changed after signing')
+  writeFileSync(join(application, 'Contents/MacOS/lyn-cua-native'), 'changed after signing')
   await create({ file: tarball, cwd: f.root, gzip: true, portable: true }, ['package'])
   await expect(verifyCuaHelperTarball(tarball, identity)).rejects.toThrow('digest')
 })
@@ -72,7 +72,7 @@ it.skipIf(process.platform === 'win32')('keeps npm tarball bytes when reusing a 
     mkdirSync(output)
     stageCuaHelperPayload(f.payload, packageRoot, identity)
     writeFileSync(join(packageRoot, 'package.json'), JSON.stringify({
-      name: '@deepseek-ai/dsh-experimental-cua-macos', version: identity.version, type: 'module',
+      name: '@lyness/lyn-experimental-cua-macos', version: identity.version, type: 'module',
       files: ['lib/index.js', 'native/bin', CUA_MANIFEST],
     }))
     writeFileSync(join(packageRoot, 'lib/index.js'), 'export const provider = "fixture";\n')
@@ -85,7 +85,7 @@ it.skipIf(process.platform === 'win32')('keeps npm tarball bytes when reusing a 
     expect(result.isCanceled).toBe(false)
     expect(result.signal).toBeUndefined()
     expect(result.exitCode, result.stderr).toBe(0)
-    const tarball = join(output, 'deepseek-ai-dsh-experimental-cua-macos-1.0.0.tgz')
+    const tarball = join(output, 'deepseek-ai-lyn-experimental-cua-macos-1.0.0.tgz')
     await verifyCuaHelperTarball(tarball, identity)
     return readFileSync(tarball)
   }
@@ -111,7 +111,7 @@ it.skipIf(process.platform === 'win32').each(['version', 'commit', 'architecture
   if (damage === 'architecture') f.manifest.applications[1] = f.manifest.applications[0]!
   if (damage === 'missing') rmSync(join(before.application, 'Contents/Info.plist'))
   if (damage === 'extra') cpSync(before.application, join(f.directory, 'old-generation', CUA_APPLICATION), { recursive: true })
-  if (damage === 'permissions') chmodSync(join(before.application, 'Contents/MacOS/dsh-cua-native'), 0o644)
+  if (damage === 'permissions') chmodSync(join(before.application, 'Contents/MacOS/lyn-cua-native'), 0o644)
   if (damage === 'symlink') symlinkSync(join(f.root, 'outside'), join(before.application, 'outside'))
   writeFileSync(join(f.payload, CUA_MANIFEST), JSON.stringify(f.manifest))
   expect(() => { stageCuaHelperPayload(f.payload, join(f.root, 'consumer'), identity) }).toThrow()
@@ -122,7 +122,7 @@ it('keeps company signing outside pull-request release rehearsals', () => {
   expect(workflow).toContain('workflow_dispatch:')
   expect(workflow).toContain('workflow_call:')
   expect(workflow).not.toContain('pull_request:')
-  expect(workflow).toContain('dsh-mac-package-trial')
+  expect(workflow).toContain('lyn-mac-package-trial')
   const release = readFileSync(resolve('.github/workflows/release-publish.yml'), 'utf8')
   expect(release).toContain('needs: cua-helper')
   expect(release).toContain('scripts/cua-helper/stage.ts')

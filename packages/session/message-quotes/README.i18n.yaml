@@ -5,42 +5,42 @@
 /:
   en: 3747c4c75b3f49e0
   zh: 5b0b9248cb91d91b
-/deepseek-harness-dsh-message-quotes:
+/lyness-lyn-message-quotes:
   en: b7250ba3e1200770
   zh: ff2c6fc62116054b
-/deepseek-harness-dsh-message-quotes/summary:
+/lyness-lyn-message-quotes/summary:
   en: 616c0bf9547f9a33
   zh: 711cb96a55b29580
-/deepseek-harness-dsh-message-quotes/table-of-contents:
+/lyness-lyn-message-quotes/table-of-contents:
   en: d152484eb41ac6b4
   zh: 405b30feaf48c087
-/deepseek-harness-dsh-message-quotes/use-this-package:
+/lyness-lyn-message-quotes/use-this-package:
   en: 5a2c3edf0a026abe
   zh: aec2f54b6d833591
-/deepseek-harness-dsh-message-quotes/understand-the-implementation:
+/lyness-lyn-message-quotes/understand-the-implementation:
   en: a57889b4bd970542
   zh: f5cba4bb32536a7e
-/deepseek-harness-dsh-message-quotes/further-exploration:
+/lyness-lyn-message-quotes/further-exploration:
   en: a8dac1284d8eedab
   zh: d1cdda698ce9ce9f
-/deepseek-harness-dsh-message-quotes/model-experience:
+/lyness-lyn-message-quotes/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/deepseek-harness-dsh-message-quotes/model-experience/quoted-message-text:
+/lyness-lyn-message-quotes/model-experience/quoted-message-text:
   en: 4570ae90b328ddf5
   zh: 5c2c95075c5e0fa4
-/deepseek-harness-dsh-message-quotes/model-experience/quoted-message-text/what-the-model-sees:
+/lyness-lyn-message-quotes/model-experience/quoted-message-text/what-the-model-sees:
   en: 913152fe14c493f6
   zh: 3bdf114beaff1e04
-/deepseek-harness-dsh-message-quotes/model-experience/quoted-message-text/token-effect:
+/lyness-lyn-message-quotes/model-experience/quoted-message-text/token-effect:
   en: af92deb8bf69432b
   zh: 2582520fcb9b982e
-/deepseek-harness-dsh-message-quotes/model-experience/quoted-message-text/kv-cache-effect:
+/lyness-lyn-message-quotes/model-experience/quoted-message-text/kv-cache-effect:
   en: 626c54bc58b74f8f
   zh: 82a5a8a445734d64
-/deepseek-harness-dsh-message-quotes/known-limitations-and-deferred-work:
+/lyness-lyn-message-quotes/known-limitations-and-deferred-work:
   en: 4d2c9783f0268d55
   zh: 40d6d48ceed3194c
-/deepseek-harness-dsh-message-quotes/known-limitations-and-deferred-work/dev-note:
+/lyness-lyn-message-quotes/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 8ec3e73528ddb1a6

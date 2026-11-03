@@ -1,6 +1,6 @@
-import { Context } from '@deepseek-ai/cordis'
-import type { PluginOperation } from '@deepseek-ai/dsh-plugin-manager/types'
-import type { PluginOperationRunId } from '@deepseek-ai/dsh-plugin-manager/diagnostic'
+import { Context } from '@lyness/cordis'
+import type { PluginOperation } from '@lyness/lyn-plugin-manager/types'
+import type { PluginOperationRunId } from '@lyness/lyn-plugin-manager/diagnostic'
 import { expect, it, onTestFinished, vi } from 'vitest'
 import { installOperationDiagnostics } from '../src/operation-diagnostics.ts'
 

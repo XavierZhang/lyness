@@ -2,10 +2,10 @@
  * Per-server runtime status, list views, and the MCP manager's Cordis event.
  * Types only — no runtime code.
  *
- * @module @deepseek-ai/dsh-mcp-manager/types
+ * @module @lyness/lyn-mcp-manager/types
  */
 
-import type { McpCloseResult, McpConnectionStatus } from '@deepseek-ai/dsh-mcp-client/types'
+import type { McpCloseResult, McpConnectionStatus } from '@lyness/lyn-mcp-client/types'
 
 /**
  * Status of one managed server. Extends the mcp-client connection status with
@@ -30,7 +30,7 @@ export interface McpManagedServerView {
   status: McpManagedServerStatus
 }
 
-declare module '@deepseek-ai/cordis' {
+declare module '@lyness/cordis' {
   interface Events {
     /**
      * One managed server's status transitioned. Emitted for every published

@@ -1,14 +1,14 @@
 /**
  * Pure types of the plan domain: the ONE home of the `plan` projection-key
  * declaration, free of this package's host-side value imports (cordis,
- * dsh-tools, dsh-agent). Two namespace projections serve it — `./types` for
+ * lyn-tools, lyn-agent). Two namespace projections serve it — `./types` for
  * host consumers and `./client` for client aggregates — with zero content
  * duplication.
  *
- * @module @deepseek-ai/dsh-plan-mode/types
+ * @module @lyness/lyn-plan-mode/types
  */
 
-import type { CommandId } from '@deepseek-ai/dsh-commands/brand'
+import type { CommandId } from '@lyness/lyn-commands/brand'
 
 /**
  * The plan projection's wire value. `active` is the logged state in force
@@ -37,7 +37,7 @@ export interface PlanUnitState {
   entered: boolean
 }
 
-declare module '@deepseek-ai/dsh-session-projection/types' {
+declare module '@lyness/lyn-session-projection/types' {
   interface SessionProjectionMap {
     /** Plan collaboration state folded from the plan command lifecycle and `plan/mode` events. */
     plan: PlanProjection
