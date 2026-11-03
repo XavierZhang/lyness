@@ -5,57 +5,57 @@
 /:
   en: 0743cf05fedb8321
   zh: 7ad0cfa1b6b8a46b
-/lyness-lyn-ptc-runtime-node:
+/deepseek-harness-dsh-ptc-runtime-node:
   en: b8d4b0c080c33a1b
   zh: d0f663df9a33d706
-/lyness-lyn-ptc-runtime-node/summary:
+/deepseek-harness-dsh-ptc-runtime-node/summary:
   en: 91379c5dc7f04630
   zh: 6ae48abc2097a7ef
-/lyness-lyn-ptc-runtime-node/table-of-contents:
+/deepseek-harness-dsh-ptc-runtime-node/table-of-contents:
   en: d152484eb41ac6b4
   zh: 725b47765ee8f30b
-/lyness-lyn-ptc-runtime-node/use-this-package:
+/deepseek-harness-dsh-ptc-runtime-node/use-this-package:
   en: 81b45b8f6f4eb3aa
   zh: e063d0fcf225a462
-/lyness-lyn-ptc-runtime-node/use-this-package/configuration:
+/deepseek-harness-dsh-ptc-runtime-node/use-this-package/configuration:
   en: 12c634e84ac220b5
   zh: 268137f6245f858c
-/lyness-lyn-ptc-runtime-node/use-this-package/execution-and-results:
+/deepseek-harness-dsh-ptc-runtime-node/use-this-package/execution-and-results:
   en: c79baab0c0a49ca7
   zh: b90b78d0d75280fb
-/lyness-lyn-ptc-runtime-node/use-this-package/in-memory-mode:
+/deepseek-harness-dsh-ptc-runtime-node/use-this-package/in-memory-mode:
   en: d2ca0da864f4f92a
   zh: e8e1b8f50b875160
-/lyness-lyn-ptc-runtime-node/use-this-package/deadlines-and-cancellation:
+/deepseek-harness-dsh-ptc-runtime-node/use-this-package/deadlines-and-cancellation:
   en: 2a900d0abef35406
   zh: 883ea470b9b14a22
-/lyness-lyn-ptc-runtime-node/use-this-package/failures:
+/deepseek-harness-dsh-ptc-runtime-node/use-this-package/failures:
   en: 0ba661c7030f368c
   zh: dc2be3553eda447d
-/lyness-lyn-ptc-runtime-node/understand-the-implementation:
+/deepseek-harness-dsh-ptc-runtime-node/understand-the-implementation:
   en: 9020b491a39e4bf5
   zh: bcd1b2b1a3bde7f3
-/lyness-lyn-ptc-runtime-node/understand-the-implementation/launch-and-control:
+/deepseek-harness-dsh-ptc-runtime-node/understand-the-implementation/launch-and-control:
   en: 94e08458a48b8c16
   zh: 48087aaa4ef028b6
-/lyness-lyn-ptc-runtime-node/understand-the-implementation/source-and-built-bootstraps:
+/deepseek-harness-dsh-ptc-runtime-node/understand-the-implementation/source-and-built-bootstraps:
   en: f9d796233bfb3b79
   zh: f7c5803a6ccdf9c2
-/lyness-lyn-ptc-runtime-node/understand-the-implementation/source-map:
+/deepseek-harness-dsh-ptc-runtime-node/understand-the-implementation/source-map:
   en: 6534d1c3a1e40c65
   zh: 2aae909d97915ece
-/lyness-lyn-ptc-runtime-node/further-exploration:
+/deepseek-harness-dsh-ptc-runtime-node/further-exploration:
   en: 7ad832dc64a64174
   zh: 357b743fb31a0352
-/lyness-lyn-ptc-runtime-node/model-experience:
+/deepseek-harness-dsh-ptc-runtime-node/model-experience:
   en: 0cb7e74dd2c66202
   zh: 017c009953e470ed
-/lyness-lyn-ptc-runtime-node/model-experience/kv-cache-effect:
+/deepseek-harness-dsh-ptc-runtime-node/model-experience/kv-cache-effect:
   en: 40294c1c31b74824
   zh: d91e7b78c0619c7e
-/lyness-lyn-ptc-runtime-node/known-limitations-and-deferred-work:
+/deepseek-harness-dsh-ptc-runtime-node/known-limitations-and-deferred-work:
   en: c99f20872d7694d0
   zh: b3a3193572afd8f3
-/lyness-lyn-ptc-runtime-node/known-limitations-and-deferred-work/dev-note:
+/deepseek-harness-dsh-ptc-runtime-node/known-limitations-and-deferred-work/dev-note:
   en: f066b445788f2e0c
   zh: f61298b160a1d0e9

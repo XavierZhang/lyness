@@ -2,7 +2,7 @@
  * Copy for the data section: a person's own conversations, the copy they can
  * take, and the deletion they can ask for.
  *
- * @module @lyness/lyn-client-ui-settings-data/client/locales
+ * @module @deepseek-ai/dsh-client-ui-settings-data/client/locales
  */
 
 /** English copy; the key set every locale answers. */

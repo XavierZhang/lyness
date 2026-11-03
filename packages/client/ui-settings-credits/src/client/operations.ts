@@ -7,16 +7,16 @@
  * the reason the server gave, and a retry that shows the attempt rather than
  * the failure it replaces.
  *
- * @module @lyness/lyn-client-ui-settings-credits/client/operations
+ * @module @deepseek-ai/dsh-client-ui-settings-credits/client/operations
  */
 
-import type { Context } from '@lyness/cordis'
-import { createSharedRead } from '@lyness/lyn-client-store'
-import type {} from '@lyness/lyn-api-remotes/client'
-import type {} from '@lyness/lyn-api-credits-controller/remote'
+import type { Context } from '@deepseek-ai/cordis'
+import { createSharedRead } from '@deepseek-ai/dsh-client-store'
+import type {} from '@deepseek-ai/dsh-api-remotes/client'
+import type {} from '@deepseek-ai/dsh-api-credits-controller/remote'
 import type {
   AllowanceInput, AllowanceView, BudgetView, CreditAccountView, CreditGrantInput,
-} from '@lyness/lyn-api-credits-controller/types'
+} from '@deepseek-ai/dsh-api-credits-controller/types'
 
 /** What one Remote call answers: the value, or the code it refused with. */
 export type CallOutcome<T> =

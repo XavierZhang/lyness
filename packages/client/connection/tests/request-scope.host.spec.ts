@@ -1,8 +1,8 @@
 /** Per-request scopes: nesting order, reach into the handler, and withdrawal. */
 
 import { AsyncLocalStorage } from 'node:async_hooks'
-import type { PeerScope } from '@lyness/lyn-typert-protocol'
-import { Context } from '@lyness/cordis'
+import type { PeerScope } from '@deepseek-ai/dsh-typert-protocol'
+import { Context } from '@deepseek-ai/cordis'
 import { describe, expect, it } from 'vitest'
 import type { BrowserAuth } from '../src/browser-auth.ts'
 import { HostConnectionService } from '../src/rpc-host.ts'

@@ -3,7 +3,7 @@ description: "The durable session-storage seam for users and maintainers choosin
 kind: "package-reference"
 ---
 
-# @lyness/lyn-session-persistence
+# @deepseek-ai/dsh-session-persistence
 
 English | [中文](README.zh.md)
 
@@ -45,7 +45,7 @@ await ctx.sessionPersistence.flush()                           // backend-wide d
 await ctx.sessionPersistence.delete(id)                        // remove one stored session permanently, with every generation of its log
 ```
 
-`delete(id)` is the one operation that destroys released session data, so its guarantees are narrow. It removes the named session alone — a sub-session is a stored session of its own, and a caller that means a whole conversation removes each member itself — and nothing is recoverable, no backend keeping a tombstone: an id is a slot a later session may take. It refuses with `SessionPersistenceNotFoundError` for a session that does not exist and with `SessionAlreadyOwnedError` while a writer holds it, here or in another process, so a live conversation is removed after it ends rather than underneath itself. Derived stores are not its to clear: a search index, a projection cache or anything else folded out of the log is owned by its own service, which the caller tells. [`lyn-session-deletion`](../session-deletion/README.md) is the service that does both for a whole conversation.
+`delete(id)` is the one operation that destroys released session data, so its guarantees are narrow. It removes the named session alone — a sub-session is a stored session of its own, and a caller that means a whole conversation removes each member itself — and nothing is recoverable, no backend keeping a tombstone: an id is a slot a later session may take. It refuses with `SessionPersistenceNotFoundError` for a session that does not exist and with `SessionAlreadyOwnedError` while a writer holds it, here or in another process, so a live conversation is removed after it ends rather than underneath itself. Derived stores are not its to clear: a search index, a projection cache or anything else folded out of the log is owned by its own service, which the caller tells. [`dsh-session-deletion`](../session-deletion/README.md) is the service that does both for a whole conversation.
 
 Service-level `flush()` drains every active write handle's routed events and materializes its session, exactly as each handle's own `flush` would; failures aggregate per session as an `AggregateError` without abandoning the sweep, and a handle closed mid-sweep counts as flushed because close itself drains durably.
 

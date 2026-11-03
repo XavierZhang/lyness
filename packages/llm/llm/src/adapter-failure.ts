@@ -1,7 +1,7 @@
 /**
  * Normalization for values thrown by a final LLM adapter boundary.
  *
- * @module @lyness/lyn-llm/adapter-failure
+ * @module @deepseek-ai/dsh-llm/adapter-failure
  */
 
 import { HarnessError } from './error.ts'

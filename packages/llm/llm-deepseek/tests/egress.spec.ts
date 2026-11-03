@@ -1,7 +1,7 @@
 import { createServer, type Server } from 'node:http'
 import type { AddressInfo } from 'node:net'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
-import { installProxyFromEnvironment } from '@lyness/lyn-http-proxy'
+import { installProxyFromEnvironment } from '@deepseek-ai/dsh-http-proxy'
 
 let seen: string[] = []
 let proxy: Server
@@ -35,15 +35,15 @@ import { mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { vi } from 'vitest'
-import { Context } from '@lyness/cordis'
-import LlmRuntime from '@lyness/lyn-llm'
-import DeepSeekLlmApiExtensionRegistry from '@lyness/lyn-deepseek-llm-api-extensions'
-import * as LlmDeepSeek from '@lyness/lyn-llm-deepseek-api-key'
+import { Context } from '@deepseek-ai/cordis'
+import LlmRuntime from '@deepseek-ai/dsh-llm'
+import DeepSeekLlmApiExtensionRegistry from '@deepseek-ai/dsh-deepseek-llm-api-extensions'
+import * as LlmDeepSeek from '@deepseek-ai/dsh-llm-deepseek-api-key'
 
 let home: string
 beforeAll(() => {
-  home = mkdtempSync(join(tmpdir(), 'lyn-deepseek-egress-'))
-  vi.stubEnv('LYNESS_HOME', home)
+  home = mkdtempSync(join(tmpdir(), 'dsh-deepseek-egress-'))
+  vi.stubEnv('DSH_HOME', home)
   vi.stubEnv('DEEPSEEK_API_KEY', 'probe-key')
 })
 afterAll(() => {

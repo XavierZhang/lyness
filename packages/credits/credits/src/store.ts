@@ -8,15 +8,15 @@
  * was down. Granting on use costs nothing for people who are not using it and
  * cannot miss a period.
  *
- * @module @lyness/lyn-credits/store
+ * @module @deepseek-ai/dsh-credits/store
  */
 
-import type { Context } from '@lyness/cordis'
-import z from '@lyness/schemastery'
-import { brandString } from '@lyness/lyn-brand'
-import { randomUUID } from '@lyness/lyn-util-crypto'
-import type { Domain } from '@lyness/lyn-storage-domain'
-import type { PersonId } from '@lyness/lyn-people'
+import type { Context } from '@deepseek-ai/cordis'
+import z from '@deepseek-ai/schemastery'
+import { brandString } from '@deepseek-ai/dsh-brand'
+import { randomUUID } from '@deepseek-ai/dsh-util-crypto'
+import type { Domain } from '@deepseek-ai/dsh-storage-domain'
+import type { PersonId } from '@deepseek-ai/dsh-people'
 import { CreditLedger, CreditsExhausted } from './index.ts'
 import type { GrantRequest, SpendRequest } from './index.ts'
 import { effectiveAllowance } from './allowance.ts'

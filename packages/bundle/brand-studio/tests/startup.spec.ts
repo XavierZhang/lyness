@@ -7,8 +7,8 @@ import { mkdtemp, readFile, rm } from 'node:fs/promises'
 import { createRequire } from 'node:module'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { Context } from '@lyness/cordis'
-import { internals } from '@lyness/lyn-cmdline'
+import { Context } from '@deepseek-ai/cordis'
+import { internals } from '@deepseek-ai/dsh-cmdline'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import * as BrandStudio from '../src/index.ts'
 
@@ -49,7 +49,7 @@ async function invoke(args: readonly string[]): Promise<{ code: number; stdout: 
 async function home(): Promise<string> {
   const dir = await mkdtemp(join(tmpdir(), 'brand-studio-home-'))
   directories.push(dir)
-  vi.stubEnv('LYNESS_HOME', dir)
+  vi.stubEnv('DSH_HOME', dir)
   return dir
 }
 
@@ -73,18 +73,18 @@ describe('brand-studio command line', () => {
 
   it('applies the brand to the web profile and reports what it wrote', async () => {
     const dir = await home()
-    const result = await invoke(['--name', '领驭 lyness', '--icon', ICON, '--accept-trademark'])
+    const result = await invoke(['--name', '领驭 DeepSeek Harness', '--icon', ICON, '--accept-trademark'])
     expect(result).toMatchObject({ code: 0, stderr: '' })
-    expect(result.stdout).toContain('brand-studio: wrote the brand for "领驭 lyness"')
+    expect(result.stdout).toContain('brand-studio: wrote the brand for "领驭 DeepSeek Harness"')
     expect(result.stdout).toContain('font      built-in (Inter SemiBold, Noto Sans CJK SC Medium)')
     expect(result.stdout).toContain(join(dir, 'brand', 'mark.svg'))
     expect(result.stdout).toContain(join(dir, 'profiles', 'web', 'cordis.patch.yml'))
-    expect(result.stdout).toContain('`lyn --profile web`')
+    expect(result.stdout).toContain('`dsh --profile web`')
   })
 
   it("names the brand owner's font in the report", async () => {
     await home()
-    const result = await invoke(['--name', 'lyness', '--icon', ICON, '--font', FONT, ...CONFIRMED])
+    const result = await invoke(['--name', 'HARNESS', '--icon', ICON, '--font', FONT, ...CONFIRMED])
     expect(result).toMatchObject({ code: 0, stderr: '' })
     expect(result.stdout).toContain(`font      ${FONT}`)
   })

@@ -5,54 +5,54 @@
 /:
   en: 65283627208ef4c9
   zh: aa3f833ec24bb65a
-/lyness-lyn-plugin-manager:
+/deepseek-harness-dsh-plugin-manager:
   en: fc14e5ac0b2146a6
   zh: dcf38c611dae70e2
-/lyness-lyn-plugin-manager/summary:
+/deepseek-harness-dsh-plugin-manager/summary:
   en: d6afcaa1594efcdb
   zh: 459cb6ac0dcb2d46
-/lyness-lyn-plugin-manager/table-of-contents:
+/deepseek-harness-dsh-plugin-manager/table-of-contents:
   en: 87679c51aa3693f5
   zh: 11684a48a5806afb
-/lyness-lyn-plugin-manager/use-this-package:
+/deepseek-harness-dsh-plugin-manager/use-this-package:
   en: d8fd684a73b7d62c
   zh: c504fca7dfbf21af
-/lyness-lyn-plugin-manager/use-this-package/version-compatibility-and-exemptions:
+/deepseek-harness-dsh-plugin-manager/use-this-package/version-compatibility-and-exemptions:
   en: 73a9429762d425e2
   zh: 158c4600deb9c3f2
-/lyness-lyn-plugin-manager/use-this-package/configuration:
+/deepseek-harness-dsh-plugin-manager/use-this-package/configuration:
   en: 09f5564b738c8a42
   zh: cd357ea8198d7a41
-/lyness-lyn-plugin-manager/use-this-package/bundle-detail-documents:
+/deepseek-harness-dsh-plugin-manager/use-this-package/bundle-detail-documents:
   en: e3ed1a3bd136b7e1
   zh: dab2a3669f667b06
-/lyness-lyn-plugin-manager/understand-the-implementation:
+/deepseek-harness-dsh-plugin-manager/understand-the-implementation:
   en: 2a9d2d82a21277b9
   zh: 23bd423a04462da4
-/lyness-lyn-plugin-manager/further-exploration:
+/deepseek-harness-dsh-plugin-manager/further-exploration:
   en: 30450b209a470ab3
   zh: 557d9670d8565de5
-/lyness-lyn-plugin-manager/model-experience:
+/deepseek-harness-dsh-plugin-manager/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/lyness-lyn-plugin-manager/model-experience/management-tool:
+/deepseek-harness-dsh-plugin-manager/model-experience/management-tool:
   en: 1815ec6ce56c80d4
   zh: 2d7ac75d3b25eb6b
-/lyness-lyn-plugin-manager/model-experience/management-tool/what-the-model-sees:
+/deepseek-harness-dsh-plugin-manager/model-experience/management-tool/what-the-model-sees:
   en: 78b506cf9ab826f7
   zh: f0f7270cedb3107b
-/lyness-lyn-plugin-manager/model-experience/management-tool/token-effect:
+/deepseek-harness-dsh-plugin-manager/model-experience/management-tool/token-effect:
   en: bc70208bd361dbcd
   zh: bb651d6066066c6c
-/lyness-lyn-plugin-manager/model-experience/management-tool/kv-cache-effect:
+/deepseek-harness-dsh-plugin-manager/model-experience/management-tool/kv-cache-effect:
   en: c29f60be7f3edc1a
   zh: d9b9388b96ef95cc
-/lyness-lyn-plugin-manager/known-limitations-and-deferred-work:
+/deepseek-harness-dsh-plugin-manager/known-limitations-and-deferred-work:
   en: 1be2103fad8a3ce8
   zh: 71a11791cefd6fc8
-/lyness-lyn-plugin-manager/known-limitations-and-deferred-work/failure-behavior:
+/deepseek-harness-dsh-plugin-manager/known-limitations-and-deferred-work/failure-behavior:
   en: 4df645c355cfde5c
   zh: bc1327a1a652a98d
-/lyness-lyn-plugin-manager/known-limitations-and-deferred-work/dev-note:
+/deepseek-harness-dsh-plugin-manager/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

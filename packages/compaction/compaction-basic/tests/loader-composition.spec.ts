@@ -3,15 +3,15 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import Loader from '@lyness/cordis-plugin-loader'
-import Include from '@lyness/cordis-plugin-include'
-import LlmRuntime from '@lyness/lyn-llm'
-import SessionStore from '@lyness/lyn-session'
-import SessionProjectionRegistry from '@lyness/lyn-session-projection'
-import TokenMeter from '@lyness/lyn-token-meter'
-import BasicCompactionEngine from '@lyness/lyn-compaction-basic'
-import ToolResultPruner from '@lyness/lyn-compaction-tool-result-pruner'
+import { Context } from '@deepseek-ai/cordis'
+import Loader from '@deepseek-ai/cordis-plugin-loader'
+import Include from '@deepseek-ai/cordis-plugin-include'
+import LlmRuntime from '@deepseek-ai/dsh-llm'
+import SessionStore from '@deepseek-ai/dsh-session'
+import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
+import TokenMeter from '@deepseek-ai/dsh-token-meter'
+import BasicCompactionEngine from '@deepseek-ai/dsh-compaction-basic'
+import ToolResultPruner from '@deepseek-ai/dsh-compaction-tool-result-pruner'
 
 let root: string | undefined
 let context: Context | undefined
@@ -24,7 +24,7 @@ afterEach(async () => {
 })
 
 async function loadYaml(lines: readonly string[]): Promise<Context> {
-  root = await mkdtemp(join(tmpdir(), 'lyn-token-meter-loader-'))
+  root = await mkdtemp(join(tmpdir(), 'dsh-token-meter-loader-'))
   const configPath = join(root, 'cordis.yml')
   await writeFile(configPath, [...lines, ''].join('\n'))
 
@@ -33,12 +33,12 @@ async function loadYaml(lines: readonly string[]): Promise<Context> {
   await context.plugin(Loader)
   context.loader.builtins.include = Include
   const modules = new Map<string, unknown>([
-    ['@lyness/lyn-llm', LlmRuntime],
-    ['@lyness/lyn-session', SessionStore],
-    ['@lyness/lyn-session-projection', SessionProjectionRegistry],
-    ['@lyness/lyn-token-meter', TokenMeter],
-    ['@lyness/lyn-compaction-tool-result-pruner', ToolResultPruner],
-    ['@lyness/lyn-compaction-basic', BasicCompactionEngine],
+    ['@deepseek-ai/dsh-llm', LlmRuntime],
+    ['@deepseek-ai/dsh-session', SessionStore],
+    ['@deepseek-ai/dsh-session-projection', SessionProjectionRegistry],
+    ['@deepseek-ai/dsh-token-meter', TokenMeter],
+    ['@deepseek-ai/dsh-compaction-tool-result-pruner', ToolResultPruner],
+    ['@deepseek-ai/dsh-compaction-basic', BasicCompactionEngine],
   ])
   context.loader.internal = {
     version: 'v2',
@@ -58,16 +58,16 @@ async function loadYaml(lines: readonly string[]): Promise<Context> {
 describe('real Loader composition', () => {
   it('loads the shipped token-meter, pruning, and compaction-basic YAML order', async () => {
     const loaded = await loadYaml([
-      "- name: '@lyness/lyn-llm'",
-      "- name: '@lyness/lyn-session'",
-      "- name: '@lyness/lyn-session-projection'",
-      "- name: '@lyness/lyn-token-meter'",
-      "- name: '@lyness/lyn-compaction-tool-result-pruner'",
+      "- name: '@deepseek-ai/dsh-llm'",
+      "- name: '@deepseek-ai/dsh-session'",
+      "- name: '@deepseek-ai/dsh-session-projection'",
+      "- name: '@deepseek-ai/dsh-token-meter'",
+      "- name: '@deepseek-ai/dsh-compaction-tool-result-pruner'",
       '  config:',
       '    thresholdChars: 100',
       '    headChars: 20',
       '    tailChars: 10',
-      "- name: '@lyness/lyn-compaction-basic'",
+      "- name: '@deepseek-ai/dsh-compaction-basic'",
       '  config:',
       '    thresholdRatio: 0.5',
       '    headroomTokens: 4000',

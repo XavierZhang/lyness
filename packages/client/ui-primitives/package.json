@@ -1,13 +1,13 @@
 {
-  "name": "@lyness/lyn-client-ui-primitives",
-  "description": "Pure React atoms for the lyn web UI: controls, icons, markdown, and JSON inspectors (zero cordis)",
+  "name": "@deepseek-ai/dsh-client-ui-primitives",
+  "description": "Pure React atoms for the dsh web UI: controls, icons, markdown, and JSON inspectors (zero cordis)",
   "version": "0.2.1-rc.3",
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/client/ui-primitives"
   },
   "type": "module",
@@ -23,11 +23,11 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-client-store": "workspace:*",
-    "@lyness/lyn-util-code-language": "workspace:*",
-    "@lyness/lyn-util-file-drag": "workspace:*",
-    "@lyness/lyn-util-workspace-path": "workspace:*",
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-client-store": "workspace:*",
+    "@deepseek-ai/dsh-util-code-language": "workspace:*",
+    "@deepseek-ai/dsh-util-file-drag": "workspace:*",
+    "@deepseek-ai/dsh-util-workspace-path": "workspace:*",
     "@shikijs/langs": "^4.4.3",
     "@types/mdast": "^4.0.4",
     "anser": "^2.3.5",
@@ -57,6 +57,6 @@
     "lib/types/**/*.d.ts"
   ],
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~"
+    "@deepseek-ai/cordis": "workspace:~"
   }
 }

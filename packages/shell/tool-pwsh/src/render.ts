@@ -1,20 +1,20 @@
 /**
  * Model-facing result rendering for the pwsh tool — the PowerShell twin of
- * `lyn-tool-bash`'s renderer: stdout, a marked stderr section, sandbox
+ * `dsh-tool-bash`'s renderer: stdout, a marked stderr section, sandbox
  * denial/runner-failure markers (with the same-turn escalation hint), and
  * truncation notices with spill paths, then exit-status markers. Non-zero
  * exits are reported, not errored — the model decides how to react; only
  * infrastructure failures (spawn errors, aborts) surface as isError
  * results.
  *
- * @module @lyness/lyn-tool-pwsh/render
+ * @module @deepseek-ai/dsh-tool-pwsh/render
  */
 
-import type { ShellSandboxInfo, CollectedOutput } from '@lyness/lyn-shell'
-import type { SandboxMode } from '@lyness/lyn-sandbox'
-import { escalationHintMarker, sandboxDenialMarker } from '@lyness/lyn-sandbox'
+import type { ShellSandboxInfo, CollectedOutput } from '@deepseek-ai/dsh-shell'
+import type { SandboxMode } from '@deepseek-ai/dsh-sandbox'
+import { escalationHintMarker, sandboxDenialMarker } from '@deepseek-ai/dsh-sandbox'
 
-/* jscpd:ignore-start -- deliberate twin of lyn-tool-bash/render.ts (Agent Note). */
+/* jscpd:ignore-start -- deliberate twin of dsh-tool-bash/render.ts (Agent Note). */
 
 /** Append the truncation notice (with the full-output spill path) to a stream's text. */
 function streamText(output: CollectedOutput): string {

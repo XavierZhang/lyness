@@ -11,11 +11,11 @@
  */
 
 import { useEffect } from 'react'
-import { Button } from '@lyness/lyn-client-ui-primitives'
-import type { HostObservable, InjectFace, PropsLocale, PropsRuntime } from '@lyness/lyn-client-ui-slots'
-import type {} from '@lyness/lyn-client-ui-layout/client'
-import type { ChannelOfferView } from '@lyness/lyn-api-identity-controller/types'
-import type { ViewerSnapshot } from '@lyness/lyn-client-ui-viewer/client'
+import { Button } from '@deepseek-ai/dsh-client-ui-primitives'
+import type { HostObservable, InjectFace, PropsLocale, PropsRuntime } from '@deepseek-ai/dsh-client-ui-slots'
+import type {} from '@deepseek-ai/dsh-client-ui-layout/client'
+import type { ChannelOfferView } from '@deepseek-ai/dsh-api-identity-controller/types'
+import type { ViewerSnapshot } from '@deepseek-ai/dsh-client-ui-viewer/client'
 import css from './SignInScreen.module.css'
 
 /** Injected business face: the shared read, the retry, and the snapshot. */

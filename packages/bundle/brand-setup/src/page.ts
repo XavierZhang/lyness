@@ -7,7 +7,7 @@
  * browser rather than from a product locale service it cannot reach.
  */
 
-import { BRAND_COLOUR_TOKENS } from '@lyness/lyn-host-brand-deployment'
+import { BRAND_COLOUR_TOKENS } from '@deepseek-ai/dsh-host-brand-deployment'
 
 /** Copy the page shows, in the two languages this product ships. */
 const COPY = {
@@ -29,7 +29,7 @@ const COPY = {
     trademark: 'The name and the icon infringe no trademark.',
     apply: 'Apply brand',
     applying: 'Applying…',
-    applied: 'Applied. A running `lyn web` picks the brand up now; another profile applies it on its next start.',
+    applied: 'Applied. A running `dsh web` picks the brand up now; another profile applies it on its next start.',
     target: 'Writes to',
   },
   zh: {
@@ -50,7 +50,7 @@ const COPY = {
     trademark: '确认名称与图标不侵犯商标。',
     apply: '应用品牌',
     applying: '正在应用…',
-    applied: '已应用。正在运行的 `lyn web` 立即生效；其他 profile 在下次启动时应用。',
+    applied: '已应用。正在运行的 `dsh web` 立即生效；其他 profile 在下次启动时应用。',
     target: '写入',
   },
 } as const
@@ -72,7 +72,7 @@ export function renderSetupPage(): string {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="referrer" content="no-referrer">
-<title>lyness brand setup</title>
+<title>DeepSeek Harness brand setup</title>
 <style>
   :root { color-scheme: light dark; --line: #0001; --muted: #0009; }
   @media (prefers-color-scheme: dark) { :root { --line: #fff2; --muted: #fff9; } }
@@ -163,7 +163,7 @@ for (const token of TOKENS) {
 
 const send = (path, options) => fetch(path, {
   ...options,
-  headers: { 'x-lyn-setup-token': TOKEN, ...options?.headers },
+  headers: { 'x-dsh-setup-token': TOKEN, ...options?.headers },
 })
 
 send('/state').then((response) => response.json()).then((state) => {

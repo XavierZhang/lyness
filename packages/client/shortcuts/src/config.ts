@@ -1,5 +1,5 @@
 /** Window-local timing accepted by the Host and browser keyboard service. */
-import z from '@lyness/schemastery'
+import z from '@deepseek-ai/schemastery'
 
 /** Fixed shortcut sequence settings. */
 export interface Config {

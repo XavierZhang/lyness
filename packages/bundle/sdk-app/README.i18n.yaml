@@ -5,36 +5,36 @@
 /:
   en: 8148fef9eb6f852e
   zh: f4419bed153c9760
-/lyness-lyn-sdk-app:
+/deepseek-harness-dsh-sdk-app:
   en: a30ce5fc2a7c5176
   zh: e6627ebdbca373ec
-/lyness-lyn-sdk-app/summary:
+/deepseek-harness-dsh-sdk-app/summary:
   en: 7a7122f1d3e4d1b8
   zh: 2996bf7c612cf0fd
-/lyness-lyn-sdk-app/table-of-contents:
+/deepseek-harness-dsh-sdk-app/table-of-contents:
   en: 4e53164159b5ce41
   zh: 89582dc0294d0776
-/lyness-lyn-sdk-app/use-this-package:
+/deepseek-harness-dsh-sdk-app/use-this-package:
   en: ce2aa1fb249cf20f
   zh: c5aeff4238b8bd9c
-/lyness-lyn-sdk-app/model-experience:
+/deepseek-harness-dsh-sdk-app/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/lyness-lyn-sdk-app/model-experience/sdk-model-context:
+/deepseek-harness-dsh-sdk-app/model-experience/sdk-model-context:
   en: 4f88e647c6df4f42
   zh: 2bd3e4b0bdfe9412
-/lyness-lyn-sdk-app/model-experience/sdk-model-context/what-the-model-sees:
+/deepseek-harness-dsh-sdk-app/model-experience/sdk-model-context/what-the-model-sees:
   en: 599953901880a17d
   zh: fe96f503ffecb84c
-/lyness-lyn-sdk-app/model-experience/sdk-model-context/token-effect:
+/deepseek-harness-dsh-sdk-app/model-experience/sdk-model-context/token-effect:
   en: 0d4a38b2448396b3
   zh: e63408a146bf0100
-/lyness-lyn-sdk-app/model-experience/sdk-model-context/kv-cache-effect:
+/deepseek-harness-dsh-sdk-app/model-experience/sdk-model-context/kv-cache-effect:
   en: 0503df0971e5f8d7
   zh: 18cae8c6e25cda04
-/lyness-lyn-sdk-app/known-limitations-and-deferred-work:
+/deepseek-harness-dsh-sdk-app/known-limitations-and-deferred-work:
   en: 7053d0f8adbdb08d
   zh: ca706dea8f292087
-/lyness-lyn-sdk-app/known-limitations-and-deferred-work/dev-note:
+/deepseek-harness-dsh-sdk-app/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: e88aeb617ffb74ea

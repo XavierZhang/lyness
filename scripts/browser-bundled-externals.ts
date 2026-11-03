@@ -11,7 +11,7 @@ import { browserDependencyAnalysis } from '../apps/web/product-isolation.ts'
 interface Manifest {
   name: string
   private?: boolean
-  lyn?: { client?: unknown }
+  dsh?: { client?: unknown }
   exports?: Record<string, unknown>
 }
 
@@ -34,7 +34,7 @@ export function browserPackageOfFile(file: string): string | undefined {
 
 function recorder(seen: Set<string>, workspaceNames: ReadonlySet<string>, followWorkspace = false) {
   return {
-    name: 'lyn-browser-direct-dependencies',
+    name: 'dsh-browser-direct-dependencies',
     enforce: 'pre' as const,
     resolveId: {
       order: 'pre' as const,
@@ -87,7 +87,7 @@ async function collectClientBundles(
   seen: Set<string>,
 ): Promise<void> {
   for (const [manifestPath, manifest] of manifests) {
-    if (manifest.private === true || manifest.lyn?.client === undefined) continue
+    if (manifest.private === true || manifest.dsh?.client === undefined) continue
     const dir = dirname(manifestPath)
     const loaded = await import(pathToFileURL(resolve(dir, 'tsdown.config.ts')).href) as { default: UserConfigExport }
     const factory = await loaded.default

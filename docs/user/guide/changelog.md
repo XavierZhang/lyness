@@ -16,17 +16,17 @@ A version appears here once it has a tag. An entry is written when the change la
 - **Your own instructions.** A person writes what their own agents should keep in mind, on a personal Settings page. Every conversation they start afterwards carries that text in its own log and composes it into the prompt between the organization's rules and the agent's persona; a conversation already open keeps the instructions it started with. The deployment with no accounts has one operator, who has instructions of their own like anybody else.
 - **Personal plane in Settings.** A person reads and changes what is theirs — their own instructions, their memories, what they may use, and their own conversation data — separately from what an administrator maintains. The navigation now groups its sections into a personal plane and an administration plane, and offers the administration plane only to a standing that administers something: a deployment with no accounts, or a role above `member`. The split is navigation, not authority — every administrative call keeps its own check.
 - **Japanese, Spanish, French, German, Russian and Portuguese** across the browser and desktop clients, alongside English and Chinese. Every shipped plugin now carries its name and description in all eight.
-- **Brand setup from a loopback page.** `lyn --profile brand-setup` prints a one-time token and serves a page that writes a deployment's own brand — name, icon, theme colour — into a profile's patch layer. It binds `127.0.0.1` only and ends with the process.
+- **Brand setup from a loopback page.** `dsh --profile brand-setup` prints a one-time token and serves a page that writes a deployment's own brand — name, icon, theme colour — into a profile's patch layer. It binds `127.0.0.1` only and ends with the process.
 
 ### Changed
 
 - **Terminals, the `ralph` tool, session search, the badge skill and webhook ingress stay in the default product.** Upstream moved these to its experimental group; this installation keeps them where an enterprise deployment finds them already on.
-- **Telemetry stays off and now proves it.** Session upload ships `DISABLED` with no endpoint, and a behaviour test asserts that giving feedback under the default environment produces no outbound request at all. Desktop product analytics reach only the collector an operator names through `LYNESS_PRODUCT_ANALYTICS_OTLP_URL`; there is no vendor default.
+- **Telemetry stays off and now proves it.** Session upload ships `DISABLED` with no endpoint, and a behaviour test asserts that giving feedback under the default environment produces no outbound request at all. Desktop product analytics reach only the collector an operator names through `DSH_PRODUCT_ANALYTICS_OTLP_URL`; there is no vendor default.
 - **Every Remote namespace declares the standing it requires.** A call that does not hold it is refused at the one point every wire call passes through, rather than inside each method.
 
 ### Fixed
 
-- **`lyn --profile brand-setup --help` prints help and exits.** It previously started the server, bound a port and never returned.
+- **`dsh --profile brand-setup --help` prints help and exits.** It previously started the server, bound a port and never returned.
 - **The hosted and enterprise profiles carry accounts and credits.** Both selected those modules, but the installation did not depend on them, so the launcher skipped them with a warning and the deployment ran without either.
 - **Session attribution is recorded again.** Mounting session ownership had begun to fail session creation outright; the owner and tenant records are now written at the first point a new session accepts an event.
 

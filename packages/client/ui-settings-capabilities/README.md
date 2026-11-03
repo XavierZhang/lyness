@@ -3,13 +3,13 @@ description: "The what-you-may-use section in Settings: a reader's models, conne
 kind: "package-reference"
 ---
 
-# @lyness/lyn-client-ui-settings-capabilities
+# @deepseek-ai/dsh-client-ui-settings-capabilities
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`lyn-client-ui-settings-capabilities` is the personal plane's read-only entry: four groups — models, connections, skills and tools — listing what this reader's conversations actually have, each row naming whether the deployment or the agent preset made it available, and one closing line saying none of it is theirs to change. It is the one answer to the question the Models, Plugins, Agent-presets and Connections pages otherwise answer with a refusal notice.
+`dsh-client-ui-settings-capabilities` is the personal plane's read-only entry: four groups — models, connections, skills and tools — listing what this reader's conversations actually have, each row naming whether the deployment or the agent preset made it available, and one closing line saying none of it is theirs to change. It is the one answer to the question the Models, Plugins, Agent-presets and Connections pages otherwise answer with a refusal notice.
 
 ## Table of Contents
 
@@ -29,9 +29,9 @@ The Web bundle mounts it beside the namespace it reads:
 
 ```yaml
 - id: agent-capabilities-controller
-  name: '@lyness/lyn-api-agent-capabilities-controller'
+  name: '@deepseek-ai/dsh-api-agent-capabilities-controller'
 - id: ui-settings-capabilities
-  name: '@lyness/lyn-client-ui-settings-capabilities'
+  name: '@deepseek-ai/dsh-client-ui-settings-capabilities'
 ```
 
 Nothing else needs configuring. The section registers last in the personal plane, after the entries a person does control.
@@ -56,9 +56,9 @@ Nothing else needs configuring. The section registers last in the personal plane
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`lyn-api-agent-capabilities-controller`](../../api/agent-capabilities-controller/README.md) — the namespace this page reads.
-- [`lyn-api-session-controller`](../../api/session-controller/README.md) — where the model catalogue comes from.
-- [`lyn-client-ui-settings`](../ui-settings/README.md) — where the two section-plane slots are declared.
+- [`dsh-api-agent-capabilities-controller`](../../api/agent-capabilities-controller/README.md) — the namespace this page reads.
+- [`dsh-api-session-controller`](../../api/session-controller/README.md) — where the model catalogue comes from.
+- [`dsh-client-ui-settings`](../ui-settings/README.md) — where the two section-plane slots are declared.
 
 -----
 

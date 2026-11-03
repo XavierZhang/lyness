@@ -1,16 +1,16 @@
 /**
  * Model-facing workspace instruction rendering within an explicit byte budget.
  *
- * @module @lyness/lyn-agent-instructions/render
+ * @module @deepseek-ai/dsh-agent-instructions/render
  */
 
 import { basename, dirname, sep } from 'node:path'
 import {
   AGENTS_HOME_ENV,
   DEFAULT_AGENTS_HOME_DISPLAY,
-  DEFAULT_LYNESS_HOME_DISPLAY,
-  LYNESS_HOME_ENV,
-} from '@lyness/lyn-home-paths'
+  DEFAULT_DSH_HOME_DISPLAY,
+  DSH_HOME_ENV,
+} from '@deepseek-ai/dsh-home-paths'
 import type { InstructionFile, LoadedInstructionFile } from './files.ts'
 
 const SYSTEM_REMINDER_OPEN = '<system-reminder>'
@@ -152,8 +152,8 @@ export const USER_GLOBAL_FILE = 'AGENTS.md'
  * @returns `user-global`, `agents-global`, `.`, or the containing project-relative directory.
  */
 export function scopeForDisplayPath(displayPath: string): string {
-  if (displayPath === `${DEFAULT_LYNESS_HOME_DISPLAY}/${USER_GLOBAL_FILE}`
-    || displayPath === `$${LYNESS_HOME_ENV}/${USER_GLOBAL_FILE}`) return USER_GLOBAL_DIRECTORY
+  if (displayPath === `${DEFAULT_DSH_HOME_DISPLAY}/${USER_GLOBAL_FILE}`
+    || displayPath === `$${DSH_HOME_ENV}/${USER_GLOBAL_FILE}`) return USER_GLOBAL_DIRECTORY
   if (displayPath === `${DEFAULT_AGENTS_HOME_DISPLAY}/${USER_GLOBAL_FILE}`
     || displayPath === `$${AGENTS_HOME_ENV}/${USER_GLOBAL_FILE}`) return AGENTS_GLOBAL_DIRECTORY
   return dirname(displayPath)

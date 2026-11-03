@@ -2,15 +2,15 @@ import { mkdir, mkdtemp, readFile, readdir, rename, rm, writeFile } from 'node:f
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterAll, describe, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import Storage, { storageBackendServiceKey } from '@lyness/lyn-storage'
+import { Context } from '@deepseek-ai/cordis'
+import Storage, { storageBackendServiceKey } from '@deepseek-ai/dsh-storage'
 import { runKvBackendContract } from '../../storage/tests/contract.ts'
 import { Config, JsonStorageBackend, apply } from '../src/index.ts'
 
 const roots: string[] = []
 
 async function freshRoot(): Promise<string> {
-  const root = await mkdtemp(join(tmpdir(), 'lyn-storage-json-'))
+  const root = await mkdtemp(join(tmpdir(), 'dsh-storage-json-'))
   roots.push(root)
   return root
 }

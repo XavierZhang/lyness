@@ -5,63 +5,63 @@
 /:
   en: 5dea50fae7364d1e
   zh: dc788b9ce6ffd101
-/lyness-lyn-client-locale:
+/deepseek-harness-dsh-client-locale:
   en: 6c8e2452cfbb5d37
   zh: ead34ea40980c530
-/lyness-lyn-client-locale/summary:
+/deepseek-harness-dsh-client-locale/summary:
   en: b6663de99ae6efb5
   zh: 1c6894fd065646a7
-/lyness-lyn-client-locale/table-of-contents:
+/deepseek-harness-dsh-client-locale/table-of-contents:
   en: d152484eb41ac6b4
   zh: bda879a892f240f0
-/lyness-lyn-client-locale/use-this-package:
+/deepseek-harness-dsh-client-locale/use-this-package:
   en: 7fedfbcbc3ad8cea
   zh: e29ba5230e0b9ecb
-/lyness-lyn-client-locale/use-this-package/choosing-a-language:
+/deepseek-harness-dsh-client-locale/use-this-package/choosing-a-language:
   en: 48ba93551300df50
   zh: 0afe63eca8a55269
-/lyness-lyn-client-locale/use-this-package/registering-a-dictionary:
+/deepseek-harness-dsh-client-locale/use-this-package/registering-a-dictionary:
   en: f19407c3ce8a94cc
   zh: 3e5300ce7fa02987
-/lyness-lyn-client-locale/use-this-package/naming-the-product-in-copy:
+/deepseek-harness-dsh-client-locale/use-this-package/naming-the-product-in-copy:
   en: 31112220f0238871
   zh: c4c8861612e2eb3e
-/lyness-lyn-client-locale/use-this-package/resolving-package-text:
+/deepseek-harness-dsh-client-locale/use-this-package/resolving-package-text:
   en: afe48a6ca9ced516
   zh: 589dc2c4f2233783
-/lyness-lyn-client-locale/use-this-package/registering-a-language-pack:
+/deepseek-harness-dsh-client-locale/use-this-package/registering-a-language-pack:
   en: aa4e9c70523339cc
   zh: 3359eddc4e9ef15e
-/lyness-lyn-client-locale/use-this-package/what-the-host-half-does:
+/deepseek-harness-dsh-client-locale/use-this-package/what-the-host-half-does:
   en: d046b08433cef4c2
   zh: d1da98098b623427
-/lyness-lyn-client-locale/understand-the-implementation:
+/deepseek-harness-dsh-client-locale/understand-the-implementation:
   en: 288d8db39f9acfc5
   zh: d65cf2ffae8ad35c
-/lyness-lyn-client-locale/understand-the-implementation/design-concept:
+/deepseek-harness-dsh-client-locale/understand-the-implementation/design-concept:
   en: a57e83d59b7ac881
   zh: 93a3e7951e50caed
-/lyness-lyn-client-locale/understand-the-implementation/preference-resolution:
+/deepseek-harness-dsh-client-locale/understand-the-implementation/preference-resolution:
   en: d602d957654641c6
   zh: 2db822b746a6471d
-/lyness-lyn-client-locale/understand-the-implementation/dictionary-lookup:
+/deepseek-harness-dsh-client-locale/understand-the-implementation/dictionary-lookup:
   en: 68373e745761494c
   zh: 43a5b8c19d03268a
-/lyness-lyn-client-locale/understand-the-implementation/source-map:
+/deepseek-harness-dsh-client-locale/understand-the-implementation/source-map:
   en: 414f76ad62a4e414
   zh: c96863a568e9d52f
-/lyness-lyn-client-locale/further-exploration:
+/deepseek-harness-dsh-client-locale/further-exploration:
   en: 8e51fa4d08220a50
   zh: 4efa8bb06682f8b9
-/lyness-lyn-client-locale/model-experience:
+/deepseek-harness-dsh-client-locale/model-experience:
   en: 209321ba2d2e6710
   zh: 21deb6c973f69b66
-/lyness-lyn-client-locale/model-experience/kv-cache-effect:
+/deepseek-harness-dsh-client-locale/model-experience/kv-cache-effect:
   en: ca75c51c89c2c9b0
   zh: de54f3467ef3b9be
-/lyness-lyn-client-locale/known-limitations-and-deferred-work:
+/deepseek-harness-dsh-client-locale/known-limitations-and-deferred-work:
   en: 500ede048ef44c6a
   zh: f741fae55b29a627
-/lyness-lyn-client-locale/known-limitations-and-deferred-work/dev-note:
+/deepseek-harness-dsh-client-locale/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

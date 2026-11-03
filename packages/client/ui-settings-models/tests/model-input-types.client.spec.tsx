@@ -4,7 +4,7 @@ import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { ModelInputTypes } from '../src/client/ModelInputTypes.tsx'
 import { en } from '../src/client/locales.ts'
-import { makeTranslate } from '@lyness/lyn-client-test-runtime'
+import { makeTranslate } from '@deepseek-ai/dsh-client-test-runtime'
 
 afterEach(cleanup)
 

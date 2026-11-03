@@ -3,7 +3,7 @@ description: "The turn deliverables module as its own bundle: the changed-files 
 kind: "package-bundle"
 ---
 
-# @lyness/lyn-module-deliverables
+# @deepseek-ai/dsh-module-deliverables
 
 English | [中文](README.zh.md)
 
@@ -49,11 +49,11 @@ The bundle is its patch document. `src/index.ts` exports nothing and exists beca
 
 | Row | Module | Plane | Role |
 |---|---|---|---|
-| `ui-deliverables` | `@lyness/lyn-client-ui-deliverables` | browser | Turn-tail changed-files and delivery cards |
-| `workspace-changes` | `@lyness/lyn-workspace-changes` | Host | Records each turn's changed files from git snapshots |
-| `deliverables-preset-contribution` | `@lyness/lyn-tool-present/preset-contribution` | contributes | Hands the `present` row to every accepting preset |
+| `ui-deliverables` | `@deepseek-ai/dsh-client-ui-deliverables` | browser | Turn-tail changed-files and delivery cards |
+| `workspace-changes` | `@deepseek-ai/dsh-workspace-changes` | Host | Records each turn's changed files from git snapshots |
+| `deliverables-preset-contribution` | `@deepseek-ai/dsh-tool-present/preset-contribution` | contributes | Hands the `present` row to every accepting preset |
 
-The contribution reaches only presets that accept rows, and that asymmetry is deliberate. The four official modes declare `@lyness/lyn-tool-present` as a row of their own, as upstream ships them, and keep it; a contribution reaching them would be a second row registering one tool name. So `standard`, `ptc`, and `cordis` carry the declared row while the view defaults carry the contribution, and every preset still ends with exactly one.
+The contribution reaches only presets that accept rows, and that asymmetry is deliberate. The four official modes declare `@deepseek-ai/dsh-tool-present` as a row of their own, as upstream ships them, and keep it; a contribution reaching them would be a second row registering one tool name. So `standard`, `ptc`, and `cordis` carry the declared row while the view defaults carry the contribution, and every preset still ends with exactly one.
 
 | File | Role |
 |---|---|
@@ -75,7 +75,7 @@ The contribution reaches only presets that accept rows, and that asymmetry is de
 <a id="model-experience"></a>
 ## Model Experience
 
-Indirectly, through the rows it inserts: `lyn-tool-present` owns the `present` schema and its results, and the recorder contributes a durable event that only clients read.
+Indirectly, through the rows it inserts: `dsh-tool-present` owns the `present` schema and its results, and the recorder contributes a durable event that only clients read.
 
 #### KV Cache effect
 

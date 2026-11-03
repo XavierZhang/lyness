@@ -3,13 +3,13 @@
  * locale namespace, and that nothing is read until the section opens.
  */
 
-import { Context } from '@lyness/cordis'
+import { Context } from '@deepseek-ai/cordis'
 import { describe, expect, it, vi } from 'vitest'
-import { SlotRegistry } from '@lyness/lyn-client-ui-renderer/client'
-import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
-import { TestRemote } from '@lyness/lyn-client-test-runtime'
-import type { MemoriesView } from '@lyness/lyn-api-memory-controller/types'
-import { apply, inject, memoryCallsOf, NS } from '@lyness/lyn-client-ui-settings-memory/client'
+import { SlotRegistry } from '@deepseek-ai/dsh-client-ui-renderer/client'
+import { LocaleRuntime } from '@deepseek-ai/dsh-client-locale/client'
+import { TestRemote } from '@deepseek-ai/dsh-client-test-runtime'
+import type { MemoriesView } from '@deepseek-ai/dsh-api-memory-controller/types'
+import { apply, inject, memoryCallsOf, NS } from '@deepseek-ai/dsh-client-ui-settings-memory/client'
 import { MemorySection } from '../src/client/MemorySection.tsx'
 import type { createMemorySectionStore } from '../src/client/store.ts'
 

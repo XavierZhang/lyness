@@ -2,17 +2,17 @@
  * Agent service: live registry, factory delegation, and process-local
  * initiator scope. Concrete creation and driving belong to the loop.
  *
- * @module @lyness/lyn-agent
+ * @module @deepseek-ai/dsh-agent
  */
 
-import { Context, FiberState, getTraceable, Service, symbols } from '@lyness/cordis'
-import type { Fiber } from '@lyness/cordis'
+import { Context, FiberState, getTraceable, Service, symbols } from '@deepseek-ai/cordis'
+import type { Fiber } from '@deepseek-ai/cordis'
 import { AsyncLocalStorage } from 'node:async_hooks'
 import { isPromise } from 'node:util/types'
-import { scopeTarget } from '@lyness/lyn-scope'
-import type { Scoped } from '@lyness/lyn-scope'
-import type { Session, SessionEvent, SessionId, SessionLogOffset } from '@lyness/lyn-session'
-import type { ProjectionHandle } from '@lyness/lyn-session-projection'
+import { scopeTarget } from '@deepseek-ai/dsh-scope'
+import type { Scoped } from '@deepseek-ai/dsh-scope'
+import type { Session, SessionEvent, SessionId, SessionLogOffset } from '@deepseek-ai/dsh-session'
+import type { ProjectionHandle } from '@deepseek-ai/dsh-session-projection'
 import { installTurnArchiveAdmission } from './archive-admission.ts'
 import type { Agent, TurnBoundaryProjection } from './types.ts'
 import type { AgentOptions, SessionStartSource } from './runtime-types.ts'
@@ -29,7 +29,7 @@ export { composePerAgent } from './per-agent.ts'
 export type { AgentContribution } from './per-agent.ts'
 export type { AgentEventDispatch, AgentSubjectEvent } from './dispatch.ts'
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     agents: AgentRegistry
   }
@@ -75,7 +75,7 @@ export interface CreateAgentOptions {
    * fork lineage, the `isSeeded` fork marker, the coarse `origin`
    * classification, and the `delegationDepth` recursion budget. Mirrors the
    * `cwd`/`parentSession`/`isSeeded`/`origin`/`delegationDepth` fields of
-   * {@link CreateSessionOptions.meta} in lyn-session (the internal-only
+   * {@link CreateSessionOptions.meta} in dsh-session (the internal-only
    * `createdAt`, used when reconstructing a persisted session, is deliberately
    * excluded — a factory caller never sets it). This is durable session data,
    * so the session boundary validates and snapshots it before asynchronous
@@ -170,9 +170,9 @@ export interface AgentHandle {
 
 /**
  * The agent-creation factory the loop implementation provides to the registry
- * via {@link AgentRegistry.setFactory}. Kept on the `lyn-agent` interface so
+ * via {@link AgentRegistry.setFactory}. Kept on the `dsh-agent` interface so
  * consumers (e.g. the ACP bridge) program against `ctx.agents` without
- * depending on the concrete `lyn-agent-loop` package.
+ * depending on the concrete `dsh-agent-loop` package.
  */
 export interface AgentFactory {
   /**
@@ -243,7 +243,7 @@ interface FactorySlot {
  * Agent service (`ctx.agents`): tracks live agents and carries the initiating
  * Agent through one process-local asynchronous driver chain. Agent *creation*
  * is provided by whichever plugin implements the {@link AgentFactory}
- * (`@lyness/lyn-agent-loop`), registered via {@link setFactory}.
+ * (`@deepseek-ai/dsh-agent-loop`), registered via {@link setFactory}.
  *
  * Initiator methods provide same-process causal attribution only. Ambient
  * presence is neither liveness proof nor authorization; subjects and owners
@@ -271,13 +271,13 @@ export class AgentRegistry extends Service {
         parameter: 'agent',
         wire: 'agentId',
         resource: 'session',
-        hostTypeSymbol: '@lyness/lyn-agent#Agent',
-        wireTypeSymbol: '@lyness/lyn-session/types#SessionId',
+        hostTypeSymbol: '@deepseek-ai/dsh-agent#Agent',
+        wireTypeSymbol: '@deepseek-ai/dsh-session/types#SessionId',
         resolve: sessionId => this.get(sessionId),
       })
       typeCtx.typert.contexts.registerHost('agent', {
         wire: 'agentId',
-        wireTypeSymbol: '@lyness/lyn-session/types#SessionId',
+        wireTypeSymbol: '@deepseek-ai/dsh-session/types#SessionId',
         resource: 'session',
         resolve: sessionId => this.get(sessionId)?.ctx,
       })

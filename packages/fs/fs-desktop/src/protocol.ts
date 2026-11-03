@@ -10,10 +10,10 @@
  * The link carries JSON, so every value crossing it is validated on arrival
  * even though both ends are this repository's own code.
  *
- * @module @lyness/lyn-fs-desktop/protocol
+ * @module @deepseek-ai/dsh-fs-desktop/protocol
  */
 
-import { FS_ERROR_CODES } from '@lyness/lyn-fs'
+import { FS_ERROR_CODES } from '@deepseek-ai/dsh-fs'
 import { z } from 'zod'
 
 /** The capability name the Host addresses and the desktop registers. */

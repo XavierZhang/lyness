@@ -6,6 +6,6 @@ head:
       content: 0; url=./guide/quickstart
 ---
 
-# lyness
+# DeepSeek Harness
 
 [English](index.md) | 中文

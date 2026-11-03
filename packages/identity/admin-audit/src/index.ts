@@ -14,24 +14,24 @@
  * to load, which is the intended reading: a roster that silently records no
  * history is worse than one visibly missing its trail.
  *
- * @module @lyness/lyn-admin-audit
+ * @module @deepseek-ai/dsh-admin-audit
  */
 
-import { Service } from '@lyness/cordis'
-import type { Context } from '@lyness/cordis'
-import z from '@lyness/schemastery'
-import { brandString } from '@lyness/lyn-brand'
-import { administers } from '@lyness/lyn-people'
-import type { Membership } from '@lyness/lyn-people'
-import type { Domain } from '@lyness/lyn-storage-domain'
-import { randomUUID } from '@lyness/lyn-util-crypto'
+import { Service } from '@deepseek-ai/cordis'
+import type { Context } from '@deepseek-ai/cordis'
+import z from '@deepseek-ai/schemastery'
+import { brandString } from '@deepseek-ai/dsh-brand'
+import { administers } from '@deepseek-ai/dsh-people'
+import type { Membership } from '@deepseek-ai/dsh-people'
+import type { Domain } from '@deepseek-ai/dsh-storage-domain'
+import { randomUUID } from '@deepseek-ai/dsh-util-crypto'
 import { adminAuditDomain } from './storage.ts'
 import type { AuditEntry, AuditEntryId, AuditFieldChange, AuditQuery, AuditSubmission } from './types.ts'
 
 export type * from './types.ts'
 export { adminAuditDomain, changeSchema, entrySchema } from './storage.ts'
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     /** The trail of administrative changes; absent where a deployment administers no roster. */
     adminAudit: AdminAudit

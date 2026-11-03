@@ -10,7 +10,7 @@
 
 /** Every placeholder the shell's copy writes, with the name that fills it. */
 export const BUILT_IN_BRAND: Readonly<Record<string, string>> = {
-  brandName: 'lyness',
-  brandAbbr: 'LYN',
+  brandName: 'HARNESS',
+  brandAbbr: 'DSH',
   brandNameZh: '领驭',
 }

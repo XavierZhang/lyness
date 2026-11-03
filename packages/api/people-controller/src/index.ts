@@ -8,22 +8,22 @@
  * standing and reports what it answered. A second rule written here would be
  * one to keep in step with the first, and the one a direct caller bypasses.
  *
- * @module @lyness/lyn-api-people-controller
+ * @module @deepseek-ai/dsh-api-people-controller
  */
 
-import { Context } from '@lyness/cordis'
-import { PeopleRefusedError } from '@lyness/lyn-managed-people'
-import type { BindingSubmission, PeopleRefusal, PersonSubmission, PersonView } from '@lyness/lyn-managed-people'
-import { brandString } from '@lyness/lyn-brand'
-import type { Membership, PersonId } from '@lyness/lyn-people'
-import { callingStanding } from '@lyness/lyn-request-principal'
-import { Remote, RemoteError, TypertRemoteService } from '@lyness/lyn-typert-protocol'
-import { assertNever } from '@lyness/lyn-util-values'
+import { Context } from '@deepseek-ai/cordis'
+import { PeopleRefusedError } from '@deepseek-ai/dsh-managed-people'
+import type { BindingSubmission, PeopleRefusal, PersonSubmission, PersonView } from '@deepseek-ai/dsh-managed-people'
+import { brandString } from '@deepseek-ai/dsh-brand'
+import type { Membership, PersonId } from '@deepseek-ai/dsh-people'
+import { callingStanding } from '@deepseek-ai/dsh-request-principal'
+import { Remote, RemoteError, TypertRemoteService } from '@deepseek-ai/dsh-typert-protocol'
+import { assertNever } from '@deepseek-ai/dsh-util-values'
 import type { BindingInput, IdentityInput, PersonInput, PersonRowView } from './types.ts'
 
 export type * from './types.ts'
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     /** Host owner of the `people` Remote namespace. */
     peopleController: PeopleController

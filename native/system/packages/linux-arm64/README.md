@@ -2,7 +2,7 @@
 description: "Prebuilt Landlock launcher and POSIX flock addons for Linux arm64."
 kind: "package-library"
 ---
-# @lyness/node-addon-system-linux-arm64
+# @deepseek-ai/node-addon-system-linux-arm64
 
 English | [中文](README.zh.md)
 

@@ -14,4 +14,4 @@ export type {
   StoreHandle,
   StoreInstance,
   StoreSpec,
-} from '@lyness/lyn-client-store'
+} from '@deepseek-ai/dsh-client-store'

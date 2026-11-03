@@ -11,12 +11,12 @@
  * that names itself as a plugin has to be resolvable as a module too, which a
  * patch-carrying bundle otherwise never needs to be.
  *
- * @module @lyness/lyn-terminal/preset-contribution
+ * @module @deepseek-ai/dsh-terminal/preset-contribution
  */
 
-import type { Context } from '@lyness/cordis'
-import z from '@lyness/schemastery'
-import type {} from '@lyness/lyn-agent-preset-registry'
+import type { Context } from '@deepseek-ai/cordis'
+import z from '@deepseek-ai/schemastery'
+import type {} from '@deepseek-ai/dsh-agent-preset-registry'
 
 /** Cordis plugin name used by loader diagnostics. */
 export const name = 'terminal-preset-contribution'
@@ -25,7 +25,7 @@ export const name = 'terminal-preset-contribution'
 export const inject = ['agentPresets']
 
 /** The module this contribution belongs to, named in a collision diagnostic. */
-export const MODULE = '@lyness/lyn-module-terminal'
+export const MODULE = '@deepseek-ai/dsh-module-terminal'
 
 /** The centrally allocated row id the contributed group takes. */
 export const ROW_ID = 'module-terminal-tool'
@@ -96,20 +96,20 @@ export function terminalGroup(timeoutMs: number): Parameters<Context['agentPrese
     group: true,
     isolate: { terminals: true },
     config: [
-      { id: 'pty', name: '@lyness/lyn-terminal' },
+      { id: 'pty', name: '@deepseek-ai/dsh-terminal' },
       {
         id: 'terminal-bash',
-        name: '@lyness/lyn-terminal-bash',
+        name: '@deepseek-ai/dsh-terminal-bash',
         disabled: process.platform === 'win32',
         config: { timeoutMs },
       },
       {
         id: 'terminal-pwsh',
-        name: '@lyness/lyn-terminal-bash',
+        name: '@deepseek-ai/dsh-terminal-bash',
         disabled: process.platform !== 'win32',
         config: { shellDialect: 'pwsh', timeoutMs },
       },
-      { id: 'tool-terminal', name: '@lyness/lyn-tool-terminal' },
+      { id: 'tool-terminal', name: '@deepseek-ai/dsh-tool-terminal' },
     ],
   }
 }

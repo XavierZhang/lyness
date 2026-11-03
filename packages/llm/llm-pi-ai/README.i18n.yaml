@@ -5,93 +5,93 @@
 /:
   en: 8a6ec0a589e6fd18
   zh: e85fc352c9cba373
-/lyness-lyn-llm-pi-ai:
+/deepseek-harness-dsh-llm-pi-ai:
   en: fe46ce65e25c558c
   zh: 0a8588126203b06d
-/lyness-lyn-llm-pi-ai/summary:
+/deepseek-harness-dsh-llm-pi-ai/summary:
   en: b3d227c8aef77d35
   zh: 5597f4f6b5939104
-/lyness-lyn-llm-pi-ai/table-of-contents:
+/deepseek-harness-dsh-llm-pi-ai/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/lyness-lyn-llm-pi-ai/use-this-package:
+/deepseek-harness-dsh-llm-pi-ai/use-this-package:
   en: d423b791ff2d6945
   zh: 4f2513dac9d86cb8
-/lyness-lyn-llm-pi-ai/use-this-package/when-to-choose-it:
+/deepseek-harness-dsh-llm-pi-ai/use-this-package/when-to-choose-it:
   en: 5777307fbb51d2f6
   zh: cbaacc4d440e6a94
-/lyness-lyn-llm-pi-ai/use-this-package/configure-provider-routes:
+/deepseek-harness-dsh-llm-pi-ai/use-this-package/configure-provider-routes:
   en: f797e25830c0fb5f
   zh: 8a3e60ba35e1b3b7
-/lyness-lyn-llm-pi-ai/use-this-package/sign-in-to-a-provider:
+/deepseek-harness-dsh-llm-pi-ai/use-this-package/sign-in-to-a-provider:
   en: c36f66438638ae08
   zh: 066a2fc4cb97c86f
-/lyness-lyn-llm-pi-ai/use-this-package/resolve-the-model-catalog:
+/deepseek-harness-dsh-llm-pi-ai/use-this-package/resolve-the-model-catalog:
   en: 376f83206858b601
   zh: 38bb6993609c96a6
-/lyness-lyn-llm-pi-ai/use-this-package/run-with-reasoning-and-wire-compatibility:
+/deepseek-harness-dsh-llm-pi-ai/use-this-package/run-with-reasoning-and-wire-compatibility:
   en: b58b917e7f250aee
   zh: aff599081bac08c3
-/lyness-lyn-llm-pi-ai/use-this-package/change-configuration-at-runtime:
+/deepseek-harness-dsh-llm-pi-ai/use-this-package/change-configuration-at-runtime:
   en: 92f554e1718614ca
   zh: f17ed3ad3e5d28e2
-/lyness-lyn-llm-pi-ai/use-this-package/discover-models-from-endpoints:
+/deepseek-harness-dsh-llm-pi-ai/use-this-package/discover-models-from-endpoints:
   en: 6619e8cfe7555c73
   zh: b2f80c25acb81cf8
-/lyness-lyn-llm-pi-ai/use-this-package/failures-and-recovery:
+/deepseek-harness-dsh-llm-pi-ai/use-this-package/failures-and-recovery:
   en: 3c1edbc63de24a1a
   zh: 01592718c3a2c79f
-/lyness-lyn-llm-pi-ai/understand-the-implementation:
+/deepseek-harness-dsh-llm-pi-ai/understand-the-implementation:
   en: 1598ac8a8bb9b6bf
   zh: fdd089c5ae7722cd
-/lyness-lyn-llm-pi-ai/understand-the-implementation/design-philosophy:
+/deepseek-harness-dsh-llm-pi-ai/understand-the-implementation/design-philosophy:
   en: 8aba1113937b368a
   zh: 804a4ca672a776df
-/lyness-lyn-llm-pi-ai/understand-the-implementation/source-map:
+/deepseek-harness-dsh-llm-pi-ai/understand-the-implementation/source-map:
   en: 64912b8a3a336419
   zh: 33a245969b4194f6
-/lyness-lyn-llm-pi-ai/understand-the-implementation/registration-and-directory:
+/deepseek-harness-dsh-llm-pi-ai/understand-the-implementation/registration-and-directory:
   en: 0c6df3e8b6a75372
   zh: 476666a6f209542c
-/lyness-lyn-llm-pi-ai/understand-the-implementation/generated-provider-metadata:
+/deepseek-harness-dsh-llm-pi-ai/understand-the-implementation/generated-provider-metadata:
   en: 477d277e9ac35c8f
   zh: 96870ca333fb6510
-/lyness-lyn-llm-pi-ai/understand-the-implementation/replay-and-vocabulary:
+/deepseek-harness-dsh-llm-pi-ai/understand-the-implementation/replay-and-vocabulary:
   en: e64173763fdbcfae
   zh: 73ed2c2af54b62f6
-/lyness-lyn-llm-pi-ai/further-exploration:
+/deepseek-harness-dsh-llm-pi-ai/further-exploration:
   en: 5e06993fa7af5b2b
   zh: 703737a5dadd44d2
-/lyness-lyn-llm-pi-ai/model-experience:
+/deepseek-harness-dsh-llm-pi-ai/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/lyness-lyn-llm-pi-ai/model-experience/provider-request-through-pi-ai:
+/deepseek-harness-dsh-llm-pi-ai/model-experience/provider-request-through-pi-ai:
   en: e7348db3f7115960
   zh: 5fd5fb09d7d09982
-/lyness-lyn-llm-pi-ai/model-experience/provider-request-through-pi-ai/what-the-model-sees:
+/deepseek-harness-dsh-llm-pi-ai/model-experience/provider-request-through-pi-ai/what-the-model-sees:
   en: d404444e3edff838
   zh: 802e9a48c15569f4
-/lyness-lyn-llm-pi-ai/model-experience/provider-request-through-pi-ai/token-effect:
+/deepseek-harness-dsh-llm-pi-ai/model-experience/provider-request-through-pi-ai/token-effect:
   en: 820221e8ae37aa61
   zh: 7e6ff4db10067fc0
-/lyness-lyn-llm-pi-ai/model-experience/provider-request-through-pi-ai/kv-cache-effect:
+/deepseek-harness-dsh-llm-pi-ai/model-experience/provider-request-through-pi-ai/kv-cache-effect:
   en: 7a2595060340d7d5
   zh: e4ba753dcdaa89fc
-/lyness-lyn-llm-pi-ai/model-experience/provider-response:
+/deepseek-harness-dsh-llm-pi-ai/model-experience/provider-response:
   en: 802d7ff60a1d03ff
   zh: c41c56e28f3e8680
-/lyness-lyn-llm-pi-ai/model-experience/provider-response/what-the-model-sees:
+/deepseek-harness-dsh-llm-pi-ai/model-experience/provider-response/what-the-model-sees:
   en: 94ca496012c92fa9
   zh: 9539b08924b5022d
-/lyness-lyn-llm-pi-ai/model-experience/provider-response/token-effect:
+/deepseek-harness-dsh-llm-pi-ai/model-experience/provider-response/token-effect:
   en: f002b21d0f4c3df0
   zh: 388c8ed4676ed1af
-/lyness-lyn-llm-pi-ai/model-experience/provider-response/kv-cache-effect:
+/deepseek-harness-dsh-llm-pi-ai/model-experience/provider-response/kv-cache-effect:
   en: b6bd570c0159ba08
   zh: 7d2d91eea6a8d830
-/lyness-lyn-llm-pi-ai/known-limitations-and-deferred-work:
+/deepseek-harness-dsh-llm-pi-ai/known-limitations-and-deferred-work:
   en: 1c54b949c81df84f
   zh: b894d01aa3e6afc1
-/lyness-lyn-llm-pi-ai/known-limitations-and-deferred-work/dev-note:
+/deepseek-harness-dsh-llm-pi-ai/known-limitations-and-deferred-work/dev-note:
   en: 3678dd0f6642c2a5
   zh: 75cbdd064cc64282

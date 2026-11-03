@@ -5,33 +5,33 @@
 /:
   en: 61dbe91951466be8
   zh: e1acffac05c5c1f7
-/lyness-lyn-module-accounts:
+/deepseek-harness-dsh-module-accounts:
   en: 0c3cc37ef0841d72
   zh: a605758764b39518
-/lyness-lyn-module-accounts/summary:
+/deepseek-harness-dsh-module-accounts/summary:
   en: c0f17a462ed40fb7
   zh: 6ac89e89588bc0df
-/lyness-lyn-module-accounts/table-of-contents:
+/deepseek-harness-dsh-module-accounts/table-of-contents:
   en: d152484eb41ac6b4
   zh: 2bca79d7b98e8031
-/lyness-lyn-module-accounts/use-this-package:
+/deepseek-harness-dsh-module-accounts/use-this-package:
   en: 0557da6e1f979113
   zh: 6bb59dce7f1a3382
-/lyness-lyn-module-accounts/understand-the-implementation:
+/deepseek-harness-dsh-module-accounts/understand-the-implementation:
   en: b12e5413bae7452e
   zh: 9b11d6651074d6b1
-/lyness-lyn-module-accounts/further-exploration:
+/deepseek-harness-dsh-module-accounts/further-exploration:
   en: 95d2f4a8639cd3d3
   zh: 7a7caa3bbb988f4e
-/lyness-lyn-module-accounts/model-experience:
+/deepseek-harness-dsh-module-accounts/model-experience:
   en: 3989358b2d7d7d02
   zh: d32b3197ba1a72c4
-/lyness-lyn-module-accounts/model-experience/kv-cache-effect:
+/deepseek-harness-dsh-module-accounts/model-experience/kv-cache-effect:
   en: 171f8f7cded95f49
   zh: a2ba2b3fb3b56123
-/lyness-lyn-module-accounts/known-limitations-and-deferred-work:
+/deepseek-harness-dsh-module-accounts/known-limitations-and-deferred-work:
   en: b064a3c08ad66d4b
   zh: 2ae8b65ef1f4e482
-/lyness-lyn-module-accounts/known-limitations-and-deferred-work/dev-note:
+/deepseek-harness-dsh-module-accounts/known-limitations-and-deferred-work/dev-note:
   en: e2da01572012f210
   zh: 461924c08c3d8717

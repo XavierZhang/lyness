@@ -1,9 +1,9 @@
 ---
-description: "Settings domain base plugin: shared configuration forms, schema service, and the canonical settings slot-type contract for the lyn web client."
+description: "Settings domain base plugin: shared configuration forms, schema service, and the canonical settings slot-type contract for the dsh web client."
 kind: "package-reference"
 ---
 
-# @lyness/lyn-client-ui-settings
+# @deepseek-ai/dsh-client-ui-settings
 
 English | [中文](README.zh.md)
 

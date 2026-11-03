@@ -3,13 +3,13 @@ description: "设置里的指令分区：一个人对自己的 agent 说的话�
 kind: "package-reference"
 ---
 
-# @lyness/lyn-client-ui-settings-instructions
+# @deepseek-ai/dsh-client-ui-settings-instructions
 
 [English](README.md) | 中文
 
 ## 概述
 
-`lyn-client-ui-settings-instructions` 是个人平面的指令页：一个编辑器，写一个人对自己 agent 说的话；一个计数，对照这个部署接受的上限；以及一行话，说明已经开着的对话保持它开始时的那份。它是个人页面而不是管理页面，因为这个控件属于本人——没有别人设定它，这里也没有任何东西在汇报别人替他做的决定。
+`dsh-client-ui-settings-instructions` 是个人平面的指令页：一个编辑器，写一个人对自己 agent 说的话；一个计数，对照这个部署接受的上限；以及一行话，说明已经开着的对话保持它开始时的那份。它是个人页面而不是管理页面，因为这个控件属于本人——没有别人设定它，这里也没有任何东西在汇报别人替他做的决定。
 
 ## 目录
 
@@ -29,9 +29,9 @@ Web bundle 把它挂在它所读的命名空间旁边：
 
 ```yaml
 - id: personal-instructions-controller
-  name: '@lyness/lyn-api-personal-instructions-controller'
+  name: '@deepseek-ai/dsh-api-personal-instructions-controller'
 - id: ui-settings-instructions
-  name: '@lyness/lyn-client-ui-settings-instructions'
+  name: '@deepseek-ai/dsh-client-ui-settings-instructions'
 ```
 
 别的都不用配。分区注册进 `settings.section`，也就是个人平面，对每一个读者都出现。
@@ -56,16 +56,16 @@ Web bundle 把它挂在它所读的命名空间旁边：
 <a id="further-exploration"></a>
 ## 延伸阅读
 
-- [`lyn-api-personal-instructions-controller`](../../api/personal-instructions-controller/README.zh.md)：本页读写的那个命名空间。
-- [`lyn-personal-instructions`](../../identity/personal-instructions/README.zh.md)：保存下来的文本之后会做什么。
-- [`lyn-client-ui-settings`](../ui-settings/README.zh.md)：两个分区平面槽位的声明处。
+- [`dsh-api-personal-instructions-controller`](../../api/personal-instructions-controller/README.zh.md)：本页读写的那个命名空间。
+- [`dsh-personal-instructions`](../../identity/personal-instructions/README.zh.md)：保存下来的文本之后会做什么。
+- [`dsh-client-ui-settings`](../ui-settings/README.zh.md)：两个分区平面槽位的声明处。
 
 -----
 
 <a id="model-experience"></a>
 ## 模型体验
 
-无。本包不注册任何工具或提示词：它只是一个存储文本之上的编辑器，那段文本如何进入模型请求由 `lyn-personal-instructions` 负责。
+无。本包不注册任何工具或提示词：它只是一个存储文本之上的编辑器，那段文本如何进入模型请求由 `dsh-personal-instructions` 负责。
 
 #### KV 缓存影响
 

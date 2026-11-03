@@ -44,7 +44,7 @@ export function viewerButton(doc: Document, label: string, icon: keyof typeof ic
   element.type = 'button'
   labelButton(element, label)
   const svg = doc.createElementNS('http://www.w3.org/2000/svg', 'svg')
-  svg.classList.add('lyn-media-icon')
+  svg.classList.add('dsh-media-icon')
   svg.setAttribute('viewBox', '0 0 24 24')
   svg.setAttribute('aria-hidden', 'true')
   svg.setAttribute('focusable', 'false')
@@ -91,39 +91,39 @@ export class MediaViewer {
     const doc = this.doc
     const copy = this.language().startsWith('zh') ? messages.zh : messages.en
     const dialog = doc.createElement('dialog')
-    dialog.className = 'lyn-media-viewer'
-    dialog.setAttribute('aria-labelledby', 'lyn-media-title')
+    dialog.className = 'dsh-media-viewer'
+    dialog.setAttribute('aria-labelledby', 'dsh-media-title')
     const toolbar = doc.createElement('div')
-    toolbar.className = 'lyn-media-toolbar'
+    toolbar.className = 'dsh-media-toolbar'
     const title = doc.createElement('span')
-    title.className = 'lyn-media-title'
-    title.id = 'lyn-media-title'
+    title.className = 'dsh-media-title'
+    title.id = 'dsh-media-title'
     title.textContent = content.title
     const zoomOut = viewerButton(doc, copy.zoomOut, 'zoomOut')
     const zoomIn = viewerButton(doc, copy.zoomIn, 'zoomIn')
     const original = content.originalSize ? doc.createElement('button') : undefined
     if (original) original.type = 'button'
     const scaleLabel = original ?? doc.createElement('span')
-    scaleLabel.className = 'lyn-media-scale'
+    scaleLabel.className = 'dsh-media-scale'
     const fit = viewerButton(doc, copy.fit, 'fit')
-    fit.className = 'lyn-media-fit'
+    fit.className = 'dsh-media-fit'
     const close = viewerButton(doc, copy.close, 'close')
-    close.className = 'lyn-media-close'
+    close.className = 'dsh-media-close'
     close.autofocus = true
     toolbar.append(zoomOut, scaleLabel, zoomIn, fit)
     const helpToggle = viewerButton(doc, copy.helpLabel, 'help')
-    helpToggle.className = 'lyn-media-help-toggle'
+    helpToggle.className = 'dsh-media-help-toggle'
     helpToggle.setAttribute('aria-expanded', 'false')
-    helpToggle.setAttribute('aria-controls', 'lyn-media-help-text')
+    helpToggle.setAttribute('aria-controls', 'dsh-media-help-text')
     const help = doc.createElement('p')
-    help.className = 'lyn-media-help'
-    help.id = 'lyn-media-help-text'
+    help.className = 'dsh-media-help'
+    help.id = 'dsh-media-help-text'
     help.hidden = true
     help.textContent = copy.help
     const viewport = doc.createElement('div')
-    viewport.className = 'lyn-media-viewport'
+    viewport.className = 'dsh-media-viewport'
     const paper = doc.createElement('div')
-    paper.className = 'lyn-media-paper'
+    paper.className = 'dsh-media-paper'
     // Shared content lives in a shadow root so Mermaid copies cannot resolve their
     // embedded styles and fragment IDs against the original diagram.
     const shadow = paper.attachShadow({ mode: 'open' })

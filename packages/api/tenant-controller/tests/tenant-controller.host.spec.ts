@@ -1,12 +1,12 @@
 /** What the tenant namespace answers, and what it refuses. */
 
 import { describe, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import { remoteErrorOf } from '@lyness/lyn-typert-protocol'
-import { TenantId } from '@lyness/lyn-tenant'
-import { TenantConfigStore } from '@lyness/lyn-tenant-config'
-import type { TenantConfig, TenantConfigCapability } from '@lyness/lyn-tenant-config'
-import type { RequestTenant, RequestTenantReader } from '@lyness/lyn-tenant-request/types'
+import { Context } from '@deepseek-ai/cordis'
+import { remoteErrorOf } from '@deepseek-ai/dsh-typert-protocol'
+import { TenantId } from '@deepseek-ai/dsh-tenant'
+import { TenantConfigStore } from '@deepseek-ai/dsh-tenant-config'
+import type { TenantConfig, TenantConfigCapability } from '@deepseek-ai/dsh-tenant-config'
+import type { RequestTenant, RequestTenantReader } from '@deepseek-ai/dsh-tenant-request/types'
 import TenantController from '../src/index.ts'
 import type { TenantConfigInput } from '../src/index.ts'
 

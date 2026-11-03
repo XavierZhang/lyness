@@ -3,7 +3,7 @@
 
 - insert:
     - id: llm-replay
-      name: '@lyness/lyn-llm-replay'
+      name: '@deepseek-ai/dsh-llm-replay'
       config:
         providers:
           - id: deepseek-official
@@ -17,6 +17,6 @@
 
 - insert:
     - id: worktree
-      name: '@lyness/lyn-experimental-worktree'
+      name: '@deepseek-ai/dsh-experimental-worktree'
     - id: tool-worktree
-      name: '@lyness/lyn-experimental-tool-worktree'
+      name: '@deepseek-ai/dsh-experimental-tool-worktree'

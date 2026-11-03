@@ -3,13 +3,13 @@ description: "What a person tells their own agents, kept for them and recorded o
 kind: "package-reference"
 ---
 
-# @lyness/lyn-personal-instructions
+# @deepseek-ai/dsh-personal-instructions
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`lyn-personal-instructions` is the user layer of the prompt. A deployment's persona and an organization's rules both have a place to live; the person between them had none, because a hosted person has no file to edit. This plugin stores what each person tells their own agents, writes that text into every session they open as one durable log event, and composes it into each agent's prompt from that record — between the organization's rules and the agent's own persona.
+`dsh-personal-instructions` is the user layer of the prompt. A deployment's persona and an organization's rules both have a place to live; the person between them had none, because a hosted person has no file to edit. This plugin stores what each person tells their own agents, writes that text into every session they open as one durable log event, and composes it into each agent's prompt from that record — between the organization's rules and the agent's own persona.
 
 ## Table of Contents
 
@@ -29,14 +29,14 @@ Mount it where sessions, agents and the prompt registry are:
 
 ```yaml
 - id: personal-instructions
-  name: '@lyness/lyn-personal-instructions'
+  name: '@deepseek-ai/dsh-personal-instructions'
   config:
     maxChars: 4000
 ```
 
 `maxChars` is the ceiling one person may save; it defaults to what the store accepts, and a deployment that wants a tighter token budget sets a smaller one. Nothing else needs configuring: which person a session's instructions come from follows from the principal that created it.
 
-The Settings page reads and writes through `lyn-api-personal-instructions-controller`. A Host-side caller uses the service directly: `ctx.personalInstructions.ownerOfCall()` answers whose instructions this call acts on, and `get` and `save` take that owner.
+The Settings page reads and writes through `dsh-api-personal-instructions-controller`. A Host-side caller uses the service directly: `ctx.personalInstructions.ownerOfCall()` answers whose instructions this call acts on, and `get` and `save` take that owner.
 
 -----
 
@@ -58,10 +58,10 @@ The Settings page reads and writes through `lyn-api-personal-instructions-contro
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`lyn-api-personal-instructions-controller`](../../api/personal-instructions-controller/README.md) — the Remote namespace a surface reads this through.
-- [`lyn-client-ui-settings-instructions`](../../client/ui-settings-instructions/README.md) — the Settings page a person edits them on.
-- [`lyn-tenant-session`](../../tenant/tenant-session/README.md) — the organization layer this one sits after, built the same way.
-- [`lyn-session-ownership`](../session-ownership/README.md) — whose conversation a session is, which this plugin's owner question follows.
+- [`dsh-api-personal-instructions-controller`](../../api/personal-instructions-controller/README.md) — the Remote namespace a surface reads this through.
+- [`dsh-client-ui-settings-instructions`](../../client/ui-settings-instructions/README.md) — the Settings page a person edits them on.
+- [`dsh-tenant-session`](../../tenant/tenant-session/README.md) — the organization layer this one sits after, built the same way.
+- [`dsh-session-ownership`](../session-ownership/README.md) — whose conversation a session is, which this plugin's owner question follows.
 
 -----
 

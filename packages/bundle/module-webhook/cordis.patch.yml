@@ -23,9 +23,9 @@
 # port, secret setup, and Workspace routing end to end.
 - insert:
     - id: webhook-runtime
-      name: '@lyness/lyn-webhook'
+      name: '@deepseek-ai/dsh-webhook'
       disabled: true
 
     - id: webhook-github
-      name: '@lyness/lyn-webhook-github'
+      name: '@deepseek-ai/dsh-webhook-github'
       disabled: true

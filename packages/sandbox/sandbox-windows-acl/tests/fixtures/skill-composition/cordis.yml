@@ -1,4 +1,4 @@
 - id: sandbox
-  name: '@lyness/lyn-sandbox-local'
+  name: '@deepseek-ai/dsh-sandbox-local'
 - id: skills
-  name: '@lyness/lyn-skill'
+  name: '@deepseek-ai/dsh-skill'

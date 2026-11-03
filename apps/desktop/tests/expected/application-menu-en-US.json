@@ -3,11 +3,11 @@
     "label": "Check for Updates…"
   },
   {
-    "label": "Manage lyn Command…"
+    "label": "Manage dsh Command…"
   },
   {
     "role": "hide",
-    "label": "Hide lyness"
+    "label": "Hide DeepSeek Harness"
   },
   {
     "role": "hideOthers",
@@ -19,6 +19,6 @@
   },
   {
     "role": "quit",
-    "label": "Quit lyness"
+    "label": "Quit DeepSeek Harness"
   }
 ]

@@ -11,17 +11,17 @@
  * binding belongs to a person, and the server is the one that says which
  * identities they now have.
  *
- * @module @lyness/lyn-client-ui-settings-people/client/operations
+ * @module @deepseek-ai/dsh-client-ui-settings-people/client/operations
  */
 
-import type { Context } from '@lyness/cordis'
-import { createSharedRead, messageOf } from '@lyness/lyn-client-store'
-import type { RemoteFailure } from '@lyness/lyn-typert-protocol'
-import type {} from '@lyness/lyn-api-remotes/client'
-import type {} from '@lyness/lyn-api-people-controller/remote'
-import type {} from '@lyness/lyn-api-sign-in-channel-controller/remote'
-import type { BindingInput, IdentityInput, PersonInput, PersonRowView } from '@lyness/lyn-api-people-controller/types'
-import type { ConfiguredChannelView } from '@lyness/lyn-api-sign-in-channel-controller/types'
+import type { Context } from '@deepseek-ai/cordis'
+import { createSharedRead, messageOf } from '@deepseek-ai/dsh-client-store'
+import type { RemoteFailure } from '@deepseek-ai/dsh-typert-protocol'
+import type {} from '@deepseek-ai/dsh-api-remotes/client'
+import type {} from '@deepseek-ai/dsh-api-people-controller/remote'
+import type {} from '@deepseek-ai/dsh-api-sign-in-channel-controller/remote'
+import type { BindingInput, IdentityInput, PersonInput, PersonRowView } from '@deepseek-ai/dsh-api-people-controller/types'
+import type { ConfiguredChannelView } from '@deepseek-ai/dsh-api-sign-in-channel-controller/types'
 import type { PeopleRead } from './store.ts'
 
 /** What one Remote call answers: the value, or the failure it refused with. */

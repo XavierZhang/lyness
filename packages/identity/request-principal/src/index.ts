@@ -13,18 +13,18 @@
  * the refusal where the requirement is, which is also where the reason can be
  * explained.
  *
- * @module @lyness/lyn-request-principal
+ * @module @deepseek-ai/dsh-request-principal
  */
 
-import { Service } from '@lyness/cordis'
-import type { Context } from '@lyness/cordis'
+import { Service } from '@deepseek-ai/cordis'
+import type { Context } from '@deepseek-ai/cordis'
 import { AsyncLocalStorage } from 'node:async_hooks'
-import { brandString } from '@lyness/lyn-brand'
-import type { ActingContext, Membership, PersonId } from '@lyness/lyn-people'
-import type { AuthSessionId, SignedInSession } from '@lyness/lyn-auth-session'
-import type {} from '@lyness/lyn-client-connection'
+import { brandString } from '@deepseek-ai/dsh-brand'
+import type { ActingContext, Membership, PersonId } from '@deepseek-ai/dsh-people'
+import type { AuthSessionId, SignedInSession } from '@deepseek-ai/dsh-auth-session'
+import type {} from '@deepseek-ai/dsh-client-connection'
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     /** Who the call in progress is; absent outside a call and for a call presenting no live session. */
     requestPrincipal: RequestPrincipal
@@ -40,7 +40,7 @@ export interface Principal {
 }
 
 /** Cookie a browser presents its identity session in. */
-export const IDENTITY_COOKIE = 'lyn_identity'
+export const IDENTITY_COOKIE = 'dsh_identity'
 
 /**
  * The bearer identity one request presents.

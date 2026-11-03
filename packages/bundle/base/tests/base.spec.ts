@@ -1,5 +1,5 @@
 /**
- * The bundle's substance is its patch file: the `lyn.bundle.patch` manifest
+ * The bundle's substance is its patch file: the `dsh.bundle.patch` manifest
  * field must name a real, parseable patch list.
  */
 
@@ -8,20 +8,20 @@ import { fileURLToPath } from 'node:url'
 import { resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import * as yaml from 'js-yaml'
-import { entryListSchema } from '@lyness/cordis-plugin-include'
+import { entryListSchema } from '@deepseek-ai/cordis-plugin-include'
 
-describe('lyn-base bundle', () => {
-  it('declares a parseable patch list through the lyn.bundle.patch manifest field', () => {
+describe('dsh-base bundle', () => {
+  it('declares a parseable patch list through the dsh.bundle.patch manifest field', () => {
     const root = fileURLToPath(new URL('..', import.meta.url))
     const manifest = JSON.parse(
       readFileSync(resolve(root, 'package.json'), 'utf8'),
     ) as {
       dependencies?: Record<string, string>
-      lyn?: { bundle?: { patch?: string } }
+      dsh?: { bundle?: { patch?: string } }
     }
-    expect(manifest.lyn?.bundle?.patch).toBe('./cordis.patch.yml')
+    expect(manifest.dsh?.bundle?.patch).toBe('./cordis.patch.yml')
     const parsed = yaml.load(
-      readFileSync(resolve(root, manifest.lyn!.bundle!.patch!), 'utf8'),
+      readFileSync(resolve(root, manifest.dsh!.bundle!.patch!), 'utf8'),
       { schema: entryListSchema },
     )
     expect(Array.isArray(parsed)).toBe(true)
@@ -38,11 +38,11 @@ describe('lyn-base bundle', () => {
     // its own collector, so an upstream sync that reinstates either value fails
     // here rather than silently restoring the upload.
     expect(rows.find(row => row.id === 'session-telemetry-otel')?.config?.['mode']).toEqual({
-      __jsExpr: "process.env.LYNESS_TELEMETRY_MODE || 'DISABLED'",
+      __jsExpr: "process.env.DSH_TELEMETRY_MODE || 'DISABLED'",
     })
     expect((rows.find(row => row.id === 'session-telemetry-otel')?.config?.['exporter'] as
       { url?: unknown } | undefined)?.url).toEqual({
-      __jsExpr: "process.env.LYNESS_TELEMETRY_OTLP_URL ?? ''",
+      __jsExpr: "process.env.DSH_TELEMETRY_OTLP_URL ?? ''",
     })
     expect(rows.find(row => row.id === 'hmr')).toMatchObject({
       config: { root: [] },
@@ -52,8 +52,8 @@ describe('lyn-base bundle', () => {
     expect(rows.find(row => row.id === 'web')?.config).toMatchObject({ fetchProvider: 'http' })
     expect(rows.find(row => row.id === 'web-fetch-http')).toBeDefined()
     expect(rows.find(row => row.id === 'tool-web')?.config).toMatchObject({ fetch: true })
-    expect(manifest.dependencies).not.toHaveProperty('@lyness/lyn-subagent-codex')
-    expect(manifest.dependencies).not.toHaveProperty('@lyness/lyn-subagent-claude-code')
-    expect(manifest.dependencies).toHaveProperty('@lyness/lyn-web-fetch-http')
+    expect(manifest.dependencies).not.toHaveProperty('@deepseek-ai/dsh-subagent-codex')
+    expect(manifest.dependencies).not.toHaveProperty('@deepseek-ai/dsh-subagent-claude-code')
+    expect(manifest.dependencies).toHaveProperty('@deepseek-ai/dsh-web-fetch-http')
   })
 })

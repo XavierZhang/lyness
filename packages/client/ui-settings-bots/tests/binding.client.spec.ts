@@ -4,7 +4,7 @@
  */
 
 import { describe, expect, it, vi } from 'vitest'
-import type { BotRowView, TeamRowView } from '@lyness/lyn-api-bots-controller/types'
+import type { BotRowView, TeamRowView } from '@deepseek-ai/dsh-api-bots-controller/types'
 import { SectionBinding, sectionFace } from '../src/client/binding.ts'
 import type { BotsActions } from '../src/client/binding.ts'
 import type { BotsOperations } from '../src/client/operations.ts'

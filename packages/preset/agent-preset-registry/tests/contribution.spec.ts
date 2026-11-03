@@ -4,7 +4,7 @@
  * mounted when one arrives.
  */
 
-import type { Context } from '@lyness/cordis'
+import type { Context } from '@deepseek-ai/cordis'
 import { expect, it, onTestFinished } from 'vitest'
 import { CONTRIBUTION_ORDERS, isContributionId, mergeContributions } from '../src/contribution.ts'
 import type { ContributionId, PresetContribution } from '../src/contribution.ts'

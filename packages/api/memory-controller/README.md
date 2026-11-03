@@ -3,13 +3,13 @@ description: "What this deployment remembers about one person, read and removed 
 kind: "package-reference"
 ---
 
-# @lyness/lyn-api-memory-controller
+# @deepseek-ai/dsh-api-memory-controller
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`lyn-api-memory-controller` owns the `memories` Remote namespace: two methods that read what this deployment remembers about the caller and remove one of those facts. Whose memories a call acts on is never a parameter — the store answers it from the principal the call published — so a caller holding somebody else's id removes nothing. The deployment's shared memories are not served here: they are not one person's to review, and a page that listed them beside somebody's own would invite a removal that takes a fact from everybody.
+`dsh-api-memory-controller` owns the `memories` Remote namespace: two methods that read what this deployment remembers about the caller and remove one of those facts. Whose memories a call acts on is never a parameter — the store answers it from the principal the call published — so a caller holding somebody else's id removes nothing. The deployment's shared memories are not served here: they are not one person's to review, and a page that listed them beside somebody's own would invite a removal that takes a fact from everybody.
 
 ## Table of Contents
 
@@ -29,9 +29,9 @@ Mount it with the store it reads, which is what the memory module does:
 
 ```yaml
 - id: memory
-  name: '@lyness/lyn-memory'
+  name: '@deepseek-ai/dsh-memory'
 - id: memory-controller
-  name: '@lyness/lyn-api-memory-controller'
+  name: '@deepseek-ai/dsh-api-memory-controller'
 ```
 
 `list()` answers the caller's own entries, oldest first; `forget(id)` removes one and answers what remains. A deployment that selects no memory module serves no namespace, and the Settings page that injects it does not appear.
@@ -56,20 +56,20 @@ Mount it with the store it reads, which is what the memory module does:
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`lyn-memory`](../../memory/memory/README.md) — the store, the partition, and what an agent sees.
-- [`lyn-client-ui-settings-memory`](../../client/ui-settings-memory/README.md) — the page that calls these two methods.
-- [`lyn-api-remote-authority`](../remote-authority/README.md) — what enforces the standing this namespace declares.
+- [`dsh-memory`](../../memory/memory/README.md) — the store, the partition, and what an agent sees.
+- [`dsh-client-ui-settings-memory`](../../client/ui-settings-memory/README.md) — the page that calls these two methods.
+- [`dsh-api-remote-authority`](../remote-authority/README.md) — what enforces the standing this namespace declares.
 
 -----
 
 <a id="model-experience"></a>
 ## Model Experience
 
-None, as this package registers no tool or prompt: it serves a person reading their own records, and `lyn-memory` owns how a remembered fact reaches a model request.
+None, as this package registers no tool or prompt: it serves a person reading their own records, and `dsh-memory` owns how a remembered fact reaches a model request.
 
 #### KV Cache effect
 
-No request prefix changes at call time; removing a memory changes what that person's next assembly carries, which `lyn-memory` describes.
+No request prefix changes at call time; removing a memory changes what that person's next assembly carries, which `dsh-memory` describes.
 
 ## Known Limitations and Deferred Work
 

@@ -5,42 +5,42 @@
 /:
   en: 505fd12717a89948
   zh: 2ad120714356f61b
-/lyn-plugin-detail:
+/dsh-plugin-detail:
   en: 3acd03ef6be1839c
   zh: 0a3c7991bbfadbd3
-/lyn-plugin-detail/summary:
+/dsh-plugin-detail/summary:
   en: 075947c378e4889f
   zh: 61651387865de224
-/lyn-plugin-detail/table-of-contents:
+/dsh-plugin-detail/table-of-contents:
   en: cd2a60a905c978d6
   zh: cc71d387d0cbd442
-/lyn-plugin-detail/use-this-package:
+/dsh-plugin-detail/use-this-package:
   en: ccdf3fdf80317f76
   zh: 023b893b30d1dd5b
-/lyn-plugin-detail/use-this-package/document-order:
+/dsh-plugin-detail/use-this-package/document-order:
   en: 09f3713cc3cbbdc0
   zh: 572466b032c10dc3
-/lyn-plugin-detail/use-this-package/images:
+/dsh-plugin-detail/use-this-package/images:
   en: abeb7bb1f7695e5e
   zh: 59b87c9abea17dfb
-/lyn-plugin-detail/use-this-package/file-sources:
+/dsh-plugin-detail/use-this-package/file-sources:
   en: 9542401a7d104851
   zh: 99f80d2960b77bc8
-/lyn-plugin-detail/use-this-package/image-responses:
+/dsh-plugin-detail/use-this-package/image-responses:
   en: d6e7da207ee7f2fb
   zh: c7b6acaa4d2839a2
-/lyn-plugin-detail/api:
+/dsh-plugin-detail/api:
   en: f2613bb8c6ba4ef8
   zh: ced7fb01cc7d88a9
-/lyn-plugin-detail/model-experience:
+/dsh-plugin-detail/model-experience:
   en: 60eeeeff73bf48b4
   zh: cf3e6e1885719d6a
-/lyn-plugin-detail/model-experience/kv-cache-effect:
+/dsh-plugin-detail/model-experience/kv-cache-effect:
   en: 4f0eadf94828e66e
   zh: 4f8a6ec170ebbfb6
-/lyn-plugin-detail/known-limitations-and-deferred-work:
+/dsh-plugin-detail/known-limitations-and-deferred-work:
   en: 5d8abfbb06761f7f
   zh: 8515079f96e513bf
-/lyn-plugin-detail/known-limitations-and-deferred-work/dev-note:
+/dsh-plugin-detail/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

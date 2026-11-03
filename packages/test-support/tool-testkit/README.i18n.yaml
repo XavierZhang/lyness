@@ -5,33 +5,33 @@
 /:
   en: 6c56a58c1397154b
   zh: 7e37b4f4915f0a75
-/lyness-lyn-tool-testkit:
+/deepseek-harness-dsh-tool-testkit:
   en: aee2ab579e8ae51f
   zh: b1e909e1659fc27b
-/lyness-lyn-tool-testkit/summary:
+/deepseek-harness-dsh-tool-testkit/summary:
   en: 36a296389a56ac64
   zh: f1aecbfb8f0ce528
-/lyness-lyn-tool-testkit/table-of-contents:
+/deepseek-harness-dsh-tool-testkit/table-of-contents:
   en: d152484eb41ac6b4
   zh: 1db86285abf6c499
-/lyness-lyn-tool-testkit/use-this-package:
+/deepseek-harness-dsh-tool-testkit/use-this-package:
   en: 62689d6b0a2c9fa6
   zh: 57942d5035007f16
-/lyness-lyn-tool-testkit/understand-the-implementation:
+/deepseek-harness-dsh-tool-testkit/understand-the-implementation:
   en: 236c624cc2445cd1
   zh: 60d9dbafe03332b9
-/lyness-lyn-tool-testkit/further-exploration:
+/deepseek-harness-dsh-tool-testkit/further-exploration:
   en: 9f502e30b4b0ccd8
   zh: 8295ba60061f480c
-/lyness-lyn-tool-testkit/model-experience:
+/deepseek-harness-dsh-tool-testkit/model-experience:
   en: 478835c82631e8c3
   zh: cb4f938bcaa046be
-/lyness-lyn-tool-testkit/model-experience/kv-cache-effect:
+/deepseek-harness-dsh-tool-testkit/model-experience/kv-cache-effect:
   en: be3fa044c8f27bf0
   zh: 35fdb79b58ba91f6
-/lyness-lyn-tool-testkit/known-limitations-and-deferred-work:
+/deepseek-harness-dsh-tool-testkit/known-limitations-and-deferred-work:
   en: c21236a743177477
   zh: 8cc8678c2133a8be
-/lyness-lyn-tool-testkit/known-limitations-and-deferred-work/dev-note:
+/deepseek-harness-dsh-tool-testkit/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: e88aeb617ffb74ea

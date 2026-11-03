@@ -3,13 +3,13 @@ description: "The shared viewer read: who is signed in, and which Settings plane
 kind: "package-reference"
 ---
 
-# @lyness/lyn-client-ui-viewer
+# @deepseek-ai/dsh-client-ui-viewer
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`lyn-client-ui-viewer` owns the browser's one answer to who is viewing. It reads `remote.identity`'s viewer once, shares that read with every surface that asks, and publishes a snapshot carrying the read's state, the viewer, and whether the administration plane belongs to them. It renders nothing of its own: the sign-in screen, the account row, and the Settings navigation's plane split all read this snapshot, so they cannot ask the deployment three times or show three different answers.
+`dsh-client-ui-viewer` owns the browser's one answer to who is viewing. It reads `remote.identity`'s viewer once, shares that read with every surface that asks, and publishes a snapshot carrying the read's state, the viewer, and whether the administration plane belongs to them. It renders nothing of its own: the sign-in screen, the account row, and the Settings navigation's plane split all read this snapshot, so they cannot ask the deployment three times or show three different answers.
 
 ## Table of Contents
 
@@ -29,9 +29,9 @@ Mount it beside the namespace it reads, before the surfaces that consume it:
 
 ```yaml
 - id: identity-controller
-  name: '@lyness/lyn-api-identity-controller'
+  name: '@deepseek-ai/dsh-api-identity-controller'
 - id: ui-viewer
-  name: '@lyness/lyn-client-ui-viewer'
+  name: '@deepseek-ai/dsh-client-ui-viewer'
 ```
 
 A surface declares `uiViewer` in its `inject`, hands `ctx.uiViewer.state` to its slot registration's `hooks` compartment as `viewer`, and calls `ctx.uiViewer.load()` when it mounts; its component then selects from the snapshot through the generated `useViewer` hook. A surface that may run in a composition without a directory reads the service through `ctx.get('uiViewer')` and decides what its absence means — the Settings shell offers every plane when nothing answers.
@@ -56,10 +56,10 @@ A surface declares `uiViewer` in its `inject`, hands `ctx.uiViewer.state` to its
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`lyn-api-identity-controller`](../../api/identity-controller/README.md) — the namespace this service reads.
-- [`lyn-client-ui-sign-in`](../ui-sign-in/README.md) — the screen and row that render this snapshot.
-- [`lyn-client-ui-settings`](../ui-settings/README.md) — where the two section-plane slots are declared.
-- [`lyn-api-remote-authority`](../../api/remote-authority/README.md) — what actually refuses a call the standing does not carry.
+- [`dsh-api-identity-controller`](../../api/identity-controller/README.md) — the namespace this service reads.
+- [`dsh-client-ui-sign-in`](../ui-sign-in/README.md) — the screen and row that render this snapshot.
+- [`dsh-client-ui-settings`](../ui-settings/README.md) — where the two section-plane slots are declared.
+- [`dsh-api-remote-authority`](../../api/remote-authority/README.md) — what actually refuses a call the standing does not carry.
 
 -----
 

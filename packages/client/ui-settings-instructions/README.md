@@ -3,13 +3,13 @@ description: "The instructions section in Settings: what a person tells their ow
 kind: "package-reference"
 ---
 
-# @lyness/lyn-client-ui-settings-instructions
+# @deepseek-ai/dsh-client-ui-settings-instructions
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`lyn-client-ui-settings-instructions` is the personal plane's instructions page: an editor for what a person tells their own agents, the count against what this deployment accepts, and one line saying a conversation already open keeps what it started with. It is a personal page rather than an administration one because the control is the person's own — nobody else sets this, and nothing here reports a decision somebody made for them.
+`dsh-client-ui-settings-instructions` is the personal plane's instructions page: an editor for what a person tells their own agents, the count against what this deployment accepts, and one line saying a conversation already open keeps what it started with. It is a personal page rather than an administration one because the control is the person's own — nobody else sets this, and nothing here reports a decision somebody made for them.
 
 ## Table of Contents
 
@@ -29,9 +29,9 @@ The Web bundle mounts it beside the namespace it reads:
 
 ```yaml
 - id: personal-instructions-controller
-  name: '@lyness/lyn-api-personal-instructions-controller'
+  name: '@deepseek-ai/dsh-api-personal-instructions-controller'
 - id: ui-settings-instructions
-  name: '@lyness/lyn-client-ui-settings-instructions'
+  name: '@deepseek-ai/dsh-client-ui-settings-instructions'
 ```
 
 Nothing else needs configuring. The section registers into `settings.section`, which is the personal plane, and appears for every reader.
@@ -56,16 +56,16 @@ Nothing else needs configuring. The section registers into `settings.section`, w
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`lyn-api-personal-instructions-controller`](../../api/personal-instructions-controller/README.md) — the namespace this page reads and writes.
-- [`lyn-personal-instructions`](../../identity/personal-instructions/README.md) — what the saved text then does.
-- [`lyn-client-ui-settings`](../ui-settings/README.md) — where the two section-plane slots are declared.
+- [`dsh-api-personal-instructions-controller`](../../api/personal-instructions-controller/README.md) — the namespace this page reads and writes.
+- [`dsh-personal-instructions`](../../identity/personal-instructions/README.md) — what the saved text then does.
+- [`dsh-client-ui-settings`](../ui-settings/README.md) — where the two section-plane slots are declared.
 
 -----
 
 <a id="model-experience"></a>
 ## Model Experience
 
-None, as this package registers no tool or prompt: it is an editor over a stored text, and `lyn-personal-instructions` owns how that text reaches a model request.
+None, as this package registers no tool or prompt: it is an editor over a stored text, and `dsh-personal-instructions` owns how that text reaches a model request.
 
 #### KV Cache effect
 

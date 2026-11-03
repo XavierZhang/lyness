@@ -21,22 +21,22 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterAll, afterEach, beforeAll, describe, expect, it } from 'vitest'
 import * as yaml from 'js-yaml'
-import { entryListSchema } from '@lyness/cordis-plugin-include'
-import { interpolate } from '@lyness/cordis-plugin-loader/src/config/utils.ts'
-import { Context } from '@lyness/cordis'
-import OTel from '@lyness/lyn-otel'
-import { recordFeedback } from '@lyness/lyn-command-feedback'
-import { createUserMessage } from '@lyness/lyn-llm'
-import MessageFeedbackService from '@lyness/lyn-message-feedback'
-import SessionStore from '@lyness/lyn-session'
-import OpenTelemetrySessionBackend, { type Config, SessionTelemetryMode } from '@lyness/lyn-session-telemetry-otel'
+import { entryListSchema } from '@deepseek-ai/cordis-plugin-include'
+import { interpolate } from '@deepseek-ai/cordis-plugin-loader/src/config/utils.ts'
+import { Context } from '@deepseek-ai/cordis'
+import OTel from '@deepseek-ai/dsh-otel'
+import { recordFeedback } from '@deepseek-ai/dsh-command-feedback'
+import { createUserMessage } from '@deepseek-ai/dsh-llm'
+import MessageFeedbackService from '@deepseek-ai/dsh-message-feedback'
+import SessionStore from '@deepseek-ai/dsh-session'
+import OpenTelemetrySessionBackend, { type Config, SessionTelemetryMode } from '@deepseek-ai/dsh-session-telemetry-otel'
 
 /** The telemetry variables an operator sets to opt a deployment in. */
 const OPT_IN_VARIABLES = [
-  'LYNESS_TELEMETRY_MODE',
-  'LYNESS_TELEMETRY_OTLP_URL',
-  'LYNESS_TELEMETRY_DISABLED',
-  'LYNESS_PRODUCT_ANALYTICS_OTLP_URL',
+  'DSH_TELEMETRY_MODE',
+  'DSH_TELEMETRY_OTLP_URL',
+  'DSH_TELEMETRY_DISABLED',
+  'DSH_PRODUCT_ANALYTICS_OTLP_URL',
   'OTEL_EXPORTER_OTLP_ENDPOINT',
   'OTEL_EXPORTER_OTLP_LOGS_ENDPOINT',
 ] as const
@@ -53,10 +53,10 @@ interface Row {
 /** Every row the shipped base patch inserts. */
 function shippedRows(): Row[] {
   const manifest = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8')) as {
-    lyn?: { bundle?: { patch?: string } }
+    dsh?: { bundle?: { patch?: string } }
   }
-  const patch = manifest.lyn?.bundle?.patch
-  if (patch === undefined) throw new Error('lyn-base declares no lyn.bundle.patch')
+  const patch = manifest.dsh?.bundle?.patch
+  if (patch === undefined) throw new Error('dsh-base declares no dsh.bundle.patch')
   const parsed = yaml.load(readFileSync(resolve(root, patch), 'utf8'), { schema: entryListSchema })
   return (parsed as { insert?: Row[] }[]).flatMap(entry => entry.insert ?? [])
 }
@@ -78,9 +78,9 @@ let previousHome: string | undefined
 const previousOptIns = new Map<string, string | undefined>()
 
 beforeAll(() => {
-  tempHome = mkdtempSync(join(tmpdir(), 'lyn-telemetry-silence-'))
-  previousHome = process.env.LYNESS_HOME
-  process.env.LYNESS_HOME = tempHome
+  tempHome = mkdtempSync(join(tmpdir(), 'dsh-telemetry-silence-'))
+  previousHome = process.env.DSH_HOME
+  process.env.DSH_HOME = tempHome
   // The default environment is the one a deployment gets with nothing set; an
   // ambient opt-in on the developer's machine must not weaken the assertion.
   for (const name of OPT_IN_VARIABLES) {
@@ -90,8 +90,8 @@ beforeAll(() => {
 })
 
 afterAll(() => {
-  if (previousHome === undefined) delete process.env.LYNESS_HOME
-  else process.env.LYNESS_HOME = previousHome
+  if (previousHome === undefined) delete process.env.DSH_HOME
+  else process.env.DSH_HOME = previousHome
   for (const [name, value] of previousOptIns) {
     if (value === undefined) Reflect.deleteProperty(process.env, name)
     else process.env[name] = value

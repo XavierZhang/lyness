@@ -6,7 +6,7 @@
  * accepts and another rejects would make the same JSON valid in one table and
  * malformed in the next.
  *
- * @module @lyness/lyn-storage-domain/records
+ * @module @deepseek-ai/dsh-storage-domain/records
  */
 
 import { z } from 'zod'

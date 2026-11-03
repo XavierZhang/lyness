@@ -12,9 +12,9 @@ Capabilities exist, are tested, and no shipped profile mounts them. [`tool-lsp`]
 
 So the composition is the product's feature list, and nobody decided it as one. Each row was added where it was needed and left where it landed.
 
-The packaging has the same shape, and it costs the platform its own upgrade path. A default capability is a **row inside a shipped patch**, not a package a deployment selects, so the only way the platform ships a fix to one is a new release of the whole product. [`lyn-plugin-manager`](../../../../packages/boot/plugin-manager/README.md) can already install, pin, version-check and revert a bundle from a registry, a Git host, a tarball or a path, and the launcher's `OPTIONAL_BUNDLES` already ships bundles switched off and unremovable — so the machinery for an independently upgradable module exists and the default modules are the one thing that does not use it.
+The packaging has the same shape, and it costs the platform its own upgrade path. A default capability is a **row inside a shipped patch**, not a package a deployment selects, so the only way the platform ships a fix to one is a new release of the whole product. [`dsh-plugin-manager`](../../../../packages/boot/plugin-manager/README.md) can already install, pin, version-check and revert a bundle from a registry, a Git host, a tarball or a path, and the launcher's `OPTIONAL_BUNDLES` already ships bundles switched off and unremovable — so the machinery for an independently upgradable module exists and the default modules are the one thing that does not use it.
 
-Two consequences follow for a hosted product. A customer cannot tell what the product does, because the answer differs per profile and is written in YAML. And a customer who replaces a module with a plugin has no way back: `lyn-base` disabling a row and a profile never mounting it look identical from the outside, so "return to the default" is not an operation that exists.
+Two consequences follow for a hosted product. A customer cannot tell what the product does, because the answer differs per profile and is written in YAML. And a customer who replaces a module with a plugin has no way back: `dsh-base` disabling a row and a profile never mounting it look identical from the outside, so "return to the default" is not an operation that exists.
 
 There is also no place to put the modules a hosted product needs and this tree has never had — a knowledge base, a catalog of the customer's own systems, and a record of who did what — and each would otherwise arrive as one more row in whichever profile the author happened to be editing.
 
@@ -42,7 +42,7 @@ Every core capability is enabled unless the customer's plan excludes it or the d
 
 A default module is a bundle the platform publishes, selected out of the box and not removable — the shape `OPTIONAL_BUNDLES` already has, minus the switched-off part. It is not a row inside a profile patch.
 
-This is what gives the platform the same upgrade path it gives a customer. A module ships, is fixed, and is upgraded through [`lyn-plugin-manager`](../../../../packages/boot/plugin-manager/README.md), under the same registry plan, the same LYN peer-version check before anything downloads, and the same rollback of manifest and lockfile on failure. The platform stops needing a release of the whole product to correct one module, and a customer on a slow upgrade cadence can still receive one.
+This is what gives the platform the same upgrade path it gives a customer. A module ships, is fixed, and is upgraded through [`dsh-plugin-manager`](../../../../packages/boot/plugin-manager/README.md), under the same registry plan, the same DSH peer-version check before anything downloads, and the same rollback of manifest and lockfile on failure. The platform stops needing a release of the whole product to correct one module, and a customer on a slow upgrade cadence can still receive one.
 
 It also makes "replace" and "revert" one mechanism instead of two. A customer's replacement and the platform's own version are both bundles competing for the same rows, resolved by the ordered bundle list that already decides this.
 
@@ -68,7 +68,7 @@ The split is not two applications. The business view is the default surface; the
 
 The arrangement follows what mainstream agent harnesses converged on, because customers arrive already knowing it: a left rail for workspaces and conversations, a center column for the conversation, and a right panel for the work's context — files, terminal, browser, preview — switched by tab. This tree already has those pieces ([`ui-sidebar`, `ui-sidebar-right`, and the files, terminal, browser and preview panels](../../../../packages/client/ui-sidebar-right/README.md)); what is missing is that they are arranged per profile rather than as the product's layout.
 
-The default UI is lyness's own. A tenant that customised its brand, or a private deployment that completed setup, replaces the identity inside that layout — the brand, not the arrangement, per [per-tenant brand](2026-10-07-per-tenant-brand.md).
+The default UI is DeepSeek Harness's own. A tenant that customised its brand, or a private deployment that completed setup, replaces the identity inside that layout — the brand, not the arrangement, per [per-tenant brand](2026-10-07-per-tenant-brand.md).
 
 ### Plugin authoring follows the existing cookbook
 
@@ -80,7 +80,7 @@ A plugin that replaces a default module is an ordinary package in this tree, and
 
 **Keep default modules as rows in the shipped patches.** It is today's packaging and costs nothing to keep. Rejected: it leaves the platform with no way to ship a module fix except a release of the whole product, and it makes a customer's replacement and the platform's own version two different mechanisms rather than two bundles in one ordered list.
 
-**Mount everything in `lyn-base`.** The simplest promotion, and one place to look. Rejected: `lyn-base` is shared by headless, SDK, ACP and app profiles, and a webhook ingress or a right-panel browser in a headless SDK run is weight nobody asked for. Promotion belongs in the profiles that serve people.
+**Mount everything in `dsh-base`.** The simplest promotion, and one place to look. Rejected: `dsh-base` is shared by headless, SDK, ACP and app profiles, and a webhook ingress or a right-panel browser in a headless SDK run is weight nobody asked for. Promotion belongs in the profiles that serve people.
 
 **Add the three new modules later.** The nine promotions are cheap; the new modules are real work. Rejected: a hosted product without knowledge, connectors, or an audit record is not sellable, and deferring them would park them in whichever profile their author was editing — the exact failure this note exists to fix.
 

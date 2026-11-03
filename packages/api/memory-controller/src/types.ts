@@ -1,6 +1,6 @@
 /**
  * Wire vocabulary of the personal memory surface.
- * @module @lyness/lyn-api-memory-controller/types
+ * @module @deepseek-ai/dsh-api-memory-controller/types
  */
 
 /** One remembered fact, as a person's own page shows it. */

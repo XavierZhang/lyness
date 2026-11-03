@@ -1,10 +1,10 @@
 // @vitest-environment jsdom
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { act, cleanup, render } from '@testing-library/react'
-import { createSnapshotStore } from '@lyness/lyn-client-store'
-import { bindSnapshotSelector } from '@lyness/lyn-client-test-runtime'
-import type { SessionListState } from '@lyness/lyn-api-session-controller/client'
-import type { SessionId } from '@lyness/lyn-session/types'
+import { createSnapshotStore } from '@deepseek-ai/dsh-client-store'
+import { bindSnapshotSelector } from '@deepseek-ai/dsh-client-test-runtime'
+import type { SessionListState } from '@deepseek-ai/dsh-api-session-controller/client'
+import type { SessionId } from '@deepseek-ai/dsh-session/types'
 import { DocumentTitle } from '../src/client/DocumentTitle.tsx'
 import type { MainPanelId, PanelInfo } from '../src/client/service.ts'
 
@@ -33,12 +33,12 @@ describe('DocumentTitle', () => {
   it('projects a durable title and restores the product title', () => {
     const { sessionId, sessions, props } = titleSources()
     document.title = 'stale title'
-    const mounted = render(<DocumentTitle {...props} productTitle="lyness" />)
-    expect(document.title).toBe('lyness')
+    const mounted = render(<DocumentTitle {...props} productTitle="DeepSeek Harness" />)
+    expect(document.title).toBe('HARNESS')
     act(() => { sessions.update((state) => { state.byId[sessionId]!.title = 'First title' }) })
-    expect(document.title).toBe('First title — lyness')
+    expect(document.title).toBe('First title — DeepSeek Harness')
     act(() => { sessions.update((state) => { state.byId[sessionId]!.title = 'Revised title' }) })
-    expect(document.title).toBe('Revised title — lyness')
+    expect(document.title).toBe('Revised title — DeepSeek Harness')
     act(() => {
       const state = sessions.getSnapshot()
       sessions.set({
@@ -46,18 +46,18 @@ describe('DocumentTitle', () => {
         byId: { ...state.byId, [sessionId]: { ...state.byId[sessionId]!, retainedBy: {} } },
       })
     })
-    expect(document.title).toBe('lyness')
+    expect(document.title).toBe('HARNESS')
     mounted.unmount()
-    expect(document.title).toBe('lyness')
+    expect(document.title).toBe('HARNESS')
   })
 
   it('uses the localized product title supplied by the frame', () => {
     const { sessionId, sessions, props } = titleSources()
     sessions.update((state) => { state.byId[sessionId]!.title = 'First title' })
-    const mounted = render(<DocumentTitle {...props} productTitle="LYN Local Build" />)
-    expect(document.title).toBe('First title — LYN Local Build')
+    const mounted = render(<DocumentTitle {...props} productTitle="DSH Local Build" />)
+    expect(document.title).toBe('First title — DSH Local Build')
     mounted.unmount()
-    expect(document.title).toBe('LYN Local Build')
+    expect(document.title).toBe('DSH Local Build')
   })
 
   it('keeps the product title across global panels and restores the latest Session title on return', () => {

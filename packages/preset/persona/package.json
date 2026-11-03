@@ -1,13 +1,13 @@
 {
-  "name": "@lyness/lyn-persona",
-  "description": "Composition-authored deployment persona section for the lyness",
+  "name": "@deepseek-ai/dsh-persona",
+  "description": "Composition-authored deployment persona section for the DeepSeek Harness",
   "version": "0.2.1-rc.3",
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/preset/persona"
   },
   "type": "module",
@@ -29,15 +29,15 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-system-prompt": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-system-prompt": "workspace:*"
   },
   "dependencies": {
-    "@lyness/schemastery": "workspace:~"
+    "@deepseek-ai/schemastery": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-scope": "workspace:*",
-    "@lyness/lyn-system-prompt": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-scope": "workspace:*",
+    "@deepseek-ai/dsh-system-prompt": "workspace:*"
   }
 }

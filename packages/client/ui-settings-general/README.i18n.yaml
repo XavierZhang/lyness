@@ -5,57 +5,57 @@
 /:
   en: 25c9582ac72af40e
   zh: 43d60325a6ae980e
-/lyness-lyn-client-ui-settings-general:
+/deepseek-harness-dsh-client-ui-settings-general:
   en: 97a313bed0e9b6d2
   zh: 0a6dbfa9a99b1a62
-/lyness-lyn-client-ui-settings-general/summary:
+/deepseek-harness-dsh-client-ui-settings-general/summary:
   en: 3845de97b14be355
   zh: 8a2e442fcc009865
-/lyness-lyn-client-ui-settings-general/table-of-contents:
+/deepseek-harness-dsh-client-ui-settings-general/table-of-contents:
   en: 83760d53b3ee5fb8
   zh: 30dd8802d4ffdcb7
-/lyness-lyn-client-ui-settings-general/use-this-package:
+/deepseek-harness-dsh-client-ui-settings-general/use-this-package:
   en: 5ab5c9f5455abb24
   zh: 129420bb4a9f8bfb
-/lyness-lyn-client-ui-settings-general/use-this-package/the-general-section:
+/deepseek-harness-dsh-client-ui-settings-general/use-this-package/the-general-section:
   en: 36a7211b3fae97df
   zh: 66148c69631d91cd
-/lyness-lyn-client-ui-settings-general/use-this-package/opening-the-configuration-file:
+/deepseek-harness-dsh-client-ui-settings-general/use-this-package/opening-the-configuration-file:
   en: 597df68b5913e8d7
   zh: bc9114f3e877679a
-/lyness-lyn-client-ui-settings-general/use-this-package/onboarding-steps:
+/deepseek-harness-dsh-client-ui-settings-general/use-this-package/onboarding-steps:
   en: ba55fe92bf49dc5a
   zh: 9a0e1345496a0ae6
-/lyness-lyn-client-ui-settings-general/understand-the-implementation:
+/deepseek-harness-dsh-client-ui-settings-general/understand-the-implementation:
   en: 1531b45780d0689f
   zh: 844548208c08a9c9
-/lyness-lyn-client-ui-settings-general/understand-the-implementation/ledger-projections:
+/deepseek-harness-dsh-client-ui-settings-general/understand-the-implementation/ledger-projections:
   en: 3e3c2c72f87e8b23
   zh: 12b10ba2d37c9077
-/lyness-lyn-client-ui-settings-general/understand-the-implementation/connection-recovery:
+/deepseek-harness-dsh-client-ui-settings-general/understand-the-implementation/connection-recovery:
   en: e37fb7df883ea356
   zh: c972524e56c6d6c2
-/lyness-lyn-client-ui-settings-general/understand-the-implementation/host-release-changes:
+/deepseek-harness-dsh-client-ui-settings-general/understand-the-implementation/host-release-changes:
   en: b667539f2ff169a0
   zh: c07ca606d167e89b
-/lyness-lyn-client-ui-settings-general/understand-the-implementation/document-availability:
+/deepseek-harness-dsh-client-ui-settings-general/understand-the-implementation/document-availability:
   en: ff1aec9eb1a87a79
   zh: eb91ab8bef59742d
-/lyness-lyn-client-ui-settings-general/understand-the-implementation/host-half:
+/deepseek-harness-dsh-client-ui-settings-general/understand-the-implementation/host-half:
   en: a4ab10718d86fdc8
   zh: 8554bc75370821a4
-/lyness-lyn-client-ui-settings-general/further-exploration:
+/deepseek-harness-dsh-client-ui-settings-general/further-exploration:
   en: e41633fc8aef13ed
   zh: bfd9713f4ede73d2
-/lyness-lyn-client-ui-settings-general/model-experience:
+/deepseek-harness-dsh-client-ui-settings-general/model-experience:
   en: 3120df665299c634
   zh: 1d9f365d091d0d2a
-/lyness-lyn-client-ui-settings-general/model-experience/kv-cache-effect:
+/deepseek-harness-dsh-client-ui-settings-general/model-experience/kv-cache-effect:
   en: ca75c51c89c2c9b0
   zh: de54f3467ef3b9be
-/lyness-lyn-client-ui-settings-general/known-limitations-and-deferred-work:
+/deepseek-harness-dsh-client-ui-settings-general/known-limitations-and-deferred-work:
   en: b04b2de0ec3624b9
   zh: d9b295d415937274
-/lyness-lyn-client-ui-settings-general/known-limitations-and-deferred-work/dev-note:
+/deepseek-harness-dsh-client-ui-settings-general/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

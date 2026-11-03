@@ -1,6 +1,6 @@
 /**
  * Strict Schedule decoding, replay, time validation, and framing.
- * @module @lyness/lyn-schedule
+ * @module @deepseek-ai/dsh-schedule
  */
 
 import { Temporal } from '@js-temporal/polyfill'
@@ -14,12 +14,12 @@ import {
   parseLocalCalendar,
   parseOffsetInstant,
   resolveLocalInstant,
-} from '@lyness/lyn-util-time'
+} from '@deepseek-ai/dsh-util-time'
 import type {
   InstantRejection, LocalCalendarRejection, LocalCalendarTime, TimeZoneRejection,
-} from '@lyness/lyn-util-time'
-import { SessionLogOffset } from '@lyness/lyn-session'
-import type { SessionEvent, SessionLogOffset as SessionLogOffsetType } from '@lyness/lyn-session'
+} from '@deepseek-ai/dsh-util-time'
+import { SessionLogOffset } from '@deepseek-ai/dsh-session'
+import type { SessionEvent, SessionLogOffset as SessionLogOffsetType } from '@deepseek-ai/dsh-session'
 import type {
   AfterScheduleRecord,
   AtInput,

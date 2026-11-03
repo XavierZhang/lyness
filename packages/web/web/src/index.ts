@@ -3,11 +3,11 @@
  * fetch. Duplicate ids are rejected. At execution time, a configured provider must exist and
  * be usable; without one, exactly one usable provider is required, so selection never depends
  * on registration order.
- * @module @lyness/lyn-web
+ * @module @deepseek-ai/dsh-web
  */
 
-import { Context, Service, type Volatile } from '@lyness/cordis'
-import z from '@lyness/schemastery'
+import { Context, Service, type Volatile } from '@deepseek-ai/cordis'
+import z from '@deepseek-ai/schemastery'
 import type {
   WebFetchProvider,
   WebFetchRequest,
@@ -32,7 +32,7 @@ export type {
   WebSearchSource,
 } from './types.ts'
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     web: WebRuntime
   }
@@ -76,7 +76,7 @@ export interface WebRuntimeConfig {
 export class WebRuntime extends Service {
   /**
    * Provider selection config. Operational env overrides feed the SAME fields:
-   * `$LYNESS_WEB_SEARCH_PROVIDER` / `$LYNESS_WEB_FETCH_PROVIDER` are equivalent to
+   * `$DSH_WEB_SEARCH_PROVIDER` / `$DSH_WEB_FETCH_PROVIDER` are equivalent to
    * `searchProvider` / `fetchProvider` and are NOT a hidden priority chain.
    */
   static Config = z.object({
@@ -91,8 +91,8 @@ export class WebRuntime extends Service {
 
   constructor(ctx: Context, private readonly config: WebRuntimeConfig) {
     super(ctx, 'web')
-    this.searchProviderEnv = process.env.LYNESS_WEB_SEARCH_PROVIDER
-    this.fetchProviderEnv = process.env.LYNESS_WEB_FETCH_PROVIDER
+    this.searchProviderEnv = process.env.DSH_WEB_SEARCH_PROVIDER
+    this.fetchProviderEnv = process.env.DSH_WEB_FETCH_PROVIDER
   }
 
   /**

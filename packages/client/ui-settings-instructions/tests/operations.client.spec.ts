@@ -4,9 +4,9 @@
  */
 
 import { describe, expect, it, vi } from 'vitest'
-import { RemoteError } from '@lyness/lyn-typert-protocol'
-import type { RemoteFailure } from '@lyness/lyn-typert-protocol'
-import type { InstructionsView } from '@lyness/lyn-api-personal-instructions-controller/types'
+import { RemoteError } from '@deepseek-ai/dsh-typert-protocol'
+import type { RemoteFailure } from '@deepseek-ai/dsh-typert-protocol'
+import type { InstructionsView } from '@deepseek-ai/dsh-api-personal-instructions-controller/types'
 import { createInstructionsOperations } from '../src/client/operations.ts'
 import type { InstructionsCalls, InstructionsSink } from '../src/client/operations.ts'
 

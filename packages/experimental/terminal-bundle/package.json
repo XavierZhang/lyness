@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/lyn-experimental-terminal-bundle",
+  "name": "@deepseek-ai/dsh-experimental-terminal-bundle",
   "description": "Keep shell processes alive across tool calls.",
   "version": "0.2.1-rc.3",
   "icon": "./icon.svg",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/experimental/terminal-bundle"
   },
   "type": "module",
@@ -33,20 +33,20 @@
     "lib/types/**/*.d.ts"
   ],
   "license": "MIT",
-  "lyn": {
+  "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml"
     }
   },
   "dependencies": {
-    "@lyness/lyn-terminal": "workspace:*",
-    "@lyness/lyn-terminal-bash": "workspace:*",
-    "@lyness/lyn-tool-terminal": "workspace:*"
+    "@deepseek-ai/dsh-terminal": "workspace:*",
+    "@deepseek-ai/dsh-terminal-bash": "workspace:*",
+    "@deepseek-ai/dsh-tool-terminal": "workspace:*"
   },
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~"
+    "@deepseek-ai/cordis": "workspace:~"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:~"
+    "@deepseek-ai/cordis": "workspace:~"
   }
 }

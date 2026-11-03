@@ -1,5 +1,5 @@
 {
-  "name": "@lyness/lyn-mcp-client",
+  "name": "@deepseek-ai/dsh-mcp-client",
   "description": "MCP client bridge: connects to MCP servers and registers their tools on ctx.tools",
   "version": "0.2.1-rc.3",
   "publishConfig": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/mcp/mcp-client"
   },
   "type": "module",
@@ -29,35 +29,35 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-attachment": "workspace:*",
-    "@lyness/lyn-llm": "workspace:*",
-    "@lyness/lyn-mcp-resources": "workspace:*",
-    "@lyness/lyn-scope": "workspace:*",
-    "@lyness/lyn-subprocess": "workspace:*",
-    "@lyness/lyn-system-prompt": "workspace:*",
-    "@lyness/lyn-timeout": "workspace:*",
-    "@lyness/lyn-tools": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-attachment": "workspace:*",
+    "@deepseek-ai/dsh-llm": "workspace:*",
+    "@deepseek-ai/dsh-mcp-resources": "workspace:*",
+    "@deepseek-ai/dsh-scope": "workspace:*",
+    "@deepseek-ai/dsh-subprocess": "workspace:*",
+    "@deepseek-ai/dsh-system-prompt": "workspace:*",
+    "@deepseek-ai/dsh-timeout": "workspace:*",
+    "@deepseek-ai/dsh-tools": "workspace:*"
   },
   "dependencies": {
-    "@lyness/lyn-util-values": "workspace:*",
-    "@lyness/schemastery": "workspace:~",
+    "@deepseek-ai/dsh-util-values": "workspace:*",
+    "@deepseek-ai/schemastery": "workspace:~",
     "@modelcontextprotocol/client": "2.2.0"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-attachment": "workspace:*",
-    "@lyness/lyn-attachment-local": "workspace:*",
-    "@lyness/lyn-http-proxy": "workspace:*",
-    "@lyness/lyn-llm": "workspace:*",
-    "@lyness/lyn-mcp-resources": "workspace:*",
-    "@lyness/lyn-scope": "workspace:*",
-    "@lyness/lyn-subprocess": "workspace:*",
-    "@lyness/lyn-system-prompt": "workspace:*",
-    "@lyness/lyn-timeout": "workspace:*",
-    "@lyness/lyn-tool-executor-native": "workspace:*",
-    "@lyness/lyn-tool-testkit": "workspace:*",
-    "@lyness/lyn-tools": "workspace:*",
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-attachment": "workspace:*",
+    "@deepseek-ai/dsh-attachment-local": "workspace:*",
+    "@deepseek-ai/dsh-http-proxy": "workspace:*",
+    "@deepseek-ai/dsh-llm": "workspace:*",
+    "@deepseek-ai/dsh-mcp-resources": "workspace:*",
+    "@deepseek-ai/dsh-scope": "workspace:*",
+    "@deepseek-ai/dsh-subprocess": "workspace:*",
+    "@deepseek-ai/dsh-system-prompt": "workspace:*",
+    "@deepseek-ai/dsh-timeout": "workspace:*",
+    "@deepseek-ai/dsh-tool-executor-native": "workspace:*",
+    "@deepseek-ai/dsh-tool-testkit": "workspace:*",
+    "@deepseek-ai/dsh-tools": "workspace:*",
     "@modelcontextprotocol/node": "2.0.0",
     "@modelcontextprotocol/server": "2.2.0",
     "@modelcontextprotocol/server-everything": "^2026.8.31",
@@ -65,10 +65,10 @@
     "zod": "4.4.3"
   },
   "peerDependenciesMeta": {
-    "@lyness/lyn-mcp-resources": {
+    "@deepseek-ai/dsh-mcp-resources": {
       "optional": true
     },
-    "@lyness/lyn-system-prompt": {
+    "@deepseek-ai/dsh-system-prompt": {
       "optional": true
     }
   }

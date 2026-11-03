@@ -11,22 +11,22 @@
 /agent-note-domain-kv-storage-capability-seam-and-the-workspace-entity/proposal:
   en: dcb8d6385ae6370d
   zh: 66e621bf9845fa6a
-/agent-note-domain-kv-storage-capability-seam-and-the-workspace-entity/proposal/lyn-storage-the-storage-hub:
+/agent-note-domain-kv-storage-capability-seam-and-the-workspace-entity/proposal/dsh-storage-the-storage-hub:
   en: 2beba524d6bdb83d
   zh: d65f5a212793c2db
-/agent-note-domain-kv-storage-capability-seam-and-the-workspace-entity/proposal/lyn-storage-json:
+/agent-note-domain-kv-storage-capability-seam-and-the-workspace-entity/proposal/dsh-storage-json:
   en: 3e32da1bda6bb915
   zh: 8bbaa0a74e599954
-/agent-note-domain-kv-storage-capability-seam-and-the-workspace-entity/proposal/lyn-storage-sqlite:
+/agent-note-domain-kv-storage-capability-seam-and-the-workspace-entity/proposal/dsh-storage-sqlite:
   en: 547018047c772faa
   zh: ee52e3ad973e5184
-/agent-note-domain-kv-storage-capability-seam-and-the-workspace-entity/proposal/lyn-domain-the-domain-data-form:
+/agent-note-domain-kv-storage-capability-seam-and-the-workspace-entity/proposal/dsh-domain-the-domain-data-form:
   en: d3364002c2dda2f4
   zh: 97cfa1706caa3fe4
 /agent-note-domain-kv-storage-capability-seam-and-the-workspace-entity/proposal/future-work-session-side-deletion-design-settled-not-implemented-this-phase:
   en: a3824326587b6539
   zh: 9736e3060bd57651
-/agent-note-domain-kv-storage-capability-seam-and-the-workspace-entity/proposal/lyn-workspace:
+/agent-note-domain-kv-storage-capability-seam-and-the-workspace-entity/proposal/dsh-workspace:
   en: 7dfb7408bc915e68
   zh: 28e3282090c8f089
 /agent-note-domain-kv-storage-capability-seam-and-the-workspace-entity/proposal/reuse-and-the-session-backend-migration-outlook:

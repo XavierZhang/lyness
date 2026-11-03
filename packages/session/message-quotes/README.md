@@ -3,13 +3,13 @@ description: "Quotation controls and Markdown blockquote presentation."
 kind: "package-reference"
 ---
 
-# @lyness/lyn-message-quotes
+# @deepseek-ai/dsh-message-quotes
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`lyn-message-quotes` registers quotation controls and transcript rendering on the Client. Messages retain ordinary Markdown text without quote metadata or content indexes.
+`dsh-message-quotes` registers quotation controls and transcript rendering on the Client. Messages retain ordinary Markdown text without quote metadata or content indexes.
 
 ## Table of Contents
 

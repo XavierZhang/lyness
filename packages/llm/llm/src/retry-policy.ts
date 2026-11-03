@@ -2,13 +2,13 @@
  * Provider-owned request-retry policy configuration and resolution.
  *
  * Adapters expose one resolved policy per registered provider route; the
- * optional lyn-llm-retry plugin executes it on the agent's failed-step extension point.
+ * optional dsh-llm-retry plugin executes it on the agent's failed-step extension point.
  *
- * @module @lyness/lyn-llm/retry-policy
+ * @module @deepseek-ai/dsh-llm/retry-policy
  */
 
-import z from '@lyness/schemastery'
-import { MAX_TIMER_DELAY_MS } from '@lyness/lyn-timeout'
+import z from '@deepseek-ai/schemastery'
+import { MAX_TIMER_DELAY_MS } from '@deepseek-ai/dsh-timeout'
 import { EMPTY_RESPONSE_CODE } from './error.ts'
 
 const DEFAULT_MAX_RETRIES = 5

@@ -3,13 +3,13 @@ description: "部署的管理员在运行时维护的人员与准入绑定，叠
 kind: "package-reference"
 ---
 
-# @lyness/lyn-managed-people
+# @deepseek-ai/dsh-managed-people
 
 [English](README.md) | 中文
 
 ## 概述
 
-`lyn-managed-people` 是一个部署跑起来之后，它的人从哪里来。composition 仍然写下第一个人——空系统里没有管理员来添加第一个管理员——此后每一个都通过界面添加：一个人、他的身份，以及被准入为他的那些目录身份。写下的那一半在每次查找中优先，并且不能在这里改动，因为下一次启动会重新读那个文件。它提供「带账户的部署」要问的两个问题的两端：`ctx.people` 说谁存在、各自能做什么，`ctx.signInAdmission` 说某个已验证的目录主体是其中的哪一个。
+`dsh-managed-people` 是一个部署跑起来之后，它的人从哪里来。composition 仍然写下第一个人——空系统里没有管理员来添加第一个管理员——此后每一个都通过界面添加：一个人、他的身份，以及被准入为他的那些目录身份。写下的那一半在每次查找中优先，并且不能在这里改动，因为下一次启动会重新读那个文件。它提供「带账户的部署」要问的两个问题的两端：`ctx.people` 说谁存在、各自能做什么，`ctx.signInAdmission` 说某个已验证的目录主体是其中的哪一个。
 
 ## 目录
 
@@ -29,16 +29,16 @@ kind: "package-reference"
 
 ```yaml
 - id: managed-people
-  name: '@lyness/lyn-managed-people'
+  name: '@deepseek-ai/dsh-managed-people'
 - id: people
-  name: '@lyness/lyn-managed-people/directory'
+  name: '@deepseek-ai/dsh-managed-people/directory'
   config:
     people:
       - id: ada
         displayName: Ada
         role: platform-administrator
 - id: sign-in-admission
-  name: '@lyness/lyn-managed-people/admission'
+  name: '@deepseek-ai/dsh-managed-people/admission'
   config:
     bindings: []
 ```
@@ -48,9 +48,9 @@ kind: "package-reference"
 管理员添加一个人，以及以他身份登录的目录身份：
 
 ```ts
-import type { Context } from '@lyness/cordis'
-import type {} from '@lyness/lyn-managed-people'
-import type { Membership } from '@lyness/lyn-people'
+import type { Context } from '@deepseek-ai/cordis'
+import type {} from '@deepseek-ai/dsh-managed-people'
+import type { Membership } from '@deepseek-ai/dsh-people'
 
 declare const ctx: Context
 declare const by: Membership
@@ -79,7 +79,7 @@ await ctx.managedPeople.bind({
 
 **身份标识从不移动。** 成员身份 id 只由人的 id 推出，因此改变某人的角色不会改变一个已打开会话所记的成员身份 id——身份 id 移动了的会话会变成「没有身份」，而不是「换了身份」。
 
-**每一次更改都先记在别处，再从这里读回来。** 目录存的是现在什么是真的；[`lyn-admin-audit`](../admin-audit/README.zh.md) 存的是谁改了它、那次更改替换掉了什么——一个角色、一个名字，或者某个目录身份以谁的名义登录。它是硬注入，所以一个管理人员却不保留他们历史的部署会加载不起来，而不是默默什么都不记。移除一个人时，跟他一起走的那些绑定也被记下来，顺序就是那个操作做事的顺序。
+**每一次更改都先记在别处，再从这里读回来。** 目录存的是现在什么是真的；[`dsh-admin-audit`](../admin-audit/README.zh.md) 存的是谁改了它、那次更改替换掉了什么——一个角色、一个名字，或者某个目录身份以谁的名义登录。它是硬注入，所以一个管理人员却不保留他们历史的部署会加载不起来，而不是默默什么都不记。移除一个人时，跟他一起走的那些绑定也被记下来，顺序就是那个操作做事的顺序。
 
 **人员 id 不复用。** 被移除的人连同他的 id 一起退场，于是他开过的对话仍归属于一个不再登录的人，而不会归到下一个被添加的人头上。
 
@@ -88,11 +88,11 @@ await ctx.managedPeople.bind({
 <a id="further-exploration"></a>
 ## 进一步探索
 
-- [`lyn-admin-audit`](../admin-audit/README.zh.md) —— 这里每一次更改被记进的那份记录。
-- [`lyn-people`](../people/README.zh.md) —— 它提供的目录，以及它读取的静态名册。
-- [`lyn-sign-in`](../sign-in/README.zh.md) —— 它提供的准入规则，以及它读取的名册规则。
-- [`lyn-sign-in-channels`](../sign-in-channels/README.zh.md) —— 绑定所指名的渠道。
-- [`lyn-module-accounts`](../../bundle/module-accounts/README.zh.md) —— 把这一切选上的那份 composition。
+- [`dsh-admin-audit`](../admin-audit/README.zh.md) —— 这里每一次更改被记进的那份记录。
+- [`dsh-people`](../people/README.zh.md) —— 它提供的目录，以及它读取的静态名册。
+- [`dsh-sign-in`](../sign-in/README.zh.md) —— 它提供的准入规则，以及它读取的名册规则。
+- [`dsh-sign-in-channels`](../sign-in-channels/README.zh.md) —— 绑定所指名的渠道。
+- [`dsh-module-accounts`](../../bundle/module-accounts/README.zh.md) —— 把这一切选上的那份 composition。
 
 -----
 

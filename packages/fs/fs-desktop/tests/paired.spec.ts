@@ -11,24 +11,24 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { afterEach, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import Loader from '@lyness/cordis-plugin-loader'
-import Include from '@lyness/cordis-plugin-include'
-import { DesktopExecutor } from '@lyness/lyn-desktop-link/executor'
-import type { DesktopReply } from '@lyness/lyn-desktop-link'
-import DesktopLink from '@lyness/lyn-desktop-link'
-import LocalFileSystem from '@lyness/lyn-fs-local'
-import SessionStore from '@lyness/lyn-session'
-import SessionProjectionRegistry from '@lyness/lyn-session-projection'
-import Storage from '@lyness/lyn-storage'
-import * as StorageJson from '@lyness/lyn-storage-json'
-import * as StorageDomain from '@lyness/lyn-storage-domain'
-import * as StoredAuthSessions from '@lyness/lyn-auth-session/store'
-import * as RequestPrincipal from '@lyness/lyn-request-principal'
-import { IDENTITY_COOKIE } from '@lyness/lyn-request-principal'
-import * as SessionOwnership from '@lyness/lyn-session-ownership'
-import { brandString } from '@lyness/lyn-brand'
-import type { PersonId } from '@lyness/lyn-people'
+import { Context } from '@deepseek-ai/cordis'
+import Loader from '@deepseek-ai/cordis-plugin-loader'
+import Include from '@deepseek-ai/cordis-plugin-include'
+import { DesktopExecutor } from '@deepseek-ai/dsh-desktop-link/executor'
+import type { DesktopReply } from '@deepseek-ai/dsh-desktop-link'
+import DesktopLink from '@deepseek-ai/dsh-desktop-link'
+import LocalFileSystem from '@deepseek-ai/dsh-fs-local'
+import SessionStore from '@deepseek-ai/dsh-session'
+import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
+import Storage from '@deepseek-ai/dsh-storage'
+import * as StorageJson from '@deepseek-ai/dsh-storage-json'
+import * as StorageDomain from '@deepseek-ai/dsh-storage-domain'
+import * as StoredAuthSessions from '@deepseek-ai/dsh-auth-session/store'
+import * as RequestPrincipal from '@deepseek-ai/dsh-request-principal'
+import { IDENTITY_COOKIE } from '@deepseek-ai/dsh-request-principal'
+import * as SessionOwnership from '@deepseek-ai/dsh-session-ownership'
+import { brandString } from '@deepseek-ai/dsh-brand'
+import type { PersonId } from '@deepseek-ai/dsh-people'
 import DesktopFileSystem from '../src/index.ts'
 import { desktopFsHandler } from '../src/handler.ts'
 
@@ -83,27 +83,27 @@ class Uplink implements AsyncIterable<DesktopReply> {
 
 /** Boot the server, the desktop, and the link between them. */
 async function pair(): Promise<{ server: Context; scopes: Scope[]; workspace: string }> {
-  root = await mkdtemp(join(tmpdir(), 'lyn-fs-desktop-'))
+  root = await mkdtemp(join(tmpdir(), 'dsh-fs-desktop-'))
   await mkdir(join(root, 'workspace'), { recursive: true })
   // macOS puts the temp root behind a symlink; the desktop reports realpaths,
   // so the test compares against the same resolution its backend performs.
   const workspace = await realpath(join(root, 'workspace'))
   const configPath = join(root, 'cordis.yml')
   await writeFile(configPath, [
-    "- name: '@lyness/lyn-session'",
-    "- name: '@lyness/lyn-session-projection'",
-    "- name: '@lyness/lyn-storage'",
-    "- name: '@lyness/lyn-storage-json'",
+    "- name: '@deepseek-ai/dsh-session'",
+    "- name: '@deepseek-ai/dsh-session-projection'",
+    "- name: '@deepseek-ai/dsh-storage'",
+    "- name: '@deepseek-ai/dsh-storage-json'",
     '  config:',
     `    root: ${JSON.stringify(join(root, 'state'))}`,
-    "- name: '@lyness/lyn-storage-domain'",
+    "- name: '@deepseek-ai/dsh-storage-domain'",
     '  config:',
     '    backend: json',
-    "- name: '@lyness/lyn-auth-session/store'",
-    "- name: '@lyness/lyn-request-principal'",
-    "- name: '@lyness/lyn-session-ownership'",
-    "- name: '@lyness/lyn-desktop-link'",
-    "- name: '@lyness/lyn-fs-desktop'",
+    "- name: '@deepseek-ai/dsh-auth-session/store'",
+    "- name: '@deepseek-ai/dsh-request-principal'",
+    "- name: '@deepseek-ai/dsh-session-ownership'",
+    "- name: '@deepseek-ai/dsh-desktop-link'",
+    "- name: '@deepseek-ai/dsh-fs-desktop'",
     '',
   ].join('\n'))
 
@@ -117,16 +117,16 @@ async function pair(): Promise<{ server: Context; scopes: Scope[]; workspace: st
   await server.plugin(Loader)
   server.loader.builtins.include = Include
   const modules = new Map<string, unknown>([
-    ['@lyness/lyn-session', SessionStore],
-    ['@lyness/lyn-session-projection', SessionProjectionRegistry],
-    ['@lyness/lyn-storage', Storage],
-    ['@lyness/lyn-storage-json', StorageJson],
-    ['@lyness/lyn-storage-domain', StorageDomain],
-    ['@lyness/lyn-auth-session/store', StoredAuthSessions],
-    ['@lyness/lyn-request-principal', RequestPrincipal],
-    ['@lyness/lyn-session-ownership', SessionOwnership],
-    ['@lyness/lyn-desktop-link', DesktopLink],
-    ['@lyness/lyn-fs-desktop', DesktopFileSystem],
+    ['@deepseek-ai/dsh-session', SessionStore],
+    ['@deepseek-ai/dsh-session-projection', SessionProjectionRegistry],
+    ['@deepseek-ai/dsh-storage', Storage],
+    ['@deepseek-ai/dsh-storage-json', StorageJson],
+    ['@deepseek-ai/dsh-storage-domain', StorageDomain],
+    ['@deepseek-ai/dsh-auth-session/store', StoredAuthSessions],
+    ['@deepseek-ai/dsh-request-principal', RequestPrincipal],
+    ['@deepseek-ai/dsh-session-ownership', SessionOwnership],
+    ['@deepseek-ai/dsh-desktop-link', DesktopLink],
+    ['@deepseek-ai/dsh-fs-desktop', DesktopFileSystem],
   ])
   const base = server.loader.internal
   if (base === undefined) throw new Error('this Node build exposes no internal module loader')

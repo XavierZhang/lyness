@@ -2,7 +2,7 @@
  * Copy for the history section: what administrators changed, who changed it,
  * and what the change replaced.
  *
- * @module @lyness/lyn-client-ui-settings-history/client/locales
+ * @module @deepseek-ai/dsh-client-ui-settings-history/client/locales
  */
 
 /** English copy; the key set every locale answers. */

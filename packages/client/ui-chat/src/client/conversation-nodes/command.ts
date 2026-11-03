@@ -1,11 +1,11 @@
-import type { Context } from '@lyness/cordis'
+import type { Context } from '@deepseek-ai/cordis'
 import type {
   CommandNode, CompactionSummaryNode, ConversationMatch, ConversationNodeContext, ConversationNodeDefinition,
-} from '@lyness/lyn-client-ui-conversation/client'
-import type { CompactionCheckpointSource } from '@lyness/lyn-compaction/checkpoint'
-import type {} from '@lyness/lyn-compaction/types'
-import type {} from '@lyness/lyn-commands/types'
-import { isReplacementSurfaceEvent } from '@lyness/lyn-session/surface'
+} from '@deepseek-ai/dsh-client-ui-conversation/client'
+import type { CompactionCheckpointSource } from '@deepseek-ai/dsh-compaction/checkpoint'
+import type {} from '@deepseek-ai/dsh-compaction/types'
+import type {} from '@deepseek-ai/dsh-commands/types'
+import { isReplacementSurfaceEvent } from '@deepseek-ai/dsh-session/surface'
 import type { ManualCompactionChatData } from '../contract/chat-nodes.ts'
 import { chatNode } from './common.ts'
 

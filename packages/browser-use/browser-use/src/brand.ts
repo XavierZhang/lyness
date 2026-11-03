@@ -1,6 +1,6 @@
-/** Browser-use provider identities. @module @lyness/lyn-browser-use/brand */
+/** Browser-use provider identities. @module @deepseek-ai/dsh-browser-use/brand */
 
-import type { Branded } from '@lyness/lyn-brand'
+import type { Branded } from '@deepseek-ai/dsh-brand'
 
 /** Provider-owned name identifying a browser-use registration. */
 export type BrowserUseProviderName = Branded<'BrowserUseProviderName'>

@@ -11,4 +11,4 @@ header:
 replay:
   override: true
 environment:
-  LYNESS_SUBAGENT_PUBLISHED_FAILURE: '1'
+  DSH_SUBAGENT_PUBLISHED_FAILURE: '1'

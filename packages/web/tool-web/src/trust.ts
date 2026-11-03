@@ -1,6 +1,6 @@
 /**
  * Model-visible labeling shared by web tools.
- * @module @lyness/lyn-tool-web/trust
+ * @module @deepseek-ai/dsh-tool-web/trust
  */
 
 /** Prefix that keeps provider-controlled text visibly outside agent instructions. */

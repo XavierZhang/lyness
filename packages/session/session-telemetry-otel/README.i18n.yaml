@@ -5,57 +5,57 @@
 /:
   en: 356614b4af1ad375
   zh: f76a068b5f056574
-/lyness-lyn-session-telemetry-otel:
+/deepseek-harness-dsh-session-telemetry-otel:
   en: 74685945157a5099
   zh: 0025ff3675538a0f
-/lyness-lyn-session-telemetry-otel/summary:
+/deepseek-harness-dsh-session-telemetry-otel/summary:
   en: 9f4f27f1180e4a31
   zh: 7935bed2ad180f64
-/lyness-lyn-session-telemetry-otel/table-of-contents:
+/deepseek-harness-dsh-session-telemetry-otel/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/lyness-lyn-session-telemetry-otel/use-this-package:
+/deepseek-harness-dsh-session-telemetry-otel/use-this-package:
   en: 9b82f2819ddaa3f4
   zh: b6ad90b11e7e0ef7
-/lyness-lyn-session-telemetry-otel/use-this-package/modes:
+/deepseek-harness-dsh-session-telemetry-otel/use-this-package/modes:
   en: 45d1c53bcf2172a8
   zh: 9ac76bb9bf330f16
-/lyness-lyn-session-telemetry-otel/use-this-package/minimal-configuration:
+/deepseek-harness-dsh-session-telemetry-otel/use-this-package/minimal-configuration:
   en: 11845fd50dc0a494
   zh: ee990bfca3621bd3
-/lyness-lyn-session-telemetry-otel/use-this-package/what-leaves-the-machine:
+/deepseek-harness-dsh-session-telemetry-otel/use-this-package/what-leaves-the-machine:
   en: a91be4ae97c627da
   zh: e900d776a761d305
-/lyness-lyn-session-telemetry-otel/use-this-package/failures-and-shutdown:
+/deepseek-harness-dsh-session-telemetry-otel/use-this-package/failures-and-shutdown:
   en: a66831cb9de57e04
   zh: 3ada28bb868e0932
-/lyness-lyn-session-telemetry-otel/understand-the-implementation:
+/deepseek-harness-dsh-session-telemetry-otel/understand-the-implementation:
   en: ee672a6a6f0fa02d
   zh: c3bab8e6b60e768c
-/lyness-lyn-session-telemetry-otel/understand-the-implementation/design-concept:
+/deepseek-harness-dsh-session-telemetry-otel/understand-the-implementation/design-concept:
   en: 34f8a88224a1f6cf
   zh: 40839dabaea39602
-/lyness-lyn-session-telemetry-otel/understand-the-implementation/source-map:
+/deepseek-harness-dsh-session-telemetry-otel/understand-the-implementation/source-map:
   en: 0b99d2e5c27213cd
   zh: 3cbdaa7f6a45d81a
-/lyness-lyn-session-telemetry-otel/understand-the-implementation/capture-wiring:
+/deepseek-harness-dsh-session-telemetry-otel/understand-the-implementation/capture-wiring:
   en: 5c85eb0992eb5b2b
   zh: a19cdd5814c0e2b9
-/lyness-lyn-session-telemetry-otel/understand-the-implementation/field-mapping:
+/deepseek-harness-dsh-session-telemetry-otel/understand-the-implementation/field-mapping:
   en: a42e9e081fb93bee
   zh: b8e817c2455278b9
-/lyness-lyn-session-telemetry-otel/further-exploration:
+/deepseek-harness-dsh-session-telemetry-otel/further-exploration:
   en: c38f4f1f4683d551
   zh: 3fb4c48c748b7b09
-/lyness-lyn-session-telemetry-otel/model-experience:
+/deepseek-harness-dsh-session-telemetry-otel/model-experience:
   en: a5a1c890ddacd9a9
   zh: 019c0d113e141853
-/lyness-lyn-session-telemetry-otel/model-experience/kv-cache-effect:
+/deepseek-harness-dsh-session-telemetry-otel/model-experience/kv-cache-effect:
   en: 7593cf5d0d2cedd6
   zh: f57cc48a1b5cbfa9
-/lyness-lyn-session-telemetry-otel/known-limitations-and-deferred-work:
+/deepseek-harness-dsh-session-telemetry-otel/known-limitations-and-deferred-work:
   en: 2267af88e7237c07
   zh: 6cde91237f98dea7
-/lyness-lyn-session-telemetry-otel/known-limitations-and-deferred-work/dev-note:
+/deepseek-harness-dsh-session-telemetry-otel/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

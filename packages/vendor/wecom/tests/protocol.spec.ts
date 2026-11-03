@@ -50,21 +50,21 @@ const resolved = resolveConfig(config())
 
 describe('the page a sign-in sends the browser to', () => {
   it('names the corporation, the application, the callback, and the attempt', () => {
-    const url = authorizeUrl(resolved, 'attempt-1', 'https://lyn.example/oauth/callback/wecom')
+    const url = authorizeUrl(resolved, 'attempt-1', 'https://dsh.example/oauth/callback/wecom')
     expect(url.origin).toBe('https://login.work.weixin.qq.com')
     expect(url.pathname).toBe('/wwlogin/sso/login')
     expect(Object.fromEntries(url.searchParams)).toEqual({
       login_type: 'CorpApp',
       appid: 'ww-acme',
       agentid: '1000002',
-      redirect_uri: 'https://lyn.example/oauth/callback/wecom',
+      redirect_uri: 'https://dsh.example/oauth/callback/wecom',
       state: 'attempt-1',
     })
   })
 
   it('goes to the host a private deployment names instead', () => {
     const own = resolveConfig(config({ loginHost: 'login.wecom.acme.internal' }))
-    expect(authorizeUrl(own, 's', 'https://lyn.example/cb').origin).toBe('https://login.wecom.acme.internal')
+    expect(authorizeUrl(own, 's', 'https://dsh.example/cb').origin).toBe('https://login.wecom.acme.internal')
   })
 })
 

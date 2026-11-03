@@ -3,7 +3,7 @@
  *
  * Types only — no runtime code, and nothing here reaches a Host-only symbol,
  * so a Client compilation face reads exactly the signatures the Host emits.
- * @module @lyness/lyn-tenant/types
+ * @module @deepseek-ai/dsh-tenant/types
  */
 
 import type { TenantId } from './brand.ts'

@@ -6,8 +6,8 @@ from pathlib import Path
 
 import pytest
 
-from lyness import Lyness
-from lyness.errors import JsonRpcError
+from DeepSeek Harness import DeepSeekHarness
+from DeepSeek Harness.errors import JsonRpcError
 
 
 @pytest.mark.parametrize("outcome", ["restored", "missing"])
@@ -42,7 +42,7 @@ for line in sys.stdin:
 """,
         encoding="utf-8",
     )
-    with Lyness(
+    with DeepSeekHarness(
         _launch_args=(sys.executable, str(script)),
         env={"OUTCOME": outcome, "REQUESTS": str(requests)},
     ) as harness:

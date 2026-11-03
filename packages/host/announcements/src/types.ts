@@ -1,7 +1,7 @@
 /**
  * Vocabulary for what a deployment tells the people using it.
  *
- * @module @lyness/lyn-announcements/types
+ * @module @deepseek-ai/dsh-announcements/types
  */
 
 /** Opaque, operator-chosen identity of one announcement. */

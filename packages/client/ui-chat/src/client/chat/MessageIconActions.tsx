@@ -4,7 +4,7 @@
 import { useId, type ReactNode } from 'react'
 import {
   IconBranchOutlineRegular, IconCheckOutlineRegular, IconCopyOutlineRegular, Tooltip, useClipboardCopy,
-} from '@lyness/lyn-client-ui-primitives'
+} from '@deepseek-ai/dsh-client-ui-primitives'
 import type { ChatViewSlotProps } from '../contract/slots.ts'
 import { formatMessageClock } from './message-chrome.ts'
 import { useCalendarDay } from './use-calendar-day.ts'

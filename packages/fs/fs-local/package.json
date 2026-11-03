@@ -1,13 +1,13 @@
 {
-  "name": "@lyness/lyn-fs-local",
-  "description": "Local-filesystem implementation of the lyness filesystem seam (ctx.fs)",
+  "name": "@deepseek-ai/dsh-fs-local",
+  "description": "Local-filesystem implementation of the DeepSeek Harness filesystem seam (ctx.fs)",
   "version": "0.2.1-rc.3",
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XavierZhang/lyness.git",
+    "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
     "directory": "packages/fs/fs-local"
   },
   "type": "module",
@@ -29,17 +29,17 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-fs": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-fs": "workspace:*"
   },
   "dependencies": {
-    "@lyness/schemastery": "workspace:~",
+    "@deepseek-ai/schemastery": "workspace:~",
     "chokidar": "5.0.0",
     "koffi": "3.1.1"
   },
   "devDependencies": {
-    "@lyness/cordis": "workspace:~",
-    "@lyness/lyn-fs": "workspace:*",
-    "@lyness/lyn-llm": "workspace:*"
+    "@deepseek-ai/cordis": "workspace:~",
+    "@deepseek-ai/dsh-fs": "workspace:*",
+    "@deepseek-ai/dsh-llm": "workspace:*"
   }
 }

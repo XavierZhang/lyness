@@ -1,7 +1,7 @@
-/** Durable attachment storage seam (`ctx.attachments`). @module @lyness/lyn-attachment */
+/** Durable attachment storage seam (`ctx.attachments`). @module @deepseek-ai/dsh-attachment */
 
 import { Buffer } from 'node:buffer'
-import { Context, Service } from '@lyness/cordis'
+import { Context, Service } from '@deepseek-ai/cordis'
 import { admitEncodedFile as admitFileInput, admitEncodedImages } from './admission.ts'
 import { AttachmentError, isAttachmentError as matchesAttachmentError } from './error.ts'
 import type {
@@ -45,7 +45,7 @@ export type {
   StoredImageAttachment,
 } from './types.ts'
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     attachments: AttachmentStore
   }

@@ -1,6 +1,6 @@
 import { fileURLToPath } from 'node:url'
 import { expect, it } from 'vitest'
-import { runLoaderSmoke } from '@lyness/lyn-loader-smoke'
+import { runLoaderSmoke } from '@deepseek-ai/dsh-loader-smoke'
 
 const driver = fileURLToPath(new URL('./fixtures/loader/driver.ts', import.meta.url))
 const configPath = fileURLToPath(new URL('./fixtures/loader/composition.patch.yml', import.meta.url))
@@ -8,7 +8,7 @@ const configPath = fileURLToPath(new URL('./fixtures/loader/composition.patch.ym
 it('composes OAR providers and their tool through Loader without probing or starting installed agents', { timeout: 75_000, retry: 0 }, async () => {
   const { stdout, stderr } = await runLoaderSmoke({
     label: 'experimental OAR provider and tool Loader composition',
-    tempDirPrefix: 'lyn-oar-loader-',
+    tempDirPrefix: 'dsh-oar-loader-',
     binScript: driver,
     libBinScript: driver,
     configPath,

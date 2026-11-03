@@ -22,22 +22,22 @@ const root = resolve(import.meta.dirname, '..')
 
 /** Text whose forward rename shares its result with another rule's, or runs through a shield. */
 const AMBIGUOUS_TEXT: readonly string[] = [
-  '@lyness/lyn-session imports @lyness/lyn-agent',
-  'const home = process.env.LYNESS_HOME',
-  'lyn_home=str(lyn_home)',
-  'export const IDENTITY_COOKIE = \'lyn_identity\'',
-  'the lyness-sdk-runtime-darwin-arm64 executable',
-  'import lyness_runtime from the wheel',
-  'mkdtempSync(join(tmpdir(), \'lyn-persistence-formats-\'))',
-  '~/.lyn holds the LYNESS_HOME profile',
+  '@deepseek-ai/dsh-session imports @deepseek-ai/dsh-agent',
+  'const home = process.env.DSH_HOME',
+  'dsh_home=str(dsh_home)',
+  'export const IDENTITY_COOKIE = \'dsh_identity\'',
+  'the deepseek-harness-sdk-runtime-darwin-arm64 executable',
+  'import deepseek_harness_runtime from the wheel',
+  'mkdtempSync(join(tmpdir(), \'dsh-persistence-formats-\'))',
+  '~/.dsh holds the DSH_HOME profile',
 ]
 
 /** Paths whose product segment carries no separator, so only the path rule can place it. */
 const PATHS: readonly string[] = [
-  'packages/client/ui-brand-lyness/src/client/Brand.tsx',
-  'python/sdk/src/lyness/client.py',
-  'python/sdk-runtime/src/lyness_runtime/_resources.py',
-  '.agents/notes/implemented/architecture/2026-09-15-lyness-brand-in-the-web-client.md',
+  'packages/client/ui-brand-deepseek-harness/src/client/Brand.tsx',
+  'python/sdk/src/deepseek_harness/client.py',
+  'python/sdk-runtime/src/deepseek_harness_runtime/_resources.py',
+  '.agents/notes/implemented/architecture/2026-09-15-deepseek-harness-brand-in-the-web-client.md',
   'packages/llm/llm-deepseek/src/index.ts',
 ]
 

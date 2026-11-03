@@ -10,11 +10,11 @@
  * a key that names them. The partition carries the owner, so the stored
  * record keeps the fields it always had.
  *
- * @module @lyness/lyn-memory/storage
+ * @module @deepseek-ai/dsh-memory/storage
  */
 
 import { z } from 'zod'
-import { defineDomain, domainTable, storedInstant } from '@lyness/lyn-storage-domain'
+import { defineDomain, domainTable, storedInstant } from '@deepseek-ai/dsh-storage-domain'
 import type { MemoryEntry, MemoryId, MemoryPartitionKey } from './types.ts'
 
 /** Largest accepted entry, in UTF-16 code units. A memory is a fact, not a document. */

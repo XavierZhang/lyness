@@ -8,17 +8,17 @@ import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import Storage from '@lyness/lyn-storage'
-import * as StorageJson from '@lyness/lyn-storage-json'
-import * as StorageDomain from '@lyness/lyn-storage-domain'
-import SignIn from '@lyness/lyn-sign-in'
-import ChannelKindRegistry from '@lyness/lyn-sign-in/kinds'
-import type { ChannelKind, ConfiguredChannel } from '@lyness/lyn-sign-in/kinds'
-import type { SignInChannel } from '@lyness/lyn-sign-in'
-import { brandString } from '@lyness/lyn-brand'
-import type { Membership, MembershipId, PersonId, Role } from '@lyness/lyn-people'
-import AdminAudit from '@lyness/lyn-admin-audit'
+import { Context } from '@deepseek-ai/cordis'
+import Storage from '@deepseek-ai/dsh-storage'
+import * as StorageJson from '@deepseek-ai/dsh-storage-json'
+import * as StorageDomain from '@deepseek-ai/dsh-storage-domain'
+import SignIn from '@deepseek-ai/dsh-sign-in'
+import ChannelKindRegistry from '@deepseek-ai/dsh-sign-in/kinds'
+import type { ChannelKind, ConfiguredChannel } from '@deepseek-ai/dsh-sign-in/kinds'
+import type { SignInChannel } from '@deepseek-ai/dsh-sign-in'
+import { brandString } from '@deepseek-ai/dsh-brand'
+import type { Membership, MembershipId, PersonId, Role } from '@deepseek-ai/dsh-people'
+import AdminAudit from '@deepseek-ai/dsh-admin-audit'
 import ConfiguredChannels, { KIND_UNKNOWN, NOT_PERMITTED, SECRET_REQUIRED, secretRefOf } from '../src/index.ts'
 
 const ADA = brandString<PersonId>('ada')
@@ -71,7 +71,7 @@ function fixtureKind(id = 'fixture'): ChannelKind {
 
 /** Boot storage, the registries, and the service over a fresh root. */
 async function bench(kinds: readonly ChannelKind[] = [fixtureKind()]): Promise<Context> {
-  root ??= await mkdtemp(join(tmpdir(), 'lyn-sign-in-channels-'))
+  root ??= await mkdtemp(join(tmpdir(), 'dsh-sign-in-channels-'))
   const ctx = new Context()
   live.push(ctx)
   await ctx.plugin(Storage)

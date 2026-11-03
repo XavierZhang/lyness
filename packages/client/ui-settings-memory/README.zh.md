@@ -3,13 +3,13 @@ description: "设置里的记忆分区：这个部署关于一个人记住了什
 kind: "package-reference"
 ---
 
-# @lyness/lyn-client-ui-settings-memory
+# @deepseek-ai/dsh-client-ui-settings-memory
 
 [English](README.md) | 中文
 
 ## 概述
 
-`lyn-client-ui-settings-memory` 是个人平面的记忆页：这个部署关于读它的那个人记住的每一条事实各占一行，写明记于何时，并有一个按钮把它忘掉。它只读与删，不提供写入，因为一条记忆是在一个人请求 agent 记住某件事时写下的——他真正想说的那句话属于那里。这个部署的共享记忆属于管理员，不在这里列出。
+`dsh-client-ui-settings-memory` 是个人平面的记忆页：这个部署关于读它的那个人记住的每一条事实各占一行，写明记于何时，并有一个按钮把它忘掉。它只读与删，不提供写入，因为一条记忆是在一个人请求 agent 记住某件事时写下的——他真正想说的那句话属于那里。这个部署的共享记忆属于管理员，不在这里列出。
 
 ## 目录
 
@@ -29,7 +29,7 @@ Web bundle 挂上它；它所读的命名空间随记忆模块一起到来：
 
 ```yaml
 - id: ui-settings-memory
-  name: '@lyness/lyn-client-ui-settings-memory'
+  name: '@deepseek-ai/dsh-client-ui-settings-memory'
 ```
 
 别的都不用配。分区注入 `remote.memories`，所以不选记忆模块的部署根本不显示记忆页，而不是显示一张空页。
@@ -54,20 +54,20 @@ Web bundle 挂上它；它所读的命名空间随记忆模块一起到来：
 <a id="further-exploration"></a>
 ## 延伸阅读
 
-- [`lyn-api-memory-controller`](../../api/memory-controller/README.zh.md)：本页读写的那个命名空间。
-- [`lyn-memory`](../../memory/memory/README.zh.md)：它背后的存储，以及一个 agent 看到什么。
-- [`lyn-client-ui-settings`](../ui-settings/README.zh.md)：两个分区平面槽位的声明处。
+- [`dsh-api-memory-controller`](../../api/memory-controller/README.zh.md)：本页读写的那个命名空间。
+- [`dsh-memory`](../../memory/memory/README.zh.md)：它背后的存储，以及一个 agent 看到什么。
+- [`dsh-client-ui-settings`](../ui-settings/README.zh.md)：两个分区平面槽位的声明处。
 
 -----
 
 <a id="model-experience"></a>
 ## 模型体验
 
-无。本包不注册任何工具或提示词：它为一个人列出已存记录，而一条记住的事实如何进入模型请求由 `lyn-memory` 负责。
+无。本包不注册任何工具或提示词：它为一个人列出已存记录，而一条记住的事实如何进入模型请求由 `dsh-memory` 负责。
 
 #### KV 缓存影响
 
-本页不改变请求前缀；忘掉一条事实改变的是那个人下一次组装所携带的内容，这由 `lyn-memory` 描述。
+本页不改变请求前缀；忘掉一条事实改变的是那个人下一次组装所携带的内容，这由 `dsh-memory` 描述。
 
 ## 已知限制与未竟事项
 

@@ -5,10 +5,10 @@
  * own check, so this predicate decides what a person is offered and never
  * what they may do.
  *
- * @module @lyness/lyn-client-ui-viewer/client/plane
+ * @module @deepseek-ai/dsh-client-ui-viewer/client/plane
  */
 
-import type { ViewerView } from '@lyness/lyn-api-identity-controller/types'
+import type { ViewerView } from '@deepseek-ai/dsh-api-identity-controller/types'
 
 /** The two groups the Settings navigation presents. */
 export type SettingsPlane = 'personal' | 'administration'

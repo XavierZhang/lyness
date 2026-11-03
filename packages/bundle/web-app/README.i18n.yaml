@@ -5,69 +5,69 @@
 /:
   en: 954fc89a556f4c59
   zh: ffc7f6dac129c6cf
-/lyness-lyn-web-app:
+/deepseek-harness-dsh-web-app:
   en: c0cbeb5afc20a7f5
   zh: 015c6c20ea371287
-/lyness-lyn-web-app/summary:
+/deepseek-harness-dsh-web-app/summary:
   en: 0713f50d403d84be
   zh: 4d4be332a9520857
-/lyness-lyn-web-app/table-of-contents:
+/deepseek-harness-dsh-web-app/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/lyness-lyn-web-app/use-this-package:
+/deepseek-harness-dsh-web-app/use-this-package:
   en: 3bd37b85139d2fa7
   zh: ba86c807eb83866e
-/lyness-lyn-web-app/use-this-package/starting-the-web-gui:
+/deepseek-harness-dsh-web-app/use-this-package/starting-the-web-gui:
   en: 3d6f05511ad6521c
   zh: 810980c1bf308b89
-/lyness-lyn-web-app/use-this-package/configuration:
+/deepseek-harness-dsh-web-app/use-this-package/configuration:
   en: 4bcef16ff778bb96
   zh: e834b218fe3b8910
-/lyness-lyn-web-app/use-this-package/listening-trust-and-public-deployments:
+/deepseek-harness-dsh-web-app/use-this-package/listening-trust-and-public-deployments:
   en: 678aaa5b8fd88903
   zh: a9515f02d1926387
-/lyness-lyn-web-app/use-this-package/running-over-ssh:
+/deepseek-harness-dsh-web-app/use-this-package/running-over-ssh:
   en: fdf27b7c945c6633
   zh: a4e7fc0da1d9d0f1
-/lyness-lyn-web-app/use-this-package/per-session-agent-setup:
+/deepseek-harness-dsh-web-app/use-this-package/per-session-agent-setup:
   en: 09ddfd63094fbfb7
   zh: 0168406fe9d4971a
-/lyness-lyn-web-app/understand-the-implementation:
+/deepseek-harness-dsh-web-app/understand-the-implementation:
   en: 00253b6387ab034f
   zh: 287c3ab287315530
-/lyness-lyn-web-app/understand-the-implementation/patch-semantics:
+/deepseek-harness-dsh-web-app/understand-the-implementation/patch-semantics:
   en: a6d126f30b1594d7
   zh: 7f0ccc8a55d6f743
-/lyness-lyn-web-app/understand-the-implementation/advertised-application-url:
+/deepseek-harness-dsh-web-app/understand-the-implementation/advertised-application-url:
   en: 426308697900bf45
   zh: 8381b9c9ec1ec96c
-/lyness-lyn-web-app/understand-the-implementation/readiness:
+/deepseek-harness-dsh-web-app/understand-the-implementation/readiness:
   en: 973128fd346869df
   zh: 54e6792f9f82a192
-/lyness-lyn-web-app/understand-the-implementation/source-map:
+/deepseek-harness-dsh-web-app/understand-the-implementation/source-map:
   en: 5dc2df328432c24e
   zh: 76e0a611913bb304
-/lyness-lyn-web-app/further-exploration:
+/deepseek-harness-dsh-web-app/further-exploration:
   en: f367309058f8b299
   zh: f82edeccd8f6fc77
-/lyness-lyn-web-app/model-experience:
+/deepseek-harness-dsh-web-app/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/lyness-lyn-web-app/model-experience/web-runtime-variable:
+/deepseek-harness-dsh-web-app/model-experience/web-runtime-variable:
   en: 623bf8a0bf05599d
   zh: 398ded2e7b20c1ea
-/lyness-lyn-web-app/model-experience/web-runtime-variable/what-the-model-sees:
+/deepseek-harness-dsh-web-app/model-experience/web-runtime-variable/what-the-model-sees:
   en: da4ad698390bfb32
   zh: fff34811af21ffbd
-/lyness-lyn-web-app/model-experience/web-runtime-variable/token-effect:
+/deepseek-harness-dsh-web-app/model-experience/web-runtime-variable/token-effect:
   en: 449fbfa3986f98f0
   zh: a7d66333594ab2dd
-/lyness-lyn-web-app/model-experience/web-runtime-variable/kv-cache-effect:
+/deepseek-harness-dsh-web-app/model-experience/web-runtime-variable/kv-cache-effect:
   en: 37542a8b81a744f5
   zh: c0048aaadecae296
-/lyness-lyn-web-app/known-limitations-and-deferred-work:
+/deepseek-harness-dsh-web-app/known-limitations-and-deferred-work:
   en: 9daeccba6c6295f6
   zh: 2fe2519f9c8aca97
-/lyness-lyn-web-app/known-limitations-and-deferred-work/dev-note:
+/deepseek-harness-dsh-web-app/known-limitations-and-deferred-work/dev-note:
   en: 3f81b4f3beb74a0d
   zh: 2e377ca40822d093

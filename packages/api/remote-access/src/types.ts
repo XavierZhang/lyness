@@ -1,7 +1,7 @@
 /**
  * Method-level access control contracts: actions, roles, bindings, policies,
  * decision requests, and the access snapshot stream.
- * @module @lyness/lyn-api-remote-access/types
+ * @module @deepseek-ai/dsh-api-remote-access/types
  */
 
 import type {
@@ -9,7 +9,7 @@ import type {
   RemoteAccessResource,
   RemoteAccessResourceKind,
   RemoteAccessResourceOf,
-} from '@lyness/lyn-typert-protocol'
+} from '@deepseek-ai/dsh-typert-protocol'
 
 export type {
   RemoteAccessResource,
@@ -17,7 +17,7 @@ export type {
   RemoteAccessResourceOf,
   TypertResourceKind,
   TypertResourceMap,
-} from '@lyness/lyn-typert-protocol'
+} from '@deepseek-ai/dsh-typert-protocol'
 
 /** Canonical `<namespace>/<method>` Remote endpoint; its segments never contain `:`. */
 export type RemoteAccessEndpoint = `${string}/${string}`
@@ -115,7 +115,7 @@ export interface RemoteAccessDeniedDetails {
   readonly reason: string
 }
 
-declare module '@lyness/lyn-typert-protocol' {
+declare module '@deepseek-ai/dsh-typert-protocol' {
   interface RemoteErrorDetailsMap {
     'remote-access/denied': RemoteAccessDeniedDetails
   }

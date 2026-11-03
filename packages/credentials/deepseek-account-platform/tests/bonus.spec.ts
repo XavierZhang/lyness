@@ -4,11 +4,11 @@ import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { createServer, type IncomingMessage, type ServerResponse } from 'node:http'
-import { Context } from '@lyness/cordis'
-import AuthorizationService from '@lyness/lyn-authorization'
-import { LocalCredentialProvider } from '@lyness/lyn-credentials-local'
-import { credentialKey } from '@lyness/lyn-credentials'
-import type { AccountBonusBatch, AccountBonusOrderId, AccountClientMetadata, AccountUserId, AccountView } from '@lyness/lyn-deepseek-account'
+import { Context } from '@deepseek-ai/cordis'
+import AuthorizationService from '@deepseek-ai/dsh-authorization'
+import { LocalCredentialProvider } from '@deepseek-ai/dsh-credentials-local'
+import { credentialKey } from '@deepseek-ai/dsh-credentials'
+import type { AccountBonusBatch, AccountBonusOrderId, AccountClientMetadata, AccountUserId, AccountView } from '@deepseek-ai/dsh-deepseek-account'
 import { PlatformAccount } from '../src/index.ts'
 
 const cleanups: Array<() => Promise<unknown>> = []
@@ -46,7 +46,7 @@ function requestBody(req: IncomingMessage): Promise<string> {
 }
 
 async function fixture() {
-  const home = await mkdtemp(join(tmpdir(), 'lyn-bonus-'))
+  const home = await mkdtemp(join(tmpdir(), 'dsh-bonus-'))
   cleanups.push(() => rm(home, { recursive: true, force: true }))
   const requests: Recorded[] = []
   let profileId: string | null = USER
@@ -56,9 +56,9 @@ async function fixture() {
   let bonusStatus = 200
   let bonuses: unknown = [
     { order_id: ORDER, campaign: 'dsh_login_bonus', amount: '5.00', currency: 'CNY',
-      granted_at: '2026-09-21T12:00:00Z', expires_at: '2026-10-21T12:00:00Z', msg: '已赠送您 5.00 元 LYN 体验赠金。' },
+      granted_at: '2026-09-21T12:00:00Z', expires_at: '2026-10-21T12:00:00Z', msg: '已赠送您 5.00 元 DSH 体验赠金。' },
     { order_id: SECOND_ORDER, campaign: 'dsh_login_bonus', amount: '1.50', currency: 'CNY',
-      granted_at: '2026-09-20T12:00:00Z', expires_at: '2026-10-20T12:00:00Z', msg: '已赠送您 1.50 元 LYN 体验赠金。' },
+      granted_at: '2026-09-20T12:00:00Z', expires_at: '2026-10-20T12:00:00Z', msg: '已赠送您 1.50 元 DSH 体验赠金。' },
   ]
   let ackBizCode = 0
   let ackStatus = 200
@@ -67,7 +67,7 @@ async function fixture() {
   const handle = async (req: IncomingMessage, res: ServerResponse): Promise<void> => {
     expect(req.headers.authorization).toBeUndefined()
     const body = await requestBody(req)
-    requests.push({ method: req.method, url: req.url, token: req.headers['x-lyn-auth-token'] as string | undefined,
+    requests.push({ method: req.method, url: req.url, token: req.headers['x-dsh-auth-token'] as string | undefined,
       locale: req.headers['x-client-locale'] as string | undefined,
       bundleId: req.headers['x-client-bundle-id'] as string | undefined,
       platform: req.headers['x-client-platform'] as string | undefined,
@@ -193,9 +193,9 @@ it('reads unnotified bonuses with the platform origin, grant header, and locale 
     accountId: USER as AccountUserId,
     bonuses: [
       { orderId: ORDER as AccountBonusOrderId, campaign: 'dsh_login_bonus', amount: '5.00', currency: 'CNY',
-        grantedAt: '2026-09-21T12:00:00Z', expiresAt: '2026-10-21T12:00:00Z', message: '已赠送您 5.00 元 LYN 体验赠金。' },
+        grantedAt: '2026-09-21T12:00:00Z', expiresAt: '2026-10-21T12:00:00Z', message: '已赠送您 5.00 元 DSH 体验赠金。' },
       { orderId: SECOND_ORDER as AccountBonusOrderId, campaign: 'dsh_login_bonus', amount: '1.50', currency: 'CNY',
-        grantedAt: '2026-09-20T12:00:00Z', expiresAt: '2026-10-20T12:00:00Z', message: '已赠送您 1.50 元 LYN 体验赠金。' },
+        grantedAt: '2026-09-20T12:00:00Z', expiresAt: '2026-10-20T12:00:00Z', message: '已赠送您 1.50 元 DSH 体验赠金。' },
     ],
   })
   expect(f.requests).toEqual([

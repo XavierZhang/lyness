@@ -3,13 +3,13 @@ description: "「通用」设置里的系统公告行，面向发布说明的部
 kind: "package-reference"
 ---
 
-# @lyness/lyn-client-ui-settings-announcements
+# @deepseek-ai/dsh-client-ui-settings-announcements
 
 [English](README.md) | 中文
 
 ## 概述
 
-`lyn-client-ui-settings-announcements` 在「通用」设置里、当前版本那一行旁边，加上系统公告行。该行写出最新那条公告的标题，并打开一个阅读器，列出全部公告、各自的日期以及它们所描述的版本。它展示的内容来自客户端所连接的那个部署，经 `remote.announcements` 读取，所以桌面安装与浏览器各读自己的服务器。读取在阅读器打开时才开始，因为「没有话要说的部署」才是常态。
+`dsh-client-ui-settings-announcements` 在「通用」设置里、当前版本那一行旁边，加上系统公告行。该行写出最新那条公告的标题，并打开一个阅读器，列出全部公告、各自的日期以及它们所描述的版本。它展示的内容来自客户端所连接的那个部署，经 `remote.announcements` 读取，所以桌面安装与浏览器各读自己的服务器。读取在阅读器打开时才开始，因为「没有话要说的部署」才是常态。
 
 ## 目录
 
@@ -27,7 +27,7 @@ kind: "package-reference"
 
 ```yaml
 - id: ui-settings-announcements
-  name: '@lyness/lyn-client-ui-settings-announcements'
+  name: '@deepseek-ai/dsh-client-ui-settings-announcements'
 ```
 
 它不接受任何配置。部署方需要挂上公告来源与公告控制器；缺了它们，那个 Remote 命名空间不存在，该行会报告公告读不到。
@@ -48,9 +48,9 @@ kind: "package-reference"
 <a id="further-exploration"></a>
 ## 进一步探索
 
-- [`lyn-announcements`](../../host/announcements/README.zh.md) —— 公告被写在哪里。
-- [`lyn-api-announcement-controller`](../../api/announcement-controller/README.zh.md) —— 这一行所执行的那次读取。
-- [`lyn-client-ui-settings-general`](../ui-settings-general/README.zh.md) —— 这一行加入的那个分区。
+- [`dsh-announcements`](../../host/announcements/README.zh.md) —— 公告被写在哪里。
+- [`dsh-api-announcement-controller`](../../api/announcement-controller/README.zh.md) —— 这一行所执行的那次读取。
+- [`dsh-client-ui-settings-general`](../ui-settings-general/README.zh.md) —— 这一行加入的那个分区。
 
 -----
 
@@ -81,6 +81,6 @@ kind: "package-reference"
 <details>
 <summary>维护者的工作上下文 —— 点击展开</summary>
 
-宿主半什么都不注册。它存在是为了让这个包有一个宿主入口，好让它的客户端 bundle 挂在旁边——这正是 `lyn.client` 所要求的。
+宿主半什么都不注册。它存在是为了让这个包有一个宿主入口，好让它的客户端 bundle 挂在旁边——这正是 `dsh.client` 所要求的。
 
 </details>

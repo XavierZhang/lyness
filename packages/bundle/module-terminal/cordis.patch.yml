@@ -4,12 +4,12 @@
 # preset
 # (../../../.agents/notes/proposed/architecture/2026-10-10-preset-row-contributions.md).
 #
-# The row names `@lyness/lyn-terminal`, which resolves wherever the service
+# The row names `@deepseek-ai/dsh-terminal`, which resolves wherever the service
 # does. A bundle that named itself would also have to be resolvable as a
 # module, which a patch-carrying bundle otherwise never needs to be.
 - insert:
     - id: terminal-preset-contribution
-      name: '@lyness/lyn-terminal/preset-contribution'
+      name: '@deepseek-ai/dsh-terminal/preset-contribution'
       config:
         # A long-running build and an interactive shell on a laptop do not
         # share a ceiling, so the timeout stays a deployment value here rather

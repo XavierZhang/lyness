@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import type { GlobalStandardProps } from '@lyness/lyn-client-ui-slots'
+import type { GlobalStandardProps } from '@deepseek-ai/dsh-client-ui-slots'
 import { act, cleanup, render, screen } from '@testing-library/react'
 import { afterEach, beforeEach, expect, it, vi } from 'vitest'
 import type { AccountSnapshot } from '../src/client/AccountSection.tsx'
@@ -11,7 +11,7 @@ let appRoot: HTMLDivElement
 
 it.each([false, true])('resizes only after eligibility resolves (completed=%s)', (done) => {
   const setActive = vi.fn()
-  vi.stubGlobal('lynOnboarding', { setActive })
+  vi.stubGlobal('dshOnboarding', { setActive })
   const view = mount(done, true)
   expect(setActive).not.toHaveBeenCalled()
   view.resolve()

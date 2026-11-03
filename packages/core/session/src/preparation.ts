@@ -1,6 +1,6 @@
 /**
  * Ownership of one unpublished Session before registry publication.
- * @module @lyness/lyn-session/preparation
+ * @module @deepseek-ai/dsh-session/preparation
  */
 
 import type { Session } from './index.ts'

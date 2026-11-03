@@ -5,7 +5,7 @@
  */
 
 import { describe, expect, it } from 'vitest'
-import type { ToolDefinition } from '@lyness/lyn-tools'
+import type { ToolDefinition } from '@deepseek-ai/dsh-tools'
 import { MCP_TOOL_PREFIX, connectionsOf, serverOfToolName, toolsOf } from '../src/project.ts'
 
 /** One definition with only the fields this projection reads. */
@@ -14,7 +14,7 @@ function tool(name: string, description = ''): ToolDefinition {
 }
 
 describe('serverOfToolName', () => {
-  it('reads the server out of the name lyn-mcp-client writes', () => {
+  it('reads the server out of the name dsh-mcp-client writes', () => {
     expect(serverOfToolName(`${MCP_TOOL_PREFIX}acme__search`)).toBe('acme')
     expect(serverOfToolName(`${MCP_TOOL_PREFIX}acme__deep__nested`)).toBe('acme')
   })

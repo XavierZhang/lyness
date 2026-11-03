@@ -5,7 +5,7 @@ import {
   IconChevronDownOutlineRegular, IconContextInjectionOutlineRegular, IconCordisPluginOutlineRegular,
   IconGoalOutlineRegular, IconGlobeOutlineRegular, IconPaperPlaneOutlineRegular, IconQueueOutlineRegular,
   type IconProps,
-} from '@lyness/lyn-client-ui-primitives'
+} from '@deepseek-ai/dsh-client-ui-primitives'
 import type { ChatNodeViewProps } from '../contract/slots.ts'
 import { formatMessageClock } from './message-chrome.ts'
 import { NoticeBody } from './ContextBody.tsx'

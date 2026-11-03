@@ -5,63 +5,63 @@
 /:
   en: fdb9237f7c9ddfa6
   zh: 3bb572e4a945183f
-/lyness-lyn-experimental-auto-review:
+/deepseek-harness-dsh-experimental-auto-review:
   en: c1fc0dac8bd1fc58
   zh: 27f2c107c8f4bc46
-/lyness-lyn-experimental-auto-review/summary:
+/deepseek-harness-dsh-experimental-auto-review/summary:
   en: 6a63619897e17637
   zh: f4ab242fd974a93b
-/lyness-lyn-experimental-auto-review/table-of-contents:
+/deepseek-harness-dsh-experimental-auto-review/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/lyness-lyn-experimental-auto-review/use-this-package:
+/deepseek-harness-dsh-experimental-auto-review/use-this-package:
   en: 8f9e85817f05aa4d
   zh: f60136fb39abcf29
-/lyness-lyn-experimental-auto-review/use-this-package/install-into-a-profile:
+/deepseek-harness-dsh-experimental-auto-review/use-this-package/install-into-a-profile:
   en: 29b19032ff0c36e7
   zh: 67a7e994ae7f647a
-/lyness-lyn-experimental-auto-review/use-this-package/headless-supervision:
+/deepseek-harness-dsh-experimental-auto-review/use-this-package/headless-supervision:
   en: 599d308cb426b48d
   zh: 946e5d2dae183b2e
-/lyness-lyn-experimental-auto-review/use-this-package/what-you-get:
+/deepseek-harness-dsh-experimental-auto-review/use-this-package/what-you-get:
   en: a15f7d27c506a8d5
   zh: 3333b3d82a8a400f
-/lyness-lyn-experimental-auto-review/understand-the-implementation:
+/deepseek-harness-dsh-experimental-auto-review/understand-the-implementation:
   en: 9537608ea6f059f3
   zh: ad8c85efc92f7249
-/lyness-lyn-experimental-auto-review/further-exploration:
+/deepseek-harness-dsh-experimental-auto-review/further-exploration:
   en: d637302851855643
   zh: a33e2e7e063b4add
-/lyness-lyn-experimental-auto-review/model-experience:
+/deepseek-harness-dsh-experimental-auto-review/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/lyness-lyn-experimental-auto-review/model-experience/per-call-reviewer:
+/deepseek-harness-dsh-experimental-auto-review/model-experience/per-call-reviewer:
   en: 7ec217b1012cd8fa
   zh: 6188796b4990f2ef
-/lyness-lyn-experimental-auto-review/model-experience/per-call-reviewer/what-the-model-sees:
+/deepseek-harness-dsh-experimental-auto-review/model-experience/per-call-reviewer/what-the-model-sees:
   en: d1670b32b5be6795
   zh: d6a6456f415b0daa
-/lyness-lyn-experimental-auto-review/model-experience/per-call-reviewer/token-effect:
+/deepseek-harness-dsh-experimental-auto-review/model-experience/per-call-reviewer/token-effect:
   en: 9c3e575c061d53fe
   zh: 74db1c5a77b2d2a7
-/lyness-lyn-experimental-auto-review/model-experience/per-call-reviewer/kv-cache-effect:
+/deepseek-harness-dsh-experimental-auto-review/model-experience/per-call-reviewer/kv-cache-effect:
   en: 941f6afc75f896e7
   zh: 54800fb8feaa6718
-/lyness-lyn-experimental-auto-review/model-experience/tool-denial:
+/deepseek-harness-dsh-experimental-auto-review/model-experience/tool-denial:
   en: f9b4d7b686f14fc5
   zh: a2fac9a8eaf5e2a3
-/lyness-lyn-experimental-auto-review/model-experience/tool-denial/what-the-model-sees:
+/deepseek-harness-dsh-experimental-auto-review/model-experience/tool-denial/what-the-model-sees:
   en: a0b93e8eebc1b497
   zh: aec11cfbf6c1ec75
-/lyness-lyn-experimental-auto-review/model-experience/tool-denial/token-effect:
+/deepseek-harness-dsh-experimental-auto-review/model-experience/tool-denial/token-effect:
   en: 679cb3d82e97022f
   zh: 15c98505e75ff881
-/lyness-lyn-experimental-auto-review/model-experience/tool-denial/kv-cache-effect:
+/deepseek-harness-dsh-experimental-auto-review/model-experience/tool-denial/kv-cache-effect:
   en: 8da1089dee147f94
   zh: 87361347bfd10c6c
-/lyness-lyn-experimental-auto-review/known-limitations-and-deferred-work:
+/deepseek-harness-dsh-experimental-auto-review/known-limitations-and-deferred-work:
   en: 2345e0c77b5e105d
   zh: b9f582acbdd8567b
-/lyness-lyn-experimental-auto-review/known-limitations-and-deferred-work/dev-note:
+/deepseek-harness-dsh-experimental-auto-review/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

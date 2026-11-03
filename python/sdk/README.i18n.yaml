@@ -2,24 +2,24 @@
 # section, a hash of its English and Chinese blocks outside code blocks and generated regions.
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write python/sdk/README.md
-/lyness-python-sdk:
+/deepseek-harness-python-sdk:
   en: 90ab5455cc7442ec
   zh: f5c788c8122ce3a9
-/lyness-python-sdk/optional-office-operations:
+/deepseek-harness-python-sdk/optional-office-operations:
   en: 9fcdd91ab3ff6184
   zh: 6f143072c3134484
-/lyness-python-sdk/start-a-runtime:
+/deepseek-harness-python-sdk/start-a-runtime:
   en: 23c965bdb08494b1
   zh: c9a03dc1b90e06f9
-/lyness-python-sdk/client-approvals:
+/deepseek-harness-python-sdk/client-approvals:
   en: 3f3d0d11245f04a7
   zh: 7ae0e40d3fd7898d
-/lyness-python-sdk/customize-plugins:
+/deepseek-harness-python-sdk/customize-plugins:
   en: 839b4315cecb41b8
   zh: 2bb6505023441fd4
-/lyness-python-sdk/native-user-questions:
+/deepseek-harness-python-sdk/native-user-questions:
   en: 103a1b3b3cb3f9ea
   zh: ace4de93901df6a7
-/lyness-python-sdk/results-and-notifications:
+/deepseek-harness-python-sdk/results-and-notifications:
   en: 2594ca5ef12d78ad
   zh: d2f218824664654d

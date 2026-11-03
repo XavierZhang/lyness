@@ -14,19 +14,19 @@
  * here, because the next boot would bring them back and the surface would
  * have lied. The same holds for an admission binding.
  *
- * @module @lyness/lyn-managed-people
+ * @module @deepseek-ai/dsh-managed-people
  */
 
-import { Service } from '@lyness/cordis'
-import type { Context } from '@lyness/cordis'
-import { brandString } from '@lyness/lyn-brand'
-import { fieldChanges } from '@lyness/lyn-admin-audit'
-import type { AuditSubmission } from '@lyness/lyn-admin-audit'
-import { administers } from '@lyness/lyn-people'
-import type { Membership, MembershipId, Person, PersonId, Role } from '@lyness/lyn-people'
-import type {} from '@lyness/lyn-sign-in-channels'
-import { randomUUID } from '@lyness/lyn-util-crypto'
-import type { Domain } from '@lyness/lyn-storage-domain'
+import { Service } from '@deepseek-ai/cordis'
+import type { Context } from '@deepseek-ai/cordis'
+import { brandString } from '@deepseek-ai/dsh-brand'
+import { fieldChanges } from '@deepseek-ai/dsh-admin-audit'
+import type { AuditSubmission } from '@deepseek-ai/dsh-admin-audit'
+import { administers } from '@deepseek-ai/dsh-people'
+import type { Membership, MembershipId, Person, PersonId, Role } from '@deepseek-ai/dsh-people'
+import type {} from '@deepseek-ai/dsh-sign-in-channels'
+import { randomUUID } from '@deepseek-ai/dsh-util-crypto'
+import type { Domain } from '@deepseek-ai/dsh-storage-domain'
 import { managedPeopleDomain } from './storage.ts'
 import type {
   BindingRecord, BindingSubmission, BindingView, DeclaredPerson,
@@ -36,7 +36,7 @@ import type {
 export type * from './types.ts'
 export { managedPeopleDomain, personSchema, bindingSchema } from './storage.ts'
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     /** The people and bindings administrators maintain at runtime; absent where a deployment manages none. */
     managedPeople: ManagedPeople

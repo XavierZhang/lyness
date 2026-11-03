@@ -5,72 +5,72 @@
 /:
   en: fd744e4beac0ee66
   zh: 27288856740f5dbf
-/lyness-lyn-tool-ask-user:
+/deepseek-harness-dsh-tool-ask-user:
   en: 0f0239e716450be4
   zh: d999ea89d271603f
-/lyness-lyn-tool-ask-user/summary:
+/deepseek-harness-dsh-tool-ask-user/summary:
   en: 1a9a38698a6cb1f3
   zh: 35540765df5648e7
-/lyness-lyn-tool-ask-user/table-of-contents:
+/deepseek-harness-dsh-tool-ask-user/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/lyness-lyn-tool-ask-user/use-this-package:
+/deepseek-harness-dsh-tool-ask-user/use-this-package:
   en: 547a3ea61708bc3e
   zh: 5e251ea392940c1a
-/lyness-lyn-tool-ask-user/use-this-package/when-to-call-the-tool:
+/deepseek-harness-dsh-tool-ask-user/use-this-package/when-to-call-the-tool:
   en: 7c70d43d4cd9aa19
   zh: 7597e972067ec5fe
-/lyness-lyn-tool-ask-user/use-this-package/what-the-model-gets-back:
+/deepseek-harness-dsh-tool-ask-user/use-this-package/what-the-model-gets-back:
   en: c30ba8cefa64a287
   zh: cc8bc285ff859983
-/lyness-lyn-tool-ask-user/use-this-package/when-the-call-fails:
+/deepseek-harness-dsh-tool-ask-user/use-this-package/when-the-call-fails:
   en: c4ac3c584f900230
   zh: bd8d227f0637b8f1
-/lyness-lyn-tool-ask-user/understand-the-implementation:
+/deepseek-harness-dsh-tool-ask-user/understand-the-implementation:
   en: e9b9d46be0b45ca2
   zh: c02403486473cd80
-/lyness-lyn-tool-ask-user/understand-the-implementation/source-map:
+/deepseek-harness-dsh-tool-ask-user/understand-the-implementation/source-map:
   en: e7babda77aaa0bd8
   zh: ba068b0670451efe
-/lyness-lyn-tool-ask-user/understand-the-implementation/consumer-role:
+/deepseek-harness-dsh-tool-ask-user/understand-the-implementation/consumer-role:
   en: 7de88d25287b969f
   zh: be36dc5a39aeac3b
-/lyness-lyn-tool-ask-user/understand-the-implementation/result-rendering:
+/deepseek-harness-dsh-tool-ask-user/understand-the-implementation/result-rendering:
   en: 686176b2703dfa08
   zh: 4ea4dab0da7f79f9
-/lyness-lyn-tool-ask-user/further-exploration:
+/deepseek-harness-dsh-tool-ask-user/further-exploration:
   en: 3ac61ae1fc42fa31
   zh: fe0274fad817d39c
-/lyness-lyn-tool-ask-user/model-experience:
+/deepseek-harness-dsh-tool-ask-user/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/lyness-lyn-tool-ask-user/model-experience/tool-schema:
+/deepseek-harness-dsh-tool-ask-user/model-experience/tool-schema:
   en: e4c7376d4f29dbd5
   zh: 6b7a9eaf69c9ea53
-/lyness-lyn-tool-ask-user/model-experience/tool-schema/what-the-model-sees:
+/deepseek-harness-dsh-tool-ask-user/model-experience/tool-schema/what-the-model-sees:
   en: ee034f20b97eb769
   zh: 5ad6947a96a60a48
-/lyness-lyn-tool-ask-user/model-experience/tool-schema/token-effect:
+/deepseek-harness-dsh-tool-ask-user/model-experience/tool-schema/token-effect:
   en: 97cce067584eadff
   zh: c376cab39ea9df68
-/lyness-lyn-tool-ask-user/model-experience/tool-schema/kv-cache-effect:
+/deepseek-harness-dsh-tool-ask-user/model-experience/tool-schema/kv-cache-effect:
   en: b385b04c94496e5b
   zh: 6bd8f2bc39e6f8c0
-/lyness-lyn-tool-ask-user/model-experience/tool-call-history-and-result:
+/deepseek-harness-dsh-tool-ask-user/model-experience/tool-call-history-and-result:
   en: 9717b983b6a857e3
   zh: 611a2dadf7c0c706
-/lyness-lyn-tool-ask-user/model-experience/tool-call-history-and-result/what-the-model-sees:
+/deepseek-harness-dsh-tool-ask-user/model-experience/tool-call-history-and-result/what-the-model-sees:
   en: c2ceed515656e10b
   zh: 4e9b6768e4914718
-/lyness-lyn-tool-ask-user/model-experience/tool-call-history-and-result/token-effect:
+/deepseek-harness-dsh-tool-ask-user/model-experience/tool-call-history-and-result/token-effect:
   en: 3092d4afd4ba8678
   zh: cb7a7bbefdbc3a1e
-/lyness-lyn-tool-ask-user/model-experience/tool-call-history-and-result/kv-cache-effect:
+/deepseek-harness-dsh-tool-ask-user/model-experience/tool-call-history-and-result/kv-cache-effect:
   en: f5d5f97a153f7c70
   zh: 4db81881ebdcfcc4
-/lyness-lyn-tool-ask-user/known-limitations-and-deferred-work:
+/deepseek-harness-dsh-tool-ask-user/known-limitations-and-deferred-work:
   en: c8df1368c2959465
   zh: b14fb07a60e75ebf
-/lyness-lyn-tool-ask-user/known-limitations-and-deferred-work/dev-note:
+/deepseek-harness-dsh-tool-ask-user/known-limitations-and-deferred-work/dev-note:
   en: 0b06d843322610c1
   zh: a1e7cadd4f03c384

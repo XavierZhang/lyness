@@ -3,13 +3,13 @@ description: "The Host-to-desktop link, for deployments running the turn on a se
 kind: "package-reference"
 ---
 
-# @lyness/lyn-desktop-link
+# @deepseek-ai/dsh-desktop-link
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`lyn-desktop-link` is one authenticated channel per signed-in person, over which the Host asks that person's own machine to do work. The direction is what is new: every other Remote surface runs Client to Host, and this runs Host to Client, because the agent turn is on the server while the files it works on are on the laptop. It needs no new transport — a Remote stream already carries Host items down and Client items up on one logical stream, over the carrier the desktop opened, so a desktop behind NAT needs nothing listening on it.
+`dsh-desktop-link` is one authenticated channel per signed-in person, over which the Host asks that person's own machine to do work. The direction is what is new: every other Remote surface runs Client to Host, and this runs Host to Client, because the agent turn is on the server while the files it works on are on the laptop. It needs no new transport — a Remote stream already carries Host items down and Client items up on one logical stream, over the carrier the desktop opened, so a desktop behind NAT needs nothing listening on it.
 
 ## Table of Contents
 
@@ -29,16 +29,16 @@ The server mounts the link and its Remote surface:
 
 ```yaml
 - id: desktop-link
-  name: '@lyness/lyn-desktop-link'
+  name: '@deepseek-ai/dsh-desktop-link'
 - id: desktop-link-controller
-  name: '@lyness/lyn-desktop-link/controller'
+  name: '@deepseek-ai/dsh-desktop-link/controller'
 ```
 
 A capability provider on the server reaches one person's machine through `ctx.desktopLink`:
 
 ```ts
-import type { DesktopLink } from '@lyness/lyn-desktop-link'
-import type { PersonId } from '@lyness/lyn-people'
+import type { DesktopLink } from '@deepseek-ai/dsh-desktop-link'
+import type { PersonId } from '@deepseek-ai/dsh-people'
 
 declare const link: DesktopLink
 declare const person: PersonId
@@ -52,7 +52,7 @@ for await (const item of link.call(person, 'subprocess', 'spawn', { command: 'tr
 The desktop attaches through the `desktopLink` Remote namespace and serves the calls from the capabilities it mounts:
 
 ```ts
-import { DesktopExecutor } from '@lyness/lyn-desktop-link/executor'
+import { DesktopExecutor } from '@deepseek-ai/dsh-desktop-link/executor'
 
 const executor = new DesktopExecutor()
 const stop = executor.register('subprocess', {
@@ -85,8 +85,8 @@ void stop
 ## Further Exploration
 
 - [Leaving the single-operator Host](../../../.agents/notes/proposed/architecture/2026-10-15-diverging-from-the-single-operator-host.md) — why the turn is on the server and the work is not.
-- [`lyn-request-principal`](../../identity/request-principal/README.md) — where the attaching person comes from.
-- [`lyn-api-gateway`](../gateway/README.md) — the carrier, and the suite that covers it.
+- [`dsh-request-principal`](../../identity/request-principal/README.md) — where the attaching person comes from.
+- [`dsh-api-gateway`](../gateway/README.md) — the carrier, and the suite that covers it.
 
 -----
 
@@ -103,7 +103,7 @@ No request prefix changes, because nothing here reaches a model request.
 
 <a id="known-limitations-and-deferred-work"></a>
 
-- **One capability rides it** — [`lyn-fs-desktop`](../../fs/fs-desktop/README.md), and no shipped profile composes that yet, so the link carries nothing in production.
+- **One capability rides it** — [`dsh-fs-desktop`](../../fs/fs-desktop/README.md), and no shipped profile composes that yet, so the link carries nothing in production.
 - **No input direction** — a call carries its arguments once. A capability that must be fed while it runs — a subprocess's stdin, a terminal's keystrokes, a window resize — has no channel, so `subprocess-desktop` needs the request vocabulary extended before it can be written.
 - **One queue for everything** — every call's items multiplex onto one logical stream, so a chatty call's output shares the queue with every other call to that machine.
 - **No executor plugin** — `DesktopExecutor` is a class a desktop composition drives; the plugin that opens the stream and feeds it is not written.

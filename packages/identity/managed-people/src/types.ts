@@ -3,10 +3,10 @@
  * deployment stores, what an administrator submits to change them, and what
  * a surface shows.
  *
- * @module @lyness/lyn-managed-people/types
+ * @module @deepseek-ai/dsh-managed-people/types
  */
 
-import type { Membership, Person, PersonId, Role } from '@lyness/lyn-people'
+import type { Membership, Person, PersonId, Role } from '@deepseek-ai/dsh-people'
 
 /** What kind of actor one roster entry is. */
 export type PersonKind = 'person' | 'bot'

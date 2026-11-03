@@ -5,87 +5,87 @@
 /:
   en: 3b12a77945c0d1e9
   zh: e9af32047e4f658b
-/lyness-lyn-tools:
+/deepseek-harness-dsh-tools:
   en: 916ee22bb435093f
   zh: 9bbb69819ef990bf
-/lyness-lyn-tools/summary:
+/deepseek-harness-dsh-tools/summary:
   en: 6975a508b815daae
   zh: e4a2ac13b2d12ac8
-/lyness-lyn-tools/table-of-contents:
+/deepseek-harness-dsh-tools/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/lyness-lyn-tools/use-this-package:
+/deepseek-harness-dsh-tools/use-this-package:
   en: 6cfd4ae6365b65a0
   zh: 32d66882ce38a516
-/lyness-lyn-tools/use-this-package/register-a-tool:
+/deepseek-harness-dsh-tools/use-this-package/register-a-tool:
   en: 1808e2a95ee21584
   zh: 40c40da7d1418407
-/lyness-lyn-tools/use-this-package/conditional-tools:
+/deepseek-harness-dsh-tools/use-this-package/conditional-tools:
   en: eb80334754c2493a
   zh: b431635ec1f4664f
-/lyness-lyn-tools/use-this-package/select-an-executor:
+/deepseek-harness-dsh-tools/use-this-package/select-an-executor:
   en: b8615bf9a3013fd9
   zh: 1b6552728ed5fae1
-/lyness-lyn-tools/use-this-package/restrict-tools-per-agent:
+/deepseek-harness-dsh-tools/use-this-package/restrict-tools-per-agent:
   en: c6f98b2283cc2e47
   zh: c2cdce5d13473f15
-/lyness-lyn-tools/use-this-package/enforce-policy-on-calls:
+/deepseek-harness-dsh-tools/use-this-package/enforce-policy-on-calls:
   en: cbfe8317565ac62d
   zh: 1e71c66941e50881
-/lyness-lyn-tools/use-this-package/host-presentation-descriptors:
+/deepseek-harness-dsh-tools/use-this-package/host-presentation-descriptors:
   en: 2198541a7342760c
   zh: 5c1950170475b728
-/lyness-lyn-tools/understand-the-implementation:
+/deepseek-harness-dsh-tools/understand-the-implementation:
   en: ce7e776e9d516bdb
   zh: 59d2751743db7795
-/lyness-lyn-tools/understand-the-implementation/design-concept:
+/deepseek-harness-dsh-tools/understand-the-implementation/design-concept:
   en: 516a6195a21e742b
   zh: 33c7b99b42c5acac
-/lyness-lyn-tools/understand-the-implementation/source-map:
+/deepseek-harness-dsh-tools/understand-the-implementation/source-map:
   en: 2dee0a37e0c1fa38
   zh: 0963cba32685612e
-/lyness-lyn-tools/understand-the-implementation/execution-and-cancellation:
+/deepseek-harness-dsh-tools/understand-the-implementation/execution-and-cancellation:
   en: dc44a88997777988
   zh: 56454aeace1c8b77
-/lyness-lyn-tools/understand-the-implementation/ptc-mode:
+/deepseek-harness-dsh-tools/understand-the-implementation/ptc-mode:
   en: d9e9a87e31869204
   zh: 09829311dfe0a6fe
-/lyness-lyn-tools/understand-the-implementation/extension-points:
+/deepseek-harness-dsh-tools/understand-the-implementation/extension-points:
   en: c2a14d6f22bc9428
   zh: 89c1414fca465931
-/lyness-lyn-tools/further-exploration:
+/deepseek-harness-dsh-tools/further-exploration:
   en: 87d9d50c8a35f48b
   zh: f58a42d327abd7fa
-/lyness-lyn-tools/model-experience:
+/deepseek-harness-dsh-tools/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/lyness-lyn-tools/model-experience/normal-tool-schemas:
+/deepseek-harness-dsh-tools/model-experience/normal-tool-schemas:
   en: 483b01d9bb2cb49a
   zh: 1d95095e76fb0996
-/lyness-lyn-tools/model-experience/normal-tool-schemas/what-the-model-sees:
+/deepseek-harness-dsh-tools/model-experience/normal-tool-schemas/what-the-model-sees:
   en: 163dcfe6c0aa348f
   zh: d84b632a3aac38c9
-/lyness-lyn-tools/model-experience/normal-tool-schemas/token-effect:
+/deepseek-harness-dsh-tools/model-experience/normal-tool-schemas/token-effect:
   en: d594b71ff5e4cc87
   zh: dcec1ea0dd2a0fa6
-/lyness-lyn-tools/model-experience/normal-tool-schemas/kv-cache-effect:
+/deepseek-harness-dsh-tools/model-experience/normal-tool-schemas/kv-cache-effect:
   en: 7c5e75964e020b2c
   zh: d50d0402d15232d9
-/lyness-lyn-tools/model-experience/tool-call-history-and-results:
+/deepseek-harness-dsh-tools/model-experience/tool-call-history-and-results:
   en: a8503137ad03720c
   zh: 611a2dadf7c0c706
-/lyness-lyn-tools/model-experience/tool-call-history-and-results/what-the-model-sees:
+/deepseek-harness-dsh-tools/model-experience/tool-call-history-and-results/what-the-model-sees:
   en: 7c568da5a45e99ab
   zh: 7e78f04448fc5450
-/lyness-lyn-tools/model-experience/tool-call-history-and-results/token-effect:
+/deepseek-harness-dsh-tools/model-experience/tool-call-history-and-results/token-effect:
   en: 8fe3f024f364ed9f
   zh: 89c1d5d24c5f950b
-/lyness-lyn-tools/model-experience/tool-call-history-and-results/kv-cache-effect:
+/deepseek-harness-dsh-tools/model-experience/tool-call-history-and-results/kv-cache-effect:
   en: 2fbf2175168e8244
   zh: ad59a120b54a0996
-/lyness-lyn-tools/known-limitations-and-deferred-work:
+/deepseek-harness-dsh-tools/known-limitations-and-deferred-work:
   en: 253f181fceb4b5f1
   zh: 1a2e3dd199aa748b
-/lyness-lyn-tools/known-limitations-and-deferred-work/dev-note:
+/deepseek-harness-dsh-tools/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

@@ -1,7 +1,7 @@
 /** Exact rules, native drafts, and Host failure mapping the retained-task detail composes. */
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import type { ScheduleCatalogEntry, ScheduleId, ScheduleRecord } from '@lyness/lyn-schedule/client'
-import type { SessionId } from '@lyness/lyn-session/types'
+import type { ScheduleCatalogEntry, ScheduleId, ScheduleRecord } from '@deepseek-ai/dsh-schedule/client'
+import type { SessionId } from '@deepseek-ai/dsh-session/types'
 import {
   draftZone, timingDraft, timingError, timingSnapshot, zonedWallClock,
 } from '../src/client/task-timing.ts'

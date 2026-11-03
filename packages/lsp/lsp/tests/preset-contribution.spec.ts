@@ -7,7 +7,7 @@
  * the contributed row a deployment gets once it enables the module.
  */
 
-import { Context } from '@lyness/cordis'
+import { Context } from '@deepseek-ai/cordis'
 import { expect, it } from 'vitest'
 import * as PresetContribution from '../src/preset-contribution.ts'
 
@@ -41,8 +41,8 @@ it('contributes the navigation tool under the allocated row id', async () => {
   expect(recorded.contributions).toHaveLength(1)
   expect(recorded.contributions[0]).toMatchObject({
     id: 'module-lsp-tool',
-    module: '@lyness/lyn-module-lsp',
-    row: { name: '@lyness/lyn-tool-lsp' },
+    module: '@deepseek-ai/dsh-module-lsp',
+    row: { name: '@deepseek-ai/dsh-tool-lsp' },
   })
 })
 
@@ -79,7 +79,7 @@ it('withdraws the contribution when its fiber is disposed', async () => {
 it('names the module the registry reports in a collision', () => {
   // The diagnostic names the bundle a deployment would disable, not the
   // package the row resolves through.
-  expect(PresetContribution.MODULE).toBe('@lyness/lyn-module-lsp')
+  expect(PresetContribution.MODULE).toBe('@deepseek-ai/dsh-module-lsp')
   expect(PresetContribution.ROW_ID).toBe('module-lsp-tool')
   expect(PresetContribution.name).toBe('lsp-preset-contribution')
   expect(PresetContribution.inject).toEqual(['agentPresets'])

@@ -1,16 +1,16 @@
 /**
  * Schema-dump entry: inspect the composed profile without applying its plugins.
  * Imports and lazy schema builders execute trusted module code.
- * @module @lyness/lyn/dump-config-schema
+ * @module @deepseek-ai/dsh/dump-config-schema
  */
 
 /* v8 ignore file -- built-bin acceptance drives schema collection and output. */
 
-import { generateConfigSchema, type ConfigSchemaDump } from '@lyness/lyn-app-boot'
+import { generateConfigSchema, type ConfigSchemaDump } from '@deepseek-ai/dsh-app-boot'
 import { collectConfigDumpLayers } from './dump-config.ts'
 import { INSTALL_ANCHOR, prepareProfile } from './profile-boot.ts'
 
-const NAME = 'lyn'
+const NAME = 'dsh'
 
 /**
  * Print one JSON Schema document; incomplete collection or projection sets exitCode to 1.

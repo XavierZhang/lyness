@@ -5,33 +5,33 @@
 /:
   en: 0ab5cdf88fc3f38f
   zh: be9795f962616d2e
-/lyness-lyn-api-people-controller:
+/deepseek-harness-dsh-api-people-controller:
   en: c2425938703b2f42
   zh: a3d58521d5d970da
-/lyness-lyn-api-people-controller/summary:
+/deepseek-harness-dsh-api-people-controller/summary:
   en: faa30a7ff30e22cd
   zh: 3696aae94301be33
-/lyness-lyn-api-people-controller/table-of-contents:
+/deepseek-harness-dsh-api-people-controller/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/lyness-lyn-api-people-controller/use-this-package:
+/deepseek-harness-dsh-api-people-controller/use-this-package:
   en: 31e585572bc7e605
   zh: ec436a21cd1b1df0
-/lyness-lyn-api-people-controller/understand-the-implementation:
+/deepseek-harness-dsh-api-people-controller/understand-the-implementation:
   en: 2aa287fefb575066
   zh: 35623b5c77c1f046
-/lyness-lyn-api-people-controller/further-exploration:
+/deepseek-harness-dsh-api-people-controller/further-exploration:
   en: 09ef0a5d0f6b4212
   zh: ac549be48009f4f8
-/lyness-lyn-api-people-controller/model-experience:
+/deepseek-harness-dsh-api-people-controller/model-experience:
   en: 0afcee15f82b481b
   zh: 3d39c06e8bb034e2
-/lyness-lyn-api-people-controller/model-experience/kv-cache-effect:
+/deepseek-harness-dsh-api-people-controller/model-experience/kv-cache-effect:
   en: e13faf79aaae30a9
   zh: c1facb2df4d7d038
-/lyness-lyn-api-people-controller/known-limitations-and-deferred-work:
+/deepseek-harness-dsh-api-people-controller/known-limitations-and-deferred-work:
   en: 3db12ff10588246c
   zh: c9cc4bcbbca93fcf
-/lyness-lyn-api-people-controller/known-limitations-and-deferred-work/dev-note:
+/deepseek-harness-dsh-api-people-controller/known-limitations-and-deferred-work/dev-note:
   en: e05cbe76a0900bee
   zh: f6975d207c6fa441

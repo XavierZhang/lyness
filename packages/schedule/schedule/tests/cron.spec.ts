@@ -9,8 +9,8 @@ import {
 } from '../src/domain.ts'
 import { resolveScheduleUpdate } from '../src/update.ts'
 import type { CronInput, CronScheduleRecord, ScheduleRecord, ScheduleTimingChange } from '../src/types.ts'
-import { SessionSeq } from '@lyness/lyn-session'
-import type { SessionEvent } from '@lyness/lyn-session'
+import { SessionSeq } from '@deepseek-ai/dsh-session'
+import type { SessionEvent } from '@deepseek-ai/dsh-session'
 
 function cron(now: string, expression: string, timeZone = 'UTC'): CronScheduleRecord {
   return createCronScheduleRecord(

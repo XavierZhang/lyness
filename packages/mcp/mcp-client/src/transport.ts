@@ -9,12 +9,12 @@
 import type { Transport } from '@modelcontextprotocol/client'
 import { StdioClientTransport } from '@modelcontextprotocol/client/stdio'
 import { StreamableHTTPClientTransport } from '@modelcontextprotocol/client'
-import { scrubbedParentEnv } from '@lyness/lyn-subprocess'
+import { scrubbedParentEnv } from '@deepseek-ai/dsh-subprocess'
 import type { Config } from './index.ts'
 
 /**
  * The subprocess seam's scrubbed parent env (credential-shaped and stale
- * `LYNESS_*` names dropped), plus the spec's explicit env. The MCP SDK owns the
+ * `DSH_*` names dropped), plus the spec's explicit env. The MCP SDK owns the
  * actual spawn, so this transport shares the scrub definition rather than the
  * spawn path.
  */

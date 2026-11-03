@@ -16,7 +16,7 @@
     "locale/*.json",
     "icon.svg"
   ],
-  "lyn": {
+  "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml"
     },
@@ -24,7 +24,7 @@
       "platform": "web",
       "immediately": true,
       "inject": [
-        "@lyness/lyn-client-ui-conversation"
+        "@deepseek-ai/dsh-client-ui-conversation"
       ]
     }
   }

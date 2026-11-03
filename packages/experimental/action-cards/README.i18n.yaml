@@ -5,63 +5,63 @@
 /:
   en: 1a68a7a733a2676d
   zh: 01f72eb61a0626b7
-/lyness-lyn-action-cards:
+/deepseek-harness-dsh-action-cards:
   en: 6d4222abf1fd2fd8
   zh: 6fada6918ed578df
-/lyness-lyn-action-cards/summary:
+/deepseek-harness-dsh-action-cards/summary:
   en: 7621088773d073f4
   zh: 57674e6dcee15997
-/lyness-lyn-action-cards/table-of-contents:
+/deepseek-harness-dsh-action-cards/table-of-contents:
   en: d152484eb41ac6b4
   zh: b00dddf4c88f0a45
-/lyness-lyn-action-cards/use-this-package:
+/deepseek-harness-dsh-action-cards/use-this-package:
   en: b53ae3100fbb2369
   zh: d78fea944a45f973
-/lyness-lyn-action-cards/use-this-package/register-a-card-kind:
+/deepseek-harness-dsh-action-cards/use-this-package/register-a-card-kind:
   en: 8432c02ef18eda11
   zh: 6d43a0a32edd7e30
-/lyness-lyn-action-cards/use-this-package/card-rules:
+/deepseek-harness-dsh-action-cards/use-this-package/card-rules:
   en: 2f5b3ccb91f3b30e
   zh: 9bd877d9d92615da
-/lyness-lyn-action-cards/understand-the-implementation:
+/deepseek-harness-dsh-action-cards/understand-the-implementation:
   en: d92243d71d2106c1
   zh: 47f0840fa723bb31
-/lyness-lyn-action-cards/further-exploration:
+/deepseek-harness-dsh-action-cards/further-exploration:
   en: 5c5593cddcb5e499
   zh: eb4fbf7e4426d1e3
-/lyness-lyn-action-cards/model-experience:
+/deepseek-harness-dsh-action-cards/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/lyness-lyn-action-cards/model-experience/card-tool:
+/deepseek-harness-dsh-action-cards/model-experience/card-tool:
   en: 4925bc5f7153825a
   zh: 3a7bfb2210d9c6aa
-/lyness-lyn-action-cards/model-experience/card-tool/what-the-model-sees:
+/deepseek-harness-dsh-action-cards/model-experience/card-tool/what-the-model-sees:
   en: c86d3784e7a6097e
   zh: b090d1c3c0ffc095
-/lyness-lyn-action-cards/model-experience/card-tool/token-effect:
+/deepseek-harness-dsh-action-cards/model-experience/card-tool/token-effect:
   en: 7efaaad09be98a07
   zh: 86c7fa13d60c3588
-/lyness-lyn-action-cards/model-experience/card-tool/kv-cache-effect:
+/deepseek-harness-dsh-action-cards/model-experience/card-tool/kv-cache-effect:
   en: d4192e35d47b5fa3
   zh: c786828e123de657
-/lyness-lyn-action-cards/model-experience/card-status-notice:
+/deepseek-harness-dsh-action-cards/model-experience/card-status-notice:
   en: 407ebca5eb94992e
   zh: 779819ea83974103
-/lyness-lyn-action-cards/model-experience/card-status-notice/what-the-model-sees:
+/deepseek-harness-dsh-action-cards/model-experience/card-status-notice/what-the-model-sees:
   en: a14013ca3ddb5ee3
   zh: 18cd7ffc62fd6590
-/lyness-lyn-action-cards/model-experience/card-status-notice/what-the-model-sees/notice-preamble:
+/deepseek-harness-dsh-action-cards/model-experience/card-status-notice/what-the-model-sees/notice-preamble:
   en: 04dd9469bfaff052
   zh: 35110b231b8e3928
-/lyness-lyn-action-cards/model-experience/card-status-notice/token-effect:
+/deepseek-harness-dsh-action-cards/model-experience/card-status-notice/token-effect:
   en: 4e73a2cff60b5e88
   zh: 4887212815e7425d
-/lyness-lyn-action-cards/model-experience/card-status-notice/kv-cache-effect:
+/deepseek-harness-dsh-action-cards/model-experience/card-status-notice/kv-cache-effect:
   en: 58785543e2428dba
   zh: 4b082f77b3b2f482
-/lyness-lyn-action-cards/known-limitations-and-deferred-work:
+/deepseek-harness-dsh-action-cards/known-limitations-and-deferred-work:
   en: 8e3eba4e9fda82cb
   zh: afaf74aad9a01533
-/lyness-lyn-action-cards/known-limitations-and-deferred-work/dev-note:
+/deepseek-harness-dsh-action-cards/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: bd8a8936229e035e

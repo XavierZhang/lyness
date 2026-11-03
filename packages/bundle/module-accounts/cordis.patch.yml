@@ -32,7 +32,7 @@
     # cannot answer for the roster it serves, so its absence fails at load
     # rather than recording nothing in silence.
     - id: admin-audit
-      name: '@lyness/lyn-admin-audit'
+      name: '@deepseek-ai/dsh-admin-audit'
       config:
         maxValueLength: 2000
         maxEntries: 200
@@ -41,118 +41,118 @@
     # written below. Its own row because both halves read it: the directory
     # answers who exists, the admission rule who may sign in.
     - id: managed-people
-      name: '@lyness/lyn-managed-people'
+      name: '@deepseek-ai/dsh-managed-people'
 
     # The bots an organization runs, each one a roster entry holding a member
     # standing and owning what it opens. Here rather than with the agent rows
     # because what it needs is the roster: without this module there is one
     # operator, and a bot would be a second actor with nobody to belong to.
     - id: managed-bots
-      name: '@lyness/lyn-managed-bots'
+      name: '@deepseek-ai/dsh-managed-bots'
 
     # Who exists, and what each of them may do. Required and non-empty: a
     # deployment that selects this module states its people or fails at load,
     # and the people it names are who add everybody else.
     - id: people
-      name: '@lyness/lyn-managed-people/directory'
+      name: '@deepseek-ai/dsh-managed-people/directory'
 
     # Signed-in sessions, durable so a restart does not sign everyone out.
     - id: auth-sessions
-      name: '@lyness/lyn-auth-session/store'
+      name: '@deepseek-ai/dsh-auth-session/store'
 
     # The channel registry one sign-in goes through.
     - id: sign-in
-      name: '@lyness/lyn-sign-in'
+      name: '@deepseek-ai/dsh-sign-in'
 
     # The kinds a deployment can be configured with, and the configured
     # instances themselves. A kind row offers a shape and configures nothing;
     # an administrator adds the instances at runtime, which is what lets a
     # tenant bring its own directory without a redeploy.
     - id: sign-in-kinds
-      name: '@lyness/lyn-sign-in/kinds'
+      name: '@deepseek-ai/dsh-sign-in/kinds'
 
     - id: sign-in-channels
-      name: '@lyness/lyn-sign-in-channels'
+      name: '@deepseek-ai/dsh-sign-in-channels'
 
     - id: sign-in-kind-wecom
-      name: '@lyness/lyn-wecom/kind'
+      name: '@deepseek-ai/dsh-wecom/kind'
 
     - id: sign-in-kind-dingtalk
-      name: '@lyness/lyn-dingtalk/kind'
+      name: '@deepseek-ai/dsh-dingtalk/kind'
 
     - id: sign-in-kind-feishu
-      name: '@lyness/lyn-feishu/kind'
+      name: '@deepseek-ai/dsh-feishu/kind'
 
     # The surface administrators configure those instances through. It is here
     # rather than with the other namespaces because what it speaks for is
     # here: a deployment without this module stores no channels to configure.
     - id: sign-in-channel-controller
-      name: '@lyness/lyn-api-sign-in-channel-controller'
+      name: '@deepseek-ai/dsh-api-sign-in-channel-controller'
 
     # Who a verified subject is allowed to be. No written binding admits
     # nobody by itself, which is the intended reading: a connected directory
     # nobody has been admitted through must not sign anyone in.
     - id: sign-in-admission
-      name: '@lyness/lyn-managed-people/admission'
+      name: '@deepseek-ai/dsh-managed-people/admission'
       config:
         bindings: []
 
     # The surface administrators maintain all of it through, so adding a
     # colleague is not an edit to a file on the server and a restart.
     - id: people-controller
-      name: '@lyness/lyn-api-people-controller'
+      name: '@deepseek-ai/dsh-api-people-controller'
 
     # And the one they maintain their bots through, for the same reason.
     - id: bots-controller
-      name: '@lyness/lyn-api-bots-controller'
+      name: '@deepseek-ai/dsh-api-bots-controller'
 
     # And the one they read the history through: a surface that shows what
     # was changed is what makes the trail answerable rather than merely
     # stored.
     - id: admin-audit-controller
-      name: '@lyness/lyn-api-admin-audit-controller'
+      name: '@deepseek-ai/dsh-api-admin-audit-controller'
 
     # One bot asking a teammate. Its two model-facing tools cannot be a row
     # here — they belong inside a preset whose whole row list this patch would
     # have to restate — so the row below contributes them instead.
     - id: bot-ask
-      name: '@lyness/lyn-bot-ask'
+      name: '@deepseek-ai/dsh-bot-ask'
 
     # Several of them discussing one question, chaired by code rather than by
     # a participant: one that chose its own turn would be one nobody could
     # stop.
     - id: bot-room
-      name: '@lyness/lyn-bot-ask/room'
+      name: '@deepseek-ai/dsh-bot-ask/room'
 
     - id: bot-ask-tools
-      name: '@lyness/lyn-bot-ask/preset-contribution'
+      name: '@deepseek-ai/dsh-bot-ask/preset-contribution'
 
     # The four browser routes and the cookie, which is the only layer that
     # binds one sign-in to one browser.
     - id: sign-in-http
-      name: '@lyness/lyn-sign-in-http'
+      name: '@deepseek-ai/dsh-sign-in-http'
 
     # Who one call speaks for, published for the duration of that call.
     - id: request-principal
-      name: '@lyness/lyn-request-principal'
+      name: '@deepseek-ai/dsh-request-principal'
 
     # And the rule that decides whether that call may be served at all. It
     # rides the Gateway, which is the one place every wire call passes
     # through, so a namespace's own method cannot be reached around it.
     - id: remote-authority
-      name: '@lyness/lyn-api-remote-authority'
+      name: '@deepseek-ai/dsh-api-remote-authority'
 
     # Whether a call may act in the context it declared.
     - id: acting-context
-      name: '@lyness/lyn-acting-context'
+      name: '@deepseek-ai/dsh-acting-context'
 
     # Whose conversation a session is, written once when it is opened.
     - id: session-ownership
-      name: '@lyness/lyn-session-ownership'
+      name: '@deepseek-ai/dsh-session-ownership'
 
     # And who may read it afterwards. Without this row the attribution is
     # recorded and nothing acts on it, which on a deployment serving several
     # people means every one of them can list and open the others'
     # conversations.
     - id: session-visibility
-      name: '@lyness/lyn-session-ownership/visibility'
+      name: '@deepseek-ai/dsh-session-ownership/visibility'

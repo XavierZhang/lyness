@@ -5,10 +5,10 @@
  */
 
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import { brandString } from '@lyness/lyn-brand'
-import type { Membership, MembershipId, Person, PersonId, Role } from '@lyness/lyn-people'
-import type { Principal } from '@lyness/lyn-request-principal'
+import { Context } from '@deepseek-ai/cordis'
+import { brandString } from '@deepseek-ai/dsh-brand'
+import type { Membership, MembershipId, Person, PersonId, Role } from '@deepseek-ai/dsh-people'
+import type { Principal } from '@deepseek-ai/dsh-request-principal'
 import IdentityController from '../src/index.ts'
 
 const ADA = brandString<PersonId>('ada')

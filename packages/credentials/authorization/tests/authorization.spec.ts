@@ -1,12 +1,12 @@
 import { describe, expect, it, vi } from 'vitest'
-import { Context } from '@lyness/cordis'
-import { credentialKey } from '@lyness/lyn-credentials'
+import { Context } from '@deepseek-ai/cordis'
+import { credentialKey } from '@deepseek-ai/dsh-credentials'
 import AuthorizationService, {
   AuthorizationDeclinedError,
   type AuthorizationFlow,
   type AuthorizationInteraction,
   type AuthorizationSession,
-} from '@lyness/lyn-authorization'
+} from '@deepseek-ai/dsh-authorization'
 import { MemoryCredentials } from './memory.ts'
 
 const KEY = credentialKey('llm-pi-ai', 'openai-codex')

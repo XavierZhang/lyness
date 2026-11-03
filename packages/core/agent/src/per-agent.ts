@@ -8,10 +8,10 @@
  * twice, and the contributions sit on agent scopes that the contributing
  * plugin's own teardown does not unwind.
  *
- * @module @lyness/lyn-agent/per-agent
+ * @module @deepseek-ai/dsh-agent/per-agent
  */
 
-import type { Context } from '@lyness/cordis'
+import type { Context } from '@deepseek-ai/cordis'
 import type { Agent } from './types.ts'
 
 /**

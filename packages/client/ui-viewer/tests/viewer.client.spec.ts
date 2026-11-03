@@ -3,11 +3,11 @@
  * plane that read decides, and what each of its three product shapes gets.
  */
 
-import { Context } from '@lyness/cordis'
+import { Context } from '@deepseek-ai/cordis'
 import { describe, expect, it, vi } from 'vitest'
-import { TestRemote } from '@lyness/lyn-client-test-runtime'
-import type { ViewerView } from '@lyness/lyn-api-identity-controller/types'
-import { apply, inject } from '@lyness/lyn-client-ui-viewer/client'
+import { TestRemote } from '@deepseek-ai/dsh-client-test-runtime'
+import type { ViewerView } from '@deepseek-ai/dsh-api-identity-controller/types'
+import { apply, inject } from '@deepseek-ai/dsh-client-ui-viewer/client'
 import { administers } from '../src/client/plane.ts'
 import { UiViewer } from '../src/client/viewer.ts'
 

@@ -1,7 +1,7 @@
 /**
  * Plugin detail documents without state: language chains, the `meta.detail` or README selection of a package, image
  * destinations beside a document, and read-only file sources for local packages and published npm versions.
- * @module @lyness/lyn-plugin-detail
+ * @module @deepseek-ai/dsh-plugin-detail
  */
 
 export {

@@ -21,22 +21,22 @@
  * the signed-in person's, and a session nobody opened — a CLI run, a
  * subagent, an inbound webhook — carries none rather than somebody else's.
  *
- * @module @lyness/lyn-personal-instructions
+ * @module @deepseek-ai/dsh-personal-instructions
  */
 
-import { Service } from '@lyness/cordis'
-import type { Context } from '@lyness/cordis'
-import z from '@lyness/schemastery'
+import { Service } from '@deepseek-ai/cordis'
+import type { Context } from '@deepseek-ai/cordis'
+import z from '@deepseek-ai/schemastery'
 import * as zod from 'zod'
-import { brandString } from '@lyness/lyn-brand'
-import { composePerAgent } from '@lyness/lyn-agent'
-import type { Domain } from '@lyness/lyn-storage-domain'
-import { storedId, storedInstant } from '@lyness/lyn-storage-domain'
-import type { Session, SessionEvent } from '@lyness/lyn-session'
-import type { ProjectionDefinition } from '@lyness/lyn-session-projection'
-import type { PersonId } from '@lyness/lyn-people'
-import type {} from '@lyness/lyn-request-principal'
-import type {} from '@lyness/lyn-system-prompt'
+import { brandString } from '@deepseek-ai/dsh-brand'
+import { composePerAgent } from '@deepseek-ai/dsh-agent'
+import type { Domain } from '@deepseek-ai/dsh-storage-domain'
+import { storedId, storedInstant } from '@deepseek-ai/dsh-storage-domain'
+import type { Session, SessionEvent } from '@deepseek-ai/dsh-session'
+import type { ProjectionDefinition } from '@deepseek-ai/dsh-session-projection'
+import type { PersonId } from '@deepseek-ai/dsh-people'
+import type {} from '@deepseek-ai/dsh-request-principal'
+import type {} from '@deepseek-ai/dsh-system-prompt'
 import { MAX_INSTRUCTIONS_CHARS, personalInstructionsDomain } from './storage.ts'
 import { composeInstructions } from './prompt.ts'
 import { PERSONAL_INSTRUCTIONS_RECORD_VERSION } from './types.ts'
@@ -47,14 +47,14 @@ export { PERSON_INSTRUCTIONS_SECTION, composeInstructions, instructionsText } fr
 export { PERSONAL_INSTRUCTIONS_RECORD_VERSION } from './types.ts'
 export type { InstructionsEntry, InstructionsOwnerId, PersonalInstructionsRecord } from './types.ts'
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     /** What each person told their own agents, and the sessions it was recorded on. */
     personalInstructions: PersonalInstructions
   }
 }
 
-declare module '@lyness/lyn-session/types' {
+declare module '@deepseek-ai/dsh-session/types' {
   interface SessionEventMap {
     /**
      * Records the instructions this session's own person had written when it
@@ -66,13 +66,13 @@ declare module '@lyness/lyn-session/types' {
      * @param owner - whose instructions these are.
      * @param text - the instructions, verbatim; empty when the person had written none.
      * @param writtenAt - when the recorded text was last saved; absent when there was none.
-     * @lynScopeScan unsupported
+     * @dshScopeScan unsupported
      */
     'person/instructions': PersonalInstructionsRecord
   }
 }
 
-declare module '@lyness/lyn-session-projection/types' {
+declare module '@deepseek-ai/dsh-session-projection/types' {
   interface SessionProjectionStateMap {
     /** The instructions this session was created with, or null before the record is written. */
     personInstructions: PersonalInstructionsRecord | null

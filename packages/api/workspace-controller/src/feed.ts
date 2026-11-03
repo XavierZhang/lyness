@@ -1,16 +1,16 @@
 /** Reconnect-safe Workspace baseline and increment producer. */
 
-import type { Context } from '@lyness/cordis'
-import { Deque } from '@lyness/lyn-deque'
-import { assertNever } from '@lyness/lyn-util-values'
-import type { Principal } from '@lyness/lyn-request-principal'
-import type { DomainChanged } from '@lyness/lyn-storage-domain'
-import type { Workspace, WorkspaceRecord } from '@lyness/lyn-workspace'
+import type { Context } from '@deepseek-ai/cordis'
+import { Deque } from '@deepseek-ai/dsh-deque'
+import { assertNever } from '@deepseek-ai/dsh-util-values'
+import type { Principal } from '@deepseek-ai/dsh-request-principal'
+import type { DomainChanged } from '@deepseek-ai/dsh-storage-domain'
+import type { Workspace, WorkspaceRecord } from '@deepseek-ai/dsh-workspace'
 import {
   workspaceDomainState,
   workspaceRecord,
   WorkspaceId,
-} from '@lyness/lyn-workspace'
+} from '@deepseek-ai/dsh-workspace'
 import { keepVisible, visibleSessions } from './visible-sessions.ts'
 import type { VisibleSessions } from './visible-sessions.ts'
 import type {

@@ -1,10 +1,10 @@
 /** Host Workspace Remote owner: explicit commands and reconnect-safe state. */
 
-import { Context } from '@lyness/cordis'
-import z from '@lyness/schemastery'
-import { Remote, TypertRemoteService } from '@lyness/lyn-typert-protocol'
-import type {} from '@lyness/lyn-api-remote-access'
-import type { SessionId } from '@lyness/lyn-session/types'
+import { Context } from '@deepseek-ai/cordis'
+import z from '@deepseek-ai/schemastery'
+import { Remote, TypertRemoteService } from '@deepseek-ai/dsh-typert-protocol'
+import type {} from '@deepseek-ai/dsh-api-remote-access'
+import type { SessionId } from '@deepseek-ai/dsh-session/types'
 import { WorkspaceCommands } from './commands.ts'
 import { DirectoryPickerController } from './directory-picker.ts'
 import { WorkspaceFeed, workspaceView } from './feed.ts'
@@ -45,7 +45,7 @@ export interface Config {
 /** Directory policy after schema defaults have been applied. */
 type ResolvedConfig = Config & { documentsLookupTimeoutMs: number }
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     /** Host Workspace business API and Remote namespace owner. */
     workspaceController: WorkspaceController

@@ -10,20 +10,20 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { afterEach, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import Loader from '@lyness/cordis-plugin-loader'
-import Include from '@lyness/cordis-plugin-include'
-import AdminAudit from '@lyness/lyn-admin-audit'
-import StoredCreditLedger from '@lyness/lyn-credits/store'
-import CreditAdministration from '@lyness/lyn-credits/administration'
-import { StaticPeopleDirectory } from '@lyness/lyn-people/static'
-import Storage from '@lyness/lyn-storage'
-import * as StorageJson from '@lyness/lyn-storage-json'
-import * as StorageDomain from '@lyness/lyn-storage-domain'
-import { remoteErrorOf } from '@lyness/lyn-typert-protocol'
-import { brandString } from '@lyness/lyn-brand'
-import type { MembershipId, PersonId } from '@lyness/lyn-people'
-import type { Principal } from '@lyness/lyn-request-principal'
+import { Context } from '@deepseek-ai/cordis'
+import Loader from '@deepseek-ai/cordis-plugin-loader'
+import Include from '@deepseek-ai/cordis-plugin-include'
+import AdminAudit from '@deepseek-ai/dsh-admin-audit'
+import StoredCreditLedger from '@deepseek-ai/dsh-credits/store'
+import CreditAdministration from '@deepseek-ai/dsh-credits/administration'
+import { StaticPeopleDirectory } from '@deepseek-ai/dsh-people/static'
+import Storage from '@deepseek-ai/dsh-storage'
+import * as StorageJson from '@deepseek-ai/dsh-storage-json'
+import * as StorageDomain from '@deepseek-ai/dsh-storage-domain'
+import { remoteErrorOf } from '@deepseek-ai/dsh-typert-protocol'
+import { brandString } from '@deepseek-ai/dsh-brand'
+import type { MembershipId, PersonId } from '@deepseek-ai/dsh-people'
+import type { Principal } from '@deepseek-ai/dsh-request-principal'
 import CreditsController from '../src/index.ts'
 
 const ADA = brandString<PersonId>('ada')
@@ -44,17 +44,17 @@ afterEach(async () => {
 
 /** Boot the rows through the real Loader, with the principal the test chooses. */
 async function compose(): Promise<CreditsController> {
-  root = await mkdtemp(join(tmpdir(), 'lyn-credits-controller-'))
+  root = await mkdtemp(join(tmpdir(), 'dsh-credits-controller-'))
   const configPath = join(root, 'cordis.yml')
   await writeFile(configPath, [
-    "- name: '@lyness/lyn-storage'",
-    "- name: '@lyness/lyn-storage-json'",
+    "- name: '@deepseek-ai/dsh-storage'",
+    "- name: '@deepseek-ai/dsh-storage-json'",
     '  config:',
     `    root: ${JSON.stringify(join(root, 'state'))}`,
-    "- name: '@lyness/lyn-storage-domain'",
+    "- name: '@deepseek-ai/dsh-storage-domain'",
     '  config:',
     '    backend: json',
-    "- name: '@lyness/lyn-people/static'",
+    "- name: '@deepseek-ai/dsh-people/static'",
     '  config:',
     '    people:',
     '      - id: ada',
@@ -72,13 +72,13 @@ async function compose(): Promise<CreditsController> {
     '      - id: dee',
     '        displayName: Dee',
     '        role: platform-administrator',
-    "- name: '@lyness/lyn-admin-audit'",
-    "- name: '@lyness/lyn-credits/store'",
+    "- name: '@deepseek-ai/dsh-admin-audit'",
+    "- name: '@deepseek-ai/dsh-credits/store'",
     '  config:',
     '    periodicAmount: 100',
     '    period: daily',
-    "- name: '@lyness/lyn-credits/administration'",
-    "- name: '@lyness/lyn-api-credits-controller'",
+    "- name: '@deepseek-ai/dsh-credits/administration'",
+    "- name: '@deepseek-ai/dsh-api-credits-controller'",
     '',
   ].join('\n'))
 
@@ -89,14 +89,14 @@ async function compose(): Promise<CreditsController> {
   await ctx.plugin(Loader)
   ctx.loader.builtins.include = Include
   const modules = new Map<string, unknown>([
-    ['@lyness/lyn-storage', Storage],
-    ['@lyness/lyn-storage-json', StorageJson],
-    ['@lyness/lyn-storage-domain', StorageDomain],
-    ['@lyness/lyn-people/static', StaticPeopleDirectory],
-    ['@lyness/lyn-admin-audit', AdminAudit],
-    ['@lyness/lyn-credits/store', StoredCreditLedger],
-    ['@lyness/lyn-credits/administration', CreditAdministration],
-    ['@lyness/lyn-api-credits-controller', CreditsController],
+    ['@deepseek-ai/dsh-storage', Storage],
+    ['@deepseek-ai/dsh-storage-json', StorageJson],
+    ['@deepseek-ai/dsh-storage-domain', StorageDomain],
+    ['@deepseek-ai/dsh-people/static', StaticPeopleDirectory],
+    ['@deepseek-ai/dsh-admin-audit', AdminAudit],
+    ['@deepseek-ai/dsh-credits/store', StoredCreditLedger],
+    ['@deepseek-ai/dsh-credits/administration', CreditAdministration],
+    ['@deepseek-ai/dsh-api-credits-controller', CreditsController],
   ])
   const base = ctx.loader.internal
   if (base === undefined) throw new Error('this Node build exposes no internal module loader')

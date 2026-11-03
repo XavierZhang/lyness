@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import Loader from '@lyness/cordis-plugin-loader'
-import type { Agent } from '@lyness/lyn-agent'
-import CommandRuntime, { type CommandResult } from '@lyness/lyn-commands'
+import { Context } from '@deepseek-ai/cordis'
+import Loader from '@deepseek-ai/cordis-plugin-loader'
+import type { Agent } from '@deepseek-ai/dsh-agent'
+import CommandRuntime, { type CommandResult } from '@deepseek-ai/dsh-commands'
 import {
   CompactionId,
   CompactionEngine,
@@ -11,9 +11,9 @@ import {
   type CompactionResult,
   type CompactionTrigger,
   type ManualCompactAgentContext,
-} from '@lyness/lyn-compaction'
-import { Session, SessionId, SessionSeq } from '@lyness/lyn-session'
-import * as commandCompact from '@lyness/lyn-command-compact'
+} from '@deepseek-ai/dsh-compaction'
+import { Session, SessionId, SessionSeq } from '@deepseek-ai/dsh-session'
+import * as commandCompact from '@deepseek-ai/dsh-command-compact'
 
 const COMPACTION_ID = CompactionId('command-compact-test')
 
@@ -153,7 +153,7 @@ function expectLastLifecycle(
   return runEvent.data.commandId
 }
 
-describe('@lyness/lyn-command-compact registration', () => {
+describe('@deepseek-ai/dsh-command-compact registration', () => {
   it('registers one argument-free command with Loader-safe exports and disposes it', async () => {
     const test = await harness()
     expect(commandCompact.name).toBe('command-compact')
@@ -162,7 +162,7 @@ describe('@lyness/lyn-command-compact registration', () => {
     const loader = Object.create(Loader.prototype) as Loader
     expect(loader.unwrapExports(commandCompact)).toBe(commandCompact)
     expect(test.ctx.commands.list(test.agent)).toContainEqual({
-      definitionId: '@lyness/lyn-command-compact',
+      definitionId: '@deepseek-ai/dsh-command-compact',
       name: 'compact',
       description: 'Compact older conversation history',
     })

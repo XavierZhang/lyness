@@ -6,11 +6,11 @@
  * a shared source every other surface reads; copying them into this store
  * would be the second answer this page exists not to give.
  *
- * @module @lyness/lyn-client-ui-settings-data/client/store
+ * @module @deepseek-ai/dsh-client-ui-settings-data/client/store
  */
 
-import { defineStore } from '@lyness/lyn-client-store'
-import type { EngineStoreHandle } from '@lyness/lyn-client-store'
+import { defineStore } from '@deepseek-ai/dsh-client-store'
+import type { EngineStoreHandle } from '@deepseek-ai/dsh-client-store'
 
 /** What the section renders beside the rows. */
 export interface DataSectionState {

@@ -4,14 +4,14 @@
  * Public event payloads live in `./types.ts`; the package-private observer
  * retains only the identity shared by each start/end pair.
  *
- * @module @lyness/lyn-subagent/lifecycle
+ * @module @deepseek-ai/dsh-subagent/lifecycle
  */
 
 import { randomUUID } from 'node:crypto'
-import type { Context } from '@lyness/cordis'
-import type { Agent } from '@lyness/lyn-agent'
-import { foldConsumedWork } from '@lyness/lyn-agent'
-import type { SessionEvent, SessionId } from '@lyness/lyn-session'
+import type { Context } from '@deepseek-ai/cordis'
+import type { Agent } from '@deepseek-ai/dsh-agent'
+import { foldConsumedWork } from '@deepseek-ai/dsh-agent'
+import type { SessionEvent, SessionId } from '@deepseek-ai/dsh-session'
 import { SubagentRunId } from './types.ts'
 import type { SubagentResult, SubagentRunEndInfo, SubagentRunInfo } from './types.ts'
 

@@ -8,18 +8,18 @@
 import { mkdtempSync, realpathSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { Context } from '@lyness/cordis'
-import { brandString } from '@lyness/lyn-brand'
-import type { MembershipId, PersonId } from '@lyness/lyn-people'
-import AgentRegistry from '@lyness/lyn-agent'
-import type { Agent, AgentFactory } from '@lyness/lyn-agent'
-import { agentPresetProjectionDefinition } from '@lyness/lyn-agent-preset-registry'
-import { botProjectionDefinition } from '@lyness/lyn-managed-bots/session'
-import type { EngagedBot } from '@lyness/lyn-managed-bots/session'
-import SessionStore, { SessionId } from '@lyness/lyn-session'
-import type { Session } from '@lyness/lyn-session'
+import { Context } from '@deepseek-ai/cordis'
+import { brandString } from '@deepseek-ai/dsh-brand'
+import type { MembershipId, PersonId } from '@deepseek-ai/dsh-people'
+import AgentRegistry from '@deepseek-ai/dsh-agent'
+import type { Agent, AgentFactory } from '@deepseek-ai/dsh-agent'
+import { agentPresetProjectionDefinition } from '@deepseek-ai/dsh-agent-preset-registry'
+import { botProjectionDefinition } from '@deepseek-ai/dsh-managed-bots/session'
+import type { EngagedBot } from '@deepseek-ai/dsh-managed-bots/session'
+import SessionStore, { SessionId } from '@deepseek-ai/dsh-session'
+import type { Session } from '@deepseek-ai/dsh-session'
 import { afterEach, describe, expect, it } from 'vitest'
-import { BotsRefusedError } from '@lyness/lyn-managed-bots'
+import { BotsRefusedError } from '@deepseek-ai/dsh-managed-bots'
 import { createSessionTestRemote } from './test-remote.ts'
 
 const ADA = brandString<PersonId>('ada')
@@ -58,7 +58,7 @@ function presets(ids: readonly string[]): unknown {
  * @param options - which bots the roster answers for, and whether it exists.
  */
 async function harness(options: { roster?: boolean; standing?: 'none' | 'elsewhere' } = {}) {
-  const cwd = realpathSync(mkdtempSync(join(tmpdir(), 'lyn-session-bots-')))
+  const cwd = realpathSync(mkdtempSync(join(tmpdir(), 'dsh-session-bots-')))
   tempDirs.push(cwd)
   const ctx = new Context()
   contexts.push(ctx)

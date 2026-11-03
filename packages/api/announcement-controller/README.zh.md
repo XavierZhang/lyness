@@ -3,13 +3,13 @@ description: "对一个部署的公告的已认证 Remote 读取，面向接线�
 kind: "package-reference"
 ---
 
-# @lyness/lyn-api-announcement-controller
+# @deepseek-ai/dsh-api-announcement-controller
 
 [English](README.md) | 中文
 
 ## 概述
 
-`lyn-api-announcement-controller` 只暴露一次读取：这个部署发布过什么，最新在前。它是一个控制器，而不是客户端内建的东西，因为答案属于那个客户端所连接的服务器——桌面安装与浏览器各自到达自己的部署，所以他们该读的是那个部署发布的内容，而不是被烤进客户端包里的东西。只读：公告写在部署被配置的地方，所以这里没有什么可供读者改动。
+`dsh-api-announcement-controller` 只暴露一次读取：这个部署发布过什么，最新在前。它是一个控制器，而不是客户端内建的东西，因为答案属于那个客户端所连接的服务器——桌面安装与浏览器各自到达自己的部署，所以他们该读的是那个部署发布的内容，而不是被烤进客户端包里的东西。只读：公告写在部署被配置的地方，所以这里没有什么可供读者改动。
 
 ## 目录
 
@@ -27,13 +27,13 @@ kind: "package-reference"
 
 ```yaml
 - id: announcement-controller
-  name: '@lyness/lyn-api-announcement-controller'
+  name: '@deepseek-ai/dsh-api-announcement-controller'
 ```
 
 它不接受任何配置，需要一个公告来源。客户端通过 `announcements` 这个 Remote 命名空间调用它：
 
 ```ts
-import type { Announcement } from '@lyness/lyn-api-announcement-controller/types'
+import type { Announcement } from '@deepseek-ai/dsh-api-announcement-controller/types'
 
 declare const remote: { announcements: { published: () => Promise<readonly Announcement[]> } }
 
@@ -54,8 +54,8 @@ const announcements = await remote.announcements.published()
 <a id="further-exploration"></a>
 ## 进一步探索
 
-- [`lyn-announcements`](../../host/announcements/README.zh.md) —— 它所读取的那个来源。
-- [`lyn-client-ui-settings-announcements`](../../client/ui-settings-announcements/README.zh.md) —— 唯一的使用方。
+- [`dsh-announcements`](../../host/announcements/README.zh.md) —— 它所读取的那个来源。
+- [`dsh-client-ui-settings-announcements`](../../client/ui-settings-announcements/README.zh.md) —— 唯一的使用方。
 
 -----
 

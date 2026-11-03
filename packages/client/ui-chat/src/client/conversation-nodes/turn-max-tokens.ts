@@ -1,7 +1,7 @@
-import type { Context } from '@lyness/cordis'
+import type { Context } from '@deepseek-ai/cordis'
 import type {
   ConversationMatch, ConversationNodeContext, ConversationNodeDefinition, TurnMaxTokensNode,
-} from '@lyness/lyn-client-ui-conversation/client'
+} from '@deepseek-ai/dsh-client-ui-conversation/client'
 import { CHAT_SYNTHETIC_SEQ_OFFSETS, chatNode } from './common.ts'
 
 declare module '../contract/chat-nodes.ts' {

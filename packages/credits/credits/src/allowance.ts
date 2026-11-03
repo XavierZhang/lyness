@@ -12,10 +12,10 @@
  * and saying nothing about the period leaves the period where the deployment
  * put it, so a later change to the deployment default still reaches them.
  *
- * @module @lyness/lyn-credits/allowance
+ * @module @deepseek-ai/dsh-credits/allowance
  */
 
-import type { PersonId } from '@lyness/lyn-people'
+import type { PersonId } from '@deepseek-ai/dsh-people'
 import type { ResetPeriod } from './period.ts'
 
 /** What one override changes about a recurring allowance. */

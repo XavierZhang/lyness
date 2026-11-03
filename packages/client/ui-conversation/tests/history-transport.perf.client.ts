@@ -10,23 +10,23 @@ import {
   createAssistantMessage,
   createUserMessage,
   expandAssistantStream,
-} from '@lyness/lyn-llm'
-import type { AssistantStreamRecord } from '@lyness/lyn-llm'
-import { SessionSeq } from '@lyness/lyn-session/types'
-import type { SessionEvent, SessionEventMap } from '@lyness/lyn-session/types'
+} from '@deepseek-ai/dsh-llm'
+import type { AssistantStreamRecord } from '@deepseek-ai/dsh-llm'
+import { SessionSeq } from '@deepseek-ai/dsh-session/types'
+import type { SessionEvent, SessionEventMap } from '@deepseek-ai/dsh-session/types'
 import type {
   SessionEventEntry,
   SessionHistoryRecord,
   SessionWireEvent,
-} from '@lyness/lyn-api-session-controller/types'
-import { historyEntries } from '@lyness/lyn-api-session-controller/src/client/sessions/history-records.ts'
-import type { SessionEventLikeEntry } from '@lyness/lyn-api-session-controller/client'
-import { ConversationNodeAssembler } from '@lyness/lyn-client-ui-conversation/client'
+} from '@deepseek-ai/dsh-api-session-controller/types'
+import { historyEntries } from '@deepseek-ai/dsh-api-session-controller/src/client/sessions/history-records.ts'
+import type { SessionEventLikeEntry } from '@deepseek-ai/dsh-api-session-controller/client'
+import { ConversationNodeAssembler } from '@deepseek-ai/dsh-client-ui-conversation/client'
 import type {
   ConversationNodeDefinition,
   ConversationViewDefinition,
   ConversationViewNode,
-} from '@lyness/lyn-client-ui-conversation/client'
+} from '@deepseek-ai/dsh-client-ui-conversation/client'
 
 const LOGICAL_ITEMS = 416_756
 const STREAM_MEMBERS = 416_176

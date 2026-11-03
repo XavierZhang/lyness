@@ -3,13 +3,13 @@ description: "飞书作为登录渠道：租户签入此刻在浏览器前的那
 kind: "package-reference"
 ---
 
-# @lyness/lyn-feishu
+# @deepseek-ai/dsh-feishu
 
 [English](README.md) | 中文
 
 ## 概述
 
-`lyn-feishu` 把飞书作为一个重定向登录渠道提供出来。它把浏览器送到飞书自己的登录页，用应用自己的令牌买到那个人的令牌，读出这个令牌属于谁，并把这个身份交给部署的准入规则——由它决定这个人可以是谁，或者谁都不是。它什么都不留：不留令牌、不留目录副本、不留自己的会话。应用密钥以凭据引用的方式点名，而不写进组合文件，于是 cordis.yml 永远不会携带那个能签入所有安装了该应用的租户的值。
+`dsh-feishu` 把飞书作为一个重定向登录渠道提供出来。它把浏览器送到飞书自己的登录页，用应用自己的令牌买到那个人的令牌，读出这个令牌属于谁，并把这个身份交给部署的准入规则——由它决定这个人可以是谁，或者谁都不是。它什么都不留：不留令牌、不留目录副本、不留自己的会话。应用密钥以凭据引用的方式点名，而不写进组合文件，于是 cordis.yml 永远不会携带那个能签入所有安装了该应用的租户的值。
 
 ## 目录
 
@@ -29,12 +29,12 @@ kind: "package-reference"
 
 ```yaml
 - id: feishu
-  name: '@lyness/lyn-feishu'
+  name: '@deepseek-ai/dsh-feishu'
   config:
     appId: your-app-id
     secret: FEISHU_APP_SECRET
 - id: sign-in-admission
-  name: '@lyness/lyn-sign-in/admission-roster'
+  name: '@deepseek-ai/dsh-sign-in/admission-roster'
   config:
     bindings:
       - channel: feishu
@@ -60,7 +60,7 @@ kind: "package-reference"
 
 **要么在某个租户里，要么谁都不是。** 目录报告出的人没有 `tenant_key`，说明这是一个个人飞书账号在登录。没有租户持有他们，所以没有任何绑定能点名他们；这次登录完成的是「谁都不是」。
 
-**一次回调只花一次。** 在用掉 code 之前就把 attempt 删掉，于是被重放的回调链接找不到任何在等的东西。记录在途 attempt 的那本账是 `lyn-sign-in` 的，与其余每个重定向渠道共用。
+**一次回调只花一次。** 在用掉 code 之前就把 attempt 删掉，于是被重放的回调链接找不到任何在等的东西。记录在途 attempt 的那本账是 `dsh-sign-in` 的，与其余每个重定向渠道共用。
 
 **租户发的地址优先。** 飞书同时公开个人地址与租户签发的地址；部署展示一个人的地址时指的是工作地址，所以优先 `enterprise_email`，个人地址作为兜底。
 
@@ -69,11 +69,11 @@ kind: "package-reference"
 <a id="further-exploration"></a>
 ## 延伸阅读
 
-- [`lyn-sign-in`](../../identity/sign-in/README.zh.md) —— 渠道能力缝与准入规则。
-- [`lyn-sign-in-http`](../../identity/sign-in-http/README.zh.md) —— 把浏览器送出去、以及接住回调的那些路由。
-- [`lyn-wecom`](../wecom/README.zh.md) 与 [`lyn-dingtalk`](../dingtalk/README.zh.md) —— 另外两个中国目录渠道，与本渠道共用同一个基类。
-- [`lyn-microsoft-entra`](../microsoft-entra/README.zh.md) —— 第一个重定向渠道，与本渠道共用那本 attempt 账。
-- [`lyn-credentials`](../../credentials/credentials/README.zh.md) —— 应用密钥放在哪里。
+- [`dsh-sign-in`](../../identity/sign-in/README.zh.md) —— 渠道能力缝与准入规则。
+- [`dsh-sign-in-http`](../../identity/sign-in-http/README.zh.md) —— 把浏览器送出去、以及接住回调的那些路由。
+- [`dsh-wecom`](../wecom/README.zh.md) 与 [`dsh-dingtalk`](../dingtalk/README.zh.md) —— 另外两个中国目录渠道，与本渠道共用同一个基类。
+- [`dsh-microsoft-entra`](../microsoft-entra/README.zh.md) —— 第一个重定向渠道，与本渠道共用那本 attempt 账。
+- [`dsh-credentials`](../../credentials/credentials/README.zh.md) —— 应用密钥放在哪里。
 
 -----
 

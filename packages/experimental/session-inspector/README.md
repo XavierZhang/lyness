@@ -3,7 +3,7 @@ description: "Virtualized raw Session log and Chat group/node tables with stream
 kind: "package-reference"
 ---
 
-# @lyness/lyn-experimental-session-inspector
+# @deepseek-ai/dsh-experimental-session-inspector
 
 English | [中文](README.zh.md)
 

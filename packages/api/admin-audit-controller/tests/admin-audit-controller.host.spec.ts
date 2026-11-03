@@ -9,16 +9,16 @@ import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, describe, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
-import { brandString } from '@lyness/lyn-brand'
-import AdminAudit from '@lyness/lyn-admin-audit'
-import ManagedPeople from '@lyness/lyn-managed-people'
-import ManagedPeopleDirectory from '@lyness/lyn-managed-people/directory'
-import type { Membership, MembershipId, PersonId, Role } from '@lyness/lyn-people'
-import Storage from '@lyness/lyn-storage'
-import * as StorageJson from '@lyness/lyn-storage-json'
-import * as StorageDomain from '@lyness/lyn-storage-domain'
-import { RemoteError } from '@lyness/lyn-typert-protocol'
+import { Context } from '@deepseek-ai/cordis'
+import { brandString } from '@deepseek-ai/dsh-brand'
+import AdminAudit from '@deepseek-ai/dsh-admin-audit'
+import ManagedPeople from '@deepseek-ai/dsh-managed-people'
+import ManagedPeopleDirectory from '@deepseek-ai/dsh-managed-people/directory'
+import type { Membership, MembershipId, PersonId, Role } from '@deepseek-ai/dsh-people'
+import Storage from '@deepseek-ai/dsh-storage'
+import * as StorageJson from '@deepseek-ai/dsh-storage-json'
+import * as StorageDomain from '@deepseek-ai/dsh-storage-domain'
+import { RemoteError } from '@deepseek-ai/dsh-typert-protocol'
 import AdminAuditController, { organizationOf } from '../src/index.ts'
 
 const ADA = brandString<PersonId>('ada')
@@ -47,7 +47,7 @@ async function harness(
   by: Membership | 'none',
   options: { trail?: boolean; maxValueLength?: number } = {},
 ): Promise<{ controller: AdminAuditController; ctx: Context }> {
-  root ??= await mkdtemp(join(tmpdir(), 'lyn-audit-controller-'))
+  root ??= await mkdtemp(join(tmpdir(), 'dsh-audit-controller-'))
   const ctx = new Context()
   live.push(ctx)
   ctx.provide('requestPrincipal', {

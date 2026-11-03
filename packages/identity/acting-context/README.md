@@ -3,13 +3,13 @@ description: "Resolve and check the context one call acts in: stated by the call
 kind: "package-reference"
 ---
 
-# @lyness/lyn-acting-context
+# @deepseek-ai/dsh-acting-context
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-Use `lyn-acting-context` to decide whether the context a call declares is permitted. Signing in produces a session for a person, not for a standing, so which standing is in force is per call. Three rules apply, each with a code a surface maps to its own message: a call states its context or is refused, the stated standing belongs to the caller, and an address resolving to an organization admits only that organization's standings.
+Use `dsh-acting-context` to decide whether the context a call declares is permitted. Signing in produces a session for a person, not for a standing, so which standing is in force is per call. Three rules apply, each with a code a surface maps to its own message: a call states its context or is refused, the stated standing belongs to the caller, and an address resolving to an organization admits only that organization's standings.
 
 ## Table of Contents
 
@@ -29,14 +29,14 @@ Mount it beside a people directory:
 
 ```yaml
 - id: acting-context
-  name: '@lyness/lyn-acting-context'
+  name: '@deepseek-ai/dsh-acting-context'
 ```
 
 A transport resolves each call's claim before the operation runs:
 
 ```ts
-import type { ActingContextResolver } from '@lyness/lyn-acting-context'
-import type { PersonId } from '@lyness/lyn-people'
+import type { ActingContextResolver } from '@deepseek-ai/dsh-acting-context'
+import type { PersonId } from '@deepseek-ai/dsh-people'
 
 declare const resolver: ActingContextResolver
 declare const signedInPerson: PersonId
@@ -69,7 +69,7 @@ The check lives here and nowhere else. A check in a transport or a surface is by
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`lyn-people`](../people/README.md) — the directory this resolver asks, and the three roles.
+- [`dsh-people`](../people/README.md) — the directory this resolver asks, and the three roles.
 - [People, memberships, and the acting context](../../../.agents/notes/proposed/architecture/2026-10-08-people-memberships-and-acting-context.md) — the decision this package implements.
 
 -----

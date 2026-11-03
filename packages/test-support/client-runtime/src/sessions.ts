@@ -1,27 +1,27 @@
 /** Test-owned Session Controller faces over declarative fixtures. */
-import type { Context } from '@lyness/cordis'
-import type { AttachmentIdType } from '@lyness/lyn-attachment'
+import type { Context } from '@deepseek-ai/cordis'
+import type { AttachmentIdType } from '@deepseek-ai/dsh-attachment'
 import {
   createScope, MutableSessionEventSource, scopeOf, SESSION_SEARCH_RESULT_LIMIT,
-} from '@lyness/lyn-api-session-controller/client'
+} from '@deepseek-ai/dsh-api-session-controller/client'
 import type {
   AgentContext, ISessions, ProjectionsFace, SessionBinding, SessionFace, SessionListState,
   SessionEventLikeEntry, SessionLiveEventEntry, SessionSearchResultItem,
   SessionReference, SessionReferenceSource, SessionRetainInfo, SessionRetainOptions,
   SessionSnapshot, SessionSummary, SessionTarget, SubmissionHandle,
-} from '@lyness/lyn-api-session-controller/client'
-import { scopeIdentityOf } from '@lyness/lyn-api-session-controller/src/client/scope.ts'
-import type { SessionRequestId } from '@lyness/lyn-api-session-controller/types'
-import type { SubagentAddress } from '@lyness/lyn-subagent/client'
-import { createSnapshotStore } from '@lyness/lyn-client-store'
-import type { ObservableSnapshot, SnapshotStore } from '@lyness/lyn-client-store'
-import type { SessionId } from '@lyness/lyn-session/types'
+} from '@deepseek-ai/dsh-api-session-controller/client'
+import { scopeIdentityOf } from '@deepseek-ai/dsh-api-session-controller/src/client/scope.ts'
+import type { SessionRequestId } from '@deepseek-ai/dsh-api-session-controller/types'
+import type { SubagentAddress } from '@deepseek-ai/dsh-subagent/client'
+import { createSnapshotStore } from '@deepseek-ai/dsh-client-store'
+import type { ObservableSnapshot, SnapshotStore } from '@deepseek-ai/dsh-client-store'
+import type { SessionId } from '@deepseek-ai/dsh-session/types'
 import { sessionSnapshot } from './fixtures.ts'
 import type {
   SessionFixture, SessionFixtureSnapshot, Stabilizer,
 } from './fixtures.ts'
 
-declare module '@lyness/lyn-api-session-controller/client' {
+declare module '@deepseek-ai/dsh-api-session-controller/client' {
   interface SessionReferenceSourceMap {
     testFixture: unknown
     testView: unknown

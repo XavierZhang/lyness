@@ -3,13 +3,13 @@ import { randomUUID } from 'node:crypto'
 import { mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { extname, isAbsolute, join } from 'node:path'
-import { Context } from '@lyness/cordis'
+import { Context } from '@deepseek-ai/cordis'
 import { createConverter, type Converter, type ConverterOptions } from '@deepseek-ai/libreoffice-kit'
-import z from '@lyness/schemastery'
-import type { WorkspaceFileScope, WorkspaceFileStat } from '@lyness/lyn-api-workspace-files'
-import type {} from '@lyness/lyn-fs'
-import { brandString } from '@lyness/lyn-brand'
-import { Remote, RemoteError, TypertRemoteService } from '@lyness/lyn-typert-protocol'
+import z from '@deepseek-ai/schemastery'
+import type { WorkspaceFileScope, WorkspaceFileStat } from '@deepseek-ai/dsh-api-workspace-files'
+import type {} from '@deepseek-ai/dsh-fs'
+import { brandString } from '@deepseek-ai/dsh-brand'
+import { Remote, RemoteError, TypertRemoteService } from '@deepseek-ai/dsh-typert-protocol'
 import { OfficeToPdfError } from './errors.ts'
 import { OfficeToPdfGeneration, type OfficeSourceKey } from './identity.ts'
 import type { OfficeExtension, OfficeToPdfRequest, OfficeToPdfResult, OfficeToPdfPriority, RenderedDocumentBytes } from './types.ts'
@@ -20,7 +20,7 @@ export * from './errors.ts'
 export * from './identity.ts'
 export * from './types.ts'
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     /** Shared Office conversion and authorized workspace-file rendering. */
     officeToPdf: OfficeToPdf
@@ -45,7 +45,7 @@ export interface Config {
   maxCachedBytes: number
   /** Maximum retained source-version aliases to cached content. */
   maxSourceEntries: number
-  /** Conversion deadline in milliseconds; excludes the LYN queue. */
+  /** Conversion deadline in milliseconds; excludes the DSH queue. */
   timeoutMs: number
   /** Maximum authorized source bytes. */
   maxInputBytes: number
@@ -245,7 +245,7 @@ export class OfficeToPdf extends TypertRemoteService {
       }
       const converter = await slot.converter
       signal.throwIfAborted()
-      directory = await mkdtemp(join(tmpdir(), 'lyn-office-to-pdf-'))
+      directory = await mkdtemp(join(tmpdir(), 'dsh-office-to-pdf-'))
       const inputPath = join(directory, `source.${extension}`)
       const outputPath = join(directory, 'converted.pdf')
       await writeFile(inputPath, bytes, { flag: 'wx', mode: 0o600, signal })

@@ -10,7 +10,7 @@ A private deployment serves three brand SVGs — the icon, the favicon, and the 
 
 ## Decision
 
-The icon always enters as a PNG, and every SVG leaves this toolchain's own writer. `@lyness/lyn-host-brand-icon` reads the PNG header before decoding, flattens the image onto white, treats pixels darker than mid-grey as ink, refuses what cannot make an icon, crops to the ink, and traces it with the black-and-white preset of `@neplex/vectorizer`. It moves each traced shape's offset into its coordinates, so the icon is plain paths in `currentColor` inside a box exactly the size of the ink, and it centres the same paths on a square favicon that turns white under a dark colour scheme.
+The icon always enters as a PNG, and every SVG leaves this toolchain's own writer. `@deepseek-ai/dsh-host-brand-icon` reads the PNG header before decoding, flattens the image onto white, treats pixels darker than mid-grey as ink, refuses what cannot make an icon, crops to the ink, and traces it with the black-and-white preset of `@neplex/vectorizer`. It moves each traced shape's offset into its coordinates, so the icon is plain paths in `currentColor` inside a box exactly the size of the ink, and it centres the same paths on a square favicon that turns white under a dark colour scheme.
 
 `isBrandSvg` accepts exactly the documents the icon and wordmark packages write: a root element whose size matches its view box, an optional fixed dark-scheme rule, and paths whose data holds only move, line, curve, and close commands. It is a grammar of the output rather than a filter over arbitrary SVG, so no input shape can pass through it that these packages did not write.
 

@@ -18,26 +18,26 @@
  * that an ask is not a read: the transcript it reads is the room it was
  * invited to, and nothing of any other conversation reaches it.
  *
- * @module @lyness/lyn-bot-ask/room
+ * @module @deepseek-ai/dsh-bot-ask/room
  */
 
-import { Service } from '@lyness/cordis'
-import type { Context } from '@lyness/cordis'
-import type { Agent } from '@lyness/lyn-agent'
-import { brandString } from '@lyness/lyn-brand'
-import { BlockAssembler, createSystemMessage, createUserMessage } from '@lyness/lyn-llm'
-import type { PersonId } from '@lyness/lyn-people'
-import type { Session, SessionId } from '@lyness/lyn-session'
-import type { TeammateView } from '@lyness/lyn-managed-bots'
-import type {} from '@lyness/lyn-managed-bots'
-import type {} from '@lyness/lyn-session-projection'
-import { randomUUID } from '@lyness/lyn-util-crypto'
+import { Service } from '@deepseek-ai/cordis'
+import type { Context } from '@deepseek-ai/cordis'
+import type { Agent } from '@deepseek-ai/dsh-agent'
+import { brandString } from '@deepseek-ai/dsh-brand'
+import { BlockAssembler, createSystemMessage, createUserMessage } from '@deepseek-ai/dsh-llm'
+import type { PersonId } from '@deepseek-ai/dsh-people'
+import type { Session, SessionId } from '@deepseek-ai/dsh-session'
+import type { TeammateView } from '@deepseek-ai/dsh-managed-bots'
+import type {} from '@deepseek-ai/dsh-managed-bots'
+import type {} from '@deepseek-ai/dsh-session-projection'
+import { randomUUID } from '@deepseek-ai/dsh-util-crypto'
 import { runBotTurn } from './turn.ts'
 import type {} from './room-session.ts'
 
 export { BOT_ROOM_EVENTS } from './room-session.ts'
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     /** Several bots discussing one question; absent where a deployment maintains no bots. */
     botRoom: BotRoom

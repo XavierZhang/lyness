@@ -21,11 +21,11 @@
  * database-backed one is writable and is what an administration surface saves
  * through. Consumers switch on `capability().kind` rather than discovering
  * read-only by catching a failure.
- * @module @lyness/lyn-tenant-config
+ * @module @deepseek-ai/dsh-tenant-config
  */
 
-import { Context, Service } from '@lyness/cordis'
-import type { TenantId } from '@lyness/lyn-tenant'
+import { Context, Service } from '@deepseek-ai/cordis'
+import type { TenantId } from '@deepseek-ai/dsh-tenant'
 import type { TenantConfig } from './types.ts'
 
 export { MODALITIES, validateTenantConfig } from './validate.ts'
@@ -50,7 +50,7 @@ export type TenantConfigCapability =
     save(config: TenantConfig): Promise<void>
   }
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     tenantConfig: TenantConfigStore
   }

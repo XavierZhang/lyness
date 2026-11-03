@@ -2,22 +2,22 @@
  * Live Typert Remote dispatch over Cordis Services and registered providers.
  * Unary transport and response envelopes belong to Connection; live Remote
  * streams use the Gateway-owned WebSocket mux.
- * @module @lyness/lyn-api-gateway
+ * @module @deepseek-ai/dsh-api-gateway
  */
 
 import { randomUUID } from 'node:crypto'
-import { Context, Service, symbols } from '@lyness/cordis'
+import { Context, Service, symbols } from '@deepseek-ai/cordis'
 import type {
   ConnectionRpcAttachment,
   ConnectionRpcHandler,
-} from '@lyness/lyn-client-connection'
-import type { RemoteAccessDecision } from '@lyness/lyn-api-remote-access'
+} from '@deepseek-ai/dsh-client-connection'
+import type { RemoteAccessDecision } from '@deepseek-ai/dsh-api-remote-access'
 import { callResources, eventResources } from './access.ts'
-import { Deque } from '@lyness/lyn-deque'
-import type { WebUpgradeRoute } from '@lyness/lyn-host-webserver'
-import { MAX_TIMER_DELAY_MS } from '@lyness/lyn-timeout'
-import type {} from '@lyness/lyn-cmdline'
-import z from '@lyness/schemastery'
+import { Deque } from '@deepseek-ai/dsh-deque'
+import type { WebUpgradeRoute } from '@deepseek-ai/dsh-host-webserver'
+import { MAX_TIMER_DELAY_MS } from '@deepseek-ai/dsh-timeout'
+import type {} from '@deepseek-ai/dsh-cmdline'
+import z from '@deepseek-ai/schemastery'
 export type { TypertGatewayFaultDetails } from './remote-error-codes.ts'
 import {
   RemoteError,
@@ -34,7 +34,7 @@ import {
   type RemoteMethodMarker,
   type TypertCodec,
   type TypertGatewayBinding,
-} from '@lyness/lyn-typert-protocol'
+} from '@deepseek-ai/dsh-typert-protocol'
 import type {
   InvokeRemoteRequest,
   TypertGateway,
@@ -205,7 +205,7 @@ export class TypertGatewayError extends RemoteError<TypertGatewayErrorCode> {
   }
 }
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Events {
     /**
      * Decide whether one resolved Remote call may be served, before its

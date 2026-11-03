@@ -6,7 +6,7 @@
  */
 
 import { describe, expect, it, vi } from 'vitest'
-import type { AllowanceView, BudgetView, CreditAccountView } from '@lyness/lyn-api-credits-controller/types'
+import type { AllowanceView, BudgetView, CreditAccountView } from '@deepseek-ai/dsh-api-credits-controller/types'
 import { createCreditsOperations } from '../src/client/operations.ts'
 import type { CallOutcome, CreditsCalls, CreditsSink } from '../src/client/operations.ts'
 

@@ -3,13 +3,13 @@ description: "这个部署关于一个人记住了什么，只由本人读取与
 kind: "package-reference"
 ---
 
-# @lyness/lyn-api-memory-controller
+# @deepseek-ai/dsh-api-memory-controller
 
 [English](README.md) | 中文
 
 ## 概述
 
-`lyn-api-memory-controller` 持有 `memories` 这个 Remote 命名空间：两个方法，读取这个部署关于调用方记住了什么，以及删掉其中一条。一次调用作用在谁的记忆上，从来不是一个参数——由存储从调用方发布的身份推出——于是持有别人 id 的调用方什么都删不掉。这个部署的共享记忆不在这里服务：它们不是某一个人该审阅的，而把它们列在某人自己的条目旁边，等于邀请一次把事实从所有人那里拿走的删除。
+`dsh-api-memory-controller` 持有 `memories` 这个 Remote 命名空间：两个方法，读取这个部署关于调用方记住了什么，以及删掉其中一条。一次调用作用在谁的记忆上，从来不是一个参数——由存储从调用方发布的身份推出——于是持有别人 id 的调用方什么都删不掉。这个部署的共享记忆不在这里服务：它们不是某一个人该审阅的，而把它们列在某人自己的条目旁边，等于邀请一次把事实从所有人那里拿走的删除。
 
 ## 目录
 
@@ -29,9 +29,9 @@ kind: "package-reference"
 
 ```yaml
 - id: memory
-  name: '@lyness/lyn-memory'
+  name: '@deepseek-ai/dsh-memory'
 - id: memory-controller
-  name: '@lyness/lyn-api-memory-controller'
+  name: '@deepseek-ai/dsh-api-memory-controller'
 ```
 
 `list()` 回答调用方自己的条目，最旧在前；`forget(id)` 删掉一条并回答剩下什么。不选记忆模块的部署不服务这个命名空间，而注入它的那张设置页也就不出现。
@@ -56,20 +56,20 @@ kind: "package-reference"
 <a id="further-exploration"></a>
 ## 延伸阅读
 
-- [`lyn-memory`](../../memory/memory/README.zh.md)：存储、分区，以及一个 agent 看到什么。
-- [`lyn-client-ui-settings-memory`](../../client/ui-settings-memory/README.zh.md)：调用这两个方法的那张页面。
-- [`lyn-api-remote-authority`](../remote-authority/README.zh.md)：执行本命名空间所声明身份的地方。
+- [`dsh-memory`](../../memory/memory/README.zh.md)：存储、分区，以及一个 agent 看到什么。
+- [`dsh-client-ui-settings-memory`](../../client/ui-settings-memory/README.zh.md)：调用这两个方法的那张页面。
+- [`dsh-api-remote-authority`](../remote-authority/README.zh.md)：执行本命名空间所声明身份的地方。
 
 -----
 
 <a id="model-experience"></a>
 ## 模型体验
 
-无。本包不注册任何工具或提示词：它服务的是一个读自己记录的人，而一条记住的事实如何进入模型请求由 `lyn-memory` 负责。
+无。本包不注册任何工具或提示词：它服务的是一个读自己记录的人，而一条记住的事实如何进入模型请求由 `dsh-memory` 负责。
 
 #### KV 缓存影响
 
-调用时请求前缀不变；删掉一条记忆改变的是那个人下一次组装所携带的内容，这由 `lyn-memory` 描述。
+调用时请求前缀不变；删掉一条记忆改变的是那个人下一次组装所携带的内容，这由 `dsh-memory` 描述。
 
 ## 已知限制与未竟事项
 

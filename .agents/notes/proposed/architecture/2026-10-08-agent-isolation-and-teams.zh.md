@@ -8,7 +8,7 @@ Status: proposed
 
 "每个 agent 运行在自己的沙盒里"并不是这棵树当下的事实，而一旦多个客户共用基础设施，这句话与实际机制之间的落差就要紧了。
 
-实际存在的是一套文件作用策略。[`sandbox/`](../../../../packages/sandbox/README.zh.md) 组约束的是**子进程执行**：命令以 `read-only` 运行、只能写会话工作区之下、或者不受约束地运行，而 `lyn-base` 默认钉的是 `workspace-write`。它约束的是一条命令能碰文件系统的哪些地方。它不是一个 agent 与另一个 agent 之间的边界，也不是一个客户与另一个客户之间的边界：被约束的命令仍然跑在宿主上，以宿主的用户身份，用宿主的网络。
+实际存在的是一套文件作用策略。[`sandbox/`](../../../../packages/sandbox/README.zh.md) 组约束的是**子进程执行**：命令以 `read-only` 运行、只能写会话工作区之下、或者不受约束地运行，而 `dsh-base` 默认钉的是 `workspace-write`。它约束的是一条命令能碰文件系统的哪些地方。它不是一个 agent 与另一个 agent 之间的边界，也不是一个客户与另一个客户之间的边界：被约束的命令仍然跑在宿主上，以宿主的用户身份，用宿主的网络。
 
 agent 之间同样没有分隔。[`subagent-fork-in-process`](../../../../packages/subagent/subagent-fork-in-process/README.zh.md) 派生的子 agent 按设计就运行在父进程中，并以父 agent 已完成的轮次作为起点——正是这一点让委派足够轻，也让子 agent 看得见自己要接着做的那部分工作。
 
@@ -51,10 +51,10 @@ agent 之间同样没有分隔。[`subagent-fork-in-process`](../../../../packag
 三个常被混为一谈的问题，在这里有三个不同的答案：
 
 - **agent 够到工具或数据源**，是 MCP。仓库已经挂载了 `mcp-resources`，而接到客户自有系统的连接器是 MCP 服务器，不是插件。
-- **一个 agent 驱动另一个 agent 的会话**，是 ACP。[`packages/acp`](../../../../packages/acp/README.zh.md) 是服务端——外部程序通过标准协议创建、恢复、关闭 lyness 会话——[`subagent-acp`](../../../../packages/subagent/subagent-acp/README.zh.md) 是客户端，把工作委派给在自己子进程中、拥有自己运行时、会话、模型与工具的 ACP agent。
+- **一个 agent 驱动另一个 agent 的会话**，是 ACP。[`packages/acp`](../../../../packages/acp/README.zh.md) 是服务端——外部程序通过标准协议创建、恢复、关闭 DeepSeek Harness 会话——[`subagent-acp`](../../../../packages/subagent/subagent-acp/README.zh.md) 是客户端，把工作委派给在自己子进程中、拥有自己运行时、会话、模型与工具的 ACP agent。
 - **在一个团队内部**，什么协议都不用：subagent 接缝就是直接的进程内委派。
 
-团队内部在进程内协作。团队之间走 ACP，而这也正是 lyness agent 够到非 lyness agent 的方式。于是协议边界与进程边界彼此吻合：凡是跨进程的，都跨 ACP。
+团队内部在进程内协作。团队之间走 ACP，而这也正是 DeepSeek Harness agent 够到非 DeepSeek Harness agent 的方式。于是协议边界与进程边界彼此吻合：凡是跨进程的，都跨 ACP。
 
 **A2A 刻意不采用。** 它回答的是另一个问题——不同厂商的 agent 如何彼此发现并协商任务——在还没有协商对象之前采用它，等于引入一个没有通信对端的协议。ACP 已经承载委派，包括委派给其他厂商的 agent，而 ACP 接缝已经建好。这件事保持开放：当客户确实需要够到一个 A2A agent 时，就是重新考虑的理由，而 subagent 接缝就是它该挂上来的地方。
 
@@ -93,7 +93,7 @@ agent 之间同样没有分隔。[`subagent-fork-in-process`](../../../../packag
 - 一个运行时恰好服务一个组织；它的会话根目录、存储与工作区不与另一个组织的运行时共享。
 - 主 agent 与它创建的子 agent 跑在一个进程里，子 agent 仍如今天一样以父 agent 已完成的轮次为起点。
 - 命令在容器内运行，容器的文件系统是会话工作区，网络可达范围是该组织允许的那些；文件作用策略在容器内部仍然生效。
-- 跨进程的委派，包括委派给非 lyness agent，一律走 ACP；不引入新的 agent 间协议。
+- 跨进程的委派，包括委派给非 DeepSeek Harness agent，一律走 ACP；不引入新的 agent 间协议。
 - 第二个供应方族作为独立的包存在，声明自己的传输、认证与模型能力，且 agent 循环从目录读取能力，而不是从某个供应方专用分支读取。
 - 组织自带的模型凭据是按请求解析的租户配置，不是进程环境变量。
 - 用量记录行事的成员身份，而不只记录组织。

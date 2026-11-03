@@ -5,54 +5,54 @@
 /:
   en: 911c8657f9ddb181
   zh: 6df5d9ed53482fca
-/lyness-lyn-client-ui-user-questions:
+/deepseek-harness-dsh-client-ui-user-questions:
   en: 3cf696f2db64c1ec
   zh: f2f8abeb740d5318
-/lyness-lyn-client-ui-user-questions/summary:
+/deepseek-harness-dsh-client-ui-user-questions/summary:
   en: 1aa6291852d48a08
   zh: 414eed268fb2cf1f
-/lyness-lyn-client-ui-user-questions/table-of-contents:
+/deepseek-harness-dsh-client-ui-user-questions/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/lyness-lyn-client-ui-user-questions/use-this-package:
+/deepseek-harness-dsh-client-ui-user-questions/use-this-package:
   en: 8d3815c19858ac85
   zh: 94fc905fa202d334
-/lyness-lyn-client-ui-user-questions/use-this-package/answering:
+/deepseek-harness-dsh-client-ui-user-questions/use-this-package/answering:
   en: 8900fbf9cbd72083
   zh: 67a951d58a029a58
-/lyness-lyn-client-ui-user-questions/use-this-package/reading-a-settled-question-back:
+/deepseek-harness-dsh-client-ui-user-questions/use-this-package/reading-a-settled-question-back:
   en: d51f61aec8981c28
   zh: 9973db6ce3fe6b72
-/lyness-lyn-client-ui-user-questions/use-this-package/the-plan-review-card:
+/deepseek-harness-dsh-client-ui-user-questions/use-this-package/the-plan-review-card:
   en: 940a3eccbaede4ea
   zh: b8ecad1fa6ff5a87
-/lyness-lyn-client-ui-user-questions/use-this-package/failure-and-recovery:
+/deepseek-harness-dsh-client-ui-user-questions/use-this-package/failure-and-recovery:
   en: d4f1dee7e7ff1d15
   zh: 6fb56ad50ca6851c
-/lyness-lyn-client-ui-user-questions/understand-the-implementation:
+/deepseek-harness-dsh-client-ui-user-questions/understand-the-implementation:
   en: 77e1b2585acdf67b
   zh: d433ec185c6b8f57
-/lyness-lyn-client-ui-user-questions/understand-the-implementation/reopening-a-panel:
+/deepseek-harness-dsh-client-ui-user-questions/understand-the-implementation/reopening-a-panel:
   en: 3c99520f4d481910
   zh: 54897209df52fdf2
-/lyness-lyn-client-ui-user-questions/understand-the-implementation/intent-surface-election:
+/deepseek-harness-dsh-client-ui-user-questions/understand-the-implementation/intent-surface-election:
   en: 126a889edbc42edd
   zh: 7e08968cd61d42a2
-/lyness-lyn-client-ui-user-questions/understand-the-implementation/copy-and-locale:
+/deepseek-harness-dsh-client-ui-user-questions/understand-the-implementation/copy-and-locale:
   en: 6070651d775a42c0
   zh: e5745da516461568
-/lyness-lyn-client-ui-user-questions/further-exploration:
+/deepseek-harness-dsh-client-ui-user-questions/further-exploration:
   en: b8a80d46f421ae25
   zh: f57675fba922841a
-/lyness-lyn-client-ui-user-questions/model-experience:
+/deepseek-harness-dsh-client-ui-user-questions/model-experience:
   en: 5e549ad1841bf45b
   zh: b1f8fc760d3879af
-/lyness-lyn-client-ui-user-questions/model-experience/kv-cache-effect:
+/deepseek-harness-dsh-client-ui-user-questions/model-experience/kv-cache-effect:
   en: 068c813bb31af476
   zh: cf1d0b24d8ea547f
-/lyness-lyn-client-ui-user-questions/known-limitations-and-deferred-work:
+/deepseek-harness-dsh-client-ui-user-questions/known-limitations-and-deferred-work:
   en: d61767a407077aaf
   zh: 891e7bffa61f3017
-/lyness-lyn-client-ui-user-questions/known-limitations-and-deferred-work/dev-note:
+/deepseek-harness-dsh-client-ui-user-questions/known-limitations-and-deferred-work/dev-note:
   en: 4ff0c667c1b130df
   zh: 3f42eaff797dc46d

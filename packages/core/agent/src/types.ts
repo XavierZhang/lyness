@@ -1,16 +1,16 @@
 /**
  * Durable agent session-event vocabulary shared with type-only consumers.
  *
- * @module @lyness/lyn-agent/types
+ * @module @deepseek-ai/dsh-agent/types
  */
 
-import type { ReasoningEffortId } from '@lyness/lyn-llm/brand'
-import type { UserMessage } from '@lyness/lyn-llm/types'
+import type { ReasoningEffortId } from '@deepseek-ai/dsh-llm/brand'
+import type { UserMessage } from '@deepseek-ai/dsh-llm/types'
 // Type-only: the Workspace registry's archive-admission family map this registry merges `turn` into.
-import type {} from '@lyness/lyn-workspace/types'
-import type { OptionalSessionSeq, SessionId, SessionSeq } from '@lyness/lyn-session/types'
-import type { TypertContext, TypertLookup } from '@lyness/lyn-typert-protocol'
-import type { JsonValue } from '@lyness/lyn-util-values'
+import type {} from '@deepseek-ai/dsh-workspace/types'
+import type { OptionalSessionSeq, SessionId, SessionSeq } from '@deepseek-ai/dsh-session/types'
+import type { TypertContext, TypertLookup } from '@deepseek-ai/dsh-typert-protocol'
+import type { JsonValue } from '@deepseek-ai/dsh-util-values'
 
 /** Public live-agent handle; the runtime face augments its live capabilities. */
 export interface Agent {
@@ -18,14 +18,14 @@ export interface Agent {
   readonly id: SessionId
 }
 
-declare module '@lyness/lyn-workspace/types' {
+declare module '@deepseek-ai/dsh-workspace/types' {
   interface SessionActivityKindMap {
     /** The session's own Agent is inside a turn, including one waiting for an approval or an answer. */
     turn: true
   }
 }
 
-declare module '@lyness/lyn-typert-protocol' {
+declare module '@deepseek-ai/dsh-typert-protocol' {
   interface TypertLookupMap {
     agent: TypertLookup<Agent, SessionId>
   }
@@ -56,7 +56,7 @@ export interface InboxWireState {
   readonly 'next-step': readonly JsonValue[]
 }
 
-declare module '@lyness/lyn-session-projection/types' {
+declare module '@deepseek-ai/dsh-session-projection/types' {
   interface SessionProjectionMap {
     /** Pending agent input reconstructed from durable inbox splices. */
     inbox: InboxWireState
@@ -93,14 +93,14 @@ export interface ModelSelectionProjection {
   readonly next: ModelSelection | null
 }
 
-declare module '@lyness/lyn-session-projection/types' {
+declare module '@deepseek-ai/dsh-session-projection/types' {
   interface SessionProjectionMap {
     /** Recorded model selection for the next model step and the latest request. */
     modelSelection: ModelSelectionProjection
   }
 }
 
-declare module '@lyness/lyn-session/types' {
+declare module '@deepseek-ai/dsh-session/types' {
   interface SessionEventMap {
     /**
      * One normalized mutation of an agent's durable pending-message lists.

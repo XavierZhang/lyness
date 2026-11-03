@@ -1,21 +1,21 @@
 /**
  * Canonical Session-log feedback for finalized assistant messages.
- * @module @lyness/lyn-message-feedback
+ * @module @deepseek-ai/dsh-message-feedback
  */
 
 import { Buffer } from 'node:buffer'
 import { randomUUID } from 'node:crypto'
 import { isDeepStrictEqual } from 'node:util'
-import { Context, Service } from '@lyness/cordis'
-import s from '@lyness/schemastery'
+import { Context, Service } from '@deepseek-ai/cordis'
+import s from '@deepseek-ai/schemastery'
 import { z } from 'zod'
-import { FEEDBACK_CATEGORIES } from '@lyness/lyn-command-feedback'
-import { SessionSeq } from '@lyness/lyn-session/types'
-import { deriveEventMessage, isAppendSurfaceEvent } from '@lyness/lyn-session/surface'
-import type { SessionEvent, SessionId } from '@lyness/lyn-session/types'
-import type {} from '@lyness/lyn-session'
-import type { SessionInspection } from '@lyness/lyn-session-persistence'
-import { TypertRemoteService, Remote } from '@lyness/lyn-typert-protocol'
+import { FEEDBACK_CATEGORIES } from '@deepseek-ai/dsh-command-feedback'
+import { SessionSeq } from '@deepseek-ai/dsh-session/types'
+import { deriveEventMessage, isAppendSurfaceEvent } from '@deepseek-ai/dsh-session/surface'
+import type { SessionEvent, SessionId } from '@deepseek-ai/dsh-session/types'
+import type {} from '@deepseek-ai/dsh-session'
+import type { SessionInspection } from '@deepseek-ai/dsh-session-persistence'
+import { TypertRemoteService, Remote } from '@deepseek-ai/dsh-typert-protocol'
 import type {
   MessageFeedbackDeleteRequest,
   MessageFeedbackDeleteResult,
@@ -42,7 +42,7 @@ export interface Config {
   readonly maxNoteBytes: number
 }
 
-declare module '@lyness/cordis' {
+declare module '@deepseek-ai/cordis' {
   interface Context {
     messageFeedback: MessageFeedbackService
   }

@@ -1,6 +1,6 @@
 /**
  * Reads the non-owner caller of the current Remote call.
- * @module @lyness/lyn-typert-protocol/principal
+ * @module @deepseek-ai/dsh-typert-protocol/principal
  */
 
 import type { Principal, RemoteInvocation } from './types.ts'

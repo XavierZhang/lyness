@@ -3,13 +3,13 @@ description: "The surface administrators read the history of their own changes t
 kind: "package-reference"
 ---
 
-# @lyness/lyn-api-admin-audit-controller
+# @deepseek-ai/dsh-api-admin-audit-controller
 
 English | [中文](README.zh.md)
 
 ## Summary
 
-`lyn-api-admin-audit-controller` owns the `audit` Remote namespace: one read that answers the recorded changes a standing may see, newest first, with who made each one and both sides of every field that differs. It decides nothing about who may read what — [`lyn-admin-audit`](../../identity/admin-audit/README.md) holds that rule, and this namespace hands it the standing the call acts in. What it does resolve is which organization an unnamed read means: the caller's own, so a tenant administrator does not type the one organization they administer into every read.
+`dsh-api-admin-audit-controller` owns the `audit` Remote namespace: one read that answers the recorded changes a standing may see, newest first, with who made each one and both sides of every field that differs. It decides nothing about who may read what — [`dsh-admin-audit`](../../identity/admin-audit/README.md) holds that rule, and this namespace hands it the standing the call acts in. What it does resolve is which organization an unnamed read means: the caller's own, so a tenant administrator does not type the one organization they administer into every read.
 
 ## Table of Contents
 
@@ -29,13 +29,13 @@ The accounts module mounts it beside the trail it speaks for:
 
 ```yaml
 - id: admin-audit-controller
-  name: '@lyness/lyn-api-admin-audit-controller'
+  name: '@deepseek-ai/dsh-api-admin-audit-controller'
 ```
 
 A configuration surface reads a page, or one record's own history:
 
 ```ts
-import type { AuditEntryView, AuditQueryInput } from '@lyness/lyn-api-admin-audit-controller/types'
+import type { AuditEntryView, AuditQueryInput } from '@deepseek-ai/dsh-api-admin-audit-controller/types'
 
 /** The one read a history view makes. */
 export interface HistoryView {
@@ -65,9 +65,9 @@ Each refusal arrives under its own code — `audit/not-permitted` and `audit/no-
 <a id="further-exploration"></a>
 ## Further Exploration
 
-- [`lyn-admin-audit`](../../identity/admin-audit/README.md) — the trail this namespace reads, and the rule it hands the standing to.
-- [`lyn-request-principal`](../../identity/request-principal/README.md) — where the standing one call acts in comes from.
-- [`lyn-module-accounts`](../../bundle/module-accounts/README.md) — the composition that selects it beside the trail.
+- [`dsh-admin-audit`](../../identity/admin-audit/README.md) — the trail this namespace reads, and the rule it hands the standing to.
+- [`dsh-request-principal`](../../identity/request-principal/README.md) — where the standing one call acts in comes from.
+- [`dsh-module-accounts`](../../bundle/module-accounts/README.md) — the composition that selects it beside the trail.
 
 -----
 

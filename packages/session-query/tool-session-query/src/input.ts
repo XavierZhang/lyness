@@ -1,21 +1,21 @@
 /**
  * Model argument schemas, normalization, and filter construction.
  *
- * @module @lyness/lyn-tool-session-query/input
+ * @module @deepseek-ai/dsh-tool-session-query/input
  */
 
 import {
   type SessionEventType,
   type SessionId as SessionIdValue,
-} from '@lyness/lyn-session'
-import { brandString } from '@lyness/lyn-brand'
+} from '@deepseek-ai/dsh-session'
+import { brandString } from '@deepseek-ai/dsh-brand'
 import {
   SessionQueryError,
   type SessionAvailability,
   type SessionEventMetadataFilter,
   type SessionEventSurface,
   type SessionResultFilter,
-} from '@lyness/lyn-session-query'
+} from '@deepseek-ai/dsh-session-query'
 
 interface SessionSearchArgs {
   query: string

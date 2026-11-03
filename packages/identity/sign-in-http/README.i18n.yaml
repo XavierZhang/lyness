@@ -5,36 +5,36 @@
 /:
   en: e0550fd792dbc44a
   zh: 5307da0fb7eb1455
-/lyness-lyn-sign-in-http:
+/deepseek-harness-dsh-sign-in-http:
   en: 2e0f13cf3381d4e6
   zh: 8d517e501611e86a
-/lyness-lyn-sign-in-http/summary:
+/deepseek-harness-dsh-sign-in-http/summary:
   en: 0007f11846e02159
   zh: 4c7cfa9b21da5e33
-/lyness-lyn-sign-in-http/table-of-contents:
+/deepseek-harness-dsh-sign-in-http/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/lyness-lyn-sign-in-http/use-this-package:
+/deepseek-harness-dsh-sign-in-http/use-this-package:
   en: e66e08f1420b264b
   zh: 09641ed08232ed57
-/lyness-lyn-sign-in-http/use-this-package/the-routes:
+/deepseek-harness-dsh-sign-in-http/use-this-package/the-routes:
   en: 04213a0e67da47e1
   zh: 2d7652c565913c65
-/lyness-lyn-sign-in-http/understand-the-implementation:
+/deepseek-harness-dsh-sign-in-http/understand-the-implementation:
   en: bfcf4af8adaeb72d
   zh: 2aeb2d8f8c9ae362
-/lyness-lyn-sign-in-http/further-exploration:
+/deepseek-harness-dsh-sign-in-http/further-exploration:
   en: 6ea345dcc961ccfb
   zh: dd1d83592454c945
-/lyness-lyn-sign-in-http/model-experience:
+/deepseek-harness-dsh-sign-in-http/model-experience:
   en: dd2db1fd98c45c51
   zh: a90228b46e83acfe
-/lyness-lyn-sign-in-http/model-experience/kv-cache-effect:
+/deepseek-harness-dsh-sign-in-http/model-experience/kv-cache-effect:
   en: 40747b6e2a1c3919
   zh: 6752122b6ca796ef
-/lyness-lyn-sign-in-http/known-limitations-and-deferred-work:
+/deepseek-harness-dsh-sign-in-http/known-limitations-and-deferred-work:
   en: 15e3b7241e869bc6
   zh: 5c2f34b5b3ba2326
-/lyness-lyn-sign-in-http/known-limitations-and-deferred-work/dev-note:
+/deepseek-harness-dsh-sign-in-http/known-limitations-and-deferred-work/dev-note:
   en: f4e16efd05dea43a
   zh: d104886456216ff9

@@ -13,10 +13,10 @@
 装好 Node.js，然后用 `enterprise` 模板、以你自己起的名字建一个 profile：
 
 ```sh
-npx @lyness/lyn --profile acme --from-default-profile enterprise
+npx @deepseek-ai/dsh --profile acme --from-default-profile enterprise
 ```
 
-这会写出 `$LYNESS_HOME/profiles/acme/`——一份记着 bundle 顺序的 `package.json`，和一份属于你自己的组合层 `cordis.patch.yml`。第一次启动会拒绝开机，报错也会说清原因：这套部署还没说出自己的人是谁。这个拒绝是设计，不是故障——没有任何东西该替一套安装编出谁是管理员。
+这会写出 `$DSH_HOME/profiles/acme/`——一份记着 bundle 顺序的 `package.json`，和一份属于你自己的组合层 `cordis.patch.yml`。第一次启动会拒绝开机，报错也会说清原因：这套部署还没说出自己的人是谁。这个拒绝是设计，不是故障——没有任何东西该替一套安装编出谁是管理员。
 
 ### 说出你的人
 
@@ -24,7 +24,7 @@ npx @lyness/lyn --profile acme --from-default-profile enterprise
 
 ```yaml
 - id: people
-  name: '@lyness/lyn-managed-people/directory'
+  name: '@deepseek-ai/dsh-managed-people/directory'
   config:
     people:
       - id: ada
@@ -47,14 +47,14 @@ npx @lyness/lyn --profile acme --from-default-profile enterprise
 
 ```yaml
 - id: sign-in-channel-head-office
-  name: '@lyness/lyn-wecom'
+  name: '@deepseek-ai/dsh-wecom'
   config:
     corpId: ww-your-corp-id
     agentId: '1000002'
     secret: WECOM_APP_SECRET
 
 - id: sign-in-admission
-  name: '@lyness/lyn-managed-people/admission'
+  name: '@deepseek-ai/dsh-managed-people/admission'
   config:
     bindings:
       - channel: wecom
@@ -70,15 +70,15 @@ npx @lyness/lyn --profile acme --from-default-profile enterprise
 `secret:` 写的是凭据引用名，而不是密钥本身。第一次启动之前还没有后台可以输入，所以这个值从环境来：
 
 ```sh
-WECOM_APP_SECRET=... npx @lyness/lyn --profile acme
+WECOM_APP_SECRET=... npx @deepseek-ai/dsh --profile acme
 ```
 
-继承来的环境变量压过其余一切，而且在产品内部改不了——这正是它适合放引导密钥的原因。想让它熬过重启，就改写 `$LYNESS_HOME/.env`，并把权限设成 `600`。此后从后台保存的密钥存在 `$LYNESS_HOME/.credentials.yaml`，由产品自己读写。
+继承来的环境变量压过其余一切，而且在产品内部改不了——这正是它适合放引导密钥的原因。想让它熬过重启，就改写 `$DSH_HOME/.env`，并把权限设成 `600`。此后从后台保存的密钥存在 `$DSH_HOME/.credentials.yaml`，由产品自己读写。
 
 ### 启动
 
 ```sh
-npx @lyness/lyn --profile acme --port 8080 --no-open
+npx @deepseek-ai/dsh --profile acme --port 8080 --no-open
 ```
 
 profile 之后的参数属于 Web 应用：`--host`、`--port`、`--trusted-host`、`--no-open`。想不启动地检查组合出来的树，用 `--dump-config`。
@@ -115,9 +115,9 @@ profile 之后的参数属于 Web 应用：`--host`、`--port`、`--trusted-host
 
 ### 升级
 
-装上新版 lyn 不会改写你的 profile，只有一个例外：当某个版本把一项能力搬进了另一个 bundle 时，bundle 列表仍然精确等于「本产品发过的某一版」的 profile，会被带到当前这一版。你改过的列表——加了插件、删了某个 bundle——原样保留；已经等于当前列表的 profile 则根本不会被写。
+装上新版 dsh 不会改写你的 profile，只有一个例外：当某个版本把一项能力搬进了另一个 bundle 时，bundle 列表仍然精确等于「本产品发过的某一版」的 profile，会被带到当前这一版。你改过的列表——加了插件、删了某个 bundle——原样保留；已经等于当前列表的 profile 则根本不会被写。
 
-所以在一次改变了 profile 形态的升级之后，只有你自己改过它时，才需要把 `$LYNESS_HOME/profiles/<name>/package.json` 与随产品发布的列表对一遍；发布说明会写明搬了什么。改过且少了新 bundle 的 profile 照常能用，除非那个版本把行在组合层之间搬过家——启动日志会点名它放不下的那些行。
+所以在一次改变了 profile 形态的升级之后，只有你自己改过它时，才需要把 `$DSH_HOME/profiles/<name>/package.json` 与随产品发布的列表对一遍；发布说明会写明搬了什么。改过且少了新 bundle 的 profile 照常能用，除非那个版本把行在组合层之间搬过家——启动日志会点名它放不下的那些行。
 
 ### 谁能做什么
 

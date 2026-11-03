@@ -7,8 +7,8 @@
  */
 
 import { describe, expect, it, vi } from 'vitest'
-import type { PersonRowView } from '@lyness/lyn-api-people-controller/types'
-import type { ConfiguredChannelView } from '@lyness/lyn-api-sign-in-channel-controller/types'
+import type { PersonRowView } from '@deepseek-ai/dsh-api-people-controller/types'
+import type { ConfiguredChannelView } from '@deepseek-ai/dsh-api-sign-in-channel-controller/types'
 import { createPeopleOperations, statusOf } from '../src/client/operations.ts'
 import type { CallOutcome, PeopleCalls, PeopleSink } from '../src/client/operations.ts'
 

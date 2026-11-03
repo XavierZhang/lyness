@@ -7,7 +7,7 @@ import type {
   SlotRendererHost,
   SnapshotSelectorHook,
   StandardSourceBinding,
-} from '@lyness/lyn-client-ui-slots'
+} from '@deepseek-ai/dsh-client-ui-slots'
 import { bindSnapshotSelector } from './bind.ts'
 import { SlotAssemblyError } from './errors.ts'
 

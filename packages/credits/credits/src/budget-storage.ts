@@ -7,12 +7,12 @@
  * spend in total — and keeping them apart is what keeps one surface's save
  * away from the other's table.
  *
- * @module @lyness/lyn-credits/budget-storage
+ * @module @deepseek-ai/dsh-credits/budget-storage
  */
 
 import { z } from 'zod'
-import { defineDomain, domainTable, storedId, storedInstant } from '@lyness/lyn-storage-domain'
-import type { PersonId } from '@lyness/lyn-people'
+import { defineDomain, domainTable, storedId, storedInstant } from '@deepseek-ai/dsh-storage-domain'
+import type { PersonId } from '@deepseek-ai/dsh-people'
 import type { OrganizationBudget } from './budget.ts'
 
 /** Stored budget; a ceiling of zero is a decision, so the amount may be zero. */

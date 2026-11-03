@@ -1,12 +1,12 @@
 /** Deterministic execution and cleanup outcomes for parent-notification snapshots. */
 
-import type { Context } from '@lyness/cordis'
+import type { Context } from '@deepseek-ai/cordis'
 import {
   NO_START_CAPABILITIES,
   type SubagentStartRequest,
   type SubagentProvider,
-} from '@lyness/lyn-subagent'
-import { SessionId } from '@lyness/lyn-session'
+} from '@deepseek-ai/dsh-subagent'
+import { SessionId } from '@deepseek-ai/dsh-session'
 
 export const name = 'subagent-result-diagnostic'
 export const inject = ['subagents']

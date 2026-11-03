@@ -3,7 +3,7 @@ description: "Show a temporary 1017 badge beside DeepSeek Flash in the composer 
 kind: "package-reference"
 ---
 
-# @lyness/lyn-client-ui-deepseek-model-label-1017
+# @deepseek-ai/dsh-client-ui-deepseek-model-label-1017
 
 English | [中文](README.zh.md)
 

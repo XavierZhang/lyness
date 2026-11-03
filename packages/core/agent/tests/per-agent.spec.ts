@@ -4,13 +4,13 @@
  * plugin's unmount takes back what is still standing.
  */
 
-import { unsupportedModel } from '@lyness/lyn-agent-loop-testkit'
+import { unsupportedModel } from '@deepseek-ai/dsh-agent-loop-testkit'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { Context } from '@lyness/cordis'
-import { Session, SessionId } from '@lyness/lyn-session'
-import SessionProjectionRegistry from '@lyness/lyn-session-projection'
-import AgentRegistry, { composePerAgent } from '@lyness/lyn-agent'
-import type { Agent, AgentContribution } from '@lyness/lyn-agent'
+import { Context } from '@deepseek-ai/cordis'
+import { Session, SessionId } from '@deepseek-ai/dsh-session'
+import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
+import AgentRegistry, { composePerAgent } from '@deepseek-ai/dsh-agent'
+import type { Agent, AgentContribution } from '@deepseek-ai/dsh-agent'
 
 const live: Context[] = []
 afterEach(async () => { for (const ctx of live.splice(0)) await ctx.fiber.dispose() })

@@ -5,66 +5,66 @@
 /:
   en: 5bcd39034f505033
   zh: 9bfd85a1ad52bc67
-/lyness-lyn-tool-schedule:
+/deepseek-harness-dsh-tool-schedule:
   en: 70d5e4e30fb40a23
   zh: 92ad9661f70ce26a
-/lyness-lyn-tool-schedule/summary:
+/deepseek-harness-dsh-tool-schedule/summary:
   en: 6f91889f0e9e7203
   zh: a08a09bb1fac1f57
-/lyness-lyn-tool-schedule/table-of-contents:
+/deepseek-harness-dsh-tool-schedule/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/lyness-lyn-tool-schedule/use-this-package:
+/deepseek-harness-dsh-tool-schedule/use-this-package:
   en: a692cac1bda0f1bc
   zh: 3cc2e4bff8062e4e
-/lyness-lyn-tool-schedule/use-this-package/when-to-choose-it:
+/deepseek-harness-dsh-tool-schedule/use-this-package/when-to-choose-it:
   en: f5a62e849b13eb54
   zh: 3ea880c93e0ab2fe
-/lyness-lyn-tool-schedule/use-this-package/the-four-tools:
+/deepseek-harness-dsh-tool-schedule/use-this-package/the-four-tools:
   en: f8aae686d0531c29
   zh: 3cccd1ba81aae48d
-/lyness-lyn-tool-schedule/use-this-package/minimal-configuration:
+/deepseek-harness-dsh-tool-schedule/use-this-package/minimal-configuration:
   en: eef3a83c0ffb2931
   zh: 9b527abfde4c3406
-/lyness-lyn-tool-schedule/understand-the-implementation:
+/deepseek-harness-dsh-tool-schedule/understand-the-implementation:
   en: 065702b7a82b8fa1
   zh: 642037baaa2c0f1d
-/lyness-lyn-tool-schedule/understand-the-implementation/source-map:
+/deepseek-harness-dsh-tool-schedule/understand-the-implementation/source-map:
   en: 676c4e0595fcc8dd
   zh: f02ed861f66e7747
-/lyness-lyn-tool-schedule/further-exploration:
+/deepseek-harness-dsh-tool-schedule/further-exploration:
   en: add8fc7f1d80699a
   zh: 7c45e6b300c3a84f
-/lyness-lyn-tool-schedule/model-experience:
+/deepseek-harness-dsh-tool-schedule/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/lyness-lyn-tool-schedule/model-experience/tool-schemas:
+/deepseek-harness-dsh-tool-schedule/model-experience/tool-schemas:
   en: 3039bc5e7a796b21
   zh: 6b7a9eaf69c9ea53
-/lyness-lyn-tool-schedule/model-experience/tool-schemas/what-the-model-sees:
+/deepseek-harness-dsh-tool-schedule/model-experience/tool-schemas/what-the-model-sees:
   en: 91819a9c26732558
   zh: e2ac68f88b87ee85
-/lyness-lyn-tool-schedule/model-experience/tool-schemas/token-effect:
+/deepseek-harness-dsh-tool-schedule/model-experience/tool-schemas/token-effect:
   en: 70fb9094859d0804
   zh: 30726b045484713c
-/lyness-lyn-tool-schedule/model-experience/tool-schemas/kv-cache-effect:
+/deepseek-harness-dsh-tool-schedule/model-experience/tool-schemas/kv-cache-effect:
   en: 332231fb9f1b8146
   zh: eace0b2e789d1c0f
-/lyness-lyn-tool-schedule/model-experience/reminder-results:
+/deepseek-harness-dsh-tool-schedule/model-experience/reminder-results:
   en: ffeb087f9476fddf
   zh: 94569d39555d5192
-/lyness-lyn-tool-schedule/model-experience/reminder-results/what-the-model-sees:
+/deepseek-harness-dsh-tool-schedule/model-experience/reminder-results/what-the-model-sees:
   en: 68ce690c2d5c2312
   zh: d3a9fca950518702
-/lyness-lyn-tool-schedule/model-experience/reminder-results/token-effect:
+/deepseek-harness-dsh-tool-schedule/model-experience/reminder-results/token-effect:
   en: a08931b2c5048399
   zh: 758ea2131adb23e4
-/lyness-lyn-tool-schedule/model-experience/reminder-results/kv-cache-effect:
+/deepseek-harness-dsh-tool-schedule/model-experience/reminder-results/kv-cache-effect:
   en: 2fbf2175168e8244
   zh: 9c4c1964ae59e661
-/lyness-lyn-tool-schedule/known-limitations-and-deferred-work:
+/deepseek-harness-dsh-tool-schedule/known-limitations-and-deferred-work:
   en: c6598c14b0a55730
   zh: f07335446baa003c
-/lyness-lyn-tool-schedule/known-limitations-and-deferred-work/dev-note:
+/deepseek-harness-dsh-tool-schedule/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: b2ee0fbaa165910d

@@ -4,10 +4,10 @@
  * Views rather than the seam's own records: what crosses the wire is what an
  * auditor reads — when, who, which record, what happened to it, and the
  * fields that differ with both sides of each.
- * @module @lyness/lyn-api-admin-audit-controller/types
+ * @module @deepseek-ai/dsh-api-admin-audit-controller/types
  */
 
-declare module '@lyness/lyn-typert-protocol' {
+declare module '@deepseek-ai/dsh-typert-protocol' {
   interface RemoteErrorDetailsMap {
     /**
      * The calling standing may not read that trail: it named an organization

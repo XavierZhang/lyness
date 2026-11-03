@@ -6,10 +6,10 @@
  * compaction cannot change. The plugin owns only the fold; delivery is the
  * seam's.
  *
- * @module @lyness/lyn-session-stats
+ * @module @deepseek-ai/dsh-session-stats
  */
 
-import type { Context } from '@lyness/cordis'
+import type { Context } from '@deepseek-ai/cordis'
 import { sessionStatsProjectionDefinition } from './projection.ts'
 
 export type * from './types.ts'

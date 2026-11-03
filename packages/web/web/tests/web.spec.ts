@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { Context } from '@lyness/cordis'
+import { Context } from '@deepseek-ai/cordis'
 import WebRuntime, {
   WebError,
   type WebFetchProvider,
@@ -7,7 +7,7 @@ import WebRuntime, {
   type WebSearchProvider,
   type WebSearchRequest,
   type WebSearchResult,
-} from '@lyness/lyn-web'
+} from '@deepseek-ai/dsh-web'
 
 /** A scripted search provider for contract tests. */
 function makeSearchProvider(

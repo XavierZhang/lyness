@@ -9,10 +9,10 @@
  * waiting on a reply that never comes is indistinguishable from a slow
  * machine, and the turn would hang instead of saying what is missing.
  *
- * @module @lyness/lyn-desktop-link/executor
+ * @module @deepseek-ai/dsh-desktop-link/executor
  */
 
-import type { JsonValue } from '@lyness/lyn-util-values'
+import type { JsonValue } from '@deepseek-ai/dsh-util-values'
 import type { CallId, DesktopReply, DesktopRequest } from './types.ts'
 
 /** What one capability's handler does with a call. */

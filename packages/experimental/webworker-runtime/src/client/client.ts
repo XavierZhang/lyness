@@ -7,7 +7,7 @@
  */
 
 import { packageAssetResolver } from '../package-assets.ts'
-import type { IndexInjection } from '@lyness/lyn-host-webserver'
+import type { IndexInjection } from '@deepseek-ai/dsh-host-webserver'
 import type {
   TunnelAbortFrame as AbortFrame,
   TunnelOutboundFrame as ResponseFrame,
@@ -59,12 +59,12 @@ interface TunnelStreamFailureMarker {
 
 /** Error carrying stream semantics across independently bundled Client code. */
 class TunnelLogicalStreamError extends Error {
-  readonly lynRemoteStreamFailure: TunnelStreamFailureMarker
+  readonly dshRemoteStreamFailure: TunnelStreamFailureMarker
 
   constructor(failure: TunnelStreamErrorFrame['failure'], options?: ErrorOptions) {
     super(failure.message, options)
     this.name = 'TunnelLogicalStreamError'
-    this.lynRemoteStreamFailure = failure.kind === 'remote'
+    this.dshRemoteStreamFailure = failure.kind === 'remote'
       ? { kind: 'remote', code: failure.code, details: failure.details }
       : { kind: 'carrier' }
   }
