@@ -10,7 +10,7 @@ import { LocaleRuntime } from '@deepseek-ai/dsh-client-locale/client'
 // through the package alias is a second module whenever the resolver prefers
 // the built entry.
 import { apply, inject } from '../src/client/index.ts'
-import type { SidebarRootInjected } from '../src/client/index.ts'
+import type { SidebarRootInjected, SidebarSectionInjected, UseSectionScroller } from '../src/client/index.ts'
 import type { MainPanelId } from '@deepseek-ai/dsh-client-ui-layout/client'
 import type { TrackProductEvent } from '@deepseek-ai/dsh-client-product-analytics/client'
 import { HeaderLeadingControls } from '../src/client/HeaderLeadingControls.tsx'
@@ -26,7 +26,7 @@ afterEach(async () => {
 })
 
 function SidebarFrame({ renderSlot }: PropsRenderSlots<'sidebar'>) {
-  return renderSlot('sidebar', { collapsed: false, width: 300 })
+  return renderSlot('sidebar', { collapsed: false, width: 300, drawer: false })
 }
 
 async function bench(declare = true) {
@@ -72,7 +72,11 @@ describe('ui-sidebar apply', () => {
     expect(b.slots.entries('sidebar')).toHaveLength(1)
     expect(b.slots.spec('sidebar.brand.mark')).toEqual({ kind: 'single', scope: 'root' })
     expect(b.slots.spec('sidebar.brand.name')).toEqual({ kind: 'single', scope: 'root' })
-    expect(b.slots.spec('sidebar.workspaces')).toEqual({ kind: 'single', scope: 'root' })
+    const section = b.slots.spec('sidebar.workspaces') as { kind: string; scope: string; inject: SidebarSectionInjected }
+    expect(section).toMatchObject({ kind: 'single', scope: 'root' })
+    // The section occupant's scroller hook is the one each sidebar render supplies.
+    const useSectionScroller: UseSectionScroller = () => ({ bindScrollerRef: () => {} })
+    expect(section.inject.hooks.sectionScroller({} as never, { useSectionScroller })).toBe(useSectionScroller)
     expect(b.slots.spec('sidebar.settings')).toEqual({ kind: 'single', scope: 'root' })
     expect(b.slots.spec('sidebar.footer.action')).toEqual({ kind: 'list', scope: 'root' })
     expect(b.slots.spec('sidebar.panellist')).toEqual({ kind: 'list', scope: 'root' })

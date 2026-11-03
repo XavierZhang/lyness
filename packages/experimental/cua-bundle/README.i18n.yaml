@@ -5,42 +5,42 @@
 /:
   en: cc518dcd97629a96
   zh: 465e999011282dc3
-/deepseek-harness-dsh-cua-bundle:
-  en: 2d04467d2fb6a24b
-  zh: 554b599d8fb8b9bf
-/deepseek-harness-dsh-cua-bundle/summary:
-  en: 06d8bf4ee1ef6f3b
-  zh: 8568f649fb846615
-/deepseek-harness-dsh-cua-bundle/table-of-contents:
+/deepseek-ai-dsh-cua-bundle:
+  en: 9084fb48d0f6489c
+  zh: ce692972d91cf663
+/deepseek-ai-dsh-cua-bundle/summary:
+  en: 0d93f44a8ce7404c
+  zh: 6a73ed42d0efc9ea
+/deepseek-ai-dsh-cua-bundle/table-of-contents:
   en: b563e4ec4727d0de
   zh: d0228da978238e05
-/deepseek-harness-dsh-cua-bundle/use-this-package:
-  en: 9c7e12db0f31ff6f
-  zh: e445f7554d6d258b
-/deepseek-harness-dsh-cua-bundle/understand-the-implementation:
-  en: e53a12efc1ff25f9
-  zh: 889921d4673b9667
-/deepseek-harness-dsh-cua-bundle/further-exploration:
-  en: f157f37d8fe9610f
-  zh: 54cd9a6699d092f9
-/deepseek-harness-dsh-cua-bundle/model-experience:
+/deepseek-ai-dsh-cua-bundle/use-this-package:
+  en: 5c025a58990bb2eb
+  zh: c3d1280ccbdfe214
+/deepseek-ai-dsh-cua-bundle/understand-the-implementation:
+  en: b1011db52cfc17cd
+  zh: 6fa8798fedc5c0b6
+/deepseek-ai-dsh-cua-bundle/further-exploration:
+  en: 9f15d56b5b16e1ca
+  zh: 75eb08e8828c8877
+/deepseek-ai-dsh-cua-bundle/model-experience:
   en: 215e7ba838619b7b
   zh: a311da3843709f90
-/deepseek-harness-dsh-cua-bundle/model-experience/computer-use-in-ptc-sessions:
+/deepseek-ai-dsh-cua-bundle/model-experience/computer-use-in-ptc-sessions:
   en: e8f11f45b375771e
   zh: e8f11f45b375771e
-/deepseek-harness-dsh-cua-bundle/model-experience/computer-use-in-ptc-sessions/what-the-model-sees:
-  en: 1bff58d661e1a4c7
-  zh: 2e70dff1a62eb3bd
-/deepseek-harness-dsh-cua-bundle/model-experience/computer-use-in-ptc-sessions/token-effect:
+/deepseek-ai-dsh-cua-bundle/model-experience/computer-use-in-ptc-sessions/what-the-model-sees:
+  en: 591af735d1eb92f6
+  zh: 3632bffa33c77b28
+/deepseek-ai-dsh-cua-bundle/model-experience/computer-use-in-ptc-sessions/token-effect:
   en: e8de232e96220fe7
   zh: 5c791307e2123667
-/deepseek-harness-dsh-cua-bundle/model-experience/computer-use-in-ptc-sessions/kv-cache-effect:
+/deepseek-ai-dsh-cua-bundle/model-experience/computer-use-in-ptc-sessions/kv-cache-effect:
   en: 417c40acd93df532
   zh: 69cc5cf7140c75a9
-/deepseek-harness-dsh-cua-bundle/known-limitations-and-deferred-work:
-  en: 41f8c54d76d92c95
-  zh: 44c9662e437f4cbe
-/deepseek-harness-dsh-cua-bundle/known-limitations-and-deferred-work/dev-note:
+/deepseek-ai-dsh-cua-bundle/known-limitations-and-deferred-work:
+  en: 559776e398bb7c47
+  zh: 27adfd2cacad1ee6
+/deepseek-ai-dsh-cua-bundle/known-limitations-and-deferred-work/dev-note:
   en: 0a1253c6f7b5e8b9
   zh: ce96645b3e75874e

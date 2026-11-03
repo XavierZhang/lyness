@@ -3,20 +3,20 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/testing/2026-09-06-frontend-performance-budgets.md
 /agent-note-frontend-large-session-performance-budgets:
-  en: d0097655b8428ffb
-  zh: 84ec897345b50310
+  en: 443578f129feecd8
+  zh: fcc3b1bf7dcdb1fb
 /agent-note-frontend-large-session-performance-budgets/problem:
-  en: 955a73e7227dc98d
-  zh: dabb80fc24be7e34
+  en: 9bf1200b5f980008
+  zh: d2dc07922817c581
 /agent-note-frontend-large-session-performance-budgets/decision:
-  en: db85c39d41797ac1
-  zh: a535a7a8ce90c12b
+  en: db46b4d42d64aa1b
+  zh: a21caffa675e8b42
 /agent-note-frontend-large-session-performance-budgets/calibration:
   en: 2bbee3ec0bc9e618
   zh: b4f937d7f4f09ae5
 /agent-note-frontend-large-session-performance-budgets/calibration/actual-ci-runs:
-  en: 265a600ffefc97e3
-  zh: 4b73a6773e489415
+  en: d4d6aebafcdb8c12
+  zh: 112d3ca1a4ea8ae1
 /agent-note-frontend-large-session-performance-budgets/calibration/standard-hosted-expectations-and-input-scheduling:
   en: 346cd1b3d5acf0ea
   zh: 42e08cd387f982c8
@@ -29,9 +29,12 @@
 /agent-note-frontend-large-session-performance-budgets/calibration/history-selector-invalidation:
   en: 2d2f78f4cf6aad8a
   zh: aec6af5f7c66de16
+/agent-note-frontend-large-session-performance-budgets/calibration/streaming-assistant-visibility:
+  en: 5dc3c84b80be0e8e
+  zh: 4bbd16e1f455ef85
 /agent-note-frontend-large-session-performance-budgets/alternatives-considered:
   en: 4d2a4a64ccd14507
   zh: 8a4aaf4d4abea13d
 /agent-note-frontend-large-session-performance-budgets/consequences:
-  en: e69e3c1a1fd876b2
-  zh: a94528b770d24b40
+  en: 3f4f510612875d54
+  zh: 3a4af464f159bfe8

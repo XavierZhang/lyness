@@ -5,48 +5,48 @@
 /:
   en: d88f75fc0178ba53
   zh: 52bc7ae9551ab1cf
-/deepseek-harness-dsh-client-ui-chat:
-  en: 3ccbe6df9d018229
-  zh: f087567cdab44f59
-/deepseek-harness-dsh-client-ui-chat/summary:
+/deepseek-ai-dsh-client-ui-chat:
+  en: 02bd72c12ada3218
+  zh: 331b3a38b3ddfc6e
+/deepseek-ai-dsh-client-ui-chat/summary:
   en: 4f2d50107db6c4f8
   zh: ea7ccfcce8f1849e
-/deepseek-harness-dsh-client-ui-chat/table-of-contents:
+/deepseek-ai-dsh-client-ui-chat/table-of-contents:
   en: 41cd21266011d571
   zh: 3172d1a2acbb27b7
-/deepseek-harness-dsh-client-ui-chat/reference-previews:
-  en: b02e730e0dd6b46b
-  zh: e35ced11d427ef29
-/deepseek-harness-dsh-client-ui-chat/hidden-chat-rows:
-  en: cbf1f0a2205046a5
-  zh: 2e59d0815351349f
-/deepseek-harness-dsh-client-ui-chat/command-and-failure-rows:
-  en: 00d736159dddc758
-  zh: 89db96ddfb279765
-/deepseek-harness-dsh-client-ui-chat/turn-token-usage:
-  en: 0229f9cc34e87f4d
-  zh: 1ce0c7993b207089
-/deepseek-harness-dsh-client-ui-chat/completed-turn-footer:
+/deepseek-ai-dsh-client-ui-chat/reference-previews:
+  en: 9386791a9e5efa00
+  zh: 7cb9f3bbc42319d6
+/deepseek-ai-dsh-client-ui-chat/hidden-chat-rows:
+  en: 91b7c7a5263eda35
+  zh: 16d39b45edee038f
+/deepseek-ai-dsh-client-ui-chat/command-and-failure-rows:
+  en: c5b23d0ed29a0425
+  zh: 689bab2c8253294a
+/deepseek-ai-dsh-client-ui-chat/turn-token-usage:
+  en: cfdfe3d99d3f4e09
+  zh: 9330bad3d3f7a689
+/deepseek-ai-dsh-client-ui-chat/completed-turn-footer:
   en: 382821ca3ffa60dd
   zh: 9840ffa07c13082a
-/deepseek-harness-dsh-client-ui-chat/turn-process-folding:
-  en: 428930c8ac4cadd4
-  zh: 55bf5487d33b7e23
-/deepseek-harness-dsh-client-ui-chat/grouped-rendering:
-  en: a6d0567537b62db3
-  zh: 1cb2cf6769d8a61b
-/deepseek-harness-dsh-client-ui-chat/scroll-ownership:
-  en: 7b038abf4d3fb977
-  zh: 914d624d6f5ab80d
-/deepseek-harness-dsh-client-ui-chat/model-experience:
+/deepseek-ai-dsh-client-ui-chat/turn-process-folding:
+  en: b0d806604bc17006
+  zh: 18dabe5dc2d0d419
+/deepseek-ai-dsh-client-ui-chat/grouped-rendering:
+  en: b1630d93a52f483e
+  zh: 59cb81ca50ecffc4
+/deepseek-ai-dsh-client-ui-chat/scroll-ownership:
+  en: dd4e69828096c3a0
+  zh: 2a9bc370f44efcd7
+/deepseek-ai-dsh-client-ui-chat/model-experience:
   en: c17b4dd43a61c569
   zh: f7414309810c3a08
-/deepseek-harness-dsh-client-ui-chat/model-experience/kv-cache-effect:
+/deepseek-ai-dsh-client-ui-chat/model-experience/kv-cache-effect:
   en: 15a7151ff9268f15
   zh: 6eae68c718be579b
-/deepseek-harness-dsh-client-ui-chat/known-limitations-and-deferred-work:
-  en: 400fa86c3f339e73
-  zh: edcd28441cc90e30
-/deepseek-harness-dsh-client-ui-chat/known-limitations-and-deferred-work/dev-note:
+/deepseek-ai-dsh-client-ui-chat/known-limitations-and-deferred-work:
+  en: 811787a5d2feaa90
+  zh: 3f1697bbc1fc7691
+/deepseek-ai-dsh-client-ui-chat/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: e88aeb617ffb74ea

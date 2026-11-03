@@ -5,27 +5,27 @@
 /:
   en: 9a7ee334bf98bb3d
   zh: 0a78ada4049c27fe
-/deepseek-harness-dsh-experimental-webworker-runtime:
-  en: 6e0b7a2d01219244
-  zh: 3885505af90343d1
-/deepseek-harness-dsh-experimental-webworker-runtime/summary:
-  en: 370a46ce304fc783
-  zh: 7fde96425d434df3
-/deepseek-harness-dsh-experimental-webworker-runtime/table-of-contents:
+/deepseek-ai-dsh-experimental-webworker-runtime:
+  en: ca354d8ca21609bb
+  zh: 2eff66603192a3ff
+/deepseek-ai-dsh-experimental-webworker-runtime/summary:
+  en: cfff0da51e5e9bde
+  zh: 38e7960b16c77c2c
+/deepseek-ai-dsh-experimental-webworker-runtime/table-of-contents:
   en: 4e53164159b5ce41
   zh: 89582dc0294d0776
-/deepseek-harness-dsh-experimental-webworker-runtime/use-this-package:
-  en: e07668935b1c8a3f
-  zh: 5db6aeac009fefff
-/deepseek-harness-dsh-experimental-webworker-runtime/model-experience:
+/deepseek-ai-dsh-experimental-webworker-runtime/use-this-package:
+  en: 9f4c76d6c4391037
+  zh: c55611045f4667e2
+/deepseek-ai-dsh-experimental-webworker-runtime/model-experience:
   en: 61fce9b4c7dc96e6
   zh: dc2d931063a38327
-/deepseek-harness-dsh-experimental-webworker-runtime/model-experience/kv-cache-effect:
+/deepseek-ai-dsh-experimental-webworker-runtime/model-experience/kv-cache-effect:
   en: ca75c51c89c2c9b0
   zh: 64715dc7e6d02f71
-/deepseek-harness-dsh-experimental-webworker-runtime/known-limitations-and-deferred-work:
-  en: 82a81a4dba9cfbd1
-  zh: fbc2bcc3b1db7395
-/deepseek-harness-dsh-experimental-webworker-runtime/known-limitations-and-deferred-work/dev-note:
+/deepseek-ai-dsh-experimental-webworker-runtime/known-limitations-and-deferred-work:
+  en: f7092d1e901219c1
+  zh: 0fc1938302ee428a
+/deepseek-ai-dsh-experimental-webworker-runtime/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: e88aeb617ffb74ea

@@ -3,38 +3,38 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-06-24-web-capability-seam.md
 /agent-note-web-capability-seam-stable-tools-over-multiple-providers:
-  en: 869171c65368db40
-  zh: 8632b4c54b1900ca
+  en: ca120635fc40431c
+  zh: 6be7c5ae3c86cdcc
 /agent-note-web-capability-seam-stable-tools-over-multiple-providers/problem:
-  en: 314e336fdfb395ed
-  zh: 6d14e249253b45f6
+  en: df1e82a74c42fa1d
+  zh: 8d5452360a0dec8a
 /agent-note-web-capability-seam-stable-tools-over-multiple-providers/decision:
-  en: fce51b136091ccfd
-  zh: 4b5f1eed4093e453
+  en: 7a4921d82cd11749
+  zh: 6ab506109afc1351
 /agent-note-web-capability-seam-stable-tools-over-multiple-providers/package-topology:
-  en: 8736b8322e7e3cc1
-  zh: a7d8d0e99d63c902
+  en: 3394139c17d28ba8
+  zh: 66857733ba51d98c
 /agent-note-web-capability-seam-stable-tools-over-multiple-providers/ctx-web-contract:
-  en: c9eb04152168bb74
-  zh: 3f29e77c05a6c4f9
+  en: b432f80a424c3e49
+  zh: faa26925fdd98387
 /agent-note-web-capability-seam-stable-tools-over-multiple-providers/provider-availability-and-selection:
-  en: f950f3681148b768
-  zh: 724ad405f5c6a957
+  en: afc540d986e00d68
+  zh: 84795770d00228c3
 /agent-note-web-capability-seam-stable-tools-over-multiple-providers/search-request-and-result-schema:
-  en: 9737f6ac520a0269
-  zh: 2b5ece2a10951f8a
+  en: ccf6404ae7f3172e
+  zh: 3253035ea49e2548
 /agent-note-web-capability-seam-stable-tools-over-multiple-providers/fetch-request-and-result-schema:
-  en: 5a53791d9e28d900
-  zh: d8f9c6093b3cb0cc
+  en: 6dba3b9a51c28b6d
+  zh: 58a93f6ba2d269ea
 /agent-note-web-capability-seam-stable-tools-over-multiple-providers/tool-consumer-behavior:
-  en: 008a45011abf9c36
-  zh: 93cbe233e494604a
+  en: 62127883453dd79c
+  zh: 01503a8177a0ddab
 /agent-note-web-capability-seam-stable-tools-over-multiple-providers/errors:
-  en: e30730472c6e9eec
-  zh: b930427e44598e50
+  en: 3440f2b34b93f4a1
+  zh: 57a8f784c7e26eff
 /agent-note-web-capability-seam-stable-tools-over-multiple-providers/testing:
-  en: 399911a55e225e5e
-  zh: 400a09a53a85c8fa
+  en: 03da2f3422183384
+  zh: 10fede51a415ce11
 /agent-note-web-capability-seam-stable-tools-over-multiple-providers/alternatives-considered:
   en: 6119e2aff3b6be5a
   zh: 76136ef5249c23eb
@@ -42,11 +42,11 @@
   en: e0d84a9b1b9c2123
   zh: 9e116a7b96751563
 /agent-note-web-capability-seam-stable-tools-over-multiple-providers/alternatives-considered/put-provider-dispatch-directly-in-dsh-tool-web:
-  en: 4975892c26ef0e5e
-  zh: 09eb687fa0906599
+  en: 68ef45e8e5a36de9
+  zh: 0013786ed77e03a8
 /agent-note-web-capability-seam-stable-tools-over-multiple-providers/alternatives-considered/split-search-and-fetch-into-two-seams-dsh-search-dsh-fetch:
-  en: 0b8c91bc36ee81dc
-  zh: d71eab922dbfff62
+  en: 3fb72ba3e554f20a
+  zh: aff5f0add5773388
 /agent-note-web-capability-seam-stable-tools-over-multiple-providers/alternatives-considered/choose-the-first-registered-provider:
   en: 1800706ea0f6b90b
   zh: ced985b7657e2d7f
@@ -54,8 +54,8 @@
   en: fc22e6a8bfaeaa20
   zh: 64032ea6ab61b836
 /agent-note-web-capability-seam-stable-tools-over-multiple-providers/alternatives-considered/mirror-claude-code-s-url-prompt-webfetch-shape:
-  en: 33d01ffe71c241d7
-  zh: 4523b7a6d65b49fb
+  en: 56a080de39e96056
+  zh: 937336a73de70518
 /agent-note-web-capability-seam-stable-tools-over-multiple-providers/alternatives-considered/restrict-fetch-to-public-addresses:
   en: af3014c0de7ff66f
   zh: 509040c9183327fe
@@ -63,11 +63,11 @@
   en: 3ea94ffb142d144a
   zh: 89645f68412f6769
 /agent-note-web-capability-seam-stable-tools-over-multiple-providers/consequences:
-  en: 9774448fd6b21c41
-  zh: 8411c590ad70d5c4
+  en: 8e7523b2858efaf3
+  zh: aff8fc74eb439ed6
 /agent-note-web-capability-seam-stable-tools-over-multiple-providers/deferred-work:
-  en: c397d82f4afba74e
-  zh: afe36adb15d09b21
+  en: ddb599fd2ac1647c
+  zh: c0b8f446cf483b3c
 /agent-note-web-capability-seam-stable-tools-over-multiple-providers/open-questions:
   en: 63848c6ef9a6ab44
   zh: 041b340802091e60

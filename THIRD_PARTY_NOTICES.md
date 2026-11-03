@@ -25,18 +25,6 @@ The Cordis framework and its foundation libraries are source-vendored into this 
 | `@deepseek-ai/cordis-plugin-hmr` | `@cordisjs/plugin-hmr` | [vendor/hmr](vendor/hmr/) | MIT |
 | `@deepseek-ai/cordis-plugin-logger-console` | `@cordisjs/plugin-logger-console` | [vendor/logger-console](vendor/logger-console/) | MIT |
 
-## Bundled third-party files
-
-Files committed inside workspace packages and distributed unmodified with them. Each file's license text ships beside it, and its package's `third-party-assets.json` records its source and SHA-256, which the generator verifies.
-
-| File | Name | Version | License | Source |
-| --- | --- | --- | --- | --- |
-| `packages/client/ui-theme/src/styles/montserrat-light.woff2` | Montserrat Light | 2024 | [OFL-1.1](packages/client/ui-theme/src/styles/Montserrat-OFL.txt) | [github.com/JulietaUla/Montserrat](https://github.com/JulietaUla/Montserrat) |
-| `packages/client/ui-theme/src/styles/montserrat-medium.woff2` | Montserrat Medium | 2024 | [OFL-1.1](packages/client/ui-theme/src/styles/Montserrat-OFL.txt) | [github.com/JulietaUla/Montserrat](https://github.com/JulietaUla/Montserrat) |
-| `packages/client/ui-theme/src/styles/montserrat-regular.woff2` | Montserrat Regular | 2024 | [OFL-1.1](packages/client/ui-theme/src/styles/Montserrat-OFL.txt) | [github.com/JulietaUla/Montserrat](https://github.com/JulietaUla/Montserrat) |
-| `packages/host/brand-fonts/fonts/Inter-SemiBold.ttf` | Inter SemiBold | 4.1 | [OFL-1.1](packages/host/brand-fonts/fonts/LICENSE-Inter.txt) | [github.com/rsms/inter/releases/tag/v4.1](https://github.com/rsms/inter/releases/tag/v4.1) |
-| `packages/host/brand-fonts/fonts/NotoSansCJKsc-Medium.otf` | Noto Sans CJK SC Medium | 2.004 | [OFL-1.1](packages/host/brand-fonts/fonts/LICENSE-NotoSansCJK.txt) | [github.com/notofonts/noto-cjk/releases/tag/Sans2.004](https://github.com/notofonts/noto-cjk/releases/tag/Sans2.004) |
-
 ## Runtime npm dependencies
 
 External packages installed for runtime use or embedded in distributed Host or browser artifacts. Browser inputs are resolved through the shipping tsdown and Vite configurations, independently of npm dependency sections. Host embedding declarations identify the distributing package and its embedded dependencies. The tier covers every plugin a user can mount from `cordis.yml` — not only what the `dsh` CLI, Web UI, and Python SDK runtime load by default.
@@ -47,6 +35,7 @@ External packages installed for runtime use or embedded in distributed Host or b
 | [`@anthropic-ai/claude-agent-sdk`](https://github.com/anthropics/claude-agent-sdk-typescript) | SEE LICENSE IN README.md |
 | [`@anthropic-ai/sdk`](https://github.com/anthropics/anthropic-sdk-typescript) | MIT |
 | [`@babel/code-frame`](https://github.com/babel/babel) | MIT |
+| [`@botiverse/oar`](https://github.com/botiverse/oar) | Apache-2.0 |
 | [`@browserbasehq/stagehand`](https://github.com/browserbase/stagehand) | MIT |
 | [`@deepseek-ai/libreoffice-kit`](https://github.com/deepseek-ai/dsh-libreoffice-kit) | MPL-2.0 |
 | [`@earendil-works/pi-ai`](https://github.com/earendil-works/pi) | MIT |
@@ -63,7 +52,6 @@ External packages installed for runtime use or embedded in distributed Host or b
 | [`@lexical/utils`](https://github.com/facebook/lexical) | MIT |
 | [`@modelcontextprotocol/client`](https://github.com/modelcontextprotocol/typescript-sdk) | MIT |
 | [`@modelcontextprotocol/sdk`](https://github.com/modelcontextprotocol/typescript-sdk) | MIT |
-| [`@neplex/vectorizer`](https://github.com/neplextech/vectorizer) | MIT |
 | [`@noble/hashes`](https://github.com/paulmillr/noble-hashes) | MIT |
 | [`@octokit/webhooks`](https://github.com/octokit/webhooks.js) | MIT |
 | [`@openai/codex`](https://github.com/openai/codex) | Apache-2.0 |
@@ -87,6 +75,7 @@ External packages installed for runtime use or embedded in distributed Host or b
 | [`@xterm/xterm`](https://github.com/xtermjs/xterm.js) | MIT |
 | [`@yarnpkg/parsers`](https://github.com/yarnpkg/berry) | BSD-2-Clause |
 | [`acorn`](https://github.com/acornjs/acorn) | MIT |
+| [`acorn-walk`](https://github.com/acornjs/acorn) | MIT |
 | [`ajv`](https://github.com/ajv-validator/ajv) | MIT |
 | [`anser`](https://github.com/IonicaBizau/anser) | MIT |
 | [`big.js`](https://github.com/MikeMcl/big.js) | MIT |
@@ -102,12 +91,13 @@ External packages installed for runtime use or embedded in distributed Host or b
 | [`diff`](https://github.com/kpdecker/jsdiff) | BSD-3-Clause |
 | [`dompurify`](https://github.com/cure53/DOMPurify) | (MPL-2.0 OR Apache-2.0) |
 | [`electron-updater`](https://github.com/electron-userland/electron-builder) | MIT |
+| [`eslint-scope`](https://github.com/eslint/js) | BSD-2-Clause |
+| [`eslint-visitor-keys`](https://github.com/eslint/js) | Apache-2.0 |
 | [`eventsource-parser`](https://github.com/rexxars/eventsource-parser) | MIT |
 | [`exceljs`](https://github.com/exceljs/exceljs) | MIT |
 | [`execa`](https://github.com/sindresorhus/execa) | MIT |
 | [`fast-xml-parser`](https://github.com/NaturalIntelligence/fast-xml-parser) | MIT |
 | [`fflate`](https://github.com/101arrowz/fflate) | MIT |
-| [`fontkit`](https://github.com/foliojs/fontkit) | MIT |
 | [`got`](https://github.com/sindresorhus/got) | MIT |
 | [`hosted-git-info`](https://github.com/npm/hosted-git-info) | ISC |
 | [`immer`](https://github.com/immerjs/immer) | MIT |
@@ -125,6 +115,7 @@ External packages installed for runtime use or embedded in distributed Host or b
 | [`micromark-factory-space`](https://github.com/micromark/micromark/tree/main/packages/micromark-factory-space) | MIT |
 | [`micromark-util-character`](https://github.com/micromark/micromark/tree/main/packages/micromark-util-character) | MIT |
 | [`micromark-util-classify-character`](https://github.com/micromark/micromark/tree/main/packages/micromark-util-classify-character) | MIT |
+| [`micromark-util-decode-string`](https://github.com/micromark/micromark/tree/main/packages/micromark-util-decode-string) | MIT |
 | [`micromark-util-sanitize-uri`](https://github.com/micromark/micromark/tree/main/packages/micromark-util-sanitize-uri) | MIT |
 | [`micromark-util-symbol`](https://github.com/micromark/micromark/tree/main/packages/micromark-util-symbol) | MIT |
 | [`mime`](https://github.com/broofa/mime) | MIT |
@@ -142,9 +133,11 @@ External packages installed for runtime use or embedded in distributed Host or b
 | [`react-dom`](https://github.com/facebook/react) | MIT |
 | [`readable-stream`](https://github.com/nodejs/readable-stream) | MIT |
 | [`resolve.exports`](https://github.com/lukeed/resolve.exports) | MIT |
+| [`rrule`](https://github.com/jakubroztocil/rrule) | BSD-3-Clause |
 | [`semver`](https://github.com/npm/node-semver) | ISC |
 | [`serve-static`](https://github.com/expressjs/serve-static) | MIT |
 | [`sharp`](https://github.com/lovell/sharp) | Apache-2.0 |
+| [`shell-quote`](http://github.com/ljharb/shell-quote) | MIT |
 | [`sherpa-onnx-node`](https://github.com/csukuangfj/sherpa-onnx) | Apache-2.0 |
 | [`shiki`](https://github.com/shikijs/shiki) | MIT |
 | [`simple-icons`](https://github.com/simple-icons/simple-icons) | CC0-1.0 |
@@ -174,6 +167,8 @@ pnpm applies local patches to the following packages at install time, so shipped
 - `app-builder-lib@26.17.0` — [`patches/app-builder-lib@26.17.0.patch`](patches/app-builder-lib@26.17.0.patch)
 - `exceljs@4.4.0` — [`patches/exceljs@4.4.0.patch`](patches/exceljs@4.4.0.patch)
 - `lexical@0.49.0` — [`patches/lexical@0.49.0.patch`](patches/lexical@0.49.0.patch)
+- `mdast-util-gfm-autolink-literal@2.0.1` — [`patches/mdast-util-gfm-autolink-literal@2.0.1.patch`](patches/mdast-util-gfm-autolink-literal@2.0.1.patch)
+- `micromark-extension-gfm-autolink-literal@2.1.0` — [`patches/micromark-extension-gfm-autolink-literal@2.1.0.patch`](patches/micromark-extension-gfm-autolink-literal@2.1.0.patch)
 - `node-pty@1.2.0-beta.15` — [`patches/node-pty@1.2.0-beta.15.patch`](patches/node-pty@1.2.0-beta.15.patch)
 
 ## Chrome DevTools frontend
@@ -212,11 +207,9 @@ External packages **directly declared** for development, tests, types, or toolin
 
 | Package | License |
 | --- | --- |
-| [`@botiverse/oar`](https://github.com/botiverse/oar) | Apache-2.0 |
 | [`@braintree/sanitize-url`](https://github.com/braintree/sanitize-url) | MIT |
 | [`@electron/get`](https://github.com/electron/get) | MIT |
 | [`@electron/notarize`](https://github.com/electron/notarize) | MIT |
-| [`@fontsource/inter`](https://github.com/fontsource/font-files) | OFL-1.1 |
 | [`@lexical/headless`](https://github.com/facebook/lexical) | MIT |
 | [`@modelcontextprotocol/node`](https://github.com/modelcontextprotocol/typescript-sdk) | MIT |
 | [`@modelcontextprotocol/server`](https://github.com/modelcontextprotocol/typescript-sdk) | MIT |
@@ -229,7 +222,7 @@ External packages **directly declared** for development, tests, types, or toolin
 | [`@types/babel__code-frame`](https://github.com/DefinitelyTyped/DefinitelyTyped) | MIT |
 | [`@types/big.js`](https://github.com/DefinitelyTyped/DefinitelyTyped) | MIT |
 | [`@types/compression`](https://github.com/DefinitelyTyped/DefinitelyTyped) | MIT |
-| [`@types/fontkit`](https://github.com/DefinitelyTyped/DefinitelyTyped) | MIT |
+| [`@types/estree`](https://github.com/DefinitelyTyped/DefinitelyTyped) | MIT |
 | [`@types/hosted-git-info`](https://github.com/DefinitelyTyped/DefinitelyTyped) | MIT |
 | [`@types/js-yaml`](https://github.com/DefinitelyTyped/DefinitelyTyped) | MIT |
 | [`@types/jsdom`](https://github.com/DefinitelyTyped/DefinitelyTyped) | MIT |
@@ -281,6 +274,7 @@ External packages **directly declared** for development, tests, types, or toolin
 | [`selfsigned`](https://github.com/jfromaniello/selfsigned) | MIT |
 | [`smol-toml`](https://github.com/squirrelchat/smol-toml) | BSD-3-Clause |
 | [`spdx-expression-parse`](https://github.com/jslicense/spdx-expression-parse.js) | MIT |
+| [`tencentcloud-sdk-nodejs-teo`](https://github.com/tencentcloud/tencentcloud-sdk-nodejs) | Apache-2.0 |
 | [`tsdown`](https://github.com/rolldown/tsdown) | MIT |
 | [`typescript-language-server`](https://github.com/typescript-language-server/typescript-language-server) | Apache-2.0 |
 | [`vite`](https://github.com/vitejs/vite) | MIT |
@@ -290,7 +284,7 @@ External packages **directly declared** for development, tests, types, or toolin
 | [`vitest`](https://github.com/vitest-dev/vitest) | MIT |
 | [`vue`](https://github.com/vuejs/core) | MIT |
 
-`@fontsource/inter` (OFL-1.1), `eslint-plugin-sonarjs` (LGPL-3.0-only) and `lightningcss` (MPL-2.0) run only as development tooling; their code is not linked into or distributed with any DeepSeek Harness artifact.
+`eslint-plugin-sonarjs` (LGPL-3.0-only) and `lightningcss` (MPL-2.0) run only as development tooling; their code is not linked into or distributed with any DeepSeek Harness artifact.
 
 ## Python SDK dependencies (`python/`)
 
@@ -300,7 +294,7 @@ Direct dependencies of the `pyproject.toml` manifests, plus `uv` as the developm
 | --- | --- | --- |
 | [`hatchling`](https://github.com/pypa/hatch) | MIT | build backend |
 | [`pillow`](https://github.com/python-pillow/Pillow) | MIT-CMU | Python project dependency |
-| [`pydantic`](https://github.com/pydantic/pydantic) | MIT | runtime dependency of `DeepSeek Harness-sdk` |
+| [`pydantic`](https://github.com/pydantic/pydantic) | MIT | runtime dependency of `deepseek-harness-sdk` |
 | [`pytest`](https://github.com/pytest-dev/pytest) | MIT | test-only |
 | [`uv`](https://github.com/astral-sh/uv) | MIT / Apache-2.0 | development workflow tool |
 

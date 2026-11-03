@@ -3,71 +3,71 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/bundle/headless/README.md
 /:
-  en: fa3201ce01a99d6b
-  zh: e78ed79701e26ea7
-/deepseek-harness-dsh-headless:
-  en: c7971e99ed5f8da3
-  zh: dbab781fd32346aa
-/deepseek-harness-dsh-headless/summary:
-  en: 2e74863ee0ada0d7
-  zh: 081c8498da281d1f
-/deepseek-harness-dsh-headless/table-of-contents:
+  en: 68ff17b596cbc6aa
+  zh: 8c6f3d309403ba81
+/deepseek-ai-dsh-headless:
+  en: 605b67ee9f21d085
+  zh: df2687a69f362493
+/deepseek-ai-dsh-headless/summary:
+  en: 2c31f2cf129ed020
+  zh: 2b34e3640b011475
+/deepseek-ai-dsh-headless/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/deepseek-harness-dsh-headless/use-this-package:
+/deepseek-ai-dsh-headless/use-this-package:
   en: 4447012f4c84100d
   zh: faf579ae9f04c096
-/deepseek-harness-dsh-headless/use-this-package/running-a-one-shot-task:
-  en: bab88ace58ef33a7
-  zh: 9f8fb72c9e87a743
-/deepseek-harness-dsh-headless/use-this-package/credentials:
-  en: 53e2631e174af4e7
-  zh: 8e59367646acac78
-/deepseek-harness-dsh-headless/use-this-package/choosing-the-session-identity:
+/deepseek-ai-dsh-headless/use-this-package/running-a-one-shot-task:
+  en: b3d0ddfb56a1ac7f
+  zh: c1762158e49a4851
+/deepseek-ai-dsh-headless/use-this-package/credentials:
+  en: bf02dd1c6888da25
+  zh: 83dca9600cd7e8ff
+/deepseek-ai-dsh-headless/use-this-package/choosing-the-session-identity:
   en: 85120c2d6db2cac4
   zh: bac532df6c84e755
-/deepseek-harness-dsh-headless/use-this-package/supervising-implementation-tasks:
-  en: 240a283a09a01866
-  zh: d865c397d90d3b76
-/deepseek-harness-dsh-headless/use-this-package/experimental-auto-review:
-  en: b695861713ad6e50
-  zh: 30b822654e1f8a56
-/deepseek-harness-dsh-headless/use-this-package/machine-readable-output:
-  en: 6c7a23f4d4227907
-  zh: 13fe8b1e6f25d09e
-/deepseek-harness-dsh-headless/use-this-package/when-to-use-it:
-  en: 7779855c88df001a
-  zh: 84d636152fd39634
-/deepseek-harness-dsh-headless/use-this-package/help-and-task-errors:
-  en: 626d58aceb4b3f62
-  zh: b1d154cda5de7947
-/deepseek-harness-dsh-headless/understand-the-implementation:
+/deepseek-ai-dsh-headless/use-this-package/supervising-implementation-tasks:
+  en: b10dee3026e8d999
+  zh: 63eda004e228a48a
+/deepseek-ai-dsh-headless/use-this-package/experimental-auto-review:
+  en: ac060bf78cf157b6
+  zh: 5e099abb8c10b96b
+/deepseek-ai-dsh-headless/use-this-package/machine-readable-output:
+  en: c8a90b16023eb04a
+  zh: 58eec3550ea70f34
+/deepseek-ai-dsh-headless/use-this-package/when-to-use-it:
+  en: 5262b93dcef0d489
+  zh: 1638965b2aabcd38
+/deepseek-ai-dsh-headless/use-this-package/help-and-task-errors:
+  en: ecd381558cf7b0e7
+  zh: a351efbf4a1a2ac5
+/deepseek-ai-dsh-headless/understand-the-implementation:
   en: be1b73a6d0ee3902
   zh: bdba099685d68b27
-/deepseek-harness-dsh-headless/understand-the-implementation/run-flow:
-  en: d0b2deb9353d263b
-  zh: fd0142197be94c57
-/deepseek-harness-dsh-headless/understand-the-implementation/patch-surface-over-base:
-  en: 072f7fc419ccf108
-  zh: dd9be70772d24d3f
-/deepseek-harness-dsh-headless/understand-the-implementation/exit-mapping:
-  en: 0b5a505a12d7fc55
-  zh: 122b239b35ca9482
-/deepseek-harness-dsh-headless/understand-the-implementation/source-map:
-  en: 36a635fad25b9ef0
-  zh: e271db999b11f0ed
-/deepseek-harness-dsh-headless/further-exploration:
-  en: 487ec5fad3e64fcd
-  zh: c90356c08dd812e9
-/deepseek-harness-dsh-headless/model-experience:
+/deepseek-ai-dsh-headless/understand-the-implementation/run-flow:
+  en: fdef19c52550fdf8
+  zh: c4bab4fb6972cf10
+/deepseek-ai-dsh-headless/understand-the-implementation/patch-surface-over-base:
+  en: e192267973792ad1
+  zh: ef78428a68dff9e4
+/deepseek-ai-dsh-headless/understand-the-implementation/exit-mapping:
+  en: c2466d3d8a26177a
+  zh: b75743bfa2e7723a
+/deepseek-ai-dsh-headless/understand-the-implementation/source-map:
+  en: fbda2df5fd109682
+  zh: 3a92aec4d9dfd9c8
+/deepseek-ai-dsh-headless/further-exploration:
+  en: 65aebf0f8ab3047c
+  zh: 85616d3859073c4b
+/deepseek-ai-dsh-headless/model-experience:
   en: c5a0991833f64dd7
   zh: 46f9feb255778f11
-/deepseek-harness-dsh-headless/model-experience/kv-cache-effect:
+/deepseek-ai-dsh-headless/model-experience/kv-cache-effect:
   en: 0b0f74b412c7c6d8
   zh: 6e8f918d0c4bf342
-/deepseek-harness-dsh-headless/known-limitations-and-deferred-work:
-  en: 8a7f726e6192e02f
-  zh: d8376e30c9603d39
-/deepseek-harness-dsh-headless/known-limitations-and-deferred-work/dev-note:
+/deepseek-ai-dsh-headless/known-limitations-and-deferred-work:
+  en: 94d8c7731c1435c3
+  zh: d0ddc9dd4e030b3f
+/deepseek-ai-dsh-headless/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

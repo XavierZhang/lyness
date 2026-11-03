@@ -68,3 +68,5 @@ logs/
 
 # 本地 agent 工具状态（二开新增）
 .omc/
+# Generated company-signed CUA release record.
+/packages/experimental/cua-macos/cua-helper.json

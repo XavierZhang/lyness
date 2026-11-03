@@ -3,14 +3,14 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write apps/web/tests/README.md
 /apps-web-browser-e2e:
-  en: 7a4b1cc59ecfc58b
-  zh: 4dd5dc3c12cfd6a7
+  en: 88e00180b920a42e
+  zh: 8ddba0f4bbb4f1f6
 /apps-web-browser-e2e/completion-observations:
-  en: 0142ba38fceb7d65
-  zh: 2682696daa85383a
+  en: 8c139966983959cc
+  zh: 54f09f9b7ac84cda
 /apps-web-browser-e2e/these-are-host-face-tests:
   en: 101d687b1d98c5b7
   zh: f8c31115e8a15be7
-/apps-web-browser-e2e/do-not-import-deepseek-harness-dsh-client-here:
-  en: e07a7dcf94b6bd02
-  zh: ff7f570ff1bd4fea
+/apps-web-browser-e2e/do-not-import-deepseek-ai-dsh-client-here:
+  en: 7cc75a6413647142
+  zh: a8c541f9b93e9f7f

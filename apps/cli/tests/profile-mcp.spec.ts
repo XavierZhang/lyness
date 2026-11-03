@@ -1,4 +1,4 @@
-/** MCP resource ownership across the resolved shipped profile templates. */
+/** MCP resource and server-manager ownership across the resolved shipped profile templates. */
 
 import { mkdtempSync, readFileSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
@@ -19,35 +19,48 @@ describe('shipped MCP resource composition', () => {
 
   it.each(Object.keys(PROFILE_TEMPLATES).filter(name => !STANDALONE.includes(name)))(
     '%s carries one shared resource consumer without a server', (name) => {
-      const home = mkdtempSync(join(tmpdir(), 'dsh-profile-mcp-'))
-      try {
-        const profile = loadProfile('dsh', name, installAnchor, home)
-        const warnings: string[] = []
-        const rows = composeEntries([
-          ...profile.layers.map(layer => layer.patches),
-          profile.patches,
-        ], message => warnings.push(message))
+    const home = mkdtempSync(join(tmpdir(), 'dsh-profile-mcp-'))
+    try {
+      const profile = loadProfile('dsh', name, installAnchor, home)
+      const warnings: string[] = []
+      const rows = composeEntries([
+        ...profile.layers.map(layer => layer.patches),
+        profile.patches,
+      ], message => warnings.push(message))
 
-        expect(rows.filter(row => row.name === resourcePackage)).toEqual([
-          { id: 'mcp-resources', name: resourcePackage },
-        ])
-        expect(rows.filter(row => row.name === '@deepseek-ai/dsh-mcp-client')).toEqual([])
-        // No template patches a row another bundle did not insert: a patch
-        // layer cannot say "disable this if it exists", so rows that need two
-        // bundles are selected with both.
-        expect(warnings).toEqual([])
+      expect(rows.filter(row => row.name === resourcePackage)).toEqual([
+        { id: 'mcp-resources', name: resourcePackage },
+      ])
+      expect(rows.filter(row => row.name === '@deepseek-ai/dsh-mcp-client')).toEqual([])
+      // No template patches a row another bundle did not insert: a patch
+      // layer cannot say "disable this if it exists", so rows that need two
+      // bundles are selected with both.
+      expect(warnings).toEqual([])
 
-        const owners = profile.layers.filter((layer) => {
-          const manifest = JSON.parse(readFileSync(join(layer.packageDir, 'package.json'), 'utf8')) as {
-            dependencies?: Record<string, string>
-          }
-          return manifest.dependencies?.[resourcePackage] !== undefined
-        })
-        expect(owners.map(owner => owner.packageName)).toEqual([
-          name === 'sdk-minimal' ? '@deepseek-ai/dsh-sdk-minimal' : '@deepseek-ai/dsh-base',
-        ])
-      } finally {
-        rmSync(home, { recursive: true, force: true })
-      }
-    })
+      const owners = profile.layers.filter((layer) => {
+        const manifest = JSON.parse(readFileSync(join(layer.packageDir, 'package.json'), 'utf8')) as {
+          dependencies?: Record<string, string>
+        }
+        return manifest.dependencies?.[resourcePackage] !== undefined
+      })
+      expect(owners.map(owner => owner.packageName)).toEqual([
+        name === 'sdk-minimal' ? '@deepseek-ai/dsh-sdk-minimal' : '@deepseek-ai/dsh-base',
+      ])
+    } finally {
+      rmSync(home, { recursive: true, force: true })
+    }
+  })
+
+  it.each(Object.keys(PROFILE_TEMPLATES))('%s mounts the server manager only with the Web application', (name) => {
+    const home = mkdtempSync(join(tmpdir(), 'dsh-profile-mcp-'))
+    try {
+      const profile = loadProfile('dsh', name, installAnchor, home)
+      const rows = composeEntries([...profile.layers.map(layer => layer.patches), profile.patches])
+      expect(rows.filter(row => row.name === '@deepseek-ai/dsh-mcp-manager')).toEqual(name === 'web'
+        ? [{ id: 'mcp-manager', name: '@deepseek-ai/dsh-mcp-manager', inject: ['credentials'] }]
+        : [])
+    } finally {
+      rmSync(home, { recursive: true, force: true })
+    }
+  })
 })

@@ -3,56 +3,56 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/ui-sidebar/README.md
 /:
-  en: 3f14b18d4370a476
-  zh: 60f65fdd642e2821
-/deepseek-harness-dsh-client-ui-sidebar:
-  en: 09b527ded81bd259
-  zh: 3eae7960e3691ccb
-/deepseek-harness-dsh-client-ui-sidebar/summary:
-  en: 92717254e8bb9ab0
-  zh: 9a88bfd455a3eeb1
-/deepseek-harness-dsh-client-ui-sidebar/table-of-contents:
+  en: 7884381c2c554eca
+  zh: e6d7199a9bb2f0f8
+/deepseek-ai-dsh-client-ui-sidebar:
+  en: e357f49fb1d1710e
+  zh: 2e61922b104f77eb
+/deepseek-ai-dsh-client-ui-sidebar/summary:
+  en: af17f03561e5372b
+  zh: 91a1b9f6c7a51025
+/deepseek-ai-dsh-client-ui-sidebar/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/deepseek-harness-dsh-client-ui-sidebar/use-this-package:
-  en: a970f0547496634f
-  zh: 36ef9a85b26e19f1
-/deepseek-harness-dsh-client-ui-sidebar/use-this-package/brand-and-new-session:
-  en: 422211377a3703b4
-  zh: 3f935cef89ac5c58
-/deepseek-harness-dsh-client-ui-sidebar/use-this-package/global-panel-entries:
-  en: e7f316023445511b
-  zh: 6271c8c011533877
-/deepseek-harness-dsh-client-ui-sidebar/use-this-package/collapse-behavior:
-  en: 1ac825728af5c232
-  zh: e55b24ce8f86c8fc
-/deepseek-harness-dsh-client-ui-sidebar/use-this-package/macos-desktop:
-  en: 023bd392cded21ea
-  zh: 425dc7f5ce705394
-/deepseek-harness-dsh-client-ui-sidebar/use-this-package/scrollbars:
+/deepseek-ai-dsh-client-ui-sidebar/use-this-package:
+  en: bbd3b8e6b9d87124
+  zh: 9d387d1925599c13
+/deepseek-ai-dsh-client-ui-sidebar/use-this-package/brand-and-new-session:
+  en: 6bc49e22f0f73f07
+  zh: 10883997ccb7d145
+/deepseek-ai-dsh-client-ui-sidebar/use-this-package/global-panel-entries:
+  en: 8a23eab217042cc6
+  zh: 2d760de4c83f996c
+/deepseek-ai-dsh-client-ui-sidebar/use-this-package/collapse-behavior:
+  en: 10381cbac96069a3
+  zh: c5849741a0be2f00
+/deepseek-ai-dsh-client-ui-sidebar/use-this-package/macos-desktop:
+  en: 28e3639ed58492e0
+  zh: 4896acd767287c8a
+/deepseek-ai-dsh-client-ui-sidebar/use-this-package/scrollbars:
   en: 9e7b31acee759f2b
   zh: 3a6beb63b23d26ae
-/deepseek-harness-dsh-client-ui-sidebar/use-this-package/click-analytics:
-  en: 8855ad013285a27e
-  zh: f19b3e75c38c5b0a
-/deepseek-harness-dsh-client-ui-sidebar/understand-the-implementation:
-  en: 39b5e3ca8ce8c5c2
-  zh: 1d652b7554772dad
-/deepseek-harness-dsh-client-ui-sidebar/understand-the-implementation/slot-discipline:
-  en: 565defa0d933b382
-  zh: f59cde13401b86bb
-/deepseek-harness-dsh-client-ui-sidebar/further-exploration:
-  en: 0ec5fb0cfc41f2ad
-  zh: a24037c1b52a377b
-/deepseek-harness-dsh-client-ui-sidebar/model-experience:
+/deepseek-ai-dsh-client-ui-sidebar/use-this-package/click-analytics:
+  en: 3e84ffdf6c7c1731
+  zh: 3f7b19cac6d6674f
+/deepseek-ai-dsh-client-ui-sidebar/understand-the-implementation:
+  en: 76a542d822e94fc9
+  zh: da25857ead58df5c
+/deepseek-ai-dsh-client-ui-sidebar/understand-the-implementation/slot-discipline:
+  en: 6eefc5c45abe8a8f
+  zh: 20b651e48a0ea903
+/deepseek-ai-dsh-client-ui-sidebar/further-exploration:
+  en: 5083bbf74e47bb67
+  zh: 0236e569178756a2
+/deepseek-ai-dsh-client-ui-sidebar/model-experience:
   en: 3120df665299c634
   zh: 1d9f365d091d0d2a
-/deepseek-harness-dsh-client-ui-sidebar/model-experience/kv-cache-effect:
+/deepseek-ai-dsh-client-ui-sidebar/model-experience/kv-cache-effect:
   en: ca75c51c89c2c9b0
   zh: de54f3467ef3b9be
-/deepseek-harness-dsh-client-ui-sidebar/known-limitations-and-deferred-work:
-  en: 2f1899e4d0c4db92
-  zh: 700385e067a5a100
-/deepseek-harness-dsh-client-ui-sidebar/known-limitations-and-deferred-work/dev-note:
+/deepseek-ai-dsh-client-ui-sidebar/known-limitations-and-deferred-work:
+  en: 9738f4cd887876d0
+  zh: 95a646deba4a6489
+/deepseek-ai-dsh-client-ui-sidebar/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

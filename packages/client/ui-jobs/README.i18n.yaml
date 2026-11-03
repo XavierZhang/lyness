@@ -5,39 +5,39 @@
 /:
   en: 063a69d5d6281c07
   zh: 04562d2b1dd29590
-/deepseek-harness-dsh-client-ui-jobs:
-  en: f95d9c66dfb72cac
-  zh: e2b59004baf57347
-/deepseek-harness-dsh-client-ui-jobs/summary:
-  en: 3041d1ae8c6eafa4
-  zh: 0974e03f7db49ddb
-/deepseek-harness-dsh-client-ui-jobs/table-of-contents:
+/deepseek-ai-dsh-client-ui-jobs:
+  en: faa1eecdc7f06930
+  zh: c6e7b06ccb434f0b
+/deepseek-ai-dsh-client-ui-jobs/summary:
+  en: b61245c057c1a924
+  zh: 6013131975ece32e
+/deepseek-ai-dsh-client-ui-jobs/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/deepseek-harness-dsh-client-ui-jobs/use-this-package:
-  en: 60f6d05d870f6518
-  zh: dddf3f532d828b78
-/deepseek-harness-dsh-client-ui-jobs/use-this-package/one-row-per-job:
-  en: 352cf73d6cecd8cf
-  zh: a92612173be09d41
-/deepseek-harness-dsh-client-ui-jobs/use-this-package/the-expanded-panel:
-  en: 99149ef3461710ef
-  zh: 9ea426bd8f08efcc
-/deepseek-harness-dsh-client-ui-jobs/understand-the-implementation:
-  en: ea1031858c840e19
-  zh: 9f48b0e7dc8fc770
-/deepseek-harness-dsh-client-ui-jobs/further-exploration:
-  en: 354e5cb835f14305
-  zh: d76ed292ceb0e823
-/deepseek-harness-dsh-client-ui-jobs/model-experience:
-  en: e81fc465f5f9203e
-  zh: 51454704c47bb350
-/deepseek-harness-dsh-client-ui-jobs/model-experience/kv-cache-effect:
+/deepseek-ai-dsh-client-ui-jobs/use-this-package:
+  en: 3466553808f81088
+  zh: 02a806ece1c3e012
+/deepseek-ai-dsh-client-ui-jobs/use-this-package/one-row-per-job:
+  en: 64c1f55b35e73295
+  zh: 4d93594923cf787f
+/deepseek-ai-dsh-client-ui-jobs/use-this-package/the-expanded-panel:
+  en: c34dad62fee63306
+  zh: 167d9da7928a9488
+/deepseek-ai-dsh-client-ui-jobs/understand-the-implementation:
+  en: 330e10c11d24b8c4
+  zh: f11736a4a9b9a94a
+/deepseek-ai-dsh-client-ui-jobs/further-exploration:
+  en: 01eaaecb5850f391
+  zh: 2eabd14cde191ab8
+/deepseek-ai-dsh-client-ui-jobs/model-experience:
+  en: 84ad94ba940f17af
+  zh: 0199b09d360df0d8
+/deepseek-ai-dsh-client-ui-jobs/model-experience/kv-cache-effect:
   en: 47f982e326fe77fd
   zh: 9f2be5c9af23d759
-/deepseek-harness-dsh-client-ui-jobs/known-limitations-and-deferred-work:
+/deepseek-ai-dsh-client-ui-jobs/known-limitations-and-deferred-work:
   en: 8be824a877852373
   zh: bf4ae00ee70273b5
-/deepseek-harness-dsh-client-ui-jobs/known-limitations-and-deferred-work/dev-note:
+/deepseek-ai-dsh-client-ui-jobs/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: b532016223ceceef

@@ -3,17 +3,17 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-09-27-web-search-offered-by-provider-readiness.md
 /agent-note-offer-web-search-and-web-fetch-only-while-the-selected-provider-is-ready:
-  en: fd13ce1bcc7092ec
-  zh: 1f1ea2c18cfe6117
+  en: 9163af91ea0e030d
+  zh: 92e44043b999d32f
 /agent-note-offer-web-search-and-web-fetch-only-while-the-selected-provider-is-ready/problem:
-  en: 78960392beb4d8f0
-  zh: 34e46a3cd70865b7
+  en: 32ba2b2b42e8deb5
+  zh: 6a6532561f81b8e2
 /agent-note-offer-web-search-and-web-fetch-only-while-the-selected-provider-is-ready/decision:
-  en: 3acacfbf199900ea
-  zh: dbd8de31abc17766
+  en: 08a54b37e157da29
+  zh: 65f633055d9df242
 /agent-note-offer-web-search-and-web-fetch-only-while-the-selected-provider-is-ready/alternatives-considered:
-  en: d5cc1a95123daf2b
-  zh: 2cdf26a34bb3a570
+  en: 6da221f6b821ea44
+  zh: b15774011abed7ed
 /agent-note-offer-web-search-and-web-fetch-only-while-the-selected-provider-is-ready/consequences:
-  en: 8ace0993fbbec3e6
-  zh: c33754087ac3f5a0
+  en: c90a122c1f33bb83
+  zh: 0175ca0f599d086b

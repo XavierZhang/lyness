@@ -3,38 +3,38 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write .agents/notes/implemented/feature/2026-08-05-agent-teams.md
 /agent-note-durable-agent-teams-over-continuable-children:
-  en: 4497ed043e409b49
-  zh: 916daaff68440088
+  en: c914d8148bfc4bf9
+  zh: a8115f87c0ac6cae
 /agent-note-durable-agent-teams-over-continuable-children/problem:
-  en: bab62798c2dc07b4
-  zh: fe42c5abf9127d37
+  en: 567b68ab8eb4b5b2
+  zh: 31a40aa22821d63a
 /agent-note-durable-agent-teams-over-continuable-children/decision:
-  en: c8922f726a1c1da8
-  zh: 52d9b91709f08bc2
+  en: affeddb8788ea73b
+  zh: 73615d3ccbd71871
 /agent-note-durable-agent-teams-over-continuable-children/profile-delegation:
-  en: 56ed14a46385873a
-  zh: 82b3549baa5862b1
+  en: f4c8d8760c7ebcf4
+  zh: 32ccca202a7769ac
 /agent-note-durable-agent-teams-over-continuable-children/team-identity:
-  en: 19e8223a33fa3da9
-  zh: d2a236a6f30ea2ac
+  en: d79f4425f2c1929f
+  zh: 6586410db4a02cd1
 /agent-note-durable-agent-teams-over-continuable-children/provisioning-and-recovery:
-  en: 4345ac9a6ac7ad04
-  zh: 1d19ecbb128a75a3
+  en: 624e9d42af1af859
+  zh: 020dcbb26211ea67
 /agent-note-durable-agent-teams-over-continuable-children/mailbox-and-task-transactions:
-  en: 0d751affd895d1ea
-  zh: 89e10cf5f55c7ed9
+  en: bfa07b5bc6354360
+  zh: c82119c0a5ea7f01
 /agent-note-durable-agent-teams-over-continuable-children/shared-checkout-boundary:
-  en: d8ba6c207a4d5293
-  zh: b3a48d74ddd36bf9
+  en: 384f75638b0f1fb6
+  zh: b7ab1191784d3d27
 /agent-note-durable-agent-teams-over-continuable-children/web-projection:
-  en: e6348054f024725b
-  zh: 8740636e99940308
+  en: 1dc1386f5033e83b
+  zh: 533803da51f3716f
 /agent-note-durable-agent-teams-over-continuable-children/alternatives-considered:
-  en: 8cb2fd8839f5f8b7
-  zh: e302ca03e569de65
+  en: 087ffae4744a129b
+  zh: 842dc1ded7f8d9c3
 /agent-note-durable-agent-teams-over-continuable-children/testing:
-  en: be211f3df130afc0
-  zh: ca868f78a32249f9
+  en: 2ff7adaaaa65fad7
+  zh: 9c7dd682abe988d1
 /agent-note-durable-agent-teams-over-continuable-children/consequences:
-  en: da9cd22b1185a793
-  zh: e20d7ef9226f237f
+  en: c071fa2ccdb911b5
+  zh: 3b8cf0d3303a4d40

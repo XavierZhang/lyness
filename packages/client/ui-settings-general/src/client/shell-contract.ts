@@ -81,6 +81,7 @@ export type SettingsRootComponentProps =
     | 'settings.close'
     | 'settings.section'
     | 'settings.administration.section'
+    | 'settings.section.icon'
     | 'settings.onboarding'
   >
   & InjectFace<SettingsRootInjected>

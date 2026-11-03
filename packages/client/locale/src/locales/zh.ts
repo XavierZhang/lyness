@@ -30,6 +30,8 @@ export const zh = {
   'more': '更多',
   'collapse': '收起',
   'expand': '展开',
+  'subtitle.expand': '展开{name}的描述',
+  'subtitle.collapse': '收起{name}的描述',
   'back': '返回',
   // The product's own name in Chinese, which is the face a Chinese product
   // label takes. Diagnostics keep the abbreviation.

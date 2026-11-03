@@ -3,59 +3,59 @@
 # After editing either side, bring the other along and re-record with:
 #   pnpm run verify-translation-pairing --write packages/client/ui-primitives/README.md
 /:
-  en: 82f544da59010158
-  zh: ef457b89042d5ead
-/deepseek-harness-dsh-client-ui-primitives:
-  en: 2f0811a9af0fbb79
-  zh: 9e261d0547a112cf
-/deepseek-harness-dsh-client-ui-primitives/summary:
-  en: fcb274b954caa498
-  zh: 9a684e86ceb275c7
-/deepseek-harness-dsh-client-ui-primitives/table-of-contents:
+  en: 6da33cc935e210c4
+  zh: 752948e68a6e2c32
+/deepseek-ai-dsh-client-ui-primitives:
+  en: e39769cae26393b8
+  zh: 8743c8cf561fec35
+/deepseek-ai-dsh-client-ui-primitives/summary:
+  en: a05472dce901d64f
+  zh: 6747ad81824a5c0d
+/deepseek-ai-dsh-client-ui-primitives/table-of-contents:
   en: d152484eb41ac6b4
   zh: 09388d293f9be9cb
-/deepseek-harness-dsh-client-ui-primitives/use-this-package:
-  en: 10be7f75a1576575
-  zh: abf2905d89b0da48
-/deepseek-harness-dsh-client-ui-primitives/use-this-package/component-catalog:
-  en: 2dcac3394dd0dbc6
-  zh: 114b70ef453b9079
-/deepseek-harness-dsh-client-ui-primitives/use-this-package/controls-and-icons:
-  en: 6809cf391d4ae72f
-  zh: 86c05e21391feac7
-/deepseek-harness-dsh-client-ui-primitives/use-this-package/rendering-agent-output:
-  en: 311f2d17c3cee9b2
-  zh: 141f81599eb9d703
-/deepseek-harness-dsh-client-ui-primitives/use-this-package/localizing-copy:
-  en: a943603b74080ef5
-  zh: 43f7a0188aff271b
-/deepseek-harness-dsh-client-ui-primitives/understand-the-implementation:
-  en: 18cf9d440b83d5ed
-  zh: 604f1b04f1b2c677
-/deepseek-harness-dsh-client-ui-primitives/understand-the-implementation/source-map:
+/deepseek-ai-dsh-client-ui-primitives/use-this-package:
+  en: ead6be55c7c9d7cf
+  zh: 125ad36db7328551
+/deepseek-ai-dsh-client-ui-primitives/use-this-package/component-catalog:
+  en: 8c99c97e369192cb
+  zh: f263851ad2a7ba2e
+/deepseek-ai-dsh-client-ui-primitives/use-this-package/controls-and-icons:
+  en: 0d756c1e8207181d
+  zh: 921ce997c6b14823
+/deepseek-ai-dsh-client-ui-primitives/use-this-package/rendering-agent-output:
+  en: e2649937f077d4e0
+  zh: 6ad604cb5adfc16b
+/deepseek-ai-dsh-client-ui-primitives/use-this-package/localizing-copy:
+  en: 81e58c7b342baf3c
+  zh: 6cd47b16124b215c
+/deepseek-ai-dsh-client-ui-primitives/understand-the-implementation:
+  en: 6fbd9df222b41e09
+  zh: 3bdb4a6b9b6bff9e
+/deepseek-ai-dsh-client-ui-primitives/understand-the-implementation/source-map:
   en: fd510d34404eb090
   zh: d05b0890db929ae6
-/deepseek-harness-dsh-client-ui-primitives/understand-the-implementation/input-modality:
-  en: e9ca36e19864ba52
-  zh: d40d46f4a6fe8422
-/deepseek-harness-dsh-client-ui-primitives/understand-the-implementation/streaming-markdown:
+/deepseek-ai-dsh-client-ui-primitives/understand-the-implementation/input-modality:
+  en: cb61e1a37d6c27e5
+  zh: 1f3fa79dd5ab2e45
+/deepseek-ai-dsh-client-ui-primitives/understand-the-implementation/streaming-markdown:
   en: 8bbfa14c27f3bfd7
   zh: 88f7548ac3a114e1
-/deepseek-harness-dsh-client-ui-primitives/understand-the-implementation/geometry-and-overflow:
+/deepseek-ai-dsh-client-ui-primitives/understand-the-implementation/geometry-and-overflow:
   en: 45f4cd1ef96bb6d2
   zh: f264d25b780ad1dc
-/deepseek-harness-dsh-client-ui-primitives/further-exploration:
-  en: 8c6bd6d7b6cc2722
-  zh: ed9909dcd4904771
-/deepseek-harness-dsh-client-ui-primitives/model-experience:
+/deepseek-ai-dsh-client-ui-primitives/further-exploration:
+  en: daa908e173136285
+  zh: 5f8492ce8a4c4e48
+/deepseek-ai-dsh-client-ui-primitives/model-experience:
   en: 3120df665299c634
   zh: 1d9f365d091d0d2a
-/deepseek-harness-dsh-client-ui-primitives/model-experience/kv-cache-effect:
+/deepseek-ai-dsh-client-ui-primitives/model-experience/kv-cache-effect:
   en: ca75c51c89c2c9b0
   zh: de54f3467ef3b9be
-/deepseek-harness-dsh-client-ui-primitives/known-limitations-and-deferred-work:
-  en: 7a6066bdc9ba773f
-  zh: 19450b65cc500caf
-/deepseek-harness-dsh-client-ui-primitives/known-limitations-and-deferred-work/dev-note:
+/deepseek-ai-dsh-client-ui-primitives/known-limitations-and-deferred-work:
+  en: 433ff539bd3d16b3
+  zh: fcb37c1fbe503620
+/deepseek-ai-dsh-client-ui-primitives/known-limitations-and-deferred-work/dev-note:
   en: e67f633dc6fe7773
   zh: 3bb0c20c93f16f98

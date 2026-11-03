@@ -2,15 +2,15 @@
 import { posix } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { FS_ERROR_CODES, FileSystem, FsError } from '@deepseek-ai/dsh-fs'
-import type { FsDirEntry, FsEditOutcome, FsEditRequest, FsErrorCode, FsInfo, FsPathInfo, FsTarget, FsVersion, FsWriteIntent, FsWriteOutcome } from '@deepseek-ai/dsh-fs'
+import type { FsDeleteOutcome, FsMoveOutcome, FsDirEntry, FsEditOutcome, FsEditRequest, FsErrorCode, FsInfo, FsPathInfo, FsTarget, FsVersion, FsWriteIntent, FsWriteOutcome } from '@deepseek-ai/dsh-fs'
 import type { SandboxExecutionPolicy, SandboxMode } from '@deepseek-ai/dsh-sandbox'
 import type {} from '@deepseek-ai/dsh-sandbox-policy'
 import type {} from '@deepseek-ai/dsh-ssh'
 import { RemoteOperationError } from '@deepseek-ai/dsh-ssh/protocol'
-import { editResultSchema, entriesSchema, infoSchema, pathInfoSchema, targetSchema, textStreamIdSchema, writeResultSchema } from '@deepseek-ai/dsh-ssh/schemas'
+import { deleteResultSchema, moveResultSchema, editResultSchema, entriesSchema, infoSchema, pathInfoSchema, targetSchema, textStreamIdSchema, writeResultSchema } from '@deepseek-ai/dsh-ssh/schemas'
 import { z } from 'zod'
 
-const errorCodes: ReadonlySet<string> = new Set(FS_ERROR_CODES)
+const errorCodes = new Set<string>(FS_ERROR_CODES)
 
 /** Remote filesystem paired with the SSH subprocess and sandbox providers. */
 export class SshFileSystem extends FileSystem {
@@ -88,6 +88,29 @@ export class SshFileSystem extends FileSystem {
   ): Promise<FsEditOutcome> {
     const policy = sandboxPolicy ?? this.ctx.sandboxPolicy.resolve()
     return await this.call('fs.edit', { target, edit, expected, policy }, editResultSchema, signal) as FsEditOutcome
+  }
+
+  override async patchText(
+    target: FsTarget, hunks: Parameters<FileSystem['patchText']>[1], expected?: { version: FsVersion },
+    signal?: AbortSignal, sandboxPolicy?: SandboxExecutionPolicy,
+  ): Promise<FsEditOutcome> {
+    const policy = sandboxPolicy ?? this.ctx.sandboxPolicy.resolve()
+    return await this.call('fs.patch', { target, hunks, expected, policy }, editResultSchema, signal) as FsEditOutcome
+  }
+
+  override async deleteFile(
+    target: FsTarget, expected?: { version: FsVersion }, signal?: AbortSignal, sandboxPolicy?: SandboxExecutionPolicy,
+  ): Promise<FsDeleteOutcome> {
+    const policy = sandboxPolicy ?? this.ctx.sandboxPolicy.resolve()
+    return this.call('fs.delete', { target, expected, policy }, deleteResultSchema, signal)
+  }
+
+  override async moveFile(
+    source: FsTarget, destination: FsTarget, options: Parameters<FileSystem['moveFile']>[2],
+    signal?: AbortSignal, sandboxPolicy?: SandboxExecutionPolicy,
+  ): Promise<FsMoveOutcome> {
+    const policy = sandboxPolicy ?? this.ctx.sandboxPolicy.resolve()
+    return await this.call('fs.move', { source, destination, options, policy }, moveResultSchema, signal) as FsMoveOutcome
   }
 
   private async call<T>(method: string, params: unknown, schema: z.ZodType<T>, signal?: AbortSignal): Promise<T> {
