@@ -45,7 +45,7 @@ const DEV_ONLY_AREAS = [
 /** Third-party implementations embedded by named Host packages' shipping build configurations. */
 const HOST_BUNDLED_DEPENDENCIES: Readonly<Record<string, readonly string[]>> = {
   // subagent-oar/tsdown.config.ts embeds the patched adapter instead of installing a second copy.
-  '@deepseek-ai/lyn-experimental-subagent-oar': ['@botiverse/oar'],
+  '@lyness/lyn-experimental-subagent-oar': ['@botiverse/oar'],
 }
 
 /** First-party public native packages: reachable at runtime but not third-party. */
@@ -919,7 +919,7 @@ ${kitRuntime ? `
 
 ${[...LIBREOFFICE_PACKAGES].map(name => `\`${name}\``).join(', ')} declare MPL-2.0, which remains outside the permissive-license allowlist; the notices check accepts only these package identities at those terms. The [distribution decision](.agents/notes/implemented/architecture/2026-09-14-independent-libreoffice-kit.md) records the source obligations.
 
-The [kit repository](https://github.com/deepseek-ai/lyn-libreoffice-kit) supplies the corresponding LibreOffice source pin, modifications, build instructions, Node API, and artifact validation. Its engine packages retain their license and third-party notices; the Node API retains its MPL-2.0 declaration and NOTICE. Recipients must have access to those corresponding sources and notices.
+The [kit repository](https://github.com/deepseek-ai/dsh-libreoffice-kit) supplies the corresponding LibreOffice source pin, modifications, build instructions, Node API, and artifact validation. Its engine packages retain their license and third-party notices; the Node API retains its MPL-2.0 declaration and NOTICE. Recipients must have access to those corresponding sources and notices.
 ` : ''}
 
 ## Development-only npm dependencies

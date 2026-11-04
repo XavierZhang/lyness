@@ -75,4 +75,10 @@ export const PRODUCT_PACKAGE_POLICY: Readonly<Record<string, ProductPackagePolic
   // ingress that creates root Sessions.
   'packages/webhook/webhook': { category: 'optional', reason: 'Webhook ingress ships disabled; a route and its rules are a deployment decision.' },
   'packages/webhook/webhook-github': { category: 'optional', reason: 'GitHub adapter ships disabled; it requires a shared-secret credential reference no default can supply.' },
+  // Both ship in the default product with their row switched off, so an
+  // overlay turns them on without installing anything (CUSTOM.md, 2026-10-28).
+  // The upstream wrapper bundles that used to insert these rows are retired:
+  // selecting one would have left the Loader two rows under one id.
+  'packages/skill/skill-badge': { category: 'optional', reason: 'The badge skill ships disabled; whether a session advertises the product is a deployment decision.' },
+  'packages/workflow/tool-ralph': { category: 'optional', reason: 'Ralph iteration ships disabled; completion is a worker self-report, so enabling it is a deliberate act.' },
 }

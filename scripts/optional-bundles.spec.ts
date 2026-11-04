@@ -31,11 +31,11 @@ function bundle(name: string): { dir: string; patches: ReturnType<typeof loadOve
   return { dir: entry.dir, patches: bundlePatchPaths(entry.dir, entry.manifest.lyn.bundle).flatMap(path => loadOverlayPatches('test', path)) }
 }
 
+// `ralph-bundle` and `badge-skill-bundle` are absent: this fork ships their
+// rows in the default product instead (CUSTOM.md, 2026-10-28).
 const lightweight = [
   '@lyness/lyn-experimental-session-search',
-  '@lyness/lyn-experimental-ralph-bundle',
   '@lyness/lyn-experimental-terminal-bundle',
-  '@lyness/lyn-experimental-badge-skill-bundle',
   '@lyness/lyn-experimental-session-titles-bundle',
 ]
 
@@ -59,14 +59,12 @@ function profileLayers(surface: 'web' | 'desktop'): ReturnType<typeof loadOverla
   return names.map(name => bundle(name).patches)
 }
 
-describe.each(['web', 'desktop'] as const)('%s optional bundle overrides', (surface) => {
-  const selectedNames = ['@lyness/lyn-experimental-badge-skill-bundle', '@lyness/lyn-experimental-ralph-bundle']
-
-  it('keeps established selectors for later configuration and disabled overrides', () => {
+describe.each(['web', 'desktop'] as const)('%s shipped row overrides', (surface) => {
+  it('keeps the shipped rows addressable for later configuration and disabled overrides', () => {
     const shipped = profileLayers(surface)
     const config = { subagentProvider: 'spawn', maxRounds: 3 }
     const warnings: string[] = []
-    const entries = composeEntries([...shipped, ...selectedNames.map(name => bundle(name).patches), [
+    const entries = composeEntries([...shipped, [
       { id: 'skill-badge', disabled: true },
       { id: 'tool-ralph', config, disabled: true },
     ]], warning => warnings.push(warning))
@@ -74,20 +72,30 @@ describe.each(['web', 'desktop'] as const)('%s optional bundle overrides', (surf
     expect(entries.find(row => row.id === 'skill-badge')).toMatchObject({ name: '@lyness/lyn-skill-badge', disabled: true })
     expect(flattenRows(entries).find(row => row.id === 'tool-ralph'))
       .toMatchObject({ name: '@lyness/lyn-tool-ralph', config, disabled: true })
-    expect(entries.find(row => row.id === 'optional-ralph')?.isolate).toEqual({ workflowEngine: true })
   })
 
-  it('does not select absent bundles through enable-only row overrides', () => {
+  // This fork ships both rows switched off (CUSTOM.md, 2026-10-28), so an
+  // enable-only override reaches a row that is already there and needs no
+  // bundle selected.
+  it('switches a shipped row on through an enable-only override', () => {
     const warnings: string[] = []
     const entries = composeEntries([...profileLayers(surface), [
       { id: 'skill-badge', disabled: false },
       { id: 'tool-ralph', disabled: false },
     ]], warning => warnings.push(warning))
-    expect(warnings).toHaveLength(2)
-    expect(warnings.some(warning => warning.includes('skill-badge'))).toBe(true)
-    expect(warnings.some(warning => warning.includes('tool-ralph'))).toBe(true)
-    expect(entries.some(row => row.id === 'skill-badge')).toBe(false)
-    expect(flattenRows(entries).some(row => row.id === 'tool-ralph')).toBe(false)
+    expect(warnings).toEqual([])
+    expect(entries.find(row => row.id === 'skill-badge')).toMatchObject({ disabled: false })
+    expect(flattenRows(entries).find(row => row.id === 'tool-ralph')).toMatchObject({ disabled: false })
+  })
+
+  it('does not select an absent row through an enable-only override', () => {
+    const warnings: string[] = []
+    const entries = composeEntries([...profileLayers(surface), [
+      { id: 'no-such-row', disabled: false },
+    ]], warning => warnings.push(warning))
+    expect(warnings).toHaveLength(1)
+    expect(warnings[0]).toContain('no-such-row')
+    expect(flattenRows(entries).some(row => row.id === 'no-such-row')).toBe(false)
   })
 })
 
@@ -182,7 +190,7 @@ describe('optional bundles', () => {
     expect(composed.find(row => row.id === 'optional-forge-panel')?.disabled).toBe(true)
   })
 
-  it('ships all five lightweight bundles without selecting them in a default template', () => {
+  it('ships every lightweight bundle without selecting it in a default template', () => {
     const defaults = Object.values(PROFILE_TEMPLATES).flatMap(template => template.bundles)
     for (const name of lightweight) {
       expect(OPTIONAL_BUNDLES).toContain(name)
@@ -213,7 +221,10 @@ describe('optional bundles', () => {
       '@lyness/lyn-tool-session-query',
       '@lyness/lyn-tool-ralph', '@lyness/lyn-tool-terminal',
     ]) expect(names).toContain(name)
-    expect(composed.find(row => row.id === 'optional-ralph')?.isolate).toEqual({ workflowEngine: true })
+    // `tool-ralph` ships in `lyn-module-execution` beside the shared workflow
+    // engine rather than in an isolate of its own, because this fork keeps it
+    // in the default product (CUSTOM.md, 2026-10-28).
+    expect(composed.find(row => row.id === 'tool-ralph')?.isolate).toBeUndefined()
     expect(composed.find(row => row.id === 'optional-persistent-terminals')?.isolate).toEqual({ terminals: true })
     const search = composed.find(row => row.id === 'optional-session-search')
     expect(search?.isolate).toEqual({ sessionQuery: true })

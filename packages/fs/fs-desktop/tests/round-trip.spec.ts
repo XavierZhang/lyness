@@ -53,7 +53,10 @@ async function joined(): Promise<{ fs: FileSystem; workspace: string; seen: stri
       return handler.perform(operation, payload, signal ?? new AbortController().signal)
     },
   })
+  // `DesktopFileSystem` injects the projection registry, and reads the owner
+  // through the service that registered the owner projection.
   server.provide('sessionProjections', { stateOf: () => ({ owner: ADA, version: 1, openedAt: 'now' }) })
+  server.provide('sessionVisibility', { ownerOf: () => ({ owner: ADA, version: 1, openedAt: 'now' }) })
   server.provide('agents', { currentInitiator: () => ({ session: {} }) })
   await server.plugin(DesktopFileSystem)
   return { fs: server.fs, workspace, seen }

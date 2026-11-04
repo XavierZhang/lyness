@@ -540,7 +540,7 @@ export type {`,
       name: 'an unknown Remote mode',
       mode: 'duplex',
       method: 'async *attach(agent: Agent, signal: AbortSignal): AsyncIterable<CreateGoalResult>',
-      message: 'Remote\\(\\) mode must be "stream"',
+      message: 'Remote\\(\\) options require name, mode: "stream", resources, or requires',
     },
   ])('rejects $name', ({ mode, method, message }) => {
     const root = copyFixture()
@@ -703,17 +703,17 @@ export interface BoxPayload {
     {
       name: 'an unknown Remote option',
       decorator: '@Remote({ resources: {}, audit: true })\n  async create(',
-      message: 'Remote\\(\\) options require name, mode: "stream", or resources',
+      message: 'Remote\\(\\) options require name, mode: "stream", resources, or requires',
     },
     {
       name: 'a stream option on a Remote Scope',
       decorator: "@RemoteScope('agent', { mode: 'stream' })\n  rename(",
-      message: 'RemoteScope\\(\\) options require name or resources',
+      message: 'RemoteScope\\(\\) options require name, resources, or requires',
     },
     {
       name: 'empty Remote Scope options',
       decorator: "@RemoteScope('agent', {})\n  rename(",
-      message: 'RemoteScope\\(\\) options require name or resources',
+      message: 'RemoteScope\\(\\) options require name, resources, or requires',
     },
     {
       name: 'a computed Remote Scope name',
@@ -823,7 +823,7 @@ export interface ClientMarker {
         "    super(undefined, 'goals')",
         "    super(undefined, 'goals', { extra: true })",
       ),
-      message: 'only supports a namespace option',
+      message: 'only supports namespace and requires options',
     },
     {
       name: 'TypertRemoteService without a constructor',

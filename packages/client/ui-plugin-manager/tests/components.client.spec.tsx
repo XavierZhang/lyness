@@ -6,7 +6,7 @@ import { afterEach, beforeEach, describe, expect, it, onTestFinished, vi } from 
 import { Context } from '@lyness/cordis'
 import { LocaleRuntime } from '@lyness/lyn-client-locale/client'
 import type { ChangeResult, PluginEntryId, PluginInstallRequestId, PluginUpdateResult, PluginVersion, RegistryAttempt } from '@lyness/lyn-api-remotes/client'
-import { allowAllAccess, bindSnapshotSelector, stubConfigForm } from '@lyness/lyn-client-test-runtime'
+import { allowAllAccess, bindSnapshotSelector, fillBrandDictionary, makeTranslate, stubConfigForm } from '@lyness/lyn-client-test-runtime'
 import type { ConfigForm, ConfigFormSnapshot, SettingsMirrorSnapshot } from '@lyness/lyn-client-ui-settings/client'
 import { createSnapshotStore } from '@lyness/lyn-client-store'
 import { MenuItemButton } from '@lyness/lyn-client-ui-primitives'
@@ -20,17 +20,18 @@ import type { PluginManagerPageProps } from '../src/client/index.ts'
 import type { PluginTab } from '../src/client/tab-ledger.ts'
 import type { ConfigLedger } from '../src/client/config-ledger.ts'
 import { rowKey, type InstallState, type PackageRow, type PackageView, type PluginManagerState, type UpdateState, type VersionCheck } from '../src/client/manager-store.ts'
-import { INSTALL_GIT_EXAMPLE, INSTALL_PATH_EXAMPLE, en, zh, type PluginManagerLocaleKey } from '../src/client/locales.ts'
+import { INSTALL_GIT_EXAMPLE, INSTALL_PATH_EXAMPLE, en as enDictionary, zh as zhDictionary } from '../src/client/locales.ts'
 import type { PluginActivationOwnerProps, PluginAddActionsProps, PluginDetailProps, PluginTabProps, PluginsSubject } from '../src/client/slot-contract.ts'
+
+// Every assertion below reads the text a reader sees, so the dictionaries are
+// read through their filled view rather than wrapping each site.
+const en = fillBrandDictionary(enDictionary)
+const zh = fillBrandDictionary(zhDictionary)
 
 beforeEach(() => { localStorage.clear() })
 afterEach(cleanup)
 
-const translate = (dict: typeof en): PluginManagerPageProps['t'] => ((key: PluginManagerLocaleKey, params?: Record<string, string>): string =>
-  Object.entries(params ?? {}).reduce(
-    (text, [name, value]) => text.replaceAll(`{${name}}`, value),
-    dict[key],
-  )) as PluginManagerPageProps['t']
+const translate = (dict: typeof en): PluginManagerPageProps['t'] => makeTranslate(dict)
 
 const t = translate(en)
 

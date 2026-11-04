@@ -99,8 +99,6 @@
     "@lyness/lyn-experimental-voice-input-bundle": "workspace:*",
     "@lyness/lyn-experimental-auto-review": "workspace:*",
     "@lyness/lyn-experimental-cot-translation-bundle": "workspace:*",
-    "@lyness/lyn-experimental-badge-skill-bundle": "workspace:*",
-    "@lyness/lyn-experimental-ralph-bundle": "workspace:*",
     "@lyness/lyn-experimental-session-titles-bundle": "workspace:*",
     "@lyness/lyn-experimental-terminal-bundle": "workspace:*",
     "@lyness/lyn-experimental-liveshare": "workspace:*",

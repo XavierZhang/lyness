@@ -17,6 +17,7 @@ import { agentPresetProjectionDefinition } from '@lyness/lyn-agent-preset-regist
 import { botProjectionDefinition } from '@lyness/lyn-managed-bots/session'
 import type { EngagedBot } from '@lyness/lyn-managed-bots/session'
 import SessionStore, { SessionId } from '@lyness/lyn-session'
+import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 import type { Session } from '@lyness/lyn-session'
 import { afterEach, describe, expect, it } from 'vitest'
 import { BotsRefusedError } from '@lyness/lyn-managed-bots'
@@ -50,6 +51,9 @@ function presets(ids: readonly string[]): unknown {
     defaultId: ids[0],
     resolve: (id?: string) => Promise.resolve(presetOf(id ?? ids[0] ?? '')),
     mount: (_ctx: Context, id?: string) => Promise.resolve(presetOf(id ?? ids[0] ?? '')),
+    // The real registry answers from its own projection; the controller writes
+    // the same selection into the Session header, which is what this reads.
+    presetForSession: (session: Session) => session.header.agentPreset ?? null,
   }
 }
 
@@ -63,6 +67,9 @@ async function harness(options: { roster?: boolean; standing?: 'none' | 'elsewhe
   const ctx = new Context()
   contexts.push(ctx)
   await ctx.plugin(SessionStore)
+  // `AgentRegistry` injects `sessionProjections`, and the two projections this
+  // harness registers live there too.
+  await ctx.plugin(SessionProjectionRegistry)
   await ctx.plugin(AgentRegistry)
   ctx.provide('agentPresets', presets(['standard', 'specialist']) as never)
   // Speaking as a bot acts in a standing; the roster judges it, and this

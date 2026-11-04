@@ -26,6 +26,33 @@ const BUILT_IN_BRAND: Readonly<Record<string, string>> = {
 }
 
 /**
+ * Fill the built-in brand names into one dictionary template.
+ *
+ * A spec that states its expectation as the dictionary entry rather than as
+ * literal copy needs the same substitution {@link makeTranslate} performs,
+ * or it compares rendered text against an unfilled template.
+ * @param template - the dictionary value, with its `{brandName}` style placeholders.
+ * @returns the text a reader sees, with every brand placeholder filled.
+ */
+export function fillBrand(template: string): string {
+  return template.replace(/\{(\w+)\}/g, (match, name: string) =>
+    name in BUILT_IN_BRAND ? String(BUILT_IN_BRAND[name]) : match)
+}
+
+/**
+ * Fill the built-in brand names through one whole dictionary.
+ *
+ * A spec that states most of its expectations as dictionary entries reads
+ * better over a filled view of the dictionary than with {@link fillBrand} at
+ * every site.
+ * @param dictionary - the locale dictionary as its module declares it.
+ * @returns the same keys, each value carrying the text a reader sees.
+ */
+export function fillBrandDictionary<T extends Record<string, string>>(dictionary: T): T {
+  return Object.fromEntries(Object.entries(dictionary).map(([key, value]) => [key, fillBrand(value)])) as T
+}
+
+/**
  * Build a translate stub resolving through `dicts` in order (namespace
  * first, then the shared common vocabulary), falling back to the key.
  * @param dicts - dictionaries consulted in order.

@@ -442,11 +442,13 @@ describe('client bundle experimental input isolation', () => {
 
   it.each(['static', 'dynamic'] as const)('keeps retained-name experimental %s inputs outside ordinary artifacts', async (kind) => {
     const { root, owner, entry, prototype } = fixture()
-    const name = '@lyness/lyn-tool-terminal'
+    // `action-cards` keeps its npm name outside the experimental prefix, so
+    // the rejection has to come from its directory rather than its name.
+    const name = '@lyness/lyn-action-cards'
     writeFileSync(join(root, 'prototype/package.json'), JSON.stringify({ name, type: 'module' }))
     writeFileSync(entry, `export { marker } from ${JSON.stringify(importPath(entry, prototype))}\n`)
     await expect(bundle(owner, config(kind))).rejects.toThrow(/client bundle isolation.*experimental/)
-    await expect(bundle(owner, config(kind, packageDir('experimental/tool-terminal')))).resolves.toContain('experimental sentinel')
+    await expect(bundle(owner, config(kind, packageDir('experimental/action-cards')))).resolves.toContain('experimental sentinel')
   })
 
   it('proves the static library otherwise hides the experimental input in its emitted JavaScript', async () => {

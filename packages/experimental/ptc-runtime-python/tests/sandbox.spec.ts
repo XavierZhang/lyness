@@ -1,3 +1,4 @@
+import { execFileSync } from 'node:child_process'
 import { mkdir, mkdtemp, readFile, rm, symlink, writeFile } from 'node:fs/promises'
 import { homedir } from 'node:os'
 import { createServer, type Socket } from 'node:net'
@@ -145,7 +146,15 @@ describe('Python file sandbox', () => {
   })
 
   it.skipIf(!sandboxUsable)('finds a confining launcher on the host PATH without exposing PATH to Python', async () => {
-    const { ctx, run, root } = await setup()
+    // Pinned to the interpreter binary rather than whatever `python3` resolves
+    // to. A version-manager shim (pyenv, asdf) is a shell script that exports
+    // its own PATH before exec'ing the real interpreter, so the child sees a
+    // PATH this runtime never passed and the assertion would measure the
+    // wrapper instead of the environment the runtime builds.
+    const interpreter = execFileSync('python3', ['-c', 'import sys; print(sys.executable)'], {
+      encoding: 'utf8',
+    }).trim()
+    const { ctx, run, root } = await setup('read-only', { pythonBin: interpreter })
     const confine = ctx.sandbox.confine.bind(ctx.sandbox)
     const { resolvePythonBin } = await import('../src/index.ts')
     const selected = await confine([process.execPath, '--version'], { mode: 'read-only', workspaceRoot: root })

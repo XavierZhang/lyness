@@ -2,7 +2,7 @@
 import { act, cleanup, fireEvent, render, screen, within } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import type { MarketListingEntry, MarketListingVersion, MarketSearchResult } from '@lyness/lyn-api-remotes/client'
-import { bindSnapshotSelector } from '@lyness/lyn-client-test-runtime'
+import { bindSnapshotSelector, fillBrand, makeTranslate } from '@lyness/lyn-client-test-runtime'
 import { createSnapshotStore } from '@lyness/lyn-client-store'
 import type { LocaleSnapshot } from '@lyness/lyn-client-locale/client'
 import { DiscoverSection, type DiscoverSectionProps } from '../src/client/DiscoverSection.tsx'
@@ -13,8 +13,7 @@ import { en, zh, type PluginMarketLocaleKey } from '../src/client/locales.ts'
 afterEach(cleanup)
 
 function translator(dictionary: Record<PluginMarketLocaleKey, string>): DiscoverSectionProps['t'] {
-  return ((key: PluginMarketLocaleKey, params?: Record<string, string>): string =>
-    Object.entries(params ?? {}).reduce<string>((text, [name, value]) => text.replaceAll(`{${name}}`, value), dictionary[key])) as DiscoverSectionProps['t']
+  return makeTranslate(dictionary)
 }
 
 const A = 'https://a.example/index.json'
@@ -149,7 +148,7 @@ describe('DiscoverSection', () => {
     fireEvent.click(within(screen.getByRole('dialog')).getByRole('button', { name: en.install }))
     expect(install).toHaveBeenCalledWith({ spec: 'lyn-a@1.0.0', registry: 'https://r.example/', title: 'Alpha', version: '1.0.0' })
     expect(screen.queryByRole('dialog')).toBeNull()
-    for (const [name, label] of [['lyn-b', en.statusInstalled], ['lyn-c', en.statusUpdate], ['lyn-f', en.statusProvided]] as const) {
+    for (const [name, label] of [['lyn-b', en.statusInstalled], ['lyn-c', en.statusUpdate], ['lyn-f', fillBrand(en.statusProvided)]] as const) {
       fireEvent.click(card(name).getByRole('button', { name: `View ${name} in Installed` }))
       expect(card(name).getByText(label)).toBeTruthy()
       expect(openPackage).toHaveBeenLastCalledWith(name)
@@ -159,7 +158,7 @@ describe('DiscoverSection', () => {
     expect(screen.queryByRole('dialog')).toBeNull()
     expect(card('lyn-g').getByRole('button', { name: 'Install lyn-g' }).getAttribute('aria-disabled')).toBe('true')
     fireEvent.click(card('lyn-h').getByRole('button', { name: 'Install lyn-h' }))
-    expect(within(screen.getByRole('dialog')).getByText(en.exempted)).toBeTruthy()
+    expect(within(screen.getByRole('dialog')).getByText(fillBrand(en.exempted))).toBeTruthy()
     fireEvent.click(within(screen.getByRole('dialog')).getByRole('button', { name: en.close }))
     expect(screen.queryByRole('dialog')).toBeNull()
   })
@@ -312,7 +311,7 @@ describe('DiscoverSection', () => {
     expect(screen.getAllByText('This version is not compatible with the running LYN 0.2.0; it requires LYN 0.1.0.')).toHaveLength(2)
     fireEvent.click(screen.getByRole('button', { name: en.backToList }))
     fireEvent.click(card('lyn-h').getByRole('button', { name: 'View lyn-h' }))
-    expect(screen.getAllByText(en.exempted)).toHaveLength(2)
+    expect(screen.getAllByText(fillBrand(en.exempted))).toHaveLength(2)
   })
 
   it('links a repository without a directory', () => {
@@ -366,7 +365,7 @@ describe('DiscoverSection', () => {
     fireEvent.click(card(name).getByRole('button', { name: `View ${name}` }))
     const row = within(document.querySelector('[data-market-version="2.0.0"]') as HTMLElement)
     expect(row.getByText(en.versionExempted)).toBeTruthy()
-    expect(row.getAllByText(en.exempted).length).toBeGreaterThan(0)
+    expect(row.getAllByText(fillBrand(en.exempted)).length).toBeGreaterThan(0)
     expect(row.getByRole('button', { name: `Install ${name} 2.0.0` })).toBeTruthy()
     fireEvent.click(screen.getByRole('button', { name: en.backToList }))
     fireEvent.click(card('lyn-p').getByRole('button', { name: 'View lyn-p' }))

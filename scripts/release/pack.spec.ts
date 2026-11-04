@@ -270,7 +270,11 @@ describe('release pack CLI', () => {
     expect(result.status, result.stderr).toBe(0)
     expect(readFileSync(join(root, 'packed', PUBLISH_ORDER_FILE), 'utf8')).toBe('\n')
     expect(readdirSync(join(root, 'packed'))).toEqual([PUBLISH_ORDER_FILE])
-    expect(existsSync(join(root, 'hooks.log'))).toBe(false)
+    // `prepare` runs for every workspace package on `pnpm exec`, so the
+    // assertion is that no PACK hook ran: an empty family packed nothing.
+    const hooks = existsSync(join(root, 'hooks.log')) ? readFileSync(join(root, 'hooks.log'), 'utf8') : ''
+    expect(hooks).not.toContain('prepack')
+    expect(hooks).not.toContain('postpack')
   })
 
   it('leaves no publish order after a pack hook fails', async () => {
@@ -300,7 +304,8 @@ describe('release pack CLI', () => {
 
     expect(result.status).not.toBe(0)
     expect(result.stderr).toContain('@lyness/expected produced no tarball')
-    expect(existsSync(join(root, 'packed', 'deepseek-ai-renamed-1.2.3.tgz'))).toBe(true)
+    // `pnpm pack` names the archive after the manifest, with the scope flattened.
+    expect(existsSync(join(root, 'packed', 'lyness-renamed-1.2.3.tgz'))).toBe(true)
     expect(existsSync(join(root, 'packed', PUBLISH_ORDER_FILE))).toBe(false)
   })
 

@@ -351,9 +351,6 @@ importers:
       '@lyness/lyn-experimental-auto-review':
         specifier: workspace:*
         version: link:../../packages/experimental/auto-review
-      '@lyness/lyn-experimental-badge-skill-bundle':
-        specifier: workspace:*
-        version: link:../../packages/experimental/badge-skill-bundle
       '@lyness/lyn-experimental-cot-translation-bundle':
         specifier: workspace:*
         version: link:../../packages/experimental/cot-translation-bundle
@@ -369,9 +366,6 @@ importers:
       '@lyness/lyn-experimental-plugin-market-bundle':
         specifier: workspace:*
         version: link:../../packages/experimental/plugin-market-bundle
-      '@lyness/lyn-experimental-ralph-bundle':
-        specifier: workspace:*
-        version: link:../../packages/experimental/ralph-bundle
       '@lyness/lyn-experimental-session-search':
         specifier: workspace:*
         version: link:../../packages/experimental/session-search
@@ -1494,6 +1488,9 @@ importers:
       '@lyness/lyn-admin-audit':
         specifier: workspace:*
         version: link:../../identity/admin-audit
+      '@lyness/lyn-agent':
+        specifier: workspace:*
+        version: link:../../core/agent
       '@lyness/lyn-agent-preset-registry':
         specifier: workspace:*
         version: link:../../preset/agent-preset-registry
@@ -14182,6 +14179,9 @@ importers:
       '@lyness/lyn-system-prompt':
         specifier: workspace:*
         version: link:../../core/system-prompt
+      '@lyness/lyn-tool-executor-native':
+        specifier: workspace:*
+        version: link:../../core/tool-executor-native
       '@lyness/lyn-tools':
         specifier: workspace:*
         version: link:../../core/tools

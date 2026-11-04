@@ -15,6 +15,7 @@ import { Context } from '@lyness/cordis'
 import Loader from '@lyness/cordis-plugin-loader'
 import Include from '@lyness/cordis-plugin-include'
 import { brandString } from '@lyness/lyn-brand'
+import AgentRegistry from '@lyness/lyn-agent'
 import AgentPreset from '@lyness/lyn-agent-preset'
 import AgentPresets from '@lyness/lyn-agent-preset-registry'
 import AdminAudit from '@lyness/lyn-admin-audit'
@@ -63,6 +64,8 @@ async function compose(): Promise<{ ctx: Context; scopes: Scope[] }> {
     '  config:',
     '    backend: json',
     "- name: '@lyness/lyn-session-projection'",
+    // `agent-preset-registry` injects `agents`, and the roster injects the registry.
+    "- name: '@lyness/lyn-agent'",
     "- name: '@lyness/lyn-agent-preset-registry'",
     '  config:',
     '    default: standard',
@@ -103,6 +106,7 @@ async function compose(): Promise<{ ctx: Context; scopes: Scope[] }> {
     ['@lyness/lyn-storage-json', StorageJson],
     ['@lyness/lyn-storage-domain', StorageDomain],
     ['@lyness/lyn-session-projection', SessionProjectionRegistry],
+    ['@lyness/lyn-agent', AgentRegistry],
     ['@lyness/lyn-agent-preset-registry', AgentPresets],
     ['@lyness/lyn-agent-preset', AgentPreset],
     ['@lyness/lyn-admin-audit', AdminAudit],

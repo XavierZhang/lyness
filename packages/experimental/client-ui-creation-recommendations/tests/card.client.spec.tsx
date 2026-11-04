@@ -7,7 +7,7 @@ import { createSnapshotStore } from '@lyness/lyn-client-store'
 import { FoldedText } from '@lyness/lyn-client-ui-action-cards/src/client/Card.tsx'
 import type { ActionCardFields, ActionCardResult } from '@lyness/lyn-action-cards/types'
 import { PageCardBody, type PageCardProps } from '../src/client/Card.tsx'
-import { makeTranslate } from '@lyness/lyn-client-test-runtime'
+import { fillBrand, makeTranslate } from '@lyness/lyn-client-test-runtime'
 import { en, zh } from '../src/client/locales.ts'
 
 afterEach(() => { cleanup(); vi.restoreAllMocks() })
@@ -191,7 +191,7 @@ it('offers only Undo, beside the location, on installed and earlier kept plugins
   await waitFor(() => { expect(value.act).toHaveBeenCalledWith('undo', undefined) })
   const kept = props({ phase: 'kept', data: { slot: 'page', application: 'restart-required' } })
   rerender(<PageCardBody {...kept} />)
-  expect(screen.getByText(zh['restart-required'])).toBeTruthy()
+  expect(screen.getByText(fillBrand(zh['restart-required']))).toBeTruthy()
   expect(screen.getAllByRole('button')).toEqual([screen.getByRole('button', { name: zh.creationInfo }), screen.getByRole('button', { name: zh.undo })])
   fireEvent.click(screen.getByRole('button', { name: zh.undo }))
   await waitFor(() => { expect(kept.act).toHaveBeenCalledWith('undo', undefined) })

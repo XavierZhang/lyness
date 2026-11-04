@@ -20,13 +20,26 @@ describe('Official on-demand catalog', () => {
 })
 
 describe('Shipped profile templates', () => {
-  it('stack each mode bundle on base except the standalone minimal SDK', () => {
+  it('stack each mode bundle on base except the standalone ones', () => {
     expect(PROFILE_TEMPLATES).toEqual({
-      acp: { bundles: ['@lyness/lyn-base', '@lyness/lyn-acp-app'] },
-      web: { bundles: ['@lyness/lyn-base', '@lyness/lyn-web-app'] },
-      headless: { bundles: ['@lyness/lyn-base', '@lyness/lyn-headless'] },
-      sdk: { bundles: ['@lyness/lyn-base', '@lyness/lyn-sdk-app'] },
+      acp: { bundles: ['@lyness/lyn-base', '@lyness/lyn-module-execution', '@lyness/lyn-acp-app'] },
+      web: { bundles: ['@lyness/lyn-base', '@lyness/lyn-module-execution', '@lyness/lyn-web-app', '@lyness/lyn-web-execution', '@lyness/lyn-module-deliverables', '@lyness/lyn-module-extensions', '@lyness/lyn-module-lsp', '@lyness/lyn-module-memory', '@lyness/lyn-module-schedule', '@lyness/lyn-module-terminal', '@lyness/lyn-module-webhook'] },
+      enterprise: { bundles: ['@lyness/lyn-base', '@lyness/lyn-module-execution', '@lyness/lyn-web-app', '@lyness/lyn-web-execution', '@lyness/lyn-module-accounts', '@lyness/lyn-module-deliverables', '@lyness/lyn-module-extensions', '@lyness/lyn-module-lsp', '@lyness/lyn-module-memory', '@lyness/lyn-module-model-governance', '@lyness/lyn-module-schedule', '@lyness/lyn-module-terminal', '@lyness/lyn-module-webhook'] },
+      hosted: { bundles: ['@lyness/lyn-base', '@lyness/lyn-web-app', '@lyness/lyn-module-accounts', '@lyness/lyn-module-credits', '@lyness/lyn-module-deliverables', '@lyness/lyn-module-memory', '@lyness/lyn-module-model-governance', '@lyness/lyn-module-schedule', '@lyness/lyn-module-webhook'], hosted: true },
+      headless: { bundles: ['@lyness/lyn-base', '@lyness/lyn-module-execution', '@lyness/lyn-headless'] },
+      sdk: { bundles: ['@lyness/lyn-base', '@lyness/lyn-module-execution', '@lyness/lyn-sdk-app'] },
       'sdk-minimal': { bundles: ['@lyness/lyn-sdk-minimal'] },
+      'brand-studio': { bundles: ['@lyness/lyn-brand-studio'] },
+      'brand-setup': { bundles: ['@lyness/lyn-brand-setup'] },
     })
+  })
+
+  // The absence of the execution plane IS the hosted boundary, so it is
+  // asserted here beside the tuple rather than left to the gate alone.
+  it('keeps the execution bundle out of every hosted profile', () => {
+    for (const [name, template] of Object.entries(PROFILE_TEMPLATES)) {
+      if (template.hosted !== true) continue
+      expect(template.bundles, name).not.toContain('@lyness/lyn-module-execution')
+    }
   })
 })

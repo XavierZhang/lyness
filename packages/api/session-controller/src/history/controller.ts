@@ -76,6 +76,11 @@ export class HistoryController {
       signal.throwIfAborted()
       const live = this.ctx.sessions.get(sessionId)
       if (live !== undefined) {
+        // The cold read below refuses through `usingObservation`; an attached
+        // Session never reaches it, and a projection baseline is as much of
+        // somebody's conversation as its events are.
+        const visibility = this.ctx.get('sessionVisibility')
+        if (visibility !== undefined && !await visibility.mayRead(live)) return null
         const snapshot = this.ctx.sessionProjections.snapshot(live)
         return { kind: 'sequenced', asOfSeq: snapshot.asOfSeq, values: snapshot.values as SessionProjectionValues }
       } else {

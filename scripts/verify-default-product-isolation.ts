@@ -143,11 +143,12 @@ export function verifyDefaultProductIsolation(root: string): ProductIsolationRes
     const pkg = packages.get(packageName)
     if (pkg !== undefined) add(pkg, origin)
     else if (EXTERNAL_KIT_PACKAGES.has(packageName)) return
-    // Two scopes reach here: the harness's own, and the vendor scope the
-    // independently published office kit sits in. Upstream spells those two
-    // scopes apart; the rename maps both onto this fork's one scope, so one
-    // check now covers what upstream needed two for.
-    else if (packageName.startsWith('@lyness/')) {
+    // Two scopes reach here and both are checked: this fork's own, and the
+    // vendor scope the independently published office kit sits in, which the
+    // rename deliberately leaves alone. Dropping the second one left the gate
+    // admitting every `@deepseek-ai/libreoffice-kit-<engine>` package, which
+    // is the one dependency the engine-selection rule exists to refuse.
+    else if (packageName.startsWith('@lyness/') || packageName.startsWith('@deepseek-ai/')) {
       failures.push(`${origin}: unknown workspace package ${name}`)
     }
   }

@@ -197,13 +197,16 @@ export const DEFAULT_PROFILE_BUNDLES: readonly string[] = ['@lyness/lyn-base']
  * ([rationale](../../../../.agents/notes/implemented/process/2026-09-15-shipped-optional-bundles.md),
  * [admission](../../../../.agents/notes/implemented/architecture/2026-09-21-experimental-capabilities-as-optional-bundles.md)).
  */
+// `ralph-bundle` and `badge-skill-bundle` are not here: this fork keeps
+// `tool-ralph` and `skill-badge` in the default product
+// (CUSTOM.md, 2026-10-28), where `lyn-module-execution` and `lyn-base` ship
+// their rows switched off. Selecting a wrapper that inserts the same id again
+// would leave the Loader with two rows under one id.
 export const OPTIONAL_BUNDLES: readonly string[] = [
   '@lyness/lyn-personalized-recommendations',
   '@lyness/lyn-cua-bundle',
   '@lyness/lyn-experimental-session-search',
-  '@lyness/lyn-experimental-ralph-bundle',
   '@lyness/lyn-experimental-terminal-bundle',
-  '@lyness/lyn-experimental-badge-skill-bundle',
   '@lyness/lyn-experimental-session-titles-bundle',
   '@lyness/lyn-experimental-voice-input-bundle',
   '@lyness/lyn-experimental-cot-translation-bundle',

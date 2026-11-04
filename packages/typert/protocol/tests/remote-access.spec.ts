@@ -258,9 +258,9 @@ describe('@RemoteScope resources', () => {
 
   it('rejects options a Remote Scope method cannot carry', () => {
     // @ts-expect-error -- a Remote Scope method has no stream option.
-    expect(() => RemoteScope('protocolAccessRoom', { mode: 'stream' })).toThrow('RemoteScope options require name or resources')
+    expect(() => RemoteScope('protocolAccessRoom', { mode: 'stream' })).toThrow('RemoteScope options require name, resources, or requires')
     const empty: object = {}
-    expect(() => RemoteScope('protocolAccessRoom', empty as RemoteScopeOptions<unknown[]>)).toThrow('RemoteScope options require name or resources')
+    expect(() => RemoteScope('protocolAccessRoom', empty as RemoteScopeOptions<unknown[]>)).toThrow('RemoteScope options require name, resources, or requires')
     expect(() => RemoteScope('protocolAccessRoom', { name: 'bad/name' })).toThrow('export name')
     expect(() => RemoteScope('protocolAccessRoom', { resources: {} })).toThrow('Remote resources require at least one reader')
   })

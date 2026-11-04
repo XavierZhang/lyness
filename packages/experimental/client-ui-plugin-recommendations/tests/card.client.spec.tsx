@@ -4,7 +4,7 @@ import { afterEach, expect, it, vi } from 'vitest'
 import { ToolCallId } from '@lyness/lyn-llm/brand'
 import { SessionId } from '@lyness/lyn-session/types'
 import { createSnapshotStore } from '@lyness/lyn-client-store'
-import { makeTranslate } from '@lyness/lyn-client-test-runtime'
+import { fillBrand, makeTranslate } from '@lyness/lyn-client-test-runtime'
 import type { LocalizedText } from '@lyness/lyn-package-manifest'
 import { FoldedText } from '@lyness/lyn-client-ui-action-cards/src/client/Card.tsx'
 import type { ActionCardFields, ActionCardResult } from '@lyness/lyn-action-cards/types'
@@ -90,7 +90,7 @@ it.each([
 
 it.each([
   [{ phase: 'enabled' }, zh.enabled],
-  [{ phase: 'enabled', data: { application: 'restart-required' } }, zh['restart-required']],
+  [{ phase: 'enabled', data: { application: 'restart-required' } }, fillBrand(zh['restart-required'])],
   [{ phase: 'already-enabled' }, zh['already-enabled']],
   [{ phase: 'dismissed' }, zh.dismissed],
   [{ phase: 'replaced' }, zh.replaced],
@@ -109,7 +109,7 @@ it('names no status for a phase it does not know, and offers no action', async (
 
 it.each([
   [{ phase: 'failed' }, zh.failed, undefined],
-  [{ phase: 'failed', data: { errorCode: 'incompatible-version' } }, zh.failed, zh['version-error']],
+  [{ phase: 'failed', data: { errorCode: 'incompatible-version' } }, zh.failed, fillBrand(zh['version-error'])],
   [{ phase: 'failed', data: { errorCode: 'operation-error' } }, zh.failed, zh['management-error']],
   [{ phase: 'unconfirmed' }, zh.unconfirmed, undefined],
 ] as const)('offers a retry after %j', async (decision, status, alert) => {

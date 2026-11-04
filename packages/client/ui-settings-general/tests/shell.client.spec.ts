@@ -43,11 +43,11 @@ const CHILD_NAMES = Object.keys(CHILD_SPECS) as Array<keyof typeof CHILD_SPECS>
 
 /**
  * Personal-plane section ids the web-app roster registers, in nav order: this
- * package, then the person's own instructions. The Account section joins it
- * while a credential is stored. A plugin adding a personal section changes
- * this list.
+ * package, the person's own instructions, then the memory, capabilities and
+ * data sections this fork adds. The Account section joins it while a
+ * credential is stored. A plugin adding a personal section changes this list.
  */
-const PRODUCT_SECTIONS: readonly string[] = ['general', 'instructions']
+const PRODUCT_SECTIONS: readonly string[] = ['general', 'instructions', 'memory', 'capabilities', 'data']
 /**
  * Administration-plane section ids the web-app roster registers, in nav
  * order: ui-settings-models, ui-settings-plugins, ui-settings-credits,

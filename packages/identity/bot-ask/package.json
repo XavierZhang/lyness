@@ -79,6 +79,7 @@
     "@lyness/lyn-session": "workspace:*",
     "@lyness/lyn-session-projection": "workspace:*",
     "@lyness/lyn-system-prompt": "workspace:*",
+    "@lyness/lyn-tool-executor-native": "workspace:*",
     "@lyness/lyn-tools": "workspace:*",
     "@lyness/lyn-util-crypto": "workspace:*"
   }

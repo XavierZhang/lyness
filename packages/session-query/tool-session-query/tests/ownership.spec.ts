@@ -12,6 +12,7 @@ import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { Context } from '@lyness/cordis'
+import AgentRegistry from '@lyness/lyn-agent'
 import type { Agent } from '@lyness/lyn-agent'
 import { brandString } from '@lyness/lyn-brand'
 import { createUserMessage, ToolCallId } from '@lyness/lyn-llm'
@@ -24,6 +25,7 @@ import * as JsonlSessionPersistence from '@lyness/lyn-session-persistence-jsonl'
 import SqliteSessionQueryEngine from '@lyness/lyn-session-query-sqlite'
 import SystemPrompt from '@lyness/lyn-system-prompt'
 import ToolRuntime from '@lyness/lyn-tools'
+import * as NativeToolExecutor from '@lyness/lyn-tool-executor-native'
 import * as ToolSessionQuery from '@lyness/lyn-tool-session-query'
 
 const ADA = brandString<PersonId>('ada')
@@ -43,7 +45,7 @@ afterEach(async () => {
 async function deployment(): Promise<{
   readonly ctx: Context
   readonly as: (person: PersonId | undefined) => void
-  readonly conversation: (id: string, text: string) => Session
+  readonly conversation: (id: string, text: string) => Promise<Session>
   readonly run: (name: string, args: unknown, caller: Session) => Promise<string>
 }> {
   const root = await mkdtemp(join(tmpdir(), 'lyn-tool-session-query-ownership-'))
@@ -64,19 +66,30 @@ async function deployment(): Promise<{
     memberships: () => Promise.resolve([]),
   } as never)
   await ctx.plugin(SystemPrompt)
+  // `tool-session-query` injects `agents`.
+  await ctx.plugin(AgentRegistry)
   await ctx.plugin(ToolRuntime)
+  // The loop refuses a turn with no executor selected.
+  await ctx.plugin(NativeToolExecutor)
   await ctx.plugin(JsonlSessionPersistence, { root, compression: 'none' })
   await ctx.plugin(SqliteSessionQueryEngine, { path: join(root, 'session-query.db') })
   await ctx.plugin(SessionOwnership).await()
-  await ctx.plugin(SessionVisibility)
+  // Awaited: the tool reads `sessionVisibility` on its first call, and a
+  // parked service would leave every owner check admitting everything.
+  await ctx.plugin(SessionVisibility).await()
   await ctx.plugin(ToolSessionQuery)
 
   let call = 0
   return {
     ctx,
     as: (who: PersonId | undefined) => { person = who },
-    conversation: (id: string, text: string) => {
+    // Awaited: `session-ownership` stamps the owner on the microtask after
+    // `session/created`, reading the principal current at that moment. A
+    // synchronous creation path would hand every session to whoever `as()`
+    // named last instead of to the person who opened it.
+    conversation: async (id: string, text: string) => {
       const session = ctx.sessions.create(SessionId(id), { meta: { createdAt: 10, cwd: '/work' } })
+      await Promise.resolve()
       session.append('turn/start', { turn: 1 })
       session.append(
         'user/message',
@@ -107,10 +120,10 @@ describe('a model asking about prior sessions', () => {
   it('finds its own person\'s conversations and not the other person\'s', { timeout: 20_000 }, async () => {
     const it_ = await deployment()
     it_.as(BEA)
-    it_.conversation('theirs', 'shared workspace needle')
+    await it_.conversation('theirs', 'shared workspace needle')
     it_.as(ADA)
-    it_.conversation('mine-earlier', 'shared workspace needle')
-    const caller = it_.conversation('caller', 'asking about the needle')
+    await it_.conversation('mine-earlier', 'shared workspace needle')
+    const caller = await it_.conversation('caller', 'asking about the needle')
 
     const found = await it_.run('session_search', { query: 'shared workspace needle' }, caller)
     expect(found).toContain('Session mine-earlier')
@@ -120,9 +133,9 @@ describe('a model asking about prior sessions', () => {
   it('refuses to open the other person\'s conversation by id', { timeout: 20_000 }, async () => {
     const it_ = await deployment()
     it_.as(BEA)
-    it_.conversation('theirs', 'shared workspace needle')
+    await it_.conversation('theirs', 'shared workspace needle')
     it_.as(ADA)
-    const caller = it_.conversation('caller', 'asking about the needle')
+    const caller = await it_.conversation('caller', 'asking about the needle')
 
     const refused = await it_.run(
       'session_event_search',
@@ -139,8 +152,8 @@ describe('a model asking about prior sessions', () => {
     const it_ = await deployment()
     // Nobody is signed in: every session reads as the deployment's own, which
     // is the single-operator shape this tool has always served.
-    it_.conversation('earlier', 'shared workspace needle')
-    const caller = it_.conversation('caller', 'asking about the needle')
+    await it_.conversation('earlier', 'shared workspace needle')
+    const caller = await it_.conversation('caller', 'asking about the needle')
     expect(await it_.run('session_search', { query: 'shared workspace needle' }, caller))
       .toContain('Session earlier')
   })

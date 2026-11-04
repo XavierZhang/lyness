@@ -21,7 +21,13 @@ import StoredModelPolicy, { resolveInitial } from '../src/store.ts'
 import StaticModelPolicy from '../src/static.ts'
 
 const roots: string[] = []
-afterEach(() => { for (const root of roots.splice(0)) rmSync(root, { recursive: true, force: true }) })
+const contexts: Context[] = []
+// Disposed before the directory goes: the JSON backend opens a unit lazily, and
+// a unit opened against a removed root fails in a promise nobody awaits.
+afterEach(async () => {
+  await Promise.all(contexts.splice(0).map(ctx => ctx.fiber.dispose()))
+  for (const root of roots.splice(0)) rmSync(root, { recursive: true, force: true })
+})
 
 /** A standing, built without a directory. */
 function standing(role: Membership['role'], organization?: string): Membership {
@@ -38,6 +44,7 @@ async function harness(config: { organization?: string; initial?: { provider: st
   root = mkdtempSync(join(tmpdir(), 'lyn-policy-'))): Promise<{ ctx: Context; root: string }> {
   roots.push(root)
   const ctx = new Context()
+  contexts.push(ctx)
   await ctx.plugin(Storage)
   await ctx.plugin(StorageJson, { root })
   await ctx.plugin(StorageDomain, { backend: 'json' })

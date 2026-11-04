@@ -39,7 +39,7 @@ describe('lyn-skill-badge', () => {
         .toMatchObject({ meta: { title: 'LYN' } })
     }
     expect(await readFile(new URL('../icon.svg', import.meta.url), 'utf8'))
-      .toBe(await readFile(new URL('../../badge-skill-bundle/icon.svg', import.meta.url), 'utf8'))
+      .toBe(await readFile(new URL('../../../experimental/badge-skill-bundle/icon.svg', import.meta.url), 'utf8'))
   })
 
   it('ships the lyness 726×120 PNG unchanged', async () => {

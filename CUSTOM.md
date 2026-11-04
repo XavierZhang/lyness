@@ -702,11 +702,13 @@ verify-hosted-profile-boundary: a hosted profile can execute:
 
 ### 既有状态（非本轮引入）：`rebrand:check` 的 4 处残留与一条死链
 
-台账上面写过「现在 `--check` 报 `post-state verified — no residue`」——**这句已经过期**。2026-10-28 把 `released-title-producer-shield-*` 收窄为「带引号的两种写法」之后，`docs/persistence-catalog.{md,zh.md,i18n.yaml}` 第 1 列渲染的**裸** `dsh-session-title-llm` 就不再受保护，于是 `--check` 稳定报 4 处残留（含 `THIRD_PARTY_NOTICES.md`）。合并前的 fork HEAD 里同样是 7 行裸写法，**所以这不是本轮带进来的**。
+台账上面写过「现在 `--check` 报 `post-state verified — no residue`」——**这句一度过期**。2026-10-28 把 `released-title-producer-shield-*` 收窄为「带引号的两种写法」之后，`docs/persistence-catalog.{md,zh.md,i18n.yaml}` 第 1 列渲染的**裸** `dsh-session-title-llm` 就不再受保护，于是 `--check` 稳定报 4 处残留（含 `THIRD_PARTY_NOTICES.md`）。合并前的 fork HEAD 里同样是 7 行裸写法，所以那不是某一轮带进来的。
+
+✅ **2026-11-04 已清零**，`--check` 重新报 `post-state verified — no residue, every postcondition holds, idempotent.`。三处来源分别是：`THIRD_PARTY_NOTICES.md` 由 kit 仓库名与 OAR 键的修复带走；`docs/capability-seams.zh.md` 的两行译文里 `dsh-sign-in-http`／`dsh-credits` 没跟着改名（英文侧是对的）；`docs/persistence-catalog.*` 整组加进 `PROTECTED`（无 `rules`，整文件豁免）——它由 `gen-persistence-catalog` 生成，包名取自已改名的清单，而已发行的 Session source kind 必须逐字保留，**该重新生成而不是改名**。
 
 `rebrand` 没有注册进 `scripts/run-gates.ts`，所以它不拦门禁；但这意味着**顺序必须是「改名 → 生成器」，且之后不能再 `--apply`**。本轮我多跑了一次 `--apply`，它把两份生成产物改坏了（目录第 1 列变成 `lyn-session-title-llm`、kit 仓库链接变成 `lyn-libreoffice-kit`），靠重跑 `gen-persistence-catalog` 与 `gen-third-party-notices` 恢复。
 
-顺带发现一条**死链**，也是既有的：`scripts/gen-third-party-notices.ts:922` 与 `docs/subsystems/office-to-pdf.{md,zh.md}` 里的外部 kit 仓库 URL 被改成了 `github.com/deepseek-ai/lyn-libreoffice-kit`，而真实仓库是 `dsh-libreoffice-kit`。office 引擎的寻址本来就在 `PROTECTED` 豁免里，但豁免覆盖的是作用域形式，没覆盖**仓库名**那一种拼写。修它要先给 office 的 PROTECTED 补上 `dsh-libreoffice-kit`，再改这 3 处——改文本而不改 codemod 等于下轮又被改回去。单独一次变更。
+顺带发现一条**死链**，也是既有的：`scripts/gen-third-party-notices.ts:922` 与 `docs/subsystems/office-to-pdf.{md,zh.md}` 里的外部 kit 仓库 URL 被改成了 `github.com/deepseek-ai/lyn-libreoffice-kit`，而真实仓库是 `dsh-libreoffice-kit`。office 引擎的寻址本来就在 `PROTECTED` 豁免里，但豁免覆盖的是作用域形式，没覆盖**仓库名**那一种拼写。✅ **2026-11-04 已修**：加了 `external-office-kit-repository-shield`／`-restore` 这对 codemod 规则，3 处站点改回真实仓库名并各加一条 postcondition。
 
 `vendor/README.md` 的 `github.com/deepseek-harness/cordis` postcondition 从 5 改成 3：上游合并了自己的 vendored 行（基点时是 4，master 是 3）。这条计数**必须跟着上游走**。
 
@@ -810,3 +812,86 @@ npx vitest run $(cat fail-files.txt)      # 只跑那 48 个文件
 比 `$DSH_HOME` 长 6 字节的直接后果；`subagent-lyn-sdk-diagnostic` 的系统提示里
 委派工具改成了 `subagent_fork` 在前 —— 因为 `subagent_lyn_sdk` 按字母序排在它之后，
 而上游的 `subagent_dsh_sdk` 排在它之前。
+
+### 2026-11-04 清掉 42 个既有失败文件：真缺陷与测试过期各占多少
+
+上一节记的办法（在 `4c3e2e612c` 的 worktree 上跑同一份失败清单当基线）把合并回归和既有债分开之后，这一轮把**既有债那 42 个文件全部清完**：`pnpm run test` 从 42 文件／102 条失败变成 **2777 文件／54802 条全过**，`test:snapshot` 251 条全过。
+
+分类之后，42 个文件里只有一半是「测试停在上游的数字上」。另一半是**真缺陷**，其中四处会影响线上行为：
+
+| 真缺陷 | 后果 | 处理 |
+|---|---|---|
+| **可见性规则只覆盖冷读** | `resolveAgent` 与 live 的 projection 读完全不检查 —— 别人的会话能被按 id 解析出来、投影照读 | 收口到 `ApiSessionAgentController.resolve()` 一处（每个 Remote face 都经过它），live projection 分支单独补判。另：`claim()` 按 id 接管存储会话时不重建 bot 身份，按 `resumeObserved` 的同一写法补上 |
+| **OAR 的开源许可披露整块失效** | `scripts/gen-third-party-notices.ts` 被整文件豁免出 scope 规则，嵌入者键写成半改名的 `@deepseek-ai/lyn-experimental-subagent-oar`，匹配不到任何包。`@botiverse/oar`（MPL/GPL 检查对象）既不进 `THIRD_PARTY_NOTICES.md` 也不走运行时许可校验 | 删掉那条豁免（office 包本来就有专门的 shield／restore 覆盖），键改回 fork scope，并加 postcondition 钉住 |
+| **`verify-default-product-isolation` 丢了一半检查** | 判据只剩 `@lyness/` 前缀，于是 5 个 `@deepseek-ai/libreoffice-kit-<engine>` 包可以被默认产品直接依赖 —— 正是这条门禁存在的理由。注释还写着「改名把两个 scope 合成一个，所以一次检查就够」，**这句推理是错的**：office kit 的 scope 是刻意不改名的 | 改回两 scope 都查，注释改写明白 |
+| **Web 安装图标一直是旧图稿** | `apps/web/scripts/render-app-icons.ts` 仍按上游鲸鱼图稿工作，要求一个 `#filter0_d_…` 阴影组并裁掉它；fork 2026 年按品牌指南重做的图稿没有任何滤镜，脚本一跑就抛错，`apps/web/public/` 下四个 PNG 从此没再更新过 | 渲染器改成描述本 fork 的图稿（tile 内缩 40/40、无烘焙阴影、第一个 `<g>` 即标记），四张 PNG 重新生成 |
+
+另外三处是组合层面的重复，都会在启动时留下可见症状：
+
+- `skill-badge` 同时在 `lyn-base`（fork 加的，disabled）和上游 `badge-skill-bundle` 的 `insert` 里；`tool-ralph` 同时在 `module-execution` 和 `ralph-bundle` 的 group 里。**Loader 会拿到两行同 id。** 按 2026-10-28 的裁定（这六个包留在默认产品），把两个上游 wrapper bundle 退役：移出 `OPTIONAL_BUNDLES` 与 `apps/cli` 依赖，并在 `PRODUCT_PACKAGE_POLICY` 里按 webhook 的先例登记为 `optional`。包本身留着不删，少一次合并冲突。
+- `lyn-web-app` 里有 6 条按 id 关闭执行行的补丁，而 `lyn-web-execution` 的文件头注释**正是为这件事写的**（「一个 patch 指向不存在的行，会在每次启动时逐行报缺失」）。合并把它们又塞回了 `web-app`，于是 `hosted` 每次启动报 6 条。删掉重复的 6 行。
+- `ui-plugin-manager` 的 `reasonIncompatibleVersion` 在 6 个语言里写 `{peers}`，而代码传的是 `requirements` —— 占位符会原样显示给用户。连带订正了 2026-10-28 台账里那条写错的记录。
+
+### 行级并集的第二次事故：一个语法错误堵掉 8 个测试文件
+
+`apps/desktop/scripts/electron-builder-config.mjs` 的 `extraMetadata` 整块连同 `productName` 被复制了两份，中间夹着孤立的 `lynMandatoryUpdatePolicy: policy,`，**文件根本不是合法 JS**。vite 在 import 分析阶段就失败，`apps/desktop/tests` 下 8 个文件连加载都进不去——报出来的却是 11 个文件 25 条失败，看不出共因。
+
+**教训升级：并集解析之后，凡是 `.mjs`／`.js`／`.cjs` 一律 `node --check` 过一遍，`.ts` 靠 `typecheck`。** 上一轮记的「按结构校验」只覆盖了表格型数据，这次是普通对象字面量。
+
+### 改名的第四个盲区，以及四条新规则
+
+| 盲区 | 为什么 token 规则看不见 | 补的规则 |
+|---|---|---|
+| `pnpm pack` 的 scope 压平名 | `@scope/name` 被写成 `scope-name-版本.tgz`，`deepseek-ai` 与 `dsh` 之间是连字符不是 `/` | 两处改为从清单名推导，仓库里不再有这种字面量 |
+| URL 百分号编码的 scope | `@deepseek-ai%2fdsh-` 里 `dsh` 前面是 `%2f` 的 `f`，`dsh-token` 有「两侧不得是小写字母」的边界约束，直接拒绝匹配 | `pkg-scope-encoded`：`@deepseek-ai%2fdsh-` → `@lyness%2flyn-` |
+| 外部 kit 的**仓库名** | 已有的两个 office shield 匹配的是 npm **包名**，覆盖不到 `dsh-libreoffice-kit` 这个仓库名 | `external-office-kit-repository-shield`／`-restore`，并给 3 处站点加 postcondition |
+| 小写 `dsh_packaging_` 环境变量探测 | 和已有的 `lowercase-desktop-env-prefix-probe` 同类：前缀小写是 `lyness_`，裸记号是 `lyn` | `lowercase-packaging-env-prefix-probe` |
+
+### 本轮修测试时反复撞到的三件事（下次直接查这三项）
+
+1. **上游 0.2.2 起，agent loop 没有工具执行器就拒绝整个 turn**（`ToolExecutorUnavailableError`）。凡是走真 loop 的 spec 都要挂 `@lyness/lyn-tool-executor-native`。本轮 `bot-ask` 三个文件、`tool-session-query/ownership` 都是这个。
+2. **服务注入漏声明，现在会在运行时抛而不是静默**。`managed-bots` 的 `ctx.adminAudit` 一直没写进 `static inject`（姊妹包全都写了），vendored Cordis 升级后 19 条测试一起红。同类：spec 没挂 `SessionProjectionRegistry`／`AgentRegistry`，被注入它们的服务就整条链 park。
+3. **`session-ownership` 在 `session/created` 之后的微任务里盖 owner，读的是那一刻的 principal**。实现注释写明「每条创建路径都会 await」；一个同步的测试 helper 会把所有会话记成最后一次切换的那个人，可见性检查于是全放行 —— 症状看起来像「可见性没生效」，真因在 harness。
+
+另外两条环境相关的：`login-shell-environment` 的产品超时是 5 秒、vitest 默认预算也是 5 秒，满载时预算先到期（给那个 describe 单独 30 秒）；`ptc-runtime-python/sandbox` 又撞上 pyenv shim 导出自己的 PATH，按姊妹 spec 的做法钉到 `sys.executable`。
+
+### 未处理的 Promise rejection：7 处修掉 2 处，剩 5 处（`pnpm run test` 仍以 1 退出）
+
+**先记住这条结论：vitest 捕获到 unhandled error 时，即使用例全过也会以 1 退出。**
+所以这类泄漏不是「可以以后再说」的警告，它挡着整个套件变绿 —— 本轮
+`pnpm run test` 是 **2777 文件／54802 条全过、0 失败，但退出码 1**。
+
+这些泄漏在本轮第一次全量运行的日志里就存在，与合并无关。
+
+**已修的两处**
+
+1. `packages/credentials/authorization/src/index.ts` 的 `attempt()`：撤回分支写着
+   `void running.catch(...)`，守的是**原始** promise；而竞态等待的是内联创建的
+   `running.then(() => 'ran')` 这个**派生** promise —— 撤回胜出时被遗弃并随后拒绝的
+   正是后者，守错了对象。改成把运行结果作为**值**持有
+   （`then(ok, failed => ({ failed }))`），竞态两侧都不会留下无人观察的拒绝。
+2. `packages/llm/model-policy/tests/store.spec.ts`：`afterEach` 直接删临时目录却从不
+   dispose 上下文，JSON 后端随后惰性 `openUnit` 打到已删除的目录，`mkdir` 在一个没人
+   await 的 promise 里 ENOENT。改成**先 dispose 再删目录**。3 处归零。
+
+**剩下的 5 处（`packages/vendor/microsoft-entra`，未解）**
+
+5 种 `EntraSignInError`（`invalid_grant`、503、403、两种无法解析的目录响应），
+每个失败用例恰好泄漏一次；用例本身写的是 `await expect(attempt).rejects`，拿到了拒绝。
+查证过、可以省掉重复劳动的事实：
+
+- **不是 authorization 这条缝的通用问题。** 写了最小复现：真 `AuthorizationService` +
+  一个直接 reject 的 flow → 不泄漏；再做成 entra 的形状（flow 先 await 一个由路由唤醒的
+  promise，之后再 reject）→ 仍不泄漏。
+- **不是 `EntraChannel`。** `channel.spec.ts` 单跑干净，只有挂真插件的
+  `microsoft-entra.spec.ts` 泄漏。
+- **不是 teardown 顺序。** 该 spec 的 `cleanups` 用 `pop()` 即 LIFO，dispose 先于删目录。
+- **`redeemCode`／`send`／`awaitCallback` 都是单链**，没有 `Promise.race`、没有并发请求。
+- 栈是 `redeemCode` → `MicrosoftEntra.run` → `Proxy.attempt` → `Proxy.begin`，与**已被
+  处理**的那条完全相同；但给注册的 `run:` 闭包插桩后**一行都没打印**，说明泄漏的
+  promise 不在这条链上。`Proxy.*` 这两帧提示下一步该看 vendored Cordis 的
+  `getTraceable`／`createShadowMethod`（`vendor/cordis/src/utils.ts`）在包装服务方法
+  返回值时是否多造了一个 promise。
+
+**下次从这里接着查**：`vendor/cordis/src/utils.ts` 的服务方法代理，而不是 entra 或
+authorization 的业务代码。

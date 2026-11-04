@@ -616,12 +616,6 @@
 - id: tool-plugin-manager
   disabled: true
 
-- id: tool-bash
-  disabled: true
-
-- id: tool-pwsh
-  disabled: true
-
 # The background-job REGISTRY stays on the host plane; only the model-facing
 # `job_*` controls move. Its producers — `tool-bash` here and `tool-terminal`
 # elsewhere — are preset rows that resolve it
@@ -633,12 +627,6 @@
 # agent, so one host instance serves every session exactly as before presets.
 
 - id: tool-jobs
-  disabled: true
-
-- id: tool-fs
-  disabled: true
-
-- id: tool-fs-search
   disabled: true
 
 # The `skill` REGISTRY stays in the host plane. It is host+per-scope layered
@@ -695,12 +683,6 @@
   disabled: true
 
 - id: tool-subagent-fork
-  disabled: true
-
-- id: workflow-ptc
-  disabled: true
-
-- id: tool-workflow
   disabled: true
 
 - id: agent-instructions

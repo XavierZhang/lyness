@@ -24,6 +24,7 @@ import type { Session } from '@lyness/lyn-session'
 import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 import SystemPrompt from '@lyness/lyn-system-prompt'
 import ToolRuntime from '@lyness/lyn-tools'
+import * as NativeToolExecutor from '@lyness/lyn-tool-executor-native'
 import Storage from '@lyness/lyn-storage'
 import * as StorageJson from '@lyness/lyn-storage-json'
 import * as StorageDomain from '@lyness/lyn-storage-domain'
@@ -67,6 +68,8 @@ async function bench(): Promise<{ ctx: Context; model: AnsweringAdapter; log: Re
   await ctx.plugin(SessionProjectionRegistry)
   await ctx.plugin(SystemPrompt, {})
   await ctx.plugin(ToolRuntime, {})
+  // The loop refuses a turn with no executor selected.
+  await ctx.plugin(NativeToolExecutor)
   await ctx.plugin(AgentRegistry)
   await ctx.plugin(AgentLoop, { agents: [] })
   await ctx.plugin(Storage)

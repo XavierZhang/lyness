@@ -56,7 +56,10 @@ describe('shipped MCP resource composition', () => {
     try {
       const profile = loadProfile('lyn', name, installAnchor, home)
       const rows = composeEntries([...profile.layers.map(layer => layer.patches), profile.patches])
-      expect(rows.filter(row => row.name === '@lyness/lyn-mcp-manager')).toEqual(name === 'web'
+      // `lyn-web-app` owns the row, so every Web-surfaced profile carries it:
+      // this fork ships three of them.
+      const webSurfaced = PROFILE_TEMPLATES[name]?.bundles.includes('@lyness/lyn-web-app') === true
+      expect(rows.filter(row => row.name === '@lyness/lyn-mcp-manager')).toEqual(webSurfaced
         ? [{ id: 'mcp-manager', name: '@lyness/lyn-mcp-manager', inject: ['credentials'] }]
         : [])
     } finally {

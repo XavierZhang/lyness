@@ -180,7 +180,33 @@ export class ApiSessionAgentController {
     return this.resolve(observation.header.id, observation)
   }
 
+  /**
+   * Resolve one Session and refuse it when this call may not read it.
+   *
+   * The rule sits here rather than in each branch below because every Remote
+   * face that reaches an Agent — the commands, the typert lookups, the host
+   * contexts — resolves through this one method, and a check written per
+   * branch is a check forgotten in the next. A conversation this call may not
+   * see is not found for this call: any other answer would let one person
+   * enumerate another's by id.
+   * @param sessionId - ordinary Session identity.
+   * @param observation - retained observation whose preparation stays pinned.
+   * @returns the live Agent, or a stable Session-domain failure.
+   */
   private async resolve(
+    sessionId: SessionId,
+    observation?: SessionObservation,
+  ): Promise<ApiSessionAgentResult> {
+    const resolved = await this.resolveVisible(sessionId, observation)
+    if ('error' in resolved) return resolved
+    const visibility = this.ctx.get('sessionVisibility')
+    if (visibility !== undefined && !await visibility.mayRead(resolved.agent.session)) {
+      return { error: new RemoteError('session/not-found', `session "${sessionId}" not found`, { sessionId }) }
+    }
+    return resolved
+  }
+
+  private async resolveVisible(
     sessionId: SessionId,
     observation?: SessionObservation,
   ): Promise<ApiSessionAgentResult> {
@@ -412,6 +438,7 @@ export class ApiSessionAgentController {
       return this.createAgent(sessionId, request.cwd, await this.composeAgent(request.agentPreset, request.engagement))
     }
     let reusable: boolean
+    let recorded: EngagedBot | undefined
     {
       using observed = observation
       if (hasApiSessionSubagentOwner({ header: observed.header })) {
@@ -421,9 +448,17 @@ export class ApiSessionAgentController {
         throw new ApiSessionCwdConflict(sessionId, request.cwd, observed.header.cwd)
       }
       reusable = request.reusable(sessionId) && !observed.events.some(event => event.type === 'turn/start')
+      recorded = this.botForObservation(observed)
     }
-    const composition = await this.composeAgent(request.agentPreset, request.engagement)
-    if (!reusable) return this.createMinted(request.cwd, composition)
+    // A fresh Session carries no character; taking the stored one over keeps
+    // the one it ran with, because the log is what a resume rebuilds from.
+    if (!reusable) {
+      return this.createMinted(request.cwd, await this.composeAgent(request.agentPreset, request.engagement))
+    }
+    const composition = await this.composeAgent(
+      request.agentPreset,
+      request.engagement ?? (recorded === undefined ? undefined : { engaged: recorded, record: false }),
+    )
     this.assertPresetApplicable(sessionId, request.agentPreset)
     try {
       return (await this.ctx.agents.resume({

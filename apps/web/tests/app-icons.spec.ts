@@ -16,17 +16,16 @@ describe('web install icons', () => {
     }
   })
 
-  it('crops the desktop shadow and scales only the maskable artwork', async () => {
+  it('reparents the canvas to the tile and scales only the maskable artwork', async () => {
     const source = await readFile(TILE_SOURCE, 'utf8')
     const tile = tileDocument(source)
     const maskable = maskableDocument(source)
-    expect(tile).toContain('viewBox="40 32 1024 1024"')
-    expect(tile).not.toContain('<g filter="url(#filter0_d_1637_371)">')
+    expect(tile).toContain('viewBox="40 40 1024 1024"')
     expect(tile).not.toContain(`scale(${MASKABLE_ARTWORK_SCALE})`)
-    expect(tile).toContain('<g filter="url(#filter1_ddi_1637_371)">')
+    // The tile rectangle and the mark both survive the reparenting whole.
+    expect(tile).toContain(source.match(/<rect\b[^>]*>/u)![0])
     expect(tile).toContain(source.match(/<path\b[^>]*>/u)![0])
-    expect(tile).toContain(source.match(/<defs>[\s\S]*<\/defs>/u)![0])
-    expect(maskable).toContain(`transform="translate(552 544) scale(${MASKABLE_ARTWORK_SCALE}) translate(-552 -544)"`)
+    expect(maskable).toContain(`transform="translate(552 552) scale(${MASKABLE_ARTWORK_SCALE}) translate(-552 -552)"`)
   })
 
   it('rejects non-PNG bytes and incomplete image headers', () => {
@@ -36,8 +35,7 @@ describe('web install icons', () => {
 
   it('fails loudly on a source without the tile it transforms', () => {
     expect(() => tileDocument('')).toThrow(/no root element/)
-    expect(() => tileDocument('<svg></svg>')).toThrow(/no shadowed tile group/)
-    expect(() => maskableDocument('<svg><g filter="url(#filter0_d_1637_371)"></g></svg>'))
-      .toThrow(/no artwork group/)
+    expect(() => tileDocument('<svg></svg>')).toThrow(/no artwork group/)
+    expect(() => maskableDocument('<svg><rect /></svg>')).toThrow(/no artwork group/)
   })
 })

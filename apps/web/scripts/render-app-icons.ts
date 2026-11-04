@@ -4,15 +4,15 @@
  *
  * A browser installs a Web App only with a raster 192px and a 512px icon, masks
  * the icon it puts on the home screen, and has no manifest support for iOS,
- * which reads `apple-touch-icon` instead. The whale favicon is the bare mark
- * drawn edge to edge: handed to a launcher directly it loses its fins to the
- * mask, and it carries neither the tile nor a background of its own. This
- * script rasterizes the official application tile (`apps/desktop/resources/icon.svg`,
+ * which reads `apple-touch-icon` instead. The favicon is the bare mark drawn
+ * edge to edge: handed to a launcher directly it loses its edges to the mask,
+ * and it carries neither the tile nor a background of its own. This script
+ * rasterizes the official application tile (`apps/desktop/resources/icon.svg`,
  * the artwork the desktop application ships) into the committed PNGs under
- * `public/`. Every variant crops the tile's drop shadow, which belongs to a
- * desktop window rather than a launcher; the maskable variant additionally
- * scales the whale inside the safe zone a platform mask may crop, leaving the
- * tile's own gradient to fill the icon so no mask meets a seam.
+ * `public/`. Every variant reparents the canvas to the tile's own square; the
+ * maskable variant additionally scales the mark inside the safe zone a
+ * platform mask may crop, leaving the tile itself to fill the icon so no mask
+ * meets a seam.
  *
  * The committed PNGs are the output; rerun
  * `pnpm --filter @lyness/lyn-web-frontend run render:app-icons` after the
@@ -34,8 +34,8 @@ export const ICON_OUTPUT_DIRECTORY = fileURLToPath(new URL('../public/', import.
 /** Tile edge in source units; every render density is expressed against it. */
 const TILE_EDGE = 1024
 
-/** Tile inset in the source canvas: the drop shadow occupies the surrounding band. */
-const TILE_INSET = { x: 40, y: 32 } as const
+/** Tile inset in the source canvas: the band around it is empty margin. */
+const TILE_INSET = { x: 40, y: 40 } as const
 
 /** Tile centre in source units, the fixed point of the maskable scale. */
 const TILE_CENTER = { x: TILE_INSET.x + TILE_EDGE / 2, y: TILE_INSET.y + TILE_EDGE / 2 } as const
@@ -60,11 +60,12 @@ export const MASKABLE_SAFE_RADIUS_RATIO = 0.4
 /** Root element of the source document, rewritten to crop the canvas to the tile. */
 const SOURCE_ROOT = /^<svg[^>]*>/u
 
-/** The tile group's drop shadow; stripped because a launcher icon has no window around it. */
-const TILE_SHADOW_GROUP = '<g filter="url(#filter0_d_1637_371)">'
-
-/** The whale group inside the tile; the only element a maskable icon scales. */
-const TILE_ARTWORK_GROUP = '<g filter="url(#filter1_ddi_1637_371)">'
+/**
+ * The first group after the tile rectangle: the mark itself, and the only
+ * element a maskable icon scales. This fork's artwork bakes in no drop shadow,
+ * so the tile needs no shadow band cropped away — only the canvas reparented.
+ */
+const TILE_ARTWORK_GROUP = /<g\b[^>]*>/u
 
 /** One committed install icon: the manifest or link member it serves and its edge in pixels. */
 export interface AppIconVariant {
@@ -106,24 +107,24 @@ function reparent(source: string): string {
   const trimmed = source.trim()
   const root = SOURCE_ROOT.exec(trimmed)
   if (root === null) throw new Error('app icons: the tile source has no root element')
-  if (!trimmed.includes(TILE_SHADOW_GROUP)) throw new Error('app icons: the tile source has no shadowed tile group')
-  if (!trimmed.includes(TILE_ARTWORK_GROUP)) throw new Error('app icons: the tile source has no artwork group')
-  return `${croppedRoot()}${trimmed.slice(root[0].length).replace(TILE_SHADOW_GROUP, '<g>')}`
+  const body = trimmed.slice(root[0].length)
+  if (!TILE_ARTWORK_GROUP.test(body)) throw new Error('app icons: the tile source has no artwork group')
+  return `${croppedRoot()}${body}`
 }
 
 /**
  * Rewrite the tile source so the icon canvas is exactly the tile.
  * @param source - complete `icon.svg` document.
- * @returns an SVG document whose 1024-unit square is the tile without its shadow.
+ * @returns an SVG document whose 1024-unit square is exactly the tile.
  */
 export function tileDocument(source: string): string {
   return reparent(source)
 }
 
 /**
- * Rewrite the tile source into a maskable icon. The tile keeps its own gradient
+ * Rewrite the tile source into a maskable icon. The tile keeps its own fill
  * and extent, so the icon's border is the real tile rather than an extension;
- * only the whale scales into the safe zone a platform mask may crop.
+ * only the mark scales into the safe zone a platform mask may crop.
  * @param source - complete `icon.svg` document.
  * @returns an SVG document whose artwork survives a circular mask whole.
  */
@@ -131,7 +132,7 @@ export function maskableDocument(source: string): string {
   const relocated = reparent(source)
   return relocated.replace(
     TILE_ARTWORK_GROUP,
-    `${TILE_ARTWORK_GROUP.slice(0, -1)} transform="${aboutCenter(MASKABLE_ARTWORK_SCALE)}">`,
+    group => `${group.slice(0, -1)} transform="${aboutCenter(MASKABLE_ARTWORK_SCALE)}">`,
   )
 }
 

@@ -14,9 +14,11 @@ import AgentRegistry from '@lyness/lyn-agent'
 import AgentLoop from '@lyness/lyn-agent-loop'
 import LlmRuntime from '@lyness/lyn-llm'
 import SessionStore, { SessionId } from '@lyness/lyn-session'
+import type { Session } from '@lyness/lyn-session'
 import SessionProjectionRegistry from '@lyness/lyn-session-projection'
 import SystemPrompt from '@lyness/lyn-system-prompt'
 import ToolRuntime from '@lyness/lyn-tools'
+import * as NativeToolExecutor from '@lyness/lyn-tool-executor-native'
 import type { ToolBatchResult } from '@lyness/lyn-tools'
 import type { Agent } from '@lyness/lyn-agent'
 import { botProjectionDefinition } from '@lyness/lyn-managed-bots'
@@ -47,6 +49,8 @@ async function bench(asked: { answer?: string } = {}): Promise<{
   await ctx.plugin(LlmRuntime)
   await ctx.plugin(SystemPrompt, {})
   await ctx.plugin(ToolRuntime, {})
+  // The loop refuses a turn with no executor selected.
+  await ctx.plugin(NativeToolExecutor)
   await ctx.plugin(SessionStore)
   await ctx.plugin(SessionProjectionRegistry)
   await ctx.plugin(AgentRegistry)
@@ -54,7 +58,15 @@ async function bench(asked: { answer?: string } = {}): Promise<{
   ctx.llm.registerAdapter([ANSWERING_PROVIDER], new AnsweringAdapter())
   await ctx.sessionProjections.register(botProjectionDefinition)
   const asks: { teammate: string; question: string }[] = []
-  ctx.provide('managedBots', { teammates: () => Promise.resolve([SCRIBE]) } as never)
+  ctx.provide('managedBots', {
+    teammates: () => Promise.resolve([SCRIBE]),
+    // The real roster answers from its own projection over this same event,
+    // which is what the agents below append.
+    botOf: (session: Session) => session.snapshotEvents()
+      .filter(event => event.type === 'bot/engaged')
+      .map(event => event.data as EngagedBot)
+      .at(-1),
+  } as never)
   const discussions: { participants: readonly string[]; question: string; rounds: number }[] = []
   ctx.provide('botRoom', {
     hold: (_opener: Agent, request: { participants: readonly string[]; question: string; rounds: number }) => {

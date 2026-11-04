@@ -115,19 +115,14 @@ export function createElectronBuilderConfig(
       lynDesktopAppId: appId,
       lynDesktopUpdateChannel: update?.channel ?? 'nightly',
       ...(policy === undefined ? {} : { lynMandatoryUpdatePolicy: policy }),
-      ...buildVersion === productVersion ? {} : { version: buildVersion },
-      ...packaged === undefined ? {} : { lynBuildCommit: packaged.commit, lynBuildDirty: packaged.dirty },
-    },
-    productName: 'lyness',
-    // The default copyright uses author.name; this line names the product instead.
-    copyright: `Copyright © ${new Date().getFullYear()} \${productName}`,
-      lynMandatoryUpdatePolicy: policy,
       // The shell's own copy names the product through placeholders this manifest fills.
       ...resolveDesktopBrandMetadata(env),
       ...buildVersion === productVersion ? {} : { version: buildVersion },
       ...packaged === undefined ? {} : { lynBuildCommit: packaged.commit, lynBuildDirty: packaged.dirty },
     },
     productName: 'lyness',
+    // The default copyright uses author.name; this line names the product instead.
+    copyright: `Copyright © ${new Date().getFullYear()} \${productName}`,
     // Unsigned builds carry their own suffix so a shared file can never pass for a release artifact.
     artifactName: `lyness-\${version}-\${os}-\${arch}${output.suffix}.\${ext}`,
     directories: { output: output.directory },

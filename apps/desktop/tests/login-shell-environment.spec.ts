@@ -12,6 +12,14 @@ vi.mock('node:os', async importOriginal => ({ ...await importOriginal<typeof imp
 
 const DELIMITER = '_LYNESS_SHELL_ENV_DELIMITER_'
 const config = { timeoutMs: 5_000 }
+
+/**
+ * Budget for a spawned login shell to reach the state a case waits on.
+ *
+ * `vi.waitFor` defaults to one second, which is a race against starting a real
+ * shell, letting its rc file run, and having a background child write a file.
+ */
+const SPAWN_WAIT = { timeout: 15_000, interval: 25 }
 let directory: string
 
 beforeEach(() => { directory = mkdtempSync(join(tmpdir(), 'lyn-login-shell-')) })
@@ -91,7 +99,10 @@ describe('mergeLoginShellEnvironment', () => {
   })
 })
 
-describe('readDesktopLoginShellEnvironment', () => {
+// These cases spawn real login shells, and the product timeout they exercise
+// is itself 5s — the same as the default test budget. Under a loaded machine
+// the budget expires first and the case fails for the wrong reason.
+describe('readDesktopLoginShellEnvironment', { timeout: 30_000 }, () => {
   it('returns the inherited environment on Windows without running a shell', async () => {
     const base = { Path: 'C:\\Windows' }
     await expect(readDesktopLoginShellEnvironment(base, config, { platform: 'win32', shells: [shell('unused', 'exit 1')] }))
@@ -164,7 +175,7 @@ describe.skipIf(process.platform === 'win32')('readDesktopLoginShellEnvironment 
     const result = await readDesktopLoginShellEnvironment(base, { timeoutMs: 2_000 }, { platform: 'darwin', shells: [hanging] })
     expect(result).toEqual({ environment: base, failures: [{ shell: hanging, reason: 'timeout' }] })
     const child = Number(readFileSync(pidFile, 'utf8'))
-    await vi.waitFor(() => { expect(exited(child)).toBe(true) })
+    await vi.waitFor(() => { expect(exited(child)).toBe(true) }, SPAWN_WAIT)
   })
 
   it('ends the running shell group on abort and skips the remaining candidates', async () => {
@@ -179,9 +190,9 @@ describe.skipIf(process.platform === 'win32')('readDesktopLoginShellEnvironment 
       const pid = Number(readFileSync(pidFile, 'utf8'))
       expect(pid).toBeGreaterThan(0)
       return pid
-    })
+    }, SPAWN_WAIT)
     controller.abort()
     await expect(read).resolves.toEqual({ environment: base, failures: [{ shell: hanging, reason: 'aborted' }] })
-    await vi.waitFor(() => { expect(exited(child)).toBe(true) })
+    await vi.waitFor(() => { expect(exited(child)).toBe(true) }, SPAWN_WAIT)
   })
 })

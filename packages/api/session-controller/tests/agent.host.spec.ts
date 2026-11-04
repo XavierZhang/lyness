@@ -9,7 +9,7 @@ import { agentPresetProjectionDefinition } from '@lyness/lyn-agent-preset-regist
 import { botProjectionDefinition } from '@lyness/lyn-managed-bots/session'
 import type { EngagedBot } from '@lyness/lyn-managed-bots/session'
 import SessionStore, { SESSION_FORMAT_VERSION, SessionLogOffset, SessionId } from '@lyness/lyn-session'
-import type { SessionHeader } from '@lyness/lyn-session'
+import type { Session, SessionHeader } from '@lyness/lyn-session'
 import { SessionAlreadyOwnedError } from '@lyness/lyn-session-persistence'
 import type { SessionObservation } from '@lyness/lyn-session-query'
 import TypertRegistry from '@lyness/lyn-typert-registry'
@@ -47,6 +47,9 @@ async function harness(options: { presets?: readonly string[]; roster?: EngagedB
       defaultId: ids[0],
       resolve: (id?: string) => Promise.resolve({ id: id ?? ids[0] ?? '' }),
       mount: (_ctx: Context, id?: string) => Promise.resolve({ id: id ?? ids[0] ?? '' }),
+      // The real registry answers from its own projection; the controller
+      // writes the same selection into the Session header.
+      presetForSession: (session: Session) => session.header.agentPreset ?? null,
     } as never)
   }
   if (options.roster !== undefined) {
@@ -311,13 +314,19 @@ describe('ApiSession resuming a conversation with a bot', () => {
   it('rebuilds the character when a stored conversation is adopted by id', async () => {
     const composed: EngagedBot[] = []
     const { ctx, agents } = await harness({ presets: ['standard'], roster: composed })
-    const meta = header('bot-adopt')
+    // Adopting creates the directory, so this one is a real one; every other
+    // test here only records a cwd and never reaches the filesystem.
+    const cwd = mkdtempSync(join(tmpdir(), 'lyn-session-controller-adopt-'))
+    tempDirs.push(cwd)
+    const meta = header('bot-adopt', cwd)
     const resumed = agent(ctx, meta)
     resumingWithSetup(ctx, resumed)
     vi.spyOn(ctx.sessionQuery, 'observeSession')
       .mockResolvedValue(observedWithBot(meta, ENGAGED))
 
-    const adopted = await agents.createSession({ sessionId: meta.id, cwd: '/workspace', reusable: () => false })
+    // Adoption is the reusable path: `reusable: () => false` now means mint a
+    // fresh Session instead of taking the stored one over.
+    const adopted = await agents.createSession({ sessionId: meta.id, cwd, reusable: () => true })
     expect(adopted.agent).toBe(resumed)
     expect(composed).toEqual([ENGAGED])
   })

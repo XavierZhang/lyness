@@ -415,13 +415,26 @@ export class AuthorizationService extends Service {
           throw error
         }),
       })
+      // The run's settlement is held as a value rather than raced as a
+      // rejection: whichever side of the race loses is abandoned, and an
+      // abandoned promise that rejects reaches the process as an unhandled
+      // rejection. Marking `running` handled is not enough — the race observes
+      // it through a derived promise, and that derived one is what gets left.
+      const ran: Promise<'ran' | { readonly failed: unknown }> = running.then(
+        () => 'ran' as const,
+        (failed: unknown) => ({ failed }),
+      )
       try {
-        if (await Promise.race([running.then(() => 'ran' as const), withdrawn]) === 'withdrawn') {
-          // Nothing awaits the orphan any more, so its eventual failure has to be
-          // marked handled or it would take down the process.
-          void running.catch(() => { this.ctx.logger.debug('authorization: withdrawn flow failed after the fact') })
+        if (await Promise.race([ran, withdrawn]) === 'withdrawn') {
+          // Nothing awaits the orphan any more; its eventual failure is logged
+          // rather than thrown, because the caller already has its outcome.
+          void ran.then((settled) => {
+            if (typeof settled === 'object') this.ctx.logger.debug('authorization: withdrawn flow failed after the fact')
+          })
           return { status: 'cancelled' }
         }
+        const settled = await ran
+        if (typeof settled === 'object') throw settled.failed
       } catch (error) {
         // A withdrawn attempt and a declined prompt are outcomes, not
         // failures: the human said no, or closed the page. Anything else is
