@@ -208,6 +208,14 @@ async function harness(overrides: Record<string, unknown> = {}): Promise<{
   return { ctx, notices, signIn }
 }
 
+/*
+ * Several cases below read the attempt as `expect(signIn()).rejects` BEFORE
+ * driving the browser step. The flow rejects while that step is awaited, and a
+ * rejection nobody is listening to yet reaches the process as an unhandled
+ * rejection — Node decides that at the end of the turn the rejection happened
+ * in, and a handler attached afterwards only earns a `rejectionHandled`
+ * notice, which the runner counts as an error all the same.
+ */
 /** Wait for the authorize URL the flow published, then act as the browser. */
 async function visitCallback(
   ctx: Context,
@@ -330,9 +338,9 @@ describe('a browser sign-in', () => {
       return realFetch(input, init)
     })
     const { ctx, notices, signIn } = await harness()
-    const attempt = signIn()
+    const attempt = expect(signIn()).rejects.toThrow('invalid_grant')
     await visitCallback(ctx, notices)
-    await expect(attempt).rejects.toThrow('invalid_grant')
+    await attempt
   })
 
   it('reports a status when the refusal carries no reason this build can read', async () => {
@@ -344,9 +352,9 @@ describe('a browser sign-in', () => {
       return realFetch(input, init)
     })
     const { ctx, notices, signIn } = await harness()
-    const attempt = signIn()
+    const attempt = expect(signIn()).rejects.toThrow('status 503')
     await visitCallback(ctx, notices)
-    await expect(attempt).rejects.toThrow('status 503')
+    await attempt
   })
 
   it('refuses a token response it cannot read', async () => {
@@ -359,9 +367,9 @@ describe('a browser sign-in', () => {
       return realFetch(input, init)
     })
     const { ctx, notices, signIn } = await harness()
-    const attempt = signIn()
+    const attempt = expect(signIn()).rejects.toThrow('token response this build cannot read')
     await visitCallback(ctx, notices)
-    await expect(attempt).rejects.toThrow('token response this build cannot read')
+    await attempt
   })
 
   it('reports a directory that will not describe the signed-in person', async () => {
@@ -376,9 +384,9 @@ describe('a browser sign-in', () => {
       return realFetch(input, init)
     })
     const { ctx, notices, signIn } = await harness()
-    const attempt = signIn()
+    const attempt = expect(signIn()).rejects.toThrow('status 403')
     await visitCallback(ctx, notices)
-    await expect(attempt).rejects.toThrow('status 403')
+    await attempt
   })
 
   it('refuses a person described in a form it cannot read', async () => {
@@ -395,9 +403,9 @@ describe('a browser sign-in', () => {
       return realFetch(input, init)
     })
     const { ctx, notices, signIn } = await harness()
-    const attempt = signIn()
+    const attempt = expect(signIn()).rejects.toThrow('form this build cannot read')
     await visitCallback(ctx, notices)
-    await expect(attempt).rejects.toThrow('form this build cannot read')
+    await attempt
   })
 
   it('gives up when the browser never returns', async () => {

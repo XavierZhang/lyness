@@ -855,43 +855,33 @@ npx vitest run $(cat fail-files.txt)      # 只跑那 48 个文件
 
 另外两条环境相关的：`login-shell-environment` 的产品超时是 5 秒、vitest 默认预算也是 5 秒，满载时预算先到期（给那个 describe 单独 30 秒）；`ptc-runtime-python/sandbox` 又撞上 pyenv shim 导出自己的 PATH，按姊妹 spec 的做法钉到 `sys.executable`。
 
-### 未处理的 Promise rejection：7 处修掉 2 处，剩 5 处（`pnpm run test` 仍以 1 退出）
+### 未处理的 Promise rejection：7 处全清（附一条容易反复踩的 Node 语义）
 
-**先记住这条结论：vitest 捕获到 unhandled error 时，即使用例全过也会以 1 退出。**
-所以这类泄漏不是「可以以后再说」的警告，它挡着整个套件变绿 —— 本轮
-`pnpm run test` 是 **2777 文件／54802 条全过、0 失败，但退出码 1**。
+**先记住这条：vitest 捕获到 unhandled error 时，即使用例全过也会以 1 退出。**
+所以这类泄漏不是「可以以后再说」的警告，它挡着整个套件变绿。
 
-这些泄漏在本轮第一次全量运行的日志里就存在，与合并无关。
+**最关键的一条 Node 语义**：拒绝有没有被处理，是 Node 在**拒绝发生的那个微任务轮结束时**
+判定的。之后再挂处理器只会补发一条 `PromiseRejectionHandledWarning`
+（`rejection was handled asynchronously`），而 **runner 记下的是前者、不会因后者撤销**。
+于是「最终 await 到了」并不等于「没有泄漏」。
 
-**已修的两处**
+这条警告也是本轮定位的突破口：自己装一个 `process.on('unhandledRejection')` 之后，
+vitest 不再报错，Node 却打出了那句 `handled asynchronously` —— 说明不是「谁都没处理」，
+而是**处理晚了**。方向立刻从「找第二个持有者」转成「找晚挂处理器的地方」。
 
-1. `packages/credentials/authorization/src/index.ts` 的 `attempt()`：撤回分支写着
-   `void running.catch(...)`，守的是**原始** promise；而竞态等待的是内联创建的
-   `running.then(() => 'ran')` 这个**派生** promise —— 撤回胜出时被遗弃并随后拒绝的
-   正是后者，守错了对象。改成把运行结果作为**值**持有
-   （`then(ok, failed => ({ failed }))`），竞态两侧都不会留下无人观察的拒绝。
-2. `packages/llm/model-policy/tests/store.spec.ts`：`afterEach` 直接删临时目录却从不
-   dispose 上下文，JSON 后端随后惰性 `openUnit` 打到已删除的目录，`mkdir` 在一个没人
-   await 的 promise 里 ENOENT。改成**先 dispose 再删目录**。3 处归零。
+**三处来源**
 
-**剩下的 5 处（`packages/vendor/microsoft-entra`，未解）**
+| 来源 | 真因 | 处理 |
+|---|---|---|
+| `packages/vendor/microsoft-entra`（5 处） | 测试写成 `const attempt = signIn()` → `await visitCallback(...)` → `await expect(attempt).rejects`。flow 恰在中间那个 await 期间拒绝，而那一刻 `attempt` 上还没有任何处理器 | 改成**先观察再驱动**：`const attempt = expect(signIn()).rejects.toThrow(...)`，然后 `await visitCallback(...)`，最后 `await attempt`。spec 里写了原因注释 |
+| `packages/credentials/authorization`（真缺陷） | `attempt()` 撤回分支的 `void running.catch(...)` 守的是**原始** promise，而竞态等待的是内联创建的 `running.then(() => 'ran')` 这个**派生** promise —— 撤回胜出时被遗弃并随后拒绝的正是后者 | 把运行结果作为**值**持有（`then(ok, failed => ({ failed }))`），竞态两侧都不留无人观察的拒绝 |
+| `packages/llm/model-policy`（3 处） | `afterEach` 直接删临时目录却从不 dispose 上下文，JSON 后端随后惰性 `openUnit` 打到已删除目录，`mkdir` 在没人 await 的 promise 里 ENOENT | 先 dispose 再删目录 |
 
-5 种 `EntraSignInError`（`invalid_grant`、503、403、两种无法解析的目录响应），
-每个失败用例恰好泄漏一次；用例本身写的是 `await expect(attempt).rejects`，拿到了拒绝。
-查证过、可以省掉重复劳动的事实：
+**查这类问题的顺序**（本轮绕了很久才找对，记下来）：
 
-- **不是 authorization 这条缝的通用问题。** 写了最小复现：真 `AuthorizationService` +
-  一个直接 reject 的 flow → 不泄漏；再做成 entra 的形状（flow 先 await 一个由路由唤醒的
-  promise，之后再 reject）→ 仍不泄漏。
-- **不是 `EntraChannel`。** `channel.spec.ts` 单跑干净，只有挂真插件的
-  `microsoft-entra.spec.ts` 泄漏。
-- **不是 teardown 顺序。** 该 spec 的 `cleanups` 用 `pop()` 即 LIFO，dispose 先于删目录。
-- **`redeemCode`／`send`／`awaitCallback` 都是单链**，没有 `Promise.race`、没有并发请求。
-- 栈是 `redeemCode` → `MicrosoftEntra.run` → `Proxy.attempt` → `Proxy.begin`，与**已被
-  处理**的那条完全相同；但给注册的 `run:` 闭包插桩后**一行都没打印**，说明泄漏的
-  promise 不在这条链上。`Proxy.*` 这两帧提示下一步该看 vendored Cordis 的
-  `getTraceable`／`createShadowMethod`（`vendor/cordis/src/utils.ts`）在包装服务方法
-  返回值时是否多造了一个 promise。
-
-**下次从这里接着查**：`vendor/cordis/src/utils.ts` 的服务方法代理，而不是 entra 或
-authorization 的业务代码。
+1. 先看有没有 `PromiseRejectionHandledWarning`。有 → 是**晚挂处理器**，去找「promise 创建后
+   跨越了哪些 await 才被观察」；没有 → 才是真的没人处理，去找第二个持有者。
+2. 自己装 `process.on('unhandledRejection')` 会让 vitest 不再报这条错 —— 插桩时别被这点误导
+   成「修好了」。
+3. 写最小复现时注意：**把 `await expect(p).rejects` 紧跟在触发语句后面，就不会泄漏**，
+   所以照着实现写的复现很容易「复现不出来」—— 必须把测试里那几个中间 await 也照抄过来。
