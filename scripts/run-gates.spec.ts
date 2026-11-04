@@ -377,7 +377,7 @@ describe('gate graph validation', () => {
     const ids = withPnpmEntrypoint(() => gatesForMode('hygiene').map(subject => subject.id))
 
     expect(ids).toEqual([
-      'rescope-vendor', 'publint', 'constraints',
+      'rescope-vendor', 'rebrand-round-trip', 'publint', 'constraints',
       'default-product-isolation', 'product-use', 'official-bundle-catalog', 'provider-data',
       'hosted-profile-boundary', 'remote-authority',
       'package-dependencies', 'application-entrypoints', 'lyn-package-licenses', 'node-next-types',

@@ -134,11 +134,21 @@ describe.skipIf(process.platform === 'win32')('a run with descendants', () => {
     const outcome = await runProfilePnpm(context, ['add', './stalled'], { ...options, idleTimeoutMs: 300 })
     const descendant = await readPid(pidFile)
     expect(outcome).toMatchObject({ timedOut: true })
-    // The descendant is gone, so the marker it would have written 1.5s in never appears.
-    expect(() => process.kill(descendant, 0)).toThrow()
+    // The descendant is gone, so the marker it would have written 1.5s in never
+    // appears. Polled rather than read once: the stop returns when the signal is
+    // delivered, and reaping the process is the kernel's own next step.
+    await expect.poll(() => {
+      try {
+        process.kill(descendant, 0)
+        return false
+      } catch {
+        // Swallows only `kill`'s own failure, which is how a gone process reports itself.
+        return true
+      }
+    }, { timeout: 15_000, interval: 50 }).toBe(true)
     await sleep(2_000)
     expect(existsSync(lateFile)).toBe(false)
-  })
+  }, 90_000)
 })
 
 it('waits for a run recorded by an exited operation before starting its own', async () => {

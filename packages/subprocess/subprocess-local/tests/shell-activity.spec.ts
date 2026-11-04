@@ -14,6 +14,22 @@ afterEach(async () => { for (const cleanup of cleanups.splice(0).reverse()) awai
 /** Prompt every startup file in this spec prints; its repeats count the prompts a shell reached. */
 const PROMPT_MARKER = 'READY>'
 
+/**
+ * Budget for a real zsh to print what a case is waiting for.
+ *
+ * `expect.poll` defaults to one second, which on a loaded machine is a race
+ * against the shell rather than a statement about the activity seam: every
+ * case here drives an interactive terminal through a pseudo-tty.
+ */
+const POLL = { timeout: 15_000, interval: 50 }
+
+/**
+ * Budget for one case, which must exceed {@link POLL}: a poll that outlives the
+ * case it runs in makes the case report its own timeout instead of what it was
+ * waiting for. Every case here drives a real zsh through a pseudo-tty.
+ */
+const CASE_TIMEOUT_MS = 90_000
+
 async function shell(path: string, rc = '', envFile = '') {
   const home = await mkdtemp(join(tmpdir(), 'lyn-shell-activity-test-'))
   cleanups.push(() => rm(home, { recursive: true, force: true }))
@@ -27,7 +43,7 @@ async function shell(path: string, rc = '', envFile = '') {
   cleanups.push(() => handle.terminate())
   let output = ''
   handle.output.on('data', (data: Buffer) => { output += data.toString('utf8') })
-  await expect.poll(() => output).toContain(PROMPT_MARKER)
+  await expect.poll(() => output, POLL).toContain(PROMPT_MARKER)
   const prompts = (): number => output.split(PROMPT_MARKER).length - 1
   return { handle, home, prompts, output: () => output, activity: async () => (await handle.inspectActivity()).state }
 }
@@ -61,7 +77,7 @@ async function expectActivity(h: Shell, expected: SubprocessTerminalActivity['st
       const activity = await h.handle.inspectActivity()
       observed.push(`${activity.state}:${activity.revision}`)
       return activity.state
-    }).toBe(expected)
+    }, POLL).toBe(expected)
   } catch (cause) {
     const prompts = h.prompts() - promptsBefore
     const samples = observed.length === 0 ? 'no sample' : summarizeSamples(observed)
@@ -69,7 +85,7 @@ async function expectActivity(h: Shell, expected: SubprocessTerminalActivity['st
   }
 }
 
-describe.skipIf(process.platform === 'win32' || !existsSync('/bin/zsh'))('Zsh terminal activity', () => {
+describe.skipIf(process.platform === 'win32' || !existsSync('/bin/zsh'))('Zsh terminal activity', { timeout: CASE_TIMEOUT_MS }, () => {
   it('keeps silent foreground work, builtin loops, read, and background jobs busy until a new prompt is idle', async () => {
     const h = await shell('/bin/zsh')
     await expectActivity(h, 'idle')
@@ -102,7 +118,7 @@ describe.skipIf(process.platform === 'win32' || !existsSync('/bin/zsh'))('Zsh te
     expect(h.output()).toContain('RC-LOADED')
     await expectActivity(h, 'idle')
     await h.handle.write('print -r -- "DIRECTORY:$ZDOTDIR"\r')
-    await expect.poll(() => h.output()).toContain(`DIRECTORY:${h.home}`)
+    await expect.poll(() => h.output(), POLL).toContain(`DIRECTORY:${h.home}`)
     await expectActivity(h, 'idle')
     expect(h.output()).not.toContain('file exists')
   })
@@ -113,7 +129,7 @@ describe.skipIf(process.platform === 'win32' || !existsSync('/bin/zsh'))('Zsh te
     await h.handle.write('sleep 600\r')
     await expectActivity(h, 'busy')
     await h.handle.write('\x1a')
-    await expect.poll(() => h.output()).toContain('suspended')
+    await expect.poll(() => h.output(), POLL).toContain('suspended')
     expect(await h.activity()).toBe('busy')
     await h.handle.write('kill -KILL %1\r')
     await expectActivity(h, 'idle')
@@ -130,7 +146,7 @@ describe.skipIf(process.platform === 'win32' || !existsSync('/bin/zsh'))('Zsh te
     const h = await shell('/bin/zsh', 'print UNEXPECTED-RC', `unsetopt rcs\nPROMPT='${PROMPT_MARKER} '`)
     expect(h.output()).not.toContain('UNEXPECTED-RC')
     await h.handle.write('print -r -- "DIRECTORY:$ZDOTDIR"\r')
-    await expect.poll(() => h.output()).toContain(`DIRECTORY:${h.home}`)
+    await expect.poll(() => h.output(), POLL).toContain(`DIRECTORY:${h.home}`)
   })
 })
 
@@ -139,8 +155,8 @@ describe.skipIf(process.platform === 'win32' || !existsSync('/bin/bash'))('Bash 
     const h = await shell('bash', "PROMPT_COMMAND='printf HOOK; # user comment'\nset -C")
     expect(h.output()).toContain('HOOK')
     await h.handle.write('printf "VERSION:%s\\n" "$BASH_VERSION"\r')
-    await expect.poll(() => h.output()).toContain('VERSION:')
-    await expect.poll(() => /VERSION:\d+\.\d+/u.test(h.output())).toBe(true)
+    await expect.poll(() => h.output(), POLL).toContain('VERSION:')
+    await expect.poll(() => /VERSION:\d+\.\d+/u.test(h.output()), POLL).toBe(true)
     const version = /VERSION:(\d+)\.(\d+)/u.exec(h.output())
     const supported = Number(version?.[1]) > 4 || Number(version?.[1]) === 4 && Number(version?.[2]) >= 4
     if (!supported) { expect(await h.activity()).toBe('unknown'); return }

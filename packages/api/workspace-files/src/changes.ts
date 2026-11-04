@@ -73,7 +73,8 @@ export class WorkspaceChangeFeed {
         }
         return info
       }
-      await stat()
+      // Read before arming so the state the watch starts from is known.
+      const before = await stat()
       if (aborted()) return
       try {
         unwatch = await this.ctx.fs.watch(target, (error) => {
@@ -89,6 +90,15 @@ export class WorkspaceChangeFeed {
       }
       follower.initialized.resolve(unwatch)
       if (aborted()) return
+      // A watcher reports what happens after it is armed, and arming is not
+      // instant: on macOS `fs.watch` resolves before FSEvents starts
+      // delivering. A target that changed in that window would otherwise be
+      // reported by nothing — the first read happened before it, and the
+      // watcher never saw it. Re-reading here and comparing closes the window;
+      // an unchanged target queues nothing, so a consumer sees no extra frame.
+      const armed = await stat()
+      if (aborted()) return
+      if (String(armed?.version) !== String(before?.version)) follower.push([target])
       yield { kind: 'ready' }
       for await (const [observed] of follower.read()) {
         if (observed.targetKey !== target.targetKey) continue

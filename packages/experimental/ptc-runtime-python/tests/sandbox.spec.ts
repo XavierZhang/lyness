@@ -264,7 +264,9 @@ describe('Python file sandbox', () => {
     expect(result.error?.kind).toBe(kind)
     expect(result.value).toBeUndefined()
     if (kind === 'timeout') expect(result.error?.message).toContain('CPU time exhausted')
-  })
+    // The program it runs is allowed 30s of wall clock, so the case cannot be
+    // judged inside the default 5s budget.
+  }, 60_000)
 
   it.skipIf(!sandboxUsable).each(['abort', 'dispose', 'timeout'] as const)('closes a running confined program socket on %s', async (stop) => {
     const { fiber, runtime } = await setup('read-only', { maxWallMs: stop === 'timeout' ? 5000 : 30_000 })

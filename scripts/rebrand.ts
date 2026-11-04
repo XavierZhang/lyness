@@ -216,9 +216,9 @@ export const RULES: readonly Rule[] = [
   {
     id: 'external-office-kit-repository-shield',
     backward: 'skip',
-    from: 'dsh-libreoffice-kit',
+    from: 'github.com/deepseek-ai/dsh-libreoffice-kit',
     to: '\u0000office-kit-repository\u0000',
-    note: 'NOT a fork artifact. `github.com/deepseek-ai/dsh-libreoffice-kit` is the vendor\'s own repository, which supplies the LibreOffice source pin and build instructions that the MPL-2.0 notice must point recipients at. `dsh-token` rewrote the repository name to `lyn-libreoffice-kit`, which does not exist, so the notice and the office subsystem page both carried a dead link. The two other office-kit shields match the npm package name and cannot see this spelling. Restored by `external-office-kit-repository-restore` after `dsh-token`.',
+    note: 'NOT a fork artifact. This is the vendor\'s own repository, which supplies the LibreOffice source pin and build instructions that the MPL-2.0 notice must point recipients at. `dsh-token` rewrote the repository name to `lyn-libreoffice-kit`, which does not exist, so the notice, the office subsystem page, and four READMEs all carried a dead link. Qualified by its host: the same segment spelled `@deepseek-ai/dsh-libreoffice-kit` is a HARNESS-scoped package name that must rename, and a bare shield froze it too. The two other office-kit shields match the vendor\'s npm package and cannot see either spelling. Restored by `external-office-kit-repository-restore` after `dsh-token`.',
   },
   {
     id: 'pkg-scope-encoded',
@@ -414,7 +414,7 @@ export const RULES: readonly Rule[] = [
     id: 'external-office-kit-repository-restore',
     backward: 'skip',
     from: '\u0000office-kit-repository\u0000',
-    to: 'dsh-libreoffice-kit',
+    to: 'github.com/deepseek-ai/dsh-libreoffice-kit',
     note: 'Puts back what `external-office-kit-repository-shield` parked, after `dsh-token` has run. The pair leaves no sentinel behind: `--check` fails loudly if one survives.',
   },
 ]
@@ -589,7 +589,7 @@ const POSTCONDITIONS: readonly PostCondition[] = [
   { file: 'scripts/gen-third-party-notices.ts', text: "'@lyness/lyn-experimental-subagent-oar'", count: 1 },
   { file: 'docs/subsystems/office-to-pdf.md', text: 'github.com/deepseek-ai/dsh-libreoffice-kit', count: 1 },
   { file: 'docs/subsystems/office-to-pdf.zh.md', text: 'github.com/deepseek-ai/dsh-libreoffice-kit', count: 1 },
-  { file: 'CUSTOM.md', text: 'DeepSeek Harness', count: 9 },
+  { file: 'CUSTOM.md', text: 'DeepSeek Harness', count: 13 },
 ]
 
 /**
@@ -638,10 +638,15 @@ function binary(path: string): boolean {
 
 /**
  * The rules a file is exempt from.
+ *
+ * Exported because `verify-rebrand-round-trip` reads the tree with the same
+ * exemptions: running the rules over a protected file would report a break the
+ * codemod itself never makes, and skipping the file outright would drop exactly
+ * the paths whose spellings are most delicate.
  * @param file - repository-relative path.
  * @returns Rule ids to skip, or `'all'` when the file is exempt from every rule.
  */
-function protectedRules(file: string): 'all' | ReadonlySet<string> {
+export function protectedRules(file: string): 'all' | ReadonlySet<string> {
   const skip = new Set<string>()
   for (const entry of PROTECTED) {
     if (file !== entry.prefix && !file.startsWith(entry.prefix)) continue

@@ -5085,9 +5085,11 @@ describe('PythonPtcRuntime — hostile peer', () => {
     }))
     expect(result.error?.kind).toBe('timeout')
     expect(result.value).toBeUndefined()
-    // Pin that the late path actually ran, so the assertion above is not vacuous.
-    await new Promise(resolve => setTimeout(resolve, 2_000))
-    expect(resolvedLate).toBe(true)
+    // Pin that the late path actually ran, so the assertion above is not
+    // vacuous. Polled rather than slept: the binding's 2.5s starts when the
+    // program calls it, which a loaded machine moves later than the run's own
+    // clock, and a fixed wait then expires first.
+    await vi.waitFor(() => { expect(resolvedLate).toBe(true) }, { timeout: 30_000, interval: 50 })
   }, 90_000)
 
   it('paces concurrent binding replies instead of queueing every frame at once', async () => {

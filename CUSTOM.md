@@ -644,7 +644,7 @@ dependabot 每天 04:00（Asia/Shanghai）在 fork 上跑 npm／uv／github-acti
 
 **分流前先量化。** 把每个冲突文件的「基点 vs 我方」拿去做品牌归一化比较（把两侧所有品牌拼写折叠成同一个记号），结果：只有 7 个是纯品牌噪声，353 个有真实内容差异。再按路径分一层才看清大头：251 份翻译配对记录、18 份生成产物。**先量化再分流，省掉了逐个打开 276 个文件。**
 
-**`--reverse` 的保真缺陷（新发现，与往返性是两件事）。** 往返门禁证明 `forward(backward(x)) === x`，但那不等于 `backward(x)` 逐字等于上游原文。裸 `lyness` 后面不跟 `-`／`_` 时，反向走的是产品名规则，于是 `deepseek-harness/0.0.1`（User-Agent 里的线上标识）被还原成 `DeepSeek Harness/0.0.1`。后果只是噪声不是损坏（正向会改回正确值），但它会制造假冲突。本轮有 7 个文件、约 7700 处。**要修的是给反向补一条「裸 `lyness` 跟在 `/` 前」的规则，并把门禁从往返性扩展到「与上游原文逐字相等」。**
+**`--reverse` 的保真缺陷（新发现，与往返性是两件事）。** 往返门禁证明 `forward(backward(x)) === x`，但那不等于 `backward(x)` 逐字等于上游原文。裸 `lyness` 后面不跟 `-`／`_` 时，反向走的是产品名规则，于是 `deepseek-harness/0.0.1`（User-Agent 里的线上标识）被还原成 `DeepSeek Harness/0.0.1`。后果只是噪声不是损坏（正向会改回正确值），但它会制造假冲突。本轮有 7 个文件、约 7700 处。**当时写的修法是「给反向补一条『裸 `lyness` 跟在 `/` 前』的规则，并把门禁扩展到逐字相等」——2026-11-04 量化之后证明这条修法不成立，见「逐字还原做不到」一节。**
 
 ### 订正一条我自己写错的裁决：base bundle 少的 19 行是**故意搬走**的
 
@@ -885,3 +885,105 @@ vitest 不再报错，Node 却打出了那句 `handled asynchronously` —— �
    成「修好了」。
 3. 写最小复现时注意：**把 `await expect(p).rejects` 紧跟在触发语句后面，就不会泄漏**，
    所以照着实现写的复现很容易「复现不出来」—— 必须把测试里那几个中间 await 也照抄过来。
+
+### 逐字还原做不到：`--reverse` 保真缺陷的裁定（2026-11-04 量化）
+
+上面那条「要给反向补一条裸 `lyness` 的规则，并把门禁扩展到与上游逐字相等」的修法
+**不成立**。把合并基点的整棵树取出来、逐文件比对之后，数字是这样的：
+
+正向是**三对一塌缩** —— `deepseek-harness`、`deepseek_harness`、`DeepSeek Harness`
+都变成 `lyness`。在 fork 没有改过的文件里，两侧无 `-`／`_` 可依据（也就是今天一律落到
+产品名规则）的裸占比：
+
+| 上游拼写 | 裸占比 | 今天反向的结果 |
+|---|---|---|
+| `DeepSeek Harness` | **805** | 正确 |
+| `deepseek-harness` | **369** | 错成 `DeepSeek Harness` |
+| `deepseek_harness` | **81** | 错成 `DeepSeek Harness` |
+
+于是「补一条规则」在数量上就不划算：产品名当兜底是对的（805 对 450）。更关键的是
+**按分隔符也分不开**：
+
+| 相邻字符 | 总数 | 分布 |
+|---|---|---|
+| 左 `/` | 292 | slug 280、产品名 9、python 3 |
+| 左空格 | 715 | 产品名 630、python 71、slug 14 |
+| 右 `.` | 370 | 产品名 175、slug 175、python 20 |
+
+唯一无歧义的上下文都只有 2–19 处。**每个高频上下文里至少同时存在两种拼写，所以没有
+任何字面规则的排列能恢复出原来是哪一种。** 这不是规则没写全，是正向塌缩造成的信息丢失。
+
+**代价其实比当初以为的小。** 合并流程是「反向 → 合并上游 → 正向」。对一个 fork 没改过的
+文件，漂移让 `ours` 看起来变了；但只有**上游也改了同一行**时才会冲突，上游没碰的文件
+合并后保留我方文本、再正向改名回正确值。上一轮实测就是 7 个文件。
+
+**所以裁定：不追求逐字相等，改为把可达成的那条性质钉死在整棵树上。**
+新增 `scripts/verify-rebrand-round-trip.ts`（`pnpm run verify-rebrand-round-trip`，
+已注册进 `hygiene`，与 `rescope-vendor:check` 并列）：对每个受跟踪的文本文件跑
+「反向再正向」，要求回到自己的字节。离线、不依赖上游 ref。
+
+**它立刻就付了成本**：首次运行在 19269 个文件里报出 **5 处真缺陷**，而 `rebrand:check`
+和原有的往返 spec 都漏掉了 ——
+
+- kit 死链还剩 4 处没修：`packages/document/office-to-pdf/README.{md,zh.md}`、
+  `apps/web/tests/fixtures/office/README.{md,zh.md}`。我上一轮只修了 3 处就以为清完了。
+- `external-office-kit-repository-shield` **开得太宽**：它按裸 `dsh-libreoffice-kit`
+  匹配，于是把 `@deepseek-ai/dsh-libreoffice-kit` 这个 **harness 作用域的包名**也冻住了
+  （那是该改名的，`gen-third-party-notices.spec.ts` 里就有一处）。已按宿主限定收窄为
+  `github.com/deepseek-ai/dsh-libreoffice-kit`。
+
+这条门禁同时顶替了逐站点 postcondition 的作用：任何一处 kit URL 被改回 `lyn-`，反向再
+正向就回不到原字节，门禁直接报出文件与行号。
+
+### 满载下的 flake 有两类，都不是「偶发」（2026-11-04 归纳）
+
+本轮在全量套件上反复撞到同一批「隔离下全过、满载时随机红」的用例。分清两类之后都能根治：
+
+**第一类：测试预算 = 被测的产品超时。** vitest 默认 5 秒，而这些用例测的正是一个
+5 秒或更长的产品行为，满载时预算先到期，用例以「超时」失败而不是以断言失败 ——
+看起来像偶发，其实是必然，只是概率随机器负载变化。已修四处：
+
+| 用例 | 产品侧预算 | 处理 |
+|---|---|---|
+| `apps/desktop/.../login-shell-environment.spec.ts` | 产品超时 5s | describe 级 30s；另给三个 `vi.waitFor` 15s（它的默认只有 1s） |
+| `packages/experimental/ptc-runtime-python/.../sandbox.spec.ts` | `maxWallMs: 30_000` | 用例 60s |
+| `packages/api/workspace-files/.../changes.spec.ts` | 真实文件系统 watcher | 用例 60s |
+| `packages/experimental/ptc-runtime-python/.../runtime.spec.ts` | 绑定 sleep 2.5s | 固定 `setTimeout(2000)` 改成 `vi.waitFor` 轮询 |
+| `packages/subprocess/subprocess-local/.../shell-activity.spec.ts` | 真实 zsh 经 pty 打印 | `expect.poll` 的默认预算只有 **1 秒**；该文件 7 处轮询全都没给预算，统一用一个 `POLL = { timeout: 15_000, interval: 50 }` |
+
+| `packages/boot/plugin-manager/.../manager.spec.ts` | 真实 git fixture + 两次真实 pnpm 安装 | 用例 90s |
+| `packages/boot/plugin-market/.../repository-cache.spec.ts` | 真实抓取一千个 tree 的仓库 | 用例 90s |
+| `packages/boot/plugin-manager/.../operations-process.spec.ts` | 终止进程树后断言子进程已消失 | `process.kill(pid, 0)` 由「读一次」改为轮询：停止返回时信号刚投递，回收进程是内核的下一步 |
+
+**注意 `expect.poll` 和 `vi.waitFor` 各有自己的默认预算（1 秒），和用例级 timeout 是两回事** ——
+把用例预算调大并不会让它们等更久，这一轮在 login-shell 和 shell-activity 上各踩了一次。
+
+**而且两者必须成对调：轮询预算要低于用例预算。** 我在 `shell-activity` 上先只把 poll 调到
+15 秒、没动用例的 5 秒，结果轮询还没到期用例先到期 —— 报出来是「Test timed out in 5000ms」，
+把真正在等什么这条信息也盖掉了，比改之前更难查。**调轮询预算时一定要同时确认用例预算更大。**
+
+**不要一刀切地给所有 spec 加预算。** 按「文件里出现 `execFile`／`spawn`」扫一遍会命中几百个
+文件，其中绝大多数只是 `vi.mock` 了 spawn、根本不起进程，给它们加预算纯属噪声。
+仓库本来就有约定（见 `scripts/oxlint-contract.spec.ts` 头部）：**会起真实进程的用例显式写
+自己的 timeout**。按这条约定在出事时逐个补，比预先扫全量更准。
+
+**最后一行是第二类的典型：把固定睡眠当同步手段。** 那条用例等一个 2.5 秒的绑定，
+固定睡 2 秒 —— 而绑定的计时从**程序调用它**那刻开始，满载时这一刻后移、余量就没了。
+**判据：凡是 `await new Promise(r => setTimeout(r, N))` 之后紧跟断言，都该换成轮询。**
+
+**还有一类长得像 flake、其实是平台契约问题：watcher 的布防延迟。**
+`workspace-files` 的 `observes creation of a missing outside file through the real local watcher`
+即使给到 60 秒也超时 —— 阶段标记显示 `waiting-change` 之后干等 60 秒，**事件根本没来**。
+macOS 上 `fs.watch` 返回之后，FSEvents 还要一会儿才开始投递；用例在 `ready` 后 5ms 就改名，
+正落在这个窗口里。产品修不了 OS，所以用例在改名前留 500ms 给平台布防（之后那个事件仍是真等的）。
+
+**顺带挖出一个真实的产品缺口**：`changes.ts` 的顺序是 `stat()` → `fs.watch()` → `ready`，
+**在首次 `stat` 与 watch 布防之间发生的变更会永久丢失** —— 第一次读在它之前，watcher 又没看见它。
+已在布防后补一次读并与布防前比对，不同则补发一次失效；相同则不产生多余帧。
+这个缺口和上面那条 flake 是两件事：它修的是 setup 期间的变更，而用例的改名发生在 `ready` 之后。
+
+**第三类是跨 spec 干扰，和负载无关、只和并行有关。** `scripts/oxlint-contract.spec.ts`
+必须把探针源码写进真实的包目录（被测的正是「哪个 tsconfig 聚合能到达该路径」），
+而 `scripts/persistence-schema.ts` 会建一个仓库级 TypeScript program —— 它收进一个
+正在被删除的探针文件，就报 `TS6053: File ... not found`。已让仓库级枚举跳过保留前缀
+`oxlint-contract-`。**仓库级源码枚举者都要认识这个前缀。**

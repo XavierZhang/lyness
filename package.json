@@ -226,7 +226,8 @@
     "verify-remote-authority": "tsx scripts/verify-remote-authority.ts",
     "verify-brand-placeholders": "tsx scripts/verify-brand-placeholders.ts",
     "rebrand": "tsx scripts/rebrand.ts",
-    "rebrand:check": "tsx scripts/rebrand.ts --check"
+    "rebrand:check": "tsx scripts/rebrand.ts --check",
+    "verify-rebrand-round-trip": "tsx scripts/verify-rebrand-round-trip.ts"
   },
   "devDependencies": {
     "@lyness/lyn-hooks-claude-code": "workspace:*",

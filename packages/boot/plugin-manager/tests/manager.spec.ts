@@ -871,7 +871,9 @@ it('offers approval for a real git-hosted package pnpm refused to prepare', asyn
   const allowed = await manager.installBundle(spec, { enabled: false, approvedBuilds: blocked.pendingBuilds! })
   expect(allowed, JSON.stringify(allowed)).toMatchObject({ application: 'restart-required', packageResult: { exitCode: 0 } })
   expect(readFileSync(built, 'utf8')).toBe('built')
-})
+  // Drives a real git fixture and two real pnpm installs; the default budget
+  // is a race against them rather than a statement about approval.
+}, 90_000)
 
 it.each(['[', 'allowBuilds: false\n'])('preserves pnpm diagnostics when pending approvals cannot be read: %s', async (policy) => {
   const { manager, dir } = await fixture()

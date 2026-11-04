@@ -64,6 +64,9 @@ function open(
   return { next: () => iterator.next(), return: () => iterator.return?.(), close, controller }
 }
 
+/** How long the platform may take to start delivering after `fs.watch` resolves. */
+const WATCHER_ARMING_MS = 500
+
 async function ready(stream: ReturnType<typeof open>): Promise<void> {
   await expect(stream.next()).resolves.toEqual({ done: false, value: { kind: 'ready' } })
 }
@@ -409,7 +412,10 @@ describe('workspaceFiles.changes — backends and access', () => {
     const stream = open(harness.endpoint(), path)
     await ready(stream)
     const [target, changed, signal] = watch.mock.calls[0]!
-    expect(stat).toHaveBeenCalledExactlyOnceWith(target, signal)
+    // Twice before `ready`: once for the state the watch starts from, and once
+    // after arming, because arming is not instant and a change in that window
+    // is reported by nothing else.
+    expect(stat.mock.calls).toEqual([[target, signal], [target, signal]])
     await rm(path)
     await mkdir(path)
     const pending = stream.next()
@@ -417,7 +423,7 @@ describe('workspaceFiles.changes — backends and access', () => {
     await expect(failureOf(pending)).resolves.toEqual({
       code: 'workspace-file/outside-workspace', details: { path },
     })
-    expect(stat.mock.calls).toEqual([[target, signal], [target, signal]])
+    expect(stat.mock.calls).toEqual([[target, signal], [target, signal], [target, signal]])
     expect(unwatch).toHaveBeenCalledTimes(1)
     await expect(stream.next()).resolves.toEqual({ done: true, value: undefined })
   })
@@ -442,6 +448,11 @@ describe('workspaceFiles.changes — backends and access', () => {
     mark('waiting-ready')
     await ready(stream)
     const pending = stream.next()
+    // `ready` says `fs.watch` resolved, which on macOS is a short while before
+    // FSEvents starts delivering: a mutation inside that window is reported by
+    // nothing, and the case then waits out its whole budget. The settle is for
+    // the platform to arm, not for the event — that is still awaited below.
+    await new Promise(resolve => setTimeout(resolve, WATCHER_ARMING_MS))
     mark('renaming')
     await rename(staging, path)
     mark('reading-stat')
@@ -456,7 +467,10 @@ describe('workspaceFiles.changes — backends and access', () => {
     mark('checking-end')
     await expect(stream.next()).resolves.toEqual({ done: true, value: undefined })
     mark('complete')
-  })
+    // A real filesystem watcher reports when the platform gets round to it, and
+    // the default 5s budget is a race against a loaded machine rather than a
+    // statement about the seam. The phase marks above say where it stopped.
+  }, 60_000)
 
   it.each(['create', 'modify', 'remove'] as const)(
     'reports an external direct-child %s through the real local watcher',
