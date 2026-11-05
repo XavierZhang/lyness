@@ -17,6 +17,7 @@ import Storage from '@lyness/lyn-storage'
 import * as StorageJson from '@lyness/lyn-storage-json'
 import * as StorageDomain from '@lyness/lyn-storage-domain'
 import AdminAudit from '@lyness/lyn-admin-audit'
+import SessionStore, { SessionId } from '@lyness/lyn-session'
 import ManagedPeople from '@lyness/lyn-managed-people'
 import ManagedBots, {
   BOT_PERSONA_SECTION, BotsRefusedError, NOT_YOURS, botProjectionDefinition, composeBotPersona,
@@ -180,6 +181,20 @@ describe('what the session log holds', () => {
       bot: 'triage', displayName: 'Triage', persona: '',
     }).success).toBe(true)
     expect(botProjectionDefinition.stateSchema.safeParse({ bot: 'triage' }).success).toBe(false)
+  })
+
+  it('refuses to read what a session speaks as before its projection registration completes', async () => {
+    // The handle is taken in `start()`. A composition that reads through this
+    // service before it has started gets a named failure instead of an answer
+    // derived from no projection, which would read as "a person opened this".
+    const ctx = new Context()
+    live.push(ctx)
+    await ctx.plugin(SessionStore)
+    ctx.provide('storageDomain', { open: () => Promise.resolve({ close: () => Promise.resolve() }) } as never)
+    ctx.provide('sessionProjections', { register: () => () => {} } as never)
+    const unstarted = new ManagedBots(ctx)
+    expect(() => unstarted.botOf(ctx.sessions.create(SessionId('unstarted'))))
+      .toThrow('the bot projection is read only after this service has initialized')
   })
 
   it('is registered by the roster, so a deployment with bots projects them', async () => {

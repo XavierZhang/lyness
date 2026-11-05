@@ -323,6 +323,20 @@ describe('listing without reading a log', () => {
     expect(await it.ctx.sessionVisibility.listable([closed], row => row)).toEqual([])
   })
 
+  it('refuses to attribute anything before its projection registration completes', async () => {
+    // The handle is taken in `start()`, so a composition that reads through
+    // this service before it has started gets a named failure rather than an
+    // answer derived from no projection at all.
+    const ctx = new Context()
+    live.push(ctx)
+    await ctx.plugin(SessionStore)
+    await ctx.plugin(SessionProjectionRegistry)
+    await ctx.plugin(SessionOwnership).await()
+    const unstarted = new SessionVisibility(ctx)
+    expect(() => unstarted.ownerOf(ctx.sessions.create(SessionId('unstarted'))))
+      .toThrow('the owner projection is read only after this service has initialized')
+  })
+
   it('keeps the rows one call may see, in the order they were given', async () => {
     const it = await bench(owned)
     it.as(ADA, 'member')

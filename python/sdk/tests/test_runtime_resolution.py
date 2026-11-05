@@ -215,7 +215,6 @@ def test_node_mode_runs_the_deployed_lyn_cli(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     bin_js = tmp_path / "runtime" / "node" / "runtime-bootstrap.mjs"
-    bin_js = tmp_path / "runtime" / "node" / "node_modules" / "@lyness" / "lyn" / "lib" / "bin.js"
     bin_js.parent.mkdir(parents=True)
     bin_js.touch()
     monkeypatch.setattr(runtime, "bundled_package_dir", lambda: tmp_path)

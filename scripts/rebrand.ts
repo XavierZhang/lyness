@@ -458,6 +458,10 @@ const PROTECTED: readonly Protection[] = [
   },
   { prefix: 'CUSTOM.md', why: 'The fork ledger names both the upstream and fork values on purpose; rewriting it erases the mapping it exists to record.' },
   {
+    prefix: 'scripts/verify-rebrand-round-trip.ts',
+    why: 'Its module doc quotes the three upstream spellings this codemod collapses into one, which is the census that rules byte-exact reverse rename out. Renaming them leaves the sentence claiming three identical names collapse into themselves, deleting the reason the gate exists.',
+  },
+  {
     prefix: '.agents/notes/proposed/architecture/2026-10-08-plugin-compatibility-and-trust',
     why: 'States what the rename did by naming the upstream scope and product segment it renamed away from. Rewriting them leaves the sentence saying a package moved from its own name to its own name, which is the one claim the note exists to refute. Every other name in it is already a fork name, so no skipped rule has work here.',
     rules: ['pkg-scope-escaped', 'pkg-scope', 'vendor-scope', 'scope-bare', 'dsh-token'],

@@ -8,6 +8,9 @@ import { standardDecoratorPlugin, vitestExecArgv } from './vitest.shared.ts'
 import { COVERAGE_EXEMPT_ENV, coverageExemptHeavySuites } from './scripts/coverage-exempt.ts'
 import { COVERAGE_PARTITION_MODE_ENV, COVERAGE_TEST_TIMEOUT_ENV, coverageTestTimeoutOptions } from './scripts/coverage-partitions.ts'
 import { LOCAL_TEST_PARALLELISM_CAP, defaultParallelism } from './scripts/parallelism.ts'
+import {
+  hasGeneratedContribution, SELF_MOUNTED_REMOTES, STAND_IN_MODULE, STAND_IN_NAMESPACES_ENV, standInNamespacesOnDisk,
+} from './packages/test-support/client-runtime/src/assembly/self-mounted-remotes.ts'
 
 // Prints exact `path:line:col` records for every uncovered statement, branch
 // path, and function when a file misses the per-file 100% gate — the built-in
@@ -187,20 +190,28 @@ const claudeCodeTestingAliases = {
   'claude-code': fileURLToPath(new URL('./packages/experimental/claude-code-mods/tests/support/claude-code.ts', import.meta.url)),
 }
 
-// The LiveShare client entry statically imports its generated `./remote` contribution, which exists
-// only in built `lib/` output. On a clean checkout Vite resolves that import while transforming the
-// entry, before `vi.mock` can answer it, so the jsdom assembly suites need a resolvable stand-in.
-const liveshareRemoteBuild = fileURLToPath(new URL('./packages/experimental/liveshare/lib/typert.remote-client.js', import.meta.url))
-const generatedRemoteAliases = existsSync(liveshareRemoteBuild) ? {} : {
-  '@lyness/lyn-experimental-liveshare/remote': fileURLToPath(new URL('./packages/experimental/liveshare/tests/generated-remote-stub.ts', import.meta.url)),
-}
+// Some client entries statically import a generated `./remote` contribution, which exists only in
+// built `lib/` output. On a clean checkout Vite resolves that import while transforming the entry,
+// before `vi.mock` can answer it, so the jsdom assembly suites need a resolvable stand-in. The
+// rows and their stand-ins live in one table, which the assembly tier reads for the same decision;
+// a package whose build output is present keeps resolving the real contribution.
+const repositoryRoot = new URL('./', import.meta.url)
+const generatedRemoteAliases = Object.fromEntries(SELF_MOUNTED_REMOTES.flatMap(remote => (
+  hasGeneratedContribution(remote, repositoryRoot)
+    ? []
+    : [[`${remote.package}/remote`, fileURLToPath(new URL(`./${remote.directory}/${STAND_IN_MODULE}`, import.meta.url))]]
+)))
 const testingAliases = { ...claudeCodeTestingAliases, ...generatedRemoteAliases }
+// Only this file runs in a plain Node context, so it owns the stand-in decision for every lane: a
+// `node:fs` probe from the jsdom lane answers false whether or not the build output is there.
+const standInRemoteEnv = { [STAND_IN_NAMESPACES_ENV]: standInNamespacesOnDisk(repositoryRoot).join(',') }
 
 export default defineConfig({
   plugins: [pathsPlugin(), standardDecoratorPlugin()],
   resolve: { alias: testingAliases },
   test: {
     ...localWorkerBudget,
+    env: standInRemoteEnv,
     setupFiles: [
       './scripts/test-proxy-environment.ts', './scripts/test-dom-environment.ts', './scripts/test-official-listing-guard.ts',
     ],
@@ -221,6 +232,7 @@ export default defineConfig({
           // Linux, and Windows. Forked workers avoid that shared thread path.
           pool: 'forks',
           ...laneTestBudget,
+          env: standInRemoteEnv,
           setupFiles: [
             './scripts/test-proxy-environment.ts', './scripts/test-dom-environment.ts', './scripts/test-official-listing-guard.ts',
           ],
@@ -241,6 +253,7 @@ export default defineConfig({
           execArgv: [...vitestExecArgv, '--experimental-vm-modules'],
           pool: 'forks',
           ...laneTestBudget,
+          env: standInRemoteEnv,
           setupFiles: [
             './scripts/test-proxy-environment.ts', './scripts/test-dom-environment.ts', './scripts/test-official-listing-guard.ts',
           ],

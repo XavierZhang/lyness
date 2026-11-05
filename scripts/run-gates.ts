@@ -823,6 +823,7 @@ function hygieneLeafGates(options: { artifactNeeds?: string[] } = {}): Gate[] {
   return [
     pnpmScript('rescope-vendor', 'rescope-vendor:check', { label: 'vendor rescope' }),
     pnpmScript('rebrand-round-trip', 'verify-rebrand-round-trip', { label: 'rebrand round trip' }),
+    pnpmScript('rebrand', 'rebrand:check', { label: 'rebrand residue' }),
     pnpmScript('publint', 'publint', artifactOptions),
     pnpmScript('constraints', 'constraints'),
     ...productDeclarationGates(),

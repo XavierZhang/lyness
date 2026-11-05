@@ -98,20 +98,14 @@
     "@lyness/lyn-token-meter": "workspace:*",
     "@lyness/lyn-tool-agent-team": "workspace:*",
     "@lyness/lyn-tool-call-timeout-policy": "workspace:*",
-    "@lyness/lyn-tool-executor-native": "workspace:*",
-    "@lyness/lyn-tool-executor-ptc": "workspace:*",
-    "@lyness/lyn-tool-fs": "workspace:*",
-    "@lyness/lyn-tool-fs-search": "workspace:*",
     "@lyness/lyn-tool-goal": "workspace:*",
     "@lyness/lyn-tool-jobs": "workspace:*",
     "@lyness/lyn-tool-present": "workspace:*",
-    "@lyness/lyn-tool-pwsh": "workspace:*",
     "@lyness/lyn-tool-skill": "workspace:*",
     "@lyness/lyn-tool-subagent": "workspace:*",
     "@lyness/lyn-tool-subagent-control": "workspace:*",
     "@lyness/lyn-tool-todo": "workspace:*",
     "@lyness/lyn-tool-web": "workspace:*",
-    "@lyness/lyn-tool-working-directory": "workspace:*",
     "@lyness/lyn-tools": "workspace:*",
     "@lyness/lyn-typert-loader": "workspace:*",
     "@lyness/lyn-typert-registry": "workspace:*",
@@ -120,8 +114,7 @@
     "@lyness/lyn-web": "workspace:*",
     "@lyness/lyn-web-deepseek-api": "workspace:*",
     "@lyness/lyn-web-fetch-http": "workspace:*",
-    "@lyness/lyn-web-search-deepseek": "workspace:*",
-    "@lyness/lyn-working-directory": "workspace:*"
+    "@lyness/lyn-web-search-deepseek": "workspace:*"
   },
   "peerDependencies": {
     "@lyness/cordis": "workspace:~"

@@ -2118,6 +2118,9 @@ importers:
       '@lyness/lyn-remote-mock':
         specifier: workspace:*
         version: link:../../test-support/remote-mock
+      '@lyness/lyn-request-principal':
+        specifier: workspace:*
+        version: link:../../identity/request-principal
       '@lyness/lyn-scope':
         specifier: workspace:*
         version: link:../../core/scope
@@ -3192,18 +3195,6 @@ importers:
       '@lyness/lyn-tool-call-timeout-policy':
         specifier: workspace:*
         version: link:../../guard/timeout-policy
-      '@lyness/lyn-tool-executor-native':
-        specifier: workspace:*
-        version: link:../../core/tool-executor-native
-      '@lyness/lyn-tool-executor-ptc':
-        specifier: workspace:*
-        version: link:../../core/tool-executor-ptc
-      '@lyness/lyn-tool-fs':
-        specifier: workspace:*
-        version: link:../../fs/tool-fs
-      '@lyness/lyn-tool-fs-search':
-        specifier: workspace:*
-        version: link:../../fs/tool-fs-search
       '@lyness/lyn-tool-goal':
         specifier: workspace:*
         version: link:../../goal/tool-goal
@@ -3213,9 +3204,6 @@ importers:
       '@lyness/lyn-tool-present':
         specifier: workspace:*
         version: link:../../deliverables/tool-present
-      '@lyness/lyn-tool-pwsh':
-        specifier: workspace:*
-        version: link:../../shell/tool-pwsh
       '@lyness/lyn-tool-skill':
         specifier: workspace:*
         version: link:../../skill/tool-skill
@@ -3231,9 +3219,6 @@ importers:
       '@lyness/lyn-tool-web':
         specifier: workspace:*
         version: link:../../web/tool-web
-      '@lyness/lyn-tool-working-directory':
-        specifier: workspace:*
-        version: link:../../session/tool-working-directory
       '@lyness/lyn-tools':
         specifier: workspace:*
         version: link:../../core/tools
@@ -3261,9 +3246,6 @@ importers:
       '@lyness/lyn-web-search-deepseek':
         specifier: workspace:*
         version: link:../../web/web-search-deepseek
-      '@lyness/lyn-working-directory':
-        specifier: workspace:*
-        version: link:../../session/working-directory
     devDependencies:
       '@lyness/cordis':
         specifier: workspace:~

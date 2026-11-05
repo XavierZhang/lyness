@@ -5063,33 +5063,45 @@ describe('PythonPtcRuntime — hostile peer', () => {
     // `sendReply` checks `settled`, but only after the resolution has been walked
     // and copied by `snapshotJsonValue`. Binding resolution carries no seam-level
     // byte cap, so a binding that resolves a wide value AFTER the run already
-    // settled (here on `maxWallMs`) spent host heap building a frame that is then
-    // discarded. The check now runs before the snapshot.
+    // settled spent host heap building a frame that is then discarded. The check
+    // now runs before the snapshot.
     //
-    // The binding resolves well after the 1s wall clock with a 2M-element array;
-    // the run must still report `timeout`, and the late value must not appear.
+    // Both halves are ordered by promises rather than by clocks: the binding
+    // reports its entry, the run is then settled by its abort signal, and only
+    // after the settled result is in hand does the binding resolve a 2M-element
+    // array. A wall-clock settle cannot order this -- `maxWallMs` is armed before
+    // the interpreter launches, so on a loaded host the budget expires during
+    // startup, the program never reaches the binding, and the late path the
+    // assertion pins never runs at all.
     let resolvedLate = false
-    const { runtime } = await setup({ maxWallMs: 1_000 })
-    const result = await runtime.run(runtime.resolve({
+    const entered = Promise.withResolvers<boolean>()
+    const release = Promise.withResolvers<boolean>()
+    const controller = new AbortController()
+    const { runtime } = await setup({ maxWallMs: 60_000 })
+    const pending = runtime.run(runtime.resolve({
       program: 'return await tools.slow({})',
+      signal: controller.signal,
       bindings: [{
         global: 'tools',
         functions: {
           slow: async () => {
-            await new Promise(resolve => setTimeout(resolve, 2_500))
+            entered.resolve(true)
+            await release.promise
             resolvedLate = true
             return Array.from({ length: 2_000_000 }, () => 0)
           },
         },
       }],
     }))
-    expect(result.error?.kind).toBe('timeout')
+    await entered.promise
+    controller.abort('late-resolution-probe')
+    const result = await pending
+    expect(result.error?.kind).toBe('abort')
     expect(result.value).toBeUndefined()
-    // Pin that the late path actually ran, so the assertion above is not
-    // vacuous. Polled rather than slept: the binding's 2.5s starts when the
-    // program calls it, which a loaded machine moves later than the run's own
-    // clock, and a fixed wait then expires first.
-    await vi.waitFor(() => { expect(resolvedLate).toBe(true) }, { timeout: 30_000, interval: 50 })
+    // Resolve only now, so the resolution is late by construction, and pin that
+    // the late path actually ran -- otherwise the assertions above are vacuous.
+    release.resolve(true)
+    await vi.waitFor(() => { expect(resolvedLate).toBe(true) }, { timeout: 10_000, interval: 25 })
   }, 90_000)
 
   it('paces concurrent binding replies instead of queueing every frame at once', async () => {

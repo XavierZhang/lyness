@@ -172,11 +172,21 @@ codemod 只改文本和路径。下面这些是它改完之后必然过期、必
 
 | 路径/配置 | 原因 | 上次确认仍被移除的日期 |
 |---|---|---|
-| `session-telemetry-otel` 的默认外发（`mode` + `exporter.url`） | 服务他人用户的部署不能默认把会话记录转发给厂商 | 2026-10-28 |
+| `session-telemetry-otel` 的默认外发（`mode` + `exporter.url`） | 服务他人用户的部署不能默认把会话记录转发给厂商 | 2026-11-05（守卫自动复查，见下） |
 | 内测／预览版声明弹窗（`ui-settings-models` 的 `WelcomeNotice.tsx`、`welcome-store.ts`、`onboarding-copy.ts` 及两个测试，以及 `welcome*` 语言键） | 这个弹窗声明的是「DeepSeek Harness 面向 Harness 开发者内测」，它说的不是本产品的状态，首次访问的人第一眼不该看到它 | 2026-10-28：上游把它重写并扩充成 0.2 预览版弹窗（新版本号 `2026-09-28.1`、独立设置命名空间与确认字段），删除决定不变，已在 `scaffold.ts`、`onboarding-deepseek-config.e2e.ts`、`apply.client.spec.ts`、`src/client/index.ts` 四处一致移除；同处新增的 sign-in 步骤保留 |
 
-> 这张表靠人复查，人会忘。**待办**：为遥测项补一条行为测试（断言默认组合下不产生外发请求），
-> 把「每次合并后人工复查」变成 CI 自动拦截。测试检查行为而非文件路径，上游换实现也拦得住。
+> **两项都已有行为守卫，不再靠人复查（2026-11-05 核过）。** 守卫钉的是结果而非文件路径，
+> 上游换实现、换文件、换变量都拦得住：
+>
+> - 遥测：`packages/bundle/base/tests/telemetry-silence.spec.ts`。它从**出货的** patch 行里
+>   取配置（按 `package.json` 的 `lyn.bundle.patch` 找文件，用 Loader 自己的 `interpolate`
+>   求值 `!!js`），清掉六个 opt-in 环境变量，把 SDK 自己的 fallback 端点指向测试自建的收集器，
+>   然后走完「唯一授权上传的动作」——人给反馈——断言收集器一个请求都没收到；第二条用显式
+>   `FEEDBACK_ONLY` 做阳性对照（否则一个根本不导出的后端也能让第一条通过）；第三条断言
+>   Web bundle 的 `desktop-product-telemetry` 行求值后 `endpoint` 为 `undefined`。
+> - 内测弹窗：`packages/client/ui-settings-models/tests/apply.client.spec.ts`。它断言
+>   `settings.onboarding` 槽位的条目**全等于** `['deepseek-official']`、长度为 1 ——上游把
+>   `welcome-notice` 重新注册进这个槽位就会红。
 
 ## `rebrand:check` 的表达力（2026-09-28 修复）
 
@@ -412,7 +422,7 @@ typecheck 也过，只在运行时炸。本轮两处构造函数各被插入了*
 
 | 上游改了什么 | 分叉侧怎么跟 |
 |---|---|
-| `sessionProjections.stateOf(session, key)` 标为废弃并返回 `unknown`，新做法是「拥有该投影的领域服务暴露类型化读取」（上游自己的 `agents.turnBoundaryOf` 就是这样） | `managedBots` 按新做法改：保留 `register()` 返回的 handle，init 里 await，新增 `botOf(session)`；`bot-ask` 三处读取改走它。`session-ownership` 与 `tenant-session` 暂时仍用带 key 的读法，但用该投影自己的 schema 解析回来（与注册表重载 checkpoint 时做的校验相同，不引入 `as unknown`），各留一条 `TODO(session-projection)` 指向迁移 skill |
+| `sessionProjections.stateOf(session, key)` 标为废弃并返回 `unknown`，新做法是「拥有该投影的领域服务暴露类型化读取」（上游自己的 `agents.turnBoundaryOf` 就是这样） | `managedBots` 按新做法改：保留 `register()` 返回的 handle，init 里 await，新增 `botOf(session)`；`bot-ask` 三处读取改走它。`session-ownership` 与 `tenant-session` 当时暂留带 key 的读法，各挂一条 `TODO(session-projection)`。✅ **2026-11-05 核过已完成**：两者都改成持有注册返回的 handle（`owner.stateOf(session)`／`tenantProjection.stateOf(session)`），`TODO` 已清；现在全仓库唯一引用带 key 读法的地方是它自己的废弃警告 |
 | `workspaceView(workspace)` 回到单参数 | 恢复分叉的第二个参数与 `keepVisible` 过滤——Workspace 是共享的、它名下的会话不是，投影必须回答「这次调用能看见哪些」 |
 | `Remote()` 选项 `exportName` 改名 `name` | `llm/llm` 的 `discoverModels` 装饰器跟着改；`requires` 不受影响 |
 | `escapeInstructionFrameBody` 周边：上游把 `heading` 提成了文件而非渲染后的字符串 | 保留分叉返回 `{text, neutralized}` 的版本（标记要报告被中和的分隔符），按上游的形状在需要字符串处渲染 |
@@ -706,7 +716,7 @@ verify-hosted-profile-boundary: a hosted profile can execute:
 
 ✅ **2026-11-04 已清零**，`--check` 重新报 `post-state verified — no residue, every postcondition holds, idempotent.`。三处来源分别是：`THIRD_PARTY_NOTICES.md` 由 kit 仓库名与 OAR 键的修复带走；`docs/capability-seams.zh.md` 的两行译文里 `dsh-sign-in-http`／`dsh-credits` 没跟着改名（英文侧是对的）；`docs/persistence-catalog.*` 整组加进 `PROTECTED`（无 `rules`，整文件豁免）——它由 `gen-persistence-catalog` 生成，包名取自已改名的清单，而已发行的 Session source kind 必须逐字保留，**该重新生成而不是改名**。
 
-`rebrand` 没有注册进 `scripts/run-gates.ts`，所以它不拦门禁；但这意味着**顺序必须是「改名 → 生成器」，且之后不能再 `--apply`**。本轮我多跑了一次 `--apply`，它把两份生成产物改坏了（目录第 1 列变成 `lyn-session-title-llm`、kit 仓库链接变成 `lyn-libreoffice-kit`），靠重跑 `gen-persistence-catalog` 与 `gen-third-party-notices` 恢复。
+`rebrand` 当时没有注册进 `scripts/run-gates.ts`，所以它不拦门禁。✅ **2026-11-05 已登记进 `hygiene`**（与姊妹 codemod `rescope-vendor:check` 并列，那个不对称本来没有理由）；残留清零之后这条才可能登记。顺序的要求不变：**「改名 → 生成器」，且之后不能再 `--apply`**。本轮我多跑了一次 `--apply`，它把两份生成产物改坏了（目录第 1 列变成 `lyn-session-title-llm`、kit 仓库链接变成 `lyn-libreoffice-kit`），靠重跑 `gen-persistence-catalog` 与 `gen-third-party-notices` 恢复。
 
 顺带发现一条**死链**，也是既有的：`scripts/gen-third-party-notices.ts:922` 与 `docs/subsystems/office-to-pdf.{md,zh.md}` 里的外部 kit 仓库 URL 被改成了 `github.com/deepseek-ai/lyn-libreoffice-kit`，而真实仓库是 `dsh-libreoffice-kit`。office 引擎的寻址本来就在 `PROTECTED` 豁免里，但豁免覆盖的是作用域形式，没覆盖**仓库名**那一种拼写。✅ **2026-11-04 已修**：加了 `external-office-kit-repository-shield`／`-restore` 这对 codemod 规则，3 处站点改回真实仓库名并各加一条 postcondition。
 
@@ -948,7 +958,7 @@ vitest 不再报错，Node 却打出了那句 `handled asynchronously` —— �
 | `apps/desktop/.../login-shell-environment.spec.ts` | 产品超时 5s | describe 级 30s；另给三个 `vi.waitFor` 15s（它的默认只有 1s） |
 | `packages/experimental/ptc-runtime-python/.../sandbox.spec.ts` | `maxWallMs: 30_000` | 用例 60s |
 | `packages/api/workspace-files/.../changes.spec.ts` | 真实文件系统 watcher | 用例 60s |
-| `packages/experimental/ptc-runtime-python/.../runtime.spec.ts` | 绑定 sleep 2.5s | 固定 `setTimeout(2000)` 改成 `vi.waitFor` 轮询 |
+| `packages/experimental/ptc-runtime-python/.../runtime.spec.ts` | 绑定 sleep 2.5s | 先改成 `vi.waitFor` 轮询，**不够**；2026-11-05 改成用 promise 定序，见下 |
 | `packages/subprocess/subprocess-local/.../shell-activity.spec.ts` | 真实 zsh 经 pty 打印 | `expect.poll` 的默认预算只有 **1 秒**；该文件 7 处轮询全都没给预算，统一用一个 `POLL = { timeout: 15_000, interval: 50 }` |
 
 | `packages/boot/plugin-manager/.../manager.spec.ts` | 真实 git fixture + 两次真实 pnpm 安装 | 用例 90s |
@@ -982,8 +992,122 @@ macOS 上 `fs.watch` 返回之后，FSEvents 还要一会儿才开始投递；�
 已在布防后补一次读并与布防前比对，不同则补发一次失效；相同则不产生多余帧。
 这个缺口和上面那条 flake 是两件事：它修的是 setup 期间的变更，而用例的改名发生在 `ready` 之后。
 
+**第四类：时钟在被等的事情还没机会开始之前就已经起跑 —— 这种调多大预算都没用。**
+`runtime.spec.ts` 的 `drops a late binding resolution before snapshotting it` 在覆盖率全量跑里
+又红了一次，而它上一轮刚从「固定睡眠」改成 30 秒轮询。查下去发现轮询治不了它：
+`maxWallMs` 的 `setTimeout` 在 `index.ts` 里**早于解释器启动**就布防（`wallTimer` 在
+`controller.signal.throwIfAborted()` 之前），所以 1 秒预算包含 Python 启动 + 沙箱 confine。
+满载时这 1 秒在启动期间就花完了，程序**从未调到那个绑定**，`resolvedLate` 永远不会变真 ——
+轮询再久也只是把失败推迟 30 秒，还顺手让用例从 1 秒变成 31 秒。
+
+**改法是把两半都用 promise 定序，一个时钟都不用**：绑定进入时 `entered.resolve()`，
+测试 `await entered.promise` 后用 `request.signal` 把这次运行 abort 掉，拿到 `kind: 'abort'`
+的结果之后才 `release.resolve()` 让绑定返回那个 2M 元素数组 —— 「迟到」由构造保证，
+而不是由「希望 2.5 秒比 1 秒长」保证。被测不变量一字未改（产品注释本来就写明这条路径覆盖
+「`maxWallMs`、abort、dispose」三种已结算），断言从 `timeout` 改成 `abort`。
+用例从 31 秒降到 **0.28 秒**。
+
+**判据：一个「超时/到期」类断言，先问那个计时是从哪一刻起跑的。**
+如果它从进程启动起跑、而你等的事件要在启动之后才可能发生，这个用例测的其实是
+「本机启动够不够快」，必须换成由事件自己定序，不是换个更大的预算。
+
 **第三类是跨 spec 干扰，和负载无关、只和并行有关。** `scripts/oxlint-contract.spec.ts`
 必须把探针源码写进真实的包目录（被测的正是「哪个 tsconfig 聚合能到达该路径」），
 而 `scripts/persistence-schema.ts` 会建一个仓库级 TypeScript program —— 它收进一个
 正在被删除的探针文件，就报 `TS6053: File ... not found`。已让仓库级枚举跳过保留前缀
 `oxlint-contract-`。**仓库级源码枚举者都要认识这个前缀。**
+
+## fork CI 一直是红的，而本地全绿：六个根因（2026-11-05 查清）
+
+本地 `typecheck`／`lint`／`hygiene`／`doc-sync`／`test`／`test:snapshot` 全绿，
+而 `gh run list` 显示 **fork CI 最近三次 push 全部失败**，六个 job 红：
+python keyless SDK、Linux 覆盖率、benchmarks、static、snapshots and artifacts、Windows 覆盖率。
+
+**这不是 CI 配置问题，是六个本地跑不到的真实缺陷。** 本地绿的原因有三类：
+（a）本地跑的聚合命令不包含那条门禁；（b）本地有 `lib/` 构建产物，CI 是干净树；
+（c）本地 pnpm 把包提升到了根 `node_modules`，CI 的子进程按包自己的 `node_modules` 解析。
+
+| job | 根因 | 本地为什么不报 |
+|---|---|---|
+| static | `verify-package-meta`：**44 个 fork 新增包**的 `exports` 缺 `"./locale/*.json"`（共 352 条），`files` 也缺 `locale/*.json` | 这条门禁只在 `ci-static` 组里，本地那六个聚合命令都不含它 |
+| static | `docs/module-graph.md` 过期（另有一条 `fs-desktop → fs-patch` 的边早就没记进去） | 同上 |
+| Linux 覆盖率 | 13 个 client spec、63 条用例失败，根因一条：`ui-settings-{capabilities,memory,instructions,data}` 的 client 入口**静态 import 了只存在于 `lib/` 的生成产物** | 本地有 `lib/`，import 解析得到，CI 干净树解析不到 |
+| benchmarks | `session-controller/src/commands.ts` 用值导入 `@lyness/lyn-request-principal`，而该包**从未声明这个依赖** | 本地 pnpm 提升后根 `node_modules` 里有它；benchmark 的子进程按包解析就找不到 |
+| python keyless SDK | `test_node_mode_runs_the_deployed_lyn_cli` 里**两代赋值并排**：先 `runtime-bootstrap.mjs`（新）再被老路径覆盖，于是建的文件和产品找的文件不是一个 | 本地从未跑过 `uv run --project python/sdk pytest` |
+| snapshots and artifacts | `test:expected` 多个用例失败（public-url、badge、browser-open、sdk/desktop 工具集对比、Web office） | 本地从未跑过 `test:expected` |
+| Windows 覆盖率 | 与 Linux 覆盖率同源 + 逐文件覆盖率阈值 | 无 Windows 机器，CLAUDE.md 明确 CI 拥有这个信号 |
+
+**教训一条：以后判断「干净不干净」只能看 fork CI，不能看本地聚合。**
+本地那六条命令合起来也不等于 `check:ci:static` + `ci-coverage` + `ci-consumers` + `ci-bench`。
+
+### 生成的 `./remote` 产物：干净树上的替身机制
+
+四个个人平面设置页各自 `ctx.remote.$mount(自己的 /remote)`，而 `/remote` 由 Typert
+生成器只写进 `lib/`。上游对同一问题早有两套办法，只是 fork 的四个页踩在两者中间：
+
+- **中心装配**（`api/remotes` 的 client 入口 import 全部生成产物）：装配层整行被
+  jsdom 测试层丢掉（`GENERATED_REMOTE_PACKAGES`），命名空间用 `remote.<ns>` 代理顶上。
+- **可选行自挂**（liveshare、cot-translation、forge 等）：这些行不在 web roster 里，
+  所以 `vitest.config.ts` 只给它一个能被解析的 **stand-in**（空 contribution）就够了。
+
+fork 的四个页**既自挂、又在 web roster 里必须激活**，于是两套都不够：给了 stand-in 之后
+`$mount` 什么都没装，页面的 `ctx.inject(['remote.<ns>'])` 永远等不到服务，roster 断言
+「4 entries did not activate」。
+
+**最后的做法**（`packages/test-support/client-runtime/src/assembly/self-mounted-remotes.ts`）：
+把「哪些包自挂、目录在哪、挂的是哪个命名空间」收进**一张表**，两个消费方都读它 ——
+`vitest.config.ts` 用它生成模块别名，jsdom 装配层用它决定要替哪些命名空间提供代理。
+**构建过的树不提供代理**（真产物自己装，提供了会撞 `namespace "X" conflicts`），
+干净树才提供。
+
+**踩到一个坑值得记住：jsdom lane 里 `node:fs` 的 `existsSync` 对真实存在的文件也返回 false。**
+我本来让装配层自己探测 `lib/typert.remote-client.js` 是否存在 —— node lane 下正确，
+jsdom lane 下一律 false，于是构建过的树也去提供代理，直接撞命名空间冲突。
+**只有 `vitest.config.ts` 跑在纯 Node 上下文里**，所以判断归它做，结论经
+`LYNESS_STAND_IN_REMOTE_NAMESPACES` 传给 worker。**任何需要看文件系统的测试期判断都要问一句
+它在哪个 lane 上跑。**
+
+### 两条门禁的盲区（已记录，未修）
+
+- `verify-package-dependencies` **不报**「源码值导入了未声明的工作区包」：
+  `session-controller` 少声明 `request-principal` 这半年里它一直是绿的。
+  真正发现它的是 benchmark 的子进程。补这条检查能拦住一整类缺陷。
+- `packages/bundle/base` 的 `package.json` 声明了 **7 个它的 patch 已经不再插入**的执行面包
+  （fork 把那 19 行搬到 `module-execution` 之后留下的）。实测 base 的运行时闭包因此
+  多装 8 个包，其中包括原生执行器本体 —— 与「托管部署没有执行器」这条边界相矛盾。
+  已删（含锁文件手改）。上游自己也有 2 条同类冗余（`fs-local`、`tool-present`），
+  不是 fork 造成的，不动。
+
+### 逐文件 100% 覆盖率：37 个文件里有多少是真债
+
+CI 的覆盖率门禁是 `packages/*/*/src` **逐文件 100%**（`vitest.config.ts` 里 `perFile: true`）。
+Linux lane 报 37 个文件不达标，本地 macOS 报 20 个。差额不是平台差异那么简单，要分三类看：
+
+- **因为上面那条 import 解析而连带归零的**：`ui-settings-{capabilities,memory,instructions,data}`
+  的 `src/client/*`（index／operations／store 各三个文件）—— 它们的 spec 在 CI 上整文件收集失败，
+  覆盖率自然是 0。替身机制修好之后这一类自动消失。
+- **只在某个平台可达的**：`subprocess-local/src/linux-{execve,scope}.ts` 本地报、CI 不报
+  —— Linux lane 真的执行到它们。**本地覆盖率跑不可能全绿，不要把它当验收标准。**
+- **真债**：fork 新增包从来没补到仓库的 100% 标准。按未覆盖位置数排：
+  `fs-desktop/src/{handler,index}.ts`（35+25）、`bundle/brand-setup/src/startup.ts`（25，整文件 0%）、
+  `sign-in-http/src/index.ts`（20）、`vendor/{feishu,dingtalk}/src/kind.ts`（各 13）、
+  `session-projection/src/index.ts`（6）、`workspace-files/src/changes.ts`（4）、
+  `vendor/wecom/src/kind.ts`（2）、`sign-in-channels`（2）、`session-ownership/src/visibility.ts`（2）、
+  `managed-bots`（2）、`admin-audit-controller`（1）、`brand-studio`（1）。
+
+**本轮清掉三个**：三个 vendor 的 `kind.ts`（26 个位置）。各加一条 `kind.spec.ts`，
+用真实的 `ChannelKindRegistry` 上下文挂载插件（覆盖 `offering` 这条注册路径）、
+建一个配好的实例、再把必填项拿掉断言拒绝。wecom 原先只有 `sign-in-channel-channel-controller`
+的真实组合测试顺带覆盖到成功路径，缺的正是两个必填项各自缺失的那两条分支。
+踩了一个小坑：`secret` 必须是**凭据引用名**（`/^[A-Za-z_][A-Za-z0-9_]*$/`），
+写成 `credential/ref` 会被 `resolveConfig` 当场拒绝。
+
+### 自己加的那两条改名门禁，第一次进 `hygiene` 就红了
+
+上一轮把 `verify-rebrand-round-trip` 和 `rebrand:check` 登记进 `hygiene`，但**没有在登记之后
+重跑 `hygiene`**，所以直到这一轮才发现两条都红，而且红在同一处：
+`scripts/verify-rebrand-round-trip.ts` 自己的模块文档里逐字引了
+`deepseek-harness`／`deepseek_harness` 两个上游拼写（那份 3→1 collapse 的普查结论就靠它们说清）。
+已按 `CUSTOM.md` 同样的理由把这个文件整体加进 `PROTECTED`。
+
+**教训：门禁登记完必须在聚合里跑一次，否则「已登记」不等于「能过」。**

@@ -19,6 +19,7 @@ import { createInProcessModules, loadPluginModules } from './modules.ts'
 import { assertPlan, graphFromRoster, type AssemblyPlan } from './roster.ts'
 import { REMOTES_PACKAGE, remoteNamespacesOf, remoteProxiesPlugin } from './remote-proxies.ts'
 import { allowAllAccessPlugin, staticAccessPlugin } from '../access.ts'
+import { standInNamespaces } from './self-mounted-remotes.ts'
 
 /** The remote-access row: it mounts its own generated Remote contribution and publishes the access Hooks. */
 const REMOTE_ACCESS_PACKAGE = '@lyness/lyn-api-remote-access'
@@ -29,6 +30,7 @@ const REMOTE_ACCESS_PACKAGE = '@lyness/lyn-api-remote-access'
  * allow-all access Hooks stand in for remote-access.
  */
 const GENERATED_REMOTE_PACKAGES: readonly string[] = [REMOTES_PACKAGE, REMOTE_ACCESS_PACKAGE]
+
 
 /** Carrier options. */
 export interface TestClientOptions {
@@ -259,7 +261,8 @@ export class TestClient {
       mountPoint = resolveMountPoint(options.mount)
       release = sharedJsdomShims.acquire()
       const system = createInProcessModules(graphFromRoster(roster.rows), modules)
-      ctx.plugin(remoteProxiesPlugin(remoteNamespacesOf(modules.values(), mock), mock) as Plugin)
+      const namespaces = [...new Set([...remoteNamespacesOf(modules.values(), mock), ...standInNamespaces()])].sort()
+      ctx.plugin(remoteProxiesPlugin(namespaces, mock) as Plugin)
       // The dropped remote-access row's Hooks: every action is allowed on every resource unless the spec fixes the answers.
       if (generated.includes(REMOTE_ACCESS_PACKAGE)) {
         ctx.plugin(options.access === undefined ? allowAllAccessPlugin : staticAccessPlugin(options.access))
