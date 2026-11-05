@@ -1111,3 +1111,64 @@ Linux lane 报 37 个文件不达标，本地 macOS 报 20 个。差额不是平
 已按 `CUSTOM.md` 同样的理由把这个文件整体加进 `PROTECTED`。
 
 **教训：门禁登记完必须在聚合里跑一次，否则「已登记」不等于「能过」。**
+
+## `test:expected` 从未在本地跑过，4 个文件红（2026-11-05）
+
+`test:expected` 是 `ci-consumers` 里的一条门禁（「snapshots and artifacts」job），
+本地那六条聚合命令都不含它。本地跑出来 4 个文件、10 条用例失败，和 CI 的失败集**不完全重合**
+（CI 另有 public-url 10/10、browser-open、Web office 失败，那些带 TLS 绑定和浏览器启动，
+先按环境差异搁置，等这一轮推上去看 CI 怎么说）。本地这 4 个是真债：
+
+**一、`lyn-badge.expected.e2e.ts`：base 单独 boot 会有 11 行挂起。**
+这不是 bug，是执行面边界的**既定机制** —— `module-execution` 的头注释写明「省掉它的 profile
+没有 `ctx.fs`／`ctx.shell`／`ctx.subprocess`，注入它们的工具就永不激活」。而这条 snapshot
+的 driver 只 boot `base` 的 patch，于是 `permission-presets`（等 `shell`）、
+`agent-instructions`／`tool-skill`／`subagent`（等 `workingDirectory`）以及依赖 `subagents`
+的 7 行全部 pending，`expect(stderr).toBe('')` 自然不成立。
+已在 driver 里补上 `module-execution` 的 patch —— **出货的 profile 只要在本机干活就都选它**，
+snapshot 应该是一个部署真能跑起来的组合，而不是半挂的树。
+
+**二、三、四、schedule 模块被 fork 自己关掉了，而上游是开着的。**
+上游没有任何 `packages/bundle/module-*`，`schedule` 与 `ui-schedule` 两行就直接写在
+`web-app` 的 patch 里、**不带 `disabled`**。fork 把它们搬进 `module-schedule` 时加了
+`disabled: true`，注释写的是「这次只搬不开」。后果是三条上游测试一起红：
+
+- `web-default-isolation.expected.e2e.ts` 断言默认 Web 带着出货的 Schedule 行；
+- `schedule-timing.expected.e2e.ts` 调 schedule 的 Remote 方法，拿到 404；
+- `sdk/desktop-tools.expected.e2e.ts` 报 `Only in SDK: schedule_{create,edit,list,view}`
+  —— 因为 `sdk-app` 自己的 patch 里那几行还是开着的，只有 Web/Desktop 这条路被关了。
+
+**裁定：以上游为准，两行改回开启**（`CLAUDE.md`：技术路线与官方冲突时以官方为准）。
+**但这是一次产品行为变化，必须提醒**：开启后每个 Web/Desktop agent 的工具目录重新多出四个
+`schedule_*`，与上游 0.2.2 的默认一致。**搬模块不该改变一个部署出货的东西** —— 这是这次的判据。
+
+## 还没清掉的（2026-11-05 收盘时的真实状态）
+
+写清楚是为了下一轮不用重新发现。按「要不要你裁定」分两组。
+
+**需要裁定的（1 条）**
+
+- **schedule 默认开启**是产品行为变化：每个 Web/Desktop agent 的工具目录多出四个
+  `schedule_*`。本轮按「以官方为准」改回开启，与上游 0.2.2 一致；若 fork 想保持关闭，
+  要同时改掉三条上游测试的期望，并在台账的「故意删除或禁用」表里立一条，
+  那就不再是「搬模块」而是一条产品决策。
+
+**不需要裁定、只是还没做（按价值排序）**
+
+1. **逐文件覆盖率还剩 14 个文件**（本轮清掉 6 个：三个 vendor `kind.ts`、
+   `brand-setup/startup.ts`、`session-ownership/visibility.ts`、`managed-bots` 的初始化守卫、
+   `fs-desktop` 的三个写操作）。剩下最大的是 `sign-in-http/src/index.ts`（20 处）、
+   `session-projection/src/index.ts`（6）、`workspace-files/src/changes.ts`（4，是本仓库
+   自己改出来的 watcher 补读分支）、`ptc-runtime-python/src/index.ts`（5）。
+   **注意 `linux-execve.ts`／`linux-scope.ts` 在 macOS 上永远差 36 处，Linux lane 真能覆盖，
+   本地覆盖率跑不可能全绿。**
+2. **`benchmarks/long-session-browser` 的 `llm-replay` fixture 没跑完**：
+   「1 recorded script(s) never bound to a live session；场景驱动的模型调用比录的少」。
+   另外三条 benchmark 失败已随 `request-principal` 依赖修掉。
+3. **CI 上 `test:expected` 还有本地复现不出来的失败**：`public-url`（10/10）、
+   `web-browser-open`、`profiles/web/office`。这些都带 TLS 绑定／浏览器启动／Module 实例化，
+   先推上去看 CI 的新结果，再决定是环境差异还是真债。
+4. **Windows 覆盖率** job：本地没有 Windows 机器，`CLAUDE.md` 明确这个信号归 CI。
+   等 Linux 覆盖率绿了之后再看它剩下什么。
+5. **`verify-package-dependencies` 的盲区**：源码值导入了未声明的工作区包，它不报。
+   补上这条检查能拦住一整类「本地提升、CI 按包解析」的缺陷。
