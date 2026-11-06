@@ -20,7 +20,7 @@ import * as StorageDomain from '@lyness/lyn-storage-domain'
 import * as StoredAuthSessions from '@lyness/lyn-auth-session/store'
 import * as SignIn from '@lyness/lyn-sign-in'
 import { channelId } from '@lyness/lyn-sign-in'
-import type { ExternalSubject, RedirectChannel } from '@lyness/lyn-sign-in'
+import type { ExternalSubject, RedirectChannel, SelfDrivenChannel } from '@lyness/lyn-sign-in'
 import * as RosterAdmission from '@lyness/lyn-sign-in/admission-roster'
 import * as SignInHttp from '../src/index.ts'
 import { ATTEMPT_COOKIE, SESSION_COOKIE, readCookie } from '../src/cookie.ts'
@@ -63,13 +63,49 @@ const TestChannel = {
   },
 }
 
+const SELF_DRIVEN = channelId('self-driven-directory')
+const BROKEN = channelId('broken-directory')
+
+/**
+ * The two channels the refusal cases need: one that completes in the process
+ * that owns the browser, and one whose directory call fails outright.
+ */
+const EdgeChannels = {
+  name: 'edge-directory-channels',
+  inject: ['signIn'],
+  apply(ctx: Context): void {
+    const selfDriven: SelfDrivenChannel = {
+      kind: 'self-driven',
+      id: SELF_DRIVEN,
+      displayName: 'Self-Driven Directory',
+      authenticate: () => Promise.resolve({ channel: SELF_DRIVEN, issuer: ISSUER, subject: 'person-1' }),
+    }
+    const broken: RedirectChannel = {
+      kind: 'redirect',
+      id: BROKEN,
+      displayName: 'Broken Directory',
+      start: () => { throw new Error('the directory is unreachable') },
+      complete: () => Promise.resolve(undefined),
+    }
+    ctx.effect(() => ctx.signIn.register(selfDriven))
+    ctx.effect(() => ctx.signIn.register(broken))
+  },
+}
+
 /** Boot the whole composition and answer the port it listens on. */
-async function compose(options: { admits?: boolean } = {}): Promise<number> {
+async function compose(options: { admits?: boolean; edgeChannels?: boolean } = {}): Promise<number> {
   root = await mkdtemp(join(tmpdir(), 'lyn-sign-in-http-'))
   const configPath = join(root, 'cordis.yml')
   const bindings = options.admits === false
     ? []
-    : [`      - { channel: ${CHANNEL}, issuer: ${ISSUER}, subject: person-1, person: ada }`]
+    : [
+      `      - { channel: ${CHANNEL}, issuer: ${ISSUER}, subject: person-1, person: ada }`,
+      // The self-driven channel is admitted too, so the route refuses it for
+      // being self-driven rather than for the person being unknown.
+      ...(options.edgeChannels === true
+        ? [`      - { channel: ${SELF_DRIVEN}, issuer: ${ISSUER}, subject: person-1, person: ada }`]
+        : []),
+    ]
   await writeFile(configPath, [
     "- name: '@lyness/lyn-host-webserver'",
     '  config:',
@@ -89,6 +125,7 @@ async function compose(options: { admits?: boolean } = {}): Promise<number> {
     ...(bindings.length > 0 ? bindings : ['      []']),
     "- name: '@lyness/lyn-sign-in'",
     "- name: 'test-directory-channel'",
+    ...(options.edgeChannels === true ? ["- name: 'edge-directory-channels'"] : []),
     "- name: '@lyness/lyn-sign-in-http'",
     '  config:',
     `    publicOrigin: '${ORIGIN}'`,
@@ -110,6 +147,7 @@ async function compose(options: { admits?: boolean } = {}): Promise<number> {
     ['@lyness/lyn-sign-in', SignIn],
     ['@lyness/lyn-sign-in/admission-roster', RosterAdmission],
     ['test-directory-channel', TestChannel],
+    ['edge-directory-channels', EdgeChannels],
     ['@lyness/lyn-sign-in-http', SignInHttp],
   ])
   const base = context.loader.internal
@@ -188,6 +226,28 @@ describe('starting a sign-in', () => {
     expect(headers.getSetCookie()[0]).toContain('Max-Age=600')
   })
 
+  it('refuses a channel that completes in the process owning the browser', async () => {
+    // A self-driven channel opens its own window and waits on a loopback
+    // callback, so a hosted deployment has nowhere to send this person. The
+    // route says so rather than appearing to start something.
+    const port = await compose({ edgeChannels: true })
+    const { status, body } = await call(port, `/auth/sign-in/${SELF_DRIVEN}`)
+    expect(status).toBe(400)
+    expect(JSON.parse(body)).toEqual({ error: 'channel-not-browser-driven' })
+  })
+
+  it('lets a failure that is not a refusal fail as the server\'s own error', async () => {
+    // Only the sign-in flow's own refusals are mapped to a status a browser
+    // can act on; an unreachable directory is this deployment's problem and
+    // must not be dressed up as the person being denied.
+    const port = await compose({ edgeChannels: true })
+    const { status, body } = await call(port, `/auth/sign-in/${BROKEN}`)
+    // Nothing of this package's own is written: the server reports the failed
+    // handler itself, while every mapped refusal carries its code as JSON.
+    expect(body).toBe('')
+    expect(status).not.toBe(302)
+  })
+
   it('answers 404 for a channel nobody mounted', async () => {
     const port = await compose()
     const { status, body } = await call(port, '/auth/sign-in/absent')
@@ -242,6 +302,14 @@ describe('returning from the directory', () => {
     )
     const attempt = headers.getSetCookie().find(value => value.startsWith(ATTEMPT_COOKIE)) ?? ''
     expect(attempt).toContain('Max-Age=0')
+  })
+
+  it('answers 404 when the returning path names no channel at all', async () => {
+    // The route matches on a prefix, so it also sees a bare return and one
+    // carrying extra segments; neither names a channel to complete.
+    const port = await compose()
+    expect((await call(port, '/auth/callback')).status).toBe(404)
+    expect((await call(port, `/auth/callback/${CHANNEL}/extra?state=state-1`)).status).toBe(404)
   })
 
   it('refuses a callback the browser never started', async () => {

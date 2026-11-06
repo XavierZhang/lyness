@@ -61,7 +61,7 @@ function presets(ids: readonly string[]): unknown {
  * The deployment, with a roster when one is asked for.
  * @param options - which bots the roster answers for, and whether it exists.
  */
-async function harness(options: { roster?: boolean; standing?: 'none' | 'elsewhere' } = {}) {
+async function harness(options: { roster?: boolean; standing?: 'none' | 'elsewhere'; presets?: false } = {}) {
   const cwd = realpathSync(mkdtempSync(join(tmpdir(), 'lyn-session-bots-')))
   tempDirs.push(cwd)
   const ctx = new Context()
@@ -71,7 +71,7 @@ async function harness(options: { roster?: boolean; standing?: 'none' | 'elsewhe
   // harness registers live there too.
   await ctx.plugin(SessionProjectionRegistry)
   await ctx.plugin(AgentRegistry)
-  ctx.provide('agentPresets', presets(['standard', 'specialist']) as never)
+  if (options.presets !== false) ctx.provide('agentPresets', presets(['standard', 'specialist']) as never)
   // Speaking as a bot acts in a standing; the roster judges it, and this
   // supplies the one a signed-in request would carry.
   ctx.provide('requestPrincipal', {
@@ -151,6 +151,20 @@ describe('a conversation with a bot', () => {
     // the character later does not rewrite this conversation.
     expect(composed).toEqual([TRIAGE])
     expect(engagements(ctx, 'b1')).toEqual([TRIAGE])
+  })
+
+  it('still speaks as the bot in a deployment that composes no presets', async () => {
+    // Without a preset registry there is no preset to resolve, so composition
+    // has only the model selection and this engagement to install. The
+    // character still reaches the agent and the session's own log.
+    const { ctx, remote, composed } = await harness({ presets: false })
+
+    const created = await remote.create({ sessionId: SessionId('b3'), bot: 'triage' })
+
+    expect(created).toMatchObject({ ok: true, value: { bot: 'triage' } })
+    expect((created as { value: { agentPreset?: string } }).value.agentPreset).toBeUndefined()
+    expect(composed).toEqual([TRIAGE])
+    expect(engagements(ctx, 'b3')).toEqual([TRIAGE])
   })
 
   it('leaves an ordinary session alone', async () => {

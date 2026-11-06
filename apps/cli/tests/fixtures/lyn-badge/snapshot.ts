@@ -12,11 +12,6 @@ const overlayPath = process.argv[2]
 if (overlayPath === undefined) throw new Error('lyn-badge snapshot requires an overlay path')
 const rootConfigPath = fileURLToPath(new URL('../../../../../packages/bundle/base/tests/fixtures/root.cordis.yml', import.meta.url))
 const basePatchPath = fileURLToPath(new URL('../../../../../packages/bundle/base/cordis.patch.yml', import.meta.url))
-// Every shipped profile that works on the machine it runs on selects the
-// execution module, and `lyn-base` alone leaves the rows that inject
-// `workingDirectory`, `shell` and `subagents` waiting. Compose it here so the
-// snapshot is a composition a deployment could run, not a half-mounted tree.
-const executionPatchPath = fileURLToPath(new URL('../../../../../packages/bundle/module-execution/cordis.patch.yml', import.meta.url))
 // The fixture owns the optional provider; the base bundle has no dependency on it.
 const overlays = loadOverlayPatches('lyn-badge-snapshot', overlayPath).map(patch => patch.insert === undefined ? patch : {
   ...patch,
@@ -26,7 +21,6 @@ const overlays = loadOverlayPatches('lyn-badge-snapshot', overlayPath).map(patch
 })
 const ctx = await boot('lyn-badge-snapshot', rootConfigPath, [
   ...loadOverlayPatches('lyn-badge-snapshot', basePatchPath),
-  ...loadOverlayPatches('lyn-badge-snapshot', executionPatchPath),
   ...overlays,
 ])
 

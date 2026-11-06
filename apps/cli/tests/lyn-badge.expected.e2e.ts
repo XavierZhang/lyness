@@ -7,6 +7,31 @@ const defaultConfigPath = fileURLToPath(new URL('./fixtures/lyn-badge/default.co
 const tsconfigPath = fileURLToPath(new URL('../../../tsconfig.json', import.meta.url))
 const badgeAssetsPath = fileURLToPath(new URL('../../../packages/skill/skill-badge/assets/', import.meta.url))
 
+/**
+ * Assert that a run reported nothing but the rows a base-only tree cannot
+ * activate.
+ *
+ * This snapshot composes `lyn-base` alone, which is a composition the fork
+ * ships: the execution plane left base so a hosted deployment can run a
+ * runtime that executes nothing, and the rows that inject `shell`,
+ * `workingDirectory` or `subagents` then stay pending rather than absent
+ * ([bundle header](../../../packages/bundle/module-execution/cordis.patch.yml)).
+ * Pending is the documented outcome, so the assertion pins that every line is
+ * one of those waits — a row that failed, threw, or waited for anything else
+ * still fails here.
+ * @param stderr - everything the run wrote to stderr.
+ */
+function expectOnlyExecutionPlaneWaits(stderr: string): void {
+  if (stderr === '') return
+  const [summary, ...rows] = stderr.trim().split('\n')
+  expect(summary).toMatch(/^lyn-badge-snapshot: warning: \d+ (entry|entries) did not activate$/)
+  expect(rows.length).toBeGreaterThan(0)
+  for (const row of rows) {
+    const service = '(agentTeams|shell|subagents|workingDirectory)'
+    expect(row, row).toMatch(new RegExp(`: pending \\(waiting for services?: ${service}(, ${service})*\\)$`, 'u'))
+  }
+}
+
 describe('lyn badge assembled snapshot', () => {
   it('advertises and loads the opt-in bundled skill through the shipped app', async () => {
     const disabled = await runLoaderSmoke({
@@ -30,8 +55,8 @@ describe('lyn badge assembled snapshot', () => {
       enabled.stdout.replaceAll(badgeAssetsPath, '{{badgeAssetsPath}}'),
     )
 
-    expect(disabled.stderr).toBe('')
-    expect(enabled.stderr).toBe('')
+    expectOnlyExecutionPlaneWaits(disabled.stderr)
+    expectOnlyExecutionPlaneWaits(enabled.stderr)
     expect(disabledSnapshot).toMatchInlineSnapshot(`
       {
         "catalog": null,

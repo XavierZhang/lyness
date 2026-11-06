@@ -694,6 +694,19 @@ describe('UiWorkspaceService', () => {
     await vi.waitFor(() => { expect(b.sessions.retain).toHaveBeenCalledWith(sid('blank'), expect.anything()) })
   })
 
+  it('carries the bot a New Session names, and never reuses a blank for it', async () => {
+    // A blank session speaks as nobody, and which bot a session speaks as is
+    // written when it is created, so a bot conversation always creates one.
+    const b = bench({
+      sessions: sessionState([summary('blank', { blank: true, cwd: '/w/a' })], 'pending'),
+      workspaces: workspaceState([workspace('a', [sid('blank')])]),
+    })
+    b.uiWorkspace.startSession(wid('a'), { bot: 'triage' })
+    await vi.waitFor(() => {
+      expect(b.sessions.create).toHaveBeenCalledWith(expect.objectContaining({ workspaceId: wid('a'), bot: 'triage' }))
+    })
+  })
+
   it('reuses any blank without a requested preset and only a matching blank with one', async () => {
     const b = bench({
       sessions: sessionState([

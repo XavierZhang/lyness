@@ -7,7 +7,7 @@
 import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { Context } from '@lyness/cordis'
 import Storage from '@lyness/lyn-storage'
 import * as StorageJson from '@lyness/lyn-storage-json'
@@ -70,7 +70,7 @@ function fixtureKind(id = 'fixture'): ChannelKind {
 }
 
 /** Boot storage, the registries, and the service over a fresh root. */
-async function bench(kinds: readonly ChannelKind[] = [fixtureKind()]): Promise<Context> {
+async function bench(kinds: readonly ChannelKind[] = [fixtureKind()], closeDomainFirst = false): Promise<Context> {
   root ??= await mkdtemp(join(tmpdir(), 'lyn-sign-in-channels-'))
   const ctx = new Context()
   live.push(ctx)
@@ -88,6 +88,14 @@ async function bench(kinds: readonly ChannelKind[] = [fixtureKind()]): Promise<C
     resolve: (ref: string) => Promise.resolve(stored.has(ref) ? { value: stored.get(ref) } : undefined),
   })
   await ctx.plugin(AdminAudit, {}).await()
+  if (closeDomainFirst) {
+    // Every other service has opened its own domain by now; this stands in for
+    // the one this service opens next, closed under the read it makes first.
+    vi.spyOn(ctx.storageDomain, 'open').mockResolvedValue({
+      table: () => { throw new Error('the domain closed first') },
+      close: () => Promise.resolve(),
+    } as never)
+  }
   await ctx.plugin(ConfiguredChannels)
   // The service mounts what it stored as soon as its domain opens.
   await Promise.resolve()
@@ -339,5 +347,15 @@ describe('a record its kind cannot build', () => {
     expect(without.signIn.available()).toEqual([])
     expect(await without.signInChannels.list(standing('platform-administrator')))
       .toMatchObject([{ id: saved.id, mounted: false }])
+  })
+
+  it('treats a domain that closed under the first mount as the shutdown, not a failure', async () => {
+    // The constructor mounts what it stored as soon as the domain opens, and a
+    // teardown that lands first closes that domain under the pending read. The
+    // rejection it raises is swallowed on purpose: an unhandled rejection here
+    // would fail the run, and a deployment shutting down has nothing to report.
+    const ctx = await bench([fixtureKind()], true)
+    expect(ctx.signIn.available()).toEqual([])
+    vi.restoreAllMocks()
   })
 })

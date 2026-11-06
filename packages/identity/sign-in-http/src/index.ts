@@ -145,14 +145,19 @@ export function statusOf(refusal: SignInRefused): number {
 
 /** The request URL as a parsed URL, with the deployment's own origin as the base. */
 function requestUrl(req: IncomingMessage, origin: string): URL {
+  /* v8 ignore next -- Node sets `url` on every server request; the fallback keeps the parse total for a type that admits undefined. */
   return new URL(req.url ?? '/', origin)
 }
 
-/** Send a redirect, optionally setting cookies with it. */
-function redirect(res: ServerResponse, to: string, cookies: readonly string[]): void {
-  const headers: Record<string, string | string[]> = { location: to, 'cache-control': 'no-store' }
-  if (cookies.length > 0) headers['set-cookie'] = [...cookies]
-  res.writeHead(302, headers).end()
+/**
+ * Send a redirect that carries cookies.
+ *
+ * Both redirects this package sends set at least one — the attempt on the way
+ * out, the session and the spent attempt on the way back — so the parameter
+ * is a non-empty list rather than one with an empty case no caller reaches.
+ */
+function redirect(res: ServerResponse, to: string, cookies: readonly [string, ...string[]]): void {
+  res.writeHead(302, { location: to, 'cache-control': 'no-store', 'set-cookie': [...cookies] }).end()
 }
 
 /** Mount the four routes. */

@@ -1,6 +1,6 @@
 /** Shared modal chrome for every step registered by this onboarding plugin. */
 
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 import type { ReactNode } from 'react'
 import { Modal } from '@lyness/lyn-client-ui-primitives'
 import css from './OnboardingModal.module.css'
@@ -9,20 +9,21 @@ const ignoreImplicitDismiss = (): void => {}
 
 /**
  * Render a blocking onboarding dialog and keep the application root inert.
+ *
+ * Upstream also takes a `focusTitle` prop, which moves focus to the heading
+ * for a step that has no form control. This fork's only step is the sign-in
+ * one, whose first control takes focus itself, so the prop had no caller left
+ * once the preview notice went ([ledger](../../../../../CUSTOM.md)).
  * @param props.title - accessible and visible dialog title.
- * @param props.focusTitle - focus the title when the step has no form control.
  * @param props.children - step-owned body and actions.
  * @returns the body-portaled modal.
  */
 export function OnboardingModal({
-  title, focusTitle = false, children,
+  title, children,
 }: {
   title: string
-  focusTitle?: boolean
   children: ReactNode
 }): ReactNode {
-  const titleRef = useRef<HTMLHeadingElement | null>(null)
-
   useEffect(() => {
     const appRoot = document.getElementById('root')
     if (appRoot === null) return
@@ -30,10 +31,6 @@ export function OnboardingModal({
     appRoot.inert = true
     return () => { appRoot.inert = previous }
   }, [])
-
-  useEffect(() => {
-    if (focusTitle) titleRef.current?.focus()
-  }, [focusTitle])
 
   return (
     <Modal
@@ -44,7 +41,7 @@ export function OnboardingModal({
       className={css.dialog as string}
     >
       <div className={css.content}>
-        <h2 ref={titleRef} className={css.title} tabIndex={focusTitle ? -1 : undefined}>{title}</h2>
+        <h2 className={css.title}>{title}</h2>
         <div className={css.body}>{children}</div>
       </div>
     </Modal>

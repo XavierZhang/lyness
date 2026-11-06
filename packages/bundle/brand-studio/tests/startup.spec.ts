@@ -82,6 +82,18 @@ describe('brand-studio command line', () => {
     expect(result.stdout).toContain('`lyn --profile web`')
   })
 
+  it('writes the SVGs where --asset-dir names, resolved against the invoking directory', async () => {
+    // Without the flag the artwork goes under the harness home; with it, the
+    // operator's own directory wins, which is the one path the flag decides.
+    const dir = await home()
+    const elsewhere = await mkdtemp(join(tmpdir(), 'brand-studio-assets-'))
+    directories.push(elsewhere)
+    const result = await invoke(['--name', 'lyness', '--icon', ICON, '--asset-dir', elsewhere, '--accept-trademark'])
+    expect(result).toMatchObject({ code: 0, stderr: '' })
+    expect(result.stdout).toContain(join(elsewhere, 'mark.svg'))
+    expect(result.stdout).not.toContain(join(dir, 'brand', 'mark.svg'))
+  })
+
   it("names the brand owner's font in the report", async () => {
     await home()
     const result = await invoke(['--name', 'lyness', '--icon', ICON, '--font', FONT, ...CONFIRMED])

@@ -132,7 +132,13 @@ describe('an administrator reading the trail of what they administer', () => {
 
     expect((await controller.read({ subject: 'triage' })).map(entry => entry.action))
       .toEqual(['removed', 'changed', 'added'])
-    expect(await controller.read({ subject: 'triage', limit: 1 })).toHaveLength(1)
+    const page = await controller.read({ subject: 'triage', limit: 1 })
+    expect(page).toHaveLength(1)
+
+    // The cursor is the id of the last entry read, so the next page continues
+    // from it: the wire carries a plain string and the trail takes the brand.
+    const next = await controller.read({ subject: 'triage', limit: 1, before: page[0]!.id })
+    expect(next.map(entry => entry.action)).toEqual(['changed'])
   })
 
   it('reads every organization\'s on a platform standing, including records that belong to none', async () => {

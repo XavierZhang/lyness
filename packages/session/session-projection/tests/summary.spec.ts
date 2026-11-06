@@ -23,6 +23,12 @@ declare module '@lyness/lyn-session-projection/types' {
     'test/summary-excluded': SessionProjectionSummaryExcluded<number>
     'test/summary-excluded-nullable': SessionProjectionSummaryExcluded<string[]> | null
   }
+  // The Host-only `checkpointState` reads a unit's own state, which is the
+  // state map rather than the client-view map above.
+  interface SessionProjectionStateMap {
+    'test/summary-kept': { text: string } | null
+    'test/summary-excluded': number
+  }
 }
 
 const keptUnit = () => ({
@@ -138,6 +144,36 @@ describe('session projection summary keys', () => {
         'test/summary-excluded': 7,
         'test/summary-excluded-nullable': ['a'],
       })
+    } finally {
+      await ctx.fiber.dispose()
+    }
+  })
+
+  it('reads one unit\'s own state out of a checkpoint, and nothing for a row it cannot use', async () => {
+    // The Host-only rung beside `viewCheckpoint`: a rule deciding something
+    // about a listed session reads its own unit's state here instead of
+    // putting it on the wire to get it back. Every unusable row reads as
+    // absent, which is the answer a listing consumer already handles.
+    const { ctx, registry } = await mount()
+    try {
+      await registry.register(keptUnit())
+      const checkpoint: ProjectionCheckpoint = {
+        'test/summary-kept': { ver: 1, seq: SessionSeq(3), val: { text: 'kept' } },
+        'test/summary-excluded': { ver: 1, seq: SessionSeq(4), val: 7 },
+      }
+      expect(registry.checkpointState(checkpoint, 'test/summary-kept')).toEqual({ text: 'kept' })
+
+      // A key no live unit registered: nothing to validate the row against.
+      expect(registry.checkpointState(checkpoint, 'test/summary-excluded')).toBeUndefined()
+      // No row at all, and a row the live unit has outgrown.
+      expect(registry.checkpointState({}, 'test/summary-kept')).toBeUndefined()
+      expect(registry.checkpointState({
+        'test/summary-kept': { ver: 2, seq: SessionSeq(3), val: { text: 'kept' } },
+      }, 'test/summary-kept')).toBeUndefined()
+      // A row of the right version whose value the live schema rejects.
+      expect(registry.checkpointState({
+        'test/summary-kept': { ver: 1, seq: SessionSeq(3), val: { text: 7 } },
+      }, 'test/summary-kept')).toBeUndefined()
     } finally {
       await ctx.fiber.dispose()
     }

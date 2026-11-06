@@ -154,6 +154,48 @@ describe('workspaceFiles.changes — target frames', () => {
     }
   })
 
+  it('reports a change that landed while the watcher was arming', async () => {
+    // A watcher reports what happens after it is armed, and arming is not
+    // instant. A write in that window is seen by neither the first read nor
+    // the watcher, so the re-read after arming is the only thing that can
+    // report it.
+    const path = join(harness.workspace, 'arming.txt')
+    await writeFile(path, 'before arming')
+    const service = harness.endpoint()
+    watch.mockImplementationOnce(async () => {
+      await writeFile(path, 'a longer body written while arming')
+      return unwatch
+    })
+    const stream = open(service, path)
+    await ready(stream)
+    const armed = await service.stat(harness.scope, path, new AbortController().signal)
+    await expect(stream.next()).resolves.toEqual({
+      done: false,
+      value: { kind: 'change', change: { absolutePath: armed.absolutePath, version: armed.version } },
+    })
+  })
+
+  it('ends the generation when cancellation lands during the re-read after arming', async () => {
+    const path = join(harness.workspace, 'arming-cancelled.txt')
+    await writeFile(path, 'before arming')
+    const service = harness.endpoint()
+    let armed = false
+    let cancelled = false
+    watch.mockImplementationOnce(async () => { armed = true; return unwatch })
+    const original = harness.ctx.fs.stat.bind(harness.ctx.fs)
+    vi.spyOn(harness.ctx.fs, 'stat').mockImplementation(async (...args) => {
+      // The first read after arming is the re-read that closes the window.
+      if (armed && !cancelled) {
+        cancelled = true
+        stream.controller.abort()
+      }
+      return await original(...args)
+    })
+    const stream = open(service, path)
+    await expect(stream.next()).resolves.toEqual({ done: true, value: undefined })
+    expect(cancelled).toBe(true)
+  })
+
   it('filters unrelated target keys, including matching display paths, before stat', async () => {
     const path = join(harness.workspace, 'selected.txt')
     await writeFile(path, 'selected')

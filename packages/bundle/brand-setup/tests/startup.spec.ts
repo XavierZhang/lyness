@@ -45,7 +45,7 @@ async function invoke(args: readonly string[]): Promise<Invocation> {
   ctx.provide('cmdlineArgs', { get: () => args })
   ctx.provide('appExit', (value: number) => { code = value })
   await ctx.plugin(Startup).await()
-  return { bind: ctx.get(BRAND_SETUP_STARTUP_SERVICE) as BrandSetupStartup | undefined, code, ...output }
+  return { bind: ctx.get(BRAND_SETUP_STARTUP_SERVICE), code, ...output }
 }
 
 describe('brand-setup command line', () => {
