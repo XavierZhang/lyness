@@ -388,6 +388,9 @@ function ciSharedStaticGates(): Gate[] {
     pnpmScript('application-entrypoints', 'verify-application-entrypoints', { label: 'application entrypoints' }),
     pnpmScript('constraints', 'constraints'),
     pnpmScript('package-dependencies', 'verify-package-dependencies', { label: 'package dependencies' }),
+    pnpmScript('workspace-import-declarations', 'verify-workspace-import-declarations', {
+      label: 'workspace import declarations',
+    }),
     pnpmScript('lyn-package-licenses', 'verify-lyn-package-licenses', { label: 'LYN package licenses' }),
     pnpmScript('package-meta', 'verify-package-meta', { label: 'package metadata' }),
     pnpmScript('cordis-config', 'verify-cordis-config', { label: 'Cordis config' }),
@@ -828,6 +831,9 @@ function hygieneLeafGates(options: { artifactNeeds?: string[] } = {}): Gate[] {
     pnpmScript('constraints', 'constraints'),
     ...productDeclarationGates(),
     pnpmScript('package-dependencies', 'verify-package-dependencies', { label: 'package dependencies' }),
+    pnpmScript('workspace-import-declarations', 'verify-workspace-import-declarations', {
+      label: 'workspace import declarations',
+    }),
     pnpmScript('application-entrypoints', 'verify-application-entrypoints', { label: 'application entrypoints' }),
     pnpmScript('lyn-package-licenses', 'verify-lyn-package-licenses', { label: 'LYN package licenses' }),
     pnpmScript('node-next-types', 'verify-node-next-types', {

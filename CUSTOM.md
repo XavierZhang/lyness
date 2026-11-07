@@ -1276,3 +1276,78 @@ base 的 `node_modules/@lyness` 里还留着 168 个条目，删掉重装后只�
 - **`verify-package-dependencies` 的盲区**：源码值导入了未声明的工作区包，它不报。
   补上这条检查能拦住一整类「本地提升、CI 按包解析」的缺陷——这一轮的 `request-principal`
   就是这么漏了半年的。
+
+## 两条裁定执行完毕 + 补上那条门禁盲区（2026-11-07）
+
+用户裁定「按推荐继续往下做，不确定的每个方案都测试后选最优」。三件事：
+
+### 一、`long-session-browser` 改成 observational（已做）
+
+`scripts/run-bench-suite.ts` 新增 `OBSERVATIONAL_BENCH_FILES`，并把阶段从两个扩成三个：
+`first` 清报告跑 CPU 用例；`last` 只跑**阻断型**串行用例并渲染报告；`observational`
+单独再跑一遍观察型用例、追加进同一份报告（`LYNESS_BENCH_REPORT_PHASE` 传 `last`，
+因为那正是「不清报告、渲染报告」的语义）。观察型用例失败只打印，不改退出码。
+
+**入选规则写进了注释**：只有「断言的是响应性或墙钟节奏、共享 runner 守不住」的用例才算；
+断言结果而非时长的用例留在阻断集。新增 `run-bench-suite.spec.ts`（7 条）钉住：
+观察集是串行集的子集（不会跑两遍也不会漏）、阻断阶段不含观察型用例、三次调用的报告阶段
+是 `first/last/last`、抛错时也释放环境变量、只有观察型失败时退出码仍为 0 且打印说明、
+阻断型失败时退出码 1 且后续阶段照跑。
+
+上一轮我动这块被工具安全闸挡下（判定「削弱 CI 门禁」），这次是用户明确裁定后才做的。
+
+### 二、Python runtime 的 release-shaped matrix 从 fork CI 摘掉（已做）
+
+**先测再定**：量了 fork 的运行时闭环比上游多出来的 16 个包，构建后的 JS 合计
+**0.54 MiB** —— 而超额是 **15.8MB**。所以超限不是 fork 加的东西造成的，大头是上游自己的
+载荷（node 24 的 SEA 二进制 + 随附资源）。瘦身等于决定「发布出去的运行时里装什么」，
+是发布决策，不是修红 CI。
+
+`.github/workflows/fork-ci.yml` 里的 `python-runtime` job 换成一段注释，写清
+实测字节数、0.54 MiB 的测量、以及「要发布就在同一个改动里恢复这个 job 并瘦身」。
+它原先捎带的真实 API 覆盖已经由 `e2e (real API, configured platform)` 承担。
+
+### 三、`verify-package-dependencies` 的盲区：补了一条独立门禁
+
+**先测再定**：先写了个一次性探针扫全仓库，结果是 **0 条未声明的值导入、8 条未声明的
+type-only 导入**（6 个包，多数是 `@lyness/lyn-util-values`）。于是门禁的范围定成
+**只管值导入**——type-only 导入编译后什么都不剩，不可能在运行时炸；而值导入正是
+`session-controller` → `request-principal` 那条漏了半年的缺陷。
+
+新增 `scripts/verify-workspace-import-declarations.ts`：用 TypeScript parser 扫每个包
+`src/**` 的静态 import／re-export，`import type`、`export type`、`import type {}` 全部放过，
+裸 `import '…'` 算（它会执行模块）；被导入的工作区包必须出现在该包任一依赖段里。
+`scripts/verify-workspace-import-declarations.spec.ts`（8 条）既钉住干净树通过，
+也钉住**拒绝**：构造一个「A 导入 B 但不声明 B」的 fixture 仓库，断言它报出那一行。
+已登记进 `run-gates` 的 ci-static 与 hygiene 两组（两处都有 `package-dependencies`，
+新门禁跟着它放在一起），`run-gates.spec.ts` 的顺序断言同步更新，156 条全过。
+
+## 本地编译并跑起来（2026-11-07 实测）
+
+```sh
+pnpm run build        # artifacts + build:check，10 条门禁全过
+pnpm run start:web    # 跳过构建直接起 Web（已经构建过就用这条）
+```
+
+实测结果：
+
+```
+lyn web: http://127.0.0.1:3080/?token=<一次性 token>
+lyn web: opening the default browser; pass --no-open to disable
+```
+
+验证（不执行页面脚本，纯 HTTP 层）：
+
+| 请求 | 结果 | 说明 |
+|---|---|---|
+| `/` 不带 token | **401** | 没有 token 进不去 |
+| `/?token=…` | **303** | token 换成 cookie 后重定向 |
+| 跟完重定向 | **200**，42 KB | `<title>LYN Local Build</title>`、`<div id="root">`、客户端插件 bundle 的 script 标签都在 |
+
+服务端日志三行、零 error／warning、零「did not activate」。`.env` 里 `DEEPSEEK_API_KEY`
+与 `DEEPSEEK_MODELS` 都已有值，所以模型调用直接可用。
+
+**没做的一步**：没有用浏览器真渲染一次。Chrome 扩展没连上，而 Playwright 的浏览器本地
+没下载（`~/Library/Caches/ms-playwright` 是空的），下一个 chromium 要拉 ~150MB，没有为了
+一次验证就去下。要补这一步就跑 `pnpm --filter @lyness/lyn-web-frontend exec playwright install chromium`
+再开 `pnpm run test:web`。

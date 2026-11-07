@@ -397,19 +397,22 @@ jobs:
       - name: Run complete keyless Python suite
         run: uv run --python 3.10 --group test --project python/sdk pytest
 
-  # The reusable builder runs an installed-wheel real-API test on every
-  # non-PR event and hard-fails when the secret is empty. It pins
-  # DEEPSEEK_BASE_URL to the official endpoint inside that upstream file, so it
-  # runs only when this fork's target is the official API.
-  python-runtime:
-    name: python runtime / release-shaped matrix
-    if: vars.LYNESS_FORK_REAL_API == 'true' && vars.DEEPSEEK_BASE_URL == ''
-    uses: ./.github/workflows/build-exe-for-python-sdk.yml
-    with:
-      targets: node24-linux-x64,node24-win-x64
-      ci: true
-    secrets:
-      DEEPSEEK_API_KEY_EXTERNAL: ${{ secrets.DEEPSEEK_API_KEY_EXTERNAL }}
+  # NOT RUN HERE: `python runtime / release-shaped matrix`.
+  #
+  # The reusable builder packages a release-shaped runtime wheel, and
+  # `scripts/build-python-release.py` refuses one over PyPI's 100,000,000-byte
+  # single-file limit. This fork's wheel measures 115,847,377 bytes, so the job
+  # can only ever be red here. The overage is not this fork's: the 16 packages
+  # its runtime closure adds over upstream's total 0.54 MiB of built JS
+  # (measured 2026-11-07), so the payload is upstream's own — shrinking it means
+  # deciding what a published runtime contains, which is a release decision and
+  # not a fix for red CI.
+  #
+  # This fork publishes no PyPI artifact, so the gate protects a path it does
+  # not use, and the real-API coverage it carried is already the
+  # `e2e (real API, configured platform)` job below. Restore this job in the
+  # same change that decides to publish, and shrink the wheel with it.
+  # Ruling and measurements: CUSTOM.md, "Python runtime 的 wheel".
 
   windows-build:
     name: windows node 24 / build & observational
